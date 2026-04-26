@@ -19,9 +19,6 @@ tasks.withType(JavaCompile).configureEach {
 
 repositories {
     mavenCentral()
-    maven {
-        url = "https://github.com/SkidJava/Skid-central/raw/repository/"
-    }
 }
 
 dependencies {
