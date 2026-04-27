@@ -21,6 +21,28 @@ public enum DimensionType {
 		clazz = clazzIn;
 	}
 
+	public static DimensionType getById(int id) {
+
+		for (DimensionType dimensiontype : values()) {
+			if (dimensiontype.getId() == id) {
+				return dimensiontype;
+			}
+		}
+
+		throw new IllegalArgumentException("Invalid dimension id " + id);
+	}
+
+	public static DimensionType byName(String p_193417_0_) {
+
+		for (DimensionType dimensiontype : values()) {
+			if (dimensiontype.getName().equals(p_193417_0_)) {
+				return dimensiontype;
+			}
+		}
+
+		throw new IllegalArgumentException("Invalid dimension " + p_193417_0_);
+	}
+
 	public int getId() {
 
 		return id;
@@ -50,27 +72,5 @@ public enum DimensionType {
 		} catch (IllegalAccessException illegalaccessexception) {
 			throw new Error("Could not create new dimension", illegalaccessexception);
 		}
-	}
-
-	public static DimensionType getById(int id) {
-
-		for (DimensionType dimensiontype : values()) {
-			if (dimensiontype.getId() == id) {
-				return dimensiontype;
-			}
-		}
-
-		throw new IllegalArgumentException("Invalid dimension id " + id);
-	}
-
-	public static DimensionType byName(String p_193417_0_) {
-
-		for (DimensionType dimensiontype : values()) {
-			if (dimensiontype.getName().equals(p_193417_0_)) {
-				return dimensiontype;
-			}
-		}
-
-		throw new IllegalArgumentException("Invalid dimension " + p_193417_0_);
 	}
 }

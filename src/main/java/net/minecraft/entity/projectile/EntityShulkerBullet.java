@@ -52,11 +52,6 @@ public class EntityShulkerBullet extends Entity {
 		noClip = true;
 	}
 
-	public SoundCategory getSoundCategory() {
-
-		return SoundCategory.HOSTILE;
-	}
-
 	public EntityShulkerBullet(World worldIn, double x, double y, double z, double motionXIn, double motionYIn, double motionZIn) {
 
 		this(worldIn);
@@ -78,6 +73,11 @@ public class EntityShulkerBullet extends Entity {
 		target = targetIn;
 		direction = EnumFacing.UP;
 		selectNextMoveDirection(p_i46772_4_);
+	}
+
+	public SoundCategory getSoundCategory() {
+
+		return SoundCategory.HOSTILE;
 	}
 
 	/**

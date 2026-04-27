@@ -13,13 +13,12 @@ public abstract class EntityCreature extends EntityLiving {
 
 	public static final UUID FLEEING_SPEED_MODIFIER_UUID = UUID.fromString("E199AD21-BA8A-4C53-8D13-6182D5C69D3A");
 	public static final AttributeModifier FLEEING_SPEED_MODIFIER = (new AttributeModifier(FLEEING_SPEED_MODIFIER_UUID, "Fleeing speed bonus", 2.0D, 2)).setSaved(false);
+	private final float restoreWaterCost = PathNodeType.WATER.getPriority();
 	private BlockPos homePosition = BlockPos.ORIGIN;
-
 	/**
 	 * If -1 there is no maximum distance
 	 */
 	private float maximumHomeDistance = -1.0F;
-	private final float restoreWaterCost = PathNodeType.WATER.getPriority();
 
 	public EntityCreature(World worldIn) {
 

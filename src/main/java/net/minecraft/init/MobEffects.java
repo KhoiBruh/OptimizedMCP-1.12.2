@@ -87,18 +87,6 @@ public class MobEffects {
 	public static final Potion LUCK;
 	public static final Potion UNLUCK;
 
-	@Nullable
-	private static Potion getRegisteredMobEffect(String id) {
-
-		Potion potion = Potion.REGISTRY.getObject(new ResourceLocation(id));
-
-		if (potion == null) {
-			throw new IllegalStateException("Invalid MobEffect requested: " + id);
-		} else {
-			return potion;
-		}
-	}
-
 	static {
 		if (!Bootstrap.isRegistered()) {
 			throw new RuntimeException("Accessed MobEffects before Bootstrap!");
@@ -130,6 +118,18 @@ public class MobEffects {
 			LEVITATION = getRegisteredMobEffect("levitation");
 			LUCK = getRegisteredMobEffect("luck");
 			UNLUCK = getRegisteredMobEffect("unluck");
+		}
+	}
+
+	@Nullable
+	private static Potion getRegisteredMobEffect(String id) {
+
+		Potion potion = Potion.REGISTRY.getObject(new ResourceLocation(id));
+
+		if (potion == null) {
+			throw new IllegalStateException("Invalid MobEffect requested: " + id);
+		} else {
+			return potion;
 		}
 	}
 }

@@ -7,35 +7,6 @@ public class PotionItems implements IFixableData {
 
 	private static final String[] POTION_IDS = new String[128];
 
-	public int getFixVersion() {
-
-		return 102;
-	}
-
-	public NBTTagCompound fixTagCompound(NBTTagCompound compound) {
-
-		if ("minecraft:potion".equals(compound.getString("id"))) {
-			NBTTagCompound nbttagcompound = compound.getCompoundTag("tag");
-			short short1 = compound.getShort("Damage");
-
-			if (!nbttagcompound.hasKey("Potion", 8)) {
-				String s = POTION_IDS[short1 & 127];
-				nbttagcompound.setString("Potion", s == null ? "minecraft:water" : s);
-				compound.setTag("tag", nbttagcompound);
-
-				if ((short1 & 16384) == 16384) {
-					compound.setString("id", "minecraft:splash_potion");
-				}
-			}
-
-			if (short1 != 0) {
-				compound.setShort("Damage", (short) 0);
-			}
-		}
-
-		return compound;
-	}
-
 	static {
 		POTION_IDS[0] = "minecraft:water";
 		POTION_IDS[1] = "minecraft:regeneration";
@@ -165,5 +136,34 @@ public class PotionItems implements IFixableData {
 		POTION_IDS[125] = "minecraft:long_water_breathing";
 		POTION_IDS[126] = "minecraft:long_invisibility";
 		POTION_IDS[127] = null;
+	}
+
+	public int getFixVersion() {
+
+		return 102;
+	}
+
+	public NBTTagCompound fixTagCompound(NBTTagCompound compound) {
+
+		if ("minecraft:potion".equals(compound.getString("id"))) {
+			NBTTagCompound nbttagcompound = compound.getCompoundTag("tag");
+			short short1 = compound.getShort("Damage");
+
+			if (!nbttagcompound.hasKey("Potion", 8)) {
+				String s = POTION_IDS[short1 & 127];
+				nbttagcompound.setString("Potion", s == null ? "minecraft:water" : s);
+				compound.setTag("tag", nbttagcompound);
+
+				if ((short1 & 16384) == 16384) {
+					compound.setString("id", "minecraft:splash_potion");
+				}
+			}
+
+			if (short1 != 0) {
+				compound.setShort("Damage", (short) 0);
+			}
+		}
+
+		return compound;
 	}
 }

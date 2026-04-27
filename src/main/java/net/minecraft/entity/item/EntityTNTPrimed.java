@@ -145,12 +145,6 @@ public class EntityTNTPrimed extends Entity {
 		return 0.0F;
 	}
 
-	public void setFuse(int fuseIn) {
-
-		dataManager.set(FUSE, Integer.valueOf(fuseIn));
-		fuse = fuseIn;
-	}
-
 	public void notifyDataManagerChange(DataParameter<?> key) {
 
 		if (FUSE.equals(key)) {
@@ -169,6 +163,12 @@ public class EntityTNTPrimed extends Entity {
 	public int getFuse() {
 
 		return fuse;
+	}
+
+	public void setFuse(int fuseIn) {
+
+		dataManager.set(FUSE, Integer.valueOf(fuseIn));
+		fuse = fuseIn;
 	}
 
 }

@@ -26,11 +26,6 @@ import java.util.UUID;
 
 public class ItemArmor extends Item {
 
-	/**
-	 * Holds the 'base' maxDamage that each armorType have.
-	 */
-	private static final int[] MAX_DAMAGE_ARRAY = new int[]{13, 15, 16, 11};
-	private static final UUID[] ARMOR_MODIFIERS = new UUID[]{UUID.fromString("845DB27C-C624-495F-8C9F-6020A9A58B6B"), UUID.fromString("D8499B04-0E66-4726-AB29-64469D734E0D"), UUID.fromString("9F3D476D-C118-4544-8365-64846904B48E"), UUID.fromString("2AD3F246-FEE1-4E67-B886-69FD380BB150")};
 	public static final String[] EMPTY_SLOT_NAMES = new String[]{"minecraft:items/empty_armor_slot_boots", "minecraft:items/empty_armor_slot_leggings", "minecraft:items/empty_armor_slot_chestplate", "minecraft:items/empty_armor_slot_helmet"};
 	public static final IBehaviorDispenseItem DISPENSER_BEHAVIOR = new BehaviorDefaultDispenseItem() {
 		protected ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
@@ -39,7 +34,11 @@ public class ItemArmor extends Item {
 			return itemstack.isEmpty() ? super.dispenseStack(source, stack) : itemstack;
 		}
 	};
-
+	/**
+	 * Holds the 'base' maxDamage that each armorType have.
+	 */
+	private static final int[] MAX_DAMAGE_ARRAY = new int[]{13, 15, 16, 11};
+	private static final UUID[] ARMOR_MODIFIERS = new UUID[]{UUID.fromString("845DB27C-C624-495F-8C9F-6020A9A58B6B"), UUID.fromString("D8499B04-0E66-4726-AB29-64469D734E0D"), UUID.fromString("9F3D476D-C118-4544-8365-64846904B48E"), UUID.fromString("2AD3F246-FEE1-4E67-B886-69FD380BB150")};
 	/**
 	 * Stores the armor type: 0 is helmet, 1 is plate, 2 is legs and 3 is boots
 	 */
@@ -62,6 +61,19 @@ public class ItemArmor extends Item {
 	 */
 	private final ItemArmor.ArmorMaterial material;
 
+	public ItemArmor(ItemArmor.ArmorMaterial materialIn, int renderIndexIn, EntityEquipmentSlot equipmentSlotIn) {
+
+		material = materialIn;
+		armorType = equipmentSlotIn;
+		renderIndex = renderIndexIn;
+		damageReduceAmount = materialIn.getDamageReductionAmount(equipmentSlotIn);
+		setMaxDamage(materialIn.getDurability(equipmentSlotIn));
+		toughness = materialIn.getToughness();
+		maxStackSize = 1;
+		setCreativeTab(CreativeTabs.COMBAT);
+		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(this, DISPENSER_BEHAVIOR);
+	}
+
 	public static ItemStack dispenseArmor(IBlockSource blockSource, ItemStack stack) {
 
 		BlockPos blockpos = blockSource.getBlockPos().offset(blockSource.getBlockState().getValue(BlockDispenser.FACING));
@@ -81,19 +93,6 @@ public class ItemArmor extends Item {
 
 			return stack;
 		}
-	}
-
-	public ItemArmor(ItemArmor.ArmorMaterial materialIn, int renderIndexIn, EntityEquipmentSlot equipmentSlotIn) {
-
-		material = materialIn;
-		armorType = equipmentSlotIn;
-		renderIndex = renderIndexIn;
-		damageReduceAmount = materialIn.getDamageReductionAmount(equipmentSlotIn);
-		setMaxDamage(materialIn.getDurability(equipmentSlotIn));
-		toughness = materialIn.getToughness();
-		maxStackSize = 1;
-		setCreativeTab(CreativeTabs.COMBAT);
-		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(this, DISPENSER_BEHAVIOR);
 	}
 
 	/**

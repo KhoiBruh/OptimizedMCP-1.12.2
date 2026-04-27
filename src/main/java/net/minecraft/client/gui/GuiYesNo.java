@@ -8,14 +8,13 @@ import java.util.List;
 
 public class GuiYesNo extends GuiScreen {
 
+	private final String messageLine2;
+	private final List<String> listLines = Lists.newArrayList();
 	/**
 	 * A reference to the screen object that created this. Used for navigating between screens.
 	 */
 	protected GuiYesNoCallback parentScreen;
 	protected String messageLine1;
-	private final String messageLine2;
-	private final List<String> listLines = Lists.newArrayList();
-
 	/**
 	 * The text shown for the first button in GuiYesNo
 	 */

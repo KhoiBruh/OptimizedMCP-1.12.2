@@ -17,6 +17,11 @@ public class RecipeBook {
 	protected boolean isGuiOpen;
 	protected boolean isFilteringCraftable;
 
+	protected static int getRecipeId(@Nullable IRecipe recipe) {
+
+		return CraftingManager.REGISTRY.getIDForObject(recipe);
+	}
+
 	public void copyFrom(RecipeBook that) {
 
 		recipes.clear();
@@ -42,11 +47,6 @@ public class RecipeBook {
 		int i = getRecipeId(recipe);
 		recipes.clear(i);
 		newRecipes.clear(i);
-	}
-
-	protected static int getRecipeId(@Nullable IRecipe recipe) {
-
-		return CraftingManager.REGISTRY.getIDForObject(recipe);
 	}
 
 	public boolean isNew(IRecipe recipe) {

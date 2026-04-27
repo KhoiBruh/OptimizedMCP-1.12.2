@@ -45,110 +45,6 @@ public class ShapedRecipes implements IRecipe {
 		recipeOutput = result;
 	}
 
-	public String getGroup() {
-
-		return group;
-	}
-
-	public ItemStack getRecipeOutput() {
-
-		return recipeOutput;
-	}
-
-	public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv) {
-
-		NonNullList<ItemStack> nonnulllist = NonNullList.withSize(inv.getSizeInventory(), ItemStack.EMPTY);
-
-		for (int i = 0; i < nonnulllist.size(); ++i) {
-			ItemStack itemstack = inv.getStackInSlot(i);
-
-			if (itemstack.getItem().hasContainerItem()) {
-				nonnulllist.set(i, new ItemStack(itemstack.getItem().getContainerItem()));
-			}
-		}
-
-		return nonnulllist;
-	}
-
-	public NonNullList<Ingredient> getIngredients() {
-
-		return recipeItems;
-	}
-
-	/**
-	 * Used to determine if this recipe can fit in a grid of the given width/height
-	 */
-	public boolean canFit(int width, int height) {
-
-		return width >= recipeWidth && height >= recipeHeight;
-	}
-
-	/**
-	 * Used to check if a recipe matches current crafting inventory
-	 */
-	public boolean matches(InventoryCrafting inv, World worldIn) {
-
-		for (int i = 0; i <= 3 - recipeWidth; ++i) {
-			for (int j = 0; j <= 3 - recipeHeight; ++j) {
-				if (checkMatch(inv, i, j, true)) {
-					return true;
-				}
-
-				if (checkMatch(inv, i, j, false)) {
-					return true;
-				}
-			}
-		}
-
-		return false;
-	}
-
-	/**
-	 * Checks if the region of a crafting inventory is match for the recipe.
-	 */
-	private boolean checkMatch(InventoryCrafting p_77573_1_, int p_77573_2_, int p_77573_3_, boolean p_77573_4_) {
-
-		for (int i = 0; i < 3; ++i) {
-			for (int j = 0; j < 3; ++j) {
-				int k = i - p_77573_2_;
-				int l = j - p_77573_3_;
-				Ingredient ingredient = Ingredient.EMPTY;
-
-				if (k >= 0 && l >= 0 && k < recipeWidth && l < recipeHeight) {
-					if (p_77573_4_) {
-						ingredient = recipeItems.get(recipeWidth - k - 1 + l * recipeWidth);
-					} else {
-						ingredient = recipeItems.get(k + l * recipeWidth);
-					}
-				}
-
-				if (!ingredient.apply(p_77573_1_.getStackInRowAndColumn(i, j))) {
-					return false;
-				}
-			}
-		}
-
-		return true;
-	}
-
-	/**
-	 * Returns an Item that is the result of this recipe
-	 */
-	public ItemStack getCraftingResult(InventoryCrafting inv) {
-
-		return getRecipeOutput().copy();
-	}
-
-	public int getWidth() {
-
-		return recipeWidth;
-	}
-
-	public int getHeight() {
-
-		return recipeHeight;
-	}
-
 	public static ShapedRecipes deserialize(JsonObject p_193362_0_) {
 
 		String s = JsonUtils.getString(p_193362_0_, "group", "");
@@ -334,6 +230,110 @@ public class ShapedRecipes implements IRecipe {
 			int j = useCount ? JsonUtils.getInt(p_192405_0_, "count", 1) : 1;
 			return new ItemStack(item, j, i);
 		}
+	}
+
+	public String getGroup() {
+
+		return group;
+	}
+
+	public ItemStack getRecipeOutput() {
+
+		return recipeOutput;
+	}
+
+	public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv) {
+
+		NonNullList<ItemStack> nonnulllist = NonNullList.withSize(inv.getSizeInventory(), ItemStack.EMPTY);
+
+		for (int i = 0; i < nonnulllist.size(); ++i) {
+			ItemStack itemstack = inv.getStackInSlot(i);
+
+			if (itemstack.getItem().hasContainerItem()) {
+				nonnulllist.set(i, new ItemStack(itemstack.getItem().getContainerItem()));
+			}
+		}
+
+		return nonnulllist;
+	}
+
+	public NonNullList<Ingredient> getIngredients() {
+
+		return recipeItems;
+	}
+
+	/**
+	 * Used to determine if this recipe can fit in a grid of the given width/height
+	 */
+	public boolean canFit(int width, int height) {
+
+		return width >= recipeWidth && height >= recipeHeight;
+	}
+
+	/**
+	 * Used to check if a recipe matches current crafting inventory
+	 */
+	public boolean matches(InventoryCrafting inv, World worldIn) {
+
+		for (int i = 0; i <= 3 - recipeWidth; ++i) {
+			for (int j = 0; j <= 3 - recipeHeight; ++j) {
+				if (checkMatch(inv, i, j, true)) {
+					return true;
+				}
+
+				if (checkMatch(inv, i, j, false)) {
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * Checks if the region of a crafting inventory is match for the recipe.
+	 */
+	private boolean checkMatch(InventoryCrafting p_77573_1_, int p_77573_2_, int p_77573_3_, boolean p_77573_4_) {
+
+		for (int i = 0; i < 3; ++i) {
+			for (int j = 0; j < 3; ++j) {
+				int k = i - p_77573_2_;
+				int l = j - p_77573_3_;
+				Ingredient ingredient = Ingredient.EMPTY;
+
+				if (k >= 0 && l >= 0 && k < recipeWidth && l < recipeHeight) {
+					if (p_77573_4_) {
+						ingredient = recipeItems.get(recipeWidth - k - 1 + l * recipeWidth);
+					} else {
+						ingredient = recipeItems.get(k + l * recipeWidth);
+					}
+				}
+
+				if (!ingredient.apply(p_77573_1_.getStackInRowAndColumn(i, j))) {
+					return false;
+				}
+			}
+		}
+
+		return true;
+	}
+
+	/**
+	 * Returns an Item that is the result of this recipe
+	 */
+	public ItemStack getCraftingResult(InventoryCrafting inv) {
+
+		return getRecipeOutput().copy();
+	}
+
+	public int getWidth() {
+
+		return recipeWidth;
+	}
+
+	public int getHeight() {
+
+		return recipeHeight;
 	}
 
 }

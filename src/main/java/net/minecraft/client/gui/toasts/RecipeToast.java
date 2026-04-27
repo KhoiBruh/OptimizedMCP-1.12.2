@@ -4,7 +4,6 @@ import com.google.common.collect.Lists;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 
@@ -19,6 +18,17 @@ public class RecipeToast implements IToast {
 	public RecipeToast(ItemStack p_i47489_1_) {
 
 		recipesOutputs.add(p_i47489_1_);
+	}
+
+	public static void addOrUpdate(GuiToast p_193665_0_, IRecipe p_193665_1_) {
+
+		RecipeToast recipetoast = p_193665_0_.getToast(RecipeToast.class, NO_TOKEN);
+
+		if (recipetoast == null) {
+			p_193665_0_.add(new RecipeToast(p_193665_1_.getRecipeOutput()));
+		} else {
+			recipetoast.addRecipeOutput(p_193665_1_.getRecipeOutput());
+		}
 	}
 
 	public IToast.Visibility draw(GuiToast toastGui, long delta) {
@@ -46,17 +56,6 @@ public class RecipeToast implements IToast {
 
 		if (recipesOutputs.add(output)) {
 			hasNewOutputs = true;
-		}
-	}
-
-	public static void addOrUpdate(GuiToast p_193665_0_, IRecipe p_193665_1_) {
-
-		RecipeToast recipetoast = p_193665_0_.getToast(RecipeToast.class, NO_TOKEN);
-
-		if (recipetoast == null) {
-			p_193665_0_.add(new RecipeToast(p_193665_1_.getRecipeOutput()));
-		} else {
-			recipetoast.addRecipeOutput(p_193665_1_.getRecipeOutput());
 		}
 	}
 

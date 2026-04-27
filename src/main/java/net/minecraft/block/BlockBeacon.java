@@ -26,6 +26,40 @@ public class BlockBeacon extends BlockContainer {
 		setCreativeTab(CreativeTabs.MISC);
 	}
 
+	public static void updateColorAsync(final World worldIn, final BlockPos glassPos) {
+
+		HttpUtil.DOWNLOADER_EXECUTOR.submit(new Runnable() {
+			public void run() {
+
+				Chunk chunk = worldIn.getChunkFromBlockCoords(glassPos);
+
+				for (int i = glassPos.getY() - 1; i >= 0; --i) {
+					final BlockPos blockpos = new BlockPos(glassPos.getX(), i, glassPos.getZ());
+
+					if (!chunk.canSeeSky(blockpos)) {
+						break;
+					}
+
+					IBlockState iblockstate = worldIn.getBlockState(blockpos);
+
+					if (iblockstate.getBlock() == Blocks.BEACON) {
+						((WorldServer) worldIn).addScheduledTask(new Runnable() {
+							public void run() {
+
+								TileEntity tileentity = worldIn.getTileEntity(blockpos);
+
+								if (tileentity instanceof TileEntityBeacon) {
+									((TileEntityBeacon) tileentity).updateBeacon();
+									worldIn.addBlockEvent(blockpos, Blocks.BEACON, 1, 0);
+								}
+							}
+						});
+					}
+				}
+			}
+		});
+	}
+
 	/**
 	 * Returns a new instance of a block's tile entity class. Called on placing the block.
 	 */
@@ -113,40 +147,6 @@ public class BlockBeacon extends BlockContainer {
 	public BlockRenderLayer getBlockLayer() {
 
 		return BlockRenderLayer.CUTOUT;
-	}
-
-	public static void updateColorAsync(final World worldIn, final BlockPos glassPos) {
-
-		HttpUtil.DOWNLOADER_EXECUTOR.submit(new Runnable() {
-			public void run() {
-
-				Chunk chunk = worldIn.getChunkFromBlockCoords(glassPos);
-
-				for (int i = glassPos.getY() - 1; i >= 0; --i) {
-					final BlockPos blockpos = new BlockPos(glassPos.getX(), i, glassPos.getZ());
-
-					if (!chunk.canSeeSky(blockpos)) {
-						break;
-					}
-
-					IBlockState iblockstate = worldIn.getBlockState(blockpos);
-
-					if (iblockstate.getBlock() == Blocks.BEACON) {
-						((WorldServer) worldIn).addScheduledTask(new Runnable() {
-							public void run() {
-
-								TileEntity tileentity = worldIn.getTileEntity(blockpos);
-
-								if (tileentity instanceof TileEntityBeacon) {
-									((TileEntityBeacon) tileentity).updateBeacon();
-									worldIn.addBlockEvent(blockpos, Blocks.BEACON, 1, 0);
-								}
-							}
-						});
-					}
-				}
-			}
-		});
 	}
 
 }

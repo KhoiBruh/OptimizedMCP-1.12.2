@@ -7,9 +7,9 @@ import net.minecraft.world.IBlockAccess;
 
 public abstract class NodeProcessor {
 
+	protected final IntHashMap<PathPoint> pointMap = new IntHashMap<PathPoint>();
 	protected IBlockAccess blockaccess;
 	protected EntityLiving entity;
-	protected final IntHashMap<PathPoint> pointMap = new IntHashMap<PathPoint>();
 	protected int entitySizeX;
 	protected int entitySizeY;
 	protected int entitySizeZ;
@@ -67,24 +67,14 @@ public abstract class NodeProcessor {
 
 	public abstract PathNodeType getPathNodeType(IBlockAccess blockaccessIn, int x, int y, int z);
 
-	public void setCanEnterDoors(boolean canEnterDoorsIn) {
-
-		canEnterDoors = canEnterDoorsIn;
-	}
-
-	public void setCanOpenDoors(boolean canOpenDoorsIn) {
-
-		canOpenDoors = canOpenDoorsIn;
-	}
-
-	public void setCanSwim(boolean canSwimIn) {
-
-		canSwim = canSwimIn;
-	}
-
 	public boolean getCanEnterDoors() {
 
 		return canEnterDoors;
+	}
+
+	public void setCanEnterDoors(boolean canEnterDoorsIn) {
+
+		canEnterDoors = canEnterDoorsIn;
 	}
 
 	public boolean getCanOpenDoors() {
@@ -92,9 +82,19 @@ public abstract class NodeProcessor {
 		return canOpenDoors;
 	}
 
+	public void setCanOpenDoors(boolean canOpenDoorsIn) {
+
+		canOpenDoors = canOpenDoorsIn;
+	}
+
 	public boolean getCanSwim() {
 
 		return canSwim;
+	}
+
+	public void setCanSwim(boolean canSwimIn) {
+
+		canSwim = canSwimIn;
 	}
 
 }

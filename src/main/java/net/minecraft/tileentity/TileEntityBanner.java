@@ -33,6 +33,45 @@ public class TileEntityBanner extends TileEntity implements IWorldNameable {
 	 */
 	private String patternResourceLocation;
 
+	/**
+	 * Retrieves the amount of patterns stored on an ItemStack. If the tag does not exist this value will be 0.
+	 */
+	public static int getPatterns(ItemStack stack) {
+
+		NBTTagCompound nbttagcompound = stack.getSubCompound("BlockEntityTag");
+		return nbttagcompound != null && nbttagcompound.hasKey("Patterns") ? nbttagcompound.getTagList("Patterns", 10).tagCount() : 0;
+	}
+
+	/**
+	 * Removes all the banner related data from a provided instance of ItemStack.
+	 */
+	public static void removeBannerData(ItemStack stack) {
+
+		NBTTagCompound nbttagcompound = stack.getSubCompound("BlockEntityTag");
+
+		if (nbttagcompound != null && nbttagcompound.hasKey("Patterns", 9)) {
+			NBTTagList nbttaglist = nbttagcompound.getTagList("Patterns", 10);
+
+			if (!nbttaglist.hasNoTags()) {
+				nbttaglist.removeTag(nbttaglist.tagCount() - 1);
+
+				if (nbttaglist.hasNoTags()) {
+					stack.getTagCompound().removeTag("BlockEntityTag");
+
+					if (stack.getTagCompound().hasNoTags()) {
+						stack.setTagCompound(null);
+					}
+				}
+			}
+		}
+	}
+
+	public static EnumDyeColor getColor(ItemStack p_190616_0_) {
+
+		NBTTagCompound nbttagcompound = p_190616_0_.getSubCompound("BlockEntityTag");
+		return nbttagcompound != null && nbttagcompound.hasKey("Base") ? EnumDyeColor.byDyeDamage(nbttagcompound.getInteger("Base")) : EnumDyeColor.BLACK;
+	}
+
 	public void setItemValues(ItemStack stack, boolean p_175112_2_) {
 
 		patterns = null;
@@ -71,7 +110,7 @@ public class TileEntityBanner extends TileEntity implements IWorldNameable {
 	 */
 	public ITextComponent displayName() {
 
-		return hasCustomName() ? new TextComponentString(getName()) : new TextComponentTranslation(getName(), new Object[0]);
+		return hasCustomName() ? new TextComponentString(getName()) : new TextComponentTranslation(getName());
 	}
 
 	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
@@ -115,15 +154,6 @@ public class TileEntityBanner extends TileEntity implements IWorldNameable {
 	public NBTTagCompound getUpdateTag() {
 
 		return writeToNBT(new NBTTagCompound());
-	}
-
-	/**
-	 * Retrieves the amount of patterns stored on an ItemStack. If the tag does not exist this value will be 0.
-	 */
-	public static int getPatterns(ItemStack stack) {
-
-		NBTTagCompound nbttagcompound = stack.getSubCompound("BlockEntityTag");
-		return nbttagcompound != null && nbttagcompound.hasKey("Patterns") ? nbttagcompound.getTagList("Patterns", 10).tagCount() : 0;
 	}
 
 	public List<BannerPattern> getPatternList() {
@@ -177,30 +207,6 @@ public class TileEntityBanner extends TileEntity implements IWorldNameable {
 		}
 	}
 
-	/**
-	 * Removes all the banner related data from a provided instance of ItemStack.
-	 */
-	public static void removeBannerData(ItemStack stack) {
-
-		NBTTagCompound nbttagcompound = stack.getSubCompound("BlockEntityTag");
-
-		if (nbttagcompound != null && nbttagcompound.hasKey("Patterns", 9)) {
-			NBTTagList nbttaglist = nbttagcompound.getTagList("Patterns", 10);
-
-			if (!nbttaglist.hasNoTags()) {
-				nbttaglist.removeTag(nbttaglist.tagCount() - 1);
-
-				if (nbttaglist.hasNoTags()) {
-					stack.getTagCompound().removeTag("BlockEntityTag");
-
-					if (stack.getTagCompound().hasNoTags()) {
-						stack.setTagCompound(null);
-					}
-				}
-			}
-		}
-	}
-
 	public ItemStack getItem() {
 
 		ItemStack itemstack = ItemBanner.makeBanner(baseColor, patterns);
@@ -210,12 +216,6 @@ public class TileEntityBanner extends TileEntity implements IWorldNameable {
 		}
 
 		return itemstack;
-	}
-
-	public static EnumDyeColor getColor(ItemStack p_190616_0_) {
-
-		NBTTagCompound nbttagcompound = p_190616_0_.getSubCompound("BlockEntityTag");
-		return nbttagcompound != null && nbttagcompound.hasKey("Base") ? EnumDyeColor.byDyeDamage(nbttagcompound.getInteger("Base")) : EnumDyeColor.BLACK;
 	}
 
 }

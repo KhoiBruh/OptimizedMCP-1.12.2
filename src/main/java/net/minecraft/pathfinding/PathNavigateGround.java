@@ -273,24 +273,24 @@ public class PathNavigateGround extends PathNavigate {
 		nodeProcessor.setCanOpenDoors(canBreakDoors);
 	}
 
-	public void setEnterDoors(boolean enterDoors) {
-
-		nodeProcessor.setCanEnterDoors(enterDoors);
-	}
-
 	public boolean getEnterDoors() {
 
 		return nodeProcessor.getCanEnterDoors();
 	}
 
-	public void setCanSwim(boolean canSwim) {
+	public void setEnterDoors(boolean enterDoors) {
 
-		nodeProcessor.setCanSwim(canSwim);
+		nodeProcessor.setCanEnterDoors(enterDoors);
 	}
 
 	public boolean getCanSwim() {
 
 		return nodeProcessor.getCanSwim();
+	}
+
+	public void setCanSwim(boolean canSwim) {
+
+		nodeProcessor.setCanSwim(canSwim);
 	}
 
 	public void setAvoidSun(boolean avoidSun) {

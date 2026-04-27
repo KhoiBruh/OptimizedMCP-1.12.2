@@ -50,104 +50,92 @@ import java.util.*;
 
 public abstract class EntityLivingBase extends Entity {
 
+	protected static final DataParameter<Byte> HAND_STATES = EntityDataManager.createKey(EntityLivingBase.class, DataSerializers.BYTE);
 	private static final Logger LOGGER = LogManager.getLogger();
 	private static final UUID SPRINTING_SPEED_BOOST_ID = UUID.fromString("662A6B8D-DA3E-4C1C-8813-96EA6097278D");
 	private static final AttributeModifier SPRINTING_SPEED_BOOST = (new AttributeModifier(SPRINTING_SPEED_BOOST_ID, "Sprinting speed boost", 0.30000001192092896D, 2)).setSaved(false);
-	protected static final DataParameter<Byte> HAND_STATES = EntityDataManager.createKey(EntityLivingBase.class, DataSerializers.BYTE);
 	private static final DataParameter<Float> HEALTH = EntityDataManager.createKey(EntityLivingBase.class, DataSerializers.FLOAT);
 	private static final DataParameter<Integer> POTION_EFFECTS = EntityDataManager.createKey(EntityLivingBase.class, DataSerializers.VARINT);
 	private static final DataParameter<Boolean> HIDE_PARTICLES = EntityDataManager.createKey(EntityLivingBase.class, DataSerializers.BOOLEAN);
 	private static final DataParameter<Integer> ARROW_COUNT_IN_ENTITY = EntityDataManager.createKey(EntityLivingBase.class, DataSerializers.VARINT);
-	private AbstractAttributeMap attributeMap;
 	private final CombatTracker combatTracker = new CombatTracker(this);
 	private final Map<Potion, PotionEffect> activePotionsMap = Maps.newHashMap();
 	private final NonNullList<ItemStack> handInventory = NonNullList.withSize(2, ItemStack.EMPTY);
 	private final NonNullList<ItemStack> armorArray = NonNullList.withSize(4, ItemStack.EMPTY);
-
 	/**
 	 * Whether an arm swing is currently in progress.
 	 */
 	public boolean isSwingInProgress;
-
 	/**
 	 * The hand that is currently being swung, if {@link #isSwingInProgress} is true.
 	 */
 	public EnumHand swingingHand;
 	public int swingProgressInt;
 	public int arrowHitTimer;
-
 	/**
 	 * The amount of time remaining this entity should act 'hurt'. (Visual appearance of red tint)
 	 */
 	public int hurtTime;
-
 	/**
 	 * What the hurt time was max set to last.
 	 */
 	public int maxHurtTime;
-
 	/**
 	 * The yaw at which this entity was last attacked from.
 	 */
 	public float attackedAtYaw;
-
 	/**
 	 * The amount of time remaining this entity should act 'dead', i.e. have a corpse in the world.
 	 */
 	public int deathTime;
 	public float prevSwingProgress;
 	public float swingProgress;
-	protected int ticksSinceLastSwing;
 	public float prevLimbSwingAmount;
 	public float limbSwingAmount;
 	public float limbSwing;
 	public int maxHurtResistantTime = 20;
 	public float prevCameraPitch;
 	public float cameraPitch;
-
 	/**
 	 * An unused random value set in the constructor to a random number between 0 and 12398
 	 */
 	public float randomUnused2;
-
 	/**
 	 * An unused random value set in the constructor to a random number between .01 and .02
 	 */
 	public float randomUnused1;
 	public float renderYawOffset;
 	public float prevRenderYawOffset;
-
 	/**
 	 * Entity head rotation yaw
 	 */
 	public float rotationYawHead;
-
 	/**
 	 * Entity head rotation yaw at previous tick
 	 */
 	public float prevRotationYawHead;
-
 	/**
 	 * A factor used to determine how far this entity will move each tick if it is jumping or falling.
 	 */
 	public float jumpMovementFactor = 0.02F;
-
+	public float moveStrafing;
+	public float moveVertical;
+	public float moveForward;
+	public float randomYawVelocity;
+	protected int ticksSinceLastSwing;
 	/**
 	 * The most recent player that has attacked this entity
 	 */
 	protected EntityPlayer attackingPlayer;
-
 	/**
 	 * Set to 60 when hit by the player or the player's wolf, then decrements. Used to determine whether the entity
 	 * should drop items on death.
 	 */
 	protected int recentlyHit;
-
 	/**
 	 * This gets set on entity death, but never used. Looks like a duplicate of isDead
 	 */
 	protected boolean dead;
-
 	/**
 	 * The age of this EntityLiving (used to determine when it dies)
 	 */
@@ -156,66 +144,54 @@ public abstract class EntityLivingBase extends Entity {
 	protected float onGroundSpeedFactor;
 	protected float movedDistance;
 	protected float prevMovedDistance;
-
 	/**
 	 * An unused field that is set to 180 in the constructor of EntityPlayer (and otherwise is 0)
 	 */
 	protected float unused180;
-
 	/**
 	 * The score value of the Mob, the amount of points the mob is worth.
 	 */
 	protected int scoreValue;
-
 	/**
 	 * Damage taken in the last hit. Mobs are resistant to damage less than this for a short time after taking damage.
 	 */
 	protected float lastDamage;
-
 	/**
 	 * used to check whether entity is jumping.
 	 */
 	protected boolean isJumping;
-	public float moveStrafing;
-	public float moveVertical;
-	public float moveForward;
-	public float randomYawVelocity;
-
 	/**
 	 * The number of updates over which the new position and rotation are to be applied to the entity.
 	 */
 	protected int newPosRotationIncrements;
-
 	/**
 	 * The X position the entity will be interpolated to. Used for teleporting.
 	 */
 	protected double interpTargetX;
-
 	/**
 	 * The Y position the entity will be interpolated to. Used for teleporting.
 	 */
 	protected double interpTargetY;
-
 	/**
 	 * The Z position the entity will be interpolated to. Used for teleporting.
 	 */
 	protected double interpTargetZ;
-
 	/**
 	 * The yaw rotation the entity will be interpolated to. Used for teleporting.
 	 */
 	protected double interpTargetYaw;
-
 	/**
 	 * The pitch rotation the entity will be interpolated to. Used for teleporting.
 	 */
 	protected double interpTargetPitch;
-
+	protected ItemStack activeItemStack = ItemStack.EMPTY;
+	protected int activeItemStackUseCount;
+	protected int ticksElytraFlying;
+	private AbstractAttributeMap attributeMap;
 	/**
 	 * Whether the DataWatcher needs to be updated with the active potions
 	 */
 	private boolean potionsNeedUpdate = true;
-
 	/**
 	 * Set immediately after this entity is attacked by another EntityLivingBase, allowing AI tasks to see who the
 	 * attacker was and handle accordingly. Reset to null after 100 ticks have passed.
@@ -223,41 +199,26 @@ public abstract class EntityLivingBase extends Entity {
 	private EntityLivingBase revengeTarget;
 	private int revengeTimer;
 	private EntityLivingBase lastAttackedEntity;
-
 	/**
 	 * Holds the value of ticksExisted when setLastAttacker was last called.
 	 */
 	private int lastAttackedEntityTime;
-
 	/**
 	 * A factor used to determine how far this entity will move each tick if it is walking on land. Adjusted by speed,
 	 * and slipperiness of the current block.
 	 */
 	private float landMovementFactor;
-
 	/**
 	 * Number of ticks since last jump
 	 */
 	private int jumpTicks;
 	private float absorptionAmount;
-	protected ItemStack activeItemStack = ItemStack.EMPTY;
-	protected int activeItemStackUseCount;
-	protected int ticksElytraFlying;
-
 	/**
 	 * The BlockPos the entity had during the previous tick.
 	 */
 	private BlockPos prevBlockpos;
 	private DamageSource lastDamageSource;
 	private long lastDamageStamp;
-
-	/**
-	 * Called by the /kill command.
-	 */
-	public void onKillCommand() {
-
-		attackEntityFrom(DamageSource.OUT_OF_WORLD, Float.MAX_VALUE);
-	}
 
 	public EntityLivingBase(World worldIn) {
 
@@ -271,6 +232,28 @@ public abstract class EntityLivingBase extends Entity {
 		rotationYaw = (float) (Math.random() * (Math.PI * 2D));
 		rotationYawHead = rotationYaw;
 		stepHeight = 0.6F;
+	}
+
+	/**
+	 * Returns true if all of the potion effects in the specified collection are ambient.
+	 */
+	public static boolean areAllPotionsAmbient(Collection<PotionEffect> potionEffects) {
+
+		for (PotionEffect potioneffect : potionEffects) {
+			if (!potioneffect.getIsAmbient()) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	/**
+	 * Called by the /kill command.
+	 */
+	public void onKillCommand() {
+
+		attackEntityFrom(DamageSource.OUT_OF_WORLD, Float.MAX_VALUE);
 	}
 
 	protected void entityInit() {
@@ -518,11 +501,6 @@ public abstract class EntityLivingBase extends Entity {
 		return revengeTarget;
 	}
 
-	public int getRevengeTimer() {
-
-		return revengeTimer;
-	}
-
 	/**
 	 * Hint to AI tasks that we were attacked by the passed EntityLivingBase and should retaliate. Is not guaranteed to
 	 * change our actual active target (for example if we are currently busy attacking someone else)
@@ -533,14 +511,14 @@ public abstract class EntityLivingBase extends Entity {
 		revengeTimer = ticksExisted;
 	}
 
+	public int getRevengeTimer() {
+
+		return revengeTimer;
+	}
+
 	public EntityLivingBase getLastAttackedEntity() {
 
 		return lastAttackedEntity;
-	}
-
-	public int getLastAttackedEntityTime() {
-
-		return lastAttackedEntityTime;
 	}
 
 	public void setLastAttackedEntity(Entity entityIn) {
@@ -552,6 +530,11 @@ public abstract class EntityLivingBase extends Entity {
 		}
 
 		lastAttackedEntityTime = ticksExisted;
+	}
+
+	public int getLastAttackedEntityTime() {
+
+		return lastAttackedEntityTime;
 	}
 
 	public int getIdleTime() {
@@ -732,20 +715,6 @@ public abstract class EntityLivingBase extends Entity {
 			dataManager.set(POTION_EFFECTS, Integer.valueOf(PotionUtils.getPotionColorFromEffectList(collection)));
 			setInvisible(isPotionActive(MobEffects.INVISIBILITY));
 		}
-	}
-
-	/**
-	 * Returns true if all of the potion effects in the specified collection are ambient.
-	 */
-	public static boolean areAllPotionsAmbient(Collection<PotionEffect> potionEffects) {
-
-		for (PotionEffect potioneffect : potionEffects) {
-			if (!potioneffect.getIsAmbient()) {
-				return false;
-			}
-		}
-
-		return true;
 	}
 
 	/**
@@ -2549,25 +2518,6 @@ public abstract class EntityLivingBase extends Entity {
 		return (dataManager.get(HAND_STATES).byteValue() & 2) > 0 ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND;
 	}
 
-	protected void updateActiveHand() {
-
-		if (isHandActive()) {
-			ItemStack itemstack = getHeldItem(getActiveHand());
-
-			if (itemstack == activeItemStack) {
-				if (getItemInUseCount() <= 25 && getItemInUseCount() % 4 == 0) {
-					updateItemUse(activeItemStack, 5);
-				}
-
-				if (--activeItemStackUseCount == 0 && !world.isRemote) {
-					onItemUseFinish();
-				}
-			} else {
-				resetActiveHand();
-			}
-		}
-	}
-
 	public void setActiveHand(EnumHand hand) {
 
 		ItemStack itemstack = getHeldItem(hand);
@@ -2584,6 +2534,25 @@ public abstract class EntityLivingBase extends Entity {
 				}
 
 				dataManager.set(HAND_STATES, Byte.valueOf((byte) i));
+			}
+		}
+	}
+
+	protected void updateActiveHand() {
+
+		if (isHandActive()) {
+			ItemStack itemstack = getHeldItem(getActiveHand());
+
+			if (itemstack == activeItemStack) {
+				if (getItemInUseCount() <= 25 && getItemInUseCount() % 4 == 0) {
+					updateItemUse(activeItemStack, 5);
+				}
+
+				if (--activeItemStackUseCount == 0 && !world.isRemote) {
+					onItemUseFinish();
+				}
+			} else {
+				resetActiveHand();
 			}
 		}
 	}

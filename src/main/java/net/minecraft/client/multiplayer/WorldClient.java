@@ -46,17 +46,16 @@ public class WorldClient extends World {
 	 * The packets that need to be sent to the server.
 	 */
 	private final NetHandlerPlayClient connection;
-
-	/**
-	 * The ChunkProviderClient instance
-	 */
-	private ChunkProviderClient clientChunkProvider;
 	private final Set<Entity> entityList = Sets.newHashSet();
 	private final Set<Entity> entitySpawnQueue = Sets.newHashSet();
 	private final Minecraft mc = Minecraft.getMinecraft();
 	private final Set<ChunkPos> previousActiveChunkSet = Sets.newHashSet();
-	private int ambienceTicks;
 	protected Set<ChunkPos> visibleChunks;
+	/**
+	 * The ChunkProviderClient instance
+	 */
+	private ChunkProviderClient clientChunkProvider;
+	private int ambienceTicks;
 
 	public WorldClient(NetHandlerPlayClient netHandler, WorldSettings settings, int dimension, EnumDifficulty difficulty, Profiler profilerIn) {
 

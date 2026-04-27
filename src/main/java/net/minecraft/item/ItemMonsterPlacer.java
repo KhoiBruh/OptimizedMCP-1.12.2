@@ -4,7 +4,10 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.*;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityList;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
@@ -30,6 +33,105 @@ public class ItemMonsterPlacer extends Item {
 	public ItemMonsterPlacer() {
 
 		setCreativeTab(CreativeTabs.MISC);
+	}
+
+	/**
+	 * Applies the data in the EntityTag tag of the given ItemStack to the given Entity.
+	 */
+	public static void applyItemEntityDataToEntity(World entityWorld, @Nullable EntityPlayer player, ItemStack stack, @Nullable Entity targetEntity) {
+
+		MinecraftServer minecraftserver = entityWorld.getMinecraftServer();
+
+		if (minecraftserver != null && targetEntity != null) {
+			NBTTagCompound nbttagcompound = stack.getTagCompound();
+
+			if (nbttagcompound != null && nbttagcompound.hasKey("EntityTag", 10)) {
+				if (!entityWorld.isRemote && targetEntity.ignoreItemEntityData() && (player == null || !minecraftserver.getPlayerList().canSendCommands(player.getGameProfile()))) {
+					return;
+				}
+
+				NBTTagCompound nbttagcompound1 = targetEntity.writeToNBT(new NBTTagCompound());
+				UUID uuid = targetEntity.getUniqueID();
+				nbttagcompound1.merge(nbttagcompound.getCompoundTag("EntityTag"));
+				targetEntity.setUniqueId(uuid);
+				targetEntity.readFromNBT(nbttagcompound1);
+			}
+		}
+	}
+
+	@Nullable
+
+	/**
+	 * Spawns the creature specified by the egg's type in the location specified by the last three parameters.
+	 * Parameters: world, entityID, x, y, z.
+	 */
+	public static Entity spawnCreature(World worldIn, @Nullable ResourceLocation entityID, double x, double y, double z) {
+
+		if (entityID != null && EntityList.ENTITY_EGGS.containsKey(entityID)) {
+			Entity entity = null;
+
+			for (int i = 0; i < 1; ++i) {
+				entity = EntityList.createEntityByIDFromName(entityID, worldIn);
+
+				if (entity instanceof EntityLiving entityliving) {
+					entity.setLocationAndAngles(x, y, z, MathHelper.wrapDegrees(worldIn.rand.nextFloat() * 360.0F), 0.0F);
+					entityliving.rotationYawHead = entityliving.rotationYaw;
+					entityliving.renderYawOffset = entityliving.rotationYaw;
+					entityliving.onInitialSpawn(worldIn.getDifficultyForLocation(new BlockPos(entityliving)), null);
+					worldIn.spawnEntity(entity);
+					entityliving.playLivingSound();
+				}
+			}
+
+			return entity;
+		} else {
+			return null;
+		}
+	}
+
+	/**
+	 * APplies the given entity ID to the given ItemStack's NBT data.
+	 */
+	public static void applyEntityIdToItemStack(ItemStack stack, ResourceLocation entityId) {
+
+		NBTTagCompound nbttagcompound = stack.hasTagCompound() ? stack.getTagCompound() : new NBTTagCompound();
+		NBTTagCompound nbttagcompound1 = new NBTTagCompound();
+		nbttagcompound1.setString("id", entityId.toString());
+		nbttagcompound.setTag("EntityTag", nbttagcompound1);
+		stack.setTagCompound(nbttagcompound);
+	}
+
+	@Nullable
+
+	/**
+	 * Gets the entity type ID from the given itemstack.
+	 *
+	 * @return The type ID, or {@code null} if there is no valid tag on the item.
+	 */
+	public static ResourceLocation getNamedIdFrom(ItemStack stack) {
+
+		NBTTagCompound nbttagcompound = stack.getTagCompound();
+
+		if (nbttagcompound == null) {
+			return null;
+		} else if (!nbttagcompound.hasKey("EntityTag", 10)) {
+			return null;
+		} else {
+			NBTTagCompound nbttagcompound1 = nbttagcompound.getCompoundTag("EntityTag");
+
+			if (!nbttagcompound1.hasKey("id", 8)) {
+				return null;
+			} else {
+				String s = nbttagcompound1.getString("id");
+				ResourceLocation resourcelocation = new ResourceLocation(s);
+
+				if (!s.contains(":")) {
+					nbttagcompound1.setString("id", resourcelocation.toString());
+				}
+
+				return resourcelocation;
+			}
+		}
 	}
 
 	public String getItemStackDisplayName(ItemStack stack) {
@@ -114,30 +216,6 @@ public class ItemMonsterPlacer extends Item {
 		}
 	}
 
-	/**
-	 * Applies the data in the EntityTag tag of the given ItemStack to the given Entity.
-	 */
-	public static void applyItemEntityDataToEntity(World entityWorld, @Nullable EntityPlayer player, ItemStack stack, @Nullable Entity targetEntity) {
-
-		MinecraftServer minecraftserver = entityWorld.getMinecraftServer();
-
-		if (minecraftserver != null && targetEntity != null) {
-			NBTTagCompound nbttagcompound = stack.getTagCompound();
-
-			if (nbttagcompound != null && nbttagcompound.hasKey("EntityTag", 10)) {
-				if (!entityWorld.isRemote && targetEntity.ignoreItemEntityData() && (player == null || !minecraftserver.getPlayerList().canSendCommands(player.getGameProfile()))) {
-					return;
-				}
-
-				NBTTagCompound nbttagcompound1 = targetEntity.writeToNBT(new NBTTagCompound());
-				UUID uuid = targetEntity.getUniqueID();
-				nbttagcompound1.merge(nbttagcompound.getCompoundTag("EntityTag"));
-				targetEntity.setUniqueId(uuid);
-				targetEntity.readFromNBT(nbttagcompound1);
-			}
-		}
-	}
-
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
 
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
@@ -180,36 +258,6 @@ public class ItemMonsterPlacer extends Item {
 		}
 	}
 
-	@Nullable
-
-	/**
-	 * Spawns the creature specified by the egg's type in the location specified by the last three parameters.
-	 * Parameters: world, entityID, x, y, z.
-	 */
-	public static Entity spawnCreature(World worldIn, @Nullable ResourceLocation entityID, double x, double y, double z) {
-
-		if (entityID != null && EntityList.ENTITY_EGGS.containsKey(entityID)) {
-			Entity entity = null;
-
-			for (int i = 0; i < 1; ++i) {
-				entity = EntityList.createEntityByIDFromName(entityID, worldIn);
-
-				if (entity instanceof EntityLiving entityliving) {
-					entity.setLocationAndAngles(x, y, z, MathHelper.wrapDegrees(worldIn.rand.nextFloat() * 360.0F), 0.0F);
-					entityliving.rotationYawHead = entityliving.rotationYaw;
-					entityliving.renderYawOffset = entityliving.rotationYaw;
-					entityliving.onInitialSpawn(worldIn.getDifficultyForLocation(new BlockPos(entityliving)), null);
-					worldIn.spawnEntity(entity);
-					entityliving.playLivingSound();
-				}
-			}
-
-			return entity;
-		} else {
-			return null;
-		}
-	}
-
 	/**
 	 * returns a list of items with the same ID, but different meta (eg: dye returns 16 items)
 	 */
@@ -220,51 +268,6 @@ public class ItemMonsterPlacer extends Item {
 				ItemStack itemstack = new ItemStack(this, 1);
 				applyEntityIdToItemStack(itemstack, entitylist$entityegginfo.spawnedID);
 				items.add(itemstack);
-			}
-		}
-	}
-
-	/**
-	 * APplies the given entity ID to the given ItemStack's NBT data.
-	 */
-	public static void applyEntityIdToItemStack(ItemStack stack, ResourceLocation entityId) {
-
-		NBTTagCompound nbttagcompound = stack.hasTagCompound() ? stack.getTagCompound() : new NBTTagCompound();
-		NBTTagCompound nbttagcompound1 = new NBTTagCompound();
-		nbttagcompound1.setString("id", entityId.toString());
-		nbttagcompound.setTag("EntityTag", nbttagcompound1);
-		stack.setTagCompound(nbttagcompound);
-	}
-
-	@Nullable
-
-	/**
-	 * Gets the entity type ID from the given itemstack.
-	 *
-	 * @return The type ID, or {@code null} if there is no valid tag on the item.
-	 */
-	public static ResourceLocation getNamedIdFrom(ItemStack stack) {
-
-		NBTTagCompound nbttagcompound = stack.getTagCompound();
-
-		if (nbttagcompound == null) {
-			return null;
-		} else if (!nbttagcompound.hasKey("EntityTag", 10)) {
-			return null;
-		} else {
-			NBTTagCompound nbttagcompound1 = nbttagcompound.getCompoundTag("EntityTag");
-
-			if (!nbttagcompound1.hasKey("id", 8)) {
-				return null;
-			} else {
-				String s = nbttagcompound1.getString("id");
-				ResourceLocation resourcelocation = new ResourceLocation(s);
-
-				if (!s.contains(":")) {
-					nbttagcompound1.setString("id", resourcelocation.toString());
-				}
-
-				return resourcelocation;
 			}
 		}
 	}

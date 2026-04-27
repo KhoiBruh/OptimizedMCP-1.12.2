@@ -17,6 +17,63 @@ import java.util.Set;
 public class CommandTP extends CommandBase {
 
 	/**
+	 * Teleports an entity to the specified coordinates
+	 */
+	private static void teleportEntityToCoordinates(Entity teleportingEntity, CommandBase.CoordinateArg argX, CommandBase.CoordinateArg argY, CommandBase.CoordinateArg argZ, CommandBase.CoordinateArg argYaw, CommandBase.CoordinateArg argPitch) {
+
+		if (teleportingEntity instanceof EntityPlayerMP) {
+			Set<SPacketPlayerPosLook.EnumFlags> set = EnumSet.noneOf(SPacketPlayerPosLook.EnumFlags.class);
+
+			if (argX.isRelative()) {
+				set.add(SPacketPlayerPosLook.EnumFlags.X);
+			}
+
+			if (argY.isRelative()) {
+				set.add(SPacketPlayerPosLook.EnumFlags.Y);
+			}
+
+			if (argZ.isRelative()) {
+				set.add(SPacketPlayerPosLook.EnumFlags.Z);
+			}
+
+			if (argPitch.isRelative()) {
+				set.add(SPacketPlayerPosLook.EnumFlags.X_ROT);
+			}
+
+			if (argYaw.isRelative()) {
+				set.add(SPacketPlayerPosLook.EnumFlags.Y_ROT);
+			}
+
+			float f = (float) argYaw.getAmount();
+
+			if (!argYaw.isRelative()) {
+				f = MathHelper.wrapDegrees(f);
+			}
+
+			float f1 = (float) argPitch.getAmount();
+
+			if (!argPitch.isRelative()) {
+				f1 = MathHelper.wrapDegrees(f1);
+			}
+
+			teleportingEntity.dismountRidingEntity();
+			((EntityPlayerMP) teleportingEntity).connection.setPlayerLocation(argX.getAmount(), argY.getAmount(), argZ.getAmount(), f, f1, set);
+			teleportingEntity.setRotationYawHead(f);
+		} else {
+			float f2 = (float) MathHelper.wrapDegrees(argYaw.getResult());
+			float f3 = (float) MathHelper.wrapDegrees(argPitch.getResult());
+			f3 = MathHelper.clamp(f3, -90.0F, 90.0F);
+			teleportingEntity.setLocationAndAngles(argX.getResult(), argY.getResult(), argZ.getResult(), f2, f3);
+			teleportingEntity.setRotationYawHead(f2);
+		}
+
+		if (!(teleportingEntity instanceof EntityLivingBase) || !((EntityLivingBase) teleportingEntity).isElytraFlying()) {
+			teleportingEntity.motionY = 0.0D;
+			teleportingEntity.onGround = true;
+		}
+	}
+
+	/**
 	 * Gets the name of the command
 	 */
 	public String getName() {
@@ -89,63 +146,6 @@ public class CommandTP extends CommandBase {
 					notifyCommandListener(sender, this, "commands.tp.success", entity.getName(), entity1.getName());
 				}
 			}
-		}
-	}
-
-	/**
-	 * Teleports an entity to the specified coordinates
-	 */
-	private static void teleportEntityToCoordinates(Entity teleportingEntity, CommandBase.CoordinateArg argX, CommandBase.CoordinateArg argY, CommandBase.CoordinateArg argZ, CommandBase.CoordinateArg argYaw, CommandBase.CoordinateArg argPitch) {
-
-		if (teleportingEntity instanceof EntityPlayerMP) {
-			Set<SPacketPlayerPosLook.EnumFlags> set = EnumSet.noneOf(SPacketPlayerPosLook.EnumFlags.class);
-
-			if (argX.isRelative()) {
-				set.add(SPacketPlayerPosLook.EnumFlags.X);
-			}
-
-			if (argY.isRelative()) {
-				set.add(SPacketPlayerPosLook.EnumFlags.Y);
-			}
-
-			if (argZ.isRelative()) {
-				set.add(SPacketPlayerPosLook.EnumFlags.Z);
-			}
-
-			if (argPitch.isRelative()) {
-				set.add(SPacketPlayerPosLook.EnumFlags.X_ROT);
-			}
-
-			if (argYaw.isRelative()) {
-				set.add(SPacketPlayerPosLook.EnumFlags.Y_ROT);
-			}
-
-			float f = (float) argYaw.getAmount();
-
-			if (!argYaw.isRelative()) {
-				f = MathHelper.wrapDegrees(f);
-			}
-
-			float f1 = (float) argPitch.getAmount();
-
-			if (!argPitch.isRelative()) {
-				f1 = MathHelper.wrapDegrees(f1);
-			}
-
-			teleportingEntity.dismountRidingEntity();
-			((EntityPlayerMP) teleportingEntity).connection.setPlayerLocation(argX.getAmount(), argY.getAmount(), argZ.getAmount(), f, f1, set);
-			teleportingEntity.setRotationYawHead(f);
-		} else {
-			float f2 = (float) MathHelper.wrapDegrees(argYaw.getResult());
-			float f3 = (float) MathHelper.wrapDegrees(argPitch.getResult());
-			f3 = MathHelper.clamp(f3, -90.0F, 90.0F);
-			teleportingEntity.setLocationAndAngles(argX.getResult(), argY.getResult(), argZ.getResult(), f2, f3);
-			teleportingEntity.setRotationYawHead(f2);
-		}
-
-		if (!(teleportingEntity instanceof EntityLivingBase) || !((EntityLivingBase) teleportingEntity).isElytraFlying()) {
-			teleportingEntity.motionY = 0.0D;
-			teleportingEntity.onGround = true;
 		}
 	}
 

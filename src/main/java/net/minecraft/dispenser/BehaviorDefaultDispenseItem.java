@@ -8,29 +8,6 @@ import net.minecraft.world.World;
 
 public class BehaviorDefaultDispenseItem implements IBehaviorDispenseItem {
 
-	/**
-	 * Dispenses the specified ItemStack from a dispenser.
-	 */
-	public final ItemStack dispense(IBlockSource source, ItemStack stack) {
-
-		ItemStack itemstack = dispenseStack(source, stack);
-		playDispenseSound(source);
-		spawnDispenseParticles(source, source.getBlockState().getValue(BlockDispenser.FACING));
-		return itemstack;
-	}
-
-	/**
-	 * Dispense the specified stack, play the dispense sound and spawn particles.
-	 */
-	protected ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
-
-		EnumFacing enumfacing = source.getBlockState().getValue(BlockDispenser.FACING);
-		IPosition iposition = BlockDispenser.getDispensePosition(source);
-		ItemStack itemstack = stack.splitStack(1);
-		doDispense(source.getWorld(), itemstack, 6, enumfacing, iposition);
-		return stack;
-	}
-
 	public static void doDispense(World worldIn, ItemStack stack, int speed, EnumFacing facing, IPosition position) {
 
 		double d0 = position.x();
@@ -52,6 +29,29 @@ public class BehaviorDefaultDispenseItem implements IBehaviorDispenseItem {
 		entityitem.motionY += worldIn.rand.nextGaussian() * 0.007499999832361937D * (double) speed;
 		entityitem.motionZ += worldIn.rand.nextGaussian() * 0.007499999832361937D * (double) speed;
 		worldIn.spawnEntity(entityitem);
+	}
+
+	/**
+	 * Dispenses the specified ItemStack from a dispenser.
+	 */
+	public final ItemStack dispense(IBlockSource source, ItemStack stack) {
+
+		ItemStack itemstack = dispenseStack(source, stack);
+		playDispenseSound(source);
+		spawnDispenseParticles(source, source.getBlockState().getValue(BlockDispenser.FACING));
+		return itemstack;
+	}
+
+	/**
+	 * Dispense the specified stack, play the dispense sound and spawn particles.
+	 */
+	protected ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
+
+		EnumFacing enumfacing = source.getBlockState().getValue(BlockDispenser.FACING);
+		IPosition iposition = BlockDispenser.getDispensePosition(source);
+		ItemStack itemstack = stack.splitStack(1);
+		doDispense(source.getWorld(), itemstack, 6, enumfacing, iposition);
+		return stack;
 	}
 
 	/**

@@ -37,6 +37,41 @@ public class SaveFormatOld implements ISaveFormat {
 		savesDirectory = savesDirectoryIn;
 	}
 
+	@Nullable
+	public static WorldInfo getWorldData(File p_186353_0_, DataFixer dataFixerIn) {
+
+		try {
+			NBTTagCompound nbttagcompound = CompressedStreamTools.readCompressed(new FileInputStream(p_186353_0_));
+			NBTTagCompound nbttagcompound1 = nbttagcompound.getCompoundTag("Data");
+			return new WorldInfo(dataFixerIn.process(FixTypes.LEVEL, nbttagcompound1));
+		} catch (Exception exception) {
+			LOGGER.error("Exception reading {}", p_186353_0_, exception);
+			return null;
+		}
+	}
+
+	/**
+	 * Deletes a list of files and directories.
+	 */
+	protected static boolean deleteFiles(File[] files) {
+
+		for (File file1 : files) {
+			LOGGER.debug("Deleting {}", file1);
+
+			if (file1.isDirectory() && !deleteFiles(file1.listFiles())) {
+				LOGGER.warn("Couldn't delete directory {}", file1);
+				return false;
+			}
+
+			if (!file1.delete()) {
+				LOGGER.warn("Couldn't delete file {}", file1);
+				return false;
+			}
+		}
+
+		return true;
+	}
+
 	/**
 	 * Returns the name of the save format.
 	 */
@@ -89,19 +124,6 @@ public class SaveFormatOld implements ISaveFormat {
 
 			file2 = new File(file1, "level.dat_old");
 			return file2.exists() ? getWorldData(file2, dataFixer) : null;
-		}
-	}
-
-	@Nullable
-	public static WorldInfo getWorldData(File p_186353_0_, DataFixer dataFixerIn) {
-
-		try {
-			NBTTagCompound nbttagcompound = CompressedStreamTools.readCompressed(new FileInputStream(p_186353_0_));
-			NBTTagCompound nbttagcompound1 = nbttagcompound.getCompoundTag("Data");
-			return new WorldInfo(dataFixerIn.process(FixTypes.LEVEL, nbttagcompound1));
-		} catch (Exception exception) {
-			LOGGER.error("Exception reading {}", p_186353_0_, exception);
-			return null;
 		}
 	}
 
@@ -178,28 +200,6 @@ public class SaveFormatOld implements ISaveFormat {
 
 			return file1.delete();
 		}
-	}
-
-	/**
-	 * Deletes a list of files and directories.
-	 */
-	protected static boolean deleteFiles(File[] files) {
-
-		for (File file1 : files) {
-			LOGGER.debug("Deleting {}", file1);
-
-			if (file1.isDirectory() && !deleteFiles(file1.listFiles())) {
-				LOGGER.warn("Couldn't delete directory {}", file1);
-				return false;
-			}
-
-			if (!file1.delete()) {
-				LOGGER.warn("Couldn't delete file {}", file1);
-				return false;
-			}
-		}
-
-		return true;
 	}
 
 	/**

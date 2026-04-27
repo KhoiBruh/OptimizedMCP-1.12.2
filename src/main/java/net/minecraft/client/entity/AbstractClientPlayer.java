@@ -18,18 +18,38 @@ import net.minecraft.world.GameType;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
-import java.io.File;
 
 public abstract class AbstractClientPlayer extends EntityPlayer {
 
-	private NetworkPlayerInfo playerInfo;
 	public float rotateElytraX;
 	public float rotateElytraY;
 	public float rotateElytraZ;
+	private NetworkPlayerInfo playerInfo;
 
 	public AbstractClientPlayer(World worldIn, GameProfile playerProfile) {
 
 		super(worldIn, playerProfile);
+	}
+
+	public static ThreadDownloadImageData getDownloadImageSkin(ResourceLocation resourceLocationIn, String username) {
+
+		TextureManager texturemanager = Minecraft.getMinecraft().getTextureManager();
+		ITextureObject itextureobject = texturemanager.getTexture(resourceLocationIn);
+
+		if (itextureobject == null) {
+			itextureobject = new ThreadDownloadImageData(null, String.format("http://skins.minecraft.net/MinecraftSkins/%s.png", StringUtils.stripControlCodes(username)), DefaultPlayerSkin.getDefaultSkin(getOfflineUUID(username)), new ImageBufferDownload());
+			texturemanager.loadTexture(resourceLocationIn, itextureobject);
+		}
+
+		return (ThreadDownloadImageData) itextureobject;
+	}
+
+	/**
+	 * Returns true if the username has an associated skin.
+	 */
+	public static ResourceLocation getLocationSkin(String username) {
+
+		return new ResourceLocation("skins/" + StringUtils.stripControlCodes(username));
 	}
 
 	/**
@@ -104,27 +124,6 @@ public abstract class AbstractClientPlayer extends EntityPlayer {
 
 		NetworkPlayerInfo networkplayerinfo = getPlayerInfo();
 		return networkplayerinfo == null ? null : networkplayerinfo.getLocationElytra();
-	}
-
-	public static ThreadDownloadImageData getDownloadImageSkin(ResourceLocation resourceLocationIn, String username) {
-
-		TextureManager texturemanager = Minecraft.getMinecraft().getTextureManager();
-		ITextureObject itextureobject = texturemanager.getTexture(resourceLocationIn);
-
-		if (itextureobject == null) {
-			itextureobject = new ThreadDownloadImageData(null, String.format("http://skins.minecraft.net/MinecraftSkins/%s.png", StringUtils.stripControlCodes(username)), DefaultPlayerSkin.getDefaultSkin(getOfflineUUID(username)), new ImageBufferDownload());
-			texturemanager.loadTexture(resourceLocationIn, itextureobject);
-		}
-
-		return (ThreadDownloadImageData) itextureobject;
-	}
-
-	/**
-	 * Returns true if the username has an associated skin.
-	 */
-	public static ResourceLocation getLocationSkin(String username) {
-
-		return new ResourceLocation("skins/" + StringUtils.stripControlCodes(username));
 	}
 
 	public String getSkinType() {

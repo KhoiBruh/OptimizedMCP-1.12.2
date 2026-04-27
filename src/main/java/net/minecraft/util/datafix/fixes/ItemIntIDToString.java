@@ -7,24 +7,6 @@ public class ItemIntIDToString implements IFixableData {
 
 	private static final String[] ID_MAP = new String[2268];
 
-	public int getFixVersion() {
-
-		return 102;
-	}
-
-	public NBTTagCompound fixTagCompound(NBTTagCompound compound) {
-
-		if (compound.hasKey("id", 99)) {
-			short short1 = compound.getShort("id");
-
-			if (short1 > 0 && short1 < ID_MAP.length && ID_MAP[short1] != null) {
-				compound.setString("id", ID_MAP[short1]);
-			}
-		}
-
-		return compound;
-	}
-
 	static {
 		ID_MAP[1] = "minecraft:stone";
 		ID_MAP[2] = "minecraft:grass";
@@ -341,5 +323,23 @@ public class ItemIntIDToString implements IFixableData {
 		ID_MAP[2265] = "minecraft:record_ward";
 		ID_MAP[2266] = "minecraft:record_11";
 		ID_MAP[2267] = "minecraft:record_wait";
+	}
+
+	public int getFixVersion() {
+
+		return 102;
+	}
+
+	public NBTTagCompound fixTagCompound(NBTTagCompound compound) {
+
+		if (compound.hasKey("id", 99)) {
+			short short1 = compound.getShort("id");
+
+			if (short1 > 0 && short1 < ID_MAP.length && ID_MAP[short1] != null) {
+				compound.setString("id", ID_MAP[short1]);
+			}
+		}
+
+		return compound;
 	}
 }

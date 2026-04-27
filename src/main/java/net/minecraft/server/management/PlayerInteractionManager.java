@@ -61,6 +61,11 @@ public class PlayerInteractionManager {
 		world = worldIn;
 	}
 
+	public GameType getGameType() {
+
+		return gameType;
+	}
+
 	public void setGameType(GameType type) {
 
 		gameType = type;
@@ -68,11 +73,6 @@ public class PlayerInteractionManager {
 		player.sendPlayerAbilities();
 		player.mcServer.getPlayerList().sendPacketToAllPlayers(new SPacketPlayerListItem(SPacketPlayerListItem.Action.UPDATE_GAME_MODE, player));
 		world.updateAllPlayersSleepingFlag();
-	}
-
-	public GameType getGameType() {
-
-		return gameType;
 	}
 
 	public boolean survivalOrAdventure() {

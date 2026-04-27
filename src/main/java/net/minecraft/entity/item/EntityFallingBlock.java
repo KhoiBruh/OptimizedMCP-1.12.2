@@ -33,15 +33,15 @@ import java.util.List;
 
 public class EntityFallingBlock extends Entity {
 
-	private IBlockState fallTile;
+	protected static final DataParameter<BlockPos> ORIGIN = EntityDataManager.createKey(EntityFallingBlock.class, DataSerializers.BLOCK_POS);
 	public int fallTime;
 	public boolean shouldDropItem = true;
+	public NBTTagCompound tileEntityData;
+	private IBlockState fallTile;
 	private boolean dontSetBlock;
 	private boolean hurtEntities;
 	private int fallHurtMax = 40;
 	private float fallHurtAmount = 2.0F;
-	public NBTTagCompound tileEntityData;
-	protected static final DataParameter<BlockPos> ORIGIN = EntityDataManager.createKey(EntityFallingBlock.class, DataSerializers.BLOCK_POS);
 
 	public EntityFallingBlock(World worldIn) {
 
@@ -64,6 +64,10 @@ public class EntityFallingBlock extends Entity {
 		setOrigin(new BlockPos(this));
 	}
 
+	public static void registerFixesFallingBlock(DataFixer fixer) {
+
+	}
+
 	/**
 	 * Returns true if it's possible to attack this entity with an item.
 	 */
@@ -72,14 +76,14 @@ public class EntityFallingBlock extends Entity {
 		return false;
 	}
 
-	public void setOrigin(BlockPos p_184530_1_) {
-
-		dataManager.set(ORIGIN, p_184530_1_);
-	}
-
 	public BlockPos getOrigin() {
 
 		return dataManager.get(ORIGIN);
+	}
+
+	public void setOrigin(BlockPos p_184530_1_) {
+
+		dataManager.set(ORIGIN, p_184530_1_);
 	}
 
 	/**
@@ -241,10 +245,6 @@ public class EntityFallingBlock extends Entity {
 				}
 			}
 		}
-	}
-
-	public static void registerFixesFallingBlock(DataFixer fixer) {
-
 	}
 
 	/**

@@ -21,8 +21,8 @@ public class GuiRepair extends GuiContainer implements IContainerListener {
 
 	private static final ResourceLocation ANVIL_RESOURCE = new ResourceLocation("textures/gui/container/anvil.png");
 	private final ContainerRepair anvil;
-	private GuiTextField nameField;
 	private final InventoryPlayer playerInventory;
+	private GuiTextField nameField;
 
 	public GuiRepair(InventoryPlayer inventoryIn, World worldIn) {
 

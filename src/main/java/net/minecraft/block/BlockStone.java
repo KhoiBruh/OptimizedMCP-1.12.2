@@ -2,7 +2,6 @@ package net.minecraft.block;
 
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -103,6 +102,13 @@ public class BlockStone extends Block {
 		ANDESITE_SMOOTH(6, MapColor.STONE, "smooth_andesite", "andesiteSmooth", false);
 
 		private static final BlockStone.EnumType[] META_LOOKUP = new BlockStone.EnumType[values().length];
+
+		static {
+			for (BlockStone.EnumType blockstone$enumtype : values()) {
+				META_LOOKUP[blockstone$enumtype.getMetadata()] = blockstone$enumtype;
+			}
+		}
+
 		private final int meta;
 		private final String name;
 		private final String unlocalizedName;
@@ -123,6 +129,15 @@ public class BlockStone extends Block {
 			isNatural = p_i46384_7_;
 		}
 
+		public static BlockStone.EnumType byMetadata(int meta) {
+
+			if (meta < 0 || meta >= META_LOOKUP.length) {
+				meta = 0;
+			}
+
+			return META_LOOKUP[meta];
+		}
+
 		public int getMetadata() {
 
 			return meta;
@@ -138,15 +153,6 @@ public class BlockStone extends Block {
 			return name;
 		}
 
-		public static BlockStone.EnumType byMetadata(int meta) {
-
-			if (meta < 0 || meta >= META_LOOKUP.length) {
-				meta = 0;
-			}
-
-			return META_LOOKUP[meta];
-		}
-
 		public String getName() {
 
 			return name;
@@ -160,12 +166,6 @@ public class BlockStone extends Block {
 		public boolean isNatural() {
 
 			return isNatural;
-		}
-
-		static {
-			for (BlockStone.EnumType blockstone$enumtype : values()) {
-				META_LOOKUP[blockstone$enumtype.getMetadata()] = blockstone$enumtype;
-			}
 		}
 	}
 

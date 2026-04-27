@@ -36,6 +36,276 @@ public class TileEntityHopper extends TileEntityLockableLoot implements IHopper,
 		fixer.registerWalker(FixTypes.BLOCK_ENTITY, new ItemStackDataLists(TileEntityHopper.class, "Items"));
 	}
 
+	/**
+	 * Returns false if the specified IInventory contains any items
+	 */
+	private static boolean isInventoryEmpty(IInventory inventoryIn, EnumFacing side) {
+
+		if (inventoryIn instanceof ISidedInventory isidedinventory) {
+			int[] aint = isidedinventory.getSlotsForFace(side);
+
+			for (int i : aint) {
+				if (!isidedinventory.getStackInSlot(i).isEmpty()) {
+					return false;
+				}
+			}
+		} else {
+			int j = inventoryIn.getSizeInventory();
+
+			for (int k = 0; k < j; ++k) {
+				if (!inventoryIn.getStackInSlot(k).isEmpty()) {
+					return false;
+				}
+			}
+		}
+
+		return true;
+	}
+
+	/**
+	 * Pull dropped {@link net.minecraft.entity.item.EntityItem EntityItem}s from the world above the hopper and items
+	 * from any inventory attached to this hopper into the hopper's inventory.
+	 *
+	 * @param hopper the hopper in question
+	 * @return whether any items were successfully added to the hopper
+	 */
+	public static boolean pullItems(IHopper hopper) {
+
+		IInventory iinventory = getSourceInventory(hopper);
+
+		if (iinventory != null) {
+			EnumFacing enumfacing = EnumFacing.DOWN;
+
+			if (isInventoryEmpty(iinventory, enumfacing)) {
+				return false;
+			}
+
+			if (iinventory instanceof ISidedInventory isidedinventory) {
+				int[] aint = isidedinventory.getSlotsForFace(enumfacing);
+
+				for (int i : aint) {
+					if (pullItemFromSlot(hopper, iinventory, i, enumfacing)) {
+						return true;
+					}
+				}
+			} else {
+				int j = iinventory.getSizeInventory();
+
+				for (int k = 0; k < j; ++k) {
+					if (pullItemFromSlot(hopper, iinventory, k, enumfacing)) {
+						return true;
+					}
+				}
+			}
+		} else {
+			for (EntityItem entityitem : getCaptureItems(hopper.getWorld(), hopper.getXPos(), hopper.getYPos(), hopper.getZPos())) {
+				if (putDropInInventoryAllSlots(null, hopper, entityitem)) {
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * Pulls from the specified slot in the inventory and places in any available slot in the hopper. Returns true if
+	 * the entire stack was moved
+	 */
+	private static boolean pullItemFromSlot(IHopper hopper, IInventory inventoryIn, int index, EnumFacing direction) {
+
+		ItemStack itemstack = inventoryIn.getStackInSlot(index);
+
+		if (!itemstack.isEmpty() && canExtractItemFromSlot(inventoryIn, itemstack, index, direction)) {
+			ItemStack itemstack1 = itemstack.copy();
+			ItemStack itemstack2 = putStackInInventoryAllSlots(inventoryIn, hopper, inventoryIn.decrStackSize(index, 1), null);
+
+			if (itemstack2.isEmpty()) {
+				inventoryIn.markDirty();
+				return true;
+			}
+
+			inventoryIn.setInventorySlotContents(index, itemstack1);
+		}
+
+		return false;
+	}
+
+	/**
+	 * Attempts to place the passed EntityItem's stack into the inventory using as many slots as possible. Returns false
+	 * if the stackSize of the drop was not depleted.
+	 */
+	public static boolean putDropInInventoryAllSlots(IInventory source, IInventory destination, EntityItem entity) {
+
+		boolean flag = false;
+
+		if (entity == null) {
+			return false;
+		} else {
+			ItemStack itemstack = entity.getItem().copy();
+			ItemStack itemstack1 = putStackInInventoryAllSlots(source, destination, itemstack, null);
+
+			if (itemstack1.isEmpty()) {
+				flag = true;
+				entity.setDead();
+			} else {
+				entity.setItem(itemstack1);
+			}
+
+			return flag;
+		}
+	}
+
+	/**
+	 * Attempts to place the passed stack in the inventory, using as many slots as required. Returns leftover items
+	 */
+	public static ItemStack putStackInInventoryAllSlots(IInventory source, IInventory destination, ItemStack stack, @Nullable EnumFacing direction) {
+
+		if (destination instanceof ISidedInventory isidedinventory && direction != null) {
+			int[] aint = isidedinventory.getSlotsForFace(direction);
+
+			for (int k = 0; k < aint.length && !stack.isEmpty(); ++k) {
+				stack = insertStack(source, destination, stack, aint[k], direction);
+			}
+		} else {
+			int i = destination.getSizeInventory();
+
+			for (int j = 0; j < i && !stack.isEmpty(); ++j) {
+				stack = insertStack(source, destination, stack, j, direction);
+			}
+		}
+
+		return stack;
+	}
+
+	/**
+	 * Can this hopper insert the specified item from the specified slot on the specified side?
+	 */
+	private static boolean canInsertItemInSlot(IInventory inventoryIn, ItemStack stack, int index, EnumFacing side) {
+
+		if (!inventoryIn.isItemValidForSlot(index, stack)) {
+			return false;
+		} else {
+			return !(inventoryIn instanceof ISidedInventory) || ((ISidedInventory) inventoryIn).canInsertItem(index, stack, side);
+		}
+	}
+
+	/**
+	 * Can this hopper extract the specified item from the specified slot on the specified side?
+	 */
+	private static boolean canExtractItemFromSlot(IInventory inventoryIn, ItemStack stack, int index, EnumFacing side) {
+
+		return !(inventoryIn instanceof ISidedInventory) || ((ISidedInventory) inventoryIn).canExtractItem(index, stack, side);
+	}
+
+	/**
+	 * Insert the specified stack to the specified inventory and return any leftover items
+	 */
+	private static ItemStack insertStack(IInventory source, IInventory destination, ItemStack stack, int index, EnumFacing direction) {
+
+		ItemStack itemstack = destination.getStackInSlot(index);
+
+		if (canInsertItemInSlot(destination, stack, index, direction)) {
+			boolean flag = false;
+			boolean flag1 = destination.isEmpty();
+
+			if (itemstack.isEmpty()) {
+				destination.setInventorySlotContents(index, stack);
+				stack = ItemStack.EMPTY;
+				flag = true;
+			} else if (canCombine(itemstack, stack)) {
+				int i = stack.getMaxStackSize() - itemstack.getCount();
+				int j = Math.min(stack.getCount(), i);
+				stack.shrink(j);
+				itemstack.grow(j);
+				flag = j > 0;
+			}
+
+			if (flag) {
+				if (flag1 && destination instanceof TileEntityHopper tileentityhopper1) {
+
+					if (!tileentityhopper1.mayTransfer()) {
+						int k = 0;
+
+						if (source != null && source instanceof TileEntityHopper tileentityhopper) {
+
+							if (tileentityhopper1.tickedGameTime >= tileentityhopper.tickedGameTime) {
+								k = 1;
+							}
+						}
+
+						tileentityhopper1.setTransferCooldown(8 - k);
+					}
+				}
+
+				destination.markDirty();
+			}
+		}
+
+		return stack;
+	}
+
+	/**
+	 * Gets the inventory that the provided hopper will transfer items from.
+	 */
+	public static IInventory getSourceInventory(IHopper hopper) {
+
+		return getInventoryAtPosition(hopper.getWorld(), hopper.getXPos(), hopper.getYPos() + 1.0D, hopper.getZPos());
+	}
+
+	public static List<EntityItem> getCaptureItems(World worldIn, double p_184292_1_, double p_184292_3_, double p_184292_5_) {
+
+		return worldIn.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(p_184292_1_ - 0.5D, p_184292_3_, p_184292_5_ - 0.5D, p_184292_1_ + 0.5D, p_184292_3_ + 1.5D, p_184292_5_ + 0.5D), EntitySelectors.IS_ALIVE);
+	}
+
+	/**
+	 * Returns the IInventory (if applicable) of the TileEntity at the specified position
+	 */
+	public static IInventory getInventoryAtPosition(World worldIn, double x, double y, double z) {
+
+		IInventory iinventory = null;
+		int i = MathHelper.floor(x);
+		int j = MathHelper.floor(y);
+		int k = MathHelper.floor(z);
+		BlockPos blockpos = new BlockPos(i, j, k);
+		Block block = worldIn.getBlockState(blockpos).getBlock();
+
+		if (block.hasTileEntity()) {
+			TileEntity tileentity = worldIn.getTileEntity(blockpos);
+
+			if (tileentity instanceof IInventory) {
+				iinventory = (IInventory) tileentity;
+
+				if (iinventory instanceof TileEntityChest && block instanceof BlockChest) {
+					iinventory = ((BlockChest) block).getContainer(worldIn, blockpos, true);
+				}
+			}
+		}
+
+		if (iinventory == null) {
+			List<Entity> list = worldIn.getEntitiesInAABBexcluding(null, new AxisAlignedBB(x - 0.5D, y - 0.5D, z - 0.5D, x + 0.5D, y + 0.5D, z + 0.5D), EntitySelectors.HAS_INVENTORY);
+
+			if (!list.isEmpty()) {
+				iinventory = (IInventory) list.get(worldIn.rand.nextInt(list.size()));
+			}
+		}
+
+		return iinventory;
+	}
+
+	private static boolean canCombine(ItemStack stack1, ItemStack stack2) {
+
+		if (stack1.getItem() != stack2.getItem()) {
+			return false;
+		} else if (stack1.getMetadata() != stack2.getMetadata()) {
+			return false;
+		} else if (stack1.getCount() > stack1.getMaxStackSize()) {
+			return false;
+		} else {
+			return ItemStack.areItemStackTagsEqual(stack1, stack2);
+		}
+	}
+
 	public void readFromNBT(NBTTagCompound compound) {
 
 		super.readFromNBT(compound);
@@ -248,282 +518,12 @@ public class TileEntityHopper extends TileEntityLockableLoot implements IHopper,
 	}
 
 	/**
-	 * Returns false if the specified IInventory contains any items
-	 */
-	private static boolean isInventoryEmpty(IInventory inventoryIn, EnumFacing side) {
-
-		if (inventoryIn instanceof ISidedInventory isidedinventory) {
-			int[] aint = isidedinventory.getSlotsForFace(side);
-
-			for (int i : aint) {
-				if (!isidedinventory.getStackInSlot(i).isEmpty()) {
-					return false;
-				}
-			}
-		} else {
-			int j = inventoryIn.getSizeInventory();
-
-			for (int k = 0; k < j; ++k) {
-				if (!inventoryIn.getStackInSlot(k).isEmpty()) {
-					return false;
-				}
-			}
-		}
-
-		return true;
-	}
-
-	/**
-	 * Pull dropped {@link net.minecraft.entity.item.EntityItem EntityItem}s from the world above the hopper and items
-	 * from any inventory attached to this hopper into the hopper's inventory.
-	 *
-	 * @param hopper the hopper in question
-	 * @return whether any items were successfully added to the hopper
-	 */
-	public static boolean pullItems(IHopper hopper) {
-
-		IInventory iinventory = getSourceInventory(hopper);
-
-		if (iinventory != null) {
-			EnumFacing enumfacing = EnumFacing.DOWN;
-
-			if (isInventoryEmpty(iinventory, enumfacing)) {
-				return false;
-			}
-
-			if (iinventory instanceof ISidedInventory isidedinventory) {
-				int[] aint = isidedinventory.getSlotsForFace(enumfacing);
-
-				for (int i : aint) {
-					if (pullItemFromSlot(hopper, iinventory, i, enumfacing)) {
-						return true;
-					}
-				}
-			} else {
-				int j = iinventory.getSizeInventory();
-
-				for (int k = 0; k < j; ++k) {
-					if (pullItemFromSlot(hopper, iinventory, k, enumfacing)) {
-						return true;
-					}
-				}
-			}
-		} else {
-			for (EntityItem entityitem : getCaptureItems(hopper.getWorld(), hopper.getXPos(), hopper.getYPos(), hopper.getZPos())) {
-				if (putDropInInventoryAllSlots(null, hopper, entityitem)) {
-					return true;
-				}
-			}
-		}
-
-		return false;
-	}
-
-	/**
-	 * Pulls from the specified slot in the inventory and places in any available slot in the hopper. Returns true if
-	 * the entire stack was moved
-	 */
-	private static boolean pullItemFromSlot(IHopper hopper, IInventory inventoryIn, int index, EnumFacing direction) {
-
-		ItemStack itemstack = inventoryIn.getStackInSlot(index);
-
-		if (!itemstack.isEmpty() && canExtractItemFromSlot(inventoryIn, itemstack, index, direction)) {
-			ItemStack itemstack1 = itemstack.copy();
-			ItemStack itemstack2 = putStackInInventoryAllSlots(inventoryIn, hopper, inventoryIn.decrStackSize(index, 1), null);
-
-			if (itemstack2.isEmpty()) {
-				inventoryIn.markDirty();
-				return true;
-			}
-
-			inventoryIn.setInventorySlotContents(index, itemstack1);
-		}
-
-		return false;
-	}
-
-	/**
-	 * Attempts to place the passed EntityItem's stack into the inventory using as many slots as possible. Returns false
-	 * if the stackSize of the drop was not depleted.
-	 */
-	public static boolean putDropInInventoryAllSlots(IInventory source, IInventory destination, EntityItem entity) {
-
-		boolean flag = false;
-
-		if (entity == null) {
-			return false;
-		} else {
-			ItemStack itemstack = entity.getItem().copy();
-			ItemStack itemstack1 = putStackInInventoryAllSlots(source, destination, itemstack, null);
-
-			if (itemstack1.isEmpty()) {
-				flag = true;
-				entity.setDead();
-			} else {
-				entity.setItem(itemstack1);
-			}
-
-			return flag;
-		}
-	}
-
-	/**
-	 * Attempts to place the passed stack in the inventory, using as many slots as required. Returns leftover items
-	 */
-	public static ItemStack putStackInInventoryAllSlots(IInventory source, IInventory destination, ItemStack stack, @Nullable EnumFacing direction) {
-
-		if (destination instanceof ISidedInventory isidedinventory && direction != null) {
-			int[] aint = isidedinventory.getSlotsForFace(direction);
-
-			for (int k = 0; k < aint.length && !stack.isEmpty(); ++k) {
-				stack = insertStack(source, destination, stack, aint[k], direction);
-			}
-		} else {
-			int i = destination.getSizeInventory();
-
-			for (int j = 0; j < i && !stack.isEmpty(); ++j) {
-				stack = insertStack(source, destination, stack, j, direction);
-			}
-		}
-
-		return stack;
-	}
-
-	/**
-	 * Can this hopper insert the specified item from the specified slot on the specified side?
-	 */
-	private static boolean canInsertItemInSlot(IInventory inventoryIn, ItemStack stack, int index, EnumFacing side) {
-
-		if (!inventoryIn.isItemValidForSlot(index, stack)) {
-			return false;
-		} else {
-			return !(inventoryIn instanceof ISidedInventory) || ((ISidedInventory) inventoryIn).canInsertItem(index, stack, side);
-		}
-	}
-
-	/**
-	 * Can this hopper extract the specified item from the specified slot on the specified side?
-	 */
-	private static boolean canExtractItemFromSlot(IInventory inventoryIn, ItemStack stack, int index, EnumFacing side) {
-
-		return !(inventoryIn instanceof ISidedInventory) || ((ISidedInventory) inventoryIn).canExtractItem(index, stack, side);
-	}
-
-	/**
-	 * Insert the specified stack to the specified inventory and return any leftover items
-	 */
-	private static ItemStack insertStack(IInventory source, IInventory destination, ItemStack stack, int index, EnumFacing direction) {
-
-		ItemStack itemstack = destination.getStackInSlot(index);
-
-		if (canInsertItemInSlot(destination, stack, index, direction)) {
-			boolean flag = false;
-			boolean flag1 = destination.isEmpty();
-
-			if (itemstack.isEmpty()) {
-				destination.setInventorySlotContents(index, stack);
-				stack = ItemStack.EMPTY;
-				flag = true;
-			} else if (canCombine(itemstack, stack)) {
-				int i = stack.getMaxStackSize() - itemstack.getCount();
-				int j = Math.min(stack.getCount(), i);
-				stack.shrink(j);
-				itemstack.grow(j);
-				flag = j > 0;
-			}
-
-			if (flag) {
-				if (flag1 && destination instanceof TileEntityHopper tileentityhopper1) {
-
-					if (!tileentityhopper1.mayTransfer()) {
-						int k = 0;
-
-						if (source != null && source instanceof TileEntityHopper tileentityhopper) {
-
-							if (tileentityhopper1.tickedGameTime >= tileentityhopper.tickedGameTime) {
-								k = 1;
-							}
-						}
-
-						tileentityhopper1.setTransferCooldown(8 - k);
-					}
-				}
-
-				destination.markDirty();
-			}
-		}
-
-		return stack;
-	}
-
-	/**
 	 * Returns the IInventory that this hopper is pointing into
 	 */
 	private IInventory getInventoryForHopperTransfer() {
 
 		EnumFacing enumfacing = BlockHopper.getFacing(getBlockMetadata());
 		return getInventoryAtPosition(getWorld(), getXPos() + (double) enumfacing.getFrontOffsetX(), getYPos() + (double) enumfacing.getFrontOffsetY(), getZPos() + (double) enumfacing.getFrontOffsetZ());
-	}
-
-	/**
-	 * Gets the inventory that the provided hopper will transfer items from.
-	 */
-	public static IInventory getSourceInventory(IHopper hopper) {
-
-		return getInventoryAtPosition(hopper.getWorld(), hopper.getXPos(), hopper.getYPos() + 1.0D, hopper.getZPos());
-	}
-
-	public static List<EntityItem> getCaptureItems(World worldIn, double p_184292_1_, double p_184292_3_, double p_184292_5_) {
-
-		return worldIn.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(p_184292_1_ - 0.5D, p_184292_3_, p_184292_5_ - 0.5D, p_184292_1_ + 0.5D, p_184292_3_ + 1.5D, p_184292_5_ + 0.5D), EntitySelectors.IS_ALIVE);
-	}
-
-	/**
-	 * Returns the IInventory (if applicable) of the TileEntity at the specified position
-	 */
-	public static IInventory getInventoryAtPosition(World worldIn, double x, double y, double z) {
-
-		IInventory iinventory = null;
-		int i = MathHelper.floor(x);
-		int j = MathHelper.floor(y);
-		int k = MathHelper.floor(z);
-		BlockPos blockpos = new BlockPos(i, j, k);
-		Block block = worldIn.getBlockState(blockpos).getBlock();
-
-		if (block.hasTileEntity()) {
-			TileEntity tileentity = worldIn.getTileEntity(blockpos);
-
-			if (tileentity instanceof IInventory) {
-				iinventory = (IInventory) tileentity;
-
-				if (iinventory instanceof TileEntityChest && block instanceof BlockChest) {
-					iinventory = ((BlockChest) block).getContainer(worldIn, blockpos, true);
-				}
-			}
-		}
-
-		if (iinventory == null) {
-			List<Entity> list = worldIn.getEntitiesInAABBexcluding(null, new AxisAlignedBB(x - 0.5D, y - 0.5D, z - 0.5D, x + 0.5D, y + 0.5D, z + 0.5D), EntitySelectors.HAS_INVENTORY);
-
-			if (!list.isEmpty()) {
-				iinventory = (IInventory) list.get(worldIn.rand.nextInt(list.size()));
-			}
-		}
-
-		return iinventory;
-	}
-
-	private static boolean canCombine(ItemStack stack1, ItemStack stack2) {
-
-		if (stack1.getItem() != stack2.getItem()) {
-			return false;
-		} else if (stack1.getMetadata() != stack2.getMetadata()) {
-			return false;
-		} else if (stack1.getCount() > stack1.getMaxStackSize()) {
-			return false;
-		} else {
-			return ItemStack.areItemStackTagsEqual(stack1, stack2);
-		}
 	}
 
 	/**

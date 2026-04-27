@@ -50,66 +50,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 	public final NetHandlerPlayClient connection;
 	private final StatisticsManager statWriter;
 	private final RecipeBook recipeBook;
-	private int permissionLevel = 0;
-
-	/**
-	 * The last X position which was transmitted to the server, used to determine when the X position changes and needs
-	 * to be re-trasmitted
-	 */
-	private double lastReportedPosX;
-
-	/**
-	 * The last Y position which was transmitted to the server, used to determine when the Y position changes and needs
-	 * to be re-transmitted
-	 */
-	private double lastReportedPosY;
-
-	/**
-	 * The last Z position which was transmitted to the server, used to determine when the Z position changes and needs
-	 * to be re-transmitted
-	 */
-	private double lastReportedPosZ;
-
-	/**
-	 * The last yaw value which was transmitted to the server, used to determine when the yaw changes and needs to be
-	 * re-transmitted
-	 */
-	private float lastReportedYaw;
-
-	/**
-	 * The last pitch value which was transmitted to the server, used to determine when the pitch changes and needs to
-	 * be re-transmitted
-	 */
-	private float lastReportedPitch;
-	private boolean prevOnGround;
-
-	/**
-	 * the last sneaking state sent to the server
-	 */
-	private boolean serverSneakState;
-
-	/**
-	 * the last sprinting state sent to the server
-	 */
-	private boolean serverSprintState;
-
-	/**
-	 * Reset to 0 every time position is sent to the server, used to send periodic updates every 20 ticks even when the
-	 * player is not moving.
-	 */
-	private int positionUpdateTicks;
-	private boolean hasValidHealth;
-	private String serverBrand;
 	public MovementInput movementInput;
-	protected Minecraft mc;
-
-	/**
-	 * Used to tell if the player pressed forward twice. If this is at 0 and it's pressed (And they are allowed to
-	 * sprint, aka enough food on the ground etc) it sets this to 7. If it's pressed and it's greater than 0 enable
-	 * sprinting.
-	 */
-	protected int sprintToggleTimer;
-
 	/**
 	 * Ticks left before sprinting is disabled.
 	 */
@@ -118,18 +59,65 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 	public float renderArmPitch;
 	public float prevRenderArmYaw;
 	public float prevRenderArmPitch;
-	private int horseJumpPowerCounter;
-	private float horseJumpPower;
-
 	/**
 	 * The amount of time an entity has been in a Portal
 	 */
 	public float timeInPortal;
-
 	/**
 	 * The amount of time an entity has been in a Portal the previous tick
 	 */
 	public float prevTimeInPortal;
+	protected Minecraft mc;
+	/**
+	 * Used to tell if the player pressed forward twice. If this is at 0 and it's pressed (And they are allowed to
+	 * sprint, aka enough food on the ground etc) it sets this to 7. If it's pressed and it's greater than 0 enable
+	 * sprinting.
+	 */
+	protected int sprintToggleTimer;
+	private int permissionLevel = 0;
+	/**
+	 * The last X position which was transmitted to the server, used to determine when the X position changes and needs
+	 * to be re-trasmitted
+	 */
+	private double lastReportedPosX;
+	/**
+	 * The last Y position which was transmitted to the server, used to determine when the Y position changes and needs
+	 * to be re-transmitted
+	 */
+	private double lastReportedPosY;
+	/**
+	 * The last Z position which was transmitted to the server, used to determine when the Z position changes and needs
+	 * to be re-transmitted
+	 */
+	private double lastReportedPosZ;
+	/**
+	 * The last yaw value which was transmitted to the server, used to determine when the yaw changes and needs to be
+	 * re-transmitted
+	 */
+	private float lastReportedYaw;
+	/**
+	 * The last pitch value which was transmitted to the server, used to determine when the pitch changes and needs to
+	 * be re-transmitted
+	 */
+	private float lastReportedPitch;
+	private boolean prevOnGround;
+	/**
+	 * the last sneaking state sent to the server
+	 */
+	private boolean serverSneakState;
+	/**
+	 * the last sprinting state sent to the server
+	 */
+	private boolean serverSprintState;
+	/**
+	 * Reset to 0 every time position is sent to the server, used to send periodic updates every 20 ticks even when the
+	 * player is not moving.
+	 */
+	private int positionUpdateTicks;
+	private boolean hasValidHealth;
+	private String serverBrand;
+	private int horseJumpPowerCounter;
+	private float horseJumpPower;
 	private boolean handActive;
 	private EnumHand activeHand;
 	private boolean rowingBoat;
@@ -421,15 +409,6 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 	}
 
 	/**
-	 * Sets the brand of the currently connected server. Server brand information is sent over the {@code MC|Brand}
-	 * plugin channel, and is used to identify modded servers in crash reports.
-	 */
-	public void setServerBrand(String brand) {
-
-		serverBrand = brand;
-	}
-
-	/**
 	 * Gets the brand of the currently connected server. May be null if the server hasn't yet sent brand information.
 	 * Server brand information is sent over the {@code MC|Brand} plugin channel, and is used to identify modded servers
 	 * in crash reports.
@@ -437,6 +416,15 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 	public String getServerBrand() {
 
 		return serverBrand;
+	}
+
+	/**
+	 * Sets the brand of the currently connected server. Server brand information is sent over the {@code MC|Brand}
+	 * plugin channel, and is used to identify modded servers in crash reports.
+	 */
+	public void setServerBrand(String brand) {
+
+		serverBrand = brand;
 	}
 
 	public StatisticsManager getStatFileWriter() {
@@ -609,17 +597,6 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 		return true;
 	}
 
-	public void setActiveHand(EnumHand hand) {
-
-		ItemStack itemstack = getHeldItem(hand);
-
-		if (!itemstack.isEmpty() && !isHandActive()) {
-			super.setActiveHand(hand);
-			handActive = true;
-			activeHand = hand;
-		}
-	}
-
 	public boolean isHandActive() {
 
 		return handActive;
@@ -634,6 +611,17 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 	public EnumHand getActiveHand() {
 
 		return activeHand;
+	}
+
+	public void setActiveHand(EnumHand hand) {
+
+		ItemStack itemstack = getHeldItem(hand);
+
+		if (!itemstack.isEmpty() && !isHandActive()) {
+			super.setActiveHand(hand);
+			handActive = true;
+			activeHand = hand;
+		}
 	}
 
 	public void notifyDataManagerChange(DataParameter<?> key) {

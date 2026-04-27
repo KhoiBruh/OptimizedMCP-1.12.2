@@ -14,9 +14,9 @@ import net.minecraft.world.World;
 public class ParticleFootStep extends Particle {
 
 	private static final ResourceLocation FOOTPRINT_TEXTURE = new ResourceLocation("textures/particle/footprint.png");
-	private int footstepAge;
 	private final int footstepMaxAge;
 	private final TextureManager currentFootSteps;
+	private int footstepAge;
 
 	protected ParticleFootStep(TextureManager currentFootStepsIn, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn) {
 

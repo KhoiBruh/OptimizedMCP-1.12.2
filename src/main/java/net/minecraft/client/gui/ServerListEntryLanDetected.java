@@ -6,9 +6,9 @@ import net.minecraft.client.resources.I18n;
 
 public class ServerListEntryLanDetected implements GuiListExtended.IGuiListEntry {
 
-	private final GuiMultiplayer screen;
 	protected final Minecraft mc;
 	protected final LanServerInfo serverData;
+	private final GuiMultiplayer screen;
 	private long lastClickTime;
 
 	protected ServerListEntryLanDetected(GuiMultiplayer p_i47141_1_, LanServerInfo p_i47141_2_) {

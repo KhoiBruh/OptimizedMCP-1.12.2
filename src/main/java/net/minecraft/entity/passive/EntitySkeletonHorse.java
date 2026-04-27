@@ -29,6 +29,11 @@ public class EntitySkeletonHorse extends AbstractHorse {
 		super(worldIn);
 	}
 
+	public static void registerFixesSkeletonHorse(DataFixer fixer) {
+
+		AbstractHorse.registerFixesAbstractHorse(fixer, EntitySkeletonHorse.class);
+	}
+
 	protected void applyEntityAttributes() {
 
 		super.applyEntityAttributes();
@@ -88,11 +93,6 @@ public class EntitySkeletonHorse extends AbstractHorse {
 		if (isTrap() && skeletonTrapTime++ >= 18000) {
 			setDead();
 		}
-	}
-
-	public static void registerFixesSkeletonHorse(DataFixer fixer) {
-
-		AbstractHorse.registerFixesAbstractHorse(fixer, EntitySkeletonHorse.class);
 	}
 
 	/**

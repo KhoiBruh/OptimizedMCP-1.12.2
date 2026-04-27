@@ -164,14 +164,14 @@ public class GuiRecipeOverlay extends Gui {
 		}
 	}
 
-	public void setVisible(boolean p_192999_1_) {
-
-		visible = p_192999_1_;
-	}
-
 	public boolean isVisible() {
 
 		return visible;
+	}
+
+	public void setVisible(boolean p_192999_1_) {
+
+		visible = p_192999_1_;
 	}
 
 	class Button extends GuiButton {

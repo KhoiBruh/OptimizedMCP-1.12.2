@@ -187,17 +187,6 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimals {
 		}
 	}
 
-	public void setInLove(@Nullable EntityPlayer player) {
-
-		inLove = 600;
-
-		if (player != null) {
-			playerInLove = player.getUniqueID();
-		}
-
-		world.setEntityState(this, (byte) 18);
-	}
-
 	@Nullable
 	public EntityPlayerMP getLoveCause() {
 
@@ -215,6 +204,17 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimals {
 	public boolean isInLove() {
 
 		return inLove > 0;
+	}
+
+	public void setInLove(@Nullable EntityPlayer player) {
+
+		inLove = 600;
+
+		if (player != null) {
+			playerInLove = player.getUniqueID();
+		}
+
+		world.setEntityState(this, (byte) 18);
 	}
 
 	public void resetInLove() {

@@ -1,7 +1,6 @@
 package net.minecraft.block;
 
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -67,6 +66,13 @@ public class BlockRedSandstone extends Block {
 		SMOOTH(2, "smooth_red_sandstone", "smooth");
 
 		private static final BlockRedSandstone.EnumType[] META_LOOKUP = new BlockRedSandstone.EnumType[values().length];
+
+		static {
+			for (BlockRedSandstone.EnumType blockredsandstone$enumtype : values()) {
+				META_LOOKUP[blockredsandstone$enumtype.getMetadata()] = blockredsandstone$enumtype;
+			}
+		}
+
 		private final int meta;
 		private final String name;
 		private final String unlocalizedName;
@@ -76,6 +82,15 @@ public class BlockRedSandstone extends Block {
 			this.meta = meta;
 			this.name = name;
 			this.unlocalizedName = unlocalizedName;
+		}
+
+		public static BlockRedSandstone.EnumType byMetadata(int meta) {
+
+			if (meta < 0 || meta >= META_LOOKUP.length) {
+				meta = 0;
+			}
+
+			return META_LOOKUP[meta];
 		}
 
 		public int getMetadata() {
@@ -88,15 +103,6 @@ public class BlockRedSandstone extends Block {
 			return name;
 		}
 
-		public static BlockRedSandstone.EnumType byMetadata(int meta) {
-
-			if (meta < 0 || meta >= META_LOOKUP.length) {
-				meta = 0;
-			}
-
-			return META_LOOKUP[meta];
-		}
-
 		public String getName() {
 
 			return name;
@@ -105,12 +111,6 @@ public class BlockRedSandstone extends Block {
 		public String getUnlocalizedName() {
 
 			return unlocalizedName;
-		}
-
-		static {
-			for (BlockRedSandstone.EnumType blockredsandstone$enumtype : values()) {
-				META_LOOKUP[blockredsandstone$enumtype.getMetadata()] = blockredsandstone$enumtype;
-			}
 		}
 	}
 

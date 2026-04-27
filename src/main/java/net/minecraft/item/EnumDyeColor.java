@@ -23,16 +23,22 @@ public enum EnumDyeColor implements IStringSerializable {
 
 	private static final EnumDyeColor[] META_LOOKUP = new EnumDyeColor[values().length];
 	private static final EnumDyeColor[] DYE_DMG_LOOKUP = new EnumDyeColor[values().length];
+
+	static {
+		for (EnumDyeColor enumdyecolor : values()) {
+			META_LOOKUP[enumdyecolor.getMetadata()] = enumdyecolor;
+			DYE_DMG_LOOKUP[enumdyecolor.getDyeDamage()] = enumdyecolor;
+		}
+	}
+
 	private final int meta;
 	private final int dyeDamage;
 	private final String name;
 	private final String unlocalizedName;
-
 	/**
 	 * An int containing the corresponding RGB color for this dye color.
 	 */
 	private final int colorValue;
-
 	/**
 	 * An array containing 3 floats ranging from 0.0 to 1.0: the red, green, and blue components of the corresponding
 	 * color.
@@ -52,6 +58,24 @@ public enum EnumDyeColor implements IStringSerializable {
 		int j = (colorValueIn & 65280) >> 8;
 		int k = (colorValueIn & 255) >> 0;
 		colorComponentValues = new float[]{(float) i / 255.0F, (float) j / 255.0F, (float) k / 255.0F};
+	}
+
+	public static EnumDyeColor byDyeDamage(int damage) {
+
+		if (damage < 0 || damage >= DYE_DMG_LOOKUP.length) {
+			damage = 0;
+		}
+
+		return DYE_DMG_LOOKUP[damage];
+	}
+
+	public static EnumDyeColor byMetadata(int meta) {
+
+		if (meta < 0 || meta >= META_LOOKUP.length) {
+			meta = 0;
+		}
+
+		return META_LOOKUP[meta];
 	}
 
 	public int getMetadata() {
@@ -91,24 +115,6 @@ public enum EnumDyeColor implements IStringSerializable {
 		return colorComponentValues;
 	}
 
-	public static EnumDyeColor byDyeDamage(int damage) {
-
-		if (damage < 0 || damage >= DYE_DMG_LOOKUP.length) {
-			damage = 0;
-		}
-
-		return DYE_DMG_LOOKUP[damage];
-	}
-
-	public static EnumDyeColor byMetadata(int meta) {
-
-		if (meta < 0 || meta >= META_LOOKUP.length) {
-			meta = 0;
-		}
-
-		return META_LOOKUP[meta];
-	}
-
 	public String toString() {
 
 		return unlocalizedName;
@@ -117,12 +123,5 @@ public enum EnumDyeColor implements IStringSerializable {
 	public String getName() {
 
 		return name;
-	}
-
-	static {
-		for (EnumDyeColor enumdyecolor : values()) {
-			META_LOOKUP[enumdyecolor.getMetadata()] = enumdyecolor;
-			DYE_DMG_LOOKUP[enumdyecolor.getDyeDamage()] = enumdyecolor;
-		}
 	}
 }

@@ -9,19 +9,17 @@ public class NextTickListEntry implements Comparable<NextTickListEntry> {
 	 * The id number for the next tick entry
 	 */
 	private static long nextTickEntryID;
-	private final Block block;
 	public final BlockPos position;
-
+	private final Block block;
+	/**
+	 * The id of the tick entry
+	 */
+	private final long tickEntryID;
 	/**
 	 * Time this tick is scheduled to occur at
 	 */
 	public long scheduledTime;
 	public int priority;
-
-	/**
-	 * The id of the tick entry
-	 */
-	private final long tickEntryID;
 
 	public NextTickListEntry(BlockPos positionIn, Block blockIn) {
 

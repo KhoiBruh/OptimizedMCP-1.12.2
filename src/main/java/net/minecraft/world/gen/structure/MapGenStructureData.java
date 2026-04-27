@@ -12,6 +12,11 @@ public class MapGenStructureData extends WorldSavedData {
 		super(name);
 	}
 
+	public static String formatChunkCoords(int chunkX, int chunkZ) {
+
+		return "[" + chunkX + "," + chunkZ + "]";
+	}
+
 	/**
 	 * reads in data from the NBTTagCompound into this MapDataBase
 	 */
@@ -33,11 +38,6 @@ public class MapGenStructureData extends WorldSavedData {
 	public void writeInstance(NBTTagCompound tagCompoundIn, int chunkX, int chunkZ) {
 
 		tagCompound.setTag(formatChunkCoords(chunkX, chunkZ), tagCompoundIn);
-	}
-
-	public static String formatChunkCoords(int chunkX, int chunkZ) {
-
-		return "[" + chunkX + "," + chunkZ + "]";
 	}
 
 	public NBTTagCompound getTagCompound() {

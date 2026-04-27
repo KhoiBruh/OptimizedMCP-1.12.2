@@ -40,17 +40,16 @@ public class NetHandlerLoginServer implements INetHandlerLoginServer, ITickable 
 	private static final AtomicInteger AUTHENTICATOR_THREAD_ID = new AtomicInteger(0);
 	private static final Logger LOGGER = LogManager.getLogger();
 	private static final Random RANDOM = new Random();
+	public final NetworkManager networkManager;
 	private final byte[] verifyToken = new byte[4];
 	private final MinecraftServer server;
-	public final NetworkManager networkManager;
+	private final String serverId = "";
 	private NetHandlerLoginServer.LoginState currentLoginState = NetHandlerLoginServer.LoginState.HELLO;
-
 	/**
 	 * How long has player been trying to login into the server.
 	 */
 	private int connectionTimer;
 	private GameProfile loginGameProfile;
-	private final String serverId = "";
 	private SecretKey secretKey;
 	private EntityPlayerMP player;
 

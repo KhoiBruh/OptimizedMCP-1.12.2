@@ -415,6 +415,12 @@ public class EnchantmentHelper {
 		return list;
 	}
 
+	interface IModifier {
+
+		void calculateModifier(Enchantment enchantmentIn, int enchantmentLevel);
+
+	}
+
 	static final class DamageIterator implements EnchantmentHelper.IModifier {
 
 		public EntityLivingBase user;
@@ -444,12 +450,6 @@ public class EnchantmentHelper {
 
 			enchantmentIn.onUserHurt(user, attacker, enchantmentLevel);
 		}
-
-	}
-
-	interface IModifier {
-
-		void calculateModifier(Enchantment enchantmentIn, int enchantmentLevel);
 
 	}
 

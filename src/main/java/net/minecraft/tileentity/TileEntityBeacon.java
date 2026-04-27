@@ -40,11 +40,17 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
 	 */
 	public static final Potion[][] EFFECTS_LIST = new Potion[][]{{MobEffects.SPEED, MobEffects.HASTE}, {MobEffects.RESISTANCE, MobEffects.JUMP_BOOST}, {MobEffects.STRENGTH}, {MobEffects.REGENERATION}};
 	private static final Set<Potion> VALID_EFFECTS = Sets.newHashSet();
+
+	static {
+		for (Potion[] apotion : EFFECTS_LIST) {
+			Collections.addAll(VALID_EFFECTS, apotion);
+		}
+	}
+
 	private final List<TileEntityBeacon.BeamSegment> beamSegments = Lists.newArrayList();
 	private long beamRenderCounter;
 	private float beamRenderScale;
 	private boolean isComplete;
-
 	/**
 	 * Level of this beacon's pyramid.
 	 */
@@ -59,12 +65,18 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
 
 	/** Secondary potion effect given by this beacon. */
 	private Potion secondaryEffect;
-
 	/**
 	 * Item given to this beacon as payment.
 	 */
 	private ItemStack payment = ItemStack.EMPTY;
 	private String customName;
+
+	@Nullable
+	private static Potion isBeaconEffect(int p_184279_0_) {
+
+		Potion potion = Potion.getPotionById(p_184279_0_);
+		return VALID_EFFECTS.contains(potion) ? potion : null;
+	}
 
 	/**
 	 * Like the old updateEntity(), except more generic.
@@ -252,13 +264,6 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
 		return 65536.0D;
 	}
 
-	@Nullable
-	private static Potion isBeaconEffect(int p_184279_0_) {
-
-		Potion potion = Potion.getPotionById(p_184279_0_);
-		return VALID_EFFECTS.contains(potion) ? potion : null;
-	}
-
 	public void readFromNBT(NBTTagCompound compound) {
 
 		super.readFromNBT(compound);
@@ -347,17 +352,17 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
 		return hasCustomName() ? customName : "container.beacon";
 	}
 
+	public void setName(String name) {
+
+		customName = name;
+	}
+
 	/**
 	 * Returns true if this thing is named
 	 */
 	public boolean hasCustomName() {
 
 		return customName != null && !customName.isEmpty();
-	}
-
-	public void setName(String name) {
-
-		customName = name;
 	}
 
 	/**
@@ -479,12 +484,6 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
 	public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction) {
 
 		return false;
-	}
-
-	static {
-		for (Potion[] apotion : EFFECTS_LIST) {
-			Collections.addAll(VALID_EFFECTS, apotion);
-		}
 	}
 
 	public static class BeamSegment {

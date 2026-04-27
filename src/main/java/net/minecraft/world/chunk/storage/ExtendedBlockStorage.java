@@ -12,19 +12,16 @@ public class ExtendedBlockStorage {
 	 * Contains the bottom-most Y block represented by this ExtendedBlockStorage. Typically a multiple of 16.
 	 */
 	private final int yBase;
-
+	private final BlockStateContainer data;
 	/**
 	 * A total count of the number of non-air blocks in this block storage's Chunk.
 	 */
 	private int blockRefCount;
-
 	/**
 	 * Contains the number of blocks in this block storage's parent chunk that require random ticking. Used to cull the
 	 * Chunk from random tick updates for performance reasons.
 	 */
 	private int tickRefCount;
-	private final BlockStateContainer data;
-
 	/**
 	 * The NibbleArray containing a block of Block-light data.
 	 */
@@ -172,19 +169,19 @@ public class ExtendedBlockStorage {
 	}
 
 	/**
-	 * Returns the NibbleArray instance containing Sky-light data.
-	 */
-	public NibbleArray getSkyLight() {
-
-		return skyLight;
-	}
-
-	/**
 	 * Sets the NibbleArray instance used for Block-light values in this particular storage block.
 	 */
 	public void setBlockLight(NibbleArray newBlocklightArray) {
 
 		blockLight = newBlocklightArray;
+	}
+
+	/**
+	 * Returns the NibbleArray instance containing Sky-light data.
+	 */
+	public NibbleArray getSkyLight() {
+
+		return skyLight;
 	}
 
 	/**

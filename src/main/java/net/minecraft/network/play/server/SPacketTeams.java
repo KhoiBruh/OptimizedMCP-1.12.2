@@ -12,6 +12,7 @@ import java.util.Collection;
 
 public class SPacketTeams implements Packet<INetHandlerPlayClient> {
 
+	private final Collection<String> players;
 	private String name = "";
 	private String displayName = "";
 	private String prefix = "";
@@ -19,7 +20,6 @@ public class SPacketTeams implements Packet<INetHandlerPlayClient> {
 	private String nameTagVisibility;
 	private String collisionRule;
 	private int color;
-	private final Collection<String> players;
 	private int action;
 	private int friendlyFlags;
 

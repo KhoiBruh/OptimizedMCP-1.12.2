@@ -13,8 +13,8 @@ import net.minecraft.util.math.MathHelper;
 
 public class GuiSpectator extends Gui implements ISpectatorMenuRecipient {
 
-	private static final ResourceLocation WIDGETS = new ResourceLocation("textures/gui/widgets.png");
 	public static final ResourceLocation SPECTATOR_WIDGETS = new ResourceLocation("textures/gui/spectator_widgets.png");
+	private static final ResourceLocation WIDGETS = new ResourceLocation("textures/gui/widgets.png");
 	private final Minecraft mc;
 	private long lastSelectionTime;
 	private SpectatorMenu menu;

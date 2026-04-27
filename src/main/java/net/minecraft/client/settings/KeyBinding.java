@@ -16,16 +16,37 @@ public class KeyBinding implements Comparable<KeyBinding> {
 	private static final IntHashMap<KeyBinding> HASH = new IntHashMap<KeyBinding>();
 	private static final Set<String> KEYBIND_SET = Sets.newHashSet();
 	private static final Map<String, Integer> CATEGORY_ORDER = Maps.newHashMap();
+
+	static {
+		CATEGORY_ORDER.put("key.categories.movement", Integer.valueOf(1));
+		CATEGORY_ORDER.put("key.categories.gameplay", Integer.valueOf(2));
+		CATEGORY_ORDER.put("key.categories.inventory", Integer.valueOf(3));
+		CATEGORY_ORDER.put("key.categories.creative", Integer.valueOf(4));
+		CATEGORY_ORDER.put("key.categories.multiplayer", Integer.valueOf(5));
+		CATEGORY_ORDER.put("key.categories.ui", Integer.valueOf(6));
+		CATEGORY_ORDER.put("key.categories.misc", Integer.valueOf(7));
+	}
+
 	private final String keyDescription;
 	private final int keyCodeDefault;
 	private final String keyCategory;
 	private int keyCode;
-
 	/**
 	 * Is the key held down?
 	 */
 	private boolean pressed;
 	private int pressTime;
+
+	public KeyBinding(String description, int keyCode, String category) {
+
+		keyDescription = description;
+		this.keyCode = keyCode;
+		keyCodeDefault = keyCode;
+		keyCategory = category;
+		KEYBIND_ARRAY.put(description, this);
+		HASH.addKey(keyCode, this);
+		KEYBIND_SET.add(category);
+	}
 
 	public static void onTick(int keyCode) {
 
@@ -83,15 +104,16 @@ public class KeyBinding implements Comparable<KeyBinding> {
 		return KEYBIND_SET;
 	}
 
-	public KeyBinding(String description, int keyCode, String category) {
+	public static Supplier<String> getDisplayString(String key) {
 
-		keyDescription = description;
-		this.keyCode = keyCode;
-		keyCodeDefault = keyCode;
-		keyCategory = category;
-		KEYBIND_ARRAY.put(description, this);
-		HASH.addKey(keyCode, this);
-		KEYBIND_SET.add(category);
+		KeyBinding keybinding = KEYBIND_ARRAY.get(key);
+		return keybinding == null ? () ->
+		{
+			return key;
+		} : () ->
+		{
+			return GameSettings.getKeyDisplayString(keybinding.getKeyCode());
+		};
 	}
 
 	/**
@@ -150,27 +172,5 @@ public class KeyBinding implements Comparable<KeyBinding> {
 	public int compareTo(KeyBinding p_compareTo_1_) {
 
 		return keyCategory.equals(p_compareTo_1_.keyCategory) ? I18n.format(keyDescription).compareTo(I18n.format(p_compareTo_1_.keyDescription)) : CATEGORY_ORDER.get(keyCategory).compareTo(CATEGORY_ORDER.get(p_compareTo_1_.keyCategory));
-	}
-
-	public static Supplier<String> getDisplayString(String key) {
-
-		KeyBinding keybinding = KEYBIND_ARRAY.get(key);
-		return keybinding == null ? () ->
-		{
-			return key;
-		} : () ->
-		{
-			return GameSettings.getKeyDisplayString(keybinding.getKeyCode());
-		};
-	}
-
-	static {
-		CATEGORY_ORDER.put("key.categories.movement", Integer.valueOf(1));
-		CATEGORY_ORDER.put("key.categories.gameplay", Integer.valueOf(2));
-		CATEGORY_ORDER.put("key.categories.inventory", Integer.valueOf(3));
-		CATEGORY_ORDER.put("key.categories.creative", Integer.valueOf(4));
-		CATEGORY_ORDER.put("key.categories.multiplayer", Integer.valueOf(5));
-		CATEGORY_ORDER.put("key.categories.ui", Integer.valueOf(6));
-		CATEGORY_ORDER.put("key.categories.misc", Integer.valueOf(7));
 	}
 }

@@ -127,6 +127,11 @@ public class FoodStats {
 		return foodLevel;
 	}
 
+	public void setFoodLevel(int foodLevelIn) {
+
+		foodLevel = foodLevelIn;
+	}
+
 	/**
 	 * Get whether the player must eat food.
 	 */
@@ -149,11 +154,6 @@ public class FoodStats {
 	public float getSaturationLevel() {
 
 		return foodSaturationLevel;
-	}
-
-	public void setFoodLevel(int foodLevelIn) {
-
-		foodLevel = foodLevelIn;
 	}
 
 	public void setFoodSaturationLevel(float foodSaturationLevelIn) {

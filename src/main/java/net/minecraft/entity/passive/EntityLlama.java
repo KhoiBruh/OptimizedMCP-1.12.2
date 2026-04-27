@@ -1,6 +1,5 @@
 package net.minecraft.entity.passive;
 
-import com.google.common.base.Predicate;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -51,11 +50,6 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob 
 		setSize(0.9F, 1.87F);
 	}
 
-	private void setStrength(int strengthIn) {
-
-		dataManager.set(DATA_STRENGTH_ID, Integer.valueOf(Math.max(1, Math.min(5, strengthIn))));
-	}
-
 	private void setRandomStrength() {
 
 		int i = rand.nextFloat() < 0.04F ? 5 : 3;
@@ -65,6 +59,11 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob 
 	public int getStrength() {
 
 		return dataManager.get(DATA_STRENGTH_ID).intValue();
+	}
+
+	private void setStrength(int strengthIn) {
+
+		dataManager.set(DATA_STRENGTH_ID, Integer.valueOf(Math.max(1, Math.min(5, strengthIn))));
 	}
 
 	/**
@@ -358,11 +357,6 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob 
 		}
 	}
 
-	private void setColor(@Nullable EnumDyeColor color) {
-
-		dataManager.set(DATA_COLOR_ID, Integer.valueOf(color == null ? -1 : color.getMetadata()));
-	}
-
 	private void setColorByItem(ItemStack stack) {
 
 		if (isArmor(stack)) {
@@ -377,6 +371,11 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob 
 
 		int i = dataManager.get(DATA_COLOR_ID).intValue();
 		return i == -1 ? null : EnumDyeColor.byMetadata(i);
+	}
+
+	private void setColor(@Nullable EnumDyeColor color) {
+
+		dataManager.set(DATA_COLOR_ID, Integer.valueOf(color == null ? -1 : color.getMetadata()));
 	}
 
 	public int getMaxTemper() {

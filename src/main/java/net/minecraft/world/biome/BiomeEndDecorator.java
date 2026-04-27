@@ -21,6 +21,13 @@ public class BiomeEndDecorator extends BiomeDecorator {
 	private static final LoadingCache<Long, WorldGenSpikes.EndSpike[]> SPIKE_CACHE = CacheBuilder.newBuilder().expireAfterWrite(5L, TimeUnit.MINUTES).build(new BiomeEndDecorator.SpikeCacheLoader());
 	private final WorldGenSpikes spikeGen = new WorldGenSpikes();
 
+	public static WorldGenSpikes.EndSpike[] getSpikesForWorld(World p_185426_0_) {
+
+		Random random = new Random(p_185426_0_.getSeed());
+		long i = random.nextLong() & 65535L;
+		return SPIKE_CACHE.getUnchecked(Long.valueOf(i));
+	}
+
 	protected void genDecorations(Biome biomeIn, World worldIn, Random random) {
 
 		generateOres(worldIn, random);
@@ -32,13 +39,6 @@ public class BiomeEndDecorator extends BiomeDecorator {
 				spikeGen.generate(worldIn, random, new BlockPos(worldgenspikes$endspike.getCenterX(), 45, worldgenspikes$endspike.getCenterZ()));
 			}
 		}
-	}
-
-	public static WorldGenSpikes.EndSpike[] getSpikesForWorld(World p_185426_0_) {
-
-		Random random = new Random(p_185426_0_.getSeed());
-		long i = random.nextLong() & 65535L;
-		return SPIKE_CACHE.getUnchecked(Long.valueOf(i));
 	}
 
 	static class SpikeCacheLoader extends CacheLoader<Long, WorldGenSpikes.EndSpike[]> {

@@ -10,6 +10,16 @@ import net.minecraft.util.ResourceLocation;
 public class TileEntityBedRenderer extends TileEntitySpecialRenderer<TileEntityBed> {
 
 	private static final ResourceLocation[] TEXTURES;
+
+	static {
+		EnumDyeColor[] aenumdyecolor = EnumDyeColor.values();
+		TEXTURES = new ResourceLocation[aenumdyecolor.length];
+
+		for (EnumDyeColor enumdyecolor : aenumdyecolor) {
+			TEXTURES[enumdyecolor.getMetadata()] = new ResourceLocation("textures/entity/bed/" + enumdyecolor.getDyeColorName() + ".png");
+		}
+	}
+
 	private ModelBed model = new ModelBed();
 	private int version;
 
@@ -92,14 +102,5 @@ public class TileEntityBedRenderer extends TileEntitySpecialRenderer<TileEntityB
 		GlStateManager.popMatrix();
 		GlStateManager.color(1.0F, 1.0F, 1.0F, alpha);
 		GlStateManager.popMatrix();
-	}
-
-	static {
-		EnumDyeColor[] aenumdyecolor = EnumDyeColor.values();
-		TEXTURES = new ResourceLocation[aenumdyecolor.length];
-
-		for (EnumDyeColor enumdyecolor : aenumdyecolor) {
-			TEXTURES[enumdyecolor.getMetadata()] = new ResourceLocation("textures/entity/bed/" + enumdyecolor.getDyeColorName() + ".png");
-		}
 	}
 }

@@ -12,7 +12,6 @@ import java.util.UUID;
 
 public class SharedMonsterAttributes {
 
-	private static final Logger LOGGER = LogManager.getLogger();
 	public static final IAttribute MAX_HEALTH = (new RangedAttribute(null, "generic.maxHealth", 20.0D, 0.0D, 1024.0D)).setDescription("Max Health").setShouldWatch(true);
 	public static final IAttribute FOLLOW_RANGE = (new RangedAttribute(null, "generic.followRange", 32.0D, 0.0D, 2048.0D)).setDescription("Follow Range");
 	public static final IAttribute KNOCKBACK_RESISTANCE = (new RangedAttribute(null, "generic.knockbackResistance", 0.0D, 0.0D, 1.0D)).setDescription("Knockback Resistance");
@@ -23,6 +22,7 @@ public class SharedMonsterAttributes {
 	public static final IAttribute ARMOR = (new RangedAttribute(null, "generic.armor", 0.0D, 0.0D, 30.0D)).setShouldWatch(true);
 	public static final IAttribute ARMOR_TOUGHNESS = (new RangedAttribute(null, "generic.armorToughness", 0.0D, 0.0D, 20.0D)).setShouldWatch(true);
 	public static final IAttribute LUCK = (new RangedAttribute(null, "generic.luck", 0.0D, -1024.0D, 1024.0D)).setShouldWatch(true);
+	private static final Logger LOGGER = LogManager.getLogger();
 
 	/**
 	 * Creates an NBTTagList from a BaseAttributeMap, including all its AttributeInstances

@@ -28,7 +28,6 @@ import org.lwjgl.opengl.GLContext;
 import org.lwjgl.util.glu.Project;
 
 import java.io.BufferedReader;
-import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URI;
@@ -40,90 +39,75 @@ import java.util.Random;
 
 public class GuiMainMenu extends GuiScreen {
 
+	public static final String MORE_INFO_TEXT = "Please click " + TextFormatting.UNDERLINE + "here" + TextFormatting.RESET + " for more information.";
 	private static final Logger LOGGER = LogManager.getLogger();
 	private static final Random RANDOM = new Random();
-
+	private static final ResourceLocation SPLASH_TEXTS = new ResourceLocation("texts/splashes.txt");
+	private static final ResourceLocation MINECRAFT_TITLE_TEXTURES = new ResourceLocation("textures/gui/title/minecraft.png");
+	private static final ResourceLocation field_194400_H = new ResourceLocation("textures/gui/title/edition.png");
+	/**
+	 * An array of all the paths to the panorama pictures.
+	 */
+	private static final ResourceLocation[] TITLE_PANORAMA_PATHS = new ResourceLocation[]{new ResourceLocation("textures/gui/title/background/panorama_0.png"), new ResourceLocation("textures/gui/title/background/panorama_1.png"), new ResourceLocation("textures/gui/title/background/panorama_2.png"), new ResourceLocation("textures/gui/title/background/panorama_3.png"), new ResourceLocation("textures/gui/title/background/panorama_4.png"), new ResourceLocation("textures/gui/title/background/panorama_5.png")};
 	/**
 	 * A random number between 0.0 and 1.0, used to determine if the title screen says <a
 	 * href="https://minecraft.gamepedia.com/Menu_screen#Minceraft">Minceraft</a> instead of Minecraft. Set during
 	 * construction; if the value is less than .0001, then Minceraft is displayed.
 	 */
 	private final float minceraftRoll;
-
+	/**
+	 * The Object object utilized as a thread lock when performing non thread-safe operations
+	 */
+	private final Object threadLock = new Object();
 	/**
 	 * The splash message.
 	 */
 	private String splashText;
 	private GuiButton buttonResetDemo;
-
 	/**
 	 * Timer used to rotate the panorama, increases every tick.
 	 */
 	private float panoramaTimer;
-
 	/**
 	 * Texture allocated for the current viewport of the main menu's panorama background.
 	 */
 	private DynamicTexture viewportTexture;
-
-	/**
-	 * The Object object utilized as a thread lock when performing non thread-safe operations
-	 */
-	private final Object threadLock = new Object();
-	public static final String MORE_INFO_TEXT = "Please click " + TextFormatting.UNDERLINE + "here" + TextFormatting.RESET + " for more information.";
-
 	/**
 	 * Width of openGLWarning2
 	 */
 	private int openGLWarning2Width;
-
 	/**
 	 * Width of openGLWarning1
 	 */
 	private int openGLWarning1Width;
-
 	/**
 	 * Left x coordinate of the OpenGL warning
 	 */
 	private int openGLWarningX1;
-
 	/**
 	 * Top y coordinate of the OpenGL warning
 	 */
 	private int openGLWarningY1;
-
 	/**
 	 * Right x coordinate of the OpenGL warning
 	 */
 	private int openGLWarningX2;
-
 	/**
 	 * Bottom y coordinate of the OpenGL warning
 	 */
 	private int openGLWarningY2;
-
 	/**
 	 * OpenGL graphics card warning.
 	 */
 	private String openGLWarning1;
-
 	/**
 	 * OpenGL graphics card warning.
 	 */
 	private String openGLWarning2;
-
 	/**
 	 * Link to the Mojang Support about minimum requirements
 	 */
 	private String openGLWarningLink;
-	private static final ResourceLocation SPLASH_TEXTS = new ResourceLocation("texts/splashes.txt");
-	private static final ResourceLocation MINECRAFT_TITLE_TEXTURES = new ResourceLocation("textures/gui/title/minecraft.png");
-	private static final ResourceLocation field_194400_H = new ResourceLocation("textures/gui/title/edition.png");
-
-	/**
-	 * An array of all the paths to the panorama pictures.
-	 */
-	private static final ResourceLocation[] TITLE_PANORAMA_PATHS = new ResourceLocation[]{new ResourceLocation("textures/gui/title/background/panorama_0.png"), new ResourceLocation("textures/gui/title/background/panorama_1.png"), new ResourceLocation("textures/gui/title/background/panorama_2.png"), new ResourceLocation("textures/gui/title/background/panorama_3.png"), new ResourceLocation("textures/gui/title/background/panorama_4.png"), new ResourceLocation("textures/gui/title/background/panorama_5.png")};
 	private ResourceLocation backgroundTexture;
 
 	/**

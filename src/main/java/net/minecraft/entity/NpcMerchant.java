@@ -23,12 +23,11 @@ public class NpcMerchant implements IMerchant {
 	 * This merchant's current player customer.
 	 */
 	private final EntityPlayer customer;
-
+	private final ITextComponent name;
 	/**
 	 * The MerchantRecipeList instance.
 	 */
 	private MerchantRecipeList recipeList;
-	private final ITextComponent name;
 
 	public NpcMerchant(EntityPlayer customerIn, ITextComponent nameIn) {
 
@@ -76,7 +75,7 @@ public class NpcMerchant implements IMerchant {
 	 */
 	public ITextComponent getDisplayName() {
 
-		return name != null ? name : new TextComponentTranslation("entity.Villager.name", new Object[0]);
+		return name != null ? name : new TextComponentTranslation("entity.Villager.name");
 	}
 
 	public World getWorld() {

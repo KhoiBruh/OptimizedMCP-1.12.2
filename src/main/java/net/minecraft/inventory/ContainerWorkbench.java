@@ -9,18 +9,17 @@ import net.minecraft.world.World;
 
 public class ContainerWorkbench extends Container {
 
-	/**
-	 * The crafting matrix inventory (3x3).
-	 */
-	public InventoryCrafting craftMatrix = new InventoryCrafting(this, 3, 3);
-	public InventoryCraftResult craftResult = new InventoryCraftResult();
 	private final World world;
-
 	/**
 	 * Position of the workbench
 	 */
 	private final BlockPos pos;
 	private final EntityPlayer player;
+	/**
+	 * The crafting matrix inventory (3x3).
+	 */
+	public InventoryCrafting craftMatrix = new InventoryCrafting(this, 3, 3);
+	public InventoryCraftResult craftResult = new InventoryCraftResult();
 
 	public ContainerWorkbench(InventoryPlayer playerInventory, World worldIn, BlockPos posIn) {
 

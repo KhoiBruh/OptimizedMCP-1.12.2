@@ -21,6 +21,17 @@ public enum EntityEquipmentSlot {
 		name = nameIn;
 	}
 
+	public static EntityEquipmentSlot fromString(String targetName) {
+
+		for (EntityEquipmentSlot entityequipmentslot : values()) {
+			if (entityequipmentslot.getName().equals(targetName)) {
+				return entityequipmentslot;
+			}
+		}
+
+		throw new IllegalArgumentException("Invalid slot '" + targetName + "'");
+	}
+
 	public EntityEquipmentSlot.Type getSlotType() {
 
 		return slotType;
@@ -42,17 +53,6 @@ public enum EntityEquipmentSlot {
 	public String getName() {
 
 		return name;
-	}
-
-	public static EntityEquipmentSlot fromString(String targetName) {
-
-		for (EntityEquipmentSlot entityequipmentslot : values()) {
-			if (entityequipmentslot.getName().equals(targetName)) {
-				return entityequipmentslot;
-			}
-		}
-
-		throw new IllegalArgumentException("Invalid slot '" + targetName + "'");
 	}
 
 	public enum Type {

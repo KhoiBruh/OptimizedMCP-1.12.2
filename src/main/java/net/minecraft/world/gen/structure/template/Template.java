@@ -48,19 +48,156 @@ public class Template {
 	 */
 	private String author = "?";
 
+	public static BlockPos transformedBlockPos(PlacementSettings placementIn, BlockPos pos) {
+
+		return transformedBlockPos(pos, placementIn.getMirror(), placementIn.getRotation());
+	}
+
+	private static BlockPos transformedBlockPos(BlockPos pos, Mirror mirrorIn, Rotation rotationIn) {
+
+		int i = pos.getX();
+		int j = pos.getY();
+		int k = pos.getZ();
+		boolean flag = true;
+
+		switch (mirrorIn) {
+			case LEFT_RIGHT:
+				k = -k;
+				break;
+
+			case FRONT_BACK:
+				i = -i;
+				break;
+
+			default:
+				flag = false;
+		}
+
+		switch (rotationIn) {
+			case COUNTERCLOCKWISE_90:
+				return new BlockPos(k, j, -i);
+
+			case CLOCKWISE_90:
+				return new BlockPos(-k, j, i);
+
+			case CLOCKWISE_180:
+				return new BlockPos(-i, j, -k);
+
+			default:
+				return flag ? new BlockPos(i, j, k) : pos;
+		}
+	}
+
+	private static Vec3d transformedVec3d(Vec3d vec, Mirror mirrorIn, Rotation rotationIn) {
+
+		double d0 = vec.x();
+		double d1 = vec.y();
+		double d2 = vec.z();
+		boolean flag = true;
+
+		switch (mirrorIn) {
+			case LEFT_RIGHT:
+				d2 = 1.0D - d2;
+				break;
+
+			case FRONT_BACK:
+				d0 = 1.0D - d0;
+				break;
+
+			default:
+				flag = false;
+		}
+
+		switch (rotationIn) {
+			case COUNTERCLOCKWISE_90:
+				return new Vec3d(d2, d1, 1.0D - d0);
+
+			case CLOCKWISE_90:
+				return new Vec3d(1.0D - d2, d1, d0);
+
+			case CLOCKWISE_180:
+				return new Vec3d(1.0D - d0, d1, 1.0D - d2);
+
+			default:
+				return flag ? new Vec3d(d0, d1, d2) : vec;
+		}
+	}
+
+	public static BlockPos getZeroPositionWithTransform(BlockPos p_191157_0_, Mirror p_191157_1_, Rotation p_191157_2_, int p_191157_3_, int p_191157_4_) {
+
+		--p_191157_3_;
+		--p_191157_4_;
+		int i = p_191157_1_ == Mirror.FRONT_BACK ? p_191157_3_ : 0;
+		int j = p_191157_1_ == Mirror.LEFT_RIGHT ? p_191157_4_ : 0;
+		BlockPos blockpos = p_191157_0_;
+
+		switch (p_191157_2_) {
+			case COUNTERCLOCKWISE_90:
+				blockpos = p_191157_0_.add(j, 0, p_191157_3_ - i);
+				break;
+
+			case CLOCKWISE_90:
+				blockpos = p_191157_0_.add(p_191157_4_ - j, 0, i);
+				break;
+
+			case CLOCKWISE_180:
+				blockpos = p_191157_0_.add(p_191157_3_ - i, 0, p_191157_4_ - j);
+				break;
+
+			case NONE:
+				blockpos = p_191157_0_.add(i, 0, j);
+		}
+
+		return blockpos;
+	}
+
+	public static void registerFixes(DataFixer fixer) {
+
+		fixer.registerWalker(FixTypes.STRUCTURE, new IDataWalker() {
+			public NBTTagCompound process(IDataFixer fixer, NBTTagCompound compound, int versionIn) {
+
+				if (compound.hasKey("entities", 9)) {
+					NBTTagList nbttaglist = compound.getTagList("entities", 10);
+
+					for (int i = 0; i < nbttaglist.tagCount(); ++i) {
+						NBTTagCompound nbttagcompound = (NBTTagCompound) nbttaglist.get(i);
+
+						if (nbttagcompound.hasKey("nbt", 10)) {
+							nbttagcompound.setTag("nbt", fixer.process(FixTypes.ENTITY, nbttagcompound.getCompoundTag("nbt"), versionIn));
+						}
+					}
+				}
+
+				if (compound.hasKey("blocks", 9)) {
+					NBTTagList nbttaglist1 = compound.getTagList("blocks", 10);
+
+					for (int j = 0; j < nbttaglist1.tagCount(); ++j) {
+						NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist1.get(j);
+
+						if (nbttagcompound1.hasKey("nbt", 10)) {
+							nbttagcompound1.setTag("nbt", fixer.process(FixTypes.BLOCK_ENTITY, nbttagcompound1.getCompoundTag("nbt"), versionIn));
+						}
+					}
+				}
+
+				return compound;
+			}
+		});
+	}
+
 	public BlockPos getSize() {
 
 		return size;
 	}
 
-	public void setAuthor(String authorIn) {
-
-		author = authorIn;
-	}
-
 	public String getAuthor() {
 
 		return author;
+	}
+
+	public void setAuthor(String authorIn) {
+
+		author = authorIn;
 	}
 
 	/**
@@ -169,11 +306,6 @@ public class Template {
 		BlockPos blockpos = transformedBlockPos(placementIn, p_186262_2_);
 		BlockPos blockpos1 = transformedBlockPos(p_186262_3_, p_186262_4_);
 		return blockpos.subtract(blockpos1);
-	}
-
-	public static BlockPos transformedBlockPos(PlacementSettings placementIn, BlockPos pos) {
-
-		return transformedBlockPos(pos, placementIn.getMirror(), placementIn.getRotation());
 	}
 
 	/**
@@ -338,141 +470,9 @@ public class Template {
 		}
 	}
 
-	private static BlockPos transformedBlockPos(BlockPos pos, Mirror mirrorIn, Rotation rotationIn) {
-
-		int i = pos.getX();
-		int j = pos.getY();
-		int k = pos.getZ();
-		boolean flag = true;
-
-		switch (mirrorIn) {
-			case LEFT_RIGHT:
-				k = -k;
-				break;
-
-			case FRONT_BACK:
-				i = -i;
-				break;
-
-			default:
-				flag = false;
-		}
-
-		switch (rotationIn) {
-			case COUNTERCLOCKWISE_90:
-				return new BlockPos(k, j, -i);
-
-			case CLOCKWISE_90:
-				return new BlockPos(-k, j, i);
-
-			case CLOCKWISE_180:
-				return new BlockPos(-i, j, -k);
-
-			default:
-				return flag ? new BlockPos(i, j, k) : pos;
-		}
-	}
-
-	private static Vec3d transformedVec3d(Vec3d vec, Mirror mirrorIn, Rotation rotationIn) {
-
-		double d0 = vec.x();
-		double d1 = vec.y();
-		double d2 = vec.z();
-		boolean flag = true;
-
-		switch (mirrorIn) {
-			case LEFT_RIGHT:
-				d2 = 1.0D - d2;
-				break;
-
-			case FRONT_BACK:
-				d0 = 1.0D - d0;
-				break;
-
-			default:
-				flag = false;
-		}
-
-		switch (rotationIn) {
-			case COUNTERCLOCKWISE_90:
-				return new Vec3d(d2, d1, 1.0D - d0);
-
-			case CLOCKWISE_90:
-				return new Vec3d(1.0D - d2, d1, d0);
-
-			case CLOCKWISE_180:
-				return new Vec3d(1.0D - d0, d1, 1.0D - d2);
-
-			default:
-				return flag ? new Vec3d(d0, d1, d2) : vec;
-		}
-	}
-
 	public BlockPos getZeroPositionWithTransform(BlockPos p_189961_1_, Mirror p_189961_2_, Rotation p_189961_3_) {
 
 		return getZeroPositionWithTransform(p_189961_1_, p_189961_2_, p_189961_3_, getSize().getX(), getSize().getZ());
-	}
-
-	public static BlockPos getZeroPositionWithTransform(BlockPos p_191157_0_, Mirror p_191157_1_, Rotation p_191157_2_, int p_191157_3_, int p_191157_4_) {
-
-		--p_191157_3_;
-		--p_191157_4_;
-		int i = p_191157_1_ == Mirror.FRONT_BACK ? p_191157_3_ : 0;
-		int j = p_191157_1_ == Mirror.LEFT_RIGHT ? p_191157_4_ : 0;
-		BlockPos blockpos = p_191157_0_;
-
-		switch (p_191157_2_) {
-			case COUNTERCLOCKWISE_90:
-				blockpos = p_191157_0_.add(j, 0, p_191157_3_ - i);
-				break;
-
-			case CLOCKWISE_90:
-				blockpos = p_191157_0_.add(p_191157_4_ - j, 0, i);
-				break;
-
-			case CLOCKWISE_180:
-				blockpos = p_191157_0_.add(p_191157_3_ - i, 0, p_191157_4_ - j);
-				break;
-
-			case NONE:
-				blockpos = p_191157_0_.add(i, 0, j);
-		}
-
-		return blockpos;
-	}
-
-	public static void registerFixes(DataFixer fixer) {
-
-		fixer.registerWalker(FixTypes.STRUCTURE, new IDataWalker() {
-			public NBTTagCompound process(IDataFixer fixer, NBTTagCompound compound, int versionIn) {
-
-				if (compound.hasKey("entities", 9)) {
-					NBTTagList nbttaglist = compound.getTagList("entities", 10);
-
-					for (int i = 0; i < nbttaglist.tagCount(); ++i) {
-						NBTTagCompound nbttagcompound = (NBTTagCompound) nbttaglist.get(i);
-
-						if (nbttagcompound.hasKey("nbt", 10)) {
-							nbttagcompound.setTag("nbt", fixer.process(FixTypes.ENTITY, nbttagcompound.getCompoundTag("nbt"), versionIn));
-						}
-					}
-				}
-
-				if (compound.hasKey("blocks", 9)) {
-					NBTTagList nbttaglist1 = compound.getTagList("blocks", 10);
-
-					for (int j = 0; j < nbttaglist1.tagCount(); ++j) {
-						NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist1.get(j);
-
-						if (nbttagcompound1.hasKey("nbt", 10)) {
-							nbttagcompound1.setTag("nbt", fixer.process(FixTypes.BLOCK_ENTITY, nbttagcompound1.getCompoundTag("nbt"), versionIn));
-						}
-					}
-				}
-
-				return compound;
-			}
-		});
 	}
 
 	public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
@@ -633,19 +633,19 @@ public class Template {
 
 	}
 
-    public record BlockInfo(BlockPos pos, IBlockState blockState, NBTTagCompound tileentityData) {
+	public record BlockInfo(BlockPos pos, IBlockState blockState, NBTTagCompound tileentityData) {
 
-        public BlockInfo(BlockPos pos, IBlockState blockState, @Nullable NBTTagCompound tileentityData) {
+		public BlockInfo(BlockPos pos, IBlockState blockState, @Nullable NBTTagCompound tileentityData) {
 
-            this.pos = pos;
-            this.blockState = blockState;
-            this.tileentityData = tileentityData;
-        }
+			this.pos = pos;
+			this.blockState = blockState;
+			this.tileentityData = tileentityData;
+		}
 
-    }
+	}
 
-    public record EntityInfo(Vec3d pos, BlockPos blockPos, NBTTagCompound entityData) {
+	public record EntityInfo(Vec3d pos, BlockPos blockPos, NBTTagCompound entityData) {
 
-    }
+	}
 
 }

@@ -67,6 +67,11 @@ public class EntityZombie extends EntityMob {
 		setSize(0.6F, 1.95F);
 	}
 
+	public static void registerFixesZombie(DataFixer fixer) {
+
+		EntityLiving.registerFixesMob(fixer, EntityZombie.class);
+	}
+
 	protected void initEntityAI() {
 
 		tasks.addTask(0, new EntityAISwimming(this));
@@ -105,14 +110,14 @@ public class EntityZombie extends EntityMob {
 		getDataManager().register(ARMS_RAISED, Boolean.valueOf(false));
 	}
 
-	public void setArmsRaised(boolean armsRaised) {
-
-		getDataManager().set(ARMS_RAISED, Boolean.valueOf(armsRaised));
-	}
-
 	public boolean isArmsRaised() {
 
 		return getDataManager().get(ARMS_RAISED).booleanValue();
+	}
+
+	public void setArmsRaised(boolean armsRaised) {
+
+		getDataManager().set(ARMS_RAISED, Boolean.valueOf(armsRaised));
 	}
 
 	public boolean isBreakDoorsTaskSet() {
@@ -146,18 +151,6 @@ public class EntityZombie extends EntityMob {
 	}
 
 	/**
-	 * Get the experience points the entity currently has.
-	 */
-	protected int getExperiencePoints(EntityPlayer player) {
-
-		if (isChild()) {
-			experienceValue = (int) ((float) experienceValue * 2.5F);
-		}
-
-		return super.getExperiencePoints(player);
-	}
-
-	/**
 	 * Set whether this zombie is a child.
 	 */
 	public void setChild(boolean childZombie) {
@@ -174,6 +167,18 @@ public class EntityZombie extends EntityMob {
 		}
 
 		setChildSize(childZombie);
+	}
+
+	/**
+	 * Get the experience points the entity currently has.
+	 */
+	protected int getExperiencePoints(EntityPlayer player) {
+
+		if (isChild()) {
+			experienceValue = (int) ((float) experienceValue * 2.5F);
+		}
+
+		return super.getExperiencePoints(player);
 	}
 
 	public void notifyDataManagerChange(DataParameter<?> key) {
@@ -339,11 +344,6 @@ public class EntityZombie extends EntityMob {
 				setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SHOVEL));
 			}
 		}
-	}
-
-	public static void registerFixesZombie(DataFixer fixer) {
-
-		EntityLiving.registerFixesMob(fixer, EntityZombie.class);
 	}
 
 	/**

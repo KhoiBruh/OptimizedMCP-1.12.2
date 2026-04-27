@@ -28,6 +28,107 @@ public final class WorldEntitySpawner {
 	private static final int MOB_COUNT_DIV = (int) Math.pow(17.0D, 2.0D);
 	private final Set<ChunkPos> eligibleChunksForSpawning = Sets.newHashSet();
 
+	private static BlockPos getRandomChunkPosition(World worldIn, int x, int z) {
+
+		Chunk chunk = worldIn.getChunkFromChunkCoords(x, z);
+		int i = x * 16 + worldIn.rand.nextInt(16);
+		int j = z * 16 + worldIn.rand.nextInt(16);
+		int k = MathHelper.roundUp(chunk.getHeight(new BlockPos(i, 0, j)) + 1, 16);
+		int l = worldIn.rand.nextInt(k > 0 ? k : chunk.getTopFilledSegment() + 16 - 1);
+		return new BlockPos(i, l, j);
+	}
+
+	public static boolean isValidEmptySpawnBlock(IBlockState state) {
+
+		if (state.isBlockNormalCube()) {
+			return false;
+		} else if (state.canProvidePower()) {
+			return false;
+		} else if (state.getMaterial().isLiquid()) {
+			return false;
+		} else {
+			return !BlockRailBase.isRailBlock(state);
+		}
+	}
+
+	public static boolean canCreatureTypeSpawnAtLocation(EntityLiving.SpawnPlacementType spawnPlacementTypeIn, World worldIn, BlockPos pos) {
+
+		if (!worldIn.getWorldBorder().contains(pos)) {
+			return false;
+		} else {
+			IBlockState iblockstate = worldIn.getBlockState(pos);
+
+			if (spawnPlacementTypeIn == EntityLiving.SpawnPlacementType.IN_WATER) {
+				return iblockstate.getMaterial() == Material.WATER && worldIn.getBlockState(pos.down()).getMaterial() == Material.WATER && !worldIn.getBlockState(pos.up()).isNormalCube();
+			} else {
+				BlockPos blockpos = pos.down();
+
+				if (!worldIn.getBlockState(blockpos).isTopSolid()) {
+					return false;
+				} else {
+					Block block = worldIn.getBlockState(blockpos).getBlock();
+					boolean flag = block != Blocks.BEDROCK && block != Blocks.BARRIER;
+					return flag && isValidEmptySpawnBlock(iblockstate) && isValidEmptySpawnBlock(worldIn.getBlockState(pos.up()));
+				}
+			}
+		}
+	}
+
+	/**
+	 * Called during chunk generation to spawn initial creatures.
+	 *
+	 * @param centerX   The X coordinate of the point to spawn mobs arround.
+	 * @param centerZ   The Z coordinate of the point to spawn mobs arround.
+	 * @param diameterX The X diameter of the rectangle to spawn mobs in
+	 * @param diameterZ The Z diameter of the rectangle to spawn mobs in
+	 */
+	public static void performWorldGenSpawning(World worldIn, Biome biomeIn, int centerX, int centerZ, int diameterX, int diameterZ, Random randomIn) {
+
+		List<Biome.SpawnListEntry> list = biomeIn.getSpawnableList(EnumCreatureType.CREATURE);
+
+		if (!list.isEmpty()) {
+			while (randomIn.nextFloat() < biomeIn.getSpawningChance()) {
+				Biome.SpawnListEntry biome$spawnlistentry = WeightedRandom.getRandomItem(worldIn.rand, list);
+				int i = biome$spawnlistentry.minGroupCount + randomIn.nextInt(1 + biome$spawnlistentry.maxGroupCount - biome$spawnlistentry.minGroupCount);
+				IEntityLivingData ientitylivingdata = null;
+				int j = centerX + randomIn.nextInt(diameterX);
+				int k = centerZ + randomIn.nextInt(diameterZ);
+				int l = j;
+				int i1 = k;
+
+				for (int j1 = 0; j1 < i; ++j1) {
+					boolean flag = false;
+
+					for (int k1 = 0; !flag && k1 < 4; ++k1) {
+						BlockPos blockpos = worldIn.getTopSolidOrLiquidBlock(new BlockPos(j, 0, k));
+
+						if (canCreatureTypeSpawnAtLocation(EntityLiving.SpawnPlacementType.ON_GROUND, worldIn, blockpos)) {
+							EntityLiving entityliving;
+
+							try {
+								entityliving = biome$spawnlistentry.entityClass.getConstructor(World.class).newInstance(worldIn);
+							} catch (Exception exception) {
+								exception.printStackTrace();
+								continue;
+							}
+
+							entityliving.setLocationAndAngles((float) j + 0.5F, blockpos.getY(), (float) k + 0.5F, randomIn.nextFloat() * 360.0F, 0.0F);
+							worldIn.spawnEntity(entityliving);
+							ientitylivingdata = entityliving.onInitialSpawn(worldIn.getDifficultyForLocation(new BlockPos(entityliving)), ientitylivingdata);
+							flag = true;
+						}
+
+						j += randomIn.nextInt(5) - randomIn.nextInt(5);
+
+						for (k += randomIn.nextInt(5) - randomIn.nextInt(5); j < centerX || j >= centerX + diameterX || k < centerZ || k >= centerZ + diameterX; k = i1 + randomIn.nextInt(5) - randomIn.nextInt(5)) {
+							j = l + randomIn.nextInt(5) - randomIn.nextInt(5);
+						}
+					}
+				}
+			}
+		}
+	}
+
 	/**
 	 * adds all chunks within the spawn radius of the players to eligibleChunksForSpawning. pars: the world,
 	 * hostileCreatures, passiveCreatures. returns number of eligible chunks.
@@ -154,107 +255,6 @@ public final class WorldEntitySpawner {
 			}
 
 			return j4;
-		}
-	}
-
-	private static BlockPos getRandomChunkPosition(World worldIn, int x, int z) {
-
-		Chunk chunk = worldIn.getChunkFromChunkCoords(x, z);
-		int i = x * 16 + worldIn.rand.nextInt(16);
-		int j = z * 16 + worldIn.rand.nextInt(16);
-		int k = MathHelper.roundUp(chunk.getHeight(new BlockPos(i, 0, j)) + 1, 16);
-		int l = worldIn.rand.nextInt(k > 0 ? k : chunk.getTopFilledSegment() + 16 - 1);
-		return new BlockPos(i, l, j);
-	}
-
-	public static boolean isValidEmptySpawnBlock(IBlockState state) {
-
-		if (state.isBlockNormalCube()) {
-			return false;
-		} else if (state.canProvidePower()) {
-			return false;
-		} else if (state.getMaterial().isLiquid()) {
-			return false;
-		} else {
-			return !BlockRailBase.isRailBlock(state);
-		}
-	}
-
-	public static boolean canCreatureTypeSpawnAtLocation(EntityLiving.SpawnPlacementType spawnPlacementTypeIn, World worldIn, BlockPos pos) {
-
-		if (!worldIn.getWorldBorder().contains(pos)) {
-			return false;
-		} else {
-			IBlockState iblockstate = worldIn.getBlockState(pos);
-
-			if (spawnPlacementTypeIn == EntityLiving.SpawnPlacementType.IN_WATER) {
-				return iblockstate.getMaterial() == Material.WATER && worldIn.getBlockState(pos.down()).getMaterial() == Material.WATER && !worldIn.getBlockState(pos.up()).isNormalCube();
-			} else {
-				BlockPos blockpos = pos.down();
-
-				if (!worldIn.getBlockState(blockpos).isTopSolid()) {
-					return false;
-				} else {
-					Block block = worldIn.getBlockState(blockpos).getBlock();
-					boolean flag = block != Blocks.BEDROCK && block != Blocks.BARRIER;
-					return flag && isValidEmptySpawnBlock(iblockstate) && isValidEmptySpawnBlock(worldIn.getBlockState(pos.up()));
-				}
-			}
-		}
-	}
-
-	/**
-	 * Called during chunk generation to spawn initial creatures.
-	 *
-	 * @param centerX   The X coordinate of the point to spawn mobs arround.
-	 * @param centerZ   The Z coordinate of the point to spawn mobs arround.
-	 * @param diameterX The X diameter of the rectangle to spawn mobs in
-	 * @param diameterZ The Z diameter of the rectangle to spawn mobs in
-	 */
-	public static void performWorldGenSpawning(World worldIn, Biome biomeIn, int centerX, int centerZ, int diameterX, int diameterZ, Random randomIn) {
-
-		List<Biome.SpawnListEntry> list = biomeIn.getSpawnableList(EnumCreatureType.CREATURE);
-
-		if (!list.isEmpty()) {
-			while (randomIn.nextFloat() < biomeIn.getSpawningChance()) {
-				Biome.SpawnListEntry biome$spawnlistentry = WeightedRandom.getRandomItem(worldIn.rand, list);
-				int i = biome$spawnlistentry.minGroupCount + randomIn.nextInt(1 + biome$spawnlistentry.maxGroupCount - biome$spawnlistentry.minGroupCount);
-				IEntityLivingData ientitylivingdata = null;
-				int j = centerX + randomIn.nextInt(diameterX);
-				int k = centerZ + randomIn.nextInt(diameterZ);
-				int l = j;
-				int i1 = k;
-
-				for (int j1 = 0; j1 < i; ++j1) {
-					boolean flag = false;
-
-					for (int k1 = 0; !flag && k1 < 4; ++k1) {
-						BlockPos blockpos = worldIn.getTopSolidOrLiquidBlock(new BlockPos(j, 0, k));
-
-						if (canCreatureTypeSpawnAtLocation(EntityLiving.SpawnPlacementType.ON_GROUND, worldIn, blockpos)) {
-							EntityLiving entityliving;
-
-							try {
-								entityliving = biome$spawnlistentry.entityClass.getConstructor(World.class).newInstance(worldIn);
-							} catch (Exception exception) {
-								exception.printStackTrace();
-								continue;
-							}
-
-							entityliving.setLocationAndAngles((float) j + 0.5F, blockpos.getY(), (float) k + 0.5F, randomIn.nextFloat() * 360.0F, 0.0F);
-							worldIn.spawnEntity(entityliving);
-							ientitylivingdata = entityliving.onInitialSpawn(worldIn.getDifficultyForLocation(new BlockPos(entityliving)), ientitylivingdata);
-							flag = true;
-						}
-
-						j += randomIn.nextInt(5) - randomIn.nextInt(5);
-
-						for (k += randomIn.nextInt(5) - randomIn.nextInt(5); j < centerX || j >= centerX + diameterX || k < centerZ || k >= centerZ + diameterX; k = i1 + randomIn.nextInt(5) - randomIn.nextInt(5)) {
-							j = l + randomIn.nextInt(5) - randomIn.nextInt(5);
-						}
-					}
-				}
-			}
 		}
 	}
 

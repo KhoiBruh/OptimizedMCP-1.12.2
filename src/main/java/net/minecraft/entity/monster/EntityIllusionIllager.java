@@ -29,8 +29,8 @@ import javax.annotation.Nullable;
 
 public class EntityIllusionIllager extends EntitySpellcasterIllager implements IRangedAttackMob {
 
-	private int ghostTime;
 	private final Vec3d[][] renderLocations;
+	private int ghostTime;
 
 	public EntityIllusionIllager(World worldIn) {
 

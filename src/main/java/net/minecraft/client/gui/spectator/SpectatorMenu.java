@@ -14,10 +14,6 @@ import java.util.List;
 
 public class SpectatorMenu {
 
-	private static final ISpectatorMenuObject CLOSE_ITEM = new SpectatorMenu.EndSpectatorObject();
-	private static final ISpectatorMenuObject SCROLL_LEFT = new SpectatorMenu.MoveMenuObject(-1, true);
-	private static final ISpectatorMenuObject SCROLL_RIGHT_ENABLED = new SpectatorMenu.MoveMenuObject(1, true);
-	private static final ISpectatorMenuObject SCROLL_RIGHT_DISABLED = new SpectatorMenu.MoveMenuObject(1, false);
 	public static final ISpectatorMenuObject EMPTY_SLOT = new ISpectatorMenuObject() {
 		public void selectItem(SpectatorMenu menu) {
 
@@ -37,6 +33,10 @@ public class SpectatorMenu {
 			return false;
 		}
 	};
+	private static final ISpectatorMenuObject CLOSE_ITEM = new SpectatorMenu.EndSpectatorObject();
+	private static final ISpectatorMenuObject SCROLL_LEFT = new SpectatorMenu.MoveMenuObject(-1, true);
+	private static final ISpectatorMenuObject SCROLL_RIGHT_ENABLED = new SpectatorMenu.MoveMenuObject(1, true);
+	private static final ISpectatorMenuObject SCROLL_RIGHT_DISABLED = new SpectatorMenu.MoveMenuObject(1, false);
 	private final ISpectatorMenuRecipient listener;
 	private final List<SpectatorDetails> previousCategories = Lists.newArrayList();
 	private ISpectatorMenuView category = new BaseSpectatorGroup();

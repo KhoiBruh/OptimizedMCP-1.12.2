@@ -61,15 +61,15 @@ public abstract class EntitySpellcasterIllager extends AbstractIllager {
 		}
 	}
 
+	protected EntitySpellcasterIllager.SpellType getSpellType() {
+
+		return !world.isRemote ? activeSpell : EntitySpellcasterIllager.SpellType.getFromId(dataManager.get(SPELL).byteValue());
+	}
+
 	public void setSpellType(EntitySpellcasterIllager.SpellType spellType) {
 
 		activeSpell = spellType;
 		dataManager.set(SPELL, Byte.valueOf((byte) spellType.id));
-	}
-
-	protected EntitySpellcasterIllager.SpellType getSpellType() {
-
-		return !world.isRemote ? activeSpell : EntitySpellcasterIllager.SpellType.getFromId(dataManager.get(SPELL).byteValue());
 	}
 
 	protected void updateAITasks() {
@@ -107,6 +107,35 @@ public abstract class EntitySpellcasterIllager extends AbstractIllager {
 	}
 
 	protected abstract SoundEvent getSpellSound();
+
+	public enum SpellType {
+		NONE(0, 0.0D, 0.0D, 0.0D),
+		SUMMON_VEX(1, 0.7D, 0.7D, 0.8D),
+		FANGS(2, 0.4D, 0.3D, 0.35D),
+		WOLOLO(3, 0.7D, 0.5D, 0.2D),
+		DISAPPEAR(4, 0.3D, 0.3D, 0.8D),
+		BLINDNESS(5, 0.1D, 0.1D, 0.2D);
+
+		private final int id;
+		private final double[] particleSpeed;
+
+		SpellType(int idIn, double xParticleSpeed, double yParticleSpeed, double zParticleSpeed) {
+
+			id = idIn;
+			particleSpeed = new double[]{xParticleSpeed, yParticleSpeed, zParticleSpeed};
+		}
+
+		public static EntitySpellcasterIllager.SpellType getFromId(int idIn) {
+
+			for (EntitySpellcasterIllager.SpellType entityspellcasterillager$spelltype : values()) {
+				if (idIn == entityspellcasterillager$spelltype.id) {
+					return entityspellcasterillager$spelltype;
+				}
+			}
+
+			return NONE;
+		}
+	}
 
 	public class AICastingApell extends EntityAIBase {
 
@@ -202,35 +231,6 @@ public abstract class EntitySpellcasterIllager extends AbstractIllager {
 
 		protected abstract EntitySpellcasterIllager.SpellType getSpellType();
 
-	}
-
-	public enum SpellType {
-		NONE(0, 0.0D, 0.0D, 0.0D),
-		SUMMON_VEX(1, 0.7D, 0.7D, 0.8D),
-		FANGS(2, 0.4D, 0.3D, 0.35D),
-		WOLOLO(3, 0.7D, 0.5D, 0.2D),
-		DISAPPEAR(4, 0.3D, 0.3D, 0.8D),
-		BLINDNESS(5, 0.1D, 0.1D, 0.2D);
-
-		private final int id;
-		private final double[] particleSpeed;
-
-		SpellType(int idIn, double xParticleSpeed, double yParticleSpeed, double zParticleSpeed) {
-
-			id = idIn;
-			particleSpeed = new double[]{xParticleSpeed, yParticleSpeed, zParticleSpeed};
-		}
-
-		public static EntitySpellcasterIllager.SpellType getFromId(int idIn) {
-
-			for (EntitySpellcasterIllager.SpellType entityspellcasterillager$spelltype : values()) {
-				if (idIn == entityspellcasterillager$spelltype.id) {
-					return entityspellcasterillager$spelltype;
-				}
-			}
-
-			return NONE;
-		}
 	}
 
 }

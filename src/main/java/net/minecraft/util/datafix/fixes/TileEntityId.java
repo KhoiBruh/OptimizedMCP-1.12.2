@@ -10,22 +10,6 @@ public class TileEntityId implements IFixableData {
 
 	private static final Map<String, String> OLD_TO_NEW_ID_MAP = Maps.newHashMap();
 
-	public int getFixVersion() {
-
-		return 704;
-	}
-
-	public NBTTagCompound fixTagCompound(NBTTagCompound compound) {
-
-		String s = OLD_TO_NEW_ID_MAP.get(compound.getString("id"));
-
-		if (s != null) {
-			compound.setString("id", s);
-		}
-
-		return compound;
-	}
-
 	static {
 		OLD_TO_NEW_ID_MAP.put("Airportal", "minecraft:end_portal");
 		OLD_TO_NEW_ID_MAP.put("Banner", "minecraft:banner");
@@ -50,5 +34,21 @@ public class TileEntityId implements IFixableData {
 		OLD_TO_NEW_ID_MAP.put("Skull", "minecraft:skull");
 		OLD_TO_NEW_ID_MAP.put("Structure", "minecraft:structure_block");
 		OLD_TO_NEW_ID_MAP.put("Trap", "minecraft:dispenser");
+	}
+
+	public int getFixVersion() {
+
+		return 704;
+	}
+
+	public NBTTagCompound fixTagCompound(NBTTagCompound compound) {
+
+		String s = OLD_TO_NEW_ID_MAP.get(compound.getString("id"));
+
+		if (s != null) {
+			compound.setString("id", s);
+		}
+
+		return compound;
 	}
 }

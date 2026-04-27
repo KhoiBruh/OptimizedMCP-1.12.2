@@ -17,14 +17,18 @@ import javax.annotation.Nullable;
 public abstract class WorldProvider {
 
 	public static final float[] MOON_PHASE_FACTORS = new float[]{1.0F, 0.75F, 0.5F, 0.25F, 0.0F, 0.25F, 0.5F, 0.75F};
-
+	/**
+	 * Light to brightness conversion table
+	 */
+	protected final float[] lightBrightnessTable = new float[16];
+	/**
+	 * Array for sunrise/sunset colors (RGBA)
+	 */
+	private final float[] colorsSunriseSunset = new float[4];
 	/**
 	 * world object being used
 	 */
 	protected World world;
-	private WorldType terrainType;
-	private String generatorSettings;
-
 	/**
 	 * World chunk manager being used to generate chunks
 	 */
@@ -43,16 +47,8 @@ public abstract class WorldProvider {
 	 */
 	protected boolean nether;
 	protected boolean hasSkyLight;
-
-	/**
-	 * Light to brightness conversion table
-	 */
-	protected final float[] lightBrightnessTable = new float[16];
-
-	/**
-	 * Array for sunrise/sunset colors (RGBA)
-	 */
-	private final float[] colorsSunriseSunset = new float[4];
+	private WorldType terrainType;
+	private String generatorSettings;
 
 	/**
 	 * associate an existing world with a World provider, and setup its lightbrightness table

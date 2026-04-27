@@ -35,6 +35,11 @@ public class EntityEvoker extends EntitySpellcasterIllager {
 		experienceValue = 10;
 	}
 
+	public static void registerFixesEvoker(DataFixer fixer) {
+
+		EntityLiving.registerFixesMob(fixer, EntityEvoker.class);
+	}
+
 	protected void initEntityAI() {
 
 		super.initEntityAI();
@@ -64,11 +69,6 @@ public class EntityEvoker extends EntitySpellcasterIllager {
 	protected void entityInit() {
 
 		super.entityInit();
-	}
-
-	public static void registerFixesEvoker(DataFixer fixer) {
-
-		EntityLiving.registerFixesMob(fixer, EntityEvoker.class);
 	}
 
 	/**
@@ -140,15 +140,15 @@ public class EntityEvoker extends EntitySpellcasterIllager {
 		return SoundEvents.ENTITY_EVOCATION_ILLAGER_HURT;
 	}
 
-	private void setWololoTarget(@Nullable EntitySheep wololoTargetIn) {
-
-		wololoTarget = wololoTargetIn;
-	}
-
 	@Nullable
 	private EntitySheep getWololoTarget() {
 
 		return wololoTarget;
+	}
+
+	private void setWololoTarget(@Nullable EntitySheep wololoTargetIn) {
+
+		wololoTarget = wololoTargetIn;
 	}
 
 	protected SoundEvent getSpellSound() {

@@ -26,10 +26,8 @@ public class FunctionManager implements ITickable {
 	private final File functionDir;
 	private final MinecraftServer server;
 	private final Map<ResourceLocation, FunctionObject> functions = Maps.newHashMap();
-	private String currentGameLoopFunctionId = "-";
-	private FunctionObject gameLoopFunction;
 	private final ArrayDeque<FunctionManager.QueuedCommand> commandQueue = new ArrayDeque<FunctionManager.QueuedCommand>();
-	private boolean isExecuting = false;
+	private String currentGameLoopFunctionId = "-";
 	private final ICommandSender gameLoopFunctionSender = new ICommandSender() {
 		public String getName() {
 
@@ -51,6 +49,8 @@ public class FunctionManager implements ITickable {
 			return server;
 		}
 	};
+	private FunctionObject gameLoopFunction;
+	private boolean isExecuting = false;
 
 	public FunctionManager(@Nullable File functionDirIn, MinecraftServer serverIn) {
 

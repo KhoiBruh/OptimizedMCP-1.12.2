@@ -25,9 +25,11 @@ import java.util.Locale;
 
 public class GuiEditStructure extends GuiScreen {
 
-	private static final Logger LOGGER = LogManager.getLogger();
 	public static final int[] LEGAL_KEY_CODES = new int[]{203, 205, 14, 211, 199, 207};
+	private static final Logger LOGGER = LogManager.getLogger();
 	private final TileEntityStructure tileStructure;
+	private final List<GuiTextField> tabOrder = Lists.newArrayList();
+	private final DecimalFormat decimalFormat = new DecimalFormat("0.0###");
 	private Mirror mirror = Mirror.NONE;
 	private Rotation rotation = Rotation.NONE;
 	private TileEntityStructure.Mode mode = TileEntityStructure.Mode.DATA;
@@ -58,13 +60,31 @@ public class GuiEditStructure extends GuiScreen {
 	private GuiButton mirrorButton;
 	private GuiButton showAirButton;
 	private GuiButton showBoundingBoxButton;
-	private final List<GuiTextField> tabOrder = Lists.newArrayList();
-	private final DecimalFormat decimalFormat = new DecimalFormat("0.0###");
 
 	public GuiEditStructure(TileEntityStructure p_i47142_1_) {
 
 		tileStructure = p_i47142_1_;
 		decimalFormat.setDecimalFormatSymbols(new DecimalFormatSymbols(Locale.US));
+	}
+
+	private static boolean isValidCharacterForName(char p_190301_0_, int p_190301_1_) {
+
+		boolean flag = true;
+
+		for (int i : LEGAL_KEY_CODES) {
+			if (i == p_190301_1_) {
+				return true;
+			}
+		}
+
+		for (char c0 : ChatAllowedCharacters.ILLEGAL_STRUCTURE_CHARACTERS) {
+			if (c0 == p_190301_0_) {
+				flag = false;
+				break;
+			}
+		}
+
+		return flag;
 	}
 
 	/**
@@ -545,26 +565,6 @@ public class GuiEditStructure extends GuiScreen {
 		} else {
 			actionPerformed(doneButton);
 		}
-	}
-
-	private static boolean isValidCharacterForName(char p_190301_0_, int p_190301_1_) {
-
-		boolean flag = true;
-
-		for (int i : LEGAL_KEY_CODES) {
-			if (i == p_190301_1_) {
-				return true;
-			}
-		}
-
-		for (char c0 : ChatAllowedCharacters.ILLEGAL_STRUCTURE_CHARACTERS) {
-			if (c0 == p_190301_0_) {
-				flag = false;
-				break;
-			}
-		}
-
-		return flag;
 	}
 
 	/**

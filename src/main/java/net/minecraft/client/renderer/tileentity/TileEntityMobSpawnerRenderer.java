@@ -8,14 +8,6 @@ import net.minecraft.tileentity.TileEntityMobSpawner;
 
 public class TileEntityMobSpawnerRenderer extends TileEntitySpecialRenderer<TileEntityMobSpawner> {
 
-	public void render(TileEntityMobSpawner te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
-
-		GlStateManager.pushMatrix();
-		GlStateManager.translate((float) x + 0.5F, (float) y, (float) z + 0.5F);
-		renderMob(te.getSpawnerBaseLogic(), x, y, z, partialTicks);
-		GlStateManager.popMatrix();
-	}
-
 	/**
 	 * Render the mob inside the mob spawner.
 	 */
@@ -39,6 +31,14 @@ public class TileEntityMobSpawnerRenderer extends TileEntitySpecialRenderer<Tile
 			entity.setLocationAndAngles(posX, posY, posZ, 0.0F, 0.0F);
 			Minecraft.getMinecraft().getRenderManager().renderEntity(entity, 0.0D, 0.0D, 0.0D, 0.0F, partialTicks, false);
 		}
+	}
+
+	public void render(TileEntityMobSpawner te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
+
+		GlStateManager.pushMatrix();
+		GlStateManager.translate((float) x + 0.5F, (float) y, (float) z + 0.5F);
+		renderMob(te.getSpawnerBaseLogic(), x, y, z, partialTicks);
+		GlStateManager.popMatrix();
 	}
 
 }

@@ -18,6 +18,18 @@ public class RecipeItemHelper {
 	 */
 	public final Int2IntMap itemToCount = new Int2IntOpenHashMap();
 
+	public static int pack(ItemStack stack) {
+
+		Item item = stack.getItem();
+		int i = item.getHasSubtypes() ? stack.getMetadata() : 0;
+		return Item.REGISTRY.getIDForObject(item) << 16 | i & 65535;
+	}
+
+	public static ItemStack unpack(int p_194115_0_) {
+
+		return p_194115_0_ == 0 ? ItemStack.EMPTY : new ItemStack(Item.getItemById(p_194115_0_ >> 16 & 65535), 1, p_194115_0_ & 65535);
+	}
+
 	public void accountStack(ItemStack stack) {
 
 		if (!stack.isEmpty() && !stack.isItemDamaged() && !stack.isItemEnchanted() && !stack.hasDisplayName()) {
@@ -25,13 +37,6 @@ public class RecipeItemHelper {
 			int j = stack.getCount();
 			increment(i, j);
 		}
-	}
-
-	public static int pack(ItemStack stack) {
-
-		Item item = stack.getItem();
-		int i = item.getHasSubtypes() ? stack.getMetadata() : 0;
-		return Item.REGISTRY.getIDForObject(item) << 16 | i & 65535;
 	}
 
 	public boolean containsItem(int p_194120_1_) {
@@ -74,11 +79,6 @@ public class RecipeItemHelper {
 	public int getBiggestCraftableStack(IRecipe recipe, int p_194121_2_, @Nullable IntList p_194121_3_) {
 
 		return (new RecipeItemHelper.RecipePicker(recipe)).tryPickAll(p_194121_2_, p_194121_3_);
-	}
-
-	public static ItemStack unpack(int p_194115_0_) {
-
-		return p_194115_0_ == 0 ? ItemStack.EMPTY : new ItemStack(Item.getItemById(p_194115_0_ >> 16 & 65535), 1, p_194115_0_ & 65535);
 	}
 
 	public void clear() {

@@ -57,7 +57,6 @@ import javax.annotation.Nullable;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
 import java.io.IOException;
 import java.nio.FloatBuffer;
 import java.util.List;
@@ -68,145 +67,124 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 	private static final Logger LOGGER = LogManager.getLogger();
 	private static final ResourceLocation RAIN_TEXTURES = new ResourceLocation("textures/environment/rain.png");
 	private static final ResourceLocation SNOW_TEXTURES = new ResourceLocation("textures/environment/snow.png");
+	private static final ResourceLocation[] SHADERS_TEXTURES = new ResourceLocation[]{new ResourceLocation("shaders/post/notch.json"), new ResourceLocation("shaders/post/fxaa.json"), new ResourceLocation("shaders/post/art.json"), new ResourceLocation("shaders/post/bumpy.json"), new ResourceLocation("shaders/post/blobs2.json"), new ResourceLocation("shaders/post/pencil.json"), new ResourceLocation("shaders/post/color_convolve.json"), new ResourceLocation("shaders/post/deconverge.json"), new ResourceLocation("shaders/post/flip.json"), new ResourceLocation("shaders/post/invert.json"), new ResourceLocation("shaders/post/ntsc.json"), new ResourceLocation("shaders/post/outline.json"), new ResourceLocation("shaders/post/phosphor.json"), new ResourceLocation("shaders/post/scan_pincushion.json"), new ResourceLocation("shaders/post/sobel.json"), new ResourceLocation("shaders/post/bits.json"), new ResourceLocation("shaders/post/desaturate.json"), new ResourceLocation("shaders/post/green.json"), new ResourceLocation("shaders/post/blur.json"), new ResourceLocation("shaders/post/wobble.json"), new ResourceLocation("shaders/post/blobs.json"), new ResourceLocation("shaders/post/antialias.json"), new ResourceLocation("shaders/post/creeper.json"), new ResourceLocation("shaders/post/spider.json")};
+	public static final int SHADER_COUNT = SHADERS_TEXTURES.length;
 	public static boolean anaglyphEnable;
-
 	/**
 	 * Anaglyph field (0=R, 1=GB)
 	 */
 	public static int anaglyphField;
-
+	public final ItemRenderer itemRenderer;
 	/**
 	 * A reference to the Minecraft object.
 	 */
 	private final Minecraft mc;
 	private final IResourceManager resourceManager;
 	private final Random random = new Random();
-	private float farPlaneDistance;
-	public final ItemRenderer itemRenderer;
 	private final MapItemRenderer mapItemRenderer;
-
+	private final MouseFilter mouseFilterXAxis = new MouseFilter();
+	private final MouseFilter mouseFilterYAxis = new MouseFilter();
+	private final float thirdPersonDistance = 4.0F;
+	private final boolean renderHand = true;
+	private final boolean drawBlockOutline = true;
+	/**
+	 * The texture id of the blocklight/skylight texture used for lighting effects
+	 */
+	private final DynamicTexture lightmapTexture;
+	/**
+	 * Colors computed in updateLightmap() and loaded into the lightmap emptyTexture
+	 */
+	private final int[] lightmapColors;
+	private final ResourceLocation locationLightMap;
+	private final float[] rainXCoords = new float[1024];
+	private final float[] rainYCoords = new float[1024];
+	/**
+	 * Fog color buffer
+	 */
+	private final FloatBuffer fogColorBuffer = GLAllocation.createDirectFloatBuffer(16);
+	private final double cameraZoom = 1.0D;
+	private float farPlaneDistance;
 	/**
 	 * Entity renderer update count
 	 */
 	private int rendererUpdateCount;
-
 	/**
 	 * Pointed entity
 	 */
 	private Entity pointedEntity;
-	private final MouseFilter mouseFilterXAxis = new MouseFilter();
-	private final MouseFilter mouseFilterYAxis = new MouseFilter();
-	private final float thirdPersonDistance = 4.0F;
-
 	/**
 	 * Previous third person distance
 	 */
 	private float thirdPersonDistancePrev = 4.0F;
-
 	/**
 	 * Smooth cam yaw
 	 */
 	private float smoothCamYaw;
-
 	/**
 	 * Smooth cam pitch
 	 */
 	private float smoothCamPitch;
-
 	/**
 	 * Smooth cam filter X
 	 */
 	private float smoothCamFilterX;
-
 	/**
 	 * Smooth cam filter Y
 	 */
 	private float smoothCamFilterY;
-
 	/**
 	 * Smooth cam partial ticks
 	 */
 	private float smoothCamPartialTicks;
-
 	/**
 	 * FOV modifier hand
 	 */
 	private float fovModifierHand;
-
 	/**
 	 * FOV modifier hand prev
 	 */
 	private float fovModifierHandPrev;
 	private float bossColorModifier;
 	private float bossColorModifierPrev;
-
 	/**
 	 * Cloud fog mode
 	 */
 	private boolean cloudFog;
-	private final boolean renderHand = true;
-	private final boolean drawBlockOutline = true;
 	private long timeWorldIcon;
-
 	/**
 	 * Previous frame time in milliseconds
 	 */
 	private long prevFrameTime = Minecraft.getSystemTime();
-
 	/**
 	 * End time of last render (ns)
 	 */
 	private long renderEndNanoTime;
-
-	/**
-	 * The texture id of the blocklight/skylight texture used for lighting effects
-	 */
-	private final DynamicTexture lightmapTexture;
-
-	/**
-	 * Colors computed in updateLightmap() and loaded into the lightmap emptyTexture
-	 */
-	private final int[] lightmapColors;
-	private final ResourceLocation locationLightMap;
-
 	/**
 	 * Is set, updateCameraAndRender() calls updateLightmap(); set by updateTorchFlicker()
 	 */
 	private boolean lightmapUpdateNeeded;
-
 	/**
 	 * Torch flicker X
 	 */
 	private float torchFlickerX;
 	private float torchFlickerDX;
-
 	/**
 	 * Rain sound counter
 	 */
 	private int rainSoundCounter;
-	private final float[] rainXCoords = new float[1024];
-	private final float[] rainYCoords = new float[1024];
-
-	/**
-	 * Fog color buffer
-	 */
-	private final FloatBuffer fogColorBuffer = GLAllocation.createDirectFloatBuffer(16);
 	private float fogColorRed;
 	private float fogColorGreen;
 	private float fogColorBlue;
-
 	/**
 	 * Fog color 2
 	 */
 	private float fogColor2;
-
 	/**
 	 * Fog color 1
 	 */
 	private float fogColor1;
 	private int debugViewDirection;
 	private boolean debugView;
-	private final double cameraZoom = 1.0D;
 	private double cameraYaw;
 	private double cameraPitch;
 	private ItemStack itemActivationItem;
@@ -214,8 +192,6 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 	private float itemActivationOffX;
 	private float itemActivationOffY;
 	private ShaderGroup shaderGroup;
-	private static final ResourceLocation[] SHADERS_TEXTURES = new ResourceLocation[]{new ResourceLocation("shaders/post/notch.json"), new ResourceLocation("shaders/post/fxaa.json"), new ResourceLocation("shaders/post/art.json"), new ResourceLocation("shaders/post/bumpy.json"), new ResourceLocation("shaders/post/blobs2.json"), new ResourceLocation("shaders/post/pencil.json"), new ResourceLocation("shaders/post/color_convolve.json"), new ResourceLocation("shaders/post/deconverge.json"), new ResourceLocation("shaders/post/flip.json"), new ResourceLocation("shaders/post/invert.json"), new ResourceLocation("shaders/post/ntsc.json"), new ResourceLocation("shaders/post/outline.json"), new ResourceLocation("shaders/post/phosphor.json"), new ResourceLocation("shaders/post/scan_pincushion.json"), new ResourceLocation("shaders/post/sobel.json"), new ResourceLocation("shaders/post/bits.json"), new ResourceLocation("shaders/post/desaturate.json"), new ResourceLocation("shaders/post/green.json"), new ResourceLocation("shaders/post/blur.json"), new ResourceLocation("shaders/post/wobble.json"), new ResourceLocation("shaders/post/blobs.json"), new ResourceLocation("shaders/post/antialias.json"), new ResourceLocation("shaders/post/creeper.json"), new ResourceLocation("shaders/post/spider.json")};
-	public static final int SHADER_COUNT = SHADERS_TEXTURES.length;
 	private int shaderIndex;
 	private boolean useShader;
 	private int frameCount;
@@ -241,6 +217,48 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 				rainYCoords[i << 5 | j] = f / f2;
 			}
 		}
+	}
+
+	public static void drawNameplate(FontRenderer fontRendererIn, String str, float x, float y, float z, int verticalShift, float viewerYaw, float viewerPitch, boolean isThirdPersonFrontal, boolean isSneaking) {
+
+		GlStateManager.pushMatrix();
+		GlStateManager.translate(x, y, z);
+		GlStateManager.glNormal3f(0.0F, 1.0F, 0.0F);
+		GlStateManager.rotate(-viewerYaw, 0.0F, 1.0F, 0.0F);
+		GlStateManager.rotate((float) (isThirdPersonFrontal ? -1 : 1) * viewerPitch, 1.0F, 0.0F, 0.0F);
+		GlStateManager.scale(-0.025F, -0.025F, 0.025F);
+		GlStateManager.disableLighting();
+		GlStateManager.depthMask(false);
+
+		if (!isSneaking) {
+			GlStateManager.disableDepth();
+		}
+
+		GlStateManager.enableBlend();
+		GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+		int i = fontRendererIn.getStringWidth(str) / 2;
+		GlStateManager.disableTexture2D();
+		Tessellator tessellator = Tessellator.getInstance();
+		BufferBuilder bufferbuilder = tessellator.getBuffer();
+		bufferbuilder.begin(7, DefaultVertexFormats.POSITION_COLOR);
+		bufferbuilder.pos(-i - 1, -1 + verticalShift, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
+		bufferbuilder.pos(-i - 1, 8 + verticalShift, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
+		bufferbuilder.pos(i + 1, 8 + verticalShift, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
+		bufferbuilder.pos(i + 1, -1 + verticalShift, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
+		tessellator.draw();
+		GlStateManager.enableTexture2D();
+
+		if (!isSneaking) {
+			fontRendererIn.drawString(str, -fontRendererIn.getStringWidth(str) / 2, verticalShift, 553648127);
+			GlStateManager.enableDepth();
+		}
+
+		GlStateManager.depthMask(true);
+		fontRendererIn.drawString(str, -fontRendererIn.getStringWidth(str) / 2, verticalShift, isSneaking ? 553648127 : -1);
+		GlStateManager.enableLighting();
+		GlStateManager.disableBlend();
+		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+		GlStateManager.popMatrix();
 	}
 
 	public boolean isShaderActive() {
@@ -1842,48 +1860,6 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 	public MapItemRenderer getMapItemRenderer() {
 
 		return mapItemRenderer;
-	}
-
-	public static void drawNameplate(FontRenderer fontRendererIn, String str, float x, float y, float z, int verticalShift, float viewerYaw, float viewerPitch, boolean isThirdPersonFrontal, boolean isSneaking) {
-
-		GlStateManager.pushMatrix();
-		GlStateManager.translate(x, y, z);
-		GlStateManager.glNormal3f(0.0F, 1.0F, 0.0F);
-		GlStateManager.rotate(-viewerYaw, 0.0F, 1.0F, 0.0F);
-		GlStateManager.rotate((float) (isThirdPersonFrontal ? -1 : 1) * viewerPitch, 1.0F, 0.0F, 0.0F);
-		GlStateManager.scale(-0.025F, -0.025F, 0.025F);
-		GlStateManager.disableLighting();
-		GlStateManager.depthMask(false);
-
-		if (!isSneaking) {
-			GlStateManager.disableDepth();
-		}
-
-		GlStateManager.enableBlend();
-		GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-		int i = fontRendererIn.getStringWidth(str) / 2;
-		GlStateManager.disableTexture2D();
-		Tessellator tessellator = Tessellator.getInstance();
-		BufferBuilder bufferbuilder = tessellator.getBuffer();
-		bufferbuilder.begin(7, DefaultVertexFormats.POSITION_COLOR);
-		bufferbuilder.pos(-i - 1, -1 + verticalShift, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
-		bufferbuilder.pos(-i - 1, 8 + verticalShift, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
-		bufferbuilder.pos(i + 1, 8 + verticalShift, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
-		bufferbuilder.pos(i + 1, -1 + verticalShift, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
-		tessellator.draw();
-		GlStateManager.enableTexture2D();
-
-		if (!isSneaking) {
-			fontRendererIn.drawString(str, -fontRendererIn.getStringWidth(str) / 2, verticalShift, 553648127);
-			GlStateManager.enableDepth();
-		}
-
-		GlStateManager.depthMask(true);
-		fontRendererIn.drawString(str, -fontRendererIn.getStringWidth(str) / 2, verticalShift, isSneaking ? 553648127 : -1);
-		GlStateManager.enableLighting();
-		GlStateManager.disableBlend();
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-		GlStateManager.popMatrix();
 	}
 
 	public void displayItemActivation(ItemStack stack) {

@@ -19,10 +19,10 @@ import java.util.List;
 
 public class VillageCollection extends WorldSavedData {
 
-	private World world;
 	private final List<BlockPos> villagerPositionsList = Lists.newArrayList();
 	private final List<VillageDoorInfo> newDoors = Lists.newArrayList();
 	private final List<Village> villageList = Lists.newArrayList();
+	private World world;
 	private int tickCounter;
 
 	public VillageCollection(String name) {
@@ -35,6 +35,11 @@ public class VillageCollection extends WorldSavedData {
 		super(fileNameForProvider(worldIn.provider));
 		world = worldIn;
 		markDirty();
+	}
+
+	public static String fileNameForProvider(WorldProvider provider) {
+
+		return "villages" + provider.getDimensionType().getSuffix();
 	}
 
 	public void setWorldsForAll(World worldIn) {
@@ -273,11 +278,6 @@ public class VillageCollection extends WorldSavedData {
 
 		compound.setTag("Villages", nbttaglist);
 		return compound;
-	}
-
-	public static String fileNameForProvider(WorldProvider provider) {
-
-		return "villages" + provider.getDimensionType().getSuffix();
 	}
 
 }

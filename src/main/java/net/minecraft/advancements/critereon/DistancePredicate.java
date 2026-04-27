@@ -28,6 +28,21 @@ public class DistancePredicate {
 		this.absolute = absolute;
 	}
 
+	public static DistancePredicate deserialize(@Nullable JsonElement element) {
+
+		if (element != null && !element.isJsonNull()) {
+			JsonObject jsonobject = JsonUtils.getJsonObject(element, "distance");
+			MinMaxBounds minmaxbounds = MinMaxBounds.deserialize(jsonobject.get("x"));
+			MinMaxBounds minmaxbounds1 = MinMaxBounds.deserialize(jsonobject.get("y"));
+			MinMaxBounds minmaxbounds2 = MinMaxBounds.deserialize(jsonobject.get("z"));
+			MinMaxBounds minmaxbounds3 = MinMaxBounds.deserialize(jsonobject.get("horizontal"));
+			MinMaxBounds minmaxbounds4 = MinMaxBounds.deserialize(jsonobject.get("absolute"));
+			return new DistancePredicate(minmaxbounds, minmaxbounds1, minmaxbounds2, minmaxbounds3, minmaxbounds4);
+		} else {
+			return ANY;
+		}
+	}
+
 	public boolean test(double x1, double y1, double z1, double x2, double y2, double z2) {
 
 		float f = (float) (x1 - x2);
@@ -42,21 +57,6 @@ public class DistancePredicate {
 			}
 		} else {
 			return false;
-		}
-	}
-
-	public static DistancePredicate deserialize(@Nullable JsonElement element) {
-
-		if (element != null && !element.isJsonNull()) {
-			JsonObject jsonobject = JsonUtils.getJsonObject(element, "distance");
-			MinMaxBounds minmaxbounds = MinMaxBounds.deserialize(jsonobject.get("x"));
-			MinMaxBounds minmaxbounds1 = MinMaxBounds.deserialize(jsonobject.get("y"));
-			MinMaxBounds minmaxbounds2 = MinMaxBounds.deserialize(jsonobject.get("z"));
-			MinMaxBounds minmaxbounds3 = MinMaxBounds.deserialize(jsonobject.get("horizontal"));
-			MinMaxBounds minmaxbounds4 = MinMaxBounds.deserialize(jsonobject.get("absolute"));
-			return new DistancePredicate(minmaxbounds, minmaxbounds1, minmaxbounds2, minmaxbounds3, minmaxbounds4);
-		} else {
-			return ANY;
 		}
 	}
 

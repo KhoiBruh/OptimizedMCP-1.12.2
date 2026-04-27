@@ -16,8 +16,8 @@ public class GuiPageButtonList extends GuiListExtended {
 	private final IntHashMap<Gui> componentMap = new IntHashMap<Gui>();
 	private final List<GuiTextField> editBoxes = Lists.newArrayList();
 	private final GuiPageButtonList.GuiListEntry[][] pages;
-	private int page;
 	private final GuiPageButtonList.GuiResponder responder;
+	private int page;
 	private Gui focusedControl;
 
 	public GuiPageButtonList(Minecraft mcIn, int widthIn, int heightIn, int topIn, int bottomIn, int slotHeightIn, GuiPageButtonList.GuiResponder p_i45536_7_, GuiPageButtonList.GuiListEntry[]... p_i45536_8_) {
@@ -74,6 +74,11 @@ public class GuiPageButtonList extends GuiListExtended {
 		}
 	}
 
+	public int getPage() {
+
+		return page;
+	}
+
 	public void setPage(int p_181156_1_) {
 
 		if (p_181156_1_ != page) {
@@ -83,11 +88,6 @@ public class GuiPageButtonList extends GuiListExtended {
 			markVisibility(i, p_181156_1_);
 			amountScrolled = 0.0F;
 		}
-	}
-
-	public int getPage() {
-
-		return page;
 	}
 
 	public int getPageCount() {
@@ -316,6 +316,16 @@ public class GuiPageButtonList extends GuiListExtended {
 		return super.getScrollBarX() + 32;
 	}
 
+	public interface GuiResponder {
+
+		void setEntryValue(int id, boolean value);
+
+		void setEntryValue(int id, float value);
+
+		void setEntryValue(int id, String value);
+
+	}
+
 	public static class EditBoxEntry extends GuiPageButtonList.GuiListEntry {
 
 		private final Predicate<String> filter;
@@ -525,16 +535,6 @@ public class GuiPageButtonList extends GuiListExtended {
 
 			return startVisible;
 		}
-
-	}
-
-	public interface GuiResponder {
-
-		void setEntryValue(int id, boolean value);
-
-		void setEntryValue(int id, float value);
-
-		void setEntryValue(int id, String value);
 
 	}
 

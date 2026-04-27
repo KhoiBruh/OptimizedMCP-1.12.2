@@ -15,58 +15,10 @@ import java.util.List;
 
 public class ItemEnchantedBook extends Item {
 
-	/**
-	 * Returns true if this item has an enchantment glint. By default, this returns
-	 * <code>stack.isItemEnchanted()</code>, but other items can override it (for instance, written books always return
-	 * true).
-	 * <p>
-	 * Note that if you override this method, you generally want to also call the super version (on {@link Item}) to get
-	 * the glint for enchanted items. Of course, that is unnecessary if the overwritten version always returns true.
-	 */
-	public boolean hasEffect(ItemStack stack) {
-
-		return true;
-	}
-
-	/**
-	 * Checks isDamagable and if it cannot be stacked
-	 */
-	public boolean isEnchantable(ItemStack stack) {
-
-		return false;
-	}
-
-	/**
-	 * Return an item rarity from EnumRarity
-	 */
-	public EnumRarity getRarity(ItemStack stack) {
-
-		return getEnchantments(stack).hasNoTags() ? super.getRarity(stack) : EnumRarity.UNCOMMON;
-	}
-
 	public static NBTTagList getEnchantments(ItemStack p_92110_0_) {
 
 		NBTTagCompound nbttagcompound = p_92110_0_.getTagCompound();
 		return nbttagcompound != null ? nbttagcompound.getTagList("StoredEnchantments", 10) : new NBTTagList();
-	}
-
-	/**
-	 * allows items to add custom lines of information to the mouseover description
-	 */
-	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-
-		super.addInformation(stack, worldIn, tooltip, flagIn);
-		NBTTagList nbttaglist = getEnchantments(stack);
-
-		for (int i = 0; i < nbttaglist.tagCount(); ++i) {
-			NBTTagCompound nbttagcompound = nbttaglist.getCompoundTagAt(i);
-			int j = nbttagcompound.getShort("id");
-			Enchantment enchantment = Enchantment.getEnchantmentByID(j);
-
-			if (enchantment != null) {
-				tooltip.add(enchantment.getTranslatedName(nbttagcompound.getShort("lvl")));
-			}
-		}
 	}
 
 	/**
@@ -112,6 +64,54 @@ public class ItemEnchantedBook extends Item {
 		ItemStack itemstack = new ItemStack(Items.ENCHANTED_BOOK);
 		addEnchantment(itemstack, p_92111_0_);
 		return itemstack;
+	}
+
+	/**
+	 * Returns true if this item has an enchantment glint. By default, this returns
+	 * <code>stack.isItemEnchanted()</code>, but other items can override it (for instance, written books always return
+	 * true).
+	 * <p>
+	 * Note that if you override this method, you generally want to also call the super version (on {@link Item}) to get
+	 * the glint for enchanted items. Of course, that is unnecessary if the overwritten version always returns true.
+	 */
+	public boolean hasEffect(ItemStack stack) {
+
+		return true;
+	}
+
+	/**
+	 * Checks isDamagable and if it cannot be stacked
+	 */
+	public boolean isEnchantable(ItemStack stack) {
+
+		return false;
+	}
+
+	/**
+	 * Return an item rarity from EnumRarity
+	 */
+	public EnumRarity getRarity(ItemStack stack) {
+
+		return getEnchantments(stack).hasNoTags() ? super.getRarity(stack) : EnumRarity.UNCOMMON;
+	}
+
+	/**
+	 * allows items to add custom lines of information to the mouseover description
+	 */
+	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+
+		super.addInformation(stack, worldIn, tooltip, flagIn);
+		NBTTagList nbttaglist = getEnchantments(stack);
+
+		for (int i = 0; i < nbttaglist.tagCount(); ++i) {
+			NBTTagCompound nbttagcompound = nbttaglist.getCompoundTagAt(i);
+			int j = nbttagcompound.getShort("id");
+			Enchantment enchantment = Enchantment.getEnchantmentByID(j);
+
+			if (enchantment != null) {
+				tooltip.add(enchantment.getTranslatedName(nbttagcompound.getShort("lvl")));
+			}
+		}
 	}
 
 	/**

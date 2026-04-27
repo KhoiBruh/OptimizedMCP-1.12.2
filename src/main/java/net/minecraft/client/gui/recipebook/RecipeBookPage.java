@@ -13,10 +13,10 @@ import java.util.List;
 public class RecipeBookPage {
 
 	private final List<GuiButtonRecipe> buttons = Lists.newArrayListWithCapacity(20);
-	private GuiButtonRecipe hoveredButton;
 	private final GuiRecipeOverlay overlay = new GuiRecipeOverlay();
-	private Minecraft minecraft;
 	private final List<IRecipeUpdateListener> listeners = Lists.newArrayList();
+	private GuiButtonRecipe hoveredButton;
+	private Minecraft minecraft;
 	private List<RecipeList> recipeLists;
 	private GuiButtonToggle forwardButton;
 	private GuiButtonToggle backButton;

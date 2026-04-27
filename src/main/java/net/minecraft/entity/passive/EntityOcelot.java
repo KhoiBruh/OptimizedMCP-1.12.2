@@ -1,6 +1,5 @@
 package net.minecraft.entity.passive;
 
-import com.google.common.base.Predicate;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -42,6 +41,11 @@ public class EntityOcelot extends EntityTameable {
 
 		super(worldIn);
 		setSize(0.6F, 0.7F);
+	}
+
+	public static void registerFixesOcelot(DataFixer fixer) {
+
+		EntityLiving.registerFixesMob(fixer, EntityOcelot.class);
 	}
 
 	protected void initEntityAI() {
@@ -105,11 +109,6 @@ public class EntityOcelot extends EntityTameable {
 
 	public void fall(float distance, float damageMultiplier) {
 
-	}
-
-	public static void registerFixesOcelot(DataFixer fixer) {
-
-		EntityLiving.registerFixesMob(fixer, EntityOcelot.class);
 	}
 
 	/**

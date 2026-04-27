@@ -30,27 +30,6 @@ public enum HorseArmorType {
 		hash = p_i46800_5_;
 	}
 
-	public int getOrdinal() {
-
-		return ordinal();
-	}
-
-	public String getHash() {
-
-		return hash;
-	}
-
-	public int getProtection() {
-
-		return protection;
-	}
-
-	@Nullable
-	public String getTextureName() {
-
-		return textureName;
-	}
-
 	public static HorseArmorType getByOrdinal(int ordinal) {
 
 		return values()[ordinal];
@@ -75,5 +54,26 @@ public enum HorseArmorType {
 	public static boolean isHorseArmor(Item itemIn) {
 
 		return getByItem(itemIn) != NONE;
+	}
+
+	public int getOrdinal() {
+
+		return ordinal();
+	}
+
+	public String getHash() {
+
+		return hash;
+	}
+
+	public int getProtection() {
+
+		return protection;
+	}
+
+	@Nullable
+	public String getTextureName() {
+
+		return textureName;
 	}
 }

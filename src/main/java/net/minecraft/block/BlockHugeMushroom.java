@@ -2,7 +2,6 @@ package net.minecraft.block;
 
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -296,6 +295,13 @@ public class BlockHugeMushroom extends Block {
 		ALL_STEM(15, "all_stem");
 
 		private static final BlockHugeMushroom.EnumType[] META_LOOKUP = new BlockHugeMushroom.EnumType[16];
+
+		static {
+			for (BlockHugeMushroom.EnumType blockhugemushroom$enumtype : values()) {
+				META_LOOKUP[blockhugemushroom$enumtype.getMetadata()] = blockhugemushroom$enumtype;
+			}
+		}
+
 		private final int meta;
 		private final String name;
 
@@ -303,16 +309,6 @@ public class BlockHugeMushroom extends Block {
 
 			this.meta = meta;
 			this.name = name;
-		}
-
-		public int getMetadata() {
-
-			return meta;
-		}
-
-		public String toString() {
-
-			return name;
 		}
 
 		public static BlockHugeMushroom.EnumType byMetadata(int meta) {
@@ -325,15 +321,19 @@ public class BlockHugeMushroom extends Block {
 			return blockhugemushroom$enumtype == null ? META_LOOKUP[0] : blockhugemushroom$enumtype;
 		}
 
-		public String getName() {
+		public int getMetadata() {
+
+			return meta;
+		}
+
+		public String toString() {
 
 			return name;
 		}
 
-		static {
-			for (BlockHugeMushroom.EnumType blockhugemushroom$enumtype : values()) {
-				META_LOOKUP[blockhugemushroom$enumtype.getMetadata()] = blockhugemushroom$enumtype;
-			}
+		public String getName() {
+
+			return name;
 		}
 	}
 

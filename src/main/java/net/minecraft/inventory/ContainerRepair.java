@@ -33,22 +33,19 @@ public class ContainerRepair extends Container {
 	private final IInventory inputSlots;
 	private final World world;
 	private final BlockPos selfPosition;
-
+	/**
+	 * The player that has this container open.
+	 */
+	private final EntityPlayer player;
 	/**
 	 * The maximum cost of repairing/renaming in the anvil.
 	 */
 	public int maximumCost;
-
 	/**
 	 * determined by damage of input item and stackSize of repair materials
 	 */
 	private int materialCost;
 	private String repairedItemName;
-
-	/**
-	 * The player that has this container open.
-	 */
-	private final EntityPlayer player;
 
 	public ContainerRepair(InventoryPlayer playerInventory, World worldIn, EntityPlayer player) {
 

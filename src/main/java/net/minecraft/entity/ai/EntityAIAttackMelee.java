@@ -10,24 +10,22 @@ import net.minecraft.world.World;
 
 public class EntityAIAttackMelee extends EntityAIBase {
 
-	World world;
+	protected final int attackInterval = 20;
 	protected EntityCreature attacker;
 
 	/**
 	 * An amount of decrementing ticks that allows the entity to attack once the tick reaches 0.
 	 */
 	protected int attackTick;
-
+	World world;
 	/**
 	 * The speed with which the mob will approach the target
 	 */
 	double speedTowardsTarget;
-
 	/**
 	 * When true, the mob will continue chasing its target, even if it can't find a path to them right now.
 	 */
 	boolean longMemory;
-
 	/**
 	 * The PathEntity of our entity.
 	 */
@@ -36,7 +34,6 @@ public class EntityAIAttackMelee extends EntityAIBase {
 	private double targetX;
 	private double targetY;
 	private double targetZ;
-	protected final int attackInterval = 20;
 
 	public EntityAIAttackMelee(EntityCreature creature, double speedIn, boolean useLongMemory) {
 

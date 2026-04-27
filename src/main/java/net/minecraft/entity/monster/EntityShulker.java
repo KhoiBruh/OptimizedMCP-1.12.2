@@ -35,13 +35,13 @@ import java.util.UUID;
 
 public class EntityShulker extends EntityGolem implements IMob {
 
-	private static final UUID COVERED_ARMOR_BONUS_ID = UUID.fromString("7E0292F2-9434-48D5-A29F-9583AF7DF27F");
-	private static final AttributeModifier COVERED_ARMOR_BONUS_MODIFIER = (new AttributeModifier(COVERED_ARMOR_BONUS_ID, "Covered armor bonus", 20.0D, 0)).setSaved(false);
+	public static final EnumDyeColor DEFAULT_COLOR = EnumDyeColor.PURPLE;
 	protected static final DataParameter<EnumFacing> ATTACHED_FACE = EntityDataManager.createKey(EntityShulker.class, DataSerializers.FACING);
 	protected static final DataParameter<Optional<BlockPos>> ATTACHED_BLOCK_POS = EntityDataManager.createKey(EntityShulker.class, DataSerializers.OPTIONAL_BLOCK_POS);
 	protected static final DataParameter<Byte> PEEK_TICK = EntityDataManager.createKey(EntityShulker.class, DataSerializers.BYTE);
 	protected static final DataParameter<Byte> COLOR = EntityDataManager.createKey(EntityShulker.class, DataSerializers.BYTE);
-	public static final EnumDyeColor DEFAULT_COLOR = EnumDyeColor.PURPLE;
+	private static final UUID COVERED_ARMOR_BONUS_ID = UUID.fromString("7E0292F2-9434-48D5-A29F-9583AF7DF27F");
+	private static final AttributeModifier COVERED_ARMOR_BONUS_MODIFIER = (new AttributeModifier(COVERED_ARMOR_BONUS_ID, "Covered armor bonus", 20.0D, 0)).setSaved(false);
 	private float prevPeekAmount;
 	private float peekAmount;
 	private BlockPos currentAttachmentPosition;
@@ -56,6 +56,11 @@ public class EntityShulker extends EntityGolem implements IMob {
 		isImmuneToFire = true;
 		currentAttachmentPosition = null;
 		experienceValue = 5;
+	}
+
+	public static void registerFixesShulker(DataFixer fixer) {
+
+		EntityLiving.registerFixesMob(fixer, EntityShulker.class);
 	}
 
 	@Nullable
@@ -153,11 +158,6 @@ public class EntityShulker extends EntityGolem implements IMob {
 	protected EntityBodyHelper createBodyHelper() {
 
 		return new EntityShulker.BodyHelper(this);
-	}
-
-	public static void registerFixesShulker(DataFixer fixer) {
-
-		EntityLiving.registerFixesMob(fixer, EntityShulker.class);
 	}
 
 	/**
@@ -614,6 +614,36 @@ public class EntityShulker extends EntityGolem implements IMob {
 		return EnumDyeColor.byMetadata(dataManager.get(COLOR).byteValue());
 	}
 
+	static class AIDefenseAttack extends EntityAINearestAttackableTarget<EntityLivingBase> {
+
+		public AIDefenseAttack(EntityShulker shulker) {
+
+			super(shulker, EntityLivingBase.class, 10, true, false, new Predicate<EntityLivingBase>() {
+				public boolean apply(@Nullable EntityLivingBase p_apply_1_) {
+
+					return p_apply_1_ instanceof IMob;
+				}
+			});
+		}
+
+		public boolean shouldExecute() {
+
+			return taskOwner.getTeam() != null && super.shouldExecute();
+		}
+
+		protected AxisAlignedBB getTargetableArea(double targetDistance) {
+
+			EnumFacing enumfacing = ((EntityShulker) taskOwner).getAttachmentFacing();
+
+			if (enumfacing.getAxis() == EnumFacing.Axis.X) {
+				return taskOwner.getEntityBoundingBox().grow(4.0D, targetDistance, targetDistance);
+			} else {
+				return enumfacing.getAxis() == EnumFacing.Axis.Z ? taskOwner.getEntityBoundingBox().grow(targetDistance, targetDistance, 4.0D) : taskOwner.getEntityBoundingBox().grow(targetDistance, 4.0D, targetDistance);
+			}
+		}
+
+	}
+
 	class AIAttack extends EntityAIBase {
 
 		private int attackTime;
@@ -680,36 +710,6 @@ public class EntityShulker extends EntityGolem implements IMob {
 		public boolean shouldExecute() {
 
 			return world.getDifficulty() != EnumDifficulty.PEACEFUL && super.shouldExecute();
-		}
-
-		protected AxisAlignedBB getTargetableArea(double targetDistance) {
-
-			EnumFacing enumfacing = ((EntityShulker) taskOwner).getAttachmentFacing();
-
-			if (enumfacing.getAxis() == EnumFacing.Axis.X) {
-				return taskOwner.getEntityBoundingBox().grow(4.0D, targetDistance, targetDistance);
-			} else {
-				return enumfacing.getAxis() == EnumFacing.Axis.Z ? taskOwner.getEntityBoundingBox().grow(targetDistance, targetDistance, 4.0D) : taskOwner.getEntityBoundingBox().grow(targetDistance, 4.0D, targetDistance);
-			}
-		}
-
-	}
-
-	static class AIDefenseAttack extends EntityAINearestAttackableTarget<EntityLivingBase> {
-
-		public AIDefenseAttack(EntityShulker shulker) {
-
-			super(shulker, EntityLivingBase.class, 10, true, false, new Predicate<EntityLivingBase>() {
-				public boolean apply(@Nullable EntityLivingBase p_apply_1_) {
-
-					return p_apply_1_ instanceof IMob;
-				}
-			});
-		}
-
-		public boolean shouldExecute() {
-
-			return taskOwner.getTeam() != null && super.shouldExecute();
 		}
 
 		protected AxisAlignedBB getTargetableArea(double targetDistance) {

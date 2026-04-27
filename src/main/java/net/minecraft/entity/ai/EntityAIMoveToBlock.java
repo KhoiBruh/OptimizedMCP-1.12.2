@@ -8,20 +8,18 @@ public abstract class EntityAIMoveToBlock extends EntityAIBase {
 
 	private final EntityCreature creature;
 	private final double movementSpeed;
-
+	private final int searchLength;
 	/**
 	 * Controls task execution delay
 	 */
 	protected int runDelay;
-	private int timeoutCounter;
-	private int maxStayTicks;
-
 	/**
 	 * Block to move to
 	 */
 	protected BlockPos destinationBlock = BlockPos.ORIGIN;
+	private int timeoutCounter;
+	private int maxStayTicks;
 	private boolean isAboveDestination;
-	private final int searchLength;
 
 	public EntityAIMoveToBlock(EntityCreature creature, double speedIn, int length) {
 

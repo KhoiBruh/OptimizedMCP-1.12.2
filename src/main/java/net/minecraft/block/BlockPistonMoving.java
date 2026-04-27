@@ -1,7 +1,6 @@
 package net.minecraft.block;
 
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockFaceShape;
@@ -41,6 +40,11 @@ public class BlockPistonMoving extends BlockContainer {
 		setHardness(-1.0F);
 	}
 
+	public static TileEntity createTilePiston(IBlockState blockStateIn, EnumFacing facingIn, boolean extendingIn, boolean shouldHeadBeRenderedIn) {
+
+		return new TileEntityPiston(blockStateIn, facingIn, extendingIn, shouldHeadBeRenderedIn);
+	}
+
 	@Nullable
 
 	/**
@@ -49,11 +53,6 @@ public class BlockPistonMoving extends BlockContainer {
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
 
 		return null;
-	}
-
-	public static TileEntity createTilePiston(IBlockState blockStateIn, EnumFacing facingIn, boolean extendingIn, boolean shouldHeadBeRenderedIn) {
-
-		return new TileEntityPiston(blockStateIn, facingIn, extendingIn, shouldHeadBeRenderedIn);
 	}
 
 	/**

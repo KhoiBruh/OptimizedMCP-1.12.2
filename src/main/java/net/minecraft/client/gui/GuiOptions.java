@@ -18,9 +18,9 @@ public class GuiOptions extends GuiScreen {
 	 * Reference to the GameSettings object.
 	 */
 	private final GameSettings settings;
+	protected String title = "Options";
 	private GuiButton difficultyButton;
 	private GuiLockIconButton lockButton;
-	protected String title = "Options";
 
 	public GuiOptions(GuiScreen p_i1046_1_, GameSettings p_i1046_2_) {
 

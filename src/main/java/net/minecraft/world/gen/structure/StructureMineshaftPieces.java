@@ -93,24 +93,6 @@ public class StructureMineshaftPieces {
 
 		}
 
-		protected void writeStructureToNBT(NBTTagCompound tagCompound) {
-
-			super.writeStructureToNBT(tagCompound);
-			tagCompound.setBoolean("hr", hasRails);
-			tagCompound.setBoolean("sc", hasSpiders);
-			tagCompound.setBoolean("hps", spawnerPlaced);
-			tagCompound.setInteger("Num", sectionCount);
-		}
-
-		protected void readStructureFromNBT(NBTTagCompound tagCompound, TemplateManager p_143011_2_) {
-
-			super.readStructureFromNBT(tagCompound, p_143011_2_);
-			hasRails = tagCompound.getBoolean("hr");
-			hasSpiders = tagCompound.getBoolean("sc");
-			spawnerPlaced = tagCompound.getBoolean("hps");
-			sectionCount = tagCompound.getInteger("Num");
-		}
-
 		public Corridor(int p_i47140_1_, Random p_i47140_2_, StructureBoundingBox p_i47140_3_, EnumFacing p_i47140_4_, MapGenMineshaft.Type p_i47140_5_) {
 
 			super(p_i47140_1_, p_i47140_5_);
@@ -162,6 +144,24 @@ public class StructureMineshaftPieces {
 			}
 
 			return i > 0 ? structureboundingbox : null;
+		}
+
+		protected void writeStructureToNBT(NBTTagCompound tagCompound) {
+
+			super.writeStructureToNBT(tagCompound);
+			tagCompound.setBoolean("hr", hasRails);
+			tagCompound.setBoolean("sc", hasSpiders);
+			tagCompound.setBoolean("hps", spawnerPlaced);
+			tagCompound.setInteger("Num", sectionCount);
+		}
+
+		protected void readStructureFromNBT(NBTTagCompound tagCompound, TemplateManager p_143011_2_) {
+
+			super.readStructureFromNBT(tagCompound, p_143011_2_);
+			hasRails = tagCompound.getBoolean("hr");
+			hasSpiders = tagCompound.getBoolean("sc");
+			spawnerPlaced = tagCompound.getBoolean("hps");
+			sectionCount = tagCompound.getInteger("Num");
 		}
 
 		public void buildComponent(StructureComponent componentIn, List<StructureComponent> listIn, Random rand) {
@@ -382,20 +382,6 @@ public class StructureMineshaftPieces {
 
 		}
 
-		protected void writeStructureToNBT(NBTTagCompound tagCompound) {
-
-			super.writeStructureToNBT(tagCompound);
-			tagCompound.setBoolean("tf", isMultipleFloors);
-			tagCompound.setInteger("D", corridorDirection.getHorizontalIndex());
-		}
-
-		protected void readStructureFromNBT(NBTTagCompound tagCompound, TemplateManager p_143011_2_) {
-
-			super.readStructureFromNBT(tagCompound, p_143011_2_);
-			isMultipleFloors = tagCompound.getBoolean("tf");
-			corridorDirection = EnumFacing.getHorizontal(tagCompound.getInteger("D"));
-		}
-
 		public Cross(int p_i47139_1_, Random p_i47139_2_, StructureBoundingBox p_i47139_3_, @Nullable EnumFacing p_i47139_4_, MapGenMineshaft.Type p_i47139_5_) {
 
 			super(p_i47139_1_, p_i47139_5_);
@@ -439,6 +425,20 @@ public class StructureMineshaftPieces {
 			}
 
 			return StructureComponent.findIntersecting(listIn, structureboundingbox) != null ? null : structureboundingbox;
+		}
+
+		protected void writeStructureToNBT(NBTTagCompound tagCompound) {
+
+			super.writeStructureToNBT(tagCompound);
+			tagCompound.setBoolean("tf", isMultipleFloors);
+			tagCompound.setInteger("D", corridorDirection.getHorizontalIndex());
+		}
+
+		protected void readStructureFromNBT(NBTTagCompound tagCompound, TemplateManager p_143011_2_) {
+
+			super.readStructureFromNBT(tagCompound, p_143011_2_);
+			isMultipleFloors = tagCompound.getBoolean("tf");
+			corridorDirection = EnumFacing.getHorizontal(tagCompound.getInteger("D"));
 		}
 
 		public void buildComponent(StructureComponent componentIn, List<StructureComponent> listIn, Random rand) {

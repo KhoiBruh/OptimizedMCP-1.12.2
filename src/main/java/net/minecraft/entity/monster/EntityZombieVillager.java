@@ -51,6 +51,11 @@ public class EntityZombieVillager extends EntityZombie {
 		super(worldIn);
 	}
 
+	public static void registerFixesZombieVillager(DataFixer fixer) {
+
+		EntityLiving.registerFixesMob(fixer, EntityZombieVillager.class);
+	}
+
 	protected void entityInit() {
 
 		super.entityInit();
@@ -58,19 +63,14 @@ public class EntityZombieVillager extends EntityZombie {
 		dataManager.register(PROFESSION, Integer.valueOf(0));
 	}
 
-	public void setProfession(int profession) {
-
-		dataManager.set(PROFESSION, Integer.valueOf(profession));
-	}
-
 	public int getProfession() {
 
 		return Math.max(dataManager.get(PROFESSION).intValue() % 6, 0);
 	}
 
-	public static void registerFixesZombieVillager(DataFixer fixer) {
+	public void setProfession(int profession) {
 
-		EntityLiving.registerFixesMob(fixer, EntityZombieVillager.class);
+		dataManager.set(PROFESSION, Integer.valueOf(profession));
 	}
 
 	/**

@@ -25,6 +25,13 @@ public abstract class BlockRailBase extends Block {
 	protected static final AxisAlignedBB ASCENDING_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.5D, 1.0D);
 	protected final boolean isPowered;
 
+	protected BlockRailBase(boolean isPowered) {
+
+		super(Material.CIRCUITS);
+		this.isPowered = isPowered;
+		setCreativeTab(CreativeTabs.TRANSPORTATION);
+	}
+
 	public static boolean isRailBlock(World worldIn, BlockPos pos) {
 
 		return isRailBlock(worldIn.getBlockState(pos));
@@ -34,13 +41,6 @@ public abstract class BlockRailBase extends Block {
 
 		Block block = state.getBlock();
 		return block == Blocks.RAIL || block == Blocks.GOLDEN_RAIL || block == Blocks.DETECTOR_RAIL || block == Blocks.ACTIVATOR_RAIL;
-	}
-
-	protected BlockRailBase(boolean isPowered) {
-
-		super(Material.CIRCUITS);
-		this.isPowered = isPowered;
-		setCreativeTab(CreativeTabs.TRANSPORTATION);
 	}
 
 	@Nullable
@@ -189,6 +189,13 @@ public abstract class BlockRailBase extends Block {
 		NORTH_EAST(9, "north_east");
 
 		private static final BlockRailBase.EnumRailDirection[] META_LOOKUP = new BlockRailBase.EnumRailDirection[values().length];
+
+		static {
+			for (BlockRailBase.EnumRailDirection blockrailbase$enumraildirection : values()) {
+				META_LOOKUP[blockrailbase$enumraildirection.getMetadata()] = blockrailbase$enumraildirection;
+			}
+		}
+
 		private final int meta;
 		private final String name;
 
@@ -196,6 +203,15 @@ public abstract class BlockRailBase extends Block {
 
 			this.meta = meta;
 			this.name = name;
+		}
+
+		public static BlockRailBase.EnumRailDirection byMetadata(int meta) {
+
+			if (meta < 0 || meta >= META_LOOKUP.length) {
+				meta = 0;
+			}
+
+			return META_LOOKUP[meta];
 		}
 
 		public int getMetadata() {
@@ -213,24 +229,9 @@ public abstract class BlockRailBase extends Block {
 			return this == ASCENDING_NORTH || this == ASCENDING_EAST || this == ASCENDING_SOUTH || this == ASCENDING_WEST;
 		}
 
-		public static BlockRailBase.EnumRailDirection byMetadata(int meta) {
-
-			if (meta < 0 || meta >= META_LOOKUP.length) {
-				meta = 0;
-			}
-
-			return META_LOOKUP[meta];
-		}
-
 		public String getName() {
 
 			return name;
-		}
-
-		static {
-			for (BlockRailBase.EnumRailDirection blockrailbase$enumraildirection : values()) {
-				META_LOOKUP[blockrailbase$enumraildirection.getMetadata()] = blockrailbase$enumraildirection;
-			}
 		}
 	}
 
@@ -239,9 +240,9 @@ public abstract class BlockRailBase extends Block {
 		private final World world;
 		private final BlockPos pos;
 		private final BlockRailBase block;
-		private IBlockState state;
 		private final boolean isPowered;
 		private final List<BlockPos> connectedRails = Lists.newArrayList();
+		private IBlockState state;
 
 		public Rail(World worldIn, BlockPos pos, IBlockState state) {
 

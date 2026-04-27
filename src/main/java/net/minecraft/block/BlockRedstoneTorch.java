@@ -3,8 +3,6 @@ package net.minecraft.block;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
@@ -24,6 +22,13 @@ public class BlockRedstoneTorch extends BlockTorch {
 
 	private static final Map<World, List<BlockRedstoneTorch.Toggle>> toggles = Maps.newHashMap();
 	private final boolean isOn;
+
+	protected BlockRedstoneTorch(boolean isOn) {
+
+		this.isOn = isOn;
+		setTickRandomly(true);
+		setCreativeTab(null);
+	}
 
 	private boolean isBurnedOut(World worldIn, BlockPos pos, boolean turnOff) {
 
@@ -52,13 +57,6 @@ public class BlockRedstoneTorch extends BlockTorch {
 		}
 
 		return false;
-	}
-
-	protected BlockRedstoneTorch(boolean isOn) {
-
-		this.isOn = isOn;
-		setTickRandomly(true);
-		setCreativeTab(null);
 	}
 
 	/**

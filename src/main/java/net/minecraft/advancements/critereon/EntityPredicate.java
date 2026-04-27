@@ -32,25 +32,6 @@ public class EntityPredicate {
 		this.nbt = nbt;
 	}
 
-	public boolean test(EntityPlayerMP player, @Nullable Entity entity) {
-
-		if (this == ANY) {
-			return true;
-		} else if (entity == null) {
-			return false;
-		} else if (type != null && !EntityList.isMatchingName(entity, type)) {
-			return false;
-		} else if (!distance.test(player.posX, player.posY, player.posZ, entity.posX, entity.posY, entity.posZ)) {
-			return false;
-		} else if (!location.test(player.getServerWorld(), entity.posX, entity.posY, entity.posZ)) {
-			return false;
-		} else if (!effects.test(entity)) {
-			return false;
-		} else {
-			return nbt.test(entity);
-		}
-	}
-
 	public static EntityPredicate deserialize(@Nullable JsonElement element) {
 
 		if (element != null && !element.isJsonNull()) {
@@ -72,6 +53,25 @@ public class EntityPredicate {
 			return new EntityPredicate(resourcelocation, distancepredicate, locationpredicate, mobeffectspredicate, nbtpredicate);
 		} else {
 			return ANY;
+		}
+	}
+
+	public boolean test(EntityPlayerMP player, @Nullable Entity entity) {
+
+		if (this == ANY) {
+			return true;
+		} else if (entity == null) {
+			return false;
+		} else if (type != null && !EntityList.isMatchingName(entity, type)) {
+			return false;
+		} else if (!distance.test(player.posX, player.posY, player.posZ, entity.posX, entity.posY, entity.posZ)) {
+			return false;
+		} else if (!location.test(player.getServerWorld(), entity.posX, entity.posY, entity.posZ)) {
+			return false;
+		} else if (!effects.test(entity)) {
+			return false;
+		} else {
+			return nbt.test(entity);
 		}
 	}
 

@@ -42,13 +42,13 @@ public class ContainerLocalMenu extends InventoryBasic implements ILockableConta
 		return false;
 	}
 
-	public void setLockCode(LockCode code) {
-
-	}
-
 	public LockCode getLockCode() {
 
 		return LockCode.EMPTY_CODE;
+	}
+
+	public void setLockCode(LockCode code) {
+
 	}
 
 	public String guiID() {

@@ -1,7 +1,6 @@
 package net.minecraft.block;
 
 import net.minecraft.block.material.MapColor;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -80,6 +79,13 @@ public class BlockSand extends BlockFalling {
 		RED_SAND(1, "red_sand", "red", MapColor.ADOBE, -5679071);
 
 		private static final BlockSand.EnumType[] META_LOOKUP = new BlockSand.EnumType[values().length];
+
+		static {
+			for (BlockSand.EnumType blocksand$enumtype : values()) {
+				META_LOOKUP[blocksand$enumtype.getMetadata()] = blocksand$enumtype;
+			}
+		}
+
 		private final int meta;
 		private final String name;
 		private final MapColor mapColor;
@@ -93,6 +99,15 @@ public class BlockSand extends BlockFalling {
 			mapColor = p_i47157_6_;
 			unlocalizedName = p_i47157_5_;
 			dustColor = p_i47157_7_;
+		}
+
+		public static BlockSand.EnumType byMetadata(int meta) {
+
+			if (meta < 0 || meta >= META_LOOKUP.length) {
+				meta = 0;
+			}
+
+			return META_LOOKUP[meta];
 		}
 
 		public int getDustColor() {
@@ -115,15 +130,6 @@ public class BlockSand extends BlockFalling {
 			return mapColor;
 		}
 
-		public static BlockSand.EnumType byMetadata(int meta) {
-
-			if (meta < 0 || meta >= META_LOOKUP.length) {
-				meta = 0;
-			}
-
-			return META_LOOKUP[meta];
-		}
-
 		public String getName() {
 
 			return name;
@@ -132,12 +138,6 @@ public class BlockSand extends BlockFalling {
 		public String getUnlocalizedName() {
 
 			return unlocalizedName;
-		}
-
-		static {
-			for (BlockSand.EnumType blocksand$enumtype : values()) {
-				META_LOOKUP[blocksand$enumtype.getMetadata()] = blocksand$enumtype;
-			}
 		}
 	}
 

@@ -1,7 +1,6 @@
 package net.minecraft.block;
 
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
@@ -47,6 +46,47 @@ public class BlockVine extends Block {
 		setDefaultState(blockState.getBaseState().withProperty(UP, Boolean.valueOf(false)).withProperty(NORTH, Boolean.valueOf(false)).withProperty(EAST, Boolean.valueOf(false)).withProperty(SOUTH, Boolean.valueOf(false)).withProperty(WEST, Boolean.valueOf(false)));
 		setTickRandomly(true);
 		setCreativeTab(CreativeTabs.DECORATIONS);
+	}
+
+	protected static boolean isExceptBlockForAttaching(Block p_193397_0_) {
+
+		return p_193397_0_ instanceof BlockShulkerBox || p_193397_0_ == Blocks.BEACON || p_193397_0_ == Blocks.CAULDRON || p_193397_0_ == Blocks.GLASS || p_193397_0_ == Blocks.STAINED_GLASS || p_193397_0_ == Blocks.PISTON || p_193397_0_ == Blocks.STICKY_PISTON || p_193397_0_ == Blocks.PISTON_HEAD || p_193397_0_ == Blocks.TRAPDOOR;
+	}
+
+	public static PropertyBool getPropertyFor(EnumFacing side) {
+
+		switch (side) {
+			case UP:
+				return UP;
+
+			case NORTH:
+				return NORTH;
+
+			case SOUTH:
+				return SOUTH;
+
+			case WEST:
+				return WEST;
+
+			case EAST:
+				return EAST;
+
+			default:
+				throw new IllegalArgumentException(side + " is an invalid choice");
+		}
+	}
+
+	public static int getNumGrownFaces(IBlockState state) {
+
+		int i = 0;
+
+		for (PropertyBool propertybool : ALL_FACES) {
+			if (state.getValue(propertybool).booleanValue()) {
+				++i;
+			}
+		}
+
+		return i;
 	}
 
 	@Nullable
@@ -138,11 +178,6 @@ public class BlockVine extends Block {
 
 		IBlockState iblockstate = p_193396_1_.getBlockState(p_193396_2_);
 		return iblockstate.getBlockFaceShape(p_193396_1_, p_193396_2_, p_193396_3_) == BlockFaceShape.SOLID && !isExceptBlockForAttaching(iblockstate.getBlock());
-	}
-
-	protected static boolean isExceptBlockForAttaching(Block p_193397_0_) {
-
-		return p_193397_0_ instanceof BlockShulkerBox || p_193397_0_ == Blocks.BEACON || p_193397_0_ == Blocks.CAULDRON || p_193397_0_ == Blocks.GLASS || p_193397_0_ == Blocks.STAINED_GLASS || p_193397_0_ == Blocks.PISTON || p_193397_0_ == Blocks.STICKY_PISTON || p_193397_0_ == Blocks.PISTON_HEAD || p_193397_0_ == Blocks.TRAPDOOR;
 	}
 
 	private boolean recheckGrownSides(World worldIn, BlockPos pos, IBlockState state) {
@@ -417,42 +452,6 @@ public class BlockVine extends Block {
 			default:
 				return super.withMirror(state, mirrorIn);
 		}
-	}
-
-	public static PropertyBool getPropertyFor(EnumFacing side) {
-
-		switch (side) {
-			case UP:
-				return UP;
-
-			case NORTH:
-				return NORTH;
-
-			case SOUTH:
-				return SOUTH;
-
-			case WEST:
-				return WEST;
-
-			case EAST:
-				return EAST;
-
-			default:
-				throw new IllegalArgumentException(side + " is an invalid choice");
-		}
-	}
-
-	public static int getNumGrownFaces(IBlockState state) {
-
-		int i = 0;
-
-		for (PropertyBool propertybool : ALL_FACES) {
-			if (state.getValue(propertybool).booleanValue()) {
-				++i;
-			}
-		}
-
-		return i;
 	}
 
 	/**

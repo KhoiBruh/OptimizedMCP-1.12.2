@@ -2,7 +2,6 @@ package net.minecraft.block;
 
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
@@ -107,6 +106,13 @@ public class BlockDirt extends Block {
 		PODZOL(2, "podzol", MapColor.OBSIDIAN);
 
 		private static final BlockDirt.DirtType[] METADATA_LOOKUP = new BlockDirt.DirtType[values().length];
+
+		static {
+			for (BlockDirt.DirtType blockdirt$dirttype : values()) {
+				METADATA_LOOKUP[blockdirt$dirttype.getMetadata()] = blockdirt$dirttype;
+			}
+		}
+
 		private final int metadata;
 		private final String name;
 		private final String unlocalizedName;
@@ -123,6 +129,15 @@ public class BlockDirt extends Block {
 			name = nameIn;
 			unlocalizedName = unlocalizedNameIn;
 			this.color = color;
+		}
+
+		public static BlockDirt.DirtType byMetadata(int metadata) {
+
+			if (metadata < 0 || metadata >= METADATA_LOOKUP.length) {
+				metadata = 0;
+			}
+
+			return METADATA_LOOKUP[metadata];
 		}
 
 		public int getMetadata() {
@@ -145,24 +160,9 @@ public class BlockDirt extends Block {
 			return name;
 		}
 
-		public static BlockDirt.DirtType byMetadata(int metadata) {
-
-			if (metadata < 0 || metadata >= METADATA_LOOKUP.length) {
-				metadata = 0;
-			}
-
-			return METADATA_LOOKUP[metadata];
-		}
-
 		public String getName() {
 
 			return name;
-		}
-
-		static {
-			for (BlockDirt.DirtType blockdirt$dirttype : values()) {
-				METADATA_LOOKUP[blockdirt$dirttype.getMetadata()] = blockdirt$dirttype;
-			}
 		}
 	}
 

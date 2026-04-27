@@ -47,6 +47,11 @@ public class TileEntityBrewingStand extends TileEntityLockable implements ITicka
 	private String customName;
 	private int fuel;
 
+	public static void registerFixesBrewingStand(DataFixer fixer) {
+
+		fixer.registerWalker(FixTypes.BLOCK_ENTITY, new ItemStackDataLists(TileEntityBrewingStand.class, "Items"));
+	}
+
 	/**
 	 * Get the name of this object. For players this returns their username
 	 */
@@ -55,17 +60,17 @@ public class TileEntityBrewingStand extends TileEntityLockable implements ITicka
 		return hasCustomName() ? customName : "container.brewing";
 	}
 
+	public void setName(String name) {
+
+		customName = name;
+	}
+
 	/**
 	 * Returns true if this thing is named
 	 */
 	public boolean hasCustomName() {
 
 		return customName != null && !customName.isEmpty();
-	}
-
-	public void setName(String name) {
-
-		customName = name;
 	}
 
 	/**
@@ -206,11 +211,6 @@ public class TileEntityBrewingStand extends TileEntityLockable implements ITicka
 
 		brewingItemStacks.set(3, itemstack);
 		world.playEvent(1035, blockpos, 0);
-	}
-
-	public static void registerFixesBrewingStand(DataFixer fixer) {
-
-		fixer.registerWalker(FixTypes.BLOCK_ENTITY, new ItemStackDataLists(TileEntityBrewingStand.class, "Items"));
 	}
 
 	public void readFromNBT(NBTTagCompound compound) {

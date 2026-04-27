@@ -98,6 +98,17 @@ public abstract class EntityAgeable extends EntityCreature {
 	}
 
 	/**
+	 * The age value may be negative or positive or zero. If it's negative, it get's incremented on each tick, if it's
+	 * positive, it get's decremented each tick. With a negative value the Entity is considered a child.
+	 */
+	public void setGrowingAge(int age) {
+
+		dataManager.set(BABY, Boolean.valueOf(age < 0));
+		growingAge = age;
+		setScaleForAge(isChild());
+	}
+
+	/**
 	 * Increases this entity's age, optionally updating {@link #forcedAge}. If the entity is an adult (if the entity's
 	 * age is greater than or equal to 0) then the entity's age will be set to {@link #forcedAge}.
 	 *
@@ -142,17 +153,6 @@ public abstract class EntityAgeable extends EntityCreature {
 	public void addGrowth(int growth) {
 
 		ageUp(growth, false);
-	}
-
-	/**
-	 * The age value may be negative or positive or zero. If it's negative, it get's incremented on each tick, if it's
-	 * positive, it get's decremented each tick. With a negative value the Entity is considered a child.
-	 */
-	public void setGrowingAge(int age) {
-
-		dataManager.set(BABY, Boolean.valueOf(age < 0));
-		growingAge = age;
-		setScaleForAge(isChild());
 	}
 
 	/**

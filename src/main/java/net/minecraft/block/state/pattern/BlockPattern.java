@@ -38,6 +38,27 @@ public class BlockPattern {
 		}
 	}
 
+	public static LoadingCache<BlockPos, BlockWorldState> createLoadingCache(World worldIn, boolean forceLoadIn) {
+
+		return CacheBuilder.newBuilder().build(new BlockPattern.CacheLoader(worldIn, forceLoadIn));
+	}
+
+	/**
+	 * Offsets the position of pos in the direction of finger and thumb facing by offset amounts, follows the right-hand
+	 * rule for cross products (finger, thumb, palm) @return A new BlockPos offset in the facing directions
+	 */
+	protected static BlockPos translateOffset(BlockPos pos, EnumFacing finger, EnumFacing thumb, int palmOffset, int thumbOffset, int fingerOffset) {
+
+		if (finger != thumb && finger != thumb.getOpposite()) {
+			Vec3i vec3i = new Vec3i(finger.getFrontOffsetX(), finger.getFrontOffsetY(), finger.getFrontOffsetZ());
+			Vec3i vec3i1 = new Vec3i(thumb.getFrontOffsetX(), thumb.getFrontOffsetY(), thumb.getFrontOffsetZ());
+			Vec3i vec3i2 = vec3i.crossProduct(vec3i1);
+			return pos.add(vec3i1.getX() * -thumbOffset + vec3i2.getX() * palmOffset + vec3i.getX() * fingerOffset, vec3i1.getY() * -thumbOffset + vec3i2.getY() * palmOffset + vec3i.getY() * fingerOffset, vec3i1.getZ() * -thumbOffset + vec3i2.getZ() * palmOffset + vec3i.getZ() * fingerOffset);
+		} else {
+			throw new IllegalArgumentException("Invalid forwards & up combination");
+		}
+	}
+
 	public int getFingerLength() {
 
 		return fingerLength;
@@ -99,27 +120,6 @@ public class BlockPattern {
 		}
 
 		return null;
-	}
-
-	public static LoadingCache<BlockPos, BlockWorldState> createLoadingCache(World worldIn, boolean forceLoadIn) {
-
-		return CacheBuilder.newBuilder().build(new BlockPattern.CacheLoader(worldIn, forceLoadIn));
-	}
-
-	/**
-	 * Offsets the position of pos in the direction of finger and thumb facing by offset amounts, follows the right-hand
-	 * rule for cross products (finger, thumb, palm) @return A new BlockPos offset in the facing directions
-	 */
-	protected static BlockPos translateOffset(BlockPos pos, EnumFacing finger, EnumFacing thumb, int palmOffset, int thumbOffset, int fingerOffset) {
-
-		if (finger != thumb && finger != thumb.getOpposite()) {
-			Vec3i vec3i = new Vec3i(finger.getFrontOffsetX(), finger.getFrontOffsetY(), finger.getFrontOffsetZ());
-			Vec3i vec3i1 = new Vec3i(thumb.getFrontOffsetX(), thumb.getFrontOffsetY(), thumb.getFrontOffsetZ());
-			Vec3i vec3i2 = vec3i.crossProduct(vec3i1);
-			return pos.add(vec3i1.getX() * -thumbOffset + vec3i2.getX() * palmOffset + vec3i.getX() * fingerOffset, vec3i1.getY() * -thumbOffset + vec3i2.getY() * palmOffset + vec3i.getY() * fingerOffset, vec3i1.getZ() * -thumbOffset + vec3i2.getZ() * palmOffset + vec3i.getZ() * fingerOffset);
-		} else {
-			throw new IllegalArgumentException("Invalid forwards & up combination");
-		}
 	}
 
 	static class CacheLoader extends com.google.common.cache.CacheLoader<BlockPos, BlockWorldState> {

@@ -11,8 +11,8 @@ import javax.annotation.Nullable;
 
 public class BlockStateContainer implements IBlockStatePaletteResizer {
 
-	private static final IBlockStatePalette REGISTRY_BASED_PALETTE = new BlockStatePaletteRegistry();
 	protected static final IBlockState AIR_BLOCK_STATE = Blocks.AIR.getDefaultState();
+	private static final IBlockStatePalette REGISTRY_BASED_PALETTE = new BlockStatePaletteRegistry();
 	protected BitArray storage;
 	protected IBlockStatePalette palette;
 	private int bits;

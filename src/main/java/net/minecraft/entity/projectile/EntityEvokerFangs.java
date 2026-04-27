@@ -41,12 +41,6 @@ public class EntityEvokerFangs extends Entity {
 
 	}
 
-	public void setCaster(@Nullable EntityLivingBase p_190549_1_) {
-
-		caster = p_190549_1_;
-		casterUuid = p_190549_1_ == null ? null : p_190549_1_.getUniqueID();
-	}
-
 	@Nullable
 	public EntityLivingBase getCaster() {
 
@@ -59,6 +53,12 @@ public class EntityEvokerFangs extends Entity {
 		}
 
 		return caster;
+	}
+
+	public void setCaster(@Nullable EntityLivingBase p_190549_1_) {
+
+		caster = p_190549_1_;
+		casterUuid = p_190549_1_ == null ? null : p_190549_1_.getUniqueID();
 	}
 
 	/**

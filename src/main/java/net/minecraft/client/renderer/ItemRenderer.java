@@ -35,14 +35,14 @@ public class ItemRenderer {
 	 * A reference to the Minecraft object.
 	 */
 	private final Minecraft mc;
+	private final RenderManager renderManager;
+	private final RenderItem itemRenderer;
 	private ItemStack itemStackMainHand = ItemStack.EMPTY;
 	private ItemStack itemStackOffHand = ItemStack.EMPTY;
 	private float equippedProgressMainHand;
 	private float prevEquippedProgressMainHand;
 	private float equippedProgressOffHand;
 	private float prevEquippedProgressOffHand;
-	private final RenderManager renderManager;
-	private final RenderItem itemRenderer;
 
 	public ItemRenderer(Minecraft mcIn) {
 

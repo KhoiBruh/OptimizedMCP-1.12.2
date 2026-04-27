@@ -42,6 +42,26 @@ public class BufferBuilder {
 		rawFloatBuffer = byteBuffer.asFloatBuffer();
 	}
 
+	private static float getDistanceSq(FloatBuffer p_181665_0_, float p_181665_1_, float p_181665_2_, float p_181665_3_, int p_181665_4_, int p_181665_5_) {
+
+		float f = p_181665_0_.get(p_181665_5_);
+		float f1 = p_181665_0_.get(p_181665_5_ + 1);
+		float f2 = p_181665_0_.get(p_181665_5_ + 2);
+		float f3 = p_181665_0_.get(p_181665_5_ + p_181665_4_);
+		float f4 = p_181665_0_.get(p_181665_5_ + p_181665_4_ + 1);
+		float f5 = p_181665_0_.get(p_181665_5_ + p_181665_4_ + 2);
+		float f6 = p_181665_0_.get(p_181665_5_ + p_181665_4_ * 2);
+		float f7 = p_181665_0_.get(p_181665_5_ + p_181665_4_ * 2 + 1);
+		float f8 = p_181665_0_.get(p_181665_5_ + p_181665_4_ * 2 + 2);
+		float f9 = p_181665_0_.get(p_181665_5_ + p_181665_4_ * 3);
+		float f10 = p_181665_0_.get(p_181665_5_ + p_181665_4_ * 3 + 1);
+		float f11 = p_181665_0_.get(p_181665_5_ + p_181665_4_ * 3 + 2);
+		float f12 = (f + f3 + f6 + f9) * 0.25F - p_181665_1_;
+		float f13 = (f1 + f4 + f7 + f10) * 0.25F - p_181665_2_;
+		float f14 = (f2 + f5 + f8 + f11) * 0.25F - p_181665_3_;
+		return f12 * f12 + f13 * f13 + f14 * f14;
+	}
+
 	private void growBuffer(int p_181670_1_) {
 
 		if (MathHelper.roundUp(p_181670_1_, 4) / 4 > rawIntBuffer.remaining() || vertexCount * vertexFormat.getNextOffset() + p_181670_1_ > byteBuffer.capacity()) {
@@ -128,31 +148,6 @@ public class BufferBuilder {
 		return new BufferBuilder.State(aint, new VertexFormat(vertexFormat));
 	}
 
-	private int getBufferSize() {
-
-		return vertexCount * vertexFormat.getIntegerSize();
-	}
-
-	private static float getDistanceSq(FloatBuffer p_181665_0_, float p_181665_1_, float p_181665_2_, float p_181665_3_, int p_181665_4_, int p_181665_5_) {
-
-		float f = p_181665_0_.get(p_181665_5_);
-		float f1 = p_181665_0_.get(p_181665_5_ + 0 + 1);
-		float f2 = p_181665_0_.get(p_181665_5_ + 0 + 2);
-		float f3 = p_181665_0_.get(p_181665_5_ + p_181665_4_);
-		float f4 = p_181665_0_.get(p_181665_5_ + p_181665_4_ + 1);
-		float f5 = p_181665_0_.get(p_181665_5_ + p_181665_4_ + 2);
-		float f6 = p_181665_0_.get(p_181665_5_ + p_181665_4_ * 2);
-		float f7 = p_181665_0_.get(p_181665_5_ + p_181665_4_ * 2 + 1);
-		float f8 = p_181665_0_.get(p_181665_5_ + p_181665_4_ * 2 + 2);
-		float f9 = p_181665_0_.get(p_181665_5_ + p_181665_4_ * 3);
-		float f10 = p_181665_0_.get(p_181665_5_ + p_181665_4_ * 3 + 1);
-		float f11 = p_181665_0_.get(p_181665_5_ + p_181665_4_ * 3 + 2);
-		float f12 = (f + f3 + f6 + f9) * 0.25F - p_181665_1_;
-		float f13 = (f1 + f4 + f7 + f10) * 0.25F - p_181665_2_;
-		float f14 = (f2 + f5 + f8 + f11) * 0.25F - p_181665_3_;
-		return f12 * f12 + f13 * f13 + f14 * f14;
-	}
-
 	public void setVertexState(BufferBuilder.State state) {
 
 		rawIntBuffer.clear();
@@ -160,6 +155,11 @@ public class BufferBuilder {
 		rawIntBuffer.put(state.getRawBuffer());
 		vertexCount = state.getVertexCount();
 		vertexFormat = new VertexFormat(state.getVertexFormat());
+	}
+
+	private int getBufferSize() {
+
+		return vertexCount * vertexFormat.getIntegerSize();
 	}
 
 	public void reset() {

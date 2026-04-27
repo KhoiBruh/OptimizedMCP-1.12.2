@@ -8,8 +8,8 @@ public class DisconnectedRealmsScreen extends RealmsScreen {
 
 	private final String title;
 	private final ITextComponent reason;
-	private List<String> lines;
 	private final RealmsScreen parent;
+	private List<String> lines;
 	private int textHeight;
 
 	public DisconnectedRealmsScreen(RealmsScreen parentIn, String unlocalizedTitle, ITextComponent reasonIn) {

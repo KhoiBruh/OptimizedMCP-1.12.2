@@ -70,6 +70,17 @@ public class WorldType {
 		WORLD_TYPES[id] = this;
 	}
 
+	public static WorldType parseWorldType(String type) {
+
+		for (WorldType worldtype : WORLD_TYPES) {
+			if (worldtype != null && worldtype.name.equalsIgnoreCase(type)) {
+				return worldtype;
+			}
+		}
+
+		return null;
+	}
+
 	public String getName() {
 
 		return name;
@@ -136,17 +147,6 @@ public class WorldType {
 	public boolean isVersioned() {
 
 		return versioned;
-	}
-
-	public static WorldType parseWorldType(String type) {
-
-		for (WorldType worldtype : WORLD_TYPES) {
-			if (worldtype != null && worldtype.name.equalsIgnoreCase(type)) {
-				return worldtype;
-			}
-		}
-
-		return null;
 	}
 
 	public int getId() {

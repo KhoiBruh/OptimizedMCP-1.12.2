@@ -14,7 +14,6 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionType;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.world.World;
 
@@ -24,8 +23,8 @@ import java.util.Set;
 public class EntityTippedArrow extends EntityArrow {
 
 	private static final DataParameter<Integer> COLOR = EntityDataManager.createKey(EntityTippedArrow.class, DataSerializers.VARINT);
-	private PotionType potion = PotionTypes.EMPTY;
 	private final Set<PotionEffect> customPotionEffects = Sets.newHashSet();
+	private PotionType potion = PotionTypes.EMPTY;
 	private boolean fixedColor;
 
 	public EntityTippedArrow(World worldIn) {
@@ -41,6 +40,17 @@ public class EntityTippedArrow extends EntityArrow {
 	public EntityTippedArrow(World worldIn, EntityLivingBase shooter) {
 
 		super(worldIn, shooter);
+	}
+
+	public static int getCustomColor(ItemStack p_191508_0_) {
+
+		NBTTagCompound nbttagcompound = p_191508_0_.getTagCompound();
+		return nbttagcompound != null && nbttagcompound.hasKey("CustomPotionColor", 99) ? nbttagcompound.getInteger("CustomPotionColor") : -1;
+	}
+
+	public static void registerFixesTippedArrow(DataFixer fixer) {
+
+		EntityArrow.registerFixesArrow(fixer, "TippedArrow");
 	}
 
 	public void setPotionEffect(ItemStack stack) {
@@ -67,12 +77,6 @@ public class EntityTippedArrow extends EntityArrow {
 			customPotionEffects.clear();
 			dataManager.set(COLOR, Integer.valueOf(-1));
 		}
-	}
-
-	public static int getCustomColor(ItemStack p_191508_0_) {
-
-		NBTTagCompound nbttagcompound = p_191508_0_.getTagCompound();
-		return nbttagcompound != null && nbttagcompound.hasKey("CustomPotionColor", 99) ? nbttagcompound.getInteger("CustomPotionColor") : -1;
 	}
 
 	private void refreshColor() {
@@ -140,11 +144,6 @@ public class EntityTippedArrow extends EntityArrow {
 
 		fixedColor = true;
 		dataManager.set(COLOR, Integer.valueOf(p_191507_1_));
-	}
-
-	public static void registerFixesTippedArrow(DataFixer fixer) {
-
-		EntityArrow.registerFixesArrow(fixer, "TippedArrow");
 	}
 
 	/**

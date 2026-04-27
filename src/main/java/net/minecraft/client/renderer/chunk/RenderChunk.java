@@ -28,22 +28,22 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class RenderChunk {
 
-	private World world;
-	private final RenderGlobal renderGlobal;
 	public static int renderChunksUpdated;
-	public CompiledChunk compiledChunk = CompiledChunk.DUMMY;
+	private final RenderGlobal renderGlobal;
 	private final ReentrantLock lockCompileTask = new ReentrantLock();
 	private final ReentrantLock lockCompiledChunk = new ReentrantLock();
-	private ChunkCompileTaskGenerator compileTask;
 	private final Set<TileEntity> setTileEntities = Sets.newHashSet();
 	private final int index;
 	private final FloatBuffer modelviewMatrix = GLAllocation.createDirectFloatBuffer(16);
 	private final VertexBuffer[] vertexBuffers = new VertexBuffer[BlockRenderLayer.values().length];
-	public AxisAlignedBB boundingBox;
-	private int frameIndex = -1;
-	private boolean needsUpdate = true;
 	private final BlockPos.MutableBlockPos position = new BlockPos.MutableBlockPos(-1, -1, -1);
 	private final BlockPos.MutableBlockPos[] mapEnumFacing = new BlockPos.MutableBlockPos[6];
+	public CompiledChunk compiledChunk = CompiledChunk.DUMMY;
+	public AxisAlignedBB boundingBox;
+	private World world;
+	private ChunkCompileTaskGenerator compileTask;
+	private int frameIndex = -1;
+	private boolean needsUpdate = true;
 	private boolean needsImmediateUpdate;
 	private ChunkCache worldView;
 

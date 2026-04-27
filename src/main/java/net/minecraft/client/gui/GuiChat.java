@@ -19,20 +19,17 @@ import java.io.IOException;
 public class GuiChat extends GuiScreen implements ITabCompleter {
 
 	private static final Logger LOGGER = LogManager.getLogger();
+	/**
+	 * Chat entry field
+	 */
+	protected GuiTextField inputField;
 	private String historyBuffer = "";
-
 	/**
 	 * keeps position of which chat message you will select when you press up, (does not increase for duplicated
 	 * messages sent immediately after each other)
 	 */
 	private int sentHistoryCursor = -1;
 	private TabCompleter tabCompleter;
-
-	/**
-	 * Chat entry field
-	 */
-	protected GuiTextField inputField;
-
 	/**
 	 * is the text that appears when you press the chat key and the input box appears pre-filled
 	 */

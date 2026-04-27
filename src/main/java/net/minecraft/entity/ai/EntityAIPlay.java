@@ -9,8 +9,8 @@ import java.util.List;
 public class EntityAIPlay extends EntityAIBase {
 
 	private final EntityVillager villager;
-	private EntityLivingBase targetVillager;
 	private final double speed;
+	private EntityLivingBase targetVillager;
 	private int playTime;
 
 	public EntityAIPlay(EntityVillager villagerIn, double speedIn) {

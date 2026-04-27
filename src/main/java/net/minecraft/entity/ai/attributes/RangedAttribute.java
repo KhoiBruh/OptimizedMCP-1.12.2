@@ -25,15 +25,15 @@ public class RangedAttribute extends BaseAttribute {
 		}
 	}
 
+	public String getDescription() {
+
+		return description;
+	}
+
 	public RangedAttribute setDescription(String descriptionIn) {
 
 		description = descriptionIn;
 		return this;
-	}
-
-	public String getDescription() {
-
-		return description;
 	}
 
 	public double clampValue(double value) {

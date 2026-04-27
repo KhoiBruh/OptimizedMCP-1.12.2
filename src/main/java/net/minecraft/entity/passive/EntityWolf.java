@@ -63,6 +63,11 @@ public class EntityWolf extends EntityTameable {
 		setTamed(false);
 	}
 
+	public static void registerFixesWolf(DataFixer fixer) {
+
+		EntityLiving.registerFixesMob(fixer, EntityWolf.class);
+	}
+
 	protected void initEntityAI() {
 
 		aiSit = new EntityAISit(this);
@@ -133,11 +138,6 @@ public class EntityWolf extends EntityTameable {
 	protected void playStepSound(BlockPos pos, Block blockIn) {
 
 		playSound(SoundEvents.ENTITY_WOLF_STEP, 0.15F, 1.0F);
-	}
-
-	public static void registerFixesWolf(DataFixer fixer) {
-
-		EntityLiving.registerFixesMob(fixer, EntityWolf.class);
 	}
 
 	/**
@@ -507,11 +507,6 @@ public class EntityWolf extends EntityTameable {
 		return entitywolf;
 	}
 
-	public void setBegging(boolean beg) {
-
-		dataManager.set(BEGGING, Boolean.valueOf(beg));
-	}
-
 	/**
 	 * Returns true if the mob is currently able to mate with the specified mob.
 	 */
@@ -538,6 +533,11 @@ public class EntityWolf extends EntityTameable {
 	public boolean isBegging() {
 
 		return dataManager.get(BEGGING).booleanValue();
+	}
+
+	public void setBegging(boolean beg) {
+
+		dataManager.set(BEGGING, Boolean.valueOf(beg));
 	}
 
 	public boolean shouldAttackEntity(EntityLivingBase target, EntityLivingBase owner) {

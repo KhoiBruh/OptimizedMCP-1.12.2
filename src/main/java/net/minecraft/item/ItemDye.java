@@ -26,6 +26,46 @@ public class ItemDye extends Item {
 		setCreativeTab(CreativeTabs.MATERIALS);
 	}
 
+	public static boolean applyBonemeal(ItemStack stack, World worldIn, BlockPos target) {
+
+		IBlockState iblockstate = worldIn.getBlockState(target);
+
+		if (iblockstate.getBlock() instanceof IGrowable igrowable) {
+
+			if (igrowable.canGrow(worldIn, target, iblockstate, worldIn.isRemote)) {
+				if (!worldIn.isRemote) {
+					if (igrowable.canUseBonemeal(worldIn, worldIn.rand, target, iblockstate)) {
+						igrowable.grow(worldIn, worldIn.rand, target, iblockstate);
+					}
+
+					stack.shrink(1);
+				}
+
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	public static void spawnBonemealParticles(World worldIn, BlockPos pos, int amount) {
+
+		if (amount == 0) {
+			amount = 15;
+		}
+
+		IBlockState iblockstate = worldIn.getBlockState(pos);
+
+		if (iblockstate.getMaterial() != Material.AIR) {
+			for (int i = 0; i < amount; ++i) {
+				double d0 = itemRand.nextGaussian() * 0.02D;
+				double d1 = itemRand.nextGaussian() * 0.02D;
+				double d2 = itemRand.nextGaussian() * 0.02D;
+				worldIn.spawnParticle(EnumParticleTypes.VILLAGER_HAPPY, (float) pos.getX() + itemRand.nextFloat(), (double) pos.getY() + (double) itemRand.nextFloat() * iblockstate.getBoundingBox(worldIn, pos).maxY, (float) pos.getZ() + itemRand.nextFloat(), d0, d1, d2);
+			}
+		}
+	}
+
 	/**
 	 * Returns the unlocalized name of this item. This version accepts an ItemStack so different stacks can have
 	 * different names based on their damage or NBT.
@@ -83,46 +123,6 @@ public class ItemDye extends Item {
 			}
 
 			return EnumActionResult.PASS;
-		}
-	}
-
-	public static boolean applyBonemeal(ItemStack stack, World worldIn, BlockPos target) {
-
-		IBlockState iblockstate = worldIn.getBlockState(target);
-
-		if (iblockstate.getBlock() instanceof IGrowable igrowable) {
-
-			if (igrowable.canGrow(worldIn, target, iblockstate, worldIn.isRemote)) {
-				if (!worldIn.isRemote) {
-					if (igrowable.canUseBonemeal(worldIn, worldIn.rand, target, iblockstate)) {
-						igrowable.grow(worldIn, worldIn.rand, target, iblockstate);
-					}
-
-					stack.shrink(1);
-				}
-
-				return true;
-			}
-		}
-
-		return false;
-	}
-
-	public static void spawnBonemealParticles(World worldIn, BlockPos pos, int amount) {
-
-		if (amount == 0) {
-			amount = 15;
-		}
-
-		IBlockState iblockstate = worldIn.getBlockState(pos);
-
-		if (iblockstate.getMaterial() != Material.AIR) {
-			for (int i = 0; i < amount; ++i) {
-				double d0 = itemRand.nextGaussian() * 0.02D;
-				double d1 = itemRand.nextGaussian() * 0.02D;
-				double d2 = itemRand.nextGaussian() * 0.02D;
-				worldIn.spawnParticle(EnumParticleTypes.VILLAGER_HAPPY, (float) pos.getX() + itemRand.nextFloat(), (double) pos.getY() + (double) itemRand.nextFloat() * iblockstate.getBoundingBox(worldIn, pos).maxY, (float) pos.getZ() + itemRand.nextFloat(), d0, d1, d2);
-			}
 		}
 	}
 

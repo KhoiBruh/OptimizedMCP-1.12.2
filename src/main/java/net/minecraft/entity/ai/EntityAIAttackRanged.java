@@ -16,23 +16,21 @@ public class EntityAIAttackRanged extends EntityAIBase {
 	 * The entity (as a RangedAttackMob) the AI instance has been applied to.
 	 */
 	private final IRangedAttackMob rangedAttackEntityHost;
-	private EntityLivingBase attackTarget;
-
-	/**
-	 * A decrementing tick that spawns a ranged attack once this value reaches 0. It is then set back to the
-	 * maxRangedAttackTime.
-	 */
-	private int rangedAttackTime;
 	private final double entityMoveSpeed;
-	private int seeTime;
 	private final int attackIntervalMin;
-
 	/**
 	 * The maximum time the AI has to wait before peforming another ranged attack.
 	 */
 	private final int maxRangedAttackTime;
 	private final float attackRadius;
 	private final float maxAttackDistance;
+	private EntityLivingBase attackTarget;
+	/**
+	 * A decrementing tick that spawns a ranged attack once this value reaches 0. It is then set back to the
+	 * maxRangedAttackTime.
+	 */
+	private int rangedAttackTime;
+	private int seeTime;
 
 	public EntityAIAttackRanged(IRangedAttackMob attacker, double movespeed, int maxAttackTime, float maxAttackDistanceIn) {
 

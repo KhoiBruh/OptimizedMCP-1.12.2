@@ -9,7 +9,6 @@ import net.minecraft.tileentity.TileEntityCommandBlock;
 import net.minecraft.util.ITabCompleter;
 import net.minecraft.util.TabCompleter;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.ITextComponent;
 import org.lwjgl.input.Keyboard;
 
 import javax.annotation.Nullable;
@@ -17,13 +16,12 @@ import java.io.IOException;
 
 public class GuiCommandBlock extends GuiScreen implements ITabCompleter {
 
+	private final TileEntityCommandBlock commandBlock;
 	/**
 	 * Text field containing the command block's command.
 	 */
 	private GuiTextField commandTextField;
 	private GuiTextField previousOutputTextField;
-	private final TileEntityCommandBlock commandBlock;
-
 	/**
 	 * "Done" button for the GUI.
 	 */

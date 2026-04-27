@@ -4,7 +4,6 @@ import com.google.common.base.Predicate;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.BlockWorldState;
 import net.minecraft.block.state.IBlockState;
@@ -29,16 +28,16 @@ import javax.annotation.Nullable;
 
 public class BlockPumpkin extends BlockHorizontal {
 
-	private BlockPattern snowmanBasePattern;
-	private BlockPattern snowmanPattern;
-	private BlockPattern golemBasePattern;
-	private BlockPattern golemPattern;
 	private static final Predicate<IBlockState> IS_PUMPKIN = new Predicate<IBlockState>() {
 		public boolean apply(@Nullable IBlockState p_apply_1_) {
 
 			return p_apply_1_ != null && (p_apply_1_.getBlock() == Blocks.PUMPKIN || p_apply_1_.getBlock() == Blocks.LIT_PUMPKIN);
 		}
 	};
+	private BlockPattern snowmanBasePattern;
+	private BlockPattern snowmanPattern;
+	private BlockPattern golemBasePattern;
+	private BlockPattern golemPattern;
 
 	protected BlockPumpkin() {
 

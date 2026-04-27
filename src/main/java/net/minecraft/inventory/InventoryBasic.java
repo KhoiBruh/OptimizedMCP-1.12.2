@@ -12,9 +12,9 @@ import java.util.List;
 
 public class InventoryBasic implements IInventory {
 
-	private String inventoryTitle;
 	private final int slotsCount;
 	private final NonNullList<ItemStack> inventoryContents;
+	private String inventoryTitle;
 	private List<IInventoryChangedListener> changeListeners;
 	private boolean hasCustomName;
 
@@ -187,7 +187,7 @@ public class InventoryBasic implements IInventory {
 	 */
 	public ITextComponent displayName() {
 
-		return hasCustomName() ? new TextComponentString(getName()) : new TextComponentTranslation(getName(), new Object[0]);
+		return hasCustomName() ? new TextComponentString(getName()) : new TextComponentTranslation(getName());
 	}
 
 	/**

@@ -2,7 +2,6 @@ package net.minecraft.client.gui.advancements;
 
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.RenderItem;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 
 enum AdvancementTabType {
@@ -12,6 +11,17 @@ enum AdvancementTabType {
 	RIGHT(96, 64, 32, 28, 5);
 
 	public static final int MAX_TABS;
+
+	static {
+		int i = 0;
+
+		for (AdvancementTabType advancementtabtype : values()) {
+			i += advancementtabtype.max;
+		}
+
+		MAX_TABS = i;
+	}
+
 	private final int textureX;
 	private final int textureY;
 	private final int width;
@@ -122,15 +132,5 @@ enum AdvancementTabType {
 		int i = p_192654_1_ + getX(p_192654_3_);
 		int j = p_192654_2_ + getY(p_192654_3_);
 		return p_192654_4_ > i && p_192654_4_ < i + width && p_192654_5_ > j && p_192654_5_ < j + height;
-	}
-
-	static {
-		int i = 0;
-
-		for (AdvancementTabType advancementtabtype : values()) {
-			i += advancementtabtype.max;
-		}
-
-		MAX_TABS = i;
 	}
 }

@@ -28,14 +28,14 @@ public class GuiButtonToggle extends GuiButton {
 		resourceLocation = resourceLocationIn;
 	}
 
-	public void setStateTriggered(boolean p_191753_1_) {
-
-		stateTriggered = p_191753_1_;
-	}
-
 	public boolean isStateTriggered() {
 
 		return stateTriggered;
+	}
+
+	public void setStateTriggered(boolean p_191753_1_) {
+
+		stateTriggered = p_191753_1_;
 	}
 
 	public void setPosition(int p_191752_1_, int p_191752_2_) {

@@ -9,9 +9,6 @@ import javax.annotation.Nullable;
 public abstract class PositionedSound implements ISound {
 
 	protected Sound sound;
-
-	@Nullable
-	private SoundEventAccessor soundEvent;
 	protected SoundCategory category;
 	protected ResourceLocation positionedSoundLocation;
 	protected float volume;
@@ -20,12 +17,14 @@ public abstract class PositionedSound implements ISound {
 	protected float yPosF;
 	protected float zPosF;
 	protected boolean repeat;
-
 	/**
 	 * The number of ticks between repeating the sound
 	 */
 	protected int repeatDelay;
 	protected ISound.AttenuationType attenuationType;
+
+	@Nullable
+	private SoundEventAccessor soundEvent;
 
 	protected PositionedSound(SoundEvent soundIn, SoundCategory categoryIn) {
 

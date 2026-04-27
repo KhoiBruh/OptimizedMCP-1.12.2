@@ -5,44 +5,37 @@ import net.minecraft.client.renderer.BufferBuilder;
 public class ModelBox {
 
 	/**
-	 * The (x,y,z) vertex positions and (u,v) texture coordinates for each of the 8 points on a cube
-	 */
-	private final PositionTextureVertex[] vertexPositions;
-
-	/**
-	 * An array of 6 TexturedQuads, one for each face of a cube
-	 */
-	private final TexturedQuad[] quadList;
-
-	/**
 	 * X vertex coordinate of lower box corner
 	 */
 	public final float posX1;
-
 	/**
 	 * Y vertex coordinate of lower box corner
 	 */
 	public final float posY1;
-
 	/**
 	 * Z vertex coordinate of lower box corner
 	 */
 	public final float posZ1;
-
 	/**
 	 * X vertex coordinate of upper box corner
 	 */
 	public final float posX2;
-
 	/**
 	 * Y vertex coordinate of upper box corner
 	 */
 	public final float posY2;
-
 	/**
 	 * Z vertex coordinate of upper box corner
 	 */
 	public final float posZ2;
+	/**
+	 * The (x,y,z) vertex positions and (u,v) texture coordinates for each of the 8 points on a cube
+	 */
+	private final PositionTextureVertex[] vertexPositions;
+	/**
+	 * An array of 6 TexturedQuads, one for each face of a cube
+	 */
+	private final TexturedQuad[] quadList;
 	public String boxName;
 
 	public ModelBox(ModelRenderer renderer, int texU, int texV, float x, float y, float z, int dx, int dy, int dz, float delta) {

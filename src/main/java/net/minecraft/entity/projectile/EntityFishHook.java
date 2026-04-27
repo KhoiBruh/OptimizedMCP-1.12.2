@@ -31,6 +31,7 @@ import java.util.List;
 public class EntityFishHook extends Entity {
 
 	private static final DataParameter<Integer> DATA_HOOKED_ENTITY = EntityDataManager.createKey(EntityFishHook.class, DataSerializers.VARINT);
+	public Entity caughtEntity;
 	private boolean inGround;
 	private int ticksInGround;
 	private EntityPlayer angler;
@@ -39,7 +40,6 @@ public class EntityFishHook extends Entity {
 	private int ticksCaughtDelay;
 	private int ticksCatchableDelay;
 	private float fishApproachAngle;
-	public Entity caughtEntity;
 	private EntityFishHook.State currentState = EntityFishHook.State.FLYING;
 	private int luck;
 	private int lureSpeed;

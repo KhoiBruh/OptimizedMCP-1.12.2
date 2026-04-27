@@ -67,6 +67,23 @@ public class PathPoint {
 		hash = makeHash(x, y, z);
 	}
 
+	public static int makeHash(int x, int y, int z) {
+
+		return y & 255 | (x & 32767) << 8 | (z & 32767) << 24 | (x < 0 ? Integer.MIN_VALUE : 0) | (z < 0 ? 32768 : 0);
+	}
+
+	public static PathPoint createFromBuffer(PacketBuffer buf) {
+
+		PathPoint pathpoint = new PathPoint(buf.readInt(), buf.readInt(), buf.readInt());
+		pathpoint.distanceFromOrigin = buf.readFloat();
+		pathpoint.cost = buf.readFloat();
+		pathpoint.costMalus = buf.readFloat();
+		pathpoint.visited = buf.readBoolean();
+		pathpoint.nodeType = PathNodeType.values()[buf.readInt()];
+		pathpoint.distanceToTarget = buf.readFloat();
+		return pathpoint;
+	}
+
 	public PathPoint cloneMove(int x, int y, int z) {
 
 		PathPoint pathpoint = new PathPoint(x, y, z);
@@ -81,11 +98,6 @@ public class PathPoint {
 		pathpoint.costMalus = costMalus;
 		pathpoint.nodeType = nodeType;
 		return pathpoint;
-	}
-
-	public static int makeHash(int x, int y, int z) {
-
-		return y & 255 | (x & 32767) << 8 | (z & 32767) << 24 | (x < 0 ? Integer.MIN_VALUE : 0) | (z < 0 ? 32768 : 0);
 	}
 
 	/**
@@ -143,18 +155,6 @@ public class PathPoint {
 	public String toString() {
 
 		return x + ", " + y + ", " + z;
-	}
-
-	public static PathPoint createFromBuffer(PacketBuffer buf) {
-
-		PathPoint pathpoint = new PathPoint(buf.readInt(), buf.readInt(), buf.readInt());
-		pathpoint.distanceFromOrigin = buf.readFloat();
-		pathpoint.cost = buf.readFloat();
-		pathpoint.costMalus = buf.readFloat();
-		pathpoint.visited = buf.readBoolean();
-		pathpoint.nodeType = PathNodeType.values()[buf.readInt()];
-		pathpoint.distanceToTarget = buf.readFloat();
-		return pathpoint;
 	}
 
 }

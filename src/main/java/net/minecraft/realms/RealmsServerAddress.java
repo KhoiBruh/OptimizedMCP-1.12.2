@@ -13,6 +13,12 @@ public class RealmsServerAddress {
 		port = portIn;
 	}
 
+	public static RealmsServerAddress parseString(String p_parseString_0_) {
+
+		ServerAddress serveraddress = ServerAddress.fromString(p_parseString_0_);
+		return new RealmsServerAddress(serveraddress.getIP(), serveraddress.getPort());
+	}
+
 	public String getHost() {
 
 		return host;
@@ -21,12 +27,6 @@ public class RealmsServerAddress {
 	public int getPort() {
 
 		return port;
-	}
-
-	public static RealmsServerAddress parseString(String p_parseString_0_) {
-
-		ServerAddress serveraddress = ServerAddress.fromString(p_parseString_0_);
-		return new RealmsServerAddress(serveraddress.getIP(), serveraddress.getPort());
 	}
 
 }

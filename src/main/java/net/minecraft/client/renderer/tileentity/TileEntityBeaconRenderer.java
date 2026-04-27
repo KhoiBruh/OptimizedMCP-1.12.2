@@ -14,30 +14,6 @@ public class TileEntityBeaconRenderer extends TileEntitySpecialRenderer<TileEnti
 
 	public static final ResourceLocation TEXTURE_BEACON_BEAM = new ResourceLocation("textures/entity/beacon_beam.png");
 
-	public void render(TileEntityBeacon te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
-
-		renderBeacon(x, y, z, partialTicks, te.shouldBeamRender(), te.getBeamSegments(), (double) te.getWorld().getTotalWorldTime());
-	}
-
-	public void renderBeacon(double x, double y, double z, double partialTicks, double textureScale, List<TileEntityBeacon.BeamSegment> beamSegments, double totalWorldTime) {
-
-		GlStateManager.alphaFunc(516, 0.1F);
-		bindTexture(TEXTURE_BEACON_BEAM);
-
-		if (textureScale > 0.0D) {
-			GlStateManager.disableFog();
-			int i = 0;
-
-			for (int j = 0; j < beamSegments.size(); ++j) {
-				TileEntityBeacon.BeamSegment tileentitybeacon$beamsegment = beamSegments.get(j);
-				renderBeamSegment(x, y, z, partialTicks, textureScale, totalWorldTime, i, tileentitybeacon$beamsegment.getHeight(), tileentitybeacon$beamsegment.getColors());
-				i += tileentitybeacon$beamsegment.getHeight();
-			}
-
-			GlStateManager.enableFog();
-		}
-	}
-
 	public static void renderBeamSegment(double x, double y, double z, double partialTicks, double textureScale, double totalWorldTime, int yOffset, int height, float[] colors) {
 
 		renderBeamSegment(x, y, z, partialTicks, textureScale, totalWorldTime, yOffset, height, colors, 0.2D, 0.25D);
@@ -128,6 +104,30 @@ public class TileEntityBeaconRenderer extends TileEntitySpecialRenderer<TileEnti
 		GlStateManager.enableLighting();
 		GlStateManager.enableTexture2D();
 		GlStateManager.depthMask(true);
+	}
+
+	public void render(TileEntityBeacon te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
+
+		renderBeacon(x, y, z, partialTicks, te.shouldBeamRender(), te.getBeamSegments(), (double) te.getWorld().getTotalWorldTime());
+	}
+
+	public void renderBeacon(double x, double y, double z, double partialTicks, double textureScale, List<TileEntityBeacon.BeamSegment> beamSegments, double totalWorldTime) {
+
+		GlStateManager.alphaFunc(516, 0.1F);
+		bindTexture(TEXTURE_BEACON_BEAM);
+
+		if (textureScale > 0.0D) {
+			GlStateManager.disableFog();
+			int i = 0;
+
+			for (int j = 0; j < beamSegments.size(); ++j) {
+				TileEntityBeacon.BeamSegment tileentitybeacon$beamsegment = beamSegments.get(j);
+				renderBeamSegment(x, y, z, partialTicks, textureScale, totalWorldTime, i, tileentitybeacon$beamsegment.getHeight(), tileentitybeacon$beamsegment.getColors());
+				i += tileentitybeacon$beamsegment.getHeight();
+			}
+
+			GlStateManager.enableFog();
+		}
 	}
 
 	public boolean isGlobalRenderer(TileEntityBeacon te) {

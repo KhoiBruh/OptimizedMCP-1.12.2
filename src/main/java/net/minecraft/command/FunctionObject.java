@@ -43,6 +43,12 @@ public record FunctionObject(Entry[] entries) {
 		return new FunctionObject(list.toArray(new Entry[list.size()]));
 	}
 
+	public interface Entry {
+
+		void execute(FunctionManager functionManagerIn, ICommandSender sender, ArrayDeque<FunctionManager.QueuedCommand> commandQueue, int maxCommandChainLength);
+
+	}
+
 	public static class CacheableFunction {
 
 		public static final CacheableFunction EMPTY = new CacheableFunction((ResourceLocation) null);
@@ -102,12 +108,6 @@ public record FunctionObject(Entry[] entries) {
 
 			return "/" + command;
 		}
-
-	}
-
-	public interface Entry {
-
-		void execute(FunctionManager functionManagerIn, ICommandSender sender, ArrayDeque<FunctionManager.QueuedCommand> commandQueue, int maxCommandChainLength);
 
 	}
 

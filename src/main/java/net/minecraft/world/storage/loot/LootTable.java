@@ -17,8 +17,8 @@ import java.util.Random;
 
 public class LootTable {
 
-	private static final Logger LOGGER = LogManager.getLogger();
 	public static final LootTable EMPTY_LOOT_TABLE = new LootTable(new LootPool[0]);
+	private static final Logger LOGGER = LogManager.getLogger();
 	private final LootPool[] pools;
 
 	public LootTable(LootPool[] poolsIn) {

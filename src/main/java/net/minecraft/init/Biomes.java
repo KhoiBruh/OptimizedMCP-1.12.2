@@ -97,17 +97,6 @@ public abstract class Biomes {
 	public static final Biome MUTATED_MESA_ROCK;
 	public static final Biome MUTATED_MESA_CLEAR_ROCK;
 
-	private static Biome getRegisteredBiome(String id) {
-
-		Biome biome = Biome.REGISTRY.getObject(new ResourceLocation(id));
-
-		if (biome == null) {
-			throw new IllegalStateException("Invalid Biome requested: " + id);
-		} else {
-			return biome;
-		}
-	}
-
 	static {
 		if (!Bootstrap.isRegistered()) {
 			throw new RuntimeException("Accessed Biomes before Bootstrap!");
@@ -175,6 +164,17 @@ public abstract class Biomes {
 			MUTATED_MESA = getRegisteredBiome("mutated_mesa");
 			MUTATED_MESA_ROCK = getRegisteredBiome("mutated_mesa_rock");
 			MUTATED_MESA_CLEAR_ROCK = getRegisteredBiome("mutated_mesa_clear_rock");
+		}
+	}
+
+	private static Biome getRegisteredBiome(String id) {
+
+		Biome biome = Biome.REGISTRY.getObject(new ResourceLocation(id));
+
+		if (biome == null) {
+			throw new IllegalStateException("Invalid Biome requested: " + id);
+		} else {
+			return biome;
 		}
 	}
 }

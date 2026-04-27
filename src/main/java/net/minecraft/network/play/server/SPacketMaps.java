@@ -80,9 +80,9 @@ public class SPacketMaps implements Packet<INetHandlerPlayClient> {
 		buf.writeVarInt(icons.length);
 
 		for (MapDecoration mapdecoration : icons) {
-			buf.writeByte((mapdecoration.getImage() & 15) << 4 | mapdecoration.getRotation() & 15);
-			buf.writeByte(mapdecoration.getX());
-			buf.writeByte(mapdecoration.getY());
+			buf.writeByte((mapdecoration.getImage() & 15) << 4 | mapdecoration.rotation() & 15);
+			buf.writeByte(mapdecoration.x());
+			buf.writeByte(mapdecoration.y());
 		}
 
 		buf.writeByte(columns);

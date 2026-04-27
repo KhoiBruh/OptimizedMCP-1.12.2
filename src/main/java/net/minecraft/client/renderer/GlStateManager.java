@@ -27,12 +27,40 @@ public class GlStateManager {
 	private static final GlStateManager.ClearState clearState;
 	private static final GlStateManager.StencilState stencilState;
 	private static final GlStateManager.BooleanState normalizeState;
-	private static int activeTextureUnit;
 	private static final GlStateManager.TextureState[] textureState;
-	private static int activeShadeModel;
 	private static final GlStateManager.BooleanState rescaleNormalState;
 	private static final GlStateManager.ColorMask colorMaskState;
 	private static final GlStateManager.Color colorState;
+	private static int activeTextureUnit;
+	private static int activeShadeModel;
+
+	static {
+		for (int i = 0; i < 8; ++i) {
+			lightState[i] = new GlStateManager.BooleanState(16384 + i);
+		}
+
+		colorMaterialState = new GlStateManager.ColorMaterialState();
+		blendState = new GlStateManager.BlendState();
+		depthState = new GlStateManager.DepthState();
+		fogState = new GlStateManager.FogState();
+		cullState = new GlStateManager.CullState();
+		polygonOffsetState = new GlStateManager.PolygonOffsetState();
+		colorLogicState = new GlStateManager.ColorLogicState();
+		texGenState = new GlStateManager.TexGenState();
+		clearState = new GlStateManager.ClearState();
+		stencilState = new GlStateManager.StencilState();
+		normalizeState = new GlStateManager.BooleanState(2977);
+		textureState = new GlStateManager.TextureState[8];
+
+		for (int j = 0; j < 8; ++j) {
+			textureState[j] = new GlStateManager.TextureState();
+		}
+
+		activeShadeModel = 7425;
+		rescaleNormalState = new GlStateManager.BooleanState(32826);
+		colorMaskState = new GlStateManager.ColorMask();
+		colorState = new GlStateManager.Color();
+	}
 
 	/**
 	 * Do not use (see MinecraftForge issue #1637)
@@ -814,187 +842,6 @@ public class GlStateManager {
 		p_187440_0_.clean();
 	}
 
-	static {
-		for (int i = 0; i < 8; ++i) {
-			lightState[i] = new GlStateManager.BooleanState(16384 + i);
-		}
-
-		colorMaterialState = new GlStateManager.ColorMaterialState();
-		blendState = new GlStateManager.BlendState();
-		depthState = new GlStateManager.DepthState();
-		fogState = new GlStateManager.FogState();
-		cullState = new GlStateManager.CullState();
-		polygonOffsetState = new GlStateManager.PolygonOffsetState();
-		colorLogicState = new GlStateManager.ColorLogicState();
-		texGenState = new GlStateManager.TexGenState();
-		clearState = new GlStateManager.ClearState();
-		stencilState = new GlStateManager.StencilState();
-		normalizeState = new GlStateManager.BooleanState(2977);
-		textureState = new GlStateManager.TextureState[8];
-
-		for (int j = 0; j < 8; ++j) {
-			textureState[j] = new GlStateManager.TextureState();
-		}
-
-		activeShadeModel = 7425;
-		rescaleNormalState = new GlStateManager.BooleanState(32826);
-		colorMaskState = new GlStateManager.ColorMask();
-		colorState = new GlStateManager.Color();
-	}
-
-	static class AlphaState {
-
-		public GlStateManager.BooleanState alphaTest;
-		public int func;
-		public float ref;
-
-		private AlphaState() {
-
-			alphaTest = new GlStateManager.BooleanState(3008);
-			func = 519;
-			ref = -1.0F;
-		}
-
-	}
-
-	static class BlendState {
-
-		public GlStateManager.BooleanState blend;
-		public int srcFactor;
-		public int dstFactor;
-		public int srcFactorAlpha;
-		public int dstFactorAlpha;
-
-		private BlendState() {
-
-			blend = new GlStateManager.BooleanState(3042);
-			srcFactor = 1;
-			dstFactor = 0;
-			srcFactorAlpha = 1;
-			dstFactorAlpha = 0;
-		}
-
-	}
-
-	static class BooleanState {
-
-		private final int capability;
-		private boolean currentState;
-
-		public BooleanState(int capabilityIn) {
-
-			capability = capabilityIn;
-		}
-
-		public void setDisabled() {
-
-			setState(false);
-		}
-
-		public void setEnabled() {
-
-			setState(true);
-		}
-
-		public void setState(boolean state) {
-
-			if (state != currentState) {
-				currentState = state;
-
-				if (state) {
-					GL11.glEnable(capability);
-				} else {
-					GL11.glDisable(capability);
-				}
-			}
-		}
-
-	}
-
-	static class ClearState {
-
-		public double depth;
-		public GlStateManager.Color color;
-
-		private ClearState() {
-
-			depth = 1.0D;
-			color = new GlStateManager.Color(0.0F, 0.0F, 0.0F, 0.0F);
-		}
-
-	}
-
-	static class Color {
-
-		public float red;
-		public float green;
-		public float blue;
-		public float alpha;
-
-		public Color() {
-
-			this(1.0F, 1.0F, 1.0F, 1.0F);
-		}
-
-		public Color(float redIn, float greenIn, float blueIn, float alphaIn) {
-
-			red = 1.0F;
-			green = 1.0F;
-			blue = 1.0F;
-			alpha = 1.0F;
-			red = redIn;
-			green = greenIn;
-			blue = blueIn;
-			alpha = alphaIn;
-		}
-
-	}
-
-	static class ColorLogicState {
-
-		public GlStateManager.BooleanState colorLogicOp;
-		public int opcode;
-
-		private ColorLogicState() {
-
-			colorLogicOp = new GlStateManager.BooleanState(3058);
-			opcode = 5379;
-		}
-
-	}
-
-	static class ColorMask {
-
-		public boolean red;
-		public boolean green;
-		public boolean blue;
-		public boolean alpha;
-
-		private ColorMask() {
-
-			red = true;
-			green = true;
-			blue = true;
-			alpha = true;
-		}
-
-	}
-
-	static class ColorMaterialState {
-
-		public GlStateManager.BooleanState colorMaterial;
-		public int face;
-		public int mode;
-
-		private ColorMaterialState() {
-
-			colorMaterial = new GlStateManager.BooleanState(2903);
-			face = 1032;
-			mode = 5634;
-		}
-
-	}
-
 	public enum CullFace {
 		FRONT(1028),
 		BACK(1029),
@@ -1006,34 +853,6 @@ public class GlStateManager {
 
 			mode = modeIn;
 		}
-	}
-
-	static class CullState {
-
-		public GlStateManager.BooleanState cullFace;
-		public int mode;
-
-		private CullState() {
-
-			cullFace = new GlStateManager.BooleanState(2884);
-			mode = 1029;
-		}
-
-	}
-
-	static class DepthState {
-
-		public GlStateManager.BooleanState depthTest;
-		public boolean maskEnabled;
-		public int depthFunc;
-
-		private DepthState() {
-
-			depthTest = new GlStateManager.BooleanState(2929);
-			maskEnabled = true;
-			depthFunc = 513;
-		}
-
 	}
 
 	public enum DestFactor {
@@ -1073,24 +892,6 @@ public class GlStateManager {
 		}
 	}
 
-	static class FogState {
-
-		public GlStateManager.BooleanState fog;
-		public int mode;
-		public float density;
-		public float start;
-		public float end;
-
-		private FogState() {
-
-			fog = new GlStateManager.BooleanState(2912);
-			mode = 2048;
-			density = 1.0F;
-			end = 1.0F;
-		}
-
-	}
-
 	public enum LogicOp {
 		AND(5377),
 		AND_INVERTED(5380),
@@ -1115,21 +916,6 @@ public class GlStateManager {
 
 			opcode = opcodeIn;
 		}
-	}
-
-	static class PolygonOffsetState {
-
-		public GlStateManager.BooleanState polygonOffsetFill;
-		public GlStateManager.BooleanState polygonOffsetLine;
-		public float factor;
-		public float units;
-
-		private PolygonOffsetState() {
-
-			polygonOffsetFill = new GlStateManager.BooleanState(32823);
-			polygonOffsetLine = new GlStateManager.BooleanState(10754);
-		}
-
 	}
 
 	public enum Profile {
@@ -1300,6 +1086,227 @@ public class GlStateManager {
 		}
 	}
 
+	public enum TexGen {
+		S,
+		T,
+		R,
+		Q
+	}
+
+	static class AlphaState {
+
+		public GlStateManager.BooleanState alphaTest;
+		public int func;
+		public float ref;
+
+		private AlphaState() {
+
+			alphaTest = new GlStateManager.BooleanState(3008);
+			func = 519;
+			ref = -1.0F;
+		}
+
+	}
+
+	static class BlendState {
+
+		public GlStateManager.BooleanState blend;
+		public int srcFactor;
+		public int dstFactor;
+		public int srcFactorAlpha;
+		public int dstFactorAlpha;
+
+		private BlendState() {
+
+			blend = new GlStateManager.BooleanState(3042);
+			srcFactor = 1;
+			dstFactor = 0;
+			srcFactorAlpha = 1;
+			dstFactorAlpha = 0;
+		}
+
+	}
+
+	static class BooleanState {
+
+		private final int capability;
+		private boolean currentState;
+
+		public BooleanState(int capabilityIn) {
+
+			capability = capabilityIn;
+		}
+
+		public void setDisabled() {
+
+			setState(false);
+		}
+
+		public void setEnabled() {
+
+			setState(true);
+		}
+
+		public void setState(boolean state) {
+
+			if (state != currentState) {
+				currentState = state;
+
+				if (state) {
+					GL11.glEnable(capability);
+				} else {
+					GL11.glDisable(capability);
+				}
+			}
+		}
+
+	}
+
+	static class ClearState {
+
+		public double depth;
+		public GlStateManager.Color color;
+
+		private ClearState() {
+
+			depth = 1.0D;
+			color = new GlStateManager.Color(0.0F, 0.0F, 0.0F, 0.0F);
+		}
+
+	}
+
+	static class Color {
+
+		public float red;
+		public float green;
+		public float blue;
+		public float alpha;
+
+		public Color() {
+
+			this(1.0F, 1.0F, 1.0F, 1.0F);
+		}
+
+		public Color(float redIn, float greenIn, float blueIn, float alphaIn) {
+
+			red = 1.0F;
+			green = 1.0F;
+			blue = 1.0F;
+			alpha = 1.0F;
+			red = redIn;
+			green = greenIn;
+			blue = blueIn;
+			alpha = alphaIn;
+		}
+
+	}
+
+	static class ColorLogicState {
+
+		public GlStateManager.BooleanState colorLogicOp;
+		public int opcode;
+
+		private ColorLogicState() {
+
+			colorLogicOp = new GlStateManager.BooleanState(3058);
+			opcode = 5379;
+		}
+
+	}
+
+	static class ColorMask {
+
+		public boolean red;
+		public boolean green;
+		public boolean blue;
+		public boolean alpha;
+
+		private ColorMask() {
+
+			red = true;
+			green = true;
+			blue = true;
+			alpha = true;
+		}
+
+	}
+
+	static class ColorMaterialState {
+
+		public GlStateManager.BooleanState colorMaterial;
+		public int face;
+		public int mode;
+
+		private ColorMaterialState() {
+
+			colorMaterial = new GlStateManager.BooleanState(2903);
+			face = 1032;
+			mode = 5634;
+		}
+
+	}
+
+	static class CullState {
+
+		public GlStateManager.BooleanState cullFace;
+		public int mode;
+
+		private CullState() {
+
+			cullFace = new GlStateManager.BooleanState(2884);
+			mode = 1029;
+		}
+
+	}
+
+	static class DepthState {
+
+		public GlStateManager.BooleanState depthTest;
+		public boolean maskEnabled;
+		public int depthFunc;
+
+		private DepthState() {
+
+			depthTest = new GlStateManager.BooleanState(2929);
+			maskEnabled = true;
+			depthFunc = 513;
+		}
+
+	}
+
+	static class FogState {
+
+		public GlStateManager.BooleanState fog;
+		public int mode;
+		public float density;
+		public float start;
+		public float end;
+
+		private FogState() {
+
+			fog = new GlStateManager.BooleanState(2912);
+			mode = 2048;
+			density = 1.0F;
+			end = 1.0F;
+		}
+
+	}
+
+	static class PolygonOffsetState {
+
+		public GlStateManager.BooleanState polygonOffsetFill;
+		public GlStateManager.BooleanState polygonOffsetLine;
+		public float factor;
+		public float units;
+
+		private PolygonOffsetState() {
+
+			polygonOffsetFill = new GlStateManager.BooleanState(32823);
+			polygonOffsetLine = new GlStateManager.BooleanState(10754);
+		}
+
+	}
+
 	static class StencilFunc {
 
 		public int func;
@@ -1330,13 +1337,6 @@ public class GlStateManager {
 			zpass = 7680;
 		}
 
-	}
-
-	public enum TexGen {
-		S,
-		T,
-		R,
-		Q
 	}
 
 	static class TexGenCoord {

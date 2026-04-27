@@ -64,33 +64,6 @@ public class SetAttributes extends LootFunction {
 			slots = slotsIn;
 		}
 
-		public JsonObject serialize(JsonSerializationContext context) {
-
-			JsonObject jsonobject = new JsonObject();
-			jsonobject.addProperty("name", modifierName);
-			jsonobject.addProperty("attribute", attributeName);
-			jsonobject.addProperty("operation", getOperationFromStr(operation));
-			jsonobject.add("amount", context.serialize(amount));
-
-			if (uuid != null) {
-				jsonobject.addProperty("id", uuid.toString());
-			}
-
-			if (slots.length == 1) {
-				jsonobject.addProperty("slot", slots[0].getName());
-			} else {
-				JsonArray jsonarray = new JsonArray();
-
-				for (EntityEquipmentSlot entityequipmentslot : slots) {
-					jsonarray.add(new JsonPrimitive(entityequipmentslot.getName()));
-				}
-
-				jsonobject.add("slot", jsonarray);
-			}
-
-			return jsonobject;
-		}
-
 		public static SetAttributes.Modifier deserialize(JsonObject jsonObj, JsonDeserializationContext context) {
 
 			String s = JsonUtils.getString(jsonObj, "name");
@@ -161,6 +134,33 @@ public class SetAttributes extends LootFunction {
 			} else {
 				throw new JsonSyntaxException("Unknown attribute modifier operation " + operationIn);
 			}
+		}
+
+		public JsonObject serialize(JsonSerializationContext context) {
+
+			JsonObject jsonobject = new JsonObject();
+			jsonobject.addProperty("name", modifierName);
+			jsonobject.addProperty("attribute", attributeName);
+			jsonobject.addProperty("operation", getOperationFromStr(operation));
+			jsonobject.add("amount", context.serialize(amount));
+
+			if (uuid != null) {
+				jsonobject.addProperty("id", uuid.toString());
+			}
+
+			if (slots.length == 1) {
+				jsonobject.addProperty("slot", slots[0].getName());
+			} else {
+				JsonArray jsonarray = new JsonArray();
+
+				for (EntityEquipmentSlot entityequipmentslot : slots) {
+					jsonarray.add(new JsonPrimitive(entityequipmentslot.getName()));
+				}
+
+				jsonobject.add("slot", jsonarray);
+			}
+
+			return jsonobject;
 		}
 
 	}

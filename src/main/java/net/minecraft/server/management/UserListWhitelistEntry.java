@@ -17,15 +17,6 @@ public class UserListWhitelistEntry extends UserListEntry<GameProfile> {
 		super(gameProfileFromJsonObject(json), json);
 	}
 
-	protected void onSerialization(JsonObject data) {
-
-		if (getValue() != null) {
-			data.addProperty("uuid", getValue().getId() == null ? "" : getValue().getId().toString());
-			data.addProperty("name", getValue().getName());
-			super.onSerialization(data);
-		}
-	}
-
 	private static GameProfile gameProfileFromJsonObject(JsonObject json) {
 
 		if (json.has("uuid") && json.has("name")) {
@@ -41,6 +32,15 @@ public class UserListWhitelistEntry extends UserListEntry<GameProfile> {
 			return new GameProfile(uuid, json.get("name").getAsString());
 		} else {
 			return null;
+		}
+	}
+
+	protected void onSerialization(JsonObject data) {
+
+		if (getValue() != null) {
+			data.addProperty("uuid", getValue().getId() == null ? "" : getValue().getId().toString());
+			data.addProperty("name", getValue().getName());
+			super.onSerialization(data);
 		}
 	}
 

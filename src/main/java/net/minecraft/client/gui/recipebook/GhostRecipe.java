@@ -17,8 +17,8 @@ import java.util.List;
 
 public class GhostRecipe {
 
-	private IRecipe recipe;
 	private final List<GhostRecipe.GhostIngredient> ingredients = Lists.newArrayList();
+	private IRecipe recipe;
 	private float time;
 
 	public void clear() {

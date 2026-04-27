@@ -17,16 +17,46 @@ import java.util.List;
 
 public class ChunkGeneratorDebug implements IChunkGenerator {
 
+	protected static final IBlockState AIR = Blocks.AIR.getDefaultState();
+	protected static final IBlockState BARRIER = Blocks.BARRIER.getDefaultState();
 	private static final List<IBlockState> ALL_VALID_STATES = Lists.newArrayList();
 	private static final int GRID_WIDTH;
 	private static final int GRID_HEIGHT;
-	protected static final IBlockState AIR = Blocks.AIR.getDefaultState();
-	protected static final IBlockState BARRIER = Blocks.BARRIER.getDefaultState();
+
+	static {
+		for (Block block : Block.REGISTRY) {
+			ALL_VALID_STATES.addAll(block.getBlockState().getValidStates());
+		}
+
+		GRID_WIDTH = MathHelper.ceil(MathHelper.sqrt((float) ALL_VALID_STATES.size()));
+		GRID_HEIGHT = MathHelper.ceil((float) ALL_VALID_STATES.size() / (float) GRID_WIDTH);
+	}
+
 	private final World world;
 
 	public ChunkGeneratorDebug(World worldIn) {
 
 		world = worldIn;
+	}
+
+	public static IBlockState getBlockStateFor(int p_177461_0_, int p_177461_1_) {
+
+		IBlockState iblockstate = AIR;
+
+		if (p_177461_0_ > 0 && p_177461_1_ > 0 && p_177461_0_ % 2 != 0 && p_177461_1_ % 2 != 0) {
+			p_177461_0_ = p_177461_0_ / 2;
+			p_177461_1_ = p_177461_1_ / 2;
+
+			if (p_177461_0_ <= GRID_WIDTH && p_177461_1_ <= GRID_HEIGHT) {
+				int i = MathHelper.abs(p_177461_0_ * GRID_WIDTH + p_177461_1_);
+
+				if (i < ALL_VALID_STATES.size()) {
+					iblockstate = ALL_VALID_STATES.get(i);
+				}
+			}
+		}
+
+		return iblockstate;
 	}
 
 	/**
@@ -60,26 +90,6 @@ public class ChunkGeneratorDebug implements IChunkGenerator {
 
 		chunk.generateSkylightMap();
 		return chunk;
-	}
-
-	public static IBlockState getBlockStateFor(int p_177461_0_, int p_177461_1_) {
-
-		IBlockState iblockstate = AIR;
-
-		if (p_177461_0_ > 0 && p_177461_1_ > 0 && p_177461_0_ % 2 != 0 && p_177461_1_ % 2 != 0) {
-			p_177461_0_ = p_177461_0_ / 2;
-			p_177461_1_ = p_177461_1_ / 2;
-
-			if (p_177461_0_ <= GRID_WIDTH && p_177461_1_ <= GRID_HEIGHT) {
-				int i = MathHelper.abs(p_177461_0_ * GRID_WIDTH + p_177461_1_);
-
-				if (i < ALL_VALID_STATES.size()) {
-					iblockstate = ALL_VALID_STATES.get(i);
-				}
-			}
-		}
-
-		return iblockstate;
 	}
 
 	/**
@@ -124,14 +134,5 @@ public class ChunkGeneratorDebug implements IChunkGenerator {
 	 */
 	public void recreateStructures(Chunk chunkIn, int x, int z) {
 
-	}
-
-	static {
-		for (Block block : Block.REGISTRY) {
-			ALL_VALID_STATES.addAll(block.getBlockState().getValidStates());
-		}
-
-		GRID_WIDTH = MathHelper.ceil(MathHelper.sqrt((float) ALL_VALID_STATES.size()));
-		GRID_HEIGHT = MathHelper.ceil((float) ALL_VALID_STATES.size() / (float) GRID_WIDTH);
 	}
 }

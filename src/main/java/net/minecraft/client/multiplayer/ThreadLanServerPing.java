@@ -20,8 +20,8 @@ public class ThreadLanServerPing extends Thread {
 	 * The socket we're using to send packets on.
 	 */
 	private final DatagramSocket socket;
-	private boolean isStopping = true;
 	private final String address;
+	private boolean isStopping = true;
 
 	public ThreadLanServerPing(String p_i1321_1_, String p_i1321_2_) throws IOException {
 
@@ -30,34 +30,6 @@ public class ThreadLanServerPing extends Thread {
 		address = p_i1321_2_;
 		setDaemon(true);
 		socket = new DatagramSocket();
-	}
-
-	public void run() {
-
-		String s = getPingResponse(motd, address);
-		byte[] abyte = s.getBytes(StandardCharsets.UTF_8);
-
-		while (!isInterrupted() && isStopping) {
-			try {
-				InetAddress inetaddress = InetAddress.getByName("224.0.2.60");
-				DatagramPacket datagrampacket = new DatagramPacket(abyte, abyte.length, inetaddress, 4445);
-				socket.send(datagrampacket);
-			} catch (IOException ioexception) {
-				LOGGER.warn("LanServerPinger: {}", ioexception.getMessage());
-				break;
-			}
-
-			try {
-				sleep(1500L);
-			} catch (InterruptedException var5) {
-			}
-		}
-	}
-
-	public void interrupt() {
-
-		super.interrupt();
-		isStopping = false;
 	}
 
 	public static String getPingResponse(String p_77525_0_, String p_77525_1_) {
@@ -99,6 +71,34 @@ public class ThreadLanServerPing extends Thread {
 				}
 			}
 		}
+	}
+
+	public void run() {
+
+		String s = getPingResponse(motd, address);
+		byte[] abyte = s.getBytes(StandardCharsets.UTF_8);
+
+		while (!isInterrupted() && isStopping) {
+			try {
+				InetAddress inetaddress = InetAddress.getByName("224.0.2.60");
+				DatagramPacket datagrampacket = new DatagramPacket(abyte, abyte.length, inetaddress, 4445);
+				socket.send(datagrampacket);
+			} catch (IOException ioexception) {
+				LOGGER.warn("LanServerPinger: {}", ioexception.getMessage());
+				break;
+			}
+
+			try {
+				sleep(1500L);
+			} catch (InterruptedException var5) {
+			}
+		}
+	}
+
+	public void interrupt() {
+
+		super.interrupt();
+		isStopping = false;
 	}
 
 }

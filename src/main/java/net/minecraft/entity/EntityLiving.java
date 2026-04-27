@@ -46,64 +46,54 @@ import java.util.UUID;
 public abstract class EntityLiving extends EntityLivingBase {
 
 	private static final DataParameter<Byte> AI_FLAGS = EntityDataManager.createKey(EntityLiving.class, DataSerializers.BYTE);
-
-	/**
-	 * Number of ticks since this EntityLiving last produced its sound
-	 */
-	public int livingSoundTime;
-
-	/**
-	 * The experience points the Entity gives.
-	 */
-	protected int experienceValue;
-	private final EntityLookHelper lookHelper;
-	protected EntityMoveHelper moveHelper;
-
-	/**
-	 * Entity jumping helper
-	 */
-	protected EntityJumpHelper jumpHelper;
-	private final EntityBodyHelper bodyHelper;
-	protected PathNavigate navigator;
-
 	/**
 	 * Active AI tasks (moving, looking, attack the target selected by {@link #targetTasks}, etc.)
 	 */
 	protected final EntityAITasks tasks;
-
 	/**
 	 * (Usually one-shot) tasks used to select an attack target
 	 */
 	protected final EntityAITasks targetTasks;
-
-	/**
-	 * The active target the Task system uses for tracking
-	 */
-	private EntityLivingBase attackTarget;
+	private final EntityLookHelper lookHelper;
+	private final EntityBodyHelper bodyHelper;
 	private final EntitySenses senses;
 	private final NonNullList<ItemStack> inventoryHands = NonNullList.withSize(2, ItemStack.EMPTY);
-
+	private final NonNullList<ItemStack> inventoryArmor = NonNullList.withSize(4, ItemStack.EMPTY);
+	private final Map<PathNodeType, Float> mapPathPriority = Maps.newEnumMap(PathNodeType.class);
+	/**
+	 * Number of ticks since this EntityLiving last produced its sound
+	 */
+	public int livingSoundTime;
+	/**
+	 * The experience points the Entity gives.
+	 */
+	protected int experienceValue;
+	protected EntityMoveHelper moveHelper;
+	/**
+	 * Entity jumping helper
+	 */
+	protected EntityJumpHelper jumpHelper;
+	protected PathNavigate navigator;
 	/**
 	 * Chances for equipment in hands dropping when this entity dies.
 	 */
 	protected float[] inventoryHandsDropChances = new float[2];
-	private final NonNullList<ItemStack> inventoryArmor = NonNullList.withSize(4, ItemStack.EMPTY);
-
 	/**
 	 * Chances for armor dropping when this entity dies.
 	 */
 	protected float[] inventoryArmorDropChances = new float[4];
-
+	/**
+	 * The active target the Task system uses for tracking
+	 */
+	private EntityLivingBase attackTarget;
 	/**
 	 * Whether this entity can pick up items from the ground.
 	 */
 	private boolean canPickUpLoot;
-
 	/**
 	 * Whether this entity should NOT despawn.
 	 */
 	private boolean persistenceRequired;
-	private final Map<PathNodeType, Float> mapPathPriority = Maps.newEnumMap(PathNodeType.class);
 	private ResourceLocation deathLootTable;
 	private long deathLootTableSeed;
 	private boolean isLeashed;
@@ -127,6 +117,93 @@ public abstract class EntityLiving extends EntityLivingBase {
 		if (worldIn != null && !worldIn.isRemote) {
 			initEntityAI();
 		}
+	}
+
+	public static void registerFixesMob(DataFixer fixer, Class<?> name) {
+
+		fixer.registerWalker(FixTypes.ENTITY, new ItemStackDataLists(name, "ArmorItems", "HandItems"));
+	}
+
+	public static EntityEquipmentSlot getSlotForItemStack(ItemStack stack) {
+
+		if (stack.getItem() != Item.getItemFromBlock(Blocks.PUMPKIN) && stack.getItem() != Items.SKULL) {
+			if (stack.getItem() instanceof ItemArmor) {
+				return ((ItemArmor) stack.getItem()).armorType;
+			} else if (stack.getItem() == Items.ELYTRA) {
+				return EntityEquipmentSlot.CHEST;
+			} else {
+				return stack.getItem() == Items.SHIELD ? EntityEquipmentSlot.OFFHAND : EntityEquipmentSlot.MAINHAND;
+			}
+		} else {
+			return EntityEquipmentSlot.HEAD;
+		}
+	}
+
+	@Nullable
+	public static Item getArmorByChance(EntityEquipmentSlot slotIn, int chance) {
+
+		switch (slotIn) {
+			case HEAD:
+				if (chance == 0) {
+					return Items.LEATHER_HELMET;
+				} else if (chance == 1) {
+					return Items.GOLDEN_HELMET;
+				} else if (chance == 2) {
+					return Items.CHAINMAIL_HELMET;
+				} else if (chance == 3) {
+					return Items.IRON_HELMET;
+				} else if (chance == 4) {
+					return Items.DIAMOND_HELMET;
+				}
+
+			case CHEST:
+				if (chance == 0) {
+					return Items.LEATHER_CHESTPLATE;
+				} else if (chance == 1) {
+					return Items.GOLDEN_CHESTPLATE;
+				} else if (chance == 2) {
+					return Items.CHAINMAIL_CHESTPLATE;
+				} else if (chance == 3) {
+					return Items.IRON_CHESTPLATE;
+				} else if (chance == 4) {
+					return Items.DIAMOND_CHESTPLATE;
+				}
+
+			case LEGS:
+				if (chance == 0) {
+					return Items.LEATHER_LEGGINGS;
+				} else if (chance == 1) {
+					return Items.GOLDEN_LEGGINGS;
+				} else if (chance == 2) {
+					return Items.CHAINMAIL_LEGGINGS;
+				} else if (chance == 3) {
+					return Items.IRON_LEGGINGS;
+				} else if (chance == 4) {
+					return Items.DIAMOND_LEGGINGS;
+				}
+
+			case FEET:
+				if (chance == 0) {
+					return Items.LEATHER_BOOTS;
+				} else if (chance == 1) {
+					return Items.GOLDEN_BOOTS;
+				} else if (chance == 2) {
+					return Items.CHAINMAIL_BOOTS;
+				} else if (chance == 3) {
+					return Items.IRON_BOOTS;
+				} else if (chance == 4) {
+					return Items.DIAMOND_BOOTS;
+				}
+
+			default:
+				return null;
+		}
+	}
+
+	public static boolean isItemStackInSlot(EntityEquipmentSlot slotIn, ItemStack stack) {
+
+		EntityEquipmentSlot entityequipmentslot = getSlotForItemStack(stack);
+		return entityequipmentslot == slotIn || entityequipmentslot == EntityEquipmentSlot.MAINHAND && slotIn == EntityEquipmentSlot.OFFHAND || entityequipmentslot == EntityEquipmentSlot.OFFHAND && slotIn == EntityEquipmentSlot.MAINHAND;
 	}
 
 	protected void initEntityAI() {
@@ -390,11 +467,6 @@ public abstract class EntityLiving extends EntityLivingBase {
 				dropItem(item, 1);
 			}
 		}
-	}
-
-	public static void registerFixesMob(DataFixer fixer, Class<?> name) {
-
-		fixer.registerWalker(FixTypes.ENTITY, new ItemStackDataLists(name, "ArmorItems", "HandItems"));
 	}
 
 	/**
@@ -1002,82 +1074,6 @@ public abstract class EntityLiving extends EntityLivingBase {
 		}
 	}
 
-	public static EntityEquipmentSlot getSlotForItemStack(ItemStack stack) {
-
-		if (stack.getItem() != Item.getItemFromBlock(Blocks.PUMPKIN) && stack.getItem() != Items.SKULL) {
-			if (stack.getItem() instanceof ItemArmor) {
-				return ((ItemArmor) stack.getItem()).armorType;
-			} else if (stack.getItem() == Items.ELYTRA) {
-				return EntityEquipmentSlot.CHEST;
-			} else {
-				return stack.getItem() == Items.SHIELD ? EntityEquipmentSlot.OFFHAND : EntityEquipmentSlot.MAINHAND;
-			}
-		} else {
-			return EntityEquipmentSlot.HEAD;
-		}
-	}
-
-	@Nullable
-	public static Item getArmorByChance(EntityEquipmentSlot slotIn, int chance) {
-
-		switch (slotIn) {
-			case HEAD:
-				if (chance == 0) {
-					return Items.LEATHER_HELMET;
-				} else if (chance == 1) {
-					return Items.GOLDEN_HELMET;
-				} else if (chance == 2) {
-					return Items.CHAINMAIL_HELMET;
-				} else if (chance == 3) {
-					return Items.IRON_HELMET;
-				} else if (chance == 4) {
-					return Items.DIAMOND_HELMET;
-				}
-
-			case CHEST:
-				if (chance == 0) {
-					return Items.LEATHER_CHESTPLATE;
-				} else if (chance == 1) {
-					return Items.GOLDEN_CHESTPLATE;
-				} else if (chance == 2) {
-					return Items.CHAINMAIL_CHESTPLATE;
-				} else if (chance == 3) {
-					return Items.IRON_CHESTPLATE;
-				} else if (chance == 4) {
-					return Items.DIAMOND_CHESTPLATE;
-				}
-
-			case LEGS:
-				if (chance == 0) {
-					return Items.LEATHER_LEGGINGS;
-				} else if (chance == 1) {
-					return Items.GOLDEN_LEGGINGS;
-				} else if (chance == 2) {
-					return Items.CHAINMAIL_LEGGINGS;
-				} else if (chance == 3) {
-					return Items.IRON_LEGGINGS;
-				} else if (chance == 4) {
-					return Items.DIAMOND_LEGGINGS;
-				}
-
-			case FEET:
-				if (chance == 0) {
-					return Items.LEATHER_BOOTS;
-				} else if (chance == 1) {
-					return Items.GOLDEN_BOOTS;
-				} else if (chance == 2) {
-					return Items.CHAINMAIL_BOOTS;
-				} else if (chance == 3) {
-					return Items.IRON_BOOTS;
-				} else if (chance == 4) {
-					return Items.DIAMOND_BOOTS;
-				}
-
-			default:
-				return null;
-		}
-	}
-
 	/**
 	 * Enchants Entity's current equipments based on given DifficultyInstance
 	 */
@@ -1341,12 +1337,6 @@ public abstract class EntityLiving extends EntityLivingBase {
 		return canBeSteered() && super.canPassengerSteer();
 	}
 
-	public static boolean isItemStackInSlot(EntityEquipmentSlot slotIn, ItemStack stack) {
-
-		EntityEquipmentSlot entityequipmentslot = getSlotForItemStack(stack);
-		return entityequipmentslot == slotIn || entityequipmentslot == EntityEquipmentSlot.MAINHAND && slotIn == EntityEquipmentSlot.OFFHAND || entityequipmentslot == EntityEquipmentSlot.OFFHAND && slotIn == EntityEquipmentSlot.MAINHAND;
-	}
-
 	/**
 	 * Returns whether the entity is in a server world
 	 */
@@ -1364,12 +1354,6 @@ public abstract class EntityLiving extends EntityLivingBase {
 		dataManager.set(AI_FLAGS, Byte.valueOf(disable ? (byte) (b0 | 1) : (byte) (b0 & -2)));
 	}
 
-	public void setLeftHanded(boolean leftHanded) {
-
-		byte b0 = dataManager.get(AI_FLAGS).byteValue();
-		dataManager.set(AI_FLAGS, Byte.valueOf(leftHanded ? (byte) (b0 | 2) : (byte) (b0 & -3)));
-	}
-
 	/**
 	 * Get whether this Entity's AI is disabled
 	 */
@@ -1381,6 +1365,12 @@ public abstract class EntityLiving extends EntityLivingBase {
 	public boolean isLeftHanded() {
 
 		return (dataManager.get(AI_FLAGS).byteValue() & 2) != 0;
+	}
+
+	public void setLeftHanded(boolean leftHanded) {
+
+		byte b0 = dataManager.get(AI_FLAGS).byteValue();
+		dataManager.set(AI_FLAGS, Byte.valueOf(leftHanded ? (byte) (b0 | 2) : (byte) (b0 & -3)));
 	}
 
 	public EnumHandSide getPrimaryHand() {

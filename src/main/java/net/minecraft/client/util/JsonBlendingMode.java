@@ -43,73 +43,6 @@ public class JsonBlendingMode {
 		this(true, false, srcColorFactorIn, destColorFactorIn, srcAlphaFactorIn, destAlphaFactorIn, blendFunctionIn);
 	}
 
-	public void apply() {
-
-		if (!equals(lastApplied)) {
-			if (lastApplied == null || opaque != lastApplied.isOpaque()) {
-				lastApplied = this;
-
-				if (opaque) {
-					GlStateManager.disableBlend();
-					return;
-				}
-
-				GlStateManager.enableBlend();
-			}
-
-			GlStateManager.glBlendEquation(blendFunction);
-
-			if (separateBlend) {
-				GlStateManager.tryBlendFuncSeparate(srcColorFactor, destColorFactor, srcAlphaFactor, destAlphaFactor);
-			} else {
-				GlStateManager.blendFunc(srcColorFactor, destColorFactor);
-			}
-		}
-	}
-
-	public boolean equals(Object p_equals_1_) {
-
-		if (this == p_equals_1_) {
-			return true;
-		} else if (!(p_equals_1_ instanceof JsonBlendingMode jsonblendingmode)) {
-			return false;
-		} else {
-
-			if (blendFunction != jsonblendingmode.blendFunction) {
-				return false;
-			} else if (destAlphaFactor != jsonblendingmode.destAlphaFactor) {
-				return false;
-			} else if (destColorFactor != jsonblendingmode.destColorFactor) {
-				return false;
-			} else if (opaque != jsonblendingmode.opaque) {
-				return false;
-			} else if (separateBlend != jsonblendingmode.separateBlend) {
-				return false;
-			} else if (srcAlphaFactor != jsonblendingmode.srcAlphaFactor) {
-				return false;
-			} else {
-				return srcColorFactor == jsonblendingmode.srcColorFactor;
-			}
-		}
-	}
-
-	public int hashCode() {
-
-		int i = srcColorFactor;
-		i = 31 * i + srcAlphaFactor;
-		i = 31 * i + destColorFactor;
-		i = 31 * i + destAlphaFactor;
-		i = 31 * i + blendFunction;
-		i = 31 * i + (separateBlend ? 1 : 0);
-		i = 31 * i + (opaque ? 1 : 0);
-		return i;
-	}
-
-	public boolean isOpaque() {
-
-		return opaque;
-	}
-
 	public static JsonBlendingMode parseBlendNode(JsonObject json) {
 
 		if (json == null) {
@@ -226,6 +159,73 @@ public class JsonBlendingMode {
 		} else {
 			return "1-dstalpha".equals(s) ? 773 : -1;
 		}
+	}
+
+	public void apply() {
+
+		if (!equals(lastApplied)) {
+			if (lastApplied == null || opaque != lastApplied.isOpaque()) {
+				lastApplied = this;
+
+				if (opaque) {
+					GlStateManager.disableBlend();
+					return;
+				}
+
+				GlStateManager.enableBlend();
+			}
+
+			GlStateManager.glBlendEquation(blendFunction);
+
+			if (separateBlend) {
+				GlStateManager.tryBlendFuncSeparate(srcColorFactor, destColorFactor, srcAlphaFactor, destAlphaFactor);
+			} else {
+				GlStateManager.blendFunc(srcColorFactor, destColorFactor);
+			}
+		}
+	}
+
+	public boolean equals(Object p_equals_1_) {
+
+		if (this == p_equals_1_) {
+			return true;
+		} else if (!(p_equals_1_ instanceof JsonBlendingMode jsonblendingmode)) {
+			return false;
+		} else {
+
+			if (blendFunction != jsonblendingmode.blendFunction) {
+				return false;
+			} else if (destAlphaFactor != jsonblendingmode.destAlphaFactor) {
+				return false;
+			} else if (destColorFactor != jsonblendingmode.destColorFactor) {
+				return false;
+			} else if (opaque != jsonblendingmode.opaque) {
+				return false;
+			} else if (separateBlend != jsonblendingmode.separateBlend) {
+				return false;
+			} else if (srcAlphaFactor != jsonblendingmode.srcAlphaFactor) {
+				return false;
+			} else {
+				return srcColorFactor == jsonblendingmode.srcColorFactor;
+			}
+		}
+	}
+
+	public int hashCode() {
+
+		int i = srcColorFactor;
+		i = 31 * i + srcAlphaFactor;
+		i = 31 * i + destColorFactor;
+		i = 31 * i + destAlphaFactor;
+		i = 31 * i + blendFunction;
+		i = 31 * i + (separateBlend ? 1 : 0);
+		i = 31 * i + (opaque ? 1 : 0);
+		return i;
+	}
+
+	public boolean isOpaque() {
+
+		return opaque;
 	}
 
 }

@@ -57,12 +57,20 @@ public enum EnumParticleTypes {
 	TOTEM("totem", 47, false),
 	SPIT("spit", 48, true);
 
+	private static final Map<Integer, EnumParticleTypes> PARTICLES = Maps.newHashMap();
+	private static final Map<String, EnumParticleTypes> BY_NAME = Maps.newHashMap();
+
+	static {
+		for (EnumParticleTypes enumparticletypes : values()) {
+			PARTICLES.put(Integer.valueOf(enumparticletypes.getParticleID()), enumparticletypes);
+			BY_NAME.put(enumparticletypes.getParticleName(), enumparticletypes);
+		}
+	}
+
 	private final String particleName;
 	private final int particleID;
 	private final boolean shouldIgnoreRange;
 	private final int argumentCount;
-	private static final Map<Integer, EnumParticleTypes> PARTICLES = Maps.newHashMap();
-	private static final Map<String, EnumParticleTypes> BY_NAME = Maps.newHashMap();
 
 	EnumParticleTypes(String particleNameIn, int particleIDIn, boolean shouldIgnoreRangeIn, int argumentCountIn) {
 
@@ -80,6 +88,22 @@ public enum EnumParticleTypes {
 	public static Set<String> getParticleNames() {
 
 		return BY_NAME.keySet();
+	}
+
+	@Nullable
+
+	/**
+	 * Gets the relative EnumParticleTypes by id.
+	 */
+	public static EnumParticleTypes getParticleFromId(int particleId) {
+
+		return PARTICLES.get(Integer.valueOf(particleId));
+	}
+
+	@Nullable
+	public static EnumParticleTypes getByName(String nameIn) {
+
+		return BY_NAME.get(nameIn);
 	}
 
 	public String getParticleName() {
@@ -100,28 +124,5 @@ public enum EnumParticleTypes {
 	public boolean getShouldIgnoreRange() {
 
 		return shouldIgnoreRange;
-	}
-
-	@Nullable
-
-	/**
-	 * Gets the relative EnumParticleTypes by id.
-	 */
-	public static EnumParticleTypes getParticleFromId(int particleId) {
-
-		return PARTICLES.get(Integer.valueOf(particleId));
-	}
-
-	@Nullable
-	public static EnumParticleTypes getByName(String nameIn) {
-
-		return BY_NAME.get(nameIn);
-	}
-
-	static {
-		for (EnumParticleTypes enumparticletypes : values()) {
-			PARTICLES.put(Integer.valueOf(enumparticletypes.getParticleID()), enumparticletypes);
-			BY_NAME.put(enumparticletypes.getParticleName(), enumparticletypes);
-		}
 	}
 }

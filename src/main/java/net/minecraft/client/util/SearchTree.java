@@ -13,12 +13,12 @@ import java.util.function.Function;
 
 public class SearchTree<T> implements ISearchTree<T> {
 
-	protected SuffixArray<T> byId = new SuffixArray<T>();
-	protected SuffixArray<T> byName = new SuffixArray<T>();
 	private final Function<T, Iterable<String>> nameFunc;
 	private final Function<T, Iterable<ResourceLocation>> idFunc;
 	private final List<T> contents = Lists.newArrayList();
 	private final Object2IntMap<T> numericContents = new Object2IntOpenHashMap<T>();
+	protected SuffixArray<T> byId = new SuffixArray<T>();
+	protected SuffixArray<T> byName = new SuffixArray<T>();
 
 	public SearchTree(Function<T, Iterable<String>> nameFuncIn, Function<T, Iterable<ResourceLocation>> idFuncIn) {
 

@@ -7,8 +7,6 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 
-import java.nio.IntBuffer;
-
 public class Framebuffer {
 
 	public int framebufferTextureWidth;

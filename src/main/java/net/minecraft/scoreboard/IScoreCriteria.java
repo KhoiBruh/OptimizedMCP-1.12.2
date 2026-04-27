@@ -33,16 +33,18 @@ public interface IScoreCriteria {
 		HEARTS("hearts");
 
 		private static final Map<String, IScoreCriteria.EnumRenderType> BY_NAME = Maps.newHashMap();
+
+		static {
+			for (IScoreCriteria.EnumRenderType iscorecriteria$enumrendertype : values()) {
+				BY_NAME.put(iscorecriteria$enumrendertype.getRenderType(), iscorecriteria$enumrendertype);
+			}
+		}
+
 		private final String renderType;
 
 		EnumRenderType(String renderTypeIn) {
 
 			renderType = renderTypeIn;
-		}
-
-		public String getRenderType() {
-
-			return renderType;
 		}
 
 		public static IScoreCriteria.EnumRenderType getByName(String name) {
@@ -51,10 +53,9 @@ public interface IScoreCriteria {
 			return iscorecriteria$enumrendertype == null ? INTEGER : iscorecriteria$enumrendertype;
 		}
 
-		static {
-			for (IScoreCriteria.EnumRenderType iscorecriteria$enumrendertype : values()) {
-				BY_NAME.put(iscorecriteria$enumrendertype.getRenderType(), iscorecriteria$enumrendertype);
-			}
+		public String getRenderType() {
+
+			return renderType;
 		}
 	}
 

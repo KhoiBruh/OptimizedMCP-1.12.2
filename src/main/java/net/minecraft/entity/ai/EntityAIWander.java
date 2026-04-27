@@ -8,10 +8,10 @@ import javax.annotation.Nullable;
 public class EntityAIWander extends EntityAIBase {
 
 	protected final EntityCreature entity;
+	protected final double speed;
 	protected double x;
 	protected double y;
 	protected double z;
-	protected final double speed;
 	protected int executionChance;
 	protected boolean mustUpdate;
 

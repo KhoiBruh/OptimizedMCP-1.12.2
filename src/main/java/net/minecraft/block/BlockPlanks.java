@@ -2,7 +2,6 @@ package net.minecraft.block;
 
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -81,6 +80,13 @@ public class BlockPlanks extends Block {
 		DARK_OAK(5, "dark_oak", "big_oak", MapColor.BROWN);
 
 		private static final BlockPlanks.EnumType[] META_LOOKUP = new BlockPlanks.EnumType[values().length];
+
+		static {
+			for (BlockPlanks.EnumType blockplanks$enumtype : values()) {
+				META_LOOKUP[blockplanks$enumtype.getMetadata()] = blockplanks$enumtype;
+			}
+		}
+
 		private final int meta;
 		private final String name;
 		private final String unlocalizedName;
@@ -99,6 +105,15 @@ public class BlockPlanks extends Block {
 			mapColor = mapColorIn;
 		}
 
+		public static BlockPlanks.EnumType byMetadata(int meta) {
+
+			if (meta < 0 || meta >= META_LOOKUP.length) {
+				meta = 0;
+			}
+
+			return META_LOOKUP[meta];
+		}
+
 		public int getMetadata() {
 
 			return meta;
@@ -114,15 +129,6 @@ public class BlockPlanks extends Block {
 			return name;
 		}
 
-		public static BlockPlanks.EnumType byMetadata(int meta) {
-
-			if (meta < 0 || meta >= META_LOOKUP.length) {
-				meta = 0;
-			}
-
-			return META_LOOKUP[meta];
-		}
-
 		public String getName() {
 
 			return name;
@@ -131,12 +137,6 @@ public class BlockPlanks extends Block {
 		public String getUnlocalizedName() {
 
 			return unlocalizedName;
-		}
-
-		static {
-			for (BlockPlanks.EnumType blockplanks$enumtype : values()) {
-				META_LOOKUP[blockplanks$enumtype.getMetadata()] = blockplanks$enumtype;
-			}
 		}
 	}
 

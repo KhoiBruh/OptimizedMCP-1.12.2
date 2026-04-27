@@ -28,7 +28,10 @@ import net.minecraft.scoreboard.ServerScoreboard;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.management.PlayerChunkMap;
 import net.minecraft.util.*;
-import net.minecraft.util.math.*;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.village.VillageCollection;
 import net.minecraft.village.VillageSiege;
 import net.minecraft.world.biome.Biome;
@@ -57,13 +60,12 @@ import java.util.stream.Collectors;
 public class WorldServer extends World implements IThreadListener {
 
 	private static final Logger LOGGER = LogManager.getLogger();
+	protected final VillageSiege villageSiege = new VillageSiege(this);
 	private final MinecraftServer mcServer;
-
 	/**
 	 * The entity tracker for this server world.
 	 */
 	private final EntityTracker entityTracker;
-
 	/**
 	 * The player chunk map for this server world.
 	 */
@@ -71,27 +73,23 @@ public class WorldServer extends World implements IThreadListener {
 	private final Set<NextTickListEntry> pendingTickListEntriesHashSet = Sets.newHashSet();
 	private final TreeSet<NextTickListEntry> pendingTickListEntriesTreeSet = new TreeSet<NextTickListEntry>();
 	private final Map<UUID, Entity> entitiesByUuid = Maps.newHashMap();
-
-	/**
-	 * Whether level saving is disabled or not
-	 */
-	public boolean disableLevelSaving;
-
-	/**
-	 * is false if there are no players
-	 */
-	private boolean allPlayersSleeping;
-	private int updateEntityTick;
-
 	/**
 	 * the teleporter to use when the entity is being transferred into the dimension
 	 */
 	private final Teleporter worldTeleporter;
 	private final WorldEntitySpawner entitySpawner = new WorldEntitySpawner();
-	protected final VillageSiege villageSiege = new VillageSiege(this);
 	private final WorldServer.ServerBlockEventList[] blockEventQueue = new WorldServer.ServerBlockEventList[]{new WorldServer.ServerBlockEventList(), new WorldServer.ServerBlockEventList()};
-	private int blockEventCacheIndex;
 	private final List<NextTickListEntry> pendingTickListEntriesThisTick = Lists.newArrayList();
+	/**
+	 * Whether level saving is disabled or not
+	 */
+	public boolean disableLevelSaving;
+	/**
+	 * is false if there are no players
+	 */
+	private boolean allPlayersSleeping;
+	private int updateEntityTick;
+	private int blockEventCacheIndex;
 
 	public WorldServer(MinecraftServer server, ISaveHandler saveHandlerIn, WorldInfo info, int dimensionId, Profiler profilerIn) {
 

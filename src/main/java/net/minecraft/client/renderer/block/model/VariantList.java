@@ -12,8 +12,8 @@ public record VariantList(List<Variant> variantList) {
 
 		if (this == p_equals_1_) {
 			return true;
-		} else if (p_equals_1_ instanceof VariantList variantlist) {
-			return variantList.equals(variantlist.variantList);
+		} else if (p_equals_1_ instanceof VariantList(List<Variant> list)) {
+			return variantList.equals(list);
 		} else {
 			return false;
 		}

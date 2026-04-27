@@ -23,8 +23,6 @@ import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.UUID;
-
 public class ItemSkull extends Item {
 
 	private static final String[] SKULL_TYPES = new String[]{"skeleton", "wither", "zombie", "char", "creeper", "dragon"};

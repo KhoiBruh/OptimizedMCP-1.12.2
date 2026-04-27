@@ -22,9 +22,9 @@ import net.minecraft.world.World;
 public class EntityMinecartFurnace extends EntityMinecart {
 
 	private static final DataParameter<Boolean> POWERED = EntityDataManager.createKey(EntityMinecartFurnace.class, DataSerializers.BOOLEAN);
-	private int fuel;
 	public double pushX;
 	public double pushZ;
+	private int fuel;
 
 	public EntityMinecartFurnace(World worldIn) {
 

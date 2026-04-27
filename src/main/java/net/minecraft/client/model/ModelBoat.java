@@ -8,9 +8,9 @@ import net.minecraft.util.math.MathHelper;
 
 public class ModelBoat extends ModelBase implements IMultipassModel {
 
+	private final int patchList = GLAllocation.generateDisplayLists(1);
 	public ModelRenderer[] boatSides = new ModelRenderer[5];
 	public ModelRenderer[] paddles = new ModelRenderer[2];
-
 	/**
 	 * An invisible layer that is rendered to make it seem like there's no water in the boat.
 	 *
@@ -18,7 +18,6 @@ public class ModelBoat extends ModelBase implements IMultipassModel {
 	 * @see https://bugs.mojang.com/browse/MC-47636
 	 */
 	public ModelRenderer noWater;
-	private final int patchList = GLAllocation.generateDisplayLists(1);
 
 	public ModelBoat() {
 

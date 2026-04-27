@@ -49,18 +49,15 @@ public final class ItemStack {
 
 	public static final ItemStack EMPTY = new ItemStack((Item) null);
 	public static final DecimalFormat DECIMALFORMAT = new DecimalFormat("#.##");
-
+	private final Item item;
 	/**
 	 * Size of the stack.
 	 */
 	private int stackSize;
-
 	/**
 	 * Number of animation frames to go when receiving an item (by walking into it, for example).
 	 */
 	private int animationsToGo;
-	private final Item item;
-
 	/**
 	 * An NBTTagCompound containing data about an ItemStack.
 	 */
@@ -115,11 +112,6 @@ public final class ItemStack {
 		updateEmptyState();
 	}
 
-	private void updateEmptyState() {
-
-		isEmpty = isEmpty();
-	}
-
 	public ItemStack(NBTTagCompound compound) {
 
 		item = Item.getByNameOrId(compound.getString("id"));
@@ -137,6 +129,65 @@ public final class ItemStack {
 		updateEmptyState();
 	}
 
+	public static void registerFixes(DataFixer fixer) {
+
+		fixer.registerWalker(FixTypes.ITEM_INSTANCE, new BlockEntityTag());
+		fixer.registerWalker(FixTypes.ITEM_INSTANCE, new EntityTag());
+	}
+
+	public static boolean areItemStackTagsEqual(ItemStack stackA, ItemStack stackB) {
+
+		if (stackA.isEmpty() && stackB.isEmpty()) {
+			return true;
+		} else if (!stackA.isEmpty() && !stackB.isEmpty()) {
+			if (stackA.stackTagCompound == null && stackB.stackTagCompound != null) {
+				return false;
+			} else {
+				return stackA.stackTagCompound == null || stackA.stackTagCompound.equals(stackB.stackTagCompound);
+			}
+		} else {
+			return false;
+		}
+	}
+
+	/**
+	 * compares ItemStack argument1 with ItemStack argument2; returns true if both ItemStacks are equal
+	 */
+	public static boolean areItemStacksEqual(ItemStack stackA, ItemStack stackB) {
+
+		if (stackA.isEmpty() && stackB.isEmpty()) {
+			return true;
+		} else {
+			return !stackA.isEmpty() && !stackB.isEmpty() && stackA.isItemStackEqual(stackB);
+		}
+	}
+
+	/**
+	 * Compares Item and damage value of the two stacks
+	 */
+	public static boolean areItemsEqual(ItemStack stackA, ItemStack stackB) {
+
+		if (stackA == stackB) {
+			return true;
+		} else {
+			return !stackA.isEmpty() && !stackB.isEmpty() && stackA.isItemEqual(stackB);
+		}
+	}
+
+	public static boolean areItemsEqualIgnoreDurability(ItemStack stackA, ItemStack stackB) {
+
+		if (stackA == stackB) {
+			return true;
+		} else {
+			return !stackA.isEmpty() && !stackB.isEmpty() && stackA.isItemEqualIgnoreDurability(stackB);
+		}
+	}
+
+	private void updateEmptyState() {
+
+		isEmpty = isEmpty();
+	}
+
 	public boolean isEmpty() {
 
 		if (this == EMPTY) {
@@ -150,12 +201,6 @@ public final class ItemStack {
 		} else {
 			return true;
 		}
-	}
-
-	public static void registerFixes(DataFixer fixer) {
-
-		fixer.registerWalker(FixTypes.ITEM_INSTANCE, new BlockEntityTag());
-		fixer.registerWalker(FixTypes.ITEM_INSTANCE, new EntityTag());
 	}
 
 	/**
@@ -276,11 +321,6 @@ public final class ItemStack {
 		return itemDamage;
 	}
 
-	public int getMetadata() {
-
-		return itemDamage;
-	}
-
 	public void setItemDamage(int meta) {
 
 		itemDamage = meta;
@@ -288,6 +328,11 @@ public final class ItemStack {
 		if (itemDamage < 0) {
 			itemDamage = 0;
 		}
+	}
+
+	public int getMetadata() {
+
+		return itemDamage;
 	}
 
 	/**
@@ -409,33 +454,6 @@ public final class ItemStack {
 		return itemstack;
 	}
 
-	public static boolean areItemStackTagsEqual(ItemStack stackA, ItemStack stackB) {
-
-		if (stackA.isEmpty() && stackB.isEmpty()) {
-			return true;
-		} else if (!stackA.isEmpty() && !stackB.isEmpty()) {
-			if (stackA.stackTagCompound == null && stackB.stackTagCompound != null) {
-				return false;
-			} else {
-				return stackA.stackTagCompound == null || stackA.stackTagCompound.equals(stackB.stackTagCompound);
-			}
-		} else {
-			return false;
-		}
-	}
-
-	/**
-	 * compares ItemStack argument1 with ItemStack argument2; returns true if both ItemStacks are equal
-	 */
-	public static boolean areItemStacksEqual(ItemStack stackA, ItemStack stackB) {
-
-		if (stackA.isEmpty() && stackB.isEmpty()) {
-			return true;
-		} else {
-			return !stackA.isEmpty() && !stackB.isEmpty() && stackA.isItemStackEqual(stackB);
-		}
-	}
-
 	/**
 	 * compares ItemStack argument to the instance ItemStack; returns true if both ItemStacks are equal
 	 */
@@ -451,27 +469,6 @@ public final class ItemStack {
 			return false;
 		} else {
 			return stackTagCompound == null || stackTagCompound.equals(other.stackTagCompound);
-		}
-	}
-
-	/**
-	 * Compares Item and damage value of the two stacks
-	 */
-	public static boolean areItemsEqual(ItemStack stackA, ItemStack stackB) {
-
-		if (stackA == stackB) {
-			return true;
-		} else {
-			return !stackA.isEmpty() && !stackB.isEmpty() && stackA.isItemEqual(stackB);
-		}
-	}
-
-	public static boolean areItemsEqualIgnoreDurability(ItemStack stackA, ItemStack stackB) {
-
-		if (stackA == stackB) {
-			return true;
-		} else {
-			return !stackA.isEmpty() && !stackB.isEmpty() && stackA.isItemEqualIgnoreDurability(stackB);
 		}
 	}
 
@@ -560,6 +557,14 @@ public final class ItemStack {
 		return stackTagCompound;
 	}
 
+	/**
+	 * Assigns a NBTTagCompound to the ItemStack, minecraft validates that only non-stackable items can have it.
+	 */
+	public void setTagCompound(@Nullable NBTTagCompound nbt) {
+
+		stackTagCompound = nbt;
+	}
+
 	public NBTTagCompound getOrCreateSubCompound(String key) {
 
 		if (stackTagCompound != null && stackTagCompound.hasKey(key, 10)) {
@@ -591,14 +596,6 @@ public final class ItemStack {
 	public NBTTagList getEnchantmentTagList() {
 
 		return stackTagCompound != null ? stackTagCompound.getTagList("ench", 10) : new NBTTagList();
-	}
-
-	/**
-	 * Assigns a NBTTagCompound to the ItemStack, minecraft validates that only non-stackable items can have it.
-	 */
-	public void setTagCompound(@Nullable NBTTagCompound nbt) {
-
-		stackTagCompound = nbt;
 	}
 
 	/**
@@ -925,14 +922,6 @@ public final class ItemStack {
 		return itemFrame != null;
 	}
 
-	/**
-	 * Set the item frame this stack is on.
-	 */
-	public void setItemFrame(EntityItemFrame frame) {
-
-		itemFrame = frame;
-	}
-
 	@Nullable
 
 	/**
@@ -941,6 +930,14 @@ public final class ItemStack {
 	public EntityItemFrame getItemFrame() {
 
 		return isEmpty ? null : itemFrame;
+	}
+
+	/**
+	 * Set the item frame this stack is on.
+	 */
+	public void setItemFrame(EntityItemFrame frame) {
+
+		itemFrame = frame;
 	}
 
 	/**

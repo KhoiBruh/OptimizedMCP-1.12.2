@@ -23,6 +23,23 @@ public class NBTTagString extends NBTBase {
 		this.data = data;
 	}
 
+	public static String quoteAndEscape(String p_193588_0_) {
+
+		StringBuilder stringbuilder = new StringBuilder("\"");
+
+		for (int i = 0; i < p_193588_0_.length(); ++i) {
+			char c0 = p_193588_0_.charAt(i);
+
+			if (c0 == '\\' || c0 == '"') {
+				stringbuilder.append('\\');
+			}
+
+			stringbuilder.append(c0);
+		}
+
+		return stringbuilder.append('"').toString();
+	}
+
 	/**
 	 * Write the actual data contents of the tag, implemented in NBT extension classes
 	 */
@@ -85,23 +102,6 @@ public class NBTTagString extends NBTBase {
 	public String getString() {
 
 		return data;
-	}
-
-	public static String quoteAndEscape(String p_193588_0_) {
-
-		StringBuilder stringbuilder = new StringBuilder("\"");
-
-		for (int i = 0; i < p_193588_0_.length(); ++i) {
-			char c0 = p_193588_0_.charAt(i);
-
-			if (c0 == '\\' || c0 == '"') {
-				stringbuilder.append('\\');
-			}
-
-			stringbuilder.append(c0);
-		}
-
-		return stringbuilder.append('"').toString();
 	}
 
 }

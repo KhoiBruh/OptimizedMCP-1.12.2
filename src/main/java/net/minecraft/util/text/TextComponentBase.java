@@ -13,6 +13,25 @@ public abstract class TextComponentBase implements ITextComponent {
 	protected List<ITextComponent> siblings = Lists.newArrayList();
 	private Style style;
 
+	public static Iterator<ITextComponent> createDeepCopyIterator(Iterable<ITextComponent> components) {
+
+		Iterator<ITextComponent> iterator = Iterators.concat(Iterators.transform(components.iterator(), new Function<ITextComponent, Iterator<ITextComponent>>() {
+			public Iterator<ITextComponent> apply(@Nullable ITextComponent p_apply_1_) {
+
+				return p_apply_1_.iterator();
+			}
+		}));
+		iterator = Iterators.transform(iterator, new Function<ITextComponent, ITextComponent>() {
+			public ITextComponent apply(@Nullable ITextComponent p_apply_1_) {
+
+				ITextComponent itextcomponent = p_apply_1_.createCopy();
+				itextcomponent.setStyle(itextcomponent.getStyle().createDeepCopy());
+				return itextcomponent;
+			}
+		});
+		return iterator;
+	}
+
 	/**
 	 * Adds a new component to the end of the sibling list, setting that component's style's parent style to this
 	 * component's style.
@@ -116,25 +135,6 @@ public abstract class TextComponentBase implements ITextComponent {
 		}
 
 		return stringbuilder.toString();
-	}
-
-	public static Iterator<ITextComponent> createDeepCopyIterator(Iterable<ITextComponent> components) {
-
-		Iterator<ITextComponent> iterator = Iterators.concat(Iterators.transform(components.iterator(), new Function<ITextComponent, Iterator<ITextComponent>>() {
-			public Iterator<ITextComponent> apply(@Nullable ITextComponent p_apply_1_) {
-
-				return p_apply_1_.iterator();
-			}
-		}));
-		iterator = Iterators.transform(iterator, new Function<ITextComponent, ITextComponent>() {
-			public ITextComponent apply(@Nullable ITextComponent p_apply_1_) {
-
-				ITextComponent itextcomponent = p_apply_1_.createCopy();
-				itextcomponent.setStyle(itextcomponent.getStyle().createDeepCopy());
-				return itextcomponent;
-			}
-		});
-		return iterator;
 	}
 
 	public boolean equals(Object p_equals_1_) {

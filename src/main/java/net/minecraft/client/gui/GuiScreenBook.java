@@ -43,23 +43,20 @@ public class GuiScreenBook extends GuiScreen {
 	 * Whether the book is signed or can still be edited
 	 */
 	private final boolean bookIsUnsigned;
-
+	private final int bookImageWidth = 192;
+	private final int bookImageHeight = 192;
 	/**
 	 * Whether the book's title or contents has been modified since being opened
 	 */
 	private boolean bookIsModified;
-
 	/**
 	 * Determines if the signing screen is open
 	 */
 	private boolean bookGettingSigned;
-
 	/**
 	 * Update ticks since the gui was opened
 	 */
 	private int updateCount;
-	private final int bookImageWidth = 192;
-	private final int bookImageHeight = 192;
 	private int bookTotalPages = 1;
 	private int currPage;
 	private NBTTagList bookPages;

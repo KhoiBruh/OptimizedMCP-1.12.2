@@ -10,9 +10,9 @@ import net.minecraft.world.World;
 public class EntityAIBeg extends EntityAIBase {
 
 	private final EntityWolf wolf;
-	private EntityPlayer player;
 	private final World world;
 	private final float minPlayerDistance;
+	private EntityPlayer player;
 	private int timeoutCounter;
 
 	public EntityAIBeg(EntityWolf wolf, float minDistance) {

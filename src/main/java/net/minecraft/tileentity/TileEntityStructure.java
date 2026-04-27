@@ -4,7 +4,6 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockStructure;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
@@ -15,7 +14,6 @@ import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
@@ -559,6 +557,13 @@ public class TileEntityStructure extends TileEntity {
 		DATA("data", 3);
 
 		private static final TileEntityStructure.Mode[] MODES = new TileEntityStructure.Mode[values().length];
+
+		static {
+			for (TileEntityStructure.Mode tileentitystructure$mode : values()) {
+				MODES[tileentitystructure$mode.getModeId()] = tileentitystructure$mode;
+			}
+		}
+
 		private final String modeName;
 		private final int modeId;
 
@@ -566,6 +571,11 @@ public class TileEntityStructure extends TileEntity {
 
 			modeName = modeNameIn;
 			modeId = modeIdIn;
+		}
+
+		public static TileEntityStructure.Mode getById(int id) {
+
+			return id >= 0 && id < MODES.length ? MODES[id] : MODES[0];
 		}
 
 		public String getName() {
@@ -576,17 +586,6 @@ public class TileEntityStructure extends TileEntity {
 		public int getModeId() {
 
 			return modeId;
-		}
-
-		public static TileEntityStructure.Mode getById(int id) {
-
-			return id >= 0 && id < MODES.length ? MODES[id] : MODES[0];
-		}
-
-		static {
-			for (TileEntityStructure.Mode tileentitystructure$mode : values()) {
-				MODES[tileentitystructure$mode.getModeId()] = tileentitystructure$mode;
-			}
 		}
 	}
 

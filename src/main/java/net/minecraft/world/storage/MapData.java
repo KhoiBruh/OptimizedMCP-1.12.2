@@ -19,25 +19,49 @@ import java.util.Map;
 
 public class MapData extends WorldSavedData {
 
+	private final Map<EntityPlayer, MapData.MapInfo> playersHashMap = Maps.newHashMap();
 	public int xCenter;
 	public int zCenter;
 	public byte dimension;
 	public boolean trackingPosition;
 	public boolean unlimitedTracking;
 	public byte scale;
-
 	/**
 	 * A flattened 128x128 grid representing the contents of the map. Each byte has format ([index into MapColor.COLORS]
 	 * << 4 | brightness flag)
 	 */
 	public byte[] colors = new byte[16384];
 	public List<MapData.MapInfo> playersArrayList = Lists.newArrayList();
-	private final Map<EntityPlayer, MapData.MapInfo> playersHashMap = Maps.newHashMap();
 	public Map<String, MapDecoration> mapDecorations = Maps.newLinkedHashMap();
 
 	public MapData(String mapname) {
 
 		super(mapname);
+	}
+
+	public static void addTargetDecoration(ItemStack map, BlockPos target, String decorationName, MapDecoration.Type type) {
+
+		NBTTagList nbttaglist;
+
+		if (map.hasTagCompound() && map.getTagCompound().hasKey("Decorations", 9)) {
+			nbttaglist = map.getTagCompound().getTagList("Decorations", 10);
+		} else {
+			nbttaglist = new NBTTagList();
+			map.setTagInfo("Decorations", nbttaglist);
+		}
+
+		NBTTagCompound nbttagcompound = new NBTTagCompound();
+		nbttagcompound.setByte("type", type.getIcon());
+		nbttagcompound.setString("id", decorationName);
+		nbttagcompound.setDouble("x", target.getX());
+		nbttagcompound.setDouble("z", target.getZ());
+		nbttagcompound.setDouble("rot", 180.0D);
+		nbttaglist.appendTag(nbttagcompound);
+
+		if (type.hasMapColor()) {
+			NBTTagCompound nbttagcompound1 = map.getOrCreateSubCompound("display");
+			nbttagcompound1.setInteger("MapColor", type.getMapColor());
+		}
 	}
 
 	public void calculateMapCenter(double x, double z, int mapScale) {
@@ -155,31 +179,6 @@ public class MapData extends WorldSavedData {
 		}
 	}
 
-	public static void addTargetDecoration(ItemStack map, BlockPos target, String decorationName, MapDecoration.Type type) {
-
-		NBTTagList nbttaglist;
-
-		if (map.hasTagCompound() && map.getTagCompound().hasKey("Decorations", 9)) {
-			nbttaglist = map.getTagCompound().getTagList("Decorations", 10);
-		} else {
-			nbttaglist = new NBTTagList();
-			map.setTagInfo("Decorations", nbttaglist);
-		}
-
-		NBTTagCompound nbttagcompound = new NBTTagCompound();
-		nbttagcompound.setByte("type", type.getIcon());
-		nbttagcompound.setString("id", decorationName);
-		nbttagcompound.setDouble("x", target.getX());
-		nbttagcompound.setDouble("z", target.getZ());
-		nbttagcompound.setDouble("rot", 180.0D);
-		nbttaglist.appendTag(nbttagcompound);
-
-		if (type.hasMapColor()) {
-			NBTTagCompound nbttagcompound1 = map.getOrCreateSubCompound("display");
-			nbttagcompound1.setInteger("MapColor", type.getMapColor());
-		}
-	}
-
 	private void updateDecorations(MapDecoration.Type type, World worldIn, String decorationName, double worldX, double worldZ, double rotationIn) {
 
 		int i = 1 << scale;
@@ -271,13 +270,13 @@ public class MapData extends WorldSavedData {
 	public class MapInfo {
 
 		public final EntityPlayer player;
+		public int step;
 		private boolean isDirty = true;
 		private int minX;
 		private int minY;
 		private int maxX = 127;
 		private int maxY = 127;
 		private int tick;
-		public int step;
 
 		public MapInfo(EntityPlayer player) {
 

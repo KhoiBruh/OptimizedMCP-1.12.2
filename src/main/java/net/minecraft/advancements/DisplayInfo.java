@@ -38,6 +38,50 @@ public class DisplayInfo {
 		this.hidden = hidden;
 	}
 
+	public static DisplayInfo deserialize(JsonObject object, JsonDeserializationContext context) {
+
+		ITextComponent itextcomponent = JsonUtils.deserializeClass(object, "title", context, ITextComponent.class);
+		ITextComponent itextcomponent1 = JsonUtils.deserializeClass(object, "description", context, ITextComponent.class);
+
+		if (itextcomponent != null && itextcomponent1 != null) {
+			ItemStack itemstack = deserializeIcon(JsonUtils.getJsonObject(object, "icon"));
+			ResourceLocation resourcelocation = object.has("background") ? new ResourceLocation(JsonUtils.getString(object, "background")) : null;
+			FrameType frametype = object.has("frame") ? FrameType.byName(JsonUtils.getString(object, "frame")) : FrameType.TASK;
+			boolean flag = JsonUtils.getBoolean(object, "show_toast", true);
+			boolean flag1 = JsonUtils.getBoolean(object, "announce_to_chat", true);
+			boolean flag2 = JsonUtils.getBoolean(object, "hidden", false);
+			return new DisplayInfo(itemstack, itextcomponent, itextcomponent1, resourcelocation, frametype, flag, flag1, flag2);
+		} else {
+			throw new JsonSyntaxException("Both title and description must be set");
+		}
+	}
+
+	private static ItemStack deserializeIcon(JsonObject object) {
+
+		if (!object.has("item")) {
+			throw new JsonSyntaxException("Unsupported icon type, currently only items are supported (add 'item' key)");
+		} else {
+			Item item = JsonUtils.getItem(object, "item");
+			int i = JsonUtils.getInt(object, "data", 0);
+			return new ItemStack(item, 1, i);
+		}
+	}
+
+	public static DisplayInfo read(PacketBuffer buf) throws IOException {
+
+		ITextComponent itextcomponent = buf.readTextComponent();
+		ITextComponent itextcomponent1 = buf.readTextComponent();
+		ItemStack itemstack = buf.readItemStack();
+		FrameType frametype = buf.readEnumValue(FrameType.class);
+		int i = buf.readInt();
+		ResourceLocation resourcelocation = (i & 1) != 0 ? buf.readResourceLocation() : null;
+		boolean flag = (i & 2) != 0;
+		boolean flag1 = (i & 4) != 0;
+		DisplayInfo displayinfo = new DisplayInfo(itemstack, itextcomponent, itextcomponent1, resourcelocation, frametype, flag, false, flag1);
+		displayinfo.setPosition(buf.readFloat(), buf.readFloat());
+		return displayinfo;
+	}
+
 	public void setPosition(float x, float y) {
 
 		this.x = x;
@@ -95,35 +139,6 @@ public class DisplayInfo {
 		return hidden;
 	}
 
-	public static DisplayInfo deserialize(JsonObject object, JsonDeserializationContext context) {
-
-		ITextComponent itextcomponent = JsonUtils.deserializeClass(object, "title", context, ITextComponent.class);
-		ITextComponent itextcomponent1 = JsonUtils.deserializeClass(object, "description", context, ITextComponent.class);
-
-		if (itextcomponent != null && itextcomponent1 != null) {
-			ItemStack itemstack = deserializeIcon(JsonUtils.getJsonObject(object, "icon"));
-			ResourceLocation resourcelocation = object.has("background") ? new ResourceLocation(JsonUtils.getString(object, "background")) : null;
-			FrameType frametype = object.has("frame") ? FrameType.byName(JsonUtils.getString(object, "frame")) : FrameType.TASK;
-			boolean flag = JsonUtils.getBoolean(object, "show_toast", true);
-			boolean flag1 = JsonUtils.getBoolean(object, "announce_to_chat", true);
-			boolean flag2 = JsonUtils.getBoolean(object, "hidden", false);
-			return new DisplayInfo(itemstack, itextcomponent, itextcomponent1, resourcelocation, frametype, flag, flag1, flag2);
-		} else {
-			throw new JsonSyntaxException("Both title and description must be set");
-		}
-	}
-
-	private static ItemStack deserializeIcon(JsonObject object) {
-
-		if (!object.has("item")) {
-			throw new JsonSyntaxException("Unsupported icon type, currently only items are supported (add 'item' key)");
-		} else {
-			Item item = JsonUtils.getItem(object, "item");
-			int i = JsonUtils.getInt(object, "data", 0);
-			return new ItemStack(item, 1, i);
-		}
-	}
-
 	public void write(PacketBuffer buf) {
 
 		buf.writeTextComponent(title);
@@ -152,21 +167,6 @@ public class DisplayInfo {
 
 		buf.writeFloat(x);
 		buf.writeFloat(y);
-	}
-
-	public static DisplayInfo read(PacketBuffer buf) throws IOException {
-
-		ITextComponent itextcomponent = buf.readTextComponent();
-		ITextComponent itextcomponent1 = buf.readTextComponent();
-		ItemStack itemstack = buf.readItemStack();
-		FrameType frametype = buf.readEnumValue(FrameType.class);
-		int i = buf.readInt();
-		ResourceLocation resourcelocation = (i & 1) != 0 ? buf.readResourceLocation() : null;
-		boolean flag = (i & 2) != 0;
-		boolean flag1 = (i & 4) != 0;
-		DisplayInfo displayinfo = new DisplayInfo(itemstack, itextcomponent, itextcomponent1, resourcelocation, frametype, flag, false, flag1);
-		displayinfo.setPosition(buf.readFloat(), buf.readFloat());
-		return displayinfo;
 	}
 
 }

@@ -20,7 +20,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.annotation.Nullable;
-import java.io.Closeable;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
@@ -42,12 +41,12 @@ public class ShaderManager {
 	private final int program;
 	private final String programFilename;
 	private final boolean useFaceCulling;
-	private boolean isDirty;
 	private final JsonBlendingMode blendingMode;
 	private final List<Integer> attribLocations;
 	private final List<String> attributes;
 	private final ShaderLoader vertexShaderLoader;
 	private final ShaderLoader fragmentShaderLoader;
+	private boolean isDirty;
 
 	public ShaderManager(IResourceManager resourceManager, String programName) throws IOException {
 

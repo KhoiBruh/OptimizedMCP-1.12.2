@@ -57,39 +57,9 @@ public class PlacementSettings {
 		return placementsettings;
 	}
 
-	public PlacementSettings setMirror(Mirror mirrorIn) {
-
-		mirror = mirrorIn;
-		return this;
-	}
-
-	public PlacementSettings setRotation(Rotation rotationIn) {
-
-		rotation = rotationIn;
-		return this;
-	}
-
-	public PlacementSettings setIgnoreEntities(boolean ignoreEntitiesIn) {
-
-		ignoreEntities = ignoreEntitiesIn;
-		return this;
-	}
-
-	public PlacementSettings setReplacedBlock(Block replacedBlockIn) {
-
-		replacedBlock = replacedBlockIn;
-		return this;
-	}
-
 	public PlacementSettings setChunk(ChunkPos chunkPosIn) {
 
 		chunk = chunkPosIn;
-		return this;
-	}
-
-	public PlacementSettings setBoundingBox(StructureBoundingBox boundingBoxIn) {
-
-		boundingBox = boundingBoxIn;
 		return this;
 	}
 
@@ -105,26 +75,26 @@ public class PlacementSettings {
 		return this;
 	}
 
-	public PlacementSettings setIntegrity(float integrityIn) {
-
-		integrity = integrityIn;
-		return this;
-	}
-
 	public Mirror getMirror() {
 
 		return mirror;
 	}
 
-	public PlacementSettings setIgnoreStructureBlock(boolean ignoreStructureBlockIn) {
+	public PlacementSettings setMirror(Mirror mirrorIn) {
 
-		ignoreStructureBlock = ignoreStructureBlockIn;
+		mirror = mirrorIn;
 		return this;
 	}
 
 	public Rotation getRotation() {
 
 		return rotation;
+	}
+
+	public PlacementSettings setRotation(Rotation rotationIn) {
+
+		rotation = rotationIn;
+		return this;
 	}
 
 	public Random getRandom(@Nullable BlockPos seed) {
@@ -138,7 +108,7 @@ public class PlacementSettings {
 		} else {
 			int i = seed.getX();
 			int j = seed.getZ();
-			return new Random((long) ((long) i * i * 4987142 + i * 5947611L) + (long) ((long) j * j) * 4392871L + (long) (j * 389711L) ^ 987234911L);
+			return new Random((long) i * i * 4987142 + i * 5947611L + (long) j * j * 4392871L + (j * 389711L) ^ 987234911L);
 		}
 	}
 
@@ -147,15 +117,33 @@ public class PlacementSettings {
 		return integrity;
 	}
 
+	public PlacementSettings setIntegrity(float integrityIn) {
+
+		integrity = integrityIn;
+		return this;
+	}
+
 	public boolean getIgnoreEntities() {
 
 		return ignoreEntities;
+	}
+
+	public PlacementSettings setIgnoreEntities(boolean ignoreEntitiesIn) {
+
+		ignoreEntities = ignoreEntitiesIn;
+		return this;
 	}
 
 	@Nullable
 	public Block getReplacedBlock() {
 
 		return replacedBlock;
+	}
+
+	public PlacementSettings setReplacedBlock(Block replacedBlockIn) {
+
+		replacedBlock = replacedBlockIn;
+		return this;
 	}
 
 	@Nullable
@@ -168,9 +156,21 @@ public class PlacementSettings {
 		return boundingBox;
 	}
 
+	public PlacementSettings setBoundingBox(StructureBoundingBox boundingBoxIn) {
+
+		boundingBox = boundingBoxIn;
+		return this;
+	}
+
 	public boolean getIgnoreStructureBlock() {
 
 		return ignoreStructureBlock;
+	}
+
+	public PlacementSettings setIgnoreStructureBlock(boolean ignoreStructureBlockIn) {
+
+		ignoreStructureBlock = ignoreStructureBlockIn;
+		return this;
 	}
 
 	void setBoundingBoxFromChunk() {

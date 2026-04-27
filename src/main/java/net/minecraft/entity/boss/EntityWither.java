@@ -44,24 +44,23 @@ public class EntityWither extends EntityMob implements IRangedAttackMob {
 	private static final DataParameter<Integer> THIRD_HEAD_TARGET = EntityDataManager.createKey(EntityWither.class, DataSerializers.VARINT);
 	private static final DataParameter<Integer>[] HEAD_TARGETS = new DataParameter[]{FIRST_HEAD_TARGET, SECOND_HEAD_TARGET, THIRD_HEAD_TARGET};
 	private static final DataParameter<Integer> INVULNERABILITY_TIME = EntityDataManager.createKey(EntityWither.class, DataSerializers.VARINT);
-	private final float[] xRotationHeads = new float[2];
-	private final float[] yRotationHeads = new float[2];
-	private final float[] xRotOHeads = new float[2];
-	private final float[] yRotOHeads = new float[2];
-	private final int[] nextHeadUpdate = new int[2];
-	private final int[] idleHeadUpdates = new int[2];
-
-	/**
-	 * Time before the Wither tries to break blocks
-	 */
-	private int blockBreakCounter;
-	private final BossInfoServer bossInfo = (BossInfoServer) (new BossInfoServer(getDisplayName(), BossInfo.Color.PURPLE, BossInfo.Overlay.PROGRESS)).setDarkenSky(true);
 	private static final Predicate<Entity> NOT_UNDEAD = new Predicate<Entity>() {
 		public boolean apply(@Nullable Entity p_apply_1_) {
 
 			return p_apply_1_ instanceof EntityLivingBase && ((EntityLivingBase) p_apply_1_).getCreatureAttribute() != EnumCreatureAttribute.UNDEAD && ((EntityLivingBase) p_apply_1_).attackable();
 		}
 	};
+	private final float[] xRotationHeads = new float[2];
+	private final float[] yRotationHeads = new float[2];
+	private final float[] xRotOHeads = new float[2];
+	private final float[] yRotOHeads = new float[2];
+	private final int[] nextHeadUpdate = new int[2];
+	private final int[] idleHeadUpdates = new int[2];
+	private final BossInfoServer bossInfo = (BossInfoServer) (new BossInfoServer(getDisplayName(), BossInfo.Color.PURPLE, BossInfo.Overlay.PROGRESS)).setDarkenSky(true);
+	/**
+	 * Time before the Wither tries to break blocks
+	 */
+	private int blockBreakCounter;
 
 	public EntityWither(World worldIn) {
 
@@ -71,6 +70,16 @@ public class EntityWither extends EntityMob implements IRangedAttackMob {
 		isImmuneToFire = true;
 		((PathNavigateGround) getNavigator()).setCanSwim(true);
 		experienceValue = 50;
+	}
+
+	public static void registerFixesWither(DataFixer fixer) {
+
+		EntityLiving.registerFixesMob(fixer, EntityWither.class);
+	}
+
+	public static boolean canDestroyBlock(Block blockIn) {
+
+		return blockIn != Blocks.BEDROCK && blockIn != Blocks.END_PORTAL && blockIn != Blocks.END_PORTAL_FRAME && blockIn != Blocks.COMMAND_BLOCK && blockIn != Blocks.REPEATING_COMMAND_BLOCK && blockIn != Blocks.CHAIN_COMMAND_BLOCK && blockIn != Blocks.BARRIER && blockIn != Blocks.STRUCTURE_BLOCK && blockIn != Blocks.STRUCTURE_VOID && blockIn != Blocks.PISTON_EXTENSION && blockIn != Blocks.END_GATEWAY;
 	}
 
 	protected void initEntityAI() {
@@ -92,11 +101,6 @@ public class EntityWither extends EntityMob implements IRangedAttackMob {
 		dataManager.register(SECOND_HEAD_TARGET, Integer.valueOf(0));
 		dataManager.register(THIRD_HEAD_TARGET, Integer.valueOf(0));
 		dataManager.register(INVULNERABILITY_TIME, Integer.valueOf(0));
-	}
-
-	public static void registerFixesWither(DataFixer fixer) {
-
-		EntityLiving.registerFixesMob(fixer, EntityWither.class);
 	}
 
 	/**
@@ -355,11 +359,6 @@ public class EntityWither extends EntityMob implements IRangedAttackMob {
 
 			bossInfo.setPercent(getHealth() / getMaxHealth());
 		}
-	}
-
-	public static boolean canDestroyBlock(Block blockIn) {
-
-		return blockIn != Blocks.BEDROCK && blockIn != Blocks.END_PORTAL && blockIn != Blocks.END_PORTAL_FRAME && blockIn != Blocks.COMMAND_BLOCK && blockIn != Blocks.REPEATING_COMMAND_BLOCK && blockIn != Blocks.CHAIN_COMMAND_BLOCK && blockIn != Blocks.BARRIER && blockIn != Blocks.STRUCTURE_BLOCK && blockIn != Blocks.STRUCTURE_VOID && blockIn != Blocks.PISTON_EXTENSION && blockIn != Blocks.END_GATEWAY;
 	}
 
 	/**

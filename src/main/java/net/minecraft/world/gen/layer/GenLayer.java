@@ -8,25 +8,33 @@ import net.minecraft.world.gen.ChunkGeneratorSettings;
 public abstract class GenLayer {
 
 	/**
-	 * seed from World#getWorldSeed that is used in the LCG prng
-	 */
-	private long worldGenSeed;
-
-	/**
 	 * parent GenLayer that was provided via the constructor
 	 */
 	protected GenLayer parent;
-
+	/**
+	 * base seed to the LCG prng provided via the constructor
+	 */
+	protected long baseSeed;
+	/**
+	 * seed from World#getWorldSeed that is used in the LCG prng
+	 */
+	private long worldGenSeed;
 	/**
 	 * final part of the LCG prng that uses the chunk X, Z coords along with the other two seeds to generate
 	 * pseudorandom numbers
 	 */
 	private long chunkSeed;
 
-	/**
-	 * base seed to the LCG prng provided via the constructor
-	 */
-	protected long baseSeed;
+	public GenLayer(long p_i2125_1_) {
+
+		baseSeed = p_i2125_1_;
+		baseSeed *= baseSeed * 6364136223846793005L + 1442695040888963407L;
+		baseSeed += p_i2125_1_;
+		baseSeed *= baseSeed * 6364136223846793005L + 1442695040888963407L;
+		baseSeed += p_i2125_1_;
+		baseSeed *= baseSeed * 6364136223846793005L + 1442695040888963407L;
+		baseSeed += p_i2125_1_;
+	}
 
 	public static GenLayer[] initializeAllBiomeGenerators(long seed, WorldType p_180781_2_, ChunkGeneratorSettings p_180781_3_) {
 
@@ -94,15 +102,33 @@ public abstract class GenLayer {
 		return new GenLayer[]{genlayerrivermix, genlayer3, genlayerrivermix};
 	}
 
-	public GenLayer(long p_i2125_1_) {
+	protected static boolean biomesEqualOrMesaPlateau(int biomeIDA, int biomeIDB) {
 
-		baseSeed = p_i2125_1_;
-		baseSeed *= baseSeed * 6364136223846793005L + 1442695040888963407L;
-		baseSeed += p_i2125_1_;
-		baseSeed *= baseSeed * 6364136223846793005L + 1442695040888963407L;
-		baseSeed += p_i2125_1_;
-		baseSeed *= baseSeed * 6364136223846793005L + 1442695040888963407L;
-		baseSeed += p_i2125_1_;
+		if (biomeIDA == biomeIDB) {
+			return true;
+		} else {
+			Biome biome = Biome.getBiome(biomeIDA);
+			Biome biome1 = Biome.getBiome(biomeIDB);
+
+			if (biome != null && biome1 != null) {
+				if (biome != Biomes.MESA_ROCK && biome != Biomes.MESA_CLEAR_ROCK) {
+					return biome == biome1 || biome.getBiomeClass() == biome1.getBiomeClass();
+				} else {
+					return biome1 == Biomes.MESA_ROCK || biome1 == Biomes.MESA_CLEAR_ROCK;
+				}
+			} else {
+				return false;
+			}
+		}
+	}
+
+	/**
+	 * returns true if the biomeId is one of the various ocean biomes.
+	 */
+	protected static boolean isBiomeOceanic(int p_151618_0_) {
+
+		Biome biome = Biome.getBiome(p_151618_0_);
+		return biome == Biomes.OCEAN || biome == Biomes.DEEP_OCEAN || biome == Biomes.FROZEN_OCEAN;
 	}
 
 	/**
@@ -162,35 +188,6 @@ public abstract class GenLayer {
 	 * amounts, or Biome ID's based on the particular GenLayer subclass.
 	 */
 	public abstract int[] getInts(int areaX, int areaY, int areaWidth, int areaHeight);
-
-	protected static boolean biomesEqualOrMesaPlateau(int biomeIDA, int biomeIDB) {
-
-		if (biomeIDA == biomeIDB) {
-			return true;
-		} else {
-			Biome biome = Biome.getBiome(biomeIDA);
-			Biome biome1 = Biome.getBiome(biomeIDB);
-
-			if (biome != null && biome1 != null) {
-				if (biome != Biomes.MESA_ROCK && biome != Biomes.MESA_CLEAR_ROCK) {
-					return biome == biome1 || biome.getBiomeClass() == biome1.getBiomeClass();
-				} else {
-					return biome1 == Biomes.MESA_ROCK || biome1 == Biomes.MESA_CLEAR_ROCK;
-				}
-			} else {
-				return false;
-			}
-		}
-	}
-
-	/**
-	 * returns true if the biomeId is one of the various ocean biomes.
-	 */
-	protected static boolean isBiomeOceanic(int p_151618_0_) {
-
-		Biome biome = Biome.getBiome(p_151618_0_);
-		return biome == Biomes.OCEAN || biome == Biomes.DEEP_OCEAN || biome == Biomes.FROZEN_OCEAN;
-	}
 
 	/**
 	 * selects a random integer from a set of provided integers

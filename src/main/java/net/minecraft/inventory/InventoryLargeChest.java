@@ -94,7 +94,7 @@ public class InventoryLargeChest implements ILockableContainer {
 	 */
 	public ITextComponent displayName() {
 
-		return hasCustomName() ? new TextComponentString(getName()) : new TextComponentTranslation(getName(), new Object[0]);
+		return hasCustomName() ? new TextComponentString(getName()) : new TextComponentTranslation(getName());
 	}
 
 	/**
@@ -199,15 +199,15 @@ public class InventoryLargeChest implements ILockableContainer {
 		return upperChest.isLocked() || lowerChest.isLocked();
 	}
 
+	public LockCode getLockCode() {
+
+		return upperChest.getLockCode();
+	}
+
 	public void setLockCode(LockCode code) {
 
 		upperChest.setLockCode(code);
 		lowerChest.setLockCode(code);
-	}
-
-	public LockCode getLockCode() {
-
-		return upperChest.getLockCode();
 	}
 
 	public String guiID() {

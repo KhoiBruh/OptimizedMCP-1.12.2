@@ -54,7 +54,7 @@ public class RecipesMapExtending extends ShapedRecipes {
 
 		if (p_190934_1_.mapDecorations != null) {
 			for (MapDecoration mapdecoration : p_190934_1_.mapDecorations.values()) {
-				if (mapdecoration.getType() == MapDecoration.Type.MANSION || mapdecoration.getType() == MapDecoration.Type.MONUMENT) {
+				if (mapdecoration.type() == MapDecoration.Type.MANSION || mapdecoration.type() == MapDecoration.Type.MONUMENT) {
 					return true;
 				}
 			}

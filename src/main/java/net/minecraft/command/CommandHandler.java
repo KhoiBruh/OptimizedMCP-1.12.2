@@ -25,6 +25,16 @@ public abstract class CommandHandler implements ICommandManager {
 	private final Set<ICommand> commandSet = Sets.newHashSet();
 
 	/**
+	 * creates a new array and sets elements 0..n-2 to be 0..n-1 of the input (n elements)
+	 */
+	private static String[] dropFirstString(String[] input) {
+
+		String[] astring = new String[input.length - 1];
+		System.arraycopy(input, 1, astring, 0, input.length - 1);
+		return astring;
+	}
+
+	/**
 	 * Attempt to execute a command. This method should return the number of times that the command was executed. If the
 	 * command does not exist or if the player does not have permission, 0 will be returned. A number greater than 1 can
 	 * be returned if a player selector is used.
@@ -133,16 +143,6 @@ public abstract class CommandHandler implements ICommandManager {
 		}
 
 		return command;
-	}
-
-	/**
-	 * creates a new array and sets elements 0..n-2 to be 0..n-1 of the input (n elements)
-	 */
-	private static String[] dropFirstString(String[] input) {
-
-		String[] astring = new String[input.length - 1];
-		System.arraycopy(input, 1, astring, 0, input.length - 1);
-		return astring;
 	}
 
 	public List<String> getTabCompletions(ICommandSender sender, String input, @Nullable BlockPos pos) {

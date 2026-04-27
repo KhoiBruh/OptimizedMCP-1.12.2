@@ -1,7 +1,6 @@
 package net.minecraft.block;
 
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockFaceShape;
@@ -35,6 +34,11 @@ public class BlockLever extends Block {
 		super(Material.CIRCUITS);
 		setDefaultState(blockState.getBaseState().withProperty(FACING, BlockLever.EnumOrientation.NORTH).withProperty(POWERED, Boolean.valueOf(false)));
 		setCreativeTab(CreativeTabs.REDSTONE);
+	}
+
+	protected static boolean canAttachTo(World worldIn, BlockPos p_181090_1_, EnumFacing p_181090_2_) {
+
+		return BlockButton.canPlaceBlock(worldIn, p_181090_1_, p_181090_2_);
 	}
 
 	@Nullable
@@ -76,11 +80,6 @@ public class BlockLever extends Block {
 		}
 
 		return false;
-	}
-
-	protected static boolean canAttachTo(World worldIn, BlockPos p_181090_1_, EnumFacing p_181090_2_) {
-
-		return BlockButton.canPlaceBlock(worldIn, p_181090_1_, p_181090_2_);
 	}
 
 	/**
@@ -359,6 +358,13 @@ public class BlockLever extends Block {
 		DOWN_Z(7, "down_z", EnumFacing.DOWN);
 
 		private static final BlockLever.EnumOrientation[] META_LOOKUP = new BlockLever.EnumOrientation[values().length];
+
+		static {
+			for (BlockLever.EnumOrientation blocklever$enumorientation : values()) {
+				META_LOOKUP[blocklever$enumorientation.getMetadata()] = blocklever$enumorientation;
+			}
+		}
+
 		private final int meta;
 		private final String name;
 		private final EnumFacing facing;
@@ -368,21 +374,6 @@ public class BlockLever extends Block {
 			this.meta = meta;
 			this.name = name;
 			this.facing = facing;
-		}
-
-		public int getMetadata() {
-
-			return meta;
-		}
-
-		public EnumFacing getFacing() {
-
-			return facing;
-		}
-
-		public String toString() {
-
-			return name;
 		}
 
 		public static BlockLever.EnumOrientation byMetadata(int meta) {
@@ -438,15 +429,24 @@ public class BlockLever extends Block {
 			}
 		}
 
-		public String getName() {
+		public int getMetadata() {
+
+			return meta;
+		}
+
+		public EnumFacing getFacing() {
+
+			return facing;
+		}
+
+		public String toString() {
 
 			return name;
 		}
 
-		static {
-			for (BlockLever.EnumOrientation blocklever$enumorientation : values()) {
-				META_LOOKUP[blocklever$enumorientation.getMetadata()] = blocklever$enumorientation;
-			}
+		public String getName() {
+
+			return name;
 		}
 	}
 

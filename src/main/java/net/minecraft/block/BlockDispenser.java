@@ -39,6 +39,18 @@ public class BlockDispenser extends BlockContainer {
 	}
 
 	/**
+	 * Get the position where the dispenser at the given Coordinates should dispense to.
+	 */
+	public static IPosition getDispensePosition(IBlockSource coords) {
+
+		EnumFacing enumfacing = coords.getBlockState().getValue(FACING);
+		double d0 = coords.x() + 0.7D * (double) enumfacing.getFrontOffsetX();
+		double d1 = coords.y() + 0.7D * (double) enumfacing.getFrontOffsetY();
+		double d2 = coords.z() + 0.7D * (double) enumfacing.getFrontOffsetZ();
+		return new PositionImpl(d0, d1, d2);
+	}
+
+	/**
 	 * How many world ticks before ticking
 	 */
 	public int tickRate(World worldIn) {
@@ -202,18 +214,6 @@ public class BlockDispenser extends BlockContainer {
 		}
 
 		super.breakBlock(worldIn, pos, state);
-	}
-
-	/**
-	 * Get the position where the dispenser at the given Coordinates should dispense to.
-	 */
-	public static IPosition getDispensePosition(IBlockSource coords) {
-
-		EnumFacing enumfacing = coords.getBlockState().getValue(FACING);
-		double d0 = coords.x() + 0.7D * (double) enumfacing.getFrontOffsetX();
-		double d1 = coords.y() + 0.7D * (double) enumfacing.getFrontOffsetY();
-		double d2 = coords.z() + 0.7D * (double) enumfacing.getFrontOffsetZ();
-		return new PositionImpl(d0, d1, d2);
 	}
 
 	public boolean hasComparatorInputOverride(IBlockState state) {

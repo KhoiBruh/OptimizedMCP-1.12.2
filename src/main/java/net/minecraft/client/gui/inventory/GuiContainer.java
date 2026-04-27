@@ -27,47 +27,40 @@ public abstract class GuiContainer extends GuiScreen {
 	 * The location of the inventory background texture
 	 */
 	public static final ResourceLocation INVENTORY_BACKGROUND = new ResourceLocation("textures/gui/container/inventory.png");
-
-	/**
-	 * The X size of the inventory window in pixels.
-	 */
-	protected int xSize = 176;
-
-	/**
-	 * The Y size of the inventory window in pixels.
-	 */
-	protected int ySize = 166;
-
+	protected final Set<Slot> dragSplittingSlots = Sets.newHashSet();
 	/**
 	 * A list of the players inventory slots
 	 */
 	public Container inventorySlots;
-
+	/**
+	 * The X size of the inventory window in pixels.
+	 */
+	protected int xSize = 176;
+	/**
+	 * The Y size of the inventory window in pixels.
+	 */
+	protected int ySize = 166;
 	/**
 	 * Starting X position for the Gui. Inconsistent use for Gui backgrounds.
 	 */
 	protected int guiLeft;
-
 	/**
 	 * Starting Y position for the Gui. Inconsistent use for Gui backgrounds.
 	 */
 	protected int guiTop;
-
+	protected boolean dragSplitting;
 	/**
 	 * holds the slot currently hovered
 	 */
 	private Slot hoveredSlot;
-
 	/**
 	 * Used when touchscreen is enabled.
 	 */
 	private Slot clickedSlot;
-
 	/**
 	 * Used when touchscreen is enabled.
 	 */
 	private boolean isRightMouseClick;
-
 	/**
 	 * Used when touchscreen is enabled
 	 */
@@ -76,15 +69,12 @@ public abstract class GuiContainer extends GuiScreen {
 	private int touchUpY;
 	private Slot returningStackDestSlot;
 	private long returningStackTime;
-
 	/**
 	 * Used when touchscreen is enabled
 	 */
 	private ItemStack returningStack = ItemStack.EMPTY;
 	private Slot currentDragTargetSlot;
 	private long dragItemDropDelay;
-	protected final Set<Slot> dragSplittingSlots = Sets.newHashSet();
-	protected boolean dragSplitting;
 	private int dragSplittingLimit;
 	private int dragSplittingButton;
 	private boolean ignoreMouseUp;

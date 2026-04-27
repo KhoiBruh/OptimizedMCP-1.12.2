@@ -16,6 +16,17 @@ import java.util.List;
 
 public class AdvancementCommand extends CommandBase {
 
+	public static Advancement findAdvancement(MinecraftServer server, String id) throws CommandException {
+
+		Advancement advancement = server.getAdvancementManager().getAdvancement(new ResourceLocation(id));
+
+		if (advancement == null) {
+			throw new CommandException("commands.advancement.advancementNotFound", id);
+		} else {
+			return advancement;
+		}
+	}
+
 	/**
 	 * Gets the name of the command
 	 */
@@ -255,17 +266,6 @@ public class AdvancementCommand extends CommandBase {
 		return args.length > 1 && ("grant".equals(args[0]) || "revoke".equals(args[0]) || "test".equals(args[0])) && index == 1;
 	}
 
-	public static Advancement findAdvancement(MinecraftServer server, String id) throws CommandException {
-
-		Advancement advancement = server.getAdvancementManager().getAdvancement(new ResourceLocation(id));
-
-		if (advancement == null) {
-			throw new CommandException("commands.advancement.advancementNotFound", id);
-		} else {
-			return advancement;
-		}
-	}
-
 	enum ActionType {
 		GRANT("grant") {
 			protected boolean perform(EntityPlayerMP p_193537_1_, Advancement p_193537_2_) {
@@ -362,6 +362,13 @@ public class AdvancementCommand extends CommandBase {
 		EVERYTHING("everything", true, true);
 
 		static final String[] NAMES = new String[values().length];
+
+		static {
+			for (int i = 0; i < values().length; ++i) {
+				NAMES[i] = values()[i].name;
+			}
+		}
+
 		final String name;
 		final boolean parents;
 		final boolean children;
@@ -371,6 +378,18 @@ public class AdvancementCommand extends CommandBase {
 			name = p_i47556_3_;
 			parents = p_i47556_4_;
 			children = p_i47556_5_;
+		}
+
+		@Nullable
+		static AdvancementCommand.Mode byName(String nameIn) {
+
+			for (AdvancementCommand.Mode advancementcommand$mode : values()) {
+				if (advancementcommand$mode.name.equals(nameIn)) {
+					return advancementcommand$mode;
+				}
+			}
+
+			return null;
 		}
 
 		CommandException fail(AdvancementCommand.ActionType p_193543_1_, Object... p_193543_2_) {
@@ -386,24 +405,6 @@ public class AdvancementCommand extends CommandBase {
 		void success(ICommandSender sender, AdvancementCommand p_193546_2_, AdvancementCommand.ActionType type, Object... args) {
 
 			CommandBase.notifyCommandListener(sender, p_193546_2_, type.baseTranslationKey + "." + name + ".success", args);
-		}
-
-		@Nullable
-		static AdvancementCommand.Mode byName(String nameIn) {
-
-			for (AdvancementCommand.Mode advancementcommand$mode : values()) {
-				if (advancementcommand$mode.name.equals(nameIn)) {
-					return advancementcommand$mode;
-				}
-			}
-
-			return null;
-		}
-
-		static {
-			for (int i = 0; i < values().length; ++i) {
-				NAMES[i] = values()[i].name;
-			}
 		}
 	}
 

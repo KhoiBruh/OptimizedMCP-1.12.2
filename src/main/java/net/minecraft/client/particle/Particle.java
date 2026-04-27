@@ -15,6 +15,10 @@ import java.util.Random;
 public class Particle {
 
 	private static final AxisAlignedBB EMPTY_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 0.0D, 0.0D, 0.0D);
+	public static double interpPosX;
+	public static double interpPosY;
+	public static double interpPosZ;
+	public static Vec3d cameraViewDir;
 	protected World world;
 	protected double prevPosX;
 	protected double prevPosY;
@@ -25,9 +29,7 @@ public class Particle {
 	protected double motionX;
 	protected double motionY;
 	protected double motionZ;
-	private AxisAlignedBB boundingBox;
 	protected boolean onGround;
-
 	/**
 	 * Determines if particle to block collision is to be used
 	 */
@@ -44,41 +46,32 @@ public class Particle {
 	protected int particleMaxAge;
 	protected float particleScale;
 	protected float particleGravity;
-
 	/**
 	 * The red amount of color. Used as a percentage, 1.0 = 255 and 0.0 = 0.
 	 */
 	protected float particleRed;
-
 	/**
 	 * The green amount of color. Used as a percentage, 1.0 = 255 and 0.0 = 0.
 	 */
 	protected float particleGreen;
-
 	/**
 	 * The blue amount of color. Used as a percentage, 1.0 = 255 and 0.0 = 0.
 	 */
 	protected float particleBlue;
-
 	/**
 	 * Particle alpha
 	 */
 	protected float particleAlpha;
 	protected TextureAtlasSprite particleTexture;
-
 	/**
 	 * The amount the particle will be rotated in rendering.
 	 */
 	protected float particleAngle;
-
 	/**
 	 * The particle angle from the last tick. Appears to be used for calculating the rendered angle with partial ticks.
 	 */
 	protected float prevParticleAngle;
-	public static double interpPosX;
-	public static double interpPosY;
-	public static double interpPosZ;
-	public static Vec3d cameraViewDir;
+	private AxisAlignedBB boundingBox;
 
 	protected Particle(World worldIn, double posXIn, double posYIn, double posZIn) {
 

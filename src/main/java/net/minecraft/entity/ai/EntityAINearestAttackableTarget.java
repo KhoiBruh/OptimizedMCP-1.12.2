@@ -24,13 +24,12 @@ import java.util.List;
 public class EntityAINearestAttackableTarget<T extends EntityLivingBase> extends EntityAITarget {
 
 	protected final Class<T> targetClass;
-	private final int targetChance;
-
 	/**
 	 * Instance of EntityAINearestAttackableTargetSorter.
 	 */
 	protected final EntityAINearestAttackableTarget.Sorter sorter;
 	protected final Predicate<? super T> targetEntitySelector;
+	private final int targetChance;
 	protected T targetEntity;
 
 	public EntityAINearestAttackableTarget(EntityCreature creature, Class<T> classTarget, boolean checkSight) {

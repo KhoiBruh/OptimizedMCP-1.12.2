@@ -56,6 +56,13 @@ public record HoverEvent(Action action, ITextComponent value) {
 		SHOW_ENTITY("show_entity", true);
 
 		private static final Map<String, Action> NAME_MAPPING = Maps.newHashMap();
+
+		static {
+			for (Action hoverevent$action : values()) {
+				NAME_MAPPING.put(hoverevent$action.getCanonicalName(), hoverevent$action);
+			}
+		}
+
 		private final boolean allowedInChat;
 		private final String canonicalName;
 
@@ -63,6 +70,11 @@ public record HoverEvent(Action action, ITextComponent value) {
 
 			canonicalName = canonicalNameIn;
 			allowedInChat = allowedInChatIn;
+		}
+
+		public static Action getValueByCanonicalName(String canonicalNameIn) {
+
+			return NAME_MAPPING.get(canonicalNameIn);
 		}
 
 		public boolean shouldAllowInChat() {
@@ -73,17 +85,6 @@ public record HoverEvent(Action action, ITextComponent value) {
 		public String getCanonicalName() {
 
 			return canonicalName;
-		}
-
-		public static Action getValueByCanonicalName(String canonicalNameIn) {
-
-			return NAME_MAPPING.get(canonicalNameIn);
-		}
-
-		static {
-			for (Action hoverevent$action : values()) {
-				NAME_MAPPING.put(hoverevent$action.getCanonicalName(), hoverevent$action);
-			}
 		}
 	}
 

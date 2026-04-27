@@ -12,11 +12,11 @@ public class TutorialToast implements IToast {
 	private final TutorialToast.Icons icon;
 	private final String title;
 	private final String subtitle;
+	private final boolean hasProgressBar;
 	private IToast.Visibility visibility = IToast.Visibility.SHOW;
 	private long lastDelta;
 	private float displayedProgress;
 	private float currentProgress;
-	private final boolean hasProgressBar;
 
 	public TutorialToast(TutorialToast.Icons iconIn, ITextComponent titleComponent, @Nullable ITextComponent subtitleComponent, boolean drawProgressBar) {
 

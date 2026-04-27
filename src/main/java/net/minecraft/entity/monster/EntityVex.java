@@ -43,6 +43,11 @@ public class EntityVex extends EntityMob {
 		experienceValue = 3;
 	}
 
+	public static void registerFixesVex(DataFixer fixer) {
+
+		EntityLiving.registerFixesMob(fixer, EntityVex.class);
+	}
+
 	/**
 	 * Tries to move the entity towards the specified location.
 	 */
@@ -94,11 +99,6 @@ public class EntityVex extends EntityMob {
 		dataManager.register(VEX_FLAGS, Byte.valueOf((byte) 0));
 	}
 
-	public static void registerFixesVex(DataFixer fixer) {
-
-		EntityLiving.registerFixesMob(fixer, EntityVex.class);
-	}
-
 	/**
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
@@ -136,6 +136,11 @@ public class EntityVex extends EntityMob {
 	public EntityLiving getOwner() {
 
 		return owner;
+	}
+
+	public void setOwner(EntityLiving ownerIn) {
+
+		owner = ownerIn;
 	}
 
 	@Nullable
@@ -176,11 +181,6 @@ public class EntityVex extends EntityMob {
 	public void setCharging(boolean charging) {
 
 		setVexFlag(1, charging);
-	}
-
-	public void setOwner(EntityLiving ownerIn) {
-
-		owner = ownerIn;
 	}
 
 	public void setLimitedLife(int limitedLifeTicksIn) {

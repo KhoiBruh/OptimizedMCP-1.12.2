@@ -17,6 +17,25 @@ public class MapGenStructureIO {
 	private static final Map<String, Class<? extends StructureComponent>> componentNameToClassMap = Maps.newHashMap();
 	private static final Map<Class<? extends StructureComponent>, String> componentClassToNameMap = Maps.newHashMap();
 
+	static {
+		registerStructure(StructureMineshaftStart.class, "Mineshaft");
+		registerStructure(MapGenVillage.Start.class, "Village");
+		registerStructure(MapGenNetherBridge.Start.class, "Fortress");
+		registerStructure(MapGenStronghold.Start.class, "Stronghold");
+		registerStructure(MapGenScatteredFeature.Start.class, "Temple");
+		registerStructure(StructureOceanMonument.StartMonument.class, "Monument");
+		registerStructure(MapGenEndCity.Start.class, "EndCity");
+		registerStructure(WoodlandMansion.Start.class, "Mansion");
+		StructureMineshaftPieces.registerStructurePieces();
+		StructureVillagePieces.registerVillagePieces();
+		StructureNetherBridgePieces.registerNetherFortressPieces();
+		StructureStrongholdPieces.registerStrongholdPieces();
+		ComponentScatteredFeaturePieces.registerScatteredFeaturePieces();
+		StructureOceanMonumentPieces.registerOceanMonumentPieces();
+		StructureEndCityPieces.registerPieces();
+		WoodlandMansionPieces.registerWoodlandMansionPieces();
+	}
+
 	private static void registerStructure(Class<? extends StructureStart> startClass, String structureName) {
 
 		startNameToClassMap.put(structureName, startClass);
@@ -86,24 +105,5 @@ public class MapGenStructureIO {
 		}
 
 		return structurecomponent;
-	}
-
-	static {
-		registerStructure(StructureMineshaftStart.class, "Mineshaft");
-		registerStructure(MapGenVillage.Start.class, "Village");
-		registerStructure(MapGenNetherBridge.Start.class, "Fortress");
-		registerStructure(MapGenStronghold.Start.class, "Stronghold");
-		registerStructure(MapGenScatteredFeature.Start.class, "Temple");
-		registerStructure(StructureOceanMonument.StartMonument.class, "Monument");
-		registerStructure(MapGenEndCity.Start.class, "EndCity");
-		registerStructure(WoodlandMansion.Start.class, "Mansion");
-		StructureMineshaftPieces.registerStructurePieces();
-		StructureVillagePieces.registerVillagePieces();
-		StructureNetherBridgePieces.registerNetherFortressPieces();
-		StructureStrongholdPieces.registerStrongholdPieces();
-		ComponentScatteredFeaturePieces.registerScatteredFeaturePieces();
-		StructureOceanMonumentPieces.registerOceanMonumentPieces();
-		StructureEndCityPieces.registerPieces();
-		WoodlandMansionPieces.registerWoodlandMansionPieces();
 	}
 }

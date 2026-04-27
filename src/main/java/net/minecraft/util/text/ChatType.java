@@ -12,11 +12,6 @@ public enum ChatType {
 		this.id = id;
 	}
 
-	public byte getId() {
-
-		return id;
-	}
-
 	public static ChatType byId(byte idIn) {
 
 		for (ChatType chattype : values()) {
@@ -26,5 +21,10 @@ public enum ChatType {
 		}
 
 		return CHAT;
+	}
+
+	public byte getId() {
+
+		return id;
 	}
 }

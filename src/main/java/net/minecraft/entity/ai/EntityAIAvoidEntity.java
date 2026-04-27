@@ -15,27 +15,24 @@ import java.util.List;
 public class EntityAIAvoidEntity<T extends Entity> extends EntityAIBase {
 
 	private final Predicate<Entity> canBeSeenSelector;
-
-	/**
-	 * The entity we are attached to
-	 */
-	protected EntityCreature entity;
 	private final double farSpeed;
 	private final double nearSpeed;
-	protected T closestLivingEntity;
 	private final float avoidDistance;
-
-	/**
-	 * The PathEntity of our entity
-	 */
-	private Path path;
-
 	/**
 	 * The PathNavigate of our entity
 	 */
 	private final PathNavigate navigation;
 	private final Class<T> classToAvoid;
 	private final Predicate<? super T> avoidTargetSelector;
+	/**
+	 * The entity we are attached to
+	 */
+	protected EntityCreature entity;
+	protected T closestLivingEntity;
+	/**
+	 * The PathEntity of our entity
+	 */
+	private Path path;
 
 	public EntityAIAvoidEntity(EntityCreature entityIn, Class<T> classToAvoidIn, float avoidDistanceIn, double farSpeedIn, double nearSpeedIn) {
 

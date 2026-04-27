@@ -6,7 +6,6 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ContainerHopper;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.IHopper;
@@ -22,12 +21,12 @@ import java.util.List;
 
 public class EntityMinecartHopper extends EntityMinecartContainer implements IHopper {
 
+	private final BlockPos lastPosition = BlockPos.ORIGIN;
 	/**
 	 * Whether this hopper minecart is being blocked by an activator rail.
 	 */
 	private boolean isBlocked = true;
 	private int transferTicker = -1;
-	private final BlockPos lastPosition = BlockPos.ORIGIN;
 
 	public EntityMinecartHopper(World worldIn) {
 
@@ -37,6 +36,11 @@ public class EntityMinecartHopper extends EntityMinecartContainer implements IHo
 	public EntityMinecartHopper(World worldIn, double x, double y, double z) {
 
 		super(worldIn, x, y, z);
+	}
+
+	public static void registerFixesMinecartHopper(DataFixer fixer) {
+
+		EntityMinecartContainer.addDataFixers(fixer, EntityMinecartHopper.class);
 	}
 
 	public EntityMinecart.Type getType() {
@@ -180,11 +184,6 @@ public class EntityMinecartHopper extends EntityMinecartContainer implements IHo
 		if (world.getGameRules().getBoolean("doEntityDrops")) {
 			dropItemWithOffset(Item.getItemFromBlock(Blocks.HOPPER), 1, 0.0F);
 		}
-	}
-
-	public static void registerFixesMinecartHopper(DataFixer fixer) {
-
-		EntityMinecartContainer.addDataFixers(fixer, EntityMinecartHopper.class);
 	}
 
 	/**

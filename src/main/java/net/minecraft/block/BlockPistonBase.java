@@ -3,7 +3,6 @@ package net.minecraft.block;
 import com.google.common.collect.Lists;
 import net.minecraft.block.material.EnumPushReaction;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockPistonStructureHelper;
@@ -12,7 +11,6 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
@@ -53,6 +51,54 @@ public class BlockPistonBase extends BlockDirectional {
 		setSoundType(SoundType.STONE);
 		setHardness(0.5F);
 		setCreativeTab(CreativeTabs.REDSTONE);
+	}
+
+	@Nullable
+	public static EnumFacing getFacing(int meta) {
+
+		int i = meta & 7;
+		return i > 5 ? null : EnumFacing.getFront(i);
+	}
+
+	/**
+	 * Checks if the piston can push the given BlockState.
+	 */
+	public static boolean canPush(IBlockState blockStateIn, World worldIn, BlockPos pos, EnumFacing facing, boolean destroyBlocks, EnumFacing p_185646_5_) {
+
+		Block block = blockStateIn.getBlock();
+
+		if (block == Blocks.OBSIDIAN) {
+			return false;
+		} else if (!worldIn.getWorldBorder().contains(pos)) {
+			return false;
+		} else if (pos.getY() >= 0 && (facing != EnumFacing.DOWN || pos.getY() != 0)) {
+			if (pos.getY() <= worldIn.getHeight() - 1 && (facing != EnumFacing.UP || pos.getY() != worldIn.getHeight() - 1)) {
+				if (block != Blocks.PISTON && block != Blocks.STICKY_PISTON) {
+					if (blockStateIn.getBlockHardness(worldIn, pos) == -1.0F) {
+						return false;
+					}
+
+					switch (blockStateIn.getMobilityFlag()) {
+						case BLOCK:
+							return false;
+
+						case DESTROY:
+							return destroyBlocks;
+
+						case PUSH_ONLY:
+							return facing == p_185646_5_;
+					}
+				} else if (blockStateIn.getValue(EXTENDED).booleanValue()) {
+					return false;
+				}
+
+				return !block.hasTileEntity();
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
 	}
 
 	public boolean causesSuffocation(IBlockState state) {
@@ -262,54 +308,6 @@ public class BlockPistonBase extends BlockDirectional {
 	public boolean isFullCube(IBlockState state) {
 
 		return false;
-	}
-
-	@Nullable
-	public static EnumFacing getFacing(int meta) {
-
-		int i = meta & 7;
-		return i > 5 ? null : EnumFacing.getFront(i);
-	}
-
-	/**
-	 * Checks if the piston can push the given BlockState.
-	 */
-	public static boolean canPush(IBlockState blockStateIn, World worldIn, BlockPos pos, EnumFacing facing, boolean destroyBlocks, EnumFacing p_185646_5_) {
-
-		Block block = blockStateIn.getBlock();
-
-		if (block == Blocks.OBSIDIAN) {
-			return false;
-		} else if (!worldIn.getWorldBorder().contains(pos)) {
-			return false;
-		} else if (pos.getY() >= 0 && (facing != EnumFacing.DOWN || pos.getY() != 0)) {
-			if (pos.getY() <= worldIn.getHeight() - 1 && (facing != EnumFacing.UP || pos.getY() != worldIn.getHeight() - 1)) {
-				if (block != Blocks.PISTON && block != Blocks.STICKY_PISTON) {
-					if (blockStateIn.getBlockHardness(worldIn, pos) == -1.0F) {
-						return false;
-					}
-
-					switch (blockStateIn.getMobilityFlag()) {
-						case BLOCK:
-							return false;
-
-						case DESTROY:
-							return destroyBlocks;
-
-						case PUSH_ONLY:
-							return facing == p_185646_5_;
-					}
-				} else if (blockStateIn.getValue(EXTENDED).booleanValue()) {
-					return false;
-				}
-
-				return !block.hasTileEntity();
-			} else {
-				return false;
-			}
-		} else {
-			return false;
-		}
 	}
 
 	private boolean doMove(World worldIn, BlockPos pos, EnumFacing direction, boolean extending) {

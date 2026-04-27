@@ -26,6 +26,13 @@ public class BlockFalling extends Block {
 		super(materialIn);
 	}
 
+	public static boolean canFallThrough(IBlockState state) {
+
+		Block block = state.getBlock();
+		Material material = state.getMaterial();
+		return block == Blocks.FIRE || material == Material.AIR || material == Material.WATER || material == Material.LAVA;
+	}
+
 	/**
 	 * Called after the block is set in the Chunk data, but before the Tile Entity is set
 	 */
@@ -86,13 +93,6 @@ public class BlockFalling extends Block {
 	public int tickRate(World worldIn) {
 
 		return 2;
-	}
-
-	public static boolean canFallThrough(IBlockState state) {
-
-		Block block = state.getBlock();
-		Material material = state.getMaterial();
-		return block == Blocks.FIRE || material == Material.AIR || material == Material.WATER || material == Material.LAVA;
 	}
 
 	public void onEndFalling(World worldIn, BlockPos pos, IBlockState p_176502_3_, IBlockState p_176502_4_) {

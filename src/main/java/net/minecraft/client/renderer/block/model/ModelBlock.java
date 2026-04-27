@@ -22,10 +22,12 @@ import java.util.Set;
 
 public class ModelBlock {
 
+	@VisibleForTesting
+	static final Gson SERIALIZER = (new GsonBuilder()).registerTypeAdapter(ModelBlock.class, new ModelBlock.Deserializer()).registerTypeAdapter(BlockPart.class, new BlockPart.Deserializer()).registerTypeAdapter(BlockPartFace.class, new BlockPartFace.Deserializer()).registerTypeAdapter(BlockFaceUV.class, new BlockFaceUV.Deserializer()).registerTypeAdapter(ItemTransformVec3f.class, new ItemTransformVec3f.Deserializer()).registerTypeAdapter(ItemCameraTransforms.class, new ItemCameraTransforms.Deserializer()).registerTypeAdapter(ItemOverride.class, new ItemOverride.Deserializer()).create();
 	private static final Logger LOGGER = LogManager.getLogger();
 
 	@VisibleForTesting
-	static final Gson SERIALIZER = (new GsonBuilder()).registerTypeAdapter(ModelBlock.class, new ModelBlock.Deserializer()).registerTypeAdapter(BlockPart.class, new BlockPart.Deserializer()).registerTypeAdapter(BlockPartFace.class, new BlockPartFace.Deserializer()).registerTypeAdapter(BlockFaceUV.class, new BlockFaceUV.Deserializer()).registerTypeAdapter(ItemTransformVec3f.class, new ItemTransformVec3f.Deserializer()).registerTypeAdapter(ItemCameraTransforms.class, new ItemCameraTransforms.Deserializer()).registerTypeAdapter(ItemOverride.class, new ItemOverride.Deserializer()).create();
+	protected final Map<String, String> textures;
 	private final List<BlockPart> elements;
 	private final boolean gui3d;
 	private final boolean ambientOcclusion;
@@ -34,13 +36,21 @@ public class ModelBlock {
 	public String name = "";
 
 	@VisibleForTesting
-	protected final Map<String, String> textures;
-
-	@VisibleForTesting
 	protected ModelBlock parent;
 
 	@VisibleForTesting
 	protected ResourceLocation parentLocation;
+
+	public ModelBlock(@Nullable ResourceLocation parentLocationIn, List<BlockPart> elementsIn, Map<String, String> texturesIn, boolean ambientOcclusionIn, boolean gui3dIn, ItemCameraTransforms cameraTransformsIn, List<ItemOverride> overridesIn) {
+
+		elements = elementsIn;
+		ambientOcclusion = ambientOcclusionIn;
+		gui3d = gui3dIn;
+		textures = texturesIn;
+		parentLocation = parentLocationIn;
+		cameraTransforms = cameraTransformsIn;
+		overrides = overridesIn;
+	}
 
 	public static ModelBlock deserialize(Reader readerIn) {
 
@@ -52,15 +62,20 @@ public class ModelBlock {
 		return deserialize(new StringReader(jsonString));
 	}
 
-	public ModelBlock(@Nullable ResourceLocation parentLocationIn, List<BlockPart> elementsIn, Map<String, String> texturesIn, boolean ambientOcclusionIn, boolean gui3dIn, ItemCameraTransforms cameraTransformsIn, List<ItemOverride> overridesIn) {
+	public static void checkModelHierarchy(Map<ResourceLocation, ModelBlock> p_178312_0_) {
 
-		elements = elementsIn;
-		ambientOcclusion = ambientOcclusionIn;
-		gui3d = gui3dIn;
-		textures = texturesIn;
-		parentLocation = parentLocationIn;
-		cameraTransforms = cameraTransformsIn;
-		overrides = overridesIn;
+		for (ModelBlock modelblock : p_178312_0_.values()) {
+			try {
+				ModelBlock modelblock1 = modelblock.parent;
+
+				for (ModelBlock modelblock2 = modelblock1.parent; modelblock1 != modelblock2; modelblock2 = modelblock2.parent.parent) {
+					modelblock1 = modelblock1.parent;
+				}
+
+				throw new ModelBlock.LoopException();
+			} catch (NullPointerException var5) {
+			}
+		}
 	}
 
 	public List<BlockPart> getElements() {
@@ -188,22 +203,6 @@ public class ModelBlock {
 	private ItemTransformVec3f getTransform(ItemCameraTransforms.TransformType type) {
 
 		return parent != null && !cameraTransforms.hasCustomTransform(type) ? parent.getTransform(type) : cameraTransforms.getTransform(type);
-	}
-
-	public static void checkModelHierarchy(Map<ResourceLocation, ModelBlock> p_178312_0_) {
-
-		for (ModelBlock modelblock : p_178312_0_.values()) {
-			try {
-				ModelBlock modelblock1 = modelblock.parent;
-
-				for (ModelBlock modelblock2 = modelblock1.parent; modelblock1 != modelblock2; modelblock2 = modelblock2.parent.parent) {
-					modelblock1 = modelblock1.parent;
-				}
-
-				throw new ModelBlock.LoopException();
-			} catch (NullPointerException var5) {
-			}
-		}
 	}
 
 	static final class Bookkeep {

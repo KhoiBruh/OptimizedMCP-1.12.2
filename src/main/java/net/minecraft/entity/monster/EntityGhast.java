@@ -48,6 +48,11 @@ public class EntityGhast extends EntityFlying implements IMob {
 		moveHelper = new EntityGhast.GhastMoveHelper(this);
 	}
 
+	public static void registerFixesGhast(DataFixer fixer) {
+
+		EntityLiving.registerFixesMob(fixer, EntityGhast.class);
+	}
+
 	protected void initEntityAI() {
 
 		tasks.addTask(5, new EntityGhast.AIRandomFly(this));
@@ -159,11 +164,6 @@ public class EntityGhast extends EntityFlying implements IMob {
 	public int getMaxSpawnedInChunk() {
 
 		return 1;
-	}
-
-	public static void registerFixesGhast(DataFixer fixer) {
-
-		EntityLiving.registerFixesMob(fixer, EntityGhast.class);
 	}
 
 	/**

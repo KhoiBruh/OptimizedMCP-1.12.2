@@ -10,42 +10,35 @@ import net.minecraft.util.ResourceLocation;
 public class GuiButton extends Gui {
 
 	protected static final ResourceLocation BUTTON_TEXTURES = new ResourceLocation("textures/gui/widgets.png");
-
-	/**
-	 * Button width in pixels
-	 */
-	protected int width;
-
-	/**
-	 * Button height in pixels
-	 */
-	protected int height;
-
 	/**
 	 * The x position of this control.
 	 */
 	public int x;
-
 	/**
 	 * The y position of this control.
 	 */
 	public int y;
-
 	/**
 	 * The string displayed on this control.
 	 */
 	public String displayString;
 	public int id;
-
 	/**
 	 * True if this control is enabled, false to disable.
 	 */
 	public boolean enabled;
-
 	/**
 	 * Hides the button completely if false.
 	 */
 	public boolean visible;
+	/**
+	 * Button width in pixels
+	 */
+	protected int width;
+	/**
+	 * Button height in pixels
+	 */
+	protected int height;
 	protected boolean hovered;
 
 	public GuiButton(int buttonId, int x, int y, String buttonText) {

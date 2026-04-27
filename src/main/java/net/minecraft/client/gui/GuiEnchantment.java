@@ -49,6 +49,7 @@ public class GuiEnchantment extends GuiContainer {
 	 */
 	private final Random random = new Random();
 	private final ContainerEnchantment container;
+	private final IWorldNameable nameable;
 	public int ticks;
 	public float flip;
 	public float oFlip;
@@ -57,7 +58,6 @@ public class GuiEnchantment extends GuiContainer {
 	public float open;
 	public float oOpen;
 	private ItemStack last = ItemStack.EMPTY;
-	private final IWorldNameable nameable;
 
 	public GuiEnchantment(InventoryPlayer inventory, World worldIn, IWorldNameable nameable) {
 

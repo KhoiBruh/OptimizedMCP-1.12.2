@@ -21,6 +21,29 @@ public class CriterionProgress {
 		advancementProgress = advancementProgressIn;
 	}
 
+	public static CriterionProgress read(PacketBuffer buf, AdvancementProgress advancementProgressIn) {
+
+		CriterionProgress criterionprogress = new CriterionProgress(advancementProgressIn);
+
+		if (buf.readBoolean()) {
+			criterionprogress.obtained = buf.readTime();
+		}
+
+		return criterionprogress;
+	}
+
+	public static CriterionProgress fromDateTime(AdvancementProgress advancementProgressIn, String dateTime) {
+
+		CriterionProgress criterionprogress = new CriterionProgress(advancementProgressIn);
+
+		try {
+			criterionprogress.obtained = DATE_TIME_FORMATTER.parse(dateTime);
+			return criterionprogress;
+		} catch (ParseException parseexception) {
+			throw new JsonSyntaxException("Invalid datetime: " + dateTime, parseexception);
+		}
+	}
+
 	public boolean isObtained() {
 
 		return obtained != null;
@@ -58,29 +81,6 @@ public class CriterionProgress {
 	public JsonElement serialize() {
 
 		return obtained != null ? new JsonPrimitive(DATE_TIME_FORMATTER.format(obtained)) : JsonNull.INSTANCE;
-	}
-
-	public static CriterionProgress read(PacketBuffer buf, AdvancementProgress advancementProgressIn) {
-
-		CriterionProgress criterionprogress = new CriterionProgress(advancementProgressIn);
-
-		if (buf.readBoolean()) {
-			criterionprogress.obtained = buf.readTime();
-		}
-
-		return criterionprogress;
-	}
-
-	public static CriterionProgress fromDateTime(AdvancementProgress advancementProgressIn, String dateTime) {
-
-		CriterionProgress criterionprogress = new CriterionProgress(advancementProgressIn);
-
-		try {
-			criterionprogress.obtained = DATE_TIME_FORMATTER.parse(dateTime);
-			return criterionprogress;
-		} catch (ParseException parseexception) {
-			throw new JsonSyntaxException("Invalid datetime: " + dateTime, parseexception);
-		}
 	}
 
 }

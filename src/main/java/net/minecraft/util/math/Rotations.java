@@ -33,10 +33,10 @@ public record Rotations(float x, float y, float z) {
 
 	public boolean equals(Object p_equals_1_) {
 
-		if (!(p_equals_1_ instanceof Rotations rotations)) {
+		if (!(p_equals_1_ instanceof Rotations(float x1, float y1, float z1))) {
 			return false;
 		} else {
-			return x == rotations.x && y == rotations.y && z == rotations.z;
+			return x == x1 && y == y1 && z == z1;
 		}
 	}
 

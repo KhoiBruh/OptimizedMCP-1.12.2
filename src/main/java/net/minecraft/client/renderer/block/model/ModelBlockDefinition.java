@@ -23,11 +23,6 @@ public class ModelBlockDefinition {
 	private final Map<String, VariantList> mapVariants = Maps.newHashMap();
 	private Multipart multipart;
 
-	public static ModelBlockDefinition parseFromReader(Reader reader) {
-
-		return JsonUtils.fromJson(GSON, reader, ModelBlockDefinition.class);
-	}
-
 	public ModelBlockDefinition(Map<String, VariantList> variants, Multipart multipartIn) {
 
 		multipart = multipartIn;
@@ -50,6 +45,11 @@ public class ModelBlockDefinition {
 		if (modelblockdefinition != null) {
 			multipart = modelblockdefinition.multipart;
 		}
+	}
+
+	public static ModelBlockDefinition parseFromReader(Reader reader) {
+
+		return JsonUtils.fromJson(GSON, reader, ModelBlockDefinition.class);
 	}
 
 	public boolean hasVariant(String p_188000_1_) {

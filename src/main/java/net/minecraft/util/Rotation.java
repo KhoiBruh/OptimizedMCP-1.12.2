@@ -6,8 +6,17 @@ public enum Rotation {
 	CLOCKWISE_180("rotate_180"),
 	COUNTERCLOCKWISE_90("rotate_270");
 
-	private final String name;
 	private static final String[] rotationNames = new String[values().length];
+
+	static {
+		int i = 0;
+
+		for (Rotation rotation : values()) {
+			rotationNames[i++] = rotation.name;
+		}
+	}
+
+	private final String name;
 
 	Rotation(String nameIn) {
 
@@ -102,14 +111,6 @@ public enum Rotation {
 
 			default:
 				return p_185833_1_;
-		}
-	}
-
-	static {
-		int i = 0;
-
-		for (Rotation rotation : values()) {
-			rotationNames[i++] = rotation.name;
 		}
 	}
 }

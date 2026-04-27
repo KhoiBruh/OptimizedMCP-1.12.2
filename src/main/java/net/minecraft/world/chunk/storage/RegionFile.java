@@ -14,9 +14,9 @@ public class RegionFile {
 
 	private static final byte[] EMPTY_SECTOR = new byte[4096];
 	private final File fileName;
-	private RandomAccessFile dataFile;
 	private final int[] offsets = new int[1024];
 	private final int[] chunkTimestamps = new int[1024];
+	private RandomAccessFile dataFile;
 	private List<Boolean> sectorFree;
 
 	/**

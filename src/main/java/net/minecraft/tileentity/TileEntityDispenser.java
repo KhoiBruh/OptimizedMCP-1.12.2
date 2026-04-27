@@ -19,6 +19,11 @@ public class TileEntityDispenser extends TileEntityLockableLoot {
 	private static final Random RNG = new Random();
 	private NonNullList<ItemStack> stacks = NonNullList.withSize(9, ItemStack.EMPTY);
 
+	public static void registerFixes(DataFixer fixer) {
+
+		fixer.registerWalker(FixTypes.BLOCK_ENTITY, new ItemStackDataLists(TileEntityDispenser.class, "Items"));
+	}
+
 	/**
 	 * Returns the number of slots in the inventory.
 	 */
@@ -75,11 +80,6 @@ public class TileEntityDispenser extends TileEntityLockableLoot {
 	public String getName() {
 
 		return hasCustomName() ? customName : "container.dispenser";
-	}
-
-	public static void registerFixes(DataFixer fixer) {
-
-		fixer.registerWalker(FixTypes.BLOCK_ENTITY, new ItemStackDataLists(TileEntityDispenser.class, "Items"));
 	}
 
 	public void readFromNBT(NBTTagCompound compound) {

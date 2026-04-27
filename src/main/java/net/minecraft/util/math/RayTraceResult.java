@@ -5,23 +5,20 @@ import net.minecraft.util.EnumFacing;
 
 public class RayTraceResult {
 
-	private BlockPos blockPos;
-
 	/**
 	 * The type of hit that occured, see {@link RayTraceResult#Type} for possibilities.
 	 */
 	public RayTraceResult.Type typeOfHit;
 	public EnumFacing sideHit;
-
 	/**
 	 * The vector position of the hit
 	 */
 	public Vec3d hitVec;
-
 	/**
 	 * The hit entity
 	 */
 	public Entity entityHit;
+	private BlockPos blockPos;
 
 	public RayTraceResult(Vec3d hitVecIn, EnumFacing sideHitIn, BlockPos blockPosIn) {
 

@@ -4,14 +4,14 @@ import java.util.Random;
 
 public class NoiseGeneratorSimplex {
 
-	private static final int[][] grad3 = new int[][]{{1, 1, 0}, {-1, 1, 0}, {1, -1, 0}, {-1, -1, 0}, {1, 0, 1}, {-1, 0, 1}, {1, 0, -1}, {-1, 0, -1}, {0, 1, 1}, {0, -1, 1}, {0, 1, -1}, {0, -1, -1}};
 	public static final double SQRT_3 = Math.sqrt(3.0D);
+	private static final int[][] grad3 = new int[][]{{1, 1, 0}, {-1, 1, 0}, {1, -1, 0}, {-1, -1, 0}, {1, 0, 1}, {-1, 0, 1}, {1, 0, -1}, {-1, 0, -1}, {0, 1, 1}, {0, -1, 1}, {0, 1, -1}, {0, -1, -1}};
+	private static final double F2 = 0.5D * (SQRT_3 - 1.0D);
+	private static final double G2 = (3.0D - SQRT_3) / 6.0D;
 	private final int[] p;
 	public double xo;
 	public double yo;
 	public double zo;
-	private static final double F2 = 0.5D * (SQRT_3 - 1.0D);
-	private static final double G2 = (3.0D - SQRT_3) / 6.0D;
 
 	public NoiseGeneratorSimplex() {
 

@@ -29,15 +29,15 @@ import java.util.UUID;
 
 public class Village {
 
-	private World world;
 	private final List<VillageDoorInfo> villageDoorInfoList = Lists.newArrayList();
-
+	private final Map<String, Integer> playerReputation = Maps.newHashMap();
+	private final List<Village.VillageAggressor> villageAgressors = Lists.newArrayList();
+	private World world;
 	/**
 	 * This is the sum of all door coordinates and used to calculate the actual village center by dividing by the number
 	 * of doors.
 	 */
 	private BlockPos centerHelper = BlockPos.ORIGIN;
-
 	/**
 	 * This is the actual village center.
 	 */
@@ -46,13 +46,10 @@ public class Village {
 	private int lastAddDoorTimestamp;
 	private int tickCounter;
 	private int numVillagers;
-
 	/**
 	 * Timestamp of tick count when villager last bred
 	 */
 	private int noBreedTicks;
-	private final Map<String, Integer> playerReputation = Maps.newHashMap();
-	private final List<Village.VillageAggressor> villageAgressors = Lists.newArrayList();
 	private int numIronGolems;
 
 	public Village() {

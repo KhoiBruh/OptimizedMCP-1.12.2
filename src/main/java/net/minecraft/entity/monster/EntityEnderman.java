@@ -1,6 +1,5 @@
 package net.minecraft.entity.monster;
 
-import com.google.common.base.Function;
 import com.google.common.base.Optional;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Sets;
@@ -45,6 +44,25 @@ public class EntityEnderman extends EntityMob {
 	private static final Set<Block> CARRIABLE_BLOCKS = Sets.newIdentityHashSet();
 	private static final DataParameter<Optional<IBlockState>> CARRIED_BLOCK = EntityDataManager.createKey(EntityEnderman.class, DataSerializers.OPTIONAL_BLOCK_STATE);
 	private static final DataParameter<Boolean> SCREAMING = EntityDataManager.createKey(EntityEnderman.class, DataSerializers.BOOLEAN);
+
+	static {
+		CARRIABLE_BLOCKS.add(Blocks.GRASS);
+		CARRIABLE_BLOCKS.add(Blocks.DIRT);
+		CARRIABLE_BLOCKS.add(Blocks.SAND);
+		CARRIABLE_BLOCKS.add(Blocks.GRAVEL);
+		CARRIABLE_BLOCKS.add(Blocks.YELLOW_FLOWER);
+		CARRIABLE_BLOCKS.add(Blocks.RED_FLOWER);
+		CARRIABLE_BLOCKS.add(Blocks.BROWN_MUSHROOM);
+		CARRIABLE_BLOCKS.add(Blocks.RED_MUSHROOM);
+		CARRIABLE_BLOCKS.add(Blocks.TNT);
+		CARRIABLE_BLOCKS.add(Blocks.CACTUS);
+		CARRIABLE_BLOCKS.add(Blocks.CLAY);
+		CARRIABLE_BLOCKS.add(Blocks.PUMPKIN);
+		CARRIABLE_BLOCKS.add(Blocks.MELON_BLOCK);
+		CARRIABLE_BLOCKS.add(Blocks.MYCELIUM);
+		CARRIABLE_BLOCKS.add(Blocks.NETHERRACK);
+	}
+
 	private int lastCreepySound;
 	private int targetChangeTime;
 
@@ -54,6 +72,11 @@ public class EntityEnderman extends EntityMob {
 		setSize(0.6F, 2.9F);
 		stepHeight = 1.0F;
 		setPathPriority(PathNodeType.WATER, -1.0F);
+	}
+
+	public static void registerFixesEnderman(DataFixer fixer) {
+
+		EntityLiving.registerFixesMob(fixer, EntityEnderman.class);
 	}
 
 	protected void initEntityAI() {
@@ -131,11 +154,6 @@ public class EntityEnderman extends EntityMob {
 		}
 
 		super.notifyDataManagerChange(key);
-	}
-
-	public static void registerFixesEnderman(DataFixer fixer) {
-
-		EntityLiving.registerFixesMob(fixer, EntityEnderman.class);
 	}
 
 	/**
@@ -307,14 +325,6 @@ public class EntityEnderman extends EntityMob {
 		return LootTableList.ENTITIES_ENDERMAN;
 	}
 
-	/**
-	 * Sets this enderman's held block state
-	 */
-	public void setHeldBlockState(@Nullable IBlockState state) {
-
-		dataManager.set(CARRIED_BLOCK, Optional.fromNullable(state));
-	}
-
 	@Nullable
 
 	/**
@@ -323,6 +333,14 @@ public class EntityEnderman extends EntityMob {
 	public IBlockState getHeldBlockState() {
 
 		return (IBlockState) ((Optional) dataManager.get(CARRIED_BLOCK)).orNull();
+	}
+
+	/**
+	 * Sets this enderman's held block state
+	 */
+	public void setHeldBlockState(@Nullable IBlockState state) {
+
+		dataManager.set(CARRIED_BLOCK, Optional.fromNullable(state));
 	}
 
 	/**
@@ -354,24 +372,6 @@ public class EntityEnderman extends EntityMob {
 	public boolean isScreaming() {
 
 		return dataManager.get(SCREAMING).booleanValue();
-	}
-
-	static {
-		CARRIABLE_BLOCKS.add(Blocks.GRASS);
-		CARRIABLE_BLOCKS.add(Blocks.DIRT);
-		CARRIABLE_BLOCKS.add(Blocks.SAND);
-		CARRIABLE_BLOCKS.add(Blocks.GRAVEL);
-		CARRIABLE_BLOCKS.add(Blocks.YELLOW_FLOWER);
-		CARRIABLE_BLOCKS.add(Blocks.RED_FLOWER);
-		CARRIABLE_BLOCKS.add(Blocks.BROWN_MUSHROOM);
-		CARRIABLE_BLOCKS.add(Blocks.RED_MUSHROOM);
-		CARRIABLE_BLOCKS.add(Blocks.TNT);
-		CARRIABLE_BLOCKS.add(Blocks.CACTUS);
-		CARRIABLE_BLOCKS.add(Blocks.CLAY);
-		CARRIABLE_BLOCKS.add(Blocks.PUMPKIN);
-		CARRIABLE_BLOCKS.add(Blocks.MELON_BLOCK);
-		CARRIABLE_BLOCKS.add(Blocks.MYCELIUM);
-		CARRIABLE_BLOCKS.add(Blocks.NETHERRACK);
 	}
 
 	static class AIFindPlayer extends EntityAINearestAttackableTarget<EntityPlayer> {

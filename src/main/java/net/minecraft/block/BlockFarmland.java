@@ -1,7 +1,6 @@
 package net.minecraft.block;
 
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
@@ -31,6 +30,17 @@ public class BlockFarmland extends Block {
 		setDefaultState(blockState.getBaseState().withProperty(MOISTURE, Integer.valueOf(0)));
 		setTickRandomly(true);
 		setLightOpacity(255);
+	}
+
+	protected static void turnToDirt(World p_190970_0_, BlockPos worldIn) {
+
+		p_190970_0_.setBlockState(worldIn, Blocks.DIRT.getDefaultState());
+		AxisAlignedBB axisalignedbb = field_194405_c.offset(worldIn);
+
+		for (Entity entity : p_190970_0_.getEntitiesWithinAABBExcludingEntity(null, axisalignedbb)) {
+			double d0 = Math.min(axisalignedbb.maxY - axisalignedbb.minY, axisalignedbb.maxY - entity.getEntityBoundingBox().minY);
+			entity.setPositionAndUpdate(entity.posX, entity.posY + d0 + 0.001D, entity.posZ);
+		}
 	}
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
@@ -76,17 +86,6 @@ public class BlockFarmland extends Block {
 		}
 
 		super.onFallenUpon(worldIn, pos, entityIn, fallDistance);
-	}
-
-	protected static void turnToDirt(World p_190970_0_, BlockPos worldIn) {
-
-		p_190970_0_.setBlockState(worldIn, Blocks.DIRT.getDefaultState());
-		AxisAlignedBB axisalignedbb = field_194405_c.offset(worldIn);
-
-		for (Entity entity : p_190970_0_.getEntitiesWithinAABBExcludingEntity(null, axisalignedbb)) {
-			double d0 = Math.min(axisalignedbb.maxY - axisalignedbb.minY, axisalignedbb.maxY - entity.getEntityBoundingBox().minY);
-			entity.setPositionAndUpdate(entity.posX, entity.posY + d0 + 0.001D, entity.posZ);
-		}
 	}
 
 	private boolean hasCrops(World worldIn, BlockPos pos) {

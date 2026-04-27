@@ -33,17 +33,17 @@ public class EntityElderGuardian extends EntityGuardian {
 		}
 	}
 
+	public static void registerFixesElderGuardian(DataFixer fixer) {
+
+		EntityLiving.registerFixesMob(fixer, EntityElderGuardian.class);
+	}
+
 	protected void applyEntityAttributes() {
 
 		super.applyEntityAttributes();
 		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.30000001192092896D);
 		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(8.0D);
 		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(80.0D);
-	}
-
-	public static void registerFixesElderGuardian(DataFixer fixer) {
-
-		EntityLiving.registerFixesMob(fixer, EntityElderGuardian.class);
 	}
 
 	@Nullable

@@ -18,16 +18,14 @@ public class MapGenScatteredFeature extends MapGenStructure {
 
 	private static final List<Biome> BIOMELIST = Arrays.asList(Biomes.DESERT, Biomes.DESERT_HILLS, Biomes.JUNGLE, Biomes.JUNGLE_HILLS, Biomes.SWAMPLAND, Biomes.ICE_PLAINS, Biomes.COLD_TAIGA);
 	private final List<Biome.SpawnListEntry> monsters;
-
-	/**
-	 * the maximum distance between scattered features
-	 */
-	private int maxDistanceBetweenScatteredFeatures;
-
 	/**
 	 * the minimum distance between scattered features
 	 */
 	private final int minDistanceBetweenScatteredFeatures;
+	/**
+	 * the maximum distance between scattered features
+	 */
+	private int maxDistanceBetweenScatteredFeatures;
 
 	public MapGenScatteredFeature() {
 

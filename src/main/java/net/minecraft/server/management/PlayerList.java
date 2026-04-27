@@ -80,21 +80,18 @@ public abstract class PlayerList {
 	private final UserListWhitelist whiteListedPlayers;
 	private final Map<UUID, StatisticsManagerServer> playerStatFiles;
 	private final Map<UUID, PlayerAdvancements> advancements;
-
-	/**
-	 * Reference to the PlayerNBTManager object.
-	 */
-	private IPlayerFileData playerDataManager;
-
-	/**
-	 * Server setting to only allow OPs and whitelisted players to join the server.
-	 */
-	private boolean whiteListEnforced;
-
 	/**
 	 * The maximum number of players that can be connected at a time.
 	 */
 	protected int maxPlayers;
+	/**
+	 * Reference to the PlayerNBTManager object.
+	 */
+	private IPlayerFileData playerDataManager;
+	/**
+	 * Server setting to only allow OPs and whitelisted players to join the server.
+	 */
+	private boolean whiteListEnforced;
 	private int viewDistance;
 	private GameType gameType;
 
@@ -950,6 +947,20 @@ public abstract class PlayerList {
 		return viewDistance;
 	}
 
+	public void setViewDistance(int distance) {
+
+		viewDistance = distance;
+
+		if (mcServer.worlds != null) {
+			for (WorldServer worldserver : mcServer.worlds) {
+				if (worldserver != null) {
+					worldserver.getPlayerChunkMap().setPlayerViewRadius(distance);
+					worldserver.getEntityTracker().setViewDistance(distance);
+				}
+			}
+		}
+	}
+
 	public MinecraftServer getServerInstance() {
 
 		return mcServer;
@@ -1051,20 +1062,6 @@ public abstract class PlayerList {
 
 		playeradvancements.setPlayer(p_192054_1_);
 		return playeradvancements;
-	}
-
-	public void setViewDistance(int distance) {
-
-		viewDistance = distance;
-
-		if (mcServer.worlds != null) {
-			for (WorldServer worldserver : mcServer.worlds) {
-				if (worldserver != null) {
-					worldserver.getPlayerChunkMap().setPlayerViewRadius(distance);
-					worldserver.getEntityTracker().setViewDistance(distance);
-				}
-			}
-		}
 	}
 
 	public List<EntityPlayerMP> getPlayers() {

@@ -19,29 +19,25 @@ import java.io.*;
 public class SaveHandler implements ISaveHandler, IPlayerFileData {
 
 	private static final Logger LOGGER = LogManager.getLogger();
-
+	protected final DataFixer dataFixer;
 	/**
 	 * The directory in which to save world data.
 	 */
 	private final File worldDirectory;
-
 	/**
 	 * The directory in which to save player data.
 	 */
 	private final File playersDirectory;
 	private final File mapDataDir;
-
 	/**
 	 * The time in milliseconds when this field was initialized. Stored in the session lock file.
 	 */
 	private final long initializationTime = MinecraftServer.getCurrentTimeMillis();
-
 	/**
 	 * The directory name of the world
 	 */
 	private final String saveDirectoryName;
 	private final TemplateManager structureTemplateManager;
-	protected final DataFixer dataFixer;
 
 	public SaveHandler(File p_i46648_1_, String saveDirectoryNameIn, boolean p_i46648_3_, DataFixer dataFixerIn) {
 

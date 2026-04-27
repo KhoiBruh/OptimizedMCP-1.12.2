@@ -16,6 +16,18 @@ public class AdvancementProgress implements Comparable<AdvancementProgress> {
 	private final Map<String, CriterionProgress> criteria = Maps.newHashMap();
 	private String[][] requirements = new String[0][];
 
+	public static AdvancementProgress fromNetwork(PacketBuffer p_192100_0_) {
+
+		AdvancementProgress advancementprogress = new AdvancementProgress();
+		int i = p_192100_0_.readVarInt();
+
+		for (int j = 0; j < i; ++j) {
+			advancementprogress.criteria.put(p_192100_0_.readString(32767), CriterionProgress.read(p_192100_0_, advancementprogress));
+		}
+
+		return advancementprogress;
+	}
+
 	/**
 	 * Update this AdvancementProgress' criteria and requirements
 	 */
@@ -115,18 +127,6 @@ public class AdvancementProgress implements Comparable<AdvancementProgress> {
 			p_192104_1_.writeString(entry.getKey());
 			entry.getValue().write(p_192104_1_);
 		}
-	}
-
-	public static AdvancementProgress fromNetwork(PacketBuffer p_192100_0_) {
-
-		AdvancementProgress advancementprogress = new AdvancementProgress();
-		int i = p_192100_0_.readVarInt();
-
-		for (int j = 0; j < i; ++j) {
-			advancementprogress.criteria.put(p_192100_0_.readString(32767), CriterionProgress.read(p_192100_0_, advancementprogress));
-		}
-
-		return advancementprogress;
 	}
 
 	@Nullable

@@ -14,17 +14,82 @@ import java.util.Map;
 
 public class Scoreboard {
 
+	private static String[] displaySlots;
 	private final Map<String, ScoreObjective> scoreObjectives = Maps.newHashMap();
 	private final Map<IScoreCriteria, List<ScoreObjective>> scoreObjectiveCriterias = Maps.newHashMap();
 	private final Map<String, Map<ScoreObjective, Score>> entitiesScoreObjectives = Maps.newHashMap();
-
 	/**
 	 * Index 0 is tab menu, 1 is sidebar, and 2 is below name
 	 */
 	private final ScoreObjective[] objectiveDisplaySlots = new ScoreObjective[19];
 	private final Map<String, ScorePlayerTeam> teams = Maps.newHashMap();
 	private final Map<String, ScorePlayerTeam> teamMemberships = Maps.newHashMap();
-	private static String[] displaySlots;
+
+	/**
+	 * Returns 'list' for 0, 'sidebar' for 1, 'belowName for 2, otherwise null.
+	 */
+	public static String getObjectiveDisplaySlot(int id) {
+
+		switch (id) {
+			case 0:
+				return "list";
+
+			case 1:
+				return "sidebar";
+
+			case 2:
+				return "belowName";
+
+			default:
+				if (id >= 3 && id <= 18) {
+					TextFormatting textformatting = TextFormatting.fromColorIndex(id - 3);
+
+					if (textformatting != null && textformatting != TextFormatting.RESET) {
+						return "sidebar.team." + textformatting.getFriendlyName();
+					}
+				}
+
+				return null;
+		}
+	}
+
+	/**
+	 * Returns 0 for (case-insensitive) 'list', 1 for 'sidebar', 2 for 'belowName', otherwise -1.
+	 */
+	public static int getObjectiveDisplaySlotNumber(String name) {
+
+		if ("list".equalsIgnoreCase(name)) {
+			return 0;
+		} else if ("sidebar".equalsIgnoreCase(name)) {
+			return 1;
+		} else if ("belowName".equalsIgnoreCase(name)) {
+			return 2;
+		} else {
+			if (name.startsWith("sidebar.team.")) {
+				String s = name.substring("sidebar.team.".length());
+				TextFormatting textformatting = TextFormatting.getValueByName(s);
+
+				if (textformatting != null && textformatting.getColorIndex() >= 0) {
+					return textformatting.getColorIndex() + 3;
+				}
+			}
+
+			return -1;
+		}
+	}
+
+	public static String[] getDisplaySlotStrings() {
+
+		if (displaySlots == null) {
+			displaySlots = new String[19];
+
+			for (int i = 0; i < 19; ++i) {
+				displaySlots[i] = getObjectiveDisplaySlot(i);
+			}
+		}
+
+		return displaySlots;
+	}
 
 	@Nullable
 
@@ -383,72 +448,6 @@ public class Scoreboard {
 
 	public void broadcastTeamRemove(ScorePlayerTeam playerTeam) {
 
-	}
-
-	/**
-	 * Returns 'list' for 0, 'sidebar' for 1, 'belowName for 2, otherwise null.
-	 */
-	public static String getObjectiveDisplaySlot(int id) {
-
-		switch (id) {
-			case 0:
-				return "list";
-
-			case 1:
-				return "sidebar";
-
-			case 2:
-				return "belowName";
-
-			default:
-				if (id >= 3 && id <= 18) {
-					TextFormatting textformatting = TextFormatting.fromColorIndex(id - 3);
-
-					if (textformatting != null && textformatting != TextFormatting.RESET) {
-						return "sidebar.team." + textformatting.getFriendlyName();
-					}
-				}
-
-				return null;
-		}
-	}
-
-	/**
-	 * Returns 0 for (case-insensitive) 'list', 1 for 'sidebar', 2 for 'belowName', otherwise -1.
-	 */
-	public static int getObjectiveDisplaySlotNumber(String name) {
-
-		if ("list".equalsIgnoreCase(name)) {
-			return 0;
-		} else if ("sidebar".equalsIgnoreCase(name)) {
-			return 1;
-		} else if ("belowName".equalsIgnoreCase(name)) {
-			return 2;
-		} else {
-			if (name.startsWith("sidebar.team.")) {
-				String s = name.substring("sidebar.team.".length());
-				TextFormatting textformatting = TextFormatting.getValueByName(s);
-
-				if (textformatting != null && textformatting.getColorIndex() >= 0) {
-					return textformatting.getColorIndex() + 3;
-				}
-			}
-
-			return -1;
-		}
-	}
-
-	public static String[] getDisplaySlotStrings() {
-
-		if (displaySlots == null) {
-			displaySlots = new String[19];
-
-			for (int i = 0; i < 19; ++i) {
-				displaySlots[i] = getObjectiveDisplaySlot(i);
-			}
-		}
-
-		return displaySlots;
 	}
 
 	public void removeEntity(Entity entityIn) {

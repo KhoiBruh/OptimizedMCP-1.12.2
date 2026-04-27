@@ -216,17 +216,6 @@ public class Items {
 	public static final Item IRON_NUGGET;
 	public static final Item KNOWLEDGE_BOOK;
 
-	private static Item getRegisteredItem(String name) {
-
-		Item item = Item.REGISTRY.getObject(new ResourceLocation(name));
-
-		if (item == null) {
-			throw new IllegalStateException("Invalid Item requested: " + name);
-		} else {
-			return item;
-		}
-	}
-
 	static {
 		if (!Bootstrap.isRegistered()) {
 			throw new RuntimeException("Accessed Items before Bootstrap!");
@@ -441,6 +430,17 @@ public class Items {
 			SHULKER_SHELL = getRegisteredItem("shulker_shell");
 			IRON_NUGGET = getRegisteredItem("iron_nugget");
 			KNOWLEDGE_BOOK = getRegisteredItem("knowledge_book");
+		}
+	}
+
+	private static Item getRegisteredItem(String name) {
+
+		Item item = Item.REGISTRY.getObject(new ResourceLocation(name));
+
+		if (item == null) {
+			throw new IllegalStateException("Invalid Item requested: " + name);
+		} else {
+			return item;
 		}
 	}
 }

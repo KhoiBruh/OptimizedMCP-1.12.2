@@ -53,6 +53,7 @@ public class EntitySelector {
 	private static final String ARGUMENT_DELTA_X = addArgument("dx");
 	private static final String ARGUMENT_DELTA_Y = addArgument("dy");
 	private static final String ARGUMENT_DELTA_Z = addArgument("dz");
+	private static final Set<String> WORLD_BINDING_ARGS = Sets.newHashSet(ARGUMENT_COORDINATE_X, ARGUMENT_COORDINATE_Y, ARGUMENT_COORDINATE_Z, ARGUMENT_DELTA_X, ARGUMENT_DELTA_Y, ARGUMENT_DELTA_Z, ARGUMENT_RANGE_MIN, ARGUMENT_RANGE_MAX);
 	private static final String ARGUMENT_ROTX_MAX = addArgument("rx");
 	private static final String ARGUMENT_ROTX_MIN = addArgument("rxm");
 	private static final String ARGUMENT_ROTY_MAX = addArgument("ry");
@@ -69,7 +70,6 @@ public class EntitySelector {
 			return p_apply_1_ != null && (EntitySelector.VALID_ARGUMENTS.contains(p_apply_1_) || p_apply_1_.length() > "score_".length() && p_apply_1_.startsWith("score_"));
 		}
 	};
-	private static final Set<String> WORLD_BINDING_ARGS = Sets.newHashSet(ARGUMENT_COORDINATE_X, ARGUMENT_COORDINATE_Y, ARGUMENT_COORDINATE_Z, ARGUMENT_DELTA_X, ARGUMENT_DELTA_Y, ARGUMENT_DELTA_Z, ARGUMENT_RANGE_MIN, ARGUMENT_RANGE_MAX);
 
 	private static String addArgument(String argument) {
 

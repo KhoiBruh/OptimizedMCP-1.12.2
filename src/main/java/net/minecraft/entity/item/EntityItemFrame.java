@@ -45,6 +45,11 @@ public class EntityItemFrame extends EntityHanging {
 		updateFacingWithBoundingBox(p_i45852_3_);
 	}
 
+	public static void registerFixesItemFrame(DataFixer fixer) {
+
+		fixer.registerWalker(FixTypes.ENTITY, new ItemStackData(EntityItemFrame.class, "Item"));
+	}
+
 	protected void entityInit() {
 
 		getDataManager().register(ITEM, ItemStack.EMPTY);
@@ -211,11 +216,6 @@ public class EntityItemFrame extends EntityHanging {
 		if (p_174865_2_ && hangingPosition != null) {
 			world.updateComparatorOutputLevel(hangingPosition, Blocks.AIR);
 		}
-	}
-
-	public static void registerFixesItemFrame(DataFixer fixer) {
-
-		fixer.registerWalker(FixTypes.ENTITY, new ItemStackData(EntityItemFrame.class, "Item"));
 	}
 
 	/**

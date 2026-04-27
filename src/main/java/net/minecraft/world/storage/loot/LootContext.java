@@ -95,6 +95,44 @@ public class LootContext {
 		}
 	}
 
+	public enum EntityTarget {
+		THIS("this"),
+		KILLER("killer"),
+		KILLER_PLAYER("killer_player");
+
+		private final String targetType;
+
+		EntityTarget(String type) {
+
+			targetType = type;
+		}
+
+		public static LootContext.EntityTarget fromString(String type) {
+
+			for (LootContext.EntityTarget lootcontext$entitytarget : values()) {
+				if (lootcontext$entitytarget.targetType.equals(type)) {
+					return lootcontext$entitytarget;
+				}
+			}
+
+			throw new IllegalArgumentException("Invalid entity target " + type);
+		}
+
+		public static class Serializer extends TypeAdapter<LootContext.EntityTarget> {
+
+			public void write(JsonWriter p_write_1_, LootContext.EntityTarget p_write_2_) throws IOException {
+
+				p_write_1_.value(p_write_2_.targetType);
+			}
+
+			public LootContext.EntityTarget read(JsonReader p_read_1_) throws IOException {
+
+				return LootContext.EntityTarget.fromString(p_read_1_.nextString());
+			}
+
+		}
+	}
+
 	public static class Builder {
 
 		private final WorldServer world;
@@ -137,44 +175,6 @@ public class LootContext {
 			return new LootContext(luck, world, world.getLootTableManager(), lootedEntity, player, damageSource);
 		}
 
-	}
-
-	public enum EntityTarget {
-		THIS("this"),
-		KILLER("killer"),
-		KILLER_PLAYER("killer_player");
-
-		private final String targetType;
-
-		EntityTarget(String type) {
-
-			targetType = type;
-		}
-
-		public static LootContext.EntityTarget fromString(String type) {
-
-			for (LootContext.EntityTarget lootcontext$entitytarget : values()) {
-				if (lootcontext$entitytarget.targetType.equals(type)) {
-					return lootcontext$entitytarget;
-				}
-			}
-
-			throw new IllegalArgumentException("Invalid entity target " + type);
-		}
-
-		public static class Serializer extends TypeAdapter<LootContext.EntityTarget> {
-
-			public void write(JsonWriter p_write_1_, LootContext.EntityTarget p_write_2_) throws IOException {
-
-				p_write_1_.value(p_write_2_.targetType);
-			}
-
-			public LootContext.EntityTarget read(JsonReader p_read_1_) throws IOException {
-
-				return LootContext.EntityTarget.fromString(p_read_1_.nextString());
-			}
-
-		}
 	}
 
 }

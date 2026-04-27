@@ -16,6 +16,7 @@ import java.util.Random;
 
 public class TileEntityEnchantmentTable extends TileEntity implements ITickable, IInteractionObject {
 
+	private static final Random rand = new Random();
 	public int tickCount;
 	public float pageFlip;
 	public float pageFlipPrev;
@@ -26,7 +27,6 @@ public class TileEntityEnchantmentTable extends TileEntity implements ITickable,
 	public float bookRotation;
 	public float bookRotationPrev;
 	public float tRot;
-	private static final Random rand = new Random();
 	private String customName;
 
 	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
@@ -142,7 +142,7 @@ public class TileEntityEnchantmentTable extends TileEntity implements ITickable,
 	 */
 	public ITextComponent displayName() {
 
-		return hasCustomName() ? new TextComponentString(getName()) : new TextComponentTranslation(getName(), new Object[0]);
+		return hasCustomName() ? new TextComponentString(getName()) : new TextComponentTranslation(getName());
 	}
 
 	public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {

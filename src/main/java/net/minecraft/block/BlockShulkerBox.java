@@ -3,7 +3,6 @@ package net.minecraft.block;
 import net.minecraft.block.material.EnumPushReaction;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockFaceShape;
@@ -46,6 +45,75 @@ public class BlockShulkerBox extends BlockContainer {
 		color = colorIn;
 		setCreativeTab(CreativeTabs.DECORATIONS);
 		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.UP));
+	}
+
+	public static EnumDyeColor getColorFromItem(Item itemIn) {
+
+		return getColorFromBlock(Block.getBlockFromItem(itemIn));
+	}
+
+	public static EnumDyeColor getColorFromBlock(Block blockIn) {
+
+		return blockIn instanceof BlockShulkerBox ? ((BlockShulkerBox) blockIn).getColor() : EnumDyeColor.PURPLE;
+	}
+
+	public static Block getBlockByColor(EnumDyeColor colorIn) {
+
+		switch (colorIn) {
+			case WHITE:
+				return Blocks.WHITE_SHULKER_BOX;
+
+			case ORANGE:
+				return Blocks.ORANGE_SHULKER_BOX;
+
+			case MAGENTA:
+				return Blocks.MAGENTA_SHULKER_BOX;
+
+			case LIGHT_BLUE:
+				return Blocks.LIGHT_BLUE_SHULKER_BOX;
+
+			case YELLOW:
+				return Blocks.YELLOW_SHULKER_BOX;
+
+			case LIME:
+				return Blocks.LIME_SHULKER_BOX;
+
+			case PINK:
+				return Blocks.PINK_SHULKER_BOX;
+
+			case GRAY:
+				return Blocks.GRAY_SHULKER_BOX;
+
+			case SILVER:
+				return Blocks.SILVER_SHULKER_BOX;
+
+			case CYAN:
+				return Blocks.CYAN_SHULKER_BOX;
+
+			case PURPLE:
+			default:
+				return Blocks.PURPLE_SHULKER_BOX;
+
+			case BLUE:
+				return Blocks.BLUE_SHULKER_BOX;
+
+			case BROWN:
+				return Blocks.BROWN_SHULKER_BOX;
+
+			case GREEN:
+				return Blocks.GREEN_SHULKER_BOX;
+
+			case RED:
+				return Blocks.RED_SHULKER_BOX;
+
+			case BLACK:
+				return Blocks.BLACK_SHULKER_BOX;
+		}
+	}
+
+	public static ItemStack getColoredItemStack(EnumDyeColor colorIn) {
+
+		return new ItemStack(getBlockByColor(colorIn));
 	}
 
 	/**
@@ -200,7 +268,7 @@ public class BlockShulkerBox extends BlockContainer {
 				ItemStack itemstack = new ItemStack(Item.getItemFromBlock(this));
 				NBTTagCompound nbttagcompound = new NBTTagCompound();
 				NBTTagCompound nbttagcompound1 = new NBTTagCompound();
-				nbttagcompound.setTag("BlockEntityTag", ((TileEntityShulkerBox) tileentity).saveToNbt(nbttagcompound1));
+				nbttagcompound.setTag("BlockEntityTag", tileentityshulkerbox.saveToNbt(nbttagcompound1));
 				itemstack.setTagCompound(nbttagcompound);
 
 				if (tileentityshulkerbox.hasCustomName()) {
@@ -287,78 +355,9 @@ public class BlockShulkerBox extends BlockContainer {
 		return itemstack;
 	}
 
-	public static EnumDyeColor getColorFromItem(Item itemIn) {
-
-		return getColorFromBlock(Block.getBlockFromItem(itemIn));
-	}
-
-	public static EnumDyeColor getColorFromBlock(Block blockIn) {
-
-		return blockIn instanceof BlockShulkerBox ? ((BlockShulkerBox) blockIn).getColor() : EnumDyeColor.PURPLE;
-	}
-
-	public static Block getBlockByColor(EnumDyeColor colorIn) {
-
-		switch (colorIn) {
-			case WHITE:
-				return Blocks.WHITE_SHULKER_BOX;
-
-			case ORANGE:
-				return Blocks.ORANGE_SHULKER_BOX;
-
-			case MAGENTA:
-				return Blocks.MAGENTA_SHULKER_BOX;
-
-			case LIGHT_BLUE:
-				return Blocks.LIGHT_BLUE_SHULKER_BOX;
-
-			case YELLOW:
-				return Blocks.YELLOW_SHULKER_BOX;
-
-			case LIME:
-				return Blocks.LIME_SHULKER_BOX;
-
-			case PINK:
-				return Blocks.PINK_SHULKER_BOX;
-
-			case GRAY:
-				return Blocks.GRAY_SHULKER_BOX;
-
-			case SILVER:
-				return Blocks.SILVER_SHULKER_BOX;
-
-			case CYAN:
-				return Blocks.CYAN_SHULKER_BOX;
-
-			case PURPLE:
-			default:
-				return Blocks.PURPLE_SHULKER_BOX;
-
-			case BLUE:
-				return Blocks.BLUE_SHULKER_BOX;
-
-			case BROWN:
-				return Blocks.BROWN_SHULKER_BOX;
-
-			case GREEN:
-				return Blocks.GREEN_SHULKER_BOX;
-
-			case RED:
-				return Blocks.RED_SHULKER_BOX;
-
-			case BLACK:
-				return Blocks.BLACK_SHULKER_BOX;
-		}
-	}
-
 	public EnumDyeColor getColor() {
 
 		return color;
-	}
-
-	public static ItemStack getColoredItemStack(EnumDyeColor colorIn) {
-
-		return new ItemStack(getBlockByColor(colorIn));
 	}
 
 	/**

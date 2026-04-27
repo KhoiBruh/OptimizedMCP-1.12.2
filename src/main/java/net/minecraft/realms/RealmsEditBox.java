@@ -17,6 +17,11 @@ public class RealmsEditBox {
 		return editBox.getText();
 	}
 
+	public void setValue(String p_setValue_1_) {
+
+		editBox.setText(p_setValue_1_);
+	}
+
 	public void tick() {
 
 		editBox.updateCursorCounter();
@@ -25,11 +30,6 @@ public class RealmsEditBox {
 	public void setFocus(boolean p_setFocus_1_) {
 
 		editBox.setFocused(p_setFocus_1_);
-	}
-
-	public void setValue(String p_setValue_1_) {
-
-		editBox.setText(p_setValue_1_);
 	}
 
 	public void keyPressed(char p_keyPressed_1_, int p_keyPressed_2_) {

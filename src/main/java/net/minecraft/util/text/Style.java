@@ -10,20 +10,6 @@ import java.lang.reflect.Type;
 public class Style {
 
 	/**
-	 * The parent of this ChatStyle.  Used for looking up values that this instance does not override.
-	 */
-	private Style parentStyle;
-	private TextFormatting color;
-	private Boolean bold;
-	private Boolean italic;
-	private Boolean underlined;
-	private Boolean strikethrough;
-	private Boolean obfuscated;
-	private ClickEvent clickEvent;
-	private HoverEvent hoverEvent;
-	private String insertion;
-
-	/**
 	 * The base of the ChatStyle hierarchy.  All ChatStyle instances are implicitly children of this.
 	 */
 	private static final Style ROOT = new Style() {
@@ -141,6 +127,19 @@ public class Style {
 			return "";
 		}
 	};
+	/**
+	 * The parent of this ChatStyle.  Used for looking up values that this instance does not override.
+	 */
+	private Style parentStyle;
+	private TextFormatting color;
+	private Boolean bold;
+	private Boolean italic;
+	private Boolean underlined;
+	private Boolean strikethrough;
+	private Boolean obfuscated;
+	private ClickEvent clickEvent;
+	private HoverEvent hoverEvent;
+	private String insertion;
 
 	@Nullable
 
@@ -153,11 +152,31 @@ public class Style {
 	}
 
 	/**
+	 * Sets the color for this ChatStyle to the given value.  Only use color values for this; set other values using the
+	 * specific methods.
+	 */
+	public Style setColor(TextFormatting color) {
+
+		this.color = color;
+		return this;
+	}
+
+	/**
 	 * Whether or not text of this ChatStyle should be in bold.
 	 */
 	public boolean getBold() {
 
 		return bold == null ? getParent().getBold() : bold.booleanValue();
+	}
+
+	/**
+	 * Sets whether or not text of this ChatStyle should be in bold.  Set to false if, e.g., the parent style is bold
+	 * and you want text of this style to be unbolded.
+	 */
+	public Style setBold(Boolean boldIn) {
+
+		bold = boldIn;
+		return this;
 	}
 
 	/**
@@ -169,11 +188,31 @@ public class Style {
 	}
 
 	/**
+	 * Sets whether or not text of this ChatStyle should be italicized.  Set to false if, e.g., the parent style is
+	 * italicized and you want to override that for this style.
+	 */
+	public Style setItalic(Boolean italic) {
+
+		this.italic = italic;
+		return this;
+	}
+
+	/**
 	 * Whether or not to format text of this ChatStyle using strikethrough.
 	 */
 	public boolean getStrikethrough() {
 
 		return strikethrough == null ? getParent().getStrikethrough() : strikethrough.booleanValue();
+	}
+
+	/**
+	 * Sets whether or not to format text of this ChatStyle using strikethrough.  Set to false if, e.g., the parent
+	 * style uses strikethrough and you want to override that for this style.
+	 */
+	public Style setStrikethrough(Boolean strikethrough) {
+
+		this.strikethrough = strikethrough;
+		return this;
 	}
 
 	/**
@@ -185,11 +224,31 @@ public class Style {
 	}
 
 	/**
+	 * Sets whether or not text of this ChatStyle should be underlined.  Set to false if, e.g., the parent style is
+	 * underlined and you want to override that for this style.
+	 */
+	public Style setUnderlined(Boolean underlined) {
+
+		this.underlined = underlined;
+		return this;
+	}
+
+	/**
 	 * Whether or not text of this ChatStyle should be obfuscated.
 	 */
 	public boolean getObfuscated() {
 
 		return obfuscated == null ? getParent().getObfuscated() : obfuscated.booleanValue();
+	}
+
+	/**
+	 * Sets whether or not text of this ChatStyle should be obfuscated.  Set to false if, e.g., the parent style is
+	 * obfuscated and you want to override that for this style.
+	 */
+	public Style setObfuscated(Boolean obfuscated) {
+
+		this.obfuscated = obfuscated;
+		return this;
 	}
 
 	/**
@@ -210,6 +269,15 @@ public class Style {
 		return clickEvent == null ? getParent().getClickEvent() : clickEvent;
 	}
 
+	/**
+	 * Sets the event that should be run when text of this ChatStyle is clicked on.
+	 */
+	public Style setClickEvent(ClickEvent event) {
+
+		clickEvent = event;
+		return this;
+	}
+
 	@Nullable
 
 	/**
@@ -220,6 +288,15 @@ public class Style {
 		return hoverEvent == null ? getParent().getHoverEvent() : hoverEvent;
 	}
 
+	/**
+	 * Sets the event that should be run when text of this ChatStyle is hovered over.
+	 */
+	public Style setHoverEvent(HoverEvent event) {
+
+		hoverEvent = event;
+		return this;
+	}
+
 	@Nullable
 
 	/**
@@ -228,84 +305,6 @@ public class Style {
 	public String getInsertion() {
 
 		return insertion == null ? getParent().getInsertion() : insertion;
-	}
-
-	/**
-	 * Sets the color for this ChatStyle to the given value.  Only use color values for this; set other values using the
-	 * specific methods.
-	 */
-	public Style setColor(TextFormatting color) {
-
-		this.color = color;
-		return this;
-	}
-
-	/**
-	 * Sets whether or not text of this ChatStyle should be in bold.  Set to false if, e.g., the parent style is bold
-	 * and you want text of this style to be unbolded.
-	 */
-	public Style setBold(Boolean boldIn) {
-
-		bold = boldIn;
-		return this;
-	}
-
-	/**
-	 * Sets whether or not text of this ChatStyle should be italicized.  Set to false if, e.g., the parent style is
-	 * italicized and you want to override that for this style.
-	 */
-	public Style setItalic(Boolean italic) {
-
-		this.italic = italic;
-		return this;
-	}
-
-	/**
-	 * Sets whether or not to format text of this ChatStyle using strikethrough.  Set to false if, e.g., the parent
-	 * style uses strikethrough and you want to override that for this style.
-	 */
-	public Style setStrikethrough(Boolean strikethrough) {
-
-		this.strikethrough = strikethrough;
-		return this;
-	}
-
-	/**
-	 * Sets whether or not text of this ChatStyle should be underlined.  Set to false if, e.g., the parent style is
-	 * underlined and you want to override that for this style.
-	 */
-	public Style setUnderlined(Boolean underlined) {
-
-		this.underlined = underlined;
-		return this;
-	}
-
-	/**
-	 * Sets whether or not text of this ChatStyle should be obfuscated.  Set to false if, e.g., the parent style is
-	 * obfuscated and you want to override that for this style.
-	 */
-	public Style setObfuscated(Boolean obfuscated) {
-
-		this.obfuscated = obfuscated;
-		return this;
-	}
-
-	/**
-	 * Sets the event that should be run when text of this ChatStyle is clicked on.
-	 */
-	public Style setClickEvent(ClickEvent event) {
-
-		clickEvent = event;
-		return this;
-	}
-
-	/**
-	 * Sets the event that should be run when text of this ChatStyle is hovered over.
-	 */
-	public Style setHoverEvent(HoverEvent event) {
-
-		hoverEvent = event;
-		return this;
 	}
 
 	/**

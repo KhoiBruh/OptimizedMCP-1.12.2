@@ -37,13 +37,14 @@ import java.util.Locale;
 public class GuiRecipeBook extends Gui implements IRecipeUpdateListener {
 
 	protected static final ResourceLocation RECIPE_BOOK = new ResourceLocation("textures/gui/recipe_book.png");
+	private final GhostRecipe ghostRecipe = new GhostRecipe();
+	private final List<GuiButtonRecipeTab> recipeTabs = Lists.newArrayList(new GuiButtonRecipeTab(0, CreativeTabs.SEARCH), new GuiButtonRecipeTab(0, CreativeTabs.TOOLS), new GuiButtonRecipeTab(0, CreativeTabs.BUILDING_BLOCKS), new GuiButtonRecipeTab(0, CreativeTabs.MISC), new GuiButtonRecipeTab(0, CreativeTabs.REDSTONE));
+	private final RecipeBookPage recipeBookPage = new RecipeBookPage();
+	private final RecipeItemHelper stackedContents = new RecipeItemHelper();
 	private int xOffset;
 	private int width;
 	private int height;
-	private final GhostRecipe ghostRecipe = new GhostRecipe();
-	private final List<GuiButtonRecipeTab> recipeTabs = Lists.newArrayList(new GuiButtonRecipeTab(0, CreativeTabs.SEARCH), new GuiButtonRecipeTab(0, CreativeTabs.TOOLS), new GuiButtonRecipeTab(0, CreativeTabs.BUILDING_BLOCKS), new GuiButtonRecipeTab(0, CreativeTabs.MISC), new GuiButtonRecipeTab(0, CreativeTabs.REDSTONE));
 	private GuiButtonRecipeTab currentTab;
-
 	/**
 	 * This button toggles between showing all recipes and showing only craftable recipes
 	 */
@@ -53,8 +54,6 @@ public class GuiRecipeBook extends Gui implements IRecipeUpdateListener {
 	private GuiTextField searchBar;
 	private String lastSearch = "";
 	private RecipeBook recipeBook;
-	private final RecipeBookPage recipeBookPage = new RecipeBookPage();
-	private final RecipeItemHelper stackedContents = new RecipeItemHelper();
 	private int timesInventoryChanged;
 
 	public void func_194303_a(int p_194303_1_, int p_194303_2_, Minecraft p_194303_3_, boolean p_194303_4_, InventoryCrafting p_194303_5_) {

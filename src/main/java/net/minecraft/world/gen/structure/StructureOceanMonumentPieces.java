@@ -4,7 +4,6 @@ import com.google.common.collect.Lists;
 import net.minecraft.block.BlockPrismarine;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.monster.EntityElderGuardian;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
@@ -33,6 +32,14 @@ public class StructureOceanMonumentPieces {
 		MapGenStructureIO.registerStructureComponent(StructureOceanMonumentPieces.Penthouse.class, "OMPenthouse");
 		MapGenStructureIO.registerStructureComponent(StructureOceanMonumentPieces.SimpleRoom.class, "OMSimple");
 		MapGenStructureIO.registerStructureComponent(StructureOceanMonumentPieces.SimpleTopRoom.class, "OMSimpleT");
+	}
+
+	interface MonumentRoomFitHelper {
+
+		boolean fits(StructureOceanMonumentPieces.RoomDefinition definition);
+
+		StructureOceanMonumentPieces.Piece create(EnumFacing p_175968_1_, StructureOceanMonumentPieces.RoomDefinition p_175968_2_, Random p_175968_3_);
+
 	}
 
 	public static class DoubleXRoom extends StructureOceanMonumentPieces.Piece {
@@ -616,9 +623,9 @@ public class StructureOceanMonumentPieces {
 
 	public static class MonumentBuilding extends StructureOceanMonumentPieces.Piece {
 
+		private final List<StructureOceanMonumentPieces.Piece> childPieces = Lists.newArrayList();
 		private StructureOceanMonumentPieces.RoomDefinition sourceRoom;
 		private StructureOceanMonumentPieces.RoomDefinition coreRoom;
-		private final List<StructureOceanMonumentPieces.Piece> childPieces = Lists.newArrayList();
 
 		public MonumentBuilding() {
 
@@ -1272,14 +1279,6 @@ public class StructureOceanMonumentPieces {
 
 	}
 
-	interface MonumentRoomFitHelper {
-
-		boolean fits(StructureOceanMonumentPieces.RoomDefinition definition);
-
-		StructureOceanMonumentPieces.Piece create(EnumFacing p_175968_1_, StructureOceanMonumentPieces.RoomDefinition p_175968_2_, Random p_175968_3_);
-
-	}
-
 	public static class Penthouse extends StructureOceanMonumentPieces.Piece {
 
 		public Penthouse() {
@@ -1353,11 +1352,6 @@ public class StructureOceanMonumentPieces {
 		protected static final int GRIDROOM_RIGHTWING_CONNECT_INDEX = getRoomIndex(4, 1, 0);
 		protected StructureOceanMonumentPieces.RoomDefinition roomDefinition;
 
-		protected static final int getRoomIndex(int p_175820_0_, int p_175820_1_, int p_175820_2_) {
-
-			return p_175820_1_ * 25 + p_175820_2_ * 5 + p_175820_0_;
-		}
-
 		public Piece() {
 
 			super(0);
@@ -1407,6 +1401,11 @@ public class StructureOceanMonumentPieces {
 				default:
 					boundingBox.offset(k * 8, l * 4, j * 8);
 			}
+		}
+
+		protected static final int getRoomIndex(int p_175820_0_, int p_175820_1_, int p_175820_2_) {
+
+			return p_175820_1_ * 25 + p_175820_2_ * 5 + p_175820_0_;
 		}
 
 		protected void writeStructureToNBT(NBTTagCompound tagCompound) {

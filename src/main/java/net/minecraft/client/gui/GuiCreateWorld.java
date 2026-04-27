@@ -15,30 +15,31 @@ import java.util.Random;
 
 public class GuiCreateWorld extends GuiScreen {
 
+	/**
+	 * These filenames are known to be restricted on one or more OS's.
+	 */
+	private static final String[] DISALLOWED_FILENAMES = new String[]{"CON", "COM", "PRN", "AUX", "CLOCK$", "NUL", "COM1", "COM2", "COM3", "COM4", "COM5", "COM6", "COM7", "COM8", "COM9", "LPT1", "LPT2", "LPT3", "LPT4", "LPT5", "LPT6", "LPT7", "LPT8", "LPT9"};
 	private final GuiScreen parentScreen;
+	public String chunkProviderSettingsJson = "";
 	private GuiTextField worldNameField;
 	private GuiTextField worldSeedField;
 	private String saveDirName;
 	private String gameMode = "survival";
-
 	/**
 	 * Used to save away the game mode when the current "debug" world type is chosen (forcing it to spectator mode)
 	 */
 	private String savedGameMode;
 	private boolean generateStructuresEnabled = true;
-
 	/**
 	 * If cheats are allowed
 	 */
 	private boolean allowCheats;
-
 	/**
 	 * User explicitly clicked "Allow Cheats" at some point
 	 * Prevents value changes due to changing game mode
 	 */
 	private boolean allowCheatsWasSetByUser;
 	private boolean bonusChestEnabled;
-
 	/**
 	 * Set to true when "hardcore" is the currently-selected gamemode
 	 */
@@ -57,18 +58,33 @@ public class GuiCreateWorld extends GuiScreen {
 	private String worldSeed;
 	private String worldName;
 	private int selectedIndex;
-	public String chunkProviderSettingsJson = "";
-
-	/**
-	 * These filenames are known to be restricted on one or more OS's.
-	 */
-	private static final String[] DISALLOWED_FILENAMES = new String[]{"CON", "COM", "PRN", "AUX", "CLOCK$", "NUL", "COM1", "COM2", "COM3", "COM4", "COM5", "COM6", "COM7", "COM8", "COM9", "LPT1", "LPT2", "LPT3", "LPT4", "LPT5", "LPT6", "LPT7", "LPT8", "LPT9"};
 
 	public GuiCreateWorld(GuiScreen p_i46320_1_) {
 
 		parentScreen = p_i46320_1_;
 		worldSeed = "";
 		worldName = I18n.format("selectWorld.newWorld");
+	}
+
+	/**
+	 * Ensures that a proposed directory name doesn't collide with existing names.
+	 * Returns the name, possibly modified to avoid collisions.
+	 */
+	public static String getUncollidingSaveDirName(ISaveFormat saveLoader, String name) {
+
+		name = name.replaceAll("[\\./\"]", "_");
+
+		for (String s : DISALLOWED_FILENAMES) {
+			if (name.equalsIgnoreCase(s)) {
+				name = "_" + name + "_";
+			}
+		}
+
+		while (saveLoader.getWorldInfo(name) != null) {
+			name = name + "-";
+		}
+
+		return name;
 	}
 
 	/**
@@ -162,27 +178,6 @@ public class GuiCreateWorld extends GuiScreen {
 		} else {
 			btnAllowCommands.displayString = btnAllowCommands.displayString + I18n.format("options.off");
 		}
-	}
-
-	/**
-	 * Ensures that a proposed directory name doesn't collide with existing names.
-	 * Returns the name, possibly modified to avoid collisions.
-	 */
-	public static String getUncollidingSaveDirName(ISaveFormat saveLoader, String name) {
-
-		name = name.replaceAll("[\\./\"]", "_");
-
-		for (String s : DISALLOWED_FILENAMES) {
-			if (name.equalsIgnoreCase(s)) {
-				name = "_" + name + "_";
-			}
-		}
-
-		while (saveLoader.getWorldInfo(name) != null) {
-			name = name + "-";
-		}
-
-		return name;
 	}
 
 	/**

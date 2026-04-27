@@ -6,8 +6,8 @@ public interface ILockableContainer extends IInventory, IInteractionObject {
 
 	boolean isLocked();
 
-	void setLockCode(LockCode code);
-
 	LockCode getLockCode();
+
+	void setLockCode(LockCode code);
 
 }

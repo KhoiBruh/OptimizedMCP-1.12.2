@@ -1,6 +1,5 @@
 package net.minecraft.block;
 
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockFaceShape;
@@ -43,28 +42,6 @@ public class BlockWall extends Block {
 		setCreativeTab(CreativeTabs.DECORATIONS);
 	}
 
-	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-
-		state = getActualState(state, source, pos);
-		return AABB_BY_INDEX[getAABBIndex(state)];
-	}
-
-	public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, @Nullable Entity entityIn, boolean isActualState) {
-
-		if (!isActualState) {
-			state = getActualState(state, worldIn, pos);
-		}
-
-		addCollisionBoxToList(pos, entityBox, collidingBoxes, CLIP_AABB_BY_INDEX[getAABBIndex(state)]);
-	}
-
-	@Nullable
-	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
-
-		blockState = getActualState(blockState, worldIn, pos);
-		return CLIP_AABB_BY_INDEX[getAABBIndex(blockState)];
-	}
-
 	private static int getAABBIndex(IBlockState state) {
 
 		int i = 0;
@@ -86,6 +63,33 @@ public class BlockWall extends Block {
 		}
 
 		return i;
+	}
+
+	protected static boolean isExcepBlockForAttachWithPiston(Block p_194143_0_) {
+
+		return Block.isExceptBlockForAttachWithPiston(p_194143_0_) || p_194143_0_ == Blocks.BARRIER || p_194143_0_ == Blocks.MELON_BLOCK || p_194143_0_ == Blocks.PUMPKIN || p_194143_0_ == Blocks.LIT_PUMPKIN;
+	}
+
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+
+		state = getActualState(state, source, pos);
+		return AABB_BY_INDEX[getAABBIndex(state)];
+	}
+
+	public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, @Nullable Entity entityIn, boolean isActualState) {
+
+		if (!isActualState) {
+			state = getActualState(state, worldIn, pos);
+		}
+
+		addCollisionBoxToList(pos, entityBox, collidingBoxes, CLIP_AABB_BY_INDEX[getAABBIndex(state)]);
+	}
+
+	@Nullable
+	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
+
+		blockState = getActualState(blockState, worldIn, pos);
+		return CLIP_AABB_BY_INDEX[getAABBIndex(blockState)];
 	}
 
 	/**
@@ -124,11 +128,6 @@ public class BlockWall extends Block {
 		BlockFaceShape blockfaceshape = iblockstate.getBlockFaceShape(worldIn, pos, p_176253_3_);
 		boolean flag = blockfaceshape == BlockFaceShape.MIDDLE_POLE_THICK || blockfaceshape == BlockFaceShape.MIDDLE_POLE && block instanceof BlockFenceGate;
 		return !isExcepBlockForAttachWithPiston(block) && blockfaceshape == BlockFaceShape.SOLID || flag;
-	}
-
-	protected static boolean isExcepBlockForAttachWithPiston(Block p_194143_0_) {
-
-		return Block.isExceptBlockForAttachWithPiston(p_194143_0_) || p_194143_0_ == Blocks.BARRIER || p_194143_0_ == Blocks.MELON_BLOCK || p_194143_0_ == Blocks.PUMPKIN || p_194143_0_ == Blocks.LIT_PUMPKIN;
 	}
 
 	/**
@@ -209,6 +208,13 @@ public class BlockWall extends Block {
 		MOSSY(1, "mossy_cobblestone", "mossy");
 
 		private static final BlockWall.EnumType[] META_LOOKUP = new BlockWall.EnumType[values().length];
+
+		static {
+			for (BlockWall.EnumType blockwall$enumtype : values()) {
+				META_LOOKUP[blockwall$enumtype.getMetadata()] = blockwall$enumtype;
+			}
+		}
+
 		private final int meta;
 		private final String name;
 		private final String unlocalizedName;
@@ -218,6 +224,15 @@ public class BlockWall extends Block {
 			this.meta = meta;
 			this.name = name;
 			this.unlocalizedName = unlocalizedName;
+		}
+
+		public static BlockWall.EnumType byMetadata(int meta) {
+
+			if (meta < 0 || meta >= META_LOOKUP.length) {
+				meta = 0;
+			}
+
+			return META_LOOKUP[meta];
 		}
 
 		public int getMetadata() {
@@ -230,15 +245,6 @@ public class BlockWall extends Block {
 			return name;
 		}
 
-		public static BlockWall.EnumType byMetadata(int meta) {
-
-			if (meta < 0 || meta >= META_LOOKUP.length) {
-				meta = 0;
-			}
-
-			return META_LOOKUP[meta];
-		}
-
 		public String getName() {
 
 			return name;
@@ -247,12 +253,6 @@ public class BlockWall extends Block {
 		public String getUnlocalizedName() {
 
 			return unlocalizedName;
-		}
-
-		static {
-			for (BlockWall.EnumType blockwall$enumtype : values()) {
-				META_LOOKUP[blockwall$enumtype.getMetadata()] = blockwall$enumtype;
-			}
 		}
 	}
 

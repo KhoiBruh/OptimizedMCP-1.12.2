@@ -31,6 +31,17 @@ public class ChunkCompileTaskGenerator implements Comparable<ChunkCompileTaskGen
 		return status;
 	}
 
+	public void setStatus(ChunkCompileTaskGenerator.Status statusIn) {
+
+		lock.lock();
+
+		try {
+			status = statusIn;
+		} finally {
+			lock.unlock();
+		}
+	}
+
 	public RenderChunk getRenderChunk() {
 
 		return renderChunk;
@@ -54,17 +65,6 @@ public class ChunkCompileTaskGenerator implements Comparable<ChunkCompileTaskGen
 	public void setRegionRenderCacheBuilder(RegionRenderCacheBuilder regionRenderCacheBuilderIn) {
 
 		regionRenderCacheBuilder = regionRenderCacheBuilderIn;
-	}
-
-	public void setStatus(ChunkCompileTaskGenerator.Status statusIn) {
-
-		lock.lock();
-
-		try {
-			status = statusIn;
-		} finally {
-			lock.unlock();
-		}
 	}
 
 	public void finish() {

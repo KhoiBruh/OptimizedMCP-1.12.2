@@ -59,6 +59,19 @@ public class PlayerChunkMap {
 	}
 
 	/**
+	 * Get the furthest viewable block given player's view distance
+	 */
+	public static int getFurthestViewableBlock(int distance) {
+
+		return distance * 16 - 16;
+	}
+
+	private static long getIndex(int p_187307_0_, int p_187307_1_) {
+
+		return (long) p_187307_0_ + 2147483647L | (long) p_187307_1_ + 2147483647L << 32;
+	}
+
+	/**
 	 * Returns the WorldServer associated with this PlayerManager
 	 */
 	public WorldServer getWorldServer() {
@@ -394,19 +407,6 @@ public class PlayerChunkMap {
 
 		sortMissingChunks = true;
 		sortSendToPlayers = true;
-	}
-
-	/**
-	 * Get the furthest viewable block given player's view distance
-	 */
-	public static int getFurthestViewableBlock(int distance) {
-
-		return distance * 16 - 16;
-	}
-
-	private static long getIndex(int p_187307_0_, int p_187307_1_) {
-
-		return (long) p_187307_0_ + 2147483647L | (long) p_187307_1_ + 2147483647L << 32;
 	}
 
 	/**

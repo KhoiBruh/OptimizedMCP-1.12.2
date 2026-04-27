@@ -150,6 +150,13 @@ public abstract class BlockStoneSlabNew extends BlockSlab {
 		RED_SANDSTONE(0, "red_sandstone", BlockSand.EnumType.RED_SAND.getMapColor());
 
 		private static final BlockStoneSlabNew.EnumType[] META_LOOKUP = new BlockStoneSlabNew.EnumType[values().length];
+
+		static {
+			for (BlockStoneSlabNew.EnumType blockstoneslabnew$enumtype : values()) {
+				META_LOOKUP[blockstoneslabnew$enumtype.getMetadata()] = blockstoneslabnew$enumtype;
+			}
+		}
+
 		private final int meta;
 		private final String name;
 		private final MapColor mapColor;
@@ -159,6 +166,15 @@ public abstract class BlockStoneSlabNew extends BlockSlab {
 			meta = p_i46391_3_;
 			name = p_i46391_4_;
 			mapColor = p_i46391_5_;
+		}
+
+		public static BlockStoneSlabNew.EnumType byMetadata(int meta) {
+
+			if (meta < 0 || meta >= META_LOOKUP.length) {
+				meta = 0;
+			}
+
+			return META_LOOKUP[meta];
 		}
 
 		public int getMetadata() {
@@ -176,15 +192,6 @@ public abstract class BlockStoneSlabNew extends BlockSlab {
 			return name;
 		}
 
-		public static BlockStoneSlabNew.EnumType byMetadata(int meta) {
-
-			if (meta < 0 || meta >= META_LOOKUP.length) {
-				meta = 0;
-			}
-
-			return META_LOOKUP[meta];
-		}
-
 		public String getName() {
 
 			return name;
@@ -193,12 +200,6 @@ public abstract class BlockStoneSlabNew extends BlockSlab {
 		public String getUnlocalizedName() {
 
 			return name;
-		}
-
-		static {
-			for (BlockStoneSlabNew.EnumType blockstoneslabnew$enumtype : values()) {
-				META_LOOKUP[blockstoneslabnew$enumtype.getMetadata()] = blockstoneslabnew$enumtype;
-			}
 		}
 	}
 

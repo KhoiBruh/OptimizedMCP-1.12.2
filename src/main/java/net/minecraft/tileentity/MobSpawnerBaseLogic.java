@@ -3,7 +3,6 @@ package net.minecraft.tileentity;
 import com.google.common.collect.Lists;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.*;
@@ -17,11 +16,11 @@ import java.util.List;
 
 public abstract class MobSpawnerBaseLogic {
 
+	private final List<WeightedSpawnerEntity> potentialSpawns = Lists.newArrayList();
 	/**
 	 * The delay to spawn.
 	 */
 	private int spawnDelay = 20;
-	private final List<WeightedSpawnerEntity> potentialSpawns = Lists.newArrayList();
 	private WeightedSpawnerEntity spawnData = new WeightedSpawnerEntity();
 
 	/**

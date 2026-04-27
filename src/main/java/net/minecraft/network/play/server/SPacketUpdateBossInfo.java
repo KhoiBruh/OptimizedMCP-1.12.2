@@ -76,13 +76,6 @@ public class SPacketUpdateBossInfo implements Packet<INetHandlerPlayClient> {
 		}
 	}
 
-	private void setFlags(int flags) {
-
-		darkenSky = (flags & 1) > 0;
-		playEndBossMusic = (flags & 2) > 0;
-		createFog = (flags & 2) > 0;
-	}
-
 	/**
 	 * Writes the raw packet data to the data stream.
 	 */
@@ -138,6 +131,13 @@ public class SPacketUpdateBossInfo implements Packet<INetHandlerPlayClient> {
 		}
 
 		return i;
+	}
+
+	private void setFlags(int flags) {
+
+		darkenSky = (flags & 1) > 0;
+		playEndBossMusic = (flags & 2) > 0;
+		createFog = (flags & 2) > 0;
 	}
 
 	/**

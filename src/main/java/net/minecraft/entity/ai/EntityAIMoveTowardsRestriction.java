@@ -7,10 +7,10 @@ import net.minecraft.util.math.Vec3d;
 public class EntityAIMoveTowardsRestriction extends EntityAIBase {
 
 	private final EntityCreature creature;
+	private final double movementSpeed;
 	private double movePosX;
 	private double movePosY;
 	private double movePosZ;
-	private final double movementSpeed;
 
 	public EntityAIMoveTowardsRestriction(EntityCreature creatureIn, double speedIn) {
 

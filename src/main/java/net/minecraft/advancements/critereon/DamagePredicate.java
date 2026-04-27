@@ -35,6 +35,21 @@ public class DamagePredicate {
 		this.type = type;
 	}
 
+	public static DamagePredicate deserialize(@Nullable JsonElement element) {
+
+		if (element != null && !element.isJsonNull()) {
+			JsonObject jsonobject = JsonUtils.getJsonObject(element, "damage");
+			MinMaxBounds minmaxbounds = MinMaxBounds.deserialize(jsonobject.get("dealt"));
+			MinMaxBounds minmaxbounds1 = MinMaxBounds.deserialize(jsonobject.get("taken"));
+			Boolean obool = jsonobject.has("blocked") ? JsonUtils.getBoolean(jsonobject, "blocked") : null;
+			EntityPredicate entitypredicate = EntityPredicate.deserialize(jsonobject.get("source_entity"));
+			DamageSourcePredicate damagesourcepredicate = DamageSourcePredicate.deserialize(jsonobject.get("type"));
+			return new DamagePredicate(minmaxbounds, minmaxbounds1, entitypredicate, obool, damagesourcepredicate);
+		} else {
+			return ANY;
+		}
+	}
+
 	public boolean test(EntityPlayerMP player, DamageSource source, float dealt, float taken, boolean blocked) {
 
 		if (this == ANY) {
@@ -49,21 +64,6 @@ public class DamagePredicate {
 			return false;
 		} else {
 			return type.test(player, source);
-		}
-	}
-
-	public static DamagePredicate deserialize(@Nullable JsonElement element) {
-
-		if (element != null && !element.isJsonNull()) {
-			JsonObject jsonobject = JsonUtils.getJsonObject(element, "damage");
-			MinMaxBounds minmaxbounds = MinMaxBounds.deserialize(jsonobject.get("dealt"));
-			MinMaxBounds minmaxbounds1 = MinMaxBounds.deserialize(jsonobject.get("taken"));
-			Boolean obool = jsonobject.has("blocked") ? JsonUtils.getBoolean(jsonobject, "blocked") : null;
-			EntityPredicate entitypredicate = EntityPredicate.deserialize(jsonobject.get("source_entity"));
-			DamageSourcePredicate damagesourcepredicate = DamageSourcePredicate.deserialize(jsonobject.get("type"));
-			return new DamagePredicate(minmaxbounds, minmaxbounds1, entitypredicate, obool, damagesourcepredicate);
-		} else {
-			return ANY;
 		}
 	}
 

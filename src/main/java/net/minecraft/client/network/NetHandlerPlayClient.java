@@ -31,7 +31,10 @@ import net.minecraft.client.settings.GameSettings;
 import net.minecraft.client.util.RecipeBookClient;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.attributes.*;
+import net.minecraft.entity.ai.attributes.AbstractAttributeMap;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.ai.attributes.IAttributeInstance;
+import net.minecraft.entity.ai.attributes.RangedAttribute;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.item.*;
 import net.minecraft.entity.monster.EntityGuardian;
@@ -84,7 +87,6 @@ import org.apache.logging.log4j.Logger;
 import javax.annotation.Nullable;
 import java.io.File;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLDecoder;
@@ -108,32 +110,28 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 	 * or GuiScreenReamlsTOS (when connecting to MCO server)
 	 */
 	private final GuiScreen guiScreenServer;
-
-	/**
-	 * Reference to the Minecraft instance, which many handler methods operate on
-	 */
-	private Minecraft gameController;
-
-	/**
-	 * Reference to the current ClientWorld instance, which many handler methods operate on
-	 */
-	private WorldClient clientWorldController;
-
-	/**
-	 * True if the client has finished downloading terrain and may spawn. Set upon receipt of S08PacketPlayerPosLook,
-	 * reset upon respawning
-	 */
-	private boolean doneLoadingTerrain;
 	private final Map<UUID, NetworkPlayerInfo> playerInfoMap = Maps.newHashMap();
-	public int currentServerMaxPlayers = 20;
-	private boolean hasStatistics;
 	private final ClientAdvancementManager advancementManager;
-
 	/**
 	 * Just an ordinary random number generator, used to randomize audio pitch of item/orb pickup and randomize both
 	 * particlespawn offset and velocity
 	 */
 	private final Random avRandomizer = new Random();
+	public int currentServerMaxPlayers = 20;
+	/**
+	 * Reference to the Minecraft instance, which many handler methods operate on
+	 */
+	private Minecraft gameController;
+	/**
+	 * Reference to the current ClientWorld instance, which many handler methods operate on
+	 */
+	private WorldClient clientWorldController;
+	/**
+	 * True if the client has finished downloading terrain and may spawn. Set upon receipt of S08PacketPlayerPosLook,
+	 * reset upon respawning
+	 */
+	private boolean doneLoadingTerrain;
+	private boolean hasStatistics;
 
 	public NetHandlerPlayClient(Minecraft mcIn, GuiScreen p_i46300_2_, NetworkManager networkManagerIn, GameProfile profileIn) {
 

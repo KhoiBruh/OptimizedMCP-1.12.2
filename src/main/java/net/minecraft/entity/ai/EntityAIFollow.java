@@ -14,13 +14,13 @@ public class EntityAIFollow extends EntityAIBase {
 
 	private final EntityLiving entity;
 	private final Predicate<EntityLiving> followPredicate;
-	private EntityLiving followingEntity;
 	private final double speedModifier;
 	private final PathNavigate navigation;
-	private int timeToRecalcPath;
 	private final float stopDistance;
-	private float oldWaterCost;
 	private final float areaSize;
+	private EntityLiving followingEntity;
+	private int timeToRecalcPath;
+	private float oldWaterCost;
 
 	public EntityAIFollow(final EntityLiving p_i47417_1_, double p_i47417_2_, float p_i47417_4_, float p_i47417_5_) {
 

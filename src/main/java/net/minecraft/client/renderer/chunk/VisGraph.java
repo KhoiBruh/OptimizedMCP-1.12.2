@@ -15,15 +15,26 @@ public class VisGraph {
 	private static final int DX = (int) Math.pow(16.0D, 0.0D);
 	private static final int DZ = (int) Math.pow(16.0D, 1.0D);
 	private static final int DY = (int) Math.pow(16.0D, 2.0D);
-	private final BitSet bitSet = new BitSet(4096);
 	private static final int[] INDEX_OF_EDGES = new int[1352];
-	private int empty = 4096;
 
-	public void setOpaqueCube(BlockPos pos) {
+	static {
+		int i = 0;
+		int j = 15;
+		int k = 0;
 
-		bitSet.set(getIndex(pos), true);
-		--empty;
+		for (int l = 0; l < 16; ++l) {
+			for (int i1 = 0; i1 < 16; ++i1) {
+				for (int j1 = 0; j1 < 16; ++j1) {
+					if (l == 0 || l == 15 || i1 == 0 || i1 == 15 || j1 == 0 || j1 == 15) {
+						INDEX_OF_EDGES[k++] = getIndex(l, i1, j1);
+					}
+				}
+			}
+		}
 	}
+
+	private final BitSet bitSet = new BitSet(4096);
+	private int empty = 4096;
 
 	private static int getIndex(BlockPos pos) {
 
@@ -33,6 +44,12 @@ public class VisGraph {
 	private static int getIndex(int x, int y, int z) {
 
 		return x << 0 | y << 8 | z << 4;
+	}
+
+	public void setOpaqueCube(BlockPos pos) {
+
+		bitSet.set(getIndex(pos), true);
+		--empty;
 	}
 
 	public SetVisibility computeVisibility() {
@@ -157,22 +174,6 @@ public class VisGraph {
 
 			default:
 				return -1;
-		}
-	}
-
-	static {
-		int i = 0;
-		int j = 15;
-		int k = 0;
-
-		for (int l = 0; l < 16; ++l) {
-			for (int i1 = 0; i1 < 16; ++i1) {
-				for (int j1 = 0; j1 < 16; ++j1) {
-					if (l == 0 || l == 15 || i1 == 0 || i1 == 15 || j1 == 0 || j1 == 15) {
-						INDEX_OF_EDGES[k++] = getIndex(l, i1, j1);
-					}
-				}
-			}
 		}
 	}
 }

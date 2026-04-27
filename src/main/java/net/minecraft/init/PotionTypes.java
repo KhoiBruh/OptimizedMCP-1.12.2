@@ -8,7 +8,6 @@ import java.util.Set;
 
 public class PotionTypes {
 
-	private static final Set<PotionType> CACHE;
 	public static final PotionType EMPTY;
 	public static final PotionType WATER;
 	public static final PotionType MUNDANE;
@@ -45,17 +44,7 @@ public class PotionTypes {
 	public static final PotionType STRONG_STRENGTH;
 	public static final PotionType WEAKNESS;
 	public static final PotionType LONG_WEAKNESS;
-
-	private static PotionType getRegisteredPotionType(String id) {
-
-		PotionType potiontype = PotionType.REGISTRY.getObject(new ResourceLocation(id));
-
-		if (!CACHE.add(potiontype)) {
-			throw new IllegalStateException("Invalid Potion requested: " + id);
-		} else {
-			return potiontype;
-		}
-	}
+	private static final Set<PotionType> CACHE;
 
 	static {
 		if (!Bootstrap.isRegistered()) {
@@ -99,6 +88,17 @@ public class PotionTypes {
 			WEAKNESS = getRegisteredPotionType("weakness");
 			LONG_WEAKNESS = getRegisteredPotionType("long_weakness");
 			CACHE.clear();
+		}
+	}
+
+	private static PotionType getRegisteredPotionType(String id) {
+
+		PotionType potiontype = PotionType.REGISTRY.getObject(new ResourceLocation(id));
+
+		if (!CACHE.add(potiontype)) {
+			throw new IllegalStateException("Invalid Potion requested: " + id);
+		} else {
+			return potiontype;
 		}
 	}
 }

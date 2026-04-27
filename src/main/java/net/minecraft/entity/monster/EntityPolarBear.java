@@ -1,6 +1,5 @@
 package net.minecraft.entity.monster;
 
-import com.google.common.base.Predicate;
 import net.minecraft.block.Block;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.*;
@@ -194,6 +193,16 @@ public class EntityPolarBear extends EntityAnimal {
 		return livingdata;
 	}
 
+	static class GroupData implements IEntityLivingData {
+
+		public boolean madeParent;
+
+		private GroupData() {
+
+		}
+
+	}
+
 	class AIAttackPlayer extends EntityAINearestAttackableTarget<EntityPlayer> {
 
 		public AIAttackPlayer() {
@@ -306,16 +315,6 @@ public class EntityPolarBear extends EntityAnimal {
 		public boolean shouldExecute() {
 
 			return (isChild() || isBurning()) && super.shouldExecute();
-		}
-
-	}
-
-	static class GroupData implements IEntityLivingData {
-
-		public boolean madeParent;
-
-		private GroupData() {
-
 		}
 
 	}

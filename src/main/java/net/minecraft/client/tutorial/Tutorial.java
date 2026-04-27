@@ -26,6 +26,13 @@ public class Tutorial {
 		this.minecraft = minecraft;
 	}
 
+	public static ITextComponent createKeybindComponent(String keybind) {
+
+		TextComponentKeybind textcomponentkeybind = new TextComponentKeybind("key." + keybind);
+		textcomponentkeybind.getStyle().setBold(Boolean.valueOf(true));
+		return textcomponentkeybind;
+	}
+
 	public void handleMovement(MovementInput p_193293_1_) {
 
 		if (tutorialStep != null) {
@@ -131,13 +138,6 @@ public class Tutorial {
 	public GameType getGameType() {
 
 		return minecraft.playerController == null ? GameType.NOT_SET : minecraft.playerController.getCurrentGameType();
-	}
-
-	public static ITextComponent createKeybindComponent(String keybind) {
-
-		TextComponentKeybind textcomponentkeybind = new TextComponentKeybind("key." + keybind);
-		textcomponentkeybind.getStyle().setBold(Boolean.valueOf(true));
-		return textcomponentkeybind;
 	}
 
 }

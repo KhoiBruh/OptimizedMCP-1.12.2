@@ -3,7 +3,6 @@ package net.minecraft.entity.item;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.MoverType;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -44,25 +43,6 @@ public class EntityFireworkRocket extends Entity {
 		setSize(0.25F, 0.25F);
 	}
 
-	protected void entityInit() {
-
-		dataManager.register(FIREWORK_ITEM, ItemStack.EMPTY);
-		dataManager.register(BOOSTED_ENTITY_ID, Integer.valueOf(0));
-	}
-
-	/**
-	 * Checks if the entity is in range to render.
-	 */
-	public boolean isInRangeToRenderDist(double distance) {
-
-		return distance < 4096.0D && !isAttachedToEntity();
-	}
-
-	public boolean isInRangeToRender3d(double x, double y, double z) {
-
-		return super.isInRangeToRender3d(x, y, z) && !isAttachedToEntity();
-	}
-
 	public EntityFireworkRocket(World worldIn, double x, double y, double z, ItemStack givenItem) {
 
 		super(worldIn);
@@ -89,6 +69,30 @@ public class EntityFireworkRocket extends Entity {
 		this(p_i47367_1_, p_i47367_3_.posX, p_i47367_3_.posY, p_i47367_3_.posZ, p_i47367_2_);
 		dataManager.set(BOOSTED_ENTITY_ID, Integer.valueOf(p_i47367_3_.getEntityId()));
 		boostedEntity = p_i47367_3_;
+	}
+
+	public static void registerFixesFireworkRocket(DataFixer fixer) {
+
+		fixer.registerWalker(FixTypes.ENTITY, new ItemStackData(EntityFireworkRocket.class, "FireworksItem"));
+	}
+
+	protected void entityInit() {
+
+		dataManager.register(FIREWORK_ITEM, ItemStack.EMPTY);
+		dataManager.register(BOOSTED_ENTITY_ID, Integer.valueOf(0));
+	}
+
+	/**
+	 * Checks if the entity is in range to render.
+	 */
+	public boolean isInRangeToRenderDist(double distance) {
+
+		return distance < 4096.0D && !isAttachedToEntity();
+	}
+
+	public boolean isInRangeToRender3d(double x, double y, double z) {
+
+		return super.isInRangeToRender3d(x, y, z) && !isAttachedToEntity();
 	}
 
 	/**
@@ -246,11 +250,6 @@ public class EntityFireworkRocket extends Entity {
 		}
 
 		super.handleStatusUpdate(id);
-	}
-
-	public static void registerFixesFireworkRocket(DataFixer fixer) {
-
-		fixer.registerWalker(FixTypes.ENTITY, new ItemStackData(EntityFireworkRocket.class, "FireworksItem"));
 	}
 
 	/**

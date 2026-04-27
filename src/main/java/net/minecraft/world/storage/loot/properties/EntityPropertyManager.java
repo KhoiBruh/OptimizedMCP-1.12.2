@@ -10,6 +10,10 @@ public class EntityPropertyManager {
 	private static final Map<ResourceLocation, EntityProperty.Serializer<?>> NAME_TO_SERIALIZER_MAP = Maps.newHashMap();
 	private static final Map<Class<? extends EntityProperty>, EntityProperty.Serializer<?>> CLASS_TO_SERIALIZER_MAP = Maps.newHashMap();
 
+	static {
+		registerProperty(new EntityOnFire.Serializer());
+	}
+
 	public static <T extends EntityProperty> void registerProperty(EntityProperty.Serializer<? extends T> serializer) {
 
 		ResourceLocation resourcelocation = serializer.getName();
@@ -45,9 +49,5 @@ public class EntityPropertyManager {
 		} else {
 			return (EntityProperty.Serializer<T>) serializer;
 		}
-	}
-
-	static {
-		registerProperty(new EntityOnFire.Serializer());
 	}
 }

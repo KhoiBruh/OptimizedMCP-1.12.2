@@ -3,7 +3,6 @@ package net.minecraft.block;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockFaceShape;
@@ -34,18 +33,13 @@ public class BlockRedstoneWire extends Block {
 	public static final PropertyEnum<BlockRedstoneWire.EnumAttachPosition> WEST = PropertyEnum.create("west", BlockRedstoneWire.EnumAttachPosition.class);
 	public static final PropertyInteger POWER = PropertyInteger.create("power", 0, 15);
 	protected static final AxisAlignedBB[] REDSTONE_WIRE_AABB = new AxisAlignedBB[]{new AxisAlignedBB(0.1875D, 0.0D, 0.1875D, 0.8125D, 0.0625D, 0.8125D), new AxisAlignedBB(0.1875D, 0.0D, 0.1875D, 0.8125D, 0.0625D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.1875D, 0.8125D, 0.0625D, 0.8125D), new AxisAlignedBB(0.0D, 0.0D, 0.1875D, 0.8125D, 0.0625D, 1.0D), new AxisAlignedBB(0.1875D, 0.0D, 0.0D, 0.8125D, 0.0625D, 0.8125D), new AxisAlignedBB(0.1875D, 0.0D, 0.0D, 0.8125D, 0.0625D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 0.8125D, 0.0625D, 0.8125D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 0.8125D, 0.0625D, 1.0D), new AxisAlignedBB(0.1875D, 0.0D, 0.1875D, 1.0D, 0.0625D, 0.8125D), new AxisAlignedBB(0.1875D, 0.0D, 0.1875D, 1.0D, 0.0625D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.1875D, 1.0D, 0.0625D, 0.8125D), new AxisAlignedBB(0.0D, 0.0D, 0.1875D, 1.0D, 0.0625D, 1.0D), new AxisAlignedBB(0.1875D, 0.0D, 0.0D, 1.0D, 0.0625D, 0.8125D), new AxisAlignedBB(0.1875D, 0.0D, 0.0D, 1.0D, 0.0625D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.0625D, 0.8125D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.0625D, 1.0D)};
-	private boolean canProvidePower = true;
 	private final Set<BlockPos> blocksNeedingUpdate = Sets.newHashSet();
+	private boolean canProvidePower = true;
 
 	public BlockRedstoneWire() {
 
 		super(Material.CIRCUITS);
 		setDefaultState(blockState.getBaseState().withProperty(NORTH, BlockRedstoneWire.EnumAttachPosition.NONE).withProperty(EAST, BlockRedstoneWire.EnumAttachPosition.NONE).withProperty(SOUTH, BlockRedstoneWire.EnumAttachPosition.NONE).withProperty(WEST, BlockRedstoneWire.EnumAttachPosition.NONE).withProperty(POWER, Integer.valueOf(0)));
-	}
-
-	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-
-		return REDSTONE_WIRE_AABB[getAABBIndex(state.getActualState(source, pos))];
 	}
 
 	private static int getAABBIndex(IBlockState state) {
@@ -73,6 +67,63 @@ public class BlockRedstoneWire extends Block {
 		}
 
 		return i;
+	}
+
+	protected static boolean canConnectUpwardsTo(IBlockAccess worldIn, BlockPos pos) {
+
+		return canConnectUpwardsTo(worldIn.getBlockState(pos));
+	}
+
+	protected static boolean canConnectUpwardsTo(IBlockState state) {
+
+		return canConnectTo(state, null);
+	}
+
+	protected static boolean canConnectTo(IBlockState blockState, @Nullable EnumFacing side) {
+
+		Block block = blockState.getBlock();
+
+		if (block == Blocks.REDSTONE_WIRE) {
+			return true;
+		} else if (Blocks.UNPOWERED_REPEATER.isSameDiode(blockState)) {
+			EnumFacing enumfacing = blockState.getValue(BlockRedstoneRepeater.FACING);
+			return enumfacing == side || enumfacing.getOpposite() == side;
+		} else if (Blocks.OBSERVER == blockState.getBlock()) {
+			return side == blockState.getValue(BlockObserver.FACING);
+		} else {
+			return blockState.canProvidePower() && side != null;
+		}
+	}
+
+	public static int colorMultiplier(int p_176337_0_) {
+
+		float f = (float) p_176337_0_ / 15.0F;
+		float f1 = f * 0.6F + 0.4F;
+
+		if (p_176337_0_ == 0) {
+			f1 = 0.3F;
+		}
+
+		float f2 = f * f * 0.7F - 0.5F;
+		float f3 = f * f * 0.6F - 0.7F;
+
+		if (f2 < 0.0F) {
+			f2 = 0.0F;
+		}
+
+		if (f3 < 0.0F) {
+			f3 = 0.0F;
+		}
+
+		int i = MathHelper.clamp((int) (f1 * 255.0F), 0, 255);
+		int j = MathHelper.clamp((int) (f2 * 255.0F), 0, 255);
+		int k = MathHelper.clamp((int) (f3 * 255.0F), 0, 255);
+		return -16777216 | i << 16 | j << 8 | k;
+	}
+
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+
+		return REDSTONE_WIRE_AABB[getAABBIndex(state.getActualState(source, pos))];
 	}
 
 	/**
@@ -378,64 +429,12 @@ public class BlockRedstoneWire extends Block {
 		}
 	}
 
-	protected static boolean canConnectUpwardsTo(IBlockAccess worldIn, BlockPos pos) {
-
-		return canConnectUpwardsTo(worldIn.getBlockState(pos));
-	}
-
-	protected static boolean canConnectUpwardsTo(IBlockState state) {
-
-		return canConnectTo(state, null);
-	}
-
-	protected static boolean canConnectTo(IBlockState blockState, @Nullable EnumFacing side) {
-
-		Block block = blockState.getBlock();
-
-		if (block == Blocks.REDSTONE_WIRE) {
-			return true;
-		} else if (Blocks.UNPOWERED_REPEATER.isSameDiode(blockState)) {
-			EnumFacing enumfacing = blockState.getValue(BlockRedstoneRepeater.FACING);
-			return enumfacing == side || enumfacing.getOpposite() == side;
-		} else if (Blocks.OBSERVER == blockState.getBlock()) {
-			return side == blockState.getValue(BlockObserver.FACING);
-		} else {
-			return blockState.canProvidePower() && side != null;
-		}
-	}
-
 	/**
 	 * Can this block provide power. Only wire currently seems to have this change based on its state.
 	 */
 	public boolean canProvidePower(IBlockState state) {
 
 		return canProvidePower;
-	}
-
-	public static int colorMultiplier(int p_176337_0_) {
-
-		float f = (float) p_176337_0_ / 15.0F;
-		float f1 = f * 0.6F + 0.4F;
-
-		if (p_176337_0_ == 0) {
-			f1 = 0.3F;
-		}
-
-		float f2 = f * f * 0.7F - 0.5F;
-		float f3 = f * f * 0.6F - 0.7F;
-
-		if (f2 < 0.0F) {
-			f2 = 0.0F;
-		}
-
-		if (f3 < 0.0F) {
-			f3 = 0.0F;
-		}
-
-		int i = MathHelper.clamp((int) (f1 * 255.0F), 0, 255);
-		int j = MathHelper.clamp((int) (f2 * 255.0F), 0, 255);
-		int k = MathHelper.clamp((int) (f3 * 255.0F), 0, 255);
-		return -16777216 | i << 16 | j << 8 | k;
 	}
 
 	public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {

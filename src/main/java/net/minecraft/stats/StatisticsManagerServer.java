@@ -37,6 +37,30 @@ public class StatisticsManagerServer extends StatisticsManager {
 		statsFile = statsFileIn;
 	}
 
+	public static String dumpJson(Map<StatBase, TupleIntJsonSerializable> p_150880_0_) {
+
+		JsonObject jsonobject = new JsonObject();
+
+		for (Entry<StatBase, TupleIntJsonSerializable> entry : p_150880_0_.entrySet()) {
+			if (entry.getValue().getJsonSerializableValue() != null) {
+				JsonObject jsonobject1 = new JsonObject();
+				jsonobject1.addProperty("value", Integer.valueOf(entry.getValue().getIntegerValue()));
+
+				try {
+					jsonobject1.add("progress", entry.getValue().getJsonSerializableValue().getSerializableElement());
+				} catch (Throwable throwable) {
+					LOGGER.warn("Couldn't save statistic {}: error serializing progress", entry.getKey().getStatName(), throwable);
+				}
+
+				jsonobject.add((entry.getKey()).statId, jsonobject1);
+			} else {
+				jsonobject.addProperty((entry.getKey()).statId, Integer.valueOf(entry.getValue().getIntegerValue()));
+			}
+		}
+
+		return jsonobject.toString();
+	}
+
 	public void readStatFile() {
 
 		if (statsFile.isFile()) {
@@ -121,30 +145,6 @@ public class StatisticsManagerServer extends StatisticsManager {
 
 			return map;
 		}
-	}
-
-	public static String dumpJson(Map<StatBase, TupleIntJsonSerializable> p_150880_0_) {
-
-		JsonObject jsonobject = new JsonObject();
-
-		for (Entry<StatBase, TupleIntJsonSerializable> entry : p_150880_0_.entrySet()) {
-			if (entry.getValue().getJsonSerializableValue() != null) {
-				JsonObject jsonobject1 = new JsonObject();
-				jsonobject1.addProperty("value", Integer.valueOf(entry.getValue().getIntegerValue()));
-
-				try {
-					jsonobject1.add("progress", entry.getValue().getJsonSerializableValue().getSerializableElement());
-				} catch (Throwable throwable) {
-					LOGGER.warn("Couldn't save statistic {}: error serializing progress", entry.getKey().getStatName(), throwable);
-				}
-
-				jsonobject.add((entry.getKey()).statId, jsonobject1);
-			} else {
-				jsonobject.addProperty((entry.getKey()).statId, Integer.valueOf(entry.getValue().getIntegerValue()));
-			}
-		}
-
-		return jsonobject.toString();
 	}
 
 	public void markAllDirty() {

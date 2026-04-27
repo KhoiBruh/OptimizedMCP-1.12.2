@@ -12,14 +12,14 @@ import java.nio.IntBuffer;
 public class ShaderUniform {
 
 	private static final Logger LOGGER = LogManager.getLogger();
-	private int uniformLocation;
 	private final int uniformCount;
 	private final int uniformType;
 	private final IntBuffer uniformIntBuffer;
 	private final FloatBuffer uniformFloatBuffer;
 	private final String shaderName;
-	private boolean dirty;
 	private final ShaderManager shaderManager;
+	private int uniformLocation;
+	private boolean dirty;
 
 	public ShaderUniform(String name, int type, int count, ShaderManager manager) {
 
@@ -38,15 +38,6 @@ public class ShaderUniform {
 
 		uniformLocation = -1;
 		markDirty();
-	}
-
-	private void markDirty() {
-
-		dirty = true;
-
-		if (shaderManager != null) {
-			shaderManager.markDirty();
-		}
 	}
 
 	public static int parseType(String typeName) {
@@ -68,6 +59,15 @@ public class ShaderUniform {
 		}
 
 		return i;
+	}
+
+	private void markDirty() {
+
+		dirty = true;
+
+		if (shaderManager != null) {
+			shaderManager.markDirty();
+		}
 	}
 
 	public void setUniformLocation(int uniformLocationIn) {

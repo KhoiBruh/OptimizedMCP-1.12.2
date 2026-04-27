@@ -15,17 +15,15 @@ public class Profiler {
 	private static final Logger LOGGER = LogManager.getLogger();
 	private final List<String> sectionList = Lists.newArrayList();
 	private final List<Long> timestampList = Lists.newArrayList();
-
+	private final Map<String, Long> profilingMap = Maps.newHashMap();
 	/**
 	 * Flag profiling enabled
 	 */
 	public boolean profilingEnabled;
-
 	/**
 	 * Current profiling section
 	 */
 	private String profilingSection = "";
-	private final Map<String, Long> profilingMap = Maps.newHashMap();
 
 	/**
 	 * Clear profiling.

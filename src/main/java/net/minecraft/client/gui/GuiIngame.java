@@ -65,85 +65,71 @@ public class GuiIngame extends Gui {
 	 * ChatGUI instance that retains all previous chat data
 	 */
 	private final GuiNewChat persistantChatGUI;
-	private int updateCounter;
-
-	/**
-	 * The string specifying which record music is playing
-	 */
-	private String overlayMessage = "";
-
-	/**
-	 * How many ticks the record playing message will be displayed
-	 */
-	private int overlayMessageTime;
-	private boolean animateOverlayMessageColor;
-
-	/**
-	 * Previous frame vignette brightness (slowly changes by 1% each frame)
-	 */
-	public float prevVignetteBrightness = 1.0F;
-
-	/**
-	 * Remaining ticks the item highlight should be visible
-	 */
-	private int remainingHighlightTicks;
-
-	/**
-	 * The ItemStack that is currently being highlighted
-	 */
-	private ItemStack highlightingItemStack = ItemStack.EMPTY;
 	private final GuiOverlayDebug overlayDebug;
 	private final GuiSubtitleOverlay overlaySubtitle;
-
 	/**
 	 * The spectator GUI for this in-game GUI instance
 	 */
 	private final GuiSpectator spectatorGui;
 	private final GuiPlayerTabOverlay overlayPlayerList;
 	private final GuiBossOverlay overlayBoss;
-
+	private final Map<ChatType, List<IChatListener>> chatListeners = Maps.newHashMap();
+	/**
+	 * Previous frame vignette brightness (slowly changes by 1% each frame)
+	 */
+	public float prevVignetteBrightness = 1.0F;
+	private int updateCounter;
+	/**
+	 * The string specifying which record music is playing
+	 */
+	private String overlayMessage = "";
+	/**
+	 * How many ticks the record playing message will be displayed
+	 */
+	private int overlayMessageTime;
+	private boolean animateOverlayMessageColor;
+	/**
+	 * Remaining ticks the item highlight should be visible
+	 */
+	private int remainingHighlightTicks;
+	/**
+	 * The ItemStack that is currently being highlighted
+	 */
+	private ItemStack highlightingItemStack = ItemStack.EMPTY;
 	/**
 	 * A timer for the current title and subtitle displayed
 	 */
 	private int titlesTimer;
-
 	/**
 	 * The current title displayed
 	 */
 	private String displayedTitle = "";
-
 	/**
 	 * The current sub-title displayed
 	 */
 	private String displayedSubTitle = "";
-
 	/**
 	 * The time that the title take to fade in
 	 */
 	private int titleFadeIn;
-
 	/**
 	 * The time that the title is display
 	 */
 	private int titleDisplayTime;
-
 	/**
 	 * The time that the title take to fade out
 	 */
 	private int titleFadeOut;
 	private int playerHealth;
 	private int lastPlayerHealth;
-
 	/**
 	 * The last recorded system time
 	 */
 	private long lastSystemTime;
-
 	/**
 	 * Used with updateCounter to make the heart bar flash
 	 */
 	private long healthUpdateCounter;
-	private final Map<ChatType, List<IChatListener>> chatListeners = Maps.newHashMap();
 
 	public GuiIngame(Minecraft mcIn) {
 

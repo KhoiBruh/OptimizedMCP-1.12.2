@@ -20,11 +20,11 @@ import java.util.UUID;
 
 public class PreYggdrasilConverter {
 
-	private static final Logger LOGGER = LogManager.getLogger();
 	public static final File OLD_IPBAN_FILE = new File("banned-ips.txt");
 	public static final File OLD_PLAYERBAN_FILE = new File("banned-players.txt");
 	public static final File OLD_OPS_FILE = new File("ops.txt");
 	public static final File OLD_WHITELIST_FILE = new File("white-list.txt");
+	private static final Logger LOGGER = LogManager.getLogger();
 
 	private static void lookupNames(MinecraftServer server, Collection<String> names, ProfileLookupCallback callback) {
 

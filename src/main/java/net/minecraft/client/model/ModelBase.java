@@ -11,13 +11,27 @@ import java.util.Random;
 
 public abstract class ModelBase {
 
+	private final Map<String, TextureOffset> modelTextureMap = Maps.newHashMap();
 	public float swingProgress;
 	public boolean isRiding;
 	public boolean isChild = true;
 	public List<ModelRenderer> boxList = Lists.newArrayList();
-	private final Map<String, TextureOffset> modelTextureMap = Maps.newHashMap();
 	public int textureWidth = 64;
 	public int textureHeight = 32;
+
+	/**
+	 * Copies the angles from one object to another. This is used when objects should stay aligned with each other, like
+	 * the hair over a players head.
+	 */
+	public static void copyModelAngles(ModelRenderer source, ModelRenderer dest) {
+
+		dest.rotateAngleX = source.rotateAngleX;
+		dest.rotateAngleY = source.rotateAngleY;
+		dest.rotateAngleZ = source.rotateAngleZ;
+		dest.rotationPointX = source.rotationPointX;
+		dest.rotationPointY = source.rotationPointY;
+		dest.rotationPointZ = source.rotationPointZ;
+	}
 
 	/**
 	 * Sets the models various rotation angles then renders the model.
@@ -56,20 +70,6 @@ public abstract class ModelBase {
 	public TextureOffset getTextureOffset(String partName) {
 
 		return modelTextureMap.get(partName);
-	}
-
-	/**
-	 * Copies the angles from one object to another. This is used when objects should stay aligned with each other, like
-	 * the hair over a players head.
-	 */
-	public static void copyModelAngles(ModelRenderer source, ModelRenderer dest) {
-
-		dest.rotateAngleX = source.rotateAngleX;
-		dest.rotateAngleY = source.rotateAngleY;
-		dest.rotateAngleZ = source.rotateAngleZ;
-		dest.rotationPointX = source.rotationPointX;
-		dest.rotationPointY = source.rotationPointY;
-		dest.rotationPointZ = source.rotationPointZ;
 	}
 
 	public void setModelAttributes(ModelBase model) {

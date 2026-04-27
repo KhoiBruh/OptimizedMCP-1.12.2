@@ -25,31 +25,19 @@ import java.util.Random;
 
 public class ChunkGeneratorEnd implements IChunkGenerator {
 
+	protected static final IBlockState END_STONE = Blocks.END_STONE.getDefaultState();
+	protected static final IBlockState AIR = Blocks.AIR.getDefaultState();
 	/**
 	 * RNG.
 	 */
 	private final Random rand;
-	protected static final IBlockState END_STONE = Blocks.END_STONE.getDefaultState();
-	protected static final IBlockState AIR = Blocks.AIR.getDefaultState();
 	private final NoiseGeneratorOctaves lperlinNoise1;
 	private final NoiseGeneratorOctaves lperlinNoise2;
 	private final NoiseGeneratorOctaves perlinNoise1;
-
-	/**
-	 * A NoiseGeneratorOctaves used in generating terrain
-	 */
-	public NoiseGeneratorOctaves noiseGen5;
-
-	/**
-	 * A NoiseGeneratorOctaves used in generating terrain
-	 */
-	public NoiseGeneratorOctaves noiseGen6;
-
 	/**
 	 * Reference to the World object.
 	 */
 	private final World world;
-
 	/**
 	 * are map structures going to be generated (e.g. strongholds)
 	 */
@@ -57,16 +45,23 @@ public class ChunkGeneratorEnd implements IChunkGenerator {
 	private final BlockPos spawnPoint;
 	private final MapGenEndCity endCityGen = new MapGenEndCity(this);
 	private final NoiseGeneratorSimplex islandNoise;
+	private final WorldGenEndIsland endIslands = new WorldGenEndIsland();
+	/**
+	 * A NoiseGeneratorOctaves used in generating terrain
+	 */
+	public NoiseGeneratorOctaves noiseGen5;
+	/**
+	 * A NoiseGeneratorOctaves used in generating terrain
+	 */
+	public NoiseGeneratorOctaves noiseGen6;
+	double[] pnr;
+	double[] ar;
+	double[] br;
 	private double[] buffer;
-
 	/**
 	 * The biomes that are used to generate the chunk
 	 */
 	private Biome[] biomesForGeneration;
-	double[] pnr;
-	double[] ar;
-	double[] br;
-	private final WorldGenEndIsland endIslands = new WorldGenEndIsland();
 
 	public ChunkGeneratorEnd(World p_i47241_1_, boolean p_i47241_2_, long p_i47241_3_, BlockPos p_i47241_5_) {
 

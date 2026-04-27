@@ -11,8 +11,8 @@ public class EntityAIAttackRangedBow<T extends EntityMob & IRangedAttackMob> ext
 
 	private final T entity;
 	private final double moveSpeedAmp;
-	private int attackCooldown;
 	private final float maxAttackDistance;
+	private int attackCooldown;
 	private int attackTime = -1;
 	private int seeTime;
 	private boolean strafingClockwise;

@@ -37,6 +37,48 @@ public class CommandResultStats {
 		objectives = STRING_RESULT_TYPES;
 	}
 
+	/**
+	 * Set a stat in the scoreboard
+	 */
+	public static void setScoreBoardStat(CommandResultStats stats, CommandResultStats.Type resultType, @Nullable String entityID, @Nullable String objectiveName) {
+
+		if (entityID != null && !entityID.isEmpty() && objectiveName != null && !objectiveName.isEmpty()) {
+			if (stats.entitiesID == STRING_RESULT_TYPES || stats.objectives == STRING_RESULT_TYPES) {
+				stats.entitiesID = new String[NUM_RESULT_TYPES];
+				stats.objectives = new String[NUM_RESULT_TYPES];
+			}
+
+			stats.entitiesID[resultType.getTypeID()] = entityID;
+			stats.objectives[resultType.getTypeID()] = objectiveName;
+		} else {
+			removeScoreBoardStat(stats, resultType);
+		}
+	}
+
+	/**
+	 * Remove a stat from the scoreboard
+	 */
+	private static void removeScoreBoardStat(CommandResultStats resultStatsIn, CommandResultStats.Type resultTypeIn) {
+
+		if (resultStatsIn.entitiesID != STRING_RESULT_TYPES && resultStatsIn.objectives != STRING_RESULT_TYPES) {
+			resultStatsIn.entitiesID[resultTypeIn.getTypeID()] = null;
+			resultStatsIn.objectives[resultTypeIn.getTypeID()] = null;
+			boolean flag = true;
+
+			for (CommandResultStats.Type commandresultstats$type : CommandResultStats.Type.values()) {
+				if (resultStatsIn.entitiesID[commandresultstats$type.getTypeID()] != null && resultStatsIn.objectives[commandresultstats$type.getTypeID()] != null) {
+					flag = false;
+					break;
+				}
+			}
+
+			if (flag) {
+				resultStatsIn.entitiesID = STRING_RESULT_TYPES;
+				resultStatsIn.objectives = STRING_RESULT_TYPES;
+			}
+		}
+	}
+
 	public void setCommandStatForSender(MinecraftServer server, final ICommandSender sender, CommandResultStats.Type typeIn, int p_184932_4_) {
 
 		String s = entitiesID[typeIn.getTypeID()];
@@ -160,48 +202,6 @@ public class CommandResultStats {
 	}
 
 	/**
-	 * Set a stat in the scoreboard
-	 */
-	public static void setScoreBoardStat(CommandResultStats stats, CommandResultStats.Type resultType, @Nullable String entityID, @Nullable String objectiveName) {
-
-		if (entityID != null && !entityID.isEmpty() && objectiveName != null && !objectiveName.isEmpty()) {
-			if (stats.entitiesID == STRING_RESULT_TYPES || stats.objectives == STRING_RESULT_TYPES) {
-				stats.entitiesID = new String[NUM_RESULT_TYPES];
-				stats.objectives = new String[NUM_RESULT_TYPES];
-			}
-
-			stats.entitiesID[resultType.getTypeID()] = entityID;
-			stats.objectives[resultType.getTypeID()] = objectiveName;
-		} else {
-			removeScoreBoardStat(stats, resultType);
-		}
-	}
-
-	/**
-	 * Remove a stat from the scoreboard
-	 */
-	private static void removeScoreBoardStat(CommandResultStats resultStatsIn, CommandResultStats.Type resultTypeIn) {
-
-		if (resultStatsIn.entitiesID != STRING_RESULT_TYPES && resultStatsIn.objectives != STRING_RESULT_TYPES) {
-			resultStatsIn.entitiesID[resultTypeIn.getTypeID()] = null;
-			resultStatsIn.objectives[resultTypeIn.getTypeID()] = null;
-			boolean flag = true;
-
-			for (CommandResultStats.Type commandresultstats$type : CommandResultStats.Type.values()) {
-				if (resultStatsIn.entitiesID[commandresultstats$type.getTypeID()] != null && resultStatsIn.objectives[commandresultstats$type.getTypeID()] != null) {
-					flag = false;
-					break;
-				}
-			}
-
-			if (flag) {
-				resultStatsIn.entitiesID = STRING_RESULT_TYPES;
-				resultStatsIn.objectives = STRING_RESULT_TYPES;
-			}
-		}
-	}
-
-	/**
 	 * Add all stats in the CommandResultStats
 	 */
 	public void addAllStats(CommandResultStats resultStatsIn) {
@@ -227,16 +227,6 @@ public class CommandResultStats {
 			typeName = name;
 		}
 
-		public int getTypeID() {
-
-			return typeID;
-		}
-
-		public String getTypeName() {
-
-			return typeName;
-		}
-
 		public static String[] getTypeNames() {
 
 			String[] astring = new String[values().length];
@@ -259,6 +249,16 @@ public class CommandResultStats {
 			}
 
 			return null;
+		}
+
+		public int getTypeID() {
+
+			return typeID;
+		}
+
+		public String getTypeName() {
+
+			return typeName;
 		}
 	}
 

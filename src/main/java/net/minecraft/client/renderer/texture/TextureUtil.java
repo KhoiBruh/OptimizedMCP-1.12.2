@@ -12,19 +12,40 @@ import org.apache.logging.log4j.Logger;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.IntBuffer;
 
 public class TextureUtil {
 
-	private static final Logger LOGGER = LogManager.getLogger();
-	private static final IntBuffer DATA_BUFFER = GLAllocation.createDirectIntBuffer(4194304);
 	public static final DynamicTexture MISSING_TEXTURE = new DynamicTexture(16, 16);
 	public static final int[] MISSING_TEXTURE_DATA = MISSING_TEXTURE.getTextureData();
+	private static final Logger LOGGER = LogManager.getLogger();
+	private static final IntBuffer DATA_BUFFER = GLAllocation.createDirectIntBuffer(4194304);
 	private static final float[] COLOR_GAMMAS;
 	private static final int[] MIPMAP_BUFFER;
+
+	static {
+		int i = -16777216;
+		int j = -524040;
+		int[] aint = new int[]{-524040, -524040, -524040, -524040, -524040, -524040, -524040, -524040};
+		int[] aint1 = new int[]{-16777216, -16777216, -16777216, -16777216, -16777216, -16777216, -16777216, -16777216};
+		int k = aint.length;
+
+		for (int l = 0; l < 16; ++l) {
+			System.arraycopy(l < k ? aint : aint1, 0, MISSING_TEXTURE_DATA, 16 * l, k);
+			System.arraycopy(l < k ? aint1 : aint, 0, MISSING_TEXTURE_DATA, 16 * l + k, k);
+		}
+
+		MISSING_TEXTURE.updateDynamicTexture();
+		COLOR_GAMMAS = new float[256];
+
+		for (int i1 = 0; i1 < COLOR_GAMMAS.length; ++i1) {
+			COLOR_GAMMAS[i1] = (float) Math.pow((float) i1 / 255.0F, 2.2D);
+		}
+
+		MIPMAP_BUFFER = new int[4];
+	}
 
 	private static float getColorGamma(int p_188543_0_) {
 
@@ -340,27 +361,5 @@ public class TextureUtil {
 			System.arraycopy(p_147953_0_, (p_147953_2_ - 1 - j) * p_147953_1_, p_147953_0_, j * p_147953_1_, p_147953_1_);
 			System.arraycopy(aint, 0, p_147953_0_, (p_147953_2_ - 1 - j) * p_147953_1_, p_147953_1_);
 		}
-	}
-
-	static {
-		int i = -16777216;
-		int j = -524040;
-		int[] aint = new int[]{-524040, -524040, -524040, -524040, -524040, -524040, -524040, -524040};
-		int[] aint1 = new int[]{-16777216, -16777216, -16777216, -16777216, -16777216, -16777216, -16777216, -16777216};
-		int k = aint.length;
-
-		for (int l = 0; l < 16; ++l) {
-			System.arraycopy(l < k ? aint : aint1, 0, MISSING_TEXTURE_DATA, 16 * l, k);
-			System.arraycopy(l < k ? aint1 : aint, 0, MISSING_TEXTURE_DATA, 16 * l + k, k);
-		}
-
-		MISSING_TEXTURE.updateDynamicTexture();
-		COLOR_GAMMAS = new float[256];
-
-		for (int i1 = 0; i1 < COLOR_GAMMAS.length; ++i1) {
-			COLOR_GAMMAS[i1] = (float) Math.pow((float) i1 / 255.0F, 2.2D);
-		}
-
-		MIPMAP_BUFFER = new int[4];
 	}
 }

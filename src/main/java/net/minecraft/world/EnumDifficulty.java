@@ -7,6 +7,13 @@ public enum EnumDifficulty {
 	HARD(3, "options.difficulty.hard");
 
 	private static final EnumDifficulty[] ID_MAPPING = new EnumDifficulty[values().length];
+
+	static {
+		for (EnumDifficulty enumdifficulty : values()) {
+			ID_MAPPING[enumdifficulty.difficultyId] = enumdifficulty;
+		}
+	}
+
 	private final int difficultyId;
 	private final String difficultyResourceKey;
 
@@ -16,24 +23,18 @@ public enum EnumDifficulty {
 		difficultyResourceKey = difficultyResourceKeyIn;
 	}
 
-	public int getDifficultyId() {
-
-		return difficultyId;
-	}
-
 	public static EnumDifficulty getDifficultyEnum(int id) {
 
 		return ID_MAPPING[id % ID_MAPPING.length];
 	}
 
+	public int getDifficultyId() {
+
+		return difficultyId;
+	}
+
 	public String getDifficultyResourceKey() {
 
 		return difficultyResourceKey;
-	}
-
-	static {
-		for (EnumDifficulty enumdifficulty : values()) {
-			ID_MAPPING[enumdifficulty.difficultyId] = enumdifficulty;
-		}
 	}
 }

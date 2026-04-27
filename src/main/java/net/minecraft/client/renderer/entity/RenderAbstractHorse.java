@@ -11,6 +11,14 @@ import java.util.Map;
 public class RenderAbstractHorse extends RenderLiving<AbstractHorse> {
 
 	private static final Map<Class<?>, ResourceLocation> MAP = Maps.newHashMap();
+
+	static {
+		MAP.put(EntityDonkey.class, new ResourceLocation("textures/entity/horse/donkey.png"));
+		MAP.put(EntityMule.class, new ResourceLocation("textures/entity/horse/mule.png"));
+		MAP.put(EntityZombieHorse.class, new ResourceLocation("textures/entity/horse/horse_zombie.png"));
+		MAP.put(EntitySkeletonHorse.class, new ResourceLocation("textures/entity/horse/horse_skeleton.png"));
+	}
+
 	private final float scale;
 
 	public RenderAbstractHorse(RenderManager p_i47212_1_) {
@@ -39,12 +47,5 @@ public class RenderAbstractHorse extends RenderLiving<AbstractHorse> {
 	protected ResourceLocation getEntityTexture(AbstractHorse entity) {
 
 		return MAP.get(entity.getClass());
-	}
-
-	static {
-		MAP.put(EntityDonkey.class, new ResourceLocation("textures/entity/horse/donkey.png"));
-		MAP.put(EntityMule.class, new ResourceLocation("textures/entity/horse/mule.png"));
-		MAP.put(EntityZombieHorse.class, new ResourceLocation("textures/entity/horse/horse_zombie.png"));
-		MAP.put(EntitySkeletonHorse.class, new ResourceLocation("textures/entity/horse/horse_skeleton.png"));
 	}
 }

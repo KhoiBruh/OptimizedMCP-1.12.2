@@ -2,7 +2,6 @@ package net.minecraft.block;
 
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
@@ -26,14 +25,61 @@ import java.util.Random;
 
 public class BlockCommandBlock extends BlockContainer {
 
-	private static final Logger LOGGER = LogManager.getLogger();
 	public static final PropertyDirection FACING = BlockDirectional.FACING;
 	public static final PropertyBool CONDITIONAL = PropertyBool.create("conditional");
+	private static final Logger LOGGER = LogManager.getLogger();
 
 	public BlockCommandBlock(MapColor color) {
 
 		super(Material.IRON, color);
 		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(CONDITIONAL, Boolean.valueOf(false)));
+	}
+
+	private static void executeChain(World p_193386_0_, BlockPos p_193386_1_, EnumFacing p_193386_2_) {
+
+		BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos(p_193386_1_);
+		GameRules gamerules = p_193386_0_.getGameRules();
+		int i;
+		IBlockState iblockstate;
+
+		for (i = gamerules.getInt("maxCommandChainLength"); i-- > 0; p_193386_2_ = iblockstate.getValue(FACING)) {
+			blockpos$mutableblockpos.move(p_193386_2_);
+			iblockstate = p_193386_0_.getBlockState(blockpos$mutableblockpos);
+			Block block = iblockstate.getBlock();
+
+			if (block != Blocks.CHAIN_COMMAND_BLOCK) {
+				break;
+			}
+
+			TileEntity tileentity = p_193386_0_.getTileEntity(blockpos$mutableblockpos);
+
+			if (!(tileentity instanceof TileEntityCommandBlock tileentitycommandblock)) {
+				break;
+			}
+
+			if (tileentitycommandblock.getMode() != TileEntityCommandBlock.Mode.SEQUENCE) {
+				break;
+			}
+
+			if (tileentitycommandblock.isPowered() || tileentitycommandblock.isAuto()) {
+				CommandBlockBaseLogic commandblockbaselogic = tileentitycommandblock.getCommandBlockLogic();
+
+				if (tileentitycommandblock.setConditionMet()) {
+					if (!commandblockbaselogic.trigger(p_193386_0_)) {
+						break;
+					}
+
+					p_193386_0_.updateComparatorOutputLevel(blockpos$mutableblockpos, block);
+				} else if (tileentitycommandblock.isConditional()) {
+					commandblockbaselogic.setSuccessCount(0);
+				}
+			}
+		}
+
+		if (i <= 0) {
+			int j = Math.max(gamerules.getInt("maxCommandChainLength"), 0);
+			LOGGER.warn("Commandblock chain tried to execure more than " + j + " steps!");
+		}
 	}
 
 	/**
@@ -245,53 +291,6 @@ public class BlockCommandBlock extends BlockContainer {
 	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
 
 		return getDefaultState().withProperty(FACING, EnumFacing.getDirectionFromEntityLiving(pos, placer)).withProperty(CONDITIONAL, Boolean.valueOf(false));
-	}
-
-	private static void executeChain(World p_193386_0_, BlockPos p_193386_1_, EnumFacing p_193386_2_) {
-
-		BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos(p_193386_1_);
-		GameRules gamerules = p_193386_0_.getGameRules();
-		int i;
-		IBlockState iblockstate;
-
-		for (i = gamerules.getInt("maxCommandChainLength"); i-- > 0; p_193386_2_ = iblockstate.getValue(FACING)) {
-			blockpos$mutableblockpos.move(p_193386_2_);
-			iblockstate = p_193386_0_.getBlockState(blockpos$mutableblockpos);
-			Block block = iblockstate.getBlock();
-
-			if (block != Blocks.CHAIN_COMMAND_BLOCK) {
-				break;
-			}
-
-			TileEntity tileentity = p_193386_0_.getTileEntity(blockpos$mutableblockpos);
-
-			if (!(tileentity instanceof TileEntityCommandBlock tileentitycommandblock)) {
-				break;
-			}
-
-			if (tileentitycommandblock.getMode() != TileEntityCommandBlock.Mode.SEQUENCE) {
-				break;
-			}
-
-			if (tileentitycommandblock.isPowered() || tileentitycommandblock.isAuto()) {
-				CommandBlockBaseLogic commandblockbaselogic = tileentitycommandblock.getCommandBlockLogic();
-
-				if (tileentitycommandblock.setConditionMet()) {
-					if (!commandblockbaselogic.trigger(p_193386_0_)) {
-						break;
-					}
-
-					p_193386_0_.updateComparatorOutputLevel(blockpos$mutableblockpos, block);
-				} else if (tileentitycommandblock.isConditional()) {
-					commandblockbaselogic.setSuccessCount(0);
-				}
-			}
-		}
-
-		if (i <= 0) {
-			int j = Math.max(gamerules.getInt("maxCommandChainLength"), 0);
-			LOGGER.warn("Commandblock chain tried to execure more than " + j + " steps!");
-		}
 	}
 
 }

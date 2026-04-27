@@ -28,21 +28,19 @@ import java.util.*;
 public class ParticleManager {
 
 	private static final ResourceLocation PARTICLE_TEXTURES = new ResourceLocation("textures/particle/particles.png");
-
-	/**
-	 * Reference to the World object.
-	 */
-	protected World world;
 	private final ArrayDeque<Particle>[][] fxLayers = new ArrayDeque[4][];
 	private final Queue<ParticleEmitter> particleEmitters = Queues.newArrayDeque();
 	private final TextureManager renderer;
-
 	/**
 	 * RNG.
 	 */
 	private final Random rand = new Random();
 	private final Map<Integer, IParticleFactory> particleTypes = Maps.newHashMap();
 	private final Queue<Particle> queue = Queues.newArrayDeque();
+	/**
+	 * Reference to the World object.
+	 */
+	protected World world;
 
 	public ParticleManager(World worldIn, TextureManager rendererIn) {
 

@@ -14,14 +14,14 @@ public class PropertyBool extends PropertyHelper<Boolean> {
 		super(name, Boolean.class);
 	}
 
-	public Collection<Boolean> getAllowedValues() {
-
-		return allowedValues;
-	}
-
 	public static PropertyBool create(String name) {
 
 		return new PropertyBool(name);
+	}
+
+	public Collection<Boolean> getAllowedValues() {
+
+		return allowedValues;
 	}
 
 	public Optional<Boolean> parseValue(String value) {

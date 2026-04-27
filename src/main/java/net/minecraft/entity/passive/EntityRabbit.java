@@ -49,6 +49,11 @@ public class EntityRabbit extends EntityAnimal {
 		setMovementSpeed(0.0D);
 	}
 
+	public static void registerFixesRabbit(DataFixer fixer) {
+
+		EntityLiving.registerFixesMob(fixer, EntityRabbit.class);
+	}
+
 	protected void initEntityAI() {
 
 		tasks.addTask(1, new EntityAISwimming(this));
@@ -250,11 +255,6 @@ public class EntityRabbit extends EntityAnimal {
 		super.applyEntityAttributes();
 		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(3.0D);
 		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.30000001192092896D);
-	}
-
-	public static void registerFixesRabbit(DataFixer fixer) {
-
-		EntityLiving.registerFixesMob(fixer, EntityRabbit.class);
 	}
 
 	/**
@@ -592,42 +592,6 @@ public class EntityRabbit extends EntityAnimal {
 
 	}
 
-	public class RabbitJumpHelper extends EntityJumpHelper {
-
-		private final EntityRabbit rabbit;
-		private boolean canJump;
-
-		public RabbitJumpHelper(EntityRabbit rabbit) {
-
-			super(rabbit);
-			this.rabbit = rabbit;
-		}
-
-		public boolean getIsJumping() {
-
-			return isJumping;
-		}
-
-		public boolean canJump() {
-
-			return canJump;
-		}
-
-		public void setCanJump(boolean canJumpIn) {
-
-			canJump = canJumpIn;
-		}
-
-		public void doJump() {
-
-			if (isJumping) {
-				rabbit.startJumping();
-				isJumping = false;
-			}
-		}
-
-	}
-
 	static class RabbitMoveHelper extends EntityMoveHelper {
 
 		private final EntityRabbit rabbit;
@@ -672,6 +636,42 @@ public class EntityRabbit extends EntityAnimal {
 		public RabbitTypeData(int type) {
 
 			typeData = type;
+		}
+
+	}
+
+	public class RabbitJumpHelper extends EntityJumpHelper {
+
+		private final EntityRabbit rabbit;
+		private boolean canJump;
+
+		public RabbitJumpHelper(EntityRabbit rabbit) {
+
+			super(rabbit);
+			this.rabbit = rabbit;
+		}
+
+		public boolean getIsJumping() {
+
+			return isJumping;
+		}
+
+		public boolean canJump() {
+
+			return canJump;
+		}
+
+		public void setCanJump(boolean canJumpIn) {
+
+			canJump = canJumpIn;
+		}
+
+		public void doJump() {
+
+			if (isJumping) {
+				rabbit.startJumping();
+				isJumping = false;
+			}
 		}
 
 	}

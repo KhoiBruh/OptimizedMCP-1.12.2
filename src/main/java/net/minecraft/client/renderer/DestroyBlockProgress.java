@@ -32,6 +32,11 @@ public class DestroyBlockProgress {
 		return position;
 	}
 
+	public int getPartialBlockDamage() {
+
+		return partialBlockProgress;
+	}
+
 	/**
 	 * inserts damage value into this partially destroyed Block. -1 causes client renderer to delete it, otherwise
 	 * ranges from 1 to 10
@@ -43,11 +48,6 @@ public class DestroyBlockProgress {
 		}
 
 		partialBlockProgress = damage;
-	}
-
-	public int getPartialBlockDamage() {
-
-		return partialBlockProgress;
 	}
 
 	/**

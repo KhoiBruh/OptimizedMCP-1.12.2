@@ -30,6 +30,24 @@ public class PhaseList<T extends IPhase> {
 		name = nameIn;
 	}
 
+	public static PhaseList<?> getById(int idIn) {
+
+		return idIn >= 0 && idIn < phases.length ? phases[idIn] : HOLDING_PATTERN;
+	}
+
+	public static int getTotalPhases() {
+
+		return phases.length;
+	}
+
+	private static <T extends IPhase> PhaseList<T> create(Class<T> phaseIn, String nameIn) {
+
+		PhaseList<T> phaselist = new PhaseList<T>(phases.length, phaseIn, nameIn);
+		phases = Arrays.copyOf(phases, phases.length + 1);
+		phases[phaselist.getId()] = phaselist;
+		return phaselist;
+	}
+
 	public IPhase createPhase(EntityDragon dragon) {
 
 		try {
@@ -53,24 +71,6 @@ public class PhaseList<T extends IPhase> {
 	public String toString() {
 
 		return name + " (#" + id + ")";
-	}
-
-	public static PhaseList<?> getById(int idIn) {
-
-		return idIn >= 0 && idIn < phases.length ? phases[idIn] : HOLDING_PATTERN;
-	}
-
-	public static int getTotalPhases() {
-
-		return phases.length;
-	}
-
-	private static <T extends IPhase> PhaseList<T> create(Class<T> phaseIn, String nameIn) {
-
-		PhaseList<T> phaselist = new PhaseList<T>(phases.length, phaseIn, nameIn);
-		phases = Arrays.copyOf(phases, phases.length + 1);
-		phases[phaselist.getId()] = phaselist;
-		return phaselist;
 	}
 
 }

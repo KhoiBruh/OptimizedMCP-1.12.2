@@ -2,7 +2,6 @@ package net.minecraft.entity.boss.dragon.phase;
 
 import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.pathfinding.Path;
-import net.minecraft.pathfinding.PathPoint;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.gen.feature.WorldGenEndPodium;

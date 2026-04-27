@@ -1,7 +1,6 @@
 package net.minecraft.block;
 
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -72,6 +71,13 @@ public class BlockStoneBrick extends Block {
 		CHISELED(3, "chiseled_stonebrick", "chiseled");
 
 		private static final BlockStoneBrick.EnumType[] META_LOOKUP = new BlockStoneBrick.EnumType[values().length];
+
+		static {
+			for (BlockStoneBrick.EnumType blockstonebrick$enumtype : values()) {
+				META_LOOKUP[blockstonebrick$enumtype.getMetadata()] = blockstonebrick$enumtype;
+			}
+		}
+
 		private final int meta;
 		private final String name;
 		private final String unlocalizedName;
@@ -81,6 +87,15 @@ public class BlockStoneBrick extends Block {
 			this.meta = meta;
 			this.name = name;
 			this.unlocalizedName = unlocalizedName;
+		}
+
+		public static BlockStoneBrick.EnumType byMetadata(int meta) {
+
+			if (meta < 0 || meta >= META_LOOKUP.length) {
+				meta = 0;
+			}
+
+			return META_LOOKUP[meta];
 		}
 
 		public int getMetadata() {
@@ -93,15 +108,6 @@ public class BlockStoneBrick extends Block {
 			return name;
 		}
 
-		public static BlockStoneBrick.EnumType byMetadata(int meta) {
-
-			if (meta < 0 || meta >= META_LOOKUP.length) {
-				meta = 0;
-			}
-
-			return META_LOOKUP[meta];
-		}
-
 		public String getName() {
 
 			return name;
@@ -110,12 +116,6 @@ public class BlockStoneBrick extends Block {
 		public String getUnlocalizedName() {
 
 			return unlocalizedName;
-		}
-
-		static {
-			for (BlockStoneBrick.EnumType blockstonebrick$enumtype : values()) {
-				META_LOOKUP[blockstonebrick$enumtype.getMetadata()] = blockstonebrick$enumtype;
-			}
 		}
 	}
 

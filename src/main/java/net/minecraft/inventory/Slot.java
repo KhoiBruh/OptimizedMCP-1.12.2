@@ -8,15 +8,13 @@ import javax.annotation.Nullable;
 public class Slot {
 
 	/**
-	 * The index of the slot in the inventory.
-	 */
-	private final int slotIndex;
-
-	/**
 	 * The inventory we want to extract a slot from.
 	 */
 	public final IInventory inventory;
-
+	/**
+	 * The index of the slot in the inventory.
+	 */
+	private final int slotIndex;
 	/**
 	 * the id of the slot(also the index in the inventory arraylist)
 	 */

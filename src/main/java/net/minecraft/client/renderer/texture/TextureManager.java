@@ -20,8 +20,8 @@ import java.util.Map.Entry;
 
 public class TextureManager implements ITickable, IResourceManagerReloadListener {
 
-	private static final Logger LOGGER = LogManager.getLogger();
 	public static final ResourceLocation RESOURCE_LOCATION_EMPTY = new ResourceLocation("");
+	private static final Logger LOGGER = LogManager.getLogger();
 	private final Map<ResourceLocation, ITextureObject> mapTextureObjects = Maps.newHashMap();
 	private final List<ITickable> listTickables = Lists.newArrayList();
 	private final Map<String, Integer> mapTextureCounters = Maps.newHashMap();

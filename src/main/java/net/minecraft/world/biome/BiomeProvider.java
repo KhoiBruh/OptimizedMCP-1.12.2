@@ -18,19 +18,17 @@ import java.util.Random;
 
 public class BiomeProvider {
 
-	private ChunkGeneratorSettings settings;
-	private GenLayer genBiomes;
-
-	/**
-	 * A GenLayer containing the indices into BiomeGenBase.biomeList[]
-	 */
-	private GenLayer biomeIndexLayer;
-
 	/**
 	 * The biome list.
 	 */
 	private final BiomeCache biomeCache;
 	private final List<Biome> biomesToSpawnIn;
+	private ChunkGeneratorSettings settings;
+	private GenLayer genBiomes;
+	/**
+	 * A GenLayer containing the indices into BiomeGenBase.biomeList[]
+	 */
+	private GenLayer biomeIndexLayer;
 
 	protected BiomeProvider() {
 

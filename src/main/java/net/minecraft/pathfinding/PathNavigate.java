@@ -18,6 +18,11 @@ import javax.annotation.Nullable;
 
 public abstract class PathNavigate {
 
+	/**
+	 * The number of blocks (extra) +/- in each axis that get pulled out as cache for the pathfinder's search space
+	 */
+	private final IAttributeInstance pathSearchRange;
+	private final PathFinder pathFinder;
 	protected EntityLiving entity;
 	protected World world;
 
@@ -26,22 +31,17 @@ public abstract class PathNavigate {
 	/** The PathEntity being followed. */
 	protected Path currentPath;
 	protected double speed;
-
-	/**
-	 * The number of blocks (extra) +/- in each axis that get pulled out as cache for the pathfinder's search space
-	 */
-	private final IAttributeInstance pathSearchRange;
-
 	/**
 	 * Time, in number of ticks, following the current path
 	 */
 	protected int totalTicks;
-
+	protected float maxDistanceToWaypoint = 0.5F;
+	protected boolean tryUpdatePath;
+	protected NodeProcessor nodeProcessor;
 	/**
 	 * The time when the last position check was done (to detect successful movement)
 	 */
 	private int ticksAtLastPos;
-
 	/**
 	 * Coordinates of the entity's position last time a check was done (part of monitoring getting 'stuck')
 	 */
@@ -50,12 +50,8 @@ public abstract class PathNavigate {
 	private long timeoutTimer;
 	private long lastTimeoutCheck;
 	private double timeoutLimit;
-	protected float maxDistanceToWaypoint = 0.5F;
-	protected boolean tryUpdatePath;
 	private long lastTimeUpdated;
-	protected NodeProcessor nodeProcessor;
 	private BlockPos targetPos;
-	private final PathFinder pathFinder;
 
 	public PathNavigate(EntityLiving entityIn, World worldIn) {
 

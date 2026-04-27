@@ -17,11 +17,6 @@ public class MapGenMineshaft extends MapGenStructure {
 
 	}
 
-	public String getStructureName() {
-
-		return "Mineshaft";
-	}
-
 	public MapGenMineshaft(Map<String, String> p_i2034_1_) {
 
 		for (Entry<String, String> entry : p_i2034_1_.entrySet()) {
@@ -29,6 +24,11 @@ public class MapGenMineshaft extends MapGenStructure {
 				chance = MathHelper.getDouble(entry.getValue(), chance);
 			}
 		}
+	}
+
+	public String getStructureName() {
+
+		return "Mineshaft";
 	}
 
 	protected boolean canSpawnStructureAtCoords(int chunkX, int chunkZ) {

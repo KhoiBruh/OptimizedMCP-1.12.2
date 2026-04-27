@@ -20,8 +20,8 @@ public class EntityAIFindEntityNearest extends EntityAIBase {
 	private final EntityLiving mob;
 	private final Predicate<EntityLivingBase> predicate;
 	private final EntityAINearestAttackableTarget.Sorter sorter;
-	private EntityLivingBase target;
 	private final Class<? extends EntityLivingBase> classToCheck;
+	private EntityLivingBase target;
 
 	public EntityAIFindEntityNearest(EntityLiving mobIn, Class<? extends EntityLivingBase> p_i45884_2_) {
 

@@ -47,6 +47,11 @@ public class EntitySlime extends EntityLiving implements IMob {
 		moveHelper = new EntitySlime.SlimeMoveHelper(this);
 	}
 
+	public static void registerFixesSlime(DataFixer fixer) {
+
+		EntityLiving.registerFixesMob(fixer, EntitySlime.class);
+	}
+
 	protected void initEntityAI() {
 
 		tasks.addTask(1, new EntitySlime.AISlimeFloat(this));
@@ -84,11 +89,6 @@ public class EntitySlime extends EntityLiving implements IMob {
 	public int getSlimeSize() {
 
 		return dataManager.get(SLIME_SIZE).intValue();
-	}
-
-	public static void registerFixesSlime(DataFixer fixer) {
-
-		EntityLiving.registerFixesMob(fixer, EntitySlime.class);
 	}
 
 	/**
@@ -538,9 +538,9 @@ public class EntitySlime extends EntityLiving implements IMob {
 
 	static class SlimeMoveHelper extends EntityMoveHelper {
 
+		private final EntitySlime slime;
 		private float yRot;
 		private int jumpDelay;
-		private final EntitySlime slime;
 		private boolean isAggressive;
 
 		public SlimeMoveHelper(EntitySlime slimeIn) {

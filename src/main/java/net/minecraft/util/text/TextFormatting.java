@@ -42,32 +42,30 @@ public enum TextFormatting {
 	 */
 	private static final Pattern FORMATTING_CODE_PATTERN = Pattern.compile("(?i)\u00a7[0-9A-FK-OR]");
 
+	static {
+		for (TextFormatting textformatting : values()) {
+			NAME_MAPPING.put(lowercaseAlpha(textformatting.name), textformatting);
+		}
+	}
+
 	/**
 	 * The name of this color/formatting
 	 */
 	private final String name;
-
 	/**
 	 * The formatting code that produces this format.
 	 */
 	private final char formattingCode;
 	private final boolean fancyStyling;
-
 	/**
 	 * The control string (section sign + formatting code) that can be inserted into client-side text to display
 	 * subsequent text in this format.
 	 */
 	private final String controlString;
-
 	/**
 	 * The numerical index that represents this color
 	 */
 	private final int colorIndex;
-
-	private static String lowercaseAlpha(String p_175745_0_) {
-
-		return p_175745_0_.toLowerCase(Locale.ROOT).replaceAll("[^a-z]", "");
-	}
 
 	TextFormatting(String formattingName, char formattingCodeIn, int colorIndex) {
 
@@ -88,41 +86,9 @@ public enum TextFormatting {
 		controlString = "\u00a7" + formattingCodeIn;
 	}
 
-	/**
-	 * Returns the numerical color index that represents this formatting
-	 */
-	public int getColorIndex() {
+	private static String lowercaseAlpha(String p_175745_0_) {
 
-		return colorIndex;
-	}
-
-	/**
-	 * False if this is just changing the color or resetting; true otherwise.
-	 */
-	public boolean isFancyStyling() {
-
-		return fancyStyling;
-	}
-
-	/**
-	 * Checks if this is a color code.
-	 */
-	public boolean isColor() {
-
-		return !fancyStyling && this != RESET;
-	}
-
-	/**
-	 * Gets the friendly name of this value.
-	 */
-	public String getFriendlyName() {
-
-		return name().toLowerCase(Locale.ROOT);
-	}
-
-	public String toString() {
-
-		return controlString;
+		return p_175745_0_.toLowerCase(Locale.ROOT).replaceAll("[^a-z]", "");
 	}
 
 	@Nullable
@@ -178,9 +144,40 @@ public enum TextFormatting {
 		return list;
 	}
 
-	static {
-		for (TextFormatting textformatting : values()) {
-			NAME_MAPPING.put(lowercaseAlpha(textformatting.name), textformatting);
-		}
+	/**
+	 * Returns the numerical color index that represents this formatting
+	 */
+	public int getColorIndex() {
+
+		return colorIndex;
+	}
+
+	/**
+	 * False if this is just changing the color or resetting; true otherwise.
+	 */
+	public boolean isFancyStyling() {
+
+		return fancyStyling;
+	}
+
+	/**
+	 * Checks if this is a color code.
+	 */
+	public boolean isColor() {
+
+		return !fancyStyling && this != RESET;
+	}
+
+	/**
+	 * Gets the friendly name of this value.
+	 */
+	public String getFriendlyName() {
+
+		return name().toLowerCase(Locale.ROOT);
+	}
+
+	public String toString() {
+
+		return controlString;
 	}
 }

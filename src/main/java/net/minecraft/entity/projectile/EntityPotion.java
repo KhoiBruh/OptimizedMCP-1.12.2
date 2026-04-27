@@ -5,7 +5,6 @@ import net.minecraft.entity.EntityAreaEffectCloud;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityBlaze;
 import net.minecraft.entity.monster.EntityEnderman;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.PotionTypes;
@@ -35,14 +34,14 @@ import java.util.List;
 
 public class EntityPotion extends EntityThrowable {
 
-	private static final DataParameter<ItemStack> ITEM = EntityDataManager.createKey(EntityPotion.class, DataSerializers.ITEM_STACK);
-	private static final Logger LOGGER = LogManager.getLogger();
 	public static final Predicate<EntityLivingBase> WATER_SENSITIVE = new Predicate<EntityLivingBase>() {
 		public boolean apply(@Nullable EntityLivingBase p_apply_1_) {
 
 			return EntityPotion.isWaterSensitiveEntity(p_apply_1_);
 		}
 	};
+	private static final DataParameter<ItemStack> ITEM = EntityDataManager.createKey(EntityPotion.class, DataSerializers.ITEM_STACK);
+	private static final Logger LOGGER = LogManager.getLogger();
 
 	public EntityPotion(World worldIn) {
 
@@ -62,6 +61,17 @@ public class EntityPotion extends EntityThrowable {
 		if (!potionDamageIn.isEmpty()) {
 			setItem(potionDamageIn);
 		}
+	}
+
+	public static void registerFixesPotion(DataFixer fixer) {
+
+		EntityThrowable.registerFixesThrowable(fixer, "ThrownPotion");
+		fixer.registerWalker(FixTypes.ENTITY, new ItemStackData(EntityPotion.class, "Potion"));
+	}
+
+	private static boolean isWaterSensitiveEntity(EntityLivingBase p_190544_0_) {
+
+		return p_190544_0_ instanceof EntityEnderman || p_190544_0_ instanceof EntityBlaze;
 	}
 
 	protected void entityInit() {
@@ -221,12 +231,6 @@ public class EntityPotion extends EntityThrowable {
 		}
 	}
 
-	public static void registerFixesPotion(DataFixer fixer) {
-
-		EntityThrowable.registerFixesThrowable(fixer, "ThrownPotion");
-		fixer.registerWalker(FixTypes.ENTITY, new ItemStackData(EntityPotion.class, "Potion"));
-	}
-
 	/**
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
@@ -253,11 +257,6 @@ public class EntityPotion extends EntityThrowable {
 		if (!itemstack.isEmpty()) {
 			compound.setTag("Potion", itemstack.writeToNBT(new NBTTagCompound()));
 		}
-	}
-
-	private static boolean isWaterSensitiveEntity(EntityLivingBase p_190544_0_) {
-
-		return p_190544_0_ instanceof EntityEnderman || p_190544_0_ instanceof EntityBlaze;
 	}
 
 }

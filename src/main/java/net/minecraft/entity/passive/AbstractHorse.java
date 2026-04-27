@@ -44,28 +44,32 @@ import java.util.UUID;
 
 public abstract class AbstractHorse extends EntityAnimal implements IInventoryChangedListener, IJumpingMount {
 
+	protected static final IAttribute JUMP_STRENGTH = (new RangedAttribute(null, "horse.jumpStrength", 0.7D, 0.0D, 2.0D)).setDescription("Jump Strength").setShouldWatch(true);
+	private static final DataParameter<Byte> STATUS = EntityDataManager.createKey(AbstractHorse.class, DataSerializers.BYTE);
 	private static final Predicate<Entity> IS_HORSE_BREEDING = new Predicate<Entity>() {
 		public boolean apply(@Nullable Entity p_apply_1_) {
 
 			return p_apply_1_ instanceof AbstractHorse && ((AbstractHorse) p_apply_1_).isBreeding();
 		}
 	};
-	protected static final IAttribute JUMP_STRENGTH = (new RangedAttribute(null, "horse.jumpStrength", 0.7D, 0.0D, 2.0D)).setDescription("Jump Strength").setShouldWatch(true);
-	private static final DataParameter<Byte> STATUS = EntityDataManager.createKey(AbstractHorse.class, DataSerializers.BYTE);
 	private static final DataParameter<Optional<UUID>> OWNER_UNIQUE_ID = EntityDataManager.createKey(AbstractHorse.class, DataSerializers.OPTIONAL_UNIQUE_ID);
-	private int eatingCounter;
-	private int openMouthCounter;
-	private int jumpRearingCounter;
 	public int tailCounter;
 	public int sprintCounter;
 	protected boolean horseJumping;
 	protected ContainerHorseChest horseChest;
-
 	/**
 	 * "The higher this value, the more likely the horse is to be tamed next time a player rides it."
 	 */
 	protected int temper;
 	protected float jumpPower;
+	protected boolean canGallop = true;
+	/**
+	 * Used to determine the sound that the horse should make when it steps
+	 */
+	protected int gallopTime;
+	private int eatingCounter;
+	private int openMouthCounter;
+	private int jumpRearingCounter;
 	private boolean allowStandSliding;
 	private float headLean;
 	private float prevHeadLean;
@@ -73,12 +77,6 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 	private float prevRearingAmount;
 	private float mouthOpenness;
 	private float prevMouthOpenness;
-	protected boolean canGallop = true;
-
-	/**
-	 * Used to determine the sound that the horse should make when it steps
-	 */
-	protected int gallopTime;
 
 	public AbstractHorse(World worldIn) {
 
@@ -86,6 +84,12 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 		setSize(1.3964844F, 1.6F);
 		stepHeight = 1.0F;
 		initHorseChest();
+	}
+
+	public static void registerFixesAbstractHorse(DataFixer fixer, Class<?> entityClass) {
+
+		EntityLiving.registerFixesMob(fixer, entityClass);
+		fixer.registerWalker(FixTypes.ENTITY, new ItemStackData(entityClass, "SaddleItem"));
 	}
 
 	protected void initEntityAI() {
@@ -157,14 +161,14 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 		return horseJumping;
 	}
 
-	public void setHorseTamed(boolean tamed) {
-
-		setHorseWatchableBoolean(2, tamed);
-	}
-
 	public void setHorseJumping(boolean jumping) {
 
 		horseJumping = jumping;
+	}
+
+	public void setHorseTamed(boolean tamed) {
+
+		setHorseWatchableBoolean(2, tamed);
 	}
 
 	public boolean canBeLeashedTo(EntityPlayer player) {
@@ -184,9 +188,23 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 		return getHorseWatchableBoolean(16);
 	}
 
+	public void setEatingHaystack(boolean p_110227_1_) {
+
+		setHorseWatchableBoolean(16, p_110227_1_);
+	}
+
 	public boolean isRearing() {
 
 		return getHorseWatchableBoolean(32);
+	}
+
+	public void setRearing(boolean rearing) {
+
+		if (rearing) {
+			setEatingHaystack(false);
+		}
+
+		setHorseWatchableBoolean(32, rearing);
 	}
 
 	public boolean isBreeding() {
@@ -197,11 +215,6 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 	public void setBreeding(boolean breeding) {
 
 		setHorseWatchableBoolean(8, breeding);
-	}
-
-	public void setHorseSaddled(boolean saddled) {
-
-		setHorseWatchableBoolean(4, saddled);
 	}
 
 	public int getTemper() {
@@ -387,6 +400,11 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 	public boolean isHorseSaddled() {
 
 		return getHorseWatchableBoolean(4);
+	}
+
+	public void setHorseSaddled(boolean saddled) {
+
+		setHorseWatchableBoolean(4, saddled);
 	}
 
 	@Nullable
@@ -734,20 +752,6 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 		}
 	}
 
-	public void setEatingHaystack(boolean p_110227_1_) {
-
-		setHorseWatchableBoolean(16, p_110227_1_);
-	}
-
-	public void setRearing(boolean rearing) {
-
-		if (rearing) {
-			setEatingHaystack(false);
-		}
-
-		setHorseWatchableBoolean(32, rearing);
-	}
-
 	private void makeHorseRear() {
 
 		if (canPassengerSteer()) {
@@ -854,12 +858,6 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 			jumpMovementFactor = 0.02F;
 			super.travel(strafe, vertical, forward);
 		}
-	}
-
-	public static void registerFixesAbstractHorse(DataFixer fixer, Class<?> entityClass) {
-
-		EntityLiving.registerFixesMob(fixer, entityClass);
-		fixer.registerWalker(FixTypes.ENTITY, new ItemStackData(entityClass, "SaddleItem"));
 	}
 
 	/**

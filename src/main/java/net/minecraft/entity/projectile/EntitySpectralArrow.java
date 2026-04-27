@@ -29,6 +29,11 @@ public class EntitySpectralArrow extends EntityArrow {
 		super(worldIn, x, y, z);
 	}
 
+	public static void registerFixesSpectralArrow(DataFixer fixer) {
+
+		EntityArrow.registerFixesArrow(fixer, "SpectralArrow");
+	}
+
 	/**
 	 * Called to update the entity's position/logic.
 	 */
@@ -51,11 +56,6 @@ public class EntitySpectralArrow extends EntityArrow {
 		super.arrowHit(living);
 		PotionEffect potioneffect = new PotionEffect(MobEffects.GLOWING, duration, 0);
 		living.addPotionEffect(potioneffect);
-	}
-
-	public static void registerFixesSpectralArrow(DataFixer fixer) {
-
-		EntityArrow.registerFixesArrow(fixer, "SpectralArrow");
 	}
 
 	/**

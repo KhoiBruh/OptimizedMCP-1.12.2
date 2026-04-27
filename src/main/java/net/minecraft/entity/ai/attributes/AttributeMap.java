@@ -9,8 +9,8 @@ import java.util.Set;
 
 public class AttributeMap extends AbstractAttributeMap {
 
-	private final Set<IAttributeInstance> dirtyInstances = Sets.newHashSet();
 	protected final Map<String, IAttributeInstance> instancesByName = new LowerStringMap();
+	private final Set<IAttributeInstance> dirtyInstances = Sets.newHashSet();
 
 	public ModifiableAttributeInstance getAttributeInstance(IAttribute attribute) {
 

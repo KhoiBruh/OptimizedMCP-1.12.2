@@ -11,6 +11,11 @@ public class SlotFurnaceFuel extends Slot {
 		super(inventoryIn, slotIndex, xPosition, yPosition);
 	}
 
+	public static boolean isBucket(ItemStack stack) {
+
+		return stack.getItem() == Items.BUCKET;
+	}
+
 	/**
 	 * Check if the stack is allowed to be placed in this slot, used for armor slots as well as furnace fuel.
 	 */
@@ -22,11 +27,6 @@ public class SlotFurnaceFuel extends Slot {
 	public int getItemStackLimit(ItemStack stack) {
 
 		return isBucket(stack) ? 1 : super.getItemStackLimit(stack);
-	}
-
-	public static boolean isBucket(ItemStack stack) {
-
-		return stack.getItem() == Items.BUCKET;
 	}
 
 }

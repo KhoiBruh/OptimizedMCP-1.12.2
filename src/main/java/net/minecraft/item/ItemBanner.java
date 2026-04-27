@@ -38,6 +38,41 @@ public class ItemBanner extends ItemBlock {
 		setMaxDamage(0);
 	}
 
+	public static void appendHoverTextFromTileEntityTag(ItemStack stack, List<String> p_185054_1_) {
+
+		NBTTagCompound nbttagcompound = stack.getSubCompound("BlockEntityTag");
+
+		if (nbttagcompound != null && nbttagcompound.hasKey("Patterns")) {
+			NBTTagList nbttaglist = nbttagcompound.getTagList("Patterns", 10);
+
+			for (int i = 0; i < nbttaglist.tagCount() && i < 6; ++i) {
+				NBTTagCompound nbttagcompound1 = nbttaglist.getCompoundTagAt(i);
+				EnumDyeColor enumdyecolor = EnumDyeColor.byDyeDamage(nbttagcompound1.getInteger("Color"));
+				BannerPattern bannerpattern = BannerPattern.byHash(nbttagcompound1.getString("Pattern"));
+
+				if (bannerpattern != null) {
+					p_185054_1_.add(I18n.translateToLocal("item.banner." + bannerpattern.getFileName() + "." + enumdyecolor.getUnlocalizedName()));
+				}
+			}
+		}
+	}
+
+	public static ItemStack makeBanner(EnumDyeColor color, @Nullable NBTTagList patterns) {
+
+		ItemStack itemstack = new ItemStack(Items.BANNER, 1, color.getDyeDamage());
+
+		if (patterns != null && !patterns.hasNoTags()) {
+			itemstack.getOrCreateSubCompound("BlockEntityTag").setTag("Patterns", patterns.copy());
+		}
+
+		return itemstack;
+	}
+
+	public static EnumDyeColor getBaseColor(ItemStack stack) {
+
+		return EnumDyeColor.byDyeDamage(stack.getMetadata() & 15);
+	}
+
 	/**
 	 * Called when a Block is right-clicked with this Item
 	 */
@@ -92,25 +127,6 @@ public class ItemBanner extends ItemBlock {
 		return I18n.translateToLocal(s);
 	}
 
-	public static void appendHoverTextFromTileEntityTag(ItemStack stack, List<String> p_185054_1_) {
-
-		NBTTagCompound nbttagcompound = stack.getSubCompound("BlockEntityTag");
-
-		if (nbttagcompound != null && nbttagcompound.hasKey("Patterns")) {
-			NBTTagList nbttaglist = nbttagcompound.getTagList("Patterns", 10);
-
-			for (int i = 0; i < nbttaglist.tagCount() && i < 6; ++i) {
-				NBTTagCompound nbttagcompound1 = nbttaglist.getCompoundTagAt(i);
-				EnumDyeColor enumdyecolor = EnumDyeColor.byDyeDamage(nbttagcompound1.getInteger("Color"));
-				BannerPattern bannerpattern = BannerPattern.byHash(nbttagcompound1.getString("Pattern"));
-
-				if (bannerpattern != null) {
-					p_185054_1_.add(I18n.translateToLocal("item.banner." + bannerpattern.getFileName() + "." + enumdyecolor.getUnlocalizedName()));
-				}
-			}
-		}
-	}
-
 	/**
 	 * allows items to add custom lines of information to the mouseover description
 	 */
@@ -131,28 +147,12 @@ public class ItemBanner extends ItemBlock {
 		}
 	}
 
-	public static ItemStack makeBanner(EnumDyeColor color, @Nullable NBTTagList patterns) {
-
-		ItemStack itemstack = new ItemStack(Items.BANNER, 1, color.getDyeDamage());
-
-		if (patterns != null && !patterns.hasNoTags()) {
-			itemstack.getOrCreateSubCompound("BlockEntityTag").setTag("Patterns", patterns.copy());
-		}
-
-		return itemstack;
-	}
-
 	/**
 	 * gets the CreativeTab this item is displayed on
 	 */
 	public CreativeTabs getCreativeTab() {
 
 		return CreativeTabs.DECORATIONS;
-	}
-
-	public static EnumDyeColor getBaseColor(ItemStack stack) {
-
-		return EnumDyeColor.byDyeDamage(stack.getMetadata() & 15);
 	}
 
 }

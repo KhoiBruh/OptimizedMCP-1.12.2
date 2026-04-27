@@ -16,35 +16,16 @@ import net.minecraft.world.World;
 public abstract class EntityFireball extends Entity {
 
 	public EntityLivingBase shootingEntity;
-	private int ticksAlive;
-	private int ticksInAir;
 	public double accelerationX;
 	public double accelerationY;
 	public double accelerationZ;
+	private int ticksAlive;
+	private int ticksInAir;
 
 	public EntityFireball(World worldIn) {
 
 		super(worldIn);
 		setSize(1.0F, 1.0F);
-	}
-
-	protected void entityInit() {
-
-	}
-
-	/**
-	 * Checks if the entity is in range to render.
-	 */
-	public boolean isInRangeToRenderDist(double distance) {
-
-		double d0 = getEntityBoundingBox().getAverageEdgeLength() * 4.0D;
-
-		if (Double.isNaN(d0)) {
-			d0 = 4.0D;
-		}
-
-		d0 = d0 * 64.0D;
-		return distance < d0 * d0;
 	}
 
 	public EntityFireball(World worldIn, double x, double y, double z, double accelX, double accelY, double accelZ) {
@@ -76,6 +57,29 @@ public abstract class EntityFireball extends Entity {
 		accelerationX = accelX / d0 * 0.1D;
 		accelerationY = accelY / d0 * 0.1D;
 		accelerationZ = accelZ / d0 * 0.1D;
+	}
+
+	public static void registerFixesFireball(DataFixer fixer, String name) {
+
+	}
+
+	protected void entityInit() {
+
+	}
+
+	/**
+	 * Checks if the entity is in range to render.
+	 */
+	public boolean isInRangeToRenderDist(double distance) {
+
+		double d0 = getEntityBoundingBox().getAverageEdgeLength() * 4.0D;
+
+		if (Double.isNaN(d0)) {
+			d0 = 4.0D;
+		}
+
+		d0 = d0 * 64.0D;
+		return distance < d0 * d0;
 	}
 
 	/**
@@ -147,10 +151,6 @@ public abstract class EntityFireball extends Entity {
 	 * Called when this EntityFireball hits a block or entity.
 	 */
 	protected abstract void onImpact(RayTraceResult result);
-
-	public static void registerFixesFireball(DataFixer fixer, String name) {
-
-	}
 
 	/**
 	 * (abstract) Protected helper method to write subclass entity data to NBT.

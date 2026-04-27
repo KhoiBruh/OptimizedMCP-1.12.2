@@ -39,6 +39,78 @@ public class TileEntityFurnace extends TileEntityLockable implements ITickable, 
 	private int totalCookTime;
 	private String furnaceCustomName;
 
+	public static void registerFixesFurnace(DataFixer fixer) {
+
+		fixer.registerWalker(FixTypes.BLOCK_ENTITY, new ItemStackDataLists(TileEntityFurnace.class, "Items"));
+	}
+
+	public static boolean isBurning(IInventory inventory) {
+
+		return inventory.getField(0) > 0;
+	}
+
+	/**
+	 * Returns the number of ticks that the supplied fuel item will keep the furnace burning, or 0 if the item isn't
+	 * fuel
+	 */
+	public static int getItemBurnTime(ItemStack stack) {
+
+		if (stack.isEmpty()) {
+			return 0;
+		} else {
+			Item item = stack.getItem();
+
+			if (item == Item.getItemFromBlock(Blocks.WOODEN_SLAB)) {
+				return 150;
+			} else if (item == Item.getItemFromBlock(Blocks.WOOL)) {
+				return 100;
+			} else if (item == Item.getItemFromBlock(Blocks.CARPET)) {
+				return 67;
+			} else if (item == Item.getItemFromBlock(Blocks.LADDER)) {
+				return 300;
+			} else if (item == Item.getItemFromBlock(Blocks.WOODEN_BUTTON)) {
+				return 100;
+			} else if (Block.getBlockFromItem(item).getDefaultState().getMaterial() == Material.WOOD) {
+				return 300;
+			} else if (item == Item.getItemFromBlock(Blocks.COAL_BLOCK)) {
+				return 16000;
+			} else if (item instanceof ItemTool && "WOOD".equals(((ItemTool) item).getToolMaterialName())) {
+				return 200;
+			} else if (item instanceof ItemSword && "WOOD".equals(((ItemSword) item).getToolMaterialName())) {
+				return 200;
+			} else if (item instanceof ItemHoe && "WOOD".equals(((ItemHoe) item).getMaterialName())) {
+				return 200;
+			} else if (item == Items.STICK) {
+				return 100;
+			} else if (item != Items.BOW && item != Items.FISHING_ROD) {
+				if (item == Items.SIGN) {
+					return 200;
+				} else if (item == Items.COAL) {
+					return 1600;
+				} else if (item == Items.LAVA_BUCKET) {
+					return 20000;
+				} else if (item != Item.getItemFromBlock(Blocks.SAPLING) && item != Items.BOWL) {
+					if (item == Items.BLAZE_ROD) {
+						return 2400;
+					} else if (item instanceof ItemDoor && item != Items.IRON_DOOR) {
+						return 200;
+					} else {
+						return item instanceof ItemBoat ? 400 : 0;
+					}
+				} else {
+					return 100;
+				}
+			} else {
+				return 300;
+			}
+		}
+	}
+
+	public static boolean isItemFuel(ItemStack stack) {
+
+		return getItemBurnTime(stack) > 0;
+	}
+
 	/**
 	 * Returns the number of slots in the inventory.
 	 */
@@ -123,11 +195,6 @@ public class TileEntityFurnace extends TileEntityLockable implements ITickable, 
 		furnaceCustomName = p_145951_1_;
 	}
 
-	public static void registerFixesFurnace(DataFixer fixer) {
-
-		fixer.registerWalker(FixTypes.BLOCK_ENTITY, new ItemStackDataLists(TileEntityFurnace.class, "Items"));
-	}
-
 	public void readFromNBT(NBTTagCompound compound) {
 
 		super.readFromNBT(compound);
@@ -172,11 +239,6 @@ public class TileEntityFurnace extends TileEntityLockable implements ITickable, 
 	public boolean isBurning() {
 
 		return furnaceBurnTime > 0;
-	}
-
-	public static boolean isBurning(IInventory inventory) {
-
-		return inventory.getField(0) > 0;
 	}
 
 	/**
@@ -296,68 +358,6 @@ public class TileEntityFurnace extends TileEntityLockable implements ITickable, 
 
 			itemstack.shrink(1);
 		}
-	}
-
-	/**
-	 * Returns the number of ticks that the supplied fuel item will keep the furnace burning, or 0 if the item isn't
-	 * fuel
-	 */
-	public static int getItemBurnTime(ItemStack stack) {
-
-		if (stack.isEmpty()) {
-			return 0;
-		} else {
-			Item item = stack.getItem();
-
-			if (item == Item.getItemFromBlock(Blocks.WOODEN_SLAB)) {
-				return 150;
-			} else if (item == Item.getItemFromBlock(Blocks.WOOL)) {
-				return 100;
-			} else if (item == Item.getItemFromBlock(Blocks.CARPET)) {
-				return 67;
-			} else if (item == Item.getItemFromBlock(Blocks.LADDER)) {
-				return 300;
-			} else if (item == Item.getItemFromBlock(Blocks.WOODEN_BUTTON)) {
-				return 100;
-			} else if (Block.getBlockFromItem(item).getDefaultState().getMaterial() == Material.WOOD) {
-				return 300;
-			} else if (item == Item.getItemFromBlock(Blocks.COAL_BLOCK)) {
-				return 16000;
-			} else if (item instanceof ItemTool && "WOOD".equals(((ItemTool) item).getToolMaterialName())) {
-				return 200;
-			} else if (item instanceof ItemSword && "WOOD".equals(((ItemSword) item).getToolMaterialName())) {
-				return 200;
-			} else if (item instanceof ItemHoe && "WOOD".equals(((ItemHoe) item).getMaterialName())) {
-				return 200;
-			} else if (item == Items.STICK) {
-				return 100;
-			} else if (item != Items.BOW && item != Items.FISHING_ROD) {
-				if (item == Items.SIGN) {
-					return 200;
-				} else if (item == Items.COAL) {
-					return 1600;
-				} else if (item == Items.LAVA_BUCKET) {
-					return 20000;
-				} else if (item != Item.getItemFromBlock(Blocks.SAPLING) && item != Items.BOWL) {
-					if (item == Items.BLAZE_ROD) {
-						return 2400;
-					} else if (item instanceof ItemDoor && item != Items.IRON_DOOR) {
-						return 200;
-					} else {
-						return item instanceof ItemBoat ? 400 : 0;
-					}
-				} else {
-					return 100;
-				}
-			} else {
-				return 300;
-			}
-		}
-	}
-
-	public static boolean isItemFuel(ItemStack stack) {
-
-		return getItemBurnTime(stack) > 0;
 	}
 
 	/**

@@ -13,6 +13,17 @@ import java.util.List;
 
 public class CommandGameRule extends CommandBase {
 
+	public static void notifyGameRuleChange(GameRules rules, String p_184898_1_, MinecraftServer server) {
+
+		if ("reducedDebugInfo".equals(p_184898_1_)) {
+			byte b0 = (byte) (rules.getBoolean(p_184898_1_) ? 22 : 23);
+
+			for (EntityPlayerMP entityplayermp : server.getPlayerList().getPlayers()) {
+				entityplayermp.connection.sendPacket(new SPacketEntityStatus(entityplayermp, b0));
+			}
+		}
+	}
+
 	/**
 	 * Gets the name of the command
 	 */
@@ -69,17 +80,6 @@ public class CommandGameRule extends CommandBase {
 				gamerules.setOrCreateGameRule(s, s1);
 				notifyGameRuleChange(gamerules, s, server);
 				notifyCommandListener(sender, this, "commands.gamerule.success", s, s1);
-		}
-	}
-
-	public static void notifyGameRuleChange(GameRules rules, String p_184898_1_, MinecraftServer server) {
-
-		if ("reducedDebugInfo".equals(p_184898_1_)) {
-			byte b0 = (byte) (rules.getBoolean(p_184898_1_) ? 22 : 23);
-
-			for (EntityPlayerMP entityplayermp : server.getPlayerList().getPlayers()) {
-				entityplayermp.connection.sendPacket(new SPacketEntityStatus(entityplayermp, b0));
-			}
 		}
 	}
 

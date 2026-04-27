@@ -24,30 +24,26 @@ public abstract class CommandBlockBaseLogic implements ICommandSender {
 	 * The formatting for the timestamp on commands run.
 	 */
 	private static final SimpleDateFormat TIMESTAMP_FORMAT = new SimpleDateFormat("HH:mm:ss");
+	private final CommandResultStats resultStats = new CommandResultStats();
 	private long lastExecution = -1L;
 	private boolean updateLastExecution = true;
-
 	/**
 	 * The number of successful commands run. (used for redstone output)
 	 */
 	private int successCount;
 	private boolean trackOutput = true;
-
 	/**
 	 * The previously run command.
 	 */
 	private ITextComponent lastOutput;
-
 	/**
 	 * The command stored in the command block.
 	 */
 	private String commandStored = "";
-
 	/**
 	 * The custom name of the command block. (defaults to "@")
 	 */
 	private String customName = "@";
-	private final CommandResultStats resultStats = new CommandResultStats();
 
 	/**
 	 * returns the successCount int.
@@ -68,6 +64,11 @@ public abstract class CommandBlockBaseLogic implements ICommandSender {
 	public ITextComponent getLastOutput() {
 
 		return lastOutput == null ? new TextComponentString("") : lastOutput;
+	}
+
+	public void setLastOutput(@Nullable ITextComponent lastOutputMessage) {
+
+		lastOutput = lastOutputMessage;
 	}
 
 	public NBTTagCompound writeToNBT(NBTTagCompound p_189510_1_) {
@@ -139,20 +140,20 @@ public abstract class CommandBlockBaseLogic implements ICommandSender {
 	}
 
 	/**
+	 * Returns the command of the command block.
+	 */
+	public String getCommand() {
+
+		return commandStored;
+	}
+
+	/**
 	 * Sets the command.
 	 */
 	public void setCommand(String command) {
 
 		commandStored = command;
 		successCount = 0;
-	}
-
-	/**
-	 * Returns the command of the command block.
-	 */
-	public String getCommand() {
-
-		return commandStored;
 	}
 
 	public boolean trigger(World worldIn) {
@@ -253,11 +254,6 @@ public abstract class CommandBlockBaseLogic implements ICommandSender {
 	 * traditional version
 	 */
 	public abstract void fillInInfo(ByteBuf buf);
-
-	public void setLastOutput(@Nullable ITextComponent lastOutputMessage) {
-
-		lastOutput = lastOutputMessage;
-	}
 
 	public void setTrackOutput(boolean shouldTrackOutput) {
 

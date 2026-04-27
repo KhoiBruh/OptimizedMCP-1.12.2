@@ -11,7 +11,6 @@ import net.minecraft.tileentity.CommandBlockBaseLogic;
 import net.minecraft.util.ITabCompleter;
 import net.minecraft.util.TabCompleter;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.ITextComponent;
 import org.lwjgl.input.Keyboard;
 
 import javax.annotation.Nullable;
@@ -19,9 +18,9 @@ import java.io.IOException;
 
 public class GuiEditCommandBlockMinecart extends GuiScreen implements ITabCompleter {
 
+	private final CommandBlockBaseLogic commandBlockLogic;
 	private GuiTextField commandField;
 	private GuiTextField previousEdit;
-	private final CommandBlockBaseLogic commandBlockLogic;
 	private GuiButton doneButton;
 	private GuiButton cancelButton;
 	private GuiButton outputButton;

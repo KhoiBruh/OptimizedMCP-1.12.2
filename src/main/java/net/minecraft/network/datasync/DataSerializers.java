@@ -18,7 +18,6 @@ import java.util.UUID;
 
 public class DataSerializers {
 
-	private static final IntIdentityHashBiMap<DataSerializer<?>> REGISTRY = new IntIdentityHashBiMap<DataSerializer<?>>(16);
 	public static final DataSerializer<Byte> BYTE = new DataSerializer<Byte>() {
 		public void write(PacketBuffer buf, Byte value) {
 
@@ -328,22 +327,7 @@ public class DataSerializers {
 			return value.copy();
 		}
 	};
-
-	public static void registerSerializer(DataSerializer<?> serializer) {
-
-		REGISTRY.add(serializer);
-	}
-
-	@Nullable
-	public static DataSerializer<?> getSerializer(int id) {
-
-		return REGISTRY.get(id);
-	}
-
-	public static int getSerializerId(DataSerializer<?> serializer) {
-
-		return REGISTRY.getId(serializer);
-	}
+	private static final IntIdentityHashBiMap<DataSerializer<?>> REGISTRY = new IntIdentityHashBiMap<DataSerializer<?>>(16);
 
 	static {
 		registerSerializer(BYTE);
@@ -360,5 +344,21 @@ public class DataSerializers {
 		registerSerializer(OPTIONAL_UNIQUE_ID);
 		registerSerializer(OPTIONAL_BLOCK_STATE);
 		registerSerializer(COMPOUND_TAG);
+	}
+
+	public static void registerSerializer(DataSerializer<?> serializer) {
+
+		REGISTRY.add(serializer);
+	}
+
+	@Nullable
+	public static DataSerializer<?> getSerializer(int id) {
+
+		return REGISTRY.get(id);
+	}
+
+	public static int getSerializerId(DataSerializer<?> serializer) {
+
+		return REGISTRY.getId(serializer);
 	}
 }

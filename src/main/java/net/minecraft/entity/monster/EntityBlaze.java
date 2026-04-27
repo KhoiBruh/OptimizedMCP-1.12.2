@@ -26,16 +26,15 @@ import javax.annotation.Nullable;
 
 public class EntityBlaze extends EntityMob {
 
+	private static final DataParameter<Byte> ON_FIRE = EntityDataManager.createKey(EntityBlaze.class, DataSerializers.BYTE);
 	/**
 	 * Random offset used in floating behaviour
 	 */
 	private float heightOffset = 0.5F;
-
 	/**
 	 * ticks until heightOffset is randomized
 	 */
 	private int heightOffsetUpdateTime;
-	private static final DataParameter<Byte> ON_FIRE = EntityDataManager.createKey(EntityBlaze.class, DataSerializers.BYTE);
 
 	public EntityBlaze(World worldIn) {
 

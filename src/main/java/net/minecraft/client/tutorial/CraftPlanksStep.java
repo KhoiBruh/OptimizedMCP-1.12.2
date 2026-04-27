@@ -24,6 +24,17 @@ public class CraftPlanksStep implements ITutorialStep {
 		this.tutorial = tutorial;
 	}
 
+	/**
+	 * Indicates if the players crafted at least one time planks.
+	 *
+	 * @param player The player
+	 */
+	public static boolean didPlayerCraftedPlanks(EntityPlayerSP player) {
+
+		StatBase statbase = StatList.getCraftStats(Item.getItemFromBlock(Blocks.PLANKS));
+		return statbase != null && player.getStatFileWriter().readStat(statbase) > 0;
+	}
+
 	public void update() {
 
 		++timeWaiting;
@@ -72,17 +83,6 @@ public class CraftPlanksStep implements ITutorialStep {
 		if (stack.getItem() == Item.getItemFromBlock(Blocks.PLANKS)) {
 			tutorial.setStep(TutorialSteps.NONE);
 		}
-	}
-
-	/**
-	 * Indicates if the players crafted at least one time planks.
-	 *
-	 * @param player The player
-	 */
-	public static boolean didPlayerCraftedPlanks(EntityPlayerSP player) {
-
-		StatBase statbase = StatList.getCraftStats(Item.getItemFromBlock(Blocks.PLANKS));
-		return statbase != null && player.getStatFileWriter().readStat(statbase) > 0;
 	}
 
 }

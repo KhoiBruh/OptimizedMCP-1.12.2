@@ -6,13 +6,13 @@ import net.minecraft.client.resources.I18n;
 
 public class GuiSlider extends GuiButton {
 
-	private float sliderPosition = 1.0F;
-	public boolean isMouseDown;
 	private final String name;
 	private final float min;
 	private final float max;
 	private final GuiPageButtonList.GuiResponder responder;
 	private final GuiSlider.FormatHelper formatHelper;
+	public boolean isMouseDown;
+	private float sliderPosition = 1.0F;
 
 	public GuiSlider(GuiPageButtonList.GuiResponder guiResponder, int idIn, int x, int y, String nameIn, float minIn, float maxIn, float defaultValue, GuiSlider.FormatHelper formatter) {
 
@@ -62,6 +62,17 @@ public class GuiSlider extends GuiButton {
 		return sliderPosition;
 	}
 
+	/**
+	 * Sets the position of the slider and notifies the associated {@linkplain GuiPageButtonList.GuiResponder responder}
+	 * of the change
+	 */
+	public void setSliderPosition(float position) {
+
+		sliderPosition = position;
+		displayString = getDisplayString();
+		responder.setEntryValue(id, getSliderValue());
+	}
+
 	private String getDisplayString() {
 
 		return formatHelper == null ? I18n.format(name) + ": " + getSliderValue() : formatHelper.getText(id, I18n.format(name), getSliderValue());
@@ -101,17 +112,6 @@ public class GuiSlider extends GuiButton {
 			drawTexturedModalRect(x + (int) (sliderPosition * (float) (width - 8)), y, 0, 66, 4, 20);
 			drawTexturedModalRect(x + (int) (sliderPosition * (float) (width - 8)) + 4, y, 196, 66, 4, 20);
 		}
-	}
-
-	/**
-	 * Sets the position of the slider and notifies the associated {@linkplain GuiPageButtonList.GuiResponder responder}
-	 * of the change
-	 */
-	public void setSliderPosition(float position) {
-
-		sliderPosition = position;
-		displayString = getDisplayString();
-		responder.setEntryValue(id, getSliderValue());
 	}
 
 	/**

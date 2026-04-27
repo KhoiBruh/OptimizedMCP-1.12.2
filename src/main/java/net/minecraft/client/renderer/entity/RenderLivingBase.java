@@ -25,6 +25,17 @@ public abstract class RenderLivingBase<T extends EntityLivingBase> extends Rende
 
 	private static final Logger LOGGER = LogManager.getLogger();
 	private static final DynamicTexture TEXTURE_BRIGHTNESS = new DynamicTexture(16, 16);
+
+	static {
+		int[] aint = TEXTURE_BRIGHTNESS.getTextureData();
+
+		for (int i = 0; i < 256; ++i) {
+			aint[i] = -1;
+		}
+
+		TEXTURE_BRIGHTNESS.updateDynamicTexture();
+	}
+
 	protected ModelBase mainModel;
 	protected FloatBuffer brightnessBuffer = GLAllocation.createDirectFloatBuffer(4);
 	protected List<LayerRenderer<T>> layerRenderers = Lists.newArrayList();
@@ -481,15 +492,5 @@ public abstract class RenderLivingBase<T extends EntityLivingBase> extends Rende
 		}
 
 		return Minecraft.isGuiEnabled() && entity != renderManager.renderViewEntity && flag && !entity.isBeingRidden();
-	}
-
-	static {
-		int[] aint = TEXTURE_BRIGHTNESS.getTextureData();
-
-		for (int i = 0; i < 256; ++i) {
-			aint[i] = -1;
-		}
-
-		TEXTURE_BRIGHTNESS.updateDynamicTexture();
 	}
 }

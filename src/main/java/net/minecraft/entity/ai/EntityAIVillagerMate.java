@@ -9,10 +9,10 @@ import net.minecraft.world.World;
 public class EntityAIVillagerMate extends EntityAIBase {
 
 	private final EntityVillager villager;
-	private EntityVillager mate;
 	private final World world;
-	private int matingTimeout;
 	Village village;
+	private EntityVillager mate;
+	private int matingTimeout;
 
 	public EntityAIVillagerMate(EntityVillager villagerIn) {
 

@@ -25,6 +25,21 @@ public class JsonException extends IOException {
 		message = messageIn;
 	}
 
+	public static JsonException forException(Exception exception) {
+
+		if (exception instanceof JsonException) {
+			return (JsonException) exception;
+		} else {
+			String s = exception.getMessage();
+
+			if (exception instanceof FileNotFoundException) {
+				s = "File not found";
+			}
+
+			return new JsonException(s, exception);
+		}
+	}
+
 	public void prependJsonKey(String key) {
 
 		entries.get(0).addJsonKey(key);
@@ -41,25 +56,10 @@ public class JsonException extends IOException {
 		return "Invalid " + entries.get(entries.size() - 1) + ": " + message;
 	}
 
-	public static JsonException forException(Exception exception) {
-
-		if (exception instanceof JsonException) {
-			return (JsonException) exception;
-		} else {
-			String s = exception.getMessage();
-
-			if (exception instanceof FileNotFoundException) {
-				s = "File not found";
-			}
-
-			return new JsonException(s, exception);
-		}
-	}
-
 	public static class Entry {
 
-		private String filename;
 		private final List<String> jsonKeys;
+		private String filename;
 
 		private Entry() {
 

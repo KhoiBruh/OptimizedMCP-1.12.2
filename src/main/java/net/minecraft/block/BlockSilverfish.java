@@ -1,7 +1,6 @@
 package net.minecraft.block;
 
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -28,18 +27,18 @@ public class BlockSilverfish extends Block {
 		setCreativeTab(CreativeTabs.DECORATIONS);
 	}
 
+	public static boolean canContainSilverfish(IBlockState blockState) {
+
+		Block block = blockState.getBlock();
+		return blockState == Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.STONE) || block == Blocks.COBBLESTONE || block == Blocks.STONEBRICK;
+	}
+
 	/**
 	 * Returns the quantity of items to drop on block destruction.
 	 */
 	public int quantityDropped(Random random) {
 
 		return 0;
-	}
-
-	public static boolean canContainSilverfish(IBlockState blockState) {
-
-		Block block = blockState.getBlock();
-		return blockState == Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.STONE) || block == Blocks.COBBLESTONE || block == Blocks.STONEBRICK;
 	}
 
 	protected ItemStack getSilkTouchDrop(IBlockState state) {
@@ -153,6 +152,13 @@ public class BlockSilverfish extends Block {
 		};
 
 		private static final BlockSilverfish.EnumType[] META_LOOKUP = new BlockSilverfish.EnumType[values().length];
+
+		static {
+			for (BlockSilverfish.EnumType blocksilverfish$enumtype : values()) {
+				META_LOOKUP[blocksilverfish$enumtype.getMetadata()] = blocksilverfish$enumtype;
+			}
+		}
+
 		private final int meta;
 		private final String name;
 		private final String unlocalizedName;
@@ -169,6 +175,26 @@ public class BlockSilverfish extends Block {
 			this.unlocalizedName = unlocalizedName;
 		}
 
+		public static BlockSilverfish.EnumType byMetadata(int meta) {
+
+			if (meta < 0 || meta >= META_LOOKUP.length) {
+				meta = 0;
+			}
+
+			return META_LOOKUP[meta];
+		}
+
+		public static BlockSilverfish.EnumType forModelBlock(IBlockState model) {
+
+			for (BlockSilverfish.EnumType blocksilverfish$enumtype : values()) {
+				if (model == blocksilverfish$enumtype.getModelBlock()) {
+					return blocksilverfish$enumtype;
+				}
+			}
+
+			return STONE;
+		}
+
 		public int getMetadata() {
 
 			return meta;
@@ -177,15 +203,6 @@ public class BlockSilverfish extends Block {
 		public String toString() {
 
 			return name;
-		}
-
-		public static BlockSilverfish.EnumType byMetadata(int meta) {
-
-			if (meta < 0 || meta >= META_LOOKUP.length) {
-				meta = 0;
-			}
-
-			return META_LOOKUP[meta];
 		}
 
 		public String getName() {
@@ -199,23 +216,6 @@ public class BlockSilverfish extends Block {
 		}
 
 		public abstract IBlockState getModelBlock();
-
-		public static BlockSilverfish.EnumType forModelBlock(IBlockState model) {
-
-			for (BlockSilverfish.EnumType blocksilverfish$enumtype : values()) {
-				if (model == blocksilverfish$enumtype.getModelBlock()) {
-					return blocksilverfish$enumtype;
-				}
-			}
-
-			return STONE;
-		}
-
-		static {
-			for (BlockSilverfish.EnumType blocksilverfish$enumtype : values()) {
-				META_LOOKUP[blocksilverfish$enumtype.getMetadata()] = blocksilverfish$enumtype;
-			}
-		}
 	}
 
 }

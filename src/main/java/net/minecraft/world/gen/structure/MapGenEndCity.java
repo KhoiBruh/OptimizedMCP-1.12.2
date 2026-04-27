@@ -19,6 +19,32 @@ public class MapGenEndCity extends MapGenStructure {
 		endProvider = p_i46665_1_;
 	}
 
+	private static int getYPosForStructure(int p_191070_0_, int p_191070_1_, ChunkGeneratorEnd p_191070_2_) {
+
+		Random random = new Random(p_191070_0_ + p_191070_1_ * 10387313L);
+		Rotation rotation = Rotation.values()[random.nextInt(Rotation.values().length)];
+		ChunkPrimer chunkprimer = new ChunkPrimer();
+		p_191070_2_.setBlocksInChunk(p_191070_0_, p_191070_1_, chunkprimer);
+		int i = 5;
+		int j = 5;
+
+		if (rotation == Rotation.CLOCKWISE_90) {
+			i = -5;
+		} else if (rotation == Rotation.CLOCKWISE_180) {
+			i = -5;
+			j = -5;
+		} else if (rotation == Rotation.COUNTERCLOCKWISE_90) {
+			j = -5;
+		}
+
+		int k = chunkprimer.findGroundBlockIdx(7, 7);
+		int l = chunkprimer.findGroundBlockIdx(7, 7 + j);
+		int i1 = chunkprimer.findGroundBlockIdx(7 + i, 7);
+		int j1 = chunkprimer.findGroundBlockIdx(7 + i, 7 + j);
+		int k1 = Math.min(Math.min(k, l), Math.min(i1, j1));
+		return k1;
+	}
+
 	public String getStructureName() {
 
 		return "EndCity";
@@ -62,32 +88,6 @@ public class MapGenEndCity extends MapGenStructure {
 
 		world = worldIn;
 		return findNearestStructurePosBySpacing(worldIn, this, pos, 20, 11, 10387313, true, 100, findUnexplored);
-	}
-
-	private static int getYPosForStructure(int p_191070_0_, int p_191070_1_, ChunkGeneratorEnd p_191070_2_) {
-
-		Random random = new Random(p_191070_0_ + p_191070_1_ * 10387313L);
-		Rotation rotation = Rotation.values()[random.nextInt(Rotation.values().length)];
-		ChunkPrimer chunkprimer = new ChunkPrimer();
-		p_191070_2_.setBlocksInChunk(p_191070_0_, p_191070_1_, chunkprimer);
-		int i = 5;
-		int j = 5;
-
-		if (rotation == Rotation.CLOCKWISE_90) {
-			i = -5;
-		} else if (rotation == Rotation.CLOCKWISE_180) {
-			i = -5;
-			j = -5;
-		} else if (rotation == Rotation.COUNTERCLOCKWISE_90) {
-			j = -5;
-		}
-
-		int k = chunkprimer.findGroundBlockIdx(7, 7);
-		int l = chunkprimer.findGroundBlockIdx(7, 7 + j);
-		int i1 = chunkprimer.findGroundBlockIdx(7 + i, 7);
-		int j1 = chunkprimer.findGroundBlockIdx(7 + i, 7 + j);
-		int k1 = Math.min(Math.min(k, l), Math.min(i1, j1));
-		return k1;
 	}
 
 	public static class Start extends StructureStart {

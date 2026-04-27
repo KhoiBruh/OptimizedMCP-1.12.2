@@ -32,29 +32,6 @@ public class EnchantmentPredicate {
 		this.levels = levels;
 	}
 
-	public boolean test(Map<Enchantment, Integer> enchantmentsIn) {
-
-		if (enchantment != null) {
-			if (!enchantmentsIn.containsKey(enchantment)) {
-				return false;
-			}
-
-			int i = enchantmentsIn.get(enchantment).intValue();
-
-			return levels == null || levels.test((float) i);
-		} else if (levels != null) {
-			for (Integer integer : enchantmentsIn.values()) {
-				if (levels.test((float) integer.intValue())) {
-					return true;
-				}
-			}
-
-			return false;
-		}
-
-		return true;
-	}
-
 	public static EnchantmentPredicate deserialize(@Nullable JsonElement element) {
 
 		if (element != null && !element.isJsonNull()) {
@@ -91,6 +68,29 @@ public class EnchantmentPredicate {
 		} else {
 			return new EnchantmentPredicate[0];
 		}
+	}
+
+	public boolean test(Map<Enchantment, Integer> enchantmentsIn) {
+
+		if (enchantment != null) {
+			if (!enchantmentsIn.containsKey(enchantment)) {
+				return false;
+			}
+
+			int i = enchantmentsIn.get(enchantment).intValue();
+
+			return levels == null || levels.test((float) i);
+		} else if (levels != null) {
+			for (Integer integer : enchantmentsIn.values()) {
+				if (levels.test((float) integer.intValue())) {
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		return true;
 	}
 
 }

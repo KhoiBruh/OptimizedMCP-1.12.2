@@ -65,31 +65,19 @@ public class Selector {
 
 	public static class Deserializer implements JsonDeserializer<Selector> {
 
-		private static final Function<JsonElement, ICondition> FUNCTION_OR_AND = new Function<JsonElement, ICondition>() {
-			@Nullable
-			public ICondition apply(@Nullable JsonElement p_apply_1_) {
-
-				return p_apply_1_ == null ? null : Selector.Deserializer.getOrAndCondition(p_apply_1_.getAsJsonObject());
-			}
-		};
 		private static final Function<Entry<String, JsonElement>, ICondition> FUNCTION_PROPERTY_VALUE = new Function<Entry<String, JsonElement>, ICondition>() {
 			@Nullable
 			public ICondition apply(@Nullable Entry<String, JsonElement> p_apply_1_) {
 
 				return p_apply_1_ == null ? null : Selector.Deserializer.makePropertyValue(p_apply_1_);
 			}
+		};		private static final Function<JsonElement, ICondition> FUNCTION_OR_AND = new Function<JsonElement, ICondition>() {
+			@Nullable
+			public ICondition apply(@Nullable JsonElement p_apply_1_) {
+
+				return p_apply_1_ == null ? null : Selector.Deserializer.getOrAndCondition(p_apply_1_.getAsJsonObject());
+			}
 		};
-
-		public Selector deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException {
-
-			JsonObject jsonobject = p_deserialize_1_.getAsJsonObject();
-			return new Selector(getWhenCondition(jsonobject), p_deserialize_3_.deserialize(jsonobject.get("apply"), VariantList.class));
-		}
-
-		private ICondition getWhenCondition(JsonObject json) {
-
-			return json.has("when") ? getOrAndCondition(JsonUtils.getJsonObject(json, "when")) : ICondition.TRUE;
-		}
 
 		@VisibleForTesting
 		static ICondition getOrAndCondition(JsonObject json) {
@@ -113,6 +101,19 @@ public class Selector {
 
 			return new ConditionPropertyValue(entry.getKey(), entry.getValue().getAsString());
 		}
+
+		public Selector deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException {
+
+			JsonObject jsonobject = p_deserialize_1_.getAsJsonObject();
+			return new Selector(getWhenCondition(jsonobject), p_deserialize_3_.deserialize(jsonobject.get("apply"), VariantList.class));
+		}
+
+		private ICondition getWhenCondition(JsonObject json) {
+
+			return json.has("when") ? getOrAndCondition(JsonUtils.getJsonObject(json, "when")) : ICondition.TRUE;
+		}
+
+
 
 	}
 

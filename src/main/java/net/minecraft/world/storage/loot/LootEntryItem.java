@@ -26,6 +26,20 @@ public class LootEntryItem extends LootEntry {
 		functions = functionsIn;
 	}
 
+	public static LootEntryItem deserialize(JsonObject object, JsonDeserializationContext deserializationContext, int weightIn, int qualityIn, LootCondition[] conditionsIn) {
+
+		Item item = JsonUtils.getItem(object, "name");
+		LootFunction[] alootfunction;
+
+		if (object.has("functions")) {
+			alootfunction = JsonUtils.deserializeClass(object, "functions", deserializationContext, LootFunction[].class);
+		} else {
+			alootfunction = new LootFunction[0];
+		}
+
+		return new LootEntryItem(item, weightIn, qualityIn, alootfunction, conditionsIn);
+	}
+
 	public void addLoot(Collection<ItemStack> stacks, Random rand, LootContext context) {
 
 		ItemStack itemstack = new ItemStack(item);
@@ -65,20 +79,6 @@ public class LootEntryItem extends LootEntry {
 		} else {
 			json.addProperty("name", resourcelocation.toString());
 		}
-	}
-
-	public static LootEntryItem deserialize(JsonObject object, JsonDeserializationContext deserializationContext, int weightIn, int qualityIn, LootCondition[] conditionsIn) {
-
-		Item item = JsonUtils.getItem(object, "name");
-		LootFunction[] alootfunction;
-
-		if (object.has("functions")) {
-			alootfunction = JsonUtils.deserializeClass(object, "functions", deserializationContext, LootFunction[].class);
-		} else {
-			alootfunction = new LootFunction[0];
-		}
-
-		return new LootEntryItem(item, weightIn, qualityIn, alootfunction, conditionsIn);
 	}
 
 }

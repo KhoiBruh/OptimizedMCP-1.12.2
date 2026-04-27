@@ -46,6 +46,12 @@ public class Enchantments {
 	public static final Enchantment MENDING = getRegisteredEnchantment("mending");
 	public static final Enchantment VANISHING_CURSE = getRegisteredEnchantment("vanishing_curse");
 
+	static {
+		if (!Bootstrap.isRegistered()) {
+			throw new RuntimeException("Accessed Enchantments before Bootstrap!");
+		}
+	}
+
 	@Nullable
 	private static Enchantment getRegisteredEnchantment(String id) {
 
@@ -55,12 +61,6 @@ public class Enchantments {
 			throw new IllegalStateException("Invalid Enchantment requested: " + id);
 		} else {
 			return enchantment;
-		}
-	}
-
-	static {
-		if (!Bootstrap.isRegistered()) {
-			throw new RuntimeException("Accessed Enchantments before Bootstrap!");
 		}
 	}
 }

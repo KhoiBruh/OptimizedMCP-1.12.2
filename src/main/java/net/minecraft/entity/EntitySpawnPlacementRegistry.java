@@ -12,11 +12,6 @@ public class EntitySpawnPlacementRegistry {
 
 	private static final Map<Class<?>, EntityLiving.SpawnPlacementType> ENTITY_PLACEMENTS = Maps.newHashMap();
 
-	public static EntityLiving.SpawnPlacementType getPlacementForEntity(Class<?> entityClass) {
-
-		return ENTITY_PLACEMENTS.get(entityClass);
-	}
-
 	static {
 		ENTITY_PLACEMENTS.put(EntityBat.class, EntityLiving.SpawnPlacementType.ON_GROUND);
 		ENTITY_PLACEMENTS.put(EntityChicken.class, EntityLiving.SpawnPlacementType.ON_GROUND);
@@ -59,5 +54,10 @@ public class EntitySpawnPlacementRegistry {
 		ENTITY_PLACEMENTS.put(EntityZombie.class, EntityLiving.SpawnPlacementType.ON_GROUND);
 		ENTITY_PLACEMENTS.put(EntityZombieVillager.class, EntityLiving.SpawnPlacementType.ON_GROUND);
 		ENTITY_PLACEMENTS.put(EntityHusk.class, EntityLiving.SpawnPlacementType.ON_GROUND);
+	}
+
+	public static EntityLiving.SpawnPlacementType getPlacementForEntity(Class<?> entityClass) {
+
+		return ENTITY_PLACEMENTS.get(entityClass);
 	}
 }

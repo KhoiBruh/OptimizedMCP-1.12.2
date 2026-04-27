@@ -1,7 +1,6 @@
 package net.minecraft.client.renderer;
 
 import net.minecraft.block.*;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.FontRenderer;
@@ -43,14 +42,13 @@ public class RenderItem implements IResourceManagerReloadListener {
 	 * False when the renderer is rendering the item's effects into a GUI
 	 */
 	private final boolean notRenderingEffectsInGUI = true;
-
+	private final ItemModelMesher itemModelMesher;
+	private final TextureManager textureManager;
+	private final ItemColors itemColors;
 	/**
 	 * Defines the zLevel of rendering of item on GUI.
 	 */
 	public float zLevel;
-	private final ItemModelMesher itemModelMesher;
-	private final TextureManager textureManager;
-	private final ItemColors itemColors;
 
 	public RenderItem(TextureManager p_i46552_1_, ModelManager p_i46552_2_, ItemColors p_i46552_3_) {
 

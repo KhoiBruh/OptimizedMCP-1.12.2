@@ -22,48 +22,39 @@ import javax.annotation.Nullable;
 
 public class TileEntityChest extends TileEntityLockableLoot implements ITickable {
 
-	private NonNullList<ItemStack> chestContents = NonNullList.withSize(27, ItemStack.EMPTY);
-
 	/**
 	 * Determines if the check for adjacent chests has taken place.
 	 */
 	public boolean adjacentChestChecked;
-
 	/**
 	 * Contains the chest tile located adjacent to this one (if any)
 	 */
 	public TileEntityChest adjacentChestZNeg;
-
 	/**
 	 * Contains the chest tile located adjacent to this one (if any)
 	 */
 	public TileEntityChest adjacentChestXPos;
-
 	/**
 	 * Contains the chest tile located adjacent to this one (if any)
 	 */
 	public TileEntityChest adjacentChestXNeg;
-
 	/**
 	 * Contains the chest tile located adjacent to this one (if any)
 	 */
 	public TileEntityChest adjacentChestZPos;
-
 	/**
 	 * The current angle of the lid (between 0 and 1)
 	 */
 	public float lidAngle;
-
 	/**
 	 * The angle of the lid last tick
 	 */
 	public float prevLidAngle;
-
 	/**
 	 * The number of players currently using this chest
 	 */
 	public int numPlayersUsing;
-
+	private NonNullList<ItemStack> chestContents = NonNullList.withSize(27, ItemStack.EMPTY);
 	/**
 	 * Server sync counter (once per 20 ticks)
 	 */
@@ -77,6 +68,11 @@ public class TileEntityChest extends TileEntityLockableLoot implements ITickable
 	public TileEntityChest(BlockChest.Type typeIn) {
 
 		cachedChestType = typeIn;
+	}
+
+	public static void registerFixesChest(DataFixer fixer) {
+
+		fixer.registerWalker(FixTypes.BLOCK_ENTITY, new ItemStackDataLists(TileEntityChest.class, "Items"));
 	}
 
 	/**
@@ -104,11 +100,6 @@ public class TileEntityChest extends TileEntityLockableLoot implements ITickable
 	public String getName() {
 
 		return hasCustomName() ? customName : "container.chest";
-	}
-
-	public static void registerFixesChest(DataFixer fixer) {
-
-		fixer.registerWalker(FixTypes.BLOCK_ENTITY, new ItemStackDataLists(TileEntityChest.class, "Items"));
 	}
 
 	public void readFromNBT(NBTTagCompound compound) {

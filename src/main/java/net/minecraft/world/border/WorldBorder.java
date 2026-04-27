@@ -196,14 +196,14 @@ public class WorldBorder {
 		listeners.add(listener);
 	}
 
-	public void setSize(int size) {
-
-		worldSize = size;
-	}
-
 	public int getSize() {
 
 		return worldSize;
+	}
+
+	public void setSize(int size) {
+
+		worldSize = size;
 	}
 
 	public double getDamageBuffer() {

@@ -57,6 +57,13 @@ public record ClickEvent(Action action, String value) {
 		CHANGE_PAGE("change_page", true);
 
 		private static final Map<String, Action> NAME_MAPPING = Maps.newHashMap();
+
+		static {
+			for (Action clickevent$action : values()) {
+				NAME_MAPPING.put(clickevent$action.getCanonicalName(), clickevent$action);
+			}
+		}
+
 		private final boolean allowedInChat;
 		private final String canonicalName;
 
@@ -64,6 +71,11 @@ public record ClickEvent(Action action, String value) {
 
 			canonicalName = canonicalNameIn;
 			allowedInChat = allowedInChatIn;
+		}
+
+		public static Action getValueByCanonicalName(String canonicalNameIn) {
+
+			return NAME_MAPPING.get(canonicalNameIn);
 		}
 
 		public boolean shouldAllowInChat() {
@@ -74,17 +86,6 @@ public record ClickEvent(Action action, String value) {
 		public String getCanonicalName() {
 
 			return canonicalName;
-		}
-
-		public static Action getValueByCanonicalName(String canonicalNameIn) {
-
-			return NAME_MAPPING.get(canonicalNameIn);
-		}
-
-		static {
-			for (Action clickevent$action : values()) {
-				NAME_MAPPING.put(clickevent$action.getCanonicalName(), clickevent$action);
-			}
 		}
 	}
 

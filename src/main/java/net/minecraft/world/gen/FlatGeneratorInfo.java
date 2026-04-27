@@ -19,95 +19,6 @@ public class FlatGeneratorInfo {
 	private final Map<String, Map<String, String>> worldFeatures = Maps.newHashMap();
 	private int biomeToUse;
 
-	/**
-	 * Return the biome used on this preset.
-	 */
-	public int getBiome() {
-
-		return biomeToUse;
-	}
-
-	/**
-	 * Set the biome used on this preset.
-	 */
-	public void setBiome(int biome) {
-
-		biomeToUse = biome;
-	}
-
-	public Map<String, Map<String, String>> getWorldFeatures() {
-
-		return worldFeatures;
-	}
-
-	public List<FlatLayerInfo> getFlatLayers() {
-
-		return flatLayers;
-	}
-
-	public void updateLayers() {
-
-		int i = 0;
-
-		for (FlatLayerInfo flatlayerinfo : flatLayers) {
-			flatlayerinfo.setMinY(i);
-			i += flatlayerinfo.getLayerCount();
-		}
-	}
-
-	public String toString() {
-
-		StringBuilder stringbuilder = new StringBuilder();
-		stringbuilder.append(3);
-		stringbuilder.append(";");
-
-		for (int i = 0; i < flatLayers.size(); ++i) {
-			if (i > 0) {
-				stringbuilder.append(",");
-			}
-
-			stringbuilder.append(flatLayers.get(i));
-		}
-
-		stringbuilder.append(";");
-		stringbuilder.append(biomeToUse);
-
-		if (worldFeatures.isEmpty()) {
-			stringbuilder.append(";");
-		} else {
-			stringbuilder.append(";");
-			int k = 0;
-
-			for (Entry<String, Map<String, String>> entry : worldFeatures.entrySet()) {
-				if (k++ > 0) {
-					stringbuilder.append(",");
-				}
-
-				stringbuilder.append(entry.getKey().toLowerCase(Locale.ROOT));
-				Map<String, String> map = entry.getValue();
-
-				if (!map.isEmpty()) {
-					stringbuilder.append("(");
-					int j = 0;
-
-					for (Entry<String, String> entry1 : map.entrySet()) {
-						if (j++ > 0) {
-							stringbuilder.append(" ");
-						}
-
-						stringbuilder.append(entry1.getKey());
-						stringbuilder.append("=");
-						stringbuilder.append(entry1.getValue());
-					}
-
-					stringbuilder.append(")");
-				}
-			}
-		}
-
-		return stringbuilder.toString();
-	}
-
 	private static FlatLayerInfo getLayerFromString(int p_180715_0_, String p_180715_1_, int p_180715_2_) {
 
 		String[] astring = p_180715_0_ >= 3 ? p_180715_1_.split("\\*", 2) : p_180715_1_.split("x", 2);
@@ -273,6 +184,95 @@ public class FlatGeneratorInfo {
 		flatgeneratorinfo.updateLayers();
 		flatgeneratorinfo.getWorldFeatures().put("village", Maps.newHashMap());
 		return flatgeneratorinfo;
+	}
+
+	/**
+	 * Return the biome used on this preset.
+	 */
+	public int getBiome() {
+
+		return biomeToUse;
+	}
+
+	/**
+	 * Set the biome used on this preset.
+	 */
+	public void setBiome(int biome) {
+
+		biomeToUse = biome;
+	}
+
+	public Map<String, Map<String, String>> getWorldFeatures() {
+
+		return worldFeatures;
+	}
+
+	public List<FlatLayerInfo> getFlatLayers() {
+
+		return flatLayers;
+	}
+
+	public void updateLayers() {
+
+		int i = 0;
+
+		for (FlatLayerInfo flatlayerinfo : flatLayers) {
+			flatlayerinfo.setMinY(i);
+			i += flatlayerinfo.getLayerCount();
+		}
+	}
+
+	public String toString() {
+
+		StringBuilder stringbuilder = new StringBuilder();
+		stringbuilder.append(3);
+		stringbuilder.append(";");
+
+		for (int i = 0; i < flatLayers.size(); ++i) {
+			if (i > 0) {
+				stringbuilder.append(",");
+			}
+
+			stringbuilder.append(flatLayers.get(i));
+		}
+
+		stringbuilder.append(";");
+		stringbuilder.append(biomeToUse);
+
+		if (worldFeatures.isEmpty()) {
+			stringbuilder.append(";");
+		} else {
+			stringbuilder.append(";");
+			int k = 0;
+
+			for (Entry<String, Map<String, String>> entry : worldFeatures.entrySet()) {
+				if (k++ > 0) {
+					stringbuilder.append(",");
+				}
+
+				stringbuilder.append(entry.getKey().toLowerCase(Locale.ROOT));
+				Map<String, String> map = entry.getValue();
+
+				if (!map.isEmpty()) {
+					stringbuilder.append("(");
+					int j = 0;
+
+					for (Entry<String, String> entry1 : map.entrySet()) {
+						if (j++ > 0) {
+							stringbuilder.append(" ");
+						}
+
+						stringbuilder.append(entry1.getKey());
+						stringbuilder.append("=");
+						stringbuilder.append(entry1.getValue());
+					}
+
+					stringbuilder.append(")");
+				}
+			}
+		}
+
+		return stringbuilder.toString();
 	}
 
 }

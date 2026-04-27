@@ -17,13 +17,13 @@ import net.minecraft.world.World;
 public class EntityAIFollowOwner extends EntityAIBase {
 
 	private final EntityTameable tameable;
-	private EntityLivingBase owner;
-	World world;
 	private final double followSpeed;
 	private final PathNavigate petPathfinder;
-	private int timeToRecalcPath;
+	World world;
 	float maxDist;
 	float minDist;
+	private EntityLivingBase owner;
+	private int timeToRecalcPath;
 	private float oldWaterCost;
 
 	public EntityAIFollowOwner(EntityTameable tameableIn, double followSpeedIn, float minDistIn, float maxDistIn) {

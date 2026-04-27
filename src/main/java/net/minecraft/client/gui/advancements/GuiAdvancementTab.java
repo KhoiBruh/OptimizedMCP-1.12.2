@@ -50,6 +50,24 @@ public class GuiAdvancementTab extends Gui {
 		addGuiAdvancement(root, p_i47589_5_);
 	}
 
+	@Nullable
+	public static GuiAdvancementTab create(Minecraft p_193936_0_, GuiScreenAdvancements p_193936_1_, int p_193936_2_, Advancement p_193936_3_) {
+
+		if (p_193936_3_.getDisplay() == null) {
+			return null;
+		} else {
+			for (AdvancementTabType advancementtabtype : AdvancementTabType.values()) {
+				if (p_193936_2_ < advancementtabtype.getMax()) {
+					return new GuiAdvancementTab(p_193936_0_, p_193936_1_, advancementtabtype, p_193936_2_, p_193936_3_, p_193936_3_.getDisplay());
+				}
+
+				p_193936_2_ -= advancementtabtype.getMax();
+			}
+
+			return null;
+		}
+	}
+
 	public Advancement getAdvancement() {
 
 		return advancement;
@@ -133,24 +151,6 @@ public class GuiAdvancementTab extends Gui {
 	public boolean isMouseOver(int p_191793_1_, int p_191793_2_, int p_191793_3_, int p_191793_4_) {
 
 		return type.isMouseOver(p_191793_1_, p_191793_2_, index, p_191793_3_, p_191793_4_);
-	}
-
-	@Nullable
-	public static GuiAdvancementTab create(Minecraft p_193936_0_, GuiScreenAdvancements p_193936_1_, int p_193936_2_, Advancement p_193936_3_) {
-
-		if (p_193936_3_.getDisplay() == null) {
-			return null;
-		} else {
-			for (AdvancementTabType advancementtabtype : AdvancementTabType.values()) {
-				if (p_193936_2_ < advancementtabtype.getMax()) {
-					return new GuiAdvancementTab(p_193936_0_, p_193936_1_, advancementtabtype, p_193936_2_, p_193936_3_, p_193936_3_.getDisplay());
-				}
-
-				p_193936_2_ -= advancementtabtype.getMax();
-			}
-
-			return null;
-		}
 	}
 
 	public void scroll(int p_191797_1_, int p_191797_2_) {

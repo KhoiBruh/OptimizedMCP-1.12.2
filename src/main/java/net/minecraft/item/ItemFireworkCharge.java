@@ -24,20 +24,6 @@ public class ItemFireworkCharge extends Item {
 		return null;
 	}
 
-	/**
-	 * allows items to add custom lines of information to the mouseover description
-	 */
-	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-
-		if (stack.hasTagCompound()) {
-			NBTTagCompound nbttagcompound = stack.getTagCompound().getCompoundTag("Explosion");
-
-			if (nbttagcompound != null) {
-				addExplosionInfo(nbttagcompound, tooltip);
-			}
-		}
-	}
-
 	public static void addExplosionInfo(NBTTagCompound nbt, List<String> tooltip) {
 
 		byte b0 = nbt.getByte("Type");
@@ -118,6 +104,20 @@ public class ItemFireworkCharge extends Item {
 
 		if (flag4) {
 			tooltip.add(I18n.translateToLocal("item.fireworksCharge.flicker"));
+		}
+	}
+
+	/**
+	 * allows items to add custom lines of information to the mouseover description
+	 */
+	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+
+		if (stack.hasTagCompound()) {
+			NBTTagCompound nbttagcompound = stack.getTagCompound().getCompoundTag("Explosion");
+
+			if (nbttagcompound != null) {
+				addExplosionInfo(nbttagcompound, tooltip);
+			}
 		}
 	}
 

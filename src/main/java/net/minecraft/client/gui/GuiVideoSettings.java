@@ -8,15 +8,14 @@ import java.io.IOException;
 
 public class GuiVideoSettings extends GuiScreen {
 
-	private final GuiScreen parentGuiScreen;
-	protected String screenTitle = "Video Settings";
-	private final GameSettings guiGameSettings;
-	private GuiListExtended optionsRowList;
-
 	/**
 	 * An array of all of GameSettings.Options's video options.
 	 */
 	private static final GameSettings.Options[] VIDEO_OPTIONS = new GameSettings.Options[]{GameSettings.Options.GRAPHICS, GameSettings.Options.RENDER_DISTANCE, GameSettings.Options.AMBIENT_OCCLUSION, GameSettings.Options.FRAMERATE_LIMIT, GameSettings.Options.ANAGLYPH, GameSettings.Options.VIEW_BOBBING, GameSettings.Options.GUI_SCALE, GameSettings.Options.ATTACK_INDICATOR, GameSettings.Options.GAMMA, GameSettings.Options.RENDER_CLOUDS, GameSettings.Options.PARTICLES, GameSettings.Options.USE_FULLSCREEN, GameSettings.Options.ENABLE_VSYNC, GameSettings.Options.MIPMAP_LEVELS, GameSettings.Options.USE_VBO, GameSettings.Options.ENTITY_SHADOWS};
+	private final GuiScreen parentGuiScreen;
+	private final GameSettings guiGameSettings;
+	protected String screenTitle = "Video Settings";
+	private GuiListExtended optionsRowList;
 
 	public GuiVideoSettings(GuiScreen parentScreenIn, GameSettings gameSettingsIn) {
 

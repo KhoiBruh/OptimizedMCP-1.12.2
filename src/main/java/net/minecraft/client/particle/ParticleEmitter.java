@@ -8,9 +8,9 @@ import net.minecraft.world.World;
 public class ParticleEmitter extends Particle {
 
 	private final Entity attachedEntity;
-	private int age;
 	private final int lifetime;
 	private final EnumParticleTypes particleTypes;
+	private int age;
 
 	public ParticleEmitter(World worldIn, Entity p_i46279_2_, EnumParticleTypes particleTypesIn) {
 

@@ -7,11 +7,11 @@ import net.minecraft.util.math.MathHelper;
 
 public class GuiOptionSlider extends GuiButton {
 
-	private float sliderValue;
-	public boolean dragging;
 	private final GameSettings.Options options;
 	private final float minValue;
 	private final float maxValue;
+	public boolean dragging;
+	private float sliderValue;
 
 	public GuiOptionSlider(int buttonId, int x, int y, GameSettings.Options optionIn) {
 

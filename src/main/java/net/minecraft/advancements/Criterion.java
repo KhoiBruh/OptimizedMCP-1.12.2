@@ -20,10 +20,6 @@ public record Criterion(ICriterionInstance criterionInstance) {
 		this(null);
 	}
 
-	public void serializeToNetwork(PacketBuffer p_192140_1_) {
-
-	}
-
 	/**
 	 * Deserialize a <em>single</em> {@code Criterion} from {@code json}. The {@link ICriterionTrigger} is chosen by the
 	 * {@code "trigger"} property of the object, which can then handle the optional {@code "conditions"} in the object.
@@ -92,6 +88,10 @@ public record Criterion(ICriterionInstance criterionInstance) {
 			buf.writeString(entry.getKey());
 			entry.getValue().serializeToNetwork(buf);
 		}
+	}
+
+	public void serializeToNetwork(PacketBuffer p_192140_1_) {
+
 	}
 
 	@Override

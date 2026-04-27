@@ -12,10 +12,10 @@ public class ViewFrustum {
 
 	protected final RenderGlobal renderGlobal;
 	protected final World world;
+	public RenderChunk[] renderChunks;
 	protected int countChunksY;
 	protected int countChunksX;
 	protected int countChunksZ;
-	public RenderChunk[] renderChunks;
 
 	public ViewFrustum(World worldIn, int renderDistanceChunks, RenderGlobal renderGlobalIn, IRenderChunkFactory renderChunkFactory) {
 

@@ -12,18 +12,16 @@ import javax.annotation.Nullable;
 public class ContainerPlayer extends Container {
 
 	private static final EntityEquipmentSlot[] VALID_EQUIPMENT_SLOTS = new EntityEquipmentSlot[]{EntityEquipmentSlot.HEAD, EntityEquipmentSlot.CHEST, EntityEquipmentSlot.LEGS, EntityEquipmentSlot.FEET};
-
+	private final EntityPlayer player;
 	/**
 	 * The crafting matrix inventory.
 	 */
 	public InventoryCrafting craftMatrix = new InventoryCrafting(this, 2, 2);
 	public InventoryCraftResult craftResult = new InventoryCraftResult();
-
 	/**
 	 * Determines if inventory manipulation should be handled.
 	 */
 	public boolean isLocalWorld;
-	private final EntityPlayer player;
 
 	public ContainerPlayer(InventoryPlayer playerInventory, boolean localWorld, EntityPlayer playerIn) {
 

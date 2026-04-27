@@ -1,7 +1,6 @@
 package net.minecraft.block;
 
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockFaceShape;
@@ -53,6 +52,13 @@ public class BlockPistonExtension extends BlockDirectional {
 		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(TYPE, BlockPistonExtension.EnumPistonType.DEFAULT).withProperty(SHORT, Boolean.valueOf(false)));
 		setSoundType(SoundType.STONE);
 		setHardness(0.5F);
+	}
+
+	@Nullable
+	public static EnumFacing getFacing(int meta) {
+
+		int i = meta & 7;
+		return i > 5 ? null : EnumFacing.getFront(i);
 	}
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
@@ -211,13 +217,6 @@ public class BlockPistonExtension extends BlockDirectional {
 	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
 
 		return true;
-	}
-
-	@Nullable
-	public static EnumFacing getFacing(int meta) {
-
-		int i = meta & 7;
-		return i > 5 ? null : EnumFacing.getFront(i);
 	}
 
 	public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {

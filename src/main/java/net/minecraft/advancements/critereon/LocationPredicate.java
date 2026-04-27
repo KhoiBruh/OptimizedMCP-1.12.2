@@ -15,12 +15,12 @@ import javax.annotation.Nullable;
 public class LocationPredicate {
 
 	public static LocationPredicate ANY = new LocationPredicate(MinMaxBounds.UNBOUNDED, MinMaxBounds.UNBOUNDED, MinMaxBounds.UNBOUNDED, null, null, null);
-	private final MinMaxBounds x;
-	private final MinMaxBounds y;
-	private final MinMaxBounds z;
 
 	@Nullable
 	final Biome biome;
+	private final MinMaxBounds x;
+	private final MinMaxBounds y;
+	private final MinMaxBounds z;
 
 	@Nullable
 	private final String feature;
@@ -36,32 +36,6 @@ public class LocationPredicate {
 		this.biome = biome;
 		this.feature = feature;
 		this.dimension = dimension;
-	}
-
-	public boolean test(WorldServer world, double x, double y, double z) {
-
-		return test(world, (float) x, (float) y, (float) z);
-	}
-
-	public boolean test(WorldServer world, float x, float y, float z) {
-
-		if (!this.x.test(x)) {
-			return false;
-		} else if (!this.y.test(y)) {
-			return false;
-		} else if (!this.z.test(z)) {
-			return false;
-		} else if (dimension != null && dimension != world.provider.getDimensionType()) {
-			return false;
-		} else {
-			BlockPos blockpos = new BlockPos(x, y, z);
-
-			if (biome != null && biome != world.getBiome(blockpos)) {
-				return false;
-			} else {
-				return feature == null || world.getChunkProvider().isInsideStructure(world, feature, blockpos);
-			}
-		}
 	}
 
 	public static LocationPredicate deserialize(@Nullable JsonElement element) {
@@ -88,6 +62,32 @@ public class LocationPredicate {
 			return new LocationPredicate(minmaxbounds, minmaxbounds1, minmaxbounds2, biome, s, dimensiontype);
 		} else {
 			return ANY;
+		}
+	}
+
+	public boolean test(WorldServer world, double x, double y, double z) {
+
+		return test(world, (float) x, (float) y, (float) z);
+	}
+
+	public boolean test(WorldServer world, float x, float y, float z) {
+
+		if (!this.x.test(x)) {
+			return false;
+		} else if (!this.y.test(y)) {
+			return false;
+		} else if (!this.z.test(z)) {
+			return false;
+		} else if (dimension != null && dimension != world.provider.getDimensionType()) {
+			return false;
+		} else {
+			BlockPos blockpos = new BlockPos(x, y, z);
+
+			if (biome != null && biome != world.getBiome(blockpos)) {
+				return false;
+			} else {
+				return feature == null || world.getChunkProvider().isInsideStructure(world, feature, blockpos);
+			}
 		}
 	}
 

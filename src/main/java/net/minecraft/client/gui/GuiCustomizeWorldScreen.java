@@ -19,6 +19,18 @@ import java.util.Random;
 public class GuiCustomizeWorldScreen extends GuiScreen implements GuiSlider.FormatHelper, GuiPageButtonList.GuiResponder {
 
 	private final GuiCreateWorld parent;
+	private final Predicate<String> numberFilter = new Predicate<String>() {
+		public boolean apply(@Nullable String p_apply_1_) {
+
+			Float f = Floats.tryParse(p_apply_1_);
+			return p_apply_1_.isEmpty() || f != null && Floats.isFinite(f.floatValue()) && f.floatValue() >= 0.0F;
+		}
+	};
+	private final ChunkGeneratorSettings.Factory defaultSettings = new ChunkGeneratorSettings.Factory();
+	/**
+	 * A Random instance for this world customization
+	 */
+	private final Random random = new Random();
 	protected String title = "Customize World Settings";
 	protected String subtitle = "Page 1 of 3";
 	protected String pageTitle = "Basic Settings";
@@ -35,20 +47,7 @@ public class GuiCustomizeWorldScreen extends GuiScreen implements GuiSlider.Form
 	private boolean settingsModified;
 	private int confirmMode;
 	private boolean confirmDismissed;
-	private final Predicate<String> numberFilter = new Predicate<String>() {
-		public boolean apply(@Nullable String p_apply_1_) {
-
-			Float f = Floats.tryParse(p_apply_1_);
-			return p_apply_1_.isEmpty() || f != null && Floats.isFinite(f.floatValue()) && f.floatValue() >= 0.0F;
-		}
-	};
-	private final ChunkGeneratorSettings.Factory defaultSettings = new ChunkGeneratorSettings.Factory();
 	private ChunkGeneratorSettings.Factory settings;
-
-	/**
-	 * A Random instance for this world customization
-	 */
-	private final Random random = new Random();
 
 	public GuiCustomizeWorldScreen(GuiScreen parentIn, String p_i45521_2_) {
 

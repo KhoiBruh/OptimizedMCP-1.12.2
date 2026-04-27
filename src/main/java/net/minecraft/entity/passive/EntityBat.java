@@ -4,7 +4,6 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
@@ -36,6 +35,11 @@ public class EntityBat extends EntityAmbientCreature {
 		super(worldIn);
 		setSize(0.5F, 0.9F);
 		setIsBatHanging(true);
+	}
+
+	public static void registerFixesBat(DataFixer fixer) {
+
+		EntityLiving.registerFixesMob(fixer, EntityBat.class);
 	}
 
 	protected void entityInit() {
@@ -216,11 +220,6 @@ public class EntityBat extends EntityAmbientCreature {
 
 			return super.attackEntityFrom(source, amount);
 		}
-	}
-
-	public static void registerFixesBat(DataFixer fixer) {
-
-		EntityLiving.registerFixesMob(fixer, EntityBat.class);
 	}
 
 	/**

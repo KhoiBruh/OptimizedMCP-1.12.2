@@ -16,14 +16,6 @@ public class ItemWritableBook extends Item {
 		setMaxStackSize(1);
 	}
 
-	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
-
-		ItemStack itemstack = playerIn.getHeldItem(handIn);
-		playerIn.openBook(itemstack, handIn);
-		playerIn.addStat(StatList.getObjectUseStats(this));
-		return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemstack);
-	}
-
 	/**
 	 * this method returns true if the book's NBT Tag List "pages" is valid
 	 */
@@ -46,6 +38,14 @@ public class ItemWritableBook extends Item {
 
 			return true;
 		}
+	}
+
+	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
+
+		ItemStack itemstack = playerIn.getHeldItem(handIn);
+		playerIn.openBook(itemstack, handIn);
+		playerIn.addStat(StatList.getObjectUseStats(this));
+		return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemstack);
 	}
 
 }

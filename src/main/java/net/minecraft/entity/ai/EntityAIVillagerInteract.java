@@ -10,11 +10,11 @@ import net.minecraft.util.math.MathHelper;
 
 public class EntityAIVillagerInteract extends EntityAIWatchClosest2 {
 
+	private final EntityVillager villager;
 	/**
 	 * The delay before the villager throws an itemstack (in ticks)
 	 */
 	private int interactionDelay;
-	private final EntityVillager villager;
 
 	public EntityAIVillagerInteract(EntityVillager villagerIn) {
 

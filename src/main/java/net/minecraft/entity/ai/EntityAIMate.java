@@ -17,17 +17,15 @@ public class EntityAIMate extends EntityAIBase {
 	private final EntityAnimal animal;
 	private final Class<? extends EntityAnimal> mateClass;
 	World world;
-	private EntityAnimal targetMate;
-
 	/**
 	 * Delay preventing a baby from spawning immediately when two mate-able animals find each other.
 	 */
 	int spawnBabyDelay;
-
 	/**
 	 * The speed the creature moves at during mating behavior.
 	 */
 	double moveSpeed;
+	private EntityAnimal targetMate;
 
 	public EntityAIMate(EntityAnimal animal, double speedIn) {
 

@@ -43,13 +43,11 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 	private static final DataParameter<Integer> DISPLAY_TILE = EntityDataManager.createKey(EntityMinecart.class, DataSerializers.VARINT);
 	private static final DataParameter<Integer> DISPLAY_TILE_OFFSET = EntityDataManager.createKey(EntityMinecart.class, DataSerializers.VARINT);
 	private static final DataParameter<Boolean> SHOW_BLOCK = EntityDataManager.createKey(EntityMinecart.class, DataSerializers.BOOLEAN);
-	private boolean isInReverse;
-
 	/**
 	 * Minecart rotational logic matrix
 	 */
 	private static final int[][][] MATRIX = new int[][][]{{{0, 0, -1}, {0, 0, 1}}, {{-1, 0, 0}, {1, 0, 0}}, {{-1, -1, 0}, {1, 0, 0}}, {{-1, 0, 0}, {1, -1, 0}}, {{0, 0, -1}, {0, -1, 1}}, {{0, -1, -1}, {0, 0, 1}}, {{0, 0, 1}, {1, 0, 0}}, {{0, 0, 1}, {-1, 0, 0}}, {{0, 0, -1}, {-1, 0, 0}}, {{0, 0, -1}, {1, 0, 0}}};
-
+	private boolean isInReverse;
 	/**
 	 * appears to be the progress of the turn
 	 */
@@ -68,6 +66,18 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 		super(worldIn);
 		preventEntitySpawning = true;
 		setSize(0.98F, 0.7F);
+	}
+
+	public EntityMinecart(World worldIn, double x, double y, double z) {
+
+		this(worldIn);
+		setPosition(x, y, z);
+		motionX = 0.0D;
+		motionY = 0.0D;
+		motionZ = 0.0D;
+		prevPosX = x;
+		prevPosY = y;
+		prevPosZ = z;
 	}
 
 	public static EntityMinecart create(World worldIn, double x, double y, double z, EntityMinecart.Type typeIn) {
@@ -94,6 +104,10 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 			default:
 				return new EntityMinecartEmpty(worldIn, x, y, z);
 		}
+	}
+
+	public static void registerFixesMinecart(DataFixer fixer, Class<?> name) {
+
 	}
 
 	/**
@@ -147,18 +161,6 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 	public boolean canBePushed() {
 
 		return true;
-	}
-
-	public EntityMinecart(World worldIn, double x, double y, double z) {
-
-		this(worldIn);
-		setPosition(x, y, z);
-		motionX = 0.0D;
-		motionY = 0.0D;
-		motionZ = 0.0D;
-		prevPosX = x;
-		prevPosY = y;
-		prevPosZ = z;
 	}
 
 	/**
@@ -744,10 +746,6 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 		return hasDisplayTile() ? axisalignedbb.grow((double) Math.abs(getDisplayTileOffset()) / 16.0D) : axisalignedbb;
 	}
 
-	public static void registerFixesMinecart(DataFixer fixer, Class<?> name) {
-
-	}
-
 	/**
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
@@ -890,15 +888,6 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 	}
 
 	/**
-	 * Sets the current amount of damage the minecart has taken. Decreases over time. The cart breaks when this is over
-	 * 40.
-	 */
-	public void setDamage(float damage) {
-
-		dataManager.set(DAMAGE, Float.valueOf(damage));
-	}
-
-	/**
 	 * Gets the current amount of damage the minecart has taken. Decreases over time. The cart breaks when this is over
 	 * 40.
 	 */
@@ -908,11 +897,12 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 	}
 
 	/**
-	 * Sets the rolling amplitude the cart rolls while being attacked.
+	 * Sets the current amount of damage the minecart has taken. Decreases over time. The cart breaks when this is over
+	 * 40.
 	 */
-	public void setRollingAmplitude(int rollingAmplitude) {
+	public void setDamage(float damage) {
 
-		dataManager.set(ROLLING_AMPLITUDE, Integer.valueOf(rollingAmplitude));
+		dataManager.set(DAMAGE, Float.valueOf(damage));
 	}
 
 	/**
@@ -924,11 +914,11 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 	}
 
 	/**
-	 * Sets the rolling direction the cart rolls while being attacked. Can be 1 or -1.
+	 * Sets the rolling amplitude the cart rolls while being attacked.
 	 */
-	public void setRollingDirection(int rollingDirection) {
+	public void setRollingAmplitude(int rollingAmplitude) {
 
-		dataManager.set(ROLLING_DIRECTION, Integer.valueOf(rollingDirection));
+		dataManager.set(ROLLING_AMPLITUDE, Integer.valueOf(rollingAmplitude));
 	}
 
 	/**
@@ -939,11 +929,25 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 		return dataManager.get(ROLLING_DIRECTION).intValue();
 	}
 
+	/**
+	 * Sets the rolling direction the cart rolls while being attacked. Can be 1 or -1.
+	 */
+	public void setRollingDirection(int rollingDirection) {
+
+		dataManager.set(ROLLING_DIRECTION, Integer.valueOf(rollingDirection));
+	}
+
 	public abstract EntityMinecart.Type getType();
 
 	public IBlockState getDisplayTile() {
 
 		return !hasDisplayTile() ? getDefaultDisplayTile() : Block.getStateById(getDataManager().get(DISPLAY_TILE).intValue());
+	}
+
+	public void setDisplayTile(IBlockState displayTile) {
+
+		getDataManager().set(DISPLAY_TILE, Integer.valueOf(Block.getStateId(displayTile)));
+		setHasDisplayTile(true);
 	}
 
 	public IBlockState getDefaultDisplayTile() {
@@ -956,21 +960,15 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 		return !hasDisplayTile() ? getDefaultDisplayTileOffset() : getDataManager().get(DISPLAY_TILE_OFFSET).intValue();
 	}
 
-	public int getDefaultDisplayTileOffset() {
-
-		return 6;
-	}
-
-	public void setDisplayTile(IBlockState displayTile) {
-
-		getDataManager().set(DISPLAY_TILE, Integer.valueOf(Block.getStateId(displayTile)));
-		setHasDisplayTile(true);
-	}
-
 	public void setDisplayTileOffset(int displayTileOffset) {
 
 		getDataManager().set(DISPLAY_TILE_OFFSET, Integer.valueOf(displayTileOffset));
 		setHasDisplayTile(true);
+	}
+
+	public int getDefaultDisplayTileOffset() {
+
+		return 6;
 	}
 
 	public boolean hasDisplayTile() {
@@ -993,6 +991,13 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 		COMMAND_BLOCK(6, "MinecartCommandBlock");
 
 		private static final Map<Integer, EntityMinecart.Type> BY_ID = Maps.newHashMap();
+
+		static {
+			for (EntityMinecart.Type entityminecart$type : values()) {
+				BY_ID.put(Integer.valueOf(entityminecart$type.getId()), entityminecart$type);
+			}
+		}
+
 		private final int id;
 		private final String name;
 
@@ -1000,6 +1005,12 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 
 			id = idIn;
 			name = nameIn;
+		}
+
+		public static EntityMinecart.Type getById(int idIn) {
+
+			EntityMinecart.Type entityminecart$type = BY_ID.get(Integer.valueOf(idIn));
+			return entityminecart$type == null ? RIDEABLE : entityminecart$type;
 		}
 
 		public int getId() {
@@ -1010,18 +1021,6 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 		public String getName() {
 
 			return name;
-		}
-
-		public static EntityMinecart.Type getById(int idIn) {
-
-			EntityMinecart.Type entityminecart$type = BY_ID.get(Integer.valueOf(idIn));
-			return entityminecart$type == null ? RIDEABLE : entityminecart$type;
-		}
-
-		static {
-			for (EntityMinecart.Type entityminecart$type : values()) {
-				BY_ID.put(Integer.valueOf(entityminecart$type.getId()), entityminecart$type);
-			}
 		}
 	}
 

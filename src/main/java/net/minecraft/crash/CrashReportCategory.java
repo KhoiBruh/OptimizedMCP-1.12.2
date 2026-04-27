@@ -78,6 +78,54 @@ public class CrashReportCategory {
 		return stringbuilder.toString();
 	}
 
+	public static void addBlockInfo(CrashReportCategory category, final BlockPos pos, final Block blockIn, final int blockData) {
+
+		final int i = Block.getIdFromBlock(blockIn);
+		category.addDetail("Block type", new ICrashReportDetail<String>() {
+			public String call() throws Exception {
+
+				try {
+					return String.format("ID #%d (%s // %s)", i, blockIn.getUnlocalizedName(), blockIn.getClass().getCanonicalName());
+				} catch (Throwable var2) {
+					return "ID #" + i;
+				}
+			}
+		});
+		category.addDetail("Block data value", new ICrashReportDetail<String>() {
+			public String call() throws Exception {
+
+				if (blockData < 0) {
+					return "Unknown? (Got " + blockData + ")";
+				} else {
+					String s = String.format("%4s", Integer.toBinaryString(blockData)).replace(" ", "0");
+					return String.format("%1$d / 0x%1$X / 0b%2$s", blockData, s);
+				}
+			}
+		});
+		category.addDetail("Block location", new ICrashReportDetail<String>() {
+			public String call() throws Exception {
+
+				return CrashReportCategory.getCoordinateInfo(pos);
+			}
+		});
+	}
+
+	public static void addBlockInfo(CrashReportCategory category, final BlockPos pos, final IBlockState state) {
+
+		category.addDetail("Block", new ICrashReportDetail<String>() {
+			public String call() throws Exception {
+
+				return state.toString();
+			}
+		});
+		category.addDetail("Block location", new ICrashReportDetail<String>() {
+			public String call() throws Exception {
+
+				return CrashReportCategory.getCoordinateInfo(pos);
+			}
+		});
+	}
+
 	/**
 	 * Adds an additional section to this crash report category, resolved by calling the given callable.
 	 * <p>
@@ -187,68 +235,20 @@ public class CrashReportCategory {
 		return stackTrace;
 	}
 
-	public static void addBlockInfo(CrashReportCategory category, final BlockPos pos, final Block blockIn, final int blockData) {
-
-		final int i = Block.getIdFromBlock(blockIn);
-		category.addDetail("Block type", new ICrashReportDetail<String>() {
-			public String call() throws Exception {
-
-				try {
-					return String.format("ID #%d (%s // %s)", i, blockIn.getUnlocalizedName(), blockIn.getClass().getCanonicalName());
-				} catch (Throwable var2) {
-					return "ID #" + i;
-				}
-			}
-		});
-		category.addDetail("Block data value", new ICrashReportDetail<String>() {
-			public String call() throws Exception {
-
-				if (blockData < 0) {
-					return "Unknown? (Got " + blockData + ")";
-				} else {
-					String s = String.format("%4s", Integer.toBinaryString(blockData)).replace(" ", "0");
-					return String.format("%1$d / 0x%1$X / 0b%2$s", blockData, s);
-				}
-			}
-		});
-		category.addDetail("Block location", new ICrashReportDetail<String>() {
-			public String call() throws Exception {
-
-				return CrashReportCategory.getCoordinateInfo(pos);
-			}
-		});
-	}
-
-	public static void addBlockInfo(CrashReportCategory category, final BlockPos pos, final IBlockState state) {
-
-		category.addDetail("Block", new ICrashReportDetail<String>() {
-			public String call() throws Exception {
-
-				return state.toString();
-			}
-		});
-		category.addDetail("Block location", new ICrashReportDetail<String>() {
-			public String call() throws Exception {
-
-				return CrashReportCategory.getCoordinateInfo(pos);
-			}
-		});
-	}
-
 	record Entry(String key, Object value) {
 
-			Entry(String key, Object value) {
+		Entry(String key, Object value) {
 
-				this.key = key;
+			this.key = key;
 
-				if (value == null) {
-					this.value = "~~NULL~~";
-				} else if (value instanceof Throwable throwable) {
-					this.value = "~~ERROR~~ " + throwable.getClass().getSimpleName() + ": " + throwable.getMessage();
-				} else {
-					this.value = value.toString();
-				}
+			if (value == null) {
+				this.value = "~~NULL~~";
+			} else if (value instanceof Throwable throwable) {
+				this.value = "~~ERROR~~ " + throwable.getClass().getSimpleName() + ": " + throwable.getMessage();
+			} else {
+				this.value = value.toString();
 			}
+		}
 
 	}
 

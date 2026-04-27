@@ -14,6 +14,18 @@ public class LootFunctionManager {
 	private static final Map<ResourceLocation, LootFunction.Serializer<?>> NAME_TO_SERIALIZER_MAP = Maps.newHashMap();
 	private static final Map<Class<? extends LootFunction>, LootFunction.Serializer<?>> CLASS_TO_SERIALIZER_MAP = Maps.newHashMap();
 
+	static {
+		registerFunction(new SetCount.Serializer());
+		registerFunction(new SetMetadata.Serializer());
+		registerFunction(new EnchantWithLevels.Serializer());
+		registerFunction(new EnchantRandomly.Serializer());
+		registerFunction(new SetNBT.Serializer());
+		registerFunction(new Smelt.Serializer());
+		registerFunction(new LootingEnchantBonus.Serializer());
+		registerFunction(new SetDamage.Serializer());
+		registerFunction(new SetAttributes.Serializer());
+	}
+
 	public static <T extends LootFunction> void registerFunction(LootFunction.Serializer<? extends T> serializer) {
 
 		ResourceLocation resourcelocation = serializer.getFunctionName();
@@ -49,18 +61,6 @@ public class LootFunctionManager {
 		} else {
 			return serializer;
 		}
-	}
-
-	static {
-		registerFunction(new SetCount.Serializer());
-		registerFunction(new SetMetadata.Serializer());
-		registerFunction(new EnchantWithLevels.Serializer());
-		registerFunction(new EnchantRandomly.Serializer());
-		registerFunction(new SetNBT.Serializer());
-		registerFunction(new Smelt.Serializer());
-		registerFunction(new LootingEnchantBonus.Serializer());
-		registerFunction(new SetDamage.Serializer());
-		registerFunction(new SetAttributes.Serializer());
 	}
 
 	public static class Serializer implements JsonDeserializer<LootFunction>, JsonSerializer<LootFunction> {

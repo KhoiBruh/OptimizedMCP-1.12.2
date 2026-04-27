@@ -59,6 +59,40 @@ public class EntityXPOrb extends Entity {
 		xpValue = expValue;
 	}
 
+	public EntityXPOrb(World worldIn) {
+
+		super(worldIn);
+		setSize(0.25F, 0.25F);
+	}
+
+	/**
+	 * Get a fragment of the maximum experience points value for the supplied value of experience points value.
+	 */
+	public static int getXPSplit(int expValue) {
+
+		if (expValue >= 2477) {
+			return 2477;
+		} else if (expValue >= 1237) {
+			return 1237;
+		} else if (expValue >= 617) {
+			return 617;
+		} else if (expValue >= 307) {
+			return 307;
+		} else if (expValue >= 149) {
+			return 149;
+		} else if (expValue >= 73) {
+			return 73;
+		} else if (expValue >= 37) {
+			return 37;
+		} else if (expValue >= 17) {
+			return 17;
+		} else if (expValue >= 7) {
+			return 7;
+		} else {
+			return expValue >= 3 ? 3 : 1;
+		}
+	}
+
 	/**
 	 * returns if this entity triggers Block.onEntityWalking on the blocks they walk on. used for spiders and wolves to
 	 * prevent them from trampling crops
@@ -66,12 +100,6 @@ public class EntityXPOrb extends Entity {
 	protected boolean canTriggerWalking() {
 
 		return false;
-	}
-
-	public EntityXPOrb(World worldIn) {
-
-		super(worldIn);
-		setSize(0.25F, 0.25F);
 	}
 
 	protected void entityInit() {
@@ -298,34 +326,6 @@ public class EntityXPOrb extends Entity {
 			return 2;
 		} else {
 			return xpValue >= 3 ? 1 : 0;
-		}
-	}
-
-	/**
-	 * Get a fragment of the maximum experience points value for the supplied value of experience points value.
-	 */
-	public static int getXPSplit(int expValue) {
-
-		if (expValue >= 2477) {
-			return 2477;
-		} else if (expValue >= 1237) {
-			return 1237;
-		} else if (expValue >= 617) {
-			return 617;
-		} else if (expValue >= 307) {
-			return 307;
-		} else if (expValue >= 149) {
-			return 149;
-		} else if (expValue >= 73) {
-			return 73;
-		} else if (expValue >= 37) {
-			return 37;
-		} else if (expValue >= 17) {
-			return 17;
-		} else if (expValue >= 7) {
-			return 7;
-		} else {
-			return expValue >= 3 ? 3 : 1;
 		}
 	}
 

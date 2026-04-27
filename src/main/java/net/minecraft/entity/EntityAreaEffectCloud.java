@@ -13,7 +13,6 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionType;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
@@ -33,9 +32,9 @@ public class EntityAreaEffectCloud extends Entity {
 	private static final DataParameter<Integer> PARTICLE = EntityDataManager.createKey(EntityAreaEffectCloud.class, DataSerializers.VARINT);
 	private static final DataParameter<Integer> PARTICLE_PARAM_1 = EntityDataManager.createKey(EntityAreaEffectCloud.class, DataSerializers.VARINT);
 	private static final DataParameter<Integer> PARTICLE_PARAM_2 = EntityDataManager.createKey(EntityAreaEffectCloud.class, DataSerializers.VARINT);
-	private PotionType potion;
 	private final List<PotionEffect> effects;
 	private final Map<Entity, Integer> reapplicationDelayMap;
+	private PotionType potion;
 	private int duration;
 	private int waitTime;
 	private int reapplicationDelay;
@@ -76,6 +75,11 @@ public class EntityAreaEffectCloud extends Entity {
 		getDataManager().register(PARTICLE_PARAM_2, Integer.valueOf(0));
 	}
 
+	public float getRadius() {
+
+		return getDataManager().get(RADIUS).floatValue();
+	}
+
 	public void setRadius(float radiusIn) {
 
 		double d0 = posX;
@@ -87,11 +91,6 @@ public class EntityAreaEffectCloud extends Entity {
 		if (!world.isRemote) {
 			getDataManager().set(RADIUS, Float.valueOf(radiusIn));
 		}
-	}
-
-	public float getRadius() {
-
-		return getDataManager().get(RADIUS).floatValue();
 	}
 
 	public void setPotion(PotionType potionIn) {
@@ -360,12 +359,6 @@ public class EntityAreaEffectCloud extends Entity {
 		waitTime = waitTimeIn;
 	}
 
-	public void setOwner(@Nullable EntityLivingBase ownerIn) {
-
-		owner = ownerIn;
-		ownerUniqueId = ownerIn == null ? null : ownerIn.getUniqueID();
-	}
-
 	@Nullable
 	public EntityLivingBase getOwner() {
 
@@ -378,6 +371,12 @@ public class EntityAreaEffectCloud extends Entity {
 		}
 
 		return owner;
+	}
+
+	public void setOwner(@Nullable EntityLivingBase ownerIn) {
+
+		owner = ownerIn;
+		ownerUniqueId = ownerIn == null ? null : ownerIn.getUniqueID();
 	}
 
 	/**

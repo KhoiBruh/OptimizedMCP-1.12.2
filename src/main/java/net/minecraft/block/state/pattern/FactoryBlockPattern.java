@@ -27,6 +27,11 @@ public class FactoryBlockPattern {
 		symbolMap.put(' ', Predicates.alwaysTrue());
 	}
 
+	public static FactoryBlockPattern start() {
+
+		return new FactoryBlockPattern();
+	}
+
 	/**
 	 * Adds a single aisle to this pattern, going in the z axis. (so multiple calls to this will increase the z-size by
 	 * 1)
@@ -60,11 +65,6 @@ public class FactoryBlockPattern {
 		} else {
 			throw new IllegalArgumentException("Empty pattern for aisle");
 		}
-	}
-
-	public static FactoryBlockPattern start() {
-
-		return new FactoryBlockPattern();
 	}
 
 	public FactoryBlockPattern where(char symbol, Predicate<BlockWorldState> blockMatcher) {

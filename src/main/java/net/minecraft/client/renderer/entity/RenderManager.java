@@ -27,7 +27,6 @@ import net.minecraft.entity.passive.*;
 import net.minecraft.entity.projectile.*;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ReportedException;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -42,21 +41,11 @@ public class RenderManager {
 	private final Map<Class<? extends Entity>, Render<? extends Entity>> entityRenderMap = Maps.newHashMap();
 	private final Map<String, RenderPlayer> skinMap = Maps.newHashMap();
 	private final RenderPlayer playerRenderer;
-
-	/**
-	 * Renders fonts
-	 */
-	private FontRenderer textRenderer;
-	private double renderPosX;
-	private double renderPosY;
-	private double renderPosZ;
 	public TextureManager renderEngine;
-
 	/**
 	 * Reference to the World object.
 	 */
 	public World world;
-
 	/**
 	 * RenderManager's field for the renderViewEntity
 	 */
@@ -64,7 +53,6 @@ public class RenderManager {
 	public Entity pointedEntity;
 	public float playerViewY;
 	public float playerViewX;
-
 	/**
 	 * Reference to the GameSettings object.
 	 */
@@ -72,6 +60,13 @@ public class RenderManager {
 	public double viewerPosX;
 	public double viewerPosY;
 	public double viewerPosZ;
+	/**
+	 * Renders fonts
+	 */
+	private FontRenderer textRenderer;
+	private double renderPosX;
+	private double renderPosY;
+	private double renderPosZ;
 	private boolean renderOutlines;
 	private boolean renderShadow = true;
 
@@ -197,7 +192,7 @@ public class RenderManager {
 			RenderPlayer renderplayer = skinMap.get(s);
 			return (Render<T>) (renderplayer != null ? renderplayer : playerRenderer);
 		} else {
-			return this.getEntityClassRenderObject(entityIn.getClass());
+			return getEntityClassRenderObject(entityIn.getClass());
 		}
 	}
 
@@ -247,14 +242,14 @@ public class RenderManager {
 		renderShadow = renderShadowIn;
 	}
 
-	public void setDebugBoundingBox(boolean debugBoundingBoxIn) {
-
-		debugBoundingBox = debugBoundingBoxIn;
-	}
-
 	public boolean isDebugBoundingBox() {
 
 		return debugBoundingBox;
+	}
+
+	public void setDebugBoundingBox(boolean debugBoundingBoxIn) {
+
+		debugBoundingBox = debugBoundingBoxIn;
 	}
 
 	public boolean isRenderMultipass(Entity p_188390_1_) {
@@ -264,7 +259,7 @@ public class RenderManager {
 
 	public boolean shouldRender(Entity entityIn, ICamera camera, double camX, double camY, double camZ) {
 
-		Render<Entity> render = this.getEntityRenderObject(entityIn);
+		Render<Entity> render = getEntityRenderObject(entityIn);
 		return render != null && render.shouldRender(entityIn, camera, camX, camY, camZ);
 	}
 
@@ -298,7 +293,7 @@ public class RenderManager {
 		Render<Entity> render = null;
 
 		try {
-			render = this.getEntityRenderObject(entityIn);
+			render = getEntityRenderObject(entityIn);
 
 			if (render != null && renderEngine != null) {
 				try {
@@ -359,7 +354,7 @@ public class RenderManager {
 		int k = i / 65536;
 		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) j, (float) k);
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-		Render<Entity> render = this.getEntityRenderObject(p_188389_1_);
+		Render<Entity> render = getEntityRenderObject(p_188389_1_);
 
 		if (render != null && renderEngine != null) {
 			render.renderMultipass(p_188389_1_, d0 - renderPosX, d1 - renderPosY, d2 - renderPosZ, f, p_188389_2_);

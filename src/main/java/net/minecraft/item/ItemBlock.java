@@ -28,6 +28,42 @@ public class ItemBlock extends Item {
 		this.block = block;
 	}
 
+	public static boolean setTileEntityNBT(World worldIn, @Nullable EntityPlayer player, BlockPos pos, ItemStack stackIn) {
+
+		MinecraftServer minecraftserver = worldIn.getMinecraftServer();
+
+		if (minecraftserver == null) {
+			return false;
+		} else {
+			NBTTagCompound nbttagcompound = stackIn.getSubCompound("BlockEntityTag");
+
+			if (nbttagcompound != null) {
+				TileEntity tileentity = worldIn.getTileEntity(pos);
+
+				if (tileentity != null) {
+					if (!worldIn.isRemote && tileentity.onlyOpsCanSetNbt() && (player == null || !player.canUseCommandBlock())) {
+						return false;
+					}
+
+					NBTTagCompound nbttagcompound1 = tileentity.writeToNBT(new NBTTagCompound());
+					NBTTagCompound nbttagcompound2 = nbttagcompound1.copy();
+					nbttagcompound1.merge(nbttagcompound);
+					nbttagcompound1.setInteger("x", pos.getX());
+					nbttagcompound1.setInteger("y", pos.getY());
+					nbttagcompound1.setInteger("z", pos.getZ());
+
+					if (!nbttagcompound1.equals(nbttagcompound2)) {
+						tileentity.readFromNBT(nbttagcompound1);
+						tileentity.markDirty();
+						return true;
+					}
+				}
+			}
+
+			return false;
+		}
+	}
+
 	/**
 	 * Called when a Block is right-clicked with this Item
 	 */
@@ -66,42 +102,6 @@ public class ItemBlock extends Item {
 			return EnumActionResult.SUCCESS;
 		} else {
 			return EnumActionResult.FAIL;
-		}
-	}
-
-	public static boolean setTileEntityNBT(World worldIn, @Nullable EntityPlayer player, BlockPos pos, ItemStack stackIn) {
-
-		MinecraftServer minecraftserver = worldIn.getMinecraftServer();
-
-		if (minecraftserver == null) {
-			return false;
-		} else {
-			NBTTagCompound nbttagcompound = stackIn.getSubCompound("BlockEntityTag");
-
-			if (nbttagcompound != null) {
-				TileEntity tileentity = worldIn.getTileEntity(pos);
-
-				if (tileentity != null) {
-					if (!worldIn.isRemote && tileentity.onlyOpsCanSetNbt() && (player == null || !player.canUseCommandBlock())) {
-						return false;
-					}
-
-					NBTTagCompound nbttagcompound1 = tileentity.writeToNBT(new NBTTagCompound());
-					NBTTagCompound nbttagcompound2 = nbttagcompound1.copy();
-					nbttagcompound1.merge(nbttagcompound);
-					nbttagcompound1.setInteger("x", pos.getX());
-					nbttagcompound1.setInteger("y", pos.getY());
-					nbttagcompound1.setInteger("z", pos.getZ());
-
-					if (!nbttagcompound1.equals(nbttagcompound2)) {
-						tileentity.readFromNBT(nbttagcompound1);
-						tileentity.markDirty();
-						return true;
-					}
-				}
-			}
-
-			return false;
 		}
 	}
 

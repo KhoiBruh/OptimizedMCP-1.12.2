@@ -156,15 +156,15 @@ public class NetworkPlayerInfo {
 		}
 	}
 
-	public void setDisplayName(@Nullable ITextComponent displayNameIn) {
-
-		displayName = displayNameIn;
-	}
-
 	@Nullable
 	public ITextComponent getDisplayName() {
 
 		return displayName;
+	}
+
+	public void setDisplayName(@Nullable ITextComponent displayNameIn) {
+
+		displayName = displayNameIn;
 	}
 
 	public int getLastHealth() {

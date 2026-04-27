@@ -42,92 +42,77 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class Chunk {
 
-	private static final Logger LOGGER = LogManager.getLogger();
 	public static final ExtendedBlockStorage NULL_BLOCK_STORAGE = null;
-
+	private static final Logger LOGGER = LogManager.getLogger();
+	/**
+	 * The x coordinate of the chunk.
+	 */
+	public final int x;
+	/**
+	 * The z coordinate of the chunk.
+	 */
+	public final int z;
 	/**
 	 * Used to store block IDs, block MSBs, Sky-light maps, Block-light maps, and metadata. Each entry corresponds to a
 	 * logical segment of 16x16x16 blocks, stacked vertically.
 	 */
 	private final ExtendedBlockStorage[] storageArrays;
-
 	/**
 	 * Contains a 16x16 mapping on the X/Z plane of the biome ID to which each colum belongs.
 	 */
 	private final byte[] blockBiomeArray;
-
 	/**
 	 * A map, similar to heightMap, that tracks how far down precipitation can fall.
 	 */
 	private final int[] precipitationHeightMap;
-
 	/**
 	 * Which columns need their skylightMaps updated.
 	 */
 	private final boolean[] updateSkylightColumns;
-
-	/**
-	 * Whether or not this Chunk is currently loaded into the World
-	 */
-	private boolean loaded;
-
 	/**
 	 * Reference to the World object.
 	 */
 	private final World world;
 	private final int[] heightMap;
-
-	/**
-	 * The x coordinate of the chunk.
-	 */
-	public final int x;
-
-	/**
-	 * The z coordinate of the chunk.
-	 */
-	public final int z;
-	private boolean isGapLightingUpdated;
 	private final Map<BlockPos, TileEntity> tileEntities;
 	private final ClassInheritanceMultiMap<Entity>[] entityLists;
-
+	private final ConcurrentLinkedQueue<BlockPos> tileEntityPosQueue;
+	public boolean unloadQueued;
+	/**
+	 * Whether or not this Chunk is currently loaded into the World
+	 */
+	private boolean loaded;
+	private boolean isGapLightingUpdated;
 	/**
 	 * Boolean value indicating if the terrain is populated.
 	 */
 	private boolean isTerrainPopulated;
 	private boolean isLightPopulated;
 	private boolean ticked;
-
 	/**
 	 * Set to true if the chunk has been modified and needs to be updated internally.
 	 */
 	private boolean dirty;
-
 	/**
 	 * Whether this Chunk has any Entities and thus requires saving on every tick
 	 */
 	private boolean hasEntities;
-
 	/**
 	 * The time according to World.worldTime when this chunk was last saved
 	 */
 	private long lastSaveTime;
-
 	/**
 	 * Lowest value in the heightmap.
 	 */
 	private int heightMapMinimum;
-
 	/**
 	 * the cumulative number of ticks players have been in this chunk
 	 */
 	private long inhabitedTime;
-
 	/**
 	 * Contains the current round-robin relight check index, and is implied as the relight check location as well.
 	 */
 	private int queuedLightChecks;
-	private final ConcurrentLinkedQueue<BlockPos> tileEntityPosQueue;
-	public boolean unloadQueued;
 
 	public Chunk(World worldIn, int x, int z) {
 
@@ -923,7 +908,7 @@ public class Chunk {
 
 	public Random getRandomWithSeed(long seed) {
 
-		return new Random(world.getSeed() + (long) ((long) x * x * 4987142) + (long) (x * 5947611L) + (long) ((long) z * z) * 4392871L + (long) (z * 389711L) ^ seed);
+		return new Random(world.getSeed() + ((long) x * x * 4987142) + (x * 5947611L) + (long) z * z * 4392871L + (z * 389711L) ^ seed);
 	}
 
 	public boolean isEmpty() {

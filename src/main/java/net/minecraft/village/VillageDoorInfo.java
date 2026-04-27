@@ -24,6 +24,14 @@ public class VillageDoorInfo {
 		this(pos, getFaceDirection(deltaX, deltaZ), timestamp);
 	}
 
+	public VillageDoorInfo(BlockPos pos, EnumFacing facing, int timestamp) {
+
+		doorBlockPos = pos;
+		insideDirection = facing;
+		insideBlock = pos.offset(facing, 2);
+		lastActivityTimestamp = timestamp;
+	}
+
 	private static EnumFacing getFaceDirection(int deltaX, int deltaZ) {
 
 		if (deltaX < 0) {
@@ -33,14 +41,6 @@ public class VillageDoorInfo {
 		} else {
 			return deltaZ < 0 ? EnumFacing.NORTH : EnumFacing.SOUTH;
 		}
-	}
-
-	public VillageDoorInfo(BlockPos pos, EnumFacing facing, int timestamp) {
-
-		doorBlockPos = pos;
-		insideDirection = facing;
-		insideBlock = pos.offset(facing, 2);
-		lastActivityTimestamp = timestamp;
 	}
 
 	/**

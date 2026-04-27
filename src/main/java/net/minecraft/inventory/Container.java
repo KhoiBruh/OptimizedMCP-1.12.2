@@ -20,23 +20,119 @@ import java.util.Set;
 
 public abstract class Container {
 
+	private final Set<Slot> dragSlots = Sets.newHashSet();
+	private final Set<EntityPlayer> playerList = Sets.newHashSet();
 	public NonNullList<ItemStack> inventoryItemStacks = NonNullList.create();
 	public List<Slot> inventorySlots = Lists.newArrayList();
 	public int windowId;
+	protected List<IContainerListener> listeners = Lists.newArrayList();
 	private short transactionID;
-
 	/**
 	 * The current drag mode (0 : evenly split, 1 : one item by slot, 2 : not used ?)
 	 */
 	private int dragMode = -1;
-
 	/**
 	 * The current drag event (0 : start, 1 : add slot : 2 : end)
 	 */
 	private int dragEvent;
-	private final Set<Slot> dragSlots = Sets.newHashSet();
-	protected List<IContainerListener> listeners = Lists.newArrayList();
-	private final Set<EntityPlayer> playerList = Sets.newHashSet();
+
+	/**
+	 * Extracts the drag mode. Args : eventButton. Return (0 : evenly split, 1 : one item by slot, 2 : not used ?)
+	 */
+	public static int extractDragMode(int eventButton) {
+
+		return eventButton >> 2 & 3;
+	}
+
+	/**
+	 * Args : clickedButton, Returns (0 : start drag, 1 : add slot, 2 : end drag)
+	 */
+	public static int getDragEvent(int clickedButton) {
+
+		return clickedButton & 3;
+	}
+
+	public static int getQuickcraftMask(int p_94534_0_, int p_94534_1_) {
+
+		return p_94534_0_ & 3 | (p_94534_1_ & 3) << 2;
+	}
+
+	public static boolean isValidDragMode(int dragModeIn, EntityPlayer player) {
+
+		if (dragModeIn == 0) {
+			return true;
+		} else if (dragModeIn == 1) {
+			return true;
+		} else {
+			return dragModeIn == 2 && player.capabilities.isCreativeMode;
+		}
+	}
+
+	/**
+	 * Checks if it's possible to add the given itemstack to the given slot.
+	 */
+	public static boolean canAddItemToSlot(@Nullable Slot slotIn, ItemStack stack, boolean stackSizeMatters) {
+
+		boolean flag = slotIn == null || !slotIn.getHasStack();
+
+		if (!flag && stack.isItemEqual(slotIn.getStack()) && ItemStack.areItemStackTagsEqual(slotIn.getStack(), stack)) {
+			return slotIn.getStack().getCount() + (stackSizeMatters ? 0 : stack.getCount()) <= stack.getMaxStackSize();
+		} else {
+			return flag;
+		}
+	}
+
+	/**
+	 * Compute the new stack size, Returns the stack with the new size. Args : dragSlots, dragMode, dragStack,
+	 * slotStackSize
+	 */
+	public static void computeStackSize(Set<Slot> dragSlotsIn, int dragModeIn, ItemStack stack, int slotStackSize) {
+
+		switch (dragModeIn) {
+			case 0:
+				stack.setCount(MathHelper.floor((float) stack.getCount() / (float) dragSlotsIn.size()));
+				break;
+
+			case 1:
+				stack.setCount(1);
+				break;
+
+			case 2:
+				stack.setCount(stack.getItem().getItemStackLimit());
+		}
+
+		stack.grow(slotStackSize);
+	}
+
+	/**
+	 * Like the version that takes an inventory. If the given TileEntity is not an Inventory, 0 is returned instead.
+	 */
+	public static int calcRedstone(@Nullable TileEntity te) {
+
+		return te instanceof IInventory ? calcRedstoneFromInventory((IInventory) te) : 0;
+	}
+
+	public static int calcRedstoneFromInventory(@Nullable IInventory inv) {
+
+		if (inv == null) {
+			return 0;
+		} else {
+			int i = 0;
+			float f = 0.0F;
+
+			for (int j = 0; j < inv.getSizeInventory(); ++j) {
+				ItemStack itemstack = inv.getStackInSlot(j);
+
+				if (!itemstack.isEmpty()) {
+					f += (float) itemstack.getCount() / (float) Math.min(inv.getInventoryStackLimit(), itemstack.getMaxStackSize());
+					++i;
+				}
+			}
+
+			f = f / (float) inv.getSizeInventory();
+			return MathHelper.floor(f * 14.0F) + (i > 0 ? 1 : 0);
+		}
+	}
 
 	/**
 	 * Adds an item slot to this container
@@ -585,38 +681,6 @@ public abstract class Container {
 	}
 
 	/**
-	 * Extracts the drag mode. Args : eventButton. Return (0 : evenly split, 1 : one item by slot, 2 : not used ?)
-	 */
-	public static int extractDragMode(int eventButton) {
-
-		return eventButton >> 2 & 3;
-	}
-
-	/**
-	 * Args : clickedButton, Returns (0 : start drag, 1 : add slot, 2 : end drag)
-	 */
-	public static int getDragEvent(int clickedButton) {
-
-		return clickedButton & 3;
-	}
-
-	public static int getQuickcraftMask(int p_94534_0_, int p_94534_1_) {
-
-		return p_94534_0_ & 3 | (p_94534_1_ & 3) << 2;
-	}
-
-	public static boolean isValidDragMode(int dragModeIn, EntityPlayer player) {
-
-		if (dragModeIn == 0) {
-			return true;
-		} else if (dragModeIn == 1) {
-			return true;
-		} else {
-			return dragModeIn == 2 && player.capabilities.isCreativeMode;
-		}
-	}
-
-	/**
 	 * Reset the drag fields
 	 */
 	protected void resetDrag() {
@@ -626,78 +690,12 @@ public abstract class Container {
 	}
 
 	/**
-	 * Checks if it's possible to add the given itemstack to the given slot.
-	 */
-	public static boolean canAddItemToSlot(@Nullable Slot slotIn, ItemStack stack, boolean stackSizeMatters) {
-
-		boolean flag = slotIn == null || !slotIn.getHasStack();
-
-		if (!flag && stack.isItemEqual(slotIn.getStack()) && ItemStack.areItemStackTagsEqual(slotIn.getStack(), stack)) {
-			return slotIn.getStack().getCount() + (stackSizeMatters ? 0 : stack.getCount()) <= stack.getMaxStackSize();
-		} else {
-			return flag;
-		}
-	}
-
-	/**
-	 * Compute the new stack size, Returns the stack with the new size. Args : dragSlots, dragMode, dragStack,
-	 * slotStackSize
-	 */
-	public static void computeStackSize(Set<Slot> dragSlotsIn, int dragModeIn, ItemStack stack, int slotStackSize) {
-
-		switch (dragModeIn) {
-			case 0:
-				stack.setCount(MathHelper.floor((float) stack.getCount() / (float) dragSlotsIn.size()));
-				break;
-
-			case 1:
-				stack.setCount(1);
-				break;
-
-			case 2:
-				stack.setCount(stack.getItem().getItemStackLimit());
-		}
-
-		stack.grow(slotStackSize);
-	}
-
-	/**
 	 * Returns true if the player can "drag-spilt" items into this slot,. returns true by default. Called to check if
 	 * the slot can be added to a list of Slots to split the held ItemStack across.
 	 */
 	public boolean canDragIntoSlot(Slot slotIn) {
 
 		return true;
-	}
-
-	/**
-	 * Like the version that takes an inventory. If the given TileEntity is not an Inventory, 0 is returned instead.
-	 */
-	public static int calcRedstone(@Nullable TileEntity te) {
-
-		return te instanceof IInventory ? calcRedstoneFromInventory((IInventory) te) : 0;
-	}
-
-	public static int calcRedstoneFromInventory(@Nullable IInventory inv) {
-
-		if (inv == null) {
-			return 0;
-		} else {
-			int i = 0;
-			float f = 0.0F;
-
-			for (int j = 0; j < inv.getSizeInventory(); ++j) {
-				ItemStack itemstack = inv.getStackInSlot(j);
-
-				if (!itemstack.isEmpty()) {
-					f += (float) itemstack.getCount() / (float) Math.min(inv.getInventoryStackLimit(), itemstack.getMaxStackSize());
-					++i;
-				}
-			}
-
-			f = f / (float) inv.getSizeInventory();
-			return MathHelper.floor(f * 14.0F) + (i > 0 ? 1 : 0);
-		}
 	}
 
 	protected void slotChangedCraftingGrid(World p_192389_1_, EntityPlayer p_192389_2_, InventoryCrafting p_192389_3_, InventoryCraftResult p_192389_4_) {

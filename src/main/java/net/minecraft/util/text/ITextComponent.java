@@ -12,11 +12,6 @@ import java.util.Map.Entry;
 public interface ITextComponent extends Iterable<ITextComponent> {
 
 	/**
-	 * Sets the style of this component and updates the parent style of all of the sibling components.
-	 */
-	ITextComponent setStyle(Style style);
-
-	/**
 	 * Gets the style of this component. Returns a direct reference; changes to this style will modify the style of this
 	 * component (IE, there is no need to call {@link #setStyle(Style)} again after modifying it).
 	 * <p>
@@ -27,6 +22,11 @@ public interface ITextComponent extends Iterable<ITextComponent> {
 	 * This method never returns <code>null</code>.
 	 */
 	Style getStyle();
+
+	/**
+	 * Sets the style of this component and updates the parent style of all of the sibling components.
+	 */
+	ITextComponent setStyle(Style style);
 
 	/**
 	 * Adds a new component to the end of the sibling list, with the specified text. Same as calling {@link
@@ -71,6 +71,31 @@ public interface ITextComponent extends Iterable<ITextComponent> {
 	class Serializer implements JsonDeserializer<ITextComponent>, JsonSerializer<ITextComponent> {
 
 		private static final Gson GSON;
+
+		static {
+			GsonBuilder gsonbuilder = new GsonBuilder();
+			gsonbuilder.registerTypeHierarchyAdapter(ITextComponent.class, new ITextComponent.Serializer());
+			gsonbuilder.registerTypeHierarchyAdapter(Style.class, new Style.Serializer());
+			gsonbuilder.registerTypeAdapterFactory(new EnumTypeAdapterFactory());
+			GSON = gsonbuilder.create();
+		}
+
+		public static String componentToJson(ITextComponent component) {
+
+			return GSON.toJson(component);
+		}
+
+		@Nullable
+		public static ITextComponent jsonToComponent(String json) {
+
+			return JsonUtils.gsonDeserialize(GSON, json, ITextComponent.class, false);
+		}
+
+		@Nullable
+		public static ITextComponent fromJsonLenient(String json) {
+
+			return JsonUtils.gsonDeserialize(GSON, json, ITextComponent.class, true);
+		}
 
 		public ITextComponent deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException {
 
@@ -228,31 +253,6 @@ public interface ITextComponent extends Iterable<ITextComponent> {
 			}
 
 			return jsonobject;
-		}
-
-		public static String componentToJson(ITextComponent component) {
-
-			return GSON.toJson(component);
-		}
-
-		@Nullable
-		public static ITextComponent jsonToComponent(String json) {
-
-			return JsonUtils.gsonDeserialize(GSON, json, ITextComponent.class, false);
-		}
-
-		@Nullable
-		public static ITextComponent fromJsonLenient(String json) {
-
-			return JsonUtils.gsonDeserialize(GSON, json, ITextComponent.class, true);
-		}
-
-		static {
-			GsonBuilder gsonbuilder = new GsonBuilder();
-			gsonbuilder.registerTypeHierarchyAdapter(ITextComponent.class, new ITextComponent.Serializer());
-			gsonbuilder.registerTypeHierarchyAdapter(Style.class, new Style.Serializer());
-			gsonbuilder.registerTypeAdapterFactory(new EnumTypeAdapterFactory());
-			GSON = gsonbuilder.create();
 		}
 	}
 

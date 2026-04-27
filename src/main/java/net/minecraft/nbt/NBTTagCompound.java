@@ -22,6 +22,47 @@ public class NBTTagCompound extends NBTBase {
 	private static final Pattern SIMPLE_VALUE = Pattern.compile("[A-Za-z0-9._+-]+");
 	private final Map<String, NBTBase> tagMap = Maps.newHashMap();
 
+	private static void writeEntry(String name, NBTBase data, DataOutput output) throws IOException {
+
+		output.writeByte(data.getId());
+
+		if (data.getId() != 0) {
+			output.writeUTF(name);
+			data.write(output);
+		}
+	}
+
+	private static byte readType(DataInput input, NBTSizeTracker sizeTracker) throws IOException {
+
+		return input.readByte();
+	}
+
+	private static String readKey(DataInput input, NBTSizeTracker sizeTracker) throws IOException {
+
+		return input.readUTF();
+	}
+
+	static NBTBase readNBT(byte id, String key, DataInput input, int depth, NBTSizeTracker sizeTracker) throws IOException {
+
+		NBTBase nbtbase = NBTBase.createNewByType(id);
+
+		try {
+			nbtbase.read(input, depth, sizeTracker);
+			return nbtbase;
+		} catch (IOException ioexception) {
+			CrashReport crashreport = CrashReport.makeCrashReport(ioexception, "Loading NBT data");
+			CrashReportCategory crashreportcategory = crashreport.makeCategory("NBT Tag");
+			crashreportcategory.addCrashSection("Tag name", key);
+			crashreportcategory.addCrashSection("Tag type", Byte.valueOf(id));
+			throw new ReportedException(crashreport);
+		}
+	}
+
+	protected static String handleEscape(String p_193582_0_) {
+
+		return SIMPLE_VALUE.matcher(p_193582_0_).matches() ? p_193582_0_ : NBTTagString.quoteAndEscape(p_193582_0_);
+	}
+
 	/**
 	 * Write the actual data contents of the tag, implemented in NBT extension classes
 	 */
@@ -493,42 +534,6 @@ public class NBTTagCompound extends NBTBase {
 		return super.hashCode() ^ tagMap.hashCode();
 	}
 
-	private static void writeEntry(String name, NBTBase data, DataOutput output) throws IOException {
-
-		output.writeByte(data.getId());
-
-		if (data.getId() != 0) {
-			output.writeUTF(name);
-			data.write(output);
-		}
-	}
-
-	private static byte readType(DataInput input, NBTSizeTracker sizeTracker) throws IOException {
-
-		return input.readByte();
-	}
-
-	private static String readKey(DataInput input, NBTSizeTracker sizeTracker) throws IOException {
-
-		return input.readUTF();
-	}
-
-	static NBTBase readNBT(byte id, String key, DataInput input, int depth, NBTSizeTracker sizeTracker) throws IOException {
-
-		NBTBase nbtbase = NBTBase.createNewByType(id);
-
-		try {
-			nbtbase.read(input, depth, sizeTracker);
-			return nbtbase;
-		} catch (IOException ioexception) {
-			CrashReport crashreport = CrashReport.makeCrashReport(ioexception, "Loading NBT data");
-			CrashReportCategory crashreportcategory = crashreport.makeCategory("NBT Tag");
-			crashreportcategory.addCrashSection("Tag name", key);
-			crashreportcategory.addCrashSection("Tag type", Byte.valueOf(id));
-			throw new ReportedException(crashreport);
-		}
-	}
-
 	/**
 	 * Merges copies of data contained in {@code other} into this compound tag.
 	 */
@@ -548,11 +553,6 @@ public class NBTTagCompound extends NBTBase {
 				setTag(s, nbtbase.copy());
 			}
 		}
-	}
-
-	protected static String handleEscape(String p_193582_0_) {
-
-		return SIMPLE_VALUE.matcher(p_193582_0_).matches() ? p_193582_0_ : NBTTagString.quoteAndEscape(p_193582_0_);
 	}
 
 }

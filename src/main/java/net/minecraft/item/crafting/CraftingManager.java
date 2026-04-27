@@ -15,9 +15,7 @@ import org.apache.logging.log4j.Logger;
 
 import javax.annotation.Nullable;
 import java.io.BufferedReader;
-import java.io.Closeable;
 import java.io.IOException;
-import java.io.Reader;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -27,9 +25,9 @@ import java.util.Iterator;
 
 public class CraftingManager {
 
+	public static final RegistryNamespaced<ResourceLocation, IRecipe> REGISTRY = new RegistryNamespaced<ResourceLocation, IRecipe>();
 	private static final Logger LOGGER = LogManager.getLogger();
 	private static int nextAvailableId;
-	public static final RegistryNamespaced<ResourceLocation, IRecipe> REGISTRY = new RegistryNamespaced<ResourceLocation, IRecipe>();
 
 	public static boolean init() {
 

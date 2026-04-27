@@ -14,8 +14,8 @@ import java.util.UUID;
 
 public class SPacketEntityProperties implements Packet<INetHandlerPlayClient> {
 
-	private int entityId;
 	private final List<SPacketEntityProperties.Snapshot> snapshots = Lists.newArrayList();
+	private int entityId;
 
 	public SPacketEntityProperties() {
 

@@ -16,6 +16,14 @@ public class LootConditionManager {
 	private static final Map<ResourceLocation, LootCondition.Serializer<?>> NAME_TO_SERIALIZER_MAP = Maps.newHashMap();
 	private static final Map<Class<? extends LootCondition>, LootCondition.Serializer<?>> CLASS_TO_SERIALIZER_MAP = Maps.newHashMap();
 
+	static {
+		registerCondition(new RandomChance.Serializer());
+		registerCondition(new RandomChanceWithLooting.Serializer());
+		registerCondition(new EntityHasProperty.Serializer());
+		registerCondition(new KilledByPlayer.Serializer());
+		registerCondition(new EntityHasScore.Serializer());
+	}
+
 	public static <T extends LootCondition> void registerCondition(LootCondition.Serializer<? extends T> condition) {
 
 		ResourceLocation resourcelocation = condition.getLootTableLocation();
@@ -66,14 +74,6 @@ public class LootConditionManager {
 		} else {
 			return serializer;
 		}
-	}
-
-	static {
-		registerCondition(new RandomChance.Serializer());
-		registerCondition(new RandomChanceWithLooting.Serializer());
-		registerCondition(new EntityHasProperty.Serializer());
-		registerCondition(new KilledByPlayer.Serializer());
-		registerCondition(new EntityHasScore.Serializer());
 	}
 
 	public static class Serializer implements JsonDeserializer<LootCondition>, JsonSerializer<LootCondition> {

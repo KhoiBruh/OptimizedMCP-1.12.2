@@ -17,10 +17,12 @@ public record Variant(ResourceLocation modelLocation, ModelRotation rotation, bo
 
 		if (this == p_equals_1_) {
 			return true;
-		} else if (!(p_equals_1_ instanceof Variant variant)) {
+		} else if (!(p_equals_1_ instanceof Variant(
+				ResourceLocation location, ModelRotation rotation1, boolean lock, int weight1
+		))) {
 			return false;
 		} else {
-			return modelLocation.equals(variant.modelLocation) && rotation == variant.rotation && uvLock == variant.uvLock && weight == variant.weight;
+			return modelLocation.equals(location) && rotation == rotation1 && uvLock == lock && weight == weight1;
 		}
 	}
 

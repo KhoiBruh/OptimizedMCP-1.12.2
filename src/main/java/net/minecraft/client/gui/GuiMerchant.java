@@ -35,26 +35,22 @@ public class GuiMerchant extends GuiContainer {
 	 * The current IMerchant instance in use for this specific merchant.
 	 */
 	private final IMerchant merchant;
-
-	/**
-	 * The button which proceeds to the next available merchant recipe.
-	 */
-	private GuiMerchant.MerchantButton nextButton;
-
-	/**
-	 * Returns to the previous Merchant recipe if one is applicable.
-	 */
-	private GuiMerchant.MerchantButton previousButton;
-
-	/**
-	 * The integer value corresponding to the currently selected merchant recipe.
-	 */
-	private int selectedMerchantRecipe;
-
 	/**
 	 * The chat component utilized by this GuiMerchant instance.
 	 */
 	private final ITextComponent chatComponent;
+	/**
+	 * The button which proceeds to the next available merchant recipe.
+	 */
+	private GuiMerchant.MerchantButton nextButton;
+	/**
+	 * Returns to the previous Merchant recipe if one is applicable.
+	 */
+	private GuiMerchant.MerchantButton previousButton;
+	/**
+	 * The integer value corresponding to the currently selected merchant recipe.
+	 */
+	private int selectedMerchantRecipe;
 
 	public GuiMerchant(InventoryPlayer p_i45500_1_, IMerchant p_i45500_2_, World worldIn) {
 

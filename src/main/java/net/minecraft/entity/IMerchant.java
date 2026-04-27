@@ -12,10 +12,10 @@ import javax.annotation.Nullable;
 
 public interface IMerchant {
 
-	void setCustomer(EntityPlayer player);
-
 	@Nullable
 	EntityPlayer getCustomer();
+
+	void setCustomer(EntityPlayer player);
 
 	@Nullable
 	MerchantRecipeList getRecipes(EntityPlayer player);

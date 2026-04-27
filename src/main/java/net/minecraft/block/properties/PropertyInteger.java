@@ -30,6 +30,11 @@ public class PropertyInteger extends PropertyHelper<Integer> {
 		}
 	}
 
+	public static PropertyInteger create(String name, int min, int max) {
+
+		return new PropertyInteger(name, min, max);
+	}
+
 	public Collection<Integer> getAllowedValues() {
 
 		return allowedValues;
@@ -49,11 +54,6 @@ public class PropertyInteger extends PropertyHelper<Integer> {
 	public int hashCode() {
 
 		return 31 * super.hashCode() + allowedValues.hashCode();
-	}
-
-	public static PropertyInteger create(String name, int min, int max) {
-
-		return new PropertyInteger(name, min, max);
 	}
 
 	public Optional<Integer> parseValue(String value) {

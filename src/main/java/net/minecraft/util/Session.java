@@ -59,6 +59,13 @@ public class Session {
 		MOJANG("mojang");
 
 		private static final Map<String, Session.Type> SESSION_TYPES = Maps.newHashMap();
+
+		static {
+			for (Session.Type session$type : values()) {
+				SESSION_TYPES.put(session$type.sessionType, session$type);
+			}
+		}
+
 		private final String sessionType;
 
 		Type(String sessionTypeIn) {
@@ -70,12 +77,6 @@ public class Session {
 		public static Session.Type setSessionType(String sessionTypeIn) {
 
 			return SESSION_TYPES.get(sessionTypeIn.toLowerCase(Locale.ROOT));
-		}
-
-		static {
-			for (Session.Type session$type : values()) {
-				SESSION_TYPES.put(session$type.sessionType, session$type);
-			}
 		}
 	}
 

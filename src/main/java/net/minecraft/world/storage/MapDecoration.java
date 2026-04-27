@@ -2,44 +2,11 @@ package net.minecraft.world.storage;
 
 import net.minecraft.util.math.MathHelper;
 
-public class MapDecoration {
-
-	private final MapDecoration.Type type;
-	private final byte x;
-	private final byte y;
-	private final byte rotation;
-
-	public MapDecoration(MapDecoration.Type typeIn, byte xIn, byte yIn, byte rotationIn) {
-
-		type = typeIn;
-		x = xIn;
-		y = yIn;
-		rotation = rotationIn;
-	}
+public record MapDecoration(Type type, byte x, byte y, byte rotation) {
 
 	public byte getImage() {
 
 		return type.getIcon();
-	}
-
-	public MapDecoration.Type getType() {
-
-		return type;
-	}
-
-	public byte getX() {
-
-		return x;
-	}
-
-	public byte getY() {
-
-		return y;
-	}
-
-	public byte getRotation() {
-
-		return rotation;
 	}
 
 	public boolean renderOnFrame() {
@@ -104,6 +71,11 @@ public class MapDecoration {
 			mapColor = p_i47344_4_;
 		}
 
+		public static Type byIcon(byte p_191159_0_) {
+
+			return values()[MathHelper.clamp(p_191159_0_, 0, values().length - 1)];
+		}
+
 		public byte getIcon() {
 
 			return icon;
@@ -122,11 +94,6 @@ public class MapDecoration {
 		public int getMapColor() {
 
 			return mapColor;
-		}
-
-		public static MapDecoration.Type byIcon(byte p_191159_0_) {
-
-			return values()[MathHelper.clamp(p_191159_0_, 0, values().length - 1)];
 		}
 	}
 

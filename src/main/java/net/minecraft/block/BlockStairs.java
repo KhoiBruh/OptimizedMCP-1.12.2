@@ -2,7 +2,6 @@ package net.minecraft.block;
 
 import com.google.common.collect.Lists;
 import net.minecraft.block.material.MapColor;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockFaceShape;
@@ -155,17 +154,6 @@ public class BlockStairs extends Block {
 		setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
 	}
 
-	public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, @Nullable Entity entityIn, boolean isActualState) {
-
-		if (!isActualState) {
-			state = getActualState(state, worldIn, pos);
-		}
-
-		for (AxisAlignedBB axisalignedbb : getCollisionBoxList(state)) {
-			addCollisionBoxToList(pos, entityBox, collidingBoxes, axisalignedbb);
-		}
-	}
-
 	private static List<AxisAlignedBB> getCollisionBoxList(IBlockState bstate) {
 
 		List<AxisAlignedBB> list = Lists.newArrayList();
@@ -251,6 +239,62 @@ public class BlockStairs extends Block {
 
 			case EAST:
 				return flag ? AABB_OCT_BOT_NE : AABB_OCT_TOP_NE;
+		}
+	}
+
+	private static BlockStairs.EnumShape getStairsShape(IBlockState p_185706_0_, IBlockAccess p_185706_1_, BlockPos p_185706_2_) {
+
+		EnumFacing enumfacing = p_185706_0_.getValue(FACING);
+		IBlockState iblockstate = p_185706_1_.getBlockState(p_185706_2_.offset(enumfacing));
+
+		if (isBlockStairs(iblockstate) && p_185706_0_.getValue(HALF) == iblockstate.getValue(HALF)) {
+			EnumFacing enumfacing1 = iblockstate.getValue(FACING);
+
+			if (enumfacing1.getAxis() != p_185706_0_.getValue(FACING).getAxis() && isDifferentStairs(p_185706_0_, p_185706_1_, p_185706_2_, enumfacing1.getOpposite())) {
+				if (enumfacing1 == enumfacing.rotateYCCW()) {
+					return BlockStairs.EnumShape.OUTER_LEFT;
+				}
+
+				return BlockStairs.EnumShape.OUTER_RIGHT;
+			}
+		}
+
+		IBlockState iblockstate1 = p_185706_1_.getBlockState(p_185706_2_.offset(enumfacing.getOpposite()));
+
+		if (isBlockStairs(iblockstate1) && p_185706_0_.getValue(HALF) == iblockstate1.getValue(HALF)) {
+			EnumFacing enumfacing2 = iblockstate1.getValue(FACING);
+
+			if (enumfacing2.getAxis() != p_185706_0_.getValue(FACING).getAxis() && isDifferentStairs(p_185706_0_, p_185706_1_, p_185706_2_, enumfacing2)) {
+				if (enumfacing2 == enumfacing.rotateYCCW()) {
+					return BlockStairs.EnumShape.INNER_LEFT;
+				}
+
+				return BlockStairs.EnumShape.INNER_RIGHT;
+			}
+		}
+
+		return BlockStairs.EnumShape.STRAIGHT;
+	}
+
+	private static boolean isDifferentStairs(IBlockState p_185704_0_, IBlockAccess p_185704_1_, BlockPos p_185704_2_, EnumFacing p_185704_3_) {
+
+		IBlockState iblockstate = p_185704_1_.getBlockState(p_185704_2_.offset(p_185704_3_));
+		return !isBlockStairs(iblockstate) || iblockstate.getValue(FACING) != p_185704_0_.getValue(FACING) || iblockstate.getValue(HALF) != p_185704_0_.getValue(HALF);
+	}
+
+	public static boolean isBlockStairs(IBlockState state) {
+
+		return state.getBlock() instanceof BlockStairs;
+	}
+
+	public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, @Nullable Entity entityIn, boolean isActualState) {
+
+		if (!isActualState) {
+			state = getActualState(state, worldIn, pos);
+		}
+
+		for (AxisAlignedBB axisalignedbb : getCollisionBoxList(state)) {
+			addCollisionBoxToList(pos, entityBox, collidingBoxes, axisalignedbb);
 		}
 	}
 
@@ -525,51 +569,6 @@ public class BlockStairs extends Block {
 	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
 
 		return state.withProperty(SHAPE, getStairsShape(state, worldIn, pos));
-	}
-
-	private static BlockStairs.EnumShape getStairsShape(IBlockState p_185706_0_, IBlockAccess p_185706_1_, BlockPos p_185706_2_) {
-
-		EnumFacing enumfacing = p_185706_0_.getValue(FACING);
-		IBlockState iblockstate = p_185706_1_.getBlockState(p_185706_2_.offset(enumfacing));
-
-		if (isBlockStairs(iblockstate) && p_185706_0_.getValue(HALF) == iblockstate.getValue(HALF)) {
-			EnumFacing enumfacing1 = iblockstate.getValue(FACING);
-
-			if (enumfacing1.getAxis() != p_185706_0_.getValue(FACING).getAxis() && isDifferentStairs(p_185706_0_, p_185706_1_, p_185706_2_, enumfacing1.getOpposite())) {
-				if (enumfacing1 == enumfacing.rotateYCCW()) {
-					return BlockStairs.EnumShape.OUTER_LEFT;
-				}
-
-				return BlockStairs.EnumShape.OUTER_RIGHT;
-			}
-		}
-
-		IBlockState iblockstate1 = p_185706_1_.getBlockState(p_185706_2_.offset(enumfacing.getOpposite()));
-
-		if (isBlockStairs(iblockstate1) && p_185706_0_.getValue(HALF) == iblockstate1.getValue(HALF)) {
-			EnumFacing enumfacing2 = iblockstate1.getValue(FACING);
-
-			if (enumfacing2.getAxis() != p_185706_0_.getValue(FACING).getAxis() && isDifferentStairs(p_185706_0_, p_185706_1_, p_185706_2_, enumfacing2)) {
-				if (enumfacing2 == enumfacing.rotateYCCW()) {
-					return BlockStairs.EnumShape.INNER_LEFT;
-				}
-
-				return BlockStairs.EnumShape.INNER_RIGHT;
-			}
-		}
-
-		return BlockStairs.EnumShape.STRAIGHT;
-	}
-
-	private static boolean isDifferentStairs(IBlockState p_185704_0_, IBlockAccess p_185704_1_, BlockPos p_185704_2_, EnumFacing p_185704_3_) {
-
-		IBlockState iblockstate = p_185704_1_.getBlockState(p_185704_2_.offset(p_185704_3_));
-		return !isBlockStairs(iblockstate) || iblockstate.getValue(FACING) != p_185704_0_.getValue(FACING) || iblockstate.getValue(HALF) != p_185704_0_.getValue(HALF);
-	}
-
-	public static boolean isBlockStairs(IBlockState state) {
-
-		return state.getBlock() instanceof BlockStairs;
 	}
 
 	/**

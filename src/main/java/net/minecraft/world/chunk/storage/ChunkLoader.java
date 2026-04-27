@@ -117,6 +117,8 @@ public class ChunkLoader {
 
 	public static class AnvilConverterData {
 
+		public final int x;
+		public final int z;
 		public long lastUpdated;
 		public boolean terrainPopulated;
 		public byte[] heightmap;
@@ -127,8 +129,6 @@ public class ChunkLoader {
 		public NBTTagList entities;
 		public NBTTagList tileEntities;
 		public NBTTagList tileTicks;
-		public final int x;
-		public final int z;
 
 		public AnvilConverterData(int xIn, int zIn) {
 

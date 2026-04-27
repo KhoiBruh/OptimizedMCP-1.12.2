@@ -2,7 +2,6 @@ package net.minecraft.block;
 
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -78,6 +77,13 @@ public class BlockSandStone extends Block {
 		SMOOTH(2, "smooth_sandstone", "smooth");
 
 		private static final BlockSandStone.EnumType[] META_LOOKUP = new BlockSandStone.EnumType[values().length];
+
+		static {
+			for (BlockSandStone.EnumType blocksandstone$enumtype : values()) {
+				META_LOOKUP[blocksandstone$enumtype.getMetadata()] = blocksandstone$enumtype;
+			}
+		}
+
 		private final int metadata;
 		private final String name;
 		private final String unlocalizedName;
@@ -87,6 +93,15 @@ public class BlockSandStone extends Block {
 			metadata = meta;
 			this.name = name;
 			this.unlocalizedName = unlocalizedName;
+		}
+
+		public static BlockSandStone.EnumType byMetadata(int meta) {
+
+			if (meta < 0 || meta >= META_LOOKUP.length) {
+				meta = 0;
+			}
+
+			return META_LOOKUP[meta];
 		}
 
 		public int getMetadata() {
@@ -99,15 +114,6 @@ public class BlockSandStone extends Block {
 			return name;
 		}
 
-		public static BlockSandStone.EnumType byMetadata(int meta) {
-
-			if (meta < 0 || meta >= META_LOOKUP.length) {
-				meta = 0;
-			}
-
-			return META_LOOKUP[meta];
-		}
-
 		public String getName() {
 
 			return name;
@@ -116,12 +122,6 @@ public class BlockSandStone extends Block {
 		public String getUnlocalizedName() {
 
 			return unlocalizedName;
-		}
-
-		static {
-			for (BlockSandStone.EnumType blocksandstone$enumtype : values()) {
-				META_LOOKUP[blocksandstone$enumtype.getMetadata()] = blocksandstone$enumtype;
-			}
 		}
 	}
 

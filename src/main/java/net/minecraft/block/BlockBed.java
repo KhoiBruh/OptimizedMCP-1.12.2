@@ -3,7 +3,6 @@ package net.minecraft.block;
 import net.minecraft.block.material.EnumPushReaction;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockFaceShape;
@@ -40,6 +39,52 @@ public class BlockBed extends BlockHorizontal implements ITileEntityProvider {
 		super(Material.CLOTH);
 		setDefaultState(blockState.getBaseState().withProperty(PART, BlockBed.EnumPartType.FOOT).withProperty(OCCUPIED, Boolean.valueOf(false)));
 		hasTileEntity = true;
+	}
+
+	@Nullable
+
+	/**
+	 * Returns a safe BlockPos to disembark the bed
+	 */
+	public static BlockPos getSafeExitLocation(World worldIn, BlockPos pos, int tries) {
+
+		EnumFacing enumfacing = worldIn.getBlockState(pos).getValue(FACING);
+		int i = pos.getX();
+		int j = pos.getY();
+		int k = pos.getZ();
+
+		for (int l = 0; l <= 1; ++l) {
+			int i1 = i - enumfacing.getFrontOffsetX() * l - 1;
+			int j1 = k - enumfacing.getFrontOffsetZ() * l - 1;
+			int k1 = i1 + 2;
+			int l1 = j1 + 2;
+
+			for (int i2 = i1; i2 <= k1; ++i2) {
+				for (int j2 = j1; j2 <= l1; ++j2) {
+					BlockPos blockpos = new BlockPos(i2, j, j2);
+
+					if (hasRoomForPlayer(worldIn, blockpos)) {
+						if (tries <= 0) {
+							return blockpos;
+						}
+
+						--tries;
+					}
+				}
+			}
+		}
+
+		return null;
+	}
+
+	protected static boolean hasRoomForPlayer(World worldIn, BlockPos pos) {
+
+		return worldIn.getBlockState(pos.down()).isTopSolid() && !worldIn.getBlockState(pos).getMaterial().isSolid() && !worldIn.getBlockState(pos.up()).getMaterial().isSolid();
+	}
+
+	public static boolean isHeadPiece(int metadata) {
+
+		return (metadata & 8) != 0;
 	}
 
 	/**
@@ -208,47 +253,6 @@ public class BlockBed extends BlockHorizontal implements ITileEntityProvider {
 	public boolean hasCustomBreakingProgress(IBlockState state) {
 
 		return true;
-	}
-
-	@Nullable
-
-	/**
-	 * Returns a safe BlockPos to disembark the bed
-	 */
-	public static BlockPos getSafeExitLocation(World worldIn, BlockPos pos, int tries) {
-
-		EnumFacing enumfacing = worldIn.getBlockState(pos).getValue(FACING);
-		int i = pos.getX();
-		int j = pos.getY();
-		int k = pos.getZ();
-
-		for (int l = 0; l <= 1; ++l) {
-			int i1 = i - enumfacing.getFrontOffsetX() * l - 1;
-			int j1 = k - enumfacing.getFrontOffsetZ() * l - 1;
-			int k1 = i1 + 2;
-			int l1 = j1 + 2;
-
-			for (int i2 = i1; i2 <= k1; ++i2) {
-				for (int j2 = j1; j2 <= l1; ++j2) {
-					BlockPos blockpos = new BlockPos(i2, j, j2);
-
-					if (hasRoomForPlayer(worldIn, blockpos)) {
-						if (tries <= 0) {
-							return blockpos;
-						}
-
-						--tries;
-					}
-				}
-			}
-		}
-
-		return null;
-	}
-
-	protected static boolean hasRoomForPlayer(World worldIn, BlockPos pos) {
-
-		return worldIn.getBlockState(pos.down()).isTopSolid() && !worldIn.getBlockState(pos).getMaterial().isSolid() && !worldIn.getBlockState(pos.up()).getMaterial().isSolid();
 	}
 
 	/**
@@ -425,11 +429,6 @@ public class BlockBed extends BlockHorizontal implements ITileEntityProvider {
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
 
 		return new TileEntityBed();
-	}
-
-	public static boolean isHeadPiece(int metadata) {
-
-		return (metadata & 8) != 0;
 	}
 
 	public enum EnumPartType implements IStringSerializable {

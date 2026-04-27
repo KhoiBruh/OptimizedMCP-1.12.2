@@ -64,19 +64,19 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 	private static final Logger LOGGER = LogManager.getLogger();
 	public final NetworkManager netManager;
 	private final MinecraftServer serverController;
+	private final IntHashMap<Short> pendingTransactions = new IntHashMap<Short>();
+	private final ServerRecipeBookHelper field_194309_H = new ServerRecipeBookHelper();
 	public EntityPlayerMP player;
 	private int networkTickCount;
 	private long field_194402_f;
 	private boolean field_194403_g;
 	private long field_194404_h;
-
 	/**
 	 * Incremented by 20 each time a user sends a chat message, decreased by one every tick. Non-ops kicked when over
 	 * 200
 	 */
 	private int chatSpamThresholdCount;
 	private int itemDropThreshold;
-	private final IntHashMap<Short> pendingTransactions = new IntHashMap<Short>();
 	private double firstGoodX;
 	private double firstGoodY;
 	private double firstGoodZ;
@@ -94,21 +94,18 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 	private int teleportId;
 	private int lastPositionUpdate;
 	private boolean floating;
-
 	/**
 	 * Used to keep track of how the player is floating while gamerules should prevent that. Surpassing 80 ticks means
 	 * kick
 	 */
 	private int floatingTickCount;
 	private boolean vehicleFloating;
-
 	/**
 	 * Used to keep track of how long the player is floating in a vehicle. Surpassing 80 means a kick
 	 */
 	private int vehicleFloatingTickCount;
 	private int movePacketCounter;
 	private int lastMovePacketCounter;
-	private final ServerRecipeBookHelper field_194309_H = new ServerRecipeBookHelper();
 
 	public NetHandlerPlayServer(MinecraftServer server, NetworkManager networkManagerIn, EntityPlayerMP playerIn) {
 
@@ -117,6 +114,20 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 		networkManagerIn.setNetHandler(this);
 		player = playerIn;
 		playerIn.connection = this;
+	}
+
+	private static boolean isMovePlayerPacketInvalid(CPacketPlayer packetIn) {
+
+		if (Doubles.isFinite(packetIn.getX(0.0D)) && Doubles.isFinite(packetIn.getY(0.0D)) && Doubles.isFinite(packetIn.getZ(0.0D)) && Floats.isFinite(packetIn.getPitch(0.0F)) && Floats.isFinite(packetIn.getYaw(0.0F))) {
+			return Math.abs(packetIn.getX(0.0D)) > 3.0E7D || Math.abs(packetIn.getY(0.0D)) > 3.0E7D || Math.abs(packetIn.getZ(0.0D)) > 3.0E7D;
+		} else {
+			return true;
+		}
+	}
+
+	private static boolean isMoveVehiclePacketInvalid(CPacketVehicleMove packetIn) {
+
+		return !Doubles.isFinite(packetIn.getX()) || !Doubles.isFinite(packetIn.getY()) || !Doubles.isFinite(packetIn.getZ()) || !Floats.isFinite(packetIn.getPitch()) || !Floats.isFinite(packetIn.getYaw());
 	}
 
 	/**
@@ -191,7 +202,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 			--itemDropThreshold;
 		}
 
-		if (player.getLastActiveTime() > 0L && serverController.getMaxPlayerIdleMinutes() > 0 && MinecraftServer.getCurrentTimeMillis() - player.getLastActiveTime() > (long) ((long) serverController.getMaxPlayerIdleMinutes() * 1000 * 60)) {
+		if (player.getLastActiveTime() > 0L && serverController.getMaxPlayerIdleMinutes() > 0 && MinecraftServer.getCurrentTimeMillis() - player.getLastActiveTime() > ((long) serverController.getMaxPlayerIdleMinutes() * 1000 * 60)) {
 			disconnect(new TextComponentTranslation("multiplayer.disconnect.idling"));
 		}
 	}
@@ -239,20 +250,6 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 
 		PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, player.getServerWorld());
 		player.setEntityActionState(packetIn.getStrafeSpeed(), packetIn.getForwardSpeed(), packetIn.isJumping(), packetIn.isSneaking());
-	}
-
-	private static boolean isMovePlayerPacketInvalid(CPacketPlayer packetIn) {
-
-		if (Doubles.isFinite(packetIn.getX(0.0D)) && Doubles.isFinite(packetIn.getY(0.0D)) && Doubles.isFinite(packetIn.getZ(0.0D)) && Floats.isFinite(packetIn.getPitch(0.0F)) && Floats.isFinite(packetIn.getYaw(0.0F))) {
-			return Math.abs(packetIn.getX(0.0D)) > 3.0E7D || Math.abs(packetIn.getY(0.0D)) > 3.0E7D || Math.abs(packetIn.getZ(0.0D)) > 3.0E7D;
-		} else {
-			return true;
-		}
-	}
-
-	private static boolean isMoveVehiclePacketInvalid(CPacketVehicleMove packetIn) {
-
-		return !Doubles.isFinite(packetIn.getX()) || !Doubles.isFinite(packetIn.getY()) || !Doubles.isFinite(packetIn.getZ()) || !Floats.isFinite(packetIn.getPitch()) || !Floats.isFinite(packetIn.getYaw());
 	}
 
 	public void processVehicleMove(CPacketVehicleMove packetIn) {

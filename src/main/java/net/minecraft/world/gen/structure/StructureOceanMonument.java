@@ -18,11 +18,16 @@ import java.util.Map.Entry;
 
 public class StructureOceanMonument extends MapGenStructure {
 
-	private int spacing;
-	private int separation;
 	public static final List<Biome> WATER_BIOMES = Arrays.asList(Biomes.OCEAN, Biomes.DEEP_OCEAN, Biomes.RIVER, Biomes.FROZEN_OCEAN, Biomes.FROZEN_RIVER);
 	public static final List<Biome> SPAWN_BIOMES = Collections.singletonList(Biomes.DEEP_OCEAN);
 	private static final List<Biome.SpawnListEntry> MONUMENT_ENEMIES = Lists.newArrayList();
+
+	static {
+		MONUMENT_ENEMIES.add(new Biome.SpawnListEntry(EntityGuardian.class, 1, 2, 4));
+	}
+
+	private int spacing;
+	private int separation;
 
 	public StructureOceanMonument() {
 
@@ -96,10 +101,6 @@ public class StructureOceanMonument extends MapGenStructure {
 	public List<Biome.SpawnListEntry> getMonsters() {
 
 		return MONUMENT_ENEMIES;
-	}
-
-	static {
-		MONUMENT_ENEMIES.add(new Biome.SpawnListEntry(EntityGuardian.class, 1, 2, 4));
 	}
 
 	public static class StartMonument extends StructureStart {

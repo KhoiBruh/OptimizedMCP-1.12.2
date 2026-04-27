@@ -12,10 +12,10 @@ public class ParticleItemPickup extends Particle {
 
 	private final Entity item;
 	private final Entity target;
-	private int age;
 	private final int maxAge;
 	private final float yOffset;
 	private final RenderManager renderManager = Minecraft.getMinecraft().getRenderManager();
+	private int age;
 
 	public ParticleItemPickup(World worldIn, Entity p_i1233_2_, Entity p_i1233_3_, float p_i1233_4_) {
 

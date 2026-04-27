@@ -35,40 +35,39 @@ public class DamageSource {
 	public static final DamageSource FALLING_BLOCK = new DamageSource("fallingBlock");
 	public static final DamageSource DRAGON_BREATH = (new DamageSource("dragonBreath")).setDamageBypassesArmor();
 	public static final DamageSource FIREWORKS = (new DamageSource("fireworks")).setExplosion();
-
+	public String damageType;
 	/**
 	 * This kind of damage can be blocked or not.
 	 */
 	private boolean isUnblockable;
 	private boolean isDamageAllowedInCreativeMode;
-
 	/**
 	 * Whether or not the damage ignores modification by potion effects or enchantments.
 	 */
 	private boolean damageIsAbsolute;
 	private float hungerDamage = 0.1F;
-
 	/**
 	 * This kind of damage is based on fire or not.
 	 */
 	private boolean fireDamage;
-
 	/**
 	 * This kind of damage is based on a projectile or not.
 	 */
 	private boolean projectile;
-
 	/**
 	 * Whether this damage source will have its damage amount scaled based on the current difficulty.
 	 */
 	private boolean difficultyScaled;
-
 	/**
 	 * Whether the damage is magic based.
 	 */
 	private boolean magicDamage;
 	private boolean explosion;
-	public String damageType;
+
+	protected DamageSource(String damageTypeIn) {
+
+		damageType = damageTypeIn;
+	}
 
 	public static DamageSource causeMobDamage(EntityLivingBase mob) {
 
@@ -184,11 +183,6 @@ public class DamageSource {
 	public boolean isDamageAbsolute() {
 
 		return damageIsAbsolute;
-	}
-
-	protected DamageSource(String damageTypeIn) {
-
-		damageType = damageTypeIn;
 	}
 
 	@Nullable

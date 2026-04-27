@@ -2,7 +2,6 @@ package net.minecraft.entity.boss.dragon.phase;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.boss.EntityDragon;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityDragonFireball;
 import net.minecraft.pathfinding.Path;
 import net.minecraft.pathfinding.PathPoint;

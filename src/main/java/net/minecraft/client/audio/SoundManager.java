@@ -47,21 +47,6 @@ public class SoundManager {
 	 * Reference to the GameSettings object.
 	 */
 	private final GameSettings options;
-
-	/**
-	 * A reference to the sound system.
-	 */
-	private SoundManager.SoundSystemStarterThread sndSystem;
-
-	/**
-	 * Set to true when the SoundManager has been initialised.
-	 */
-	private boolean loaded;
-
-	/**
-	 * A counter for how long the sound manager has been running
-	 */
-	private int playTime;
 	private final Map<String, ISound> playingSounds = HashBiMap.create();
 	private final Map<ISound, String> invPlayingSounds;
 	private final Multimap<SoundCategory, String> categorySounds;
@@ -70,6 +55,18 @@ public class SoundManager {
 	private final Map<String, Integer> playingSoundsStopTime;
 	private final List<ISoundEventListener> listeners;
 	private final List<String> pausedChannels;
+	/**
+	 * A reference to the sound system.
+	 */
+	private SoundManager.SoundSystemStarterThread sndSystem;
+	/**
+	 * Set to true when the SoundManager has been initialised.
+	 */
+	private boolean loaded;
+	/**
+	 * A counter for how long the sound manager has been running
+	 */
+	private int playTime;
 
 	public SoundManager(SoundHandler p_i45119_1_, GameSettings p_i45119_2_) {
 
@@ -88,6 +85,32 @@ public class SoundManager {
 			SoundSystemConfig.setCodec("ogg", CodecJOrbis.class);
 		} catch (SoundSystemException soundsystemexception) {
 			LOGGER.error(LOG_MARKER, "Error linking with the LibraryJavaSound plug-in", soundsystemexception);
+		}
+	}
+
+	private static URL getURLForSoundResource(final ResourceLocation p_148612_0_) {
+
+		String s = String.format("%s:%s:%s", "mcsounddomain", p_148612_0_.getResourceDomain(), p_148612_0_.getResourcePath());
+		URLStreamHandler urlstreamhandler = new URLStreamHandler() {
+			protected URLConnection openConnection(URL p_openConnection_1_) {
+
+				return new URLConnection(p_openConnection_1_) {
+					public void connect() throws IOException {
+
+					}
+
+					public InputStream getInputStream() throws IOException {
+
+						return Minecraft.getMinecraft().getResourceManager().getResource(p_148612_0_).getInputStream();
+					}
+				};
+			}
+		};
+
+		try {
+			return new URL(null, s, urlstreamhandler);
+		} catch (MalformedURLException var4) {
+			throw new Error("TODO: Sanely handle url exception! :D");
 		}
 	}
 
@@ -433,32 +456,6 @@ public class SoundManager {
 	public void playDelayedSound(ISound sound, int delay) {
 
 		delayedSounds.put(sound, Integer.valueOf(playTime + delay));
-	}
-
-	private static URL getURLForSoundResource(final ResourceLocation p_148612_0_) {
-
-		String s = String.format("%s:%s:%s", "mcsounddomain", p_148612_0_.getResourceDomain(), p_148612_0_.getResourcePath());
-		URLStreamHandler urlstreamhandler = new URLStreamHandler() {
-			protected URLConnection openConnection(URL p_openConnection_1_) {
-
-				return new URLConnection(p_openConnection_1_) {
-					public void connect() throws IOException {
-
-					}
-
-					public InputStream getInputStream() throws IOException {
-
-						return Minecraft.getMinecraft().getResourceManager().getResource(p_148612_0_).getInputStream();
-					}
-				};
-			}
-		};
-
-		try {
-			return new URL(null, s, urlstreamhandler);
-		} catch (MalformedURLException var4) {
-			throw new Error("TODO: Sanely handle url exception! :D");
-		}
 	}
 
 	/**

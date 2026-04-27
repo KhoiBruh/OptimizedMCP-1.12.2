@@ -13,13 +13,12 @@ public class BiomeCache {
 	 * Reference to the WorldChunkManager
 	 */
 	private final BiomeProvider provider;
-
+	private final Long2ObjectMap<BiomeCache.Block> cacheMap = new Long2ObjectOpenHashMap<BiomeCache.Block>(4096);
+	private final List<BiomeCache.Block> cache = Lists.newArrayList();
 	/**
 	 * The last time this BiomeCache was cleaned, in milliseconds.
 	 */
 	private long lastCleanupTime;
-	private final Long2ObjectMap<BiomeCache.Block> cacheMap = new Long2ObjectOpenHashMap<BiomeCache.Block>(4096);
-	private final List<BiomeCache.Block> cache = Lists.newArrayList();
 
 	public BiomeCache(BiomeProvider provider) {
 

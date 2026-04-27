@@ -51,28 +51,23 @@ public class Material {
 	public static final Material PISTON = (new Material(MapColor.STONE)).setImmovableMobility();
 	public static final Material BARRIER = (new Material(MapColor.AIR)).setRequiresTool().setImmovableMobility();
 	public static final Material STRUCTURE_VOID = new MaterialTransparent(MapColor.AIR);
-
+	/**
+	 * The color index used to draw the blocks of this material on maps.
+	 */
+	private final MapColor materialMapColor;
 	/**
 	 * Bool defining if the block can burn or not.
 	 */
 	private boolean canBurn;
-
 	/**
 	 * Determines whether blocks with this material can be "overwritten" by other blocks when placed - eg snow, vines
 	 * and tall grass.
 	 */
 	private boolean replaceable;
-
 	/**
 	 * Indicates if the material is translucent
 	 */
 	private boolean isTranslucent;
-
-	/**
-	 * The color index used to draw the blocks of this material on maps.
-	 */
-	private final MapColor materialMapColor;
-
 	/**
 	 * Determines if the material can be harvested without a tool (or with the wrong tool)
 	 */

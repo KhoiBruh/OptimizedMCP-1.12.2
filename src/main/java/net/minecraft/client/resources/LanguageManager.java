@@ -16,11 +16,11 @@ import java.util.SortedSet;
 
 public class LanguageManager implements IResourceManagerReloadListener {
 
+	protected static final Locale CURRENT_LOCALE = new Locale();
 	private static final Logger LOGGER = LogManager.getLogger();
 	private final MetadataSerializer metadataSerializer;
-	private String currentLanguage;
-	protected static final Locale CURRENT_LOCALE = new Locale();
 	private final Map<String, Language> languageMap = Maps.newHashMap();
+	private String currentLanguage;
 
 	public LanguageManager(MetadataSerializer theMetadataSerializerIn, String currentLanguageIn) {
 
@@ -74,15 +74,15 @@ public class LanguageManager implements IResourceManagerReloadListener {
 		return getCurrentLanguage() != null && getCurrentLanguage().isBidirectional();
 	}
 
-	public void setCurrentLanguage(Language currentLanguageIn) {
-
-		currentLanguage = currentLanguageIn.getLanguageCode();
-	}
-
 	public Language getCurrentLanguage() {
 
 		String s = languageMap.containsKey(currentLanguage) ? currentLanguage : "en_us";
 		return languageMap.get(s);
+	}
+
+	public void setCurrentLanguage(Language currentLanguageIn) {
+
+		currentLanguage = currentLanguageIn.getLanguageCode();
 	}
 
 	public SortedSet<Language> getLanguages() {

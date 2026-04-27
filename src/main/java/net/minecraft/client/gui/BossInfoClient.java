@@ -21,18 +21,18 @@ public class BossInfoClient extends BossInfo {
 		setCreateFog(packetIn.shouldCreateFog());
 	}
 
-	public void setPercent(float percentIn) {
-
-		percent = getPercent();
-		rawPercent = percentIn;
-		percentSetTime = Minecraft.getSystemTime();
-	}
-
 	public float getPercent() {
 
 		long i = Minecraft.getSystemTime() - percentSetTime;
 		float f = MathHelper.clamp((float) i / 100.0F, 0.0F, 1.0F);
 		return percent + (rawPercent - percent) * f;
+	}
+
+	public void setPercent(float percentIn) {
+
+		percent = getPercent();
+		rawPercent = percentIn;
+		percentSetTime = Minecraft.getSystemTime();
 	}
 
 	public void updateFromPacket(SPacketUpdateBossInfo packetIn) {

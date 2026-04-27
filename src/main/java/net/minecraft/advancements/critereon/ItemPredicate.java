@@ -49,35 +49,6 @@ public class ItemPredicate {
 		this.nbt = nbt;
 	}
 
-	public boolean test(ItemStack item) {
-
-		if (this.item != null && item.getItem() != this.item) {
-			return false;
-		} else if (data != null && item.getMetadata() != data.intValue()) {
-			return false;
-		} else if (!count.test((float) item.getCount())) {
-			return false;
-		} else if (durability != MinMaxBounds.UNBOUNDED && !item.isItemStackDamageable()) {
-			return false;
-		} else if (!durability.test((float) (item.getMaxDamage() - item.getItemDamage()))) {
-			return false;
-		} else if (!nbt.test(item)) {
-			return false;
-		} else {
-			Map<Enchantment, Integer> map = EnchantmentHelper.getEnchantments(item);
-
-			for (int i = 0; i < enchantments.length; ++i) {
-				if (!enchantments[i].test(map)) {
-					return false;
-				}
-			}
-
-			PotionType potiontype = PotionUtils.getPotionFromItem(item);
-
-			return potion == null || potion == potiontype;
-		}
-	}
-
 	public static ItemPredicate deserialize(@Nullable JsonElement element) {
 
 		if (element != null && !element.isJsonNull()) {
@@ -129,6 +100,35 @@ public class ItemPredicate {
 			return aitempredicate;
 		} else {
 			return new ItemPredicate[0];
+		}
+	}
+
+	public boolean test(ItemStack item) {
+
+		if (this.item != null && item.getItem() != this.item) {
+			return false;
+		} else if (data != null && item.getMetadata() != data.intValue()) {
+			return false;
+		} else if (!count.test((float) item.getCount())) {
+			return false;
+		} else if (durability != MinMaxBounds.UNBOUNDED && !item.isItemStackDamageable()) {
+			return false;
+		} else if (!durability.test((float) (item.getMaxDamage() - item.getItemDamage()))) {
+			return false;
+		} else if (!nbt.test(item)) {
+			return false;
+		} else {
+			Map<Enchantment, Integer> map = EnchantmentHelper.getEnchantments(item);
+
+			for (int i = 0; i < enchantments.length; ++i) {
+				if (!enchantments[i].test(map)) {
+					return false;
+				}
+			}
+
+			PotionType potiontype = PotionUtils.getPotionFromItem(item);
+
+			return potion == null || potion == potiontype;
 		}
 	}
 

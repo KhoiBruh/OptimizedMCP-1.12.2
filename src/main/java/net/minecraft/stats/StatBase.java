@@ -12,27 +12,14 @@ import java.util.Locale;
 
 public class StatBase {
 
-	/**
-	 * The Stat ID
-	 */
-	public final String statId;
-
-	/**
-	 * The Stat name
-	 */
-	private final ITextComponent statName;
-	public boolean isIndependent;
-	private final IStatType formatter;
-	private final IScoreCriteria objectiveCriteria;
-	private Class<? extends IJsonSerializable> serializableClazz;
 	private static final NumberFormat numberFormat = NumberFormat.getIntegerInstance(Locale.US);
+	private static final DecimalFormat decimalFormat = new DecimalFormat("########0.00");
 	public static IStatType simpleStatType = new IStatType() {
 		public String format(int number) {
 
 			return StatBase.numberFormat.format(number);
 		}
 	};
-	private static final DecimalFormat decimalFormat = new DecimalFormat("########0.00");
 	public static IStatType timeStatType = new IStatType() {
 		public String format(int number) {
 
@@ -72,6 +59,18 @@ public class StatBase {
 			return StatBase.decimalFormat.format((double) number * 0.1D);
 		}
 	};
+	/**
+	 * The Stat ID
+	 */
+	public final String statId;
+	/**
+	 * The Stat name
+	 */
+	private final ITextComponent statName;
+	private final IStatType formatter;
+	private final IScoreCriteria objectiveCriteria;
+	public boolean isIndependent;
+	private Class<? extends IJsonSerializable> serializableClazz;
 
 	public StatBase(String statIdIn, ITextComponent statNameIn, IStatType formatterIn) {
 

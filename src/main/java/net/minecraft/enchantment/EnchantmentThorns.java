@@ -18,6 +18,20 @@ public class EnchantmentThorns extends Enchantment {
 		setName("thorns");
 	}
 
+	public static boolean shouldHit(int level, Random rnd) {
+
+		if (level <= 0) {
+			return false;
+		} else {
+			return rnd.nextFloat() < 0.15F * (float) level;
+		}
+	}
+
+	public static int getDamage(int level, Random rnd) {
+
+		return level > 10 ? level - 10 : 1 + rnd.nextInt(4);
+	}
+
 	/**
 	 * Returns the minimal value of enchantability needed on the enchantment level passed.
 	 */
@@ -70,20 +84,6 @@ public class EnchantmentThorns extends Enchantment {
 		} else if (!itemstack.isEmpty()) {
 			itemstack.damageItem(1, user);
 		}
-	}
-
-	public static boolean shouldHit(int level, Random rnd) {
-
-		if (level <= 0) {
-			return false;
-		} else {
-			return rnd.nextFloat() < 0.15F * (float) level;
-		}
-	}
-
-	public static int getDamage(int level, Random rnd) {
-
-		return level > 10 ? level - 10 : 1 + rnd.nextInt(4);
 	}
 
 }

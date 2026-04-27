@@ -52,6 +52,14 @@ public final class WorldSettings {
 	}
 
 	/**
+	 * Gets the GameType by ID
+	 */
+	public static GameType getGameTypeById(int id) {
+
+		return GameType.getByID(id);
+	}
+
+	/**
 	 * Enables the bonus chest.
 	 */
 	public WorldSettings enableBonusChest() {
@@ -66,12 +74,6 @@ public final class WorldSettings {
 	public WorldSettings enableCommands() {
 
 		commandsAllowed = true;
-		return this;
-	}
-
-	public WorldSettings setGeneratorOptions(String options) {
-
-		generatorOptions = options;
 		return this;
 	}
 
@@ -128,17 +130,15 @@ public final class WorldSettings {
 		return commandsAllowed;
 	}
 
-	/**
-	 * Gets the GameType by ID
-	 */
-	public static GameType getGameTypeById(int id) {
-
-		return GameType.getByID(id);
-	}
-
 	public String getGeneratorOptions() {
 
 		return generatorOptions;
+	}
+
+	public WorldSettings setGeneratorOptions(String options) {
+
+		generatorOptions = options;
+		return this;
 	}
 
 }

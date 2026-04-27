@@ -21,6 +21,35 @@ public class MerchantRecipeList extends ArrayList<MerchantRecipe> {
 		readRecipiesFromTags(compound);
 	}
 
+	public static MerchantRecipeList readFromBuf(PacketBuffer buffer) throws IOException {
+
+		MerchantRecipeList merchantrecipelist = new MerchantRecipeList();
+		int i = buffer.readByte() & 255;
+
+		for (int j = 0; j < i; ++j) {
+			ItemStack itemstack = buffer.readItemStack();
+			ItemStack itemstack1 = buffer.readItemStack();
+			ItemStack itemstack2 = ItemStack.EMPTY;
+
+			if (buffer.readBoolean()) {
+				itemstack2 = buffer.readItemStack();
+			}
+
+			boolean flag = buffer.readBoolean();
+			int k = buffer.readInt();
+			int l = buffer.readInt();
+			MerchantRecipe merchantrecipe = new MerchantRecipe(itemstack, itemstack2, itemstack1, k, l);
+
+			if (flag) {
+				merchantrecipe.compensateToolUses();
+			}
+
+			merchantrecipelist.add(merchantrecipe);
+		}
+
+		return merchantrecipelist;
+	}
+
 	@Nullable
 
 	/**
@@ -68,35 +97,6 @@ public class MerchantRecipeList extends ArrayList<MerchantRecipe> {
 			buffer.writeInt(merchantrecipe.getToolUses());
 			buffer.writeInt(merchantrecipe.getMaxTradeUses());
 		}
-	}
-
-	public static MerchantRecipeList readFromBuf(PacketBuffer buffer) throws IOException {
-
-		MerchantRecipeList merchantrecipelist = new MerchantRecipeList();
-		int i = buffer.readByte() & 255;
-
-		for (int j = 0; j < i; ++j) {
-			ItemStack itemstack = buffer.readItemStack();
-			ItemStack itemstack1 = buffer.readItemStack();
-			ItemStack itemstack2 = ItemStack.EMPTY;
-
-			if (buffer.readBoolean()) {
-				itemstack2 = buffer.readItemStack();
-			}
-
-			boolean flag = buffer.readBoolean();
-			int k = buffer.readInt();
-			int l = buffer.readInt();
-			MerchantRecipe merchantrecipe = new MerchantRecipe(itemstack, itemstack2, itemstack1, k, l);
-
-			if (flag) {
-				merchantrecipe.compensateToolUses();
-			}
-
-			merchantrecipelist.add(merchantrecipe);
-		}
-
-		return merchantrecipelist;
 	}
 
 	public void readRecipiesFromTags(NBTTagCompound compound) {

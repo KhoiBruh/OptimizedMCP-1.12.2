@@ -20,18 +20,18 @@ public class TextureAtlasSprite {
 	private final String iconName;
 	protected List<int[][]> framesTextureData = Lists.newArrayList();
 	protected int[][] interpolatedFrameData;
-	private AnimationMetadataSection animationMetadata;
 	protected boolean rotated;
 	protected int originX;
 	protected int originY;
 	protected int width;
 	protected int height;
+	protected int frameCounter;
+	protected int tickCounter;
+	private AnimationMetadataSection animationMetadata;
 	private float minU;
 	private float maxU;
 	private float minV;
 	private float maxV;
-	protected int frameCounter;
-	protected int tickCounter;
 
 	protected TextureAtlasSprite(String spriteName) {
 
@@ -41,6 +41,22 @@ public class TextureAtlasSprite {
 	protected static TextureAtlasSprite makeAtlasSprite(ResourceLocation spriteResourceLocation) {
 
 		return new TextureAtlasSprite(spriteResourceLocation.toString());
+	}
+
+	private static int[][] getFrameTextureData(int[][] data, int rows, int columns, int p_147962_3_) {
+
+		int[][] aint = new int[data.length][];
+
+		for (int i = 0; i < data.length; ++i) {
+			int[] aint1 = data[i];
+
+			if (aint1 != null) {
+				aint[i] = new int[(rows >> i) * (columns >> i)];
+				System.arraycopy(aint1, p_147962_3_ * aint[i].length, aint[i], 0, aint[i].length);
+			}
+		}
+
+		return aint;
 	}
 
 	public void initSprite(int inX, int inY, int originInX, int originInY, boolean rotatedIn) {
@@ -93,12 +109,22 @@ public class TextureAtlasSprite {
 		return width;
 	}
 
+	public void setIconWidth(int newWidth) {
+
+		width = newWidth;
+	}
+
 	/**
 	 * Returns the height of the icon, in pixels.
 	 */
 	public int getIconHeight() {
 
 		return height;
+	}
+
+	public void setIconHeight(int newHeight) {
+
+		height = newHeight;
 	}
 
 	/**
@@ -244,16 +270,6 @@ public class TextureAtlasSprite {
 		return framesTextureData.size();
 	}
 
-	public void setIconWidth(int newWidth) {
-
-		width = newWidth;
-	}
-
-	public void setIconHeight(int newHeight) {
-
-		height = newHeight;
-	}
-
 	public void loadSprite(PngSizeInfo sizeInfo, boolean p_188538_2_) throws IOException {
 
 		resetSprite();
@@ -353,22 +369,6 @@ public class TextureAtlasSprite {
 				framesTextureData.add(null);
 			}
 		}
-	}
-
-	private static int[][] getFrameTextureData(int[][] data, int rows, int columns, int p_147962_3_) {
-
-		int[][] aint = new int[data.length][];
-
-		for (int i = 0; i < data.length; ++i) {
-			int[] aint1 = data[i];
-
-			if (aint1 != null) {
-				aint[i] = new int[(rows >> i) * (columns >> i)];
-				System.arraycopy(aint1, p_147962_3_ * aint[i].length, aint[i], 0, aint[i].length);
-			}
-		}
-
-		return aint;
 	}
 
 	public void clearFramesTextureData() {

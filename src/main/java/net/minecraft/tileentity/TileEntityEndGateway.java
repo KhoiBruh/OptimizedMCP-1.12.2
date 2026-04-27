@@ -32,6 +32,59 @@ public class TileEntityEndGateway extends TileEntityEndPortal implements ITickab
 	private BlockPos exitPortal;
 	private boolean exactTeleport;
 
+	private static BlockPos findHighestBlock(World p_184308_0_, BlockPos p_184308_1_, int p_184308_2_, boolean p_184308_3_) {
+
+		BlockPos blockpos = null;
+
+		for (int i = -p_184308_2_; i <= p_184308_2_; ++i) {
+			for (int j = -p_184308_2_; j <= p_184308_2_; ++j) {
+				if (i != 0 || j != 0 || p_184308_3_) {
+					for (int k = 255; k > (blockpos == null ? 0 : blockpos.getY()); --k) {
+						BlockPos blockpos1 = new BlockPos(p_184308_1_.getX() + i, k, p_184308_1_.getZ() + j);
+						IBlockState iblockstate = p_184308_0_.getBlockState(blockpos1);
+
+						if (iblockstate.isBlockNormalCube() && (p_184308_3_ || iblockstate.getBlock() != Blocks.BEDROCK)) {
+							blockpos = blockpos1;
+							break;
+						}
+					}
+				}
+			}
+		}
+
+		return blockpos == null ? p_184308_1_ : blockpos;
+	}
+
+	private static Chunk getChunk(World worldIn, Vec3d vec3) {
+
+		return worldIn.getChunkFromChunkCoords(MathHelper.floor(vec3.x() / 16.0D), MathHelper.floor(vec3.z() / 16.0D));
+	}
+
+	@Nullable
+	private static BlockPos findSpawnpointInChunk(Chunk chunkIn) {
+
+		BlockPos blockpos = new BlockPos(chunkIn.x * 16, 30, chunkIn.z * 16);
+		int i = chunkIn.getTopFilledSegment() + 16 - 1;
+		BlockPos blockpos1 = new BlockPos(chunkIn.x * 16 + 16 - 1, i, chunkIn.z * 16 + 16 - 1);
+		BlockPos blockpos2 = null;
+		double d0 = 0.0D;
+
+		for (BlockPos blockpos3 : BlockPos.getAllInBox(blockpos, blockpos1)) {
+			IBlockState iblockstate = chunkIn.getBlockState(blockpos3);
+
+			if (iblockstate.getBlock() == Blocks.END_STONE && !chunkIn.getBlockState(blockpos3.up(1)).isBlockNormalCube() && !chunkIn.getBlockState(blockpos3.up(2)).isBlockNormalCube()) {
+				double d1 = blockpos3.distanceSqToCenter(0.0D, 0.0D, 0.0D);
+
+				if (blockpos2 == null || d1 < d0) {
+					blockpos2 = blockpos3;
+					d0 = d1;
+				}
+			}
+		}
+
+		return blockpos2;
+	}
+
 	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
 
 		super.writeToNBT(compound);
@@ -198,59 +251,6 @@ public class TileEntityEndGateway extends TileEntityEndPortal implements ITickab
 		exitPortal = exitPortal.up(10);
 		createExitPortal(exitPortal);
 		markDirty();
-	}
-
-	private static BlockPos findHighestBlock(World p_184308_0_, BlockPos p_184308_1_, int p_184308_2_, boolean p_184308_3_) {
-
-		BlockPos blockpos = null;
-
-		for (int i = -p_184308_2_; i <= p_184308_2_; ++i) {
-			for (int j = -p_184308_2_; j <= p_184308_2_; ++j) {
-				if (i != 0 || j != 0 || p_184308_3_) {
-					for (int k = 255; k > (blockpos == null ? 0 : blockpos.getY()); --k) {
-						BlockPos blockpos1 = new BlockPos(p_184308_1_.getX() + i, k, p_184308_1_.getZ() + j);
-						IBlockState iblockstate = p_184308_0_.getBlockState(blockpos1);
-
-						if (iblockstate.isBlockNormalCube() && (p_184308_3_ || iblockstate.getBlock() != Blocks.BEDROCK)) {
-							blockpos = blockpos1;
-							break;
-						}
-					}
-				}
-			}
-		}
-
-		return blockpos == null ? p_184308_1_ : blockpos;
-	}
-
-	private static Chunk getChunk(World worldIn, Vec3d vec3) {
-
-		return worldIn.getChunkFromChunkCoords(MathHelper.floor(vec3.x() / 16.0D), MathHelper.floor(vec3.z() / 16.0D));
-	}
-
-	@Nullable
-	private static BlockPos findSpawnpointInChunk(Chunk chunkIn) {
-
-		BlockPos blockpos = new BlockPos(chunkIn.x * 16, 30, chunkIn.z * 16);
-		int i = chunkIn.getTopFilledSegment() + 16 - 1;
-		BlockPos blockpos1 = new BlockPos(chunkIn.x * 16 + 16 - 1, i, chunkIn.z * 16 + 16 - 1);
-		BlockPos blockpos2 = null;
-		double d0 = 0.0D;
-
-		for (BlockPos blockpos3 : BlockPos.getAllInBox(blockpos, blockpos1)) {
-			IBlockState iblockstate = chunkIn.getBlockState(blockpos3);
-
-			if (iblockstate.getBlock() == Blocks.END_STONE && !chunkIn.getBlockState(blockpos3.up(1)).isBlockNormalCube() && !chunkIn.getBlockState(blockpos3.up(2)).isBlockNormalCube()) {
-				double d1 = blockpos3.distanceSqToCenter(0.0D, 0.0D, 0.0D);
-
-				if (blockpos2 == null || d1 < d0) {
-					blockpos2 = blockpos3;
-					d0 = d1;
-				}
-			}
-		}
-
-		return blockpos2;
 	}
 
 	private void createExitPortal(BlockPos posIn) {

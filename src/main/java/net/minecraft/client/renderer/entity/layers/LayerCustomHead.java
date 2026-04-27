@@ -20,8 +20,6 @@ import net.minecraft.tileentity.TileEntitySkull;
 import net.minecraft.util.EnumFacing;
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.UUID;
-
 public class LayerCustomHead implements LayerRenderer<EntityLivingBase> {
 
 	private final ModelRenderer modelRenderer;

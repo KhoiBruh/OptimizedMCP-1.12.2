@@ -187,6 +187,15 @@ public class IntegratedServer extends MinecraftServer {
 	}
 
 	/**
+	 * Sets the game type for all worlds.
+	 */
+	public void setGameType(GameType gameMode) {
+
+		super.setGameType(gameMode);
+		getPlayerList().setGameType(gameMode);
+	}
+
+	/**
 	 * Get the server's difficulty
 	 */
 	public EnumDifficulty getDifficulty() {
@@ -382,15 +391,6 @@ public class IntegratedServer extends MinecraftServer {
 	public boolean getPublic() {
 
 		return isPublic;
-	}
-
-	/**
-	 * Sets the game type for all worlds.
-	 */
-	public void setGameType(GameType gameMode) {
-
-		super.setGameType(gameMode);
-		getPlayerList().setGameType(gameMode);
 	}
 
 	/**

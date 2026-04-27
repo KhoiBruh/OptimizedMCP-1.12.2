@@ -33,6 +33,26 @@ public record Vec3d(double x, double y, double z) {
 	}
 
 	/**
+	 * returns a Vec3d from given pitch and yaw degrees as Vec2f
+	 */
+	public static Vec3d fromPitchYawVector(Vec2f p_189984_0_) {
+
+		return fromPitchYaw(p_189984_0_.x(), p_189984_0_.y());
+	}
+
+	/**
+	 * returns a Vec3d from given pitch and yaw degrees
+	 */
+	public static Vec3d fromPitchYaw(float p_189986_0_, float p_189986_1_) {
+
+		float f = MathHelper.cos(-p_189986_1_ * 0.017453292F - (float) Math.PI);
+		float f1 = MathHelper.sin(-p_189986_1_ * 0.017453292F - (float) Math.PI);
+		float f2 = -MathHelper.cos(-p_189986_0_ * 0.017453292F);
+		float f3 = MathHelper.sin(-p_189986_0_ * 0.017453292F);
+		return new Vec3d(f1 * f2, f3, f * f2);
+	}
+
+	/**
 	 * Returns a new vector with the result of the specified vector minus this.
 	 */
 	public Vec3d subtractReverse(Vec3d vec) {
@@ -198,16 +218,16 @@ public record Vec3d(double x, double y, double z) {
 
 		if (this == p_equals_1_) {
 			return true;
-		} else if (!(p_equals_1_ instanceof Vec3d vec3d)) {
+		} else if (!(p_equals_1_ instanceof Vec3d(double x1, double y1, double z1))) {
 			return false;
 		} else {
 
-			if (Double.compare(vec3d.x, x) != 0) {
+			if (Double.compare(x1, x) != 0) {
 				return false;
-			} else if (Double.compare(vec3d.y, y) != 0) {
+			} else if (Double.compare(y1, y) != 0) {
 				return false;
 			} else {
-				return Double.compare(vec3d.z, z) == 0;
+				return Double.compare(z1, z) == 0;
 			}
 		}
 	}
@@ -246,26 +266,6 @@ public record Vec3d(double x, double y, double z) {
 		double d1 = y;
 		double d2 = z * (double) f - x * (double) f1;
 		return new Vec3d(d0, d1, d2);
-	}
-
-	/**
-	 * returns a Vec3d from given pitch and yaw degrees as Vec2f
-	 */
-	public static Vec3d fromPitchYawVector(Vec2f p_189984_0_) {
-
-		return fromPitchYaw(p_189984_0_.x(), p_189984_0_.y());
-	}
-
-	/**
-	 * returns a Vec3d from given pitch and yaw degrees
-	 */
-	public static Vec3d fromPitchYaw(float p_189986_0_, float p_189986_1_) {
-
-		float f = MathHelper.cos(-p_189986_1_ * 0.017453292F - (float) Math.PI);
-		float f1 = MathHelper.sin(-p_189986_1_ * 0.017453292F - (float) Math.PI);
-		float f2 = -MathHelper.cos(-p_189986_0_ * 0.017453292F);
-		float f3 = MathHelper.sin(-p_189986_0_ * 0.017453292F);
-		return new Vec3d(f1 * f2, f3, f * f2);
 	}
 
 }

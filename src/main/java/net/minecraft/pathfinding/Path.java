@@ -32,6 +32,36 @@ public class Path {
 		pathLength = pathpoints.length;
 	}
 
+	public static Path read(PacketBuffer buf) {
+
+		int i = buf.readInt();
+		PathPoint pathpoint = PathPoint.createFromBuffer(buf);
+		PathPoint[] apathpoint = new PathPoint[buf.readInt()];
+
+		for (int j = 0; j < apathpoint.length; ++j) {
+			apathpoint[j] = PathPoint.createFromBuffer(buf);
+		}
+
+		PathPoint[] apathpoint1 = new PathPoint[buf.readInt()];
+
+		for (int k = 0; k < apathpoint1.length; ++k) {
+			apathpoint1[k] = PathPoint.createFromBuffer(buf);
+		}
+
+		PathPoint[] apathpoint2 = new PathPoint[buf.readInt()];
+
+		for (int l = 0; l < apathpoint2.length; ++l) {
+			apathpoint2[l] = PathPoint.createFromBuffer(buf);
+		}
+
+		Path path = new Path(apathpoint);
+		path.openSet = apathpoint1;
+		path.closedSet = apathpoint2;
+		path.target = pathpoint;
+		path.currentPathIndex = i;
+		return path;
+	}
+
 	/**
 	 * Directs this path to the next point in its array
 	 */
@@ -149,36 +179,6 @@ public class Path {
 	public PathPoint getTarget() {
 
 		return target;
-	}
-
-	public static Path read(PacketBuffer buf) {
-
-		int i = buf.readInt();
-		PathPoint pathpoint = PathPoint.createFromBuffer(buf);
-		PathPoint[] apathpoint = new PathPoint[buf.readInt()];
-
-		for (int j = 0; j < apathpoint.length; ++j) {
-			apathpoint[j] = PathPoint.createFromBuffer(buf);
-		}
-
-		PathPoint[] apathpoint1 = new PathPoint[buf.readInt()];
-
-		for (int k = 0; k < apathpoint1.length; ++k) {
-			apathpoint1[k] = PathPoint.createFromBuffer(buf);
-		}
-
-		PathPoint[] apathpoint2 = new PathPoint[buf.readInt()];
-
-		for (int l = 0; l < apathpoint2.length; ++l) {
-			apathpoint2[l] = PathPoint.createFromBuffer(buf);
-		}
-
-		Path path = new Path(apathpoint);
-		path.openSet = apathpoint1;
-		path.closedSet = apathpoint2;
-		path.target = pathpoint;
-		path.currentPathIndex = i;
-		return path;
 	}
 
 }

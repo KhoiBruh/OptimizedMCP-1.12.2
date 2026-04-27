@@ -9,6 +9,11 @@ public class EnchantmentSweepingEdge extends Enchantment {
 		super(p_i47366_1_, EnumEnchantmentType.WEAPON, p_i47366_2_);
 	}
 
+	public static float getSweepingDamageRatio(int p_191526_0_) {
+
+		return 1.0F - 1.0F / (float) (p_191526_0_ + 1);
+	}
+
 	/**
 	 * Returns the minimal value of enchantability needed on the enchantment level passed.
 	 */
@@ -31,11 +36,6 @@ public class EnchantmentSweepingEdge extends Enchantment {
 	public int getMaxLevel() {
 
 		return 3;
-	}
-
-	public static float getSweepingDamageRatio(int p_191526_0_) {
-
-		return 1.0F - 1.0F / (float) (p_191526_0_ + 1);
 	}
 
 	/**

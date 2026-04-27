@@ -12,8 +12,8 @@ import java.io.IOException;
 public class GuiWorldEdit extends GuiScreen {
 
 	private final GuiScreen lastScreen;
-	private GuiTextField nameEdit;
 	private final String worldId;
+	private GuiTextField nameEdit;
 
 	public GuiWorldEdit(GuiScreen p_i46593_1_, String p_i46593_2_) {
 

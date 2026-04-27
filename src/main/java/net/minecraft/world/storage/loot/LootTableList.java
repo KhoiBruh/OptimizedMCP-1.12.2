@@ -3,14 +3,12 @@ package net.minecraft.world.storage.loot;
 import com.google.common.collect.Sets;
 import net.minecraft.util.ResourceLocation;
 
-import java.io.File;
 import java.util.Collections;
 import java.util.Set;
 
 public class LootTableList {
 
 	private static final Set<ResourceLocation> LOOT_TABLES = Sets.newHashSet();
-	private static final Set<ResourceLocation> READ_ONLY_LOOT_TABLES = Collections.unmodifiableSet(LOOT_TABLES);
 	public static final ResourceLocation EMPTY = register("empty");
 	public static final ResourceLocation CHESTS_SPAWN_BONUS_CHEST = register("chests/spawn_bonus_chest");
 	public static final ResourceLocation CHESTS_END_CITY_TREASURE = register("chests/end_city_treasure");
@@ -93,6 +91,7 @@ public class LootTableList {
 	public static final ResourceLocation GAMEPLAY_FISHING_JUNK = register("gameplay/fishing/junk");
 	public static final ResourceLocation GAMEPLAY_FISHING_TREASURE = register("gameplay/fishing/treasure");
 	public static final ResourceLocation GAMEPLAY_FISHING_FISH = register("gameplay/fishing/fish");
+	private static final Set<ResourceLocation> READ_ONLY_LOOT_TABLES = Collections.unmodifiableSet(LOOT_TABLES);
 
 	private static ResourceLocation register(String id) {
 

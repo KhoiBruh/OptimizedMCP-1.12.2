@@ -80,6 +80,32 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
 		xSize = 195;
 	}
 
+	public static void handleHotbarSnapshots(Minecraft p_192044_0_, int p_192044_1_, boolean p_192044_2_, boolean p_192044_3_) {
+
+		EntityPlayerSP entityplayersp = p_192044_0_.player;
+		CreativeSettings creativesettings = p_192044_0_.creativeSettings;
+		HotbarSnapshot hotbarsnapshot = creativesettings.getHotbarSnapshot(p_192044_1_);
+
+		if (p_192044_2_) {
+			for (int i = 0; i < InventoryPlayer.getHotbarSize(); ++i) {
+				ItemStack itemstack = hotbarsnapshot.get(i).copy();
+				entityplayersp.inventory.setInventorySlotContents(i, itemstack);
+				p_192044_0_.playerController.sendSlotPacket(itemstack, 36 + i);
+			}
+
+			entityplayersp.inventoryContainer.detectAndSendChanges();
+		} else if (p_192044_3_) {
+			for (int j = 0; j < InventoryPlayer.getHotbarSize(); ++j) {
+				hotbarsnapshot.set(j, entityplayersp.inventory.getStackInSlot(j).copy());
+			}
+
+			String s = GameSettings.getKeyDisplayString(p_192044_0_.gameSettings.keyBindsHotbar[p_192044_1_].getKeyCode());
+			String s1 = GameSettings.getKeyDisplayString(p_192044_0_.gameSettings.keyBindLoadToolbar.getKeyCode());
+			p_192044_0_.ingameGUI.setOverlayMessage(new TextComponentTranslation("inventory.hotbarSaved", s1, s), false);
+			creativesettings.write();
+		}
+	}
+
 	/**
 	 * Called from the main game loop to update the screen.
 	 */
@@ -750,32 +776,6 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
 		return selectedTabIndex;
 	}
 
-	public static void handleHotbarSnapshots(Minecraft p_192044_0_, int p_192044_1_, boolean p_192044_2_, boolean p_192044_3_) {
-
-		EntityPlayerSP entityplayersp = p_192044_0_.player;
-		CreativeSettings creativesettings = p_192044_0_.creativeSettings;
-		HotbarSnapshot hotbarsnapshot = creativesettings.getHotbarSnapshot(p_192044_1_);
-
-		if (p_192044_2_) {
-			for (int i = 0; i < InventoryPlayer.getHotbarSize(); ++i) {
-				ItemStack itemstack = hotbarsnapshot.get(i).copy();
-				entityplayersp.inventory.setInventorySlotContents(i, itemstack);
-				p_192044_0_.playerController.sendSlotPacket(itemstack, 36 + i);
-			}
-
-			entityplayersp.inventoryContainer.detectAndSendChanges();
-		} else if (p_192044_3_) {
-			for (int j = 0; j < InventoryPlayer.getHotbarSize(); ++j) {
-				hotbarsnapshot.set(j, entityplayersp.inventory.getStackInSlot(j).copy());
-			}
-
-			String s = GameSettings.getKeyDisplayString(p_192044_0_.gameSettings.keyBindsHotbar[p_192044_1_].getKeyCode());
-			String s1 = GameSettings.getKeyDisplayString(p_192044_0_.gameSettings.keyBindLoadToolbar.getKeyCode());
-			p_192044_0_.ingameGUI.setOverlayMessage(new TextComponentTranslation("inventory.hotbarSaved", s1, s), false);
-			creativesettings.write();
-		}
-	}
-
 	public static class ContainerCreative extends Container {
 
 		public NonNullList<ItemStack> itemList = NonNullList.create();
@@ -850,6 +850,24 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
 		public boolean canDragIntoSlot(Slot slotIn) {
 
 			return slotIn.inventory instanceof InventoryPlayer || slotIn.yPos > 90 && slotIn.xPos <= 162;
+		}
+
+	}
+
+	static class LockedSlot extends Slot {
+
+		public LockedSlot(IInventory p_i47453_1_, int p_i47453_2_, int p_i47453_3_, int p_i47453_4_) {
+
+			super(p_i47453_1_, p_i47453_2_, p_i47453_3_, p_i47453_4_);
+		}
+
+		public boolean canTakeStack(EntityPlayer playerIn) {
+
+			if (super.canTakeStack(playerIn) && getHasStack()) {
+				return getStack().getSubCompound("CustomCreativeLock") == null;
+			} else {
+				return !getHasStack();
+			}
 		}
 
 	}
@@ -929,24 +947,6 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
 		public boolean canTakeStack(EntityPlayer playerIn) {
 
 			return slot.canTakeStack(playerIn);
-		}
-
-	}
-
-	static class LockedSlot extends Slot {
-
-		public LockedSlot(IInventory p_i47453_1_, int p_i47453_2_, int p_i47453_3_, int p_i47453_4_) {
-
-			super(p_i47453_1_, p_i47453_2_, p_i47453_3_, p_i47453_4_);
-		}
-
-		public boolean canTakeStack(EntityPlayer playerIn) {
-
-			if (super.canTakeStack(playerIn) && getHasStack()) {
-				return getStack().getSubCompound("CustomCreativeLock") == null;
-			} else {
-				return !getHasStack();
-			}
 		}
 
 	}

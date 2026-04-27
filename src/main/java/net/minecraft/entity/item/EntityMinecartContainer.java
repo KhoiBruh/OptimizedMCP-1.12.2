@@ -47,6 +47,12 @@ public abstract class EntityMinecartContainer extends EntityMinecart implements 
 		super(worldIn, x, y, z);
 	}
 
+	public static void addDataFixers(DataFixer p_190574_0_, Class<?> p_190574_1_) {
+
+		EntityMinecart.registerFixesMinecart(p_190574_0_, p_190574_1_);
+		p_190574_0_.registerWalker(FixTypes.ENTITY, new ItemStackDataLists(p_190574_1_, "Items"));
+	}
+
 	public void killMinecart(DamageSource source) {
 
 		super.killMinecart(source);
@@ -186,12 +192,6 @@ public abstract class EntityMinecartContainer extends EntityMinecart implements 
 		dropContentsWhenDead = dropWhenDead;
 	}
 
-	public static void addDataFixers(DataFixer p_190574_0_, Class<?> p_190574_1_) {
-
-		EntityMinecart.registerFixesMinecart(p_190574_0_, p_190574_1_);
-		p_190574_0_.registerWalker(FixTypes.ENTITY, new ItemStackDataLists(p_190574_1_, "Items"));
-	}
-
 	/**
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
@@ -268,13 +268,13 @@ public abstract class EntityMinecartContainer extends EntityMinecart implements 
 		return false;
 	}
 
-	public void setLockCode(LockCode code) {
-
-	}
-
 	public LockCode getLockCode() {
 
 		return LockCode.EMPTY_CODE;
+	}
+
+	public void setLockCode(LockCode code) {
+
 	}
 
 	/**

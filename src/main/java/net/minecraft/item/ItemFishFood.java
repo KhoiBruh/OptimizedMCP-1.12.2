@@ -79,6 +79,13 @@ public class ItemFishFood extends ItemFood {
 		PUFFERFISH(3, "pufferfish", 1, 0.1F);
 
 		private static final Map<Integer, ItemFishFood.FishType> META_LOOKUP = Maps.newHashMap();
+
+		static {
+			for (ItemFishFood.FishType itemfishfood$fishtype : values()) {
+				META_LOOKUP.put(Integer.valueOf(itemfishfood$fishtype.getMetadata()), itemfishfood$fishtype);
+			}
+		}
+
 		private final int meta;
 		private final String unlocalizedName;
 		private final int uncookedHealAmount;
@@ -107,6 +114,17 @@ public class ItemFishFood extends ItemFood {
 			cookedHealAmount = 0;
 			cookedSaturationModifier = 0.0F;
 			cookable = false;
+		}
+
+		public static ItemFishFood.FishType byMetadata(int meta) {
+
+			ItemFishFood.FishType itemfishfood$fishtype = META_LOOKUP.get(Integer.valueOf(meta));
+			return itemfishfood$fishtype == null ? COD : itemfishfood$fishtype;
+		}
+
+		public static ItemFishFood.FishType byItemStack(ItemStack stack) {
+
+			return stack.getItem() instanceof ItemFishFood ? byMetadata(stack.getMetadata()) : COD;
 		}
 
 		public int getMetadata() {
@@ -142,23 +160,6 @@ public class ItemFishFood extends ItemFood {
 		public boolean canCook() {
 
 			return cookable;
-		}
-
-		public static ItemFishFood.FishType byMetadata(int meta) {
-
-			ItemFishFood.FishType itemfishfood$fishtype = META_LOOKUP.get(Integer.valueOf(meta));
-			return itemfishfood$fishtype == null ? COD : itemfishfood$fishtype;
-		}
-
-		public static ItemFishFood.FishType byItemStack(ItemStack stack) {
-
-			return stack.getItem() instanceof ItemFishFood ? byMetadata(stack.getMetadata()) : COD;
-		}
-
-		static {
-			for (ItemFishFood.FishType itemfishfood$fishtype : values()) {
-				META_LOOKUP.put(Integer.valueOf(itemfishfood$fishtype.getMetadata()), itemfishfood$fishtype);
-			}
 		}
 	}
 

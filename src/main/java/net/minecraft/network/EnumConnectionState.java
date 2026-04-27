@@ -164,6 +164,35 @@ public enum EnumConnectionState {
 
 	private static final EnumConnectionState[] STATES_BY_ID = new EnumConnectionState[4];
 	private static final Map<Class<? extends Packet<?>>, EnumConnectionState> STATES_BY_CLASS = Maps.newHashMap();
+
+	static {
+		for (EnumConnectionState enumconnectionstate : values()) {
+			int i = enumconnectionstate.getId();
+
+			if (i < -1 || i > 2) {
+				throw new Error("Invalid protocol ID " + i);
+			}
+
+			STATES_BY_ID[i - -1] = enumconnectionstate;
+
+			for (EnumPacketDirection enumpacketdirection : enumconnectionstate.directionMaps.keySet()) {
+				for (Class<? extends Packet<?>> oclass : (enumconnectionstate.directionMaps.get(enumpacketdirection)).values()) {
+					if (STATES_BY_CLASS.containsKey(oclass) && STATES_BY_CLASS.get(oclass) != enumconnectionstate) {
+						throw new Error("Packet " + oclass + " is already assigned to protocol " + STATES_BY_CLASS.get(oclass) + " - can't reassign to " + enumconnectionstate);
+					}
+
+					try {
+						oclass.newInstance();
+					} catch (Throwable var10) {
+						throw new Error("Packet " + oclass + " fails instantiation checks! " + oclass);
+					}
+
+					STATES_BY_CLASS.put(oclass, enumconnectionstate);
+				}
+			}
+		}
+	}
+
 	private final int id;
 	private final Map<EnumPacketDirection, BiMap<Integer, Class<? extends Packet<?>>>> directionMaps;
 
@@ -171,6 +200,16 @@ public enum EnumConnectionState {
 
 		directionMaps = Maps.newEnumMap(EnumPacketDirection.class);
 		id = protocolId;
+	}
+
+	public static EnumConnectionState getById(int stateId) {
+
+		return stateId >= -1 && stateId <= 2 ? STATES_BY_ID[stateId - -1] : null;
+	}
+
+	public static EnumConnectionState getFromPacket(Packet<?> packetIn) {
+
+		return STATES_BY_CLASS.get(packetIn.getClass());
 	}
 
 	protected EnumConnectionState registerPacket(EnumPacketDirection direction, Class<? extends Packet<?>> packetClass) {
@@ -207,43 +246,5 @@ public enum EnumConnectionState {
 	public int getId() {
 
 		return id;
-	}
-
-	public static EnumConnectionState getById(int stateId) {
-
-		return stateId >= -1 && stateId <= 2 ? STATES_BY_ID[stateId - -1] : null;
-	}
-
-	public static EnumConnectionState getFromPacket(Packet<?> packetIn) {
-
-		return STATES_BY_CLASS.get(packetIn.getClass());
-	}
-
-	static {
-		for (EnumConnectionState enumconnectionstate : values()) {
-			int i = enumconnectionstate.getId();
-
-			if (i < -1 || i > 2) {
-				throw new Error("Invalid protocol ID " + i);
-			}
-
-			STATES_BY_ID[i - -1] = enumconnectionstate;
-
-			for (EnumPacketDirection enumpacketdirection : enumconnectionstate.directionMaps.keySet()) {
-				for (Class<? extends Packet<?>> oclass : (enumconnectionstate.directionMaps.get(enumpacketdirection)).values()) {
-					if (STATES_BY_CLASS.containsKey(oclass) && STATES_BY_CLASS.get(oclass) != enumconnectionstate) {
-						throw new Error("Packet " + oclass + " is already assigned to protocol " + STATES_BY_CLASS.get(oclass) + " - can't reassign to " + enumconnectionstate);
-					}
-
-					try {
-						oclass.newInstance();
-					} catch (Throwable var10) {
-						throw new Error("Packet " + oclass + " fails instantiation checks! " + oclass);
-					}
-
-					STATES_BY_CLASS.put(oclass, enumconnectionstate);
-				}
-			}
-		}
 	}
 }

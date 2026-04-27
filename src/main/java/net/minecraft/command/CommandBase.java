@@ -32,9 +32,9 @@ import java.util.Map.Entry;
 
 public abstract class CommandBase implements ICommand {
 
-	private static ICommandListener commandListener;
 	private static final Splitter COMMA_SPLITTER = Splitter.on(',');
 	private static final Splitter EQUAL_SPLITTER = Splitter.on('=').limit(2);
+	private static ICommandListener commandListener;
 
 	/**
 	 * Convert a JsonParseException into a user-friendly exception
@@ -68,32 +68,6 @@ public abstract class CommandBase implements ICommand {
 		}
 
 		return nbttagcompound;
-	}
-
-	/**
-	 * Return the required permission level for this command.
-	 */
-	public int getRequiredPermissionLevel() {
-
-		return 4;
-	}
-
-	public List<String> getAliases() {
-
-		return Collections.emptyList();
-	}
-
-	/**
-	 * Check if the given ICommandSender has permission to execute this command
-	 */
-	public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
-
-		return sender.canUseCommand(getRequiredPermissionLevel(), getName());
-	}
-
-	public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, @Nullable BlockPos targetPos) {
-
-		return Collections.emptyList();
 	}
 
 	public static int parseInt(String input) throws NumberInvalidException {
@@ -212,7 +186,7 @@ public abstract class CommandBase implements ICommand {
 	public static List<EntityPlayerMP> getPlayers(MinecraftServer p_193513_0_, ICommandSender p_193513_1_, String p_193513_2_) throws CommandException {
 
 		List<EntityPlayerMP> list = EntitySelector.getPlayers(p_193513_1_, p_193513_2_);
-		return list.isEmpty() ? Lists.newArrayList(getPlayer(p_193513_0_, (EntityPlayerMP) null, p_193513_2_)) : list;
+		return list.isEmpty() ? Lists.newArrayList(getPlayer(p_193513_0_, null, p_193513_2_)) : list;
 	}
 
 	public static EntityPlayerMP getPlayer(MinecraftServer server, ICommandSender sender, String target) throws CommandException {
@@ -734,14 +708,6 @@ public abstract class CommandBase implements ICommand {
 		return list;
 	}
 
-	/**
-	 * Return whether the specified command parameter index is a username parameter.
-	 */
-	public boolean isUsernameIndex(String[] args, int index) {
-
-		return false;
-	}
-
 	public static void notifyCommandListener(ICommandSender sender, ICommand command, String translationKey, Object... translationArgs) {
 
 		notifyCommandListener(sender, command, 0, translationKey, translationArgs);
@@ -760,6 +726,40 @@ public abstract class CommandBase implements ICommand {
 	public static void setCommandListener(ICommandListener listener) {
 
 		commandListener = listener;
+	}
+
+	/**
+	 * Return the required permission level for this command.
+	 */
+	public int getRequiredPermissionLevel() {
+
+		return 4;
+	}
+
+	public List<String> getAliases() {
+
+		return Collections.emptyList();
+	}
+
+	/**
+	 * Check if the given ICommandSender has permission to execute this command
+	 */
+	public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
+
+		return sender.canUseCommand(getRequiredPermissionLevel(), getName());
+	}
+
+	public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, @Nullable BlockPos targetPos) {
+
+		return Collections.emptyList();
+	}
+
+	/**
+	 * Return whether the specified command parameter index is a username parameter.
+	 */
+	public boolean isUsernameIndex(String[] args, int index) {
+
+		return false;
 	}
 
 	public int compareTo(ICommand p_compareTo_1_) {

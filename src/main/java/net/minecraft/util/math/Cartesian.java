@@ -73,10 +73,10 @@ public class Cartesian {
 
 		static class ProductIterator<T> extends UnmodifiableIterator<T[]> {
 
-			private int index;
 			private final Iterable<? extends T>[] iterables;
 			private final Iterator<? extends T>[] iterators;
 			private final T[] results;
+			private int index;
 
 			private ProductIterator(Class<T> clazz, Iterable<? extends T>[] iterables) {
 

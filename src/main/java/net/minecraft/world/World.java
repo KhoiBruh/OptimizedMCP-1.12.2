@@ -47,73 +47,61 @@ import java.util.*;
 
 public abstract class World implements IBlockAccess {
 
-	private int seaLevel = 63;
-
+	public final List<Entity> loadedEntityList = Lists.newArrayList();
+	public final List<TileEntity> loadedTileEntityList = Lists.newArrayList();
+	public final List<TileEntity> tickableTileEntities = Lists.newArrayList();
+	public final List<EntityPlayer> playerEntities = Lists.newArrayList();
+	public final List<Entity> weatherEffects = Lists.newArrayList();
+	/**
+	 * RNG for World.
+	 */
+	public final Random rand = new Random();
+	/**
+	 * The WorldProvider instance that World uses.
+	 */
+	public final WorldProvider provider;
+	public final Profiler profiler;
+	/**
+	 * True if the world is a 'slave' client; changes will not be saved or propagated from this world. For example,
+	 * server worlds have this set to false, client worlds have this set to true.
+	 */
+	public final boolean isRemote;
+	protected final List<Entity> unloadedEntityList = Lists.newArrayList();
+	protected final IntHashMap<Entity> entitiesById = new IntHashMap<Entity>();
+	/**
+	 * magic number used to generate fast random numbers for 3d distribution within a chunk
+	 */
+	protected final int DIST_HASH_MAGIC = 1013904223;
+	protected final ISaveHandler saveHandler;
+	private final List<TileEntity> addedTileEntityList = Lists.newArrayList();
+	private final List<TileEntity> tileEntitiesToBeRemoved = Lists.newArrayList();
+	private final long cloudColour = 16777215L;
+	private final Calendar calendar;
+	private final WorldBorder worldBorder;
 	/**
 	 * boolean; if true updates scheduled by scheduleBlockUpdate happen immediately
 	 */
 	protected boolean scheduledUpdatesAreImmediate;
-	public final List<Entity> loadedEntityList = Lists.newArrayList();
-	protected final List<Entity> unloadedEntityList = Lists.newArrayList();
-	public final List<TileEntity> loadedTileEntityList = Lists.newArrayList();
-	public final List<TileEntity> tickableTileEntities = Lists.newArrayList();
-	private final List<TileEntity> addedTileEntityList = Lists.newArrayList();
-	private final List<TileEntity> tileEntitiesToBeRemoved = Lists.newArrayList();
-	public final List<EntityPlayer> playerEntities = Lists.newArrayList();
-	public final List<Entity> weatherEffects = Lists.newArrayList();
-	protected final IntHashMap<Entity> entitiesById = new IntHashMap<Entity>();
-	private final long cloudColour = 16777215L;
-
-	/**
-	 * How much light is subtracted from full daylight
-	 */
-	private int skylightSubtracted;
-
 	/**
 	 * Contains the current Linear Congruential Generator seed for block updates. Used with an A value of 3 and a C
 	 * value of 0x3c6ef35f, producing a highly planar series of values ill-suited for choosing random blocks in a
 	 * 16x128x16 field.
 	 */
 	protected int updateLCG = (new Random()).nextInt();
-
-	/**
-	 * magic number used to generate fast random numbers for 3d distribution within a chunk
-	 */
-	protected final int DIST_HASH_MAGIC = 1013904223;
 	protected float prevRainingStrength;
 	protected float rainingStrength;
 	protected float prevThunderingStrength;
 	protected float thunderingStrength;
-
-	/**
-	 * Set to 2 whenever a lightning bolt is generated in SSP. Decrements if > 0 in updateWeather(). Value appears to be
-	 * unused.
-	 */
-	private int lastLightningBolt;
-
-	/**
-	 * RNG for World.
-	 */
-	public final Random rand = new Random();
-
-	/**
-	 * The WorldProvider instance that World uses.
-	 */
-	public final WorldProvider provider;
 	protected PathWorldListener pathListener = new PathWorldListener();
 	protected List<IWorldEventListener> eventListeners;
-
 	/**
 	 * Handles chunk operations and caching
 	 */
 	protected IChunkProvider chunkProvider;
-	protected final ISaveHandler saveHandler;
-
 	/**
 	 * holds information about a world (size on disk, time, spawn point, seed, ...)
 	 */
 	protected WorldInfo worldInfo;
-
 	/**
 	 * if set, this flag forces a request to load a chunk to load the chunk rather than defaulting to the world's
 	 * chunkprovider's dummy if possible
@@ -124,28 +112,15 @@ public abstract class World implements IBlockAccess {
 	protected LootTableManager lootTable;
 	protected AdvancementManager advancementManager;
 	protected FunctionManager functionManager;
-	public final Profiler profiler;
-	private final Calendar calendar;
 	protected Scoreboard worldScoreboard;
-
-	/**
-	 * True if the world is a 'slave' client; changes will not be saved or propagated from this world. For example,
-	 * server worlds have this set to false, client worlds have this set to true.
-	 */
-	public final boolean isRemote;
-
 	/**
 	 * indicates if enemies are spawned or not
 	 */
 	protected boolean spawnHostileMobs;
-
 	/**
 	 * A flag indicating whether we should spawn peaceful mobs.
 	 */
 	protected boolean spawnPeacefulMobs;
-	private boolean processingLoadedTiles;
-	private final WorldBorder worldBorder;
-
 	/**
 	 * is a temporary list of blocks and light values used when updating light levels. Holds up to 32x32x32 blocks (the
 	 * maximum influence of a light source.) Every element is a packed bit value: 0000000000LLLLzzzzzzyyyyyyxxxxxx. The
@@ -153,6 +128,17 @@ public abstract class World implements IBlockAccess {
 	 * the original block, plus 32 (i.e. value of 31 would mean a -1 offset
 	 */
 	int[] lightUpdateBlockList;
+	private int seaLevel = 63;
+	/**
+	 * How much light is subtracted from full daylight
+	 */
+	private int skylightSubtracted;
+	/**
+	 * Set to 2 whenever a lightning bolt is generated in SSP. Decrements if > 0 in updateWeather(). Value appears to be
+	 * unused.
+	 */
+	private int lastLightningBolt;
+	private boolean processingLoadedTiles;
 
 	protected World(ISaveHandler saveHandlerIn, WorldInfo info, WorldProvider providerIn, Profiler profilerIn, boolean client) {
 
@@ -2650,7 +2636,7 @@ public abstract class World implements IBlockAccess {
 
 	public <T extends Entity> List<T> getEntitiesWithinAABB(Class<? extends T> classEntity, AxisAlignedBB bb) {
 
-		return this.getEntitiesWithinAABB(classEntity, bb, EntitySelectors.NOT_SPECTATING);
+		return getEntitiesWithinAABB(classEntity, bb, EntitySelectors.NOT_SPECTATING);
 	}
 
 	public <T extends Entity> List<T> getEntitiesWithinAABB(Class<? extends T> clazz, AxisAlignedBB aabb, @Nullable Predicate<? super T> filter) {
@@ -2675,7 +2661,7 @@ public abstract class World implements IBlockAccess {
 	@Nullable
 	public <T extends Entity> T findNearestEntityWithinAABB(Class<? extends T> entityType, AxisAlignedBB aabb, T closestTo) {
 
-		List<T> list = this.getEntitiesWithinAABB(entityType, aabb);
+		List<T> list = getEntitiesWithinAABB(entityType, aabb);
 		T t = null;
 		double d0 = Double.MAX_VALUE;
 
@@ -3041,11 +3027,6 @@ public abstract class World implements IBlockAccess {
 		saveHandler.checkSessionLock();
 	}
 
-	public void setTotalWorldTime(long worldTime) {
-
-		worldInfo.setWorldTotalTime(worldTime);
-	}
-
 	/**
 	 * gets the random world seed
 	 */
@@ -3057,6 +3038,11 @@ public abstract class World implements IBlockAccess {
 	public long getTotalWorldTime() {
 
 		return worldInfo.getWorldTotalTime();
+	}
+
+	public void setTotalWorldTime(long worldTime) {
+
+		worldInfo.setWorldTotalTime(worldTime);
 	}
 
 	public long getWorldTime() {

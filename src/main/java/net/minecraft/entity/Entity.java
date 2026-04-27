@@ -55,23 +55,30 @@ import java.util.*;
 
 public abstract class Entity implements ICommandSender {
 
+	protected static final DataParameter<Byte> FLAGS = EntityDataManager.createKey(Entity.class, DataSerializers.BYTE);
 	private static final Logger LOGGER = LogManager.getLogger();
 	private static final List<ItemStack> EMPTY_EQUIPMENT = Collections.emptyList();
 	private static final AxisAlignedBB ZERO_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 0.0D, 0.0D, 0.0D);
+	private static final DataParameter<Integer> AIR = EntityDataManager.createKey(Entity.class, DataSerializers.VARINT);
+	private static final DataParameter<String> CUSTOM_NAME = EntityDataManager.createKey(Entity.class, DataSerializers.STRING);
+	private static final DataParameter<Boolean> CUSTOM_NAME_VISIBLE = EntityDataManager.createKey(Entity.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> SILENT = EntityDataManager.createKey(Entity.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> NO_GRAVITY = EntityDataManager.createKey(Entity.class, DataSerializers.BOOLEAN);
 	private static double renderDistanceWeight = 1.0D;
 	private static int nextEntityID;
-	private int entityId;
-
+	private final List<Entity> riddenByEntities;
+	/**
+	 * The command result statistics for this Entity.
+	 */
+	private final CommandResultStats cmdResultStats;
+	private final Set<String> tags;
+	private final double[] pistonDeltas;
 	/**
 	 * Blocks entities from spawning when they do their AABB check to make sure the spot is clear of entities that can
 	 * prevent spawning.
 	 */
 	public boolean preventEntitySpawning;
-	private final List<Entity> riddenByEntities;
-	protected int rideCooldown;
-	private Entity ridingEntity;
 	public boolean forceSpawn;
-
 	/**
 	 * Reference to the World object.
 	 */
@@ -79,167 +86,112 @@ public abstract class Entity implements ICommandSender {
 	public double prevPosX;
 	public double prevPosY;
 	public double prevPosZ;
-
 	/**
 	 * X position of this entity, located at the center of its bounding box.
 	 */
 	public double posX;
-
 	/**
 	 * Y position of this entity, located at the bottom of its bounding box (its feet)
 	 */
 	public double posY;
-
 	/**
 	 * Z position of this entity, located at the center of its bounding box.
 	 */
 	public double posZ;
-
 	/**
 	 * Entity motion X
 	 */
 	public double motionX;
-
 	/**
 	 * Entity motion Y
 	 */
 	public double motionY;
-
 	/**
 	 * Entity motion Z
 	 */
 	public double motionZ;
-
 	/**
 	 * Entity rotation Yaw
 	 */
 	public float rotationYaw;
-
 	/**
 	 * Entity rotation Pitch
 	 */
 	public float rotationPitch;
 	public float prevRotationYaw;
 	public float prevRotationPitch;
-
-	/**
-	 * Axis aligned bounding box.
-	 */
-	private AxisAlignedBB boundingBox;
 	public boolean onGround;
-
 	/**
 	 * True if after a move this entity has collided with something on X- or Z-axis
 	 */
 	public boolean collidedHorizontally;
-
 	/**
 	 * True if after a move this entity has collided with something on Y-axis
 	 */
 	public boolean collidedVertically;
-
 	/**
 	 * True if after a move this entity has collided with something either vertically or horizontally
 	 */
 	public boolean collided;
-
 	/**
 	 * If true, an {@link SPacketEntityVelocity} will be sent updating this entity's velocity.
 	 */
 	public boolean velocityChanged;
-	protected boolean isInWeb;
-	private boolean isOutsideBorder;
-
 	/**
 	 * gets set by setEntityDead, so this must be the flag whether an Entity is dead (inactive may be better term)
 	 */
 	public boolean isDead;
-
 	/**
 	 * How wide this entity is considered to be
 	 */
 	public float width;
-
 	/**
 	 * How high this entity is considered to be
 	 */
 	public float height;
-
 	/**
 	 * The previous ticks distance walked multiplied by 0.6
 	 */
 	public float prevDistanceWalkedModified;
-
 	/**
 	 * The distance walked multiplied by 0.6
 	 */
 	public float distanceWalkedModified;
 	public float distanceWalkedOnStepModified;
 	public float fallDistance;
-
-	/**
-	 * The distance that has to be exceeded in order to triger a new step sound and an onEntityWalking event on a block
-	 */
-	private int nextStepDistance;
-	private float nextFlap;
-
 	/**
 	 * The entity's X coordinate at the previous tick, used to calculate position during rendering routines
 	 */
 	public double lastTickPosX;
-
 	/**
 	 * The entity's Y coordinate at the previous tick, used to calculate position during rendering routines
 	 */
 	public double lastTickPosY;
-
 	/**
 	 * The entity's Z coordinate at the previous tick, used to calculate position during rendering routines
 	 */
 	public double lastTickPosZ;
-
 	/**
 	 * How high this entity can step up when running into a block to try to get over it (currently make note the entity
 	 * will always step up this amount and not just the amount needed)
 	 */
 	public float stepHeight;
-
 	/**
 	 * Whether this entity won't clip with collision or not (make note it won't disable gravity)
 	 */
 	public boolean noClip;
-
 	/**
 	 * Reduces the velocity applied by entity collisions by the specified percent.
 	 */
 	public float entityCollisionReduction;
-	protected Random rand;
-
 	/**
 	 * How many ticks has this entity had ran since being alive
 	 */
 	public int ticksExisted;
-	private int fire;
-
-	/**
-	 * Whether this entity is currently inside of water (if it handles water movement that is)
-	 */
-	protected boolean inWater;
-
 	/**
 	 * Remaining time an entity will be "immune" to further damage after being hurt.
 	 */
 	public int hurtResistantTime;
-	protected boolean firstUpdate;
-	protected boolean isImmuneToFire;
-	protected EntityDataManager dataManager;
-	protected static final DataParameter<Byte> FLAGS = EntityDataManager.createKey(Entity.class, DataSerializers.BYTE);
-	private static final DataParameter<Integer> AIR = EntityDataManager.createKey(Entity.class, DataSerializers.VARINT);
-	private static final DataParameter<String> CUSTOM_NAME = EntityDataManager.createKey(Entity.class, DataSerializers.STRING);
-	private static final DataParameter<Boolean> CUSTOM_NAME_VISIBLE = EntityDataManager.createKey(Entity.class, DataSerializers.BOOLEAN);
-	private static final DataParameter<Boolean> SILENT = EntityDataManager.createKey(Entity.class, DataSerializers.BOOLEAN);
-	private static final DataParameter<Boolean> NO_GRAVITY = EntityDataManager.createKey(Entity.class, DataSerializers.BOOLEAN);
-
 	/**
 	 * Has this entity been added to the chunk its within
 	 */
@@ -250,7 +202,6 @@ public abstract class Entity implements ICommandSender {
 	public long serverPosX;
 	public long serverPosY;
 	public long serverPosZ;
-
 	/**
 	 * Render entity even if it is outside the camera frustum. Only true in EntityFish for now. Used in RenderGlobal:
 	 * render if ignoreFrustumCheck or in frustum.
@@ -258,44 +209,55 @@ public abstract class Entity implements ICommandSender {
 	public boolean ignoreFrustumCheck;
 	public boolean isAirBorne;
 	public int timeUntilPortal;
-
+	/**
+	 * Which dimension the player is in (-1 = the Nether, 0 = normal world)
+	 */
+	public int dimension;
+	protected int rideCooldown;
+	protected boolean isInWeb;
+	protected Random rand;
+	/**
+	 * Whether this entity is currently inside of water (if it handles water movement that is)
+	 */
+	protected boolean inWater;
+	protected boolean firstUpdate;
+	protected boolean isImmuneToFire;
+	protected EntityDataManager dataManager;
 	/**
 	 * Whether the entity is inside a Portal
 	 */
 	protected boolean inPortal;
 	protected int portalCounter;
-
-	/**
-	 * Which dimension the player is in (-1 = the Nether, 0 = normal world)
-	 */
-	public int dimension;
-
 	/**
 	 * The position of the last portal the entity was in
 	 */
 	protected BlockPos lastPortalPos;
-
 	/**
 	 * A horizontal vector related to the position of the last portal the entity was in
 	 */
 	protected Vec3d lastPortalVec;
-
 	/**
 	 * A direction related to the position of the last portal the entity was in
 	 */
 	protected EnumFacing teleportDirection;
-	private boolean invulnerable;
 	protected UUID entityUniqueID;
 	protected String cachedUniqueIdString;
-
-	/**
-	 * The command result statistics for this Entity.
-	 */
-	private final CommandResultStats cmdResultStats;
 	protected boolean glowing;
-	private final Set<String> tags;
+	private int entityId;
+	private Entity ridingEntity;
+	/**
+	 * Axis aligned bounding box.
+	 */
+	private AxisAlignedBB boundingBox;
+	private boolean isOutsideBorder;
+	/**
+	 * The distance that has to be exceeded in order to triger a new step sound and an onEntityWalking event on a block
+	 */
+	private int nextStepDistance;
+	private float nextFlap;
+	private int fire;
+	private boolean invulnerable;
 	private boolean isPositionDirty;
-	private final double[] pistonDeltas;
 	private long pistonDeltasGameTime;
 
 	public Entity(World worldIn) {
@@ -330,6 +292,34 @@ public abstract class Entity implements ICommandSender {
 		dataManager.register(SILENT, Boolean.valueOf(false));
 		dataManager.register(NO_GRAVITY, Boolean.valueOf(false));
 		entityInit();
+	}
+
+	public static void registerFixes(DataFixer fixer) {
+
+		fixer.registerWalker(FixTypes.ENTITY, new IDataWalker() {
+			public NBTTagCompound process(IDataFixer fixer, NBTTagCompound compound, int versionIn) {
+
+				if (compound.hasKey("Passengers", 9)) {
+					NBTTagList nbttaglist = compound.getTagList("Passengers", 10);
+
+					for (int i = 0; i < nbttaglist.tagCount(); ++i) {
+						nbttaglist.set(i, fixer.process(FixTypes.ENTITY, nbttaglist.getCompoundTagAt(i), versionIn));
+					}
+				}
+
+				return compound;
+			}
+		});
+	}
+
+	public static double getRenderDistanceWeight() {
+
+		return renderDistanceWeight;
+	}
+
+	public static void setRenderDistanceWeight(double renderDistWeight) {
+
+		renderDistanceWeight = renderDistWeight;
 	}
 
 	public int getEntityId() {
@@ -1726,24 +1716,6 @@ public abstract class Entity implements ICommandSender {
 		}
 	}
 
-	public static void registerFixes(DataFixer fixer) {
-
-		fixer.registerWalker(FixTypes.ENTITY, new IDataWalker() {
-			public NBTTagCompound process(IDataFixer fixer, NBTTagCompound compound, int versionIn) {
-
-				if (compound.hasKey("Passengers", 9)) {
-					NBTTagList nbttaglist = compound.getTagList("Passengers", 10);
-
-					for (int i = 0; i < nbttaglist.tagCount(); ++i) {
-						nbttaglist.set(i, fixer.process(FixTypes.ENTITY, nbttaglist.getCompoundTagAt(i), versionIn));
-					}
-				}
-
-				return compound;
-			}
-		});
-	}
-
 	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
 
 		try {
@@ -2363,6 +2335,11 @@ public abstract class Entity implements ICommandSender {
 		return getFlag(5);
 	}
 
+	public void setInvisible(boolean invisible) {
+
+		setFlag(5, invisible);
+	}
+
 	/**
 	 * Only used by renderer in EntityLivingBase subclasses.
 	 * Determines if an entity is visible or not to a specfic player, if the entity is normally invisible.
@@ -2398,11 +2375,6 @@ public abstract class Entity implements ICommandSender {
 	public boolean isOnScoreboardTeam(Team teamIn) {
 
 		return getTeam() != null && getTeam().isSameTeam(teamIn);
-	}
-
-	public void setInvisible(boolean invisible) {
-
-		setFlag(5, invisible);
 	}
 
 	/**
@@ -2833,16 +2805,6 @@ public abstract class Entity implements ICommandSender {
 		return true;
 	}
 
-	public static double getRenderDistanceWeight() {
-
-		return renderDistanceWeight;
-	}
-
-	public static void setRenderDistanceWeight(double renderDistWeight) {
-
-		renderDistanceWeight = renderDistWeight;
-	}
-
 	/**
 	 * Get the formatted ChatComponent that will be used for the sender's username in chat
 	 */
@@ -2854,17 +2816,17 @@ public abstract class Entity implements ICommandSender {
 		return textcomponentstring;
 	}
 
+	public String getCustomNameTag() {
+
+		return dataManager.get(CUSTOM_NAME);
+	}
+
 	/**
 	 * Sets the custom name tag for this entity
 	 */
 	public void setCustomNameTag(String name) {
 
 		dataManager.set(CUSTOM_NAME, name);
-	}
-
-	public String getCustomNameTag() {
-
-		return dataManager.get(CUSTOM_NAME);
 	}
 
 	/**
@@ -2875,14 +2837,14 @@ public abstract class Entity implements ICommandSender {
 		return !dataManager.get(CUSTOM_NAME).isEmpty();
 	}
 
-	public void setAlwaysRenderNameTag(boolean alwaysRenderNameTag) {
-
-		dataManager.set(CUSTOM_NAME_VISIBLE, Boolean.valueOf(alwaysRenderNameTag));
-	}
-
 	public boolean getAlwaysRenderNameTag() {
 
 		return dataManager.get(CUSTOM_NAME_VISIBLE).booleanValue();
+	}
+
+	public void setAlwaysRenderNameTag(boolean alwaysRenderNameTag) {
+
+		dataManager.set(CUSTOM_NAME_VISIBLE, Boolean.valueOf(alwaysRenderNameTag));
 	}
 
 	/**
@@ -2945,6 +2907,11 @@ public abstract class Entity implements ICommandSender {
 		return boundingBox;
 	}
 
+	public void setEntityBoundingBox(AxisAlignedBB bb) {
+
+		boundingBox = bb;
+	}
+
 	/**
 	 * Gets the bounding box of this Entity, adjusted to take auxiliary entities into account (e.g. the tile contained
 	 * by a minecart, such as a command block).
@@ -2952,11 +2919,6 @@ public abstract class Entity implements ICommandSender {
 	public AxisAlignedBB getRenderBoundingBox() {
 
 		return getEntityBoundingBox();
-	}
-
-	public void setEntityBoundingBox(AxisAlignedBB bb) {
-
-		boundingBox = bb;
 	}
 
 	public float getEyeHeight() {

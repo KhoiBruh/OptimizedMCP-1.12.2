@@ -10,22 +10,6 @@ public class EntityId implements IFixableData {
 
 	private static final Map<String, String> OLD_TO_NEW_ID_MAP = Maps.newHashMap();
 
-	public int getFixVersion() {
-
-		return 704;
-	}
-
-	public NBTTagCompound fixTagCompound(NBTTagCompound compound) {
-
-		String s = OLD_TO_NEW_ID_MAP.get(compound.getString("id"));
-
-		if (s != null) {
-			compound.setString("id", s);
-		}
-
-		return compound;
-	}
-
 	static {
 		OLD_TO_NEW_ID_MAP.put("AreaEffectCloud", "minecraft:area_effect_cloud");
 		OLD_TO_NEW_ID_MAP.put("ArmorStand", "minecraft:armor_stand");
@@ -102,5 +86,21 @@ public class EntityId implements IFixableData {
 		OLD_TO_NEW_ID_MAP.put("Zombie", "minecraft:zombie");
 		OLD_TO_NEW_ID_MAP.put("ZombieHorse", "minecraft:zombie_horse");
 		OLD_TO_NEW_ID_MAP.put("ZombieVillager", "minecraft:zombie_villager");
+	}
+
+	public int getFixVersion() {
+
+		return 704;
+	}
+
+	public NBTTagCompound fixTagCompound(NBTTagCompound compound) {
+
+		String s = OLD_TO_NEW_ID_MAP.get(compound.getString("id"));
+
+		if (s != null) {
+			compound.setString("id", s);
+		}
+
+		return compound;
 	}
 }

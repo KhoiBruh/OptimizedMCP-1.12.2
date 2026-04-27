@@ -32,6 +32,30 @@ public class EntityLeashKnot extends EntityHanging {
 		forceSpawn = true;
 	}
 
+	public static EntityLeashKnot createKnot(World worldIn, BlockPos fence) {
+
+		EntityLeashKnot entityleashknot = new EntityLeashKnot(worldIn, fence);
+		worldIn.spawnEntity(entityleashknot);
+		entityleashknot.playPlaceSound();
+		return entityleashknot;
+	}
+
+	@Nullable
+	public static EntityLeashKnot getKnotForPosition(World worldIn, BlockPos pos) {
+
+		int i = pos.getX();
+		int j = pos.getY();
+		int k = pos.getZ();
+
+		for (EntityLeashKnot entityleashknot : worldIn.getEntitiesWithinAABB(EntityLeashKnot.class, new AxisAlignedBB((double) i - 1.0D, (double) j - 1.0D, (double) k - 1.0D, (double) i + 1.0D, (double) j + 1.0D, (double) k + 1.0D))) {
+			if (entityleashknot.getHangingPosition().equals(pos)) {
+				return entityleashknot;
+			}
+		}
+
+		return null;
+	}
+
 	/**
 	 * Sets the x,y,z of the entity from the given parameters. Also seems to set up a bounding box.
 	 */
@@ -150,30 +174,6 @@ public class EntityLeashKnot extends EntityHanging {
 	public boolean onValidSurface() {
 
 		return world.getBlockState(hangingPosition).getBlock() instanceof BlockFence;
-	}
-
-	public static EntityLeashKnot createKnot(World worldIn, BlockPos fence) {
-
-		EntityLeashKnot entityleashknot = new EntityLeashKnot(worldIn, fence);
-		worldIn.spawnEntity(entityleashknot);
-		entityleashknot.playPlaceSound();
-		return entityleashknot;
-	}
-
-	@Nullable
-	public static EntityLeashKnot getKnotForPosition(World worldIn, BlockPos pos) {
-
-		int i = pos.getX();
-		int j = pos.getY();
-		int k = pos.getZ();
-
-		for (EntityLeashKnot entityleashknot : worldIn.getEntitiesWithinAABB(EntityLeashKnot.class, new AxisAlignedBB((double) i - 1.0D, (double) j - 1.0D, (double) k - 1.0D, (double) i + 1.0D, (double) j + 1.0D, (double) k + 1.0D))) {
-			if (entityleashknot.getHangingPosition().equals(pos)) {
-				return entityleashknot;
-			}
-		}
-
-		return null;
 	}
 
 	public void playPlaceSound() {

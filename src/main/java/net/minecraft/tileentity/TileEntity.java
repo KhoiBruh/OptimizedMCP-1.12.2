@@ -25,18 +25,45 @@ public abstract class TileEntity {
 	private static final Logger LOGGER = LogManager.getLogger();
 	private static final RegistryNamespaced<ResourceLocation, Class<? extends TileEntity>> REGISTRY = new RegistryNamespaced<ResourceLocation, Class<? extends TileEntity>>();
 
+	static {
+		register("furnace", TileEntityFurnace.class);
+		register("chest", TileEntityChest.class);
+		register("ender_chest", TileEntityEnderChest.class);
+		register("jukebox", BlockJukebox.TileEntityJukebox.class);
+		register("dispenser", TileEntityDispenser.class);
+		register("dropper", TileEntityDropper.class);
+		register("sign", TileEntitySign.class);
+		register("mob_spawner", TileEntityMobSpawner.class);
+		register("noteblock", TileEntityNote.class);
+		register("piston", TileEntityPiston.class);
+		register("brewing_stand", TileEntityBrewingStand.class);
+		register("enchanting_table", TileEntityEnchantmentTable.class);
+		register("end_portal", TileEntityEndPortal.class);
+		register("beacon", TileEntityBeacon.class);
+		register("skull", TileEntitySkull.class);
+		register("daylight_detector", TileEntityDaylightDetector.class);
+		register("hopper", TileEntityHopper.class);
+		register("comparator", TileEntityComparator.class);
+		register("flower_pot", TileEntityFlowerPot.class);
+		register("banner", TileEntityBanner.class);
+		register("structure_block", TileEntityStructure.class);
+		register("end_gateway", TileEntityEndGateway.class);
+		register("command_block", TileEntityCommandBlock.class);
+		register("shulker_box", TileEntityShulkerBox.class);
+		register("bed", TileEntityBed.class);
+	}
+
 	/**
 	 * the instance of the world the tile entity is in.
 	 */
 	protected World world;
 	protected BlockPos pos = BlockPos.ORIGIN;
 	protected boolean tileEntityInvalid;
-	private int blockMetadata = -1;
-
 	/**
 	 * the Block type that this TileEntity is contained within
 	 */
 	protected Block blockType;
+	private int blockMetadata = -1;
 
 	private static void register(String id, Class<? extends TileEntity> clazz) {
 
@@ -47,6 +74,37 @@ public abstract class TileEntity {
 	public static ResourceLocation getKey(Class<? extends TileEntity> clazz) {
 
 		return REGISTRY.getNameForObject(clazz);
+	}
+
+	@Nullable
+	public static TileEntity create(World worldIn, NBTTagCompound compound) {
+
+		TileEntity tileentity = null;
+		String s = compound.getString("id");
+
+		try {
+			Class<? extends TileEntity> oclass = REGISTRY.getObject(new ResourceLocation(s));
+
+			if (oclass != null) {
+				tileentity = oclass.newInstance();
+			}
+		} catch (Throwable throwable1) {
+			LOGGER.error("Failed to create block entity {}", s, throwable1);
+		}
+
+		if (tileentity != null) {
+			try {
+				tileentity.setWorldCreate(worldIn);
+				tileentity.readFromNBT(compound);
+			} catch (Throwable throwable) {
+				LOGGER.error("Failed to load data for block entity {}", s, throwable);
+				tileentity = null;
+			}
+		} else {
+			LOGGER.warn("Skipping BlockEntity with id {}", s);
+		}
+
+		return tileentity;
 	}
 
 	/**
@@ -96,37 +154,6 @@ public abstract class TileEntity {
 			compound.setInteger("z", pos.getZ());
 			return compound;
 		}
-	}
-
-	@Nullable
-	public static TileEntity create(World worldIn, NBTTagCompound compound) {
-
-		TileEntity tileentity = null;
-		String s = compound.getString("id");
-
-		try {
-			Class<? extends TileEntity> oclass = REGISTRY.getObject(new ResourceLocation(s));
-
-			if (oclass != null) {
-				tileentity = oclass.newInstance();
-			}
-		} catch (Throwable throwable1) {
-			LOGGER.error("Failed to create block entity {}", s, throwable1);
-		}
-
-		if (tileentity != null) {
-			try {
-				tileentity.setWorldCreate(worldIn);
-				tileentity.readFromNBT(compound);
-			} catch (Throwable throwable) {
-				LOGGER.error("Failed to load data for block entity {}", s, throwable);
-				tileentity = null;
-			}
-		} else {
-			LOGGER.warn("Skipping BlockEntity with id {}", s);
-		}
-
-		return tileentity;
 	}
 
 	protected void setWorldCreate(World worldIn) {
@@ -179,6 +206,11 @@ public abstract class TileEntity {
 	public BlockPos getPos() {
 
 		return pos;
+	}
+
+	public void setPos(BlockPos posIn) {
+
+		pos = posIn.toImmutable();
 	}
 
 	/**
@@ -276,11 +308,6 @@ public abstract class TileEntity {
 		}
 	}
 
-	public void setPos(BlockPos posIn) {
-
-		pos = posIn.toImmutable();
-	}
-
 	public boolean onlyOpsCanSetNbt() {
 
 		return false;
@@ -302,33 +329,5 @@ public abstract class TileEntity {
 
 	public void mirror(Mirror mirrorIn) {
 
-	}
-
-	static {
-		register("furnace", TileEntityFurnace.class);
-		register("chest", TileEntityChest.class);
-		register("ender_chest", TileEntityEnderChest.class);
-		register("jukebox", BlockJukebox.TileEntityJukebox.class);
-		register("dispenser", TileEntityDispenser.class);
-		register("dropper", TileEntityDropper.class);
-		register("sign", TileEntitySign.class);
-		register("mob_spawner", TileEntityMobSpawner.class);
-		register("noteblock", TileEntityNote.class);
-		register("piston", TileEntityPiston.class);
-		register("brewing_stand", TileEntityBrewingStand.class);
-		register("enchanting_table", TileEntityEnchantmentTable.class);
-		register("end_portal", TileEntityEndPortal.class);
-		register("beacon", TileEntityBeacon.class);
-		register("skull", TileEntitySkull.class);
-		register("daylight_detector", TileEntityDaylightDetector.class);
-		register("hopper", TileEntityHopper.class);
-		register("comparator", TileEntityComparator.class);
-		register("flower_pot", TileEntityFlowerPot.class);
-		register("banner", TileEntityBanner.class);
-		register("structure_block", TileEntityStructure.class);
-		register("end_gateway", TileEntityEndGateway.class);
-		register("command_block", TileEntityCommandBlock.class);
-		register("shulker_box", TileEntityShulkerBox.class);
-		register("bed", TileEntityBed.class);
 	}
 }

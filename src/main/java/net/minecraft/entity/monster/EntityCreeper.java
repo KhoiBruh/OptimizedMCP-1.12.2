@@ -58,6 +58,11 @@ public class EntityCreeper extends EntityMob {
 		setSize(0.6F, 1.7F);
 	}
 
+	public static void registerFixesCreeper(DataFixer fixer) {
+
+		EntityLiving.registerFixesMob(fixer, EntityCreeper.class);
+	}
+
 	protected void initEntityAI() {
 
 		tasks.addTask(1, new EntityAISwimming(this));
@@ -101,11 +106,6 @@ public class EntityCreeper extends EntityMob {
 		dataManager.register(STATE, Integer.valueOf(-1));
 		dataManager.register(POWERED, Boolean.valueOf(false));
 		dataManager.register(IGNITED, Boolean.valueOf(false));
-	}
-
-	public static void registerFixesCreeper(DataFixer fixer) {
-
-		EntityLiving.registerFixesMob(fixer, EntityCreeper.class);
 	}
 
 	/**

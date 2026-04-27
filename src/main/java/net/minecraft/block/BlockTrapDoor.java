@@ -1,7 +1,6 @@
 package net.minecraft.block;
 
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.properties.PropertyEnum;
@@ -36,6 +35,42 @@ public class BlockTrapDoor extends Block {
 		super(materialIn);
 		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(OPEN, Boolean.valueOf(false)).withProperty(HALF, BlockTrapDoor.DoorHalf.BOTTOM));
 		setCreativeTab(CreativeTabs.REDSTONE);
+	}
+
+	protected static EnumFacing getFacing(int meta) {
+
+		switch (meta & 3) {
+			case 0:
+				return EnumFacing.NORTH;
+
+			case 1:
+				return EnumFacing.SOUTH;
+
+			case 2:
+				return EnumFacing.WEST;
+
+			case 3:
+			default:
+				return EnumFacing.EAST;
+		}
+	}
+
+	protected static int getMetaForFacing(EnumFacing facing) {
+
+		switch (facing) {
+			case NORTH:
+				return 0;
+
+			case SOUTH:
+				return 1;
+
+			case WEST:
+				return 2;
+
+			case EAST:
+			default:
+				return 3;
+		}
 	}
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
@@ -166,42 +201,6 @@ public class BlockTrapDoor extends Block {
 	public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, EnumFacing side) {
 
 		return true;
-	}
-
-	protected static EnumFacing getFacing(int meta) {
-
-		switch (meta & 3) {
-			case 0:
-				return EnumFacing.NORTH;
-
-			case 1:
-				return EnumFacing.SOUTH;
-
-			case 2:
-				return EnumFacing.WEST;
-
-			case 3:
-			default:
-				return EnumFacing.EAST;
-		}
-	}
-
-	protected static int getMetaForFacing(EnumFacing facing) {
-
-		switch (facing) {
-			case NORTH:
-				return 0;
-
-			case SOUTH:
-				return 1;
-
-			case WEST:
-				return 2;
-
-			case EAST:
-			default:
-				return 3;
-		}
 	}
 
 	/**

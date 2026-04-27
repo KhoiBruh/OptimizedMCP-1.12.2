@@ -47,6 +47,11 @@ public class EntityPig extends EntityAnimal {
 		setSize(0.9F, 0.9F);
 	}
 
+	public static void registerFixesPig(DataFixer fixer) {
+
+		EntityLiving.registerFixesMob(fixer, EntityPig.class);
+	}
+
 	protected void initEntityAI() {
 
 		tasks.addTask(0, new EntityAISwimming(this));
@@ -109,11 +114,6 @@ public class EntityPig extends EntityAnimal {
 		super.entityInit();
 		dataManager.register(SADDLED, Boolean.valueOf(false));
 		dataManager.register(BOOST_TIME, Integer.valueOf(0));
-	}
-
-	public static void registerFixesPig(DataFixer fixer) {
-
-		EntityLiving.registerFixesMob(fixer, EntityPig.class);
 	}
 
 	/**

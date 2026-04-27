@@ -8,20 +8,18 @@ import net.minecraft.util.EntitySelectors;
 
 public class EntityAIWatchClosest extends EntityAIBase {
 
+	private final float chance;
 	protected EntityLiving entity;
-
 	/**
 	 * The closest entity which is being watched by this one.
 	 */
 	protected Entity closestEntity;
-
 	/**
 	 * This is the Maximum distance that the AI will look for the Entity
 	 */
 	protected float maxDistanceForPlayer;
-	private int lookTime;
-	private final float chance;
 	protected Class<? extends Entity> watchedClass;
+	private int lookTime;
 
 	public EntityAIWatchClosest(EntityLiving entityIn, Class<? extends Entity> watchTargetClass, float maxDistance) {
 

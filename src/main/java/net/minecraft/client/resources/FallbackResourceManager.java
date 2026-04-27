@@ -22,6 +22,11 @@ public class FallbackResourceManager implements IResourceManager {
 		frmMetadataSerializer = frmMetadataSerializerIn;
 	}
 
+	static ResourceLocation getLocationMcmeta(ResourceLocation location) {
+
+		return new ResourceLocation(location.getResourceDomain(), location.getResourcePath() + ".mcmeta");
+	}
+
 	public void addResourcePack(IResourcePack resourcePack) {
 
 		resourcePacks.add(resourcePack);
@@ -90,11 +95,6 @@ public class FallbackResourceManager implements IResourceManager {
 		} else {
 			return list;
 		}
-	}
-
-	static ResourceLocation getLocationMcmeta(ResourceLocation location) {
-
-		return new ResourceLocation(location.getResourceDomain(), location.getResourcePath() + ".mcmeta");
 	}
 
 	static class InputStreamLeakedResourceLogger extends InputStream {

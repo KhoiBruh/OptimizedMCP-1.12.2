@@ -9,7 +9,6 @@ import java.util.Set;
 
 public class Blocks {
 
-	private static final Set<Block> CACHE;
 	public static final Block AIR;
 	public static final Block STONE;
 	public static final BlockGrass GRASS;
@@ -264,22 +263,7 @@ public class Blocks {
 	public static final Block CONCRETE;
 	public static final Block CONCRETE_POWDER;
 	public static final Block STRUCTURE_BLOCK;
-
-	@Nullable
-
-	/**
-	 * Returns the Block in the blockRegistry with the specified name.
-	 */
-	private static Block getRegisteredBlock(String blockName) {
-
-		Block block = Block.REGISTRY.getObject(new ResourceLocation(blockName));
-
-		if (!CACHE.add(block)) {
-			throw new IllegalStateException("Invalid Block requested: " + blockName);
-		} else {
-			return block;
-		}
-	}
+	private static final Set<Block> CACHE;
 
 	static {
 		if (!Bootstrap.isRegistered()) {
@@ -541,6 +525,22 @@ public class Blocks {
 			CONCRETE_POWDER = getRegisteredBlock("concrete_powder");
 			STRUCTURE_BLOCK = getRegisteredBlock("structure_block");
 			CACHE.clear();
+		}
+	}
+
+	@Nullable
+
+	/**
+	 * Returns the Block in the blockRegistry with the specified name.
+	 */
+	private static Block getRegisteredBlock(String blockName) {
+
+		Block block = Block.REGISTRY.getObject(new ResourceLocation(blockName));
+
+		if (!CACHE.add(block)) {
+			throw new IllegalStateException("Invalid Block requested: " + blockName);
+		} else {
+			return block;
 		}
 	}
 }

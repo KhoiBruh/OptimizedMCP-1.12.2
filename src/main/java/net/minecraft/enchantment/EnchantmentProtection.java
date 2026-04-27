@@ -25,6 +25,31 @@ public class EnchantmentProtection extends Enchantment {
 	}
 
 	/**
+	 * Gets the amount of ticks an entity should be set fire, adjusted for fire protection.
+	 */
+	public static int getFireTimeForEntity(EntityLivingBase p_92093_0_, int p_92093_1_) {
+
+		int i = EnchantmentHelper.getMaxEnchantmentLevel(Enchantments.FIRE_PROTECTION, p_92093_0_);
+
+		if (i > 0) {
+			p_92093_1_ -= MathHelper.floor((float) p_92093_1_ * (float) i * 0.15F);
+		}
+
+		return p_92093_1_;
+	}
+
+	public static double getBlastDamageReduction(EntityLivingBase entityLivingBaseIn, double damage) {
+
+		int i = EnchantmentHelper.getMaxEnchantmentLevel(Enchantments.BLAST_PROTECTION, entityLivingBaseIn);
+
+		if (i > 0) {
+			damage -= MathHelper.floor(damage * (double) ((float) i * 0.15F));
+		}
+
+		return damage;
+	}
+
+	/**
 	 * Returns the minimal value of enchantability needed on the enchantment level passed.
 	 */
 	public int getMinEnchantability(int enchantmentLevel) {
@@ -91,31 +116,6 @@ public class EnchantmentProtection extends Enchantment {
 		} else {
 			return super.canApplyTogether(ench);
 		}
-	}
-
-	/**
-	 * Gets the amount of ticks an entity should be set fire, adjusted for fire protection.
-	 */
-	public static int getFireTimeForEntity(EntityLivingBase p_92093_0_, int p_92093_1_) {
-
-		int i = EnchantmentHelper.getMaxEnchantmentLevel(Enchantments.FIRE_PROTECTION, p_92093_0_);
-
-		if (i > 0) {
-			p_92093_1_ -= MathHelper.floor((float) p_92093_1_ * (float) i * 0.15F);
-		}
-
-		return p_92093_1_;
-	}
-
-	public static double getBlastDamageReduction(EntityLivingBase entityLivingBaseIn, double damage) {
-
-		int i = EnchantmentHelper.getMaxEnchantmentLevel(Enchantments.BLAST_PROTECTION, entityLivingBaseIn);
-
-		if (i > 0) {
-			damage -= MathHelper.floor(damage * (double) ((float) i * 0.15F));
-		}
-
-		return damage;
 	}
 
 	public enum Type {

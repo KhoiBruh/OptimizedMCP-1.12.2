@@ -118,16 +118,6 @@ public class SPacketPlayerPosLook implements Packet<INetHandlerPlayClient> {
 			bit = bitIn;
 		}
 
-		private int getMask() {
-
-			return 1 << bit;
-		}
-
-		private boolean isSet(int flags) {
-
-			return (flags & getMask()) == getMask();
-		}
-
 		public static Set<SPacketPlayerPosLook.EnumFlags> unpack(int flags) {
 
 			Set<SPacketPlayerPosLook.EnumFlags> set = EnumSet.noneOf(SPacketPlayerPosLook.EnumFlags.class);
@@ -150,6 +140,16 @@ public class SPacketPlayerPosLook implements Packet<INetHandlerPlayClient> {
 			}
 
 			return i;
+		}
+
+		private int getMask() {
+
+			return 1 << bit;
+		}
+
+		private boolean isSet(int flags) {
+
+			return (flags & getMask()) == getMask();
 		}
 	}
 

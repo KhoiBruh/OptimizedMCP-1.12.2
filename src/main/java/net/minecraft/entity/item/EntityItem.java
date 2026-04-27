@@ -30,24 +30,21 @@ public class EntityItem extends Entity {
 
 	private static final Logger LOGGER = LogManager.getLogger();
 	private static final DataParameter<ItemStack> ITEM = EntityDataManager.createKey(EntityItem.class, DataSerializers.ITEM_STACK);
-
+	/**
+	 * The EntityItem's random initial float height.
+	 */
+	public float hoverStart;
 	/**
 	 * The age of this EntityItem (used to animate it up and down as well as expire it)
 	 */
 	private int age;
 	private int pickupDelay;
-
 	/**
 	 * The health of this EntityItem. (For example, damage for tools)
 	 */
 	private int health;
 	private String thrower;
 	private String owner;
-
-	/**
-	 * The EntityItem's random initial float height.
-	 */
-	public float hoverStart;
 
 	public EntityItem(World worldIn, double x, double y, double z) {
 
@@ -68,15 +65,6 @@ public class EntityItem extends Entity {
 		setItem(stack);
 	}
 
-	/**
-	 * returns if this entity triggers Block.onEntityWalking on the blocks they walk on. used for spiders and wolves to
-	 * prevent them from trampling crops
-	 */
-	protected boolean canTriggerWalking() {
-
-		return false;
-	}
-
 	public EntityItem(World worldIn) {
 
 		super(worldIn);
@@ -84,6 +72,20 @@ public class EntityItem extends Entity {
 		hoverStart = (float) (Math.random() * Math.PI * 2.0D);
 		setSize(0.25F, 0.25F);
 		setItem(ItemStack.EMPTY);
+	}
+
+	public static void registerFixesItem(DataFixer fixer) {
+
+		fixer.registerWalker(FixTypes.ENTITY, new ItemStackData(EntityItem.class, "Item"));
+	}
+
+	/**
+	 * returns if this entity triggers Block.onEntityWalking on the blocks they walk on. used for spiders and wolves to
+	 * prevent them from trampling crops
+	 */
+	protected boolean canTriggerWalking() {
+
+		return false;
 	}
 
 	protected void entityInit() {
@@ -286,11 +288,6 @@ public class EntityItem extends Entity {
 
 			return false;
 		}
-	}
-
-	public static void registerFixesItem(DataFixer fixer) {
-
-		fixer.registerWalker(FixTypes.ENTITY, new ItemStackData(EntityItem.class, "Item"));
 	}
 
 	/**

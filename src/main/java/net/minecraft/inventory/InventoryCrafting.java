@@ -87,7 +87,7 @@ public class InventoryCrafting implements IInventory {
 	 */
 	public ITextComponent displayName() {
 
-		return hasCustomName() ? new TextComponentString(getName()) : new TextComponentTranslation(getName(), new Object[0]);
+		return hasCustomName() ? new TextComponentString(getName()) : new TextComponentTranslation(getName());
 	}
 
 	/**

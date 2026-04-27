@@ -23,12 +23,11 @@ import java.util.Set;
 
 public class StatList {
 
-	protected static final Map<String, StatBase> ID_TO_STAT_MAP = Maps.newHashMap();
 	public static final List<StatBase> ALL_STATS = Lists.newArrayList();
 	public static final List<StatBase> BASIC_STATS = Lists.newArrayList();
 	public static final List<StatCrafting> USE_ITEM_STATS = Lists.newArrayList();
 	public static final List<StatCrafting> MINE_BLOCK_STATS = Lists.newArrayList();
-
+	protected static final Map<String, StatBase> ID_TO_STAT_MAP = Maps.newHashMap();
 	/**
 	 * number of times you've left a game
 	 */

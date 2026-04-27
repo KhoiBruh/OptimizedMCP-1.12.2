@@ -28,13 +28,13 @@ public abstract class EntityHanging extends Entity {
 			return p_apply_1_ instanceof EntityHanging;
 		}
 	};
-	private int tickCounter1;
-	protected BlockPos hangingPosition;
 
 	@Nullable
 
 	/** The direction the entity is facing */
 	public EnumFacing facingDirection;
+	protected BlockPos hangingPosition;
+	private int tickCounter1;
 
 	public EntityHanging(World worldIn) {
 

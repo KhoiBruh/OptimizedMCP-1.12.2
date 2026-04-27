@@ -7,7 +7,6 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.IResourceManager;
-import net.minecraft.client.util.JsonException;
 import org.lwjgl.util.vector.Matrix4f;
 
 import java.io.IOException;
@@ -15,9 +14,9 @@ import java.util.List;
 
 public class Shader {
 
-	private final ShaderManager manager;
 	public final Framebuffer framebufferIn;
 	public final Framebuffer framebufferOut;
+	private final ShaderManager manager;
 	private final List<Object> listAuxFramebuffers = Lists.newArrayList();
 	private final List<String> listAuxNames = Lists.newArrayList();
 	private final List<Integer> listAuxWidths = Lists.newArrayList();

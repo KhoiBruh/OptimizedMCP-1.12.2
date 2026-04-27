@@ -74,9 +74,9 @@ public class SimpleBakedModel implements IBakedModel {
 		private final Map<EnumFacing, List<BakedQuad>> builderFaceQuads;
 		private final ItemOverrideList builderItemOverrideList;
 		private final boolean builderAmbientOcclusion;
-		private TextureAtlasSprite builderTexture;
 		private final boolean builderGui3d;
 		private final ItemCameraTransforms builderCameraTransforms;
+		private TextureAtlasSprite builderTexture;
 
 		public Builder(ModelBlock model, ItemOverrideList overrides) {
 

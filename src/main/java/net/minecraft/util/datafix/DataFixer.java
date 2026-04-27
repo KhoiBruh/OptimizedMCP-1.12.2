@@ -83,7 +83,7 @@ public class DataFixer implements IDataFixer {
 
 	public void registerFix(IFixType type, IFixableData fixable) {
 
-		List<IFixableData> list = this.getTypeList(fixMap, type);
+		List<IFixableData> list = getTypeList(fixMap, type);
 		int i = fixable.getFixVersion();
 
 		if (i > version) {

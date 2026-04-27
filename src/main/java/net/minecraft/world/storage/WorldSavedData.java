@@ -35,19 +35,19 @@ public abstract class WorldSavedData {
 	}
 
 	/**
-	 * Sets the dirty state of this MapDataBase, whether it needs saving to disk.
-	 */
-	public void setDirty(boolean isDirty) {
-
-		dirty = isDirty;
-	}
-
-	/**
 	 * Whether this MapDataBase needs saving to disk.
 	 */
 	public boolean isDirty() {
 
 		return dirty;
+	}
+
+	/**
+	 * Sets the dirty state of this MapDataBase, whether it needs saving to disk.
+	 */
+	public void setDirty(boolean isDirty) {
+
+		dirty = isDirty;
 	}
 
 }

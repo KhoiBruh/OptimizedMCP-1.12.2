@@ -23,7 +23,6 @@ import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.ICrashReportDetail;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.network.NetworkSystem;
 import net.minecraft.network.ServerStatusResponse;
 import net.minecraft.network.play.server.SPacketTimeUpdate;
@@ -53,7 +52,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.Proxy;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -68,104 +66,92 @@ import java.util.concurrent.FutureTask;
 
 public abstract class MinecraftServer implements ICommandSender, Runnable, IThreadListener, ISnooperInfo {
 
-	private static final Logger LOGGER = LogManager.getLogger();
 	public static final File USER_CACHE_FILE = new File("usercache.json");
+	private static final Logger LOGGER = LogManager.getLogger();
+	public final ICommandManager commandManager;
+	public final Profiler profiler = new Profiler();
+	public final long[] tickTimeArray = new long[100];
+	public final Queue<FutureTask<?>> futureTaskQueue = Queues.newArrayDeque();
+	protected final Proxy serverProxy;
 	private final ISaveFormat anvilConverterForAnvilFile;
-
 	/**
 	 * The PlayerUsageSnooper instance.
 	 */
 	private final Snooper usageSnooper = new Snooper("server", this, getCurrentTimeMillis());
 	private final File anvilFile;
 	private final List<ITickable> tickables = Lists.newArrayList();
-	public final ICommandManager commandManager;
-	public final Profiler profiler = new Profiler();
 	private final NetworkSystem networkSystem;
 	private final ServerStatusResponse statusResponse = new ServerStatusResponse();
 	private final Random random = new Random();
 	private final DataFixer dataFixer;
-
 	/**
 	 * The server's port.
 	 */
 	private final int serverPort = -1;
-
+	private final YggdrasilAuthenticationService authService;
+	private final MinecraftSessionService sessionService;
+	private final GameProfileRepository profileRepo;
+	private final PlayerProfileCache profileCache;
 	/**
 	 * The server world instances.
 	 */
 	public WorldServer[] worlds;
-
-	/**
-	 * The player list for this server
-	 */
-	private PlayerList playerList;
-
-	/**
-	 * Indicates whether the server is running or not. Set to false to initiate a shutdown.
-	 */
-	private boolean serverRunning = true;
-
-	/**
-	 * Indicates to other classes that the server is safely stopped.
-	 */
-	private boolean serverStopped;
-
-	/**
-	 * Incremented every tick.
-	 */
-	private int tickCounter;
-	protected final Proxy serverProxy;
-
 	/**
 	 * The task the server is currently working on(and will output on outputPercentRemaining).
 	 */
 	public String currentTask;
-
 	/**
 	 * The percentage of the current task finished so far.
 	 */
 	public int percentDone;
-
+	/**
+	 * Stats are [dimension][tick%100] system.nanoTime is stored.
+	 */
+	public long[][] timeOfLastDimensionTick;
+	/**
+	 * The player list for this server
+	 */
+	private PlayerList playerList;
+	/**
+	 * Indicates whether the server is running or not. Set to false to initiate a shutdown.
+	 */
+	private boolean serverRunning = true;
+	/**
+	 * Indicates to other classes that the server is safely stopped.
+	 */
+	private boolean serverStopped;
+	/**
+	 * Incremented every tick.
+	 */
+	private int tickCounter;
 	/**
 	 * True if the server is in online mode.
 	 */
 	private boolean onlineMode;
 	private boolean preventProxyConnections;
-
 	/**
 	 * True if the server has animals turned on.
 	 */
 	private boolean canSpawnAnimals;
 	private boolean canSpawnNPCs;
-
 	/**
 	 * Indicates whether PvP is active on the server or not.
 	 */
 	private boolean pvpEnabled;
-
 	/**
 	 * Determines if flight is allowed or not.
 	 */
 	private boolean allowFlight;
-
 	/**
 	 * The server MOTD string.
 	 */
 	private String motd;
-
 	/**
 	 * Maximum build height.
 	 */
 	private int buildLimit;
 	private int maxPlayerIdleMinutes;
-	public final long[] tickTimeArray = new long[100];
-
-	/**
-	 * Stats are [dimension][tick%100] system.nanoTime is stored.
-	 */
-	public long[][] timeOfLastDimensionTick;
 	private KeyPair serverKeyPair;
-
 	/**
 	 * Username of the server owner (for integrated servers)
 	 */
@@ -174,14 +160,12 @@ public abstract class MinecraftServer implements ICommandSender, Runnable, IThre
 	private String worldName;
 	private boolean isDemo;
 	private boolean enableBonusChest;
-
 	/**
 	 * The texture pack for the server
 	 */
 	private String resourcePackUrl = "";
 	private String resourcePackHash = "";
 	private boolean serverIsRunning;
-
 	/**
 	 * Set when warned for "Can't keep up", which triggers again after 15 seconds.
 	 */
@@ -189,12 +173,7 @@ public abstract class MinecraftServer implements ICommandSender, Runnable, IThre
 	private String userMessage;
 	private boolean startProfiling;
 	private boolean isGamemodeForced;
-	private final YggdrasilAuthenticationService authService;
-	private final MinecraftSessionService sessionService;
-	private final GameProfileRepository profileRepo;
-	private final PlayerProfileCache profileCache;
 	private long nanoTimeSinceStatusRefresh;
-	public final Queue<FutureTask<?>> futureTaskQueue = Queues.newArrayDeque();
 	private Thread serverThread;
 	private long currentTime = getCurrentTimeMillis();
 	private boolean worldIconSet;
@@ -211,6 +190,11 @@ public abstract class MinecraftServer implements ICommandSender, Runnable, IThre
 		commandManager = createCommandManager();
 		anvilConverterForAnvilFile = new AnvilSaveConverter(anvilFileIn, dataFixerIn);
 		dataFixer = dataFixerIn;
+	}
+
+	public static long getCurrentTimeMillis() {
+
+		return System.currentTimeMillis();
 	}
 
 	public ServerCommandManager createCommandManager() {
@@ -258,19 +242,19 @@ public abstract class MinecraftServer implements ICommandSender, Runnable, IThre
 		}
 	}
 
+	@Nullable
+
+	public synchronized String getUserMessage() {
+
+		return userMessage;
+	}
+
 	/**
 	 * Typically "menu.convertingLevel", "menu.loadingLevel" or others.
 	 */
 	protected synchronized void setUserMessage(String message) {
 
 		userMessage = message;
-	}
-
-	@Nullable
-
-	public synchronized String getUserMessage() {
-
-		return userMessage;
 	}
 
 	public void loadAllWorlds(String saveName, String worldNameIn, long seed, WorldType type, String generatorOptions) {
@@ -380,6 +364,16 @@ public abstract class MinecraftServer implements ICommandSender, Runnable, IThre
 	public abstract boolean canStructuresSpawn();
 
 	public abstract GameType getGameType();
+
+	/**
+	 * Sets the game type for all worlds.
+	 */
+	public void setGameType(GameType gameMode) {
+
+		for (WorldServer worldserver1 : worlds) {
+			worldserver1.getWorldInfo().setGameType(gameMode);
+		}
+	}
 
 	/**
 	 * Get the server's difficulty
@@ -940,6 +934,11 @@ public abstract class MinecraftServer implements ICommandSender, Runnable, IThre
 		return serverKeyPair;
 	}
 
+	public void setKeyPair(KeyPair keyPair) {
+
+		serverKeyPair = keyPair;
+	}
+
 	/**
 	 * Returns the username of the server owner (for integrated servers)
 	 */
@@ -971,19 +970,14 @@ public abstract class MinecraftServer implements ICommandSender, Runnable, IThre
 		folderName = name;
 	}
 
-	public void setWorldName(String worldNameIn) {
-
-		worldName = worldNameIn;
-	}
-
 	public String getWorldName() {
 
 		return worldName;
 	}
 
-	public void setKeyPair(KeyPair keyPair) {
+	public void setWorldName(String worldNameIn) {
 
-		serverKeyPair = keyPair;
+		worldName = worldNameIn;
 	}
 
 	public void setDifficultyForAllWorlds(EnumDifficulty difficulty) {
@@ -1136,16 +1130,16 @@ public abstract class MinecraftServer implements ICommandSender, Runnable, IThre
 		return canSpawnNPCs;
 	}
 
+	public void setCanSpawnNPCs(boolean spawnNpcs) {
+
+		canSpawnNPCs = spawnNpcs;
+	}
+
 	/**
 	 * Get if native transport should be used. Native transport means linux server performance improvements and
 	 * optimized packet sending/receiving on linux
 	 */
 	public abstract boolean shouldUseNativeTransport();
-
-	public void setCanSpawnNPCs(boolean spawnNpcs) {
-
-		canSpawnNPCs = spawnNpcs;
-	}
 
 	public boolean isPVPEnabled() {
 
@@ -1205,16 +1199,6 @@ public abstract class MinecraftServer implements ICommandSender, Runnable, IThre
 	public void setPlayerList(PlayerList list) {
 
 		playerList = list;
-	}
-
-	/**
-	 * Sets the game type for all worlds.
-	 */
-	public void setGameType(GameType gameMode) {
-
-		for (WorldServer worldserver1 : worlds) {
-			worldserver1.getWorldInfo().setGameType(gameMode);
-		}
 	}
 
 	public NetworkSystem getNetworkSystem() {
@@ -1277,11 +1261,6 @@ public abstract class MinecraftServer implements ICommandSender, Runnable, IThre
 	public Proxy getServerProxy() {
 
 		return serverProxy;
-	}
-
-	public static long getCurrentTimeMillis() {
-
-		return System.currentTimeMillis();
 	}
 
 	public int getMaxPlayerIdleMinutes() {
@@ -1379,7 +1358,7 @@ public abstract class MinecraftServer implements ICommandSender, Runnable, IThre
 	public ListenableFuture<Object> addScheduledTask(Runnable runnableToSchedule) {
 
 		Validate.notNull(runnableToSchedule);
-		return this.callFromMainThread(Executors.callable(runnableToSchedule));
+		return callFromMainThread(Executors.callable(runnableToSchedule));
 	}
 
 	public boolean isCallingFromMinecraftThread() {

@@ -32,6 +32,12 @@ import java.util.List;
 public class TileEntityShulkerBox extends TileEntityLockableLoot implements ITickable, ISidedInventory {
 
 	private static final int[] SLOTS = new int[27];
+
+	static {
+		for (int i = 0; i < SLOTS.length; SLOTS[i] = i++) {
+		}
+	}
+
 	private NonNullList<ItemStack> items;
 	private boolean hasBeenCleared;
 	private int openCount;
@@ -51,6 +57,11 @@ public class TileEntityShulkerBox extends TileEntityLockableLoot implements ITic
 		items = NonNullList.withSize(27, ItemStack.EMPTY);
 		animationStatus = TileEntityShulkerBox.AnimationStatus.CLOSED;
 		color = colorIn;
+	}
+
+	public static void registerFixesShulkerBox(DataFixer fixer) {
+
+		fixer.registerWalker(FixTypes.BLOCK_ENTITY, new ItemStackDataLists(TileEntityShulkerBox.class, "Items"));
 	}
 
 	/**
@@ -259,11 +270,6 @@ public class TileEntityShulkerBox extends TileEntityLockableLoot implements ITic
 		return hasCustomName() ? customName : "container.shulkerBox";
 	}
 
-	public static void registerFixesShulkerBox(DataFixer fixer) {
-
-		fixer.registerWalker(FixTypes.BLOCK_ENTITY, new ItemStackDataLists(TileEntityShulkerBox.class, "Items"));
-	}
-
 	public void readFromNBT(NBTTagCompound compound) {
 
 		super.readFromNBT(compound);
@@ -387,11 +393,6 @@ public class TileEntityShulkerBox extends TileEntityLockableLoot implements ITic
 	public boolean shouldDrop() {
 
 		return !isDestroyedByCreativePlayer() || !isEmpty() || hasCustomName() || lootTable != null;
-	}
-
-	static {
-		for (int i = 0; i < SLOTS.length; SLOTS[i] = i++) {
-		}
 	}
 
 	public enum AnimationStatus {

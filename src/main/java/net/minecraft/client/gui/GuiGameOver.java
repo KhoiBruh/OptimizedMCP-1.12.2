@@ -1,6 +1,5 @@
 package net.minecraft.client.gui;
 
-import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.text.ITextComponent;
@@ -11,11 +10,11 @@ import java.io.IOException;
 
 public class GuiGameOver extends GuiScreen {
 
+	private final ITextComponent causeOfDeath;
 	/**
 	 * The integer value containing the number of ticks that have passed since the player's death
 	 */
 	private int enableButtonsTimer;
-	private final ITextComponent causeOfDeath;
 
 	public GuiGameOver(@Nullable ITextComponent causeOfDeathIn) {
 

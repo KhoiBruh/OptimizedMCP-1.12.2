@@ -28,32 +28,22 @@ public class ChunkGeneratorHell implements IChunkGenerator {
 	protected static final IBlockState LAVA = Blocks.LAVA.getDefaultState();
 	protected static final IBlockState GRAVEL = Blocks.GRAVEL.getDefaultState();
 	protected static final IBlockState SOUL_SAND = Blocks.SOUL_SAND.getDefaultState();
+	public final NoiseGeneratorOctaves scaleNoise;
+	public final NoiseGeneratorOctaves depthNoise;
 	private final World world;
 	private final boolean generateStructures;
 	private final Random rand;
-
-	/**
-	 * Holds the noise used to determine whether slowsand can be generated at a location
-	 */
-	private double[] slowsandNoise = new double[256];
-	private double[] gravelNoise = new double[256];
-	private double[] depthBuffer = new double[256];
-	private double[] buffer;
 	private final NoiseGeneratorOctaves lperlinNoise1;
 	private final NoiseGeneratorOctaves lperlinNoise2;
 	private final NoiseGeneratorOctaves perlinNoise1;
-
 	/**
 	 * Determines whether slowsand or gravel can be generated at a location
 	 */
 	private final NoiseGeneratorOctaves slowsandGravelNoiseGen;
-
 	/**
 	 * Determines whether something other than nettherack can be generated at a location
 	 */
 	private final NoiseGeneratorOctaves netherrackExculsivityNoiseGen;
-	public final NoiseGeneratorOctaves scaleNoise;
-	public final NoiseGeneratorOctaves depthNoise;
 	private final WorldGenFire fireFeature = new WorldGenFire();
 	private final WorldGenGlowStone1 lightGemGen = new WorldGenGlowStone1();
 	private final WorldGenGlowStone2 hellPortalGen = new WorldGenGlowStone2();
@@ -70,6 +60,13 @@ public class ChunkGeneratorHell implements IChunkGenerator {
 	double[] br;
 	double[] noiseData4;
 	double[] dr;
+	/**
+	 * Holds the noise used to determine whether slowsand can be generated at a location
+	 */
+	private double[] slowsandNoise = new double[256];
+	private double[] gravelNoise = new double[256];
+	private double[] depthBuffer = new double[256];
+	private double[] buffer;
 
 	public ChunkGeneratorHell(World worldIn, boolean p_i45637_2_, long seed) {
 

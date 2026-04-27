@@ -36,6 +36,12 @@ public abstract class BlockSlab extends Block {
 		setLightOpacity(255);
 	}
 
+	protected static boolean isHalfSlab(IBlockState state) {
+
+		Block block = state.getBlock();
+		return block == Blocks.STONE_SLAB || block == Blocks.WOODEN_SLAB || block == Blocks.STONE_SLAB2 || block == Blocks.PURPUR_SLAB;
+	}
+
 	protected boolean canSilkHarvest() {
 
 		return false;
@@ -141,12 +147,6 @@ public abstract class BlockSlab extends Block {
 				return !isHalfSlab(iblockstate) || flag;
 			}
 		}
-	}
-
-	protected static boolean isHalfSlab(IBlockState state) {
-
-		Block block = state.getBlock();
-		return block == Blocks.STONE_SLAB || block == Blocks.WOODEN_SLAB || block == Blocks.STONE_SLAB2 || block == Blocks.PURPUR_SLAB;
 	}
 
 	/**

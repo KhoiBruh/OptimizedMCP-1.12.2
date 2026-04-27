@@ -63,7 +63,7 @@ public class InventoryCraftResult implements IInventory {
 	 */
 	public ITextComponent displayName() {
 
-		return hasCustomName() ? new TextComponentString(getName()) : new TextComponentTranslation(getName(), new Object[0]);
+		return hasCustomName() ? new TextComponentString(getName()) : new TextComponentTranslation(getName());
 	}
 
 	/**
@@ -150,15 +150,15 @@ public class InventoryCraftResult implements IInventory {
 		stackResult.clear();
 	}
 
-	public void setRecipeUsed(@Nullable IRecipe p_193056_1_) {
-
-		recipeUsed = p_193056_1_;
-	}
-
 	@Nullable
 	public IRecipe getRecipeUsed() {
 
 		return recipeUsed;
+	}
+
+	public void setRecipeUsed(@Nullable IRecipe p_193056_1_) {
+
+		recipeUsed = p_193056_1_;
 	}
 
 }

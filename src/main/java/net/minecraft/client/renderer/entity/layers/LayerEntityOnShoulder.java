@@ -20,11 +20,11 @@ public class LayerEntityOnShoulder implements LayerRenderer<EntityPlayer> {
 
 	private final RenderManager renderManager;
 	protected RenderLivingBase<? extends EntityLivingBase> leftRenderer;
+	protected RenderLivingBase<? extends EntityLivingBase> rightRenderer;
 	private ModelBase leftModel;
 	private ResourceLocation leftResource;
 	private UUID leftUniqueId;
 	private Class<?> leftEntityClass;
-	protected RenderLivingBase<? extends EntityLivingBase> rightRenderer;
 	private ModelBase rightModel;
 	private ResourceLocation rightResource;
 	private UUID rightUniqueId;

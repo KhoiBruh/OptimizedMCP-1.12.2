@@ -35,6 +35,23 @@ public abstract class AbstractResourcePack implements IResourcePack {
 		return p_110595_0_.toURI().relativize(p_110595_1_.toURI()).getPath();
 	}
 
+	static <T extends IMetadataSection> T readMetadata(MetadataSerializer metadataSerializer, InputStream p_110596_1_, String sectionName) {
+
+		JsonObject jsonobject = null;
+		BufferedReader bufferedreader = null;
+
+		try {
+			bufferedreader = new BufferedReader(new InputStreamReader(p_110596_1_, StandardCharsets.UTF_8));
+			jsonobject = (new JsonParser()).parse(bufferedreader).getAsJsonObject();
+		} catch (RuntimeException runtimeexception) {
+			throw new JsonParseException(runtimeexception);
+		} finally {
+			IOUtils.closeQuietly(bufferedreader);
+		}
+
+		return metadataSerializer.parseMetadataSection(sectionName, jsonobject);
+	}
+
 	public InputStream getInputStream(ResourceLocation location) throws IOException {
 
 		return getInputStreamByName(locationToName(location));
@@ -57,23 +74,6 @@ public abstract class AbstractResourcePack implements IResourcePack {
 	public <T extends IMetadataSection> T getPackMetadata(MetadataSerializer metadataSerializer, String metadataSectionName) throws IOException {
 
 		return readMetadata(metadataSerializer, getInputStreamByName("pack.mcmeta"), metadataSectionName);
-	}
-
-	static <T extends IMetadataSection> T readMetadata(MetadataSerializer metadataSerializer, InputStream p_110596_1_, String sectionName) {
-
-		JsonObject jsonobject = null;
-		BufferedReader bufferedreader = null;
-
-		try {
-			bufferedreader = new BufferedReader(new InputStreamReader(p_110596_1_, StandardCharsets.UTF_8));
-			jsonobject = (new JsonParser()).parse(bufferedreader).getAsJsonObject();
-		} catch (RuntimeException runtimeexception) {
-			throw new JsonParseException(runtimeexception);
-		} finally {
-			IOUtils.closeQuietly(bufferedreader);
-		}
-
-		return metadataSerializer.parseMetadataSection(sectionName, jsonobject);
 	}
 
 	public BufferedImage getPackImage() throws IOException {

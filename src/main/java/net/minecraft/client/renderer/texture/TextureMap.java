@@ -17,7 +17,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.annotation.Nullable;
-import java.io.Closeable;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -25,16 +24,16 @@ import java.util.Map.Entry;
 
 public class TextureMap extends AbstractTexture implements ITickableTextureObject {
 
-	private static final Logger LOGGER = LogManager.getLogger();
 	public static final ResourceLocation LOCATION_MISSING_TEXTURE = new ResourceLocation("missingno");
 	public static final ResourceLocation LOCATION_BLOCKS_TEXTURE = new ResourceLocation("textures/atlas/blocks.png");
+	private static final Logger LOGGER = LogManager.getLogger();
 	private final List<TextureAtlasSprite> listAnimatedSprites;
 	private final Map<String, TextureAtlasSprite> mapRegisteredSprites;
 	private final Map<String, TextureAtlasSprite> mapUploadedSprites;
 	private final String basePath;
 	private final ITextureMapPopulator iconCreator;
-	private int mipmapLevels;
 	private final TextureAtlasSprite missingImage;
+	private int mipmapLevels;
 
 	public TextureMap(String basePathIn) {
 

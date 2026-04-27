@@ -11,7 +11,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.lwjgl.BufferUtils;
 
 import java.io.BufferedInputStream;
-import java.io.Closeable;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.Map;
@@ -28,27 +27,6 @@ public class ShaderLoader {
 		shaderType = type;
 		shader = shaderId;
 		shaderFilename = filename;
-	}
-
-	public void attachShader(ShaderManager manager) {
-
-		++shaderAttachCount;
-		OpenGlHelper.glAttachShader(manager.getProgram(), shader);
-	}
-
-	public void deleteShader(ShaderManager manager) {
-
-		--shaderAttachCount;
-
-		if (shaderAttachCount <= 0) {
-			OpenGlHelper.glDeleteShader(shader);
-			shaderType.getLoadedShaders().remove(shaderFilename);
-		}
-	}
-
-	public String getShaderFilename() {
-
-		return shaderFilename;
 	}
 
 	public static ShaderLoader loadShader(IResourceManager resourceManager, ShaderLoader.ShaderType type, String filename) throws IOException {
@@ -83,6 +61,27 @@ public class ShaderLoader {
 		}
 
 		return shaderloader;
+	}
+
+	public void attachShader(ShaderManager manager) {
+
+		++shaderAttachCount;
+		OpenGlHelper.glAttachShader(manager.getProgram(), shader);
+	}
+
+	public void deleteShader(ShaderManager manager) {
+
+		--shaderAttachCount;
+
+		if (shaderAttachCount <= 0) {
+			OpenGlHelper.glDeleteShader(shader);
+			shaderType.getLoadedShaders().remove(shaderFilename);
+		}
+	}
+
+	public String getShaderFilename() {
+
+		return shaderFilename;
 	}
 
 	public enum ShaderType {

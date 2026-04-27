@@ -1,7 +1,6 @@
 package net.minecraft.block;
 
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
@@ -42,6 +41,20 @@ public class BlockTripWire extends Block {
 		super(Material.CIRCUITS);
 		setDefaultState(blockState.getBaseState().withProperty(POWERED, Boolean.valueOf(false)).withProperty(ATTACHED, Boolean.valueOf(false)).withProperty(DISARMED, Boolean.valueOf(false)).withProperty(NORTH, Boolean.valueOf(false)).withProperty(EAST, Boolean.valueOf(false)).withProperty(SOUTH, Boolean.valueOf(false)).withProperty(WEST, Boolean.valueOf(false)));
 		setTickRandomly(true);
+	}
+
+	public static boolean isConnectedTo(IBlockAccess worldIn, BlockPos pos, IBlockState state, EnumFacing direction) {
+
+		BlockPos blockpos = pos.offset(direction);
+		IBlockState iblockstate = worldIn.getBlockState(blockpos);
+		Block block = iblockstate.getBlock();
+
+		if (block == Blocks.TRIPWIRE_HOOK) {
+			EnumFacing enumfacing = direction.getOpposite();
+			return iblockstate.getValue(BlockTripWireHook.FACING) == enumfacing;
+		} else {
+			return block == Blocks.TRIPWIRE;
+		}
 	}
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
@@ -203,20 +216,6 @@ public class BlockTripWire extends Block {
 
 		if (flag1) {
 			worldIn.scheduleUpdate(new BlockPos(pos), this, tickRate(worldIn));
-		}
-	}
-
-	public static boolean isConnectedTo(IBlockAccess worldIn, BlockPos pos, IBlockState state, EnumFacing direction) {
-
-		BlockPos blockpos = pos.offset(direction);
-		IBlockState iblockstate = worldIn.getBlockState(blockpos);
-		Block block = iblockstate.getBlock();
-
-		if (block == Blocks.TRIPWIRE_HOOK) {
-			EnumFacing enumfacing = direction.getOpposite();
-			return iblockstate.getValue(BlockTripWireHook.FACING) == enumfacing;
-		} else {
-			return block == Blocks.TRIPWIRE;
 		}
 	}
 

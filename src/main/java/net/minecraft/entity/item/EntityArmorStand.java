@@ -34,12 +34,6 @@ import java.util.List;
 
 public class EntityArmorStand extends EntityLivingBase {
 
-	private static final Rotations DEFAULT_HEAD_ROTATION = new Rotations(0.0F, 0.0F, 0.0F);
-	private static final Rotations DEFAULT_BODY_ROTATION = new Rotations(0.0F, 0.0F, 0.0F);
-	private static final Rotations DEFAULT_LEFTARM_ROTATION = new Rotations(-10.0F, 0.0F, -10.0F);
-	private static final Rotations DEFAULT_RIGHTARM_ROTATION = new Rotations(-15.0F, 0.0F, 10.0F);
-	private static final Rotations DEFAULT_LEFTLEG_ROTATION = new Rotations(-1.0F, 0.0F, -1.0F);
-	private static final Rotations DEFAULT_RIGHTLEG_ROTATION = new Rotations(1.0F, 0.0F, 1.0F);
 	public static final DataParameter<Byte> STATUS = EntityDataManager.createKey(EntityArmorStand.class, DataSerializers.BYTE);
 	public static final DataParameter<Rotations> HEAD_ROTATION = EntityDataManager.createKey(EntityArmorStand.class, DataSerializers.ROTATIONS);
 	public static final DataParameter<Rotations> BODY_ROTATION = EntityDataManager.createKey(EntityArmorStand.class, DataSerializers.ROTATIONS);
@@ -47,6 +41,12 @@ public class EntityArmorStand extends EntityLivingBase {
 	public static final DataParameter<Rotations> RIGHT_ARM_ROTATION = EntityDataManager.createKey(EntityArmorStand.class, DataSerializers.ROTATIONS);
 	public static final DataParameter<Rotations> LEFT_LEG_ROTATION = EntityDataManager.createKey(EntityArmorStand.class, DataSerializers.ROTATIONS);
 	public static final DataParameter<Rotations> RIGHT_LEG_ROTATION = EntityDataManager.createKey(EntityArmorStand.class, DataSerializers.ROTATIONS);
+	private static final Rotations DEFAULT_HEAD_ROTATION = new Rotations(0.0F, 0.0F, 0.0F);
+	private static final Rotations DEFAULT_BODY_ROTATION = new Rotations(0.0F, 0.0F, 0.0F);
+	private static final Rotations DEFAULT_LEFTARM_ROTATION = new Rotations(-10.0F, 0.0F, -10.0F);
+	private static final Rotations DEFAULT_RIGHTARM_ROTATION = new Rotations(-15.0F, 0.0F, 10.0F);
+	private static final Rotations DEFAULT_LEFTLEG_ROTATION = new Rotations(-1.0F, 0.0F, -1.0F);
+	private static final Rotations DEFAULT_RIGHTLEG_ROTATION = new Rotations(1.0F, 0.0F, 1.0F);
 	private static final Predicate<Entity> IS_RIDEABLE_MINECART = new Predicate<Entity>() {
 		public boolean apply(@Nullable Entity p_apply_1_) {
 
@@ -55,12 +55,11 @@ public class EntityArmorStand extends EntityLivingBase {
 	};
 	private final NonNullList<ItemStack> handItems;
 	private final NonNullList<ItemStack> armorItems;
-	private boolean canInteract;
-
 	/**
 	 * After punching the stand, the cooldown before you can punch it again without breaking it.
 	 */
 	public long punchCooldown;
+	private boolean canInteract;
 	private int disabledSlots;
 	private boolean wasMarker;
 	private Rotations headRotation;
@@ -89,6 +88,11 @@ public class EntityArmorStand extends EntityLivingBase {
 
 		this(worldIn);
 		setPosition(posX, posY, posZ);
+	}
+
+	public static void registerFixesArmorStand(DataFixer fixer) {
+
+		fixer.registerWalker(FixTypes.ENTITY, new ItemStackDataLists(EntityArmorStand.class, "ArmorItems", "HandItems"));
 	}
 
 	/**
@@ -190,11 +194,6 @@ public class EntityArmorStand extends EntityLivingBase {
 			setItemStackToSlot(entityequipmentslot, itemStackIn);
 			return true;
 		}
-	}
-
-	public static void registerFixesArmorStand(DataFixer fixer) {
-
-		fixer.registerWalker(FixTypes.ENTITY, new ItemStackDataLists(EntityArmorStand.class, "ArmorItems", "HandItems"));
 	}
 
 	/**
@@ -738,25 +737,25 @@ public class EntityArmorStand extends EntityLivingBase {
 		return hasMarker() ? EnumPushReaction.IGNORE : super.getPushReaction();
 	}
 
+	public boolean isSmall() {
+
+		return (dataManager.get(STATUS).byteValue() & 1) != 0;
+	}
+
 	private void setSmall(boolean small) {
 
 		dataManager.set(STATUS, Byte.valueOf(setBit(dataManager.get(STATUS).byteValue(), 1, small)));
 		setSize(0.5F, 1.975F);
 	}
 
-	public boolean isSmall() {
+	public boolean getShowArms() {
 
-		return (dataManager.get(STATUS).byteValue() & 1) != 0;
+		return (dataManager.get(STATUS).byteValue() & 4) != 0;
 	}
 
 	private void setShowArms(boolean showArms) {
 
 		dataManager.set(STATUS, Byte.valueOf(setBit(dataManager.get(STATUS).byteValue(), 4, showArms)));
-	}
-
-	public boolean getShowArms() {
-
-		return (dataManager.get(STATUS).byteValue() & 4) != 0;
 	}
 
 	private void setNoBasePlate(boolean noBasePlate) {
@@ -798,10 +797,20 @@ public class EntityArmorStand extends EntityLivingBase {
 		return p_184797_1_;
 	}
 
+	public Rotations getHeadRotation() {
+
+		return headRotation;
+	}
+
 	public void setHeadRotation(Rotations vec) {
 
 		headRotation = vec;
 		dataManager.set(HEAD_ROTATION, vec);
+	}
+
+	public Rotations getBodyRotation() {
+
+		return bodyRotation;
 	}
 
 	public void setBodyRotation(Rotations vec) {
@@ -810,10 +819,20 @@ public class EntityArmorStand extends EntityLivingBase {
 		dataManager.set(BODY_ROTATION, vec);
 	}
 
+	public Rotations getLeftArmRotation() {
+
+		return leftArmRotation;
+	}
+
 	public void setLeftArmRotation(Rotations vec) {
 
 		leftArmRotation = vec;
 		dataManager.set(LEFT_ARM_ROTATION, vec);
+	}
+
+	public Rotations getRightArmRotation() {
+
+		return rightArmRotation;
 	}
 
 	public void setRightArmRotation(Rotations vec) {
@@ -822,46 +841,26 @@ public class EntityArmorStand extends EntityLivingBase {
 		dataManager.set(RIGHT_ARM_ROTATION, vec);
 	}
 
+	public Rotations getLeftLegRotation() {
+
+		return leftLegRotation;
+	}
+
 	public void setLeftLegRotation(Rotations vec) {
 
 		leftLegRotation = vec;
 		dataManager.set(LEFT_LEG_ROTATION, vec);
 	}
 
+	public Rotations getRightLegRotation() {
+
+		return rightLegRotation;
+	}
+
 	public void setRightLegRotation(Rotations vec) {
 
 		rightLegRotation = vec;
 		dataManager.set(RIGHT_LEG_ROTATION, vec);
-	}
-
-	public Rotations getHeadRotation() {
-
-		return headRotation;
-	}
-
-	public Rotations getBodyRotation() {
-
-		return bodyRotation;
-	}
-
-	public Rotations getLeftArmRotation() {
-
-		return leftArmRotation;
-	}
-
-	public Rotations getRightArmRotation() {
-
-		return rightArmRotation;
-	}
-
-	public Rotations getLeftLegRotation() {
-
-		return leftLegRotation;
-	}
-
-	public Rotations getRightLegRotation() {
-
-		return rightLegRotation;
 	}
 
 	/**

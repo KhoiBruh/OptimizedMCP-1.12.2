@@ -20,6 +20,17 @@ public class SystemToast implements IToast {
 		subtitle = subtitleComponent == null ? null : subtitleComponent.getUnformattedText();
 	}
 
+	public static void addOrUpdate(GuiToast p_193657_0_, SystemToast.Type p_193657_1_, ITextComponent p_193657_2_, @Nullable ITextComponent p_193657_3_) {
+
+		SystemToast systemtoast = p_193657_0_.getToast(SystemToast.class, p_193657_1_);
+
+		if (systemtoast == null) {
+			p_193657_0_.add(new SystemToast(p_193657_1_, p_193657_2_, p_193657_3_));
+		} else {
+			systemtoast.setDisplayedText(p_193657_2_, p_193657_3_);
+		}
+	}
+
 	public IToast.Visibility draw(GuiToast toastGui, long delta) {
 
 		if (newDisplay) {
@@ -51,17 +62,6 @@ public class SystemToast implements IToast {
 	public SystemToast.Type getType() {
 
 		return type;
-	}
-
-	public static void addOrUpdate(GuiToast p_193657_0_, SystemToast.Type p_193657_1_, ITextComponent p_193657_2_, @Nullable ITextComponent p_193657_3_) {
-
-		SystemToast systemtoast = p_193657_0_.getToast(SystemToast.class, p_193657_1_);
-
-		if (systemtoast == null) {
-			p_193657_0_.add(new SystemToast(p_193657_1_, p_193657_2_, p_193657_3_));
-		} else {
-			systemtoast.setDisplayedText(p_193657_2_, p_193657_3_);
-		}
 	}
 
 	public enum Type {

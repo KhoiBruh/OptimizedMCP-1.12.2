@@ -32,13 +32,13 @@ import java.util.List;
 
 public class GuiStats extends GuiScreen implements IProgressMeter {
 
+	private final StatisticsManager stats;
 	protected GuiScreen parentScreen;
 	protected String screenTitle = "Select world";
 	private GuiStats.StatsGeneral generalStats;
 	private GuiStats.StatsItem itemStats;
 	private GuiStats.StatsBlock blockStats;
 	private GuiStats.StatsMobsList mobStats;
-	private final StatisticsManager stats;
 	private GuiSlot displaySlot;
 
 	/**

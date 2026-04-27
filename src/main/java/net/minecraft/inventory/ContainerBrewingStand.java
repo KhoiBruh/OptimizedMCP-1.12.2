@@ -160,14 +160,14 @@ public class ContainerBrewingStand extends Container {
 			super(iInventoryIn, index, xPosition, yPosition);
 		}
 
-		public boolean isItemValid(ItemStack stack) {
-
-			return isValidBrewingFuel(stack);
-		}
-
 		public static boolean isValidBrewingFuel(ItemStack itemStackIn) {
 
 			return itemStackIn.getItem() == Items.BLAZE_POWDER;
+		}
+
+		public boolean isItemValid(ItemStack stack) {
+
+			return isValidBrewingFuel(stack);
 		}
 
 		public int getSlotStackLimit() {
@@ -203,6 +203,12 @@ public class ContainerBrewingStand extends Container {
 			super(p_i47598_1_, p_i47598_2_, p_i47598_3_, p_i47598_4_);
 		}
 
+		public static boolean canHoldPotion(ItemStack stack) {
+
+			Item item = stack.getItem();
+			return item == Items.POTIONITEM || item == Items.SPLASH_POTION || item == Items.LINGERING_POTION || item == Items.GLASS_BOTTLE;
+		}
+
 		public boolean isItemValid(ItemStack stack) {
 
 			return canHoldPotion(stack);
@@ -223,12 +229,6 @@ public class ContainerBrewingStand extends Container {
 
 			super.onTake(thePlayer, stack);
 			return stack;
-		}
-
-		public static boolean canHoldPotion(ItemStack stack) {
-
-			Item item = stack.getItem();
-			return item == Items.POTIONITEM || item == Items.SPLASH_POTION || item == Items.LINGERING_POTION || item == Items.GLASS_BOTTLE;
 		}
 
 	}

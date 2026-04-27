@@ -24,16 +24,15 @@ import java.util.Random;
 public class ContainerEnchantment extends Container {
 
 	/**
-	 * SlotEnchantmentTable object with ItemStack to be enchanted
-	 */
-	public IInventory tableInventory;
-
-	/**
 	 * current world (for bookshelf counting)
 	 */
 	private final World worldPointer;
 	private final BlockPos position;
 	private final Random rand;
+	/**
+	 * SlotEnchantmentTable object with ItemStack to be enchanted
+	 */
+	public IInventory tableInventory;
 	public int xpSeed;
 
 	/**

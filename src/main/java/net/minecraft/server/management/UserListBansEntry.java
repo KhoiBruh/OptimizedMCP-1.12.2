@@ -23,15 +23,6 @@ public class UserListBansEntry extends UserListEntryBan<GameProfile> {
 		super(toGameProfile(json), json);
 	}
 
-	protected void onSerialization(JsonObject data) {
-
-		if (getValue() != null) {
-			data.addProperty("uuid", getValue().getId() == null ? "" : getValue().getId().toString());
-			data.addProperty("name", getValue().getName());
-			super.onSerialization(data);
-		}
-	}
-
 	/**
 	 * Convert a {@linkplain com.google.gson.JsonObject JsonObject} into a {@linkplain com.mojang.authlib.GameProfile}.
 	 * The json object must have {@code uuid} and {@code name} attributes or {@code null} will be returned.
@@ -51,6 +42,15 @@ public class UserListBansEntry extends UserListEntryBan<GameProfile> {
 			return new GameProfile(uuid, json.get("name").getAsString());
 		} else {
 			return null;
+		}
+	}
+
+	protected void onSerialization(JsonObject data) {
+
+		if (getValue() != null) {
+			data.addProperty("uuid", getValue().getId() == null ? "" : getValue().getId().toString());
+			data.addProperty("name", getValue().getName());
+			super.onSerialization(data);
 		}
 	}
 

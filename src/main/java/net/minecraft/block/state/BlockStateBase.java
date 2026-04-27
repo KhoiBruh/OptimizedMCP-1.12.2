@@ -32,11 +32,6 @@ public abstract class BlockStateBase implements IBlockState {
 		}
 	};
 
-	public <T extends Comparable<T>> IBlockState cycleProperty(IProperty<T> property) {
-
-		return withProperty(property, cyclePropertyValue(property.getAllowedValues(), getValue(property)));
-	}
-
 	protected static <T> T cyclePropertyValue(Collection<T> values, T currentValue) {
 
 		Iterator<T> iterator = values.iterator();
@@ -52,6 +47,11 @@ public abstract class BlockStateBase implements IBlockState {
 		}
 
 		return iterator.next();
+	}
+
+	public <T extends Comparable<T>> IBlockState cycleProperty(IProperty<T> property) {
+
+		return withProperty(property, cyclePropertyValue(property.getAllowedValues(), getValue(property)));
 	}
 
 	public String toString() {

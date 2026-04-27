@@ -7,36 +7,6 @@ public class SpawnEggNames implements IFixableData {
 
 	private static final String[] ENTITY_IDS = new String[256];
 
-	public int getFixVersion() {
-
-		return 105;
-	}
-
-	public NBTTagCompound fixTagCompound(NBTTagCompound compound) {
-
-		if ("minecraft:spawn_egg".equals(compound.getString("id"))) {
-			NBTTagCompound nbttagcompound = compound.getCompoundTag("tag");
-			NBTTagCompound nbttagcompound1 = nbttagcompound.getCompoundTag("EntityTag");
-			short short1 = compound.getShort("Damage");
-
-			if (!nbttagcompound1.hasKey("id", 8)) {
-				String s = ENTITY_IDS[short1 & 255];
-
-				if (s != null) {
-					nbttagcompound1.setString("id", s);
-					nbttagcompound.setTag("EntityTag", nbttagcompound1);
-					compound.setTag("tag", nbttagcompound);
-				}
-			}
-
-			if (short1 != 0) {
-				compound.setShort("Damage", (short) 0);
-			}
-		}
-
-		return compound;
-	}
-
 	static {
 		String[] astring = ENTITY_IDS;
 		astring[1] = "Item";
@@ -106,5 +76,35 @@ public class SpawnEggNames implements IFixableData {
 		astring[101] = "Rabbit";
 		astring[120] = "Villager";
 		astring[200] = "EnderCrystal";
+	}
+
+	public int getFixVersion() {
+
+		return 105;
+	}
+
+	public NBTTagCompound fixTagCompound(NBTTagCompound compound) {
+
+		if ("minecraft:spawn_egg".equals(compound.getString("id"))) {
+			NBTTagCompound nbttagcompound = compound.getCompoundTag("tag");
+			NBTTagCompound nbttagcompound1 = nbttagcompound.getCompoundTag("EntityTag");
+			short short1 = compound.getShort("Damage");
+
+			if (!nbttagcompound1.hasKey("id", 8)) {
+				String s = ENTITY_IDS[short1 & 255];
+
+				if (s != null) {
+					nbttagcompound1.setString("id", s);
+					nbttagcompound.setTag("EntityTag", nbttagcompound1);
+					compound.setTag("tag", nbttagcompound);
+				}
+			}
+
+			if (short1 != 0) {
+				compound.setShort("Damage", (short) 0);
+			}
+		}
+
+		return compound;
 	}
 }

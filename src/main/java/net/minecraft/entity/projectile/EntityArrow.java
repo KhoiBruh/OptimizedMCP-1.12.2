@@ -41,28 +41,25 @@ public abstract class EntityArrow extends Entity implements IProjectile {
 		}
 	});
 	private static final DataParameter<Byte> CRITICAL = EntityDataManager.createKey(EntityArrow.class, DataSerializers.BYTE);
+	/**
+	 * 1 if the player can pick up the arrow
+	 */
+	public EntityArrow.PickupStatus pickupStatus;
+	/**
+	 * Seems to be some sort of timer for animating an arrow.
+	 */
+	public int arrowShake;
+	/**
+	 * The owner of this arrow.
+	 */
+	public Entity shootingEntity;
+	protected boolean inGround;
+	protected int timeInGround;
 	private int xTile;
 	private int yTile;
 	private int zTile;
 	private Block inTile;
 	private int inData;
-	protected boolean inGround;
-	protected int timeInGround;
-
-	/**
-	 * 1 if the player can pick up the arrow
-	 */
-	public EntityArrow.PickupStatus pickupStatus;
-
-	/**
-	 * Seems to be some sort of timer for animating an arrow.
-	 */
-	public int arrowShake;
-
-	/**
-	 * The owner of this arrow.
-	 */
-	public Entity shootingEntity;
 	private int ticksInGround;
 	private int ticksInAir;
 	private double damage;
@@ -97,6 +94,15 @@ public abstract class EntityArrow extends Entity implements IProjectile {
 		if (shooter instanceof EntityPlayer) {
 			pickupStatus = EntityArrow.PickupStatus.ALLOWED;
 		}
+	}
+
+	public static void registerFixesArrow(DataFixer fixer, String name) {
+
+	}
+
+	public static void registerFixesArrow(DataFixer fixer) {
+
+		registerFixesArrow(fixer, "Arrow");
 	}
 
 	/**
@@ -473,15 +479,6 @@ public abstract class EntityArrow extends Entity implements IProjectile {
 		return entity;
 	}
 
-	public static void registerFixesArrow(DataFixer fixer, String name) {
-
-	}
-
-	public static void registerFixesArrow(DataFixer fixer) {
-
-		registerFixesArrow(fixer, "Arrow");
-	}
-
 	/**
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
@@ -564,14 +561,14 @@ public abstract class EntityArrow extends Entity implements IProjectile {
 		return false;
 	}
 
-	public void setDamage(double damageIn) {
-
-		damage = damageIn;
-	}
-
 	public double getDamage() {
 
 		return damage;
+	}
+
+	public void setDamage(double damageIn) {
+
+		damage = damageIn;
 	}
 
 	/**
@@ -598,6 +595,15 @@ public abstract class EntityArrow extends Entity implements IProjectile {
 	/**
 	 * Whether the arrow has a stream of critical hit particles flying behind it.
 	 */
+	public boolean getIsCritical() {
+
+		byte b0 = dataManager.get(CRITICAL).byteValue();
+		return (b0 & 1) != 0;
+	}
+
+	/**
+	 * Whether the arrow has a stream of critical hit particles flying behind it.
+	 */
 	public void setIsCritical(boolean critical) {
 
 		byte b0 = dataManager.get(CRITICAL).byteValue();
@@ -607,15 +613,6 @@ public abstract class EntityArrow extends Entity implements IProjectile {
 		} else {
 			dataManager.set(CRITICAL, Byte.valueOf((byte) (b0 & -2)));
 		}
-	}
-
-	/**
-	 * Whether the arrow has a stream of critical hit particles flying behind it.
-	 */
-	public boolean getIsCritical() {
-
-		byte b0 = dataManager.get(CRITICAL).byteValue();
-		return (b0 & 1) != 0;
 	}
 
 	public void setEnchantmentEffectsFromEntity(EntityLivingBase p_190547_1_, float p_190547_2_) {

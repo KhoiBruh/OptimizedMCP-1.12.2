@@ -5,8 +5,17 @@ public enum Mirror {
 	LEFT_RIGHT("mirror_left_right"),
 	FRONT_BACK("mirror_front_back");
 
-	private final String name;
 	private static final String[] mirrorNames = new String[values().length];
+
+	static {
+		int i = 0;
+
+		for (Mirror mirror : values()) {
+			mirrorNames[i++] = mirror.name;
+		}
+	}
+
+	private final String name;
 
 	Mirror(String nameIn) {
 
@@ -73,14 +82,6 @@ public enum Mirror {
 
 			default:
 				return facing;
-		}
-	}
-
-	static {
-		int i = 0;
-
-		for (Mirror mirror : values()) {
-			mirrorNames[i++] = mirror.name;
 		}
 	}
 }

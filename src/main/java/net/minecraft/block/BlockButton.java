@@ -1,7 +1,6 @@
 package net.minecraft.block;
 
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
@@ -51,6 +50,23 @@ public abstract class BlockButton extends BlockDirectional {
 		this.wooden = wooden;
 	}
 
+	/**
+	 * Check whether this block can be placed on the block in the given direction.
+	 */
+	protected static boolean canPlaceBlock(World worldIn, BlockPos pos, EnumFacing direction) {
+
+		BlockPos blockpos = pos.offset(direction.getOpposite());
+		IBlockState iblockstate = worldIn.getBlockState(blockpos);
+		boolean flag = iblockstate.getBlockFaceShape(worldIn, blockpos, direction) == BlockFaceShape.SOLID;
+		Block block = iblockstate.getBlock();
+
+		if (direction == EnumFacing.UP) {
+			return block == Blocks.HOPPER || !isExceptionBlockForAttaching(block) && flag;
+		} else {
+			return !isExceptBlockForAttachWithPiston(block) && flag;
+		}
+	}
+
 	@Nullable
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
 
@@ -98,23 +114,6 @@ public abstract class BlockButton extends BlockDirectional {
 		}
 
 		return false;
-	}
-
-	/**
-	 * Check whether this block can be placed on the block in the given direction.
-	 */
-	protected static boolean canPlaceBlock(World worldIn, BlockPos pos, EnumFacing direction) {
-
-		BlockPos blockpos = pos.offset(direction.getOpposite());
-		IBlockState iblockstate = worldIn.getBlockState(blockpos);
-		boolean flag = iblockstate.getBlockFaceShape(worldIn, blockpos, direction) == BlockFaceShape.SOLID;
-		Block block = iblockstate.getBlock();
-
-		if (direction == EnumFacing.UP) {
-			return block == Blocks.HOPPER || !isExceptionBlockForAttaching(block) && flag;
-		} else {
-			return !isExceptBlockForAttachWithPiston(block) && flag;
-		}
 	}
 
 	/**

@@ -53,43 +53,6 @@ public class StructureBoundingBox {
 		}
 	}
 
-	/**
-	 * returns a new StructureBoundingBox with MAX values
-	 */
-	public static StructureBoundingBox getNewBoundingBox() {
-
-		return new StructureBoundingBox(Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MIN_VALUE, Integer.MIN_VALUE, Integer.MIN_VALUE);
-	}
-
-	/**
-	 * Create a bounding box with the specified dimensions and rotate it. Used to project a possible new component
-	 * Bounding Box - to check if it would cut anything already spawned
-	 */
-	public static StructureBoundingBox getComponentToAddBoundingBox(int structureMinX, int structureMinY, int structureMinZ, int xMin, int yMin, int zMin, int xMax, int yMax, int zMax, EnumFacing facing) {
-
-		switch (facing) {
-			case NORTH:
-				return new StructureBoundingBox(structureMinX + xMin, structureMinY + yMin, structureMinZ - zMax + 1 + zMin, structureMinX + xMax - 1 + xMin, structureMinY + yMax - 1 + yMin, structureMinZ + zMin);
-
-			case SOUTH:
-				return new StructureBoundingBox(structureMinX + xMin, structureMinY + yMin, structureMinZ + zMin, structureMinX + xMax - 1 + xMin, structureMinY + yMax - 1 + yMin, structureMinZ + zMax - 1 + zMin);
-
-			case WEST:
-				return new StructureBoundingBox(structureMinX - zMax + 1 + zMin, structureMinY + yMin, structureMinZ + xMin, structureMinX + zMin, structureMinY + yMax - 1 + yMin, structureMinZ + xMax - 1 + xMin);
-
-			case EAST:
-				return new StructureBoundingBox(structureMinX + zMin, structureMinY + yMin, structureMinZ + xMin, structureMinX + zMax - 1 + zMin, structureMinY + yMax - 1 + yMin, structureMinZ + xMax - 1 + xMin);
-
-			default:
-				return new StructureBoundingBox(structureMinX + xMin, structureMinY + yMin, structureMinZ + zMin, structureMinX + xMax - 1 + xMin, structureMinY + yMax - 1 + yMin, structureMinZ + zMax - 1 + zMin);
-		}
-	}
-
-	public static StructureBoundingBox createProper(int x1, int y1, int z1, int x2, int y2, int z2) {
-
-		return new StructureBoundingBox(Math.min(x1, x2), Math.min(y1, y2), Math.min(z1, z2), Math.max(x1, x2), Math.max(y1, y2), Math.max(z1, z2));
-	}
-
 	public StructureBoundingBox(StructureBoundingBox structurebb) {
 
 		minX = structurebb.minX;
@@ -128,6 +91,43 @@ public class StructureBoundingBox {
 		maxZ = zMax;
 		minY = 1;
 		maxY = 512;
+	}
+
+	/**
+	 * returns a new StructureBoundingBox with MAX values
+	 */
+	public static StructureBoundingBox getNewBoundingBox() {
+
+		return new StructureBoundingBox(Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MIN_VALUE, Integer.MIN_VALUE, Integer.MIN_VALUE);
+	}
+
+	/**
+	 * Create a bounding box with the specified dimensions and rotate it. Used to project a possible new component
+	 * Bounding Box - to check if it would cut anything already spawned
+	 */
+	public static StructureBoundingBox getComponentToAddBoundingBox(int structureMinX, int structureMinY, int structureMinZ, int xMin, int yMin, int zMin, int xMax, int yMax, int zMax, EnumFacing facing) {
+
+		switch (facing) {
+			case NORTH:
+				return new StructureBoundingBox(structureMinX + xMin, structureMinY + yMin, structureMinZ - zMax + 1 + zMin, structureMinX + xMax - 1 + xMin, structureMinY + yMax - 1 + yMin, structureMinZ + zMin);
+
+			case SOUTH:
+				return new StructureBoundingBox(structureMinX + xMin, structureMinY + yMin, structureMinZ + zMin, structureMinX + xMax - 1 + xMin, structureMinY + yMax - 1 + yMin, structureMinZ + zMax - 1 + zMin);
+
+			case WEST:
+				return new StructureBoundingBox(structureMinX - zMax + 1 + zMin, structureMinY + yMin, structureMinZ + xMin, structureMinX + zMin, structureMinY + yMax - 1 + yMin, structureMinZ + xMax - 1 + xMin);
+
+			case EAST:
+				return new StructureBoundingBox(structureMinX + zMin, structureMinY + yMin, structureMinZ + xMin, structureMinX + zMax - 1 + zMin, structureMinY + yMax - 1 + yMin, structureMinZ + xMax - 1 + xMin);
+
+			default:
+				return new StructureBoundingBox(structureMinX + xMin, structureMinY + yMin, structureMinZ + zMin, structureMinX + xMax - 1 + xMin, structureMinY + yMax - 1 + yMin, structureMinZ + zMax - 1 + zMin);
+		}
+	}
+
+	public static StructureBoundingBox createProper(int x1, int y1, int z1, int x2, int y2, int z2) {
+
+		return new StructureBoundingBox(Math.min(x1, x2), Math.min(y1, y2), Math.min(z1, z2), Math.max(x1, x2), Math.max(y1, y2), Math.max(z1, z2));
 	}
 
 	/**

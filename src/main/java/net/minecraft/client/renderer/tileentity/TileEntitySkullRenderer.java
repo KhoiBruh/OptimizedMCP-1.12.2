@@ -10,7 +10,6 @@ import net.minecraft.client.model.ModelHumanoidHead;
 import net.minecraft.client.model.ModelSkeletonHead;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.DefaultPlayerSkin;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntitySkull;
 import net.minecraft.util.EnumFacing;
@@ -27,8 +26,8 @@ public class TileEntitySkullRenderer extends TileEntitySpecialRenderer<TileEntit
 	private static final ResourceLocation ZOMBIE_TEXTURES = new ResourceLocation("textures/entity/zombie/zombie.png");
 	private static final ResourceLocation CREEPER_TEXTURES = new ResourceLocation("textures/entity/creeper/creeper.png");
 	private static final ResourceLocation DRAGON_TEXTURES = new ResourceLocation("textures/entity/enderdragon/dragon.png");
-	private final ModelDragonHead dragonHead = new ModelDragonHead(0.0F);
 	public static TileEntitySkullRenderer instance;
+	private final ModelDragonHead dragonHead = new ModelDragonHead(0.0F);
 	private final ModelSkeletonHead skeletonHead = new ModelSkeletonHead(0, 0, 64, 32);
 	private final ModelSkeletonHead humanoidHead = new ModelHumanoidHead();
 

@@ -24,13 +24,13 @@ public class BiomeMesa extends Biome {
 	protected static final IBlockState STAINED_HARDENED_CLAY = Blocks.STAINED_HARDENED_CLAY.getDefaultState();
 	protected static final IBlockState ORANGE_STAINED_HARDENED_CLAY = STAINED_HARDENED_CLAY.withProperty(BlockColored.COLOR, EnumDyeColor.ORANGE);
 	protected static final IBlockState RED_SAND = Blocks.SAND.getDefaultState().withProperty(BlockSand.VARIANT, BlockSand.EnumType.RED_SAND);
+	private final boolean brycePillars;
+	private final boolean hasForest;
 	private IBlockState[] clayBands;
 	private long worldSeed;
 	private NoiseGeneratorPerlin pillarNoise;
 	private NoiseGeneratorPerlin pillarRoofNoise;
 	private NoiseGeneratorPerlin clayBandsOffsetNoise;
-	private final boolean brycePillars;
-	private final boolean hasForest;
 
 	public BiomeMesa(boolean p_i46704_1_, boolean p_i46704_2_, Biome.BiomeProperties properties) {
 

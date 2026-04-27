@@ -18,96 +18,80 @@ import java.util.Map.Entry;
 
 public class WorldInfo {
 
+	public static final EnumDifficulty DEFAULT_DIFFICULTY = EnumDifficulty.NORMAL;
+	private final Map<DimensionType, NBTTagCompound> dimensionData = Maps.newEnumMap(DimensionType.class);
 	private String versionName;
 	private int versionId;
 	private boolean versionSnapshot;
-	public static final EnumDifficulty DEFAULT_DIFFICULTY = EnumDifficulty.NORMAL;
-
 	/**
 	 * Holds the seed of the currently world.
 	 */
 	private long randomSeed;
 	private WorldType terrainType = WorldType.DEFAULT;
 	private String generatorOptions = "";
-
 	/**
 	 * The spawn zone position X coordinate.
 	 */
 	private int spawnX;
-
 	/**
 	 * The spawn zone position Y coordinate.
 	 */
 	private int spawnY;
-
 	/**
 	 * The spawn zone position Z coordinate.
 	 */
 	private int spawnZ;
-
 	/**
 	 * Total time for this world.
 	 */
 	private long totalTime;
-
 	/**
 	 * The current world time in ticks, ranging from 0 to 23999.
 	 */
 	private long worldTime;
-
 	/**
 	 * The last time the player was in this world.
 	 */
 	private long lastTimePlayed;
-
 	/**
 	 * The size of entire save of current world on the disk, isn't exactly.
 	 */
 	private long sizeOnDisk;
 	private NBTTagCompound playerTag;
 	private int dimension;
-
 	/**
 	 * The name of the save defined at world creation.
 	 */
 	private String levelName;
-
 	/**
 	 * Introduced in beta 1.3, is the save version for future control.
 	 */
 	private int saveVersion;
 	private int cleanWeatherTime;
-
 	/**
 	 * True if it's raining, false otherwise.
 	 */
 	private boolean raining;
-
 	/**
 	 * Number of ticks until next rain.
 	 */
 	private int rainTime;
-
 	/**
 	 * Is thunderbolts failing now?
 	 */
 	private boolean thundering;
-
 	/**
 	 * Number of ticks untils next thunderbolt.
 	 */
 	private int thunderTime;
-
 	/**
 	 * The Game Type.
 	 */
 	private GameType gameType;
-
 	/**
 	 * Whether the map features (e.g. strongholds) generation is enabled or disabled.
 	 */
 	private boolean mapFeaturesEnabled;
-
 	/**
 	 * Hardcore mode flag
 	 */
@@ -125,25 +109,10 @@ public class WorldInfo {
 	private double borderDamagePerBlock = 0.2D;
 	private int borderWarningDistance = 5;
 	private int borderWarningTime = 15;
-	private final Map<DimensionType, NBTTagCompound> dimensionData = Maps.newEnumMap(DimensionType.class);
 	private GameRules gameRules = new GameRules();
 
 	protected WorldInfo() {
 
-	}
-
-	public static void registerFixes(DataFixer fixer) {
-
-		fixer.registerWalker(FixTypes.LEVEL, new IDataWalker() {
-			public NBTTagCompound process(IDataFixer fixer, NBTTagCompound compound, int versionIn) {
-
-				if (compound.hasKey("Player", 10)) {
-					compound.setTag("Player", fixer.process(FixTypes.PLAYER, compound.getCompoundTag("Player"), versionIn));
-				}
-
-				return compound;
-			}
-		});
 	}
 
 	public WorldInfo(NBTTagCompound nbt) {
@@ -290,17 +259,6 @@ public class WorldInfo {
 		initialized = false;
 	}
 
-	public void populateFromWorldSettings(WorldSettings settings) {
-
-		randomSeed = settings.getSeed();
-		gameType = settings.getGameType();
-		mapFeaturesEnabled = settings.isMapFeaturesEnabled();
-		hardcore = settings.getHardcoreEnabled();
-		terrainType = settings.getTerrainType();
-		generatorOptions = settings.getGeneratorOptions();
-		allowCommands = settings.areCommandsAllowed();
-	}
-
 	public WorldInfo(WorldInfo worldInformation) {
 
 		randomSeed = worldInformation.randomSeed;
@@ -338,6 +296,31 @@ public class WorldInfo {
 		borderDamagePerBlock = worldInformation.borderDamagePerBlock;
 		borderWarningTime = worldInformation.borderWarningTime;
 		borderWarningDistance = worldInformation.borderWarningDistance;
+	}
+
+	public static void registerFixes(DataFixer fixer) {
+
+		fixer.registerWalker(FixTypes.LEVEL, new IDataWalker() {
+			public NBTTagCompound process(IDataFixer fixer, NBTTagCompound compound, int versionIn) {
+
+				if (compound.hasKey("Player", 10)) {
+					compound.setTag("Player", fixer.process(FixTypes.PLAYER, compound.getCompoundTag("Player"), versionIn));
+				}
+
+				return compound;
+			}
+		});
+	}
+
+	public void populateFromWorldSettings(WorldSettings settings) {
+
+		randomSeed = settings.getSeed();
+		gameType = settings.getGameType();
+		mapFeaturesEnabled = settings.isMapFeaturesEnabled();
+		hardcore = settings.getHardcoreEnabled();
+		terrainType = settings.getTerrainType();
+		generatorOptions = settings.getGeneratorOptions();
+		allowCommands = settings.areCommandsAllowed();
 	}
 
 	/**
@@ -431,11 +414,27 @@ public class WorldInfo {
 	}
 
 	/**
+	 * Set the x spawn position to the passed in value
+	 */
+	public void setSpawnX(int x) {
+
+		spawnX = x;
+	}
+
+	/**
 	 * Return the Y axis spawning point of the player.
 	 */
 	public int getSpawnY() {
 
 		return spawnY;
+	}
+
+	/**
+	 * Sets the y spawn position
+	 */
+	public void setSpawnY(int y) {
+
+		spawnY = y;
 	}
 
 	/**
@@ -446,9 +445,22 @@ public class WorldInfo {
 		return spawnZ;
 	}
 
+	/**
+	 * Set the z spawn position to the passed in value
+	 */
+	public void setSpawnZ(int z) {
+
+		spawnZ = z;
+	}
+
 	public long getWorldTotalTime() {
 
 		return totalTime;
+	}
+
+	public void setWorldTotalTime(long time) {
+
+		totalTime = time;
 	}
 
 	/**
@@ -457,6 +469,14 @@ public class WorldInfo {
 	public long getWorldTime() {
 
 		return worldTime;
+	}
+
+	/**
+	 * Set current world time
+	 */
+	public void setWorldTime(long time) {
+
+		worldTime = time;
 	}
 
 	public long getSizeOnDisk() {
@@ -470,43 +490,6 @@ public class WorldInfo {
 	public NBTTagCompound getPlayerNBTTagCompound() {
 
 		return playerTag;
-	}
-
-	/**
-	 * Set the x spawn position to the passed in value
-	 */
-	public void setSpawnX(int x) {
-
-		spawnX = x;
-	}
-
-	/**
-	 * Sets the y spawn position
-	 */
-	public void setSpawnY(int y) {
-
-		spawnY = y;
-	}
-
-	/**
-	 * Set the z spawn position to the passed in value
-	 */
-	public void setSpawnZ(int z) {
-
-		spawnZ = z;
-	}
-
-	public void setWorldTotalTime(long time) {
-
-		totalTime = time;
-	}
-
-	/**
-	 * Set current world time
-	 */
-	public void setWorldTime(long time) {
-
-		worldTime = time;
 	}
 
 	public void setSpawn(BlockPos spawnPoint) {
@@ -636,6 +619,14 @@ public class WorldInfo {
 	}
 
 	/**
+	 * Sets the GameType.
+	 */
+	public void setGameType(GameType type) {
+
+		gameType = type;
+	}
+
+	/**
 	 * Get whether the map features (e.g. strongholds) generation is enabled or disabled.
 	 */
 	public boolean isMapFeaturesEnabled() {
@@ -646,14 +637,6 @@ public class WorldInfo {
 	public void setMapFeaturesEnabled(boolean enabled) {
 
 		mapFeaturesEnabled = enabled;
-	}
-
-	/**
-	 * Sets the GameType.
-	 */
-	public void setGameType(GameType type) {
-
-		gameType = type;
 	}
 
 	/**
@@ -839,19 +822,19 @@ public class WorldInfo {
 	}
 
 	/**
-	 * Returns the border warning time
-	 */
-	public int getBorderWarningTime() {
-
-		return borderWarningTime;
-	}
-
-	/**
 	 * Sets the border warning distance
 	 */
 	public void setBorderWarningDistance(int amountOfBlocks) {
 
 		borderWarningDistance = amountOfBlocks;
+	}
+
+	/**
+	 * Returns the border warning time
+	 */
+	public int getBorderWarningTime() {
+
+		return borderWarningTime;
 	}
 
 	/**

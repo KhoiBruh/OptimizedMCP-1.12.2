@@ -3,7 +3,6 @@ package net.minecraft.block;
 import com.google.common.base.Predicate;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockFaceShape;
@@ -48,6 +47,20 @@ public class BlockHopper extends BlockContainer {
 		super(Material.IRON, MapColor.STONE);
 		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.DOWN).withProperty(ENABLED, Boolean.valueOf(true)));
 		setCreativeTab(CreativeTabs.REDSTONE);
+	}
+
+	public static EnumFacing getFacing(int meta) {
+
+		return EnumFacing.getFront(meta & 7);
+	}
+
+	/**
+	 * Get's the hopper's active status from the 8-bit of the metadata. Note that the metadata stores whether the block
+	 * is powered, so this returns true when that bit is 0.
+	 */
+	public static boolean isEnabled(int meta) {
+
+		return (meta & 8) != 8;
 	}
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
@@ -197,20 +210,6 @@ public class BlockHopper extends BlockContainer {
 	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
 
 		return true;
-	}
-
-	public static EnumFacing getFacing(int meta) {
-
-		return EnumFacing.getFront(meta & 7);
-	}
-
-	/**
-	 * Get's the hopper's active status from the 8-bit of the metadata. Note that the metadata stores whether the block
-	 * is powered, so this returns true when that bit is 0.
-	 */
-	public static boolean isEnabled(int meta) {
-
-		return (meta & 8) != 8;
 	}
 
 	public boolean hasComparatorInputOverride(IBlockState state) {

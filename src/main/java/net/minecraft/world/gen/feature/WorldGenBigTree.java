@@ -16,9 +16,6 @@ import java.util.Random;
 
 public class WorldGenBigTree extends WorldGenAbstractTree {
 
-	private Random rand;
-	private World world;
-	private BlockPos basePos = BlockPos.ORIGIN;
 	int heightLimit;
 	int height;
 	double heightAttenuation = 0.618D;
@@ -27,12 +24,14 @@ public class WorldGenBigTree extends WorldGenAbstractTree {
 	double leafDensity = 1.0D;
 	int trunkSize = 1;
 	int heightLimitLimit = 12;
-
 	/**
 	 * Sets the distance limit for how far away the generator will populate leaves from the base leaf node.
 	 */
 	int leafDistanceLimit = 4;
 	List<WorldGenBigTree.FoliageCoordinates> foliageCoords;
+	private Random rand;
+	private World world;
+	private BlockPos basePos = BlockPos.ORIGIN;
 
 	public WorldGenBigTree(boolean notify) {
 

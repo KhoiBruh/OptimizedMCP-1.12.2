@@ -39,6 +39,21 @@ public class ItemBow extends Item {
 		});
 	}
 
+	/**
+	 * Gets the velocity of the arrow entity from the bow's charge
+	 */
+	public static float getArrowVelocity(int charge) {
+
+		float f = (float) charge / 20.0F;
+		f = (f * f + f * 2.0F) / 3.0F;
+
+		if (f > 1.0F) {
+			f = 1.0F;
+		}
+
+		return f;
+	}
+
 	private ItemStack findAmmo(EntityPlayer player) {
 
 		if (isArrow(player.getHeldItem(EnumHand.OFF_HAND))) {
@@ -131,21 +146,6 @@ public class ItemBow extends Item {
 				}
 			}
 		}
-	}
-
-	/**
-	 * Gets the velocity of the arrow entity from the bow's charge
-	 */
-	public static float getArrowVelocity(int charge) {
-
-		float f = (float) charge / 20.0F;
-		f = (f * f + f * 2.0F) / 3.0F;
-
-		if (f > 1.0F) {
-			f = 1.0F;
-		}
-
-		return f;
 	}
 
 	/**

@@ -25,6 +25,10 @@ import java.util.Random;
 public abstract class StructureComponent {
 
 	protected StructureBoundingBox boundingBox;
+	/**
+	 * The type ID of this component.
+	 */
+	protected int componentType;
 
 	@Nullable
 
@@ -33,11 +37,6 @@ public abstract class StructureComponent {
 	private Mirror mirror;
 	private Rotation rotation;
 
-	/**
-	 * The type ID of this component.
-	 */
-	protected int componentType;
-
 	public StructureComponent() {
 
 	}
@@ -45,6 +44,20 @@ public abstract class StructureComponent {
 	protected StructureComponent(int type) {
 
 		componentType = type;
+	}
+
+	/**
+	 * Discover if bounding box can fit within the current bounding box object.
+	 */
+	public static StructureComponent findIntersecting(List<StructureComponent> listIn, StructureBoundingBox boundingboxIn) {
+
+		for (StructureComponent structurecomponent : listIn) {
+			if (structurecomponent.getBoundingBox() != null && structurecomponent.getBoundingBox().intersectsWith(boundingboxIn)) {
+				return structurecomponent;
+			}
+		}
+
+		return null;
 	}
 
 	/**
@@ -116,20 +129,6 @@ public abstract class StructureComponent {
 	public int getComponentType() {
 
 		return componentType;
-	}
-
-	/**
-	 * Discover if bounding box can fit within the current bounding box object.
-	 */
-	public static StructureComponent findIntersecting(List<StructureComponent> listIn, StructureBoundingBox boundingboxIn) {
-
-		for (StructureComponent structurecomponent : listIn) {
-			if (structurecomponent.getBoundingBox() != null && structurecomponent.getBoundingBox().intersectsWith(boundingboxIn)) {
-				return structurecomponent;
-			}
-		}
-
-		return null;
 	}
 
 	/**

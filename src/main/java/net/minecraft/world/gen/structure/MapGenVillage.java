@@ -16,13 +16,12 @@ import java.util.Random;
 public class MapGenVillage extends MapGenStructure {
 
 	public static final List<Biome> VILLAGE_SPAWN_BIOMES = Arrays.asList(Biomes.PLAINS, Biomes.DESERT, Biomes.SAVANNA, Biomes.TAIGA);
-
+	private final int minTownSeparation;
 	/**
 	 * None
 	 */
 	private int size;
 	private int distance;
-	private final int minTownSeparation;
 
 	public MapGenVillage() {
 

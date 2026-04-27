@@ -19,12 +19,19 @@ import net.minecraft.tileentity.*;
 import net.minecraft.util.EnumFacing;
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.UUID;
-
 public class TileEntityItemStackRenderer {
 
 	private static final TileEntityShulkerBox[] SHULKER_BOXES = new TileEntityShulkerBox[16];
 	public static TileEntityItemStackRenderer instance;
+
+	static {
+		for (EnumDyeColor enumdyecolor : EnumDyeColor.values()) {
+			SHULKER_BOXES[enumdyecolor.getMetadata()] = new TileEntityShulkerBox(enumdyecolor);
+		}
+
+		instance = new TileEntityItemStackRenderer();
+	}
+
 	private final TileEntityChest chestBasic = new TileEntityChest(BlockChest.Type.BASIC);
 	private final TileEntityChest chestTrap = new TileEntityChest(BlockChest.Type.TRAP);
 	private final TileEntityEnderChest enderChest = new TileEntityEnderChest();
@@ -92,13 +99,5 @@ public class TileEntityItemStackRenderer {
 		} else {
 			TileEntityRendererDispatcher.instance.render(chestBasic, 0.0D, 0.0D, 0.0D, 0.0F, partialTicks);
 		}
-	}
-
-	static {
-		for (EnumDyeColor enumdyecolor : EnumDyeColor.values()) {
-			SHULKER_BOXES[enumdyecolor.getMetadata()] = new TileEntityShulkerBox(enumdyecolor);
-		}
-
-		instance = new TileEntityItemStackRenderer();
 	}
 }

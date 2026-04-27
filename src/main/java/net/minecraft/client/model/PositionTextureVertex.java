@@ -13,11 +13,6 @@ public class PositionTextureVertex {
 		this(new Vec3d(p_i1158_1_, p_i1158_2_, p_i1158_3_), p_i1158_4_, p_i1158_5_);
 	}
 
-	public PositionTextureVertex setTexturePosition(float p_78240_1_, float p_78240_2_) {
-
-		return new PositionTextureVertex(this, p_78240_1_, p_78240_2_);
-	}
-
 	public PositionTextureVertex(PositionTextureVertex textureVertex, float texturePositionXIn, float texturePositionYIn) {
 
 		vector3D = textureVertex.vector3D;
@@ -30,6 +25,11 @@ public class PositionTextureVertex {
 		vector3D = p_i47091_1_;
 		texturePositionX = p_i47091_2_;
 		texturePositionY = p_i47091_3_;
+	}
+
+	public PositionTextureVertex setTexturePosition(float p_78240_1_, float p_78240_2_) {
+
+		return new PositionTextureVertex(this, p_78240_1_, p_78240_2_);
 	}
 
 }

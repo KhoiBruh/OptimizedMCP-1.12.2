@@ -32,6 +32,19 @@ public class FindTreeStep implements ITutorialStep {
 		this.tutorial = tutorial;
 	}
 
+	public static boolean hasPunchedTreesPreviously(EntityPlayerSP p_194070_0_) {
+
+		for (Block block : TREE_BLOCKS) {
+			StatBase statbase = StatList.getBlockStats(block);
+
+			if (statbase != null && p_194070_0_.getStatFileWriter().readStat(statbase) > 0) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	public void update() {
 
 		++timeWaiting;
@@ -102,19 +115,6 @@ public class FindTreeStep implements ITutorialStep {
 				return;
 			}
 		}
-	}
-
-	public static boolean hasPunchedTreesPreviously(EntityPlayerSP p_194070_0_) {
-
-		for (Block block : TREE_BLOCKS) {
-			StatBase statbase = StatList.getBlockStats(block);
-
-			if (statbase != null && p_194070_0_.getStatFileWriter().readStat(statbase) > 0) {
-				return true;
-			}
-		}
-
-		return false;
 	}
 
 }

@@ -14,12 +14,12 @@ import java.util.Map.Entry;
 
 public class MultipartBakedModel implements IBakedModel {
 
-	private final Map<Predicate<IBlockState>, IBakedModel> selectors;
 	protected final boolean ambientOcclusion;
 	protected final boolean gui3D;
 	protected final TextureAtlasSprite particleTexture;
 	protected final ItemCameraTransforms cameraTransforms;
 	protected final ItemOverrideList overrides;
+	private final Map<Predicate<IBlockState>, IBakedModel> selectors;
 
 	public MultipartBakedModel(Map<Predicate<IBlockState>, IBakedModel> selectorsIn) {
 

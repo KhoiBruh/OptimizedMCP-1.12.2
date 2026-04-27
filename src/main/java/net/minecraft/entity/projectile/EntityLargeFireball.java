@@ -1,6 +1,5 @@
 package net.minecraft.entity.projectile;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
@@ -27,6 +26,11 @@ public class EntityLargeFireball extends EntityFireball {
 		super(worldIn, shooter, accelX, accelY, accelZ);
 	}
 
+	public static void registerFixesLargeFireball(DataFixer fixer) {
+
+		EntityFireball.registerFixesFireball(fixer, "Fireball");
+	}
+
 	/**
 	 * Called when this EntityFireball hits a block or entity.
 	 */
@@ -42,11 +46,6 @@ public class EntityLargeFireball extends EntityFireball {
 			world.newExplosion(null, posX, posY, posZ, (float) explosionPower, flag, flag);
 			setDead();
 		}
-	}
-
-	public static void registerFixesLargeFireball(DataFixer fixer) {
-
-		EntityFireball.registerFixesFireball(fixer, "Fireball");
 	}
 
 	/**

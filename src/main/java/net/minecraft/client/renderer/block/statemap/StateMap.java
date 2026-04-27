@@ -6,7 +6,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nullable;
 import java.util.Collections;
@@ -55,9 +54,9 @@ public class StateMap extends StateMapperBase {
 
 	public static class Builder {
 
+		private final List<IProperty<?>> ignored = Lists.newArrayList();
 		private IProperty<?> name;
 		private String suffix;
-		private final List<IProperty<?>> ignored = Lists.newArrayList();
 
 		public StateMap.Builder withName(IProperty<?> builderPropertyIn) {
 

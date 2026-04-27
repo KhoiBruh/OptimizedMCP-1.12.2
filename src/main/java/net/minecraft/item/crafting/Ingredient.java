@@ -26,6 +26,33 @@ public class Ingredient implements Predicate<ItemStack> {
 		matchingStacks = p_i47503_1_;
 	}
 
+	public static Ingredient fromItem(Item p_193367_0_) {
+
+		return fromStacks(new ItemStack(p_193367_0_, 1, 32767));
+	}
+
+	public static Ingredient fromItems(Item... items) {
+
+		ItemStack[] aitemstack = new ItemStack[items.length];
+
+		for (int i = 0; i < items.length; ++i) {
+			aitemstack[i] = new ItemStack(items[i]);
+		}
+
+		return fromStacks(aitemstack);
+	}
+
+	public static Ingredient fromStacks(ItemStack... stacks) {
+
+		for (ItemStack itemstack : stacks) {
+			if (!itemstack.isEmpty()) {
+				return new Ingredient(stacks);
+			}
+		}
+
+		return EMPTY;
+	}
+
 	public ItemStack[] getMatchingStacks() {
 
 		return matchingStacks;
@@ -63,33 +90,6 @@ public class Ingredient implements Predicate<ItemStack> {
 		}
 
 		return matchingStacksPacked;
-	}
-
-	public static Ingredient fromItem(Item p_193367_0_) {
-
-		return fromStacks(new ItemStack(p_193367_0_, 1, 32767));
-	}
-
-	public static Ingredient fromItems(Item... items) {
-
-		ItemStack[] aitemstack = new ItemStack[items.length];
-
-		for (int i = 0; i < items.length; ++i) {
-			aitemstack[i] = new ItemStack(items[i]);
-		}
-
-		return fromStacks(aitemstack);
-	}
-
-	public static Ingredient fromStacks(ItemStack... stacks) {
-
-		for (ItemStack itemstack : stacks) {
-			if (!itemstack.isEmpty()) {
-				return new Ingredient(stacks);
-			}
-		}
-
-		return EMPTY;
 	}
 
 }

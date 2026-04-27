@@ -13,6 +13,10 @@ public class ChatAllowedCharacters {
 	 */
 	public static final char[] ILLEGAL_FILE_CHARACTERS = new char[]{'/', '\n', '\r', '\t', '\u0000', '\f', '`', '?', '*', '\\', '<', '>', '|', '"', ':'};
 
+	static {
+		ResourceLeakDetector.setLevel(NETTY_LEAK_DETECTION);
+	}
+
 	/**
 	 * Checks if the given character is allowed to be put into chat.
 	 */
@@ -39,9 +43,5 @@ public class ChatAllowedCharacters {
 		}
 
 		return stringbuilder.toString();
-	}
-
-	static {
-		ResourceLeakDetector.setLevel(NETTY_LEAK_DETECTION);
 	}
 }

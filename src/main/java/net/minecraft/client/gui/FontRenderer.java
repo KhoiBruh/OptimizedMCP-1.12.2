@@ -18,7 +18,6 @@ import net.minecraft.util.ResourceLocation;
 import org.apache.commons.io.IOUtils;
 
 import java.awt.image.BufferedImage;
-import java.io.Closeable;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -33,30 +32,25 @@ public class FontRenderer implements IResourceManagerReloadListener {
 	 * Array of width of all the characters in default.png
 	 */
 	private final int[] charWidth = new int[256];
-
-	/**
-	 * the height in pixels of default text
-	 */
-	public int FONT_HEIGHT = 9;
-	public Random fontRandom = new Random();
-
 	/**
 	 * Array of the start/end column (in upper/lower nibble) for every glyph in the /font directory.
 	 */
 	private final byte[] glyphWidth = new byte[65536];
-
 	/**
 	 * Array of RGB triplets defining the 16 standard chat colors followed by 16 darker version of the same colors for
 	 * drop shadows.
 	 */
 	private final int[] colorCode = new int[32];
 	private final ResourceLocation locationFontTexture;
-
 	/**
 	 * The RenderEngine used to load and setup glyph textures.
 	 */
 	private final TextureManager renderEngine;
-
+	/**
+	 * the height in pixels of default text
+	 */
+	public int FONT_HEIGHT = 9;
+	public Random fontRandom = new Random();
 	/**
 	 * Current X coordinate at which to draw the next character.
 	 */
@@ -163,6 +157,46 @@ public class FontRenderer implements IResourceManagerReloadListener {
 		}
 
 		readGlyphSizes();
+	}
+
+	/**
+	 * Checks if the char code is a hexadecimal character, used to set colour.
+	 */
+	private static boolean isFormatColor(char colorChar) {
+
+		return colorChar >= '0' && colorChar <= '9' || colorChar >= 'a' && colorChar <= 'f' || colorChar >= 'A' && colorChar <= 'F';
+	}
+
+	/**
+	 * Checks if the char code is O-K...lLrRk-o... used to set special formatting.
+	 */
+	private static boolean isFormatSpecial(char formatChar) {
+
+		return formatChar >= 'k' && formatChar <= 'o' || formatChar >= 'K' && formatChar <= 'O' || formatChar == 'r' || formatChar == 'R';
+	}
+
+	/**
+	 * Digests a string for nonprinting formatting characters then returns a string containing only that formatting.
+	 */
+	public static String getFormatFromString(String text) {
+
+		String s = "";
+		int i = -1;
+		int j = text.length();
+
+		while ((i = text.indexOf(167, i + 1)) != -1) {
+			if (i < j - 1) {
+				char c0 = text.charAt(i + 1);
+
+				if (isFormatColor(c0)) {
+					s = "\u00a7" + c0;
+				} else if (isFormatSpecial(c0)) {
+					s = s + "\u00a7" + c0;
+				}
+			}
+		}
+
+		return s;
 	}
 
 	public void onResourceManagerReload(IResourceManager resourceManager) {
@@ -754,15 +788,6 @@ public class FontRenderer implements IResourceManagerReloadListener {
 	}
 
 	/**
-	 * Set unicodeFlag controlling whether strings should be rendered with Unicode fonts instead of the default.png
-	 * font.
-	 */
-	public void setUnicodeFlag(boolean unicodeFlagIn) {
-
-		unicodeFlag = unicodeFlagIn;
-	}
-
-	/**
 	 * Get unicodeFlag controlling whether strings should be rendered with Unicode fonts instead of the default.png
 	 * font.
 	 */
@@ -772,11 +797,12 @@ public class FontRenderer implements IResourceManagerReloadListener {
 	}
 
 	/**
-	 * Set bidiFlag to control if the Unicode Bidirectional Algorithm should be run before rendering any string.
+	 * Set unicodeFlag controlling whether strings should be rendered with Unicode fonts instead of the default.png
+	 * font.
 	 */
-	public void setBidiFlag(boolean bidiFlagIn) {
+	public void setUnicodeFlag(boolean unicodeFlagIn) {
 
-		bidiFlag = bidiFlagIn;
+		unicodeFlag = unicodeFlagIn;
 	}
 
 	public List<String> listFormattedStringToWidth(String str, int wrapWidth) {
@@ -862,51 +888,19 @@ public class FontRenderer implements IResourceManagerReloadListener {
 	}
 
 	/**
-	 * Checks if the char code is a hexadecimal character, used to set colour.
-	 */
-	private static boolean isFormatColor(char colorChar) {
-
-		return colorChar >= '0' && colorChar <= '9' || colorChar >= 'a' && colorChar <= 'f' || colorChar >= 'A' && colorChar <= 'F';
-	}
-
-	/**
-	 * Checks if the char code is O-K...lLrRk-o... used to set special formatting.
-	 */
-	private static boolean isFormatSpecial(char formatChar) {
-
-		return formatChar >= 'k' && formatChar <= 'o' || formatChar >= 'K' && formatChar <= 'O' || formatChar == 'r' || formatChar == 'R';
-	}
-
-	/**
-	 * Digests a string for nonprinting formatting characters then returns a string containing only that formatting.
-	 */
-	public static String getFormatFromString(String text) {
-
-		String s = "";
-		int i = -1;
-		int j = text.length();
-
-		while ((i = text.indexOf(167, i + 1)) != -1) {
-			if (i < j - 1) {
-				char c0 = text.charAt(i + 1);
-
-				if (isFormatColor(c0)) {
-					s = "\u00a7" + c0;
-				} else if (isFormatSpecial(c0)) {
-					s = s + "\u00a7" + c0;
-				}
-			}
-		}
-
-		return s;
-	}
-
-	/**
 	 * Get bidiFlag that controls if the Unicode Bidirectional Algorithm should be run before rendering any string
 	 */
 	public boolean getBidiFlag() {
 
 		return bidiFlag;
+	}
+
+	/**
+	 * Set bidiFlag to control if the Unicode Bidirectional Algorithm should be run before rendering any string.
+	 */
+	public void setBidiFlag(boolean bidiFlagIn) {
+
+		bidiFlag = bidiFlagIn;
 	}
 
 	public int getColorCode(char character) {

@@ -52,9 +52,9 @@ public class Teleporter {
 			for (int j1 = -2; j1 <= 2; ++j1) {
 				for (int k1 = -2; k1 <= 2; ++k1) {
 					for (int l1 = -1; l1 < 3; ++l1) {
-						int i2 = i + k1 + 0;
+						int i2 = i + k1;
 						int j2 = j + l1;
-						int k2 = k + 0 - j1;
+						int k2 = k - j1;
 						boolean flag = l1 < 0;
 						world.setBlockState(new BlockPos(i2, j2, k2), flag ? Blocks.OBSIDIAN.getDefaultState() : Blocks.AIR.getDefaultState());
 					}

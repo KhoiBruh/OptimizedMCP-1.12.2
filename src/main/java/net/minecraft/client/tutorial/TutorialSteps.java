@@ -19,16 +19,6 @@ public enum TutorialSteps {
 		tutorial = constructor;
 	}
 
-	public ITutorialStep create(Tutorial tutorial) {
-
-		return this.tutorial.apply(tutorial);
-	}
-
-	public String getName() {
-
-		return name;
-	}
-
 	public static TutorialSteps getTutorial(String tutorialName) {
 
 		for (TutorialSteps tutorialsteps : values()) {
@@ -38,5 +28,15 @@ public enum TutorialSteps {
 		}
 
 		return NONE;
+	}
+
+	public ITutorialStep create(Tutorial tutorial) {
+
+		return this.tutorial.apply(tutorial);
+	}
+
+	public String getName() {
+
+		return name;
 	}
 }

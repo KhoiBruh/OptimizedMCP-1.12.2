@@ -8,8 +8,8 @@ import java.lang.reflect.Type;
 
 public class BlockFaceUV {
 
-	public float[] uvs;
 	public final int rotation;
+	public float[] uvs;
 
 	public BlockFaceUV(@Nullable float[] uvsIn, int rotationIn) {
 

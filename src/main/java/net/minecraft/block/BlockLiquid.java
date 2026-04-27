@@ -1,13 +1,11 @@
 package net.minecraft.block;
 
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
@@ -34,6 +32,57 @@ public abstract class BlockLiquid extends Block {
 		setTickRandomly(true);
 	}
 
+	/**
+	 * Returns the percentage of the liquid block that is air, based on the given flow decay of the liquid
+	 */
+	public static float getLiquidHeightPercent(int meta) {
+
+		if (meta >= 8) {
+			meta = 0;
+		}
+
+		return (float) (meta + 1) / 9.0F;
+	}
+
+	public static float getSlopeAngle(IBlockAccess worldIn, BlockPos pos, Material materialIn, IBlockState state) {
+
+		Vec3d vec3d = getFlowingBlock(materialIn).getFlow(worldIn, pos, state);
+		return vec3d.x() == 0.0D && vec3d.z() == 0.0D ? -1000.0F : (float) MathHelper.atan2(vec3d.z(), vec3d.x()) - ((float) Math.PI / 2F);
+	}
+
+	public static BlockDynamicLiquid getFlowingBlock(Material materialIn) {
+
+		if (materialIn == Material.WATER) {
+			return Blocks.FLOWING_WATER;
+		} else if (materialIn == Material.LAVA) {
+			return Blocks.FLOWING_LAVA;
+		} else {
+			throw new IllegalArgumentException("Invalid material");
+		}
+	}
+
+	public static BlockStaticLiquid getStaticBlock(Material materialIn) {
+
+		if (materialIn == Material.WATER) {
+			return Blocks.WATER;
+		} else if (materialIn == Material.LAVA) {
+			return Blocks.LAVA;
+		} else {
+			throw new IllegalArgumentException("Invalid material");
+		}
+	}
+
+	public static float getBlockLiquidHeight(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
+
+		int i = state.getValue(LEVEL).intValue();
+		return (i & 7) == 0 && worldIn.getBlockState(pos.up()).getMaterial() == Material.WATER ? 1.0F : 1.0F - getLiquidHeightPercent(i);
+	}
+
+	public static float getLiquidHeight(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
+
+		return (float) pos.getY() + getBlockLiquidHeight(state, worldIn, pos);
+	}
+
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
 
 		return FULL_BLOCK_AABB;
@@ -51,18 +100,6 @@ public abstract class BlockLiquid extends Block {
 	public boolean isPassable(IBlockAccess worldIn, BlockPos pos) {
 
 		return blockMaterial != Material.LAVA;
-	}
-
-	/**
-	 * Returns the percentage of the liquid block that is air, based on the given flow decay of the liquid
-	 */
-	public static float getLiquidHeightPercent(int meta) {
-
-		if (meta >= 8) {
-			meta = 0;
-		}
-
-		return (float) (meta + 1) / 9.0F;
 	}
 
 	protected int getDepth(IBlockState state) {
@@ -301,12 +338,6 @@ public abstract class BlockLiquid extends Block {
 		}
 	}
 
-	public static float getSlopeAngle(IBlockAccess worldIn, BlockPos pos, Material materialIn, IBlockState state) {
-
-		Vec3d vec3d = getFlowingBlock(materialIn).getFlow(worldIn, pos, state);
-		return vec3d.x() == 0.0D && vec3d.z() == 0.0D ? -1000.0F : (float) MathHelper.atan2(vec3d.z(), vec3d.x()) - ((float) Math.PI / 2F);
-	}
-
 	/**
 	 * Called after the block is set in the Chunk data, but before the Tile Entity is set
 	 */
@@ -388,39 +419,6 @@ public abstract class BlockLiquid extends Block {
 	protected BlockStateContainer createBlockState() {
 
 		return new BlockStateContainer(this, LEVEL);
-	}
-
-	public static BlockDynamicLiquid getFlowingBlock(Material materialIn) {
-
-		if (materialIn == Material.WATER) {
-			return Blocks.FLOWING_WATER;
-		} else if (materialIn == Material.LAVA) {
-			return Blocks.FLOWING_LAVA;
-		} else {
-			throw new IllegalArgumentException("Invalid material");
-		}
-	}
-
-	public static BlockStaticLiquid getStaticBlock(Material materialIn) {
-
-		if (materialIn == Material.WATER) {
-			return Blocks.WATER;
-		} else if (materialIn == Material.LAVA) {
-			return Blocks.LAVA;
-		} else {
-			throw new IllegalArgumentException("Invalid material");
-		}
-	}
-
-	public static float getBlockLiquidHeight(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-
-		int i = state.getValue(LEVEL).intValue();
-		return (i & 7) == 0 && worldIn.getBlockState(pos.up()).getMaterial() == Material.WATER ? 1.0F : 1.0F - getLiquidHeightPercent(i);
-	}
-
-	public static float getLiquidHeight(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-
-		return (float) pos.getY() + getBlockLiquidHeight(state, worldIn, pos);
 	}
 
 	/**

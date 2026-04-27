@@ -2,7 +2,6 @@ package net.minecraft.block;
 
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
@@ -33,6 +32,67 @@ public class BlockChorusFlower extends Block {
 		setDefaultState(blockState.getBaseState().withProperty(AGE, Integer.valueOf(0)));
 		setCreativeTab(CreativeTabs.DECORATIONS);
 		setTickRandomly(true);
+	}
+
+	private static boolean areAllNeighborsEmpty(World worldIn, BlockPos pos, EnumFacing excludingSide) {
+
+		for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL) {
+			if (enumfacing != excludingSide && !worldIn.isAirBlock(pos.offset(enumfacing))) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	public static void generatePlant(World worldIn, BlockPos pos, Random rand, int p_185603_3_) {
+
+		worldIn.setBlockState(pos, Blocks.CHORUS_PLANT.getDefaultState(), 2);
+		growTreeRecursive(worldIn, pos, rand, pos, p_185603_3_, 0);
+	}
+
+	private static void growTreeRecursive(World worldIn, BlockPos p_185601_1_, Random rand, BlockPos p_185601_3_, int p_185601_4_, int p_185601_5_) {
+
+		int i = rand.nextInt(4) + 1;
+
+		if (p_185601_5_ == 0) {
+			++i;
+		}
+
+		for (int j = 0; j < i; ++j) {
+			BlockPos blockpos = p_185601_1_.up(j + 1);
+
+			if (!areAllNeighborsEmpty(worldIn, blockpos, null)) {
+				return;
+			}
+
+			worldIn.setBlockState(blockpos, Blocks.CHORUS_PLANT.getDefaultState(), 2);
+		}
+
+		boolean flag = false;
+
+		if (p_185601_5_ < 4) {
+			int l = rand.nextInt(4);
+
+			if (p_185601_5_ == 0) {
+				++l;
+			}
+
+			for (int k = 0; k < l; ++k) {
+				EnumFacing enumfacing = EnumFacing.Plane.HORIZONTAL.random(rand);
+				BlockPos blockpos1 = p_185601_1_.up(i).offset(enumfacing);
+
+				if (Math.abs(blockpos1.getX() - p_185601_3_.getX()) < p_185601_4_ && Math.abs(blockpos1.getZ() - p_185601_3_.getZ()) < p_185601_4_ && worldIn.isAirBlock(blockpos1) && worldIn.isAirBlock(blockpos1.down()) && areAllNeighborsEmpty(worldIn, blockpos1, enumfacing.getOpposite())) {
+					flag = true;
+					worldIn.setBlockState(blockpos1, Blocks.CHORUS_PLANT.getDefaultState(), 2);
+					growTreeRecursive(worldIn, blockpos1, rand, p_185601_3_, p_185601_4_, p_185601_5_ + 1);
+				}
+			}
+		}
+
+		if (!flag) {
+			worldIn.setBlockState(p_185601_1_.up(i), Blocks.CHORUS_FLOWER.getDefaultState().withProperty(AGE, Integer.valueOf(5)), 2);
+		}
 	}
 
 	/**
@@ -135,17 +195,6 @@ public class BlockChorusFlower extends Block {
 
 		worldIn.setBlockState(pos, getDefaultState().withProperty(AGE, Integer.valueOf(5)), 2);
 		worldIn.playEvent(1034, pos, 0);
-	}
-
-	private static boolean areAllNeighborsEmpty(World worldIn, BlockPos pos, EnumFacing excludingSide) {
-
-		for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL) {
-			if (enumfacing != excludingSide && !worldIn.isAirBlock(pos.offset(enumfacing))) {
-				return false;
-			}
-		}
-
-		return true;
 	}
 
 	public boolean isFullCube(IBlockState state) {
@@ -253,56 +302,6 @@ public class BlockChorusFlower extends Block {
 	protected BlockStateContainer createBlockState() {
 
 		return new BlockStateContainer(this, AGE);
-	}
-
-	public static void generatePlant(World worldIn, BlockPos pos, Random rand, int p_185603_3_) {
-
-		worldIn.setBlockState(pos, Blocks.CHORUS_PLANT.getDefaultState(), 2);
-		growTreeRecursive(worldIn, pos, rand, pos, p_185603_3_, 0);
-	}
-
-	private static void growTreeRecursive(World worldIn, BlockPos p_185601_1_, Random rand, BlockPos p_185601_3_, int p_185601_4_, int p_185601_5_) {
-
-		int i = rand.nextInt(4) + 1;
-
-		if (p_185601_5_ == 0) {
-			++i;
-		}
-
-		for (int j = 0; j < i; ++j) {
-			BlockPos blockpos = p_185601_1_.up(j + 1);
-
-			if (!areAllNeighborsEmpty(worldIn, blockpos, null)) {
-				return;
-			}
-
-			worldIn.setBlockState(blockpos, Blocks.CHORUS_PLANT.getDefaultState(), 2);
-		}
-
-		boolean flag = false;
-
-		if (p_185601_5_ < 4) {
-			int l = rand.nextInt(4);
-
-			if (p_185601_5_ == 0) {
-				++l;
-			}
-
-			for (int k = 0; k < l; ++k) {
-				EnumFacing enumfacing = EnumFacing.Plane.HORIZONTAL.random(rand);
-				BlockPos blockpos1 = p_185601_1_.up(i).offset(enumfacing);
-
-				if (Math.abs(blockpos1.getX() - p_185601_3_.getX()) < p_185601_4_ && Math.abs(blockpos1.getZ() - p_185601_3_.getZ()) < p_185601_4_ && worldIn.isAirBlock(blockpos1) && worldIn.isAirBlock(blockpos1.down()) && areAllNeighborsEmpty(worldIn, blockpos1, enumfacing.getOpposite())) {
-					flag = true;
-					worldIn.setBlockState(blockpos1, Blocks.CHORUS_PLANT.getDefaultState(), 2);
-					growTreeRecursive(worldIn, blockpos1, rand, p_185601_3_, p_185601_4_, p_185601_5_ + 1);
-				}
-			}
-		}
-
-		if (!flag) {
-			worldIn.setBlockState(p_185601_1_.up(i), Blocks.CHORUS_FLOWER.getDefaultState().withProperty(AGE, Integer.valueOf(5)), 2);
-		}
 	}
 
 	/**

@@ -62,11 +62,29 @@ public class MapColor {
 	public static final MapColor RED_STAINED_HARDENED_CLAY = new MapColor(50, 9321518);
 	public static final MapColor BLACK_STAINED_HARDENED_CLAY = new MapColor(51, 2430480);
 
+	static {
+		BLOCK_COLORS[EnumDyeColor.WHITE.getMetadata()] = SNOW;
+		BLOCK_COLORS[EnumDyeColor.ORANGE.getMetadata()] = ADOBE;
+		BLOCK_COLORS[EnumDyeColor.MAGENTA.getMetadata()] = MAGENTA;
+		BLOCK_COLORS[EnumDyeColor.LIGHT_BLUE.getMetadata()] = LIGHT_BLUE;
+		BLOCK_COLORS[EnumDyeColor.YELLOW.getMetadata()] = YELLOW;
+		BLOCK_COLORS[EnumDyeColor.LIME.getMetadata()] = LIME;
+		BLOCK_COLORS[EnumDyeColor.PINK.getMetadata()] = PINK;
+		BLOCK_COLORS[EnumDyeColor.GRAY.getMetadata()] = GRAY;
+		BLOCK_COLORS[EnumDyeColor.SILVER.getMetadata()] = SILVER;
+		BLOCK_COLORS[EnumDyeColor.CYAN.getMetadata()] = CYAN;
+		BLOCK_COLORS[EnumDyeColor.PURPLE.getMetadata()] = PURPLE;
+		BLOCK_COLORS[EnumDyeColor.BLUE.getMetadata()] = BLUE;
+		BLOCK_COLORS[EnumDyeColor.BROWN.getMetadata()] = BROWN;
+		BLOCK_COLORS[EnumDyeColor.GREEN.getMetadata()] = GREEN;
+		BLOCK_COLORS[EnumDyeColor.RED.getMetadata()] = RED;
+		BLOCK_COLORS[EnumDyeColor.BLACK.getMetadata()] = BLACK;
+	}
+
 	/**
 	 * Holds the color in RGB value that will be rendered on maps.
 	 */
 	public final int colorValue;
-
 	/**
 	 * Holds the index of the color used on map.
 	 */
@@ -81,6 +99,11 @@ public class MapColor {
 		} else {
 			throw new IndexOutOfBoundsException("Map colour ID must be between 0 and 63 (inclusive)");
 		}
+	}
+
+	public static MapColor getBlockColor(EnumDyeColor dyeColorIn) {
+
+		return BLOCK_COLORS[dyeColorIn.getMetadata()];
 	}
 
 	public int getMapColor(int index) {
@@ -107,29 +130,5 @@ public class MapColor {
 		int k = (colorValue >> 8 & 255) * i / 255;
 		int l = (colorValue & 255) * i / 255;
 		return -16777216 | j << 16 | k << 8 | l;
-	}
-
-	public static MapColor getBlockColor(EnumDyeColor dyeColorIn) {
-
-		return BLOCK_COLORS[dyeColorIn.getMetadata()];
-	}
-
-	static {
-		BLOCK_COLORS[EnumDyeColor.WHITE.getMetadata()] = SNOW;
-		BLOCK_COLORS[EnumDyeColor.ORANGE.getMetadata()] = ADOBE;
-		BLOCK_COLORS[EnumDyeColor.MAGENTA.getMetadata()] = MAGENTA;
-		BLOCK_COLORS[EnumDyeColor.LIGHT_BLUE.getMetadata()] = LIGHT_BLUE;
-		BLOCK_COLORS[EnumDyeColor.YELLOW.getMetadata()] = YELLOW;
-		BLOCK_COLORS[EnumDyeColor.LIME.getMetadata()] = LIME;
-		BLOCK_COLORS[EnumDyeColor.PINK.getMetadata()] = PINK;
-		BLOCK_COLORS[EnumDyeColor.GRAY.getMetadata()] = GRAY;
-		BLOCK_COLORS[EnumDyeColor.SILVER.getMetadata()] = SILVER;
-		BLOCK_COLORS[EnumDyeColor.CYAN.getMetadata()] = CYAN;
-		BLOCK_COLORS[EnumDyeColor.PURPLE.getMetadata()] = PURPLE;
-		BLOCK_COLORS[EnumDyeColor.BLUE.getMetadata()] = BLUE;
-		BLOCK_COLORS[EnumDyeColor.BROWN.getMetadata()] = BROWN;
-		BLOCK_COLORS[EnumDyeColor.GREEN.getMetadata()] = GREEN;
-		BLOCK_COLORS[EnumDyeColor.RED.getMetadata()] = RED;
-		BLOCK_COLORS[EnumDyeColor.BLACK.getMetadata()] = BLACK;
 	}
 }

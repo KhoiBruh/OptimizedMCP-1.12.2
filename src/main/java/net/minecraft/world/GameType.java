@@ -21,6 +21,44 @@ public enum GameType {
 	}
 
 	/**
+	 * Gets the game type by it's ID. Will be survival if none was found.
+	 */
+	public static GameType getByID(int idIn) {
+
+		return parseGameTypeWithDefault(idIn, SURVIVAL);
+	}
+
+	public static GameType parseGameTypeWithDefault(int targetId, GameType fallback) {
+
+		for (GameType gametype : values()) {
+			if (gametype.id == targetId) {
+				return gametype;
+			}
+		}
+
+		return fallback;
+	}
+
+	/**
+	 * Gets the game type registered with the specified name. If no matches were found, survival will be returned.
+	 */
+	public static GameType getByName(String gamemodeName) {
+
+		return parseGameTypeWithDefault(gamemodeName, SURVIVAL);
+	}
+
+	public static GameType parseGameTypeWithDefault(String targetName, GameType fallback) {
+
+		for (GameType gametype : values()) {
+			if (gametype.name.equals(targetName) || gametype.shortName.equals(targetName)) {
+				return gametype;
+			}
+		}
+
+		return fallback;
+	}
+
+	/**
 	 * Returns the ID of this game type
 	 */
 	public int getID() {
@@ -82,43 +120,5 @@ public enum GameType {
 	public boolean isSurvivalOrAdventure() {
 
 		return this == SURVIVAL || this == ADVENTURE;
-	}
-
-	/**
-	 * Gets the game type by it's ID. Will be survival if none was found.
-	 */
-	public static GameType getByID(int idIn) {
-
-		return parseGameTypeWithDefault(idIn, SURVIVAL);
-	}
-
-	public static GameType parseGameTypeWithDefault(int targetId, GameType fallback) {
-
-		for (GameType gametype : values()) {
-			if (gametype.id == targetId) {
-				return gametype;
-			}
-		}
-
-		return fallback;
-	}
-
-	/**
-	 * Gets the game type registered with the specified name. If no matches were found, survival will be returned.
-	 */
-	public static GameType getByName(String gamemodeName) {
-
-		return parseGameTypeWithDefault(gamemodeName, SURVIVAL);
-	}
-
-	public static GameType parseGameTypeWithDefault(String targetName, GameType fallback) {
-
-		for (GameType gametype : values()) {
-			if (gametype.name.equals(targetName) || gametype.shortName.equals(targetName)) {
-				return gametype;
-			}
-		}
-
-		return fallback;
 	}
 }

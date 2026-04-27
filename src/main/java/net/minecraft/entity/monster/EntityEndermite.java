@@ -31,6 +31,11 @@ public class EntityEndermite extends EntityMob {
 		setSize(0.4F, 0.3F);
 	}
 
+	public static void registerFixesEndermite(DataFixer fixer) {
+
+		EntityLiving.registerFixesMob(fixer, EntityEndermite.class);
+	}
+
 	protected void initEntityAI() {
 
 		tasks.addTask(1, new EntityAISwimming(this));
@@ -88,11 +93,6 @@ public class EntityEndermite extends EntityMob {
 	protected ResourceLocation getLootTable() {
 
 		return LootTableList.ENTITIES_ENDERMITE;
-	}
-
-	public static void registerFixesEndermite(DataFixer fixer) {
-
-		EntityLiving.registerFixesMob(fixer, EntityEndermite.class);
 	}
 
 	/**

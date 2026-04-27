@@ -22,7 +22,7 @@ import javax.annotation.Nullable;
 public class TileEntitySign extends TileEntity {
 
 	public final ITextComponent[] signText = new ITextComponent[]{new TextComponentString(""), new TextComponentString(""), new TextComponentString(""), new TextComponentString("")};
-
+	private final CommandResultStats stats = new CommandResultStats();
 	/**
 	 * The index of the line currently being edited. Only used on client side, but defined on both. Note this is only
 	 * really used when the > < are going to be visible.
@@ -30,7 +30,6 @@ public class TileEntitySign extends TileEntity {
 	public int lineBeingEdited = -1;
 	private boolean isEditable = true;
 	private EntityPlayer player;
-	private final CommandResultStats stats = new CommandResultStats();
 
 	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
 
@@ -133,14 +132,14 @@ public class TileEntitySign extends TileEntity {
 		}
 	}
 
-	public void setPlayer(EntityPlayer playerIn) {
-
-		player = playerIn;
-	}
-
 	public EntityPlayer getPlayer() {
 
 		return player;
+	}
+
+	public void setPlayer(EntityPlayer playerIn) {
+
+		player = playerIn;
 	}
 
 	public boolean executeCommand(final EntityPlayer playerIn) {

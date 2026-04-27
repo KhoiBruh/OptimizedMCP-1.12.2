@@ -45,14 +45,14 @@ public class ServerStatusResponse {
 		version = versionIn;
 	}
 
-	public void setFavicon(String faviconBlob) {
-
-		favicon = faviconBlob;
-	}
-
 	public String getFavicon() {
 
 		return favicon;
+	}
+
+	public void setFavicon(String faviconBlob) {
+
+		favicon = faviconBlob;
 	}
 
 	public static class Players {
@@ -195,22 +195,22 @@ public class ServerStatusResponse {
 
 		public static class Serializer implements JsonDeserializer<Version>, JsonSerializer<Version> {
 
-				public Version deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException {
+			public Version deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException {
 
-					JsonObject jsonobject = JsonUtils.getJsonObject(p_deserialize_1_, "version");
-					return new Version(JsonUtils.getString(jsonobject, "name"), JsonUtils.getInt(jsonobject, "protocol"));
-				}
+				JsonObject jsonobject = JsonUtils.getJsonObject(p_deserialize_1_, "version");
+				return new Version(JsonUtils.getString(jsonobject, "name"), JsonUtils.getInt(jsonobject, "protocol"));
+			}
 
-				public JsonElement serialize(Version p_serialize_1_, Type p_serialize_2_, JsonSerializationContext p_serialize_3_) {
+			public JsonElement serialize(Version p_serialize_1_, Type p_serialize_2_, JsonSerializationContext p_serialize_3_) {
 
-					JsonObject jsonobject = new JsonObject();
-					jsonobject.addProperty("name", p_serialize_1_.name());
-					jsonobject.addProperty("protocol", Integer.valueOf(p_serialize_1_.protocol()));
-					return jsonobject;
-				}
-
+				JsonObject jsonobject = new JsonObject();
+				jsonobject.addProperty("name", p_serialize_1_.name());
+				jsonobject.addProperty("protocol", Integer.valueOf(p_serialize_1_.protocol()));
+				return jsonobject;
 			}
 
 		}
+
+	}
 
 }

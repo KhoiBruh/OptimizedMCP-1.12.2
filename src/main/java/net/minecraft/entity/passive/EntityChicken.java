@@ -46,6 +46,11 @@ public class EntityChicken extends EntityAnimal {
 		setPathPriority(PathNodeType.WATER, 0.0F);
 	}
 
+	public static void registerFixesChicken(DataFixer fixer) {
+
+		EntityLiving.registerFixesMob(fixer, EntityChicken.class);
+	}
+
 	protected void initEntityAI() {
 
 		tasks.addTask(0, new EntityAISwimming(this));
@@ -151,11 +156,6 @@ public class EntityChicken extends EntityAnimal {
 	protected int getExperiencePoints(EntityPlayer player) {
 
 		return isChickenJockey() ? 10 : super.getExperiencePoints(player);
-	}
-
-	public static void registerFixesChicken(DataFixer fixer) {
-
-		EntityLiving.registerFixesMob(fixer, EntityChicken.class);
 	}
 
 	/**

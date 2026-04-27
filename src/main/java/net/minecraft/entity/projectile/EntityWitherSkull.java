@@ -33,6 +33,12 @@ public class EntityWitherSkull extends EntityFireball {
 		setSize(0.3125F, 0.3125F);
 	}
 
+	public EntityWitherSkull(World worldIn, double x, double y, double z, double accelX, double accelY, double accelZ) {
+
+		super(worldIn, x, y, z, accelX, accelY, accelZ);
+		setSize(0.3125F, 0.3125F);
+	}
+
 	public static void registerFixesWitherSkull(DataFixer fixer) {
 
 		EntityFireball.registerFixesFireball(fixer, "WitherSkull");
@@ -44,12 +50,6 @@ public class EntityWitherSkull extends EntityFireball {
 	protected float getMotionFactor() {
 
 		return isInvulnerable() ? 0.73F : super.getMotionFactor();
-	}
-
-	public EntityWitherSkull(World worldIn, double x, double y, double z, double accelX, double accelY, double accelZ) {
-
-		super(worldIn, x, y, z, accelX, accelY, accelZ);
-		setSize(0.3125F, 0.3125F);
 	}
 
 	/**

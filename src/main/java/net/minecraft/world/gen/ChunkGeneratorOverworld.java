@@ -30,17 +30,11 @@ public class ChunkGeneratorOverworld implements IChunkGenerator {
 	private final NoiseGeneratorOctaves maxLimitPerlinNoise;
 	private final NoiseGeneratorOctaves mainPerlinNoise;
 	private final NoiseGeneratorPerlin surfaceNoise;
-	public NoiseGeneratorOctaves scaleNoise;
-	public NoiseGeneratorOctaves depthNoise;
-	public NoiseGeneratorOctaves forestNoise;
 	private final World world;
 	private final boolean mapFeaturesEnabled;
 	private final WorldType terrainType;
 	private final double[] heightMap;
 	private final float[] biomeWeights;
-	private ChunkGeneratorSettings settings;
-	private IBlockState oceanBlock = Blocks.WATER.getDefaultState();
-	private double[] depthBuffer = new double[256];
 	private final MapGenBase caveGenerator = new MapGenCaves();
 	private final MapGenStronghold strongholdGenerator = new MapGenStronghold();
 	private final MapGenVillage villageGenerator = new MapGenVillage();
@@ -49,11 +43,17 @@ public class ChunkGeneratorOverworld implements IChunkGenerator {
 	private final MapGenBase ravineGenerator = new MapGenRavine();
 	private final StructureOceanMonument oceanMonumentGenerator = new StructureOceanMonument();
 	private final WoodlandMansion woodlandMansionGenerator = new WoodlandMansion(this);
-	private Biome[] biomesForGeneration;
+	public NoiseGeneratorOctaves scaleNoise;
+	public NoiseGeneratorOctaves depthNoise;
+	public NoiseGeneratorOctaves forestNoise;
 	double[] mainNoiseRegion;
 	double[] minLimitRegion;
 	double[] maxLimitRegion;
 	double[] depthRegion;
+	private ChunkGeneratorSettings settings;
+	private IBlockState oceanBlock = Blocks.WATER.getDefaultState();
+	private double[] depthBuffer = new double[256];
+	private Biome[] biomesForGeneration;
 
 	public ChunkGeneratorOverworld(World worldIn, long seed, boolean mapFeaturesEnabledIn, String generatorOptions) {
 

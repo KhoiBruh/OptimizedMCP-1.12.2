@@ -35,6 +35,14 @@ public class EntityEnderEye extends Entity {
 		setSize(0.25F, 0.25F);
 	}
 
+	public EntityEnderEye(World worldIn, double x, double y, double z) {
+
+		super(worldIn);
+		despawnTimer = 0;
+		setSize(0.25F, 0.25F);
+		setPosition(x, y, z);
+	}
+
 	protected void entityInit() {
 
 	}
@@ -52,14 +60,6 @@ public class EntityEnderEye extends Entity {
 
 		d0 = d0 * 64.0D;
 		return distance < d0 * d0;
-	}
-
-	public EntityEnderEye(World worldIn, double x, double y, double z) {
-
-		super(worldIn);
-		despawnTimer = 0;
-		setSize(0.25F, 0.25F);
-		setPosition(x, y, z);
 	}
 
 	public void moveTowards(BlockPos pos) {

@@ -27,15 +27,17 @@ public enum ModelRotation {
 	X270_Y270(270, 270);
 
 	private static final Map<Integer, ModelRotation> MAP_ROTATIONS = Maps.newHashMap();
+
+	static {
+		for (ModelRotation modelrotation : values()) {
+			MAP_ROTATIONS.put(Integer.valueOf(modelrotation.combinedXY), modelrotation);
+		}
+	}
+
 	private final int combinedXY;
 	private final Matrix4f matrix4d;
 	private final int quartersX;
 	private final int quartersY;
-
-	private static int combineXY(int p_177521_0_, int p_177521_1_) {
-
-		return p_177521_0_ * 360 + p_177521_1_;
-	}
 
 	ModelRotation(int x, int y) {
 
@@ -50,6 +52,16 @@ public enum ModelRotation {
 		Matrix4f.rotate((float) (-y) * 0.017453292F, new Vector3f(0.0F, 1.0F, 0.0F), matrix4f1, matrix4f1);
 		quartersY = MathHelper.abs(y / 90);
 		Matrix4f.mul(matrix4f1, matrix4f, matrix4d);
+	}
+
+	private static int combineXY(int p_177521_0_, int p_177521_1_) {
+
+		return p_177521_0_ * 360 + p_177521_1_;
+	}
+
+	public static ModelRotation getModelRotation(int x, int y) {
+
+		return MAP_ROTATIONS.get(Integer.valueOf(combineXY(MathHelper.normalizeAngle(x, 360), MathHelper.normalizeAngle(y, 360))));
 	}
 
 	public Matrix4f getMatrix4d() {
@@ -93,16 +105,5 @@ public enum ModelRotation {
 		}
 
 		return i;
-	}
-
-	public static ModelRotation getModelRotation(int x, int y) {
-
-		return MAP_ROTATIONS.get(Integer.valueOf(combineXY(MathHelper.normalizeAngle(x, 360), MathHelper.normalizeAngle(y, 360))));
-	}
-
-	static {
-		for (ModelRotation modelrotation : values()) {
-			MAP_ROTATIONS.put(Integer.valueOf(modelrotation.combinedXY), modelrotation);
-		}
 	}
 }

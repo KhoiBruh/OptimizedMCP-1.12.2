@@ -13,7 +13,6 @@ import net.minecraft.util.text.TextComponentTranslation;
 
 import javax.annotation.Nullable;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 public class CommandBanPlayer extends CommandBase {

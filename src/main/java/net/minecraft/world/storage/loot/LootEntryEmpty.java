@@ -16,17 +16,17 @@ public class LootEntryEmpty extends LootEntry {
 		super(weightIn, qualityIn, conditionsIn);
 	}
 
+	public static LootEntryEmpty deserialize(JsonObject object, JsonDeserializationContext deserializationContext, int weightIn, int qualityIn, LootCondition[] conditionsIn) {
+
+		return new LootEntryEmpty(weightIn, qualityIn, conditionsIn);
+	}
+
 	public void addLoot(Collection<ItemStack> stacks, Random rand, LootContext context) {
 
 	}
 
 	protected void serialize(JsonObject json, JsonSerializationContext context) {
 
-	}
-
-	public static LootEntryEmpty deserialize(JsonObject object, JsonDeserializationContext deserializationContext, int weightIn, int qualityIn, LootCondition[] conditionsIn) {
-
-		return new LootEntryEmpty(weightIn, qualityIn, conditionsIn);
 	}
 
 }

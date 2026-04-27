@@ -25,13 +25,6 @@ import java.util.*;
 public class PlayerProfileCache {
 
 	public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss Z");
-	private static boolean onlineMode;
-	private final Map<String, PlayerProfileCache.ProfileEntry> usernameToProfileEntryMap = Maps.newHashMap();
-	private final Map<UUID, PlayerProfileCache.ProfileEntry> uuidToProfileEntryMap = Maps.newHashMap();
-	private final Deque<GameProfile> gameProfiles = Lists.newLinkedList();
-	private final GameProfileRepository profileRepo;
-	protected final Gson gson;
-	private final File usercacheFile;
 	private static final ParameterizedType TYPE = new ParameterizedType() {
 		public Type[] getActualTypeArguments() {
 
@@ -48,6 +41,13 @@ public class PlayerProfileCache {
 			return null;
 		}
 	};
+	private static boolean onlineMode;
+	protected final Gson gson;
+	private final Map<String, PlayerProfileCache.ProfileEntry> usernameToProfileEntryMap = Maps.newHashMap();
+	private final Map<UUID, PlayerProfileCache.ProfileEntry> uuidToProfileEntryMap = Maps.newHashMap();
+	private final Deque<GameProfile> gameProfiles = Lists.newLinkedList();
+	private final GameProfileRepository profileRepo;
+	private final File usercacheFile;
 
 	public PlayerProfileCache(GameProfileRepository profileRepoIn, File usercacheFileIn) {
 
@@ -84,14 +84,14 @@ public class PlayerProfileCache {
 		return agameprofile[0];
 	}
 
-	public static void setOnlineMode(boolean onlineModeIn) {
-
-		onlineMode = onlineModeIn;
-	}
-
 	private static boolean isOnlineMode() {
 
 		return onlineMode;
+	}
+
+	public static void setOnlineMode(boolean onlineModeIn) {
+
+		onlineMode = onlineModeIn;
 	}
 
 	/**

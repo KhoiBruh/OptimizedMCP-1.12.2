@@ -30,6 +30,12 @@ public abstract class AbstractChestHorse extends AbstractHorse {
 		canGallop = false;
 	}
 
+	public static void registerFixesAbstractChestHorse(DataFixer fixer, Class<?> entityClass) {
+
+		AbstractHorse.registerFixesAbstractHorse(fixer, entityClass);
+		fixer.registerWalker(FixTypes.ENTITY, new ItemStackDataLists(entityClass, "Items"));
+	}
+
 	protected void entityInit() {
 
 		super.entityInit();
@@ -87,12 +93,6 @@ public abstract class AbstractChestHorse extends AbstractHorse {
 
 			setChested(false);
 		}
-	}
-
-	public static void registerFixesAbstractChestHorse(DataFixer fixer, Class<?> entityClass) {
-
-		AbstractHorse.registerFixesAbstractHorse(fixer, entityClass);
-		fixer.registerWalker(FixTypes.ENTITY, new ItemStackDataLists(entityClass, "Items"));
 	}
 
 	/**

@@ -18,44 +18,6 @@ public class BlockEntityTag implements IDataWalker {
 	private static final Map<String, String> NEW_TO_OLD_ID_MAP = Maps.newHashMap();
 	private static final Map<String, String> ITEM_ID_TO_BLOCK_ENTITY_ID = Maps.newHashMap();
 
-	@Nullable
-	private static String getBlockEntityID(int blockID, String p_188267_1_) {
-
-		return blockID < 515 ? NEW_TO_OLD_ID_MAP.get((new ResourceLocation(p_188267_1_)).toString()) : ITEM_ID_TO_BLOCK_ENTITY_ID.get((new ResourceLocation(p_188267_1_)).toString());
-	}
-
-	public NBTTagCompound process(IDataFixer fixer, NBTTagCompound compound, int versionIn) {
-
-		if (!compound.hasKey("tag", 10)) {
-			return compound;
-		} else {
-			NBTTagCompound nbttagcompound = compound.getCompoundTag("tag");
-
-			if (nbttagcompound.hasKey("BlockEntityTag", 10)) {
-				NBTTagCompound nbttagcompound1 = nbttagcompound.getCompoundTag("BlockEntityTag");
-				String s = compound.getString("id");
-				String s1 = getBlockEntityID(versionIn, s);
-				boolean flag;
-
-				if (s1 == null) {
-					LOGGER.warn("Unable to resolve BlockEntity for ItemInstance: {}", s);
-					flag = false;
-				} else {
-					flag = !nbttagcompound1.hasKey("id");
-					nbttagcompound1.setString("id", s1);
-				}
-
-				fixer.process(FixTypes.BLOCK_ENTITY, nbttagcompound1, versionIn);
-
-				if (flag) {
-					nbttagcompound1.removeTag("id");
-				}
-			}
-
-			return compound;
-		}
-	}
-
 	static {
 		Map<String, String> map = NEW_TO_OLD_ID_MAP;
 		map.put("minecraft:furnace", "Furnace");
@@ -145,5 +107,43 @@ public class BlockEntityTag implements IDataWalker {
 		map.put("minecraft:end_portal", "minecraft:end_portal");
 		map.put("minecraft:end_gateway", "minecraft:end_gateway");
 		map.put("minecraft:shield", "minecraft:shield");
+	}
+
+	@Nullable
+	private static String getBlockEntityID(int blockID, String p_188267_1_) {
+
+		return blockID < 515 ? NEW_TO_OLD_ID_MAP.get((new ResourceLocation(p_188267_1_)).toString()) : ITEM_ID_TO_BLOCK_ENTITY_ID.get((new ResourceLocation(p_188267_1_)).toString());
+	}
+
+	public NBTTagCompound process(IDataFixer fixer, NBTTagCompound compound, int versionIn) {
+
+		if (!compound.hasKey("tag", 10)) {
+			return compound;
+		} else {
+			NBTTagCompound nbttagcompound = compound.getCompoundTag("tag");
+
+			if (nbttagcompound.hasKey("BlockEntityTag", 10)) {
+				NBTTagCompound nbttagcompound1 = nbttagcompound.getCompoundTag("BlockEntityTag");
+				String s = compound.getString("id");
+				String s1 = getBlockEntityID(versionIn, s);
+				boolean flag;
+
+				if (s1 == null) {
+					LOGGER.warn("Unable to resolve BlockEntity for ItemInstance: {}", s);
+					flag = false;
+				} else {
+					flag = !nbttagcompound1.hasKey("id");
+					nbttagcompound1.setString("id", s1);
+				}
+
+				fixer.process(FixTypes.BLOCK_ENTITY, nbttagcompound1, versionIn);
+
+				if (flag) {
+					nbttagcompound1.removeTag("id");
+				}
+			}
+
+			return compound;
+		}
 	}
 }

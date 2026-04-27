@@ -19,14 +19,6 @@ public class FurnaceRecipes {
 	private final Map<ItemStack, ItemStack> smeltingList = Maps.newHashMap();
 	private final Map<ItemStack, Float> experienceList = Maps.newHashMap();
 
-	/**
-	 * Returns an instance of FurnaceRecipes.
-	 */
-	public static FurnaceRecipes instance() {
-
-		return SMELTING_BASE;
-	}
-
 	private FurnaceRecipes() {
 
 		addSmeltingRecipeForBlock(Blocks.IRON_ORE, new ItemStack(Items.IRON_INGOT), 0.7F);
@@ -101,6 +93,14 @@ public class FurnaceRecipes {
 		addSmeltingRecipe(new ItemStack(Blocks.STAINED_HARDENED_CLAY, 1, EnumDyeColor.GREEN.getMetadata()), new ItemStack(Blocks.GREEN_GLAZED_TERRACOTTA), 0.1F);
 		addSmeltingRecipe(new ItemStack(Blocks.STAINED_HARDENED_CLAY, 1, EnumDyeColor.RED.getMetadata()), new ItemStack(Blocks.RED_GLAZED_TERRACOTTA), 0.1F);
 		addSmeltingRecipe(new ItemStack(Blocks.STAINED_HARDENED_CLAY, 1, EnumDyeColor.BLACK.getMetadata()), new ItemStack(Blocks.BLACK_GLAZED_TERRACOTTA), 0.1F);
+	}
+
+	/**
+	 * Returns an instance of FurnaceRecipes.
+	 */
+	public static FurnaceRecipes instance() {
+
+		return SMELTING_BASE;
 	}
 
 	/**

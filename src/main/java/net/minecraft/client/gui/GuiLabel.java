@@ -9,14 +9,7 @@ import java.util.List;
 
 public class GuiLabel extends Gui {
 
-	protected int width = 200;
-	protected int height = 20;
-	public int x;
-	public int y;
 	private final List<String> labels;
-	public int id;
-	private boolean centered;
-	public boolean visible = true;
 	private final boolean labelBgEnabled;
 	private final int textColor;
 	private final int backColor;
@@ -24,6 +17,13 @@ public class GuiLabel extends Gui {
 	private final int brColor;
 	private final FontRenderer fontRenderer;
 	private final int border;
+	public int x;
+	public int y;
+	public int id;
+	public boolean visible = true;
+	protected int width = 200;
+	protected int height = 20;
+	private boolean centered;
 
 	public GuiLabel(FontRenderer fontRendererObj, int p_i45540_2_, int p_i45540_3_, int p_i45540_4_, int p_i45540_5_, int p_i45540_6_, int p_i45540_7_) {
 

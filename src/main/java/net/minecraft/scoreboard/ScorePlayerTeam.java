@@ -30,6 +30,14 @@ public class ScorePlayerTeam extends Team {
 	}
 
 	/**
+	 * Formats the given text as a member of the given team, using the team's prefix and suffix.
+	 */
+	public static String formatPlayerName(@Nullable Team teamIn, String string) {
+
+		return teamIn == null ? string : teamIn.formatString(string);
+	}
+
+	/**
 	 * Retrieve the name by which this team is registered in the scoreboard
 	 */
 	public String getName() {
@@ -115,14 +123,6 @@ public class ScorePlayerTeam extends Team {
 	}
 
 	/**
-	 * Formats the given text as a member of the given team, using the team's prefix and suffix.
-	 */
-	public static String formatPlayerName(@Nullable Team teamIn, String string) {
-
-		return teamIn == null ? string : teamIn.formatString(string);
-	}
-
-	/**
 	 * Checks whether friendly fire (PVP between members of the team) is allowed.
 	 */
 	public boolean getAllowFriendlyFire() {
@@ -165,20 +165,20 @@ public class ScorePlayerTeam extends Team {
 	}
 
 	/**
-	 * Gets the visibility flags for player death messages.
-	 */
-	public Team.EnumVisible getDeathMessageVisibility() {
-
-		return deathMessageVisibility;
-	}
-
-	/**
 	 * Sets the visibility flags for player name tags.
 	 */
 	public void setNameTagVisibility(Team.EnumVisible visibility) {
 
 		nameTagVisibility = visibility;
 		scoreboard.broadcastTeamInfoUpdate(this);
+	}
+
+	/**
+	 * Gets the visibility flags for player death messages.
+	 */
+	public Team.EnumVisible getDeathMessageVisibility() {
+
+		return deathMessageVisibility;
 	}
 
 	/**
@@ -235,21 +235,21 @@ public class ScorePlayerTeam extends Team {
 	}
 
 	/**
-	 * Sets the color for this team. The team color is used mainly for team kill objectives and team-specific setDisplay
-	 * usage; it does _not_ affect all situations (for instance, the prefix is used for the glowing effect).
-	 */
-	public void setColor(TextFormatting color) {
-
-		this.color = color;
-	}
-
-	/**
 	 * Gets the color for this team. The team color is used mainly for team kill objectives and team-specific setDisplay
 	 * usage; it does _not_ affect all situations (for instance, the prefix is used for the glowing effect).
 	 */
 	public TextFormatting getColor() {
 
 		return color;
+	}
+
+	/**
+	 * Sets the color for this team. The team color is used mainly for team kill objectives and team-specific setDisplay
+	 * usage; it does _not_ affect all situations (for instance, the prefix is used for the glowing effect).
+	 */
+	public void setColor(TextFormatting color) {
+
+		this.color = color;
 	}
 
 }

@@ -5,17 +5,15 @@ import net.minecraft.client.resources.I18n;
 
 public class GuiListButton extends GuiButton {
 
-	private boolean value;
-
 	/**
 	 * The localization string used by this control.
 	 */
 	private final String localizationStr;
-
 	/**
 	 * The GuiResponder Object reference.
 	 */
 	private final GuiPageButtonList.GuiResponder guiResponder;
+	private boolean value;
 
 	public GuiListButton(GuiPageButtonList.GuiResponder responder, int buttonId, int x, int y, String localizationStrIn, boolean valueIn) {
 

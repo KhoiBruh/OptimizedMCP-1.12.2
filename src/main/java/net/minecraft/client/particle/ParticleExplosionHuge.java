@@ -7,12 +7,11 @@ import net.minecraft.world.World;
 
 public class ParticleExplosionHuge extends Particle {
 
-	private int timeSinceStart;
-
 	/**
 	 * the maximum time for the explosion
 	 */
 	private final int maximumTime = 8;
+	private int timeSinceStart;
 
 	protected ParticleExplosionHuge(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double p_i1214_8_, double p_i1214_10_, double p_i1214_12_) {
 

@@ -41,6 +41,8 @@ import java.util.Set;
 
 public class GameSettings {
 
+	public static final Splitter COLON_SPLITTER = Splitter.on(':');
+	public static final String[] NARRATOR_MODES = new String[]{"options.narrator.off", "options.narrator.all", "options.narrator.chat", "options.narrator.system"};
 	private static final Logger LOGGER = LogManager.getLogger();
 	private static final Gson GSON = new Gson();
 	private static final Type TYPE_LIST_STRING = new ParameterizedType() {
@@ -59,8 +61,6 @@ public class GameSettings {
 			return null;
 		}
 	};
-	public static final Splitter COLON_SPLITTER = Splitter.on(':');
-
 	/**
 	 * GUI scale values
 	 */
@@ -69,7 +69,8 @@ public class GameSettings {
 	private static final String[] AMBIENT_OCCLUSIONS = new String[]{"options.ao.off", "options.ao.min", "options.ao.max"};
 	private static final String[] CLOUDS_TYPES = new String[]{"options.off", "options.clouds.fast", "options.clouds.fancy"};
 	private static final String[] ATTACK_INDICATORS = new String[]{"options.off", "options.attack.crosshair", "options.attack.hotbar"};
-	public static final String[] NARRATOR_MODES = new String[]{"options.narrator.off", "options.narrator.all", "options.narrator.chat", "options.narrator.system"};
+	private final Set<EnumPlayerModelParts> setModelParts = Sets.newHashSet(EnumPlayerModelParts.values());
+	private final Map<SoundCategory, Float> soundLevels = Maps.newEnumMap(SoundCategory.class);
 	public float mouseSensitivity = 0.5F;
 	public boolean invertMouse;
 	public int renderDistanceChunks = -1;
@@ -77,13 +78,11 @@ public class GameSettings {
 	public boolean anaglyph;
 	public boolean fboEnable = true;
 	public int limitFramerate = 120;
-
 	/**
 	 * Clouds flag
 	 */
 	public int clouds = 2;
 	public boolean fancyGraphics = true;
-
 	/**
 	 * Smooth Lighting
 	 */
@@ -101,17 +100,14 @@ public class GameSettings {
 	public boolean useVbo = true;
 	public boolean reducedDebugInfo;
 	public boolean hideServerAddress;
-
 	/**
 	 * Whether to show advanced information on item tooltips, toggled by F3+H
 	 */
 	public boolean advancedItemTooltips;
-
 	/**
 	 * Whether to pause when the game loses focus, toggled by F3+P
 	 */
 	public boolean pauseOnLostFocus = true;
-	private final Set<EnumPlayerModelParts> setModelParts = Sets.newHashSet(EnumPlayerModelParts.values());
 	public boolean touchscreen;
 	public EnumHandSide mainHand = EnumHandSide.RIGHT;
 	public int overrideWidth;
@@ -122,7 +118,6 @@ public class GameSettings {
 	public float chatHeightUnfocused = 0.44366196F;
 	public float chatHeightFocused = 1.0F;
 	public int mipmapLevels = 4;
-	private final Map<SoundCategory, Float> soundLevels = Maps.newEnumMap(SoundCategory.class);
 	public boolean useNativeTransport = true;
 	public boolean entityShadows = true;
 	public int attackIndicator = 1;
@@ -157,24 +152,19 @@ public class GameSettings {
 	public KeyBinding keyBindSaveToolbar = new KeyBinding("key.saveToolbarActivator", 46, "key.categories.creative");
 	public KeyBinding keyBindLoadToolbar = new KeyBinding("key.loadToolbarActivator", 45, "key.categories.creative");
 	public KeyBinding[] keyBindings;
-	protected Minecraft mc;
-	private File optionsFile;
 	public EnumDifficulty difficulty;
 	public boolean hideGUI;
 	public int thirdPersonView;
-
 	/**
 	 * true if debug info should be displayed instead of version
 	 */
 	public boolean showDebugInfo;
 	public boolean showDebugProfilerChart;
 	public boolean showLagometer;
-
 	/**
 	 * The lastServer string.
 	 */
 	public String lastServer;
-
 	/**
 	 * Smooth Camera Toggle
 	 */
@@ -183,23 +173,22 @@ public class GameSettings {
 	public float fovSetting;
 	public float gammaSetting;
 	public float saturation;
-
 	/**
 	 * GUI scale
 	 */
 	public int guiScale;
-
 	/**
 	 * Determines amount of particles. 0 = All, 1 = Decreased, 2 = Minimal
 	 */
 	public int particleSetting;
 	public int narrator;
-
 	/**
 	 * Game settings language
 	 */
 	public String language;
 	public boolean forceUnicodeFont;
+	protected Minecraft mc;
+	private File optionsFile;
 
 	public GameSettings(Minecraft mcIn, File mcDataDir) {
 
@@ -266,6 +255,19 @@ public class GameSettings {
 		} else {
 			return false;
 		}
+	}
+
+	/**
+	 * Returns the translation of the given index in the given String array. If the index is smaller than 0 or greater
+	 * than/equal to the length of the String array, it is changed to 0.
+	 */
+	private static String getTranslation(String[] strArray, int index) {
+
+		if (index < 0 || index >= strArray.length) {
+			index = 0;
+		}
+
+		return I18n.format(strArray[index]);
 	}
 
 	/**
@@ -569,19 +571,6 @@ public class GameSettings {
 			default:
 				return false;
 		}
-	}
-
-	/**
-	 * Returns the translation of the given index in the given String array. If the index is smaller than 0 or greater
-	 * than/equal to the length of the String array, it is changed to 0.
-	 */
-	private static String getTranslation(String[] strArray, int index) {
-
-		if (index < 0 || index >= strArray.length) {
-			index = 0;
-		}
-
-		return I18n.format(strArray[index]);
 	}
 
 	/**
@@ -1200,17 +1189,6 @@ public class GameSettings {
 		private final float valueMin;
 		private float valueMax;
 
-		public static GameSettings.Options byOrdinal(int ordinal) {
-
-			for (GameSettings.Options gamesettings$options : values()) {
-				if (gamesettings$options.getOrdinal() == ordinal) {
-					return gamesettings$options;
-				}
-			}
-
-			return null;
-		}
-
 		Options(String translation, boolean isFloat, boolean isBoolean) {
 
 			this(translation, isFloat, isBoolean, 0.0F, 1.0F, 0.0F);
@@ -1224,6 +1202,17 @@ public class GameSettings {
 			valueMin = valMin;
 			valueMax = valMax;
 			valueStep = valStep;
+		}
+
+		public static GameSettings.Options byOrdinal(int ordinal) {
+
+			for (GameSettings.Options gamesettings$options : values()) {
+				if (gamesettings$options.getOrdinal() == ordinal) {
+					return gamesettings$options;
+				}
+			}
+
+			return null;
 		}
 
 		public boolean isFloat() {

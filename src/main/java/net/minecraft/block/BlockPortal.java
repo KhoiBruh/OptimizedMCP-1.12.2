@@ -2,7 +2,6 @@ package net.minecraft.block;
 
 import com.google.common.cache.LoadingCache;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
@@ -37,6 +36,15 @@ public class BlockPortal extends BlockBreakable {
 		super(Material.PORTAL, false);
 		setDefaultState(blockState.getBaseState().withProperty(AXIS, EnumFacing.Axis.X));
 		setTickRandomly(true);
+	}
+
+	public static int getMetaForAxis(EnumFacing.Axis axis) {
+
+		if (axis == EnumFacing.Axis.X) {
+			return 1;
+		} else {
+			return axis == EnumFacing.Axis.Z ? 2 : 0;
+		}
 	}
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
@@ -79,15 +87,6 @@ public class BlockPortal extends BlockBreakable {
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
 
 		return NULL_AABB;
-	}
-
-	public static int getMetaForAxis(EnumFacing.Axis axis) {
-
-		if (axis == EnumFacing.Axis.X) {
-			return 1;
-		} else {
-			return axis == EnumFacing.Axis.Z ? 2 : 0;
-		}
 	}
 
 	public boolean isFullCube(IBlockState state) {

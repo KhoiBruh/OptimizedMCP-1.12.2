@@ -14,6 +14,17 @@ public class NonNullList<E> extends AbstractList<E> {
 	private final List<E> delegate;
 	private final E defaultElement;
 
+	protected NonNullList() {
+
+		this(new ArrayList(), null);
+	}
+
+	protected NonNullList(List<E> delegateIn, @Nullable E listType) {
+
+		delegate = delegateIn;
+		defaultElement = listType;
+	}
+
 	public static <E> NonNullList<E> create() {
 
 		return new NonNullList<E>();
@@ -30,17 +41,6 @@ public class NonNullList<E> extends AbstractList<E> {
 	public static <E> NonNullList<E> from(E defaultElementIn, E... elements) {
 
 		return new NonNullList<E>(Arrays.asList(elements), defaultElementIn);
-	}
-
-	protected NonNullList() {
-
-		this(new ArrayList(), null);
-	}
-
-	protected NonNullList(List<E> delegateIn, @Nullable E listType) {
-
-		delegate = delegateIn;
-		defaultElement = listType;
 	}
 
 	@Nonnull

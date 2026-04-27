@@ -35,10 +35,10 @@ public class EntityGuardian extends EntityMob {
 	protected float clientSideTailAnimationSpeed;
 	protected float clientSideSpikesAnimation;
 	protected float clientSideSpikesAnimationO;
+	protected EntityAIWander wander;
 	private EntityLivingBase targetedEntity;
 	private int clientSideAttackTime;
 	private boolean clientSideTouchedGround;
-	protected EntityAIWander wander;
 
 	public EntityGuardian(World worldIn) {
 
@@ -48,6 +48,11 @@ public class EntityGuardian extends EntityMob {
 		moveHelper = new EntityGuardian.GuardianMoveHelper(this);
 		clientSideTailAnimation = rand.nextFloat();
 		clientSideTailAnimationO = clientSideTailAnimation;
+	}
+
+	public static void registerFixesGuardian(DataFixer fixer) {
+
+		EntityLiving.registerFixesMob(fixer, EntityGuardian.class);
 	}
 
 	protected void initEntityAI() {
@@ -72,11 +77,6 @@ public class EntityGuardian extends EntityMob {
 		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.5D);
 		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(16.0D);
 		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(30.0D);
-	}
-
-	public static void registerFixesGuardian(DataFixer fixer) {
-
-		EntityLiving.registerFixesMob(fixer, EntityGuardian.class);
 	}
 
 	/**
@@ -109,11 +109,6 @@ public class EntityGuardian extends EntityMob {
 		return 80;
 	}
 
-	private void setTargetedEntity(int entityId) {
-
-		dataManager.set(TARGET_ENTITY, Integer.valueOf(entityId));
-	}
-
 	public boolean hasTargetedEntity() {
 
 		return dataManager.get(TARGET_ENTITY).intValue() != 0;
@@ -140,6 +135,11 @@ public class EntityGuardian extends EntityMob {
 		} else {
 			return getAttackTarget();
 		}
+	}
+
+	private void setTargetedEntity(int entityId) {
+
+		dataManager.set(TARGET_ENTITY, Integer.valueOf(entityId));
 	}
 
 	public void notifyDataManagerChange(DataParameter<?> key) {
@@ -384,8 +384,8 @@ public class EntityGuardian extends EntityMob {
 	static class AIGuardianAttack extends EntityAIBase {
 
 		private final EntityGuardian guardian;
-		private int tickCounter;
 		private final boolean isElder;
+		private int tickCounter;
 
 		public AIGuardianAttack(EntityGuardian guardian) {
 

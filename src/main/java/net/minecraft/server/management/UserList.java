@@ -11,7 +11,6 @@ import org.apache.logging.log4j.Logger;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
-import java.io.Writer;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
@@ -22,10 +21,6 @@ import java.util.Map;
 public class UserList<K, V extends UserListEntry<K>> {
 
 	protected static final Logger LOGGER = LogManager.getLogger();
-	protected final Gson gson;
-	private final File saveFile;
-	private final Map<String, V> values = Maps.newHashMap();
-	private boolean lanServer = true;
 	private static final ParameterizedType USER_LIST_ENTRY_TYPE = new ParameterizedType() {
 		public Type[] getActualTypeArguments() {
 
@@ -42,6 +37,10 @@ public class UserList<K, V extends UserListEntry<K>> {
 			return null;
 		}
 	};
+	protected final Gson gson;
+	private final File saveFile;
+	private final Map<String, V> values = Maps.newHashMap();
+	private boolean lanServer = true;
 
 	public UserList(File saveFile) {
 

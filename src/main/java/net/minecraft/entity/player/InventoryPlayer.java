@@ -57,19 +57,24 @@ public class InventoryPlayer implements IInventory {
 	}
 
 	/**
-	 * Returns the item stack currently held by the player.
-	 */
-	public ItemStack getCurrentItem() {
-
-		return isHotbar(currentItem) ? mainInventory.get(currentItem) : ItemStack.EMPTY;
-	}
-
-	/**
 	 * Get the size of the player hotbar inventory
 	 */
 	public static int getHotbarSize() {
 
 		return 9;
+	}
+
+	public static boolean isHotbar(int index) {
+
+		return index >= 0 && index < 9;
+	}
+
+	/**
+	 * Returns the item stack currently held by the player.
+	 */
+	public ItemStack getCurrentItem() {
+
+		return isHotbar(currentItem) ? mainInventory.get(currentItem) : ItemStack.EMPTY;
 	}
 
 	private boolean canMergeStacks(ItemStack stack1, ItemStack stack2) {
@@ -130,11 +135,6 @@ public class InventoryPlayer implements IInventory {
 		ItemStack itemstack = mainInventory.get(currentItem);
 		mainInventory.set(currentItem, mainInventory.get(index));
 		mainInventory.set(index, itemstack);
-	}
-
-	public static boolean isHotbar(int index) {
-
-		return index >= 0 && index < 9;
 	}
 
 	/**
@@ -673,7 +673,7 @@ public class InventoryPlayer implements IInventory {
 	 */
 	public ITextComponent displayName() {
 
-		return hasCustomName() ? new TextComponentString(getName()) : new TextComponentTranslation(getName(), new Object[0]);
+		return hasCustomName() ? new TextComponentString(getName()) : new TextComponentTranslation(getName());
 	}
 
 	/**
@@ -754,19 +754,19 @@ public class InventoryPlayer implements IInventory {
 	}
 
 	/**
-	 * Set the stack helds by mouse, used in GUI/Container
-	 */
-	public void setItemStack(ItemStack itemStackIn) {
-
-		itemStack = itemStackIn;
-	}
-
-	/**
 	 * Stack helds by mouse, used in GUI and Containers
 	 */
 	public ItemStack getItemStack() {
 
 		return itemStack;
+	}
+
+	/**
+	 * Set the stack helds by mouse, used in GUI/Container
+	 */
+	public void setItemStack(ItemStack itemStackIn) {
+
+		itemStack = itemStackIn;
 	}
 
 	/**

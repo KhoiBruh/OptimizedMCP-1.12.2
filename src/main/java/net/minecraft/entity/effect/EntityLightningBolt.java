@@ -2,7 +2,6 @@ package net.minecraft.entity.effect;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.nbt.NBTTagCompound;
@@ -16,21 +15,19 @@ import java.util.List;
 
 public class EntityLightningBolt extends EntityWeatherEffect {
 
-	/**
-	 * Declares which state the lightning bolt is in. Whether it's in the air, hit the ground, etc.
-	 */
-	private int lightningState;
-
+	private final boolean effectOnly;
 	/**
 	 * A random long that is used to change the vertex of the lightning rendered in RenderLightningBolt
 	 */
 	public long boltVertex;
-
+	/**
+	 * Declares which state the lightning bolt is in. Whether it's in the air, hit the ground, etc.
+	 */
+	private int lightningState;
 	/**
 	 * Determines the time before the EntityLightningBolt is destroyed. It is a random integer decremented over time.
 	 */
 	private int boltLivingTime;
-	private final boolean effectOnly;
 
 	public EntityLightningBolt(World worldIn, double x, double y, double z, boolean effectOnlyIn) {
 

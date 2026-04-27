@@ -2,7 +2,6 @@ package net.minecraft.block;
 
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -90,6 +89,13 @@ public class BlockPrismarine extends Block {
 		DARK(2, "dark_prismarine", "dark");
 
 		private static final BlockPrismarine.EnumType[] META_LOOKUP = new BlockPrismarine.EnumType[values().length];
+
+		static {
+			for (BlockPrismarine.EnumType blockprismarine$enumtype : values()) {
+				META_LOOKUP[blockprismarine$enumtype.getMetadata()] = blockprismarine$enumtype;
+			}
+		}
+
 		private final int meta;
 		private final String name;
 		private final String unlocalizedName;
@@ -99,6 +105,15 @@ public class BlockPrismarine extends Block {
 			this.meta = meta;
 			this.name = name;
 			this.unlocalizedName = unlocalizedName;
+		}
+
+		public static BlockPrismarine.EnumType byMetadata(int meta) {
+
+			if (meta < 0 || meta >= META_LOOKUP.length) {
+				meta = 0;
+			}
+
+			return META_LOOKUP[meta];
 		}
 
 		public int getMetadata() {
@@ -111,15 +126,6 @@ public class BlockPrismarine extends Block {
 			return name;
 		}
 
-		public static BlockPrismarine.EnumType byMetadata(int meta) {
-
-			if (meta < 0 || meta >= META_LOOKUP.length) {
-				meta = 0;
-			}
-
-			return META_LOOKUP[meta];
-		}
-
 		public String getName() {
 
 			return name;
@@ -128,12 +134,6 @@ public class BlockPrismarine extends Block {
 		public String getUnlocalizedName() {
 
 			return unlocalizedName;
-		}
-
-		static {
-			for (BlockPrismarine.EnumType blockprismarine$enumtype : values()) {
-				META_LOOKUP[blockprismarine$enumtype.getMetadata()] = blockprismarine$enumtype;
-			}
 		}
 	}
 

@@ -10,8 +10,8 @@ public class GuiDisconnected extends GuiScreen {
 
 	private final String reason;
 	private final ITextComponent message;
-	private List<String> multilineMessage;
 	private final GuiScreen parentScreen;
+	private List<String> multilineMessage;
 	private int textHeight;
 
 	public GuiDisconnected(GuiScreen screen, String reasonLocalizationKey, ITextComponent chatComp) {

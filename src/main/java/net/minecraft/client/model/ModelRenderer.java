@@ -10,51 +10,46 @@ import java.util.List;
 
 public class ModelRenderer {
 
+	public final String boxName;
+	private final ModelBase baseModel;
 	/**
 	 * The size of the texture file's width in pixels.
 	 */
 	public float textureWidth;
-
 	/**
 	 * The size of the texture file's height in pixels.
 	 */
 	public float textureHeight;
-
-	/**
-	 * The X offset into the texture used for displaying this model
-	 */
-	private int textureOffsetX;
-
-	/**
-	 * The Y offset into the texture used for displaying this model
-	 */
-	private int textureOffsetY;
 	public float rotationPointX;
 	public float rotationPointY;
 	public float rotationPointZ;
 	public float rotateAngleX;
 	public float rotateAngleY;
 	public float rotateAngleZ;
-	private boolean compiled;
-
-	/**
-	 * The GL display list rendered by the Tessellator for this model
-	 */
-	private int displayList;
 	public boolean mirror;
 	public boolean showModel;
-
 	/**
 	 * Hides the model.
 	 */
 	public boolean isHidden;
 	public List<ModelBox> cubeList;
 	public List<ModelRenderer> childModels;
-	public final String boxName;
-	private final ModelBase baseModel;
 	public float offsetX;
 	public float offsetY;
 	public float offsetZ;
+	/**
+	 * The X offset into the texture used for displaying this model
+	 */
+	private int textureOffsetX;
+	/**
+	 * The Y offset into the texture used for displaying this model
+	 */
+	private int textureOffsetY;
+	private boolean compiled;
+	/**
+	 * The GL display list rendered by the Tessellator for this model
+	 */
+	private int displayList;
 
 	public ModelRenderer(ModelBase model, String boxNameIn) {
 

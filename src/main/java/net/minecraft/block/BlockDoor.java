@@ -3,7 +3,6 @@ package net.minecraft.block;
 import net.minecraft.block.material.EnumPushReaction;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.properties.PropertyEnum;
@@ -40,6 +39,52 @@ public class BlockDoor extends Block {
 
 		super(materialIn);
 		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(OPEN, Boolean.valueOf(false)).withProperty(HINGE, BlockDoor.EnumHingePosition.LEFT).withProperty(POWERED, Boolean.valueOf(false)).withProperty(HALF, BlockDoor.EnumDoorHalf.LOWER));
+	}
+
+	public static int combineMetadata(IBlockAccess worldIn, BlockPos pos) {
+
+		IBlockState iblockstate = worldIn.getBlockState(pos);
+		int i = iblockstate.getBlock().getMetaFromState(iblockstate);
+		boolean flag = isTop(i);
+		IBlockState iblockstate1 = worldIn.getBlockState(pos.down());
+		int j = iblockstate1.getBlock().getMetaFromState(iblockstate1);
+		int k = flag ? j : i;
+		IBlockState iblockstate2 = worldIn.getBlockState(pos.up());
+		int l = iblockstate2.getBlock().getMetaFromState(iblockstate2);
+		int i1 = flag ? i : l;
+		boolean flag1 = (i1 & 1) != 0;
+		boolean flag2 = (i1 & 2) != 0;
+		return removeHalfBit(k) | (flag ? 8 : 0) | (flag1 ? 16 : 0) | (flag2 ? 32 : 0);
+	}
+
+	protected static int removeHalfBit(int meta) {
+
+		return meta & 7;
+	}
+
+	public static boolean isOpen(IBlockAccess worldIn, BlockPos pos) {
+
+		return isOpen(combineMetadata(worldIn, pos));
+	}
+
+	public static EnumFacing getFacing(IBlockAccess worldIn, BlockPos pos) {
+
+		return getFacing(combineMetadata(worldIn, pos));
+	}
+
+	public static EnumFacing getFacing(int combinedMeta) {
+
+		return EnumFacing.getHorizontal(combinedMeta & 3).rotateYCCW();
+	}
+
+	protected static boolean isOpen(int combinedMeta) {
+
+		return (combinedMeta & 4) != 0;
+	}
+
+	protected static boolean isTop(int meta) {
+
+		return (meta & 8) != 0;
 	}
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
@@ -245,22 +290,6 @@ public class BlockDoor extends Block {
 		return EnumPushReaction.DESTROY;
 	}
 
-	public static int combineMetadata(IBlockAccess worldIn, BlockPos pos) {
-
-		IBlockState iblockstate = worldIn.getBlockState(pos);
-		int i = iblockstate.getBlock().getMetaFromState(iblockstate);
-		boolean flag = isTop(i);
-		IBlockState iblockstate1 = worldIn.getBlockState(pos.down());
-		int j = iblockstate1.getBlock().getMetaFromState(iblockstate1);
-		int k = flag ? j : i;
-		IBlockState iblockstate2 = worldIn.getBlockState(pos.up());
-		int l = iblockstate2.getBlock().getMetaFromState(iblockstate2);
-		int i1 = flag ? i : l;
-		boolean flag1 = (i1 & 1) != 0;
-		boolean flag2 = (i1 & 2) != 0;
-		return removeHalfBit(k) | (flag ? 8 : 0) | (flag1 ? 16 : 0) | (flag2 ? 32 : 0);
-	}
-
 	public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
 
 		return new ItemStack(getItem());
@@ -389,36 +418,6 @@ public class BlockDoor extends Block {
 		}
 
 		return i;
-	}
-
-	protected static int removeHalfBit(int meta) {
-
-		return meta & 7;
-	}
-
-	public static boolean isOpen(IBlockAccess worldIn, BlockPos pos) {
-
-		return isOpen(combineMetadata(worldIn, pos));
-	}
-
-	public static EnumFacing getFacing(IBlockAccess worldIn, BlockPos pos) {
-
-		return getFacing(combineMetadata(worldIn, pos));
-	}
-
-	public static EnumFacing getFacing(int combinedMeta) {
-
-		return EnumFacing.getHorizontal(combinedMeta & 3).rotateYCCW();
-	}
-
-	protected static boolean isOpen(int combinedMeta) {
-
-		return (combinedMeta & 4) != 0;
-	}
-
-	protected static boolean isTop(int meta) {
-
-		return (meta & 8) != 0;
 	}
 
 	protected BlockStateContainer createBlockState() {

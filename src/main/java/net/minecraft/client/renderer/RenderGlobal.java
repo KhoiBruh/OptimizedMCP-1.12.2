@@ -80,40 +80,39 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 	 */
 	private final TextureManager renderEngine;
 	private final RenderManager renderManager;
+	private final Set<TileEntity> setTileEntities = Sets.newHashSet();
+	private final VertexFormat vertexBufferFormat;
+	private final Map<Integer, DestroyBlockProgress> damagedBlocks = Maps.newHashMap();
+	private final Map<BlockPos, ISound> mapSoundPositions = Maps.newHashMap();
+	private final TextureAtlasSprite[] destroyBlockIcons = new TextureAtlasSprite[10];
+	private final Vector4f[] debugTerrainMatrix = new Vector4f[8];
+	private final Vector3d debugTerrainFrustumPosition = new Vector3d();
+	private final Set<BlockPos> setLightUpdates = Sets.newHashSet();
+	IRenderChunkFactory renderChunkFactory;
 	private WorldClient world;
 	private Set<RenderChunk> chunksToUpdate = Sets.newLinkedHashSet();
 	private List<RenderGlobal.ContainerLocalRenderInformation> renderInfos = Lists.newArrayListWithCapacity(69696);
-	private final Set<TileEntity> setTileEntities = Sets.newHashSet();
 	private ViewFrustum viewFrustum;
-
 	/**
 	 * The star GL Call list
 	 */
 	private int starGLCallList = -1;
-
 	/**
 	 * OpenGL sky list
 	 */
 	private int glSkyList = -1;
-
 	/**
 	 * OpenGL sky list 2
 	 */
 	private int glSkyList2 = -1;
-	private final VertexFormat vertexBufferFormat;
 	private VertexBuffer starVBO;
 	private VertexBuffer skyVBO;
 	private VertexBuffer sky2VBO;
-
 	/**
 	 * counts the cloud render updates. Used with mod to stagger some updates
 	 */
 	private int cloudTickCounter;
-	private final Map<Integer, DestroyBlockProgress> damagedBlocks = Maps.newHashMap();
-	private final Map<BlockPos, ISound> mapSoundPositions = Maps.newHashMap();
-	private final TextureAtlasSprite[] destroyBlockIcons = new TextureAtlasSprite[10];
 	private Framebuffer entityOutlineFramebuffer;
-
 	/**
 	 * Stores the shader group for the entity_outline shader
 	 */
@@ -132,38 +131,30 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 	private ChunkRenderDispatcher renderDispatcher;
 	private ChunkRenderContainer renderContainer;
 	private int renderDistanceChunks = -1;
-
 	/**
 	 * Render entities startup counter (init value=2)
 	 */
 	private int renderEntitiesStartupCounter = 2;
-
 	/**
 	 * Count entities total
 	 */
 	private int countEntitiesTotal;
-
 	/**
 	 * Count entities rendered
 	 */
 	private int countEntitiesRendered;
-
 	/**
 	 * Count entities hidden
 	 */
 	private int countEntitiesHidden;
 	private boolean debugFixTerrainFrustum;
 	private ClippingHelper debugFixedClippingHelper;
-	private final Vector4f[] debugTerrainMatrix = new Vector4f[8];
-	private final Vector3d debugTerrainFrustumPosition = new Vector3d();
 	private boolean vboEnabled;
-	IRenderChunkFactory renderChunkFactory;
 	private double prevRenderSortX;
 	private double prevRenderSortY;
 	private double prevRenderSortZ;
 	private boolean displayListEntitiesDirty = true;
 	private boolean entityOutlinesRendered;
-	private final Set<BlockPos> setLightUpdates = Sets.newHashSet();
 
 	public RenderGlobal(Minecraft mcIn) {
 
@@ -190,6 +181,90 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 		generateStars();
 		generateSky();
 		generateSky2();
+	}
+
+	public static void drawSelectionBoundingBox(AxisAlignedBB box, float red, float green, float blue, float alpha) {
+
+		drawBoundingBox(box.minX, box.minY, box.minZ, box.maxX, box.maxY, box.maxZ, red, green, blue, alpha);
+	}
+
+	public static void drawBoundingBox(double minX, double minY, double minZ, double maxX, double maxY, double maxZ, float red, float green, float blue, float alpha) {
+
+		Tessellator tessellator = Tessellator.getInstance();
+		BufferBuilder bufferbuilder = tessellator.getBuffer();
+		bufferbuilder.begin(3, DefaultVertexFormats.POSITION_COLOR);
+		drawBoundingBox(bufferbuilder, minX, minY, minZ, maxX, maxY, maxZ, red, green, blue, alpha);
+		tessellator.draw();
+	}
+
+	public static void drawBoundingBox(BufferBuilder buffer, double minX, double minY, double minZ, double maxX, double maxY, double maxZ, float red, float green, float blue, float alpha) {
+
+		buffer.pos(minX, minY, minZ).color(red, green, blue, 0.0F).endVertex();
+		buffer.pos(minX, minY, minZ).color(red, green, blue, alpha).endVertex();
+		buffer.pos(maxX, minY, minZ).color(red, green, blue, alpha).endVertex();
+		buffer.pos(maxX, minY, maxZ).color(red, green, blue, alpha).endVertex();
+		buffer.pos(minX, minY, maxZ).color(red, green, blue, alpha).endVertex();
+		buffer.pos(minX, minY, minZ).color(red, green, blue, alpha).endVertex();
+		buffer.pos(minX, maxY, minZ).color(red, green, blue, alpha).endVertex();
+		buffer.pos(maxX, maxY, minZ).color(red, green, blue, alpha).endVertex();
+		buffer.pos(maxX, maxY, maxZ).color(red, green, blue, alpha).endVertex();
+		buffer.pos(minX, maxY, maxZ).color(red, green, blue, alpha).endVertex();
+		buffer.pos(minX, maxY, minZ).color(red, green, blue, alpha).endVertex();
+		buffer.pos(minX, maxY, maxZ).color(red, green, blue, 0.0F).endVertex();
+		buffer.pos(minX, minY, maxZ).color(red, green, blue, alpha).endVertex();
+		buffer.pos(maxX, maxY, maxZ).color(red, green, blue, 0.0F).endVertex();
+		buffer.pos(maxX, minY, maxZ).color(red, green, blue, alpha).endVertex();
+		buffer.pos(maxX, maxY, minZ).color(red, green, blue, 0.0F).endVertex();
+		buffer.pos(maxX, minY, minZ).color(red, green, blue, alpha).endVertex();
+		buffer.pos(maxX, minY, minZ).color(red, green, blue, 0.0F).endVertex();
+	}
+
+	public static void renderFilledBox(AxisAlignedBB aabb, float red, float green, float blue, float alpha) {
+
+		renderFilledBox(aabb.minX, aabb.minY, aabb.minZ, aabb.maxX, aabb.maxY, aabb.maxZ, red, green, blue, alpha);
+	}
+
+	public static void renderFilledBox(double minX, double minY, double minZ, double maxX, double maxY, double maxZ, float red, float green, float blue, float alpha) {
+
+		Tessellator tessellator = Tessellator.getInstance();
+		BufferBuilder bufferbuilder = tessellator.getBuffer();
+		bufferbuilder.begin(5, DefaultVertexFormats.POSITION_COLOR);
+		addChainedFilledBoxVertices(bufferbuilder, minX, minY, minZ, maxX, maxY, maxZ, red, green, blue, alpha);
+		tessellator.draw();
+	}
+
+	public static void addChainedFilledBoxVertices(BufferBuilder builder, double p_189693_1_, double p_189693_3_, double p_189693_5_, double p_189693_7_, double p_189693_9_, double p_189693_11_, float red, float green, float blue, float alpha) {
+
+		builder.pos(p_189693_1_, p_189693_3_, p_189693_5_).color(red, green, blue, alpha).endVertex();
+		builder.pos(p_189693_1_, p_189693_3_, p_189693_5_).color(red, green, blue, alpha).endVertex();
+		builder.pos(p_189693_1_, p_189693_3_, p_189693_5_).color(red, green, blue, alpha).endVertex();
+		builder.pos(p_189693_1_, p_189693_3_, p_189693_11_).color(red, green, blue, alpha).endVertex();
+		builder.pos(p_189693_1_, p_189693_9_, p_189693_5_).color(red, green, blue, alpha).endVertex();
+		builder.pos(p_189693_1_, p_189693_9_, p_189693_11_).color(red, green, blue, alpha).endVertex();
+		builder.pos(p_189693_1_, p_189693_9_, p_189693_11_).color(red, green, blue, alpha).endVertex();
+		builder.pos(p_189693_1_, p_189693_3_, p_189693_11_).color(red, green, blue, alpha).endVertex();
+		builder.pos(p_189693_7_, p_189693_9_, p_189693_11_).color(red, green, blue, alpha).endVertex();
+		builder.pos(p_189693_7_, p_189693_3_, p_189693_11_).color(red, green, blue, alpha).endVertex();
+		builder.pos(p_189693_7_, p_189693_3_, p_189693_11_).color(red, green, blue, alpha).endVertex();
+		builder.pos(p_189693_7_, p_189693_3_, p_189693_5_).color(red, green, blue, alpha).endVertex();
+		builder.pos(p_189693_7_, p_189693_9_, p_189693_11_).color(red, green, blue, alpha).endVertex();
+		builder.pos(p_189693_7_, p_189693_9_, p_189693_5_).color(red, green, blue, alpha).endVertex();
+		builder.pos(p_189693_7_, p_189693_9_, p_189693_5_).color(red, green, blue, alpha).endVertex();
+		builder.pos(p_189693_7_, p_189693_3_, p_189693_5_).color(red, green, blue, alpha).endVertex();
+		builder.pos(p_189693_1_, p_189693_9_, p_189693_5_).color(red, green, blue, alpha).endVertex();
+		builder.pos(p_189693_1_, p_189693_3_, p_189693_5_).color(red, green, blue, alpha).endVertex();
+		builder.pos(p_189693_1_, p_189693_3_, p_189693_5_).color(red, green, blue, alpha).endVertex();
+		builder.pos(p_189693_7_, p_189693_3_, p_189693_5_).color(red, green, blue, alpha).endVertex();
+		builder.pos(p_189693_1_, p_189693_3_, p_189693_11_).color(red, green, blue, alpha).endVertex();
+		builder.pos(p_189693_7_, p_189693_3_, p_189693_11_).color(red, green, blue, alpha).endVertex();
+		builder.pos(p_189693_7_, p_189693_3_, p_189693_11_).color(red, green, blue, alpha).endVertex();
+		builder.pos(p_189693_1_, p_189693_9_, p_189693_5_).color(red, green, blue, alpha).endVertex();
+		builder.pos(p_189693_1_, p_189693_9_, p_189693_5_).color(red, green, blue, alpha).endVertex();
+		builder.pos(p_189693_1_, p_189693_9_, p_189693_11_).color(red, green, blue, alpha).endVertex();
+		builder.pos(p_189693_7_, p_189693_9_, p_189693_5_).color(red, green, blue, alpha).endVertex();
+		builder.pos(p_189693_7_, p_189693_9_, p_189693_11_).color(red, green, blue, alpha).endVertex();
+		builder.pos(p_189693_7_, p_189693_9_, p_189693_11_).color(red, green, blue, alpha).endVertex();
+		builder.pos(p_189693_7_, p_189693_9_, p_189693_11_).color(red, green, blue, alpha).endVertex();
 	}
 
 	public void onResourceManagerReload(IResourceManager resourceManager) {
@@ -1773,90 +1848,6 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 		}
 	}
 
-	public static void drawSelectionBoundingBox(AxisAlignedBB box, float red, float green, float blue, float alpha) {
-
-		drawBoundingBox(box.minX, box.minY, box.minZ, box.maxX, box.maxY, box.maxZ, red, green, blue, alpha);
-	}
-
-	public static void drawBoundingBox(double minX, double minY, double minZ, double maxX, double maxY, double maxZ, float red, float green, float blue, float alpha) {
-
-		Tessellator tessellator = Tessellator.getInstance();
-		BufferBuilder bufferbuilder = tessellator.getBuffer();
-		bufferbuilder.begin(3, DefaultVertexFormats.POSITION_COLOR);
-		drawBoundingBox(bufferbuilder, minX, minY, minZ, maxX, maxY, maxZ, red, green, blue, alpha);
-		tessellator.draw();
-	}
-
-	public static void drawBoundingBox(BufferBuilder buffer, double minX, double minY, double minZ, double maxX, double maxY, double maxZ, float red, float green, float blue, float alpha) {
-
-		buffer.pos(minX, minY, minZ).color(red, green, blue, 0.0F).endVertex();
-		buffer.pos(minX, minY, minZ).color(red, green, blue, alpha).endVertex();
-		buffer.pos(maxX, minY, minZ).color(red, green, blue, alpha).endVertex();
-		buffer.pos(maxX, minY, maxZ).color(red, green, blue, alpha).endVertex();
-		buffer.pos(minX, minY, maxZ).color(red, green, blue, alpha).endVertex();
-		buffer.pos(minX, minY, minZ).color(red, green, blue, alpha).endVertex();
-		buffer.pos(minX, maxY, minZ).color(red, green, blue, alpha).endVertex();
-		buffer.pos(maxX, maxY, minZ).color(red, green, blue, alpha).endVertex();
-		buffer.pos(maxX, maxY, maxZ).color(red, green, blue, alpha).endVertex();
-		buffer.pos(minX, maxY, maxZ).color(red, green, blue, alpha).endVertex();
-		buffer.pos(minX, maxY, minZ).color(red, green, blue, alpha).endVertex();
-		buffer.pos(minX, maxY, maxZ).color(red, green, blue, 0.0F).endVertex();
-		buffer.pos(minX, minY, maxZ).color(red, green, blue, alpha).endVertex();
-		buffer.pos(maxX, maxY, maxZ).color(red, green, blue, 0.0F).endVertex();
-		buffer.pos(maxX, minY, maxZ).color(red, green, blue, alpha).endVertex();
-		buffer.pos(maxX, maxY, minZ).color(red, green, blue, 0.0F).endVertex();
-		buffer.pos(maxX, minY, minZ).color(red, green, blue, alpha).endVertex();
-		buffer.pos(maxX, minY, minZ).color(red, green, blue, 0.0F).endVertex();
-	}
-
-	public static void renderFilledBox(AxisAlignedBB aabb, float red, float green, float blue, float alpha) {
-
-		renderFilledBox(aabb.minX, aabb.minY, aabb.minZ, aabb.maxX, aabb.maxY, aabb.maxZ, red, green, blue, alpha);
-	}
-
-	public static void renderFilledBox(double minX, double minY, double minZ, double maxX, double maxY, double maxZ, float red, float green, float blue, float alpha) {
-
-		Tessellator tessellator = Tessellator.getInstance();
-		BufferBuilder bufferbuilder = tessellator.getBuffer();
-		bufferbuilder.begin(5, DefaultVertexFormats.POSITION_COLOR);
-		addChainedFilledBoxVertices(bufferbuilder, minX, minY, minZ, maxX, maxY, maxZ, red, green, blue, alpha);
-		tessellator.draw();
-	}
-
-	public static void addChainedFilledBoxVertices(BufferBuilder builder, double p_189693_1_, double p_189693_3_, double p_189693_5_, double p_189693_7_, double p_189693_9_, double p_189693_11_, float red, float green, float blue, float alpha) {
-
-		builder.pos(p_189693_1_, p_189693_3_, p_189693_5_).color(red, green, blue, alpha).endVertex();
-		builder.pos(p_189693_1_, p_189693_3_, p_189693_5_).color(red, green, blue, alpha).endVertex();
-		builder.pos(p_189693_1_, p_189693_3_, p_189693_5_).color(red, green, blue, alpha).endVertex();
-		builder.pos(p_189693_1_, p_189693_3_, p_189693_11_).color(red, green, blue, alpha).endVertex();
-		builder.pos(p_189693_1_, p_189693_9_, p_189693_5_).color(red, green, blue, alpha).endVertex();
-		builder.pos(p_189693_1_, p_189693_9_, p_189693_11_).color(red, green, blue, alpha).endVertex();
-		builder.pos(p_189693_1_, p_189693_9_, p_189693_11_).color(red, green, blue, alpha).endVertex();
-		builder.pos(p_189693_1_, p_189693_3_, p_189693_11_).color(red, green, blue, alpha).endVertex();
-		builder.pos(p_189693_7_, p_189693_9_, p_189693_11_).color(red, green, blue, alpha).endVertex();
-		builder.pos(p_189693_7_, p_189693_3_, p_189693_11_).color(red, green, blue, alpha).endVertex();
-		builder.pos(p_189693_7_, p_189693_3_, p_189693_11_).color(red, green, blue, alpha).endVertex();
-		builder.pos(p_189693_7_, p_189693_3_, p_189693_5_).color(red, green, blue, alpha).endVertex();
-		builder.pos(p_189693_7_, p_189693_9_, p_189693_11_).color(red, green, blue, alpha).endVertex();
-		builder.pos(p_189693_7_, p_189693_9_, p_189693_5_).color(red, green, blue, alpha).endVertex();
-		builder.pos(p_189693_7_, p_189693_9_, p_189693_5_).color(red, green, blue, alpha).endVertex();
-		builder.pos(p_189693_7_, p_189693_3_, p_189693_5_).color(red, green, blue, alpha).endVertex();
-		builder.pos(p_189693_1_, p_189693_9_, p_189693_5_).color(red, green, blue, alpha).endVertex();
-		builder.pos(p_189693_1_, p_189693_3_, p_189693_5_).color(red, green, blue, alpha).endVertex();
-		builder.pos(p_189693_1_, p_189693_3_, p_189693_5_).color(red, green, blue, alpha).endVertex();
-		builder.pos(p_189693_7_, p_189693_3_, p_189693_5_).color(red, green, blue, alpha).endVertex();
-		builder.pos(p_189693_1_, p_189693_3_, p_189693_11_).color(red, green, blue, alpha).endVertex();
-		builder.pos(p_189693_7_, p_189693_3_, p_189693_11_).color(red, green, blue, alpha).endVertex();
-		builder.pos(p_189693_7_, p_189693_3_, p_189693_11_).color(red, green, blue, alpha).endVertex();
-		builder.pos(p_189693_1_, p_189693_9_, p_189693_5_).color(red, green, blue, alpha).endVertex();
-		builder.pos(p_189693_1_, p_189693_9_, p_189693_5_).color(red, green, blue, alpha).endVertex();
-		builder.pos(p_189693_1_, p_189693_9_, p_189693_11_).color(red, green, blue, alpha).endVertex();
-		builder.pos(p_189693_7_, p_189693_9_, p_189693_5_).color(red, green, blue, alpha).endVertex();
-		builder.pos(p_189693_7_, p_189693_9_, p_189693_11_).color(red, green, blue, alpha).endVertex();
-		builder.pos(p_189693_7_, p_189693_9_, p_189693_11_).color(red, green, blue, alpha).endVertex();
-		builder.pos(p_189693_7_, p_189693_9_, p_189693_11_).color(red, green, blue, alpha).endVertex();
-	}
-
 	private void markBlocksForUpdate(int minX, int minY, int minZ, int maxX, int maxY, int maxZ, boolean updateImmediately) {
 
 		viewFrustum.markBlocksForUpdate(minX, minY, minZ, maxX, maxY, maxZ, updateImmediately);
@@ -2369,8 +2360,8 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 
 		final RenderChunk renderChunk;
 		final EnumFacing facing;
-		byte setFacing;
 		final int counter;
+		byte setFacing;
 
 		private ContainerLocalRenderInformation(RenderChunk renderChunkIn, EnumFacing facingIn, @Nullable int counterIn) {
 

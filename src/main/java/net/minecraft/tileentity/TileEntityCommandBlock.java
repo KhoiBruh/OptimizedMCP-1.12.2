@@ -9,7 +9,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -18,10 +17,6 @@ import javax.annotation.Nullable;
 
 public class TileEntityCommandBlock extends TileEntity {
 
-	private boolean powered;
-	private boolean auto;
-	private boolean conditionMet;
-	private boolean sendToClient;
 	private final CommandBlockBaseLogic commandBlockLogic = new CommandBlockBaseLogic() {
 		public BlockPos getPosition() {
 
@@ -67,6 +62,10 @@ public class TileEntityCommandBlock extends TileEntity {
 			return world.getMinecraftServer();
 		}
 	};
+	private boolean powered;
+	private boolean auto;
+	private boolean conditionMet;
+	private boolean sendToClient;
 
 	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
 
@@ -114,14 +113,14 @@ public class TileEntityCommandBlock extends TileEntity {
 		return commandBlockLogic.getCommandResultStats();
 	}
 
-	public void setPowered(boolean poweredIn) {
-
-		powered = poweredIn;
-	}
-
 	public boolean isPowered() {
 
 		return powered;
+	}
+
+	public void setPowered(boolean poweredIn) {
+
+		powered = poweredIn;
 	}
 
 	public boolean isAuto() {

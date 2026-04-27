@@ -23,15 +23,35 @@ public enum EnumFacing implements IStringSerializable {
 	EAST(5, 4, 3, "east", EnumFacing.AxisDirection.POSITIVE, EnumFacing.Axis.X, new Vec3i(1, 0, 0));
 
 	/**
+	 * All facings in D-U-N-S-W-E order
+	 */
+	private static final EnumFacing[] VALUES = new EnumFacing[6];
+	/**
+	 * All Facings with horizontal axis in order S-W-N-E
+	 */
+	private static final EnumFacing[] HORIZONTALS = new EnumFacing[4];
+	private static final Map<String, EnumFacing> NAME_LOOKUP = Maps.newHashMap();
+
+	static {
+		for (EnumFacing enumfacing : values()) {
+			VALUES[enumfacing.index] = enumfacing;
+
+			if (enumfacing.getAxis().isHorizontal()) {
+				HORIZONTALS[enumfacing.horizontalIndex] = enumfacing;
+			}
+
+			NAME_LOOKUP.put(enumfacing.getName2().toLowerCase(Locale.ROOT), enumfacing);
+		}
+	}
+
+	/**
 	 * Ordering index for D-U-N-S-W-E
 	 */
 	private final int index;
-
 	/**
 	 * Index of the opposite Facing in the VALUES array
 	 */
 	private final int opposite;
-
 	/**
 	 * Ordering index for the HORIZONTALS field (S-W-N-E)
 	 */
@@ -39,22 +59,10 @@ public enum EnumFacing implements IStringSerializable {
 	private final String name;
 	private final EnumFacing.Axis axis;
 	private final EnumFacing.AxisDirection axisDirection;
-
 	/**
 	 * Normalized Vector that points in the direction of this Facing
 	 */
 	private final Vec3i directionVec;
-
-	/**
-	 * All facings in D-U-N-S-W-E order
-	 */
-	private static final EnumFacing[] VALUES = new EnumFacing[6];
-
-	/**
-	 * All Facings with horizontal axis in order S-W-N-E
-	 */
-	private static final EnumFacing[] HORIZONTALS = new EnumFacing[4];
-	private static final Map<String, EnumFacing> NAME_LOOKUP = Maps.newHashMap();
 
 	EnumFacing(int indexIn, int oppositeIn, int horizontalIndexIn, String nameIn, EnumFacing.AxisDirection axisDirectionIn, EnumFacing.Axis axisIn, Vec3i directionVecIn) {
 
@@ -65,6 +73,93 @@ public enum EnumFacing implements IStringSerializable {
 		axis = axisIn;
 		axisDirection = axisDirectionIn;
 		directionVec = directionVecIn;
+	}
+
+	@Nullable
+
+	/**
+	 * Get the facing specified by the given name
+	 */
+	public static EnumFacing byName(String name) {
+
+		return name == null ? null : NAME_LOOKUP.get(name.toLowerCase(Locale.ROOT));
+	}
+
+	/**
+	 * Get a Facing by it's index (0-5). The order is D-U-N-S-W-E. Named getFront for legacy reasons.
+	 */
+	public static EnumFacing getFront(int index) {
+
+		return VALUES[MathHelper.abs(index % VALUES.length)];
+	}
+
+	/**
+	 * Get a Facing by it's horizontal index (0-3). The order is S-W-N-E.
+	 */
+	public static EnumFacing getHorizontal(int horizontalIndexIn) {
+
+		return HORIZONTALS[MathHelper.abs(horizontalIndexIn % HORIZONTALS.length)];
+	}
+
+	/**
+	 * Get the Facing corresponding to the given angle (0-360). An angle of 0 is SOUTH, an angle of 90 would be WEST.
+	 */
+	public static EnumFacing fromAngle(double angle) {
+
+		return getHorizontal(MathHelper.floor(angle / 90.0D + 0.5D) & 3);
+	}
+
+	/**
+	 * Choose a random Facing using the given Random
+	 */
+	public static EnumFacing random(Random rand) {
+
+		return values()[rand.nextInt(values().length)];
+	}
+
+	public static EnumFacing getFacingFromVector(float x, float y, float z) {
+
+		EnumFacing enumfacing = NORTH;
+		float f = Float.MIN_VALUE;
+
+		for (EnumFacing enumfacing1 : values()) {
+			float f1 = x * (float) enumfacing1.directionVec.getX() + y * (float) enumfacing1.directionVec.getY() + z * (float) enumfacing1.directionVec.getZ();
+
+			if (f1 > f) {
+				f = f1;
+				enumfacing = enumfacing1;
+			}
+		}
+
+		return enumfacing;
+	}
+
+	public static EnumFacing getFacingFromAxis(EnumFacing.AxisDirection axisDirectionIn, EnumFacing.Axis axisIn) {
+
+		for (EnumFacing enumfacing : values()) {
+			if (enumfacing.getAxisDirection() == axisDirectionIn && enumfacing.getAxis() == axisIn) {
+				return enumfacing;
+			}
+		}
+
+		throw new IllegalArgumentException("No such direction: " + axisDirectionIn + " " + axisIn);
+	}
+
+	public static EnumFacing getDirectionFromEntityLiving(BlockPos pos, EntityLivingBase placer) {
+
+		if (Math.abs(placer.posX - (double) ((float) pos.getX() + 0.5F)) < 2.0D && Math.abs(placer.posZ - (double) ((float) pos.getZ() + 0.5F)) < 2.0D) {
+			double d0 = placer.posY + (double) placer.getEyeHeight();
+
+			if (d0 - (double) pos.getY() > 2.0D) {
+				return UP;
+			}
+
+			if ((double) pos.getY() - d0 > 0.0D) {
+				return DOWN;
+			}
+		}
+
+		return placer.getHorizontalFacing().getOpposite();
 	}
 
 	/**
@@ -261,68 +356,9 @@ public enum EnumFacing implements IStringSerializable {
 		return axis;
 	}
 
-	@Nullable
-
-	/**
-	 * Get the facing specified by the given name
-	 */
-	public static EnumFacing byName(String name) {
-
-		return name == null ? null : NAME_LOOKUP.get(name.toLowerCase(Locale.ROOT));
-	}
-
-	/**
-	 * Get a Facing by it's index (0-5). The order is D-U-N-S-W-E. Named getFront for legacy reasons.
-	 */
-	public static EnumFacing getFront(int index) {
-
-		return VALUES[MathHelper.abs(index % VALUES.length)];
-	}
-
-	/**
-	 * Get a Facing by it's horizontal index (0-3). The order is S-W-N-E.
-	 */
-	public static EnumFacing getHorizontal(int horizontalIndexIn) {
-
-		return HORIZONTALS[MathHelper.abs(horizontalIndexIn % HORIZONTALS.length)];
-	}
-
-	/**
-	 * Get the Facing corresponding to the given angle (0-360). An angle of 0 is SOUTH, an angle of 90 would be WEST.
-	 */
-	public static EnumFacing fromAngle(double angle) {
-
-		return getHorizontal(MathHelper.floor(angle / 90.0D + 0.5D) & 3);
-	}
-
 	public float getHorizontalAngle() {
 
 		return (float) ((horizontalIndex & 3) * 90);
-	}
-
-	/**
-	 * Choose a random Facing using the given Random
-	 */
-	public static EnumFacing random(Random rand) {
-
-		return values()[rand.nextInt(values().length)];
-	}
-
-	public static EnumFacing getFacingFromVector(float x, float y, float z) {
-
-		EnumFacing enumfacing = NORTH;
-		float f = Float.MIN_VALUE;
-
-		for (EnumFacing enumfacing1 : values()) {
-			float f1 = x * (float) enumfacing1.directionVec.getX() + y * (float) enumfacing1.directionVec.getY() + z * (float) enumfacing1.directionVec.getZ();
-
-			if (f1 > f) {
-				f = f1;
-				enumfacing = enumfacing1;
-			}
-		}
-
-		return enumfacing;
 	}
 
 	public String toString() {
@@ -335,34 +371,6 @@ public enum EnumFacing implements IStringSerializable {
 		return name;
 	}
 
-	public static EnumFacing getFacingFromAxis(EnumFacing.AxisDirection axisDirectionIn, EnumFacing.Axis axisIn) {
-
-		for (EnumFacing enumfacing : values()) {
-			if (enumfacing.getAxisDirection() == axisDirectionIn && enumfacing.getAxis() == axisIn) {
-				return enumfacing;
-			}
-		}
-
-		throw new IllegalArgumentException("No such direction: " + axisDirectionIn + " " + axisIn);
-	}
-
-	public static EnumFacing getDirectionFromEntityLiving(BlockPos pos, EntityLivingBase placer) {
-
-		if (Math.abs(placer.posX - (double) ((float) pos.getX() + 0.5F)) < 2.0D && Math.abs(placer.posZ - (double) ((float) pos.getZ() + 0.5F)) < 2.0D) {
-			double d0 = placer.posY + (double) placer.getEyeHeight();
-
-			if (d0 - (double) pos.getY() > 2.0D) {
-				return UP;
-			}
-
-			if ((double) pos.getY() - d0 > 0.0D) {
-				return DOWN;
-			}
-		}
-
-		return placer.getHorizontalFacing().getOpposite();
-	}
-
 	/**
 	 * Get a normalized Vector that points in the direction of this Facing.
 	 */
@@ -371,24 +379,19 @@ public enum EnumFacing implements IStringSerializable {
 		return directionVec;
 	}
 
-	static {
-		for (EnumFacing enumfacing : values()) {
-			VALUES[enumfacing.index] = enumfacing;
-
-			if (enumfacing.getAxis().isHorizontal()) {
-				HORIZONTALS[enumfacing.horizontalIndex] = enumfacing;
-			}
-
-			NAME_LOOKUP.put(enumfacing.getName2().toLowerCase(Locale.ROOT), enumfacing);
-		}
-	}
-
 	public enum Axis implements Predicate<EnumFacing>, IStringSerializable {
 		X("x", EnumFacing.Plane.HORIZONTAL),
 		Y("y", EnumFacing.Plane.VERTICAL),
 		Z("z", EnumFacing.Plane.HORIZONTAL);
 
 		private static final Map<String, EnumFacing.Axis> NAME_LOOKUP = Maps.newHashMap();
+
+		static {
+			for (EnumFacing.Axis enumfacing$axis : values()) {
+				NAME_LOOKUP.put(enumfacing$axis.getName2().toLowerCase(Locale.ROOT), enumfacing$axis);
+			}
+		}
+
 		private final String name;
 		private final EnumFacing.Plane plane;
 
@@ -437,12 +440,6 @@ public enum EnumFacing implements IStringSerializable {
 		public String getName() {
 
 			return name;
-		}
-
-		static {
-			for (EnumFacing.Axis enumfacing$axis : values()) {
-				NAME_LOOKUP.put(enumfacing$axis.getName2().toLowerCase(Locale.ROOT), enumfacing$axis);
-			}
 		}
 	}
 

@@ -25,6 +25,23 @@ public class NBTPredicate {
 		this.tag = tag;
 	}
 
+	public static NBTPredicate deserialize(@Nullable JsonElement json) {
+
+		if (json != null && !json.isJsonNull()) {
+			NBTTagCompound nbttagcompound;
+
+			try {
+				nbttagcompound = JsonToNBT.getTagFromJson(JsonUtils.getString(json, "nbt"));
+			} catch (NBTException nbtexception) {
+				throw new JsonSyntaxException("Invalid nbt tag: " + nbtexception.getMessage());
+			}
+
+			return new NBTPredicate(nbttagcompound);
+		} else {
+			return ANY;
+		}
+	}
+
 	public boolean test(ItemStack item) {
 
 		return this == ANY || test(item.getTagCompound());
@@ -41,23 +58,6 @@ public class NBTPredicate {
 			return this == ANY;
 		} else {
 			return tag == null || NBTUtil.areNBTEquals(tag, nbt, true);
-		}
-	}
-
-	public static NBTPredicate deserialize(@Nullable JsonElement json) {
-
-		if (json != null && !json.isJsonNull()) {
-			NBTTagCompound nbttagcompound;
-
-			try {
-				nbttagcompound = JsonToNBT.getTagFromJson(JsonUtils.getString(json, "nbt"));
-			} catch (NBTException nbtexception) {
-				throw new JsonSyntaxException("Invalid nbt tag: " + nbtexception.getMessage());
-			}
-
-			return new NBTPredicate(nbttagcompound);
-		} else {
-			return ANY;
 		}
 	}
 

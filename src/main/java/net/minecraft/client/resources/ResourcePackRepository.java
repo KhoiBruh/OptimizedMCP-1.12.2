@@ -19,7 +19,6 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.comparator.LastModifiedFileComparator;
-import org.apache.commons.io.filefilter.IOFileFilter;
 import org.apache.commons.io.filefilter.TrueFileFilter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -44,15 +43,15 @@ public class ResourcePackRepository {
 	};
 	private static final Pattern SHA1 = Pattern.compile("^[a-fA-F0-9]{40}$");
 	private static final ResourceLocation UNKNOWN_PACK_TEXTURE = new ResourceLocation("textures/misc/unknown_pack.png");
-	private final File dirResourcepacks;
 	public final IResourcePack rprDefaultResourcePack;
-	private final File dirServerResourcepacks;
 	public final MetadataSerializer rprMetadataSerializer;
-	private IResourcePack serverResourcePack;
+	private final File dirResourcepacks;
+	private final File dirServerResourcepacks;
 	private final ReentrantLock lock = new ReentrantLock();
+	private final List<ResourcePackRepository.Entry> repositoryEntries = Lists.newArrayList();
+	private IResourcePack serverResourcePack;
 	private ListenableFuture<Object> downloadingPacks;
 	private List<ResourcePackRepository.Entry> repositoryEntriesAll = Lists.newArrayList();
-	private final List<ResourcePackRepository.Entry> repositoryEntries = Lists.newArrayList();
 
 	public ResourcePackRepository(File dirResourcepacksIn, File dirServerResourcepacksIn, IResourcePack rprDefaultResourcePackIn, MetadataSerializer rprMetadataSerializerIn, GameSettings settings) {
 

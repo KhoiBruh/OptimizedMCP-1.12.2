@@ -14,25 +14,21 @@ import java.util.Map;
 public class GuiLanguage extends GuiScreen {
 
 	/**
-	 * The parent Gui screen
-	 */
-	protected GuiScreen parentScreen;
-
-	/**
-	 * The List GuiSlot object reference.
-	 */
-	private GuiLanguage.List list;
-
-	/**
 	 * Reference to the GameSettings object.
 	 */
 	private final GameSettings game_settings_3;
-
 	/**
 	 * Reference to the LanguageManager object.
 	 */
 	private final LanguageManager languageManager;
-
+	/**
+	 * The parent Gui screen
+	 */
+	protected GuiScreen parentScreen;
+	/**
+	 * The List GuiSlot object reference.
+	 */
+	private GuiLanguage.List list;
 	/**
 	 * A button which allows the user to determine if the Unicode font should be forced.
 	 */

@@ -29,6 +29,30 @@ public class MobEffectsPredicate {
 		this.effects = effects;
 	}
 
+	public static MobEffectsPredicate deserialize(@Nullable JsonElement element) {
+
+		if (element != null && !element.isJsonNull()) {
+			JsonObject jsonobject = JsonUtils.getJsonObject(element, "effects");
+			Map<Potion, MobEffectsPredicate.InstancePredicate> map = Maps.newHashMap();
+
+			for (Entry<String, JsonElement> entry : jsonobject.entrySet()) {
+				ResourceLocation resourcelocation = new ResourceLocation(entry.getKey());
+				Potion potion = Potion.REGISTRY.getObject(resourcelocation);
+
+				if (potion == null) {
+					throw new JsonSyntaxException("Unknown effect '" + resourcelocation + "'");
+				}
+
+				MobEffectsPredicate.InstancePredicate mobeffectspredicate$instancepredicate = MobEffectsPredicate.InstancePredicate.deserialize(JsonUtils.getJsonObject(entry.getValue(), entry.getKey()));
+				map.put(potion, mobeffectspredicate$instancepredicate);
+			}
+
+			return new MobEffectsPredicate(map);
+		} else {
+			return ANY;
+		}
+	}
+
 	public boolean test(Entity entityIn) {
 
 		if (this == ANY) {
@@ -60,30 +84,6 @@ public class MobEffectsPredicate {
 		}
 	}
 
-	public static MobEffectsPredicate deserialize(@Nullable JsonElement element) {
-
-		if (element != null && !element.isJsonNull()) {
-			JsonObject jsonobject = JsonUtils.getJsonObject(element, "effects");
-			Map<Potion, MobEffectsPredicate.InstancePredicate> map = Maps.newHashMap();
-
-			for (Entry<String, JsonElement> entry : jsonobject.entrySet()) {
-				ResourceLocation resourcelocation = new ResourceLocation(entry.getKey());
-				Potion potion = Potion.REGISTRY.getObject(resourcelocation);
-
-				if (potion == null) {
-					throw new JsonSyntaxException("Unknown effect '" + resourcelocation + "'");
-				}
-
-				MobEffectsPredicate.InstancePredicate mobeffectspredicate$instancepredicate = MobEffectsPredicate.InstancePredicate.deserialize(JsonUtils.getJsonObject(entry.getValue(), entry.getKey()));
-				map.put(potion, mobeffectspredicate$instancepredicate);
-			}
-
-			return new MobEffectsPredicate(map);
-		} else {
-			return ANY;
-		}
-	}
-
 	public static class InstancePredicate {
 
 		private final MinMaxBounds amplifier;
@@ -103,6 +103,15 @@ public class MobEffectsPredicate {
 			this.visible = visible;
 		}
 
+		public static MobEffectsPredicate.InstancePredicate deserialize(JsonObject object) {
+
+			MinMaxBounds minmaxbounds = MinMaxBounds.deserialize(object.get("amplifier"));
+			MinMaxBounds minmaxbounds1 = MinMaxBounds.deserialize(object.get("duration"));
+			Boolean obool = object.has("ambient") ? JsonUtils.getBoolean(object, "ambient") : null;
+			Boolean obool1 = object.has("visible") ? JsonUtils.getBoolean(object, "visible") : null;
+			return new MobEffectsPredicate.InstancePredicate(minmaxbounds, minmaxbounds1, obool, obool1);
+		}
+
 		public boolean test(@Nullable PotionEffect effect) {
 
 			if (effect == null) {
@@ -116,15 +125,6 @@ public class MobEffectsPredicate {
 			} else {
 				return visible == null || visible.booleanValue() == effect.doesShowParticles();
 			}
-		}
-
-		public static MobEffectsPredicate.InstancePredicate deserialize(JsonObject object) {
-
-			MinMaxBounds minmaxbounds = MinMaxBounds.deserialize(object.get("amplifier"));
-			MinMaxBounds minmaxbounds1 = MinMaxBounds.deserialize(object.get("duration"));
-			Boolean obool = object.has("ambient") ? JsonUtils.getBoolean(object, "ambient") : null;
-			Boolean obool1 = object.has("visible") ? JsonUtils.getBoolean(object, "visible") : null;
-			return new MobEffectsPredicate.InstancePredicate(minmaxbounds, minmaxbounds1, obool, obool1);
 		}
 
 	}

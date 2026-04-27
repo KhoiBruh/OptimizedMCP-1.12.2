@@ -36,14 +36,14 @@ public class Multipart {
 		return set;
 	}
 
-	public void setStateContainer(BlockStateContainer stateContainerIn) {
-
-		stateContainer = stateContainerIn;
-	}
-
 	public BlockStateContainer getStateContainer() {
 
 		return stateContainer;
+	}
+
+	public void setStateContainer(BlockStateContainer stateContainerIn) {
+
+		stateContainer = stateContainerIn;
 	}
 
 	public boolean equals(Object p_equals_1_) {

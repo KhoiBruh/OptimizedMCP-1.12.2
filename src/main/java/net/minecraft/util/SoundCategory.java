@@ -18,16 +18,22 @@ public enum SoundCategory {
 	VOICE("voice");
 
 	private static final Map<String, SoundCategory> SOUND_CATEGORIES = Maps.newHashMap();
+
+	static {
+		for (SoundCategory soundcategory : values()) {
+			if (SOUND_CATEGORIES.containsKey(soundcategory.getName())) {
+				throw new Error("Clash in Sound Category name pools! Cannot insert " + soundcategory);
+			}
+
+			SOUND_CATEGORIES.put(soundcategory.getName(), soundcategory);
+		}
+	}
+
 	private final String name;
 
 	SoundCategory(String nameIn) {
 
 		name = nameIn;
-	}
-
-	public String getName() {
-
-		return name;
 	}
 
 	public static SoundCategory getByName(String categoryName) {
@@ -40,13 +46,8 @@ public enum SoundCategory {
 		return SOUND_CATEGORIES.keySet();
 	}
 
-	static {
-		for (SoundCategory soundcategory : values()) {
-			if (SOUND_CATEGORIES.containsKey(soundcategory.getName())) {
-				throw new Error("Clash in Sound Category name pools! Cannot insert " + soundcategory);
-			}
+	public String getName() {
 
-			SOUND_CATEGORIES.put(soundcategory.getName(), soundcategory);
-		}
+		return name;
 	}
 }

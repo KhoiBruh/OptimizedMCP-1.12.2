@@ -30,6 +30,11 @@ public abstract class BlockRedstoneDiode extends BlockHorizontal {
 		isRepeaterPowered = powered;
 	}
 
+	public static boolean isDiode(IBlockState state) {
+
+		return Blocks.UNPOWERED_REPEATER.isSameDiode(state) || Blocks.UNPOWERED_COMPARATOR.isSameDiode(state);
+	}
+
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
 
 		return REDSTONE_DIODE_AABB;
@@ -260,11 +265,6 @@ public abstract class BlockRedstoneDiode extends BlockHorizontal {
 	protected int getActiveSignal(IBlockAccess worldIn, BlockPos pos, IBlockState state) {
 
 		return 15;
-	}
-
-	public static boolean isDiode(IBlockState state) {
-
-		return Blocks.UNPOWERED_REPEATER.isSameDiode(state) || Blocks.UNPOWERED_COMPARATOR.isSameDiode(state);
 	}
 
 	public boolean isSameDiode(IBlockState state) {

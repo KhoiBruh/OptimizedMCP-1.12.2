@@ -49,6 +49,30 @@ public class ServerData {
 	}
 
 	/**
+	 * Takes an NBTTagCompound with 'name' and 'ip' keys, returns a ServerData instance.
+	 */
+	public static ServerData getServerDataFromNBTCompound(NBTTagCompound nbtCompound) {
+
+		ServerData serverdata = new ServerData(nbtCompound.getString("name"), nbtCompound.getString("ip"), false);
+
+		if (nbtCompound.hasKey("icon", 8)) {
+			serverdata.setBase64EncodedIconData(nbtCompound.getString("icon"));
+		}
+
+		if (nbtCompound.hasKey("acceptTextures", 1)) {
+			if (nbtCompound.getBoolean("acceptTextures")) {
+				serverdata.setResourceMode(ServerData.ServerResourceMode.ENABLED);
+			} else {
+				serverdata.setResourceMode(ServerData.ServerResourceMode.DISABLED);
+			}
+		} else {
+			serverdata.setResourceMode(ServerData.ServerResourceMode.PROMPT);
+		}
+
+		return serverdata;
+	}
+
+	/**
 	 * Returns an NBTTagCompound with the server's name, IP and maybe acceptTextures.
 	 */
 	public NBTTagCompound getNBTCompound() {
@@ -78,30 +102,6 @@ public class ServerData {
 	public void setResourceMode(ServerData.ServerResourceMode mode) {
 
 		resourceMode = mode;
-	}
-
-	/**
-	 * Takes an NBTTagCompound with 'name' and 'ip' keys, returns a ServerData instance.
-	 */
-	public static ServerData getServerDataFromNBTCompound(NBTTagCompound nbtCompound) {
-
-		ServerData serverdata = new ServerData(nbtCompound.getString("name"), nbtCompound.getString("ip"), false);
-
-		if (nbtCompound.hasKey("icon", 8)) {
-			serverdata.setBase64EncodedIconData(nbtCompound.getString("icon"));
-		}
-
-		if (nbtCompound.hasKey("acceptTextures", 1)) {
-			if (nbtCompound.getBoolean("acceptTextures")) {
-				serverdata.setResourceMode(ServerData.ServerResourceMode.ENABLED);
-			} else {
-				serverdata.setResourceMode(ServerData.ServerResourceMode.DISABLED);
-			}
-		} else {
-			serverdata.setResourceMode(ServerData.ServerResourceMode.PROMPT);
-		}
-
-		return serverdata;
 	}
 
 	/**

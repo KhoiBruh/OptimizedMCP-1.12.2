@@ -71,8 +71,21 @@ public abstract class Team {
 		HIDE_FOR_OWN_TEAM("pushOwnTeam", 3);
 
 		private static final Map<String, Team.CollisionRule> nameMap = Maps.newHashMap();
+
+		static {
+			for (Team.CollisionRule team$collisionrule : values()) {
+				nameMap.put(team$collisionrule.name, team$collisionrule);
+			}
+		}
+
 		public final String name;
 		public final int id;
+
+		CollisionRule(String nameIn, int idIn) {
+
+			name = nameIn;
+			id = idIn;
+		}
 
 		public static String[] getNames() {
 
@@ -84,18 +97,6 @@ public abstract class Team {
 
 			return nameMap.get(nameIn);
 		}
-
-		CollisionRule(String nameIn, int idIn) {
-
-			name = nameIn;
-			id = idIn;
-		}
-
-		static {
-			for (Team.CollisionRule team$collisionrule : values()) {
-				nameMap.put(team$collisionrule.name, team$collisionrule);
-			}
-		}
 	}
 
 	public enum EnumVisible {
@@ -105,8 +106,21 @@ public abstract class Team {
 		HIDE_FOR_OWN_TEAM("hideForOwnTeam", 3);
 
 		private static final Map<String, Team.EnumVisible> nameMap = Maps.newHashMap();
+
+		static {
+			for (Team.EnumVisible team$enumvisible : values()) {
+				nameMap.put(team$enumvisible.internalName, team$enumvisible);
+			}
+		}
+
 		public final String internalName;
 		public final int id;
+
+		EnumVisible(String nameIn, int idIn) {
+
+			internalName = nameIn;
+			id = idIn;
+		}
 
 		public static String[] getNames() {
 
@@ -117,18 +131,6 @@ public abstract class Team {
 		public static Team.EnumVisible getByName(String nameIn) {
 
 			return nameMap.get(nameIn);
-		}
-
-		EnumVisible(String nameIn, int idIn) {
-
-			internalName = nameIn;
-			id = idIn;
-		}
-
-		static {
-			for (Team.EnumVisible team$enumvisible : values()) {
-				nameMap.put(team$enumvisible.internalName, team$enumvisible);
-			}
 		}
 	}
 

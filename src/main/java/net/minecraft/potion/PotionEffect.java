@@ -71,6 +71,30 @@ public class PotionEffect implements Comparable<PotionEffect> {
 	}
 
 	/**
+	 * Read a custom potion effect from a potion item's NBT data.
+	 */
+	public static PotionEffect readCustomPotionEffectFromNBT(NBTTagCompound nbt) {
+
+		int i = nbt.getByte("Id");
+		Potion potion = Potion.getPotionById(i);
+
+		if (potion == null) {
+			return null;
+		} else {
+			int j = nbt.getByte("Amplifier");
+			int k = nbt.getInteger("Duration");
+			boolean flag = nbt.getBoolean("Ambient");
+			boolean flag1 = true;
+
+			if (nbt.hasKey("ShowParticles", 1)) {
+				flag1 = nbt.getBoolean("ShowParticles");
+			}
+
+			return new PotionEffect(potion, k, j < 0 ? 0 : j, flag, flag1);
+		}
+	}
+
+	/**
 	 * merges the input PotionEffect into this one if this.amplifier <= tomerge.amplifier. The duration in the supplied
 	 * potion effect is assumed to be greater.
 	 */
@@ -206,30 +230,6 @@ public class PotionEffect implements Comparable<PotionEffect> {
 		nbt.setBoolean("Ambient", getIsAmbient());
 		nbt.setBoolean("ShowParticles", doesShowParticles());
 		return nbt;
-	}
-
-	/**
-	 * Read a custom potion effect from a potion item's NBT data.
-	 */
-	public static PotionEffect readCustomPotionEffectFromNBT(NBTTagCompound nbt) {
-
-		int i = nbt.getByte("Id");
-		Potion potion = Potion.getPotionById(i);
-
-		if (potion == null) {
-			return null;
-		} else {
-			int j = nbt.getByte("Amplifier");
-			int k = nbt.getInteger("Duration");
-			boolean flag = nbt.getBoolean("Ambient");
-			boolean flag1 = true;
-
-			if (nbt.hasKey("ShowParticles", 1)) {
-				flag1 = nbt.getBoolean("ShowParticles");
-			}
-
-			return new PotionEffect(potion, k, j < 0 ? 0 : j, flag, flag1);
-		}
 	}
 
 	/**

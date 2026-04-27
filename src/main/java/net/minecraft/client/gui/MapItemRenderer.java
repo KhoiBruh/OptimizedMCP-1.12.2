@@ -137,8 +137,8 @@ public class MapItemRenderer {
 			for (MapDecoration mapdecoration : mapData.mapDecorations.values()) {
 				if (!noOverlayRendering || mapdecoration.renderOnFrame()) {
 					GlStateManager.pushMatrix();
-					GlStateManager.translate(0.0F + (float) mapdecoration.getX() / 2.0F + 64.0F, 0.0F + (float) mapdecoration.getY() / 2.0F + 64.0F, -0.02F);
-					GlStateManager.rotate((float) (mapdecoration.getRotation() * 360) / 16.0F, 0.0F, 0.0F, 1.0F);
+					GlStateManager.translate(0.0F + (float) mapdecoration.x() / 2.0F + 64.0F, 0.0F + (float) mapdecoration.y() / 2.0F + 64.0F, -0.02F);
+					GlStateManager.rotate((float) (mapdecoration.rotation() * 360) / 16.0F, 0.0F, 0.0F, 1.0F);
 					GlStateManager.scale(4.0F, 4.0F, 3.0F);
 					GlStateManager.translate(-0.125F, 0.125F, 0.0F);
 					byte b0 = mapdecoration.getImage();

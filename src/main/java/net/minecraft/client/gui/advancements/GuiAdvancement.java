@@ -8,7 +8,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 
@@ -29,11 +28,11 @@ public class GuiAdvancement extends Gui {
 	private final int width;
 	private final List<String> description;
 	private final Minecraft minecraft;
-	private GuiAdvancement parent;
 	private final List<GuiAdvancement> children = Lists.newArrayList();
-	private AdvancementProgress advancementProgress;
 	private final int x;
 	private final int y;
+	private GuiAdvancement parent;
+	private AdvancementProgress advancementProgress;
 
 	public GuiAdvancement(GuiAdvancementTab p_i47385_1_, Minecraft p_i47385_2_, Advancement p_i47385_3_, DisplayInfo p_i47385_4_) {
 

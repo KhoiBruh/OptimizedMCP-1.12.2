@@ -18,16 +18,6 @@ public enum FrameType {
 		format = formatIn;
 	}
 
-	public String getName() {
-
-		return name;
-	}
-
-	public int getIcon() {
-
-		return icon;
-	}
-
 	public static FrameType byName(String nameIn) {
 
 		for (FrameType frametype : values()) {
@@ -37,6 +27,16 @@ public enum FrameType {
 		}
 
 		throw new IllegalArgumentException("Unknown frame type '" + nameIn + "'");
+	}
+
+	public String getName() {
+
+		return name;
+	}
+
+	public int getIcon() {
+
+		return icon;
 	}
 
 	public TextFormatting getFormat() {

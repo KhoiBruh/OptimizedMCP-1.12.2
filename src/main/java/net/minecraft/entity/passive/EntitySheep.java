@@ -40,6 +40,15 @@ import java.util.Random;
 public class EntitySheep extends EntityAnimal {
 
 	private static final DataParameter<Byte> DYE_COLOR = EntityDataManager.createKey(EntitySheep.class, DataSerializers.BYTE);
+	private static final Map<EnumDyeColor, float[]> DYE_TO_RGB = Maps.newEnumMap(EnumDyeColor.class);
+
+	static {
+		for (EnumDyeColor enumdyecolor : EnumDyeColor.values()) {
+			DYE_TO_RGB.put(enumdyecolor, createSheepColor(enumdyecolor));
+		}
+
+		DYE_TO_RGB.put(EnumDyeColor.WHITE, new float[]{0.9019608F, 0.9019608F, 0.9019608F});
+	}
 
 	/**
 	 * Internal crafting inventory used to check the result of mixing dyes corresponding to the fleece color when
@@ -51,14 +60,20 @@ public class EntitySheep extends EntityAnimal {
 			return false;
 		}
 	}, 2, 1);
-	private static final Map<EnumDyeColor, float[]> DYE_TO_RGB = Maps.newEnumMap(EnumDyeColor.class);
-
 	/**
 	 * Used to control movement as well as wool regrowth. Set to 40 on handleHealthUpdate and counts down with each
 	 * tick.
 	 */
 	private int sheepTimer;
 	private EntityAIEatGrass entityAIEatGrass;
+
+	public EntitySheep(World worldIn) {
+
+		super(worldIn);
+		setSize(0.9F, 1.3F);
+		inventoryCrafting.setInventorySlotContents(0, new ItemStack(Items.DYE));
+		inventoryCrafting.setInventorySlotContents(1, new ItemStack(Items.DYE));
+	}
 
 	private static float[] createSheepColor(EnumDyeColor p_192020_0_) {
 
@@ -72,12 +87,29 @@ public class EntitySheep extends EntityAnimal {
 		return DYE_TO_RGB.get(dyeColor);
 	}
 
-	public EntitySheep(World worldIn) {
+	public static void registerFixesSheep(DataFixer fixer) {
 
-		super(worldIn);
-		setSize(0.9F, 1.3F);
-		inventoryCrafting.setInventorySlotContents(0, new ItemStack(Items.DYE));
-		inventoryCrafting.setInventorySlotContents(1, new ItemStack(Items.DYE));
+		EntityLiving.registerFixesMob(fixer, EntitySheep.class);
+	}
+
+	/**
+	 * Chooses a "vanilla" sheep color based on the provided random.
+	 */
+	public static EnumDyeColor getRandomSheepColor(Random random) {
+
+		int i = random.nextInt(100);
+
+		if (i < 5) {
+			return EnumDyeColor.BLACK;
+		} else if (i < 10) {
+			return EnumDyeColor.GRAY;
+		} else if (i < 15) {
+			return EnumDyeColor.SILVER;
+		} else if (i < 18) {
+			return EnumDyeColor.BROWN;
+		} else {
+			return random.nextInt(500) == 0 ? EnumDyeColor.PINK : EnumDyeColor.WHITE;
+		}
 	}
 
 	protected void initEntityAI() {
@@ -242,11 +274,6 @@ public class EntitySheep extends EntityAnimal {
 		return super.processInteract(player, hand);
 	}
 
-	public static void registerFixesSheep(DataFixer fixer) {
-
-		EntityLiving.registerFixesMob(fixer, EntitySheep.class);
-	}
-
 	/**
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
@@ -326,26 +353,6 @@ public class EntitySheep extends EntityAnimal {
 		}
 	}
 
-	/**
-	 * Chooses a "vanilla" sheep color based on the provided random.
-	 */
-	public static EnumDyeColor getRandomSheepColor(Random random) {
-
-		int i = random.nextInt(100);
-
-		if (i < 5) {
-			return EnumDyeColor.BLACK;
-		} else if (i < 10) {
-			return EnumDyeColor.GRAY;
-		} else if (i < 15) {
-			return EnumDyeColor.SILVER;
-		} else if (i < 18) {
-			return EnumDyeColor.BROWN;
-		} else {
-			return random.nextInt(500) == 0 ? EnumDyeColor.PINK : EnumDyeColor.WHITE;
-		}
-	}
-
 	public EntitySheep createChild(EntityAgeable ageable) {
 
 		EntitySheep entitysheep = (EntitySheep) ageable;
@@ -414,13 +421,5 @@ public class EntitySheep extends EntityAnimal {
 	public float getEyeHeight() {
 
 		return 0.95F * height;
-	}
-
-	static {
-		for (EnumDyeColor enumdyecolor : EnumDyeColor.values()) {
-			DYE_TO_RGB.put(enumdyecolor, createSheepColor(enumdyecolor));
-		}
-
-		DYE_TO_RGB.put(EnumDyeColor.WHITE, new float[]{0.9019608F, 0.9019608F, 0.9019608F});
 	}
 }

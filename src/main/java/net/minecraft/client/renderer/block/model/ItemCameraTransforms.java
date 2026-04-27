@@ -57,11 +57,6 @@ public class ItemCameraTransforms {
 		fixed = fixedIn;
 	}
 
-	public void applyTransform(ItemCameraTransforms.TransformType type) {
-
-		applyTransformSide(getTransform(type), false);
-	}
-
 	public static void applyTransformSide(ItemTransformVec3f vec, boolean leftHand) {
 
 		if (vec != ItemTransformVec3f.DEFAULT) {
@@ -93,6 +88,11 @@ public class ItemCameraTransforms {
 		float f7 = MathHelper.sin(0.5F * f2);
 		float f8 = MathHelper.cos(0.5F * f2);
 		return new Quaternion(f3 * f6 * f8 + f4 * f5 * f7, f4 * f5 * f8 - f3 * f6 * f7, f3 * f5 * f8 + f4 * f6 * f7, f4 * f6 * f8 - f3 * f5 * f7);
+	}
+
+	public void applyTransform(ItemCameraTransforms.TransformType type) {
+
+		applyTransformSide(getTransform(type), false);
 	}
 
 	public ItemTransformVec3f getTransform(ItemCameraTransforms.TransformType type) {
@@ -132,6 +132,18 @@ public class ItemCameraTransforms {
 		return getTransform(type) != ItemTransformVec3f.DEFAULT;
 	}
 
+	public enum TransformType {
+		NONE,
+		THIRD_PERSON_LEFT_HAND,
+		THIRD_PERSON_RIGHT_HAND,
+		FIRST_PERSON_LEFT_HAND,
+		FIRST_PERSON_RIGHT_HAND,
+		HEAD,
+		GUI,
+		GROUND,
+		FIXED
+	}
+
 	static class Deserializer implements JsonDeserializer<ItemCameraTransforms> {
 
 		public ItemCameraTransforms deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException {
@@ -163,18 +175,6 @@ public class ItemCameraTransforms {
 			return p_181683_2_.has(p_181683_3_) ? (ItemTransformVec3f) p_181683_1_.deserialize(p_181683_2_.get(p_181683_3_), ItemTransformVec3f.class) : ItemTransformVec3f.DEFAULT;
 		}
 
-	}
-
-	public enum TransformType {
-		NONE,
-		THIRD_PERSON_LEFT_HAND,
-		THIRD_PERSON_RIGHT_HAND,
-		FIRST_PERSON_LEFT_HAND,
-		FIRST_PERSON_RIGHT_HAND,
-		HEAD,
-		GUI,
-		GROUND,
-		FIXED
 	}
 
 }

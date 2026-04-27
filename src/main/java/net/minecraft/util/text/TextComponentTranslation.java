@@ -14,14 +14,14 @@ import java.util.regex.Pattern;
 
 public class TextComponentTranslation extends TextComponentBase {
 
+	public static final Pattern STRING_VARIABLE_PATTERN = Pattern.compile("%(?:(\\d+)\\$)?([A-Za-z%]|$)");
 	private final String key;
 	private final Object[] formatArgs;
 	private final Object syncLock = new Object();
-	private long lastTranslationUpdateTimeInMilliseconds = -1L;
 
 	@VisibleForTesting
 	List<ITextComponent> children = Lists.newArrayList();
-	public static final Pattern STRING_VARIABLE_PATTERN = Pattern.compile("%(?:(\\d+)\\$)?([A-Za-z%]|$)");
+	private long lastTranslationUpdateTimeInMilliseconds = -1L;
 
 	public TextComponentTranslation(String translationKey, Object... args) {
 

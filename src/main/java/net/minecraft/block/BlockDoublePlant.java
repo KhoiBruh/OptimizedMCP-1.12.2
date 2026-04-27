@@ -1,7 +1,6 @@
 package net.minecraft.block;
 
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -316,6 +315,13 @@ public class BlockDoublePlant extends BlockBush implements IGrowable {
 		PAEONIA(5, "paeonia");
 
 		private static final BlockDoublePlant.EnumPlantType[] META_LOOKUP = new BlockDoublePlant.EnumPlantType[values().length];
+
+		static {
+			for (BlockDoublePlant.EnumPlantType blockdoubleplant$enumplanttype : values()) {
+				META_LOOKUP[blockdoubleplant$enumplanttype.getMeta()] = blockdoubleplant$enumplanttype;
+			}
+		}
+
 		private final int meta;
 		private final String name;
 		private final String unlocalizedName;
@@ -332,6 +338,15 @@ public class BlockDoublePlant extends BlockBush implements IGrowable {
 			this.unlocalizedName = unlocalizedName;
 		}
 
+		public static BlockDoublePlant.EnumPlantType byMetadata(int meta) {
+
+			if (meta < 0 || meta >= META_LOOKUP.length) {
+				meta = 0;
+			}
+
+			return META_LOOKUP[meta];
+		}
+
 		public int getMeta() {
 
 			return meta;
@@ -342,15 +357,6 @@ public class BlockDoublePlant extends BlockBush implements IGrowable {
 			return name;
 		}
 
-		public static BlockDoublePlant.EnumPlantType byMetadata(int meta) {
-
-			if (meta < 0 || meta >= META_LOOKUP.length) {
-				meta = 0;
-			}
-
-			return META_LOOKUP[meta];
-		}
-
 		public String getName() {
 
 			return name;
@@ -359,12 +365,6 @@ public class BlockDoublePlant extends BlockBush implements IGrowable {
 		public String getUnlocalizedName() {
 
 			return unlocalizedName;
-		}
-
-		static {
-			for (BlockDoublePlant.EnumPlantType blockdoubleplant$enumplanttype : values()) {
-				META_LOOKUP[blockdoubleplant$enumplanttype.getMeta()] = blockdoubleplant$enumplanttype;
-			}
 		}
 	}
 

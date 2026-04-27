@@ -11,13 +11,12 @@ public class VertexFormat {
 	private static final Logger LOGGER = LogManager.getLogger();
 	private final List<VertexFormatElement> elements;
 	private final List<Integer> offsets;
-
+	private final List<Integer> uvOffsetsById;
 	/**
 	 * The next available offset in this vertex format
 	 */
 	private int nextOffset;
 	private int colorElementOffset;
-	private final List<Integer> uvOffsetsById;
 	private int normalElementOffset;
 
 	public VertexFormat(VertexFormat vertexFormatIn) {

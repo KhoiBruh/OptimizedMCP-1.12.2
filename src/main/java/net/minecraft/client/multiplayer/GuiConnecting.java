@@ -24,9 +24,9 @@ public class GuiConnecting extends GuiScreen {
 
 	private static final AtomicInteger CONNECTION_ID = new AtomicInteger(0);
 	private static final Logger LOGGER = LogManager.getLogger();
+	private final GuiScreen previousGuiScreen;
 	private NetworkManager networkManager;
 	private boolean cancel;
-	private final GuiScreen previousGuiScreen;
 
 	public GuiConnecting(GuiScreen parent, Minecraft mcIn, ServerData serverDataIn) {
 

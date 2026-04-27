@@ -14,15 +14,14 @@ public class Stitcher {
 	private final int mipmapLevelStitcher;
 	private final Set<Stitcher.Holder> setStitchHolders = Sets.newHashSetWithExpectedSize(256);
 	private final List<Stitcher.Slot> stitchSlots = Lists.newArrayListWithCapacity(256);
-	private int currentWidth;
-	private int currentHeight;
 	private final int maxWidth;
 	private final int maxHeight;
-
 	/**
 	 * Max size (width or height) of a single tile
 	 */
 	private final int maxTileDimension;
+	private int currentWidth;
+	private int currentHeight;
 
 	public Stitcher(int maxWidthIn, int maxHeightIn, int maxTileDimensionIn, int mipmapLevelStitcherIn) {
 
@@ -30,6 +29,11 @@ public class Stitcher {
 		maxWidth = maxWidthIn;
 		maxHeight = maxHeightIn;
 		maxTileDimension = maxTileDimensionIn;
+	}
+
+	private static int getMipmapDimension(int p_147969_0_, int p_147969_1_) {
+
+		return (p_147969_0_ >> p_147969_1_) + ((p_147969_0_ & (1 << p_147969_1_) - 1) == 0 ? 0 : 1) << p_147969_1_;
 	}
 
 	public int getCurrentWidth() {
@@ -87,11 +91,6 @@ public class Stitcher {
 		}
 
 		return list1;
-	}
-
-	private static int getMipmapDimension(int p_147969_0_, int p_147969_1_) {
-
-		return (p_147969_0_ >> p_147969_1_) + ((p_147969_0_ & (1 << p_147969_1_) - 1) == 0 ? 0 : 1) << p_147969_1_;
 	}
 
 	/**

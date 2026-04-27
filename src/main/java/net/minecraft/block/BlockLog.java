@@ -89,11 +89,6 @@ public abstract class BlockLog extends BlockRotatedPillar {
 			this.name = name;
 		}
 
-		public String toString() {
-
-			return name;
-		}
-
 		public static BlockLog.EnumAxis fromFacingAxis(EnumFacing.Axis axis) {
 
 			switch (axis) {
@@ -109,6 +104,11 @@ public abstract class BlockLog extends BlockRotatedPillar {
 				default:
 					return NONE;
 			}
+		}
+
+		public String toString() {
+
+			return name;
 		}
 
 		public String getName() {

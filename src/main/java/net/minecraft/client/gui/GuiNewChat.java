@@ -29,6 +29,20 @@ public class GuiNewChat extends Gui {
 		mc = mcIn;
 	}
 
+	public static int calculateChatboxWidth(float scale) {
+
+		int i = 320;
+		int j = 40;
+		return MathHelper.floor(scale * 280.0F + 40.0F);
+	}
+
+	public static int calculateChatboxHeight(float scale) {
+
+		int i = 180;
+		int j = 20;
+		return MathHelper.floor(scale * 160.0F + 20.0F);
+	}
+
 	public void drawChat(int updateCounter) {
 
 		if (mc.gameSettings.chatVisibility != EntityPlayer.EnumChatVisibility.HIDDEN) {
@@ -314,20 +328,6 @@ public class GuiNewChat extends Gui {
 	public float getChatScale() {
 
 		return mc.gameSettings.chatScale;
-	}
-
-	public static int calculateChatboxWidth(float scale) {
-
-		int i = 320;
-		int j = 40;
-		return MathHelper.floor(scale * 280.0F + 40.0F);
-	}
-
-	public static int calculateChatboxHeight(float scale) {
-
-		int i = 180;
-		int j = 20;
-		return MathHelper.floor(scale * 160.0F + 20.0F);
 	}
 
 	public int getLineCount() {

@@ -135,14 +135,29 @@ public class SPacketSpawnObject implements Packet<INetHandlerPlayClient> {
 		return speedX;
 	}
 
+	public void setSpeedX(int newSpeedX) {
+
+		speedX = newSpeedX;
+	}
+
 	public int getSpeedY() {
 
 		return speedY;
 	}
 
+	public void setSpeedY(int newSpeedY) {
+
+		speedY = newSpeedY;
+	}
+
 	public int getSpeedZ() {
 
 		return speedZ;
+	}
+
+	public void setSpeedZ(int newSpeedZ) {
+
+		speedZ = newSpeedZ;
 	}
 
 	public int getPitch() {
@@ -163,21 +178,6 @@ public class SPacketSpawnObject implements Packet<INetHandlerPlayClient> {
 	public int getData() {
 
 		return data;
-	}
-
-	public void setSpeedX(int newSpeedX) {
-
-		speedX = newSpeedX;
-	}
-
-	public void setSpeedY(int newSpeedY) {
-
-		speedY = newSpeedY;
-	}
-
-	public void setSpeedZ(int newSpeedZ) {
-
-		speedZ = newSpeedZ;
 	}
 
 	public void setData(int dataIn) {

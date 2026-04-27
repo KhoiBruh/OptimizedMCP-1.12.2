@@ -97,6 +97,15 @@ public abstract class BlockPurpurSlab extends BlockSlab {
 		return BlockPurpurSlab.Variant.DEFAULT;
 	}
 
+	public enum Variant implements IStringSerializable {
+		DEFAULT;
+
+		public String getName() {
+
+			return "default";
+		}
+	}
+
 	public static class Double extends BlockPurpurSlab {
 
 		public boolean isDouble() {
@@ -113,15 +122,6 @@ public abstract class BlockPurpurSlab extends BlockSlab {
 			return false;
 		}
 
-	}
-
-	public enum Variant implements IStringSerializable {
-		DEFAULT;
-
-		public String getName() {
-
-			return "default";
-		}
 	}
 
 }

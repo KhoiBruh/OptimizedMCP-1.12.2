@@ -227,12 +227,50 @@ public class ItemModelGenerator {
 		}
 	}
 
+	enum SpanFacing {
+		UP(EnumFacing.UP, 0, -1),
+		DOWN(EnumFacing.DOWN, 0, 1),
+		LEFT(EnumFacing.EAST, -1, 0),
+		RIGHT(EnumFacing.WEST, 1, 0);
+
+		private final EnumFacing facing;
+		private final int xOffset;
+		private final int yOffset;
+
+		SpanFacing(EnumFacing facing, int p_i46215_4_, int p_i46215_5_) {
+
+			this.facing = facing;
+			xOffset = p_i46215_4_;
+			yOffset = p_i46215_5_;
+		}
+
+		public EnumFacing getFacing() {
+
+			return facing;
+		}
+
+		public int getXOffset() {
+
+			return xOffset;
+		}
+
+		public int getYOffset() {
+
+			return yOffset;
+		}
+
+		private boolean isHorizontal() {
+
+			return this == DOWN || this == UP;
+		}
+	}
+
 	static class Span {
 
 		private final ItemModelGenerator.SpanFacing spanFacing;
+		private final int anchor;
 		private int min;
 		private int max;
-		private final int anchor;
 
 		public Span(ItemModelGenerator.SpanFacing spanFacingIn, int p_i46216_2_, int p_i46216_3_) {
 
@@ -271,44 +309,6 @@ public class ItemModelGenerator {
 			return anchor;
 		}
 
-	}
-
-	enum SpanFacing {
-		UP(EnumFacing.UP, 0, -1),
-		DOWN(EnumFacing.DOWN, 0, 1),
-		LEFT(EnumFacing.EAST, -1, 0),
-		RIGHT(EnumFacing.WEST, 1, 0);
-
-		private final EnumFacing facing;
-		private final int xOffset;
-		private final int yOffset;
-
-		SpanFacing(EnumFacing facing, int p_i46215_4_, int p_i46215_5_) {
-
-			this.facing = facing;
-			xOffset = p_i46215_4_;
-			yOffset = p_i46215_5_;
-		}
-
-		public EnumFacing getFacing() {
-
-			return facing;
-		}
-
-		public int getXOffset() {
-
-			return xOffset;
-		}
-
-		public int getYOffset() {
-
-			return yOffset;
-		}
-
-		private boolean isHorizontal() {
-
-			return this == DOWN || this == UP;
-		}
 	}
 
 }

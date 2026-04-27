@@ -1,7 +1,6 @@
 package net.minecraft.block;
 
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
@@ -41,6 +40,39 @@ public class BlockPane extends Block {
 		setCreativeTab(CreativeTabs.DECORATIONS);
 	}
 
+	private static int getBoundingBoxIndex(EnumFacing p_185729_0_) {
+
+		return 1 << p_185729_0_.getHorizontalIndex();
+	}
+
+	private static int getBoundingBoxIndex(IBlockState state) {
+
+		int i = 0;
+
+		if (state.getValue(NORTH).booleanValue()) {
+			i |= getBoundingBoxIndex(EnumFacing.NORTH);
+		}
+
+		if (state.getValue(EAST).booleanValue()) {
+			i |= getBoundingBoxIndex(EnumFacing.EAST);
+		}
+
+		if (state.getValue(SOUTH).booleanValue()) {
+			i |= getBoundingBoxIndex(EnumFacing.SOUTH);
+		}
+
+		if (state.getValue(WEST).booleanValue()) {
+			i |= getBoundingBoxIndex(EnumFacing.WEST);
+		}
+
+		return i;
+	}
+
+	protected static boolean isExcepBlockForAttachWithPiston(Block p_193394_0_) {
+
+		return p_193394_0_ instanceof BlockShulkerBox || p_193394_0_ instanceof BlockLeaves || p_193394_0_ == Blocks.BEACON || p_193394_0_ == Blocks.CAULDRON || p_193394_0_ == Blocks.GLOWSTONE || p_193394_0_ == Blocks.ICE || p_193394_0_ == Blocks.SEA_LANTERN || p_193394_0_ == Blocks.PISTON || p_193394_0_ == Blocks.STICKY_PISTON || p_193394_0_ == Blocks.PISTON_HEAD || p_193394_0_ == Blocks.MELON_BLOCK || p_193394_0_ == Blocks.PUMPKIN || p_193394_0_ == Blocks.LIT_PUMPKIN || p_193394_0_ == Blocks.BARRIER;
+	}
+
 	public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, @Nullable Entity entityIn, boolean isActualState) {
 
 		if (!isActualState) {
@@ -66,38 +98,10 @@ public class BlockPane extends Block {
 		}
 	}
 
-	private static int getBoundingBoxIndex(EnumFacing p_185729_0_) {
-
-		return 1 << p_185729_0_.getHorizontalIndex();
-	}
-
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
 
 		state = getActualState(state, source, pos);
 		return AABB_BY_INDEX[getBoundingBoxIndex(state)];
-	}
-
-	private static int getBoundingBoxIndex(IBlockState state) {
-
-		int i = 0;
-
-		if (state.getValue(NORTH).booleanValue()) {
-			i |= getBoundingBoxIndex(EnumFacing.NORTH);
-		}
-
-		if (state.getValue(EAST).booleanValue()) {
-			i |= getBoundingBoxIndex(EnumFacing.EAST);
-		}
-
-		if (state.getValue(SOUTH).booleanValue()) {
-			i |= getBoundingBoxIndex(EnumFacing.SOUTH);
-		}
-
-		if (state.getValue(WEST).booleanValue()) {
-			i |= getBoundingBoxIndex(EnumFacing.WEST);
-		}
-
-		return i;
 	}
 
 	/**
@@ -140,11 +144,6 @@ public class BlockPane extends Block {
 		Block block = state.getBlock();
 		BlockFaceShape blockfaceshape = state.getBlockFaceShape(p_193393_1_, pos, facing);
 		return !isExcepBlockForAttachWithPiston(block) && blockfaceshape == BlockFaceShape.SOLID || blockfaceshape == BlockFaceShape.MIDDLE_POLE_THIN;
-	}
-
-	protected static boolean isExcepBlockForAttachWithPiston(Block p_193394_0_) {
-
-		return p_193394_0_ instanceof BlockShulkerBox || p_193394_0_ instanceof BlockLeaves || p_193394_0_ == Blocks.BEACON || p_193394_0_ == Blocks.CAULDRON || p_193394_0_ == Blocks.GLOWSTONE || p_193394_0_ == Blocks.ICE || p_193394_0_ == Blocks.SEA_LANTERN || p_193394_0_ == Blocks.PISTON || p_193394_0_ == Blocks.STICKY_PISTON || p_193394_0_ == Blocks.PISTON_HEAD || p_193394_0_ == Blocks.MELON_BLOCK || p_193394_0_ == Blocks.PUMPKIN || p_193394_0_ == Blocks.LIT_PUMPKIN || p_193394_0_ == Blocks.BARRIER;
 	}
 
 	protected boolean canSilkHarvest() {

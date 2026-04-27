@@ -21,24 +21,20 @@ import java.util.Map;
 
 public class TileEntityRendererDispatcher {
 
-	private final Map<Class<? extends TileEntity>, TileEntitySpecialRenderer<? extends TileEntity>> renderers = Maps.newHashMap();
 	public static TileEntityRendererDispatcher instance = new TileEntityRendererDispatcher();
-	private FontRenderer fontRenderer;
-
 	/**
 	 * The player's current X position (same as playerX)
 	 */
 	public static double staticPlayerX;
-
 	/**
 	 * The player's current Y position (same as playerY)
 	 */
 	public static double staticPlayerY;
-
 	/**
 	 * The player's current Z position (same as playerZ)
 	 */
 	public static double staticPlayerZ;
+	private final Map<Class<? extends TileEntity>, TileEntitySpecialRenderer<? extends TileEntity>> renderers = Maps.newHashMap();
 	public TextureManager renderEngine;
 	public World world;
 	public Entity entity;
@@ -48,6 +44,7 @@ public class TileEntityRendererDispatcher {
 	public double entityX;
 	public double entityY;
 	public double entityZ;
+	private FontRenderer fontRenderer;
 
 	private TileEntityRendererDispatcher() {
 
@@ -135,7 +132,7 @@ public class TileEntityRendererDispatcher {
 
 	public void render(TileEntity tileEntityIn, double x, double y, double z, float partialTicks, int destroyStage, float p_192854_10_) {
 
-		TileEntitySpecialRenderer<TileEntity> tileentityspecialrenderer = this.getRenderer(tileEntityIn);
+		TileEntitySpecialRenderer<TileEntity> tileentityspecialrenderer = getRenderer(tileEntityIn);
 
 		if (tileentityspecialrenderer != null) {
 			try {

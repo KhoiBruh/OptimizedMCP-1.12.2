@@ -43,13 +43,12 @@ import java.util.Random;
 public class Bootstrap {
 
 	public static final PrintStream SYSOUT = System.out;
-
+	private static final Logger LOGGER = LogManager.getLogger();
+	public static boolean hasErrored;
 	/**
 	 * Whether the blocks, items, etc have already been registered
 	 */
 	private static boolean alreadyRegistered;
-	public static boolean hasErrored;
-	private static final Logger LOGGER = LogManager.getLogger();
 
 	/**
 	 * Is Bootstrap registration already done?

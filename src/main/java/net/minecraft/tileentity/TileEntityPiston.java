@@ -23,20 +23,19 @@ import java.util.List;
 
 public class TileEntityPiston extends TileEntity implements ITickable {
 
-	private IBlockState pistonState;
-	private EnumFacing pistonFacing;
-
-	/**
-	 * if this piston is extending or not
-	 */
-	private boolean extending;
-	private boolean shouldHeadBeRendered;
 	private static final ThreadLocal<EnumFacing> MOVING_ENTITY = new ThreadLocal<EnumFacing>() {
 		protected EnumFacing initialValue() {
 
 			return null;
 		}
 	};
+	private IBlockState pistonState;
+	private EnumFacing pistonFacing;
+	/**
+	 * if this piston is extending or not
+	 */
+	private boolean extending;
+	private boolean shouldHeadBeRendered;
 	private float progress;
 
 	/**
@@ -54,6 +53,25 @@ public class TileEntityPiston extends TileEntity implements ITickable {
 		pistonFacing = pistonFacingIn;
 		extending = extendingIn;
 		shouldHeadBeRendered = shouldHeadBeRenderedIn;
+	}
+
+	private static double getDeltaX(AxisAlignedBB p_190611_0_, EnumFacing facing, AxisAlignedBB p_190611_2_) {
+
+		return facing.getAxisDirection() == EnumFacing.AxisDirection.POSITIVE ? p_190611_0_.maxX - p_190611_2_.minX : p_190611_2_.maxX - p_190611_0_.minX;
+	}
+
+	private static double getDeltaY(AxisAlignedBB p_190608_0_, EnumFacing facing, AxisAlignedBB p_190608_2_) {
+
+		return facing.getAxisDirection() == EnumFacing.AxisDirection.POSITIVE ? p_190608_0_.maxY - p_190608_2_.minY : p_190608_2_.maxY - p_190608_0_.minY;
+	}
+
+	private static double getDeltaZ(AxisAlignedBB p_190604_0_, EnumFacing facing, AxisAlignedBB p_190604_2_) {
+
+		return facing.getAxisDirection() == EnumFacing.AxisDirection.POSITIVE ? p_190604_0_.maxZ - p_190604_2_.minZ : p_190604_2_.maxZ - p_190604_0_.minZ;
+	}
+
+	public static void registerFixesPiston(DataFixer fixer) {
+
 	}
 
 	public IBlockState getPistonState() {
@@ -292,21 +310,6 @@ public class TileEntityPiston extends TileEntity implements ITickable {
 		}
 	}
 
-	private static double getDeltaX(AxisAlignedBB p_190611_0_, EnumFacing facing, AxisAlignedBB p_190611_2_) {
-
-		return facing.getAxisDirection() == EnumFacing.AxisDirection.POSITIVE ? p_190611_0_.maxX - p_190611_2_.minX : p_190611_2_.maxX - p_190611_0_.minX;
-	}
-
-	private static double getDeltaY(AxisAlignedBB p_190608_0_, EnumFacing facing, AxisAlignedBB p_190608_2_) {
-
-		return facing.getAxisDirection() == EnumFacing.AxisDirection.POSITIVE ? p_190608_0_.maxY - p_190608_2_.minY : p_190608_2_.maxY - p_190608_0_.minY;
-	}
-
-	private static double getDeltaZ(AxisAlignedBB p_190604_0_, EnumFacing facing, AxisAlignedBB p_190604_2_) {
-
-		return facing.getAxisDirection() == EnumFacing.AxisDirection.POSITIVE ? p_190604_0_.maxZ - p_190604_2_.minZ : p_190604_2_.maxZ - p_190604_0_.minZ;
-	}
-
 	/**
 	 * removes a piston's tile entity (and if the piston is moving, stops it)
 	 */
@@ -349,10 +352,6 @@ public class TileEntityPiston extends TileEntity implements ITickable {
 				progress = 1.0F;
 			}
 		}
-	}
-
-	public static void registerFixesPiston(DataFixer fixer) {
-
 	}
 
 	public void readFromNBT(NBTTagCompound compound) {

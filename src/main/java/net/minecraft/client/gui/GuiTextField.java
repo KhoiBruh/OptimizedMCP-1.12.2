@@ -14,15 +14,13 @@ public class GuiTextField extends Gui {
 
 	private final int id;
 	private final FontRenderer fontRenderer;
-	public int x;
-	public int y;
-
 	/**
 	 * The width of this text field.
 	 */
 	private final int width;
 	private final int height;
-
+	public int x;
+	public int y;
 	/**
 	 * Has the current text being edited on the textbox.
 	 */
@@ -93,6 +91,14 @@ public class GuiTextField extends Gui {
 	}
 
 	/**
+	 * Returns the contents of the textbox
+	 */
+	public String getText() {
+
+		return text;
+	}
+
+	/**
 	 * Sets the text of the textbox, and moves the cursor to the end.
 	 */
 	public void setText(String textIn) {
@@ -106,14 +112,6 @@ public class GuiTextField extends Gui {
 
 			setCursorPositionEnd();
 		}
-	}
-
-	/**
-	 * Returns the contents of the textbox
-	 */
-	public String getText() {
-
-		return text;
 	}
 
 	/**
@@ -290,17 +288,6 @@ public class GuiTextField extends Gui {
 	public void moveCursorBy(int num) {
 
 		setCursorPosition(selectionEnd + num);
-	}
-
-	/**
-	 * Sets the current position of the cursor.
-	 */
-	public void setCursorPosition(int pos) {
-
-		cursorPosition = pos;
-		int i = text.length();
-		cursorPosition = MathHelper.clamp(cursorPosition, 0, i);
-		setSelectionPos(cursorPosition);
 	}
 
 	/**
@@ -560,6 +547,14 @@ public class GuiTextField extends Gui {
 	}
 
 	/**
+	 * returns the maximum number of character that can be contained in this textbox
+	 */
+	public int getMaxStringLength() {
+
+		return maxStringLength;
+	}
+
+	/**
 	 * Sets the maximum length for the text in this text box. If the current text is longer than this length, the
 	 * current text will be trimmed.
 	 */
@@ -573,19 +568,22 @@ public class GuiTextField extends Gui {
 	}
 
 	/**
-	 * returns the maximum number of character that can be contained in this textbox
-	 */
-	public int getMaxStringLength() {
-
-		return maxStringLength;
-	}
-
-	/**
 	 * returns the current position of the cursor
 	 */
 	public int getCursorPosition() {
 
 		return cursorPosition;
+	}
+
+	/**
+	 * Sets the current position of the cursor.
+	 */
+	public void setCursorPosition(int pos) {
+
+		cursorPosition = pos;
+		int i = text.length();
+		cursorPosition = MathHelper.clamp(cursorPosition, 0, i);
+		setSelectionPos(cursorPosition);
 	}
 
 	/**
@@ -621,6 +619,14 @@ public class GuiTextField extends Gui {
 	}
 
 	/**
+	 * Getter for the focused field
+	 */
+	public boolean isFocused() {
+
+		return isFocused;
+	}
+
+	/**
 	 * Sets focus to this gui element
 	 */
 	public void setFocused(boolean isFocusedIn) {
@@ -634,14 +640,6 @@ public class GuiTextField extends Gui {
 		if (Minecraft.getMinecraft().currentScreen != null) {
 			Minecraft.getMinecraft().currentScreen.setFocused(isFocusedIn);
 		}
-	}
-
-	/**
-	 * Getter for the focused field
-	 */
-	public boolean isFocused() {
-
-		return isFocused;
 	}
 
 	/**

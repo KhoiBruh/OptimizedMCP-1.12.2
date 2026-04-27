@@ -42,6 +42,8 @@ import java.util.UUID;
 public class Item {
 
 	public static final RegistryNamespaced<ResourceLocation, Item> REGISTRY = new RegistryNamespaced<ResourceLocation, Item>();
+	protected static final UUID ATTACK_DAMAGE_MODIFIER = UUID.fromString("CB3F55D3-645C-4F38-A497-9C13A33DB5CF");
+	protected static final UUID ATTACK_SPEED_MODIFIER = UUID.fromString("FA233E1C-4180-4865-B01B-BCCE9785ACA3");
 	private static final Map<Block, Item> BLOCK_TO_ITEM = Maps.newHashMap();
 	private static final IItemPropertyGetter DAMAGED_GETTER = new IItemPropertyGetter() {
 		public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
@@ -67,41 +69,40 @@ public class Item {
 			return entityIn instanceof EntityPlayer ? ((EntityPlayer) entityIn).getCooldownTracker().getCooldown(stack.getItem(), 0.0F) : 0.0F;
 		}
 	};
-	private final IRegistry<ResourceLocation, IItemPropertyGetter> properties = new RegistrySimple<ResourceLocation, IItemPropertyGetter>();
-	protected static final UUID ATTACK_DAMAGE_MODIFIER = UUID.fromString("CB3F55D3-645C-4F38-A497-9C13A33DB5CF");
-	protected static final UUID ATTACK_SPEED_MODIFIER = UUID.fromString("FA233E1C-4180-4865-B01B-BCCE9785ACA3");
-	private CreativeTabs tabToDisplayOn;
-
 	/**
 	 * The RNG used by the Item subclasses.
 	 */
 	protected static Random itemRand = new Random();
-
+	private final IRegistry<ResourceLocation, IItemPropertyGetter> properties = new RegistrySimple<ResourceLocation, IItemPropertyGetter>();
 	/**
 	 * Maximum size of the stack.
 	 */
 	protected int maxStackSize = 64;
-
-	/**
-	 * Maximum damage an item can handle.
-	 */
-	private int maxDamage;
-
 	/**
 	 * If true, render the object in full 3D, like weapons and tools.
 	 */
 	protected boolean bFull3D;
-
 	/**
 	 * Some items (like dyes) have multiple subtypes on same item, this is field define this behavior
 	 */
 	protected boolean hasSubtypes;
+	private CreativeTabs tabToDisplayOn;
+	/**
+	 * Maximum damage an item can handle.
+	 */
+	private int maxDamage;
 	private Item containerItem;
 
 	/**
 	 * The unlocalized name of this item.
 	 */
 	private String unlocalizedName;
+
+	public Item() {
+
+		addPropertyOverride(new ResourceLocation("lefthanded"), LEFTHANDED_GETTER);
+		addPropertyOverride(new ResourceLocation("cooldown"), COOLDOWN_GETTER);
+	}
 
 	public static int getIdFromItem(Item itemIn) {
 
@@ -137,427 +138,6 @@ public class Item {
 		}
 
 		return item;
-	}
-
-	/**
-	 * Creates a new override param for item models. See usage in clock, compass, elytra, etc.
-	 */
-	public final void addPropertyOverride(ResourceLocation key, IItemPropertyGetter getter) {
-
-		properties.putObject(key, getter);
-	}
-
-	@Nullable
-	public IItemPropertyGetter getPropertyGetter(ResourceLocation key) {
-
-		return properties.getObject(key);
-	}
-
-	public boolean hasCustomProperties() {
-
-		return !properties.getKeys().isEmpty();
-	}
-
-	/**
-	 * Called when an ItemStack with NBT data is read to potentially that ItemStack's NBT data
-	 */
-	public boolean updateItemStackNBT(NBTTagCompound nbt) {
-
-		return false;
-	}
-
-	public Item() {
-
-		addPropertyOverride(new ResourceLocation("lefthanded"), LEFTHANDED_GETTER);
-		addPropertyOverride(new ResourceLocation("cooldown"), COOLDOWN_GETTER);
-	}
-
-	public Item setMaxStackSize(int maxStackSize) {
-
-		this.maxStackSize = maxStackSize;
-		return this;
-	}
-
-	/**
-	 * Called when a Block is right-clicked with this Item
-	 */
-	public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-
-		return EnumActionResult.PASS;
-	}
-
-	public float getDestroySpeed(ItemStack stack, IBlockState state) {
-
-		return 1.0F;
-	}
-
-	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
-
-		return new ActionResult<ItemStack>(EnumActionResult.PASS, playerIn.getHeldItem(handIn));
-	}
-
-	/**
-	 * Called when the player finishes using this Item (E.g. finishes eating.). Not called when the player stops using
-	 * the Item before the action is complete.
-	 */
-	public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityLivingBase entityLiving) {
-
-		return stack;
-	}
-
-	/**
-	 * Returns the maximum size of the stack for a specific item. *Isn't this more a Set than a Get?*
-	 */
-	public int getItemStackLimit() {
-
-		return maxStackSize;
-	}
-
-	/**
-	 * Converts the given ItemStack damage value into a metadata value to be placed in the world when this Item is
-	 * placed as a Block (mostly used with ItemBlocks).
-	 */
-	public int getMetadata(int damage) {
-
-		return 0;
-	}
-
-	public boolean getHasSubtypes() {
-
-		return hasSubtypes;
-	}
-
-	protected Item setHasSubtypes(boolean hasSubtypes) {
-
-		this.hasSubtypes = hasSubtypes;
-		return this;
-	}
-
-	/**
-	 * Returns the maximum damage an item can take.
-	 */
-	public int getMaxDamage() {
-
-		return maxDamage;
-	}
-
-	/**
-	 * set max damage of an Item
-	 */
-	protected Item setMaxDamage(int maxDamageIn) {
-
-		maxDamage = maxDamageIn;
-
-		if (maxDamageIn > 0) {
-			addPropertyOverride(new ResourceLocation("damaged"), DAMAGED_GETTER);
-			addPropertyOverride(new ResourceLocation("damage"), DAMAGE_GETTER);
-		}
-
-		return this;
-	}
-
-	public boolean isDamageable() {
-
-		return maxDamage > 0 && (!hasSubtypes || maxStackSize == 1);
-	}
-
-	/**
-	 * Current implementations of this method in child classes do not use the entry argument beside ev. They just raise
-	 * the damage on the stack.
-	 */
-	public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
-
-		return false;
-	}
-
-	/**
-	 * Called when a Block is destroyed using this Item. Return true to trigger the "Use Item" statistic.
-	 */
-	public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving) {
-
-		return false;
-	}
-
-	/**
-	 * Check whether this Item can harvest the given Block
-	 */
-	public boolean canHarvestBlock(IBlockState blockIn) {
-
-		return false;
-	}
-
-	/**
-	 * Returns true if the item can be used on the given entity, e.g. shears on sheep.
-	 */
-	public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer playerIn, EntityLivingBase target, EnumHand hand) {
-
-		return false;
-	}
-
-	/**
-	 * Sets bFull3D to True and return the object.
-	 */
-	public Item setFull3D() {
-
-		bFull3D = true;
-		return this;
-	}
-
-	/**
-	 * Returns True is the item is renderer in full 3D when hold.
-	 */
-	public boolean isFull3D() {
-
-		return bFull3D;
-	}
-
-	/**
-	 * Returns true if this item should be rotated by 180 degrees around the Y axis when being held in an entities
-	 * hands.
-	 */
-	public boolean shouldRotateAroundWhenRendering() {
-
-		return false;
-	}
-
-	/**
-	 * Sets the unlocalized name of this item to the string passed as the parameter, prefixed by "item."
-	 */
-	public Item setUnlocalizedName(String unlocalizedName) {
-
-		this.unlocalizedName = unlocalizedName;
-		return this;
-	}
-
-	/**
-	 * Translates the unlocalized name of this item, but without the .name suffix, so the translation fails and the
-	 * unlocalized name itself is returned.
-	 */
-	public String getUnlocalizedNameInefficiently(ItemStack stack) {
-
-		return I18n.translateToLocal(getUnlocalizedName(stack));
-	}
-
-	/**
-	 * Returns the unlocalized name of this item.
-	 */
-	public String getUnlocalizedName() {
-
-		return "item." + unlocalizedName;
-	}
-
-	/**
-	 * Returns the unlocalized name of this item. This version accepts an ItemStack so different stacks can have
-	 * different names based on their damage or NBT.
-	 */
-	public String getUnlocalizedName(ItemStack stack) {
-
-		return "item." + unlocalizedName;
-	}
-
-	public Item setContainerItem(Item containerItem) {
-
-		this.containerItem = containerItem;
-		return this;
-	}
-
-	/**
-	 * If this function returns true (or the item is damageable), the ItemStack's NBT tag will be sent to the client.
-	 */
-	public boolean getShareTag() {
-
-		return true;
-	}
-
-	@Nullable
-	public Item getContainerItem() {
-
-		return containerItem;
-	}
-
-	/**
-	 * True if this Item has a container item (a.k.a. crafting result)
-	 */
-	public boolean hasContainerItem() {
-
-		return containerItem != null;
-	}
-
-	/**
-	 * Called each tick as long the item is on a player inventory. Uses by maps to check if is on a player hand and
-	 * update it's contents.
-	 */
-	public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-
-	}
-
-	/**
-	 * Called when item is crafted/smelted. Used only by maps so far.
-	 */
-	public void onCreated(ItemStack stack, World worldIn, EntityPlayer playerIn) {
-
-	}
-
-	/**
-	 * false for all Items except sub-classes of ItemMapBase
-	 */
-	public boolean isMap() {
-
-		return false;
-	}
-
-	/**
-	 * returns the action that specifies what animation to play when the items is being used
-	 */
-	public EnumAction getItemUseAction(ItemStack stack) {
-
-		return EnumAction.NONE;
-	}
-
-	/**
-	 * How long it takes to use or consume an item
-	 */
-	public int getMaxItemUseDuration(ItemStack stack) {
-
-		return 0;
-	}
-
-	/**
-	 * Called when the player stops using an Item (stops holding the right mouse button).
-	 */
-	public void onPlayerStoppedUsing(ItemStack stack, World worldIn, EntityLivingBase entityLiving, int timeLeft) {
-
-	}
-
-	/**
-	 * allows items to add custom lines of information to the mouseover description
-	 */
-	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-
-	}
-
-	public String getItemStackDisplayName(ItemStack stack) {
-
-		return I18n.translateToLocal(getUnlocalizedNameInefficiently(stack) + ".name").trim();
-	}
-
-	/**
-	 * Returns true if this item has an enchantment glint. By default, this returns
-	 * <code>stack.isItemEnchanted()</code>, but other items can override it (for instance, written books always return
-	 * true).
-	 * <p>
-	 * Note that if you override this method, you generally want to also call the super version (on {@link Item}) to get
-	 * the glint for enchanted items. Of course, that is unnecessary if the overwritten version always returns true.
-	 */
-	public boolean hasEffect(ItemStack stack) {
-
-		return stack.isItemEnchanted();
-	}
-
-	/**
-	 * Return an item rarity from EnumRarity
-	 */
-	public EnumRarity getRarity(ItemStack stack) {
-
-		return stack.isItemEnchanted() ? EnumRarity.RARE : EnumRarity.COMMON;
-	}
-
-	/**
-	 * Checks isDamagable and if it cannot be stacked
-	 */
-	public boolean isEnchantable(ItemStack stack) {
-
-		return getItemStackLimit() == 1 && isDamageable();
-	}
-
-	protected RayTraceResult rayTrace(World worldIn, EntityPlayer playerIn, boolean useLiquids) {
-
-		float f = playerIn.rotationPitch;
-		float f1 = playerIn.rotationYaw;
-		double d0 = playerIn.posX;
-		double d1 = playerIn.posY + (double) playerIn.getEyeHeight();
-		double d2 = playerIn.posZ;
-		Vec3d vec3d = new Vec3d(d0, d1, d2);
-		float f2 = MathHelper.cos(-f1 * 0.017453292F - (float) Math.PI);
-		float f3 = MathHelper.sin(-f1 * 0.017453292F - (float) Math.PI);
-		float f4 = -MathHelper.cos(-f * 0.017453292F);
-		float f5 = MathHelper.sin(-f * 0.017453292F);
-		float f6 = f3 * f4;
-		float f7 = f2 * f4;
-		double d3 = 5.0D;
-		Vec3d vec3d1 = vec3d.addVector((double) f6 * 5.0D, (double) f5 * 5.0D, (double) f7 * 5.0D);
-		return worldIn.rayTraceBlocks(vec3d, vec3d1, useLiquids, !useLiquids, false);
-	}
-
-	/**
-	 * Return the enchantability factor of the item, most of the time is based on material.
-	 */
-	public int getItemEnchantability() {
-
-		return 0;
-	}
-
-	/**
-	 * returns a list of items with the same ID, but different meta (eg: dye returns 16 items)
-	 */
-	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
-
-		if (isInCreativeTab(tab)) {
-			items.add(new ItemStack(this));
-		}
-	}
-
-	protected boolean isInCreativeTab(CreativeTabs targetTab) {
-
-		CreativeTabs creativetabs = getCreativeTab();
-		return creativetabs != null && (targetTab == CreativeTabs.SEARCH || targetTab == creativetabs);
-	}
-
-	@Nullable
-
-	/**
-	 * gets the CreativeTab this item is displayed on
-	 */
-	public CreativeTabs getCreativeTab() {
-
-		return tabToDisplayOn;
-	}
-
-	/**
-	 * returns this;
-	 */
-	public Item setCreativeTab(CreativeTabs tab) {
-
-		tabToDisplayOn = tab;
-		return this;
-	}
-
-	/**
-	 * Returns whether this item is always allowed to edit the world. Forces {@link
-	 * net.minecraft.entity.player.EntityPlayer#canPlayerEdit EntityPlayer#canPlayerEdit} to return {@code true}.
-	 *
-	 * @return whether this item ignores other restrictions on how a player can modify the world.
-	 * @see ItemStack#canEditBlocks
-	 */
-	public boolean canItemEditBlocks() {
-
-		return false;
-	}
-
-	/**
-	 * Return whether this item is repairable in an anvil.
-	 *
-	 * @param toRepair the {@code ItemStack} being repaired
-	 * @param repair   the {@code ItemStack} being used to perform the repair
-	 */
-	public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
-
-		return false;
-	}
-
-	public Multimap<String, AttributeModifier> getItemAttributeModifiers(EntityEquipmentSlot equipmentSlot) {
-
-		return HashMultimap.create();
 	}
 
 	public static void registerItems() {
@@ -1087,6 +667,421 @@ public class Item {
 	private static void registerItem(int id, ResourceLocation textualID, Item itemIn) {
 
 		REGISTRY.register(id, textualID, itemIn);
+	}
+
+	/**
+	 * Creates a new override param for item models. See usage in clock, compass, elytra, etc.
+	 */
+	public final void addPropertyOverride(ResourceLocation key, IItemPropertyGetter getter) {
+
+		properties.putObject(key, getter);
+	}
+
+	@Nullable
+	public IItemPropertyGetter getPropertyGetter(ResourceLocation key) {
+
+		return properties.getObject(key);
+	}
+
+	public boolean hasCustomProperties() {
+
+		return !properties.getKeys().isEmpty();
+	}
+
+	/**
+	 * Called when an ItemStack with NBT data is read to potentially that ItemStack's NBT data
+	 */
+	public boolean updateItemStackNBT(NBTTagCompound nbt) {
+
+		return false;
+	}
+
+	public Item setMaxStackSize(int maxStackSize) {
+
+		this.maxStackSize = maxStackSize;
+		return this;
+	}
+
+	/**
+	 * Called when a Block is right-clicked with this Item
+	 */
+	public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+
+		return EnumActionResult.PASS;
+	}
+
+	public float getDestroySpeed(ItemStack stack, IBlockState state) {
+
+		return 1.0F;
+	}
+
+	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
+
+		return new ActionResult<ItemStack>(EnumActionResult.PASS, playerIn.getHeldItem(handIn));
+	}
+
+	/**
+	 * Called when the player finishes using this Item (E.g. finishes eating.). Not called when the player stops using
+	 * the Item before the action is complete.
+	 */
+	public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityLivingBase entityLiving) {
+
+		return stack;
+	}
+
+	/**
+	 * Returns the maximum size of the stack for a specific item. *Isn't this more a Set than a Get?*
+	 */
+	public int getItemStackLimit() {
+
+		return maxStackSize;
+	}
+
+	/**
+	 * Converts the given ItemStack damage value into a metadata value to be placed in the world when this Item is
+	 * placed as a Block (mostly used with ItemBlocks).
+	 */
+	public int getMetadata(int damage) {
+
+		return 0;
+	}
+
+	public boolean getHasSubtypes() {
+
+		return hasSubtypes;
+	}
+
+	protected Item setHasSubtypes(boolean hasSubtypes) {
+
+		this.hasSubtypes = hasSubtypes;
+		return this;
+	}
+
+	/**
+	 * Returns the maximum damage an item can take.
+	 */
+	public int getMaxDamage() {
+
+		return maxDamage;
+	}
+
+	/**
+	 * set max damage of an Item
+	 */
+	protected Item setMaxDamage(int maxDamageIn) {
+
+		maxDamage = maxDamageIn;
+
+		if (maxDamageIn > 0) {
+			addPropertyOverride(new ResourceLocation("damaged"), DAMAGED_GETTER);
+			addPropertyOverride(new ResourceLocation("damage"), DAMAGE_GETTER);
+		}
+
+		return this;
+	}
+
+	public boolean isDamageable() {
+
+		return maxDamage > 0 && (!hasSubtypes || maxStackSize == 1);
+	}
+
+	/**
+	 * Current implementations of this method in child classes do not use the entry argument beside ev. They just raise
+	 * the damage on the stack.
+	 */
+	public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
+
+		return false;
+	}
+
+	/**
+	 * Called when a Block is destroyed using this Item. Return true to trigger the "Use Item" statistic.
+	 */
+	public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving) {
+
+		return false;
+	}
+
+	/**
+	 * Check whether this Item can harvest the given Block
+	 */
+	public boolean canHarvestBlock(IBlockState blockIn) {
+
+		return false;
+	}
+
+	/**
+	 * Returns true if the item can be used on the given entity, e.g. shears on sheep.
+	 */
+	public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer playerIn, EntityLivingBase target, EnumHand hand) {
+
+		return false;
+	}
+
+	/**
+	 * Sets bFull3D to True and return the object.
+	 */
+	public Item setFull3D() {
+
+		bFull3D = true;
+		return this;
+	}
+
+	/**
+	 * Returns True is the item is renderer in full 3D when hold.
+	 */
+	public boolean isFull3D() {
+
+		return bFull3D;
+	}
+
+	/**
+	 * Returns true if this item should be rotated by 180 degrees around the Y axis when being held in an entities
+	 * hands.
+	 */
+	public boolean shouldRotateAroundWhenRendering() {
+
+		return false;
+	}
+
+	/**
+	 * Translates the unlocalized name of this item, but without the .name suffix, so the translation fails and the
+	 * unlocalized name itself is returned.
+	 */
+	public String getUnlocalizedNameInefficiently(ItemStack stack) {
+
+		return I18n.translateToLocal(getUnlocalizedName(stack));
+	}
+
+	/**
+	 * Returns the unlocalized name of this item.
+	 */
+	public String getUnlocalizedName() {
+
+		return "item." + unlocalizedName;
+	}
+
+	/**
+	 * Sets the unlocalized name of this item to the string passed as the parameter, prefixed by "item."
+	 */
+	public Item setUnlocalizedName(String unlocalizedName) {
+
+		this.unlocalizedName = unlocalizedName;
+		return this;
+	}
+
+	/**
+	 * Returns the unlocalized name of this item. This version accepts an ItemStack so different stacks can have
+	 * different names based on their damage or NBT.
+	 */
+	public String getUnlocalizedName(ItemStack stack) {
+
+		return "item." + unlocalizedName;
+	}
+
+	/**
+	 * If this function returns true (or the item is damageable), the ItemStack's NBT tag will be sent to the client.
+	 */
+	public boolean getShareTag() {
+
+		return true;
+	}
+
+	@Nullable
+	public Item getContainerItem() {
+
+		return containerItem;
+	}
+
+	public Item setContainerItem(Item containerItem) {
+
+		this.containerItem = containerItem;
+		return this;
+	}
+
+	/**
+	 * True if this Item has a container item (a.k.a. crafting result)
+	 */
+	public boolean hasContainerItem() {
+
+		return containerItem != null;
+	}
+
+	/**
+	 * Called each tick as long the item is on a player inventory. Uses by maps to check if is on a player hand and
+	 * update it's contents.
+	 */
+	public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
+
+	}
+
+	/**
+	 * Called when item is crafted/smelted. Used only by maps so far.
+	 */
+	public void onCreated(ItemStack stack, World worldIn, EntityPlayer playerIn) {
+
+	}
+
+	/**
+	 * false for all Items except sub-classes of ItemMapBase
+	 */
+	public boolean isMap() {
+
+		return false;
+	}
+
+	/**
+	 * returns the action that specifies what animation to play when the items is being used
+	 */
+	public EnumAction getItemUseAction(ItemStack stack) {
+
+		return EnumAction.NONE;
+	}
+
+	/**
+	 * How long it takes to use or consume an item
+	 */
+	public int getMaxItemUseDuration(ItemStack stack) {
+
+		return 0;
+	}
+
+	/**
+	 * Called when the player stops using an Item (stops holding the right mouse button).
+	 */
+	public void onPlayerStoppedUsing(ItemStack stack, World worldIn, EntityLivingBase entityLiving, int timeLeft) {
+
+	}
+
+	/**
+	 * allows items to add custom lines of information to the mouseover description
+	 */
+	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+
+	}
+
+	public String getItemStackDisplayName(ItemStack stack) {
+
+		return I18n.translateToLocal(getUnlocalizedNameInefficiently(stack) + ".name").trim();
+	}
+
+	/**
+	 * Returns true if this item has an enchantment glint. By default, this returns
+	 * <code>stack.isItemEnchanted()</code>, but other items can override it (for instance, written books always return
+	 * true).
+	 * <p>
+	 * Note that if you override this method, you generally want to also call the super version (on {@link Item}) to get
+	 * the glint for enchanted items. Of course, that is unnecessary if the overwritten version always returns true.
+	 */
+	public boolean hasEffect(ItemStack stack) {
+
+		return stack.isItemEnchanted();
+	}
+
+	/**
+	 * Return an item rarity from EnumRarity
+	 */
+	public EnumRarity getRarity(ItemStack stack) {
+
+		return stack.isItemEnchanted() ? EnumRarity.RARE : EnumRarity.COMMON;
+	}
+
+	/**
+	 * Checks isDamagable and if it cannot be stacked
+	 */
+	public boolean isEnchantable(ItemStack stack) {
+
+		return getItemStackLimit() == 1 && isDamageable();
+	}
+
+	protected RayTraceResult rayTrace(World worldIn, EntityPlayer playerIn, boolean useLiquids) {
+
+		float f = playerIn.rotationPitch;
+		float f1 = playerIn.rotationYaw;
+		double d0 = playerIn.posX;
+		double d1 = playerIn.posY + (double) playerIn.getEyeHeight();
+		double d2 = playerIn.posZ;
+		Vec3d vec3d = new Vec3d(d0, d1, d2);
+		float f2 = MathHelper.cos(-f1 * 0.017453292F - (float) Math.PI);
+		float f3 = MathHelper.sin(-f1 * 0.017453292F - (float) Math.PI);
+		float f4 = -MathHelper.cos(-f * 0.017453292F);
+		float f5 = MathHelper.sin(-f * 0.017453292F);
+		float f6 = f3 * f4;
+		float f7 = f2 * f4;
+		double d3 = 5.0D;
+		Vec3d vec3d1 = vec3d.addVector((double) f6 * 5.0D, (double) f5 * 5.0D, (double) f7 * 5.0D);
+		return worldIn.rayTraceBlocks(vec3d, vec3d1, useLiquids, !useLiquids, false);
+	}
+
+	/**
+	 * Return the enchantability factor of the item, most of the time is based on material.
+	 */
+	public int getItemEnchantability() {
+
+		return 0;
+	}
+
+	/**
+	 * returns a list of items with the same ID, but different meta (eg: dye returns 16 items)
+	 */
+	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
+
+		if (isInCreativeTab(tab)) {
+			items.add(new ItemStack(this));
+		}
+	}
+
+	protected boolean isInCreativeTab(CreativeTabs targetTab) {
+
+		CreativeTabs creativetabs = getCreativeTab();
+		return creativetabs != null && (targetTab == CreativeTabs.SEARCH || targetTab == creativetabs);
+	}
+
+	@Nullable
+
+	/**
+	 * gets the CreativeTab this item is displayed on
+	 */
+	public CreativeTabs getCreativeTab() {
+
+		return tabToDisplayOn;
+	}
+
+	/**
+	 * returns this;
+	 */
+	public Item setCreativeTab(CreativeTabs tab) {
+
+		tabToDisplayOn = tab;
+		return this;
+	}
+
+	/**
+	 * Returns whether this item is always allowed to edit the world. Forces {@link
+	 * net.minecraft.entity.player.EntityPlayer#canPlayerEdit EntityPlayer#canPlayerEdit} to return {@code true}.
+	 *
+	 * @return whether this item ignores other restrictions on how a player can modify the world.
+	 * @see ItemStack#canEditBlocks
+	 */
+	public boolean canItemEditBlocks() {
+
+		return false;
+	}
+
+	/**
+	 * Return whether this item is repairable in an anvil.
+	 *
+	 * @param toRepair the {@code ItemStack} being repaired
+	 * @param repair   the {@code ItemStack} being used to perform the repair
+	 */
+	public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
+
+		return false;
+	}
+
+	public Multimap<String, AttributeModifier> getItemAttributeModifiers(EntityEquipmentSlot equipmentSlot) {
+
+		return HashMultimap.create();
 	}
 
 	public ItemStack getDefaultInstance() {

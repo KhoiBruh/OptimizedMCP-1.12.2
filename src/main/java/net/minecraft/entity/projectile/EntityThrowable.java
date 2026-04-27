@@ -20,21 +20,20 @@ import java.util.UUID;
 
 public abstract class EntityThrowable extends Entity implements IProjectile {
 
-	private int xTile;
-	private int yTile;
-	private int zTile;
-	private Block inTile;
-	protected boolean inGround;
 	public int throwableShake;
-
+	public Entity ignoreEntity;
+	protected boolean inGround;
 	/**
 	 * The entity that threw this throwable item.
 	 */
 	protected EntityLivingBase thrower;
+	private int xTile;
+	private int yTile;
+	private int zTile;
+	private Block inTile;
 	private String throwerName;
 	private int ticksInGround;
 	private int ticksInAir;
-	public Entity ignoreEntity;
 	private int ignoreTime;
 
 	public EntityThrowable(World worldIn) {
@@ -56,6 +55,10 @@ public abstract class EntityThrowable extends Entity implements IProjectile {
 
 		this(worldIn, throwerIn.posX, throwerIn.posY + (double) throwerIn.getEyeHeight() - 0.10000000149011612D, throwerIn.posZ);
 		thrower = throwerIn;
+	}
+
+	public static void registerFixesThrowable(DataFixer fixer, String name) {
+
 	}
 
 	protected void entityInit() {
@@ -292,10 +295,6 @@ public abstract class EntityThrowable extends Entity implements IProjectile {
 	 * Called when this EntityThrowable hits a block or entity.
 	 */
 	protected abstract void onImpact(RayTraceResult result);
-
-	public static void registerFixesThrowable(DataFixer fixer, String name) {
-
-	}
 
 	/**
 	 * (abstract) Protected helper method to write subclass entity data to NBT.

@@ -90,17 +90,17 @@ public class EntityWitch extends EntityMob implements IRangedAttackMob {
 		return SoundEvents.ENTITY_WITCH_DEATH;
 	}
 
+	public boolean isDrinkingPotion() {
+
+		return getDataManager().get(IS_DRINKING).booleanValue();
+	}
+
 	/**
 	 * Set whether this witch is aggressive at an entity.
 	 */
 	public void setDrinkingPotion(boolean drinkingPotion) {
 
 		getDataManager().set(IS_DRINKING, Boolean.valueOf(drinkingPotion));
-	}
-
-	public boolean isDrinkingPotion() {
-
-		return getDataManager().get(IS_DRINKING).booleanValue();
 	}
 
 	protected void applyEntityAttributes() {

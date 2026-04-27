@@ -18,6 +18,12 @@ public class JsonToNBT {
 	private final String string;
 	private int cursor;
 
+	@VisibleForTesting
+	JsonToNBT(String stringIn) {
+
+		string = stringIn;
+	}
+
 	public static NBTTagCompound getTagFromJson(String jsonString) throws NBTException {
 
 		return (new JsonToNBT(jsonString)).readSingleStruct();
@@ -35,12 +41,6 @@ public class JsonToNBT {
 		} else {
 			return nbttagcompound;
 		}
-	}
-
-	@VisibleForTesting
-	JsonToNBT(String stringIn) {
-
-		string = stringIn;
 	}
 
 	protected String readKey() throws NBTException {

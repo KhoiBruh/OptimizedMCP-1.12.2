@@ -19,8 +19,8 @@ import java.io.IOException;
 public class GuiCrafting extends GuiContainer implements IRecipeShownListener {
 
 	private static final ResourceLocation CRAFTING_TABLE_GUI_TEXTURES = new ResourceLocation("textures/gui/container/crafting_table.png");
-	private GuiButtonImage recipeButton;
 	private final GuiRecipeBook recipeBookGui;
+	private GuiButtonImage recipeButton;
 	private boolean widthTooNarrow;
 
 	public GuiCrafting(InventoryPlayer playerInv, World worldIn) {

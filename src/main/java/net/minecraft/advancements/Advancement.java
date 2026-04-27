@@ -186,11 +186,11 @@ public class Advancement {
 	public static class Builder {
 
 		private final ResourceLocation parentId;
-		private Advancement parent;
 		private final DisplayInfo display;
 		private final AdvancementRewards rewards;
 		private final Map<String, Criterion> criteria;
 		private final String[][] requirements;
+		private Advancement parent;
 
 		Builder(@Nullable ResourceLocation p_i47414_1_, @Nullable DisplayInfo p_i47414_2_, AdvancementRewards p_i47414_3_, Map<String, Criterion> p_i47414_4_, String[][] p_i47414_5_) {
 
@@ -199,54 +199,6 @@ public class Advancement {
 			rewards = p_i47414_3_;
 			criteria = p_i47414_4_;
 			requirements = p_i47414_5_;
-		}
-
-		public boolean resolveParent(Function<ResourceLocation, Advancement> lookup) {
-
-			if (parentId == null) {
-				return true;
-			} else {
-				parent = lookup.apply(parentId);
-				return parent != null;
-			}
-		}
-
-		public Advancement build(ResourceLocation id) {
-
-			return new Advancement(id, parent, display, rewards, criteria, requirements);
-		}
-
-		public void writeTo(PacketBuffer buf) {
-
-			if (parentId == null) {
-				buf.writeBoolean(false);
-			} else {
-				buf.writeBoolean(true);
-				buf.writeResourceLocation(parentId);
-			}
-
-			if (display == null) {
-				buf.writeBoolean(false);
-			} else {
-				buf.writeBoolean(true);
-				display.write(buf);
-			}
-
-			Criterion.serializeToNetwork(criteria, buf);
-			buf.writeVarInt(requirements.length);
-
-			for (String[] astring : requirements) {
-				buf.writeVarInt(astring.length);
-
-				for (String s : astring) {
-					buf.writeString(s);
-				}
-			}
-		}
-
-		public String toString() {
-
-			return "Task Advancement{parentId=" + parentId + ", display=" + display + ", rewards=" + rewards + ", criteria=" + criteria + ", requirements=" + Arrays.deepToString(requirements) + '}';
 		}
 
 		public static Advancement.Builder deserialize(JsonObject json, JsonDeserializationContext context) {
@@ -327,6 +279,54 @@ public class Advancement {
 			}
 
 			return new Advancement.Builder(resourcelocation, displayinfo, AdvancementRewards.EMPTY, map, astring);
+		}
+
+		public boolean resolveParent(Function<ResourceLocation, Advancement> lookup) {
+
+			if (parentId == null) {
+				return true;
+			} else {
+				parent = lookup.apply(parentId);
+				return parent != null;
+			}
+		}
+
+		public Advancement build(ResourceLocation id) {
+
+			return new Advancement(id, parent, display, rewards, criteria, requirements);
+		}
+
+		public void writeTo(PacketBuffer buf) {
+
+			if (parentId == null) {
+				buf.writeBoolean(false);
+			} else {
+				buf.writeBoolean(true);
+				buf.writeResourceLocation(parentId);
+			}
+
+			if (display == null) {
+				buf.writeBoolean(false);
+			} else {
+				buf.writeBoolean(true);
+				display.write(buf);
+			}
+
+			Criterion.serializeToNetwork(criteria, buf);
+			buf.writeVarInt(requirements.length);
+
+			for (String[] astring : requirements) {
+				buf.writeVarInt(astring.length);
+
+				for (String s : astring) {
+					buf.writeString(s);
+				}
+			}
+		}
+
+		public String toString() {
+
+			return "Task Advancement{parentId=" + parentId + ", display=" + display + ", rewards=" + rewards + ", criteria=" + criteria + ", requirements=" + Arrays.deepToString(requirements) + '}';
 		}
 
 	}

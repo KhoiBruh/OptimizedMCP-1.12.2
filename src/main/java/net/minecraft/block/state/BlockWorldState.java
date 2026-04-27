@@ -23,6 +23,16 @@ public class BlockWorldState {
 		forceLoad = forceLoadIn;
 	}
 
+	public static Predicate<BlockWorldState> hasState(final Predicate<IBlockState> predicatesIn) {
+
+		return new Predicate<BlockWorldState>() {
+			public boolean apply(@Nullable BlockWorldState p_apply_1_) {
+
+				return p_apply_1_ != null && predicatesIn.apply(p_apply_1_.getBlockState());
+			}
+		};
+	}
+
 	/**
 	 * Gets the block state as currently held, or (if it has not gotten it from the world) loads it from the world.
 	 * This will only look up the state from the world if {@link #forceLoad} is true or the block position is loaded.
@@ -54,16 +64,6 @@ public class BlockWorldState {
 	public BlockPos getPos() {
 
 		return pos;
-	}
-
-	public static Predicate<BlockWorldState> hasState(final Predicate<IBlockState> predicatesIn) {
-
-		return new Predicate<BlockWorldState>() {
-			public boolean apply(@Nullable BlockWorldState p_apply_1_) {
-
-				return p_apply_1_ != null && predicatesIn.apply(p_apply_1_.getBlockState());
-			}
-		};
 	}
 
 }

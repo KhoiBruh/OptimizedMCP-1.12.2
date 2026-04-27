@@ -37,12 +37,18 @@ public class EntityHorse extends AbstractHorse {
 	private static final String[] HORSE_TEXTURES_ABBR = new String[]{"hwh", "hcr", "hch", "hbr", "hbl", "hgr", "hdb"};
 	private static final String[] HORSE_MARKING_TEXTURES = new String[]{null, "textures/entity/horse/horse_markings_white.png", "textures/entity/horse/horse_markings_whitefield.png", "textures/entity/horse/horse_markings_whitedots.png", "textures/entity/horse/horse_markings_blackdots.png"};
 	private static final String[] HORSE_MARKING_TEXTURES_ABBR = new String[]{"", "wo_", "wmo", "wdo", "bdo"};
-	private String texturePrefix;
 	private final String[] horseTexturesArray = new String[3];
+	private String texturePrefix;
 
 	public EntityHorse(World worldIn) {
 
 		super(worldIn);
+	}
+
+	public static void registerFixesHorse(DataFixer fixer) {
+
+		AbstractHorse.registerFixesAbstractHorse(fixer, EntityHorse.class);
+		fixer.registerWalker(FixTypes.ENTITY, new ItemStackData(EntityHorse.class, "ArmorItem"));
 	}
 
 	protected void entityInit() {
@@ -50,12 +56,6 @@ public class EntityHorse extends AbstractHorse {
 		super.entityInit();
 		dataManager.register(HORSE_VARIANT, Integer.valueOf(0));
 		dataManager.register(HORSE_ARMOR, Integer.valueOf(HorseArmorType.NONE.getOrdinal()));
-	}
-
-	public static void registerFixesHorse(DataFixer fixer) {
-
-		AbstractHorse.registerFixesAbstractHorse(fixer, EntityHorse.class);
-		fixer.registerWalker(FixTypes.ENTITY, new ItemStackData(EntityHorse.class, "ArmorItem"));
 	}
 
 	/**
@@ -90,15 +90,15 @@ public class EntityHorse extends AbstractHorse {
 		updateHorseSlots();
 	}
 
+	public int getHorseVariant() {
+
+		return dataManager.get(HORSE_VARIANT).intValue();
+	}
+
 	public void setHorseVariant(int variant) {
 
 		dataManager.set(HORSE_VARIANT, Integer.valueOf(variant));
 		resetTexturePrefix();
-	}
-
-	public int getHorseVariant() {
-
-		return dataManager.get(HORSE_VARIANT).intValue();
 	}
 
 	private void resetTexturePrefix() {

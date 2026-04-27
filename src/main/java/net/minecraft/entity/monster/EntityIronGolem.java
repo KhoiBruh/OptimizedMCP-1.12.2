@@ -32,13 +32,12 @@ public class EntityIronGolem extends EntityGolem {
 
 	protected static final DataParameter<Byte> PLAYER_CREATED = EntityDataManager.createKey(EntityIronGolem.class, DataSerializers.BYTE);
 
+	@Nullable
+	Village village;
 	/**
 	 * deincrements, and a distance-to-home check is done at 0
 	 */
 	private int homeCheckTimer;
-
-	@Nullable
-	Village village;
 	private int attackTimer;
 	private int holdRoseTick;
 
@@ -46,6 +45,11 @@ public class EntityIronGolem extends EntityGolem {
 
 		super(worldIn);
 		setSize(1.4F, 2.7F);
+	}
+
+	public static void registerFixesIronGolem(DataFixer fixer) {
+
+		EntityLiving.registerFixesMob(fixer, EntityIronGolem.class);
 	}
 
 	protected void initEntityAI() {
@@ -154,11 +158,6 @@ public class EntityIronGolem extends EntityGolem {
 		} else {
 			return cls != EntityCreeper.class && super.canAttackClass(cls);
 		}
-	}
-
-	public static void registerFixesIronGolem(DataFixer fixer) {
-
-		EntityLiving.registerFixesMob(fixer, EntityIronGolem.class);
 	}
 
 	/**

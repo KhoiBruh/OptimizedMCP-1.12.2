@@ -15,6 +15,16 @@ public class LockCode {
 		lock = code;
 	}
 
+	public static LockCode fromNBT(NBTTagCompound nbt) {
+
+		if (nbt.hasKey("Lock", 8)) {
+			String s = nbt.getString("Lock");
+			return new LockCode(s);
+		} else {
+			return EMPTY_CODE;
+		}
+	}
+
 	public boolean isEmpty() {
 
 		return lock == null || lock.isEmpty();
@@ -28,16 +38,6 @@ public class LockCode {
 	public void toNBT(NBTTagCompound nbt) {
 
 		nbt.setString("Lock", lock);
-	}
-
-	public static LockCode fromNBT(NBTTagCompound nbt) {
-
-		if (nbt.hasKey("Lock", 8)) {
-			String s = nbt.getString("Lock");
-			return new LockCode(s);
-		} else {
-			return EMPTY_CODE;
-		}
 	}
 
 }

@@ -2,7 +2,6 @@ package net.minecraft.world.gen.structure;
 
 import net.minecraft.block.*;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.monster.EntityWitch;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.EnumDyeColor;
@@ -402,11 +401,11 @@ public class ComponentScatteredFeaturePieces {
 
 	public static class JunglePyramid extends ComponentScatteredFeaturePieces.Feature {
 
+		private static final ComponentScatteredFeaturePieces.JunglePyramid.Stones cobblestoneSelector = new ComponentScatteredFeaturePieces.JunglePyramid.Stones();
 		private boolean placedMainChest;
 		private boolean placedHiddenChest;
 		private boolean placedTrap1;
 		private boolean placedTrap2;
-		private static final ComponentScatteredFeaturePieces.JunglePyramid.Stones cobblestoneSelector = new ComponentScatteredFeaturePieces.JunglePyramid.Stones();
 
 		public JunglePyramid() {
 

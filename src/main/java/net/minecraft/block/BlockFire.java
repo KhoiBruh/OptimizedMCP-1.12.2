@@ -3,7 +3,6 @@ package net.minecraft.block;
 import com.google.common.collect.Maps;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockFaceShape;
@@ -35,15 +34,6 @@ public class BlockFire extends Block {
 	public static final PropertyBool UPPER = PropertyBool.create("up");
 	private final Map<Block, Integer> encouragements = Maps.newIdentityHashMap();
 	private final Map<Block, Integer> flammabilities = Maps.newIdentityHashMap();
-
-	/**
-	 * Get the actual Block state of this Block at the given position. This applies properties not visible in the
-	 * metadata, such as fence connections.
-	 */
-	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-
-		return !worldIn.getBlockState(pos.down()).isTopSolid() && !Blocks.FIRE.canCatchFire(worldIn, pos.down()) ? state.withProperty(NORTH, Boolean.valueOf(canCatchFire(worldIn, pos.north()))).withProperty(EAST, Boolean.valueOf(canCatchFire(worldIn, pos.east()))).withProperty(SOUTH, Boolean.valueOf(canCatchFire(worldIn, pos.south()))).withProperty(WEST, Boolean.valueOf(canCatchFire(worldIn, pos.west()))).withProperty(UPPER, Boolean.valueOf(canCatchFire(worldIn, pos.up()))) : getDefaultState();
-	}
 
 	protected BlockFire() {
 
@@ -91,6 +81,15 @@ public class BlockFire extends Block {
 		Blocks.FIRE.setFireInfo(Blocks.COAL_BLOCK, 5, 5);
 		Blocks.FIRE.setFireInfo(Blocks.HAY_BLOCK, 60, 20);
 		Blocks.FIRE.setFireInfo(Blocks.CARPET, 60, 20);
+	}
+
+	/**
+	 * Get the actual Block state of this Block at the given position. This applies properties not visible in the
+	 * metadata, such as fence connections.
+	 */
+	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
+
+		return !worldIn.getBlockState(pos.down()).isTopSolid() && !Blocks.FIRE.canCatchFire(worldIn, pos.down()) ? state.withProperty(NORTH, Boolean.valueOf(canCatchFire(worldIn, pos.north()))).withProperty(EAST, Boolean.valueOf(canCatchFire(worldIn, pos.east()))).withProperty(SOUTH, Boolean.valueOf(canCatchFire(worldIn, pos.south()))).withProperty(WEST, Boolean.valueOf(canCatchFire(worldIn, pos.west()))).withProperty(UPPER, Boolean.valueOf(canCatchFire(worldIn, pos.up()))) : getDefaultState();
 	}
 
 	public void setFireInfo(Block blockIn, int encouragement, int flammability) {

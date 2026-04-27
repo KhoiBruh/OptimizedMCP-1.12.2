@@ -17,8 +17,8 @@ import java.util.List;
 
 public class SPacketPlayerListItem implements Packet<INetHandlerPlayClient> {
 
-	private SPacketPlayerListItem.Action action;
 	private final List<SPacketPlayerListItem.AddPlayerData> players = Lists.newArrayList();
+	private SPacketPlayerListItem.Action action;
 
 	public SPacketPlayerListItem() {
 

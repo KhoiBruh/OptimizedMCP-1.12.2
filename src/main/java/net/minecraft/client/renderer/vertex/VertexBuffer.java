@@ -7,8 +7,8 @@ import java.nio.ByteBuffer;
 
 public class VertexBuffer {
 
-	private int glBufferId;
 	private final VertexFormat vertexFormat;
+	private int glBufferId;
 	private int count;
 
 	public VertexBuffer(VertexFormat vertexFormatIn) {

@@ -47,31 +47,6 @@ public class DamageSourcePredicate {
 		this.sourceEntity = sourceEntity;
 	}
 
-	public boolean test(EntityPlayerMP player, DamageSource source) {
-
-		if (this == ANY) {
-			return true;
-		} else if (isProjectile != null && isProjectile.booleanValue() != source.isProjectile()) {
-			return false;
-		} else if (isExplosion != null && isExplosion.booleanValue() != source.isExplosion()) {
-			return false;
-		} else if (bypassesArmor != null && bypassesArmor.booleanValue() != source.isUnblockable()) {
-			return false;
-		} else if (bypassesInvulnerability != null && bypassesInvulnerability.booleanValue() != source.canHarmInCreative()) {
-			return false;
-		} else if (bypassesMagic != null && bypassesMagic.booleanValue() != source.isDamageAbsolute()) {
-			return false;
-		} else if (isFire != null && isFire.booleanValue() != source.isFireDamage()) {
-			return false;
-		} else if (isMagic != null && isMagic.booleanValue() != source.isMagicDamage()) {
-			return false;
-		} else if (!directEntity.test(player, source.getImmediateSource())) {
-			return false;
-		} else {
-			return sourceEntity.test(player, source.getTrueSource());
-		}
-	}
-
 	public static DamageSourcePredicate deserialize(@Nullable JsonElement element) {
 
 		if (element != null && !element.isJsonNull()) {
@@ -95,6 +70,31 @@ public class DamageSourcePredicate {
 	private static Boolean optionalBoolean(JsonObject object, String memberName) {
 
 		return object.has(memberName) ? JsonUtils.getBoolean(object, memberName) : null;
+	}
+
+	public boolean test(EntityPlayerMP player, DamageSource source) {
+
+		if (this == ANY) {
+			return true;
+		} else if (isProjectile != null && isProjectile.booleanValue() != source.isProjectile()) {
+			return false;
+		} else if (isExplosion != null && isExplosion.booleanValue() != source.isExplosion()) {
+			return false;
+		} else if (bypassesArmor != null && bypassesArmor.booleanValue() != source.isUnblockable()) {
+			return false;
+		} else if (bypassesInvulnerability != null && bypassesInvulnerability.booleanValue() != source.canHarmInCreative()) {
+			return false;
+		} else if (bypassesMagic != null && bypassesMagic.booleanValue() != source.isDamageAbsolute()) {
+			return false;
+		} else if (isFire != null && isFire.booleanValue() != source.isFireDamage()) {
+			return false;
+		} else if (isMagic != null && isMagic.booleanValue() != source.isMagicDamage()) {
+			return false;
+		} else if (!directEntity.test(player, source.getImmediateSource())) {
+			return false;
+		} else {
+			return sourceEntity.test(player, source.getTrueSource());
+		}
 	}
 
 }

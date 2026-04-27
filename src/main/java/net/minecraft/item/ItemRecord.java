@@ -35,6 +35,12 @@ public class ItemRecord extends Item {
 		RECORDS.put(sound, this);
 	}
 
+	@Nullable
+	public static ItemRecord getBySound(SoundEvent soundIn) {
+
+		return RECORDS.get(soundIn);
+	}
+
 	/**
 	 * Called when a Block is right-clicked with this Item
 	 */
@@ -76,12 +82,6 @@ public class ItemRecord extends Item {
 	public EnumRarity getRarity(ItemStack stack) {
 
 		return EnumRarity.RARE;
-	}
-
-	@Nullable
-	public static ItemRecord getBySound(SoundEvent soundIn) {
-
-		return RECORDS.get(soundIn);
 	}
 
 	public SoundEvent getSound() {

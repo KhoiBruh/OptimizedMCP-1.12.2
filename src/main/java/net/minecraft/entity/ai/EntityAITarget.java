@@ -17,34 +17,29 @@ public abstract class EntityAITarget extends EntityAIBase {
 	 * The entity that this task belongs to
 	 */
 	protected final EntityCreature taskOwner;
-
-	/**
-	 * If true, EntityAI targets must be able to be seen (cannot be blocked by walls) to be suitable targets.
-	 */
-	protected boolean shouldCheckSight;
-
 	/**
 	 * When true, only entities that can be reached with minimal effort will be targetted.
 	 */
 	private final boolean nearbyOnly;
-
+	/**
+	 * If true, EntityAI targets must be able to be seen (cannot be blocked by walls) to be suitable targets.
+	 */
+	protected boolean shouldCheckSight;
+	protected EntityLivingBase target;
+	protected int unseenMemoryTicks;
 	/**
 	 * When nearbyOnly is true: 0 -> No target, but OK to search; 1 -> Nearby target found; 2 -> Target too far.
 	 */
 	private int targetSearchStatus;
-
 	/**
 	 * When nearbyOnly is true, this throttles target searching to avoid excessive pathfinding.
 	 */
 	private int targetSearchDelay;
-
 	/**
 	 * If  @shouldCheckSight is true, the number of ticks before the interuption of this AITastk when the entity does't
 	 * see the target
 	 */
 	private int targetUnseenTicks;
-	protected EntityLivingBase target;
-	protected int unseenMemoryTicks;
 
 	public EntityAITarget(EntityCreature creature, boolean checkSight) {
 
@@ -57,6 +52,38 @@ public abstract class EntityAITarget extends EntityAIBase {
 		taskOwner = creature;
 		shouldCheckSight = checkSight;
 		nearbyOnly = onlyNearby;
+	}
+
+	/**
+	 * A static method used to see if an entity is a suitable target through a number of checks.
+	 */
+	public static boolean isSuitableTarget(EntityLiving attacker, @Nullable EntityLivingBase target, boolean includeInvincibles, boolean checkSight) {
+
+		if (target == null) {
+			return false;
+		} else if (target == attacker) {
+			return false;
+		} else if (!target.isEntityAlive()) {
+			return false;
+		} else if (!attacker.canAttackClass(target.getClass())) {
+			return false;
+		} else if (attacker.isOnSameTeam(target)) {
+			return false;
+		} else {
+			if (attacker instanceof IEntityOwnable && ((IEntityOwnable) attacker).getOwnerId() != null) {
+				if (target instanceof IEntityOwnable && ((IEntityOwnable) attacker).getOwnerId().equals(((IEntityOwnable) target).getOwnerId())) {
+					return false;
+				}
+
+				if (target == ((IEntityOwnable) attacker).getOwner()) {
+					return false;
+				}
+			} else if (target instanceof EntityPlayer && !includeInvincibles && ((EntityPlayer) target).capabilities.disableDamage) {
+				return false;
+			}
+
+			return !checkSight || attacker.getEntitySenses().canSee(target);
+		}
 	}
 
 	/**
@@ -128,38 +155,6 @@ public abstract class EntityAITarget extends EntityAIBase {
 
 		taskOwner.setAttackTarget(null);
 		target = null;
-	}
-
-	/**
-	 * A static method used to see if an entity is a suitable target through a number of checks.
-	 */
-	public static boolean isSuitableTarget(EntityLiving attacker, @Nullable EntityLivingBase target, boolean includeInvincibles, boolean checkSight) {
-
-		if (target == null) {
-			return false;
-		} else if (target == attacker) {
-			return false;
-		} else if (!target.isEntityAlive()) {
-			return false;
-		} else if (!attacker.canAttackClass(target.getClass())) {
-			return false;
-		} else if (attacker.isOnSameTeam(target)) {
-			return false;
-		} else {
-			if (attacker instanceof IEntityOwnable && ((IEntityOwnable) attacker).getOwnerId() != null) {
-				if (target instanceof IEntityOwnable && ((IEntityOwnable) attacker).getOwnerId().equals(((IEntityOwnable) target).getOwnerId())) {
-					return false;
-				}
-
-				if (target == ((IEntityOwnable) attacker).getOwner()) {
-					return false;
-				}
-			} else if (target instanceof EntityPlayer && !includeInvincibles && ((EntityPlayer) target).capabilities.disableDamage) {
-				return false;
-			}
-
-			return !checkSight || attacker.getEntitySenses().canSee(target);
-		}
 	}
 
 	/**

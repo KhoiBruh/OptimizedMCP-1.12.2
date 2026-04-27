@@ -17,20 +17,6 @@ public class ServerAddress {
 		serverPort = port;
 	}
 
-	public String getIP() {
-
-		try {
-			return IDN.toASCII(ipAddress);
-		} catch (IllegalArgumentException var2) {
-			return "";
-		}
-	}
-
-	public int getPort() {
-
-		return serverPort;
-	}
-
 	public static ServerAddress fromString(String addrString) {
 
 		if (addrString == null) {
@@ -99,6 +85,20 @@ public class ServerAddress {
 		} catch (Exception var3) {
 			return defaultValue;
 		}
+	}
+
+	public String getIP() {
+
+		try {
+			return IDN.toASCII(ipAddress);
+		} catch (IllegalArgumentException var2) {
+			return "";
+		}
+	}
+
+	public int getPort() {
+
+		return serverPort;
 	}
 
 }

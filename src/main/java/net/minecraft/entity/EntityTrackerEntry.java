@@ -37,33 +37,31 @@ public class EntityTrackerEntry {
 	 */
 	private final Entity trackedEntity;
 	private final int range;
-	private int maxRange;
-
 	/**
 	 * check for sync when ticks % updateFrequency==0
 	 */
 	private final int updateFrequency;
-
+	private final boolean sendVelocityUpdates;
+	private final Set<EntityPlayerMP> trackingPlayers = Sets.newHashSet();
+	public int updateCounter;
+	public boolean playerEntitiesUpdated;
+	private int maxRange;
 	/**
 	 * The encoded entity X position.
 	 */
 	private long encodedPosX;
-
 	/**
 	 * The encoded entity Y position.
 	 */
 	private long encodedPosY;
-
 	/**
 	 * The encoded entity Z position.
 	 */
 	private long encodedPosZ;
-
 	/**
 	 * The encoded entity yaw rotation.
 	 */
 	private int encodedRotationYaw;
-
 	/**
 	 * The encoded entity pitch rotation.
 	 */
@@ -72,13 +70,10 @@ public class EntityTrackerEntry {
 	private double lastTrackedEntityMotionX;
 	private double lastTrackedEntityMotionY;
 	private double motionZ;
-	public int updateCounter;
 	private double lastTrackedEntityPosX;
 	private double lastTrackedEntityPosY;
 	private double lastTrackedEntityPosZ;
 	private boolean updatedPlayerVisibility;
-	private final boolean sendVelocityUpdates;
-
 	/**
 	 * every 400 ticks a  full teleport packet is sent, rather than just a "move me +x" command, so that position
 	 * remains fully synced.
@@ -87,8 +82,6 @@ public class EntityTrackerEntry {
 	private List<Entity> passengers = Collections.emptyList();
 	private boolean ridingEntity;
 	private boolean onGround;
-	public boolean playerEntitiesUpdated;
-	private final Set<EntityPlayerMP> trackingPlayers = Sets.newHashSet();
 
 	public EntityTrackerEntry(Entity entityIn, int rangeIn, int maxRangeIn, int updateFrequencyIn, boolean sendVelocityUpdatesIn) {
 
@@ -485,7 +478,7 @@ public class EntityTrackerEntry {
 			}
 
 			if (entityfireball.shootingEntity != null) {
-				spacketspawnobject = new SPacketSpawnObject(trackedEntity, i, ((EntityFireball) trackedEntity).shootingEntity.getEntityId());
+				spacketspawnobject = new SPacketSpawnObject(trackedEntity, i, entityfireball.shootingEntity.getEntityId());
 			} else {
 				spacketspawnobject = new SPacketSpawnObject(trackedEntity, i, 0);
 			}

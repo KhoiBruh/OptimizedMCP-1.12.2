@@ -8,12 +8,11 @@ import net.minecraft.util.math.AxisAlignedBB;
 public class EntityAIHurtByTarget extends EntityAITarget {
 
 	private final boolean entityCallsForHelp;
-
+	private final Class<?>[] excludedReinforcementTypes;
 	/**
 	 * Store the previous revengeTimer value
 	 */
 	private int revengeTimerOld;
-	private final Class<?>[] excludedReinforcementTypes;
 
 	public EntityAIHurtByTarget(EntityCreature creatureIn, boolean entityCallsForHelpIn, Class<?>... excludedReinforcementTypes) {
 

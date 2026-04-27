@@ -46,6 +46,11 @@ public class EntityPigZombie extends EntityZombie {
 		isImmuneToFire = true;
 	}
 
+	public static void registerFixesPigZombie(DataFixer fixer) {
+
+		EntityLiving.registerFixesMob(fixer, EntityPigZombie.class);
+	}
+
 	/**
 	 * Hint to AI tasks that we were attacked by the passed EntityLivingBase and should retaliate. Is not guaranteed to
 	 * change our actual active target (for example if we are currently busy attacking someone else)
@@ -115,11 +120,6 @@ public class EntityPigZombie extends EntityZombie {
 	public boolean isNotColliding() {
 
 		return world.checkNoEntityCollision(getEntityBoundingBox(), this) && world.getCollisionBoxes(this, getEntityBoundingBox()).isEmpty() && !world.containsAnyLiquid(getEntityBoundingBox());
-	}
-
-	public static void registerFixesPigZombie(DataFixer fixer) {
-
-		EntityLiving.registerFixesMob(fixer, EntityPigZombie.class);
 	}
 
 	/**

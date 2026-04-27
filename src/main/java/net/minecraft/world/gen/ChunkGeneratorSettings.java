@@ -257,6 +257,11 @@ public class ChunkGeneratorSettings {
 		public int lapisCenterHeight = 16;
 		public int lapisSpread = 16;
 
+		public Factory() {
+
+			setDefaults();
+		}
+
 		public static ChunkGeneratorSettings.Factory jsonToFactory(String p_177865_0_) {
 
 			if (p_177865_0_.isEmpty()) {
@@ -273,11 +278,6 @@ public class ChunkGeneratorSettings {
 		public String toString() {
 
 			return JSON_ADAPTER.toJson(this);
-		}
-
-		public Factory() {
-
-			setDefaults();
 		}
 
 		public void setDefaults() {

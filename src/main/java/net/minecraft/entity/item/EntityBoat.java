@@ -807,14 +807,6 @@ public class EntityBoat extends Entity {
 	}
 
 	/**
-	 * Sets the damage taken from the last hit.
-	 */
-	public void setDamageTaken(float damageTaken) {
-
-		dataManager.set(DAMAGE_TAKEN, Float.valueOf(damageTaken));
-	}
-
-	/**
 	 * Gets the damage taken from the last hit.
 	 */
 	public float getDamageTaken() {
@@ -823,11 +815,11 @@ public class EntityBoat extends Entity {
 	}
 
 	/**
-	 * Sets the time to count down from since the last time entity was hit.
+	 * Sets the damage taken from the last hit.
 	 */
-	public void setTimeSinceHit(int timeSinceHit) {
+	public void setDamageTaken(float damageTaken) {
 
-		dataManager.set(TIME_SINCE_HIT, Integer.valueOf(timeSinceHit));
+		dataManager.set(DAMAGE_TAKEN, Float.valueOf(damageTaken));
 	}
 
 	/**
@@ -839,11 +831,11 @@ public class EntityBoat extends Entity {
 	}
 
 	/**
-	 * Sets the forward direction of the entity.
+	 * Sets the time to count down from since the last time entity was hit.
 	 */
-	public void setForwardDirection(int forwardDirection) {
+	public void setTimeSinceHit(int timeSinceHit) {
 
-		dataManager.set(FORWARD_DIRECTION, Integer.valueOf(forwardDirection));
+		dataManager.set(TIME_SINCE_HIT, Integer.valueOf(timeSinceHit));
 	}
 
 	/**
@@ -854,14 +846,22 @@ public class EntityBoat extends Entity {
 		return dataManager.get(FORWARD_DIRECTION).intValue();
 	}
 
-	public void setBoatType(EntityBoat.Type boatType) {
+	/**
+	 * Sets the forward direction of the entity.
+	 */
+	public void setForwardDirection(int forwardDirection) {
 
-		dataManager.set(BOAT_TYPE, Integer.valueOf(boatType.ordinal()));
+		dataManager.set(FORWARD_DIRECTION, Integer.valueOf(forwardDirection));
 	}
 
 	public EntityBoat.Type getBoatType() {
 
 		return EntityBoat.Type.byId(dataManager.get(BOAT_TYPE).intValue());
+	}
+
+	public void setBoatType(EntityBoat.Type boatType) {
+
+		dataManager.set(BOAT_TYPE, Integer.valueOf(boatType.ordinal()));
 	}
 
 	protected boolean canFitPassenger(Entity passenger) {
@@ -914,21 +914,6 @@ public class EntityBoat extends Entity {
 			metadata = metadataIn;
 		}
 
-		public String getName() {
-
-			return name;
-		}
-
-		public int getMetadata() {
-
-			return metadata;
-		}
-
-		public String toString() {
-
-			return name;
-		}
-
 		public static EntityBoat.Type byId(int id) {
 
 			if (id < 0 || id >= values().length) {
@@ -947,6 +932,21 @@ public class EntityBoat extends Entity {
 			}
 
 			return values()[0];
+		}
+
+		public String getName() {
+
+			return name;
+		}
+
+		public int getMetadata() {
+
+			return metadata;
+		}
+
+		public String toString() {
+
+			return name;
 		}
 	}
 

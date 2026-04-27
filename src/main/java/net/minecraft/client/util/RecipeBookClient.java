@@ -20,6 +20,31 @@ public class RecipeBookClient extends RecipeBook {
 	public static final Map<CreativeTabs, List<RecipeList>> RECIPES_BY_TAB = Maps.newHashMap();
 	public static final List<RecipeList> ALL_RECIPES = Lists.newArrayList();
 
+	static {
+		Table<CreativeTabs, String, RecipeList> table = HashBasedTable.create();
+
+		for (IRecipe irecipe : CraftingManager.REGISTRY) {
+			if (!irecipe.isDynamic()) {
+				CreativeTabs creativetabs = getItemStackTab(irecipe.getRecipeOutput());
+				String s = irecipe.getGroup();
+				RecipeList recipelist1;
+
+				if (s.isEmpty()) {
+					recipelist1 = newRecipeList(creativetabs);
+				} else {
+					recipelist1 = table.get(creativetabs, s);
+
+					if (recipelist1 == null) {
+						recipelist1 = newRecipeList(creativetabs);
+						table.put(creativetabs, s, recipelist1);
+					}
+				}
+
+				recipelist1.add(irecipe);
+			}
+		}
+	}
+
 	private static RecipeList newRecipeList(CreativeTabs p_194082_0_) {
 
 		RecipeList recipelist = new RecipeList();
@@ -43,31 +68,6 @@ public class RecipeBookClient extends RecipeBook {
 			return creativetabs == CreativeTabs.COMBAT ? CreativeTabs.TOOLS : CreativeTabs.MISC;
 		} else {
 			return creativetabs;
-		}
-	}
-
-	static {
-		Table<CreativeTabs, String, RecipeList> table = HashBasedTable.create();
-
-		for (IRecipe irecipe : CraftingManager.REGISTRY) {
-			if (!irecipe.isDynamic()) {
-				CreativeTabs creativetabs = getItemStackTab(irecipe.getRecipeOutput());
-				String s = irecipe.getGroup();
-				RecipeList recipelist1;
-
-				if (s.isEmpty()) {
-					recipelist1 = newRecipeList(creativetabs);
-				} else {
-					recipelist1 = table.get(creativetabs, s);
-
-					if (recipelist1 == null) {
-						recipelist1 = newRecipeList(creativetabs);
-						table.put(creativetabs, s, recipelist1);
-					}
-				}
-
-				recipelist1.add(irecipe);
-			}
 		}
 	}
 }

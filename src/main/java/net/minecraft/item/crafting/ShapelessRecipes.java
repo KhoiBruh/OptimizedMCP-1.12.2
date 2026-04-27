@@ -28,6 +28,36 @@ public class ShapelessRecipes implements IRecipe {
 		recipeItems = ingredients;
 	}
 
+	public static ShapelessRecipes deserialize(JsonObject json) {
+
+		String s = JsonUtils.getString(json, "group", "");
+		NonNullList<Ingredient> nonnulllist = deserializeIngredients(JsonUtils.getJsonArray(json, "ingredients"));
+
+		if (nonnulllist.isEmpty()) {
+			throw new JsonParseException("No ingredients for shapeless recipe");
+		} else if (nonnulllist.size() > 9) {
+			throw new JsonParseException("Too many ingredients for shapeless recipe");
+		} else {
+			ItemStack itemstack = ShapedRecipes.deserializeItem(JsonUtils.getJsonObject(json, "result"), true);
+			return new ShapelessRecipes(s, itemstack, nonnulllist);
+		}
+	}
+
+	private static NonNullList<Ingredient> deserializeIngredients(JsonArray array) {
+
+		NonNullList<Ingredient> nonnulllist = NonNullList.create();
+
+		for (int i = 0; i < array.size(); ++i) {
+			Ingredient ingredient = ShapedRecipes.deserializeIngredient(array.get(i));
+
+			if (ingredient != Ingredient.EMPTY) {
+				nonnulllist.add(ingredient);
+			}
+		}
+
+		return nonnulllist;
+	}
+
 	public String getGroup() {
 
 		return group;
@@ -96,36 +126,6 @@ public class ShapelessRecipes implements IRecipe {
 	public ItemStack getCraftingResult(InventoryCrafting inv) {
 
 		return recipeOutput.copy();
-	}
-
-	public static ShapelessRecipes deserialize(JsonObject json) {
-
-		String s = JsonUtils.getString(json, "group", "");
-		NonNullList<Ingredient> nonnulllist = deserializeIngredients(JsonUtils.getJsonArray(json, "ingredients"));
-
-		if (nonnulllist.isEmpty()) {
-			throw new JsonParseException("No ingredients for shapeless recipe");
-		} else if (nonnulllist.size() > 9) {
-			throw new JsonParseException("Too many ingredients for shapeless recipe");
-		} else {
-			ItemStack itemstack = ShapedRecipes.deserializeItem(JsonUtils.getJsonObject(json, "result"), true);
-			return new ShapelessRecipes(s, itemstack, nonnulllist);
-		}
-	}
-
-	private static NonNullList<Ingredient> deserializeIngredients(JsonArray array) {
-
-		NonNullList<Ingredient> nonnulllist = NonNullList.create();
-
-		for (int i = 0; i < array.size(); ++i) {
-			Ingredient ingredient = ShapedRecipes.deserializeIngredient(array.get(i));
-
-			if (ingredient != Ingredient.EMPTY) {
-				nonnulllist.add(ingredient);
-			}
-		}
-
-		return nonnulllist;
 	}
 
 	/**

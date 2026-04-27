@@ -23,7 +23,6 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
 import java.awt.*;
-import java.awt.datatransfer.ClipboardOwner;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
@@ -31,38 +30,35 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.*;
+import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
+import java.util.Set;
 
 public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 
 	private static final Logger LOGGER = LogManager.getLogger();
 	private static final Set<String> PROTOCOLS = Sets.newHashSet("http", "https");
 	private static final Splitter NEWLINE_SPLITTER = Splitter.on('\n');
-
-	/**
-	 * Reference to the Minecraft object.
-	 */
-	protected Minecraft mc;
-
-	/**
-	 * Holds a instance of RenderItem, used to draw the achievement icons on screen (is based on ItemStack)
-	 */
-	protected RenderItem itemRender;
-
 	/**
 	 * The width of the screen object.
 	 */
 	public int width;
-
 	/**
 	 * The height of the screen object.
 	 */
 	public int height;
+	public boolean allowUserInput;
+	/**
+	 * Reference to the Minecraft object.
+	 */
+	protected Minecraft mc;
+	/**
+	 * Holds a instance of RenderItem, used to draw the achievement icons on screen (is based on ItemStack)
+	 */
+	protected RenderItem itemRender;
 	protected List<GuiButton> buttonList = Lists.newArrayList();
 	protected List<GuiLabel> labelList = Lists.newArrayList();
-	public boolean allowUserInput;
-
 	/**
 	 * The FontRenderer used by GuiScreen
 	 */
@@ -81,6 +77,85 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 	private int touchValue;
 	private URI clickedLinkURI;
 	private boolean focused;
+
+	/**
+	 * Returns a string stored in the system clipboard.
+	 */
+	public static String getClipboardString() {
+
+		try {
+			Transferable transferable = Toolkit.getDefaultToolkit().getSystemClipboard().getContents(null);
+
+			if (transferable != null && transferable.isDataFlavorSupported(DataFlavor.stringFlavor)) {
+				return (String) transferable.getTransferData(DataFlavor.stringFlavor);
+			}
+		} catch (Exception var1) {
+		}
+
+		return "";
+	}
+
+	/**
+	 * Stores the given string in the system clipboard
+	 */
+	public static void setClipboardString(String copyText) {
+
+		if (!StringUtils.isEmpty(copyText)) {
+			try {
+				StringSelection stringselection = new StringSelection(copyText);
+				Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringselection, null);
+			} catch (Exception var2) {
+			}
+		}
+	}
+
+	/**
+	 * Returns true if either windows ctrl key is down or if either mac meta key is down
+	 */
+	public static boolean isCtrlKeyDown() {
+
+		if (Minecraft.IS_RUNNING_ON_MAC) {
+			return Keyboard.isKeyDown(219) || Keyboard.isKeyDown(220);
+		} else {
+			return Keyboard.isKeyDown(29) || Keyboard.isKeyDown(157);
+		}
+	}
+
+	/**
+	 * Returns true if either shift key is down
+	 */
+	public static boolean isShiftKeyDown() {
+
+		return Keyboard.isKeyDown(42) || Keyboard.isKeyDown(54);
+	}
+
+	/**
+	 * Returns true if either alt key is down
+	 */
+	public static boolean isAltKeyDown() {
+
+		return Keyboard.isKeyDown(56) || Keyboard.isKeyDown(184);
+	}
+
+	public static boolean isKeyComboCtrlX(int keyID) {
+
+		return keyID == 45 && isCtrlKeyDown() && !isShiftKeyDown() && !isAltKeyDown();
+	}
+
+	public static boolean isKeyComboCtrlV(int keyID) {
+
+		return keyID == 47 && isCtrlKeyDown() && !isShiftKeyDown() && !isAltKeyDown();
+	}
+
+	public static boolean isKeyComboCtrlC(int keyID) {
+
+		return keyID == 46 && isCtrlKeyDown() && !isShiftKeyDown() && !isAltKeyDown();
+	}
+
+	public static boolean isKeyComboCtrlA(int keyID) {
+
+		return keyID == 30 && isCtrlKeyDown() && !isShiftKeyDown() && !isAltKeyDown();
+	}
 
 	/**
 	 * Draws the screen and all the components in it.
@@ -117,37 +192,6 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 		return buttonIn;
 	}
 
-	/**
-	 * Returns a string stored in the system clipboard.
-	 */
-	public static String getClipboardString() {
-
-		try {
-			Transferable transferable = Toolkit.getDefaultToolkit().getSystemClipboard().getContents(null);
-
-			if (transferable != null && transferable.isDataFlavorSupported(DataFlavor.stringFlavor)) {
-				return (String) transferable.getTransferData(DataFlavor.stringFlavor);
-			}
-		} catch (Exception var1) {
-		}
-
-		return "";
-	}
-
-	/**
-	 * Stores the given string in the system clipboard
-	 */
-	public static void setClipboardString(String copyText) {
-
-		if (!StringUtils.isEmpty(copyText)) {
-			try {
-				StringSelection stringselection = new StringSelection(copyText);
-				Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringselection, null);
-			} catch (Exception var2) {
-			}
-		}
-	}
-
 	protected void renderToolTip(ItemStack stack, int x, int y) {
 
 		drawHoveringText(getItemToolTip(stack), x, y);
@@ -176,14 +220,14 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 		drawHoveringText(Collections.singletonList(text), x, y);
 	}
 
-	public void setFocused(boolean hasFocusedControlIn) {
-
-		focused = hasFocusedControlIn;
-	}
-
 	public boolean isFocused() {
 
 		return focused;
+	}
+
+	public void setFocused(boolean hasFocusedControlIn) {
+
+		focused = hasFocusedControlIn;
 	}
 
 	/**
@@ -610,54 +654,6 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 			Throwable throwable = throwable1.getCause();
 			LOGGER.error("Couldn't open link: {}", throwable == null ? "<UNKNOWN>" : throwable.getMessage());
 		}
-	}
-
-	/**
-	 * Returns true if either windows ctrl key is down or if either mac meta key is down
-	 */
-	public static boolean isCtrlKeyDown() {
-
-		if (Minecraft.IS_RUNNING_ON_MAC) {
-			return Keyboard.isKeyDown(219) || Keyboard.isKeyDown(220);
-		} else {
-			return Keyboard.isKeyDown(29) || Keyboard.isKeyDown(157);
-		}
-	}
-
-	/**
-	 * Returns true if either shift key is down
-	 */
-	public static boolean isShiftKeyDown() {
-
-		return Keyboard.isKeyDown(42) || Keyboard.isKeyDown(54);
-	}
-
-	/**
-	 * Returns true if either alt key is down
-	 */
-	public static boolean isAltKeyDown() {
-
-		return Keyboard.isKeyDown(56) || Keyboard.isKeyDown(184);
-	}
-
-	public static boolean isKeyComboCtrlX(int keyID) {
-
-		return keyID == 45 && isCtrlKeyDown() && !isShiftKeyDown() && !isAltKeyDown();
-	}
-
-	public static boolean isKeyComboCtrlV(int keyID) {
-
-		return keyID == 47 && isCtrlKeyDown() && !isShiftKeyDown() && !isAltKeyDown();
-	}
-
-	public static boolean isKeyComboCtrlC(int keyID) {
-
-		return keyID == 46 && isCtrlKeyDown() && !isShiftKeyDown() && !isAltKeyDown();
-	}
-
-	public static boolean isKeyComboCtrlA(int keyID) {
-
-		return keyID == 30 && isCtrlKeyDown() && !isShiftKeyDown() && !isAltKeyDown();
 	}
 
 	/**

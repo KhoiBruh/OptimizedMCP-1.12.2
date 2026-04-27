@@ -27,6 +27,23 @@ public class ServerList {
 		loadServerList();
 	}
 
+	public static void saveSingleServer(ServerData server) {
+
+		ServerList serverlist = new ServerList(Minecraft.getMinecraft());
+		serverlist.loadServerList();
+
+		for (int i = 0; i < serverlist.countServers(); ++i) {
+			ServerData serverdata = serverlist.getServerData(i);
+
+			if (serverdata.serverName.equals(server.serverName) && serverdata.serverIP.equals(server.serverIP)) {
+				serverlist.set(i, server);
+				break;
+			}
+		}
+
+		serverlist.saveServerList();
+	}
+
 	/**
 	 * Loads a list of servers from servers.dat, by running ServerData.getServerDataFromNBTCompound on each NBT compound
 	 * found in the "servers" tag list.
@@ -118,23 +135,6 @@ public class ServerList {
 	public void set(int index, ServerData server) {
 
 		servers.set(index, server);
-	}
-
-	public static void saveSingleServer(ServerData server) {
-
-		ServerList serverlist = new ServerList(Minecraft.getMinecraft());
-		serverlist.loadServerList();
-
-		for (int i = 0; i < serverlist.countServers(); ++i) {
-			ServerData serverdata = serverlist.getServerData(i);
-
-			if (serverdata.serverName.equals(server.serverName) && serverdata.serverIP.equals(server.serverIP)) {
-				serverlist.set(i, server);
-				break;
-			}
-		}
-
-		serverlist.saveServerList();
 	}
 
 }

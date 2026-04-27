@@ -80,6 +80,58 @@ public class EntityDataManager {
 		}
 	}
 
+	public static void writeEntries(List<EntityDataManager.DataEntry<?>> entriesIn, PacketBuffer buf) throws IOException {
+
+		if (entriesIn != null) {
+			int i = 0;
+
+			for (int j = entriesIn.size(); i < j; ++i) {
+				EntityDataManager.DataEntry<?> dataentry = entriesIn.get(i);
+				writeEntry(buf, dataentry);
+			}
+		}
+
+		buf.writeByte(255);
+	}
+
+	private static <T> void writeEntry(PacketBuffer buf, EntityDataManager.DataEntry<T> entry) throws IOException {
+
+		DataParameter<T> dataparameter = entry.getKey();
+		int i = DataSerializers.getSerializerId(dataparameter.serializer());
+
+		if (i < 0) {
+			throw new EncoderException("Unknown serializer type " + dataparameter.serializer());
+		} else {
+			buf.writeByte(dataparameter.id());
+			buf.writeVarInt(i);
+			dataparameter.serializer().write(buf, entry.getValue());
+		}
+	}
+
+	@Nullable
+	public static List<EntityDataManager.DataEntry<?>> readEntries(PacketBuffer buf) throws IOException {
+
+		List<EntityDataManager.DataEntry<?>> list = null;
+		int i;
+
+		while ((i = buf.readUnsignedByte()) != 255) {
+			if (list == null) {
+				list = Lists.newArrayList();
+			}
+
+			int j = buf.readVarInt();
+			DataSerializer<?> dataserializer = DataSerializers.getSerializer(j);
+
+			if (dataserializer == null) {
+				throw new DecoderException("Unknown serializer type " + j);
+			}
+
+			list.add(new EntityDataManager.DataEntry(dataserializer.createKey(i), dataserializer.read(buf)));
+		}
+
+		return list;
+	}
+
 	public <T> void register(DataParameter<T> key, T value) {
 
 		int i = key.id();
@@ -129,7 +181,7 @@ public class EntityDataManager {
 
 	public <T> void set(DataParameter<T> key, T value) {
 
-		EntityDataManager.DataEntry<T> dataentry = this.getEntry(key);
+		EntityDataManager.DataEntry<T> dataentry = getEntry(key);
 
 		if (ObjectUtils.notEqual(value, dataentry.getValue())) {
 			dataentry.setValue(value);
@@ -139,29 +191,9 @@ public class EntityDataManager {
 		}
 	}
 
-	public <T> void setDirty(DataParameter<T> key) {
-
-		getEntry(key).dirty = true;
-		dirty = true;
-	}
-
 	public boolean isDirty() {
 
 		return dirty;
-	}
-
-	public static void writeEntries(List<EntityDataManager.DataEntry<?>> entriesIn, PacketBuffer buf) throws IOException {
-
-		if (entriesIn != null) {
-			int i = 0;
-
-			for (int j = entriesIn.size(); i < j; ++i) {
-				EntityDataManager.DataEntry<?> dataentry = entriesIn.get(i);
-				writeEntry(buf, dataentry);
-			}
-		}
-
-		buf.writeByte(255);
 	}
 
 	@Nullable
@@ -191,6 +223,12 @@ public class EntityDataManager {
 		return list;
 	}
 
+	public <T> void setDirty(DataParameter<T> key) {
+
+		getEntry(key).dirty = true;
+		dirty = true;
+	}
+
 	public void writeEntries(PacketBuffer buf) throws IOException {
 
 		lock.readLock().lock();
@@ -218,44 +256,6 @@ public class EntityDataManager {
 		}
 
 		lock.readLock().unlock();
-		return list;
-	}
-
-	private static <T> void writeEntry(PacketBuffer buf, EntityDataManager.DataEntry<T> entry) throws IOException {
-
-		DataParameter<T> dataparameter = entry.getKey();
-		int i = DataSerializers.getSerializerId(dataparameter.serializer());
-
-		if (i < 0) {
-			throw new EncoderException("Unknown serializer type " + dataparameter.serializer());
-		} else {
-			buf.writeByte(dataparameter.id());
-			buf.writeVarInt(i);
-			dataparameter.serializer().write(buf, entry.getValue());
-		}
-	}
-
-	@Nullable
-	public static List<EntityDataManager.DataEntry<?>> readEntries(PacketBuffer buf) throws IOException {
-
-		List<EntityDataManager.DataEntry<?>> list = null;
-		int i;
-
-		while ((i = buf.readUnsignedByte()) != 255) {
-			if (list == null) {
-				list = Lists.newArrayList();
-			}
-
-			int j = buf.readVarInt();
-			DataSerializer<?> dataserializer = DataSerializers.getSerializer(j);
-
-			if (dataserializer == null) {
-				throw new DecoderException("Unknown serializer type " + j);
-			}
-
-			list.add(new EntityDataManager.DataEntry(dataserializer.createKey(i), dataserializer.read(buf)));
-		}
-
 		return list;
 	}
 
@@ -316,14 +316,14 @@ public class EntityDataManager {
 			return key;
 		}
 
-		public void setValue(T valueIn) {
-
-			value = valueIn;
-		}
-
 		public T getValue() {
 
 			return value;
+		}
+
+		public void setValue(T valueIn) {
+
+			value = valueIn;
 		}
 
 		public boolean isDirty() {

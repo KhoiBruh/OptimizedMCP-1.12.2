@@ -40,6 +40,23 @@ public class AdvancementTreeNode {
 		}
 	}
 
+	public static void layout(Advancement root) {
+
+		if (root.getDisplay() == null) {
+			throw new IllegalArgumentException("Can't position children of an invisible root!");
+		} else {
+			AdvancementTreeNode advancementtreenode = new AdvancementTreeNode(root, null, null, 1, 0);
+			advancementtreenode.firstWalk();
+			float f = advancementtreenode.secondWalk(0.0F, 0, advancementtreenode.y);
+
+			if (f < 0.0F) {
+				advancementtreenode.thirdWalk(-f);
+			}
+
+			advancementtreenode.updatePosition();
+		}
+	}
+
 	@Nullable
 	private AdvancementTreeNode buildSubTree(Advancement advancementIn, @Nullable AdvancementTreeNode previous) {
 
@@ -220,23 +237,6 @@ public class AdvancementTreeNode {
 			for (AdvancementTreeNode advancementtreenode : children) {
 				advancementtreenode.updatePosition();
 			}
-		}
-	}
-
-	public static void layout(Advancement root) {
-
-		if (root.getDisplay() == null) {
-			throw new IllegalArgumentException("Can't position children of an invisible root!");
-		} else {
-			AdvancementTreeNode advancementtreenode = new AdvancementTreeNode(root, null, null, 1, 0);
-			advancementtreenode.firstWalk();
-			float f = advancementtreenode.secondWalk(0.0F, 0, advancementtreenode.y);
-
-			if (f < 0.0F) {
-				advancementtreenode.thirdWalk(-f);
-			}
-
-			advancementtreenode.updatePosition();
 		}
 	}
 

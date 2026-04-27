@@ -72,36 +72,41 @@ import java.util.List;
 public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 
 	private static final Logger LOGGER = LogManager.getLogger();
-	private String language = "en_US";
-
-	/**
-	 * The NetServerHandler assigned to this player by the ServerConfigurationManager.
-	 */
-	public NetHandlerPlayServer connection;
-
 	/**
 	 * Reference to the MinecraftServer object.
 	 */
 	public final MinecraftServer mcServer;
-
 	/**
 	 * The player interaction manager for this player
 	 */
 	public final PlayerInteractionManager interactionManager;
-
+	private final List<Integer> entityRemoveQueue = Lists.newLinkedList();
+	private final PlayerAdvancements advancements;
+	private final StatisticsManagerServer statsFile;
+	private final RecipeBookServer recipeBook = new RecipeBookServer();
+	/**
+	 * The NetServerHandler assigned to this player by the ServerConfigurationManager.
+	 */
+	public NetHandlerPlayServer connection;
 	/**
 	 * player X position as seen by PlayerManager
 	 */
 	public double managedPosX;
-
 	/**
 	 * player Z position as seen by PlayerManager
 	 */
 	public double managedPosZ;
-	private final List<Integer> entityRemoveQueue = Lists.newLinkedList();
-	private final PlayerAdvancements advancements;
-	private final StatisticsManagerServer statsFile;
-
+	/**
+	 * set to true when player is moving quantity of items from one inventory to another(crafting) but item in either
+	 * slot is not changed
+	 */
+	public boolean isChangingQuantityOnly;
+	public int ping;
+	/**
+	 * True when the player has left the End using an the exit portal, but has not yet been respawned in the overworld
+	 */
+	public boolean queuedEndExit;
+	private String language = "en_US";
 	/**
 	 * the total health of the player, includes actual health and absorption health. Updated every tick.
 	 */
@@ -111,22 +116,18 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	private int lastArmorScore = Integer.MIN_VALUE;
 	private int lastLevelScore = Integer.MIN_VALUE;
 	private int lastExperienceScore = Integer.MIN_VALUE;
-
 	/**
 	 * amount of health the client was last set to
 	 */
 	private float lastHealth = -1.0E8F;
-
 	/**
 	 * set to foodStats.GetFoodLevel
 	 */
 	private int lastFoodLevel = -99999999;
-
 	/**
 	 * set to foodStats.getSaturationLevel() == 0.0F each tick
 	 */
 	private boolean wasHungry = true;
-
 	/**
 	 * Amount of experience the client was last set to
 	 */
@@ -135,43 +136,26 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	private EntityPlayer.EnumChatVisibility chatVisibility;
 	private boolean chatColours = true;
 	private long playerLastActiveTime = System.currentTimeMillis();
-
 	/**
 	 * The entity the player is currently spectating through.
 	 */
 	private Entity spectatingEntity;
 	private boolean invulnerableDimensionChange;
 	private boolean seenCredits;
-	private final RecipeBookServer recipeBook = new RecipeBookServer();
-
 	/**
 	 * The position this player started levitating at.
 	 */
 	private Vec3d levitationStartPos;
-
 	/**
 	 * The value of ticksExisted when this player started levitating.
 	 */
 	private int levitatingSince;
 	private boolean disconnected;
 	private Vec3d enteredNetherPosition;
-
 	/**
 	 * The currently in use window ID. Incremented every time a window is opened.
 	 */
 	private int currentWindowId;
-
-	/**
-	 * set to true when player is moving quantity of items from one inventory to another(crafting) but item in either
-	 * slot is not changed
-	 */
-	public boolean isChangingQuantityOnly;
-	public int ping;
-
-	/**
-	 * True when the player has left the End using an the exit portal, but has not yet been respawned in the overworld
-	 */
-	public boolean queuedEndExit;
 
 	public EntityPlayerMP(MinecraftServer server, WorldServer worldIn, GameProfile profile, PlayerInteractionManager interactionManagerIn) {
 
@@ -206,6 +190,24 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 		}
 	}
 
+	public static void registerFixesPlayerMP(DataFixer p_191522_0_) {
+
+		p_191522_0_.registerWalker(FixTypes.PLAYER, new IDataWalker() {
+			public NBTTagCompound process(IDataFixer fixer, NBTTagCompound compound, int versionIn) {
+
+				if (compound.hasKey("RootVehicle", 10)) {
+					NBTTagCompound nbttagcompound = compound.getCompoundTag("RootVehicle");
+
+					if (nbttagcompound.hasKey("Entity", 10)) {
+						nbttagcompound.setTag("Entity", fixer.process(FixTypes.ENTITY, nbttagcompound.getCompoundTag("Entity"), versionIn));
+					}
+				}
+
+				return compound;
+			}
+		});
+	}
+
 	/**
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
@@ -231,24 +233,6 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 		if (compound.hasKey("recipeBook", 10)) {
 			recipeBook.read(compound.getCompoundTag("recipeBook"));
 		}
-	}
-
-	public static void registerFixesPlayerMP(DataFixer p_191522_0_) {
-
-		p_191522_0_.registerWalker(FixTypes.PLAYER, new IDataWalker() {
-			public NBTTagCompound process(IDataFixer fixer, NBTTagCompound compound, int versionIn) {
-
-				if (compound.hasKey("RootVehicle", 10)) {
-					NBTTagCompound nbttagcompound = compound.getCompoundTag("RootVehicle");
-
-					if (nbttagcompound.hasKey("Entity", 10)) {
-						nbttagcompound.setTag("Entity", fixer.process(FixTypes.ENTITY, nbttagcompound.getCompoundTag("Entity"), versionIn));
-					}
-				}
-
-				return compound;
-			}
-		});
 	}
 
 	/**

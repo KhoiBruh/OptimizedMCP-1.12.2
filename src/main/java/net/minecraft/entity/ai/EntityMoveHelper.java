@@ -13,17 +13,16 @@ public class EntityMoveHelper {
 	 * The EntityLiving that is being moved
 	 */
 	protected final EntityLiving entity;
+	public EntityMoveHelper.Action action = EntityMoveHelper.Action.WAIT;
 	protected double posX;
 	protected double posY;
 	protected double posZ;
-
 	/**
 	 * Multiplier for the entity's speed attribute value
 	 */
 	protected double speed;
 	protected float moveForward;
 	protected float moveStrafe;
-	public EntityMoveHelper.Action action = EntityMoveHelper.Action.WAIT;
 
 	public EntityMoveHelper(EntityLiving entitylivingIn) {
 
