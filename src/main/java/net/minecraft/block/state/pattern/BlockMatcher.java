@@ -1,26 +1,28 @@
 package net.minecraft.block.state.pattern;
 
 import com.google.common.base.Predicate;
-import javax.annotation.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 
-public class BlockMatcher implements Predicate<IBlockState>
-{
-    private final Block block;
+import javax.annotation.Nullable;
 
-    private BlockMatcher(Block blockType)
-    {
-        block = blockType;
-    }
+public class BlockMatcher implements Predicate<IBlockState> {
 
-    public static BlockMatcher forBlock(Block blockType)
-    {
-        return new BlockMatcher(blockType);
-    }
+	private final Block block;
 
-    public boolean apply(@Nullable IBlockState p_apply_1_)
-    {
-        return p_apply_1_ != null && p_apply_1_.getBlock() == block;
-    }
+	private BlockMatcher(Block blockType) {
+
+		block = blockType;
+	}
+
+	public static BlockMatcher forBlock(Block blockType) {
+
+		return new BlockMatcher(blockType);
+	}
+
+	public boolean apply(@Nullable IBlockState p_apply_1_) {
+
+		return p_apply_1_ != null && p_apply_1_.getBlock() == block;
+	}
+
 }

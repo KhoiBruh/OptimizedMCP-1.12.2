@@ -11,87 +11,78 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.GameType;
 
-public class CraftPlanksStep implements ITutorialStep
-{
-    private static final ITextComponent TITLE = new TextComponentTranslation("tutorial.craft_planks.title", new Object[0]);
-    private static final ITextComponent DESCRIPTION = new TextComponentTranslation("tutorial.craft_planks.description", new Object[0]);
-    private final Tutorial tutorial;
-    private TutorialToast toast;
-    private int timeWaiting;
+public class CraftPlanksStep implements ITutorialStep {
 
-    public CraftPlanksStep(Tutorial tutorial)
-    {
-        this.tutorial = tutorial;
-    }
+	private static final ITextComponent TITLE = new TextComponentTranslation("tutorial.craft_planks.title");
+	private static final ITextComponent DESCRIPTION = new TextComponentTranslation("tutorial.craft_planks.description");
+	private final Tutorial tutorial;
+	private TutorialToast toast;
+	private int timeWaiting;
 
-    public void update()
-    {
-        ++timeWaiting;
+	public CraftPlanksStep(Tutorial tutorial) {
 
-        if (tutorial.getGameType() != GameType.SURVIVAL)
-        {
-            tutorial.setStep(TutorialSteps.NONE);
-        }
-        else
-        {
-            if (timeWaiting == 1)
-            {
-                EntityPlayerSP entityplayersp = tutorial.getMinecraft().player;
+		this.tutorial = tutorial;
+	}
 
-                if (entityplayersp != null)
-                {
-                    if (entityplayersp.inventory.hasItemStack(new ItemStack(Blocks.PLANKS)))
-                    {
-                        tutorial.setStep(TutorialSteps.NONE);
-                        return;
-                    }
+	public void update() {
 
-                    if (didPlayerCraftedPlanks(entityplayersp))
-                    {
-                        tutorial.setStep(TutorialSteps.NONE);
-                        return;
-                    }
-                }
-            }
+		++timeWaiting;
 
-            if (timeWaiting >= 1200 && toast == null)
-            {
-                toast = new TutorialToast(TutorialToast.Icons.WOODEN_PLANKS, TITLE, DESCRIPTION, false);
-                tutorial.getMinecraft().getToastGui().add(toast);
-            }
-        }
-    }
+		if (tutorial.getGameType() != GameType.SURVIVAL) {
+			tutorial.setStep(TutorialSteps.NONE);
+		} else {
+			if (timeWaiting == 1) {
+				EntityPlayerSP entityplayersp = tutorial.getMinecraft().player;
 
-    public void onStop()
-    {
-        if (toast != null)
-        {
-            toast.hide();
-            toast = null;
-        }
-    }
+				if (entityplayersp != null) {
+					if (entityplayersp.inventory.hasItemStack(new ItemStack(Blocks.PLANKS))) {
+						tutorial.setStep(TutorialSteps.NONE);
+						return;
+					}
 
-    /**
-     * Called when the player pick up an ItemStack
-     *  
-     * @param stack The ItemStack
-     */
-    public void handleSetSlot(ItemStack stack)
-    {
-        if (stack.getItem() == Item.getItemFromBlock(Blocks.PLANKS))
-        {
-            tutorial.setStep(TutorialSteps.NONE);
-        }
-    }
+					if (didPlayerCraftedPlanks(entityplayersp)) {
+						tutorial.setStep(TutorialSteps.NONE);
+						return;
+					}
+				}
+			}
 
-    /**
-     * Indicates if the players crafted at least one time planks.
-     *  
-     * @param player The player
-     */
-    public static boolean didPlayerCraftedPlanks(EntityPlayerSP player)
-    {
-        StatBase statbase = StatList.getCraftStats(Item.getItemFromBlock(Blocks.PLANKS));
-        return statbase != null && player.getStatFileWriter().readStat(statbase) > 0;
-    }
+			if (timeWaiting >= 1200 && toast == null) {
+				toast = new TutorialToast(TutorialToast.Icons.WOODEN_PLANKS, TITLE, DESCRIPTION, false);
+				tutorial.getMinecraft().getToastGui().add(toast);
+			}
+		}
+	}
+
+	public void onStop() {
+
+		if (toast != null) {
+			toast.hide();
+			toast = null;
+		}
+	}
+
+	/**
+	 * Called when the player pick up an ItemStack
+	 *
+	 * @param stack The ItemStack
+	 */
+	public void handleSetSlot(ItemStack stack) {
+
+		if (stack.getItem() == Item.getItemFromBlock(Blocks.PLANKS)) {
+			tutorial.setStep(TutorialSteps.NONE);
+		}
+	}
+
+	/**
+	 * Indicates if the players crafted at least one time planks.
+	 *
+	 * @param player The player
+	 */
+	public static boolean didPlayerCraftedPlanks(EntityPlayerSP player) {
+
+		StatBase statbase = StatList.getCraftStats(Item.getItemFromBlock(Blocks.PLANKS));
+		return statbase != null && player.getStatFileWriter().readStat(statbase) > 0;
+	}
+
 }

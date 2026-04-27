@@ -1,24 +1,26 @@
 package net.minecraft.client.resources;
 
-import java.io.File;
 import net.minecraft.util.ResourceLocation;
 
-public class ResourceIndexFolder extends ResourceIndex
-{
-    private final File baseDir;
+import java.io.File;
 
-    public ResourceIndexFolder(File folder)
-    {
-        baseDir = folder;
-    }
+public class ResourceIndexFolder extends ResourceIndex {
 
-    public File getFile(ResourceLocation location)
-    {
-        return new File(baseDir, location.toString().replace(':', '/'));
-    }
+	private final File baseDir;
 
-    public File getPackMcmeta()
-    {
-        return new File(baseDir, "pack.mcmeta");
-    }
+	public ResourceIndexFolder(File folder) {
+
+		baseDir = folder;
+	}
+
+	public File getFile(ResourceLocation location) {
+
+		return new File(baseDir, location.toString().replace(':', '/'));
+	}
+
+	public File getPackMcmeta() {
+
+		return new File(baseDir, "pack.mcmeta");
+	}
+
 }

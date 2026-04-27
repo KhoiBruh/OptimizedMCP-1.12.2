@@ -5,9 +5,6 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import net.minecraft.advancements.ICriterionTrigger;
 import net.minecraft.advancements.PlayerAdvancements;
 import net.minecraft.entity.monster.EntityZombie;
@@ -15,143 +12,138 @@ import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.ResourceLocation;
 
-public class CuredZombieVillagerTrigger implements ICriterionTrigger<CuredZombieVillagerTrigger.Instance>
-{
-    private static final ResourceLocation ID = new ResourceLocation("cured_zombie_villager");
-    private final Map<PlayerAdvancements, CuredZombieVillagerTrigger.Listeners> listeners = Maps.<PlayerAdvancements, CuredZombieVillagerTrigger.Listeners>newHashMap();
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-    public ResourceLocation getId()
-    {
-        return ID;
-    }
+public class CuredZombieVillagerTrigger implements ICriterionTrigger<CuredZombieVillagerTrigger.Instance> {
 
-    public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<CuredZombieVillagerTrigger.Instance> listener)
-    {
-        CuredZombieVillagerTrigger.Listeners curedzombievillagertrigger$listeners = listeners.get(playerAdvancementsIn);
+	private static final ResourceLocation ID = new ResourceLocation("cured_zombie_villager");
+	private final Map<PlayerAdvancements, CuredZombieVillagerTrigger.Listeners> listeners = Maps.newHashMap();
 
-        if (curedzombievillagertrigger$listeners == null)
-        {
-            curedzombievillagertrigger$listeners = new CuredZombieVillagerTrigger.Listeners(playerAdvancementsIn);
-            listeners.put(playerAdvancementsIn, curedzombievillagertrigger$listeners);
-        }
+	public ResourceLocation getId() {
 
-        curedzombievillagertrigger$listeners.add(listener);
-    }
+		return ID;
+	}
 
-    public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<CuredZombieVillagerTrigger.Instance> listener)
-    {
-        CuredZombieVillagerTrigger.Listeners curedzombievillagertrigger$listeners = listeners.get(playerAdvancementsIn);
+	public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<CuredZombieVillagerTrigger.Instance> listener) {
 
-        if (curedzombievillagertrigger$listeners != null)
-        {
-            curedzombievillagertrigger$listeners.remove(listener);
+		CuredZombieVillagerTrigger.Listeners curedzombievillagertrigger$listeners = listeners.get(playerAdvancementsIn);
 
-            if (curedzombievillagertrigger$listeners.isEmpty())
-            {
-                listeners.remove(playerAdvancementsIn);
-            }
-        }
-    }
+		if (curedzombievillagertrigger$listeners == null) {
+			curedzombievillagertrigger$listeners = new CuredZombieVillagerTrigger.Listeners(playerAdvancementsIn);
+			listeners.put(playerAdvancementsIn, curedzombievillagertrigger$listeners);
+		}
 
-    public void removeAllListeners(PlayerAdvancements playerAdvancementsIn)
-    {
-        listeners.remove(playerAdvancementsIn);
-    }
+		curedzombievillagertrigger$listeners.add(listener);
+	}
 
-    /**
-     * Deserialize a ICriterionInstance of this trigger from the data in the JSON.
-     */
-    public CuredZombieVillagerTrigger.Instance deserializeInstance(JsonObject json, JsonDeserializationContext context)
-    {
-        EntityPredicate entitypredicate = EntityPredicate.deserialize(json.get("zombie"));
-        EntityPredicate entitypredicate1 = EntityPredicate.deserialize(json.get("villager"));
-        return new CuredZombieVillagerTrigger.Instance(entitypredicate, entitypredicate1);
-    }
+	public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<CuredZombieVillagerTrigger.Instance> listener) {
 
-    public void trigger(EntityPlayerMP player, EntityZombie zombie, EntityVillager villager)
-    {
-        CuredZombieVillagerTrigger.Listeners curedzombievillagertrigger$listeners = listeners.get(player.getAdvancements());
+		CuredZombieVillagerTrigger.Listeners curedzombievillagertrigger$listeners = listeners.get(playerAdvancementsIn);
 
-        if (curedzombievillagertrigger$listeners != null)
-        {
-            curedzombievillagertrigger$listeners.trigger(player, zombie, villager);
-        }
-    }
+		if (curedzombievillagertrigger$listeners != null) {
+			curedzombievillagertrigger$listeners.remove(listener);
 
-    public static class Instance extends AbstractCriterionInstance
-    {
-        private final EntityPredicate zombie;
-        private final EntityPredicate villager;
+			if (curedzombievillagertrigger$listeners.isEmpty()) {
+				listeners.remove(playerAdvancementsIn);
+			}
+		}
+	}
 
-        public Instance(EntityPredicate zombie, EntityPredicate villager)
-        {
-            super(CuredZombieVillagerTrigger.ID);
-            this.zombie = zombie;
-            this.villager = villager;
-        }
+	public void removeAllListeners(PlayerAdvancements playerAdvancementsIn) {
 
-        public boolean test(EntityPlayerMP player, EntityZombie zombie, EntityVillager villager)
-        {
-            if (!this.zombie.test(player, zombie))
-            {
-                return false;
-            }
-            else
-            {
-                return this.villager.test(player, villager);
-            }
-        }
-    }
+		listeners.remove(playerAdvancementsIn);
+	}
 
-    static class Listeners
-    {
-        private final PlayerAdvancements playerAdvancements;
-        private final Set<ICriterionTrigger.Listener<CuredZombieVillagerTrigger.Instance>> listeners = Sets.<ICriterionTrigger.Listener<CuredZombieVillagerTrigger.Instance>>newHashSet();
+	/**
+	 * Deserialize a ICriterionInstance of this trigger from the data in the JSON.
+	 */
+	public CuredZombieVillagerTrigger.Instance deserializeInstance(JsonObject json, JsonDeserializationContext context) {
 
-        public Listeners(PlayerAdvancements playerAdvancementsIn)
-        {
-            playerAdvancements = playerAdvancementsIn;
-        }
+		EntityPredicate entitypredicate = EntityPredicate.deserialize(json.get("zombie"));
+		EntityPredicate entitypredicate1 = EntityPredicate.deserialize(json.get("villager"));
+		return new CuredZombieVillagerTrigger.Instance(entitypredicate, entitypredicate1);
+	}
 
-        public boolean isEmpty()
-        {
-            return listeners.isEmpty();
-        }
+	public void trigger(EntityPlayerMP player, EntityZombie zombie, EntityVillager villager) {
 
-        public void add(ICriterionTrigger.Listener<CuredZombieVillagerTrigger.Instance> listener)
-        {
-            listeners.add(listener);
-        }
+		CuredZombieVillagerTrigger.Listeners curedzombievillagertrigger$listeners = listeners.get(player.getAdvancements());
 
-        public void remove(ICriterionTrigger.Listener<CuredZombieVillagerTrigger.Instance> listener)
-        {
-            listeners.remove(listener);
-        }
+		if (curedzombievillagertrigger$listeners != null) {
+			curedzombievillagertrigger$listeners.trigger(player, zombie, villager);
+		}
+	}
 
-        public void trigger(EntityPlayerMP player, EntityZombie zombie, EntityVillager villager)
-        {
-            List<ICriterionTrigger.Listener<CuredZombieVillagerTrigger.Instance>> list = null;
+	public static class Instance extends AbstractCriterionInstance {
 
-            for (ICriterionTrigger.Listener<CuredZombieVillagerTrigger.Instance> listener : listeners)
-            {
-                if (((CuredZombieVillagerTrigger.Instance)listener.getCriterionInstance()).test(player, zombie, villager))
-                {
-                    if (list == null)
-                    {
-                        list = Lists.<ICriterionTrigger.Listener<CuredZombieVillagerTrigger.Instance>>newArrayList();
-                    }
+		private final EntityPredicate zombie;
+		private final EntityPredicate villager;
 
-                    list.add(listener);
-                }
-            }
+		public Instance(EntityPredicate zombie, EntityPredicate villager) {
 
-            if (list != null)
-            {
-                for (ICriterionTrigger.Listener<CuredZombieVillagerTrigger.Instance> listener1 : list)
-                {
-                    listener1.grantCriterion(playerAdvancements);
-                }
-            }
-        }
-    }
+			super(CuredZombieVillagerTrigger.ID);
+			this.zombie = zombie;
+			this.villager = villager;
+		}
+
+		public boolean test(EntityPlayerMP player, EntityZombie zombie, EntityVillager villager) {
+
+			if (!this.zombie.test(player, zombie)) {
+				return false;
+			} else {
+				return this.villager.test(player, villager);
+			}
+		}
+
+	}
+
+	static class Listeners {
+
+		private final PlayerAdvancements playerAdvancements;
+		private final Set<ICriterionTrigger.Listener<CuredZombieVillagerTrigger.Instance>> listeners = Sets.newHashSet();
+
+		public Listeners(PlayerAdvancements playerAdvancementsIn) {
+
+			playerAdvancements = playerAdvancementsIn;
+		}
+
+		public boolean isEmpty() {
+
+			return listeners.isEmpty();
+		}
+
+		public void add(ICriterionTrigger.Listener<CuredZombieVillagerTrigger.Instance> listener) {
+
+			listeners.add(listener);
+		}
+
+		public void remove(ICriterionTrigger.Listener<CuredZombieVillagerTrigger.Instance> listener) {
+
+			listeners.remove(listener);
+		}
+
+		public void trigger(EntityPlayerMP player, EntityZombie zombie, EntityVillager villager) {
+
+			List<ICriterionTrigger.Listener<CuredZombieVillagerTrigger.Instance>> list = null;
+
+			for (ICriterionTrigger.Listener<CuredZombieVillagerTrigger.Instance> listener : listeners) {
+				if (listener.getCriterionInstance().test(player, zombie, villager)) {
+					if (list == null) {
+						list = Lists.newArrayList();
+					}
+
+					list.add(listener);
+				}
+			}
+
+			if (list != null) {
+				for (ICriterionTrigger.Listener<CuredZombieVillagerTrigger.Instance> listener1 : list) {
+					listener1.grantCriterion(playerAdvancements);
+				}
+			}
+		}
+
+	}
+
 }

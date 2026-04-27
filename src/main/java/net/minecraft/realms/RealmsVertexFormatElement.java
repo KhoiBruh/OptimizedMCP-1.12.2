@@ -2,52 +2,53 @@ package net.minecraft.realms;
 
 import net.minecraft.client.renderer.vertex.VertexFormatElement;
 
-public class RealmsVertexFormatElement
-{
-    private final VertexFormatElement v;
+public class RealmsVertexFormatElement {
 
-    public RealmsVertexFormatElement(VertexFormatElement vIn)
-    {
-        v = vIn;
-    }
+	private final VertexFormatElement v;
 
-    public VertexFormatElement getVertexFormatElement()
-    {
-        return v;
-    }
+	public RealmsVertexFormatElement(VertexFormatElement vIn) {
 
-    public boolean isPosition()
-    {
-        return v.isPositionElement();
-    }
+		v = vIn;
+	}
 
-    public int getIndex()
-    {
-        return v.getIndex();
-    }
+	public VertexFormatElement getVertexFormatElement() {
 
-    public int getByteSize()
-    {
-        return v.getSize();
-    }
+		return v;
+	}
 
-    public int getCount()
-    {
-        return v.getElementCount();
-    }
+	public boolean isPosition() {
 
-    public int hashCode()
-    {
-        return v.hashCode();
-    }
+		return v.isPositionElement();
+	}
 
-    public boolean equals(Object p_equals_1_)
-    {
-        return v.equals(p_equals_1_);
-    }
+	public int getIndex() {
 
-    public String toString()
-    {
-        return v.toString();
-    }
+		return v.getIndex();
+	}
+
+	public int getByteSize() {
+
+		return v.getSize();
+	}
+
+	public int getCount() {
+
+		return v.getElementCount();
+	}
+
+	public int hashCode() {
+
+		return v.hashCode();
+	}
+
+	public boolean equals(Object p_equals_1_) {
+
+		return v.equals(p_equals_1_);
+	}
+
+	public String toString() {
+
+		return v.toString();
+	}
+
 }

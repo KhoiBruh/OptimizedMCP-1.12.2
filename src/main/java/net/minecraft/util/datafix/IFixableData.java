@@ -2,9 +2,10 @@ package net.minecraft.util.datafix;
 
 import net.minecraft.nbt.NBTTagCompound;
 
-public interface IFixableData
-{
-    int getFixVersion();
+public interface IFixableData {
 
-    NBTTagCompound fixTagCompound(NBTTagCompound compound);
+	int getFixVersion();
+
+	NBTTagCompound fixTagCompound(NBTTagCompound compound);
+
 }

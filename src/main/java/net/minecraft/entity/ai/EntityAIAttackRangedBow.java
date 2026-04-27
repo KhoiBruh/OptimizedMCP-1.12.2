@@ -7,168 +7,145 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemBow;
 import net.minecraft.util.EnumHand;
 
-public class EntityAIAttackRangedBow<T extends EntityMob & IRangedAttackMob> extends EntityAIBase
-{
-    private final T entity;
-    private final double moveSpeedAmp;
-    private int attackCooldown;
-    private final float maxAttackDistance;
-    private int attackTime = -1;
-    private int seeTime;
-    private boolean strafingClockwise;
-    private boolean strafingBackwards;
-    private int strafingTime = -1;
+public class EntityAIAttackRangedBow<T extends EntityMob & IRangedAttackMob> extends EntityAIBase {
 
-    public EntityAIAttackRangedBow(T mob, double moveSpeedAmpIn, int attackCooldownIn, float maxAttackDistanceIn)
-    {
-        entity = mob;
-        moveSpeedAmp = moveSpeedAmpIn;
-        attackCooldown = attackCooldownIn;
-        maxAttackDistance = maxAttackDistanceIn * maxAttackDistanceIn;
-        setMutexBits(3);
-    }
+	private final T entity;
+	private final double moveSpeedAmp;
+	private int attackCooldown;
+	private final float maxAttackDistance;
+	private int attackTime = -1;
+	private int seeTime;
+	private boolean strafingClockwise;
+	private boolean strafingBackwards;
+	private int strafingTime = -1;
 
-    public void setAttackCooldown(int p_189428_1_)
-    {
-        attackCooldown = p_189428_1_;
-    }
+	public EntityAIAttackRangedBow(T mob, double moveSpeedAmpIn, int attackCooldownIn, float maxAttackDistanceIn) {
 
-    /**
-     * Returns whether the EntityAIBase should begin execution.
-     */
-    public boolean shouldExecute()
-    {
-        return entity.getAttackTarget() == null ? false : isBowInMainhand();
-    }
+		entity = mob;
+		moveSpeedAmp = moveSpeedAmpIn;
+		attackCooldown = attackCooldownIn;
+		maxAttackDistance = maxAttackDistanceIn * maxAttackDistanceIn;
+		setMutexBits(3);
+	}
 
-    protected boolean isBowInMainhand()
-    {
-        return !entity.getHeldItemMainhand().isEmpty() && entity.getHeldItemMainhand().getItem() == Items.BOW;
-    }
+	public void setAttackCooldown(int p_189428_1_) {
 
-    /**
-     * Returns whether an in-progress EntityAIBase should continue executing
-     */
-    public boolean shouldContinueExecuting()
-    {
-        return (shouldExecute() || !entity.getNavigator().noPath()) && isBowInMainhand();
-    }
+		attackCooldown = p_189428_1_;
+	}
 
-    /**
-     * Execute a one shot task or start executing a continuous task
-     */
-    public void startExecuting()
-    {
-        super.startExecuting();
-        ((IRangedAttackMob) entity).setSwingingArms(true);
-    }
+	/**
+	 * Returns whether the EntityAIBase should begin execution.
+	 */
+	public boolean shouldExecute() {
 
-    /**
-     * Reset the task's internal state. Called when this task is interrupted by another one
-     */
-    public void resetTask()
-    {
-        super.resetTask();
-        ((IRangedAttackMob) entity).setSwingingArms(false);
-        seeTime = 0;
-        attackTime = -1;
-        entity.resetActiveHand();
-    }
+		return entity.getAttackTarget() != null && isBowInMainhand();
+	}
 
-    /**
-     * Keep ticking a continuous task that has already been started
-     */
-    public void updateTask()
-    {
-        EntityLivingBase entitylivingbase = entity.getAttackTarget();
+	protected boolean isBowInMainhand() {
 
-        if (entitylivingbase != null)
-        {
-            double d0 = entity.getDistanceSq(entitylivingbase.posX, entitylivingbase.getEntityBoundingBox().minY, entitylivingbase.posZ);
-            boolean flag = entity.getEntitySenses().canSee(entitylivingbase);
-            boolean flag1 = seeTime > 0;
+		return !entity.getHeldItemMainhand().isEmpty() && entity.getHeldItemMainhand().getItem() == Items.BOW;
+	}
 
-            if (flag != flag1)
-            {
-                seeTime = 0;
-            }
+	/**
+	 * Returns whether an in-progress EntityAIBase should continue executing
+	 */
+	public boolean shouldContinueExecuting() {
 
-            if (flag)
-            {
-                ++seeTime;
-            }
-            else
-            {
-                --seeTime;
-            }
+		return (shouldExecute() || !entity.getNavigator().noPath()) && isBowInMainhand();
+	}
 
-            if (d0 <= (double) maxAttackDistance && seeTime >= 20)
-            {
-                entity.getNavigator().clearPath();
-                ++strafingTime;
-            }
-            else
-            {
-                entity.getNavigator().tryMoveToEntityLiving(entitylivingbase, moveSpeedAmp);
-                strafingTime = -1;
-            }
+	/**
+	 * Execute a one shot task or start executing a continuous task
+	 */
+	public void startExecuting() {
 
-            if (strafingTime >= 20)
-            {
-                if ((double) entity.getRNG().nextFloat() < 0.3D)
-                {
-                    strafingClockwise = !strafingClockwise;
-                }
+		super.startExecuting();
+		entity.setSwingingArms(true);
+	}
 
-                if ((double) entity.getRNG().nextFloat() < 0.3D)
-                {
-                    strafingBackwards = !strafingBackwards;
-                }
+	/**
+	 * Reset the task's internal state. Called when this task is interrupted by another one
+	 */
+	public void resetTask() {
 
-                strafingTime = 0;
-            }
+		super.resetTask();
+		entity.setSwingingArms(false);
+		seeTime = 0;
+		attackTime = -1;
+		entity.resetActiveHand();
+	}
 
-            if (strafingTime > -1)
-            {
-                if (d0 > (double)(maxAttackDistance * 0.75F))
-                {
-                    strafingBackwards = false;
-                }
-                else if (d0 < (double)(maxAttackDistance * 0.25F))
-                {
-                    strafingBackwards = true;
-                }
+	/**
+	 * Keep ticking a continuous task that has already been started
+	 */
+	public void updateTask() {
 
-                entity.getMoveHelper().strafe(strafingBackwards ? -0.5F : 0.5F, strafingClockwise ? 0.5F : -0.5F);
-                entity.faceEntity(entitylivingbase, 30.0F, 30.0F);
-            }
-            else
-            {
-                entity.getLookHelper().setLookPositionWithEntity(entitylivingbase, 30.0F, 30.0F);
-            }
+		EntityLivingBase entitylivingbase = entity.getAttackTarget();
 
-            if (entity.isHandActive())
-            {
-                if (!flag && seeTime < -60)
-                {
-                    entity.resetActiveHand();
-                }
-                else if (flag)
-                {
-                    int i = entity.getItemInUseMaxCount();
+		if (entitylivingbase != null) {
+			double d0 = entity.getDistanceSq(entitylivingbase.posX, entitylivingbase.getEntityBoundingBox().minY, entitylivingbase.posZ);
+			boolean flag = entity.getEntitySenses().canSee(entitylivingbase);
+			boolean flag1 = seeTime > 0;
 
-                    if (i >= 20)
-                    {
-                        entity.resetActiveHand();
-                        ((IRangedAttackMob) entity).attackEntityWithRangedAttack(entitylivingbase, ItemBow.getArrowVelocity(i));
-                        attackTime = attackCooldown;
-                    }
-                }
-            }
-            else if (--attackTime <= 0 && seeTime >= -60)
-            {
-                entity.setActiveHand(EnumHand.MAIN_HAND);
-            }
-        }
-    }
+			if (flag != flag1) {
+				seeTime = 0;
+			}
+
+			if (flag) {
+				++seeTime;
+			} else {
+				--seeTime;
+			}
+
+			if (d0 <= (double) maxAttackDistance && seeTime >= 20) {
+				entity.getNavigator().clearPath();
+				++strafingTime;
+			} else {
+				entity.getNavigator().tryMoveToEntityLiving(entitylivingbase, moveSpeedAmp);
+				strafingTime = -1;
+			}
+
+			if (strafingTime >= 20) {
+				if ((double) entity.getRNG().nextFloat() < 0.3D) {
+					strafingClockwise = !strafingClockwise;
+				}
+
+				if ((double) entity.getRNG().nextFloat() < 0.3D) {
+					strafingBackwards = !strafingBackwards;
+				}
+
+				strafingTime = 0;
+			}
+
+			if (strafingTime > -1) {
+				if (d0 > (double) (maxAttackDistance * 0.75F)) {
+					strafingBackwards = false;
+				} else if (d0 < (double) (maxAttackDistance * 0.25F)) {
+					strafingBackwards = true;
+				}
+
+				entity.getMoveHelper().strafe(strafingBackwards ? -0.5F : 0.5F, strafingClockwise ? 0.5F : -0.5F);
+				entity.faceEntity(entitylivingbase, 30.0F, 30.0F);
+			} else {
+				entity.getLookHelper().setLookPositionWithEntity(entitylivingbase, 30.0F, 30.0F);
+			}
+
+			if (entity.isHandActive()) {
+				if (!flag && seeTime < -60) {
+					entity.resetActiveHand();
+				} else if (flag) {
+					int i = entity.getItemInUseMaxCount();
+
+					if (i >= 20) {
+						entity.resetActiveHand();
+						entity.attackEntityWithRangedAttack(entitylivingbase, ItemBow.getArrowVelocity(i));
+						attackTime = attackCooldown;
+					}
+				}
+			} else if (--attackTime <= 0 && seeTime >= -60) {
+				entity.setActiveHand(EnumHand.MAIN_HAND);
+			}
+		}
+	}
+
 }

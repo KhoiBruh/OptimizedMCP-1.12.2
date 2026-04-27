@@ -1,19 +1,21 @@
 package net.minecraft.server;
 
-import java.io.OutputStream;
 import net.minecraft.util.LoggingPrintStream;
 
-public class DebugLoggingPrintStream extends LoggingPrintStream
-{
-    public DebugLoggingPrintStream(String domainIn, OutputStream outStream)
-    {
-        super(domainIn, outStream);
-    }
+import java.io.OutputStream;
 
-    protected void logString(String string)
-    {
-        StackTraceElement[] astacktraceelement = Thread.currentThread().getStackTrace();
-        StackTraceElement stacktraceelement = astacktraceelement[Math.min(3, astacktraceelement.length)];
-        LOGGER.info("[{}]@.({}:{}): {}", domain, stacktraceelement.getFileName(), Integer.valueOf(stacktraceelement.getLineNumber()), string);
-    }
+public class DebugLoggingPrintStream extends LoggingPrintStream {
+
+	public DebugLoggingPrintStream(String domainIn, OutputStream outStream) {
+
+		super(domainIn, outStream);
+	}
+
+	protected void logString(String string) {
+
+		StackTraceElement[] astacktraceelement = Thread.currentThread().getStackTrace();
+		StackTraceElement stacktraceelement = astacktraceelement[Math.min(3, astacktraceelement.length)];
+		LOGGER.info("[{}]@.({}:{}): {}", domain, stacktraceelement.getFileName(), Integer.valueOf(stacktraceelement.getLineNumber()), string);
+	}
+
 }

@@ -1,113 +1,108 @@
 package net.minecraft.client.gui;
 
-import java.io.IOException;
 import net.minecraft.client.gui.achievement.GuiStats;
 import net.minecraft.client.gui.advancements.GuiScreenAdvancements;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.realms.RealmsBridge;
 
-public class GuiIngameMenu extends GuiScreen
-{
-    private int saveStep;
-    private int visibleTime;
+import java.io.IOException;
 
-    /**
-     * Adds the buttons (and other controls) to the screen in question. Called when the GUI is displayed and when the
-     * window resizes, the buttonList is cleared beforehand.
-     */
-    public void initGui()
-    {
-        saveStep = 0;
-        buttonList.clear();
-        int i = -16;
-        int j = 98;
-        buttonList.add(new GuiButton(1, width / 2 - 100, height / 4 + 120 + -16, I18n.format("menu.returnToMenu")));
+public class GuiIngameMenu extends GuiScreen {
 
-        if (!mc.isIntegratedServerRunning())
-        {
-            (buttonList.get(0)).displayString = I18n.format("menu.disconnect");
-        }
+	private int saveStep;
+	private int visibleTime;
 
-        buttonList.add(new GuiButton(4, width / 2 - 100, height / 4 + 24 + -16, I18n.format("menu.returnToGame")));
-        buttonList.add(new GuiButton(0, width / 2 - 100, height / 4 + 96 + -16, 98, 20, I18n.format("menu.options")));
-        GuiButton guibutton = addButton(new GuiButton(7, width / 2 + 2, height / 4 + 96 + -16, 98, 20, I18n.format("menu.shareToLan")));
-        guibutton.enabled = mc.isSingleplayer() && !mc.getIntegratedServer().getPublic();
-        buttonList.add(new GuiButton(5, width / 2 - 100, height / 4 + 48 + -16, 98, 20, I18n.format("gui.advancements")));
-        buttonList.add(new GuiButton(6, width / 2 + 2, height / 4 + 48 + -16, 98, 20, I18n.format("gui.stats")));
-    }
+	/**
+	 * Adds the buttons (and other controls) to the screen in question. Called when the GUI is displayed and when the
+	 * window resizes, the buttonList is cleared beforehand.
+	 */
+	public void initGui() {
 
-    /**
-     * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
-     */
-    protected void actionPerformed(GuiButton button) throws IOException
-    {
-        switch (button.id)
-        {
-            case 0:
-                mc.displayGuiScreen(new GuiOptions(this, mc.gameSettings));
-                break;
+		saveStep = 0;
+		buttonList.clear();
+		int i = -16;
+		int j = 98;
+		buttonList.add(new GuiButton(1, width / 2 - 100, height / 4 + 120 + -16, I18n.format("menu.returnToMenu")));
 
-            case 1:
-                boolean flag = mc.isIntegratedServerRunning();
-                boolean flag1 = mc.isConnectedToRealms();
-                button.enabled = false;
-                mc.world.sendQuittingDisconnectingPacket();
-                mc.loadWorld((WorldClient)null);
+		if (!mc.isIntegratedServerRunning()) {
+			(buttonList.get(0)).displayString = I18n.format("menu.disconnect");
+		}
 
-                if (flag)
-                {
-                    mc.displayGuiScreen(new GuiMainMenu());
-                }
-                else if (flag1)
-                {
-                    RealmsBridge realmsbridge = new RealmsBridge();
-                    realmsbridge.switchToRealms(new GuiMainMenu());
-                }
-                else
-                {
-                    mc.displayGuiScreen(new GuiMultiplayer(new GuiMainMenu()));
-                }
+		buttonList.add(new GuiButton(4, width / 2 - 100, height / 4 + 24 + -16, I18n.format("menu.returnToGame")));
+		buttonList.add(new GuiButton(0, width / 2 - 100, height / 4 + 96 + -16, 98, 20, I18n.format("menu.options")));
+		GuiButton guibutton = addButton(new GuiButton(7, width / 2 + 2, height / 4 + 96 + -16, 98, 20, I18n.format("menu.shareToLan")));
+		guibutton.enabled = mc.isSingleplayer() && !mc.getIntegratedServer().getPublic();
+		buttonList.add(new GuiButton(5, width / 2 - 100, height / 4 + 48 + -16, 98, 20, I18n.format("gui.advancements")));
+		buttonList.add(new GuiButton(6, width / 2 + 2, height / 4 + 48 + -16, 98, 20, I18n.format("gui.stats")));
+	}
 
-            case 2:
-            case 3:
-            default:
-                break;
+	/**
+	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
+	 */
+	protected void actionPerformed(GuiButton button) throws IOException {
 
-            case 4:
-                mc.displayGuiScreen((GuiScreen)null);
-                mc.setIngameFocus();
-                break;
+		switch (button.id) {
+			case 0:
+				mc.displayGuiScreen(new GuiOptions(this, mc.gameSettings));
+				break;
 
-            case 5:
-                mc.displayGuiScreen(new GuiScreenAdvancements(mc.player.connection.getAdvancementManager()));
-                break;
+			case 1:
+				boolean flag = mc.isIntegratedServerRunning();
+				boolean flag1 = mc.isConnectedToRealms();
+				button.enabled = false;
+				mc.world.sendQuittingDisconnectingPacket();
+				mc.loadWorld(null);
 
-            case 6:
-                mc.displayGuiScreen(new GuiStats(this, mc.player.getStatFileWriter()));
-                break;
+				if (flag) {
+					mc.displayGuiScreen(new GuiMainMenu());
+				} else if (flag1) {
+					RealmsBridge realmsbridge = new RealmsBridge();
+					realmsbridge.switchToRealms(new GuiMainMenu());
+				} else {
+					mc.displayGuiScreen(new GuiMultiplayer(new GuiMainMenu()));
+				}
 
-            case 7:
-                mc.displayGuiScreen(new GuiShareToLan(this));
-        }
-    }
+			case 2:
+			case 3:
+			default:
+				break;
 
-    /**
-     * Called from the main game loop to update the screen.
-     */
-    public void updateScreen()
-    {
-        super.updateScreen();
-        ++visibleTime;
-    }
+			case 4:
+				mc.displayGuiScreen(null);
+				mc.setIngameFocus();
+				break;
 
-    /**
-     * Draws the screen and all the components in it.
-     */
-    public void drawScreen(int mouseX, int mouseY, float partialTicks)
-    {
-        drawDefaultBackground();
-        drawCenteredString(fontRenderer, I18n.format("menu.game"), width / 2, 40, 16777215);
-        super.drawScreen(mouseX, mouseY, partialTicks);
-    }
+			case 5:
+				mc.displayGuiScreen(new GuiScreenAdvancements(mc.player.connection.getAdvancementManager()));
+				break;
+
+			case 6:
+				mc.displayGuiScreen(new GuiStats(this, mc.player.getStatFileWriter()));
+				break;
+
+			case 7:
+				mc.displayGuiScreen(new GuiShareToLan(this));
+		}
+	}
+
+	/**
+	 * Called from the main game loop to update the screen.
+	 */
+	public void updateScreen() {
+
+		super.updateScreen();
+		++visibleTime;
+	}
+
+	/**
+	 * Draws the screen and all the components in it.
+	 */
+	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+
+		drawDefaultBackground();
+		drawCenteredString(fontRenderer, I18n.format("menu.game"), width / 2, 40, 16777215);
+		super.drawScreen(mouseX, mouseY, partialTicks);
+	}
+
 }

@@ -11,69 +11,63 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
-public class LayerElytra implements LayerRenderer<EntityLivingBase>
-{
-    /** The basic Elytra texture. */
-    private static final ResourceLocation TEXTURE_ELYTRA = new ResourceLocation("textures/entity/elytra.png");
-    protected final RenderLivingBase<?> renderPlayer;
+public class LayerElytra implements LayerRenderer<EntityLivingBase> {
 
-    /** The model used by the Elytra. */
-    private final ModelElytra modelElytra = new ModelElytra();
+	/**
+	 * The basic Elytra texture.
+	 */
+	private static final ResourceLocation TEXTURE_ELYTRA = new ResourceLocation("textures/entity/elytra.png");
+	protected final RenderLivingBase<?> renderPlayer;
 
-    public LayerElytra(RenderLivingBase<?> p_i47185_1_)
-    {
-        renderPlayer = p_i47185_1_;
-    }
+	/**
+	 * The model used by the Elytra.
+	 */
+	private final ModelElytra modelElytra = new ModelElytra();
 
-    public void doRenderLayer(EntityLivingBase entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale)
-    {
-        ItemStack itemstack = entitylivingbaseIn.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
+	public LayerElytra(RenderLivingBase<?> p_i47185_1_) {
 
-        if (itemstack.getItem() == Items.ELYTRA)
-        {
-            GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-            GlStateManager.enableBlend();
-            GlStateManager.blendFunc(GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+		renderPlayer = p_i47185_1_;
+	}
 
-            if (entitylivingbaseIn instanceof AbstractClientPlayer)
-            {
-                AbstractClientPlayer abstractclientplayer = (AbstractClientPlayer)entitylivingbaseIn;
+	public void doRenderLayer(EntityLivingBase entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 
-                if (abstractclientplayer.isPlayerInfoSet() && abstractclientplayer.getLocationElytra() != null)
-                {
-                    renderPlayer.bindTexture(abstractclientplayer.getLocationElytra());
-                }
-                else if (abstractclientplayer.hasPlayerInfo() && abstractclientplayer.getLocationCape() != null && abstractclientplayer.isWearing(EnumPlayerModelParts.CAPE))
-                {
-                    renderPlayer.bindTexture(abstractclientplayer.getLocationCape());
-                }
-                else
-                {
-                    renderPlayer.bindTexture(TEXTURE_ELYTRA);
-                }
-            }
-            else
-            {
-                renderPlayer.bindTexture(TEXTURE_ELYTRA);
-            }
+		ItemStack itemstack = entitylivingbaseIn.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
 
-            GlStateManager.pushMatrix();
-            GlStateManager.translate(0.0F, 0.0F, 0.125F);
-            modelElytra.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entitylivingbaseIn);
-            modelElytra.render(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+		if (itemstack.getItem() == Items.ELYTRA) {
+			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+			GlStateManager.enableBlend();
+			GlStateManager.blendFunc(GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 
-            if (itemstack.isItemEnchanted())
-            {
-                LayerArmorBase.renderEnchantedGlint(renderPlayer, entitylivingbaseIn, modelElytra, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch, scale);
-            }
+			if (entitylivingbaseIn instanceof AbstractClientPlayer abstractclientplayer) {
 
-            GlStateManager.disableBlend();
-            GlStateManager.popMatrix();
-        }
-    }
+				if (abstractclientplayer.isPlayerInfoSet() && abstractclientplayer.getLocationElytra() != null) {
+					renderPlayer.bindTexture(abstractclientplayer.getLocationElytra());
+				} else if (abstractclientplayer.hasPlayerInfo() && abstractclientplayer.getLocationCape() != null && abstractclientplayer.isWearing(EnumPlayerModelParts.CAPE)) {
+					renderPlayer.bindTexture(abstractclientplayer.getLocationCape());
+				} else {
+					renderPlayer.bindTexture(TEXTURE_ELYTRA);
+				}
+			} else {
+				renderPlayer.bindTexture(TEXTURE_ELYTRA);
+			}
 
-    public boolean shouldCombineTextures()
-    {
-        return false;
-    }
+			GlStateManager.pushMatrix();
+			GlStateManager.translate(0.0F, 0.0F, 0.125F);
+			modelElytra.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entitylivingbaseIn);
+			modelElytra.render(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+
+			if (itemstack.isItemEnchanted()) {
+				LayerArmorBase.renderEnchantedGlint(renderPlayer, entitylivingbaseIn, modelElytra, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch, scale);
+			}
+
+			GlStateManager.disableBlend();
+			GlStateManager.popMatrix();
+		}
+	}
+
+	public boolean shouldCombineTextures() {
+
+		return false;
+	}
+
 }

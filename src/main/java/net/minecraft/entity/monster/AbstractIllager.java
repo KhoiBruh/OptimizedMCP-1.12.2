@@ -6,61 +6,58 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.world.World;
 
-public abstract class AbstractIllager extends EntityMob
-{
-    protected static final DataParameter<Byte> AGGRESSIVE = EntityDataManager.<Byte>createKey(AbstractIllager.class, DataSerializers.BYTE);
+public abstract class AbstractIllager extends EntityMob {
 
-    public AbstractIllager(World p_i47509_1_)
-    {
-        super(p_i47509_1_);
-    }
+	protected static final DataParameter<Byte> AGGRESSIVE = EntityDataManager.createKey(AbstractIllager.class, DataSerializers.BYTE);
 
-    protected void entityInit()
-    {
-        super.entityInit();
-        dataManager.register(AGGRESSIVE, Byte.valueOf((byte)0));
-    }
+	public AbstractIllager(World p_i47509_1_) {
 
-    protected boolean isAggressive(int mask)
-    {
-        int i = ((Byte) dataManager.get(AGGRESSIVE)).byteValue();
-        return (i & mask) != 0;
-    }
+		super(p_i47509_1_);
+	}
 
-    protected void setAggressive(int mask, boolean value)
-    {
-        int i = ((Byte) dataManager.get(AGGRESSIVE)).byteValue();
+	protected void entityInit() {
 
-        if (value)
-        {
-            i = i | mask;
-        }
-        else
-        {
-            i = i & ~mask;
-        }
+		super.entityInit();
+		dataManager.register(AGGRESSIVE, Byte.valueOf((byte) 0));
+	}
 
-        dataManager.set(AGGRESSIVE, Byte.valueOf((byte)(i & 255)));
-    }
+	protected boolean isAggressive(int mask) {
 
-    /**
-     * Get this Entity's EnumCreatureAttribute
-     */
-    public EnumCreatureAttribute getCreatureAttribute()
-    {
-        return EnumCreatureAttribute.ILLAGER;
-    }
+		int i = dataManager.get(AGGRESSIVE).byteValue();
+		return (i & mask) != 0;
+	}
 
-    public AbstractIllager.IllagerArmPose getArmPose()
-    {
-        return AbstractIllager.IllagerArmPose.CROSSED;
-    }
+	protected void setAggressive(int mask, boolean value) {
 
-    public static enum IllagerArmPose
-    {
-        CROSSED,
-        ATTACKING,
-        SPELLCASTING,
-        BOW_AND_ARROW;
-    }
+		int i = dataManager.get(AGGRESSIVE).byteValue();
+
+		if (value) {
+			i = i | mask;
+		} else {
+			i = i & ~mask;
+		}
+
+		dataManager.set(AGGRESSIVE, Byte.valueOf((byte) (i & 255)));
+	}
+
+	/**
+	 * Get this Entity's EnumCreatureAttribute
+	 */
+	public EnumCreatureAttribute getCreatureAttribute() {
+
+		return EnumCreatureAttribute.ILLAGER;
+	}
+
+	public AbstractIllager.IllagerArmPose getArmPose() {
+
+		return AbstractIllager.IllagerArmPose.CROSSED;
+	}
+
+	public enum IllagerArmPose {
+		CROSSED,
+		ATTACKING,
+		SPELLCASTING,
+		BOW_AND_ARROW
+	}
+
 }

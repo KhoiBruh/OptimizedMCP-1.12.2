@@ -1,13 +1,20 @@
 package net.minecraft.client.renderer;
 
-public class Vector3d
-{
-    /** The X coordinate */
-    public double x;
+public class Vector3d {
 
-    /** The Y coordinate */
-    public double y;
+	/**
+	 * The X coordinate
+	 */
+	public double x;
 
-    /** The Z coordinate */
-    public double z;
+	/**
+	 * The Y coordinate
+	 */
+	public double y;
+
+	/**
+	 * The Z coordinate
+	 */
+	public double z;
+
 }

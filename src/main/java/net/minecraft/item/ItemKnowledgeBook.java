@@ -1,7 +1,6 @@
 package net.minecraft.item;
 
 import com.google.common.collect.Lists;
-import java.util.List;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
@@ -16,56 +15,52 @@ import net.minecraft.world.World;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class ItemKnowledgeBook extends Item
-{
-    private static final Logger LOGGER = LogManager.getLogger();
+import java.util.List;
 
-    public ItemKnowledgeBook()
-    {
-        setMaxStackSize(1);
-    }
+public class ItemKnowledgeBook extends Item {
 
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn)
-    {
-        ItemStack itemstack = playerIn.getHeldItem(handIn);
-        NBTTagCompound nbttagcompound = itemstack.getTagCompound();
+	private static final Logger LOGGER = LogManager.getLogger();
 
-        if (!playerIn.capabilities.isCreativeMode)
-        {
-            playerIn.setHeldItem(handIn, ItemStack.EMPTY);
-        }
+	public ItemKnowledgeBook() {
 
-        if (nbttagcompound != null && nbttagcompound.hasKey("Recipes", 9))
-        {
-            if (!worldIn.isRemote)
-            {
-                NBTTagList nbttaglist = nbttagcompound.getTagList("Recipes", 8);
-                List<IRecipe> list = Lists.<IRecipe>newArrayList();
+		setMaxStackSize(1);
+	}
 
-                for (int i = 0; i < nbttaglist.tagCount(); ++i)
-                {
-                    String s = nbttaglist.getStringTagAt(i);
-                    IRecipe irecipe = CraftingManager.getRecipe(new ResourceLocation(s));
+	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
 
-                    if (irecipe == null)
-                    {
-                        LOGGER.error("Invalid recipe: " + s);
-                        return new ActionResult<ItemStack>(EnumActionResult.FAIL, itemstack);
-                    }
+		ItemStack itemstack = playerIn.getHeldItem(handIn);
+		NBTTagCompound nbttagcompound = itemstack.getTagCompound();
 
-                    list.add(irecipe);
-                }
+		if (!playerIn.capabilities.isCreativeMode) {
+			playerIn.setHeldItem(handIn, ItemStack.EMPTY);
+		}
 
-                playerIn.unlockRecipes(list);
-                playerIn.addStat(StatList.getObjectUseStats(this));
-            }
+		if (nbttagcompound != null && nbttagcompound.hasKey("Recipes", 9)) {
+			if (!worldIn.isRemote) {
+				NBTTagList nbttaglist = nbttagcompound.getTagList("Recipes", 8);
+				List<IRecipe> list = Lists.newArrayList();
 
-            return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemstack);
-        }
-        else
-        {
-            LOGGER.error("Tag not valid: " + nbttagcompound);
-            return new ActionResult<ItemStack>(EnumActionResult.FAIL, itemstack);
-        }
-    }
+				for (int i = 0; i < nbttaglist.tagCount(); ++i) {
+					String s = nbttaglist.getStringTagAt(i);
+					IRecipe irecipe = CraftingManager.getRecipe(new ResourceLocation(s));
+
+					if (irecipe == null) {
+						LOGGER.error("Invalid recipe: " + s);
+						return new ActionResult<ItemStack>(EnumActionResult.FAIL, itemstack);
+					}
+
+					list.add(irecipe);
+				}
+
+				playerIn.unlockRecipes(list);
+				playerIn.addStat(StatList.getObjectUseStats(this));
+			}
+
+			return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemstack);
+		} else {
+			LOGGER.error("Tag not valid: " + nbttagcompound);
+			return new ActionResult<ItemStack>(EnumActionResult.FAIL, itemstack);
+		}
+	}
+
 }

@@ -1,7 +1,5 @@
 package net.minecraft.block;
 
-import java.util.Random;
-import javax.annotation.Nullable;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyInteger;
@@ -23,194 +21,188 @@ import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class BlockSnow extends Block
-{
-    public static final PropertyInteger LAYERS = PropertyInteger.create("layers", 1, 8);
-    protected static final AxisAlignedBB[] SNOW_AABB = new AxisAlignedBB[] {new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.0D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.125D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.25D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.375D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.5D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.625D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.75D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.875D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D)};
+import javax.annotation.Nullable;
+import java.util.Random;
 
-    protected BlockSnow()
-    {
-        super(Material.SNOW);
-        setDefaultState(blockState.getBaseState().withProperty(LAYERS, Integer.valueOf(1)));
-        setTickRandomly(true);
-        setCreativeTab(CreativeTabs.DECORATIONS);
-    }
+public class BlockSnow extends Block {
 
-    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
-    {
-        return SNOW_AABB[((Integer)state.getValue(LAYERS)).intValue()];
-    }
+	public static final PropertyInteger LAYERS = PropertyInteger.create("layers", 1, 8);
+	protected static final AxisAlignedBB[] SNOW_AABB = new AxisAlignedBB[]{new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.0D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.125D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.25D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.375D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.5D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.625D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.75D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.875D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D)};
 
-    /**
-     * Determines if an entity can path through this block
-     */
-    public boolean isPassable(IBlockAccess worldIn, BlockPos pos)
-    {
-        return ((Integer)worldIn.getBlockState(pos).getValue(LAYERS)).intValue() < 5;
-    }
+	protected BlockSnow() {
 
-    /**
-     * Determines if the block is solid enough on the top side to support other blocks, like redstone components.
-     */
-    public boolean isTopSolid(IBlockState state)
-    {
-        return ((Integer)state.getValue(LAYERS)).intValue() == 8;
-    }
+		super(Material.SNOW);
+		setDefaultState(blockState.getBaseState().withProperty(LAYERS, Integer.valueOf(1)));
+		setTickRandomly(true);
+		setCreativeTab(CreativeTabs.DECORATIONS);
+	}
 
-    /**
-     * Get the geometry of the queried face at the given position and state. This is used to decide whether things like
-     * buttons are allowed to be placed on the face, or how glass panes connect to the face, among other things.
-     * <p>
-     * Common values are {@code SOLID}, which is the default, and {@code UNDEFINED}, which represents something that
-     * does not fit the other descriptions and will generally cause other things not to connect to the face.
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
 
-     * @return an approximation of the form of the given face
-     */
-    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face)
-    {
-        return face == EnumFacing.DOWN ? BlockFaceShape.SOLID : BlockFaceShape.UNDEFINED;
-    }
+		return SNOW_AABB[state.getValue(LAYERS).intValue()];
+	}
 
-    @Nullable
-    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos)
-    {
-        int i = ((Integer)blockState.getValue(LAYERS)).intValue() - 1;
-        float f = 0.125F;
-        AxisAlignedBB axisalignedbb = blockState.getBoundingBox(worldIn, pos);
-        return new AxisAlignedBB(axisalignedbb.minX, axisalignedbb.minY, axisalignedbb.minZ, axisalignedbb.maxX, (double)((float)i * 0.125F), axisalignedbb.maxZ);
-    }
+	/**
+	 * Determines if an entity can path through this block
+	 */
+	public boolean isPassable(IBlockAccess worldIn, BlockPos pos) {
 
-    /**
-     * Used to determine ambient occlusion and culling when rebuilding chunks for render
-     */
-    public boolean isOpaqueCube(IBlockState state)
-    {
-        return false;
-    }
+		return worldIn.getBlockState(pos).getValue(LAYERS).intValue() < 5;
+	}
 
-    public boolean isFullCube(IBlockState state)
-    {
-        return false;
-    }
+	/**
+	 * Determines if the block is solid enough on the top side to support other blocks, like redstone components.
+	 */
+	public boolean isTopSolid(IBlockState state) {
 
-    /**
-     * Checks if this block can be placed exactly at the given position.
-     */
-    public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
-    {
-        IBlockState iblockstate = worldIn.getBlockState(pos.down());
-        Block block = iblockstate.getBlock();
+		return state.getValue(LAYERS).intValue() == 8;
+	}
 
-        if (block != Blocks.ICE && block != Blocks.PACKED_ICE && block != Blocks.BARRIER)
-        {
-            BlockFaceShape blockfaceshape = iblockstate.getBlockFaceShape(worldIn, pos.down(), EnumFacing.UP);
-            return blockfaceshape == BlockFaceShape.SOLID || iblockstate.getMaterial() == Material.LEAVES || block == this && ((Integer)iblockstate.getValue(LAYERS)).intValue() == 8;
-        }
-        else
-        {
-            return false;
-        }
-    }
+	/**
+	 * Get the geometry of the queried face at the given position and state. This is used to decide whether things like
+	 * buttons are allowed to be placed on the face, or how glass panes connect to the face, among other things.
+	 * <p>
+	 * Common values are {@code SOLID}, which is the default, and {@code UNDEFINED}, which represents something that
+	 * does not fit the other descriptions and will generally cause other things not to connect to the face.
+	 *
+	 * @return an approximation of the form of the given face
+	 */
+	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
 
-    /**
-     * Called when a neighboring block was changed and marks that this state should perform any checks during a neighbor
-     * change. Cases may include when redstone power is updated, cactus blocks popping off due to a neighboring solid
-     * block, etc.
-     */
-    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos)
-    {
-        checkAndDropBlock(worldIn, pos, state);
-    }
+		return face == EnumFacing.DOWN ? BlockFaceShape.SOLID : BlockFaceShape.UNDEFINED;
+	}
 
-    private boolean checkAndDropBlock(World worldIn, BlockPos pos, IBlockState state)
-    {
-        if (!canPlaceBlockAt(worldIn, pos))
-        {
-            dropBlockAsItem(worldIn, pos, state, 0);
-            worldIn.setBlockToAir(pos);
-            return false;
-        }
-        else
-        {
-            return true;
-        }
-    }
+	@Nullable
+	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
 
-    /**
-     * Spawns the block's drops in the world. By the time this is called the Block has possibly been set to air via
-     * Block.removedByPlayer
-     */
-    public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, @Nullable TileEntity te, ItemStack stack)
-    {
-        spawnAsEntity(worldIn, pos, new ItemStack(Items.SNOWBALL, ((Integer)state.getValue(LAYERS)).intValue() + 1, 0));
-        worldIn.setBlockToAir(pos);
-        player.addStat(StatList.getBlockStats(this));
-    }
+		int i = blockState.getValue(LAYERS).intValue() - 1;
+		float f = 0.125F;
+		AxisAlignedBB axisalignedbb = blockState.getBoundingBox(worldIn, pos);
+		return new AxisAlignedBB(axisalignedbb.minX, axisalignedbb.minY, axisalignedbb.minZ, axisalignedbb.maxX, (float) i * 0.125F, axisalignedbb.maxZ);
+	}
 
-    /**
-     * Get the Item that this Block should drop when harvested.
-     */
-    public Item getItemDropped(IBlockState state, Random rand, int fortune)
-    {
-        return Items.SNOWBALL;
-    }
+	/**
+	 * Used to determine ambient occlusion and culling when rebuilding chunks for render
+	 */
+	public boolean isOpaqueCube(IBlockState state) {
 
-    /**
-     * Returns the quantity of items to drop on block destruction.
-     */
-    public int quantityDropped(Random random)
-    {
-        return 0;
-    }
+		return false;
+	}
 
-    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
-    {
-        if (worldIn.getLightFor(EnumSkyBlock.BLOCK, pos) > 11)
-        {
-            dropBlockAsItem(worldIn, pos, worldIn.getBlockState(pos), 0);
-            worldIn.setBlockToAir(pos);
-        }
-    }
+	public boolean isFullCube(IBlockState state) {
 
-    public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side)
-    {
-        if (side == EnumFacing.UP)
-        {
-            return true;
-        }
-        else
-        {
-            IBlockState iblockstate = blockAccess.getBlockState(pos.offset(side));
-            return iblockstate.getBlock() == this && ((Integer)iblockstate.getValue(LAYERS)).intValue() >= ((Integer)blockState.getValue(LAYERS)).intValue() ? false : super.shouldSideBeRendered(blockState, blockAccess, pos, side);
-        }
-    }
+		return false;
+	}
 
-    /**
-     * Convert the given metadata into a BlockState for this Block
-     */
-    public IBlockState getStateFromMeta(int meta)
-    {
-        return getDefaultState().withProperty(LAYERS, Integer.valueOf((meta & 7) + 1));
-    }
+	/**
+	 * Checks if this block can be placed exactly at the given position.
+	 */
+	public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
 
-    /**
-     * Whether this Block can be replaced directly by other blocks (true for e.g. tall grass)
-     */
-    public boolean isReplaceable(IBlockAccess worldIn, BlockPos pos)
-    {
-        return ((Integer)worldIn.getBlockState(pos).getValue(LAYERS)).intValue() == 1;
-    }
+		IBlockState iblockstate = worldIn.getBlockState(pos.down());
+		Block block = iblockstate.getBlock();
 
-    /**
-     * Convert the BlockState into the correct metadata value
-     */
-    public int getMetaFromState(IBlockState state)
-    {
-        return ((Integer)state.getValue(LAYERS)).intValue() - 1;
-    }
+		if (block != Blocks.ICE && block != Blocks.PACKED_ICE && block != Blocks.BARRIER) {
+			BlockFaceShape blockfaceshape = iblockstate.getBlockFaceShape(worldIn, pos.down(), EnumFacing.UP);
+			return blockfaceshape == BlockFaceShape.SOLID || iblockstate.getMaterial() == Material.LEAVES || block == this && iblockstate.getValue(LAYERS).intValue() == 8;
+		} else {
+			return false;
+		}
+	}
 
-    protected BlockStateContainer createBlockState()
-    {
-        return new BlockStateContainer(this, new IProperty[] {LAYERS});
-    }
+	/**
+	 * Called when a neighboring block was changed and marks that this state should perform any checks during a neighbor
+	 * change. Cases may include when redstone power is updated, cactus blocks popping off due to a neighboring solid
+	 * block, etc.
+	 */
+	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
+
+		checkAndDropBlock(worldIn, pos, state);
+	}
+
+	private boolean checkAndDropBlock(World worldIn, BlockPos pos, IBlockState state) {
+
+		if (!canPlaceBlockAt(worldIn, pos)) {
+			dropBlockAsItem(worldIn, pos, state, 0);
+			worldIn.setBlockToAir(pos);
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	/**
+	 * Spawns the block's drops in the world. By the time this is called the Block has possibly been set to air via
+	 * Block.removedByPlayer
+	 */
+	public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, @Nullable TileEntity te, ItemStack stack) {
+
+		spawnAsEntity(worldIn, pos, new ItemStack(Items.SNOWBALL, state.getValue(LAYERS).intValue() + 1, 0));
+		worldIn.setBlockToAir(pos);
+		player.addStat(StatList.getBlockStats(this));
+	}
+
+	/**
+	 * Get the Item that this Block should drop when harvested.
+	 */
+	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
+
+		return Items.SNOWBALL;
+	}
+
+	/**
+	 * Returns the quantity of items to drop on block destruction.
+	 */
+	public int quantityDropped(Random random) {
+
+		return 0;
+	}
+
+	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
+
+		if (worldIn.getLightFor(EnumSkyBlock.BLOCK, pos) > 11) {
+			dropBlockAsItem(worldIn, pos, worldIn.getBlockState(pos), 0);
+			worldIn.setBlockToAir(pos);
+		}
+	}
+
+	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
+
+		if (side == EnumFacing.UP) {
+			return true;
+		} else {
+			IBlockState iblockstate = blockAccess.getBlockState(pos.offset(side));
+			return (iblockstate.getBlock() != this || iblockstate.getValue(LAYERS).intValue() < blockState.getValue(LAYERS).intValue()) && super.shouldSideBeRendered(blockState, blockAccess, pos, side);
+		}
+	}
+
+	/**
+	 * Convert the given metadata into a BlockState for this Block
+	 */
+	public IBlockState getStateFromMeta(int meta) {
+
+		return getDefaultState().withProperty(LAYERS, Integer.valueOf((meta & 7) + 1));
+	}
+
+	/**
+	 * Whether this Block can be replaced directly by other blocks (true for e.g. tall grass)
+	 */
+	public boolean isReplaceable(IBlockAccess worldIn, BlockPos pos) {
+
+		return worldIn.getBlockState(pos).getValue(LAYERS).intValue() == 1;
+	}
+
+	/**
+	 * Convert the BlockState into the correct metadata value
+	 */
+	public int getMetaFromState(IBlockState state) {
+
+		return state.getValue(LAYERS).intValue() - 1;
+	}
+
+	protected BlockStateContainer createBlockState() {
+
+		return new BlockStateContainer(this, LAYERS);
+	}
+
 }

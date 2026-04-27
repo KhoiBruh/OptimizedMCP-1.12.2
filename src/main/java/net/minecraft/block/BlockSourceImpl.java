@@ -6,53 +6,55 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class BlockSourceImpl implements IBlockSource
-{
-    private final World world;
-    private final BlockPos pos;
+public class BlockSourceImpl implements IBlockSource {
 
-    public BlockSourceImpl(World worldIn, BlockPos posIn)
-    {
-        world = worldIn;
-        pos = posIn;
-    }
+	private final World world;
+	private final BlockPos pos;
 
-    public World getWorld()
-    {
-        return world;
-    }
+	public BlockSourceImpl(World worldIn, BlockPos posIn) {
 
-    public double getX()
-    {
-        return (double) pos.getX() + 0.5D;
-    }
+		world = worldIn;
+		pos = posIn;
+	}
 
-    public double getY()
-    {
-        return (double) pos.getY() + 0.5D;
-    }
+	public World getWorld() {
 
-    public double getZ()
-    {
-        return (double) pos.getZ() + 0.5D;
-    }
+		return world;
+	}
 
-    public BlockPos getBlockPos()
-    {
-        return pos;
-    }
+	public double x() {
 
-    /**
-     * Gets the block state of this position and returns it.
-     *  @return Block state in this position
-     */
-    public IBlockState getBlockState()
-    {
-        return world.getBlockState(pos);
-    }
+		return (double) pos.getX() + 0.5D;
+	}
 
-    public <T extends TileEntity> T getBlockTileEntity()
-    {
-        return (T) world.getTileEntity(pos);
-    }
+	public double y() {
+
+		return (double) pos.getY() + 0.5D;
+	}
+
+	public double z() {
+
+		return (double) pos.getZ() + 0.5D;
+	}
+
+	public BlockPos getBlockPos() {
+
+		return pos;
+	}
+
+	/**
+	 * Gets the block state of this position and returns it.
+	 *
+	 * @return Block state in this position
+	 */
+	public IBlockState getBlockState() {
+
+		return world.getBlockState(pos);
+	}
+
+	public <T extends TileEntity> T getBlockTileEntity() {
+
+		return (T) world.getTileEntity(pos);
+	}
+
 }

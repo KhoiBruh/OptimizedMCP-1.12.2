@@ -1,11 +1,6 @@
 package net.minecraft.client.renderer.texture;
 
 import com.google.common.collect.Lists;
-import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
-import java.io.Closeable;
-import java.io.IOException;
-import java.util.List;
 import net.minecraft.client.resources.IResource;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
@@ -13,54 +8,53 @@ import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class LayeredTexture extends AbstractTexture
-{
-    private static final Logger LOGGER = LogManager.getLogger();
-    public final List<String> layeredTextureNames;
+import java.awt.image.BufferedImage;
+import java.awt.image.ImageObserver;
+import java.io.Closeable;
+import java.io.IOException;
+import java.util.List;
 
-    public LayeredTexture(String... textureNames)
-    {
-        layeredTextureNames = Lists.newArrayList(textureNames);
-    }
+public class LayeredTexture extends AbstractTexture {
 
-    public void loadTexture(IResourceManager resourceManager) throws IOException
-    {
-        deleteGlTexture();
-        BufferedImage bufferedimage = null;
+	private static final Logger LOGGER = LogManager.getLogger();
+	public final List<String> layeredTextureNames;
 
-        for (String s : layeredTextureNames)
-        {
-            IResource iresource = null;
+	public LayeredTexture(String... textureNames) {
 
-            try
-            {
-                if (s != null)
-                {
-                    iresource = resourceManager.getResource(new ResourceLocation(s));
-                    BufferedImage bufferedimage1 = TextureUtil.readBufferedImage(iresource.getInputStream());
+		layeredTextureNames = Lists.newArrayList(textureNames);
+	}
 
-                    if (bufferedimage == null)
-                    {
-                        bufferedimage = new BufferedImage(bufferedimage1.getWidth(), bufferedimage1.getHeight(), 2);
-                    }
+	public void loadTexture(IResourceManager resourceManager) throws IOException {
 
-                    bufferedimage.getGraphics().drawImage(bufferedimage1, 0, 0, (ImageObserver)null);
-                }
+		deleteGlTexture();
+		BufferedImage bufferedimage = null;
 
-                continue;
-            }
-            catch (IOException ioexception)
-            {
-                LOGGER.error("Couldn't load layered image", (Throwable)ioexception);
-            }
-            finally
-            {
-                IOUtils.closeQuietly((Closeable)iresource);
-            }
+		for (String s : layeredTextureNames) {
+			IResource iresource = null;
 
-            return;
-        }
+			try {
+				if (s != null) {
+					iresource = resourceManager.getResource(new ResourceLocation(s));
+					BufferedImage bufferedimage1 = TextureUtil.readBufferedImage(iresource.getInputStream());
 
-        TextureUtil.uploadTextureImage(getGlTextureId(), bufferedimage);
-    }
+					if (bufferedimage == null) {
+						bufferedimage = new BufferedImage(bufferedimage1.getWidth(), bufferedimage1.getHeight(), 2);
+					}
+
+					bufferedimage.getGraphics().drawImage(bufferedimage1, 0, 0, null);
+				}
+
+				continue;
+			} catch (IOException ioexception) {
+				LOGGER.error("Couldn't load layered image", ioexception);
+			} finally {
+				IOUtils.closeQuietly(iresource);
+			}
+
+			return;
+		}
+
+		TextureUtil.uploadTextureImage(getGlTextureId(), bufferedimage);
+	}
+
 }

@@ -1,57 +1,59 @@
 package net.minecraft.network.play.server;
 
-import java.io.IOException;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayClient;
 import net.minecraft.world.EnumDifficulty;
 
-public class SPacketServerDifficulty implements Packet<INetHandlerPlayClient>
-{
-    private EnumDifficulty difficulty;
-    private boolean difficultyLocked;
+import java.io.IOException;
 
-    public SPacketServerDifficulty()
-    {
-    }
+public class SPacketServerDifficulty implements Packet<INetHandlerPlayClient> {
 
-    public SPacketServerDifficulty(EnumDifficulty difficultyIn, boolean difficultyLockedIn)
-    {
-        difficulty = difficultyIn;
-        difficultyLocked = difficultyLockedIn;
-    }
+	private EnumDifficulty difficulty;
+	private boolean difficultyLocked;
 
-    /**
-     * Passes this Packet on to the NetHandler for processing.
-     */
-    public void processPacket(INetHandlerPlayClient handler)
-    {
-        handler.handleServerDifficulty(this);
-    }
+	public SPacketServerDifficulty() {
 
-    /**
-     * Reads the raw packet data from the data stream.
-     */
-    public void readPacketData(PacketBuffer buf) throws IOException
-    {
-        difficulty = EnumDifficulty.getDifficultyEnum(buf.readUnsignedByte());
-    }
+	}
 
-    /**
-     * Writes the raw packet data to the data stream.
-     */
-    public void writePacketData(PacketBuffer buf) throws IOException
-    {
-        buf.writeByte(difficulty.getDifficultyId());
-    }
+	public SPacketServerDifficulty(EnumDifficulty difficultyIn, boolean difficultyLockedIn) {
 
-    public boolean isDifficultyLocked()
-    {
-        return difficultyLocked;
-    }
+		difficulty = difficultyIn;
+		difficultyLocked = difficultyLockedIn;
+	}
 
-    public EnumDifficulty getDifficulty()
-    {
-        return difficulty;
-    }
+	/**
+	 * Passes this Packet on to the NetHandler for processing.
+	 */
+	public void processPacket(INetHandlerPlayClient handler) {
+
+		handler.handleServerDifficulty(this);
+	}
+
+	/**
+	 * Reads the raw packet data from the data stream.
+	 */
+	public void readPacketData(PacketBuffer buf) throws IOException {
+
+		difficulty = EnumDifficulty.getDifficultyEnum(buf.readUnsignedByte());
+	}
+
+	/**
+	 * Writes the raw packet data to the data stream.
+	 */
+	public void writePacketData(PacketBuffer buf) throws IOException {
+
+		buf.writeByte(difficulty.getDifficultyId());
+	}
+
+	public boolean isDifficultyLocked() {
+
+		return difficultyLocked;
+	}
+
+	public EnumDifficulty getDifficulty() {
+
+		return difficulty;
+	}
+
 }

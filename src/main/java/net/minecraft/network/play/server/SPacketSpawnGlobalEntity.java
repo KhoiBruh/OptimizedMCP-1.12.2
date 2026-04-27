@@ -1,91 +1,92 @@
 package net.minecraft.network.play.server;
 
-import java.io.IOException;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayClient;
 
-public class SPacketSpawnGlobalEntity implements Packet<INetHandlerPlayClient>
-{
-    private int entityId;
-    private double x;
-    private double y;
-    private double z;
-    private int type;
+import java.io.IOException;
 
-    public SPacketSpawnGlobalEntity()
-    {
-    }
+public class SPacketSpawnGlobalEntity implements Packet<INetHandlerPlayClient> {
 
-    public SPacketSpawnGlobalEntity(Entity entityIn)
-    {
-        entityId = entityIn.getEntityId();
-        x = entityIn.posX;
-        y = entityIn.posY;
-        z = entityIn.posZ;
+	private int entityId;
+	private double x;
+	private double y;
+	private double z;
+	private int type;
 
-        if (entityIn instanceof EntityLightningBolt)
-        {
-            type = 1;
-        }
-    }
+	public SPacketSpawnGlobalEntity() {
 
-    /**
-     * Reads the raw packet data from the data stream.
-     */
-    public void readPacketData(PacketBuffer buf) throws IOException
-    {
-        entityId = buf.readVarInt();
-        type = buf.readByte();
-        x = buf.readDouble();
-        y = buf.readDouble();
-        z = buf.readDouble();
-    }
+	}
 
-    /**
-     * Writes the raw packet data to the data stream.
-     */
-    public void writePacketData(PacketBuffer buf) throws IOException
-    {
-        buf.writeVarInt(entityId);
-        buf.writeByte(type);
-        buf.writeDouble(x);
-        buf.writeDouble(y);
-        buf.writeDouble(z);
-    }
+	public SPacketSpawnGlobalEntity(Entity entityIn) {
 
-    /**
-     * Passes this Packet on to the NetHandler for processing.
-     */
-    public void processPacket(INetHandlerPlayClient handler)
-    {
-        handler.handleSpawnGlobalEntity(this);
-    }
+		entityId = entityIn.getEntityId();
+		x = entityIn.posX;
+		y = entityIn.posY;
+		z = entityIn.posZ;
 
-    public int getEntityId()
-    {
-        return entityId;
-    }
+		if (entityIn instanceof EntityLightningBolt) {
+			type = 1;
+		}
+	}
 
-    public double getX()
-    {
-        return x;
-    }
+	/**
+	 * Reads the raw packet data from the data stream.
+	 */
+	public void readPacketData(PacketBuffer buf) throws IOException {
 
-    public double getY()
-    {
-        return y;
-    }
+		entityId = buf.readVarInt();
+		type = buf.readByte();
+		x = buf.readDouble();
+		y = buf.readDouble();
+		z = buf.readDouble();
+	}
 
-    public double getZ()
-    {
-        return z;
-    }
+	/**
+	 * Writes the raw packet data to the data stream.
+	 */
+	public void writePacketData(PacketBuffer buf) throws IOException {
 
-    public int getType()
-    {
-        return type;
-    }
+		buf.writeVarInt(entityId);
+		buf.writeByte(type);
+		buf.writeDouble(x);
+		buf.writeDouble(y);
+		buf.writeDouble(z);
+	}
+
+	/**
+	 * Passes this Packet on to the NetHandler for processing.
+	 */
+	public void processPacket(INetHandlerPlayClient handler) {
+
+		handler.handleSpawnGlobalEntity(this);
+	}
+
+	public int getEntityId() {
+
+		return entityId;
+	}
+
+	public double getX() {
+
+		return x;
+	}
+
+	public double getY() {
+
+		return y;
+	}
+
+	public double getZ() {
+
+		return z;
+	}
+
+	public int getType() {
+
+		return type;
+	}
+
 }

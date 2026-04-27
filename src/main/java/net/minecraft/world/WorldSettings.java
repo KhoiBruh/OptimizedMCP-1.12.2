@@ -2,132 +2,143 @@ package net.minecraft.world;
 
 import net.minecraft.world.storage.WorldInfo;
 
-public final class WorldSettings
-{
-    /** The seed for the map. */
-    private final long seed;
+public final class WorldSettings {
 
-    /** The EnumGameType. */
-    private final GameType gameType;
+	/**
+	 * The seed for the map.
+	 */
+	private final long seed;
 
-    /**
-     * Switch for the map features. 'true' for enabled, 'false' for disabled.
-     */
-    private final boolean mapFeaturesEnabled;
+	/**
+	 * The EnumGameType.
+	 */
+	private final GameType gameType;
 
-    /** True if hardcore mode is enabled */
-    private final boolean hardcoreEnabled;
-    private final WorldType terrainType;
+	/**
+	 * Switch for the map features. 'true' for enabled, 'false' for disabled.
+	 */
+	private final boolean mapFeaturesEnabled;
 
-    /** True if Commands (cheats) are allowed. */
-    private boolean commandsAllowed;
+	/**
+	 * True if hardcore mode is enabled
+	 */
+	private final boolean hardcoreEnabled;
+	private final WorldType terrainType;
 
-    /** True if the Bonus Chest is enabled. */
-    private boolean bonusChestEnabled;
-    private String generatorOptions;
+	/**
+	 * True if Commands (cheats) are allowed.
+	 */
+	private boolean commandsAllowed;
 
-    public WorldSettings(long seedIn, GameType gameType, boolean enableMapFeatures, boolean hardcoreMode, WorldType worldTypeIn)
-    {
-        generatorOptions = "";
-        seed = seedIn;
-        this.gameType = gameType;
-        mapFeaturesEnabled = enableMapFeatures;
-        hardcoreEnabled = hardcoreMode;
-        terrainType = worldTypeIn;
-    }
+	/**
+	 * True if the Bonus Chest is enabled.
+	 */
+	private boolean bonusChestEnabled;
+	private String generatorOptions;
 
-    public WorldSettings(WorldInfo info)
-    {
-        this(info.getSeed(), info.getGameType(), info.isMapFeaturesEnabled(), info.isHardcoreModeEnabled(), info.getTerrainType());
-    }
+	public WorldSettings(long seedIn, GameType gameType, boolean enableMapFeatures, boolean hardcoreMode, WorldType worldTypeIn) {
 
-    /**
-     * Enables the bonus chest.
-     */
-    public WorldSettings enableBonusChest()
-    {
-        bonusChestEnabled = true;
-        return this;
-    }
+		generatorOptions = "";
+		seed = seedIn;
+		this.gameType = gameType;
+		mapFeaturesEnabled = enableMapFeatures;
+		hardcoreEnabled = hardcoreMode;
+		terrainType = worldTypeIn;
+	}
 
-    /**
-     * Enables Commands (cheats).
-     */
-    public WorldSettings enableCommands()
-    {
-        commandsAllowed = true;
-        return this;
-    }
+	public WorldSettings(WorldInfo info) {
 
-    public WorldSettings setGeneratorOptions(String options)
-    {
-        generatorOptions = options;
-        return this;
-    }
+		this(info.getSeed(), info.getGameType(), info.isMapFeaturesEnabled(), info.isHardcoreModeEnabled(), info.getTerrainType());
+	}
 
-    /**
-     * Returns true if the Bonus Chest is enabled.
-     */
-    public boolean isBonusChestEnabled()
-    {
-        return bonusChestEnabled;
-    }
+	/**
+	 * Enables the bonus chest.
+	 */
+	public WorldSettings enableBonusChest() {
 
-    /**
-     * Returns the seed for the world.
-     */
-    public long getSeed()
-    {
-        return seed;
-    }
+		bonusChestEnabled = true;
+		return this;
+	}
 
-    /**
-     * Gets the game type.
-     */
-    public GameType getGameType()
-    {
-        return gameType;
-    }
+	/**
+	 * Enables Commands (cheats).
+	 */
+	public WorldSettings enableCommands() {
 
-    /**
-     * Returns true if hardcore mode is enabled, otherwise false
-     */
-    public boolean getHardcoreEnabled()
-    {
-        return hardcoreEnabled;
-    }
+		commandsAllowed = true;
+		return this;
+	}
 
-    /**
-     * Get whether the map features (e.g. strongholds) generation is enabled or disabled.
-     */
-    public boolean isMapFeaturesEnabled()
-    {
-        return mapFeaturesEnabled;
-    }
+	public WorldSettings setGeneratorOptions(String options) {
 
-    public WorldType getTerrainType()
-    {
-        return terrainType;
-    }
+		generatorOptions = options;
+		return this;
+	}
 
-    /**
-     * Returns true if Commands (cheats) are allowed.
-     */
-    public boolean areCommandsAllowed()
-    {
-        return commandsAllowed;
-    }
+	/**
+	 * Returns true if the Bonus Chest is enabled.
+	 */
+	public boolean isBonusChestEnabled() {
 
-    /**
-     * Gets the GameType by ID
-     */
-    public static GameType getGameTypeById(int id)
-    {
-        return GameType.getByID(id);
-    }
+		return bonusChestEnabled;
+	}
 
-    public String getGeneratorOptions()
-    {
-        return generatorOptions;
-    }
+	/**
+	 * Returns the seed for the world.
+	 */
+	public long getSeed() {
+
+		return seed;
+	}
+
+	/**
+	 * Gets the game type.
+	 */
+	public GameType getGameType() {
+
+		return gameType;
+	}
+
+	/**
+	 * Returns true if hardcore mode is enabled, otherwise false
+	 */
+	public boolean getHardcoreEnabled() {
+
+		return hardcoreEnabled;
+	}
+
+	/**
+	 * Get whether the map features (e.g. strongholds) generation is enabled or disabled.
+	 */
+	public boolean isMapFeaturesEnabled() {
+
+		return mapFeaturesEnabled;
+	}
+
+	public WorldType getTerrainType() {
+
+		return terrainType;
+	}
+
+	/**
+	 * Returns true if Commands (cheats) are allowed.
+	 */
+	public boolean areCommandsAllowed() {
+
+		return commandsAllowed;
+	}
+
+	/**
+	 * Gets the GameType by ID
+	 */
+	public static GameType getGameTypeById(int id) {
+
+		return GameType.getByID(id);
+	}
+
+	public String getGeneratorOptions() {
+
+		return generatorOptions;
+	}
+
 }

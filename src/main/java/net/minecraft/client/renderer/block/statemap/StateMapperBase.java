@@ -2,59 +2,57 @@ package net.minecraft.client.renderer.block.statemap;
 
 import com.google.common.collect.Maps;
 import com.google.common.collect.UnmodifiableIterator;
-import java.util.Map;
-import java.util.Map.Entry;
 import net.minecraft.block.Block;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 
-public abstract class StateMapperBase implements IStateMapper
-{
-    protected Map<IBlockState, ModelResourceLocation> mapStateModelLocations = Maps.<IBlockState, ModelResourceLocation>newLinkedHashMap();
+import java.util.Map;
+import java.util.Map.Entry;
 
-    public String getPropertyString(Map < IProperty<?>, Comparable<? >> values)
-    {
-        StringBuilder stringbuilder = new StringBuilder();
+public abstract class StateMapperBase implements IStateMapper {
 
-        for (Entry < IProperty<?>, Comparable<? >> entry : values.entrySet())
-        {
-            if (stringbuilder.length() != 0)
-            {
-                stringbuilder.append(",");
-            }
+	protected Map<IBlockState, ModelResourceLocation> mapStateModelLocations = Maps.newLinkedHashMap();
 
-            IProperty<?> iproperty = (IProperty)entry.getKey();
-            stringbuilder.append(iproperty.getName());
-            stringbuilder.append("=");
-            stringbuilder.append(getPropertyName(iproperty, entry.getValue()));
-        }
+	public String getPropertyString(Map<IProperty<?>, Comparable<?>> values) {
 
-        if (stringbuilder.length() == 0)
-        {
-            stringbuilder.append("normal");
-        }
+		StringBuilder stringbuilder = new StringBuilder();
 
-        return stringbuilder.toString();
-    }
+		for (Entry<IProperty<?>, Comparable<?>> entry : values.entrySet()) {
+			if (stringbuilder.length() != 0) {
+				stringbuilder.append(",");
+			}
 
-    private <T extends Comparable<T>> String getPropertyName(IProperty<T> property, Comparable<?> value)
-    {
-        return property.getName((T)value);
-    }
+			IProperty<?> iproperty = entry.getKey();
+			stringbuilder.append(iproperty.getName());
+			stringbuilder.append("=");
+			stringbuilder.append(getPropertyName(iproperty, entry.getValue()));
+		}
 
-    public Map<IBlockState, ModelResourceLocation> putStateModelLocations(Block blockIn)
-    {
-        UnmodifiableIterator unmodifiableiterator = blockIn.getBlockState().getValidStates().iterator();
+		if (stringbuilder.length() == 0) {
+			stringbuilder.append("normal");
+		}
 
-        while (unmodifiableiterator.hasNext())
-        {
-            IBlockState iblockstate = (IBlockState)unmodifiableiterator.next();
-            mapStateModelLocations.put(iblockstate, getModelResourceLocation(iblockstate));
-        }
+		return stringbuilder.toString();
+	}
 
-        return mapStateModelLocations;
-    }
+	private <T extends Comparable<T>> String getPropertyName(IProperty<T> property, Comparable<?> value) {
 
-    protected abstract ModelResourceLocation getModelResourceLocation(IBlockState state);
+		return property.getName((T) value);
+	}
+
+	public Map<IBlockState, ModelResourceLocation> putStateModelLocations(Block blockIn) {
+
+		UnmodifiableIterator unmodifiableiterator = blockIn.getBlockState().getValidStates().iterator();
+
+		while (unmodifiableiterator.hasNext()) {
+			IBlockState iblockstate = (IBlockState) unmodifiableiterator.next();
+			mapStateModelLocations.put(iblockstate, getModelResourceLocation(iblockstate));
+		}
+
+		return mapStateModelLocations;
+	}
+
+	protected abstract ModelResourceLocation getModelResourceLocation(IBlockState state);
+
 }

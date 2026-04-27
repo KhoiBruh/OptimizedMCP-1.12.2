@@ -4,9 +4,6 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
-import java.util.Random;
-import java.util.Set;
-import java.util.Map.Entry;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.JsonUtils;
 import net.minecraft.util.ResourceLocation;
@@ -14,72 +11,71 @@ import net.minecraft.world.storage.loot.LootContext;
 import net.minecraft.world.storage.loot.properties.EntityProperty;
 import net.minecraft.world.storage.loot.properties.EntityPropertyManager;
 
-public class EntityHasProperty implements LootCondition
-{
-    private final EntityProperty[] properties;
-    private final LootContext.EntityTarget target;
+import java.util.Map.Entry;
+import java.util.Random;
+import java.util.Set;
 
-    public EntityHasProperty(EntityProperty[] propertiesIn, LootContext.EntityTarget targetIn)
-    {
-        properties = propertiesIn;
-        target = targetIn;
-    }
+public class EntityHasProperty implements LootCondition {
 
-    public boolean testCondition(Random rand, LootContext context)
-    {
-        Entity entity = context.getEntity(target);
+	private final EntityProperty[] properties;
+	private final LootContext.EntityTarget target;
 
-        if (entity == null)
-        {
-            return false;
-        }
-        else
-        {
-            for (EntityProperty entityproperty : properties)
-            {
-                if (!entityproperty.testProperty(rand, entity))
-                {
-                    return false;
-                }
-            }
+	public EntityHasProperty(EntityProperty[] propertiesIn, LootContext.EntityTarget targetIn) {
 
-            return true;
-        }
-    }
+		properties = propertiesIn;
+		target = targetIn;
+	}
 
-    public static class Serializer extends LootCondition.Serializer<EntityHasProperty>
-    {
-        protected Serializer()
-        {
-            super(new ResourceLocation("entity_properties"), EntityHasProperty.class);
-        }
+	public boolean testCondition(Random rand, LootContext context) {
 
-        public void serialize(JsonObject json, EntityHasProperty value, JsonSerializationContext context)
-        {
-            JsonObject jsonobject = new JsonObject();
+		Entity entity = context.getEntity(target);
 
-            for (EntityProperty entityproperty : value.properties)
-            {
-                EntityProperty.Serializer<EntityProperty> serializer = EntityPropertyManager.<EntityProperty>getSerializerFor(entityproperty);
-                jsonobject.add(serializer.getName().toString(), serializer.serialize(entityproperty, context));
-            }
+		if (entity == null) {
+			return false;
+		} else {
+			for (EntityProperty entityproperty : properties) {
+				if (!entityproperty.testProperty(rand, entity)) {
+					return false;
+				}
+			}
 
-            json.add("properties", jsonobject);
-            json.add("entity", context.serialize(value.target));
-        }
+			return true;
+		}
+	}
 
-        public EntityHasProperty deserialize(JsonObject json, JsonDeserializationContext context)
-        {
-            Set<Entry<String, JsonElement>> set = JsonUtils.getJsonObject(json, "properties").entrySet();
-            EntityProperty[] aentityproperty = new EntityProperty[set.size()];
-            int i = 0;
+	public static class Serializer extends LootCondition.Serializer<EntityHasProperty> {
 
-            for (Entry<String, JsonElement> entry : set)
-            {
-                aentityproperty[i++] = EntityPropertyManager.getSerializerForName(new ResourceLocation(entry.getKey())).deserialize(entry.getValue(), context);
-            }
+		protected Serializer() {
 
-            return new EntityHasProperty(aentityproperty, (LootContext.EntityTarget)JsonUtils.deserializeClass(json, "entity", context, LootContext.EntityTarget.class));
-        }
-    }
+			super(new ResourceLocation("entity_properties"), EntityHasProperty.class);
+		}
+
+		public void serialize(JsonObject json, EntityHasProperty value, JsonSerializationContext context) {
+
+			JsonObject jsonobject = new JsonObject();
+
+			for (EntityProperty entityproperty : value.properties) {
+				EntityProperty.Serializer<EntityProperty> serializer = EntityPropertyManager.getSerializerFor(entityproperty);
+				jsonobject.add(serializer.getName().toString(), serializer.serialize(entityproperty, context));
+			}
+
+			json.add("properties", jsonobject);
+			json.add("entity", context.serialize(value.target));
+		}
+
+		public EntityHasProperty deserialize(JsonObject json, JsonDeserializationContext context) {
+
+			Set<Entry<String, JsonElement>> set = JsonUtils.getJsonObject(json, "properties").entrySet();
+			EntityProperty[] aentityproperty = new EntityProperty[set.size()];
+			int i = 0;
+
+			for (Entry<String, JsonElement> entry : set) {
+				aentityproperty[i++] = EntityPropertyManager.getSerializerForName(new ResourceLocation(entry.getKey())).deserialize(entry.getValue(), context);
+			}
+
+			return new EntityHasProperty(aentityproperty, JsonUtils.deserializeClass(json, "entity", context, LootContext.EntityTarget.class));
+		}
+
+	}
+
 }

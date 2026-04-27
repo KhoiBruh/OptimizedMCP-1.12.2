@@ -10,76 +10,70 @@ import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
-public class EntityEgg extends EntityThrowable
-{
-    public EntityEgg(World worldIn)
-    {
-        super(worldIn);
-    }
+public class EntityEgg extends EntityThrowable {
 
-    public EntityEgg(World worldIn, EntityLivingBase throwerIn)
-    {
-        super(worldIn, throwerIn);
-    }
+	public EntityEgg(World worldIn) {
 
-    public EntityEgg(World worldIn, double x, double y, double z)
-    {
-        super(worldIn, x, y, z);
-    }
+		super(worldIn);
+	}
 
-    public static void registerFixesEgg(DataFixer fixer)
-    {
-        EntityThrowable.registerFixesThrowable(fixer, "ThrownEgg");
-    }
+	public EntityEgg(World worldIn, EntityLivingBase throwerIn) {
 
-    /**
-     * Handler for {@link World#setEntityState}
-     */
-    public void handleStatusUpdate(byte id)
-    {
-        if (id == 3)
-        {
-            double d0 = 0.08D;
+		super(worldIn, throwerIn);
+	}
 
-            for (int i = 0; i < 8; ++i)
-            {
-                world.spawnParticle(EnumParticleTypes.ITEM_CRACK, posX, posY, posZ, ((double) rand.nextFloat() - 0.5D) * 0.08D, ((double) rand.nextFloat() - 0.5D) * 0.08D, ((double) rand.nextFloat() - 0.5D) * 0.08D, Item.getIdFromItem(Items.EGG));
-            }
-        }
-    }
+	public EntityEgg(World worldIn, double x, double y, double z) {
 
-    /**
-     * Called when this EntityThrowable hits a block or entity.
-     */
-    protected void onImpact(RayTraceResult result)
-    {
-        if (result.entityHit != null)
-        {
-            result.entityHit.attackEntityFrom(DamageSource.causeThrownDamage(this, getThrower()), 0.0F);
-        }
+		super(worldIn, x, y, z);
+	}
 
-        if (!world.isRemote)
-        {
-            if (rand.nextInt(8) == 0)
-            {
-                int i = 1;
+	public static void registerFixesEgg(DataFixer fixer) {
 
-                if (rand.nextInt(32) == 0)
-                {
-                    i = 4;
-                }
+		EntityThrowable.registerFixesThrowable(fixer, "ThrownEgg");
+	}
 
-                for (int j = 0; j < i; ++j)
-                {
-                    EntityChicken entitychicken = new EntityChicken(world);
-                    entitychicken.setGrowingAge(-24000);
-                    entitychicken.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
-                    world.spawnEntity(entitychicken);
-                }
-            }
+	/**
+	 * Handler for {@link World#setEntityState}
+	 */
+	public void handleStatusUpdate(byte id) {
 
-            world.setEntityState(this, (byte)3);
-            setDead();
-        }
-    }
+		if (id == 3) {
+			double d0 = 0.08D;
+
+			for (int i = 0; i < 8; ++i) {
+				world.spawnParticle(EnumParticleTypes.ITEM_CRACK, posX, posY, posZ, ((double) rand.nextFloat() - 0.5D) * 0.08D, ((double) rand.nextFloat() - 0.5D) * 0.08D, ((double) rand.nextFloat() - 0.5D) * 0.08D, Item.getIdFromItem(Items.EGG));
+			}
+		}
+	}
+
+	/**
+	 * Called when this EntityThrowable hits a block or entity.
+	 */
+	protected void onImpact(RayTraceResult result) {
+
+		if (result.entityHit != null) {
+			result.entityHit.attackEntityFrom(DamageSource.causeThrownDamage(this, getThrower()), 0.0F);
+		}
+
+		if (!world.isRemote) {
+			if (rand.nextInt(8) == 0) {
+				int i = 1;
+
+				if (rand.nextInt(32) == 0) {
+					i = 4;
+				}
+
+				for (int j = 0; j < i; ++j) {
+					EntityChicken entitychicken = new EntityChicken(world);
+					entitychicken.setGrowingAge(-24000);
+					entitychicken.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
+					world.spawnEntity(entitychicken);
+				}
+			}
+
+			world.setEntityState(this, (byte) 3);
+			setDead();
+		}
+	}
+
 }

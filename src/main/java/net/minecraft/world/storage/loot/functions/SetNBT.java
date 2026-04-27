@@ -4,7 +4,6 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSyntaxException;
-import java.util.Random;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.JsonToNBT;
 import net.minecraft.nbt.NBTException;
@@ -14,56 +13,54 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.LootContext;
 import net.minecraft.world.storage.loot.conditions.LootCondition;
 
-public class SetNBT extends LootFunction
-{
-    private final NBTTagCompound tag;
+import java.util.Random;
 
-    public SetNBT(LootCondition[] conditionsIn, NBTTagCompound tagIn)
-    {
-        super(conditionsIn);
-        tag = tagIn;
-    }
+public class SetNBT extends LootFunction {
 
-    public ItemStack apply(ItemStack stack, Random rand, LootContext context)
-    {
-        NBTTagCompound nbttagcompound = stack.getTagCompound();
+	private final NBTTagCompound tag;
 
-        if (nbttagcompound == null)
-        {
-            nbttagcompound = tag.copy();
-        }
-        else
-        {
-            nbttagcompound.merge(tag);
-        }
+	public SetNBT(LootCondition[] conditionsIn, NBTTagCompound tagIn) {
 
-        stack.setTagCompound(nbttagcompound);
-        return stack;
-    }
+		super(conditionsIn);
+		tag = tagIn;
+	}
 
-    public static class Serializer extends LootFunction.Serializer<SetNBT>
-    {
-        public Serializer()
-        {
-            super(new ResourceLocation("set_nbt"), SetNBT.class);
-        }
+	public ItemStack apply(ItemStack stack, Random rand, LootContext context) {
 
-        public void serialize(JsonObject object, SetNBT functionClazz, JsonSerializationContext serializationContext)
-        {
-            object.addProperty("tag", functionClazz.tag.toString());
-        }
+		NBTTagCompound nbttagcompound = stack.getTagCompound();
 
-        public SetNBT deserialize(JsonObject object, JsonDeserializationContext deserializationContext, LootCondition[] conditionsIn)
-        {
-            try
-            {
-                NBTTagCompound nbttagcompound = JsonToNBT.getTagFromJson(JsonUtils.getString(object, "tag"));
-                return new SetNBT(conditionsIn, nbttagcompound);
-            }
-            catch (NBTException nbtexception)
-            {
-                throw new JsonSyntaxException(nbtexception);
-            }
-        }
-    }
+		if (nbttagcompound == null) {
+			nbttagcompound = tag.copy();
+		} else {
+			nbttagcompound.merge(tag);
+		}
+
+		stack.setTagCompound(nbttagcompound);
+		return stack;
+	}
+
+	public static class Serializer extends LootFunction.Serializer<SetNBT> {
+
+		public Serializer() {
+
+			super(new ResourceLocation("set_nbt"), SetNBT.class);
+		}
+
+		public void serialize(JsonObject object, SetNBT functionClazz, JsonSerializationContext serializationContext) {
+
+			object.addProperty("tag", functionClazz.tag.toString());
+		}
+
+		public SetNBT deserialize(JsonObject object, JsonDeserializationContext deserializationContext, LootCondition[] conditionsIn) {
+
+			try {
+				NBTTagCompound nbttagcompound = JsonToNBT.getTagFromJson(JsonUtils.getString(object, "tag"));
+				return new SetNBT(conditionsIn, nbttagcompound);
+			} catch (NBTException nbtexception) {
+				throw new JsonSyntaxException(nbtexception);
+			}
+		}
+
+	}
+
 }

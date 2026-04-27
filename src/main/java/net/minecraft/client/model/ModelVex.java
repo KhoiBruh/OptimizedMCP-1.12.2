@@ -5,78 +5,75 @@ import net.minecraft.entity.monster.EntityVex;
 import net.minecraft.util.EnumHandSide;
 import net.minecraft.util.math.MathHelper;
 
-public class ModelVex extends ModelBiped
-{
-    protected ModelRenderer leftWing;
-    protected ModelRenderer rightWing;
+public class ModelVex extends ModelBiped {
 
-    public ModelVex()
-    {
-        this(0.0F);
-    }
+	protected ModelRenderer leftWing;
+	protected ModelRenderer rightWing;
 
-    public ModelVex(float p_i47224_1_)
-    {
-        super(p_i47224_1_, 0.0F, 64, 64);
-        bipedLeftLeg.showModel = false;
-        bipedHeadwear.showModel = false;
-        bipedRightLeg = new ModelRenderer(this, 32, 0);
-        bipedRightLeg.addBox(-1.0F, -1.0F, -2.0F, 6, 10, 4, 0.0F);
-        bipedRightLeg.setRotationPoint(-1.9F, 12.0F, 0.0F);
-        rightWing = new ModelRenderer(this, 0, 32);
-        rightWing.addBox(-20.0F, 0.0F, 0.0F, 20, 12, 1);
-        leftWing = new ModelRenderer(this, 0, 32);
-        leftWing.mirror = true;
-        leftWing.addBox(0.0F, 0.0F, 0.0F, 20, 12, 1);
-    }
+	public ModelVex() {
 
-    /**
-     * Sets the models various rotation angles then renders the model.
-     */
-    public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale)
-    {
-        super.render(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
-        rightWing.render(scale);
-        leftWing.render(scale);
-    }
+		this(0.0F);
+	}
 
-    /**
-     * Sets the model's various rotation angles. For bipeds, par1 and par2 are used for animating the movement of arms
-     * and legs, where par1 represents the time(so that arms and legs swing back and forth) and par2 represents how
-     * "far" arms and legs can swing at most.
-     */
-    public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn)
-    {
-        super.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor, entityIn);
-        EntityVex entityvex = (EntityVex)entityIn;
+	public ModelVex(float p_i47224_1_) {
 
-        if (entityvex.isCharging())
-        {
-            if (entityvex.getPrimaryHand() == EnumHandSide.RIGHT)
-            {
-                bipedRightArm.rotateAngleX = 3.7699115F;
-            }
-            else
-            {
-                bipedLeftArm.rotateAngleX = 3.7699115F;
-            }
-        }
+		super(p_i47224_1_, 0.0F, 64, 64);
+		bipedLeftLeg.showModel = false;
+		bipedHeadwear.showModel = false;
+		bipedRightLeg = new ModelRenderer(this, 32, 0);
+		bipedRightLeg.addBox(-1.0F, -1.0F, -2.0F, 6, 10, 4, 0.0F);
+		bipedRightLeg.setRotationPoint(-1.9F, 12.0F, 0.0F);
+		rightWing = new ModelRenderer(this, 0, 32);
+		rightWing.addBox(-20.0F, 0.0F, 0.0F, 20, 12, 1);
+		leftWing = new ModelRenderer(this, 0, 32);
+		leftWing.mirror = true;
+		leftWing.addBox(0.0F, 0.0F, 0.0F, 20, 12, 1);
+	}
 
-        bipedRightLeg.rotateAngleX += ((float)Math.PI / 5F);
-        rightWing.rotationPointZ = 2.0F;
-        leftWing.rotationPointZ = 2.0F;
-        rightWing.rotationPointY = 1.0F;
-        leftWing.rotationPointY = 1.0F;
-        rightWing.rotateAngleY = 0.47123894F + MathHelper.cos(ageInTicks * 0.8F) * (float)Math.PI * 0.05F;
-        leftWing.rotateAngleY = -rightWing.rotateAngleY;
-        leftWing.rotateAngleZ = -0.47123894F;
-        leftWing.rotateAngleX = 0.47123894F;
-        rightWing.rotateAngleX = 0.47123894F;
-        rightWing.rotateAngleZ = 0.47123894F;
-    }
+	/**
+	 * Sets the models various rotation angles then renders the model.
+	 */
+	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 
-    public int getModelVersion()
-    {
-        return 23;
-    }
+		super.render(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+		rightWing.render(scale);
+		leftWing.render(scale);
+	}
+
+	/**
+	 * Sets the model's various rotation angles. For bipeds, par1 and par2 are used for animating the movement of arms
+	 * and legs, where par1 represents the time(so that arms and legs swing back and forth) and par2 represents how
+	 * "far" arms and legs can swing at most.
+	 */
+	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
+
+		super.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor, entityIn);
+		EntityVex entityvex = (EntityVex) entityIn;
+
+		if (entityvex.isCharging()) {
+			if (entityvex.getPrimaryHand() == EnumHandSide.RIGHT) {
+				bipedRightArm.rotateAngleX = 3.7699115F;
+			} else {
+				bipedLeftArm.rotateAngleX = 3.7699115F;
+			}
+		}
+
+		bipedRightLeg.rotateAngleX += ((float) Math.PI / 5F);
+		rightWing.rotationPointZ = 2.0F;
+		leftWing.rotationPointZ = 2.0F;
+		rightWing.rotationPointY = 1.0F;
+		leftWing.rotationPointY = 1.0F;
+		rightWing.rotateAngleY = 0.47123894F + MathHelper.cos(ageInTicks * 0.8F) * (float) Math.PI * 0.05F;
+		leftWing.rotateAngleY = -rightWing.rotateAngleY;
+		leftWing.rotateAngleZ = -0.47123894F;
+		leftWing.rotateAngleX = 0.47123894F;
+		rightWing.rotateAngleX = 0.47123894F;
+		rightWing.rotateAngleZ = 0.47123894F;
+	}
+
+	public int getModelVersion() {
+
+		return 23;
+	}
+
 }

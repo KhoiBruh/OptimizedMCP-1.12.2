@@ -1,6 +1,5 @@
 package net.minecraft.entity.boss.dragon.phase;
 
-import javax.annotation.Nullable;
 import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.pathfinding.Path;
 import net.minecraft.pathfinding.PathPoint;
@@ -8,112 +7,104 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.gen.feature.WorldGenEndPodium;
 
-public class PhaseTakeoff extends PhaseBase
-{
-    private boolean firstTick;
-    private Path currentPath;
-    private Vec3d targetLocation;
+import javax.annotation.Nullable;
 
-    public PhaseTakeoff(EntityDragon dragonIn)
-    {
-        super(dragonIn);
-    }
+public class PhaseTakeoff extends PhaseBase {
 
-    /**
-     * Gives the phase a chance to update its status.
-     * Called by dragon's onLivingUpdate. Only used when !worldObj.isRemote.
-     */
-    public void doLocalUpdate()
-    {
-        if (!firstTick && currentPath != null)
-        {
-            BlockPos blockpos = dragon.world.getTopSolidOrLiquidBlock(WorldGenEndPodium.END_PODIUM_LOCATION);
-            double d0 = dragon.getDistanceSqToCenter(blockpos);
+	private boolean firstTick;
+	private Path currentPath;
+	private Vec3d targetLocation;
 
-            if (d0 > 100.0D)
-            {
-                dragon.getPhaseManager().setPhase(PhaseList.HOLDING_PATTERN);
-            }
-        }
-        else
-        {
-            firstTick = false;
-            findNewTarget();
-        }
-    }
+	public PhaseTakeoff(EntityDragon dragonIn) {
 
-    /**
-     * Called when this phase is set to active
-     */
-    public void initPhase()
-    {
-        firstTick = true;
-        currentPath = null;
-        targetLocation = null;
-    }
+		super(dragonIn);
+	}
 
-    private void findNewTarget()
-    {
-        int i = dragon.initPathPoints();
-        Vec3d vec3d = dragon.getHeadLookVec(1.0F);
-        int j = dragon.getNearestPpIdx(-vec3d.x * 40.0D, 105.0D, -vec3d.z * 40.0D);
+	/**
+	 * Gives the phase a chance to update its status.
+	 * Called by dragon's onLivingUpdate. Only used when !worldObj.isRemote.
+	 */
+	public void doLocalUpdate() {
 
-        if (dragon.getFightManager() != null && dragon.getFightManager().getNumAliveCrystals() > 0)
-        {
-            j = j % 12;
+		if (!firstTick && currentPath != null) {
+			BlockPos blockpos = dragon.world.getTopSolidOrLiquidBlock(WorldGenEndPodium.END_PODIUM_LOCATION);
+			double d0 = dragon.getDistanceSqToCenter(blockpos);
 
-            if (j < 0)
-            {
-                j += 12;
-            }
-        }
-        else
-        {
-            j = j - 12;
-            j = j & 7;
-            j = j + 12;
-        }
+			if (d0 > 100.0D) {
+				dragon.getPhaseManager().setPhase(PhaseList.HOLDING_PATTERN);
+			}
+		} else {
+			firstTick = false;
+			findNewTarget();
+		}
+	}
 
-        currentPath = dragon.findPath(i, j, (PathPoint)null);
+	/**
+	 * Called when this phase is set to active
+	 */
+	public void initPhase() {
 
-        if (currentPath != null)
-        {
-            currentPath.incrementPathIndex();
-            navigateToNextPathNode();
-        }
-    }
+		firstTick = true;
+		currentPath = null;
+		targetLocation = null;
+	}
 
-    private void navigateToNextPathNode()
-    {
-        Vec3d vec3d = currentPath.getCurrentPos();
-        currentPath.incrementPathIndex();
-        double d0;
+	private void findNewTarget() {
 
-        while (true)
-        {
-            d0 = vec3d.y + (double)(dragon.getRNG().nextFloat() * 20.0F);
+		int i = dragon.initPathPoints();
+		Vec3d vec3d = dragon.getHeadLookVec(1.0F);
+		int j = dragon.getNearestPpIdx(-vec3d.x() * 40.0D, 105.0D, -vec3d.z() * 40.0D);
 
-            if (d0 >= vec3d.y)
-            {
-                break;
-            }
-        }
+		if (dragon.getFightManager() != null && dragon.getFightManager().getNumAliveCrystals() > 0) {
+			j = j % 12;
 
-        targetLocation = new Vec3d(vec3d.x, d0, vec3d.z);
-    }
+			if (j < 0) {
+				j += 12;
+			}
+		} else {
+			j = j - 12;
+			j = j & 7;
+			j = j + 12;
+		}
 
-    @Nullable
+		currentPath = dragon.findPath(i, j, null);
 
-    /**
-     * Returns the location the dragon is flying toward
-     */
-    public Vec3d getTargetLocation()
-    {
-        return targetLocation;
-    }
+		if (currentPath != null) {
+			currentPath.incrementPathIndex();
+			navigateToNextPathNode();
+		}
+	}
 
-    public PhaseList<PhaseTakeoff> getType()
-    {
-        return PhaseList.TAKEOFF;
-    }
+	private void navigateToNextPathNode() {
+
+		Vec3d vec3d = currentPath.getCurrentPos();
+		currentPath.incrementPathIndex();
+		double d0;
+
+		while (true) {
+			d0 = vec3d.y() + (double) (dragon.getRNG().nextFloat() * 20.0F);
+
+			if (d0 >= vec3d.y()) {
+				break;
+			}
+		}
+
+		targetLocation = new Vec3d(vec3d.x(), d0, vec3d.z());
+	}
+
+	@Nullable
+
+	/**
+	 * Returns the location the dragon is flying toward
+	 */
+	public Vec3d getTargetLocation() {
+
+		return targetLocation;
+	}
+
+	public PhaseList<PhaseTakeoff> getType() {
+
+		return PhaseList.TAKEOFF;
+	}
+
 }

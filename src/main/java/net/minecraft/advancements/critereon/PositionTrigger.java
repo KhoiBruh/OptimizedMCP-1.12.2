@@ -5,147 +5,142 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import net.minecraft.advancements.ICriterionTrigger;
 import net.minecraft.advancements.PlayerAdvancements;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.WorldServer;
 
-public class PositionTrigger implements ICriterionTrigger<PositionTrigger.Instance>
-{
-    private final ResourceLocation id;
-    private final Map<PlayerAdvancements, PositionTrigger.Listeners> listeners = Maps.<PlayerAdvancements, PositionTrigger.Listeners>newHashMap();
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-    public PositionTrigger(ResourceLocation id)
-    {
-        this.id = id;
-    }
+public class PositionTrigger implements ICriterionTrigger<PositionTrigger.Instance> {
 
-    public ResourceLocation getId()
-    {
-        return id;
-    }
+	private final ResourceLocation id;
+	private final Map<PlayerAdvancements, PositionTrigger.Listeners> listeners = Maps.newHashMap();
 
-    public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<PositionTrigger.Instance> listener)
-    {
-        PositionTrigger.Listeners positiontrigger$listeners = listeners.get(playerAdvancementsIn);
+	public PositionTrigger(ResourceLocation id) {
 
-        if (positiontrigger$listeners == null)
-        {
-            positiontrigger$listeners = new PositionTrigger.Listeners(playerAdvancementsIn);
-            listeners.put(playerAdvancementsIn, positiontrigger$listeners);
-        }
+		this.id = id;
+	}
 
-        positiontrigger$listeners.add(listener);
-    }
+	public ResourceLocation getId() {
 
-    public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<PositionTrigger.Instance> listener)
-    {
-        PositionTrigger.Listeners positiontrigger$listeners = listeners.get(playerAdvancementsIn);
+		return id;
+	}
 
-        if (positiontrigger$listeners != null)
-        {
-            positiontrigger$listeners.remove(listener);
+	public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<PositionTrigger.Instance> listener) {
 
-            if (positiontrigger$listeners.isEmpty())
-            {
-                listeners.remove(playerAdvancementsIn);
-            }
-        }
-    }
+		PositionTrigger.Listeners positiontrigger$listeners = listeners.get(playerAdvancementsIn);
 
-    public void removeAllListeners(PlayerAdvancements playerAdvancementsIn)
-    {
-        listeners.remove(playerAdvancementsIn);
-    }
+		if (positiontrigger$listeners == null) {
+			positiontrigger$listeners = new PositionTrigger.Listeners(playerAdvancementsIn);
+			listeners.put(playerAdvancementsIn, positiontrigger$listeners);
+		}
 
-    /**
-     * Deserialize a ICriterionInstance of this trigger from the data in the JSON.
-     */
-    public PositionTrigger.Instance deserializeInstance(JsonObject json, JsonDeserializationContext context)
-    {
-        LocationPredicate locationpredicate = LocationPredicate.deserialize(json);
-        return new PositionTrigger.Instance(id, locationpredicate);
-    }
+		positiontrigger$listeners.add(listener);
+	}
 
-    public void trigger(EntityPlayerMP player)
-    {
-        PositionTrigger.Listeners positiontrigger$listeners = listeners.get(player.getAdvancements());
+	public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<PositionTrigger.Instance> listener) {
 
-        if (positiontrigger$listeners != null)
-        {
-            positiontrigger$listeners.trigger(player.getServerWorld(), player.posX, player.posY, player.posZ);
-        }
-    }
+		PositionTrigger.Listeners positiontrigger$listeners = listeners.get(playerAdvancementsIn);
 
-    public static class Instance extends AbstractCriterionInstance
-    {
-        private final LocationPredicate location;
+		if (positiontrigger$listeners != null) {
+			positiontrigger$listeners.remove(listener);
 
-        public Instance(ResourceLocation criterionIn, LocationPredicate location)
-        {
-            super(criterionIn);
-            this.location = location;
-        }
+			if (positiontrigger$listeners.isEmpty()) {
+				listeners.remove(playerAdvancementsIn);
+			}
+		}
+	}
 
-        public boolean test(WorldServer world, double x, double y, double z)
-        {
-            return location.test(world, x, y, z);
-        }
-    }
+	public void removeAllListeners(PlayerAdvancements playerAdvancementsIn) {
 
-    static class Listeners
-    {
-        private final PlayerAdvancements playerAdvancements;
-        private final Set<ICriterionTrigger.Listener<PositionTrigger.Instance>> listeners = Sets.<ICriterionTrigger.Listener<PositionTrigger.Instance>>newHashSet();
+		listeners.remove(playerAdvancementsIn);
+	}
 
-        public Listeners(PlayerAdvancements playerAdvancementsIn)
-        {
-            playerAdvancements = playerAdvancementsIn;
-        }
+	/**
+	 * Deserialize a ICriterionInstance of this trigger from the data in the JSON.
+	 */
+	public PositionTrigger.Instance deserializeInstance(JsonObject json, JsonDeserializationContext context) {
 
-        public boolean isEmpty()
-        {
-            return listeners.isEmpty();
-        }
+		LocationPredicate locationpredicate = LocationPredicate.deserialize(json);
+		return new PositionTrigger.Instance(id, locationpredicate);
+	}
 
-        public void add(ICriterionTrigger.Listener<PositionTrigger.Instance> listener)
-        {
-            listeners.add(listener);
-        }
+	public void trigger(EntityPlayerMP player) {
 
-        public void remove(ICriterionTrigger.Listener<PositionTrigger.Instance> listener)
-        {
-            listeners.remove(listener);
-        }
+		PositionTrigger.Listeners positiontrigger$listeners = listeners.get(player.getAdvancements());
 
-        public void trigger(WorldServer world, double x, double y, double z)
-        {
-            List<ICriterionTrigger.Listener<PositionTrigger.Instance>> list = null;
+		if (positiontrigger$listeners != null) {
+			positiontrigger$listeners.trigger(player.getServerWorld(), player.posX, player.posY, player.posZ);
+		}
+	}
 
-            for (ICriterionTrigger.Listener<PositionTrigger.Instance> listener : listeners)
-            {
-                if (((PositionTrigger.Instance)listener.getCriterionInstance()).test(world, x, y, z))
-                {
-                    if (list == null)
-                    {
-                        list = Lists.<ICriterionTrigger.Listener<PositionTrigger.Instance>>newArrayList();
-                    }
+	public static class Instance extends AbstractCriterionInstance {
 
-                    list.add(listener);
-                }
-            }
+		private final LocationPredicate location;
 
-            if (list != null)
-            {
-                for (ICriterionTrigger.Listener<PositionTrigger.Instance> listener1 : list)
-                {
-                    listener1.grantCriterion(playerAdvancements);
-                }
-            }
-        }
-    }
+		public Instance(ResourceLocation criterionIn, LocationPredicate location) {
+
+			super(criterionIn);
+			this.location = location;
+		}
+
+		public boolean test(WorldServer world, double x, double y, double z) {
+
+			return location.test(world, x, y, z);
+		}
+
+	}
+
+	static class Listeners {
+
+		private final PlayerAdvancements playerAdvancements;
+		private final Set<ICriterionTrigger.Listener<PositionTrigger.Instance>> listeners = Sets.newHashSet();
+
+		public Listeners(PlayerAdvancements playerAdvancementsIn) {
+
+			playerAdvancements = playerAdvancementsIn;
+		}
+
+		public boolean isEmpty() {
+
+			return listeners.isEmpty();
+		}
+
+		public void add(ICriterionTrigger.Listener<PositionTrigger.Instance> listener) {
+
+			listeners.add(listener);
+		}
+
+		public void remove(ICriterionTrigger.Listener<PositionTrigger.Instance> listener) {
+
+			listeners.remove(listener);
+		}
+
+		public void trigger(WorldServer world, double x, double y, double z) {
+
+			List<ICriterionTrigger.Listener<PositionTrigger.Instance>> list = null;
+
+			for (ICriterionTrigger.Listener<PositionTrigger.Instance> listener : listeners) {
+				if (listener.getCriterionInstance().test(world, x, y, z)) {
+					if (list == null) {
+						list = Lists.newArrayList();
+					}
+
+					list.add(listener);
+				}
+			}
+
+			if (list != null) {
+				for (ICriterionTrigger.Listener<PositionTrigger.Instance> listener1 : list) {
+					listener1.grantCriterion(playerAdvancements);
+				}
+			}
+		}
+
+	}
+
 }

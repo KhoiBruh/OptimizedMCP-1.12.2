@@ -4,12 +4,6 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import io.netty.handler.codec.DecoderException;
 import io.netty.handler.codec.EncoderException;
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
-import javax.annotation.Nullable;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.entity.Entity;
@@ -19,366 +13,334 @@ import org.apache.commons.lang3.ObjectUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class EntityDataManager
-{
-    private static final Logger LOGGER = LogManager.getLogger();
-    private static final Map < Class <? extends Entity > , Integer > NEXT_ID_MAP = Maps. < Class <? extends Entity > , Integer > newHashMap();
+import javax.annotation.Nullable;
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
-    /** The entity that this data manager is for. */
-    private final Entity entity;
-    private final Map < Integer, EntityDataManager.DataEntry<? >> entries = Maps. < Integer, EntityDataManager.DataEntry<? >> newHashMap();
-    private final ReadWriteLock lock = new ReentrantReadWriteLock();
-    private boolean empty = true;
-    private boolean dirty;
+public class EntityDataManager {
 
-    public EntityDataManager(Entity entityIn)
-    {
-        entity = entityIn;
-    }
+	private static final Logger LOGGER = LogManager.getLogger();
+	private static final Map<Class<? extends Entity>, Integer> NEXT_ID_MAP = Maps.newHashMap();
 
-    public static <T> DataParameter<T> createKey(Class <? extends Entity > clazz, DataSerializer<T> serializer)
-    {
-        if (LOGGER.isDebugEnabled())
-        {
-            try
-            {
-                Class<?> oclass = Class.forName(Thread.currentThread().getStackTrace()[2].getClassName());
+	/**
+	 * The entity that this data manager is for.
+	 */
+	private final Entity entity;
+	private final Map<Integer, EntityDataManager.DataEntry<?>> entries = Maps.newHashMap();
+	private final ReadWriteLock lock = new ReentrantReadWriteLock();
+	private boolean empty = true;
+	private boolean dirty;
 
-                if (!oclass.equals(clazz))
-                {
-                    LOGGER.debug("defineId called for: {} from {}", clazz, oclass, new RuntimeException());
-                }
-            }
-            catch (ClassNotFoundException var5)
-            {
-                ;
-            }
-        }
+	public EntityDataManager(Entity entityIn) {
 
-        int j;
+		entity = entityIn;
+	}
 
-        if (NEXT_ID_MAP.containsKey(clazz))
-        {
-            j = ((Integer)NEXT_ID_MAP.get(clazz)).intValue() + 1;
-        }
-        else
-        {
-            int i = 0;
-            Class<?> oclass1 = clazz;
+	public static <T> DataParameter<T> createKey(Class<? extends Entity> clazz, DataSerializer<T> serializer) {
 
-            while (oclass1 != Entity.class)
-            {
-                oclass1 = oclass1.getSuperclass();
+		if (LOGGER.isDebugEnabled()) {
+			try {
+				Class<?> oclass = Class.forName(Thread.currentThread().getStackTrace()[2].getClassName());
 
-                if (NEXT_ID_MAP.containsKey(oclass1))
-                {
-                    i = ((Integer)NEXT_ID_MAP.get(oclass1)).intValue() + 1;
-                    break;
-                }
-            }
+				if (!oclass.equals(clazz)) {
+					LOGGER.debug("defineId called for: {} from {}", clazz, oclass, new RuntimeException());
+				}
+			} catch (ClassNotFoundException var5) {
+			}
+		}
 
-            j = i;
-        }
+		int j;
 
-        if (j > 254)
-        {
-            throw new IllegalArgumentException("Data value id is too big with " + j + "! (Max is " + 254 + ")");
-        }
-        else
-        {
-            NEXT_ID_MAP.put(clazz, Integer.valueOf(j));
-            return serializer.createKey(j);
-        }
-    }
+		if (NEXT_ID_MAP.containsKey(clazz)) {
+			j = NEXT_ID_MAP.get(clazz).intValue() + 1;
+		} else {
+			int i = 0;
+			Class<?> oclass1 = clazz;
 
-    public <T> void register(DataParameter<T> key, T value)
-    {
-        int i = key.getId();
+			while (oclass1 != Entity.class) {
+				oclass1 = oclass1.getSuperclass();
 
-        if (i > 254)
-        {
-            throw new IllegalArgumentException("Data value id is too big with " + i + "! (Max is " + 254 + ")");
-        }
-        else if (entries.containsKey(Integer.valueOf(i)))
-        {
-            throw new IllegalArgumentException("Duplicate id value for " + i + "!");
-        }
-        else if (DataSerializers.getSerializerId(key.getSerializer()) < 0)
-        {
-            throw new IllegalArgumentException("Unregistered serializer " + key.getSerializer() + " for " + i + "!");
-        }
-        else
-        {
-            setEntry(key, value);
-        }
-    }
+				if (NEXT_ID_MAP.containsKey(oclass1)) {
+					i = NEXT_ID_MAP.get(oclass1).intValue() + 1;
+					break;
+				}
+			}
 
-    private <T> void setEntry(DataParameter<T> key, T value)
-    {
-        EntityDataManager.DataEntry<T> dataentry = new EntityDataManager.DataEntry<T>(key, value);
-        lock.writeLock().lock();
-        entries.put(Integer.valueOf(key.getId()), dataentry);
-        empty = false;
-        lock.writeLock().unlock();
-    }
+			j = i;
+		}
 
-    private <T> EntityDataManager.DataEntry<T> getEntry(DataParameter<T> key)
-    {
-        lock.readLock().lock();
-        EntityDataManager.DataEntry<T> dataentry;
+		if (j > 254) {
+			throw new IllegalArgumentException("Data value id is too big with " + j + "! (Max is " + 254 + ")");
+		} else {
+			NEXT_ID_MAP.put(clazz, Integer.valueOf(j));
+			return serializer.createKey(j);
+		}
+	}
 
-        try
-        {
-            dataentry = (EntityDataManager.DataEntry) entries.get(Integer.valueOf(key.getId()));
-        }
-        catch (Throwable throwable)
-        {
-            CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Getting synched entity data");
-            CrashReportCategory crashreportcategory = crashreport.makeCategory("Synched entity data");
-            crashreportcategory.addCrashSection("Data ID", key);
-            throw new ReportedException(crashreport);
-        }
+	public <T> void register(DataParameter<T> key, T value) {
 
-        lock.readLock().unlock();
-        return dataentry;
-    }
+		int i = key.id();
 
-    public <T> T get(DataParameter<T> key)
-    {
-        return (T) getEntry(key).getValue();
-    }
+		if (i > 254) {
+			throw new IllegalArgumentException("Data value id is too big with " + i + "! (Max is " + 254 + ")");
+		} else if (entries.containsKey(Integer.valueOf(i))) {
+			throw new IllegalArgumentException("Duplicate id value for " + i + "!");
+		} else if (DataSerializers.getSerializerId(key.serializer()) < 0) {
+			throw new IllegalArgumentException("Unregistered serializer " + key.serializer() + " for " + i + "!");
+		} else {
+			setEntry(key, value);
+		}
+	}
 
-    public <T> void set(DataParameter<T> key, T value)
-    {
-        EntityDataManager.DataEntry<T> dataentry = this.<T>getEntry(key);
+	private <T> void setEntry(DataParameter<T> key, T value) {
 
-        if (ObjectUtils.notEqual(value, dataentry.getValue()))
-        {
-            dataentry.setValue(value);
-            entity.notifyDataManagerChange(key);
-            dataentry.setDirty(true);
-            dirty = true;
-        }
-    }
+		EntityDataManager.DataEntry<T> dataentry = new EntityDataManager.DataEntry<T>(key, value);
+		lock.writeLock().lock();
+		entries.put(Integer.valueOf(key.id()), dataentry);
+		empty = false;
+		lock.writeLock().unlock();
+	}
 
-    public <T> void setDirty(DataParameter<T> key)
-    {
-        getEntry(key).dirty = true;
-        dirty = true;
-    }
+	private <T> EntityDataManager.DataEntry<T> getEntry(DataParameter<T> key) {
 
-    public boolean isDirty()
-    {
-        return dirty;
-    }
+		lock.readLock().lock();
+		EntityDataManager.DataEntry<T> dataentry;
 
-    public static void writeEntries(List < EntityDataManager.DataEntry<? >> entriesIn, PacketBuffer buf) throws IOException
-    {
-        if (entriesIn != null)
-        {
-            int i = 0;
+		try {
+			dataentry = (EntityDataManager.DataEntry) entries.get(Integer.valueOf(key.id()));
+		} catch (Throwable throwable) {
+			CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Getting synched entity data");
+			CrashReportCategory crashreportcategory = crashreport.makeCategory("Synched entity data");
+			crashreportcategory.addCrashSection("Data ID", key);
+			throw new ReportedException(crashreport);
+		}
 
-            for (int j = entriesIn.size(); i < j; ++i)
-            {
-                EntityDataManager.DataEntry<?> dataentry = (EntityDataManager.DataEntry)entriesIn.get(i);
-                writeEntry(buf, dataentry);
-            }
-        }
+		lock.readLock().unlock();
+		return dataentry;
+	}
 
-        buf.writeByte(255);
-    }
+	public <T> T get(DataParameter<T> key) {
 
-    @Nullable
-    public List < EntityDataManager.DataEntry<? >> getDirty()
-    {
-        List < EntityDataManager.DataEntry<? >> list = null;
+		return getEntry(key).getValue();
+	}
 
-        if (dirty)
-        {
-            lock.readLock().lock();
+	public <T> void set(DataParameter<T> key, T value) {
 
-            for (EntityDataManager.DataEntry<?> dataentry : entries.values())
-            {
-                if (dataentry.isDirty())
-                {
-                    dataentry.setDirty(false);
+		EntityDataManager.DataEntry<T> dataentry = this.getEntry(key);
 
-                    if (list == null)
-                    {
-                        list = Lists. < EntityDataManager.DataEntry<? >> newArrayList();
-                    }
+		if (ObjectUtils.notEqual(value, dataentry.getValue())) {
+			dataentry.setValue(value);
+			entity.notifyDataManagerChange(key);
+			dataentry.setDirty(true);
+			dirty = true;
+		}
+	}
 
-                    list.add(dataentry.copy());
-                }
-            }
+	public <T> void setDirty(DataParameter<T> key) {
 
-            lock.readLock().unlock();
-        }
+		getEntry(key).dirty = true;
+		dirty = true;
+	}
 
-        dirty = false;
-        return list;
-    }
+	public boolean isDirty() {
 
-    public void writeEntries(PacketBuffer buf) throws IOException
-    {
-        lock.readLock().lock();
+		return dirty;
+	}
 
-        for (EntityDataManager.DataEntry<?> dataentry : entries.values())
-        {
-            writeEntry(buf, dataentry);
-        }
+	public static void writeEntries(List<EntityDataManager.DataEntry<?>> entriesIn, PacketBuffer buf) throws IOException {
 
-        lock.readLock().unlock();
-        buf.writeByte(255);
-    }
+		if (entriesIn != null) {
+			int i = 0;
 
-    @Nullable
-    public List < EntityDataManager.DataEntry<? >> getAll()
-    {
-        List < EntityDataManager.DataEntry<? >> list = null;
-        lock.readLock().lock();
+			for (int j = entriesIn.size(); i < j; ++i) {
+				EntityDataManager.DataEntry<?> dataentry = entriesIn.get(i);
+				writeEntry(buf, dataentry);
+			}
+		}
 
-        for (EntityDataManager.DataEntry<?> dataentry : entries.values())
-        {
-            if (list == null)
-            {
-                list = Lists. < EntityDataManager.DataEntry<? >> newArrayList();
-            }
+		buf.writeByte(255);
+	}
 
-            list.add(dataentry.copy());
-        }
+	@Nullable
+	public List<EntityDataManager.DataEntry<?>> getDirty() {
 
-        lock.readLock().unlock();
-        return list;
-    }
+		List<EntityDataManager.DataEntry<?>> list = null;
 
-    private static <T> void writeEntry(PacketBuffer buf, EntityDataManager.DataEntry<T> entry) throws IOException
-    {
-        DataParameter<T> dataparameter = entry.getKey();
-        int i = DataSerializers.getSerializerId(dataparameter.getSerializer());
+		if (dirty) {
+			lock.readLock().lock();
 
-        if (i < 0)
-        {
-            throw new EncoderException("Unknown serializer type " + dataparameter.getSerializer());
-        }
-        else
-        {
-            buf.writeByte(dataparameter.getId());
-            buf.writeVarInt(i);
-            dataparameter.getSerializer().write(buf, entry.getValue());
-        }
-    }
+			for (EntityDataManager.DataEntry<?> dataentry : entries.values()) {
+				if (dataentry.isDirty()) {
+					dataentry.setDirty(false);
 
-    @Nullable
-    public static List < EntityDataManager.DataEntry<? >> readEntries(PacketBuffer buf) throws IOException
-    {
-        List < EntityDataManager.DataEntry<? >> list = null;
-        int i;
+					if (list == null) {
+						list = Lists.newArrayList();
+					}
 
-        while ((i = buf.readUnsignedByte()) != 255)
-        {
-            if (list == null)
-            {
-                list = Lists. < EntityDataManager.DataEntry<? >> newArrayList();
-            }
+					list.add(dataentry.copy());
+				}
+			}
 
-            int j = buf.readVarInt();
-            DataSerializer<?> dataserializer = DataSerializers.getSerializer(j);
+			lock.readLock().unlock();
+		}
 
-            if (dataserializer == null)
-            {
-                throw new DecoderException("Unknown serializer type " + j);
-            }
+		dirty = false;
+		return list;
+	}
 
-            list.add(new EntityDataManager.DataEntry(dataserializer.createKey(i), dataserializer.read(buf)));
-        }
+	public void writeEntries(PacketBuffer buf) throws IOException {
 
-        return list;
-    }
+		lock.readLock().lock();
 
-    public void setEntryValues(List < EntityDataManager.DataEntry<? >> entriesIn)
-    {
-        lock.writeLock().lock();
+		for (EntityDataManager.DataEntry<?> dataentry : entries.values()) {
+			writeEntry(buf, dataentry);
+		}
 
-        for (EntityDataManager.DataEntry<?> dataentry : entriesIn)
-        {
-            EntityDataManager.DataEntry<?> dataentry1 = (EntityDataManager.DataEntry) entries.get(Integer.valueOf(dataentry.getKey().getId()));
+		lock.readLock().unlock();
+		buf.writeByte(255);
+	}
 
-            if (dataentry1 != null)
-            {
-                setEntryValue(dataentry1, dataentry);
-                entity.notifyDataManagerChange(dataentry.getKey());
-            }
-        }
+	@Nullable
+	public List<EntityDataManager.DataEntry<?>> getAll() {
 
-        lock.writeLock().unlock();
-        dirty = true;
-    }
+		List<EntityDataManager.DataEntry<?>> list = null;
+		lock.readLock().lock();
 
-    protected <T> void setEntryValue(EntityDataManager.DataEntry<T> target, EntityDataManager.DataEntry<?> source)
-    {
-        target.setValue((T)source.getValue());
-    }
+		for (EntityDataManager.DataEntry<?> dataentry : entries.values()) {
+			if (list == null) {
+				list = Lists.newArrayList();
+			}
 
-    public boolean isEmpty()
-    {
-        return empty;
-    }
+			list.add(dataentry.copy());
+		}
 
-    public void setClean()
-    {
-        dirty = false;
-        lock.readLock().lock();
+		lock.readLock().unlock();
+		return list;
+	}
 
-        for (EntityDataManager.DataEntry<?> dataentry : entries.values())
-        {
-            dataentry.setDirty(false);
-        }
+	private static <T> void writeEntry(PacketBuffer buf, EntityDataManager.DataEntry<T> entry) throws IOException {
 
-        lock.readLock().unlock();
-    }
+		DataParameter<T> dataparameter = entry.getKey();
+		int i = DataSerializers.getSerializerId(dataparameter.serializer());
 
-    public static class DataEntry<T>
-    {
-        private final DataParameter<T> key;
-        private T value;
-        private boolean dirty;
+		if (i < 0) {
+			throw new EncoderException("Unknown serializer type " + dataparameter.serializer());
+		} else {
+			buf.writeByte(dataparameter.id());
+			buf.writeVarInt(i);
+			dataparameter.serializer().write(buf, entry.getValue());
+		}
+	}
 
-        public DataEntry(DataParameter<T> keyIn, T valueIn)
-        {
-            key = keyIn;
-            value = valueIn;
-            dirty = true;
-        }
+	@Nullable
+	public static List<EntityDataManager.DataEntry<?>> readEntries(PacketBuffer buf) throws IOException {
 
-        public DataParameter<T> getKey()
-        {
-            return key;
-        }
+		List<EntityDataManager.DataEntry<?>> list = null;
+		int i;
 
-        public void setValue(T valueIn)
-        {
-            value = valueIn;
-        }
+		while ((i = buf.readUnsignedByte()) != 255) {
+			if (list == null) {
+				list = Lists.newArrayList();
+			}
 
-        public T getValue()
-        {
-            return value;
-        }
+			int j = buf.readVarInt();
+			DataSerializer<?> dataserializer = DataSerializers.getSerializer(j);
 
-        public boolean isDirty()
-        {
-            return dirty;
-        }
+			if (dataserializer == null) {
+				throw new DecoderException("Unknown serializer type " + j);
+			}
 
-        public void setDirty(boolean dirtyIn)
-        {
-            dirty = dirtyIn;
-        }
+			list.add(new EntityDataManager.DataEntry(dataserializer.createKey(i), dataserializer.read(buf)));
+		}
 
-        public EntityDataManager.DataEntry<T> copy()
-        {
-            return new EntityDataManager.DataEntry<T>(key, key.getSerializer().copyValue(value));
-        }
-    }
+		return list;
+	}
+
+	public void setEntryValues(List<EntityDataManager.DataEntry<?>> entriesIn) {
+
+		lock.writeLock().lock();
+
+		for (EntityDataManager.DataEntry<?> dataentry : entriesIn) {
+			EntityDataManager.DataEntry<?> dataentry1 = entries.get(Integer.valueOf(dataentry.getKey().id()));
+
+			if (dataentry1 != null) {
+				setEntryValue(dataentry1, dataentry);
+				entity.notifyDataManagerChange(dataentry.getKey());
+			}
+		}
+
+		lock.writeLock().unlock();
+		dirty = true;
+	}
+
+	protected <T> void setEntryValue(EntityDataManager.DataEntry<T> target, EntityDataManager.DataEntry<?> source) {
+
+		target.setValue((T) source.getValue());
+	}
+
+	public boolean isEmpty() {
+
+		return empty;
+	}
+
+	public void setClean() {
+
+		dirty = false;
+		lock.readLock().lock();
+
+		for (EntityDataManager.DataEntry<?> dataentry : entries.values()) {
+			dataentry.setDirty(false);
+		}
+
+		lock.readLock().unlock();
+	}
+
+	public static class DataEntry<T> {
+
+		private final DataParameter<T> key;
+		private T value;
+		private boolean dirty;
+
+		public DataEntry(DataParameter<T> keyIn, T valueIn) {
+
+			key = keyIn;
+			value = valueIn;
+			dirty = true;
+		}
+
+		public DataParameter<T> getKey() {
+
+			return key;
+		}
+
+		public void setValue(T valueIn) {
+
+			value = valueIn;
+		}
+
+		public T getValue() {
+
+			return value;
+		}
+
+		public boolean isDirty() {
+
+			return dirty;
+		}
+
+		public void setDirty(boolean dirtyIn) {
+
+			dirty = dirtyIn;
+		}
+
+		public EntityDataManager.DataEntry<T> copy() {
+
+			return new EntityDataManager.DataEntry<T>(key, key.serializer().copyValue(value));
+		}
+
+	}
+
 }

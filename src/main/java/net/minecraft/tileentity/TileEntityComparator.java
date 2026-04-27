@@ -2,30 +2,31 @@ package net.minecraft.tileentity;
 
 import net.minecraft.nbt.NBTTagCompound;
 
-public class TileEntityComparator extends TileEntity
-{
-    private int outputSignal;
+public class TileEntityComparator extends TileEntity {
 
-    public NBTTagCompound writeToNBT(NBTTagCompound compound)
-    {
-        super.writeToNBT(compound);
-        compound.setInteger("OutputSignal", outputSignal);
-        return compound;
-    }
+	private int outputSignal;
 
-    public void readFromNBT(NBTTagCompound compound)
-    {
-        super.readFromNBT(compound);
-        outputSignal = compound.getInteger("OutputSignal");
-    }
+	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
 
-    public int getOutputSignal()
-    {
-        return outputSignal;
-    }
+		super.writeToNBT(compound);
+		compound.setInteger("OutputSignal", outputSignal);
+		return compound;
+	}
 
-    public void setOutputSignal(int outputSignalIn)
-    {
-        outputSignal = outputSignalIn;
-    }
+	public void readFromNBT(NBTTagCompound compound) {
+
+		super.readFromNBT(compound);
+		outputSignal = compound.getInteger("OutputSignal");
+	}
+
+	public int getOutputSignal() {
+
+		return outputSignal;
+	}
+
+	public void setOutputSignal(int outputSignalIn) {
+
+		outputSignal = outputSignalIn;
+	}
+
 }

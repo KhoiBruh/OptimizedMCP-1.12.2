@@ -8,36 +8,36 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class ItemSeedFood extends ItemFood
-{
-    private final Block crops;
+public class ItemSeedFood extends ItemFood {
 
-    /** Block ID of the soil this seed food should be planted on. */
-    private final Block soilId;
+	private final Block crops;
 
-    public ItemSeedFood(int healAmount, float saturation, Block crops, Block soil)
-    {
-        super(healAmount, saturation, false);
-        this.crops = crops;
-        soilId = soil;
-    }
+	/**
+	 * Block ID of the soil this seed food should be planted on.
+	 */
+	private final Block soilId;
 
-    /**
-     * Called when a Block is right-clicked with this Item
-     */
-    public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
-    {
-        ItemStack itemstack = player.getHeldItem(hand);
+	public ItemSeedFood(int healAmount, float saturation, Block crops, Block soil) {
 
-        if (facing == EnumFacing.UP && player.canPlayerEdit(pos.offset(facing), facing, itemstack) && worldIn.getBlockState(pos).getBlock() == soilId && worldIn.isAirBlock(pos.up()))
-        {
-            worldIn.setBlockState(pos.up(), crops.getDefaultState(), 11);
-            itemstack.shrink(1);
-            return EnumActionResult.SUCCESS;
-        }
-        else
-        {
-            return EnumActionResult.FAIL;
-        }
-    }
+		super(healAmount, saturation, false);
+		this.crops = crops;
+		soilId = soil;
+	}
+
+	/**
+	 * Called when a Block is right-clicked with this Item
+	 */
+	public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+
+		ItemStack itemstack = player.getHeldItem(hand);
+
+		if (facing == EnumFacing.UP && player.canPlayerEdit(pos.offset(facing), facing, itemstack) && worldIn.getBlockState(pos).getBlock() == soilId && worldIn.isAirBlock(pos.up())) {
+			worldIn.setBlockState(pos.up(), crops.getDefaultState(), 11);
+			itemstack.shrink(1);
+			return EnumActionResult.SUCCESS;
+		} else {
+			return EnumActionResult.FAIL;
+		}
+	}
+
 }

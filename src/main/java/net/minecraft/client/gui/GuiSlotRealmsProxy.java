@@ -3,77 +3,78 @@ package net.minecraft.client.gui;
 import net.minecraft.client.Minecraft;
 import net.minecraft.realms.RealmsScrolledSelectionList;
 
-public class GuiSlotRealmsProxy extends GuiSlot
-{
-    private final RealmsScrolledSelectionList selectionList;
+public class GuiSlotRealmsProxy extends GuiSlot {
 
-    public GuiSlotRealmsProxy(RealmsScrolledSelectionList selectionListIn, int widthIn, int heightIn, int topIn, int bottomIn, int slotHeightIn)
-    {
-        super(Minecraft.getMinecraft(), widthIn, heightIn, topIn, bottomIn, slotHeightIn);
-        selectionList = selectionListIn;
-    }
+	private final RealmsScrolledSelectionList selectionList;
 
-    protected int getSize()
-    {
-        return selectionList.getItemCount();
-    }
+	public GuiSlotRealmsProxy(RealmsScrolledSelectionList selectionListIn, int widthIn, int heightIn, int topIn, int bottomIn, int slotHeightIn) {
 
-    /**
-     * The element in the slot that was clicked, boolean for whether it was double clicked or not
-     */
-    protected void elementClicked(int slotIndex, boolean isDoubleClick, int mouseX, int mouseY)
-    {
-        selectionList.selectItem(slotIndex, isDoubleClick, mouseX, mouseY);
-    }
+		super(Minecraft.getMinecraft(), widthIn, heightIn, topIn, bottomIn, slotHeightIn);
+		selectionList = selectionListIn;
+	}
 
-    /**
-     * Returns true if the element passed in is currently selected
-     */
-    protected boolean isSelected(int slotIndex)
-    {
-        return selectionList.isSelectedItem(slotIndex);
-    }
+	protected int getSize() {
 
-    protected void drawBackground()
-    {
-        selectionList.renderBackground();
-    }
+		return selectionList.getItemCount();
+	}
 
-    protected void drawSlot(int slotIndex, int xPos, int yPos, int heightIn, int mouseXIn, int mouseYIn, float partialTicks)
-    {
-        selectionList.renderItem(slotIndex, xPos, yPos, heightIn, mouseXIn, mouseYIn);
-    }
+	/**
+	 * The element in the slot that was clicked, boolean for whether it was double clicked or not
+	 */
+	protected void elementClicked(int slotIndex, boolean isDoubleClick, int mouseX, int mouseY) {
 
-    public int getWidth()
-    {
-        return width;
-    }
+		selectionList.selectItem(slotIndex, isDoubleClick, mouseX, mouseY);
+	}
 
-    public int getMouseY()
-    {
-        return mouseY;
-    }
+	/**
+	 * Returns true if the element passed in is currently selected
+	 */
+	protected boolean isSelected(int slotIndex) {
 
-    public int getMouseX()
-    {
-        return mouseX;
-    }
+		return selectionList.isSelectedItem(slotIndex);
+	}
 
-    /**
-     * Return the height of the content being scrolled
-     */
-    protected int getContentHeight()
-    {
-        return selectionList.getMaxPosition();
-    }
+	protected void drawBackground() {
 
-    protected int getScrollBarX()
-    {
-        return selectionList.getScrollbarPosition();
-    }
+		selectionList.renderBackground();
+	}
 
-    public void handleMouseInput()
-    {
-        super.handleMouseInput();
-    }
+	protected void drawSlot(int slotIndex, int xPos, int yPos, int heightIn, int mouseXIn, int mouseYIn, float partialTicks) {
+
+		selectionList.renderItem(slotIndex, xPos, yPos, heightIn, mouseXIn, mouseYIn);
+	}
+
+	public int getWidth() {
+
+		return width;
+	}
+
+	public int getMouseY() {
+
+		return mouseY;
+	}
+
+	public int getMouseX() {
+
+		return mouseX;
+	}
+
+	/**
+	 * Return the height of the content being scrolled
+	 */
+	protected int getContentHeight() {
+
+		return selectionList.getMaxPosition();
+	}
+
+	protected int getScrollBarX() {
+
+		return selectionList.getScrollbarPosition();
+	}
+
+	public void handleMouseInput() {
+
+		super.handleMouseInput();
+	}
+
 }

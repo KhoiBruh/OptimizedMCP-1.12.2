@@ -1,198 +1,186 @@
 package net.minecraft.client.gui;
 
 import com.google.common.collect.Lists;
+import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.client.resources.*;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
-import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.client.resources.ResourcePackListEntry;
-import net.minecraft.client.resources.ResourcePackListEntryDefault;
-import net.minecraft.client.resources.ResourcePackListEntryFound;
-import net.minecraft.client.resources.ResourcePackListEntryServer;
-import net.minecraft.client.resources.ResourcePackRepository;
 
-public class GuiScreenResourcePacks extends GuiScreen
-{
-    private final GuiScreen parentScreen;
-    private List<ResourcePackListEntry> availableResourcePacks;
-    private List<ResourcePackListEntry> selectedResourcePacks;
+public class GuiScreenResourcePacks extends GuiScreen {
 
-    /** List component that contains the available resource packs */
-    private GuiResourcePackAvailable availableResourcePacksList;
+	private final GuiScreen parentScreen;
+	private List<ResourcePackListEntry> availableResourcePacks;
+	private List<ResourcePackListEntry> selectedResourcePacks;
 
-    /** List component that contains the selected resource packs */
-    private GuiResourcePackSelected selectedResourcePacksList;
-    private boolean changed;
+	/**
+	 * List component that contains the available resource packs
+	 */
+	private GuiResourcePackAvailable availableResourcePacksList;
 
-    public GuiScreenResourcePacks(GuiScreen parentScreenIn)
-    {
-        parentScreen = parentScreenIn;
-    }
+	/**
+	 * List component that contains the selected resource packs
+	 */
+	private GuiResourcePackSelected selectedResourcePacksList;
+	private boolean changed;
 
-    /**
-     * Adds the buttons (and other controls) to the screen in question. Called when the GUI is displayed and when the
-     * window resizes, the buttonList is cleared beforehand.
-     */
-    public void initGui()
-    {
-        buttonList.add(new GuiOptionButton(2, width / 2 - 154, height - 48, I18n.format("resourcePack.openFolder")));
-        buttonList.add(new GuiOptionButton(1, width / 2 + 4, height - 48, I18n.format("gui.done")));
+	public GuiScreenResourcePacks(GuiScreen parentScreenIn) {
 
-        if (!changed)
-        {
-            availableResourcePacks = Lists.<ResourcePackListEntry>newArrayList();
-            selectedResourcePacks = Lists.<ResourcePackListEntry>newArrayList();
-            ResourcePackRepository resourcepackrepository = mc.getResourcePackRepository();
-            resourcepackrepository.updateRepositoryEntriesAll();
-            List<ResourcePackRepository.Entry> list = Lists.newArrayList(resourcepackrepository.getRepositoryEntriesAll());
-            list.removeAll(resourcepackrepository.getRepositoryEntries());
+		parentScreen = parentScreenIn;
+	}
 
-            for (ResourcePackRepository.Entry resourcepackrepository$entry : list)
-            {
-                availableResourcePacks.add(new ResourcePackListEntryFound(this, resourcepackrepository$entry));
-            }
+	/**
+	 * Adds the buttons (and other controls) to the screen in question. Called when the GUI is displayed and when the
+	 * window resizes, the buttonList is cleared beforehand.
+	 */
+	public void initGui() {
 
-            ResourcePackRepository.Entry resourcepackrepository$entry2 = resourcepackrepository.getResourcePackEntry();
+		buttonList.add(new GuiOptionButton(2, width / 2 - 154, height - 48, I18n.format("resourcePack.openFolder")));
+		buttonList.add(new GuiOptionButton(1, width / 2 + 4, height - 48, I18n.format("gui.done")));
 
-            if (resourcepackrepository$entry2 != null)
-            {
-                selectedResourcePacks.add(new ResourcePackListEntryServer(this, resourcepackrepository.getServerResourcePack()));
-            }
+		if (!changed) {
+			availableResourcePacks = Lists.newArrayList();
+			selectedResourcePacks = Lists.newArrayList();
+			ResourcePackRepository resourcepackrepository = mc.getResourcePackRepository();
+			resourcepackrepository.updateRepositoryEntriesAll();
+			List<ResourcePackRepository.Entry> list = Lists.newArrayList(resourcepackrepository.getRepositoryEntriesAll());
+			list.removeAll(resourcepackrepository.getRepositoryEntries());
 
-            for (ResourcePackRepository.Entry resourcepackrepository$entry1 : Lists.reverse(resourcepackrepository.getRepositoryEntries()))
-            {
-                selectedResourcePacks.add(new ResourcePackListEntryFound(this, resourcepackrepository$entry1));
-            }
+			for (ResourcePackRepository.Entry resourcepackrepository$entry : list) {
+				availableResourcePacks.add(new ResourcePackListEntryFound(this, resourcepackrepository$entry));
+			}
 
-            selectedResourcePacks.add(new ResourcePackListEntryDefault(this));
-        }
+			ResourcePackRepository.Entry resourcepackrepository$entry2 = resourcepackrepository.getResourcePackEntry();
 
-        availableResourcePacksList = new GuiResourcePackAvailable(mc, 200, height, availableResourcePacks);
-        availableResourcePacksList.setSlotXBoundsFromLeft(width / 2 - 4 - 200);
-        availableResourcePacksList.registerScrollButtons(7, 8);
-        selectedResourcePacksList = new GuiResourcePackSelected(mc, 200, height, selectedResourcePacks);
-        selectedResourcePacksList.setSlotXBoundsFromLeft(width / 2 + 4);
-        selectedResourcePacksList.registerScrollButtons(7, 8);
-    }
+			if (resourcepackrepository$entry2 != null) {
+				selectedResourcePacks.add(new ResourcePackListEntryServer(this, resourcepackrepository.getServerResourcePack()));
+			}
 
-    /**
-     * Handles mouse input.
-     */
-    public void handleMouseInput() throws IOException
-    {
-        super.handleMouseInput();
-        selectedResourcePacksList.handleMouseInput();
-        availableResourcePacksList.handleMouseInput();
-    }
+			for (ResourcePackRepository.Entry resourcepackrepository$entry1 : Lists.reverse(resourcepackrepository.getRepositoryEntries())) {
+				selectedResourcePacks.add(new ResourcePackListEntryFound(this, resourcepackrepository$entry1));
+			}
 
-    public boolean hasResourcePackEntry(ResourcePackListEntry resourcePackEntry)
-    {
-        return selectedResourcePacks.contains(resourcePackEntry);
-    }
+			selectedResourcePacks.add(new ResourcePackListEntryDefault(this));
+		}
 
-    public List<ResourcePackListEntry> getListContaining(ResourcePackListEntry resourcePackEntry)
-    {
-        return hasResourcePackEntry(resourcePackEntry) ? selectedResourcePacks : availableResourcePacks;
-    }
+		availableResourcePacksList = new GuiResourcePackAvailable(mc, 200, height, availableResourcePacks);
+		availableResourcePacksList.setSlotXBoundsFromLeft(width / 2 - 4 - 200);
+		availableResourcePacksList.registerScrollButtons(7, 8);
+		selectedResourcePacksList = new GuiResourcePackSelected(mc, 200, height, selectedResourcePacks);
+		selectedResourcePacksList.setSlotXBoundsFromLeft(width / 2 + 4);
+		selectedResourcePacksList.registerScrollButtons(7, 8);
+	}
 
-    public List<ResourcePackListEntry> getAvailableResourcePacks()
-    {
-        return availableResourcePacks;
-    }
+	/**
+	 * Handles mouse input.
+	 */
+	public void handleMouseInput() throws IOException {
 
-    public List<ResourcePackListEntry> getSelectedResourcePacks()
-    {
-        return selectedResourcePacks;
-    }
+		super.handleMouseInput();
+		selectedResourcePacksList.handleMouseInput();
+		availableResourcePacksList.handleMouseInput();
+	}
 
-    /**
-     * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
-     */
-    protected void actionPerformed(GuiButton button) throws IOException
-    {
-        if (button.enabled)
-        {
-            if (button.id == 2)
-            {
-                File file1 = mc.getResourcePackRepository().getDirResourcepacks();
-                OpenGlHelper.openFile(file1);
-            }
-            else if (button.id == 1)
-            {
-                if (changed)
-                {
-                    List<ResourcePackRepository.Entry> list = Lists.<ResourcePackRepository.Entry>newArrayList();
+	public boolean hasResourcePackEntry(ResourcePackListEntry resourcePackEntry) {
 
-                    for (ResourcePackListEntry resourcepacklistentry : selectedResourcePacks)
-                    {
-                        if (resourcepacklistentry instanceof ResourcePackListEntryFound)
-                        {
-                            list.add(((ResourcePackListEntryFound)resourcepacklistentry).getResourcePackEntry());
-                        }
-                    }
+		return selectedResourcePacks.contains(resourcePackEntry);
+	}
 
-                    Collections.reverse(list);
-                    mc.getResourcePackRepository().setRepositories(list);
-                    mc.gameSettings.resourcePacks.clear();
-                    mc.gameSettings.incompatibleResourcePacks.clear();
+	public List<ResourcePackListEntry> getListContaining(ResourcePackListEntry resourcePackEntry) {
 
-                    for (ResourcePackRepository.Entry resourcepackrepository$entry : list)
-                    {
-                        mc.gameSettings.resourcePacks.add(resourcepackrepository$entry.getResourcePackName());
+		return hasResourcePackEntry(resourcePackEntry) ? selectedResourcePacks : availableResourcePacks;
+	}
 
-                        if (resourcepackrepository$entry.getPackFormat() != 3)
-                        {
-                            mc.gameSettings.incompatibleResourcePacks.add(resourcepackrepository$entry.getResourcePackName());
-                        }
-                    }
+	public List<ResourcePackListEntry> getAvailableResourcePacks() {
 
-                    mc.gameSettings.saveOptions();
-                    mc.refreshResources();
-                }
+		return availableResourcePacks;
+	}
 
-                mc.displayGuiScreen(parentScreen);
-            }
-        }
-    }
+	public List<ResourcePackListEntry> getSelectedResourcePacks() {
 
-    /**
-     * Called when the mouse is clicked. Args : mouseX, mouseY, clickedButton
-     */
-    protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException
-    {
-        super.mouseClicked(mouseX, mouseY, mouseButton);
-        availableResourcePacksList.mouseClicked(mouseX, mouseY, mouseButton);
-        selectedResourcePacksList.mouseClicked(mouseX, mouseY, mouseButton);
-    }
+		return selectedResourcePacks;
+	}
 
-    /**
-     * Called when a mouse button is released.
-     */
-    protected void mouseReleased(int mouseX, int mouseY, int state)
-    {
-        super.mouseReleased(mouseX, mouseY, state);
-    }
+	/**
+	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
+	 */
+	protected void actionPerformed(GuiButton button) throws IOException {
 
-    /**
-     * Draws the screen and all the components in it.
-     */
-    public void drawScreen(int mouseX, int mouseY, float partialTicks)
-    {
-        drawBackground(0);
-        availableResourcePacksList.drawScreen(mouseX, mouseY, partialTicks);
-        selectedResourcePacksList.drawScreen(mouseX, mouseY, partialTicks);
-        drawCenteredString(fontRenderer, I18n.format("resourcePack.title"), width / 2, 16, 16777215);
-        drawCenteredString(fontRenderer, I18n.format("resourcePack.folderInfo"), width / 2 - 77, height - 26, 8421504);
-        super.drawScreen(mouseX, mouseY, partialTicks);
-    }
+		if (button.enabled) {
+			if (button.id == 2) {
+				File file1 = mc.getResourcePackRepository().getDirResourcepacks();
+				OpenGlHelper.openFile(file1);
+			} else if (button.id == 1) {
+				if (changed) {
+					List<ResourcePackRepository.Entry> list = Lists.newArrayList();
 
-    /**
-     * Marks the selected resource packs list as changed to trigger a resource reload when the screen is closed
-     */
-    public void markChanged()
-    {
-        changed = true;
-    }
+					for (ResourcePackListEntry resourcepacklistentry : selectedResourcePacks) {
+						if (resourcepacklistentry instanceof ResourcePackListEntryFound) {
+							list.add(((ResourcePackListEntryFound) resourcepacklistentry).getResourcePackEntry());
+						}
+					}
+
+					Collections.reverse(list);
+					mc.getResourcePackRepository().setRepositories(list);
+					mc.gameSettings.resourcePacks.clear();
+					mc.gameSettings.incompatibleResourcePacks.clear();
+
+					for (ResourcePackRepository.Entry resourcepackrepository$entry : list) {
+						mc.gameSettings.resourcePacks.add(resourcepackrepository$entry.getResourcePackName());
+
+						if (resourcepackrepository$entry.getPackFormat() != 3) {
+							mc.gameSettings.incompatibleResourcePacks.add(resourcepackrepository$entry.getResourcePackName());
+						}
+					}
+
+					mc.gameSettings.saveOptions();
+					mc.refreshResources();
+				}
+
+				mc.displayGuiScreen(parentScreen);
+			}
+		}
+	}
+
+	/**
+	 * Called when the mouse is clicked. Args : mouseX, mouseY, clickedButton
+	 */
+	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
+
+		super.mouseClicked(mouseX, mouseY, mouseButton);
+		availableResourcePacksList.mouseClicked(mouseX, mouseY, mouseButton);
+		selectedResourcePacksList.mouseClicked(mouseX, mouseY, mouseButton);
+	}
+
+	/**
+	 * Called when a mouse button is released.
+	 */
+	protected void mouseReleased(int mouseX, int mouseY, int state) {
+
+		super.mouseReleased(mouseX, mouseY, state);
+	}
+
+	/**
+	 * Draws the screen and all the components in it.
+	 */
+	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+
+		drawBackground(0);
+		availableResourcePacksList.drawScreen(mouseX, mouseY, partialTicks);
+		selectedResourcePacksList.drawScreen(mouseX, mouseY, partialTicks);
+		drawCenteredString(fontRenderer, I18n.format("resourcePack.title"), width / 2, 16, 16777215);
+		drawCenteredString(fontRenderer, I18n.format("resourcePack.folderInfo"), width / 2 - 77, height - 26, 8421504);
+		super.drawScreen(mouseX, mouseY, partialTicks);
+	}
+
+	/**
+	 * Marks the selected resource packs list as changed to trigger a resource reload when the screen is closed
+	 */
+	public void markChanged() {
+
+		changed = true;
+	}
+
 }

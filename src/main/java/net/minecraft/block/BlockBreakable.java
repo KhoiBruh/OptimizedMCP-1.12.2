@@ -8,47 +8,45 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 
-public class BlockBreakable extends Block
-{
-    private final boolean ignoreSimilarity;
+public class BlockBreakable extends Block {
 
-    protected BlockBreakable(Material materialIn, boolean ignoreSimilarityIn)
-    {
-        this(materialIn, ignoreSimilarityIn, materialIn.getMaterialMapColor());
-    }
+	private final boolean ignoreSimilarity;
 
-    protected BlockBreakable(Material materialIn, boolean ignoreSimilarityIn, MapColor mapColorIn)
-    {
-        super(materialIn, mapColorIn);
-        ignoreSimilarity = ignoreSimilarityIn;
-    }
+	protected BlockBreakable(Material materialIn, boolean ignoreSimilarityIn) {
 
-    /**
-     * Used to determine ambient occlusion and culling when rebuilding chunks for render
-     */
-    public boolean isOpaqueCube(IBlockState state)
-    {
-        return false;
-    }
+		this(materialIn, ignoreSimilarityIn, materialIn.getMaterialMapColor());
+	}
 
-    public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side)
-    {
-        IBlockState iblockstate = blockAccess.getBlockState(pos.offset(side));
-        Block block = iblockstate.getBlock();
+	protected BlockBreakable(Material materialIn, boolean ignoreSimilarityIn, MapColor mapColorIn) {
 
-        if (this == Blocks.GLASS || this == Blocks.STAINED_GLASS)
-        {
-            if (blockState != iblockstate)
-            {
-                return true;
-            }
+		super(materialIn, mapColorIn);
+		ignoreSimilarity = ignoreSimilarityIn;
+	}
 
-            if (block == this)
-            {
-                return false;
-            }
-        }
+	/**
+	 * Used to determine ambient occlusion and culling when rebuilding chunks for render
+	 */
+	public boolean isOpaqueCube(IBlockState state) {
 
-        return !ignoreSimilarity && block == this ? false : super.shouldSideBeRendered(blockState, blockAccess, pos, side);
-    }
+		return false;
+	}
+
+	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
+
+		IBlockState iblockstate = blockAccess.getBlockState(pos.offset(side));
+		Block block = iblockstate.getBlock();
+
+		if (this == Blocks.GLASS || this == Blocks.STAINED_GLASS) {
+			if (blockState != iblockstate) {
+				return true;
+			}
+
+			if (block == this) {
+				return false;
+			}
+		}
+
+		return (ignoreSimilarity || block != this) && super.shouldSideBeRendered(blockState, blockAccess, pos, side);
+	}
+
 }

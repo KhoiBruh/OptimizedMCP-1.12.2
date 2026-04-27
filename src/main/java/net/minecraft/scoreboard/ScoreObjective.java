@@ -1,58 +1,61 @@
 package net.minecraft.scoreboard;
 
-public class ScoreObjective
-{
-    private final Scoreboard scoreboard;
-    private final String name;
+public class ScoreObjective {
 
-    /** The ScoreObjectiveCriteria for this objetive */
-    private final IScoreCriteria objectiveCriteria;
-    private IScoreCriteria.EnumRenderType renderType;
-    private String displayName;
+	private final Scoreboard scoreboard;
+	private final String name;
 
-    public ScoreObjective(Scoreboard scoreboard, String nameIn, IScoreCriteria objectiveCriteriaIn)
-    {
-        this.scoreboard = scoreboard;
-        name = nameIn;
-        objectiveCriteria = objectiveCriteriaIn;
-        displayName = nameIn;
-        renderType = objectiveCriteriaIn.getRenderType();
-    }
+	/**
+	 * The ScoreObjectiveCriteria for this objetive
+	 */
+	private final IScoreCriteria objectiveCriteria;
+	private IScoreCriteria.EnumRenderType renderType;
+	private String displayName;
 
-    public Scoreboard getScoreboard()
-    {
-        return scoreboard;
-    }
+	public ScoreObjective(Scoreboard scoreboard, String nameIn, IScoreCriteria objectiveCriteriaIn) {
 
-    public String getName()
-    {
-        return name;
-    }
+		this.scoreboard = scoreboard;
+		name = nameIn;
+		objectiveCriteria = objectiveCriteriaIn;
+		displayName = nameIn;
+		renderType = objectiveCriteriaIn.getRenderType();
+	}
 
-    public IScoreCriteria getCriteria()
-    {
-        return objectiveCriteria;
-    }
+	public Scoreboard getScoreboard() {
 
-    public String getDisplayName()
-    {
-        return displayName;
-    }
+		return scoreboard;
+	}
 
-    public void setDisplayName(String nameIn)
-    {
-        displayName = nameIn;
-        scoreboard.onObjectiveDisplayNameChanged(this);
-    }
+	public String getName() {
 
-    public IScoreCriteria.EnumRenderType getRenderType()
-    {
-        return renderType;
-    }
+		return name;
+	}
 
-    public void setRenderType(IScoreCriteria.EnumRenderType type)
-    {
-        renderType = type;
-        scoreboard.onObjectiveDisplayNameChanged(this);
-    }
+	public IScoreCriteria getCriteria() {
+
+		return objectiveCriteria;
+	}
+
+	public String getDisplayName() {
+
+		return displayName;
+	}
+
+	public void setDisplayName(String nameIn) {
+
+		displayName = nameIn;
+		scoreboard.onObjectiveDisplayNameChanged(this);
+	}
+
+	public IScoreCriteria.EnumRenderType getRenderType() {
+
+		return renderType;
+	}
+
+	public void setRenderType(IScoreCriteria.EnumRenderType type) {
+
+		renderType = type;
+		scoreboard.onObjectiveDisplayNameChanged(this);
+	}
+
 }

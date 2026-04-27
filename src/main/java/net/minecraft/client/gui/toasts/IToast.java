@@ -6,33 +6,33 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 
-public interface IToast
-{
-    ResourceLocation TEXTURE_TOASTS = new ResourceLocation("textures/gui/toasts.png");
-    Object NO_TOKEN = new Object();
+public interface IToast {
 
-    IToast.Visibility draw(GuiToast toastGui, long delta);
+	ResourceLocation TEXTURE_TOASTS = new ResourceLocation("textures/gui/toasts.png");
+	Object NO_TOKEN = new Object();
 
-default Object getType()
-    {
-        return NO_TOKEN;
-    }
+	IToast.Visibility draw(GuiToast toastGui, long delta);
 
-    public static enum Visibility
-    {
-        SHOW(SoundEvents.UI_TOAST_IN),
-        HIDE(SoundEvents.UI_TOAST_OUT);
+	default Object getType() {
 
-        private final SoundEvent sound;
+		return NO_TOKEN;
+	}
 
-        private Visibility(SoundEvent soundIn)
-        {
-            sound = soundIn;
-        }
+	enum Visibility {
+		SHOW(SoundEvents.UI_TOAST_IN),
+		HIDE(SoundEvents.UI_TOAST_OUT);
 
-        public void playSound(SoundHandler handler)
-        {
-            handler.playSound(PositionedSoundRecord.getRecord(sound, 1.0F, 1.0F));
-        }
-    }
+		private final SoundEvent sound;
+
+		Visibility(SoundEvent soundIn) {
+
+			sound = soundIn;
+		}
+
+		public void playSound(SoundHandler handler) {
+
+			handler.playSound(PositionedSoundRecord.getRecord(sound, 1.0F, 1.0F));
+		}
+	}
+
 }

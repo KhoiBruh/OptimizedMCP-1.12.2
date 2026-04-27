@@ -11,116 +11,110 @@ import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public abstract class BlockLog extends BlockRotatedPillar
-{
-    public static final PropertyEnum<BlockLog.EnumAxis> LOG_AXIS = PropertyEnum.<BlockLog.EnumAxis>create("axis", BlockLog.EnumAxis.class);
+public abstract class BlockLog extends BlockRotatedPillar {
 
-    public BlockLog()
-    {
-        super(Material.WOOD);
-        setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
-        setHardness(2.0F);
-        setSoundType(SoundType.WOOD);
-    }
+	public static final PropertyEnum<BlockLog.EnumAxis> LOG_AXIS = PropertyEnum.create("axis", BlockLog.EnumAxis.class);
 
-    /**
-     * Called serverside after this block is replaced with another in Chunk, but before the Tile Entity is updated
-     */
-    public void breakBlock(World worldIn, BlockPos pos, IBlockState state)
-    {
-        int i = 4;
-        int j = 5;
+	public BlockLog() {
 
-        if (worldIn.isAreaLoaded(pos.add(-5, -5, -5), pos.add(5, 5, 5)))
-        {
-            for (BlockPos blockpos : BlockPos.getAllInBox(pos.add(-4, -4, -4), pos.add(4, 4, 4)))
-            {
-                IBlockState iblockstate = worldIn.getBlockState(blockpos);
+		super(Material.WOOD);
+		setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
+		setHardness(2.0F);
+		setSoundType(SoundType.WOOD);
+	}
 
-                if (iblockstate.getMaterial() == Material.LEAVES && !((Boolean)iblockstate.getValue(BlockLeaves.CHECK_DECAY)).booleanValue())
-                {
-                    worldIn.setBlockState(blockpos, iblockstate.withProperty(BlockLeaves.CHECK_DECAY, Boolean.valueOf(true)), 4);
-                }
-            }
-        }
-    }
+	/**
+	 * Called serverside after this block is replaced with another in Chunk, but before the Tile Entity is updated
+	 */
+	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
 
-    /**
-     * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
-     * IBlockstate
-     */
-    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
-    {
-        return getStateFromMeta(meta).withProperty(LOG_AXIS, BlockLog.EnumAxis.fromFacingAxis(facing.getAxis()));
-    }
+		int i = 4;
+		int j = 5;
 
-    /**
-     * Returns the blockstate with the given rotation from the passed blockstate. If inapplicable, returns the passed
-     * blockstate.
-     */
-    public IBlockState withRotation(IBlockState state, Rotation rot)
-    {
-        switch (rot)
-        {
-            case COUNTERCLOCKWISE_90:
-            case CLOCKWISE_90:
-                switch ((BlockLog.EnumAxis)state.getValue(LOG_AXIS))
-                {
-                    case X:
-                        return state.withProperty(LOG_AXIS, BlockLog.EnumAxis.Z);
+		if (worldIn.isAreaLoaded(pos.add(-5, -5, -5), pos.add(5, 5, 5))) {
+			for (BlockPos blockpos : BlockPos.getAllInBox(pos.add(-4, -4, -4), pos.add(4, 4, 4))) {
+				IBlockState iblockstate = worldIn.getBlockState(blockpos);
 
-                    case Z:
-                        return state.withProperty(LOG_AXIS, BlockLog.EnumAxis.X);
+				if (iblockstate.getMaterial() == Material.LEAVES && !iblockstate.getValue(BlockLeaves.CHECK_DECAY).booleanValue()) {
+					worldIn.setBlockState(blockpos, iblockstate.withProperty(BlockLeaves.CHECK_DECAY, Boolean.valueOf(true)), 4);
+				}
+			}
+		}
+	}
 
-                    default:
-                        return state;
-                }
+	/**
+	 * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
+	 * IBlockstate
+	 */
+	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
 
-            default:
-                return state;
-        }
-    }
+		return getStateFromMeta(meta).withProperty(LOG_AXIS, BlockLog.EnumAxis.fromFacingAxis(facing.getAxis()));
+	}
 
-    public static enum EnumAxis implements IStringSerializable
-    {
-        X("x"),
-        Y("y"),
-        Z("z"),
-        NONE("none");
+	/**
+	 * Returns the blockstate with the given rotation from the passed blockstate. If inapplicable, returns the passed
+	 * blockstate.
+	 */
+	public IBlockState withRotation(IBlockState state, Rotation rot) {
 
-        private final String name;
+		switch (rot) {
+			case COUNTERCLOCKWISE_90:
+			case CLOCKWISE_90:
+				switch (state.getValue(LOG_AXIS)) {
+					case X:
+						return state.withProperty(LOG_AXIS, BlockLog.EnumAxis.Z);
 
-        private EnumAxis(String name)
-        {
-            this.name = name;
-        }
+					case Z:
+						return state.withProperty(LOG_AXIS, BlockLog.EnumAxis.X);
 
-        public String toString()
-        {
-            return name;
-        }
+					default:
+						return state;
+				}
 
-        public static BlockLog.EnumAxis fromFacingAxis(EnumFacing.Axis axis)
-        {
-            switch (axis)
-            {
-                case X:
-                    return X;
+			default:
+				return state;
+		}
+	}
 
-                case Y:
-                    return Y;
+	public enum EnumAxis implements IStringSerializable {
+		X("x"),
+		Y("y"),
+		Z("z"),
+		NONE("none");
 
-                case Z:
-                    return Z;
+		private final String name;
 
-                default:
-                    return NONE;
-            }
-        }
+		EnumAxis(String name) {
 
-        public String getName()
-        {
-            return name;
-        }
-    }
+			this.name = name;
+		}
+
+		public String toString() {
+
+			return name;
+		}
+
+		public static BlockLog.EnumAxis fromFacingAxis(EnumFacing.Axis axis) {
+
+			switch (axis) {
+				case X:
+					return X;
+
+				case Y:
+					return Y;
+
+				case Z:
+					return Z;
+
+				default:
+					return NONE;
+			}
+		}
+
+		public String getName() {
+
+			return name;
+		}
+	}
+
 }

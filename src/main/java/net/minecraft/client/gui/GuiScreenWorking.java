@@ -2,71 +2,68 @@ package net.minecraft.client.gui;
 
 import net.minecraft.util.IProgressUpdate;
 
-public class GuiScreenWorking extends GuiScreen implements IProgressUpdate
-{
-    private String title = "";
-    private String stage = "";
-    private int progress;
-    private boolean doneWorking;
+public class GuiScreenWorking extends GuiScreen implements IProgressUpdate {
 
-    /**
-     * Shows the 'Saving level' string.
-     */
-    public void displaySavingString(String message)
-    {
-        resetProgressAndMessage(message);
-    }
+	private String title = "";
+	private String stage = "";
+	private int progress;
+	private boolean doneWorking;
 
-    /**
-     * this string, followed by "working..." and then the "% complete" are the 3 lines shown. This resets progress to 0,
-     * and the WorkingString to "working...".
-     */
-    public void resetProgressAndMessage(String message)
-    {
-        title = message;
-        displayLoadingString("Working...");
-    }
+	/**
+	 * Shows the 'Saving level' string.
+	 */
+	public void displaySavingString(String message) {
 
-    /**
-     * Displays a string on the loading screen supposed to indicate what is being done currently.
-     */
-    public void displayLoadingString(String message)
-    {
-        stage = message;
-        setLoadingProgress(0);
-    }
+		resetProgressAndMessage(message);
+	}
 
-    /**
-     * Updates the progress bar on the loading screen to the specified amount.
-     */
-    public void setLoadingProgress(int progress)
-    {
-        this.progress = progress;
-    }
+	/**
+	 * this string, followed by "working..." and then the "% complete" are the 3 lines shown. This resets progress to 0,
+	 * and the WorkingString to "working...".
+	 */
+	public void resetProgressAndMessage(String message) {
 
-    public void setDoneWorking()
-    {
-        doneWorking = true;
-    }
+		title = message;
+		displayLoadingString("Working...");
+	}
 
-    /**
-     * Draws the screen and all the components in it.
-     */
-    public void drawScreen(int mouseX, int mouseY, float partialTicks)
-    {
-        if (doneWorking)
-        {
-            if (!mc.isConnectedToRealms())
-            {
-                mc.displayGuiScreen((GuiScreen)null);
-            }
-        }
-        else
-        {
-            drawDefaultBackground();
-            drawCenteredString(fontRenderer, title, width / 2, 70, 16777215);
-            drawCenteredString(fontRenderer, stage + " " + progress + "%", width / 2, 90, 16777215);
-            super.drawScreen(mouseX, mouseY, partialTicks);
-        }
-    }
+	/**
+	 * Displays a string on the loading screen supposed to indicate what is being done currently.
+	 */
+	public void displayLoadingString(String message) {
+
+		stage = message;
+		setLoadingProgress(0);
+	}
+
+	/**
+	 * Updates the progress bar on the loading screen to the specified amount.
+	 */
+	public void setLoadingProgress(int progress) {
+
+		this.progress = progress;
+	}
+
+	public void setDoneWorking() {
+
+		doneWorking = true;
+	}
+
+	/**
+	 * Draws the screen and all the components in it.
+	 */
+	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+
+		if (doneWorking) {
+			if (!mc.isConnectedToRealms()) {
+				mc.displayGuiScreen(null);
+			}
+		} else {
+			drawDefaultBackground();
+			drawCenteredString(fontRenderer, title, width / 2, 70, 16777215);
+			drawCenteredString(fontRenderer, stage + " " + progress + "%", width / 2, 90, 16777215);
+			super.drawScreen(mouseX, mouseY, partialTicks);
+		}
+	}
+
 }

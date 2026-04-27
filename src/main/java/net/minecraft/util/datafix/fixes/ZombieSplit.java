@@ -3,41 +3,40 @@ package net.minecraft.util.datafix.fixes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.datafix.IFixableData;
 
-public class ZombieSplit implements IFixableData
-{
-    public int getFixVersion()
-    {
-        return 702;
-    }
+public class ZombieSplit implements IFixableData {
 
-    public NBTTagCompound fixTagCompound(NBTTagCompound compound)
-    {
-        if ("Zombie".equals(compound.getString("id")))
-        {
-            int i = compound.getInteger("ZombieType");
+	public int getFixVersion() {
 
-            switch (i)
-            {
-                case 0:
-                default:
-                    break;
+		return 702;
+	}
 
-                case 1:
-                case 2:
-                case 3:
-                case 4:
-                case 5:
-                    compound.setString("id", "ZombieVillager");
-                    compound.setInteger("Profession", i - 1);
-                    break;
+	public NBTTagCompound fixTagCompound(NBTTagCompound compound) {
 
-                case 6:
-                    compound.setString("id", "Husk");
-            }
+		if ("Zombie".equals(compound.getString("id"))) {
+			int i = compound.getInteger("ZombieType");
 
-            compound.removeTag("ZombieType");
-        }
+			switch (i) {
+				case 0:
+				default:
+					break;
 
-        return compound;
-    }
+				case 1:
+				case 2:
+				case 3:
+				case 4:
+				case 5:
+					compound.setString("id", "ZombieVillager");
+					compound.setInteger("Profession", i - 1);
+					break;
+
+				case 6:
+					compound.setString("id", "Husk");
+			}
+
+			compound.removeTag("ZombieType");
+		}
+
+		return compound;
+	}
+
 }

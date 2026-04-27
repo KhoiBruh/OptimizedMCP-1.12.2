@@ -1,7 +1,5 @@
 package net.minecraft.block;
 
-import java.util.List;
-import javax.annotation.Nullable;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyEnum;
@@ -21,246 +19,241 @@ import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class BlockWall extends Block
-{
-    public static final PropertyBool UP = PropertyBool.create("up");
-    public static final PropertyBool NORTH = PropertyBool.create("north");
-    public static final PropertyBool EAST = PropertyBool.create("east");
-    public static final PropertyBool SOUTH = PropertyBool.create("south");
-    public static final PropertyBool WEST = PropertyBool.create("west");
-    public static final PropertyEnum<BlockWall.EnumType> VARIANT = PropertyEnum.<BlockWall.EnumType>create("variant", BlockWall.EnumType.class);
-    protected static final AxisAlignedBB[] AABB_BY_INDEX = new AxisAlignedBB[] {new AxisAlignedBB(0.25D, 0.0D, 0.25D, 0.75D, 1.0D, 0.75D), new AxisAlignedBB(0.25D, 0.0D, 0.25D, 0.75D, 1.0D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.25D, 0.75D, 1.0D, 0.75D), new AxisAlignedBB(0.0D, 0.0D, 0.25D, 0.75D, 1.0D, 1.0D), new AxisAlignedBB(0.25D, 0.0D, 0.0D, 0.75D, 1.0D, 0.75D), new AxisAlignedBB(0.3125D, 0.0D, 0.0D, 0.6875D, 0.875D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 0.75D, 1.0D, 0.75D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 0.75D, 1.0D, 1.0D), new AxisAlignedBB(0.25D, 0.0D, 0.25D, 1.0D, 1.0D, 0.75D), new AxisAlignedBB(0.25D, 0.0D, 0.25D, 1.0D, 1.0D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.3125D, 1.0D, 0.875D, 0.6875D), new AxisAlignedBB(0.0D, 0.0D, 0.25D, 1.0D, 1.0D, 1.0D), new AxisAlignedBB(0.25D, 0.0D, 0.0D, 1.0D, 1.0D, 0.75D), new AxisAlignedBB(0.25D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 0.75D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D)};
-    protected static final AxisAlignedBB[] CLIP_AABB_BY_INDEX = new AxisAlignedBB[] {AABB_BY_INDEX[0].setMaxY(1.5D), AABB_BY_INDEX[1].setMaxY(1.5D), AABB_BY_INDEX[2].setMaxY(1.5D), AABB_BY_INDEX[3].setMaxY(1.5D), AABB_BY_INDEX[4].setMaxY(1.5D), AABB_BY_INDEX[5].setMaxY(1.5D), AABB_BY_INDEX[6].setMaxY(1.5D), AABB_BY_INDEX[7].setMaxY(1.5D), AABB_BY_INDEX[8].setMaxY(1.5D), AABB_BY_INDEX[9].setMaxY(1.5D), AABB_BY_INDEX[10].setMaxY(1.5D), AABB_BY_INDEX[11].setMaxY(1.5D), AABB_BY_INDEX[12].setMaxY(1.5D), AABB_BY_INDEX[13].setMaxY(1.5D), AABB_BY_INDEX[14].setMaxY(1.5D), AABB_BY_INDEX[15].setMaxY(1.5D)};
+import javax.annotation.Nullable;
+import java.util.List;
 
-    public BlockWall(Block modelBlock)
-    {
-        super(modelBlock.blockMaterial);
-        setDefaultState(blockState.getBaseState().withProperty(UP, Boolean.valueOf(false)).withProperty(NORTH, Boolean.valueOf(false)).withProperty(EAST, Boolean.valueOf(false)).withProperty(SOUTH, Boolean.valueOf(false)).withProperty(WEST, Boolean.valueOf(false)).withProperty(VARIANT, BlockWall.EnumType.NORMAL));
-        setHardness(modelBlock.blockHardness);
-        setResistance(modelBlock.blockResistance / 3.0F);
-        setSoundType(modelBlock.blockSoundType);
-        setCreativeTab(CreativeTabs.DECORATIONS);
-    }
+public class BlockWall extends Block {
 
-    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
-    {
-        state = getActualState(state, source, pos);
-        return AABB_BY_INDEX[getAABBIndex(state)];
-    }
+	public static final PropertyBool UP = PropertyBool.create("up");
+	public static final PropertyBool NORTH = PropertyBool.create("north");
+	public static final PropertyBool EAST = PropertyBool.create("east");
+	public static final PropertyBool SOUTH = PropertyBool.create("south");
+	public static final PropertyBool WEST = PropertyBool.create("west");
+	public static final PropertyEnum<BlockWall.EnumType> VARIANT = PropertyEnum.create("variant", BlockWall.EnumType.class);
+	protected static final AxisAlignedBB[] AABB_BY_INDEX = new AxisAlignedBB[]{new AxisAlignedBB(0.25D, 0.0D, 0.25D, 0.75D, 1.0D, 0.75D), new AxisAlignedBB(0.25D, 0.0D, 0.25D, 0.75D, 1.0D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.25D, 0.75D, 1.0D, 0.75D), new AxisAlignedBB(0.0D, 0.0D, 0.25D, 0.75D, 1.0D, 1.0D), new AxisAlignedBB(0.25D, 0.0D, 0.0D, 0.75D, 1.0D, 0.75D), new AxisAlignedBB(0.3125D, 0.0D, 0.0D, 0.6875D, 0.875D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 0.75D, 1.0D, 0.75D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 0.75D, 1.0D, 1.0D), new AxisAlignedBB(0.25D, 0.0D, 0.25D, 1.0D, 1.0D, 0.75D), new AxisAlignedBB(0.25D, 0.0D, 0.25D, 1.0D, 1.0D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.3125D, 1.0D, 0.875D, 0.6875D), new AxisAlignedBB(0.0D, 0.0D, 0.25D, 1.0D, 1.0D, 1.0D), new AxisAlignedBB(0.25D, 0.0D, 0.0D, 1.0D, 1.0D, 0.75D), new AxisAlignedBB(0.25D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 0.75D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D)};
+	protected static final AxisAlignedBB[] CLIP_AABB_BY_INDEX = new AxisAlignedBB[]{AABB_BY_INDEX[0].setMaxY(1.5D), AABB_BY_INDEX[1].setMaxY(1.5D), AABB_BY_INDEX[2].setMaxY(1.5D), AABB_BY_INDEX[3].setMaxY(1.5D), AABB_BY_INDEX[4].setMaxY(1.5D), AABB_BY_INDEX[5].setMaxY(1.5D), AABB_BY_INDEX[6].setMaxY(1.5D), AABB_BY_INDEX[7].setMaxY(1.5D), AABB_BY_INDEX[8].setMaxY(1.5D), AABB_BY_INDEX[9].setMaxY(1.5D), AABB_BY_INDEX[10].setMaxY(1.5D), AABB_BY_INDEX[11].setMaxY(1.5D), AABB_BY_INDEX[12].setMaxY(1.5D), AABB_BY_INDEX[13].setMaxY(1.5D), AABB_BY_INDEX[14].setMaxY(1.5D), AABB_BY_INDEX[15].setMaxY(1.5D)};
 
-    public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, @Nullable Entity entityIn, boolean isActualState)
-    {
-        if (!isActualState)
-        {
-            state = getActualState(state, worldIn, pos);
-        }
+	public BlockWall(Block modelBlock) {
 
-        addCollisionBoxToList(pos, entityBox, collidingBoxes, CLIP_AABB_BY_INDEX[getAABBIndex(state)]);
-    }
+		super(modelBlock.blockMaterial);
+		setDefaultState(blockState.getBaseState().withProperty(UP, Boolean.valueOf(false)).withProperty(NORTH, Boolean.valueOf(false)).withProperty(EAST, Boolean.valueOf(false)).withProperty(SOUTH, Boolean.valueOf(false)).withProperty(WEST, Boolean.valueOf(false)).withProperty(VARIANT, BlockWall.EnumType.NORMAL));
+		setHardness(modelBlock.blockHardness);
+		setResistance(modelBlock.blockResistance / 3.0F);
+		setSoundType(modelBlock.blockSoundType);
+		setCreativeTab(CreativeTabs.DECORATIONS);
+	}
 
-    @Nullable
-    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos)
-    {
-        blockState = getActualState(blockState, worldIn, pos);
-        return CLIP_AABB_BY_INDEX[getAABBIndex(blockState)];
-    }
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
 
-    private static int getAABBIndex(IBlockState state)
-    {
-        int i = 0;
+		state = getActualState(state, source, pos);
+		return AABB_BY_INDEX[getAABBIndex(state)];
+	}
 
-        if (((Boolean)state.getValue(NORTH)).booleanValue())
-        {
-            i |= 1 << EnumFacing.NORTH.getHorizontalIndex();
-        }
+	public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, @Nullable Entity entityIn, boolean isActualState) {
 
-        if (((Boolean)state.getValue(EAST)).booleanValue())
-        {
-            i |= 1 << EnumFacing.EAST.getHorizontalIndex();
-        }
+		if (!isActualState) {
+			state = getActualState(state, worldIn, pos);
+		}
 
-        if (((Boolean)state.getValue(SOUTH)).booleanValue())
-        {
-            i |= 1 << EnumFacing.SOUTH.getHorizontalIndex();
-        }
+		addCollisionBoxToList(pos, entityBox, collidingBoxes, CLIP_AABB_BY_INDEX[getAABBIndex(state)]);
+	}
 
-        if (((Boolean)state.getValue(WEST)).booleanValue())
-        {
-            i |= 1 << EnumFacing.WEST.getHorizontalIndex();
-        }
+	@Nullable
+	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
 
-        return i;
-    }
+		blockState = getActualState(blockState, worldIn, pos);
+		return CLIP_AABB_BY_INDEX[getAABBIndex(blockState)];
+	}
 
-    /**
-     * Gets the localized name of this block. Used for the statistics page.
-     */
-    public String getLocalizedName()
-    {
-        return I18n.translateToLocal(getUnlocalizedName() + "." + BlockWall.EnumType.NORMAL.getUnlocalizedName() + ".name");
-    }
+	private static int getAABBIndex(IBlockState state) {
 
-    public boolean isFullCube(IBlockState state)
-    {
-        return false;
-    }
+		int i = 0;
 
-    /**
-     * Determines if an entity can path through this block
-     */
-    public boolean isPassable(IBlockAccess worldIn, BlockPos pos)
-    {
-        return false;
-    }
+		if (state.getValue(NORTH).booleanValue()) {
+			i |= 1 << EnumFacing.NORTH.getHorizontalIndex();
+		}
 
-    /**
-     * Used to determine ambient occlusion and culling when rebuilding chunks for render
-     */
-    public boolean isOpaqueCube(IBlockState state)
-    {
-        return false;
-    }
+		if (state.getValue(EAST).booleanValue()) {
+			i |= 1 << EnumFacing.EAST.getHorizontalIndex();
+		}
 
-    private boolean canConnectTo(IBlockAccess worldIn, BlockPos pos, EnumFacing p_176253_3_)
-    {
-        IBlockState iblockstate = worldIn.getBlockState(pos);
-        Block block = iblockstate.getBlock();
-        BlockFaceShape blockfaceshape = iblockstate.getBlockFaceShape(worldIn, pos, p_176253_3_);
-        boolean flag = blockfaceshape == BlockFaceShape.MIDDLE_POLE_THICK || blockfaceshape == BlockFaceShape.MIDDLE_POLE && block instanceof BlockFenceGate;
-        return !isExcepBlockForAttachWithPiston(block) && blockfaceshape == BlockFaceShape.SOLID || flag;
-    }
+		if (state.getValue(SOUTH).booleanValue()) {
+			i |= 1 << EnumFacing.SOUTH.getHorizontalIndex();
+		}
 
-    protected static boolean isExcepBlockForAttachWithPiston(Block p_194143_0_)
-    {
-        return Block.isExceptBlockForAttachWithPiston(p_194143_0_) || p_194143_0_ == Blocks.BARRIER || p_194143_0_ == Blocks.MELON_BLOCK || p_194143_0_ == Blocks.PUMPKIN || p_194143_0_ == Blocks.LIT_PUMPKIN;
-    }
+		if (state.getValue(WEST).booleanValue()) {
+			i |= 1 << EnumFacing.WEST.getHorizontalIndex();
+		}
 
-    /**
-     * returns a list of blocks with the same ID, but different meta (eg: wood returns 4 blocks)
-     */
-    public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items)
-    {
-        for (BlockWall.EnumType blockwall$enumtype : BlockWall.EnumType.values())
-        {
-            items.add(new ItemStack(this, 1, blockwall$enumtype.getMetadata()));
-        }
-    }
+		return i;
+	}
 
-    /**
-     * Gets the metadata of the item this Block can drop. This method is called when the block gets destroyed. It
-     * returns the metadata of the dropped item based on the old metadata of the block.
-     */
-    public int damageDropped(IBlockState state)
-    {
-        return ((BlockWall.EnumType)state.getValue(VARIANT)).getMetadata();
-    }
+	/**
+	 * Gets the localized name of this block. Used for the statistics page.
+	 */
+	public String getLocalizedName() {
 
-    public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side)
-    {
-        return side == EnumFacing.DOWN ? super.shouldSideBeRendered(blockState, blockAccess, pos, side) : true;
-    }
+		return I18n.translateToLocal(getUnlocalizedName() + "." + BlockWall.EnumType.NORMAL.getUnlocalizedName() + ".name");
+	}
 
-    /**
-     * Convert the given metadata into a BlockState for this Block
-     */
-    public IBlockState getStateFromMeta(int meta)
-    {
-        return getDefaultState().withProperty(VARIANT, BlockWall.EnumType.byMetadata(meta));
-    }
+	public boolean isFullCube(IBlockState state) {
 
-    /**
-     * Convert the BlockState into the correct metadata value
-     */
-    public int getMetaFromState(IBlockState state)
-    {
-        return ((BlockWall.EnumType)state.getValue(VARIANT)).getMetadata();
-    }
+		return false;
+	}
 
-    /**
-     * Get the actual Block state of this Block at the given position. This applies properties not visible in the
-     * metadata, such as fence connections.
-     */
-    public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos)
-    {
-        boolean flag = canConnectTo(worldIn, pos.north(), EnumFacing.SOUTH);
-        boolean flag1 = canConnectTo(worldIn, pos.east(), EnumFacing.WEST);
-        boolean flag2 = canConnectTo(worldIn, pos.south(), EnumFacing.NORTH);
-        boolean flag3 = canConnectTo(worldIn, pos.west(), EnumFacing.EAST);
-        boolean flag4 = flag && !flag1 && flag2 && !flag3 || !flag && flag1 && !flag2 && flag3;
-        return state.withProperty(UP, Boolean.valueOf(!flag4 || !worldIn.isAirBlock(pos.up()))).withProperty(NORTH, Boolean.valueOf(flag)).withProperty(EAST, Boolean.valueOf(flag1)).withProperty(SOUTH, Boolean.valueOf(flag2)).withProperty(WEST, Boolean.valueOf(flag3));
-    }
+	/**
+	 * Determines if an entity can path through this block
+	 */
+	public boolean isPassable(IBlockAccess worldIn, BlockPos pos) {
 
-    protected BlockStateContainer createBlockState()
-    {
-        return new BlockStateContainer(this, new IProperty[] {UP, NORTH, EAST, WEST, SOUTH, VARIANT});
-    }
+		return false;
+	}
 
-    /**
-     * Get the geometry of the queried face at the given position and state. This is used to decide whether things like
-     * buttons are allowed to be placed on the face, or how glass panes connect to the face, among other things.
-     * <p>
-     * Common values are {@code SOLID}, which is the default, and {@code UNDEFINED}, which represents something that
-     * does not fit the other descriptions and will generally cause other things not to connect to the face.
+	/**
+	 * Used to determine ambient occlusion and culling when rebuilding chunks for render
+	 */
+	public boolean isOpaqueCube(IBlockState state) {
 
-     * @return an approximation of the form of the given face
-     */
-    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face)
-    {
-        return face != EnumFacing.UP && face != EnumFacing.DOWN ? BlockFaceShape.MIDDLE_POLE_THICK : BlockFaceShape.CENTER_BIG;
-    }
+		return false;
+	}
 
-    public static enum EnumType implements IStringSerializable
-    {
-        NORMAL(0, "cobblestone", "normal"),
-        MOSSY(1, "mossy_cobblestone", "mossy");
+	private boolean canConnectTo(IBlockAccess worldIn, BlockPos pos, EnumFacing p_176253_3_) {
 
-        private static final BlockWall.EnumType[] META_LOOKUP = new BlockWall.EnumType[values().length];
-        private final int meta;
-        private final String name;
-        private final String unlocalizedName;
+		IBlockState iblockstate = worldIn.getBlockState(pos);
+		Block block = iblockstate.getBlock();
+		BlockFaceShape blockfaceshape = iblockstate.getBlockFaceShape(worldIn, pos, p_176253_3_);
+		boolean flag = blockfaceshape == BlockFaceShape.MIDDLE_POLE_THICK || blockfaceshape == BlockFaceShape.MIDDLE_POLE && block instanceof BlockFenceGate;
+		return !isExcepBlockForAttachWithPiston(block) && blockfaceshape == BlockFaceShape.SOLID || flag;
+	}
 
-        private EnumType(int meta, String name, String unlocalizedName)
-        {
-            this.meta = meta;
-            this.name = name;
-            this.unlocalizedName = unlocalizedName;
-        }
+	protected static boolean isExcepBlockForAttachWithPiston(Block p_194143_0_) {
 
-        public int getMetadata()
-        {
-            return meta;
-        }
+		return Block.isExceptBlockForAttachWithPiston(p_194143_0_) || p_194143_0_ == Blocks.BARRIER || p_194143_0_ == Blocks.MELON_BLOCK || p_194143_0_ == Blocks.PUMPKIN || p_194143_0_ == Blocks.LIT_PUMPKIN;
+	}
 
-        public String toString()
-        {
-            return name;
-        }
+	/**
+	 * returns a list of blocks with the same ID, but different meta (eg: wood returns 4 blocks)
+	 */
+	public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
 
-        public static BlockWall.EnumType byMetadata(int meta)
-        {
-            if (meta < 0 || meta >= META_LOOKUP.length)
-            {
-                meta = 0;
-            }
+		for (BlockWall.EnumType blockwall$enumtype : BlockWall.EnumType.values()) {
+			items.add(new ItemStack(this, 1, blockwall$enumtype.getMetadata()));
+		}
+	}
 
-            return META_LOOKUP[meta];
-        }
+	/**
+	 * Gets the metadata of the item this Block can drop. This method is called when the block gets destroyed. It
+	 * returns the metadata of the dropped item based on the old metadata of the block.
+	 */
+	public int damageDropped(IBlockState state) {
 
-        public String getName()
-        {
-            return name;
-        }
+		return state.getValue(VARIANT).getMetadata();
+	}
 
-        public String getUnlocalizedName()
-        {
-            return unlocalizedName;
-        }
+	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
 
-        static {
-            for (BlockWall.EnumType blockwall$enumtype : values())
-            {
-                META_LOOKUP[blockwall$enumtype.getMetadata()] = blockwall$enumtype;
-            }
-        }
-    }
+		return side != EnumFacing.DOWN || super.shouldSideBeRendered(blockState, blockAccess, pos, side);
+	}
+
+	/**
+	 * Convert the given metadata into a BlockState for this Block
+	 */
+	public IBlockState getStateFromMeta(int meta) {
+
+		return getDefaultState().withProperty(VARIANT, BlockWall.EnumType.byMetadata(meta));
+	}
+
+	/**
+	 * Convert the BlockState into the correct metadata value
+	 */
+	public int getMetaFromState(IBlockState state) {
+
+		return state.getValue(VARIANT).getMetadata();
+	}
+
+	/**
+	 * Get the actual Block state of this Block at the given position. This applies properties not visible in the
+	 * metadata, such as fence connections.
+	 */
+	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
+
+		boolean flag = canConnectTo(worldIn, pos.north(), EnumFacing.SOUTH);
+		boolean flag1 = canConnectTo(worldIn, pos.east(), EnumFacing.WEST);
+		boolean flag2 = canConnectTo(worldIn, pos.south(), EnumFacing.NORTH);
+		boolean flag3 = canConnectTo(worldIn, pos.west(), EnumFacing.EAST);
+		boolean flag4 = flag && !flag1 && flag2 && !flag3 || !flag && flag1 && !flag2 && flag3;
+		return state.withProperty(UP, Boolean.valueOf(!flag4 || !worldIn.isAirBlock(pos.up()))).withProperty(NORTH, Boolean.valueOf(flag)).withProperty(EAST, Boolean.valueOf(flag1)).withProperty(SOUTH, Boolean.valueOf(flag2)).withProperty(WEST, Boolean.valueOf(flag3));
+	}
+
+	protected BlockStateContainer createBlockState() {
+
+		return new BlockStateContainer(this, UP, NORTH, EAST, WEST, SOUTH, VARIANT);
+	}
+
+	/**
+	 * Get the geometry of the queried face at the given position and state. This is used to decide whether things like
+	 * buttons are allowed to be placed on the face, or how glass panes connect to the face, among other things.
+	 * <p>
+	 * Common values are {@code SOLID}, which is the default, and {@code UNDEFINED}, which represents something that
+	 * does not fit the other descriptions and will generally cause other things not to connect to the face.
+	 *
+	 * @return an approximation of the form of the given face
+	 */
+	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
+
+		return face != EnumFacing.UP && face != EnumFacing.DOWN ? BlockFaceShape.MIDDLE_POLE_THICK : BlockFaceShape.CENTER_BIG;
+	}
+
+	public enum EnumType implements IStringSerializable {
+		NORMAL(0, "cobblestone", "normal"),
+		MOSSY(1, "mossy_cobblestone", "mossy");
+
+		private static final BlockWall.EnumType[] META_LOOKUP = new BlockWall.EnumType[values().length];
+		private final int meta;
+		private final String name;
+		private final String unlocalizedName;
+
+		EnumType(int meta, String name, String unlocalizedName) {
+
+			this.meta = meta;
+			this.name = name;
+			this.unlocalizedName = unlocalizedName;
+		}
+
+		public int getMetadata() {
+
+			return meta;
+		}
+
+		public String toString() {
+
+			return name;
+		}
+
+		public static BlockWall.EnumType byMetadata(int meta) {
+
+			if (meta < 0 || meta >= META_LOOKUP.length) {
+				meta = 0;
+			}
+
+			return META_LOOKUP[meta];
+		}
+
+		public String getName() {
+
+			return name;
+		}
+
+		public String getUnlocalizedName() {
+
+			return unlocalizedName;
+		}
+
+		static {
+			for (BlockWall.EnumType blockwall$enumtype : values()) {
+				META_LOOKUP[blockwall$enumtype.getMetadata()] = blockwall$enumtype;
+			}
+		}
+	}
+
 }

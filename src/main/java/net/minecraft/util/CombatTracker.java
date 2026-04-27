@@ -1,8 +1,6 @@
 package net.minecraft.util;
 
 import com.google.common.collect.Lists;
-import java.util.List;
-import javax.annotation.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -13,258 +11,218 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
 
-public class CombatTracker
-{
-    private final List<CombatEntry> combatEntries = Lists.<CombatEntry>newArrayList();
+import javax.annotation.Nullable;
+import java.util.List;
 
-    /** The entity tracked. */
-    private final EntityLivingBase fighter;
-    private int lastDamageTime;
-    private int combatStartTime;
-    private int combatEndTime;
-    private boolean inCombat;
-    private boolean takingDamage;
-    private String fallSuffix;
+public class CombatTracker {
 
-    public CombatTracker(EntityLivingBase fighterIn)
-    {
-        fighter = fighterIn;
-    }
+	private final List<CombatEntry> combatEntries = Lists.newArrayList();
 
-    public void calculateFallSuffix()
-    {
-        resetFallSuffix();
+	/**
+	 * The entity tracked.
+	 */
+	private final EntityLivingBase fighter;
+	private int lastDamageTime;
+	private int combatStartTime;
+	private int combatEndTime;
+	private boolean inCombat;
+	private boolean takingDamage;
+	private String fallSuffix;
 
-        if (fighter.isOnLadder())
-        {
-            Block block = fighter.world.getBlockState(new BlockPos(fighter.posX, fighter.getEntityBoundingBox().minY, fighter.posZ)).getBlock();
+	public CombatTracker(EntityLivingBase fighterIn) {
 
-            if (block == Blocks.LADDER)
-            {
-                fallSuffix = "ladder";
-            }
-            else if (block == Blocks.VINE)
-            {
-                fallSuffix = "vines";
-            }
-        }
-        else if (fighter.isInWater())
-        {
-            fallSuffix = "water";
-        }
-    }
+		fighter = fighterIn;
+	}
 
-    /**
-     * Adds an entry for the combat tracker
-     */
-    public void trackDamage(DamageSource damageSrc, float healthIn, float damageAmount)
-    {
-        reset();
-        calculateFallSuffix();
-        CombatEntry combatentry = new CombatEntry(damageSrc, fighter.ticksExisted, healthIn, damageAmount, fallSuffix, fighter.fallDistance);
-        combatEntries.add(combatentry);
-        lastDamageTime = fighter.ticksExisted;
-        takingDamage = true;
+	public void calculateFallSuffix() {
 
-        if (combatentry.isLivingDamageSrc() && !inCombat && fighter.isEntityAlive())
-        {
-            inCombat = true;
-            combatStartTime = fighter.ticksExisted;
-            combatEndTime = combatStartTime;
-            fighter.sendEnterCombat();
-        }
-    }
+		resetFallSuffix();
 
-    public ITextComponent getDeathMessage()
-    {
-        if (combatEntries.isEmpty())
-        {
-            return new TextComponentTranslation("death.attack.generic", new Object[] {fighter.getDisplayName()});
-        }
-        else
-        {
-            CombatEntry combatentry = getBestCombatEntry();
-            CombatEntry combatentry1 = combatEntries.get(combatEntries.size() - 1);
-            ITextComponent itextcomponent1 = combatentry1.getDamageSrcDisplayName();
-            Entity entity = combatentry1.getDamageSrc().getTrueSource();
-            ITextComponent itextcomponent;
+		if (fighter.isOnLadder()) {
+			Block block = fighter.world.getBlockState(new BlockPos(fighter.posX, fighter.getEntityBoundingBox().minY, fighter.posZ)).getBlock();
 
-            if (combatentry != null && combatentry1.getDamageSrc() == DamageSource.FALL)
-            {
-                ITextComponent itextcomponent2 = combatentry.getDamageSrcDisplayName();
+			if (block == Blocks.LADDER) {
+				fallSuffix = "ladder";
+			} else if (block == Blocks.VINE) {
+				fallSuffix = "vines";
+			}
+		} else if (fighter.isInWater()) {
+			fallSuffix = "water";
+		}
+	}
 
-                if (combatentry.getDamageSrc() != DamageSource.FALL && combatentry.getDamageSrc() != DamageSource.OUT_OF_WORLD)
-                {
-                    if (itextcomponent2 != null && (itextcomponent1 == null || !itextcomponent2.equals(itextcomponent1)))
-                    {
-                        Entity entity1 = combatentry.getDamageSrc().getTrueSource();
-                        ItemStack itemstack1 = entity1 instanceof EntityLivingBase ? ((EntityLivingBase)entity1).getHeldItemMainhand() : ItemStack.EMPTY;
+	/**
+	 * Adds an entry for the combat tracker
+	 */
+	public void trackDamage(DamageSource damageSrc, float healthIn, float damageAmount) {
 
-                        if (!itemstack1.isEmpty() && itemstack1.hasDisplayName())
-                        {
-                            itextcomponent = new TextComponentTranslation("death.fell.assist.item", new Object[] {fighter.getDisplayName(), itextcomponent2, itemstack1.getTextComponent()});
-                        }
-                        else
-                        {
-                            itextcomponent = new TextComponentTranslation("death.fell.assist", new Object[] {fighter.getDisplayName(), itextcomponent2});
-                        }
-                    }
-                    else if (itextcomponent1 != null)
-                    {
-                        ItemStack itemstack = entity instanceof EntityLivingBase ? ((EntityLivingBase)entity).getHeldItemMainhand() : ItemStack.EMPTY;
+		reset();
+		calculateFallSuffix();
+		CombatEntry combatentry = new CombatEntry(damageSrc, fighter.ticksExisted, healthIn, damageAmount, fallSuffix, fighter.fallDistance);
+		combatEntries.add(combatentry);
+		lastDamageTime = fighter.ticksExisted;
+		takingDamage = true;
 
-                        if (!itemstack.isEmpty() && itemstack.hasDisplayName())
-                        {
-                            itextcomponent = new TextComponentTranslation("death.fell.finish.item", new Object[] {fighter.getDisplayName(), itextcomponent1, itemstack.getTextComponent()});
-                        }
-                        else
-                        {
-                            itextcomponent = new TextComponentTranslation("death.fell.finish", new Object[] {fighter.getDisplayName(), itextcomponent1});
-                        }
-                    }
-                    else
-                    {
-                        itextcomponent = new TextComponentTranslation("death.fell.killer", new Object[] {fighter.getDisplayName()});
-                    }
-                }
-                else
-                {
-                    itextcomponent = new TextComponentTranslation("death.fell.accident." + getFallSuffix(combatentry), new Object[] {fighter.getDisplayName()});
-                }
-            }
-            else
-            {
-                itextcomponent = combatentry1.getDamageSrc().getDeathMessage(fighter);
-            }
+		if (combatentry.isLivingDamageSrc() && !inCombat && fighter.isEntityAlive()) {
+			inCombat = true;
+			combatStartTime = fighter.ticksExisted;
+			combatEndTime = combatStartTime;
+			fighter.sendEnterCombat();
+		}
+	}
 
-            return itextcomponent;
-        }
-    }
+	public ITextComponent getDeathMessage() {
 
-    @Nullable
-    public EntityLivingBase getBestAttacker()
-    {
-        EntityLivingBase entitylivingbase = null;
-        EntityPlayer entityplayer = null;
-        float f = 0.0F;
-        float f1 = 0.0F;
+		if (combatEntries.isEmpty()) {
+			return new TextComponentTranslation("death.attack.generic", fighter.getDisplayName());
+		} else {
+			CombatEntry combatentry = getBestCombatEntry();
+			CombatEntry combatentry1 = combatEntries.get(combatEntries.size() - 1);
+			ITextComponent itextcomponent1 = combatentry1.getDamageSrcDisplayName();
+			Entity entity = combatentry1.getDamageSrc().getTrueSource();
+			ITextComponent itextcomponent;
 
-        for (CombatEntry combatentry : combatEntries)
-        {
-            if (combatentry.getDamageSrc().getTrueSource() instanceof EntityPlayer && (entityplayer == null || combatentry.getDamage() > f1))
-            {
-                f1 = combatentry.getDamage();
-                entityplayer = (EntityPlayer)combatentry.getDamageSrc().getTrueSource();
-            }
+			if (combatentry != null && combatentry1.getDamageSrc() == DamageSource.FALL) {
+				ITextComponent itextcomponent2 = combatentry.getDamageSrcDisplayName();
 
-            if (combatentry.getDamageSrc().getTrueSource() instanceof EntityLivingBase && (entitylivingbase == null || combatentry.getDamage() > f))
-            {
-                f = combatentry.getDamage();
-                entitylivingbase = (EntityLivingBase)combatentry.getDamageSrc().getTrueSource();
-            }
-        }
+				if (combatentry.getDamageSrc() != DamageSource.FALL && combatentry.getDamageSrc() != DamageSource.OUT_OF_WORLD) {
+					if (itextcomponent2 != null && (!itextcomponent2.equals(itextcomponent1))) {
+						Entity entity1 = combatentry.getDamageSrc().getTrueSource();
+						ItemStack itemstack1 = entity1 instanceof EntityLivingBase ? ((EntityLivingBase) entity1).getHeldItemMainhand() : ItemStack.EMPTY;
 
-        if (entityplayer != null && f1 >= f / 3.0F)
-        {
-            return entityplayer;
-        }
-        else
-        {
-            return entitylivingbase;
-        }
-    }
+						if (!itemstack1.isEmpty() && itemstack1.hasDisplayName()) {
+							itextcomponent = new TextComponentTranslation("death.fell.assist.item", fighter.getDisplayName(), itextcomponent2, itemstack1.getTextComponent());
+						} else {
+							itextcomponent = new TextComponentTranslation("death.fell.assist", fighter.getDisplayName(), itextcomponent2);
+						}
+					} else if (itextcomponent1 != null) {
+						ItemStack itemstack = entity instanceof EntityLivingBase ? ((EntityLivingBase) entity).getHeldItemMainhand() : ItemStack.EMPTY;
 
-    @Nullable
-    private CombatEntry getBestCombatEntry()
-    {
-        CombatEntry combatentry = null;
-        CombatEntry combatentry1 = null;
-        float f = 0.0F;
-        float f1 = 0.0F;
+						if (!itemstack.isEmpty() && itemstack.hasDisplayName()) {
+							itextcomponent = new TextComponentTranslation("death.fell.finish.item", fighter.getDisplayName(), itextcomponent1, itemstack.getTextComponent());
+						} else {
+							itextcomponent = new TextComponentTranslation("death.fell.finish", fighter.getDisplayName(), itextcomponent1);
+						}
+					} else {
+						itextcomponent = new TextComponentTranslation("death.fell.killer", fighter.getDisplayName());
+					}
+				} else {
+					itextcomponent = new TextComponentTranslation("death.fell.accident." + getFallSuffix(combatentry), fighter.getDisplayName());
+				}
+			} else {
+				itextcomponent = combatentry1.getDamageSrc().getDeathMessage(fighter);
+			}
 
-        for (int i = 0; i < combatEntries.size(); ++i)
-        {
-            CombatEntry combatentry2 = combatEntries.get(i);
-            CombatEntry combatentry3 = i > 0 ? (CombatEntry) combatEntries.get(i - 1) : null;
+			return itextcomponent;
+		}
+	}
 
-            if ((combatentry2.getDamageSrc() == DamageSource.FALL || combatentry2.getDamageSrc() == DamageSource.OUT_OF_WORLD) && combatentry2.getDamageAmount() > 0.0F && (combatentry == null || combatentry2.getDamageAmount() > f1))
-            {
-                if (i > 0)
-                {
-                    combatentry = combatentry3;
-                }
-                else
-                {
-                    combatentry = combatentry2;
-                }
+	@Nullable
+	public EntityLivingBase getBestAttacker() {
 
-                f1 = combatentry2.getDamageAmount();
-            }
+		EntityLivingBase entitylivingbase = null;
+		EntityPlayer entityplayer = null;
+		float f = 0.0F;
+		float f1 = 0.0F;
 
-            if (combatentry2.getFallSuffix() != null && (combatentry1 == null || combatentry2.getDamage() > f))
-            {
-                combatentry1 = combatentry2;
-                f = combatentry2.getDamage();
-            }
-        }
+		for (CombatEntry combatentry : combatEntries) {
+			if (combatentry.getDamageSrc().getTrueSource() instanceof EntityPlayer && (entityplayer == null || combatentry.getDamage() > f1)) {
+				f1 = combatentry.getDamage();
+				entityplayer = (EntityPlayer) combatentry.getDamageSrc().getTrueSource();
+			}
 
-        if (f1 > 5.0F && combatentry != null)
-        {
-            return combatentry;
-        }
-        else if (f > 5.0F && combatentry1 != null)
-        {
-            return combatentry1;
-        }
-        else
-        {
-            return null;
-        }
-    }
+			if (combatentry.getDamageSrc().getTrueSource() instanceof EntityLivingBase && (entitylivingbase == null || combatentry.getDamage() > f)) {
+				f = combatentry.getDamage();
+				entitylivingbase = (EntityLivingBase) combatentry.getDamageSrc().getTrueSource();
+			}
+		}
 
-    private String getFallSuffix(CombatEntry entry)
-    {
-        return entry.getFallSuffix() == null ? "generic" : entry.getFallSuffix();
-    }
+		if (entityplayer != null && f1 >= f / 3.0F) {
+			return entityplayer;
+		} else {
+			return entitylivingbase;
+		}
+	}
 
-    public int getCombatDuration()
-    {
-        return inCombat ? fighter.ticksExisted - combatStartTime : combatEndTime - combatStartTime;
-    }
+	@Nullable
+	private CombatEntry getBestCombatEntry() {
 
-    private void resetFallSuffix()
-    {
-        fallSuffix = null;
-    }
+		CombatEntry combatentry = null;
+		CombatEntry combatentry1 = null;
+		float f = 0.0F;
+		float f1 = 0.0F;
 
-    /**
-     * Resets this trackers list of combat entries
-     */
-    public void reset()
-    {
-        int i = inCombat ? 300 : 100;
+		for (int i = 0; i < combatEntries.size(); ++i) {
+			CombatEntry combatentry2 = combatEntries.get(i);
+			CombatEntry combatentry3 = i > 0 ? combatEntries.get(i - 1) : null;
 
-        if (takingDamage && (!fighter.isEntityAlive() || fighter.ticksExisted - lastDamageTime > i))
-        {
-            boolean flag = inCombat;
-            takingDamage = false;
-            inCombat = false;
-            combatEndTime = fighter.ticksExisted;
+			if ((combatentry2.getDamageSrc() == DamageSource.FALL || combatentry2.getDamageSrc() == DamageSource.OUT_OF_WORLD) && combatentry2.getDamageAmount() > 0.0F && (combatentry == null || combatentry2.getDamageAmount() > f1)) {
+				if (i > 0) {
+					combatentry = combatentry3;
+				} else {
+					combatentry = combatentry2;
+				}
 
-            if (flag)
-            {
-                fighter.sendEndCombat();
-            }
+				f1 = combatentry2.getDamageAmount();
+			}
 
-            combatEntries.clear();
-        }
-    }
+			if (combatentry2.getFallSuffix() != null && (combatentry1 == null || combatentry2.getDamage() > f)) {
+				combatentry1 = combatentry2;
+				f = combatentry2.getDamage();
+			}
+		}
 
-    /**
-     * Returns EntityLivingBase assigned for this CombatTracker
-     */
-    public EntityLivingBase getFighter()
-    {
-        return fighter;
-    }
+		if (f1 > 5.0F && combatentry != null) {
+			return combatentry;
+		} else if (f > 5.0F && combatentry1 != null) {
+			return combatentry1;
+		} else {
+			return null;
+		}
+	}
+
+	private String getFallSuffix(CombatEntry entry) {
+
+		return entry.getFallSuffix() == null ? "generic" : entry.getFallSuffix();
+	}
+
+	public int getCombatDuration() {
+
+		return inCombat ? fighter.ticksExisted - combatStartTime : combatEndTime - combatStartTime;
+	}
+
+	private void resetFallSuffix() {
+
+		fallSuffix = null;
+	}
+
+	/**
+	 * Resets this trackers list of combat entries
+	 */
+	public void reset() {
+
+		int i = inCombat ? 300 : 100;
+
+		if (takingDamage && (!fighter.isEntityAlive() || fighter.ticksExisted - lastDamageTime > i)) {
+			boolean flag = inCombat;
+			takingDamage = false;
+			inCombat = false;
+			combatEndTime = fighter.ticksExisted;
+
+			if (flag) {
+				fighter.sendEndCombat();
+			}
+
+			combatEntries.clear();
+		}
+	}
+
+	/**
+	 * Returns EntityLivingBase assigned for this CombatTracker
+	 */
+	public EntityLivingBase getFighter() {
+
+		return fighter;
+	}
+
 }

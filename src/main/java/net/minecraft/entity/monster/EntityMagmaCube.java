@@ -1,6 +1,5 @@
 package net.minecraft.entity.monster;
 
-import javax.annotation.Nullable;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.init.SoundEvents;
@@ -13,149 +12,152 @@ import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 
-public class EntityMagmaCube extends EntitySlime
-{
-    public EntityMagmaCube(World worldIn)
-    {
-        super(worldIn);
-        isImmuneToFire = true;
-    }
+import javax.annotation.Nullable;
 
-    public static void registerFixesMagmaCube(DataFixer fixer)
-    {
-        EntityLiving.registerFixesMob(fixer, EntityMagmaCube.class);
-    }
+public class EntityMagmaCube extends EntitySlime {
 
-    protected void applyEntityAttributes()
-    {
-        super.applyEntityAttributes();
-        getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.20000000298023224D);
-    }
+	public EntityMagmaCube(World worldIn) {
 
-    /**
-     * Checks if the entity's current position is a valid location to spawn this entity.
-     */
-    public boolean getCanSpawnHere()
-    {
-        return world.getDifficulty() != EnumDifficulty.PEACEFUL;
-    }
+		super(worldIn);
+		isImmuneToFire = true;
+	}
 
-    /**
-     * Checks that the entity is not colliding with any blocks / liquids
-     */
-    public boolean isNotColliding()
-    {
-        return world.checkNoEntityCollision(getEntityBoundingBox(), this) && world.getCollisionBoxes(this, getEntityBoundingBox()).isEmpty() && !world.containsAnyLiquid(getEntityBoundingBox());
-    }
+	public static void registerFixesMagmaCube(DataFixer fixer) {
 
-    protected void setSlimeSize(int size, boolean resetHealth)
-    {
-        super.setSlimeSize(size, resetHealth);
-        getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue((double)(size * 3));
-    }
+		EntityLiving.registerFixesMob(fixer, EntityMagmaCube.class);
+	}
 
-    public int getBrightnessForRender()
-    {
-        return 15728880;
-    }
+	protected void applyEntityAttributes() {
 
-    /**
-     * Gets how bright this entity is.
-     */
-    public float getBrightness()
-    {
-        return 1.0F;
-    }
+		super.applyEntityAttributes();
+		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.20000000298023224D);
+	}
 
-    protected EnumParticleTypes getParticleType()
-    {
-        return EnumParticleTypes.FLAME;
-    }
+	/**
+	 * Checks if the entity's current position is a valid location to spawn this entity.
+	 */
+	public boolean getCanSpawnHere() {
 
-    protected EntitySlime createInstance()
-    {
-        return new EntityMagmaCube(world);
-    }
+		return world.getDifficulty() != EnumDifficulty.PEACEFUL;
+	}
 
-    @Nullable
-    protected ResourceLocation getLootTable()
-    {
-        return isSmallSlime() ? LootTableList.EMPTY : LootTableList.ENTITIES_MAGMA_CUBE;
-    }
+	/**
+	 * Checks that the entity is not colliding with any blocks / liquids
+	 */
+	public boolean isNotColliding() {
 
-    /**
-     * Returns true if the entity is on fire. Used by render to add the fire effect on rendering.
-     */
-    public boolean isBurning()
-    {
-        return false;
-    }
+		return world.checkNoEntityCollision(getEntityBoundingBox(), this) && world.getCollisionBoxes(this, getEntityBoundingBox()).isEmpty() && !world.containsAnyLiquid(getEntityBoundingBox());
+	}
 
-    /**
-     * Gets the amount of time the slime needs to wait between jumps.
-     */
-    protected int getJumpDelay()
-    {
-        return super.getJumpDelay() * 4;
-    }
+	protected void setSlimeSize(int size, boolean resetHealth) {
 
-    protected void alterSquishAmount()
-    {
-        squishAmount *= 0.9F;
-    }
+		super.setSlimeSize(size, resetHealth);
+		getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(size * 3);
+	}
 
-    /**
-     * Causes this entity to do an upwards motion (jumping).
-     */
-    protected void jump()
-    {
-        motionY = (double)(0.42F + (float) getSlimeSize() * 0.1F);
-        isAirBorne = true;
-    }
+	public int getBrightnessForRender() {
 
-    protected void handleJumpLava()
-    {
-        motionY = (double)(0.22F + (float) getSlimeSize() * 0.05F);
-        isAirBorne = true;
-    }
+		return 15728880;
+	}
 
-    public void fall(float distance, float damageMultiplier)
-    {
-    }
+	/**
+	 * Gets how bright this entity is.
+	 */
+	public float getBrightness() {
 
-    /**
-     * Indicates weather the slime is able to damage the player (based upon the slime's size)
-     */
-    protected boolean canDamagePlayer()
-    {
-        return true;
-    }
+		return 1.0F;
+	}
 
-    /**
-     * Gets the amount of damage dealt to the player when "attacked" by the slime.
-     */
-    protected int getAttackStrength()
-    {
-        return super.getAttackStrength() + 2;
-    }
+	protected EnumParticleTypes getParticleType() {
 
-    protected SoundEvent getHurtSound(DamageSource damageSourceIn)
-    {
-        return isSmallSlime() ? SoundEvents.ENTITY_SMALL_MAGMACUBE_HURT : SoundEvents.ENTITY_MAGMACUBE_HURT;
-    }
+		return EnumParticleTypes.FLAME;
+	}
 
-    protected SoundEvent getDeathSound()
-    {
-        return isSmallSlime() ? SoundEvents.ENTITY_SMALL_MAGMACUBE_DEATH : SoundEvents.ENTITY_MAGMACUBE_DEATH;
-    }
+	protected EntitySlime createInstance() {
 
-    protected SoundEvent getSquishSound()
-    {
-        return isSmallSlime() ? SoundEvents.ENTITY_SMALL_MAGMACUBE_SQUISH : SoundEvents.ENTITY_MAGMACUBE_SQUISH;
-    }
+		return new EntityMagmaCube(world);
+	}
 
-    protected SoundEvent getJumpSound()
-    {
-        return SoundEvents.ENTITY_MAGMACUBE_JUMP;
-    }
+	@Nullable
+	protected ResourceLocation getLootTable() {
+
+		return isSmallSlime() ? LootTableList.EMPTY : LootTableList.ENTITIES_MAGMA_CUBE;
+	}
+
+	/**
+	 * Returns true if the entity is on fire. Used by render to add the fire effect on rendering.
+	 */
+	public boolean isBurning() {
+
+		return false;
+	}
+
+	/**
+	 * Gets the amount of time the slime needs to wait between jumps.
+	 */
+	protected int getJumpDelay() {
+
+		return super.getJumpDelay() * 4;
+	}
+
+	protected void alterSquishAmount() {
+
+		squishAmount *= 0.9F;
+	}
+
+	/**
+	 * Causes this entity to do an upwards motion (jumping).
+	 */
+	protected void jump() {
+
+		motionY = 0.42F + (float) getSlimeSize() * 0.1F;
+		isAirBorne = true;
+	}
+
+	protected void handleJumpLava() {
+
+		motionY = 0.22F + (float) getSlimeSize() * 0.05F;
+		isAirBorne = true;
+	}
+
+	public void fall(float distance, float damageMultiplier) {
+
+	}
+
+	/**
+	 * Indicates weather the slime is able to damage the player (based upon the slime's size)
+	 */
+	protected boolean canDamagePlayer() {
+
+		return true;
+	}
+
+	/**
+	 * Gets the amount of damage dealt to the player when "attacked" by the slime.
+	 */
+	protected int getAttackStrength() {
+
+		return super.getAttackStrength() + 2;
+	}
+
+	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+
+		return isSmallSlime() ? SoundEvents.ENTITY_SMALL_MAGMACUBE_HURT : SoundEvents.ENTITY_MAGMACUBE_HURT;
+	}
+
+	protected SoundEvent getDeathSound() {
+
+		return isSmallSlime() ? SoundEvents.ENTITY_SMALL_MAGMACUBE_DEATH : SoundEvents.ENTITY_MAGMACUBE_DEATH;
+	}
+
+	protected SoundEvent getSquishSound() {
+
+		return isSmallSlime() ? SoundEvents.ENTITY_SMALL_MAGMACUBE_SQUISH : SoundEvents.ENTITY_MAGMACUBE_SQUISH;
+	}
+
+	protected SoundEvent getJumpSound() {
+
+		return SoundEvents.ENTITY_MAGMACUBE_JUMP;
+	}
+
 }

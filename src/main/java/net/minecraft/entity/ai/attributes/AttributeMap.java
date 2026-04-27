@@ -1,88 +1,83 @@
 package net.minecraft.entity.ai.attributes;
 
 import com.google.common.collect.Sets;
+import net.minecraft.util.LowerStringMap;
+
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
-import net.minecraft.util.LowerStringMap;
 
-public class AttributeMap extends AbstractAttributeMap
-{
-    private final Set<IAttributeInstance> dirtyInstances = Sets.<IAttributeInstance>newHashSet();
-    protected final Map<String, IAttributeInstance> instancesByName = new LowerStringMap();
+public class AttributeMap extends AbstractAttributeMap {
 
-    public ModifiableAttributeInstance getAttributeInstance(IAttribute attribute)
-    {
-        return (ModifiableAttributeInstance)super.getAttributeInstance(attribute);
-    }
+	private final Set<IAttributeInstance> dirtyInstances = Sets.newHashSet();
+	protected final Map<String, IAttributeInstance> instancesByName = new LowerStringMap();
 
-    public ModifiableAttributeInstance getAttributeInstanceByName(String attributeName)
-    {
-        IAttributeInstance iattributeinstance = super.getAttributeInstanceByName(attributeName);
+	public ModifiableAttributeInstance getAttributeInstance(IAttribute attribute) {
 
-        if (iattributeinstance == null)
-        {
-            iattributeinstance = instancesByName.get(attributeName);
-        }
+		return (ModifiableAttributeInstance) super.getAttributeInstance(attribute);
+	}
 
-        return (ModifiableAttributeInstance)iattributeinstance;
-    }
+	public ModifiableAttributeInstance getAttributeInstanceByName(String attributeName) {
 
-    /**
-     * Registers an attribute with this AttributeMap, returns a modifiable AttributeInstance associated with this map
-     */
-    public IAttributeInstance registerAttribute(IAttribute attribute)
-    {
-        IAttributeInstance iattributeinstance = super.registerAttribute(attribute);
+		IAttributeInstance iattributeinstance = super.getAttributeInstanceByName(attributeName);
 
-        if (attribute instanceof RangedAttribute && ((RangedAttribute)attribute).getDescription() != null)
-        {
-            instancesByName.put(((RangedAttribute)attribute).getDescription(), iattributeinstance);
-        }
+		if (iattributeinstance == null) {
+			iattributeinstance = instancesByName.get(attributeName);
+		}
 
-        return iattributeinstance;
-    }
+		return (ModifiableAttributeInstance) iattributeinstance;
+	}
 
-    protected IAttributeInstance createInstance(IAttribute attribute)
-    {
-        return new ModifiableAttributeInstance(this, attribute);
-    }
+	/**
+	 * Registers an attribute with this AttributeMap, returns a modifiable AttributeInstance associated with this map
+	 */
+	public IAttributeInstance registerAttribute(IAttribute attribute) {
 
-    public void onAttributeModified(IAttributeInstance instance)
-    {
-        if (instance.getAttribute().getShouldWatch())
-        {
-            dirtyInstances.add(instance);
-        }
+		IAttributeInstance iattributeinstance = super.registerAttribute(attribute);
 
-        for (IAttribute iattribute : descendantsByParent.get(instance.getAttribute()))
-        {
-            ModifiableAttributeInstance modifiableattributeinstance = getAttributeInstance(iattribute);
+		if (attribute instanceof RangedAttribute && ((RangedAttribute) attribute).getDescription() != null) {
+			instancesByName.put(((RangedAttribute) attribute).getDescription(), iattributeinstance);
+		}
 
-            if (modifiableattributeinstance != null)
-            {
-                modifiableattributeinstance.flagForUpdate();
-            }
-        }
-    }
+		return iattributeinstance;
+	}
 
-    public Set<IAttributeInstance> getDirtyInstances()
-    {
-        return dirtyInstances;
-    }
+	protected IAttributeInstance createInstance(IAttribute attribute) {
 
-    public Collection<IAttributeInstance> getWatchedAttributes()
-    {
-        Set<IAttributeInstance> set = Sets.<IAttributeInstance>newHashSet();
+		return new ModifiableAttributeInstance(this, attribute);
+	}
 
-        for (IAttributeInstance iattributeinstance : getAllAttributes())
-        {
-            if (iattributeinstance.getAttribute().getShouldWatch())
-            {
-                set.add(iattributeinstance);
-            }
-        }
+	public void onAttributeModified(IAttributeInstance instance) {
 
-        return set;
-    }
+		if (instance.getAttribute().getShouldWatch()) {
+			dirtyInstances.add(instance);
+		}
+
+		for (IAttribute iattribute : descendantsByParent.get(instance.getAttribute())) {
+			ModifiableAttributeInstance modifiableattributeinstance = getAttributeInstance(iattribute);
+
+			if (modifiableattributeinstance != null) {
+				modifiableattributeinstance.flagForUpdate();
+			}
+		}
+	}
+
+	public Set<IAttributeInstance> getDirtyInstances() {
+
+		return dirtyInstances;
+	}
+
+	public Collection<IAttributeInstance> getWatchedAttributes() {
+
+		Set<IAttributeInstance> set = Sets.newHashSet();
+
+		for (IAttributeInstance iattributeinstance : getAllAttributes()) {
+			if (iattributeinstance.getAttribute().getShouldWatch()) {
+				set.add(iattributeinstance);
+			}
+		}
+
+		return set;
+	}
+
 }

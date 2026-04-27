@@ -1,13 +1,14 @@
 package net.minecraft.profiler;
 
-public interface ISnooperInfo
-{
-    void addServerStatsToSnooper(Snooper playerSnooper);
+public interface ISnooperInfo {
 
-    void addServerTypeToSnooper(Snooper playerSnooper);
+	void addServerStatsToSnooper(Snooper playerSnooper);
 
-    /**
-     * Returns whether snooping is enabled or not.
-     */
-    boolean isSnooperEnabled();
+	void addServerTypeToSnooper(Snooper playerSnooper);
+
+	/**
+	 * Returns whether snooping is enabled or not.
+	 */
+	boolean isSnooperEnabled();
+
 }

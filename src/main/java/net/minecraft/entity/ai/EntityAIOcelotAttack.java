@@ -4,95 +4,83 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.world.World;
 
-public class EntityAIOcelotAttack extends EntityAIBase
-{
-    World world;
-    EntityLiving entity;
-    EntityLivingBase target;
-    int attackCountdown;
+public class EntityAIOcelotAttack extends EntityAIBase {
 
-    public EntityAIOcelotAttack(EntityLiving theEntityIn)
-    {
-        entity = theEntityIn;
-        world = theEntityIn.world;
-        setMutexBits(3);
-    }
+	World world;
+	EntityLiving entity;
+	EntityLivingBase target;
+	int attackCountdown;
 
-    /**
-     * Returns whether the EntityAIBase should begin execution.
-     */
-    public boolean shouldExecute()
-    {
-        EntityLivingBase entitylivingbase = entity.getAttackTarget();
+	public EntityAIOcelotAttack(EntityLiving theEntityIn) {
 
-        if (entitylivingbase == null)
-        {
-            return false;
-        }
-        else
-        {
-            target = entitylivingbase;
-            return true;
-        }
-    }
+		entity = theEntityIn;
+		world = theEntityIn.world;
+		setMutexBits(3);
+	}
 
-    /**
-     * Returns whether an in-progress EntityAIBase should continue executing
-     */
-    public boolean shouldContinueExecuting()
-    {
-        if (!target.isEntityAlive())
-        {
-            return false;
-        }
-        else if (entity.getDistanceSq(target) > 225.0D)
-        {
-            return false;
-        }
-        else
-        {
-            return !entity.getNavigator().noPath() || shouldExecute();
-        }
-    }
+	/**
+	 * Returns whether the EntityAIBase should begin execution.
+	 */
+	public boolean shouldExecute() {
 
-    /**
-     * Reset the task's internal state. Called when this task is interrupted by another one
-     */
-    public void resetTask()
-    {
-        target = null;
-        entity.getNavigator().clearPath();
-    }
+		EntityLivingBase entitylivingbase = entity.getAttackTarget();
 
-    /**
-     * Keep ticking a continuous task that has already been started
-     */
-    public void updateTask()
-    {
-        entity.getLookHelper().setLookPositionWithEntity(target, 30.0F, 30.0F);
-        double d0 = (double)(entity.width * 2.0F * entity.width * 2.0F);
-        double d1 = entity.getDistanceSq(target.posX, target.getEntityBoundingBox().minY, target.posZ);
-        double d2 = 0.8D;
+		if (entitylivingbase == null) {
+			return false;
+		} else {
+			target = entitylivingbase;
+			return true;
+		}
+	}
 
-        if (d1 > d0 && d1 < 16.0D)
-        {
-            d2 = 1.33D;
-        }
-        else if (d1 < 225.0D)
-        {
-            d2 = 0.6D;
-        }
+	/**
+	 * Returns whether an in-progress EntityAIBase should continue executing
+	 */
+	public boolean shouldContinueExecuting() {
 
-        entity.getNavigator().tryMoveToEntityLiving(target, d2);
-        attackCountdown = Math.max(attackCountdown - 1, 0);
+		if (!target.isEntityAlive()) {
+			return false;
+		} else if (entity.getDistanceSq(target) > 225.0D) {
+			return false;
+		} else {
+			return !entity.getNavigator().noPath() || shouldExecute();
+		}
+	}
 
-        if (d1 <= d0)
-        {
-            if (attackCountdown <= 0)
-            {
-                attackCountdown = 20;
-                entity.attackEntityAsMob(target);
-            }
-        }
-    }
+	/**
+	 * Reset the task's internal state. Called when this task is interrupted by another one
+	 */
+	public void resetTask() {
+
+		target = null;
+		entity.getNavigator().clearPath();
+	}
+
+	/**
+	 * Keep ticking a continuous task that has already been started
+	 */
+	public void updateTask() {
+
+		entity.getLookHelper().setLookPositionWithEntity(target, 30.0F, 30.0F);
+		double d0 = entity.width * 2.0F * entity.width * 2.0F;
+		double d1 = entity.getDistanceSq(target.posX, target.getEntityBoundingBox().minY, target.posZ);
+		double d2 = 0.8D;
+
+		if (d1 > d0 && d1 < 16.0D) {
+			d2 = 1.33D;
+		} else if (d1 < 225.0D) {
+			d2 = 0.6D;
+		}
+
+		entity.getNavigator().tryMoveToEntityLiving(target, d2);
+		attackCountdown = Math.max(attackCountdown - 1, 0);
+
+		if (d1 <= d0) {
+			if (attackCountdown <= 0) {
+				attackCountdown = 20;
+				entity.attackEntityAsMob(target);
+			}
+		}
+	}
+
 }

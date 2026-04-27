@@ -3,69 +3,56 @@ package net.minecraft.entity.ai;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
 
-public class EntityAITradePlayer extends EntityAIBase
-{
-    private final EntityVillager villager;
+public class EntityAITradePlayer extends EntityAIBase {
 
-    public EntityAITradePlayer(EntityVillager villagerIn)
-    {
-        villager = villagerIn;
-        setMutexBits(5);
-    }
+	private final EntityVillager villager;
 
-    /**
-     * Returns whether the EntityAIBase should begin execution.
-     */
-    public boolean shouldExecute()
-    {
-        if (!villager.isEntityAlive())
-        {
-            return false;
-        }
-        else if (villager.isInWater())
-        {
-            return false;
-        }
-        else if (!villager.onGround)
-        {
-            return false;
-        }
-        else if (villager.velocityChanged)
-        {
-            return false;
-        }
-        else
-        {
-            EntityPlayer entityplayer = villager.getCustomer();
+	public EntityAITradePlayer(EntityVillager villagerIn) {
 
-            if (entityplayer == null)
-            {
-                return false;
-            }
-            else if (villager.getDistanceSq(entityplayer) > 16.0D)
-            {
-                return false;
-            }
-            else
-            {
-                return entityplayer.openContainer != null;
-            }
-        }
-    }
+		villager = villagerIn;
+		setMutexBits(5);
+	}
 
-    /**
-     * Execute a one shot task or start executing a continuous task
-     */
-    public void startExecuting()
-    {
-        villager.getNavigator().clearPath();
-    }
+	/**
+	 * Returns whether the EntityAIBase should begin execution.
+	 */
+	public boolean shouldExecute() {
 
-    /**
-     * Reset the task's internal state. Called when this task is interrupted by another one
-     */
-    public void resetTask()
-    {
-        villager.setCustomer((EntityPlayer)null);
-    }
+		if (!villager.isEntityAlive()) {
+			return false;
+		} else if (villager.isInWater()) {
+			return false;
+		} else if (!villager.onGround) {
+			return false;
+		} else if (villager.velocityChanged) {
+			return false;
+		} else {
+			EntityPlayer entityplayer = villager.getCustomer();
+
+			if (entityplayer == null) {
+				return false;
+			} else if (villager.getDistanceSq(entityplayer) > 16.0D) {
+				return false;
+			} else {
+				return entityplayer.openContainer != null;
+			}
+		}
+	}
+
+	/**
+	 * Execute a one shot task or start executing a continuous task
+	 */
+	public void startExecuting() {
+
+		villager.getNavigator().clearPath();
+	}
+
+	/**
+	 * Reset the task's internal state. Called when this task is interrupted by another one
+	 */
+	public void resetTask() {
+
+		villager.setCustomer(null);
+	}
+
 }

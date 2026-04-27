@@ -1,6 +1,5 @@
 package net.minecraft.entity.boss.dragon.phase;
 
-import javax.annotation.Nullable;
 import net.minecraft.entity.MultiPartEntityPart;
 import net.minecraft.entity.item.EntityEnderCrystal;
 import net.minecraft.entity.player.EntityPlayer;
@@ -8,50 +7,53 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 
-public interface IPhase
-{
-    boolean getIsStationary();
+import javax.annotation.Nullable;
 
-    /**
-     * Generates particle effects appropriate to the phase (or sometimes sounds).
-     * Called by dragon's onLivingUpdate. Only used when worldObj.isRemote.
-     */
-    void doClientRenderEffects();
+public interface IPhase {
 
-    /**
-     * Gives the phase a chance to update its status.
-     * Called by dragon's onLivingUpdate. Only used when !worldObj.isRemote.
-     */
-    void doLocalUpdate();
+	boolean getIsStationary();
 
-    void onCrystalDestroyed(EntityEnderCrystal crystal, BlockPos pos, DamageSource dmgSrc, EntityPlayer plyr);
+	/**
+	 * Generates particle effects appropriate to the phase (or sometimes sounds).
+	 * Called by dragon's onLivingUpdate. Only used when worldObj.isRemote.
+	 */
+	void doClientRenderEffects();
 
-    /**
-     * Called when this phase is set to active
-     */
-    void initPhase();
+	/**
+	 * Gives the phase a chance to update its status.
+	 * Called by dragon's onLivingUpdate. Only used when !worldObj.isRemote.
+	 */
+	void doLocalUpdate();
 
-    void removeAreaEffect();
+	void onCrystalDestroyed(EntityEnderCrystal crystal, BlockPos pos, DamageSource dmgSrc, EntityPlayer plyr);
 
-    /**
-     * Returns the maximum amount dragon may rise or fall during this phase
-     */
-    float getMaxRiseOrFall();
+	/**
+	 * Called when this phase is set to active
+	 */
+	void initPhase();
 
-    float getYawFactor();
+	void removeAreaEffect();
 
-    PhaseList <? extends IPhase > getType();
+	/**
+	 * Returns the maximum amount dragon may rise or fall during this phase
+	 */
+	float getMaxRiseOrFall();
 
-    @Nullable
+	float getYawFactor();
 
-    /**
-     * Returns the location the dragon is flying toward
-     */
-    Vec3d getTargetLocation();
+	PhaseList<? extends IPhase> getType();
 
-    /**
-     * Normally, just returns damage. If dragon is sitting and src is an arrow, arrow is enflamed and zero damage
-     * returned.
-     */
-    float getAdjustedDamage(MultiPartEntityPart pt, DamageSource src, float damage);
+	@Nullable
+
+	/**
+	 * Returns the location the dragon is flying toward
+	 */
+	Vec3d getTargetLocation();
+
+	/**
+	 * Normally, just returns damage. If dragon is sitting and src is an arrow, arrow is enflamed and zero damage
+	 * returned.
+	 */
+	float getAdjustedDamage(MultiPartEntityPart pt, DamageSource src, float damage);
+
 }

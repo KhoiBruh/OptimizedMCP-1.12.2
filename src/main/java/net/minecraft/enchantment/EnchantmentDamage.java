@@ -9,115 +9,114 @@ import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 
-public class EnchantmentDamage extends Enchantment
-{
-    /** None */
-    private static final String[] DAMAGE_NAMES = new String[] {"all", "undead", "arthropods"};
+public class EnchantmentDamage extends Enchantment {
 
-    /**
-     * Holds the base factor of enchantability needed to be able to use the enchant.
-     */
-    private static final int[] MIN_COST = new int[] {1, 5, 5};
+	/**
+	 * None
+	 */
+	private static final String[] DAMAGE_NAMES = new String[]{"all", "undead", "arthropods"};
 
-    /** None */
-    private static final int[] LEVEL_COST = new int[] {11, 8, 8};
+	/**
+	 * Holds the base factor of enchantability needed to be able to use the enchant.
+	 */
+	private static final int[] MIN_COST = new int[]{1, 5, 5};
 
-    /** None */
-    private static final int[] LEVEL_COST_SPAN = new int[] {20, 20, 20};
+	/**
+	 * None
+	 */
+	private static final int[] LEVEL_COST = new int[]{11, 8, 8};
 
-    /**
-     * Defines the type of damage of the enchantment, 0 = all, 1 = undead, 3 = arthropods
-     */
-    public final int damageType;
+	/**
+	 * None
+	 */
+	private static final int[] LEVEL_COST_SPAN = new int[]{20, 20, 20};
 
-    public EnchantmentDamage(Enchantment.Rarity rarityIn, int damageTypeIn, EntityEquipmentSlot... slots)
-    {
-        super(rarityIn, EnumEnchantmentType.WEAPON, slots);
-        damageType = damageTypeIn;
-    }
+	/**
+	 * Defines the type of damage of the enchantment, 0 = all, 1 = undead, 3 = arthropods
+	 */
+	public final int damageType;
 
-    /**
-     * Returns the minimal value of enchantability needed on the enchantment level passed.
-     */
-    public int getMinEnchantability(int enchantmentLevel)
-    {
-        return MIN_COST[damageType] + (enchantmentLevel - 1) * LEVEL_COST[damageType];
-    }
+	public EnchantmentDamage(Enchantment.Rarity rarityIn, int damageTypeIn, EntityEquipmentSlot... slots) {
 
-    /**
-     * Returns the maximum value of enchantability nedded on the enchantment level passed.
-     */
-    public int getMaxEnchantability(int enchantmentLevel)
-    {
-        return getMinEnchantability(enchantmentLevel) + LEVEL_COST_SPAN[damageType];
-    }
+		super(rarityIn, EnumEnchantmentType.WEAPON, slots);
+		damageType = damageTypeIn;
+	}
 
-    /**
-     * Returns the maximum level that the enchantment can have.
-     */
-    public int getMaxLevel()
-    {
-        return 5;
-    }
+	/**
+	 * Returns the minimal value of enchantability needed on the enchantment level passed.
+	 */
+	public int getMinEnchantability(int enchantmentLevel) {
 
-    /**
-     * Calculates the additional damage that will be dealt by an item with this enchantment. This alternative to
-     * calcModifierDamage is sensitive to the targets EnumCreatureAttribute.
-     */
-    public float calcDamageByCreature(int level, EnumCreatureAttribute creatureType)
-    {
-        if (damageType == 0)
-        {
-            return 1.0F + (float)Math.max(0, level - 1) * 0.5F;
-        }
-        else if (damageType == 1 && creatureType == EnumCreatureAttribute.UNDEAD)
-        {
-            return (float)level * 2.5F;
-        }
-        else
-        {
-            return damageType == 2 && creatureType == EnumCreatureAttribute.ARTHROPOD ? (float)level * 2.5F : 0.0F;
-        }
-    }
+		return MIN_COST[damageType] + (enchantmentLevel - 1) * LEVEL_COST[damageType];
+	}
 
-    /**
-     * Return the name of key in translation table of this enchantment.
-     */
-    public String getName()
-    {
-        return "enchantment.damage." + DAMAGE_NAMES[damageType];
-    }
+	/**
+	 * Returns the maximum value of enchantability nedded on the enchantment level passed.
+	 */
+	public int getMaxEnchantability(int enchantmentLevel) {
 
-    /**
-     * Determines if the enchantment passed can be applyied together with this enchantment.
-     */
-    public boolean canApplyTogether(Enchantment ench)
-    {
-        return !(ench instanceof EnchantmentDamage);
-    }
+		return getMinEnchantability(enchantmentLevel) + LEVEL_COST_SPAN[damageType];
+	}
 
-    /**
-     * Determines if this enchantment can be applied to a specific ItemStack.
-     */
-    public boolean canApply(ItemStack stack)
-    {
-        return stack.getItem() instanceof ItemAxe ? true : super.canApply(stack);
-    }
+	/**
+	 * Returns the maximum level that the enchantment can have.
+	 */
+	public int getMaxLevel() {
 
-    /**
-     * Called whenever a mob is damaged with an item that has this enchantment on it.
-     */
-    public void onEntityDamaged(EntityLivingBase user, Entity target, int level)
-    {
-        if (target instanceof EntityLivingBase)
-        {
-            EntityLivingBase entitylivingbase = (EntityLivingBase)target;
+		return 5;
+	}
 
-            if (damageType == 2 && entitylivingbase.getCreatureAttribute() == EnumCreatureAttribute.ARTHROPOD)
-            {
-                int i = 20 + user.getRNG().nextInt(10 * level);
-                entitylivingbase.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, i, 3));
-            }
-        }
-    }
+	/**
+	 * Calculates the additional damage that will be dealt by an item with this enchantment. This alternative to
+	 * calcModifierDamage is sensitive to the targets EnumCreatureAttribute.
+	 */
+	public float calcDamageByCreature(int level, EnumCreatureAttribute creatureType) {
+
+		if (damageType == 0) {
+			return 1.0F + (float) Math.max(0, level - 1) * 0.5F;
+		} else if (damageType == 1 && creatureType == EnumCreatureAttribute.UNDEAD) {
+			return (float) level * 2.5F;
+		} else {
+			return damageType == 2 && creatureType == EnumCreatureAttribute.ARTHROPOD ? (float) level * 2.5F : 0.0F;
+		}
+	}
+
+	/**
+	 * Return the name of key in translation table of this enchantment.
+	 */
+	public String getName() {
+
+		return "enchantment.damage." + DAMAGE_NAMES[damageType];
+	}
+
+	/**
+	 * Determines if the enchantment passed can be applyied together with this enchantment.
+	 */
+	public boolean canApplyTogether(Enchantment ench) {
+
+		return !(ench instanceof EnchantmentDamage);
+	}
+
+	/**
+	 * Determines if this enchantment can be applied to a specific ItemStack.
+	 */
+	public boolean canApply(ItemStack stack) {
+
+		return stack.getItem() instanceof ItemAxe || super.canApply(stack);
+	}
+
+	/**
+	 * Called whenever a mob is damaged with an item that has this enchantment on it.
+	 */
+	public void onEntityDamaged(EntityLivingBase user, Entity target, int level) {
+
+		if (target instanceof EntityLivingBase entitylivingbase) {
+
+			if (damageType == 2 && entitylivingbase.getCreatureAttribute() == EnumCreatureAttribute.ARTHROPOD) {
+				int i = 20 + user.getRNG().nextInt(10 * level);
+				entitylivingbase.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, i, 3));
+			}
+		}
+	}
+
 }

@@ -10,111 +10,103 @@ import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.pathfinding.PathPoint;
 import net.minecraft.util.math.BlockPos;
 
-public abstract class EntityAIDoorInteract extends EntityAIBase
-{
-    protected EntityLiving entity;
-    protected BlockPos doorPosition = BlockPos.ORIGIN;
+public abstract class EntityAIDoorInteract extends EntityAIBase {
 
-    /** The wooden door block */
-    protected BlockDoor doorBlock;
+	protected EntityLiving entity;
+	protected BlockPos doorPosition = BlockPos.ORIGIN;
 
-    /**
-     * If is true then the Entity has stopped Door Interaction and compoleted the task.
-     */
-    boolean hasStoppedDoorInteraction;
-    float entityPositionX;
-    float entityPositionZ;
+	/**
+	 * The wooden door block
+	 */
+	protected BlockDoor doorBlock;
 
-    public EntityAIDoorInteract(EntityLiving entityIn)
-    {
-        entity = entityIn;
+	/**
+	 * If is true then the Entity has stopped Door Interaction and compoleted the task.
+	 */
+	boolean hasStoppedDoorInteraction;
+	float entityPositionX;
+	float entityPositionZ;
 
-        if (!(entityIn.getNavigator() instanceof PathNavigateGround))
-        {
-            throw new IllegalArgumentException("Unsupported mob type for DoorInteractGoal");
-        }
-    }
+	public EntityAIDoorInteract(EntityLiving entityIn) {
 
-    /**
-     * Returns whether the EntityAIBase should begin execution.
-     */
-    public boolean shouldExecute()
-    {
-        if (!entity.collidedHorizontally)
-        {
-            return false;
-        }
-        else
-        {
-            PathNavigateGround pathnavigateground = (PathNavigateGround) entity.getNavigator();
-            Path path = pathnavigateground.getPath();
+		entity = entityIn;
 
-            if (path != null && !path.isFinished() && pathnavigateground.getEnterDoors())
-            {
-                for (int i = 0; i < Math.min(path.getCurrentPathIndex() + 2, path.getCurrentPathLength()); ++i)
-                {
-                    PathPoint pathpoint = path.getPathPointFromIndex(i);
-                    doorPosition = new BlockPos(pathpoint.x, pathpoint.y + 1, pathpoint.z);
+		if (!(entityIn.getNavigator() instanceof PathNavigateGround)) {
+			throw new IllegalArgumentException("Unsupported mob type for DoorInteractGoal");
+		}
+	}
 
-                    if (entity.getDistanceSq((double) doorPosition.getX(), entity.posY, (double) doorPosition.getZ()) <= 2.25D)
-                    {
-                        doorBlock = getBlockDoor(doorPosition);
+	/**
+	 * Returns whether the EntityAIBase should begin execution.
+	 */
+	public boolean shouldExecute() {
 
-                        if (doorBlock != null)
-                        {
-                            return true;
-                        }
-                    }
-                }
+		if (!entity.collidedHorizontally) {
+			return false;
+		} else {
+			PathNavigateGround pathnavigateground = (PathNavigateGround) entity.getNavigator();
+			Path path = pathnavigateground.getPath();
 
-                doorPosition = (new BlockPos(entity)).up();
-                doorBlock = getBlockDoor(doorPosition);
-                return doorBlock != null;
-            }
-            else
-            {
-                return false;
-            }
-        }
-    }
+			if (path != null && !path.isFinished() && pathnavigateground.getEnterDoors()) {
+				for (int i = 0; i < Math.min(path.getCurrentPathIndex() + 2, path.getCurrentPathLength()); ++i) {
+					PathPoint pathpoint = path.getPathPointFromIndex(i);
+					doorPosition = new BlockPos(pathpoint.x, pathpoint.y + 1, pathpoint.z);
 
-    /**
-     * Returns whether an in-progress EntityAIBase should continue executing
-     */
-    public boolean shouldContinueExecuting()
-    {
-        return !hasStoppedDoorInteraction;
-    }
+					if (entity.getDistanceSq(doorPosition.getX(), entity.posY, doorPosition.getZ()) <= 2.25D) {
+						doorBlock = getBlockDoor(doorPosition);
 
-    /**
-     * Execute a one shot task or start executing a continuous task
-     */
-    public void startExecuting()
-    {
-        hasStoppedDoorInteraction = false;
-        entityPositionX = (float)((double)((float) doorPosition.getX() + 0.5F) - entity.posX);
-        entityPositionZ = (float)((double)((float) doorPosition.getZ() + 0.5F) - entity.posZ);
-    }
+						if (doorBlock != null) {
+							return true;
+						}
+					}
+				}
 
-    /**
-     * Keep ticking a continuous task that has already been started
-     */
-    public void updateTask()
-    {
-        float f = (float)((double)((float) doorPosition.getX() + 0.5F) - entity.posX);
-        float f1 = (float)((double)((float) doorPosition.getZ() + 0.5F) - entity.posZ);
-        float f2 = entityPositionX * f + entityPositionZ * f1;
+				doorPosition = (new BlockPos(entity)).up();
+				doorBlock = getBlockDoor(doorPosition);
+				return doorBlock != null;
+			} else {
+				return false;
+			}
+		}
+	}
 
-        if (f2 < 0.0F)
-        {
-            hasStoppedDoorInteraction = true;
-        }
-    }
+	/**
+	 * Returns whether an in-progress EntityAIBase should continue executing
+	 */
+	public boolean shouldContinueExecuting() {
 
-    private BlockDoor getBlockDoor(BlockPos pos)
-    {
-        IBlockState iblockstate = entity.world.getBlockState(pos);
-        Block block = iblockstate.getBlock();
-        return block instanceof BlockDoor && iblockstate.getMaterial() == Material.WOOD ? (BlockDoor)block : null;
-    }
+		return !hasStoppedDoorInteraction;
+	}
+
+	/**
+	 * Execute a one shot task or start executing a continuous task
+	 */
+	public void startExecuting() {
+
+		hasStoppedDoorInteraction = false;
+		entityPositionX = (float) ((double) ((float) doorPosition.getX() + 0.5F) - entity.posX);
+		entityPositionZ = (float) ((double) ((float) doorPosition.getZ() + 0.5F) - entity.posZ);
+	}
+
+	/**
+	 * Keep ticking a continuous task that has already been started
+	 */
+	public void updateTask() {
+
+		float f = (float) ((double) ((float) doorPosition.getX() + 0.5F) - entity.posX);
+		float f1 = (float) ((double) ((float) doorPosition.getZ() + 0.5F) - entity.posZ);
+		float f2 = entityPositionX * f + entityPositionZ * f1;
+
+		if (f2 < 0.0F) {
+			hasStoppedDoorInteraction = true;
+		}
+	}
+
+	private BlockDoor getBlockDoor(BlockPos pos) {
+
+		IBlockState iblockstate = entity.world.getBlockState(pos);
+		Block block = iblockstate.getBlock();
+		return block instanceof BlockDoor && iblockstate.getMaterial() == Material.WOOD ? (BlockDoor) block : null;
+	}
+
 }

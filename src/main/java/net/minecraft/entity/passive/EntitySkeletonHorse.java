@@ -1,6 +1,5 @@
 package net.minecraft.entity.passive;
 
-import javax.annotation.Nullable;
 import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAISkeletonRiders;
@@ -17,170 +16,154 @@ import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 
-public class EntitySkeletonHorse extends AbstractHorse
-{
-    private final EntityAISkeletonRiders skeletonTrapAI = new EntityAISkeletonRiders(this);
-    private boolean skeletonTrap;
-    private int skeletonTrapTime;
+import javax.annotation.Nullable;
 
-    public EntitySkeletonHorse(World worldIn)
-    {
-        super(worldIn);
-    }
+public class EntitySkeletonHorse extends AbstractHorse {
 
-    protected void applyEntityAttributes()
-    {
-        super.applyEntityAttributes();
-        getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(15.0D);
-        getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.20000000298023224D);
-        getEntityAttribute(JUMP_STRENGTH).setBaseValue(getModifiedJumpStrength());
-    }
+	private final EntityAISkeletonRiders skeletonTrapAI = new EntityAISkeletonRiders(this);
+	private boolean skeletonTrap;
+	private int skeletonTrapTime;
 
-    protected SoundEvent getAmbientSound()
-    {
-        super.getAmbientSound();
-        return SoundEvents.ENTITY_SKELETON_HORSE_AMBIENT;
-    }
+	public EntitySkeletonHorse(World worldIn) {
 
-    protected SoundEvent getDeathSound()
-    {
-        super.getDeathSound();
-        return SoundEvents.ENTITY_SKELETON_HORSE_DEATH;
-    }
+		super(worldIn);
+	}
 
-    protected SoundEvent getHurtSound(DamageSource damageSourceIn)
-    {
-        super.getHurtSound(damageSourceIn);
-        return SoundEvents.ENTITY_SKELETON_HORSE_HURT;
-    }
+	protected void applyEntityAttributes() {
 
-    /**
-     * Get this Entity's EnumCreatureAttribute
-     */
-    public EnumCreatureAttribute getCreatureAttribute()
-    {
-        return EnumCreatureAttribute.UNDEAD;
-    }
+		super.applyEntityAttributes();
+		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(15.0D);
+		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.20000000298023224D);
+		getEntityAttribute(JUMP_STRENGTH).setBaseValue(getModifiedJumpStrength());
+	}
 
-    /**
-     * Returns the Y offset from the entity's position for any entity riding this one.
-     */
-    public double getMountedYOffset()
-    {
-        return super.getMountedYOffset() - 0.1875D;
-    }
+	protected SoundEvent getAmbientSound() {
 
-    @Nullable
-    protected ResourceLocation getLootTable()
-    {
-        return LootTableList.ENTITIES_SKELETON_HORSE;
-    }
+		super.getAmbientSound();
+		return SoundEvents.ENTITY_SKELETON_HORSE_AMBIENT;
+	}
 
-    /**
-     * Called frequently so the entity can update its state every tick as required. For example, zombies and skeletons
-     * use this to react to sunlight and start to burn.
-     */
-    public void onLivingUpdate()
-    {
-        super.onLivingUpdate();
+	protected SoundEvent getDeathSound() {
 
-        if (isTrap() && skeletonTrapTime++ >= 18000)
-        {
-            setDead();
-        }
-    }
+		super.getDeathSound();
+		return SoundEvents.ENTITY_SKELETON_HORSE_DEATH;
+	}
 
-    public static void registerFixesSkeletonHorse(DataFixer fixer)
-    {
-        AbstractHorse.registerFixesAbstractHorse(fixer, EntitySkeletonHorse.class);
-    }
+	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
 
-    /**
-     * (abstract) Protected helper method to write subclass entity data to NBT.
-     */
-    public void writeEntityToNBT(NBTTagCompound compound)
-    {
-        super.writeEntityToNBT(compound);
-        compound.setBoolean("SkeletonTrap", isTrap());
-        compound.setInteger("SkeletonTrapTime", skeletonTrapTime);
-    }
+		super.getHurtSound(damageSourceIn);
+		return SoundEvents.ENTITY_SKELETON_HORSE_HURT;
+	}
 
-    /**
-     * (abstract) Protected helper method to read subclass entity data from NBT.
-     */
-    public void readEntityFromNBT(NBTTagCompound compound)
-    {
-        super.readEntityFromNBT(compound);
-        setTrap(compound.getBoolean("SkeletonTrap"));
-        skeletonTrapTime = compound.getInteger("SkeletonTrapTime");
-    }
+	/**
+	 * Get this Entity's EnumCreatureAttribute
+	 */
+	public EnumCreatureAttribute getCreatureAttribute() {
 
-    public boolean isTrap()
-    {
-        return skeletonTrap;
-    }
+		return EnumCreatureAttribute.UNDEAD;
+	}
 
-    public void setTrap(boolean trap)
-    {
-        if (trap != skeletonTrap)
-        {
-            skeletonTrap = trap;
+	/**
+	 * Returns the Y offset from the entity's position for any entity riding this one.
+	 */
+	public double getMountedYOffset() {
 
-            if (trap)
-            {
-                tasks.addTask(1, skeletonTrapAI);
-            }
-            else
-            {
-                tasks.removeTask(skeletonTrapAI);
-            }
-        }
-    }
+		return super.getMountedYOffset() - 0.1875D;
+	}
 
-    public boolean processInteract(EntityPlayer player, EnumHand hand)
-    {
-        ItemStack itemstack = player.getHeldItem(hand);
-        boolean flag = !itemstack.isEmpty();
+	@Nullable
+	protected ResourceLocation getLootTable() {
 
-        if (flag && itemstack.getItem() == Items.SPAWN_EGG)
-        {
-            return super.processInteract(player, hand);
-        }
-        else if (!isTame())
-        {
-            return false;
-        }
-        else if (isChild())
-        {
-            return super.processInteract(player, hand);
-        }
-        else if (player.isSneaking())
-        {
-            openGUI(player);
-            return true;
-        }
-        else if (isBeingRidden())
-        {
-            return super.processInteract(player, hand);
-        }
-        else
-        {
-            if (flag)
-            {
-                if (itemstack.getItem() == Items.SADDLE && !isHorseSaddled())
-                {
-                    openGUI(player);
-                    return true;
-                }
+		return LootTableList.ENTITIES_SKELETON_HORSE;
+	}
 
-                if (itemstack.interactWithEntity(player, this, hand))
-                {
-                    return true;
-                }
-            }
+	/**
+	 * Called frequently so the entity can update its state every tick as required. For example, zombies and skeletons
+	 * use this to react to sunlight and start to burn.
+	 */
+	public void onLivingUpdate() {
 
-            mountTo(player);
-            return true;
-        }
-    }
+		super.onLivingUpdate();
+
+		if (isTrap() && skeletonTrapTime++ >= 18000) {
+			setDead();
+		}
+	}
+
+	public static void registerFixesSkeletonHorse(DataFixer fixer) {
+
+		AbstractHorse.registerFixesAbstractHorse(fixer, EntitySkeletonHorse.class);
+	}
+
+	/**
+	 * (abstract) Protected helper method to write subclass entity data to NBT.
+	 */
+	public void writeEntityToNBT(NBTTagCompound compound) {
+
+		super.writeEntityToNBT(compound);
+		compound.setBoolean("SkeletonTrap", isTrap());
+		compound.setInteger("SkeletonTrapTime", skeletonTrapTime);
+	}
+
+	/**
+	 * (abstract) Protected helper method to read subclass entity data from NBT.
+	 */
+	public void readEntityFromNBT(NBTTagCompound compound) {
+
+		super.readEntityFromNBT(compound);
+		setTrap(compound.getBoolean("SkeletonTrap"));
+		skeletonTrapTime = compound.getInteger("SkeletonTrapTime");
+	}
+
+	public boolean isTrap() {
+
+		return skeletonTrap;
+	}
+
+	public void setTrap(boolean trap) {
+
+		if (trap != skeletonTrap) {
+			skeletonTrap = trap;
+
+			if (trap) {
+				tasks.addTask(1, skeletonTrapAI);
+			} else {
+				tasks.removeTask(skeletonTrapAI);
+			}
+		}
+	}
+
+	public boolean processInteract(EntityPlayer player, EnumHand hand) {
+
+		ItemStack itemstack = player.getHeldItem(hand);
+		boolean flag = !itemstack.isEmpty();
+
+		if (flag && itemstack.getItem() == Items.SPAWN_EGG) {
+			return super.processInteract(player, hand);
+		} else if (!isTame()) {
+			return false;
+		} else if (isChild()) {
+			return super.processInteract(player, hand);
+		} else if (player.isSneaking()) {
+			openGUI(player);
+			return true;
+		} else if (isBeingRidden()) {
+			return super.processInteract(player, hand);
+		} else {
+			if (flag) {
+				if (itemstack.getItem() == Items.SADDLE && !isHorseSaddled()) {
+					openGUI(player);
+					return true;
+				}
+
+				if (itemstack.interactWithEntity(player, this, hand)) {
+					return true;
+				}
+			}
+
+			mountTo(player);
+			return true;
+		}
+	}
+
 }

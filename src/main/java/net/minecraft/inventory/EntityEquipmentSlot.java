@@ -1,65 +1,62 @@
 package net.minecraft.inventory;
 
-public enum EntityEquipmentSlot
-{
-    MAINHAND(EntityEquipmentSlot.Type.HAND, 0, 0, "mainhand"),
-    OFFHAND(EntityEquipmentSlot.Type.HAND, 1, 5, "offhand"),
-    FEET(EntityEquipmentSlot.Type.ARMOR, 0, 1, "feet"),
-    LEGS(EntityEquipmentSlot.Type.ARMOR, 1, 2, "legs"),
-    CHEST(EntityEquipmentSlot.Type.ARMOR, 2, 3, "chest"),
-    HEAD(EntityEquipmentSlot.Type.ARMOR, 3, 4, "head");
+public enum EntityEquipmentSlot {
+	MAINHAND(EntityEquipmentSlot.Type.HAND, 0, 0, "mainhand"),
+	OFFHAND(EntityEquipmentSlot.Type.HAND, 1, 5, "offhand"),
+	FEET(EntityEquipmentSlot.Type.ARMOR, 0, 1, "feet"),
+	LEGS(EntityEquipmentSlot.Type.ARMOR, 1, 2, "legs"),
+	CHEST(EntityEquipmentSlot.Type.ARMOR, 2, 3, "chest"),
+	HEAD(EntityEquipmentSlot.Type.ARMOR, 3, 4, "head");
 
-    private final EntityEquipmentSlot.Type slotType;
-    private final int index;
-    private final int slotIndex;
-    private final String name;
+	private final EntityEquipmentSlot.Type slotType;
+	private final int index;
+	private final int slotIndex;
+	private final String name;
 
-    private EntityEquipmentSlot(EntityEquipmentSlot.Type slotTypeIn, int indexIn, int slotIndexIn, String nameIn)
-    {
-        slotType = slotTypeIn;
-        index = indexIn;
-        slotIndex = slotIndexIn;
-        name = nameIn;
-    }
+	EntityEquipmentSlot(EntityEquipmentSlot.Type slotTypeIn, int indexIn, int slotIndexIn, String nameIn) {
 
-    public EntityEquipmentSlot.Type getSlotType()
-    {
-        return slotType;
-    }
+		slotType = slotTypeIn;
+		index = indexIn;
+		slotIndex = slotIndexIn;
+		name = nameIn;
+	}
 
-    public int getIndex()
-    {
-        return index;
-    }
+	public EntityEquipmentSlot.Type getSlotType() {
 
-    /**
-     * Gets the actual slot index.
-     */
-    public int getSlotIndex()
-    {
-        return slotIndex;
-    }
+		return slotType;
+	}
 
-    public String getName()
-    {
-        return name;
-    }
+	public int getIndex() {
 
-    public static EntityEquipmentSlot fromString(String targetName)
-    {
-        for (EntityEquipmentSlot entityequipmentslot : values())
-        {
-            if (entityequipmentslot.getName().equals(targetName))
-            {
-                return entityequipmentslot;
-            }
-        }
+		return index;
+	}
 
-        throw new IllegalArgumentException("Invalid slot '" + targetName + "'");
-    }
+	/**
+	 * Gets the actual slot index.
+	 */
+	public int getSlotIndex() {
 
-    public static enum Type {
-        HAND,
-        ARMOR;
-    }
+		return slotIndex;
+	}
+
+	public String getName() {
+
+		return name;
+	}
+
+	public static EntityEquipmentSlot fromString(String targetName) {
+
+		for (EntityEquipmentSlot entityequipmentslot : values()) {
+			if (entityequipmentslot.getName().equals(targetName)) {
+				return entityequipmentslot;
+			}
+		}
+
+		throw new IllegalArgumentException("Invalid slot '" + targetName + "'");
+	}
+
+	public enum Type {
+		HAND,
+		ARMOR
+	}
 }

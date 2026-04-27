@@ -3,66 +3,70 @@ package net.minecraft.util.math;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.EnumFacing;
 
-public class RayTraceResult
-{
-    private BlockPos blockPos;
+public class RayTraceResult {
 
-    /**
-     * The type of hit that occured, see {@link RayTraceResult#Type} for possibilities.
-     */
-    public RayTraceResult.Type typeOfHit;
-    public EnumFacing sideHit;
+	private BlockPos blockPos;
 
-    /** The vector position of the hit */
-    public Vec3d hitVec;
+	/**
+	 * The type of hit that occured, see {@link RayTraceResult#Type} for possibilities.
+	 */
+	public RayTraceResult.Type typeOfHit;
+	public EnumFacing sideHit;
 
-    /** The hit entity */
-    public Entity entityHit;
+	/**
+	 * The vector position of the hit
+	 */
+	public Vec3d hitVec;
 
-    public RayTraceResult(Vec3d hitVecIn, EnumFacing sideHitIn, BlockPos blockPosIn)
-    {
-        this(RayTraceResult.Type.BLOCK, hitVecIn, sideHitIn, blockPosIn);
-    }
+	/**
+	 * The hit entity
+	 */
+	public Entity entityHit;
 
-    public RayTraceResult(Vec3d hitVecIn, EnumFacing sideHitIn)
-    {
-        this(RayTraceResult.Type.BLOCK, hitVecIn, sideHitIn, BlockPos.ORIGIN);
-    }
+	public RayTraceResult(Vec3d hitVecIn, EnumFacing sideHitIn, BlockPos blockPosIn) {
 
-    public RayTraceResult(Entity entityIn)
-    {
-        this(entityIn, new Vec3d(entityIn.posX, entityIn.posY, entityIn.posZ));
-    }
+		this(RayTraceResult.Type.BLOCK, hitVecIn, sideHitIn, blockPosIn);
+	}
 
-    public RayTraceResult(RayTraceResult.Type typeIn, Vec3d hitVecIn, EnumFacing sideHitIn, BlockPos blockPosIn)
-    {
-        typeOfHit = typeIn;
-        blockPos = blockPosIn;
-        sideHit = sideHitIn;
-        hitVec = new Vec3d(hitVecIn.x, hitVecIn.y, hitVecIn.z);
-    }
+	public RayTraceResult(Vec3d hitVecIn, EnumFacing sideHitIn) {
 
-    public RayTraceResult(Entity entityHitIn, Vec3d hitVecIn)
-    {
-        typeOfHit = RayTraceResult.Type.ENTITY;
-        entityHit = entityHitIn;
-        hitVec = hitVecIn;
-    }
+		this(RayTraceResult.Type.BLOCK, hitVecIn, sideHitIn, BlockPos.ORIGIN);
+	}
 
-    public BlockPos getBlockPos()
-    {
-        return blockPos;
-    }
+	public RayTraceResult(Entity entityIn) {
 
-    public String toString()
-    {
-        return "HitResult{type=" + typeOfHit + ", blockpos=" + blockPos + ", f=" + sideHit + ", pos=" + hitVec + ", entity=" + entityHit + '}';
-    }
+		this(entityIn, new Vec3d(entityIn.posX, entityIn.posY, entityIn.posZ));
+	}
 
-    public static enum Type
-    {
-        MISS,
-        BLOCK,
-        ENTITY;
-    }
+	public RayTraceResult(RayTraceResult.Type typeIn, Vec3d hitVecIn, EnumFacing sideHitIn, BlockPos blockPosIn) {
+
+		typeOfHit = typeIn;
+		blockPos = blockPosIn;
+		sideHit = sideHitIn;
+		hitVec = new Vec3d(hitVecIn.x(), hitVecIn.y(), hitVecIn.z());
+	}
+
+	public RayTraceResult(Entity entityHitIn, Vec3d hitVecIn) {
+
+		typeOfHit = RayTraceResult.Type.ENTITY;
+		entityHit = entityHitIn;
+		hitVec = hitVecIn;
+	}
+
+	public BlockPos getBlockPos() {
+
+		return blockPos;
+	}
+
+	public String toString() {
+
+		return "HitResult{type=" + typeOfHit + ", blockpos=" + blockPos + ", f=" + sideHit + ", pos=" + hitVec + ", entity=" + entityHit + '}';
+	}
+
+	public enum Type {
+		MISS,
+		BLOCK,
+		ENTITY
+	}
+
 }

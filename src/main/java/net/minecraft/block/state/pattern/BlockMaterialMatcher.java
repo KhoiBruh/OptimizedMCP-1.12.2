@@ -1,26 +1,28 @@
 package net.minecraft.block.state.pattern;
 
 import com.google.common.base.Predicate;
-import javax.annotation.Nullable;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 
-public class BlockMaterialMatcher implements Predicate<IBlockState>
-{
-    private final Material material;
+import javax.annotation.Nullable;
 
-    private BlockMaterialMatcher(Material materialIn)
-    {
-        material = materialIn;
-    }
+public class BlockMaterialMatcher implements Predicate<IBlockState> {
 
-    public static BlockMaterialMatcher forMaterial(Material materialIn)
-    {
-        return new BlockMaterialMatcher(materialIn);
-    }
+	private final Material material;
 
-    public boolean apply(@Nullable IBlockState p_apply_1_)
-    {
-        return p_apply_1_ != null && p_apply_1_.getMaterial() == material;
-    }
+	private BlockMaterialMatcher(Material materialIn) {
+
+		material = materialIn;
+	}
+
+	public static BlockMaterialMatcher forMaterial(Material materialIn) {
+
+		return new BlockMaterialMatcher(materialIn);
+	}
+
+	public boolean apply(@Nullable IBlockState p_apply_1_) {
+
+		return p_apply_1_ != null && p_apply_1_.getMaterial() == material;
+	}
+
 }

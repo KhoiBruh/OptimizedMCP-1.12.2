@@ -8,63 +8,59 @@ import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
-public class EntitySnowball extends EntityThrowable
-{
-    public EntitySnowball(World worldIn)
-    {
-        super(worldIn);
-    }
+public class EntitySnowball extends EntityThrowable {
 
-    public EntitySnowball(World worldIn, EntityLivingBase throwerIn)
-    {
-        super(worldIn, throwerIn);
-    }
+	public EntitySnowball(World worldIn) {
 
-    public EntitySnowball(World worldIn, double x, double y, double z)
-    {
-        super(worldIn, x, y, z);
-    }
+		super(worldIn);
+	}
 
-    public static void registerFixesSnowball(DataFixer fixer)
-    {
-        EntityThrowable.registerFixesThrowable(fixer, "Snowball");
-    }
+	public EntitySnowball(World worldIn, EntityLivingBase throwerIn) {
 
-    /**
-     * Handler for {@link World#setEntityState}
-     */
-    public void handleStatusUpdate(byte id)
-    {
-        if (id == 3)
-        {
-            for (int i = 0; i < 8; ++i)
-            {
-                world.spawnParticle(EnumParticleTypes.SNOWBALL, posX, posY, posZ, 0.0D, 0.0D, 0.0D);
-            }
-        }
-    }
+		super(worldIn, throwerIn);
+	}
 
-    /**
-     * Called when this EntityThrowable hits a block or entity.
-     */
-    protected void onImpact(RayTraceResult result)
-    {
-        if (result.entityHit != null)
-        {
-            int i = 0;
+	public EntitySnowball(World worldIn, double x, double y, double z) {
 
-            if (result.entityHit instanceof EntityBlaze)
-            {
-                i = 3;
-            }
+		super(worldIn, x, y, z);
+	}
 
-            result.entityHit.attackEntityFrom(DamageSource.causeThrownDamage(this, getThrower()), (float)i);
-        }
+	public static void registerFixesSnowball(DataFixer fixer) {
 
-        if (!world.isRemote)
-        {
-            world.setEntityState(this, (byte)3);
-            setDead();
-        }
-    }
+		EntityThrowable.registerFixesThrowable(fixer, "Snowball");
+	}
+
+	/**
+	 * Handler for {@link World#setEntityState}
+	 */
+	public void handleStatusUpdate(byte id) {
+
+		if (id == 3) {
+			for (int i = 0; i < 8; ++i) {
+				world.spawnParticle(EnumParticleTypes.SNOWBALL, posX, posY, posZ, 0.0D, 0.0D, 0.0D);
+			}
+		}
+	}
+
+	/**
+	 * Called when this EntityThrowable hits a block or entity.
+	 */
+	protected void onImpact(RayTraceResult result) {
+
+		if (result.entityHit != null) {
+			int i = 0;
+
+			if (result.entityHit instanceof EntityBlaze) {
+				i = 3;
+			}
+
+			result.entityHit.attackEntityFrom(DamageSource.causeThrownDamage(this, getThrower()), (float) i);
+		}
+
+		if (!world.isRemote) {
+			world.setEntityState(this, (byte) 3);
+			setDead();
+		}
+	}
+
 }

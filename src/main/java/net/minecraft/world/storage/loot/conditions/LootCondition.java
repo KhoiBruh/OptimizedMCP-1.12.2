@@ -3,37 +3,40 @@ package net.minecraft.world.storage.loot.conditions;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
-import java.util.Random;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.LootContext;
 
-public interface LootCondition
-{
-    boolean testCondition(Random rand, LootContext context);
+import java.util.Random;
 
-    public abstract static class Serializer<T extends LootCondition>
-    {
-        private final ResourceLocation lootTableLocation;
-        private final Class<T> conditionClass;
+public interface LootCondition {
 
-        protected Serializer(ResourceLocation location, Class<T> clazz)
-        {
-            lootTableLocation = location;
-            conditionClass = clazz;
-        }
+	boolean testCondition(Random rand, LootContext context);
 
-        public ResourceLocation getLootTableLocation()
-        {
-            return lootTableLocation;
-        }
+	abstract class Serializer<T extends LootCondition> {
 
-        public Class<T> getConditionClass()
-        {
-            return conditionClass;
-        }
+		private final ResourceLocation lootTableLocation;
+		private final Class<T> conditionClass;
 
-        public abstract void serialize(JsonObject json, T value, JsonSerializationContext context);
+		protected Serializer(ResourceLocation location, Class<T> clazz) {
 
-        public abstract T deserialize(JsonObject json, JsonDeserializationContext context);
-    }
+			lootTableLocation = location;
+			conditionClass = clazz;
+		}
+
+		public ResourceLocation getLootTableLocation() {
+
+			return lootTableLocation;
+		}
+
+		public Class<T> getConditionClass() {
+
+			return conditionClass;
+		}
+
+		public abstract void serialize(JsonObject json, T value, JsonSerializationContext context);
+
+		public abstract T deserialize(JsonObject json, JsonDeserializationContext context);
+
+	}
+
 }

@@ -2,88 +2,86 @@ package net.minecraft.client.audio;
 
 import net.minecraft.util.ResourceLocation;
 
-public class Sound implements ISoundEventAccessor<Sound>
-{
-    private final ResourceLocation name;
-    private final float volume;
-    private final float pitch;
-    private final int weight;
-    private final Sound.Type type;
-    private final boolean streaming;
+public class Sound implements ISoundEventAccessor<Sound> {
 
-    public Sound(String nameIn, float volumeIn, float pitchIn, int weightIn, Sound.Type typeIn, boolean p_i46526_6_)
-    {
-        name = new ResourceLocation(nameIn);
-        volume = volumeIn;
-        pitch = pitchIn;
-        weight = weightIn;
-        type = typeIn;
-        streaming = p_i46526_6_;
-    }
+	private final ResourceLocation name;
+	private final float volume;
+	private final float pitch;
+	private final int weight;
+	private final Sound.Type type;
+	private final boolean streaming;
 
-    public ResourceLocation getSoundLocation()
-    {
-        return name;
-    }
+	public Sound(String nameIn, float volumeIn, float pitchIn, int weightIn, Sound.Type typeIn, boolean p_i46526_6_) {
 
-    public ResourceLocation getSoundAsOggLocation()
-    {
-        return new ResourceLocation(name.getResourceDomain(), "sounds/" + name.getResourcePath() + ".ogg");
-    }
+		name = new ResourceLocation(nameIn);
+		volume = volumeIn;
+		pitch = pitchIn;
+		weight = weightIn;
+		type = typeIn;
+		streaming = p_i46526_6_;
+	}
 
-    public float getVolume()
-    {
-        return volume;
-    }
+	public ResourceLocation getSoundLocation() {
 
-    public float getPitch()
-    {
-        return pitch;
-    }
+		return name;
+	}
 
-    public int getWeight()
-    {
-        return weight;
-    }
+	public ResourceLocation getSoundAsOggLocation() {
 
-    public Sound cloneEntry()
-    {
-        return this;
-    }
+		return new ResourceLocation(name.getResourceDomain(), "sounds/" + name.getResourcePath() + ".ogg");
+	}
 
-    public Sound.Type getType()
-    {
-        return type;
-    }
+	public float getVolume() {
 
-    public boolean isStreaming()
-    {
-        return streaming;
-    }
+		return volume;
+	}
 
-    public static enum Type
-    {
-        FILE("file"),
-        SOUND_EVENT("event");
+	public float getPitch() {
 
-        private final String name;
+		return pitch;
+	}
 
-        private Type(String nameIn)
-        {
-            name = nameIn;
-        }
+	public int getWeight() {
 
-        public static Sound.Type getByName(String nameIn)
-        {
-            for (Sound.Type sound$type : values())
-            {
-                if (sound$type.name.equals(nameIn))
-                {
-                    return sound$type;
-                }
-            }
+		return weight;
+	}
 
-            return null;
-        }
-    }
+	public Sound cloneEntry() {
+
+		return this;
+	}
+
+	public Sound.Type getType() {
+
+		return type;
+	}
+
+	public boolean isStreaming() {
+
+		return streaming;
+	}
+
+	public enum Type {
+		FILE("file"),
+		SOUND_EVENT("event");
+
+		private final String name;
+
+		Type(String nameIn) {
+
+			name = nameIn;
+		}
+
+		public static Sound.Type getByName(String nameIn) {
+
+			for (Sound.Type sound$type : values()) {
+				if (sound$type.name.equals(nameIn)) {
+					return sound$type;
+				}
+			}
+
+			return null;
+		}
+	}
+
 }

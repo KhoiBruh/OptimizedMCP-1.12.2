@@ -1,6 +1,5 @@
 package net.minecraft.world;
 
-import javax.annotation.Nullable;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
@@ -11,327 +10,315 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeProvider;
 import net.minecraft.world.biome.BiomeProviderSingle;
 import net.minecraft.world.border.WorldBorder;
-import net.minecraft.world.gen.ChunkGeneratorDebug;
-import net.minecraft.world.gen.ChunkGeneratorFlat;
-import net.minecraft.world.gen.ChunkGeneratorOverworld;
-import net.minecraft.world.gen.FlatGeneratorInfo;
-import net.minecraft.world.gen.IChunkGenerator;
+import net.minecraft.world.gen.*;
 
-public abstract class WorldProvider
-{
-    public static final float[] MOON_PHASE_FACTORS = new float[] {1.0F, 0.75F, 0.5F, 0.25F, 0.0F, 0.25F, 0.5F, 0.75F};
+import javax.annotation.Nullable;
 
-    /** world object being used */
-    protected World world;
-    private WorldType terrainType;
-    private String generatorSettings;
+public abstract class WorldProvider {
 
-    /** World chunk manager being used to generate chunks */
-    protected BiomeProvider biomeProvider;
+	public static final float[] MOON_PHASE_FACTORS = new float[]{1.0F, 0.75F, 0.5F, 0.25F, 0.0F, 0.25F, 0.5F, 0.75F};
 
-    /**
-     * States whether the Hell world provider is used(true) or if the normal world provider is used(false)
-     */
-    protected boolean doesWaterVaporize;
+	/**
+	 * world object being used
+	 */
+	protected World world;
+	private WorldType terrainType;
+	private String generatorSettings;
 
-    /**
-     * Whether this dimension should be treated as the nether.
-     *  
-     * @see <a href="https://github.com/ModCoderPack/MCPBot-Issues/issues/330">https://github.com/ModCoderPack/MCPBot-
-     * Issues/issues/330</a>
-     */
-    protected boolean nether;
-    protected boolean hasSkyLight;
+	/**
+	 * World chunk manager being used to generate chunks
+	 */
+	protected BiomeProvider biomeProvider;
 
-    /** Light to brightness conversion table */
-    protected final float[] lightBrightnessTable = new float[16];
+	/**
+	 * States whether the Hell world provider is used(true) or if the normal world provider is used(false)
+	 */
+	protected boolean doesWaterVaporize;
 
-    /** Array for sunrise/sunset colors (RGBA) */
-    private final float[] colorsSunriseSunset = new float[4];
+	/**
+	 * Whether this dimension should be treated as the nether.
+	 *
+	 * @see <a href="https://github.com/ModCoderPack/MCPBot-Issues/issues/330">https://github.com/ModCoderPack/MCPBot-
+	 * Issues/issues/330</a>
+	 */
+	protected boolean nether;
+	protected boolean hasSkyLight;
 
-    /**
-     * associate an existing world with a World provider, and setup its lightbrightness table
-     */
-    public final void setWorld(World worldIn)
-    {
-        world = worldIn;
-        terrainType = worldIn.getWorldInfo().getTerrainType();
-        generatorSettings = worldIn.getWorldInfo().getGeneratorOptions();
-        init();
-        generateLightBrightnessTable();
-    }
+	/**
+	 * Light to brightness conversion table
+	 */
+	protected final float[] lightBrightnessTable = new float[16];
 
-    /**
-     * Creates the light to brightness table
-     */
-    protected void generateLightBrightnessTable()
-    {
-        float f = 0.0F;
+	/**
+	 * Array for sunrise/sunset colors (RGBA)
+	 */
+	private final float[] colorsSunriseSunset = new float[4];
 
-        for (int i = 0; i <= 15; ++i)
-        {
-            float f1 = 1.0F - (float)i / 15.0F;
-            lightBrightnessTable[i] = (1.0F - f1) / (f1 * 3.0F + 1.0F) * 1.0F + 0.0F;
-        }
-    }
+	/**
+	 * associate an existing world with a World provider, and setup its lightbrightness table
+	 */
+	public final void setWorld(World worldIn) {
 
-    /**
-     * Creates a new {@link BiomeProvider} for the WorldProvider, and also sets the values of {@link #hasSkylight} and
-     * {@link #hasNoSky} appropriately.
-     *  
-     * Note that subclasses generally override this method without calling the parent version.
-     */
-    protected void init()
-    {
-        hasSkyLight = true;
-        WorldType worldtype = world.getWorldInfo().getTerrainType();
+		world = worldIn;
+		terrainType = worldIn.getWorldInfo().getTerrainType();
+		generatorSettings = worldIn.getWorldInfo().getGeneratorOptions();
+		init();
+		generateLightBrightnessTable();
+	}
 
-        if (worldtype == WorldType.FLAT)
-        {
-            FlatGeneratorInfo flatgeneratorinfo = FlatGeneratorInfo.createFlatGeneratorFromString(world.getWorldInfo().getGeneratorOptions());
-            biomeProvider = new BiomeProviderSingle(Biome.getBiome(flatgeneratorinfo.getBiome(), Biomes.DEFAULT));
-        }
-        else if (worldtype == WorldType.DEBUG_ALL_BLOCK_STATES)
-        {
-            biomeProvider = new BiomeProviderSingle(Biomes.PLAINS);
-        }
-        else
-        {
-            biomeProvider = new BiomeProvider(world.getWorldInfo());
-        }
-    }
+	/**
+	 * Creates the light to brightness table
+	 */
+	protected void generateLightBrightnessTable() {
 
-    public IChunkGenerator createChunkGenerator()
-    {
-        if (terrainType == WorldType.FLAT)
-        {
-            return new ChunkGeneratorFlat(world, world.getSeed(), world.getWorldInfo().isMapFeaturesEnabled(), generatorSettings);
-        }
-        else if (terrainType == WorldType.DEBUG_ALL_BLOCK_STATES)
-        {
-            return new ChunkGeneratorDebug(world);
-        }
-        else
-        {
-            return terrainType == WorldType.CUSTOMIZED ? new ChunkGeneratorOverworld(world, world.getSeed(), world.getWorldInfo().isMapFeaturesEnabled(), generatorSettings) : new ChunkGeneratorOverworld(world, world.getSeed(), world.getWorldInfo().isMapFeaturesEnabled(), generatorSettings);
-        }
-    }
+		float f = 0.0F;
 
-    /**
-     * Will check if the x, z position specified is alright to be set as the map spawn point
-     */
-    public boolean canCoordinateBeSpawn(int x, int z)
-    {
-        BlockPos blockpos = new BlockPos(x, 0, z);
+		for (int i = 0; i <= 15; ++i) {
+			float f1 = 1.0F - (float) i / 15.0F;
+			lightBrightnessTable[i] = (1.0F - f1) / (f1 * 3.0F + 1.0F) + 0.0F;
+		}
+	}
 
-        if (world.getBiome(blockpos).ignorePlayerSpawnSuitability())
-        {
-            return true;
-        }
-        else
-        {
-            return world.getGroundAboveSeaLevel(blockpos).getBlock() == Blocks.GRASS;
-        }
-    }
+	/**
+	 * Creates a new {@link BiomeProvider} for the WorldProvider, and also sets the values of {@link #hasSkylight} and
+	 * {@link #hasNoSky} appropriately.
+	 * <p>
+	 * Note that subclasses generally override this method without calling the parent version.
+	 */
+	protected void init() {
 
-    /**
-     * Calculates the angle of sun and moon in the sky relative to a specified time (usually worldTime)
-     */
-    public float calculateCelestialAngle(long worldTime, float partialTicks)
-    {
-        int i = (int)(worldTime % 24000L);
-        float f = ((float)i + partialTicks) / 24000.0F - 0.25F;
+		hasSkyLight = true;
+		WorldType worldtype = world.getWorldInfo().getTerrainType();
 
-        if (f < 0.0F)
-        {
-            ++f;
-        }
+		if (worldtype == WorldType.FLAT) {
+			FlatGeneratorInfo flatgeneratorinfo = FlatGeneratorInfo.createFlatGeneratorFromString(world.getWorldInfo().getGeneratorOptions());
+			biomeProvider = new BiomeProviderSingle(Biome.getBiome(flatgeneratorinfo.getBiome(), Biomes.DEFAULT));
+		} else if (worldtype == WorldType.DEBUG_ALL_BLOCK_STATES) {
+			biomeProvider = new BiomeProviderSingle(Biomes.PLAINS);
+		} else {
+			biomeProvider = new BiomeProvider(world.getWorldInfo());
+		}
+	}
 
-        if (f > 1.0F)
-        {
-            --f;
-        }
+	public IChunkGenerator createChunkGenerator() {
 
-        float f1 = 1.0F - (float)((Math.cos((double)f * Math.PI) + 1.0D) / 2.0D);
-        f = f + (f1 - f) / 3.0F;
-        return f;
-    }
+		if (terrainType == WorldType.FLAT) {
+			return new ChunkGeneratorFlat(world, world.getSeed(), world.getWorldInfo().isMapFeaturesEnabled(), generatorSettings);
+		} else if (terrainType == WorldType.DEBUG_ALL_BLOCK_STATES) {
+			return new ChunkGeneratorDebug(world);
+		} else {
+			return new ChunkGeneratorOverworld(world, world.getSeed(), world.getWorldInfo().isMapFeaturesEnabled(), generatorSettings);
+		}
+	}
 
-    public int getMoonPhase(long worldTime)
-    {
-        return (int)(worldTime / 24000L % 8L + 8L) % 8;
-    }
+	/**
+	 * Will check if the x, z position specified is alright to be set as the map spawn point
+	 */
+	public boolean canCoordinateBeSpawn(int x, int z) {
 
-    /**
-     * Returns 'true' if in the "main surface world", but 'false' if in the Nether or End dimensions.
-     */
-    public boolean isSurfaceWorld()
-    {
-        return true;
-    }
+		BlockPos blockpos = new BlockPos(x, 0, z);
 
-    @Nullable
+		if (world.getBiome(blockpos).ignorePlayerSpawnSuitability()) {
+			return true;
+		} else {
+			return world.getGroundAboveSeaLevel(blockpos).getBlock() == Blocks.GRASS;
+		}
+	}
 
-    /**
-     * Returns array with sunrise/sunset colors
-     */
-    public float[] calcSunriseSunsetColors(float celestialAngle, float partialTicks)
-    {
-        float f = 0.4F;
-        float f1 = MathHelper.cos(celestialAngle * ((float)Math.PI * 2F)) - 0.0F;
-        float f2 = -0.0F;
+	/**
+	 * Calculates the angle of sun and moon in the sky relative to a specified time (usually worldTime)
+	 */
+	public float calculateCelestialAngle(long worldTime, float partialTicks) {
 
-        if (f1 >= -0.4F && f1 <= 0.4F)
-        {
-            float f3 = (f1 - -0.0F) / 0.4F * 0.5F + 0.5F;
-            float f4 = 1.0F - (1.0F - MathHelper.sin(f3 * (float)Math.PI)) * 0.99F;
-            f4 = f4 * f4;
-            colorsSunriseSunset[0] = f3 * 0.3F + 0.7F;
-            colorsSunriseSunset[1] = f3 * f3 * 0.7F + 0.2F;
-            colorsSunriseSunset[2] = f3 * f3 * 0.0F + 0.2F;
-            colorsSunriseSunset[3] = f4;
-            return colorsSunriseSunset;
-        }
-        else
-        {
-            return null;
-        }
-    }
+		int i = (int) (worldTime % 24000L);
+		float f = ((float) i + partialTicks) / 24000.0F - 0.25F;
 
-    /**
-     * Return Vec3D with biome specific fog color
-     */
-    public Vec3d getFogColor(float p_76562_1_, float p_76562_2_)
-    {
-        float f = MathHelper.cos(p_76562_1_ * ((float)Math.PI * 2F)) * 2.0F + 0.5F;
-        f = MathHelper.clamp(f, 0.0F, 1.0F);
-        float f1 = 0.7529412F;
-        float f2 = 0.84705883F;
-        float f3 = 1.0F;
-        f1 = f1 * (f * 0.94F + 0.06F);
-        f2 = f2 * (f * 0.94F + 0.06F);
-        f3 = f3 * (f * 0.91F + 0.09F);
-        return new Vec3d((double)f1, (double)f2, (double)f3);
-    }
+		if (f < 0.0F) {
+			++f;
+		}
 
-    /**
-     * True if the player can respawn in this dimension (true = overworld, false = nether).
-     */
-    public boolean canRespawnHere()
-    {
-        return true;
-    }
+		if (f > 1.0F) {
+			--f;
+		}
 
-    /**
-     * the y level at which clouds are rendered.
-     */
-    public float getCloudHeight()
-    {
-        return 128.0F;
-    }
+		float f1 = 1.0F - (float) ((Math.cos((double) f * Math.PI) + 1.0D) / 2.0D);
+		f = f + (f1 - f) / 3.0F;
+		return f;
+	}
 
-    public boolean isSkyColored()
-    {
-        return true;
-    }
+	public int getMoonPhase(long worldTime) {
 
-    @Nullable
-    public BlockPos getSpawnCoordinate()
-    {
-        return null;
-    }
+		return (int) (worldTime / 24000L % 8L + 8L) % 8;
+	}
 
-    public int getAverageGroundLevel()
-    {
-        return terrainType == WorldType.FLAT ? 4 : world.getSeaLevel() + 1;
-    }
+	/**
+	 * Returns 'true' if in the "main surface world", but 'false' if in the Nether or End dimensions.
+	 */
+	public boolean isSurfaceWorld() {
 
-    /**
-     * Returns a double value representing the Y value relative to the top of the map at which void fog is at its
-     * maximum. The default factor of 0.03125 relative to 256, for example, means the void fog will be at its maximum at
-     * (256*0.03125), or 8.
-     */
-    public double getVoidFogYFactor()
-    {
-        return terrainType == WorldType.FLAT ? 1.0D : 0.03125D;
-    }
+		return true;
+	}
 
-    /**
-     * Returns true if the given X,Z coordinate should show environmental fog.
-     */
-    public boolean doesXZShowFog(int x, int z)
-    {
-        return false;
-    }
+	@Nullable
 
-    public BiomeProvider getBiomeProvider()
-    {
-        return biomeProvider;
-    }
+	/**
+	 * Returns array with sunrise/sunset colors
+	 */
+	public float[] calcSunriseSunsetColors(float celestialAngle, float partialTicks) {
 
-    public boolean doesWaterVaporize()
-    {
-        return doesWaterVaporize;
-    }
+		float f = 0.4F;
+		float f1 = MathHelper.cos(celestialAngle * ((float) Math.PI * 2F)) - 0.0F;
+		float f2 = -0.0F;
 
-    public boolean hasSkyLight()
-    {
-        return hasSkyLight;
-    }
+		if (f1 >= -0.4F && f1 <= 0.4F) {
+			float f3 = (f1 - -0.0F) / 0.4F * 0.5F + 0.5F;
+			float f4 = 1.0F - (1.0F - MathHelper.sin(f3 * (float) Math.PI)) * 0.99F;
+			f4 = f4 * f4;
+			colorsSunriseSunset[0] = f3 * 0.3F + 0.7F;
+			colorsSunriseSunset[1] = f3 * f3 * 0.7F + 0.2F;
+			colorsSunriseSunset[2] = f3 * f3 * 0.0F + 0.2F;
+			colorsSunriseSunset[3] = f4;
+			return colorsSunriseSunset;
+		} else {
+			return null;
+		}
+	}
 
-    public boolean isNether()
-    {
-        return nether;
-    }
+	/**
+	 * Return Vec3D with biome specific fog color
+	 */
+	public Vec3d getFogColor(float p_76562_1_, float p_76562_2_) {
 
-    public float[] getLightBrightnessTable()
-    {
-        return lightBrightnessTable;
-    }
+		float f = MathHelper.cos(p_76562_1_ * ((float) Math.PI * 2F)) * 2.0F + 0.5F;
+		f = MathHelper.clamp(f, 0.0F, 1.0F);
+		float f1 = 0.7529412F;
+		float f2 = 0.84705883F;
+		float f3 = 1.0F;
+		f1 = f1 * (f * 0.94F + 0.06F);
+		f2 = f2 * (f * 0.94F + 0.06F);
+		f3 = f3 * (f * 0.91F + 0.09F);
+		return new Vec3d(f1, f2, f3);
+	}
 
-    public WorldBorder createWorldBorder()
-    {
-        return new WorldBorder();
-    }
+	/**
+	 * True if the player can respawn in this dimension (true = overworld, false = nether).
+	 */
+	public boolean canRespawnHere() {
 
-    /**
-     * Called when a Player is added to the provider's world.
-     */
-    public void onPlayerAdded(EntityPlayerMP player)
-    {
-    }
+		return true;
+	}
 
-    /**
-     * Called when a Player is removed from the provider's world.
-     */
-    public void onPlayerRemoved(EntityPlayerMP player)
-    {
-    }
+	/**
+	 * the y level at which clouds are rendered.
+	 */
+	public float getCloudHeight() {
 
-    public abstract DimensionType getDimensionType();
+		return 128.0F;
+	}
 
-    /**
-     * Called when the world is performing a save. Only used to save the state of the Dragon Boss fight in
-     * WorldProviderEnd in Vanilla.
-     */
-    public void onWorldSave()
-    {
-    }
+	public boolean isSkyColored() {
 
-    /**
-     * Called when the world is updating entities. Only used in WorldProviderEnd to update the DragonFightManager in
-     * Vanilla.
-     */
-    public void onWorldUpdateEntities()
-    {
-    }
+		return true;
+	}
 
-    /**
-     * Called to determine if the chunk at the given chunk coordinates within the provider's world can be dropped. Used
-     * in WorldProviderSurface to prevent spawn chunks from being unloaded.
-     */
-    public boolean canDropChunk(int x, int z)
-    {
-        return true;
-    }
+	@Nullable
+	public BlockPos getSpawnCoordinate() {
+
+		return null;
+	}
+
+	public int getAverageGroundLevel() {
+
+		return terrainType == WorldType.FLAT ? 4 : world.getSeaLevel() + 1;
+	}
+
+	/**
+	 * Returns a double value representing the Y value relative to the top of the map at which void fog is at its
+	 * maximum. The default factor of 0.03125 relative to 256, for example, means the void fog will be at its maximum at
+	 * (256*0.03125), or 8.
+	 */
+	public double getVoidFogYFactor() {
+
+		return terrainType == WorldType.FLAT ? 1.0D : 0.03125D;
+	}
+
+	/**
+	 * Returns true if the given X,Z coordinate should show environmental fog.
+	 */
+	public boolean doesXZShowFog(int x, int z) {
+
+		return false;
+	}
+
+	public BiomeProvider getBiomeProvider() {
+
+		return biomeProvider;
+	}
+
+	public boolean doesWaterVaporize() {
+
+		return doesWaterVaporize;
+	}
+
+	public boolean hasSkyLight() {
+
+		return hasSkyLight;
+	}
+
+	public boolean isNether() {
+
+		return nether;
+	}
+
+	public float[] getLightBrightnessTable() {
+
+		return lightBrightnessTable;
+	}
+
+	public WorldBorder createWorldBorder() {
+
+		return new WorldBorder();
+	}
+
+	/**
+	 * Called when a Player is added to the provider's world.
+	 */
+	public void onPlayerAdded(EntityPlayerMP player) {
+
+	}
+
+	/**
+	 * Called when a Player is removed from the provider's world.
+	 */
+	public void onPlayerRemoved(EntityPlayerMP player) {
+
+	}
+
+	public abstract DimensionType getDimensionType();
+
+	/**
+	 * Called when the world is performing a save. Only used to save the state of the Dragon Boss fight in
+	 * WorldProviderEnd in Vanilla.
+	 */
+	public void onWorldSave() {
+
+	}
+
+	/**
+	 * Called when the world is updating entities. Only used in WorldProviderEnd to update the DragonFightManager in
+	 * Vanilla.
+	 */
+	public void onWorldUpdateEntities() {
+
+	}
+
+	/**
+	 * Called to determine if the chunk at the given chunk coordinates within the provider's world can be dropped. Used
+	 * in WorldProviderSurface to prevent spawn chunks from being unloaded.
+	 */
+	public boolean canDropChunk(int x, int z) {
+
+		return true;
+	}
+
 }

@@ -1,7 +1,5 @@
 package net.minecraft.entity.item;
 
-import java.util.Random;
-import javax.annotation.Nullable;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
@@ -24,323 +22,302 @@ import net.minecraft.world.storage.loot.ILootContainer;
 import net.minecraft.world.storage.loot.LootContext;
 import net.minecraft.world.storage.loot.LootTable;
 
-public abstract class EntityMinecartContainer extends EntityMinecart implements ILockableContainer, ILootContainer
-{
-    private NonNullList<ItemStack> minecartContainerItems = NonNullList.<ItemStack>withSize(36, ItemStack.EMPTY);
+import javax.annotation.Nullable;
+import java.util.Random;
 
-    /**
-     * When set to true, the minecart will drop all items when setDead() is called. When false (such as when travelling
-     * dimensions) it preserves its contents.
-     */
-    private boolean dropContentsWhenDead = true;
-    private ResourceLocation lootTable;
-    private long lootTableSeed;
+public abstract class EntityMinecartContainer extends EntityMinecart implements ILockableContainer, ILootContainer {
 
-    public EntityMinecartContainer(World worldIn)
-    {
-        super(worldIn);
-    }
+	private NonNullList<ItemStack> minecartContainerItems = NonNullList.withSize(36, ItemStack.EMPTY);
 
-    public EntityMinecartContainer(World worldIn, double x, double y, double z)
-    {
-        super(worldIn, x, y, z);
-    }
+	/**
+	 * When set to true, the minecart will drop all items when setDead() is called. When false (such as when travelling
+	 * dimensions) it preserves its contents.
+	 */
+	private boolean dropContentsWhenDead = true;
+	private ResourceLocation lootTable;
+	private long lootTableSeed;
 
-    public void killMinecart(DamageSource source)
-    {
-        super.killMinecart(source);
+	public EntityMinecartContainer(World worldIn) {
 
-        if (world.getGameRules().getBoolean("doEntityDrops"))
-        {
-            InventoryHelper.dropInventoryItems(world, this, this);
-        }
-    }
+		super(worldIn);
+	}
 
-    public boolean isEmpty()
-    {
-        for (ItemStack itemstack : minecartContainerItems)
-        {
-            if (!itemstack.isEmpty())
-            {
-                return false;
-            }
-        }
+	public EntityMinecartContainer(World worldIn, double x, double y, double z) {
 
-        return true;
-    }
+		super(worldIn, x, y, z);
+	}
 
-    /**
-     * Returns the stack in the given slot.
-     */
-    public ItemStack getStackInSlot(int index)
-    {
-        addLoot((EntityPlayer)null);
-        return minecartContainerItems.get(index);
-    }
+	public void killMinecart(DamageSource source) {
 
-    /**
-     * Removes up to a specified number of items from an inventory slot and returns them in a new stack.
-     */
-    public ItemStack decrStackSize(int index, int count)
-    {
-        addLoot((EntityPlayer)null);
-        return ItemStackHelper.getAndSplit(minecartContainerItems, index, count);
-    }
+		super.killMinecart(source);
 
-    /**
-     * Removes a stack from the given slot and returns it.
-     */
-    public ItemStack removeStackFromSlot(int index)
-    {
-        addLoot((EntityPlayer)null);
-        ItemStack itemstack = minecartContainerItems.get(index);
+		if (world.getGameRules().getBoolean("doEntityDrops")) {
+			InventoryHelper.dropInventoryItems(world, this, this);
+		}
+	}
 
-        if (itemstack.isEmpty())
-        {
-            return ItemStack.EMPTY;
-        }
-        else
-        {
-            minecartContainerItems.set(index, ItemStack.EMPTY);
-            return itemstack;
-        }
-    }
+	public boolean isEmpty() {
 
-    /**
-     * Sets the given item stack to the specified slot in the inventory (can be crafting or armor sections).
-     */
-    public void setInventorySlotContents(int index, ItemStack stack)
-    {
-        addLoot((EntityPlayer)null);
-        minecartContainerItems.set(index, stack);
+		for (ItemStack itemstack : minecartContainerItems) {
+			if (!itemstack.isEmpty()) {
+				return false;
+			}
+		}
 
-        if (!stack.isEmpty() && stack.getCount() > getInventoryStackLimit())
-        {
-            stack.setCount(getInventoryStackLimit());
-        }
-    }
+		return true;
+	}
 
-    /**
-     * For tile entities, ensures the chunk containing the tile entity is saved to disk later - the game won't think it
-     * hasn't changed and skip it.
-     */
-    public void markDirty()
-    {
-    }
+	/**
+	 * Returns the stack in the given slot.
+	 */
+	public ItemStack getStackInSlot(int index) {
 
-    /**
-     * Don't rename this method to canInteractWith due to conflicts with Container
-     */
-    public boolean isUsableByPlayer(EntityPlayer player)
-    {
-        if (isDead)
-        {
-            return false;
-        }
-        else
-        {
-            return player.getDistanceSq(this) <= 64.0D;
-        }
-    }
+		addLoot(null);
+		return minecartContainerItems.get(index);
+	}
 
-    public void openInventory(EntityPlayer player)
-    {
-    }
+	/**
+	 * Removes up to a specified number of items from an inventory slot and returns them in a new stack.
+	 */
+	public ItemStack decrStackSize(int index, int count) {
 
-    public void closeInventory(EntityPlayer player)
-    {
-    }
+		addLoot(null);
+		return ItemStackHelper.getAndSplit(minecartContainerItems, index, count);
+	}
 
-    /**
-     * Returns true if automation is allowed to insert the given stack (ignoring stack size) into the given slot. For
-     * guis use Slot.isItemValid
-     */
-    public boolean isItemValidForSlot(int index, ItemStack stack)
-    {
-        return true;
-    }
+	/**
+	 * Removes a stack from the given slot and returns it.
+	 */
+	public ItemStack removeStackFromSlot(int index) {
 
-    /**
-     * Returns the maximum stack size for a inventory slot. Seems to always be 64, possibly will be extended.
-     */
-    public int getInventoryStackLimit()
-    {
-        return 64;
-    }
+		addLoot(null);
+		ItemStack itemstack = minecartContainerItems.get(index);
 
-    @Nullable
-    public Entity changeDimension(int dimensionIn)
-    {
-        dropContentsWhenDead = false;
-        return super.changeDimension(dimensionIn);
-    }
+		if (itemstack.isEmpty()) {
+			return ItemStack.EMPTY;
+		} else {
+			minecartContainerItems.set(index, ItemStack.EMPTY);
+			return itemstack;
+		}
+	}
 
-    /**
-     * Will get destroyed next tick.
-     */
-    public void setDead()
-    {
-        if (dropContentsWhenDead)
-        {
-            InventoryHelper.dropInventoryItems(world, this, this);
-        }
+	/**
+	 * Sets the given item stack to the specified slot in the inventory (can be crafting or armor sections).
+	 */
+	public void setInventorySlotContents(int index, ItemStack stack) {
 
-        super.setDead();
-    }
+		addLoot(null);
+		minecartContainerItems.set(index, stack);
 
-    /**
-     * Sets whether this entity should drop its items when setDead() is called. This applies to container minecarts.
-     */
-    public void setDropItemsWhenDead(boolean dropWhenDead)
-    {
-        dropContentsWhenDead = dropWhenDead;
-    }
+		if (!stack.isEmpty() && stack.getCount() > getInventoryStackLimit()) {
+			stack.setCount(getInventoryStackLimit());
+		}
+	}
 
-    public static void addDataFixers(DataFixer p_190574_0_, Class<?> p_190574_1_)
-    {
-        EntityMinecart.registerFixesMinecart(p_190574_0_, p_190574_1_);
-        p_190574_0_.registerWalker(FixTypes.ENTITY, new ItemStackDataLists(p_190574_1_, new String[] {"Items"}));
-    }
+	/**
+	 * For tile entities, ensures the chunk containing the tile entity is saved to disk later - the game won't think it
+	 * hasn't changed and skip it.
+	 */
+	public void markDirty() {
 
-    /**
-     * (abstract) Protected helper method to write subclass entity data to NBT.
-     */
-    protected void writeEntityToNBT(NBTTagCompound compound)
-    {
-        super.writeEntityToNBT(compound);
+	}
 
-        if (lootTable != null)
-        {
-            compound.setString("LootTable", lootTable.toString());
+	/**
+	 * Don't rename this method to canInteractWith due to conflicts with Container
+	 */
+	public boolean isUsableByPlayer(EntityPlayer player) {
 
-            if (lootTableSeed != 0L)
-            {
-                compound.setLong("LootTableSeed", lootTableSeed);
-            }
-        }
-        else
-        {
-            ItemStackHelper.saveAllItems(compound, minecartContainerItems);
-        }
-    }
+		if (isDead) {
+			return false;
+		} else {
+			return player.getDistanceSq(this) <= 64.0D;
+		}
+	}
 
-    /**
-     * (abstract) Protected helper method to read subclass entity data from NBT.
-     */
-    protected void readEntityFromNBT(NBTTagCompound compound)
-    {
-        super.readEntityFromNBT(compound);
-        minecartContainerItems = NonNullList.<ItemStack>withSize(getSizeInventory(), ItemStack.EMPTY);
+	public void openInventory(EntityPlayer player) {
 
-        if (compound.hasKey("LootTable", 8))
-        {
-            lootTable = new ResourceLocation(compound.getString("LootTable"));
-            lootTableSeed = compound.getLong("LootTableSeed");
-        }
-        else
-        {
-            ItemStackHelper.loadAllItems(compound, minecartContainerItems);
-        }
-    }
+	}
 
-    public boolean processInitialInteract(EntityPlayer player, EnumHand hand)
-    {
-        if (!world.isRemote)
-        {
-            player.displayGUIChest(this);
-        }
+	public void closeInventory(EntityPlayer player) {
 
-        return true;
-    }
+	}
 
-    protected void applyDrag()
-    {
-        float f = 0.98F;
+	/**
+	 * Returns true if automation is allowed to insert the given stack (ignoring stack size) into the given slot. For
+	 * guis use Slot.isItemValid
+	 */
+	public boolean isItemValidForSlot(int index, ItemStack stack) {
 
-        if (lootTable == null)
-        {
-            int i = 15 - Container.calcRedstoneFromInventory(this);
-            f += (float)i * 0.001F;
-        }
+		return true;
+	}
 
-        motionX *= (double)f;
-        motionY *= 0.0D;
-        motionZ *= (double)f;
-    }
+	/**
+	 * Returns the maximum stack size for a inventory slot. Seems to always be 64, possibly will be extended.
+	 */
+	public int getInventoryStackLimit() {
 
-    public int getField(int id)
-    {
-        return 0;
-    }
+		return 64;
+	}
 
-    public void setField(int id, int value)
-    {
-    }
+	@Nullable
+	public Entity changeDimension(int dimensionIn) {
 
-    public int getFieldCount()
-    {
-        return 0;
-    }
+		dropContentsWhenDead = false;
+		return super.changeDimension(dimensionIn);
+	}
 
-    public boolean isLocked()
-    {
-        return false;
-    }
+	/**
+	 * Will get destroyed next tick.
+	 */
+	public void setDead() {
 
-    public void setLockCode(LockCode code)
-    {
-    }
+		if (dropContentsWhenDead) {
+			InventoryHelper.dropInventoryItems(world, this, this);
+		}
 
-    public LockCode getLockCode()
-    {
-        return LockCode.EMPTY_CODE;
-    }
+		super.setDead();
+	}
 
-    /**
-     * Adds loot to the minecart's contents.
-     */
-    public void addLoot(@Nullable EntityPlayer player)
-    {
-        if (lootTable != null)
-        {
-            LootTable loottable = world.getLootTableManager().getLootTableFromLocation(lootTable);
-            lootTable = null;
-            Random random;
+	/**
+	 * Sets whether this entity should drop its items when setDead() is called. This applies to container minecarts.
+	 */
+	public void setDropItemsWhenDead(boolean dropWhenDead) {
 
-            if (lootTableSeed == 0L)
-            {
-                random = new Random();
-            }
-            else
-            {
-                random = new Random(lootTableSeed);
-            }
+		dropContentsWhenDead = dropWhenDead;
+	}
 
-            LootContext.Builder lootcontext$builder = new LootContext.Builder((WorldServer) world);
+	public static void addDataFixers(DataFixer p_190574_0_, Class<?> p_190574_1_) {
 
-            if (player != null)
-            {
-                lootcontext$builder.withLuck(player.getLuck());
-            }
+		EntityMinecart.registerFixesMinecart(p_190574_0_, p_190574_1_);
+		p_190574_0_.registerWalker(FixTypes.ENTITY, new ItemStackDataLists(p_190574_1_, "Items"));
+	}
 
-            loottable.fillInventory(this, random, lootcontext$builder.build());
-        }
-    }
+	/**
+	 * (abstract) Protected helper method to write subclass entity data to NBT.
+	 */
+	protected void writeEntityToNBT(NBTTagCompound compound) {
 
-    public void clear()
-    {
-        addLoot((EntityPlayer)null);
-        minecartContainerItems.clear();
-    }
+		super.writeEntityToNBT(compound);
 
-    public void setLootTable(ResourceLocation lootTableIn, long lootTableSeedIn)
-    {
-        lootTable = lootTableIn;
-        lootTableSeed = lootTableSeedIn;
-    }
+		if (lootTable != null) {
+			compound.setString("LootTable", lootTable.toString());
 
-    public ResourceLocation getLootTable()
-    {
-        return lootTable;
-    }
+			if (lootTableSeed != 0L) {
+				compound.setLong("LootTableSeed", lootTableSeed);
+			}
+		} else {
+			ItemStackHelper.saveAllItems(compound, minecartContainerItems);
+		}
+	}
+
+	/**
+	 * (abstract) Protected helper method to read subclass entity data from NBT.
+	 */
+	protected void readEntityFromNBT(NBTTagCompound compound) {
+
+		super.readEntityFromNBT(compound);
+		minecartContainerItems = NonNullList.withSize(getSizeInventory(), ItemStack.EMPTY);
+
+		if (compound.hasKey("LootTable", 8)) {
+			lootTable = new ResourceLocation(compound.getString("LootTable"));
+			lootTableSeed = compound.getLong("LootTableSeed");
+		} else {
+			ItemStackHelper.loadAllItems(compound, minecartContainerItems);
+		}
+	}
+
+	public boolean processInitialInteract(EntityPlayer player, EnumHand hand) {
+
+		if (!world.isRemote) {
+			player.displayGUIChest(this);
+		}
+
+		return true;
+	}
+
+	protected void applyDrag() {
+
+		float f = 0.98F;
+
+		if (lootTable == null) {
+			int i = 15 - Container.calcRedstoneFromInventory(this);
+			f += (float) i * 0.001F;
+		}
+
+		motionX *= f;
+		motionY *= 0.0D;
+		motionZ *= f;
+	}
+
+	public int getField(int id) {
+
+		return 0;
+	}
+
+	public void setField(int id, int value) {
+
+	}
+
+	public int getFieldCount() {
+
+		return 0;
+	}
+
+	public boolean isLocked() {
+
+		return false;
+	}
+
+	public void setLockCode(LockCode code) {
+
+	}
+
+	public LockCode getLockCode() {
+
+		return LockCode.EMPTY_CODE;
+	}
+
+	/**
+	 * Adds loot to the minecart's contents.
+	 */
+	public void addLoot(@Nullable EntityPlayer player) {
+
+		if (lootTable != null) {
+			LootTable loottable = world.getLootTableManager().getLootTableFromLocation(lootTable);
+			lootTable = null;
+			Random random;
+
+			if (lootTableSeed == 0L) {
+				random = new Random();
+			} else {
+				random = new Random(lootTableSeed);
+			}
+
+			LootContext.Builder lootcontext$builder = new LootContext.Builder((WorldServer) world);
+
+			if (player != null) {
+				lootcontext$builder.withLuck(player.getLuck());
+			}
+
+			loottable.fillInventory(this, random, lootcontext$builder.build());
+		}
+	}
+
+	public void clear() {
+
+		addLoot(null);
+		minecartContainerItems.clear();
+	}
+
+	public void setLootTable(ResourceLocation lootTableIn, long lootTableSeedIn) {
+
+		lootTable = lootTableIn;
+		lootTableSeed = lootTableSeedIn;
+	}
+
+	public ResourceLocation getLootTable() {
+
+		return lootTable;
+	}
+
 }

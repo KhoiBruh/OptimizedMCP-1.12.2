@@ -1,6 +1,5 @@
 package net.minecraft.block;
 
-import javax.annotation.Nullable;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
@@ -12,318 +11,292 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.IStringSerializable;
-import net.minecraft.util.Mirror;
-import net.minecraft.util.Rotation;
+import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class BlockTrapDoor extends Block
-{
-    public static final PropertyDirection FACING = BlockHorizontal.FACING;
-    public static final PropertyBool OPEN = PropertyBool.create("open");
-    public static final PropertyEnum<BlockTrapDoor.DoorHalf> HALF = PropertyEnum.<BlockTrapDoor.DoorHalf>create("half", BlockTrapDoor.DoorHalf.class);
-    protected static final AxisAlignedBB EAST_OPEN_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 0.1875D, 1.0D, 1.0D);
-    protected static final AxisAlignedBB WEST_OPEN_AABB = new AxisAlignedBB(0.8125D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D);
-    protected static final AxisAlignedBB SOUTH_OPEN_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 0.1875D);
-    protected static final AxisAlignedBB NORTH_OPEN_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.8125D, 1.0D, 1.0D, 1.0D);
-    protected static final AxisAlignedBB BOTTOM_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.1875D, 1.0D);
-    protected static final AxisAlignedBB TOP_AABB = new AxisAlignedBB(0.0D, 0.8125D, 0.0D, 1.0D, 1.0D, 1.0D);
+import javax.annotation.Nullable;
 
-    protected BlockTrapDoor(Material materialIn)
-    {
-        super(materialIn);
-        setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(OPEN, Boolean.valueOf(false)).withProperty(HALF, BlockTrapDoor.DoorHalf.BOTTOM));
-        setCreativeTab(CreativeTabs.REDSTONE);
-    }
+public class BlockTrapDoor extends Block {
 
-    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
-    {
-        AxisAlignedBB axisalignedbb;
+	public static final PropertyDirection FACING = BlockHorizontal.FACING;
+	public static final PropertyBool OPEN = PropertyBool.create("open");
+	public static final PropertyEnum<BlockTrapDoor.DoorHalf> HALF = PropertyEnum.create("half", BlockTrapDoor.DoorHalf.class);
+	protected static final AxisAlignedBB EAST_OPEN_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 0.1875D, 1.0D, 1.0D);
+	protected static final AxisAlignedBB WEST_OPEN_AABB = new AxisAlignedBB(0.8125D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D);
+	protected static final AxisAlignedBB SOUTH_OPEN_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 0.1875D);
+	protected static final AxisAlignedBB NORTH_OPEN_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.8125D, 1.0D, 1.0D, 1.0D);
+	protected static final AxisAlignedBB BOTTOM_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.1875D, 1.0D);
+	protected static final AxisAlignedBB TOP_AABB = new AxisAlignedBB(0.0D, 0.8125D, 0.0D, 1.0D, 1.0D, 1.0D);
 
-        if (((Boolean)state.getValue(OPEN)).booleanValue())
-        {
-            switch ((EnumFacing)state.getValue(FACING))
-            {
-                case NORTH:
-                default:
-                    axisalignedbb = NORTH_OPEN_AABB;
-                    break;
+	protected BlockTrapDoor(Material materialIn) {
 
-                case SOUTH:
-                    axisalignedbb = SOUTH_OPEN_AABB;
-                    break;
+		super(materialIn);
+		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(OPEN, Boolean.valueOf(false)).withProperty(HALF, BlockTrapDoor.DoorHalf.BOTTOM));
+		setCreativeTab(CreativeTabs.REDSTONE);
+	}
 
-                case WEST:
-                    axisalignedbb = WEST_OPEN_AABB;
-                    break;
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
 
-                case EAST:
-                    axisalignedbb = EAST_OPEN_AABB;
-            }
-        }
-        else if (state.getValue(HALF) == BlockTrapDoor.DoorHalf.TOP)
-        {
-            axisalignedbb = TOP_AABB;
-        }
-        else
-        {
-            axisalignedbb = BOTTOM_AABB;
-        }
+		AxisAlignedBB axisalignedbb;
 
-        return axisalignedbb;
-    }
+		if (state.getValue(OPEN).booleanValue()) {
+			switch (state.getValue(FACING)) {
+				case NORTH:
+				default:
+					axisalignedbb = NORTH_OPEN_AABB;
+					break;
 
-    /**
-     * Used to determine ambient occlusion and culling when rebuilding chunks for render
-     */
-    public boolean isOpaqueCube(IBlockState state)
-    {
-        return false;
-    }
+				case SOUTH:
+					axisalignedbb = SOUTH_OPEN_AABB;
+					break;
 
-    public boolean isFullCube(IBlockState state)
-    {
-        return false;
-    }
+				case WEST:
+					axisalignedbb = WEST_OPEN_AABB;
+					break;
 
-    /**
-     * Determines if an entity can path through this block
-     */
-    public boolean isPassable(IBlockAccess worldIn, BlockPos pos)
-    {
-        return !((Boolean)worldIn.getBlockState(pos).getValue(OPEN)).booleanValue();
-    }
+				case EAST:
+					axisalignedbb = EAST_OPEN_AABB;
+			}
+		} else if (state.getValue(HALF) == BlockTrapDoor.DoorHalf.TOP) {
+			axisalignedbb = TOP_AABB;
+		} else {
+			axisalignedbb = BOTTOM_AABB;
+		}
 
-    /**
-     * Called when the block is right clicked by a player.
-     */
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
-    {
-        if (blockMaterial == Material.IRON)
-        {
-            return false;
-        }
-        else
-        {
-            state = state.cycleProperty(OPEN);
-            worldIn.setBlockState(pos, state, 2);
-            playSound(playerIn, worldIn, pos, ((Boolean)state.getValue(OPEN)).booleanValue());
-            return true;
-        }
-    }
+		return axisalignedbb;
+	}
 
-    protected void playSound(@Nullable EntityPlayer player, World worldIn, BlockPos pos, boolean p_185731_4_)
-    {
-        if (p_185731_4_)
-        {
-            int i = blockMaterial == Material.IRON ? 1037 : 1007;
-            worldIn.playEvent(player, i, pos, 0);
-        }
-        else
-        {
-            int j = blockMaterial == Material.IRON ? 1036 : 1013;
-            worldIn.playEvent(player, j, pos, 0);
-        }
-    }
+	/**
+	 * Used to determine ambient occlusion and culling when rebuilding chunks for render
+	 */
+	public boolean isOpaqueCube(IBlockState state) {
 
-    /**
-     * Called when a neighboring block was changed and marks that this state should perform any checks during a neighbor
-     * change. Cases may include when redstone power is updated, cactus blocks popping off due to a neighboring solid
-     * block, etc.
-     */
-    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos)
-    {
-        if (!worldIn.isRemote)
-        {
-            boolean flag = worldIn.isBlockPowered(pos);
+		return false;
+	}
 
-            if (flag || blockIn.getDefaultState().canProvidePower())
-            {
-                boolean flag1 = ((Boolean)state.getValue(OPEN)).booleanValue();
+	public boolean isFullCube(IBlockState state) {
 
-                if (flag1 != flag)
-                {
-                    worldIn.setBlockState(pos, state.withProperty(OPEN, Boolean.valueOf(flag)), 2);
-                    playSound((EntityPlayer)null, worldIn, pos, flag);
-                }
-            }
-        }
-    }
+		return false;
+	}
 
-    /**
-     * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
-     * IBlockstate
-     */
-    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
-    {
-        IBlockState iblockstate = getDefaultState();
+	/**
+	 * Determines if an entity can path through this block
+	 */
+	public boolean isPassable(IBlockAccess worldIn, BlockPos pos) {
 
-        if (facing.getAxis().isHorizontal())
-        {
-            iblockstate = iblockstate.withProperty(FACING, facing).withProperty(OPEN, Boolean.valueOf(false));
-            iblockstate = iblockstate.withProperty(HALF, hitY > 0.5F ? BlockTrapDoor.DoorHalf.TOP : BlockTrapDoor.DoorHalf.BOTTOM);
-        }
-        else
-        {
-            iblockstate = iblockstate.withProperty(FACING, placer.getHorizontalFacing().getOpposite()).withProperty(OPEN, Boolean.valueOf(false));
-            iblockstate = iblockstate.withProperty(HALF, facing == EnumFacing.UP ? BlockTrapDoor.DoorHalf.BOTTOM : BlockTrapDoor.DoorHalf.TOP);
-        }
+		return !worldIn.getBlockState(pos).getValue(OPEN).booleanValue();
+	}
 
-        if (worldIn.isBlockPowered(pos))
-        {
-            iblockstate = iblockstate.withProperty(OPEN, Boolean.valueOf(true));
-        }
+	/**
+	 * Called when the block is right clicked by a player.
+	 */
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 
-        return iblockstate;
-    }
+		if (blockMaterial == Material.IRON) {
+			return false;
+		} else {
+			state = state.cycleProperty(OPEN);
+			worldIn.setBlockState(pos, state, 2);
+			playSound(playerIn, worldIn, pos, state.getValue(OPEN).booleanValue());
+			return true;
+		}
+	}
 
-    /**
-     * Check whether this Block can be placed at pos, while aiming at the specified side of an adjacent block
-     */
-    public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, EnumFacing side)
-    {
-        return true;
-    }
+	protected void playSound(@Nullable EntityPlayer player, World worldIn, BlockPos pos, boolean p_185731_4_) {
 
-    protected static EnumFacing getFacing(int meta)
-    {
-        switch (meta & 3)
-        {
-            case 0:
-                return EnumFacing.NORTH;
+		if (p_185731_4_) {
+			int i = blockMaterial == Material.IRON ? 1037 : 1007;
+			worldIn.playEvent(player, i, pos, 0);
+		} else {
+			int j = blockMaterial == Material.IRON ? 1036 : 1013;
+			worldIn.playEvent(player, j, pos, 0);
+		}
+	}
 
-            case 1:
-                return EnumFacing.SOUTH;
+	/**
+	 * Called when a neighboring block was changed and marks that this state should perform any checks during a neighbor
+	 * change. Cases may include when redstone power is updated, cactus blocks popping off due to a neighboring solid
+	 * block, etc.
+	 */
+	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
 
-            case 2:
-                return EnumFacing.WEST;
+		if (!worldIn.isRemote) {
+			boolean flag = worldIn.isBlockPowered(pos);
 
-            case 3:
-            default:
-                return EnumFacing.EAST;
-        }
-    }
+			if (flag || blockIn.getDefaultState().canProvidePower()) {
+				boolean flag1 = state.getValue(OPEN).booleanValue();
 
-    protected static int getMetaForFacing(EnumFacing facing)
-    {
-        switch (facing)
-        {
-            case NORTH:
-                return 0;
+				if (flag1 != flag) {
+					worldIn.setBlockState(pos, state.withProperty(OPEN, Boolean.valueOf(flag)), 2);
+					playSound(null, worldIn, pos, flag);
+				}
+			}
+		}
+	}
 
-            case SOUTH:
-                return 1;
+	/**
+	 * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
+	 * IBlockstate
+	 */
+	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
 
-            case WEST:
-                return 2;
+		IBlockState iblockstate = getDefaultState();
 
-            case EAST:
-            default:
-                return 3;
-        }
-    }
+		if (facing.getAxis().isHorizontal()) {
+			iblockstate = iblockstate.withProperty(FACING, facing).withProperty(OPEN, Boolean.valueOf(false));
+			iblockstate = iblockstate.withProperty(HALF, hitY > 0.5F ? BlockTrapDoor.DoorHalf.TOP : BlockTrapDoor.DoorHalf.BOTTOM);
+		} else {
+			iblockstate = iblockstate.withProperty(FACING, placer.getHorizontalFacing().getOpposite()).withProperty(OPEN, Boolean.valueOf(false));
+			iblockstate = iblockstate.withProperty(HALF, facing == EnumFacing.UP ? BlockTrapDoor.DoorHalf.BOTTOM : BlockTrapDoor.DoorHalf.TOP);
+		}
 
-    /**
-     * Gets the render layer this block will render on. SOLID for solid blocks, CUTOUT or CUTOUT_MIPPED for on-off
-     * transparency (glass, reeds), TRANSLUCENT for fully blended transparency (stained glass)
-     */
-    public BlockRenderLayer getBlockLayer()
-    {
-        return BlockRenderLayer.CUTOUT;
-    }
+		if (worldIn.isBlockPowered(pos)) {
+			iblockstate = iblockstate.withProperty(OPEN, Boolean.valueOf(true));
+		}
 
-    /**
-     * Convert the given metadata into a BlockState for this Block
-     */
-    public IBlockState getStateFromMeta(int meta)
-    {
-        return getDefaultState().withProperty(FACING, getFacing(meta)).withProperty(OPEN, Boolean.valueOf((meta & 4) != 0)).withProperty(HALF, (meta & 8) == 0 ? BlockTrapDoor.DoorHalf.BOTTOM : BlockTrapDoor.DoorHalf.TOP);
-    }
+		return iblockstate;
+	}
 
-    /**
-     * Convert the BlockState into the correct metadata value
-     */
-    public int getMetaFromState(IBlockState state)
-    {
-        int i = 0;
-        i = i | getMetaForFacing((EnumFacing)state.getValue(FACING));
+	/**
+	 * Check whether this Block can be placed at pos, while aiming at the specified side of an adjacent block
+	 */
+	public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, EnumFacing side) {
 
-        if (((Boolean)state.getValue(OPEN)).booleanValue())
-        {
-            i |= 4;
-        }
+		return true;
+	}
 
-        if (state.getValue(HALF) == BlockTrapDoor.DoorHalf.TOP)
-        {
-            i |= 8;
-        }
+	protected static EnumFacing getFacing(int meta) {
 
-        return i;
-    }
+		switch (meta & 3) {
+			case 0:
+				return EnumFacing.NORTH;
 
-    /**
-     * Returns the blockstate with the given rotation from the passed blockstate. If inapplicable, returns the passed
-     * blockstate.
-     */
-    public IBlockState withRotation(IBlockState state, Rotation rot)
-    {
-        return state.withProperty(FACING, rot.rotate((EnumFacing)state.getValue(FACING)));
-    }
+			case 1:
+				return EnumFacing.SOUTH;
 
-    /**
-     * Returns the blockstate with the given mirror of the passed blockstate. If inapplicable, returns the passed
-     * blockstate.
-     */
-    public IBlockState withMirror(IBlockState state, Mirror mirrorIn)
-    {
-        return state.withRotation(mirrorIn.toRotation((EnumFacing)state.getValue(FACING)));
-    }
+			case 2:
+				return EnumFacing.WEST;
 
-    protected BlockStateContainer createBlockState()
-    {
-        return new BlockStateContainer(this, new IProperty[] {FACING, OPEN, HALF});
-    }
+			case 3:
+			default:
+				return EnumFacing.EAST;
+		}
+	}
 
-    /**
-     * Get the geometry of the queried face at the given position and state. This is used to decide whether things like
-     * buttons are allowed to be placed on the face, or how glass panes connect to the face, among other things.
-     * <p>
-     * Common values are {@code SOLID}, which is the default, and {@code UNDEFINED}, which represents something that
-     * does not fit the other descriptions and will generally cause other things not to connect to the face.
+	protected static int getMetaForFacing(EnumFacing facing) {
 
-     * @return an approximation of the form of the given face
-     */
-    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face)
-    {
-        return (face == EnumFacing.UP && state.getValue(HALF) == BlockTrapDoor.DoorHalf.TOP || face == EnumFacing.DOWN && state.getValue(HALF) == BlockTrapDoor.DoorHalf.BOTTOM) && !((Boolean)state.getValue(OPEN)).booleanValue() ? BlockFaceShape.SOLID : BlockFaceShape.UNDEFINED;
-    }
+		switch (facing) {
+			case NORTH:
+				return 0;
 
-    public static enum DoorHalf implements IStringSerializable
-    {
-        TOP("top"),
-        BOTTOM("bottom");
+			case SOUTH:
+				return 1;
 
-        private final String name;
+			case WEST:
+				return 2;
 
-        private DoorHalf(String name)
-        {
-            this.name = name;
-        }
+			case EAST:
+			default:
+				return 3;
+		}
+	}
 
-        public String toString()
-        {
-            return name;
-        }
+	/**
+	 * Gets the render layer this block will render on. SOLID for solid blocks, CUTOUT or CUTOUT_MIPPED for on-off
+	 * transparency (glass, reeds), TRANSLUCENT for fully blended transparency (stained glass)
+	 */
+	public BlockRenderLayer getBlockLayer() {
 
-        public String getName()
-        {
-            return name;
-        }
-    }
+		return BlockRenderLayer.CUTOUT;
+	}
+
+	/**
+	 * Convert the given metadata into a BlockState for this Block
+	 */
+	public IBlockState getStateFromMeta(int meta) {
+
+		return getDefaultState().withProperty(FACING, getFacing(meta)).withProperty(OPEN, Boolean.valueOf((meta & 4) != 0)).withProperty(HALF, (meta & 8) == 0 ? BlockTrapDoor.DoorHalf.BOTTOM : BlockTrapDoor.DoorHalf.TOP);
+	}
+
+	/**
+	 * Convert the BlockState into the correct metadata value
+	 */
+	public int getMetaFromState(IBlockState state) {
+
+		int i = 0;
+		i = i | getMetaForFacing(state.getValue(FACING));
+
+		if (state.getValue(OPEN).booleanValue()) {
+			i |= 4;
+		}
+
+		if (state.getValue(HALF) == BlockTrapDoor.DoorHalf.TOP) {
+			i |= 8;
+		}
+
+		return i;
+	}
+
+	/**
+	 * Returns the blockstate with the given rotation from the passed blockstate. If inapplicable, returns the passed
+	 * blockstate.
+	 */
+	public IBlockState withRotation(IBlockState state, Rotation rot) {
+
+		return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
+	}
+
+	/**
+	 * Returns the blockstate with the given mirror of the passed blockstate. If inapplicable, returns the passed
+	 * blockstate.
+	 */
+	public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
+
+		return state.withRotation(mirrorIn.toRotation(state.getValue(FACING)));
+	}
+
+	protected BlockStateContainer createBlockState() {
+
+		return new BlockStateContainer(this, FACING, OPEN, HALF);
+	}
+
+	/**
+	 * Get the geometry of the queried face at the given position and state. This is used to decide whether things like
+	 * buttons are allowed to be placed on the face, or how glass panes connect to the face, among other things.
+	 * <p>
+	 * Common values are {@code SOLID}, which is the default, and {@code UNDEFINED}, which represents something that
+	 * does not fit the other descriptions and will generally cause other things not to connect to the face.
+	 *
+	 * @return an approximation of the form of the given face
+	 */
+	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
+
+		return (face == EnumFacing.UP && state.getValue(HALF) == BlockTrapDoor.DoorHalf.TOP || face == EnumFacing.DOWN && state.getValue(HALF) == BlockTrapDoor.DoorHalf.BOTTOM) && !state.getValue(OPEN).booleanValue() ? BlockFaceShape.SOLID : BlockFaceShape.UNDEFINED;
+	}
+
+	public enum DoorHalf implements IStringSerializable {
+		TOP("top"),
+		BOTTOM("bottom");
+
+		private final String name;
+
+		DoorHalf(String name) {
+
+			this.name = name;
+		}
+
+		public String toString() {
+
+			return name;
+		}
+
+		public String getName() {
+
+			return name;
+		}
+	}
+
 }

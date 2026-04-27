@@ -9,107 +9,94 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 
-public class ShulkerBoxRecipes
-{
-    public static class ShulkerBoxColoring implements IRecipe
-    {
-        public boolean matches(InventoryCrafting inv, World worldIn)
-        {
-            int i = 0;
-            int j = 0;
+public class ShulkerBoxRecipes {
 
-            for (int k = 0; k < inv.getSizeInventory(); ++k)
-            {
-                ItemStack itemstack = inv.getStackInSlot(k);
+	public static class ShulkerBoxColoring implements IRecipe {
 
-                if (!itemstack.isEmpty())
-                {
-                    if (Block.getBlockFromItem(itemstack.getItem()) instanceof BlockShulkerBox)
-                    {
-                        ++i;
-                    }
-                    else
-                    {
-                        if (itemstack.getItem() != Items.DYE)
-                        {
-                            return false;
-                        }
+		public boolean matches(InventoryCrafting inv, World worldIn) {
 
-                        ++j;
-                    }
+			int i = 0;
+			int j = 0;
 
-                    if (j > 1 || i > 1)
-                    {
-                        return false;
-                    }
-                }
-            }
+			for (int k = 0; k < inv.getSizeInventory(); ++k) {
+				ItemStack itemstack = inv.getStackInSlot(k);
 
-            return i == 1 && j == 1;
-        }
+				if (!itemstack.isEmpty()) {
+					if (Block.getBlockFromItem(itemstack.getItem()) instanceof BlockShulkerBox) {
+						++i;
+					} else {
+						if (itemstack.getItem() != Items.DYE) {
+							return false;
+						}
 
-        public ItemStack getCraftingResult(InventoryCrafting inv)
-        {
-            ItemStack itemstack = ItemStack.EMPTY;
-            ItemStack itemstack1 = ItemStack.EMPTY;
+						++j;
+					}
 
-            for (int i = 0; i < inv.getSizeInventory(); ++i)
-            {
-                ItemStack itemstack2 = inv.getStackInSlot(i);
+					if (j > 1 || i > 1) {
+						return false;
+					}
+				}
+			}
 
-                if (!itemstack2.isEmpty())
-                {
-                    if (Block.getBlockFromItem(itemstack2.getItem()) instanceof BlockShulkerBox)
-                    {
-                        itemstack = itemstack2;
-                    }
-                    else if (itemstack2.getItem() == Items.DYE)
-                    {
-                        itemstack1 = itemstack2;
-                    }
-                }
-            }
+			return i == 1 && j == 1;
+		}
 
-            ItemStack itemstack3 = BlockShulkerBox.getColoredItemStack(EnumDyeColor.byDyeDamage(itemstack1.getMetadata()));
+		public ItemStack getCraftingResult(InventoryCrafting inv) {
 
-            if (itemstack.hasTagCompound())
-            {
-                itemstack3.setTagCompound(itemstack.getTagCompound().copy());
-            }
+			ItemStack itemstack = ItemStack.EMPTY;
+			ItemStack itemstack1 = ItemStack.EMPTY;
 
-            return itemstack3;
-        }
+			for (int i = 0; i < inv.getSizeInventory(); ++i) {
+				ItemStack itemstack2 = inv.getStackInSlot(i);
 
-        public ItemStack getRecipeOutput()
-        {
-            return ItemStack.EMPTY;
-        }
+				if (!itemstack2.isEmpty()) {
+					if (Block.getBlockFromItem(itemstack2.getItem()) instanceof BlockShulkerBox) {
+						itemstack = itemstack2;
+					} else if (itemstack2.getItem() == Items.DYE) {
+						itemstack1 = itemstack2;
+					}
+				}
+			}
 
-        public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv)
-        {
-            NonNullList<ItemStack> nonnulllist = NonNullList.<ItemStack>withSize(inv.getSizeInventory(), ItemStack.EMPTY);
+			ItemStack itemstack3 = BlockShulkerBox.getColoredItemStack(EnumDyeColor.byDyeDamage(itemstack1.getMetadata()));
 
-            for (int i = 0; i < nonnulllist.size(); ++i)
-            {
-                ItemStack itemstack = inv.getStackInSlot(i);
+			if (itemstack.hasTagCompound()) {
+				itemstack3.setTagCompound(itemstack.getTagCompound().copy());
+			}
 
-                if (itemstack.getItem().hasContainerItem())
-                {
-                    nonnulllist.set(i, new ItemStack(itemstack.getItem().getContainerItem()));
-                }
-            }
+			return itemstack3;
+		}
 
-            return nonnulllist;
-        }
+		public ItemStack getRecipeOutput() {
 
-        public boolean isDynamic()
-        {
-            return true;
-        }
+			return ItemStack.EMPTY;
+		}
 
-        public boolean canFit(int width, int height)
-        {
-            return width * height >= 2;
-        }
-    }
+		public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv) {
+
+			NonNullList<ItemStack> nonnulllist = NonNullList.withSize(inv.getSizeInventory(), ItemStack.EMPTY);
+
+			for (int i = 0; i < nonnulllist.size(); ++i) {
+				ItemStack itemstack = inv.getStackInSlot(i);
+
+				if (itemstack.getItem().hasContainerItem()) {
+					nonnulllist.set(i, new ItemStack(itemstack.getItem().getContainerItem()));
+				}
+			}
+
+			return nonnulllist;
+		}
+
+		public boolean isDynamic() {
+
+			return true;
+		}
+
+		public boolean canFit(int width, int height) {
+
+			return width * height >= 2;
+		}
+
+	}
+
 }

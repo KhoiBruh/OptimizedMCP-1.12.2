@@ -8,35 +8,31 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 
-public class ItemSaddle extends Item
-{
-    public ItemSaddle()
-    {
-        maxStackSize = 1;
-        setCreativeTab(CreativeTabs.TRANSPORTATION);
-    }
+public class ItemSaddle extends Item {
 
-    /**
-     * Returns true if the item can be used on the given entity, e.g. shears on sheep.
-     */
-    public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer playerIn, EntityLivingBase target, EnumHand hand)
-    {
-        if (target instanceof EntityPig)
-        {
-            EntityPig entitypig = (EntityPig)target;
+	public ItemSaddle() {
 
-            if (!entitypig.getSaddled() && !entitypig.isChild())
-            {
-                entitypig.setSaddled(true);
-                entitypig.world.playSound(playerIn, entitypig.posX, entitypig.posY, entitypig.posZ, SoundEvents.ENTITY_PIG_SADDLE, SoundCategory.NEUTRAL, 0.5F, 1.0F);
-                stack.shrink(1);
-            }
+		maxStackSize = 1;
+		setCreativeTab(CreativeTabs.TRANSPORTATION);
+	}
 
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
+	/**
+	 * Returns true if the item can be used on the given entity, e.g. shears on sheep.
+	 */
+	public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer playerIn, EntityLivingBase target, EnumHand hand) {
+
+		if (target instanceof EntityPig entitypig) {
+
+			if (!entitypig.getSaddled() && !entitypig.isChild()) {
+				entitypig.setSaddled(true);
+				entitypig.world.playSound(playerIn, entitypig.posX, entitypig.posY, entitypig.posZ, SoundEvents.ENTITY_PIG_SADDLE, SoundCategory.NEUTRAL, 0.5F, 1.0F);
+				stack.shrink(1);
+			}
+
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 }

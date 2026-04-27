@@ -7,10 +7,6 @@ import com.mojang.authlib.exceptions.InvalidCredentialsException;
 import com.mojang.authlib.minecraft.MinecraftSessionService;
 import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.GenericFutureListener;
-import java.math.BigInteger;
-import java.security.PublicKey;
-import javax.annotation.Nullable;
-import javax.crypto.SecretKey;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiDisconnected;
 import net.minecraft.client.gui.GuiScreen;
@@ -30,109 +26,98 @@ import net.minecraft.util.text.TextComponentTranslation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class NetHandlerLoginClient implements INetHandlerLoginClient
-{
-    private static final Logger LOGGER = LogManager.getLogger();
-    private final Minecraft mc;
-    @Nullable
-    private final GuiScreen previousGuiScreen;
-    private final NetworkManager networkManager;
-    private GameProfile gameProfile;
+import javax.annotation.Nullable;
+import javax.crypto.SecretKey;
+import java.math.BigInteger;
+import java.security.PublicKey;
 
-    public NetHandlerLoginClient(NetworkManager networkManagerIn, Minecraft mcIn, @Nullable GuiScreen previousScreenIn)
-    {
-        networkManager = networkManagerIn;
-        mc = mcIn;
-        previousGuiScreen = previousScreenIn;
-    }
+public class NetHandlerLoginClient implements INetHandlerLoginClient {
 
-    public void handleEncryptionRequest(SPacketEncryptionRequest packetIn)
-    {
-        final SecretKey secretkey = CryptManager.createNewSharedKey();
-        String s = packetIn.getServerId();
-        PublicKey publickey = packetIn.getPublicKey();
-        String s1 = (new BigInteger(CryptManager.getServerIdHash(s, publickey, secretkey))).toString(16);
+	private static final Logger LOGGER = LogManager.getLogger();
+	private final Minecraft mc;
 
-        if (mc.getCurrentServerData() != null && mc.getCurrentServerData().isOnLAN())
-        {
-            try
-            {
-                getSessionService().joinServer(mc.getSession().getProfile(), mc.getSession().getToken(), s1);
-            }
-            catch (AuthenticationException var10)
-            {
-                LOGGER.warn("Couldn't connect to auth servers but will continue to join LAN");
-            }
-        }
-        else
-        {
-            try
-            {
-                getSessionService().joinServer(mc.getSession().getProfile(), mc.getSession().getToken(), s1);
-            }
-            catch (AuthenticationUnavailableException var7)
-            {
-                networkManager.closeChannel(new TextComponentTranslation("disconnect.loginFailedInfo", new Object[] {new TextComponentTranslation("disconnect.loginFailedInfo.serversUnavailable", new Object[0])}));
-                return;
-            }
-            catch (InvalidCredentialsException var8)
-            {
-                networkManager.closeChannel(new TextComponentTranslation("disconnect.loginFailedInfo", new Object[] {new TextComponentTranslation("disconnect.loginFailedInfo.invalidSession", new Object[0])}));
-                return;
-            }
-            catch (AuthenticationException authenticationexception)
-            {
-                networkManager.closeChannel(new TextComponentTranslation("disconnect.loginFailedInfo", new Object[] {authenticationexception.getMessage()}));
-                return;
-            }
-        }
+	@Nullable
+	private final GuiScreen previousGuiScreen;
+	private final NetworkManager networkManager;
+	private GameProfile gameProfile;
 
-        networkManager.sendPacket(new CPacketEncryptionResponse(secretkey, publickey, packetIn.getVerifyToken()), new GenericFutureListener < Future <? super Void >> ()
-        {
-            public void operationComplete(Future <? super Void > p_operationComplete_1_) throws Exception
-            {
-                networkManager.enableEncryption(secretkey);
-            }
-        });
-    }
+	public NetHandlerLoginClient(NetworkManager networkManagerIn, Minecraft mcIn, @Nullable GuiScreen previousScreenIn) {
 
-    private MinecraftSessionService getSessionService()
-    {
-        return mc.getSessionService();
-    }
+		networkManager = networkManagerIn;
+		mc = mcIn;
+		previousGuiScreen = previousScreenIn;
+	}
 
-    public void handleLoginSuccess(SPacketLoginSuccess packetIn)
-    {
-        gameProfile = packetIn.getProfile();
-        networkManager.setConnectionState(EnumConnectionState.PLAY);
-        networkManager.setNetHandler(new NetHandlerPlayClient(mc, previousGuiScreen, networkManager, gameProfile));
-    }
+	public void handleEncryptionRequest(SPacketEncryptionRequest packetIn) {
 
-    /**
-     * Invoked when disconnecting, the parameter is a ChatComponent describing the reason for termination
-     */
-    public void onDisconnect(ITextComponent reason)
-    {
-        if (previousGuiScreen != null && previousGuiScreen instanceof GuiScreenRealmsProxy)
-        {
-            mc.displayGuiScreen((new DisconnectedRealmsScreen(((GuiScreenRealmsProxy) previousGuiScreen).getProxy(), "connect.failed", reason)).getProxy());
-        }
-        else
-        {
-            mc.displayGuiScreen(new GuiDisconnected(previousGuiScreen, "connect.failed", reason));
-        }
-    }
+		final SecretKey secretkey = CryptManager.createNewSharedKey();
+		String s = packetIn.getServerId();
+		PublicKey publickey = packetIn.getPublicKey();
+		String s1 = (new BigInteger(CryptManager.getServerIdHash(s, publickey, secretkey))).toString(16);
 
-    public void handleDisconnect(SPacketDisconnect packetIn)
-    {
-        networkManager.closeChannel(packetIn.getReason());
-    }
+		if (mc.getCurrentServerData() != null && mc.getCurrentServerData().isOnLAN()) {
+			try {
+				getSessionService().joinServer(mc.getSession().getProfile(), mc.getSession().getToken(), s1);
+			} catch (AuthenticationException var10) {
+				LOGGER.warn("Couldn't connect to auth servers but will continue to join LAN");
+			}
+		} else {
+			try {
+				getSessionService().joinServer(mc.getSession().getProfile(), mc.getSession().getToken(), s1);
+			} catch (AuthenticationUnavailableException var7) {
+				networkManager.closeChannel(new TextComponentTranslation("disconnect.loginFailedInfo", new TextComponentTranslation("disconnect.loginFailedInfo.serversUnavailable")));
+				return;
+			} catch (InvalidCredentialsException var8) {
+				networkManager.closeChannel(new TextComponentTranslation("disconnect.loginFailedInfo", new TextComponentTranslation("disconnect.loginFailedInfo.invalidSession")));
+				return;
+			} catch (AuthenticationException authenticationexception) {
+				networkManager.closeChannel(new TextComponentTranslation("disconnect.loginFailedInfo", authenticationexception.getMessage()));
+				return;
+			}
+		}
 
-    public void handleEnableCompression(SPacketEnableCompression packetIn)
-    {
-        if (!networkManager.isLocalChannel())
-        {
-            networkManager.setCompressionThreshold(packetIn.getCompressionThreshold());
-        }
-    }
+		networkManager.sendPacket(new CPacketEncryptionResponse(secretkey, publickey, packetIn.getVerifyToken()), new GenericFutureListener<Future<? super Void>>() {
+			public void operationComplete(Future<? super Void> p_operationComplete_1_) throws Exception {
+
+				networkManager.enableEncryption(secretkey);
+			}
+		});
+	}
+
+	private MinecraftSessionService getSessionService() {
+
+		return mc.getSessionService();
+	}
+
+	public void handleLoginSuccess(SPacketLoginSuccess packetIn) {
+
+		gameProfile = packetIn.getProfile();
+		networkManager.setConnectionState(EnumConnectionState.PLAY);
+		networkManager.setNetHandler(new NetHandlerPlayClient(mc, previousGuiScreen, networkManager, gameProfile));
+	}
+
+	/**
+	 * Invoked when disconnecting, the parameter is a ChatComponent describing the reason for termination
+	 */
+	public void onDisconnect(ITextComponent reason) {
+
+		if (previousGuiScreen != null && previousGuiScreen instanceof GuiScreenRealmsProxy) {
+			mc.displayGuiScreen((new DisconnectedRealmsScreen(((GuiScreenRealmsProxy) previousGuiScreen).getProxy(), "connect.failed", reason)).getProxy());
+		} else {
+			mc.displayGuiScreen(new GuiDisconnected(previousGuiScreen, "connect.failed", reason));
+		}
+	}
+
+	public void handleDisconnect(SPacketDisconnect packetIn) {
+
+		networkManager.closeChannel(packetIn.getReason());
+	}
+
+	public void handleEnableCompression(SPacketEnableCompression packetIn) {
+
+		if (!networkManager.isLocalChannel()) {
+			networkManager.setCompressionThreshold(packetIn.getCompressionThreshold());
+		}
+	}
+
 }

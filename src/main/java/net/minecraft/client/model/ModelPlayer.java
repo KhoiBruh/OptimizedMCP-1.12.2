@@ -4,168 +4,156 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.EnumHandSide;
 
-public class ModelPlayer extends ModelBiped
-{
-    public ModelRenderer bipedLeftArmwear;
-    public ModelRenderer bipedRightArmwear;
-    public ModelRenderer bipedLeftLegwear;
-    public ModelRenderer bipedRightLegwear;
-    public ModelRenderer bipedBodyWear;
-    private final ModelRenderer bipedCape;
-    private final ModelRenderer bipedDeadmau5Head;
-    private final boolean smallArms;
+public class ModelPlayer extends ModelBiped {
 
-    public ModelPlayer(float modelSize, boolean smallArmsIn)
-    {
-        super(modelSize, 0.0F, 64, 64);
-        smallArms = smallArmsIn;
-        bipedDeadmau5Head = new ModelRenderer(this, 24, 0);
-        bipedDeadmau5Head.addBox(-3.0F, -6.0F, -1.0F, 6, 6, 1, modelSize);
-        bipedCape = new ModelRenderer(this, 0, 0);
-        bipedCape.setTextureSize(64, 32);
-        bipedCape.addBox(-5.0F, 0.0F, -1.0F, 10, 16, 1, modelSize);
+	public ModelRenderer bipedLeftArmwear;
+	public ModelRenderer bipedRightArmwear;
+	public ModelRenderer bipedLeftLegwear;
+	public ModelRenderer bipedRightLegwear;
+	public ModelRenderer bipedBodyWear;
+	private final ModelRenderer bipedCape;
+	private final ModelRenderer bipedDeadmau5Head;
+	private final boolean smallArms;
 
-        if (smallArmsIn)
-        {
-            bipedLeftArm = new ModelRenderer(this, 32, 48);
-            bipedLeftArm.addBox(-1.0F, -2.0F, -2.0F, 3, 12, 4, modelSize);
-            bipedLeftArm.setRotationPoint(5.0F, 2.5F, 0.0F);
-            bipedRightArm = new ModelRenderer(this, 40, 16);
-            bipedRightArm.addBox(-2.0F, -2.0F, -2.0F, 3, 12, 4, modelSize);
-            bipedRightArm.setRotationPoint(-5.0F, 2.5F, 0.0F);
-            bipedLeftArmwear = new ModelRenderer(this, 48, 48);
-            bipedLeftArmwear.addBox(-1.0F, -2.0F, -2.0F, 3, 12, 4, modelSize + 0.25F);
-            bipedLeftArmwear.setRotationPoint(5.0F, 2.5F, 0.0F);
-            bipedRightArmwear = new ModelRenderer(this, 40, 32);
-            bipedRightArmwear.addBox(-2.0F, -2.0F, -2.0F, 3, 12, 4, modelSize + 0.25F);
-            bipedRightArmwear.setRotationPoint(-5.0F, 2.5F, 10.0F);
-        }
-        else
-        {
-            bipedLeftArm = new ModelRenderer(this, 32, 48);
-            bipedLeftArm.addBox(-1.0F, -2.0F, -2.0F, 4, 12, 4, modelSize);
-            bipedLeftArm.setRotationPoint(5.0F, 2.0F, 0.0F);
-            bipedLeftArmwear = new ModelRenderer(this, 48, 48);
-            bipedLeftArmwear.addBox(-1.0F, -2.0F, -2.0F, 4, 12, 4, modelSize + 0.25F);
-            bipedLeftArmwear.setRotationPoint(5.0F, 2.0F, 0.0F);
-            bipedRightArmwear = new ModelRenderer(this, 40, 32);
-            bipedRightArmwear.addBox(-3.0F, -2.0F, -2.0F, 4, 12, 4, modelSize + 0.25F);
-            bipedRightArmwear.setRotationPoint(-5.0F, 2.0F, 10.0F);
-        }
+	public ModelPlayer(float modelSize, boolean smallArmsIn) {
 
-        bipedLeftLeg = new ModelRenderer(this, 16, 48);
-        bipedLeftLeg.addBox(-2.0F, 0.0F, -2.0F, 4, 12, 4, modelSize);
-        bipedLeftLeg.setRotationPoint(1.9F, 12.0F, 0.0F);
-        bipedLeftLegwear = new ModelRenderer(this, 0, 48);
-        bipedLeftLegwear.addBox(-2.0F, 0.0F, -2.0F, 4, 12, 4, modelSize + 0.25F);
-        bipedLeftLegwear.setRotationPoint(1.9F, 12.0F, 0.0F);
-        bipedRightLegwear = new ModelRenderer(this, 0, 32);
-        bipedRightLegwear.addBox(-2.0F, 0.0F, -2.0F, 4, 12, 4, modelSize + 0.25F);
-        bipedRightLegwear.setRotationPoint(-1.9F, 12.0F, 0.0F);
-        bipedBodyWear = new ModelRenderer(this, 16, 32);
-        bipedBodyWear.addBox(-4.0F, 0.0F, -2.0F, 8, 12, 4, modelSize + 0.25F);
-        bipedBodyWear.setRotationPoint(0.0F, 0.0F, 0.0F);
-    }
+		super(modelSize, 0.0F, 64, 64);
+		smallArms = smallArmsIn;
+		bipedDeadmau5Head = new ModelRenderer(this, 24, 0);
+		bipedDeadmau5Head.addBox(-3.0F, -6.0F, -1.0F, 6, 6, 1, modelSize);
+		bipedCape = new ModelRenderer(this, 0, 0);
+		bipedCape.setTextureSize(64, 32);
+		bipedCape.addBox(-5.0F, 0.0F, -1.0F, 10, 16, 1, modelSize);
 
-    /**
-     * Sets the models various rotation angles then renders the model.
-     */
-    public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale)
-    {
-        super.render(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
-        GlStateManager.pushMatrix();
+		if (smallArmsIn) {
+			bipedLeftArm = new ModelRenderer(this, 32, 48);
+			bipedLeftArm.addBox(-1.0F, -2.0F, -2.0F, 3, 12, 4, modelSize);
+			bipedLeftArm.setRotationPoint(5.0F, 2.5F, 0.0F);
+			bipedRightArm = new ModelRenderer(this, 40, 16);
+			bipedRightArm.addBox(-2.0F, -2.0F, -2.0F, 3, 12, 4, modelSize);
+			bipedRightArm.setRotationPoint(-5.0F, 2.5F, 0.0F);
+			bipedLeftArmwear = new ModelRenderer(this, 48, 48);
+			bipedLeftArmwear.addBox(-1.0F, -2.0F, -2.0F, 3, 12, 4, modelSize + 0.25F);
+			bipedLeftArmwear.setRotationPoint(5.0F, 2.5F, 0.0F);
+			bipedRightArmwear = new ModelRenderer(this, 40, 32);
+			bipedRightArmwear.addBox(-2.0F, -2.0F, -2.0F, 3, 12, 4, modelSize + 0.25F);
+			bipedRightArmwear.setRotationPoint(-5.0F, 2.5F, 10.0F);
+		} else {
+			bipedLeftArm = new ModelRenderer(this, 32, 48);
+			bipedLeftArm.addBox(-1.0F, -2.0F, -2.0F, 4, 12, 4, modelSize);
+			bipedLeftArm.setRotationPoint(5.0F, 2.0F, 0.0F);
+			bipedLeftArmwear = new ModelRenderer(this, 48, 48);
+			bipedLeftArmwear.addBox(-1.0F, -2.0F, -2.0F, 4, 12, 4, modelSize + 0.25F);
+			bipedLeftArmwear.setRotationPoint(5.0F, 2.0F, 0.0F);
+			bipedRightArmwear = new ModelRenderer(this, 40, 32);
+			bipedRightArmwear.addBox(-3.0F, -2.0F, -2.0F, 4, 12, 4, modelSize + 0.25F);
+			bipedRightArmwear.setRotationPoint(-5.0F, 2.0F, 10.0F);
+		}
 
-        if (isChild)
-        {
-            float f = 2.0F;
-            GlStateManager.scale(0.5F, 0.5F, 0.5F);
-            GlStateManager.translate(0.0F, 24.0F * scale, 0.0F);
-            bipedLeftLegwear.render(scale);
-            bipedRightLegwear.render(scale);
-            bipedLeftArmwear.render(scale);
-            bipedRightArmwear.render(scale);
-            bipedBodyWear.render(scale);
-        }
-        else
-        {
-            if (entityIn.isSneaking())
-            {
-                GlStateManager.translate(0.0F, 0.2F, 0.0F);
-            }
+		bipedLeftLeg = new ModelRenderer(this, 16, 48);
+		bipedLeftLeg.addBox(-2.0F, 0.0F, -2.0F, 4, 12, 4, modelSize);
+		bipedLeftLeg.setRotationPoint(1.9F, 12.0F, 0.0F);
+		bipedLeftLegwear = new ModelRenderer(this, 0, 48);
+		bipedLeftLegwear.addBox(-2.0F, 0.0F, -2.0F, 4, 12, 4, modelSize + 0.25F);
+		bipedLeftLegwear.setRotationPoint(1.9F, 12.0F, 0.0F);
+		bipedRightLegwear = new ModelRenderer(this, 0, 32);
+		bipedRightLegwear.addBox(-2.0F, 0.0F, -2.0F, 4, 12, 4, modelSize + 0.25F);
+		bipedRightLegwear.setRotationPoint(-1.9F, 12.0F, 0.0F);
+		bipedBodyWear = new ModelRenderer(this, 16, 32);
+		bipedBodyWear.addBox(-4.0F, 0.0F, -2.0F, 8, 12, 4, modelSize + 0.25F);
+		bipedBodyWear.setRotationPoint(0.0F, 0.0F, 0.0F);
+	}
 
-            bipedLeftLegwear.render(scale);
-            bipedRightLegwear.render(scale);
-            bipedLeftArmwear.render(scale);
-            bipedRightArmwear.render(scale);
-            bipedBodyWear.render(scale);
-        }
+	/**
+	 * Sets the models various rotation angles then renders the model.
+	 */
+	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 
-        GlStateManager.popMatrix();
-    }
+		super.render(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+		GlStateManager.pushMatrix();
 
-    public void renderDeadmau5Head(float scale)
-    {
-        copyModelAngles(bipedHead, bipedDeadmau5Head);
-        bipedDeadmau5Head.rotationPointX = 0.0F;
-        bipedDeadmau5Head.rotationPointY = 0.0F;
-        bipedDeadmau5Head.render(scale);
-    }
+		if (isChild) {
+			float f = 2.0F;
+			GlStateManager.scale(0.5F, 0.5F, 0.5F);
+			GlStateManager.translate(0.0F, 24.0F * scale, 0.0F);
+			bipedLeftLegwear.render(scale);
+			bipedRightLegwear.render(scale);
+			bipedLeftArmwear.render(scale);
+			bipedRightArmwear.render(scale);
+			bipedBodyWear.render(scale);
+		} else {
+			if (entityIn.isSneaking()) {
+				GlStateManager.translate(0.0F, 0.2F, 0.0F);
+			}
 
-    public void renderCape(float scale)
-    {
-        bipedCape.render(scale);
-    }
+			bipedLeftLegwear.render(scale);
+			bipedRightLegwear.render(scale);
+			bipedLeftArmwear.render(scale);
+			bipedRightArmwear.render(scale);
+			bipedBodyWear.render(scale);
+		}
 
-    /**
-     * Sets the model's various rotation angles. For bipeds, par1 and par2 are used for animating the movement of arms
-     * and legs, where par1 represents the time(so that arms and legs swing back and forth) and par2 represents how
-     * "far" arms and legs can swing at most.
-     */
-    public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn)
-    {
-        super.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor, entityIn);
-        copyModelAngles(bipedLeftLeg, bipedLeftLegwear);
-        copyModelAngles(bipedRightLeg, bipedRightLegwear);
-        copyModelAngles(bipedLeftArm, bipedLeftArmwear);
-        copyModelAngles(bipedRightArm, bipedRightArmwear);
-        copyModelAngles(bipedBody, bipedBodyWear);
+		GlStateManager.popMatrix();
+	}
 
-        if (entityIn.isSneaking())
-        {
-            bipedCape.rotationPointY = 2.0F;
-        }
-        else
-        {
-            bipedCape.rotationPointY = 0.0F;
-        }
-    }
+	public void renderDeadmau5Head(float scale) {
 
-    public void setVisible(boolean visible)
-    {
-        super.setVisible(visible);
-        bipedLeftArmwear.showModel = visible;
-        bipedRightArmwear.showModel = visible;
-        bipedLeftLegwear.showModel = visible;
-        bipedRightLegwear.showModel = visible;
-        bipedBodyWear.showModel = visible;
-        bipedCape.showModel = visible;
-        bipedDeadmau5Head.showModel = visible;
-    }
+		copyModelAngles(bipedHead, bipedDeadmau5Head);
+		bipedDeadmau5Head.rotationPointX = 0.0F;
+		bipedDeadmau5Head.rotationPointY = 0.0F;
+		bipedDeadmau5Head.render(scale);
+	}
 
-    public void postRenderArm(float scale, EnumHandSide side)
-    {
-        ModelRenderer modelrenderer = getArmForSide(side);
+	public void renderCape(float scale) {
 
-        if (smallArms)
-        {
-            float f = 0.5F * (float)(side == EnumHandSide.RIGHT ? 1 : -1);
-            modelrenderer.rotationPointX += f;
-            modelrenderer.postRender(scale);
-            modelrenderer.rotationPointX -= f;
-        }
-        else
-        {
-            modelrenderer.postRender(scale);
-        }
-    }
+		bipedCape.render(scale);
+	}
+
+	/**
+	 * Sets the model's various rotation angles. For bipeds, par1 and par2 are used for animating the movement of arms
+	 * and legs, where par1 represents the time(so that arms and legs swing back and forth) and par2 represents how
+	 * "far" arms and legs can swing at most.
+	 */
+	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
+
+		super.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor, entityIn);
+		copyModelAngles(bipedLeftLeg, bipedLeftLegwear);
+		copyModelAngles(bipedRightLeg, bipedRightLegwear);
+		copyModelAngles(bipedLeftArm, bipedLeftArmwear);
+		copyModelAngles(bipedRightArm, bipedRightArmwear);
+		copyModelAngles(bipedBody, bipedBodyWear);
+
+		if (entityIn.isSneaking()) {
+			bipedCape.rotationPointY = 2.0F;
+		} else {
+			bipedCape.rotationPointY = 0.0F;
+		}
+	}
+
+	public void setVisible(boolean visible) {
+
+		super.setVisible(visible);
+		bipedLeftArmwear.showModel = visible;
+		bipedRightArmwear.showModel = visible;
+		bipedLeftLegwear.showModel = visible;
+		bipedRightLegwear.showModel = visible;
+		bipedBodyWear.showModel = visible;
+		bipedCape.showModel = visible;
+		bipedDeadmau5Head.showModel = visible;
+	}
+
+	public void postRenderArm(float scale, EnumHandSide side) {
+
+		ModelRenderer modelrenderer = getArmForSide(side);
+
+		if (smallArms) {
+			float f = 0.5F * (float) (side == EnumHandSide.RIGHT ? 1 : -1);
+			modelrenderer.rotationPointX += f;
+			modelrenderer.postRender(scale);
+			modelrenderer.rotationPointX -= f;
+		} else {
+			modelrenderer.postRender(scale);
+		}
+	}
+
 }

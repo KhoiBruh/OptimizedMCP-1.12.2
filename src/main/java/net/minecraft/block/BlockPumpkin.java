@@ -1,7 +1,6 @@
 package net.minecraft.block;
 
 import com.google.common.base.Predicate;
-import javax.annotation.Nullable;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
@@ -26,210 +25,194 @@ import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class BlockPumpkin extends BlockHorizontal
-{
-    private BlockPattern snowmanBasePattern;
-    private BlockPattern snowmanPattern;
-    private BlockPattern golemBasePattern;
-    private BlockPattern golemPattern;
-    private static final Predicate<IBlockState> IS_PUMPKIN = new Predicate<IBlockState>()
-    {
-        public boolean apply(@Nullable IBlockState p_apply_1_)
-        {
-            return p_apply_1_ != null && (p_apply_1_.getBlock() == Blocks.PUMPKIN || p_apply_1_.getBlock() == Blocks.LIT_PUMPKIN);
-        }
-    };
+import javax.annotation.Nullable;
 
-    protected BlockPumpkin()
-    {
-        super(Material.GOURD, MapColor.ADOBE);
-        setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
-        setTickRandomly(true);
-        setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
-    }
+public class BlockPumpkin extends BlockHorizontal {
 
-    /**
-     * Called after the block is set in the Chunk data, but before the Tile Entity is set
-     */
-    public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state)
-    {
-        super.onBlockAdded(worldIn, pos, state);
-        trySpawnGolem(worldIn, pos);
-    }
+	private BlockPattern snowmanBasePattern;
+	private BlockPattern snowmanPattern;
+	private BlockPattern golemBasePattern;
+	private BlockPattern golemPattern;
+	private static final Predicate<IBlockState> IS_PUMPKIN = new Predicate<IBlockState>() {
+		public boolean apply(@Nullable IBlockState p_apply_1_) {
 
-    public boolean canDispenserPlace(World worldIn, BlockPos pos)
-    {
-        return getSnowmanBasePattern().match(worldIn, pos) != null || getGolemBasePattern().match(worldIn, pos) != null;
-    }
+			return p_apply_1_ != null && (p_apply_1_.getBlock() == Blocks.PUMPKIN || p_apply_1_.getBlock() == Blocks.LIT_PUMPKIN);
+		}
+	};
 
-    private void trySpawnGolem(World worldIn, BlockPos pos)
-    {
-        BlockPattern.PatternHelper blockpattern$patternhelper = getSnowmanPattern().match(worldIn, pos);
+	protected BlockPumpkin() {
 
-        if (blockpattern$patternhelper != null)
-        {
-            for (int i = 0; i < getSnowmanPattern().getThumbLength(); ++i)
-            {
-                BlockWorldState blockworldstate = blockpattern$patternhelper.translateOffset(0, i, 0);
-                worldIn.setBlockState(blockworldstate.getPos(), Blocks.AIR.getDefaultState(), 2);
-            }
+		super(Material.GOURD, MapColor.ADOBE);
+		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
+		setTickRandomly(true);
+		setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
+	}
 
-            EntitySnowman entitysnowman = new EntitySnowman(worldIn);
-            BlockPos blockpos1 = blockpattern$patternhelper.translateOffset(0, 2, 0).getPos();
-            entitysnowman.setLocationAndAngles((double)blockpos1.getX() + 0.5D, (double)blockpos1.getY() + 0.05D, (double)blockpos1.getZ() + 0.5D, 0.0F, 0.0F);
-            worldIn.spawnEntity(entitysnowman);
+	/**
+	 * Called after the block is set in the Chunk data, but before the Tile Entity is set
+	 */
+	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
 
-            for (EntityPlayerMP entityplayermp : worldIn.getEntitiesWithinAABB(EntityPlayerMP.class, entitysnowman.getEntityBoundingBox().grow(5.0D)))
-            {
-                CriteriaTriggers.SUMMONED_ENTITY.trigger(entityplayermp, entitysnowman);
-            }
+		super.onBlockAdded(worldIn, pos, state);
+		trySpawnGolem(worldIn, pos);
+	}
 
-            for (int l = 0; l < 120; ++l)
-            {
-                worldIn.spawnParticle(EnumParticleTypes.SNOW_SHOVEL, (double)blockpos1.getX() + worldIn.rand.nextDouble(), (double)blockpos1.getY() + worldIn.rand.nextDouble() * 2.5D, (double)blockpos1.getZ() + worldIn.rand.nextDouble(), 0.0D, 0.0D, 0.0D);
-            }
+	public boolean canDispenserPlace(World worldIn, BlockPos pos) {
 
-            for (int i1 = 0; i1 < getSnowmanPattern().getThumbLength(); ++i1)
-            {
-                BlockWorldState blockworldstate2 = blockpattern$patternhelper.translateOffset(0, i1, 0);
-                worldIn.notifyNeighborsRespectDebug(blockworldstate2.getPos(), Blocks.AIR, false);
-            }
-        }
-        else
-        {
-            blockpattern$patternhelper = getGolemPattern().match(worldIn, pos);
+		return getSnowmanBasePattern().match(worldIn, pos) != null || getGolemBasePattern().match(worldIn, pos) != null;
+	}
 
-            if (blockpattern$patternhelper != null)
-            {
-                for (int j = 0; j < getGolemPattern().getPalmLength(); ++j)
-                {
-                    for (int k = 0; k < getGolemPattern().getThumbLength(); ++k)
-                    {
-                        worldIn.setBlockState(blockpattern$patternhelper.translateOffset(j, k, 0).getPos(), Blocks.AIR.getDefaultState(), 2);
-                    }
-                }
+	private void trySpawnGolem(World worldIn, BlockPos pos) {
 
-                BlockPos blockpos = blockpattern$patternhelper.translateOffset(1, 2, 0).getPos();
-                EntityIronGolem entityirongolem = new EntityIronGolem(worldIn);
-                entityirongolem.setPlayerCreated(true);
-                entityirongolem.setLocationAndAngles((double)blockpos.getX() + 0.5D, (double)blockpos.getY() + 0.05D, (double)blockpos.getZ() + 0.5D, 0.0F, 0.0F);
-                worldIn.spawnEntity(entityirongolem);
+		BlockPattern.PatternHelper blockpattern$patternhelper = getSnowmanPattern().match(worldIn, pos);
 
-                for (EntityPlayerMP entityplayermp1 : worldIn.getEntitiesWithinAABB(EntityPlayerMP.class, entityirongolem.getEntityBoundingBox().grow(5.0D)))
-                {
-                    CriteriaTriggers.SUMMONED_ENTITY.trigger(entityplayermp1, entityirongolem);
-                }
+		if (blockpattern$patternhelper != null) {
+			for (int i = 0; i < getSnowmanPattern().getThumbLength(); ++i) {
+				BlockWorldState blockworldstate = blockpattern$patternhelper.translateOffset(0, i, 0);
+				worldIn.setBlockState(blockworldstate.getPos(), Blocks.AIR.getDefaultState(), 2);
+			}
 
-                for (int j1 = 0; j1 < 120; ++j1)
-                {
-                    worldIn.spawnParticle(EnumParticleTypes.SNOWBALL, (double)blockpos.getX() + worldIn.rand.nextDouble(), (double)blockpos.getY() + worldIn.rand.nextDouble() * 3.9D, (double)blockpos.getZ() + worldIn.rand.nextDouble(), 0.0D, 0.0D, 0.0D);
-                }
+			EntitySnowman entitysnowman = new EntitySnowman(worldIn);
+			BlockPos blockpos1 = blockpattern$patternhelper.translateOffset(0, 2, 0).getPos();
+			entitysnowman.setLocationAndAngles((double) blockpos1.getX() + 0.5D, (double) blockpos1.getY() + 0.05D, (double) blockpos1.getZ() + 0.5D, 0.0F, 0.0F);
+			worldIn.spawnEntity(entitysnowman);
 
-                for (int k1 = 0; k1 < getGolemPattern().getPalmLength(); ++k1)
-                {
-                    for (int l1 = 0; l1 < getGolemPattern().getThumbLength(); ++l1)
-                    {
-                        BlockWorldState blockworldstate1 = blockpattern$patternhelper.translateOffset(k1, l1, 0);
-                        worldIn.notifyNeighborsRespectDebug(blockworldstate1.getPos(), Blocks.AIR, false);
-                    }
-                }
-            }
-        }
-    }
+			for (EntityPlayerMP entityplayermp : worldIn.getEntitiesWithinAABB(EntityPlayerMP.class, entitysnowman.getEntityBoundingBox().grow(5.0D))) {
+				CriteriaTriggers.SUMMONED_ENTITY.trigger(entityplayermp, entitysnowman);
+			}
 
-    /**
-     * Checks if this block can be placed exactly at the given position.
-     */
-    public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
-    {
-        return worldIn.getBlockState(pos).getBlock().blockMaterial.isReplaceable() && worldIn.getBlockState(pos.down()).isTopSolid();
-    }
+			for (int l = 0; l < 120; ++l) {
+				worldIn.spawnParticle(EnumParticleTypes.SNOW_SHOVEL, (double) blockpos1.getX() + worldIn.rand.nextDouble(), (double) blockpos1.getY() + worldIn.rand.nextDouble() * 2.5D, (double) blockpos1.getZ() + worldIn.rand.nextDouble(), 0.0D, 0.0D, 0.0D);
+			}
 
-    /**
-     * Returns the blockstate with the given rotation from the passed blockstate. If inapplicable, returns the passed
-     * blockstate.
-     */
-    public IBlockState withRotation(IBlockState state, Rotation rot)
-    {
-        return state.withProperty(FACING, rot.rotate((EnumFacing)state.getValue(FACING)));
-    }
+			for (int i1 = 0; i1 < getSnowmanPattern().getThumbLength(); ++i1) {
+				BlockWorldState blockworldstate2 = blockpattern$patternhelper.translateOffset(0, i1, 0);
+				worldIn.notifyNeighborsRespectDebug(blockworldstate2.getPos(), Blocks.AIR, false);
+			}
+		} else {
+			blockpattern$patternhelper = getGolemPattern().match(worldIn, pos);
 
-    /**
-     * Returns the blockstate with the given mirror of the passed blockstate. If inapplicable, returns the passed
-     * blockstate.
-     */
-    public IBlockState withMirror(IBlockState state, Mirror mirrorIn)
-    {
-        return state.withRotation(mirrorIn.toRotation((EnumFacing)state.getValue(FACING)));
-    }
+			if (blockpattern$patternhelper != null) {
+				for (int j = 0; j < getGolemPattern().getPalmLength(); ++j) {
+					for (int k = 0; k < getGolemPattern().getThumbLength(); ++k) {
+						worldIn.setBlockState(blockpattern$patternhelper.translateOffset(j, k, 0).getPos(), Blocks.AIR.getDefaultState(), 2);
+					}
+				}
 
-    /**
-     * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
-     * IBlockstate
-     */
-    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
-    {
-        return getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
-    }
+				BlockPos blockpos = blockpattern$patternhelper.translateOffset(1, 2, 0).getPos();
+				EntityIronGolem entityirongolem = new EntityIronGolem(worldIn);
+				entityirongolem.setPlayerCreated(true);
+				entityirongolem.setLocationAndAngles((double) blockpos.getX() + 0.5D, (double) blockpos.getY() + 0.05D, (double) blockpos.getZ() + 0.5D, 0.0F, 0.0F);
+				worldIn.spawnEntity(entityirongolem);
 
-    /**
-     * Convert the given metadata into a BlockState for this Block
-     */
-    public IBlockState getStateFromMeta(int meta)
-    {
-        return getDefaultState().withProperty(FACING, EnumFacing.getHorizontal(meta));
-    }
+				for (EntityPlayerMP entityplayermp1 : worldIn.getEntitiesWithinAABB(EntityPlayerMP.class, entityirongolem.getEntityBoundingBox().grow(5.0D))) {
+					CriteriaTriggers.SUMMONED_ENTITY.trigger(entityplayermp1, entityirongolem);
+				}
 
-    /**
-     * Convert the BlockState into the correct metadata value
-     */
-    public int getMetaFromState(IBlockState state)
-    {
-        return ((EnumFacing)state.getValue(FACING)).getHorizontalIndex();
-    }
+				for (int j1 = 0; j1 < 120; ++j1) {
+					worldIn.spawnParticle(EnumParticleTypes.SNOWBALL, (double) blockpos.getX() + worldIn.rand.nextDouble(), (double) blockpos.getY() + worldIn.rand.nextDouble() * 3.9D, (double) blockpos.getZ() + worldIn.rand.nextDouble(), 0.0D, 0.0D, 0.0D);
+				}
 
-    protected BlockStateContainer createBlockState()
-    {
-        return new BlockStateContainer(this, new IProperty[] {FACING});
-    }
+				for (int k1 = 0; k1 < getGolemPattern().getPalmLength(); ++k1) {
+					for (int l1 = 0; l1 < getGolemPattern().getThumbLength(); ++l1) {
+						BlockWorldState blockworldstate1 = blockpattern$patternhelper.translateOffset(k1, l1, 0);
+						worldIn.notifyNeighborsRespectDebug(blockworldstate1.getPos(), Blocks.AIR, false);
+					}
+				}
+			}
+		}
+	}
 
-    protected BlockPattern getSnowmanBasePattern()
-    {
-        if (snowmanBasePattern == null)
-        {
-            snowmanBasePattern = FactoryBlockPattern.start().aisle(" ", "#", "#").where('#', BlockWorldState.hasState(BlockStateMatcher.forBlock(Blocks.SNOW))).build();
-        }
+	/**
+	 * Checks if this block can be placed exactly at the given position.
+	 */
+	public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
 
-        return snowmanBasePattern;
-    }
+		return worldIn.getBlockState(pos).getBlock().blockMaterial.isReplaceable() && worldIn.getBlockState(pos.down()).isTopSolid();
+	}
 
-    protected BlockPattern getSnowmanPattern()
-    {
-        if (snowmanPattern == null)
-        {
-            snowmanPattern = FactoryBlockPattern.start().aisle("^", "#", "#").where('^', BlockWorldState.hasState(IS_PUMPKIN)).where('#', BlockWorldState.hasState(BlockStateMatcher.forBlock(Blocks.SNOW))).build();
-        }
+	/**
+	 * Returns the blockstate with the given rotation from the passed blockstate. If inapplicable, returns the passed
+	 * blockstate.
+	 */
+	public IBlockState withRotation(IBlockState state, Rotation rot) {
 
-        return snowmanPattern;
-    }
+		return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
+	}
 
-    protected BlockPattern getGolemBasePattern()
-    {
-        if (golemBasePattern == null)
-        {
-            golemBasePattern = FactoryBlockPattern.start().aisle("~ ~", "###", "~#~").where('#', BlockWorldState.hasState(BlockStateMatcher.forBlock(Blocks.IRON_BLOCK))).where('~', BlockWorldState.hasState(BlockMaterialMatcher.forMaterial(Material.AIR))).build();
-        }
+	/**
+	 * Returns the blockstate with the given mirror of the passed blockstate. If inapplicable, returns the passed
+	 * blockstate.
+	 */
+	public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
 
-        return golemBasePattern;
-    }
+		return state.withRotation(mirrorIn.toRotation(state.getValue(FACING)));
+	}
 
-    protected BlockPattern getGolemPattern()
-    {
-        if (golemPattern == null)
-        {
-            golemPattern = FactoryBlockPattern.start().aisle("~^~", "###", "~#~").where('^', BlockWorldState.hasState(IS_PUMPKIN)).where('#', BlockWorldState.hasState(BlockStateMatcher.forBlock(Blocks.IRON_BLOCK))).where('~', BlockWorldState.hasState(BlockMaterialMatcher.forMaterial(Material.AIR))).build();
-        }
+	/**
+	 * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
+	 * IBlockstate
+	 */
+	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
 
-        return golemPattern;
-    }
+		return getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
+	}
+
+	/**
+	 * Convert the given metadata into a BlockState for this Block
+	 */
+	public IBlockState getStateFromMeta(int meta) {
+
+		return getDefaultState().withProperty(FACING, EnumFacing.getHorizontal(meta));
+	}
+
+	/**
+	 * Convert the BlockState into the correct metadata value
+	 */
+	public int getMetaFromState(IBlockState state) {
+
+		return state.getValue(FACING).getHorizontalIndex();
+	}
+
+	protected BlockStateContainer createBlockState() {
+
+		return new BlockStateContainer(this, FACING);
+	}
+
+	protected BlockPattern getSnowmanBasePattern() {
+
+		if (snowmanBasePattern == null) {
+			snowmanBasePattern = FactoryBlockPattern.start().aisle(" ", "#", "#").where('#', BlockWorldState.hasState(BlockStateMatcher.forBlock(Blocks.SNOW))).build();
+		}
+
+		return snowmanBasePattern;
+	}
+
+	protected BlockPattern getSnowmanPattern() {
+
+		if (snowmanPattern == null) {
+			snowmanPattern = FactoryBlockPattern.start().aisle("^", "#", "#").where('^', BlockWorldState.hasState(IS_PUMPKIN)).where('#', BlockWorldState.hasState(BlockStateMatcher.forBlock(Blocks.SNOW))).build();
+		}
+
+		return snowmanPattern;
+	}
+
+	protected BlockPattern getGolemBasePattern() {
+
+		if (golemBasePattern == null) {
+			golemBasePattern = FactoryBlockPattern.start().aisle("~ ~", "###", "~#~").where('#', BlockWorldState.hasState(BlockStateMatcher.forBlock(Blocks.IRON_BLOCK))).where('~', BlockWorldState.hasState(BlockMaterialMatcher.forMaterial(Material.AIR))).build();
+		}
+
+		return golemBasePattern;
+	}
+
+	protected BlockPattern getGolemPattern() {
+
+		if (golemPattern == null) {
+			golemPattern = FactoryBlockPattern.start().aisle("~^~", "###", "~#~").where('^', BlockWorldState.hasState(IS_PUMPKIN)).where('#', BlockWorldState.hasState(BlockStateMatcher.forBlock(Blocks.IRON_BLOCK))).where('~', BlockWorldState.hasState(BlockMaterialMatcher.forMaterial(Material.AIR))).build();
+		}
+
+		return golemPattern;
+	}
+
 }

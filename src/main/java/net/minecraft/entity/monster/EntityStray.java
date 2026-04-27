@@ -1,6 +1,5 @@
 package net.minecraft.entity.monster;
 
-import javax.annotation.Nullable;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.entity.projectile.EntityTippedArrow;
@@ -15,61 +14,63 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 
-public class EntityStray extends AbstractSkeleton
-{
-    public EntityStray(World worldIn)
-    {
-        super(worldIn);
-    }
+import javax.annotation.Nullable;
 
-    public static void registerFixesStray(DataFixer fixer)
-    {
-        EntityLiving.registerFixesMob(fixer, EntityStray.class);
-    }
+public class EntityStray extends AbstractSkeleton {
 
-    /**
-     * Checks if the entity's current position is a valid location to spawn this entity.
-     */
-    public boolean getCanSpawnHere()
-    {
-        return super.getCanSpawnHere() && world.canSeeSky(new BlockPos(this));
-    }
+	public EntityStray(World worldIn) {
 
-    @Nullable
-    protected ResourceLocation getLootTable()
-    {
-        return LootTableList.ENTITIES_STRAY;
-    }
+		super(worldIn);
+	}
 
-    protected SoundEvent getAmbientSound()
-    {
-        return SoundEvents.ENTITY_STRAY_AMBIENT;
-    }
+	public static void registerFixesStray(DataFixer fixer) {
 
-    protected SoundEvent getHurtSound(DamageSource damageSourceIn)
-    {
-        return SoundEvents.ENTITY_STRAY_HURT;
-    }
+		EntityLiving.registerFixesMob(fixer, EntityStray.class);
+	}
 
-    protected SoundEvent getDeathSound()
-    {
-        return SoundEvents.ENTITY_STRAY_DEATH;
-    }
+	/**
+	 * Checks if the entity's current position is a valid location to spawn this entity.
+	 */
+	public boolean getCanSpawnHere() {
 
-    SoundEvent getStepSound()
-    {
-        return SoundEvents.ENTITY_STRAY_STEP;
-    }
+		return super.getCanSpawnHere() && world.canSeeSky(new BlockPos(this));
+	}
 
-    protected EntityArrow getArrow(float p_190726_1_)
-    {
-        EntityArrow entityarrow = super.getArrow(p_190726_1_);
+	@Nullable
+	protected ResourceLocation getLootTable() {
 
-        if (entityarrow instanceof EntityTippedArrow)
-        {
-            ((EntityTippedArrow)entityarrow).addEffect(new PotionEffect(MobEffects.SLOWNESS, 600));
-        }
+		return LootTableList.ENTITIES_STRAY;
+	}
 
-        return entityarrow;
-    }
+	protected SoundEvent getAmbientSound() {
+
+		return SoundEvents.ENTITY_STRAY_AMBIENT;
+	}
+
+	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+
+		return SoundEvents.ENTITY_STRAY_HURT;
+	}
+
+	protected SoundEvent getDeathSound() {
+
+		return SoundEvents.ENTITY_STRAY_DEATH;
+	}
+
+	SoundEvent getStepSound() {
+
+		return SoundEvents.ENTITY_STRAY_STEP;
+	}
+
+	protected EntityArrow getArrow(float p_190726_1_) {
+
+		EntityArrow entityarrow = super.getArrow(p_190726_1_);
+
+		if (entityarrow instanceof EntityTippedArrow) {
+			((EntityTippedArrow) entityarrow).addEffect(new PotionEffect(MobEffects.SLOWNESS, 600));
+		}
+
+		return entityarrow;
+	}
+
 }

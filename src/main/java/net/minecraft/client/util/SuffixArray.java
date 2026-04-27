@@ -4,282 +4,246 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import it.unimi.dsi.fastutil.Arrays;
 import it.unimi.dsi.fastutil.Swapper;
-import it.unimi.dsi.fastutil.ints.IntArrayList;
-import it.unimi.dsi.fastutil.ints.IntComparator;
-import it.unimi.dsi.fastutil.ints.IntList;
-import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
-import it.unimi.dsi.fastutil.ints.IntSet;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
+import it.unimi.dsi.fastutil.ints.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class SuffixArray<T>
-{
-    /**
-     * A debug property (<code>SuffixArray.printComparisons</code>) that can be specified in the JVM arguments, that
-     * causes debug printing of comparisons as they happen.
-     */
-    private static final boolean DEBUG_PRINT_COMPARISONS = Boolean.parseBoolean(System.getProperty("SuffixArray.printComparisons", "false"));
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
 
-    /**
-     * A debug property (<code>SuffixArray.printArray</code>) that can be specified in the JVM arguments, that causes
-     * the full array to be printed ({@link #printArray()}) after calling {@link #generate()}
-     */
-    private static final boolean DEBUG_PRINT_ARRAY = Boolean.parseBoolean(System.getProperty("SuffixArray.printArray", "false"));
-    private static final Logger LOGGER = LogManager.getLogger();
-    protected final List<T> list = Lists.<T>newArrayList();
-    private final IntList chars = new IntArrayList();
-    private final IntList wordStarts = new IntArrayList();
-    private IntList suffixToT = new IntArrayList();
-    private IntList offsets = new IntArrayList();
-    private int maxStringLength;
+public class SuffixArray<T> {
 
-    public void add(T p_194057_1_, String p_194057_2_)
-    {
-        maxStringLength = Math.max(maxStringLength, p_194057_2_.length());
-        int i = list.size();
-        list.add(p_194057_1_);
-        wordStarts.add(chars.size());
+	/**
+	 * A debug property (<code>SuffixArray.printComparisons</code>) that can be specified in the JVM arguments, that
+	 * causes debug printing of comparisons as they happen.
+	 */
+	private static final boolean DEBUG_PRINT_COMPARISONS = Boolean.parseBoolean(System.getProperty("SuffixArray.printComparisons", "false"));
 
-        for (int j = 0; j < p_194057_2_.length(); ++j)
-        {
-            suffixToT.add(i);
-            offsets.add(j);
-            chars.add(p_194057_2_.charAt(j));
-        }
+	/**
+	 * A debug property (<code>SuffixArray.printArray</code>) that can be specified in the JVM arguments, that causes
+	 * the full array to be printed ({@link #printArray()}) after calling {@link #generate()}
+	 */
+	private static final boolean DEBUG_PRINT_ARRAY = Boolean.parseBoolean(System.getProperty("SuffixArray.printArray", "false"));
+	private static final Logger LOGGER = LogManager.getLogger();
+	protected final List<T> list = Lists.newArrayList();
+	private final IntList chars = new IntArrayList();
+	private final IntList wordStarts = new IntArrayList();
+	private IntList suffixToT = new IntArrayList();
+	private IntList offsets = new IntArrayList();
+	private int maxStringLength;
 
-        suffixToT.add(i);
-        offsets.add(p_194057_2_.length());
-        chars.add(-1);
-    }
+	public void add(T p_194057_1_, String p_194057_2_) {
 
-    public void generate()
-    {
-        int i = chars.size();
-        int[] aint = new int[i];
-        final int[] aint1 = new int[i];
-        final int[] aint2 = new int[i];
-        int[] aint3 = new int[i];
-        IntComparator intcomparator = new IntComparator()
-        {
-            public int compare(int p_compare_1_, int p_compare_2_)
-            {
-                return aint1[p_compare_1_] == aint1[p_compare_2_] ? Integer.compare(aint2[p_compare_1_], aint2[p_compare_2_]) : Integer.compare(aint1[p_compare_1_], aint1[p_compare_2_]);
-            }
-            public int compare(Integer p_compare_1_, Integer p_compare_2_)
-            {
-                return compare(p_compare_1_.intValue(), p_compare_2_.intValue());
-            }
-        };
-        Swapper swapper = (p_194054_3_, p_194054_4_) ->
-        {
-            if (p_194054_3_ != p_194054_4_)
-            {
-                int i2 = aint1[p_194054_3_];
-                aint1[p_194054_3_] = aint1[p_194054_4_];
-                aint1[p_194054_4_] = i2;
-                i2 = aint2[p_194054_3_];
-                aint2[p_194054_3_] = aint2[p_194054_4_];
-                aint2[p_194054_4_] = i2;
-                i2 = aint3[p_194054_3_];
-                aint3[p_194054_3_] = aint3[p_194054_4_];
-                aint3[p_194054_4_] = i2;
-            }
-        };
+		maxStringLength = Math.max(maxStringLength, p_194057_2_.length());
+		int i = list.size();
+		list.add(p_194057_1_);
+		wordStarts.add(chars.size());
 
-        for (int j = 0; j < i; ++j)
-        {
-            aint[j] = chars.getInt(j);
-        }
+		for (int j = 0; j < p_194057_2_.length(); ++j) {
+			suffixToT.add(i);
+			offsets.add(j);
+			chars.add(p_194057_2_.charAt(j));
+		}
 
-        int k1 = 1;
+		suffixToT.add(i);
+		offsets.add(p_194057_2_.length());
+		chars.add(-1);
+	}
 
-        for (int k = Math.min(i, maxStringLength); k1 * 2 < k; k1 *= 2)
-        {
-            for (int l = 0; l < i; aint3[l] = l++)
-            {
-                aint1[l] = aint[l];
-                aint2[l] = l + k1 < i ? aint[l + k1] : -2;
-            }
+	public void generate() {
 
-            Arrays.quickSort(0, i, intcomparator, swapper);
+		int i = chars.size();
+		int[] aint = new int[i];
+		final int[] aint1 = new int[i];
+		final int[] aint2 = new int[i];
+		int[] aint3 = new int[i];
+		IntComparator intcomparator = new IntComparator() {
+			public int compare(int p_compare_1_, int p_compare_2_) {
 
-            for (int l1 = 0; l1 < i; ++l1)
-            {
-                if (l1 > 0 && aint1[l1] == aint1[l1 - 1] && aint2[l1] == aint2[l1 - 1])
-                {
-                    aint[aint3[l1]] = aint[aint3[l1 - 1]];
-                }
-                else
-                {
-                    aint[aint3[l1]] = l1;
-                }
-            }
-        }
+				return aint1[p_compare_1_] == aint1[p_compare_2_] ? Integer.compare(aint2[p_compare_1_], aint2[p_compare_2_]) : Integer.compare(aint1[p_compare_1_], aint1[p_compare_2_]);
+			}
 
-        IntList intlist1 = suffixToT;
-        IntList intlist = offsets;
-        suffixToT = new IntArrayList(intlist1.size());
-        offsets = new IntArrayList(intlist.size());
+			public int compare(Integer p_compare_1_, Integer p_compare_2_) {
 
-        for (int i1 = 0; i1 < i; ++i1)
-        {
-            int j1 = aint3[i1];
-            suffixToT.add(intlist1.getInt(j1));
-            offsets.add(intlist.getInt(j1));
-        }
+				return compare(p_compare_1_.intValue(), p_compare_2_.intValue());
+			}
+		};
+		Swapper swapper = (p_194054_3_, p_194054_4_) ->
+		{
+			if (p_194054_3_ != p_194054_4_) {
+				int i2 = aint1[p_194054_3_];
+				aint1[p_194054_3_] = aint1[p_194054_4_];
+				aint1[p_194054_4_] = i2;
+				i2 = aint2[p_194054_3_];
+				aint2[p_194054_3_] = aint2[p_194054_4_];
+				aint2[p_194054_4_] = i2;
+				i2 = aint3[p_194054_3_];
+				aint3[p_194054_3_] = aint3[p_194054_4_];
+				aint3[p_194054_4_] = i2;
+			}
+		};
 
-        if (DEBUG_PRINT_ARRAY)
-        {
-            printArray();
-        }
-    }
+		for (int j = 0; j < i; ++j) {
+			aint[j] = chars.getInt(j);
+		}
 
-    /**
-     * Prints the entire array to the logger, on debug level
-     */
-    private void printArray()
-    {
-        for (int i2 = 0; i2 < suffixToT.size(); ++i2)
-        {
-            LOGGER.debug("{} {}", Integer.valueOf(i2), getString(i2));
-        }
+		int k1 = 1;
 
-        LOGGER.debug("");
-    }
+		for (int k = Math.min(i, maxStringLength); k1 * 2 < k; k1 *= 2) {
+			for (int l = 0; l < i; aint3[l] = l++) {
+				aint1[l] = aint[l];
+				aint2[l] = l + k1 < i ? aint[l + k1] : -2;
+			}
 
-    private String getString(int p_194059_1_)
-    {
-        int i2 = offsets.getInt(p_194059_1_);
-        int j2 = wordStarts.getInt(suffixToT.getInt(p_194059_1_));
-        StringBuilder stringbuilder = new StringBuilder();
+			Arrays.quickSort(0, i, intcomparator, swapper);
 
-        for (int k2 = 0; j2 + k2 < chars.size(); ++k2)
-        {
-            if (k2 == i2)
-            {
-                stringbuilder.append('^');
-            }
+			for (int l1 = 0; l1 < i; ++l1) {
+				if (l1 > 0 && aint1[l1] == aint1[l1 - 1] && aint2[l1] == aint2[l1 - 1]) {
+					aint[aint3[l1]] = aint[aint3[l1 - 1]];
+				} else {
+					aint[aint3[l1]] = l1;
+				}
+			}
+		}
 
-            int l2 = ((Integer) chars.get(j2 + k2)).intValue();
+		IntList intlist1 = suffixToT;
+		IntList intlist = offsets;
+		suffixToT = new IntArrayList(intlist1.size());
+		offsets = new IntArrayList(intlist.size());
 
-            if (l2 == -1)
-            {
-                break;
-            }
+		for (int i1 = 0; i1 < i; ++i1) {
+			int j1 = aint3[i1];
+			suffixToT.add(intlist1.getInt(j1));
+			offsets.add(intlist.getInt(j1));
+		}
 
-            stringbuilder.append((char)l2);
-        }
+		if (DEBUG_PRINT_ARRAY) {
+			printArray();
+		}
+	}
 
-        return stringbuilder.toString();
-    }
+	/**
+	 * Prints the entire array to the logger, on debug level
+	 */
+	private void printArray() {
 
-    private int compare(String p_194056_1_, int p_194056_2_)
-    {
-        int i2 = wordStarts.getInt(suffixToT.getInt(p_194056_2_));
-        int j2 = offsets.getInt(p_194056_2_);
+		for (int i2 = 0; i2 < suffixToT.size(); ++i2) {
+			LOGGER.debug("{} {}", Integer.valueOf(i2), getString(i2));
+		}
 
-        for (int k2 = 0; k2 < p_194056_1_.length(); ++k2)
-        {
-            int l2 = chars.getInt(i2 + j2 + k2);
+		LOGGER.debug("");
+	}
 
-            if (l2 == -1)
-            {
-                return 1;
-            }
+	private String getString(int p_194059_1_) {
 
-            char c0 = p_194056_1_.charAt(k2);
-            char c1 = (char)l2;
+		int i2 = offsets.getInt(p_194059_1_);
+		int j2 = wordStarts.getInt(suffixToT.getInt(p_194059_1_));
+		StringBuilder stringbuilder = new StringBuilder();
 
-            if (c0 < c1)
-            {
-                return -1;
-            }
+		for (int k2 = 0; j2 + k2 < chars.size(); ++k2) {
+			if (k2 == i2) {
+				stringbuilder.append('^');
+			}
 
-            if (c0 > c1)
-            {
-                return 1;
-            }
-        }
+			int l2 = chars.get(j2 + k2).intValue();
 
-        return 0;
-    }
+			if (l2 == -1) {
+				break;
+			}
 
-    public List<T> search(String p_194055_1_)
-    {
-        int i2 = suffixToT.size();
-        int j2 = 0;
-        int k2 = i2;
+			stringbuilder.append((char) l2);
+		}
 
-        while (j2 < k2)
-        {
-            int l2 = j2 + (k2 - j2) / 2;
-            int i3 = compare(p_194055_1_, l2);
+		return stringbuilder.toString();
+	}
 
-            if (DEBUG_PRINT_COMPARISONS)
-            {
-                LOGGER.debug("comparing lower \"{}\" with {} \"{}\": {}", p_194055_1_, Integer.valueOf(l2), getString(l2), Integer.valueOf(i3));
-            }
+	private int compare(String p_194056_1_, int p_194056_2_) {
 
-            if (i3 > 0)
-            {
-                j2 = l2 + 1;
-            }
-            else
-            {
-                k2 = l2;
-            }
-        }
+		int i2 = wordStarts.getInt(suffixToT.getInt(p_194056_2_));
+		int j2 = offsets.getInt(p_194056_2_);
 
-        if (j2 >= 0 && j2 < i2)
-        {
-            int i4 = j2;
-            k2 = i2;
+		for (int k2 = 0; k2 < p_194056_1_.length(); ++k2) {
+			int l2 = chars.getInt(i2 + j2 + k2);
 
-            while (j2 < k2)
-            {
-                int j4 = j2 + (k2 - j2) / 2;
-                int j3 = compare(p_194055_1_, j4);
+			if (l2 == -1) {
+				return 1;
+			}
 
-                if (DEBUG_PRINT_COMPARISONS)
-                {
-                    LOGGER.debug("comparing upper \"{}\" with {} \"{}\": {}", p_194055_1_, Integer.valueOf(j4), getString(j4), Integer.valueOf(j3));
-                }
+			char c0 = p_194056_1_.charAt(k2);
+			char c1 = (char) l2;
 
-                if (j3 >= 0)
-                {
-                    j2 = j4 + 1;
-                }
-                else
-                {
-                    k2 = j4;
-                }
-            }
+			if (c0 < c1) {
+				return -1;
+			}
 
-            int k4 = j2;
-            IntSet intset = new IntOpenHashSet();
+			if (c0 > c1) {
+				return 1;
+			}
+		}
 
-            for (int k3 = i4; k3 < k4; ++k3)
-            {
-                intset.add(suffixToT.getInt(k3));
-            }
+		return 0;
+	}
 
-            int[] aint4 = intset.toIntArray();
-            java.util.Arrays.sort(aint4);
-            Set<T> set = Sets.<T>newLinkedHashSet();
+	public List<T> search(String p_194055_1_) {
 
-            for (int l3 : aint4)
-            {
-                set.add(list.get(l3));
-            }
+		int i2 = suffixToT.size();
+		int j2 = 0;
+		int k2 = i2;
 
-            return Lists.newArrayList(set);
-        }
-        else
-        {
-            return Collections.<T>emptyList();
-        }
-    }
+		while (j2 < k2) {
+			int l2 = j2 + (k2 - j2) / 2;
+			int i3 = compare(p_194055_1_, l2);
+
+			if (DEBUG_PRINT_COMPARISONS) {
+				LOGGER.debug("comparing lower \"{}\" with {} \"{}\": {}", p_194055_1_, Integer.valueOf(l2), getString(l2), Integer.valueOf(i3));
+			}
+
+			if (i3 > 0) {
+				j2 = l2 + 1;
+			} else {
+				k2 = l2;
+			}
+		}
+
+		if (j2 >= 0 && j2 < i2) {
+			int i4 = j2;
+			k2 = i2;
+
+			while (j2 < k2) {
+				int j4 = j2 + (k2 - j2) / 2;
+				int j3 = compare(p_194055_1_, j4);
+
+				if (DEBUG_PRINT_COMPARISONS) {
+					LOGGER.debug("comparing upper \"{}\" with {} \"{}\": {}", p_194055_1_, Integer.valueOf(j4), getString(j4), Integer.valueOf(j3));
+				}
+
+				if (j3 >= 0) {
+					j2 = j4 + 1;
+				} else {
+					k2 = j4;
+				}
+			}
+
+			int k4 = j2;
+			IntSet intset = new IntOpenHashSet();
+
+			for (int k3 = i4; k3 < k4; ++k3) {
+				intset.add(suffixToT.getInt(k3));
+			}
+
+			int[] aint4 = intset.toIntArray();
+			java.util.Arrays.sort(aint4);
+			Set<T> set = Sets.newLinkedHashSet();
+
+			for (int l3 : aint4) {
+				set.add(list.get(l3));
+			}
+
+			return Lists.newArrayList(set);
+		} else {
+			return Collections.emptyList();
+		}
+	}
+
 }

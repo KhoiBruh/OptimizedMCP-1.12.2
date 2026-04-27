@@ -1,21 +1,20 @@
 package net.minecraft.util;
 
-public enum BlockRenderLayer
-{
-    SOLID("Solid"),
-    CUTOUT_MIPPED("Mipped Cutout"),
-    CUTOUT("Cutout"),
-    TRANSLUCENT("Translucent");
+public enum BlockRenderLayer {
+	SOLID("Solid"),
+	CUTOUT_MIPPED("Mipped Cutout"),
+	CUTOUT("Cutout"),
+	TRANSLUCENT("Translucent");
 
-    private final String layerName;
+	private final String layerName;
 
-    private BlockRenderLayer(String layerNameIn)
-    {
-        layerName = layerNameIn;
-    }
+	BlockRenderLayer(String layerNameIn) {
 
-    public String toString()
-    {
-        return layerName;
-    }
+		layerName = layerNameIn;
+	}
+
+	public String toString() {
+
+		return layerName;
+	}
 }

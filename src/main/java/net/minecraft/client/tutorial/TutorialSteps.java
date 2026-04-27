@@ -2,44 +2,41 @@ package net.minecraft.client.tutorial;
 
 import java.util.function.Function;
 
-public enum TutorialSteps
-{
-    MOVEMENT("movement", MovementStep::new),
-    FIND_TREE("find_tree", FindTreeStep::new),
-    PUNCH_TREE("punch_tree", PunchTreeStep::new),
-    OPEN_INVENTORY("open_inventory", OpenInventoryStep::new),
-    CRAFT_PLANKS("craft_planks", CraftPlanksStep::new),
-    NONE("none", CompletedTutorialStep::new);
+public enum TutorialSteps {
+	MOVEMENT("movement", MovementStep::new),
+	FIND_TREE("find_tree", FindTreeStep::new),
+	PUNCH_TREE("punch_tree", PunchTreeStep::new),
+	OPEN_INVENTORY("open_inventory", OpenInventoryStep::new),
+	CRAFT_PLANKS("craft_planks", CraftPlanksStep::new),
+	NONE("none", CompletedTutorialStep::new);
 
-    private final String name;
-    private final Function < Tutorial, ? extends ITutorialStep > tutorial;
+	private final String name;
+	private final Function<Tutorial, ? extends ITutorialStep> tutorial;
 
-    private <T extends ITutorialStep> TutorialSteps(String nameIn, Function<Tutorial, T> constructor)
-    {
-        name = nameIn;
-        tutorial = constructor;
-    }
+	<T extends ITutorialStep> TutorialSteps(String nameIn, Function<Tutorial, T> constructor) {
 
-    public ITutorialStep create(Tutorial tutorial)
-    {
-        return this.tutorial.apply(tutorial);
-    }
+		name = nameIn;
+		tutorial = constructor;
+	}
 
-    public String getName()
-    {
-        return name;
-    }
+	public ITutorialStep create(Tutorial tutorial) {
 
-    public static TutorialSteps getTutorial(String tutorialName)
-    {
-        for (TutorialSteps tutorialsteps : values())
-        {
-            if (tutorialsteps.name.equals(tutorialName))
-            {
-                return tutorialsteps;
-            }
-        }
+		return this.tutorial.apply(tutorial);
+	}
 
-        return NONE;
-    }
+	public String getName() {
+
+		return name;
+	}
+
+	public static TutorialSteps getTutorial(String tutorialName) {
+
+		for (TutorialSteps tutorialsteps : values()) {
+			if (tutorialsteps.name.equals(tutorialName)) {
+				return tutorialsteps;
+			}
+		}
+
+		return NONE;
+	}
 }

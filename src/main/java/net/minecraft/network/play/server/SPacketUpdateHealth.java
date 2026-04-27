@@ -1,67 +1,69 @@
 package net.minecraft.network.play.server;
 
-import java.io.IOException;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayClient;
 
-public class SPacketUpdateHealth implements Packet<INetHandlerPlayClient>
-{
-    private float health;
-    private int foodLevel;
-    private float saturationLevel;
+import java.io.IOException;
 
-    public SPacketUpdateHealth()
-    {
-    }
+public class SPacketUpdateHealth implements Packet<INetHandlerPlayClient> {
 
-    public SPacketUpdateHealth(float healthIn, int foodLevelIn, float saturationLevelIn)
-    {
-        health = healthIn;
-        foodLevel = foodLevelIn;
-        saturationLevel = saturationLevelIn;
-    }
+	private float health;
+	private int foodLevel;
+	private float saturationLevel;
 
-    /**
-     * Reads the raw packet data from the data stream.
-     */
-    public void readPacketData(PacketBuffer buf) throws IOException
-    {
-        health = buf.readFloat();
-        foodLevel = buf.readVarInt();
-        saturationLevel = buf.readFloat();
-    }
+	public SPacketUpdateHealth() {
 
-    /**
-     * Writes the raw packet data to the data stream.
-     */
-    public void writePacketData(PacketBuffer buf) throws IOException
-    {
-        buf.writeFloat(health);
-        buf.writeVarInt(foodLevel);
-        buf.writeFloat(saturationLevel);
-    }
+	}
 
-    /**
-     * Passes this Packet on to the NetHandler for processing.
-     */
-    public void processPacket(INetHandlerPlayClient handler)
-    {
-        handler.handleUpdateHealth(this);
-    }
+	public SPacketUpdateHealth(float healthIn, int foodLevelIn, float saturationLevelIn) {
 
-    public float getHealth()
-    {
-        return health;
-    }
+		health = healthIn;
+		foodLevel = foodLevelIn;
+		saturationLevel = saturationLevelIn;
+	}
 
-    public int getFoodLevel()
-    {
-        return foodLevel;
-    }
+	/**
+	 * Reads the raw packet data from the data stream.
+	 */
+	public void readPacketData(PacketBuffer buf) throws IOException {
 
-    public float getSaturationLevel()
-    {
-        return saturationLevel;
-    }
+		health = buf.readFloat();
+		foodLevel = buf.readVarInt();
+		saturationLevel = buf.readFloat();
+	}
+
+	/**
+	 * Writes the raw packet data to the data stream.
+	 */
+	public void writePacketData(PacketBuffer buf) throws IOException {
+
+		buf.writeFloat(health);
+		buf.writeVarInt(foodLevel);
+		buf.writeFloat(saturationLevel);
+	}
+
+	/**
+	 * Passes this Packet on to the NetHandler for processing.
+	 */
+	public void processPacket(INetHandlerPlayClient handler) {
+
+		handler.handleUpdateHealth(this);
+	}
+
+	public float getHealth() {
+
+		return health;
+	}
+
+	public int getFoodLevel() {
+
+		return foodLevel;
+	}
+
+	public float getSaturationLevel() {
+
+		return saturationLevel;
+	}
+
 }

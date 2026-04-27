@@ -7,20 +7,8 @@ import com.mojang.authlib.GameProfile;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
-import io.netty.channel.Channel;
-import io.netty.channel.ChannelException;
-import io.netty.channel.ChannelFutureListener;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.ChannelOption;
-import io.netty.channel.SimpleChannelInboundHandler;
+import io.netty.channel.*;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-import java.nio.charset.StandardCharsets;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ServerAddress;
 import net.minecraft.client.multiplayer.ServerData;
@@ -43,272 +31,236 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class ServerPinger
-{
-    private static final Splitter PING_RESPONSE_SPLITTER = Splitter.on('\u0000').limit(6);
-    private static final Logger LOGGER = LogManager.getLogger();
-    private final List<NetworkManager> pingDestinations = Collections.<NetworkManager>synchronizedList(Lists.newArrayList());
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.nio.charset.StandardCharsets;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
 
-    public void ping(final ServerData server) throws UnknownHostException
-    {
-        ServerAddress serveraddress = ServerAddress.fromString(server.serverIP);
-        final NetworkManager networkmanager = NetworkManager.createNetworkManagerAndConnect(InetAddress.getByName(serveraddress.getIP()), serveraddress.getPort(), false);
-        pingDestinations.add(networkmanager);
-        server.serverMOTD = I18n.format("multiplayer.status.pinging");
-        server.pingToServer = -1L;
-        server.playerList = null;
-        networkmanager.setNetHandler(new INetHandlerStatusClient()
-        {
-            private boolean successful;
-            private boolean receivedStatus;
-            private long pingSentAt;
-            public void handleServerInfo(SPacketServerInfo packetIn)
-            {
-                if (receivedStatus)
-                {
-                    networkmanager.closeChannel(new TextComponentTranslation("multiplayer.status.unrequested", new Object[0]));
-                }
-                else
-                {
-                    receivedStatus = true;
-                    ServerStatusResponse serverstatusresponse = packetIn.getResponse();
+public class ServerPinger {
 
-                    if (serverstatusresponse.getServerDescription() != null)
-                    {
-                        server.serverMOTD = serverstatusresponse.getServerDescription().getFormattedText();
-                    }
-                    else
-                    {
-                        server.serverMOTD = "";
-                    }
+	private static final Splitter PING_RESPONSE_SPLITTER = Splitter.on('\u0000').limit(6);
+	private static final Logger LOGGER = LogManager.getLogger();
+	private final List<NetworkManager> pingDestinations = Collections.synchronizedList(Lists.newArrayList());
 
-                    if (serverstatusresponse.getVersion() != null)
-                    {
-                        server.gameVersion = serverstatusresponse.getVersion().getName();
-                        server.version = serverstatusresponse.getVersion().getProtocol();
-                    }
-                    else
-                    {
-                        server.gameVersion = I18n.format("multiplayer.status.old");
-                        server.version = 0;
-                    }
+	public void ping(final ServerData server) throws UnknownHostException {
 
-                    if (serverstatusresponse.getPlayers() != null)
-                    {
-                        server.populationInfo = TextFormatting.GRAY + "" + serverstatusresponse.getPlayers().getOnlinePlayerCount() + "" + TextFormatting.DARK_GRAY + "/" + TextFormatting.GRAY + serverstatusresponse.getPlayers().getMaxPlayers();
+		ServerAddress serveraddress = ServerAddress.fromString(server.serverIP);
+		final NetworkManager networkmanager = NetworkManager.createNetworkManagerAndConnect(InetAddress.getByName(serveraddress.getIP()), serveraddress.getPort(), false);
+		pingDestinations.add(networkmanager);
+		server.serverMOTD = I18n.format("multiplayer.status.pinging");
+		server.pingToServer = -1L;
+		server.playerList = null;
+		networkmanager.setNetHandler(new INetHandlerStatusClient() {
+			private boolean successful;
+			private boolean receivedStatus;
+			private long pingSentAt;
 
-                        if (ArrayUtils.isNotEmpty(serverstatusresponse.getPlayers().getPlayers()))
-                        {
-                            StringBuilder stringbuilder = new StringBuilder();
+			public void handleServerInfo(SPacketServerInfo packetIn) {
 
-                            for (GameProfile gameprofile : serverstatusresponse.getPlayers().getPlayers())
-                            {
-                                if (stringbuilder.length() > 0)
-                                {
-                                    stringbuilder.append("\n");
-                                }
+				if (receivedStatus) {
+					networkmanager.closeChannel(new TextComponentTranslation("multiplayer.status.unrequested"));
+				} else {
+					receivedStatus = true;
+					ServerStatusResponse serverstatusresponse = packetIn.getResponse();
 
-                                stringbuilder.append(gameprofile.getName());
-                            }
+					if (serverstatusresponse.getServerDescription() != null) {
+						server.serverMOTD = serverstatusresponse.getServerDescription().getFormattedText();
+					} else {
+						server.serverMOTD = "";
+					}
 
-                            if (serverstatusresponse.getPlayers().getPlayers().length < serverstatusresponse.getPlayers().getOnlinePlayerCount())
-                            {
-                                if (stringbuilder.length() > 0)
-                                {
-                                    stringbuilder.append("\n");
-                                }
+					if (serverstatusresponse.getVersion() != null) {
+						server.gameVersion = serverstatusresponse.getVersion().name();
+						server.version = serverstatusresponse.getVersion().protocol();
+					} else {
+						server.gameVersion = I18n.format("multiplayer.status.old");
+						server.version = 0;
+					}
 
-                                stringbuilder.append(I18n.format("multiplayer.status.and_more", serverstatusresponse.getPlayers().getOnlinePlayerCount() - serverstatusresponse.getPlayers().getPlayers().length));
-                            }
+					if (serverstatusresponse.getPlayers() != null) {
+						server.populationInfo = TextFormatting.GRAY + "" + serverstatusresponse.getPlayers().getOnlinePlayerCount() + TextFormatting.DARK_GRAY + "/" + TextFormatting.GRAY + serverstatusresponse.getPlayers().getMaxPlayers();
 
-                            server.playerList = stringbuilder.toString();
-                        }
-                    }
-                    else
-                    {
-                        server.populationInfo = TextFormatting.DARK_GRAY + I18n.format("multiplayer.status.unknown");
-                    }
+						if (ArrayUtils.isNotEmpty(serverstatusresponse.getPlayers().getPlayers())) {
+							StringBuilder stringbuilder = new StringBuilder();
 
-                    if (serverstatusresponse.getFavicon() != null)
-                    {
-                        String s = serverstatusresponse.getFavicon();
+							for (GameProfile gameprofile : serverstatusresponse.getPlayers().getPlayers()) {
+								if (stringbuilder.length() > 0) {
+									stringbuilder.append("\n");
+								}
 
-                        if (s.startsWith("data:image/png;base64,"))
-                        {
-                            server.setBase64EncodedIconData(s.substring("data:image/png;base64,".length()));
-                        }
-                        else
-                        {
-                            ServerPinger.LOGGER.error("Invalid server icon (unknown format)");
-                        }
-                    }
-                    else
-                    {
-                        server.setBase64EncodedIconData((String)null);
-                    }
+								stringbuilder.append(gameprofile.getName());
+							}
 
-                    pingSentAt = Minecraft.getSystemTime();
-                    networkmanager.sendPacket(new CPacketPing(pingSentAt));
-                    successful = true;
-                }
-            }
-            public void handlePong(SPacketPong packetIn)
-            {
-                long i = pingSentAt;
-                long j = Minecraft.getSystemTime();
-                server.pingToServer = j - i;
-                networkmanager.closeChannel(new TextComponentString("Finished"));
-            }
-            public void onDisconnect(ITextComponent reason)
-            {
-                if (!successful)
-                {
-                    ServerPinger.LOGGER.error("Can't ping {}: {}", server.serverIP, reason.getUnformattedText());
-                    server.serverMOTD = TextFormatting.DARK_RED + I18n.format("multiplayer.status.cannot_connect");
-                    server.populationInfo = "";
-                    tryCompatibilityPing(server);
-                }
-            }
-        });
+							if (serverstatusresponse.getPlayers().getPlayers().length < serverstatusresponse.getPlayers().getOnlinePlayerCount()) {
+								if (stringbuilder.length() > 0) {
+									stringbuilder.append("\n");
+								}
 
-        try
-        {
-            networkmanager.sendPacket(new C00Handshake(serveraddress.getIP(), serveraddress.getPort(), EnumConnectionState.STATUS));
-            networkmanager.sendPacket(new CPacketServerQuery());
-        }
-        catch (Throwable throwable)
-        {
-            LOGGER.error(throwable);
-        }
-    }
+								stringbuilder.append(I18n.format("multiplayer.status.and_more", serverstatusresponse.getPlayers().getOnlinePlayerCount() - serverstatusresponse.getPlayers().getPlayers().length));
+							}
 
-    private void tryCompatibilityPing(final ServerData server)
-    {
-        final ServerAddress serveraddress = ServerAddress.fromString(server.serverIP);
-        ((Bootstrap)((Bootstrap)((Bootstrap)(new Bootstrap()).group(NetworkManager.CLIENT_NIO_EVENTLOOP.getValue())).handler(new ChannelInitializer<Channel>()
-        {
-            protected void initChannel(Channel p_initChannel_1_) throws Exception
-            {
-                try
-                {
-                    p_initChannel_1_.config().setOption(ChannelOption.TCP_NODELAY, Boolean.valueOf(true));
-                }
-                catch (ChannelException var3)
-                {
-                    ;
-                }
+							server.playerList = stringbuilder.toString();
+						}
+					} else {
+						server.populationInfo = TextFormatting.DARK_GRAY + I18n.format("multiplayer.status.unknown");
+					}
 
-                p_initChannel_1_.pipeline().addLast(new SimpleChannelInboundHandler<ByteBuf>()
-                {
-                    public void channelActive(ChannelHandlerContext p_channelActive_1_) throws Exception
-                    {
-                        super.channelActive(p_channelActive_1_);
-                        ByteBuf bytebuf = Unpooled.buffer();
+					if (serverstatusresponse.getFavicon() != null) {
+						String s = serverstatusresponse.getFavicon();
 
-                        try
-                        {
-                            bytebuf.writeByte(254);
-                            bytebuf.writeByte(1);
-                            bytebuf.writeByte(250);
-                            char[] achar = "MC|PingHost".toCharArray();
-                            bytebuf.writeShort(achar.length);
+						if (s.startsWith("data:image/png;base64,")) {
+							server.setBase64EncodedIconData(s.substring("data:image/png;base64,".length()));
+						} else {
+							ServerPinger.LOGGER.error("Invalid server icon (unknown format)");
+						}
+					} else {
+						server.setBase64EncodedIconData(null);
+					}
 
-                            for (char c0 : achar)
-                            {
-                                bytebuf.writeChar(c0);
-                            }
+					pingSentAt = Minecraft.getSystemTime();
+					networkmanager.sendPacket(new CPacketPing(pingSentAt));
+					successful = true;
+				}
+			}
 
-                            bytebuf.writeShort(7 + 2 * serveraddress.getIP().length());
-                            bytebuf.writeByte(127);
-                            achar = serveraddress.getIP().toCharArray();
-                            bytebuf.writeShort(achar.length);
+			public void handlePong(SPacketPong packetIn) {
 
-                            for (char c1 : achar)
-                            {
-                                bytebuf.writeChar(c1);
-                            }
+				long i = pingSentAt;
+				long j = Minecraft.getSystemTime();
+				server.pingToServer = j - i;
+				networkmanager.closeChannel(new TextComponentString("Finished"));
+			}
 
-                            bytebuf.writeInt(serveraddress.getPort());
-                            p_channelActive_1_.channel().writeAndFlush(bytebuf).addListener(ChannelFutureListener.CLOSE_ON_FAILURE);
-                        }
-                        finally
-                        {
-                            bytebuf.release();
-                        }
-                    }
-                    protected void channelRead0(ChannelHandlerContext p_channelRead0_1_, ByteBuf p_channelRead0_2_) throws Exception
-                    {
-                        short short1 = p_channelRead0_2_.readUnsignedByte();
+			public void onDisconnect(ITextComponent reason) {
 
-                        if (short1 == 255)
-                        {
-                            String s = new String(p_channelRead0_2_.readBytes(p_channelRead0_2_.readShort() * 2).array(), StandardCharsets.UTF_16BE);
-                            String[] astring = (String[])Iterables.toArray(ServerPinger.PING_RESPONSE_SPLITTER.split(s), String.class);
+				if (!successful) {
+					ServerPinger.LOGGER.error("Can't ping {}: {}", server.serverIP, reason.getUnformattedText());
+					server.serverMOTD = TextFormatting.DARK_RED + I18n.format("multiplayer.status.cannot_connect");
+					server.populationInfo = "";
+					tryCompatibilityPing(server);
+				}
+			}
+		});
 
-                            if ("\u00a71".equals(astring[0]))
-                            {
-                                int i = MathHelper.getInt(astring[1], 0);
-                                String s1 = astring[2];
-                                String s2 = astring[3];
-                                int j = MathHelper.getInt(astring[4], -1);
-                                int k = MathHelper.getInt(astring[5], -1);
-                                server.version = -1;
-                                server.gameVersion = s1;
-                                server.serverMOTD = s2;
-                                server.populationInfo = TextFormatting.GRAY + "" + j + "" + TextFormatting.DARK_GRAY + "/" + TextFormatting.GRAY + k;
-                            }
-                        }
+		try {
+			networkmanager.sendPacket(new C00Handshake(serveraddress.getIP(), serveraddress.getPort(), EnumConnectionState.STATUS));
+			networkmanager.sendPacket(new CPacketServerQuery());
+		} catch (Throwable throwable) {
+			LOGGER.error(throwable);
+		}
+	}
 
-                        p_channelRead0_1_.close();
-                    }
-                    public void exceptionCaught(ChannelHandlerContext p_exceptionCaught_1_, Throwable p_exceptionCaught_2_) throws Exception
-                    {
-                        p_exceptionCaught_1_.close();
-                    }
-                });
-            }
-        })).channel(NioSocketChannel.class)).connect(serveraddress.getIP(), serveraddress.getPort());
-    }
+	private void tryCompatibilityPing(final ServerData server) {
 
-    public void pingPendingNetworks()
-    {
-        synchronized (pingDestinations)
-        {
-            Iterator<NetworkManager> iterator = pingDestinations.iterator();
+		final ServerAddress serveraddress = ServerAddress.fromString(server.serverIP);
+		(new Bootstrap()).group(NetworkManager.CLIENT_NIO_EVENT_LOOP.getValue()).handler(new ChannelInitializer<Channel>() {
+			protected void initChannel(Channel p_initChannel_1_) throws Exception {
 
-            while (iterator.hasNext())
-            {
-                NetworkManager networkmanager = iterator.next();
+				try {
+					p_initChannel_1_.config().setOption(ChannelOption.TCP_NODELAY, Boolean.valueOf(true));
+				} catch (ChannelException var3) {
+				}
 
-                if (networkmanager.isChannelOpen())
-                {
-                    networkmanager.processReceivedPackets();
-                }
-                else
-                {
-                    iterator.remove();
-                    networkmanager.checkDisconnected();
-                }
-            }
-        }
-    }
+				p_initChannel_1_.pipeline().addLast(new SimpleChannelInboundHandler<ByteBuf>() {
+					public void channelActive(ChannelHandlerContext p_channelActive_1_) throws Exception {
 
-    public void clearPendingNetworks()
-    {
-        synchronized (pingDestinations)
-        {
-            Iterator<NetworkManager> iterator = pingDestinations.iterator();
+						super.channelActive(p_channelActive_1_);
+						ByteBuf bytebuf = Unpooled.buffer();
 
-            while (iterator.hasNext())
-            {
-                NetworkManager networkmanager = iterator.next();
+						try {
+							bytebuf.writeByte(254);
+							bytebuf.writeByte(1);
+							bytebuf.writeByte(250);
+							char[] achar = "MC|PingHost".toCharArray();
+							bytebuf.writeShort(achar.length);
 
-                if (networkmanager.isChannelOpen())
-                {
-                    iterator.remove();
-                    networkmanager.closeChannel(new TextComponentTranslation("multiplayer.status.cancelled", new Object[0]));
-                }
-            }
-        }
-    }
+							for (char c0 : achar) {
+								bytebuf.writeChar(c0);
+							}
+
+							bytebuf.writeShort(7 + 2 * serveraddress.getIP().length());
+							bytebuf.writeByte(127);
+							achar = serveraddress.getIP().toCharArray();
+							bytebuf.writeShort(achar.length);
+
+							for (char c1 : achar) {
+								bytebuf.writeChar(c1);
+							}
+
+							bytebuf.writeInt(serveraddress.getPort());
+							p_channelActive_1_.channel().writeAndFlush(bytebuf).addListener(ChannelFutureListener.CLOSE_ON_FAILURE);
+						} finally {
+							bytebuf.release();
+						}
+					}
+
+					protected void channelRead0(ChannelHandlerContext p_channelRead0_1_, ByteBuf p_channelRead0_2_) throws Exception {
+
+						short short1 = p_channelRead0_2_.readUnsignedByte();
+
+						if (short1 == 255) {
+							String s = new String(p_channelRead0_2_.readBytes(p_channelRead0_2_.readShort() * 2).array(), StandardCharsets.UTF_16BE);
+							String[] astring = Iterables.toArray(ServerPinger.PING_RESPONSE_SPLITTER.split(s), String.class);
+
+							if ("\u00a71".equals(astring[0])) {
+								int i = MathHelper.getInt(astring[1], 0);
+								String s1 = astring[2];
+								String s2 = astring[3];
+								int j = MathHelper.getInt(astring[4], -1);
+								int k = MathHelper.getInt(astring[5], -1);
+								server.version = -1;
+								server.gameVersion = s1;
+								server.serverMOTD = s2;
+								server.populationInfo = TextFormatting.GRAY + "" + j + TextFormatting.DARK_GRAY + "/" + TextFormatting.GRAY + k;
+							}
+						}
+
+						p_channelRead0_1_.close();
+					}
+
+					public void exceptionCaught(ChannelHandlerContext p_exceptionCaught_1_, Throwable p_exceptionCaught_2_) throws Exception {
+
+						p_exceptionCaught_1_.close();
+					}
+				});
+			}
+		}).channel(NioSocketChannel.class).connect(serveraddress.getIP(), serveraddress.getPort());
+	}
+
+	public void pingPendingNetworks() {
+
+		synchronized (pingDestinations) {
+			Iterator<NetworkManager> iterator = pingDestinations.iterator();
+
+			while (iterator.hasNext()) {
+				NetworkManager networkmanager = iterator.next();
+
+				if (networkmanager.isChannelOpen()) {
+					networkmanager.processReceivedPackets();
+				} else {
+					iterator.remove();
+					networkmanager.checkDisconnected();
+				}
+			}
+		}
+	}
+
+	public void clearPendingNetworks() {
+
+		synchronized (pingDestinations) {
+			Iterator<NetworkManager> iterator = pingDestinations.iterator();
+
+			while (iterator.hasNext()) {
+				NetworkManager networkmanager = iterator.next();
+
+				if (networkmanager.isChannelOpen()) {
+					iterator.remove();
+					networkmanager.closeChannel(new TextComponentTranslation("multiplayer.status.cancelled"));
+				}
+			}
+		}
+	}
+
 }

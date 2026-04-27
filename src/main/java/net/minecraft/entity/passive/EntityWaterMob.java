@@ -5,85 +5,82 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
-public abstract class EntityWaterMob extends EntityLiving implements IAnimals
-{
-    public EntityWaterMob(World worldIn)
-    {
-        super(worldIn);
-    }
+public abstract class EntityWaterMob extends EntityLiving implements IAnimals {
 
-    public boolean canBreatheUnderwater()
-    {
-        return true;
-    }
+	public EntityWaterMob(World worldIn) {
 
-    /**
-     * Checks if the entity's current position is a valid location to spawn this entity.
-     */
-    public boolean getCanSpawnHere()
-    {
-        return true;
-    }
+		super(worldIn);
+	}
 
-    /**
-     * Checks that the entity is not colliding with any blocks / liquids
-     */
-    public boolean isNotColliding()
-    {
-        return world.checkNoEntityCollision(getEntityBoundingBox(), this);
-    }
+	public boolean canBreatheUnderwater() {
 
-    /**
-     * Get number of ticks, at least during which the living entity will be silent.
-     */
-    public int getTalkInterval()
-    {
-        return 120;
-    }
+		return true;
+	}
 
-    /**
-     * Determines if an entity can be despawned, used on idle far away entities
-     */
-    protected boolean canDespawn()
-    {
-        return true;
-    }
+	/**
+	 * Checks if the entity's current position is a valid location to spawn this entity.
+	 */
+	public boolean getCanSpawnHere() {
 
-    /**
-     * Get the experience points the entity currently has.
-     */
-    protected int getExperiencePoints(EntityPlayer player)
-    {
-        return 1 + world.rand.nextInt(3);
-    }
+		return true;
+	}
 
-    /**
-     * Gets called every tick from main Entity class
-     */
-    public void onEntityUpdate()
-    {
-        int i = getAir();
-        super.onEntityUpdate();
+	/**
+	 * Checks that the entity is not colliding with any blocks / liquids
+	 */
+	public boolean isNotColliding() {
 
-        if (isEntityAlive() && !isInWater())
-        {
-            --i;
-            setAir(i);
+		return world.checkNoEntityCollision(getEntityBoundingBox(), this);
+	}
 
-            if (getAir() == -20)
-            {
-                setAir(0);
-                attackEntityFrom(DamageSource.DROWN, 2.0F);
-            }
-        }
-        else
-        {
-            setAir(300);
-        }
-    }
+	/**
+	 * Get number of ticks, at least during which the living entity will be silent.
+	 */
+	public int getTalkInterval() {
 
-    public boolean isPushedByWater()
-    {
-        return false;
-    }
+		return 120;
+	}
+
+	/**
+	 * Determines if an entity can be despawned, used on idle far away entities
+	 */
+	protected boolean canDespawn() {
+
+		return true;
+	}
+
+	/**
+	 * Get the experience points the entity currently has.
+	 */
+	protected int getExperiencePoints(EntityPlayer player) {
+
+		return 1 + world.rand.nextInt(3);
+	}
+
+	/**
+	 * Gets called every tick from main Entity class
+	 */
+	public void onEntityUpdate() {
+
+		int i = getAir();
+		super.onEntityUpdate();
+
+		if (isEntityAlive() && !isInWater()) {
+			--i;
+			setAir(i);
+
+			if (getAir() == -20) {
+				setAir(0);
+				attackEntityFrom(DamageSource.DROWN, 2.0F);
+			}
+		} else {
+			setAir(300);
+		}
+	}
+
+	public boolean isPushedByWater() {
+
+		return false;
+	}
+
 }

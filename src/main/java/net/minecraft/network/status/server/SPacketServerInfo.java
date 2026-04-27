@@ -2,7 +2,6 @@ package net.minecraft.network.status.server;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import java.io.IOException;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.ServerStatusResponse;
@@ -12,46 +11,49 @@ import net.minecraft.util.JsonUtils;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.Style;
 
-public class SPacketServerInfo implements Packet<INetHandlerStatusClient>
-{
-    private static final Gson GSON = (new GsonBuilder()).registerTypeAdapter(ServerStatusResponse.Version.class, new ServerStatusResponse.Version.Serializer()).registerTypeAdapter(ServerStatusResponse.Players.class, new ServerStatusResponse.Players.Serializer()).registerTypeAdapter(ServerStatusResponse.class, new ServerStatusResponse.Serializer()).registerTypeHierarchyAdapter(ITextComponent.class, new ITextComponent.Serializer()).registerTypeHierarchyAdapter(Style.class, new Style.Serializer()).registerTypeAdapterFactory(new EnumTypeAdapterFactory()).create();
-    private ServerStatusResponse response;
+import java.io.IOException;
 
-    public SPacketServerInfo()
-    {
-    }
+public class SPacketServerInfo implements Packet<INetHandlerStatusClient> {
 
-    public SPacketServerInfo(ServerStatusResponse responseIn)
-    {
-        response = responseIn;
-    }
+	private static final Gson GSON = (new GsonBuilder()).registerTypeAdapter(ServerStatusResponse.Version.class, new ServerStatusResponse.Version.Serializer()).registerTypeAdapter(ServerStatusResponse.Players.class, new ServerStatusResponse.Players.Serializer()).registerTypeAdapter(ServerStatusResponse.class, new ServerStatusResponse.Serializer()).registerTypeHierarchyAdapter(ITextComponent.class, new ITextComponent.Serializer()).registerTypeHierarchyAdapter(Style.class, new Style.Serializer()).registerTypeAdapterFactory(new EnumTypeAdapterFactory()).create();
+	private ServerStatusResponse response;
 
-    /**
-     * Reads the raw packet data from the data stream.
-     */
-    public void readPacketData(PacketBuffer buf) throws IOException
-    {
-        response = (ServerStatusResponse)JsonUtils.gsonDeserialize(GSON, buf.readString(32767), ServerStatusResponse.class);
-    }
+	public SPacketServerInfo() {
 
-    /**
-     * Writes the raw packet data to the data stream.
-     */
-    public void writePacketData(PacketBuffer buf) throws IOException
-    {
-        buf.writeString(GSON.toJson(response));
-    }
+	}
 
-    /**
-     * Passes this Packet on to the NetHandler for processing.
-     */
-    public void processPacket(INetHandlerStatusClient handler)
-    {
-        handler.handleServerInfo(this);
-    }
+	public SPacketServerInfo(ServerStatusResponse responseIn) {
 
-    public ServerStatusResponse getResponse()
-    {
-        return response;
-    }
+		response = responseIn;
+	}
+
+	/**
+	 * Reads the raw packet data from the data stream.
+	 */
+	public void readPacketData(PacketBuffer buf) throws IOException {
+
+		response = JsonUtils.gsonDeserialize(GSON, buf.readString(32767), ServerStatusResponse.class);
+	}
+
+	/**
+	 * Writes the raw packet data to the data stream.
+	 */
+	public void writePacketData(PacketBuffer buf) throws IOException {
+
+		buf.writeString(GSON.toJson(response));
+	}
+
+	/**
+	 * Passes this Packet on to the NetHandler for processing.
+	 */
+	public void processPacket(INetHandlerStatusClient handler) {
+
+		handler.handleServerInfo(this);
+	}
+
+	public ServerStatusResponse getResponse() {
+
+		return response;
+	}
+
 }

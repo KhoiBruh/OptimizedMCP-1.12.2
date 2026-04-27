@@ -2,60 +2,59 @@ package net.minecraft.server.management;
 
 import com.google.gson.JsonObject;
 import com.mojang.authlib.GameProfile;
+
 import java.io.File;
 
-public class UserListBans extends UserList<GameProfile, UserListBansEntry>
-{
-    public UserListBans(File bansFile)
-    {
-        super(bansFile);
-    }
+public class UserListBans extends UserList<GameProfile, UserListBansEntry> {
 
-    protected UserListEntry<GameProfile> createEntry(JsonObject entryData)
-    {
-        return new UserListBansEntry(entryData);
-    }
+	public UserListBans(File bansFile) {
 
-    public boolean isBanned(GameProfile profile)
-    {
-        return hasEntry(profile);
-    }
+		super(bansFile);
+	}
 
-    public String[] getKeys()
-    {
-        String[] astring = new String[getValues().size()];
-        int i = 0;
+	protected UserListEntry<GameProfile> createEntry(JsonObject entryData) {
 
-        for (UserListBansEntry userlistbansentry : getValues().values())
-        {
-            astring[i++] = ((GameProfile)userlistbansentry.getValue()).getName();
-        }
+		return new UserListBansEntry(entryData);
+	}
 
-        return astring;
-    }
+	public boolean isBanned(GameProfile profile) {
 
-    /**
-     * Gets the key value for the given object
-     */
-    protected String getObjectKey(GameProfile obj)
-    {
-        return obj.getId().toString();
-    }
+		return hasEntry(profile);
+	}
 
-    /**
-     * Get a {@link GameProfile} that is a member of this list by its user name. Returns {@code null} if no entry was
-     * found.
-     */
-    public GameProfile getBannedProfile(String username)
-    {
-        for (UserListBansEntry userlistbansentry : getValues().values())
-        {
-            if (username.equalsIgnoreCase(((GameProfile)userlistbansentry.getValue()).getName()))
-            {
-                return (GameProfile)userlistbansentry.getValue();
-            }
-        }
+	public String[] getKeys() {
 
-        return null;
-    }
+		String[] astring = new String[getValues().size()];
+		int i = 0;
+
+		for (UserListBansEntry userlistbansentry : getValues().values()) {
+			astring[i++] = userlistbansentry.getValue().getName();
+		}
+
+		return astring;
+	}
+
+	/**
+	 * Gets the key value for the given object
+	 */
+	protected String getObjectKey(GameProfile obj) {
+
+		return obj.getId().toString();
+	}
+
+	/**
+	 * Get a {@link GameProfile} that is a member of this list by its user name. Returns {@code null} if no entry was
+	 * found.
+	 */
+	public GameProfile getBannedProfile(String username) {
+
+		for (UserListBansEntry userlistbansentry : getValues().values()) {
+			if (username.equalsIgnoreCase(userlistbansentry.getValue().getName())) {
+				return userlistbansentry.getValue();
+			}
+		}
+
+		return null;
+	}
+
 }

@@ -4,23 +4,23 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.datafix.DataFixesManager;
 import net.minecraft.util.datafix.IDataFixer;
 
-public class ItemStackDataLists extends Filtered
-{
-    private final String[] matchingTags;
+public class ItemStackDataLists extends Filtered {
 
-    public ItemStackDataLists(Class<?> p_i47310_1_, String... matchingTagsIn)
-    {
-        super(p_i47310_1_);
-        matchingTags = matchingTagsIn;
-    }
+	private final String[] matchingTags;
 
-    NBTTagCompound filteredProcess(IDataFixer fixer, NBTTagCompound compound, int versionIn)
-    {
-        for (String s : matchingTags)
-        {
-            compound = DataFixesManager.processInventory(fixer, compound, versionIn, s);
-        }
+	public ItemStackDataLists(Class<?> p_i47310_1_, String... matchingTagsIn) {
 
-        return compound;
-    }
+		super(p_i47310_1_);
+		matchingTags = matchingTagsIn;
+	}
+
+	NBTTagCompound filteredProcess(IDataFixer fixer, NBTTagCompound compound, int versionIn) {
+
+		for (String s : matchingTags) {
+			compound = DataFixesManager.processInventory(fixer, compound, versionIn, s);
+		}
+
+		return compound;
+	}
+
 }

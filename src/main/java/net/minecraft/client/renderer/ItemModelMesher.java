@@ -1,9 +1,6 @@
 package net.minecraft.client.renderer;
 
 import com.google.common.collect.Maps;
-import java.util.Map;
-import java.util.Map.Entry;
-import javax.annotation.Nullable;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ModelManager;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -11,90 +8,91 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-public class ItemModelMesher
-{
-    private final Map<Integer, ModelResourceLocation> simpleShapes = Maps.<Integer, ModelResourceLocation>newHashMap();
-    private final Map<Integer, IBakedModel> simpleShapesCache = Maps.<Integer, IBakedModel>newHashMap();
-    private final Map<Item, ItemMeshDefinition> shapers = Maps.<Item, ItemMeshDefinition>newHashMap();
-    private final ModelManager modelManager;
+import javax.annotation.Nullable;
+import java.util.Map;
+import java.util.Map.Entry;
 
-    public ItemModelMesher(ModelManager modelManager)
-    {
-        this.modelManager = modelManager;
-    }
+public class ItemModelMesher {
 
-    public TextureAtlasSprite getParticleIcon(Item item)
-    {
-        return getParticleIcon(item, 0);
-    }
+	private final Map<Integer, ModelResourceLocation> simpleShapes = Maps.newHashMap();
+	private final Map<Integer, IBakedModel> simpleShapesCache = Maps.newHashMap();
+	private final Map<Item, ItemMeshDefinition> shapers = Maps.newHashMap();
+	private final ModelManager modelManager;
 
-    public TextureAtlasSprite getParticleIcon(Item item, int meta)
-    {
-        return getItemModel(new ItemStack(item, 1, meta)).getParticleTexture();
-    }
+	public ItemModelMesher(ModelManager modelManager) {
 
-    public IBakedModel getItemModel(ItemStack stack)
-    {
-        Item item = stack.getItem();
-        IBakedModel ibakedmodel = getItemModel(item, getMetadata(stack));
+		this.modelManager = modelManager;
+	}
 
-        if (ibakedmodel == null)
-        {
-            ItemMeshDefinition itemmeshdefinition = shapers.get(item);
+	public TextureAtlasSprite getParticleIcon(Item item) {
 
-            if (itemmeshdefinition != null)
-            {
-                ibakedmodel = modelManager.getModel(itemmeshdefinition.getModelLocation(stack));
-            }
-        }
+		return getParticleIcon(item, 0);
+	}
 
-        if (ibakedmodel == null)
-        {
-            ibakedmodel = modelManager.getMissingModel();
-        }
+	public TextureAtlasSprite getParticleIcon(Item item, int meta) {
 
-        return ibakedmodel;
-    }
+		return getItemModel(new ItemStack(item, 1, meta)).getParticleTexture();
+	}
 
-    protected int getMetadata(ItemStack stack)
-    {
-        return stack.getMaxDamage() > 0 ? 0 : stack.getMetadata();
-    }
+	public IBakedModel getItemModel(ItemStack stack) {
 
-    @Nullable
-    protected IBakedModel getItemModel(Item item, int meta)
-    {
-        return simpleShapesCache.get(Integer.valueOf(getIndex(item, meta)));
-    }
+		Item item = stack.getItem();
+		IBakedModel ibakedmodel = getItemModel(item, getMetadata(stack));
 
-    private int getIndex(Item item, int meta)
-    {
-        return Item.getIdFromItem(item) << 16 | meta;
-    }
+		if (ibakedmodel == null) {
+			ItemMeshDefinition itemmeshdefinition = shapers.get(item);
 
-    public void register(Item item, int meta, ModelResourceLocation location)
-    {
-        simpleShapes.put(Integer.valueOf(getIndex(item, meta)), location);
-        simpleShapesCache.put(Integer.valueOf(getIndex(item, meta)), modelManager.getModel(location));
-    }
+			if (itemmeshdefinition != null) {
+				ibakedmodel = modelManager.getModel(itemmeshdefinition.getModelLocation(stack));
+			}
+		}
 
-    public void register(Item item, ItemMeshDefinition definition)
-    {
-        shapers.put(item, definition);
-    }
+		if (ibakedmodel == null) {
+			ibakedmodel = modelManager.getMissingModel();
+		}
 
-    public ModelManager getModelManager()
-    {
-        return modelManager;
-    }
+		return ibakedmodel;
+	}
 
-    public void rebuildCache()
-    {
-        simpleShapesCache.clear();
+	protected int getMetadata(ItemStack stack) {
 
-        for (Entry<Integer, ModelResourceLocation> entry : simpleShapes.entrySet())
-        {
-            simpleShapesCache.put(entry.getKey(), modelManager.getModel(entry.getValue()));
-        }
-    }
+		return stack.getMaxDamage() > 0 ? 0 : stack.getMetadata();
+	}
+
+	@Nullable
+	protected IBakedModel getItemModel(Item item, int meta) {
+
+		return simpleShapesCache.get(Integer.valueOf(getIndex(item, meta)));
+	}
+
+	private int getIndex(Item item, int meta) {
+
+		return Item.getIdFromItem(item) << 16 | meta;
+	}
+
+	public void register(Item item, int meta, ModelResourceLocation location) {
+
+		simpleShapes.put(Integer.valueOf(getIndex(item, meta)), location);
+		simpleShapesCache.put(Integer.valueOf(getIndex(item, meta)), modelManager.getModel(location));
+	}
+
+	public void register(Item item, ItemMeshDefinition definition) {
+
+		shapers.put(item, definition);
+	}
+
+	public ModelManager getModelManager() {
+
+		return modelManager;
+	}
+
+	public void rebuildCache() {
+
+		simpleShapesCache.clear();
+
+		for (Entry<Integer, ModelResourceLocation> entry : simpleShapes.entrySet()) {
+			simpleShapesCache.put(entry.getKey(), modelManager.getModel(entry.getValue()));
+		}
+	}
+
 }

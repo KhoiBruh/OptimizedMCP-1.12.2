@@ -1,8 +1,6 @@
 package net.minecraft.world.gen;
 
 import com.google.common.collect.Lists;
-import java.util.List;
-import javax.annotation.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EnumCreatureType;
@@ -14,132 +12,126 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-public class ChunkGeneratorDebug implements IChunkGenerator
-{
-    private static final List<IBlockState> ALL_VALID_STATES = Lists.<IBlockState>newArrayList();
-    private static final int GRID_WIDTH;
-    private static final int GRID_HEIGHT;
-    protected static final IBlockState AIR = Blocks.AIR.getDefaultState();
-    protected static final IBlockState BARRIER = Blocks.BARRIER.getDefaultState();
-    private final World world;
+import javax.annotation.Nullable;
+import java.util.List;
 
-    public ChunkGeneratorDebug(World worldIn)
-    {
-        world = worldIn;
-    }
+public class ChunkGeneratorDebug implements IChunkGenerator {
 
-    /**
-     * Generates the chunk at the specified position, from scratch
-     */
-    public Chunk generateChunk(int x, int z)
-    {
-        ChunkPrimer chunkprimer = new ChunkPrimer();
+	private static final List<IBlockState> ALL_VALID_STATES = Lists.newArrayList();
+	private static final int GRID_WIDTH;
+	private static final int GRID_HEIGHT;
+	protected static final IBlockState AIR = Blocks.AIR.getDefaultState();
+	protected static final IBlockState BARRIER = Blocks.BARRIER.getDefaultState();
+	private final World world;
 
-        for (int i = 0; i < 16; ++i)
-        {
-            for (int j = 0; j < 16; ++j)
-            {
-                int k = x * 16 + i;
-                int l = z * 16 + j;
-                chunkprimer.setBlockState(i, 60, j, BARRIER);
-                IBlockState iblockstate = getBlockStateFor(k, l);
+	public ChunkGeneratorDebug(World worldIn) {
 
-                if (iblockstate != null)
-                {
-                    chunkprimer.setBlockState(i, 70, j, iblockstate);
-                }
-            }
-        }
+		world = worldIn;
+	}
 
-        Chunk chunk = new Chunk(world, chunkprimer, x, z);
-        chunk.generateSkylightMap();
-        Biome[] abiome = world.getBiomeProvider().getBiomes((Biome[])null, x * 16, z * 16, 16, 16);
-        byte[] abyte = chunk.getBiomeArray();
+	/**
+	 * Generates the chunk at the specified position, from scratch
+	 */
+	public Chunk generateChunk(int x, int z) {
 
-        for (int i1 = 0; i1 < abyte.length; ++i1)
-        {
-            abyte[i1] = (byte)Biome.getIdForBiome(abiome[i1]);
-        }
+		ChunkPrimer chunkprimer = new ChunkPrimer();
 
-        chunk.generateSkylightMap();
-        return chunk;
-    }
+		for (int i = 0; i < 16; ++i) {
+			for (int j = 0; j < 16; ++j) {
+				int k = x * 16 + i;
+				int l = z * 16 + j;
+				chunkprimer.setBlockState(i, 60, j, BARRIER);
+				IBlockState iblockstate = getBlockStateFor(k, l);
 
-    public static IBlockState getBlockStateFor(int p_177461_0_, int p_177461_1_)
-    {
-        IBlockState iblockstate = AIR;
+				if (iblockstate != null) {
+					chunkprimer.setBlockState(i, 70, j, iblockstate);
+				}
+			}
+		}
 
-        if (p_177461_0_ > 0 && p_177461_1_ > 0 && p_177461_0_ % 2 != 0 && p_177461_1_ % 2 != 0)
-        {
-            p_177461_0_ = p_177461_0_ / 2;
-            p_177461_1_ = p_177461_1_ / 2;
+		Chunk chunk = new Chunk(world, chunkprimer, x, z);
+		chunk.generateSkylightMap();
+		Biome[] abiome = world.getBiomeProvider().getBiomes(null, x * 16, z * 16, 16, 16);
+		byte[] abyte = chunk.getBiomeArray();
 
-            if (p_177461_0_ <= GRID_WIDTH && p_177461_1_ <= GRID_HEIGHT)
-            {
-                int i = MathHelper.abs(p_177461_0_ * GRID_WIDTH + p_177461_1_);
+		for (int i1 = 0; i1 < abyte.length; ++i1) {
+			abyte[i1] = (byte) Biome.getIdForBiome(abiome[i1]);
+		}
 
-                if (i < ALL_VALID_STATES.size())
-                {
-                    iblockstate = ALL_VALID_STATES.get(i);
-                }
-            }
-        }
+		chunk.generateSkylightMap();
+		return chunk;
+	}
 
-        return iblockstate;
-    }
+	public static IBlockState getBlockStateFor(int p_177461_0_, int p_177461_1_) {
 
-    /**
-     * Generate initial structures in this chunk, e.g. mineshafts, temples, lakes, and dungeons
-     *  
-     * @param x Chunk x coordinate
-     * @param z Chunk z coordinate
-     */
-    public void populate(int x, int z)
-    {
-    }
+		IBlockState iblockstate = AIR;
 
-    /**
-     * Called to generate additional structures after initial worldgen, used by ocean monuments
-     */
-    public boolean generateStructures(Chunk chunkIn, int x, int z)
-    {
-        return false;
-    }
+		if (p_177461_0_ > 0 && p_177461_1_ > 0 && p_177461_0_ % 2 != 0 && p_177461_1_ % 2 != 0) {
+			p_177461_0_ = p_177461_0_ / 2;
+			p_177461_1_ = p_177461_1_ / 2;
 
-    public List<Biome.SpawnListEntry> getPossibleCreatures(EnumCreatureType creatureType, BlockPos pos)
-    {
-        Biome biome = world.getBiome(pos);
-        return biome.getSpawnableList(creatureType);
-    }
+			if (p_177461_0_ <= GRID_WIDTH && p_177461_1_ <= GRID_HEIGHT) {
+				int i = MathHelper.abs(p_177461_0_ * GRID_WIDTH + p_177461_1_);
 
-    @Nullable
-    public BlockPos getNearestStructurePos(World worldIn, String structureName, BlockPos position, boolean findUnexplored)
-    {
-        return null;
-    }
+				if (i < ALL_VALID_STATES.size()) {
+					iblockstate = ALL_VALID_STATES.get(i);
+				}
+			}
+		}
 
-    public boolean isInsideStructure(World worldIn, String structureName, BlockPos pos)
-    {
-        return false;
-    }
+		return iblockstate;
+	}
 
-    /**
-     * Recreates data about structures intersecting given chunk (used for example by getPossibleCreatures), without
-     * placing any blocks. When called for the first time before any chunk is generated - also initializes the internal
-     * state needed by getPossibleCreatures.
-     */
-    public void recreateStructures(Chunk chunkIn, int x, int z)
-    {
-    }
+	/**
+	 * Generate initial structures in this chunk, e.g. mineshafts, temples, lakes, and dungeons
+	 *
+	 * @param x Chunk x coordinate
+	 * @param z Chunk z coordinate
+	 */
+	public void populate(int x, int z) {
 
-    static
-    {
-        for (Block block : Block.REGISTRY)
-        {
-            ALL_VALID_STATES.addAll(block.getBlockState().getValidStates());
-        }
+	}
 
-        GRID_WIDTH = MathHelper.ceil(MathHelper.sqrt((float)ALL_VALID_STATES.size()));
-        GRID_HEIGHT = MathHelper.ceil((float)ALL_VALID_STATES.size() / (float)GRID_WIDTH);
-    }
+	/**
+	 * Called to generate additional structures after initial worldgen, used by ocean monuments
+	 */
+	public boolean generateStructures(Chunk chunkIn, int x, int z) {
+
+		return false;
+	}
+
+	public List<Biome.SpawnListEntry> getPossibleCreatures(EnumCreatureType creatureType, BlockPos pos) {
+
+		Biome biome = world.getBiome(pos);
+		return biome.getSpawnableList(creatureType);
+	}
+
+	@Nullable
+	public BlockPos getNearestStructurePos(World worldIn, String structureName, BlockPos position, boolean findUnexplored) {
+
+		return null;
+	}
+
+	public boolean isInsideStructure(World worldIn, String structureName, BlockPos pos) {
+
+		return false;
+	}
+
+	/**
+	 * Recreates data about structures intersecting given chunk (used for example by getPossibleCreatures), without
+	 * placing any blocks. When called for the first time before any chunk is generated - also initializes the internal
+	 * state needed by getPossibleCreatures.
+	 */
+	public void recreateStructures(Chunk chunkIn, int x, int z) {
+
+	}
+
+	static {
+		for (Block block : Block.REGISTRY) {
+			ALL_VALID_STATES.addAll(block.getBlockState().getValidStates());
+		}
+
+		GRID_WIDTH = MathHelper.ceil(MathHelper.sqrt((float) ALL_VALID_STATES.size()));
+		GRID_HEIGHT = MathHelper.ceil((float) ALL_VALID_STATES.size() / (float) GRID_WIDTH);
+	}
 }

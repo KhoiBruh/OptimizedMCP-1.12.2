@@ -2,48 +2,46 @@ package net.minecraft.util;
 
 import net.minecraft.nbt.NBTTagCompound;
 
-public class WeightedSpawnerEntity extends WeightedRandom.Item
-{
-    private final NBTTagCompound nbt;
+public class WeightedSpawnerEntity extends WeightedRandom.Item {
 
-    public WeightedSpawnerEntity()
-    {
-        super(1);
-        nbt = new NBTTagCompound();
-        nbt.setString("id", "minecraft:pig");
-    }
+	private final NBTTagCompound nbt;
 
-    public WeightedSpawnerEntity(NBTTagCompound nbtIn)
-    {
-        this(nbtIn.hasKey("Weight", 99) ? nbtIn.getInteger("Weight") : 1, nbtIn.getCompoundTag("Entity"));
-    }
+	public WeightedSpawnerEntity() {
 
-    public WeightedSpawnerEntity(int itemWeightIn, NBTTagCompound nbtIn)
-    {
-        super(itemWeightIn);
-        nbt = nbtIn;
-    }
+		super(1);
+		nbt = new NBTTagCompound();
+		nbt.setString("id", "minecraft:pig");
+	}
 
-    public NBTTagCompound toCompoundTag()
-    {
-        NBTTagCompound nbttagcompound = new NBTTagCompound();
+	public WeightedSpawnerEntity(NBTTagCompound nbtIn) {
 
-        if (!nbt.hasKey("id", 8))
-        {
-            nbt.setString("id", "minecraft:pig");
-        }
-        else if (!nbt.getString("id").contains(":"))
-        {
-            nbt.setString("id", (new ResourceLocation(nbt.getString("id"))).toString());
-        }
+		this(nbtIn.hasKey("Weight", 99) ? nbtIn.getInteger("Weight") : 1, nbtIn.getCompoundTag("Entity"));
+	}
 
-        nbttagcompound.setTag("Entity", nbt);
-        nbttagcompound.setInteger("Weight", itemWeight);
-        return nbttagcompound;
-    }
+	public WeightedSpawnerEntity(int itemWeightIn, NBTTagCompound nbtIn) {
 
-    public NBTTagCompound getNbt()
-    {
-        return nbt;
-    }
+		super(itemWeightIn);
+		nbt = nbtIn;
+	}
+
+	public NBTTagCompound toCompoundTag() {
+
+		NBTTagCompound nbttagcompound = new NBTTagCompound();
+
+		if (!nbt.hasKey("id", 8)) {
+			nbt.setString("id", "minecraft:pig");
+		} else if (!nbt.getString("id").contains(":")) {
+			nbt.setString("id", (new ResourceLocation(nbt.getString("id"))).toString());
+		}
+
+		nbttagcompound.setTag("Entity", nbt);
+		nbttagcompound.setInteger("Weight", itemWeight);
+		return nbttagcompound;
+	}
+
+	public NBTTagCompound getNbt() {
+
+		return nbt;
+	}
+
 }

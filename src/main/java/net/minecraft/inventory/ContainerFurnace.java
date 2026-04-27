@@ -6,165 +6,137 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.tileentity.TileEntityFurnace;
 
-public class ContainerFurnace extends Container
-{
-    private final IInventory tileFurnace;
-    private int cookTime;
-    private int totalCookTime;
-    private int furnaceBurnTime;
-    private int currentItemBurnTime;
+public class ContainerFurnace extends Container {
 
-    public ContainerFurnace(InventoryPlayer playerInventory, IInventory furnaceInventory)
-    {
-        tileFurnace = furnaceInventory;
-        addSlotToContainer(new Slot(furnaceInventory, 0, 56, 17));
-        addSlotToContainer(new SlotFurnaceFuel(furnaceInventory, 1, 56, 53));
-        addSlotToContainer(new SlotFurnaceOutput(playerInventory.player, furnaceInventory, 2, 116, 35));
+	private final IInventory tileFurnace;
+	private int cookTime;
+	private int totalCookTime;
+	private int furnaceBurnTime;
+	private int currentItemBurnTime;
 
-        for (int i = 0; i < 3; ++i)
-        {
-            for (int j = 0; j < 9; ++j)
-            {
-                addSlotToContainer(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
-            }
-        }
+	public ContainerFurnace(InventoryPlayer playerInventory, IInventory furnaceInventory) {
 
-        for (int k = 0; k < 9; ++k)
-        {
-            addSlotToContainer(new Slot(playerInventory, k, 8 + k * 18, 142));
-        }
-    }
+		tileFurnace = furnaceInventory;
+		addSlotToContainer(new Slot(furnaceInventory, 0, 56, 17));
+		addSlotToContainer(new SlotFurnaceFuel(furnaceInventory, 1, 56, 53));
+		addSlotToContainer(new SlotFurnaceOutput(playerInventory.player, furnaceInventory, 2, 116, 35));
 
-    public void addListener(IContainerListener listener)
-    {
-        super.addListener(listener);
-        listener.sendAllWindowProperties(this, tileFurnace);
-    }
+		for (int i = 0; i < 3; ++i) {
+			for (int j = 0; j < 9; ++j) {
+				addSlotToContainer(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
+			}
+		}
 
-    /**
-     * Looks for changes made in the container, sends them to every listener.
-     */
-    public void detectAndSendChanges()
-    {
-        super.detectAndSendChanges();
+		for (int k = 0; k < 9; ++k) {
+			addSlotToContainer(new Slot(playerInventory, k, 8 + k * 18, 142));
+		}
+	}
 
-        for (int i = 0; i < listeners.size(); ++i)
-        {
-            IContainerListener icontainerlistener = listeners.get(i);
+	public void addListener(IContainerListener listener) {
 
-            if (cookTime != tileFurnace.getField(2))
-            {
-                icontainerlistener.sendWindowProperty(this, 2, tileFurnace.getField(2));
-            }
+		super.addListener(listener);
+		listener.sendAllWindowProperties(this, tileFurnace);
+	}
 
-            if (furnaceBurnTime != tileFurnace.getField(0))
-            {
-                icontainerlistener.sendWindowProperty(this, 0, tileFurnace.getField(0));
-            }
+	/**
+	 * Looks for changes made in the container, sends them to every listener.
+	 */
+	public void detectAndSendChanges() {
 
-            if (currentItemBurnTime != tileFurnace.getField(1))
-            {
-                icontainerlistener.sendWindowProperty(this, 1, tileFurnace.getField(1));
-            }
+		super.detectAndSendChanges();
 
-            if (totalCookTime != tileFurnace.getField(3))
-            {
-                icontainerlistener.sendWindowProperty(this, 3, tileFurnace.getField(3));
-            }
-        }
+		for (int i = 0; i < listeners.size(); ++i) {
+			IContainerListener icontainerlistener = listeners.get(i);
 
-        cookTime = tileFurnace.getField(2);
-        furnaceBurnTime = tileFurnace.getField(0);
-        currentItemBurnTime = tileFurnace.getField(1);
-        totalCookTime = tileFurnace.getField(3);
-    }
+			if (cookTime != tileFurnace.getField(2)) {
+				icontainerlistener.sendWindowProperty(this, 2, tileFurnace.getField(2));
+			}
 
-    public void updateProgressBar(int id, int data)
-    {
-        tileFurnace.setField(id, data);
-    }
+			if (furnaceBurnTime != tileFurnace.getField(0)) {
+				icontainerlistener.sendWindowProperty(this, 0, tileFurnace.getField(0));
+			}
 
-    /**
-     * Determines whether supplied player can use this container
-     */
-    public boolean canInteractWith(EntityPlayer playerIn)
-    {
-        return tileFurnace.isUsableByPlayer(playerIn);
-    }
+			if (currentItemBurnTime != tileFurnace.getField(1)) {
+				icontainerlistener.sendWindowProperty(this, 1, tileFurnace.getField(1));
+			}
 
-    /**
-     * Handle when the stack in slot {@code index} is shift-clicked. Normally this moves the stack between the player
-     * inventory and the other inventory(s).
-     */
-    public ItemStack transferStackInSlot(EntityPlayer playerIn, int index)
-    {
-        ItemStack itemstack = ItemStack.EMPTY;
-        Slot slot = inventorySlots.get(index);
+			if (totalCookTime != tileFurnace.getField(3)) {
+				icontainerlistener.sendWindowProperty(this, 3, tileFurnace.getField(3));
+			}
+		}
 
-        if (slot != null && slot.getHasStack())
-        {
-            ItemStack itemstack1 = slot.getStack();
-            itemstack = itemstack1.copy();
+		cookTime = tileFurnace.getField(2);
+		furnaceBurnTime = tileFurnace.getField(0);
+		currentItemBurnTime = tileFurnace.getField(1);
+		totalCookTime = tileFurnace.getField(3);
+	}
 
-            if (index == 2)
-            {
-                if (!mergeItemStack(itemstack1, 3, 39, true))
-                {
-                    return ItemStack.EMPTY;
-                }
+	public void updateProgressBar(int id, int data) {
 
-                slot.onSlotChange(itemstack1, itemstack);
-            }
-            else if (index != 1 && index != 0)
-            {
-                if (!FurnaceRecipes.instance().getSmeltingResult(itemstack1).isEmpty())
-                {
-                    if (!mergeItemStack(itemstack1, 0, 1, false))
-                    {
-                        return ItemStack.EMPTY;
-                    }
-                }
-                else if (TileEntityFurnace.isItemFuel(itemstack1))
-                {
-                    if (!mergeItemStack(itemstack1, 1, 2, false))
-                    {
-                        return ItemStack.EMPTY;
-                    }
-                }
-                else if (index >= 3 && index < 30)
-                {
-                    if (!mergeItemStack(itemstack1, 30, 39, false))
-                    {
-                        return ItemStack.EMPTY;
-                    }
-                }
-                else if (index >= 30 && index < 39 && !mergeItemStack(itemstack1, 3, 30, false))
-                {
-                    return ItemStack.EMPTY;
-                }
-            }
-            else if (!mergeItemStack(itemstack1, 3, 39, false))
-            {
-                return ItemStack.EMPTY;
-            }
+		tileFurnace.setField(id, data);
+	}
 
-            if (itemstack1.isEmpty())
-            {
-                slot.putStack(ItemStack.EMPTY);
-            }
-            else
-            {
-                slot.onSlotChanged();
-            }
+	/**
+	 * Determines whether supplied player can use this container
+	 */
+	public boolean canInteractWith(EntityPlayer playerIn) {
 
-            if (itemstack1.getCount() == itemstack.getCount())
-            {
-                return ItemStack.EMPTY;
-            }
+		return tileFurnace.isUsableByPlayer(playerIn);
+	}
 
-            slot.onTake(playerIn, itemstack1);
-        }
+	/**
+	 * Handle when the stack in slot {@code index} is shift-clicked. Normally this moves the stack between the player
+	 * inventory and the other inventory(s).
+	 */
+	public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
 
-        return itemstack;
-    }
+		ItemStack itemstack = ItemStack.EMPTY;
+		Slot slot = inventorySlots.get(index);
+
+		if (slot != null && slot.getHasStack()) {
+			ItemStack itemstack1 = slot.getStack();
+			itemstack = itemstack1.copy();
+
+			if (index == 2) {
+				if (!mergeItemStack(itemstack1, 3, 39, true)) {
+					return ItemStack.EMPTY;
+				}
+
+				slot.onSlotChange(itemstack1, itemstack);
+			} else if (index != 1 && index != 0) {
+				if (!FurnaceRecipes.instance().getSmeltingResult(itemstack1).isEmpty()) {
+					if (!mergeItemStack(itemstack1, 0, 1, false)) {
+						return ItemStack.EMPTY;
+					}
+				} else if (TileEntityFurnace.isItemFuel(itemstack1)) {
+					if (!mergeItemStack(itemstack1, 1, 2, false)) {
+						return ItemStack.EMPTY;
+					}
+				} else if (index >= 3 && index < 30) {
+					if (!mergeItemStack(itemstack1, 30, 39, false)) {
+						return ItemStack.EMPTY;
+					}
+				} else if (index >= 30 && index < 39 && !mergeItemStack(itemstack1, 3, 30, false)) {
+					return ItemStack.EMPTY;
+				}
+			} else if (!mergeItemStack(itemstack1, 3, 39, false)) {
+				return ItemStack.EMPTY;
+			}
+
+			if (itemstack1.isEmpty()) {
+				slot.putStack(ItemStack.EMPTY);
+			} else {
+				slot.onSlotChanged();
+			}
+
+			if (itemstack1.getCount() == itemstack.getCount()) {
+				return ItemStack.EMPTY;
+			}
+
+			slot.onTake(playerIn, itemstack1);
+		}
+
+		return itemstack;
+	}
+
 }

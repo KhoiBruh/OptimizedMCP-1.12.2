@@ -1,81 +1,82 @@
 package net.minecraft.client.resources.data;
 
 import com.google.common.collect.Sets;
+
 import java.util.List;
 import java.util.Set;
 
-public class AnimationMetadataSection implements IMetadataSection
-{
-    private final List<AnimationFrame> animationFrames;
-    private final int frameWidth;
-    private final int frameHeight;
-    private final int frameTime;
-    private final boolean interpolate;
+public class AnimationMetadataSection implements IMetadataSection {
 
-    public AnimationMetadataSection(List<AnimationFrame> animationFramesIn, int frameWidthIn, int frameHeightIn, int frameTimeIn, boolean interpolateIn)
-    {
-        animationFrames = animationFramesIn;
-        frameWidth = frameWidthIn;
-        frameHeight = frameHeightIn;
-        frameTime = frameTimeIn;
-        interpolate = interpolateIn;
-    }
+	private final List<AnimationFrame> animationFrames;
+	private final int frameWidth;
+	private final int frameHeight;
+	private final int frameTime;
+	private final boolean interpolate;
 
-    public int getFrameHeight()
-    {
-        return frameHeight;
-    }
+	public AnimationMetadataSection(List<AnimationFrame> animationFramesIn, int frameWidthIn, int frameHeightIn, int frameTimeIn, boolean interpolateIn) {
 
-    public int getFrameWidth()
-    {
-        return frameWidth;
-    }
+		animationFrames = animationFramesIn;
+		frameWidth = frameWidthIn;
+		frameHeight = frameHeightIn;
+		frameTime = frameTimeIn;
+		interpolate = interpolateIn;
+	}
 
-    public int getFrameCount()
-    {
-        return animationFrames.size();
-    }
+	public int getFrameHeight() {
 
-    public int getFrameTime()
-    {
-        return frameTime;
-    }
+		return frameHeight;
+	}
 
-    public boolean isInterpolate()
-    {
-        return interpolate;
-    }
+	public int getFrameWidth() {
 
-    private AnimationFrame getAnimationFrame(int frame)
-    {
-        return animationFrames.get(frame);
-    }
+		return frameWidth;
+	}
 
-    public int getFrameTimeSingle(int frame)
-    {
-        AnimationFrame animationframe = getAnimationFrame(frame);
-        return animationframe.hasNoTime() ? frameTime : animationframe.getFrameTime();
-    }
+	public int getFrameCount() {
 
-    public boolean frameHasTime(int frame)
-    {
-        return !((AnimationFrame) animationFrames.get(frame)).hasNoTime();
-    }
+		return animationFrames.size();
+	}
 
-    public int getFrameIndex(int frame)
-    {
-        return ((AnimationFrame) animationFrames.get(frame)).getFrameIndex();
-    }
+	public int getFrameTime() {
 
-    public Set<Integer> getFrameIndexSet()
-    {
-        Set<Integer> set = Sets.<Integer>newHashSet();
+		return frameTime;
+	}
 
-        for (AnimationFrame animationframe : animationFrames)
-        {
-            set.add(Integer.valueOf(animationframe.getFrameIndex()));
-        }
+	public boolean isInterpolate() {
 
-        return set;
-    }
+		return interpolate;
+	}
+
+	private AnimationFrame getAnimationFrame(int frame) {
+
+		return animationFrames.get(frame);
+	}
+
+	public int getFrameTimeSingle(int frame) {
+
+		AnimationFrame animationframe = getAnimationFrame(frame);
+		return animationframe.hasNoTime() ? frameTime : animationframe.frameTime();
+	}
+
+	public boolean frameHasTime(int frame) {
+
+		return !animationFrames.get(frame).hasNoTime();
+	}
+
+	public int getFrameIndex(int frame) {
+
+		return animationFrames.get(frame).frameIndex();
+	}
+
+	public Set<Integer> getFrameIndexSet() {
+
+		Set<Integer> set = Sets.newHashSet();
+
+		for (AnimationFrame animationframe : animationFrames) {
+			set.add(Integer.valueOf(animationframe.frameIndex()));
+		}
+
+		return set;
+	}
+
 }

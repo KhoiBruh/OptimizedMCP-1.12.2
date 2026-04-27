@@ -1,43 +1,45 @@
 package net.minecraft.item;
 
-import java.util.List;
-import javax.annotation.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.world.World;
 
-public class ItemAir extends Item
-{
-    private final Block block;
+import javax.annotation.Nullable;
+import java.util.List;
 
-    public ItemAir(Block blockIn)
-    {
-        block = blockIn;
-    }
+public class ItemAir extends Item {
 
-    /**
-     * Returns the unlocalized name of this item. This version accepts an ItemStack so different stacks can have
-     * different names based on their damage or NBT.
-     */
-    public String getUnlocalizedName(ItemStack stack)
-    {
-        return block.getUnlocalizedName();
-    }
+	private final Block block;
 
-    /**
-     * Returns the unlocalized name of this item.
-     */
-    public String getUnlocalizedName()
-    {
-        return block.getUnlocalizedName();
-    }
+	public ItemAir(Block blockIn) {
 
-    /**
-     * allows items to add custom lines of information to the mouseover description
-     */
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn)
-    {
-        super.addInformation(stack, worldIn, tooltip, flagIn);
-        block.addInformation(stack, worldIn, tooltip, flagIn);
-    }
+		block = blockIn;
+	}
+
+	/**
+	 * Returns the unlocalized name of this item. This version accepts an ItemStack so different stacks can have
+	 * different names based on their damage or NBT.
+	 */
+	public String getUnlocalizedName(ItemStack stack) {
+
+		return block.getUnlocalizedName();
+	}
+
+	/**
+	 * Returns the unlocalized name of this item.
+	 */
+	public String getUnlocalizedName() {
+
+		return block.getUnlocalizedName();
+	}
+
+	/**
+	 * allows items to add custom lines of information to the mouseover description
+	 */
+	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+
+		super.addInformation(stack, worldIn, tooltip, flagIn);
+		block.addInformation(stack, worldIn, tooltip, flagIn);
+	}
+
 }

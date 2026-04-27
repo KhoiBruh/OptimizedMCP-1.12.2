@@ -1,78 +1,72 @@
 package net.minecraft.client.renderer.chunk;
 
-import java.util.BitSet;
-import java.util.Set;
 import net.minecraft.util.EnumFacing;
 
-public class SetVisibility
-{
-    private static final int COUNT_FACES = EnumFacing.values().length;
-    private final BitSet bitSet;
+import java.util.BitSet;
+import java.util.Set;
 
-    public SetVisibility()
-    {
-        bitSet = new BitSet(COUNT_FACES * COUNT_FACES);
-    }
+public class SetVisibility {
 
-    public void setManyVisible(Set<EnumFacing> facing)
-    {
-        for (EnumFacing enumfacing : facing)
-        {
-            for (EnumFacing enumfacing1 : facing)
-            {
-                setVisible(enumfacing, enumfacing1, true);
-            }
-        }
-    }
+	private static final int COUNT_FACES = EnumFacing.values().length;
+	private final BitSet bitSet;
 
-    public void setVisible(EnumFacing facing, EnumFacing facing2, boolean p_178619_3_)
-    {
-        bitSet.set(facing.ordinal() + facing2.ordinal() * COUNT_FACES, p_178619_3_);
-        bitSet.set(facing2.ordinal() + facing.ordinal() * COUNT_FACES, p_178619_3_);
-    }
+	public SetVisibility() {
 
-    public void setAllVisible(boolean visible)
-    {
-        bitSet.set(0, bitSet.size(), visible);
-    }
+		bitSet = new BitSet(COUNT_FACES * COUNT_FACES);
+	}
 
-    public boolean isVisible(EnumFacing facing, EnumFacing facing2)
-    {
-        return bitSet.get(facing.ordinal() + facing2.ordinal() * COUNT_FACES);
-    }
+	public void setManyVisible(Set<EnumFacing> facing) {
 
-    public String toString()
-    {
-        StringBuilder stringbuilder = new StringBuilder();
-        stringbuilder.append(' ');
+		for (EnumFacing enumfacing : facing) {
+			for (EnumFacing enumfacing1 : facing) {
+				setVisible(enumfacing, enumfacing1, true);
+			}
+		}
+	}
 
-        for (EnumFacing enumfacing : EnumFacing.values())
-        {
-            stringbuilder.append(' ').append(enumfacing.toString().toUpperCase().charAt(0));
-        }
+	public void setVisible(EnumFacing facing, EnumFacing facing2, boolean p_178619_3_) {
 
-        stringbuilder.append('\n');
+		bitSet.set(facing.ordinal() + facing2.ordinal() * COUNT_FACES, p_178619_3_);
+		bitSet.set(facing2.ordinal() + facing.ordinal() * COUNT_FACES, p_178619_3_);
+	}
 
-        for (EnumFacing enumfacing2 : EnumFacing.values())
-        {
-            stringbuilder.append(enumfacing2.toString().toUpperCase().charAt(0));
+	public void setAllVisible(boolean visible) {
 
-            for (EnumFacing enumfacing1 : EnumFacing.values())
-            {
-                if (enumfacing2 == enumfacing1)
-                {
-                    stringbuilder.append("  ");
-                }
-                else
-                {
-                    boolean flag = isVisible(enumfacing2, enumfacing1);
-                    stringbuilder.append(' ').append((char)(flag ? 'Y' : 'n'));
-                }
-            }
+		bitSet.set(0, bitSet.size(), visible);
+	}
 
-            stringbuilder.append('\n');
-        }
+	public boolean isVisible(EnumFacing facing, EnumFacing facing2) {
 
-        return stringbuilder.toString();
-    }
+		return bitSet.get(facing.ordinal() + facing2.ordinal() * COUNT_FACES);
+	}
+
+	public String toString() {
+
+		StringBuilder stringbuilder = new StringBuilder();
+		stringbuilder.append(' ');
+
+		for (EnumFacing enumfacing : EnumFacing.values()) {
+			stringbuilder.append(' ').append(enumfacing.toString().toUpperCase().charAt(0));
+		}
+
+		stringbuilder.append('\n');
+
+		for (EnumFacing enumfacing2 : EnumFacing.values()) {
+			stringbuilder.append(enumfacing2.toString().toUpperCase().charAt(0));
+
+			for (EnumFacing enumfacing1 : EnumFacing.values()) {
+				if (enumfacing2 == enumfacing1) {
+					stringbuilder.append("  ");
+				} else {
+					boolean flag = isVisible(enumfacing2, enumfacing1);
+					stringbuilder.append(' ').append(flag ? 'Y' : 'n');
+				}
+			}
+
+			stringbuilder.append('\n');
+		}
+
+		return stringbuilder.toString();
+	}
+
 }

@@ -5,142 +5,137 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import net.minecraft.advancements.ICriterionTrigger;
 import net.minecraft.advancements.PlayerAdvancements;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 
-public class EntityHurtPlayerTrigger implements ICriterionTrigger<EntityHurtPlayerTrigger.Instance>
-{
-    private static final ResourceLocation ID = new ResourceLocation("entity_hurt_player");
-    private final Map<PlayerAdvancements, EntityHurtPlayerTrigger.Listeners> listeners = Maps.<PlayerAdvancements, EntityHurtPlayerTrigger.Listeners>newHashMap();
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-    public ResourceLocation getId()
-    {
-        return ID;
-    }
+public class EntityHurtPlayerTrigger implements ICriterionTrigger<EntityHurtPlayerTrigger.Instance> {
 
-    public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<EntityHurtPlayerTrigger.Instance> listener)
-    {
-        EntityHurtPlayerTrigger.Listeners entityhurtplayertrigger$listeners = listeners.get(playerAdvancementsIn);
+	private static final ResourceLocation ID = new ResourceLocation("entity_hurt_player");
+	private final Map<PlayerAdvancements, EntityHurtPlayerTrigger.Listeners> listeners = Maps.newHashMap();
 
-        if (entityhurtplayertrigger$listeners == null)
-        {
-            entityhurtplayertrigger$listeners = new EntityHurtPlayerTrigger.Listeners(playerAdvancementsIn);
-            listeners.put(playerAdvancementsIn, entityhurtplayertrigger$listeners);
-        }
+	public ResourceLocation getId() {
 
-        entityhurtplayertrigger$listeners.add(listener);
-    }
+		return ID;
+	}
 
-    public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<EntityHurtPlayerTrigger.Instance> listener)
-    {
-        EntityHurtPlayerTrigger.Listeners entityhurtplayertrigger$listeners = listeners.get(playerAdvancementsIn);
+	public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<EntityHurtPlayerTrigger.Instance> listener) {
 
-        if (entityhurtplayertrigger$listeners != null)
-        {
-            entityhurtplayertrigger$listeners.remove(listener);
+		EntityHurtPlayerTrigger.Listeners entityhurtplayertrigger$listeners = listeners.get(playerAdvancementsIn);
 
-            if (entityhurtplayertrigger$listeners.isEmpty())
-            {
-                listeners.remove(playerAdvancementsIn);
-            }
-        }
-    }
+		if (entityhurtplayertrigger$listeners == null) {
+			entityhurtplayertrigger$listeners = new EntityHurtPlayerTrigger.Listeners(playerAdvancementsIn);
+			listeners.put(playerAdvancementsIn, entityhurtplayertrigger$listeners);
+		}
 
-    public void removeAllListeners(PlayerAdvancements playerAdvancementsIn)
-    {
-        listeners.remove(playerAdvancementsIn);
-    }
+		entityhurtplayertrigger$listeners.add(listener);
+	}
 
-    /**
-     * Deserialize a ICriterionInstance of this trigger from the data in the JSON.
-     */
-    public EntityHurtPlayerTrigger.Instance deserializeInstance(JsonObject json, JsonDeserializationContext context)
-    {
-        DamagePredicate damagepredicate = DamagePredicate.deserialize(json.get("damage"));
-        return new EntityHurtPlayerTrigger.Instance(damagepredicate);
-    }
+	public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<EntityHurtPlayerTrigger.Instance> listener) {
 
-    public void trigger(EntityPlayerMP player, DamageSource source, float amountDealt, float amountTaken, boolean wasBlocked)
-    {
-        EntityHurtPlayerTrigger.Listeners entityhurtplayertrigger$listeners = listeners.get(player.getAdvancements());
+		EntityHurtPlayerTrigger.Listeners entityhurtplayertrigger$listeners = listeners.get(playerAdvancementsIn);
 
-        if (entityhurtplayertrigger$listeners != null)
-        {
-            entityhurtplayertrigger$listeners.trigger(player, source, amountDealt, amountTaken, wasBlocked);
-        }
-    }
+		if (entityhurtplayertrigger$listeners != null) {
+			entityhurtplayertrigger$listeners.remove(listener);
 
-    public static class Instance extends AbstractCriterionInstance
-    {
-        private final DamagePredicate damage;
+			if (entityhurtplayertrigger$listeners.isEmpty()) {
+				listeners.remove(playerAdvancementsIn);
+			}
+		}
+	}
 
-        public Instance(DamagePredicate damage)
-        {
-            super(EntityHurtPlayerTrigger.ID);
-            this.damage = damage;
-        }
+	public void removeAllListeners(PlayerAdvancements playerAdvancementsIn) {
 
-        public boolean test(EntityPlayerMP player, DamageSource source, float amountDealt, float amountTaken, boolean wasBlocked)
-        {
-            return damage.test(player, source, amountDealt, amountTaken, wasBlocked);
-        }
-    }
+		listeners.remove(playerAdvancementsIn);
+	}
 
-    static class Listeners
-    {
-        private final PlayerAdvancements playerAdvancements;
-        private final Set<ICriterionTrigger.Listener<EntityHurtPlayerTrigger.Instance>> listeners = Sets.<ICriterionTrigger.Listener<EntityHurtPlayerTrigger.Instance>>newHashSet();
+	/**
+	 * Deserialize a ICriterionInstance of this trigger from the data in the JSON.
+	 */
+	public EntityHurtPlayerTrigger.Instance deserializeInstance(JsonObject json, JsonDeserializationContext context) {
 
-        public Listeners(PlayerAdvancements p_i47439_1_)
-        {
-            playerAdvancements = p_i47439_1_;
-        }
+		DamagePredicate damagepredicate = DamagePredicate.deserialize(json.get("damage"));
+		return new EntityHurtPlayerTrigger.Instance(damagepredicate);
+	}
 
-        public boolean isEmpty()
-        {
-            return listeners.isEmpty();
-        }
+	public void trigger(EntityPlayerMP player, DamageSource source, float amountDealt, float amountTaken, boolean wasBlocked) {
 
-        public void add(ICriterionTrigger.Listener<EntityHurtPlayerTrigger.Instance> listener)
-        {
-            listeners.add(listener);
-        }
+		EntityHurtPlayerTrigger.Listeners entityhurtplayertrigger$listeners = listeners.get(player.getAdvancements());
 
-        public void remove(ICriterionTrigger.Listener<EntityHurtPlayerTrigger.Instance> listener)
-        {
-            listeners.remove(listener);
-        }
+		if (entityhurtplayertrigger$listeners != null) {
+			entityhurtplayertrigger$listeners.trigger(player, source, amountDealt, amountTaken, wasBlocked);
+		}
+	}
 
-        public void trigger(EntityPlayerMP player, DamageSource source, float amountDealt, float amountTaken, boolean wasBlocked)
-        {
-            List<ICriterionTrigger.Listener<EntityHurtPlayerTrigger.Instance>> list = null;
+	public static class Instance extends AbstractCriterionInstance {
 
-            for (ICriterionTrigger.Listener<EntityHurtPlayerTrigger.Instance> listener : listeners)
-            {
-                if (((EntityHurtPlayerTrigger.Instance)listener.getCriterionInstance()).test(player, source, amountDealt, amountTaken, wasBlocked))
-                {
-                    if (list == null)
-                    {
-                        list = Lists.<ICriterionTrigger.Listener<EntityHurtPlayerTrigger.Instance>>newArrayList();
-                    }
+		private final DamagePredicate damage;
 
-                    list.add(listener);
-                }
-            }
+		public Instance(DamagePredicate damage) {
 
-            if (list != null)
-            {
-                for (ICriterionTrigger.Listener<EntityHurtPlayerTrigger.Instance> listener1 : list)
-                {
-                    listener1.grantCriterion(playerAdvancements);
-                }
-            }
-        }
-    }
+			super(EntityHurtPlayerTrigger.ID);
+			this.damage = damage;
+		}
+
+		public boolean test(EntityPlayerMP player, DamageSource source, float amountDealt, float amountTaken, boolean wasBlocked) {
+
+			return damage.test(player, source, amountDealt, amountTaken, wasBlocked);
+		}
+
+	}
+
+	static class Listeners {
+
+		private final PlayerAdvancements playerAdvancements;
+		private final Set<ICriterionTrigger.Listener<EntityHurtPlayerTrigger.Instance>> listeners = Sets.newHashSet();
+
+		public Listeners(PlayerAdvancements p_i47439_1_) {
+
+			playerAdvancements = p_i47439_1_;
+		}
+
+		public boolean isEmpty() {
+
+			return listeners.isEmpty();
+		}
+
+		public void add(ICriterionTrigger.Listener<EntityHurtPlayerTrigger.Instance> listener) {
+
+			listeners.add(listener);
+		}
+
+		public void remove(ICriterionTrigger.Listener<EntityHurtPlayerTrigger.Instance> listener) {
+
+			listeners.remove(listener);
+		}
+
+		public void trigger(EntityPlayerMP player, DamageSource source, float amountDealt, float amountTaken, boolean wasBlocked) {
+
+			List<ICriterionTrigger.Listener<EntityHurtPlayerTrigger.Instance>> list = null;
+
+			for (ICriterionTrigger.Listener<EntityHurtPlayerTrigger.Instance> listener : listeners) {
+				if (listener.getCriterionInstance().test(player, source, amountDealt, amountTaken, wasBlocked)) {
+					if (list == null) {
+						list = Lists.newArrayList();
+					}
+
+					list.add(listener);
+				}
+			}
+
+			if (list != null) {
+				for (ICriterionTrigger.Listener<EntityHurtPlayerTrigger.Instance> listener1 : list) {
+					listener1.grantCriterion(playerAdvancements);
+				}
+			}
+		}
+
+	}
+
 }

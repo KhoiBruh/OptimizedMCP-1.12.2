@@ -1,8 +1,6 @@
 package net.minecraft.entity.monster;
 
 import com.google.common.base.Predicate;
-import java.util.List;
-import javax.annotation.Nullable;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -19,102 +17,100 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 
-public class EntityElderGuardian extends EntityGuardian
-{
-    public EntityElderGuardian(World worldIn)
-    {
-        super(worldIn);
-        setSize(width * 2.35F, height * 2.35F);
-        enablePersistence();
+import javax.annotation.Nullable;
+import java.util.List;
 
-        if (wander != null)
-        {
-            wander.setExecutionChance(400);
-        }
-    }
+public class EntityElderGuardian extends EntityGuardian {
 
-    protected void applyEntityAttributes()
-    {
-        super.applyEntityAttributes();
-        getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.30000001192092896D);
-        getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(8.0D);
-        getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(80.0D);
-    }
+	public EntityElderGuardian(World worldIn) {
 
-    public static void registerFixesElderGuardian(DataFixer fixer)
-    {
-        EntityLiving.registerFixesMob(fixer, EntityElderGuardian.class);
-    }
+		super(worldIn);
+		setSize(width * 2.35F, height * 2.35F);
+		enablePersistence();
 
-    @Nullable
-    protected ResourceLocation getLootTable()
-    {
-        return LootTableList.ENTITIES_ELDER_GUARDIAN;
-    }
+		if (wander != null) {
+			wander.setExecutionChance(400);
+		}
+	}
 
-    public int getAttackDuration()
-    {
-        return 60;
-    }
+	protected void applyEntityAttributes() {
 
-    public void setGhost()
-    {
-        clientSideSpikesAnimation = 1.0F;
-        clientSideSpikesAnimationO = clientSideSpikesAnimation;
-    }
+		super.applyEntityAttributes();
+		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.30000001192092896D);
+		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(8.0D);
+		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(80.0D);
+	}
 
-    protected SoundEvent getAmbientSound()
-    {
-        return isInWater() ? SoundEvents.ENTITY_ELDER_GUARDIAN_AMBIENT : SoundEvents.ENTITY_ELDERGUARDIAN_AMBIENTLAND;
-    }
+	public static void registerFixesElderGuardian(DataFixer fixer) {
 
-    protected SoundEvent getHurtSound(DamageSource damageSourceIn)
-    {
-        return isInWater() ? SoundEvents.ENTITY_ELDER_GUARDIAN_HURT : SoundEvents.ENTITY_ELDER_GUARDIAN_HURT_LAND;
-    }
+		EntityLiving.registerFixesMob(fixer, EntityElderGuardian.class);
+	}
 
-    protected SoundEvent getDeathSound()
-    {
-        return isInWater() ? SoundEvents.ENTITY_ELDER_GUARDIAN_DEATH : SoundEvents.ENTITY_ELDER_GUARDIAN_DEATH_LAND;
-    }
+	@Nullable
+	protected ResourceLocation getLootTable() {
 
-    protected SoundEvent getFlopSound()
-    {
-        return SoundEvents.ENTITY_ELDER_GUARDIAN_FLOP;
-    }
+		return LootTableList.ENTITIES_ELDER_GUARDIAN;
+	}
 
-    protected void updateAITasks()
-    {
-        super.updateAITasks();
-        int i = 1200;
+	public int getAttackDuration() {
 
-        if ((ticksExisted + getEntityId()) % 1200 == 0)
-        {
-            Potion potion = MobEffects.MINING_FATIGUE;
-            List<EntityPlayerMP> list = world.<EntityPlayerMP>getPlayers(EntityPlayerMP.class, new Predicate<EntityPlayerMP>()
-            {
-                public boolean apply(@Nullable EntityPlayerMP p_apply_1_)
-                {
-                    return getDistanceSq(p_apply_1_) < 2500.0D && p_apply_1_.interactionManager.survivalOrAdventure();
-                }
-            });
-            int j = 2;
-            int k = 6000;
-            int l = 1200;
+		return 60;
+	}
 
-            for (EntityPlayerMP entityplayermp : list)
-            {
-                if (!entityplayermp.isPotionActive(potion) || entityplayermp.getActivePotionEffect(potion).getAmplifier() < 2 || entityplayermp.getActivePotionEffect(potion).getDuration() < 1200)
-                {
-                    entityplayermp.connection.sendPacket(new SPacketChangeGameState(10, 0.0F));
-                    entityplayermp.addPotionEffect(new PotionEffect(potion, 6000, 2));
-                }
-            }
-        }
+	public void setGhost() {
 
-        if (!hasHome())
-        {
-            setHomePosAndDistance(new BlockPos(this), 16);
-        }
-    }
+		clientSideSpikesAnimation = 1.0F;
+		clientSideSpikesAnimationO = clientSideSpikesAnimation;
+	}
+
+	protected SoundEvent getAmbientSound() {
+
+		return isInWater() ? SoundEvents.ENTITY_ELDER_GUARDIAN_AMBIENT : SoundEvents.ENTITY_ELDERGUARDIAN_AMBIENTLAND;
+	}
+
+	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+
+		return isInWater() ? SoundEvents.ENTITY_ELDER_GUARDIAN_HURT : SoundEvents.ENTITY_ELDER_GUARDIAN_HURT_LAND;
+	}
+
+	protected SoundEvent getDeathSound() {
+
+		return isInWater() ? SoundEvents.ENTITY_ELDER_GUARDIAN_DEATH : SoundEvents.ENTITY_ELDER_GUARDIAN_DEATH_LAND;
+	}
+
+	protected SoundEvent getFlopSound() {
+
+		return SoundEvents.ENTITY_ELDER_GUARDIAN_FLOP;
+	}
+
+	protected void updateAITasks() {
+
+		super.updateAITasks();
+		int i = 1200;
+
+		if ((ticksExisted + getEntityId()) % 1200 == 0) {
+			Potion potion = MobEffects.MINING_FATIGUE;
+			List<EntityPlayerMP> list = world.getPlayers(EntityPlayerMP.class, new Predicate<EntityPlayerMP>() {
+				public boolean apply(@Nullable EntityPlayerMP p_apply_1_) {
+
+					return getDistanceSq(p_apply_1_) < 2500.0D && p_apply_1_.interactionManager.survivalOrAdventure();
+				}
+			});
+			int j = 2;
+			int k = 6000;
+			int l = 1200;
+
+			for (EntityPlayerMP entityplayermp : list) {
+				if (!entityplayermp.isPotionActive(potion) || entityplayermp.getActivePotionEffect(potion).getAmplifier() < 2 || entityplayermp.getActivePotionEffect(potion).getDuration() < 1200) {
+					entityplayermp.connection.sendPacket(new SPacketChangeGameState(10, 0.0F));
+					entityplayermp.addPotionEffect(new PotionEffect(potion, 6000, 2));
+				}
+			}
+		}
+
+		if (!hasHome()) {
+			setHomePosAndDistance(new BlockPos(this), 16);
+		}
+	}
+
 }

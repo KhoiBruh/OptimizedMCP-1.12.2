@@ -1,8 +1,9 @@
 package net.minecraft.client.gui.recipebook;
 
-public interface IRecipeShownListener
-{
-    void recipesUpdated();
+public interface IRecipeShownListener {
 
-    GuiRecipeBook func_194310_f();
+	void recipesUpdated();
+
+	GuiRecipeBook func_194310_f();
+
 }

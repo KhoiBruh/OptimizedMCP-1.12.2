@@ -18,57 +18,50 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
-public class ItemLilyPad extends ItemColored
-{
-    public ItemLilyPad(Block block)
-    {
-        super(block, false);
-    }
+public class ItemLilyPad extends ItemColored {
 
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn)
-    {
-        ItemStack itemstack = playerIn.getHeldItem(handIn);
-        RayTraceResult raytraceresult = rayTrace(worldIn, playerIn, true);
+	public ItemLilyPad(Block block) {
 
-        if (raytraceresult == null)
-        {
-            return new ActionResult<ItemStack>(EnumActionResult.PASS, itemstack);
-        }
-        else
-        {
-            if (raytraceresult.typeOfHit == RayTraceResult.Type.BLOCK)
-            {
-                BlockPos blockpos = raytraceresult.getBlockPos();
+		super(block, false);
+	}
 
-                if (!worldIn.isBlockModifiable(playerIn, blockpos) || !playerIn.canPlayerEdit(blockpos.offset(raytraceresult.sideHit), raytraceresult.sideHit, itemstack))
-                {
-                    return new ActionResult<ItemStack>(EnumActionResult.FAIL, itemstack);
-                }
+	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
 
-                BlockPos blockpos1 = blockpos.up();
-                IBlockState iblockstate = worldIn.getBlockState(blockpos);
+		ItemStack itemstack = playerIn.getHeldItem(handIn);
+		RayTraceResult raytraceresult = rayTrace(worldIn, playerIn, true);
 
-                if (iblockstate.getMaterial() == Material.WATER && ((Integer)iblockstate.getValue(BlockLiquid.LEVEL)).intValue() == 0 && worldIn.isAirBlock(blockpos1))
-                {
-                    worldIn.setBlockState(blockpos1, Blocks.WATERLILY.getDefaultState(), 11);
+		if (raytraceresult == null) {
+			return new ActionResult<ItemStack>(EnumActionResult.PASS, itemstack);
+		} else {
+			if (raytraceresult.typeOfHit == RayTraceResult.Type.BLOCK) {
+				BlockPos blockpos = raytraceresult.getBlockPos();
 
-                    if (playerIn instanceof EntityPlayerMP)
-                    {
-                        CriteriaTriggers.PLACED_BLOCK.trigger((EntityPlayerMP)playerIn, blockpos1, itemstack);
-                    }
+				if (!worldIn.isBlockModifiable(playerIn, blockpos) || !playerIn.canPlayerEdit(blockpos.offset(raytraceresult.sideHit), raytraceresult.sideHit, itemstack)) {
+					return new ActionResult<ItemStack>(EnumActionResult.FAIL, itemstack);
+				}
 
-                    if (!playerIn.capabilities.isCreativeMode)
-                    {
-                        itemstack.shrink(1);
-                    }
+				BlockPos blockpos1 = blockpos.up();
+				IBlockState iblockstate = worldIn.getBlockState(blockpos);
 
-                    playerIn.addStat(StatList.getObjectUseStats(this));
-                    worldIn.playSound(playerIn, blockpos, SoundEvents.BLOCK_WATERLILY_PLACE, SoundCategory.BLOCKS, 1.0F, 1.0F);
-                    return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemstack);
-                }
-            }
+				if (iblockstate.getMaterial() == Material.WATER && iblockstate.getValue(BlockLiquid.LEVEL).intValue() == 0 && worldIn.isAirBlock(blockpos1)) {
+					worldIn.setBlockState(blockpos1, Blocks.WATERLILY.getDefaultState(), 11);
 
-            return new ActionResult<ItemStack>(EnumActionResult.FAIL, itemstack);
-        }
-    }
+					if (playerIn instanceof EntityPlayerMP) {
+						CriteriaTriggers.PLACED_BLOCK.trigger((EntityPlayerMP) playerIn, blockpos1, itemstack);
+					}
+
+					if (!playerIn.capabilities.isCreativeMode) {
+						itemstack.shrink(1);
+					}
+
+					playerIn.addStat(StatList.getObjectUseStats(this));
+					worldIn.playSound(playerIn, blockpos, SoundEvents.BLOCK_WATERLILY_PLACE, SoundCategory.BLOCKS, 1.0F, 1.0F);
+					return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemstack);
+				}
+			}
+
+			return new ActionResult<ItemStack>(EnumActionResult.FAIL, itemstack);
+		}
+	}
+
 }

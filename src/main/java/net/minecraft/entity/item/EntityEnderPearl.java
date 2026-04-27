@@ -1,6 +1,5 @@
 package net.minecraft.entity.item;
 
-import javax.annotation.Nullable;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -17,140 +16,123 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
-public class EntityEnderPearl extends EntityThrowable
-{
-    private EntityLivingBase perlThrower;
+import javax.annotation.Nullable;
 
-    public EntityEnderPearl(World worldIn)
-    {
-        super(worldIn);
-    }
+public class EntityEnderPearl extends EntityThrowable {
 
-    public EntityEnderPearl(World worldIn, EntityLivingBase throwerIn)
-    {
-        super(worldIn, throwerIn);
-        perlThrower = throwerIn;
-    }
+	private EntityLivingBase perlThrower;
 
-    public EntityEnderPearl(World worldIn, double x, double y, double z)
-    {
-        super(worldIn, x, y, z);
-    }
+	public EntityEnderPearl(World worldIn) {
 
-    public static void registerFixesEnderPearl(DataFixer fixer)
-    {
-        EntityThrowable.registerFixesThrowable(fixer, "ThrownEnderpearl");
-    }
+		super(worldIn);
+	}
 
-    /**
-     * Called when this EntityThrowable hits a block or entity.
-     */
-    protected void onImpact(RayTraceResult result)
-    {
-        EntityLivingBase entitylivingbase = getThrower();
+	public EntityEnderPearl(World worldIn, EntityLivingBase throwerIn) {
 
-        if (result.entityHit != null)
-        {
-            if (result.entityHit == perlThrower)
-            {
-                return;
-            }
+		super(worldIn, throwerIn);
+		perlThrower = throwerIn;
+	}
 
-            result.entityHit.attackEntityFrom(DamageSource.causeThrownDamage(this, entitylivingbase), 0.0F);
-        }
+	public EntityEnderPearl(World worldIn, double x, double y, double z) {
 
-        if (result.typeOfHit == RayTraceResult.Type.BLOCK)
-        {
-            BlockPos blockpos = result.getBlockPos();
-            TileEntity tileentity = world.getTileEntity(blockpos);
+		super(worldIn, x, y, z);
+	}
 
-            if (tileentity instanceof TileEntityEndGateway)
-            {
-                TileEntityEndGateway tileentityendgateway = (TileEntityEndGateway)tileentity;
+	public static void registerFixesEnderPearl(DataFixer fixer) {
 
-                if (entitylivingbase != null)
-                {
-                    if (entitylivingbase instanceof EntityPlayerMP)
-                    {
-                        CriteriaTriggers.ENTER_BLOCK.trigger((EntityPlayerMP)entitylivingbase, world.getBlockState(blockpos));
-                    }
+		EntityThrowable.registerFixesThrowable(fixer, "ThrownEnderpearl");
+	}
 
-                    tileentityendgateway.teleportEntity(entitylivingbase);
-                    setDead();
-                    return;
-                }
+	/**
+	 * Called when this EntityThrowable hits a block or entity.
+	 */
+	protected void onImpact(RayTraceResult result) {
 
-                tileentityendgateway.teleportEntity(this);
-                return;
-            }
-        }
+		EntityLivingBase entitylivingbase = getThrower();
 
-        for (int i = 0; i < 32; ++i)
-        {
-            world.spawnParticle(EnumParticleTypes.PORTAL, posX, posY + rand.nextDouble() * 2.0D, posZ, rand.nextGaussian(), 0.0D, rand.nextGaussian());
-        }
+		if (result.entityHit != null) {
+			if (result.entityHit == perlThrower) {
+				return;
+			}
 
-        if (!world.isRemote)
-        {
-            if (entitylivingbase instanceof EntityPlayerMP)
-            {
-                EntityPlayerMP entityplayermp = (EntityPlayerMP)entitylivingbase;
+			result.entityHit.attackEntityFrom(DamageSource.causeThrownDamage(this, entitylivingbase), 0.0F);
+		}
 
-                if (entityplayermp.connection.getNetworkManager().isChannelOpen() && entityplayermp.world == world && !entityplayermp.isPlayerSleeping())
-                {
-                    if (rand.nextFloat() < 0.05F && world.getGameRules().getBoolean("doMobSpawning"))
-                    {
-                        EntityEndermite entityendermite = new EntityEndermite(world);
-                        entityendermite.setSpawnedByPlayer(true);
-                        entityendermite.setLocationAndAngles(entitylivingbase.posX, entitylivingbase.posY, entitylivingbase.posZ, entitylivingbase.rotationYaw, entitylivingbase.rotationPitch);
-                        world.spawnEntity(entityendermite);
-                    }
+		if (result.typeOfHit == RayTraceResult.Type.BLOCK) {
+			BlockPos blockpos = result.getBlockPos();
+			TileEntity tileentity = world.getTileEntity(blockpos);
 
-                    if (entitylivingbase.isRiding())
-                    {
-                        entitylivingbase.dismountRidingEntity();
-                    }
+			if (tileentity instanceof TileEntityEndGateway tileentityendgateway) {
 
-                    entitylivingbase.setPositionAndUpdate(posX, posY, posZ);
-                    entitylivingbase.fallDistance = 0.0F;
-                    entitylivingbase.attackEntityFrom(DamageSource.FALL, 5.0F);
-                }
-            }
-            else if (entitylivingbase != null)
-            {
-                entitylivingbase.setPositionAndUpdate(posX, posY, posZ);
-                entitylivingbase.fallDistance = 0.0F;
-            }
+				if (entitylivingbase != null) {
+					if (entitylivingbase instanceof EntityPlayerMP) {
+						CriteriaTriggers.ENTER_BLOCK.trigger((EntityPlayerMP) entitylivingbase, world.getBlockState(blockpos));
+					}
 
-            setDead();
-        }
-    }
+					tileentityendgateway.teleportEntity(entitylivingbase);
+					setDead();
+					return;
+				}
 
-    /**
-     * Called to update the entity's position/logic.
-     */
-    public void onUpdate()
-    {
-        EntityLivingBase entitylivingbase = getThrower();
+				tileentityendgateway.teleportEntity(this);
+				return;
+			}
+		}
 
-        if (entitylivingbase != null && entitylivingbase instanceof EntityPlayer && !entitylivingbase.isEntityAlive())
-        {
-            setDead();
-        }
-        else
-        {
-            super.onUpdate();
-        }
-    }
+		for (int i = 0; i < 32; ++i) {
+			world.spawnParticle(EnumParticleTypes.PORTAL, posX, posY + rand.nextDouble() * 2.0D, posZ, rand.nextGaussian(), 0.0D, rand.nextGaussian());
+		}
 
-    @Nullable
-    public Entity changeDimension(int dimensionIn)
-    {
-        if (thrower.dimension != dimensionIn)
-        {
-            thrower = null;
-        }
+		if (!world.isRemote) {
+			if (entitylivingbase instanceof EntityPlayerMP entityplayermp) {
 
-        return super.changeDimension(dimensionIn);
-    }
+				if (entityplayermp.connection.getNetworkManager().isChannelOpen() && entityplayermp.world == world && !entityplayermp.isPlayerSleeping()) {
+					if (rand.nextFloat() < 0.05F && world.getGameRules().getBoolean("doMobSpawning")) {
+						EntityEndermite entityendermite = new EntityEndermite(world);
+						entityendermite.setSpawnedByPlayer(true);
+						entityendermite.setLocationAndAngles(entitylivingbase.posX, entitylivingbase.posY, entitylivingbase.posZ, entitylivingbase.rotationYaw, entitylivingbase.rotationPitch);
+						world.spawnEntity(entityendermite);
+					}
+
+					if (entitylivingbase.isRiding()) {
+						entitylivingbase.dismountRidingEntity();
+					}
+
+					entitylivingbase.setPositionAndUpdate(posX, posY, posZ);
+					entitylivingbase.fallDistance = 0.0F;
+					entitylivingbase.attackEntityFrom(DamageSource.FALL, 5.0F);
+				}
+			} else if (entitylivingbase != null) {
+				entitylivingbase.setPositionAndUpdate(posX, posY, posZ);
+				entitylivingbase.fallDistance = 0.0F;
+			}
+
+			setDead();
+		}
+	}
+
+	/**
+	 * Called to update the entity's position/logic.
+	 */
+	public void onUpdate() {
+
+		EntityLivingBase entitylivingbase = getThrower();
+
+		if (entitylivingbase != null && entitylivingbase instanceof EntityPlayer && !entitylivingbase.isEntityAlive()) {
+			setDead();
+		} else {
+			super.onUpdate();
+		}
+	}
+
+	@Nullable
+	public Entity changeDimension(int dimensionIn) {
+
+		if (thrower.dimension != dimensionIn) {
+			thrower = null;
+		}
+
+		return super.changeDimension(dimensionIn);
+	}
+
 }

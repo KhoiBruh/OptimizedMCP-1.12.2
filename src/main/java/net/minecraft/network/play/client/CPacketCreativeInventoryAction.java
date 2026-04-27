@@ -1,59 +1,61 @@
 package net.minecraft.network.play.client;
 
-import java.io.IOException;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayServer;
 
-public class CPacketCreativeInventoryAction implements Packet<INetHandlerPlayServer>
-{
-    private int slotId;
-    private ItemStack stack = ItemStack.EMPTY;
+import java.io.IOException;
 
-    public CPacketCreativeInventoryAction()
-    {
-    }
+public class CPacketCreativeInventoryAction implements Packet<INetHandlerPlayServer> {
 
-    public CPacketCreativeInventoryAction(int slotIdIn, ItemStack stackIn)
-    {
-        slotId = slotIdIn;
-        stack = stackIn.copy();
-    }
+	private int slotId;
+	private ItemStack stack = ItemStack.EMPTY;
 
-    /**
-     * Passes this Packet on to the NetHandler for processing.
-     */
-    public void processPacket(INetHandlerPlayServer handler)
-    {
-        handler.processCreativeInventoryAction(this);
-    }
+	public CPacketCreativeInventoryAction() {
 
-    /**
-     * Reads the raw packet data from the data stream.
-     */
-    public void readPacketData(PacketBuffer buf) throws IOException
-    {
-        slotId = buf.readShort();
-        stack = buf.readItemStack();
-    }
+	}
 
-    /**
-     * Writes the raw packet data to the data stream.
-     */
-    public void writePacketData(PacketBuffer buf) throws IOException
-    {
-        buf.writeShort(slotId);
-        buf.writeItemStack(stack);
-    }
+	public CPacketCreativeInventoryAction(int slotIdIn, ItemStack stackIn) {
 
-    public int getSlotId()
-    {
-        return slotId;
-    }
+		slotId = slotIdIn;
+		stack = stackIn.copy();
+	}
 
-    public ItemStack getStack()
-    {
-        return stack;
-    }
+	/**
+	 * Passes this Packet on to the NetHandler for processing.
+	 */
+	public void processPacket(INetHandlerPlayServer handler) {
+
+		handler.processCreativeInventoryAction(this);
+	}
+
+	/**
+	 * Reads the raw packet data from the data stream.
+	 */
+	public void readPacketData(PacketBuffer buf) throws IOException {
+
+		slotId = buf.readShort();
+		stack = buf.readItemStack();
+	}
+
+	/**
+	 * Writes the raw packet data to the data stream.
+	 */
+	public void writePacketData(PacketBuffer buf) throws IOException {
+
+		buf.writeShort(slotId);
+		buf.writeItemStack(stack);
+	}
+
+	public int getSlotId() {
+
+		return slotId;
+	}
+
+	public ItemStack getStack() {
+
+		return stack;
+	}
+
 }

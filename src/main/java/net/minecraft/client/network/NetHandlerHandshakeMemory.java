@@ -7,32 +7,33 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.NetHandlerLoginServer;
 import net.minecraft.util.text.ITextComponent;
 
-public class NetHandlerHandshakeMemory implements INetHandlerHandshakeServer
-{
-    private final MinecraftServer mcServer;
-    private final NetworkManager networkManager;
+public class NetHandlerHandshakeMemory implements INetHandlerHandshakeServer {
 
-    public NetHandlerHandshakeMemory(MinecraftServer mcServerIn, NetworkManager networkManagerIn)
-    {
-        mcServer = mcServerIn;
-        networkManager = networkManagerIn;
-    }
+	private final MinecraftServer mcServer;
+	private final NetworkManager networkManager;
 
-    /**
-     * There are two recognized intentions for initiating a handshake: logging in and acquiring server status. The
-     * NetworkManager's protocol will be reconfigured according to the specified intention, although a login-intention
-     * must pass a versioncheck or receive a disconnect otherwise
-     */
-    public void processHandshake(C00Handshake packetIn)
-    {
-        networkManager.setConnectionState(packetIn.getRequestedState());
-        networkManager.setNetHandler(new NetHandlerLoginServer(mcServer, networkManager));
-    }
+	public NetHandlerHandshakeMemory(MinecraftServer mcServerIn, NetworkManager networkManagerIn) {
 
-    /**
-     * Invoked when disconnecting, the parameter is a ChatComponent describing the reason for termination
-     */
-    public void onDisconnect(ITextComponent reason)
-    {
-    }
+		mcServer = mcServerIn;
+		networkManager = networkManagerIn;
+	}
+
+	/**
+	 * There are two recognized intentions for initiating a handshake: logging in and acquiring server status. The
+	 * NetworkManager's protocol will be reconfigured according to the specified intention, although a login-intention
+	 * must pass a versioncheck or receive a disconnect otherwise
+	 */
+	public void processHandshake(C00Handshake packetIn) {
+
+		networkManager.setConnectionState(packetIn.getRequestedState());
+		networkManager.setNetHandler(new NetHandlerLoginServer(mcServer, networkManager));
+	}
+
+	/**
+	 * Invoked when disconnecting, the parameter is a ChatComponent describing the reason for termination
+	 */
+	public void onDisconnect(ITextComponent reason) {
+
+	}
+
 }

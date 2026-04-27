@@ -1,33 +1,15 @@
 package net.minecraft.client.resources.data;
 
-public class AnimationFrame
-{
-    private final int frameIndex;
-    private final int frameTime;
+public record AnimationFrame(int frameIndex, int frameTime) {
 
-    public AnimationFrame(int frameIndexIn)
-    {
-        this(frameIndexIn, -1);
-    }
+	public AnimationFrame(int frameIndexIn) {
 
-    public AnimationFrame(int frameIndexIn, int frameTimeIn)
-    {
-        frameIndex = frameIndexIn;
-        frameTime = frameTimeIn;
-    }
+		this(frameIndexIn, -1);
+	}
 
-    public boolean hasNoTime()
-    {
-        return frameTime == -1;
-    }
+	public boolean hasNoTime() {
 
-    public int getFrameTime()
-    {
-        return frameTime;
-    }
+		return frameTime == -1;
+	}
 
-    public int getFrameIndex()
-    {
-        return frameIndex;
-    }
 }

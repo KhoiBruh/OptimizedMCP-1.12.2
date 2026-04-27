@@ -8,11 +8,6 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.Map.Entry;
-import javax.annotation.Nullable;
 import net.minecraft.advancements.ICriterionTrigger;
 import net.minecraft.advancements.PlayerAdvancements;
 import net.minecraft.block.Block;
@@ -23,203 +18,189 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.JsonUtils;
 import net.minecraft.util.ResourceLocation;
 
-public class EnterBlockTrigger implements ICriterionTrigger<EnterBlockTrigger.Instance>
-{
-    private static final ResourceLocation ID = new ResourceLocation("enter_block");
-    private final Map<PlayerAdvancements, EnterBlockTrigger.Listeners> listeners = Maps.<PlayerAdvancements, EnterBlockTrigger.Listeners>newHashMap();
+import javax.annotation.Nullable;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
-    public ResourceLocation getId()
-    {
-        return ID;
-    }
+public class EnterBlockTrigger implements ICriterionTrigger<EnterBlockTrigger.Instance> {
 
-    public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<EnterBlockTrigger.Instance> listener)
-    {
-        EnterBlockTrigger.Listeners enterblocktrigger$listeners = listeners.get(playerAdvancementsIn);
+	private static final ResourceLocation ID = new ResourceLocation("enter_block");
+	private final Map<PlayerAdvancements, EnterBlockTrigger.Listeners> listeners = Maps.newHashMap();
 
-        if (enterblocktrigger$listeners == null)
-        {
-            enterblocktrigger$listeners = new EnterBlockTrigger.Listeners(playerAdvancementsIn);
-            listeners.put(playerAdvancementsIn, enterblocktrigger$listeners);
-        }
+	public ResourceLocation getId() {
 
-        enterblocktrigger$listeners.add(listener);
-    }
+		return ID;
+	}
 
-    public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<EnterBlockTrigger.Instance> listener)
-    {
-        EnterBlockTrigger.Listeners enterblocktrigger$listeners = listeners.get(playerAdvancementsIn);
+	public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<EnterBlockTrigger.Instance> listener) {
 
-        if (enterblocktrigger$listeners != null)
-        {
-            enterblocktrigger$listeners.remove(listener);
+		EnterBlockTrigger.Listeners enterblocktrigger$listeners = listeners.get(playerAdvancementsIn);
 
-            if (enterblocktrigger$listeners.isEmpty())
-            {
-                listeners.remove(playerAdvancementsIn);
-            }
-        }
-    }
+		if (enterblocktrigger$listeners == null) {
+			enterblocktrigger$listeners = new EnterBlockTrigger.Listeners(playerAdvancementsIn);
+			listeners.put(playerAdvancementsIn, enterblocktrigger$listeners);
+		}
 
-    public void removeAllListeners(PlayerAdvancements playerAdvancementsIn)
-    {
-        listeners.remove(playerAdvancementsIn);
-    }
+		enterblocktrigger$listeners.add(listener);
+	}
 
-    /**
-     * Deserialize a ICriterionInstance of this trigger from the data in the JSON.
-     */
-    public EnterBlockTrigger.Instance deserializeInstance(JsonObject json, JsonDeserializationContext context)
-    {
-        Block block = null;
+	public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<EnterBlockTrigger.Instance> listener) {
 
-        if (json.has("block"))
-        {
-            ResourceLocation resourcelocation = new ResourceLocation(JsonUtils.getString(json, "block"));
+		EnterBlockTrigger.Listeners enterblocktrigger$listeners = listeners.get(playerAdvancementsIn);
 
-            if (!Block.REGISTRY.containsKey(resourcelocation))
-            {
-                throw new JsonSyntaxException("Unknown block type '" + resourcelocation + "'");
-            }
+		if (enterblocktrigger$listeners != null) {
+			enterblocktrigger$listeners.remove(listener);
 
-            block = Block.REGISTRY.getObject(resourcelocation);
-        }
+			if (enterblocktrigger$listeners.isEmpty()) {
+				listeners.remove(playerAdvancementsIn);
+			}
+		}
+	}
 
-        Map < IProperty<?>, Object > map = null;
+	public void removeAllListeners(PlayerAdvancements playerAdvancementsIn) {
 
-        if (json.has("state"))
-        {
-            if (block == null)
-            {
-                throw new JsonSyntaxException("Can't define block state without a specific block type");
-            }
+		listeners.remove(playerAdvancementsIn);
+	}
 
-            BlockStateContainer blockstatecontainer = block.getBlockState();
+	/**
+	 * Deserialize a ICriterionInstance of this trigger from the data in the JSON.
+	 */
+	public EnterBlockTrigger.Instance deserializeInstance(JsonObject json, JsonDeserializationContext context) {
 
-            for (Entry<String, JsonElement> entry : JsonUtils.getJsonObject(json, "state").entrySet())
-            {
-                IProperty<?> iproperty = blockstatecontainer.getProperty(entry.getKey());
+		Block block = null;
 
-                if (iproperty == null)
-                {
-                    throw new JsonSyntaxException("Unknown block state property '" + (String)entry.getKey() + "' for block '" + Block.REGISTRY.getNameForObject(block) + "'");
-                }
+		if (json.has("block")) {
+			ResourceLocation resourcelocation = new ResourceLocation(JsonUtils.getString(json, "block"));
 
-                String s = JsonUtils.getString(entry.getValue(), entry.getKey());
-                Optional<?> optional = iproperty.parseValue(s);
+			if (!Block.REGISTRY.containsKey(resourcelocation)) {
+				throw new JsonSyntaxException("Unknown block type '" + resourcelocation + "'");
+			}
 
-                if (!optional.isPresent())
-                {
-                    throw new JsonSyntaxException("Invalid block state value '" + s + "' for property '" + (String)entry.getKey() + "' on block '" + Block.REGISTRY.getNameForObject(block) + "'");
-                }
+			block = Block.REGISTRY.getObject(resourcelocation);
+		}
 
-                if (map == null)
-                {
-                    map = Maps. < IProperty<?>, Object > newHashMap();
-                }
+		Map<IProperty<?>, Object> map = null;
 
-                map.put(iproperty, optional.get());
-            }
-        }
+		if (json.has("state")) {
+			if (block == null) {
+				throw new JsonSyntaxException("Can't define block state without a specific block type");
+			}
 
-        return new EnterBlockTrigger.Instance(block, map);
-    }
+			BlockStateContainer blockstatecontainer = block.getBlockState();
 
-    public void trigger(EntityPlayerMP player, IBlockState state)
-    {
-        EnterBlockTrigger.Listeners enterblocktrigger$listeners = listeners.get(player.getAdvancements());
+			for (Entry<String, JsonElement> entry : JsonUtils.getJsonObject(json, "state").entrySet()) {
+				IProperty<?> iproperty = blockstatecontainer.getProperty(entry.getKey());
 
-        if (enterblocktrigger$listeners != null)
-        {
-            enterblocktrigger$listeners.trigger(state);
-        }
-    }
+				if (iproperty == null) {
+					throw new JsonSyntaxException("Unknown block state property '" + entry.getKey() + "' for block '" + Block.REGISTRY.getNameForObject(block) + "'");
+				}
 
-    public static class Instance extends AbstractCriterionInstance
-    {
-        private final Block block;
-        private final Map < IProperty<?>, Object > properties;
+				String s = JsonUtils.getString(entry.getValue(), entry.getKey());
+				Optional<?> optional = iproperty.parseValue(s);
 
-        public Instance(@Nullable Block blockIn, @Nullable Map < IProperty<?>, Object > propertiesIn)
-        {
-            super(EnterBlockTrigger.ID);
-            block = blockIn;
-            properties = propertiesIn;
-        }
+				if (!optional.isPresent()) {
+					throw new JsonSyntaxException("Invalid block state value '" + s + "' for property '" + entry.getKey() + "' on block '" + Block.REGISTRY.getNameForObject(block) + "'");
+				}
 
-        public boolean test(IBlockState state)
-        {
-            if (block != null && state.getBlock() != block)
-            {
-                return false;
-            }
-            else
-            {
-                if (properties != null)
-                {
-                    for (Entry < IProperty<?>, Object > entry : properties.entrySet())
-                    {
-                        if (state.getValue(entry.getKey()) != entry.getValue())
-                        {
-                            return false;
-                        }
-                    }
-                }
+				if (map == null) {
+					map = Maps.newHashMap();
+				}
 
-                return true;
-            }
-        }
-    }
+				map.put(iproperty, optional.get());
+			}
+		}
 
-    static class Listeners
-    {
-        private final PlayerAdvancements playerAdvancements;
-        private final Set<ICriterionTrigger.Listener<EnterBlockTrigger.Instance>> listeners = Sets.<ICriterionTrigger.Listener<EnterBlockTrigger.Instance>>newHashSet();
+		return new EnterBlockTrigger.Instance(block, map);
+	}
 
-        public Listeners(PlayerAdvancements playerAdvancementsIn)
-        {
-            playerAdvancements = playerAdvancementsIn;
-        }
+	public void trigger(EntityPlayerMP player, IBlockState state) {
 
-        public boolean isEmpty()
-        {
-            return listeners.isEmpty();
-        }
+		EnterBlockTrigger.Listeners enterblocktrigger$listeners = listeners.get(player.getAdvancements());
 
-        public void add(ICriterionTrigger.Listener<EnterBlockTrigger.Instance> listener)
-        {
-            listeners.add(listener);
-        }
+		if (enterblocktrigger$listeners != null) {
+			enterblocktrigger$listeners.trigger(state);
+		}
+	}
 
-        public void remove(ICriterionTrigger.Listener<EnterBlockTrigger.Instance> listener)
-        {
-            listeners.remove(listener);
-        }
+	public static class Instance extends AbstractCriterionInstance {
 
-        public void trigger(IBlockState state)
-        {
-            List<ICriterionTrigger.Listener<EnterBlockTrigger.Instance>> list = null;
+		private final Block block;
+		private final Map<IProperty<?>, Object> properties;
 
-            for (ICriterionTrigger.Listener<EnterBlockTrigger.Instance> listener : listeners)
-            {
-                if (((EnterBlockTrigger.Instance)listener.getCriterionInstance()).test(state))
-                {
-                    if (list == null)
-                    {
-                        list = Lists.<ICriterionTrigger.Listener<EnterBlockTrigger.Instance>>newArrayList();
-                    }
+		public Instance(@Nullable Block blockIn, @Nullable Map<IProperty<?>, Object> propertiesIn) {
 
-                    list.add(listener);
-                }
-            }
+			super(EnterBlockTrigger.ID);
+			block = blockIn;
+			properties = propertiesIn;
+		}
 
-            if (list != null)
-            {
-                for (ICriterionTrigger.Listener<EnterBlockTrigger.Instance> listener1 : list)
-                {
-                    listener1.grantCriterion(playerAdvancements);
-                }
-            }
-        }
-    }
+		public boolean test(IBlockState state) {
+
+			if (block != null && state.getBlock() != block) {
+				return false;
+			} else {
+				if (properties != null) {
+					for (Entry<IProperty<?>, Object> entry : properties.entrySet()) {
+						if (state.getValue(entry.getKey()) != entry.getValue()) {
+							return false;
+						}
+					}
+				}
+
+				return true;
+			}
+		}
+
+	}
+
+	static class Listeners {
+
+		private final PlayerAdvancements playerAdvancements;
+		private final Set<ICriterionTrigger.Listener<EnterBlockTrigger.Instance>> listeners = Sets.newHashSet();
+
+		public Listeners(PlayerAdvancements playerAdvancementsIn) {
+
+			playerAdvancements = playerAdvancementsIn;
+		}
+
+		public boolean isEmpty() {
+
+			return listeners.isEmpty();
+		}
+
+		public void add(ICriterionTrigger.Listener<EnterBlockTrigger.Instance> listener) {
+
+			listeners.add(listener);
+		}
+
+		public void remove(ICriterionTrigger.Listener<EnterBlockTrigger.Instance> listener) {
+
+			listeners.remove(listener);
+		}
+
+		public void trigger(IBlockState state) {
+
+			List<ICriterionTrigger.Listener<EnterBlockTrigger.Instance>> list = null;
+
+			for (ICriterionTrigger.Listener<EnterBlockTrigger.Instance> listener : listeners) {
+				if (listener.getCriterionInstance().test(state)) {
+					if (list == null) {
+						list = Lists.newArrayList();
+					}
+
+					list.add(listener);
+				}
+			}
+
+			if (list != null) {
+				for (ICriterionTrigger.Listener<EnterBlockTrigger.Instance> listener1 : list) {
+					listener1.grantCriterion(playerAdvancements);
+				}
+			}
+		}
+
+	}
+
 }

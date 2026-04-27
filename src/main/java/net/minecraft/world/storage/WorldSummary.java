@@ -4,116 +4,120 @@ import net.minecraft.util.StringUtils;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.GameType;
 
-public class WorldSummary implements Comparable<WorldSummary>
-{
-    /** the file name of this save */
-    private final String fileName;
+public class WorldSummary implements Comparable<WorldSummary> {
 
-    /** the displayed name of this save file */
-    private final String displayName;
-    private final long lastTimePlayed;
-    private final long sizeOnDisk;
-    private final boolean requiresConversion;
+	/**
+	 * the file name of this save
+	 */
+	private final String fileName;
 
-    /** Instance of EnumGameType. */
-    private final GameType gameType;
-    private final boolean hardcore;
-    private final boolean cheatsEnabled;
-    private final String versionName;
-    private final int versionId;
-    private final boolean versionSnapshot;
+	/**
+	 * the displayed name of this save file
+	 */
+	private final String displayName;
+	private final long lastTimePlayed;
+	private final long sizeOnDisk;
+	private final boolean requiresConversion;
 
-    public WorldSummary(WorldInfo info, String fileNameIn, String displayNameIn, long sizeOnDiskIn, boolean requiresConversionIn)
-    {
-        fileName = fileNameIn;
-        displayName = displayNameIn;
-        lastTimePlayed = info.getLastTimePlayed();
-        sizeOnDisk = sizeOnDiskIn;
-        gameType = info.getGameType();
-        requiresConversion = requiresConversionIn;
-        hardcore = info.isHardcoreModeEnabled();
-        cheatsEnabled = info.areCommandsAllowed();
-        versionName = info.getVersionName();
-        versionId = info.getVersionId();
-        versionSnapshot = info.isVersionSnapshot();
-    }
+	/**
+	 * Instance of EnumGameType.
+	 */
+	private final GameType gameType;
+	private final boolean hardcore;
+	private final boolean cheatsEnabled;
+	private final String versionName;
+	private final int versionId;
+	private final boolean versionSnapshot;
 
-    /**
-     * return the file name
-     */
-    public String getFileName()
-    {
-        return fileName;
-    }
+	public WorldSummary(WorldInfo info, String fileNameIn, String displayNameIn, long sizeOnDiskIn, boolean requiresConversionIn) {
 
-    /**
-     * return the display name of the save
-     */
-    public String getDisplayName()
-    {
-        return displayName;
-    }
+		fileName = fileNameIn;
+		displayName = displayNameIn;
+		lastTimePlayed = info.getLastTimePlayed();
+		sizeOnDisk = sizeOnDiskIn;
+		gameType = info.getGameType();
+		requiresConversion = requiresConversionIn;
+		hardcore = info.isHardcoreModeEnabled();
+		cheatsEnabled = info.areCommandsAllowed();
+		versionName = info.getVersionName();
+		versionId = info.getVersionId();
+		versionSnapshot = info.isVersionSnapshot();
+	}
 
-    public long getSizeOnDisk()
-    {
-        return sizeOnDisk;
-    }
+	/**
+	 * return the file name
+	 */
+	public String getFileName() {
 
-    public boolean requiresConversion()
-    {
-        return requiresConversion;
-    }
+		return fileName;
+	}
 
-    public long getLastTimePlayed()
-    {
-        return lastTimePlayed;
-    }
+	/**
+	 * return the display name of the save
+	 */
+	public String getDisplayName() {
 
-    public int compareTo(WorldSummary p_compareTo_1_)
-    {
-        if (lastTimePlayed < p_compareTo_1_.lastTimePlayed)
-        {
-            return 1;
-        }
-        else
-        {
-            return lastTimePlayed > p_compareTo_1_.lastTimePlayed ? -1 : fileName.compareTo(p_compareTo_1_.fileName);
-        }
-    }
+		return displayName;
+	}
 
-    /**
-     * Gets the EnumGameType.
-     */
-    public GameType getEnumGameType()
-    {
-        return gameType;
-    }
+	public long getSizeOnDisk() {
 
-    public boolean isHardcoreModeEnabled()
-    {
-        return hardcore;
-    }
+		return sizeOnDisk;
+	}
 
-    /**
-     * @return {@code true} if cheats are enabled for this world
-     */
-    public boolean getCheatsEnabled()
-    {
-        return cheatsEnabled;
-    }
+	public boolean requiresConversion() {
 
-    public String getVersionName()
-    {
-        return StringUtils.isNullOrEmpty(versionName) ? I18n.translateToLocal("selectWorld.versionUnknown") : versionName;
-    }
+		return requiresConversion;
+	}
 
-    public boolean markVersionInList()
-    {
-        return askToOpenWorld();
-    }
+	public long getLastTimePlayed() {
 
-    public boolean askToOpenWorld()
-    {
-        return versionId > 1343;
-    }
+		return lastTimePlayed;
+	}
+
+	public int compareTo(WorldSummary p_compareTo_1_) {
+
+		if (lastTimePlayed < p_compareTo_1_.lastTimePlayed) {
+			return 1;
+		} else {
+			return lastTimePlayed > p_compareTo_1_.lastTimePlayed ? -1 : fileName.compareTo(p_compareTo_1_.fileName);
+		}
+	}
+
+	/**
+	 * Gets the EnumGameType.
+	 */
+	public GameType getEnumGameType() {
+
+		return gameType;
+	}
+
+	public boolean isHardcoreModeEnabled() {
+
+		return hardcore;
+	}
+
+	/**
+	 * @return {@code true} if cheats are enabled for this world
+	 */
+	public boolean getCheatsEnabled() {
+
+		return cheatsEnabled;
+	}
+
+	public String getVersionName() {
+
+		return StringUtils.isNullOrEmpty(versionName) ? I18n.translateToLocal("selectWorld.versionUnknown") : versionName;
+	}
+
+	public boolean markVersionInList() {
+
+		return askToOpenWorld();
+	}
+
+	public boolean askToOpenWorld() {
+
+		return versionId > 1343;
+	}
+
 }

@@ -14,84 +14,82 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
-public class BlockPressurePlateWeighted extends BlockBasePressurePlate
-{
-    public static final PropertyInteger POWER = PropertyInteger.create("power", 0, 15);
-    private final int maxWeight;
+public class BlockPressurePlateWeighted extends BlockBasePressurePlate {
 
-    protected BlockPressurePlateWeighted(Material materialIn, int p_i46379_2_)
-    {
-        this(materialIn, p_i46379_2_, materialIn.getMaterialMapColor());
-    }
+	public static final PropertyInteger POWER = PropertyInteger.create("power", 0, 15);
+	private final int maxWeight;
 
-    protected BlockPressurePlateWeighted(Material materialIn, int p_i46380_2_, MapColor color)
-    {
-        super(materialIn, color);
-        setDefaultState(blockState.getBaseState().withProperty(POWER, Integer.valueOf(0)));
-        maxWeight = p_i46380_2_;
-    }
+	protected BlockPressurePlateWeighted(Material materialIn, int p_i46379_2_) {
 
-    protected int computeRedstoneStrength(World worldIn, BlockPos pos)
-    {
-        int i = Math.min(worldIn.getEntitiesWithinAABB(Entity.class, PRESSURE_AABB.offset(pos)).size(), maxWeight);
+		this(materialIn, p_i46379_2_, materialIn.getMaterialMapColor());
+	}
 
-        if (i > 0)
-        {
-            float f = (float)Math.min(maxWeight, i) / (float) maxWeight;
-            return MathHelper.ceil(f * 15.0F);
-        }
-        else
-        {
-            return 0;
-        }
-    }
+	protected BlockPressurePlateWeighted(Material materialIn, int p_i46380_2_, MapColor color) {
 
-    protected void playClickOnSound(World worldIn, BlockPos color)
-    {
-        worldIn.playSound((EntityPlayer)null, color, SoundEvents.BLOCK_METAL_PRESSPLATE_CLICK_ON, SoundCategory.BLOCKS, 0.3F, 0.90000004F);
-    }
+		super(materialIn, color);
+		setDefaultState(blockState.getBaseState().withProperty(POWER, Integer.valueOf(0)));
+		maxWeight = p_i46380_2_;
+	}
 
-    protected void playClickOffSound(World worldIn, BlockPos pos)
-    {
-        worldIn.playSound((EntityPlayer)null, pos, SoundEvents.BLOCK_METAL_PRESSPLATE_CLICK_OFF, SoundCategory.BLOCKS, 0.3F, 0.75F);
-    }
+	protected int computeRedstoneStrength(World worldIn, BlockPos pos) {
 
-    protected int getRedstoneStrength(IBlockState state)
-    {
-        return ((Integer)state.getValue(POWER)).intValue();
-    }
+		int i = Math.min(worldIn.getEntitiesWithinAABB(Entity.class, PRESSURE_AABB.offset(pos)).size(), maxWeight);
 
-    protected IBlockState setRedstoneStrength(IBlockState state, int strength)
-    {
-        return state.withProperty(POWER, Integer.valueOf(strength));
-    }
+		if (i > 0) {
+			float f = (float) Math.min(maxWeight, i) / (float) maxWeight;
+			return MathHelper.ceil(f * 15.0F);
+		} else {
+			return 0;
+		}
+	}
 
-    /**
-     * How many world ticks before ticking
-     */
-    public int tickRate(World worldIn)
-    {
-        return 10;
-    }
+	protected void playClickOnSound(World worldIn, BlockPos color) {
 
-    /**
-     * Convert the given metadata into a BlockState for this Block
-     */
-    public IBlockState getStateFromMeta(int meta)
-    {
-        return getDefaultState().withProperty(POWER, Integer.valueOf(meta));
-    }
+		worldIn.playSound(null, color, SoundEvents.BLOCK_METAL_PRESSPLATE_CLICK_ON, SoundCategory.BLOCKS, 0.3F, 0.90000004F);
+	}
 
-    /**
-     * Convert the BlockState into the correct metadata value
-     */
-    public int getMetaFromState(IBlockState state)
-    {
-        return ((Integer)state.getValue(POWER)).intValue();
-    }
+	protected void playClickOffSound(World worldIn, BlockPos pos) {
 
-    protected BlockStateContainer createBlockState()
-    {
-        return new BlockStateContainer(this, new IProperty[] {POWER});
-    }
+		worldIn.playSound(null, pos, SoundEvents.BLOCK_METAL_PRESSPLATE_CLICK_OFF, SoundCategory.BLOCKS, 0.3F, 0.75F);
+	}
+
+	protected int getRedstoneStrength(IBlockState state) {
+
+		return state.getValue(POWER).intValue();
+	}
+
+	protected IBlockState setRedstoneStrength(IBlockState state, int strength) {
+
+		return state.withProperty(POWER, Integer.valueOf(strength));
+	}
+
+	/**
+	 * How many world ticks before ticking
+	 */
+	public int tickRate(World worldIn) {
+
+		return 10;
+	}
+
+	/**
+	 * Convert the given metadata into a BlockState for this Block
+	 */
+	public IBlockState getStateFromMeta(int meta) {
+
+		return getDefaultState().withProperty(POWER, Integer.valueOf(meta));
+	}
+
+	/**
+	 * Convert the BlockState into the correct metadata value
+	 */
+	public int getMetaFromState(IBlockState state) {
+
+		return state.getValue(POWER).intValue();
+	}
+
+	protected BlockStateContainer createBlockState() {
+
+		return new BlockStateContainer(this, POWER);
+	}
+
 }

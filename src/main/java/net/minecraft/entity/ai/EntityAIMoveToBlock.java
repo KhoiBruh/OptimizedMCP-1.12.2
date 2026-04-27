@@ -4,127 +4,120 @@ import net.minecraft.entity.EntityCreature;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public abstract class EntityAIMoveToBlock extends EntityAIBase
-{
-    private final EntityCreature creature;
-    private final double movementSpeed;
+public abstract class EntityAIMoveToBlock extends EntityAIBase {
 
-    /** Controls task execution delay */
-    protected int runDelay;
-    private int timeoutCounter;
-    private int maxStayTicks;
+	private final EntityCreature creature;
+	private final double movementSpeed;
 
-    /** Block to move to */
-    protected BlockPos destinationBlock = BlockPos.ORIGIN;
-    private boolean isAboveDestination;
-    private final int searchLength;
+	/**
+	 * Controls task execution delay
+	 */
+	protected int runDelay;
+	private int timeoutCounter;
+	private int maxStayTicks;
 
-    public EntityAIMoveToBlock(EntityCreature creature, double speedIn, int length)
-    {
-        this.creature = creature;
-        movementSpeed = speedIn;
-        searchLength = length;
-        setMutexBits(5);
-    }
+	/**
+	 * Block to move to
+	 */
+	protected BlockPos destinationBlock = BlockPos.ORIGIN;
+	private boolean isAboveDestination;
+	private final int searchLength;
 
-    /**
-     * Returns whether the EntityAIBase should begin execution.
-     */
-    public boolean shouldExecute()
-    {
-        if (runDelay > 0)
-        {
-            --runDelay;
-            return false;
-        }
-        else
-        {
-            runDelay = 200 + creature.getRNG().nextInt(200);
-            return searchForDestination();
-        }
-    }
+	public EntityAIMoveToBlock(EntityCreature creature, double speedIn, int length) {
 
-    /**
-     * Returns whether an in-progress EntityAIBase should continue executing
-     */
-    public boolean shouldContinueExecuting()
-    {
-        return timeoutCounter >= -maxStayTicks && timeoutCounter <= 1200 && shouldMoveTo(creature.world, destinationBlock);
-    }
+		this.creature = creature;
+		movementSpeed = speedIn;
+		searchLength = length;
+		setMutexBits(5);
+	}
 
-    /**
-     * Execute a one shot task or start executing a continuous task
-     */
-    public void startExecuting()
-    {
-        creature.getNavigator().tryMoveToXYZ((double)((float) destinationBlock.getX()) + 0.5D, (double)(destinationBlock.getY() + 1), (double)((float) destinationBlock.getZ()) + 0.5D, movementSpeed);
-        timeoutCounter = 0;
-        maxStayTicks = creature.getRNG().nextInt(creature.getRNG().nextInt(1200) + 1200) + 1200;
-    }
+	/**
+	 * Returns whether the EntityAIBase should begin execution.
+	 */
+	public boolean shouldExecute() {
 
-    /**
-     * Keep ticking a continuous task that has already been started
-     */
-    public void updateTask()
-    {
-        if (creature.getDistanceSqToCenter(destinationBlock.up()) > 1.0D)
-        {
-            isAboveDestination = false;
-            ++timeoutCounter;
+		if (runDelay > 0) {
+			--runDelay;
+			return false;
+		} else {
+			runDelay = 200 + creature.getRNG().nextInt(200);
+			return searchForDestination();
+		}
+	}
 
-            if (timeoutCounter % 40 == 0)
-            {
-                creature.getNavigator().tryMoveToXYZ((double)((float) destinationBlock.getX()) + 0.5D, (double)(destinationBlock.getY() + 1), (double)((float) destinationBlock.getZ()) + 0.5D, movementSpeed);
-            }
-        }
-        else
-        {
-            isAboveDestination = true;
-            --timeoutCounter;
-        }
-    }
+	/**
+	 * Returns whether an in-progress EntityAIBase should continue executing
+	 */
+	public boolean shouldContinueExecuting() {
 
-    protected boolean getIsAboveDestination()
-    {
-        return isAboveDestination;
-    }
+		return timeoutCounter >= -maxStayTicks && timeoutCounter <= 1200 && shouldMoveTo(creature.world, destinationBlock);
+	}
 
-    /**
-     * Searches and sets new destination block and returns true if a suitable block (specified in {@link
-     * net.minecraft.entity.ai.EntityAIMoveToBlock#shouldMoveTo(World, BlockPos) EntityAIMoveToBlock#shouldMoveTo(World,
-     * BlockPos)}) can be found.
-     */
-    private boolean searchForDestination()
-    {
-        int i = searchLength;
-        int j = 1;
-        BlockPos blockpos = new BlockPos(creature);
+	/**
+	 * Execute a one shot task or start executing a continuous task
+	 */
+	public void startExecuting() {
 
-        for (int k = 0; k <= 1; k = k > 0 ? -k : 1 - k)
-        {
-            for (int l = 0; l < i; ++l)
-            {
-                for (int i1 = 0; i1 <= l; i1 = i1 > 0 ? -i1 : 1 - i1)
-                {
-                    for (int j1 = i1 < l && i1 > -l ? l : 0; j1 <= l; j1 = j1 > 0 ? -j1 : 1 - j1)
-                    {
-                        BlockPos blockpos1 = blockpos.add(i1, k - 1, j1);
+		creature.getNavigator().tryMoveToXYZ((double) ((float) destinationBlock.getX()) + 0.5D, destinationBlock.getY() + 1, (double) ((float) destinationBlock.getZ()) + 0.5D, movementSpeed);
+		timeoutCounter = 0;
+		maxStayTicks = creature.getRNG().nextInt(creature.getRNG().nextInt(1200) + 1200) + 1200;
+	}
 
-                        if (creature.isWithinHomeDistanceFromPosition(blockpos1) && shouldMoveTo(creature.world, blockpos1))
-                        {
-                            destinationBlock = blockpos1;
-                            return true;
-                        }
-                    }
-                }
-            }
-        }
+	/**
+	 * Keep ticking a continuous task that has already been started
+	 */
+	public void updateTask() {
 
-        return false;
-    }
+		if (creature.getDistanceSqToCenter(destinationBlock.up()) > 1.0D) {
+			isAboveDestination = false;
+			++timeoutCounter;
 
-    /**
-     * Return true to set given position as destination
-     */
-    protected abstract boolean shouldMoveTo(World worldIn, BlockPos pos);
+			if (timeoutCounter % 40 == 0) {
+				creature.getNavigator().tryMoveToXYZ((double) ((float) destinationBlock.getX()) + 0.5D, destinationBlock.getY() + 1, (double) ((float) destinationBlock.getZ()) + 0.5D, movementSpeed);
+			}
+		} else {
+			isAboveDestination = true;
+			--timeoutCounter;
+		}
+	}
+
+	protected boolean getIsAboveDestination() {
+
+		return isAboveDestination;
+	}
+
+	/**
+	 * Searches and sets new destination block and returns true if a suitable block (specified in {@link
+	 * net.minecraft.entity.ai.EntityAIMoveToBlock#shouldMoveTo(World, BlockPos) EntityAIMoveToBlock#shouldMoveTo(World,
+	 * BlockPos)}) can be found.
+	 */
+	private boolean searchForDestination() {
+
+		int i = searchLength;
+		int j = 1;
+		BlockPos blockpos = new BlockPos(creature);
+
+		for (int k = 0; k <= 1; k = k > 0 ? -k : 1 - k) {
+			for (int l = 0; l < i; ++l) {
+				for (int i1 = 0; i1 <= l; i1 = i1 > 0 ? -i1 : 1 - i1) {
+					for (int j1 = i1 < l && i1 > -l ? l : 0; j1 <= l; j1 = j1 > 0 ? -j1 : 1 - j1) {
+						BlockPos blockpos1 = blockpos.add(i1, k - 1, j1);
+
+						if (creature.isWithinHomeDistanceFromPosition(blockpos1) && shouldMoveTo(creature.world, blockpos1)) {
+							destinationBlock = blockpos1;
+							return true;
+						}
+					}
+				}
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * Return true to set given position as destination
+	 */
+	protected abstract boolean shouldMoveTo(World worldIn, BlockPos pos);
+
 }

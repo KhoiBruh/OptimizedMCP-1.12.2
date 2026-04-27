@@ -2,28 +2,29 @@ package net.minecraft.scoreboard;
 
 import net.minecraft.util.text.TextFormatting;
 
-public class ScoreCriteriaColored implements IScoreCriteria
-{
-    private final String goalName;
+public class ScoreCriteriaColored implements IScoreCriteria {
 
-    public ScoreCriteriaColored(String name, TextFormatting format)
-    {
-        goalName = name + format.getFriendlyName();
-        IScoreCriteria.INSTANCES.put(goalName, this);
-    }
+	private final String goalName;
 
-    public String getName()
-    {
-        return goalName;
-    }
+	public ScoreCriteriaColored(String name, TextFormatting format) {
 
-    public boolean isReadOnly()
-    {
-        return false;
-    }
+		goalName = name + format.getFriendlyName();
+		IScoreCriteria.INSTANCES.put(goalName, this);
+	}
 
-    public IScoreCriteria.EnumRenderType getRenderType()
-    {
-        return IScoreCriteria.EnumRenderType.INTEGER;
-    }
+	public String getName() {
+
+		return goalName;
+	}
+
+	public boolean isReadOnly() {
+
+		return false;
+	}
+
+	public IScoreCriteria.EnumRenderType getRenderType() {
+
+		return IScoreCriteria.EnumRenderType.INTEGER;
+	}
+
 }

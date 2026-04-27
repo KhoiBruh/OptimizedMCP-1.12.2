@@ -3,71 +3,65 @@ package net.minecraft.client.renderer.block.statemap;
 import com.google.common.base.MoreObjects;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
-import java.util.Collections;
-import java.util.Map;
-import java.util.Set;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.util.ResourceLocation;
 
-public class BlockStateMapper
-{
-    private final Map<Block, IStateMapper> blockStateMap = Maps.<Block, IStateMapper>newIdentityHashMap();
-    private final Set<Block> setBuiltInBlocks = Sets.<Block>newIdentityHashSet();
+import java.util.Collections;
+import java.util.Map;
+import java.util.Set;
 
-    public void registerBlockStateMapper(Block blockIn, IStateMapper stateMapper)
-    {
-        blockStateMap.put(blockIn, stateMapper);
-    }
+public class BlockStateMapper {
 
-    public void registerBuiltInBlocks(Block... blockIn)
-    {
-        Collections.addAll(setBuiltInBlocks, blockIn);
-    }
+	private final Map<Block, IStateMapper> blockStateMap = Maps.newIdentityHashMap();
+	private final Set<Block> setBuiltInBlocks = Sets.newIdentityHashSet();
 
-    public Map<IBlockState, ModelResourceLocation> putAllStateModelLocations()
-    {
-        Map<IBlockState, ModelResourceLocation> map = Maps.<IBlockState, ModelResourceLocation>newIdentityHashMap();
+	public void registerBlockStateMapper(Block blockIn, IStateMapper stateMapper) {
 
-        for (Block block : Block.REGISTRY)
-        {
-            map.putAll(getVariants(block));
-        }
+		blockStateMap.put(blockIn, stateMapper);
+	}
 
-        return map;
-    }
+	public void registerBuiltInBlocks(Block... blockIn) {
 
-    public Set<ResourceLocation> getBlockstateLocations(Block blockIn)
-    {
-        if (setBuiltInBlocks.contains(blockIn))
-        {
-            return Collections.<ResourceLocation>emptySet();
-        }
-        else
-        {
-            IStateMapper istatemapper = blockStateMap.get(blockIn);
+		Collections.addAll(setBuiltInBlocks, blockIn);
+	}
 
-            if (istatemapper == null)
-            {
-                return Collections.<ResourceLocation>singleton(Block.REGISTRY.getNameForObject(blockIn));
-            }
-            else
-            {
-                Set<ResourceLocation> set = Sets.<ResourceLocation>newHashSet();
+	public Map<IBlockState, ModelResourceLocation> putAllStateModelLocations() {
 
-                for (ModelResourceLocation modelresourcelocation : istatemapper.putStateModelLocations(blockIn).values())
-                {
-                    set.add(new ResourceLocation(modelresourcelocation.getResourceDomain(), modelresourcelocation.getResourcePath()));
-                }
+		Map<IBlockState, ModelResourceLocation> map = Maps.newIdentityHashMap();
 
-                return set;
-            }
-        }
-    }
+		for (Block block : Block.REGISTRY) {
+			map.putAll(getVariants(block));
+		}
 
-    public Map<IBlockState, ModelResourceLocation> getVariants(Block blockIn)
-    {
-        return setBuiltInBlocks.contains(blockIn) ? Collections.emptyMap() : ((IStateMapper)MoreObjects.firstNonNull(blockStateMap.get(blockIn), new DefaultStateMapper())).putStateModelLocations(blockIn);
-    }
+		return map;
+	}
+
+	public Set<ResourceLocation> getBlockstateLocations(Block blockIn) {
+
+		if (setBuiltInBlocks.contains(blockIn)) {
+			return Collections.emptySet();
+		} else {
+			IStateMapper istatemapper = blockStateMap.get(blockIn);
+
+			if (istatemapper == null) {
+				return Collections.singleton(Block.REGISTRY.getNameForObject(blockIn));
+			} else {
+				Set<ResourceLocation> set = Sets.newHashSet();
+
+				for (ModelResourceLocation modelresourcelocation : istatemapper.putStateModelLocations(blockIn).values()) {
+					set.add(new ResourceLocation(modelresourcelocation.getResourceDomain(), modelresourcelocation.getResourcePath()));
+				}
+
+				return set;
+			}
+		}
+	}
+
+	public Map<IBlockState, ModelResourceLocation> getVariants(Block blockIn) {
+
+		return setBuiltInBlocks.contains(blockIn) ? Collections.emptyMap() : MoreObjects.firstNonNull(blockStateMap.get(blockIn), new DefaultStateMapper()).putStateModelLocations(blockIn);
+	}
+
 }

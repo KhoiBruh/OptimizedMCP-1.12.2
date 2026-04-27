@@ -1,101 +1,97 @@
 package net.minecraft.entity.ai;
 
-import javax.annotation.Nullable;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.util.math.Vec3d;
 
-public class EntityAIWander extends EntityAIBase
-{
-    protected final EntityCreature entity;
-    protected double x;
-    protected double y;
-    protected double z;
-    protected final double speed;
-    protected int executionChance;
-    protected boolean mustUpdate;
+import javax.annotation.Nullable;
 
-    public EntityAIWander(EntityCreature creatureIn, double speedIn)
-    {
-        this(creatureIn, speedIn, 120);
-    }
+public class EntityAIWander extends EntityAIBase {
 
-    public EntityAIWander(EntityCreature creatureIn, double speedIn, int chance)
-    {
-        entity = creatureIn;
-        speed = speedIn;
-        executionChance = chance;
-        setMutexBits(1);
-    }
+	protected final EntityCreature entity;
+	protected double x;
+	protected double y;
+	protected double z;
+	protected final double speed;
+	protected int executionChance;
+	protected boolean mustUpdate;
 
-    /**
-     * Returns whether the EntityAIBase should begin execution.
-     */
-    public boolean shouldExecute()
-    {
-        if (!mustUpdate)
-        {
-            if (entity.getIdleTime() >= 100)
-            {
-                return false;
-            }
+	public EntityAIWander(EntityCreature creatureIn, double speedIn) {
 
-            if (entity.getRNG().nextInt(executionChance) != 0)
-            {
-                return false;
-            }
-        }
+		this(creatureIn, speedIn, 120);
+	}
 
-        Vec3d vec3d = getPosition();
+	public EntityAIWander(EntityCreature creatureIn, double speedIn, int chance) {
 
-        if (vec3d == null)
-        {
-            return false;
-        }
-        else
-        {
-            x = vec3d.x;
-            y = vec3d.y;
-            z = vec3d.z;
-            mustUpdate = false;
-            return true;
-        }
-    }
+		entity = creatureIn;
+		speed = speedIn;
+		executionChance = chance;
+		setMutexBits(1);
+	}
 
-    @Nullable
-    protected Vec3d getPosition()
-    {
-        return RandomPositionGenerator.findRandomTarget(entity, 10, 7);
-    }
+	/**
+	 * Returns whether the EntityAIBase should begin execution.
+	 */
+	public boolean shouldExecute() {
 
-    /**
-     * Returns whether an in-progress EntityAIBase should continue executing
-     */
-    public boolean shouldContinueExecuting()
-    {
-        return !entity.getNavigator().noPath();
-    }
+		if (!mustUpdate) {
+			if (entity.getIdleTime() >= 100) {
+				return false;
+			}
 
-    /**
-     * Execute a one shot task or start executing a continuous task
-     */
-    public void startExecuting()
-    {
-        entity.getNavigator().tryMoveToXYZ(x, y, z, speed);
-    }
+			if (entity.getRNG().nextInt(executionChance) != 0) {
+				return false;
+			}
+		}
 
-    /**
-     * Makes task to bypass chance
-     */
-    public void makeUpdate()
-    {
-        mustUpdate = true;
-    }
+		Vec3d vec3d = getPosition();
 
-    /**
-     * Changes task random possibility for execution
-     */
-    public void setExecutionChance(int newchance)
-    {
-        executionChance = newchance;
-    }
+		if (vec3d == null) {
+			return false;
+		} else {
+			x = vec3d.x();
+			y = vec3d.y();
+			z = vec3d.z();
+			mustUpdate = false;
+			return true;
+		}
+	}
+
+	@Nullable
+	protected Vec3d getPosition() {
+
+		return RandomPositionGenerator.findRandomTarget(entity, 10, 7);
+	}
+
+	/**
+	 * Returns whether an in-progress EntityAIBase should continue executing
+	 */
+	public boolean shouldContinueExecuting() {
+
+		return !entity.getNavigator().noPath();
+	}
+
+	/**
+	 * Execute a one shot task or start executing a continuous task
+	 */
+	public void startExecuting() {
+
+		entity.getNavigator().tryMoveToXYZ(x, y, z, speed);
+	}
+
+	/**
+	 * Makes task to bypass chance
+	 */
+	public void makeUpdate() {
+
+		mustUpdate = true;
+	}
+
+	/**
+	 * Changes task random possibility for execution
+	 */
+	public void setExecutionChance(int newchance) {
+
+		executionChance = newchance;
+	}
+
 }

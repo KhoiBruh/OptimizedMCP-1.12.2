@@ -1,6 +1,5 @@
 package net.minecraft.entity.boss.dragon.phase;
 
-import javax.annotation.Nullable;
 import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.item.EntityEnderCrystal;
 import net.minecraft.entity.player.EntityPlayer;
@@ -12,165 +11,149 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.gen.feature.WorldGenEndPodium;
 
-public class PhaseHoldingPattern extends PhaseBase
-{
-    private Path currentPath;
-    private Vec3d targetLocation;
-    private boolean clockwise;
+import javax.annotation.Nullable;
 
-    public PhaseHoldingPattern(EntityDragon dragonIn)
-    {
-        super(dragonIn);
-    }
+public class PhaseHoldingPattern extends PhaseBase {
 
-    public PhaseList<PhaseHoldingPattern> getType()
-    {
-        return PhaseList.HOLDING_PATTERN;
-    }
+	private Path currentPath;
+	private Vec3d targetLocation;
+	private boolean clockwise;
 
-    /**
-     * Gives the phase a chance to update its status.
-     * Called by dragon's onLivingUpdate. Only used when !worldObj.isRemote.
-     */
-    public void doLocalUpdate()
-    {
-        double d0 = targetLocation == null ? 0.0D : targetLocation.squareDistanceTo(dragon.posX, dragon.posY, dragon.posZ);
+	public PhaseHoldingPattern(EntityDragon dragonIn) {
 
-        if (d0 < 100.0D || d0 > 22500.0D || dragon.collidedHorizontally || dragon.collidedVertically)
-        {
-            findNewTarget();
-        }
-    }
+		super(dragonIn);
+	}
 
-    /**
-     * Called when this phase is set to active
-     */
-    public void initPhase()
-    {
-        currentPath = null;
-        targetLocation = null;
-    }
+	public PhaseList<PhaseHoldingPattern> getType() {
 
-    @Nullable
+		return PhaseList.HOLDING_PATTERN;
+	}
 
-    /**
-     * Returns the location the dragon is flying toward
-     */
-    public Vec3d getTargetLocation()
-    {
-        return targetLocation;
-    }
+	/**
+	 * Gives the phase a chance to update its status.
+	 * Called by dragon's onLivingUpdate. Only used when !worldObj.isRemote.
+	 */
+	public void doLocalUpdate() {
 
-    private void findNewTarget()
-    {
-        if (currentPath != null && currentPath.isFinished())
-        {
-            BlockPos blockpos = dragon.world.getTopSolidOrLiquidBlock(new BlockPos(WorldGenEndPodium.END_PODIUM_LOCATION));
-            int i = dragon.getFightManager() == null ? 0 : dragon.getFightManager().getNumAliveCrystals();
+		double d0 = targetLocation == null ? 0.0D : targetLocation.squareDistanceTo(dragon.posX, dragon.posY, dragon.posZ);
 
-            if (dragon.getRNG().nextInt(i + 3) == 0)
-            {
-                dragon.getPhaseManager().setPhase(PhaseList.LANDING_APPROACH);
-                return;
-            }
+		if (d0 < 100.0D || d0 > 22500.0D || dragon.collidedHorizontally || dragon.collidedVertically) {
+			findNewTarget();
+		}
+	}
 
-            double d0 = 64.0D;
-            EntityPlayer entityplayer = dragon.world.getNearestAttackablePlayer(blockpos, d0, d0);
+	/**
+	 * Called when this phase is set to active
+	 */
+	public void initPhase() {
 
-            if (entityplayer != null)
-            {
-                d0 = entityplayer.getDistanceSqToCenter(blockpos) / 512.0D;
-            }
+		currentPath = null;
+		targetLocation = null;
+	}
 
-            if (entityplayer != null && (dragon.getRNG().nextInt(MathHelper.abs((int)d0) + 2) == 0 || dragon.getRNG().nextInt(i + 2) == 0))
-            {
-                strafePlayer(entityplayer);
-                return;
-            }
-        }
+	@Nullable
 
-        if (currentPath == null || currentPath.isFinished())
-        {
-            int j = dragon.initPathPoints();
-            int k = j;
+	/**
+	 * Returns the location the dragon is flying toward
+	 */
+	public Vec3d getTargetLocation() {
 
-            if (dragon.getRNG().nextInt(8) == 0)
-            {
-                clockwise = !clockwise;
-                k = j + 6;
-            }
+		return targetLocation;
+	}
 
-            if (clockwise)
-            {
-                ++k;
-            }
-            else
-            {
-                --k;
-            }
+	private void findNewTarget() {
 
-            if (dragon.getFightManager() != null && dragon.getFightManager().getNumAliveCrystals() >= 0)
-            {
-                k = k % 12;
+		if (currentPath != null && currentPath.isFinished()) {
+			BlockPos blockpos = dragon.world.getTopSolidOrLiquidBlock(new BlockPos(WorldGenEndPodium.END_PODIUM_LOCATION));
+			int i = dragon.getFightManager() == null ? 0 : dragon.getFightManager().getNumAliveCrystals();
 
-                if (k < 0)
-                {
-                    k += 12;
-                }
-            }
-            else
-            {
-                k = k - 12;
-                k = k & 7;
-                k = k + 12;
-            }
+			if (dragon.getRNG().nextInt(i + 3) == 0) {
+				dragon.getPhaseManager().setPhase(PhaseList.LANDING_APPROACH);
+				return;
+			}
 
-            currentPath = dragon.findPath(j, k, (PathPoint)null);
+			double d0 = 64.0D;
+			EntityPlayer entityplayer = dragon.world.getNearestAttackablePlayer(blockpos, d0, d0);
 
-            if (currentPath != null)
-            {
-                currentPath.incrementPathIndex();
-            }
-        }
+			if (entityplayer != null) {
+				d0 = entityplayer.getDistanceSqToCenter(blockpos) / 512.0D;
+			}
 
-        navigateToNextPathNode();
-    }
+			if (entityplayer != null && (dragon.getRNG().nextInt(MathHelper.abs((int) d0) + 2) == 0 || dragon.getRNG().nextInt(i + 2) == 0)) {
+				strafePlayer(entityplayer);
+				return;
+			}
+		}
 
-    private void strafePlayer(EntityPlayer player)
-    {
-        dragon.getPhaseManager().setPhase(PhaseList.STRAFE_PLAYER);
-        ((PhaseStrafePlayer) dragon.getPhaseManager().getPhase(PhaseList.STRAFE_PLAYER)).setTarget(player);
-    }
+		if (currentPath == null || currentPath.isFinished()) {
+			int j = dragon.initPathPoints();
+			int k = j;
 
-    private void navigateToNextPathNode()
-    {
-        if (currentPath != null && !currentPath.isFinished())
-        {
-            Vec3d vec3d = currentPath.getCurrentPos();
-            currentPath.incrementPathIndex();
-            double d0 = vec3d.x;
-            double d1 = vec3d.z;
-            double d2;
+			if (dragon.getRNG().nextInt(8) == 0) {
+				clockwise = !clockwise;
+				k = j + 6;
+			}
 
-            while (true)
-            {
-                d2 = vec3d.y + (double)(dragon.getRNG().nextFloat() * 20.0F);
+			if (clockwise) {
+				++k;
+			} else {
+				--k;
+			}
 
-                if (d2 >= vec3d.y)
-                {
-                    break;
-                }
-            }
+			if (dragon.getFightManager() != null && dragon.getFightManager().getNumAliveCrystals() >= 0) {
+				k = k % 12;
 
-            targetLocation = new Vec3d(d0, d2, d1);
-        }
-    }
+				if (k < 0) {
+					k += 12;
+				}
+			} else {
+				k = k - 12;
+				k = k & 7;
+				k = k + 12;
+			}
 
-    public void onCrystalDestroyed(EntityEnderCrystal crystal, BlockPos pos, DamageSource dmgSrc, @Nullable EntityPlayer plyr)
-    {
-        if (plyr != null && !plyr.capabilities.disableDamage)
-        {
-            strafePlayer(plyr);
-        }
-    }
+			currentPath = dragon.findPath(j, k, null);
+
+			if (currentPath != null) {
+				currentPath.incrementPathIndex();
+			}
+		}
+
+		navigateToNextPathNode();
+	}
+
+	private void strafePlayer(EntityPlayer player) {
+
+		dragon.getPhaseManager().setPhase(PhaseList.STRAFE_PLAYER);
+		dragon.getPhaseManager().getPhase(PhaseList.STRAFE_PLAYER).setTarget(player);
+	}
+
+	private void navigateToNextPathNode() {
+
+		if (currentPath != null && !currentPath.isFinished()) {
+			Vec3d vec3d = currentPath.getCurrentPos();
+			currentPath.incrementPathIndex();
+			double d0 = vec3d.x();
+			double d1 = vec3d.z();
+			double d2;
+
+			while (true) {
+				d2 = vec3d.y() + (double) (dragon.getRNG().nextFloat() * 20.0F);
+
+				if (d2 >= vec3d.y()) {
+					break;
+				}
+			}
+
+			targetLocation = new Vec3d(d0, d2, d1);
+		}
+	}
+
+	public void onCrystalDestroyed(EntityEnderCrystal crystal, BlockPos pos, DamageSource dmgSrc, @Nullable EntityPlayer plyr) {
+
+		if (plyr != null && !plyr.capabilities.disableDamage) {
+			strafePlayer(plyr);
+		}
+	}
+
 }

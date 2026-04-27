@@ -8,35 +8,30 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.datafix.IDataFixer;
 import net.minecraft.util.datafix.IDataWalker;
 
-public abstract class Filtered implements IDataWalker
-{
-    private final ResourceLocation key;
+public abstract class Filtered implements IDataWalker {
 
-    public Filtered(Class<?> p_i47309_1_)
-    {
-        if (Entity.class.isAssignableFrom(p_i47309_1_))
-        {
-            key = EntityList.getKey((Class<Entity>)p_i47309_1_);
-        }
-        else if (TileEntity.class.isAssignableFrom(p_i47309_1_))
-        {
-            key = TileEntity.getKey((Class<TileEntity>)p_i47309_1_);
-        }
-        else
-        {
-            key = null;
-        }
-    }
+	private final ResourceLocation key;
 
-    public NBTTagCompound process(IDataFixer fixer, NBTTagCompound compound, int versionIn)
-    {
-        if ((new ResourceLocation(compound.getString("id"))).equals(key))
-        {
-            compound = filteredProcess(fixer, compound, versionIn);
-        }
+	public Filtered(Class<?> p_i47309_1_) {
 
-        return compound;
-    }
+		if (Entity.class.isAssignableFrom(p_i47309_1_)) {
+			key = EntityList.getKey((Class<Entity>) p_i47309_1_);
+		} else if (TileEntity.class.isAssignableFrom(p_i47309_1_)) {
+			key = TileEntity.getKey((Class<TileEntity>) p_i47309_1_);
+		} else {
+			key = null;
+		}
+	}
 
-    abstract NBTTagCompound filteredProcess(IDataFixer fixer, NBTTagCompound compound, int versionIn);
+	public NBTTagCompound process(IDataFixer fixer, NBTTagCompound compound, int versionIn) {
+
+		if ((new ResourceLocation(compound.getString("id"))).equals(key)) {
+			compound = filteredProcess(fixer, compound, versionIn);
+		}
+
+		return compound;
+	}
+
+	abstract NBTTagCompound filteredProcess(IDataFixer fixer, NBTTagCompound compound, int versionIn);
+
 }

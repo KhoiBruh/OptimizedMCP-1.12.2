@@ -1,6 +1,5 @@
 package net.minecraft.tileentity;
 
-import java.util.Random;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -13,134 +12,127 @@ import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.datafix.FixTypes;
 import net.minecraft.util.datafix.walkers.ItemStackDataLists;
 
-public class TileEntityDispenser extends TileEntityLockableLoot
-{
-    private static final Random RNG = new Random();
-    private NonNullList<ItemStack> stacks = NonNullList.<ItemStack>withSize(9, ItemStack.EMPTY);
+import java.util.Random;
 
-    /**
-     * Returns the number of slots in the inventory.
-     */
-    public int getSizeInventory()
-    {
-        return 9;
-    }
+public class TileEntityDispenser extends TileEntityLockableLoot {
 
-    public boolean isEmpty()
-    {
-        for (ItemStack itemstack : stacks)
-        {
-            if (!itemstack.isEmpty())
-            {
-                return false;
-            }
-        }
+	private static final Random RNG = new Random();
+	private NonNullList<ItemStack> stacks = NonNullList.withSize(9, ItemStack.EMPTY);
 
-        return true;
-    }
+	/**
+	 * Returns the number of slots in the inventory.
+	 */
+	public int getSizeInventory() {
 
-    public int getDispenseSlot()
-    {
-        fillWithLoot((EntityPlayer)null);
-        int i = -1;
-        int j = 1;
+		return 9;
+	}
 
-        for (int k = 0; k < stacks.size(); ++k)
-        {
-            if (!((ItemStack) stacks.get(k)).isEmpty() && RNG.nextInt(j++) == 0)
-            {
-                i = k;
-            }
-        }
+	public boolean isEmpty() {
 
-        return i;
-    }
+		for (ItemStack itemstack : stacks) {
+			if (!itemstack.isEmpty()) {
+				return false;
+			}
+		}
 
-    /**
-     * Add the given ItemStack to this Dispenser. Return the Slot the Item was placed in or -1 if no free slot is
-     * available.
-     */
-    public int addItemStack(ItemStack stack)
-    {
-        for (int i = 0; i < stacks.size(); ++i)
-        {
-            if (((ItemStack) stacks.get(i)).isEmpty())
-            {
-                setInventorySlotContents(i, stack);
-                return i;
-            }
-        }
+		return true;
+	}
 
-        return -1;
-    }
+	public int getDispenseSlot() {
 
-    /**
-     * Get the name of this object. For players this returns their username
-     */
-    public String getName()
-    {
-        return hasCustomName() ? customName : "container.dispenser";
-    }
+		fillWithLoot(null);
+		int i = -1;
+		int j = 1;
 
-    public static void registerFixes(DataFixer fixer)
-    {
-        fixer.registerWalker(FixTypes.BLOCK_ENTITY, new ItemStackDataLists(TileEntityDispenser.class, new String[] {"Items"}));
-    }
+		for (int k = 0; k < stacks.size(); ++k) {
+			if (!stacks.get(k).isEmpty() && RNG.nextInt(j++) == 0) {
+				i = k;
+			}
+		}
 
-    public void readFromNBT(NBTTagCompound compound)
-    {
-        super.readFromNBT(compound);
-        stacks = NonNullList.<ItemStack>withSize(getSizeInventory(), ItemStack.EMPTY);
+		return i;
+	}
 
-        if (!checkLootAndRead(compound))
-        {
-            ItemStackHelper.loadAllItems(compound, stacks);
-        }
+	/**
+	 * Add the given ItemStack to this Dispenser. Return the Slot the Item was placed in or -1 if no free slot is
+	 * available.
+	 */
+	public int addItemStack(ItemStack stack) {
 
-        if (compound.hasKey("CustomName", 8))
-        {
-            customName = compound.getString("CustomName");
-        }
-    }
+		for (int i = 0; i < stacks.size(); ++i) {
+			if (stacks.get(i).isEmpty()) {
+				setInventorySlotContents(i, stack);
+				return i;
+			}
+		}
 
-    public NBTTagCompound writeToNBT(NBTTagCompound compound)
-    {
-        super.writeToNBT(compound);
+		return -1;
+	}
 
-        if (!checkLootAndWrite(compound))
-        {
-            ItemStackHelper.saveAllItems(compound, stacks);
-        }
+	/**
+	 * Get the name of this object. For players this returns their username
+	 */
+	public String getName() {
 
-        if (hasCustomName())
-        {
-            compound.setString("CustomName", customName);
-        }
+		return hasCustomName() ? customName : "container.dispenser";
+	}
 
-        return compound;
-    }
+	public static void registerFixes(DataFixer fixer) {
 
-    /**
-     * Returns the maximum stack size for a inventory slot. Seems to always be 64, possibly will be extended.
-     */
-    public int getInventoryStackLimit()
-    {
-        return 64;
-    }
+		fixer.registerWalker(FixTypes.BLOCK_ENTITY, new ItemStackDataLists(TileEntityDispenser.class, "Items"));
+	}
 
-    public String getGuiID()
-    {
-        return "minecraft:dispenser";
-    }
+	public void readFromNBT(NBTTagCompound compound) {
 
-    public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn)
-    {
-        fillWithLoot(playerIn);
-        return new ContainerDispenser(playerInventory, this);
-    }
+		super.readFromNBT(compound);
+		stacks = NonNullList.withSize(getSizeInventory(), ItemStack.EMPTY);
 
-    protected NonNullList<ItemStack> getItems()
-    {
-        return stacks;
-    }
+		if (!checkLootAndRead(compound)) {
+			ItemStackHelper.loadAllItems(compound, stacks);
+		}
+
+		if (compound.hasKey("CustomName", 8)) {
+			customName = compound.getString("CustomName");
+		}
+	}
+
+	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+
+		super.writeToNBT(compound);
+
+		if (!checkLootAndWrite(compound)) {
+			ItemStackHelper.saveAllItems(compound, stacks);
+		}
+
+		if (hasCustomName()) {
+			compound.setString("CustomName", customName);
+		}
+
+		return compound;
+	}
+
+	/**
+	 * Returns the maximum stack size for a inventory slot. Seems to always be 64, possibly will be extended.
+	 */
+	public int getInventoryStackLimit() {
+
+		return 64;
+	}
+
+	public String guiID() {
+
+		return "minecraft:dispenser";
+	}
+
+	public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
+
+		fillWithLoot(playerIn);
+		return new ContainerDispenser(playerInventory, this);
+	}
+
+	protected NonNullList<ItemStack> getItems() {
+
+		return stacks;
+	}
+
 }

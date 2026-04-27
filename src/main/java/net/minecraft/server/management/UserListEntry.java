@@ -2,31 +2,32 @@ package net.minecraft.server.management;
 
 import com.google.gson.JsonObject;
 
-public class UserListEntry<T>
-{
-    private final T value;
+public class UserListEntry<T> {
 
-    public UserListEntry(T valueIn)
-    {
-        value = valueIn;
-    }
+	private final T value;
 
-    protected UserListEntry(T valueIn, JsonObject json)
-    {
-        value = valueIn;
-    }
+	public UserListEntry(T valueIn) {
 
-    T getValue()
-    {
-        return value;
-    }
+		value = valueIn;
+	}
 
-    boolean hasBanExpired()
-    {
-        return false;
-    }
+	protected UserListEntry(T valueIn, JsonObject json) {
 
-    protected void onSerialization(JsonObject data)
-    {
-    }
+		value = valueIn;
+	}
+
+	T getValue() {
+
+		return value;
+	}
+
+	boolean hasBanExpired() {
+
+		return false;
+	}
+
+	protected void onSerialization(JsonObject data) {
+
+	}
+
 }

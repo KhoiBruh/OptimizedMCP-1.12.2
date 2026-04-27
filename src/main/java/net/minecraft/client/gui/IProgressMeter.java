@@ -1,8 +1,9 @@
 package net.minecraft.client.gui;
 
-public interface IProgressMeter
-{
-    String[] LOADING_STRINGS = new String[] {"oooooo", "Oooooo", "oOoooo", "ooOooo", "oooOoo", "ooooOo", "oooooO"};
+public interface IProgressMeter {
 
-    void onStatsUpdated();
+	String[] LOADING_STRINGS = new String[]{"oooooo", "Oooooo", "oOoooo", "ooOooo", "oooOoo", "ooooOo", "oooooO"};
+
+	void onStatsUpdated();
+
 }

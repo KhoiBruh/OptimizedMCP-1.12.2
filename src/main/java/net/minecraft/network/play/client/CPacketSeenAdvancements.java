@@ -1,85 +1,84 @@
 package net.minecraft.network.play.client;
 
-import java.io.IOException;
-import javax.annotation.Nullable;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayServer;
 import net.minecraft.util.ResourceLocation;
 
-public class CPacketSeenAdvancements implements Packet<INetHandlerPlayServer>
-{
-    private CPacketSeenAdvancements.Action action;
-    private ResourceLocation tab;
+import javax.annotation.Nullable;
+import java.io.IOException;
 
-    public CPacketSeenAdvancements()
-    {
-    }
+public class CPacketSeenAdvancements implements Packet<INetHandlerPlayServer> {
 
-    public CPacketSeenAdvancements(CPacketSeenAdvancements.Action p_i47595_1_, @Nullable ResourceLocation p_i47595_2_)
-    {
-        action = p_i47595_1_;
-        tab = p_i47595_2_;
-    }
+	private CPacketSeenAdvancements.Action action;
+	private ResourceLocation tab;
 
-    public static CPacketSeenAdvancements openedTab(Advancement p_194163_0_)
-    {
-        return new CPacketSeenAdvancements(CPacketSeenAdvancements.Action.OPENED_TAB, p_194163_0_.getId());
-    }
+	public CPacketSeenAdvancements() {
 
-    public static CPacketSeenAdvancements closedScreen()
-    {
-        return new CPacketSeenAdvancements(CPacketSeenAdvancements.Action.CLOSED_SCREEN, (ResourceLocation)null);
-    }
+	}
 
-    /**
-     * Reads the raw packet data from the data stream.
-     */
-    public void readPacketData(PacketBuffer buf) throws IOException
-    {
-        action = (CPacketSeenAdvancements.Action)buf.readEnumValue(CPacketSeenAdvancements.Action.class);
+	public CPacketSeenAdvancements(CPacketSeenAdvancements.Action p_i47595_1_, @Nullable ResourceLocation p_i47595_2_) {
 
-        if (action == CPacketSeenAdvancements.Action.OPENED_TAB)
-        {
-            tab = buf.readResourceLocation();
-        }
-    }
+		action = p_i47595_1_;
+		tab = p_i47595_2_;
+	}
 
-    /**
-     * Writes the raw packet data to the data stream.
-     */
-    public void writePacketData(PacketBuffer buf) throws IOException
-    {
-        buf.writeEnumValue(action);
+	public static CPacketSeenAdvancements openedTab(Advancement p_194163_0_) {
 
-        if (action == CPacketSeenAdvancements.Action.OPENED_TAB)
-        {
-            buf.writeResourceLocation(tab);
-        }
-    }
+		return new CPacketSeenAdvancements(CPacketSeenAdvancements.Action.OPENED_TAB, p_194163_0_.getId());
+	}
 
-    /**
-     * Passes this Packet on to the NetHandler for processing.
-     */
-    public void processPacket(INetHandlerPlayServer handler)
-    {
-        handler.handleSeenAdvancements(this);
-    }
+	public static CPacketSeenAdvancements closedScreen() {
 
-    public CPacketSeenAdvancements.Action getAction()
-    {
-        return action;
-    }
+		return new CPacketSeenAdvancements(CPacketSeenAdvancements.Action.CLOSED_SCREEN, null);
+	}
 
-    public ResourceLocation getTab()
-    {
-        return tab;
-    }
+	/**
+	 * Reads the raw packet data from the data stream.
+	 */
+	public void readPacketData(PacketBuffer buf) throws IOException {
 
-    public static enum Action
-    {
-        OPENED_TAB,
-        CLOSED_SCREEN;
-    }
+		action = buf.readEnumValue(Action.class);
+
+		if (action == CPacketSeenAdvancements.Action.OPENED_TAB) {
+			tab = buf.readResourceLocation();
+		}
+	}
+
+	/**
+	 * Writes the raw packet data to the data stream.
+	 */
+	public void writePacketData(PacketBuffer buf) throws IOException {
+
+		buf.writeEnumValue(action);
+
+		if (action == CPacketSeenAdvancements.Action.OPENED_TAB) {
+			buf.writeResourceLocation(tab);
+		}
+	}
+
+	/**
+	 * Passes this Packet on to the NetHandler for processing.
+	 */
+	public void processPacket(INetHandlerPlayServer handler) {
+
+		handler.handleSeenAdvancements(this);
+	}
+
+	public CPacketSeenAdvancements.Action getAction() {
+
+		return action;
+	}
+
+	public ResourceLocation getTab() {
+
+		return tab;
+	}
+
+	public enum Action {
+		OPENED_TAB,
+		CLOSED_SCREEN
+	}
+
 }

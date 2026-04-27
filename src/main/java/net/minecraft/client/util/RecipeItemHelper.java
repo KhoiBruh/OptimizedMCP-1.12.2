@@ -1,379 +1,336 @@
 package net.minecraft.client.util;
 
 import com.google.common.collect.Lists;
-import it.unimi.dsi.fastutil.ints.Int2IntMap;
-import it.unimi.dsi.fastutil.ints.Int2IntOpenHashMap;
-import it.unimi.dsi.fastutil.ints.IntAVLTreeSet;
-import it.unimi.dsi.fastutil.ints.IntArrayList;
-import it.unimi.dsi.fastutil.ints.IntCollection;
-import it.unimi.dsi.fastutil.ints.IntIterator;
-import it.unimi.dsi.fastutil.ints.IntList;
-import it.unimi.dsi.fastutil.ints.IntListIterator;
-import java.util.BitSet;
-import java.util.List;
-import java.util.function.Predicate;
-import javax.annotation.Nullable;
+import it.unimi.dsi.fastutil.ints.*;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
 
-public class RecipeItemHelper
-{
-    /** Map from {@link #pack} packed ids to counts */
-    public final Int2IntMap itemToCount = new Int2IntOpenHashMap();
+import javax.annotation.Nullable;
+import java.util.BitSet;
+import java.util.List;
 
-    public void accountStack(ItemStack stack)
-    {
-        if (!stack.isEmpty() && !stack.isItemDamaged() && !stack.isItemEnchanted() && !stack.hasDisplayName())
-        {
-            int i = pack(stack);
-            int j = stack.getCount();
-            increment(i, j);
-        }
-    }
+public class RecipeItemHelper {
 
-    public static int pack(ItemStack stack)
-    {
-        Item item = stack.getItem();
-        int i = item.getHasSubtypes() ? stack.getMetadata() : 0;
-        return Item.REGISTRY.getIDForObject(item) << 16 | i & 65535;
-    }
+	/**
+	 * Map from {@link #pack} packed ids to counts
+	 */
+	public final Int2IntMap itemToCount = new Int2IntOpenHashMap();
 
-    public boolean containsItem(int p_194120_1_)
-    {
-        return itemToCount.get(p_194120_1_) > 0;
-    }
+	public void accountStack(ItemStack stack) {
 
-    public int tryTake(int p_194122_1_, int maximum)
-    {
-        int i = itemToCount.get(p_194122_1_);
+		if (!stack.isEmpty() && !stack.isItemDamaged() && !stack.isItemEnchanted() && !stack.hasDisplayName()) {
+			int i = pack(stack);
+			int j = stack.getCount();
+			increment(i, j);
+		}
+	}
 
-        if (i >= maximum)
-        {
-            itemToCount.put(p_194122_1_, i - maximum);
-            return p_194122_1_;
-        }
-        else
-        {
-            return 0;
-        }
-    }
+	public static int pack(ItemStack stack) {
 
-    private void increment(int p_194117_1_, int amount)
-    {
-        itemToCount.put(p_194117_1_, itemToCount.get(p_194117_1_) + amount);
-    }
+		Item item = stack.getItem();
+		int i = item.getHasSubtypes() ? stack.getMetadata() : 0;
+		return Item.REGISTRY.getIDForObject(item) << 16 | i & 65535;
+	}
 
-    public boolean canCraft(IRecipe recipe, @Nullable IntList p_194116_2_)
-    {
-        return canCraft(recipe, p_194116_2_, 1);
-    }
+	public boolean containsItem(int p_194120_1_) {
 
-    public boolean canCraft(IRecipe recipe, @Nullable IntList p_194118_2_, int p_194118_3_)
-    {
-        return (new RecipeItemHelper.RecipePicker(recipe)).tryPick(p_194118_3_, p_194118_2_);
-    }
+		return itemToCount.get(p_194120_1_) > 0;
+	}
 
-    public int getBiggestCraftableStack(IRecipe recipe, @Nullable IntList p_194114_2_)
-    {
-        return getBiggestCraftableStack(recipe, Integer.MAX_VALUE, p_194114_2_);
-    }
+	public int tryTake(int p_194122_1_, int maximum) {
 
-    public int getBiggestCraftableStack(IRecipe recipe, int p_194121_2_, @Nullable IntList p_194121_3_)
-    {
-        return (new RecipeItemHelper.RecipePicker(recipe)).tryPickAll(p_194121_2_, p_194121_3_);
-    }
+		int i = itemToCount.get(p_194122_1_);
 
-    public static ItemStack unpack(int p_194115_0_)
-    {
-        return p_194115_0_ == 0 ? ItemStack.EMPTY : new ItemStack(Item.getItemById(p_194115_0_ >> 16 & 65535), 1, p_194115_0_ & 65535);
-    }
+		if (i >= maximum) {
+			itemToCount.put(p_194122_1_, i - maximum);
+			return p_194122_1_;
+		} else {
+			return 0;
+		}
+	}
 
-    public void clear()
-    {
-        itemToCount.clear();
-    }
+	private void increment(int p_194117_1_, int amount) {
 
-    class RecipePicker
-    {
-        private final IRecipe recipe;
-        private final List<Ingredient> ingredients = Lists.<Ingredient>newArrayList();
-        private final int ingredientCount;
-        private final int[] possessedIngredientStacks;
-        private final int possessedIngredientStackCount;
-        private final BitSet data;
-        private IntList path = new IntArrayList();
+		itemToCount.put(p_194117_1_, itemToCount.get(p_194117_1_) + amount);
+	}
 
-        public RecipePicker(IRecipe p_i47608_2_)
-        {
-            recipe = p_i47608_2_;
-            ingredients.addAll(p_i47608_2_.getIngredients());
-            ingredients.removeIf((p_194103_0_) ->
-            {
-                return p_194103_0_ == Ingredient.EMPTY;
-            });
-            ingredientCount = ingredients.size();
-            possessedIngredientStacks = getUniqueAvailIngredientItems();
-            possessedIngredientStackCount = possessedIngredientStacks.length;
-            data = new BitSet(ingredientCount + possessedIngredientStackCount + ingredientCount + ingredientCount * possessedIngredientStackCount);
+	public boolean canCraft(IRecipe recipe, @Nullable IntList p_194116_2_) {
 
-            for (int i = 0; i < ingredients.size(); ++i)
-            {
-                IntList intlist = ((Ingredient) ingredients.get(i)).getValidItemStacksPacked();
+		return canCraft(recipe, p_194116_2_, 1);
+	}
 
-                for (int j = 0; j < possessedIngredientStackCount; ++j)
-                {
-                    if (intlist.contains(possessedIngredientStacks[j]))
-                    {
-                        data.set(getIndex(true, j, i));
-                    }
-                }
-            }
-        }
+	public boolean canCraft(IRecipe recipe, @Nullable IntList p_194118_2_, int p_194118_3_) {
 
-        public boolean tryPick(int p_194092_1_, @Nullable IntList listIn)
-        {
-            if (p_194092_1_ <= 0)
-            {
-                return true;
-            }
-            else
-            {
-                int k;
+		return (new RecipeItemHelper.RecipePicker(recipe)).tryPick(p_194118_3_, p_194118_2_);
+	}
 
-                for (k = 0; dfs(p_194092_1_); ++k)
-                {
-                    tryTake(possessedIngredientStacks[path.getInt(0)], p_194092_1_);
-                    int l = path.size() - 1;
-                    setSatisfied(path.getInt(l));
+	public int getBiggestCraftableStack(IRecipe recipe, @Nullable IntList p_194114_2_) {
 
-                    for (int i1 = 0; i1 < l; ++i1)
-                    {
-                        toggleResidual((i1 & 1) == 0, ((Integer) path.get(i1)).intValue(), ((Integer) path.get(i1 + 1)).intValue());
-                    }
+		return getBiggestCraftableStack(recipe, Integer.MAX_VALUE, p_194114_2_);
+	}
 
-                    path.clear();
-                    data.clear(0, ingredientCount + possessedIngredientStackCount);
-                }
+	public int getBiggestCraftableStack(IRecipe recipe, int p_194121_2_, @Nullable IntList p_194121_3_) {
 
-                boolean flag = k == ingredientCount;
-                boolean flag1 = flag && listIn != null;
+		return (new RecipeItemHelper.RecipePicker(recipe)).tryPickAll(p_194121_2_, p_194121_3_);
+	}
 
-                if (flag1)
-                {
-                    listIn.clear();
-                }
+	public static ItemStack unpack(int p_194115_0_) {
 
-                data.clear(0, ingredientCount + possessedIngredientStackCount + ingredientCount);
-                int j1 = 0;
-                List<Ingredient> list = recipe.getIngredients();
+		return p_194115_0_ == 0 ? ItemStack.EMPTY : new ItemStack(Item.getItemById(p_194115_0_ >> 16 & 65535), 1, p_194115_0_ & 65535);
+	}
 
-                for (int k1 = 0; k1 < list.size(); ++k1)
-                {
-                    if (flag1 && list.get(k1) == Ingredient.EMPTY)
-                    {
-                        listIn.add(0);
-                    }
-                    else
-                    {
-                        for (int l1 = 0; l1 < possessedIngredientStackCount; ++l1)
-                        {
-                            if (hasResidual(false, j1, l1))
-                            {
-                                toggleResidual(true, l1, j1);
-                                increment(possessedIngredientStacks[l1], p_194092_1_);
+	public void clear() {
 
-                                if (flag1)
-                                {
-                                    listIn.add(possessedIngredientStacks[l1]);
-                                }
-                            }
-                        }
+		itemToCount.clear();
+	}
 
-                        ++j1;
-                    }
-                }
+	class RecipePicker {
 
-                return flag;
-            }
-        }
+		private final IRecipe recipe;
+		private final List<Ingredient> ingredients = Lists.newArrayList();
+		private final int ingredientCount;
+		private final int[] possessedIngredientStacks;
+		private final int possessedIngredientStackCount;
+		private final BitSet data;
+		private final IntList path = new IntArrayList();
 
-        private int[] getUniqueAvailIngredientItems()
-        {
-            IntCollection intcollection = new IntAVLTreeSet();
+		public RecipePicker(IRecipe p_i47608_2_) {
 
-            for (Ingredient ingredient : ingredients)
-            {
-                intcollection.addAll(ingredient.getValidItemStacksPacked());
-            }
+			recipe = p_i47608_2_;
+			ingredients.addAll(p_i47608_2_.getIngredients());
+			ingredients.removeIf((p_194103_0_) ->
+			{
+				return p_194103_0_ == Ingredient.EMPTY;
+			});
+			ingredientCount = ingredients.size();
+			possessedIngredientStacks = getUniqueAvailIngredientItems();
+			possessedIngredientStackCount = possessedIngredientStacks.length;
+			data = new BitSet(ingredientCount + possessedIngredientStackCount + ingredientCount + ingredientCount * possessedIngredientStackCount);
 
-            IntIterator intiterator = intcollection.iterator();
+			for (int i = 0; i < ingredients.size(); ++i) {
+				IntList intlist = ingredients.get(i).getValidItemStacksPacked();
 
-            while (intiterator.hasNext())
-            {
-                if (!containsItem(intiterator.nextInt()))
-                {
-                    intiterator.remove();
-                }
-            }
+				for (int j = 0; j < possessedIngredientStackCount; ++j) {
+					if (intlist.contains(possessedIngredientStacks[j])) {
+						data.set(getIndex(true, j, i));
+					}
+				}
+			}
+		}
 
-            return intcollection.toIntArray();
-        }
+		public boolean tryPick(int p_194092_1_, @Nullable IntList listIn) {
 
-        private boolean dfs(int p_194098_1_)
-        {
-            int k = possessedIngredientStackCount;
+			if (p_194092_1_ <= 0) {
+				return true;
+			} else {
+				int k;
 
-            for (int l = 0; l < k; ++l)
-            {
-                if (itemToCount.get(possessedIngredientStacks[l]) >= p_194098_1_)
-                {
-                    visit(false, l);
+				for (k = 0; dfs(p_194092_1_); ++k) {
+					tryTake(possessedIngredientStacks[path.getInt(0)], p_194092_1_);
+					int l = path.size() - 1;
+					setSatisfied(path.getInt(l));
 
-                    while (!path.isEmpty())
-                    {
-                        int i1 = path.size();
-                        boolean flag = (i1 & 1) == 1;
-                        int j1 = path.getInt(i1 - 1);
+					for (int i1 = 0; i1 < l; ++i1) {
+						toggleResidual((i1 & 1) == 0, path.get(i1).intValue(), path.get(i1 + 1).intValue());
+					}
 
-                        if (!flag && !isSatisfied(j1))
-                        {
-                            break;
-                        }
+					path.clear();
+					data.clear(0, ingredientCount + possessedIngredientStackCount);
+				}
 
-                        int k1 = flag ? ingredientCount : k;
+				boolean flag = k == ingredientCount;
+				boolean flag1 = flag && listIn != null;
 
-                        for (int l1 = 0; l1 < k1; ++l1)
-                        {
-                            if (!hasVisited(flag, l1) && hasConnection(flag, j1, l1) && hasResidual(flag, j1, l1))
-                            {
-                                visit(flag, l1);
-                                break;
-                            }
-                        }
+				if (flag1) {
+					listIn.clear();
+				}
 
-                        int i2 = path.size();
+				data.clear(0, ingredientCount + possessedIngredientStackCount + ingredientCount);
+				int j1 = 0;
+				List<Ingredient> list = recipe.getIngredients();
 
-                        if (i2 == i1)
-                        {
-                            path.removeInt(i2 - 1);
-                        }
-                    }
+				for (int k1 = 0; k1 < list.size(); ++k1) {
+					if (flag1 && list.get(k1) == Ingredient.EMPTY) {
+						listIn.add(0);
+					} else {
+						for (int l1 = 0; l1 < possessedIngredientStackCount; ++l1) {
+							if (hasResidual(false, j1, l1)) {
+								toggleResidual(true, l1, j1);
+								increment(possessedIngredientStacks[l1], p_194092_1_);
 
-                    if (!path.isEmpty())
-                    {
-                        return true;
-                    }
-                }
-            }
+								if (flag1) {
+									listIn.add(possessedIngredientStacks[l1]);
+								}
+							}
+						}
 
-            return false;
-        }
+						++j1;
+					}
+				}
 
-        private boolean isSatisfied(int p_194091_1_)
-        {
-            return data.get(getSatisfiedIndex(p_194091_1_));
-        }
+				return flag;
+			}
+		}
 
-        private void setSatisfied(int p_194096_1_)
-        {
-            data.set(getSatisfiedIndex(p_194096_1_));
-        }
+		private int[] getUniqueAvailIngredientItems() {
 
-        private int getSatisfiedIndex(int p_194094_1_)
-        {
-            return ingredientCount + possessedIngredientStackCount + p_194094_1_;
-        }
+			IntCollection intcollection = new IntAVLTreeSet();
 
-        private boolean hasConnection(boolean p_194093_1_, int p_194093_2_, int p_194093_3_)
-        {
-            return data.get(getIndex(p_194093_1_, p_194093_2_, p_194093_3_));
-        }
+			for (Ingredient ingredient : ingredients) {
+				intcollection.addAll(ingredient.getValidItemStacksPacked());
+			}
 
-        private boolean hasResidual(boolean p_194100_1_, int p_194100_2_, int p_194100_3_)
-        {
-            return p_194100_1_ != data.get(1 + getIndex(p_194100_1_, p_194100_2_, p_194100_3_));
-        }
+			IntIterator intiterator = intcollection.iterator();
 
-        private void toggleResidual(boolean p_194089_1_, int p_194089_2_, int p_194089_3_)
-        {
-            data.flip(1 + getIndex(p_194089_1_, p_194089_2_, p_194089_3_));
-        }
+			while (intiterator.hasNext()) {
+				if (!containsItem(intiterator.nextInt())) {
+					intiterator.remove();
+				}
+			}
 
-        private int getIndex(boolean p_194095_1_, int p_194095_2_, int p_194095_3_)
-        {
-            int k = p_194095_1_ ? p_194095_2_ * ingredientCount + p_194095_3_ : p_194095_3_ * ingredientCount + p_194095_2_;
-            return ingredientCount + possessedIngredientStackCount + ingredientCount + 2 * k;
-        }
+			return intcollection.toIntArray();
+		}
 
-        private void visit(boolean p_194088_1_, int p_194088_2_)
-        {
-            data.set(getVisitedIndex(p_194088_1_, p_194088_2_));
-            path.add(p_194088_2_);
-        }
+		private boolean dfs(int p_194098_1_) {
 
-        private boolean hasVisited(boolean p_194101_1_, int p_194101_2_)
-        {
-            return data.get(getVisitedIndex(p_194101_1_, p_194101_2_));
-        }
+			int k = possessedIngredientStackCount;
 
-        private int getVisitedIndex(boolean p_194099_1_, int p_194099_2_)
-        {
-            return (p_194099_1_ ? 0 : ingredientCount) + p_194099_2_;
-        }
+			for (int l = 0; l < k; ++l) {
+				if (itemToCount.get(possessedIngredientStacks[l]) >= p_194098_1_) {
+					visit(false, l);
 
-        public int tryPickAll(int p_194102_1_, @Nullable IntList list)
-        {
-            int k = 0;
-            int l = Math.min(p_194102_1_, getMinIngredientCount()) + 1;
+					while (!path.isEmpty()) {
+						int i1 = path.size();
+						boolean flag = (i1 & 1) == 1;
+						int j1 = path.getInt(i1 - 1);
 
-            while (true)
-            {
-                int i1 = (k + l) / 2;
+						if (!flag && !isSatisfied(j1)) {
+							break;
+						}
 
-                if (tryPick(i1, (IntList)null))
-                {
-                    if (l - k <= 1)
-                    {
-                        if (i1 > 0)
-                        {
-                            tryPick(i1, list);
-                        }
+						int k1 = flag ? ingredientCount : k;
 
-                        return i1;
-                    }
+						for (int l1 = 0; l1 < k1; ++l1) {
+							if (!hasVisited(flag, l1) && hasConnection(flag, j1, l1) && hasResidual(flag, j1, l1)) {
+								visit(flag, l1);
+								break;
+							}
+						}
 
-                    k = i1;
-                }
-                else
-                {
-                    l = i1;
-                }
-            }
-        }
+						int i2 = path.size();
 
-        private int getMinIngredientCount()
-        {
-            int k = Integer.MAX_VALUE;
+						if (i2 == i1) {
+							path.removeInt(i2 - 1);
+						}
+					}
 
-            for (Ingredient ingredient : ingredients)
-            {
-                int l = 0;
-                int i1;
+					if (!path.isEmpty()) {
+						return true;
+					}
+				}
+			}
 
-                for (IntListIterator intlistiterator = ingredient.getValidItemStacksPacked().iterator(); intlistiterator.hasNext(); l = Math.max(l, itemToCount.get(i1)))
-                {
-                    i1 = ((Integer)intlistiterator.next()).intValue();
-                }
+			return false;
+		}
 
-                if (k > 0)
-                {
-                    k = Math.min(k, l);
-                }
-            }
+		private boolean isSatisfied(int p_194091_1_) {
 
-            return k;
-        }
-    }
+			return data.get(getSatisfiedIndex(p_194091_1_));
+		}
+
+		private void setSatisfied(int p_194096_1_) {
+
+			data.set(getSatisfiedIndex(p_194096_1_));
+		}
+
+		private int getSatisfiedIndex(int p_194094_1_) {
+
+			return ingredientCount + possessedIngredientStackCount + p_194094_1_;
+		}
+
+		private boolean hasConnection(boolean p_194093_1_, int p_194093_2_, int p_194093_3_) {
+
+			return data.get(getIndex(p_194093_1_, p_194093_2_, p_194093_3_));
+		}
+
+		private boolean hasResidual(boolean p_194100_1_, int p_194100_2_, int p_194100_3_) {
+
+			return p_194100_1_ != data.get(1 + getIndex(p_194100_1_, p_194100_2_, p_194100_3_));
+		}
+
+		private void toggleResidual(boolean p_194089_1_, int p_194089_2_, int p_194089_3_) {
+
+			data.flip(1 + getIndex(p_194089_1_, p_194089_2_, p_194089_3_));
+		}
+
+		private int getIndex(boolean p_194095_1_, int p_194095_2_, int p_194095_3_) {
+
+			int k = p_194095_1_ ? p_194095_2_ * ingredientCount + p_194095_3_ : p_194095_3_ * ingredientCount + p_194095_2_;
+			return ingredientCount + possessedIngredientStackCount + ingredientCount + 2 * k;
+		}
+
+		private void visit(boolean p_194088_1_, int p_194088_2_) {
+
+			data.set(getVisitedIndex(p_194088_1_, p_194088_2_));
+			path.add(p_194088_2_);
+		}
+
+		private boolean hasVisited(boolean p_194101_1_, int p_194101_2_) {
+
+			return data.get(getVisitedIndex(p_194101_1_, p_194101_2_));
+		}
+
+		private int getVisitedIndex(boolean p_194099_1_, int p_194099_2_) {
+
+			return (p_194099_1_ ? 0 : ingredientCount) + p_194099_2_;
+		}
+
+		public int tryPickAll(int p_194102_1_, @Nullable IntList list) {
+
+			int k = 0;
+			int l = Math.min(p_194102_1_, getMinIngredientCount()) + 1;
+
+			while (true) {
+				int i1 = (k + l) / 2;
+
+				if (tryPick(i1, null)) {
+					if (l - k <= 1) {
+						if (i1 > 0) {
+							tryPick(i1, list);
+						}
+
+						return i1;
+					}
+
+					k = i1;
+				} else {
+					l = i1;
+				}
+			}
+		}
+
+		private int getMinIngredientCount() {
+
+			int k = Integer.MAX_VALUE;
+
+			for (Ingredient ingredient : ingredients) {
+				int l = 0;
+				int i1;
+
+				for (IntListIterator intlistiterator = ingredient.getValidItemStacksPacked().iterator(); intlistiterator.hasNext(); l = Math.max(l, itemToCount.get(i1))) {
+					i1 = intlistiterator.next().intValue();
+				}
+
+				if (k > 0) {
+					k = Math.min(k, l);
+				}
+			}
+
+			return k;
+		}
+
+	}
+
 }

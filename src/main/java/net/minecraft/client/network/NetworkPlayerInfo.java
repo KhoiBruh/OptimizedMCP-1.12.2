@@ -5,8 +5,6 @@ import com.google.common.collect.Maps;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.minecraft.MinecraftProfileTexture;
 import com.mojang.authlib.minecraft.MinecraftProfileTexture.Type;
-import java.util.Map;
-import javax.annotation.Nullable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.DefaultPlayerSkin;
 import net.minecraft.client.resources.SkinManager;
@@ -16,206 +14,207 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.GameType;
 
-public class NetworkPlayerInfo
-{
-    /**
-     * The GameProfile for the player represented by this NetworkPlayerInfo instance
-     */
-    private final GameProfile gameProfile;
-    Map<Type, ResourceLocation> playerTextures = Maps.newEnumMap(Type.class);
-    private GameType gameType;
+import javax.annotation.Nullable;
+import java.util.Map;
 
-    /** Player response time to server in milliseconds */
-    private int responseTime;
-    private boolean playerTexturesLoaded;
-    private String skinType;
+public class NetworkPlayerInfo {
 
-    /**
-     * When this is non-null, it is displayed instead of the player's real name
-     */
-    private ITextComponent displayName;
-    private int lastHealth;
-    private int displayHealth;
-    private long lastHealthTime;
-    private long healthBlinkTime;
-    private long renderVisibilityId;
+	/**
+	 * The GameProfile for the player represented by this NetworkPlayerInfo instance
+	 */
+	private final GameProfile gameProfile;
+	Map<Type, ResourceLocation> playerTextures = Maps.newEnumMap(Type.class);
+	private GameType gameType;
 
-    public NetworkPlayerInfo(GameProfile profile)
-    {
-        gameProfile = profile;
-    }
+	/**
+	 * Player response time to server in milliseconds
+	 */
+	private int responseTime;
+	private boolean playerTexturesLoaded;
+	private String skinType;
 
-    public NetworkPlayerInfo(SPacketPlayerListItem.AddPlayerData entry)
-    {
-        gameProfile = entry.getProfile();
-        gameType = entry.getGameMode();
-        responseTime = entry.getPing();
-        displayName = entry.getDisplayName();
-    }
+	/**
+	 * When this is non-null, it is displayed instead of the player's real name
+	 */
+	private ITextComponent displayName;
+	private int lastHealth;
+	private int displayHealth;
+	private long lastHealthTime;
+	private long healthBlinkTime;
+	private long renderVisibilityId;
 
-    /**
-     * Returns the GameProfile for the player represented by this NetworkPlayerInfo instance
-     */
-    public GameProfile getGameProfile()
-    {
-        return gameProfile;
-    }
+	public NetworkPlayerInfo(GameProfile profile) {
 
-    public GameType getGameType()
-    {
-        return gameType;
-    }
+		gameProfile = profile;
+	}
 
-    protected void setGameType(GameType gameMode)
-    {
-        gameType = gameMode;
-    }
+	public NetworkPlayerInfo(SPacketPlayerListItem.AddPlayerData entry) {
 
-    public int getResponseTime()
-    {
-        return responseTime;
-    }
+		gameProfile = entry.getProfile();
+		gameType = entry.getGameMode();
+		responseTime = entry.getPing();
+		displayName = entry.getDisplayName();
+	}
 
-    protected void setResponseTime(int latency)
-    {
-        responseTime = latency;
-    }
+	/**
+	 * Returns the GameProfile for the player represented by this NetworkPlayerInfo instance
+	 */
+	public GameProfile getGameProfile() {
 
-    public boolean hasLocationSkin()
-    {
-        return getLocationSkin() != null;
-    }
+		return gameProfile;
+	}
 
-    public String getSkinType()
-    {
-        return skinType == null ? DefaultPlayerSkin.getSkinType(gameProfile.getId()) : skinType;
-    }
+	public GameType getGameType() {
 
-    public ResourceLocation getLocationSkin()
-    {
-        loadPlayerTextures();
-        return (ResourceLocation)MoreObjects.firstNonNull(playerTextures.get(Type.SKIN), DefaultPlayerSkin.getDefaultSkin(gameProfile.getId()));
-    }
+		return gameType;
+	}
 
-    @Nullable
-    public ResourceLocation getLocationCape()
-    {
-        loadPlayerTextures();
-        return playerTextures.get(Type.CAPE);
-    }
+	protected void setGameType(GameType gameMode) {
 
-    @Nullable
+		gameType = gameMode;
+	}
 
-    /**
-     * Gets the special Elytra texture for the player.
-     */
-    public ResourceLocation getLocationElytra()
-    {
-        loadPlayerTextures();
-        return playerTextures.get(Type.ELYTRA);
-    }
+	public int getResponseTime() {
 
-    @Nullable
-    public ScorePlayerTeam getPlayerTeam()
-    {
-        return Minecraft.getMinecraft().world.getScoreboard().getPlayersTeam(getGameProfile().getName());
-    }
+		return responseTime;
+	}
 
-    protected void loadPlayerTextures()
-    {
-        synchronized (this)
-        {
-            if (!playerTexturesLoaded)
-            {
-                playerTexturesLoaded = true;
-                Minecraft.getMinecraft().getSkinManager().loadProfileTextures(gameProfile, new SkinManager.SkinAvailableCallback()
-                {
-                    public void skinAvailable(Type typeIn, ResourceLocation location, MinecraftProfileTexture profileTexture)
-                    {
-                        switch (typeIn)
-                        {
-                            case SKIN:
-                                playerTextures.put(Type.SKIN, location);
-                                skinType = profileTexture.getMetadata("model");
+	protected void setResponseTime(int latency) {
 
-                                if (skinType == null)
-                                {
-                                    skinType = "default";
-                                }
+		responseTime = latency;
+	}
 
-                                break;
+	public boolean hasLocationSkin() {
 
-                            case CAPE:
-                                playerTextures.put(Type.CAPE, location);
-                                break;
+		return getLocationSkin() != null;
+	}
 
-                            case ELYTRA:
-                                playerTextures.put(Type.ELYTRA, location);
-                        }
-                    }
-                }, true);
-            }
-        }
-    }
+	public String getSkinType() {
 
-    public void setDisplayName(@Nullable ITextComponent displayNameIn)
-    {
-        displayName = displayNameIn;
-    }
+		return skinType == null ? DefaultPlayerSkin.getSkinType(gameProfile.getId()) : skinType;
+	}
 
-    @Nullable
-    public ITextComponent getDisplayName()
-    {
-        return displayName;
-    }
+	public ResourceLocation getLocationSkin() {
 
-    public int getLastHealth()
-    {
-        return lastHealth;
-    }
+		loadPlayerTextures();
+		return MoreObjects.firstNonNull(playerTextures.get(Type.SKIN), DefaultPlayerSkin.getDefaultSkin(gameProfile.getId()));
+	}
 
-    public void setLastHealth(int p_178836_1_)
-    {
-        lastHealth = p_178836_1_;
-    }
+	@Nullable
+	public ResourceLocation getLocationCape() {
 
-    public int getDisplayHealth()
-    {
-        return displayHealth;
-    }
+		loadPlayerTextures();
+		return playerTextures.get(Type.CAPE);
+	}
 
-    public void setDisplayHealth(int p_178857_1_)
-    {
-        displayHealth = p_178857_1_;
-    }
+	@Nullable
 
-    public long getLastHealthTime()
-    {
-        return lastHealthTime;
-    }
+	/**
+	 * Gets the special Elytra texture for the player.
+	 */
+	public ResourceLocation getLocationElytra() {
 
-    public void setLastHealthTime(long p_178846_1_)
-    {
-        lastHealthTime = p_178846_1_;
-    }
+		loadPlayerTextures();
+		return playerTextures.get(Type.ELYTRA);
+	}
 
-    public long getHealthBlinkTime()
-    {
-        return healthBlinkTime;
-    }
+	@Nullable
+	public ScorePlayerTeam getPlayerTeam() {
 
-    public void setHealthBlinkTime(long p_178844_1_)
-    {
-        healthBlinkTime = p_178844_1_;
-    }
+		return Minecraft.getMinecraft().world.getScoreboard().getPlayersTeam(getGameProfile().getName());
+	}
 
-    public long getRenderVisibilityId()
-    {
-        return renderVisibilityId;
-    }
+	protected void loadPlayerTextures() {
 
-    public void setRenderVisibilityId(long p_178843_1_)
-    {
-        renderVisibilityId = p_178843_1_;
-    }
+		synchronized (this) {
+			if (!playerTexturesLoaded) {
+				playerTexturesLoaded = true;
+				Minecraft.getMinecraft().getSkinManager().loadProfileTextures(gameProfile, new SkinManager.SkinAvailableCallback() {
+					public void skinAvailable(Type typeIn, ResourceLocation location, MinecraftProfileTexture profileTexture) {
+
+						switch (typeIn) {
+							case SKIN:
+								playerTextures.put(Type.SKIN, location);
+								skinType = profileTexture.getMetadata("model");
+
+								if (skinType == null) {
+									skinType = "default";
+								}
+
+								break;
+
+							case CAPE:
+								playerTextures.put(Type.CAPE, location);
+								break;
+
+							case ELYTRA:
+								playerTextures.put(Type.ELYTRA, location);
+						}
+					}
+				}, true);
+			}
+		}
+	}
+
+	public void setDisplayName(@Nullable ITextComponent displayNameIn) {
+
+		displayName = displayNameIn;
+	}
+
+	@Nullable
+	public ITextComponent getDisplayName() {
+
+		return displayName;
+	}
+
+	public int getLastHealth() {
+
+		return lastHealth;
+	}
+
+	public void setLastHealth(int p_178836_1_) {
+
+		lastHealth = p_178836_1_;
+	}
+
+	public int getDisplayHealth() {
+
+		return displayHealth;
+	}
+
+	public void setDisplayHealth(int p_178857_1_) {
+
+		displayHealth = p_178857_1_;
+	}
+
+	public long getLastHealthTime() {
+
+		return lastHealthTime;
+	}
+
+	public void setLastHealthTime(long p_178846_1_) {
+
+		lastHealthTime = p_178846_1_;
+	}
+
+	public long getHealthBlinkTime() {
+
+		return healthBlinkTime;
+	}
+
+	public void setHealthBlinkTime(long p_178844_1_) {
+
+		healthBlinkTime = p_178844_1_;
+	}
+
+	public long getRenderVisibilityId() {
+
+		return renderVisibilityId;
+	}
+
+	public void setRenderVisibilityId(long p_178843_1_) {
+
+		renderVisibilityId = p_178843_1_;
+	}
+
 }

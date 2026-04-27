@@ -9,54 +9,53 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
-public class EntityExpBottle extends EntityThrowable
-{
-    public EntityExpBottle(World worldIn)
-    {
-        super(worldIn);
-    }
+public class EntityExpBottle extends EntityThrowable {
 
-    public EntityExpBottle(World worldIn, EntityLivingBase throwerIn)
-    {
-        super(worldIn, throwerIn);
-    }
+	public EntityExpBottle(World worldIn) {
 
-    public EntityExpBottle(World worldIn, double x, double y, double z)
-    {
-        super(worldIn, x, y, z);
-    }
+		super(worldIn);
+	}
 
-    public static void registerFixesExpBottle(DataFixer fixer)
-    {
-        EntityThrowable.registerFixesThrowable(fixer, "ThrowableExpBottle");
-    }
+	public EntityExpBottle(World worldIn, EntityLivingBase throwerIn) {
 
-    /**
-     * Gets the amount of gravity to apply to the thrown entity with each tick.
-     */
-    protected float getGravityVelocity()
-    {
-        return 0.07F;
-    }
+		super(worldIn, throwerIn);
+	}
 
-    /**
-     * Called when this EntityThrowable hits a block or entity.
-     */
-    protected void onImpact(RayTraceResult result)
-    {
-        if (!world.isRemote)
-        {
-            world.playEvent(2002, new BlockPos(this), PotionUtils.getPotionColor(PotionTypes.WATER));
-            int i = 3 + world.rand.nextInt(5) + world.rand.nextInt(5);
+	public EntityExpBottle(World worldIn, double x, double y, double z) {
 
-            while (i > 0)
-            {
-                int j = EntityXPOrb.getXPSplit(i);
-                i -= j;
-                world.spawnEntity(new EntityXPOrb(world, posX, posY, posZ, j));
-            }
+		super(worldIn, x, y, z);
+	}
 
-            setDead();
-        }
-    }
+	public static void registerFixesExpBottle(DataFixer fixer) {
+
+		EntityThrowable.registerFixesThrowable(fixer, "ThrowableExpBottle");
+	}
+
+	/**
+	 * Gets the amount of gravity to apply to the thrown entity with each tick.
+	 */
+	protected float getGravityVelocity() {
+
+		return 0.07F;
+	}
+
+	/**
+	 * Called when this EntityThrowable hits a block or entity.
+	 */
+	protected void onImpact(RayTraceResult result) {
+
+		if (!world.isRemote) {
+			world.playEvent(2002, new BlockPos(this), PotionUtils.getPotionColor(PotionTypes.WATER));
+			int i = 3 + world.rand.nextInt(5) + world.rand.nextInt(5);
+
+			while (i > 0) {
+				int j = EntityXPOrb.getXPSplit(i);
+				i -= j;
+				world.spawnEntity(new EntityXPOrb(world, posX, posY, posZ, j));
+			}
+
+			setDead();
+		}
+	}
+
 }

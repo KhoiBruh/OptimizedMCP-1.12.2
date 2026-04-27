@@ -3,72 +3,68 @@ package net.minecraft.util.math;
 import net.minecraft.nbt.NBTTagFloat;
 import net.minecraft.nbt.NBTTagList;
 
-public class Rotations
-{
-    /** Rotation on the X axis */
-    protected final float x;
+/**
+ * @param x Rotation on the X axis
+ * @param y Rotation on the Y axis
+ * @param z Rotation on the Z axis
+ */
+public record Rotations(float x, float y, float z) {
 
-    /** Rotation on the Y axis */
-    protected final float y;
+	public Rotations(float x, float y, float z) {
 
-    /** Rotation on the Z axis */
-    protected final float z;
+		this.x = !Float.isInfinite(x) && !Float.isNaN(x) ? x % 360.0F : 0.0F;
+		this.y = !Float.isInfinite(y) && !Float.isNaN(y) ? y % 360.0F : 0.0F;
+		this.z = !Float.isInfinite(z) && !Float.isNaN(z) ? z % 360.0F : 0.0F;
+	}
 
-    public Rotations(float x, float y, float z)
-    {
-        this.x = !Float.isInfinite(x) && !Float.isNaN(x) ? x % 360.0F : 0.0F;
-        this.y = !Float.isInfinite(y) && !Float.isNaN(y) ? y % 360.0F : 0.0F;
-        this.z = !Float.isInfinite(z) && !Float.isNaN(z) ? z % 360.0F : 0.0F;
-    }
+	public Rotations(NBTTagList nbt) {
 
-    public Rotations(NBTTagList nbt)
-    {
-        this(nbt.getFloatAt(0), nbt.getFloatAt(1), nbt.getFloatAt(2));
-    }
+		this(nbt.getFloatAt(0), nbt.getFloatAt(1), nbt.getFloatAt(2));
+	}
 
-    public NBTTagList writeToNBT()
-    {
-        NBTTagList nbttaglist = new NBTTagList();
-        nbttaglist.appendTag(new NBTTagFloat(x));
-        nbttaglist.appendTag(new NBTTagFloat(y));
-        nbttaglist.appendTag(new NBTTagFloat(z));
-        return nbttaglist;
-    }
+	public NBTTagList writeToNBT() {
 
-    public boolean equals(Object p_equals_1_)
-    {
-        if (!(p_equals_1_ instanceof Rotations))
-        {
-            return false;
-        }
-        else
-        {
-            Rotations rotations = (Rotations)p_equals_1_;
-            return x == rotations.x && y == rotations.y && z == rotations.z;
-        }
-    }
+		NBTTagList nbttaglist = new NBTTagList();
+		nbttaglist.appendTag(new NBTTagFloat(x));
+		nbttaglist.appendTag(new NBTTagFloat(y));
+		nbttaglist.appendTag(new NBTTagFloat(z));
+		return nbttaglist;
+	}
 
-    /**
-     * Gets the X axis rotation
-     */
-    public float getX()
-    {
-        return x;
-    }
+	public boolean equals(Object p_equals_1_) {
 
-    /**
-     * Gets the Y axis rotation
-     */
-    public float getY()
-    {
-        return y;
-    }
+		if (!(p_equals_1_ instanceof Rotations rotations)) {
+			return false;
+		} else {
+			return x == rotations.x && y == rotations.y && z == rotations.z;
+		}
+	}
 
-    /**
-     * Gets the Z axis rotation
-     */
-    public float getZ()
-    {
-        return z;
-    }
+	/**
+	 * Gets the X axis rotation
+	 */
+	@Override
+	public float x() {
+
+		return x;
+	}
+
+	/**
+	 * Gets the Y axis rotation
+	 */
+	@Override
+	public float y() {
+
+		return y;
+	}
+
+	/**
+	 * Gets the Z axis rotation
+	 */
+	@Override
+	public float z() {
+
+		return z;
+	}
+
 }

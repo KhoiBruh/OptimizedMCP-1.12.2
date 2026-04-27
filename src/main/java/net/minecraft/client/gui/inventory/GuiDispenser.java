@@ -6,52 +6,57 @@ import net.minecraft.inventory.ContainerDispenser;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.util.ResourceLocation;
 
-public class GuiDispenser extends GuiContainer
-{
-    private static final ResourceLocation DISPENSER_GUI_TEXTURES = new ResourceLocation("textures/gui/container/dispenser.png");
+public class GuiDispenser extends GuiContainer {
 
-    /** The player inventory bound to this GUI. */
-    private final InventoryPlayer playerInventory;
+	private static final ResourceLocation DISPENSER_GUI_TEXTURES = new ResourceLocation("textures/gui/container/dispenser.png");
 
-    /** The inventory contained within the corresponding Dispenser. */
-    public IInventory dispenserInventory;
+	/**
+	 * The player inventory bound to this GUI.
+	 */
+	private final InventoryPlayer playerInventory;
 
-    public GuiDispenser(InventoryPlayer playerInv, IInventory dispenserInv)
-    {
-        super(new ContainerDispenser(playerInv, dispenserInv));
-        playerInventory = playerInv;
-        dispenserInventory = dispenserInv;
-    }
+	/**
+	 * The inventory contained within the corresponding Dispenser.
+	 */
+	public IInventory dispenserInventory;
 
-    /**
-     * Draws the screen and all the components in it.
-     */
-    public void drawScreen(int mouseX, int mouseY, float partialTicks)
-    {
-        drawDefaultBackground();
-        super.drawScreen(mouseX, mouseY, partialTicks);
-        renderHoveredToolTip(mouseX, mouseY);
-    }
+	public GuiDispenser(InventoryPlayer playerInv, IInventory dispenserInv) {
 
-    /**
-     * Draw the foreground layer for the GuiContainer (everything in front of the items)
-     */
-    protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
-    {
-        String s = dispenserInventory.getDisplayName().getUnformattedText();
-        fontRenderer.drawString(s, xSize / 2 - fontRenderer.getStringWidth(s) / 2, 6, 4210752);
-        fontRenderer.drawString(playerInventory.getDisplayName().getUnformattedText(), 8, ySize - 96 + 2, 4210752);
-    }
+		super(new ContainerDispenser(playerInv, dispenserInv));
+		playerInventory = playerInv;
+		dispenserInventory = dispenserInv;
+	}
 
-    /**
-     * Draws the background layer of this container (behind the items).
-     */
-    protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY)
-    {
-        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        mc.getTextureManager().bindTexture(DISPENSER_GUI_TEXTURES);
-        int i = (width - xSize) / 2;
-        int j = (height - ySize) / 2;
-        drawTexturedModalRect(i, j, 0, 0, xSize, ySize);
-    }
+	/**
+	 * Draws the screen and all the components in it.
+	 */
+	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+
+		drawDefaultBackground();
+		super.drawScreen(mouseX, mouseY, partialTicks);
+		renderHoveredToolTip(mouseX, mouseY);
+	}
+
+	/**
+	 * Draw the foreground layer for the GuiContainer (everything in front of the items)
+	 */
+	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+
+		String s = dispenserInventory.displayName().getUnformattedText();
+		fontRenderer.drawString(s, xSize / 2 - fontRenderer.getStringWidth(s) / 2, 6, 4210752);
+		fontRenderer.drawString(playerInventory.displayName().getUnformattedText(), 8, ySize - 96 + 2, 4210752);
+	}
+
+	/**
+	 * Draws the background layer of this container (behind the items).
+	 */
+	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
+
+		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+		mc.getTextureManager().bindTexture(DISPENSER_GUI_TEXTURES);
+		int i = (width - xSize) / 2;
+		int j = (height - ySize) / 2;
+		drawTexturedModalRect(i, j, 0, 0, xSize, ySize);
+	}
+
 }

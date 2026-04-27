@@ -1,19 +1,7 @@
 package net.minecraft.entity.monster;
 
-import javax.annotation.Nullable;
-import net.minecraft.entity.EntityCreature;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.IEntityLivingData;
-import net.minecraft.entity.MoverType;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAIBase;
-import net.minecraft.entity.ai.EntityAIHurtByTarget;
-import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
-import net.minecraft.entity.ai.EntityAISwimming;
-import net.minecraft.entity.ai.EntityAITarget;
-import net.minecraft.entity.ai.EntityAIWatchClosest;
-import net.minecraft.entity.ai.EntityMoveHelper;
+import net.minecraft.entity.*;
+import net.minecraft.entity.ai.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
@@ -34,412 +22,394 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 
-public class EntityVex extends EntityMob
-{
-    protected static final DataParameter<Byte> VEX_FLAGS = EntityDataManager.<Byte>createKey(EntityVex.class, DataSerializers.BYTE);
-    private EntityLiving owner;
-    @Nullable
-    private BlockPos boundOrigin;
-    private boolean limitedLifespan;
-    private int limitedLifeTicks;
+import javax.annotation.Nullable;
 
-    public EntityVex(World worldIn)
-    {
-        super(worldIn);
-        isImmuneToFire = true;
-        moveHelper = new EntityVex.AIMoveControl(this);
-        setSize(0.4F, 0.8F);
-        experienceValue = 3;
-    }
+public class EntityVex extends EntityMob {
 
-    /**
-     * Tries to move the entity towards the specified location.
-     */
-    public void move(MoverType type, double x, double y, double z)
-    {
-        super.move(type, x, y, z);
-        doBlockCollisions();
-    }
+	protected static final DataParameter<Byte> VEX_FLAGS = EntityDataManager.createKey(EntityVex.class, DataSerializers.BYTE);
+	private EntityLiving owner;
 
-    /**
-     * Called to update the entity's position/logic.
-     */
-    public void onUpdate()
-    {
-        noClip = true;
-        super.onUpdate();
-        noClip = false;
-        setNoGravity(true);
+	@Nullable
+	private BlockPos boundOrigin;
+	private boolean limitedLifespan;
+	private int limitedLifeTicks;
 
-        if (limitedLifespan && --limitedLifeTicks <= 0)
-        {
-            limitedLifeTicks = 20;
-            attackEntityFrom(DamageSource.STARVE, 1.0F);
-        }
-    }
+	public EntityVex(World worldIn) {
 
-    protected void initEntityAI()
-    {
-        super.initEntityAI();
-        tasks.addTask(0, new EntityAISwimming(this));
-        tasks.addTask(4, new EntityVex.AIChargeAttack());
-        tasks.addTask(8, new EntityVex.AIMoveRandom());
-        tasks.addTask(9, new EntityAIWatchClosest(this, EntityPlayer.class, 3.0F, 1.0F));
-        tasks.addTask(10, new EntityAIWatchClosest(this, EntityLiving.class, 8.0F));
-        targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, new Class[] {EntityVex.class}));
-        targetTasks.addTask(2, new EntityVex.AICopyOwnerTarget(this));
-        targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
-    }
+		super(worldIn);
+		isImmuneToFire = true;
+		moveHelper = new EntityVex.AIMoveControl(this);
+		setSize(0.4F, 0.8F);
+		experienceValue = 3;
+	}
 
-    protected void applyEntityAttributes()
-    {
-        super.applyEntityAttributes();
-        getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(14.0D);
-        getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4.0D);
-    }
+	/**
+	 * Tries to move the entity towards the specified location.
+	 */
+	public void move(MoverType type, double x, double y, double z) {
 
-    protected void entityInit()
-    {
-        super.entityInit();
-        dataManager.register(VEX_FLAGS, Byte.valueOf((byte)0));
-    }
+		super.move(type, x, y, z);
+		doBlockCollisions();
+	}
 
-    public static void registerFixesVex(DataFixer fixer)
-    {
-        EntityLiving.registerFixesMob(fixer, EntityVex.class);
-    }
+	/**
+	 * Called to update the entity's position/logic.
+	 */
+	public void onUpdate() {
 
-    /**
-     * (abstract) Protected helper method to read subclass entity data from NBT.
-     */
-    public void readEntityFromNBT(NBTTagCompound compound)
-    {
-        super.readEntityFromNBT(compound);
+		noClip = true;
+		super.onUpdate();
+		noClip = false;
+		setNoGravity(true);
 
-        if (compound.hasKey("BoundX"))
-        {
-            boundOrigin = new BlockPos(compound.getInteger("BoundX"), compound.getInteger("BoundY"), compound.getInteger("BoundZ"));
-        }
+		if (limitedLifespan && --limitedLifeTicks <= 0) {
+			limitedLifeTicks = 20;
+			attackEntityFrom(DamageSource.STARVE, 1.0F);
+		}
+	}
 
-        if (compound.hasKey("LifeTicks"))
-        {
-            setLimitedLife(compound.getInteger("LifeTicks"));
-        }
-    }
+	protected void initEntityAI() {
 
-    /**
-     * (abstract) Protected helper method to write subclass entity data to NBT.
-     */
-    public void writeEntityToNBT(NBTTagCompound compound)
-    {
-        super.writeEntityToNBT(compound);
+		super.initEntityAI();
+		tasks.addTask(0, new EntityAISwimming(this));
+		tasks.addTask(4, new EntityVex.AIChargeAttack());
+		tasks.addTask(8, new EntityVex.AIMoveRandom());
+		tasks.addTask(9, new EntityAIWatchClosest(this, EntityPlayer.class, 3.0F, 1.0F));
+		tasks.addTask(10, new EntityAIWatchClosest(this, EntityLiving.class, 8.0F));
+		targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, EntityVex.class));
+		targetTasks.addTask(2, new EntityVex.AICopyOwnerTarget(this));
+		targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
+	}
 
-        if (boundOrigin != null)
-        {
-            compound.setInteger("BoundX", boundOrigin.getX());
-            compound.setInteger("BoundY", boundOrigin.getY());
-            compound.setInteger("BoundZ", boundOrigin.getZ());
-        }
+	protected void applyEntityAttributes() {
 
-        if (limitedLifespan)
-        {
-            compound.setInteger("LifeTicks", limitedLifeTicks);
-        }
-    }
+		super.applyEntityAttributes();
+		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(14.0D);
+		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4.0D);
+	}
 
-    public EntityLiving getOwner()
-    {
-        return owner;
-    }
+	protected void entityInit() {
 
-    @Nullable
-    public BlockPos getBoundOrigin()
-    {
-        return boundOrigin;
-    }
+		super.entityInit();
+		dataManager.register(VEX_FLAGS, Byte.valueOf((byte) 0));
+	}
 
-    public void setBoundOrigin(@Nullable BlockPos boundOriginIn)
-    {
-        boundOrigin = boundOriginIn;
-    }
+	public static void registerFixesVex(DataFixer fixer) {
 
-    private boolean getVexFlag(int mask)
-    {
-        int i = ((Byte) dataManager.get(VEX_FLAGS)).byteValue();
-        return (i & mask) != 0;
-    }
+		EntityLiving.registerFixesMob(fixer, EntityVex.class);
+	}
 
-    private void setVexFlag(int mask, boolean value)
-    {
-        int i = ((Byte) dataManager.get(VEX_FLAGS)).byteValue();
+	/**
+	 * (abstract) Protected helper method to read subclass entity data from NBT.
+	 */
+	public void readEntityFromNBT(NBTTagCompound compound) {
 
-        if (value)
-        {
-            i = i | mask;
-        }
-        else
-        {
-            i = i & ~mask;
-        }
+		super.readEntityFromNBT(compound);
 
-        dataManager.set(VEX_FLAGS, Byte.valueOf((byte)(i & 255)));
-    }
+		if (compound.hasKey("BoundX")) {
+			boundOrigin = new BlockPos(compound.getInteger("BoundX"), compound.getInteger("BoundY"), compound.getInteger("BoundZ"));
+		}
 
-    public boolean isCharging()
-    {
-        return getVexFlag(1);
-    }
+		if (compound.hasKey("LifeTicks")) {
+			setLimitedLife(compound.getInteger("LifeTicks"));
+		}
+	}
 
-    public void setCharging(boolean charging)
-    {
-        setVexFlag(1, charging);
-    }
+	/**
+	 * (abstract) Protected helper method to write subclass entity data to NBT.
+	 */
+	public void writeEntityToNBT(NBTTagCompound compound) {
 
-    public void setOwner(EntityLiving ownerIn)
-    {
-        owner = ownerIn;
-    }
+		super.writeEntityToNBT(compound);
 
-    public void setLimitedLife(int limitedLifeTicksIn)
-    {
-        limitedLifespan = true;
-        limitedLifeTicks = limitedLifeTicksIn;
-    }
+		if (boundOrigin != null) {
+			compound.setInteger("BoundX", boundOrigin.getX());
+			compound.setInteger("BoundY", boundOrigin.getY());
+			compound.setInteger("BoundZ", boundOrigin.getZ());
+		}
 
-    protected SoundEvent getAmbientSound()
-    {
-        return SoundEvents.ENTITY_VEX_AMBIENT;
-    }
+		if (limitedLifespan) {
+			compound.setInteger("LifeTicks", limitedLifeTicks);
+		}
+	}
 
-    protected SoundEvent getDeathSound()
-    {
-        return SoundEvents.ENTITY_VEX_DEATH;
-    }
+	public EntityLiving getOwner() {
 
-    protected SoundEvent getHurtSound(DamageSource damageSourceIn)
-    {
-        return SoundEvents.ENTITY_VEX_HURT;
-    }
+		return owner;
+	}
 
-    @Nullable
-    protected ResourceLocation getLootTable()
-    {
-        return LootTableList.ENTITIES_VEX;
-    }
+	@Nullable
+	public BlockPos getBoundOrigin() {
 
-    public int getBrightnessForRender()
-    {
-        return 15728880;
-    }
+		return boundOrigin;
+	}
 
-    /**
-     * Gets how bright this entity is.
-     */
-    public float getBrightness()
-    {
-        return 1.0F;
-    }
+	public void setBoundOrigin(@Nullable BlockPos boundOriginIn) {
 
-    @Nullable
+		boundOrigin = boundOriginIn;
+	}
 
-    /**
-     * Called only once on an entity when first time spawned, via egg, mob spawner, natural spawning etc, but not called
-     * when entity is reloaded from nbt. Mainly used for initializing attributes and inventory.
-     *  
-     * The livingdata parameter is used to pass data between all instances during a pack spawn. It will be null on the
-     * first call. Subclasses may check if it's null, and then create a new one and return it if so, initializing all
-     * entities in the pack with the contained data.
-     *  
-     * @return The IEntityLivingData to pass to this method for other instances of this entity class within the same
-     * pack
-     *  
-     * @param difficulty The current local difficulty
-     * @param livingdata Shared spawn data. Will usually be null. (See return value for more information)
-     */
-    public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata)
-    {
-        setEquipmentBasedOnDifficulty(difficulty);
-        setEnchantmentBasedOnDifficulty(difficulty);
-        return super.onInitialSpawn(difficulty, livingdata);
-    }
+	private boolean getVexFlag(int mask) {
 
-    /**
-     * Gives armor or weapon for entity based on given DifficultyInstance
-     */
-    protected void setEquipmentBasedOnDifficulty(DifficultyInstance difficulty)
-    {
-        setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SWORD));
-        setDropChance(EntityEquipmentSlot.MAINHAND, 0.0F);
-    }
+		int i = dataManager.get(VEX_FLAGS).byteValue();
+		return (i & mask) != 0;
+	}
 
-    class AIChargeAttack extends EntityAIBase
-    {
-        public AIChargeAttack()
-        {
-            setMutexBits(1);
-        }
+	private void setVexFlag(int mask, boolean value) {
 
-        public boolean shouldExecute()
-        {
-            if (getAttackTarget() != null && !getMoveHelper().isUpdating() && rand.nextInt(7) == 0)
-            {
-                return getDistanceSq(getAttackTarget()) > 4.0D;
-            }
-            else
-            {
-                return false;
-            }
-        }
+		int i = dataManager.get(VEX_FLAGS).byteValue();
 
-        public boolean shouldContinueExecuting()
-        {
-            return getMoveHelper().isUpdating() && isCharging() && getAttackTarget() != null && getAttackTarget().isEntityAlive();
-        }
+		if (value) {
+			i = i | mask;
+		} else {
+			i = i & ~mask;
+		}
 
-        public void startExecuting()
-        {
-            EntityLivingBase entitylivingbase = getAttackTarget();
-            Vec3d vec3d = entitylivingbase.getPositionEyes(1.0F);
-            moveHelper.setMoveTo(vec3d.x, vec3d.y, vec3d.z, 1.0D);
-            setCharging(true);
-            playSound(SoundEvents.ENTITY_VEX_CHARGE, 1.0F, 1.0F);
-        }
+		dataManager.set(VEX_FLAGS, Byte.valueOf((byte) (i & 255)));
+	}
 
-        public void resetTask()
-        {
-            setCharging(false);
-        }
+	public boolean isCharging() {
 
-        public void updateTask()
-        {
-            EntityLivingBase entitylivingbase = getAttackTarget();
+		return getVexFlag(1);
+	}
 
-            if (getEntityBoundingBox().intersects(entitylivingbase.getEntityBoundingBox()))
-            {
-                attackEntityAsMob(entitylivingbase);
-                setCharging(false);
-            }
-            else
-            {
-                double d0 = getDistanceSq(entitylivingbase);
+	public void setCharging(boolean charging) {
 
-                if (d0 < 9.0D)
-                {
-                    Vec3d vec3d = entitylivingbase.getPositionEyes(1.0F);
-                    moveHelper.setMoveTo(vec3d.x, vec3d.y, vec3d.z, 1.0D);
-                }
-            }
-        }
-    }
+		setVexFlag(1, charging);
+	}
 
-    class AICopyOwnerTarget extends EntityAITarget
-    {
-        public AICopyOwnerTarget(EntityCreature creature)
-        {
-            super(creature, false);
-        }
+	public void setOwner(EntityLiving ownerIn) {
 
-        public boolean shouldExecute()
-        {
-            return owner != null && owner.getAttackTarget() != null && isSuitableTarget(owner.getAttackTarget(), false);
-        }
+		owner = ownerIn;
+	}
 
-        public void startExecuting()
-        {
-            setAttackTarget(owner.getAttackTarget());
-            super.startExecuting();
-        }
-    }
+	public void setLimitedLife(int limitedLifeTicksIn) {
 
-    class AIMoveControl extends EntityMoveHelper
-    {
-        public AIMoveControl(EntityVex vex)
-        {
-            super(vex);
-        }
+		limitedLifespan = true;
+		limitedLifeTicks = limitedLifeTicksIn;
+	}
 
-        public void onUpdateMoveHelper()
-        {
-            if (action == EntityMoveHelper.Action.MOVE_TO)
-            {
-                double d0 = posX - EntityVex.this.posX;
-                double d1 = posY - EntityVex.this.posY;
-                double d2 = posZ - EntityVex.this.posZ;
-                double d3 = d0 * d0 + d1 * d1 + d2 * d2;
-                d3 = (double)MathHelper.sqrt(d3);
+	protected SoundEvent getAmbientSound() {
 
-                if (d3 < getEntityBoundingBox().getAverageEdgeLength())
-                {
-                    action = EntityMoveHelper.Action.WAIT;
-                    motionX *= 0.5D;
-                    motionY *= 0.5D;
-                    motionZ *= 0.5D;
-                }
-                else
-                {
-                    motionX += d0 / d3 * 0.05D * speed;
-                    motionY += d1 / d3 * 0.05D * speed;
-                    motionZ += d2 / d3 * 0.05D * speed;
+		return SoundEvents.ENTITY_VEX_AMBIENT;
+	}
 
-                    if (getAttackTarget() == null)
-                    {
-                        rotationYaw = -((float)MathHelper.atan2(motionX, motionZ)) * (180F / (float)Math.PI);
-                        renderYawOffset = rotationYaw;
-                    }
-                    else
-                    {
-                        double d4 = getAttackTarget().posX - EntityVex.this.posX;
-                        double d5 = getAttackTarget().posZ - EntityVex.this.posZ;
-                        rotationYaw = -((float)MathHelper.atan2(d4, d5)) * (180F / (float)Math.PI);
-                        renderYawOffset = rotationYaw;
-                    }
-                }
-            }
-        }
-    }
+	protected SoundEvent getDeathSound() {
 
-    class AIMoveRandom extends EntityAIBase
-    {
-        public AIMoveRandom()
-        {
-            setMutexBits(1);
-        }
+		return SoundEvents.ENTITY_VEX_DEATH;
+	}
 
-        public boolean shouldExecute()
-        {
-            return !getMoveHelper().isUpdating() && rand.nextInt(7) == 0;
-        }
+	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
 
-        public boolean shouldContinueExecuting()
-        {
-            return false;
-        }
+		return SoundEvents.ENTITY_VEX_HURT;
+	}
 
-        public void updateTask()
-        {
-            BlockPos blockpos = getBoundOrigin();
+	@Nullable
+	protected ResourceLocation getLootTable() {
 
-            if (blockpos == null)
-            {
-                blockpos = new BlockPos(EntityVex.this);
-            }
+		return LootTableList.ENTITIES_VEX;
+	}
 
-            for (int i = 0; i < 3; ++i)
-            {
-                BlockPos blockpos1 = blockpos.add(rand.nextInt(15) - 7, rand.nextInt(11) - 5, rand.nextInt(15) - 7);
+	public int getBrightnessForRender() {
 
-                if (world.isAirBlock(blockpos1))
-                {
-                    moveHelper.setMoveTo((double)blockpos1.getX() + 0.5D, (double)blockpos1.getY() + 0.5D, (double)blockpos1.getZ() + 0.5D, 0.25D);
+		return 15728880;
+	}
 
-                    if (getAttackTarget() == null)
-                    {
-                        getLookHelper().setLookPosition((double)blockpos1.getX() + 0.5D, (double)blockpos1.getY() + 0.5D, (double)blockpos1.getZ() + 0.5D, 180.0F, 20.0F);
-                    }
+	/**
+	 * Gets how bright this entity is.
+	 */
+	public float getBrightness() {
 
-                    break;
-                }
-            }
-        }
-    }
+		return 1.0F;
+	}
+
+	@Nullable
+
+	/**
+	 * Called only once on an entity when first time spawned, via egg, mob spawner, natural spawning etc, but not called
+	 * when entity is reloaded from nbt. Mainly used for initializing attributes and inventory.
+	 *
+	 * The livingdata parameter is used to pass data between all instances during a pack spawn. It will be null on the
+	 * first call. Subclasses may check if it's null, and then create a new one and return it if so, initializing all
+	 * entities in the pack with the contained data.
+	 *
+	 * @return The IEntityLivingData to pass to this method for other instances of this entity class within the same
+	 * pack
+	 *
+	 * @param difficulty The current local difficulty
+	 * @param livingdata Shared spawn data. Will usually be null. (See return value for more information)
+	 */
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
+
+		setEquipmentBasedOnDifficulty(difficulty);
+		setEnchantmentBasedOnDifficulty(difficulty);
+		return super.onInitialSpawn(difficulty, livingdata);
+	}
+
+	/**
+	 * Gives armor or weapon for entity based on given DifficultyInstance
+	 */
+	protected void setEquipmentBasedOnDifficulty(DifficultyInstance difficulty) {
+
+		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SWORD));
+		setDropChance(EntityEquipmentSlot.MAINHAND, 0.0F);
+	}
+
+	class AIChargeAttack extends EntityAIBase {
+
+		public AIChargeAttack() {
+
+			setMutexBits(1);
+		}
+
+		public boolean shouldExecute() {
+
+			if (getAttackTarget() != null && !getMoveHelper().isUpdating() && rand.nextInt(7) == 0) {
+				return getDistanceSq(getAttackTarget()) > 4.0D;
+			} else {
+				return false;
+			}
+		}
+
+		public boolean shouldContinueExecuting() {
+
+			return getMoveHelper().isUpdating() && isCharging() && getAttackTarget() != null && getAttackTarget().isEntityAlive();
+		}
+
+		public void startExecuting() {
+
+			EntityLivingBase entitylivingbase = getAttackTarget();
+			Vec3d vec3d = entitylivingbase.getPositionEyes(1.0F);
+			moveHelper.setMoveTo(vec3d.x(), vec3d.y(), vec3d.z(), 1.0D);
+			setCharging(true);
+			playSound(SoundEvents.ENTITY_VEX_CHARGE, 1.0F, 1.0F);
+		}
+
+		public void resetTask() {
+
+			setCharging(false);
+		}
+
+		public void updateTask() {
+
+			EntityLivingBase entitylivingbase = getAttackTarget();
+
+			if (getEntityBoundingBox().intersects(entitylivingbase.getEntityBoundingBox())) {
+				attackEntityAsMob(entitylivingbase);
+				setCharging(false);
+			} else {
+				double d0 = getDistanceSq(entitylivingbase);
+
+				if (d0 < 9.0D) {
+					Vec3d vec3d = entitylivingbase.getPositionEyes(1.0F);
+					moveHelper.setMoveTo(vec3d.x(), vec3d.y(), vec3d.z(), 1.0D);
+				}
+			}
+		}
+
+	}
+
+	class AICopyOwnerTarget extends EntityAITarget {
+
+		public AICopyOwnerTarget(EntityCreature creature) {
+
+			super(creature, false);
+		}
+
+		public boolean shouldExecute() {
+
+			return owner != null && owner.getAttackTarget() != null && isSuitableTarget(owner.getAttackTarget(), false);
+		}
+
+		public void startExecuting() {
+
+			setAttackTarget(owner.getAttackTarget());
+			super.startExecuting();
+		}
+
+	}
+
+	class AIMoveControl extends EntityMoveHelper {
+
+		public AIMoveControl(EntityVex vex) {
+
+			super(vex);
+		}
+
+		public void onUpdateMoveHelper() {
+
+			if (action == EntityMoveHelper.Action.MOVE_TO) {
+				double d0 = posX - EntityVex.this.posX;
+				double d1 = posY - EntityVex.this.posY;
+				double d2 = posZ - EntityVex.this.posZ;
+				double d3 = d0 * d0 + d1 * d1 + d2 * d2;
+				d3 = MathHelper.sqrt(d3);
+
+				if (d3 < getEntityBoundingBox().getAverageEdgeLength()) {
+					action = EntityMoveHelper.Action.WAIT;
+					motionX *= 0.5D;
+					motionY *= 0.5D;
+					motionZ *= 0.5D;
+				} else {
+					motionX += d0 / d3 * 0.05D * speed;
+					motionY += d1 / d3 * 0.05D * speed;
+					motionZ += d2 / d3 * 0.05D * speed;
+
+					if (getAttackTarget() == null) {
+						rotationYaw = -((float) MathHelper.atan2(motionX, motionZ)) * (180F / (float) Math.PI);
+						renderYawOffset = rotationYaw;
+					} else {
+						double d4 = getAttackTarget().posX - EntityVex.this.posX;
+						double d5 = getAttackTarget().posZ - EntityVex.this.posZ;
+						rotationYaw = -((float) MathHelper.atan2(d4, d5)) * (180F / (float) Math.PI);
+						renderYawOffset = rotationYaw;
+					}
+				}
+			}
+		}
+
+	}
+
+	class AIMoveRandom extends EntityAIBase {
+
+		public AIMoveRandom() {
+
+			setMutexBits(1);
+		}
+
+		public boolean shouldExecute() {
+
+			return !getMoveHelper().isUpdating() && rand.nextInt(7) == 0;
+		}
+
+		public boolean shouldContinueExecuting() {
+
+			return false;
+		}
+
+		public void updateTask() {
+
+			BlockPos blockpos = getBoundOrigin();
+
+			if (blockpos == null) {
+				blockpos = new BlockPos(EntityVex.this);
+			}
+
+			for (int i = 0; i < 3; ++i) {
+				BlockPos blockpos1 = blockpos.add(rand.nextInt(15) - 7, rand.nextInt(11) - 5, rand.nextInt(15) - 7);
+
+				if (world.isAirBlock(blockpos1)) {
+					moveHelper.setMoveTo((double) blockpos1.getX() + 0.5D, (double) blockpos1.getY() + 0.5D, (double) blockpos1.getZ() + 0.5D, 0.25D);
+
+					if (getAttackTarget() == null) {
+						getLookHelper().setLookPosition((double) blockpos1.getX() + 0.5D, (double) blockpos1.getY() + 0.5D, (double) blockpos1.getZ() + 0.5D, 180.0F, 20.0F);
+					}
+
+					break;
+				}
+			}
+		}
+
+	}
+
 }

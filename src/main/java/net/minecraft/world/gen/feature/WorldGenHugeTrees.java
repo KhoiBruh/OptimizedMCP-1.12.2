@@ -1,6 +1,5 @@
 package net.minecraft.world.gen.feature;
 
-import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -8,166 +7,153 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public abstract class WorldGenHugeTrees extends WorldGenAbstractTree
-{
-    /** The base height of the tree */
-    protected final int baseHeight;
+import java.util.Random;
 
-    /** Sets the metadata for the wood blocks used */
-    protected final IBlockState woodMetadata;
+public abstract class WorldGenHugeTrees extends WorldGenAbstractTree {
 
-    /** Sets the metadata for the leaves used in huge trees */
-    protected final IBlockState leavesMetadata;
-    protected int extraRandomHeight;
+	/**
+	 * The base height of the tree
+	 */
+	protected final int baseHeight;
 
-    public WorldGenHugeTrees(boolean notify, int baseHeightIn, int extraRandomHeightIn, IBlockState woodMetadataIn, IBlockState leavesMetadataIn)
-    {
-        super(notify);
-        baseHeight = baseHeightIn;
-        extraRandomHeight = extraRandomHeightIn;
-        woodMetadata = woodMetadataIn;
-        leavesMetadata = leavesMetadataIn;
-    }
+	/**
+	 * Sets the metadata for the wood blocks used
+	 */
+	protected final IBlockState woodMetadata;
 
-    /**
-     * calculates the height based on this trees base height and its extra random height
-     */
-    protected int getHeight(Random rand)
-    {
-        int i = rand.nextInt(3) + baseHeight;
+	/**
+	 * Sets the metadata for the leaves used in huge trees
+	 */
+	protected final IBlockState leavesMetadata;
+	protected int extraRandomHeight;
 
-        if (extraRandomHeight > 1)
-        {
-            i += rand.nextInt(extraRandomHeight);
-        }
+	public WorldGenHugeTrees(boolean notify, int baseHeightIn, int extraRandomHeightIn, IBlockState woodMetadataIn, IBlockState leavesMetadataIn) {
 
-        return i;
-    }
+		super(notify);
+		baseHeight = baseHeightIn;
+		extraRandomHeight = extraRandomHeightIn;
+		woodMetadata = woodMetadataIn;
+		leavesMetadata = leavesMetadataIn;
+	}
 
-    /**
-     * returns whether or not there is space for a tree to grow at a certain position
-     */
-    private boolean isSpaceAt(World worldIn, BlockPos leavesPos, int height)
-    {
-        boolean flag = true;
+	/**
+	 * calculates the height based on this trees base height and its extra random height
+	 */
+	protected int getHeight(Random rand) {
 
-        if (leavesPos.getY() >= 1 && leavesPos.getY() + height + 1 <= 256)
-        {
-            for (int i = 0; i <= 1 + height; ++i)
-            {
-                int j = 2;
+		int i = rand.nextInt(3) + baseHeight;
 
-                if (i == 0)
-                {
-                    j = 1;
-                }
-                else if (i >= 1 + height - 2)
-                {
-                    j = 2;
-                }
+		if (extraRandomHeight > 1) {
+			i += rand.nextInt(extraRandomHeight);
+		}
 
-                for (int k = -j; k <= j && flag; ++k)
-                {
-                    for (int l = -j; l <= j && flag; ++l)
-                    {
-                        if (leavesPos.getY() + i < 0 || leavesPos.getY() + i >= 256 || !canGrowInto(worldIn.getBlockState(leavesPos.add(k, i, l)).getBlock()))
-                        {
-                            flag = false;
-                        }
-                    }
-                }
-            }
+		return i;
+	}
 
-            return flag;
-        }
-        else
-        {
-            return false;
-        }
-    }
+	/**
+	 * returns whether or not there is space for a tree to grow at a certain position
+	 */
+	private boolean isSpaceAt(World worldIn, BlockPos leavesPos, int height) {
 
-    /**
-     * returns whether or not there is dirt underneath the block where the tree will be grown.
-     * It also generates dirt around the block in a 2x2 square if there is dirt underneath the blockpos.
-     */
-    private boolean ensureDirtsUnderneath(BlockPos pos, World worldIn)
-    {
-        BlockPos blockpos = pos.down();
-        Block block = worldIn.getBlockState(blockpos).getBlock();
+		boolean flag = true;
 
-        if ((block == Blocks.GRASS || block == Blocks.DIRT) && pos.getY() >= 2)
-        {
-            setDirtAt(worldIn, blockpos);
-            setDirtAt(worldIn, blockpos.east());
-            setDirtAt(worldIn, blockpos.south());
-            setDirtAt(worldIn, blockpos.south().east());
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
+		if (leavesPos.getY() >= 1 && leavesPos.getY() + height + 1 <= 256) {
+			for (int i = 0; i <= 1 + height; ++i) {
+				int j = 2;
 
-    /**
-     * returns whether or not a tree can grow at a specific position.
-     * If it can, it generates surrounding dirt underneath.
-     */
-    protected boolean ensureGrowable(World worldIn, Random rand, BlockPos treePos, int height)
-    {
-        return isSpaceAt(worldIn, treePos, height) && ensureDirtsUnderneath(treePos, worldIn);
-    }
+				if (i == 0) {
+					j = 1;
+				} else if (i >= 1 + height - 2) {
+					j = 2;
+				}
 
-    /**
-     * grow leaves in a circle with the outsides being within the circle
-     */
-    protected void growLeavesLayerStrict(World worldIn, BlockPos layerCenter, int width)
-    {
-        int i = width * width;
+				for (int k = -j; k <= j && flag; ++k) {
+					for (int l = -j; l <= j && flag; ++l) {
+						if (leavesPos.getY() + i < 0 || leavesPos.getY() + i >= 256 || !canGrowInto(worldIn.getBlockState(leavesPos.add(k, i, l)).getBlock())) {
+							flag = false;
+						}
+					}
+				}
+			}
 
-        for (int j = -width; j <= width + 1; ++j)
-        {
-            for (int k = -width; k <= width + 1; ++k)
-            {
-                int l = j - 1;
-                int i1 = k - 1;
+			return flag;
+		} else {
+			return false;
+		}
+	}
 
-                if (j * j + k * k <= i || l * l + i1 * i1 <= i || j * j + i1 * i1 <= i || l * l + k * k <= i)
-                {
-                    BlockPos blockpos = layerCenter.add(j, 0, k);
-                    Material material = worldIn.getBlockState(blockpos).getMaterial();
+	/**
+	 * returns whether or not there is dirt underneath the block where the tree will be grown.
+	 * It also generates dirt around the block in a 2x2 square if there is dirt underneath the blockpos.
+	 */
+	private boolean ensureDirtsUnderneath(BlockPos pos, World worldIn) {
 
-                    if (material == Material.AIR || material == Material.LEAVES)
-                    {
-                        setBlockAndNotifyAdequately(worldIn, blockpos, leavesMetadata);
-                    }
-                }
-            }
-        }
-    }
+		BlockPos blockpos = pos.down();
+		Block block = worldIn.getBlockState(blockpos).getBlock();
 
-    /**
-     * grow leaves in a circle
-     */
-    protected void growLeavesLayer(World worldIn, BlockPos layerCenter, int width)
-    {
-        int i = width * width;
+		if ((block == Blocks.GRASS || block == Blocks.DIRT) && pos.getY() >= 2) {
+			setDirtAt(worldIn, blockpos);
+			setDirtAt(worldIn, blockpos.east());
+			setDirtAt(worldIn, blockpos.south());
+			setDirtAt(worldIn, blockpos.south().east());
+			return true;
+		} else {
+			return false;
+		}
+	}
 
-        for (int j = -width; j <= width; ++j)
-        {
-            for (int k = -width; k <= width; ++k)
-            {
-                if (j * j + k * k <= i)
-                {
-                    BlockPos blockpos = layerCenter.add(j, 0, k);
-                    Material material = worldIn.getBlockState(blockpos).getMaterial();
+	/**
+	 * returns whether or not a tree can grow at a specific position.
+	 * If it can, it generates surrounding dirt underneath.
+	 */
+	protected boolean ensureGrowable(World worldIn, Random rand, BlockPos treePos, int height) {
 
-                    if (material == Material.AIR || material == Material.LEAVES)
-                    {
-                        setBlockAndNotifyAdequately(worldIn, blockpos, leavesMetadata);
-                    }
-                }
-            }
-        }
-    }
+		return isSpaceAt(worldIn, treePos, height) && ensureDirtsUnderneath(treePos, worldIn);
+	}
+
+	/**
+	 * grow leaves in a circle with the outsides being within the circle
+	 */
+	protected void growLeavesLayerStrict(World worldIn, BlockPos layerCenter, int width) {
+
+		int i = width * width;
+
+		for (int j = -width; j <= width + 1; ++j) {
+			for (int k = -width; k <= width + 1; ++k) {
+				int l = j - 1;
+				int i1 = k - 1;
+
+				if (j * j + k * k <= i || l * l + i1 * i1 <= i || j * j + i1 * i1 <= i || l * l + k * k <= i) {
+					BlockPos blockpos = layerCenter.add(j, 0, k);
+					Material material = worldIn.getBlockState(blockpos).getMaterial();
+
+					if (material == Material.AIR || material == Material.LEAVES) {
+						setBlockAndNotifyAdequately(worldIn, blockpos, leavesMetadata);
+					}
+				}
+			}
+		}
+	}
+
+	/**
+	 * grow leaves in a circle
+	 */
+	protected void growLeavesLayer(World worldIn, BlockPos layerCenter, int width) {
+
+		int i = width * width;
+
+		for (int j = -width; j <= width; ++j) {
+			for (int k = -width; k <= width; ++k) {
+				if (j * j + k * k <= i) {
+					BlockPos blockpos = layerCenter.add(j, 0, k);
+					Material material = worldIn.getBlockState(blockpos).getMaterial();
+
+					if (material == Material.AIR || material == Material.LEAVES) {
+						setBlockAndNotifyAdequately(worldIn, blockpos, leavesMetadata);
+					}
+				}
+			}
+		}
+	}
+
 }

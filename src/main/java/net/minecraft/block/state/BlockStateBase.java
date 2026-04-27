@@ -3,74 +3,69 @@ package net.minecraft.block.state;
 import com.google.common.base.Function;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Iterables;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Map.Entry;
-import javax.annotation.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.properties.IProperty;
 
-public abstract class BlockStateBase implements IBlockState
-{
-    private static final Joiner COMMA_JOINER = Joiner.on(',');
-    private static final Function < Entry < IProperty<?>, Comparable<? >> , String > MAP_ENTRY_TO_STRING = new Function < Entry < IProperty<?>, Comparable<? >> , String > ()
-    {
-        @Nullable
-        public String apply(@Nullable Entry < IProperty<?>, Comparable<? >> p_apply_1_)
-        {
-            if (p_apply_1_ == null)
-            {
-                return "<NULL>";
-            }
-            else
-            {
-                IProperty<?> iproperty = (IProperty)p_apply_1_.getKey();
-                return iproperty.getName() + "=" + getPropertyName(iproperty, p_apply_1_.getValue());
-            }
-        }
-        private <T extends Comparable<T>> String getPropertyName(IProperty<T> property, Comparable<?> entry)
-        {
-            return property.getName((T)entry);
-        }
-    };
+import javax.annotation.Nullable;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.Map.Entry;
 
-    public <T extends Comparable<T>> IBlockState cycleProperty(IProperty<T> property)
-    {
-        return withProperty(property, cyclePropertyValue(property.getAllowedValues(), getValue(property)));
-    }
+public abstract class BlockStateBase implements IBlockState {
 
-    protected static <T> T cyclePropertyValue(Collection<T> values, T currentValue)
-    {
-        Iterator<T> iterator = values.iterator();
+	private static final Joiner COMMA_JOINER = Joiner.on(',');
+	private static final Function<Entry<IProperty<?>, Comparable<?>>, String> MAP_ENTRY_TO_STRING = new Function<Entry<IProperty<?>, Comparable<?>>, String>() {
+		@Nullable
+		public String apply(@Nullable Entry<IProperty<?>, Comparable<?>> p_apply_1_) {
 
-        while (iterator.hasNext())
-        {
-            if (iterator.next().equals(currentValue))
-            {
-                if (iterator.hasNext())
-                {
-                    return iterator.next();
-                }
+			if (p_apply_1_ == null) {
+				return "<NULL>";
+			} else {
+				IProperty<?> iproperty = p_apply_1_.getKey();
+				return iproperty.getName() + "=" + getPropertyName(iproperty, p_apply_1_.getValue());
+			}
+		}
 
-                return values.iterator().next();
-            }
-        }
+		private <T extends Comparable<T>> String getPropertyName(IProperty<T> property, Comparable<?> entry) {
 
-        return iterator.next();
-    }
+			return property.getName((T) entry);
+		}
+	};
 
-    public String toString()
-    {
-        StringBuilder stringbuilder = new StringBuilder();
-        stringbuilder.append(Block.REGISTRY.getNameForObject(getBlock()));
+	public <T extends Comparable<T>> IBlockState cycleProperty(IProperty<T> property) {
 
-        if (!getProperties().isEmpty())
-        {
-            stringbuilder.append("[");
-            COMMA_JOINER.appendTo(stringbuilder, Iterables.transform(getProperties().entrySet(), MAP_ENTRY_TO_STRING));
-            stringbuilder.append("]");
-        }
+		return withProperty(property, cyclePropertyValue(property.getAllowedValues(), getValue(property)));
+	}
 
-        return stringbuilder.toString();
-    }
+	protected static <T> T cyclePropertyValue(Collection<T> values, T currentValue) {
+
+		Iterator<T> iterator = values.iterator();
+
+		while (iterator.hasNext()) {
+			if (iterator.next().equals(currentValue)) {
+				if (iterator.hasNext()) {
+					return iterator.next();
+				}
+
+				return values.iterator().next();
+			}
+		}
+
+		return iterator.next();
+	}
+
+	public String toString() {
+
+		StringBuilder stringbuilder = new StringBuilder();
+		stringbuilder.append(Block.REGISTRY.getNameForObject(getBlock()));
+
+		if (!getProperties().isEmpty()) {
+			stringbuilder.append("[");
+			COMMA_JOINER.appendTo(stringbuilder, Iterables.transform(getProperties().entrySet(), MAP_ENTRY_TO_STRING));
+			stringbuilder.append("]");
+		}
+
+		return stringbuilder.toString();
+	}
+
 }

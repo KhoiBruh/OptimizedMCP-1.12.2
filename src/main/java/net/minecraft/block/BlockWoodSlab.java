@@ -1,6 +1,5 @@
 package net.minecraft.block;
 
-import java.util.Random;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -16,116 +15,115 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public abstract class BlockWoodSlab extends BlockSlab
-{
-    public static final PropertyEnum<BlockPlanks.EnumType> VARIANT = PropertyEnum.<BlockPlanks.EnumType>create("variant", BlockPlanks.EnumType.class);
+import java.util.Random;
 
-    public BlockWoodSlab()
-    {
-        super(Material.WOOD);
-        IBlockState iblockstate = blockState.getBaseState();
+public abstract class BlockWoodSlab extends BlockSlab {
 
-        if (!isDouble())
-        {
-            iblockstate = iblockstate.withProperty(HALF, BlockSlab.EnumBlockHalf.BOTTOM);
-        }
+	public static final PropertyEnum<BlockPlanks.EnumType> VARIANT = PropertyEnum.create("variant", BlockPlanks.EnumType.class);
 
-        setDefaultState(iblockstate.withProperty(VARIANT, BlockPlanks.EnumType.OAK));
-        setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
-    }
+	public BlockWoodSlab() {
 
-    /**
-     * Get the MapColor for this Block and the given BlockState
-     */
-    public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos)
-    {
-        return ((BlockPlanks.EnumType)state.getValue(VARIANT)).getMapColor();
-    }
+		super(Material.WOOD);
+		IBlockState iblockstate = blockState.getBaseState();
 
-    /**
-     * Get the Item that this Block should drop when harvested.
-     */
-    public Item getItemDropped(IBlockState state, Random rand, int fortune)
-    {
-        return Item.getItemFromBlock(Blocks.WOODEN_SLAB);
-    }
+		if (!isDouble()) {
+			iblockstate = iblockstate.withProperty(HALF, BlockSlab.EnumBlockHalf.BOTTOM);
+		}
 
-    public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state)
-    {
-        return new ItemStack(Blocks.WOODEN_SLAB, 1, ((BlockPlanks.EnumType)state.getValue(VARIANT)).getMetadata());
-    }
+		setDefaultState(iblockstate.withProperty(VARIANT, BlockPlanks.EnumType.OAK));
+		setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
+	}
 
-    /**
-     * Returns the slab block name with the type associated with it
-     */
-    public String getUnlocalizedName(int meta)
-    {
-        return super.getUnlocalizedName() + "." + BlockPlanks.EnumType.byMetadata(meta).getUnlocalizedName();
-    }
+	/**
+	 * Get the MapColor for this Block and the given BlockState
+	 */
+	public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
 
-    public IProperty<?> getVariantProperty()
-    {
-        return VARIANT;
-    }
+		return state.getValue(VARIANT).getMapColor();
+	}
 
-    public Comparable<?> getTypeForItem(ItemStack stack)
-    {
-        return BlockPlanks.EnumType.byMetadata(stack.getMetadata() & 7);
-    }
+	/**
+	 * Get the Item that this Block should drop when harvested.
+	 */
+	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
 
-    /**
-     * returns a list of blocks with the same ID, but different meta (eg: wood returns 4 blocks)
-     */
-    public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items)
-    {
-        for (BlockPlanks.EnumType blockplanks$enumtype : BlockPlanks.EnumType.values())
-        {
-            items.add(new ItemStack(this, 1, blockplanks$enumtype.getMetadata()));
-        }
-    }
+		return Item.getItemFromBlock(Blocks.WOODEN_SLAB);
+	}
 
-    /**
-     * Convert the given metadata into a BlockState for this Block
-     */
-    public IBlockState getStateFromMeta(int meta)
-    {
-        IBlockState iblockstate = getDefaultState().withProperty(VARIANT, BlockPlanks.EnumType.byMetadata(meta & 7));
+	public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
 
-        if (!isDouble())
-        {
-            iblockstate = iblockstate.withProperty(HALF, (meta & 8) == 0 ? BlockSlab.EnumBlockHalf.BOTTOM : BlockSlab.EnumBlockHalf.TOP);
-        }
+		return new ItemStack(Blocks.WOODEN_SLAB, 1, state.getValue(VARIANT).getMetadata());
+	}
 
-        return iblockstate;
-    }
+	/**
+	 * Returns the slab block name with the type associated with it
+	 */
+	public String getUnlocalizedName(int meta) {
 
-    /**
-     * Convert the BlockState into the correct metadata value
-     */
-    public int getMetaFromState(IBlockState state)
-    {
-        int i = 0;
-        i = i | ((BlockPlanks.EnumType)state.getValue(VARIANT)).getMetadata();
+		return super.getUnlocalizedName() + "." + BlockPlanks.EnumType.byMetadata(meta).getUnlocalizedName();
+	}
 
-        if (!isDouble() && state.getValue(HALF) == BlockSlab.EnumBlockHalf.TOP)
-        {
-            i |= 8;
-        }
+	public IProperty<?> getVariantProperty() {
 
-        return i;
-    }
+		return VARIANT;
+	}
 
-    protected BlockStateContainer createBlockState()
-    {
-        return isDouble() ? new BlockStateContainer(this, new IProperty[] {VARIANT}) : new BlockStateContainer(this, new IProperty[] {HALF, VARIANT});
-    }
+	public Comparable<?> getTypeForItem(ItemStack stack) {
 
-    /**
-     * Gets the metadata of the item this Block can drop. This method is called when the block gets destroyed. It
-     * returns the metadata of the dropped item based on the old metadata of the block.
-     */
-    public int damageDropped(IBlockState state)
-    {
-        return ((BlockPlanks.EnumType)state.getValue(VARIANT)).getMetadata();
-    }
+		return BlockPlanks.EnumType.byMetadata(stack.getMetadata() & 7);
+	}
+
+	/**
+	 * returns a list of blocks with the same ID, but different meta (eg: wood returns 4 blocks)
+	 */
+	public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
+
+		for (BlockPlanks.EnumType blockplanks$enumtype : BlockPlanks.EnumType.values()) {
+			items.add(new ItemStack(this, 1, blockplanks$enumtype.getMetadata()));
+		}
+	}
+
+	/**
+	 * Convert the given metadata into a BlockState for this Block
+	 */
+	public IBlockState getStateFromMeta(int meta) {
+
+		IBlockState iblockstate = getDefaultState().withProperty(VARIANT, BlockPlanks.EnumType.byMetadata(meta & 7));
+
+		if (!isDouble()) {
+			iblockstate = iblockstate.withProperty(HALF, (meta & 8) == 0 ? BlockSlab.EnumBlockHalf.BOTTOM : BlockSlab.EnumBlockHalf.TOP);
+		}
+
+		return iblockstate;
+	}
+
+	/**
+	 * Convert the BlockState into the correct metadata value
+	 */
+	public int getMetaFromState(IBlockState state) {
+
+		int i = 0;
+		i = i | state.getValue(VARIANT).getMetadata();
+
+		if (!isDouble() && state.getValue(HALF) == BlockSlab.EnumBlockHalf.TOP) {
+			i |= 8;
+		}
+
+		return i;
+	}
+
+	protected BlockStateContainer createBlockState() {
+
+		return isDouble() ? new BlockStateContainer(this, VARIANT) : new BlockStateContainer(this, HALF, VARIANT);
+	}
+
+	/**
+	 * Gets the metadata of the item this Block can drop. This method is called when the block gets destroyed. It
+	 * returns the metadata of the dropped item based on the old metadata of the block.
+	 */
+	public int damageDropped(IBlockState state) {
+
+		return state.getValue(VARIANT).getMetadata();
+	}
+
 }

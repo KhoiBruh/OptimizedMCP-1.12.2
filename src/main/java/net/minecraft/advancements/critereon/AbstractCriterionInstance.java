@@ -3,22 +3,23 @@ package net.minecraft.advancements.critereon;
 import net.minecraft.advancements.ICriterionInstance;
 import net.minecraft.util.ResourceLocation;
 
-public class AbstractCriterionInstance implements ICriterionInstance
-{
-    private final ResourceLocation criterion;
+public class AbstractCriterionInstance implements ICriterionInstance {
 
-    public AbstractCriterionInstance(ResourceLocation criterionIn)
-    {
-        criterion = criterionIn;
-    }
+	private final ResourceLocation criterion;
 
-    public ResourceLocation getId()
-    {
-        return criterion;
-    }
+	public AbstractCriterionInstance(ResourceLocation criterionIn) {
 
-    public String toString()
-    {
-        return "AbstractCriterionInstance{criterion=" + criterion + '}';
-    }
+		criterion = criterionIn;
+	}
+
+	public ResourceLocation getId() {
+
+		return criterion;
+	}
+
+	public String toString() {
+
+		return "AbstractCriterionInstance{criterion=" + criterion + '}';
+	}
+
 }

@@ -1,30 +1,32 @@
 package net.minecraft.world;
 
-import javax.annotation.Nullable;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
 
-public interface IBlockAccess
-{
-    @Nullable
-    TileEntity getTileEntity(BlockPos pos);
+import javax.annotation.Nullable;
 
-    int getCombinedLight(BlockPos pos, int lightValue);
+public interface IBlockAccess {
 
-    IBlockState getBlockState(BlockPos pos);
+	@Nullable
+	TileEntity getTileEntity(BlockPos pos);
 
-    /**
-     * Checks to see if an air block exists at the provided location. Note that this only checks to see if the blocks
-     * material is set to air, meaning it is possible for non-vanilla blocks to still pass this check.
-     */
-    boolean isAirBlock(BlockPos pos);
+	int getCombinedLight(BlockPos pos, int lightValue);
 
-    Biome getBiome(BlockPos pos);
+	IBlockState getBlockState(BlockPos pos);
 
-    int getStrongPower(BlockPos pos, EnumFacing direction);
+	/**
+	 * Checks to see if an air block exists at the provided location. Note that this only checks to see if the blocks
+	 * material is set to air, meaning it is possible for non-vanilla blocks to still pass this check.
+	 */
+	boolean isAirBlock(BlockPos pos);
 
-    WorldType getWorldType();
+	Biome getBiome(BlockPos pos);
+
+	int getStrongPower(BlockPos pos, EnumFacing direction);
+
+	WorldType getWorldType();
+
 }

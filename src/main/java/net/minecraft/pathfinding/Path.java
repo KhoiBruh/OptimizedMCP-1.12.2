@@ -1,186 +1,184 @@
 package net.minecraft.pathfinding;
 
-import javax.annotation.Nullable;
 import net.minecraft.entity.Entity;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.math.Vec3d;
 
-public class Path
-{
-    /** The actual points in the path */
-    private final PathPoint[] points;
-    private PathPoint[] openSet = new PathPoint[0];
-    private PathPoint[] closedSet = new PathPoint[0];
-    private PathPoint target;
+import javax.annotation.Nullable;
 
-    /** PathEntity Array Index the Entity is currently targeting */
-    private int currentPathIndex;
+public class Path {
 
-    /** The total length of the path */
-    private int pathLength;
+	/**
+	 * The actual points in the path
+	 */
+	private final PathPoint[] points;
+	private PathPoint[] openSet = new PathPoint[0];
+	private PathPoint[] closedSet = new PathPoint[0];
+	private PathPoint target;
 
-    public Path(PathPoint[] pathpoints)
-    {
-        points = pathpoints;
-        pathLength = pathpoints.length;
-    }
+	/**
+	 * PathEntity Array Index the Entity is currently targeting
+	 */
+	private int currentPathIndex;
 
-    /**
-     * Directs this path to the next point in its array
-     */
-    public void incrementPathIndex()
-    {
-        ++currentPathIndex;
-    }
+	/**
+	 * The total length of the path
+	 */
+	private int pathLength;
 
-    /**
-     * Returns true if this path has reached the end
-     */
-    public boolean isFinished()
-    {
-        return currentPathIndex >= pathLength;
-    }
+	public Path(PathPoint[] pathpoints) {
 
-    @Nullable
+		points = pathpoints;
+		pathLength = pathpoints.length;
+	}
 
-    /**
-     * returns the last PathPoint of the Array
-     */
-    public PathPoint getFinalPathPoint()
-    {
-        return pathLength > 0 ? points[pathLength - 1] : null;
-    }
+	/**
+	 * Directs this path to the next point in its array
+	 */
+	public void incrementPathIndex() {
 
-    /**
-     * return the PathPoint located at the specified PathIndex, usually the current one
-     */
-    public PathPoint getPathPointFromIndex(int index)
-    {
-        return points[index];
-    }
+		++currentPathIndex;
+	}
 
-    public void setPoint(int index, PathPoint point)
-    {
-        points[index] = point;
-    }
+	/**
+	 * Returns true if this path has reached the end
+	 */
+	public boolean isFinished() {
 
-    public int getCurrentPathLength()
-    {
-        return pathLength;
-    }
+		return currentPathIndex >= pathLength;
+	}
 
-    public void setCurrentPathLength(int length)
-    {
-        pathLength = length;
-    }
+	@Nullable
 
-    public int getCurrentPathIndex()
-    {
-        return currentPathIndex;
-    }
+	/**
+	 * returns the last PathPoint of the Array
+	 */
+	public PathPoint getFinalPathPoint() {
 
-    public void setCurrentPathIndex(int currentPathIndexIn)
-    {
-        currentPathIndex = currentPathIndexIn;
-    }
+		return pathLength > 0 ? points[pathLength - 1] : null;
+	}
 
-    /**
-     * Gets the vector of the PathPoint associated with the given index.
-     */
-    public Vec3d getVectorFromIndex(Entity entityIn, int index)
-    {
-        double d0 = (double) points[index].x + (double)((int)(entityIn.width + 1.0F)) * 0.5D;
-        double d1 = (double) points[index].y;
-        double d2 = (double) points[index].z + (double)((int)(entityIn.width + 1.0F)) * 0.5D;
-        return new Vec3d(d0, d1, d2);
-    }
+	/**
+	 * return the PathPoint located at the specified PathIndex, usually the current one
+	 */
+	public PathPoint getPathPointFromIndex(int index) {
 
-    /**
-     * returns the current PathEntity target node as Vec3D
-     */
-    public Vec3d getPosition(Entity entityIn)
-    {
-        return getVectorFromIndex(entityIn, currentPathIndex);
-    }
+		return points[index];
+	}
 
-    public Vec3d getCurrentPos()
-    {
-        PathPoint pathpoint = points[currentPathIndex];
-        return new Vec3d((double)pathpoint.x, (double)pathpoint.y, (double)pathpoint.z);
-    }
+	public void setPoint(int index, PathPoint point) {
 
-    /**
-     * Returns true if the EntityPath are the same. Non instance related equals.
-     */
-    public boolean isSamePath(Path pathentityIn)
-    {
-        if (pathentityIn == null)
-        {
-            return false;
-        }
-        else if (pathentityIn.points.length != points.length)
-        {
-            return false;
-        }
-        else
-        {
-            for (int i = 0; i < points.length; ++i)
-            {
-                if (points[i].x != pathentityIn.points[i].x || points[i].y != pathentityIn.points[i].y || points[i].z != pathentityIn.points[i].z)
-                {
-                    return false;
-                }
-            }
+		points[index] = point;
+	}
 
-            return true;
-        }
-    }
+	public int getCurrentPathLength() {
 
-    public PathPoint[] getOpenSet()
-    {
-        return openSet;
-    }
+		return pathLength;
+	}
 
-    public PathPoint[] getClosedSet()
-    {
-        return closedSet;
-    }
+	public void setCurrentPathLength(int length) {
 
-    public PathPoint getTarget()
-    {
-        return target;
-    }
+		pathLength = length;
+	}
 
-    public static Path read(PacketBuffer buf)
-    {
-        int i = buf.readInt();
-        PathPoint pathpoint = PathPoint.createFromBuffer(buf);
-        PathPoint[] apathpoint = new PathPoint[buf.readInt()];
+	public int getCurrentPathIndex() {
 
-        for (int j = 0; j < apathpoint.length; ++j)
-        {
-            apathpoint[j] = PathPoint.createFromBuffer(buf);
-        }
+		return currentPathIndex;
+	}
 
-        PathPoint[] apathpoint1 = new PathPoint[buf.readInt()];
+	public void setCurrentPathIndex(int currentPathIndexIn) {
 
-        for (int k = 0; k < apathpoint1.length; ++k)
-        {
-            apathpoint1[k] = PathPoint.createFromBuffer(buf);
-        }
+		currentPathIndex = currentPathIndexIn;
+	}
 
-        PathPoint[] apathpoint2 = new PathPoint[buf.readInt()];
+	/**
+	 * Gets the vector of the PathPoint associated with the given index.
+	 */
+	public Vec3d getVectorFromIndex(Entity entityIn, int index) {
 
-        for (int l = 0; l < apathpoint2.length; ++l)
-        {
-            apathpoint2[l] = PathPoint.createFromBuffer(buf);
-        }
+		double d0 = (double) points[index].x + (double) ((int) (entityIn.width + 1.0F)) * 0.5D;
+		double d1 = points[index].y;
+		double d2 = (double) points[index].z + (double) ((int) (entityIn.width + 1.0F)) * 0.5D;
+		return new Vec3d(d0, d1, d2);
+	}
 
-        Path path = new Path(apathpoint);
-        path.openSet = apathpoint1;
-        path.closedSet = apathpoint2;
-        path.target = pathpoint;
-        path.currentPathIndex = i;
-        return path;
-    }
+	/**
+	 * returns the current PathEntity target node as Vec3D
+	 */
+	public Vec3d getPosition(Entity entityIn) {
+
+		return getVectorFromIndex(entityIn, currentPathIndex);
+	}
+
+	public Vec3d getCurrentPos() {
+
+		PathPoint pathpoint = points[currentPathIndex];
+		return new Vec3d(pathpoint.x, pathpoint.y, pathpoint.z);
+	}
+
+	/**
+	 * Returns true if the EntityPath are the same. Non instance related equals.
+	 */
+	public boolean isSamePath(Path pathentityIn) {
+
+		if (pathentityIn == null) {
+			return false;
+		} else if (pathentityIn.points.length != points.length) {
+			return false;
+		} else {
+			for (int i = 0; i < points.length; ++i) {
+				if (points[i].x != pathentityIn.points[i].x || points[i].y != pathentityIn.points[i].y || points[i].z != pathentityIn.points[i].z) {
+					return false;
+				}
+			}
+
+			return true;
+		}
+	}
+
+	public PathPoint[] getOpenSet() {
+
+		return openSet;
+	}
+
+	public PathPoint[] getClosedSet() {
+
+		return closedSet;
+	}
+
+	public PathPoint getTarget() {
+
+		return target;
+	}
+
+	public static Path read(PacketBuffer buf) {
+
+		int i = buf.readInt();
+		PathPoint pathpoint = PathPoint.createFromBuffer(buf);
+		PathPoint[] apathpoint = new PathPoint[buf.readInt()];
+
+		for (int j = 0; j < apathpoint.length; ++j) {
+			apathpoint[j] = PathPoint.createFromBuffer(buf);
+		}
+
+		PathPoint[] apathpoint1 = new PathPoint[buf.readInt()];
+
+		for (int k = 0; k < apathpoint1.length; ++k) {
+			apathpoint1[k] = PathPoint.createFromBuffer(buf);
+		}
+
+		PathPoint[] apathpoint2 = new PathPoint[buf.readInt()];
+
+		for (int l = 0; l < apathpoint2.length; ++l) {
+			apathpoint2[l] = PathPoint.createFromBuffer(buf);
+		}
+
+		Path path = new Path(apathpoint);
+		path.openSet = apathpoint1;
+		path.closedSet = apathpoint2;
+		path.target = pathpoint;
+		path.currentPathIndex = i;
+		return path;
+	}
+
 }

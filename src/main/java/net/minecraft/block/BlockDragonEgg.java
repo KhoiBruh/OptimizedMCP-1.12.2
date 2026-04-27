@@ -1,6 +1,5 @@
 package net.minecraft.block;
 
-import java.util.Random;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;
@@ -15,160 +14,149 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class BlockDragonEgg extends Block
-{
-    protected static final AxisAlignedBB DRAGON_EGG_AABB = new AxisAlignedBB(0.0625D, 0.0D, 0.0625D, 0.9375D, 1.0D, 0.9375D);
+import java.util.Random;
 
-    public BlockDragonEgg()
-    {
-        super(Material.DRAGON_EGG, MapColor.BLACK);
-    }
+public class BlockDragonEgg extends Block {
 
-    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
-    {
-        return DRAGON_EGG_AABB;
-    }
+	protected static final AxisAlignedBB DRAGON_EGG_AABB = new AxisAlignedBB(0.0625D, 0.0D, 0.0625D, 0.9375D, 1.0D, 0.9375D);
 
-    /**
-     * Called after the block is set in the Chunk data, but before the Tile Entity is set
-     */
-    public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state)
-    {
-        worldIn.scheduleUpdate(pos, this, tickRate(worldIn));
-    }
+	public BlockDragonEgg() {
 
-    /**
-     * Called when a neighboring block was changed and marks that this state should perform any checks during a neighbor
-     * change. Cases may include when redstone power is updated, cactus blocks popping off due to a neighboring solid
-     * block, etc.
-     */
-    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos)
-    {
-        worldIn.scheduleUpdate(pos, this, tickRate(worldIn));
-    }
+		super(Material.DRAGON_EGG, MapColor.BLACK);
+	}
 
-    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
-    {
-        checkFall(worldIn, pos);
-    }
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
 
-    private void checkFall(World worldIn, BlockPos pos)
-    {
-        if (BlockFalling.canFallThrough(worldIn.getBlockState(pos.down())) && pos.getY() >= 0)
-        {
-            int i = 32;
+		return DRAGON_EGG_AABB;
+	}
 
-            if (!BlockFalling.fallInstantly && worldIn.isAreaLoaded(pos.add(-32, -32, -32), pos.add(32, 32, 32)))
-            {
-                worldIn.spawnEntity(new EntityFallingBlock(worldIn, (double)((float)pos.getX() + 0.5F), (double)pos.getY(), (double)((float)pos.getZ() + 0.5F), getDefaultState()));
-            }
-            else
-            {
-                worldIn.setBlockToAir(pos);
-                BlockPos blockpos;
+	/**
+	 * Called after the block is set in the Chunk data, but before the Tile Entity is set
+	 */
+	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
 
-                for (blockpos = pos; BlockFalling.canFallThrough(worldIn.getBlockState(blockpos)) && blockpos.getY() > 0; blockpos = blockpos.down())
-                {
-                    ;
-                }
+		worldIn.scheduleUpdate(pos, this, tickRate(worldIn));
+	}
 
-                if (blockpos.getY() > 0)
-                {
-                    worldIn.setBlockState(blockpos, getDefaultState(), 2);
-                }
-            }
-        }
-    }
+	/**
+	 * Called when a neighboring block was changed and marks that this state should perform any checks during a neighbor
+	 * change. Cases may include when redstone power is updated, cactus blocks popping off due to a neighboring solid
+	 * block, etc.
+	 */
+	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
 
-    /**
-     * Called when the block is right clicked by a player.
-     */
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
-    {
-        teleport(worldIn, pos);
-        return true;
-    }
+		worldIn.scheduleUpdate(pos, this, tickRate(worldIn));
+	}
 
-    public void onBlockClicked(World worldIn, BlockPos pos, EntityPlayer playerIn)
-    {
-        teleport(worldIn, pos);
-    }
+	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
 
-    private void teleport(World worldIn, BlockPos pos)
-    {
-        IBlockState iblockstate = worldIn.getBlockState(pos);
+		checkFall(worldIn, pos);
+	}
 
-        if (iblockstate.getBlock() == this)
-        {
-            for (int i = 0; i < 1000; ++i)
-            {
-                BlockPos blockpos = pos.add(worldIn.rand.nextInt(16) - worldIn.rand.nextInt(16), worldIn.rand.nextInt(8) - worldIn.rand.nextInt(8), worldIn.rand.nextInt(16) - worldIn.rand.nextInt(16));
+	private void checkFall(World worldIn, BlockPos pos) {
 
-                if (worldIn.getBlockState(blockpos).getBlock().blockMaterial == Material.AIR)
-                {
-                    if (worldIn.isRemote)
-                    {
-                        for (int j = 0; j < 128; ++j)
-                        {
-                            double d0 = worldIn.rand.nextDouble();
-                            float f = (worldIn.rand.nextFloat() - 0.5F) * 0.2F;
-                            float f1 = (worldIn.rand.nextFloat() - 0.5F) * 0.2F;
-                            float f2 = (worldIn.rand.nextFloat() - 0.5F) * 0.2F;
-                            double d1 = (double)blockpos.getX() + (double)(pos.getX() - blockpos.getX()) * d0 + (worldIn.rand.nextDouble() - 0.5D) + 0.5D;
-                            double d2 = (double)blockpos.getY() + (double)(pos.getY() - blockpos.getY()) * d0 + worldIn.rand.nextDouble() - 0.5D;
-                            double d3 = (double)blockpos.getZ() + (double)(pos.getZ() - blockpos.getZ()) * d0 + (worldIn.rand.nextDouble() - 0.5D) + 0.5D;
-                            worldIn.spawnParticle(EnumParticleTypes.PORTAL, d1, d2, d3, (double)f, (double)f1, (double)f2);
-                        }
-                    }
-                    else
-                    {
-                        worldIn.setBlockState(blockpos, iblockstate, 2);
-                        worldIn.setBlockToAir(pos);
-                    }
+		if (BlockFalling.canFallThrough(worldIn.getBlockState(pos.down())) && pos.getY() >= 0) {
+			int i = 32;
 
-                    return;
-                }
-            }
-        }
-    }
+			if (!BlockFalling.fallInstantly && worldIn.isAreaLoaded(pos.add(-32, -32, -32), pos.add(32, 32, 32))) {
+				worldIn.spawnEntity(new EntityFallingBlock(worldIn, (float) pos.getX() + 0.5F, pos.getY(), (float) pos.getZ() + 0.5F, getDefaultState()));
+			} else {
+				worldIn.setBlockToAir(pos);
+				BlockPos blockpos;
 
-    /**
-     * How many world ticks before ticking
-     */
-    public int tickRate(World worldIn)
-    {
-        return 5;
-    }
+				for (blockpos = pos; BlockFalling.canFallThrough(worldIn.getBlockState(blockpos)) && blockpos.getY() > 0; blockpos = blockpos.down()) {
+				}
 
-    /**
-     * Used to determine ambient occlusion and culling when rebuilding chunks for render
-     */
-    public boolean isOpaqueCube(IBlockState state)
-    {
-        return false;
-    }
+				if (blockpos.getY() > 0) {
+					worldIn.setBlockState(blockpos, getDefaultState(), 2);
+				}
+			}
+		}
+	}
 
-    public boolean isFullCube(IBlockState state)
-    {
-        return false;
-    }
+	/**
+	 * Called when the block is right clicked by a player.
+	 */
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 
-    public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side)
-    {
-        return true;
-    }
+		teleport(worldIn, pos);
+		return true;
+	}
 
-    /**
-     * Get the geometry of the queried face at the given position and state. This is used to decide whether things like
-     * buttons are allowed to be placed on the face, or how glass panes connect to the face, among other things.
-     * <p>
-     * Common values are {@code SOLID}, which is the default, and {@code UNDEFINED}, which represents something that
-     * does not fit the other descriptions and will generally cause other things not to connect to the face.
+	public void onBlockClicked(World worldIn, BlockPos pos, EntityPlayer playerIn) {
 
-     * @return an approximation of the form of the given face
-     */
-    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face)
-    {
-        return BlockFaceShape.UNDEFINED;
-    }
+		teleport(worldIn, pos);
+	}
+
+	private void teleport(World worldIn, BlockPos pos) {
+
+		IBlockState iblockstate = worldIn.getBlockState(pos);
+
+		if (iblockstate.getBlock() == this) {
+			for (int i = 0; i < 1000; ++i) {
+				BlockPos blockpos = pos.add(worldIn.rand.nextInt(16) - worldIn.rand.nextInt(16), worldIn.rand.nextInt(8) - worldIn.rand.nextInt(8), worldIn.rand.nextInt(16) - worldIn.rand.nextInt(16));
+
+				if (worldIn.getBlockState(blockpos).getBlock().blockMaterial == Material.AIR) {
+					if (worldIn.isRemote) {
+						for (int j = 0; j < 128; ++j) {
+							double d0 = worldIn.rand.nextDouble();
+							float f = (worldIn.rand.nextFloat() - 0.5F) * 0.2F;
+							float f1 = (worldIn.rand.nextFloat() - 0.5F) * 0.2F;
+							float f2 = (worldIn.rand.nextFloat() - 0.5F) * 0.2F;
+							double d1 = (double) blockpos.getX() + (double) (pos.getX() - blockpos.getX()) * d0 + (worldIn.rand.nextDouble() - 0.5D) + 0.5D;
+							double d2 = (double) blockpos.getY() + (double) (pos.getY() - blockpos.getY()) * d0 + worldIn.rand.nextDouble() - 0.5D;
+							double d3 = (double) blockpos.getZ() + (double) (pos.getZ() - blockpos.getZ()) * d0 + (worldIn.rand.nextDouble() - 0.5D) + 0.5D;
+							worldIn.spawnParticle(EnumParticleTypes.PORTAL, d1, d2, d3, f, f1, f2);
+						}
+					} else {
+						worldIn.setBlockState(blockpos, iblockstate, 2);
+						worldIn.setBlockToAir(pos);
+					}
+
+					return;
+				}
+			}
+		}
+	}
+
+	/**
+	 * How many world ticks before ticking
+	 */
+	public int tickRate(World worldIn) {
+
+		return 5;
+	}
+
+	/**
+	 * Used to determine ambient occlusion and culling when rebuilding chunks for render
+	 */
+	public boolean isOpaqueCube(IBlockState state) {
+
+		return false;
+	}
+
+	public boolean isFullCube(IBlockState state) {
+
+		return false;
+	}
+
+	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
+
+		return true;
+	}
+
+	/**
+	 * Get the geometry of the queried face at the given position and state. This is used to decide whether things like
+	 * buttons are allowed to be placed on the face, or how glass panes connect to the face, among other things.
+	 * <p>
+	 * Common values are {@code SOLID}, which is the default, and {@code UNDEFINED}, which represents something that
+	 * does not fit the other descriptions and will generally cause other things not to connect to the face.
+	 *
+	 * @return an approximation of the form of the given face
+	 */
+	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
+
+		return BlockFaceShape.UNDEFINED;
+	}
+
 }

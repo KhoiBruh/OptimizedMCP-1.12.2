@@ -1,123 +1,123 @@
 package net.minecraft.world;
 
-import java.util.UUID;
 import net.minecraft.util.text.ITextComponent;
 
-public abstract class BossInfo
-{
-    private final UUID uniqueId;
-    protected ITextComponent name;
-    protected float percent;
-    protected BossInfo.Color color;
-    protected BossInfo.Overlay overlay;
-    protected boolean darkenSky;
-    protected boolean playEndBossMusic;
-    protected boolean createFog;
+import java.util.UUID;
 
-    public BossInfo(UUID uniqueIdIn, ITextComponent nameIn, BossInfo.Color colorIn, BossInfo.Overlay overlayIn)
-    {
-        uniqueId = uniqueIdIn;
-        name = nameIn;
-        color = colorIn;
-        overlay = overlayIn;
-        percent = 1.0F;
-    }
+public abstract class BossInfo {
 
-    public UUID getUniqueId()
-    {
-        return uniqueId;
-    }
+	private final UUID uniqueId;
+	protected ITextComponent name;
+	protected float percent;
+	protected BossInfo.Color color;
+	protected BossInfo.Overlay overlay;
+	protected boolean darkenSky;
+	protected boolean playEndBossMusic;
+	protected boolean createFog;
 
-    public ITextComponent getName()
-    {
-        return name;
-    }
+	public BossInfo(UUID uniqueIdIn, ITextComponent nameIn, BossInfo.Color colorIn, BossInfo.Overlay overlayIn) {
 
-    public void setName(ITextComponent nameIn)
-    {
-        name = nameIn;
-    }
+		uniqueId = uniqueIdIn;
+		name = nameIn;
+		color = colorIn;
+		overlay = overlayIn;
+		percent = 1.0F;
+	}
 
-    public float getPercent()
-    {
-        return percent;
-    }
+	public UUID getUniqueId() {
 
-    public void setPercent(float percentIn)
-    {
-        percent = percentIn;
-    }
+		return uniqueId;
+	}
 
-    public BossInfo.Color getColor()
-    {
-        return color;
-    }
+	public ITextComponent getName() {
 
-    public void setColor(BossInfo.Color colorIn)
-    {
-        color = colorIn;
-    }
+		return name;
+	}
 
-    public BossInfo.Overlay getOverlay()
-    {
-        return overlay;
-    }
+	public void setName(ITextComponent nameIn) {
 
-    public void setOverlay(BossInfo.Overlay overlayIn)
-    {
-        overlay = overlayIn;
-    }
+		name = nameIn;
+	}
 
-    public boolean shouldDarkenSky()
-    {
-        return darkenSky;
-    }
+	public float getPercent() {
 
-    public BossInfo setDarkenSky(boolean darkenSkyIn)
-    {
-        darkenSky = darkenSkyIn;
-        return this;
-    }
+		return percent;
+	}
 
-    public boolean shouldPlayEndBossMusic()
-    {
-        return playEndBossMusic;
-    }
+	public void setPercent(float percentIn) {
 
-    public BossInfo setPlayEndBossMusic(boolean playEndBossMusicIn)
-    {
-        playEndBossMusic = playEndBossMusicIn;
-        return this;
-    }
+		percent = percentIn;
+	}
 
-    public BossInfo setCreateFog(boolean createFogIn)
-    {
-        createFog = createFogIn;
-        return this;
-    }
+	public BossInfo.Color getColor() {
 
-    public boolean shouldCreateFog()
-    {
-        return createFog;
-    }
+		return color;
+	}
 
-    public static enum Color
-    {
-        PINK,
-        BLUE,
-        RED,
-        GREEN,
-        YELLOW,
-        PURPLE,
-        WHITE;
-    }
+	public void setColor(BossInfo.Color colorIn) {
 
-    public static enum Overlay
-    {
-        PROGRESS,
-        NOTCHED_6,
-        NOTCHED_10,
-        NOTCHED_12,
-        NOTCHED_20;
-    }
+		color = colorIn;
+	}
+
+	public BossInfo.Overlay getOverlay() {
+
+		return overlay;
+	}
+
+	public void setOverlay(BossInfo.Overlay overlayIn) {
+
+		overlay = overlayIn;
+	}
+
+	public boolean shouldDarkenSky() {
+
+		return darkenSky;
+	}
+
+	public BossInfo setDarkenSky(boolean darkenSkyIn) {
+
+		darkenSky = darkenSkyIn;
+		return this;
+	}
+
+	public boolean shouldPlayEndBossMusic() {
+
+		return playEndBossMusic;
+	}
+
+	public BossInfo setPlayEndBossMusic(boolean playEndBossMusicIn) {
+
+		playEndBossMusic = playEndBossMusicIn;
+		return this;
+	}
+
+	public BossInfo setCreateFog(boolean createFogIn) {
+
+		createFog = createFogIn;
+		return this;
+	}
+
+	public boolean shouldCreateFog() {
+
+		return createFog;
+	}
+
+	public enum Color {
+		PINK,
+		BLUE,
+		RED,
+		GREEN,
+		YELLOW,
+		PURPLE,
+		WHITE
+	}
+
+	public enum Overlay {
+		PROGRESS,
+		NOTCHED_6,
+		NOTCHED_10,
+		NOTCHED_12,
+		NOTCHED_20
+	}
+
 }

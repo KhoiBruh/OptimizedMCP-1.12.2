@@ -14,374 +14,327 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
-public class EntityXPOrb extends Entity
-{
-    /**
-     * A constantly increasing value that RenderXPOrb uses to control the colour shifting (Green / yellow)
-     */
-    public int xpColor;
+public class EntityXPOrb extends Entity {
 
-    /** The age of the XP orb in ticks. */
-    public int xpOrbAge;
-    public int delayBeforeCanPickup;
+	/**
+	 * A constantly increasing value that RenderXPOrb uses to control the colour shifting (Green / yellow)
+	 */
+	public int xpColor;
 
-    /** The health of this XP orb. */
-    private int xpOrbHealth = 5;
+	/**
+	 * The age of the XP orb in ticks.
+	 */
+	public int xpOrbAge;
+	public int delayBeforeCanPickup;
 
-    /** This is how much XP this orb has. */
-    private int xpValue;
+	/**
+	 * The health of this XP orb.
+	 */
+	private int xpOrbHealth = 5;
 
-    /** The closest EntityPlayer to this orb. */
-    private EntityPlayer closestPlayer;
+	/**
+	 * This is how much XP this orb has.
+	 */
+	private int xpValue;
 
-    /** Threshold color for tracking players */
-    private int xpTargetColor;
+	/**
+	 * The closest EntityPlayer to this orb.
+	 */
+	private EntityPlayer closestPlayer;
 
-    public EntityXPOrb(World worldIn, double x, double y, double z, int expValue)
-    {
-        super(worldIn);
-        setSize(0.5F, 0.5F);
-        setPosition(x, y, z);
-        rotationYaw = (float)(Math.random() * 360.0D);
-        motionX = (double)((float)(Math.random() * 0.20000000298023224D - 0.10000000149011612D) * 2.0F);
-        motionY = (double)((float)(Math.random() * 0.2D) * 2.0F);
-        motionZ = (double)((float)(Math.random() * 0.20000000298023224D - 0.10000000149011612D) * 2.0F);
-        xpValue = expValue;
-    }
+	/**
+	 * Threshold color for tracking players
+	 */
+	private int xpTargetColor;
 
-    /**
-     * returns if this entity triggers Block.onEntityWalking on the blocks they walk on. used for spiders and wolves to
-     * prevent them from trampling crops
-     */
-    protected boolean canTriggerWalking()
-    {
-        return false;
-    }
+	public EntityXPOrb(World worldIn, double x, double y, double z, int expValue) {
 
-    public EntityXPOrb(World worldIn)
-    {
-        super(worldIn);
-        setSize(0.25F, 0.25F);
-    }
+		super(worldIn);
+		setSize(0.5F, 0.5F);
+		setPosition(x, y, z);
+		rotationYaw = (float) (Math.random() * 360.0D);
+		motionX = (float) (Math.random() * 0.20000000298023224D - 0.10000000149011612D) * 2.0F;
+		motionY = (float) (Math.random() * 0.2D) * 2.0F;
+		motionZ = (float) (Math.random() * 0.20000000298023224D - 0.10000000149011612D) * 2.0F;
+		xpValue = expValue;
+	}
 
-    protected void entityInit()
-    {
-    }
+	/**
+	 * returns if this entity triggers Block.onEntityWalking on the blocks they walk on. used for spiders and wolves to
+	 * prevent them from trampling crops
+	 */
+	protected boolean canTriggerWalking() {
 
-    public int getBrightnessForRender()
-    {
-        float f = 0.5F;
-        f = MathHelper.clamp(f, 0.0F, 1.0F);
-        int i = super.getBrightnessForRender();
-        int j = i & 255;
-        int k = i >> 16 & 255;
-        j = j + (int)(f * 15.0F * 16.0F);
+		return false;
+	}
 
-        if (j > 240)
-        {
-            j = 240;
-        }
+	public EntityXPOrb(World worldIn) {
 
-        return j | k << 16;
-    }
+		super(worldIn);
+		setSize(0.25F, 0.25F);
+	}
 
-    /**
-     * Called to update the entity's position/logic.
-     */
-    public void onUpdate()
-    {
-        super.onUpdate();
+	protected void entityInit() {
 
-        if (delayBeforeCanPickup > 0)
-        {
-            --delayBeforeCanPickup;
-        }
+	}
 
-        prevPosX = posX;
-        prevPosY = posY;
-        prevPosZ = posZ;
+	public int getBrightnessForRender() {
 
-        if (!hasNoGravity())
-        {
-            motionY -= 0.029999999329447746D;
-        }
+		float f = 0.5F;
+		f = MathHelper.clamp(f, 0.0F, 1.0F);
+		int i = super.getBrightnessForRender();
+		int j = i & 255;
+		int k = i >> 16 & 255;
+		j = j + (int) (f * 15.0F * 16.0F);
 
-        if (world.getBlockState(new BlockPos(this)).getMaterial() == Material.LAVA)
-        {
-            motionY = 0.20000000298023224D;
-            motionX = (double)((rand.nextFloat() - rand.nextFloat()) * 0.2F);
-            motionZ = (double)((rand.nextFloat() - rand.nextFloat()) * 0.2F);
-            playSound(SoundEvents.ENTITY_GENERIC_BURN, 0.4F, 2.0F + rand.nextFloat() * 0.4F);
-        }
+		if (j > 240) {
+			j = 240;
+		}
 
-        pushOutOfBlocks(posX, (getEntityBoundingBox().minY + getEntityBoundingBox().maxY) / 2.0D, posZ);
-        double d0 = 8.0D;
+		return j | k << 16;
+	}
 
-        if (xpTargetColor < xpColor - 20 + getEntityId() % 100)
-        {
-            if (closestPlayer == null || closestPlayer.getDistanceSq(this) > 64.0D)
-            {
-                closestPlayer = world.getClosestPlayerToEntity(this, 8.0D);
-            }
+	/**
+	 * Called to update the entity's position/logic.
+	 */
+	public void onUpdate() {
 
-            xpTargetColor = xpColor;
-        }
+		super.onUpdate();
 
-        if (closestPlayer != null && closestPlayer.isSpectator())
-        {
-            closestPlayer = null;
-        }
+		if (delayBeforeCanPickup > 0) {
+			--delayBeforeCanPickup;
+		}
 
-        if (closestPlayer != null)
-        {
-            double d1 = (closestPlayer.posX - posX) / 8.0D;
-            double d2 = (closestPlayer.posY + (double) closestPlayer.getEyeHeight() / 2.0D - posY) / 8.0D;
-            double d3 = (closestPlayer.posZ - posZ) / 8.0D;
-            double d4 = Math.sqrt(d1 * d1 + d2 * d2 + d3 * d3);
-            double d5 = 1.0D - d4;
+		prevPosX = posX;
+		prevPosY = posY;
+		prevPosZ = posZ;
 
-            if (d5 > 0.0D)
-            {
-                d5 = d5 * d5;
-                motionX += d1 / d4 * d5 * 0.1D;
-                motionY += d2 / d4 * d5 * 0.1D;
-                motionZ += d3 / d4 * d5 * 0.1D;
-            }
-        }
+		if (!hasNoGravity()) {
+			motionY -= 0.029999999329447746D;
+		}
 
-        move(MoverType.SELF, motionX, motionY, motionZ);
-        float f = 0.98F;
+		if (world.getBlockState(new BlockPos(this)).getMaterial() == Material.LAVA) {
+			motionY = 0.20000000298023224D;
+			motionX = (rand.nextFloat() - rand.nextFloat()) * 0.2F;
+			motionZ = (rand.nextFloat() - rand.nextFloat()) * 0.2F;
+			playSound(SoundEvents.ENTITY_GENERIC_BURN, 0.4F, 2.0F + rand.nextFloat() * 0.4F);
+		}
 
-        if (onGround)
-        {
-            f = world.getBlockState(new BlockPos(MathHelper.floor(posX), MathHelper.floor(getEntityBoundingBox().minY) - 1, MathHelper.floor(posZ))).getBlock().slipperiness * 0.98F;
-        }
+		pushOutOfBlocks(posX, (getEntityBoundingBox().minY + getEntityBoundingBox().maxY) / 2.0D, posZ);
+		double d0 = 8.0D;
 
-        motionX *= (double)f;
-        motionY *= 0.9800000190734863D;
-        motionZ *= (double)f;
+		if (xpTargetColor < xpColor - 20 + getEntityId() % 100) {
+			if (closestPlayer == null || closestPlayer.getDistanceSq(this) > 64.0D) {
+				closestPlayer = world.getClosestPlayerToEntity(this, 8.0D);
+			}
 
-        if (onGround)
-        {
-            motionY *= -0.8999999761581421D;
-        }
+			xpTargetColor = xpColor;
+		}
 
-        ++xpColor;
-        ++xpOrbAge;
+		if (closestPlayer != null && closestPlayer.isSpectator()) {
+			closestPlayer = null;
+		}
 
-        if (xpOrbAge >= 6000)
-        {
-            setDead();
-        }
-    }
+		if (closestPlayer != null) {
+			double d1 = (closestPlayer.posX - posX) / 8.0D;
+			double d2 = (closestPlayer.posY + (double) closestPlayer.getEyeHeight() / 2.0D - posY) / 8.0D;
+			double d3 = (closestPlayer.posZ - posZ) / 8.0D;
+			double d4 = Math.sqrt(d1 * d1 + d2 * d2 + d3 * d3);
+			double d5 = 1.0D - d4;
 
-    /**
-     * Returns if this entity is in water and will end up adding the waters velocity to the entity
-     */
-    public boolean handleWaterMovement()
-    {
-        return world.handleMaterialAcceleration(getEntityBoundingBox(), Material.WATER, this);
-    }
+			if (d5 > 0.0D) {
+				d5 = d5 * d5;
+				motionX += d1 / d4 * d5 * 0.1D;
+				motionY += d2 / d4 * d5 * 0.1D;
+				motionZ += d3 / d4 * d5 * 0.1D;
+			}
+		}
 
-    /**
-     * Will deal the specified amount of fire damage to the entity if the entity isn't immune to fire damage.
-     */
-    protected void dealFireDamage(int amount)
-    {
-        attackEntityFrom(DamageSource.IN_FIRE, (float)amount);
-    }
+		move(MoverType.SELF, motionX, motionY, motionZ);
+		float f = 0.98F;
 
-    /**
-     * Called when the entity is attacked.
-     */
-    public boolean attackEntityFrom(DamageSource source, float amount)
-    {
-        if (isEntityInvulnerable(source))
-        {
-            return false;
-        }
-        else
-        {
-            markVelocityChanged();
-            xpOrbHealth = (int)((float) xpOrbHealth - amount);
+		if (onGround) {
+			f = world.getBlockState(new BlockPos(MathHelper.floor(posX), MathHelper.floor(getEntityBoundingBox().minY) - 1, MathHelper.floor(posZ))).getBlock().slipperiness * 0.98F;
+		}
 
-            if (xpOrbHealth <= 0)
-            {
-                setDead();
-            }
+		motionX *= f;
+		motionY *= 0.9800000190734863D;
+		motionZ *= f;
 
-            return false;
-        }
-    }
+		if (onGround) {
+			motionY *= -0.8999999761581421D;
+		}
 
-    /**
-     * (abstract) Protected helper method to write subclass entity data to NBT.
-     */
-    public void writeEntityToNBT(NBTTagCompound compound)
-    {
-        compound.setShort("Health", (short) xpOrbHealth);
-        compound.setShort("Age", (short) xpOrbAge);
-        compound.setShort("Value", (short) xpValue);
-    }
+		++xpColor;
+		++xpOrbAge;
 
-    /**
-     * (abstract) Protected helper method to read subclass entity data from NBT.
-     */
-    public void readEntityFromNBT(NBTTagCompound compound)
-    {
-        xpOrbHealth = compound.getShort("Health");
-        xpOrbAge = compound.getShort("Age");
-        xpValue = compound.getShort("Value");
-    }
+		if (xpOrbAge >= 6000) {
+			setDead();
+		}
+	}
 
-    /**
-     * Called by a player entity when they collide with an entity
-     */
-    public void onCollideWithPlayer(EntityPlayer entityIn)
-    {
-        if (!world.isRemote)
-        {
-            if (delayBeforeCanPickup == 0 && entityIn.xpCooldown == 0)
-            {
-                entityIn.xpCooldown = 2;
-                entityIn.onItemPickup(this, 1);
-                ItemStack itemstack = EnchantmentHelper.getEnchantedItem(Enchantments.MENDING, entityIn);
+	/**
+	 * Returns if this entity is in water and will end up adding the waters velocity to the entity
+	 */
+	public boolean handleWaterMovement() {
 
-                if (!itemstack.isEmpty() && itemstack.isItemDamaged())
-                {
-                    int i = Math.min(xpToDurability(xpValue), itemstack.getItemDamage());
-                    xpValue -= durabilityToXp(i);
-                    itemstack.setItemDamage(itemstack.getItemDamage() - i);
-                }
+		return world.handleMaterialAcceleration(getEntityBoundingBox(), Material.WATER, this);
+	}
 
-                if (xpValue > 0)
-                {
-                    entityIn.addExperience(xpValue);
-                }
+	/**
+	 * Will deal the specified amount of fire damage to the entity if the entity isn't immune to fire damage.
+	 */
+	protected void dealFireDamage(int amount) {
 
-                setDead();
-            }
-        }
-    }
+		attackEntityFrom(DamageSource.IN_FIRE, (float) amount);
+	}
 
-    private int durabilityToXp(int durability)
-    {
-        return durability / 2;
-    }
+	/**
+	 * Called when the entity is attacked.
+	 */
+	public boolean attackEntityFrom(DamageSource source, float amount) {
 
-    private int xpToDurability(int xp)
-    {
-        return xp * 2;
-    }
+		if (isEntityInvulnerable(source)) {
+			return false;
+		} else {
+			markVelocityChanged();
+			xpOrbHealth = (int) ((float) xpOrbHealth - amount);
 
-    /**
-     * Returns the XP value of this XP orb.
-     */
-    public int getXpValue()
-    {
-        return xpValue;
-    }
+			if (xpOrbHealth <= 0) {
+				setDead();
+			}
 
-    /**
-     * Returns a number from 1 to 10 based on how much XP this orb is worth. This is used by RenderXPOrb to determine
-     * what texture to use.
-     */
-    public int getTextureByXP()
-    {
-        if (xpValue >= 2477)
-        {
-            return 10;
-        }
-        else if (xpValue >= 1237)
-        {
-            return 9;
-        }
-        else if (xpValue >= 617)
-        {
-            return 8;
-        }
-        else if (xpValue >= 307)
-        {
-            return 7;
-        }
-        else if (xpValue >= 149)
-        {
-            return 6;
-        }
-        else if (xpValue >= 73)
-        {
-            return 5;
-        }
-        else if (xpValue >= 37)
-        {
-            return 4;
-        }
-        else if (xpValue >= 17)
-        {
-            return 3;
-        }
-        else if (xpValue >= 7)
-        {
-            return 2;
-        }
-        else
-        {
-            return xpValue >= 3 ? 1 : 0;
-        }
-    }
+			return false;
+		}
+	}
 
-    /**
-     * Get a fragment of the maximum experience points value for the supplied value of experience points value.
-     */
-    public static int getXPSplit(int expValue)
-    {
-        if (expValue >= 2477)
-        {
-            return 2477;
-        }
-        else if (expValue >= 1237)
-        {
-            return 1237;
-        }
-        else if (expValue >= 617)
-        {
-            return 617;
-        }
-        else if (expValue >= 307)
-        {
-            return 307;
-        }
-        else if (expValue >= 149)
-        {
-            return 149;
-        }
-        else if (expValue >= 73)
-        {
-            return 73;
-        }
-        else if (expValue >= 37)
-        {
-            return 37;
-        }
-        else if (expValue >= 17)
-        {
-            return 17;
-        }
-        else if (expValue >= 7)
-        {
-            return 7;
-        }
-        else
-        {
-            return expValue >= 3 ? 3 : 1;
-        }
-    }
+	/**
+	 * (abstract) Protected helper method to write subclass entity data to NBT.
+	 */
+	public void writeEntityToNBT(NBTTagCompound compound) {
 
-    /**
-     * Returns true if it's possible to attack this entity with an item.
-     */
-    public boolean canBeAttackedWithItem()
-    {
-        return false;
-    }
+		compound.setShort("Health", (short) xpOrbHealth);
+		compound.setShort("Age", (short) xpOrbAge);
+		compound.setShort("Value", (short) xpValue);
+	}
+
+	/**
+	 * (abstract) Protected helper method to read subclass entity data from NBT.
+	 */
+	public void readEntityFromNBT(NBTTagCompound compound) {
+
+		xpOrbHealth = compound.getShort("Health");
+		xpOrbAge = compound.getShort("Age");
+		xpValue = compound.getShort("Value");
+	}
+
+	/**
+	 * Called by a player entity when they collide with an entity
+	 */
+	public void onCollideWithPlayer(EntityPlayer entityIn) {
+
+		if (!world.isRemote) {
+			if (delayBeforeCanPickup == 0 && entityIn.xpCooldown == 0) {
+				entityIn.xpCooldown = 2;
+				entityIn.onItemPickup(this, 1);
+				ItemStack itemstack = EnchantmentHelper.getEnchantedItem(Enchantments.MENDING, entityIn);
+
+				if (!itemstack.isEmpty() && itemstack.isItemDamaged()) {
+					int i = Math.min(xpToDurability(xpValue), itemstack.getItemDamage());
+					xpValue -= durabilityToXp(i);
+					itemstack.setItemDamage(itemstack.getItemDamage() - i);
+				}
+
+				if (xpValue > 0) {
+					entityIn.addExperience(xpValue);
+				}
+
+				setDead();
+			}
+		}
+	}
+
+	private int durabilityToXp(int durability) {
+
+		return durability / 2;
+	}
+
+	private int xpToDurability(int xp) {
+
+		return xp * 2;
+	}
+
+	/**
+	 * Returns the XP value of this XP orb.
+	 */
+	public int getXpValue() {
+
+		return xpValue;
+	}
+
+	/**
+	 * Returns a number from 1 to 10 based on how much XP this orb is worth. This is used by RenderXPOrb to determine
+	 * what texture to use.
+	 */
+	public int getTextureByXP() {
+
+		if (xpValue >= 2477) {
+			return 10;
+		} else if (xpValue >= 1237) {
+			return 9;
+		} else if (xpValue >= 617) {
+			return 8;
+		} else if (xpValue >= 307) {
+			return 7;
+		} else if (xpValue >= 149) {
+			return 6;
+		} else if (xpValue >= 73) {
+			return 5;
+		} else if (xpValue >= 37) {
+			return 4;
+		} else if (xpValue >= 17) {
+			return 3;
+		} else if (xpValue >= 7) {
+			return 2;
+		} else {
+			return xpValue >= 3 ? 1 : 0;
+		}
+	}
+
+	/**
+	 * Get a fragment of the maximum experience points value for the supplied value of experience points value.
+	 */
+	public static int getXPSplit(int expValue) {
+
+		if (expValue >= 2477) {
+			return 2477;
+		} else if (expValue >= 1237) {
+			return 1237;
+		} else if (expValue >= 617) {
+			return 617;
+		} else if (expValue >= 307) {
+			return 307;
+		} else if (expValue >= 149) {
+			return 149;
+		} else if (expValue >= 73) {
+			return 73;
+		} else if (expValue >= 37) {
+			return 37;
+		} else if (expValue >= 17) {
+			return 17;
+		} else if (expValue >= 7) {
+			return 7;
+		} else {
+			return expValue >= 3 ? 3 : 1;
+		}
+	}
+
+	/**
+	 * Returns true if it's possible to attack this entity with an item.
+	 */
+	public boolean canBeAttackedWithItem() {
+
+		return false;
+	}
+
 }

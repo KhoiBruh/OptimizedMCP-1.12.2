@@ -1,59 +1,59 @@
 package net.minecraft.network.play.server;
 
-import java.io.IOException;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayClient;
 
-public class SPacketDestroyEntities implements Packet<INetHandlerPlayClient>
-{
-    private int[] entityIDs;
+import java.io.IOException;
 
-    public SPacketDestroyEntities()
-    {
-    }
+public class SPacketDestroyEntities implements Packet<INetHandlerPlayClient> {
 
-    public SPacketDestroyEntities(int... entityIdsIn)
-    {
-        entityIDs = entityIdsIn;
-    }
+	private int[] entityIDs;
 
-    /**
-     * Reads the raw packet data from the data stream.
-     */
-    public void readPacketData(PacketBuffer buf) throws IOException
-    {
-        entityIDs = new int[buf.readVarInt()];
+	public SPacketDestroyEntities() {
 
-        for (int i = 0; i < entityIDs.length; ++i)
-        {
-            entityIDs[i] = buf.readVarInt();
-        }
-    }
+	}
 
-    /**
-     * Writes the raw packet data to the data stream.
-     */
-    public void writePacketData(PacketBuffer buf) throws IOException
-    {
-        buf.writeVarInt(entityIDs.length);
+	public SPacketDestroyEntities(int... entityIdsIn) {
 
-        for (int i : entityIDs)
-        {
-            buf.writeVarInt(i);
-        }
-    }
+		entityIDs = entityIdsIn;
+	}
 
-    /**
-     * Passes this Packet on to the NetHandler for processing.
-     */
-    public void processPacket(INetHandlerPlayClient handler)
-    {
-        handler.handleDestroyEntities(this);
-    }
+	/**
+	 * Reads the raw packet data from the data stream.
+	 */
+	public void readPacketData(PacketBuffer buf) throws IOException {
 
-    public int[] getEntityIDs()
-    {
-        return entityIDs;
-    }
+		entityIDs = new int[buf.readVarInt()];
+
+		for (int i = 0; i < entityIDs.length; ++i) {
+			entityIDs[i] = buf.readVarInt();
+		}
+	}
+
+	/**
+	 * Writes the raw packet data to the data stream.
+	 */
+	public void writePacketData(PacketBuffer buf) throws IOException {
+
+		buf.writeVarInt(entityIDs.length);
+
+		for (int i : entityIDs) {
+			buf.writeVarInt(i);
+		}
+	}
+
+	/**
+	 * Passes this Packet on to the NetHandler for processing.
+	 */
+	public void processPacket(INetHandlerPlayClient handler) {
+
+		handler.handleDestroyEntities(this);
+	}
+
+	public int[] getEntityIDs() {
+
+		return entityIDs;
+	}
+
 }

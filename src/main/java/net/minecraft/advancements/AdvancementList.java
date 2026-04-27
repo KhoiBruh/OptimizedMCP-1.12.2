@@ -3,191 +3,169 @@ package net.minecraft.advancements;
 import com.google.common.base.Functions;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
-import java.util.Map.Entry;
-import java.util.function.Function;
-import javax.annotation.Nullable;
 import net.minecraft.util.ResourceLocation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class AdvancementList
-{
-    private static final Logger LOGGER = LogManager.getLogger();
-    private final Map<ResourceLocation, Advancement> advancements = Maps.<ResourceLocation, Advancement>newHashMap();
-    private final Set<Advancement> roots = Sets.<Advancement>newLinkedHashSet();
-    private final Set<Advancement> nonRoots = Sets.<Advancement>newLinkedHashSet();
-    private AdvancementList.Listener listener;
+import javax.annotation.Nullable;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+import java.util.function.Function;
 
-    private void remove(Advancement advancementIn)
-    {
-        for (Advancement advancement : advancementIn.getChildren())
-        {
-            remove(advancement);
-        }
+public class AdvancementList {
 
-        LOGGER.info("Forgot about advancement " + advancementIn.getId());
-        advancements.remove(advancementIn.getId());
+	private static final Logger LOGGER = LogManager.getLogger();
+	private final Map<ResourceLocation, Advancement> advancements = Maps.newHashMap();
+	private final Set<Advancement> roots = Sets.newLinkedHashSet();
+	private final Set<Advancement> nonRoots = Sets.newLinkedHashSet();
+	private AdvancementList.Listener listener;
 
-        if (advancementIn.getParent() == null)
-        {
-            roots.remove(advancementIn);
+	private void remove(Advancement advancementIn) {
 
-            if (listener != null)
-            {
-                listener.rootAdvancementRemoved(advancementIn);
-            }
-        }
-        else
-        {
-            nonRoots.remove(advancementIn);
+		for (Advancement advancement : advancementIn.getChildren()) {
+			remove(advancement);
+		}
 
-            if (listener != null)
-            {
-                listener.nonRootAdvancementRemoved(advancementIn);
-            }
-        }
-    }
+		LOGGER.info("Forgot about advancement " + advancementIn.getId());
+		advancements.remove(advancementIn.getId());
 
-    public void removeAll(Set<ResourceLocation> ids)
-    {
-        for (ResourceLocation resourcelocation : ids)
-        {
-            Advancement advancement = advancements.get(resourcelocation);
+		if (advancementIn.getParent() == null) {
+			roots.remove(advancementIn);
 
-            if (advancement == null)
-            {
-                LOGGER.warn("Told to remove advancement " + resourcelocation + " but I don't know what that is");
-            }
-            else
-            {
-                remove(advancement);
-            }
-        }
-    }
+			if (listener != null) {
+				listener.rootAdvancementRemoved(advancementIn);
+			}
+		} else {
+			nonRoots.remove(advancementIn);
 
-    public void loadAdvancements(Map<ResourceLocation, Advancement.Builder> advancementsIn)
-    {
-        Function<ResourceLocation, Advancement> function = Functions.<ResourceLocation, Advancement>forMap(advancements, null);
-        label42:
+			if (listener != null) {
+				listener.nonRootAdvancementRemoved(advancementIn);
+			}
+		}
+	}
 
-        while (!advancementsIn.isEmpty())
-        {
-            boolean flag = false;
-            Iterator<Entry<ResourceLocation, Advancement.Builder>> iterator = advancementsIn.entrySet().iterator();
+	public void removeAll(Set<ResourceLocation> ids) {
 
-            while (iterator.hasNext())
-            {
-                Entry<ResourceLocation, Advancement.Builder> entry = (Entry)iterator.next();
-                ResourceLocation resourcelocation = entry.getKey();
-                Advancement.Builder advancement$builder = entry.getValue();
+		for (ResourceLocation resourcelocation : ids) {
+			Advancement advancement = advancements.get(resourcelocation);
 
-                if (advancement$builder.resolveParent(function))
-                {
-                    Advancement advancement = advancement$builder.build(resourcelocation);
-                    advancements.put(resourcelocation, advancement);
-                    flag = true;
-                    iterator.remove();
+			if (advancement == null) {
+				LOGGER.warn("Told to remove advancement " + resourcelocation + " but I don't know what that is");
+			} else {
+				remove(advancement);
+			}
+		}
+	}
 
-                    if (advancement.getParent() == null)
-                    {
-                        roots.add(advancement);
+	public void loadAdvancements(Map<ResourceLocation, Advancement.Builder> advancementsIn) {
 
-                        if (listener != null)
-                        {
-                            listener.rootAdvancementAdded(advancement);
-                        }
-                    }
-                    else
-                    {
-                        nonRoots.add(advancement);
+		Function<ResourceLocation, Advancement> function = Functions.forMap(advancements, null);
+		label42:
 
-                        if (listener != null)
-                        {
-                            listener.nonRootAdvancementAdded(advancement);
-                        }
-                    }
-                }
-            }
+		while (!advancementsIn.isEmpty()) {
+			boolean flag = false;
+			Iterator<Entry<ResourceLocation, Advancement.Builder>> iterator = advancementsIn.entrySet().iterator();
 
-            if (!flag)
-            {
-                iterator = advancementsIn.entrySet().iterator();
+			while (iterator.hasNext()) {
+				Entry<ResourceLocation, Advancement.Builder> entry = iterator.next();
+				ResourceLocation resourcelocation = entry.getKey();
+				Advancement.Builder advancement$builder = entry.getValue();
 
-                while (true)
-                {
-                    if (!iterator.hasNext())
-                    {
-                        break label42;
-                    }
+				if (advancement$builder.resolveParent(function)) {
+					Advancement advancement = advancement$builder.build(resourcelocation);
+					advancements.put(resourcelocation, advancement);
+					flag = true;
+					iterator.remove();
 
-                    Entry<ResourceLocation, Advancement.Builder> entry1 = (Entry)iterator.next();
-                    LOGGER.error("Couldn't load advancement " + entry1.getKey() + ": " + entry1.getValue());
-                }
-            }
-        }
+					if (advancement.getParent() == null) {
+						roots.add(advancement);
 
-        LOGGER.info("Loaded " + advancements.size() + " advancements");
-    }
+						if (listener != null) {
+							listener.rootAdvancementAdded(advancement);
+						}
+					} else {
+						nonRoots.add(advancement);
 
-    public void clear()
-    {
-        advancements.clear();
-        roots.clear();
-        nonRoots.clear();
+						if (listener != null) {
+							listener.nonRootAdvancementAdded(advancement);
+						}
+					}
+				}
+			}
 
-        if (listener != null)
-        {
-            listener.advancementsCleared();
-        }
-    }
+			if (!flag) {
+				iterator = advancementsIn.entrySet().iterator();
 
-    public Iterable<Advancement> getRoots()
-    {
-        return roots;
-    }
+				while (true) {
+					if (!iterator.hasNext()) {
+						break label42;
+					}
 
-    public Iterable<Advancement> getAdvancements()
-    {
-        return advancements.values();
-    }
+					Entry<ResourceLocation, Advancement.Builder> entry1 = iterator.next();
+					LOGGER.error("Couldn't load advancement " + entry1.getKey() + ": " + entry1.getValue());
+				}
+			}
+		}
 
-    @Nullable
-    public Advancement getAdvancement(ResourceLocation id)
-    {
-        return advancements.get(id);
-    }
+		LOGGER.info("Loaded " + advancements.size() + " advancements");
+	}
 
-    public void setListener(@Nullable AdvancementList.Listener listenerIn)
-    {
-        listener = listenerIn;
+	public void clear() {
 
-        if (listenerIn != null)
-        {
-            for (Advancement advancement : roots)
-            {
-                listenerIn.rootAdvancementAdded(advancement);
-            }
+		advancements.clear();
+		roots.clear();
+		nonRoots.clear();
 
-            for (Advancement advancement1 : nonRoots)
-            {
-                listenerIn.nonRootAdvancementAdded(advancement1);
-            }
-        }
-    }
+		if (listener != null) {
+			listener.advancementsCleared();
+		}
+	}
 
-    public interface Listener
-    {
-        void rootAdvancementAdded(Advancement advancementIn);
+	public Iterable<Advancement> getRoots() {
 
-        void rootAdvancementRemoved(Advancement advancementIn);
+		return roots;
+	}
 
-        void nonRootAdvancementAdded(Advancement advancementIn);
+	public Iterable<Advancement> getAdvancements() {
 
-        void nonRootAdvancementRemoved(Advancement advancementIn);
+		return advancements.values();
+	}
 
-        void advancementsCleared();
-    }
+	@Nullable
+	public Advancement getAdvancement(ResourceLocation id) {
+
+		return advancements.get(id);
+	}
+
+	public void setListener(@Nullable AdvancementList.Listener listenerIn) {
+
+		listener = listenerIn;
+
+		if (listenerIn != null) {
+			for (Advancement advancement : roots) {
+				listenerIn.rootAdvancementAdded(advancement);
+			}
+
+			for (Advancement advancement1 : nonRoots) {
+				listenerIn.nonRootAdvancementAdded(advancement1);
+			}
+		}
+	}
+
+	public interface Listener {
+
+		void rootAdvancementAdded(Advancement advancementIn);
+
+		void rootAdvancementRemoved(Advancement advancementIn);
+
+		void nonRootAdvancementAdded(Advancement advancementIn);
+
+		void nonRootAdvancementRemoved(Advancement advancementIn);
+
+		void advancementsCleared();
+
+	}
+
 }

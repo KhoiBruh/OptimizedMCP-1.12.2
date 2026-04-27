@@ -1,26 +1,27 @@
 package net.minecraft.client.renderer.block.model;
 
-import java.util.Arrays;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 
-public class BakedQuadRetextured extends BakedQuad
-{
-    private final TextureAtlasSprite texture;
+import java.util.Arrays;
 
-    public BakedQuadRetextured(BakedQuad quad, TextureAtlasSprite textureIn)
-    {
-        super(Arrays.copyOf(quad.getVertexData(), quad.getVertexData().length), quad.tintIndex, FaceBakery.getFacingFromVertexData(quad.getVertexData()), quad.getSprite());
-        texture = textureIn;
-        remapQuad();
-    }
+public class BakedQuadRetextured extends BakedQuad {
 
-    private void remapQuad()
-    {
-        for (int i = 0; i < 4; ++i)
-        {
-            int j = 7 * i;
-            vertexData[j + 4] = Float.floatToRawIntBits(texture.getInterpolatedU((double) sprite.getUnInterpolatedU(Float.intBitsToFloat(vertexData[j + 4]))));
-            vertexData[j + 4 + 1] = Float.floatToRawIntBits(texture.getInterpolatedV((double) sprite.getUnInterpolatedV(Float.intBitsToFloat(vertexData[j + 4 + 1]))));
-        }
-    }
+	private final TextureAtlasSprite texture;
+
+	public BakedQuadRetextured(BakedQuad quad, TextureAtlasSprite textureIn) {
+
+		super(Arrays.copyOf(quad.getVertexData(), quad.getVertexData().length), quad.tintIndex, FaceBakery.getFacingFromVertexData(quad.getVertexData()), quad.getSprite());
+		texture = textureIn;
+		remapQuad();
+	}
+
+	private void remapQuad() {
+
+		for (int i = 0; i < 4; ++i) {
+			int j = 7 * i;
+			vertexData[j + 4] = Float.floatToRawIntBits(texture.getInterpolatedU(sprite.getUnInterpolatedU(Float.intBitsToFloat(vertexData[j + 4]))));
+			vertexData[j + 4 + 1] = Float.floatToRawIntBits(texture.getInterpolatedV(sprite.getUnInterpolatedV(Float.intBitsToFloat(vertexData[j + 4 + 1]))));
+		}
+	}
+
 }

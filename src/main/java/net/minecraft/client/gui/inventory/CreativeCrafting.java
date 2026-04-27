@@ -7,41 +7,42 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 
-public class CreativeCrafting implements IContainerListener
-{
-    private final Minecraft mc;
+public class CreativeCrafting implements IContainerListener {
 
-    public CreativeCrafting(Minecraft mc)
-    {
-        this.mc = mc;
-    }
+	private final Minecraft mc;
 
-    /**
-     * update the crafting window inventory with the items in the list
-     */
-    public void sendAllContents(Container containerToSend, NonNullList<ItemStack> itemsList)
-    {
-    }
+	public CreativeCrafting(Minecraft mc) {
 
-    /**
-     * Sends the contents of an inventory slot to the client-side Container. This doesn't have to match the actual
-     * contents of that slot.
-     */
-    public void sendSlotContents(Container containerToSend, int slotInd, ItemStack stack)
-    {
-        mc.playerController.sendSlotPacket(stack, slotInd);
-    }
+		this.mc = mc;
+	}
 
-    /**
-     * Sends two ints to the client-side Container. Used for furnace burning time, smelting progress, brewing progress,
-     * and enchanting level. Normally the first int identifies which variable to update, and the second contains the new
-     * value. Both are truncated to shorts in non-local SMP.
-     */
-    public void sendWindowProperty(Container containerIn, int varToUpdate, int newValue)
-    {
-    }
+	/**
+	 * update the crafting window inventory with the items in the list
+	 */
+	public void sendAllContents(Container containerToSend, NonNullList<ItemStack> itemsList) {
 
-    public void sendAllWindowProperties(Container containerIn, IInventory inventory)
-    {
-    }
+	}
+
+	/**
+	 * Sends the contents of an inventory slot to the client-side Container. This doesn't have to match the actual
+	 * contents of that slot.
+	 */
+	public void sendSlotContents(Container containerToSend, int slotInd, ItemStack stack) {
+
+		mc.playerController.sendSlotPacket(stack, slotInd);
+	}
+
+	/**
+	 * Sends two ints to the client-side Container. Used for furnace burning time, smelting progress, brewing progress,
+	 * and enchanting level. Normally the first int identifies which variable to update, and the second contains the new
+	 * value. Both are truncated to shorts in non-local SMP.
+	 */
+	public void sendWindowProperty(Container containerIn, int varToUpdate, int newValue) {
+
+	}
+
+	public void sendAllWindowProperties(Container containerIn, IInventory inventory) {
+
+	}
+
 }

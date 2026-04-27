@@ -4,107 +4,93 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
-import java.util.Map;
-import javax.annotation.Nullable;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.util.JsonUtils;
 import net.minecraft.util.ResourceLocation;
 
-public class EnchantmentPredicate
-{
-    /** The predicate that matches any set of enchantments. */
-    public static final EnchantmentPredicate ANY = new EnchantmentPredicate();
-    private final Enchantment enchantment;
-    private final MinMaxBounds levels;
+import javax.annotation.Nullable;
+import java.util.Map;
 
-    public EnchantmentPredicate()
-    {
-        enchantment = null;
-        levels = MinMaxBounds.UNBOUNDED;
-    }
+public class EnchantmentPredicate {
 
-    public EnchantmentPredicate(@Nullable Enchantment enchantment, MinMaxBounds levels)
-    {
-        this.enchantment = enchantment;
-        this.levels = levels;
-    }
+	/**
+	 * The predicate that matches any set of enchantments.
+	 */
+	public static final EnchantmentPredicate ANY = new EnchantmentPredicate();
+	private final Enchantment enchantment;
+	private final MinMaxBounds levels;
 
-    public boolean test(Map<Enchantment, Integer> enchantmentsIn)
-    {
-        if (enchantment != null)
-        {
-            if (!enchantmentsIn.containsKey(enchantment))
-            {
-                return false;
-            }
+	public EnchantmentPredicate() {
 
-            int i = ((Integer)enchantmentsIn.get(enchantment)).intValue();
+		enchantment = null;
+		levels = MinMaxBounds.UNBOUNDED;
+	}
 
-            if (levels != null && !levels.test((float)i))
-            {
-                return false;
-            }
-        }
-        else if (levels != null)
-        {
-            for (Integer integer : enchantmentsIn.values())
-            {
-                if (levels.test((float)integer.intValue()))
-                {
-                    return true;
-                }
-            }
+	public EnchantmentPredicate(@Nullable Enchantment enchantment, MinMaxBounds levels) {
 
-            return false;
-        }
+		this.enchantment = enchantment;
+		this.levels = levels;
+	}
 
-        return true;
-    }
+	public boolean test(Map<Enchantment, Integer> enchantmentsIn) {
 
-    public static EnchantmentPredicate deserialize(@Nullable JsonElement element)
-    {
-        if (element != null && !element.isJsonNull())
-        {
-            JsonObject jsonobject = JsonUtils.getJsonObject(element, "enchantment");
-            Enchantment enchantment = null;
+		if (enchantment != null) {
+			if (!enchantmentsIn.containsKey(enchantment)) {
+				return false;
+			}
 
-            if (jsonobject.has("enchantment"))
-            {
-                ResourceLocation resourcelocation = new ResourceLocation(JsonUtils.getString(jsonobject, "enchantment"));
-                enchantment = Enchantment.REGISTRY.getObject(resourcelocation);
+			int i = enchantmentsIn.get(enchantment).intValue();
 
-                if (enchantment == null)
-                {
-                    throw new JsonSyntaxException("Unknown enchantment '" + resourcelocation + "'");
-                }
-            }
+			return levels == null || levels.test((float) i);
+		} else if (levels != null) {
+			for (Integer integer : enchantmentsIn.values()) {
+				if (levels.test((float) integer.intValue())) {
+					return true;
+				}
+			}
 
-            MinMaxBounds minmaxbounds = MinMaxBounds.deserialize(jsonobject.get("levels"));
-            return new EnchantmentPredicate(enchantment, minmaxbounds);
-        }
-        else
-        {
-            return ANY;
-        }
-    }
+			return false;
+		}
 
-    public static EnchantmentPredicate[] deserializeArray(@Nullable JsonElement element)
-    {
-        if (element != null && !element.isJsonNull())
-        {
-            JsonArray jsonarray = JsonUtils.getJsonArray(element, "enchantments");
-            EnchantmentPredicate[] aenchantmentpredicate = new EnchantmentPredicate[jsonarray.size()];
+		return true;
+	}
 
-            for (int i = 0; i < aenchantmentpredicate.length; ++i)
-            {
-                aenchantmentpredicate[i] = deserialize(jsonarray.get(i));
-            }
+	public static EnchantmentPredicate deserialize(@Nullable JsonElement element) {
 
-            return aenchantmentpredicate;
-        }
-        else
-        {
-            return new EnchantmentPredicate[0];
-        }
-    }
+		if (element != null && !element.isJsonNull()) {
+			JsonObject jsonobject = JsonUtils.getJsonObject(element, "enchantment");
+			Enchantment enchantment = null;
+
+			if (jsonobject.has("enchantment")) {
+				ResourceLocation resourcelocation = new ResourceLocation(JsonUtils.getString(jsonobject, "enchantment"));
+				enchantment = Enchantment.REGISTRY.getObject(resourcelocation);
+
+				if (enchantment == null) {
+					throw new JsonSyntaxException("Unknown enchantment '" + resourcelocation + "'");
+				}
+			}
+
+			MinMaxBounds minmaxbounds = MinMaxBounds.deserialize(jsonobject.get("levels"));
+			return new EnchantmentPredicate(enchantment, minmaxbounds);
+		} else {
+			return ANY;
+		}
+	}
+
+	public static EnchantmentPredicate[] deserializeArray(@Nullable JsonElement element) {
+
+		if (element != null && !element.isJsonNull()) {
+			JsonArray jsonarray = JsonUtils.getJsonArray(element, "enchantments");
+			EnchantmentPredicate[] aenchantmentpredicate = new EnchantmentPredicate[jsonarray.size()];
+
+			for (int i = 0; i < aenchantmentpredicate.length; ++i) {
+				aenchantmentpredicate[i] = deserialize(jsonarray.get(i));
+			}
+
+			return aenchantmentpredicate;
+		} else {
+			return new EnchantmentPredicate[0];
+		}
+	}
+
 }

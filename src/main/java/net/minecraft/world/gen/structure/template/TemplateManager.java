@@ -1,14 +1,6 @@
 package net.minecraft.world.gen.structure.template;
 
 import com.google.common.collect.Maps;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.Map;
-import javax.annotation.Nullable;
 import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.MinecraftServer;
@@ -17,196 +9,168 @@ import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.datafix.FixTypes;
 import org.apache.commons.io.IOUtils;
 
-public class TemplateManager
-{
-    private final Map<String, Template> templates = Maps.<String, Template>newHashMap();
+import javax.annotation.Nullable;
+import java.io.*;
+import java.util.Map;
 
-    /**
-     * the folder in the assets folder where the structure templates are found.
-     */
-    private final String baseFolder;
-    private final DataFixer fixer;
+public class TemplateManager {
 
-    public TemplateManager(String p_i47239_1_, DataFixer p_i47239_2_)
-    {
-        baseFolder = p_i47239_1_;
-        fixer = p_i47239_2_;
-    }
+	private final Map<String, Template> templates = Maps.newHashMap();
 
-    public Template getTemplate(@Nullable MinecraftServer server, ResourceLocation id)
-    {
-        Template template = get(server, id);
+	/**
+	 * the folder in the assets folder where the structure templates are found.
+	 */
+	private final String baseFolder;
+	private final DataFixer fixer;
 
-        if (template == null)
-        {
-            template = new Template();
-            templates.put(id.getResourcePath(), template);
-        }
+	public TemplateManager(String p_i47239_1_, DataFixer p_i47239_2_) {
 
-        return template;
-    }
+		baseFolder = p_i47239_1_;
+		fixer = p_i47239_2_;
+	}
 
-    @Nullable
-    public Template get(@Nullable MinecraftServer server, ResourceLocation templatePath)
-    {
-        String s = templatePath.getResourcePath();
+	public Template getTemplate(@Nullable MinecraftServer server, ResourceLocation id) {
 
-        if (templates.containsKey(s))
-        {
-            return templates.get(s);
-        }
-        else
-        {
-            if (server == null)
-            {
-                readTemplateFromJar(templatePath);
-            }
-            else
-            {
-                readTemplate(templatePath);
-            }
+		Template template = get(server, id);
 
-            return templates.containsKey(s) ? (Template) templates.get(s) : null;
-        }
-    }
+		if (template == null) {
+			template = new Template();
+			templates.put(id.getResourcePath(), template);
+		}
 
-    /**
-     * This reads a structure template from the given location and stores it.
-     * This first attempts get the template from an external folder.
-     * If it isn't there then it attempts to take it from the minecraft jar.
-     */
-    public boolean readTemplate(ResourceLocation server)
-    {
-        String s = server.getResourcePath();
-        File file1 = new File(baseFolder, s + ".nbt");
+		return template;
+	}
 
-        if (!file1.exists())
-        {
-            return readTemplateFromJar(server);
-        }
-        else
-        {
-            InputStream inputstream = null;
-            boolean flag;
+	@Nullable
+	public Template get(@Nullable MinecraftServer server, ResourceLocation templatePath) {
 
-            try
-            {
-                inputstream = new FileInputStream(file1);
-                readTemplateFromStream(s, inputstream);
-                return true;
-            }
-            catch (Throwable var10)
-            {
-                flag = false;
-            }
-            finally
-            {
-                IOUtils.closeQuietly(inputstream);
-            }
+		String s = templatePath.getResourcePath();
 
-            return flag;
-        }
-    }
+		if (templates.containsKey(s)) {
+			return templates.get(s);
+		} else {
+			if (server == null) {
+				readTemplateFromJar(templatePath);
+			} else {
+				readTemplate(templatePath);
+			}
 
-    /**
-     * reads a template from the minecraft jar
-     */
-    private boolean readTemplateFromJar(ResourceLocation id)
-    {
-        String s = id.getResourceDomain();
-        String s1 = id.getResourcePath();
-        InputStream inputstream = null;
-        boolean flag;
+			return templates.containsKey(s) ? templates.get(s) : null;
+		}
+	}
 
-        try
-        {
-            inputstream = MinecraftServer.class.getResourceAsStream("/assets/" + s + "/structures/" + s1 + ".nbt");
-            readTemplateFromStream(s1, inputstream);
-            return true;
-        }
-        catch (Throwable var10)
-        {
-            flag = false;
-        }
-        finally
-        {
-            IOUtils.closeQuietly(inputstream);
-        }
+	/**
+	 * This reads a structure template from the given location and stores it.
+	 * This first attempts get the template from an external folder.
+	 * If it isn't there then it attempts to take it from the minecraft jar.
+	 */
+	public boolean readTemplate(ResourceLocation server) {
 
-        return flag;
-    }
+		String s = server.getResourcePath();
+		File file1 = new File(baseFolder, s + ".nbt");
 
-    /**
-     * reads a template from an inputstream
-     */
-    private void readTemplateFromStream(String id, InputStream stream) throws IOException
-    {
-        NBTTagCompound nbttagcompound = CompressedStreamTools.readCompressed(stream);
+		if (!file1.exists()) {
+			return readTemplateFromJar(server);
+		} else {
+			InputStream inputstream = null;
+			boolean flag;
 
-        if (!nbttagcompound.hasKey("DataVersion", 99))
-        {
-            nbttagcompound.setInteger("DataVersion", 500);
-        }
+			try {
+				inputstream = new FileInputStream(file1);
+				readTemplateFromStream(s, inputstream);
+				return true;
+			} catch (Throwable var10) {
+				flag = false;
+			} finally {
+				IOUtils.closeQuietly(inputstream);
+			}
 
-        Template template = new Template();
-        template.read(fixer.process(FixTypes.STRUCTURE, nbttagcompound));
-        templates.put(id, template);
-    }
+			return flag;
+		}
+	}
 
-    /**
-     * writes the template to an external folder
-     */
-    public boolean writeTemplate(@Nullable MinecraftServer server, ResourceLocation id)
-    {
-        String s = id.getResourcePath();
+	/**
+	 * reads a template from the minecraft jar
+	 */
+	private boolean readTemplateFromJar(ResourceLocation id) {
 
-        if (server != null && templates.containsKey(s))
-        {
-            File file1 = new File(baseFolder);
+		String s = id.getResourceDomain();
+		String s1 = id.getResourcePath();
+		InputStream inputstream = null;
+		boolean flag;
 
-            if (!file1.exists())
-            {
-                if (!file1.mkdirs())
-                {
-                    return false;
-                }
-            }
-            else if (!file1.isDirectory())
-            {
-                return false;
-            }
+		try {
+			inputstream = MinecraftServer.class.getResourceAsStream("/assets/" + s + "/structures/" + s1 + ".nbt");
+			readTemplateFromStream(s1, inputstream);
+			return true;
+		} catch (Throwable var10) {
+			flag = false;
+		} finally {
+			IOUtils.closeQuietly(inputstream);
+		}
 
-            File file2 = new File(file1, s + ".nbt");
-            Template template = templates.get(s);
-            OutputStream outputstream = null;
-            boolean flag;
+		return flag;
+	}
 
-            try
-            {
-                NBTTagCompound nbttagcompound = template.writeToNBT(new NBTTagCompound());
-                outputstream = new FileOutputStream(file2);
-                CompressedStreamTools.writeCompressed(nbttagcompound, outputstream);
-                return true;
-            }
-            catch (Throwable var13)
-            {
-                flag = false;
-            }
-            finally
-            {
-                IOUtils.closeQuietly(outputstream);
-            }
+	/**
+	 * reads a template from an inputstream
+	 */
+	private void readTemplateFromStream(String id, InputStream stream) throws IOException {
 
-            return flag;
-        }
-        else
-        {
-            return false;
-        }
-    }
+		NBTTagCompound nbttagcompound = CompressedStreamTools.readCompressed(stream);
 
-    public void remove(ResourceLocation templatePath)
-    {
-        templates.remove(templatePath.getResourcePath());
-    }
+		if (!nbttagcompound.hasKey("DataVersion", 99)) {
+			nbttagcompound.setInteger("DataVersion", 500);
+		}
+
+		Template template = new Template();
+		template.read(fixer.process(FixTypes.STRUCTURE, nbttagcompound));
+		templates.put(id, template);
+	}
+
+	/**
+	 * writes the template to an external folder
+	 */
+	public boolean writeTemplate(@Nullable MinecraftServer server, ResourceLocation id) {
+
+		String s = id.getResourcePath();
+
+		if (server != null && templates.containsKey(s)) {
+			File file1 = new File(baseFolder);
+
+			if (!file1.exists()) {
+				if (!file1.mkdirs()) {
+					return false;
+				}
+			} else if (!file1.isDirectory()) {
+				return false;
+			}
+
+			File file2 = new File(file1, s + ".nbt");
+			Template template = templates.get(s);
+			OutputStream outputstream = null;
+			boolean flag;
+
+			try {
+				NBTTagCompound nbttagcompound = template.writeToNBT(new NBTTagCompound());
+				outputstream = new FileOutputStream(file2);
+				CompressedStreamTools.writeCompressed(nbttagcompound, outputstream);
+				return true;
+			} catch (Throwable var13) {
+				flag = false;
+			} finally {
+				IOUtils.closeQuietly(outputstream);
+			}
+
+			return flag;
+		} else {
+			return false;
+		}
+	}
+
+	public void remove(ResourceLocation templatePath) {
+
+		templates.remove(templatePath.getResourcePath());
+	}
+
 }

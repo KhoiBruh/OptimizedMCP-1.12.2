@@ -5,50 +5,49 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.passive.EntityOcelot;
 import net.minecraft.util.ResourceLocation;
 
-public class RenderOcelot extends RenderLiving<EntityOcelot>
-{
-    private static final ResourceLocation BLACK_OCELOT_TEXTURES = new ResourceLocation("textures/entity/cat/black.png");
-    private static final ResourceLocation OCELOT_TEXTURES = new ResourceLocation("textures/entity/cat/ocelot.png");
-    private static final ResourceLocation RED_OCELOT_TEXTURES = new ResourceLocation("textures/entity/cat/red.png");
-    private static final ResourceLocation SIAMESE_OCELOT_TEXTURES = new ResourceLocation("textures/entity/cat/siamese.png");
+public class RenderOcelot extends RenderLiving<EntityOcelot> {
 
-    public RenderOcelot(RenderManager p_i47199_1_)
-    {
-        super(p_i47199_1_, new ModelOcelot(), 0.4F);
-    }
+	private static final ResourceLocation BLACK_OCELOT_TEXTURES = new ResourceLocation("textures/entity/cat/black.png");
+	private static final ResourceLocation OCELOT_TEXTURES = new ResourceLocation("textures/entity/cat/ocelot.png");
+	private static final ResourceLocation RED_OCELOT_TEXTURES = new ResourceLocation("textures/entity/cat/red.png");
+	private static final ResourceLocation SIAMESE_OCELOT_TEXTURES = new ResourceLocation("textures/entity/cat/siamese.png");
 
-    /**
-     * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
-     */
-    protected ResourceLocation getEntityTexture(EntityOcelot entity)
-    {
-        switch (entity.getTameSkin())
-        {
-            case 0:
-            default:
-                return OCELOT_TEXTURES;
+	public RenderOcelot(RenderManager p_i47199_1_) {
 
-            case 1:
-                return BLACK_OCELOT_TEXTURES;
+		super(p_i47199_1_, new ModelOcelot(), 0.4F);
+	}
 
-            case 2:
-                return RED_OCELOT_TEXTURES;
+	/**
+	 * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
+	 */
+	protected ResourceLocation getEntityTexture(EntityOcelot entity) {
 
-            case 3:
-                return SIAMESE_OCELOT_TEXTURES;
-        }
-    }
+		switch (entity.getTameSkin()) {
+			case 0:
+			default:
+				return OCELOT_TEXTURES;
 
-    /**
-     * Allows the render to do state modifications necessary before the model is rendered.
-     */
-    protected void preRenderCallback(EntityOcelot entitylivingbaseIn, float partialTickTime)
-    {
-        super.preRenderCallback(entitylivingbaseIn, partialTickTime);
+			case 1:
+				return BLACK_OCELOT_TEXTURES;
 
-        if (entitylivingbaseIn.isTamed())
-        {
-            GlStateManager.scale(0.8F, 0.8F, 0.8F);
-        }
-    }
+			case 2:
+				return RED_OCELOT_TEXTURES;
+
+			case 3:
+				return SIAMESE_OCELOT_TEXTURES;
+		}
+	}
+
+	/**
+	 * Allows the render to do state modifications necessary before the model is rendered.
+	 */
+	protected void preRenderCallback(EntityOcelot entitylivingbaseIn, float partialTickTime) {
+
+		super.preRenderCallback(entitylivingbaseIn, partialTickTime);
+
+		if (entitylivingbaseIn.isTamed()) {
+			GlStateManager.scale(0.8F, 0.8F, 0.8F);
+		}
+	}
+
 }

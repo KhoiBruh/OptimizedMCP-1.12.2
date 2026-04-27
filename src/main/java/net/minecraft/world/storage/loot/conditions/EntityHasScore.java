@@ -5,10 +5,6 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
-import java.util.Map;
-import java.util.Random;
-import java.util.Set;
-import java.util.Map.Entry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.scoreboard.ScoreObjective;
@@ -18,87 +14,84 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.LootContext;
 import net.minecraft.world.storage.loot.RandomValueRange;
 
-public class EntityHasScore implements LootCondition
-{
-    private final Map<String, RandomValueRange> scores;
-    private final LootContext.EntityTarget target;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Random;
+import java.util.Set;
 
-    public EntityHasScore(Map<String, RandomValueRange> scoreIn, LootContext.EntityTarget targetIn)
-    {
-        scores = scoreIn;
-        target = targetIn;
-    }
+public class EntityHasScore implements LootCondition {
 
-    public boolean testCondition(Random rand, LootContext context)
-    {
-        Entity entity = context.getEntity(target);
+	private final Map<String, RandomValueRange> scores;
+	private final LootContext.EntityTarget target;
 
-        if (entity == null)
-        {
-            return false;
-        }
-        else
-        {
-            Scoreboard scoreboard = entity.world.getScoreboard();
+	public EntityHasScore(Map<String, RandomValueRange> scoreIn, LootContext.EntityTarget targetIn) {
 
-            for (Entry<String, RandomValueRange> entry : scores.entrySet())
-            {
-                if (!entityScoreMatch(entity, scoreboard, entry.getKey(), entry.getValue()))
-                {
-                    return false;
-                }
-            }
+		scores = scoreIn;
+		target = targetIn;
+	}
 
-            return true;
-        }
-    }
+	public boolean testCondition(Random rand, LootContext context) {
 
-    protected boolean entityScoreMatch(Entity entityIn, Scoreboard scoreboardIn, String objectiveStr, RandomValueRange rand)
-    {
-        ScoreObjective scoreobjective = scoreboardIn.getObjective(objectiveStr);
+		Entity entity = context.getEntity(target);
 
-        if (scoreobjective == null)
-        {
-            return false;
-        }
-        else
-        {
-            String s = entityIn instanceof EntityPlayerMP ? entityIn.getName() : entityIn.getCachedUniqueIdString();
-            return !scoreboardIn.entityHasObjective(s, scoreobjective) ? false : rand.isInRange(scoreboardIn.getOrCreateScore(s, scoreobjective).getScorePoints());
-        }
-    }
+		if (entity == null) {
+			return false;
+		} else {
+			Scoreboard scoreboard = entity.world.getScoreboard();
 
-    public static class Serializer extends LootCondition.Serializer<EntityHasScore>
-    {
-        protected Serializer()
-        {
-            super(new ResourceLocation("entity_scores"), EntityHasScore.class);
-        }
+			for (Entry<String, RandomValueRange> entry : scores.entrySet()) {
+				if (!entityScoreMatch(entity, scoreboard, entry.getKey(), entry.getValue())) {
+					return false;
+				}
+			}
 
-        public void serialize(JsonObject json, EntityHasScore value, JsonSerializationContext context)
-        {
-            JsonObject jsonobject = new JsonObject();
+			return true;
+		}
+	}
 
-            for (Entry<String, RandomValueRange> entry : value.scores.entrySet())
-            {
-                jsonobject.add(entry.getKey(), context.serialize(entry.getValue()));
-            }
+	protected boolean entityScoreMatch(Entity entityIn, Scoreboard scoreboardIn, String objectiveStr, RandomValueRange rand) {
 
-            json.add("scores", jsonobject);
-            json.add("entity", context.serialize(value.target));
-        }
+		ScoreObjective scoreobjective = scoreboardIn.getObjective(objectiveStr);
 
-        public EntityHasScore deserialize(JsonObject json, JsonDeserializationContext context)
-        {
-            Set<Entry<String, JsonElement>> set = JsonUtils.getJsonObject(json, "scores").entrySet();
-            Map<String, RandomValueRange> map = Maps.<String, RandomValueRange>newLinkedHashMap();
+		if (scoreobjective == null) {
+			return false;
+		} else {
+			String s = entityIn instanceof EntityPlayerMP ? entityIn.getName() : entityIn.getCachedUniqueIdString();
+			return scoreboardIn.entityHasObjective(s, scoreobjective) && rand.isInRange(scoreboardIn.getOrCreateScore(s, scoreobjective).getScorePoints());
+		}
+	}
 
-            for (Entry<String, JsonElement> entry : set)
-            {
-                map.put(entry.getKey(), JsonUtils.deserializeClass(entry.getValue(), "score", context, RandomValueRange.class));
-            }
+	public static class Serializer extends LootCondition.Serializer<EntityHasScore> {
 
-            return new EntityHasScore(map, (LootContext.EntityTarget)JsonUtils.deserializeClass(json, "entity", context, LootContext.EntityTarget.class));
-        }
-    }
+		protected Serializer() {
+
+			super(new ResourceLocation("entity_scores"), EntityHasScore.class);
+		}
+
+		public void serialize(JsonObject json, EntityHasScore value, JsonSerializationContext context) {
+
+			JsonObject jsonobject = new JsonObject();
+
+			for (Entry<String, RandomValueRange> entry : value.scores.entrySet()) {
+				jsonobject.add(entry.getKey(), context.serialize(entry.getValue()));
+			}
+
+			json.add("scores", jsonobject);
+			json.add("entity", context.serialize(value.target));
+		}
+
+		public EntityHasScore deserialize(JsonObject json, JsonDeserializationContext context) {
+
+			Set<Entry<String, JsonElement>> set = JsonUtils.getJsonObject(json, "scores").entrySet();
+			Map<String, RandomValueRange> map = Maps.newLinkedHashMap();
+
+			for (Entry<String, JsonElement> entry : set) {
+				map.put(entry.getKey(), JsonUtils.deserializeClass(entry.getValue(), "score", context, RandomValueRange.class));
+			}
+
+			return new EntityHasScore(map, JsonUtils.deserializeClass(json, "entity", context, LootContext.EntityTarget.class));
+		}
+
+	}
+
 }

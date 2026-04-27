@@ -1,9 +1,6 @@
 package net.minecraft.client.gui.toasts;
 
 import com.google.common.collect.Queues;
-import java.util.Arrays;
-import java.util.Deque;
-import javax.annotation.Nullable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
@@ -11,133 +8,128 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.util.math.MathHelper;
 
-public class GuiToast extends Gui
-{
-    private final Minecraft mc;
-    private final GuiToast.ToastInstance<?>[] visible = new GuiToast.ToastInstance[5];
-    private final Deque<IToast> toastsQueue = Queues.<IToast>newArrayDeque();
+import javax.annotation.Nullable;
+import java.util.Arrays;
+import java.util.Deque;
 
-    public GuiToast(Minecraft mcIn)
-    {
-        mc = mcIn;
-    }
+public class GuiToast extends Gui {
 
-    public void drawToast(ScaledResolution resolution)
-    {
-        if (!mc.gameSettings.hideGUI)
-        {
-            RenderHelper.disableStandardItemLighting();
+	private final Minecraft mc;
+	private final GuiToast.ToastInstance<?>[] visible = new GuiToast.ToastInstance[5];
+	private final Deque<IToast> toastsQueue = Queues.newArrayDeque();
 
-            for (int i = 0; i < visible.length; ++i)
-            {
-                GuiToast.ToastInstance<?> toastinstance = visible[i];
+	public GuiToast(Minecraft mcIn) {
 
-                if (toastinstance != null && toastinstance.render(resolution.getScaledWidth(), i))
-                {
-                    visible[i] = null;
-                }
+		mc = mcIn;
+	}
 
-                if (visible[i] == null && !toastsQueue.isEmpty())
-                {
-                    visible[i] = new GuiToast.ToastInstance(toastsQueue.removeFirst());
-                }
-            }
-        }
-    }
+	public void drawToast(ScaledResolution resolution) {
 
-    @Nullable
-    public <T extends IToast> T getToast(Class <? extends T > p_192990_1_, Object p_192990_2_)
-    {
-        for (GuiToast.ToastInstance<?> toastinstance : visible)
-        {
-            if (toastinstance != null && p_192990_1_.isAssignableFrom(toastinstance.getToast().getClass()) && toastinstance.getToast().getType().equals(p_192990_2_))
-            {
-                return (T)toastinstance.getToast();
-            }
-        }
+		if (!mc.gameSettings.hideGUI) {
+			RenderHelper.disableStandardItemLighting();
 
-        for (IToast itoast : toastsQueue)
-        {
-            if (p_192990_1_.isAssignableFrom(itoast.getClass()) && itoast.getType().equals(p_192990_2_))
-            {
-                return (T)itoast;
-            }
-        }
+			for (int i = 0; i < visible.length; ++i) {
+				GuiToast.ToastInstance<?> toastinstance = visible[i];
 
-        return (T)null;
-    }
+				if (toastinstance != null && toastinstance.render(resolution.getScaledWidth(), i)) {
+					visible[i] = null;
+				}
 
-    public void clear()
-    {
-        Arrays.fill(visible, (Object)null);
-        toastsQueue.clear();
-    }
+				if (visible[i] == null && !toastsQueue.isEmpty()) {
+					visible[i] = new GuiToast.ToastInstance(toastsQueue.removeFirst());
+				}
+			}
+		}
+	}
 
-    public void add(IToast toastIn)
-    {
-        toastsQueue.add(toastIn);
-    }
+	@Nullable
+	public <T extends IToast> T getToast(Class<? extends T> p_192990_1_, Object p_192990_2_) {
 
-    public Minecraft getMinecraft()
-    {
-        return mc;
-    }
+		for (GuiToast.ToastInstance<?> toastinstance : visible) {
+			if (toastinstance != null && p_192990_1_.isAssignableFrom(toastinstance.getToast().getClass()) && toastinstance.getToast().getType().equals(p_192990_2_)) {
+				return (T) toastinstance.getToast();
+			}
+		}
 
-    class ToastInstance<T extends IToast>
-    {
-        private final T toast;
-        private long animationTime;
-        private long visibleTime;
-        private IToast.Visibility visibility;
+		for (IToast itoast : toastsQueue) {
+			if (p_192990_1_.isAssignableFrom(itoast.getClass()) && itoast.getType().equals(p_192990_2_)) {
+				return (T) itoast;
+			}
+		}
 
-        private ToastInstance(T toastIn)
-        {
-            animationTime = -1L;
-            visibleTime = -1L;
-            visibility = IToast.Visibility.SHOW;
-            toast = toastIn;
-        }
+		return null;
+	}
 
-        public T getToast()
-        {
-            return toast;
-        }
+	public void clear() {
 
-        private float getVisibility(long p_193686_1_)
-        {
-            float f = MathHelper.clamp((float)(p_193686_1_ - animationTime) / 600.0F, 0.0F, 1.0F);
-            f = f * f;
-            return visibility == IToast.Visibility.HIDE ? 1.0F - f : f;
-        }
+		Arrays.fill(visible, null);
+		toastsQueue.clear();
+	}
 
-        public boolean render(int p_193684_1_, int p_193684_2_)
-        {
-            long i = Minecraft.getSystemTime();
+	public void add(IToast toastIn) {
 
-            if (animationTime == -1L)
-            {
-                animationTime = i;
-                visibility.playSound(mc.getSoundHandler());
-            }
+		toastsQueue.add(toastIn);
+	}
 
-            if (visibility == IToast.Visibility.SHOW && i - animationTime <= 600L)
-            {
-                visibleTime = i;
-            }
+	public Minecraft getMinecraft() {
 
-            GlStateManager.pushMatrix();
-            GlStateManager.translate((float)p_193684_1_ - 160.0F * getVisibility(i), (float)(p_193684_2_ * 32), (float)(500 + p_193684_2_));
-            IToast.Visibility itoast$visibility = toast.draw(GuiToast.this, i - visibleTime);
-            GlStateManager.popMatrix();
+		return mc;
+	}
 
-            if (itoast$visibility != visibility)
-            {
-                animationTime = i - (long)((int)((1.0F - getVisibility(i)) * 600.0F));
-                visibility = itoast$visibility;
-                visibility.playSound(mc.getSoundHandler());
-            }
+	class ToastInstance<T extends IToast> {
 
-            return visibility == IToast.Visibility.HIDE && i - animationTime > 600L;
-        }
-    }
+		private final T toast;
+		private long animationTime;
+		private long visibleTime;
+		private IToast.Visibility visibility;
+
+		private ToastInstance(T toastIn) {
+
+			animationTime = -1L;
+			visibleTime = -1L;
+			visibility = IToast.Visibility.SHOW;
+			toast = toastIn;
+		}
+
+		public T getToast() {
+
+			return toast;
+		}
+
+		private float getVisibility(long p_193686_1_) {
+
+			float f = MathHelper.clamp((float) (p_193686_1_ - animationTime) / 600.0F, 0.0F, 1.0F);
+			f = f * f;
+			return visibility == IToast.Visibility.HIDE ? 1.0F - f : f;
+		}
+
+		public boolean render(int p_193684_1_, int p_193684_2_) {
+
+			long i = Minecraft.getSystemTime();
+
+			if (animationTime == -1L) {
+				animationTime = i;
+				visibility.playSound(mc.getSoundHandler());
+			}
+
+			if (visibility == IToast.Visibility.SHOW && i - animationTime <= 600L) {
+				visibleTime = i;
+			}
+
+			GlStateManager.pushMatrix();
+			GlStateManager.translate((float) p_193684_1_ - 160.0F * getVisibility(i), (float) (p_193684_2_ * 32), (float) (500 + p_193684_2_));
+			IToast.Visibility itoast$visibility = toast.draw(GuiToast.this, i - visibleTime);
+			GlStateManager.popMatrix();
+
+			if (itoast$visibility != visibility) {
+				animationTime = i - (long) ((int) ((1.0F - getVisibility(i)) * 600.0F));
+				visibility = itoast$visibility;
+				visibility.playSound(mc.getSoundHandler());
+			}
+
+			return visibility == IToast.Visibility.HIDE && i - animationTime > 600L;
+		}
+
+	}
+
 }

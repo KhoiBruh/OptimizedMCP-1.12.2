@@ -1,7 +1,5 @@
 package net.minecraft.tileentity;
 
-import java.util.Random;
-import javax.annotation.Nullable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.ItemStack;
@@ -13,198 +11,185 @@ import net.minecraft.world.storage.loot.ILootContainer;
 import net.minecraft.world.storage.loot.LootContext;
 import net.minecraft.world.storage.loot.LootTable;
 
-public abstract class TileEntityLockableLoot extends TileEntityLockable implements ILootContainer
-{
-    protected ResourceLocation lootTable;
-    protected long lootTableSeed;
-    protected String customName;
+import javax.annotation.Nullable;
+import java.util.Random;
 
-    protected boolean checkLootAndRead(NBTTagCompound compound)
-    {
-        if (compound.hasKey("LootTable", 8))
-        {
-            lootTable = new ResourceLocation(compound.getString("LootTable"));
-            lootTableSeed = compound.getLong("LootTableSeed");
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
+public abstract class TileEntityLockableLoot extends TileEntityLockable implements ILootContainer {
 
-    protected boolean checkLootAndWrite(NBTTagCompound compound)
-    {
-        if (lootTable != null)
-        {
-            compound.setString("LootTable", lootTable.toString());
+	protected ResourceLocation lootTable;
+	protected long lootTableSeed;
+	protected String customName;
 
-            if (lootTableSeed != 0L)
-            {
-                compound.setLong("LootTableSeed", lootTableSeed);
-            }
+	protected boolean checkLootAndRead(NBTTagCompound compound) {
 
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
+		if (compound.hasKey("LootTable", 8)) {
+			lootTable = new ResourceLocation(compound.getString("LootTable"));
+			lootTableSeed = compound.getLong("LootTableSeed");
+			return true;
+		} else {
+			return false;
+		}
+	}
 
-    public void fillWithLoot(@Nullable EntityPlayer player)
-    {
-        if (lootTable != null)
-        {
-            LootTable loottable = world.getLootTableManager().getLootTableFromLocation(lootTable);
-            lootTable = null;
-            Random random;
+	protected boolean checkLootAndWrite(NBTTagCompound compound) {
 
-            if (lootTableSeed == 0L)
-            {
-                random = new Random();
-            }
-            else
-            {
-                random = new Random(lootTableSeed);
-            }
+		if (lootTable != null) {
+			compound.setString("LootTable", lootTable.toString());
 
-            LootContext.Builder lootcontext$builder = new LootContext.Builder((WorldServer) world);
+			if (lootTableSeed != 0L) {
+				compound.setLong("LootTableSeed", lootTableSeed);
+			}
 
-            if (player != null)
-            {
-                lootcontext$builder.withLuck(player.getLuck());
-            }
+			return true;
+		} else {
+			return false;
+		}
+	}
 
-            loottable.fillInventory(this, random, lootcontext$builder.build());
-        }
-    }
+	public void fillWithLoot(@Nullable EntityPlayer player) {
 
-    public ResourceLocation getLootTable()
-    {
-        return lootTable;
-    }
+		if (lootTable != null) {
+			LootTable loottable = world.getLootTableManager().getLootTableFromLocation(lootTable);
+			lootTable = null;
+			Random random;
 
-    public void setLootTable(ResourceLocation p_189404_1_, long p_189404_2_)
-    {
-        lootTable = p_189404_1_;
-        lootTableSeed = p_189404_2_;
-    }
+			if (lootTableSeed == 0L) {
+				random = new Random();
+			} else {
+				random = new Random(lootTableSeed);
+			}
 
-    /**
-     * Returns true if this thing is named
-     */
-    public boolean hasCustomName()
-    {
-        return customName != null && !customName.isEmpty();
-    }
+			LootContext.Builder lootcontext$builder = new LootContext.Builder((WorldServer) world);
 
-    public void setCustomName(String p_190575_1_)
-    {
-        customName = p_190575_1_;
-    }
+			if (player != null) {
+				lootcontext$builder.withLuck(player.getLuck());
+			}
 
-    /**
-     * Returns the stack in the given slot.
-     */
-    public ItemStack getStackInSlot(int index)
-    {
-        fillWithLoot((EntityPlayer)null);
-        return (ItemStack) getItems().get(index);
-    }
+			loottable.fillInventory(this, random, lootcontext$builder.build());
+		}
+	}
 
-    /**
-     * Removes up to a specified number of items from an inventory slot and returns them in a new stack.
-     */
-    public ItemStack decrStackSize(int index, int count)
-    {
-        fillWithLoot((EntityPlayer)null);
-        ItemStack itemstack = ItemStackHelper.getAndSplit(getItems(), index, count);
+	public ResourceLocation getLootTable() {
 
-        if (!itemstack.isEmpty())
-        {
-            markDirty();
-        }
+		return lootTable;
+	}
 
-        return itemstack;
-    }
+	public void setLootTable(ResourceLocation p_189404_1_, long p_189404_2_) {
 
-    /**
-     * Removes a stack from the given slot and returns it.
-     */
-    public ItemStack removeStackFromSlot(int index)
-    {
-        fillWithLoot((EntityPlayer)null);
-        return ItemStackHelper.getAndRemove(getItems(), index);
-    }
+		lootTable = p_189404_1_;
+		lootTableSeed = p_189404_2_;
+	}
 
-    /**
-     * Sets the given item stack to the specified slot in the inventory (can be crafting or armor sections).
-     */
-    public void setInventorySlotContents(int index, @Nullable ItemStack stack)
-    {
-        fillWithLoot((EntityPlayer)null);
-        getItems().set(index, stack);
+	/**
+	 * Returns true if this thing is named
+	 */
+	public boolean hasCustomName() {
 
-        if (stack.getCount() > getInventoryStackLimit())
-        {
-            stack.setCount(getInventoryStackLimit());
-        }
+		return customName != null && !customName.isEmpty();
+	}
 
-        markDirty();
-    }
+	public void setCustomName(String p_190575_1_) {
 
-    /**
-     * Don't rename this method to canInteractWith due to conflicts with Container
-     */
-    public boolean isUsableByPlayer(EntityPlayer player)
-    {
-        if (world.getTileEntity(pos) != this)
-        {
-            return false;
-        }
-        else
-        {
-            return player.getDistanceSq((double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D) <= 64.0D;
-        }
-    }
+		customName = p_190575_1_;
+	}
 
-    public void openInventory(EntityPlayer player)
-    {
-    }
+	/**
+	 * Returns the stack in the given slot.
+	 */
+	public ItemStack getStackInSlot(int index) {
 
-    public void closeInventory(EntityPlayer player)
-    {
-    }
+		fillWithLoot(null);
+		return getItems().get(index);
+	}
 
-    /**
-     * Returns true if automation is allowed to insert the given stack (ignoring stack size) into the given slot. For
-     * guis use Slot.isItemValid
-     */
-    public boolean isItemValidForSlot(int index, ItemStack stack)
-    {
-        return true;
-    }
+	/**
+	 * Removes up to a specified number of items from an inventory slot and returns them in a new stack.
+	 */
+	public ItemStack decrStackSize(int index, int count) {
 
-    public int getField(int id)
-    {
-        return 0;
-    }
+		fillWithLoot(null);
+		ItemStack itemstack = ItemStackHelper.getAndSplit(getItems(), index, count);
 
-    public void setField(int id, int value)
-    {
-    }
+		if (!itemstack.isEmpty()) {
+			markDirty();
+		}
 
-    public int getFieldCount()
-    {
-        return 0;
-    }
+		return itemstack;
+	}
 
-    public void clear()
-    {
-        fillWithLoot((EntityPlayer)null);
-        getItems().clear();
-    }
+	/**
+	 * Removes a stack from the given slot and returns it.
+	 */
+	public ItemStack removeStackFromSlot(int index) {
 
-    protected abstract NonNullList<ItemStack> getItems();
+		fillWithLoot(null);
+		return ItemStackHelper.getAndRemove(getItems(), index);
+	}
+
+	/**
+	 * Sets the given item stack to the specified slot in the inventory (can be crafting or armor sections).
+	 */
+	public void setInventorySlotContents(int index, @Nullable ItemStack stack) {
+
+		fillWithLoot(null);
+		getItems().set(index, stack);
+
+		if (stack.getCount() > getInventoryStackLimit()) {
+			stack.setCount(getInventoryStackLimit());
+		}
+
+		markDirty();
+	}
+
+	/**
+	 * Don't rename this method to canInteractWith due to conflicts with Container
+	 */
+	public boolean isUsableByPlayer(EntityPlayer player) {
+
+		if (world.getTileEntity(pos) != this) {
+			return false;
+		} else {
+			return player.getDistanceSq((double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D) <= 64.0D;
+		}
+	}
+
+	public void openInventory(EntityPlayer player) {
+
+	}
+
+	public void closeInventory(EntityPlayer player) {
+
+	}
+
+	/**
+	 * Returns true if automation is allowed to insert the given stack (ignoring stack size) into the given slot. For
+	 * guis use Slot.isItemValid
+	 */
+	public boolean isItemValidForSlot(int index, ItemStack stack) {
+
+		return true;
+	}
+
+	public int getField(int id) {
+
+		return 0;
+	}
+
+	public void setField(int id, int value) {
+
+	}
+
+	public int getFieldCount() {
+
+		return 0;
+	}
+
+	public void clear() {
+
+		fillWithLoot(null);
+		getItems().clear();
+	}
+
+	protected abstract NonNullList<ItemStack> getItems();
+
 }

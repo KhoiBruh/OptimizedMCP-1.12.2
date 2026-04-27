@@ -5,39 +5,40 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 
-public interface IRecipe
-{
-    /**
-     * Used to check if a recipe matches current crafting inventory
-     */
-    boolean matches(InventoryCrafting inv, World worldIn);
+public interface IRecipe {
 
-    /**
-     * Returns an Item that is the result of this recipe
-     */
-    ItemStack getCraftingResult(InventoryCrafting inv);
+	/**
+	 * Used to check if a recipe matches current crafting inventory
+	 */
+	boolean matches(InventoryCrafting inv, World worldIn);
 
-    /**
-     * Used to determine if this recipe can fit in a grid of the given width/height
-     */
-    boolean canFit(int width, int height);
+	/**
+	 * Returns an Item that is the result of this recipe
+	 */
+	ItemStack getCraftingResult(InventoryCrafting inv);
 
-    ItemStack getRecipeOutput();
+	/**
+	 * Used to determine if this recipe can fit in a grid of the given width/height
+	 */
+	boolean canFit(int width, int height);
 
-    NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv);
+	ItemStack getRecipeOutput();
 
-default NonNullList<Ingredient> getIngredients()
-    {
-        return NonNullList.<Ingredient>create();
-    }
+	NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv);
 
-default boolean isDynamic()
-    {
-        return false;
-    }
+	default NonNullList<Ingredient> getIngredients() {
 
-default String getGroup()
-    {
-        return "";
-    }
+		return NonNullList.create();
+	}
+
+	default boolean isDynamic() {
+
+		return false;
+	}
+
+	default String getGroup() {
+
+		return "";
+	}
+
 }

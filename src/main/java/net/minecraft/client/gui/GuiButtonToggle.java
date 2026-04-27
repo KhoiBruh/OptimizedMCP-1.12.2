@@ -4,71 +4,69 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
 
-public class GuiButtonToggle extends GuiButton
-{
-    protected ResourceLocation resourceLocation;
-    protected boolean stateTriggered;
-    protected int xTexStart;
-    protected int yTexStart;
-    protected int xDiffTex;
-    protected int yDiffTex;
+public class GuiButtonToggle extends GuiButton {
 
-    public GuiButtonToggle(int buttonId, int xIn, int yIn, int widthIn, int heightIn, boolean buttonText)
-    {
-        super(buttonId, xIn, yIn, widthIn, heightIn, "");
-        stateTriggered = buttonText;
-    }
+	protected ResourceLocation resourceLocation;
+	protected boolean stateTriggered;
+	protected int xTexStart;
+	protected int yTexStart;
+	protected int xDiffTex;
+	protected int yDiffTex;
 
-    public void initTextureValues(int xTexStartIn, int yTexStartIn, int xDiffTexIn, int yDiffTexIn, ResourceLocation resourceLocationIn)
-    {
-        xTexStart = xTexStartIn;
-        yTexStart = yTexStartIn;
-        xDiffTex = xDiffTexIn;
-        yDiffTex = yDiffTexIn;
-        resourceLocation = resourceLocationIn;
-    }
+	public GuiButtonToggle(int buttonId, int xIn, int yIn, int widthIn, int heightIn, boolean buttonText) {
 
-    public void setStateTriggered(boolean p_191753_1_)
-    {
-        stateTriggered = p_191753_1_;
-    }
+		super(buttonId, xIn, yIn, widthIn, heightIn, "");
+		stateTriggered = buttonText;
+	}
 
-    public boolean isStateTriggered()
-    {
-        return stateTriggered;
-    }
+	public void initTextureValues(int xTexStartIn, int yTexStartIn, int xDiffTexIn, int yDiffTexIn, ResourceLocation resourceLocationIn) {
 
-    public void setPosition(int p_191752_1_, int p_191752_2_)
-    {
-        x = p_191752_1_;
-        y = p_191752_2_;
-    }
+		xTexStart = xTexStartIn;
+		yTexStart = yTexStartIn;
+		xDiffTex = xDiffTexIn;
+		yDiffTex = yDiffTexIn;
+		resourceLocation = resourceLocationIn;
+	}
 
-    /**
-     * Draws this button to the screen.
-     */
-    public void drawButton(Minecraft mc, int mouseX, int mouseY, float partialTicks)
-    {
-        if (visible)
-        {
-            hovered = mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
-            mc.getTextureManager().bindTexture(resourceLocation);
-            GlStateManager.disableDepth();
-            int i = xTexStart;
-            int j = yTexStart;
+	public void setStateTriggered(boolean p_191753_1_) {
 
-            if (stateTriggered)
-            {
-                i += xDiffTex;
-            }
+		stateTriggered = p_191753_1_;
+	}
 
-            if (hovered)
-            {
-                j += yDiffTex;
-            }
+	public boolean isStateTriggered() {
 
-            drawTexturedModalRect(x, y, i, j, width, height);
-            GlStateManager.enableDepth();
-        }
-    }
+		return stateTriggered;
+	}
+
+	public void setPosition(int p_191752_1_, int p_191752_2_) {
+
+		x = p_191752_1_;
+		y = p_191752_2_;
+	}
+
+	/**
+	 * Draws this button to the screen.
+	 */
+	public void drawButton(Minecraft mc, int mouseX, int mouseY, float partialTicks) {
+
+		if (visible) {
+			hovered = mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
+			mc.getTextureManager().bindTexture(resourceLocation);
+			GlStateManager.disableDepth();
+			int i = xTexStart;
+			int j = yTexStart;
+
+			if (stateTriggered) {
+				i += xDiffTex;
+			}
+
+			if (hovered) {
+				j += yDiffTex;
+			}
+
+			drawTexturedModalRect(x, y, i, j, width, height);
+			GlStateManager.enableDepth();
+		}
+	}
+
 }

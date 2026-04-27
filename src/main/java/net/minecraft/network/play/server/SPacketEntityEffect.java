@@ -1,116 +1,113 @@
 package net.minecraft.network.play.server;
 
-import java.io.IOException;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayClient;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 
-public class SPacketEntityEffect implements Packet<INetHandlerPlayClient>
-{
-    private int entityId;
-    private byte effectId;
-    private byte amplifier;
-    private int duration;
-    private byte flags;
+import java.io.IOException;
 
-    public SPacketEntityEffect()
-    {
-    }
+public class SPacketEntityEffect implements Packet<INetHandlerPlayClient> {
 
-    public SPacketEntityEffect(int entityIdIn, PotionEffect effect)
-    {
-        entityId = entityIdIn;
-        effectId = (byte)(Potion.getIdFromPotion(effect.getPotion()) & 255);
-        amplifier = (byte)(effect.getAmplifier() & 255);
+	private int entityId;
+	private byte effectId;
+	private byte amplifier;
+	private int duration;
+	private byte flags;
 
-        if (effect.getDuration() > 32767)
-        {
-            duration = 32767;
-        }
-        else
-        {
-            duration = effect.getDuration();
-        }
+	public SPacketEntityEffect() {
 
-        flags = 0;
+	}
 
-        if (effect.getIsAmbient())
-        {
-            flags = (byte)(flags | 1);
-        }
+	public SPacketEntityEffect(int entityIdIn, PotionEffect effect) {
 
-        if (effect.doesShowParticles())
-        {
-            flags = (byte)(flags | 2);
-        }
-    }
+		entityId = entityIdIn;
+		effectId = (byte) (Potion.getIdFromPotion(effect.getPotion()) & 255);
+		amplifier = (byte) (effect.getAmplifier() & 255);
 
-    /**
-     * Reads the raw packet data from the data stream.
-     */
-    public void readPacketData(PacketBuffer buf) throws IOException
-    {
-        entityId = buf.readVarInt();
-        effectId = buf.readByte();
-        amplifier = buf.readByte();
-        duration = buf.readVarInt();
-        flags = buf.readByte();
-    }
+		if (effect.getDuration() > 32767) {
+			duration = 32767;
+		} else {
+			duration = effect.getDuration();
+		}
 
-    /**
-     * Writes the raw packet data to the data stream.
-     */
-    public void writePacketData(PacketBuffer buf) throws IOException
-    {
-        buf.writeVarInt(entityId);
-        buf.writeByte(effectId);
-        buf.writeByte(amplifier);
-        buf.writeVarInt(duration);
-        buf.writeByte(flags);
-    }
+		flags = 0;
 
-    public boolean isMaxDuration()
-    {
-        return duration == 32767;
-    }
+		if (effect.getIsAmbient()) {
+			flags = (byte) (flags | 1);
+		}
 
-    /**
-     * Passes this Packet on to the NetHandler for processing.
-     */
-    public void processPacket(INetHandlerPlayClient handler)
-    {
-        handler.handleEntityEffect(this);
-    }
+		if (effect.doesShowParticles()) {
+			flags = (byte) (flags | 2);
+		}
+	}
 
-    public int getEntityId()
-    {
-        return entityId;
-    }
+	/**
+	 * Reads the raw packet data from the data stream.
+	 */
+	public void readPacketData(PacketBuffer buf) throws IOException {
 
-    public byte getEffectId()
-    {
-        return effectId;
-    }
+		entityId = buf.readVarInt();
+		effectId = buf.readByte();
+		amplifier = buf.readByte();
+		duration = buf.readVarInt();
+		flags = buf.readByte();
+	}
 
-    public byte getAmplifier()
-    {
-        return amplifier;
-    }
+	/**
+	 * Writes the raw packet data to the data stream.
+	 */
+	public void writePacketData(PacketBuffer buf) throws IOException {
 
-    public int getDuration()
-    {
-        return duration;
-    }
+		buf.writeVarInt(entityId);
+		buf.writeByte(effectId);
+		buf.writeByte(amplifier);
+		buf.writeVarInt(duration);
+		buf.writeByte(flags);
+	}
 
-    public boolean doesShowParticles()
-    {
-        return (flags & 2) == 2;
-    }
+	public boolean isMaxDuration() {
 
-    public boolean getIsAmbient()
-    {
-        return (flags & 1) == 1;
-    }
+		return duration == 32767;
+	}
+
+	/**
+	 * Passes this Packet on to the NetHandler for processing.
+	 */
+	public void processPacket(INetHandlerPlayClient handler) {
+
+		handler.handleEntityEffect(this);
+	}
+
+	public int getEntityId() {
+
+		return entityId;
+	}
+
+	public byte getEffectId() {
+
+		return effectId;
+	}
+
+	public byte getAmplifier() {
+
+		return amplifier;
+	}
+
+	public int getDuration() {
+
+		return duration;
+	}
+
+	public boolean doesShowParticles() {
+
+		return (flags & 2) == 2;
+	}
+
+	public boolean getIsAmbient() {
+
+		return (flags & 1) == 1;
+	}
+
 }

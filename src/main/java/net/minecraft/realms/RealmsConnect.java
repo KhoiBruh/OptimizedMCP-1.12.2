@@ -1,7 +1,5 @@
 package net.minecraft.realms;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.network.NetHandlerLoginClient;
 import net.minecraft.network.EnumConnectionState;
@@ -12,118 +10,104 @@ import net.minecraft.util.text.TextComponentTranslation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class RealmsConnect
-{
-    private static final Logger LOGGER = LogManager.getLogger();
-    private final RealmsScreen onlineScreen;
-    private volatile boolean aborted;
-    private NetworkManager connection;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
-    public RealmsConnect(RealmsScreen onlineScreenIn)
-    {
-        onlineScreen = onlineScreenIn;
-    }
+public class RealmsConnect {
 
-    public void connect(final String p_connect_1_, final int p_connect_2_)
-    {
-        Realms.setConnectedToRealms(true);
-        (new Thread("Realms-connect-task")
-        {
-            public void run()
-            {
-                InetAddress inetaddress = null;
+	private static final Logger LOGGER = LogManager.getLogger();
+	private final RealmsScreen onlineScreen;
+	private volatile boolean aborted;
+	private NetworkManager connection;
 
-                try
-                {
-                    inetaddress = InetAddress.getByName(p_connect_1_);
+	public RealmsConnect(RealmsScreen onlineScreenIn) {
 
-                    if (aborted)
-                    {
-                        return;
-                    }
+		onlineScreen = onlineScreenIn;
+	}
 
-                    connection = NetworkManager.createNetworkManagerAndConnect(inetaddress, p_connect_2_, Minecraft.getMinecraft().gameSettings.isUsingNativeTransport());
+	public void connect(final String p_connect_1_, final int p_connect_2_) {
 
-                    if (aborted)
-                    {
-                        return;
-                    }
+		Realms.setConnectedToRealms(true);
+		(new Thread("Realms-connect-task") {
+			public void run() {
 
-                    connection.setNetHandler(new NetHandlerLoginClient(connection, Minecraft.getMinecraft(), onlineScreen.getProxy()));
+				InetAddress inetaddress = null;
 
-                    if (aborted)
-                    {
-                        return;
-                    }
+				try {
+					inetaddress = InetAddress.getByName(p_connect_1_);
 
-                    connection.sendPacket(new C00Handshake(p_connect_1_, p_connect_2_, EnumConnectionState.LOGIN));
+					if (aborted) {
+						return;
+					}
 
-                    if (aborted)
-                    {
-                        return;
-                    }
+					connection = NetworkManager.createNetworkManagerAndConnect(inetaddress, p_connect_2_, Minecraft.getMinecraft().gameSettings.isUsingNativeTransport());
 
-                    connection.sendPacket(new CPacketLoginStart(Minecraft.getMinecraft().getSession().getProfile()));
-                }
-                catch (UnknownHostException unknownhostexception)
-                {
-                    Realms.clearResourcePack();
+					if (aborted) {
+						return;
+					}
 
-                    if (aborted)
-                    {
-                        return;
-                    }
+					connection.setNetHandler(new NetHandlerLoginClient(connection, Minecraft.getMinecraft(), onlineScreen.getProxy()));
 
-                    RealmsConnect.LOGGER.error("Couldn't connect to world", (Throwable)unknownhostexception);
-                    Realms.setScreen(new DisconnectedRealmsScreen(onlineScreen, "connect.failed", new TextComponentTranslation("disconnect.genericReason", new Object[] {"Unknown host '" + p_connect_1_ + "'"})));
-                }
-                catch (Exception exception)
-                {
-                    Realms.clearResourcePack();
+					if (aborted) {
+						return;
+					}
 
-                    if (aborted)
-                    {
-                        return;
-                    }
+					connection.sendPacket(new C00Handshake(p_connect_1_, p_connect_2_, EnumConnectionState.LOGIN));
 
-                    RealmsConnect.LOGGER.error("Couldn't connect to world", (Throwable)exception);
-                    String s = exception.toString();
+					if (aborted) {
+						return;
+					}
 
-                    if (inetaddress != null)
-                    {
-                        String s1 = inetaddress + ":" + p_connect_2_;
-                        s = s.replaceAll(s1, "");
-                    }
+					connection.sendPacket(new CPacketLoginStart(Minecraft.getMinecraft().getSession().getProfile()));
+				} catch (UnknownHostException unknownhostexception) {
+					Realms.clearResourcePack();
 
-                    Realms.setScreen(new DisconnectedRealmsScreen(onlineScreen, "connect.failed", new TextComponentTranslation("disconnect.genericReason", new Object[] {s})));
-                }
-            }
-        }).start();
-    }
+					if (aborted) {
+						return;
+					}
 
-    public void abort()
-    {
-        aborted = true;
+					RealmsConnect.LOGGER.error("Couldn't connect to world", unknownhostexception);
+					Realms.setScreen(new DisconnectedRealmsScreen(onlineScreen, "connect.failed", new TextComponentTranslation("disconnect.genericReason", "Unknown host '" + p_connect_1_ + "'")));
+				} catch (Exception exception) {
+					Realms.clearResourcePack();
 
-        if (connection != null && connection.isChannelOpen())
-        {
-            connection.closeChannel(new TextComponentTranslation("disconnect.genericReason", new Object[0]));
-            connection.checkDisconnected();
-        }
-    }
+					if (aborted) {
+						return;
+					}
 
-    public void tick()
-    {
-        if (connection != null)
-        {
-            if (connection.isChannelOpen())
-            {
-                connection.processReceivedPackets();
-            }
-            else
-            {
-                connection.checkDisconnected();
-            }
-        }
-    }
+					RealmsConnect.LOGGER.error("Couldn't connect to world", exception);
+					String s = exception.toString();
+
+					if (inetaddress != null) {
+						String s1 = inetaddress + ":" + p_connect_2_;
+						s = s.replaceAll(s1, "");
+					}
+
+					Realms.setScreen(new DisconnectedRealmsScreen(onlineScreen, "connect.failed", new TextComponentTranslation("disconnect.genericReason", s)));
+				}
+			}
+		}).start();
+	}
+
+	public void abort() {
+
+		aborted = true;
+
+		if (connection != null && connection.isChannelOpen()) {
+			connection.closeChannel(new TextComponentTranslation("disconnect.genericReason"));
+			connection.checkDisconnected();
+		}
+	}
+
+	public void tick() {
+
+		if (connection != null) {
+			if (connection.isChannelOpen()) {
+				connection.processReceivedPackets();
+			} else {
+				connection.checkDisconnected();
+			}
+		}
+	}
+
 }

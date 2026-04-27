@@ -3,37 +3,40 @@ package net.minecraft.world.storage.loot.properties;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonSerializationContext;
-import java.util.Random;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 
-public interface EntityProperty
-{
-    boolean testProperty(Random random, Entity entityIn);
+import java.util.Random;
 
-    public abstract static class Serializer<T extends EntityProperty>
-    {
-        private final ResourceLocation name;
-        private final Class<T> propertyClass;
+public interface EntityProperty {
 
-        protected Serializer(ResourceLocation nameIn, Class<T> propertyClassIn)
-        {
-            name = nameIn;
-            propertyClass = propertyClassIn;
-        }
+	boolean testProperty(Random random, Entity entityIn);
 
-        public ResourceLocation getName()
-        {
-            return name;
-        }
+	abstract class Serializer<T extends EntityProperty> {
 
-        public Class<T> getPropertyClass()
-        {
-            return propertyClass;
-        }
+		private final ResourceLocation name;
+		private final Class<T> propertyClass;
 
-        public abstract JsonElement serialize(T property, JsonSerializationContext serializationContext);
+		protected Serializer(ResourceLocation nameIn, Class<T> propertyClassIn) {
 
-        public abstract T deserialize(JsonElement element, JsonDeserializationContext deserializationContext);
-    }
+			name = nameIn;
+			propertyClass = propertyClassIn;
+		}
+
+		public ResourceLocation getName() {
+
+			return name;
+		}
+
+		public Class<T> getPropertyClass() {
+
+			return propertyClass;
+		}
+
+		public abstract JsonElement serialize(T property, JsonSerializationContext serializationContext);
+
+		public abstract T deserialize(JsonElement element, JsonDeserializationContext deserializationContext);
+
+	}
+
 }

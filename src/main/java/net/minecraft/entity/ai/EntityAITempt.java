@@ -1,178 +1,180 @@
 package net.minecraft.entity.ai;
 
 import com.google.common.collect.Sets;
-import java.util.Set;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.pathfinding.PathNavigateGround;
 
-public class EntityAITempt extends EntityAIBase
-{
-    /** The entity using this AI that is tempted by the player. */
-    private final EntityCreature temptedEntity;
-    private final double speed;
+import java.util.Set;
 
-    /** X position of player tempting this mob */
-    private double targetX;
+public class EntityAITempt extends EntityAIBase {
 
-    /** Y position of player tempting this mob */
-    private double targetY;
+	/**
+	 * The entity using this AI that is tempted by the player.
+	 */
+	private final EntityCreature temptedEntity;
+	private final double speed;
 
-    /** Z position of player tempting this mob */
-    private double targetZ;
+	/**
+	 * X position of player tempting this mob
+	 */
+	private double targetX;
 
-    /** Tempting player's pitch */
-    private double pitch;
+	/**
+	 * Y position of player tempting this mob
+	 */
+	private double targetY;
 
-    /** Tempting player's yaw */
-    private double yaw;
+	/**
+	 * Z position of player tempting this mob
+	 */
+	private double targetZ;
 
-    /** The player that is tempting the entity that is using this AI. */
-    private EntityPlayer temptingPlayer;
+	/**
+	 * Tempting player's pitch
+	 */
+	private double pitch;
 
-    /**
-     * A counter that is decremented each time the shouldExecute method is called. The shouldExecute method will always
-     * return false if delayTemptCounter is greater than 0.
-     */
-    private int delayTemptCounter;
+	/**
+	 * Tempting player's yaw
+	 */
+	private double yaw;
 
-    /** True if this EntityAITempt task is running */
-    private boolean isRunning;
-    private final Set<Item> temptItem;
+	/**
+	 * The player that is tempting the entity that is using this AI.
+	 */
+	private EntityPlayer temptingPlayer;
 
-    /**
-     * Whether the entity using this AI will be scared by the tempter's sudden movement.
-     */
-    private final boolean scaredByPlayerMovement;
+	/**
+	 * A counter that is decremented each time the shouldExecute method is called. The shouldExecute method will always
+	 * return false if delayTemptCounter is greater than 0.
+	 */
+	private int delayTemptCounter;
 
-    public EntityAITempt(EntityCreature temptedEntityIn, double speedIn, Item temptItemIn, boolean scaredByPlayerMovementIn)
-    {
-        this(temptedEntityIn, speedIn, scaredByPlayerMovementIn, Sets.newHashSet(temptItemIn));
-    }
+	/**
+	 * True if this EntityAITempt task is running
+	 */
+	private boolean isRunning;
+	private final Set<Item> temptItem;
 
-    public EntityAITempt(EntityCreature temptedEntityIn, double speedIn, boolean scaredByPlayerMovementIn, Set<Item> temptItemIn)
-    {
-        temptedEntity = temptedEntityIn;
-        speed = speedIn;
-        temptItem = temptItemIn;
-        scaredByPlayerMovement = scaredByPlayerMovementIn;
-        setMutexBits(3);
+	/**
+	 * Whether the entity using this AI will be scared by the tempter's sudden movement.
+	 */
+	private final boolean scaredByPlayerMovement;
 
-        if (!(temptedEntityIn.getNavigator() instanceof PathNavigateGround))
-        {
-            throw new IllegalArgumentException("Unsupported mob type for TemptGoal");
-        }
-    }
+	public EntityAITempt(EntityCreature temptedEntityIn, double speedIn, Item temptItemIn, boolean scaredByPlayerMovementIn) {
 
-    /**
-     * Returns whether the EntityAIBase should begin execution.
-     */
-    public boolean shouldExecute()
-    {
-        if (delayTemptCounter > 0)
-        {
-            --delayTemptCounter;
-            return false;
-        }
-        else
-        {
-            temptingPlayer = temptedEntity.world.getClosestPlayerToEntity(temptedEntity, 10.0D);
+		this(temptedEntityIn, speedIn, scaredByPlayerMovementIn, Sets.newHashSet(temptItemIn));
+	}
 
-            if (temptingPlayer == null)
-            {
-                return false;
-            }
-            else
-            {
-                return isTempting(temptingPlayer.getHeldItemMainhand()) || isTempting(temptingPlayer.getHeldItemOffhand());
-            }
-        }
-    }
+	public EntityAITempt(EntityCreature temptedEntityIn, double speedIn, boolean scaredByPlayerMovementIn, Set<Item> temptItemIn) {
 
-    protected boolean isTempting(ItemStack stack)
-    {
-        return temptItem.contains(stack.getItem());
-    }
+		temptedEntity = temptedEntityIn;
+		speed = speedIn;
+		temptItem = temptItemIn;
+		scaredByPlayerMovement = scaredByPlayerMovementIn;
+		setMutexBits(3);
 
-    /**
-     * Returns whether an in-progress EntityAIBase should continue executing
-     */
-    public boolean shouldContinueExecuting()
-    {
-        if (scaredByPlayerMovement)
-        {
-            if (temptedEntity.getDistanceSq(temptingPlayer) < 36.0D)
-            {
-                if (temptingPlayer.getDistanceSq(targetX, targetY, targetZ) > 0.010000000000000002D)
-                {
-                    return false;
-                }
+		if (!(temptedEntityIn.getNavigator() instanceof PathNavigateGround)) {
+			throw new IllegalArgumentException("Unsupported mob type for TemptGoal");
+		}
+	}
 
-                if (Math.abs((double) temptingPlayer.rotationPitch - pitch) > 5.0D || Math.abs((double) temptingPlayer.rotationYaw - yaw) > 5.0D)
-                {
-                    return false;
-                }
-            }
-            else
-            {
-                targetX = temptingPlayer.posX;
-                targetY = temptingPlayer.posY;
-                targetZ = temptingPlayer.posZ;
-            }
+	/**
+	 * Returns whether the EntityAIBase should begin execution.
+	 */
+	public boolean shouldExecute() {
 
-            pitch = (double) temptingPlayer.rotationPitch;
-            yaw = (double) temptingPlayer.rotationYaw;
-        }
+		if (delayTemptCounter > 0) {
+			--delayTemptCounter;
+			return false;
+		} else {
+			temptingPlayer = temptedEntity.world.getClosestPlayerToEntity(temptedEntity, 10.0D);
 
-        return shouldExecute();
-    }
+			if (temptingPlayer == null) {
+				return false;
+			} else {
+				return isTempting(temptingPlayer.getHeldItemMainhand()) || isTempting(temptingPlayer.getHeldItemOffhand());
+			}
+		}
+	}
 
-    /**
-     * Execute a one shot task or start executing a continuous task
-     */
-    public void startExecuting()
-    {
-        targetX = temptingPlayer.posX;
-        targetY = temptingPlayer.posY;
-        targetZ = temptingPlayer.posZ;
-        isRunning = true;
-    }
+	protected boolean isTempting(ItemStack stack) {
 
-    /**
-     * Reset the task's internal state. Called when this task is interrupted by another one
-     */
-    public void resetTask()
-    {
-        temptingPlayer = null;
-        temptedEntity.getNavigator().clearPath();
-        delayTemptCounter = 100;
-        isRunning = false;
-    }
+		return temptItem.contains(stack.getItem());
+	}
 
-    /**
-     * Keep ticking a continuous task that has already been started
-     */
-    public void updateTask()
-    {
-        temptedEntity.getLookHelper().setLookPositionWithEntity(temptingPlayer, (float)(temptedEntity.getHorizontalFaceSpeed() + 20), (float) temptedEntity.getVerticalFaceSpeed());
+	/**
+	 * Returns whether an in-progress EntityAIBase should continue executing
+	 */
+	public boolean shouldContinueExecuting() {
 
-        if (temptedEntity.getDistanceSq(temptingPlayer) < 6.25D)
-        {
-            temptedEntity.getNavigator().clearPath();
-        }
-        else
-        {
-            temptedEntity.getNavigator().tryMoveToEntityLiving(temptingPlayer, speed);
-        }
-    }
+		if (scaredByPlayerMovement) {
+			if (temptedEntity.getDistanceSq(temptingPlayer) < 36.0D) {
+				if (temptingPlayer.getDistanceSq(targetX, targetY, targetZ) > 0.010000000000000002D) {
+					return false;
+				}
 
-    /**
-     * @see #isRunning
-     */
-    public boolean isRunning()
-    {
-        return isRunning;
-    }
+				if (Math.abs((double) temptingPlayer.rotationPitch - pitch) > 5.0D || Math.abs((double) temptingPlayer.rotationYaw - yaw) > 5.0D) {
+					return false;
+				}
+			} else {
+				targetX = temptingPlayer.posX;
+				targetY = temptingPlayer.posY;
+				targetZ = temptingPlayer.posZ;
+			}
+
+			pitch = temptingPlayer.rotationPitch;
+			yaw = temptingPlayer.rotationYaw;
+		}
+
+		return shouldExecute();
+	}
+
+	/**
+	 * Execute a one shot task or start executing a continuous task
+	 */
+	public void startExecuting() {
+
+		targetX = temptingPlayer.posX;
+		targetY = temptingPlayer.posY;
+		targetZ = temptingPlayer.posZ;
+		isRunning = true;
+	}
+
+	/**
+	 * Reset the task's internal state. Called when this task is interrupted by another one
+	 */
+	public void resetTask() {
+
+		temptingPlayer = null;
+		temptedEntity.getNavigator().clearPath();
+		delayTemptCounter = 100;
+		isRunning = false;
+	}
+
+	/**
+	 * Keep ticking a continuous task that has already been started
+	 */
+	public void updateTask() {
+
+		temptedEntity.getLookHelper().setLookPositionWithEntity(temptingPlayer, (float) (temptedEntity.getHorizontalFaceSpeed() + 20), (float) temptedEntity.getVerticalFaceSpeed());
+
+		if (temptedEntity.getDistanceSq(temptingPlayer) < 6.25D) {
+			temptedEntity.getNavigator().clearPath();
+		} else {
+			temptedEntity.getNavigator().tryMoveToEntityLiving(temptingPlayer, speed);
+		}
+	}
+
+	/**
+	 * @see #isRunning
+	 */
+	public boolean isRunning() {
+
+		return isRunning;
+	}
+
 }

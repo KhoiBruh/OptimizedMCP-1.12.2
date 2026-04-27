@@ -4,51 +4,51 @@ import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.entity.RenderLivingBase;
 import net.minecraft.inventory.EntityEquipmentSlot;
 
-public class LayerBipedArmor extends LayerArmorBase<ModelBiped>
-{
-    public LayerBipedArmor(RenderLivingBase<?> rendererIn)
-    {
-        super(rendererIn);
-    }
+public class LayerBipedArmor extends LayerArmorBase<ModelBiped> {
 
-    protected void initArmor()
-    {
-        modelLeggings = new ModelBiped(0.5F);
-        modelArmor = new ModelBiped(1.0F);
-    }
+	public LayerBipedArmor(RenderLivingBase<?> rendererIn) {
 
-    @SuppressWarnings("incomplete-switch")
-    protected void setModelSlotVisible(ModelBiped p_188359_1_, EntityEquipmentSlot slotIn)
-    {
-        setModelVisible(p_188359_1_);
+		super(rendererIn);
+	}
 
-        switch (slotIn)
-        {
-            case HEAD:
-                p_188359_1_.bipedHead.showModel = true;
-                p_188359_1_.bipedHeadwear.showModel = true;
-                break;
+	protected void initArmor() {
 
-            case CHEST:
-                p_188359_1_.bipedBody.showModel = true;
-                p_188359_1_.bipedRightArm.showModel = true;
-                p_188359_1_.bipedLeftArm.showModel = true;
-                break;
+		modelLeggings = new ModelBiped(0.5F);
+		modelArmor = new ModelBiped(1.0F);
+	}
 
-            case LEGS:
-                p_188359_1_.bipedBody.showModel = true;
-                p_188359_1_.bipedRightLeg.showModel = true;
-                p_188359_1_.bipedLeftLeg.showModel = true;
-                break;
+	@SuppressWarnings("incomplete-switch")
+	protected void setModelSlotVisible(ModelBiped p_188359_1_, EntityEquipmentSlot slotIn) {
 
-            case FEET:
-                p_188359_1_.bipedRightLeg.showModel = true;
-                p_188359_1_.bipedLeftLeg.showModel = true;
-        }
-    }
+		setModelVisible(p_188359_1_);
 
-    protected void setModelVisible(ModelBiped model)
-    {
-        model.setVisible(false);
-    }
+		switch (slotIn) {
+			case HEAD:
+				p_188359_1_.bipedHead.showModel = true;
+				p_188359_1_.bipedHeadwear.showModel = true;
+				break;
+
+			case CHEST:
+				p_188359_1_.bipedBody.showModel = true;
+				p_188359_1_.bipedRightArm.showModel = true;
+				p_188359_1_.bipedLeftArm.showModel = true;
+				break;
+
+			case LEGS:
+				p_188359_1_.bipedBody.showModel = true;
+				p_188359_1_.bipedRightLeg.showModel = true;
+				p_188359_1_.bipedLeftLeg.showModel = true;
+				break;
+
+			case FEET:
+				p_188359_1_.bipedRightLeg.showModel = true;
+				p_188359_1_.bipedLeftLeg.showModel = true;
+		}
+	}
+
+	protected void setModelVisible(ModelBiped model) {
+
+		model.setVisible(false);
+	}
+
 }

@@ -1,6 +1,5 @@
 package net.minecraft.entity.projectile;
 
-import java.util.List;
 import net.minecraft.entity.EntityAreaEffectCloud;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.MobEffects;
@@ -12,93 +11,91 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
-public class EntityDragonFireball extends EntityFireball
-{
-    public EntityDragonFireball(World worldIn)
-    {
-        super(worldIn);
-        setSize(1.0F, 1.0F);
-    }
+import java.util.List;
 
-    public EntityDragonFireball(World worldIn, double x, double y, double z, double accelX, double accelY, double accelZ)
-    {
-        super(worldIn, x, y, z, accelX, accelY, accelZ);
-        setSize(1.0F, 1.0F);
-    }
+public class EntityDragonFireball extends EntityFireball {
 
-    public EntityDragonFireball(World worldIn, EntityLivingBase shooter, double accelX, double accelY, double accelZ)
-    {
-        super(worldIn, shooter, accelX, accelY, accelZ);
-        setSize(1.0F, 1.0F);
-    }
+	public EntityDragonFireball(World worldIn) {
 
-    public static void registerFixesDragonFireball(DataFixer fixer)
-    {
-        EntityFireball.registerFixesFireball(fixer, "DragonFireball");
-    }
+		super(worldIn);
+		setSize(1.0F, 1.0F);
+	}
 
-    /**
-     * Called when this EntityFireball hits a block or entity.
-     */
-    protected void onImpact(RayTraceResult result)
-    {
-        if (result.entityHit == null || !result.entityHit.isEntityEqual(shootingEntity))
-        {
-            if (!world.isRemote)
-            {
-                List<EntityLivingBase> list = world.<EntityLivingBase>getEntitiesWithinAABB(EntityLivingBase.class, getEntityBoundingBox().grow(4.0D, 2.0D, 4.0D));
-                EntityAreaEffectCloud entityareaeffectcloud = new EntityAreaEffectCloud(world, posX, posY, posZ);
-                entityareaeffectcloud.setOwner(shootingEntity);
-                entityareaeffectcloud.setParticle(EnumParticleTypes.DRAGON_BREATH);
-                entityareaeffectcloud.setRadius(3.0F);
-                entityareaeffectcloud.setDuration(600);
-                entityareaeffectcloud.setRadiusPerTick((7.0F - entityareaeffectcloud.getRadius()) / (float)entityareaeffectcloud.getDuration());
-                entityareaeffectcloud.addEffect(new PotionEffect(MobEffects.INSTANT_DAMAGE, 1, 1));
+	public EntityDragonFireball(World worldIn, double x, double y, double z, double accelX, double accelY, double accelZ) {
 
-                if (!list.isEmpty())
-                {
-                    for (EntityLivingBase entitylivingbase : list)
-                    {
-                        double d0 = getDistanceSq(entitylivingbase);
+		super(worldIn, x, y, z, accelX, accelY, accelZ);
+		setSize(1.0F, 1.0F);
+	}
 
-                        if (d0 < 16.0D)
-                        {
-                            entityareaeffectcloud.setPosition(entitylivingbase.posX, entitylivingbase.posY, entitylivingbase.posZ);
-                            break;
-                        }
-                    }
-                }
+	public EntityDragonFireball(World worldIn, EntityLivingBase shooter, double accelX, double accelY, double accelZ) {
 
-                world.playEvent(2006, new BlockPos(posX, posY, posZ), 0);
-                world.spawnEntity(entityareaeffectcloud);
-                setDead();
-            }
-        }
-    }
+		super(worldIn, shooter, accelX, accelY, accelZ);
+		setSize(1.0F, 1.0F);
+	}
 
-    /**
-     * Returns true if other Entities should be prevented from moving through this Entity.
-     */
-    public boolean canBeCollidedWith()
-    {
-        return false;
-    }
+	public static void registerFixesDragonFireball(DataFixer fixer) {
 
-    /**
-     * Called when the entity is attacked.
-     */
-    public boolean attackEntityFrom(DamageSource source, float amount)
-    {
-        return false;
-    }
+		EntityFireball.registerFixesFireball(fixer, "DragonFireball");
+	}
 
-    protected EnumParticleTypes getParticleType()
-    {
-        return EnumParticleTypes.DRAGON_BREATH;
-    }
+	/**
+	 * Called when this EntityFireball hits a block or entity.
+	 */
+	protected void onImpact(RayTraceResult result) {
 
-    protected boolean isFireballFiery()
-    {
-        return false;
-    }
+		if (result.entityHit == null || !result.entityHit.isEntityEqual(shootingEntity)) {
+			if (!world.isRemote) {
+				List<EntityLivingBase> list = world.getEntitiesWithinAABB(EntityLivingBase.class, getEntityBoundingBox().grow(4.0D, 2.0D, 4.0D));
+				EntityAreaEffectCloud entityareaeffectcloud = new EntityAreaEffectCloud(world, posX, posY, posZ);
+				entityareaeffectcloud.setOwner(shootingEntity);
+				entityareaeffectcloud.setParticle(EnumParticleTypes.DRAGON_BREATH);
+				entityareaeffectcloud.setRadius(3.0F);
+				entityareaeffectcloud.setDuration(600);
+				entityareaeffectcloud.setRadiusPerTick((7.0F - entityareaeffectcloud.getRadius()) / (float) entityareaeffectcloud.getDuration());
+				entityareaeffectcloud.addEffect(new PotionEffect(MobEffects.INSTANT_DAMAGE, 1, 1));
+
+				if (!list.isEmpty()) {
+					for (EntityLivingBase entitylivingbase : list) {
+						double d0 = getDistanceSq(entitylivingbase);
+
+						if (d0 < 16.0D) {
+							entityareaeffectcloud.setPosition(entitylivingbase.posX, entitylivingbase.posY, entitylivingbase.posZ);
+							break;
+						}
+					}
+				}
+
+				world.playEvent(2006, new BlockPos(posX, posY, posZ), 0);
+				world.spawnEntity(entityareaeffectcloud);
+				setDead();
+			}
+		}
+	}
+
+	/**
+	 * Returns true if other Entities should be prevented from moving through this Entity.
+	 */
+	public boolean canBeCollidedWith() {
+
+		return false;
+	}
+
+	/**
+	 * Called when the entity is attacked.
+	 */
+	public boolean attackEntityFrom(DamageSource source, float amount) {
+
+		return false;
+	}
+
+	protected EnumParticleTypes getParticleType() {
+
+		return EnumParticleTypes.DRAGON_BREATH;
+	}
+
+	protected boolean isFireballFiery() {
+
+		return false;
+	}
+
 }

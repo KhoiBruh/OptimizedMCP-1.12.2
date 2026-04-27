@@ -3,88 +3,75 @@ package net.minecraft.block.properties;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
+
 import java.util.Collection;
 import java.util.Set;
 
-public class PropertyInteger extends PropertyHelper<Integer>
-{
-    private final ImmutableSet<Integer> allowedValues;
+public class PropertyInteger extends PropertyHelper<Integer> {
 
-    protected PropertyInteger(String name, int min, int max)
-    {
-        super(name, Integer.class);
+	private final ImmutableSet<Integer> allowedValues;
 
-        if (min < 0)
-        {
-            throw new IllegalArgumentException("Min value of " + name + " must be 0 or greater");
-        }
-        else if (max <= min)
-        {
-            throw new IllegalArgumentException("Max value of " + name + " must be greater than min (" + min + ")");
-        }
-        else
-        {
-            Set<Integer> set = Sets.<Integer>newHashSet();
+	protected PropertyInteger(String name, int min, int max) {
 
-            for (int i = min; i <= max; ++i)
-            {
-                set.add(Integer.valueOf(i));
-            }
+		super(name, Integer.class);
 
-            allowedValues = ImmutableSet.copyOf(set);
-        }
-    }
+		if (min < 0) {
+			throw new IllegalArgumentException("Min value of " + name + " must be 0 or greater");
+		} else if (max <= min) {
+			throw new IllegalArgumentException("Max value of " + name + " must be greater than min (" + min + ")");
+		} else {
+			Set<Integer> set = Sets.newHashSet();
 
-    public Collection<Integer> getAllowedValues()
-    {
-        return allowedValues;
-    }
+			for (int i = min; i <= max; ++i) {
+				set.add(Integer.valueOf(i));
+			}
 
-    public boolean equals(Object p_equals_1_)
-    {
-        if (this == p_equals_1_)
-        {
-            return true;
-        }
-        else if (p_equals_1_ instanceof PropertyInteger && super.equals(p_equals_1_))
-        {
-            PropertyInteger propertyinteger = (PropertyInteger)p_equals_1_;
-            return allowedValues.equals(propertyinteger.allowedValues);
-        }
-        else
-        {
-            return false;
-        }
-    }
+			allowedValues = ImmutableSet.copyOf(set);
+		}
+	}
 
-    public int hashCode()
-    {
-        return 31 * super.hashCode() + allowedValues.hashCode();
-    }
+	public Collection<Integer> getAllowedValues() {
 
-    public static PropertyInteger create(String name, int min, int max)
-    {
-        return new PropertyInteger(name, min, max);
-    }
+		return allowedValues;
+	}
 
-    public Optional<Integer> parseValue(String value)
-    {
-        try
-        {
-            Integer integer = Integer.valueOf(value);
-            return allowedValues.contains(integer) ? Optional.of(integer) : Optional.absent();
-        }
-        catch (NumberFormatException var3)
-        {
-            return Optional.<Integer>absent();
-        }
-    }
+	public boolean equals(Object p_equals_1_) {
 
-    /**
-     * Get the name for the given value.
-     */
-    public String getName(Integer value)
-    {
-        return value.toString();
-    }
+		if (this == p_equals_1_) {
+			return true;
+		} else if (p_equals_1_ instanceof PropertyInteger propertyinteger && super.equals(p_equals_1_)) {
+			return allowedValues.equals(propertyinteger.allowedValues);
+		} else {
+			return false;
+		}
+	}
+
+	public int hashCode() {
+
+		return 31 * super.hashCode() + allowedValues.hashCode();
+	}
+
+	public static PropertyInteger create(String name, int min, int max) {
+
+		return new PropertyInteger(name, min, max);
+	}
+
+	public Optional<Integer> parseValue(String value) {
+
+		try {
+			Integer integer = Integer.valueOf(value);
+			return allowedValues.contains(integer) ? Optional.of(integer) : Optional.absent();
+		} catch (NumberFormatException var3) {
+			return Optional.absent();
+		}
+	}
+
+	/**
+	 * Get the name for the given value.
+	 */
+	public String getName(Integer value) {
+
+		return value.toString();
+	}
+
 }

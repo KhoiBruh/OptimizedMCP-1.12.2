@@ -1,6 +1,5 @@
 package net.minecraft.block;
 
-import java.util.Random;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -15,113 +14,114 @@ import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public abstract class BlockPurpurSlab extends BlockSlab
-{
-    public static final PropertyEnum<BlockPurpurSlab.Variant> VARIANT = PropertyEnum.<BlockPurpurSlab.Variant>create("variant", BlockPurpurSlab.Variant.class);
+import java.util.Random;
 
-    public BlockPurpurSlab()
-    {
-        super(Material.ROCK, MapColor.MAGENTA);
-        IBlockState iblockstate = blockState.getBaseState();
+public abstract class BlockPurpurSlab extends BlockSlab {
 
-        if (!isDouble())
-        {
-            iblockstate = iblockstate.withProperty(HALF, BlockSlab.EnumBlockHalf.BOTTOM);
-        }
+	public static final PropertyEnum<BlockPurpurSlab.Variant> VARIANT = PropertyEnum.create("variant", BlockPurpurSlab.Variant.class);
 
-        setDefaultState(iblockstate.withProperty(VARIANT, BlockPurpurSlab.Variant.DEFAULT));
-        setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
-    }
+	public BlockPurpurSlab() {
 
-    /**
-     * Get the Item that this Block should drop when harvested.
-     */
-    public Item getItemDropped(IBlockState state, Random rand, int fortune)
-    {
-        return Item.getItemFromBlock(Blocks.PURPUR_SLAB);
-    }
+		super(Material.ROCK, MapColor.MAGENTA);
+		IBlockState iblockstate = blockState.getBaseState();
 
-    public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state)
-    {
-        return new ItemStack(Blocks.PURPUR_SLAB);
-    }
+		if (!isDouble()) {
+			iblockstate = iblockstate.withProperty(HALF, BlockSlab.EnumBlockHalf.BOTTOM);
+		}
 
-    /**
-     * Convert the given metadata into a BlockState for this Block
-     */
-    public IBlockState getStateFromMeta(int meta)
-    {
-        IBlockState iblockstate = getDefaultState().withProperty(VARIANT, BlockPurpurSlab.Variant.DEFAULT);
+		setDefaultState(iblockstate.withProperty(VARIANT, BlockPurpurSlab.Variant.DEFAULT));
+		setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
+	}
 
-        if (!isDouble())
-        {
-            iblockstate = iblockstate.withProperty(HALF, (meta & 8) == 0 ? BlockSlab.EnumBlockHalf.BOTTOM : BlockSlab.EnumBlockHalf.TOP);
-        }
+	/**
+	 * Get the Item that this Block should drop when harvested.
+	 */
+	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
 
-        return iblockstate;
-    }
+		return Item.getItemFromBlock(Blocks.PURPUR_SLAB);
+	}
 
-    /**
-     * Convert the BlockState into the correct metadata value
-     */
-    public int getMetaFromState(IBlockState state)
-    {
-        int i = 0;
+	public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
 
-        if (!isDouble() && state.getValue(HALF) == BlockSlab.EnumBlockHalf.TOP)
-        {
-            i |= 8;
-        }
+		return new ItemStack(Blocks.PURPUR_SLAB);
+	}
 
-        return i;
-    }
+	/**
+	 * Convert the given metadata into a BlockState for this Block
+	 */
+	public IBlockState getStateFromMeta(int meta) {
 
-    protected BlockStateContainer createBlockState()
-    {
-        return isDouble() ? new BlockStateContainer(this, new IProperty[] {VARIANT}) : new BlockStateContainer(this, new IProperty[] {HALF, VARIANT});
-    }
+		IBlockState iblockstate = getDefaultState().withProperty(VARIANT, BlockPurpurSlab.Variant.DEFAULT);
 
-    /**
-     * Returns the slab block name with the type associated with it
-     */
-    public String getUnlocalizedName(int meta)
-    {
-        return super.getUnlocalizedName();
-    }
+		if (!isDouble()) {
+			iblockstate = iblockstate.withProperty(HALF, (meta & 8) == 0 ? BlockSlab.EnumBlockHalf.BOTTOM : BlockSlab.EnumBlockHalf.TOP);
+		}
 
-    public IProperty<?> getVariantProperty()
-    {
-        return VARIANT;
-    }
+		return iblockstate;
+	}
 
-    public Comparable<?> getTypeForItem(ItemStack stack)
-    {
-        return BlockPurpurSlab.Variant.DEFAULT;
-    }
+	/**
+	 * Convert the BlockState into the correct metadata value
+	 */
+	public int getMetaFromState(IBlockState state) {
 
-    public static class Double extends BlockPurpurSlab
-    {
-        public boolean isDouble()
-        {
-            return true;
-        }
-    }
+		int i = 0;
 
-    public static class Half extends BlockPurpurSlab
-    {
-        public boolean isDouble()
-        {
-            return false;
-        }
-    }
+		if (!isDouble() && state.getValue(HALF) == BlockSlab.EnumBlockHalf.TOP) {
+			i |= 8;
+		}
 
-    public static enum Variant implements IStringSerializable
-    {
-        DEFAULT;
+		return i;
+	}
 
-        public String getName()
-        {
-            return "default";
-        }
-    }
+	protected BlockStateContainer createBlockState() {
+
+		return isDouble() ? new BlockStateContainer(this, VARIANT) : new BlockStateContainer(this, HALF, VARIANT);
+	}
+
+	/**
+	 * Returns the slab block name with the type associated with it
+	 */
+	public String getUnlocalizedName(int meta) {
+
+		return super.getUnlocalizedName();
+	}
+
+	public IProperty<?> getVariantProperty() {
+
+		return VARIANT;
+	}
+
+	public Comparable<?> getTypeForItem(ItemStack stack) {
+
+		return BlockPurpurSlab.Variant.DEFAULT;
+	}
+
+	public static class Double extends BlockPurpurSlab {
+
+		public boolean isDouble() {
+
+			return true;
+		}
+
+	}
+
+	public static class Half extends BlockPurpurSlab {
+
+		public boolean isDouble() {
+
+			return false;
+		}
+
+	}
+
+	public enum Variant implements IStringSerializable {
+		DEFAULT;
+
+		public String getName() {
+
+			return "default";
+		}
+	}
+
 }

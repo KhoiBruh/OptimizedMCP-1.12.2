@@ -1,112 +1,99 @@
 package net.minecraft.entity.ai.attributes;
 
 import io.netty.util.internal.ThreadLocalRandom;
-import java.util.UUID;
 import net.minecraft.util.math.MathHelper;
 import org.apache.commons.lang3.Validate;
 
-public class AttributeModifier
-{
-    private final double amount;
-    private final int operation;
-    private final String name;
-    private final UUID id;
+import java.util.UUID;
 
-    /**
-     * If false, this modifier is not saved in NBT. Used for "natural" modifiers like speed boost from sprinting
-     */
-    private boolean isSaved;
+public class AttributeModifier {
 
-    public AttributeModifier(String nameIn, double amountIn, int operationIn)
-    {
-        this(MathHelper.getRandomUUID(ThreadLocalRandom.current()), nameIn, amountIn, operationIn);
-    }
+	private final double amount;
+	private final int operation;
+	private final String name;
+	private final UUID id;
 
-    public AttributeModifier(UUID idIn, String nameIn, double amountIn, int operationIn)
-    {
-        isSaved = true;
-        id = idIn;
-        name = nameIn;
-        amount = amountIn;
-        operation = operationIn;
-        Validate.notEmpty(nameIn, "Modifier name cannot be empty");
-        Validate.inclusiveBetween(0L, 2L, (long)operationIn, "Invalid operation");
-    }
+	/**
+	 * If false, this modifier is not saved in NBT. Used for "natural" modifiers like speed boost from sprinting
+	 */
+	private boolean isSaved;
 
-    public UUID getID()
-    {
-        return id;
-    }
+	public AttributeModifier(String nameIn, double amountIn, int operationIn) {
 
-    public String getName()
-    {
-        return name;
-    }
+		this(MathHelper.getRandomUUID(ThreadLocalRandom.current()), nameIn, amountIn, operationIn);
+	}
 
-    public int getOperation()
-    {
-        return operation;
-    }
+	public AttributeModifier(UUID idIn, String nameIn, double amountIn, int operationIn) {
 
-    public double getAmount()
-    {
-        return amount;
-    }
+		isSaved = true;
+		id = idIn;
+		name = nameIn;
+		amount = amountIn;
+		operation = operationIn;
+		Validate.notEmpty(nameIn, "Modifier name cannot be empty");
+		Validate.inclusiveBetween(0L, 2L, operationIn, "Invalid operation");
+	}
 
-    /**
-     * @see #isSaved
-     */
-    public boolean isSaved()
-    {
-        return isSaved;
-    }
+	public UUID getID() {
 
-    /**
-     * @see #isSaved
-     */
-    public AttributeModifier setSaved(boolean saved)
-    {
-        isSaved = saved;
-        return this;
-    }
+		return id;
+	}
 
-    public boolean equals(Object p_equals_1_)
-    {
-        if (this == p_equals_1_)
-        {
-            return true;
-        }
-        else if (p_equals_1_ != null && getClass() == p_equals_1_.getClass())
-        {
-            AttributeModifier attributemodifier = (AttributeModifier)p_equals_1_;
+	public String getName() {
 
-            if (id != null)
-            {
-                if (!id.equals(attributemodifier.id))
-                {
-                    return false;
-                }
-            }
-            else if (attributemodifier.id != null)
-            {
-                return false;
-            }
+		return name;
+	}
 
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
+	public int getOperation() {
 
-    public int hashCode()
-    {
-        return id != null ? id.hashCode() : 0;
-    }
+		return operation;
+	}
 
-    public String toString()
-    {
-        return "AttributeModifier{amount=" + amount + ", operation=" + operation + ", name='" + name + '\'' + ", id=" + id + ", serialize=" + isSaved + '}';
-    }
+	public double getAmount() {
+
+		return amount;
+	}
+
+	/**
+	 * @see #isSaved
+	 */
+	public boolean isSaved() {
+
+		return isSaved;
+	}
+
+	/**
+	 * @see #isSaved
+	 */
+	public AttributeModifier setSaved(boolean saved) {
+
+		isSaved = saved;
+		return this;
+	}
+
+	public boolean equals(Object p_equals_1_) {
+
+		if (this == p_equals_1_) {
+			return true;
+		} else if (p_equals_1_ != null && getClass() == p_equals_1_.getClass()) {
+			AttributeModifier attributemodifier = (AttributeModifier) p_equals_1_;
+
+			if (id != null) {
+				return id.equals(attributemodifier.id);
+			} else return attributemodifier.id == null;
+		} else {
+			return false;
+		}
+	}
+
+	public int hashCode() {
+
+		return id != null ? id.hashCode() : 0;
+	}
+
+	public String toString() {
+
+		return "AttributeModifier{amount=" + amount + ", operation=" + operation + ", name='" + name + '\'' + ", id=" + id + ", serialize=" + isSaved + '}';
+	}
+
 }

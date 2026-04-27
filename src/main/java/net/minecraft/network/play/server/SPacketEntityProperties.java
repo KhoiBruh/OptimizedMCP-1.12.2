@@ -1,127 +1,125 @@
 package net.minecraft.network.play.server;
 
 import com.google.common.collect.Lists;
-import java.io.IOException;
-import java.util.Collection;
-import java.util.List;
-import java.util.UUID;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayClient;
 
-public class SPacketEntityProperties implements Packet<INetHandlerPlayClient>
-{
-    private int entityId;
-    private final List<SPacketEntityProperties.Snapshot> snapshots = Lists.<SPacketEntityProperties.Snapshot>newArrayList();
+import java.io.IOException;
+import java.util.Collection;
+import java.util.List;
+import java.util.UUID;
 
-    public SPacketEntityProperties()
-    {
-    }
+public class SPacketEntityProperties implements Packet<INetHandlerPlayClient> {
 
-    public SPacketEntityProperties(int entityIdIn, Collection<IAttributeInstance> instances)
-    {
-        entityId = entityIdIn;
+	private int entityId;
+	private final List<SPacketEntityProperties.Snapshot> snapshots = Lists.newArrayList();
 
-        for (IAttributeInstance iattributeinstance : instances)
-        {
-            snapshots.add(new SPacketEntityProperties.Snapshot(iattributeinstance.getAttribute().getName(), iattributeinstance.getBaseValue(), iattributeinstance.getModifiers()));
-        }
-    }
+	public SPacketEntityProperties() {
 
-    /**
-     * Reads the raw packet data from the data stream.
-     */
-    public void readPacketData(PacketBuffer buf) throws IOException
-    {
-        entityId = buf.readVarInt();
-        int i = buf.readInt();
+	}
 
-        for (int j = 0; j < i; ++j)
-        {
-            String s = buf.readString(64);
-            double d0 = buf.readDouble();
-            List<AttributeModifier> list = Lists.<AttributeModifier>newArrayList();
-            int k = buf.readVarInt();
+	public SPacketEntityProperties(int entityIdIn, Collection<IAttributeInstance> instances) {
 
-            for (int l = 0; l < k; ++l)
-            {
-                UUID uuid = buf.readUniqueId();
-                list.add(new AttributeModifier(uuid, "Unknown synced attribute modifier", buf.readDouble(), buf.readByte()));
-            }
+		entityId = entityIdIn;
 
-            snapshots.add(new SPacketEntityProperties.Snapshot(s, d0, list));
-        }
-    }
+		for (IAttributeInstance iattributeinstance : instances) {
+			snapshots.add(new SPacketEntityProperties.Snapshot(iattributeinstance.getAttribute().getName(), iattributeinstance.getBaseValue(), iattributeinstance.getModifiers()));
+		}
+	}
 
-    /**
-     * Writes the raw packet data to the data stream.
-     */
-    public void writePacketData(PacketBuffer buf) throws IOException
-    {
-        buf.writeVarInt(entityId);
-        buf.writeInt(snapshots.size());
+	/**
+	 * Reads the raw packet data from the data stream.
+	 */
+	public void readPacketData(PacketBuffer buf) throws IOException {
 
-        for (SPacketEntityProperties.Snapshot spacketentityproperties$snapshot : snapshots)
-        {
-            buf.writeString(spacketentityproperties$snapshot.getName());
-            buf.writeDouble(spacketentityproperties$snapshot.getBaseValue());
-            buf.writeVarInt(spacketentityproperties$snapshot.getModifiers().size());
+		entityId = buf.readVarInt();
+		int i = buf.readInt();
 
-            for (AttributeModifier attributemodifier : spacketentityproperties$snapshot.getModifiers())
-            {
-                buf.writeUniqueId(attributemodifier.getID());
-                buf.writeDouble(attributemodifier.getAmount());
-                buf.writeByte(attributemodifier.getOperation());
-            }
-        }
-    }
+		for (int j = 0; j < i; ++j) {
+			String s = buf.readString(64);
+			double d0 = buf.readDouble();
+			List<AttributeModifier> list = Lists.newArrayList();
+			int k = buf.readVarInt();
 
-    /**
-     * Passes this Packet on to the NetHandler for processing.
-     */
-    public void processPacket(INetHandlerPlayClient handler)
-    {
-        handler.handleEntityProperties(this);
-    }
+			for (int l = 0; l < k; ++l) {
+				UUID uuid = buf.readUniqueId();
+				list.add(new AttributeModifier(uuid, "Unknown synced attribute modifier", buf.readDouble(), buf.readByte()));
+			}
 
-    public int getEntityId()
-    {
-        return entityId;
-    }
+			snapshots.add(new SPacketEntityProperties.Snapshot(s, d0, list));
+		}
+	}
 
-    public List<SPacketEntityProperties.Snapshot> getSnapshots()
-    {
-        return snapshots;
-    }
+	/**
+	 * Writes the raw packet data to the data stream.
+	 */
+	public void writePacketData(PacketBuffer buf) throws IOException {
 
-    public class Snapshot
-    {
-        private final String name;
-        private final double baseValue;
-        private final Collection<AttributeModifier> modifiers;
+		buf.writeVarInt(entityId);
+		buf.writeInt(snapshots.size());
 
-        public Snapshot(String nameIn, double baseValueIn, Collection<AttributeModifier> modifiersIn)
-        {
-            name = nameIn;
-            baseValue = baseValueIn;
-            modifiers = modifiersIn;
-        }
+		for (SPacketEntityProperties.Snapshot spacketentityproperties$snapshot : snapshots) {
+			buf.writeString(spacketentityproperties$snapshot.getName());
+			buf.writeDouble(spacketentityproperties$snapshot.getBaseValue());
+			buf.writeVarInt(spacketentityproperties$snapshot.getModifiers().size());
 
-        public String getName()
-        {
-            return name;
-        }
+			for (AttributeModifier attributemodifier : spacketentityproperties$snapshot.getModifiers()) {
+				buf.writeUniqueId(attributemodifier.getID());
+				buf.writeDouble(attributemodifier.getAmount());
+				buf.writeByte(attributemodifier.getOperation());
+			}
+		}
+	}
 
-        public double getBaseValue()
-        {
-            return baseValue;
-        }
+	/**
+	 * Passes this Packet on to the NetHandler for processing.
+	 */
+	public void processPacket(INetHandlerPlayClient handler) {
 
-        public Collection<AttributeModifier> getModifiers()
-        {
-            return modifiers;
-        }
-    }
+		handler.handleEntityProperties(this);
+	}
+
+	public int getEntityId() {
+
+		return entityId;
+	}
+
+	public List<SPacketEntityProperties.Snapshot> getSnapshots() {
+
+		return snapshots;
+	}
+
+	public class Snapshot {
+
+		private final String name;
+		private final double baseValue;
+		private final Collection<AttributeModifier> modifiers;
+
+		public Snapshot(String nameIn, double baseValueIn, Collection<AttributeModifier> modifiersIn) {
+
+			name = nameIn;
+			baseValue = baseValueIn;
+			modifiers = modifiersIn;
+		}
+
+		public String getName() {
+
+			return name;
+		}
+
+		public double getBaseValue() {
+
+			return baseValue;
+		}
+
+		public Collection<AttributeModifier> getModifiers() {
+
+			return modifiers;
+		}
+
+	}
+
 }

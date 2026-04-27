@@ -1,6 +1,5 @@
 package net.minecraft.block;
 
-import java.util.Random;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
@@ -12,55 +11,55 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class BlockBeetroot extends BlockCrops
-{
-    public static final PropertyInteger BEETROOT_AGE = PropertyInteger.create("age", 0, 3);
-    private static final AxisAlignedBB[] BEETROOT_AABB = new AxisAlignedBB[] {new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.125D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.25D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.375D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.5D, 1.0D)};
+import java.util.Random;
 
-    protected PropertyInteger getAgeProperty()
-    {
-        return BEETROOT_AGE;
-    }
+public class BlockBeetroot extends BlockCrops {
 
-    public int getMaxAge()
-    {
-        return 3;
-    }
+	public static final PropertyInteger BEETROOT_AGE = PropertyInteger.create("age", 0, 3);
+	private static final AxisAlignedBB[] BEETROOT_AABB = new AxisAlignedBB[]{new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.125D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.25D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.375D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.5D, 1.0D)};
 
-    protected Item getSeed()
-    {
-        return Items.BEETROOT_SEEDS;
-    }
+	protected PropertyInteger getAgeProperty() {
 
-    protected Item getCrop()
-    {
-        return Items.BEETROOT;
-    }
+		return BEETROOT_AGE;
+	}
 
-    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
-    {
-        if (rand.nextInt(3) == 0)
-        {
-            checkAndDropBlock(worldIn, pos, state);
-        }
-        else
-        {
-            super.updateTick(worldIn, pos, state, rand);
-        }
-    }
+	public int getMaxAge() {
 
-    protected int getBonemealAgeIncrease(World worldIn)
-    {
-        return super.getBonemealAgeIncrease(worldIn) / 3;
-    }
+		return 3;
+	}
 
-    protected BlockStateContainer createBlockState()
-    {
-        return new BlockStateContainer(this, new IProperty[] {BEETROOT_AGE});
-    }
+	protected Item getSeed() {
 
-    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
-    {
-        return BEETROOT_AABB[((Integer)state.getValue(getAgeProperty())).intValue()];
-    }
+		return Items.BEETROOT_SEEDS;
+	}
+
+	protected Item getCrop() {
+
+		return Items.BEETROOT;
+	}
+
+	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
+
+		if (rand.nextInt(3) == 0) {
+			checkAndDropBlock(worldIn, pos, state);
+		} else {
+			super.updateTick(worldIn, pos, state, rand);
+		}
+	}
+
+	protected int getBonemealAgeIncrease(World worldIn) {
+
+		return super.getBonemealAgeIncrease(worldIn) / 3;
+	}
+
+	protected BlockStateContainer createBlockState() {
+
+		return new BlockStateContainer(this, BEETROOT_AGE);
+	}
+
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+
+		return BEETROOT_AABB[state.getValue(getAgeProperty()).intValue()];
+	}
+
 }

@@ -20,249 +20,221 @@ import net.minecraft.util.datafix.FixTypes;
 import net.minecraft.util.datafix.walkers.ItemStackDataLists;
 import net.minecraft.world.World;
 
-public abstract class AbstractChestHorse extends AbstractHorse
-{
-    private static final DataParameter<Boolean> DATA_ID_CHEST = EntityDataManager.<Boolean>createKey(AbstractChestHorse.class, DataSerializers.BOOLEAN);
+public abstract class AbstractChestHorse extends AbstractHorse {
 
-    public AbstractChestHorse(World worldIn)
-    {
-        super(worldIn);
-        canGallop = false;
-    }
+	private static final DataParameter<Boolean> DATA_ID_CHEST = EntityDataManager.createKey(AbstractChestHorse.class, DataSerializers.BOOLEAN);
 
-    protected void entityInit()
-    {
-        super.entityInit();
-        dataManager.register(DATA_ID_CHEST, Boolean.valueOf(false));
-    }
+	public AbstractChestHorse(World worldIn) {
 
-    protected void applyEntityAttributes()
-    {
-        super.applyEntityAttributes();
-        getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue((double) getModifiedMaxHealth());
-        getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.17499999701976776D);
-        getEntityAttribute(JUMP_STRENGTH).setBaseValue(0.5D);
-    }
+		super(worldIn);
+		canGallop = false;
+	}
 
-    public boolean hasChest()
-    {
-        return ((Boolean) dataManager.get(DATA_ID_CHEST)).booleanValue();
-    }
+	protected void entityInit() {
 
-    public void setChested(boolean chested)
-    {
-        dataManager.set(DATA_ID_CHEST, Boolean.valueOf(chested));
-    }
+		super.entityInit();
+		dataManager.register(DATA_ID_CHEST, Boolean.valueOf(false));
+	}
 
-    protected int getInventorySize()
-    {
-        return hasChest() ? 17 : super.getInventorySize();
-    }
+	protected void applyEntityAttributes() {
 
-    /**
-     * Returns the Y offset from the entity's position for any entity riding this one.
-     */
-    public double getMountedYOffset()
-    {
-        return super.getMountedYOffset() - 0.25D;
-    }
+		super.applyEntityAttributes();
+		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(getModifiedMaxHealth());
+		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.17499999701976776D);
+		getEntityAttribute(JUMP_STRENGTH).setBaseValue(0.5D);
+	}
 
-    protected SoundEvent getAngrySound()
-    {
-        super.getAngrySound();
-        return SoundEvents.ENTITY_DONKEY_ANGRY;
-    }
+	public boolean hasChest() {
 
-    /**
-     * Called when the mob's health reaches 0.
-     */
-    public void onDeath(DamageSource cause)
-    {
-        super.onDeath(cause);
+		return dataManager.get(DATA_ID_CHEST).booleanValue();
+	}
 
-        if (hasChest())
-        {
-            if (!world.isRemote)
-            {
-                dropItem(Item.getItemFromBlock(Blocks.CHEST), 1);
-            }
+	public void setChested(boolean chested) {
 
-            setChested(false);
-        }
-    }
+		dataManager.set(DATA_ID_CHEST, Boolean.valueOf(chested));
+	}
 
-    public static void registerFixesAbstractChestHorse(DataFixer fixer, Class<?> entityClass)
-    {
-        AbstractHorse.registerFixesAbstractHorse(fixer, entityClass);
-        fixer.registerWalker(FixTypes.ENTITY, new ItemStackDataLists(entityClass, new String[] {"Items"}));
-    }
+	protected int getInventorySize() {
 
-    /**
-     * (abstract) Protected helper method to write subclass entity data to NBT.
-     */
-    public void writeEntityToNBT(NBTTagCompound compound)
-    {
-        super.writeEntityToNBT(compound);
-        compound.setBoolean("ChestedHorse", hasChest());
+		return hasChest() ? 17 : super.getInventorySize();
+	}
 
-        if (hasChest())
-        {
-            NBTTagList nbttaglist = new NBTTagList();
+	/**
+	 * Returns the Y offset from the entity's position for any entity riding this one.
+	 */
+	public double getMountedYOffset() {
 
-            for (int i = 2; i < horseChest.getSizeInventory(); ++i)
-            {
-                ItemStack itemstack = horseChest.getStackInSlot(i);
+		return super.getMountedYOffset() - 0.25D;
+	}
 
-                if (!itemstack.isEmpty())
-                {
-                    NBTTagCompound nbttagcompound = new NBTTagCompound();
-                    nbttagcompound.setByte("Slot", (byte)i);
-                    itemstack.writeToNBT(nbttagcompound);
-                    nbttaglist.appendTag(nbttagcompound);
-                }
-            }
+	protected SoundEvent getAngrySound() {
 
-            compound.setTag("Items", nbttaglist);
-        }
-    }
+		super.getAngrySound();
+		return SoundEvents.ENTITY_DONKEY_ANGRY;
+	}
 
-    /**
-     * (abstract) Protected helper method to read subclass entity data from NBT.
-     */
-    public void readEntityFromNBT(NBTTagCompound compound)
-    {
-        super.readEntityFromNBT(compound);
-        setChested(compound.getBoolean("ChestedHorse"));
+	/**
+	 * Called when the mob's health reaches 0.
+	 */
+	public void onDeath(DamageSource cause) {
 
-        if (hasChest())
-        {
-            NBTTagList nbttaglist = compound.getTagList("Items", 10);
-            initHorseChest();
+		super.onDeath(cause);
 
-            for (int i = 0; i < nbttaglist.tagCount(); ++i)
-            {
-                NBTTagCompound nbttagcompound = nbttaglist.getCompoundTagAt(i);
-                int j = nbttagcompound.getByte("Slot") & 255;
+		if (hasChest()) {
+			if (!world.isRemote) {
+				dropItem(Item.getItemFromBlock(Blocks.CHEST), 1);
+			}
 
-                if (j >= 2 && j < horseChest.getSizeInventory())
-                {
-                    horseChest.setInventorySlotContents(j, new ItemStack(nbttagcompound));
-                }
-            }
-        }
+			setChested(false);
+		}
+	}
 
-        updateHorseSlots();
-    }
+	public static void registerFixesAbstractChestHorse(DataFixer fixer, Class<?> entityClass) {
 
-    public boolean replaceItemInInventory(int inventorySlot, ItemStack itemStackIn)
-    {
-        if (inventorySlot == 499)
-        {
-            if (hasChest() && itemStackIn.isEmpty())
-            {
-                setChested(false);
-                initHorseChest();
-                return true;
-            }
+		AbstractHorse.registerFixesAbstractHorse(fixer, entityClass);
+		fixer.registerWalker(FixTypes.ENTITY, new ItemStackDataLists(entityClass, "Items"));
+	}
 
-            if (!hasChest() && itemStackIn.getItem() == Item.getItemFromBlock(Blocks.CHEST))
-            {
-                setChested(true);
-                initHorseChest();
-                return true;
-            }
-        }
+	/**
+	 * (abstract) Protected helper method to write subclass entity data to NBT.
+	 */
+	public void writeEntityToNBT(NBTTagCompound compound) {
 
-        return super.replaceItemInInventory(inventorySlot, itemStackIn);
-    }
+		super.writeEntityToNBT(compound);
+		compound.setBoolean("ChestedHorse", hasChest());
 
-    public boolean processInteract(EntityPlayer player, EnumHand hand)
-    {
-        ItemStack itemstack = player.getHeldItem(hand);
+		if (hasChest()) {
+			NBTTagList nbttaglist = new NBTTagList();
 
-        if (itemstack.getItem() == Items.SPAWN_EGG)
-        {
-            return super.processInteract(player, hand);
-        }
-        else
-        {
-            if (!isChild())
-            {
-                if (isTame() && player.isSneaking())
-                {
-                    openGUI(player);
-                    return true;
-                }
+			for (int i = 2; i < horseChest.getSizeInventory(); ++i) {
+				ItemStack itemstack = horseChest.getStackInSlot(i);
 
-                if (isBeingRidden())
-                {
-                    return super.processInteract(player, hand);
-                }
-            }
+				if (!itemstack.isEmpty()) {
+					NBTTagCompound nbttagcompound = new NBTTagCompound();
+					nbttagcompound.setByte("Slot", (byte) i);
+					itemstack.writeToNBT(nbttagcompound);
+					nbttaglist.appendTag(nbttagcompound);
+				}
+			}
 
-            if (!itemstack.isEmpty())
-            {
-                boolean flag = handleEating(player, itemstack);
+			compound.setTag("Items", nbttaglist);
+		}
+	}
 
-                if (!flag && !isTame())
-                {
-                    if (itemstack.interactWithEntity(player, this, hand))
-                    {
-                        return true;
-                    }
+	/**
+	 * (abstract) Protected helper method to read subclass entity data from NBT.
+	 */
+	public void readEntityFromNBT(NBTTagCompound compound) {
 
-                    makeMad();
-                    return true;
-                }
+		super.readEntityFromNBT(compound);
+		setChested(compound.getBoolean("ChestedHorse"));
 
-                if (!flag && !hasChest() && itemstack.getItem() == Item.getItemFromBlock(Blocks.CHEST))
-                {
-                    setChested(true);
-                    playChestEquipSound();
-                    flag = true;
-                    initHorseChest();
-                }
+		if (hasChest()) {
+			NBTTagList nbttaglist = compound.getTagList("Items", 10);
+			initHorseChest();
 
-                if (!flag && !isChild() && !isHorseSaddled() && itemstack.getItem() == Items.SADDLE)
-                {
-                    openGUI(player);
-                    return true;
-                }
+			for (int i = 0; i < nbttaglist.tagCount(); ++i) {
+				NBTTagCompound nbttagcompound = nbttaglist.getCompoundTagAt(i);
+				int j = nbttagcompound.getByte("Slot") & 255;
 
-                if (flag)
-                {
-                    if (!player.capabilities.isCreativeMode)
-                    {
-                        itemstack.shrink(1);
-                    }
+				if (j >= 2 && j < horseChest.getSizeInventory()) {
+					horseChest.setInventorySlotContents(j, new ItemStack(nbttagcompound));
+				}
+			}
+		}
 
-                    return true;
-                }
-            }
+		updateHorseSlots();
+	}
 
-            if (isChild())
-            {
-                return super.processInteract(player, hand);
-            }
-            else if (itemstack.interactWithEntity(player, this, hand))
-            {
-                return true;
-            }
-            else
-            {
-                mountTo(player);
-                return true;
-            }
-        }
-    }
+	public boolean replaceItemInInventory(int inventorySlot, ItemStack itemStackIn) {
 
-    protected void playChestEquipSound()
-    {
-        playSound(SoundEvents.ENTITY_DONKEY_CHEST, 1.0F, (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F);
-    }
+		if (inventorySlot == 499) {
+			if (hasChest() && itemStackIn.isEmpty()) {
+				setChested(false);
+				initHorseChest();
+				return true;
+			}
 
-    public int getInventoryColumns()
-    {
-        return 5;
-    }
+			if (!hasChest() && itemStackIn.getItem() == Item.getItemFromBlock(Blocks.CHEST)) {
+				setChested(true);
+				initHorseChest();
+				return true;
+			}
+		}
+
+		return super.replaceItemInInventory(inventorySlot, itemStackIn);
+	}
+
+	public boolean processInteract(EntityPlayer player, EnumHand hand) {
+
+		ItemStack itemstack = player.getHeldItem(hand);
+
+		if (itemstack.getItem() == Items.SPAWN_EGG) {
+			return super.processInteract(player, hand);
+		} else {
+			if (!isChild()) {
+				if (isTame() && player.isSneaking()) {
+					openGUI(player);
+					return true;
+				}
+
+				if (isBeingRidden()) {
+					return super.processInteract(player, hand);
+				}
+			}
+
+			if (!itemstack.isEmpty()) {
+				boolean flag = handleEating(player, itemstack);
+
+				if (!flag && !isTame()) {
+					if (itemstack.interactWithEntity(player, this, hand)) {
+						return true;
+					}
+
+					makeMad();
+					return true;
+				}
+
+				if (!flag && !hasChest() && itemstack.getItem() == Item.getItemFromBlock(Blocks.CHEST)) {
+					setChested(true);
+					playChestEquipSound();
+					flag = true;
+					initHorseChest();
+				}
+
+				if (!flag && !isChild() && !isHorseSaddled() && itemstack.getItem() == Items.SADDLE) {
+					openGUI(player);
+					return true;
+				}
+
+				if (flag) {
+					if (!player.capabilities.isCreativeMode) {
+						itemstack.shrink(1);
+					}
+
+					return true;
+				}
+			}
+
+			if (isChild()) {
+				return super.processInteract(player, hand);
+			} else if (itemstack.interactWithEntity(player, this, hand)) {
+				return true;
+			} else {
+				mountTo(player);
+				return true;
+			}
+		}
+	}
+
+	protected void playChestEquipSound() {
+
+		playSound(SoundEvents.ENTITY_DONKEY_CHEST, 1.0F, (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F);
+	}
+
+	public int getInventoryColumns() {
+
+		return 5;
+	}
+
 }

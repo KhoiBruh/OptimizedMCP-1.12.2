@@ -1,14 +1,6 @@
 package net.minecraft.advancements;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
-import com.google.gson.JsonSyntaxException;
-import java.lang.reflect.Type;
-import java.util.Arrays;
+import com.google.gson.*;
 import net.minecraft.command.CommandResultStats;
 import net.minecraft.command.FunctionObject;
 import net.minecraft.command.ICommandSender;
@@ -30,160 +22,159 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootContext;
 
-public class AdvancementRewards
-{
-    public static final AdvancementRewards EMPTY = new AdvancementRewards(0, new ResourceLocation[0], new ResourceLocation[0], FunctionObject.CacheableFunction.EMPTY);
-    private final int experience;
-    private final ResourceLocation[] loot;
-    private final ResourceLocation[] recipes;
-    private final FunctionObject.CacheableFunction function;
+import java.lang.reflect.Type;
+import java.util.Arrays;
 
-    public AdvancementRewards(int experience, ResourceLocation[] loot, ResourceLocation[] recipes, FunctionObject.CacheableFunction function)
-    {
-        this.experience = experience;
-        this.loot = loot;
-        this.recipes = recipes;
-        this.function = function;
-    }
+public class AdvancementRewards {
 
-    public void apply(final EntityPlayerMP player)
-    {
-        player.addExperience(experience);
-        LootContext lootcontext = (new LootContext.Builder(player.getServerWorld())).withLootedEntity(player).build();
-        boolean flag = false;
+	public static final AdvancementRewards EMPTY = new AdvancementRewards(0, new ResourceLocation[0], new ResourceLocation[0], FunctionObject.CacheableFunction.EMPTY);
+	private final int experience;
+	private final ResourceLocation[] loot;
+	private final ResourceLocation[] recipes;
+	private final FunctionObject.CacheableFunction function;
 
-        for (ResourceLocation resourcelocation : loot)
-        {
-            for (ItemStack itemstack : player.world.getLootTableManager().getLootTableFromLocation(resourcelocation).generateLootForPools(player.getRNG(), lootcontext))
-            {
-                if (player.addItemStackToInventory(itemstack))
-                {
-                    player.world.playSound((EntityPlayer)null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 0.2F, ((player.getRNG().nextFloat() - player.getRNG().nextFloat()) * 0.7F + 1.0F) * 2.0F);
-                    flag = true;
-                }
-                else
-                {
-                    EntityItem entityitem = player.dropItem(itemstack, false);
+	public AdvancementRewards(int experience, ResourceLocation[] loot, ResourceLocation[] recipes, FunctionObject.CacheableFunction function) {
 
-                    if (entityitem != null)
-                    {
-                        entityitem.setNoPickupDelay();
-                        entityitem.setOwner(player.getName());
-                    }
-                }
-            }
-        }
+		this.experience = experience;
+		this.loot = loot;
+		this.recipes = recipes;
+		this.function = function;
+	}
 
-        if (flag)
-        {
-            player.inventoryContainer.detectAndSendChanges();
-        }
+	public void apply(final EntityPlayerMP player) {
 
-        if (recipes.length > 0)
-        {
-            player.unlockRecipes(recipes);
-        }
+		player.addExperience(experience);
+		LootContext lootcontext = (new LootContext.Builder(player.getServerWorld())).withLootedEntity(player).build();
+		boolean flag = false;
 
-        final MinecraftServer minecraftserver = player.mcServer;
-        FunctionObject functionobject = function.get(minecraftserver.getFunctionManager());
+		for (ResourceLocation resourcelocation : loot) {
+			for (ItemStack itemstack : player.world.getLootTableManager().getLootTableFromLocation(resourcelocation).generateLootForPools(player.getRNG(), lootcontext)) {
+				if (player.addItemStackToInventory(itemstack)) {
+					player.world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 0.2F, ((player.getRNG().nextFloat() - player.getRNG().nextFloat()) * 0.7F + 1.0F) * 2.0F);
+					flag = true;
+				} else {
+					EntityItem entityitem = player.dropItem(itemstack, false);
 
-        if (functionobject != null)
-        {
-            ICommandSender icommandsender = new ICommandSender()
-            {
-                public String getName()
-                {
-                    return player.getName();
-                }
-                public ITextComponent getDisplayName()
-                {
-                    return player.getDisplayName();
-                }
-                public void sendMessage(ITextComponent component)
-                {
-                }
-                public boolean canUseCommand(int permLevel, String commandName)
-                {
-                    return permLevel <= 2;
-                }
-                public BlockPos getPosition()
-                {
-                    return player.getPosition();
-                }
-                public Vec3d getPositionVector()
-                {
-                    return player.getPositionVector();
-                }
-                public World getEntityWorld()
-                {
-                    return player.world;
-                }
-                public Entity getCommandSenderEntity()
-                {
-                    return player;
-                }
-                public boolean sendCommandFeedback()
-                {
-                    return minecraftserver.worlds[0].getGameRules().getBoolean("commandBlockOutput");
-                }
-                public void setCommandStat(CommandResultStats.Type type, int amount)
-                {
-                    player.setCommandStat(type, amount);
-                }
-                public MinecraftServer getServer()
-                {
-                    return player.getServer();
-                }
-            };
-            minecraftserver.getFunctionManager().execute(functionobject, icommandsender);
-        }
-    }
+					if (entityitem != null) {
+						entityitem.setNoPickupDelay();
+						entityitem.setOwner(player.getName());
+					}
+				}
+			}
+		}
 
-    public String toString()
-    {
-        return "AdvancementRewards{experience=" + experience + ", loot=" + Arrays.toString((Object[]) loot) + ", recipes=" + Arrays.toString((Object[]) recipes) + ", function=" + function + '}';
-    }
+		if (flag) {
+			player.inventoryContainer.detectAndSendChanges();
+		}
 
-    public static class Deserializer implements JsonDeserializer<AdvancementRewards>
-    {
-        public AdvancementRewards deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException
-        {
-            JsonObject jsonobject = JsonUtils.getJsonObject(p_deserialize_1_, "rewards");
-            int i = JsonUtils.getInt(jsonobject, "experience", 0);
-            JsonArray jsonarray = JsonUtils.getJsonArray(jsonobject, "loot", new JsonArray());
-            ResourceLocation[] aresourcelocation = new ResourceLocation[jsonarray.size()];
+		if (recipes.length > 0) {
+			player.unlockRecipes(recipes);
+		}
 
-            for (int j = 0; j < aresourcelocation.length; ++j)
-            {
-                aresourcelocation[j] = new ResourceLocation(JsonUtils.getString(jsonarray.get(j), "loot[" + j + "]"));
-            }
+		final MinecraftServer minecraftserver = player.mcServer;
+		FunctionObject functionobject = function.get(minecraftserver.getFunctionManager());
 
-            JsonArray jsonarray1 = JsonUtils.getJsonArray(jsonobject, "recipes", new JsonArray());
-            ResourceLocation[] aresourcelocation1 = new ResourceLocation[jsonarray1.size()];
+		if (functionobject != null) {
+			ICommandSender icommandsender = new ICommandSender() {
+				public String getName() {
 
-            for (int k = 0; k < aresourcelocation1.length; ++k)
-            {
-                aresourcelocation1[k] = new ResourceLocation(JsonUtils.getString(jsonarray1.get(k), "recipes[" + k + "]"));
-                IRecipe irecipe = CraftingManager.getRecipe(aresourcelocation1[k]);
+					return player.getName();
+				}
 
-                if (irecipe == null)
-                {
-                    throw new JsonSyntaxException("Unknown recipe '" + aresourcelocation1[k] + "'");
-                }
-            }
+				public ITextComponent getDisplayName() {
 
-            FunctionObject.CacheableFunction functionobject$cacheablefunction;
+					return player.getDisplayName();
+				}
 
-            if (jsonobject.has("function"))
-            {
-                functionobject$cacheablefunction = new FunctionObject.CacheableFunction(new ResourceLocation(JsonUtils.getString(jsonobject, "function")));
-            }
-            else
-            {
-                functionobject$cacheablefunction = FunctionObject.CacheableFunction.EMPTY;
-            }
+				public void sendMessage(ITextComponent component) {
 
-            return new AdvancementRewards(i, aresourcelocation, aresourcelocation1, functionobject$cacheablefunction);
-        }
-    }
+				}
+
+				public boolean canUseCommand(int permLevel, String commandName) {
+
+					return permLevel <= 2;
+				}
+
+				public BlockPos getPosition() {
+
+					return player.getPosition();
+				}
+
+				public Vec3d getPositionVector() {
+
+					return player.getPositionVector();
+				}
+
+				public World getEntityWorld() {
+
+					return player.world;
+				}
+
+				public Entity getCommandSenderEntity() {
+
+					return player;
+				}
+
+				public boolean sendCommandFeedback() {
+
+					return minecraftserver.worlds[0].getGameRules().getBoolean("commandBlockOutput");
+				}
+
+				public void setCommandStat(CommandResultStats.Type type, int amount) {
+
+					player.setCommandStat(type, amount);
+				}
+
+				public MinecraftServer getServer() {
+
+					return player.getServer();
+				}
+			};
+			minecraftserver.getFunctionManager().execute(functionobject, icommandsender);
+		}
+	}
+
+	public String toString() {
+
+		return "AdvancementRewards{experience=" + experience + ", loot=" + Arrays.toString(loot) + ", recipes=" + Arrays.toString(recipes) + ", function=" + function + '}';
+	}
+
+	public static class Deserializer implements JsonDeserializer<AdvancementRewards> {
+
+		public AdvancementRewards deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException {
+
+			JsonObject jsonobject = JsonUtils.getJsonObject(p_deserialize_1_, "rewards");
+			int i = JsonUtils.getInt(jsonobject, "experience", 0);
+			JsonArray jsonarray = JsonUtils.getJsonArray(jsonobject, "loot", new JsonArray());
+			ResourceLocation[] aresourcelocation = new ResourceLocation[jsonarray.size()];
+
+			for (int j = 0; j < aresourcelocation.length; ++j) {
+				aresourcelocation[j] = new ResourceLocation(JsonUtils.getString(jsonarray.get(j), "loot[" + j + "]"));
+			}
+
+			JsonArray jsonarray1 = JsonUtils.getJsonArray(jsonobject, "recipes", new JsonArray());
+			ResourceLocation[] aresourcelocation1 = new ResourceLocation[jsonarray1.size()];
+
+			for (int k = 0; k < aresourcelocation1.length; ++k) {
+				aresourcelocation1[k] = new ResourceLocation(JsonUtils.getString(jsonarray1.get(k), "recipes[" + k + "]"));
+				IRecipe irecipe = CraftingManager.getRecipe(aresourcelocation1[k]);
+
+				if (irecipe == null) {
+					throw new JsonSyntaxException("Unknown recipe '" + aresourcelocation1[k] + "'");
+				}
+			}
+
+			FunctionObject.CacheableFunction functionobject$cacheablefunction;
+
+			if (jsonobject.has("function")) {
+				functionobject$cacheablefunction = new FunctionObject.CacheableFunction(new ResourceLocation(JsonUtils.getString(jsonobject, "function")));
+			} else {
+				functionobject$cacheablefunction = FunctionObject.CacheableFunction.EMPTY;
+			}
+
+			return new AdvancementRewards(i, aresourcelocation, aresourcelocation1, functionobject$cacheablefunction);
+		}
+
+	}
+
 }

@@ -1,326 +1,259 @@
 package net.minecraft.util.text;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
-import com.google.gson.JsonPrimitive;
-import com.google.gson.JsonSerializationContext;
-import com.google.gson.JsonSerializer;
-import java.lang.reflect.Type;
-import java.util.List;
-import java.util.Map.Entry;
-import javax.annotation.Nullable;
+import com.google.gson.*;
 import net.minecraft.util.EnumTypeAdapterFactory;
 import net.minecraft.util.JsonUtils;
 
-public interface ITextComponent extends Iterable<ITextComponent>
-{
-    /**
-     * Sets the style of this component and updates the parent style of all of the sibling components.
-     */
-    ITextComponent setStyle(Style style);
+import javax.annotation.Nullable;
+import java.lang.reflect.Type;
+import java.util.List;
+import java.util.Map.Entry;
 
-    /**
-     * Gets the style of this component. Returns a direct reference; changes to this style will modify the style of this
-     * component (IE, there is no need to call {@link #setStyle(Style)} again after modifying it).
-     *  
-     * If this component's style is currently <code>null</code>, it will be initialized to the default style, and the
-     * parent style of all sibling components will be set to that style. (IE, changes to this style will also be
-     * reflected in sibling components.)
-     *  
-     * This method never returns <code>null</code>.
-     */
-    Style getStyle();
+public interface ITextComponent extends Iterable<ITextComponent> {
 
-    /**
-     * Adds a new component to the end of the sibling list, with the specified text. Same as calling {@link
-     * #appendSibling(ITextComponent)} with a new {@link TextComponentString}.
-     *  
-     * @return This component, for chaining (and not the newly added component)
-     */
-    ITextComponent appendText(String text);
+	/**
+	 * Sets the style of this component and updates the parent style of all of the sibling components.
+	 */
+	ITextComponent setStyle(Style style);
 
-    /**
-     * Adds a new component to the end of the sibling list, setting that component's style's parent style to this
-     * component's style.
-     *  
-     * @return This component, for chaining (and not the newly added component)
-     */
-    ITextComponent appendSibling(ITextComponent component);
+	/**
+	 * Gets the style of this component. Returns a direct reference; changes to this style will modify the style of this
+	 * component (IE, there is no need to call {@link #setStyle(Style)} again after modifying it).
+	 * <p>
+	 * If this component's style is currently <code>null</code>, it will be initialized to the default style, and the
+	 * parent style of all sibling components will be set to that style. (IE, changes to this style will also be
+	 * reflected in sibling components.)
+	 * <p>
+	 * This method never returns <code>null</code>.
+	 */
+	Style getStyle();
 
-    /**
-     * Gets the raw content of this component (but not its sibling components), without any formatting codes. For
-     * example, this is the raw text in a {@link TextComponentString}, but it's the translated text for a {@link
-     * TextComponentTranslation} and it's the score value for a {@link TextComponentScore}.
-     */
-    String getUnformattedComponentText();
+	/**
+	 * Adds a new component to the end of the sibling list, with the specified text. Same as calling {@link
+	 * #appendSibling(ITextComponent)} with a new {@link TextComponentString}.
+	 *
+	 * @return This component, for chaining (and not the newly added component)
+	 */
+	ITextComponent appendText(String text);
 
-    /**
-     * Gets the text of this component <em>and all sibling components</em>, without any formatting codes.
-     */
-    String getUnformattedText();
+	/**
+	 * Adds a new component to the end of the sibling list, setting that component's style's parent style to this
+	 * component's style.
+	 *
+	 * @return This component, for chaining (and not the newly added component)
+	 */
+	ITextComponent appendSibling(ITextComponent component);
 
-    /**
-     * Gets the text of this component <em>and all sibling components</em>, with formatting codes added for rendering.
-     */
-    String getFormattedText();
+	/**
+	 * Gets the raw content of this component (but not its sibling components), without any formatting codes. For
+	 * example, this is the raw text in a {@link TextComponentString}, but it's the translated text for a {@link
+	 * TextComponentTranslation} and it's the score value for a {@link TextComponentScore}.
+	 */
+	String getUnformattedComponentText();
 
-    List<ITextComponent> getSiblings();
+	/**
+	 * Gets the text of this component <em>and all sibling components</em>, without any formatting codes.
+	 */
+	String getUnformattedText();
 
-    /**
-     * Creates a copy of this component.  Almost a deep copy, except the style is shallow-copied.
-     */
-    ITextComponent createCopy();
+	/**
+	 * Gets the text of this component <em>and all sibling components</em>, with formatting codes added for rendering.
+	 */
+	String getFormattedText();
 
-    public static class Serializer implements JsonDeserializer<ITextComponent>, JsonSerializer<ITextComponent>
-    {
-        private static final Gson GSON;
+	List<ITextComponent> getSiblings();
 
-        public ITextComponent deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException
-        {
-            if (p_deserialize_1_.isJsonPrimitive())
-            {
-                return new TextComponentString(p_deserialize_1_.getAsString());
-            }
-            else if (!p_deserialize_1_.isJsonObject())
-            {
-                if (p_deserialize_1_.isJsonArray())
-                {
-                    JsonArray jsonarray1 = p_deserialize_1_.getAsJsonArray();
-                    ITextComponent itextcomponent1 = null;
+	/**
+	 * Creates a copy of this component.  Almost a deep copy, except the style is shallow-copied.
+	 */
+	ITextComponent createCopy();
 
-                    for (JsonElement jsonelement : jsonarray1)
-                    {
-                        ITextComponent itextcomponent2 = deserialize(jsonelement, jsonelement.getClass(), p_deserialize_3_);
+	class Serializer implements JsonDeserializer<ITextComponent>, JsonSerializer<ITextComponent> {
 
-                        if (itextcomponent1 == null)
-                        {
-                            itextcomponent1 = itextcomponent2;
-                        }
-                        else
-                        {
-                            itextcomponent1.appendSibling(itextcomponent2);
-                        }
-                    }
+		private static final Gson GSON;
 
-                    return itextcomponent1;
-                }
-                else
-                {
-                    throw new JsonParseException("Don't know how to turn " + p_deserialize_1_ + " into a Component");
-                }
-            }
-            else
-            {
-                JsonObject jsonobject = p_deserialize_1_.getAsJsonObject();
-                ITextComponent itextcomponent;
+		public ITextComponent deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException {
 
-                if (jsonobject.has("text"))
-                {
-                    itextcomponent = new TextComponentString(jsonobject.get("text").getAsString());
-                }
-                else if (jsonobject.has("translate"))
-                {
-                    String s = jsonobject.get("translate").getAsString();
+			if (p_deserialize_1_.isJsonPrimitive()) {
+				return new TextComponentString(p_deserialize_1_.getAsString());
+			} else if (!p_deserialize_1_.isJsonObject()) {
+				if (p_deserialize_1_.isJsonArray()) {
+					JsonArray jsonarray1 = p_deserialize_1_.getAsJsonArray();
+					ITextComponent itextcomponent1 = null;
 
-                    if (jsonobject.has("with"))
-                    {
-                        JsonArray jsonarray = jsonobject.getAsJsonArray("with");
-                        Object[] aobject = new Object[jsonarray.size()];
+					for (JsonElement jsonelement : jsonarray1) {
+						ITextComponent itextcomponent2 = deserialize(jsonelement, jsonelement.getClass(), p_deserialize_3_);
 
-                        for (int i = 0; i < aobject.length; ++i)
-                        {
-                            aobject[i] = deserialize(jsonarray.get(i), p_deserialize_2_, p_deserialize_3_);
+						if (itextcomponent1 == null) {
+							itextcomponent1 = itextcomponent2;
+						} else {
+							itextcomponent1.appendSibling(itextcomponent2);
+						}
+					}
 
-                            if (aobject[i] instanceof TextComponentString)
-                            {
-                                TextComponentString textcomponentstring = (TextComponentString)aobject[i];
+					return itextcomponent1;
+				} else {
+					throw new JsonParseException("Don't know how to turn " + p_deserialize_1_ + " into a Component");
+				}
+			} else {
+				JsonObject jsonobject = p_deserialize_1_.getAsJsonObject();
+				ITextComponent itextcomponent;
 
-                                if (textcomponentstring.getStyle().isEmpty() && textcomponentstring.getSiblings().isEmpty())
-                                {
-                                    aobject[i] = textcomponentstring.getText();
-                                }
-                            }
-                        }
+				if (jsonobject.has("text")) {
+					itextcomponent = new TextComponentString(jsonobject.get("text").getAsString());
+				} else if (jsonobject.has("translate")) {
+					String s = jsonobject.get("translate").getAsString();
 
-                        itextcomponent = new TextComponentTranslation(s, aobject);
-                    }
-                    else
-                    {
-                        itextcomponent = new TextComponentTranslation(s, new Object[0]);
-                    }
-                }
-                else if (jsonobject.has("score"))
-                {
-                    JsonObject jsonobject1 = jsonobject.getAsJsonObject("score");
+					if (jsonobject.has("with")) {
+						JsonArray jsonarray = jsonobject.getAsJsonArray("with");
+						Object[] aobject = new Object[jsonarray.size()];
 
-                    if (!jsonobject1.has("name") || !jsonobject1.has("objective"))
-                    {
-                        throw new JsonParseException("A score component needs a least a name and an objective");
-                    }
+						for (int i = 0; i < aobject.length; ++i) {
+							aobject[i] = deserialize(jsonarray.get(i), p_deserialize_2_, p_deserialize_3_);
 
-                    itextcomponent = new TextComponentScore(JsonUtils.getString(jsonobject1, "name"), JsonUtils.getString(jsonobject1, "objective"));
+							if (aobject[i] instanceof TextComponentString textcomponentstring) {
 
-                    if (jsonobject1.has("value"))
-                    {
-                        ((TextComponentScore)itextcomponent).setValue(JsonUtils.getString(jsonobject1, "value"));
-                    }
-                }
-                else if (jsonobject.has("selector"))
-                {
-                    itextcomponent = new TextComponentSelector(JsonUtils.getString(jsonobject, "selector"));
-                }
-                else
-                {
-                    if (!jsonobject.has("keybind"))
-                    {
-                        throw new JsonParseException("Don't know how to turn " + p_deserialize_1_ + " into a Component");
-                    }
+								if (textcomponentstring.getStyle().isEmpty() && textcomponentstring.getSiblings().isEmpty()) {
+									aobject[i] = textcomponentstring.getText();
+								}
+							}
+						}
 
-                    itextcomponent = new TextComponentKeybind(JsonUtils.getString(jsonobject, "keybind"));
-                }
+						itextcomponent = new TextComponentTranslation(s, aobject);
+					} else {
+						itextcomponent = new TextComponentTranslation(s);
+					}
+				} else if (jsonobject.has("score")) {
+					JsonObject jsonobject1 = jsonobject.getAsJsonObject("score");
 
-                if (jsonobject.has("extra"))
-                {
-                    JsonArray jsonarray2 = jsonobject.getAsJsonArray("extra");
+					if (!jsonobject1.has("name") || !jsonobject1.has("objective")) {
+						throw new JsonParseException("A score component needs a least a name and an objective");
+					}
 
-                    if (jsonarray2.size() <= 0)
-                    {
-                        throw new JsonParseException("Unexpected empty array of components");
-                    }
+					itextcomponent = new TextComponentScore(JsonUtils.getString(jsonobject1, "name"), JsonUtils.getString(jsonobject1, "objective"));
 
-                    for (int j = 0; j < jsonarray2.size(); ++j)
-                    {
-                        itextcomponent.appendSibling(deserialize(jsonarray2.get(j), p_deserialize_2_, p_deserialize_3_));
-                    }
-                }
+					if (jsonobject1.has("value")) {
+						((TextComponentScore) itextcomponent).setValue(JsonUtils.getString(jsonobject1, "value"));
+					}
+				} else if (jsonobject.has("selector")) {
+					itextcomponent = new TextComponentSelector(JsonUtils.getString(jsonobject, "selector"));
+				} else {
+					if (!jsonobject.has("keybind")) {
+						throw new JsonParseException("Don't know how to turn " + p_deserialize_1_ + " into a Component");
+					}
 
-                itextcomponent.setStyle((Style)p_deserialize_3_.deserialize(p_deserialize_1_, Style.class));
-                return itextcomponent;
-            }
-        }
+					itextcomponent = new TextComponentKeybind(JsonUtils.getString(jsonobject, "keybind"));
+				}
 
-        private void serializeChatStyle(Style style, JsonObject object, JsonSerializationContext ctx)
-        {
-            JsonElement jsonelement = ctx.serialize(style);
+				if (jsonobject.has("extra")) {
+					JsonArray jsonarray2 = jsonobject.getAsJsonArray("extra");
 
-            if (jsonelement.isJsonObject())
-            {
-                JsonObject jsonobject = (JsonObject)jsonelement;
+					if (jsonarray2.size() <= 0) {
+						throw new JsonParseException("Unexpected empty array of components");
+					}
 
-                for (Entry<String, JsonElement> entry : jsonobject.entrySet())
-                {
-                    object.add(entry.getKey(), entry.getValue());
-                }
-            }
-        }
+					for (int j = 0; j < jsonarray2.size(); ++j) {
+						itextcomponent.appendSibling(deserialize(jsonarray2.get(j), p_deserialize_2_, p_deserialize_3_));
+					}
+				}
 
-        public JsonElement serialize(ITextComponent p_serialize_1_, Type p_serialize_2_, JsonSerializationContext p_serialize_3_)
-        {
-            JsonObject jsonobject = new JsonObject();
+				itextcomponent.setStyle(p_deserialize_3_.deserialize(p_deserialize_1_, Style.class));
+				return itextcomponent;
+			}
+		}
 
-            if (!p_serialize_1_.getStyle().isEmpty())
-            {
-                serializeChatStyle(p_serialize_1_.getStyle(), jsonobject, p_serialize_3_);
-            }
+		private void serializeChatStyle(Style style, JsonObject object, JsonSerializationContext ctx) {
 
-            if (!p_serialize_1_.getSiblings().isEmpty())
-            {
-                JsonArray jsonarray = new JsonArray();
+			JsonElement jsonelement = ctx.serialize(style);
 
-                for (ITextComponent itextcomponent : p_serialize_1_.getSiblings())
-                {
-                    jsonarray.add(serialize(itextcomponent, itextcomponent.getClass(), p_serialize_3_));
-                }
+			if (jsonelement.isJsonObject()) {
+				JsonObject jsonobject = (JsonObject) jsonelement;
 
-                jsonobject.add("extra", jsonarray);
-            }
+				for (Entry<String, JsonElement> entry : jsonobject.entrySet()) {
+					object.add(entry.getKey(), entry.getValue());
+				}
+			}
+		}
 
-            if (p_serialize_1_ instanceof TextComponentString)
-            {
-                jsonobject.addProperty("text", ((TextComponentString)p_serialize_1_).getText());
-            }
-            else if (p_serialize_1_ instanceof TextComponentTranslation)
-            {
-                TextComponentTranslation textcomponenttranslation = (TextComponentTranslation)p_serialize_1_;
-                jsonobject.addProperty("translate", textcomponenttranslation.getKey());
+		public JsonElement serialize(ITextComponent p_serialize_1_, Type p_serialize_2_, JsonSerializationContext p_serialize_3_) {
 
-                if (textcomponenttranslation.getFormatArgs() != null && textcomponenttranslation.getFormatArgs().length > 0)
-                {
-                    JsonArray jsonarray1 = new JsonArray();
+			JsonObject jsonobject = new JsonObject();
 
-                    for (Object object : textcomponenttranslation.getFormatArgs())
-                    {
-                        if (object instanceof ITextComponent)
-                        {
-                            jsonarray1.add(serialize((ITextComponent)object, object.getClass(), p_serialize_3_));
-                        }
-                        else
-                        {
-                            jsonarray1.add(new JsonPrimitive(String.valueOf(object)));
-                        }
-                    }
+			if (!p_serialize_1_.getStyle().isEmpty()) {
+				serializeChatStyle(p_serialize_1_.getStyle(), jsonobject, p_serialize_3_);
+			}
 
-                    jsonobject.add("with", jsonarray1);
-                }
-            }
-            else if (p_serialize_1_ instanceof TextComponentScore)
-            {
-                TextComponentScore textcomponentscore = (TextComponentScore)p_serialize_1_;
-                JsonObject jsonobject1 = new JsonObject();
-                jsonobject1.addProperty("name", textcomponentscore.getName());
-                jsonobject1.addProperty("objective", textcomponentscore.getObjective());
-                jsonobject1.addProperty("value", textcomponentscore.getUnformattedComponentText());
-                jsonobject.add("score", jsonobject1);
-            }
-            else if (p_serialize_1_ instanceof TextComponentSelector)
-            {
-                TextComponentSelector textcomponentselector = (TextComponentSelector)p_serialize_1_;
-                jsonobject.addProperty("selector", textcomponentselector.getSelector());
-            }
-            else
-            {
-                if (!(p_serialize_1_ instanceof TextComponentKeybind))
-                {
-                    throw new IllegalArgumentException("Don't know how to serialize " + p_serialize_1_ + " as a Component");
-                }
+			if (!p_serialize_1_.getSiblings().isEmpty()) {
+				JsonArray jsonarray = new JsonArray();
 
-                TextComponentKeybind textcomponentkeybind = (TextComponentKeybind)p_serialize_1_;
-                jsonobject.addProperty("keybind", textcomponentkeybind.getKeybind());
-            }
+				for (ITextComponent itextcomponent : p_serialize_1_.getSiblings()) {
+					jsonarray.add(serialize(itextcomponent, itextcomponent.getClass(), p_serialize_3_));
+				}
 
-            return jsonobject;
-        }
+				jsonobject.add("extra", jsonarray);
+			}
 
-        public static String componentToJson(ITextComponent component)
-        {
-            return GSON.toJson(component);
-        }
+			if (p_serialize_1_ instanceof TextComponentString) {
+				jsonobject.addProperty("text", ((TextComponentString) p_serialize_1_).getText());
+			} else if (p_serialize_1_ instanceof TextComponentTranslation textcomponenttranslation) {
+				jsonobject.addProperty("translate", textcomponenttranslation.getKey());
 
-        @Nullable
-        public static ITextComponent jsonToComponent(String json)
-        {
-            return (ITextComponent)JsonUtils.gsonDeserialize(GSON, json, ITextComponent.class, false);
-        }
+				if (textcomponenttranslation.getFormatArgs() != null && textcomponenttranslation.getFormatArgs().length > 0) {
+					JsonArray jsonarray1 = new JsonArray();
 
-        @Nullable
-        public static ITextComponent fromJsonLenient(String json)
-        {
-            return (ITextComponent)JsonUtils.gsonDeserialize(GSON, json, ITextComponent.class, true);
-        }
+					for (Object object : textcomponenttranslation.getFormatArgs()) {
+						if (object instanceof ITextComponent) {
+							jsonarray1.add(serialize((ITextComponent) object, object.getClass(), p_serialize_3_));
+						} else {
+							jsonarray1.add(new JsonPrimitive(String.valueOf(object)));
+						}
+					}
 
-        static
-        {
-            GsonBuilder gsonbuilder = new GsonBuilder();
-            gsonbuilder.registerTypeHierarchyAdapter(ITextComponent.class, new ITextComponent.Serializer());
-            gsonbuilder.registerTypeHierarchyAdapter(Style.class, new Style.Serializer());
-            gsonbuilder.registerTypeAdapterFactory(new EnumTypeAdapterFactory());
-            GSON = gsonbuilder.create();
-        }
-    }
+					jsonobject.add("with", jsonarray1);
+				}
+			} else if (p_serialize_1_ instanceof TextComponentScore textcomponentscore) {
+				JsonObject jsonobject1 = new JsonObject();
+				jsonobject1.addProperty("name", textcomponentscore.getName());
+				jsonobject1.addProperty("objective", textcomponentscore.getObjective());
+				jsonobject1.addProperty("value", textcomponentscore.getUnformattedComponentText());
+				jsonobject.add("score", jsonobject1);
+			} else if (p_serialize_1_ instanceof TextComponentSelector textcomponentselector) {
+				jsonobject.addProperty("selector", textcomponentselector.getSelector());
+			} else {
+				if (!(p_serialize_1_ instanceof TextComponentKeybind textcomponentkeybind)) {
+					throw new IllegalArgumentException("Don't know how to serialize " + p_serialize_1_ + " as a Component");
+				}
+
+				jsonobject.addProperty("keybind", textcomponentkeybind.getKeybind());
+			}
+
+			return jsonobject;
+		}
+
+		public static String componentToJson(ITextComponent component) {
+
+			return GSON.toJson(component);
+		}
+
+		@Nullable
+		public static ITextComponent jsonToComponent(String json) {
+
+			return JsonUtils.gsonDeserialize(GSON, json, ITextComponent.class, false);
+		}
+
+		@Nullable
+		public static ITextComponent fromJsonLenient(String json) {
+
+			return JsonUtils.gsonDeserialize(GSON, json, ITextComponent.class, true);
+		}
+
+		static {
+			GsonBuilder gsonbuilder = new GsonBuilder();
+			gsonbuilder.registerTypeHierarchyAdapter(ITextComponent.class, new ITextComponent.Serializer());
+			gsonbuilder.registerTypeHierarchyAdapter(Style.class, new Style.Serializer());
+			gsonbuilder.registerTypeAdapterFactory(new EnumTypeAdapterFactory());
+			GSON = gsonbuilder.create();
+		}
+	}
+
 }

@@ -13,134 +13,131 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 
-public class BlockPlanks extends Block
-{
-    public static final PropertyEnum<BlockPlanks.EnumType> VARIANT = PropertyEnum.<BlockPlanks.EnumType>create("variant", BlockPlanks.EnumType.class);
+public class BlockPlanks extends Block {
 
-    public BlockPlanks()
-    {
-        super(Material.WOOD);
-        setDefaultState(blockState.getBaseState().withProperty(VARIANT, BlockPlanks.EnumType.OAK));
-        setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
-    }
+	public static final PropertyEnum<BlockPlanks.EnumType> VARIANT = PropertyEnum.create("variant", BlockPlanks.EnumType.class);
 
-    /**
-     * Gets the metadata of the item this Block can drop. This method is called when the block gets destroyed. It
-     * returns the metadata of the dropped item based on the old metadata of the block.
-     */
-    public int damageDropped(IBlockState state)
-    {
-        return ((BlockPlanks.EnumType)state.getValue(VARIANT)).getMetadata();
-    }
+	public BlockPlanks() {
 
-    /**
-     * returns a list of blocks with the same ID, but different meta (eg: wood returns 4 blocks)
-     */
-    public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items)
-    {
-        for (BlockPlanks.EnumType blockplanks$enumtype : BlockPlanks.EnumType.values())
-        {
-            items.add(new ItemStack(this, 1, blockplanks$enumtype.getMetadata()));
-        }
-    }
+		super(Material.WOOD);
+		setDefaultState(blockState.getBaseState().withProperty(VARIANT, BlockPlanks.EnumType.OAK));
+		setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
+	}
 
-    /**
-     * Convert the given metadata into a BlockState for this Block
-     */
-    public IBlockState getStateFromMeta(int meta)
-    {
-        return getDefaultState().withProperty(VARIANT, BlockPlanks.EnumType.byMetadata(meta));
-    }
+	/**
+	 * Gets the metadata of the item this Block can drop. This method is called when the block gets destroyed. It
+	 * returns the metadata of the dropped item based on the old metadata of the block.
+	 */
+	public int damageDropped(IBlockState state) {
 
-    /**
-     * Get the MapColor for this Block and the given BlockState
-     */
-    public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos)
-    {
-        return ((BlockPlanks.EnumType)state.getValue(VARIANT)).getMapColor();
-    }
+		return state.getValue(VARIANT).getMetadata();
+	}
 
-    /**
-     * Convert the BlockState into the correct metadata value
-     */
-    public int getMetaFromState(IBlockState state)
-    {
-        return ((BlockPlanks.EnumType)state.getValue(VARIANT)).getMetadata();
-    }
+	/**
+	 * returns a list of blocks with the same ID, but different meta (eg: wood returns 4 blocks)
+	 */
+	public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
 
-    protected BlockStateContainer createBlockState()
-    {
-        return new BlockStateContainer(this, new IProperty[] {VARIANT});
-    }
+		for (BlockPlanks.EnumType blockplanks$enumtype : BlockPlanks.EnumType.values()) {
+			items.add(new ItemStack(this, 1, blockplanks$enumtype.getMetadata()));
+		}
+	}
 
-    public static enum EnumType implements IStringSerializable
-    {
-        OAK(0, "oak", MapColor.WOOD),
-        SPRUCE(1, "spruce", MapColor.OBSIDIAN),
-        BIRCH(2, "birch", MapColor.SAND),
-        JUNGLE(3, "jungle", MapColor.DIRT),
-        ACACIA(4, "acacia", MapColor.ADOBE),
-        DARK_OAK(5, "dark_oak", "big_oak", MapColor.BROWN);
+	/**
+	 * Convert the given metadata into a BlockState for this Block
+	 */
+	public IBlockState getStateFromMeta(int meta) {
 
-        private static final BlockPlanks.EnumType[] META_LOOKUP = new BlockPlanks.EnumType[values().length];
-        private final int meta;
-        private final String name;
-        private final String unlocalizedName;
-        private final MapColor mapColor;
+		return getDefaultState().withProperty(VARIANT, BlockPlanks.EnumType.byMetadata(meta));
+	}
 
-        private EnumType(int metaIn, String nameIn, MapColor mapColorIn)
-        {
-            this(metaIn, nameIn, nameIn, mapColorIn);
-        }
+	/**
+	 * Get the MapColor for this Block and the given BlockState
+	 */
+	public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
 
-        private EnumType(int metaIn, String nameIn, String unlocalizedNameIn, MapColor mapColorIn)
-        {
-            meta = metaIn;
-            name = nameIn;
-            unlocalizedName = unlocalizedNameIn;
-            mapColor = mapColorIn;
-        }
+		return state.getValue(VARIANT).getMapColor();
+	}
 
-        public int getMetadata()
-        {
-            return meta;
-        }
+	/**
+	 * Convert the BlockState into the correct metadata value
+	 */
+	public int getMetaFromState(IBlockState state) {
 
-        public MapColor getMapColor()
-        {
-            return mapColor;
-        }
+		return state.getValue(VARIANT).getMetadata();
+	}
 
-        public String toString()
-        {
-            return name;
-        }
+	protected BlockStateContainer createBlockState() {
 
-        public static BlockPlanks.EnumType byMetadata(int meta)
-        {
-            if (meta < 0 || meta >= META_LOOKUP.length)
-            {
-                meta = 0;
-            }
+		return new BlockStateContainer(this, VARIANT);
+	}
 
-            return META_LOOKUP[meta];
-        }
+	public enum EnumType implements IStringSerializable {
+		OAK(0, "oak", MapColor.WOOD),
+		SPRUCE(1, "spruce", MapColor.OBSIDIAN),
+		BIRCH(2, "birch", MapColor.SAND),
+		JUNGLE(3, "jungle", MapColor.DIRT),
+		ACACIA(4, "acacia", MapColor.ADOBE),
+		DARK_OAK(5, "dark_oak", "big_oak", MapColor.BROWN);
 
-        public String getName()
-        {
-            return name;
-        }
+		private static final BlockPlanks.EnumType[] META_LOOKUP = new BlockPlanks.EnumType[values().length];
+		private final int meta;
+		private final String name;
+		private final String unlocalizedName;
+		private final MapColor mapColor;
 
-        public String getUnlocalizedName()
-        {
-            return unlocalizedName;
-        }
+		EnumType(int metaIn, String nameIn, MapColor mapColorIn) {
 
-        static {
-            for (BlockPlanks.EnumType blockplanks$enumtype : values())
-            {
-                META_LOOKUP[blockplanks$enumtype.getMetadata()] = blockplanks$enumtype;
-            }
-        }
-    }
+			this(metaIn, nameIn, nameIn, mapColorIn);
+		}
+
+		EnumType(int metaIn, String nameIn, String unlocalizedNameIn, MapColor mapColorIn) {
+
+			meta = metaIn;
+			name = nameIn;
+			unlocalizedName = unlocalizedNameIn;
+			mapColor = mapColorIn;
+		}
+
+		public int getMetadata() {
+
+			return meta;
+		}
+
+		public MapColor getMapColor() {
+
+			return mapColor;
+		}
+
+		public String toString() {
+
+			return name;
+		}
+
+		public static BlockPlanks.EnumType byMetadata(int meta) {
+
+			if (meta < 0 || meta >= META_LOOKUP.length) {
+				meta = 0;
+			}
+
+			return META_LOOKUP[meta];
+		}
+
+		public String getName() {
+
+			return name;
+		}
+
+		public String getUnlocalizedName() {
+
+			return unlocalizedName;
+		}
+
+		static {
+			for (BlockPlanks.EnumType blockplanks$enumtype : values()) {
+				META_LOOKUP[blockplanks$enumtype.getMetadata()] = blockplanks$enumtype;
+			}
+		}
+	}
+
 }

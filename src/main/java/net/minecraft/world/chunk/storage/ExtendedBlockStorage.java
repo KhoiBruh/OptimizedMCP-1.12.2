@@ -6,200 +6,193 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.chunk.BlockStateContainer;
 import net.minecraft.world.chunk.NibbleArray;
 
-public class ExtendedBlockStorage
-{
-    /**
-     * Contains the bottom-most Y block represented by this ExtendedBlockStorage. Typically a multiple of 16.
-     */
-    private final int yBase;
+public class ExtendedBlockStorage {
 
-    /**
-     * A total count of the number of non-air blocks in this block storage's Chunk.
-     */
-    private int blockRefCount;
+	/**
+	 * Contains the bottom-most Y block represented by this ExtendedBlockStorage. Typically a multiple of 16.
+	 */
+	private final int yBase;
 
-    /**
-     * Contains the number of blocks in this block storage's parent chunk that require random ticking. Used to cull the
-     * Chunk from random tick updates for performance reasons.
-     */
-    private int tickRefCount;
-    private final BlockStateContainer data;
+	/**
+	 * A total count of the number of non-air blocks in this block storage's Chunk.
+	 */
+	private int blockRefCount;
 
-    /** The NibbleArray containing a block of Block-light data. */
-    private NibbleArray blockLight;
+	/**
+	 * Contains the number of blocks in this block storage's parent chunk that require random ticking. Used to cull the
+	 * Chunk from random tick updates for performance reasons.
+	 */
+	private int tickRefCount;
+	private final BlockStateContainer data;
 
-    /**
-     * The NibbleArray containing skylight data.
-     *  
-     * Will be null if the provider for the world the chunk containing this block storage does not {@linkplain
-     * net.minecraft.world.WorldProvider#hasSkylight have skylight}.
-     */
-    private NibbleArray skyLight;
+	/**
+	 * The NibbleArray containing a block of Block-light data.
+	 */
+	private NibbleArray blockLight;
 
-    public ExtendedBlockStorage(int y, boolean storeSkylight)
-    {
-        yBase = y;
-        data = new BlockStateContainer();
-        blockLight = new NibbleArray();
+	/**
+	 * The NibbleArray containing skylight data.
+	 * <p>
+	 * Will be null if the provider for the world the chunk containing this block storage does not {@linkplain
+	 * net.minecraft.world.WorldProvider#hasSkylight have skylight}.
+	 */
+	private NibbleArray skyLight;
 
-        if (storeSkylight)
-        {
-            skyLight = new NibbleArray();
-        }
-    }
+	public ExtendedBlockStorage(int y, boolean storeSkylight) {
 
-    public IBlockState get(int x, int y, int z)
-    {
-        return data.get(x, y, z);
-    }
+		yBase = y;
+		data = new BlockStateContainer();
+		blockLight = new NibbleArray();
 
-    public void set(int x, int y, int z, IBlockState state)
-    {
-        IBlockState iblockstate = get(x, y, z);
-        Block block = iblockstate.getBlock();
-        Block block1 = state.getBlock();
+		if (storeSkylight) {
+			skyLight = new NibbleArray();
+		}
+	}
 
-        if (block != Blocks.AIR)
-        {
-            --blockRefCount;
+	public IBlockState get(int x, int y, int z) {
 
-            if (block.getTickRandomly())
-            {
-                --tickRefCount;
-            }
-        }
+		return data.get(x, y, z);
+	}
 
-        if (block1 != Blocks.AIR)
-        {
-            ++blockRefCount;
+	public void set(int x, int y, int z, IBlockState state) {
 
-            if (block1.getTickRandomly())
-            {
-                ++tickRefCount;
-            }
-        }
+		IBlockState iblockstate = get(x, y, z);
+		Block block = iblockstate.getBlock();
+		Block block1 = state.getBlock();
 
-        data.set(x, y, z, state);
-    }
+		if (block != Blocks.AIR) {
+			--blockRefCount;
 
-    /**
-     * Returns whether or not this block storage's Chunk is fully empty, based on its internal reference count.
-     */
-    public boolean isEmpty()
-    {
-        return blockRefCount == 0;
-    }
+			if (block.getTickRandomly()) {
+				--tickRefCount;
+			}
+		}
 
-    /**
-     * Returns whether or not this block storage's Chunk will require random ticking, used to avoid looping through
-     * random block ticks when there are no blocks that would randomly tick.
-     */
-    public boolean needsRandomTick()
-    {
-        return tickRefCount > 0;
-    }
+		if (block1 != Blocks.AIR) {
+			++blockRefCount;
 
-    /**
-     * Returns the Y location of this ExtendedBlockStorage.
-     */
-    public int getYLocation()
-    {
-        return yBase;
-    }
+			if (block1.getTickRandomly()) {
+				++tickRefCount;
+			}
+		}
 
-    /**
-     * Sets the saved Sky-light value in the extended block storage structure.
-     */
-    public void setSkyLight(int x, int y, int z, int value)
-    {
-        skyLight.set(x, y, z, value);
-    }
+		data.set(x, y, z, state);
+	}
 
-    /**
-     * Gets the saved Sky-light value in the extended block storage structure.
-     */
-    public int getSkyLight(int x, int y, int z)
-    {
-        return skyLight.get(x, y, z);
-    }
+	/**
+	 * Returns whether or not this block storage's Chunk is fully empty, based on its internal reference count.
+	 */
+	public boolean isEmpty() {
 
-    /**
-     * Sets the saved Block-light value in the extended block storage structure.
-     */
-    public void setBlockLight(int x, int y, int z, int value)
-    {
-        blockLight.set(x, y, z, value);
-    }
+		return blockRefCount == 0;
+	}
 
-    /**
-     * Gets the saved Block-light value in the extended block storage structure.
-     */
-    public int getBlockLight(int x, int y, int z)
-    {
-        return blockLight.get(x, y, z);
-    }
+	/**
+	 * Returns whether or not this block storage's Chunk will require random ticking, used to avoid looping through
+	 * random block ticks when there are no blocks that would randomly tick.
+	 */
+	public boolean needsRandomTick() {
 
-    public void recalculateRefCounts()
-    {
-        blockRefCount = 0;
-        tickRefCount = 0;
+		return tickRefCount > 0;
+	}
 
-        for (int i = 0; i < 16; ++i)
-        {
-            for (int j = 0; j < 16; ++j)
-            {
-                for (int k = 0; k < 16; ++k)
-                {
-                    Block block = get(i, j, k).getBlock();
+	/**
+	 * Returns the Y location of this ExtendedBlockStorage.
+	 */
+	public int getYLocation() {
 
-                    if (block != Blocks.AIR)
-                    {
-                        ++blockRefCount;
+		return yBase;
+	}
 
-                        if (block.getTickRandomly())
-                        {
-                            ++tickRefCount;
-                        }
-                    }
-                }
-            }
-        }
-    }
+	/**
+	 * Sets the saved Sky-light value in the extended block storage structure.
+	 */
+	public void setSkyLight(int x, int y, int z, int value) {
 
-    public BlockStateContainer getData()
-    {
-        return data;
-    }
+		skyLight.set(x, y, z, value);
+	}
 
-    /**
-     * Returns the NibbleArray instance containing Block-light data.
-     */
-    public NibbleArray getBlockLight()
-    {
-        return blockLight;
-    }
+	/**
+	 * Gets the saved Sky-light value in the extended block storage structure.
+	 */
+	public int getSkyLight(int x, int y, int z) {
 
-    /**
-     * Returns the NibbleArray instance containing Sky-light data.
-     */
-    public NibbleArray getSkyLight()
-    {
-        return skyLight;
-    }
+		return skyLight.get(x, y, z);
+	}
 
-    /**
-     * Sets the NibbleArray instance used for Block-light values in this particular storage block.
-     */
-    public void setBlockLight(NibbleArray newBlocklightArray)
-    {
-        blockLight = newBlocklightArray;
-    }
+	/**
+	 * Sets the saved Block-light value in the extended block storage structure.
+	 */
+	public void setBlockLight(int x, int y, int z, int value) {
 
-    /**
-     * Sets the NibbleArray instance used for Sky-light values in this particular storage block.
-     */
-    public void setSkyLight(NibbleArray newSkylightArray)
-    {
-        skyLight = newSkylightArray;
-    }
+		blockLight.set(x, y, z, value);
+	}
+
+	/**
+	 * Gets the saved Block-light value in the extended block storage structure.
+	 */
+	public int getBlockLight(int x, int y, int z) {
+
+		return blockLight.get(x, y, z);
+	}
+
+	public void recalculateRefCounts() {
+
+		blockRefCount = 0;
+		tickRefCount = 0;
+
+		for (int i = 0; i < 16; ++i) {
+			for (int j = 0; j < 16; ++j) {
+				for (int k = 0; k < 16; ++k) {
+					Block block = get(i, j, k).getBlock();
+
+					if (block != Blocks.AIR) {
+						++blockRefCount;
+
+						if (block.getTickRandomly()) {
+							++tickRefCount;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	public BlockStateContainer getData() {
+
+		return data;
+	}
+
+	/**
+	 * Returns the NibbleArray instance containing Block-light data.
+	 */
+	public NibbleArray getBlockLight() {
+
+		return blockLight;
+	}
+
+	/**
+	 * Returns the NibbleArray instance containing Sky-light data.
+	 */
+	public NibbleArray getSkyLight() {
+
+		return skyLight;
+	}
+
+	/**
+	 * Sets the NibbleArray instance used for Block-light values in this particular storage block.
+	 */
+	public void setBlockLight(NibbleArray newBlocklightArray) {
+
+		blockLight = newBlocklightArray;
+	}
+
+	/**
+	 * Sets the NibbleArray instance used for Sky-light values in this particular storage block.
+	 */
+	public void setSkyLight(NibbleArray newSkylightArray) {
+
+		skyLight = newSkylightArray;
+	}
+
 }

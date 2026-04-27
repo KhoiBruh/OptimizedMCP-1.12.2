@@ -17,65 +17,64 @@ import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.IInteractionObject;
 import net.minecraft.world.World;
 
-public class BlockWorkbench extends Block
-{
-    protected BlockWorkbench()
-    {
-        super(Material.WOOD);
-        setCreativeTab(CreativeTabs.DECORATIONS);
-    }
+public class BlockWorkbench extends Block {
 
-    /**
-     * Called when the block is right clicked by a player.
-     */
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
-    {
-        if (worldIn.isRemote)
-        {
-            return true;
-        }
-        else
-        {
-            playerIn.displayGui(new BlockWorkbench.InterfaceCraftingTable(worldIn, pos));
-            playerIn.addStat(StatList.CRAFTING_TABLE_INTERACTION);
-            return true;
-        }
-    }
+	protected BlockWorkbench() {
 
-    public static class InterfaceCraftingTable implements IInteractionObject
-    {
-        private final World world;
-        private final BlockPos position;
+		super(Material.WOOD);
+		setCreativeTab(CreativeTabs.DECORATIONS);
+	}
 
-        public InterfaceCraftingTable(World worldIn, BlockPos pos)
-        {
-            world = worldIn;
-            position = pos;
-        }
+	/**
+	 * Called when the block is right clicked by a player.
+	 */
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 
-        public String getName()
-        {
-            return "crafting_table";
-        }
+		if (worldIn.isRemote) {
+			return true;
+		} else {
+			playerIn.displayGui(new BlockWorkbench.InterfaceCraftingTable(worldIn, pos));
+			playerIn.addStat(StatList.CRAFTING_TABLE_INTERACTION);
+			return true;
+		}
+	}
 
-        public boolean hasCustomName()
-        {
-            return false;
-        }
+	public static class InterfaceCraftingTable implements IInteractionObject {
 
-        public ITextComponent getDisplayName()
-        {
-            return new TextComponentTranslation(Blocks.CRAFTING_TABLE.getUnlocalizedName() + ".name", new Object[0]);
-        }
+		private final World world;
+		private final BlockPos position;
 
-        public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn)
-        {
-            return new ContainerWorkbench(playerInventory, world, position);
-        }
+		public InterfaceCraftingTable(World worldIn, BlockPos pos) {
 
-        public String getGuiID()
-        {
-            return "minecraft:crafting_table";
-        }
-    }
+			world = worldIn;
+			position = pos;
+		}
+
+		public String getName() {
+
+			return "crafting_table";
+		}
+
+		public boolean hasCustomName() {
+
+			return false;
+		}
+
+		public ITextComponent displayName() {
+
+			return new TextComponentTranslation(Blocks.CRAFTING_TABLE.getUnlocalizedName() + ".name");
+		}
+
+		public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
+
+			return new ContainerWorkbench(playerInventory, world, position);
+		}
+
+		public String guiID() {
+
+			return "minecraft:crafting_table";
+		}
+
+	}
+
 }

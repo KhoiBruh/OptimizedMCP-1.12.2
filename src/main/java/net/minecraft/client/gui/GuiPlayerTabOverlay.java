@@ -3,9 +3,6 @@ package net.minecraft.client.gui;
 import com.google.common.collect.ComparisonChain;
 import com.google.common.collect.Ordering;
 import com.mojang.authlib.GameProfile;
-import java.util.Comparator;
-import java.util.List;
-import javax.annotation.Nullable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.client.network.NetworkPlayerInfo;
@@ -21,381 +18,331 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.GameType;
 
-public class GuiPlayerTabOverlay extends Gui
-{
-    private static final Ordering<NetworkPlayerInfo> ENTRY_ORDERING = Ordering.from(new GuiPlayerTabOverlay.PlayerComparator());
-    private final Minecraft mc;
-    private final GuiIngame guiIngame;
-    private ITextComponent footer;
-    private ITextComponent header;
+import javax.annotation.Nullable;
+import java.util.Comparator;
+import java.util.List;
 
-    /**
-     * The last time the playerlist was opened (went from not being renderd, to being rendered)
-     */
-    private long lastTimeOpened;
+public class GuiPlayerTabOverlay extends Gui {
 
-    /** Weither or not the playerlist is currently being rendered */
-    private boolean isBeingRendered;
+	private static final Ordering<NetworkPlayerInfo> ENTRY_ORDERING = Ordering.from(new GuiPlayerTabOverlay.PlayerComparator());
+	private final Minecraft mc;
+	private final GuiIngame guiIngame;
+	private ITextComponent footer;
+	private ITextComponent header;
 
-    public GuiPlayerTabOverlay(Minecraft mcIn, GuiIngame guiIngameIn)
-    {
-        mc = mcIn;
-        guiIngame = guiIngameIn;
-    }
+	/**
+	 * The last time the playerlist was opened (went from not being renderd, to being rendered)
+	 */
+	private long lastTimeOpened;
 
-    /**
-     * Returns the name that should be renderd for the player supplied
-     */
-    public String getPlayerName(NetworkPlayerInfo networkPlayerInfoIn)
-    {
-        return networkPlayerInfoIn.getDisplayName() != null ? networkPlayerInfoIn.getDisplayName().getFormattedText() : ScorePlayerTeam.formatPlayerName(networkPlayerInfoIn.getPlayerTeam(), networkPlayerInfoIn.getGameProfile().getName());
-    }
+	/**
+	 * Weither or not the playerlist is currently being rendered
+	 */
+	private boolean isBeingRendered;
 
-    /**
-     * Called by GuiIngame to update the information stored in the playerlist, does not actually render the list,
-     * however.
-     */
-    public void updatePlayerList(boolean willBeRendered)
-    {
-        if (willBeRendered && !isBeingRendered)
-        {
-            lastTimeOpened = Minecraft.getSystemTime();
-        }
+	public GuiPlayerTabOverlay(Minecraft mcIn, GuiIngame guiIngameIn) {
 
-        isBeingRendered = willBeRendered;
-    }
+		mc = mcIn;
+		guiIngame = guiIngameIn;
+	}
 
-    /**
-     * Renders the playerlist, its background, headers and footers.
-     */
-    public void renderPlayerlist(int width, Scoreboard scoreboardIn, @Nullable ScoreObjective scoreObjectiveIn)
-    {
-        NetHandlerPlayClient nethandlerplayclient = mc.player.connection;
-        List<NetworkPlayerInfo> list = ENTRY_ORDERING.<NetworkPlayerInfo>sortedCopy(nethandlerplayclient.getPlayerInfoMap());
-        int i = 0;
-        int j = 0;
+	/**
+	 * Returns the name that should be renderd for the player supplied
+	 */
+	public String getPlayerName(NetworkPlayerInfo networkPlayerInfoIn) {
 
-        for (NetworkPlayerInfo networkplayerinfo : list)
-        {
-            int k = mc.fontRenderer.getStringWidth(getPlayerName(networkplayerinfo));
-            i = Math.max(i, k);
+		return networkPlayerInfoIn.getDisplayName() != null ? networkPlayerInfoIn.getDisplayName().getFormattedText() : ScorePlayerTeam.formatPlayerName(networkPlayerInfoIn.getPlayerTeam(), networkPlayerInfoIn.getGameProfile().getName());
+	}
 
-            if (scoreObjectiveIn != null && scoreObjectiveIn.getRenderType() != IScoreCriteria.EnumRenderType.HEARTS)
-            {
-                k = mc.fontRenderer.getStringWidth(" " + scoreboardIn.getOrCreateScore(networkplayerinfo.getGameProfile().getName(), scoreObjectiveIn).getScorePoints());
-                j = Math.max(j, k);
-            }
-        }
+	/**
+	 * Called by GuiIngame to update the information stored in the playerlist, does not actually render the list,
+	 * however.
+	 */
+	public void updatePlayerList(boolean willBeRendered) {
 
-        list = list.subList(0, Math.min(list.size(), 80));
-        int l3 = list.size();
-        int i4 = l3;
-        int j4;
+		if (willBeRendered && !isBeingRendered) {
+			lastTimeOpened = Minecraft.getSystemTime();
+		}
 
-        for (j4 = 1; i4 > 20; i4 = (l3 + j4 - 1) / j4)
-        {
-            ++j4;
-        }
+		isBeingRendered = willBeRendered;
+	}
 
-        boolean flag = mc.isIntegratedServerRunning() || mc.getConnection().getNetworkManager().isEncrypted();
-        int l;
+	/**
+	 * Renders the playerlist, its background, headers and footers.
+	 */
+	public void renderPlayerlist(int width, Scoreboard scoreboardIn, @Nullable ScoreObjective scoreObjectiveIn) {
 
-        if (scoreObjectiveIn != null)
-        {
-            if (scoreObjectiveIn.getRenderType() == IScoreCriteria.EnumRenderType.HEARTS)
-            {
-                l = 90;
-            }
-            else
-            {
-                l = j;
-            }
-        }
-        else
-        {
-            l = 0;
-        }
+		NetHandlerPlayClient nethandlerplayclient = mc.player.connection;
+		List<NetworkPlayerInfo> list = ENTRY_ORDERING.sortedCopy(nethandlerplayclient.getPlayerInfoMap());
+		int i = 0;
+		int j = 0;
 
-        int i1 = Math.min(j4 * ((flag ? 9 : 0) + i + l + 13), width - 50) / j4;
-        int j1 = width / 2 - (i1 * j4 + (j4 - 1) * 5) / 2;
-        int k1 = 10;
-        int l1 = i1 * j4 + (j4 - 1) * 5;
-        List<String> list1 = null;
+		for (NetworkPlayerInfo networkplayerinfo : list) {
+			int k = mc.fontRenderer.getStringWidth(getPlayerName(networkplayerinfo));
+			i = Math.max(i, k);
 
-        if (header != null)
-        {
-            list1 = mc.fontRenderer.listFormattedStringToWidth(header.getFormattedText(), width - 50);
+			if (scoreObjectiveIn != null && scoreObjectiveIn.getRenderType() != IScoreCriteria.EnumRenderType.HEARTS) {
+				k = mc.fontRenderer.getStringWidth(" " + scoreboardIn.getOrCreateScore(networkplayerinfo.getGameProfile().getName(), scoreObjectiveIn).getScorePoints());
+				j = Math.max(j, k);
+			}
+		}
 
-            for (String s : list1)
-            {
-                l1 = Math.max(l1, mc.fontRenderer.getStringWidth(s));
-            }
-        }
+		list = list.subList(0, Math.min(list.size(), 80));
+		int l3 = list.size();
+		int i4 = l3;
+		int j4;
 
-        List<String> list2 = null;
+		for (j4 = 1; i4 > 20; i4 = (l3 + j4 - 1) / j4) {
+			++j4;
+		}
 
-        if (footer != null)
-        {
-            list2 = mc.fontRenderer.listFormattedStringToWidth(footer.getFormattedText(), width - 50);
+		boolean flag = mc.isIntegratedServerRunning() || mc.getConnection().getNetworkManager().isEncrypted();
+		int l;
 
-            for (String s1 : list2)
-            {
-                l1 = Math.max(l1, mc.fontRenderer.getStringWidth(s1));
-            }
-        }
+		if (scoreObjectiveIn != null) {
+			if (scoreObjectiveIn.getRenderType() == IScoreCriteria.EnumRenderType.HEARTS) {
+				l = 90;
+			} else {
+				l = j;
+			}
+		} else {
+			l = 0;
+		}
 
-        if (list1 != null)
-        {
-            drawRect(width / 2 - l1 / 2 - 1, k1 - 1, width / 2 + l1 / 2 + 1, k1 + list1.size() * mc.fontRenderer.FONT_HEIGHT, Integer.MIN_VALUE);
+		int i1 = Math.min(j4 * ((flag ? 9 : 0) + i + l + 13), width - 50) / j4;
+		int j1 = width / 2 - (i1 * j4 + (j4 - 1) * 5) / 2;
+		int k1 = 10;
+		int l1 = i1 * j4 + (j4 - 1) * 5;
+		List<String> list1 = null;
 
-            for (String s2 : list1)
-            {
-                int i2 = mc.fontRenderer.getStringWidth(s2);
-                mc.fontRenderer.drawStringWithShadow(s2, (float)(width / 2 - i2 / 2), (float)k1, -1);
-                k1 += mc.fontRenderer.FONT_HEIGHT;
-            }
+		if (header != null) {
+			list1 = mc.fontRenderer.listFormattedStringToWidth(header.getFormattedText(), width - 50);
 
-            ++k1;
-        }
+			for (String s : list1) {
+				l1 = Math.max(l1, mc.fontRenderer.getStringWidth(s));
+			}
+		}
 
-        drawRect(width / 2 - l1 / 2 - 1, k1 - 1, width / 2 + l1 / 2 + 1, k1 + i4 * 9, Integer.MIN_VALUE);
+		List<String> list2 = null;
 
-        for (int k4 = 0; k4 < l3; ++k4)
-        {
-            int l4 = k4 / i4;
-            int i5 = k4 % i4;
-            int j2 = j1 + l4 * i1 + l4 * 5;
-            int k2 = k1 + i5 * 9;
-            drawRect(j2, k2, j2 + i1, k2 + 8, 553648127);
-            GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-            GlStateManager.enableAlpha();
-            GlStateManager.enableBlend();
-            GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+		if (footer != null) {
+			list2 = mc.fontRenderer.listFormattedStringToWidth(footer.getFormattedText(), width - 50);
 
-            if (k4 < list.size())
-            {
-                NetworkPlayerInfo networkplayerinfo1 = list.get(k4);
-                GameProfile gameprofile = networkplayerinfo1.getGameProfile();
+			for (String s1 : list2) {
+				l1 = Math.max(l1, mc.fontRenderer.getStringWidth(s1));
+			}
+		}
 
-                if (flag)
-                {
-                    EntityPlayer entityplayer = mc.world.getPlayerEntityByUUID(gameprofile.getId());
-                    boolean flag1 = entityplayer != null && entityplayer.isWearing(EnumPlayerModelParts.CAPE) && ("Dinnerbone".equals(gameprofile.getName()) || "Grumm".equals(gameprofile.getName()));
-                    mc.getTextureManager().bindTexture(networkplayerinfo1.getLocationSkin());
-                    int l2 = 8 + (flag1 ? 8 : 0);
-                    int i3 = 8 * (flag1 ? -1 : 1);
-                    Gui.drawScaledCustomSizeModalRect(j2, k2, 8.0F, (float)l2, 8, i3, 8, 8, 64.0F, 64.0F);
+		if (list1 != null) {
+			drawRect(width / 2 - l1 / 2 - 1, k1 - 1, width / 2 + l1 / 2 + 1, k1 + list1.size() * mc.fontRenderer.FONT_HEIGHT, Integer.MIN_VALUE);
 
-                    if (entityplayer != null && entityplayer.isWearing(EnumPlayerModelParts.HAT))
-                    {
-                        int j3 = 8 + (flag1 ? 8 : 0);
-                        int k3 = 8 * (flag1 ? -1 : 1);
-                        Gui.drawScaledCustomSizeModalRect(j2, k2, 40.0F, (float)j3, 8, k3, 8, 8, 64.0F, 64.0F);
-                    }
+			for (String s2 : list1) {
+				int i2 = mc.fontRenderer.getStringWidth(s2);
+				mc.fontRenderer.drawStringWithShadow(s2, (float) (width / 2 - i2 / 2), (float) k1, -1);
+				k1 += mc.fontRenderer.FONT_HEIGHT;
+			}
 
-                    j2 += 9;
-                }
+			++k1;
+		}
 
-                String s4 = getPlayerName(networkplayerinfo1);
+		drawRect(width / 2 - l1 / 2 - 1, k1 - 1, width / 2 + l1 / 2 + 1, k1 + i4 * 9, Integer.MIN_VALUE);
 
-                if (networkplayerinfo1.getGameType() == GameType.SPECTATOR)
-                {
-                    mc.fontRenderer.drawStringWithShadow(TextFormatting.ITALIC + s4, (float)j2, (float)k2, -1862270977);
-                }
-                else
-                {
-                    mc.fontRenderer.drawStringWithShadow(s4, (float)j2, (float)k2, -1);
-                }
+		for (int k4 = 0; k4 < l3; ++k4) {
+			int l4 = k4 / i4;
+			int i5 = k4 % i4;
+			int j2 = j1 + l4 * i1 + l4 * 5;
+			int k2 = k1 + i5 * 9;
+			drawRect(j2, k2, j2 + i1, k2 + 8, 553648127);
+			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+			GlStateManager.enableAlpha();
+			GlStateManager.enableBlend();
+			GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 
-                if (scoreObjectiveIn != null && networkplayerinfo1.getGameType() != GameType.SPECTATOR)
-                {
-                    int k5 = j2 + i + 1;
-                    int l5 = k5 + l;
+			if (k4 < list.size()) {
+				NetworkPlayerInfo networkplayerinfo1 = list.get(k4);
+				GameProfile gameprofile = networkplayerinfo1.getGameProfile();
 
-                    if (l5 - k5 > 5)
-                    {
-                        drawScoreboardValues(scoreObjectiveIn, k2, gameprofile.getName(), k5, l5, networkplayerinfo1);
-                    }
-                }
+				if (flag) {
+					EntityPlayer entityplayer = mc.world.getPlayerEntityByUUID(gameprofile.getId());
+					boolean flag1 = entityplayer != null && entityplayer.isWearing(EnumPlayerModelParts.CAPE) && ("Dinnerbone".equals(gameprofile.getName()) || "Grumm".equals(gameprofile.getName()));
+					mc.getTextureManager().bindTexture(networkplayerinfo1.getLocationSkin());
+					int l2 = 8 + (flag1 ? 8 : 0);
+					int i3 = 8 * (flag1 ? -1 : 1);
+					Gui.drawScaledCustomSizeModalRect(j2, k2, 8.0F, (float) l2, 8, i3, 8, 8, 64.0F, 64.0F);
 
-                drawPing(i1, j2 - (flag ? 9 : 0), k2, networkplayerinfo1);
-            }
-        }
+					if (entityplayer != null && entityplayer.isWearing(EnumPlayerModelParts.HAT)) {
+						int j3 = 8 + (flag1 ? 8 : 0);
+						int k3 = 8 * (flag1 ? -1 : 1);
+						Gui.drawScaledCustomSizeModalRect(j2, k2, 40.0F, (float) j3, 8, k3, 8, 8, 64.0F, 64.0F);
+					}
 
-        if (list2 != null)
-        {
-            k1 = k1 + i4 * 9 + 1;
-            drawRect(width / 2 - l1 / 2 - 1, k1 - 1, width / 2 + l1 / 2 + 1, k1 + list2.size() * mc.fontRenderer.FONT_HEIGHT, Integer.MIN_VALUE);
+					j2 += 9;
+				}
 
-            for (String s3 : list2)
-            {
-                int j5 = mc.fontRenderer.getStringWidth(s3);
-                mc.fontRenderer.drawStringWithShadow(s3, (float)(width / 2 - j5 / 2), (float)k1, -1);
-                k1 += mc.fontRenderer.FONT_HEIGHT;
-            }
-        }
-    }
+				String s4 = getPlayerName(networkplayerinfo1);
 
-    protected void drawPing(int p_175245_1_, int p_175245_2_, int p_175245_3_, NetworkPlayerInfo networkPlayerInfoIn)
-    {
-        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        mc.getTextureManager().bindTexture(ICONS);
-        int i = 0;
-        int j;
+				if (networkplayerinfo1.getGameType() == GameType.SPECTATOR) {
+					mc.fontRenderer.drawStringWithShadow(TextFormatting.ITALIC + s4, (float) j2, (float) k2, -1862270977);
+				} else {
+					mc.fontRenderer.drawStringWithShadow(s4, (float) j2, (float) k2, -1);
+				}
 
-        if (networkPlayerInfoIn.getResponseTime() < 0)
-        {
-            j = 5;
-        }
-        else if (networkPlayerInfoIn.getResponseTime() < 150)
-        {
-            j = 0;
-        }
-        else if (networkPlayerInfoIn.getResponseTime() < 300)
-        {
-            j = 1;
-        }
-        else if (networkPlayerInfoIn.getResponseTime() < 600)
-        {
-            j = 2;
-        }
-        else if (networkPlayerInfoIn.getResponseTime() < 1000)
-        {
-            j = 3;
-        }
-        else
-        {
-            j = 4;
-        }
+				if (scoreObjectiveIn != null && networkplayerinfo1.getGameType() != GameType.SPECTATOR) {
+					int k5 = j2 + i + 1;
+					int l5 = k5 + l;
 
-        zLevel += 100.0F;
-        drawTexturedModalRect(p_175245_2_ + p_175245_1_ - 11, p_175245_3_, 0, 176 + j * 8, 10, 8);
-        zLevel -= 100.0F;
-    }
+					if (l5 - k5 > 5) {
+						drawScoreboardValues(scoreObjectiveIn, k2, gameprofile.getName(), k5, l5, networkplayerinfo1);
+					}
+				}
 
-    private void drawScoreboardValues(ScoreObjective objective, int p_175247_2_, String name, int p_175247_4_, int p_175247_5_, NetworkPlayerInfo info)
-    {
-        int i = objective.getScoreboard().getOrCreateScore(name, objective).getScorePoints();
+				drawPing(i1, j2 - (flag ? 9 : 0), k2, networkplayerinfo1);
+			}
+		}
 
-        if (objective.getRenderType() == IScoreCriteria.EnumRenderType.HEARTS)
-        {
-            mc.getTextureManager().bindTexture(ICONS);
+		if (list2 != null) {
+			k1 = k1 + i4 * 9 + 1;
+			drawRect(width / 2 - l1 / 2 - 1, k1 - 1, width / 2 + l1 / 2 + 1, k1 + list2.size() * mc.fontRenderer.FONT_HEIGHT, Integer.MIN_VALUE);
 
-            if (lastTimeOpened == info.getRenderVisibilityId())
-            {
-                if (i < info.getLastHealth())
-                {
-                    info.setLastHealthTime(Minecraft.getSystemTime());
-                    info.setHealthBlinkTime((long)(guiIngame.getUpdateCounter() + 20));
-                }
-                else if (i > info.getLastHealth())
-                {
-                    info.setLastHealthTime(Minecraft.getSystemTime());
-                    info.setHealthBlinkTime((long)(guiIngame.getUpdateCounter() + 10));
-                }
-            }
+			for (String s3 : list2) {
+				int j5 = mc.fontRenderer.getStringWidth(s3);
+				mc.fontRenderer.drawStringWithShadow(s3, (float) (width / 2 - j5 / 2), (float) k1, -1);
+				k1 += mc.fontRenderer.FONT_HEIGHT;
+			}
+		}
+	}
 
-            if (Minecraft.getSystemTime() - info.getLastHealthTime() > 1000L || lastTimeOpened != info.getRenderVisibilityId())
-            {
-                info.setLastHealth(i);
-                info.setDisplayHealth(i);
-                info.setLastHealthTime(Minecraft.getSystemTime());
-            }
+	protected void drawPing(int p_175245_1_, int p_175245_2_, int p_175245_3_, NetworkPlayerInfo networkPlayerInfoIn) {
 
-            info.setRenderVisibilityId(lastTimeOpened);
-            info.setLastHealth(i);
-            int j = MathHelper.ceil((float)Math.max(i, info.getDisplayHealth()) / 2.0F);
-            int k = Math.max(MathHelper.ceil((float)(i / 2)), Math.max(MathHelper.ceil((float)(info.getDisplayHealth() / 2)), 10));
-            boolean flag = info.getHealthBlinkTime() > (long) guiIngame.getUpdateCounter() && (info.getHealthBlinkTime() - (long) guiIngame.getUpdateCounter()) / 3L % 2L == 1L;
+		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+		mc.getTextureManager().bindTexture(ICONS);
+		int i = 0;
+		int j;
 
-            if (j > 0)
-            {
-                float f = Math.min((float)(p_175247_5_ - p_175247_4_ - 4) / (float)k, 9.0F);
+		if (networkPlayerInfoIn.getResponseTime() < 0) {
+			j = 5;
+		} else if (networkPlayerInfoIn.getResponseTime() < 150) {
+			j = 0;
+		} else if (networkPlayerInfoIn.getResponseTime() < 300) {
+			j = 1;
+		} else if (networkPlayerInfoIn.getResponseTime() < 600) {
+			j = 2;
+		} else if (networkPlayerInfoIn.getResponseTime() < 1000) {
+			j = 3;
+		} else {
+			j = 4;
+		}
 
-                if (f > 3.0F)
-                {
-                    for (int l = j; l < k; ++l)
-                    {
-                        drawTexturedModalRect((float)p_175247_4_ + (float)l * f, (float)p_175247_2_, flag ? 25 : 16, 0, 9, 9);
-                    }
+		zLevel += 100.0F;
+		drawTexturedModalRect(p_175245_2_ + p_175245_1_ - 11, p_175245_3_, 0, 176 + j * 8, 10, 8);
+		zLevel -= 100.0F;
+	}
 
-                    for (int j1 = 0; j1 < j; ++j1)
-                    {
-                        drawTexturedModalRect((float)p_175247_4_ + (float)j1 * f, (float)p_175247_2_, flag ? 25 : 16, 0, 9, 9);
+	private void drawScoreboardValues(ScoreObjective objective, int p_175247_2_, String name, int p_175247_4_, int p_175247_5_, NetworkPlayerInfo info) {
 
-                        if (flag)
-                        {
-                            if (j1 * 2 + 1 < info.getDisplayHealth())
-                            {
-                                drawTexturedModalRect((float)p_175247_4_ + (float)j1 * f, (float)p_175247_2_, 70, 0, 9, 9);
-                            }
+		int i = objective.getScoreboard().getOrCreateScore(name, objective).getScorePoints();
 
-                            if (j1 * 2 + 1 == info.getDisplayHealth())
-                            {
-                                drawTexturedModalRect((float)p_175247_4_ + (float)j1 * f, (float)p_175247_2_, 79, 0, 9, 9);
-                            }
-                        }
+		if (objective.getRenderType() == IScoreCriteria.EnumRenderType.HEARTS) {
+			mc.getTextureManager().bindTexture(ICONS);
 
-                        if (j1 * 2 + 1 < i)
-                        {
-                            drawTexturedModalRect((float)p_175247_4_ + (float)j1 * f, (float)p_175247_2_, j1 >= 10 ? 160 : 52, 0, 9, 9);
-                        }
+			if (lastTimeOpened == info.getRenderVisibilityId()) {
+				if (i < info.getLastHealth()) {
+					info.setLastHealthTime(Minecraft.getSystemTime());
+					info.setHealthBlinkTime(guiIngame.getUpdateCounter() + 20);
+				} else if (i > info.getLastHealth()) {
+					info.setLastHealthTime(Minecraft.getSystemTime());
+					info.setHealthBlinkTime(guiIngame.getUpdateCounter() + 10);
+				}
+			}
 
-                        if (j1 * 2 + 1 == i)
-                        {
-                            drawTexturedModalRect((float)p_175247_4_ + (float)j1 * f, (float)p_175247_2_, j1 >= 10 ? 169 : 61, 0, 9, 9);
-                        }
-                    }
-                }
-                else
-                {
-                    float f1 = MathHelper.clamp((float)i / 20.0F, 0.0F, 1.0F);
-                    int i1 = (int)((1.0F - f1) * 255.0F) << 16 | (int)(f1 * 255.0F) << 8;
-                    String s = "" + (float)i / 2.0F;
+			if (Minecraft.getSystemTime() - info.getLastHealthTime() > 1000L || lastTimeOpened != info.getRenderVisibilityId()) {
+				info.setLastHealth(i);
+				info.setDisplayHealth(i);
+				info.setLastHealthTime(Minecraft.getSystemTime());
+			}
 
-                    if (p_175247_5_ - mc.fontRenderer.getStringWidth(s + "hp") >= p_175247_4_)
-                    {
-                        s = s + "hp";
-                    }
+			info.setRenderVisibilityId(lastTimeOpened);
+			info.setLastHealth(i);
+			int j = MathHelper.ceil((float) Math.max(i, info.getDisplayHealth()) / 2.0F);
+			int k = Math.max(MathHelper.ceil((float) (i / 2)), Math.max(MathHelper.ceil((float) (info.getDisplayHealth() / 2)), 10));
+			boolean flag = info.getHealthBlinkTime() > (long) guiIngame.getUpdateCounter() && (info.getHealthBlinkTime() - (long) guiIngame.getUpdateCounter()) / 3L % 2L == 1L;
 
-                    mc.fontRenderer.drawStringWithShadow(s, (float)((p_175247_5_ + p_175247_4_) / 2 - mc.fontRenderer.getStringWidth(s) / 2), (float)p_175247_2_, i1);
-                }
-            }
-        }
-        else
-        {
-            String s1 = TextFormatting.YELLOW + "" + i;
-            mc.fontRenderer.drawStringWithShadow(s1, (float)(p_175247_5_ - mc.fontRenderer.getStringWidth(s1)), (float)p_175247_2_, 16777215);
-        }
-    }
+			if (j > 0) {
+				float f = Math.min((float) (p_175247_5_ - p_175247_4_ - 4) / (float) k, 9.0F);
 
-    public void setFooter(@Nullable ITextComponent footerIn)
-    {
-        footer = footerIn;
-    }
+				if (f > 3.0F) {
+					for (int l = j; l < k; ++l) {
+						drawTexturedModalRect((float) p_175247_4_ + (float) l * f, (float) p_175247_2_, flag ? 25 : 16, 0, 9, 9);
+					}
 
-    public void setHeader(@Nullable ITextComponent headerIn)
-    {
-        header = headerIn;
-    }
+					for (int j1 = 0; j1 < j; ++j1) {
+						drawTexturedModalRect((float) p_175247_4_ + (float) j1 * f, (float) p_175247_2_, flag ? 25 : 16, 0, 9, 9);
 
-    public void resetFooterHeader()
-    {
-        header = null;
-        footer = null;
-    }
+						if (flag) {
+							if (j1 * 2 + 1 < info.getDisplayHealth()) {
+								drawTexturedModalRect((float) p_175247_4_ + (float) j1 * f, (float) p_175247_2_, 70, 0, 9, 9);
+							}
 
-    static class PlayerComparator implements Comparator<NetworkPlayerInfo>
-    {
-        private PlayerComparator()
-        {
-        }
+							if (j1 * 2 + 1 == info.getDisplayHealth()) {
+								drawTexturedModalRect((float) p_175247_4_ + (float) j1 * f, (float) p_175247_2_, 79, 0, 9, 9);
+							}
+						}
 
-        public int compare(NetworkPlayerInfo p_compare_1_, NetworkPlayerInfo p_compare_2_)
-        {
-            ScorePlayerTeam scoreplayerteam = p_compare_1_.getPlayerTeam();
-            ScorePlayerTeam scoreplayerteam1 = p_compare_2_.getPlayerTeam();
-            return ComparisonChain.start().compareTrueFirst(p_compare_1_.getGameType() != GameType.SPECTATOR, p_compare_2_.getGameType() != GameType.SPECTATOR).compare(scoreplayerteam != null ? scoreplayerteam.getName() : "", scoreplayerteam1 != null ? scoreplayerteam1.getName() : "").compare(p_compare_1_.getGameProfile().getName(), p_compare_2_.getGameProfile().getName()).result();
-        }
-    }
+						if (j1 * 2 + 1 < i) {
+							drawTexturedModalRect((float) p_175247_4_ + (float) j1 * f, (float) p_175247_2_, j1 >= 10 ? 160 : 52, 0, 9, 9);
+						}
+
+						if (j1 * 2 + 1 == i) {
+							drawTexturedModalRect((float) p_175247_4_ + (float) j1 * f, (float) p_175247_2_, j1 >= 10 ? 169 : 61, 0, 9, 9);
+						}
+					}
+				} else {
+					float f1 = MathHelper.clamp((float) i / 20.0F, 0.0F, 1.0F);
+					int i1 = (int) ((1.0F - f1) * 255.0F) << 16 | (int) (f1 * 255.0F) << 8;
+					String s = "" + (float) i / 2.0F;
+
+					if (p_175247_5_ - mc.fontRenderer.getStringWidth(s + "hp") >= p_175247_4_) {
+						s = s + "hp";
+					}
+
+					mc.fontRenderer.drawStringWithShadow(s, (float) ((p_175247_5_ + p_175247_4_) / 2 - mc.fontRenderer.getStringWidth(s) / 2), (float) p_175247_2_, i1);
+				}
+			}
+		} else {
+			String s1 = TextFormatting.YELLOW + "" + i;
+			mc.fontRenderer.drawStringWithShadow(s1, (float) (p_175247_5_ - mc.fontRenderer.getStringWidth(s1)), (float) p_175247_2_, 16777215);
+		}
+	}
+
+	public void setFooter(@Nullable ITextComponent footerIn) {
+
+		footer = footerIn;
+	}
+
+	public void setHeader(@Nullable ITextComponent headerIn) {
+
+		header = headerIn;
+	}
+
+	public void resetFooterHeader() {
+
+		header = null;
+		footer = null;
+	}
+
+	static class PlayerComparator implements Comparator<NetworkPlayerInfo> {
+
+		private PlayerComparator() {
+
+		}
+
+		public int compare(NetworkPlayerInfo p_compare_1_, NetworkPlayerInfo p_compare_2_) {
+
+			ScorePlayerTeam scoreplayerteam = p_compare_1_.getPlayerTeam();
+			ScorePlayerTeam scoreplayerteam1 = p_compare_2_.getPlayerTeam();
+			return ComparisonChain.start().compareTrueFirst(p_compare_1_.getGameType() != GameType.SPECTATOR, p_compare_2_.getGameType() != GameType.SPECTATOR).compare(scoreplayerteam != null ? scoreplayerteam.getName() : "", scoreplayerteam1 != null ? scoreplayerteam1.getName() : "").compare(p_compare_1_.getGameProfile().getName(), p_compare_2_.getGameProfile().getName()).result();
+		}
+
+	}
+
 }

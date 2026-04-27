@@ -6,10 +6,6 @@ import com.google.common.collect.Sets;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import javax.annotation.Nullable;
 import net.minecraft.advancements.ICriterionTrigger;
 import net.minecraft.advancements.PlayerAdvancements;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -17,146 +13,143 @@ import net.minecraft.potion.PotionType;
 import net.minecraft.util.JsonUtils;
 import net.minecraft.util.ResourceLocation;
 
-public class BrewedPotionTrigger implements ICriterionTrigger<BrewedPotionTrigger.Instance>
-{
-    private static final ResourceLocation ID = new ResourceLocation("brewed_potion");
-    private final Map<PlayerAdvancements, BrewedPotionTrigger.Listeners> listeners = Maps.<PlayerAdvancements, BrewedPotionTrigger.Listeners>newHashMap();
+import javax.annotation.Nullable;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-    public ResourceLocation getId()
-    {
-        return ID;
-    }
+public class BrewedPotionTrigger implements ICriterionTrigger<BrewedPotionTrigger.Instance> {
 
-    public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<BrewedPotionTrigger.Instance> listener)
-    {
-        BrewedPotionTrigger.Listeners brewedpotiontrigger$listeners = listeners.get(playerAdvancementsIn);
+	private static final ResourceLocation ID = new ResourceLocation("brewed_potion");
+	private final Map<PlayerAdvancements, BrewedPotionTrigger.Listeners> listeners = Maps.newHashMap();
 
-        if (brewedpotiontrigger$listeners == null)
-        {
-            brewedpotiontrigger$listeners = new BrewedPotionTrigger.Listeners(playerAdvancementsIn);
-            listeners.put(playerAdvancementsIn, brewedpotiontrigger$listeners);
-        }
+	public ResourceLocation getId() {
 
-        brewedpotiontrigger$listeners.addListener(listener);
-    }
+		return ID;
+	}
 
-    public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<BrewedPotionTrigger.Instance> listener)
-    {
-        BrewedPotionTrigger.Listeners brewedpotiontrigger$listeners = listeners.get(playerAdvancementsIn);
+	public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<BrewedPotionTrigger.Instance> listener) {
 
-        if (brewedpotiontrigger$listeners != null)
-        {
-            brewedpotiontrigger$listeners.removeListener(listener);
+		BrewedPotionTrigger.Listeners brewedpotiontrigger$listeners = listeners.get(playerAdvancementsIn);
 
-            if (brewedpotiontrigger$listeners.isEmpty())
-            {
-                listeners.remove(playerAdvancementsIn);
-            }
-        }
-    }
+		if (brewedpotiontrigger$listeners == null) {
+			brewedpotiontrigger$listeners = new BrewedPotionTrigger.Listeners(playerAdvancementsIn);
+			listeners.put(playerAdvancementsIn, brewedpotiontrigger$listeners);
+		}
 
-    public void removeAllListeners(PlayerAdvancements playerAdvancementsIn)
-    {
-        listeners.remove(playerAdvancementsIn);
-    }
+		brewedpotiontrigger$listeners.addListener(listener);
+	}
 
-    /**
-     * Deserialize a ICriterionInstance of this trigger from the data in the JSON.
-     */
-    public BrewedPotionTrigger.Instance deserializeInstance(JsonObject json, JsonDeserializationContext context)
-    {
-        PotionType potiontype = null;
+	public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<BrewedPotionTrigger.Instance> listener) {
 
-        if (json.has("potion"))
-        {
-            ResourceLocation resourcelocation = new ResourceLocation(JsonUtils.getString(json, "potion"));
+		BrewedPotionTrigger.Listeners brewedpotiontrigger$listeners = listeners.get(playerAdvancementsIn);
 
-            if (!PotionType.REGISTRY.containsKey(resourcelocation))
-            {
-                throw new JsonSyntaxException("Unknown potion '" + resourcelocation + "'");
-            }
+		if (brewedpotiontrigger$listeners != null) {
+			brewedpotiontrigger$listeners.removeListener(listener);
 
-            potiontype = PotionType.REGISTRY.getObject(resourcelocation);
-        }
+			if (brewedpotiontrigger$listeners.isEmpty()) {
+				listeners.remove(playerAdvancementsIn);
+			}
+		}
+	}
 
-        return new BrewedPotionTrigger.Instance(potiontype);
-    }
+	public void removeAllListeners(PlayerAdvancements playerAdvancementsIn) {
 
-    public void trigger(EntityPlayerMP player, PotionType potionIn)
-    {
-        BrewedPotionTrigger.Listeners brewedpotiontrigger$listeners = listeners.get(player.getAdvancements());
+		listeners.remove(playerAdvancementsIn);
+	}
 
-        if (brewedpotiontrigger$listeners != null)
-        {
-            brewedpotiontrigger$listeners.trigger(potionIn);
-        }
-    }
+	/**
+	 * Deserialize a ICriterionInstance of this trigger from the data in the JSON.
+	 */
+	public BrewedPotionTrigger.Instance deserializeInstance(JsonObject json, JsonDeserializationContext context) {
 
-    public static class Instance extends AbstractCriterionInstance
-    {
-        private final PotionType potion;
+		PotionType potiontype = null;
 
-        public Instance(@Nullable PotionType potion)
-        {
-            super(BrewedPotionTrigger.ID);
-            this.potion = potion;
-        }
+		if (json.has("potion")) {
+			ResourceLocation resourcelocation = new ResourceLocation(JsonUtils.getString(json, "potion"));
 
-        public boolean test(PotionType potion)
-        {
-            return this.potion == null || this.potion == potion;
-        }
-    }
+			if (!PotionType.REGISTRY.containsKey(resourcelocation)) {
+				throw new JsonSyntaxException("Unknown potion '" + resourcelocation + "'");
+			}
 
-    static class Listeners
-    {
-        private final PlayerAdvancements playerAdvancements;
-        private final Set<ICriterionTrigger.Listener<BrewedPotionTrigger.Instance>> listeners = Sets.<ICriterionTrigger.Listener<BrewedPotionTrigger.Instance>>newHashSet();
+			potiontype = PotionType.REGISTRY.getObject(resourcelocation);
+		}
 
-        public Listeners(PlayerAdvancements playerAdvancementsIn)
-        {
-            playerAdvancements = playerAdvancementsIn;
-        }
+		return new BrewedPotionTrigger.Instance(potiontype);
+	}
 
-        public boolean isEmpty()
-        {
-            return listeners.isEmpty();
-        }
+	public void trigger(EntityPlayerMP player, PotionType potionIn) {
 
-        public void addListener(ICriterionTrigger.Listener<BrewedPotionTrigger.Instance> listener)
-        {
-            listeners.add(listener);
-        }
+		BrewedPotionTrigger.Listeners brewedpotiontrigger$listeners = listeners.get(player.getAdvancements());
 
-        public void removeListener(ICriterionTrigger.Listener<BrewedPotionTrigger.Instance> listener)
-        {
-            listeners.remove(listener);
-        }
+		if (brewedpotiontrigger$listeners != null) {
+			brewedpotiontrigger$listeners.trigger(potionIn);
+		}
+	}
 
-        public void trigger(PotionType potion)
-        {
-            List<ICriterionTrigger.Listener<BrewedPotionTrigger.Instance>> list = null;
+	public static class Instance extends AbstractCriterionInstance {
 
-            for (ICriterionTrigger.Listener<BrewedPotionTrigger.Instance> listener : listeners)
-            {
-                if (((BrewedPotionTrigger.Instance)listener.getCriterionInstance()).test(potion))
-                {
-                    if (list == null)
-                    {
-                        list = Lists.<ICriterionTrigger.Listener<BrewedPotionTrigger.Instance>>newArrayList();
-                    }
+		private final PotionType potion;
 
-                    list.add(listener);
-                }
-            }
+		public Instance(@Nullable PotionType potion) {
 
-            if (list != null)
-            {
-                for (ICriterionTrigger.Listener<BrewedPotionTrigger.Instance> listener1 : list)
-                {
-                    listener1.grantCriterion(playerAdvancements);
-                }
-            }
-        }
-    }
+			super(BrewedPotionTrigger.ID);
+			this.potion = potion;
+		}
+
+		public boolean test(PotionType potion) {
+
+			return this.potion == null || this.potion == potion;
+		}
+
+	}
+
+	static class Listeners {
+
+		private final PlayerAdvancements playerAdvancements;
+		private final Set<ICriterionTrigger.Listener<BrewedPotionTrigger.Instance>> listeners = Sets.newHashSet();
+
+		public Listeners(PlayerAdvancements playerAdvancementsIn) {
+
+			playerAdvancements = playerAdvancementsIn;
+		}
+
+		public boolean isEmpty() {
+
+			return listeners.isEmpty();
+		}
+
+		public void addListener(ICriterionTrigger.Listener<BrewedPotionTrigger.Instance> listener) {
+
+			listeners.add(listener);
+		}
+
+		public void removeListener(ICriterionTrigger.Listener<BrewedPotionTrigger.Instance> listener) {
+
+			listeners.remove(listener);
+		}
+
+		public void trigger(PotionType potion) {
+
+			List<ICriterionTrigger.Listener<BrewedPotionTrigger.Instance>> list = null;
+
+			for (ICriterionTrigger.Listener<BrewedPotionTrigger.Instance> listener : listeners) {
+				if (listener.getCriterionInstance().test(potion)) {
+					if (list == null) {
+						list = Lists.newArrayList();
+					}
+
+					list.add(listener);
+				}
+			}
+
+			if (list != null) {
+				for (ICriterionTrigger.Listener<BrewedPotionTrigger.Instance> listener1 : list) {
+					listener1.grantCriterion(playerAdvancements);
+				}
+			}
+		}
+
+	}
+
 }

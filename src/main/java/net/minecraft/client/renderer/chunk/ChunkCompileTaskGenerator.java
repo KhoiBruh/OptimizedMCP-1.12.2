@@ -2,153 +2,141 @@ package net.minecraft.client.renderer.chunk;
 
 import com.google.common.collect.Lists;
 import com.google.common.primitives.Doubles;
-import java.util.List;
-import java.util.concurrent.locks.ReentrantLock;
 import net.minecraft.client.renderer.RegionRenderCacheBuilder;
 
-public class ChunkCompileTaskGenerator implements Comparable<ChunkCompileTaskGenerator>
-{
-    private final RenderChunk renderChunk;
-    private final ReentrantLock lock = new ReentrantLock();
-    private final List<Runnable> listFinishRunnables = Lists.<Runnable>newArrayList();
-    private final ChunkCompileTaskGenerator.Type type;
-    private final double distanceSq;
-    private RegionRenderCacheBuilder regionRenderCacheBuilder;
-    private CompiledChunk compiledChunk;
-    private ChunkCompileTaskGenerator.Status status = ChunkCompileTaskGenerator.Status.PENDING;
-    private boolean finished;
+import java.util.List;
+import java.util.concurrent.locks.ReentrantLock;
 
-    public ChunkCompileTaskGenerator(RenderChunk renderChunkIn, ChunkCompileTaskGenerator.Type typeIn, double distanceSqIn)
-    {
-        renderChunk = renderChunkIn;
-        type = typeIn;
-        distanceSq = distanceSqIn;
-    }
+public class ChunkCompileTaskGenerator implements Comparable<ChunkCompileTaskGenerator> {
 
-    public ChunkCompileTaskGenerator.Status getStatus()
-    {
-        return status;
-    }
+	private final RenderChunk renderChunk;
+	private final ReentrantLock lock = new ReentrantLock();
+	private final List<Runnable> listFinishRunnables = Lists.newArrayList();
+	private final ChunkCompileTaskGenerator.Type type;
+	private final double distanceSq;
+	private RegionRenderCacheBuilder regionRenderCacheBuilder;
+	private CompiledChunk compiledChunk;
+	private ChunkCompileTaskGenerator.Status status = ChunkCompileTaskGenerator.Status.PENDING;
+	private boolean finished;
 
-    public RenderChunk getRenderChunk()
-    {
-        return renderChunk;
-    }
+	public ChunkCompileTaskGenerator(RenderChunk renderChunkIn, ChunkCompileTaskGenerator.Type typeIn, double distanceSqIn) {
 
-    public CompiledChunk getCompiledChunk()
-    {
-        return compiledChunk;
-    }
+		renderChunk = renderChunkIn;
+		type = typeIn;
+		distanceSq = distanceSqIn;
+	}
 
-    public void setCompiledChunk(CompiledChunk compiledChunkIn)
-    {
-        compiledChunk = compiledChunkIn;
-    }
+	public ChunkCompileTaskGenerator.Status getStatus() {
 
-    public RegionRenderCacheBuilder getRegionRenderCacheBuilder()
-    {
-        return regionRenderCacheBuilder;
-    }
+		return status;
+	}
 
-    public void setRegionRenderCacheBuilder(RegionRenderCacheBuilder regionRenderCacheBuilderIn)
-    {
-        regionRenderCacheBuilder = regionRenderCacheBuilderIn;
-    }
+	public RenderChunk getRenderChunk() {
 
-    public void setStatus(ChunkCompileTaskGenerator.Status statusIn)
-    {
-        lock.lock();
+		return renderChunk;
+	}
 
-        try
-        {
-            status = statusIn;
-        }
-        finally
-        {
-            lock.unlock();
-        }
-    }
+	public CompiledChunk getCompiledChunk() {
 
-    public void finish()
-    {
-        lock.lock();
+		return compiledChunk;
+	}
 
-        try
-        {
-            if (type == ChunkCompileTaskGenerator.Type.REBUILD_CHUNK && status != ChunkCompileTaskGenerator.Status.DONE)
-            {
-                renderChunk.setNeedsUpdate(false);
-            }
+	public void setCompiledChunk(CompiledChunk compiledChunkIn) {
 
-            finished = true;
-            status = ChunkCompileTaskGenerator.Status.DONE;
+		compiledChunk = compiledChunkIn;
+	}
 
-            for (Runnable runnable : listFinishRunnables)
-            {
-                runnable.run();
-            }
-        }
-        finally
-        {
-            lock.unlock();
-        }
-    }
+	public RegionRenderCacheBuilder getRegionRenderCacheBuilder() {
 
-    public void addFinishRunnable(Runnable runnable)
-    {
-        lock.lock();
+		return regionRenderCacheBuilder;
+	}
 
-        try
-        {
-            listFinishRunnables.add(runnable);
+	public void setRegionRenderCacheBuilder(RegionRenderCacheBuilder regionRenderCacheBuilderIn) {
 
-            if (finished)
-            {
-                runnable.run();
-            }
-        }
-        finally
-        {
-            lock.unlock();
-        }
-    }
+		regionRenderCacheBuilder = regionRenderCacheBuilderIn;
+	}
 
-    public ReentrantLock getLock()
-    {
-        return lock;
-    }
+	public void setStatus(ChunkCompileTaskGenerator.Status statusIn) {
 
-    public ChunkCompileTaskGenerator.Type getType()
-    {
-        return type;
-    }
+		lock.lock();
 
-    public boolean isFinished()
-    {
-        return finished;
-    }
+		try {
+			status = statusIn;
+		} finally {
+			lock.unlock();
+		}
+	}
 
-    public int compareTo(ChunkCompileTaskGenerator p_compareTo_1_)
-    {
-        return Doubles.compare(distanceSq, p_compareTo_1_.distanceSq);
-    }
+	public void finish() {
 
-    public double getDistanceSq()
-    {
-        return distanceSq;
-    }
+		lock.lock();
 
-    public static enum Status
-    {
-        PENDING,
-        COMPILING,
-        UPLOADING,
-        DONE;
-    }
+		try {
+			if (type == ChunkCompileTaskGenerator.Type.REBUILD_CHUNK && status != ChunkCompileTaskGenerator.Status.DONE) {
+				renderChunk.setNeedsUpdate(false);
+			}
 
-    public static enum Type
-    {
-        REBUILD_CHUNK,
-        RESORT_TRANSPARENCY;
-    }
+			finished = true;
+			status = ChunkCompileTaskGenerator.Status.DONE;
+
+			for (Runnable runnable : listFinishRunnables) {
+				runnable.run();
+			}
+		} finally {
+			lock.unlock();
+		}
+	}
+
+	public void addFinishRunnable(Runnable runnable) {
+
+		lock.lock();
+
+		try {
+			listFinishRunnables.add(runnable);
+
+			if (finished) {
+				runnable.run();
+			}
+		} finally {
+			lock.unlock();
+		}
+	}
+
+	public ReentrantLock getLock() {
+
+		return lock;
+	}
+
+	public ChunkCompileTaskGenerator.Type getType() {
+
+		return type;
+	}
+
+	public boolean isFinished() {
+
+		return finished;
+	}
+
+	public int compareTo(ChunkCompileTaskGenerator p_compareTo_1_) {
+
+		return Doubles.compare(distanceSq, p_compareTo_1_.distanceSq);
+	}
+
+	public double getDistanceSq() {
+
+		return distanceSq;
+	}
+
+	public enum Status {
+		PENDING,
+		COMPILING,
+		UPLOADING,
+		DONE
+	}
+
+	public enum Type {
+		REBUILD_CHUNK,
+		RESORT_TRANSPARENCY
+	}
+
 }

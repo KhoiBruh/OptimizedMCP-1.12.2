@@ -5,10 +5,6 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import javax.annotation.Nullable;
 import net.minecraft.advancements.ICriterionTrigger;
 import net.minecraft.advancements.PlayerAdvancements;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -16,145 +12,142 @@ import net.minecraft.util.JsonUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.DimensionType;
 
-public class ChangeDimensionTrigger implements ICriterionTrigger<ChangeDimensionTrigger.Instance>
-{
-    private static final ResourceLocation ID = new ResourceLocation("changed_dimension");
-    private final Map<PlayerAdvancements, ChangeDimensionTrigger.Listeners> listeners = Maps.<PlayerAdvancements, ChangeDimensionTrigger.Listeners>newHashMap();
+import javax.annotation.Nullable;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-    public ResourceLocation getId()
-    {
-        return ID;
-    }
+public class ChangeDimensionTrigger implements ICriterionTrigger<ChangeDimensionTrigger.Instance> {
 
-    public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<ChangeDimensionTrigger.Instance> listener)
-    {
-        ChangeDimensionTrigger.Listeners changedimensiontrigger$listeners = listeners.get(playerAdvancementsIn);
+	private static final ResourceLocation ID = new ResourceLocation("changed_dimension");
+	private final Map<PlayerAdvancements, ChangeDimensionTrigger.Listeners> listeners = Maps.newHashMap();
 
-        if (changedimensiontrigger$listeners == null)
-        {
-            changedimensiontrigger$listeners = new ChangeDimensionTrigger.Listeners(playerAdvancementsIn);
-            listeners.put(playerAdvancementsIn, changedimensiontrigger$listeners);
-        }
+	public ResourceLocation getId() {
 
-        changedimensiontrigger$listeners.add(listener);
-    }
+		return ID;
+	}
 
-    public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<ChangeDimensionTrigger.Instance> listener)
-    {
-        ChangeDimensionTrigger.Listeners changedimensiontrigger$listeners = listeners.get(playerAdvancementsIn);
+	public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<ChangeDimensionTrigger.Instance> listener) {
 
-        if (changedimensiontrigger$listeners != null)
-        {
-            changedimensiontrigger$listeners.remove(listener);
+		ChangeDimensionTrigger.Listeners changedimensiontrigger$listeners = listeners.get(playerAdvancementsIn);
 
-            if (changedimensiontrigger$listeners.isEmpty())
-            {
-                listeners.remove(playerAdvancementsIn);
-            }
-        }
-    }
+		if (changedimensiontrigger$listeners == null) {
+			changedimensiontrigger$listeners = new ChangeDimensionTrigger.Listeners(playerAdvancementsIn);
+			listeners.put(playerAdvancementsIn, changedimensiontrigger$listeners);
+		}
 
-    public void removeAllListeners(PlayerAdvancements playerAdvancementsIn)
-    {
-        listeners.remove(playerAdvancementsIn);
-    }
+		changedimensiontrigger$listeners.add(listener);
+	}
 
-    /**
-     * Deserialize a ICriterionInstance of this trigger from the data in the JSON.
-     */
-    public ChangeDimensionTrigger.Instance deserializeInstance(JsonObject json, JsonDeserializationContext context)
-    {
-        DimensionType dimensiontype = json.has("from") ? DimensionType.byName(JsonUtils.getString(json, "from")) : null;
-        DimensionType dimensiontype1 = json.has("to") ? DimensionType.byName(JsonUtils.getString(json, "to")) : null;
-        return new ChangeDimensionTrigger.Instance(dimensiontype, dimensiontype1);
-    }
+	public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<ChangeDimensionTrigger.Instance> listener) {
 
-    public void trigger(EntityPlayerMP player, DimensionType from, DimensionType to)
-    {
-        ChangeDimensionTrigger.Listeners changedimensiontrigger$listeners = listeners.get(player.getAdvancements());
+		ChangeDimensionTrigger.Listeners changedimensiontrigger$listeners = listeners.get(playerAdvancementsIn);
 
-        if (changedimensiontrigger$listeners != null)
-        {
-            changedimensiontrigger$listeners.trigger(from, to);
-        }
-    }
+		if (changedimensiontrigger$listeners != null) {
+			changedimensiontrigger$listeners.remove(listener);
 
-    public static class Instance extends AbstractCriterionInstance
-    {
-        @Nullable
-        private final DimensionType from;
-        @Nullable
-        private final DimensionType to;
+			if (changedimensiontrigger$listeners.isEmpty()) {
+				listeners.remove(playerAdvancementsIn);
+			}
+		}
+	}
 
-        public Instance(@Nullable DimensionType from, @Nullable DimensionType to)
-        {
-            super(ChangeDimensionTrigger.ID);
-            this.from = from;
-            this.to = to;
-        }
+	public void removeAllListeners(PlayerAdvancements playerAdvancementsIn) {
 
-        public boolean test(DimensionType from, DimensionType to)
-        {
-            if (this.from != null && this.from != from)
-            {
-                return false;
-            }
-            else
-            {
-                return this.to == null || this.to == to;
-            }
-        }
-    }
+		listeners.remove(playerAdvancementsIn);
+	}
 
-    static class Listeners
-    {
-        private final PlayerAdvancements playerAdvancements;
-        private final Set<ICriterionTrigger.Listener<ChangeDimensionTrigger.Instance>> listeners = Sets.<ICriterionTrigger.Listener<ChangeDimensionTrigger.Instance>>newHashSet();
+	/**
+	 * Deserialize a ICriterionInstance of this trigger from the data in the JSON.
+	 */
+	public ChangeDimensionTrigger.Instance deserializeInstance(JsonObject json, JsonDeserializationContext context) {
 
-        public Listeners(PlayerAdvancements playerAdvancementsIn)
-        {
-            playerAdvancements = playerAdvancementsIn;
-        }
+		DimensionType dimensiontype = json.has("from") ? DimensionType.byName(JsonUtils.getString(json, "from")) : null;
+		DimensionType dimensiontype1 = json.has("to") ? DimensionType.byName(JsonUtils.getString(json, "to")) : null;
+		return new ChangeDimensionTrigger.Instance(dimensiontype, dimensiontype1);
+	}
 
-        public boolean isEmpty()
-        {
-            return listeners.isEmpty();
-        }
+	public void trigger(EntityPlayerMP player, DimensionType from, DimensionType to) {
 
-        public void add(ICriterionTrigger.Listener<ChangeDimensionTrigger.Instance> listener)
-        {
-            listeners.add(listener);
-        }
+		ChangeDimensionTrigger.Listeners changedimensiontrigger$listeners = listeners.get(player.getAdvancements());
 
-        public void remove(ICriterionTrigger.Listener<ChangeDimensionTrigger.Instance> listener)
-        {
-            listeners.remove(listener);
-        }
+		if (changedimensiontrigger$listeners != null) {
+			changedimensiontrigger$listeners.trigger(from, to);
+		}
+	}
 
-        public void trigger(DimensionType from, DimensionType to)
-        {
-            List<ICriterionTrigger.Listener<ChangeDimensionTrigger.Instance>> list = null;
+	public static class Instance extends AbstractCriterionInstance {
 
-            for (ICriterionTrigger.Listener<ChangeDimensionTrigger.Instance> listener : listeners)
-            {
-                if (((ChangeDimensionTrigger.Instance)listener.getCriterionInstance()).test(from, to))
-                {
-                    if (list == null)
-                    {
-                        list = Lists.<ICriterionTrigger.Listener<ChangeDimensionTrigger.Instance>>newArrayList();
-                    }
+		@Nullable
+		private final DimensionType from;
 
-                    list.add(listener);
-                }
-            }
+		@Nullable
+		private final DimensionType to;
 
-            if (list != null)
-            {
-                for (ICriterionTrigger.Listener<ChangeDimensionTrigger.Instance> listener1 : list)
-                {
-                    listener1.grantCriterion(playerAdvancements);
-                }
-            }
-        }
-    }
+		public Instance(@Nullable DimensionType from, @Nullable DimensionType to) {
+
+			super(ChangeDimensionTrigger.ID);
+			this.from = from;
+			this.to = to;
+		}
+
+		public boolean test(DimensionType from, DimensionType to) {
+
+			if (this.from != null && this.from != from) {
+				return false;
+			} else {
+				return this.to == null || this.to == to;
+			}
+		}
+
+	}
+
+	static class Listeners {
+
+		private final PlayerAdvancements playerAdvancements;
+		private final Set<ICriterionTrigger.Listener<ChangeDimensionTrigger.Instance>> listeners = Sets.newHashSet();
+
+		public Listeners(PlayerAdvancements playerAdvancementsIn) {
+
+			playerAdvancements = playerAdvancementsIn;
+		}
+
+		public boolean isEmpty() {
+
+			return listeners.isEmpty();
+		}
+
+		public void add(ICriterionTrigger.Listener<ChangeDimensionTrigger.Instance> listener) {
+
+			listeners.add(listener);
+		}
+
+		public void remove(ICriterionTrigger.Listener<ChangeDimensionTrigger.Instance> listener) {
+
+			listeners.remove(listener);
+		}
+
+		public void trigger(DimensionType from, DimensionType to) {
+
+			List<ICriterionTrigger.Listener<ChangeDimensionTrigger.Instance>> list = null;
+
+			for (ICriterionTrigger.Listener<ChangeDimensionTrigger.Instance> listener : listeners) {
+				if (listener.getCriterionInstance().test(from, to)) {
+					if (list == null) {
+						list = Lists.newArrayList();
+					}
+
+					list.add(listener);
+				}
+			}
+
+			if (list != null) {
+				for (ICriterionTrigger.Listener<ChangeDimensionTrigger.Instance> listener1 : list) {
+					listener1.grantCriterion(playerAdvancements);
+				}
+			}
+		}
+
+	}
+
 }

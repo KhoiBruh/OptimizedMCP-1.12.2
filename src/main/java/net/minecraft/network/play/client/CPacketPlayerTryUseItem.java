@@ -1,50 +1,52 @@
 package net.minecraft.network.play.client;
 
-import java.io.IOException;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayServer;
 import net.minecraft.util.EnumHand;
 
-public class CPacketPlayerTryUseItem implements Packet<INetHandlerPlayServer>
-{
-    private EnumHand hand;
+import java.io.IOException;
 
-    public CPacketPlayerTryUseItem()
-    {
-    }
+public class CPacketPlayerTryUseItem implements Packet<INetHandlerPlayServer> {
 
-    public CPacketPlayerTryUseItem(EnumHand handIn)
-    {
-        hand = handIn;
-    }
+	private EnumHand hand;
 
-    /**
-     * Reads the raw packet data from the data stream.
-     */
-    public void readPacketData(PacketBuffer buf) throws IOException
-    {
-        hand = (EnumHand)buf.readEnumValue(EnumHand.class);
-    }
+	public CPacketPlayerTryUseItem() {
 
-    /**
-     * Writes the raw packet data to the data stream.
-     */
-    public void writePacketData(PacketBuffer buf) throws IOException
-    {
-        buf.writeEnumValue(hand);
-    }
+	}
 
-    /**
-     * Passes this Packet on to the NetHandler for processing.
-     */
-    public void processPacket(INetHandlerPlayServer handler)
-    {
-        handler.processTryUseItem(this);
-    }
+	public CPacketPlayerTryUseItem(EnumHand handIn) {
 
-    public EnumHand getHand()
-    {
-        return hand;
-    }
+		hand = handIn;
+	}
+
+	/**
+	 * Reads the raw packet data from the data stream.
+	 */
+	public void readPacketData(PacketBuffer buf) throws IOException {
+
+		hand = buf.readEnumValue(EnumHand.class);
+	}
+
+	/**
+	 * Writes the raw packet data to the data stream.
+	 */
+	public void writePacketData(PacketBuffer buf) throws IOException {
+
+		buf.writeEnumValue(hand);
+	}
+
+	/**
+	 * Passes this Packet on to the NetHandler for processing.
+	 */
+	public void processPacket(INetHandlerPlayServer handler) {
+
+		handler.processTryUseItem(this);
+	}
+
+	public EnumHand getHand() {
+
+		return hand;
+	}
+
 }

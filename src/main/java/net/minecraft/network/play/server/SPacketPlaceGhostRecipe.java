@@ -1,60 +1,62 @@
 package net.minecraft.network.play.server;
 
-import java.io.IOException;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayClient;
 
-public class SPacketPlaceGhostRecipe implements Packet<INetHandlerPlayClient>
-{
-    private int field_194314_a;
-    private IRecipe field_194315_b;
+import java.io.IOException;
 
-    public SPacketPlaceGhostRecipe()
-    {
-    }
+public class SPacketPlaceGhostRecipe implements Packet<INetHandlerPlayClient> {
 
-    public SPacketPlaceGhostRecipe(int p_i47615_1_, IRecipe p_i47615_2_)
-    {
-        field_194314_a = p_i47615_1_;
-        field_194315_b = p_i47615_2_;
-    }
+	private int field_194314_a;
+	private IRecipe field_194315_b;
 
-    public IRecipe func_194311_a()
-    {
-        return field_194315_b;
-    }
+	public SPacketPlaceGhostRecipe() {
 
-    public int func_194313_b()
-    {
-        return field_194314_a;
-    }
+	}
 
-    /**
-     * Reads the raw packet data from the data stream.
-     */
-    public void readPacketData(PacketBuffer buf) throws IOException
-    {
-        field_194314_a = buf.readByte();
-        field_194315_b = CraftingManager.getRecipeById(buf.readVarInt());
-    }
+	public SPacketPlaceGhostRecipe(int p_i47615_1_, IRecipe p_i47615_2_) {
 
-    /**
-     * Writes the raw packet data to the data stream.
-     */
-    public void writePacketData(PacketBuffer buf) throws IOException
-    {
-        buf.writeByte(field_194314_a);
-        buf.writeVarInt(CraftingManager.getIDForRecipe(field_194315_b));
-    }
+		field_194314_a = p_i47615_1_;
+		field_194315_b = p_i47615_2_;
+	}
 
-    /**
-     * Passes this Packet on to the NetHandler for processing.
-     */
-    public void processPacket(INetHandlerPlayClient handler)
-    {
-        handler.func_194307_a(this);
-    }
+	public IRecipe func_194311_a() {
+
+		return field_194315_b;
+	}
+
+	public int func_194313_b() {
+
+		return field_194314_a;
+	}
+
+	/**
+	 * Reads the raw packet data from the data stream.
+	 */
+	public void readPacketData(PacketBuffer buf) throws IOException {
+
+		field_194314_a = buf.readByte();
+		field_194315_b = CraftingManager.getRecipeById(buf.readVarInt());
+	}
+
+	/**
+	 * Writes the raw packet data to the data stream.
+	 */
+	public void writePacketData(PacketBuffer buf) throws IOException {
+
+		buf.writeByte(field_194314_a);
+		buf.writeVarInt(CraftingManager.getIDForRecipe(field_194315_b));
+	}
+
+	/**
+	 * Passes this Packet on to the NetHandler for processing.
+	 */
+	public void processPacket(INetHandlerPlayClient handler) {
+
+		handler.func_194307_a(this);
+	}
+
 }

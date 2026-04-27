@@ -1,158 +1,156 @@
 package net.minecraft.network.play.server;
 
-import java.io.IOException;
-import java.util.EnumSet;
-import java.util.Set;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayClient;
 
-public class SPacketPlayerPosLook implements Packet<INetHandlerPlayClient>
-{
-    private double x;
-    private double y;
-    private double z;
-    private float yaw;
-    private float pitch;
-    private Set<SPacketPlayerPosLook.EnumFlags> flags;
-    private int teleportId;
+import java.io.IOException;
+import java.util.EnumSet;
+import java.util.Set;
 
-    public SPacketPlayerPosLook()
-    {
-    }
+public class SPacketPlayerPosLook implements Packet<INetHandlerPlayClient> {
 
-    public SPacketPlayerPosLook(double xIn, double yIn, double zIn, float yawIn, float pitchIn, Set<SPacketPlayerPosLook.EnumFlags> flagsIn, int teleportIdIn)
-    {
-        x = xIn;
-        y = yIn;
-        z = zIn;
-        yaw = yawIn;
-        pitch = pitchIn;
-        flags = flagsIn;
-        teleportId = teleportIdIn;
-    }
+	private double x;
+	private double y;
+	private double z;
+	private float yaw;
+	private float pitch;
+	private Set<SPacketPlayerPosLook.EnumFlags> flags;
+	private int teleportId;
 
-    /**
-     * Reads the raw packet data from the data stream.
-     */
-    public void readPacketData(PacketBuffer buf) throws IOException
-    {
-        x = buf.readDouble();
-        y = buf.readDouble();
-        z = buf.readDouble();
-        yaw = buf.readFloat();
-        pitch = buf.readFloat();
-        flags = SPacketPlayerPosLook.EnumFlags.unpack(buf.readUnsignedByte());
-        teleportId = buf.readVarInt();
-    }
+	public SPacketPlayerPosLook() {
 
-    /**
-     * Writes the raw packet data to the data stream.
-     */
-    public void writePacketData(PacketBuffer buf) throws IOException
-    {
-        buf.writeDouble(x);
-        buf.writeDouble(y);
-        buf.writeDouble(z);
-        buf.writeFloat(yaw);
-        buf.writeFloat(pitch);
-        buf.writeByte(SPacketPlayerPosLook.EnumFlags.pack(flags));
-        buf.writeVarInt(teleportId);
-    }
+	}
 
-    /**
-     * Passes this Packet on to the NetHandler for processing.
-     */
-    public void processPacket(INetHandlerPlayClient handler)
-    {
-        handler.handlePlayerPosLook(this);
-    }
+	public SPacketPlayerPosLook(double xIn, double yIn, double zIn, float yawIn, float pitchIn, Set<SPacketPlayerPosLook.EnumFlags> flagsIn, int teleportIdIn) {
 
-    public double getX()
-    {
-        return x;
-    }
+		x = xIn;
+		y = yIn;
+		z = zIn;
+		yaw = yawIn;
+		pitch = pitchIn;
+		flags = flagsIn;
+		teleportId = teleportIdIn;
+	}
 
-    public double getY()
-    {
-        return y;
-    }
+	/**
+	 * Reads the raw packet data from the data stream.
+	 */
+	public void readPacketData(PacketBuffer buf) throws IOException {
 
-    public double getZ()
-    {
-        return z;
-    }
+		x = buf.readDouble();
+		y = buf.readDouble();
+		z = buf.readDouble();
+		yaw = buf.readFloat();
+		pitch = buf.readFloat();
+		flags = SPacketPlayerPosLook.EnumFlags.unpack(buf.readUnsignedByte());
+		teleportId = buf.readVarInt();
+	}
 
-    public float getYaw()
-    {
-        return yaw;
-    }
+	/**
+	 * Writes the raw packet data to the data stream.
+	 */
+	public void writePacketData(PacketBuffer buf) throws IOException {
 
-    public float getPitch()
-    {
-        return pitch;
-    }
+		buf.writeDouble(x);
+		buf.writeDouble(y);
+		buf.writeDouble(z);
+		buf.writeFloat(yaw);
+		buf.writeFloat(pitch);
+		buf.writeByte(SPacketPlayerPosLook.EnumFlags.pack(flags));
+		buf.writeVarInt(teleportId);
+	}
 
-    public int getTeleportId()
-    {
-        return teleportId;
-    }
+	/**
+	 * Passes this Packet on to the NetHandler for processing.
+	 */
+	public void processPacket(INetHandlerPlayClient handler) {
 
-    public Set<SPacketPlayerPosLook.EnumFlags> getFlags()
-    {
-        return flags;
-    }
+		handler.handlePlayerPosLook(this);
+	}
 
-    public static enum EnumFlags
-    {
-        X(0),
-        Y(1),
-        Z(2),
-        Y_ROT(3),
-        X_ROT(4);
+	public double getX() {
 
-        private final int bit;
+		return x;
+	}
 
-        private EnumFlags(int bitIn)
-        {
-            bit = bitIn;
-        }
+	public double getY() {
 
-        private int getMask()
-        {
-            return 1 << bit;
-        }
+		return y;
+	}
 
-        private boolean isSet(int flags)
-        {
-            return (flags & getMask()) == getMask();
-        }
+	public double getZ() {
 
-        public static Set<SPacketPlayerPosLook.EnumFlags> unpack(int flags)
-        {
-            Set<SPacketPlayerPosLook.EnumFlags> set = EnumSet.<SPacketPlayerPosLook.EnumFlags>noneOf(SPacketPlayerPosLook.EnumFlags.class);
+		return z;
+	}
 
-            for (SPacketPlayerPosLook.EnumFlags spacketplayerposlook$enumflags : values())
-            {
-                if (spacketplayerposlook$enumflags.isSet(flags))
-                {
-                    set.add(spacketplayerposlook$enumflags);
-                }
-            }
+	public float getYaw() {
 
-            return set;
-        }
+		return yaw;
+	}
 
-        public static int pack(Set<SPacketPlayerPosLook.EnumFlags> flags)
-        {
-            int i = 0;
+	public float getPitch() {
 
-            for (SPacketPlayerPosLook.EnumFlags spacketplayerposlook$enumflags : flags)
-            {
-                i |= spacketplayerposlook$enumflags.getMask();
-            }
+		return pitch;
+	}
 
-            return i;
-        }
-    }
+	public int getTeleportId() {
+
+		return teleportId;
+	}
+
+	public Set<SPacketPlayerPosLook.EnumFlags> getFlags() {
+
+		return flags;
+	}
+
+	public enum EnumFlags {
+		X(0),
+		Y(1),
+		Z(2),
+		Y_ROT(3),
+		X_ROT(4);
+
+		private final int bit;
+
+		EnumFlags(int bitIn) {
+
+			bit = bitIn;
+		}
+
+		private int getMask() {
+
+			return 1 << bit;
+		}
+
+		private boolean isSet(int flags) {
+
+			return (flags & getMask()) == getMask();
+		}
+
+		public static Set<SPacketPlayerPosLook.EnumFlags> unpack(int flags) {
+
+			Set<SPacketPlayerPosLook.EnumFlags> set = EnumSet.noneOf(SPacketPlayerPosLook.EnumFlags.class);
+
+			for (SPacketPlayerPosLook.EnumFlags spacketplayerposlook$enumflags : values()) {
+				if (spacketplayerposlook$enumflags.isSet(flags)) {
+					set.add(spacketplayerposlook$enumflags);
+				}
+			}
+
+			return set;
+		}
+
+		public static int pack(Set<SPacketPlayerPosLook.EnumFlags> flags) {
+
+			int i = 0;
+
+			for (SPacketPlayerPosLook.EnumFlags spacketplayerposlook$enumflags : flags) {
+				i |= spacketplayerposlook$enumflags.getMask();
+			}
+
+			return i;
+		}
+	}
+
 }

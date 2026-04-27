@@ -1,60 +1,62 @@
 package net.minecraft.network.play.server;
 
-import java.io.IOException;
-import javax.annotation.Nullable;
 import net.minecraft.entity.Entity;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayClient;
 
-public class SPacketEntityAttach implements Packet<INetHandlerPlayClient>
-{
-    private int entityId;
-    private int vehicleEntityId;
+import javax.annotation.Nullable;
+import java.io.IOException;
 
-    public SPacketEntityAttach()
-    {
-    }
+public class SPacketEntityAttach implements Packet<INetHandlerPlayClient> {
 
-    public SPacketEntityAttach(Entity entityIn, @Nullable Entity vehicleIn)
-    {
-        entityId = entityIn.getEntityId();
-        vehicleEntityId = vehicleIn != null ? vehicleIn.getEntityId() : -1;
-    }
+	private int entityId;
+	private int vehicleEntityId;
 
-    /**
-     * Reads the raw packet data from the data stream.
-     */
-    public void readPacketData(PacketBuffer buf) throws IOException
-    {
-        entityId = buf.readInt();
-        vehicleEntityId = buf.readInt();
-    }
+	public SPacketEntityAttach() {
 
-    /**
-     * Writes the raw packet data to the data stream.
-     */
-    public void writePacketData(PacketBuffer buf) throws IOException
-    {
-        buf.writeInt(entityId);
-        buf.writeInt(vehicleEntityId);
-    }
+	}
 
-    /**
-     * Passes this Packet on to the NetHandler for processing.
-     */
-    public void processPacket(INetHandlerPlayClient handler)
-    {
-        handler.handleEntityAttach(this);
-    }
+	public SPacketEntityAttach(Entity entityIn, @Nullable Entity vehicleIn) {
 
-    public int getEntityId()
-    {
-        return entityId;
-    }
+		entityId = entityIn.getEntityId();
+		vehicleEntityId = vehicleIn != null ? vehicleIn.getEntityId() : -1;
+	}
 
-    public int getVehicleEntityId()
-    {
-        return vehicleEntityId;
-    }
+	/**
+	 * Reads the raw packet data from the data stream.
+	 */
+	public void readPacketData(PacketBuffer buf) throws IOException {
+
+		entityId = buf.readInt();
+		vehicleEntityId = buf.readInt();
+	}
+
+	/**
+	 * Writes the raw packet data to the data stream.
+	 */
+	public void writePacketData(PacketBuffer buf) throws IOException {
+
+		buf.writeInt(entityId);
+		buf.writeInt(vehicleEntityId);
+	}
+
+	/**
+	 * Passes this Packet on to the NetHandler for processing.
+	 */
+	public void processPacket(INetHandlerPlayClient handler) {
+
+		handler.handleEntityAttach(this);
+	}
+
+	public int getEntityId() {
+
+		return entityId;
+	}
+
+	public int getVehicleEntityId() {
+
+		return vehicleEntityId;
+	}
+
 }

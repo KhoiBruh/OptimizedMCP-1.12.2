@@ -20,113 +20,105 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class ItemHoe extends Item
-{
-    private final float speed;
-    protected Item.ToolMaterial toolMaterial;
+public class ItemHoe extends Item {
 
-    public ItemHoe(Item.ToolMaterial material)
-    {
-        toolMaterial = material;
-        maxStackSize = 1;
-        setMaxDamage(material.getMaxUses());
-        setCreativeTab(CreativeTabs.TOOLS);
-        speed = material.getAttackDamage() + 1.0F;
-    }
+	private final float speed;
+	protected Item.ToolMaterial toolMaterial;
 
-    @SuppressWarnings("incomplete-switch")
+	public ItemHoe(Item.ToolMaterial material) {
 
-    /**
-     * Called when a Block is right-clicked with this Item
-     */
-    public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
-    {
-        ItemStack itemstack = player.getHeldItem(hand);
+		toolMaterial = material;
+		maxStackSize = 1;
+		setMaxDamage(material.getMaxUses());
+		setCreativeTab(CreativeTabs.TOOLS);
+		speed = material.getAttackDamage() + 1.0F;
+	}
 
-        if (!player.canPlayerEdit(pos.offset(facing), facing, itemstack))
-        {
-            return EnumActionResult.FAIL;
-        }
-        else
-        {
-            IBlockState iblockstate = worldIn.getBlockState(pos);
-            Block block = iblockstate.getBlock();
+	@SuppressWarnings("incomplete-switch")
 
-            if (facing != EnumFacing.DOWN && worldIn.getBlockState(pos.up()).getMaterial() == Material.AIR)
-            {
-                if (block == Blocks.GRASS || block == Blocks.GRASS_PATH)
-                {
-                    setBlock(itemstack, player, worldIn, pos, Blocks.FARMLAND.getDefaultState());
-                    return EnumActionResult.SUCCESS;
-                }
+	/**
+	 * Called when a Block is right-clicked with this Item
+	 */
+	public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 
-                if (block == Blocks.DIRT)
-                {
-                    switch ((BlockDirt.DirtType)iblockstate.getValue(BlockDirt.VARIANT))
-                    {
-                        case DIRT:
-                            setBlock(itemstack, player, worldIn, pos, Blocks.FARMLAND.getDefaultState());
-                            return EnumActionResult.SUCCESS;
+		ItemStack itemstack = player.getHeldItem(hand);
 
-                        case COARSE_DIRT:
-                            setBlock(itemstack, player, worldIn, pos, Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.DIRT));
-                            return EnumActionResult.SUCCESS;
-                    }
-                }
-            }
+		if (!player.canPlayerEdit(pos.offset(facing), facing, itemstack)) {
+			return EnumActionResult.FAIL;
+		} else {
+			IBlockState iblockstate = worldIn.getBlockState(pos);
+			Block block = iblockstate.getBlock();
 
-            return EnumActionResult.PASS;
-        }
-    }
+			if (facing != EnumFacing.DOWN && worldIn.getBlockState(pos.up()).getMaterial() == Material.AIR) {
+				if (block == Blocks.GRASS || block == Blocks.GRASS_PATH) {
+					setBlock(itemstack, player, worldIn, pos, Blocks.FARMLAND.getDefaultState());
+					return EnumActionResult.SUCCESS;
+				}
 
-    /**
-     * Current implementations of this method in child classes do not use the entry argument beside ev. They just raise
-     * the damage on the stack.
-     */
-    public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker)
-    {
-        stack.damageItem(1, attacker);
-        return true;
-    }
+				if (block == Blocks.DIRT) {
+					switch (iblockstate.getValue(BlockDirt.VARIANT)) {
+						case DIRT:
+							setBlock(itemstack, player, worldIn, pos, Blocks.FARMLAND.getDefaultState());
+							return EnumActionResult.SUCCESS;
 
-    protected void setBlock(ItemStack stack, EntityPlayer player, World worldIn, BlockPos pos, IBlockState state)
-    {
-        worldIn.playSound(player, pos, SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1.0F, 1.0F);
+						case COARSE_DIRT:
+							setBlock(itemstack, player, worldIn, pos, Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.DIRT));
+							return EnumActionResult.SUCCESS;
+					}
+				}
+			}
 
-        if (!worldIn.isRemote)
-        {
-            worldIn.setBlockState(pos, state, 11);
-            stack.damageItem(1, player);
-        }
-    }
+			return EnumActionResult.PASS;
+		}
+	}
 
-    /**
-     * Returns True is the item is renderer in full 3D when hold.
-     */
-    public boolean isFull3D()
-    {
-        return true;
-    }
+	/**
+	 * Current implementations of this method in child classes do not use the entry argument beside ev. They just raise
+	 * the damage on the stack.
+	 */
+	public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
 
-    /**
-     * Returns the name of the material this tool is made from as it is declared in EnumToolMaterial (meaning diamond
-     * would return "EMERALD")
-     */
-    public String getMaterialName()
-    {
-        return toolMaterial.toString();
-    }
+		stack.damageItem(1, attacker);
+		return true;
+	}
 
-    public Multimap<String, AttributeModifier> getItemAttributeModifiers(EntityEquipmentSlot equipmentSlot)
-    {
-        Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers(equipmentSlot);
+	protected void setBlock(ItemStack stack, EntityPlayer player, World worldIn, BlockPos pos, IBlockState state) {
 
-        if (equipmentSlot == EntityEquipmentSlot.MAINHAND)
-        {
-            multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", 0.0D, 0));
-            multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", (double)(speed - 4.0F), 0));
-        }
+		worldIn.playSound(player, pos, SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1.0F, 1.0F);
 
-        return multimap;
-    }
+		if (!worldIn.isRemote) {
+			worldIn.setBlockState(pos, state, 11);
+			stack.damageItem(1, player);
+		}
+	}
+
+	/**
+	 * Returns True is the item is renderer in full 3D when hold.
+	 */
+	public boolean isFull3D() {
+
+		return true;
+	}
+
+	/**
+	 * Returns the name of the material this tool is made from as it is declared in EnumToolMaterial (meaning diamond
+	 * would return "EMERALD")
+	 */
+	public String getMaterialName() {
+
+		return toolMaterial.toString();
+	}
+
+	public Multimap<String, AttributeModifier> getItemAttributeModifiers(EntityEquipmentSlot equipmentSlot) {
+
+		Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers(equipmentSlot);
+
+		if (equipmentSlot == EntityEquipmentSlot.MAINHAND) {
+			multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", 0.0D, 0));
+			multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", speed - 4.0F, 0));
+		}
+
+		return multimap;
+	}
+
 }

@@ -3,68 +3,64 @@ package net.minecraft.util;
 import java.util.List;
 import java.util.Random;
 
-public class WeightedRandom
-{
-    /**
-     * Returns the total weight of all items in a collection.
-     */
-    public static int getTotalWeight(List <? extends WeightedRandom.Item > collection)
-    {
-        int i = 0;
-        int j = 0;
+public class WeightedRandom {
 
-        for (int k = collection.size(); j < k; ++j)
-        {
-            WeightedRandom.Item weightedrandom$item = collection.get(j);
-            i += weightedrandom$item.itemWeight;
-        }
+	/**
+	 * Returns the total weight of all items in a collection.
+	 */
+	public static int getTotalWeight(List<? extends WeightedRandom.Item> collection) {
 
-        return i;
-    }
+		int i = 0;
+		int j = 0;
 
-    public static <T extends WeightedRandom.Item> T getRandomItem(Random random, List<T> collection, int totalWeight)
-    {
-        if (totalWeight <= 0)
-        {
-            throw new IllegalArgumentException();
-        }
-        else
-        {
-            int i = random.nextInt(totalWeight);
-            return (T)getRandomItem(collection, i);
-        }
-    }
+		for (int k = collection.size(); j < k; ++j) {
+			WeightedRandom.Item weightedrandom$item = collection.get(j);
+			i += weightedrandom$item.itemWeight;
+		}
 
-    public static <T extends WeightedRandom.Item> T getRandomItem(List<T> collection, int weight)
-    {
-        int i = 0;
+		return i;
+	}
 
-        for (int j = collection.size(); i < j; ++i)
-        {
-            T t = collection.get(i);
-            weight -= t.itemWeight;
+	public static <T extends WeightedRandom.Item> T getRandomItem(Random random, List<T> collection, int totalWeight) {
 
-            if (weight < 0)
-            {
-                return t;
-            }
-        }
+		if (totalWeight <= 0) {
+			throw new IllegalArgumentException();
+		} else {
+			int i = random.nextInt(totalWeight);
+			return getRandomItem(collection, i);
+		}
+	}
 
-        return (T)null;
-    }
+	public static <T extends WeightedRandom.Item> T getRandomItem(List<T> collection, int weight) {
 
-    public static <T extends WeightedRandom.Item> T getRandomItem(Random random, List<T> collection)
-    {
-        return (T)getRandomItem(random, collection, getTotalWeight(collection));
-    }
+		int i = 0;
 
-    public static class Item
-    {
-        protected int itemWeight;
+		for (int j = collection.size(); i < j; ++i) {
+			T t = collection.get(i);
+			weight -= t.itemWeight;
 
-        public Item(int itemWeightIn)
-        {
-            itemWeight = itemWeightIn;
-        }
-    }
+			if (weight < 0) {
+				return t;
+			}
+		}
+
+		return null;
+	}
+
+	public static <T extends WeightedRandom.Item> T getRandomItem(Random random, List<T> collection) {
+
+		return getRandomItem(random, collection, getTotalWeight(collection));
+	}
+
+	public static class Item {
+
+		protected int itemWeight;
+
+		public Item(int itemWeightIn) {
+
+			itemWeight = itemWeightIn;
+		}
+
+	}
+
 }

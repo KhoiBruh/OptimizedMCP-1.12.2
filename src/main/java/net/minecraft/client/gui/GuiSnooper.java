@@ -1,155 +1,152 @@
 package net.minecraft.client.gui;
 
 import com.google.common.collect.Lists;
-import java.io.IOException;
-import java.util.TreeMap;
-import java.util.Map.Entry;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.settings.GameSettings;
 
-public class GuiSnooper extends GuiScreen
-{
-    private final GuiScreen lastScreen;
+import java.io.IOException;
+import java.util.Map.Entry;
+import java.util.TreeMap;
 
-    /** Reference to the GameSettings object. */
-    private final GameSettings game_settings_2;
-    private final java.util.List<String> keys = Lists.<String>newArrayList();
-    private final java.util.List<String> values = Lists.<String>newArrayList();
-    private String title;
-    private String[] desc;
-    private GuiSnooper.List list;
-    private GuiButton toggleButton;
+public class GuiSnooper extends GuiScreen {
 
-    public GuiSnooper(GuiScreen p_i1061_1_, GameSettings p_i1061_2_)
-    {
-        lastScreen = p_i1061_1_;
-        game_settings_2 = p_i1061_2_;
-    }
+	private final GuiScreen lastScreen;
 
-    /**
-     * Adds the buttons (and other controls) to the screen in question. Called when the GUI is displayed and when the
-     * window resizes, the buttonList is cleared beforehand.
-     */
-    public void initGui()
-    {
-        title = I18n.format("options.snooper.title");
-        String s = I18n.format("options.snooper.desc");
-        java.util.List<String> list = Lists.<String>newArrayList();
+	/**
+	 * Reference to the GameSettings object.
+	 */
+	private final GameSettings game_settings_2;
+	private final java.util.List<String> keys = Lists.newArrayList();
+	private final java.util.List<String> values = Lists.newArrayList();
+	private String title;
+	private String[] desc;
+	private GuiSnooper.List list;
+	private GuiButton toggleButton;
 
-        for (String s1 : fontRenderer.listFormattedStringToWidth(s, width - 30))
-        {
-            list.add(s1);
-        }
+	public GuiSnooper(GuiScreen p_i1061_1_, GameSettings p_i1061_2_) {
 
-        desc = (String[])list.toArray(new String[list.size()]);
-        keys.clear();
-        values.clear();
-        toggleButton = addButton(new GuiButton(1, width / 2 - 152, height - 30, 150, 20, game_settings_2.getKeyBinding(GameSettings.Options.SNOOPER_ENABLED)));
-        buttonList.add(new GuiButton(2, width / 2 + 2, height - 30, 150, 20, I18n.format("gui.done")));
-        boolean flag = mc.getIntegratedServer() != null && mc.getIntegratedServer().getPlayerUsageSnooper() != null;
+		lastScreen = p_i1061_1_;
+		game_settings_2 = p_i1061_2_;
+	}
 
-        for (Entry<String, String> entry : (new TreeMap<String, String>(mc.getPlayerUsageSnooper().getCurrentStats())).entrySet())
-        {
-            keys.add((flag ? "C " : "") + (String)entry.getKey());
-            values.add(fontRenderer.trimStringToWidth(entry.getValue(), width - 220));
-        }
+	/**
+	 * Adds the buttons (and other controls) to the screen in question. Called when the GUI is displayed and when the
+	 * window resizes, the buttonList is cleared beforehand.
+	 */
+	public void initGui() {
 
-        if (flag)
-        {
-            for (Entry<String, String> entry1 : (new TreeMap<String, String>(mc.getIntegratedServer().getPlayerUsageSnooper().getCurrentStats())).entrySet())
-            {
-                keys.add("S " + (String)entry1.getKey());
-                values.add(fontRenderer.trimStringToWidth(entry1.getValue(), width - 220));
-            }
-        }
+		title = I18n.format("options.snooper.title");
+		String s = I18n.format("options.snooper.desc");
+		java.util.List<String> list = Lists.newArrayList();
 
-        this.list = new GuiSnooper.List();
-    }
+		for (String s1 : fontRenderer.listFormattedStringToWidth(s, width - 30)) {
+			list.add(s1);
+		}
 
-    /**
-     * Handles mouse input.
-     */
-    public void handleMouseInput() throws IOException
-    {
-        super.handleMouseInput();
-        list.handleMouseInput();
-    }
+		desc = list.toArray(new String[list.size()]);
+		keys.clear();
+		values.clear();
+		toggleButton = addButton(new GuiButton(1, width / 2 - 152, height - 30, 150, 20, game_settings_2.getKeyBinding(GameSettings.Options.SNOOPER_ENABLED)));
+		buttonList.add(new GuiButton(2, width / 2 + 2, height - 30, 150, 20, I18n.format("gui.done")));
+		boolean flag = mc.getIntegratedServer() != null && mc.getIntegratedServer().getPlayerUsageSnooper() != null;
 
-    /**
-     * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
-     */
-    protected void actionPerformed(GuiButton button) throws IOException
-    {
-        if (button.enabled)
-        {
-            if (button.id == 2)
-            {
-                game_settings_2.saveOptions();
-                game_settings_2.saveOptions();
-                mc.displayGuiScreen(lastScreen);
-            }
+		for (Entry<String, String> entry : (new TreeMap<String, String>(mc.getPlayerUsageSnooper().getCurrentStats())).entrySet()) {
+			keys.add((flag ? "C " : "") + entry.getKey());
+			values.add(fontRenderer.trimStringToWidth(entry.getValue(), width - 220));
+		}
 
-            if (button.id == 1)
-            {
-                game_settings_2.setOptionValue(GameSettings.Options.SNOOPER_ENABLED, 1);
-                toggleButton.displayString = game_settings_2.getKeyBinding(GameSettings.Options.SNOOPER_ENABLED);
-            }
-        }
-    }
+		if (flag) {
+			for (Entry<String, String> entry1 : (new TreeMap<String, String>(mc.getIntegratedServer().getPlayerUsageSnooper().getCurrentStats())).entrySet()) {
+				keys.add("S " + entry1.getKey());
+				values.add(fontRenderer.trimStringToWidth(entry1.getValue(), width - 220));
+			}
+		}
 
-    /**
-     * Draws the screen and all the components in it.
-     */
-    public void drawScreen(int mouseX, int mouseY, float partialTicks)
-    {
-        drawDefaultBackground();
-        list.drawScreen(mouseX, mouseY, partialTicks);
-        drawCenteredString(fontRenderer, title, width / 2, 8, 16777215);
-        int i = 22;
+		this.list = new GuiSnooper.List();
+	}
 
-        for (String s : desc)
-        {
-            drawCenteredString(fontRenderer, s, width / 2, i, 8421504);
-            i += fontRenderer.FONT_HEIGHT;
-        }
+	/**
+	 * Handles mouse input.
+	 */
+	public void handleMouseInput() throws IOException {
 
-        super.drawScreen(mouseX, mouseY, partialTicks);
-    }
+		super.handleMouseInput();
+		list.handleMouseInput();
+	}
 
-    class List extends GuiSlot
-    {
-        public List()
-        {
-            super(GuiSnooper.this.mc, GuiSnooper.this.width, GuiSnooper.this.height, 80, GuiSnooper.this.height - 40, fontRenderer.FONT_HEIGHT + 1);
-        }
+	/**
+	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
+	 */
+	protected void actionPerformed(GuiButton button) throws IOException {
 
-        protected int getSize()
-        {
-            return keys.size();
-        }
+		if (button.enabled) {
+			if (button.id == 2) {
+				game_settings_2.saveOptions();
+				game_settings_2.saveOptions();
+				mc.displayGuiScreen(lastScreen);
+			}
 
-        protected void elementClicked(int slotIndex, boolean isDoubleClick, int mouseX, int mouseY)
-        {
-        }
+			if (button.id == 1) {
+				game_settings_2.setOptionValue(GameSettings.Options.SNOOPER_ENABLED, 1);
+				toggleButton.displayString = game_settings_2.getKeyBinding(GameSettings.Options.SNOOPER_ENABLED);
+			}
+		}
+	}
 
-        protected boolean isSelected(int slotIndex)
-        {
-            return false;
-        }
+	/**
+	 * Draws the screen and all the components in it.
+	 */
+	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 
-        protected void drawBackground()
-        {
-        }
+		drawDefaultBackground();
+		list.drawScreen(mouseX, mouseY, partialTicks);
+		drawCenteredString(fontRenderer, title, width / 2, 8, 16777215);
+		int i = 22;
 
-        protected void drawSlot(int slotIndex, int xPos, int yPos, int heightIn, int mouseXIn, int mouseYIn, float partialTicks)
-        {
-            fontRenderer.drawString(keys.get(slotIndex), 10, yPos, 16777215);
-            fontRenderer.drawString(values.get(slotIndex), 230, yPos, 16777215);
-        }
+		for (String s : desc) {
+			drawCenteredString(fontRenderer, s, width / 2, i, 8421504);
+			i += fontRenderer.FONT_HEIGHT;
+		}
 
-        protected int getScrollBarX()
-        {
-            return width - 10;
-        }
-    }
+		super.drawScreen(mouseX, mouseY, partialTicks);
+	}
+
+	class List extends GuiSlot {
+
+		public List() {
+
+			super(GuiSnooper.this.mc, GuiSnooper.this.width, GuiSnooper.this.height, 80, GuiSnooper.this.height - 40, fontRenderer.FONT_HEIGHT + 1);
+		}
+
+		protected int getSize() {
+
+			return keys.size();
+		}
+
+		protected void elementClicked(int slotIndex, boolean isDoubleClick, int mouseX, int mouseY) {
+
+		}
+
+		protected boolean isSelected(int slotIndex) {
+
+			return false;
+		}
+
+		protected void drawBackground() {
+
+		}
+
+		protected void drawSlot(int slotIndex, int xPos, int yPos, int heightIn, int mouseXIn, int mouseYIn, float partialTicks) {
+
+			fontRenderer.drawString(keys.get(slotIndex), 10, yPos, 16777215);
+			fontRenderer.drawString(values.get(slotIndex), 230, yPos, 16777215);
+		}
+
+		protected int getScrollBarX() {
+
+			return width - 10;
+		}
+
+	}
+
 }

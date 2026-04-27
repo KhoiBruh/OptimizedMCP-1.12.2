@@ -1,81 +1,86 @@
 package net.minecraft.util;
 
-public class FrameTimer
-{
-    /** An array with the last 240 frames */
-    private final long[] frames = new long[240];
+public class FrameTimer {
 
-    /** The last index used when 240 frames have been set */
-    private int lastIndex;
+	/**
+	 * An array with the last 240 frames
+	 */
+	private final long[] frames = new long[240];
 
-    /** A counter */
-    private int counter;
+	/**
+	 * The last index used when 240 frames have been set
+	 */
+	private int lastIndex;
 
-    /** The next index to use in the array */
-    private int index;
+	/**
+	 * A counter
+	 */
+	private int counter;
 
-    /**
-     * Add a frame at the next index in the array frames
-     */
-    public void addFrame(long runningTime)
-    {
-        frames[index] = runningTime;
-        ++index;
+	/**
+	 * The next index to use in the array
+	 */
+	private int index;
 
-        if (index == 240)
-        {
-            index = 0;
-        }
+	/**
+	 * Add a frame at the next index in the array frames
+	 */
+	public void addFrame(long runningTime) {
 
-        if (counter < 240)
-        {
-            lastIndex = 0;
-            ++counter;
-        }
-        else
-        {
-            lastIndex = parseIndex(index + 1);
-        }
-    }
+		frames[index] = runningTime;
+		++index;
 
-    /**
-     * Return a value from time and multiplier to display the lagometer
-     */
-    public int getLagometerValue(long time, int multiplier)
-    {
-        double d0 = (double)time / 1.6666666E7D;
-        return (int)(d0 * (double)multiplier);
-    }
+		if (index == 240) {
+			index = 0;
+		}
 
-    /**
-     * Return the last index used when 240 frames have been set
-     */
-    public int getLastIndex()
-    {
-        return lastIndex;
-    }
+		if (counter < 240) {
+			lastIndex = 0;
+			++counter;
+		} else {
+			lastIndex = parseIndex(index + 1);
+		}
+	}
 
-    /**
-     * Return the index of the next frame in the array
-     */
-    public int getIndex()
-    {
-        return index;
-    }
+	/**
+	 * Return a value from time and multiplier to display the lagometer
+	 */
+	public int getLagometerValue(long time, int multiplier) {
 
-    /**
-     * Change 240 to 0
-     */
-    public int parseIndex(int rawIndex)
-    {
-        return rawIndex % 240;
-    }
+		double d0 = (double) time / 1.6666666E7D;
+		return (int) (d0 * (double) multiplier);
+	}
 
-    /**
-     * Return the array of frames
-     */
-    public long[] getFrames()
-    {
-        return frames;
-    }
+	/**
+	 * Return the last index used when 240 frames have been set
+	 */
+	public int getLastIndex() {
+
+		return lastIndex;
+	}
+
+	/**
+	 * Return the index of the next frame in the array
+	 */
+	public int getIndex() {
+
+		return index;
+	}
+
+	/**
+	 * Change 240 to 0
+	 */
+	public int parseIndex(int rawIndex) {
+
+		return rawIndex % 240;
+	}
+
+	/**
+	 * Return the array of frames
+	 */
+	public long[] getFrames() {
+
+		return frames;
+	}
+
 }

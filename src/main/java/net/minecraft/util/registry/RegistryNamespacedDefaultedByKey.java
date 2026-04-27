@@ -1,85 +1,88 @@
 package net.minecraft.util.registry;
 
-import java.util.Random;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import org.apache.commons.lang3.Validate;
 
-public class RegistryNamespacedDefaultedByKey<K, V> extends RegistryNamespaced<K, V>
-{
-    /** The key of the default value. */
-    private final K defaultValueKey;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.Random;
 
-    /**
-     * The default value for this registry, retrurned in the place of a null value.
-     */
-    private V defaultValue;
+public class RegistryNamespacedDefaultedByKey<K, V> extends RegistryNamespaced<K, V> {
 
-    public RegistryNamespacedDefaultedByKey(K defaultValueKeyIn)
-    {
-        defaultValueKey = defaultValueKeyIn;
-    }
+	/**
+	 * The key of the default value.
+	 */
+	private final K defaultValueKey;
 
-    public void register(int id, K key, V value)
-    {
-        if (defaultValueKey.equals(key))
-        {
-            defaultValue = value;
-        }
+	/**
+	 * The default value for this registry, retrurned in the place of a null value.
+	 */
+	private V defaultValue;
 
-        super.register(id, key, value);
-    }
+	public RegistryNamespacedDefaultedByKey(K defaultValueKeyIn) {
 
-    /**
-     * validates that this registry's key is non-null
-     */
-    public void validateKey()
-    {
-        Validate.notNull(defaultValue, "Missing default of DefaultedMappedRegistry: " + defaultValueKey);
-    }
+		defaultValueKey = defaultValueKeyIn;
+	}
 
-    /**
-     * Gets the integer ID we use to identify the given object.
-     */
-    public int getIDForObject(V value)
-    {
-        int i = super.getIDForObject(value);
-        return i == -1 ? super.getIDForObject(defaultValue) : i;
-    }
+	public void register(int id, K key, V value) {
 
-    @Nonnull
+		if (defaultValueKey.equals(key)) {
+			defaultValue = value;
+		}
 
-    /**
-     * Gets the name we use to identify the given object.
-     */
-    public K getNameForObject(V value)
-    {
-        K k = (K)super.getNameForObject(value);
-        return (K)(k == null ? defaultValueKey : k);
-    }
+		super.register(id, key, value);
+	}
 
-    @Nonnull
-    public V getObject(@Nullable K name)
-    {
-        V v = (V)super.getObject(name);
-        return (V)(v == null ? defaultValue : v);
-    }
+	/**
+	 * validates that this registry's key is non-null
+	 */
+	public void validateKey() {
 
-    @Nonnull
+		Validate.notNull(defaultValue, "Missing default of DefaultedMappedRegistry: " + defaultValueKey);
+	}
 
-    /**
-     * Gets the object identified by the given ID.
-     */
-    public V getObjectById(int id)
-    {
-        V v = (V)super.getObjectById(id);
-        return (V)(v == null ? defaultValue : v);
-    }
+	/**
+	 * Gets the integer ID we use to identify the given object.
+	 */
+	public int getIDForObject(V value) {
 
-    @Nonnull
-    public V getRandomObject(Random random)
-    {
-        V v = (V)super.getRandomObject(random);
-        return (V)(v == null ? defaultValue : v);
-    }
+		int i = super.getIDForObject(value);
+		return i == -1 ? super.getIDForObject(defaultValue) : i;
+	}
+
+	@Nonnull
+
+	/**
+	 * Gets the name we use to identify the given object.
+	 */
+	public K getNameForObject(V value) {
+
+		K k = super.getNameForObject(value);
+		return k == null ? defaultValueKey : k;
+	}
+
+	@Nonnull
+	public V getObject(@Nullable K name) {
+
+		V v = super.getObject(name);
+		return v == null ? defaultValue : v;
+	}
+
+	@Nonnull
+
+	/**
+	 * Gets the object identified by the given ID.
+	 */
+	public V getObjectById(int id) {
+
+		V v = super.getObjectById(id);
+		return v == null ? defaultValue : v;
+	}
+
+	@Nonnull
+	public V getRandomObject(Random random) {
+
+		V v = super.getRandomObject(random);
+		return v == null ? defaultValue : v;
+	}
+
 }

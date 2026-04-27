@@ -7,128 +7,104 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 
-public class ShieldRecipes
-{
-    public static class Decoration implements IRecipe
-    {
-        public boolean matches(InventoryCrafting inv, World worldIn)
-        {
-            ItemStack itemstack = ItemStack.EMPTY;
-            ItemStack itemstack1 = ItemStack.EMPTY;
+public class ShieldRecipes {
 
-            for (int i = 0; i < inv.getSizeInventory(); ++i)
-            {
-                ItemStack itemstack2 = inv.getStackInSlot(i);
+	public static class Decoration implements IRecipe {
 
-                if (!itemstack2.isEmpty())
-                {
-                    if (itemstack2.getItem() == Items.BANNER)
-                    {
-                        if (!itemstack1.isEmpty())
-                        {
-                            return false;
-                        }
+		public boolean matches(InventoryCrafting inv, World worldIn) {
 
-                        itemstack1 = itemstack2;
-                    }
-                    else
-                    {
-                        if (itemstack2.getItem() != Items.SHIELD)
-                        {
-                            return false;
-                        }
+			ItemStack itemstack = ItemStack.EMPTY;
+			ItemStack itemstack1 = ItemStack.EMPTY;
 
-                        if (!itemstack.isEmpty())
-                        {
-                            return false;
-                        }
+			for (int i = 0; i < inv.getSizeInventory(); ++i) {
+				ItemStack itemstack2 = inv.getStackInSlot(i);
 
-                        if (itemstack2.getSubCompound("BlockEntityTag") != null)
-                        {
-                            return false;
-                        }
+				if (!itemstack2.isEmpty()) {
+					if (itemstack2.getItem() == Items.BANNER) {
+						if (!itemstack1.isEmpty()) {
+							return false;
+						}
 
-                        itemstack = itemstack2;
-                    }
-                }
-            }
+						itemstack1 = itemstack2;
+					} else {
+						if (itemstack2.getItem() != Items.SHIELD) {
+							return false;
+						}
 
-            if (!itemstack.isEmpty() && !itemstack1.isEmpty())
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
+						if (!itemstack.isEmpty()) {
+							return false;
+						}
 
-        public ItemStack getCraftingResult(InventoryCrafting inv)
-        {
-            ItemStack itemstack = ItemStack.EMPTY;
-            ItemStack itemstack1 = ItemStack.EMPTY;
+						if (itemstack2.getSubCompound("BlockEntityTag") != null) {
+							return false;
+						}
 
-            for (int i = 0; i < inv.getSizeInventory(); ++i)
-            {
-                ItemStack itemstack2 = inv.getStackInSlot(i);
+						itemstack = itemstack2;
+					}
+				}
+			}
 
-                if (!itemstack2.isEmpty())
-                {
-                    if (itemstack2.getItem() == Items.BANNER)
-                    {
-                        itemstack = itemstack2;
-                    }
-                    else if (itemstack2.getItem() == Items.SHIELD)
-                    {
-                        itemstack1 = itemstack2.copy();
-                    }
-                }
-            }
+			return !itemstack.isEmpty() && !itemstack1.isEmpty();
+		}
 
-            if (itemstack1.isEmpty())
-            {
-                return itemstack1;
-            }
-            else
-            {
-                NBTTagCompound nbttagcompound = itemstack.getSubCompound("BlockEntityTag");
-                NBTTagCompound nbttagcompound1 = nbttagcompound == null ? new NBTTagCompound() : nbttagcompound.copy();
-                nbttagcompound1.setInteger("Base", itemstack.getMetadata() & 15);
-                itemstack1.setTagInfo("BlockEntityTag", nbttagcompound1);
-                return itemstack1;
-            }
-        }
+		public ItemStack getCraftingResult(InventoryCrafting inv) {
 
-        public ItemStack getRecipeOutput()
-        {
-            return ItemStack.EMPTY;
-        }
+			ItemStack itemstack = ItemStack.EMPTY;
+			ItemStack itemstack1 = ItemStack.EMPTY;
 
-        public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv)
-        {
-            NonNullList<ItemStack> nonnulllist = NonNullList.<ItemStack>withSize(inv.getSizeInventory(), ItemStack.EMPTY);
+			for (int i = 0; i < inv.getSizeInventory(); ++i) {
+				ItemStack itemstack2 = inv.getStackInSlot(i);
 
-            for (int i = 0; i < nonnulllist.size(); ++i)
-            {
-                ItemStack itemstack = inv.getStackInSlot(i);
+				if (!itemstack2.isEmpty()) {
+					if (itemstack2.getItem() == Items.BANNER) {
+						itemstack = itemstack2;
+					} else if (itemstack2.getItem() == Items.SHIELD) {
+						itemstack1 = itemstack2.copy();
+					}
+				}
+			}
 
-                if (itemstack.getItem().hasContainerItem())
-                {
-                    nonnulllist.set(i, new ItemStack(itemstack.getItem().getContainerItem()));
-                }
-            }
+			if (itemstack1.isEmpty()) {
+				return itemstack1;
+			} else {
+				NBTTagCompound nbttagcompound = itemstack.getSubCompound("BlockEntityTag");
+				NBTTagCompound nbttagcompound1 = nbttagcompound == null ? new NBTTagCompound() : nbttagcompound.copy();
+				nbttagcompound1.setInteger("Base", itemstack.getMetadata() & 15);
+				itemstack1.setTagInfo("BlockEntityTag", nbttagcompound1);
+				return itemstack1;
+			}
+		}
 
-            return nonnulllist;
-        }
+		public ItemStack getRecipeOutput() {
 
-        public boolean isDynamic()
-        {
-            return true;
-        }
+			return ItemStack.EMPTY;
+		}
 
-        public boolean canFit(int width, int height)
-        {
-            return width * height >= 2;
-        }
-    }
+		public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv) {
+
+			NonNullList<ItemStack> nonnulllist = NonNullList.withSize(inv.getSizeInventory(), ItemStack.EMPTY);
+
+			for (int i = 0; i < nonnulllist.size(); ++i) {
+				ItemStack itemstack = inv.getStackInSlot(i);
+
+				if (itemstack.getItem().hasContainerItem()) {
+					nonnulllist.set(i, new ItemStack(itemstack.getItem().getContainerItem()));
+				}
+			}
+
+			return nonnulllist;
+		}
+
+		public boolean isDynamic() {
+
+			return true;
+		}
+
+		public boolean canFit(int width, int height) {
+
+			return width * height >= 2;
+		}
+
+	}
+
 }

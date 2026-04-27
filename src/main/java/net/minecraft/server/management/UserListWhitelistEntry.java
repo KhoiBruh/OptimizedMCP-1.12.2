@@ -2,51 +2,46 @@ package net.minecraft.server.management;
 
 import com.google.gson.JsonObject;
 import com.mojang.authlib.GameProfile;
+
 import java.util.UUID;
 
-public class UserListWhitelistEntry extends UserListEntry<GameProfile>
-{
-    public UserListWhitelistEntry(GameProfile profile)
-    {
-        super(profile);
-    }
+public class UserListWhitelistEntry extends UserListEntry<GameProfile> {
 
-    public UserListWhitelistEntry(JsonObject json)
-    {
-        super(gameProfileFromJsonObject(json), json);
-    }
+	public UserListWhitelistEntry(GameProfile profile) {
 
-    protected void onSerialization(JsonObject data)
-    {
-        if (getValue() != null)
-        {
-            data.addProperty("uuid", ((GameProfile) getValue()).getId() == null ? "" : ((GameProfile) getValue()).getId().toString());
-            data.addProperty("name", ((GameProfile) getValue()).getName());
-            super.onSerialization(data);
-        }
-    }
+		super(profile);
+	}
 
-    private static GameProfile gameProfileFromJsonObject(JsonObject json)
-    {
-        if (json.has("uuid") && json.has("name"))
-        {
-            String s = json.get("uuid").getAsString();
-            UUID uuid;
+	public UserListWhitelistEntry(JsonObject json) {
 
-            try
-            {
-                uuid = UUID.fromString(s);
-            }
-            catch (Throwable var4)
-            {
-                return null;
-            }
+		super(gameProfileFromJsonObject(json), json);
+	}
 
-            return new GameProfile(uuid, json.get("name").getAsString());
-        }
-        else
-        {
-            return null;
-        }
-    }
+	protected void onSerialization(JsonObject data) {
+
+		if (getValue() != null) {
+			data.addProperty("uuid", getValue().getId() == null ? "" : getValue().getId().toString());
+			data.addProperty("name", getValue().getName());
+			super.onSerialization(data);
+		}
+	}
+
+	private static GameProfile gameProfileFromJsonObject(JsonObject json) {
+
+		if (json.has("uuid") && json.has("name")) {
+			String s = json.get("uuid").getAsString();
+			UUID uuid;
+
+			try {
+				uuid = UUID.fromString(s);
+			} catch (Throwable var4) {
+				return null;
+			}
+
+			return new GameProfile(uuid, json.get("name").getAsString());
+		} else {
+			return null;
+		}
+	}
+
 }

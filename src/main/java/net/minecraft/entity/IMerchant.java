@@ -1,6 +1,5 @@
 package net.minecraft.entity;
 
-import javax.annotation.Nullable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
@@ -9,32 +8,35 @@ import net.minecraft.village.MerchantRecipe;
 import net.minecraft.village.MerchantRecipeList;
 import net.minecraft.world.World;
 
-public interface IMerchant
-{
-    void setCustomer(EntityPlayer player);
+import javax.annotation.Nullable;
 
-    @Nullable
-    EntityPlayer getCustomer();
+public interface IMerchant {
 
-    @Nullable
-    MerchantRecipeList getRecipes(EntityPlayer player);
+	void setCustomer(EntityPlayer player);
 
-    void setRecipes(MerchantRecipeList recipeList);
+	@Nullable
+	EntityPlayer getCustomer();
 
-    void useRecipe(MerchantRecipe recipe);
+	@Nullable
+	MerchantRecipeList getRecipes(EntityPlayer player);
 
-    /**
-     * Notifies the merchant of a possible merchantrecipe being fulfilled or not. Usually, this is just a sound byte
-     * being played depending if the suggested itemstack is not null.
-     */
-    void verifySellingItem(ItemStack stack);
+	void setRecipes(MerchantRecipeList recipeList);
 
-    /**
-     * Get the formatted ChatComponent that will be used for the sender's username in chat
-     */
-    ITextComponent getDisplayName();
+	void useRecipe(MerchantRecipe recipe);
 
-    World getWorld();
+	/**
+	 * Notifies the merchant of a possible merchantrecipe being fulfilled or not. Usually, this is just a sound byte
+	 * being played depending if the suggested itemstack is not null.
+	 */
+	void verifySellingItem(ItemStack stack);
 
-    BlockPos getPos();
+	/**
+	 * Get the formatted ChatComponent that will be used for the sender's username in chat
+	 */
+	ITextComponent getDisplayName();
+
+	World getWorld();
+
+	BlockPos getPos();
+
 }

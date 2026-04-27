@@ -1,36 +1,37 @@
 package net.minecraft.server.management;
 
 import com.google.gson.JsonObject;
+
 import java.util.Date;
 
-public class UserListIPBansEntry extends UserListEntryBan<String>
-{
-    public UserListIPBansEntry(String valueIn)
-    {
-        this(valueIn, (Date)null, (String)null, (Date)null, (String)null);
-    }
+public class UserListIPBansEntry extends UserListEntryBan<String> {
 
-    public UserListIPBansEntry(String valueIn, Date startDate, String banner, Date endDate, String banReason)
-    {
-        super(valueIn, startDate, banner, endDate, banReason);
-    }
+	public UserListIPBansEntry(String valueIn) {
 
-    public UserListIPBansEntry(JsonObject json)
-    {
-        super(getIPFromJson(json), json);
-    }
+		this(valueIn, null, null, null, null);
+	}
 
-    private static String getIPFromJson(JsonObject json)
-    {
-        return json.has("ip") ? json.get("ip").getAsString() : null;
-    }
+	public UserListIPBansEntry(String valueIn, Date startDate, String banner, Date endDate, String banReason) {
 
-    protected void onSerialization(JsonObject data)
-    {
-        if (getValue() != null)
-        {
-            data.addProperty("ip", (String) getValue());
-            super.onSerialization(data);
-        }
-    }
+		super(valueIn, startDate, banner, endDate, banReason);
+	}
+
+	public UserListIPBansEntry(JsonObject json) {
+
+		super(getIPFromJson(json), json);
+	}
+
+	private static String getIPFromJson(JsonObject json) {
+
+		return json.has("ip") ? json.get("ip").getAsString() : null;
+	}
+
+	protected void onSerialization(JsonObject data) {
+
+		if (getValue() != null) {
+			data.addProperty("ip", getValue());
+			super.onSerialization(data);
+		}
+	}
+
 }

@@ -1,70 +1,64 @@
 package net.minecraft.util.text;
 
-public class TextComponentSelector extends TextComponentBase
-{
-    /**
-     * The selector used to find the matching entities of this text component
-     */
-    private final String selector;
+public class TextComponentSelector extends TextComponentBase {
 
-    public TextComponentSelector(String selectorIn)
-    {
-        selector = selectorIn;
-    }
+	/**
+	 * The selector used to find the matching entities of this text component
+	 */
+	private final String selector;
 
-    /**
-     * Gets the selector of this component, in plain text.
-     */
-    public String getSelector()
-    {
-        return selector;
-    }
+	public TextComponentSelector(String selectorIn) {
 
-    /**
-     * Gets the raw content of this component (but not its sibling components), without any formatting codes. For
-     * example, this is the raw text in a {@link TextComponentString}, but it's the translated text for a {@link
-     * TextComponentTranslation} and it's the score value for a {@link TextComponentScore}.
-     */
-    public String getUnformattedComponentText()
-    {
-        return selector;
-    }
+		selector = selectorIn;
+	}
 
-    /**
-     * Creates a copy of this component.  Almost a deep copy, except the style is shallow-copied.
-     */
-    public TextComponentSelector createCopy()
-    {
-        TextComponentSelector textcomponentselector = new TextComponentSelector(selector);
-        textcomponentselector.setStyle(getStyle().createShallowCopy());
+	/**
+	 * Gets the selector of this component, in plain text.
+	 */
+	public String getSelector() {
 
-        for (ITextComponent itextcomponent : getSiblings())
-        {
-            textcomponentselector.appendSibling(itextcomponent.createCopy());
-        }
+		return selector;
+	}
 
-        return textcomponentselector;
-    }
+	/**
+	 * Gets the raw content of this component (but not its sibling components), without any formatting codes. For
+	 * example, this is the raw text in a {@link TextComponentString}, but it's the translated text for a {@link
+	 * TextComponentTranslation} and it's the score value for a {@link TextComponentScore}.
+	 */
+	public String getUnformattedComponentText() {
 
-    public boolean equals(Object p_equals_1_)
-    {
-        if (this == p_equals_1_)
-        {
-            return true;
-        }
-        else if (!(p_equals_1_ instanceof TextComponentSelector))
-        {
-            return false;
-        }
-        else
-        {
-            TextComponentSelector textcomponentselector = (TextComponentSelector)p_equals_1_;
-            return selector.equals(textcomponentselector.selector) && super.equals(p_equals_1_);
-        }
-    }
+		return selector;
+	}
 
-    public String toString()
-    {
-        return "SelectorComponent{pattern='" + selector + '\'' + ", siblings=" + siblings + ", style=" + getStyle() + '}';
-    }
+	/**
+	 * Creates a copy of this component.  Almost a deep copy, except the style is shallow-copied.
+	 */
+	public TextComponentSelector createCopy() {
+
+		TextComponentSelector textcomponentselector = new TextComponentSelector(selector);
+		textcomponentselector.setStyle(getStyle().createShallowCopy());
+
+		for (ITextComponent itextcomponent : getSiblings()) {
+			textcomponentselector.appendSibling(itextcomponent.createCopy());
+		}
+
+		return textcomponentselector;
+	}
+
+	public boolean equals(Object p_equals_1_) {
+
+		if (this == p_equals_1_) {
+			return true;
+		} else if (!(p_equals_1_ instanceof TextComponentSelector textcomponentselector)) {
+			return false;
+		} else {
+			return selector.equals(textcomponentselector.selector) && super.equals(p_equals_1_);
+		}
+	}
+
+	public String toString() {
+
+		return "SelectorComponent{pattern='" + selector + '\'' + ", siblings=" + siblings + ", style=" + getStyle() + '}';
+	}
+
 }

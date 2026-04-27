@@ -2,30 +2,31 @@ package net.minecraft.realms;
 
 import net.minecraft.client.multiplayer.ServerAddress;
 
-public class RealmsServerAddress
-{
-    private final String host;
-    private final int port;
+public class RealmsServerAddress {
 
-    protected RealmsServerAddress(String hostIn, int portIn)
-    {
-        host = hostIn;
-        port = portIn;
-    }
+	private final String host;
+	private final int port;
 
-    public String getHost()
-    {
-        return host;
-    }
+	protected RealmsServerAddress(String hostIn, int portIn) {
 
-    public int getPort()
-    {
-        return port;
-    }
+		host = hostIn;
+		port = portIn;
+	}
 
-    public static RealmsServerAddress parseString(String p_parseString_0_)
-    {
-        ServerAddress serveraddress = ServerAddress.fromString(p_parseString_0_);
-        return new RealmsServerAddress(serveraddress.getIP(), serveraddress.getPort());
-    }
+	public String getHost() {
+
+		return host;
+	}
+
+	public int getPort() {
+
+		return port;
+	}
+
+	public static RealmsServerAddress parseString(String p_parseString_0_) {
+
+		ServerAddress serveraddress = ServerAddress.fromString(p_parseString_0_);
+		return new RealmsServerAddress(serveraddress.getIP(), serveraddress.getPort());
+	}
+
 }

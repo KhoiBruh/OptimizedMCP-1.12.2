@@ -1,54 +1,48 @@
 package net.minecraft.util.datafix.fixes;
 
-import java.util.Random;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.datafix.IFixableData;
 
-public class ZombieProfToType implements IFixableData
-{
-    private static final Random RANDOM = new Random();
+import java.util.Random;
 
-    public int getFixVersion()
-    {
-        return 502;
-    }
+public class ZombieProfToType implements IFixableData {
 
-    public NBTTagCompound fixTagCompound(NBTTagCompound compound)
-    {
-        if ("Zombie".equals(compound.getString("id")) && compound.getBoolean("IsVillager"))
-        {
-            if (!compound.hasKey("ZombieType", 99))
-            {
-                int i = -1;
+	private static final Random RANDOM = new Random();
 
-                if (compound.hasKey("VillagerProfession", 99))
-                {
-                    try
-                    {
-                        i = getVillagerProfession(compound.getInteger("VillagerProfession"));
-                    }
-                    catch (RuntimeException var4)
-                    {
-                        ;
-                    }
-                }
+	public int getFixVersion() {
 
-                if (i == -1)
-                {
-                    i = getVillagerProfession(RANDOM.nextInt(6));
-                }
+		return 502;
+	}
 
-                compound.setInteger("ZombieType", i);
-            }
+	public NBTTagCompound fixTagCompound(NBTTagCompound compound) {
 
-            compound.removeTag("IsVillager");
-        }
+		if ("Zombie".equals(compound.getString("id")) && compound.getBoolean("IsVillager")) {
+			if (!compound.hasKey("ZombieType", 99)) {
+				int i = -1;
 
-        return compound;
-    }
+				if (compound.hasKey("VillagerProfession", 99)) {
+					try {
+						i = getVillagerProfession(compound.getInteger("VillagerProfession"));
+					} catch (RuntimeException var4) {
+					}
+				}
 
-    private int getVillagerProfession(int p_191277_1_)
-    {
-        return p_191277_1_ >= 0 && p_191277_1_ < 6 ? p_191277_1_ : -1;
-    }
+				if (i == -1) {
+					i = getVillagerProfession(RANDOM.nextInt(6));
+				}
+
+				compound.setInteger("ZombieType", i);
+			}
+
+			compound.removeTag("IsVillager");
+		}
+
+		return compound;
+	}
+
+	private int getVillagerProfession(int p_191277_1_) {
+
+		return p_191277_1_ >= 0 && p_191277_1_ < 6 ? p_191277_1_ : -1;
+	}
+
 }

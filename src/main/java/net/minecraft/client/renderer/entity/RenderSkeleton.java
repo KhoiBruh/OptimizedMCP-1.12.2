@@ -7,34 +7,34 @@ import net.minecraft.client.renderer.entity.layers.LayerHeldItem;
 import net.minecraft.entity.monster.AbstractSkeleton;
 import net.minecraft.util.ResourceLocation;
 
-public class RenderSkeleton extends RenderBiped<AbstractSkeleton>
-{
-    private static final ResourceLocation SKELETON_TEXTURES = new ResourceLocation("textures/entity/skeleton/skeleton.png");
+public class RenderSkeleton extends RenderBiped<AbstractSkeleton> {
 
-    public RenderSkeleton(RenderManager renderManagerIn)
-    {
-        super(renderManagerIn, new ModelSkeleton(), 0.5F);
-        addLayer(new LayerHeldItem(this));
-        addLayer(new LayerBipedArmor(this)
-        {
-            protected void initArmor()
-            {
-                modelLeggings = new ModelSkeleton(0.5F, true);
-                modelArmor = new ModelSkeleton(1.0F, true);
-            }
-        });
-    }
+	private static final ResourceLocation SKELETON_TEXTURES = new ResourceLocation("textures/entity/skeleton/skeleton.png");
 
-    public void transformHeldFull3DItemLayer()
-    {
-        GlStateManager.translate(0.09375F, 0.1875F, 0.0F);
-    }
+	public RenderSkeleton(RenderManager renderManagerIn) {
 
-    /**
-     * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
-     */
-    protected ResourceLocation getEntityTexture(AbstractSkeleton entity)
-    {
-        return SKELETON_TEXTURES;
-    }
+		super(renderManagerIn, new ModelSkeleton(), 0.5F);
+		addLayer(new LayerHeldItem(this));
+		addLayer(new LayerBipedArmor(this) {
+			protected void initArmor() {
+
+				modelLeggings = new ModelSkeleton(0.5F, true);
+				modelArmor = new ModelSkeleton(1.0F, true);
+			}
+		});
+	}
+
+	public void transformHeldFull3DItemLayer() {
+
+		GlStateManager.translate(0.09375F, 0.1875F, 0.0F);
+	}
+
+	/**
+	 * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
+	 */
+	protected ResourceLocation getEntityTexture(AbstractSkeleton entity) {
+
+		return SKELETON_TEXTURES;
+	}
+
 }

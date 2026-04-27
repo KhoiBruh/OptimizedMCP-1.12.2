@@ -5,142 +5,137 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import net.minecraft.advancements.ICriterionTrigger;
 import net.minecraft.advancements.PlayerAdvancements;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.ResourceLocation;
 
-public class SummonedEntityTrigger implements ICriterionTrigger<SummonedEntityTrigger.Instance>
-{
-    private static final ResourceLocation ID = new ResourceLocation("summoned_entity");
-    private final Map<PlayerAdvancements, SummonedEntityTrigger.Listeners> listeners = Maps.<PlayerAdvancements, SummonedEntityTrigger.Listeners>newHashMap();
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-    public ResourceLocation getId()
-    {
-        return ID;
-    }
+public class SummonedEntityTrigger implements ICriterionTrigger<SummonedEntityTrigger.Instance> {
 
-    public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<SummonedEntityTrigger.Instance> listener)
-    {
-        SummonedEntityTrigger.Listeners summonedentitytrigger$listeners = listeners.get(playerAdvancementsIn);
+	private static final ResourceLocation ID = new ResourceLocation("summoned_entity");
+	private final Map<PlayerAdvancements, SummonedEntityTrigger.Listeners> listeners = Maps.newHashMap();
 
-        if (summonedentitytrigger$listeners == null)
-        {
-            summonedentitytrigger$listeners = new SummonedEntityTrigger.Listeners(playerAdvancementsIn);
-            listeners.put(playerAdvancementsIn, summonedentitytrigger$listeners);
-        }
+	public ResourceLocation getId() {
 
-        summonedentitytrigger$listeners.add(listener);
-    }
+		return ID;
+	}
 
-    public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<SummonedEntityTrigger.Instance> listener)
-    {
-        SummonedEntityTrigger.Listeners summonedentitytrigger$listeners = listeners.get(playerAdvancementsIn);
+	public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<SummonedEntityTrigger.Instance> listener) {
 
-        if (summonedentitytrigger$listeners != null)
-        {
-            summonedentitytrigger$listeners.remove(listener);
+		SummonedEntityTrigger.Listeners summonedentitytrigger$listeners = listeners.get(playerAdvancementsIn);
 
-            if (summonedentitytrigger$listeners.isEmpty())
-            {
-                listeners.remove(playerAdvancementsIn);
-            }
-        }
-    }
+		if (summonedentitytrigger$listeners == null) {
+			summonedentitytrigger$listeners = new SummonedEntityTrigger.Listeners(playerAdvancementsIn);
+			listeners.put(playerAdvancementsIn, summonedentitytrigger$listeners);
+		}
 
-    public void removeAllListeners(PlayerAdvancements playerAdvancementsIn)
-    {
-        listeners.remove(playerAdvancementsIn);
-    }
+		summonedentitytrigger$listeners.add(listener);
+	}
 
-    /**
-     * Deserialize a ICriterionInstance of this trigger from the data in the JSON.
-     */
-    public SummonedEntityTrigger.Instance deserializeInstance(JsonObject json, JsonDeserializationContext context)
-    {
-        EntityPredicate entitypredicate = EntityPredicate.deserialize(json.get("entity"));
-        return new SummonedEntityTrigger.Instance(entitypredicate);
-    }
+	public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<SummonedEntityTrigger.Instance> listener) {
 
-    public void trigger(EntityPlayerMP player, Entity entity)
-    {
-        SummonedEntityTrigger.Listeners summonedentitytrigger$listeners = listeners.get(player.getAdvancements());
+		SummonedEntityTrigger.Listeners summonedentitytrigger$listeners = listeners.get(playerAdvancementsIn);
 
-        if (summonedentitytrigger$listeners != null)
-        {
-            summonedentitytrigger$listeners.trigger(player, entity);
-        }
-    }
+		if (summonedentitytrigger$listeners != null) {
+			summonedentitytrigger$listeners.remove(listener);
 
-    public static class Instance extends AbstractCriterionInstance
-    {
-        private final EntityPredicate entity;
+			if (summonedentitytrigger$listeners.isEmpty()) {
+				listeners.remove(playerAdvancementsIn);
+			}
+		}
+	}
 
-        public Instance(EntityPredicate entity)
-        {
-            super(SummonedEntityTrigger.ID);
-            this.entity = entity;
-        }
+	public void removeAllListeners(PlayerAdvancements playerAdvancementsIn) {
 
-        public boolean test(EntityPlayerMP player, Entity entity)
-        {
-            return this.entity.test(player, entity);
-        }
-    }
+		listeners.remove(playerAdvancementsIn);
+	}
 
-    static class Listeners
-    {
-        private final PlayerAdvancements playerAdvancements;
-        private final Set<ICriterionTrigger.Listener<SummonedEntityTrigger.Instance>> listeners = Sets.<ICriterionTrigger.Listener<SummonedEntityTrigger.Instance>>newHashSet();
+	/**
+	 * Deserialize a ICriterionInstance of this trigger from the data in the JSON.
+	 */
+	public SummonedEntityTrigger.Instance deserializeInstance(JsonObject json, JsonDeserializationContext context) {
 
-        public Listeners(PlayerAdvancements playerAdvancementsIn)
-        {
-            playerAdvancements = playerAdvancementsIn;
-        }
+		EntityPredicate entitypredicate = EntityPredicate.deserialize(json.get("entity"));
+		return new SummonedEntityTrigger.Instance(entitypredicate);
+	}
 
-        public boolean isEmpty()
-        {
-            return listeners.isEmpty();
-        }
+	public void trigger(EntityPlayerMP player, Entity entity) {
 
-        public void add(ICriterionTrigger.Listener<SummonedEntityTrigger.Instance> listener)
-        {
-            listeners.add(listener);
-        }
+		SummonedEntityTrigger.Listeners summonedentitytrigger$listeners = listeners.get(player.getAdvancements());
 
-        public void remove(ICriterionTrigger.Listener<SummonedEntityTrigger.Instance> listener)
-        {
-            listeners.remove(listener);
-        }
+		if (summonedentitytrigger$listeners != null) {
+			summonedentitytrigger$listeners.trigger(player, entity);
+		}
+	}
 
-        public void trigger(EntityPlayerMP player, Entity entity)
-        {
-            List<ICriterionTrigger.Listener<SummonedEntityTrigger.Instance>> list = null;
+	public static class Instance extends AbstractCriterionInstance {
 
-            for (ICriterionTrigger.Listener<SummonedEntityTrigger.Instance> listener : listeners)
-            {
-                if (((SummonedEntityTrigger.Instance)listener.getCriterionInstance()).test(player, entity))
-                {
-                    if (list == null)
-                    {
-                        list = Lists.<ICriterionTrigger.Listener<SummonedEntityTrigger.Instance>>newArrayList();
-                    }
+		private final EntityPredicate entity;
 
-                    list.add(listener);
-                }
-            }
+		public Instance(EntityPredicate entity) {
 
-            if (list != null)
-            {
-                for (ICriterionTrigger.Listener<SummonedEntityTrigger.Instance> listener1 : list)
-                {
-                    listener1.grantCriterion(playerAdvancements);
-                }
-            }
-        }
-    }
+			super(SummonedEntityTrigger.ID);
+			this.entity = entity;
+		}
+
+		public boolean test(EntityPlayerMP player, Entity entity) {
+
+			return this.entity.test(player, entity);
+		}
+
+	}
+
+	static class Listeners {
+
+		private final PlayerAdvancements playerAdvancements;
+		private final Set<ICriterionTrigger.Listener<SummonedEntityTrigger.Instance>> listeners = Sets.newHashSet();
+
+		public Listeners(PlayerAdvancements playerAdvancementsIn) {
+
+			playerAdvancements = playerAdvancementsIn;
+		}
+
+		public boolean isEmpty() {
+
+			return listeners.isEmpty();
+		}
+
+		public void add(ICriterionTrigger.Listener<SummonedEntityTrigger.Instance> listener) {
+
+			listeners.add(listener);
+		}
+
+		public void remove(ICriterionTrigger.Listener<SummonedEntityTrigger.Instance> listener) {
+
+			listeners.remove(listener);
+		}
+
+		public void trigger(EntityPlayerMP player, Entity entity) {
+
+			List<ICriterionTrigger.Listener<SummonedEntityTrigger.Instance>> list = null;
+
+			for (ICriterionTrigger.Listener<SummonedEntityTrigger.Instance> listener : listeners) {
+				if (listener.getCriterionInstance().test(player, entity)) {
+					if (list == null) {
+						list = Lists.newArrayList();
+					}
+
+					list.add(listener);
+				}
+			}
+
+			if (list != null) {
+				for (ICriterionTrigger.Listener<SummonedEntityTrigger.Instance> listener1 : list) {
+					listener1.grantCriterion(playerAdvancements);
+				}
+			}
+		}
+
+	}
+
 }

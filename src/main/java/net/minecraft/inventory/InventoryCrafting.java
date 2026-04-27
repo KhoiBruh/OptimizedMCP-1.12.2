@@ -8,195 +8,194 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
 
-public class InventoryCrafting implements IInventory
-{
-    private final NonNullList<ItemStack> stackList;
+public class InventoryCrafting implements IInventory {
 
-    /** the width of the crafting inventory */
-    private final int inventoryWidth;
-    private final int inventoryHeight;
+	private final NonNullList<ItemStack> stackList;
 
-    /**
-     * Class containing the callbacks for the events on_GUIClosed and on_CraftMaxtrixChanged.
-     */
-    private final Container eventHandler;
+	/**
+	 * the width of the crafting inventory
+	 */
+	private final int inventoryWidth;
+	private final int inventoryHeight;
 
-    public InventoryCrafting(Container eventHandlerIn, int width, int height)
-    {
-        stackList = NonNullList.<ItemStack>withSize(width * height, ItemStack.EMPTY);
-        eventHandler = eventHandlerIn;
-        inventoryWidth = width;
-        inventoryHeight = height;
-    }
+	/**
+	 * Class containing the callbacks for the events on_GUIClosed and on_CraftMaxtrixChanged.
+	 */
+	private final Container eventHandler;
 
-    /**
-     * Returns the number of slots in the inventory.
-     */
-    public int getSizeInventory()
-    {
-        return stackList.size();
-    }
+	public InventoryCrafting(Container eventHandlerIn, int width, int height) {
 
-    public boolean isEmpty()
-    {
-        for (ItemStack itemstack : stackList)
-        {
-            if (!itemstack.isEmpty())
-            {
-                return false;
-            }
-        }
+		stackList = NonNullList.withSize(width * height, ItemStack.EMPTY);
+		eventHandler = eventHandlerIn;
+		inventoryWidth = width;
+		inventoryHeight = height;
+	}
 
-        return true;
-    }
+	/**
+	 * Returns the number of slots in the inventory.
+	 */
+	public int getSizeInventory() {
 
-    /**
-     * Returns the stack in the given slot.
-     */
-    public ItemStack getStackInSlot(int index)
-    {
-        return index >= getSizeInventory() ? ItemStack.EMPTY : (ItemStack) stackList.get(index);
-    }
+		return stackList.size();
+	}
 
-    /**
-     * Gets the ItemStack in the slot specified.
-     */
-    public ItemStack getStackInRowAndColumn(int row, int column)
-    {
-        return row >= 0 && row < inventoryWidth && column >= 0 && column <= inventoryHeight ? getStackInSlot(row + column * inventoryWidth) : ItemStack.EMPTY;
-    }
+	public boolean isEmpty() {
 
-    /**
-     * Get the name of this object. For players this returns their username
-     */
-    public String getName()
-    {
-        return "container.crafting";
-    }
+		for (ItemStack itemstack : stackList) {
+			if (!itemstack.isEmpty()) {
+				return false;
+			}
+		}
 
-    /**
-     * Returns true if this thing is named
-     */
-    public boolean hasCustomName()
-    {
-        return false;
-    }
+		return true;
+	}
 
-    /**
-     * Get the formatted ChatComponent that will be used for the sender's username in chat
-     */
-    public ITextComponent getDisplayName()
-    {
-        return (ITextComponent)(hasCustomName() ? new TextComponentString(getName()) : new TextComponentTranslation(getName(), new Object[0]));
-    }
+	/**
+	 * Returns the stack in the given slot.
+	 */
+	public ItemStack getStackInSlot(int index) {
 
-    /**
-     * Removes a stack from the given slot and returns it.
-     */
-    public ItemStack removeStackFromSlot(int index)
-    {
-        return ItemStackHelper.getAndRemove(stackList, index);
-    }
+		return index >= getSizeInventory() ? ItemStack.EMPTY : stackList.get(index);
+	}
 
-    /**
-     * Removes up to a specified number of items from an inventory slot and returns them in a new stack.
-     */
-    public ItemStack decrStackSize(int index, int count)
-    {
-        ItemStack itemstack = ItemStackHelper.getAndSplit(stackList, index, count);
+	/**
+	 * Gets the ItemStack in the slot specified.
+	 */
+	public ItemStack getStackInRowAndColumn(int row, int column) {
 
-        if (!itemstack.isEmpty())
-        {
-            eventHandler.onCraftMatrixChanged(this);
-        }
+		return row >= 0 && row < inventoryWidth && column >= 0 && column <= inventoryHeight ? getStackInSlot(row + column * inventoryWidth) : ItemStack.EMPTY;
+	}
 
-        return itemstack;
-    }
+	/**
+	 * Get the name of this object. For players this returns their username
+	 */
+	public String getName() {
 
-    /**
-     * Sets the given item stack to the specified slot in the inventory (can be crafting or armor sections).
-     */
-    public void setInventorySlotContents(int index, ItemStack stack)
-    {
-        stackList.set(index, stack);
-        eventHandler.onCraftMatrixChanged(this);
-    }
+		return "container.crafting";
+	}
 
-    /**
-     * Returns the maximum stack size for a inventory slot. Seems to always be 64, possibly will be extended.
-     */
-    public int getInventoryStackLimit()
-    {
-        return 64;
-    }
+	/**
+	 * Returns true if this thing is named
+	 */
+	public boolean hasCustomName() {
 
-    /**
-     * For tile entities, ensures the chunk containing the tile entity is saved to disk later - the game won't think it
-     * hasn't changed and skip it.
-     */
-    public void markDirty()
-    {
-    }
+		return false;
+	}
 
-    /**
-     * Don't rename this method to canInteractWith due to conflicts with Container
-     */
-    public boolean isUsableByPlayer(EntityPlayer player)
-    {
-        return true;
-    }
+	/**
+	 * Get the formatted ChatComponent that will be used for the sender's username in chat
+	 */
+	public ITextComponent displayName() {
 
-    public void openInventory(EntityPlayer player)
-    {
-    }
+		return hasCustomName() ? new TextComponentString(getName()) : new TextComponentTranslation(getName(), new Object[0]);
+	}
 
-    public void closeInventory(EntityPlayer player)
-    {
-    }
+	/**
+	 * Removes a stack from the given slot and returns it.
+	 */
+	public ItemStack removeStackFromSlot(int index) {
 
-    /**
-     * Returns true if automation is allowed to insert the given stack (ignoring stack size) into the given slot. For
-     * guis use Slot.isItemValid
-     */
-    public boolean isItemValidForSlot(int index, ItemStack stack)
-    {
-        return true;
-    }
+		return ItemStackHelper.getAndRemove(stackList, index);
+	}
 
-    public int getField(int id)
-    {
-        return 0;
-    }
+	/**
+	 * Removes up to a specified number of items from an inventory slot and returns them in a new stack.
+	 */
+	public ItemStack decrStackSize(int index, int count) {
 
-    public void setField(int id, int value)
-    {
-    }
+		ItemStack itemstack = ItemStackHelper.getAndSplit(stackList, index, count);
 
-    public int getFieldCount()
-    {
-        return 0;
-    }
+		if (!itemstack.isEmpty()) {
+			eventHandler.onCraftMatrixChanged(this);
+		}
 
-    public void clear()
-    {
-        stackList.clear();
-    }
+		return itemstack;
+	}
 
-    public int getHeight()
-    {
-        return inventoryHeight;
-    }
+	/**
+	 * Sets the given item stack to the specified slot in the inventory (can be crafting or armor sections).
+	 */
+	public void setInventorySlotContents(int index, ItemStack stack) {
 
-    public int getWidth()
-    {
-        return inventoryWidth;
-    }
+		stackList.set(index, stack);
+		eventHandler.onCraftMatrixChanged(this);
+	}
 
-    public void fillStackedContents(RecipeItemHelper helper)
-    {
-        for (ItemStack itemstack : stackList)
-        {
-            helper.accountStack(itemstack);
-        }
-    }
+	/**
+	 * Returns the maximum stack size for a inventory slot. Seems to always be 64, possibly will be extended.
+	 */
+	public int getInventoryStackLimit() {
+
+		return 64;
+	}
+
+	/**
+	 * For tile entities, ensures the chunk containing the tile entity is saved to disk later - the game won't think it
+	 * hasn't changed and skip it.
+	 */
+	public void markDirty() {
+
+	}
+
+	/**
+	 * Don't rename this method to canInteractWith due to conflicts with Container
+	 */
+	public boolean isUsableByPlayer(EntityPlayer player) {
+
+		return true;
+	}
+
+	public void openInventory(EntityPlayer player) {
+
+	}
+
+	public void closeInventory(EntityPlayer player) {
+
+	}
+
+	/**
+	 * Returns true if automation is allowed to insert the given stack (ignoring stack size) into the given slot. For
+	 * guis use Slot.isItemValid
+	 */
+	public boolean isItemValidForSlot(int index, ItemStack stack) {
+
+		return true;
+	}
+
+	public int getField(int id) {
+
+		return 0;
+	}
+
+	public void setField(int id, int value) {
+
+	}
+
+	public int getFieldCount() {
+
+		return 0;
+	}
+
+	public void clear() {
+
+		stackList.clear();
+	}
+
+	public int getHeight() {
+
+		return inventoryHeight;
+	}
+
+	public int getWidth() {
+
+		return inventoryWidth;
+	}
+
+	public void fillStackedContents(RecipeItemHelper helper) {
+
+		for (ItemStack itemstack : stackList) {
+			helper.accountStack(itemstack);
+		}
+	}
+
 }

@@ -3,45 +3,44 @@ package net.minecraft.util.datafix.fixes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.datafix.IFixableData;
 
-public class HorseSplit implements IFixableData
-{
-    public int getFixVersion()
-    {
-        return 703;
-    }
+public class HorseSplit implements IFixableData {
 
-    public NBTTagCompound fixTagCompound(NBTTagCompound compound)
-    {
-        if ("EntityHorse".equals(compound.getString("id")))
-        {
-            int i = compound.getInteger("Type");
+	public int getFixVersion() {
 
-            switch (i)
-            {
-                case 0:
-                default:
-                    compound.setString("id", "Horse");
-                    break;
+		return 703;
+	}
 
-                case 1:
-                    compound.setString("id", "Donkey");
-                    break;
+	public NBTTagCompound fixTagCompound(NBTTagCompound compound) {
 
-                case 2:
-                    compound.setString("id", "Mule");
-                    break;
+		if ("EntityHorse".equals(compound.getString("id"))) {
+			int i = compound.getInteger("Type");
 
-                case 3:
-                    compound.setString("id", "ZombieHorse");
-                    break;
+			switch (i) {
+				case 0:
+				default:
+					compound.setString("id", "Horse");
+					break;
 
-                case 4:
-                    compound.setString("id", "SkeletonHorse");
-            }
+				case 1:
+					compound.setString("id", "Donkey");
+					break;
 
-            compound.removeTag("Type");
-        }
+				case 2:
+					compound.setString("id", "Mule");
+					break;
 
-        return compound;
-    }
+				case 3:
+					compound.setString("id", "ZombieHorse");
+					break;
+
+				case 4:
+					compound.setString("id", "SkeletonHorse");
+			}
+
+			compound.removeTag("Type");
+		}
+
+		return compound;
+	}
+
 }

@@ -2,59 +2,59 @@ package net.minecraft.entity.ai.attributes;
 
 import javax.annotation.Nullable;
 
-public abstract class BaseAttribute implements IAttribute
-{
-    private final IAttribute parent;
-    private final String unlocalizedName;
-    private final double defaultValue;
-    private boolean shouldWatch;
+public abstract class BaseAttribute implements IAttribute {
 
-    protected BaseAttribute(@Nullable IAttribute parentIn, String unlocalizedNameIn, double defaultValueIn)
-    {
-        parent = parentIn;
-        unlocalizedName = unlocalizedNameIn;
-        defaultValue = defaultValueIn;
+	private final IAttribute parent;
+	private final String unlocalizedName;
+	private final double defaultValue;
+	private boolean shouldWatch;
 
-        if (unlocalizedNameIn == null)
-        {
-            throw new IllegalArgumentException("Name cannot be null!");
-        }
-    }
+	protected BaseAttribute(@Nullable IAttribute parentIn, String unlocalizedNameIn, double defaultValueIn) {
 
-    public String getName()
-    {
-        return unlocalizedName;
-    }
+		parent = parentIn;
+		unlocalizedName = unlocalizedNameIn;
+		defaultValue = defaultValueIn;
 
-    public double getDefaultValue()
-    {
-        return defaultValue;
-    }
+		if (unlocalizedNameIn == null) {
+			throw new IllegalArgumentException("Name cannot be null!");
+		}
+	}
 
-    public boolean getShouldWatch()
-    {
-        return shouldWatch;
-    }
+	public String getName() {
 
-    public BaseAttribute setShouldWatch(boolean shouldWatchIn)
-    {
-        shouldWatch = shouldWatchIn;
-        return this;
-    }
+		return unlocalizedName;
+	}
 
-    @Nullable
-    public IAttribute getParent()
-    {
-        return parent;
-    }
+	public double getDefaultValue() {
 
-    public int hashCode()
-    {
-        return unlocalizedName.hashCode();
-    }
+		return defaultValue;
+	}
 
-    public boolean equals(Object p_equals_1_)
-    {
-        return p_equals_1_ instanceof IAttribute && unlocalizedName.equals(((IAttribute)p_equals_1_).getName());
-    }
+	public boolean getShouldWatch() {
+
+		return shouldWatch;
+	}
+
+	public BaseAttribute setShouldWatch(boolean shouldWatchIn) {
+
+		shouldWatch = shouldWatchIn;
+		return this;
+	}
+
+	@Nullable
+	public IAttribute getParent() {
+
+		return parent;
+	}
+
+	public int hashCode() {
+
+		return unlocalizedName.hashCode();
+	}
+
+	public boolean equals(Object p_equals_1_) {
+
+		return p_equals_1_ instanceof IAttribute && unlocalizedName.equals(((IAttribute) p_equals_1_).getName());
+	}
+
 }

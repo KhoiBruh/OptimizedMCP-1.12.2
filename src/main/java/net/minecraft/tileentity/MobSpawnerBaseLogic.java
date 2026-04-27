@@ -1,322 +1,290 @@
 package net.minecraft.tileentity;
 
 import com.google.common.collect.Lists;
-import java.util.List;
-import javax.annotation.Nullable;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StringUtils;
-import net.minecraft.util.WeightedRandom;
-import net.minecraft.util.WeightedSpawnerEntity;
+import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.storage.AnvilChunkLoader;
 
-public abstract class MobSpawnerBaseLogic
-{
-    /** The delay to spawn. */
-    private int spawnDelay = 20;
-    private final List<WeightedSpawnerEntity> potentialSpawns = Lists.<WeightedSpawnerEntity>newArrayList();
-    private WeightedSpawnerEntity spawnData = new WeightedSpawnerEntity();
+import javax.annotation.Nullable;
+import java.util.List;
 
-    /** The rotation of the mob inside the mob spawner */
-    private double mobRotation;
+public abstract class MobSpawnerBaseLogic {
 
-    /** the previous rotation of the mob inside the mob spawner */
-    private double prevMobRotation;
-    private int minSpawnDelay = 200;
-    private int maxSpawnDelay = 800;
-    private int spawnCount = 4;
+	/**
+	 * The delay to spawn.
+	 */
+	private int spawnDelay = 20;
+	private final List<WeightedSpawnerEntity> potentialSpawns = Lists.newArrayList();
+	private WeightedSpawnerEntity spawnData = new WeightedSpawnerEntity();
 
-    /** Cached instance of the entity to render inside the spawner. */
-    private Entity cachedEntity;
-    private int maxNearbyEntities = 6;
+	/**
+	 * The rotation of the mob inside the mob spawner
+	 */
+	private double mobRotation;
 
-    /** The distance from which a player activates the spawner. */
-    private int activatingRangeFromPlayer = 16;
+	/**
+	 * the previous rotation of the mob inside the mob spawner
+	 */
+	private double prevMobRotation;
+	private int minSpawnDelay = 200;
+	private int maxSpawnDelay = 800;
+	private int spawnCount = 4;
 
-    /** The range coefficient for spawning entities around. */
-    private int spawnRange = 4;
+	/**
+	 * Cached instance of the entity to render inside the spawner.
+	 */
+	private Entity cachedEntity;
+	private int maxNearbyEntities = 6;
 
-    @Nullable
-    private ResourceLocation getEntityId()
-    {
-        String s = spawnData.getNbt().getString("id");
-        return StringUtils.isNullOrEmpty(s) ? null : new ResourceLocation(s);
-    }
+	/**
+	 * The distance from which a player activates the spawner.
+	 */
+	private int activatingRangeFromPlayer = 16;
 
-    public void setEntityId(@Nullable ResourceLocation id)
-    {
-        if (id != null)
-        {
-            spawnData.getNbt().setString("id", id.toString());
-        }
-    }
+	/**
+	 * The range coefficient for spawning entities around.
+	 */
+	private int spawnRange = 4;
 
-    /**
-     * Returns true if there's a player close enough to this mob spawner to activate it.
-     */
-    private boolean isActivated()
-    {
-        BlockPos blockpos = getSpawnerPosition();
-        return getSpawnerWorld().isAnyPlayerWithinRangeAt((double)blockpos.getX() + 0.5D, (double)blockpos.getY() + 0.5D, (double)blockpos.getZ() + 0.5D, (double) activatingRangeFromPlayer);
-    }
+	@Nullable
+	private ResourceLocation getEntityId() {
 
-    public void updateSpawner()
-    {
-        if (!isActivated())
-        {
-            prevMobRotation = mobRotation;
-        }
-        else
-        {
-            BlockPos blockpos = getSpawnerPosition();
+		String s = spawnData.getNbt().getString("id");
+		return StringUtils.isNullOrEmpty(s) ? null : new ResourceLocation(s);
+	}
 
-            if (getSpawnerWorld().isRemote)
-            {
-                double d3 = (double)((float)blockpos.getX() + getSpawnerWorld().rand.nextFloat());
-                double d4 = (double)((float)blockpos.getY() + getSpawnerWorld().rand.nextFloat());
-                double d5 = (double)((float)blockpos.getZ() + getSpawnerWorld().rand.nextFloat());
-                getSpawnerWorld().spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d3, d4, d5, 0.0D, 0.0D, 0.0D);
-                getSpawnerWorld().spawnParticle(EnumParticleTypes.FLAME, d3, d4, d5, 0.0D, 0.0D, 0.0D);
+	public void setEntityId(@Nullable ResourceLocation id) {
 
-                if (spawnDelay > 0)
-                {
-                    --spawnDelay;
-                }
+		if (id != null) {
+			spawnData.getNbt().setString("id", id.toString());
+		}
+	}
 
-                prevMobRotation = mobRotation;
-                mobRotation = (mobRotation + (double)(1000.0F / ((float) spawnDelay + 200.0F))) % 360.0D;
-            }
-            else
-            {
-                if (spawnDelay == -1)
-                {
-                    resetTimer();
-                }
+	/**
+	 * Returns true if there's a player close enough to this mob spawner to activate it.
+	 */
+	private boolean isActivated() {
 
-                if (spawnDelay > 0)
-                {
-                    --spawnDelay;
-                    return;
-                }
+		BlockPos blockpos = getSpawnerPosition();
+		return getSpawnerWorld().isAnyPlayerWithinRangeAt((double) blockpos.getX() + 0.5D, (double) blockpos.getY() + 0.5D, (double) blockpos.getZ() + 0.5D, activatingRangeFromPlayer);
+	}
 
-                boolean flag = false;
+	public void updateSpawner() {
 
-                for (int i = 0; i < spawnCount; ++i)
-                {
-                    NBTTagCompound nbttagcompound = spawnData.getNbt();
-                    NBTTagList nbttaglist = nbttagcompound.getTagList("Pos", 6);
-                    World world = getSpawnerWorld();
-                    int j = nbttaglist.tagCount();
-                    double d0 = j >= 1 ? nbttaglist.getDoubleAt(0) : (double)blockpos.getX() + (world.rand.nextDouble() - world.rand.nextDouble()) * (double) spawnRange + 0.5D;
-                    double d1 = j >= 2 ? nbttaglist.getDoubleAt(1) : (double)(blockpos.getY() + world.rand.nextInt(3) - 1);
-                    double d2 = j >= 3 ? nbttaglist.getDoubleAt(2) : (double)blockpos.getZ() + (world.rand.nextDouble() - world.rand.nextDouble()) * (double) spawnRange + 0.5D;
-                    Entity entity = AnvilChunkLoader.readWorldEntityPos(nbttagcompound, world, d0, d1, d2, false);
+		if (!isActivated()) {
+			prevMobRotation = mobRotation;
+		} else {
+			BlockPos blockpos = getSpawnerPosition();
 
-                    if (entity == null)
-                    {
-                        return;
-                    }
+			if (getSpawnerWorld().isRemote) {
+				double d3 = (float) blockpos.getX() + getSpawnerWorld().rand.nextFloat();
+				double d4 = (float) blockpos.getY() + getSpawnerWorld().rand.nextFloat();
+				double d5 = (float) blockpos.getZ() + getSpawnerWorld().rand.nextFloat();
+				getSpawnerWorld().spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d3, d4, d5, 0.0D, 0.0D, 0.0D);
+				getSpawnerWorld().spawnParticle(EnumParticleTypes.FLAME, d3, d4, d5, 0.0D, 0.0D, 0.0D);
 
-                    int k = world.getEntitiesWithinAABB(entity.getClass(), (new AxisAlignedBB((double)blockpos.getX(), (double)blockpos.getY(), (double)blockpos.getZ(), (double)(blockpos.getX() + 1), (double)(blockpos.getY() + 1), (double)(blockpos.getZ() + 1))).grow((double) spawnRange)).size();
+				if (spawnDelay > 0) {
+					--spawnDelay;
+				}
 
-                    if (k >= maxNearbyEntities)
-                    {
-                        resetTimer();
-                        return;
-                    }
+				prevMobRotation = mobRotation;
+				mobRotation = (mobRotation + (double) (1000.0F / ((float) spawnDelay + 200.0F))) % 360.0D;
+			} else {
+				if (spawnDelay == -1) {
+					resetTimer();
+				}
 
-                    EntityLiving entityliving = entity instanceof EntityLiving ? (EntityLiving)entity : null;
-                    entity.setLocationAndAngles(entity.posX, entity.posY, entity.posZ, world.rand.nextFloat() * 360.0F, 0.0F);
+				if (spawnDelay > 0) {
+					--spawnDelay;
+					return;
+				}
 
-                    if (entityliving == null || entityliving.getCanSpawnHere() && entityliving.isNotColliding())
-                    {
-                        if (spawnData.getNbt().getSize() == 1 && spawnData.getNbt().hasKey("id", 8) && entity instanceof EntityLiving)
-                        {
-                            ((EntityLiving)entity).onInitialSpawn(world.getDifficultyForLocation(new BlockPos(entity)), (IEntityLivingData)null);
-                        }
+				boolean flag = false;
 
-                        AnvilChunkLoader.spawnEntity(entity, world);
-                        world.playEvent(2004, blockpos, 0);
+				for (int i = 0; i < spawnCount; ++i) {
+					NBTTagCompound nbttagcompound = spawnData.getNbt();
+					NBTTagList nbttaglist = nbttagcompound.getTagList("Pos", 6);
+					World world = getSpawnerWorld();
+					int j = nbttaglist.tagCount();
+					double d0 = j >= 1 ? nbttaglist.getDoubleAt(0) : (double) blockpos.getX() + (world.rand.nextDouble() - world.rand.nextDouble()) * (double) spawnRange + 0.5D;
+					double d1 = j >= 2 ? nbttaglist.getDoubleAt(1) : (double) (blockpos.getY() + world.rand.nextInt(3) - 1);
+					double d2 = j >= 3 ? nbttaglist.getDoubleAt(2) : (double) blockpos.getZ() + (world.rand.nextDouble() - world.rand.nextDouble()) * (double) spawnRange + 0.5D;
+					Entity entity = AnvilChunkLoader.readWorldEntityPos(nbttagcompound, world, d0, d1, d2, false);
 
-                        if (entityliving != null)
-                        {
-                            entityliving.spawnExplosionParticle();
-                        }
+					if (entity == null) {
+						return;
+					}
 
-                        flag = true;
-                    }
-                }
+					int k = world.getEntitiesWithinAABB(entity.getClass(), (new AxisAlignedBB(blockpos.getX(), blockpos.getY(), blockpos.getZ(), blockpos.getX() + 1, blockpos.getY() + 1, blockpos.getZ() + 1)).grow(spawnRange)).size();
 
-                if (flag)
-                {
-                    resetTimer();
-                }
-            }
-        }
-    }
+					if (k >= maxNearbyEntities) {
+						resetTimer();
+						return;
+					}
 
-    private void resetTimer()
-    {
-        if (maxSpawnDelay <= minSpawnDelay)
-        {
-            spawnDelay = minSpawnDelay;
-        }
-        else
-        {
-            int i = maxSpawnDelay - minSpawnDelay;
-            spawnDelay = minSpawnDelay + getSpawnerWorld().rand.nextInt(i);
-        }
+					EntityLiving entityliving = entity instanceof EntityLiving ? (EntityLiving) entity : null;
+					entity.setLocationAndAngles(entity.posX, entity.posY, entity.posZ, world.rand.nextFloat() * 360.0F, 0.0F);
 
-        if (!potentialSpawns.isEmpty())
-        {
-            setNextSpawnData((WeightedSpawnerEntity)WeightedRandom.getRandomItem(getSpawnerWorld().rand, potentialSpawns));
-        }
+					if (entityliving == null || entityliving.getCanSpawnHere() && entityliving.isNotColliding()) {
+						if (spawnData.getNbt().getSize() == 1 && spawnData.getNbt().hasKey("id", 8) && entity instanceof EntityLiving) {
+							((EntityLiving) entity).onInitialSpawn(world.getDifficultyForLocation(new BlockPos(entity)), null);
+						}
 
-        broadcastEvent(1);
-    }
+						AnvilChunkLoader.spawnEntity(entity, world);
+						world.playEvent(2004, blockpos, 0);
 
-    public void readFromNBT(NBTTagCompound nbt)
-    {
-        spawnDelay = nbt.getShort("Delay");
-        potentialSpawns.clear();
+						if (entityliving != null) {
+							entityliving.spawnExplosionParticle();
+						}
 
-        if (nbt.hasKey("SpawnPotentials", 9))
-        {
-            NBTTagList nbttaglist = nbt.getTagList("SpawnPotentials", 10);
+						flag = true;
+					}
+				}
 
-            for (int i = 0; i < nbttaglist.tagCount(); ++i)
-            {
-                potentialSpawns.add(new WeightedSpawnerEntity(nbttaglist.getCompoundTagAt(i)));
-            }
-        }
+				if (flag) {
+					resetTimer();
+				}
+			}
+		}
+	}
 
-        if (nbt.hasKey("SpawnData", 10))
-        {
-            setNextSpawnData(new WeightedSpawnerEntity(1, nbt.getCompoundTag("SpawnData")));
-        }
-        else if (!potentialSpawns.isEmpty())
-        {
-            setNextSpawnData((WeightedSpawnerEntity)WeightedRandom.getRandomItem(getSpawnerWorld().rand, potentialSpawns));
-        }
+	private void resetTimer() {
 
-        if (nbt.hasKey("MinSpawnDelay", 99))
-        {
-            minSpawnDelay = nbt.getShort("MinSpawnDelay");
-            maxSpawnDelay = nbt.getShort("MaxSpawnDelay");
-            spawnCount = nbt.getShort("SpawnCount");
-        }
+		if (maxSpawnDelay <= minSpawnDelay) {
+			spawnDelay = minSpawnDelay;
+		} else {
+			int i = maxSpawnDelay - minSpawnDelay;
+			spawnDelay = minSpawnDelay + getSpawnerWorld().rand.nextInt(i);
+		}
 
-        if (nbt.hasKey("MaxNearbyEntities", 99))
-        {
-            maxNearbyEntities = nbt.getShort("MaxNearbyEntities");
-            activatingRangeFromPlayer = nbt.getShort("RequiredPlayerRange");
-        }
+		if (!potentialSpawns.isEmpty()) {
+			setNextSpawnData(WeightedRandom.getRandomItem(getSpawnerWorld().rand, potentialSpawns));
+		}
 
-        if (nbt.hasKey("SpawnRange", 99))
-        {
-            spawnRange = nbt.getShort("SpawnRange");
-        }
+		broadcastEvent(1);
+	}
 
-        if (getSpawnerWorld() != null)
-        {
-            cachedEntity = null;
-        }
-    }
+	public void readFromNBT(NBTTagCompound nbt) {
 
-    public NBTTagCompound writeToNBT(NBTTagCompound p_189530_1_)
-    {
-        ResourceLocation resourcelocation = getEntityId();
+		spawnDelay = nbt.getShort("Delay");
+		potentialSpawns.clear();
 
-        if (resourcelocation == null)
-        {
-            return p_189530_1_;
-        }
-        else
-        {
-            p_189530_1_.setShort("Delay", (short) spawnDelay);
-            p_189530_1_.setShort("MinSpawnDelay", (short) minSpawnDelay);
-            p_189530_1_.setShort("MaxSpawnDelay", (short) maxSpawnDelay);
-            p_189530_1_.setShort("SpawnCount", (short) spawnCount);
-            p_189530_1_.setShort("MaxNearbyEntities", (short) maxNearbyEntities);
-            p_189530_1_.setShort("RequiredPlayerRange", (short) activatingRangeFromPlayer);
-            p_189530_1_.setShort("SpawnRange", (short) spawnRange);
-            p_189530_1_.setTag("SpawnData", spawnData.getNbt().copy());
-            NBTTagList nbttaglist = new NBTTagList();
+		if (nbt.hasKey("SpawnPotentials", 9)) {
+			NBTTagList nbttaglist = nbt.getTagList("SpawnPotentials", 10);
 
-            if (potentialSpawns.isEmpty())
-            {
-                nbttaglist.appendTag(spawnData.toCompoundTag());
-            }
-            else
-            {
-                for (WeightedSpawnerEntity weightedspawnerentity : potentialSpawns)
-                {
-                    nbttaglist.appendTag(weightedspawnerentity.toCompoundTag());
-                }
-            }
+			for (int i = 0; i < nbttaglist.tagCount(); ++i) {
+				potentialSpawns.add(new WeightedSpawnerEntity(nbttaglist.getCompoundTagAt(i)));
+			}
+		}
 
-            p_189530_1_.setTag("SpawnPotentials", nbttaglist);
-            return p_189530_1_;
-        }
-    }
+		if (nbt.hasKey("SpawnData", 10)) {
+			setNextSpawnData(new WeightedSpawnerEntity(1, nbt.getCompoundTag("SpawnData")));
+		} else if (!potentialSpawns.isEmpty()) {
+			setNextSpawnData(WeightedRandom.getRandomItem(getSpawnerWorld().rand, potentialSpawns));
+		}
 
-    public Entity getCachedEntity()
-    {
-        if (cachedEntity == null)
-        {
-            cachedEntity = AnvilChunkLoader.readWorldEntity(spawnData.getNbt(), getSpawnerWorld(), false);
+		if (nbt.hasKey("MinSpawnDelay", 99)) {
+			minSpawnDelay = nbt.getShort("MinSpawnDelay");
+			maxSpawnDelay = nbt.getShort("MaxSpawnDelay");
+			spawnCount = nbt.getShort("SpawnCount");
+		}
 
-            if (spawnData.getNbt().getSize() == 1 && spawnData.getNbt().hasKey("id", 8) && cachedEntity instanceof EntityLiving)
-            {
-                ((EntityLiving) cachedEntity).onInitialSpawn(getSpawnerWorld().getDifficultyForLocation(new BlockPos(cachedEntity)), (IEntityLivingData)null);
-            }
-        }
+		if (nbt.hasKey("MaxNearbyEntities", 99)) {
+			maxNearbyEntities = nbt.getShort("MaxNearbyEntities");
+			activatingRangeFromPlayer = nbt.getShort("RequiredPlayerRange");
+		}
 
-        return cachedEntity;
-    }
+		if (nbt.hasKey("SpawnRange", 99)) {
+			spawnRange = nbt.getShort("SpawnRange");
+		}
 
-    /**
-     * Sets the delay to minDelay if parameter given is 1, else return false.
-     */
-    public boolean setDelayToMin(int delay)
-    {
-        if (delay == 1 && getSpawnerWorld().isRemote)
-        {
-            spawnDelay = minSpawnDelay;
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
+		if (getSpawnerWorld() != null) {
+			cachedEntity = null;
+		}
+	}
 
-    public void setNextSpawnData(WeightedSpawnerEntity p_184993_1_)
-    {
-        spawnData = p_184993_1_;
-    }
+	public NBTTagCompound writeToNBT(NBTTagCompound p_189530_1_) {
 
-    public abstract void broadcastEvent(int id);
+		ResourceLocation resourcelocation = getEntityId();
 
-    public abstract World getSpawnerWorld();
+		if (resourcelocation == null) {
+			return p_189530_1_;
+		} else {
+			p_189530_1_.setShort("Delay", (short) spawnDelay);
+			p_189530_1_.setShort("MinSpawnDelay", (short) minSpawnDelay);
+			p_189530_1_.setShort("MaxSpawnDelay", (short) maxSpawnDelay);
+			p_189530_1_.setShort("SpawnCount", (short) spawnCount);
+			p_189530_1_.setShort("MaxNearbyEntities", (short) maxNearbyEntities);
+			p_189530_1_.setShort("RequiredPlayerRange", (short) activatingRangeFromPlayer);
+			p_189530_1_.setShort("SpawnRange", (short) spawnRange);
+			p_189530_1_.setTag("SpawnData", spawnData.getNbt().copy());
+			NBTTagList nbttaglist = new NBTTagList();
 
-    public abstract BlockPos getSpawnerPosition();
+			if (potentialSpawns.isEmpty()) {
+				nbttaglist.appendTag(spawnData.toCompoundTag());
+			} else {
+				for (WeightedSpawnerEntity weightedspawnerentity : potentialSpawns) {
+					nbttaglist.appendTag(weightedspawnerentity.toCompoundTag());
+				}
+			}
 
-    public double getMobRotation()
-    {
-        return mobRotation;
-    }
+			p_189530_1_.setTag("SpawnPotentials", nbttaglist);
+			return p_189530_1_;
+		}
+	}
 
-    public double getPrevMobRotation()
-    {
-        return prevMobRotation;
-    }
+	public Entity getCachedEntity() {
+
+		if (cachedEntity == null) {
+			cachedEntity = AnvilChunkLoader.readWorldEntity(spawnData.getNbt(), getSpawnerWorld(), false);
+
+			if (spawnData.getNbt().getSize() == 1 && spawnData.getNbt().hasKey("id", 8) && cachedEntity instanceof EntityLiving) {
+				((EntityLiving) cachedEntity).onInitialSpawn(getSpawnerWorld().getDifficultyForLocation(new BlockPos(cachedEntity)), null);
+			}
+		}
+
+		return cachedEntity;
+	}
+
+	/**
+	 * Sets the delay to minDelay if parameter given is 1, else return false.
+	 */
+	public boolean setDelayToMin(int delay) {
+
+		if (delay == 1 && getSpawnerWorld().isRemote) {
+			spawnDelay = minSpawnDelay;
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public void setNextSpawnData(WeightedSpawnerEntity p_184993_1_) {
+
+		spawnData = p_184993_1_;
+	}
+
+	public abstract void broadcastEvent(int id);
+
+	public abstract World getSpawnerWorld();
+
+	public abstract BlockPos getSpawnerPosition();
+
+	public double getMobRotation() {
+
+		return mobRotation;
+	}
+
+	public double getPrevMobRotation() {
+
+		return prevMobRotation;
+	}
+
 }

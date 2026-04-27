@@ -6,135 +6,115 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 
-public class RecipesMapCloning implements IRecipe
-{
-    /**
-     * Used to check if a recipe matches current crafting inventory
-     */
-    public boolean matches(InventoryCrafting inv, World worldIn)
-    {
-        int i = 0;
-        ItemStack itemstack = ItemStack.EMPTY;
+public class RecipesMapCloning implements IRecipe {
 
-        for (int j = 0; j < inv.getSizeInventory(); ++j)
-        {
-            ItemStack itemstack1 = inv.getStackInSlot(j);
+	/**
+	 * Used to check if a recipe matches current crafting inventory
+	 */
+	public boolean matches(InventoryCrafting inv, World worldIn) {
 
-            if (!itemstack1.isEmpty())
-            {
-                if (itemstack1.getItem() == Items.FILLED_MAP)
-                {
-                    if (!itemstack.isEmpty())
-                    {
-                        return false;
-                    }
+		int i = 0;
+		ItemStack itemstack = ItemStack.EMPTY;
 
-                    itemstack = itemstack1;
-                }
-                else
-                {
-                    if (itemstack1.getItem() != Items.MAP)
-                    {
-                        return false;
-                    }
+		for (int j = 0; j < inv.getSizeInventory(); ++j) {
+			ItemStack itemstack1 = inv.getStackInSlot(j);
 
-                    ++i;
-                }
-            }
-        }
+			if (!itemstack1.isEmpty()) {
+				if (itemstack1.getItem() == Items.FILLED_MAP) {
+					if (!itemstack.isEmpty()) {
+						return false;
+					}
 
-        return !itemstack.isEmpty() && i > 0;
-    }
+					itemstack = itemstack1;
+				} else {
+					if (itemstack1.getItem() != Items.MAP) {
+						return false;
+					}
 
-    /**
-     * Returns an Item that is the result of this recipe
-     */
-    public ItemStack getCraftingResult(InventoryCrafting inv)
-    {
-        int i = 0;
-        ItemStack itemstack = ItemStack.EMPTY;
+					++i;
+				}
+			}
+		}
 
-        for (int j = 0; j < inv.getSizeInventory(); ++j)
-        {
-            ItemStack itemstack1 = inv.getStackInSlot(j);
+		return !itemstack.isEmpty() && i > 0;
+	}
 
-            if (!itemstack1.isEmpty())
-            {
-                if (itemstack1.getItem() == Items.FILLED_MAP)
-                {
-                    if (!itemstack.isEmpty())
-                    {
-                        return ItemStack.EMPTY;
-                    }
+	/**
+	 * Returns an Item that is the result of this recipe
+	 */
+	public ItemStack getCraftingResult(InventoryCrafting inv) {
 
-                    itemstack = itemstack1;
-                }
-                else
-                {
-                    if (itemstack1.getItem() != Items.MAP)
-                    {
-                        return ItemStack.EMPTY;
-                    }
+		int i = 0;
+		ItemStack itemstack = ItemStack.EMPTY;
 
-                    ++i;
-                }
-            }
-        }
+		for (int j = 0; j < inv.getSizeInventory(); ++j) {
+			ItemStack itemstack1 = inv.getStackInSlot(j);
 
-        if (!itemstack.isEmpty() && i >= 1)
-        {
-            ItemStack itemstack2 = new ItemStack(Items.FILLED_MAP, i + 1, itemstack.getMetadata());
+			if (!itemstack1.isEmpty()) {
+				if (itemstack1.getItem() == Items.FILLED_MAP) {
+					if (!itemstack.isEmpty()) {
+						return ItemStack.EMPTY;
+					}
 
-            if (itemstack.hasDisplayName())
-            {
-                itemstack2.setStackDisplayName(itemstack.getDisplayName());
-            }
+					itemstack = itemstack1;
+				} else {
+					if (itemstack1.getItem() != Items.MAP) {
+						return ItemStack.EMPTY;
+					}
 
-            if (itemstack.hasTagCompound())
-            {
-                itemstack2.setTagCompound(itemstack.getTagCompound());
-            }
+					++i;
+				}
+			}
+		}
 
-            return itemstack2;
-        }
-        else
-        {
-            return ItemStack.EMPTY;
-        }
-    }
+		if (!itemstack.isEmpty() && i >= 1) {
+			ItemStack itemstack2 = new ItemStack(Items.FILLED_MAP, i + 1, itemstack.getMetadata());
 
-    public ItemStack getRecipeOutput()
-    {
-        return ItemStack.EMPTY;
-    }
+			if (itemstack.hasDisplayName()) {
+				itemstack2.setStackDisplayName(itemstack.getDisplayName());
+			}
 
-    public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv)
-    {
-        NonNullList<ItemStack> nonnulllist = NonNullList.<ItemStack>withSize(inv.getSizeInventory(), ItemStack.EMPTY);
+			if (itemstack.hasTagCompound()) {
+				itemstack2.setTagCompound(itemstack.getTagCompound());
+			}
 
-        for (int i = 0; i < nonnulllist.size(); ++i)
-        {
-            ItemStack itemstack = inv.getStackInSlot(i);
+			return itemstack2;
+		} else {
+			return ItemStack.EMPTY;
+		}
+	}
 
-            if (itemstack.getItem().hasContainerItem())
-            {
-                nonnulllist.set(i, new ItemStack(itemstack.getItem().getContainerItem()));
-            }
-        }
+	public ItemStack getRecipeOutput() {
 
-        return nonnulllist;
-    }
+		return ItemStack.EMPTY;
+	}
 
-    public boolean isDynamic()
-    {
-        return true;
-    }
+	public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv) {
 
-    /**
-     * Used to determine if this recipe can fit in a grid of the given width/height
-     */
-    public boolean canFit(int width, int height)
-    {
-        return width >= 3 && height >= 3;
-    }
+		NonNullList<ItemStack> nonnulllist = NonNullList.withSize(inv.getSizeInventory(), ItemStack.EMPTY);
+
+		for (int i = 0; i < nonnulllist.size(); ++i) {
+			ItemStack itemstack = inv.getStackInSlot(i);
+
+			if (itemstack.getItem().hasContainerItem()) {
+				nonnulllist.set(i, new ItemStack(itemstack.getItem().getContainerItem()));
+			}
+		}
+
+		return nonnulllist;
+	}
+
+	public boolean isDynamic() {
+
+		return true;
+	}
+
+	/**
+	 * Used to determine if this recipe can fit in a grid of the given width/height
+	 */
+	public boolean canFit(int width, int height) {
+
+		return width >= 3 && height >= 3;
+	}
+
 }

@@ -1,185 +1,180 @@
 package net.minecraft.network.play.server;
 
-import java.io.IOException;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayClient;
 import net.minecraft.world.border.WorldBorder;
 
-public class SPacketWorldBorder implements Packet<INetHandlerPlayClient>
-{
-    private SPacketWorldBorder.Action action;
-    private int size;
-    private double centerX;
-    private double centerZ;
-    private double targetSize;
-    private double diameter;
-    private long timeUntilTarget;
-    private int warningTime;
-    private int warningDistance;
+import java.io.IOException;
 
-    public SPacketWorldBorder()
-    {
-    }
+public class SPacketWorldBorder implements Packet<INetHandlerPlayClient> {
 
-    public SPacketWorldBorder(WorldBorder border, SPacketWorldBorder.Action actionIn)
-    {
-        action = actionIn;
-        centerX = border.getCenterX();
-        centerZ = border.getCenterZ();
-        diameter = border.getDiameter();
-        targetSize = border.getTargetSize();
-        timeUntilTarget = border.getTimeUntilTarget();
-        size = border.getSize();
-        warningDistance = border.getWarningDistance();
-        warningTime = border.getWarningTime();
-    }
+	private SPacketWorldBorder.Action action;
+	private int size;
+	private double centerX;
+	private double centerZ;
+	private double targetSize;
+	private double diameter;
+	private long timeUntilTarget;
+	private int warningTime;
+	private int warningDistance;
 
-    /**
-     * Reads the raw packet data from the data stream.
-     */
-    public void readPacketData(PacketBuffer buf) throws IOException
-    {
-        action = (SPacketWorldBorder.Action)buf.readEnumValue(SPacketWorldBorder.Action.class);
+	public SPacketWorldBorder() {
 
-        switch (action)
-        {
-            case SET_SIZE:
-                targetSize = buf.readDouble();
-                break;
+	}
 
-            case LERP_SIZE:
-                diameter = buf.readDouble();
-                targetSize = buf.readDouble();
-                timeUntilTarget = buf.readVarLong();
-                break;
+	public SPacketWorldBorder(WorldBorder border, SPacketWorldBorder.Action actionIn) {
 
-            case SET_CENTER:
-                centerX = buf.readDouble();
-                centerZ = buf.readDouble();
-                break;
+		action = actionIn;
+		centerX = border.getCenterX();
+		centerZ = border.getCenterZ();
+		diameter = border.getDiameter();
+		targetSize = border.getTargetSize();
+		timeUntilTarget = border.getTimeUntilTarget();
+		size = border.getSize();
+		warningDistance = border.getWarningDistance();
+		warningTime = border.getWarningTime();
+	}
 
-            case SET_WARNING_BLOCKS:
-                warningDistance = buf.readVarInt();
-                break;
+	/**
+	 * Reads the raw packet data from the data stream.
+	 */
+	public void readPacketData(PacketBuffer buf) throws IOException {
 
-            case SET_WARNING_TIME:
-                warningTime = buf.readVarInt();
-                break;
+		action = buf.readEnumValue(Action.class);
 
-            case INITIALIZE:
-                centerX = buf.readDouble();
-                centerZ = buf.readDouble();
-                diameter = buf.readDouble();
-                targetSize = buf.readDouble();
-                timeUntilTarget = buf.readVarLong();
-                size = buf.readVarInt();
-                warningDistance = buf.readVarInt();
-                warningTime = buf.readVarInt();
-        }
-    }
+		switch (action) {
+			case SET_SIZE:
+				targetSize = buf.readDouble();
+				break;
 
-    /**
-     * Writes the raw packet data to the data stream.
-     */
-    public void writePacketData(PacketBuffer buf) throws IOException
-    {
-        buf.writeEnumValue(action);
+			case LERP_SIZE:
+				diameter = buf.readDouble();
+				targetSize = buf.readDouble();
+				timeUntilTarget = buf.readVarLong();
+				break;
 
-        switch (action)
-        {
-            case SET_SIZE:
-                buf.writeDouble(targetSize);
-                break;
+			case SET_CENTER:
+				centerX = buf.readDouble();
+				centerZ = buf.readDouble();
+				break;
 
-            case LERP_SIZE:
-                buf.writeDouble(diameter);
-                buf.writeDouble(targetSize);
-                buf.writeVarLong(timeUntilTarget);
-                break;
+			case SET_WARNING_BLOCKS:
+				warningDistance = buf.readVarInt();
+				break;
 
-            case SET_CENTER:
-                buf.writeDouble(centerX);
-                buf.writeDouble(centerZ);
-                break;
+			case SET_WARNING_TIME:
+				warningTime = buf.readVarInt();
+				break;
 
-            case SET_WARNING_BLOCKS:
-                buf.writeVarInt(warningDistance);
-                break;
+			case INITIALIZE:
+				centerX = buf.readDouble();
+				centerZ = buf.readDouble();
+				diameter = buf.readDouble();
+				targetSize = buf.readDouble();
+				timeUntilTarget = buf.readVarLong();
+				size = buf.readVarInt();
+				warningDistance = buf.readVarInt();
+				warningTime = buf.readVarInt();
+		}
+	}
 
-            case SET_WARNING_TIME:
-                buf.writeVarInt(warningTime);
-                break;
+	/**
+	 * Writes the raw packet data to the data stream.
+	 */
+	public void writePacketData(PacketBuffer buf) throws IOException {
 
-            case INITIALIZE:
-                buf.writeDouble(centerX);
-                buf.writeDouble(centerZ);
-                buf.writeDouble(diameter);
-                buf.writeDouble(targetSize);
-                buf.writeVarLong(timeUntilTarget);
-                buf.writeVarInt(size);
-                buf.writeVarInt(warningDistance);
-                buf.writeVarInt(warningTime);
-        }
-    }
+		buf.writeEnumValue(action);
 
-    /**
-     * Passes this Packet on to the NetHandler for processing.
-     */
-    public void processPacket(INetHandlerPlayClient handler)
-    {
-        handler.handleWorldBorder(this);
-    }
+		switch (action) {
+			case SET_SIZE:
+				buf.writeDouble(targetSize);
+				break;
 
-    public void apply(WorldBorder border)
-    {
-        switch (action)
-        {
-            case SET_SIZE:
-                border.setTransition(targetSize);
-                break;
+			case LERP_SIZE:
+				buf.writeDouble(diameter);
+				buf.writeDouble(targetSize);
+				buf.writeVarLong(timeUntilTarget);
+				break;
 
-            case LERP_SIZE:
-                border.setTransition(diameter, targetSize, timeUntilTarget);
-                break;
+			case SET_CENTER:
+				buf.writeDouble(centerX);
+				buf.writeDouble(centerZ);
+				break;
 
-            case SET_CENTER:
-                border.setCenter(centerX, centerZ);
-                break;
+			case SET_WARNING_BLOCKS:
+				buf.writeVarInt(warningDistance);
+				break;
 
-            case SET_WARNING_BLOCKS:
-                border.setWarningDistance(warningDistance);
-                break;
+			case SET_WARNING_TIME:
+				buf.writeVarInt(warningTime);
+				break;
 
-            case SET_WARNING_TIME:
-                border.setWarningTime(warningTime);
-                break;
+			case INITIALIZE:
+				buf.writeDouble(centerX);
+				buf.writeDouble(centerZ);
+				buf.writeDouble(diameter);
+				buf.writeDouble(targetSize);
+				buf.writeVarLong(timeUntilTarget);
+				buf.writeVarInt(size);
+				buf.writeVarInt(warningDistance);
+				buf.writeVarInt(warningTime);
+		}
+	}
 
-            case INITIALIZE:
-                border.setCenter(centerX, centerZ);
+	/**
+	 * Passes this Packet on to the NetHandler for processing.
+	 */
+	public void processPacket(INetHandlerPlayClient handler) {
 
-                if (timeUntilTarget > 0L)
-                {
-                    border.setTransition(diameter, targetSize, timeUntilTarget);
-                }
-                else
-                {
-                    border.setTransition(targetSize);
-                }
+		handler.handleWorldBorder(this);
+	}
 
-                border.setSize(size);
-                border.setWarningDistance(warningDistance);
-                border.setWarningTime(warningTime);
-        }
-    }
+	public void apply(WorldBorder border) {
 
-    public static enum Action
-    {
-        SET_SIZE,
-        LERP_SIZE,
-        SET_CENTER,
-        INITIALIZE,
-        SET_WARNING_TIME,
-        SET_WARNING_BLOCKS;
-    }
+		switch (action) {
+			case SET_SIZE:
+				border.setTransition(targetSize);
+				break;
+
+			case LERP_SIZE:
+				border.setTransition(diameter, targetSize, timeUntilTarget);
+				break;
+
+			case SET_CENTER:
+				border.setCenter(centerX, centerZ);
+				break;
+
+			case SET_WARNING_BLOCKS:
+				border.setWarningDistance(warningDistance);
+				break;
+
+			case SET_WARNING_TIME:
+				border.setWarningTime(warningTime);
+				break;
+
+			case INITIALIZE:
+				border.setCenter(centerX, centerZ);
+
+				if (timeUntilTarget > 0L) {
+					border.setTransition(diameter, targetSize, timeUntilTarget);
+				} else {
+					border.setTransition(targetSize);
+				}
+
+				border.setSize(size);
+				border.setWarningDistance(warningDistance);
+				border.setWarningTime(warningTime);
+		}
+	}
+
+	public enum Action {
+		SET_SIZE,
+		LERP_SIZE,
+		SET_CENTER,
+		INITIALIZE,
+		SET_WARNING_TIME,
+		SET_WARNING_BLOCKS
+	}
+
 }

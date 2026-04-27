@@ -1,11 +1,6 @@
 package net.minecraft.entity.monster;
 
-import javax.annotation.Nullable;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.IEntityLivingData;
-import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.*;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
@@ -21,130 +16,126 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 
-public class EntityWitherSkeleton extends AbstractSkeleton
-{
-    public EntityWitherSkeleton(World worldIn)
-    {
-        super(worldIn);
-        setSize(0.7F, 2.4F);
-        isImmuneToFire = true;
-    }
+import javax.annotation.Nullable;
 
-    public static void registerFixesWitherSkeleton(DataFixer fixer)
-    {
-        EntityLiving.registerFixesMob(fixer, EntityWitherSkeleton.class);
-    }
+public class EntityWitherSkeleton extends AbstractSkeleton {
 
-    @Nullable
-    protected ResourceLocation getLootTable()
-    {
-        return LootTableList.ENTITIES_WITHER_SKELETON;
-    }
+	public EntityWitherSkeleton(World worldIn) {
 
-    protected SoundEvent getAmbientSound()
-    {
-        return SoundEvents.ENTITY_WITHER_SKELETON_AMBIENT;
-    }
+		super(worldIn);
+		setSize(0.7F, 2.4F);
+		isImmuneToFire = true;
+	}
 
-    protected SoundEvent getHurtSound(DamageSource damageSourceIn)
-    {
-        return SoundEvents.ENTITY_WITHER_SKELETON_HURT;
-    }
+	public static void registerFixesWitherSkeleton(DataFixer fixer) {
 
-    protected SoundEvent getDeathSound()
-    {
-        return SoundEvents.ENTITY_WITHER_SKELETON_DEATH;
-    }
+		EntityLiving.registerFixesMob(fixer, EntityWitherSkeleton.class);
+	}
 
-    SoundEvent getStepSound()
-    {
-        return SoundEvents.ENTITY_WITHER_SKELETON_STEP;
-    }
+	@Nullable
+	protected ResourceLocation getLootTable() {
 
-    /**
-     * Called when the mob's health reaches 0.
-     */
-    public void onDeath(DamageSource cause)
-    {
-        super.onDeath(cause);
+		return LootTableList.ENTITIES_WITHER_SKELETON;
+	}
 
-        if (cause.getTrueSource() instanceof EntityCreeper)
-        {
-            EntityCreeper entitycreeper = (EntityCreeper)cause.getTrueSource();
+	protected SoundEvent getAmbientSound() {
 
-            if (entitycreeper.getPowered() && entitycreeper.ableToCauseSkullDrop())
-            {
-                entitycreeper.incrementDroppedSkulls();
-                entityDropItem(new ItemStack(Items.SKULL, 1, 1), 0.0F);
-            }
-        }
-    }
+		return SoundEvents.ENTITY_WITHER_SKELETON_AMBIENT;
+	}
 
-    /**
-     * Gives armor or weapon for entity based on given DifficultyInstance
-     */
-    protected void setEquipmentBasedOnDifficulty(DifficultyInstance difficulty)
-    {
-        setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.STONE_SWORD));
-    }
+	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
 
-    /**
-     * Enchants Entity's current equipments based on given DifficultyInstance
-     */
-    protected void setEnchantmentBasedOnDifficulty(DifficultyInstance difficulty)
-    {
-    }
+		return SoundEvents.ENTITY_WITHER_SKELETON_HURT;
+	}
 
-    @Nullable
+	protected SoundEvent getDeathSound() {
 
-    /**
-     * Called only once on an entity when first time spawned, via egg, mob spawner, natural spawning etc, but not called
-     * when entity is reloaded from nbt. Mainly used for initializing attributes and inventory.
-     *  
-     * The livingdata parameter is used to pass data between all instances during a pack spawn. It will be null on the
-     * first call. Subclasses may check if it's null, and then create a new one and return it if so, initializing all
-     * entities in the pack with the contained data.
-     *  
-     * @return The IEntityLivingData to pass to this method for other instances of this entity class within the same
-     * pack
-     *  
-     * @param difficulty The current local difficulty
-     * @param livingdata Shared spawn data. Will usually be null. (See return value for more information)
-     */
-    public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata)
-    {
-        IEntityLivingData ientitylivingdata = super.onInitialSpawn(difficulty, livingdata);
-        getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4.0D);
-        setCombatTask();
-        return ientitylivingdata;
-    }
+		return SoundEvents.ENTITY_WITHER_SKELETON_DEATH;
+	}
 
-    public float getEyeHeight()
-    {
-        return 2.1F;
-    }
+	SoundEvent getStepSound() {
 
-    public boolean attackEntityAsMob(Entity entityIn)
-    {
-        if (!super.attackEntityAsMob(entityIn))
-        {
-            return false;
-        }
-        else
-        {
-            if (entityIn instanceof EntityLivingBase)
-            {
-                ((EntityLivingBase)entityIn).addPotionEffect(new PotionEffect(MobEffects.WITHER, 200));
-            }
+		return SoundEvents.ENTITY_WITHER_SKELETON_STEP;
+	}
 
-            return true;
-        }
-    }
+	/**
+	 * Called when the mob's health reaches 0.
+	 */
+	public void onDeath(DamageSource cause) {
 
-    protected EntityArrow getArrow(float p_190726_1_)
-    {
-        EntityArrow entityarrow = super.getArrow(p_190726_1_);
-        entityarrow.setFire(100);
-        return entityarrow;
-    }
+		super.onDeath(cause);
+
+		if (cause.getTrueSource() instanceof EntityCreeper entitycreeper) {
+
+			if (entitycreeper.getPowered() && entitycreeper.ableToCauseSkullDrop()) {
+				entitycreeper.incrementDroppedSkulls();
+				entityDropItem(new ItemStack(Items.SKULL, 1, 1), 0.0F);
+			}
+		}
+	}
+
+	/**
+	 * Gives armor or weapon for entity based on given DifficultyInstance
+	 */
+	protected void setEquipmentBasedOnDifficulty(DifficultyInstance difficulty) {
+
+		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.STONE_SWORD));
+	}
+
+	/**
+	 * Enchants Entity's current equipments based on given DifficultyInstance
+	 */
+	protected void setEnchantmentBasedOnDifficulty(DifficultyInstance difficulty) {
+
+	}
+
+	@Nullable
+
+	/**
+	 * Called only once on an entity when first time spawned, via egg, mob spawner, natural spawning etc, but not called
+	 * when entity is reloaded from nbt. Mainly used for initializing attributes and inventory.
+	 *
+	 * The livingdata parameter is used to pass data between all instances during a pack spawn. It will be null on the
+	 * first call. Subclasses may check if it's null, and then create a new one and return it if so, initializing all
+	 * entities in the pack with the contained data.
+	 *
+	 * @return The IEntityLivingData to pass to this method for other instances of this entity class within the same
+	 * pack
+	 *
+	 * @param difficulty The current local difficulty
+	 * @param livingdata Shared spawn data. Will usually be null. (See return value for more information)
+	 */
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
+
+		IEntityLivingData ientitylivingdata = super.onInitialSpawn(difficulty, livingdata);
+		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4.0D);
+		setCombatTask();
+		return ientitylivingdata;
+	}
+
+	public float getEyeHeight() {
+
+		return 2.1F;
+	}
+
+	public boolean attackEntityAsMob(Entity entityIn) {
+
+		if (!super.attackEntityAsMob(entityIn)) {
+			return false;
+		} else {
+			if (entityIn instanceof EntityLivingBase) {
+				((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(MobEffects.WITHER, 200));
+			}
+
+			return true;
+		}
+	}
+
+	protected EntityArrow getArrow(float p_190726_1_) {
+
+		EntityArrow entityarrow = super.getArrow(p_190726_1_);
+		entityarrow.setFire(100);
+		return entityarrow;
+	}
+
 }

@@ -1,96 +1,100 @@
 package net.minecraft.nbt;
 
+import net.minecraft.util.math.MathHelper;
+
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
-import net.minecraft.util.math.MathHelper;
 
-public class NBTTagFloat extends NBTPrimitive
-{
-    /** The float value for the tag. */
-    private float data;
+public class NBTTagFloat extends NBTPrimitive {
 
-    NBTTagFloat()
-    {
-    }
+	/**
+	 * The float value for the tag.
+	 */
+	private float data;
 
-    public NBTTagFloat(float data)
-    {
-        this.data = data;
-    }
+	NBTTagFloat() {
 
-    /**
-     * Write the actual data contents of the tag, implemented in NBT extension classes
-     */
-    void write(DataOutput output) throws IOException
-    {
-        output.writeFloat(data);
-    }
+	}
 
-    void read(DataInput input, int depth, NBTSizeTracker sizeTracker) throws IOException
-    {
-        sizeTracker.read(96L);
-        data = input.readFloat();
-    }
+	public NBTTagFloat(float data) {
 
-    /**
-     * Gets the type byte for the tag.
-     */
-    public byte getId()
-    {
-        return 5;
-    }
+		this.data = data;
+	}
 
-    public String toString()
-    {
-        return data + "f";
-    }
+	/**
+	 * Write the actual data contents of the tag, implemented in NBT extension classes
+	 */
+	void write(DataOutput output) throws IOException {
 
-    /**
-     * Creates a clone of the tag.
-     */
-    public NBTTagFloat copy()
-    {
-        return new NBTTagFloat(data);
-    }
+		output.writeFloat(data);
+	}
 
-    public boolean equals(Object p_equals_1_)
-    {
-        return super.equals(p_equals_1_) && data == ((NBTTagFloat)p_equals_1_).data;
-    }
+	void read(DataInput input, int depth, NBTSizeTracker sizeTracker) throws IOException {
 
-    public int hashCode()
-    {
-        return super.hashCode() ^ Float.floatToIntBits(data);
-    }
+		sizeTracker.read(96L);
+		data = input.readFloat();
+	}
 
-    public long getLong()
-    {
-        return (long) data;
-    }
+	/**
+	 * Gets the type byte for the tag.
+	 */
+	public byte getId() {
 
-    public int getInt()
-    {
-        return MathHelper.floor(data);
-    }
+		return 5;
+	}
 
-    public short getShort()
-    {
-        return (short)(MathHelper.floor(data) & 65535);
-    }
+	public String toString() {
 
-    public byte getByte()
-    {
-        return (byte)(MathHelper.floor(data) & 255);
-    }
+		return data + "f";
+	}
 
-    public double getDouble()
-    {
-        return (double) data;
-    }
+	/**
+	 * Creates a clone of the tag.
+	 */
+	public NBTTagFloat copy() {
 
-    public float getFloat()
-    {
-        return data;
-    }
+		return new NBTTagFloat(data);
+	}
+
+	public boolean equals(Object p_equals_1_) {
+
+		return super.equals(p_equals_1_) && data == ((NBTTagFloat) p_equals_1_).data;
+	}
+
+	public int hashCode() {
+
+		return super.hashCode() ^ Float.floatToIntBits(data);
+	}
+
+	public long getLong() {
+
+		return (long) data;
+	}
+
+	public int getInt() {
+
+		return MathHelper.floor(data);
+	}
+
+	public short getShort() {
+
+		return (short) (MathHelper.floor(data) & 65535);
+	}
+
+	public byte getByte() {
+
+		return (byte) (MathHelper.floor(data) & 255);
+	}
+
+	public double getDouble() {
+
+		return data;
+	}
+
+	public float getFloat() {
+
+		return data;
+	}
+
 }

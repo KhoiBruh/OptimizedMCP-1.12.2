@@ -2,114 +2,119 @@ package net.minecraft.client.particle;
 
 import net.minecraft.world.World;
 
-public class ParticleSimpleAnimated extends Particle
-{
-    /**
-     * The base texture index. The texture index starts at this + (numAgingFrames - 1), and works its way down to this
-     * number as the particle decays.
-     */
-    private final int textureIdx;
+public class ParticleSimpleAnimated extends Particle {
 
-    /**
-     * How many different textures there are to progress through as the particle decays
-     */
-    private final int numAgingFrames;
+	/**
+	 * The base texture index. The texture index starts at this + (numAgingFrames - 1), and works its way down to this
+	 * number as the particle decays.
+	 */
+	private final int textureIdx;
 
-    /**
-     * Added to the ySpeed every tick. Usually a small (thousandths), negative value.
-     */
-    private final float yAccel;
-    private float baseAirFriction = 0.91F;
+	/**
+	 * How many different textures there are to progress through as the particle decays
+	 */
+	private final int numAgingFrames;
 
-    /** The red value to drift toward */
-    private float fadeTargetRed;
+	/**
+	 * Added to the ySpeed every tick. Usually a small (thousandths), negative value.
+	 */
+	private final float yAccel;
+	private float baseAirFriction = 0.91F;
 
-    /** The green value to drift toward */
-    private float fadeTargetGreen;
+	/**
+	 * The red value to drift toward
+	 */
+	private float fadeTargetRed;
 
-    /** The blue value to drift toward */
-    private float fadeTargetBlue;
+	/**
+	 * The green value to drift toward
+	 */
+	private float fadeTargetGreen;
 
-    /** True if setColorFade has been called */
-    private boolean fadingColor;
+	/**
+	 * The blue value to drift toward
+	 */
+	private float fadeTargetBlue;
 
-    public ParticleSimpleAnimated(World worldIn, double x, double y, double z, int textureIdxIn, int numFrames, float yAccelIn)
-    {
-        super(worldIn, x, y, z);
-        textureIdx = textureIdxIn;
-        numAgingFrames = numFrames;
-        yAccel = yAccelIn;
-    }
+	/**
+	 * True if setColorFade has been called
+	 */
+	private boolean fadingColor;
 
-    public void setColor(int p_187146_1_)
-    {
-        float f = (float)((p_187146_1_ & 16711680) >> 16) / 255.0F;
-        float f1 = (float)((p_187146_1_ & 65280) >> 8) / 255.0F;
-        float f2 = (float)((p_187146_1_ & 255) >> 0) / 255.0F;
-        float f3 = 1.0F;
-        setRBGColorF(f * 1.0F, f1 * 1.0F, f2 * 1.0F);
-    }
+	public ParticleSimpleAnimated(World worldIn, double x, double y, double z, int textureIdxIn, int numFrames, float yAccelIn) {
 
-    /**
-     * sets a color for the particle to drift toward (20% closer each tick, never actually getting very close)
-     */
-    public void setColorFade(int rgb)
-    {
-        fadeTargetRed = (float)((rgb & 16711680) >> 16) / 255.0F;
-        fadeTargetGreen = (float)((rgb & 65280) >> 8) / 255.0F;
-        fadeTargetBlue = (float)((rgb & 255) >> 0) / 255.0F;
-        fadingColor = true;
-    }
+		super(worldIn, x, y, z);
+		textureIdx = textureIdxIn;
+		numAgingFrames = numFrames;
+		yAccel = yAccelIn;
+	}
 
-    public boolean shouldDisableDepth()
-    {
-        return true;
-    }
+	public void setColor(int p_187146_1_) {
 
-    public void onUpdate()
-    {
-        prevPosX = posX;
-        prevPosY = posY;
-        prevPosZ = posZ;
+		float f = (float) ((p_187146_1_ & 16711680) >> 16) / 255.0F;
+		float f1 = (float) ((p_187146_1_ & 65280) >> 8) / 255.0F;
+		float f2 = (float) ((p_187146_1_ & 255) >> 0) / 255.0F;
+		float f3 = 1.0F;
+		setRBGColorF(f, f1, f2);
+	}
 
-        if (particleAge++ >= particleMaxAge)
-        {
-            setExpired();
-        }
+	/**
+	 * sets a color for the particle to drift toward (20% closer each tick, never actually getting very close)
+	 */
+	public void setColorFade(int rgb) {
 
-        if (particleAge > particleMaxAge / 2)
-        {
-            setAlphaF(1.0F - ((float) particleAge - (float)(particleMaxAge / 2)) / (float) particleMaxAge);
+		fadeTargetRed = (float) ((rgb & 16711680) >> 16) / 255.0F;
+		fadeTargetGreen = (float) ((rgb & 65280) >> 8) / 255.0F;
+		fadeTargetBlue = (float) ((rgb & 255) >> 0) / 255.0F;
+		fadingColor = true;
+	}
 
-            if (fadingColor)
-            {
-                particleRed += (fadeTargetRed - particleRed) * 0.2F;
-                particleGreen += (fadeTargetGreen - particleGreen) * 0.2F;
-                particleBlue += (fadeTargetBlue - particleBlue) * 0.2F;
-            }
-        }
+	public boolean shouldDisableDepth() {
 
-        setParticleTextureIndex(textureIdx + (numAgingFrames - 1 - particleAge * numAgingFrames / particleMaxAge));
-        motionY += (double) yAccel;
-        move(motionX, motionY, motionZ);
-        motionX *= (double) baseAirFriction;
-        motionY *= (double) baseAirFriction;
-        motionZ *= (double) baseAirFriction;
+		return true;
+	}
 
-        if (onGround)
-        {
-            motionX *= 0.699999988079071D;
-            motionZ *= 0.699999988079071D;
-        }
-    }
+	public void onUpdate() {
 
-    public int getBrightnessForRender(float p_189214_1_)
-    {
-        return 15728880;
-    }
+		prevPosX = posX;
+		prevPosY = posY;
+		prevPosZ = posZ;
 
-    protected void setBaseAirFriction(float p_191238_1_)
-    {
-        baseAirFriction = p_191238_1_;
-    }
+		if (particleAge++ >= particleMaxAge) {
+			setExpired();
+		}
+
+		if (particleAge > particleMaxAge / 2) {
+			setAlphaF(1.0F - ((float) particleAge - (float) (particleMaxAge / 2)) / (float) particleMaxAge);
+
+			if (fadingColor) {
+				particleRed += (fadeTargetRed - particleRed) * 0.2F;
+				particleGreen += (fadeTargetGreen - particleGreen) * 0.2F;
+				particleBlue += (fadeTargetBlue - particleBlue) * 0.2F;
+			}
+		}
+
+		setParticleTextureIndex(textureIdx + (numAgingFrames - 1 - particleAge * numAgingFrames / particleMaxAge));
+		motionY += yAccel;
+		move(motionX, motionY, motionZ);
+		motionX *= baseAirFriction;
+		motionY *= baseAirFriction;
+		motionZ *= baseAirFriction;
+
+		if (onGround) {
+			motionX *= 0.699999988079071D;
+			motionZ *= 0.699999988079071D;
+		}
+	}
+
+	public int getBrightnessForRender(float p_189214_1_) {
+
+		return 15728880;
+	}
+
+	protected void setBaseAirFriction(float p_191238_1_) {
+
+		baseAirFriction = p_191238_1_;
+	}
+
 }

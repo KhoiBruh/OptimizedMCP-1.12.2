@@ -1,8 +1,5 @@
 package net.minecraft.command.server;
 
-import java.util.Collections;
-import java.util.List;
-import javax.annotation.Nullable;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
@@ -15,82 +12,78 @@ import net.minecraft.nbt.NBTUtil;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 
-public class CommandTestFor extends CommandBase
-{
-    /**
-     * Gets the name of the command
-     */
-    public String getName()
-    {
-        return "testfor";
-    }
+import javax.annotation.Nullable;
+import java.util.Collections;
+import java.util.List;
 
-    /**
-     * Return the required permission level for this command.
-     */
-    public int getRequiredPermissionLevel()
-    {
-        return 2;
-    }
+public class CommandTestFor extends CommandBase {
 
-    /**
-     * Gets the usage string for the command.
-     */
-    public String getUsage(ICommandSender sender)
-    {
-        return "commands.testfor.usage";
-    }
+	/**
+	 * Gets the name of the command
+	 */
+	public String getName() {
 
-    /**
-     * Callback for when the command is executed
-     */
-    public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException
-    {
-        if (args.length < 1)
-        {
-            throw new WrongUsageException("commands.testfor.usage", new Object[0]);
-        }
-        else
-        {
-            Entity entity = getEntity(server, sender, args[0]);
-            NBTTagCompound nbttagcompound = null;
+		return "testfor";
+	}
 
-            if (args.length >= 2)
-            {
-                try
-                {
-                    nbttagcompound = JsonToNBT.getTagFromJson(buildString(args, 1));
-                }
-                catch (NBTException nbtexception)
-                {
-                    throw new CommandException("commands.testfor.tagError", new Object[] {nbtexception.getMessage()});
-                }
-            }
+	/**
+	 * Return the required permission level for this command.
+	 */
+	public int getRequiredPermissionLevel() {
 
-            if (nbttagcompound != null)
-            {
-                NBTTagCompound nbttagcompound1 = entityToNBT(entity);
+		return 2;
+	}
 
-                if (!NBTUtil.areNBTEquals(nbttagcompound, nbttagcompound1, true))
-                {
-                    throw new CommandException("commands.testfor.failure", new Object[] {entity.getName()});
-                }
-            }
+	/**
+	 * Gets the usage string for the command.
+	 */
+	public String getUsage(ICommandSender sender) {
 
-            notifyCommandListener(sender, this, "commands.testfor.success", new Object[] {entity.getName()});
-        }
-    }
+		return "commands.testfor.usage";
+	}
 
-    /**
-     * Return whether the specified command parameter index is a username parameter.
-     */
-    public boolean isUsernameIndex(String[] args, int index)
-    {
-        return index == 0;
-    }
+	/**
+	 * Callback for when the command is executed
+	 */
+	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
 
-    public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, @Nullable BlockPos targetPos)
-    {
-        return args.length == 1 ? getListOfStringsMatchingLastWord(args, server.getOnlinePlayerNames()) : Collections.emptyList();
-    }
+		if (args.length < 1) {
+			throw new WrongUsageException("commands.testfor.usage");
+		} else {
+			Entity entity = getEntity(server, sender, args[0]);
+			NBTTagCompound nbttagcompound = null;
+
+			if (args.length >= 2) {
+				try {
+					nbttagcompound = JsonToNBT.getTagFromJson(buildString(args, 1));
+				} catch (NBTException nbtexception) {
+					throw new CommandException("commands.testfor.tagError", nbtexception.getMessage());
+				}
+			}
+
+			if (nbttagcompound != null) {
+				NBTTagCompound nbttagcompound1 = entityToNBT(entity);
+
+				if (!NBTUtil.areNBTEquals(nbttagcompound, nbttagcompound1, true)) {
+					throw new CommandException("commands.testfor.failure", entity.getName());
+				}
+			}
+
+			notifyCommandListener(sender, this, "commands.testfor.success", entity.getName());
+		}
+	}
+
+	/**
+	 * Return whether the specified command parameter index is a username parameter.
+	 */
+	public boolean isUsernameIndex(String[] args, int index) {
+
+		return index == 0;
+	}
+
+	public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, @Nullable BlockPos targetPos) {
+
+		return args.length == 1 ? getListOfStringsMatchingLastWord(args, server.getOnlinePlayerNames()) : Collections.emptyList();
+	}
+
 }

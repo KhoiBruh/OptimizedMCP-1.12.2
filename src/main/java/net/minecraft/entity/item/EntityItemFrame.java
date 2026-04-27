@@ -1,6 +1,5 @@
 package net.minecraft.entity.item;
 
-import javax.annotation.Nullable;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityHanging;
 import net.minecraft.entity.player.EntityPlayer;
@@ -23,284 +22,260 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.MapData;
 
-public class EntityItemFrame extends EntityHanging
-{
-    private static final DataParameter<ItemStack> ITEM = EntityDataManager.<ItemStack>createKey(EntityItemFrame.class, DataSerializers.ITEM_STACK);
-    private static final DataParameter<Integer> ROTATION = EntityDataManager.<Integer>createKey(EntityItemFrame.class, DataSerializers.VARINT);
+import javax.annotation.Nullable;
 
-    /** Chance for this item frame's item to drop from the frame. */
-    private float itemDropChance = 1.0F;
+public class EntityItemFrame extends EntityHanging {
 
-    public EntityItemFrame(World worldIn)
-    {
-        super(worldIn);
-    }
+	private static final DataParameter<ItemStack> ITEM = EntityDataManager.createKey(EntityItemFrame.class, DataSerializers.ITEM_STACK);
+	private static final DataParameter<Integer> ROTATION = EntityDataManager.createKey(EntityItemFrame.class, DataSerializers.VARINT);
 
-    public EntityItemFrame(World worldIn, BlockPos p_i45852_2_, EnumFacing p_i45852_3_)
-    {
-        super(worldIn, p_i45852_2_);
-        updateFacingWithBoundingBox(p_i45852_3_);
-    }
+	/**
+	 * Chance for this item frame's item to drop from the frame.
+	 */
+	private float itemDropChance = 1.0F;
 
-    protected void entityInit()
-    {
-        getDataManager().register(ITEM, ItemStack.EMPTY);
-        getDataManager().register(ROTATION, Integer.valueOf(0));
-    }
+	public EntityItemFrame(World worldIn) {
 
-    public float getCollisionBorderSize()
-    {
-        return 0.0F;
-    }
+		super(worldIn);
+	}
 
-    /**
-     * Called when the entity is attacked.
-     */
-    public boolean attackEntityFrom(DamageSource source, float amount)
-    {
-        if (isEntityInvulnerable(source))
-        {
-            return false;
-        }
-        else if (!source.isExplosion() && !getDisplayedItem().isEmpty())
-        {
-            if (!world.isRemote)
-            {
-                dropItemOrSelf(source.getTrueSource(), false);
-                playSound(SoundEvents.ENTITY_ITEMFRAME_REMOVE_ITEM, 1.0F, 1.0F);
-                setDisplayedItem(ItemStack.EMPTY);
-            }
+	public EntityItemFrame(World worldIn, BlockPos p_i45852_2_, EnumFacing p_i45852_3_) {
 
-            return true;
-        }
-        else
-        {
-            return super.attackEntityFrom(source, amount);
-        }
-    }
+		super(worldIn, p_i45852_2_);
+		updateFacingWithBoundingBox(p_i45852_3_);
+	}
 
-    public int getWidthPixels()
-    {
-        return 12;
-    }
+	protected void entityInit() {
 
-    public int getHeightPixels()
-    {
-        return 12;
-    }
+		getDataManager().register(ITEM, ItemStack.EMPTY);
+		getDataManager().register(ROTATION, Integer.valueOf(0));
+	}
 
-    /**
-     * Checks if the entity is in range to render.
-     */
-    public boolean isInRangeToRenderDist(double distance)
-    {
-        double d0 = 16.0D;
-        d0 = d0 * 64.0D * getRenderDistanceWeight();
-        return distance < d0 * d0;
-    }
+	public float getCollisionBorderSize() {
 
-    /**
-     * Called when this entity is broken. Entity parameter may be null.
-     */
-    public void onBroken(@Nullable Entity brokenEntity)
-    {
-        playSound(SoundEvents.ENTITY_ITEMFRAME_BREAK, 1.0F, 1.0F);
-        dropItemOrSelf(brokenEntity, true);
-    }
+		return 0.0F;
+	}
 
-    public void playPlaceSound()
-    {
-        playSound(SoundEvents.ENTITY_ITEMFRAME_PLACE, 1.0F, 1.0F);
-    }
+	/**
+	 * Called when the entity is attacked.
+	 */
+	public boolean attackEntityFrom(DamageSource source, float amount) {
 
-    public void dropItemOrSelf(@Nullable Entity entityIn, boolean p_146065_2_)
-    {
-        if (world.getGameRules().getBoolean("doEntityDrops"))
-        {
-            ItemStack itemstack = getDisplayedItem();
+		if (isEntityInvulnerable(source)) {
+			return false;
+		} else if (!source.isExplosion() && !getDisplayedItem().isEmpty()) {
+			if (!world.isRemote) {
+				dropItemOrSelf(source.getTrueSource(), false);
+				playSound(SoundEvents.ENTITY_ITEMFRAME_REMOVE_ITEM, 1.0F, 1.0F);
+				setDisplayedItem(ItemStack.EMPTY);
+			}
 
-            if (entityIn instanceof EntityPlayer)
-            {
-                EntityPlayer entityplayer = (EntityPlayer)entityIn;
+			return true;
+		} else {
+			return super.attackEntityFrom(source, amount);
+		}
+	}
 
-                if (entityplayer.capabilities.isCreativeMode)
-                {
-                    removeFrameFromMap(itemstack);
-                    return;
-                }
-            }
+	public int getWidthPixels() {
 
-            if (p_146065_2_)
-            {
-                entityDropItem(new ItemStack(Items.ITEM_FRAME), 0.0F);
-            }
+		return 12;
+	}
 
-            if (!itemstack.isEmpty() && rand.nextFloat() < itemDropChance)
-            {
-                itemstack = itemstack.copy();
-                removeFrameFromMap(itemstack);
-                entityDropItem(itemstack, 0.0F);
-            }
-        }
-    }
+	public int getHeightPixels() {
 
-    /**
-     * Removes the dot representing this frame's position from the map when the item frame is broken.
-     */
-    private void removeFrameFromMap(ItemStack stack)
-    {
-        if (!stack.isEmpty())
-        {
-            if (stack.getItem() == Items.FILLED_MAP)
-            {
-                MapData mapdata = ((ItemMap)stack.getItem()).getMapData(stack, world);
-                mapdata.mapDecorations.remove("frame-" + getEntityId());
-            }
+		return 12;
+	}
 
-            stack.setItemFrame((EntityItemFrame)null);
-        }
-    }
+	/**
+	 * Checks if the entity is in range to render.
+	 */
+	public boolean isInRangeToRenderDist(double distance) {
 
-    public ItemStack getDisplayedItem()
-    {
-        return (ItemStack) getDataManager().get(ITEM);
-    }
+		double d0 = 16.0D;
+		d0 = d0 * 64.0D * getRenderDistanceWeight();
+		return distance < d0 * d0;
+	}
 
-    public void setDisplayedItem(ItemStack stack)
-    {
-        setDisplayedItemWithUpdate(stack, true);
-    }
+	/**
+	 * Called when this entity is broken. Entity parameter may be null.
+	 */
+	public void onBroken(@Nullable Entity brokenEntity) {
 
-    private void setDisplayedItemWithUpdate(ItemStack stack, boolean p_174864_2_)
-    {
-        if (!stack.isEmpty())
-        {
-            stack = stack.copy();
-            stack.setCount(1);
-            stack.setItemFrame(this);
-        }
+		playSound(SoundEvents.ENTITY_ITEMFRAME_BREAK, 1.0F, 1.0F);
+		dropItemOrSelf(brokenEntity, true);
+	}
 
-        getDataManager().set(ITEM, stack);
-        getDataManager().setDirty(ITEM);
+	public void playPlaceSound() {
 
-        if (!stack.isEmpty())
-        {
-            playSound(SoundEvents.ENTITY_ITEMFRAME_ADD_ITEM, 1.0F, 1.0F);
-        }
+		playSound(SoundEvents.ENTITY_ITEMFRAME_PLACE, 1.0F, 1.0F);
+	}
 
-        if (p_174864_2_ && hangingPosition != null)
-        {
-            world.updateComparatorOutputLevel(hangingPosition, Blocks.AIR);
-        }
-    }
+	public void dropItemOrSelf(@Nullable Entity entityIn, boolean p_146065_2_) {
 
-    public void notifyDataManagerChange(DataParameter<?> key)
-    {
-        if (key.equals(ITEM))
-        {
-            ItemStack itemstack = getDisplayedItem();
+		if (world.getGameRules().getBoolean("doEntityDrops")) {
+			ItemStack itemstack = getDisplayedItem();
 
-            if (!itemstack.isEmpty() && itemstack.getItemFrame() != this)
-            {
-                itemstack.setItemFrame(this);
-            }
-        }
-    }
+			if (entityIn instanceof EntityPlayer entityplayer) {
 
-    /**
-     * Return the rotation of the item currently on this frame.
-     */
-    public int getRotation()
-    {
-        return ((Integer) getDataManager().get(ROTATION)).intValue();
-    }
+				if (entityplayer.capabilities.isCreativeMode) {
+					removeFrameFromMap(itemstack);
+					return;
+				}
+			}
 
-    public void setItemRotation(int rotationIn)
-    {
-        setRotation(rotationIn, true);
-    }
+			if (p_146065_2_) {
+				entityDropItem(new ItemStack(Items.ITEM_FRAME), 0.0F);
+			}
 
-    private void setRotation(int rotationIn, boolean p_174865_2_)
-    {
-        getDataManager().set(ROTATION, Integer.valueOf(rotationIn % 8));
+			if (!itemstack.isEmpty() && rand.nextFloat() < itemDropChance) {
+				itemstack = itemstack.copy();
+				removeFrameFromMap(itemstack);
+				entityDropItem(itemstack, 0.0F);
+			}
+		}
+	}
 
-        if (p_174865_2_ && hangingPosition != null)
-        {
-            world.updateComparatorOutputLevel(hangingPosition, Blocks.AIR);
-        }
-    }
+	/**
+	 * Removes the dot representing this frame's position from the map when the item frame is broken.
+	 */
+	private void removeFrameFromMap(ItemStack stack) {
 
-    public static void registerFixesItemFrame(DataFixer fixer)
-    {
-        fixer.registerWalker(FixTypes.ENTITY, new ItemStackData(EntityItemFrame.class, new String[] {"Item"}));
-    }
+		if (!stack.isEmpty()) {
+			if (stack.getItem() == Items.FILLED_MAP) {
+				MapData mapdata = ((ItemMap) stack.getItem()).getMapData(stack, world);
+				mapdata.mapDecorations.remove("frame-" + getEntityId());
+			}
 
-    /**
-     * (abstract) Protected helper method to write subclass entity data to NBT.
-     */
-    public void writeEntityToNBT(NBTTagCompound compound)
-    {
-        if (!getDisplayedItem().isEmpty())
-        {
-            compound.setTag("Item", getDisplayedItem().writeToNBT(new NBTTagCompound()));
-            compound.setByte("ItemRotation", (byte) getRotation());
-            compound.setFloat("ItemDropChance", itemDropChance);
-        }
+			stack.setItemFrame(null);
+		}
+	}
 
-        super.writeEntityToNBT(compound);
-    }
+	public ItemStack getDisplayedItem() {
 
-    /**
-     * (abstract) Protected helper method to read subclass entity data from NBT.
-     */
-    public void readEntityFromNBT(NBTTagCompound compound)
-    {
-        NBTTagCompound nbttagcompound = compound.getCompoundTag("Item");
+		return getDataManager().get(ITEM);
+	}
 
-        if (nbttagcompound != null && !nbttagcompound.hasNoTags())
-        {
-            setDisplayedItemWithUpdate(new ItemStack(nbttagcompound), false);
-            setRotation(compound.getByte("ItemRotation"), false);
+	public void setDisplayedItem(ItemStack stack) {
 
-            if (compound.hasKey("ItemDropChance", 99))
-            {
-                itemDropChance = compound.getFloat("ItemDropChance");
-            }
-        }
+		setDisplayedItemWithUpdate(stack, true);
+	}
 
-        super.readEntityFromNBT(compound);
-    }
+	private void setDisplayedItemWithUpdate(ItemStack stack, boolean p_174864_2_) {
 
-    public boolean processInitialInteract(EntityPlayer player, EnumHand hand)
-    {
-        ItemStack itemstack = player.getHeldItem(hand);
+		if (!stack.isEmpty()) {
+			stack = stack.copy();
+			stack.setCount(1);
+			stack.setItemFrame(this);
+		}
 
-        if (!world.isRemote)
-        {
-            if (getDisplayedItem().isEmpty())
-            {
-                if (!itemstack.isEmpty())
-                {
-                    setDisplayedItem(itemstack);
+		getDataManager().set(ITEM, stack);
+		getDataManager().setDirty(ITEM);
 
-                    if (!player.capabilities.isCreativeMode)
-                    {
-                        itemstack.shrink(1);
-                    }
-                }
-            }
-            else
-            {
-                playSound(SoundEvents.ENTITY_ITEMFRAME_ROTATE_ITEM, 1.0F, 1.0F);
-                setItemRotation(getRotation() + 1);
-            }
-        }
+		if (!stack.isEmpty()) {
+			playSound(SoundEvents.ENTITY_ITEMFRAME_ADD_ITEM, 1.0F, 1.0F);
+		}
 
-        return true;
-    }
+		if (p_174864_2_ && hangingPosition != null) {
+			world.updateComparatorOutputLevel(hangingPosition, Blocks.AIR);
+		}
+	}
 
-    public int getAnalogOutput()
-    {
-        return getDisplayedItem().isEmpty() ? 0 : getRotation() % 8 + 1;
-    }
+	public void notifyDataManagerChange(DataParameter<?> key) {
+
+		if (key.equals(ITEM)) {
+			ItemStack itemstack = getDisplayedItem();
+
+			if (!itemstack.isEmpty() && itemstack.getItemFrame() != this) {
+				itemstack.setItemFrame(this);
+			}
+		}
+	}
+
+	/**
+	 * Return the rotation of the item currently on this frame.
+	 */
+	public int getRotation() {
+
+		return getDataManager().get(ROTATION).intValue();
+	}
+
+	public void setItemRotation(int rotationIn) {
+
+		setRotation(rotationIn, true);
+	}
+
+	private void setRotation(int rotationIn, boolean p_174865_2_) {
+
+		getDataManager().set(ROTATION, Integer.valueOf(rotationIn % 8));
+
+		if (p_174865_2_ && hangingPosition != null) {
+			world.updateComparatorOutputLevel(hangingPosition, Blocks.AIR);
+		}
+	}
+
+	public static void registerFixesItemFrame(DataFixer fixer) {
+
+		fixer.registerWalker(FixTypes.ENTITY, new ItemStackData(EntityItemFrame.class, "Item"));
+	}
+
+	/**
+	 * (abstract) Protected helper method to write subclass entity data to NBT.
+	 */
+	public void writeEntityToNBT(NBTTagCompound compound) {
+
+		if (!getDisplayedItem().isEmpty()) {
+			compound.setTag("Item", getDisplayedItem().writeToNBT(new NBTTagCompound()));
+			compound.setByte("ItemRotation", (byte) getRotation());
+			compound.setFloat("ItemDropChance", itemDropChance);
+		}
+
+		super.writeEntityToNBT(compound);
+	}
+
+	/**
+	 * (abstract) Protected helper method to read subclass entity data from NBT.
+	 */
+	public void readEntityFromNBT(NBTTagCompound compound) {
+
+		NBTTagCompound nbttagcompound = compound.getCompoundTag("Item");
+
+		if (nbttagcompound != null && !nbttagcompound.hasNoTags()) {
+			setDisplayedItemWithUpdate(new ItemStack(nbttagcompound), false);
+			setRotation(compound.getByte("ItemRotation"), false);
+
+			if (compound.hasKey("ItemDropChance", 99)) {
+				itemDropChance = compound.getFloat("ItemDropChance");
+			}
+		}
+
+		super.readEntityFromNBT(compound);
+	}
+
+	public boolean processInitialInteract(EntityPlayer player, EnumHand hand) {
+
+		ItemStack itemstack = player.getHeldItem(hand);
+
+		if (!world.isRemote) {
+			if (getDisplayedItem().isEmpty()) {
+				if (!itemstack.isEmpty()) {
+					setDisplayedItem(itemstack);
+
+					if (!player.capabilities.isCreativeMode) {
+						itemstack.shrink(1);
+					}
+				}
+			} else {
+				playSound(SoundEvents.ENTITY_ITEMFRAME_ROTATE_ITEM, 1.0F, 1.0F);
+				setItemRotation(getRotation() + 1);
+			}
+		}
+
+		return true;
+	}
+
+	public int getAnalogOutput() {
+
+		return getDisplayedItem().isEmpty() ? 0 : getRotation() % 8 + 1;
+	}
+
 }

@@ -1,6 +1,5 @@
 package net.minecraft.block;
 
-import java.util.Random;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
@@ -14,154 +13,139 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class BlockGrass extends Block implements IGrowable
-{
-    public static final PropertyBool SNOWY = PropertyBool.create("snowy");
+import java.util.Random;
 
-    protected BlockGrass()
-    {
-        super(Material.GRASS);
-        setDefaultState(blockState.getBaseState().withProperty(SNOWY, Boolean.valueOf(false)));
-        setTickRandomly(true);
-        setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
-    }
+public class BlockGrass extends Block implements IGrowable {
 
-    /**
-     * Get the actual Block state of this Block at the given position. This applies properties not visible in the
-     * metadata, such as fence connections.
-     */
-    public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos)
-    {
-        Block block = worldIn.getBlockState(pos.up()).getBlock();
-        return state.withProperty(SNOWY, Boolean.valueOf(block == Blocks.SNOW || block == Blocks.SNOW_LAYER));
-    }
+	public static final PropertyBool SNOWY = PropertyBool.create("snowy");
 
-    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
-    {
-        if (!worldIn.isRemote)
-        {
-            if (worldIn.getLightFromNeighbors(pos.up()) < 4 && worldIn.getBlockState(pos.up()).getLightOpacity() > 2)
-            {
-                worldIn.setBlockState(pos, Blocks.DIRT.getDefaultState());
-            }
-            else
-            {
-                if (worldIn.getLightFromNeighbors(pos.up()) >= 9)
-                {
-                    for (int i = 0; i < 4; ++i)
-                    {
-                        BlockPos blockpos = pos.add(rand.nextInt(3) - 1, rand.nextInt(5) - 3, rand.nextInt(3) - 1);
+	protected BlockGrass() {
 
-                        if (blockpos.getY() >= 0 && blockpos.getY() < 256 && !worldIn.isBlockLoaded(blockpos))
-                        {
-                            return;
-                        }
+		super(Material.GRASS);
+		setDefaultState(blockState.getBaseState().withProperty(SNOWY, Boolean.valueOf(false)));
+		setTickRandomly(true);
+		setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
+	}
 
-                        IBlockState iblockstate = worldIn.getBlockState(blockpos.up());
-                        IBlockState iblockstate1 = worldIn.getBlockState(blockpos);
+	/**
+	 * Get the actual Block state of this Block at the given position. This applies properties not visible in the
+	 * metadata, such as fence connections.
+	 */
+	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
 
-                        if (iblockstate1.getBlock() == Blocks.DIRT && iblockstate1.getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.DIRT && worldIn.getLightFromNeighbors(blockpos.up()) >= 4 && iblockstate.getLightOpacity() <= 2)
-                        {
-                            worldIn.setBlockState(blockpos, Blocks.GRASS.getDefaultState());
-                        }
-                    }
-                }
-            }
-        }
-    }
+		Block block = worldIn.getBlockState(pos.up()).getBlock();
+		return state.withProperty(SNOWY, Boolean.valueOf(block == Blocks.SNOW || block == Blocks.SNOW_LAYER));
+	}
 
-    /**
-     * Get the Item that this Block should drop when harvested.
-     */
-    public Item getItemDropped(IBlockState state, Random rand, int fortune)
-    {
-        return Blocks.DIRT.getItemDropped(Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.DIRT), rand, fortune);
-    }
+	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
 
-    /**
-     * Whether this IGrowable can grow
-     */
-    public boolean canGrow(World worldIn, BlockPos pos, IBlockState state, boolean isClient)
-    {
-        return true;
-    }
+		if (!worldIn.isRemote) {
+			if (worldIn.getLightFromNeighbors(pos.up()) < 4 && worldIn.getBlockState(pos.up()).getLightOpacity() > 2) {
+				worldIn.setBlockState(pos, Blocks.DIRT.getDefaultState());
+			} else {
+				if (worldIn.getLightFromNeighbors(pos.up()) >= 9) {
+					for (int i = 0; i < 4; ++i) {
+						BlockPos blockpos = pos.add(rand.nextInt(3) - 1, rand.nextInt(5) - 3, rand.nextInt(3) - 1);
 
-    public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, IBlockState state)
-    {
-        return true;
-    }
+						if (blockpos.getY() >= 0 && blockpos.getY() < 256 && !worldIn.isBlockLoaded(blockpos)) {
+							return;
+						}
 
-    public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state)
-    {
-        BlockPos blockpos = pos.up();
+						IBlockState iblockstate = worldIn.getBlockState(blockpos.up());
+						IBlockState iblockstate1 = worldIn.getBlockState(blockpos);
 
-        for (int i = 0; i < 128; ++i)
-        {
-            BlockPos blockpos1 = blockpos;
-            int j = 0;
+						if (iblockstate1.getBlock() == Blocks.DIRT && iblockstate1.getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.DIRT && worldIn.getLightFromNeighbors(blockpos.up()) >= 4 && iblockstate.getLightOpacity() <= 2) {
+							worldIn.setBlockState(blockpos, Blocks.GRASS.getDefaultState());
+						}
+					}
+				}
+			}
+		}
+	}
 
-            while (true)
-            {
-                if (j >= i / 16)
-                {
-                    if (worldIn.getBlockState(blockpos1).getBlock().blockMaterial == Material.AIR)
-                    {
-                        if (rand.nextInt(8) == 0)
-                        {
-                            BlockFlower.EnumFlowerType blockflower$enumflowertype = worldIn.getBiome(blockpos1).pickRandomFlower(rand, blockpos1);
-                            BlockFlower blockflower = blockflower$enumflowertype.getBlockType().getBlock();
-                            IBlockState iblockstate = blockflower.getDefaultState().withProperty(blockflower.getTypeProperty(), blockflower$enumflowertype);
+	/**
+	 * Get the Item that this Block should drop when harvested.
+	 */
+	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
 
-                            if (blockflower.canBlockStay(worldIn, blockpos1, iblockstate))
-                            {
-                                worldIn.setBlockState(blockpos1, iblockstate, 3);
-                            }
-                        }
-                        else
-                        {
-                            IBlockState iblockstate1 = Blocks.TALLGRASS.getDefaultState().withProperty(BlockTallGrass.TYPE, BlockTallGrass.EnumType.GRASS);
+		return Blocks.DIRT.getItemDropped(Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.DIRT), rand, fortune);
+	}
 
-                            if (Blocks.TALLGRASS.canBlockStay(worldIn, blockpos1, iblockstate1))
-                            {
-                                worldIn.setBlockState(blockpos1, iblockstate1, 3);
-                            }
-                        }
-                    }
+	/**
+	 * Whether this IGrowable can grow
+	 */
+	public boolean canGrow(World worldIn, BlockPos pos, IBlockState state, boolean isClient) {
 
-                    break;
-                }
+		return true;
+	}
 
-                blockpos1 = blockpos1.add(rand.nextInt(3) - 1, (rand.nextInt(3) - 1) * rand.nextInt(3) / 2, rand.nextInt(3) - 1);
+	public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, IBlockState state) {
 
-                if (worldIn.getBlockState(blockpos1.down()).getBlock() != Blocks.GRASS || worldIn.getBlockState(blockpos1).isNormalCube())
-                {
-                    break;
-                }
+		return true;
+	}
 
-                ++j;
-            }
-        }
-    }
+	public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state) {
 
-    /**
-     * Gets the render layer this block will render on. SOLID for solid blocks, CUTOUT or CUTOUT_MIPPED for on-off
-     * transparency (glass, reeds), TRANSLUCENT for fully blended transparency (stained glass)
-     */
-    public BlockRenderLayer getBlockLayer()
-    {
-        return BlockRenderLayer.CUTOUT_MIPPED;
-    }
+		BlockPos blockpos = pos.up();
 
-    /**
-     * Convert the BlockState into the correct metadata value
-     */
-    public int getMetaFromState(IBlockState state)
-    {
-        return 0;
-    }
+		for (int i = 0; i < 128; ++i) {
+			BlockPos blockpos1 = blockpos;
+			int j = 0;
 
-    protected BlockStateContainer createBlockState()
-    {
-        return new BlockStateContainer(this, new IProperty[] {SNOWY});
-    }
+			while (true) {
+				if (j >= i / 16) {
+					if (worldIn.getBlockState(blockpos1).getBlock().blockMaterial == Material.AIR) {
+						if (rand.nextInt(8) == 0) {
+							BlockFlower.EnumFlowerType blockflower$enumflowertype = worldIn.getBiome(blockpos1).pickRandomFlower(rand, blockpos1);
+							BlockFlower blockflower = blockflower$enumflowertype.getBlockType().getBlock();
+							IBlockState iblockstate = blockflower.getDefaultState().withProperty(blockflower.getTypeProperty(), blockflower$enumflowertype);
+
+							if (blockflower.canBlockStay(worldIn, blockpos1, iblockstate)) {
+								worldIn.setBlockState(blockpos1, iblockstate, 3);
+							}
+						} else {
+							IBlockState iblockstate1 = Blocks.TALLGRASS.getDefaultState().withProperty(BlockTallGrass.TYPE, BlockTallGrass.EnumType.GRASS);
+
+							if (Blocks.TALLGRASS.canBlockStay(worldIn, blockpos1, iblockstate1)) {
+								worldIn.setBlockState(blockpos1, iblockstate1, 3);
+							}
+						}
+					}
+
+					break;
+				}
+
+				blockpos1 = blockpos1.add(rand.nextInt(3) - 1, (rand.nextInt(3) - 1) * rand.nextInt(3) / 2, rand.nextInt(3) - 1);
+
+				if (worldIn.getBlockState(blockpos1.down()).getBlock() != Blocks.GRASS || worldIn.getBlockState(blockpos1).isNormalCube()) {
+					break;
+				}
+
+				++j;
+			}
+		}
+	}
+
+	/**
+	 * Gets the render layer this block will render on. SOLID for solid blocks, CUTOUT or CUTOUT_MIPPED for on-off
+	 * transparency (glass, reeds), TRANSLUCENT for fully blended transparency (stained glass)
+	 */
+	public BlockRenderLayer getBlockLayer() {
+
+		return BlockRenderLayer.CUTOUT_MIPPED;
+	}
+
+	/**
+	 * Convert the BlockState into the correct metadata value
+	 */
+	public int getMetaFromState(IBlockState state) {
+
+		return 0;
+	}
+
+	protected BlockStateContainer createBlockState() {
+
+		return new BlockStateContainer(this, SNOWY);
+	}
+
 }

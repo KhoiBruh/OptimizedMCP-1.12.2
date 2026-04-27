@@ -1,20 +1,10 @@
 package net.minecraft.entity.monster;
 
-import java.util.Collection;
-import javax.annotation.Nullable;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAreaEffectCloud;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAIAttackMelee;
-import net.minecraft.entity.ai.EntityAIAvoidEntity;
-import net.minecraft.entity.ai.EntityAICreeperSwell;
-import net.minecraft.entity.ai.EntityAIHurtByTarget;
-import net.minecraft.entity.ai.EntityAILookIdle;
-import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
-import net.minecraft.entity.ai.EntityAISwimming;
-import net.minecraft.entity.ai.EntityAIWanderAvoidWater;
-import net.minecraft.entity.ai.EntityAIWatchClosest;
+import net.minecraft.entity.ai.*;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.passive.EntityOcelot;
 import net.minecraft.entity.player.EntityPlayer;
@@ -35,330 +25,317 @@ import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 
-public class EntityCreeper extends EntityMob
-{
-    private static final DataParameter<Integer> STATE = EntityDataManager.<Integer>createKey(EntityCreeper.class, DataSerializers.VARINT);
-    private static final DataParameter<Boolean> POWERED = EntityDataManager.<Boolean>createKey(EntityCreeper.class, DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> IGNITED = EntityDataManager.<Boolean>createKey(EntityCreeper.class, DataSerializers.BOOLEAN);
+import javax.annotation.Nullable;
+import java.util.Collection;
 
-    /**
-     * Time when this creeper was last in an active state (Messed up code here, probably causes creeper animation to go
-     * weird)
-     */
-    private int lastActiveTime;
+public class EntityCreeper extends EntityMob {
 
-    /**
-     * The amount of time since the creeper was close enough to the player to ignite
-     */
-    private int timeSinceIgnited;
-    private int fuseTime = 30;
+	private static final DataParameter<Integer> STATE = EntityDataManager.createKey(EntityCreeper.class, DataSerializers.VARINT);
+	private static final DataParameter<Boolean> POWERED = EntityDataManager.createKey(EntityCreeper.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> IGNITED = EntityDataManager.createKey(EntityCreeper.class, DataSerializers.BOOLEAN);
 
-    /** Explosion radius for this creeper. */
-    private int explosionRadius = 3;
-    private int droppedSkulls;
+	/**
+	 * Time when this creeper was last in an active state (Messed up code here, probably causes creeper animation to go
+	 * weird)
+	 */
+	private int lastActiveTime;
 
-    public EntityCreeper(World worldIn)
-    {
-        super(worldIn);
-        setSize(0.6F, 1.7F);
-    }
+	/**
+	 * The amount of time since the creeper was close enough to the player to ignite
+	 */
+	private int timeSinceIgnited;
+	private int fuseTime = 30;
 
-    protected void initEntityAI()
-    {
-        tasks.addTask(1, new EntityAISwimming(this));
-        tasks.addTask(2, new EntityAICreeperSwell(this));
-        tasks.addTask(3, new EntityAIAvoidEntity(this, EntityOcelot.class, 6.0F, 1.0D, 1.2D));
-        tasks.addTask(4, new EntityAIAttackMelee(this, 1.0D, false));
-        tasks.addTask(5, new EntityAIWanderAvoidWater(this, 0.8D));
-        tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
-        tasks.addTask(6, new EntityAILookIdle(this));
-        targetTasks.addTask(1, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
-        targetTasks.addTask(2, new EntityAIHurtByTarget(this, false, new Class[0]));
-    }
+	/**
+	 * Explosion radius for this creeper.
+	 */
+	private int explosionRadius = 3;
+	private int droppedSkulls;
 
-    protected void applyEntityAttributes()
-    {
-        super.applyEntityAttributes();
-        getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25D);
-    }
+	public EntityCreeper(World worldIn) {
 
-    /**
-     * The maximum height from where the entity is alowed to jump (used in pathfinder)
-     */
-    public int getMaxFallHeight()
-    {
-        return getAttackTarget() == null ? 3 : 3 + (int)(getHealth() - 1.0F);
-    }
+		super(worldIn);
+		setSize(0.6F, 1.7F);
+	}
 
-    public void fall(float distance, float damageMultiplier)
-    {
-        super.fall(distance, damageMultiplier);
-        timeSinceIgnited = (int)((float) timeSinceIgnited + distance * 1.5F);
+	protected void initEntityAI() {
 
-        if (timeSinceIgnited > fuseTime - 5)
-        {
-            timeSinceIgnited = fuseTime - 5;
-        }
-    }
+		tasks.addTask(1, new EntityAISwimming(this));
+		tasks.addTask(2, new EntityAICreeperSwell(this));
+		tasks.addTask(3, new EntityAIAvoidEntity(this, EntityOcelot.class, 6.0F, 1.0D, 1.2D));
+		tasks.addTask(4, new EntityAIAttackMelee(this, 1.0D, false));
+		tasks.addTask(5, new EntityAIWanderAvoidWater(this, 0.8D));
+		tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
+		tasks.addTask(6, new EntityAILookIdle(this));
+		targetTasks.addTask(1, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
+		targetTasks.addTask(2, new EntityAIHurtByTarget(this, false));
+	}
 
-    protected void entityInit()
-    {
-        super.entityInit();
-        dataManager.register(STATE, Integer.valueOf(-1));
-        dataManager.register(POWERED, Boolean.valueOf(false));
-        dataManager.register(IGNITED, Boolean.valueOf(false));
-    }
+	protected void applyEntityAttributes() {
 
-    public static void registerFixesCreeper(DataFixer fixer)
-    {
-        EntityLiving.registerFixesMob(fixer, EntityCreeper.class);
-    }
+		super.applyEntityAttributes();
+		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25D);
+	}
 
-    /**
-     * (abstract) Protected helper method to write subclass entity data to NBT.
-     */
-    public void writeEntityToNBT(NBTTagCompound compound)
-    {
-        super.writeEntityToNBT(compound);
+	/**
+	 * The maximum height from where the entity is alowed to jump (used in pathfinder)
+	 */
+	public int getMaxFallHeight() {
 
-        if (((Boolean) dataManager.get(POWERED)).booleanValue())
-        {
-            compound.setBoolean("powered", true);
-        }
+		return getAttackTarget() == null ? 3 : 3 + (int) (getHealth() - 1.0F);
+	}
 
-        compound.setShort("Fuse", (short) fuseTime);
-        compound.setByte("ExplosionRadius", (byte) explosionRadius);
-        compound.setBoolean("ignited", hasIgnited());
-    }
+	public void fall(float distance, float damageMultiplier) {
 
-    /**
-     * (abstract) Protected helper method to read subclass entity data from NBT.
-     */
-    public void readEntityFromNBT(NBTTagCompound compound)
-    {
-        super.readEntityFromNBT(compound);
-        dataManager.set(POWERED, Boolean.valueOf(compound.getBoolean("powered")));
+		super.fall(distance, damageMultiplier);
+		timeSinceIgnited = (int) ((float) timeSinceIgnited + distance * 1.5F);
 
-        if (compound.hasKey("Fuse", 99))
-        {
-            fuseTime = compound.getShort("Fuse");
-        }
+		if (timeSinceIgnited > fuseTime - 5) {
+			timeSinceIgnited = fuseTime - 5;
+		}
+	}
 
-        if (compound.hasKey("ExplosionRadius", 99))
-        {
-            explosionRadius = compound.getByte("ExplosionRadius");
-        }
+	protected void entityInit() {
 
-        if (compound.getBoolean("ignited"))
-        {
-            ignite();
-        }
-    }
+		super.entityInit();
+		dataManager.register(STATE, Integer.valueOf(-1));
+		dataManager.register(POWERED, Boolean.valueOf(false));
+		dataManager.register(IGNITED, Boolean.valueOf(false));
+	}
 
-    /**
-     * Called to update the entity's position/logic.
-     */
-    public void onUpdate()
-    {
-        if (isEntityAlive())
-        {
-            lastActiveTime = timeSinceIgnited;
+	public static void registerFixesCreeper(DataFixer fixer) {
 
-            if (hasIgnited())
-            {
-                setCreeperState(1);
-            }
+		EntityLiving.registerFixesMob(fixer, EntityCreeper.class);
+	}
 
-            int i = getCreeperState();
+	/**
+	 * (abstract) Protected helper method to write subclass entity data to NBT.
+	 */
+	public void writeEntityToNBT(NBTTagCompound compound) {
 
-            if (i > 0 && timeSinceIgnited == 0)
-            {
-                playSound(SoundEvents.ENTITY_CREEPER_PRIMED, 1.0F, 0.5F);
-            }
+		super.writeEntityToNBT(compound);
 
-            timeSinceIgnited += i;
+		if (dataManager.get(POWERED).booleanValue()) {
+			compound.setBoolean("powered", true);
+		}
 
-            if (timeSinceIgnited < 0)
-            {
-                timeSinceIgnited = 0;
-            }
+		compound.setShort("Fuse", (short) fuseTime);
+		compound.setByte("ExplosionRadius", (byte) explosionRadius);
+		compound.setBoolean("ignited", hasIgnited());
+	}
 
-            if (timeSinceIgnited >= fuseTime)
-            {
-                timeSinceIgnited = fuseTime;
-                explode();
-            }
-        }
+	/**
+	 * (abstract) Protected helper method to read subclass entity data from NBT.
+	 */
+	public void readEntityFromNBT(NBTTagCompound compound) {
 
-        super.onUpdate();
-    }
+		super.readEntityFromNBT(compound);
+		dataManager.set(POWERED, Boolean.valueOf(compound.getBoolean("powered")));
 
-    protected SoundEvent getHurtSound(DamageSource damageSourceIn)
-    {
-        return SoundEvents.ENTITY_CREEPER_HURT;
-    }
+		if (compound.hasKey("Fuse", 99)) {
+			fuseTime = compound.getShort("Fuse");
+		}
 
-    protected SoundEvent getDeathSound()
-    {
-        return SoundEvents.ENTITY_CREEPER_DEATH;
-    }
+		if (compound.hasKey("ExplosionRadius", 99)) {
+			explosionRadius = compound.getByte("ExplosionRadius");
+		}
 
-    /**
-     * Called when the mob's health reaches 0.
-     */
-    public void onDeath(DamageSource cause)
-    {
-        super.onDeath(cause);
+		if (compound.getBoolean("ignited")) {
+			ignite();
+		}
+	}
 
-        if (world.getGameRules().getBoolean("doMobLoot"))
-        {
-            if (cause.getTrueSource() instanceof EntitySkeleton)
-            {
-                int i = Item.getIdFromItem(Items.RECORD_13);
-                int j = Item.getIdFromItem(Items.RECORD_WAIT);
-                int k = i + rand.nextInt(j - i + 1);
-                dropItem(Item.getItemById(k), 1);
-            }
-            else if (cause.getTrueSource() instanceof EntityCreeper && cause.getTrueSource() != this && ((EntityCreeper)cause.getTrueSource()).getPowered() && ((EntityCreeper)cause.getTrueSource()).ableToCauseSkullDrop())
-            {
-                ((EntityCreeper)cause.getTrueSource()).incrementDroppedSkulls();
-                entityDropItem(new ItemStack(Items.SKULL, 1, 4), 0.0F);
-            }
-        }
-    }
+	/**
+	 * Called to update the entity's position/logic.
+	 */
+	public void onUpdate() {
 
-    public boolean attackEntityAsMob(Entity entityIn)
-    {
-        return true;
-    }
+		if (isEntityAlive()) {
+			lastActiveTime = timeSinceIgnited;
 
-    /**
-     * Returns true if the creeper is powered by a lightning bolt.
-     */
-    public boolean getPowered()
-    {
-        return ((Boolean) dataManager.get(POWERED)).booleanValue();
-    }
+			if (hasIgnited()) {
+				setCreeperState(1);
+			}
 
-    /**
-     * Params: (Float)Render tick. Returns the intensity of the creeper's flash when it is ignited.
-     */
-    public float getCreeperFlashIntensity(float p_70831_1_)
-    {
-        return ((float) lastActiveTime + (float)(timeSinceIgnited - lastActiveTime) * p_70831_1_) / (float)(fuseTime - 2);
-    }
+			int i = getCreeperState();
 
-    @Nullable
-    protected ResourceLocation getLootTable()
-    {
-        return LootTableList.ENTITIES_CREEPER;
-    }
+			if (i > 0 && timeSinceIgnited == 0) {
+				playSound(SoundEvents.ENTITY_CREEPER_PRIMED, 1.0F, 0.5F);
+			}
 
-    /**
-     * Returns the current state of creeper, -1 is idle, 1 is 'in fuse'
-     */
-    public int getCreeperState()
-    {
-        return ((Integer) dataManager.get(STATE)).intValue();
-    }
+			timeSinceIgnited += i;
 
-    /**
-     * Sets the state of creeper, -1 to idle and 1 to be 'in fuse'
-     */
-    public void setCreeperState(int state)
-    {
-        dataManager.set(STATE, Integer.valueOf(state));
-    }
+			if (timeSinceIgnited < 0) {
+				timeSinceIgnited = 0;
+			}
 
-    /**
-     * Called when a lightning bolt hits the entity.
-     */
-    public void onStruckByLightning(EntityLightningBolt lightningBolt)
-    {
-        super.onStruckByLightning(lightningBolt);
-        dataManager.set(POWERED, Boolean.valueOf(true));
-    }
+			if (timeSinceIgnited >= fuseTime) {
+				timeSinceIgnited = fuseTime;
+				explode();
+			}
+		}
 
-    protected boolean processInteract(EntityPlayer player, EnumHand hand)
-    {
-        ItemStack itemstack = player.getHeldItem(hand);
+		super.onUpdate();
+	}
 
-        if (itemstack.getItem() == Items.FLINT_AND_STEEL)
-        {
-            world.playSound(player, posX, posY, posZ, SoundEvents.ITEM_FLINTANDSTEEL_USE, getSoundCategory(), 1.0F, rand.nextFloat() * 0.4F + 0.8F);
-            player.swingArm(hand);
+	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
 
-            if (!world.isRemote)
-            {
-                ignite();
-                itemstack.damageItem(1, player);
-                return true;
-            }
-        }
+		return SoundEvents.ENTITY_CREEPER_HURT;
+	}
 
-        return super.processInteract(player, hand);
-    }
+	protected SoundEvent getDeathSound() {
 
-    /**
-     * Creates an explosion as determined by this creeper's power and explosion radius.
-     */
-    private void explode()
-    {
-        if (!world.isRemote)
-        {
-            boolean flag = world.getGameRules().getBoolean("mobGriefing");
-            float f = getPowered() ? 2.0F : 1.0F;
-            dead = true;
-            world.createExplosion(this, posX, posY, posZ, (float) explosionRadius * f, flag);
-            setDead();
-            spawnLingeringCloud();
-        }
-    }
+		return SoundEvents.ENTITY_CREEPER_DEATH;
+	}
 
-    private void spawnLingeringCloud()
-    {
-        Collection<PotionEffect> collection = getActivePotionEffects();
+	/**
+	 * Called when the mob's health reaches 0.
+	 */
+	public void onDeath(DamageSource cause) {
 
-        if (!collection.isEmpty())
-        {
-            EntityAreaEffectCloud entityareaeffectcloud = new EntityAreaEffectCloud(world, posX, posY, posZ);
-            entityareaeffectcloud.setRadius(2.5F);
-            entityareaeffectcloud.setRadiusOnUse(-0.5F);
-            entityareaeffectcloud.setWaitTime(10);
-            entityareaeffectcloud.setDuration(entityareaeffectcloud.getDuration() / 2);
-            entityareaeffectcloud.setRadiusPerTick(-entityareaeffectcloud.getRadius() / (float)entityareaeffectcloud.getDuration());
+		super.onDeath(cause);
 
-            for (PotionEffect potioneffect : collection)
-            {
-                entityareaeffectcloud.addEffect(new PotionEffect(potioneffect));
-            }
+		if (world.getGameRules().getBoolean("doMobLoot")) {
+			if (cause.getTrueSource() instanceof EntitySkeleton) {
+				int i = Item.getIdFromItem(Items.RECORD_13);
+				int j = Item.getIdFromItem(Items.RECORD_WAIT);
+				int k = i + rand.nextInt(j - i + 1);
+				dropItem(Item.getItemById(k), 1);
+			} else if (cause.getTrueSource() instanceof EntityCreeper && cause.getTrueSource() != this && ((EntityCreeper) cause.getTrueSource()).getPowered() && ((EntityCreeper) cause.getTrueSource()).ableToCauseSkullDrop()) {
+				((EntityCreeper) cause.getTrueSource()).incrementDroppedSkulls();
+				entityDropItem(new ItemStack(Items.SKULL, 1, 4), 0.0F);
+			}
+		}
+	}
 
-            world.spawnEntity(entityareaeffectcloud);
-        }
-    }
+	public boolean attackEntityAsMob(Entity entityIn) {
 
-    public boolean hasIgnited()
-    {
-        return ((Boolean) dataManager.get(IGNITED)).booleanValue();
-    }
+		return true;
+	}
 
-    public void ignite()
-    {
-        dataManager.set(IGNITED, Boolean.valueOf(true));
-    }
+	/**
+	 * Returns true if the creeper is powered by a lightning bolt.
+	 */
+	public boolean getPowered() {
 
-    /**
-     * Returns true if an entity is able to drop its skull due to being blown up by this creeper.
-     *  
-     * Does not test if this creeper is charged; the caller must do that. However, does test the doMobLoot gamerule.
-     */
-    public boolean ableToCauseSkullDrop()
-    {
-        return droppedSkulls < 1 && world.getGameRules().getBoolean("doMobLoot");
-    }
+		return dataManager.get(POWERED).booleanValue();
+	}
 
-    public void incrementDroppedSkulls()
-    {
-        ++droppedSkulls;
-    }
+	/**
+	 * Params: (Float)Render tick. Returns the intensity of the creeper's flash when it is ignited.
+	 */
+	public float getCreeperFlashIntensity(float p_70831_1_) {
+
+		return ((float) lastActiveTime + (float) (timeSinceIgnited - lastActiveTime) * p_70831_1_) / (float) (fuseTime - 2);
+	}
+
+	@Nullable
+	protected ResourceLocation getLootTable() {
+
+		return LootTableList.ENTITIES_CREEPER;
+	}
+
+	/**
+	 * Returns the current state of creeper, -1 is idle, 1 is 'in fuse'
+	 */
+	public int getCreeperState() {
+
+		return dataManager.get(STATE).intValue();
+	}
+
+	/**
+	 * Sets the state of creeper, -1 to idle and 1 to be 'in fuse'
+	 */
+	public void setCreeperState(int state) {
+
+		dataManager.set(STATE, Integer.valueOf(state));
+	}
+
+	/**
+	 * Called when a lightning bolt hits the entity.
+	 */
+	public void onStruckByLightning(EntityLightningBolt lightningBolt) {
+
+		super.onStruckByLightning(lightningBolt);
+		dataManager.set(POWERED, Boolean.valueOf(true));
+	}
+
+	protected boolean processInteract(EntityPlayer player, EnumHand hand) {
+
+		ItemStack itemstack = player.getHeldItem(hand);
+
+		if (itemstack.getItem() == Items.FLINT_AND_STEEL) {
+			world.playSound(player, posX, posY, posZ, SoundEvents.ITEM_FLINTANDSTEEL_USE, getSoundCategory(), 1.0F, rand.nextFloat() * 0.4F + 0.8F);
+			player.swingArm(hand);
+
+			if (!world.isRemote) {
+				ignite();
+				itemstack.damageItem(1, player);
+				return true;
+			}
+		}
+
+		return super.processInteract(player, hand);
+	}
+
+	/**
+	 * Creates an explosion as determined by this creeper's power and explosion radius.
+	 */
+	private void explode() {
+
+		if (!world.isRemote) {
+			boolean flag = world.getGameRules().getBoolean("mobGriefing");
+			float f = getPowered() ? 2.0F : 1.0F;
+			dead = true;
+			world.createExplosion(this, posX, posY, posZ, (float) explosionRadius * f, flag);
+			setDead();
+			spawnLingeringCloud();
+		}
+	}
+
+	private void spawnLingeringCloud() {
+
+		Collection<PotionEffect> collection = getActivePotionEffects();
+
+		if (!collection.isEmpty()) {
+			EntityAreaEffectCloud entityareaeffectcloud = new EntityAreaEffectCloud(world, posX, posY, posZ);
+			entityareaeffectcloud.setRadius(2.5F);
+			entityareaeffectcloud.setRadiusOnUse(-0.5F);
+			entityareaeffectcloud.setWaitTime(10);
+			entityareaeffectcloud.setDuration(entityareaeffectcloud.getDuration() / 2);
+			entityareaeffectcloud.setRadiusPerTick(-entityareaeffectcloud.getRadius() / (float) entityareaeffectcloud.getDuration());
+
+			for (PotionEffect potioneffect : collection) {
+				entityareaeffectcloud.addEffect(new PotionEffect(potioneffect));
+			}
+
+			world.spawnEntity(entityareaeffectcloud);
+		}
+	}
+
+	public boolean hasIgnited() {
+
+		return dataManager.get(IGNITED).booleanValue();
+	}
+
+	public void ignite() {
+
+		dataManager.set(IGNITED, Boolean.valueOf(true));
+	}
+
+	/**
+	 * Returns true if an entity is able to drop its skull due to being blown up by this creeper.
+	 * <p>
+	 * Does not test if this creeper is charged; the caller must do that. However, does test the doMobLoot gamerule.
+	 */
+	public boolean ableToCauseSkullDrop() {
+
+		return droppedSkulls < 1 && world.getGameRules().getBoolean("doMobLoot");
+	}
+
+	public void incrementDroppedSkulls() {
+
+		++droppedSkulls;
+	}
+
 }

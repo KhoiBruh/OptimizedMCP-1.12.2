@@ -11,33 +11,32 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
 
-public class ItemEgg extends Item
-{
-    public ItemEgg()
-    {
-        maxStackSize = 16;
-        setCreativeTab(CreativeTabs.MATERIALS);
-    }
+public class ItemEgg extends Item {
 
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn)
-    {
-        ItemStack itemstack = playerIn.getHeldItem(handIn);
+	public ItemEgg() {
 
-        if (!playerIn.capabilities.isCreativeMode)
-        {
-            itemstack.shrink(1);
-        }
+		maxStackSize = 16;
+		setCreativeTab(CreativeTabs.MATERIALS);
+	}
 
-        worldIn.playSound((EntityPlayer)null, playerIn.posX, playerIn.posY, playerIn.posZ, SoundEvents.ENTITY_EGG_THROW, SoundCategory.PLAYERS, 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
+	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
 
-        if (!worldIn.isRemote)
-        {
-            EntityEgg entityegg = new EntityEgg(worldIn, playerIn);
-            entityegg.shoot(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, 1.5F, 1.0F);
-            worldIn.spawnEntity(entityegg);
-        }
+		ItemStack itemstack = playerIn.getHeldItem(handIn);
 
-        playerIn.addStat(StatList.getObjectUseStats(this));
-        return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemstack);
-    }
+		if (!playerIn.capabilities.isCreativeMode) {
+			itemstack.shrink(1);
+		}
+
+		worldIn.playSound(null, playerIn.posX, playerIn.posY, playerIn.posZ, SoundEvents.ENTITY_EGG_THROW, SoundCategory.PLAYERS, 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
+
+		if (!worldIn.isRemote) {
+			EntityEgg entityegg = new EntityEgg(worldIn, playerIn);
+			entityegg.shoot(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, 1.5F, 1.0F);
+			worldIn.spawnEntity(entityegg);
+		}
+
+		playerIn.addStat(StatList.getObjectUseStats(this));
+		return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemstack);
+	}
+
 }

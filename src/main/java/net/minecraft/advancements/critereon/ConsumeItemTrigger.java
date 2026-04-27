@@ -5,142 +5,137 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import net.minecraft.advancements.ICriterionTrigger;
 import net.minecraft.advancements.PlayerAdvancements;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
-public class ConsumeItemTrigger implements ICriterionTrigger<ConsumeItemTrigger.Instance>
-{
-    private static final ResourceLocation ID = new ResourceLocation("consume_item");
-    private final Map<PlayerAdvancements, ConsumeItemTrigger.Listeners> listeners = Maps.<PlayerAdvancements, ConsumeItemTrigger.Listeners>newHashMap();
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-    public ResourceLocation getId()
-    {
-        return ID;
-    }
+public class ConsumeItemTrigger implements ICriterionTrigger<ConsumeItemTrigger.Instance> {
 
-    public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<ConsumeItemTrigger.Instance> listener)
-    {
-        ConsumeItemTrigger.Listeners consumeitemtrigger$listeners = listeners.get(playerAdvancementsIn);
+	private static final ResourceLocation ID = new ResourceLocation("consume_item");
+	private final Map<PlayerAdvancements, ConsumeItemTrigger.Listeners> listeners = Maps.newHashMap();
 
-        if (consumeitemtrigger$listeners == null)
-        {
-            consumeitemtrigger$listeners = new ConsumeItemTrigger.Listeners(playerAdvancementsIn);
-            listeners.put(playerAdvancementsIn, consumeitemtrigger$listeners);
-        }
+	public ResourceLocation getId() {
 
-        consumeitemtrigger$listeners.add(listener);
-    }
+		return ID;
+	}
 
-    public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<ConsumeItemTrigger.Instance> listener)
-    {
-        ConsumeItemTrigger.Listeners consumeitemtrigger$listeners = listeners.get(playerAdvancementsIn);
+	public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<ConsumeItemTrigger.Instance> listener) {
 
-        if (consumeitemtrigger$listeners != null)
-        {
-            consumeitemtrigger$listeners.remove(listener);
+		ConsumeItemTrigger.Listeners consumeitemtrigger$listeners = listeners.get(playerAdvancementsIn);
 
-            if (consumeitemtrigger$listeners.isEmpty())
-            {
-                listeners.remove(playerAdvancementsIn);
-            }
-        }
-    }
+		if (consumeitemtrigger$listeners == null) {
+			consumeitemtrigger$listeners = new ConsumeItemTrigger.Listeners(playerAdvancementsIn);
+			listeners.put(playerAdvancementsIn, consumeitemtrigger$listeners);
+		}
 
-    public void removeAllListeners(PlayerAdvancements playerAdvancementsIn)
-    {
-        listeners.remove(playerAdvancementsIn);
-    }
+		consumeitemtrigger$listeners.add(listener);
+	}
 
-    /**
-     * Deserialize a ICriterionInstance of this trigger from the data in the JSON.
-     */
-    public ConsumeItemTrigger.Instance deserializeInstance(JsonObject json, JsonDeserializationContext context)
-    {
-        ItemPredicate itempredicate = ItemPredicate.deserialize(json.get("item"));
-        return new ConsumeItemTrigger.Instance(itempredicate);
-    }
+	public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<ConsumeItemTrigger.Instance> listener) {
 
-    public void trigger(EntityPlayerMP player, ItemStack item)
-    {
-        ConsumeItemTrigger.Listeners consumeitemtrigger$listeners = listeners.get(player.getAdvancements());
+		ConsumeItemTrigger.Listeners consumeitemtrigger$listeners = listeners.get(playerAdvancementsIn);
 
-        if (consumeitemtrigger$listeners != null)
-        {
-            consumeitemtrigger$listeners.trigger(item);
-        }
-    }
+		if (consumeitemtrigger$listeners != null) {
+			consumeitemtrigger$listeners.remove(listener);
 
-    public static class Instance extends AbstractCriterionInstance
-    {
-        private final ItemPredicate item;
+			if (consumeitemtrigger$listeners.isEmpty()) {
+				listeners.remove(playerAdvancementsIn);
+			}
+		}
+	}
 
-        public Instance(ItemPredicate item)
-        {
-            super(ConsumeItemTrigger.ID);
-            this.item = item;
-        }
+	public void removeAllListeners(PlayerAdvancements playerAdvancementsIn) {
 
-        public boolean test(ItemStack item)
-        {
-            return this.item.test(item);
-        }
-    }
+		listeners.remove(playerAdvancementsIn);
+	}
 
-    static class Listeners
-    {
-        private final PlayerAdvancements playerAdvancements;
-        private final Set<ICriterionTrigger.Listener<ConsumeItemTrigger.Instance>> listeners = Sets.<ICriterionTrigger.Listener<ConsumeItemTrigger.Instance>>newHashSet();
+	/**
+	 * Deserialize a ICriterionInstance of this trigger from the data in the JSON.
+	 */
+	public ConsumeItemTrigger.Instance deserializeInstance(JsonObject json, JsonDeserializationContext context) {
 
-        public Listeners(PlayerAdvancements playerAdvancementsIn)
-        {
-            playerAdvancements = playerAdvancementsIn;
-        }
+		ItemPredicate itempredicate = ItemPredicate.deserialize(json.get("item"));
+		return new ConsumeItemTrigger.Instance(itempredicate);
+	}
 
-        public boolean isEmpty()
-        {
-            return listeners.isEmpty();
-        }
+	public void trigger(EntityPlayerMP player, ItemStack item) {
 
-        public void add(ICriterionTrigger.Listener<ConsumeItemTrigger.Instance> listener)
-        {
-            listeners.add(listener);
-        }
+		ConsumeItemTrigger.Listeners consumeitemtrigger$listeners = listeners.get(player.getAdvancements());
 
-        public void remove(ICriterionTrigger.Listener<ConsumeItemTrigger.Instance> listener)
-        {
-            listeners.remove(listener);
-        }
+		if (consumeitemtrigger$listeners != null) {
+			consumeitemtrigger$listeners.trigger(item);
+		}
+	}
 
-        public void trigger(ItemStack item)
-        {
-            List<ICriterionTrigger.Listener<ConsumeItemTrigger.Instance>> list = null;
+	public static class Instance extends AbstractCriterionInstance {
 
-            for (ICriterionTrigger.Listener<ConsumeItemTrigger.Instance> listener : listeners)
-            {
-                if (((ConsumeItemTrigger.Instance)listener.getCriterionInstance()).test(item))
-                {
-                    if (list == null)
-                    {
-                        list = Lists.<ICriterionTrigger.Listener<ConsumeItemTrigger.Instance>>newArrayList();
-                    }
+		private final ItemPredicate item;
 
-                    list.add(listener);
-                }
-            }
+		public Instance(ItemPredicate item) {
 
-            if (list != null)
-            {
-                for (ICriterionTrigger.Listener<ConsumeItemTrigger.Instance> listener1 : list)
-                {
-                    listener1.grantCriterion(playerAdvancements);
-                }
-            }
-        }
-    }
+			super(ConsumeItemTrigger.ID);
+			this.item = item;
+		}
+
+		public boolean test(ItemStack item) {
+
+			return this.item.test(item);
+		}
+
+	}
+
+	static class Listeners {
+
+		private final PlayerAdvancements playerAdvancements;
+		private final Set<ICriterionTrigger.Listener<ConsumeItemTrigger.Instance>> listeners = Sets.newHashSet();
+
+		public Listeners(PlayerAdvancements playerAdvancementsIn) {
+
+			playerAdvancements = playerAdvancementsIn;
+		}
+
+		public boolean isEmpty() {
+
+			return listeners.isEmpty();
+		}
+
+		public void add(ICriterionTrigger.Listener<ConsumeItemTrigger.Instance> listener) {
+
+			listeners.add(listener);
+		}
+
+		public void remove(ICriterionTrigger.Listener<ConsumeItemTrigger.Instance> listener) {
+
+			listeners.remove(listener);
+		}
+
+		public void trigger(ItemStack item) {
+
+			List<ICriterionTrigger.Listener<ConsumeItemTrigger.Instance>> list = null;
+
+			for (ICriterionTrigger.Listener<ConsumeItemTrigger.Instance> listener : listeners) {
+				if (listener.getCriterionInstance().test(item)) {
+					if (list == null) {
+						list = Lists.newArrayList();
+					}
+
+					list.add(listener);
+				}
+			}
+
+			if (list != null) {
+				for (ICriterionTrigger.Listener<ConsumeItemTrigger.Instance> listener1 : list) {
+					listener1.grantCriterion(playerAdvancements);
+				}
+			}
+		}
+
+	}
+
 }

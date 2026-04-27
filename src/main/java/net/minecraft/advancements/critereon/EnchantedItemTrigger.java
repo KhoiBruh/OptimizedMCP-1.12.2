@@ -5,152 +5,144 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import net.minecraft.advancements.ICriterionTrigger;
 import net.minecraft.advancements.PlayerAdvancements;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
-public class EnchantedItemTrigger implements ICriterionTrigger<EnchantedItemTrigger.Instance>
-{
-    private static final ResourceLocation ID = new ResourceLocation("enchanted_item");
-    private final Map<PlayerAdvancements, EnchantedItemTrigger.Listeners> listeners = Maps.<PlayerAdvancements, EnchantedItemTrigger.Listeners>newHashMap();
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-    public ResourceLocation getId()
-    {
-        return ID;
-    }
+public class EnchantedItemTrigger implements ICriterionTrigger<EnchantedItemTrigger.Instance> {
 
-    public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<EnchantedItemTrigger.Instance> listener)
-    {
-        EnchantedItemTrigger.Listeners enchanteditemtrigger$listeners = listeners.get(playerAdvancementsIn);
+	private static final ResourceLocation ID = new ResourceLocation("enchanted_item");
+	private final Map<PlayerAdvancements, EnchantedItemTrigger.Listeners> listeners = Maps.newHashMap();
 
-        if (enchanteditemtrigger$listeners == null)
-        {
-            enchanteditemtrigger$listeners = new EnchantedItemTrigger.Listeners(playerAdvancementsIn);
-            listeners.put(playerAdvancementsIn, enchanteditemtrigger$listeners);
-        }
+	public ResourceLocation getId() {
 
-        enchanteditemtrigger$listeners.add(listener);
-    }
+		return ID;
+	}
 
-    public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<EnchantedItemTrigger.Instance> listener)
-    {
-        EnchantedItemTrigger.Listeners enchanteditemtrigger$listeners = listeners.get(playerAdvancementsIn);
+	public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<EnchantedItemTrigger.Instance> listener) {
 
-        if (enchanteditemtrigger$listeners != null)
-        {
-            enchanteditemtrigger$listeners.remove(listener);
+		EnchantedItemTrigger.Listeners enchanteditemtrigger$listeners = listeners.get(playerAdvancementsIn);
 
-            if (enchanteditemtrigger$listeners.isEmpty())
-            {
-                listeners.remove(playerAdvancementsIn);
-            }
-        }
-    }
+		if (enchanteditemtrigger$listeners == null) {
+			enchanteditemtrigger$listeners = new EnchantedItemTrigger.Listeners(playerAdvancementsIn);
+			listeners.put(playerAdvancementsIn, enchanteditemtrigger$listeners);
+		}
 
-    public void removeAllListeners(PlayerAdvancements playerAdvancementsIn)
-    {
-        listeners.remove(playerAdvancementsIn);
-    }
+		enchanteditemtrigger$listeners.add(listener);
+	}
 
-    /**
-     * Deserialize a ICriterionInstance of this trigger from the data in the JSON.
-     */
-    public EnchantedItemTrigger.Instance deserializeInstance(JsonObject json, JsonDeserializationContext context)
-    {
-        ItemPredicate itempredicate = ItemPredicate.deserialize(json.get("item"));
-        MinMaxBounds minmaxbounds = MinMaxBounds.deserialize(json.get("levels"));
-        return new EnchantedItemTrigger.Instance(itempredicate, minmaxbounds);
-    }
+	public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<EnchantedItemTrigger.Instance> listener) {
 
-    public void trigger(EntityPlayerMP player, ItemStack item, int levelsSpent)
-    {
-        EnchantedItemTrigger.Listeners enchanteditemtrigger$listeners = listeners.get(player.getAdvancements());
+		EnchantedItemTrigger.Listeners enchanteditemtrigger$listeners = listeners.get(playerAdvancementsIn);
 
-        if (enchanteditemtrigger$listeners != null)
-        {
-            enchanteditemtrigger$listeners.trigger(item, levelsSpent);
-        }
-    }
+		if (enchanteditemtrigger$listeners != null) {
+			enchanteditemtrigger$listeners.remove(listener);
 
-    public static class Instance extends AbstractCriterionInstance
-    {
-        private final ItemPredicate item;
-        private final MinMaxBounds levels;
+			if (enchanteditemtrigger$listeners.isEmpty()) {
+				listeners.remove(playerAdvancementsIn);
+			}
+		}
+	}
 
-        public Instance(ItemPredicate item, MinMaxBounds levels)
-        {
-            super(EnchantedItemTrigger.ID);
-            this.item = item;
-            this.levels = levels;
-        }
+	public void removeAllListeners(PlayerAdvancements playerAdvancementsIn) {
 
-        public boolean test(ItemStack item, int levelsIn)
-        {
-            if (!this.item.test(item))
-            {
-                return false;
-            }
-            else
-            {
-                return levels.test((float)levelsIn);
-            }
-        }
-    }
+		listeners.remove(playerAdvancementsIn);
+	}
 
-    static class Listeners
-    {
-        private final PlayerAdvancements playerAdvancements;
-        private final Set<ICriterionTrigger.Listener<EnchantedItemTrigger.Instance>> listeners = Sets.<ICriterionTrigger.Listener<EnchantedItemTrigger.Instance>>newHashSet();
+	/**
+	 * Deserialize a ICriterionInstance of this trigger from the data in the JSON.
+	 */
+	public EnchantedItemTrigger.Instance deserializeInstance(JsonObject json, JsonDeserializationContext context) {
 
-        public Listeners(PlayerAdvancements playerAdvancementsIn)
-        {
-            playerAdvancements = playerAdvancementsIn;
-        }
+		ItemPredicate itempredicate = ItemPredicate.deserialize(json.get("item"));
+		MinMaxBounds minmaxbounds = MinMaxBounds.deserialize(json.get("levels"));
+		return new EnchantedItemTrigger.Instance(itempredicate, minmaxbounds);
+	}
 
-        public boolean isEmpty()
-        {
-            return listeners.isEmpty();
-        }
+	public void trigger(EntityPlayerMP player, ItemStack item, int levelsSpent) {
 
-        public void add(ICriterionTrigger.Listener<EnchantedItemTrigger.Instance> listener)
-        {
-            listeners.add(listener);
-        }
+		EnchantedItemTrigger.Listeners enchanteditemtrigger$listeners = listeners.get(player.getAdvancements());
 
-        public void remove(ICriterionTrigger.Listener<EnchantedItemTrigger.Instance> listener)
-        {
-            listeners.remove(listener);
-        }
+		if (enchanteditemtrigger$listeners != null) {
+			enchanteditemtrigger$listeners.trigger(item, levelsSpent);
+		}
+	}
 
-        public void trigger(ItemStack item, int levelsIn)
-        {
-            List<ICriterionTrigger.Listener<EnchantedItemTrigger.Instance>> list = null;
+	public static class Instance extends AbstractCriterionInstance {
 
-            for (ICriterionTrigger.Listener<EnchantedItemTrigger.Instance> listener : listeners)
-            {
-                if (((EnchantedItemTrigger.Instance)listener.getCriterionInstance()).test(item, levelsIn))
-                {
-                    if (list == null)
-                    {
-                        list = Lists.<ICriterionTrigger.Listener<EnchantedItemTrigger.Instance>>newArrayList();
-                    }
+		private final ItemPredicate item;
+		private final MinMaxBounds levels;
 
-                    list.add(listener);
-                }
-            }
+		public Instance(ItemPredicate item, MinMaxBounds levels) {
 
-            if (list != null)
-            {
-                for (ICriterionTrigger.Listener<EnchantedItemTrigger.Instance> listener1 : list)
-                {
-                    listener1.grantCriterion(playerAdvancements);
-                }
-            }
-        }
-    }
+			super(EnchantedItemTrigger.ID);
+			this.item = item;
+			this.levels = levels;
+		}
+
+		public boolean test(ItemStack item, int levelsIn) {
+
+			if (!this.item.test(item)) {
+				return false;
+			} else {
+				return levels.test((float) levelsIn);
+			}
+		}
+
+	}
+
+	static class Listeners {
+
+		private final PlayerAdvancements playerAdvancements;
+		private final Set<ICriterionTrigger.Listener<EnchantedItemTrigger.Instance>> listeners = Sets.newHashSet();
+
+		public Listeners(PlayerAdvancements playerAdvancementsIn) {
+
+			playerAdvancements = playerAdvancementsIn;
+		}
+
+		public boolean isEmpty() {
+
+			return listeners.isEmpty();
+		}
+
+		public void add(ICriterionTrigger.Listener<EnchantedItemTrigger.Instance> listener) {
+
+			listeners.add(listener);
+		}
+
+		public void remove(ICriterionTrigger.Listener<EnchantedItemTrigger.Instance> listener) {
+
+			listeners.remove(listener);
+		}
+
+		public void trigger(ItemStack item, int levelsIn) {
+
+			List<ICriterionTrigger.Listener<EnchantedItemTrigger.Instance>> list = null;
+
+			for (ICriterionTrigger.Listener<EnchantedItemTrigger.Instance> listener : listeners) {
+				if (listener.getCriterionInstance().test(item, levelsIn)) {
+					if (list == null) {
+						list = Lists.newArrayList();
+					}
+
+					list.add(listener);
+				}
+			}
+
+			if (list != null) {
+				for (ICriterionTrigger.Listener<EnchantedItemTrigger.Instance> listener1 : list) {
+					listener1.grantCriterion(playerAdvancements);
+				}
+			}
+		}
+
+	}
+
 }

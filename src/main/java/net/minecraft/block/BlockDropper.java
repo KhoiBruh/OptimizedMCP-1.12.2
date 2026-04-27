@@ -12,69 +12,59 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class BlockDropper extends BlockDispenser
-{
-    private final IBehaviorDispenseItem dropBehavior = new BehaviorDefaultDispenseItem();
+public class BlockDropper extends BlockDispenser {
 
-    protected IBehaviorDispenseItem getBehavior(ItemStack stack)
-    {
-        return dropBehavior;
-    }
+	private final IBehaviorDispenseItem dropBehavior = new BehaviorDefaultDispenseItem();
 
-    /**
-     * Returns a new instance of a block's tile entity class. Called on placing the block.
-     */
-    public TileEntity createNewTileEntity(World worldIn, int meta)
-    {
-        return new TileEntityDropper();
-    }
+	protected IBehaviorDispenseItem getBehavior(ItemStack stack) {
 
-    protected void dispense(World worldIn, BlockPos pos)
-    {
-        BlockSourceImpl blocksourceimpl = new BlockSourceImpl(worldIn, pos);
-        TileEntityDispenser tileentitydispenser = (TileEntityDispenser)blocksourceimpl.getBlockTileEntity();
+		return dropBehavior;
+	}
 
-        if (tileentitydispenser != null)
-        {
-            int i = tileentitydispenser.getDispenseSlot();
+	/**
+	 * Returns a new instance of a block's tile entity class. Called on placing the block.
+	 */
+	public TileEntity createNewTileEntity(World worldIn, int meta) {
 
-            if (i < 0)
-            {
-                worldIn.playEvent(1001, pos, 0);
-            }
-            else
-            {
-                ItemStack itemstack = tileentitydispenser.getStackInSlot(i);
+		return new TileEntityDropper();
+	}
 
-                if (!itemstack.isEmpty())
-                {
-                    EnumFacing enumfacing = (EnumFacing)worldIn.getBlockState(pos).getValue(FACING);
-                    BlockPos blockpos = pos.offset(enumfacing);
-                    IInventory iinventory = TileEntityHopper.getInventoryAtPosition(worldIn, (double)blockpos.getX(), (double)blockpos.getY(), (double)blockpos.getZ());
-                    ItemStack itemstack1;
+	protected void dispense(World worldIn, BlockPos pos) {
 
-                    if (iinventory == null)
-                    {
-                        itemstack1 = dropBehavior.dispense(blocksourceimpl, itemstack);
-                    }
-                    else
-                    {
-                        itemstack1 = TileEntityHopper.putStackInInventoryAllSlots(tileentitydispenser, iinventory, itemstack.copy().splitStack(1), enumfacing.getOpposite());
+		BlockSourceImpl blocksourceimpl = new BlockSourceImpl(worldIn, pos);
+		TileEntityDispenser tileentitydispenser = blocksourceimpl.getBlockTileEntity();
 
-                        if (itemstack1.isEmpty())
-                        {
-                            itemstack1 = itemstack.copy();
-                            itemstack1.shrink(1);
-                        }
-                        else
-                        {
-                            itemstack1 = itemstack.copy();
-                        }
-                    }
+		if (tileentitydispenser != null) {
+			int i = tileentitydispenser.getDispenseSlot();
 
-                    tileentitydispenser.setInventorySlotContents(i, itemstack1);
-                }
-            }
-        }
-    }
+			if (i < 0) {
+				worldIn.playEvent(1001, pos, 0);
+			} else {
+				ItemStack itemstack = tileentitydispenser.getStackInSlot(i);
+
+				if (!itemstack.isEmpty()) {
+					EnumFacing enumfacing = worldIn.getBlockState(pos).getValue(FACING);
+					BlockPos blockpos = pos.offset(enumfacing);
+					IInventory iinventory = TileEntityHopper.getInventoryAtPosition(worldIn, blockpos.getX(), blockpos.getY(), blockpos.getZ());
+					ItemStack itemstack1;
+
+					if (iinventory == null) {
+						itemstack1 = dropBehavior.dispense(blocksourceimpl, itemstack);
+					} else {
+						itemstack1 = TileEntityHopper.putStackInInventoryAllSlots(tileentitydispenser, iinventory, itemstack.copy().splitStack(1), enumfacing.getOpposite());
+
+						if (itemstack1.isEmpty()) {
+							itemstack1 = itemstack.copy();
+							itemstack1.shrink(1);
+						} else {
+							itemstack1 = itemstack.copy();
+						}
+					}
+
+					tileentitydispenser.setInventorySlotContents(i, itemstack1);
+				}
+			}
+		}
+	}
+
 }

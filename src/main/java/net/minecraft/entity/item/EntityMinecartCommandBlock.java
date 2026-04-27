@@ -25,162 +25,161 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 
-public class EntityMinecartCommandBlock extends EntityMinecart
-{
-    private static final DataParameter<String> COMMAND = EntityDataManager.<String>createKey(EntityMinecartCommandBlock.class, DataSerializers.STRING);
-    private static final DataParameter<ITextComponent> LAST_OUTPUT = EntityDataManager.<ITextComponent>createKey(EntityMinecartCommandBlock.class, DataSerializers.TEXT_COMPONENT);
-    private final CommandBlockBaseLogic commandBlockLogic = new CommandBlockBaseLogic()
-    {
-        public void updateCommand()
-        {
-            getDataManager().set(EntityMinecartCommandBlock.COMMAND, getCommand());
-            getDataManager().set(EntityMinecartCommandBlock.LAST_OUTPUT, getLastOutput());
-        }
-        public int getCommandBlockType()
-        {
-            return 1;
-        }
-        public void fillInInfo(ByteBuf buf)
-        {
-            buf.writeInt(getEntityId());
-        }
-        public BlockPos getPosition()
-        {
-            return new BlockPos(posX, posY + 0.5D, posZ);
-        }
-        public Vec3d getPositionVector()
-        {
-            return new Vec3d(posX, posY, posZ);
-        }
-        public World getEntityWorld()
-        {
-            return world;
-        }
-        public Entity getCommandSenderEntity()
-        {
-            return EntityMinecartCommandBlock.this;
-        }
-        public MinecraftServer getServer()
-        {
-            return world.getMinecraftServer();
-        }
-    };
+public class EntityMinecartCommandBlock extends EntityMinecart {
 
-    /** Cooldown before command block logic runs again in ticks */
-    private int activatorRailCooldown;
+	private static final DataParameter<String> COMMAND = EntityDataManager.createKey(EntityMinecartCommandBlock.class, DataSerializers.STRING);
+	private static final DataParameter<ITextComponent> LAST_OUTPUT = EntityDataManager.createKey(EntityMinecartCommandBlock.class, DataSerializers.TEXT_COMPONENT);
+	private final CommandBlockBaseLogic commandBlockLogic = new CommandBlockBaseLogic() {
+		public void updateCommand() {
 
-    public EntityMinecartCommandBlock(World worldIn)
-    {
-        super(worldIn);
-    }
+			getDataManager().set(EntityMinecartCommandBlock.COMMAND, getCommand());
+			getDataManager().set(EntityMinecartCommandBlock.LAST_OUTPUT, getLastOutput());
+		}
 
-    public EntityMinecartCommandBlock(World worldIn, double x, double y, double z)
-    {
-        super(worldIn, x, y, z);
-    }
+		public int getCommandBlockType() {
 
-    public static void registerFixesMinecartCommand(DataFixer fixer)
-    {
-        EntityMinecart.registerFixesMinecart(fixer, EntityMinecartCommandBlock.class);
-        fixer.registerWalker(FixTypes.ENTITY, new IDataWalker()
-        {
-            public NBTTagCompound process(IDataFixer fixer, NBTTagCompound compound, int versionIn)
-            {
-                if (TileEntity.getKey(TileEntityCommandBlock.class).equals(new ResourceLocation(compound.getString("id"))))
-                {
-                    compound.setString("id", "Control");
-                    fixer.process(FixTypes.BLOCK_ENTITY, compound, versionIn);
-                    compound.setString("id", "MinecartCommandBlock");
-                }
+			return 1;
+		}
 
-                return compound;
-            }
-        });
-    }
+		public void fillInInfo(ByteBuf buf) {
 
-    protected void entityInit()
-    {
-        super.entityInit();
-        getDataManager().register(COMMAND, "");
-        getDataManager().register(LAST_OUTPUT, new TextComponentString(""));
-    }
+			buf.writeInt(getEntityId());
+		}
 
-    /**
-     * (abstract) Protected helper method to read subclass entity data from NBT.
-     */
-    protected void readEntityFromNBT(NBTTagCompound compound)
-    {
-        super.readEntityFromNBT(compound);
-        commandBlockLogic.readDataFromNBT(compound);
-        getDataManager().set(COMMAND, getCommandBlockLogic().getCommand());
-        getDataManager().set(LAST_OUTPUT, getCommandBlockLogic().getLastOutput());
-    }
+		public BlockPos getPosition() {
 
-    /**
-     * (abstract) Protected helper method to write subclass entity data to NBT.
-     */
-    protected void writeEntityToNBT(NBTTagCompound compound)
-    {
-        super.writeEntityToNBT(compound);
-        commandBlockLogic.writeToNBT(compound);
-    }
+			return new BlockPos(posX, posY + 0.5D, posZ);
+		}
 
-    public EntityMinecart.Type getType()
-    {
-        return EntityMinecart.Type.COMMAND_BLOCK;
-    }
+		public Vec3d getPositionVector() {
 
-    public IBlockState getDefaultDisplayTile()
-    {
-        return Blocks.COMMAND_BLOCK.getDefaultState();
-    }
+			return new Vec3d(posX, posY, posZ);
+		}
 
-    public CommandBlockBaseLogic getCommandBlockLogic()
-    {
-        return commandBlockLogic;
-    }
+		public World getEntityWorld() {
 
-    /**
-     * Called every tick the minecart is on an activator rail.
-     */
-    public void onActivatorRailPass(int x, int y, int z, boolean receivingPower)
-    {
-        if (receivingPower && ticksExisted - activatorRailCooldown >= 4)
-        {
-            getCommandBlockLogic().trigger(world);
-            activatorRailCooldown = ticksExisted;
-        }
-    }
+			return world;
+		}
 
-    public boolean processInitialInteract(EntityPlayer player, EnumHand hand)
-    {
-        commandBlockLogic.tryOpenEditCommandBlock(player);
-        return false;
-    }
+		public Entity getCommandSenderEntity() {
 
-    public void notifyDataManagerChange(DataParameter<?> key)
-    {
-        super.notifyDataManagerChange(key);
+			return EntityMinecartCommandBlock.this;
+		}
 
-        if (LAST_OUTPUT.equals(key))
-        {
-            try
-            {
-                commandBlockLogic.setLastOutput((ITextComponent) getDataManager().get(LAST_OUTPUT));
-            }
-            catch (Throwable var3)
-            {
-                ;
-            }
-        }
-        else if (COMMAND.equals(key))
-        {
-            commandBlockLogic.setCommand((String) getDataManager().get(COMMAND));
-        }
-    }
+		public MinecraftServer getServer() {
 
-    public boolean ignoreItemEntityData()
-    {
-        return true;
-    }
+			return world.getMinecraftServer();
+		}
+	};
+
+	/**
+	 * Cooldown before command block logic runs again in ticks
+	 */
+	private int activatorRailCooldown;
+
+	public EntityMinecartCommandBlock(World worldIn) {
+
+		super(worldIn);
+	}
+
+	public EntityMinecartCommandBlock(World worldIn, double x, double y, double z) {
+
+		super(worldIn, x, y, z);
+	}
+
+	public static void registerFixesMinecartCommand(DataFixer fixer) {
+
+		EntityMinecart.registerFixesMinecart(fixer, EntityMinecartCommandBlock.class);
+		fixer.registerWalker(FixTypes.ENTITY, new IDataWalker() {
+			public NBTTagCompound process(IDataFixer fixer, NBTTagCompound compound, int versionIn) {
+
+				if (TileEntity.getKey(TileEntityCommandBlock.class).equals(new ResourceLocation(compound.getString("id")))) {
+					compound.setString("id", "Control");
+					fixer.process(FixTypes.BLOCK_ENTITY, compound, versionIn);
+					compound.setString("id", "MinecartCommandBlock");
+				}
+
+				return compound;
+			}
+		});
+	}
+
+	protected void entityInit() {
+
+		super.entityInit();
+		getDataManager().register(COMMAND, "");
+		getDataManager().register(LAST_OUTPUT, new TextComponentString(""));
+	}
+
+	/**
+	 * (abstract) Protected helper method to read subclass entity data from NBT.
+	 */
+	protected void readEntityFromNBT(NBTTagCompound compound) {
+
+		super.readEntityFromNBT(compound);
+		commandBlockLogic.readDataFromNBT(compound);
+		getDataManager().set(COMMAND, getCommandBlockLogic().getCommand());
+		getDataManager().set(LAST_OUTPUT, getCommandBlockLogic().getLastOutput());
+	}
+
+	/**
+	 * (abstract) Protected helper method to write subclass entity data to NBT.
+	 */
+	protected void writeEntityToNBT(NBTTagCompound compound) {
+
+		super.writeEntityToNBT(compound);
+		commandBlockLogic.writeToNBT(compound);
+	}
+
+	public EntityMinecart.Type getType() {
+
+		return EntityMinecart.Type.COMMAND_BLOCK;
+	}
+
+	public IBlockState getDefaultDisplayTile() {
+
+		return Blocks.COMMAND_BLOCK.getDefaultState();
+	}
+
+	public CommandBlockBaseLogic getCommandBlockLogic() {
+
+		return commandBlockLogic;
+	}
+
+	/**
+	 * Called every tick the minecart is on an activator rail.
+	 */
+	public void onActivatorRailPass(int x, int y, int z, boolean receivingPower) {
+
+		if (receivingPower && ticksExisted - activatorRailCooldown >= 4) {
+			getCommandBlockLogic().trigger(world);
+			activatorRailCooldown = ticksExisted;
+		}
+	}
+
+	public boolean processInitialInteract(EntityPlayer player, EnumHand hand) {
+
+		commandBlockLogic.tryOpenEditCommandBlock(player);
+		return false;
+	}
+
+	public void notifyDataManagerChange(DataParameter<?> key) {
+
+		super.notifyDataManagerChange(key);
+
+		if (LAST_OUTPUT.equals(key)) {
+			try {
+				commandBlockLogic.setLastOutput(getDataManager().get(LAST_OUTPUT));
+			} catch (Throwable var3) {
+			}
+		} else if (COMMAND.equals(key)) {
+			commandBlockLogic.setCommand(getDataManager().get(COMMAND));
+		}
+	}
+
+	public boolean ignoreItemEntityData() {
+
+		return true;
+	}
+
 }

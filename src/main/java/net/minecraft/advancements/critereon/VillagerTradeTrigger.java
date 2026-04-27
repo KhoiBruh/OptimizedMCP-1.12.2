@@ -5,9 +5,6 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import net.minecraft.advancements.ICriterionTrigger;
 import net.minecraft.advancements.PlayerAdvancements;
 import net.minecraft.entity.passive.EntityVillager;
@@ -15,143 +12,138 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
-public class VillagerTradeTrigger implements ICriterionTrigger<VillagerTradeTrigger.Instance>
-{
-    private static final ResourceLocation ID = new ResourceLocation("villager_trade");
-    private final Map<PlayerAdvancements, VillagerTradeTrigger.Listeners> listeners = Maps.<PlayerAdvancements, VillagerTradeTrigger.Listeners>newHashMap();
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-    public ResourceLocation getId()
-    {
-        return ID;
-    }
+public class VillagerTradeTrigger implements ICriterionTrigger<VillagerTradeTrigger.Instance> {
 
-    public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<VillagerTradeTrigger.Instance> listener)
-    {
-        VillagerTradeTrigger.Listeners villagertradetrigger$listeners = listeners.get(playerAdvancementsIn);
+	private static final ResourceLocation ID = new ResourceLocation("villager_trade");
+	private final Map<PlayerAdvancements, VillagerTradeTrigger.Listeners> listeners = Maps.newHashMap();
 
-        if (villagertradetrigger$listeners == null)
-        {
-            villagertradetrigger$listeners = new VillagerTradeTrigger.Listeners(playerAdvancementsIn);
-            listeners.put(playerAdvancementsIn, villagertradetrigger$listeners);
-        }
+	public ResourceLocation getId() {
 
-        villagertradetrigger$listeners.add(listener);
-    }
+		return ID;
+	}
 
-    public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<VillagerTradeTrigger.Instance> listener)
-    {
-        VillagerTradeTrigger.Listeners villagertradetrigger$listeners = listeners.get(playerAdvancementsIn);
+	public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<VillagerTradeTrigger.Instance> listener) {
 
-        if (villagertradetrigger$listeners != null)
-        {
-            villagertradetrigger$listeners.remove(listener);
+		VillagerTradeTrigger.Listeners villagertradetrigger$listeners = listeners.get(playerAdvancementsIn);
 
-            if (villagertradetrigger$listeners.isEmpty())
-            {
-                listeners.remove(playerAdvancementsIn);
-            }
-        }
-    }
+		if (villagertradetrigger$listeners == null) {
+			villagertradetrigger$listeners = new VillagerTradeTrigger.Listeners(playerAdvancementsIn);
+			listeners.put(playerAdvancementsIn, villagertradetrigger$listeners);
+		}
 
-    public void removeAllListeners(PlayerAdvancements playerAdvancementsIn)
-    {
-        listeners.remove(playerAdvancementsIn);
-    }
+		villagertradetrigger$listeners.add(listener);
+	}
 
-    /**
-     * Deserialize a ICriterionInstance of this trigger from the data in the JSON.
-     */
-    public VillagerTradeTrigger.Instance deserializeInstance(JsonObject json, JsonDeserializationContext context)
-    {
-        EntityPredicate entitypredicate = EntityPredicate.deserialize(json.get("villager"));
-        ItemPredicate itempredicate = ItemPredicate.deserialize(json.get("item"));
-        return new VillagerTradeTrigger.Instance(entitypredicate, itempredicate);
-    }
+	public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<VillagerTradeTrigger.Instance> listener) {
 
-    public void trigger(EntityPlayerMP player, EntityVillager villager, ItemStack item)
-    {
-        VillagerTradeTrigger.Listeners villagertradetrigger$listeners = listeners.get(player.getAdvancements());
+		VillagerTradeTrigger.Listeners villagertradetrigger$listeners = listeners.get(playerAdvancementsIn);
 
-        if (villagertradetrigger$listeners != null)
-        {
-            villagertradetrigger$listeners.trigger(player, villager, item);
-        }
-    }
+		if (villagertradetrigger$listeners != null) {
+			villagertradetrigger$listeners.remove(listener);
 
-    public static class Instance extends AbstractCriterionInstance
-    {
-        private final EntityPredicate villager;
-        private final ItemPredicate item;
+			if (villagertradetrigger$listeners.isEmpty()) {
+				listeners.remove(playerAdvancementsIn);
+			}
+		}
+	}
 
-        public Instance(EntityPredicate villager, ItemPredicate item)
-        {
-            super(VillagerTradeTrigger.ID);
-            this.villager = villager;
-            this.item = item;
-        }
+	public void removeAllListeners(PlayerAdvancements playerAdvancementsIn) {
 
-        public boolean test(EntityPlayerMP player, EntityVillager villager, ItemStack item)
-        {
-            if (!this.villager.test(player, villager))
-            {
-                return false;
-            }
-            else
-            {
-                return this.item.test(item);
-            }
-        }
-    }
+		listeners.remove(playerAdvancementsIn);
+	}
 
-    static class Listeners
-    {
-        private final PlayerAdvancements playerAdvancements;
-        private final Set<ICriterionTrigger.Listener<VillagerTradeTrigger.Instance>> listeners = Sets.<ICriterionTrigger.Listener<VillagerTradeTrigger.Instance>>newHashSet();
+	/**
+	 * Deserialize a ICriterionInstance of this trigger from the data in the JSON.
+	 */
+	public VillagerTradeTrigger.Instance deserializeInstance(JsonObject json, JsonDeserializationContext context) {
 
-        public Listeners(PlayerAdvancements playerAdvancementsIn)
-        {
-            playerAdvancements = playerAdvancementsIn;
-        }
+		EntityPredicate entitypredicate = EntityPredicate.deserialize(json.get("villager"));
+		ItemPredicate itempredicate = ItemPredicate.deserialize(json.get("item"));
+		return new VillagerTradeTrigger.Instance(entitypredicate, itempredicate);
+	}
 
-        public boolean isEmpty()
-        {
-            return listeners.isEmpty();
-        }
+	public void trigger(EntityPlayerMP player, EntityVillager villager, ItemStack item) {
 
-        public void add(ICriterionTrigger.Listener<VillagerTradeTrigger.Instance> listener)
-        {
-            listeners.add(listener);
-        }
+		VillagerTradeTrigger.Listeners villagertradetrigger$listeners = listeners.get(player.getAdvancements());
 
-        public void remove(ICriterionTrigger.Listener<VillagerTradeTrigger.Instance> listener)
-        {
-            listeners.remove(listener);
-        }
+		if (villagertradetrigger$listeners != null) {
+			villagertradetrigger$listeners.trigger(player, villager, item);
+		}
+	}
 
-        public void trigger(EntityPlayerMP player, EntityVillager villager, ItemStack item)
-        {
-            List<ICriterionTrigger.Listener<VillagerTradeTrigger.Instance>> list = null;
+	public static class Instance extends AbstractCriterionInstance {
 
-            for (ICriterionTrigger.Listener<VillagerTradeTrigger.Instance> listener : listeners)
-            {
-                if (((VillagerTradeTrigger.Instance)listener.getCriterionInstance()).test(player, villager, item))
-                {
-                    if (list == null)
-                    {
-                        list = Lists.<ICriterionTrigger.Listener<VillagerTradeTrigger.Instance>>newArrayList();
-                    }
+		private final EntityPredicate villager;
+		private final ItemPredicate item;
 
-                    list.add(listener);
-                }
-            }
+		public Instance(EntityPredicate villager, ItemPredicate item) {
 
-            if (list != null)
-            {
-                for (ICriterionTrigger.Listener<VillagerTradeTrigger.Instance> listener1 : list)
-                {
-                    listener1.grantCriterion(playerAdvancements);
-                }
-            }
-        }
-    }
+			super(VillagerTradeTrigger.ID);
+			this.villager = villager;
+			this.item = item;
+		}
+
+		public boolean test(EntityPlayerMP player, EntityVillager villager, ItemStack item) {
+
+			if (!this.villager.test(player, villager)) {
+				return false;
+			} else {
+				return this.item.test(item);
+			}
+		}
+
+	}
+
+	static class Listeners {
+
+		private final PlayerAdvancements playerAdvancements;
+		private final Set<ICriterionTrigger.Listener<VillagerTradeTrigger.Instance>> listeners = Sets.newHashSet();
+
+		public Listeners(PlayerAdvancements playerAdvancementsIn) {
+
+			playerAdvancements = playerAdvancementsIn;
+		}
+
+		public boolean isEmpty() {
+
+			return listeners.isEmpty();
+		}
+
+		public void add(ICriterionTrigger.Listener<VillagerTradeTrigger.Instance> listener) {
+
+			listeners.add(listener);
+		}
+
+		public void remove(ICriterionTrigger.Listener<VillagerTradeTrigger.Instance> listener) {
+
+			listeners.remove(listener);
+		}
+
+		public void trigger(EntityPlayerMP player, EntityVillager villager, ItemStack item) {
+
+			List<ICriterionTrigger.Listener<VillagerTradeTrigger.Instance>> list = null;
+
+			for (ICriterionTrigger.Listener<VillagerTradeTrigger.Instance> listener : listeners) {
+				if (listener.getCriterionInstance().test(player, villager, item)) {
+					if (list == null) {
+						list = Lists.newArrayList();
+					}
+
+					list.add(listener);
+				}
+			}
+
+			if (list != null) {
+				for (ICriterionTrigger.Listener<VillagerTradeTrigger.Instance> listener1 : list) {
+					listener1.grantCriterion(playerAdvancements);
+				}
+			}
+		}
+
+	}
+
 }

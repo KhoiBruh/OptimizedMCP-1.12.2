@@ -5,164 +5,143 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-public class ContainerBeacon extends Container
-{
-    private final IInventory tileBeacon;
+public class ContainerBeacon extends Container {
 
-    /**
-     * This beacon's slot where you put in Emerald, Diamond, Gold or Iron Ingot.
-     */
-    private final ContainerBeacon.BeaconSlot beaconSlot;
+	private final IInventory tileBeacon;
 
-    public ContainerBeacon(IInventory playerInventory, IInventory tileBeaconIn)
-    {
-        tileBeacon = tileBeaconIn;
-        beaconSlot = new ContainerBeacon.BeaconSlot(tileBeaconIn, 0, 136, 110);
-        addSlotToContainer(beaconSlot);
-        int i = 36;
-        int j = 137;
+	/**
+	 * This beacon's slot where you put in Emerald, Diamond, Gold or Iron Ingot.
+	 */
+	private final ContainerBeacon.BeaconSlot beaconSlot;
 
-        for (int k = 0; k < 3; ++k)
-        {
-            for (int l = 0; l < 9; ++l)
-            {
-                addSlotToContainer(new Slot(playerInventory, l + k * 9 + 9, 36 + l * 18, 137 + k * 18));
-            }
-        }
+	public ContainerBeacon(IInventory playerInventory, IInventory tileBeaconIn) {
 
-        for (int i1 = 0; i1 < 9; ++i1)
-        {
-            addSlotToContainer(new Slot(playerInventory, i1, 36 + i1 * 18, 195));
-        }
-    }
+		tileBeacon = tileBeaconIn;
+		beaconSlot = new ContainerBeacon.BeaconSlot(tileBeaconIn, 0, 136, 110);
+		addSlotToContainer(beaconSlot);
+		int i = 36;
+		int j = 137;
 
-    public void addListener(IContainerListener listener)
-    {
-        super.addListener(listener);
-        listener.sendAllWindowProperties(this, tileBeacon);
-    }
+		for (int k = 0; k < 3; ++k) {
+			for (int l = 0; l < 9; ++l) {
+				addSlotToContainer(new Slot(playerInventory, l + k * 9 + 9, 36 + l * 18, 137 + k * 18));
+			}
+		}
 
-    public void updateProgressBar(int id, int data)
-    {
-        tileBeacon.setField(id, data);
-    }
+		for (int i1 = 0; i1 < 9; ++i1) {
+			addSlotToContainer(new Slot(playerInventory, i1, 36 + i1 * 18, 195));
+		}
+	}
 
-    public IInventory getTileEntity()
-    {
-        return tileBeacon;
-    }
+	public void addListener(IContainerListener listener) {
 
-    /**
-     * Called when the container is closed.
-     */
-    public void onContainerClosed(EntityPlayer playerIn)
-    {
-        super.onContainerClosed(playerIn);
+		super.addListener(listener);
+		listener.sendAllWindowProperties(this, tileBeacon);
+	}
 
-        if (!playerIn.world.isRemote)
-        {
-            ItemStack itemstack = beaconSlot.decrStackSize(beaconSlot.getSlotStackLimit());
+	public void updateProgressBar(int id, int data) {
 
-            if (!itemstack.isEmpty())
-            {
-                playerIn.dropItem(itemstack, false);
-            }
-        }
-    }
+		tileBeacon.setField(id, data);
+	}
 
-    /**
-     * Determines whether supplied player can use this container
-     */
-    public boolean canInteractWith(EntityPlayer playerIn)
-    {
-        return tileBeacon.isUsableByPlayer(playerIn);
-    }
+	public IInventory getTileEntity() {
 
-    /**
-     * Handle when the stack in slot {@code index} is shift-clicked. Normally this moves the stack between the player
-     * inventory and the other inventory(s).
-     */
-    public ItemStack transferStackInSlot(EntityPlayer playerIn, int index)
-    {
-        ItemStack itemstack = ItemStack.EMPTY;
-        Slot slot = inventorySlots.get(index);
+		return tileBeacon;
+	}
 
-        if (slot != null && slot.getHasStack())
-        {
-            ItemStack itemstack1 = slot.getStack();
-            itemstack = itemstack1.copy();
+	/**
+	 * Called when the container is closed.
+	 */
+	public void onContainerClosed(EntityPlayer playerIn) {
 
-            if (index == 0)
-            {
-                if (!mergeItemStack(itemstack1, 1, 37, true))
-                {
-                    return ItemStack.EMPTY;
-                }
+		super.onContainerClosed(playerIn);
 
-                slot.onSlotChange(itemstack1, itemstack);
-            }
-            else if (!beaconSlot.getHasStack() && beaconSlot.isItemValid(itemstack1) && itemstack1.getCount() == 1)
-            {
-                if (!mergeItemStack(itemstack1, 0, 1, false))
-                {
-                    return ItemStack.EMPTY;
-                }
-            }
-            else if (index >= 1 && index < 28)
-            {
-                if (!mergeItemStack(itemstack1, 28, 37, false))
-                {
-                    return ItemStack.EMPTY;
-                }
-            }
-            else if (index >= 28 && index < 37)
-            {
-                if (!mergeItemStack(itemstack1, 1, 28, false))
-                {
-                    return ItemStack.EMPTY;
-                }
-            }
-            else if (!mergeItemStack(itemstack1, 1, 37, false))
-            {
-                return ItemStack.EMPTY;
-            }
+		if (!playerIn.world.isRemote) {
+			ItemStack itemstack = beaconSlot.decrStackSize(beaconSlot.getSlotStackLimit());
 
-            if (itemstack1.isEmpty())
-            {
-                slot.putStack(ItemStack.EMPTY);
-            }
-            else
-            {
-                slot.onSlotChanged();
-            }
+			if (!itemstack.isEmpty()) {
+				playerIn.dropItem(itemstack, false);
+			}
+		}
+	}
 
-            if (itemstack1.getCount() == itemstack.getCount())
-            {
-                return ItemStack.EMPTY;
-            }
+	/**
+	 * Determines whether supplied player can use this container
+	 */
+	public boolean canInteractWith(EntityPlayer playerIn) {
 
-            slot.onTake(playerIn, itemstack1);
-        }
+		return tileBeacon.isUsableByPlayer(playerIn);
+	}
 
-        return itemstack;
-    }
+	/**
+	 * Handle when the stack in slot {@code index} is shift-clicked. Normally this moves the stack between the player
+	 * inventory and the other inventory(s).
+	 */
+	public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
 
-    class BeaconSlot extends Slot
-    {
-        public BeaconSlot(IInventory inventoryIn, int index, int xIn, int yIn)
-        {
-            super(inventoryIn, index, xIn, yIn);
-        }
+		ItemStack itemstack = ItemStack.EMPTY;
+		Slot slot = inventorySlots.get(index);
 
-        public boolean isItemValid(ItemStack stack)
-        {
-            Item item = stack.getItem();
-            return item == Items.EMERALD || item == Items.DIAMOND || item == Items.GOLD_INGOT || item == Items.IRON_INGOT;
-        }
+		if (slot != null && slot.getHasStack()) {
+			ItemStack itemstack1 = slot.getStack();
+			itemstack = itemstack1.copy();
 
-        public int getSlotStackLimit()
-        {
-            return 1;
-        }
-    }
+			if (index == 0) {
+				if (!mergeItemStack(itemstack1, 1, 37, true)) {
+					return ItemStack.EMPTY;
+				}
+
+				slot.onSlotChange(itemstack1, itemstack);
+			} else if (!beaconSlot.getHasStack() && beaconSlot.isItemValid(itemstack1) && itemstack1.getCount() == 1) {
+				if (!mergeItemStack(itemstack1, 0, 1, false)) {
+					return ItemStack.EMPTY;
+				}
+			} else if (index >= 1 && index < 28) {
+				if (!mergeItemStack(itemstack1, 28, 37, false)) {
+					return ItemStack.EMPTY;
+				}
+			} else if (index >= 28 && index < 37) {
+				if (!mergeItemStack(itemstack1, 1, 28, false)) {
+					return ItemStack.EMPTY;
+				}
+			} else if (!mergeItemStack(itemstack1, 1, 37, false)) {
+				return ItemStack.EMPTY;
+			}
+
+			if (itemstack1.isEmpty()) {
+				slot.putStack(ItemStack.EMPTY);
+			} else {
+				slot.onSlotChanged();
+			}
+
+			if (itemstack1.getCount() == itemstack.getCount()) {
+				return ItemStack.EMPTY;
+			}
+
+			slot.onTake(playerIn, itemstack1);
+		}
+
+		return itemstack;
+	}
+
+	class BeaconSlot extends Slot {
+
+		public BeaconSlot(IInventory inventoryIn, int index, int xIn, int yIn) {
+
+			super(inventoryIn, index, xIn, yIn);
+		}
+
+		public boolean isItemValid(ItemStack stack) {
+
+			Item item = stack.getItem();
+			return item == Items.EMERALD || item == Items.DIAMOND || item == Items.GOLD_INGOT || item == Items.IRON_INGOT;
+		}
+
+		public int getSlotStackLimit() {
+
+			return 1;
+		}
+
+	}
+
 }

@@ -5,152 +5,144 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import net.minecraft.advancements.ICriterionTrigger;
 import net.minecraft.advancements.PlayerAdvancements;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.Vec3d;
 
-public class LevitationTrigger implements ICriterionTrigger<LevitationTrigger.Instance>
-{
-    private static final ResourceLocation ID = new ResourceLocation("levitation");
-    private final Map<PlayerAdvancements, LevitationTrigger.Listeners> listeners = Maps.<PlayerAdvancements, LevitationTrigger.Listeners>newHashMap();
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-    public ResourceLocation getId()
-    {
-        return ID;
-    }
+public class LevitationTrigger implements ICriterionTrigger<LevitationTrigger.Instance> {
 
-    public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<LevitationTrigger.Instance> listener)
-    {
-        LevitationTrigger.Listeners levitationtrigger$listeners = listeners.get(playerAdvancementsIn);
+	private static final ResourceLocation ID = new ResourceLocation("levitation");
+	private final Map<PlayerAdvancements, LevitationTrigger.Listeners> listeners = Maps.newHashMap();
 
-        if (levitationtrigger$listeners == null)
-        {
-            levitationtrigger$listeners = new LevitationTrigger.Listeners(playerAdvancementsIn);
-            listeners.put(playerAdvancementsIn, levitationtrigger$listeners);
-        }
+	public ResourceLocation getId() {
 
-        levitationtrigger$listeners.add(listener);
-    }
+		return ID;
+	}
 
-    public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<LevitationTrigger.Instance> listener)
-    {
-        LevitationTrigger.Listeners levitationtrigger$listeners = listeners.get(playerAdvancementsIn);
+	public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<LevitationTrigger.Instance> listener) {
 
-        if (levitationtrigger$listeners != null)
-        {
-            levitationtrigger$listeners.remove(listener);
+		LevitationTrigger.Listeners levitationtrigger$listeners = listeners.get(playerAdvancementsIn);
 
-            if (levitationtrigger$listeners.isEmpty())
-            {
-                listeners.remove(playerAdvancementsIn);
-            }
-        }
-    }
+		if (levitationtrigger$listeners == null) {
+			levitationtrigger$listeners = new LevitationTrigger.Listeners(playerAdvancementsIn);
+			listeners.put(playerAdvancementsIn, levitationtrigger$listeners);
+		}
 
-    public void removeAllListeners(PlayerAdvancements playerAdvancementsIn)
-    {
-        listeners.remove(playerAdvancementsIn);
-    }
+		levitationtrigger$listeners.add(listener);
+	}
 
-    /**
-     * Deserialize a ICriterionInstance of this trigger from the data in the JSON.
-     */
-    public LevitationTrigger.Instance deserializeInstance(JsonObject json, JsonDeserializationContext context)
-    {
-        DistancePredicate distancepredicate = DistancePredicate.deserialize(json.get("distance"));
-        MinMaxBounds minmaxbounds = MinMaxBounds.deserialize(json.get("duration"));
-        return new LevitationTrigger.Instance(distancepredicate, minmaxbounds);
-    }
+	public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<LevitationTrigger.Instance> listener) {
 
-    public void trigger(EntityPlayerMP player, Vec3d startPos, int duration)
-    {
-        LevitationTrigger.Listeners levitationtrigger$listeners = listeners.get(player.getAdvancements());
+		LevitationTrigger.Listeners levitationtrigger$listeners = listeners.get(playerAdvancementsIn);
 
-        if (levitationtrigger$listeners != null)
-        {
-            levitationtrigger$listeners.trigger(player, startPos, duration);
-        }
-    }
+		if (levitationtrigger$listeners != null) {
+			levitationtrigger$listeners.remove(listener);
 
-    public static class Instance extends AbstractCriterionInstance
-    {
-        private final DistancePredicate distance;
-        private final MinMaxBounds duration;
+			if (levitationtrigger$listeners.isEmpty()) {
+				listeners.remove(playerAdvancementsIn);
+			}
+		}
+	}
 
-        public Instance(DistancePredicate distance, MinMaxBounds duration)
-        {
-            super(LevitationTrigger.ID);
-            this.distance = distance;
-            this.duration = duration;
-        }
+	public void removeAllListeners(PlayerAdvancements playerAdvancementsIn) {
 
-        public boolean test(EntityPlayerMP player, Vec3d startPos, int durationIn)
-        {
-            if (!distance.test(startPos.x, startPos.y, startPos.z, player.posX, player.posY, player.posZ))
-            {
-                return false;
-            }
-            else
-            {
-                return duration.test((float)durationIn);
-            }
-        }
-    }
+		listeners.remove(playerAdvancementsIn);
+	}
 
-    static class Listeners
-    {
-        private final PlayerAdvancements playerAdvancements;
-        private final Set<ICriterionTrigger.Listener<LevitationTrigger.Instance>> listeners = Sets.<ICriterionTrigger.Listener<LevitationTrigger.Instance>>newHashSet();
+	/**
+	 * Deserialize a ICriterionInstance of this trigger from the data in the JSON.
+	 */
+	public LevitationTrigger.Instance deserializeInstance(JsonObject json, JsonDeserializationContext context) {
 
-        public Listeners(PlayerAdvancements playerAdvancementsIn)
-        {
-            playerAdvancements = playerAdvancementsIn;
-        }
+		DistancePredicate distancepredicate = DistancePredicate.deserialize(json.get("distance"));
+		MinMaxBounds minmaxbounds = MinMaxBounds.deserialize(json.get("duration"));
+		return new LevitationTrigger.Instance(distancepredicate, minmaxbounds);
+	}
 
-        public boolean isEmpty()
-        {
-            return listeners.isEmpty();
-        }
+	public void trigger(EntityPlayerMP player, Vec3d startPos, int duration) {
 
-        public void add(ICriterionTrigger.Listener<LevitationTrigger.Instance> listener)
-        {
-            listeners.add(listener);
-        }
+		LevitationTrigger.Listeners levitationtrigger$listeners = listeners.get(player.getAdvancements());
 
-        public void remove(ICriterionTrigger.Listener<LevitationTrigger.Instance> listener)
-        {
-            listeners.remove(listener);
-        }
+		if (levitationtrigger$listeners != null) {
+			levitationtrigger$listeners.trigger(player, startPos, duration);
+		}
+	}
 
-        public void trigger(EntityPlayerMP player, Vec3d startPos, int durationIn)
-        {
-            List<ICriterionTrigger.Listener<LevitationTrigger.Instance>> list = null;
+	public static class Instance extends AbstractCriterionInstance {
 
-            for (ICriterionTrigger.Listener<LevitationTrigger.Instance> listener : listeners)
-            {
-                if (((LevitationTrigger.Instance)listener.getCriterionInstance()).test(player, startPos, durationIn))
-                {
-                    if (list == null)
-                    {
-                        list = Lists.<ICriterionTrigger.Listener<LevitationTrigger.Instance>>newArrayList();
-                    }
+		private final DistancePredicate distance;
+		private final MinMaxBounds duration;
 
-                    list.add(listener);
-                }
-            }
+		public Instance(DistancePredicate distance, MinMaxBounds duration) {
 
-            if (list != null)
-            {
-                for (ICriterionTrigger.Listener<LevitationTrigger.Instance> listener1 : list)
-                {
-                    listener1.grantCriterion(playerAdvancements);
-                }
-            }
-        }
-    }
+			super(LevitationTrigger.ID);
+			this.distance = distance;
+			this.duration = duration;
+		}
+
+		public boolean test(EntityPlayerMP player, Vec3d startPos, int durationIn) {
+
+			if (!distance.test(startPos.x(), startPos.y(), startPos.z(), player.posX, player.posY, player.posZ)) {
+				return false;
+			} else {
+				return duration.test((float) durationIn);
+			}
+		}
+
+	}
+
+	static class Listeners {
+
+		private final PlayerAdvancements playerAdvancements;
+		private final Set<ICriterionTrigger.Listener<LevitationTrigger.Instance>> listeners = Sets.newHashSet();
+
+		public Listeners(PlayerAdvancements playerAdvancementsIn) {
+
+			playerAdvancements = playerAdvancementsIn;
+		}
+
+		public boolean isEmpty() {
+
+			return listeners.isEmpty();
+		}
+
+		public void add(ICriterionTrigger.Listener<LevitationTrigger.Instance> listener) {
+
+			listeners.add(listener);
+		}
+
+		public void remove(ICriterionTrigger.Listener<LevitationTrigger.Instance> listener) {
+
+			listeners.remove(listener);
+		}
+
+		public void trigger(EntityPlayerMP player, Vec3d startPos, int durationIn) {
+
+			List<ICriterionTrigger.Listener<LevitationTrigger.Instance>> list = null;
+
+			for (ICriterionTrigger.Listener<LevitationTrigger.Instance> listener : listeners) {
+				if (listener.getCriterionInstance().test(player, startPos, durationIn)) {
+					if (list == null) {
+						list = Lists.newArrayList();
+					}
+
+					list.add(listener);
+				}
+			}
+
+			if (list != null) {
+				for (ICriterionTrigger.Listener<LevitationTrigger.Instance> listener1 : list) {
+					listener1.grantCriterion(playerAdvancements);
+				}
+			}
+		}
+
+	}
+
 }

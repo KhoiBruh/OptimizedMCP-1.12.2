@@ -3,6 +3,7 @@ package net.minecraft.client.resources;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+
 import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
@@ -14,103 +15,87 @@ import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
-public class FileResourcePack extends AbstractResourcePack implements Closeable
-{
-    public static final Splitter ENTRY_NAME_SPLITTER = Splitter.on('/').omitEmptyStrings().limit(3);
-    private ZipFile resourcePackZipFile;
+public class FileResourcePack extends AbstractResourcePack implements Closeable {
 
-    public FileResourcePack(File resourcePackFileIn)
-    {
-        super(resourcePackFileIn);
-    }
+	public static final Splitter ENTRY_NAME_SPLITTER = Splitter.on('/').omitEmptyStrings().limit(3);
+	private ZipFile resourcePackZipFile;
 
-    private ZipFile getResourcePackZipFile() throws IOException
-    {
-        if (resourcePackZipFile == null)
-        {
-            resourcePackZipFile = new ZipFile(resourcePackFile);
-        }
+	public FileResourcePack(File resourcePackFileIn) {
 
-        return resourcePackZipFile;
-    }
+		super(resourcePackFileIn);
+	}
 
-    protected InputStream getInputStreamByName(String name) throws IOException
-    {
-        ZipFile zipfile = getResourcePackZipFile();
-        ZipEntry zipentry = zipfile.getEntry(name);
+	private ZipFile getResourcePackZipFile() throws IOException {
 
-        if (zipentry == null)
-        {
-            throw new ResourcePackFileNotFoundException(resourcePackFile, name);
-        }
-        else
-        {
-            return zipfile.getInputStream(zipentry);
-        }
-    }
+		if (resourcePackZipFile == null) {
+			resourcePackZipFile = new ZipFile(resourcePackFile);
+		}
 
-    public boolean hasResourceName(String name)
-    {
-        try
-        {
-            return getResourcePackZipFile().getEntry(name) != null;
-        }
-        catch (IOException var3)
-        {
-            return false;
-        }
-    }
+		return resourcePackZipFile;
+	}
 
-    public Set<String> getResourceDomains()
-    {
-        ZipFile zipfile;
+	protected InputStream getInputStreamByName(String name) throws IOException {
 
-        try
-        {
-            zipfile = getResourcePackZipFile();
-        }
-        catch (IOException var8)
-        {
-            return Collections.<String>emptySet();
-        }
+		ZipFile zipfile = getResourcePackZipFile();
+		ZipEntry zipentry = zipfile.getEntry(name);
 
-        Enumeration <? extends ZipEntry > enumeration = zipfile.entries();
-        Set<String> set = Sets.<String>newHashSet();
+		if (zipentry == null) {
+			throw new ResourcePackFileNotFoundException(resourcePackFile, name);
+		} else {
+			return zipfile.getInputStream(zipentry);
+		}
+	}
 
-        while (enumeration.hasMoreElements())
-        {
-            ZipEntry zipentry = enumeration.nextElement();
-            String s = zipentry.getName();
+	public boolean hasResourceName(String name) {
 
-            if (s.startsWith("assets/"))
-            {
-                List<String> list = Lists.newArrayList(ENTRY_NAME_SPLITTER.split(s));
+		try {
+			return getResourcePackZipFile().getEntry(name) != null;
+		} catch (IOException var3) {
+			return false;
+		}
+	}
 
-                if (list.size() > 1)
-                {
-                    String s1 = list.get(1);
+	public Set<String> getResourceDomains() {
 
-                    if (s1.equals(s1.toLowerCase(java.util.Locale.ROOT)))
-                    {
-                        set.add(s1);
-                    }
-                    else
-                    {
-                        logNameNotLowercase(s1);
-                    }
-                }
-            }
-        }
+		ZipFile zipfile;
 
-        return set;
-    }
+		try {
+			zipfile = getResourcePackZipFile();
+		} catch (IOException var8) {
+			return Collections.emptySet();
+		}
 
-    public void close() throws IOException
-    {
-        if (resourcePackZipFile != null)
-        {
-            resourcePackZipFile.close();
-            resourcePackZipFile = null;
-        }
-    }
+		Enumeration<? extends ZipEntry> enumeration = zipfile.entries();
+		Set<String> set = Sets.newHashSet();
+
+		while (enumeration.hasMoreElements()) {
+			ZipEntry zipentry = enumeration.nextElement();
+			String s = zipentry.getName();
+
+			if (s.startsWith("assets/")) {
+				List<String> list = Lists.newArrayList(ENTRY_NAME_SPLITTER.split(s));
+
+				if (list.size() > 1) {
+					String s1 = list.get(1);
+
+					if (s1.equals(s1.toLowerCase(java.util.Locale.ROOT))) {
+						set.add(s1);
+					} else {
+						logNameNotLowercase(s1);
+					}
+				}
+			}
+		}
+
+		return set;
+	}
+
+	public void close() throws IOException {
+
+		if (resourcePackZipFile != null) {
+			resourcePackZipFile.close();
+			resourcePackZipFile = null;
+		}
+	}
+
 }

@@ -1,59 +1,53 @@
 package net.minecraft.entity.ai;
 
 import com.google.common.collect.Lists;
-import java.util.List;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 
-public class EntitySenses
-{
-    EntityLiving entity;
-    List<Entity> seenEntities = Lists.<Entity>newArrayList();
-    List<Entity> unseenEntities = Lists.<Entity>newArrayList();
+import java.util.List;
 
-    public EntitySenses(EntityLiving entityIn)
-    {
-        entity = entityIn;
-    }
+public class EntitySenses {
 
-    /**
-     * Clears canSeeCachePositive and canSeeCacheNegative.
-     */
-    public void clearSensingCache()
-    {
-        seenEntities.clear();
-        unseenEntities.clear();
-    }
+	EntityLiving entity;
+	List<Entity> seenEntities = Lists.newArrayList();
+	List<Entity> unseenEntities = Lists.newArrayList();
 
-    /**
-     * Checks, whether 'our' entity can see the entity given as argument (true) or not (false), caching the result.
-     */
-    public boolean canSee(Entity entityIn)
-    {
-        if (seenEntities.contains(entityIn))
-        {
-            return true;
-        }
-        else if (unseenEntities.contains(entityIn))
-        {
-            return false;
-        }
-        else
-        {
-            entity.world.profiler.startSection("canSee");
-            boolean flag = entity.canEntityBeSeen(entityIn);
-            entity.world.profiler.endSection();
+	public EntitySenses(EntityLiving entityIn) {
 
-            if (flag)
-            {
-                seenEntities.add(entityIn);
-            }
-            else
-            {
-                unseenEntities.add(entityIn);
-            }
+		entity = entityIn;
+	}
 
-            return flag;
-        }
-    }
+	/**
+	 * Clears canSeeCachePositive and canSeeCacheNegative.
+	 */
+	public void clearSensingCache() {
+
+		seenEntities.clear();
+		unseenEntities.clear();
+	}
+
+	/**
+	 * Checks, whether 'our' entity can see the entity given as argument (true) or not (false), caching the result.
+	 */
+	public boolean canSee(Entity entityIn) {
+
+		if (seenEntities.contains(entityIn)) {
+			return true;
+		} else if (unseenEntities.contains(entityIn)) {
+			return false;
+		} else {
+			entity.world.profiler.startSection("canSee");
+			boolean flag = entity.canEntityBeSeen(entityIn);
+			entity.world.profiler.endSection();
+
+			if (flag) {
+				seenEntities.add(entityIn);
+			} else {
+				unseenEntities.add(entityIn);
+			}
+
+			return flag;
+		}
+	}
+
 }

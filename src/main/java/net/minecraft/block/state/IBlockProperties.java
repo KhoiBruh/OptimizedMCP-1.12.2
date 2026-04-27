@@ -1,7 +1,5 @@
 package net.minecraft.block.state;
 
-import java.util.List;
-import javax.annotation.Nullable;
 import net.minecraft.block.material.EnumPushReaction;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
@@ -18,89 +16,93 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public interface IBlockProperties
-{
-    Material getMaterial();
+import javax.annotation.Nullable;
+import java.util.List;
 
-    boolean isFullBlock();
+public interface IBlockProperties {
 
-    boolean canEntitySpawn(Entity entityIn);
+	Material getMaterial();
 
-    int getLightOpacity();
+	boolean isFullBlock();
 
-    int getLightValue();
+	boolean canEntitySpawn(Entity entityIn);
 
-    boolean isTranslucent();
+	int getLightOpacity();
 
-    boolean useNeighborBrightness();
+	int getLightValue();
 
-    MapColor getMapColor(IBlockAccess p_185909_1_, BlockPos p_185909_2_);
+	boolean isTranslucent();
 
-    /**
-     * Returns the blockstate with the given rotation. If inapplicable, returns itself.
-     */
-    IBlockState withRotation(Rotation rot);
+	boolean useNeighborBrightness();
 
-    /**
-     * Returns the blockstate mirrored in the given way. If inapplicable, returns itself.
-     */
-    IBlockState withMirror(Mirror mirrorIn);
+	MapColor getMapColor(IBlockAccess p_185909_1_, BlockPos p_185909_2_);
 
-    boolean isFullCube();
+	/**
+	 * Returns the blockstate with the given rotation. If inapplicable, returns itself.
+	 */
+	IBlockState withRotation(Rotation rot);
 
-    boolean hasCustomBreakingProgress();
+	/**
+	 * Returns the blockstate mirrored in the given way. If inapplicable, returns itself.
+	 */
+	IBlockState withMirror(Mirror mirrorIn);
 
-    EnumBlockRenderType getRenderType();
+	boolean isFullCube();
 
-    int getPackedLightmapCoords(IBlockAccess source, BlockPos pos);
+	boolean hasCustomBreakingProgress();
 
-    float getAmbientOcclusionLightValue();
+	EnumBlockRenderType getRenderType();
 
-    boolean isBlockNormalCube();
+	int getPackedLightmapCoords(IBlockAccess source, BlockPos pos);
 
-    boolean isNormalCube();
+	float getAmbientOcclusionLightValue();
 
-    boolean canProvidePower();
+	boolean isBlockNormalCube();
 
-    int getWeakPower(IBlockAccess blockAccess, BlockPos pos, EnumFacing side);
+	boolean isNormalCube();
 
-    boolean hasComparatorInputOverride();
+	boolean canProvidePower();
 
-    int getComparatorInputOverride(World worldIn, BlockPos pos);
+	int getWeakPower(IBlockAccess blockAccess, BlockPos pos, EnumFacing side);
 
-    float getBlockHardness(World worldIn, BlockPos pos);
+	boolean hasComparatorInputOverride();
 
-    float getPlayerRelativeBlockHardness(EntityPlayer player, World worldIn, BlockPos pos);
+	int getComparatorInputOverride(World worldIn, BlockPos pos);
 
-    int getStrongPower(IBlockAccess blockAccess, BlockPos pos, EnumFacing side);
+	float getBlockHardness(World worldIn, BlockPos pos);
 
-    EnumPushReaction getMobilityFlag();
+	float getPlayerRelativeBlockHardness(EntityPlayer player, World worldIn, BlockPos pos);
 
-    IBlockState getActualState(IBlockAccess blockAccess, BlockPos pos);
+	int getStrongPower(IBlockAccess blockAccess, BlockPos pos, EnumFacing side);
 
-    AxisAlignedBB getSelectedBoundingBox(World worldIn, BlockPos pos);
+	EnumPushReaction getMobilityFlag();
 
-    boolean shouldSideBeRendered(IBlockAccess blockAccess, BlockPos pos, EnumFacing facing);
+	IBlockState getActualState(IBlockAccess blockAccess, BlockPos pos);
 
-    boolean isOpaqueCube();
+	AxisAlignedBB getSelectedBoundingBox(World worldIn, BlockPos pos);
 
-    @Nullable
-    AxisAlignedBB getCollisionBoundingBox(IBlockAccess worldIn, BlockPos pos);
+	boolean shouldSideBeRendered(IBlockAccess blockAccess, BlockPos pos, EnumFacing facing);
 
-    void addCollisionBoxToList(World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, Entity entityIn, boolean p_185908_6_);
+	boolean isOpaqueCube();
 
-    AxisAlignedBB getBoundingBox(IBlockAccess blockAccess, BlockPos pos);
+	@Nullable
+	AxisAlignedBB getCollisionBoundingBox(IBlockAccess worldIn, BlockPos pos);
 
-    RayTraceResult collisionRayTrace(World worldIn, BlockPos pos, Vec3d start, Vec3d end);
+	void addCollisionBoxToList(World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, Entity entityIn, boolean p_185908_6_);
 
-    /**
-     * Determines if the block is solid enough on the top side to support other blocks, like redstone components.
-     */
-    boolean isTopSolid();
+	AxisAlignedBB getBoundingBox(IBlockAccess blockAccess, BlockPos pos);
 
-    Vec3d getOffset(IBlockAccess access, BlockPos pos);
+	RayTraceResult collisionRayTrace(World worldIn, BlockPos pos, Vec3d start, Vec3d end);
 
-    boolean causesSuffocation();
+	/**
+	 * Determines if the block is solid enough on the top side to support other blocks, like redstone components.
+	 */
+	boolean isTopSolid();
 
-    BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, BlockPos pos, EnumFacing facing);
+	Vec3d getOffset(IBlockAccess access, BlockPos pos);
+
+	boolean causesSuffocation();
+
+	BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, BlockPos pos, EnumFacing facing);
+
 }

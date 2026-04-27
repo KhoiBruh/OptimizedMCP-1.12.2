@@ -4,10 +4,6 @@ import com.google.common.collect.Maps;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
-import java.util.Collections;
-import java.util.Map;
-import java.util.Map.Entry;
-import javax.annotation.Nullable;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.potion.Potion;
@@ -15,133 +11,122 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.JsonUtils;
 import net.minecraft.util.ResourceLocation;
 
-public class MobEffectsPredicate
-{
-    /** The predicate that matches any set of effects. */
-    public static final MobEffectsPredicate ANY = new MobEffectsPredicate(Collections.emptyMap());
-    private final Map<Potion, MobEffectsPredicate.InstancePredicate> effects;
+import javax.annotation.Nullable;
+import java.util.Collections;
+import java.util.Map;
+import java.util.Map.Entry;
 
-    public MobEffectsPredicate(Map<Potion, MobEffectsPredicate.InstancePredicate> effects)
-    {
-        this.effects = effects;
-    }
+public class MobEffectsPredicate {
 
-    public boolean test(Entity entityIn)
-    {
-        if (this == ANY)
-        {
-            return true;
-        }
-        else
-        {
-            return entityIn instanceof EntityLivingBase ? test(((EntityLivingBase)entityIn).getActivePotionMap()) : false;
-        }
-    }
+	/**
+	 * The predicate that matches any set of effects.
+	 */
+	public static final MobEffectsPredicate ANY = new MobEffectsPredicate(Collections.emptyMap());
+	private final Map<Potion, MobEffectsPredicate.InstancePredicate> effects;
 
-    public boolean test(EntityLivingBase entityIn)
-    {
-        return this == ANY ? true : test(entityIn.getActivePotionMap());
-    }
+	public MobEffectsPredicate(Map<Potion, MobEffectsPredicate.InstancePredicate> effects) {
 
-    public boolean test(Map<Potion, PotionEffect> potions)
-    {
-        if (this == ANY)
-        {
-            return true;
-        }
-        else
-        {
-            for (Entry<Potion, MobEffectsPredicate.InstancePredicate> entry : effects.entrySet())
-            {
-                PotionEffect potioneffect = potions.get(entry.getKey());
+		this.effects = effects;
+	}
 
-                if (!((MobEffectsPredicate.InstancePredicate)entry.getValue()).test(potioneffect))
-                {
-                    return false;
-                }
-            }
+	public boolean test(Entity entityIn) {
 
-            return true;
-        }
-    }
+		if (this == ANY) {
+			return true;
+		} else {
+			return entityIn instanceof EntityLivingBase && test(((EntityLivingBase) entityIn).getActivePotionMap());
+		}
+	}
 
-    public static MobEffectsPredicate deserialize(@Nullable JsonElement element)
-    {
-        if (element != null && !element.isJsonNull())
-        {
-            JsonObject jsonobject = JsonUtils.getJsonObject(element, "effects");
-            Map<Potion, MobEffectsPredicate.InstancePredicate> map = Maps.<Potion, MobEffectsPredicate.InstancePredicate>newHashMap();
+	public boolean test(EntityLivingBase entityIn) {
 
-            for (Entry<String, JsonElement> entry : jsonobject.entrySet())
-            {
-                ResourceLocation resourcelocation = new ResourceLocation(entry.getKey());
-                Potion potion = Potion.REGISTRY.getObject(resourcelocation);
+		return this == ANY || test(entityIn.getActivePotionMap());
+	}
 
-                if (potion == null)
-                {
-                    throw new JsonSyntaxException("Unknown effect '" + resourcelocation + "'");
-                }
+	public boolean test(Map<Potion, PotionEffect> potions) {
 
-                MobEffectsPredicate.InstancePredicate mobeffectspredicate$instancepredicate = MobEffectsPredicate.InstancePredicate.deserialize(JsonUtils.getJsonObject(entry.getValue(), entry.getKey()));
-                map.put(potion, mobeffectspredicate$instancepredicate);
-            }
+		if (this == ANY) {
+			return true;
+		} else {
+			for (Entry<Potion, MobEffectsPredicate.InstancePredicate> entry : effects.entrySet()) {
+				PotionEffect potioneffect = potions.get(entry.getKey());
 
-            return new MobEffectsPredicate(map);
-        }
-        else
-        {
-            return ANY;
-        }
-    }
+				if (!entry.getValue().test(potioneffect)) {
+					return false;
+				}
+			}
 
-    public static class InstancePredicate
-    {
-        private final MinMaxBounds amplifier;
-        private final MinMaxBounds duration;
-        @Nullable
-        private final Boolean ambient;
-        @Nullable
-        private final Boolean visible;
+			return true;
+		}
+	}
 
-        public InstancePredicate(MinMaxBounds amplifier, MinMaxBounds duration, @Nullable Boolean ambient, @Nullable Boolean visible)
-        {
-            this.amplifier = amplifier;
-            this.duration = duration;
-            this.ambient = ambient;
-            this.visible = visible;
-        }
+	public static MobEffectsPredicate deserialize(@Nullable JsonElement element) {
 
-        public boolean test(@Nullable PotionEffect effect)
-        {
-            if (effect == null)
-            {
-                return false;
-            }
-            else if (!amplifier.test((float)effect.getAmplifier()))
-            {
-                return false;
-            }
-            else if (!duration.test((float)effect.getDuration()))
-            {
-                return false;
-            }
-            else if (ambient != null && ambient.booleanValue() != effect.getIsAmbient())
-            {
-                return false;
-            }
-            else
-            {
-                return visible == null || visible.booleanValue() == effect.doesShowParticles();
-            }
-        }
+		if (element != null && !element.isJsonNull()) {
+			JsonObject jsonobject = JsonUtils.getJsonObject(element, "effects");
+			Map<Potion, MobEffectsPredicate.InstancePredicate> map = Maps.newHashMap();
 
-        public static MobEffectsPredicate.InstancePredicate deserialize(JsonObject object)
-        {
-            MinMaxBounds minmaxbounds = MinMaxBounds.deserialize(object.get("amplifier"));
-            MinMaxBounds minmaxbounds1 = MinMaxBounds.deserialize(object.get("duration"));
-            Boolean obool = object.has("ambient") ? JsonUtils.getBoolean(object, "ambient") : null;
-            Boolean obool1 = object.has("visible") ? JsonUtils.getBoolean(object, "visible") : null;
-            return new MobEffectsPredicate.InstancePredicate(minmaxbounds, minmaxbounds1, obool, obool1);
-        }
-    }
+			for (Entry<String, JsonElement> entry : jsonobject.entrySet()) {
+				ResourceLocation resourcelocation = new ResourceLocation(entry.getKey());
+				Potion potion = Potion.REGISTRY.getObject(resourcelocation);
+
+				if (potion == null) {
+					throw new JsonSyntaxException("Unknown effect '" + resourcelocation + "'");
+				}
+
+				MobEffectsPredicate.InstancePredicate mobeffectspredicate$instancepredicate = MobEffectsPredicate.InstancePredicate.deserialize(JsonUtils.getJsonObject(entry.getValue(), entry.getKey()));
+				map.put(potion, mobeffectspredicate$instancepredicate);
+			}
+
+			return new MobEffectsPredicate(map);
+		} else {
+			return ANY;
+		}
+	}
+
+	public static class InstancePredicate {
+
+		private final MinMaxBounds amplifier;
+		private final MinMaxBounds duration;
+
+		@Nullable
+		private final Boolean ambient;
+
+		@Nullable
+		private final Boolean visible;
+
+		public InstancePredicate(MinMaxBounds amplifier, MinMaxBounds duration, @Nullable Boolean ambient, @Nullable Boolean visible) {
+
+			this.amplifier = amplifier;
+			this.duration = duration;
+			this.ambient = ambient;
+			this.visible = visible;
+		}
+
+		public boolean test(@Nullable PotionEffect effect) {
+
+			if (effect == null) {
+				return false;
+			} else if (!amplifier.test((float) effect.getAmplifier())) {
+				return false;
+			} else if (!duration.test((float) effect.getDuration())) {
+				return false;
+			} else if (ambient != null && ambient.booleanValue() != effect.getIsAmbient()) {
+				return false;
+			} else {
+				return visible == null || visible.booleanValue() == effect.doesShowParticles();
+			}
+		}
+
+		public static MobEffectsPredicate.InstancePredicate deserialize(JsonObject object) {
+
+			MinMaxBounds minmaxbounds = MinMaxBounds.deserialize(object.get("amplifier"));
+			MinMaxBounds minmaxbounds1 = MinMaxBounds.deserialize(object.get("duration"));
+			Boolean obool = object.has("ambient") ? JsonUtils.getBoolean(object, "ambient") : null;
+			Boolean obool1 = object.has("visible") ? JsonUtils.getBoolean(object, "visible") : null;
+			return new MobEffectsPredicate.InstancePredicate(minmaxbounds, minmaxbounds1, obool, obool1);
+		}
+
+	}
+
 }

@@ -2,215 +2,192 @@ package net.minecraft.world.gen.structure;
 
 import com.google.common.collect.Lists;
 import it.unimi.dsi.fastutil.objects.ObjectIterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.Map.Entry;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 
-public class MapGenStronghold extends MapGenStructure
-{
-    private final List<Biome> allowedBiomes;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Random;
 
-    /**
-     * is spawned false and set true once the defined BiomeGenBases were compared with the present ones
-     */
-    private boolean ranBiomeCheck;
-    private ChunkPos[] structureCoords;
-    private double distance;
-    private int spread;
+public class MapGenStronghold extends MapGenStructure {
 
-    public MapGenStronghold()
-    {
-        structureCoords = new ChunkPos[128];
-        distance = 32.0D;
-        spread = 3;
-        allowedBiomes = Lists.<Biome>newArrayList();
+	private final List<Biome> allowedBiomes;
 
-        for (Biome biome : Biome.REGISTRY)
-        {
-            if (biome != null && biome.getBaseHeight() > 0.0F)
-            {
-                allowedBiomes.add(biome);
-            }
-        }
-    }
+	/**
+	 * is spawned false and set true once the defined BiomeGenBases were compared with the present ones
+	 */
+	private boolean ranBiomeCheck;
+	private ChunkPos[] structureCoords;
+	private double distance;
+	private int spread;
 
-    public MapGenStronghold(Map<String, String> p_i2068_1_)
-    {
-        this();
+	public MapGenStronghold() {
 
-        for (Entry<String, String> entry : p_i2068_1_.entrySet())
-        {
-            if (((String)entry.getKey()).equals("distance"))
-            {
-                distance = MathHelper.getDouble(entry.getValue(), distance, 1.0D);
-            }
-            else if (((String)entry.getKey()).equals("count"))
-            {
-                structureCoords = new ChunkPos[MathHelper.getInt(entry.getValue(), structureCoords.length, 1)];
-            }
-            else if (((String)entry.getKey()).equals("spread"))
-            {
-                spread = MathHelper.getInt(entry.getValue(), spread, 1);
-            }
-        }
-    }
+		structureCoords = new ChunkPos[128];
+		distance = 32.0D;
+		spread = 3;
+		allowedBiomes = Lists.newArrayList();
 
-    public String getStructureName()
-    {
-        return "Stronghold";
-    }
+		for (Biome biome : Biome.REGISTRY) {
+			if (biome != null && biome.getBaseHeight() > 0.0F) {
+				allowedBiomes.add(biome);
+			}
+		}
+	}
 
-    public BlockPos getNearestStructurePos(World worldIn, BlockPos pos, boolean findUnexplored)
-    {
-        if (!ranBiomeCheck)
-        {
-            generatePositions();
-            ranBiomeCheck = true;
-        }
+	public MapGenStronghold(Map<String, String> p_i2068_1_) {
 
-        BlockPos blockpos = null;
-        BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos(0, 0, 0);
-        double d0 = Double.MAX_VALUE;
+		this();
 
-        for (ChunkPos chunkpos : structureCoords)
-        {
-            blockpos$mutableblockpos.setPos((chunkpos.x << 4) + 8, 32, (chunkpos.z << 4) + 8);
-            double d1 = blockpos$mutableblockpos.distanceSq(pos);
+		for (Entry<String, String> entry : p_i2068_1_.entrySet()) {
+			if (entry.getKey().equals("distance")) {
+				distance = MathHelper.getDouble(entry.getValue(), distance, 1.0D);
+			} else if (entry.getKey().equals("count")) {
+				structureCoords = new ChunkPos[MathHelper.getInt(entry.getValue(), structureCoords.length, 1)];
+			} else if (entry.getKey().equals("spread")) {
+				spread = MathHelper.getInt(entry.getValue(), spread, 1);
+			}
+		}
+	}
 
-            if (blockpos == null)
-            {
-                blockpos = new BlockPos(blockpos$mutableblockpos);
-                d0 = d1;
-            }
-            else if (d1 < d0)
-            {
-                blockpos = new BlockPos(blockpos$mutableblockpos);
-                d0 = d1;
-            }
-        }
+	public String getStructureName() {
 
-        return blockpos;
-    }
+		return "Stronghold";
+	}
 
-    protected boolean canSpawnStructureAtCoords(int chunkX, int chunkZ)
-    {
-        if (!ranBiomeCheck)
-        {
-            generatePositions();
-            ranBiomeCheck = true;
-        }
+	public BlockPos getNearestStructurePos(World worldIn, BlockPos pos, boolean findUnexplored) {
 
-        for (ChunkPos chunkpos : structureCoords)
-        {
-            if (chunkX == chunkpos.x && chunkZ == chunkpos.z)
-            {
-                return true;
-            }
-        }
+		if (!ranBiomeCheck) {
+			generatePositions();
+			ranBiomeCheck = true;
+		}
 
-        return false;
-    }
+		BlockPos blockpos = null;
+		BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos(0, 0, 0);
+		double d0 = Double.MAX_VALUE;
 
-    private void generatePositions()
-    {
-        initializeStructureData(world);
-        int i = 0;
-        ObjectIterator lvt_2_1_ = structureMap.values().iterator();
+		for (ChunkPos chunkpos : structureCoords) {
+			blockpos$mutableblockpos.setPos((chunkpos.x << 4) + 8, 32, (chunkpos.z << 4) + 8);
+			double d1 = blockpos$mutableblockpos.distanceSq(pos);
 
-        while (lvt_2_1_.hasNext())
-        {
-            StructureStart structurestart = (StructureStart)lvt_2_1_.next();
+			if (blockpos == null) {
+				blockpos = new BlockPos(blockpos$mutableblockpos);
+				d0 = d1;
+			} else if (d1 < d0) {
+				blockpos = new BlockPos(blockpos$mutableblockpos);
+				d0 = d1;
+			}
+		}
 
-            if (i < structureCoords.length)
-            {
-                structureCoords[i++] = new ChunkPos(structurestart.getChunkPosX(), structurestart.getChunkPosZ());
-            }
-        }
+		return blockpos;
+	}
 
-        Random random = new Random();
-        random.setSeed(world.getSeed());
-        double d1 = random.nextDouble() * Math.PI * 2.0D;
-        int j = 0;
-        int k = 0;
-        int l = structureMap.size();
+	protected boolean canSpawnStructureAtCoords(int chunkX, int chunkZ) {
 
-        if (l < structureCoords.length)
-        {
-            for (int i1 = 0; i1 < structureCoords.length; ++i1)
-            {
-                double d0 = 4.0D * distance + distance * (double)j * 6.0D + (random.nextDouble() - 0.5D) * distance * 2.5D;
-                int j1 = (int)Math.round(Math.cos(d1) * d0);
-                int k1 = (int)Math.round(Math.sin(d1) * d0);
-                BlockPos blockpos = world.getBiomeProvider().findBiomePosition((j1 << 4) + 8, (k1 << 4) + 8, 112, allowedBiomes, random);
+		if (!ranBiomeCheck) {
+			generatePositions();
+			ranBiomeCheck = true;
+		}
 
-                if (blockpos != null)
-                {
-                    j1 = blockpos.getX() >> 4;
-                    k1 = blockpos.getZ() >> 4;
-                }
+		for (ChunkPos chunkpos : structureCoords) {
+			if (chunkX == chunkpos.x && chunkZ == chunkpos.z) {
+				return true;
+			}
+		}
 
-                if (i1 >= l)
-                {
-                    structureCoords[i1] = new ChunkPos(j1, k1);
-                }
+		return false;
+	}
 
-                d1 += (Math.PI * 2D) / (double) spread;
-                ++k;
+	private void generatePositions() {
 
-                if (k == spread)
-                {
-                    ++j;
-                    k = 0;
-                    spread += 2 * spread / (j + 1);
-                    spread = Math.min(spread, structureCoords.length - i1);
-                    d1 += random.nextDouble() * Math.PI * 2.0D;
-                }
-            }
-        }
-    }
+		initializeStructureData(world);
+		int i = 0;
+		ObjectIterator lvt_2_1_ = structureMap.values().iterator();
 
-    protected StructureStart getStructureStart(int chunkX, int chunkZ)
-    {
-        MapGenStronghold.Start mapgenstronghold$start;
+		while (lvt_2_1_.hasNext()) {
+			StructureStart structurestart = (StructureStart) lvt_2_1_.next();
 
-        for (mapgenstronghold$start = new MapGenStronghold.Start(world, rand, chunkX, chunkZ); mapgenstronghold$start.getComponents().isEmpty() || ((StructureStrongholdPieces.Stairs2)mapgenstronghold$start.getComponents().get(0)).strongholdPortalRoom == null; mapgenstronghold$start = new MapGenStronghold.Start(world, rand, chunkX, chunkZ))
-        {
-            ;
-        }
+			if (i < structureCoords.length) {
+				structureCoords[i++] = new ChunkPos(structurestart.getChunkPosX(), structurestart.getChunkPosZ());
+			}
+		}
 
-        return mapgenstronghold$start;
-    }
+		Random random = new Random();
+		random.setSeed(world.getSeed());
+		double d1 = random.nextDouble() * Math.PI * 2.0D;
+		int j = 0;
+		int k = 0;
+		int l = structureMap.size();
 
-    public static class Start extends StructureStart
-    {
-        public Start()
-        {
-        }
+		if (l < structureCoords.length) {
+			for (int i1 = 0; i1 < structureCoords.length; ++i1) {
+				double d0 = 4.0D * distance + distance * (double) j * 6.0D + (random.nextDouble() - 0.5D) * distance * 2.5D;
+				int j1 = (int) Math.round(Math.cos(d1) * d0);
+				int k1 = (int) Math.round(Math.sin(d1) * d0);
+				BlockPos blockpos = world.getBiomeProvider().findBiomePosition((j1 << 4) + 8, (k1 << 4) + 8, 112, allowedBiomes, random);
 
-        public Start(World worldIn, Random random, int chunkX, int chunkZ)
-        {
-            super(chunkX, chunkZ);
-            StructureStrongholdPieces.prepareStructurePieces();
-            StructureStrongholdPieces.Stairs2 structurestrongholdpieces$stairs2 = new StructureStrongholdPieces.Stairs2(0, random, (chunkX << 4) + 2, (chunkZ << 4) + 2);
-            components.add(structurestrongholdpieces$stairs2);
-            structurestrongholdpieces$stairs2.buildComponent(structurestrongholdpieces$stairs2, components, random);
-            List<StructureComponent> list = structurestrongholdpieces$stairs2.pendingChildren;
+				if (blockpos != null) {
+					j1 = blockpos.getX() >> 4;
+					k1 = blockpos.getZ() >> 4;
+				}
 
-            while (!list.isEmpty())
-            {
-                int i = random.nextInt(list.size());
-                StructureComponent structurecomponent = list.remove(i);
-                structurecomponent.buildComponent(structurestrongholdpieces$stairs2, components, random);
-            }
+				if (i1 >= l) {
+					structureCoords[i1] = new ChunkPos(j1, k1);
+				}
 
-            updateBoundingBox();
-            markAvailableHeight(worldIn, random, 10);
-        }
-    }
+				d1 += (Math.PI * 2D) / (double) spread;
+				++k;
+
+				if (k == spread) {
+					++j;
+					k = 0;
+					spread += 2 * spread / (j + 1);
+					spread = Math.min(spread, structureCoords.length - i1);
+					d1 += random.nextDouble() * Math.PI * 2.0D;
+				}
+			}
+		}
+	}
+
+	protected StructureStart getStructureStart(int chunkX, int chunkZ) {
+
+		MapGenStronghold.Start mapgenstronghold$start;
+
+		for (mapgenstronghold$start = new MapGenStronghold.Start(world, rand, chunkX, chunkZ); mapgenstronghold$start.getComponents().isEmpty() || ((StructureStrongholdPieces.Stairs2) mapgenstronghold$start.getComponents().get(0)).strongholdPortalRoom == null; mapgenstronghold$start = new MapGenStronghold.Start(world, rand, chunkX, chunkZ)) {
+		}
+
+		return mapgenstronghold$start;
+	}
+
+	public static class Start extends StructureStart {
+
+		public Start() {
+
+		}
+
+		public Start(World worldIn, Random random, int chunkX, int chunkZ) {
+
+			super(chunkX, chunkZ);
+			StructureStrongholdPieces.prepareStructurePieces();
+			StructureStrongholdPieces.Stairs2 structurestrongholdpieces$stairs2 = new StructureStrongholdPieces.Stairs2(0, random, (chunkX << 4) + 2, (chunkZ << 4) + 2);
+			components.add(structurestrongholdpieces$stairs2);
+			structurestrongholdpieces$stairs2.buildComponent(structurestrongholdpieces$stairs2, components, random);
+			List<StructureComponent> list = structurestrongholdpieces$stairs2.pendingChildren;
+
+			while (!list.isEmpty()) {
+				int i = random.nextInt(list.size());
+				StructureComponent structurecomponent = list.remove(i);
+				structurecomponent.buildComponent(structurestrongholdpieces$stairs2, components, random);
+			}
+
+			updateBoundingBox();
+			markAvailableHeight(worldIn, random, 10);
+		}
+
+	}
+
 }

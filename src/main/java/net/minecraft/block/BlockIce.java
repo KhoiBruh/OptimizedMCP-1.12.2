@@ -1,7 +1,5 @@
 package net.minecraft.block;
 
-import java.util.Random;
-import javax.annotation.Nullable;
 import net.minecraft.block.material.EnumPushReaction;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -18,89 +16,84 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
 
-public class BlockIce extends BlockBreakable
-{
-    public BlockIce()
-    {
-        super(Material.ICE, false);
-        slipperiness = 0.98F;
-        setTickRandomly(true);
-        setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
-    }
+import javax.annotation.Nullable;
+import java.util.Random;
 
-    /**
-     * Gets the render layer this block will render on. SOLID for solid blocks, CUTOUT or CUTOUT_MIPPED for on-off
-     * transparency (glass, reeds), TRANSLUCENT for fully blended transparency (stained glass)
-     */
-    public BlockRenderLayer getBlockLayer()
-    {
-        return BlockRenderLayer.TRANSLUCENT;
-    }
+public class BlockIce extends BlockBreakable {
 
-    /**
-     * Spawns the block's drops in the world. By the time this is called the Block has possibly been set to air via
-     * Block.removedByPlayer
-     */
-    public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, @Nullable TileEntity te, ItemStack stack)
-    {
-        player.addStat(StatList.getBlockStats(this));
-        player.addExhaustion(0.005F);
+	public BlockIce() {
 
-        if (canSilkHarvest() && EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, stack) > 0)
-        {
-            spawnAsEntity(worldIn, pos, getSilkTouchDrop(state));
-        }
-        else
-        {
-            if (worldIn.provider.doesWaterVaporize())
-            {
-                worldIn.setBlockToAir(pos);
-                return;
-            }
+		super(Material.ICE, false);
+		slipperiness = 0.98F;
+		setTickRandomly(true);
+		setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
+	}
 
-            int i = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack);
-            dropBlockAsItem(worldIn, pos, state, i);
-            Material material = worldIn.getBlockState(pos.down()).getMaterial();
+	/**
+	 * Gets the render layer this block will render on. SOLID for solid blocks, CUTOUT or CUTOUT_MIPPED for on-off
+	 * transparency (glass, reeds), TRANSLUCENT for fully blended transparency (stained glass)
+	 */
+	public BlockRenderLayer getBlockLayer() {
 
-            if (material.blocksMovement() || material.isLiquid())
-            {
-                worldIn.setBlockState(pos, Blocks.FLOWING_WATER.getDefaultState());
-            }
-        }
-    }
+		return BlockRenderLayer.TRANSLUCENT;
+	}
 
-    /**
-     * Returns the quantity of items to drop on block destruction.
-     */
-    public int quantityDropped(Random random)
-    {
-        return 0;
-    }
+	/**
+	 * Spawns the block's drops in the world. By the time this is called the Block has possibly been set to air via
+	 * Block.removedByPlayer
+	 */
+	public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, @Nullable TileEntity te, ItemStack stack) {
 
-    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
-    {
-        if (worldIn.getLightFor(EnumSkyBlock.BLOCK, pos) > 11 - getDefaultState().getLightOpacity())
-        {
-            turnIntoWater(worldIn, pos);
-        }
-    }
+		player.addStat(StatList.getBlockStats(this));
+		player.addExhaustion(0.005F);
 
-    protected void turnIntoWater(World worldIn, BlockPos pos)
-    {
-        if (worldIn.provider.doesWaterVaporize())
-        {
-            worldIn.setBlockToAir(pos);
-        }
-        else
-        {
-            dropBlockAsItem(worldIn, pos, worldIn.getBlockState(pos), 0);
-            worldIn.setBlockState(pos, Blocks.WATER.getDefaultState());
-            worldIn.neighborChanged(pos, Blocks.WATER, pos);
-        }
-    }
+		if (canSilkHarvest() && EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, stack) > 0) {
+			spawnAsEntity(worldIn, pos, getSilkTouchDrop(state));
+		} else {
+			if (worldIn.provider.doesWaterVaporize()) {
+				worldIn.setBlockToAir(pos);
+				return;
+			}
 
-    public EnumPushReaction getMobilityFlag(IBlockState state)
-    {
-        return EnumPushReaction.NORMAL;
-    }
+			int i = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack);
+			dropBlockAsItem(worldIn, pos, state, i);
+			Material material = worldIn.getBlockState(pos.down()).getMaterial();
+
+			if (material.blocksMovement() || material.isLiquid()) {
+				worldIn.setBlockState(pos, Blocks.FLOWING_WATER.getDefaultState());
+			}
+		}
+	}
+
+	/**
+	 * Returns the quantity of items to drop on block destruction.
+	 */
+	public int quantityDropped(Random random) {
+
+		return 0;
+	}
+
+	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
+
+		if (worldIn.getLightFor(EnumSkyBlock.BLOCK, pos) > 11 - getDefaultState().getLightOpacity()) {
+			turnIntoWater(worldIn, pos);
+		}
+	}
+
+	protected void turnIntoWater(World worldIn, BlockPos pos) {
+
+		if (worldIn.provider.doesWaterVaporize()) {
+			worldIn.setBlockToAir(pos);
+		} else {
+			dropBlockAsItem(worldIn, pos, worldIn.getBlockState(pos), 0);
+			worldIn.setBlockState(pos, Blocks.WATER.getDefaultState());
+			worldIn.neighborChanged(pos, Blocks.WATER, pos);
+		}
+	}
+
+	public EnumPushReaction getMobilityFlag(IBlockState state) {
+
+		return EnumPushReaction.NORMAL;
+	}
+
 }

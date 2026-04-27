@@ -10,133 +10,110 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 
-public class DemoPlayerInteractionManager extends PlayerInteractionManager
-{
-    private boolean displayedIntro;
-    private boolean demoTimeExpired;
-    private int demoEndedReminder;
-    private int gameModeTicks;
+public class DemoPlayerInteractionManager extends PlayerInteractionManager {
 
-    public DemoPlayerInteractionManager(World worldIn)
-    {
-        super(worldIn);
-    }
+	private boolean displayedIntro;
+	private boolean demoTimeExpired;
+	private int demoEndedReminder;
+	private int gameModeTicks;
 
-    public void updateBlockRemoving()
-    {
-        super.updateBlockRemoving();
-        ++gameModeTicks;
-        long i = world.getTotalWorldTime();
-        long j = i / 24000L + 1L;
+	public DemoPlayerInteractionManager(World worldIn) {
 
-        if (!displayedIntro && gameModeTicks > 20)
-        {
-            displayedIntro = true;
-            player.connection.sendPacket(new SPacketChangeGameState(5, 0.0F));
-        }
+		super(worldIn);
+	}
 
-        demoTimeExpired = i > 120500L;
+	public void updateBlockRemoving() {
 
-        if (demoTimeExpired)
-        {
-            ++demoEndedReminder;
-        }
+		super.updateBlockRemoving();
+		++gameModeTicks;
+		long i = world.getTotalWorldTime();
+		long j = i / 24000L + 1L;
 
-        if (i % 24000L == 500L)
-        {
-            if (j <= 6L)
-            {
-                player.sendMessage(new TextComponentTranslation("demo.day." + j, new Object[0]));
-            }
-        }
-        else if (j == 1L)
-        {
-            if (i == 100L)
-            {
-                player.connection.sendPacket(new SPacketChangeGameState(5, 101.0F));
-            }
-            else if (i == 175L)
-            {
-                player.connection.sendPacket(new SPacketChangeGameState(5, 102.0F));
-            }
-            else if (i == 250L)
-            {
-                player.connection.sendPacket(new SPacketChangeGameState(5, 103.0F));
-            }
-        }
-        else if (j == 5L && i % 24000L == 22000L)
-        {
-            player.sendMessage(new TextComponentTranslation("demo.day.warning", new Object[0]));
-        }
-    }
+		if (!displayedIntro && gameModeTicks > 20) {
+			displayedIntro = true;
+			player.connection.sendPacket(new SPacketChangeGameState(5, 0.0F));
+		}
 
-    /**
-     * Sends a message to the player reminding them that this is the demo version
-     */
-    private void sendDemoReminder()
-    {
-        if (demoEndedReminder > 100)
-        {
-            player.sendMessage(new TextComponentTranslation("demo.reminder", new Object[0]));
-            demoEndedReminder = 0;
-        }
-    }
+		demoTimeExpired = i > 120500L;
 
-    /**
-     * If not creative, it calls sendBlockBreakProgress until the block is broken first. tryHarvestBlock can also be the
-     * result of this call.
-     */
-    public void onBlockClicked(BlockPos pos, EnumFacing side)
-    {
-        if (demoTimeExpired)
-        {
-            sendDemoReminder();
-        }
-        else
-        {
-            super.onBlockClicked(pos, side);
-        }
-    }
+		if (demoTimeExpired) {
+			++demoEndedReminder;
+		}
 
-    public void blockRemoving(BlockPos pos)
-    {
-        if (!demoTimeExpired)
-        {
-            super.blockRemoving(pos);
-        }
-    }
+		if (i % 24000L == 500L) {
+			if (j <= 6L) {
+				player.sendMessage(new TextComponentTranslation("demo.day." + j));
+			}
+		} else if (j == 1L) {
+			if (i == 100L) {
+				player.connection.sendPacket(new SPacketChangeGameState(5, 101.0F));
+			} else if (i == 175L) {
+				player.connection.sendPacket(new SPacketChangeGameState(5, 102.0F));
+			} else if (i == 250L) {
+				player.connection.sendPacket(new SPacketChangeGameState(5, 103.0F));
+			}
+		} else if (j == 5L && i % 24000L == 22000L) {
+			player.sendMessage(new TextComponentTranslation("demo.day.warning"));
+		}
+	}
 
-    /**
-     * Attempts to harvest a block
-     */
-    public boolean tryHarvestBlock(BlockPos pos)
-    {
-        return demoTimeExpired ? false : super.tryHarvestBlock(pos);
-    }
+	/**
+	 * Sends a message to the player reminding them that this is the demo version
+	 */
+	private void sendDemoReminder() {
 
-    public EnumActionResult processRightClick(EntityPlayer player, World worldIn, ItemStack stack, EnumHand hand)
-    {
-        if (demoTimeExpired)
-        {
-            sendDemoReminder();
-            return EnumActionResult.PASS;
-        }
-        else
-        {
-            return super.processRightClick(player, worldIn, stack, hand);
-        }
-    }
+		if (demoEndedReminder > 100) {
+			player.sendMessage(new TextComponentTranslation("demo.reminder"));
+			demoEndedReminder = 0;
+		}
+	}
 
-    public EnumActionResult processRightClickBlock(EntityPlayer player, World worldIn, ItemStack stack, EnumHand hand, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ)
-    {
-        if (demoTimeExpired)
-        {
-            sendDemoReminder();
-            return EnumActionResult.PASS;
-        }
-        else
-        {
-            return super.processRightClickBlock(player, worldIn, stack, hand, pos, facing, hitX, hitY, hitZ);
-        }
-    }
+	/**
+	 * If not creative, it calls sendBlockBreakProgress until the block is broken first. tryHarvestBlock can also be the
+	 * result of this call.
+	 */
+	public void onBlockClicked(BlockPos pos, EnumFacing side) {
+
+		if (demoTimeExpired) {
+			sendDemoReminder();
+		} else {
+			super.onBlockClicked(pos, side);
+		}
+	}
+
+	public void blockRemoving(BlockPos pos) {
+
+		if (!demoTimeExpired) {
+			super.blockRemoving(pos);
+		}
+	}
+
+	/**
+	 * Attempts to harvest a block
+	 */
+	public boolean tryHarvestBlock(BlockPos pos) {
+
+		return !demoTimeExpired && super.tryHarvestBlock(pos);
+	}
+
+	public EnumActionResult processRightClick(EntityPlayer player, World worldIn, ItemStack stack, EnumHand hand) {
+
+		if (demoTimeExpired) {
+			sendDemoReminder();
+			return EnumActionResult.PASS;
+		} else {
+			return super.processRightClick(player, worldIn, stack, hand);
+		}
+	}
+
+	public EnumActionResult processRightClickBlock(EntityPlayer player, World worldIn, ItemStack stack, EnumHand hand, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ) {
+
+		if (demoTimeExpired) {
+			sendDemoReminder();
+			return EnumActionResult.PASS;
+		} else {
+			return super.processRightClickBlock(player, worldIn, stack, hand, pos, facing, hitX, hitY, hitZ);
+		}
+	}
+
 }

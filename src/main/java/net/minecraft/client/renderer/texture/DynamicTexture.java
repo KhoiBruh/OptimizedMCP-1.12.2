@@ -1,45 +1,51 @@
 package net.minecraft.client.renderer.texture;
 
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 import net.minecraft.client.resources.IResourceManager;
 
-public class DynamicTexture extends AbstractTexture
-{
-    private final int[] dynamicTextureData;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
-    /** width of this icon in pixels */
-    private final int width;
+public class DynamicTexture extends AbstractTexture {
 
-    /** height of this icon in pixels */
-    private final int height;
+	private final int[] dynamicTextureData;
 
-    public DynamicTexture(BufferedImage bufferedImage)
-    {
-        this(bufferedImage.getWidth(), bufferedImage.getHeight());
-        bufferedImage.getRGB(0, 0, bufferedImage.getWidth(), bufferedImage.getHeight(), dynamicTextureData, 0, bufferedImage.getWidth());
-        updateDynamicTexture();
-    }
+	/**
+	 * width of this icon in pixels
+	 */
+	private final int width;
 
-    public DynamicTexture(int textureWidth, int textureHeight)
-    {
-        width = textureWidth;
-        height = textureHeight;
-        dynamicTextureData = new int[textureWidth * textureHeight];
-        TextureUtil.allocateTexture(getGlTextureId(), textureWidth, textureHeight);
-    }
+	/**
+	 * height of this icon in pixels
+	 */
+	private final int height;
 
-    public void loadTexture(IResourceManager resourceManager) throws IOException
-    {
-    }
+	public DynamicTexture(BufferedImage bufferedImage) {
 
-    public void updateDynamicTexture()
-    {
-        TextureUtil.uploadTexture(getGlTextureId(), dynamicTextureData, width, height);
-    }
+		this(bufferedImage.getWidth(), bufferedImage.getHeight());
+		bufferedImage.getRGB(0, 0, bufferedImage.getWidth(), bufferedImage.getHeight(), dynamicTextureData, 0, bufferedImage.getWidth());
+		updateDynamicTexture();
+	}
 
-    public int[] getTextureData()
-    {
-        return dynamicTextureData;
-    }
+	public DynamicTexture(int textureWidth, int textureHeight) {
+
+		width = textureWidth;
+		height = textureHeight;
+		dynamicTextureData = new int[textureWidth * textureHeight];
+		TextureUtil.allocateTexture(getGlTextureId(), textureWidth, textureHeight);
+	}
+
+	public void loadTexture(IResourceManager resourceManager) throws IOException {
+
+	}
+
+	public void updateDynamicTexture() {
+
+		TextureUtil.uploadTexture(getGlTextureId(), dynamicTextureData, width, height);
+	}
+
+	public int[] getTextureData() {
+
+		return dynamicTextureData;
+	}
+
 }

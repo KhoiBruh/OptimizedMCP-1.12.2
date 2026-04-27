@@ -1,16 +1,17 @@
 package net.minecraft.world.storage;
 
-public class WorldSavedDataCallableSave implements Runnable
-{
-    private final WorldSavedData data;
+public class WorldSavedDataCallableSave implements Runnable {
 
-    public WorldSavedDataCallableSave(WorldSavedData dataIn)
-    {
-        data = dataIn;
-    }
+	private final WorldSavedData data;
 
-    public void run()
-    {
-        data.markDirty();
-    }
+	public WorldSavedDataCallableSave(WorldSavedData dataIn) {
+
+		data = dataIn;
+	}
+
+	public void run() {
+
+		data.markDirty();
+	}
+
 }

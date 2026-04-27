@@ -1,8 +1,6 @@
 package net.minecraft.client.shader;
 
 import com.google.common.collect.Lists;
-import java.io.IOException;
-import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
@@ -12,106 +10,107 @@ import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.client.util.JsonException;
 import org.lwjgl.util.vector.Matrix4f;
 
-public class Shader
-{
-    private final ShaderManager manager;
-    public final Framebuffer framebufferIn;
-    public final Framebuffer framebufferOut;
-    private final List<Object> listAuxFramebuffers = Lists.<Object>newArrayList();
-    private final List<String> listAuxNames = Lists.<String>newArrayList();
-    private final List<Integer> listAuxWidths = Lists.<Integer>newArrayList();
-    private final List<Integer> listAuxHeights = Lists.<Integer>newArrayList();
-    private Matrix4f projectionMatrix;
+import java.io.IOException;
+import java.util.List;
 
-    public Shader(IResourceManager resourceManager, String programName, Framebuffer framebufferInIn, Framebuffer framebufferOutIn) throws JsonException, IOException
-    {
-        manager = new ShaderManager(resourceManager, programName);
-        framebufferIn = framebufferInIn;
-        framebufferOut = framebufferOutIn;
-    }
+public class Shader {
 
-    public void deleteShader()
-    {
-        manager.deleteShader();
-    }
+	private final ShaderManager manager;
+	public final Framebuffer framebufferIn;
+	public final Framebuffer framebufferOut;
+	private final List<Object> listAuxFramebuffers = Lists.newArrayList();
+	private final List<String> listAuxNames = Lists.newArrayList();
+	private final List<Integer> listAuxWidths = Lists.newArrayList();
+	private final List<Integer> listAuxHeights = Lists.newArrayList();
+	private Matrix4f projectionMatrix;
 
-    public void addAuxFramebuffer(String auxName, Object auxFramebufferIn, int width, int height)
-    {
-        listAuxNames.add(listAuxNames.size(), auxName);
-        listAuxFramebuffers.add(listAuxFramebuffers.size(), auxFramebufferIn);
-        listAuxWidths.add(listAuxWidths.size(), Integer.valueOf(width));
-        listAuxHeights.add(listAuxHeights.size(), Integer.valueOf(height));
-    }
+	public Shader(IResourceManager resourceManager, String programName, Framebuffer framebufferInIn, Framebuffer framebufferOutIn) throws IOException {
 
-    private void preRender()
-    {
-        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        GlStateManager.disableBlend();
-        GlStateManager.disableDepth();
-        GlStateManager.disableAlpha();
-        GlStateManager.disableFog();
-        GlStateManager.disableLighting();
-        GlStateManager.disableColorMaterial();
-        GlStateManager.enableTexture2D();
-        GlStateManager.bindTexture(0);
-    }
+		manager = new ShaderManager(resourceManager, programName);
+		framebufferIn = framebufferInIn;
+		framebufferOut = framebufferOutIn;
+	}
 
-    public void setProjectionMatrix(Matrix4f projectionMatrixIn)
-    {
-        projectionMatrix = projectionMatrixIn;
-    }
+	public void deleteShader() {
 
-    public void render(float partialTicks)
-    {
-        preRender();
-        framebufferIn.unbindFramebuffer();
-        float f = (float) framebufferOut.framebufferTextureWidth;
-        float f1 = (float) framebufferOut.framebufferTextureHeight;
-        GlStateManager.viewport(0, 0, (int)f, (int)f1);
-        manager.addSamplerTexture("DiffuseSampler", framebufferIn);
+		manager.deleteShader();
+	}
 
-        for (int i = 0; i < listAuxFramebuffers.size(); ++i)
-        {
-            manager.addSamplerTexture(listAuxNames.get(i), listAuxFramebuffers.get(i));
-            manager.getShaderUniformOrDefault("AuxSize" + i).set((float)((Integer) listAuxWidths.get(i)).intValue(), (float)((Integer) listAuxHeights.get(i)).intValue());
-        }
+	public void addAuxFramebuffer(String auxName, Object auxFramebufferIn, int width, int height) {
 
-        manager.getShaderUniformOrDefault("ProjMat").set(projectionMatrix);
-        manager.getShaderUniformOrDefault("InSize").set((float) framebufferIn.framebufferTextureWidth, (float) framebufferIn.framebufferTextureHeight);
-        manager.getShaderUniformOrDefault("OutSize").set(f, f1);
-        manager.getShaderUniformOrDefault("Time").set(partialTicks);
-        Minecraft minecraft = Minecraft.getMinecraft();
-        manager.getShaderUniformOrDefault("ScreenSize").set((float)minecraft.displayWidth, (float)minecraft.displayHeight);
-        manager.useShader();
-        framebufferOut.framebufferClear();
-        framebufferOut.bindFramebuffer(false);
-        GlStateManager.depthMask(false);
-        GlStateManager.colorMask(true, true, true, true);
-        Tessellator tessellator = Tessellator.getInstance();
-        BufferBuilder bufferbuilder = tessellator.getBuffer();
-        bufferbuilder.begin(7, DefaultVertexFormats.POSITION_COLOR);
-        bufferbuilder.pos(0.0D, (double)f1, 500.0D).color(255, 255, 255, 255).endVertex();
-        bufferbuilder.pos((double)f, (double)f1, 500.0D).color(255, 255, 255, 255).endVertex();
-        bufferbuilder.pos((double)f, 0.0D, 500.0D).color(255, 255, 255, 255).endVertex();
-        bufferbuilder.pos(0.0D, 0.0D, 500.0D).color(255, 255, 255, 255).endVertex();
-        tessellator.draw();
-        GlStateManager.depthMask(true);
-        GlStateManager.colorMask(true, true, true, true);
-        manager.endShader();
-        framebufferOut.unbindFramebuffer();
-        framebufferIn.unbindFramebufferTexture();
+		listAuxNames.add(listAuxNames.size(), auxName);
+		listAuxFramebuffers.add(listAuxFramebuffers.size(), auxFramebufferIn);
+		listAuxWidths.add(listAuxWidths.size(), Integer.valueOf(width));
+		listAuxHeights.add(listAuxHeights.size(), Integer.valueOf(height));
+	}
 
-        for (Object object : listAuxFramebuffers)
-        {
-            if (object instanceof Framebuffer)
-            {
-                ((Framebuffer)object).unbindFramebufferTexture();
-            }
-        }
-    }
+	private void preRender() {
 
-    public ShaderManager getShaderManager()
-    {
-        return manager;
-    }
+		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+		GlStateManager.disableBlend();
+		GlStateManager.disableDepth();
+		GlStateManager.disableAlpha();
+		GlStateManager.disableFog();
+		GlStateManager.disableLighting();
+		GlStateManager.disableColorMaterial();
+		GlStateManager.enableTexture2D();
+		GlStateManager.bindTexture(0);
+	}
+
+	public void setProjectionMatrix(Matrix4f projectionMatrixIn) {
+
+		projectionMatrix = projectionMatrixIn;
+	}
+
+	public void render(float partialTicks) {
+
+		preRender();
+		framebufferIn.unbindFramebuffer();
+		float f = (float) framebufferOut.framebufferTextureWidth;
+		float f1 = (float) framebufferOut.framebufferTextureHeight;
+		GlStateManager.viewport(0, 0, (int) f, (int) f1);
+		manager.addSamplerTexture("DiffuseSampler", framebufferIn);
+
+		for (int i = 0; i < listAuxFramebuffers.size(); ++i) {
+			manager.addSamplerTexture(listAuxNames.get(i), listAuxFramebuffers.get(i));
+			manager.getShaderUniformOrDefault("AuxSize" + i).set((float) listAuxWidths.get(i).intValue(), (float) listAuxHeights.get(i).intValue());
+		}
+
+		manager.getShaderUniformOrDefault("ProjMat").set(projectionMatrix);
+		manager.getShaderUniformOrDefault("InSize").set((float) framebufferIn.framebufferTextureWidth, (float) framebufferIn.framebufferTextureHeight);
+		manager.getShaderUniformOrDefault("OutSize").set(f, f1);
+		manager.getShaderUniformOrDefault("Time").set(partialTicks);
+		Minecraft minecraft = Minecraft.getMinecraft();
+		manager.getShaderUniformOrDefault("ScreenSize").set((float) minecraft.displayWidth, (float) minecraft.displayHeight);
+		manager.useShader();
+		framebufferOut.framebufferClear();
+		framebufferOut.bindFramebuffer(false);
+		GlStateManager.depthMask(false);
+		GlStateManager.colorMask(true, true, true, true);
+		Tessellator tessellator = Tessellator.getInstance();
+		BufferBuilder bufferbuilder = tessellator.getBuffer();
+		bufferbuilder.begin(7, DefaultVertexFormats.POSITION_COLOR);
+		bufferbuilder.pos(0.0D, f1, 500.0D).color(255, 255, 255, 255).endVertex();
+		bufferbuilder.pos(f, f1, 500.0D).color(255, 255, 255, 255).endVertex();
+		bufferbuilder.pos(f, 0.0D, 500.0D).color(255, 255, 255, 255).endVertex();
+		bufferbuilder.pos(0.0D, 0.0D, 500.0D).color(255, 255, 255, 255).endVertex();
+		tessellator.draw();
+		GlStateManager.depthMask(true);
+		GlStateManager.colorMask(true, true, true, true);
+		manager.endShader();
+		framebufferOut.unbindFramebuffer();
+		framebufferIn.unbindFramebufferTexture();
+
+		for (Object object : listAuxFramebuffers) {
+			if (object instanceof Framebuffer) {
+				((Framebuffer) object).unbindFramebufferTexture();
+			}
+		}
+	}
+
+	public ShaderManager getShaderManager() {
+
+		return manager;
+	}
+
 }

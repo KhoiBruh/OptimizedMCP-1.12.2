@@ -1,6 +1,5 @@
 package net.minecraft.world.gen.feature;
 
-import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockOldLeaf;
 import net.minecraft.block.BlockOldLog;
@@ -11,126 +10,103 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class WorldGenBirchTree extends WorldGenAbstractTree
-{
-    private static final IBlockState LOG = Blocks.LOG.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.BIRCH);
-    private static final IBlockState LEAF = Blocks.LEAVES.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.EnumType.BIRCH).withProperty(BlockOldLeaf.CHECK_DECAY, Boolean.valueOf(false));
-    private final boolean useExtraRandomHeight;
+import java.util.Random;
 
-    public WorldGenBirchTree(boolean notify, boolean useExtraRandomHeightIn)
-    {
-        super(notify);
-        useExtraRandomHeight = useExtraRandomHeightIn;
-    }
+public class WorldGenBirchTree extends WorldGenAbstractTree {
 
-    public boolean generate(World worldIn, Random rand, BlockPos position)
-    {
-        int i = rand.nextInt(3) + 5;
+	private static final IBlockState LOG = Blocks.LOG.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.BIRCH);
+	private static final IBlockState LEAF = Blocks.LEAVES.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.EnumType.BIRCH).withProperty(BlockOldLeaf.CHECK_DECAY, Boolean.valueOf(false));
+	private final boolean useExtraRandomHeight;
 
-        if (useExtraRandomHeight)
-        {
-            i += rand.nextInt(7);
-        }
+	public WorldGenBirchTree(boolean notify, boolean useExtraRandomHeightIn) {
 
-        boolean flag = true;
+		super(notify);
+		useExtraRandomHeight = useExtraRandomHeightIn;
+	}
 
-        if (position.getY() >= 1 && position.getY() + i + 1 <= 256)
-        {
-            for (int j = position.getY(); j <= position.getY() + 1 + i; ++j)
-            {
-                int k = 1;
+	public boolean generate(World worldIn, Random rand, BlockPos position) {
 
-                if (j == position.getY())
-                {
-                    k = 0;
-                }
+		int i = rand.nextInt(3) + 5;
 
-                if (j >= position.getY() + 1 + i - 2)
-                {
-                    k = 2;
-                }
+		if (useExtraRandomHeight) {
+			i += rand.nextInt(7);
+		}
 
-                BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
+		boolean flag = true;
 
-                for (int l = position.getX() - k; l <= position.getX() + k && flag; ++l)
-                {
-                    for (int i1 = position.getZ() - k; i1 <= position.getZ() + k && flag; ++i1)
-                    {
-                        if (j >= 0 && j < 256)
-                        {
-                            if (!canGrowInto(worldIn.getBlockState(blockpos$mutableblockpos.setPos(l, j, i1)).getBlock()))
-                            {
-                                flag = false;
-                            }
-                        }
-                        else
-                        {
-                            flag = false;
-                        }
-                    }
-                }
-            }
+		if (position.getY() >= 1 && position.getY() + i + 1 <= 256) {
+			for (int j = position.getY(); j <= position.getY() + 1 + i; ++j) {
+				int k = 1;
 
-            if (!flag)
-            {
-                return false;
-            }
-            else
-            {
-                Block block = worldIn.getBlockState(position.down()).getBlock();
+				if (j == position.getY()) {
+					k = 0;
+				}
 
-                if ((block == Blocks.GRASS || block == Blocks.DIRT || block == Blocks.FARMLAND) && position.getY() < 256 - i - 1)
-                {
-                    setDirtAt(worldIn, position.down());
+				if (j >= position.getY() + 1 + i - 2) {
+					k = 2;
+				}
 
-                    for (int i2 = position.getY() - 3 + i; i2 <= position.getY() + i; ++i2)
-                    {
-                        int k2 = i2 - (position.getY() + i);
-                        int l2 = 1 - k2 / 2;
+				BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
 
-                        for (int i3 = position.getX() - l2; i3 <= position.getX() + l2; ++i3)
-                        {
-                            int j1 = i3 - position.getX();
+				for (int l = position.getX() - k; l <= position.getX() + k && flag; ++l) {
+					for (int i1 = position.getZ() - k; i1 <= position.getZ() + k && flag; ++i1) {
+						if (j >= 0 && j < 256) {
+							if (!canGrowInto(worldIn.getBlockState(blockpos$mutableblockpos.setPos(l, j, i1)).getBlock())) {
+								flag = false;
+							}
+						} else {
+							flag = false;
+						}
+					}
+				}
+			}
 
-                            for (int k1 = position.getZ() - l2; k1 <= position.getZ() + l2; ++k1)
-                            {
-                                int l1 = k1 - position.getZ();
+			if (!flag) {
+				return false;
+			} else {
+				Block block = worldIn.getBlockState(position.down()).getBlock();
 
-                                if (Math.abs(j1) != l2 || Math.abs(l1) != l2 || rand.nextInt(2) != 0 && k2 != 0)
-                                {
-                                    BlockPos blockpos = new BlockPos(i3, i2, k1);
-                                    Material material = worldIn.getBlockState(blockpos).getMaterial();
+				if ((block == Blocks.GRASS || block == Blocks.DIRT || block == Blocks.FARMLAND) && position.getY() < 256 - i - 1) {
+					setDirtAt(worldIn, position.down());
 
-                                    if (material == Material.AIR || material == Material.LEAVES)
-                                    {
-                                        setBlockAndNotifyAdequately(worldIn, blockpos, LEAF);
-                                    }
-                                }
-                            }
-                        }
-                    }
+					for (int i2 = position.getY() - 3 + i; i2 <= position.getY() + i; ++i2) {
+						int k2 = i2 - (position.getY() + i);
+						int l2 = 1 - k2 / 2;
 
-                    for (int j2 = 0; j2 < i; ++j2)
-                    {
-                        Material material1 = worldIn.getBlockState(position.up(j2)).getMaterial();
+						for (int i3 = position.getX() - l2; i3 <= position.getX() + l2; ++i3) {
+							int j1 = i3 - position.getX();
 
-                        if (material1 == Material.AIR || material1 == Material.LEAVES)
-                        {
-                            setBlockAndNotifyAdequately(worldIn, position.up(j2), LOG);
-                        }
-                    }
+							for (int k1 = position.getZ() - l2; k1 <= position.getZ() + l2; ++k1) {
+								int l1 = k1 - position.getZ();
 
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-        }
-        else
-        {
-            return false;
-        }
-    }
+								if (Math.abs(j1) != l2 || Math.abs(l1) != l2 || rand.nextInt(2) != 0 && k2 != 0) {
+									BlockPos blockpos = new BlockPos(i3, i2, k1);
+									Material material = worldIn.getBlockState(blockpos).getMaterial();
+
+									if (material == Material.AIR || material == Material.LEAVES) {
+										setBlockAndNotifyAdequately(worldIn, blockpos, LEAF);
+									}
+								}
+							}
+						}
+					}
+
+					for (int j2 = 0; j2 < i; ++j2) {
+						Material material1 = worldIn.getBlockState(position.up(j2)).getMaterial();
+
+						if (material1 == Material.AIR || material1 == Material.LEAVES) {
+							setBlockAndNotifyAdequately(worldIn, position.up(j2), LOG);
+						}
+					}
+
+					return true;
+				} else {
+					return false;
+				}
+			}
+		} else {
+			return false;
+		}
+	}
+
 }

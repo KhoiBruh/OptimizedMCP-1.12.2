@@ -1,19 +1,9 @@
 package net.minecraft.client.resources.data;
 
-import java.util.Collection;
 import net.minecraft.client.resources.Language;
 
-public class LanguageMetadataSection implements IMetadataSection
-{
-    private final Collection<Language> languages;
+import java.util.Collection;
 
-    public LanguageMetadataSection(Collection<Language> languagesIn)
-    {
-        languages = languagesIn;
-    }
+public record LanguageMetadataSection(Collection<Language> languages) implements IMetadataSection {
 
-    public Collection<Language> getLanguages()
-    {
-        return languages;
-    }
 }

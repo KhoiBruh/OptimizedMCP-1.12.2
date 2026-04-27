@@ -2,100 +2,83 @@ package net.minecraft.client.resources;
 
 import com.google.common.base.CharMatcher;
 import com.google.common.collect.Sets;
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileFilter;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Set;
-import javax.annotation.Nullable;
 import net.minecraft.util.Util;
 import org.apache.commons.io.filefilter.DirectoryFileFilter;
 
-public class FolderResourcePack extends AbstractResourcePack
-{
-    private static final boolean ON_WINDOWS = Util.getOSType() == Util.EnumOS.WINDOWS;
-    private static final CharMatcher BACKSLASH_MATCHER = CharMatcher.is('\\');
+import javax.annotation.Nullable;
+import java.io.*;
+import java.util.Set;
 
-    public FolderResourcePack(File resourcePackFileIn)
-    {
-        super(resourcePackFileIn);
-    }
+public class FolderResourcePack extends AbstractResourcePack {
 
-    protected static boolean validatePath(File p_191384_0_, String p_191384_1_) throws IOException
-    {
-        String s = p_191384_0_.getCanonicalPath();
+	private static final boolean ON_WINDOWS = Util.getOSType() == Util.EnumOS.WINDOWS;
+	private static final CharMatcher BACKSLASH_MATCHER = CharMatcher.is('\\');
 
-        if (ON_WINDOWS)
-        {
-            s = BACKSLASH_MATCHER.replaceFrom(s, '/');
-        }
+	public FolderResourcePack(File resourcePackFileIn) {
 
-        return s.endsWith(p_191384_1_);
-    }
+		super(resourcePackFileIn);
+	}
 
-    protected InputStream getInputStreamByName(String name) throws IOException
-    {
-        File file1 = getFile(name);
+	protected static boolean validatePath(File p_191384_0_, String p_191384_1_) throws IOException {
 
-        if (file1 == null)
-        {
-            throw new ResourcePackFileNotFoundException(resourcePackFile, name);
-        }
-        else
-        {
-            return new BufferedInputStream(new FileInputStream(file1));
-        }
-    }
+		String s = p_191384_0_.getCanonicalPath();
 
-    protected boolean hasResourceName(String name)
-    {
-        return getFile(name) != null;
-    }
+		if (ON_WINDOWS) {
+			s = BACKSLASH_MATCHER.replaceFrom(s, '/');
+		}
 
-    @Nullable
-    private File getFile(String p_191385_1_)
-    {
-        try
-        {
-            File file1 = new File(resourcePackFile, p_191385_1_);
+		return s.endsWith(p_191384_1_);
+	}
 
-            if (file1.isFile() && validatePath(file1, p_191385_1_))
-            {
-                return file1;
-            }
-        }
-        catch (IOException var3)
-        {
-            ;
-        }
+	protected InputStream getInputStreamByName(String name) throws IOException {
 
-        return null;
-    }
+		File file1 = getFile(name);
 
-    public Set<String> getResourceDomains()
-    {
-        Set<String> set = Sets.<String>newHashSet();
-        File file1 = new File(resourcePackFile, "assets/");
+		if (file1 == null) {
+			throw new ResourcePackFileNotFoundException(resourcePackFile, name);
+		} else {
+			return new BufferedInputStream(new FileInputStream(file1));
+		}
+	}
 
-        if (file1.isDirectory())
-        {
-            for (File file2 : file1.listFiles((FileFilter)DirectoryFileFilter.DIRECTORY))
-            {
-                String s = getRelativeName(file1, file2);
+	protected boolean hasResourceName(String name) {
 
-                if (s.equals(s.toLowerCase(java.util.Locale.ROOT)))
-                {
-                    set.add(s.substring(0, s.length() - 1));
-                }
-                else
-                {
-                    logNameNotLowercase(s);
-                }
-            }
-        }
+		return getFile(name) != null;
+	}
 
-        return set;
-    }
+	@Nullable
+	private File getFile(String p_191385_1_) {
+
+		try {
+			File file1 = new File(resourcePackFile, p_191385_1_);
+
+			if (file1.isFile() && validatePath(file1, p_191385_1_)) {
+				return file1;
+			}
+		} catch (IOException var3) {
+		}
+
+		return null;
+	}
+
+	public Set<String> getResourceDomains() {
+
+		Set<String> set = Sets.newHashSet();
+		File file1 = new File(resourcePackFile, "assets/");
+
+		if (file1.isDirectory()) {
+			for (File file2 : file1.listFiles((FileFilter) DirectoryFileFilter.DIRECTORY)) {
+				String s = getRelativeName(file1, file2);
+
+				if (s.equals(s.toLowerCase(java.util.Locale.ROOT))) {
+					set.add(s.substring(0, s.length() - 1));
+				} else {
+					logNameNotLowercase(s);
+				}
+			}
+		}
+
+		return set;
+	}
+
 }

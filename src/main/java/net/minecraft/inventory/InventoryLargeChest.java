@@ -9,225 +9,221 @@ import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.ILockableContainer;
 import net.minecraft.world.LockCode;
 
-public class InventoryLargeChest implements ILockableContainer
-{
-    /** Name of the chest. */
-    private final String name;
+public class InventoryLargeChest implements ILockableContainer {
 
-    /** Inventory object corresponding to double chest upper part */
-    private final ILockableContainer upperChest;
+	/**
+	 * Name of the chest.
+	 */
+	private final String name;
 
-    /** Inventory object corresponding to double chest lower part */
-    private final ILockableContainer lowerChest;
+	/**
+	 * Inventory object corresponding to double chest upper part
+	 */
+	private final ILockableContainer upperChest;
 
-    public InventoryLargeChest(String nameIn, ILockableContainer upperChestIn, ILockableContainer lowerChestIn)
-    {
-        name = nameIn;
+	/**
+	 * Inventory object corresponding to double chest lower part
+	 */
+	private final ILockableContainer lowerChest;
 
-        if (upperChestIn == null)
-        {
-            upperChestIn = lowerChestIn;
-        }
+	public InventoryLargeChest(String nameIn, ILockableContainer upperChestIn, ILockableContainer lowerChestIn) {
 
-        if (lowerChestIn == null)
-        {
-            lowerChestIn = upperChestIn;
-        }
+		name = nameIn;
 
-        upperChest = upperChestIn;
-        lowerChest = lowerChestIn;
+		if (upperChestIn == null) {
+			upperChestIn = lowerChestIn;
+		}
 
-        if (upperChestIn.isLocked())
-        {
-            lowerChestIn.setLockCode(upperChestIn.getLockCode());
-        }
-        else if (lowerChestIn.isLocked())
-        {
-            upperChestIn.setLockCode(lowerChestIn.getLockCode());
-        }
-    }
+		if (lowerChestIn == null) {
+			lowerChestIn = upperChestIn;
+		}
 
-    /**
-     * Returns the number of slots in the inventory.
-     */
-    public int getSizeInventory()
-    {
-        return upperChest.getSizeInventory() + lowerChest.getSizeInventory();
-    }
+		upperChest = upperChestIn;
+		lowerChest = lowerChestIn;
 
-    public boolean isEmpty()
-    {
-        return upperChest.isEmpty() && lowerChest.isEmpty();
-    }
+		if (upperChestIn.isLocked()) {
+			lowerChestIn.setLockCode(upperChestIn.getLockCode());
+		} else if (lowerChestIn.isLocked()) {
+			upperChestIn.setLockCode(lowerChestIn.getLockCode());
+		}
+	}
 
-    /**
-     * Return whether the given inventory is part of this large chest.
-     */
-    public boolean isPartOfLargeChest(IInventory inventoryIn)
-    {
-        return upperChest == inventoryIn || lowerChest == inventoryIn;
-    }
+	/**
+	 * Returns the number of slots in the inventory.
+	 */
+	public int getSizeInventory() {
 
-    /**
-     * Get the name of this object. For players this returns their username
-     */
-    public String getName()
-    {
-        if (upperChest.hasCustomName())
-        {
-            return upperChest.getName();
-        }
-        else
-        {
-            return lowerChest.hasCustomName() ? lowerChest.getName() : name;
-        }
-    }
+		return upperChest.getSizeInventory() + lowerChest.getSizeInventory();
+	}
 
-    /**
-     * Returns true if this thing is named
-     */
-    public boolean hasCustomName()
-    {
-        return upperChest.hasCustomName() || lowerChest.hasCustomName();
-    }
+	public boolean isEmpty() {
 
-    /**
-     * Get the formatted ChatComponent that will be used for the sender's username in chat
-     */
-    public ITextComponent getDisplayName()
-    {
-        return (ITextComponent)(hasCustomName() ? new TextComponentString(getName()) : new TextComponentTranslation(getName(), new Object[0]));
-    }
+		return upperChest.isEmpty() && lowerChest.isEmpty();
+	}
 
-    /**
-     * Returns the stack in the given slot.
-     */
-    public ItemStack getStackInSlot(int index)
-    {
-        return index >= upperChest.getSizeInventory() ? lowerChest.getStackInSlot(index - upperChest.getSizeInventory()) : upperChest.getStackInSlot(index);
-    }
+	/**
+	 * Return whether the given inventory is part of this large chest.
+	 */
+	public boolean isPartOfLargeChest(IInventory inventoryIn) {
 
-    /**
-     * Removes up to a specified number of items from an inventory slot and returns them in a new stack.
-     */
-    public ItemStack decrStackSize(int index, int count)
-    {
-        return index >= upperChest.getSizeInventory() ? lowerChest.decrStackSize(index - upperChest.getSizeInventory(), count) : upperChest.decrStackSize(index, count);
-    }
+		return upperChest == inventoryIn || lowerChest == inventoryIn;
+	}
 
-    /**
-     * Removes a stack from the given slot and returns it.
-     */
-    public ItemStack removeStackFromSlot(int index)
-    {
-        return index >= upperChest.getSizeInventory() ? lowerChest.removeStackFromSlot(index - upperChest.getSizeInventory()) : upperChest.removeStackFromSlot(index);
-    }
+	/**
+	 * Get the name of this object. For players this returns their username
+	 */
+	public String getName() {
 
-    /**
-     * Sets the given item stack to the specified slot in the inventory (can be crafting or armor sections).
-     */
-    public void setInventorySlotContents(int index, ItemStack stack)
-    {
-        if (index >= upperChest.getSizeInventory())
-        {
-            lowerChest.setInventorySlotContents(index - upperChest.getSizeInventory(), stack);
-        }
-        else
-        {
-            upperChest.setInventorySlotContents(index, stack);
-        }
-    }
+		if (upperChest.hasCustomName()) {
+			return upperChest.getName();
+		} else {
+			return lowerChest.hasCustomName() ? lowerChest.getName() : name;
+		}
+	}
 
-    /**
-     * Returns the maximum stack size for a inventory slot. Seems to always be 64, possibly will be extended.
-     */
-    public int getInventoryStackLimit()
-    {
-        return upperChest.getInventoryStackLimit();
-    }
+	/**
+	 * Returns true if this thing is named
+	 */
+	public boolean hasCustomName() {
 
-    /**
-     * For tile entities, ensures the chunk containing the tile entity is saved to disk later - the game won't think it
-     * hasn't changed and skip it.
-     */
-    public void markDirty()
-    {
-        upperChest.markDirty();
-        lowerChest.markDirty();
-    }
+		return upperChest.hasCustomName() || lowerChest.hasCustomName();
+	}
 
-    /**
-     * Don't rename this method to canInteractWith due to conflicts with Container
-     */
-    public boolean isUsableByPlayer(EntityPlayer player)
-    {
-        return upperChest.isUsableByPlayer(player) && lowerChest.isUsableByPlayer(player);
-    }
+	/**
+	 * Get the formatted ChatComponent that will be used for the sender's username in chat
+	 */
+	public ITextComponent displayName() {
 
-    public void openInventory(EntityPlayer player)
-    {
-        upperChest.openInventory(player);
-        lowerChest.openInventory(player);
-    }
+		return hasCustomName() ? new TextComponentString(getName()) : new TextComponentTranslation(getName(), new Object[0]);
+	}
 
-    public void closeInventory(EntityPlayer player)
-    {
-        upperChest.closeInventory(player);
-        lowerChest.closeInventory(player);
-    }
+	/**
+	 * Returns the stack in the given slot.
+	 */
+	public ItemStack getStackInSlot(int index) {
 
-    /**
-     * Returns true if automation is allowed to insert the given stack (ignoring stack size) into the given slot. For
-     * guis use Slot.isItemValid
-     */
-    public boolean isItemValidForSlot(int index, ItemStack stack)
-    {
-        return true;
-    }
+		return index >= upperChest.getSizeInventory() ? lowerChest.getStackInSlot(index - upperChest.getSizeInventory()) : upperChest.getStackInSlot(index);
+	}
 
-    public int getField(int id)
-    {
-        return 0;
-    }
+	/**
+	 * Removes up to a specified number of items from an inventory slot and returns them in a new stack.
+	 */
+	public ItemStack decrStackSize(int index, int count) {
 
-    public void setField(int id, int value)
-    {
-    }
+		return index >= upperChest.getSizeInventory() ? lowerChest.decrStackSize(index - upperChest.getSizeInventory(), count) : upperChest.decrStackSize(index, count);
+	}
 
-    public int getFieldCount()
-    {
-        return 0;
-    }
+	/**
+	 * Removes a stack from the given slot and returns it.
+	 */
+	public ItemStack removeStackFromSlot(int index) {
 
-    public boolean isLocked()
-    {
-        return upperChest.isLocked() || lowerChest.isLocked();
-    }
+		return index >= upperChest.getSizeInventory() ? lowerChest.removeStackFromSlot(index - upperChest.getSizeInventory()) : upperChest.removeStackFromSlot(index);
+	}
 
-    public void setLockCode(LockCode code)
-    {
-        upperChest.setLockCode(code);
-        lowerChest.setLockCode(code);
-    }
+	/**
+	 * Sets the given item stack to the specified slot in the inventory (can be crafting or armor sections).
+	 */
+	public void setInventorySlotContents(int index, ItemStack stack) {
 
-    public LockCode getLockCode()
-    {
-        return upperChest.getLockCode();
-    }
+		if (index >= upperChest.getSizeInventory()) {
+			lowerChest.setInventorySlotContents(index - upperChest.getSizeInventory(), stack);
+		} else {
+			upperChest.setInventorySlotContents(index, stack);
+		}
+	}
 
-    public String getGuiID()
-    {
-        return upperChest.getGuiID();
-    }
+	/**
+	 * Returns the maximum stack size for a inventory slot. Seems to always be 64, possibly will be extended.
+	 */
+	public int getInventoryStackLimit() {
 
-    public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn)
-    {
-        return new ContainerChest(playerInventory, this, playerIn);
-    }
+		return upperChest.getInventoryStackLimit();
+	}
 
-    public void clear()
-    {
-        upperChest.clear();
-        lowerChest.clear();
-    }
+	/**
+	 * For tile entities, ensures the chunk containing the tile entity is saved to disk later - the game won't think it
+	 * hasn't changed and skip it.
+	 */
+	public void markDirty() {
+
+		upperChest.markDirty();
+		lowerChest.markDirty();
+	}
+
+	/**
+	 * Don't rename this method to canInteractWith due to conflicts with Container
+	 */
+	public boolean isUsableByPlayer(EntityPlayer player) {
+
+		return upperChest.isUsableByPlayer(player) && lowerChest.isUsableByPlayer(player);
+	}
+
+	public void openInventory(EntityPlayer player) {
+
+		upperChest.openInventory(player);
+		lowerChest.openInventory(player);
+	}
+
+	public void closeInventory(EntityPlayer player) {
+
+		upperChest.closeInventory(player);
+		lowerChest.closeInventory(player);
+	}
+
+	/**
+	 * Returns true if automation is allowed to insert the given stack (ignoring stack size) into the given slot. For
+	 * guis use Slot.isItemValid
+	 */
+	public boolean isItemValidForSlot(int index, ItemStack stack) {
+
+		return true;
+	}
+
+	public int getField(int id) {
+
+		return 0;
+	}
+
+	public void setField(int id, int value) {
+
+	}
+
+	public int getFieldCount() {
+
+		return 0;
+	}
+
+	public boolean isLocked() {
+
+		return upperChest.isLocked() || lowerChest.isLocked();
+	}
+
+	public void setLockCode(LockCode code) {
+
+		upperChest.setLockCode(code);
+		lowerChest.setLockCode(code);
+	}
+
+	public LockCode getLockCode() {
+
+		return upperChest.getLockCode();
+	}
+
+	public String guiID() {
+
+		return upperChest.guiID();
+	}
+
+	public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
+
+		return new ContainerChest(playerInventory, this, playerIn);
+	}
+
+	public void clear() {
+
+		upperChest.clear();
+		lowerChest.clear();
+	}
+
 }

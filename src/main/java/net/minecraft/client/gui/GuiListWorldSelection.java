@@ -1,9 +1,6 @@
 package net.minecraft.client.gui;
 
 import com.google.common.collect.Lists;
-import java.util.Collections;
-import java.util.List;
-import javax.annotation.Nullable;
 import net.minecraft.client.AnvilConverterException;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
@@ -12,94 +9,97 @@ import net.minecraft.world.storage.WorldSummary;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class GuiListWorldSelection extends GuiListExtended
-{
-    private static final Logger LOGGER = LogManager.getLogger();
-    private final GuiWorldSelection worldSelection;
-    private final List<GuiListWorldSelectionEntry> entries = Lists.<GuiListWorldSelectionEntry>newArrayList();
+import javax.annotation.Nullable;
+import java.util.Collections;
+import java.util.List;
 
-    /** Index to the currently selected world */
-    private int selectedIdx = -1;
+public class GuiListWorldSelection extends GuiListExtended {
 
-    public GuiListWorldSelection(GuiWorldSelection p_i46590_1_, Minecraft clientIn, int widthIn, int heightIn, int topIn, int bottomIn, int slotHeightIn)
-    {
-        super(clientIn, widthIn, heightIn, topIn, bottomIn, slotHeightIn);
-        worldSelection = p_i46590_1_;
-        refreshList();
-    }
+	private static final Logger LOGGER = LogManager.getLogger();
+	private final GuiWorldSelection worldSelection;
+	private final List<GuiListWorldSelectionEntry> entries = Lists.newArrayList();
 
-    public void refreshList()
-    {
-        ISaveFormat isaveformat = mc.getSaveLoader();
-        List<WorldSummary> list;
+	/**
+	 * Index to the currently selected world
+	 */
+	private int selectedIdx = -1;
 
-        try
-        {
-            list = isaveformat.getSaveList();
-        }
-        catch (AnvilConverterException anvilconverterexception)
-        {
-            LOGGER.error("Couldn't load level list", (Throwable)anvilconverterexception);
-            mc.displayGuiScreen(new GuiErrorScreen(I18n.format("selectWorld.unable_to_load"), anvilconverterexception.getMessage()));
-            return;
-        }
+	public GuiListWorldSelection(GuiWorldSelection p_i46590_1_, Minecraft clientIn, int widthIn, int heightIn, int topIn, int bottomIn, int slotHeightIn) {
 
-        Collections.sort(list);
+		super(clientIn, widthIn, heightIn, topIn, bottomIn, slotHeightIn);
+		worldSelection = p_i46590_1_;
+		refreshList();
+	}
 
-        for (WorldSummary worldsummary : list)
-        {
-            entries.add(new GuiListWorldSelectionEntry(this, worldsummary, mc.getSaveLoader()));
-        }
-    }
+	public void refreshList() {
 
-    /**
-     * Gets the IGuiListEntry object for the given index
-     */
-    public GuiListWorldSelectionEntry getListEntry(int index)
-    {
-        return entries.get(index);
-    }
+		ISaveFormat isaveformat = mc.getSaveLoader();
+		List<WorldSummary> list;
 
-    protected int getSize()
-    {
-        return entries.size();
-    }
+		try {
+			list = isaveformat.getSaveList();
+		} catch (AnvilConverterException anvilconverterexception) {
+			LOGGER.error("Couldn't load level list", anvilconverterexception);
+			mc.displayGuiScreen(new GuiErrorScreen(I18n.format("selectWorld.unable_to_load"), anvilconverterexception.getMessage()));
+			return;
+		}
 
-    protected int getScrollBarX()
-    {
-        return super.getScrollBarX() + 20;
-    }
+		Collections.sort(list);
 
-    /**
-     * Gets the width of the list
-     */
-    public int getListWidth()
-    {
-        return super.getListWidth() + 50;
-    }
+		for (WorldSummary worldsummary : list) {
+			entries.add(new GuiListWorldSelectionEntry(this, worldsummary, mc.getSaveLoader()));
+		}
+	}
 
-    public void selectWorld(int idx)
-    {
-        selectedIdx = idx;
-        worldSelection.selectWorld(getSelectedWorld());
-    }
+	/**
+	 * Gets the IGuiListEntry object for the given index
+	 */
+	public GuiListWorldSelectionEntry getListEntry(int index) {
 
-    /**
-     * Returns true if the element passed in is currently selected
-     */
-    protected boolean isSelected(int slotIndex)
-    {
-        return slotIndex == selectedIdx;
-    }
+		return entries.get(index);
+	}
 
-    @Nullable
-    public GuiListWorldSelectionEntry getSelectedWorld()
-    {
-        return selectedIdx >= 0 && selectedIdx < getSize() ? getListEntry(selectedIdx) : null;
-    }
+	protected int getSize() {
 
-    public GuiWorldSelection getGuiWorldSelection()
-    {
-        return worldSelection;
-    }
+		return entries.size();
+	}
+
+	protected int getScrollBarX() {
+
+		return super.getScrollBarX() + 20;
+	}
+
+	/**
+	 * Gets the width of the list
+	 */
+	public int getListWidth() {
+
+		return super.getListWidth() + 50;
+	}
+
+	public void selectWorld(int idx) {
+
+		selectedIdx = idx;
+		worldSelection.selectWorld(getSelectedWorld());
+	}
+
+	/**
+	 * Returns true if the element passed in is currently selected
+	 */
+	protected boolean isSelected(int slotIndex) {
+
+		return slotIndex == selectedIdx;
+	}
+
+	@Nullable
+	public GuiListWorldSelectionEntry getSelectedWorld() {
+
+		return selectedIdx >= 0 && selectedIdx < getSize() ? getListEntry(selectedIdx) : null;
+	}
+
+	public GuiWorldSelection getGuiWorldSelection() {
+
+		return worldSelection;
+	}
+
 }

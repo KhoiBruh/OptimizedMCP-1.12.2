@@ -1,7 +1,5 @@
 package net.minecraft.network.play.client;
 
-import java.io.IOException;
-import javax.annotation.Nullable;
 import net.minecraft.entity.Entity;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
@@ -10,111 +8,110 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
-public class CPacketUseEntity implements Packet<INetHandlerPlayServer>
-{
-    private int entityId;
-    private CPacketUseEntity.Action action;
-    private Vec3d hitVec;
-    private EnumHand hand;
+import javax.annotation.Nullable;
+import java.io.IOException;
 
-    public CPacketUseEntity()
-    {
-    }
+public class CPacketUseEntity implements Packet<INetHandlerPlayServer> {
 
-    public CPacketUseEntity(Entity entityIn)
-    {
-        entityId = entityIn.getEntityId();
-        action = CPacketUseEntity.Action.ATTACK;
-    }
+	private int entityId;
+	private CPacketUseEntity.Action action;
+	private Vec3d hitVec;
+	private EnumHand hand;
 
-    public CPacketUseEntity(Entity entityIn, EnumHand handIn)
-    {
-        entityId = entityIn.getEntityId();
-        action = CPacketUseEntity.Action.INTERACT;
-        hand = handIn;
-    }
+	public CPacketUseEntity() {
 
-    public CPacketUseEntity(Entity entityIn, EnumHand handIn, Vec3d hitVecIn)
-    {
-        entityId = entityIn.getEntityId();
-        action = CPacketUseEntity.Action.INTERACT_AT;
-        hand = handIn;
-        hitVec = hitVecIn;
-    }
+	}
 
-    /**
-     * Reads the raw packet data from the data stream.
-     */
-    public void readPacketData(PacketBuffer buf) throws IOException
-    {
-        entityId = buf.readVarInt();
-        action = (CPacketUseEntity.Action)buf.readEnumValue(CPacketUseEntity.Action.class);
+	public CPacketUseEntity(Entity entityIn) {
 
-        if (action == CPacketUseEntity.Action.INTERACT_AT)
-        {
-            hitVec = new Vec3d((double)buf.readFloat(), (double)buf.readFloat(), (double)buf.readFloat());
-        }
+		entityId = entityIn.getEntityId();
+		action = CPacketUseEntity.Action.ATTACK;
+	}
 
-        if (action == CPacketUseEntity.Action.INTERACT || action == CPacketUseEntity.Action.INTERACT_AT)
-        {
-            hand = (EnumHand)buf.readEnumValue(EnumHand.class);
-        }
-    }
+	public CPacketUseEntity(Entity entityIn, EnumHand handIn) {
 
-    /**
-     * Writes the raw packet data to the data stream.
-     */
-    public void writePacketData(PacketBuffer buf) throws IOException
-    {
-        buf.writeVarInt(entityId);
-        buf.writeEnumValue(action);
+		entityId = entityIn.getEntityId();
+		action = CPacketUseEntity.Action.INTERACT;
+		hand = handIn;
+	}
 
-        if (action == CPacketUseEntity.Action.INTERACT_AT)
-        {
-            buf.writeFloat((float) hitVec.x);
-            buf.writeFloat((float) hitVec.y);
-            buf.writeFloat((float) hitVec.z);
-        }
+	public CPacketUseEntity(Entity entityIn, EnumHand handIn, Vec3d hitVecIn) {
 
-        if (action == CPacketUseEntity.Action.INTERACT || action == CPacketUseEntity.Action.INTERACT_AT)
-        {
-            buf.writeEnumValue(hand);
-        }
-    }
+		entityId = entityIn.getEntityId();
+		action = CPacketUseEntity.Action.INTERACT_AT;
+		hand = handIn;
+		hitVec = hitVecIn;
+	}
 
-    /**
-     * Passes this Packet on to the NetHandler for processing.
-     */
-    public void processPacket(INetHandlerPlayServer handler)
-    {
-        handler.processUseEntity(this);
-    }
+	/**
+	 * Reads the raw packet data from the data stream.
+	 */
+	public void readPacketData(PacketBuffer buf) throws IOException {
 
-    @Nullable
-    public Entity getEntityFromWorld(World worldIn)
-    {
-        return worldIn.getEntityByID(entityId);
-    }
+		entityId = buf.readVarInt();
+		action = buf.readEnumValue(Action.class);
 
-    public CPacketUseEntity.Action getAction()
-    {
-        return action;
-    }
+		if (action == CPacketUseEntity.Action.INTERACT_AT) {
+			hitVec = new Vec3d(buf.readFloat(), buf.readFloat(), buf.readFloat());
+		}
 
-    public EnumHand getHand()
-    {
-        return hand;
-    }
+		if (action == CPacketUseEntity.Action.INTERACT || action == CPacketUseEntity.Action.INTERACT_AT) {
+			hand = buf.readEnumValue(EnumHand.class);
+		}
+	}
 
-    public Vec3d getHitVec()
-    {
-        return hitVec;
-    }
+	/**
+	 * Writes the raw packet data to the data stream.
+	 */
+	public void writePacketData(PacketBuffer buf) throws IOException {
 
-    public static enum Action
-    {
-        INTERACT,
-        ATTACK,
-        INTERACT_AT;
-    }
+		buf.writeVarInt(entityId);
+		buf.writeEnumValue(action);
+
+		if (action == CPacketUseEntity.Action.INTERACT_AT) {
+			buf.writeFloat((float) hitVec.x());
+			buf.writeFloat((float) hitVec.y());
+			buf.writeFloat((float) hitVec.z());
+		}
+
+		if (action == CPacketUseEntity.Action.INTERACT || action == CPacketUseEntity.Action.INTERACT_AT) {
+			buf.writeEnumValue(hand);
+		}
+	}
+
+	/**
+	 * Passes this Packet on to the NetHandler for processing.
+	 */
+	public void processPacket(INetHandlerPlayServer handler) {
+
+		handler.processUseEntity(this);
+	}
+
+	@Nullable
+	public Entity getEntityFromWorld(World worldIn) {
+
+		return worldIn.getEntityByID(entityId);
+	}
+
+	public CPacketUseEntity.Action getAction() {
+
+		return action;
+	}
+
+	public EnumHand getHand() {
+
+		return hand;
+	}
+
+	public Vec3d getHitVec() {
+
+		return hitVec;
+	}
+
+	public enum Action {
+		INTERACT,
+		ATTACK,
+		INTERACT_AT
+	}
+
 }

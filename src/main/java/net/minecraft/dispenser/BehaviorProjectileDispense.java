@@ -7,43 +7,44 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
-public abstract class BehaviorProjectileDispense extends BehaviorDefaultDispenseItem
-{
-    /**
-     * Dispense the specified stack, play the dispense sound and spawn particles.
-     */
-    public ItemStack dispenseStack(IBlockSource source, ItemStack stack)
-    {
-        World world = source.getWorld();
-        IPosition iposition = BlockDispenser.getDispensePosition(source);
-        EnumFacing enumfacing = (EnumFacing)source.getBlockState().getValue(BlockDispenser.FACING);
-        IProjectile iprojectile = getProjectileEntity(world, iposition, stack);
-        iprojectile.shoot((double)enumfacing.getFrontOffsetX(), (double)((float)enumfacing.getFrontOffsetY() + 0.1F), (double)enumfacing.getFrontOffsetZ(), getProjectileVelocity(), getProjectileInaccuracy());
-        world.spawnEntity((Entity)iprojectile);
-        stack.shrink(1);
-        return stack;
-    }
+public abstract class BehaviorProjectileDispense extends BehaviorDefaultDispenseItem {
 
-    /**
-     * Play the dispense sound from the specified block.
-     */
-    protected void playDispenseSound(IBlockSource source)
-    {
-        source.getWorld().playEvent(1002, source.getBlockPos(), 0);
-    }
+	/**
+	 * Dispense the specified stack, play the dispense sound and spawn particles.
+	 */
+	public ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
 
-    /**
-     * Return the projectile entity spawned by this dispense behavior.
-     */
-    protected abstract IProjectile getProjectileEntity(World worldIn, IPosition position, ItemStack stackIn);
+		World world = source.getWorld();
+		IPosition iposition = BlockDispenser.getDispensePosition(source);
+		EnumFacing enumfacing = source.getBlockState().getValue(BlockDispenser.FACING);
+		IProjectile iprojectile = getProjectileEntity(world, iposition, stack);
+		iprojectile.shoot(enumfacing.getFrontOffsetX(), (float) enumfacing.getFrontOffsetY() + 0.1F, enumfacing.getFrontOffsetZ(), getProjectileVelocity(), getProjectileInaccuracy());
+		world.spawnEntity((Entity) iprojectile);
+		stack.shrink(1);
+		return stack;
+	}
 
-    protected float getProjectileInaccuracy()
-    {
-        return 6.0F;
-    }
+	/**
+	 * Play the dispense sound from the specified block.
+	 */
+	protected void playDispenseSound(IBlockSource source) {
 
-    protected float getProjectileVelocity()
-    {
-        return 1.1F;
-    }
+		source.getWorld().playEvent(1002, source.getBlockPos(), 0);
+	}
+
+	/**
+	 * Return the projectile entity spawned by this dispense behavior.
+	 */
+	protected abstract IProjectile getProjectileEntity(World worldIn, IPosition position, ItemStack stackIn);
+
+	protected float getProjectileInaccuracy() {
+
+		return 6.0F;
+	}
+
+	protected float getProjectileVelocity() {
+
+		return 1.1F;
+	}
+
 }

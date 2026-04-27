@@ -1,6 +1,5 @@
 package net.minecraft.client.gui.inventory;
 
-import java.io.IOException;
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
@@ -15,165 +14,161 @@ import net.minecraft.util.ChatAllowedCharacters;
 import net.minecraft.util.text.TextComponentString;
 import org.lwjgl.input.Keyboard;
 
-public class GuiEditSign extends GuiScreen
-{
-    /** Reference to the sign object. */
-    private final TileEntitySign tileSign;
+import java.io.IOException;
 
-    /** Counts the number of screen updates. */
-    private int updateCounter;
+public class GuiEditSign extends GuiScreen {
 
-    /** The index of the line that is being edited. */
-    private int editLine;
+	/**
+	 * Reference to the sign object.
+	 */
+	private final TileEntitySign tileSign;
 
-    /** "Done" button for the GUI. */
-    private GuiButton doneBtn;
+	/**
+	 * Counts the number of screen updates.
+	 */
+	private int updateCounter;
 
-    public GuiEditSign(TileEntitySign teSign)
-    {
-        tileSign = teSign;
-    }
+	/**
+	 * The index of the line that is being edited.
+	 */
+	private int editLine;
 
-    /**
-     * Adds the buttons (and other controls) to the screen in question. Called when the GUI is displayed and when the
-     * window resizes, the buttonList is cleared beforehand.
-     */
-    public void initGui()
-    {
-        buttonList.clear();
-        Keyboard.enableRepeatEvents(true);
-        doneBtn = addButton(new GuiButton(0, width / 2 - 100, height / 4 + 120, I18n.format("gui.done")));
-        tileSign.setEditable(false);
-    }
+	/**
+	 * "Done" button for the GUI.
+	 */
+	private GuiButton doneBtn;
 
-    /**
-     * Called when the screen is unloaded. Used to disable keyboard repeat events
-     */
-    public void onGuiClosed()
-    {
-        Keyboard.enableRepeatEvents(false);
-        NetHandlerPlayClient nethandlerplayclient = mc.getConnection();
+	public GuiEditSign(TileEntitySign teSign) {
 
-        if (nethandlerplayclient != null)
-        {
-            nethandlerplayclient.sendPacket(new CPacketUpdateSign(tileSign.getPos(), tileSign.signText));
-        }
+		tileSign = teSign;
+	}
 
-        tileSign.setEditable(true);
-    }
+	/**
+	 * Adds the buttons (and other controls) to the screen in question. Called when the GUI is displayed and when the
+	 * window resizes, the buttonList is cleared beforehand.
+	 */
+	public void initGui() {
 
-    /**
-     * Called from the main game loop to update the screen.
-     */
-    public void updateScreen()
-    {
-        ++updateCounter;
-    }
+		buttonList.clear();
+		Keyboard.enableRepeatEvents(true);
+		doneBtn = addButton(new GuiButton(0, width / 2 - 100, height / 4 + 120, I18n.format("gui.done")));
+		tileSign.setEditable(false);
+	}
 
-    /**
-     * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
-     */
-    protected void actionPerformed(GuiButton button) throws IOException
-    {
-        if (button.enabled)
-        {
-            if (button.id == 0)
-            {
-                tileSign.markDirty();
-                mc.displayGuiScreen((GuiScreen)null);
-            }
-        }
-    }
+	/**
+	 * Called when the screen is unloaded. Used to disable keyboard repeat events
+	 */
+	public void onGuiClosed() {
 
-    /**
-     * Fired when a key is typed (except F11 which toggles full screen). This is the equivalent of
-     * KeyListener.keyTyped(KeyEvent e). Args : character (character on the key), keyCode (lwjgl Keyboard key code)
-     */
-    protected void keyTyped(char typedChar, int keyCode) throws IOException
-    {
-        if (keyCode == 200)
-        {
-            editLine = editLine - 1 & 3;
-        }
+		Keyboard.enableRepeatEvents(false);
+		NetHandlerPlayClient nethandlerplayclient = mc.getConnection();
 
-        if (keyCode == 208 || keyCode == 28 || keyCode == 156)
-        {
-            editLine = editLine + 1 & 3;
-        }
+		if (nethandlerplayclient != null) {
+			nethandlerplayclient.sendPacket(new CPacketUpdateSign(tileSign.getPos(), tileSign.signText));
+		}
 
-        String s = tileSign.signText[editLine].getUnformattedText();
+		tileSign.setEditable(true);
+	}
 
-        if (keyCode == 14 && !s.isEmpty())
-        {
-            s = s.substring(0, s.length() - 1);
-        }
+	/**
+	 * Called from the main game loop to update the screen.
+	 */
+	public void updateScreen() {
 
-        if (ChatAllowedCharacters.isAllowedCharacter(typedChar) && fontRenderer.getStringWidth(s + typedChar) <= 90)
-        {
-            s = s + typedChar;
-        }
+		++updateCounter;
+	}
 
-        tileSign.signText[editLine] = new TextComponentString(s);
+	/**
+	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
+	 */
+	protected void actionPerformed(GuiButton button) throws IOException {
 
-        if (keyCode == 1)
-        {
-            actionPerformed(doneBtn);
-        }
-    }
+		if (button.enabled) {
+			if (button.id == 0) {
+				tileSign.markDirty();
+				mc.displayGuiScreen(null);
+			}
+		}
+	}
 
-    /**
-     * Draws the screen and all the components in it.
-     */
-    public void drawScreen(int mouseX, int mouseY, float partialTicks)
-    {
-        drawDefaultBackground();
-        drawCenteredString(fontRenderer, I18n.format("sign.edit"), width / 2, 40, 16777215);
-        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        GlStateManager.pushMatrix();
-        GlStateManager.translate((float)(width / 2), 0.0F, 50.0F);
-        float f = 93.75F;
-        GlStateManager.scale(-93.75F, -93.75F, -93.75F);
-        GlStateManager.rotate(180.0F, 0.0F, 1.0F, 0.0F);
-        Block block = tileSign.getBlockType();
+	/**
+	 * Fired when a key is typed (except F11 which toggles full screen). This is the equivalent of
+	 * KeyListener.keyTyped(KeyEvent e). Args : character (character on the key), keyCode (lwjgl Keyboard key code)
+	 */
+	protected void keyTyped(char typedChar, int keyCode) throws IOException {
 
-        if (block == Blocks.STANDING_SIGN)
-        {
-            float f1 = (float)(tileSign.getBlockMetadata() * 360) / 16.0F;
-            GlStateManager.rotate(f1, 0.0F, 1.0F, 0.0F);
-            GlStateManager.translate(0.0F, -1.0625F, 0.0F);
-        }
-        else
-        {
-            int i = tileSign.getBlockMetadata();
-            float f2 = 0.0F;
+		if (keyCode == 200) {
+			editLine = editLine - 1 & 3;
+		}
 
-            if (i == 2)
-            {
-                f2 = 180.0F;
-            }
+		if (keyCode == 208 || keyCode == 28 || keyCode == 156) {
+			editLine = editLine + 1 & 3;
+		}
 
-            if (i == 4)
-            {
-                f2 = 90.0F;
-            }
+		String s = tileSign.signText[editLine].getUnformattedText();
 
-            if (i == 5)
-            {
-                f2 = -90.0F;
-            }
+		if (keyCode == 14 && !s.isEmpty()) {
+			s = s.substring(0, s.length() - 1);
+		}
 
-            GlStateManager.rotate(f2, 0.0F, 1.0F, 0.0F);
-            GlStateManager.translate(0.0F, -1.0625F, 0.0F);
-        }
+		if (ChatAllowedCharacters.isAllowedCharacter(typedChar) && fontRenderer.getStringWidth(s + typedChar) <= 90) {
+			s = s + typedChar;
+		}
 
-        if (updateCounter / 6 % 2 == 0)
-        {
-            tileSign.lineBeingEdited = editLine;
-        }
+		tileSign.signText[editLine] = new TextComponentString(s);
 
-        TileEntityRendererDispatcher.instance.render(tileSign, -0.5D, -0.75D, -0.5D, 0.0F);
-        tileSign.lineBeingEdited = -1;
-        GlStateManager.popMatrix();
-        super.drawScreen(mouseX, mouseY, partialTicks);
-    }
+		if (keyCode == 1) {
+			actionPerformed(doneBtn);
+		}
+	}
+
+	/**
+	 * Draws the screen and all the components in it.
+	 */
+	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+
+		drawDefaultBackground();
+		drawCenteredString(fontRenderer, I18n.format("sign.edit"), width / 2, 40, 16777215);
+		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+		GlStateManager.pushMatrix();
+		GlStateManager.translate((float) (width / 2), 0.0F, 50.0F);
+		float f = 93.75F;
+		GlStateManager.scale(-93.75F, -93.75F, -93.75F);
+		GlStateManager.rotate(180.0F, 0.0F, 1.0F, 0.0F);
+		Block block = tileSign.getBlockType();
+
+		if (block == Blocks.STANDING_SIGN) {
+			float f1 = (float) (tileSign.getBlockMetadata() * 360) / 16.0F;
+			GlStateManager.rotate(f1, 0.0F, 1.0F, 0.0F);
+			GlStateManager.translate(0.0F, -1.0625F, 0.0F);
+		} else {
+			int i = tileSign.getBlockMetadata();
+			float f2 = 0.0F;
+
+			if (i == 2) {
+				f2 = 180.0F;
+			}
+
+			if (i == 4) {
+				f2 = 90.0F;
+			}
+
+			if (i == 5) {
+				f2 = -90.0F;
+			}
+
+			GlStateManager.rotate(f2, 0.0F, 1.0F, 0.0F);
+			GlStateManager.translate(0.0F, -1.0625F, 0.0F);
+		}
+
+		if (updateCounter / 6 % 2 == 0) {
+			tileSign.lineBeingEdited = editLine;
+		}
+
+		TileEntityRendererDispatcher.instance.render(tileSign, -0.5D, -0.75D, -0.5D, 0.0F);
+		tileSign.lineBeingEdited = -1;
+		GlStateManager.popMatrix();
+		super.drawScreen(mouseX, mouseY, partialTicks);
+	}
+
 }

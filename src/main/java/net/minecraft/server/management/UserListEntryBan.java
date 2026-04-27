@@ -1,78 +1,74 @@
 package net.minecraft.server.management;
 
 import com.google.gson.JsonObject;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public abstract class UserListEntryBan<T> extends UserListEntry<T>
-{
-    public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss Z");
-    protected final Date banStartDate;
-    protected final String bannedBy;
-    protected final Date banEndDate;
-    protected final String reason;
+public abstract class UserListEntryBan<T> extends UserListEntry<T> {
 
-    public UserListEntryBan(T valueIn, Date startDate, String banner, Date endDate, String banReason)
-    {
-        super(valueIn);
-        banStartDate = startDate == null ? new Date() : startDate;
-        bannedBy = banner == null ? "(Unknown)" : banner;
-        banEndDate = endDate;
-        reason = banReason == null ? "Banned by an operator." : banReason;
-    }
+	public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss Z");
+	protected final Date banStartDate;
+	protected final String bannedBy;
+	protected final Date banEndDate;
+	protected final String reason;
 
-    protected UserListEntryBan(T valueIn, JsonObject json)
-    {
-        super(valueIn, json);
-        Date date;
+	public UserListEntryBan(T valueIn, Date startDate, String banner, Date endDate, String banReason) {
 
-        try
-        {
-            date = json.has("created") ? DATE_FORMAT.parse(json.get("created").getAsString()) : new Date();
-        }
-        catch (ParseException var7)
-        {
-            date = new Date();
-        }
+		super(valueIn);
+		banStartDate = startDate == null ? new Date() : startDate;
+		bannedBy = banner == null ? "(Unknown)" : banner;
+		banEndDate = endDate;
+		reason = banReason == null ? "Banned by an operator." : banReason;
+	}
 
-        banStartDate = date;
-        bannedBy = json.has("source") ? json.get("source").getAsString() : "(Unknown)";
-        Date date1;
+	protected UserListEntryBan(T valueIn, JsonObject json) {
 
-        try
-        {
-            date1 = json.has("expires") ? DATE_FORMAT.parse(json.get("expires").getAsString()) : null;
-        }
-        catch (ParseException var6)
-        {
-            date1 = null;
-        }
+		super(valueIn, json);
+		Date date;
 
-        banEndDate = date1;
-        reason = json.has("reason") ? json.get("reason").getAsString() : "Banned by an operator.";
-    }
+		try {
+			date = json.has("created") ? DATE_FORMAT.parse(json.get("created").getAsString()) : new Date();
+		} catch (ParseException var7) {
+			date = new Date();
+		}
 
-    public Date getBanEndDate()
-    {
-        return banEndDate;
-    }
+		banStartDate = date;
+		bannedBy = json.has("source") ? json.get("source").getAsString() : "(Unknown)";
+		Date date1;
 
-    public String getBanReason()
-    {
-        return reason;
-    }
+		try {
+			date1 = json.has("expires") ? DATE_FORMAT.parse(json.get("expires").getAsString()) : null;
+		} catch (ParseException var6) {
+			date1 = null;
+		}
 
-    boolean hasBanExpired()
-    {
-        return banEndDate == null ? false : banEndDate.before(new Date());
-    }
+		banEndDate = date1;
+		reason = json.has("reason") ? json.get("reason").getAsString() : "Banned by an operator.";
+	}
 
-    protected void onSerialization(JsonObject data)
-    {
-        data.addProperty("created", DATE_FORMAT.format(banStartDate));
-        data.addProperty("source", bannedBy);
-        data.addProperty("expires", banEndDate == null ? "forever" : DATE_FORMAT.format(banEndDate));
-        data.addProperty("reason", reason);
-    }
+	public Date getBanEndDate() {
+
+		return banEndDate;
+	}
+
+	public String getBanReason() {
+
+		return reason;
+	}
+
+	boolean hasBanExpired() {
+
+		return banEndDate != null && banEndDate.before(new Date());
+	}
+
+	protected void onSerialization(JsonObject data) {
+
+		data.addProperty("created", DATE_FORMAT.format(banStartDate));
+		data.addProperty("source", bannedBy);
+		data.addProperty("expires", banEndDate == null ? "forever" : DATE_FORMAT.format(banEndDate));
+		data.addProperty("reason", reason);
+	}
+
 }

@@ -1,6 +1,5 @@
 package net.minecraft.network.play.server;
 
-import java.io.IOException;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
@@ -8,56 +7,61 @@ import net.minecraft.network.play.INetHandlerPlayClient;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class SPacketUseBed implements Packet<INetHandlerPlayClient>
-{
-    private int playerID;
+import java.io.IOException;
 
-    /** Block location of the head part of the bed */
-    private BlockPos bedPos;
+public class SPacketUseBed implements Packet<INetHandlerPlayClient> {
 
-    public SPacketUseBed()
-    {
-    }
+	private int playerID;
 
-    public SPacketUseBed(EntityPlayer player, BlockPos posIn)
-    {
-        playerID = player.getEntityId();
-        bedPos = posIn;
-    }
+	/**
+	 * Block location of the head part of the bed
+	 */
+	private BlockPos bedPos;
 
-    /**
-     * Reads the raw packet data from the data stream.
-     */
-    public void readPacketData(PacketBuffer buf) throws IOException
-    {
-        playerID = buf.readVarInt();
-        bedPos = buf.readBlockPos();
-    }
+	public SPacketUseBed() {
 
-    /**
-     * Writes the raw packet data to the data stream.
-     */
-    public void writePacketData(PacketBuffer buf) throws IOException
-    {
-        buf.writeVarInt(playerID);
-        buf.writeBlockPos(bedPos);
-    }
+	}
 
-    /**
-     * Passes this Packet on to the NetHandler for processing.
-     */
-    public void processPacket(INetHandlerPlayClient handler)
-    {
-        handler.handleUseBed(this);
-    }
+	public SPacketUseBed(EntityPlayer player, BlockPos posIn) {
 
-    public EntityPlayer getPlayer(World worldIn)
-    {
-        return (EntityPlayer)worldIn.getEntityByID(playerID);
-    }
+		playerID = player.getEntityId();
+		bedPos = posIn;
+	}
 
-    public BlockPos getBedPosition()
-    {
-        return bedPos;
-    }
+	/**
+	 * Reads the raw packet data from the data stream.
+	 */
+	public void readPacketData(PacketBuffer buf) throws IOException {
+
+		playerID = buf.readVarInt();
+		bedPos = buf.readBlockPos();
+	}
+
+	/**
+	 * Writes the raw packet data to the data stream.
+	 */
+	public void writePacketData(PacketBuffer buf) throws IOException {
+
+		buf.writeVarInt(playerID);
+		buf.writeBlockPos(bedPos);
+	}
+
+	/**
+	 * Passes this Packet on to the NetHandler for processing.
+	 */
+	public void processPacket(INetHandlerPlayClient handler) {
+
+		handler.handleUseBed(this);
+	}
+
+	public EntityPlayer getPlayer(World worldIn) {
+
+		return (EntityPlayer) worldIn.getEntityByID(playerID);
+	}
+
+	public BlockPos getBedPosition() {
+
+		return bedPos;
+	}
+
 }

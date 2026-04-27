@@ -9,95 +9,90 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
-public class TileEntityNote extends TileEntity
-{
-    /** Note to play */
-    public byte note;
+public class TileEntityNote extends TileEntity {
 
-    /** stores the latest redstone state */
-    public boolean previousRedstoneState;
+	/**
+	 * Note to play
+	 */
+	public byte note;
 
-    public NBTTagCompound writeToNBT(NBTTagCompound compound)
-    {
-        super.writeToNBT(compound);
-        compound.setByte("note", note);
-        compound.setBoolean("powered", previousRedstoneState);
-        return compound;
-    }
+	/**
+	 * stores the latest redstone state
+	 */
+	public boolean previousRedstoneState;
 
-    public void readFromNBT(NBTTagCompound compound)
-    {
-        super.readFromNBT(compound);
-        note = compound.getByte("note");
-        note = (byte)MathHelper.clamp(note, 0, 24);
-        previousRedstoneState = compound.getBoolean("powered");
-    }
+	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
 
-    /**
-     * change pitch by -> (currentPitch + 1) % 25
-     */
-    public void changePitch()
-    {
-        note = (byte)((note + 1) % 25);
-        markDirty();
-    }
+		super.writeToNBT(compound);
+		compound.setByte("note", note);
+		compound.setBoolean("powered", previousRedstoneState);
+		return compound;
+	}
 
-    public void triggerNote(World worldIn, BlockPos posIn)
-    {
-        if (worldIn.getBlockState(posIn.up()).getMaterial() == Material.AIR)
-        {
-            IBlockState iblockstate = worldIn.getBlockState(posIn.down());
-            Material material = iblockstate.getMaterial();
-            int i = 0;
+	public void readFromNBT(NBTTagCompound compound) {
 
-            if (material == Material.ROCK)
-            {
-                i = 1;
-            }
+		super.readFromNBT(compound);
+		note = compound.getByte("note");
+		note = (byte) MathHelper.clamp(note, 0, 24);
+		previousRedstoneState = compound.getBoolean("powered");
+	}
 
-            if (material == Material.SAND)
-            {
-                i = 2;
-            }
+	/**
+	 * change pitch by -> (currentPitch + 1) % 25
+	 */
+	public void changePitch() {
 
-            if (material == Material.GLASS)
-            {
-                i = 3;
-            }
+		note = (byte) ((note + 1) % 25);
+		markDirty();
+	}
 
-            if (material == Material.WOOD)
-            {
-                i = 4;
-            }
+	public void triggerNote(World worldIn, BlockPos posIn) {
 
-            Block block = iblockstate.getBlock();
+		if (worldIn.getBlockState(posIn.up()).getMaterial() == Material.AIR) {
+			IBlockState iblockstate = worldIn.getBlockState(posIn.down());
+			Material material = iblockstate.getMaterial();
+			int i = 0;
 
-            if (block == Blocks.CLAY)
-            {
-                i = 5;
-            }
+			if (material == Material.ROCK) {
+				i = 1;
+			}
 
-            if (block == Blocks.GOLD_BLOCK)
-            {
-                i = 6;
-            }
+			if (material == Material.SAND) {
+				i = 2;
+			}
 
-            if (block == Blocks.WOOL)
-            {
-                i = 7;
-            }
+			if (material == Material.GLASS) {
+				i = 3;
+			}
 
-            if (block == Blocks.PACKED_ICE)
-            {
-                i = 8;
-            }
+			if (material == Material.WOOD) {
+				i = 4;
+			}
 
-            if (block == Blocks.BONE_BLOCK)
-            {
-                i = 9;
-            }
+			Block block = iblockstate.getBlock();
 
-            worldIn.addBlockEvent(posIn, Blocks.NOTEBLOCK, i, note);
-        }
-    }
+			if (block == Blocks.CLAY) {
+				i = 5;
+			}
+
+			if (block == Blocks.GOLD_BLOCK) {
+				i = 6;
+			}
+
+			if (block == Blocks.WOOL) {
+				i = 7;
+			}
+
+			if (block == Blocks.PACKED_ICE) {
+				i = 8;
+			}
+
+			if (block == Blocks.BONE_BLOCK) {
+				i = 9;
+			}
+
+			worldIn.addBlockEvent(posIn, Blocks.NOTEBLOCK, i, note);
+		}
+	}
+
 }

@@ -1,136 +1,126 @@
 package net.minecraft.village;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import javax.annotation.Nullable;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.network.PacketBuffer;
 
-public class MerchantRecipeList extends ArrayList<MerchantRecipe>
-{
-    public MerchantRecipeList()
-    {
-    }
+import javax.annotation.Nullable;
+import java.io.IOException;
+import java.util.ArrayList;
 
-    public MerchantRecipeList(NBTTagCompound compound)
-    {
-        readRecipiesFromTags(compound);
-    }
+public class MerchantRecipeList extends ArrayList<MerchantRecipe> {
 
-    @Nullable
+	public MerchantRecipeList() {
 
-    /**
-     * can par1,par2 be used to in crafting recipe par3
-     */
-    public MerchantRecipe canRecipeBeUsed(ItemStack stack0, ItemStack stack1, int index)
-    {
-        if (index > 0 && index < size())
-        {
-            MerchantRecipe merchantrecipe1 = (MerchantRecipe) get(index);
-            return !areItemStacksExactlyEqual(stack0, merchantrecipe1.getItemToBuy()) || (!stack1.isEmpty() || merchantrecipe1.hasSecondItemToBuy()) && (!merchantrecipe1.hasSecondItemToBuy() || !areItemStacksExactlyEqual(stack1, merchantrecipe1.getSecondItemToBuy())) || stack0.getCount() < merchantrecipe1.getItemToBuy().getCount() || merchantrecipe1.hasSecondItemToBuy() && stack1.getCount() < merchantrecipe1.getSecondItemToBuy().getCount() ? null : merchantrecipe1;
-        }
-        else
-        {
-            for (int i = 0; i < size(); ++i)
-            {
-                MerchantRecipe merchantrecipe = (MerchantRecipe) get(i);
+	}
 
-                if (areItemStacksExactlyEqual(stack0, merchantrecipe.getItemToBuy()) && stack0.getCount() >= merchantrecipe.getItemToBuy().getCount() && (!merchantrecipe.hasSecondItemToBuy() && stack1.isEmpty() || merchantrecipe.hasSecondItemToBuy() && areItemStacksExactlyEqual(stack1, merchantrecipe.getSecondItemToBuy()) && stack1.getCount() >= merchantrecipe.getSecondItemToBuy().getCount()))
-                {
-                    return merchantrecipe;
-                }
-            }
+	public MerchantRecipeList(NBTTagCompound compound) {
 
-            return null;
-        }
-    }
+		readRecipiesFromTags(compound);
+	}
 
-    private boolean areItemStacksExactlyEqual(ItemStack stack1, ItemStack stack2)
-    {
-        return ItemStack.areItemsEqual(stack1, stack2) && (!stack2.hasTagCompound() || stack1.hasTagCompound() && NBTUtil.areNBTEquals(stack2.getTagCompound(), stack1.getTagCompound(), false));
-    }
+	@Nullable
 
-    public void writeToBuf(PacketBuffer buffer)
-    {
-        buffer.writeByte((byte)(size() & 255));
+	/**
+	 * can par1,par2 be used to in crafting recipe par3
+	 */
+	public MerchantRecipe canRecipeBeUsed(ItemStack stack0, ItemStack stack1, int index) {
 
-        for (int i = 0; i < size(); ++i)
-        {
-            MerchantRecipe merchantrecipe = (MerchantRecipe) get(i);
-            buffer.writeItemStack(merchantrecipe.getItemToBuy());
-            buffer.writeItemStack(merchantrecipe.getItemToSell());
-            ItemStack itemstack = merchantrecipe.getSecondItemToBuy();
-            buffer.writeBoolean(!itemstack.isEmpty());
+		if (index > 0 && index < size()) {
+			MerchantRecipe merchantrecipe1 = get(index);
+			return !areItemStacksExactlyEqual(stack0, merchantrecipe1.getItemToBuy()) || (!stack1.isEmpty() || merchantrecipe1.hasSecondItemToBuy()) && (!merchantrecipe1.hasSecondItemToBuy() || !areItemStacksExactlyEqual(stack1, merchantrecipe1.getSecondItemToBuy())) || stack0.getCount() < merchantrecipe1.getItemToBuy().getCount() || merchantrecipe1.hasSecondItemToBuy() && stack1.getCount() < merchantrecipe1.getSecondItemToBuy().getCount() ? null : merchantrecipe1;
+		} else {
+			for (int i = 0; i < size(); ++i) {
+				MerchantRecipe merchantrecipe = get(i);
 
-            if (!itemstack.isEmpty())
-            {
-                buffer.writeItemStack(itemstack);
-            }
+				if (areItemStacksExactlyEqual(stack0, merchantrecipe.getItemToBuy()) && stack0.getCount() >= merchantrecipe.getItemToBuy().getCount() && (!merchantrecipe.hasSecondItemToBuy() && stack1.isEmpty() || merchantrecipe.hasSecondItemToBuy() && areItemStacksExactlyEqual(stack1, merchantrecipe.getSecondItemToBuy()) && stack1.getCount() >= merchantrecipe.getSecondItemToBuy().getCount())) {
+					return merchantrecipe;
+				}
+			}
 
-            buffer.writeBoolean(merchantrecipe.isRecipeDisabled());
-            buffer.writeInt(merchantrecipe.getToolUses());
-            buffer.writeInt(merchantrecipe.getMaxTradeUses());
-        }
-    }
+			return null;
+		}
+	}
 
-    public static MerchantRecipeList readFromBuf(PacketBuffer buffer) throws IOException
-    {
-        MerchantRecipeList merchantrecipelist = new MerchantRecipeList();
-        int i = buffer.readByte() & 255;
+	private boolean areItemStacksExactlyEqual(ItemStack stack1, ItemStack stack2) {
 
-        for (int j = 0; j < i; ++j)
-        {
-            ItemStack itemstack = buffer.readItemStack();
-            ItemStack itemstack1 = buffer.readItemStack();
-            ItemStack itemstack2 = ItemStack.EMPTY;
+		return ItemStack.areItemsEqual(stack1, stack2) && (!stack2.hasTagCompound() || stack1.hasTagCompound() && NBTUtil.areNBTEquals(stack2.getTagCompound(), stack1.getTagCompound(), false));
+	}
 
-            if (buffer.readBoolean())
-            {
-                itemstack2 = buffer.readItemStack();
-            }
+	public void writeToBuf(PacketBuffer buffer) {
 
-            boolean flag = buffer.readBoolean();
-            int k = buffer.readInt();
-            int l = buffer.readInt();
-            MerchantRecipe merchantrecipe = new MerchantRecipe(itemstack, itemstack2, itemstack1, k, l);
+		buffer.writeByte((byte) (size() & 255));
 
-            if (flag)
-            {
-                merchantrecipe.compensateToolUses();
-            }
+		for (int i = 0; i < size(); ++i) {
+			MerchantRecipe merchantrecipe = get(i);
+			buffer.writeItemStack(merchantrecipe.getItemToBuy());
+			buffer.writeItemStack(merchantrecipe.getItemToSell());
+			ItemStack itemstack = merchantrecipe.getSecondItemToBuy();
+			buffer.writeBoolean(!itemstack.isEmpty());
 
-            merchantrecipelist.add(merchantrecipe);
-        }
+			if (!itemstack.isEmpty()) {
+				buffer.writeItemStack(itemstack);
+			}
 
-        return merchantrecipelist;
-    }
+			buffer.writeBoolean(merchantrecipe.isRecipeDisabled());
+			buffer.writeInt(merchantrecipe.getToolUses());
+			buffer.writeInt(merchantrecipe.getMaxTradeUses());
+		}
+	}
 
-    public void readRecipiesFromTags(NBTTagCompound compound)
-    {
-        NBTTagList nbttaglist = compound.getTagList("Recipes", 10);
+	public static MerchantRecipeList readFromBuf(PacketBuffer buffer) throws IOException {
 
-        for (int i = 0; i < nbttaglist.tagCount(); ++i)
-        {
-            NBTTagCompound nbttagcompound = nbttaglist.getCompoundTagAt(i);
-            add(new MerchantRecipe(nbttagcompound));
-        }
-    }
+		MerchantRecipeList merchantrecipelist = new MerchantRecipeList();
+		int i = buffer.readByte() & 255;
 
-    public NBTTagCompound getRecipiesAsTags()
-    {
-        NBTTagCompound nbttagcompound = new NBTTagCompound();
-        NBTTagList nbttaglist = new NBTTagList();
+		for (int j = 0; j < i; ++j) {
+			ItemStack itemstack = buffer.readItemStack();
+			ItemStack itemstack1 = buffer.readItemStack();
+			ItemStack itemstack2 = ItemStack.EMPTY;
 
-        for (int i = 0; i < size(); ++i)
-        {
-            MerchantRecipe merchantrecipe = (MerchantRecipe) get(i);
-            nbttaglist.appendTag(merchantrecipe.writeToTags());
-        }
+			if (buffer.readBoolean()) {
+				itemstack2 = buffer.readItemStack();
+			}
 
-        nbttagcompound.setTag("Recipes", nbttaglist);
-        return nbttagcompound;
-    }
+			boolean flag = buffer.readBoolean();
+			int k = buffer.readInt();
+			int l = buffer.readInt();
+			MerchantRecipe merchantrecipe = new MerchantRecipe(itemstack, itemstack2, itemstack1, k, l);
+
+			if (flag) {
+				merchantrecipe.compensateToolUses();
+			}
+
+			merchantrecipelist.add(merchantrecipe);
+		}
+
+		return merchantrecipelist;
+	}
+
+	public void readRecipiesFromTags(NBTTagCompound compound) {
+
+		NBTTagList nbttaglist = compound.getTagList("Recipes", 10);
+
+		for (int i = 0; i < nbttaglist.tagCount(); ++i) {
+			NBTTagCompound nbttagcompound = nbttaglist.getCompoundTagAt(i);
+			add(new MerchantRecipe(nbttagcompound));
+		}
+	}
+
+	public NBTTagCompound getRecipiesAsTags() {
+
+		NBTTagCompound nbttagcompound = new NBTTagCompound();
+		NBTTagList nbttaglist = new NBTTagList();
+
+		for (int i = 0; i < size(); ++i) {
+			MerchantRecipe merchantrecipe = get(i);
+			nbttaglist.appendTag(merchantrecipe.writeToTags());
+		}
+
+		nbttagcompound.setTag("Recipes", nbttaglist);
+		return nbttagcompound;
+	}
+
 }

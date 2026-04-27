@@ -6,48 +6,36 @@ import net.minecraft.inventory.Container;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.IInteractionObject;
 
-public class LocalBlockIntercommunication implements IInteractionObject
-{
-    private final String guiID;
-    private final ITextComponent displayName;
+public record LocalBlockIntercommunication(String guiID, ITextComponent displayName) implements IInteractionObject {
 
-    public LocalBlockIntercommunication(String guiIdIn, ITextComponent displayNameIn)
-    {
-        guiID = guiIdIn;
-        displayName = displayNameIn;
-    }
+	public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
 
-    public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn)
-    {
-        throw new UnsupportedOperationException();
-    }
+		throw new UnsupportedOperationException();
+	}
 
-    /**
-     * Get the name of this object. For players this returns their username
-     */
-    public String getName()
-    {
-        return displayName.getUnformattedText();
-    }
+	/**
+	 * Get the name of this object. For players this returns their username
+	 */
+	public String getName() {
 
-    /**
-     * Returns true if this thing is named
-     */
-    public boolean hasCustomName()
-    {
-        return true;
-    }
+		return displayName.getUnformattedText();
+	}
 
-    public String getGuiID()
-    {
-        return guiID;
-    }
+	/**
+	 * Returns true if this thing is named
+	 */
+	public boolean hasCustomName() {
 
-    /**
-     * Get the formatted ChatComponent that will be used for the sender's username in chat
-     */
-    public ITextComponent getDisplayName()
-    {
-        return displayName;
-    }
+		return true;
+	}
+
+	/**
+	 * Get the formatted ChatComponent that will be used for the sender's username in chat
+	 */
+	@Override
+	public ITextComponent displayName() {
+
+		return displayName;
+	}
+
 }

@@ -1,24 +1,25 @@
 package net.minecraft.client.renderer.block.model;
 
-import java.util.List;
-import javax.annotation.Nullable;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.EnumFacing;
 
-public interface IBakedModel
-{
-    List<BakedQuad> getQuads(IBlockState state, EnumFacing side, long rand);
+import java.util.List;
 
-    boolean isAmbientOcclusion();
+public interface IBakedModel {
 
-    boolean isGui3d();
+	List<BakedQuad> getQuads(IBlockState state, EnumFacing side, long rand);
 
-    boolean isBuiltInRenderer();
+	boolean isAmbientOcclusion();
 
-    TextureAtlasSprite getParticleTexture();
+	boolean isGui3d();
 
-    ItemCameraTransforms getItemCameraTransforms();
+	boolean isBuiltInRenderer();
 
-    ItemOverrideList getOverrides();
+	TextureAtlasSprite getParticleTexture();
+
+	ItemCameraTransforms getItemCameraTransforms();
+
+	ItemOverrideList getOverrides();
+
 }

@@ -2,36 +2,39 @@ package net.minecraft.client.gui;
 
 import net.minecraft.util.text.ITextComponent;
 
-public class ChatLine
-{
-    /** GUI Update Counter value this Line was created at */
-    private final int updateCounterCreated;
-    private final ITextComponent lineString;
+public class ChatLine {
 
-    /**
-     * int value to refer to existing Chat Lines, can be 0 which means unreferrable
-     */
-    private final int chatLineID;
+	/**
+	 * GUI Update Counter value this Line was created at
+	 */
+	private final int updateCounterCreated;
+	private final ITextComponent lineString;
 
-    public ChatLine(int updateCounterCreatedIn, ITextComponent lineStringIn, int chatLineIDIn)
-    {
-        lineString = lineStringIn;
-        updateCounterCreated = updateCounterCreatedIn;
-        chatLineID = chatLineIDIn;
-    }
+	/**
+	 * int value to refer to existing Chat Lines, can be 0 which means unreferrable
+	 */
+	private final int chatLineID;
 
-    public ITextComponent getChatComponent()
-    {
-        return lineString;
-    }
+	public ChatLine(int updateCounterCreatedIn, ITextComponent lineStringIn, int chatLineIDIn) {
 
-    public int getUpdatedCounter()
-    {
-        return updateCounterCreated;
-    }
+		lineString = lineStringIn;
+		updateCounterCreated = updateCounterCreatedIn;
+		chatLineID = chatLineIDIn;
+	}
 
-    public int getChatLineID()
-    {
-        return chatLineID;
-    }
+	public ITextComponent getChatComponent() {
+
+		return lineString;
+	}
+
+	public int getUpdatedCounter() {
+
+		return updateCounterCreated;
+	}
+
+	public int getChatLineID() {
+
+		return chatLineID;
+	}
+
 }

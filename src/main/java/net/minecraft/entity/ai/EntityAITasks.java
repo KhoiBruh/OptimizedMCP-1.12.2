@@ -1,230 +1,203 @@
 package net.minecraft.entity.ai;
 
 import com.google.common.collect.Sets;
-import java.util.Iterator;
-import java.util.Set;
-import javax.annotation.Nullable;
 import net.minecraft.profiler.Profiler;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class EntityAITasks
-{
-    private static final Logger LOGGER = LogManager.getLogger();
-    private final Set<EntityAITasks.EntityAITaskEntry> taskEntries = Sets.<EntityAITasks.EntityAITaskEntry>newLinkedHashSet();
-    private final Set<EntityAITasks.EntityAITaskEntry> executingTaskEntries = Sets.<EntityAITasks.EntityAITaskEntry>newLinkedHashSet();
+import javax.annotation.Nullable;
+import java.util.Iterator;
+import java.util.Set;
 
-    /** Instance of Profiler. */
-    private final Profiler profiler;
-    private int tickCount;
-    private int tickRate = 3;
-    private int disabledControlFlags;
+public class EntityAITasks {
 
-    public EntityAITasks(Profiler profilerIn)
-    {
-        profiler = profilerIn;
-    }
+	private static final Logger LOGGER = LogManager.getLogger();
+	private final Set<EntityAITasks.EntityAITaskEntry> taskEntries = Sets.newLinkedHashSet();
+	private final Set<EntityAITasks.EntityAITaskEntry> executingTaskEntries = Sets.newLinkedHashSet();
 
-    /**
-     * Add a now AITask. Args : priority, task
-     */
-    public void addTask(int priority, EntityAIBase task)
-    {
-        taskEntries.add(new EntityAITasks.EntityAITaskEntry(priority, task));
-    }
+	/**
+	 * Instance of Profiler.
+	 */
+	private final Profiler profiler;
+	private int tickCount;
+	private final int tickRate = 3;
+	private int disabledControlFlags;
 
-    /**
-     * removes the indicated task from the entity's AI tasks.
-     */
-    public void removeTask(EntityAIBase task)
-    {
-        Iterator<EntityAITasks.EntityAITaskEntry> iterator = taskEntries.iterator();
+	public EntityAITasks(Profiler profilerIn) {
 
-        while (iterator.hasNext())
-        {
-            EntityAITasks.EntityAITaskEntry entityaitasks$entityaitaskentry = iterator.next();
-            EntityAIBase entityaibase = entityaitasks$entityaitaskentry.action;
+		profiler = profilerIn;
+	}
 
-            if (entityaibase == task)
-            {
-                if (entityaitasks$entityaitaskentry.using)
-                {
-                    entityaitasks$entityaitaskentry.using = false;
-                    entityaitasks$entityaitaskentry.action.resetTask();
-                    executingTaskEntries.remove(entityaitasks$entityaitaskentry);
-                }
+	/**
+	 * Add a now AITask. Args : priority, task
+	 */
+	public void addTask(int priority, EntityAIBase task) {
 
-                iterator.remove();
-                return;
-            }
-        }
-    }
+		taskEntries.add(new EntityAITasks.EntityAITaskEntry(priority, task));
+	}
 
-    public void onUpdateTasks()
-    {
-        profiler.startSection("goalSetup");
+	/**
+	 * removes the indicated task from the entity's AI tasks.
+	 */
+	public void removeTask(EntityAIBase task) {
 
-        if (tickCount++ % tickRate == 0)
-        {
-            for (EntityAITasks.EntityAITaskEntry entityaitasks$entityaitaskentry : taskEntries)
-            {
-                if (entityaitasks$entityaitaskentry.using)
-                {
-                    if (!canUse(entityaitasks$entityaitaskentry) || !canContinue(entityaitasks$entityaitaskentry))
-                    {
-                        entityaitasks$entityaitaskentry.using = false;
-                        entityaitasks$entityaitaskentry.action.resetTask();
-                        executingTaskEntries.remove(entityaitasks$entityaitaskentry);
-                    }
-                }
-                else if (canUse(entityaitasks$entityaitaskentry) && entityaitasks$entityaitaskentry.action.shouldExecute())
-                {
-                    entityaitasks$entityaitaskentry.using = true;
-                    entityaitasks$entityaitaskentry.action.startExecuting();
-                    executingTaskEntries.add(entityaitasks$entityaitaskentry);
-                }
-            }
-        }
-        else
-        {
-            Iterator<EntityAITasks.EntityAITaskEntry> iterator = executingTaskEntries.iterator();
+		Iterator<EntityAITasks.EntityAITaskEntry> iterator = taskEntries.iterator();
 
-            while (iterator.hasNext())
-            {
-                EntityAITasks.EntityAITaskEntry entityaitasks$entityaitaskentry1 = iterator.next();
+		while (iterator.hasNext()) {
+			EntityAITasks.EntityAITaskEntry entityaitasks$entityaitaskentry = iterator.next();
+			EntityAIBase entityaibase = entityaitasks$entityaitaskentry.action;
 
-                if (!canContinue(entityaitasks$entityaitaskentry1))
-                {
-                    entityaitasks$entityaitaskentry1.using = false;
-                    entityaitasks$entityaitaskentry1.action.resetTask();
-                    iterator.remove();
-                }
-            }
-        }
+			if (entityaibase == task) {
+				if (entityaitasks$entityaitaskentry.using) {
+					entityaitasks$entityaitaskentry.using = false;
+					entityaitasks$entityaitaskentry.action.resetTask();
+					executingTaskEntries.remove(entityaitasks$entityaitaskentry);
+				}
 
-        profiler.endSection();
+				iterator.remove();
+				return;
+			}
+		}
+	}
 
-        if (!executingTaskEntries.isEmpty())
-        {
-            profiler.startSection("goalTick");
+	public void onUpdateTasks() {
 
-            for (EntityAITasks.EntityAITaskEntry entityaitasks$entityaitaskentry2 : executingTaskEntries)
-            {
-                entityaitasks$entityaitaskentry2.action.updateTask();
-            }
+		profiler.startSection("goalSetup");
 
-            profiler.endSection();
-        }
-    }
+		if (tickCount++ % tickRate == 0) {
+			for (EntityAITasks.EntityAITaskEntry entityaitasks$entityaitaskentry : taskEntries) {
+				if (entityaitasks$entityaitaskentry.using) {
+					if (!canUse(entityaitasks$entityaitaskentry) || !canContinue(entityaitasks$entityaitaskentry)) {
+						entityaitasks$entityaitaskentry.using = false;
+						entityaitasks$entityaitaskentry.action.resetTask();
+						executingTaskEntries.remove(entityaitasks$entityaitaskentry);
+					}
+				} else if (canUse(entityaitasks$entityaitaskentry) && entityaitasks$entityaitaskentry.action.shouldExecute()) {
+					entityaitasks$entityaitaskentry.using = true;
+					entityaitasks$entityaitaskentry.action.startExecuting();
+					executingTaskEntries.add(entityaitasks$entityaitaskentry);
+				}
+			}
+		} else {
+			Iterator<EntityAITasks.EntityAITaskEntry> iterator = executingTaskEntries.iterator();
 
-    /**
-     * Determine if a specific AI Task should continue being executed.
-     */
-    private boolean canContinue(EntityAITasks.EntityAITaskEntry taskEntry)
-    {
-        return taskEntry.action.shouldContinueExecuting();
-    }
+			while (iterator.hasNext()) {
+				EntityAITasks.EntityAITaskEntry entityaitasks$entityaitaskentry1 = iterator.next();
 
-    /**
-     * Determine if a specific AI Task can be executed, which means that all running higher (= lower int value) priority
-     * tasks are compatible with it or all lower priority tasks can be interrupted.
-     */
-    private boolean canUse(EntityAITasks.EntityAITaskEntry taskEntry)
-    {
-        if (executingTaskEntries.isEmpty())
-        {
-            return true;
-        }
-        else if (isControlFlagDisabled(taskEntry.action.getMutexBits()))
-        {
-            return false;
-        }
-        else
-        {
-            for (EntityAITasks.EntityAITaskEntry entityaitasks$entityaitaskentry : executingTaskEntries)
-            {
-                if (entityaitasks$entityaitaskentry != taskEntry)
-                {
-                    if (taskEntry.priority >= entityaitasks$entityaitaskentry.priority)
-                    {
-                        if (!areTasksCompatible(taskEntry, entityaitasks$entityaitaskentry))
-                        {
-                            return false;
-                        }
-                    }
-                    else if (!entityaitasks$entityaitaskentry.action.isInterruptible())
-                    {
-                        return false;
-                    }
-                }
-            }
+				if (!canContinue(entityaitasks$entityaitaskentry1)) {
+					entityaitasks$entityaitaskentry1.using = false;
+					entityaitasks$entityaitaskentry1.action.resetTask();
+					iterator.remove();
+				}
+			}
+		}
 
-            return true;
-        }
-    }
+		profiler.endSection();
 
-    /**
-     * Returns whether two EntityAITaskEntries can be executed concurrently
-     */
-    private boolean areTasksCompatible(EntityAITasks.EntityAITaskEntry taskEntry1, EntityAITasks.EntityAITaskEntry taskEntry2)
-    {
-        return (taskEntry1.action.getMutexBits() & taskEntry2.action.getMutexBits()) == 0;
-    }
+		if (!executingTaskEntries.isEmpty()) {
+			profiler.startSection("goalTick");
 
-    public boolean isControlFlagDisabled(int p_188528_1_)
-    {
-        return (disabledControlFlags & p_188528_1_) > 0;
-    }
+			for (EntityAITasks.EntityAITaskEntry entityaitasks$entityaitaskentry2 : executingTaskEntries) {
+				entityaitasks$entityaitaskentry2.action.updateTask();
+			}
 
-    public void disableControlFlag(int p_188526_1_)
-    {
-        disabledControlFlags |= p_188526_1_;
-    }
+			profiler.endSection();
+		}
+	}
 
-    public void enableControlFlag(int p_188525_1_)
-    {
-        disabledControlFlags &= ~p_188525_1_;
-    }
+	/**
+	 * Determine if a specific AI Task should continue being executed.
+	 */
+	private boolean canContinue(EntityAITasks.EntityAITaskEntry taskEntry) {
 
-    public void setControlFlag(int p_188527_1_, boolean p_188527_2_)
-    {
-        if (p_188527_2_)
-        {
-            enableControlFlag(p_188527_1_);
-        }
-        else
-        {
-            disableControlFlag(p_188527_1_);
-        }
-    }
+		return taskEntry.action.shouldContinueExecuting();
+	}
 
-    class EntityAITaskEntry
-    {
-        public final EntityAIBase action;
-        public final int priority;
-        public boolean using;
+	/**
+	 * Determine if a specific AI Task can be executed, which means that all running higher (= lower int value) priority
+	 * tasks are compatible with it or all lower priority tasks can be interrupted.
+	 */
+	private boolean canUse(EntityAITasks.EntityAITaskEntry taskEntry) {
 
-        public EntityAITaskEntry(int priorityIn, EntityAIBase task)
-        {
-            priority = priorityIn;
-            action = task;
-        }
+		if (executingTaskEntries.isEmpty()) {
+			return true;
+		} else if (isControlFlagDisabled(taskEntry.action.getMutexBits())) {
+			return false;
+		} else {
+			for (EntityAITasks.EntityAITaskEntry entityaitasks$entityaitaskentry : executingTaskEntries) {
+				if (entityaitasks$entityaitaskentry != taskEntry) {
+					if (taskEntry.priority >= entityaitasks$entityaitaskentry.priority) {
+						if (!areTasksCompatible(taskEntry, entityaitasks$entityaitaskentry)) {
+							return false;
+						}
+					} else if (!entityaitasks$entityaitaskentry.action.isInterruptible()) {
+						return false;
+					}
+				}
+			}
 
-        public boolean equals(@Nullable Object p_equals_1_)
-        {
-            if (this == p_equals_1_)
-            {
-                return true;
-            }
-            else
-            {
-                return p_equals_1_ != null && getClass() == p_equals_1_.getClass() ? action.equals(((EntityAITasks.EntityAITaskEntry)p_equals_1_).action) : false;
-            }
-        }
+			return true;
+		}
+	}
 
-        public int hashCode()
-        {
-            return action.hashCode();
-        }
-    }
+	/**
+	 * Returns whether two EntityAITaskEntries can be executed concurrently
+	 */
+	private boolean areTasksCompatible(EntityAITasks.EntityAITaskEntry taskEntry1, EntityAITasks.EntityAITaskEntry taskEntry2) {
+
+		return (taskEntry1.action.getMutexBits() & taskEntry2.action.getMutexBits()) == 0;
+	}
+
+	public boolean isControlFlagDisabled(int p_188528_1_) {
+
+		return (disabledControlFlags & p_188528_1_) > 0;
+	}
+
+	public void disableControlFlag(int p_188526_1_) {
+
+		disabledControlFlags |= p_188526_1_;
+	}
+
+	public void enableControlFlag(int p_188525_1_) {
+
+		disabledControlFlags &= ~p_188525_1_;
+	}
+
+	public void setControlFlag(int p_188527_1_, boolean p_188527_2_) {
+
+		if (p_188527_2_) {
+			enableControlFlag(p_188527_1_);
+		} else {
+			disableControlFlag(p_188527_1_);
+		}
+	}
+
+	class EntityAITaskEntry {
+
+		public final EntityAIBase action;
+		public final int priority;
+		public boolean using;
+
+		public EntityAITaskEntry(int priorityIn, EntityAIBase task) {
+
+			priority = priorityIn;
+			action = task;
+		}
+
+		public boolean equals(@Nullable Object p_equals_1_) {
+
+			if (this == p_equals_1_) {
+				return true;
+			} else {
+				return p_equals_1_ != null && getClass() == p_equals_1_.getClass() && action.equals(((EntityAITaskEntry) p_equals_1_).action);
+			}
+		}
+
+		public int hashCode() {
+
+			return action.hashCode();
+		}
+
+	}
+
 }

@@ -1,119 +1,120 @@
 package net.minecraft.realms;
 
 import com.google.common.collect.Lists;
-import java.util.List;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.client.renderer.vertex.VertexFormatElement;
 
-public class RealmsVertexFormat
-{
-    private VertexFormat v;
+import java.util.List;
 
-    public RealmsVertexFormat(VertexFormat vIn)
-    {
-        v = vIn;
-    }
+public class RealmsVertexFormat {
 
-    public RealmsVertexFormat from(VertexFormat p_from_1_)
-    {
-        v = p_from_1_;
-        return this;
-    }
+	private VertexFormat v;
 
-    public VertexFormat getVertexFormat()
-    {
-        return v;
-    }
+	public RealmsVertexFormat(VertexFormat vIn) {
 
-    public void clear()
-    {
-        v.clear();
-    }
+		v = vIn;
+	}
 
-    public int getUvOffset(int p_getUvOffset_1_)
-    {
-        return v.getUvOffsetById(p_getUvOffset_1_);
-    }
+	public RealmsVertexFormat from(VertexFormat p_from_1_) {
 
-    public int getElementCount()
-    {
-        return v.getElementCount();
-    }
+		v = p_from_1_;
+		return this;
+	}
 
-    public boolean hasColor()
-    {
-        return v.hasColor();
-    }
+	public VertexFormat getVertexFormat() {
 
-    public boolean hasUv(int p_hasUv_1_)
-    {
-        return v.hasUvOffset(p_hasUv_1_);
-    }
+		return v;
+	}
 
-    public RealmsVertexFormatElement getElement(int p_getElement_1_)
-    {
-        return new RealmsVertexFormatElement(v.getElement(p_getElement_1_));
-    }
+	public void clear() {
 
-    public RealmsVertexFormat addElement(RealmsVertexFormatElement p_addElement_1_)
-    {
-        return from(v.addElement(p_addElement_1_.getVertexFormatElement()));
-    }
+		v.clear();
+	}
 
-    public int getColorOffset()
-    {
-        return v.getColorOffset();
-    }
+	public int getUvOffset(int p_getUvOffset_1_) {
 
-    public List<RealmsVertexFormatElement> getElements()
-    {
-        List<RealmsVertexFormatElement> list = Lists.<RealmsVertexFormatElement>newArrayList();
+		return v.getUvOffsetById(p_getUvOffset_1_);
+	}
 
-        for (VertexFormatElement vertexformatelement : v.getElements())
-        {
-            list.add(new RealmsVertexFormatElement(vertexformatelement));
-        }
+	public int getElementCount() {
 
-        return list;
-    }
+		return v.getElementCount();
+	}
 
-    public boolean hasNormal()
-    {
-        return v.hasNormal();
-    }
+	public boolean hasColor() {
 
-    public int getVertexSize()
-    {
-        return v.getNextOffset();
-    }
+		return v.hasColor();
+	}
 
-    public int getOffset(int p_getOffset_1_)
-    {
-        return v.getOffset(p_getOffset_1_);
-    }
+	public boolean hasUv(int p_hasUv_1_) {
 
-    public int getNormalOffset()
-    {
-        return v.getNormalOffset();
-    }
+		return v.hasUvOffset(p_hasUv_1_);
+	}
 
-    public int getIntegerSize()
-    {
-        return v.getIntegerSize();
-    }
+	public RealmsVertexFormatElement getElement(int p_getElement_1_) {
 
-    public boolean equals(Object p_equals_1_)
-    {
-        return v.equals(p_equals_1_);
-    }
+		return new RealmsVertexFormatElement(v.getElement(p_getElement_1_));
+	}
 
-    public int hashCode()
-    {
-        return v.hashCode();
-    }
+	public RealmsVertexFormat addElement(RealmsVertexFormatElement p_addElement_1_) {
 
-    public String toString()
-    {
-        return v.toString();
-    }
+		return from(v.addElement(p_addElement_1_.getVertexFormatElement()));
+	}
+
+	public int getColorOffset() {
+
+		return v.getColorOffset();
+	}
+
+	public List<RealmsVertexFormatElement> getElements() {
+
+		List<RealmsVertexFormatElement> list = Lists.newArrayList();
+
+		for (VertexFormatElement vertexformatelement : v.getElements()) {
+			list.add(new RealmsVertexFormatElement(vertexformatelement));
+		}
+
+		return list;
+	}
+
+	public boolean hasNormal() {
+
+		return v.hasNormal();
+	}
+
+	public int getVertexSize() {
+
+		return v.getNextOffset();
+	}
+
+	public int getOffset(int p_getOffset_1_) {
+
+		return v.getOffset(p_getOffset_1_);
+	}
+
+	public int getNormalOffset() {
+
+		return v.getNormalOffset();
+	}
+
+	public int getIntegerSize() {
+
+		return v.getIntegerSize();
+	}
+
+	public boolean equals(Object p_equals_1_) {
+
+		return v.equals(p_equals_1_);
+	}
+
+	public int hashCode() {
+
+		return v.hashCode();
+	}
+
+	public String toString() {
+
+		return v.toString();
+	}
+
 }

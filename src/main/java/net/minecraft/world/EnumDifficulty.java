@@ -1,41 +1,39 @@
 package net.minecraft.world;
 
-public enum EnumDifficulty
-{
-    PEACEFUL(0, "options.difficulty.peaceful"),
-    EASY(1, "options.difficulty.easy"),
-    NORMAL(2, "options.difficulty.normal"),
-    HARD(3, "options.difficulty.hard");
+public enum EnumDifficulty {
+	PEACEFUL(0, "options.difficulty.peaceful"),
+	EASY(1, "options.difficulty.easy"),
+	NORMAL(2, "options.difficulty.normal"),
+	HARD(3, "options.difficulty.hard");
 
-    private static final EnumDifficulty[] ID_MAPPING = new EnumDifficulty[values().length];
-    private final int difficultyId;
-    private final String difficultyResourceKey;
+	private static final EnumDifficulty[] ID_MAPPING = new EnumDifficulty[values().length];
+	private final int difficultyId;
+	private final String difficultyResourceKey;
 
-    private EnumDifficulty(int difficultyIdIn, String difficultyResourceKeyIn)
-    {
-        difficultyId = difficultyIdIn;
-        difficultyResourceKey = difficultyResourceKeyIn;
-    }
+	EnumDifficulty(int difficultyIdIn, String difficultyResourceKeyIn) {
 
-    public int getDifficultyId()
-    {
-        return difficultyId;
-    }
+		difficultyId = difficultyIdIn;
+		difficultyResourceKey = difficultyResourceKeyIn;
+	}
 
-    public static EnumDifficulty getDifficultyEnum(int id)
-    {
-        return ID_MAPPING[id % ID_MAPPING.length];
-    }
+	public int getDifficultyId() {
 
-    public String getDifficultyResourceKey()
-    {
-        return difficultyResourceKey;
-    }
+		return difficultyId;
+	}
 
-    static {
-        for (EnumDifficulty enumdifficulty : values())
-        {
-            ID_MAPPING[enumdifficulty.difficultyId] = enumdifficulty;
-        }
-    }
+	public static EnumDifficulty getDifficultyEnum(int id) {
+
+		return ID_MAPPING[id % ID_MAPPING.length];
+	}
+
+	public String getDifficultyResourceKey() {
+
+		return difficultyResourceKey;
+	}
+
+	static {
+		for (EnumDifficulty enumdifficulty : values()) {
+			ID_MAPPING[enumdifficulty.difficultyId] = enumdifficulty;
+		}
+	}
 }

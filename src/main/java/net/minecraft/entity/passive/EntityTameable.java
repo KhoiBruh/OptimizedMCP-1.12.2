@@ -1,8 +1,6 @@
 package net.minecraft.entity.passive;
 
 import com.google.common.base.Optional;
-import java.util.UUID;
-import javax.annotation.Nullable;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -20,274 +18,244 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.world.World;
 
-public abstract class EntityTameable extends EntityAnimal implements IEntityOwnable
-{
-    protected static final DataParameter<Byte> TAMED = EntityDataManager.<Byte>createKey(EntityTameable.class, DataSerializers.BYTE);
-    protected static final DataParameter<Optional<UUID>> OWNER_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntityTameable.class, DataSerializers.OPTIONAL_UNIQUE_ID);
-    protected EntityAISit aiSit;
+import javax.annotation.Nullable;
+import java.util.UUID;
 
-    public EntityTameable(World worldIn)
-    {
-        super(worldIn);
-        setupTamedAI();
-    }
+public abstract class EntityTameable extends EntityAnimal implements IEntityOwnable {
 
-    protected void entityInit()
-    {
-        super.entityInit();
-        dataManager.register(TAMED, Byte.valueOf((byte)0));
-        dataManager.register(OWNER_UNIQUE_ID, Optional.absent());
-    }
+	protected static final DataParameter<Byte> TAMED = EntityDataManager.createKey(EntityTameable.class, DataSerializers.BYTE);
+	protected static final DataParameter<Optional<UUID>> OWNER_UNIQUE_ID = EntityDataManager.createKey(EntityTameable.class, DataSerializers.OPTIONAL_UNIQUE_ID);
+	protected EntityAISit aiSit;
 
-    /**
-     * (abstract) Protected helper method to write subclass entity data to NBT.
-     */
-    public void writeEntityToNBT(NBTTagCompound compound)
-    {
-        super.writeEntityToNBT(compound);
+	public EntityTameable(World worldIn) {
 
-        if (getOwnerId() == null)
-        {
-            compound.setString("OwnerUUID", "");
-        }
-        else
-        {
-            compound.setString("OwnerUUID", getOwnerId().toString());
-        }
+		super(worldIn);
+		setupTamedAI();
+	}
 
-        compound.setBoolean("Sitting", isSitting());
-    }
+	protected void entityInit() {
 
-    /**
-     * (abstract) Protected helper method to read subclass entity data from NBT.
-     */
-    public void readEntityFromNBT(NBTTagCompound compound)
-    {
-        super.readEntityFromNBT(compound);
-        String s;
+		super.entityInit();
+		dataManager.register(TAMED, Byte.valueOf((byte) 0));
+		dataManager.register(OWNER_UNIQUE_ID, Optional.absent());
+	}
 
-        if (compound.hasKey("OwnerUUID", 8))
-        {
-            s = compound.getString("OwnerUUID");
-        }
-        else
-        {
-            String s1 = compound.getString("Owner");
-            s = PreYggdrasilConverter.convertMobOwnerIfNeeded(getServer(), s1);
-        }
+	/**
+	 * (abstract) Protected helper method to write subclass entity data to NBT.
+	 */
+	public void writeEntityToNBT(NBTTagCompound compound) {
 
-        if (!s.isEmpty())
-        {
-            try
-            {
-                setOwnerId(UUID.fromString(s));
-                setTamed(true);
-            }
-            catch (Throwable var4)
-            {
-                setTamed(false);
-            }
-        }
+		super.writeEntityToNBT(compound);
 
-        if (aiSit != null)
-        {
-            aiSit.setSitting(compound.getBoolean("Sitting"));
-        }
+		if (getOwnerId() == null) {
+			compound.setString("OwnerUUID", "");
+		} else {
+			compound.setString("OwnerUUID", getOwnerId().toString());
+		}
 
-        setSitting(compound.getBoolean("Sitting"));
-    }
+		compound.setBoolean("Sitting", isSitting());
+	}
 
-    public boolean canBeLeashedTo(EntityPlayer player)
-    {
-        return !getLeashed();
-    }
+	/**
+	 * (abstract) Protected helper method to read subclass entity data from NBT.
+	 */
+	public void readEntityFromNBT(NBTTagCompound compound) {
 
-    /**
-     * Play the taming effect, will either be hearts or smoke depending on status
-     */
-    protected void playTameEffect(boolean play)
-    {
-        EnumParticleTypes enumparticletypes = EnumParticleTypes.HEART;
+		super.readEntityFromNBT(compound);
+		String s;
 
-        if (!play)
-        {
-            enumparticletypes = EnumParticleTypes.SMOKE_NORMAL;
-        }
+		if (compound.hasKey("OwnerUUID", 8)) {
+			s = compound.getString("OwnerUUID");
+		} else {
+			String s1 = compound.getString("Owner");
+			s = PreYggdrasilConverter.convertMobOwnerIfNeeded(getServer(), s1);
+		}
 
-        for (int i = 0; i < 7; ++i)
-        {
-            double d0 = rand.nextGaussian() * 0.02D;
-            double d1 = rand.nextGaussian() * 0.02D;
-            double d2 = rand.nextGaussian() * 0.02D;
-            world.spawnParticle(enumparticletypes, posX + (double)(rand.nextFloat() * width * 2.0F) - (double) width, posY + 0.5D + (double)(rand.nextFloat() * height), posZ + (double)(rand.nextFloat() * width * 2.0F) - (double) width, d0, d1, d2);
-        }
-    }
+		if (!s.isEmpty()) {
+			try {
+				setOwnerId(UUID.fromString(s));
+				setTamed(true);
+			} catch (Throwable var4) {
+				setTamed(false);
+			}
+		}
 
-    /**
-     * Handler for {@link World#setEntityState}
-     */
-    public void handleStatusUpdate(byte id)
-    {
-        if (id == 7)
-        {
-            playTameEffect(true);
-        }
-        else if (id == 6)
-        {
-            playTameEffect(false);
-        }
-        else
-        {
-            super.handleStatusUpdate(id);
-        }
-    }
+		if (aiSit != null) {
+			aiSit.setSitting(compound.getBoolean("Sitting"));
+		}
 
-    public boolean isTamed()
-    {
-        return (((Byte) dataManager.get(TAMED)).byteValue() & 4) != 0;
-    }
+		setSitting(compound.getBoolean("Sitting"));
+	}
 
-    public void setTamed(boolean tamed)
-    {
-        byte b0 = ((Byte) dataManager.get(TAMED)).byteValue();
+	public boolean canBeLeashedTo(EntityPlayer player) {
 
-        if (tamed)
-        {
-            dataManager.set(TAMED, Byte.valueOf((byte)(b0 | 4)));
-        }
-        else
-        {
-            dataManager.set(TAMED, Byte.valueOf((byte)(b0 & -5)));
-        }
+		return !getLeashed();
+	}
 
-        setupTamedAI();
-    }
+	/**
+	 * Play the taming effect, will either be hearts or smoke depending on status
+	 */
+	protected void playTameEffect(boolean play) {
 
-    protected void setupTamedAI()
-    {
-    }
+		EnumParticleTypes enumparticletypes = EnumParticleTypes.HEART;
 
-    public boolean isSitting()
-    {
-        return (((Byte) dataManager.get(TAMED)).byteValue() & 1) != 0;
-    }
+		if (!play) {
+			enumparticletypes = EnumParticleTypes.SMOKE_NORMAL;
+		}
 
-    public void setSitting(boolean sitting)
-    {
-        byte b0 = ((Byte) dataManager.get(TAMED)).byteValue();
+		for (int i = 0; i < 7; ++i) {
+			double d0 = rand.nextGaussian() * 0.02D;
+			double d1 = rand.nextGaussian() * 0.02D;
+			double d2 = rand.nextGaussian() * 0.02D;
+			world.spawnParticle(enumparticletypes, posX + (double) (rand.nextFloat() * width * 2.0F) - (double) width, posY + 0.5D + (double) (rand.nextFloat() * height), posZ + (double) (rand.nextFloat() * width * 2.0F) - (double) width, d0, d1, d2);
+		}
+	}
 
-        if (sitting)
-        {
-            dataManager.set(TAMED, Byte.valueOf((byte)(b0 | 1)));
-        }
-        else
-        {
-            dataManager.set(TAMED, Byte.valueOf((byte)(b0 & -2)));
-        }
-    }
+	/**
+	 * Handler for {@link World#setEntityState}
+	 */
+	public void handleStatusUpdate(byte id) {
 
-    @Nullable
-    public UUID getOwnerId()
-    {
-        return (UUID)((Optional) dataManager.get(OWNER_UNIQUE_ID)).orNull();
-    }
+		if (id == 7) {
+			playTameEffect(true);
+		} else if (id == 6) {
+			playTameEffect(false);
+		} else {
+			super.handleStatusUpdate(id);
+		}
+	}
 
-    public void setOwnerId(@Nullable UUID p_184754_1_)
-    {
-        dataManager.set(OWNER_UNIQUE_ID, Optional.fromNullable(p_184754_1_));
-    }
+	public boolean isTamed() {
 
-    public void setTamedBy(EntityPlayer player)
-    {
-        setTamed(true);
-        setOwnerId(player.getUniqueID());
+		return (dataManager.get(TAMED).byteValue() & 4) != 0;
+	}
 
-        if (player instanceof EntityPlayerMP)
-        {
-            CriteriaTriggers.TAME_ANIMAL.trigger((EntityPlayerMP)player, this);
-        }
-    }
+	public void setTamed(boolean tamed) {
 
-    @Nullable
-    public EntityLivingBase getOwner()
-    {
-        try
-        {
-            UUID uuid = getOwnerId();
-            return uuid == null ? null : world.getPlayerEntityByUUID(uuid);
-        }
-        catch (IllegalArgumentException var2)
-        {
-            return null;
-        }
-    }
+		byte b0 = dataManager.get(TAMED).byteValue();
 
-    public boolean isOwner(EntityLivingBase entityIn)
-    {
-        return entityIn == getOwner();
-    }
+		if (tamed) {
+			dataManager.set(TAMED, Byte.valueOf((byte) (b0 | 4)));
+		} else {
+			dataManager.set(TAMED, Byte.valueOf((byte) (b0 & -5)));
+		}
 
-    /**
-     * Returns the AITask responsible of the sit logic
-     */
-    public EntityAISit getAISit()
-    {
-        return aiSit;
-    }
+		setupTamedAI();
+	}
 
-    public boolean shouldAttackEntity(EntityLivingBase target, EntityLivingBase owner)
-    {
-        return true;
-    }
+	protected void setupTamedAI() {
 
-    public Team getTeam()
-    {
-        if (isTamed())
-        {
-            EntityLivingBase entitylivingbase = getOwner();
+	}
 
-            if (entitylivingbase != null)
-            {
-                return entitylivingbase.getTeam();
-            }
-        }
+	public boolean isSitting() {
 
-        return super.getTeam();
-    }
+		return (dataManager.get(TAMED).byteValue() & 1) != 0;
+	}
 
-    /**
-     * Returns whether this Entity is on the same team as the given Entity.
-     */
-    public boolean isOnSameTeam(Entity entityIn)
-    {
-        if (isTamed())
-        {
-            EntityLivingBase entitylivingbase = getOwner();
+	public void setSitting(boolean sitting) {
 
-            if (entityIn == entitylivingbase)
-            {
-                return true;
-            }
+		byte b0 = dataManager.get(TAMED).byteValue();
 
-            if (entitylivingbase != null)
-            {
-                return entitylivingbase.isOnSameTeam(entityIn);
-            }
-        }
+		if (sitting) {
+			dataManager.set(TAMED, Byte.valueOf((byte) (b0 | 1)));
+		} else {
+			dataManager.set(TAMED, Byte.valueOf((byte) (b0 & -2)));
+		}
+	}
 
-        return super.isOnSameTeam(entityIn);
-    }
+	@Nullable
+	public UUID getOwnerId() {
 
-    /**
-     * Called when the mob's health reaches 0.
-     */
-    public void onDeath(DamageSource cause)
-    {
-        if (!world.isRemote && world.getGameRules().getBoolean("showDeathMessages") && getOwner() instanceof EntityPlayerMP)
-        {
-            getOwner().sendMessage(getCombatTracker().getDeathMessage());
-        }
+		return (UUID) ((Optional) dataManager.get(OWNER_UNIQUE_ID)).orNull();
+	}
 
-        super.onDeath(cause);
-    }
+	public void setOwnerId(@Nullable UUID p_184754_1_) {
+
+		dataManager.set(OWNER_UNIQUE_ID, Optional.fromNullable(p_184754_1_));
+	}
+
+	public void setTamedBy(EntityPlayer player) {
+
+		setTamed(true);
+		setOwnerId(player.getUniqueID());
+
+		if (player instanceof EntityPlayerMP) {
+			CriteriaTriggers.TAME_ANIMAL.trigger((EntityPlayerMP) player, this);
+		}
+	}
+
+	@Nullable
+	public EntityLivingBase getOwner() {
+
+		try {
+			UUID uuid = getOwnerId();
+			return uuid == null ? null : world.getPlayerEntityByUUID(uuid);
+		} catch (IllegalArgumentException var2) {
+			return null;
+		}
+	}
+
+	public boolean isOwner(EntityLivingBase entityIn) {
+
+		return entityIn == getOwner();
+	}
+
+	/**
+	 * Returns the AITask responsible of the sit logic
+	 */
+	public EntityAISit getAISit() {
+
+		return aiSit;
+	}
+
+	public boolean shouldAttackEntity(EntityLivingBase target, EntityLivingBase owner) {
+
+		return true;
+	}
+
+	public Team getTeam() {
+
+		if (isTamed()) {
+			EntityLivingBase entitylivingbase = getOwner();
+
+			if (entitylivingbase != null) {
+				return entitylivingbase.getTeam();
+			}
+		}
+
+		return super.getTeam();
+	}
+
+	/**
+	 * Returns whether this Entity is on the same team as the given Entity.
+	 */
+	public boolean isOnSameTeam(Entity entityIn) {
+
+		if (isTamed()) {
+			EntityLivingBase entitylivingbase = getOwner();
+
+			if (entityIn == entitylivingbase) {
+				return true;
+			}
+
+			if (entitylivingbase != null) {
+				return entitylivingbase.isOnSameTeam(entityIn);
+			}
+		}
+
+		return super.isOnSameTeam(entityIn);
+	}
+
+	/**
+	 * Called when the mob's health reaches 0.
+	 */
+	public void onDeath(DamageSource cause) {
+
+		if (!world.isRemote && world.getGameRules().getBoolean("showDeathMessages") && getOwner() instanceof EntityPlayerMP) {
+			getOwner().sendMessage(getCombatTracker().getDeathMessage());
+		}
+
+		super.onDeath(cause);
+	}
+
 }

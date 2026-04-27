@@ -1,16 +1,11 @@
 package net.minecraft.entity.monster;
 
-import javax.annotation.Nullable;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IRangedAttackMob;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAIAttackRanged;
-import net.minecraft.entity.ai.EntityAILookIdle;
-import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
-import net.minecraft.entity.ai.EntityAIWanderAvoidWater;
-import net.minecraft.entity.ai.EntityAIWatchClosest;
+import net.minecraft.entity.ai.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntitySnowball;
 import net.minecraft.init.Blocks;
@@ -31,187 +26,179 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 
-public class EntitySnowman extends EntityGolem implements IRangedAttackMob
-{
-    private static final DataParameter<Byte> PUMPKIN_EQUIPPED = EntityDataManager.<Byte>createKey(EntitySnowman.class, DataSerializers.BYTE);
+import javax.annotation.Nullable;
 
-    public EntitySnowman(World worldIn)
-    {
-        super(worldIn);
-        setSize(0.7F, 1.9F);
-    }
+public class EntitySnowman extends EntityGolem implements IRangedAttackMob {
 
-    public static void registerFixesSnowman(DataFixer fixer)
-    {
-        EntityLiving.registerFixesMob(fixer, EntitySnowman.class);
-    }
+	private static final DataParameter<Byte> PUMPKIN_EQUIPPED = EntityDataManager.createKey(EntitySnowman.class, DataSerializers.BYTE);
 
-    protected void initEntityAI()
-    {
-        tasks.addTask(1, new EntityAIAttackRanged(this, 1.25D, 20, 10.0F));
-        tasks.addTask(2, new EntityAIWanderAvoidWater(this, 1.0D, 1.0000001E-5F));
-        tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
-        tasks.addTask(4, new EntityAILookIdle(this));
-        targetTasks.addTask(1, new EntityAINearestAttackableTarget(this, EntityLiving.class, 10, true, false, IMob.MOB_SELECTOR));
-    }
+	public EntitySnowman(World worldIn) {
 
-    protected void applyEntityAttributes()
-    {
-        super.applyEntityAttributes();
-        getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(4.0D);
-        getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.20000000298023224D);
-    }
+		super(worldIn);
+		setSize(0.7F, 1.9F);
+	}
 
-    protected void entityInit()
-    {
-        super.entityInit();
-        dataManager.register(PUMPKIN_EQUIPPED, Byte.valueOf((byte)16));
-    }
+	public static void registerFixesSnowman(DataFixer fixer) {
 
-    /**
-     * (abstract) Protected helper method to write subclass entity data to NBT.
-     */
-    public void writeEntityToNBT(NBTTagCompound compound)
-    {
-        super.writeEntityToNBT(compound);
-        compound.setBoolean("Pumpkin", isPumpkinEquipped());
-    }
+		EntityLiving.registerFixesMob(fixer, EntitySnowman.class);
+	}
 
-    /**
-     * (abstract) Protected helper method to read subclass entity data from NBT.
-     */
-    public void readEntityFromNBT(NBTTagCompound compound)
-    {
-        super.readEntityFromNBT(compound);
+	protected void initEntityAI() {
 
-        if (compound.hasKey("Pumpkin"))
-        {
-            setPumpkinEquipped(compound.getBoolean("Pumpkin"));
-        }
-    }
+		tasks.addTask(1, new EntityAIAttackRanged(this, 1.25D, 20, 10.0F));
+		tasks.addTask(2, new EntityAIWanderAvoidWater(this, 1.0D, 1.0000001E-5F));
+		tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
+		tasks.addTask(4, new EntityAILookIdle(this));
+		targetTasks.addTask(1, new EntityAINearestAttackableTarget(this, EntityLiving.class, 10, true, false, IMob.MOB_SELECTOR));
+	}
 
-    /**
-     * Called frequently so the entity can update its state every tick as required. For example, zombies and skeletons
-     * use this to react to sunlight and start to burn.
-     */
-    public void onLivingUpdate()
-    {
-        super.onLivingUpdate();
+	protected void applyEntityAttributes() {
 
-        if (!world.isRemote)
-        {
-            int i = MathHelper.floor(posX);
-            int j = MathHelper.floor(posY);
-            int k = MathHelper.floor(posZ);
+		super.applyEntityAttributes();
+		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(4.0D);
+		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.20000000298023224D);
+	}
 
-            if (isWet())
-            {
-                attackEntityFrom(DamageSource.DROWN, 1.0F);
-            }
+	protected void entityInit() {
 
-            if (world.getBiome(new BlockPos(i, 0, k)).getTemperature(new BlockPos(i, j, k)) > 1.0F)
-            {
-                attackEntityFrom(DamageSource.ON_FIRE, 1.0F);
-            }
+		super.entityInit();
+		dataManager.register(PUMPKIN_EQUIPPED, Byte.valueOf((byte) 16));
+	}
 
-            if (!world.getGameRules().getBoolean("mobGriefing"))
-            {
-                return;
-            }
+	/**
+	 * (abstract) Protected helper method to write subclass entity data to NBT.
+	 */
+	public void writeEntityToNBT(NBTTagCompound compound) {
 
-            for (int l = 0; l < 4; ++l)
-            {
-                i = MathHelper.floor(posX + (double)((float)(l % 2 * 2 - 1) * 0.25F));
-                j = MathHelper.floor(posY);
-                k = MathHelper.floor(posZ + (double)((float)(l / 2 % 2 * 2 - 1) * 0.25F));
-                BlockPos blockpos = new BlockPos(i, j, k);
+		super.writeEntityToNBT(compound);
+		compound.setBoolean("Pumpkin", isPumpkinEquipped());
+	}
 
-                if (world.getBlockState(blockpos).getMaterial() == Material.AIR && world.getBiome(blockpos).getTemperature(blockpos) < 0.8F && Blocks.SNOW_LAYER.canPlaceBlockAt(world, blockpos))
-                {
-                    world.setBlockState(blockpos, Blocks.SNOW_LAYER.getDefaultState());
-                }
-            }
-        }
-    }
+	/**
+	 * (abstract) Protected helper method to read subclass entity data from NBT.
+	 */
+	public void readEntityFromNBT(NBTTagCompound compound) {
 
-    @Nullable
-    protected ResourceLocation getLootTable()
-    {
-        return LootTableList.ENTITIES_SNOWMAN;
-    }
+		super.readEntityFromNBT(compound);
 
-    /**
-     * Attack the specified entity using a ranged attack.
-     */
-    public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor)
-    {
-        EntitySnowball entitysnowball = new EntitySnowball(world, this);
-        double d0 = target.posY + (double)target.getEyeHeight() - 1.100000023841858D;
-        double d1 = target.posX - posX;
-        double d2 = d0 - entitysnowball.posY;
-        double d3 = target.posZ - posZ;
-        float f = MathHelper.sqrt(d1 * d1 + d3 * d3) * 0.2F;
-        entitysnowball.shoot(d1, d2 + (double)f, d3, 1.6F, 12.0F);
-        playSound(SoundEvents.ENTITY_SNOWMAN_SHOOT, 1.0F, 1.0F / (getRNG().nextFloat() * 0.4F + 0.8F));
-        world.spawnEntity(entitysnowball);
-    }
+		if (compound.hasKey("Pumpkin")) {
+			setPumpkinEquipped(compound.getBoolean("Pumpkin"));
+		}
+	}
 
-    public float getEyeHeight()
-    {
-        return 1.7F;
-    }
+	/**
+	 * Called frequently so the entity can update its state every tick as required. For example, zombies and skeletons
+	 * use this to react to sunlight and start to burn.
+	 */
+	public void onLivingUpdate() {
 
-    protected boolean processInteract(EntityPlayer player, EnumHand hand)
-    {
-        ItemStack itemstack = player.getHeldItem(hand);
+		super.onLivingUpdate();
 
-        if (itemstack.getItem() == Items.SHEARS && isPumpkinEquipped() && !world.isRemote)
-        {
-            setPumpkinEquipped(false);
-            itemstack.damageItem(1, player);
-        }
+		if (!world.isRemote) {
+			int i = MathHelper.floor(posX);
+			int j = MathHelper.floor(posY);
+			int k = MathHelper.floor(posZ);
 
-        return super.processInteract(player, hand);
-    }
+			if (isWet()) {
+				attackEntityFrom(DamageSource.DROWN, 1.0F);
+			}
 
-    public boolean isPumpkinEquipped()
-    {
-        return (((Byte) dataManager.get(PUMPKIN_EQUIPPED)).byteValue() & 16) != 0;
-    }
+			if (world.getBiome(new BlockPos(i, 0, k)).getTemperature(new BlockPos(i, j, k)) > 1.0F) {
+				attackEntityFrom(DamageSource.ON_FIRE, 1.0F);
+			}
 
-    public void setPumpkinEquipped(boolean pumpkinEquipped)
-    {
-        byte b0 = ((Byte) dataManager.get(PUMPKIN_EQUIPPED)).byteValue();
+			if (!world.getGameRules().getBoolean("mobGriefing")) {
+				return;
+			}
 
-        if (pumpkinEquipped)
-        {
-            dataManager.set(PUMPKIN_EQUIPPED, Byte.valueOf((byte)(b0 | 16)));
-        }
-        else
-        {
-            dataManager.set(PUMPKIN_EQUIPPED, Byte.valueOf((byte)(b0 & -17)));
-        }
-    }
+			for (int l = 0; l < 4; ++l) {
+				i = MathHelper.floor(posX + (double) ((float) (l % 2 * 2 - 1) * 0.25F));
+				j = MathHelper.floor(posY);
+				k = MathHelper.floor(posZ + (double) ((float) (l / 2 % 2 * 2 - 1) * 0.25F));
+				BlockPos blockpos = new BlockPos(i, j, k);
 
-    @Nullable
-    protected SoundEvent getAmbientSound()
-    {
-        return SoundEvents.ENTITY_SNOWMAN_AMBIENT;
-    }
+				if (world.getBlockState(blockpos).getMaterial() == Material.AIR && world.getBiome(blockpos).getTemperature(blockpos) < 0.8F && Blocks.SNOW_LAYER.canPlaceBlockAt(world, blockpos)) {
+					world.setBlockState(blockpos, Blocks.SNOW_LAYER.getDefaultState());
+				}
+			}
+		}
+	}
 
-    @Nullable
-    protected SoundEvent getHurtSound(DamageSource damageSourceIn)
-    {
-        return SoundEvents.ENTITY_SNOWMAN_HURT;
-    }
+	@Nullable
+	protected ResourceLocation getLootTable() {
 
-    @Nullable
-    protected SoundEvent getDeathSound()
-    {
-        return SoundEvents.ENTITY_SNOWMAN_DEATH;
-    }
+		return LootTableList.ENTITIES_SNOWMAN;
+	}
 
-    public void setSwingingArms(boolean swingingArms)
-    {
-    }
+	/**
+	 * Attack the specified entity using a ranged attack.
+	 */
+	public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor) {
+
+		EntitySnowball entitysnowball = new EntitySnowball(world, this);
+		double d0 = target.posY + (double) target.getEyeHeight() - 1.100000023841858D;
+		double d1 = target.posX - posX;
+		double d2 = d0 - entitysnowball.posY;
+		double d3 = target.posZ - posZ;
+		float f = MathHelper.sqrt(d1 * d1 + d3 * d3) * 0.2F;
+		entitysnowball.shoot(d1, d2 + (double) f, d3, 1.6F, 12.0F);
+		playSound(SoundEvents.ENTITY_SNOWMAN_SHOOT, 1.0F, 1.0F / (getRNG().nextFloat() * 0.4F + 0.8F));
+		world.spawnEntity(entitysnowball);
+	}
+
+	public float getEyeHeight() {
+
+		return 1.7F;
+	}
+
+	protected boolean processInteract(EntityPlayer player, EnumHand hand) {
+
+		ItemStack itemstack = player.getHeldItem(hand);
+
+		if (itemstack.getItem() == Items.SHEARS && isPumpkinEquipped() && !world.isRemote) {
+			setPumpkinEquipped(false);
+			itemstack.damageItem(1, player);
+		}
+
+		return super.processInteract(player, hand);
+	}
+
+	public boolean isPumpkinEquipped() {
+
+		return (dataManager.get(PUMPKIN_EQUIPPED).byteValue() & 16) != 0;
+	}
+
+	public void setPumpkinEquipped(boolean pumpkinEquipped) {
+
+		byte b0 = dataManager.get(PUMPKIN_EQUIPPED).byteValue();
+
+		if (pumpkinEquipped) {
+			dataManager.set(PUMPKIN_EQUIPPED, Byte.valueOf((byte) (b0 | 16)));
+		} else {
+			dataManager.set(PUMPKIN_EQUIPPED, Byte.valueOf((byte) (b0 & -17)));
+		}
+	}
+
+	@Nullable
+	protected SoundEvent getAmbientSound() {
+
+		return SoundEvents.ENTITY_SNOWMAN_AMBIENT;
+	}
+
+	@Nullable
+	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+
+		return SoundEvents.ENTITY_SNOWMAN_HURT;
+	}
+
+	@Nullable
+	protected SoundEvent getDeathSound() {
+
+		return SoundEvents.ENTITY_SNOWMAN_DEATH;
+	}
+
+	public void setSwingingArms(boolean swingingArms) {
+
+	}
+
 }

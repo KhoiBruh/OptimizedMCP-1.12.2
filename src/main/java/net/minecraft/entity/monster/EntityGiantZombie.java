@@ -1,6 +1,5 @@
 package net.minecraft.entity.monster;
 
-import javax.annotation.Nullable;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.util.ResourceLocation;
@@ -9,40 +8,43 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 
-public class EntityGiantZombie extends EntityMob
-{
-    public EntityGiantZombie(World worldIn)
-    {
-        super(worldIn);
-        setSize(width * 6.0F, height * 6.0F);
-    }
+import javax.annotation.Nullable;
 
-    public static void registerFixesGiantZombie(DataFixer fixer)
-    {
-        EntityLiving.registerFixesMob(fixer, EntityGiantZombie.class);
-    }
+public class EntityGiantZombie extends EntityMob {
 
-    public float getEyeHeight()
-    {
-        return 10.440001F;
-    }
+	public EntityGiantZombie(World worldIn) {
 
-    protected void applyEntityAttributes()
-    {
-        super.applyEntityAttributes();
-        getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(100.0D);
-        getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.5D);
-        getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(50.0D);
-    }
+		super(worldIn);
+		setSize(width * 6.0F, height * 6.0F);
+	}
 
-    public float getBlockPathWeight(BlockPos pos)
-    {
-        return world.getLightBrightness(pos) - 0.5F;
-    }
+	public static void registerFixesGiantZombie(DataFixer fixer) {
 
-    @Nullable
-    protected ResourceLocation getLootTable()
-    {
-        return LootTableList.ENTITIES_GIANT;
-    }
+		EntityLiving.registerFixesMob(fixer, EntityGiantZombie.class);
+	}
+
+	public float getEyeHeight() {
+
+		return 10.440001F;
+	}
+
+	protected void applyEntityAttributes() {
+
+		super.applyEntityAttributes();
+		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(100.0D);
+		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.5D);
+		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(50.0D);
+	}
+
+	public float getBlockPathWeight(BlockPos pos) {
+
+		return world.getLightBrightness(pos) - 0.5F;
+	}
+
+	@Nullable
+	protected ResourceLocation getLootTable() {
+
+		return LootTableList.ENTITIES_GIANT;
+	}
+
 }

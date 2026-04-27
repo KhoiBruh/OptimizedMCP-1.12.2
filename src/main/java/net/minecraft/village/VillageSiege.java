@@ -1,8 +1,5 @@
 package net.minecraft.village;
 
-import java.util.Iterator;
-import java.util.List;
-import javax.annotation.Nullable;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.monster.EntityZombie;
@@ -13,199 +10,173 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldEntitySpawner;
 
-public class VillageSiege
-{
-    private final World world;
-    private boolean hasSetupSiege;
-    private int siegeState = -1;
-    private int siegeCount;
-    private int nextSpawnTime;
+import javax.annotation.Nullable;
+import java.util.Iterator;
+import java.util.List;
 
-    /** Instance of Village. */
-    private Village village;
-    private int spawnX;
-    private int spawnY;
-    private int spawnZ;
+public class VillageSiege {
 
-    public VillageSiege(World worldIn)
-    {
-        world = worldIn;
-    }
+	private final World world;
+	private boolean hasSetupSiege;
+	private int siegeState = -1;
+	private int siegeCount;
+	private int nextSpawnTime;
 
-    /**
-     * Runs a single tick for the village siege
-     */
-    public void tick()
-    {
-        if (world.isDaytime())
-        {
-            siegeState = 0;
-        }
-        else if (siegeState != 2)
-        {
-            if (siegeState == 0)
-            {
-                float f = world.getCelestialAngle(0.0F);
+	/**
+	 * Instance of Village.
+	 */
+	private Village village;
+	private int spawnX;
+	private int spawnY;
+	private int spawnZ;
 
-                if ((double)f < 0.5D || (double)f > 0.501D)
-                {
-                    return;
-                }
+	public VillageSiege(World worldIn) {
 
-                siegeState = world.rand.nextInt(10) == 0 ? 1 : 2;
-                hasSetupSiege = false;
+		world = worldIn;
+	}
 
-                if (siegeState == 2)
-                {
-                    return;
-                }
-            }
+	/**
+	 * Runs a single tick for the village siege
+	 */
+	public void tick() {
 
-            if (siegeState != -1)
-            {
-                if (!hasSetupSiege)
-                {
-                    if (!trySetupSiege())
-                    {
-                        return;
-                    }
+		if (world.isDaytime()) {
+			siegeState = 0;
+		} else if (siegeState != 2) {
+			if (siegeState == 0) {
+				float f = world.getCelestialAngle(0.0F);
 
-                    hasSetupSiege = true;
-                }
+				if ((double) f < 0.5D || (double) f > 0.501D) {
+					return;
+				}
 
-                if (nextSpawnTime > 0)
-                {
-                    --nextSpawnTime;
-                }
-                else
-                {
-                    nextSpawnTime = 2;
+				siegeState = world.rand.nextInt(10) == 0 ? 1 : 2;
+				hasSetupSiege = false;
 
-                    if (siegeCount > 0)
-                    {
-                        spawnZombie();
-                        --siegeCount;
-                    }
-                    else
-                    {
-                        siegeState = 2;
-                    }
-                }
-            }
-        }
-    }
+				if (siegeState == 2) {
+					return;
+				}
+			}
 
-    private boolean trySetupSiege()
-    {
-        List<EntityPlayer> list = world.playerEntities;
-        Iterator iterator = list.iterator();
+			if (siegeState != -1) {
+				if (!hasSetupSiege) {
+					if (!trySetupSiege()) {
+						return;
+					}
 
-        while (true)
-        {
-            if (!iterator.hasNext())
-            {
-                return false;
-            }
+					hasSetupSiege = true;
+				}
 
-            EntityPlayer entityplayer = (EntityPlayer)iterator.next();
+				if (nextSpawnTime > 0) {
+					--nextSpawnTime;
+				} else {
+					nextSpawnTime = 2;
 
-            if (!entityplayer.isSpectator())
-            {
-                village = world.getVillageCollection().getNearestVillage(new BlockPos(entityplayer), 1);
+					if (siegeCount > 0) {
+						spawnZombie();
+						--siegeCount;
+					} else {
+						siegeState = 2;
+					}
+				}
+			}
+		}
+	}
 
-                if (village != null && village.getNumVillageDoors() >= 10 && village.getTicksSinceLastDoorAdding() >= 20 && village.getNumVillagers() >= 20)
-                {
-                    BlockPos blockpos = village.getCenter();
-                    float f = (float) village.getVillageRadius();
-                    boolean flag = false;
+	private boolean trySetupSiege() {
 
-                    for (int i = 0; i < 10; ++i)
-                    {
-                        float f1 = world.rand.nextFloat() * ((float)Math.PI * 2F);
-                        spawnX = blockpos.getX() + (int)((double)(MathHelper.cos(f1) * f) * 0.9D);
-                        spawnY = blockpos.getY();
-                        spawnZ = blockpos.getZ() + (int)((double)(MathHelper.sin(f1) * f) * 0.9D);
-                        flag = false;
+		List<EntityPlayer> list = world.playerEntities;
+		Iterator iterator = list.iterator();
 
-                        for (Village village : world.getVillageCollection().getVillageList())
-                        {
-                            if (village != this.village && village.isBlockPosWithinSqVillageRadius(new BlockPos(spawnX, spawnY, spawnZ)))
-                            {
-                                flag = true;
-                                break;
-                            }
-                        }
+		while (true) {
+			if (!iterator.hasNext()) {
+				return false;
+			}
 
-                        if (!flag)
-                        {
-                            break;
-                        }
-                    }
+			EntityPlayer entityplayer = (EntityPlayer) iterator.next();
 
-                    if (flag)
-                    {
-                        return false;
-                    }
+			if (!entityplayer.isSpectator()) {
+				village = world.getVillageCollection().getNearestVillage(new BlockPos(entityplayer), 1);
 
-                    Vec3d vec3d = findRandomSpawnPos(new BlockPos(spawnX, spawnY, spawnZ));
+				if (village != null && village.getNumVillageDoors() >= 10 && village.getTicksSinceLastDoorAdding() >= 20 && village.getNumVillagers() >= 20) {
+					BlockPos blockpos = village.getCenter();
+					float f = (float) village.getVillageRadius();
+					boolean flag = false;
 
-                    if (vec3d != null)
-                    {
-                        break;
-                    }
-                }
-            }
-        }
+					for (int i = 0; i < 10; ++i) {
+						float f1 = world.rand.nextFloat() * ((float) Math.PI * 2F);
+						spawnX = blockpos.getX() + (int) ((double) (MathHelper.cos(f1) * f) * 0.9D);
+						spawnY = blockpos.getY();
+						spawnZ = blockpos.getZ() + (int) ((double) (MathHelper.sin(f1) * f) * 0.9D);
+						flag = false;
 
-        nextSpawnTime = 0;
-        siegeCount = 20;
-        return true;
-    }
+						for (Village village : world.getVillageCollection().getVillageList()) {
+							if (village != this.village && village.isBlockPosWithinSqVillageRadius(new BlockPos(spawnX, spawnY, spawnZ))) {
+								flag = true;
+								break;
+							}
+						}
 
-    private boolean spawnZombie()
-    {
-        Vec3d vec3d = findRandomSpawnPos(new BlockPos(spawnX, spawnY, spawnZ));
+						if (!flag) {
+							break;
+						}
+					}
 
-        if (vec3d == null)
-        {
-            return false;
-        }
-        else
-        {
-            EntityZombie entityzombie;
+					if (flag) {
+						return false;
+					}
 
-            try
-            {
-                entityzombie = new EntityZombie(world);
-                entityzombie.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(entityzombie)), (IEntityLivingData)null);
-            }
-            catch (Exception exception)
-            {
-                exception.printStackTrace();
-                return false;
-            }
+					Vec3d vec3d = findRandomSpawnPos(new BlockPos(spawnX, spawnY, spawnZ));
 
-            entityzombie.setLocationAndAngles(vec3d.x, vec3d.y, vec3d.z, world.rand.nextFloat() * 360.0F, 0.0F);
-            world.spawnEntity(entityzombie);
-            BlockPos blockpos = village.getCenter();
-            entityzombie.setHomePosAndDistance(blockpos, village.getVillageRadius());
-            return true;
-        }
-    }
+					if (vec3d != null) {
+						break;
+					}
+				}
+			}
+		}
 
-    @Nullable
-    private Vec3d findRandomSpawnPos(BlockPos pos)
-    {
-        for (int i = 0; i < 10; ++i)
-        {
-            BlockPos blockpos = pos.add(world.rand.nextInt(16) - 8, world.rand.nextInt(6) - 3, world.rand.nextInt(16) - 8);
+		nextSpawnTime = 0;
+		siegeCount = 20;
+		return true;
+	}
 
-            if (village.isBlockPosWithinSqVillageRadius(blockpos) && WorldEntitySpawner.canCreatureTypeSpawnAtLocation(EntityLiving.SpawnPlacementType.ON_GROUND, world, blockpos))
-            {
-                return new Vec3d((double)blockpos.getX(), (double)blockpos.getY(), (double)blockpos.getZ());
-            }
-        }
+	private boolean spawnZombie() {
 
-        return null;
-    }
+		Vec3d vec3d = findRandomSpawnPos(new BlockPos(spawnX, spawnY, spawnZ));
+
+		if (vec3d == null) {
+			return false;
+		} else {
+			EntityZombie entityzombie;
+
+			try {
+				entityzombie = new EntityZombie(world);
+				entityzombie.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(entityzombie)), null);
+			} catch (Exception exception) {
+				exception.printStackTrace();
+				return false;
+			}
+
+			entityzombie.setLocationAndAngles(vec3d.x(), vec3d.y(), vec3d.z(), world.rand.nextFloat() * 360.0F, 0.0F);
+			world.spawnEntity(entityzombie);
+			BlockPos blockpos = village.getCenter();
+			entityzombie.setHomePosAndDistance(blockpos, village.getVillageRadius());
+			return true;
+		}
+	}
+
+	@Nullable
+	private Vec3d findRandomSpawnPos(BlockPos pos) {
+
+		for (int i = 0; i < 10; ++i) {
+			BlockPos blockpos = pos.add(world.rand.nextInt(16) - 8, world.rand.nextInt(6) - 3, world.rand.nextInt(16) - 8);
+
+			if (village.isBlockPosWithinSqVillageRadius(blockpos) && WorldEntitySpawner.canCreatureTypeSpawnAtLocation(EntityLiving.SpawnPlacementType.ON_GROUND, world, blockpos)) {
+				return new Vec3d(blockpos.getX(), blockpos.getY(), blockpos.getZ());
+			}
+		}
+
+		return null;
+	}
+
 }

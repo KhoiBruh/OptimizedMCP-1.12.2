@@ -8,149 +8,146 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.realms.RealmsSimpleScrolledSelectionList;
 import net.minecraft.util.math.MathHelper;
 
-public class GuiSimpleScrolledSelectionListProxy extends GuiSlot
-{
-    private final RealmsSimpleScrolledSelectionList realmsScrolledSelectionList;
+public class GuiSimpleScrolledSelectionListProxy extends GuiSlot {
 
-    public GuiSimpleScrolledSelectionListProxy(RealmsSimpleScrolledSelectionList realmsScrolledSelectionListIn, int widthIn, int heightIn, int topIn, int bottomIn, int slotHeightIn)
-    {
-        super(Minecraft.getMinecraft(), widthIn, heightIn, topIn, bottomIn, slotHeightIn);
-        realmsScrolledSelectionList = realmsScrolledSelectionListIn;
-    }
+	private final RealmsSimpleScrolledSelectionList realmsScrolledSelectionList;
 
-    protected int getSize()
-    {
-        return realmsScrolledSelectionList.getItemCount();
-    }
+	public GuiSimpleScrolledSelectionListProxy(RealmsSimpleScrolledSelectionList realmsScrolledSelectionListIn, int widthIn, int heightIn, int topIn, int bottomIn, int slotHeightIn) {
 
-    /**
-     * The element in the slot that was clicked, boolean for whether it was double clicked or not
-     */
-    protected void elementClicked(int slotIndex, boolean isDoubleClick, int mouseX, int mouseY)
-    {
-        realmsScrolledSelectionList.selectItem(slotIndex, isDoubleClick, mouseX, mouseY);
-    }
+		super(Minecraft.getMinecraft(), widthIn, heightIn, topIn, bottomIn, slotHeightIn);
+		realmsScrolledSelectionList = realmsScrolledSelectionListIn;
+	}
 
-    /**
-     * Returns true if the element passed in is currently selected
-     */
-    protected boolean isSelected(int slotIndex)
-    {
-        return realmsScrolledSelectionList.isSelectedItem(slotIndex);
-    }
+	protected int getSize() {
 
-    protected void drawBackground()
-    {
-        realmsScrolledSelectionList.renderBackground();
-    }
+		return realmsScrolledSelectionList.getItemCount();
+	}
 
-    protected void drawSlot(int slotIndex, int xPos, int yPos, int heightIn, int mouseXIn, int mouseYIn, float partialTicks)
-    {
-        realmsScrolledSelectionList.renderItem(slotIndex, xPos, yPos, heightIn, mouseXIn, mouseYIn);
-    }
+	/**
+	 * The element in the slot that was clicked, boolean for whether it was double clicked or not
+	 */
+	protected void elementClicked(int slotIndex, boolean isDoubleClick, int mouseX, int mouseY) {
 
-    public int getWidth()
-    {
-        return width;
-    }
+		realmsScrolledSelectionList.selectItem(slotIndex, isDoubleClick, mouseX, mouseY);
+	}
 
-    public int getMouseY()
-    {
-        return mouseY;
-    }
+	/**
+	 * Returns true if the element passed in is currently selected
+	 */
+	protected boolean isSelected(int slotIndex) {
 
-    public int getMouseX()
-    {
-        return mouseX;
-    }
+		return realmsScrolledSelectionList.isSelectedItem(slotIndex);
+	}
 
-    /**
-     * Return the height of the content being scrolled
-     */
-    protected int getContentHeight()
-    {
-        return realmsScrolledSelectionList.getMaxPosition();
-    }
+	protected void drawBackground() {
 
-    protected int getScrollBarX()
-    {
-        return realmsScrolledSelectionList.getScrollbarPosition();
-    }
+		realmsScrolledSelectionList.renderBackground();
+	}
 
-    public void handleMouseInput()
-    {
-        super.handleMouseInput();
-    }
+	protected void drawSlot(int slotIndex, int xPos, int yPos, int heightIn, int mouseXIn, int mouseYIn, float partialTicks) {
 
-    public void drawScreen(int mouseXIn, int mouseYIn, float partialTicks)
-    {
-        if (visible)
-        {
-            mouseX = mouseXIn;
-            mouseY = mouseYIn;
-            drawBackground();
-            int i = getScrollBarX();
-            int j = i + 6;
-            bindAmountScrolled();
-            GlStateManager.disableLighting();
-            GlStateManager.disableFog();
-            Tessellator tessellator = Tessellator.getInstance();
-            BufferBuilder bufferbuilder = tessellator.getBuffer();
-            int k = left + width / 2 - getListWidth() / 2 + 2;
-            int l = top + 4 - (int) amountScrolled;
+		realmsScrolledSelectionList.renderItem(slotIndex, xPos, yPos, heightIn, mouseXIn, mouseYIn);
+	}
 
-            if (hasListHeader)
-            {
-                drawListHeader(k, l, tessellator);
-            }
+	public int getWidth() {
 
-            drawSelectionBox(k, l, mouseXIn, mouseYIn, partialTicks);
-            GlStateManager.disableDepth();
-            overlayBackground(0, top, 255, 255);
-            overlayBackground(bottom, height, 255, 255);
-            GlStateManager.enableBlend();
-            GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ZERO, GlStateManager.DestFactor.ONE);
-            GlStateManager.disableAlpha();
-            GlStateManager.shadeModel(7425);
-            GlStateManager.disableTexture2D();
-            int i1 = getMaxScroll();
+		return width;
+	}
 
-            if (i1 > 0)
-            {
-                int j1 = (bottom - top) * (bottom - top) / getContentHeight();
-                j1 = MathHelper.clamp(j1, 32, bottom - top - 8);
-                int k1 = (int) amountScrolled * (bottom - top - j1) / i1 + top;
+	public int getMouseY() {
 
-                if (k1 < top)
-                {
-                    k1 = top;
-                }
+		return mouseY;
+	}
 
-                bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-                bufferbuilder.pos((double)i, (double) bottom, 0.0D).tex(0.0D, 1.0D).color(0, 0, 0, 255).endVertex();
-                bufferbuilder.pos((double)j, (double) bottom, 0.0D).tex(1.0D, 1.0D).color(0, 0, 0, 255).endVertex();
-                bufferbuilder.pos((double)j, (double) top, 0.0D).tex(1.0D, 0.0D).color(0, 0, 0, 255).endVertex();
-                bufferbuilder.pos((double)i, (double) top, 0.0D).tex(0.0D, 0.0D).color(0, 0, 0, 255).endVertex();
-                tessellator.draw();
-                bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-                bufferbuilder.pos((double)i, (double)(k1 + j1), 0.0D).tex(0.0D, 1.0D).color(128, 128, 128, 255).endVertex();
-                bufferbuilder.pos((double)j, (double)(k1 + j1), 0.0D).tex(1.0D, 1.0D).color(128, 128, 128, 255).endVertex();
-                bufferbuilder.pos((double)j, (double)k1, 0.0D).tex(1.0D, 0.0D).color(128, 128, 128, 255).endVertex();
-                bufferbuilder.pos((double)i, (double)k1, 0.0D).tex(0.0D, 0.0D).color(128, 128, 128, 255).endVertex();
-                tessellator.draw();
-                bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-                bufferbuilder.pos((double)i, (double)(k1 + j1 - 1), 0.0D).tex(0.0D, 1.0D).color(192, 192, 192, 255).endVertex();
-                bufferbuilder.pos((double)(j - 1), (double)(k1 + j1 - 1), 0.0D).tex(1.0D, 1.0D).color(192, 192, 192, 255).endVertex();
-                bufferbuilder.pos((double)(j - 1), (double)k1, 0.0D).tex(1.0D, 0.0D).color(192, 192, 192, 255).endVertex();
-                bufferbuilder.pos((double)i, (double)k1, 0.0D).tex(0.0D, 0.0D).color(192, 192, 192, 255).endVertex();
-                tessellator.draw();
-            }
+	public int getMouseX() {
 
-            renderDecorations(mouseXIn, mouseYIn);
-            GlStateManager.enableTexture2D();
-            GlStateManager.shadeModel(7424);
-            GlStateManager.enableAlpha();
-            GlStateManager.disableBlend();
-        }
-    }
+		return mouseX;
+	}
+
+	/**
+	 * Return the height of the content being scrolled
+	 */
+	protected int getContentHeight() {
+
+		return realmsScrolledSelectionList.getMaxPosition();
+	}
+
+	protected int getScrollBarX() {
+
+		return realmsScrolledSelectionList.getScrollbarPosition();
+	}
+
+	public void handleMouseInput() {
+
+		super.handleMouseInput();
+	}
+
+	public void drawScreen(int mouseXIn, int mouseYIn, float partialTicks) {
+
+		if (visible) {
+			mouseX = mouseXIn;
+			mouseY = mouseYIn;
+			drawBackground();
+			int i = getScrollBarX();
+			int j = i + 6;
+			bindAmountScrolled();
+			GlStateManager.disableLighting();
+			GlStateManager.disableFog();
+			Tessellator tessellator = Tessellator.getInstance();
+			BufferBuilder bufferbuilder = tessellator.getBuffer();
+			int k = left + width / 2 - getListWidth() / 2 + 2;
+			int l = top + 4 - (int) amountScrolled;
+
+			if (hasListHeader) {
+				drawListHeader(k, l, tessellator);
+			}
+
+			drawSelectionBox(k, l, mouseXIn, mouseYIn, partialTicks);
+			GlStateManager.disableDepth();
+			overlayBackground(0, top, 255, 255);
+			overlayBackground(bottom, height, 255, 255);
+			GlStateManager.enableBlend();
+			GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ZERO, GlStateManager.DestFactor.ONE);
+			GlStateManager.disableAlpha();
+			GlStateManager.shadeModel(7425);
+			GlStateManager.disableTexture2D();
+			int i1 = getMaxScroll();
+
+			if (i1 > 0) {
+				int j1 = (bottom - top) * (bottom - top) / getContentHeight();
+				j1 = MathHelper.clamp(j1, 32, bottom - top - 8);
+				int k1 = (int) amountScrolled * (bottom - top - j1) / i1 + top;
+
+				if (k1 < top) {
+					k1 = top;
+				}
+
+				bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
+				bufferbuilder.pos(i, bottom, 0.0D).tex(0.0D, 1.0D).color(0, 0, 0, 255).endVertex();
+				bufferbuilder.pos(j, bottom, 0.0D).tex(1.0D, 1.0D).color(0, 0, 0, 255).endVertex();
+				bufferbuilder.pos(j, top, 0.0D).tex(1.0D, 0.0D).color(0, 0, 0, 255).endVertex();
+				bufferbuilder.pos(i, top, 0.0D).tex(0.0D, 0.0D).color(0, 0, 0, 255).endVertex();
+				tessellator.draw();
+				bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
+				bufferbuilder.pos(i, k1 + j1, 0.0D).tex(0.0D, 1.0D).color(128, 128, 128, 255).endVertex();
+				bufferbuilder.pos(j, k1 + j1, 0.0D).tex(1.0D, 1.0D).color(128, 128, 128, 255).endVertex();
+				bufferbuilder.pos(j, k1, 0.0D).tex(1.0D, 0.0D).color(128, 128, 128, 255).endVertex();
+				bufferbuilder.pos(i, k1, 0.0D).tex(0.0D, 0.0D).color(128, 128, 128, 255).endVertex();
+				tessellator.draw();
+				bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
+				bufferbuilder.pos(i, k1 + j1 - 1, 0.0D).tex(0.0D, 1.0D).color(192, 192, 192, 255).endVertex();
+				bufferbuilder.pos(j - 1, k1 + j1 - 1, 0.0D).tex(1.0D, 1.0D).color(192, 192, 192, 255).endVertex();
+				bufferbuilder.pos(j - 1, k1, 0.0D).tex(1.0D, 0.0D).color(192, 192, 192, 255).endVertex();
+				bufferbuilder.pos(i, k1, 0.0D).tex(0.0D, 0.0D).color(192, 192, 192, 255).endVertex();
+				tessellator.draw();
+			}
+
+			renderDecorations(mouseXIn, mouseYIn);
+			GlStateManager.enableTexture2D();
+			GlStateManager.shadeModel(7424);
+			GlStateManager.enableAlpha();
+			GlStateManager.disableBlend();
+		}
+	}
+
 }

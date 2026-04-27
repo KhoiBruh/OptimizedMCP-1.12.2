@@ -3,8 +3,6 @@ package net.minecraft.world.storage.loot;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
-import java.util.Collection;
-import java.util.Random;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.JsonUtils;
@@ -13,84 +11,74 @@ import net.minecraft.world.storage.loot.conditions.LootCondition;
 import net.minecraft.world.storage.loot.conditions.LootConditionManager;
 import net.minecraft.world.storage.loot.functions.LootFunction;
 
-public class LootEntryItem extends LootEntry
-{
-    protected final Item item;
-    protected final LootFunction[] functions;
+import java.util.Collection;
+import java.util.Random;
 
-    public LootEntryItem(Item itemIn, int weightIn, int qualityIn, LootFunction[] functionsIn, LootCondition[] conditionsIn)
-    {
-        super(weightIn, qualityIn, conditionsIn);
-        item = itemIn;
-        functions = functionsIn;
-    }
+public class LootEntryItem extends LootEntry {
 
-    public void addLoot(Collection<ItemStack> stacks, Random rand, LootContext context)
-    {
-        ItemStack itemstack = new ItemStack(item);
+	protected final Item item;
+	protected final LootFunction[] functions;
 
-        for (LootFunction lootfunction : functions)
-        {
-            if (LootConditionManager.testAllConditions(lootfunction.getConditions(), rand, context))
-            {
-                itemstack = lootfunction.apply(itemstack, rand, context);
-            }
-        }
+	public LootEntryItem(Item itemIn, int weightIn, int qualityIn, LootFunction[] functionsIn, LootCondition[] conditionsIn) {
 
-        if (!itemstack.isEmpty())
-        {
-            if (itemstack.getCount() < item.getItemStackLimit())
-            {
-                stacks.add(itemstack);
-            }
-            else
-            {
-                int i = itemstack.getCount();
+		super(weightIn, qualityIn, conditionsIn);
+		item = itemIn;
+		functions = functionsIn;
+	}
 
-                while (i > 0)
-                {
-                    ItemStack itemstack1 = itemstack.copy();
-                    itemstack1.setCount(Math.min(itemstack.getMaxStackSize(), i));
-                    i -= itemstack1.getCount();
-                    stacks.add(itemstack1);
-                }
-            }
-        }
-    }
+	public void addLoot(Collection<ItemStack> stacks, Random rand, LootContext context) {
 
-    protected void serialize(JsonObject json, JsonSerializationContext context)
-    {
-        if (functions != null && functions.length > 0)
-        {
-            json.add("functions", context.serialize(functions));
-        }
+		ItemStack itemstack = new ItemStack(item);
 
-        ResourceLocation resourcelocation = Item.REGISTRY.getNameForObject(item);
+		for (LootFunction lootfunction : functions) {
+			if (LootConditionManager.testAllConditions(lootfunction.getConditions(), rand, context)) {
+				itemstack = lootfunction.apply(itemstack, rand, context);
+			}
+		}
 
-        if (resourcelocation == null)
-        {
-            throw new IllegalArgumentException("Can't serialize unknown item " + item);
-        }
-        else
-        {
-            json.addProperty("name", resourcelocation.toString());
-        }
-    }
+		if (!itemstack.isEmpty()) {
+			if (itemstack.getCount() < item.getItemStackLimit()) {
+				stacks.add(itemstack);
+			} else {
+				int i = itemstack.getCount();
 
-    public static LootEntryItem deserialize(JsonObject object, JsonDeserializationContext deserializationContext, int weightIn, int qualityIn, LootCondition[] conditionsIn)
-    {
-        Item item = JsonUtils.getItem(object, "name");
-        LootFunction[] alootfunction;
+				while (i > 0) {
+					ItemStack itemstack1 = itemstack.copy();
+					itemstack1.setCount(Math.min(itemstack.getMaxStackSize(), i));
+					i -= itemstack1.getCount();
+					stacks.add(itemstack1);
+				}
+			}
+		}
+	}
 
-        if (object.has("functions"))
-        {
-            alootfunction = (LootFunction[])JsonUtils.deserializeClass(object, "functions", deserializationContext, LootFunction[].class);
-        }
-        else
-        {
-            alootfunction = new LootFunction[0];
-        }
+	protected void serialize(JsonObject json, JsonSerializationContext context) {
 
-        return new LootEntryItem(item, weightIn, qualityIn, alootfunction, conditionsIn);
-    }
+		if (functions != null && functions.length > 0) {
+			json.add("functions", context.serialize(functions));
+		}
+
+		ResourceLocation resourcelocation = Item.REGISTRY.getNameForObject(item);
+
+		if (resourcelocation == null) {
+			throw new IllegalArgumentException("Can't serialize unknown item " + item);
+		} else {
+			json.addProperty("name", resourcelocation.toString());
+		}
+	}
+
+	public static LootEntryItem deserialize(JsonObject object, JsonDeserializationContext deserializationContext, int weightIn, int qualityIn, LootCondition[] conditionsIn) {
+
+		Item item = JsonUtils.getItem(object, "name");
+		LootFunction[] alootfunction;
+
+		if (object.has("functions")) {
+			alootfunction = JsonUtils.deserializeClass(object, "functions", deserializationContext, LootFunction[].class);
+		} else {
+			alootfunction = new LootFunction[0];
+		}
+
+		return new LootEntryItem(item, weightIn, qualityIn, alootfunction, conditionsIn);
+	}
+
 }

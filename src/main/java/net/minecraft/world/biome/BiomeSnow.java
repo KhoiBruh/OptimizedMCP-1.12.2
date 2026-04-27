@@ -1,7 +1,5 @@
 package net.minecraft.world.biome;
 
-import java.util.Iterator;
-import java.util.Random;
 import net.minecraft.entity.monster.EntityPolarBear;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.monster.EntityStray;
@@ -14,73 +12,71 @@ import net.minecraft.world.gen.feature.WorldGenIcePath;
 import net.minecraft.world.gen.feature.WorldGenIceSpike;
 import net.minecraft.world.gen.feature.WorldGenTaiga2;
 
-public class BiomeSnow extends Biome
-{
-    private final boolean superIcy;
-    private final WorldGenIceSpike iceSpike = new WorldGenIceSpike();
-    private final WorldGenIcePath icePatch = new WorldGenIcePath(4);
+import java.util.Iterator;
+import java.util.Random;
 
-    public BiomeSnow(boolean superIcyIn, Biome.BiomeProperties properties)
-    {
-        super(properties);
-        superIcy = superIcyIn;
+public class BiomeSnow extends Biome {
 
-        if (superIcyIn)
-        {
-            topBlock = Blocks.SNOW.getDefaultState();
-        }
+	private final boolean superIcy;
+	private final WorldGenIceSpike iceSpike = new WorldGenIceSpike();
+	private final WorldGenIcePath icePatch = new WorldGenIcePath(4);
 
-        spawnableCreatureList.clear();
-        spawnableCreatureList.add(new Biome.SpawnListEntry(EntityRabbit.class, 10, 2, 3));
-        spawnableCreatureList.add(new Biome.SpawnListEntry(EntityPolarBear.class, 1, 1, 2));
-        Iterator<Biome.SpawnListEntry> iterator = spawnableMonsterList.iterator();
+	public BiomeSnow(boolean superIcyIn, Biome.BiomeProperties properties) {
 
-        while (iterator.hasNext())
-        {
-            Biome.SpawnListEntry biome$spawnlistentry = iterator.next();
+		super(properties);
+		superIcy = superIcyIn;
 
-            if (biome$spawnlistentry.entityClass == EntitySkeleton.class)
-            {
-                iterator.remove();
-            }
-        }
+		if (superIcyIn) {
+			topBlock = Blocks.SNOW.getDefaultState();
+		}
 
-        spawnableMonsterList.add(new Biome.SpawnListEntry(EntitySkeleton.class, 20, 4, 4));
-        spawnableMonsterList.add(new Biome.SpawnListEntry(EntityStray.class, 80, 4, 4));
-    }
+		spawnableCreatureList.clear();
+		spawnableCreatureList.add(new Biome.SpawnListEntry(EntityRabbit.class, 10, 2, 3));
+		spawnableCreatureList.add(new Biome.SpawnListEntry(EntityPolarBear.class, 1, 1, 2));
+		Iterator<Biome.SpawnListEntry> iterator = spawnableMonsterList.iterator();
 
-    /**
-     * returns the chance a creature has to spawn.
-     */
-    public float getSpawningChance()
-    {
-        return 0.07F;
-    }
+		while (iterator.hasNext()) {
+			Biome.SpawnListEntry biome$spawnlistentry = iterator.next();
 
-    public void decorate(World worldIn, Random rand, BlockPos pos)
-    {
-        if (superIcy)
-        {
-            for (int i = 0; i < 3; ++i)
-            {
-                int j = rand.nextInt(16) + 8;
-                int k = rand.nextInt(16) + 8;
-                iceSpike.generate(worldIn, rand, worldIn.getHeight(pos.add(j, 0, k)));
-            }
+			if (biome$spawnlistentry.entityClass == EntitySkeleton.class) {
+				iterator.remove();
+			}
+		}
 
-            for (int l = 0; l < 2; ++l)
-            {
-                int i1 = rand.nextInt(16) + 8;
-                int j1 = rand.nextInt(16) + 8;
-                icePatch.generate(worldIn, rand, worldIn.getHeight(pos.add(i1, 0, j1)));
-            }
-        }
+		spawnableMonsterList.add(new Biome.SpawnListEntry(EntitySkeleton.class, 20, 4, 4));
+		spawnableMonsterList.add(new Biome.SpawnListEntry(EntityStray.class, 80, 4, 4));
+	}
 
-        super.decorate(worldIn, rand, pos);
-    }
+	/**
+	 * returns the chance a creature has to spawn.
+	 */
+	public float getSpawningChance() {
 
-    public WorldGenAbstractTree getRandomTreeFeature(Random rand)
-    {
-        return new WorldGenTaiga2(false);
-    }
+		return 0.07F;
+	}
+
+	public void decorate(World worldIn, Random rand, BlockPos pos) {
+
+		if (superIcy) {
+			for (int i = 0; i < 3; ++i) {
+				int j = rand.nextInt(16) + 8;
+				int k = rand.nextInt(16) + 8;
+				iceSpike.generate(worldIn, rand, worldIn.getHeight(pos.add(j, 0, k)));
+			}
+
+			for (int l = 0; l < 2; ++l) {
+				int i1 = rand.nextInt(16) + 8;
+				int j1 = rand.nextInt(16) + 8;
+				icePatch.generate(worldIn, rand, worldIn.getHeight(pos.add(i1, 0, j1)));
+			}
+		}
+
+		super.decorate(worldIn, rand, pos);
+	}
+
+	public WorldGenAbstractTree getRandomTreeFeature(Random rand) {
+
+		return new WorldGenTaiga2(false);
+	}
+
 }

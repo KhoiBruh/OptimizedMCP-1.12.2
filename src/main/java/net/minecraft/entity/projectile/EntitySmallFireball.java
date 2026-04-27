@@ -9,88 +9,80 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
-public class EntitySmallFireball extends EntityFireball
-{
-    public EntitySmallFireball(World worldIn)
-    {
-        super(worldIn);
-        setSize(0.3125F, 0.3125F);
-    }
+public class EntitySmallFireball extends EntityFireball {
 
-    public EntitySmallFireball(World worldIn, EntityLivingBase shooter, double accelX, double accelY, double accelZ)
-    {
-        super(worldIn, shooter, accelX, accelY, accelZ);
-        setSize(0.3125F, 0.3125F);
-    }
+	public EntitySmallFireball(World worldIn) {
 
-    public EntitySmallFireball(World worldIn, double x, double y, double z, double accelX, double accelY, double accelZ)
-    {
-        super(worldIn, x, y, z, accelX, accelY, accelZ);
-        setSize(0.3125F, 0.3125F);
-    }
+		super(worldIn);
+		setSize(0.3125F, 0.3125F);
+	}
 
-    public static void registerFixesSmallFireball(DataFixer fixer)
-    {
-        EntityFireball.registerFixesFireball(fixer, "SmallFireball");
-    }
+	public EntitySmallFireball(World worldIn, EntityLivingBase shooter, double accelX, double accelY, double accelZ) {
 
-    /**
-     * Called when this EntityFireball hits a block or entity.
-     */
-    protected void onImpact(RayTraceResult result)
-    {
-        if (!world.isRemote)
-        {
-            if (result.entityHit != null)
-            {
-                if (!result.entityHit.isImmuneToFire())
-                {
-                    boolean flag = result.entityHit.attackEntityFrom(DamageSource.causeFireballDamage(this, shootingEntity), 5.0F);
+		super(worldIn, shooter, accelX, accelY, accelZ);
+		setSize(0.3125F, 0.3125F);
+	}
 
-                    if (flag)
-                    {
-                        applyEnchantments(shootingEntity, result.entityHit);
-                        result.entityHit.setFire(5);
-                    }
-                }
-            }
-            else
-            {
-                boolean flag1 = true;
+	public EntitySmallFireball(World worldIn, double x, double y, double z, double accelX, double accelY, double accelZ) {
 
-                if (shootingEntity != null && shootingEntity instanceof EntityLiving)
-                {
-                    flag1 = world.getGameRules().getBoolean("mobGriefing");
-                }
+		super(worldIn, x, y, z, accelX, accelY, accelZ);
+		setSize(0.3125F, 0.3125F);
+	}
 
-                if (flag1)
-                {
-                    BlockPos blockpos = result.getBlockPos().offset(result.sideHit);
+	public static void registerFixesSmallFireball(DataFixer fixer) {
 
-                    if (world.isAirBlock(blockpos))
-                    {
-                        world.setBlockState(blockpos, Blocks.FIRE.getDefaultState());
-                    }
-                }
-            }
+		EntityFireball.registerFixesFireball(fixer, "SmallFireball");
+	}
 
-            setDead();
-        }
-    }
+	/**
+	 * Called when this EntityFireball hits a block or entity.
+	 */
+	protected void onImpact(RayTraceResult result) {
 
-    /**
-     * Returns true if other Entities should be prevented from moving through this Entity.
-     */
-    public boolean canBeCollidedWith()
-    {
-        return false;
-    }
+		if (!world.isRemote) {
+			if (result.entityHit != null) {
+				if (!result.entityHit.isImmuneToFire()) {
+					boolean flag = result.entityHit.attackEntityFrom(DamageSource.causeFireballDamage(this, shootingEntity), 5.0F);
 
-    /**
-     * Called when the entity is attacked.
-     */
-    public boolean attackEntityFrom(DamageSource source, float amount)
-    {
-        return false;
-    }
+					if (flag) {
+						applyEnchantments(shootingEntity, result.entityHit);
+						result.entityHit.setFire(5);
+					}
+				}
+			} else {
+				boolean flag1 = true;
+
+				if (shootingEntity != null && shootingEntity instanceof EntityLiving) {
+					flag1 = world.getGameRules().getBoolean("mobGriefing");
+				}
+
+				if (flag1) {
+					BlockPos blockpos = result.getBlockPos().offset(result.sideHit);
+
+					if (world.isAirBlock(blockpos)) {
+						world.setBlockState(blockpos, Blocks.FIRE.getDefaultState());
+					}
+				}
+			}
+
+			setDead();
+		}
+	}
+
+	/**
+	 * Returns true if other Entities should be prevented from moving through this Entity.
+	 */
+	public boolean canBeCollidedWith() {
+
+		return false;
+	}
+
+	/**
+	 * Called when the entity is attacked.
+	 */
+	public boolean attackEntityFrom(DamageSource source, float amount) {
+
+		return false;
+	}
+
 }

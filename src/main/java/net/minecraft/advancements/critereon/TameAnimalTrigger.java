@@ -5,142 +5,137 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import net.minecraft.advancements.ICriterionTrigger;
 import net.minecraft.advancements.PlayerAdvancements;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.ResourceLocation;
 
-public class TameAnimalTrigger implements ICriterionTrigger<TameAnimalTrigger.Instance>
-{
-    private static final ResourceLocation ID = new ResourceLocation("tame_animal");
-    private final Map<PlayerAdvancements, TameAnimalTrigger.Listeners> listeners = Maps.<PlayerAdvancements, TameAnimalTrigger.Listeners>newHashMap();
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-    public ResourceLocation getId()
-    {
-        return ID;
-    }
+public class TameAnimalTrigger implements ICriterionTrigger<TameAnimalTrigger.Instance> {
 
-    public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<TameAnimalTrigger.Instance> listener)
-    {
-        TameAnimalTrigger.Listeners tameanimaltrigger$listeners = listeners.get(playerAdvancementsIn);
+	private static final ResourceLocation ID = new ResourceLocation("tame_animal");
+	private final Map<PlayerAdvancements, TameAnimalTrigger.Listeners> listeners = Maps.newHashMap();
 
-        if (tameanimaltrigger$listeners == null)
-        {
-            tameanimaltrigger$listeners = new TameAnimalTrigger.Listeners(playerAdvancementsIn);
-            listeners.put(playerAdvancementsIn, tameanimaltrigger$listeners);
-        }
+	public ResourceLocation getId() {
 
-        tameanimaltrigger$listeners.add(listener);
-    }
+		return ID;
+	}
 
-    public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<TameAnimalTrigger.Instance> listener)
-    {
-        TameAnimalTrigger.Listeners tameanimaltrigger$listeners = listeners.get(playerAdvancementsIn);
+	public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<TameAnimalTrigger.Instance> listener) {
 
-        if (tameanimaltrigger$listeners != null)
-        {
-            tameanimaltrigger$listeners.remove(listener);
+		TameAnimalTrigger.Listeners tameanimaltrigger$listeners = listeners.get(playerAdvancementsIn);
 
-            if (tameanimaltrigger$listeners.isEmpty())
-            {
-                listeners.remove(playerAdvancementsIn);
-            }
-        }
-    }
+		if (tameanimaltrigger$listeners == null) {
+			tameanimaltrigger$listeners = new TameAnimalTrigger.Listeners(playerAdvancementsIn);
+			listeners.put(playerAdvancementsIn, tameanimaltrigger$listeners);
+		}
 
-    public void removeAllListeners(PlayerAdvancements playerAdvancementsIn)
-    {
-        listeners.remove(playerAdvancementsIn);
-    }
+		tameanimaltrigger$listeners.add(listener);
+	}
 
-    /**
-     * Deserialize a ICriterionInstance of this trigger from the data in the JSON.
-     */
-    public TameAnimalTrigger.Instance deserializeInstance(JsonObject json, JsonDeserializationContext context)
-    {
-        EntityPredicate entitypredicate = EntityPredicate.deserialize(json.get("entity"));
-        return new TameAnimalTrigger.Instance(entitypredicate);
-    }
+	public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<TameAnimalTrigger.Instance> listener) {
 
-    public void trigger(EntityPlayerMP player, EntityAnimal entity)
-    {
-        TameAnimalTrigger.Listeners tameanimaltrigger$listeners = listeners.get(player.getAdvancements());
+		TameAnimalTrigger.Listeners tameanimaltrigger$listeners = listeners.get(playerAdvancementsIn);
 
-        if (tameanimaltrigger$listeners != null)
-        {
-            tameanimaltrigger$listeners.trigger(player, entity);
-        }
-    }
+		if (tameanimaltrigger$listeners != null) {
+			tameanimaltrigger$listeners.remove(listener);
 
-    public static class Instance extends AbstractCriterionInstance
-    {
-        private final EntityPredicate entity;
+			if (tameanimaltrigger$listeners.isEmpty()) {
+				listeners.remove(playerAdvancementsIn);
+			}
+		}
+	}
 
-        public Instance(EntityPredicate entity)
-        {
-            super(TameAnimalTrigger.ID);
-            this.entity = entity;
-        }
+	public void removeAllListeners(PlayerAdvancements playerAdvancementsIn) {
 
-        public boolean test(EntityPlayerMP player, EntityAnimal entity)
-        {
-            return this.entity.test(player, entity);
-        }
-    }
+		listeners.remove(playerAdvancementsIn);
+	}
 
-    static class Listeners
-    {
-        private final PlayerAdvancements playerAdvancements;
-        private final Set<ICriterionTrigger.Listener<TameAnimalTrigger.Instance>> listeners = Sets.<ICriterionTrigger.Listener<TameAnimalTrigger.Instance>>newHashSet();
+	/**
+	 * Deserialize a ICriterionInstance of this trigger from the data in the JSON.
+	 */
+	public TameAnimalTrigger.Instance deserializeInstance(JsonObject json, JsonDeserializationContext context) {
 
-        public Listeners(PlayerAdvancements playerAdvancementsIn)
-        {
-            playerAdvancements = playerAdvancementsIn;
-        }
+		EntityPredicate entitypredicate = EntityPredicate.deserialize(json.get("entity"));
+		return new TameAnimalTrigger.Instance(entitypredicate);
+	}
 
-        public boolean isEmpty()
-        {
-            return listeners.isEmpty();
-        }
+	public void trigger(EntityPlayerMP player, EntityAnimal entity) {
 
-        public void add(ICriterionTrigger.Listener<TameAnimalTrigger.Instance> listener)
-        {
-            listeners.add(listener);
-        }
+		TameAnimalTrigger.Listeners tameanimaltrigger$listeners = listeners.get(player.getAdvancements());
 
-        public void remove(ICriterionTrigger.Listener<TameAnimalTrigger.Instance> listener)
-        {
-            listeners.remove(listener);
-        }
+		if (tameanimaltrigger$listeners != null) {
+			tameanimaltrigger$listeners.trigger(player, entity);
+		}
+	}
 
-        public void trigger(EntityPlayerMP player, EntityAnimal entity)
-        {
-            List<ICriterionTrigger.Listener<TameAnimalTrigger.Instance>> list = null;
+	public static class Instance extends AbstractCriterionInstance {
 
-            for (ICriterionTrigger.Listener<TameAnimalTrigger.Instance> listener : listeners)
-            {
-                if (((TameAnimalTrigger.Instance)listener.getCriterionInstance()).test(player, entity))
-                {
-                    if (list == null)
-                    {
-                        list = Lists.<ICriterionTrigger.Listener<TameAnimalTrigger.Instance>>newArrayList();
-                    }
+		private final EntityPredicate entity;
 
-                    list.add(listener);
-                }
-            }
+		public Instance(EntityPredicate entity) {
 
-            if (list != null)
-            {
-                for (ICriterionTrigger.Listener<TameAnimalTrigger.Instance> listener1 : list)
-                {
-                    listener1.grantCriterion(playerAdvancements);
-                }
-            }
-        }
-    }
+			super(TameAnimalTrigger.ID);
+			this.entity = entity;
+		}
+
+		public boolean test(EntityPlayerMP player, EntityAnimal entity) {
+
+			return this.entity.test(player, entity);
+		}
+
+	}
+
+	static class Listeners {
+
+		private final PlayerAdvancements playerAdvancements;
+		private final Set<ICriterionTrigger.Listener<TameAnimalTrigger.Instance>> listeners = Sets.newHashSet();
+
+		public Listeners(PlayerAdvancements playerAdvancementsIn) {
+
+			playerAdvancements = playerAdvancementsIn;
+		}
+
+		public boolean isEmpty() {
+
+			return listeners.isEmpty();
+		}
+
+		public void add(ICriterionTrigger.Listener<TameAnimalTrigger.Instance> listener) {
+
+			listeners.add(listener);
+		}
+
+		public void remove(ICriterionTrigger.Listener<TameAnimalTrigger.Instance> listener) {
+
+			listeners.remove(listener);
+		}
+
+		public void trigger(EntityPlayerMP player, EntityAnimal entity) {
+
+			List<ICriterionTrigger.Listener<TameAnimalTrigger.Instance>> list = null;
+
+			for (ICriterionTrigger.Listener<TameAnimalTrigger.Instance> listener : listeners) {
+				if (listener.getCriterionInstance().test(player, entity)) {
+					if (list == null) {
+						list = Lists.newArrayList();
+					}
+
+					list.add(listener);
+				}
+			}
+
+			if (list != null) {
+				for (ICriterionTrigger.Listener<TameAnimalTrigger.Instance> listener1 : list) {
+					listener1.grantCriterion(playerAdvancements);
+				}
+			}
+		}
+
+	}
+
 }

@@ -1,122 +1,90 @@
 package net.minecraft.util.text.event;
 
 import com.google.common.collect.Maps;
-import java.util.Map;
 import net.minecraft.util.text.ITextComponent;
 
-public class HoverEvent
-{
-    private final HoverEvent.Action action;
-    private final ITextComponent value;
+import java.util.Map;
 
-    public HoverEvent(HoverEvent.Action actionIn, ITextComponent valueIn)
-    {
-        action = actionIn;
-        value = valueIn;
-    }
+public record HoverEvent(Action action, ITextComponent value) {
 
-    /**
-     * Gets the action to perform when this event is raised.
-     */
-    public HoverEvent.Action getAction()
-    {
-        return action;
-    }
+	/**
+	 * Gets the action to perform when this event is raised.
+	 */
+	@Override
+	public Action action() {
 
-    /**
-     * Gets the value to perform the action on when this event is raised.  For example, if the action is "show item",
-     * this would be the item to show.
-     */
-    public ITextComponent getValue()
-    {
-        return value;
-    }
+		return action;
+	}
 
-    public boolean equals(Object p_equals_1_)
-    {
-        if (this == p_equals_1_)
-        {
-            return true;
-        }
-        else if (p_equals_1_ != null && getClass() == p_equals_1_.getClass())
-        {
-            HoverEvent hoverevent = (HoverEvent)p_equals_1_;
+	/**
+	 * Gets the value to perform the action on when this event is raised.  For example, if the action is "show item",
+	 * this would be the item to show.
+	 */
+	@Override
+	public ITextComponent value() {
 
-            if (action != hoverevent.action)
-            {
-                return false;
-            }
-            else
-            {
-                if (value != null)
-                {
-                    if (!value.equals(hoverevent.value))
-                    {
-                        return false;
-                    }
-                }
-                else if (hoverevent.value != null)
-                {
-                    return false;
-                }
+		return value;
+	}
 
-                return true;
-            }
-        }
-        else
-        {
-            return false;
-        }
-    }
+	public boolean equals(Object p_equals_1_) {
 
-    public String toString()
-    {
-        return "HoverEvent{action=" + action + ", value='" + value + '\'' + '}';
-    }
+		if (this == p_equals_1_) {
+			return true;
+		} else if (p_equals_1_ != null && getClass() == p_equals_1_.getClass()) {
+			HoverEvent hoverevent = (HoverEvent) p_equals_1_;
 
-    public int hashCode()
-    {
-        int i = action.hashCode();
-        i = 31 * i + (value != null ? value.hashCode() : 0);
-        return i;
-    }
+			if (action != hoverevent.action) {
+				return false;
+			} else {
+				if (value != null) {
+					return value.equals(hoverevent.value);
+				} else return hoverevent.value == null;
+			}
+		} else {
+			return false;
+		}
+	}
 
-    public static enum Action
-    {
-        SHOW_TEXT("show_text", true),
-        SHOW_ITEM("show_item", true),
-        SHOW_ENTITY("show_entity", true);
+	public String toString() {
 
-        private static final Map<String, HoverEvent.Action> NAME_MAPPING = Maps.<String, HoverEvent.Action>newHashMap();
-        private final boolean allowedInChat;
-        private final String canonicalName;
+		return "HoverEvent{action=" + action + ", value='" + value + '\'' + '}';
+	}
 
-        private Action(String canonicalNameIn, boolean allowedInChatIn)
-        {
-            canonicalName = canonicalNameIn;
-            allowedInChat = allowedInChatIn;
-        }
+	public enum Action {
+		SHOW_TEXT("show_text", true),
+		SHOW_ITEM("show_item", true),
+		SHOW_ENTITY("show_entity", true);
 
-        public boolean shouldAllowInChat()
-        {
-            return allowedInChat;
-        }
+		private static final Map<String, Action> NAME_MAPPING = Maps.newHashMap();
+		private final boolean allowedInChat;
+		private final String canonicalName;
 
-        public String getCanonicalName()
-        {
-            return canonicalName;
-        }
+		Action(String canonicalNameIn, boolean allowedInChatIn) {
 
-        public static HoverEvent.Action getValueByCanonicalName(String canonicalNameIn)
-        {
-            return NAME_MAPPING.get(canonicalNameIn);
-        }
+			canonicalName = canonicalNameIn;
+			allowedInChat = allowedInChatIn;
+		}
 
-        static {
-            for (HoverEvent.Action hoverevent$action : values())
-            {
-                NAME_MAPPING.put(hoverevent$action.getCanonicalName(), hoverevent$action);
-            }
-        }
-    }
+		public boolean shouldAllowInChat() {
+
+			return allowedInChat;
+		}
+
+		public String getCanonicalName() {
+
+			return canonicalName;
+		}
+
+		public static Action getValueByCanonicalName(String canonicalNameIn) {
+
+			return NAME_MAPPING.get(canonicalNameIn);
+		}
+
+		static {
+			for (Action hoverevent$action : values()) {
+				NAME_MAPPING.put(hoverevent$action.getCanonicalName(), hoverevent$action);
+			}
+		}
+	}
+
 }

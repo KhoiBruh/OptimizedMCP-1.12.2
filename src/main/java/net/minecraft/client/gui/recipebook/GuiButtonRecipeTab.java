@@ -1,7 +1,5 @@
 package net.minecraft.client.gui.recipebook;
 
-import java.util.Iterator;
-import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButtonToggle;
 import net.minecraft.client.renderer.GlStateManager;
@@ -13,142 +11,129 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.stats.RecipeBook;
 
-public class GuiButtonRecipeTab extends GuiButtonToggle
-{
-    private final CreativeTabs category;
-    private float animationTime;
+import java.util.Iterator;
+import java.util.List;
 
-    public GuiButtonRecipeTab(int p_i47588_1_, CreativeTabs p_i47588_2_)
-    {
-        super(p_i47588_1_, 0, 0, 35, 27, false);
-        category = p_i47588_2_;
-        initTextureValues(153, 2, 35, 0, GuiRecipeBook.RECIPE_BOOK);
-    }
+public class GuiButtonRecipeTab extends GuiButtonToggle {
 
-    public void startAnimation(Minecraft p_193918_1_)
-    {
-        RecipeBook recipebook = p_193918_1_.player.getRecipeBook();
-        label21:
+	private final CreativeTabs category;
+	private float animationTime;
 
-        for (RecipeList recipelist : RecipeBookClient.RECIPES_BY_TAB.get(category))
-        {
-            Iterator iterator = recipelist.getRecipes(recipebook.isFilteringCraftable()).iterator();
+	public GuiButtonRecipeTab(int p_i47588_1_, CreativeTabs p_i47588_2_) {
 
-            while (true)
-            {
-                if (!iterator.hasNext())
-                {
-                    continue label21;
-                }
+		super(p_i47588_1_, 0, 0, 35, 27, false);
+		category = p_i47588_2_;
+		initTextureValues(153, 2, 35, 0, GuiRecipeBook.RECIPE_BOOK);
+	}
 
-                IRecipe irecipe = (IRecipe)iterator.next();
+	public void startAnimation(Minecraft p_193918_1_) {
 
-                if (recipebook.isNew(irecipe))
-                {
-                    break;
-                }
-            }
+		RecipeBook recipebook = p_193918_1_.player.getRecipeBook();
+		label21:
 
-            animationTime = 15.0F;
-            return;
-        }
-    }
+		for (RecipeList recipelist : RecipeBookClient.RECIPES_BY_TAB.get(category)) {
+			Iterator iterator = recipelist.getRecipes(recipebook.isFilteringCraftable()).iterator();
 
-    /**
-     * Draws this button to the screen.
-     */
-    public void drawButton(Minecraft mc, int mouseX, int mouseY, float partialTicks)
-    {
-        if (visible)
-        {
-            if (animationTime > 0.0F)
-            {
-                float f = 1.0F + 0.1F * (float)Math.sin((double)(animationTime / 15.0F * (float)Math.PI));
-                GlStateManager.pushMatrix();
-                GlStateManager.translate((float)(x + 8), (float)(y + 12), 0.0F);
-                GlStateManager.scale(1.0F, f, 1.0F);
-                GlStateManager.translate((float)(-(x + 8)), (float)(-(y + 12)), 0.0F);
-            }
+			while (true) {
+				if (!iterator.hasNext()) {
+					continue label21;
+				}
 
-            hovered = mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
-            mc.getTextureManager().bindTexture(resourceLocation);
-            GlStateManager.disableDepth();
-            int k = xTexStart;
-            int i = yTexStart;
+				IRecipe irecipe = (IRecipe) iterator.next();
 
-            if (stateTriggered)
-            {
-                k += xDiffTex;
-            }
+				if (recipebook.isNew(irecipe)) {
+					break;
+				}
+			}
 
-            if (hovered)
-            {
-                i += yDiffTex;
-            }
+			animationTime = 15.0F;
+			return;
+		}
+	}
 
-            int j = x;
+	/**
+	 * Draws this button to the screen.
+	 */
+	public void drawButton(Minecraft mc, int mouseX, int mouseY, float partialTicks) {
 
-            if (stateTriggered)
-            {
-                j -= 2;
-            }
+		if (visible) {
+			if (animationTime > 0.0F) {
+				float f = 1.0F + 0.1F * (float) Math.sin(animationTime / 15.0F * (float) Math.PI);
+				GlStateManager.pushMatrix();
+				GlStateManager.translate((float) (x + 8), (float) (y + 12), 0.0F);
+				GlStateManager.scale(1.0F, f, 1.0F);
+				GlStateManager.translate((float) (-(x + 8)), (float) (-(y + 12)), 0.0F);
+			}
 
-            GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-            drawTexturedModalRect(j, y, k, i, width, height);
-            GlStateManager.enableDepth();
-            RenderHelper.enableGUIStandardItemLighting();
-            GlStateManager.disableLighting();
-            renderIcon(mc.getRenderItem());
-            GlStateManager.enableLighting();
-            RenderHelper.disableStandardItemLighting();
+			hovered = mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
+			mc.getTextureManager().bindTexture(resourceLocation);
+			GlStateManager.disableDepth();
+			int k = xTexStart;
+			int i = yTexStart;
 
-            if (animationTime > 0.0F)
-            {
-                GlStateManager.popMatrix();
-                animationTime -= partialTicks;
-            }
-        }
-    }
+			if (stateTriggered) {
+				k += xDiffTex;
+			}
 
-    private void renderIcon(RenderItem p_193920_1_)
-    {
-        ItemStack itemstack = category.getIconItemStack();
+			if (hovered) {
+				i += yDiffTex;
+			}
 
-        if (category == CreativeTabs.TOOLS)
-        {
-            p_193920_1_.renderItemAndEffectIntoGUI(itemstack, x + 3, y + 5);
-            p_193920_1_.renderItemAndEffectIntoGUI(CreativeTabs.COMBAT.getIconItemStack(), x + 14, y + 5);
-        }
-        else if (category == CreativeTabs.MISC)
-        {
-            p_193920_1_.renderItemAndEffectIntoGUI(itemstack, x + 3, y + 5);
-            p_193920_1_.renderItemAndEffectIntoGUI(CreativeTabs.FOOD.getIconItemStack(), x + 14, y + 5);
-        }
-        else
-        {
-            p_193920_1_.renderItemAndEffectIntoGUI(itemstack, x + 9, y + 5);
-        }
-    }
+			int j = x;
 
-    public CreativeTabs getCategory()
-    {
-        return category;
-    }
+			if (stateTriggered) {
+				j -= 2;
+			}
 
-    public boolean updateVisibility()
-    {
-        List<RecipeList> list = (List)RecipeBookClient.RECIPES_BY_TAB.get(category);
-        visible = false;
+			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+			drawTexturedModalRect(j, y, k, i, width, height);
+			GlStateManager.enableDepth();
+			RenderHelper.enableGUIStandardItemLighting();
+			GlStateManager.disableLighting();
+			renderIcon(mc.getRenderItem());
+			GlStateManager.enableLighting();
+			RenderHelper.disableStandardItemLighting();
 
-        for (RecipeList recipelist : list)
-        {
-            if (recipelist.isNotEmpty() && recipelist.containsValidRecipes())
-            {
-                visible = true;
-                break;
-            }
-        }
+			if (animationTime > 0.0F) {
+				GlStateManager.popMatrix();
+				animationTime -= partialTicks;
+			}
+		}
+	}
 
-        return visible;
-    }
+	private void renderIcon(RenderItem p_193920_1_) {
+
+		ItemStack itemstack = category.getIconItemStack();
+
+		if (category == CreativeTabs.TOOLS) {
+			p_193920_1_.renderItemAndEffectIntoGUI(itemstack, x + 3, y + 5);
+			p_193920_1_.renderItemAndEffectIntoGUI(CreativeTabs.COMBAT.getIconItemStack(), x + 14, y + 5);
+		} else if (category == CreativeTabs.MISC) {
+			p_193920_1_.renderItemAndEffectIntoGUI(itemstack, x + 3, y + 5);
+			p_193920_1_.renderItemAndEffectIntoGUI(CreativeTabs.FOOD.getIconItemStack(), x + 14, y + 5);
+		} else {
+			p_193920_1_.renderItemAndEffectIntoGUI(itemstack, x + 9, y + 5);
+		}
+	}
+
+	public CreativeTabs getCategory() {
+
+		return category;
+	}
+
+	public boolean updateVisibility() {
+
+		List<RecipeList> list = RecipeBookClient.RECIPES_BY_TAB.get(category);
+		visible = false;
+
+		for (RecipeList recipelist : list) {
+			if (recipelist.isNotEmpty() && recipelist.containsValidRecipes()) {
+				visible = true;
+				break;
+			}
+		}
+
+		return visible;
+	}
+
 }

@@ -5,142 +5,137 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import net.minecraft.advancements.ICriterionTrigger;
 import net.minecraft.advancements.PlayerAdvancements;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.tileentity.TileEntityBeacon;
 import net.minecraft.util.ResourceLocation;
 
-public class ConstructBeaconTrigger implements ICriterionTrigger<ConstructBeaconTrigger.Instance>
-{
-    private static final ResourceLocation ID = new ResourceLocation("construct_beacon");
-    private final Map<PlayerAdvancements, ConstructBeaconTrigger.Listeners> listeners = Maps.<PlayerAdvancements, ConstructBeaconTrigger.Listeners>newHashMap();
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-    public ResourceLocation getId()
-    {
-        return ID;
-    }
+public class ConstructBeaconTrigger implements ICriterionTrigger<ConstructBeaconTrigger.Instance> {
 
-    public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<ConstructBeaconTrigger.Instance> listener)
-    {
-        ConstructBeaconTrigger.Listeners constructbeacontrigger$listeners = listeners.get(playerAdvancementsIn);
+	private static final ResourceLocation ID = new ResourceLocation("construct_beacon");
+	private final Map<PlayerAdvancements, ConstructBeaconTrigger.Listeners> listeners = Maps.newHashMap();
 
-        if (constructbeacontrigger$listeners == null)
-        {
-            constructbeacontrigger$listeners = new ConstructBeaconTrigger.Listeners(playerAdvancementsIn);
-            listeners.put(playerAdvancementsIn, constructbeacontrigger$listeners);
-        }
+	public ResourceLocation getId() {
 
-        constructbeacontrigger$listeners.add(listener);
-    }
+		return ID;
+	}
 
-    public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<ConstructBeaconTrigger.Instance> listener)
-    {
-        ConstructBeaconTrigger.Listeners constructbeacontrigger$listeners = listeners.get(playerAdvancementsIn);
+	public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<ConstructBeaconTrigger.Instance> listener) {
 
-        if (constructbeacontrigger$listeners != null)
-        {
-            constructbeacontrigger$listeners.remove(listener);
+		ConstructBeaconTrigger.Listeners constructbeacontrigger$listeners = listeners.get(playerAdvancementsIn);
 
-            if (constructbeacontrigger$listeners.isEmpty())
-            {
-                listeners.remove(playerAdvancementsIn);
-            }
-        }
-    }
+		if (constructbeacontrigger$listeners == null) {
+			constructbeacontrigger$listeners = new ConstructBeaconTrigger.Listeners(playerAdvancementsIn);
+			listeners.put(playerAdvancementsIn, constructbeacontrigger$listeners);
+		}
 
-    public void removeAllListeners(PlayerAdvancements playerAdvancementsIn)
-    {
-        listeners.remove(playerAdvancementsIn);
-    }
+		constructbeacontrigger$listeners.add(listener);
+	}
 
-    /**
-     * Deserialize a ICriterionInstance of this trigger from the data in the JSON.
-     */
-    public ConstructBeaconTrigger.Instance deserializeInstance(JsonObject json, JsonDeserializationContext context)
-    {
-        MinMaxBounds minmaxbounds = MinMaxBounds.deserialize(json.get("level"));
-        return new ConstructBeaconTrigger.Instance(minmaxbounds);
-    }
+	public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<ConstructBeaconTrigger.Instance> listener) {
 
-    public void trigger(EntityPlayerMP player, TileEntityBeacon beacon)
-    {
-        ConstructBeaconTrigger.Listeners constructbeacontrigger$listeners = listeners.get(player.getAdvancements());
+		ConstructBeaconTrigger.Listeners constructbeacontrigger$listeners = listeners.get(playerAdvancementsIn);
 
-        if (constructbeacontrigger$listeners != null)
-        {
-            constructbeacontrigger$listeners.trigger(beacon);
-        }
-    }
+		if (constructbeacontrigger$listeners != null) {
+			constructbeacontrigger$listeners.remove(listener);
 
-    public static class Instance extends AbstractCriterionInstance
-    {
-        private final MinMaxBounds level;
+			if (constructbeacontrigger$listeners.isEmpty()) {
+				listeners.remove(playerAdvancementsIn);
+			}
+		}
+	}
 
-        public Instance(MinMaxBounds level)
-        {
-            super(ConstructBeaconTrigger.ID);
-            this.level = level;
-        }
+	public void removeAllListeners(PlayerAdvancements playerAdvancementsIn) {
 
-        public boolean test(TileEntityBeacon beacon)
-        {
-            return level.test((float)beacon.getLevels());
-        }
-    }
+		listeners.remove(playerAdvancementsIn);
+	}
 
-    static class Listeners
-    {
-        private final PlayerAdvancements playerAdvancements;
-        private final Set<ICriterionTrigger.Listener<ConstructBeaconTrigger.Instance>> listeners = Sets.<ICriterionTrigger.Listener<ConstructBeaconTrigger.Instance>>newHashSet();
+	/**
+	 * Deserialize a ICriterionInstance of this trigger from the data in the JSON.
+	 */
+	public ConstructBeaconTrigger.Instance deserializeInstance(JsonObject json, JsonDeserializationContext context) {
 
-        public Listeners(PlayerAdvancements playerAdvancementsIn)
-        {
-            playerAdvancements = playerAdvancementsIn;
-        }
+		MinMaxBounds minmaxbounds = MinMaxBounds.deserialize(json.get("level"));
+		return new ConstructBeaconTrigger.Instance(minmaxbounds);
+	}
 
-        public boolean isEmpty()
-        {
-            return listeners.isEmpty();
-        }
+	public void trigger(EntityPlayerMP player, TileEntityBeacon beacon) {
 
-        public void add(ICriterionTrigger.Listener<ConstructBeaconTrigger.Instance> listener)
-        {
-            listeners.add(listener);
-        }
+		ConstructBeaconTrigger.Listeners constructbeacontrigger$listeners = listeners.get(player.getAdvancements());
 
-        public void remove(ICriterionTrigger.Listener<ConstructBeaconTrigger.Instance> listener)
-        {
-            listeners.remove(listener);
-        }
+		if (constructbeacontrigger$listeners != null) {
+			constructbeacontrigger$listeners.trigger(beacon);
+		}
+	}
 
-        public void trigger(TileEntityBeacon beacon)
-        {
-            List<ICriterionTrigger.Listener<ConstructBeaconTrigger.Instance>> list = null;
+	public static class Instance extends AbstractCriterionInstance {
 
-            for (ICriterionTrigger.Listener<ConstructBeaconTrigger.Instance> listener : listeners)
-            {
-                if (((ConstructBeaconTrigger.Instance)listener.getCriterionInstance()).test(beacon))
-                {
-                    if (list == null)
-                    {
-                        list = Lists.<ICriterionTrigger.Listener<ConstructBeaconTrigger.Instance>>newArrayList();
-                    }
+		private final MinMaxBounds level;
 
-                    list.add(listener);
-                }
-            }
+		public Instance(MinMaxBounds level) {
 
-            if (list != null)
-            {
-                for (ICriterionTrigger.Listener<ConstructBeaconTrigger.Instance> listener1 : list)
-                {
-                    listener1.grantCriterion(playerAdvancements);
-                }
-            }
-        }
-    }
+			super(ConstructBeaconTrigger.ID);
+			this.level = level;
+		}
+
+		public boolean test(TileEntityBeacon beacon) {
+
+			return level.test((float) beacon.getLevels());
+		}
+
+	}
+
+	static class Listeners {
+
+		private final PlayerAdvancements playerAdvancements;
+		private final Set<ICriterionTrigger.Listener<ConstructBeaconTrigger.Instance>> listeners = Sets.newHashSet();
+
+		public Listeners(PlayerAdvancements playerAdvancementsIn) {
+
+			playerAdvancements = playerAdvancementsIn;
+		}
+
+		public boolean isEmpty() {
+
+			return listeners.isEmpty();
+		}
+
+		public void add(ICriterionTrigger.Listener<ConstructBeaconTrigger.Instance> listener) {
+
+			listeners.add(listener);
+		}
+
+		public void remove(ICriterionTrigger.Listener<ConstructBeaconTrigger.Instance> listener) {
+
+			listeners.remove(listener);
+		}
+
+		public void trigger(TileEntityBeacon beacon) {
+
+			List<ICriterionTrigger.Listener<ConstructBeaconTrigger.Instance>> list = null;
+
+			for (ICriterionTrigger.Listener<ConstructBeaconTrigger.Instance> listener : listeners) {
+				if (listener.getCriterionInstance().test(beacon)) {
+					if (list == null) {
+						list = Lists.newArrayList();
+					}
+
+					list.add(listener);
+				}
+			}
+
+			if (list != null) {
+				for (ICriterionTrigger.Listener<ConstructBeaconTrigger.Instance> listener1 : list) {
+					listener1.grantCriterion(playerAdvancements);
+				}
+			}
+		}
+
+	}
+
 }

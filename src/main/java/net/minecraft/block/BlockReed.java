@@ -1,7 +1,5 @@
 package net.minecraft.block;
 
-import java.util.Random;
-import javax.annotation.Nullable;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyInteger;
@@ -19,189 +17,175 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class BlockReed extends Block
-{
-    public static final PropertyInteger AGE = PropertyInteger.create("age", 0, 15);
-    protected static final AxisAlignedBB REED_AABB = new AxisAlignedBB(0.125D, 0.0D, 0.125D, 0.875D, 1.0D, 0.875D);
+import javax.annotation.Nullable;
+import java.util.Random;
 
-    protected BlockReed()
-    {
-        super(Material.PLANTS);
-        setDefaultState(blockState.getBaseState().withProperty(AGE, Integer.valueOf(0)));
-        setTickRandomly(true);
-    }
+public class BlockReed extends Block {
 
-    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
-    {
-        return REED_AABB;
-    }
+	public static final PropertyInteger AGE = PropertyInteger.create("age", 0, 15);
+	protected static final AxisAlignedBB REED_AABB = new AxisAlignedBB(0.125D, 0.0D, 0.125D, 0.875D, 1.0D, 0.875D);
 
-    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
-    {
-        if (worldIn.getBlockState(pos.down()).getBlock() == Blocks.REEDS || checkForDrop(worldIn, pos, state))
-        {
-            if (worldIn.isAirBlock(pos.up()))
-            {
-                int i;
+	protected BlockReed() {
 
-                for (i = 1; worldIn.getBlockState(pos.down(i)).getBlock() == this; ++i)
-                {
-                    ;
-                }
+		super(Material.PLANTS);
+		setDefaultState(blockState.getBaseState().withProperty(AGE, Integer.valueOf(0)));
+		setTickRandomly(true);
+	}
 
-                if (i < 3)
-                {
-                    int j = ((Integer)state.getValue(AGE)).intValue();
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
 
-                    if (j == 15)
-                    {
-                        worldIn.setBlockState(pos.up(), getDefaultState());
-                        worldIn.setBlockState(pos, state.withProperty(AGE, Integer.valueOf(0)), 4);
-                    }
-                    else
-                    {
-                        worldIn.setBlockState(pos, state.withProperty(AGE, Integer.valueOf(j + 1)), 4);
-                    }
-                }
-            }
-        }
-    }
+		return REED_AABB;
+	}
 
-    /**
-     * Checks if this block can be placed exactly at the given position.
-     */
-    public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
-    {
-        Block block = worldIn.getBlockState(pos.down()).getBlock();
+	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
 
-        if (block == this)
-        {
-            return true;
-        }
-        else if (block != Blocks.GRASS && block != Blocks.DIRT && block != Blocks.SAND)
-        {
-            return false;
-        }
-        else
-        {
-            BlockPos blockpos = pos.down();
+		if (worldIn.getBlockState(pos.down()).getBlock() == Blocks.REEDS || checkForDrop(worldIn, pos, state)) {
+			if (worldIn.isAirBlock(pos.up())) {
+				int i;
 
-            for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL)
-            {
-                IBlockState iblockstate = worldIn.getBlockState(blockpos.offset(enumfacing));
+				for (i = 1; worldIn.getBlockState(pos.down(i)).getBlock() == this; ++i) {
+				}
 
-                if (iblockstate.getMaterial() == Material.WATER || iblockstate.getBlock() == Blocks.FROSTED_ICE)
-                {
-                    return true;
-                }
-            }
+				if (i < 3) {
+					int j = state.getValue(AGE).intValue();
 
-            return false;
-        }
-    }
+					if (j == 15) {
+						worldIn.setBlockState(pos.up(), getDefaultState());
+						worldIn.setBlockState(pos, state.withProperty(AGE, Integer.valueOf(0)), 4);
+					} else {
+						worldIn.setBlockState(pos, state.withProperty(AGE, Integer.valueOf(j + 1)), 4);
+					}
+				}
+			}
+		}
+	}
 
-    /**
-     * Called when a neighboring block was changed and marks that this state should perform any checks during a neighbor
-     * change. Cases may include when redstone power is updated, cactus blocks popping off due to a neighboring solid
-     * block, etc.
-     */
-    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos)
-    {
-        checkForDrop(worldIn, pos, state);
-    }
+	/**
+	 * Checks if this block can be placed exactly at the given position.
+	 */
+	public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
 
-    protected final boolean checkForDrop(World worldIn, BlockPos pos, IBlockState state)
-    {
-        if (canBlockStay(worldIn, pos))
-        {
-            return true;
-        }
-        else
-        {
-            dropBlockAsItem(worldIn, pos, state, 0);
-            worldIn.setBlockToAir(pos);
-            return false;
-        }
-    }
+		Block block = worldIn.getBlockState(pos.down()).getBlock();
 
-    public boolean canBlockStay(World worldIn, BlockPos pos)
-    {
-        return canPlaceBlockAt(worldIn, pos);
-    }
+		if (block == this) {
+			return true;
+		} else if (block != Blocks.GRASS && block != Blocks.DIRT && block != Blocks.SAND) {
+			return false;
+		} else {
+			BlockPos blockpos = pos.down();
 
-    @Nullable
-    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos)
-    {
-        return NULL_AABB;
-    }
+			for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL) {
+				IBlockState iblockstate = worldIn.getBlockState(blockpos.offset(enumfacing));
 
-    /**
-     * Get the Item that this Block should drop when harvested.
-     */
-    public Item getItemDropped(IBlockState state, Random rand, int fortune)
-    {
-        return Items.REEDS;
-    }
+				if (iblockstate.getMaterial() == Material.WATER || iblockstate.getBlock() == Blocks.FROSTED_ICE) {
+					return true;
+				}
+			}
 
-    /**
-     * Used to determine ambient occlusion and culling when rebuilding chunks for render
-     */
-    public boolean isOpaqueCube(IBlockState state)
-    {
-        return false;
-    }
+			return false;
+		}
+	}
 
-    public boolean isFullCube(IBlockState state)
-    {
-        return false;
-    }
+	/**
+	 * Called when a neighboring block was changed and marks that this state should perform any checks during a neighbor
+	 * change. Cases may include when redstone power is updated, cactus blocks popping off due to a neighboring solid
+	 * block, etc.
+	 */
+	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
 
-    public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state)
-    {
-        return new ItemStack(Items.REEDS);
-    }
+		checkForDrop(worldIn, pos, state);
+	}
 
-    /**
-     * Gets the render layer this block will render on. SOLID for solid blocks, CUTOUT or CUTOUT_MIPPED for on-off
-     * transparency (glass, reeds), TRANSLUCENT for fully blended transparency (stained glass)
-     */
-    public BlockRenderLayer getBlockLayer()
-    {
-        return BlockRenderLayer.CUTOUT;
-    }
+	protected final boolean checkForDrop(World worldIn, BlockPos pos, IBlockState state) {
 
-    /**
-     * Convert the given metadata into a BlockState for this Block
-     */
-    public IBlockState getStateFromMeta(int meta)
-    {
-        return getDefaultState().withProperty(AGE, Integer.valueOf(meta));
-    }
+		if (canBlockStay(worldIn, pos)) {
+			return true;
+		} else {
+			dropBlockAsItem(worldIn, pos, state, 0);
+			worldIn.setBlockToAir(pos);
+			return false;
+		}
+	}
 
-    /**
-     * Convert the BlockState into the correct metadata value
-     */
-    public int getMetaFromState(IBlockState state)
-    {
-        return ((Integer)state.getValue(AGE)).intValue();
-    }
+	public boolean canBlockStay(World worldIn, BlockPos pos) {
 
-    protected BlockStateContainer createBlockState()
-    {
-        return new BlockStateContainer(this, new IProperty[] {AGE});
-    }
+		return canPlaceBlockAt(worldIn, pos);
+	}
 
-    /**
-     * Get the geometry of the queried face at the given position and state. This is used to decide whether things like
-     * buttons are allowed to be placed on the face, or how glass panes connect to the face, among other things.
-     * <p>
-     * Common values are {@code SOLID}, which is the default, and {@code UNDEFINED}, which represents something that
-     * does not fit the other descriptions and will generally cause other things not to connect to the face.
+	@Nullable
+	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
 
-     * @return an approximation of the form of the given face
-     */
-    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face)
-    {
-        return BlockFaceShape.UNDEFINED;
-    }
+		return NULL_AABB;
+	}
+
+	/**
+	 * Get the Item that this Block should drop when harvested.
+	 */
+	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
+
+		return Items.REEDS;
+	}
+
+	/**
+	 * Used to determine ambient occlusion and culling when rebuilding chunks for render
+	 */
+	public boolean isOpaqueCube(IBlockState state) {
+
+		return false;
+	}
+
+	public boolean isFullCube(IBlockState state) {
+
+		return false;
+	}
+
+	public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
+
+		return new ItemStack(Items.REEDS);
+	}
+
+	/**
+	 * Gets the render layer this block will render on. SOLID for solid blocks, CUTOUT or CUTOUT_MIPPED for on-off
+	 * transparency (glass, reeds), TRANSLUCENT for fully blended transparency (stained glass)
+	 */
+	public BlockRenderLayer getBlockLayer() {
+
+		return BlockRenderLayer.CUTOUT;
+	}
+
+	/**
+	 * Convert the given metadata into a BlockState for this Block
+	 */
+	public IBlockState getStateFromMeta(int meta) {
+
+		return getDefaultState().withProperty(AGE, Integer.valueOf(meta));
+	}
+
+	/**
+	 * Convert the BlockState into the correct metadata value
+	 */
+	public int getMetaFromState(IBlockState state) {
+
+		return state.getValue(AGE).intValue();
+	}
+
+	protected BlockStateContainer createBlockState() {
+
+		return new BlockStateContainer(this, AGE);
+	}
+
+	/**
+	 * Get the geometry of the queried face at the given position and state. This is used to decide whether things like
+	 * buttons are allowed to be placed on the face, or how glass panes connect to the face, among other things.
+	 * <p>
+	 * Common values are {@code SOLID}, which is the default, and {@code UNDEFINED}, which represents something that
+	 * does not fit the other descriptions and will generally cause other things not to connect to the face.
+	 *
+	 * @return an approximation of the form of the given face
+	 */
+	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
+
+		return BlockFaceShape.UNDEFINED;
+	}
+
 }

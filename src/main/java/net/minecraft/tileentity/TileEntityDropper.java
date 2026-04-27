@@ -4,23 +4,24 @@ import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.datafix.FixTypes;
 import net.minecraft.util.datafix.walkers.ItemStackDataLists;
 
-public class TileEntityDropper extends TileEntityDispenser
-{
-    public static void registerFixesDropper(DataFixer fixer)
-    {
-        fixer.registerWalker(FixTypes.BLOCK_ENTITY, new ItemStackDataLists(TileEntityDropper.class, new String[] {"Items"}));
-    }
+public class TileEntityDropper extends TileEntityDispenser {
 
-    /**
-     * Get the name of this object. For players this returns their username
-     */
-    public String getName()
-    {
-        return hasCustomName() ? customName : "container.dropper";
-    }
+	public static void registerFixesDropper(DataFixer fixer) {
 
-    public String getGuiID()
-    {
-        return "minecraft:dropper";
-    }
+		fixer.registerWalker(FixTypes.BLOCK_ENTITY, new ItemStackDataLists(TileEntityDropper.class, "Items"));
+	}
+
+	/**
+	 * Get the name of this object. For players this returns their username
+	 */
+	public String getName() {
+
+		return hasCustomName() ? customName : "container.dropper";
+	}
+
+	public String guiID() {
+
+		return "minecraft:dropper";
+	}
+
 }

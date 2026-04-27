@@ -2,12 +2,6 @@ package net.minecraft.client.renderer.texture;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import java.io.Closeable;
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import javax.annotation.Nullable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.StitcherException;
 import net.minecraft.client.resources.IResource;
@@ -22,297 +16,265 @@ import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class TextureMap extends AbstractTexture implements ITickableTextureObject
-{
-    private static final Logger LOGGER = LogManager.getLogger();
-    public static final ResourceLocation LOCATION_MISSING_TEXTURE = new ResourceLocation("missingno");
-    public static final ResourceLocation LOCATION_BLOCKS_TEXTURE = new ResourceLocation("textures/atlas/blocks.png");
-    private final List<TextureAtlasSprite> listAnimatedSprites;
-    private final Map<String, TextureAtlasSprite> mapRegisteredSprites;
-    private final Map<String, TextureAtlasSprite> mapUploadedSprites;
-    private final String basePath;
-    private final ITextureMapPopulator iconCreator;
-    private int mipmapLevels;
-    private final TextureAtlasSprite missingImage;
+import javax.annotation.Nullable;
+import java.io.Closeable;
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
-    public TextureMap(String basePathIn)
-    {
-        this(basePathIn, (ITextureMapPopulator)null);
-    }
+public class TextureMap extends AbstractTexture implements ITickableTextureObject {
 
-    public TextureMap(String basePathIn, @Nullable ITextureMapPopulator iconCreatorIn)
-    {
-        listAnimatedSprites = Lists.<TextureAtlasSprite>newArrayList();
-        mapRegisteredSprites = Maps.<String, TextureAtlasSprite>newHashMap();
-        mapUploadedSprites = Maps.<String, TextureAtlasSprite>newHashMap();
-        missingImage = new TextureAtlasSprite("missingno");
-        basePath = basePathIn;
-        iconCreator = iconCreatorIn;
-    }
+	private static final Logger LOGGER = LogManager.getLogger();
+	public static final ResourceLocation LOCATION_MISSING_TEXTURE = new ResourceLocation("missingno");
+	public static final ResourceLocation LOCATION_BLOCKS_TEXTURE = new ResourceLocation("textures/atlas/blocks.png");
+	private final List<TextureAtlasSprite> listAnimatedSprites;
+	private final Map<String, TextureAtlasSprite> mapRegisteredSprites;
+	private final Map<String, TextureAtlasSprite> mapUploadedSprites;
+	private final String basePath;
+	private final ITextureMapPopulator iconCreator;
+	private int mipmapLevels;
+	private final TextureAtlasSprite missingImage;
 
-    private void initMissingImage()
-    {
-        int[] aint = TextureUtil.MISSING_TEXTURE_DATA;
-        missingImage.setIconWidth(16);
-        missingImage.setIconHeight(16);
-        int[][] aint1 = new int[mipmapLevels + 1][];
-        aint1[0] = aint;
-        missingImage.setFramesTextureData(Lists.<int[][]>newArrayList(aint1));
-    }
+	public TextureMap(String basePathIn) {
 
-    public void loadTexture(IResourceManager resourceManager) throws IOException
-    {
-        if (iconCreator != null)
-        {
-            loadSprites(resourceManager, iconCreator);
-        }
-    }
+		this(basePathIn, null);
+	}
 
-    public void loadSprites(IResourceManager resourceManager, ITextureMapPopulator iconCreatorIn)
-    {
-        mapRegisteredSprites.clear();
-        iconCreatorIn.registerSprites(this);
-        initMissingImage();
-        deleteGlTexture();
-        loadTextureAtlas(resourceManager);
-    }
+	public TextureMap(String basePathIn, @Nullable ITextureMapPopulator iconCreatorIn) {
 
-    public void loadTextureAtlas(IResourceManager resourceManager)
-    {
-        int i = Minecraft.getGLMaximumTextureSize();
-        Stitcher stitcher = new Stitcher(i, i, 0, mipmapLevels);
-        mapUploadedSprites.clear();
-        listAnimatedSprites.clear();
-        int j = Integer.MAX_VALUE;
-        int k = 1 << mipmapLevels;
+		listAnimatedSprites = Lists.newArrayList();
+		mapRegisteredSprites = Maps.newHashMap();
+		mapUploadedSprites = Maps.newHashMap();
+		missingImage = new TextureAtlasSprite("missingno");
+		basePath = basePathIn;
+		iconCreator = iconCreatorIn;
+	}
 
-        for (Entry<String, TextureAtlasSprite> entry : mapRegisteredSprites.entrySet())
-        {
-            TextureAtlasSprite textureatlassprite = entry.getValue();
-            ResourceLocation resourcelocation = getResourceLocation(textureatlassprite);
-            IResource iresource = null;
+	private void initMissingImage() {
 
-            try
-            {
-                PngSizeInfo pngsizeinfo = PngSizeInfo.makeFromResource(resourceManager.getResource(resourcelocation));
-                iresource = resourceManager.getResource(resourcelocation);
-                boolean flag = iresource.getMetadata("animation") != null;
-                textureatlassprite.loadSprite(pngsizeinfo, flag);
-            }
-            catch (RuntimeException runtimeexception)
-            {
-                LOGGER.error("Unable to parse metadata from {}", resourcelocation, runtimeexception);
-                continue;
-            }
-            catch (IOException ioexception)
-            {
-                LOGGER.error("Using missing texture, unable to load {}", resourcelocation, ioexception);
-                continue;
-            }
-            finally
-            {
-                IOUtils.closeQuietly((Closeable)iresource);
-            }
+		int[] aint = TextureUtil.MISSING_TEXTURE_DATA;
+		missingImage.setIconWidth(16);
+		missingImage.setIconHeight(16);
+		int[][] aint1 = new int[mipmapLevels + 1][];
+		aint1[0] = aint;
+		missingImage.setFramesTextureData(Lists.<int[][]>newArrayList(aint1));
+	}
 
-            j = Math.min(j, Math.min(textureatlassprite.getIconWidth(), textureatlassprite.getIconHeight()));
-            int j1 = Math.min(Integer.lowestOneBit(textureatlassprite.getIconWidth()), Integer.lowestOneBit(textureatlassprite.getIconHeight()));
+	public void loadTexture(IResourceManager resourceManager) throws IOException {
 
-            if (j1 < k)
-            {
-                LOGGER.warn("Texture {} with size {}x{} limits mip level from {} to {}", resourcelocation, Integer.valueOf(textureatlassprite.getIconWidth()), Integer.valueOf(textureatlassprite.getIconHeight()), Integer.valueOf(MathHelper.log2(k)), Integer.valueOf(MathHelper.log2(j1)));
-                k = j1;
-            }
+		if (iconCreator != null) {
+			loadSprites(resourceManager, iconCreator);
+		}
+	}
 
-            stitcher.addSprite(textureatlassprite);
-        }
+	public void loadSprites(IResourceManager resourceManager, ITextureMapPopulator iconCreatorIn) {
 
-        int l = Math.min(j, k);
-        int i1 = MathHelper.log2(l);
+		mapRegisteredSprites.clear();
+		iconCreatorIn.registerSprites(this);
+		initMissingImage();
+		deleteGlTexture();
+		loadTextureAtlas(resourceManager);
+	}
 
-        if (i1 < mipmapLevels)
-        {
-            LOGGER.warn("{}: dropping miplevel from {} to {}, because of minimum power of two: {}", basePath, Integer.valueOf(mipmapLevels), Integer.valueOf(i1), Integer.valueOf(l));
-            mipmapLevels = i1;
-        }
+	public void loadTextureAtlas(IResourceManager resourceManager) {
 
-        missingImage.generateMipmaps(mipmapLevels);
-        stitcher.addSprite(missingImage);
+		int i = Minecraft.getGLMaximumTextureSize();
+		Stitcher stitcher = new Stitcher(i, i, 0, mipmapLevels);
+		mapUploadedSprites.clear();
+		listAnimatedSprites.clear();
+		int j = Integer.MAX_VALUE;
+		int k = 1 << mipmapLevels;
 
-        try
-        {
-            stitcher.doStitch();
-        }
-        catch (StitcherException stitcherexception)
-        {
-            throw stitcherexception;
-        }
+		for (Entry<String, TextureAtlasSprite> entry : mapRegisteredSprites.entrySet()) {
+			TextureAtlasSprite textureatlassprite = entry.getValue();
+			ResourceLocation resourcelocation = getResourceLocation(textureatlassprite);
+			IResource iresource = null;
 
-        LOGGER.info("Created: {}x{} {}-atlas", Integer.valueOf(stitcher.getCurrentWidth()), Integer.valueOf(stitcher.getCurrentHeight()), basePath);
-        TextureUtil.allocateTextureImpl(getGlTextureId(), mipmapLevels, stitcher.getCurrentWidth(), stitcher.getCurrentHeight());
-        Map<String, TextureAtlasSprite> map = Maps.<String, TextureAtlasSprite>newHashMap(mapRegisteredSprites);
+			try {
+				PngSizeInfo pngsizeinfo = PngSizeInfo.makeFromResource(resourceManager.getResource(resourcelocation));
+				iresource = resourceManager.getResource(resourcelocation);
+				boolean flag = iresource.getMetadata("animation") != null;
+				textureatlassprite.loadSprite(pngsizeinfo, flag);
+			} catch (RuntimeException runtimeexception) {
+				LOGGER.error("Unable to parse metadata from {}", resourcelocation, runtimeexception);
+				continue;
+			} catch (IOException ioexception) {
+				LOGGER.error("Using missing texture, unable to load {}", resourcelocation, ioexception);
+				continue;
+			} finally {
+				IOUtils.closeQuietly(iresource);
+			}
 
-        for (TextureAtlasSprite textureatlassprite1 : stitcher.getStichSlots())
-        {
-            if (textureatlassprite1 == missingImage || generateMipmaps(resourceManager, textureatlassprite1))
-            {
-                String s = textureatlassprite1.getIconName();
-                map.remove(s);
-                mapUploadedSprites.put(s, textureatlassprite1);
+			j = Math.min(j, Math.min(textureatlassprite.getIconWidth(), textureatlassprite.getIconHeight()));
+			int j1 = Math.min(Integer.lowestOneBit(textureatlassprite.getIconWidth()), Integer.lowestOneBit(textureatlassprite.getIconHeight()));
 
-                try
-                {
-                    TextureUtil.uploadTextureMipmap(textureatlassprite1.getFrameTextureData(0), textureatlassprite1.getIconWidth(), textureatlassprite1.getIconHeight(), textureatlassprite1.getOriginX(), textureatlassprite1.getOriginY(), false, false);
-                }
-                catch (Throwable throwable)
-                {
-                    CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Stitching texture atlas");
-                    CrashReportCategory crashreportcategory = crashreport.makeCategory("Texture being stitched together");
-                    crashreportcategory.addCrashSection("Atlas path", basePath);
-                    crashreportcategory.addCrashSection("Sprite", textureatlassprite1);
-                    throw new ReportedException(crashreport);
-                }
+			if (j1 < k) {
+				LOGGER.warn("Texture {} with size {}x{} limits mip level from {} to {}", resourcelocation, Integer.valueOf(textureatlassprite.getIconWidth()), Integer.valueOf(textureatlassprite.getIconHeight()), Integer.valueOf(MathHelper.log2(k)), Integer.valueOf(MathHelper.log2(j1)));
+				k = j1;
+			}
 
-                if (textureatlassprite1.hasAnimationMetadata())
-                {
-                    listAnimatedSprites.add(textureatlassprite1);
-                }
-            }
-        }
+			stitcher.addSprite(textureatlassprite);
+		}
 
-        for (TextureAtlasSprite textureatlassprite2 : map.values())
-        {
-            textureatlassprite2.copyFrom(missingImage);
-        }
-    }
+		int l = Math.min(j, k);
+		int i1 = MathHelper.log2(l);
 
-    private boolean generateMipmaps(IResourceManager resourceManager, final TextureAtlasSprite texture)
-    {
-        ResourceLocation resourcelocation = getResourceLocation(texture);
-        IResource iresource = null;
-        label62:
-        {
-            boolean flag;
+		if (i1 < mipmapLevels) {
+			LOGGER.warn("{}: dropping miplevel from {} to {}, because of minimum power of two: {}", basePath, Integer.valueOf(mipmapLevels), Integer.valueOf(i1), Integer.valueOf(l));
+			mipmapLevels = i1;
+		}
 
-            try
-            {
-                iresource = resourceManager.getResource(resourcelocation);
-                texture.loadSpriteFrames(iresource, mipmapLevels + 1);
-                break label62;
-            }
-            catch (RuntimeException runtimeexception)
-            {
-                LOGGER.error("Unable to parse metadata from {}", resourcelocation, runtimeexception);
-                flag = false;
-            }
-            catch (IOException ioexception)
-            {
-                LOGGER.error("Using missing texture, unable to load {}", resourcelocation, ioexception);
-                flag = false;
-                return flag;
-            }
-            finally
-            {
-                IOUtils.closeQuietly((Closeable)iresource);
-            }
+		missingImage.generateMipmaps(mipmapLevels);
+		stitcher.addSprite(missingImage);
 
-            return flag;
-        }
+		try {
+			stitcher.doStitch();
+		} catch (StitcherException stitcherexception) {
+			throw stitcherexception;
+		}
 
-        try
-        {
-            texture.generateMipmaps(mipmapLevels);
-            return true;
-        }
-        catch (Throwable throwable)
-        {
-            CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Applying mipmap");
-            CrashReportCategory crashreportcategory = crashreport.makeCategory("Sprite being mipmapped");
-            crashreportcategory.addDetail("Sprite name", new ICrashReportDetail<String>()
-            {
-                public String call() throws Exception
-                {
-                    return texture.getIconName();
-                }
-            });
-            crashreportcategory.addDetail("Sprite size", new ICrashReportDetail<String>()
-            {
-                public String call() throws Exception
-                {
-                    return texture.getIconWidth() + " x " + texture.getIconHeight();
-                }
-            });
-            crashreportcategory.addDetail("Sprite frames", new ICrashReportDetail<String>()
-            {
-                public String call() throws Exception
-                {
-                    return texture.getFrameCount() + " frames";
-                }
-            });
-            crashreportcategory.addCrashSection("Mipmap levels", Integer.valueOf(mipmapLevels));
-            throw new ReportedException(crashreport);
-        }
-    }
+		LOGGER.info("Created: {}x{} {}-atlas", Integer.valueOf(stitcher.getCurrentWidth()), Integer.valueOf(stitcher.getCurrentHeight()), basePath);
+		TextureUtil.allocateTextureImpl(getGlTextureId(), mipmapLevels, stitcher.getCurrentWidth(), stitcher.getCurrentHeight());
+		Map<String, TextureAtlasSprite> map = Maps.newHashMap(mapRegisteredSprites);
 
-    private ResourceLocation getResourceLocation(TextureAtlasSprite p_184396_1_)
-    {
-        ResourceLocation resourcelocation = new ResourceLocation(p_184396_1_.getIconName());
-        return new ResourceLocation(resourcelocation.getResourceDomain(), String.format("%s/%s%s", basePath, resourcelocation.getResourcePath(), ".png"));
-    }
+		for (TextureAtlasSprite textureatlassprite1 : stitcher.getStichSlots()) {
+			if (textureatlassprite1 == missingImage || generateMipmaps(resourceManager, textureatlassprite1)) {
+				String s = textureatlassprite1.getIconName();
+				map.remove(s);
+				mapUploadedSprites.put(s, textureatlassprite1);
 
-    public TextureAtlasSprite getAtlasSprite(String iconName)
-    {
-        TextureAtlasSprite textureatlassprite = mapUploadedSprites.get(iconName);
+				try {
+					TextureUtil.uploadTextureMipmap(textureatlassprite1.getFrameTextureData(0), textureatlassprite1.getIconWidth(), textureatlassprite1.getIconHeight(), textureatlassprite1.getOriginX(), textureatlassprite1.getOriginY(), false, false);
+				} catch (Throwable throwable) {
+					CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Stitching texture atlas");
+					CrashReportCategory crashreportcategory = crashreport.makeCategory("Texture being stitched together");
+					crashreportcategory.addCrashSection("Atlas path", basePath);
+					crashreportcategory.addCrashSection("Sprite", textureatlassprite1);
+					throw new ReportedException(crashreport);
+				}
 
-        if (textureatlassprite == null)
-        {
-            textureatlassprite = missingImage;
-        }
+				if (textureatlassprite1.hasAnimationMetadata()) {
+					listAnimatedSprites.add(textureatlassprite1);
+				}
+			}
+		}
 
-        return textureatlassprite;
-    }
+		for (TextureAtlasSprite textureatlassprite2 : map.values()) {
+			textureatlassprite2.copyFrom(missingImage);
+		}
+	}
 
-    public void updateAnimations()
-    {
-        TextureUtil.bindTexture(getGlTextureId());
+	private boolean generateMipmaps(IResourceManager resourceManager, final TextureAtlasSprite texture) {
 
-        for (TextureAtlasSprite textureatlassprite : listAnimatedSprites)
-        {
-            textureatlassprite.updateAnimation();
-        }
-    }
+		ResourceLocation resourcelocation = getResourceLocation(texture);
+		IResource iresource = null;
+		label62:
+		{
+			boolean flag;
 
-    public TextureAtlasSprite registerSprite(ResourceLocation location)
-    {
-        if (location == null)
-        {
-            throw new IllegalArgumentException("Location cannot be null!");
-        }
-        else
-        {
-            TextureAtlasSprite textureatlassprite = mapRegisteredSprites.get(location);
+			try {
+				iresource = resourceManager.getResource(resourcelocation);
+				texture.loadSpriteFrames(iresource, mipmapLevels + 1);
+				break label62;
+			} catch (RuntimeException runtimeexception) {
+				LOGGER.error("Unable to parse metadata from {}", resourcelocation, runtimeexception);
+				flag = false;
+			} catch (IOException ioexception) {
+				LOGGER.error("Using missing texture, unable to load {}", resourcelocation, ioexception);
+				flag = false;
+				return flag;
+			} finally {
+				IOUtils.closeQuietly(iresource);
+			}
 
-            if (textureatlassprite == null)
-            {
-                textureatlassprite = TextureAtlasSprite.makeAtlasSprite(location);
-                mapRegisteredSprites.put(location.toString(), textureatlassprite);
-            }
+			return flag;
+		}
 
-            return textureatlassprite;
-        }
-    }
+		try {
+			texture.generateMipmaps(mipmapLevels);
+			return true;
+		} catch (Throwable throwable) {
+			CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Applying mipmap");
+			CrashReportCategory crashreportcategory = crashreport.makeCategory("Sprite being mipmapped");
+			crashreportcategory.addDetail("Sprite name", new ICrashReportDetail<String>() {
+				public String call() throws Exception {
 
-    public void tick()
-    {
-        updateAnimations();
-    }
+					return texture.getIconName();
+				}
+			});
+			crashreportcategory.addDetail("Sprite size", new ICrashReportDetail<String>() {
+				public String call() throws Exception {
 
-    public void setMipmapLevels(int mipmapLevelsIn)
-    {
-        mipmapLevels = mipmapLevelsIn;
-    }
+					return texture.getIconWidth() + " x " + texture.getIconHeight();
+				}
+			});
+			crashreportcategory.addDetail("Sprite frames", new ICrashReportDetail<String>() {
+				public String call() throws Exception {
 
-    public TextureAtlasSprite getMissingSprite()
-    {
-        return missingImage;
-    }
+					return texture.getFrameCount() + " frames";
+				}
+			});
+			crashreportcategory.addCrashSection("Mipmap levels", Integer.valueOf(mipmapLevels));
+			throw new ReportedException(crashreport);
+		}
+	}
+
+	private ResourceLocation getResourceLocation(TextureAtlasSprite p_184396_1_) {
+
+		ResourceLocation resourcelocation = new ResourceLocation(p_184396_1_.getIconName());
+		return new ResourceLocation(resourcelocation.getResourceDomain(), String.format("%s/%s%s", basePath, resourcelocation.getResourcePath(), ".png"));
+	}
+
+	public TextureAtlasSprite getAtlasSprite(String iconName) {
+
+		TextureAtlasSprite textureatlassprite = mapUploadedSprites.get(iconName);
+
+		if (textureatlassprite == null) {
+			textureatlassprite = missingImage;
+		}
+
+		return textureatlassprite;
+	}
+
+	public void updateAnimations() {
+
+		TextureUtil.bindTexture(getGlTextureId());
+
+		for (TextureAtlasSprite textureatlassprite : listAnimatedSprites) {
+			textureatlassprite.updateAnimation();
+		}
+	}
+
+	public TextureAtlasSprite registerSprite(ResourceLocation location) {
+
+		if (location == null) {
+			throw new IllegalArgumentException("Location cannot be null!");
+		} else {
+			TextureAtlasSprite textureatlassprite = mapRegisteredSprites.get(location);
+
+			if (textureatlassprite == null) {
+				textureatlassprite = TextureAtlasSprite.makeAtlasSprite(location);
+				mapRegisteredSprites.put(location.toString(), textureatlassprite);
+			}
+
+			return textureatlassprite;
+		}
+	}
+
+	public void tick() {
+
+		updateAnimations();
+	}
+
+	public void setMipmapLevels(int mipmapLevelsIn) {
+
+		mipmapLevels = mipmapLevelsIn;
+	}
+
+	public TextureAtlasSprite getMissingSprite() {
+
+		return missingImage;
+	}
+
 }

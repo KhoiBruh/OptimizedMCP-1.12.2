@@ -1,13 +1,14 @@
 package net.minecraft.entity;
 
-import java.util.UUID;
 import javax.annotation.Nullable;
+import java.util.UUID;
 
-public interface IEntityOwnable
-{
-    @Nullable
-    UUID getOwnerId();
+public interface IEntityOwnable {
 
-    @Nullable
-    Entity getOwner();
+	@Nullable
+	UUID getOwnerId();
+
+	@Nullable
+	Entity getOwner();
+
 }

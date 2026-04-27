@@ -10,253 +10,233 @@ import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.village.MerchantRecipe;
 import net.minecraft.village.MerchantRecipeList;
 
-public class InventoryMerchant implements IInventory
-{
-    private final IMerchant merchant;
-    private final NonNullList<ItemStack> slots = NonNullList.<ItemStack>withSize(3, ItemStack.EMPTY);
-    private final EntityPlayer player;
-    private MerchantRecipe currentRecipe;
-    private int currentRecipeIndex;
+public class InventoryMerchant implements IInventory {
 
-    public InventoryMerchant(EntityPlayer thePlayerIn, IMerchant theMerchantIn)
-    {
-        player = thePlayerIn;
-        merchant = theMerchantIn;
-    }
+	private final IMerchant merchant;
+	private final NonNullList<ItemStack> slots = NonNullList.withSize(3, ItemStack.EMPTY);
+	private final EntityPlayer player;
+	private MerchantRecipe currentRecipe;
+	private int currentRecipeIndex;
 
-    /**
-     * Returns the number of slots in the inventory.
-     */
-    public int getSizeInventory()
-    {
-        return slots.size();
-    }
+	public InventoryMerchant(EntityPlayer thePlayerIn, IMerchant theMerchantIn) {
 
-    public boolean isEmpty()
-    {
-        for (ItemStack itemstack : slots)
-        {
-            if (!itemstack.isEmpty())
-            {
-                return false;
-            }
-        }
+		player = thePlayerIn;
+		merchant = theMerchantIn;
+	}
 
-        return true;
-    }
+	/**
+	 * Returns the number of slots in the inventory.
+	 */
+	public int getSizeInventory() {
 
-    /**
-     * Returns the stack in the given slot.
-     */
-    public ItemStack getStackInSlot(int index)
-    {
-        return slots.get(index);
-    }
+		return slots.size();
+	}
 
-    /**
-     * Removes up to a specified number of items from an inventory slot and returns them in a new stack.
-     */
-    public ItemStack decrStackSize(int index, int count)
-    {
-        ItemStack itemstack = slots.get(index);
+	public boolean isEmpty() {
 
-        if (index == 2 && !itemstack.isEmpty())
-        {
-            return ItemStackHelper.getAndSplit(slots, index, itemstack.getCount());
-        }
-        else
-        {
-            ItemStack itemstack1 = ItemStackHelper.getAndSplit(slots, index, count);
+		for (ItemStack itemstack : slots) {
+			if (!itemstack.isEmpty()) {
+				return false;
+			}
+		}
 
-            if (!itemstack1.isEmpty() && inventoryResetNeededOnSlotChange(index))
-            {
-                resetRecipeAndSlots();
-            }
+		return true;
+	}
 
-            return itemstack1;
-        }
-    }
+	/**
+	 * Returns the stack in the given slot.
+	 */
+	public ItemStack getStackInSlot(int index) {
 
-    /**
-     * if par1 slot has changed, does resetRecipeAndSlots need to be called?
-     */
-    private boolean inventoryResetNeededOnSlotChange(int slotIn)
-    {
-        return slotIn == 0 || slotIn == 1;
-    }
+		return slots.get(index);
+	}
 
-    /**
-     * Removes a stack from the given slot and returns it.
-     */
-    public ItemStack removeStackFromSlot(int index)
-    {
-        return ItemStackHelper.getAndRemove(slots, index);
-    }
+	/**
+	 * Removes up to a specified number of items from an inventory slot and returns them in a new stack.
+	 */
+	public ItemStack decrStackSize(int index, int count) {
 
-    /**
-     * Sets the given item stack to the specified slot in the inventory (can be crafting or armor sections).
-     */
-    public void setInventorySlotContents(int index, ItemStack stack)
-    {
-        slots.set(index, stack);
+		ItemStack itemstack = slots.get(index);
 
-        if (!stack.isEmpty() && stack.getCount() > getInventoryStackLimit())
-        {
-            stack.setCount(getInventoryStackLimit());
-        }
+		if (index == 2 && !itemstack.isEmpty()) {
+			return ItemStackHelper.getAndSplit(slots, index, itemstack.getCount());
+		} else {
+			ItemStack itemstack1 = ItemStackHelper.getAndSplit(slots, index, count);
 
-        if (inventoryResetNeededOnSlotChange(index))
-        {
-            resetRecipeAndSlots();
-        }
-    }
+			if (!itemstack1.isEmpty() && inventoryResetNeededOnSlotChange(index)) {
+				resetRecipeAndSlots();
+			}
 
-    /**
-     * Get the name of this object. For players this returns their username
-     */
-    public String getName()
-    {
-        return "mob.villager";
-    }
+			return itemstack1;
+		}
+	}
 
-    /**
-     * Returns true if this thing is named
-     */
-    public boolean hasCustomName()
-    {
-        return false;
-    }
+	/**
+	 * if par1 slot has changed, does resetRecipeAndSlots need to be called?
+	 */
+	private boolean inventoryResetNeededOnSlotChange(int slotIn) {
 
-    /**
-     * Get the formatted ChatComponent that will be used for the sender's username in chat
-     */
-    public ITextComponent getDisplayName()
-    {
-        return (ITextComponent)(hasCustomName() ? new TextComponentString(getName()) : new TextComponentTranslation(getName(), new Object[0]));
-    }
+		return slotIn == 0 || slotIn == 1;
+	}
 
-    /**
-     * Returns the maximum stack size for a inventory slot. Seems to always be 64, possibly will be extended.
-     */
-    public int getInventoryStackLimit()
-    {
-        return 64;
-    }
+	/**
+	 * Removes a stack from the given slot and returns it.
+	 */
+	public ItemStack removeStackFromSlot(int index) {
 
-    /**
-     * Don't rename this method to canInteractWith due to conflicts with Container
-     */
-    public boolean isUsableByPlayer(EntityPlayer player)
-    {
-        return merchant.getCustomer() == player;
-    }
+		return ItemStackHelper.getAndRemove(slots, index);
+	}
 
-    public void openInventory(EntityPlayer player)
-    {
-    }
+	/**
+	 * Sets the given item stack to the specified slot in the inventory (can be crafting or armor sections).
+	 */
+	public void setInventorySlotContents(int index, ItemStack stack) {
 
-    public void closeInventory(EntityPlayer player)
-    {
-    }
+		slots.set(index, stack);
 
-    /**
-     * Returns true if automation is allowed to insert the given stack (ignoring stack size) into the given slot. For
-     * guis use Slot.isItemValid
-     */
-    public boolean isItemValidForSlot(int index, ItemStack stack)
-    {
-        return true;
-    }
+		if (!stack.isEmpty() && stack.getCount() > getInventoryStackLimit()) {
+			stack.setCount(getInventoryStackLimit());
+		}
 
-    /**
-     * For tile entities, ensures the chunk containing the tile entity is saved to disk later - the game won't think it
-     * hasn't changed and skip it.
-     */
-    public void markDirty()
-    {
-        resetRecipeAndSlots();
-    }
+		if (inventoryResetNeededOnSlotChange(index)) {
+			resetRecipeAndSlots();
+		}
+	}
 
-    public void resetRecipeAndSlots()
-    {
-        currentRecipe = null;
-        ItemStack itemstack = slots.get(0);
-        ItemStack itemstack1 = slots.get(1);
+	/**
+	 * Get the name of this object. For players this returns their username
+	 */
+	public String getName() {
 
-        if (itemstack.isEmpty())
-        {
-            itemstack = itemstack1;
-            itemstack1 = ItemStack.EMPTY;
-        }
+		return "mob.villager";
+	}
 
-        if (itemstack.isEmpty())
-        {
-            setInventorySlotContents(2, ItemStack.EMPTY);
-        }
-        else
-        {
-            MerchantRecipeList merchantrecipelist = merchant.getRecipes(player);
+	/**
+	 * Returns true if this thing is named
+	 */
+	public boolean hasCustomName() {
 
-            if (merchantrecipelist != null)
-            {
-                MerchantRecipe merchantrecipe = merchantrecipelist.canRecipeBeUsed(itemstack, itemstack1, currentRecipeIndex);
+		return false;
+	}
 
-                if (merchantrecipe != null && !merchantrecipe.isRecipeDisabled())
-                {
-                    currentRecipe = merchantrecipe;
-                    setInventorySlotContents(2, merchantrecipe.getItemToSell().copy());
-                }
-                else if (!itemstack1.isEmpty())
-                {
-                    merchantrecipe = merchantrecipelist.canRecipeBeUsed(itemstack1, itemstack, currentRecipeIndex);
+	/**
+	 * Get the formatted ChatComponent that will be used for the sender's username in chat
+	 */
+	public ITextComponent displayName() {
 
-                    if (merchantrecipe != null && !merchantrecipe.isRecipeDisabled())
-                    {
-                        currentRecipe = merchantrecipe;
-                        setInventorySlotContents(2, merchantrecipe.getItemToSell().copy());
-                    }
-                    else
-                    {
-                        setInventorySlotContents(2, ItemStack.EMPTY);
-                    }
-                }
-                else
-                {
-                    setInventorySlotContents(2, ItemStack.EMPTY);
-                }
-            }
+		return hasCustomName() ? new TextComponentString(getName()) : new TextComponentTranslation(getName(), new Object[0]);
+	}
 
-            merchant.verifySellingItem(getStackInSlot(2));
-        }
-    }
+	/**
+	 * Returns the maximum stack size for a inventory slot. Seems to always be 64, possibly will be extended.
+	 */
+	public int getInventoryStackLimit() {
 
-    public MerchantRecipe getCurrentRecipe()
-    {
-        return currentRecipe;
-    }
+		return 64;
+	}
 
-    public void setCurrentRecipeIndex(int currentRecipeIndexIn)
-    {
-        currentRecipeIndex = currentRecipeIndexIn;
-        resetRecipeAndSlots();
-    }
+	/**
+	 * Don't rename this method to canInteractWith due to conflicts with Container
+	 */
+	public boolean isUsableByPlayer(EntityPlayer player) {
 
-    public int getField(int id)
-    {
-        return 0;
-    }
+		return merchant.getCustomer() == player;
+	}
 
-    public void setField(int id, int value)
-    {
-    }
+	public void openInventory(EntityPlayer player) {
 
-    public int getFieldCount()
-    {
-        return 0;
-    }
+	}
 
-    public void clear()
-    {
-        slots.clear();
-    }
+	public void closeInventory(EntityPlayer player) {
+
+	}
+
+	/**
+	 * Returns true if automation is allowed to insert the given stack (ignoring stack size) into the given slot. For
+	 * guis use Slot.isItemValid
+	 */
+	public boolean isItemValidForSlot(int index, ItemStack stack) {
+
+		return true;
+	}
+
+	/**
+	 * For tile entities, ensures the chunk containing the tile entity is saved to disk later - the game won't think it
+	 * hasn't changed and skip it.
+	 */
+	public void markDirty() {
+
+		resetRecipeAndSlots();
+	}
+
+	public void resetRecipeAndSlots() {
+
+		currentRecipe = null;
+		ItemStack itemstack = slots.get(0);
+		ItemStack itemstack1 = slots.get(1);
+
+		if (itemstack.isEmpty()) {
+			itemstack = itemstack1;
+			itemstack1 = ItemStack.EMPTY;
+		}
+
+		if (itemstack.isEmpty()) {
+			setInventorySlotContents(2, ItemStack.EMPTY);
+		} else {
+			MerchantRecipeList merchantrecipelist = merchant.getRecipes(player);
+
+			if (merchantrecipelist != null) {
+				MerchantRecipe merchantrecipe = merchantrecipelist.canRecipeBeUsed(itemstack, itemstack1, currentRecipeIndex);
+
+				if (merchantrecipe != null && !merchantrecipe.isRecipeDisabled()) {
+					currentRecipe = merchantrecipe;
+					setInventorySlotContents(2, merchantrecipe.getItemToSell().copy());
+				} else if (!itemstack1.isEmpty()) {
+					merchantrecipe = merchantrecipelist.canRecipeBeUsed(itemstack1, itemstack, currentRecipeIndex);
+
+					if (merchantrecipe != null && !merchantrecipe.isRecipeDisabled()) {
+						currentRecipe = merchantrecipe;
+						setInventorySlotContents(2, merchantrecipe.getItemToSell().copy());
+					} else {
+						setInventorySlotContents(2, ItemStack.EMPTY);
+					}
+				} else {
+					setInventorySlotContents(2, ItemStack.EMPTY);
+				}
+			}
+
+			merchant.verifySellingItem(getStackInSlot(2));
+		}
+	}
+
+	public MerchantRecipe getCurrentRecipe() {
+
+		return currentRecipe;
+	}
+
+	public void setCurrentRecipeIndex(int currentRecipeIndexIn) {
+
+		currentRecipeIndex = currentRecipeIndexIn;
+		resetRecipeAndSlots();
+	}
+
+	public int getField(int id) {
+
+		return 0;
+	}
+
+	public void setField(int id, int value) {
+
+	}
+
+	public int getFieldCount() {
+
+		return 0;
+	}
+
+	public void clear() {
+
+		slots.clear();
+	}
+
 }

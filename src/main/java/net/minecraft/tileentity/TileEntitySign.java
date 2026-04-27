@@ -1,6 +1,5 @@
 package net.minecraft.tileentity;
 
-import javax.annotation.Nullable;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.CommandResultStats;
 import net.minecraft.command.ICommandSender;
@@ -18,204 +17,210 @@ import net.minecraft.util.text.TextComponentUtils;
 import net.minecraft.util.text.event.ClickEvent;
 import net.minecraft.world.World;
 
-public class TileEntitySign extends TileEntity
-{
-    public final ITextComponent[] signText = new ITextComponent[] {new TextComponentString(""), new TextComponentString(""), new TextComponentString(""), new TextComponentString("")};
+import javax.annotation.Nullable;
 
-    /**
-     * The index of the line currently being edited. Only used on client side, but defined on both. Note this is only
-     * really used when the > < are going to be visible.
-     */
-    public int lineBeingEdited = -1;
-    private boolean isEditable = true;
-    private EntityPlayer player;
-    private final CommandResultStats stats = new CommandResultStats();
+public class TileEntitySign extends TileEntity {
 
-    public NBTTagCompound writeToNBT(NBTTagCompound compound)
-    {
-        super.writeToNBT(compound);
+	public final ITextComponent[] signText = new ITextComponent[]{new TextComponentString(""), new TextComponentString(""), new TextComponentString(""), new TextComponentString("")};
 
-        for (int i = 0; i < 4; ++i)
-        {
-            String s = ITextComponent.Serializer.componentToJson(signText[i]);
-            compound.setString("Text" + (i + 1), s);
-        }
+	/**
+	 * The index of the line currently being edited. Only used on client side, but defined on both. Note this is only
+	 * really used when the > < are going to be visible.
+	 */
+	public int lineBeingEdited = -1;
+	private boolean isEditable = true;
+	private EntityPlayer player;
+	private final CommandResultStats stats = new CommandResultStats();
 
-        stats.writeStatsToNBT(compound);
-        return compound;
-    }
+	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
 
-    protected void setWorldCreate(World worldIn)
-    {
-        setWorld(worldIn);
-    }
+		super.writeToNBT(compound);
 
-    public void readFromNBT(NBTTagCompound compound)
-    {
-        isEditable = false;
-        super.readFromNBT(compound);
-        ICommandSender icommandsender = new ICommandSender()
-        {
-            public String getName()
-            {
-                return "Sign";
-            }
-            public boolean canUseCommand(int permLevel, String commandName)
-            {
-                return true;
-            }
-            public BlockPos getPosition()
-            {
-                return pos;
-            }
-            public Vec3d getPositionVector()
-            {
-                return new Vec3d((double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D);
-            }
-            public World getEntityWorld()
-            {
-                return world;
-            }
-            public MinecraftServer getServer()
-            {
-                return world.getMinecraftServer();
-            }
-        };
+		for (int i = 0; i < 4; ++i) {
+			String s = ITextComponent.Serializer.componentToJson(signText[i]);
+			compound.setString("Text" + (i + 1), s);
+		}
 
-        for (int i = 0; i < 4; ++i)
-        {
-            String s = compound.getString("Text" + (i + 1));
-            ITextComponent itextcomponent = ITextComponent.Serializer.jsonToComponent(s);
+		stats.writeStatsToNBT(compound);
+		return compound;
+	}
 
-            try
-            {
-                signText[i] = TextComponentUtils.processComponent(icommandsender, itextcomponent, (Entity)null);
-            }
-            catch (CommandException var7)
-            {
-                signText[i] = itextcomponent;
-            }
-        }
+	protected void setWorldCreate(World worldIn) {
 
-        stats.readStatsFromNBT(compound);
-    }
+		setWorld(worldIn);
+	}
 
-    @Nullable
-    public SPacketUpdateTileEntity getUpdatePacket()
-    {
-        return new SPacketUpdateTileEntity(pos, 9, getUpdateTag());
-    }
+	public void readFromNBT(NBTTagCompound compound) {
 
-    public NBTTagCompound getUpdateTag()
-    {
-        return writeToNBT(new NBTTagCompound());
-    }
+		isEditable = false;
+		super.readFromNBT(compound);
+		ICommandSender icommandsender = new ICommandSender() {
+			public String getName() {
 
-    public boolean onlyOpsCanSetNbt()
-    {
-        return true;
-    }
+				return "Sign";
+			}
 
-    public boolean getIsEditable()
-    {
-        return isEditable;
-    }
+			public boolean canUseCommand(int permLevel, String commandName) {
 
-    /**
-     * Sets the sign's isEditable flag to the specified parameter.
-     */
-    public void setEditable(boolean isEditableIn)
-    {
-        isEditable = isEditableIn;
+				return true;
+			}
 
-        if (!isEditableIn)
-        {
-            player = null;
-        }
-    }
+			public BlockPos getPosition() {
 
-    public void setPlayer(EntityPlayer playerIn)
-    {
-        player = playerIn;
-    }
+				return pos;
+			}
 
-    public EntityPlayer getPlayer()
-    {
-        return player;
-    }
+			public Vec3d getPositionVector() {
 
-    public boolean executeCommand(final EntityPlayer playerIn)
-    {
-        ICommandSender icommandsender = new ICommandSender()
-        {
-            public String getName()
-            {
-                return playerIn.getName();
-            }
-            public ITextComponent getDisplayName()
-            {
-                return playerIn.getDisplayName();
-            }
-            public void sendMessage(ITextComponent component)
-            {
-            }
-            public boolean canUseCommand(int permLevel, String commandName)
-            {
-                return permLevel <= 2;
-            }
-            public BlockPos getPosition()
-            {
-                return pos;
-            }
-            public Vec3d getPositionVector()
-            {
-                return new Vec3d((double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D);
-            }
-            public World getEntityWorld()
-            {
-                return playerIn.getEntityWorld();
-            }
-            public Entity getCommandSenderEntity()
-            {
-                return playerIn;
-            }
-            public boolean sendCommandFeedback()
-            {
-                return false;
-            }
-            public void setCommandStat(CommandResultStats.Type type, int amount)
-            {
-                if (world != null && !world.isRemote)
-                {
-                    stats.setCommandStatForSender(world.getMinecraftServer(), this, type, amount);
-                }
-            }
-            public MinecraftServer getServer()
-            {
-                return playerIn.getServer();
-            }
-        };
+				return new Vec3d((double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D);
+			}
 
-        for (ITextComponent itextcomponent : signText)
-        {
-            Style style = itextcomponent == null ? null : itextcomponent.getStyle();
+			public World getEntityWorld() {
 
-            if (style != null && style.getClickEvent() != null)
-            {
-                ClickEvent clickevent = style.getClickEvent();
+				return world;
+			}
 
-                if (clickevent.getAction() == ClickEvent.Action.RUN_COMMAND)
-                {
-                    playerIn.getServer().getCommandManager().executeCommand(icommandsender, clickevent.getValue());
-                }
-            }
-        }
+			public MinecraftServer getServer() {
 
-        return true;
-    }
+				return world.getMinecraftServer();
+			}
+		};
 
-    public CommandResultStats getStats()
-    {
-        return stats;
-    }
+		for (int i = 0; i < 4; ++i) {
+			String s = compound.getString("Text" + (i + 1));
+			ITextComponent itextcomponent = ITextComponent.Serializer.jsonToComponent(s);
+
+			try {
+				signText[i] = TextComponentUtils.processComponent(icommandsender, itextcomponent, null);
+			} catch (CommandException var7) {
+				signText[i] = itextcomponent;
+			}
+		}
+
+		stats.readStatsFromNBT(compound);
+	}
+
+	@Nullable
+	public SPacketUpdateTileEntity getUpdatePacket() {
+
+		return new SPacketUpdateTileEntity(pos, 9, getUpdateTag());
+	}
+
+	public NBTTagCompound getUpdateTag() {
+
+		return writeToNBT(new NBTTagCompound());
+	}
+
+	public boolean onlyOpsCanSetNbt() {
+
+		return true;
+	}
+
+	public boolean getIsEditable() {
+
+		return isEditable;
+	}
+
+	/**
+	 * Sets the sign's isEditable flag to the specified parameter.
+	 */
+	public void setEditable(boolean isEditableIn) {
+
+		isEditable = isEditableIn;
+
+		if (!isEditableIn) {
+			player = null;
+		}
+	}
+
+	public void setPlayer(EntityPlayer playerIn) {
+
+		player = playerIn;
+	}
+
+	public EntityPlayer getPlayer() {
+
+		return player;
+	}
+
+	public boolean executeCommand(final EntityPlayer playerIn) {
+
+		ICommandSender icommandsender = new ICommandSender() {
+			public String getName() {
+
+				return playerIn.getName();
+			}
+
+			public ITextComponent getDisplayName() {
+
+				return playerIn.getDisplayName();
+			}
+
+			public void sendMessage(ITextComponent component) {
+
+			}
+
+			public boolean canUseCommand(int permLevel, String commandName) {
+
+				return permLevel <= 2;
+			}
+
+			public BlockPos getPosition() {
+
+				return pos;
+			}
+
+			public Vec3d getPositionVector() {
+
+				return new Vec3d((double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D);
+			}
+
+			public World getEntityWorld() {
+
+				return playerIn.getEntityWorld();
+			}
+
+			public Entity getCommandSenderEntity() {
+
+				return playerIn;
+			}
+
+			public boolean sendCommandFeedback() {
+
+				return false;
+			}
+
+			public void setCommandStat(CommandResultStats.Type type, int amount) {
+
+				if (world != null && !world.isRemote) {
+					stats.setCommandStatForSender(world.getMinecraftServer(), this, type, amount);
+				}
+			}
+
+			public MinecraftServer getServer() {
+
+				return playerIn.getServer();
+			}
+		};
+
+		for (ITextComponent itextcomponent : signText) {
+			Style style = itextcomponent == null ? null : itextcomponent.getStyle();
+
+			if (style != null && style.getClickEvent() != null) {
+				ClickEvent clickevent = style.getClickEvent();
+
+				if (clickevent.action() == ClickEvent.Action.RUN_COMMAND) {
+					playerIn.getServer().getCommandManager().executeCommand(icommandsender, clickevent.value());
+				}
+			}
+		}
+
+		return true;
+	}
+
+	public CommandResultStats getStats() {
+
+		return stats;
+	}
+
 }

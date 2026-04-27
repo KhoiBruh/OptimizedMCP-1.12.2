@@ -6,9 +6,6 @@ import com.google.common.collect.Sets;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import net.minecraft.advancements.ICriterionTrigger;
 import net.minecraft.advancements.PlayerAdvancements;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -17,142 +14,137 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.JsonUtils;
 import net.minecraft.util.ResourceLocation;
 
-public class RecipeUnlockedTrigger implements ICriterionTrigger<RecipeUnlockedTrigger.Instance>
-{
-    private static final ResourceLocation ID = new ResourceLocation("recipe_unlocked");
-    private final Map<PlayerAdvancements, RecipeUnlockedTrigger.Listeners> listeners = Maps.<PlayerAdvancements, RecipeUnlockedTrigger.Listeners>newHashMap();
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-    public ResourceLocation getId()
-    {
-        return ID;
-    }
+public class RecipeUnlockedTrigger implements ICriterionTrigger<RecipeUnlockedTrigger.Instance> {
 
-    public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<RecipeUnlockedTrigger.Instance> listener)
-    {
-        RecipeUnlockedTrigger.Listeners recipeunlockedtrigger$listeners = listeners.get(playerAdvancementsIn);
+	private static final ResourceLocation ID = new ResourceLocation("recipe_unlocked");
+	private final Map<PlayerAdvancements, RecipeUnlockedTrigger.Listeners> listeners = Maps.newHashMap();
 
-        if (recipeunlockedtrigger$listeners == null)
-        {
-            recipeunlockedtrigger$listeners = new RecipeUnlockedTrigger.Listeners(playerAdvancementsIn);
-            listeners.put(playerAdvancementsIn, recipeunlockedtrigger$listeners);
-        }
+	public ResourceLocation getId() {
 
-        recipeunlockedtrigger$listeners.add(listener);
-    }
+		return ID;
+	}
 
-    public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<RecipeUnlockedTrigger.Instance> listener)
-    {
-        RecipeUnlockedTrigger.Listeners recipeunlockedtrigger$listeners = listeners.get(playerAdvancementsIn);
+	public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<RecipeUnlockedTrigger.Instance> listener) {
 
-        if (recipeunlockedtrigger$listeners != null)
-        {
-            recipeunlockedtrigger$listeners.remove(listener);
+		RecipeUnlockedTrigger.Listeners recipeunlockedtrigger$listeners = listeners.get(playerAdvancementsIn);
 
-            if (recipeunlockedtrigger$listeners.isEmpty())
-            {
-                listeners.remove(playerAdvancementsIn);
-            }
-        }
-    }
+		if (recipeunlockedtrigger$listeners == null) {
+			recipeunlockedtrigger$listeners = new RecipeUnlockedTrigger.Listeners(playerAdvancementsIn);
+			listeners.put(playerAdvancementsIn, recipeunlockedtrigger$listeners);
+		}
 
-    public void removeAllListeners(PlayerAdvancements playerAdvancementsIn)
-    {
-        listeners.remove(playerAdvancementsIn);
-    }
+		recipeunlockedtrigger$listeners.add(listener);
+	}
 
-    /**
-     * Deserialize a ICriterionInstance of this trigger from the data in the JSON.
-     */
-    public RecipeUnlockedTrigger.Instance deserializeInstance(JsonObject json, JsonDeserializationContext context)
-    {
-        ResourceLocation resourcelocation = new ResourceLocation(JsonUtils.getString(json, "recipe"));
-        IRecipe irecipe = CraftingManager.getRecipe(resourcelocation);
+	public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<RecipeUnlockedTrigger.Instance> listener) {
 
-        if (irecipe == null)
-        {
-            throw new JsonSyntaxException("Unknown recipe '" + resourcelocation + "'");
-        }
-        else
-        {
-            return new RecipeUnlockedTrigger.Instance(irecipe);
-        }
-    }
+		RecipeUnlockedTrigger.Listeners recipeunlockedtrigger$listeners = listeners.get(playerAdvancementsIn);
 
-    public void trigger(EntityPlayerMP player, IRecipe recipe)
-    {
-        RecipeUnlockedTrigger.Listeners recipeunlockedtrigger$listeners = listeners.get(player.getAdvancements());
+		if (recipeunlockedtrigger$listeners != null) {
+			recipeunlockedtrigger$listeners.remove(listener);
 
-        if (recipeunlockedtrigger$listeners != null)
-        {
-            recipeunlockedtrigger$listeners.trigger(recipe);
-        }
-    }
+			if (recipeunlockedtrigger$listeners.isEmpty()) {
+				listeners.remove(playerAdvancementsIn);
+			}
+		}
+	}
 
-    public static class Instance extends AbstractCriterionInstance
-    {
-        private final IRecipe recipe;
+	public void removeAllListeners(PlayerAdvancements playerAdvancementsIn) {
 
-        public Instance(IRecipe recipe)
-        {
-            super(RecipeUnlockedTrigger.ID);
-            this.recipe = recipe;
-        }
+		listeners.remove(playerAdvancementsIn);
+	}
 
-        public boolean test(IRecipe recipe)
-        {
-            return this.recipe == recipe;
-        }
-    }
+	/**
+	 * Deserialize a ICriterionInstance of this trigger from the data in the JSON.
+	 */
+	public RecipeUnlockedTrigger.Instance deserializeInstance(JsonObject json, JsonDeserializationContext context) {
 
-    static class Listeners
-    {
-        private final PlayerAdvancements playerAdvancements;
-        private final Set<ICriterionTrigger.Listener<RecipeUnlockedTrigger.Instance>> listeners = Sets.<ICriterionTrigger.Listener<RecipeUnlockedTrigger.Instance>>newHashSet();
+		ResourceLocation resourcelocation = new ResourceLocation(JsonUtils.getString(json, "recipe"));
+		IRecipe irecipe = CraftingManager.getRecipe(resourcelocation);
 
-        public Listeners(PlayerAdvancements playerAdvancementsIn)
-        {
-            playerAdvancements = playerAdvancementsIn;
-        }
+		if (irecipe == null) {
+			throw new JsonSyntaxException("Unknown recipe '" + resourcelocation + "'");
+		} else {
+			return new RecipeUnlockedTrigger.Instance(irecipe);
+		}
+	}
 
-        public boolean isEmpty()
-        {
-            return listeners.isEmpty();
-        }
+	public void trigger(EntityPlayerMP player, IRecipe recipe) {
 
-        public void add(ICriterionTrigger.Listener<RecipeUnlockedTrigger.Instance> listener)
-        {
-            listeners.add(listener);
-        }
+		RecipeUnlockedTrigger.Listeners recipeunlockedtrigger$listeners = listeners.get(player.getAdvancements());
 
-        public void remove(ICriterionTrigger.Listener<RecipeUnlockedTrigger.Instance> listener)
-        {
-            listeners.remove(listener);
-        }
+		if (recipeunlockedtrigger$listeners != null) {
+			recipeunlockedtrigger$listeners.trigger(recipe);
+		}
+	}
 
-        public void trigger(IRecipe recipe)
-        {
-            List<ICriterionTrigger.Listener<RecipeUnlockedTrigger.Instance>> list = null;
+	public static class Instance extends AbstractCriterionInstance {
 
-            for (ICriterionTrigger.Listener<RecipeUnlockedTrigger.Instance> listener : listeners)
-            {
-                if (((RecipeUnlockedTrigger.Instance)listener.getCriterionInstance()).test(recipe))
-                {
-                    if (list == null)
-                    {
-                        list = Lists.<ICriterionTrigger.Listener<RecipeUnlockedTrigger.Instance>>newArrayList();
-                    }
+		private final IRecipe recipe;
 
-                    list.add(listener);
-                }
-            }
+		public Instance(IRecipe recipe) {
 
-            if (list != null)
-            {
-                for (ICriterionTrigger.Listener<RecipeUnlockedTrigger.Instance> listener1 : list)
-                {
-                    listener1.grantCriterion(playerAdvancements);
-                }
-            }
-        }
-    }
+			super(RecipeUnlockedTrigger.ID);
+			this.recipe = recipe;
+		}
+
+		public boolean test(IRecipe recipe) {
+
+			return this.recipe == recipe;
+		}
+
+	}
+
+	static class Listeners {
+
+		private final PlayerAdvancements playerAdvancements;
+		private final Set<ICriterionTrigger.Listener<RecipeUnlockedTrigger.Instance>> listeners = Sets.newHashSet();
+
+		public Listeners(PlayerAdvancements playerAdvancementsIn) {
+
+			playerAdvancements = playerAdvancementsIn;
+		}
+
+		public boolean isEmpty() {
+
+			return listeners.isEmpty();
+		}
+
+		public void add(ICriterionTrigger.Listener<RecipeUnlockedTrigger.Instance> listener) {
+
+			listeners.add(listener);
+		}
+
+		public void remove(ICriterionTrigger.Listener<RecipeUnlockedTrigger.Instance> listener) {
+
+			listeners.remove(listener);
+		}
+
+		public void trigger(IRecipe recipe) {
+
+			List<ICriterionTrigger.Listener<RecipeUnlockedTrigger.Instance>> list = null;
+
+			for (ICriterionTrigger.Listener<RecipeUnlockedTrigger.Instance> listener : listeners) {
+				if (listener.getCriterionInstance().test(recipe)) {
+					if (list == null) {
+						list = Lists.newArrayList();
+					}
+
+					list.add(listener);
+				}
+			}
+
+			if (list != null) {
+				for (ICriterionTrigger.Listener<RecipeUnlockedTrigger.Instance> listener1 : list) {
+					listener1.grantCriterion(playerAdvancements);
+				}
+			}
+		}
+
+	}
+
 }

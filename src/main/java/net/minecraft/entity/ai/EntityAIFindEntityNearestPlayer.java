@@ -1,14 +1,7 @@
 package net.minecraft.entity.ai;
 
 import com.google.common.base.Predicate;
-import java.util.Collections;
-import java.util.List;
-import javax.annotation.Nullable;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityCreature;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -16,157 +9,142 @@ import net.minecraft.scoreboard.Team;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class EntityAIFindEntityNearestPlayer extends EntityAIBase
-{
-    private static final Logger LOGGER = LogManager.getLogger();
+import javax.annotation.Nullable;
+import java.util.Collections;
+import java.util.List;
 
-    /** The entity that use this AI */
-    private final EntityLiving entityLiving;
-    private final Predicate<Entity> predicate;
+public class EntityAIFindEntityNearestPlayer extends EntityAIBase {
 
-    /** Used to compare two entities */
-    private final EntityAINearestAttackableTarget.Sorter sorter;
+	private static final Logger LOGGER = LogManager.getLogger();
 
-    /** The current target */
-    private EntityLivingBase entityTarget;
+	/**
+	 * The entity that use this AI
+	 */
+	private final EntityLiving entityLiving;
+	private final Predicate<Entity> predicate;
 
-    public EntityAIFindEntityNearestPlayer(EntityLiving entityLivingIn)
-    {
-        entityLiving = entityLivingIn;
+	/**
+	 * Used to compare two entities
+	 */
+	private final EntityAINearestAttackableTarget.Sorter sorter;
 
-        if (entityLivingIn instanceof EntityCreature)
-        {
-            LOGGER.warn("Use NearestAttackableTargetGoal.class for PathfinerMob mobs!");
-        }
+	/**
+	 * The current target
+	 */
+	private EntityLivingBase entityTarget;
 
-        predicate = new Predicate<Entity>()
-        {
-            public boolean apply(@Nullable Entity p_apply_1_)
-            {
-                if (!(p_apply_1_ instanceof EntityPlayer))
-                {
-                    return false;
-                }
-                else if (((EntityPlayer)p_apply_1_).capabilities.disableDamage)
-                {
-                    return false;
-                }
-                else
-                {
-                    double d0 = maxTargetRange();
+	public EntityAIFindEntityNearestPlayer(EntityLiving entityLivingIn) {
 
-                    if (p_apply_1_.isSneaking())
-                    {
-                        d0 *= 0.800000011920929D;
-                    }
+		entityLiving = entityLivingIn;
 
-                    if (p_apply_1_.isInvisible())
-                    {
-                        float f = ((EntityPlayer)p_apply_1_).getArmorVisibility();
+		if (entityLivingIn instanceof EntityCreature) {
+			LOGGER.warn("Use NearestAttackableTargetGoal.class for PathfinerMob mobs!");
+		}
 
-                        if (f < 0.1F)
-                        {
-                            f = 0.1F;
-                        }
+		predicate = new Predicate<Entity>() {
+			public boolean apply(@Nullable Entity p_apply_1_) {
 
-                        d0 *= (double)(0.7F * f);
-                    }
+				if (!(p_apply_1_ instanceof EntityPlayer)) {
+					return false;
+				} else if (((EntityPlayer) p_apply_1_).capabilities.disableDamage) {
+					return false;
+				} else {
+					double d0 = maxTargetRange();
 
-                    return (double)p_apply_1_.getDistance(entityLiving) > d0 ? false : EntityAITarget.isSuitableTarget(entityLiving, (EntityLivingBase)p_apply_1_, false, true);
-                }
-            }
-        };
-        sorter = new EntityAINearestAttackableTarget.Sorter(entityLivingIn);
-    }
+					if (p_apply_1_.isSneaking()) {
+						d0 *= 0.800000011920929D;
+					}
 
-    /**
-     * Returns whether the EntityAIBase should begin execution.
-     */
-    public boolean shouldExecute()
-    {
-        double d0 = maxTargetRange();
-        List<EntityPlayer> list = entityLiving.world.<EntityPlayer>getEntitiesWithinAABB(EntityPlayer.class, entityLiving.getEntityBoundingBox().grow(d0, 4.0D, d0), predicate);
-        Collections.sort(list, sorter);
+					if (p_apply_1_.isInvisible()) {
+						float f = ((EntityPlayer) p_apply_1_).getArmorVisibility();
 
-        if (list.isEmpty())
-        {
-            return false;
-        }
-        else
-        {
-            entityTarget = list.get(0);
-            return true;
-        }
-    }
+						if (f < 0.1F) {
+							f = 0.1F;
+						}
 
-    /**
-     * Returns whether an in-progress EntityAIBase should continue executing
-     */
-    public boolean shouldContinueExecuting()
-    {
-        EntityLivingBase entitylivingbase = entityLiving.getAttackTarget();
+						d0 *= 0.7F * f;
+					}
 
-        if (entitylivingbase == null)
-        {
-            return false;
-        }
-        else if (!entitylivingbase.isEntityAlive())
-        {
-            return false;
-        }
-        else if (entitylivingbase instanceof EntityPlayer && ((EntityPlayer)entitylivingbase).capabilities.disableDamage)
-        {
-            return false;
-        }
-        else
-        {
-            Team team = entityLiving.getTeam();
-            Team team1 = entitylivingbase.getTeam();
+					return !((double) p_apply_1_.getDistance(entityLiving) > d0) && EntityAITarget.isSuitableTarget(entityLiving, (EntityLivingBase) p_apply_1_, false, true);
+				}
+			}
+		};
+		sorter = new EntityAINearestAttackableTarget.Sorter(entityLivingIn);
+	}
 
-            if (team != null && team1 == team)
-            {
-                return false;
-            }
-            else
-            {
-                double d0 = maxTargetRange();
+	/**
+	 * Returns whether the EntityAIBase should begin execution.
+	 */
+	public boolean shouldExecute() {
 
-                if (entityLiving.getDistanceSq(entitylivingbase) > d0 * d0)
-                {
-                    return false;
-                }
-                else
-                {
-                    return !(entitylivingbase instanceof EntityPlayerMP) || !((EntityPlayerMP)entitylivingbase).interactionManager.isCreative();
-                }
-            }
-        }
-    }
+		double d0 = maxTargetRange();
+		List<EntityPlayer> list = entityLiving.world.getEntitiesWithinAABB(EntityPlayer.class, entityLiving.getEntityBoundingBox().grow(d0, 4.0D, d0), predicate);
+		Collections.sort(list, sorter);
 
-    /**
-     * Execute a one shot task or start executing a continuous task
-     */
-    public void startExecuting()
-    {
-        entityLiving.setAttackTarget(entityTarget);
-        super.startExecuting();
-    }
+		if (list.isEmpty()) {
+			return false;
+		} else {
+			entityTarget = list.get(0);
+			return true;
+		}
+	}
 
-    /**
-     * Reset the task's internal state. Called when this task is interrupted by another one
-     */
-    public void resetTask()
-    {
-        entityLiving.setAttackTarget((EntityLivingBase)null);
-        super.startExecuting();
-    }
+	/**
+	 * Returns whether an in-progress EntityAIBase should continue executing
+	 */
+	public boolean shouldContinueExecuting() {
 
-    /**
-     * Return the max target range of the entiity (16 by default)
-     */
-    protected double maxTargetRange()
-    {
-        IAttributeInstance iattributeinstance = entityLiving.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE);
-        return iattributeinstance == null ? 16.0D : iattributeinstance.getAttributeValue();
-    }
+		EntityLivingBase entitylivingbase = entityLiving.getAttackTarget();
+
+		if (entitylivingbase == null) {
+			return false;
+		} else if (!entitylivingbase.isEntityAlive()) {
+			return false;
+		} else if (entitylivingbase instanceof EntityPlayer && ((EntityPlayer) entitylivingbase).capabilities.disableDamage) {
+			return false;
+		} else {
+			Team team = entityLiving.getTeam();
+			Team team1 = entitylivingbase.getTeam();
+
+			if (team != null && team1 == team) {
+				return false;
+			} else {
+				double d0 = maxTargetRange();
+
+				if (entityLiving.getDistanceSq(entitylivingbase) > d0 * d0) {
+					return false;
+				} else {
+					return !(entitylivingbase instanceof EntityPlayerMP) || !((EntityPlayerMP) entitylivingbase).interactionManager.isCreative();
+				}
+			}
+		}
+	}
+
+	/**
+	 * Execute a one shot task or start executing a continuous task
+	 */
+	public void startExecuting() {
+
+		entityLiving.setAttackTarget(entityTarget);
+		super.startExecuting();
+	}
+
+	/**
+	 * Reset the task's internal state. Called when this task is interrupted by another one
+	 */
+	public void resetTask() {
+
+		entityLiving.setAttackTarget(null);
+		super.startExecuting();
+	}
+
+	/**
+	 * Return the max target range of the entiity (16 by default)
+	 */
+	protected double maxTargetRange() {
+
+		IAttributeInstance iattributeinstance = entityLiving.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE);
+		return iattributeinstance == null ? 16.0D : iattributeinstance.getAttributeValue();
+	}
+
 }

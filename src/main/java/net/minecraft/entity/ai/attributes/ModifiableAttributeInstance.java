@@ -3,217 +3,204 @@ package net.minecraft.entity.ai.attributes;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
+
+import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
-import javax.annotation.Nullable;
 
-public class ModifiableAttributeInstance implements IAttributeInstance
-{
-    /** The BaseAttributeMap this attributeInstance can be found in */
-    private final AbstractAttributeMap attributeMap;
+public class ModifiableAttributeInstance implements IAttributeInstance {
 
-    /** The Attribute this is an instance of */
-    private final IAttribute genericAttribute;
-    private final Map<Integer, Set<AttributeModifier>> mapByOperation = Maps.<Integer, Set<AttributeModifier>>newHashMap();
-    private final Map<String, Set<AttributeModifier>> mapByName = Maps.<String, Set<AttributeModifier>>newHashMap();
-    private final Map<UUID, AttributeModifier> mapByUUID = Maps.<UUID, AttributeModifier>newHashMap();
-    private double baseValue;
-    private boolean needsUpdate = true;
-    private double cachedValue;
+	/**
+	 * The BaseAttributeMap this attributeInstance can be found in
+	 */
+	private final AbstractAttributeMap attributeMap;
 
-    public ModifiableAttributeInstance(AbstractAttributeMap attributeMapIn, IAttribute genericAttributeIn)
-    {
-        attributeMap = attributeMapIn;
-        genericAttribute = genericAttributeIn;
-        baseValue = genericAttributeIn.getDefaultValue();
+	/**
+	 * The Attribute this is an instance of
+	 */
+	private final IAttribute genericAttribute;
+	private final Map<Integer, Set<AttributeModifier>> mapByOperation = Maps.newHashMap();
+	private final Map<String, Set<AttributeModifier>> mapByName = Maps.newHashMap();
+	private final Map<UUID, AttributeModifier> mapByUUID = Maps.newHashMap();
+	private double baseValue;
+	private boolean needsUpdate = true;
+	private double cachedValue;
 
-        for (int i = 0; i < 3; ++i)
-        {
-            mapByOperation.put(Integer.valueOf(i), Sets.newHashSet());
-        }
-    }
+	public ModifiableAttributeInstance(AbstractAttributeMap attributeMapIn, IAttribute genericAttributeIn) {
 
-    /**
-     * Get the Attribute this is an instance of
-     */
-    public IAttribute getAttribute()
-    {
-        return genericAttribute;
-    }
+		attributeMap = attributeMapIn;
+		genericAttribute = genericAttributeIn;
+		baseValue = genericAttributeIn.getDefaultValue();
 
-    public double getBaseValue()
-    {
-        return baseValue;
-    }
+		for (int i = 0; i < 3; ++i) {
+			mapByOperation.put(Integer.valueOf(i), Sets.newHashSet());
+		}
+	}
 
-    public void setBaseValue(double baseValue)
-    {
-        if (baseValue != getBaseValue())
-        {
-            this.baseValue = baseValue;
-            flagForUpdate();
-        }
-    }
+	/**
+	 * Get the Attribute this is an instance of
+	 */
+	public IAttribute getAttribute() {
 
-    public Collection<AttributeModifier> getModifiersByOperation(int operation)
-    {
-        return (Collection) mapByOperation.get(Integer.valueOf(operation));
-    }
+		return genericAttribute;
+	}
 
-    public Collection<AttributeModifier> getModifiers()
-    {
-        Set<AttributeModifier> set = Sets.<AttributeModifier>newHashSet();
+	public double getBaseValue() {
 
-        for (int i = 0; i < 3; ++i)
-        {
-            set.addAll(getModifiersByOperation(i));
-        }
+		return baseValue;
+	}
 
-        return set;
-    }
+	public void setBaseValue(double baseValue) {
 
-    @Nullable
+		if (baseValue != getBaseValue()) {
+			this.baseValue = baseValue;
+			flagForUpdate();
+		}
+	}
 
-    /**
-     * Returns attribute modifier, if any, by the given UUID
-     */
-    public AttributeModifier getModifier(UUID uuid)
-    {
-        return mapByUUID.get(uuid);
-    }
+	public Collection<AttributeModifier> getModifiersByOperation(int operation) {
 
-    public boolean hasModifier(AttributeModifier modifier)
-    {
-        return mapByUUID.get(modifier.getID()) != null;
-    }
+		return mapByOperation.get(Integer.valueOf(operation));
+	}
 
-    public void applyModifier(AttributeModifier modifier)
-    {
-        if (getModifier(modifier.getID()) != null)
-        {
-            throw new IllegalArgumentException("Modifier is already applied on this attribute!");
-        }
-        else
-        {
-            Set<AttributeModifier> set = (Set) mapByName.get(modifier.getName());
+	public Collection<AttributeModifier> getModifiers() {
 
-            if (set == null)
-            {
-                set = Sets.<AttributeModifier>newHashSet();
-                mapByName.put(modifier.getName(), set);
-            }
+		Set<AttributeModifier> set = Sets.newHashSet();
 
-            (mapByOperation.get(Integer.valueOf(modifier.getOperation()))).add(modifier);
-            set.add(modifier);
-            mapByUUID.put(modifier.getID(), modifier);
-            flagForUpdate();
-        }
-    }
+		for (int i = 0; i < 3; ++i) {
+			set.addAll(getModifiersByOperation(i));
+		}
 
-    protected void flagForUpdate()
-    {
-        needsUpdate = true;
-        attributeMap.onAttributeModified(this);
-    }
+		return set;
+	}
 
-    public void removeModifier(AttributeModifier modifier)
-    {
-        for (int i = 0; i < 3; ++i)
-        {
-            Set<AttributeModifier> set = (Set) mapByOperation.get(Integer.valueOf(i));
-            set.remove(modifier);
-        }
+	@Nullable
 
-        Set<AttributeModifier> set1 = (Set) mapByName.get(modifier.getName());
+	/**
+	 * Returns attribute modifier, if any, by the given UUID
+	 */
+	public AttributeModifier getModifier(UUID uuid) {
 
-        if (set1 != null)
-        {
-            set1.remove(modifier);
+		return mapByUUID.get(uuid);
+	}
 
-            if (set1.isEmpty())
-            {
-                mapByName.remove(modifier.getName());
-            }
-        }
+	public boolean hasModifier(AttributeModifier modifier) {
 
-        mapByUUID.remove(modifier.getID());
-        flagForUpdate();
-    }
+		return mapByUUID.get(modifier.getID()) != null;
+	}
 
-    public void removeModifier(UUID p_188479_1_)
-    {
-        AttributeModifier attributemodifier = getModifier(p_188479_1_);
+	public void applyModifier(AttributeModifier modifier) {
 
-        if (attributemodifier != null)
-        {
-            removeModifier(attributemodifier);
-        }
-    }
+		if (getModifier(modifier.getID()) != null) {
+			throw new IllegalArgumentException("Modifier is already applied on this attribute!");
+		} else {
+			Set<AttributeModifier> set = mapByName.get(modifier.getName());
 
-    public void removeAllModifiers()
-    {
-        Collection<AttributeModifier> collection = getModifiers();
+			if (set == null) {
+				set = Sets.newHashSet();
+				mapByName.put(modifier.getName(), set);
+			}
 
-        if (collection != null)
-        {
-            for (AttributeModifier attributemodifier : Lists.newArrayList(collection))
-            {
-                removeModifier(attributemodifier);
-            }
-        }
-    }
+			(mapByOperation.get(Integer.valueOf(modifier.getOperation()))).add(modifier);
+			set.add(modifier);
+			mapByUUID.put(modifier.getID(), modifier);
+			flagForUpdate();
+		}
+	}
 
-    public double getAttributeValue()
-    {
-        if (needsUpdate)
-        {
-            cachedValue = computeValue();
-            needsUpdate = false;
-        }
+	protected void flagForUpdate() {
 
-        return cachedValue;
-    }
+		needsUpdate = true;
+		attributeMap.onAttributeModified(this);
+	}
 
-    private double computeValue()
-    {
-        double d0 = getBaseValue();
+	public void removeModifier(AttributeModifier modifier) {
 
-        for (AttributeModifier attributemodifier : getAppliedModifiers(0))
-        {
-            d0 += attributemodifier.getAmount();
-        }
+		for (int i = 0; i < 3; ++i) {
+			Set<AttributeModifier> set = mapByOperation.get(Integer.valueOf(i));
+			set.remove(modifier);
+		}
 
-        double d1 = d0;
+		Set<AttributeModifier> set1 = mapByName.get(modifier.getName());
 
-        for (AttributeModifier attributemodifier1 : getAppliedModifiers(1))
-        {
-            d1 += d0 * attributemodifier1.getAmount();
-        }
+		if (set1 != null) {
+			set1.remove(modifier);
 
-        for (AttributeModifier attributemodifier2 : getAppliedModifiers(2))
-        {
-            d1 *= 1.0D + attributemodifier2.getAmount();
-        }
+			if (set1.isEmpty()) {
+				mapByName.remove(modifier.getName());
+			}
+		}
 
-        return genericAttribute.clampValue(d1);
-    }
+		mapByUUID.remove(modifier.getID());
+		flagForUpdate();
+	}
 
-    private Collection<AttributeModifier> getAppliedModifiers(int operation)
-    {
-        Set<AttributeModifier> set = Sets.newHashSet(getModifiersByOperation(operation));
+	public void removeModifier(UUID p_188479_1_) {
 
-        for (IAttribute iattribute = genericAttribute.getParent(); iattribute != null; iattribute = iattribute.getParent())
-        {
-            IAttributeInstance iattributeinstance = attributeMap.getAttributeInstance(iattribute);
+		AttributeModifier attributemodifier = getModifier(p_188479_1_);
 
-            if (iattributeinstance != null)
-            {
-                set.addAll(iattributeinstance.getModifiersByOperation(operation));
-            }
-        }
+		if (attributemodifier != null) {
+			removeModifier(attributemodifier);
+		}
+	}
 
-        return set;
-    }
+	public void removeAllModifiers() {
+
+		Collection<AttributeModifier> collection = getModifiers();
+
+		if (collection != null) {
+			for (AttributeModifier attributemodifier : Lists.newArrayList(collection)) {
+				removeModifier(attributemodifier);
+			}
+		}
+	}
+
+	public double getAttributeValue() {
+
+		if (needsUpdate) {
+			cachedValue = computeValue();
+			needsUpdate = false;
+		}
+
+		return cachedValue;
+	}
+
+	private double computeValue() {
+
+		double d0 = getBaseValue();
+
+		for (AttributeModifier attributemodifier : getAppliedModifiers(0)) {
+			d0 += attributemodifier.getAmount();
+		}
+
+		double d1 = d0;
+
+		for (AttributeModifier attributemodifier1 : getAppliedModifiers(1)) {
+			d1 += d0 * attributemodifier1.getAmount();
+		}
+
+		for (AttributeModifier attributemodifier2 : getAppliedModifiers(2)) {
+			d1 *= 1.0D + attributemodifier2.getAmount();
+		}
+
+		return genericAttribute.clampValue(d1);
+	}
+
+	private Collection<AttributeModifier> getAppliedModifiers(int operation) {
+
+		Set<AttributeModifier> set = Sets.newHashSet(getModifiersByOperation(operation));
+
+		for (IAttribute iattribute = genericAttribute.getParent(); iattribute != null; iattribute = iattribute.getParent()) {
+			IAttributeInstance iattributeinstance = attributeMap.getAttributeInstance(iattribute);
+
+			if (iattributeinstance != null) {
+				set.addAll(iattributeinstance.getModifiersByOperation(operation));
+			}
+		}
+
+		return set;
+	}
+
 }

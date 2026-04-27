@@ -1,8 +1,6 @@
 package net.minecraft.entity.projectile;
 
 import com.google.common.base.Predicate;
-import java.util.List;
-import javax.annotation.Nullable;
 import net.minecraft.entity.EntityAreaEffectCloud;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityBlaze;
@@ -32,265 +30,234 @@ import net.minecraft.world.World;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class EntityPotion extends EntityThrowable
-{
-    private static final DataParameter<ItemStack> ITEM = EntityDataManager.<ItemStack>createKey(EntityPotion.class, DataSerializers.ITEM_STACK);
-    private static final Logger LOGGER = LogManager.getLogger();
-    public static final Predicate<EntityLivingBase> WATER_SENSITIVE = new Predicate<EntityLivingBase>()
-    {
-        public boolean apply(@Nullable EntityLivingBase p_apply_1_)
-        {
-            return EntityPotion.isWaterSensitiveEntity(p_apply_1_);
-        }
-    };
+import javax.annotation.Nullable;
+import java.util.List;
 
-    public EntityPotion(World worldIn)
-    {
-        super(worldIn);
-    }
+public class EntityPotion extends EntityThrowable {
 
-    public EntityPotion(World worldIn, EntityLivingBase throwerIn, ItemStack potionDamageIn)
-    {
-        super(worldIn, throwerIn);
-        setItem(potionDamageIn);
-    }
+	private static final DataParameter<ItemStack> ITEM = EntityDataManager.createKey(EntityPotion.class, DataSerializers.ITEM_STACK);
+	private static final Logger LOGGER = LogManager.getLogger();
+	public static final Predicate<EntityLivingBase> WATER_SENSITIVE = new Predicate<EntityLivingBase>() {
+		public boolean apply(@Nullable EntityLivingBase p_apply_1_) {
 
-    public EntityPotion(World worldIn, double x, double y, double z, ItemStack potionDamageIn)
-    {
-        super(worldIn, x, y, z);
+			return EntityPotion.isWaterSensitiveEntity(p_apply_1_);
+		}
+	};
 
-        if (!potionDamageIn.isEmpty())
-        {
-            setItem(potionDamageIn);
-        }
-    }
+	public EntityPotion(World worldIn) {
 
-    protected void entityInit()
-    {
-        getDataManager().register(ITEM, ItemStack.EMPTY);
-    }
+		super(worldIn);
+	}
 
-    public ItemStack getPotion()
-    {
-        ItemStack itemstack = (ItemStack) getDataManager().get(ITEM);
+	public EntityPotion(World worldIn, EntityLivingBase throwerIn, ItemStack potionDamageIn) {
 
-        if (itemstack.getItem() != Items.SPLASH_POTION && itemstack.getItem() != Items.LINGERING_POTION)
-        {
-            if (world != null)
-            {
-                LOGGER.error("ThrownPotion entity {} has no item?!", (int) getEntityId());
-            }
+		super(worldIn, throwerIn);
+		setItem(potionDamageIn);
+	}
 
-            return new ItemStack(Items.SPLASH_POTION);
-        }
-        else
-        {
-            return itemstack;
-        }
-    }
+	public EntityPotion(World worldIn, double x, double y, double z, ItemStack potionDamageIn) {
 
-    public void setItem(ItemStack stack)
-    {
-        getDataManager().set(ITEM, stack);
-        getDataManager().setDirty(ITEM);
-    }
+		super(worldIn, x, y, z);
 
-    /**
-     * Gets the amount of gravity to apply to the thrown entity with each tick.
-     */
-    protected float getGravityVelocity()
-    {
-        return 0.05F;
-    }
+		if (!potionDamageIn.isEmpty()) {
+			setItem(potionDamageIn);
+		}
+	}
 
-    /**
-     * Called when this EntityThrowable hits a block or entity.
-     */
-    protected void onImpact(RayTraceResult result)
-    {
-        if (!world.isRemote)
-        {
-            ItemStack itemstack = getPotion();
-            PotionType potiontype = PotionUtils.getPotionFromItem(itemstack);
-            List<PotionEffect> list = PotionUtils.getEffectsFromStack(itemstack);
-            boolean flag = potiontype == PotionTypes.WATER && list.isEmpty();
+	protected void entityInit() {
 
-            if (result.typeOfHit == RayTraceResult.Type.BLOCK && flag)
-            {
-                BlockPos blockpos = result.getBlockPos().offset(result.sideHit);
-                extinguishFires(blockpos, result.sideHit);
+		getDataManager().register(ITEM, ItemStack.EMPTY);
+	}
 
-                for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL)
-                {
-                    extinguishFires(blockpos.offset(enumfacing), enumfacing);
-                }
-            }
+	public ItemStack getPotion() {
 
-            if (flag)
-            {
-                applyWater();
-            }
-            else if (!list.isEmpty())
-            {
-                if (isLingering())
-                {
-                    makeAreaOfEffectCloud(itemstack, potiontype);
-                }
-                else
-                {
-                    applySplash(result, list);
-                }
-            }
+		ItemStack itemstack = getDataManager().get(ITEM);
 
-            int i = potiontype.hasInstantEffect() ? 2007 : 2002;
-            world.playEvent(i, new BlockPos(this), PotionUtils.getColor(itemstack));
-            setDead();
-        }
-    }
+		if (itemstack.getItem() != Items.SPLASH_POTION && itemstack.getItem() != Items.LINGERING_POTION) {
+			if (world != null) {
+				LOGGER.error("ThrownPotion entity {} has no item?!", getEntityId());
+			}
 
-    private void applyWater()
-    {
-        AxisAlignedBB axisalignedbb = getEntityBoundingBox().grow(4.0D, 2.0D, 4.0D);
-        List<EntityLivingBase> list = world.<EntityLivingBase>getEntitiesWithinAABB(EntityLivingBase.class, axisalignedbb, WATER_SENSITIVE);
+			return new ItemStack(Items.SPLASH_POTION);
+		} else {
+			return itemstack;
+		}
+	}
 
-        if (!list.isEmpty())
-        {
-            for (EntityLivingBase entitylivingbase : list)
-            {
-                double d0 = getDistanceSq(entitylivingbase);
+	public void setItem(ItemStack stack) {
 
-                if (d0 < 16.0D && isWaterSensitiveEntity(entitylivingbase))
-                {
-                    entitylivingbase.attackEntityFrom(DamageSource.DROWN, 1.0F);
-                }
-            }
-        }
-    }
+		getDataManager().set(ITEM, stack);
+		getDataManager().setDirty(ITEM);
+	}
 
-    private void applySplash(RayTraceResult p_190543_1_, List<PotionEffect> p_190543_2_)
-    {
-        AxisAlignedBB axisalignedbb = getEntityBoundingBox().grow(4.0D, 2.0D, 4.0D);
-        List<EntityLivingBase> list = world.<EntityLivingBase>getEntitiesWithinAABB(EntityLivingBase.class, axisalignedbb);
+	/**
+	 * Gets the amount of gravity to apply to the thrown entity with each tick.
+	 */
+	protected float getGravityVelocity() {
 
-        if (!list.isEmpty())
-        {
-            for (EntityLivingBase entitylivingbase : list)
-            {
-                if (entitylivingbase.canBeHitWithPotion())
-                {
-                    double d0 = getDistanceSq(entitylivingbase);
+		return 0.05F;
+	}
 
-                    if (d0 < 16.0D)
-                    {
-                        double d1 = 1.0D - Math.sqrt(d0) / 4.0D;
+	/**
+	 * Called when this EntityThrowable hits a block or entity.
+	 */
+	protected void onImpact(RayTraceResult result) {
 
-                        if (entitylivingbase == p_190543_1_.entityHit)
-                        {
-                            d1 = 1.0D;
-                        }
+		if (!world.isRemote) {
+			ItemStack itemstack = getPotion();
+			PotionType potiontype = PotionUtils.getPotionFromItem(itemstack);
+			List<PotionEffect> list = PotionUtils.getEffectsFromStack(itemstack);
+			boolean flag = potiontype == PotionTypes.WATER && list.isEmpty();
 
-                        for (PotionEffect potioneffect : p_190543_2_)
-                        {
-                            Potion potion = potioneffect.getPotion();
+			if (result.typeOfHit == RayTraceResult.Type.BLOCK && flag) {
+				BlockPos blockpos = result.getBlockPos().offset(result.sideHit);
+				extinguishFires(blockpos, result.sideHit);
 
-                            if (potion.isInstant())
-                            {
-                                potion.affectEntity(this, getThrower(), entitylivingbase, potioneffect.getAmplifier(), d1);
-                            }
-                            else
-                            {
-                                int i = (int)(d1 * (double)potioneffect.getDuration() + 0.5D);
+				for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL) {
+					extinguishFires(blockpos.offset(enumfacing), enumfacing);
+				}
+			}
 
-                                if (i > 20)
-                                {
-                                    entitylivingbase.addPotionEffect(new PotionEffect(potion, i, potioneffect.getAmplifier(), potioneffect.getIsAmbient(), potioneffect.doesShowParticles()));
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
+			if (flag) {
+				applyWater();
+			} else if (!list.isEmpty()) {
+				if (isLingering()) {
+					makeAreaOfEffectCloud(itemstack, potiontype);
+				} else {
+					applySplash(result, list);
+				}
+			}
 
-    private void makeAreaOfEffectCloud(ItemStack p_190542_1_, PotionType p_190542_2_)
-    {
-        EntityAreaEffectCloud entityareaeffectcloud = new EntityAreaEffectCloud(world, posX, posY, posZ);
-        entityareaeffectcloud.setOwner(getThrower());
-        entityareaeffectcloud.setRadius(3.0F);
-        entityareaeffectcloud.setRadiusOnUse(-0.5F);
-        entityareaeffectcloud.setWaitTime(10);
-        entityareaeffectcloud.setRadiusPerTick(-entityareaeffectcloud.getRadius() / (float)entityareaeffectcloud.getDuration());
-        entityareaeffectcloud.setPotion(p_190542_2_);
+			int i = potiontype.hasInstantEffect() ? 2007 : 2002;
+			world.playEvent(i, new BlockPos(this), PotionUtils.getColor(itemstack));
+			setDead();
+		}
+	}
 
-        for (PotionEffect potioneffect : PotionUtils.getFullEffectsFromItem(p_190542_1_))
-        {
-            entityareaeffectcloud.addEffect(new PotionEffect(potioneffect));
-        }
+	private void applyWater() {
 
-        NBTTagCompound nbttagcompound = p_190542_1_.getTagCompound();
+		AxisAlignedBB axisalignedbb = getEntityBoundingBox().grow(4.0D, 2.0D, 4.0D);
+		List<EntityLivingBase> list = world.getEntitiesWithinAABB(EntityLivingBase.class, axisalignedbb, WATER_SENSITIVE);
 
-        if (nbttagcompound != null && nbttagcompound.hasKey("CustomPotionColor", 99))
-        {
-            entityareaeffectcloud.setColor(nbttagcompound.getInteger("CustomPotionColor"));
-        }
+		if (!list.isEmpty()) {
+			for (EntityLivingBase entitylivingbase : list) {
+				double d0 = getDistanceSq(entitylivingbase);
 
-        world.spawnEntity(entityareaeffectcloud);
-    }
+				if (d0 < 16.0D && isWaterSensitiveEntity(entitylivingbase)) {
+					entitylivingbase.attackEntityFrom(DamageSource.DROWN, 1.0F);
+				}
+			}
+		}
+	}
 
-    private boolean isLingering()
-    {
-        return getPotion().getItem() == Items.LINGERING_POTION;
-    }
+	private void applySplash(RayTraceResult p_190543_1_, List<PotionEffect> p_190543_2_) {
 
-    private void extinguishFires(BlockPos pos, EnumFacing p_184542_2_)
-    {
-        if (world.getBlockState(pos).getBlock() == Blocks.FIRE)
-        {
-            world.extinguishFire((EntityPlayer)null, pos.offset(p_184542_2_), p_184542_2_.getOpposite());
-        }
-    }
+		AxisAlignedBB axisalignedbb = getEntityBoundingBox().grow(4.0D, 2.0D, 4.0D);
+		List<EntityLivingBase> list = world.getEntitiesWithinAABB(EntityLivingBase.class, axisalignedbb);
 
-    public static void registerFixesPotion(DataFixer fixer)
-    {
-        EntityThrowable.registerFixesThrowable(fixer, "ThrownPotion");
-        fixer.registerWalker(FixTypes.ENTITY, new ItemStackData(EntityPotion.class, new String[] {"Potion"}));
-    }
+		if (!list.isEmpty()) {
+			for (EntityLivingBase entitylivingbase : list) {
+				if (entitylivingbase.canBeHitWithPotion()) {
+					double d0 = getDistanceSq(entitylivingbase);
 
-    /**
-     * (abstract) Protected helper method to read subclass entity data from NBT.
-     */
-    public void readEntityFromNBT(NBTTagCompound compound)
-    {
-        super.readEntityFromNBT(compound);
-        ItemStack itemstack = new ItemStack(compound.getCompoundTag("Potion"));
+					if (d0 < 16.0D) {
+						double d1 = 1.0D - Math.sqrt(d0) / 4.0D;
 
-        if (itemstack.isEmpty())
-        {
-            setDead();
-        }
-        else
-        {
-            setItem(itemstack);
-        }
-    }
+						if (entitylivingbase == p_190543_1_.entityHit) {
+							d1 = 1.0D;
+						}
 
-    /**
-     * (abstract) Protected helper method to write subclass entity data to NBT.
-     */
-    public void writeEntityToNBT(NBTTagCompound compound)
-    {
-        super.writeEntityToNBT(compound);
-        ItemStack itemstack = getPotion();
+						for (PotionEffect potioneffect : p_190543_2_) {
+							Potion potion = potioneffect.getPotion();
 
-        if (!itemstack.isEmpty())
-        {
-            compound.setTag("Potion", itemstack.writeToNBT(new NBTTagCompound()));
-        }
-    }
+							if (potion.isInstant()) {
+								potion.affectEntity(this, getThrower(), entitylivingbase, potioneffect.getAmplifier(), d1);
+							} else {
+								int i = (int) (d1 * (double) potioneffect.getDuration() + 0.5D);
 
-    private static boolean isWaterSensitiveEntity(EntityLivingBase p_190544_0_)
-    {
-        return p_190544_0_ instanceof EntityEnderman || p_190544_0_ instanceof EntityBlaze;
-    }
+								if (i > 20) {
+									entitylivingbase.addPotionEffect(new PotionEffect(potion, i, potioneffect.getAmplifier(), potioneffect.getIsAmbient(), potioneffect.doesShowParticles()));
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	private void makeAreaOfEffectCloud(ItemStack p_190542_1_, PotionType p_190542_2_) {
+
+		EntityAreaEffectCloud entityareaeffectcloud = new EntityAreaEffectCloud(world, posX, posY, posZ);
+		entityareaeffectcloud.setOwner(getThrower());
+		entityareaeffectcloud.setRadius(3.0F);
+		entityareaeffectcloud.setRadiusOnUse(-0.5F);
+		entityareaeffectcloud.setWaitTime(10);
+		entityareaeffectcloud.setRadiusPerTick(-entityareaeffectcloud.getRadius() / (float) entityareaeffectcloud.getDuration());
+		entityareaeffectcloud.setPotion(p_190542_2_);
+
+		for (PotionEffect potioneffect : PotionUtils.getFullEffectsFromItem(p_190542_1_)) {
+			entityareaeffectcloud.addEffect(new PotionEffect(potioneffect));
+		}
+
+		NBTTagCompound nbttagcompound = p_190542_1_.getTagCompound();
+
+		if (nbttagcompound != null && nbttagcompound.hasKey("CustomPotionColor", 99)) {
+			entityareaeffectcloud.setColor(nbttagcompound.getInteger("CustomPotionColor"));
+		}
+
+		world.spawnEntity(entityareaeffectcloud);
+	}
+
+	private boolean isLingering() {
+
+		return getPotion().getItem() == Items.LINGERING_POTION;
+	}
+
+	private void extinguishFires(BlockPos pos, EnumFacing p_184542_2_) {
+
+		if (world.getBlockState(pos).getBlock() == Blocks.FIRE) {
+			world.extinguishFire(null, pos.offset(p_184542_2_), p_184542_2_.getOpposite());
+		}
+	}
+
+	public static void registerFixesPotion(DataFixer fixer) {
+
+		EntityThrowable.registerFixesThrowable(fixer, "ThrownPotion");
+		fixer.registerWalker(FixTypes.ENTITY, new ItemStackData(EntityPotion.class, "Potion"));
+	}
+
+	/**
+	 * (abstract) Protected helper method to read subclass entity data from NBT.
+	 */
+	public void readEntityFromNBT(NBTTagCompound compound) {
+
+		super.readEntityFromNBT(compound);
+		ItemStack itemstack = new ItemStack(compound.getCompoundTag("Potion"));
+
+		if (itemstack.isEmpty()) {
+			setDead();
+		} else {
+			setItem(itemstack);
+		}
+	}
+
+	/**
+	 * (abstract) Protected helper method to write subclass entity data to NBT.
+	 */
+	public void writeEntityToNBT(NBTTagCompound compound) {
+
+		super.writeEntityToNBT(compound);
+		ItemStack itemstack = getPotion();
+
+		if (!itemstack.isEmpty()) {
+			compound.setTag("Potion", itemstack.writeToNBT(new NBTTagCompound()));
+		}
+	}
+
+	private static boolean isWaterSensitiveEntity(EntityLivingBase p_190544_0_) {
+
+		return p_190544_0_ instanceof EntityEnderman || p_190544_0_ instanceof EntityBlaze;
+	}
+
 }

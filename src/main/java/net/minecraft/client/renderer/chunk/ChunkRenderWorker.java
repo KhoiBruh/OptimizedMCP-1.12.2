@@ -5,10 +5,6 @@ import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.MoreExecutors;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.CancellationException;
-import javax.annotation.Nullable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RegionRenderCacheBuilder;
 import net.minecraft.crash.CrashReport;
@@ -20,221 +16,190 @@ import net.minecraft.world.World;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class ChunkRenderWorker implements Runnable
-{
-    private static final Logger LOGGER = LogManager.getLogger();
-    private final ChunkRenderDispatcher chunkRenderDispatcher;
-    private final RegionRenderCacheBuilder regionRenderCacheBuilder;
-    private boolean shouldRun;
+import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CancellationException;
 
-    public ChunkRenderWorker(ChunkRenderDispatcher chunkRenderDispatcherIn)
-    {
-        this(chunkRenderDispatcherIn, (RegionRenderCacheBuilder)null);
-    }
+public class ChunkRenderWorker implements Runnable {
 
-    public ChunkRenderWorker(ChunkRenderDispatcher chunkRenderDispatcherIn, @Nullable RegionRenderCacheBuilder regionRenderCacheBuilderIn)
-    {
-        shouldRun = true;
-        chunkRenderDispatcher = chunkRenderDispatcherIn;
-        regionRenderCacheBuilder = regionRenderCacheBuilderIn;
-    }
+	private static final Logger LOGGER = LogManager.getLogger();
+	private final ChunkRenderDispatcher chunkRenderDispatcher;
+	private final RegionRenderCacheBuilder regionRenderCacheBuilder;
+	private boolean shouldRun;
 
-    public void run()
-    {
-        while (shouldRun)
-        {
-            try
-            {
-                processTask(chunkRenderDispatcher.getNextChunkUpdate());
-            }
-            catch (InterruptedException var3)
-            {
-                LOGGER.debug("Stopping chunk worker due to interrupt");
-                return;
-            }
-            catch (Throwable throwable)
-            {
-                CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Batching chunks");
-                Minecraft.getMinecraft().crashed(Minecraft.getMinecraft().addGraphicsAndWorldToCrashReport(crashreport));
-                return;
-            }
-        }
-    }
+	public ChunkRenderWorker(ChunkRenderDispatcher chunkRenderDispatcherIn) {
 
-    protected void processTask(final ChunkCompileTaskGenerator generator) throws InterruptedException
-    {
-        generator.getLock().lock();
+		this(chunkRenderDispatcherIn, null);
+	}
 
-        try
-        {
-            if (generator.getStatus() != ChunkCompileTaskGenerator.Status.PENDING)
-            {
-                if (!generator.isFinished())
-                {
-                    LOGGER.warn("Chunk render task was {} when I expected it to be pending; ignoring task", (Object)generator.getStatus());
-                }
+	public ChunkRenderWorker(ChunkRenderDispatcher chunkRenderDispatcherIn, @Nullable RegionRenderCacheBuilder regionRenderCacheBuilderIn) {
 
-                return;
-            }
+		shouldRun = true;
+		chunkRenderDispatcher = chunkRenderDispatcherIn;
+		regionRenderCacheBuilder = regionRenderCacheBuilderIn;
+	}
 
-            BlockPos blockpos = new BlockPos(Minecraft.getMinecraft().player);
-            BlockPos blockpos1 = generator.getRenderChunk().getPosition();
-            int i = 16;
-            int j = 8;
-            int k = 24;
+	public void run() {
 
-            if (blockpos1.add(8, 8, 8).distanceSq(blockpos) > 576.0D)
-            {
-                World world = generator.getRenderChunk().getWorld();
-                BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos(blockpos1);
+		while (shouldRun) {
+			try {
+				processTask(chunkRenderDispatcher.getNextChunkUpdate());
+			} catch (InterruptedException var3) {
+				LOGGER.debug("Stopping chunk worker due to interrupt");
+				return;
+			} catch (Throwable throwable) {
+				CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Batching chunks");
+				Minecraft.getMinecraft().crashed(Minecraft.getMinecraft().addGraphicsAndWorldToCrashReport(crashreport));
+				return;
+			}
+		}
+	}
 
-                if (!isChunkExisting(blockpos$mutableblockpos.setPos(blockpos1).move(EnumFacing.WEST, 16), world) || !isChunkExisting(blockpos$mutableblockpos.setPos(blockpos1).move(EnumFacing.NORTH, 16), world) || !isChunkExisting(blockpos$mutableblockpos.setPos(blockpos1).move(EnumFacing.EAST, 16), world) || !isChunkExisting(blockpos$mutableblockpos.setPos(blockpos1).move(EnumFacing.SOUTH, 16), world))
-                {
-                    return;
-                }
-            }
+	protected void processTask(final ChunkCompileTaskGenerator generator) throws InterruptedException {
 
-            generator.setStatus(ChunkCompileTaskGenerator.Status.COMPILING);
-        }
-        finally
-        {
-            generator.getLock().unlock();
-        }
+		generator.getLock().lock();
 
-        Entity entity = Minecraft.getMinecraft().getRenderViewEntity();
+		try {
+			if (generator.getStatus() != ChunkCompileTaskGenerator.Status.PENDING) {
+				if (!generator.isFinished()) {
+					LOGGER.warn("Chunk render task was {} when I expected it to be pending; ignoring task", generator.getStatus());
+				}
 
-        if (entity == null)
-        {
-            generator.finish();
-        }
-        else
-        {
-            generator.setRegionRenderCacheBuilder(getRegionRenderCacheBuilder());
-            float f = (float)entity.posX;
-            float f1 = (float)entity.posY + entity.getEyeHeight();
-            float f2 = (float)entity.posZ;
-            ChunkCompileTaskGenerator.Type chunkcompiletaskgenerator$type = generator.getType();
+				return;
+			}
 
-            if (chunkcompiletaskgenerator$type == ChunkCompileTaskGenerator.Type.REBUILD_CHUNK)
-            {
-                generator.getRenderChunk().rebuildChunk(f, f1, f2, generator);
-            }
-            else if (chunkcompiletaskgenerator$type == ChunkCompileTaskGenerator.Type.RESORT_TRANSPARENCY)
-            {
-                generator.getRenderChunk().resortTransparency(f, f1, f2, generator);
-            }
+			BlockPos blockpos = new BlockPos(Minecraft.getMinecraft().player);
+			BlockPos blockpos1 = generator.getRenderChunk().getPosition();
+			int i = 16;
+			int j = 8;
+			int k = 24;
 
-            generator.getLock().lock();
+			if (blockpos1.add(8, 8, 8).distanceSq(blockpos) > 576.0D) {
+				World world = generator.getRenderChunk().getWorld();
+				BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos(blockpos1);
 
-            try
-            {
-                if (generator.getStatus() != ChunkCompileTaskGenerator.Status.COMPILING)
-                {
-                    if (!generator.isFinished())
-                    {
-                        LOGGER.warn("Chunk render task was {} when I expected it to be compiling; aborting task", (Object)generator.getStatus());
-                    }
+				if (!isChunkExisting(blockpos$mutableblockpos.setPos(blockpos1).move(EnumFacing.WEST, 16), world) || !isChunkExisting(blockpos$mutableblockpos.setPos(blockpos1).move(EnumFacing.NORTH, 16), world) || !isChunkExisting(blockpos$mutableblockpos.setPos(blockpos1).move(EnumFacing.EAST, 16), world) || !isChunkExisting(blockpos$mutableblockpos.setPos(blockpos1).move(EnumFacing.SOUTH, 16), world)) {
+					return;
+				}
+			}
 
-                    freeRenderBuilder(generator);
-                    return;
-                }
+			generator.setStatus(ChunkCompileTaskGenerator.Status.COMPILING);
+		} finally {
+			generator.getLock().unlock();
+		}
 
-                generator.setStatus(ChunkCompileTaskGenerator.Status.UPLOADING);
-            }
-            finally
-            {
-                generator.getLock().unlock();
-            }
+		Entity entity = Minecraft.getMinecraft().getRenderViewEntity();
 
-            final CompiledChunk compiledchunk = generator.getCompiledChunk();
-            ArrayList arraylist = Lists.newArrayList();
+		if (entity == null) {
+			generator.finish();
+		} else {
+			generator.setRegionRenderCacheBuilder(getRegionRenderCacheBuilder());
+			float f = (float) entity.posX;
+			float f1 = (float) entity.posY + entity.getEyeHeight();
+			float f2 = (float) entity.posZ;
+			ChunkCompileTaskGenerator.Type chunkcompiletaskgenerator$type = generator.getType();
 
-            if (chunkcompiletaskgenerator$type == ChunkCompileTaskGenerator.Type.REBUILD_CHUNK)
-            {
-                for (BlockRenderLayer blockrenderlayer : BlockRenderLayer.values())
-                {
-                    if (compiledchunk.isLayerStarted(blockrenderlayer))
-                    {
-                        arraylist.add(chunkRenderDispatcher.uploadChunk(blockrenderlayer, generator.getRegionRenderCacheBuilder().getWorldRendererByLayer(blockrenderlayer), generator.getRenderChunk(), compiledchunk, generator.getDistanceSq()));
-                    }
-                }
-            }
-            else if (chunkcompiletaskgenerator$type == ChunkCompileTaskGenerator.Type.RESORT_TRANSPARENCY)
-            {
-                arraylist.add(chunkRenderDispatcher.uploadChunk(BlockRenderLayer.TRANSLUCENT, generator.getRegionRenderCacheBuilder().getWorldRendererByLayer(BlockRenderLayer.TRANSLUCENT), generator.getRenderChunk(), compiledchunk, generator.getDistanceSq()));
-            }
+			if (chunkcompiletaskgenerator$type == ChunkCompileTaskGenerator.Type.REBUILD_CHUNK) {
+				generator.getRenderChunk().rebuildChunk(f, f1, f2, generator);
+			} else if (chunkcompiletaskgenerator$type == ChunkCompileTaskGenerator.Type.RESORT_TRANSPARENCY) {
+				generator.getRenderChunk().resortTransparency(f, f1, f2, generator);
+			}
 
-            final ListenableFuture<List<Object>> listenablefuture = Futures.allAsList(arraylist);
-            generator.addFinishRunnable(new Runnable()
-            {
-                public void run()
-                {
-                    listenablefuture.cancel(false);
-                }
-            });
-            Futures.addCallback(listenablefuture, new FutureCallback<List<Object>>()
-            {
-                public void onSuccess(@Nullable List<Object> p_onSuccess_1_)
-                {
-                    freeRenderBuilder(generator);
-                    generator.getLock().lock();
-                    label49:
-                    {
-                        try
-                        {
-                            if (generator.getStatus() == ChunkCompileTaskGenerator.Status.UPLOADING)
-                            {
-                                generator.setStatus(ChunkCompileTaskGenerator.Status.DONE);
-                                break label49;
-                            }
+			generator.getLock().lock();
 
-                            if (!generator.isFinished())
-                            {
-                                ChunkRenderWorker.LOGGER.warn("Chunk render task was {} when I expected it to be uploading; aborting task", (Object)generator.getStatus());
-                            }
-                        }
-                        finally
-                        {
-                            generator.getLock().unlock();
-                        }
+			try {
+				if (generator.getStatus() != ChunkCompileTaskGenerator.Status.COMPILING) {
+					if (!generator.isFinished()) {
+						LOGGER.warn("Chunk render task was {} when I expected it to be compiling; aborting task", generator.getStatus());
+					}
 
-                        return;
-                    }
-                    generator.getRenderChunk().setCompiledChunk(compiledchunk);
-                }
-                public void onFailure(Throwable p_onFailure_1_)
-                {
-                    freeRenderBuilder(generator);
+					freeRenderBuilder(generator);
+					return;
+				}
 
-                    if (!(p_onFailure_1_ instanceof CancellationException) && !(p_onFailure_1_ instanceof InterruptedException))
-                    {
-                        Minecraft.getMinecraft().crashed(CrashReport.makeCrashReport(p_onFailure_1_, "Rendering chunk"));
-                    }
-                }
-            }, MoreExecutors.directExecutor());
-        }
-    }
+				generator.setStatus(ChunkCompileTaskGenerator.Status.UPLOADING);
+			} finally {
+				generator.getLock().unlock();
+			}
 
-    private boolean isChunkExisting(BlockPos pos, World worldIn)
-    {
-        return !worldIn.getChunkFromChunkCoords(pos.getX() >> 4, pos.getZ() >> 4).isEmpty();
-    }
+			final CompiledChunk compiledchunk = generator.getCompiledChunk();
+			ArrayList arraylist = Lists.newArrayList();
 
-    private RegionRenderCacheBuilder getRegionRenderCacheBuilder() throws InterruptedException
-    {
-        return regionRenderCacheBuilder != null ? regionRenderCacheBuilder : chunkRenderDispatcher.allocateRenderBuilder();
-    }
+			if (chunkcompiletaskgenerator$type == ChunkCompileTaskGenerator.Type.REBUILD_CHUNK) {
+				for (BlockRenderLayer blockrenderlayer : BlockRenderLayer.values()) {
+					if (compiledchunk.isLayerStarted(blockrenderlayer)) {
+						arraylist.add(chunkRenderDispatcher.uploadChunk(blockrenderlayer, generator.getRegionRenderCacheBuilder().getWorldRendererByLayer(blockrenderlayer), generator.getRenderChunk(), compiledchunk, generator.getDistanceSq()));
+					}
+				}
+			} else if (chunkcompiletaskgenerator$type == ChunkCompileTaskGenerator.Type.RESORT_TRANSPARENCY) {
+				arraylist.add(chunkRenderDispatcher.uploadChunk(BlockRenderLayer.TRANSLUCENT, generator.getRegionRenderCacheBuilder().getWorldRendererByLayer(BlockRenderLayer.TRANSLUCENT), generator.getRenderChunk(), compiledchunk, generator.getDistanceSq()));
+			}
 
-    private void freeRenderBuilder(ChunkCompileTaskGenerator taskGenerator)
-    {
-        if (regionRenderCacheBuilder == null)
-        {
-            chunkRenderDispatcher.freeRenderBuilder(taskGenerator.getRegionRenderCacheBuilder());
-        }
-    }
+			final ListenableFuture<List<Object>> listenablefuture = Futures.allAsList(arraylist);
+			generator.addFinishRunnable(new Runnable() {
+				public void run() {
 
-    public void notifyToStop()
-    {
-        shouldRun = false;
-    }
+					listenablefuture.cancel(false);
+				}
+			});
+			Futures.addCallback(listenablefuture, new FutureCallback<List<Object>>() {
+				public void onSuccess(@Nullable List<Object> p_onSuccess_1_) {
+
+					freeRenderBuilder(generator);
+					generator.getLock().lock();
+					label49:
+					{
+						try {
+							if (generator.getStatus() == ChunkCompileTaskGenerator.Status.UPLOADING) {
+								generator.setStatus(ChunkCompileTaskGenerator.Status.DONE);
+								break label49;
+							}
+
+							if (!generator.isFinished()) {
+								ChunkRenderWorker.LOGGER.warn("Chunk render task was {} when I expected it to be uploading; aborting task", generator.getStatus());
+							}
+						} finally {
+							generator.getLock().unlock();
+						}
+
+						return;
+					}
+					generator.getRenderChunk().setCompiledChunk(compiledchunk);
+				}
+
+				public void onFailure(Throwable p_onFailure_1_) {
+
+					freeRenderBuilder(generator);
+
+					if (!(p_onFailure_1_ instanceof CancellationException) && !(p_onFailure_1_ instanceof InterruptedException)) {
+						Minecraft.getMinecraft().crashed(CrashReport.makeCrashReport(p_onFailure_1_, "Rendering chunk"));
+					}
+				}
+			}, MoreExecutors.directExecutor());
+		}
+	}
+
+	private boolean isChunkExisting(BlockPos pos, World worldIn) {
+
+		return !worldIn.getChunkFromChunkCoords(pos.getX() >> 4, pos.getZ() >> 4).isEmpty();
+	}
+
+	private RegionRenderCacheBuilder getRegionRenderCacheBuilder() throws InterruptedException {
+
+		return regionRenderCacheBuilder != null ? regionRenderCacheBuilder : chunkRenderDispatcher.allocateRenderBuilder();
+	}
+
+	private void freeRenderBuilder(ChunkCompileTaskGenerator taskGenerator) {
+
+		if (regionRenderCacheBuilder == null) {
+			chunkRenderDispatcher.freeRenderBuilder(taskGenerator.getRegionRenderCacheBuilder());
+		}
+	}
+
+	public void notifyToStop() {
+
+		shouldRun = false;
+	}
+
 }

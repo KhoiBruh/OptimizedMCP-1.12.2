@@ -7,55 +7,47 @@ import net.minecraft.util.datafix.IDataWalker;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class EntityTag implements IDataWalker
-{
-    private static final Logger LOGGER = LogManager.getLogger();
+public class EntityTag implements IDataWalker {
 
-    public NBTTagCompound process(IDataFixer fixer, NBTTagCompound compound, int versionIn)
-    {
-        NBTTagCompound nbttagcompound = compound.getCompoundTag("tag");
+	private static final Logger LOGGER = LogManager.getLogger();
 
-        if (nbttagcompound.hasKey("EntityTag", 10))
-        {
-            NBTTagCompound nbttagcompound1 = nbttagcompound.getCompoundTag("EntityTag");
-            String s = compound.getString("id");
-            String s1;
+	public NBTTagCompound process(IDataFixer fixer, NBTTagCompound compound, int versionIn) {
 
-            if ("minecraft:armor_stand".equals(s))
-            {
-                s1 = versionIn < 515 ? "ArmorStand" : "minecraft:armor_stand";
-            }
-            else
-            {
-                if (!"minecraft:spawn_egg".equals(s))
-                {
-                    return compound;
-                }
+		NBTTagCompound nbttagcompound = compound.getCompoundTag("tag");
 
-                s1 = nbttagcompound1.getString("id");
-            }
+		if (nbttagcompound.hasKey("EntityTag", 10)) {
+			NBTTagCompound nbttagcompound1 = nbttagcompound.getCompoundTag("EntityTag");
+			String s = compound.getString("id");
+			String s1;
 
-            boolean flag;
+			if ("minecraft:armor_stand".equals(s)) {
+				s1 = versionIn < 515 ? "ArmorStand" : "minecraft:armor_stand";
+			} else {
+				if (!"minecraft:spawn_egg".equals(s)) {
+					return compound;
+				}
 
-            if (s1 == null)
-            {
-                LOGGER.warn("Unable to resolve Entity for ItemInstance: {}", (Object)s);
-                flag = false;
-            }
-            else
-            {
-                flag = !nbttagcompound1.hasKey("id", 8);
-                nbttagcompound1.setString("id", s1);
-            }
+				s1 = nbttagcompound1.getString("id");
+			}
 
-            fixer.process(FixTypes.ENTITY, nbttagcompound1, versionIn);
+			boolean flag;
 
-            if (flag)
-            {
-                nbttagcompound1.removeTag("id");
-            }
-        }
+			if (s1 == null) {
+				LOGGER.warn("Unable to resolve Entity for ItemInstance: {}", s);
+				flag = false;
+			} else {
+				flag = !nbttagcompound1.hasKey("id", 8);
+				nbttagcompound1.setString("id", s1);
+			}
 
-        return compound;
-    }
+			fixer.process(FixTypes.ENTITY, nbttagcompound1, versionIn);
+
+			if (flag) {
+				nbttagcompound1.removeTag("id");
+			}
+		}
+
+		return compound;
+	}
+
 }

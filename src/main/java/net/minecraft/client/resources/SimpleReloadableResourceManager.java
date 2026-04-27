@@ -6,117 +6,108 @@ import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import javax.annotation.Nullable;
 import net.minecraft.client.resources.data.MetadataSerializer;
 import net.minecraft.util.ResourceLocation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class SimpleReloadableResourceManager implements IReloadableResourceManager
-{
-    private static final Logger LOGGER = LogManager.getLogger();
-    private static final Joiner JOINER_RESOURCE_PACKS = Joiner.on(", ");
-    private final Map<String, FallbackResourceManager> domainResourceManagers = Maps.<String, FallbackResourceManager>newHashMap();
-    private final List<IResourceManagerReloadListener> reloadListeners = Lists.<IResourceManagerReloadListener>newArrayList();
-    private final Set<String> setResourceDomains = Sets.<String>newLinkedHashSet();
-    private final MetadataSerializer rmMetadataSerializer;
+import javax.annotation.Nullable;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-    public SimpleReloadableResourceManager(MetadataSerializer rmMetadataSerializerIn)
-    {
-        rmMetadataSerializer = rmMetadataSerializerIn;
-    }
+public class SimpleReloadableResourceManager implements IReloadableResourceManager {
 
-    public void reloadResourcePack(IResourcePack resourcePack)
-    {
-        for (String s : resourcePack.getResourceDomains())
-        {
-            setResourceDomains.add(s);
-            FallbackResourceManager fallbackresourcemanager = domainResourceManagers.get(s);
+	private static final Logger LOGGER = LogManager.getLogger();
+	private static final Joiner JOINER_RESOURCE_PACKS = Joiner.on(", ");
+	private final Map<String, FallbackResourceManager> domainResourceManagers = Maps.newHashMap();
+	private final List<IResourceManagerReloadListener> reloadListeners = Lists.newArrayList();
+	private final Set<String> setResourceDomains = Sets.newLinkedHashSet();
+	private final MetadataSerializer rmMetadataSerializer;
 
-            if (fallbackresourcemanager == null)
-            {
-                fallbackresourcemanager = new FallbackResourceManager(rmMetadataSerializer);
-                domainResourceManagers.put(s, fallbackresourcemanager);
-            }
+	public SimpleReloadableResourceManager(MetadataSerializer rmMetadataSerializerIn) {
 
-            fallbackresourcemanager.addResourcePack(resourcePack);
-        }
-    }
+		rmMetadataSerializer = rmMetadataSerializerIn;
+	}
 
-    public Set<String> getResourceDomains()
-    {
-        return setResourceDomains;
-    }
+	public void reloadResourcePack(IResourcePack resourcePack) {
 
-    public IResource getResource(ResourceLocation location) throws IOException
-    {
-        IResourceManager iresourcemanager = domainResourceManagers.get(location.getResourceDomain());
+		for (String s : resourcePack.getResourceDomains()) {
+			setResourceDomains.add(s);
+			FallbackResourceManager fallbackresourcemanager = domainResourceManagers.get(s);
 
-        if (iresourcemanager != null)
-        {
-            return iresourcemanager.getResource(location);
-        }
-        else
-        {
-            throw new FileNotFoundException(location.toString());
-        }
-    }
+			if (fallbackresourcemanager == null) {
+				fallbackresourcemanager = new FallbackResourceManager(rmMetadataSerializer);
+				domainResourceManagers.put(s, fallbackresourcemanager);
+			}
 
-    public List<IResource> getAllResources(ResourceLocation location) throws IOException
-    {
-        IResourceManager iresourcemanager = domainResourceManagers.get(location.getResourceDomain());
+			fallbackresourcemanager.addResourcePack(resourcePack);
+		}
+	}
 
-        if (iresourcemanager != null)
-        {
-            return iresourcemanager.getAllResources(location);
-        }
-        else
-        {
-            throw new FileNotFoundException(location.toString());
-        }
-    }
+	public Set<String> getResourceDomains() {
 
-    private void clearResources()
-    {
-        domainResourceManagers.clear();
-        setResourceDomains.clear();
-    }
+		return setResourceDomains;
+	}
 
-    public void reloadResources(List<IResourcePack> resourcesPacksList)
-    {
-        clearResources();
-        LOGGER.info("Reloading ResourceManager: {}", (Object)JOINER_RESOURCE_PACKS.join(Iterables.transform(resourcesPacksList, new Function<IResourcePack, String>()
-        {
-            public String apply(@Nullable IResourcePack p_apply_1_)
-            {
-                return p_apply_1_ == null ? "<NULL>" : p_apply_1_.getPackName();
-            }
-        })));
+	public IResource getResource(ResourceLocation location) throws IOException {
 
-        for (IResourcePack iresourcepack : resourcesPacksList)
-        {
-            reloadResourcePack(iresourcepack);
-        }
+		IResourceManager iresourcemanager = domainResourceManagers.get(location.getResourceDomain());
 
-        notifyReloadListeners();
-    }
+		if (iresourcemanager != null) {
+			return iresourcemanager.getResource(location);
+		} else {
+			throw new FileNotFoundException(location.toString());
+		}
+	}
 
-    public void registerReloadListener(IResourceManagerReloadListener reloadListener)
-    {
-        reloadListeners.add(reloadListener);
-        reloadListener.onResourceManagerReload(this);
-    }
+	public List<IResource> getAllResources(ResourceLocation location) throws IOException {
 
-    private void notifyReloadListeners()
-    {
-        for (IResourceManagerReloadListener iresourcemanagerreloadlistener : reloadListeners)
-        {
-            iresourcemanagerreloadlistener.onResourceManagerReload(this);
-        }
-    }
+		IResourceManager iresourcemanager = domainResourceManagers.get(location.getResourceDomain());
+
+		if (iresourcemanager != null) {
+			return iresourcemanager.getAllResources(location);
+		} else {
+			throw new FileNotFoundException(location.toString());
+		}
+	}
+
+	private void clearResources() {
+
+		domainResourceManagers.clear();
+		setResourceDomains.clear();
+	}
+
+	public void reloadResources(List<IResourcePack> resourcesPacksList) {
+
+		clearResources();
+		LOGGER.info("Reloading ResourceManager: {}", JOINER_RESOURCE_PACKS.join(Iterables.transform(resourcesPacksList, new Function<IResourcePack, String>() {
+			public String apply(@Nullable IResourcePack p_apply_1_) {
+
+				return p_apply_1_ == null ? "<NULL>" : p_apply_1_.getPackName();
+			}
+		})));
+
+		for (IResourcePack iresourcepack : resourcesPacksList) {
+			reloadResourcePack(iresourcepack);
+		}
+
+		notifyReloadListeners();
+	}
+
+	public void registerReloadListener(IResourceManagerReloadListener reloadListener) {
+
+		reloadListeners.add(reloadListener);
+		reloadListener.onResourceManagerReload(this);
+	}
+
+	private void notifyReloadListeners() {
+
+		for (IResourceManagerReloadListener iresourcemanagerreloadlistener : reloadListeners) {
+			iresourcemanagerreloadlistener.onResourceManagerReload(this);
+		}
+	}
+
 }

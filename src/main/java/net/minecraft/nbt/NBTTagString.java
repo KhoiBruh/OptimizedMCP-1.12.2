@@ -5,105 +5,103 @@ import java.io.DataOutput;
 import java.io.IOException;
 import java.util.Objects;
 
-public class NBTTagString extends NBTBase
-{
-    /** The string value for the tag (cannot be empty). */
-    private String data;
+public class NBTTagString extends NBTBase {
 
-    public NBTTagString()
-    {
-        this("");
-    }
+	/**
+	 * The string value for the tag (cannot be empty).
+	 */
+	private String data;
 
-    public NBTTagString(String data)
-    {
-        Objects.requireNonNull(data, "Null string not allowed");
-        this.data = data;
-    }
+	public NBTTagString() {
 
-    /**
-     * Write the actual data contents of the tag, implemented in NBT extension classes
-     */
-    void write(DataOutput output) throws IOException
-    {
-        output.writeUTF(data);
-    }
+		this("");
+	}
 
-    void read(DataInput input, int depth, NBTSizeTracker sizeTracker) throws IOException
-    {
-        sizeTracker.read(288L);
-        data = input.readUTF();
-        sizeTracker.read((long)(16 * data.length()));
-    }
+	public NBTTagString(String data) {
 
-    /**
-     * Gets the type byte for the tag.
-     */
-    public byte getId()
-    {
-        return 8;
-    }
+		Objects.requireNonNull(data, "Null string not allowed");
+		this.data = data;
+	}
 
-    public String toString()
-    {
-        return quoteAndEscape(data);
-    }
+	/**
+	 * Write the actual data contents of the tag, implemented in NBT extension classes
+	 */
+	void write(DataOutput output) throws IOException {
 
-    /**
-     * Creates a clone of the tag.
-     */
-    public NBTTagString copy()
-    {
-        return new NBTTagString(data);
-    }
+		output.writeUTF(data);
+	}
 
-    /**
-     * Return whether this compound has no tags.
-     */
-    public boolean hasNoTags()
-    {
-        return data.isEmpty();
-    }
+	void read(DataInput input, int depth, NBTSizeTracker sizeTracker) throws IOException {
 
-    public boolean equals(Object p_equals_1_)
-    {
-        if (!super.equals(p_equals_1_))
-        {
-            return false;
-        }
-        else
-        {
-            NBTTagString nbttagstring = (NBTTagString)p_equals_1_;
-            return data == null && nbttagstring.data == null || Objects.equals(data, nbttagstring.data);
-        }
-    }
+		sizeTracker.read(288L);
+		data = input.readUTF();
+		sizeTracker.read(16L * data.length());
+	}
 
-    public int hashCode()
-    {
-        return super.hashCode() ^ data.hashCode();
-    }
+	/**
+	 * Gets the type byte for the tag.
+	 */
+	public byte getId() {
 
-    public String getString()
-    {
-        return data;
-    }
+		return 8;
+	}
 
-    public static String quoteAndEscape(String p_193588_0_)
-    {
-        StringBuilder stringbuilder = new StringBuilder("\"");
+	public String toString() {
 
-        for (int i = 0; i < p_193588_0_.length(); ++i)
-        {
-            char c0 = p_193588_0_.charAt(i);
+		return quoteAndEscape(data);
+	}
 
-            if (c0 == '\\' || c0 == '"')
-            {
-                stringbuilder.append('\\');
-            }
+	/**
+	 * Creates a clone of the tag.
+	 */
+	public NBTTagString copy() {
 
-            stringbuilder.append(c0);
-        }
+		return new NBTTagString(data);
+	}
 
-        return stringbuilder.append('"').toString();
-    }
+	/**
+	 * Return whether this compound has no tags.
+	 */
+	public boolean hasNoTags() {
+
+		return data.isEmpty();
+	}
+
+	public boolean equals(Object p_equals_1_) {
+
+		if (!super.equals(p_equals_1_)) {
+			return false;
+		} else {
+			NBTTagString nbttagstring = (NBTTagString) p_equals_1_;
+			return data == null && nbttagstring.data == null || Objects.equals(data, nbttagstring.data);
+		}
+	}
+
+	public int hashCode() {
+
+		return super.hashCode() ^ data.hashCode();
+	}
+
+	public String getString() {
+
+		return data;
+	}
+
+	public static String quoteAndEscape(String p_193588_0_) {
+
+		StringBuilder stringbuilder = new StringBuilder("\"");
+
+		for (int i = 0; i < p_193588_0_.length(); ++i) {
+			char c0 = p_193588_0_.charAt(i);
+
+			if (c0 == '\\' || c0 == '"') {
+				stringbuilder.append('\\');
+			}
+
+			stringbuilder.append(c0);
+		}
+
+		return stringbuilder.append('"').toString();
+	}
+
 }

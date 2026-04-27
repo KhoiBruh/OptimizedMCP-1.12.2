@@ -1,81 +1,82 @@
 package net.minecraft.network.play.client;
 
-import java.io.IOException;
 import net.minecraft.entity.Entity;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayServer;
 
-public class CPacketEntityAction implements Packet<INetHandlerPlayServer>
-{
-    private int entityID;
-    private CPacketEntityAction.Action action;
-    private int auxData;
+import java.io.IOException;
 
-    public CPacketEntityAction()
-    {
-    }
+public class CPacketEntityAction implements Packet<INetHandlerPlayServer> {
 
-    public CPacketEntityAction(Entity entityIn, CPacketEntityAction.Action actionIn)
-    {
-        this(entityIn, actionIn, 0);
-    }
+	private int entityID;
+	private CPacketEntityAction.Action action;
+	private int auxData;
 
-    public CPacketEntityAction(Entity entityIn, CPacketEntityAction.Action actionIn, int auxDataIn)
-    {
-        entityID = entityIn.getEntityId();
-        action = actionIn;
-        auxData = auxDataIn;
-    }
+	public CPacketEntityAction() {
 
-    /**
-     * Reads the raw packet data from the data stream.
-     */
-    public void readPacketData(PacketBuffer buf) throws IOException
-    {
-        entityID = buf.readVarInt();
-        action = (CPacketEntityAction.Action)buf.readEnumValue(CPacketEntityAction.Action.class);
-        auxData = buf.readVarInt();
-    }
+	}
 
-    /**
-     * Writes the raw packet data to the data stream.
-     */
-    public void writePacketData(PacketBuffer buf) throws IOException
-    {
-        buf.writeVarInt(entityID);
-        buf.writeEnumValue(action);
-        buf.writeVarInt(auxData);
-    }
+	public CPacketEntityAction(Entity entityIn, CPacketEntityAction.Action actionIn) {
 
-    /**
-     * Passes this Packet on to the NetHandler for processing.
-     */
-    public void processPacket(INetHandlerPlayServer handler)
-    {
-        handler.processEntityAction(this);
-    }
+		this(entityIn, actionIn, 0);
+	}
 
-    public CPacketEntityAction.Action getAction()
-    {
-        return action;
-    }
+	public CPacketEntityAction(Entity entityIn, CPacketEntityAction.Action actionIn, int auxDataIn) {
 
-    public int getAuxData()
-    {
-        return auxData;
-    }
+		entityID = entityIn.getEntityId();
+		action = actionIn;
+		auxData = auxDataIn;
+	}
 
-    public static enum Action
-    {
-        START_SNEAKING,
-        STOP_SNEAKING,
-        STOP_SLEEPING,
-        START_SPRINTING,
-        STOP_SPRINTING,
-        START_RIDING_JUMP,
-        STOP_RIDING_JUMP,
-        OPEN_INVENTORY,
-        START_FALL_FLYING;
-    }
+	/**
+	 * Reads the raw packet data from the data stream.
+	 */
+	public void readPacketData(PacketBuffer buf) throws IOException {
+
+		entityID = buf.readVarInt();
+		action = buf.readEnumValue(Action.class);
+		auxData = buf.readVarInt();
+	}
+
+	/**
+	 * Writes the raw packet data to the data stream.
+	 */
+	public void writePacketData(PacketBuffer buf) throws IOException {
+
+		buf.writeVarInt(entityID);
+		buf.writeEnumValue(action);
+		buf.writeVarInt(auxData);
+	}
+
+	/**
+	 * Passes this Packet on to the NetHandler for processing.
+	 */
+	public void processPacket(INetHandlerPlayServer handler) {
+
+		handler.processEntityAction(this);
+	}
+
+	public CPacketEntityAction.Action getAction() {
+
+		return action;
+	}
+
+	public int getAuxData() {
+
+		return auxData;
+	}
+
+	public enum Action {
+		START_SNEAKING,
+		STOP_SNEAKING,
+		STOP_SLEEPING,
+		START_SPRINTING,
+		STOP_SPRINTING,
+		START_RIDING_JUMP,
+		STOP_RIDING_JUMP,
+		OPEN_INVENTORY,
+		START_FALL_FLYING
+	}
+
 }

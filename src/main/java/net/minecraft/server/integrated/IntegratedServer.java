@@ -5,9 +5,6 @@ import com.google.common.util.concurrent.Futures;
 import com.mojang.authlib.GameProfileRepository;
 import com.mojang.authlib.minecraft.MinecraftSessionService;
 import com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService;
-import java.io.File;
-import java.io.IOException;
-import java.net.InetAddress;
 import net.minecraft.client.ClientBrandRetriever;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ThreadLanServerPing;
@@ -21,440 +18,392 @@ import net.minecraft.server.management.PlayerProfileCache;
 import net.minecraft.util.CryptManager;
 import net.minecraft.util.HttpUtil;
 import net.minecraft.util.Util;
-import net.minecraft.world.EnumDifficulty;
-import net.minecraft.world.GameType;
-import net.minecraft.world.ServerWorldEventHandler;
-import net.minecraft.world.WorldServer;
-import net.minecraft.world.WorldServerDemo;
-import net.minecraft.world.WorldServerMulti;
-import net.minecraft.world.WorldSettings;
-import net.minecraft.world.WorldType;
+import net.minecraft.world.*;
 import net.minecraft.world.storage.ISaveHandler;
 import net.minecraft.world.storage.WorldInfo;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class IntegratedServer extends MinecraftServer
-{
-    private static final Logger LOGGER = LogManager.getLogger();
+import java.io.File;
+import java.io.IOException;
+import java.net.InetAddress;
 
-    /** The Minecraft instance. */
-    private final Minecraft mc;
-    private final WorldSettings worldSettings;
-    private boolean isGamePaused;
-    private boolean isPublic;
-    private ThreadLanServerPing lanServerPing;
+public class IntegratedServer extends MinecraftServer {
 
-    public IntegratedServer(Minecraft clientIn, String folderNameIn, String worldNameIn, WorldSettings worldSettingsIn, YggdrasilAuthenticationService authServiceIn, MinecraftSessionService sessionServiceIn, GameProfileRepository profileRepoIn, PlayerProfileCache profileCacheIn)
-    {
-        super(new File(clientIn.mcDataDir, "saves"), clientIn.getProxy(), clientIn.getDataFixer(), authServiceIn, sessionServiceIn, profileRepoIn, profileCacheIn);
-        setServerOwner(clientIn.getSession().getUsername());
-        setFolderName(folderNameIn);
-        setWorldName(worldNameIn);
-        setDemo(clientIn.isDemo());
-        canCreateBonusChest(worldSettingsIn.isBonusChestEnabled());
-        setBuildLimit(256);
-        setPlayerList(new IntegratedPlayerList(this));
-        mc = clientIn;
-        worldSettings = isDemo() ? WorldServerDemo.DEMO_WORLD_SETTINGS : worldSettingsIn;
-    }
+	private static final Logger LOGGER = LogManager.getLogger();
 
-    public ServerCommandManager createCommandManager()
-    {
-        return new IntegratedServerCommandManager(this);
-    }
+	/**
+	 * The Minecraft instance.
+	 */
+	private final Minecraft mc;
+	private final WorldSettings worldSettings;
+	private boolean isGamePaused;
+	private boolean isPublic;
+	private ThreadLanServerPing lanServerPing;
 
-    public void loadAllWorlds(String saveName, String worldNameIn, long seed, WorldType type, String generatorOptions)
-    {
-        convertMapIfNeeded(saveName);
-        worlds = new WorldServer[3];
-        timeOfLastDimensionTick = new long[worlds.length][100];
-        ISaveHandler isavehandler = getActiveAnvilConverter().getSaveLoader(saveName, true);
-        setResourcePackFromWorld(getFolderName(), isavehandler);
-        WorldInfo worldinfo = isavehandler.loadWorldInfo();
+	public IntegratedServer(Minecraft clientIn, String folderNameIn, String worldNameIn, WorldSettings worldSettingsIn, YggdrasilAuthenticationService authServiceIn, MinecraftSessionService sessionServiceIn, GameProfileRepository profileRepoIn, PlayerProfileCache profileCacheIn) {
 
-        if (worldinfo == null)
-        {
-            worldinfo = new WorldInfo(worldSettings, worldNameIn);
-        }
-        else
-        {
-            worldinfo.setWorldName(worldNameIn);
-        }
+		super(new File(clientIn.mcDataDir, "saves"), clientIn.getProxy(), clientIn.getDataFixer(), authServiceIn, sessionServiceIn, profileRepoIn, profileCacheIn);
+		setServerOwner(clientIn.getSession().getUsername());
+		setFolderName(folderNameIn);
+		setWorldName(worldNameIn);
+		setDemo(clientIn.isDemo());
+		canCreateBonusChest(worldSettingsIn.isBonusChestEnabled());
+		setBuildLimit(256);
+		setPlayerList(new IntegratedPlayerList(this));
+		mc = clientIn;
+		worldSettings = isDemo() ? WorldServerDemo.DEMO_WORLD_SETTINGS : worldSettingsIn;
+	}
 
-        for (int i = 0; i < worlds.length; ++i)
-        {
-            int j = 0;
+	public ServerCommandManager createCommandManager() {
 
-            if (i == 1)
-            {
-                j = -1;
-            }
+		return new IntegratedServerCommandManager(this);
+	}
 
-            if (i == 2)
-            {
-                j = 1;
-            }
+	public void loadAllWorlds(String saveName, String worldNameIn, long seed, WorldType type, String generatorOptions) {
 
-            if (i == 0)
-            {
-                if (isDemo())
-                {
-                    worlds[i] = (WorldServer)(new WorldServerDemo(this, isavehandler, worldinfo, j, profiler)).init();
-                }
-                else
-                {
-                    worlds[i] = (WorldServer)(new WorldServer(this, isavehandler, worldinfo, j, profiler)).init();
-                }
+		convertMapIfNeeded(saveName);
+		worlds = new WorldServer[3];
+		timeOfLastDimensionTick = new long[worlds.length][100];
+		ISaveHandler isavehandler = getActiveAnvilConverter().getSaveLoader(saveName, true);
+		setResourcePackFromWorld(getFolderName(), isavehandler);
+		WorldInfo worldinfo = isavehandler.loadWorldInfo();
 
-                worlds[i].initialize(worldSettings);
-            }
-            else
-            {
-                worlds[i] = (WorldServer)(new WorldServerMulti(this, isavehandler, j, worlds[0], profiler)).init();
-            }
+		if (worldinfo == null) {
+			worldinfo = new WorldInfo(worldSettings, worldNameIn);
+		} else {
+			worldinfo.setWorldName(worldNameIn);
+		}
 
-            worlds[i].addEventListener(new ServerWorldEventHandler(this, worlds[i]));
-        }
+		for (int i = 0; i < worlds.length; ++i) {
+			int j = 0;
 
-        getPlayerList().setPlayerManager(worlds);
+			if (i == 1) {
+				j = -1;
+			}
 
-        if (worlds[0].getWorldInfo().getDifficulty() == null)
-        {
-            setDifficultyForAllWorlds(mc.gameSettings.difficulty);
-        }
+			if (i == 2) {
+				j = 1;
+			}
 
-        initialWorldChunkLoad();
-    }
+			if (i == 0) {
+				if (isDemo()) {
+					worlds[i] = (WorldServer) (new WorldServerDemo(this, isavehandler, worldinfo, j, profiler)).init();
+				} else {
+					worlds[i] = (WorldServer) (new WorldServer(this, isavehandler, worldinfo, j, profiler)).init();
+				}
 
-    /**
-     * Initialises the server and starts it.
-     */
-    public boolean init() throws IOException
-    {
-        LOGGER.info("Starting integrated minecraft server version 1.12.2");
-        setOnlineMode(true);
-        setCanSpawnAnimals(true);
-        setCanSpawnNPCs(true);
-        setAllowPvp(true);
-        setAllowFlight(true);
-        LOGGER.info("Generating keypair");
-        setKeyPair(CryptManager.generateKeyPair());
-        loadAllWorlds(getFolderName(), getWorldName(), worldSettings.getSeed(), worldSettings.getTerrainType(), worldSettings.getGeneratorOptions());
-        setMOTD(getServerOwner() + " - " + worlds[0].getWorldInfo().getWorldName());
-        return true;
-    }
+				worlds[i].initialize(worldSettings);
+			} else {
+				worlds[i] = (WorldServer) (new WorldServerMulti(this, isavehandler, j, worlds[0], profiler)).init();
+			}
 
-    /**
-     * Main function called by run() every loop.
-     */
-    public void tick()
-    {
-        boolean flag = isGamePaused;
-        isGamePaused = Minecraft.getMinecraft().getConnection() != null && Minecraft.getMinecraft().isGamePaused();
+			worlds[i].addEventListener(new ServerWorldEventHandler(this, worlds[i]));
+		}
 
-        if (!flag && isGamePaused)
-        {
-            LOGGER.info("Saving and pausing game...");
-            getPlayerList().saveAllPlayerData();
-            saveAllWorlds(false);
-        }
+		getPlayerList().setPlayerManager(worlds);
 
-        if (isGamePaused)
-        {
-            synchronized (futureTaskQueue)
-            {
-                while (!futureTaskQueue.isEmpty())
-                {
-                    Util.runTask(futureTaskQueue.poll(), LOGGER);
-                }
-            }
-        }
-        else
-        {
-            super.tick();
+		if (worlds[0].getWorldInfo().getDifficulty() == null) {
+			setDifficultyForAllWorlds(mc.gameSettings.difficulty);
+		}
 
-            if (mc.gameSettings.renderDistanceChunks != getPlayerList().getViewDistance())
-            {
-                LOGGER.info("Changing view distance to {}, from {}", Integer.valueOf(mc.gameSettings.renderDistanceChunks), Integer.valueOf(getPlayerList().getViewDistance()));
-                getPlayerList().setViewDistance(mc.gameSettings.renderDistanceChunks);
-            }
+		initialWorldChunkLoad();
+	}
 
-            if (mc.world != null)
-            {
-                WorldInfo worldinfo1 = worlds[0].getWorldInfo();
-                WorldInfo worldinfo = mc.world.getWorldInfo();
+	/**
+	 * Initialises the server and starts it.
+	 */
+	public boolean init() throws IOException {
 
-                if (!worldinfo1.isDifficultyLocked() && worldinfo.getDifficulty() != worldinfo1.getDifficulty())
-                {
-                    LOGGER.info("Changing difficulty to {}, from {}", worldinfo.getDifficulty(), worldinfo1.getDifficulty());
-                    setDifficultyForAllWorlds(worldinfo.getDifficulty());
-                }
-                else if (worldinfo.isDifficultyLocked() && !worldinfo1.isDifficultyLocked())
-                {
-                    LOGGER.info("Locking difficulty to {}", (Object)worldinfo.getDifficulty());
+		LOGGER.info("Starting integrated minecraft server version 1.12.2");
+		setOnlineMode(true);
+		setCanSpawnAnimals(true);
+		setCanSpawnNPCs(true);
+		setAllowPvp(true);
+		setAllowFlight(true);
+		LOGGER.info("Generating keypair");
+		setKeyPair(CryptManager.generateKeyPair());
+		loadAllWorlds(getFolderName(), getWorldName(), worldSettings.getSeed(), worldSettings.getTerrainType(), worldSettings.getGeneratorOptions());
+		setMOTD(getServerOwner() + " - " + worlds[0].getWorldInfo().getWorldName());
+		return true;
+	}
 
-                    for (WorldServer worldserver : worlds)
-                    {
-                        if (worldserver != null)
-                        {
-                            worldserver.getWorldInfo().setDifficultyLocked(true);
-                        }
-                    }
-                }
-            }
-        }
-    }
+	/**
+	 * Main function called by run() every loop.
+	 */
+	public void tick() {
 
-    public boolean canStructuresSpawn()
-    {
-        return false;
-    }
+		boolean flag = isGamePaused;
+		isGamePaused = Minecraft.getMinecraft().getConnection() != null && Minecraft.getMinecraft().isGamePaused();
 
-    public GameType getGameType()
-    {
-        return worldSettings.getGameType();
-    }
+		if (!flag && isGamePaused) {
+			LOGGER.info("Saving and pausing game...");
+			getPlayerList().saveAllPlayerData();
+			saveAllWorlds(false);
+		}
 
-    /**
-     * Get the server's difficulty
-     */
-    public EnumDifficulty getDifficulty()
-    {
-        return mc.world.getWorldInfo().getDifficulty();
-    }
+		if (isGamePaused) {
+			synchronized (futureTaskQueue) {
+				while (!futureTaskQueue.isEmpty()) {
+					Util.runTask(futureTaskQueue.poll(), LOGGER);
+				}
+			}
+		} else {
+			super.tick();
 
-    /**
-     * Defaults to false.
-     */
-    public boolean isHardcore()
-    {
-        return worldSettings.getHardcoreEnabled();
-    }
+			if (mc.gameSettings.renderDistanceChunks != getPlayerList().getViewDistance()) {
+				LOGGER.info("Changing view distance to {}, from {}", Integer.valueOf(mc.gameSettings.renderDistanceChunks), Integer.valueOf(getPlayerList().getViewDistance()));
+				getPlayerList().setViewDistance(mc.gameSettings.renderDistanceChunks);
+			}
 
-    /**
-     * Get if RCON command events should be broadcast to ops
-     */
-    public boolean shouldBroadcastRconToOps()
-    {
-        return true;
-    }
+			if (mc.world != null) {
+				WorldInfo worldinfo1 = worlds[0].getWorldInfo();
+				WorldInfo worldinfo = mc.world.getWorldInfo();
 
-    /**
-     * Get if console command events should be broadcast to ops
-     */
-    public boolean shouldBroadcastConsoleToOps()
-    {
-        return true;
-    }
+				if (!worldinfo1.isDifficultyLocked() && worldinfo.getDifficulty() != worldinfo1.getDifficulty()) {
+					LOGGER.info("Changing difficulty to {}, from {}", worldinfo.getDifficulty(), worldinfo1.getDifficulty());
+					setDifficultyForAllWorlds(worldinfo.getDifficulty());
+				} else if (worldinfo.isDifficultyLocked() && !worldinfo1.isDifficultyLocked()) {
+					LOGGER.info("Locking difficulty to {}", worldinfo.getDifficulty());
 
-    /**
-     * par1 indicates if a log message should be output.
-     */
-    public void saveAllWorlds(boolean isSilent)
-    {
-        super.saveAllWorlds(isSilent);
-    }
+					for (WorldServer worldserver : worlds) {
+						if (worldserver != null) {
+							worldserver.getWorldInfo().setDifficultyLocked(true);
+						}
+					}
+				}
+			}
+		}
+	}
 
-    public File getDataDirectory()
-    {
-        return mc.mcDataDir;
-    }
+	public boolean canStructuresSpawn() {
 
-    public boolean isDedicatedServer()
-    {
-        return false;
-    }
+		return false;
+	}
 
-    /**
-     * Get if native transport should be used. Native transport means linux server performance improvements and
-     * optimized packet sending/receiving on linux
-     */
-    public boolean shouldUseNativeTransport()
-    {
-        return false;
-    }
+	public GameType getGameType() {
 
-    /**
-     * Called on exit from the main run() loop.
-     */
-    public void finalTick(CrashReport report)
-    {
-        mc.crashed(report);
-    }
+		return worldSettings.getGameType();
+	}
 
-    /**
-     * Adds the server info, including from theWorldServer, to the crash report.
-     */
-    public CrashReport addServerInfoToCrashReport(CrashReport report)
-    {
-        report = super.addServerInfoToCrashReport(report);
-        report.getCategory().addDetail("Type", new ICrashReportDetail<String>()
-        {
-            public String call() throws Exception
-            {
-                return "Integrated Server (map_client.txt)";
-            }
-        });
-        report.getCategory().addDetail("Is Modded", new ICrashReportDetail<String>()
-        {
-            public String call() throws Exception
-            {
-                String s = ClientBrandRetriever.getClientModName();
+	/**
+	 * Get the server's difficulty
+	 */
+	public EnumDifficulty getDifficulty() {
 
-                if (!s.equals("vanilla"))
-                {
-                    return "Definitely; Client brand changed to '" + s + "'";
-                }
-                else
-                {
-                    s = getServerModName();
+		return mc.world.getWorldInfo().getDifficulty();
+	}
 
-                    if (!"vanilla".equals(s))
-                    {
-                        return "Definitely; Server brand changed to '" + s + "'";
-                    }
-                    else
-                    {
-                        return Minecraft.class.getSigners() == null ? "Very likely; Jar signature invalidated" : "Probably not. Jar signature remains and both client + server brands are untouched.";
-                    }
-                }
-            }
-        });
-        return report;
-    }
+	/**
+	 * Defaults to false.
+	 */
+	public boolean isHardcore() {
 
-    public void setDifficultyForAllWorlds(EnumDifficulty difficulty)
-    {
-        super.setDifficultyForAllWorlds(difficulty);
+		return worldSettings.getHardcoreEnabled();
+	}
 
-        if (mc.world != null)
-        {
-            mc.world.getWorldInfo().setDifficulty(difficulty);
-        }
-    }
+	/**
+	 * Get if RCON command events should be broadcast to ops
+	 */
+	public boolean shouldBroadcastRconToOps() {
 
-    public void addServerStatsToSnooper(Snooper playerSnooper)
-    {
-        super.addServerStatsToSnooper(playerSnooper);
-        playerSnooper.addClientStat("snooper_partner", mc.getPlayerUsageSnooper().getUniqueID());
-    }
+		return true;
+	}
 
-    /**
-     * Returns whether snooping is enabled or not.
-     */
-    public boolean isSnooperEnabled()
-    {
-        return Minecraft.getMinecraft().isSnooperEnabled();
-    }
+	/**
+	 * Get if console command events should be broadcast to ops
+	 */
+	public boolean shouldBroadcastConsoleToOps() {
 
-    /**
-     * On dedicated does nothing. On integrated, sets commandsAllowedForAll, gameType and allows external connections.
-     */
-    public String shareToLAN(GameType type, boolean allowCheats)
-    {
-        try
-        {
-            int i = -1;
+		return true;
+	}
 
-            try
-            {
-                i = HttpUtil.getSuitableLanPort();
-            }
-            catch (IOException var5)
-            {
-                ;
-            }
+	/**
+	 * par1 indicates if a log message should be output.
+	 */
+	public void saveAllWorlds(boolean isSilent) {
 
-            if (i <= 0)
-            {
-                i = 25564;
-            }
+		super.saveAllWorlds(isSilent);
+	}
 
-            getNetworkSystem().addLanEndpoint((InetAddress)null, i);
-            LOGGER.info("Started on {}", (int)i);
-            isPublic = true;
-            lanServerPing = new ThreadLanServerPing(getMOTD(), i + "");
-            lanServerPing.start();
-            getPlayerList().setGameType(type);
-            getPlayerList().setCommandsAllowedForAll(allowCheats);
-            mc.player.setPermissionLevel(allowCheats ? 4 : 0);
-            return i + "";
-        }
-        catch (IOException var6)
-        {
-            return null;
-        }
-    }
+	public File getDataDirectory() {
 
-    /**
-     * Saves all necessary data as preparation for stopping the server.
-     */
-    public void stopServer()
-    {
-        super.stopServer();
+		return mc.mcDataDir;
+	}
 
-        if (lanServerPing != null)
-        {
-            lanServerPing.interrupt();
-            lanServerPing = null;
-        }
-    }
+	public boolean isDedicatedServer() {
 
-    /**
-     * Sets the serverRunning variable to false, in order to get the server to shut down.
-     */
-    public void initiateShutdown()
-    {
-        Futures.getUnchecked(addScheduledTask(new Runnable()
-        {
-            public void run()
-            {
-                for (EntityPlayerMP entityplayermp : Lists.newArrayList(getPlayerList().getPlayers()))
-                {
-                    if (!entityplayermp.getUniqueID().equals(mc.player.getUniqueID()))
-                    {
-                        getPlayerList().playerLoggedOut(entityplayermp);
-                    }
-                }
-            }
-        }));
-        super.initiateShutdown();
+		return false;
+	}
 
-        if (lanServerPing != null)
-        {
-            lanServerPing.interrupt();
-            lanServerPing = null;
-        }
-    }
+	/**
+	 * Get if native transport should be used. Native transport means linux server performance improvements and
+	 * optimized packet sending/receiving on linux
+	 */
+	public boolean shouldUseNativeTransport() {
 
-    /**
-     * Returns true if this integrated server is open to LAN
-     */
-    public boolean getPublic()
-    {
-        return isPublic;
-    }
+		return false;
+	}
 
-    /**
-     * Sets the game type for all worlds.
-     */
-    public void setGameType(GameType gameMode)
-    {
-        super.setGameType(gameMode);
-        getPlayerList().setGameType(gameMode);
-    }
+	/**
+	 * Called on exit from the main run() loop.
+	 */
+	public void finalTick(CrashReport report) {
 
-    /**
-     * Return whether command blocks are enabled.
-     */
-    public boolean isCommandBlockEnabled()
-    {
-        return true;
-    }
+		mc.crashed(report);
+	}
 
-    public int getOpPermissionLevel()
-    {
-        return 4;
-    }
+	/**
+	 * Adds the server info, including from theWorldServer, to the crash report.
+	 */
+	public CrashReport addServerInfoToCrashReport(CrashReport report) {
+
+		report = super.addServerInfoToCrashReport(report);
+		report.getCategory().addDetail("Type", new ICrashReportDetail<String>() {
+			public String call() throws Exception {
+
+				return "Integrated Server (map_client.txt)";
+			}
+		});
+		report.getCategory().addDetail("Is Modded", new ICrashReportDetail<String>() {
+			public String call() throws Exception {
+
+				String s = ClientBrandRetriever.getClientModName();
+
+				if (!s.equals("vanilla")) {
+					return "Definitely; Client brand changed to '" + s + "'";
+				} else {
+					s = getServerModName();
+
+					if (!"vanilla".equals(s)) {
+						return "Definitely; Server brand changed to '" + s + "'";
+					} else {
+						return Minecraft.class.getSigners() == null ? "Very likely; Jar signature invalidated" : "Probably not. Jar signature remains and both client + server brands are untouched.";
+					}
+				}
+			}
+		});
+		return report;
+	}
+
+	public void setDifficultyForAllWorlds(EnumDifficulty difficulty) {
+
+		super.setDifficultyForAllWorlds(difficulty);
+
+		if (mc.world != null) {
+			mc.world.getWorldInfo().setDifficulty(difficulty);
+		}
+	}
+
+	public void addServerStatsToSnooper(Snooper playerSnooper) {
+
+		super.addServerStatsToSnooper(playerSnooper);
+		playerSnooper.addClientStat("snooper_partner", mc.getPlayerUsageSnooper().getUniqueID());
+	}
+
+	/**
+	 * Returns whether snooping is enabled or not.
+	 */
+	public boolean isSnooperEnabled() {
+
+		return Minecraft.getMinecraft().isSnooperEnabled();
+	}
+
+	/**
+	 * On dedicated does nothing. On integrated, sets commandsAllowedForAll, gameType and allows external connections.
+	 */
+	public String shareToLAN(GameType type, boolean allowCheats) {
+
+		try {
+			int i = -1;
+
+			try {
+				i = HttpUtil.getSuitableLanPort();
+			} catch (IOException var5) {
+			}
+
+			if (i <= 0) {
+				i = 25564;
+			}
+
+			getNetworkSystem().addLanEndpoint((InetAddress) null, i);
+			LOGGER.info("Started on {}", i);
+			isPublic = true;
+			lanServerPing = new ThreadLanServerPing(getMOTD(), i + "");
+			lanServerPing.start();
+			getPlayerList().setGameType(type);
+			getPlayerList().setCommandsAllowedForAll(allowCheats);
+			mc.player.setPermissionLevel(allowCheats ? 4 : 0);
+			return i + "";
+		} catch (IOException var6) {
+			return null;
+		}
+	}
+
+	/**
+	 * Saves all necessary data as preparation for stopping the server.
+	 */
+	public void stopServer() {
+
+		super.stopServer();
+
+		if (lanServerPing != null) {
+			lanServerPing.interrupt();
+			lanServerPing = null;
+		}
+	}
+
+	/**
+	 * Sets the serverRunning variable to false, in order to get the server to shut down.
+	 */
+	public void initiateShutdown() {
+
+		Futures.getUnchecked(addScheduledTask(new Runnable() {
+			public void run() {
+
+				for (EntityPlayerMP entityplayermp : Lists.newArrayList(getPlayerList().getPlayers())) {
+					if (!entityplayermp.getUniqueID().equals(mc.player.getUniqueID())) {
+						getPlayerList().playerLoggedOut(entityplayermp);
+					}
+				}
+			}
+		}));
+		super.initiateShutdown();
+
+		if (lanServerPing != null) {
+			lanServerPing.interrupt();
+			lanServerPing = null;
+		}
+	}
+
+	/**
+	 * Returns true if this integrated server is open to LAN
+	 */
+	public boolean getPublic() {
+
+		return isPublic;
+	}
+
+	/**
+	 * Sets the game type for all worlds.
+	 */
+	public void setGameType(GameType gameMode) {
+
+		super.setGameType(gameMode);
+		getPlayerList().setGameType(gameMode);
+	}
+
+	/**
+	 * Return whether command blocks are enabled.
+	 */
+	public boolean isCommandBlockEnabled() {
+
+		return true;
+	}
+
+	public int getOpPermissionLevel() {
+
+		return 4;
+	}
+
 }

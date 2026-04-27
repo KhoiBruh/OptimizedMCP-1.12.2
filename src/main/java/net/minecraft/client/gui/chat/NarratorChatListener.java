@@ -9,68 +9,58 @@ import net.minecraft.util.text.ChatType;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
 
-public class NarratorChatListener implements IChatListener
-{
-    public static final NarratorChatListener INSTANCE = new NarratorChatListener();
-    private final Narrator narrator = Narrator.getNarrator();
+public class NarratorChatListener implements IChatListener {
 
-    /**
-     * Called whenever this listener receives a chat message, if this listener is registered to the given type in {@link
-     * net.minecraft.client.gui.GuiIngame#chatListeners chatListeners}
-     *  
-     * @param chatTypeIn The type of chat message
-     * @param message The chat message.
-     */
-    public void say(ChatType chatTypeIn, ITextComponent message)
-    {
-        int i = Minecraft.getMinecraft().gameSettings.narrator;
+	public static final NarratorChatListener INSTANCE = new NarratorChatListener();
+	private final Narrator narrator = Narrator.getNarrator();
 
-        if (i != 0 && narrator.active())
-        {
-            if (i == 1 || i == 2 && chatTypeIn == ChatType.CHAT || i == 3 && chatTypeIn == ChatType.SYSTEM)
-            {
-                if (message instanceof TextComponentTranslation && "chat.type.text".equals(((TextComponentTranslation)message).getKey()))
-                {
-                    narrator.say((new TextComponentTranslation("chat.type.text.narrate", ((TextComponentTranslation)message).getFormatArgs())).getUnformattedText());
-                }
-                else
-                {
-                    narrator.say(message.getUnformattedText());
-                }
-            }
-        }
-    }
+	/**
+	 * Called whenever this listener receives a chat message, if this listener is registered to the given type in {@link
+	 * net.minecraft.client.gui.GuiIngame#chatListeners chatListeners}
+	 *
+	 * @param chatTypeIn The type of chat message
+	 * @param message    The chat message.
+	 */
+	public void say(ChatType chatTypeIn, ITextComponent message) {
 
-    public void announceMode(int p_193641_1_)
-    {
-        narrator.clear();
-        narrator.say((new TextComponentTranslation("options.narrator", new Object[0])).getUnformattedText() + " : " + (new TextComponentTranslation(GameSettings.NARRATOR_MODES[p_193641_1_], new Object[0])).getUnformattedText());
-        GuiToast guitoast = Minecraft.getMinecraft().getToastGui();
+		int i = Minecraft.getMinecraft().gameSettings.narrator;
 
-        if (narrator.active())
-        {
-            if (p_193641_1_ == 0)
-            {
-                SystemToast.addOrUpdate(guitoast, SystemToast.Type.NARRATOR_TOGGLE, new TextComponentTranslation("narrator.toast.disabled", new Object[0]), (ITextComponent)null);
-            }
-            else
-            {
-                SystemToast.addOrUpdate(guitoast, SystemToast.Type.NARRATOR_TOGGLE, new TextComponentTranslation("narrator.toast.enabled", new Object[0]), new TextComponentTranslation(GameSettings.NARRATOR_MODES[p_193641_1_], new Object[0]));
-            }
-        }
-        else
-        {
-            SystemToast.addOrUpdate(guitoast, SystemToast.Type.NARRATOR_TOGGLE, new TextComponentTranslation("narrator.toast.disabled", new Object[0]), new TextComponentTranslation("options.narrator.notavailable", new Object[0]));
-        }
-    }
+		if (i != 0 && narrator.active()) {
+			if (i == 1 || i == 2 && chatTypeIn == ChatType.CHAT || i == 3 && chatTypeIn == ChatType.SYSTEM) {
+				if (message instanceof TextComponentTranslation && "chat.type.text".equals(((TextComponentTranslation) message).getKey())) {
+					narrator.say((new TextComponentTranslation("chat.type.text.narrate", ((TextComponentTranslation) message).getFormatArgs())).getUnformattedText());
+				} else {
+					narrator.say(message.getUnformattedText());
+				}
+			}
+		}
+	}
 
-    public boolean isActive()
-    {
-        return narrator.active();
-    }
+	public void announceMode(int p_193641_1_) {
 
-    public void clear()
-    {
-        narrator.clear();
-    }
+		narrator.clear();
+		narrator.say((new TextComponentTranslation("options.narrator")).getUnformattedText() + " : " + (new TextComponentTranslation(GameSettings.NARRATOR_MODES[p_193641_1_])).getUnformattedText());
+		GuiToast guitoast = Minecraft.getMinecraft().getToastGui();
+
+		if (narrator.active()) {
+			if (p_193641_1_ == 0) {
+				SystemToast.addOrUpdate(guitoast, SystemToast.Type.NARRATOR_TOGGLE, new TextComponentTranslation("narrator.toast.disabled"), null);
+			} else {
+				SystemToast.addOrUpdate(guitoast, SystemToast.Type.NARRATOR_TOGGLE, new TextComponentTranslation("narrator.toast.enabled"), new TextComponentTranslation(GameSettings.NARRATOR_MODES[p_193641_1_]));
+			}
+		} else {
+			SystemToast.addOrUpdate(guitoast, SystemToast.Type.NARRATOR_TOGGLE, new TextComponentTranslation("narrator.toast.disabled"), new TextComponentTranslation("options.narrator.notavailable"));
+		}
+	}
+
+	public boolean isActive() {
+
+		return narrator.active();
+	}
+
+	public void clear() {
+
+		narrator.clear();
+	}
+
 }

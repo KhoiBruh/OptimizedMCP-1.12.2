@@ -1,7 +1,5 @@
 package net.minecraft.network.play.server;
 
-import java.io.IOException;
-import javax.annotation.Nullable;
 import net.minecraft.entity.Entity;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
@@ -9,56 +7,60 @@ import net.minecraft.network.play.INetHandlerPlayClient;
 import net.minecraft.potion.Potion;
 import net.minecraft.world.World;
 
-public class SPacketRemoveEntityEffect implements Packet<INetHandlerPlayClient>
-{
-    private int entityId;
-    private Potion effectId;
+import javax.annotation.Nullable;
+import java.io.IOException;
 
-    public SPacketRemoveEntityEffect()
-    {
-    }
+public class SPacketRemoveEntityEffect implements Packet<INetHandlerPlayClient> {
 
-    public SPacketRemoveEntityEffect(int entityIdIn, Potion potionIn)
-    {
-        entityId = entityIdIn;
-        effectId = potionIn;
-    }
+	private int entityId;
+	private Potion effectId;
 
-    /**
-     * Reads the raw packet data from the data stream.
-     */
-    public void readPacketData(PacketBuffer buf) throws IOException
-    {
-        entityId = buf.readVarInt();
-        effectId = Potion.getPotionById(buf.readUnsignedByte());
-    }
+	public SPacketRemoveEntityEffect() {
 
-    /**
-     * Writes the raw packet data to the data stream.
-     */
-    public void writePacketData(PacketBuffer buf) throws IOException
-    {
-        buf.writeVarInt(entityId);
-        buf.writeByte(Potion.getIdFromPotion(effectId));
-    }
+	}
 
-    /**
-     * Passes this Packet on to the NetHandler for processing.
-     */
-    public void processPacket(INetHandlerPlayClient handler)
-    {
-        handler.handleRemoveEntityEffect(this);
-    }
+	public SPacketRemoveEntityEffect(int entityIdIn, Potion potionIn) {
 
-    @Nullable
-    public Entity getEntity(World worldIn)
-    {
-        return worldIn.getEntityByID(entityId);
-    }
+		entityId = entityIdIn;
+		effectId = potionIn;
+	}
 
-    @Nullable
-    public Potion getPotion()
-    {
-        return effectId;
-    }
+	/**
+	 * Reads the raw packet data from the data stream.
+	 */
+	public void readPacketData(PacketBuffer buf) throws IOException {
+
+		entityId = buf.readVarInt();
+		effectId = Potion.getPotionById(buf.readUnsignedByte());
+	}
+
+	/**
+	 * Writes the raw packet data to the data stream.
+	 */
+	public void writePacketData(PacketBuffer buf) throws IOException {
+
+		buf.writeVarInt(entityId);
+		buf.writeByte(Potion.getIdFromPotion(effectId));
+	}
+
+	/**
+	 * Passes this Packet on to the NetHandler for processing.
+	 */
+	public void processPacket(INetHandlerPlayClient handler) {
+
+		handler.handleRemoveEntityEffect(this);
+	}
+
+	@Nullable
+	public Entity getEntity(World worldIn) {
+
+		return worldIn.getEntityByID(entityId);
+	}
+
+	@Nullable
+	public Potion getPotion() {
+
+		return effectId;
+	}
+
 }

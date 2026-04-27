@@ -2,82 +2,75 @@ package net.minecraft.entity;
 
 import net.minecraft.util.math.MathHelper;
 
-public class EntityBodyHelper
-{
-    /** Instance of EntityLiving. */
-    private final EntityLivingBase living;
+public class EntityBodyHelper {
 
-    /**
-     * Used to progressively ajust the rotation of the body to the rotation of the head
-     */
-    private int rotationTickCounter;
-    private float prevRenderYawHead;
+	/**
+	 * Instance of EntityLiving.
+	 */
+	private final EntityLivingBase living;
 
-    public EntityBodyHelper(EntityLivingBase livingIn)
-    {
-        living = livingIn;
-    }
+	/**
+	 * Used to progressively ajust the rotation of the body to the rotation of the head
+	 */
+	private int rotationTickCounter;
+	private float prevRenderYawHead;
 
-    /**
-     * Update the Head and Body rendenring angles
-     */
-    public void updateRenderAngles()
-    {
-        double d0 = living.posX - living.prevPosX;
-        double d1 = living.posZ - living.prevPosZ;
+	public EntityBodyHelper(EntityLivingBase livingIn) {
 
-        if (d0 * d0 + d1 * d1 > 2.500000277905201E-7D)
-        {
-            living.renderYawOffset = living.rotationYaw;
-            living.rotationYawHead = computeAngleWithBound(living.renderYawOffset, living.rotationYawHead, 75.0F);
-            prevRenderYawHead = living.rotationYawHead;
-            rotationTickCounter = 0;
-        }
-        else
-        {
-            if (living.getPassengers().isEmpty() || !(living.getPassengers().get(0) instanceof EntityLiving))
-            {
-                float f = 75.0F;
+		living = livingIn;
+	}
 
-                if (Math.abs(living.rotationYawHead - prevRenderYawHead) > 15.0F)
-                {
-                    rotationTickCounter = 0;
-                    prevRenderYawHead = living.rotationYawHead;
-                }
-                else
-                {
-                    ++rotationTickCounter;
-                    int i = 10;
+	/**
+	 * Update the Head and Body rendenring angles
+	 */
+	public void updateRenderAngles() {
 
-                    if (rotationTickCounter > 10)
-                    {
-                        f = Math.max(1.0F - (float)(rotationTickCounter - 10) / 10.0F, 0.0F) * 75.0F;
-                    }
-                }
+		double d0 = living.posX - living.prevPosX;
+		double d1 = living.posZ - living.prevPosZ;
 
-                living.renderYawOffset = computeAngleWithBound(living.rotationYawHead, living.renderYawOffset, f);
-            }
-        }
-    }
+		if (d0 * d0 + d1 * d1 > 2.500000277905201E-7D) {
+			living.renderYawOffset = living.rotationYaw;
+			living.rotationYawHead = computeAngleWithBound(living.renderYawOffset, living.rotationYawHead, 75.0F);
+			prevRenderYawHead = living.rotationYawHead;
+			rotationTickCounter = 0;
+		} else {
+			if (living.getPassengers().isEmpty() || !(living.getPassengers().get(0) instanceof EntityLiving)) {
+				float f = 75.0F;
 
-    /**
-     * Return the new angle2 such that the difference between angle1 and angle2 is lower than angleMax. Args : angle1,
-     * angle2, angleMax
-     */
-    private float computeAngleWithBound(float p_75665_1_, float p_75665_2_, float p_75665_3_)
-    {
-        float f = MathHelper.wrapDegrees(p_75665_1_ - p_75665_2_);
+				if (Math.abs(living.rotationYawHead - prevRenderYawHead) > 15.0F) {
+					rotationTickCounter = 0;
+					prevRenderYawHead = living.rotationYawHead;
+				} else {
+					++rotationTickCounter;
+					int i = 10;
 
-        if (f < -p_75665_3_)
-        {
-            f = -p_75665_3_;
-        }
+					if (rotationTickCounter > 10) {
+						f = Math.max(1.0F - (float) (rotationTickCounter - 10) / 10.0F, 0.0F) * 75.0F;
+					}
+				}
 
-        if (f >= p_75665_3_)
-        {
-            f = p_75665_3_;
-        }
+				living.renderYawOffset = computeAngleWithBound(living.rotationYawHead, living.renderYawOffset, f);
+			}
+		}
+	}
 
-        return p_75665_1_ - f;
-    }
+	/**
+	 * Return the new angle2 such that the difference between angle1 and angle2 is lower than angleMax. Args : angle1,
+	 * angle2, angleMax
+	 */
+	private float computeAngleWithBound(float p_75665_1_, float p_75665_2_, float p_75665_3_) {
+
+		float f = MathHelper.wrapDegrees(p_75665_1_ - p_75665_2_);
+
+		if (f < -p_75665_3_) {
+			f = -p_75665_3_;
+		}
+
+		if (f >= p_75665_3_) {
+			f = p_75665_3_;
+		}
+
+		return p_75665_1_ - f;
+	}
+
 }

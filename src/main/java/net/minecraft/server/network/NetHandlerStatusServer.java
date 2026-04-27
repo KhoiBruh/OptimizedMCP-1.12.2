@@ -10,42 +10,40 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 
-public class NetHandlerStatusServer implements INetHandlerStatusServer
-{
-    private static final ITextComponent EXIT_MESSAGE = new TextComponentString("Status request has been handled.");
-    private final MinecraftServer server;
-    private final NetworkManager networkManager;
-    private boolean handled;
+public class NetHandlerStatusServer implements INetHandlerStatusServer {
 
-    public NetHandlerStatusServer(MinecraftServer serverIn, NetworkManager netManager)
-    {
-        server = serverIn;
-        networkManager = netManager;
-    }
+	private static final ITextComponent EXIT_MESSAGE = new TextComponentString("Status request has been handled.");
+	private final MinecraftServer server;
+	private final NetworkManager networkManager;
+	private boolean handled;
 
-    /**
-     * Invoked when disconnecting, the parameter is a ChatComponent describing the reason for termination
-     */
-    public void onDisconnect(ITextComponent reason)
-    {
-    }
+	public NetHandlerStatusServer(MinecraftServer serverIn, NetworkManager netManager) {
 
-    public void processServerQuery(CPacketServerQuery packetIn)
-    {
-        if (handled)
-        {
-            networkManager.closeChannel(EXIT_MESSAGE);
-        }
-        else
-        {
-            handled = true;
-            networkManager.sendPacket(new SPacketServerInfo(server.getServerStatusResponse()));
-        }
-    }
+		server = serverIn;
+		networkManager = netManager;
+	}
 
-    public void processPing(CPacketPing packetIn)
-    {
-        networkManager.sendPacket(new SPacketPong(packetIn.getClientTime()));
-        networkManager.closeChannel(EXIT_MESSAGE);
-    }
+	/**
+	 * Invoked when disconnecting, the parameter is a ChatComponent describing the reason for termination
+	 */
+	public void onDisconnect(ITextComponent reason) {
+
+	}
+
+	public void processServerQuery(CPacketServerQuery packetIn) {
+
+		if (handled) {
+			networkManager.closeChannel(EXIT_MESSAGE);
+		} else {
+			handled = true;
+			networkManager.sendPacket(new SPacketServerInfo(server.getServerStatusResponse()));
+		}
+	}
+
+	public void processPing(CPacketPing packetIn) {
+
+		networkManager.sendPacket(new SPacketPong(packetIn.getClientTime()));
+		networkManager.closeChannel(EXIT_MESSAGE);
+	}
+
 }

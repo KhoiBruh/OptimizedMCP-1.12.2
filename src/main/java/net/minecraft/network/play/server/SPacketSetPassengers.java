@@ -1,66 +1,67 @@
 package net.minecraft.network.play.server;
 
-import java.io.IOException;
-import java.util.List;
 import net.minecraft.entity.Entity;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayClient;
 
-public class SPacketSetPassengers implements Packet<INetHandlerPlayClient>
-{
-    private int entityId;
-    private int[] passengerIds;
+import java.io.IOException;
+import java.util.List;
 
-    public SPacketSetPassengers()
-    {
-    }
+public class SPacketSetPassengers implements Packet<INetHandlerPlayClient> {
 
-    public SPacketSetPassengers(Entity entityIn)
-    {
-        entityId = entityIn.getEntityId();
-        List<Entity> list = entityIn.getPassengers();
-        passengerIds = new int[list.size()];
+	private int entityId;
+	private int[] passengerIds;
 
-        for (int i = 0; i < list.size(); ++i)
-        {
-            passengerIds[i] = ((Entity)list.get(i)).getEntityId();
-        }
-    }
+	public SPacketSetPassengers() {
 
-    /**
-     * Reads the raw packet data from the data stream.
-     */
-    public void readPacketData(PacketBuffer buf) throws IOException
-    {
-        entityId = buf.readVarInt();
-        passengerIds = buf.readVarIntArray();
-    }
+	}
 
-    /**
-     * Writes the raw packet data to the data stream.
-     */
-    public void writePacketData(PacketBuffer buf) throws IOException
-    {
-        buf.writeVarInt(entityId);
-        buf.writeVarIntArray(passengerIds);
-    }
+	public SPacketSetPassengers(Entity entityIn) {
 
-    /**
-     * Passes this Packet on to the NetHandler for processing.
-     */
-    public void processPacket(INetHandlerPlayClient handler)
-    {
-        handler.handleSetPassengers(this);
-    }
+		entityId = entityIn.getEntityId();
+		List<Entity> list = entityIn.getPassengers();
+		passengerIds = new int[list.size()];
 
-    public int[] getPassengerIds()
-    {
-        return passengerIds;
-    }
+		for (int i = 0; i < list.size(); ++i) {
+			passengerIds[i] = list.get(i).getEntityId();
+		}
+	}
 
-    public int getEntityId()
-    {
-        return entityId;
-    }
+	/**
+	 * Reads the raw packet data from the data stream.
+	 */
+	public void readPacketData(PacketBuffer buf) throws IOException {
+
+		entityId = buf.readVarInt();
+		passengerIds = buf.readVarIntArray();
+	}
+
+	/**
+	 * Writes the raw packet data to the data stream.
+	 */
+	public void writePacketData(PacketBuffer buf) throws IOException {
+
+		buf.writeVarInt(entityId);
+		buf.writeVarIntArray(passengerIds);
+	}
+
+	/**
+	 * Passes this Packet on to the NetHandler for processing.
+	 */
+	public void processPacket(INetHandlerPlayClient handler) {
+
+		handler.handleSetPassengers(this);
+	}
+
+	public int[] getPassengerIds() {
+
+		return passengerIds;
+	}
+
+	public int getEntityId() {
+
+		return entityId;
+	}
+
 }

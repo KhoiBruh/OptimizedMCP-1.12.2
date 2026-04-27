@@ -1,110 +1,112 @@
 package net.minecraft.client.audio;
 
-import javax.annotation.Nullable;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 
-public abstract class PositionedSound implements ISound
-{
-    protected Sound sound;
-    @Nullable
-    private SoundEventAccessor soundEvent;
-    protected SoundCategory category;
-    protected ResourceLocation positionedSoundLocation;
-    protected float volume;
-    protected float pitch;
-    protected float xPosF;
-    protected float yPosF;
-    protected float zPosF;
-    protected boolean repeat;
+import javax.annotation.Nullable;
 
-    /** The number of ticks between repeating the sound */
-    protected int repeatDelay;
-    protected ISound.AttenuationType attenuationType;
+public abstract class PositionedSound implements ISound {
 
-    protected PositionedSound(SoundEvent soundIn, SoundCategory categoryIn)
-    {
-        this(soundIn.getSoundName(), categoryIn);
-    }
+	protected Sound sound;
 
-    protected PositionedSound(ResourceLocation soundId, SoundCategory categoryIn)
-    {
-        volume = 1.0F;
-        pitch = 1.0F;
-        attenuationType = ISound.AttenuationType.LINEAR;
-        positionedSoundLocation = soundId;
-        category = categoryIn;
-    }
+	@Nullable
+	private SoundEventAccessor soundEvent;
+	protected SoundCategory category;
+	protected ResourceLocation positionedSoundLocation;
+	protected float volume;
+	protected float pitch;
+	protected float xPosF;
+	protected float yPosF;
+	protected float zPosF;
+	protected boolean repeat;
 
-    public ResourceLocation getSoundLocation()
-    {
-        return positionedSoundLocation;
-    }
+	/**
+	 * The number of ticks between repeating the sound
+	 */
+	protected int repeatDelay;
+	protected ISound.AttenuationType attenuationType;
 
-    public SoundEventAccessor createAccessor(SoundHandler handler)
-    {
-        soundEvent = handler.getAccessor(positionedSoundLocation);
+	protected PositionedSound(SoundEvent soundIn, SoundCategory categoryIn) {
 
-        if (soundEvent == null)
-        {
-            sound = SoundHandler.MISSING_SOUND;
-        }
-        else
-        {
-            sound = soundEvent.cloneEntry();
-        }
+		this(soundIn.soundName(), categoryIn);
+	}
 
-        return soundEvent;
-    }
+	protected PositionedSound(ResourceLocation soundId, SoundCategory categoryIn) {
 
-    public Sound getSound()
-    {
-        return sound;
-    }
+		volume = 1.0F;
+		pitch = 1.0F;
+		attenuationType = ISound.AttenuationType.LINEAR;
+		positionedSoundLocation = soundId;
+		category = categoryIn;
+	}
 
-    public SoundCategory getCategory()
-    {
-        return category;
-    }
+	public ResourceLocation getSoundLocation() {
 
-    public boolean canRepeat()
-    {
-        return repeat;
-    }
+		return positionedSoundLocation;
+	}
 
-    public int getRepeatDelay()
-    {
-        return repeatDelay;
-    }
+	public SoundEventAccessor createAccessor(SoundHandler handler) {
 
-    public float getVolume()
-    {
-        return volume * sound.getVolume();
-    }
+		soundEvent = handler.getAccessor(positionedSoundLocation);
 
-    public float getPitch()
-    {
-        return pitch * sound.getPitch();
-    }
+		if (soundEvent == null) {
+			sound = SoundHandler.MISSING_SOUND;
+		} else {
+			sound = soundEvent.cloneEntry();
+		}
 
-    public float getXPosF()
-    {
-        return xPosF;
-    }
+		return soundEvent;
+	}
 
-    public float getYPosF()
-    {
-        return yPosF;
-    }
+	public Sound getSound() {
 
-    public float getZPosF()
-    {
-        return zPosF;
-    }
+		return sound;
+	}
 
-    public ISound.AttenuationType getAttenuationType()
-    {
-        return attenuationType;
-    }
+	public SoundCategory getCategory() {
+
+		return category;
+	}
+
+	public boolean canRepeat() {
+
+		return repeat;
+	}
+
+	public int getRepeatDelay() {
+
+		return repeatDelay;
+	}
+
+	public float getVolume() {
+
+		return volume * sound.getVolume();
+	}
+
+	public float getPitch() {
+
+		return pitch * sound.getPitch();
+	}
+
+	public float getXPosF() {
+
+		return xPosF;
+	}
+
+	public float getYPosF() {
+
+		return yPosF;
+	}
+
+	public float getZPosF() {
+
+		return zPosF;
+	}
+
+	public ISound.AttenuationType getAttenuationType() {
+
+		return attenuationType;
+	}
+
 }

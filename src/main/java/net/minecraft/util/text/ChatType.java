@@ -1,33 +1,30 @@
 package net.minecraft.util.text;
 
-public enum ChatType
-{
-    CHAT((byte)0),
-    SYSTEM((byte)1),
-    GAME_INFO((byte)2);
+public enum ChatType {
+	CHAT((byte) 0),
+	SYSTEM((byte) 1),
+	GAME_INFO((byte) 2);
 
-    private final byte id;
+	private final byte id;
 
-    private ChatType(byte id)
-    {
-        this.id = id;
-    }
+	ChatType(byte id) {
 
-    public byte getId()
-    {
-        return id;
-    }
+		this.id = id;
+	}
 
-    public static ChatType byId(byte idIn)
-    {
-        for (ChatType chattype : values())
-        {
-            if (idIn == chattype.id)
-            {
-                return chattype;
-            }
-        }
+	public byte getId() {
 
-        return CHAT;
-    }
+		return id;
+	}
+
+	public static ChatType byId(byte idIn) {
+
+		for (ChatType chattype : values()) {
+			if (idIn == chattype.id) {
+				return chattype;
+			}
+		}
+
+		return CHAT;
+	}
 }

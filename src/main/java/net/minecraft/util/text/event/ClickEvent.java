@@ -1,123 +1,91 @@
 package net.minecraft.util.text.event;
 
 import com.google.common.collect.Maps;
+
 import java.util.Map;
 
-public class ClickEvent
-{
-    private final ClickEvent.Action action;
-    private final String value;
+public record ClickEvent(Action action, String value) {
 
-    public ClickEvent(ClickEvent.Action theAction, String theValue)
-    {
-        action = theAction;
-        value = theValue;
-    }
+	/**
+	 * Gets the action to perform when this event is raised.
+	 */
+	@Override
+	public Action action() {
 
-    /**
-     * Gets the action to perform when this event is raised.
-     */
-    public ClickEvent.Action getAction()
-    {
-        return action;
-    }
+		return action;
+	}
 
-    /**
-     * Gets the value to perform the action on when this event is raised.  For example, if the action is "open URL",
-     * this would be the URL to open.
-     */
-    public String getValue()
-    {
-        return value;
-    }
+	/**
+	 * Gets the value to perform the action on when this event is raised.  For example, if the action is "open URL",
+	 * this would be the URL to open.
+	 */
+	@Override
+	public String value() {
 
-    public boolean equals(Object p_equals_1_)
-    {
-        if (this == p_equals_1_)
-        {
-            return true;
-        }
-        else if (p_equals_1_ != null && getClass() == p_equals_1_.getClass())
-        {
-            ClickEvent clickevent = (ClickEvent)p_equals_1_;
+		return value;
+	}
 
-            if (action != clickevent.action)
-            {
-                return false;
-            }
-            else
-            {
-                if (value != null)
-                {
-                    if (!value.equals(clickevent.value))
-                    {
-                        return false;
-                    }
-                }
-                else if (clickevent.value != null)
-                {
-                    return false;
-                }
+	public boolean equals(Object p_equals_1_) {
 
-                return true;
-            }
-        }
-        else
-        {
-            return false;
-        }
-    }
+		if (this == p_equals_1_) {
+			return true;
+		} else if (p_equals_1_ != null && getClass() == p_equals_1_.getClass()) {
+			ClickEvent clickevent = (ClickEvent) p_equals_1_;
 
-    public String toString()
-    {
-        return "ClickEvent{action=" + action + ", value='" + value + '\'' + '}';
-    }
+			if (action != clickevent.action) {
+				return false;
+			} else {
+				if (value != null) {
+					return value.equals(clickevent.value);
+				} else return clickevent.value == null;
+			}
+		} else {
+			return false;
+		}
+	}
 
-    public int hashCode()
-    {
-        int i = action.hashCode();
-        i = 31 * i + (value != null ? value.hashCode() : 0);
-        return i;
-    }
+	public String toString() {
 
-    public static enum Action
-    {
-        OPEN_URL("open_url", true),
-        OPEN_FILE("open_file", false),
-        RUN_COMMAND("run_command", true),
-        SUGGEST_COMMAND("suggest_command", true),
-        CHANGE_PAGE("change_page", true);
+		return "ClickEvent{action=" + action + ", value='" + value + '\'' + '}';
+	}
 
-        private static final Map<String, ClickEvent.Action> NAME_MAPPING = Maps.<String, ClickEvent.Action>newHashMap();
-        private final boolean allowedInChat;
-        private final String canonicalName;
+	public enum Action {
+		OPEN_URL("open_url", true),
+		OPEN_FILE("open_file", false),
+		RUN_COMMAND("run_command", true),
+		SUGGEST_COMMAND("suggest_command", true),
+		CHANGE_PAGE("change_page", true);
 
-        private Action(String canonicalNameIn, boolean allowedInChatIn)
-        {
-            canonicalName = canonicalNameIn;
-            allowedInChat = allowedInChatIn;
-        }
+		private static final Map<String, Action> NAME_MAPPING = Maps.newHashMap();
+		private final boolean allowedInChat;
+		private final String canonicalName;
 
-        public boolean shouldAllowInChat()
-        {
-            return allowedInChat;
-        }
+		Action(String canonicalNameIn, boolean allowedInChatIn) {
 
-        public String getCanonicalName()
-        {
-            return canonicalName;
-        }
+			canonicalName = canonicalNameIn;
+			allowedInChat = allowedInChatIn;
+		}
 
-        public static ClickEvent.Action getValueByCanonicalName(String canonicalNameIn)
-        {
-            return NAME_MAPPING.get(canonicalNameIn);
-        }
+		public boolean shouldAllowInChat() {
 
-        static {
-            for (ClickEvent.Action clickevent$action : values())
-            {
-                NAME_MAPPING.put(clickevent$action.getCanonicalName(), clickevent$action);
-            }
-        }
-    }
+			return allowedInChat;
+		}
+
+		public String getCanonicalName() {
+
+			return canonicalName;
+		}
+
+		public static Action getValueByCanonicalName(String canonicalNameIn) {
+
+			return NAME_MAPPING.get(canonicalNameIn);
+		}
+
+		static {
+			for (Action clickevent$action : values()) {
+				NAME_MAPPING.put(clickevent$action.getCanonicalName(), clickevent$action);
+			}
+		}
+	}
+
 }

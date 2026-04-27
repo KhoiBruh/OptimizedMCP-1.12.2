@@ -1,7 +1,5 @@
 package net.minecraft.inventory;
 
-import java.util.List;
-import java.util.Random;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentData;
@@ -20,434 +18,370 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class ContainerEnchantment extends Container
-{
-    /** SlotEnchantmentTable object with ItemStack to be enchanted */
-    public IInventory tableInventory;
+import java.util.List;
+import java.util.Random;
 
-    /** current world (for bookshelf counting) */
-    private final World worldPointer;
-    private final BlockPos position;
-    private final Random rand;
-    public int xpSeed;
+public class ContainerEnchantment extends Container {
 
-    /** 3-member array storing the enchantment levels of each slot */
-    public int[] enchantLevels;
-    public int[] enchantClue;
-    public int[] worldClue;
+	/**
+	 * SlotEnchantmentTable object with ItemStack to be enchanted
+	 */
+	public IInventory tableInventory;
 
-    public ContainerEnchantment(InventoryPlayer playerInv, World worldIn)
-    {
-        this(playerInv, worldIn, BlockPos.ORIGIN);
-    }
+	/**
+	 * current world (for bookshelf counting)
+	 */
+	private final World worldPointer;
+	private final BlockPos position;
+	private final Random rand;
+	public int xpSeed;
 
-    public ContainerEnchantment(InventoryPlayer playerInv, World worldIn, BlockPos pos)
-    {
-        tableInventory = new InventoryBasic("Enchant", true, 2)
-        {
-            public int getInventoryStackLimit()
-            {
-                return 64;
-            }
-            public void markDirty()
-            {
-                super.markDirty();
-                onCraftMatrixChanged(this);
-            }
-        };
-        rand = new Random();
-        enchantLevels = new int[3];
-        enchantClue = new int[] { -1, -1, -1};
-        worldClue = new int[] { -1, -1, -1};
-        worldPointer = worldIn;
-        position = pos;
-        xpSeed = playerInv.player.getXPSeed();
-        addSlotToContainer(new Slot(tableInventory, 0, 15, 47)
-        {
-            public boolean isItemValid(ItemStack stack)
-            {
-                return true;
-            }
-            public int getSlotStackLimit()
-            {
-                return 1;
-            }
-        });
-        addSlotToContainer(new Slot(tableInventory, 1, 35, 47)
-        {
-            public boolean isItemValid(ItemStack stack)
-            {
-                return stack.getItem() == Items.DYE && EnumDyeColor.byDyeDamage(stack.getMetadata()) == EnumDyeColor.BLUE;
-            }
-        });
+	/**
+	 * 3-member array storing the enchantment levels of each slot
+	 */
+	public int[] enchantLevels;
+	public int[] enchantClue;
+	public int[] worldClue;
 
-        for (int i = 0; i < 3; ++i)
-        {
-            for (int j = 0; j < 9; ++j)
-            {
-                addSlotToContainer(new Slot(playerInv, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
-            }
-        }
+	public ContainerEnchantment(InventoryPlayer playerInv, World worldIn) {
 
-        for (int k = 0; k < 9; ++k)
-        {
-            addSlotToContainer(new Slot(playerInv, k, 8 + k * 18, 142));
-        }
-    }
+		this(playerInv, worldIn, BlockPos.ORIGIN);
+	}
 
-    protected void broadcastData(IContainerListener crafting)
-    {
-        crafting.sendWindowProperty(this, 0, enchantLevels[0]);
-        crafting.sendWindowProperty(this, 1, enchantLevels[1]);
-        crafting.sendWindowProperty(this, 2, enchantLevels[2]);
-        crafting.sendWindowProperty(this, 3, xpSeed & -16);
-        crafting.sendWindowProperty(this, 4, enchantClue[0]);
-        crafting.sendWindowProperty(this, 5, enchantClue[1]);
-        crafting.sendWindowProperty(this, 6, enchantClue[2]);
-        crafting.sendWindowProperty(this, 7, worldClue[0]);
-        crafting.sendWindowProperty(this, 8, worldClue[1]);
-        crafting.sendWindowProperty(this, 9, worldClue[2]);
-    }
+	public ContainerEnchantment(InventoryPlayer playerInv, World worldIn, BlockPos pos) {
 
-    public void addListener(IContainerListener listener)
-    {
-        super.addListener(listener);
-        broadcastData(listener);
-    }
+		tableInventory = new InventoryBasic("Enchant", true, 2) {
+			public int getInventoryStackLimit() {
 
-    /**
-     * Looks for changes made in the container, sends them to every listener.
-     */
-    public void detectAndSendChanges()
-    {
-        super.detectAndSendChanges();
+				return 64;
+			}
 
-        for (int i = 0; i < listeners.size(); ++i)
-        {
-            IContainerListener icontainerlistener = listeners.get(i);
-            broadcastData(icontainerlistener);
-        }
-    }
+			public void markDirty() {
 
-    public void updateProgressBar(int id, int data)
-    {
-        if (id >= 0 && id <= 2)
-        {
-            enchantLevels[id] = data;
-        }
-        else if (id == 3)
-        {
-            xpSeed = data;
-        }
-        else if (id >= 4 && id <= 6)
-        {
-            enchantClue[id - 4] = data;
-        }
-        else if (id >= 7 && id <= 9)
-        {
-            worldClue[id - 7] = data;
-        }
-        else
-        {
-            super.updateProgressBar(id, data);
-        }
-    }
+				super.markDirty();
+				onCraftMatrixChanged(this);
+			}
+		};
+		rand = new Random();
+		enchantLevels = new int[3];
+		enchantClue = new int[]{-1, -1, -1};
+		worldClue = new int[]{-1, -1, -1};
+		worldPointer = worldIn;
+		position = pos;
+		xpSeed = playerInv.player.getXPSeed();
+		addSlotToContainer(new Slot(tableInventory, 0, 15, 47) {
+			public boolean isItemValid(ItemStack stack) {
 
-    /**
-     * Callback for when the crafting matrix is changed.
-     */
-    public void onCraftMatrixChanged(IInventory inventoryIn)
-    {
-        if (inventoryIn == tableInventory)
-        {
-            ItemStack itemstack = inventoryIn.getStackInSlot(0);
+				return true;
+			}
 
-            if (!itemstack.isEmpty() && itemstack.isItemEnchantable())
-            {
-                if (!worldPointer.isRemote)
-                {
-                    int l = 0;
+			public int getSlotStackLimit() {
 
-                    for (int j = -1; j <= 1; ++j)
-                    {
-                        for (int k = -1; k <= 1; ++k)
-                        {
-                            if ((j != 0 || k != 0) && worldPointer.isAirBlock(position.add(k, 0, j)) && worldPointer.isAirBlock(position.add(k, 1, j)))
-                            {
-                                if (worldPointer.getBlockState(position.add(k * 2, 0, j * 2)).getBlock() == Blocks.BOOKSHELF)
-                                {
-                                    ++l;
-                                }
+				return 1;
+			}
+		});
+		addSlotToContainer(new Slot(tableInventory, 1, 35, 47) {
+			public boolean isItemValid(ItemStack stack) {
 
-                                if (worldPointer.getBlockState(position.add(k * 2, 1, j * 2)).getBlock() == Blocks.BOOKSHELF)
-                                {
-                                    ++l;
-                                }
+				return stack.getItem() == Items.DYE && EnumDyeColor.byDyeDamage(stack.getMetadata()) == EnumDyeColor.BLUE;
+			}
+		});
 
-                                if (k != 0 && j != 0)
-                                {
-                                    if (worldPointer.getBlockState(position.add(k * 2, 0, j)).getBlock() == Blocks.BOOKSHELF)
-                                    {
-                                        ++l;
-                                    }
+		for (int i = 0; i < 3; ++i) {
+			for (int j = 0; j < 9; ++j) {
+				addSlotToContainer(new Slot(playerInv, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
+			}
+		}
 
-                                    if (worldPointer.getBlockState(position.add(k * 2, 1, j)).getBlock() == Blocks.BOOKSHELF)
-                                    {
-                                        ++l;
-                                    }
+		for (int k = 0; k < 9; ++k) {
+			addSlotToContainer(new Slot(playerInv, k, 8 + k * 18, 142));
+		}
+	}
 
-                                    if (worldPointer.getBlockState(position.add(k, 0, j * 2)).getBlock() == Blocks.BOOKSHELF)
-                                    {
-                                        ++l;
-                                    }
+	protected void broadcastData(IContainerListener crafting) {
 
-                                    if (worldPointer.getBlockState(position.add(k, 1, j * 2)).getBlock() == Blocks.BOOKSHELF)
-                                    {
-                                        ++l;
-                                    }
-                                }
-                            }
-                        }
-                    }
+		crafting.sendWindowProperty(this, 0, enchantLevels[0]);
+		crafting.sendWindowProperty(this, 1, enchantLevels[1]);
+		crafting.sendWindowProperty(this, 2, enchantLevels[2]);
+		crafting.sendWindowProperty(this, 3, xpSeed & -16);
+		crafting.sendWindowProperty(this, 4, enchantClue[0]);
+		crafting.sendWindowProperty(this, 5, enchantClue[1]);
+		crafting.sendWindowProperty(this, 6, enchantClue[2]);
+		crafting.sendWindowProperty(this, 7, worldClue[0]);
+		crafting.sendWindowProperty(this, 8, worldClue[1]);
+		crafting.sendWindowProperty(this, 9, worldClue[2]);
+	}
 
-                    rand.setSeed((long) xpSeed);
+	public void addListener(IContainerListener listener) {
 
-                    for (int i1 = 0; i1 < 3; ++i1)
-                    {
-                        enchantLevels[i1] = EnchantmentHelper.calcItemStackEnchantability(rand, i1, l, itemstack);
-                        enchantClue[i1] = -1;
-                        worldClue[i1] = -1;
+		super.addListener(listener);
+		broadcastData(listener);
+	}
 
-                        if (enchantLevels[i1] < i1 + 1)
-                        {
-                            enchantLevels[i1] = 0;
-                        }
-                    }
+	/**
+	 * Looks for changes made in the container, sends them to every listener.
+	 */
+	public void detectAndSendChanges() {
 
-                    for (int j1 = 0; j1 < 3; ++j1)
-                    {
-                        if (enchantLevels[j1] > 0)
-                        {
-                            List<EnchantmentData> list = getEnchantmentList(itemstack, j1, enchantLevels[j1]);
+		super.detectAndSendChanges();
 
-                            if (list != null && !list.isEmpty())
-                            {
-                                EnchantmentData enchantmentdata = list.get(rand.nextInt(list.size()));
-                                enchantClue[j1] = Enchantment.getEnchantmentID(enchantmentdata.enchantment);
-                                worldClue[j1] = enchantmentdata.enchantmentLevel;
-                            }
-                        }
-                    }
+		for (int i = 0; i < listeners.size(); ++i) {
+			IContainerListener icontainerlistener = listeners.get(i);
+			broadcastData(icontainerlistener);
+		}
+	}
 
-                    detectAndSendChanges();
-                }
-            }
-            else
-            {
-                for (int i = 0; i < 3; ++i)
-                {
-                    enchantLevels[i] = 0;
-                    enchantClue[i] = -1;
-                    worldClue[i] = -1;
-                }
-            }
-        }
-    }
+	public void updateProgressBar(int id, int data) {
 
-    /**
-     * Handles the given Button-click on the server, currently only used by enchanting. Name is for legacy.
-     */
-    public boolean enchantItem(EntityPlayer playerIn, int id)
-    {
-        ItemStack itemstack = tableInventory.getStackInSlot(0);
-        ItemStack itemstack1 = tableInventory.getStackInSlot(1);
-        int i = id + 1;
+		if (id >= 0 && id <= 2) {
+			enchantLevels[id] = data;
+		} else if (id == 3) {
+			xpSeed = data;
+		} else if (id >= 4 && id <= 6) {
+			enchantClue[id - 4] = data;
+		} else if (id >= 7 && id <= 9) {
+			worldClue[id - 7] = data;
+		} else {
+			super.updateProgressBar(id, data);
+		}
+	}
 
-        if ((itemstack1.isEmpty() || itemstack1.getCount() < i) && !playerIn.capabilities.isCreativeMode)
-        {
-            return false;
-        }
-        else if (enchantLevels[id] > 0 && !itemstack.isEmpty() && (playerIn.experienceLevel >= i && playerIn.experienceLevel >= enchantLevels[id] || playerIn.capabilities.isCreativeMode))
-        {
-            if (!worldPointer.isRemote)
-            {
-                List<EnchantmentData> list = getEnchantmentList(itemstack, id, enchantLevels[id]);
+	/**
+	 * Callback for when the crafting matrix is changed.
+	 */
+	public void onCraftMatrixChanged(IInventory inventoryIn) {
 
-                if (!list.isEmpty())
-                {
-                    playerIn.onEnchant(itemstack, i);
-                    boolean flag = itemstack.getItem() == Items.BOOK;
+		if (inventoryIn == tableInventory) {
+			ItemStack itemstack = inventoryIn.getStackInSlot(0);
 
-                    if (flag)
-                    {
-                        itemstack = new ItemStack(Items.ENCHANTED_BOOK);
-                        tableInventory.setInventorySlotContents(0, itemstack);
-                    }
+			if (!itemstack.isEmpty() && itemstack.isItemEnchantable()) {
+				if (!worldPointer.isRemote) {
+					int l = 0;
 
-                    for (int j = 0; j < list.size(); ++j)
-                    {
-                        EnchantmentData enchantmentdata = list.get(j);
+					for (int j = -1; j <= 1; ++j) {
+						for (int k = -1; k <= 1; ++k) {
+							if ((j != 0 || k != 0) && worldPointer.isAirBlock(position.add(k, 0, j)) && worldPointer.isAirBlock(position.add(k, 1, j))) {
+								if (worldPointer.getBlockState(position.add(k * 2, 0, j * 2)).getBlock() == Blocks.BOOKSHELF) {
+									++l;
+								}
 
-                        if (flag)
-                        {
-                            ItemEnchantedBook.addEnchantment(itemstack, enchantmentdata);
-                        }
-                        else
-                        {
-                            itemstack.addEnchantment(enchantmentdata.enchantment, enchantmentdata.enchantmentLevel);
-                        }
-                    }
+								if (worldPointer.getBlockState(position.add(k * 2, 1, j * 2)).getBlock() == Blocks.BOOKSHELF) {
+									++l;
+								}
 
-                    if (!playerIn.capabilities.isCreativeMode)
-                    {
-                        itemstack1.shrink(i);
+								if (k != 0 && j != 0) {
+									if (worldPointer.getBlockState(position.add(k * 2, 0, j)).getBlock() == Blocks.BOOKSHELF) {
+										++l;
+									}
 
-                        if (itemstack1.isEmpty())
-                        {
-                            tableInventory.setInventorySlotContents(1, ItemStack.EMPTY);
-                        }
-                    }
+									if (worldPointer.getBlockState(position.add(k * 2, 1, j)).getBlock() == Blocks.BOOKSHELF) {
+										++l;
+									}
 
-                    playerIn.addStat(StatList.ITEM_ENCHANTED);
+									if (worldPointer.getBlockState(position.add(k, 0, j * 2)).getBlock() == Blocks.BOOKSHELF) {
+										++l;
+									}
 
-                    if (playerIn instanceof EntityPlayerMP)
-                    {
-                        CriteriaTriggers.ENCHANTED_ITEM.trigger((EntityPlayerMP)playerIn, itemstack, i);
-                    }
+									if (worldPointer.getBlockState(position.add(k, 1, j * 2)).getBlock() == Blocks.BOOKSHELF) {
+										++l;
+									}
+								}
+							}
+						}
+					}
 
-                    tableInventory.markDirty();
-                    xpSeed = playerIn.getXPSeed();
-                    onCraftMatrixChanged(tableInventory);
-                    worldPointer.playSound((EntityPlayer)null, position, SoundEvents.BLOCK_ENCHANTMENT_TABLE_USE, SoundCategory.BLOCKS, 1.0F, worldPointer.rand.nextFloat() * 0.1F + 0.9F);
-                }
-            }
+					rand.setSeed(xpSeed);
 
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
+					for (int i1 = 0; i1 < 3; ++i1) {
+						enchantLevels[i1] = EnchantmentHelper.calcItemStackEnchantability(rand, i1, l, itemstack);
+						enchantClue[i1] = -1;
+						worldClue[i1] = -1;
 
-    private List<EnchantmentData> getEnchantmentList(ItemStack stack, int enchantSlot, int level)
-    {
-        rand.setSeed((long)(xpSeed + enchantSlot));
-        List<EnchantmentData> list = EnchantmentHelper.buildEnchantmentList(rand, stack, level, false);
+						if (enchantLevels[i1] < i1 + 1) {
+							enchantLevels[i1] = 0;
+						}
+					}
 
-        if (stack.getItem() == Items.BOOK && list.size() > 1)
-        {
-            list.remove(rand.nextInt(list.size()));
-        }
+					for (int j1 = 0; j1 < 3; ++j1) {
+						if (enchantLevels[j1] > 0) {
+							List<EnchantmentData> list = getEnchantmentList(itemstack, j1, enchantLevels[j1]);
 
-        return list;
-    }
+							if (list != null && !list.isEmpty()) {
+								EnchantmentData enchantmentdata = list.get(rand.nextInt(list.size()));
+								enchantClue[j1] = Enchantment.getEnchantmentID(enchantmentdata.enchantment);
+								worldClue[j1] = enchantmentdata.enchantmentLevel;
+							}
+						}
+					}
 
-    public int getLapisAmount()
-    {
-        ItemStack itemstack = tableInventory.getStackInSlot(1);
-        return itemstack.isEmpty() ? 0 : itemstack.getCount();
-    }
+					detectAndSendChanges();
+				}
+			} else {
+				for (int i = 0; i < 3; ++i) {
+					enchantLevels[i] = 0;
+					enchantClue[i] = -1;
+					worldClue[i] = -1;
+				}
+			}
+		}
+	}
 
-    /**
-     * Called when the container is closed.
-     */
-    public void onContainerClosed(EntityPlayer playerIn)
-    {
-        super.onContainerClosed(playerIn);
+	/**
+	 * Handles the given Button-click on the server, currently only used by enchanting. Name is for legacy.
+	 */
+	public boolean enchantItem(EntityPlayer playerIn, int id) {
 
-        if (!worldPointer.isRemote)
-        {
-            clearContainer(playerIn, playerIn.world, tableInventory);
-        }
-    }
+		ItemStack itemstack = tableInventory.getStackInSlot(0);
+		ItemStack itemstack1 = tableInventory.getStackInSlot(1);
+		int i = id + 1;
 
-    /**
-     * Determines whether supplied player can use this container
-     */
-    public boolean canInteractWith(EntityPlayer playerIn)
-    {
-        if (worldPointer.getBlockState(position).getBlock() != Blocks.ENCHANTING_TABLE)
-        {
-            return false;
-        }
-        else
-        {
-            return playerIn.getDistanceSq((double) position.getX() + 0.5D, (double) position.getY() + 0.5D, (double) position.getZ() + 0.5D) <= 64.0D;
-        }
-    }
+		if ((itemstack1.isEmpty() || itemstack1.getCount() < i) && !playerIn.capabilities.isCreativeMode) {
+			return false;
+		} else if (enchantLevels[id] > 0 && !itemstack.isEmpty() && (playerIn.experienceLevel >= i && playerIn.experienceLevel >= enchantLevels[id] || playerIn.capabilities.isCreativeMode)) {
+			if (!worldPointer.isRemote) {
+				List<EnchantmentData> list = getEnchantmentList(itemstack, id, enchantLevels[id]);
 
-    /**
-     * Handle when the stack in slot {@code index} is shift-clicked. Normally this moves the stack between the player
-     * inventory and the other inventory(s).
-     */
-    public ItemStack transferStackInSlot(EntityPlayer playerIn, int index)
-    {
-        ItemStack itemstack = ItemStack.EMPTY;
-        Slot slot = inventorySlots.get(index);
+				if (!list.isEmpty()) {
+					playerIn.onEnchant(itemstack, i);
+					boolean flag = itemstack.getItem() == Items.BOOK;
 
-        if (slot != null && slot.getHasStack())
-        {
-            ItemStack itemstack1 = slot.getStack();
-            itemstack = itemstack1.copy();
+					if (flag) {
+						itemstack = new ItemStack(Items.ENCHANTED_BOOK);
+						tableInventory.setInventorySlotContents(0, itemstack);
+					}
 
-            if (index == 0)
-            {
-                if (!mergeItemStack(itemstack1, 2, 38, true))
-                {
-                    return ItemStack.EMPTY;
-                }
-            }
-            else if (index == 1)
-            {
-                if (!mergeItemStack(itemstack1, 2, 38, true))
-                {
-                    return ItemStack.EMPTY;
-                }
-            }
-            else if (itemstack1.getItem() == Items.DYE && EnumDyeColor.byDyeDamage(itemstack1.getMetadata()) == EnumDyeColor.BLUE)
-            {
-                if (!mergeItemStack(itemstack1, 1, 2, true))
-                {
-                    return ItemStack.EMPTY;
-                }
-            }
-            else
-            {
-                if (((Slot) inventorySlots.get(0)).getHasStack() || !((Slot) inventorySlots.get(0)).isItemValid(itemstack1))
-                {
-                    return ItemStack.EMPTY;
-                }
+					for (int j = 0; j < list.size(); ++j) {
+						EnchantmentData enchantmentdata = list.get(j);
 
-                if (itemstack1.hasTagCompound() && itemstack1.getCount() == 1)
-                {
-                    ((Slot) inventorySlots.get(0)).putStack(itemstack1.copy());
-                    itemstack1.setCount(0);
-                }
-                else if (!itemstack1.isEmpty())
-                {
-                    ((Slot) inventorySlots.get(0)).putStack(new ItemStack(itemstack1.getItem(), 1, itemstack1.getMetadata()));
-                    itemstack1.shrink(1);
-                }
-            }
+						if (flag) {
+							ItemEnchantedBook.addEnchantment(itemstack, enchantmentdata);
+						} else {
+							itemstack.addEnchantment(enchantmentdata.enchantment, enchantmentdata.enchantmentLevel);
+						}
+					}
 
-            if (itemstack1.isEmpty())
-            {
-                slot.putStack(ItemStack.EMPTY);
-            }
-            else
-            {
-                slot.onSlotChanged();
-            }
+					if (!playerIn.capabilities.isCreativeMode) {
+						itemstack1.shrink(i);
 
-            if (itemstack1.getCount() == itemstack.getCount())
-            {
-                return ItemStack.EMPTY;
-            }
+						if (itemstack1.isEmpty()) {
+							tableInventory.setInventorySlotContents(1, ItemStack.EMPTY);
+						}
+					}
 
-            slot.onTake(playerIn, itemstack1);
-        }
+					playerIn.addStat(StatList.ITEM_ENCHANTED);
 
-        return itemstack;
-    }
+					if (playerIn instanceof EntityPlayerMP) {
+						CriteriaTriggers.ENCHANTED_ITEM.trigger((EntityPlayerMP) playerIn, itemstack, i);
+					}
+
+					tableInventory.markDirty();
+					xpSeed = playerIn.getXPSeed();
+					onCraftMatrixChanged(tableInventory);
+					worldPointer.playSound(null, position, SoundEvents.BLOCK_ENCHANTMENT_TABLE_USE, SoundCategory.BLOCKS, 1.0F, worldPointer.rand.nextFloat() * 0.1F + 0.9F);
+				}
+			}
+
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	private List<EnchantmentData> getEnchantmentList(ItemStack stack, int enchantSlot, int level) {
+
+		rand.setSeed(xpSeed + enchantSlot);
+		List<EnchantmentData> list = EnchantmentHelper.buildEnchantmentList(rand, stack, level, false);
+
+		if (stack.getItem() == Items.BOOK && list.size() > 1) {
+			list.remove(rand.nextInt(list.size()));
+		}
+
+		return list;
+	}
+
+	public int getLapisAmount() {
+
+		ItemStack itemstack = tableInventory.getStackInSlot(1);
+		return itemstack.isEmpty() ? 0 : itemstack.getCount();
+	}
+
+	/**
+	 * Called when the container is closed.
+	 */
+	public void onContainerClosed(EntityPlayer playerIn) {
+
+		super.onContainerClosed(playerIn);
+
+		if (!worldPointer.isRemote) {
+			clearContainer(playerIn, playerIn.world, tableInventory);
+		}
+	}
+
+	/**
+	 * Determines whether supplied player can use this container
+	 */
+	public boolean canInteractWith(EntityPlayer playerIn) {
+
+		if (worldPointer.getBlockState(position).getBlock() != Blocks.ENCHANTING_TABLE) {
+			return false;
+		} else {
+			return playerIn.getDistanceSq((double) position.getX() + 0.5D, (double) position.getY() + 0.5D, (double) position.getZ() + 0.5D) <= 64.0D;
+		}
+	}
+
+	/**
+	 * Handle when the stack in slot {@code index} is shift-clicked. Normally this moves the stack between the player
+	 * inventory and the other inventory(s).
+	 */
+	public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
+
+		ItemStack itemstack = ItemStack.EMPTY;
+		Slot slot = inventorySlots.get(index);
+
+		if (slot != null && slot.getHasStack()) {
+			ItemStack itemstack1 = slot.getStack();
+			itemstack = itemstack1.copy();
+
+			if (index == 0) {
+				if (!mergeItemStack(itemstack1, 2, 38, true)) {
+					return ItemStack.EMPTY;
+				}
+			} else if (index == 1) {
+				if (!mergeItemStack(itemstack1, 2, 38, true)) {
+					return ItemStack.EMPTY;
+				}
+			} else if (itemstack1.getItem() == Items.DYE && EnumDyeColor.byDyeDamage(itemstack1.getMetadata()) == EnumDyeColor.BLUE) {
+				if (!mergeItemStack(itemstack1, 1, 2, true)) {
+					return ItemStack.EMPTY;
+				}
+			} else {
+				if (inventorySlots.get(0).getHasStack() || !inventorySlots.get(0).isItemValid(itemstack1)) {
+					return ItemStack.EMPTY;
+				}
+
+				if (itemstack1.hasTagCompound() && itemstack1.getCount() == 1) {
+					inventorySlots.get(0).putStack(itemstack1.copy());
+					itemstack1.setCount(0);
+				} else if (!itemstack1.isEmpty()) {
+					inventorySlots.get(0).putStack(new ItemStack(itemstack1.getItem(), 1, itemstack1.getMetadata()));
+					itemstack1.shrink(1);
+				}
+			}
+
+			if (itemstack1.isEmpty()) {
+				slot.putStack(ItemStack.EMPTY);
+			} else {
+				slot.onSlotChanged();
+			}
+
+			if (itemstack1.getCount() == itemstack.getCount()) {
+				return ItemStack.EMPTY;
+			}
+
+			slot.onTake(playerIn, itemstack1);
+		}
+
+		return itemstack;
+	}
+
 }

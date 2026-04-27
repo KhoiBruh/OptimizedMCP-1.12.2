@@ -1,63 +1,65 @@
 package net.minecraft.world.storage;
 
-import java.io.File;
-import java.util.List;
-import javax.annotation.Nullable;
 import net.minecraft.client.AnvilConverterException;
 import net.minecraft.util.IProgressUpdate;
 
-public interface ISaveFormat
-{
-    /**
-     * Returns the name of the save format.
-     */
-    String getName();
+import javax.annotation.Nullable;
+import java.io.File;
+import java.util.List;
 
-    /**
-     * Returns back a loader for the specified save directory
-     */
-    ISaveHandler getSaveLoader(String saveName, boolean storePlayerdata);
+public interface ISaveFormat {
 
-    List<WorldSummary> getSaveList() throws AnvilConverterException;
+	/**
+	 * Returns the name of the save format.
+	 */
+	String getName();
 
-    void flushCache();
+	/**
+	 * Returns back a loader for the specified save directory
+	 */
+	ISaveHandler getSaveLoader(String saveName, boolean storePlayerdata);
 
-    @Nullable
+	List<WorldSummary> getSaveList() throws AnvilConverterException;
 
-    /**
-     * Returns the world's WorldInfo object
-     */
-    WorldInfo getWorldInfo(String saveName);
+	void flushCache();
 
-    boolean isNewLevelIdAcceptable(String saveName);
+	@Nullable
 
-    /**
-     * Deletes a world directory.
-     */
-    boolean deleteWorldDirectory(String saveName);
+	/**
+	 * Returns the world's WorldInfo object
+	 */
+	WorldInfo getWorldInfo(String saveName);
 
-    /**
-     * Renames the world by storing the new name in level.dat. It does *not* rename the directory containing the world
-     * data.
-     */
-    void renameWorld(String dirName, String newName);
+	boolean isNewLevelIdAcceptable(String saveName);
 
-    boolean isConvertible(String saveName);
+	/**
+	 * Deletes a world directory.
+	 */
+	boolean deleteWorldDirectory(String saveName);
 
-    /**
-     * gets if the map is old chunk saving (true) or McRegion (false)
-     */
-    boolean isOldMapFormat(String saveName);
+	/**
+	 * Renames the world by storing the new name in level.dat. It does *not* rename the directory containing the world
+	 * data.
+	 */
+	void renameWorld(String dirName, String newName);
 
-    /**
-     * converts the map to mcRegion
-     */
-    boolean convertMapFormat(String filename, IProgressUpdate progressCallback);
+	boolean isConvertible(String saveName);
 
-    /**
-     * Return whether the given world can be loaded.
-     */
-    boolean canLoadWorld(String saveName);
+	/**
+	 * gets if the map is old chunk saving (true) or McRegion (false)
+	 */
+	boolean isOldMapFormat(String saveName);
 
-    File getFile(String p_186352_1_, String p_186352_2_);
+	/**
+	 * converts the map to mcRegion
+	 */
+	boolean convertMapFormat(String filename, IProgressUpdate progressCallback);
+
+	/**
+	 * Return whether the given world can be loaded.
+	 */
+	boolean canLoadWorld(String saveName);
+
+	File getFile(String p_186352_1_, String p_186352_2_);
+
 }

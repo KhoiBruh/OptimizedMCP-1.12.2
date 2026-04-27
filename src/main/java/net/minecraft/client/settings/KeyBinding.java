@@ -2,187 +2,175 @@ package net.minecraft.client.settings;
 
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
-import java.util.Map;
-import java.util.Set;
-import java.util.function.Supplier;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.IntHashMap;
 import org.lwjgl.input.Keyboard;
 
-public class KeyBinding implements Comparable<KeyBinding>
-{
-    private static final Map<String, KeyBinding> KEYBIND_ARRAY = Maps.<String, KeyBinding>newHashMap();
-    private static final IntHashMap<KeyBinding> HASH = new IntHashMap<KeyBinding>();
-    private static final Set<String> KEYBIND_SET = Sets.<String>newHashSet();
-    private static final Map<String, Integer> CATEGORY_ORDER = Maps.<String, Integer>newHashMap();
-    private final String keyDescription;
-    private final int keyCodeDefault;
-    private final String keyCategory;
-    private int keyCode;
+import java.util.Map;
+import java.util.Set;
+import java.util.function.Supplier;
 
-    /** Is the key held down? */
-    private boolean pressed;
-    private int pressTime;
+public class KeyBinding implements Comparable<KeyBinding> {
 
-    public static void onTick(int keyCode)
-    {
-        if (keyCode != 0)
-        {
-            KeyBinding keybinding = HASH.lookup(keyCode);
+	private static final Map<String, KeyBinding> KEYBIND_ARRAY = Maps.newHashMap();
+	private static final IntHashMap<KeyBinding> HASH = new IntHashMap<KeyBinding>();
+	private static final Set<String> KEYBIND_SET = Sets.newHashSet();
+	private static final Map<String, Integer> CATEGORY_ORDER = Maps.newHashMap();
+	private final String keyDescription;
+	private final int keyCodeDefault;
+	private final String keyCategory;
+	private int keyCode;
 
-            if (keybinding != null)
-            {
-                ++keybinding.pressTime;
-            }
-        }
-    }
+	/**
+	 * Is the key held down?
+	 */
+	private boolean pressed;
+	private int pressTime;
 
-    public static void setKeyBindState(int keyCode, boolean pressed)
-    {
-        if (keyCode != 0)
-        {
-            KeyBinding keybinding = HASH.lookup(keyCode);
+	public static void onTick(int keyCode) {
 
-            if (keybinding != null)
-            {
-                keybinding.pressed = pressed;
-            }
-        }
-    }
+		if (keyCode != 0) {
+			KeyBinding keybinding = HASH.lookup(keyCode);
 
-    /**
-     * Completely recalculates whether any keybinds are held, from scratch.
-     */
-    public static void updateKeyBindState()
-    {
-        for (KeyBinding keybinding : KEYBIND_ARRAY.values())
-        {
-            try
-            {
-                setKeyBindState(keybinding.keyCode, keybinding.keyCode < 256 && Keyboard.isKeyDown(keybinding.keyCode));
-            }
-            catch (IndexOutOfBoundsException var3)
-            {
-                ;
-            }
-        }
-    }
+			if (keybinding != null) {
+				++keybinding.pressTime;
+			}
+		}
+	}
 
-    public static void unPressAllKeys()
-    {
-        for (KeyBinding keybinding : KEYBIND_ARRAY.values())
-        {
-            keybinding.unpressKey();
-        }
-    }
+	public static void setKeyBindState(int keyCode, boolean pressed) {
 
-    public static void resetKeyBindingArrayAndHash()
-    {
-        HASH.clearMap();
+		if (keyCode != 0) {
+			KeyBinding keybinding = HASH.lookup(keyCode);
 
-        for (KeyBinding keybinding : KEYBIND_ARRAY.values())
-        {
-            HASH.addKey(keybinding.keyCode, keybinding);
-        }
-    }
+			if (keybinding != null) {
+				keybinding.pressed = pressed;
+			}
+		}
+	}
 
-    public static Set<String> getKeybinds()
-    {
-        return KEYBIND_SET;
-    }
+	/**
+	 * Completely recalculates whether any keybinds are held, from scratch.
+	 */
+	public static void updateKeyBindState() {
 
-    public KeyBinding(String description, int keyCode, String category)
-    {
-        keyDescription = description;
-        this.keyCode = keyCode;
-        keyCodeDefault = keyCode;
-        keyCategory = category;
-        KEYBIND_ARRAY.put(description, this);
-        HASH.addKey(keyCode, this);
-        KEYBIND_SET.add(category);
-    }
+		for (KeyBinding keybinding : KEYBIND_ARRAY.values()) {
+			try {
+				setKeyBindState(keybinding.keyCode, keybinding.keyCode < 256 && Keyboard.isKeyDown(keybinding.keyCode));
+			} catch (IndexOutOfBoundsException var3) {
+			}
+		}
+	}
 
-    /**
-     * Returns true if the key is pressed (used for continuous querying). Should be used in tickers.
-     */
-    public boolean isKeyDown()
-    {
-        return pressed;
-    }
+	public static void unPressAllKeys() {
 
-    public String getKeyCategory()
-    {
-        return keyCategory;
-    }
+		for (KeyBinding keybinding : KEYBIND_ARRAY.values()) {
+			keybinding.unpressKey();
+		}
+	}
 
-    /**
-     * Returns true on the initial key press. For continuous querying use {@link isKeyDown()}. Should be used in key
-     * events.
-     */
-    public boolean isPressed()
-    {
-        if (pressTime == 0)
-        {
-            return false;
-        }
-        else
-        {
-            --pressTime;
-            return true;
-        }
-    }
+	public static void resetKeyBindingArrayAndHash() {
 
-    private void unpressKey()
-    {
-        pressTime = 0;
-        pressed = false;
-    }
+		HASH.clearMap();
 
-    public String getKeyDescription()
-    {
-        return keyDescription;
-    }
+		for (KeyBinding keybinding : KEYBIND_ARRAY.values()) {
+			HASH.addKey(keybinding.keyCode, keybinding);
+		}
+	}
 
-    public int getKeyCodeDefault()
-    {
-        return keyCodeDefault;
-    }
+	public static Set<String> getKeybinds() {
 
-    public int getKeyCode()
-    {
-        return keyCode;
-    }
+		return KEYBIND_SET;
+	}
 
-    public void setKeyCode(int keyCode)
-    {
-        this.keyCode = keyCode;
-    }
+	public KeyBinding(String description, int keyCode, String category) {
 
-    public int compareTo(KeyBinding p_compareTo_1_)
-    {
-        return keyCategory.equals(p_compareTo_1_.keyCategory) ? I18n.format(keyDescription).compareTo(I18n.format(p_compareTo_1_.keyDescription)) : ((Integer)CATEGORY_ORDER.get(keyCategory)).compareTo(CATEGORY_ORDER.get(p_compareTo_1_.keyCategory));
-    }
+		keyDescription = description;
+		this.keyCode = keyCode;
+		keyCodeDefault = keyCode;
+		keyCategory = category;
+		KEYBIND_ARRAY.put(description, this);
+		HASH.addKey(keyCode, this);
+		KEYBIND_SET.add(category);
+	}
 
-    public static Supplier<String> getDisplayString(String key)
-    {
-        KeyBinding keybinding = KEYBIND_ARRAY.get(key);
-        return keybinding == null ? () ->
-        {
-            return key;
-        } : () ->
-        {
-            return GameSettings.getKeyDisplayString(keybinding.getKeyCode());
-        };
-    }
+	/**
+	 * Returns true if the key is pressed (used for continuous querying). Should be used in tickers.
+	 */
+	public boolean isKeyDown() {
 
-    static
-    {
-        CATEGORY_ORDER.put("key.categories.movement", Integer.valueOf(1));
-        CATEGORY_ORDER.put("key.categories.gameplay", Integer.valueOf(2));
-        CATEGORY_ORDER.put("key.categories.inventory", Integer.valueOf(3));
-        CATEGORY_ORDER.put("key.categories.creative", Integer.valueOf(4));
-        CATEGORY_ORDER.put("key.categories.multiplayer", Integer.valueOf(5));
-        CATEGORY_ORDER.put("key.categories.ui", Integer.valueOf(6));
-        CATEGORY_ORDER.put("key.categories.misc", Integer.valueOf(7));
-    }
+		return pressed;
+	}
+
+	public String getKeyCategory() {
+
+		return keyCategory;
+	}
+
+	/**
+	 * Returns true on the initial key press. For continuous querying use {@link isKeyDown()}. Should be used in key
+	 * events.
+	 */
+	public boolean isPressed() {
+
+		if (pressTime == 0) {
+			return false;
+		} else {
+			--pressTime;
+			return true;
+		}
+	}
+
+	private void unpressKey() {
+
+		pressTime = 0;
+		pressed = false;
+	}
+
+	public String getKeyDescription() {
+
+		return keyDescription;
+	}
+
+	public int getKeyCodeDefault() {
+
+		return keyCodeDefault;
+	}
+
+	public int getKeyCode() {
+
+		return keyCode;
+	}
+
+	public void setKeyCode(int keyCode) {
+
+		this.keyCode = keyCode;
+	}
+
+	public int compareTo(KeyBinding p_compareTo_1_) {
+
+		return keyCategory.equals(p_compareTo_1_.keyCategory) ? I18n.format(keyDescription).compareTo(I18n.format(p_compareTo_1_.keyDescription)) : CATEGORY_ORDER.get(keyCategory).compareTo(CATEGORY_ORDER.get(p_compareTo_1_.keyCategory));
+	}
+
+	public static Supplier<String> getDisplayString(String key) {
+
+		KeyBinding keybinding = KEYBIND_ARRAY.get(key);
+		return keybinding == null ? () ->
+		{
+			return key;
+		} : () ->
+		{
+			return GameSettings.getKeyDisplayString(keybinding.getKeyCode());
+		};
+	}
+
+	static {
+		CATEGORY_ORDER.put("key.categories.movement", Integer.valueOf(1));
+		CATEGORY_ORDER.put("key.categories.gameplay", Integer.valueOf(2));
+		CATEGORY_ORDER.put("key.categories.inventory", Integer.valueOf(3));
+		CATEGORY_ORDER.put("key.categories.creative", Integer.valueOf(4));
+		CATEGORY_ORDER.put("key.categories.multiplayer", Integer.valueOf(5));
+		CATEGORY_ORDER.put("key.categories.ui", Integer.valueOf(6));
+		CATEGORY_ORDER.put("key.categories.misc", Integer.valueOf(7));
+	}
 }

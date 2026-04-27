@@ -4,92 +4,80 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
 
-public class ContainerShulkerBox extends Container
-{
-    private final IInventory inventory;
+public class ContainerShulkerBox extends Container {
 
-    public ContainerShulkerBox(InventoryPlayer p_i47266_1_, IInventory p_i47266_2_, EntityPlayer p_i47266_3_)
-    {
-        inventory = p_i47266_2_;
-        p_i47266_2_.openInventory(p_i47266_3_);
-        int i = 3;
-        int j = 9;
+	private final IInventory inventory;
 
-        for (int k = 0; k < 3; ++k)
-        {
-            for (int l = 0; l < 9; ++l)
-            {
-                addSlotToContainer(new SlotShulkerBox(p_i47266_2_, l + k * 9, 8 + l * 18, 18 + k * 18));
-            }
-        }
+	public ContainerShulkerBox(InventoryPlayer p_i47266_1_, IInventory p_i47266_2_, EntityPlayer p_i47266_3_) {
 
-        for (int i1 = 0; i1 < 3; ++i1)
-        {
-            for (int k1 = 0; k1 < 9; ++k1)
-            {
-                addSlotToContainer(new Slot(p_i47266_1_, k1 + i1 * 9 + 9, 8 + k1 * 18, 84 + i1 * 18));
-            }
-        }
+		inventory = p_i47266_2_;
+		p_i47266_2_.openInventory(p_i47266_3_);
+		int i = 3;
+		int j = 9;
 
-        for (int j1 = 0; j1 < 9; ++j1)
-        {
-            addSlotToContainer(new Slot(p_i47266_1_, j1, 8 + j1 * 18, 142));
-        }
-    }
+		for (int k = 0; k < 3; ++k) {
+			for (int l = 0; l < 9; ++l) {
+				addSlotToContainer(new SlotShulkerBox(p_i47266_2_, l + k * 9, 8 + l * 18, 18 + k * 18));
+			}
+		}
 
-    /**
-     * Determines whether supplied player can use this container
-     */
-    public boolean canInteractWith(EntityPlayer playerIn)
-    {
-        return inventory.isUsableByPlayer(playerIn);
-    }
+		for (int i1 = 0; i1 < 3; ++i1) {
+			for (int k1 = 0; k1 < 9; ++k1) {
+				addSlotToContainer(new Slot(p_i47266_1_, k1 + i1 * 9 + 9, 8 + k1 * 18, 84 + i1 * 18));
+			}
+		}
 
-    /**
-     * Handle when the stack in slot {@code index} is shift-clicked. Normally this moves the stack between the player
-     * inventory and the other inventory(s).
-     */
-    public ItemStack transferStackInSlot(EntityPlayer playerIn, int index)
-    {
-        ItemStack itemstack = ItemStack.EMPTY;
-        Slot slot = inventorySlots.get(index);
+		for (int j1 = 0; j1 < 9; ++j1) {
+			addSlotToContainer(new Slot(p_i47266_1_, j1, 8 + j1 * 18, 142));
+		}
+	}
 
-        if (slot != null && slot.getHasStack())
-        {
-            ItemStack itemstack1 = slot.getStack();
-            itemstack = itemstack1.copy();
+	/**
+	 * Determines whether supplied player can use this container
+	 */
+	public boolean canInteractWith(EntityPlayer playerIn) {
 
-            if (index < inventory.getSizeInventory())
-            {
-                if (!mergeItemStack(itemstack1, inventory.getSizeInventory(), inventorySlots.size(), true))
-                {
-                    return ItemStack.EMPTY;
-                }
-            }
-            else if (!mergeItemStack(itemstack1, 0, inventory.getSizeInventory(), false))
-            {
-                return ItemStack.EMPTY;
-            }
+		return inventory.isUsableByPlayer(playerIn);
+	}
 
-            if (itemstack1.isEmpty())
-            {
-                slot.putStack(ItemStack.EMPTY);
-            }
-            else
-            {
-                slot.onSlotChanged();
-            }
-        }
+	/**
+	 * Handle when the stack in slot {@code index} is shift-clicked. Normally this moves the stack between the player
+	 * inventory and the other inventory(s).
+	 */
+	public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
 
-        return itemstack;
-    }
+		ItemStack itemstack = ItemStack.EMPTY;
+		Slot slot = inventorySlots.get(index);
 
-    /**
-     * Called when the container is closed.
-     */
-    public void onContainerClosed(EntityPlayer playerIn)
-    {
-        super.onContainerClosed(playerIn);
-        inventory.closeInventory(playerIn);
-    }
+		if (slot != null && slot.getHasStack()) {
+			ItemStack itemstack1 = slot.getStack();
+			itemstack = itemstack1.copy();
+
+			if (index < inventory.getSizeInventory()) {
+				if (!mergeItemStack(itemstack1, inventory.getSizeInventory(), inventorySlots.size(), true)) {
+					return ItemStack.EMPTY;
+				}
+			} else if (!mergeItemStack(itemstack1, 0, inventory.getSizeInventory(), false)) {
+				return ItemStack.EMPTY;
+			}
+
+			if (itemstack1.isEmpty()) {
+				slot.putStack(ItemStack.EMPTY);
+			} else {
+				slot.onSlotChanged();
+			}
+		}
+
+		return itemstack;
+	}
+
+	/**
+	 * Called when the container is closed.
+	 */
+	public void onContainerClosed(EntityPlayer playerIn) {
+
+		super.onContainerClosed(playerIn);
+		inventory.closeInventory(playerIn);
+	}
+
 }

@@ -11,34 +11,33 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
 
-public class ItemEnderPearl extends Item
-{
-    public ItemEnderPearl()
-    {
-        maxStackSize = 16;
-        setCreativeTab(CreativeTabs.MISC);
-    }
+public class ItemEnderPearl extends Item {
 
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn)
-    {
-        ItemStack itemstack = playerIn.getHeldItem(handIn);
+	public ItemEnderPearl() {
 
-        if (!playerIn.capabilities.isCreativeMode)
-        {
-            itemstack.shrink(1);
-        }
+		maxStackSize = 16;
+		setCreativeTab(CreativeTabs.MISC);
+	}
 
-        worldIn.playSound((EntityPlayer)null, playerIn.posX, playerIn.posY, playerIn.posZ, SoundEvents.ENTITY_ENDERPEARL_THROW, SoundCategory.NEUTRAL, 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
-        playerIn.getCooldownTracker().setCooldown(this, 20);
+	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
 
-        if (!worldIn.isRemote)
-        {
-            EntityEnderPearl entityenderpearl = new EntityEnderPearl(worldIn, playerIn);
-            entityenderpearl.shoot(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, 1.5F, 1.0F);
-            worldIn.spawnEntity(entityenderpearl);
-        }
+		ItemStack itemstack = playerIn.getHeldItem(handIn);
 
-        playerIn.addStat(StatList.getObjectUseStats(this));
-        return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemstack);
-    }
+		if (!playerIn.capabilities.isCreativeMode) {
+			itemstack.shrink(1);
+		}
+
+		worldIn.playSound(null, playerIn.posX, playerIn.posY, playerIn.posZ, SoundEvents.ENTITY_ENDERPEARL_THROW, SoundCategory.NEUTRAL, 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
+		playerIn.getCooldownTracker().setCooldown(this, 20);
+
+		if (!worldIn.isRemote) {
+			EntityEnderPearl entityenderpearl = new EntityEnderPearl(worldIn, playerIn);
+			entityenderpearl.shoot(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, 1.5F, 1.0F);
+			worldIn.spawnEntity(entityenderpearl);
+		}
+
+		playerIn.addStat(StatList.getObjectUseStats(this));
+		return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemstack);
+	}
+
 }

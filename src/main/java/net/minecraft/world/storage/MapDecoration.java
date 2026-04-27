@@ -2,145 +2,132 @@ package net.minecraft.world.storage;
 
 import net.minecraft.util.math.MathHelper;
 
-public class MapDecoration
-{
-    private final MapDecoration.Type type;
-    private byte x;
-    private byte y;
-    private byte rotation;
+public class MapDecoration {
 
-    public MapDecoration(MapDecoration.Type typeIn, byte xIn, byte yIn, byte rotationIn)
-    {
-        type = typeIn;
-        x = xIn;
-        y = yIn;
-        rotation = rotationIn;
-    }
+	private final MapDecoration.Type type;
+	private final byte x;
+	private final byte y;
+	private final byte rotation;
 
-    public byte getImage()
-    {
-        return type.getIcon();
-    }
+	public MapDecoration(MapDecoration.Type typeIn, byte xIn, byte yIn, byte rotationIn) {
 
-    public MapDecoration.Type getType()
-    {
-        return type;
-    }
+		type = typeIn;
+		x = xIn;
+		y = yIn;
+		rotation = rotationIn;
+	}
 
-    public byte getX()
-    {
-        return x;
-    }
+	public byte getImage() {
 
-    public byte getY()
-    {
-        return y;
-    }
+		return type.getIcon();
+	}
 
-    public byte getRotation()
-    {
-        return rotation;
-    }
+	public MapDecoration.Type getType() {
 
-    public boolean renderOnFrame()
-    {
-        return type.isRenderedOnFrame();
-    }
+		return type;
+	}
 
-    public boolean equals(Object p_equals_1_)
-    {
-        if (this == p_equals_1_)
-        {
-            return true;
-        }
-        else if (!(p_equals_1_ instanceof MapDecoration))
-        {
-            return false;
-        }
-        else
-        {
-            MapDecoration mapdecoration = (MapDecoration)p_equals_1_;
+	public byte getX() {
 
-            if (type != mapdecoration.type)
-            {
-                return false;
-            }
-            else if (rotation != mapdecoration.rotation)
-            {
-                return false;
-            }
-            else if (x != mapdecoration.x)
-            {
-                return false;
-            }
-            else
-            {
-                return y == mapdecoration.y;
-            }
-        }
-    }
+		return x;
+	}
 
-    public int hashCode()
-    {
-        int i = type.getIcon();
-        i = 31 * i + x;
-        i = 31 * i + y;
-        i = 31 * i + rotation;
-        return i;
-    }
+	public byte getY() {
 
-    public static enum Type
-    {
-        PLAYER(false),
-        FRAME(true),
-        RED_MARKER(false),
-        BLUE_MARKER(false),
-        TARGET_X(true),
-        TARGET_POINT(true),
-        PLAYER_OFF_MAP(false),
-        PLAYER_OFF_LIMITS(false),
-        MANSION(true, 5393476),
-        MONUMENT(true, 3830373);
+		return y;
+	}
 
-        private final byte icon;
-        private final boolean renderedOnFrame;
-        private final int mapColor;
+	public byte getRotation() {
 
-        private Type(boolean p_i47343_3_)
-        {
-            this(p_i47343_3_, -1);
-        }
+		return rotation;
+	}
 
-        private Type(boolean p_i47344_3_, int p_i47344_4_)
-        {
-            icon = (byte) ordinal();
-            renderedOnFrame = p_i47344_3_;
-            mapColor = p_i47344_4_;
-        }
+	public boolean renderOnFrame() {
 
-        public byte getIcon()
-        {
-            return icon;
-        }
+		return type.isRenderedOnFrame();
+	}
 
-        public boolean isRenderedOnFrame()
-        {
-            return renderedOnFrame;
-        }
+	public boolean equals(Object p_equals_1_) {
 
-        public boolean hasMapColor()
-        {
-            return mapColor >= 0;
-        }
+		if (this == p_equals_1_) {
+			return true;
+		} else if (!(p_equals_1_ instanceof MapDecoration mapdecoration)) {
+			return false;
+		} else {
 
-        public int getMapColor()
-        {
-            return mapColor;
-        }
+			if (type != mapdecoration.type) {
+				return false;
+			} else if (rotation != mapdecoration.rotation) {
+				return false;
+			} else if (x != mapdecoration.x) {
+				return false;
+			} else {
+				return y == mapdecoration.y;
+			}
+		}
+	}
 
-        public static MapDecoration.Type byIcon(byte p_191159_0_)
-        {
-            return values()[MathHelper.clamp(p_191159_0_, 0, values().length - 1)];
-        }
-    }
+	public int hashCode() {
+
+		int i = type.getIcon();
+		i = 31 * i + x;
+		i = 31 * i + y;
+		i = 31 * i + rotation;
+		return i;
+	}
+
+	public enum Type {
+		PLAYER(false),
+		FRAME(true),
+		RED_MARKER(false),
+		BLUE_MARKER(false),
+		TARGET_X(true),
+		TARGET_POINT(true),
+		PLAYER_OFF_MAP(false),
+		PLAYER_OFF_LIMITS(false),
+		MANSION(true, 5393476),
+		MONUMENT(true, 3830373);
+
+		private final byte icon;
+		private final boolean renderedOnFrame;
+		private final int mapColor;
+
+		Type(boolean p_i47343_3_) {
+
+			this(p_i47343_3_, -1);
+		}
+
+		Type(boolean p_i47344_3_, int p_i47344_4_) {
+
+			icon = (byte) ordinal();
+			renderedOnFrame = p_i47344_3_;
+			mapColor = p_i47344_4_;
+		}
+
+		public byte getIcon() {
+
+			return icon;
+		}
+
+		public boolean isRenderedOnFrame() {
+
+			return renderedOnFrame;
+		}
+
+		public boolean hasMapColor() {
+
+			return mapColor >= 0;
+		}
+
+		public int getMapColor() {
+
+			return mapColor;
+		}
+
+		public static MapDecoration.Type byIcon(byte p_191159_0_) {
+
+			return values()[MathHelper.clamp(p_191159_0_, 0, values().length - 1)];
+		}
+	}
+
 }

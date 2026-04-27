@@ -1,9 +1,6 @@
 package net.minecraft.world.chunk;
 
 import com.google.common.base.Predicate;
-import java.util.List;
-import java.util.Random;
-import javax.annotation.Nullable;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
@@ -13,167 +10,172 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
 
-public class EmptyChunk extends Chunk
-{
-    public EmptyChunk(World worldIn, int x, int z)
-    {
-        super(worldIn, x, z);
-    }
+import javax.annotation.Nullable;
+import java.util.List;
+import java.util.Random;
 
-    /**
-     * Checks whether the chunk is at the X/Z location specified
-     */
-    public boolean isAtLocation(int x, int z)
-    {
-        return x == this.x && z == this.z;
-    }
+public class EmptyChunk extends Chunk {
 
-    /**
-     * Returns the value in the height map at this x, z coordinate in the chunk
-     */
-    public int getHeightValue(int x, int z)
-    {
-        return 0;
-    }
+	public EmptyChunk(World worldIn, int x, int z) {
 
-    /**
-     * Generates the height map for a chunk from scratch
-     */
-    public void generateHeightMap()
-    {
-    }
+		super(worldIn, x, z);
+	}
 
-    /**
-     * Generates the initial skylight map for the chunk upon generation or load.
-     */
-    public void generateSkylightMap()
-    {
-    }
+	/**
+	 * Checks whether the chunk is at the X/Z location specified
+	 */
+	public boolean isAtLocation(int x, int z) {
 
-    public IBlockState getBlockState(BlockPos pos)
-    {
-        return Blocks.AIR.getDefaultState();
-    }
+		return x == this.x && z == this.z;
+	}
 
-    public int getBlockLightOpacity(BlockPos pos)
-    {
-        return 255;
-    }
+	/**
+	 * Returns the value in the height map at this x, z coordinate in the chunk
+	 */
+	public int getHeightValue(int x, int z) {
 
-    public int getLightFor(EnumSkyBlock type, BlockPos pos)
-    {
-        return type.defaultLightValue;
-    }
+		return 0;
+	}
 
-    public void setLightFor(EnumSkyBlock type, BlockPos pos, int value)
-    {
-    }
+	/**
+	 * Generates the height map for a chunk from scratch
+	 */
+	public void generateHeightMap() {
 
-    public int getLightSubtracted(BlockPos pos, int amount)
-    {
-        return 0;
-    }
+	}
 
-    /**
-     * Adds an entity to the chunk.
-     */
-    public void addEntity(Entity entityIn)
-    {
-    }
+	/**
+	 * Generates the initial skylight map for the chunk upon generation or load.
+	 */
+	public void generateSkylightMap() {
 
-    /**
-     * removes entity using its y chunk coordinate as its index
-     */
-    public void removeEntity(Entity entityIn)
-    {
-    }
+	}
 
-    /**
-     * Removes entity at the specified index from the entity array.
-     */
-    public void removeEntityAtIndex(Entity entityIn, int index)
-    {
-    }
+	public IBlockState getBlockState(BlockPos pos) {
 
-    public boolean canSeeSky(BlockPos pos)
-    {
-        return false;
-    }
+		return Blocks.AIR.getDefaultState();
+	}
 
-    @Nullable
-    public TileEntity getTileEntity(BlockPos pos, Chunk.EnumCreateEntityType creationMode)
-    {
-        return null;
-    }
+	public int getBlockLightOpacity(BlockPos pos) {
 
-    public void addTileEntity(TileEntity tileEntityIn)
-    {
-    }
+		return 255;
+	}
 
-    public void addTileEntity(BlockPos pos, TileEntity tileEntityIn)
-    {
-    }
+	public int getLightFor(EnumSkyBlock type, BlockPos pos) {
 
-    public void removeTileEntity(BlockPos pos)
-    {
-    }
+		return type.defaultLightValue;
+	}
 
-    /**
-     * Called when this Chunk is loaded by the ChunkProvider
-     */
-    public void onLoad()
-    {
-    }
+	public void setLightFor(EnumSkyBlock type, BlockPos pos, int value) {
 
-    /**
-     * Called when this Chunk is unloaded by the ChunkProvider
-     */
-    public void onUnload()
-    {
-    }
+	}
 
-    /**
-     * Sets the isModified flag for this Chunk
-     */
-    public void markDirty()
-    {
-    }
+	public int getLightSubtracted(BlockPos pos, int amount) {
 
-    /**
-     * Fills the given list of all entities that intersect within the given bounding box that aren't the passed entity.
-     */
-    public void getEntitiesWithinAABBForEntity(@Nullable Entity entityIn, AxisAlignedBB aabb, List<Entity> listToFill, Predicate <? super Entity > filter)
-    {
-    }
+		return 0;
+	}
 
-    public <T extends Entity> void getEntitiesOfTypeWithinAABB(Class <? extends T > entityClass, AxisAlignedBB aabb, List<T> listToFill, Predicate <? super T > filter)
-    {
-    }
+	/**
+	 * Adds an entity to the chunk.
+	 */
+	public void addEntity(Entity entityIn) {
 
-    /**
-     * Returns true if this Chunk needs to be saved
-     */
-    public boolean needsSaving(boolean p_76601_1_)
-    {
-        return false;
-    }
+	}
 
-    public Random getRandomWithSeed(long seed)
-    {
-        return new Random(getWorld().getSeed() + (long)(x * x * 4987142) + (long)(x * 5947611) + (long)(z * z) * 4392871L + (long)(z * 389711) ^ seed);
-    }
+	/**
+	 * removes entity using its y chunk coordinate as its index
+	 */
+	public void removeEntity(Entity entityIn) {
 
-    public boolean isEmpty()
-    {
-        return true;
-    }
+	}
 
-    /**
-     * Returns whether the ExtendedBlockStorages containing levels (in blocks) from arg 1 to arg 2 are fully empty
-     * (true) or not (false).
-     */
-    public boolean isEmptyBetween(int startY, int endY)
-    {
-        return true;
-    }
+	/**
+	 * Removes entity at the specified index from the entity array.
+	 */
+	public void removeEntityAtIndex(Entity entityIn, int index) {
+
+	}
+
+	public boolean canSeeSky(BlockPos pos) {
+
+		return false;
+	}
+
+	@Nullable
+	public TileEntity getTileEntity(BlockPos pos, Chunk.EnumCreateEntityType creationMode) {
+
+		return null;
+	}
+
+	public void addTileEntity(TileEntity tileEntityIn) {
+
+	}
+
+	public void addTileEntity(BlockPos pos, TileEntity tileEntityIn) {
+
+	}
+
+	public void removeTileEntity(BlockPos pos) {
+
+	}
+
+	/**
+	 * Called when this Chunk is loaded by the ChunkProvider
+	 */
+	public void onLoad() {
+
+	}
+
+	/**
+	 * Called when this Chunk is unloaded by the ChunkProvider
+	 */
+	public void onUnload() {
+
+	}
+
+	/**
+	 * Sets the isModified flag for this Chunk
+	 */
+	public void markDirty() {
+
+	}
+
+	/**
+	 * Fills the given list of all entities that intersect within the given bounding box that aren't the passed entity.
+	 */
+	public void getEntitiesWithinAABBForEntity(@Nullable Entity entityIn, AxisAlignedBB aabb, List<Entity> listToFill, Predicate<? super Entity> filter) {
+
+	}
+
+	public <T extends Entity> void getEntitiesOfTypeWithinAABB(Class<? extends T> entityClass, AxisAlignedBB aabb, List<T> listToFill, Predicate<? super T> filter) {
+
+	}
+
+	/**
+	 * Returns true if this Chunk needs to be saved
+	 */
+	public boolean needsSaving(boolean p_76601_1_) {
+
+		return false;
+	}
+
+	public Random getRandomWithSeed(long seed) {
+
+		return new Random(getWorld().getSeed() + (long) ((long) x * x * 4987142) + (long) (x * 5947611L) + (long) ((long) z * z) * 4392871L + (long) (z * 389711L) ^ seed);
+	}
+
+	public boolean isEmpty() {
+
+		return true;
+	}
+
+	/**
+	 * Returns whether the ExtendedBlockStorages containing levels (in blocks) from arg 1 to arg 2 are fully empty
+	 * (true) or not (false).
+	 */
+	public boolean isEmptyBetween(int startY, int endY) {
+
+		return true;
+	}
+
 }

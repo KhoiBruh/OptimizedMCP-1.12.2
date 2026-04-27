@@ -3,95 +3,82 @@ package net.minecraft.client.gui;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 
-public class GuiLockIconButton extends GuiButton
-{
-    private boolean locked;
+public class GuiLockIconButton extends GuiButton {
 
-    public GuiLockIconButton(int buttonId, int x, int y)
-    {
-        super(buttonId, x, y, 20, 20, "");
-    }
+	private boolean locked;
 
-    public boolean isLocked()
-    {
-        return locked;
-    }
+	public GuiLockIconButton(int buttonId, int x, int y) {
 
-    public void setLocked(boolean lockedIn)
-    {
-        locked = lockedIn;
-    }
+		super(buttonId, x, y, 20, 20, "");
+	}
 
-    /**
-     * Draws this button to the screen.
-     */
-    public void drawButton(Minecraft mc, int mouseX, int mouseY, float partialTicks)
-    {
-        if (visible)
-        {
-            mc.getTextureManager().bindTexture(GuiButton.BUTTON_TEXTURES);
-            GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-            boolean flag = mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
-            GuiLockIconButton.Icon guilockiconbutton$icon;
+	public boolean isLocked() {
 
-            if (locked)
-            {
-                if (!enabled)
-                {
-                    guilockiconbutton$icon = GuiLockIconButton.Icon.LOCKED_DISABLED;
-                }
-                else if (flag)
-                {
-                    guilockiconbutton$icon = GuiLockIconButton.Icon.LOCKED_HOVER;
-                }
-                else
-                {
-                    guilockiconbutton$icon = GuiLockIconButton.Icon.LOCKED;
-                }
-            }
-            else if (!enabled)
-            {
-                guilockiconbutton$icon = GuiLockIconButton.Icon.UNLOCKED_DISABLED;
-            }
-            else if (flag)
-            {
-                guilockiconbutton$icon = GuiLockIconButton.Icon.UNLOCKED_HOVER;
-            }
-            else
-            {
-                guilockiconbutton$icon = GuiLockIconButton.Icon.UNLOCKED;
-            }
+		return locked;
+	}
 
-            drawTexturedModalRect(x, y, guilockiconbutton$icon.getX(), guilockiconbutton$icon.getY(), width, height);
-        }
-    }
+	public void setLocked(boolean lockedIn) {
 
-    static enum Icon
-    {
-        LOCKED(0, 146),
-        LOCKED_HOVER(0, 166),
-        LOCKED_DISABLED(0, 186),
-        UNLOCKED(20, 146),
-        UNLOCKED_HOVER(20, 166),
-        UNLOCKED_DISABLED(20, 186);
+		locked = lockedIn;
+	}
 
-        private final int x;
-        private final int y;
+	/**
+	 * Draws this button to the screen.
+	 */
+	public void drawButton(Minecraft mc, int mouseX, int mouseY, float partialTicks) {
 
-        private Icon(int xIn, int yIn)
-        {
-            x = xIn;
-            y = yIn;
-        }
+		if (visible) {
+			mc.getTextureManager().bindTexture(GuiButton.BUTTON_TEXTURES);
+			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+			boolean flag = mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
+			GuiLockIconButton.Icon guilockiconbutton$icon;
 
-        public int getX()
-        {
-            return x;
-        }
+			if (locked) {
+				if (!enabled) {
+					guilockiconbutton$icon = GuiLockIconButton.Icon.LOCKED_DISABLED;
+				} else if (flag) {
+					guilockiconbutton$icon = GuiLockIconButton.Icon.LOCKED_HOVER;
+				} else {
+					guilockiconbutton$icon = GuiLockIconButton.Icon.LOCKED;
+				}
+			} else if (!enabled) {
+				guilockiconbutton$icon = GuiLockIconButton.Icon.UNLOCKED_DISABLED;
+			} else if (flag) {
+				guilockiconbutton$icon = GuiLockIconButton.Icon.UNLOCKED_HOVER;
+			} else {
+				guilockiconbutton$icon = GuiLockIconButton.Icon.UNLOCKED;
+			}
 
-        public int getY()
-        {
-            return y;
-        }
-    }
+			drawTexturedModalRect(x, y, guilockiconbutton$icon.getX(), guilockiconbutton$icon.getY(), width, height);
+		}
+	}
+
+	enum Icon {
+		LOCKED(0, 146),
+		LOCKED_HOVER(0, 166),
+		LOCKED_DISABLED(0, 186),
+		UNLOCKED(20, 146),
+		UNLOCKED_HOVER(20, 166),
+		UNLOCKED_DISABLED(20, 186);
+
+		private final int x;
+		private final int y;
+
+		Icon(int xIn, int yIn) {
+
+			x = xIn;
+			y = yIn;
+		}
+
+		public int getX() {
+
+			return x;
+		}
+
+		public int getY() {
+
+			return y;
+		}
+	}
+
 }

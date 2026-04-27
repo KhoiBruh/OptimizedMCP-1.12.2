@@ -1,119 +1,107 @@
 package net.minecraft.util;
 
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParseException;
-import com.google.gson.JsonPrimitive;
-import com.google.gson.JsonSerializationContext;
-import com.google.gson.JsonSerializer;
-import java.lang.reflect.Type;
-import java.util.Locale;
+import com.google.gson.*;
 import org.apache.commons.lang3.Validate;
 
-public class ResourceLocation implements Comparable<ResourceLocation>
-{
-    protected final String resourceDomain;
-    protected final String resourcePath;
+import java.lang.reflect.Type;
+import java.util.Locale;
 
-    protected ResourceLocation(int unused, String... resourceName)
-    {
-        resourceDomain = org.apache.commons.lang3.StringUtils.isEmpty(resourceName[0]) ? "minecraft" : resourceName[0].toLowerCase(Locale.ROOT);
-        resourcePath = resourceName[1].toLowerCase(Locale.ROOT);
-        Validate.notNull(resourcePath);
-    }
+public class ResourceLocation implements Comparable<ResourceLocation> {
 
-    public ResourceLocation(String resourceName)
-    {
-        this(0, splitObjectName(resourceName));
-    }
+	protected final String resourceDomain;
+	protected final String resourcePath;
 
-    public ResourceLocation(String resourceDomainIn, String resourcePathIn)
-    {
-        this(0, resourceDomainIn, resourcePathIn);
-    }
+	protected ResourceLocation(int unused, String... resourceName) {
 
-    /**
-     * Splits an object name (such as minecraft:apple) into the domain and path parts and returns these as an array of
-     * length 2. If no colon is present in the passed value the returned array will contain {null, toSplit}.
-     */
-    protected static String[] splitObjectName(String toSplit)
-    {
-        String[] astring = new String[] {"minecraft", toSplit};
-        int i = toSplit.indexOf(58);
+		resourceDomain = org.apache.commons.lang3.StringUtils.isEmpty(resourceName[0]) ? "minecraft" : resourceName[0].toLowerCase(Locale.ROOT);
+		resourcePath = resourceName[1].toLowerCase(Locale.ROOT);
+		Validate.notNull(resourcePath);
+	}
 
-        if (i >= 0)
-        {
-            astring[1] = toSplit.substring(i + 1, toSplit.length());
+	public ResourceLocation(String resourceName) {
 
-            if (i > 1)
-            {
-                astring[0] = toSplit.substring(0, i);
-            }
-        }
+		this(0, splitObjectName(resourceName));
+	}
 
-        return astring;
-    }
+	public ResourceLocation(String resourceDomainIn, String resourcePathIn) {
 
-    public String getResourcePath()
-    {
-        return resourcePath;
-    }
+		this(0, resourceDomainIn, resourcePathIn);
+	}
 
-    public String getResourceDomain()
-    {
-        return resourceDomain;
-    }
+	/**
+	 * Splits an object name (such as minecraft:apple) into the domain and path parts and returns these as an array of
+	 * length 2. If no colon is present in the passed value the returned array will contain {null, toSplit}.
+	 */
+	protected static String[] splitObjectName(String toSplit) {
 
-    public String toString()
-    {
-        return resourceDomain + ':' + resourcePath;
-    }
+		String[] astring = new String[]{"minecraft", toSplit};
+		int i = toSplit.indexOf(58);
 
-    public boolean equals(Object p_equals_1_)
-    {
-        if (this == p_equals_1_)
-        {
-            return true;
-        }
-        else if (!(p_equals_1_ instanceof ResourceLocation))
-        {
-            return false;
-        }
-        else
-        {
-            ResourceLocation resourcelocation = (ResourceLocation)p_equals_1_;
-            return resourceDomain.equals(resourcelocation.resourceDomain) && resourcePath.equals(resourcelocation.resourcePath);
-        }
-    }
+		if (i >= 0) {
+			astring[1] = toSplit.substring(i + 1);
 
-    public int hashCode()
-    {
-        return 31 * resourceDomain.hashCode() + resourcePath.hashCode();
-    }
+			if (i > 1) {
+				astring[0] = toSplit.substring(0, i);
+			}
+		}
 
-    public int compareTo(ResourceLocation p_compareTo_1_)
-    {
-        int i = resourceDomain.compareTo(p_compareTo_1_.resourceDomain);
+		return astring;
+	}
 
-        if (i == 0)
-        {
-            i = resourcePath.compareTo(p_compareTo_1_.resourcePath);
-        }
+	public String getResourcePath() {
 
-        return i;
-    }
+		return resourcePath;
+	}
 
-    public static class Serializer implements JsonDeserializer<ResourceLocation>, JsonSerializer<ResourceLocation>
-    {
-        public ResourceLocation deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException
-        {
-            return new ResourceLocation(JsonUtils.getString(p_deserialize_1_, "location"));
-        }
+	public String getResourceDomain() {
 
-        public JsonElement serialize(ResourceLocation p_serialize_1_, Type p_serialize_2_, JsonSerializationContext p_serialize_3_)
-        {
-            return new JsonPrimitive(p_serialize_1_.toString());
-        }
-    }
+		return resourceDomain;
+	}
+
+	public String toString() {
+
+		return resourceDomain + ':' + resourcePath;
+	}
+
+	public boolean equals(Object p_equals_1_) {
+
+		if (this == p_equals_1_) {
+			return true;
+		} else if (!(p_equals_1_ instanceof ResourceLocation resourcelocation)) {
+			return false;
+		} else {
+			return resourceDomain.equals(resourcelocation.resourceDomain) && resourcePath.equals(resourcelocation.resourcePath);
+		}
+	}
+
+	public int hashCode() {
+
+		return 31 * resourceDomain.hashCode() + resourcePath.hashCode();
+	}
+
+	public int compareTo(ResourceLocation p_compareTo_1_) {
+
+		int i = resourceDomain.compareTo(p_compareTo_1_.resourceDomain);
+
+		if (i == 0) {
+			i = resourcePath.compareTo(p_compareTo_1_.resourcePath);
+		}
+
+		return i;
+	}
+
+	public static class Serializer implements JsonDeserializer<ResourceLocation>, JsonSerializer<ResourceLocation> {
+
+		public ResourceLocation deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException {
+
+			return new ResourceLocation(JsonUtils.getString(p_deserialize_1_, "location"));
+		}
+
+		public JsonElement serialize(ResourceLocation p_serialize_1_, Type p_serialize_2_, JsonSerializationContext p_serialize_3_) {
+
+			return new JsonPrimitive(p_serialize_1_.toString());
+		}
+
+	}
+
 }

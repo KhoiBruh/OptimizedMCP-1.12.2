@@ -1,10 +1,11 @@
 package net.minecraft.world.biome;
 
-public class BiomeRiver extends Biome
-{
-    public BiomeRiver(Biome.BiomeProperties properties)
-    {
-        super(properties);
-        spawnableCreatureList.clear();
-    }
+public class BiomeRiver extends Biome {
+
+	public BiomeRiver(Biome.BiomeProperties properties) {
+
+		super(properties);
+		spawnableCreatureList.clear();
+	}
+
 }

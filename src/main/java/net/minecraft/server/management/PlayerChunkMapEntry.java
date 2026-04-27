@@ -3,15 +3,9 @@ package net.minecraft.server.management;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
-import java.util.List;
-import javax.annotation.Nullable;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.network.Packet;
-import net.minecraft.network.play.server.SPacketBlockChange;
-import net.minecraft.network.play.server.SPacketChunkData;
-import net.minecraft.network.play.server.SPacketMultiBlockChange;
-import net.minecraft.network.play.server.SPacketUnloadChunk;
-import net.minecraft.network.play.server.SPacketUpdateTileEntity;
+import net.minecraft.network.play.server.*;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
@@ -19,304 +13,262 @@ import net.minecraft.world.chunk.Chunk;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class PlayerChunkMapEntry
-{
-    private static final Logger LOGGER = LogManager.getLogger();
-    private final PlayerChunkMap playerChunkMap;
-    private final List<EntityPlayerMP> players = Lists.<EntityPlayerMP>newArrayList();
-    private final ChunkPos pos;
-    private final short[] changedBlocks = new short[64];
-    @Nullable
-    private Chunk chunk;
-    private int changes;
-    private int changedSectionFilter;
-    private long lastUpdateInhabitedTime;
-    private boolean sentToPlayers;
+import javax.annotation.Nullable;
+import java.util.List;
 
-    public PlayerChunkMapEntry(PlayerChunkMap mapIn, int chunkX, int chunkZ)
-    {
-        playerChunkMap = mapIn;
-        pos = new ChunkPos(chunkX, chunkZ);
-        chunk = mapIn.getWorldServer().getChunkProvider().loadChunk(chunkX, chunkZ);
-    }
+public class PlayerChunkMapEntry {
 
-    public ChunkPos getPos()
-    {
-        return pos;
-    }
+	private static final Logger LOGGER = LogManager.getLogger();
+	private final PlayerChunkMap playerChunkMap;
+	private final List<EntityPlayerMP> players = Lists.newArrayList();
+	private final ChunkPos pos;
+	private final short[] changedBlocks = new short[64];
 
-    public void addPlayer(EntityPlayerMP player)
-    {
-        if (players.contains(player))
-        {
-            LOGGER.debug("Failed to add player. {} already is in chunk {}, {}", player, Integer.valueOf(pos.x), Integer.valueOf(pos.z));
-        }
-        else
-        {
-            if (players.isEmpty())
-            {
-                lastUpdateInhabitedTime = playerChunkMap.getWorldServer().getTotalWorldTime();
-            }
+	@Nullable
+	private Chunk chunk;
+	private int changes;
+	private int changedSectionFilter;
+	private long lastUpdateInhabitedTime;
+	private boolean sentToPlayers;
 
-            players.add(player);
+	public PlayerChunkMapEntry(PlayerChunkMap mapIn, int chunkX, int chunkZ) {
 
-            if (sentToPlayers)
-            {
-                sendToPlayer(player);
-            }
-        }
-    }
+		playerChunkMap = mapIn;
+		pos = new ChunkPos(chunkX, chunkZ);
+		chunk = mapIn.getWorldServer().getChunkProvider().loadChunk(chunkX, chunkZ);
+	}
 
-    public void removePlayer(EntityPlayerMP player)
-    {
-        if (players.contains(player))
-        {
-            if (sentToPlayers)
-            {
-                player.connection.sendPacket(new SPacketUnloadChunk(pos.x, pos.z));
-            }
+	public ChunkPos getPos() {
 
-            players.remove(player);
+		return pos;
+	}
 
-            if (players.isEmpty())
-            {
-                playerChunkMap.removeEntry(this);
-            }
-        }
-    }
+	public void addPlayer(EntityPlayerMP player) {
 
-    /**
-     * Provide the chunk at the player's location. Can fail, returning false, if the player is a spectator floating
-     * outside of any pre-existing chunks, and the server is not configured to allow chunk generation for spectators.
-     */
-    public boolean providePlayerChunk(boolean canGenerate)
-    {
-        if (chunk != null)
-        {
-            return true;
-        }
-        else
-        {
-            if (canGenerate)
-            {
-                chunk = playerChunkMap.getWorldServer().getChunkProvider().provideChunk(pos.x, pos.z);
-            }
-            else
-            {
-                chunk = playerChunkMap.getWorldServer().getChunkProvider().loadChunk(pos.x, pos.z);
-            }
+		if (players.contains(player)) {
+			LOGGER.debug("Failed to add player. {} already is in chunk {}, {}", player, Integer.valueOf(pos.x), Integer.valueOf(pos.z));
+		} else {
+			if (players.isEmpty()) {
+				lastUpdateInhabitedTime = playerChunkMap.getWorldServer().getTotalWorldTime();
+			}
 
-            return chunk != null;
-        }
-    }
+			players.add(player);
 
-    public boolean sendToPlayers()
-    {
-        if (sentToPlayers)
-        {
-            return true;
-        }
-        else if (chunk == null)
-        {
-            return false;
-        }
-        else if (!chunk.isPopulated())
-        {
-            return false;
-        }
-        else
-        {
-            changes = 0;
-            changedSectionFilter = 0;
-            sentToPlayers = true;
-            Packet<?> packet = new SPacketChunkData(chunk, 65535);
+			if (sentToPlayers) {
+				sendToPlayer(player);
+			}
+		}
+	}
 
-            for (EntityPlayerMP entityplayermp : players)
-            {
-                entityplayermp.connection.sendPacket(packet);
-                playerChunkMap.getWorldServer().getEntityTracker().sendLeashedEntitiesInChunk(entityplayermp, chunk);
-            }
+	public void removePlayer(EntityPlayerMP player) {
 
-            return true;
-        }
-    }
+		if (players.contains(player)) {
+			if (sentToPlayers) {
+				player.connection.sendPacket(new SPacketUnloadChunk(pos.x, pos.z));
+			}
 
-    /**
-     * Fully resyncs this chunk's blocks, tile entities, and entity attachments (passengers and leashes) to all tracking
-     * players
-     */
-    public void sendToPlayer(EntityPlayerMP player)
-    {
-        if (sentToPlayers)
-        {
-            player.connection.sendPacket(new SPacketChunkData(chunk, 65535));
-            playerChunkMap.getWorldServer().getEntityTracker().sendLeashedEntitiesInChunk(player, chunk);
-        }
-    }
+			players.remove(player);
 
-    public void updateChunkInhabitedTime()
-    {
-        long i = playerChunkMap.getWorldServer().getTotalWorldTime();
+			if (players.isEmpty()) {
+				playerChunkMap.removeEntry(this);
+			}
+		}
+	}
 
-        if (chunk != null)
-        {
-            chunk.setInhabitedTime(chunk.getInhabitedTime() + i - lastUpdateInhabitedTime);
-        }
+	/**
+	 * Provide the chunk at the player's location. Can fail, returning false, if the player is a spectator floating
+	 * outside of any pre-existing chunks, and the server is not configured to allow chunk generation for spectators.
+	 */
+	public boolean providePlayerChunk(boolean canGenerate) {
 
-        lastUpdateInhabitedTime = i;
-    }
+		if (chunk != null) {
+			return true;
+		} else {
+			if (canGenerate) {
+				chunk = playerChunkMap.getWorldServer().getChunkProvider().provideChunk(pos.x, pos.z);
+			} else {
+				chunk = playerChunkMap.getWorldServer().getChunkProvider().loadChunk(pos.x, pos.z);
+			}
 
-    public void blockChanged(int x, int y, int z)
-    {
-        if (sentToPlayers)
-        {
-            if (changes == 0)
-            {
-                playerChunkMap.entryChanged(this);
-            }
+			return chunk != null;
+		}
+	}
 
-            changedSectionFilter |= 1 << (y >> 4);
+	public boolean sendToPlayers() {
 
-            if (changes < 64)
-            {
-                short short1 = (short)(x << 12 | z << 8 | y);
+		if (sentToPlayers) {
+			return true;
+		} else if (chunk == null) {
+			return false;
+		} else if (!chunk.isPopulated()) {
+			return false;
+		} else {
+			changes = 0;
+			changedSectionFilter = 0;
+			sentToPlayers = true;
+			Packet<?> packet = new SPacketChunkData(chunk, 65535);
 
-                for (int i = 0; i < changes; ++i)
-                {
-                    if (changedBlocks[i] == short1)
-                    {
-                        return;
-                    }
-                }
+			for (EntityPlayerMP entityplayermp : players) {
+				entityplayermp.connection.sendPacket(packet);
+				playerChunkMap.getWorldServer().getEntityTracker().sendLeashedEntitiesInChunk(entityplayermp, chunk);
+			}
 
-                changedBlocks[changes++] = short1;
-            }
-        }
-    }
+			return true;
+		}
+	}
 
-    public void sendPacket(Packet<?> packetIn)
-    {
-        if (sentToPlayers)
-        {
-            for (int i = 0; i < players.size(); ++i)
-            {
-                (players.get(i)).connection.sendPacket(packetIn);
-            }
-        }
-    }
+	/**
+	 * Fully resyncs this chunk's blocks, tile entities, and entity attachments (passengers and leashes) to all tracking
+	 * players
+	 */
+	public void sendToPlayer(EntityPlayerMP player) {
 
-    public void update()
-    {
-        if (sentToPlayers && chunk != null)
-        {
-            if (changes != 0)
-            {
-                if (changes == 1)
-                {
-                    int i = (changedBlocks[0] >> 12 & 15) + pos.x * 16;
-                    int j = changedBlocks[0] & 255;
-                    int k = (changedBlocks[0] >> 8 & 15) + pos.z * 16;
-                    BlockPos blockpos = new BlockPos(i, j, k);
-                    sendPacket(new SPacketBlockChange(playerChunkMap.getWorldServer(), blockpos));
+		if (sentToPlayers) {
+			player.connection.sendPacket(new SPacketChunkData(chunk, 65535));
+			playerChunkMap.getWorldServer().getEntityTracker().sendLeashedEntitiesInChunk(player, chunk);
+		}
+	}
 
-                    if (playerChunkMap.getWorldServer().getBlockState(blockpos).getBlock().hasTileEntity())
-                    {
-                        sendBlockEntity(playerChunkMap.getWorldServer().getTileEntity(blockpos));
-                    }
-                }
-                else if (changes == 64)
-                {
-                    sendPacket(new SPacketChunkData(chunk, changedSectionFilter));
-                }
-                else
-                {
-                    sendPacket(new SPacketMultiBlockChange(changes, changedBlocks, chunk));
+	public void updateChunkInhabitedTime() {
 
-                    for (int l = 0; l < changes; ++l)
-                    {
-                        int i1 = (changedBlocks[l] >> 12 & 15) + pos.x * 16;
-                        int j1 = changedBlocks[l] & 255;
-                        int k1 = (changedBlocks[l] >> 8 & 15) + pos.z * 16;
-                        BlockPos blockpos1 = new BlockPos(i1, j1, k1);
+		long i = playerChunkMap.getWorldServer().getTotalWorldTime();
 
-                        if (playerChunkMap.getWorldServer().getBlockState(blockpos1).getBlock().hasTileEntity())
-                        {
-                            sendBlockEntity(playerChunkMap.getWorldServer().getTileEntity(blockpos1));
-                        }
-                    }
-                }
+		if (chunk != null) {
+			chunk.setInhabitedTime(chunk.getInhabitedTime() + i - lastUpdateInhabitedTime);
+		}
 
-                changes = 0;
-                changedSectionFilter = 0;
-            }
-        }
-    }
+		lastUpdateInhabitedTime = i;
+	}
 
-    private void sendBlockEntity(@Nullable TileEntity be)
-    {
-        if (be != null)
-        {
-            SPacketUpdateTileEntity spacketupdatetileentity = be.getUpdatePacket();
+	public void blockChanged(int x, int y, int z) {
 
-            if (spacketupdatetileentity != null)
-            {
-                sendPacket(spacketupdatetileentity);
-            }
-        }
-    }
+		if (sentToPlayers) {
+			if (changes == 0) {
+				playerChunkMap.entryChanged(this);
+			}
 
-    public boolean containsPlayer(EntityPlayerMP player)
-    {
-        return players.contains(player);
-    }
+			changedSectionFilter |= 1 << (y >> 4);
 
-    public boolean hasPlayerMatching(Predicate<EntityPlayerMP> predicate)
-    {
-        return Iterables.tryFind(players, predicate).isPresent();
-    }
+			if (changes < 64) {
+				short short1 = (short) (x << 12 | z << 8 | y);
 
-    public boolean hasPlayerMatchingInRange(double range, Predicate<EntityPlayerMP> predicate)
-    {
-        int i = 0;
+				for (int i = 0; i < changes; ++i) {
+					if (changedBlocks[i] == short1) {
+						return;
+					}
+				}
 
-        for (int j = players.size(); i < j; ++i)
-        {
-            EntityPlayerMP entityplayermp = players.get(i);
+				changedBlocks[changes++] = short1;
+			}
+		}
+	}
 
-            if (predicate.apply(entityplayermp) && pos.getDistanceSq(entityplayermp) < range * range)
-            {
-                return true;
-            }
-        }
+	public void sendPacket(Packet<?> packetIn) {
 
-        return false;
-    }
+		if (sentToPlayers) {
+			for (int i = 0; i < players.size(); ++i) {
+				(players.get(i)).connection.sendPacket(packetIn);
+			}
+		}
+	}
 
-    public boolean isSentToPlayers()
-    {
-        return sentToPlayers;
-    }
+	public void update() {
 
-    @Nullable
-    public Chunk getChunk()
-    {
-        return chunk;
-    }
+		if (sentToPlayers && chunk != null) {
+			if (changes != 0) {
+				if (changes == 1) {
+					int i = (changedBlocks[0] >> 12 & 15) + pos.x * 16;
+					int j = changedBlocks[0] & 255;
+					int k = (changedBlocks[0] >> 8 & 15) + pos.z * 16;
+					BlockPos blockpos = new BlockPos(i, j, k);
+					sendPacket(new SPacketBlockChange(playerChunkMap.getWorldServer(), blockpos));
 
-    public double getClosestPlayerDistance()
-    {
-        double d0 = Double.MAX_VALUE;
+					if (playerChunkMap.getWorldServer().getBlockState(blockpos).getBlock().hasTileEntity()) {
+						sendBlockEntity(playerChunkMap.getWorldServer().getTileEntity(blockpos));
+					}
+				} else if (changes == 64) {
+					sendPacket(new SPacketChunkData(chunk, changedSectionFilter));
+				} else {
+					sendPacket(new SPacketMultiBlockChange(changes, changedBlocks, chunk));
 
-        for (EntityPlayerMP entityplayermp : players)
-        {
-            double d1 = pos.getDistanceSq(entityplayermp);
+					for (int l = 0; l < changes; ++l) {
+						int i1 = (changedBlocks[l] >> 12 & 15) + pos.x * 16;
+						int j1 = changedBlocks[l] & 255;
+						int k1 = (changedBlocks[l] >> 8 & 15) + pos.z * 16;
+						BlockPos blockpos1 = new BlockPos(i1, j1, k1);
 
-            if (d1 < d0)
-            {
-                d0 = d1;
-            }
-        }
+						if (playerChunkMap.getWorldServer().getBlockState(blockpos1).getBlock().hasTileEntity()) {
+							sendBlockEntity(playerChunkMap.getWorldServer().getTileEntity(blockpos1));
+						}
+					}
+				}
 
-        return d0;
-    }
+				changes = 0;
+				changedSectionFilter = 0;
+			}
+		}
+	}
+
+	private void sendBlockEntity(@Nullable TileEntity be) {
+
+		if (be != null) {
+			SPacketUpdateTileEntity spacketupdatetileentity = be.getUpdatePacket();
+
+			if (spacketupdatetileentity != null) {
+				sendPacket(spacketupdatetileentity);
+			}
+		}
+	}
+
+	public boolean containsPlayer(EntityPlayerMP player) {
+
+		return players.contains(player);
+	}
+
+	public boolean hasPlayerMatching(Predicate<EntityPlayerMP> predicate) {
+
+		return Iterables.tryFind(players, predicate).isPresent();
+	}
+
+	public boolean hasPlayerMatchingInRange(double range, Predicate<EntityPlayerMP> predicate) {
+
+		int i = 0;
+
+		for (int j = players.size(); i < j; ++i) {
+			EntityPlayerMP entityplayermp = players.get(i);
+
+			if (predicate.apply(entityplayermp) && pos.getDistanceSq(entityplayermp) < range * range) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	public boolean isSentToPlayers() {
+
+		return sentToPlayers;
+	}
+
+	@Nullable
+	public Chunk getChunk() {
+
+		return chunk;
+	}
+
+	public double getClosestPlayerDistance() {
+
+		double d0 = Double.MAX_VALUE;
+
+		for (EntityPlayerMP entityplayermp : players) {
+			double d1 = pos.getDistanceSq(entityplayermp);
+
+			if (d1 < d0) {
+				d0 = d1;
+			}
+		}
+
+		return d0;
+	}
+
 }

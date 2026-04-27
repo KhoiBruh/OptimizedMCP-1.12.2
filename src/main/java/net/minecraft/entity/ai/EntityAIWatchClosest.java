@@ -6,107 +6,100 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EntitySelectors;
 
-public class EntityAIWatchClosest extends EntityAIBase
-{
-    protected EntityLiving entity;
+public class EntityAIWatchClosest extends EntityAIBase {
 
-    /** The closest entity which is being watched by this one. */
-    protected Entity closestEntity;
+	protected EntityLiving entity;
 
-    /** This is the Maximum distance that the AI will look for the Entity */
-    protected float maxDistanceForPlayer;
-    private int lookTime;
-    private final float chance;
-    protected Class <? extends Entity > watchedClass;
+	/**
+	 * The closest entity which is being watched by this one.
+	 */
+	protected Entity closestEntity;
 
-    public EntityAIWatchClosest(EntityLiving entityIn, Class <? extends Entity > watchTargetClass, float maxDistance)
-    {
-        entity = entityIn;
-        watchedClass = watchTargetClass;
-        maxDistanceForPlayer = maxDistance;
-        chance = 0.02F;
-        setMutexBits(2);
-    }
+	/**
+	 * This is the Maximum distance that the AI will look for the Entity
+	 */
+	protected float maxDistanceForPlayer;
+	private int lookTime;
+	private final float chance;
+	protected Class<? extends Entity> watchedClass;
 
-    public EntityAIWatchClosest(EntityLiving entityIn, Class <? extends Entity > watchTargetClass, float maxDistance, float chanceIn)
-    {
-        entity = entityIn;
-        watchedClass = watchTargetClass;
-        maxDistanceForPlayer = maxDistance;
-        chance = chanceIn;
-        setMutexBits(2);
-    }
+	public EntityAIWatchClosest(EntityLiving entityIn, Class<? extends Entity> watchTargetClass, float maxDistance) {
 
-    /**
-     * Returns whether the EntityAIBase should begin execution.
-     */
-    public boolean shouldExecute()
-    {
-        if (entity.getRNG().nextFloat() >= chance)
-        {
-            return false;
-        }
-        else
-        {
-            if (entity.getAttackTarget() != null)
-            {
-                closestEntity = entity.getAttackTarget();
-            }
+		entity = entityIn;
+		watchedClass = watchTargetClass;
+		maxDistanceForPlayer = maxDistance;
+		chance = 0.02F;
+		setMutexBits(2);
+	}
 
-            if (watchedClass == EntityPlayer.class)
-            {
-                closestEntity = entity.world.getClosestPlayer(entity.posX, entity.posY, entity.posZ, (double) maxDistanceForPlayer, Predicates.and(EntitySelectors.NOT_SPECTATING, EntitySelectors.notRiding(entity)));
-            }
-            else
-            {
-                closestEntity = entity.world.findNearestEntityWithinAABB(watchedClass, entity.getEntityBoundingBox().grow((double) maxDistanceForPlayer, 3.0D, (double) maxDistanceForPlayer), entity);
-            }
+	public EntityAIWatchClosest(EntityLiving entityIn, Class<? extends Entity> watchTargetClass, float maxDistance, float chanceIn) {
 
-            return closestEntity != null;
-        }
-    }
+		entity = entityIn;
+		watchedClass = watchTargetClass;
+		maxDistanceForPlayer = maxDistance;
+		chance = chanceIn;
+		setMutexBits(2);
+	}
 
-    /**
-     * Returns whether an in-progress EntityAIBase should continue executing
-     */
-    public boolean shouldContinueExecuting()
-    {
-        if (!closestEntity.isEntityAlive())
-        {
-            return false;
-        }
-        else if (entity.getDistanceSq(closestEntity) > (double)(maxDistanceForPlayer * maxDistanceForPlayer))
-        {
-            return false;
-        }
-        else
-        {
-            return lookTime > 0;
-        }
-    }
+	/**
+	 * Returns whether the EntityAIBase should begin execution.
+	 */
+	public boolean shouldExecute() {
 
-    /**
-     * Execute a one shot task or start executing a continuous task
-     */
-    public void startExecuting()
-    {
-        lookTime = 40 + entity.getRNG().nextInt(40);
-    }
+		if (entity.getRNG().nextFloat() >= chance) {
+			return false;
+		} else {
+			if (entity.getAttackTarget() != null) {
+				closestEntity = entity.getAttackTarget();
+			}
 
-    /**
-     * Reset the task's internal state. Called when this task is interrupted by another one
-     */
-    public void resetTask()
-    {
-        closestEntity = null;
-    }
+			if (watchedClass == EntityPlayer.class) {
+				closestEntity = entity.world.getClosestPlayer(entity.posX, entity.posY, entity.posZ, maxDistanceForPlayer, Predicates.and(EntitySelectors.NOT_SPECTATING, EntitySelectors.notRiding(entity)));
+			} else {
+				closestEntity = entity.world.findNearestEntityWithinAABB(watchedClass, entity.getEntityBoundingBox().grow(maxDistanceForPlayer, 3.0D, maxDistanceForPlayer), entity);
+			}
 
-    /**
-     * Keep ticking a continuous task that has already been started
-     */
-    public void updateTask()
-    {
-        entity.getLookHelper().setLookPosition(closestEntity.posX, closestEntity.posY + (double) closestEntity.getEyeHeight(), closestEntity.posZ, (float) entity.getHorizontalFaceSpeed(), (float) entity.getVerticalFaceSpeed());
-        --lookTime;
-    }
+			return closestEntity != null;
+		}
+	}
+
+	/**
+	 * Returns whether an in-progress EntityAIBase should continue executing
+	 */
+	public boolean shouldContinueExecuting() {
+
+		if (!closestEntity.isEntityAlive()) {
+			return false;
+		} else if (entity.getDistanceSq(closestEntity) > (double) (maxDistanceForPlayer * maxDistanceForPlayer)) {
+			return false;
+		} else {
+			return lookTime > 0;
+		}
+	}
+
+	/**
+	 * Execute a one shot task or start executing a continuous task
+	 */
+	public void startExecuting() {
+
+		lookTime = 40 + entity.getRNG().nextInt(40);
+	}
+
+	/**
+	 * Reset the task's internal state. Called when this task is interrupted by another one
+	 */
+	public void resetTask() {
+
+		closestEntity = null;
+	}
+
+	/**
+	 * Keep ticking a continuous task that has already been started
+	 */
+	public void updateTask() {
+
+		entity.getLookHelper().setLookPosition(closestEntity.posX, closestEntity.posY + (double) closestEntity.getEyeHeight(), closestEntity.posZ, (float) entity.getHorizontalFaceSpeed(), (float) entity.getVerticalFaceSpeed());
+		--lookTime;
+	}
+
 }

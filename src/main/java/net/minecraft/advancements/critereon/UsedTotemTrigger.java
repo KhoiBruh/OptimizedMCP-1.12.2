@@ -5,142 +5,137 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import net.minecraft.advancements.ICriterionTrigger;
 import net.minecraft.advancements.PlayerAdvancements;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
-public class UsedTotemTrigger implements ICriterionTrigger<UsedTotemTrigger.Instance>
-{
-    private static final ResourceLocation ID = new ResourceLocation("used_totem");
-    private final Map<PlayerAdvancements, UsedTotemTrigger.Listeners> listeners = Maps.<PlayerAdvancements, UsedTotemTrigger.Listeners>newHashMap();
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-    public ResourceLocation getId()
-    {
-        return ID;
-    }
+public class UsedTotemTrigger implements ICriterionTrigger<UsedTotemTrigger.Instance> {
 
-    public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<UsedTotemTrigger.Instance> listener)
-    {
-        UsedTotemTrigger.Listeners usedtotemtrigger$listeners = listeners.get(playerAdvancementsIn);
+	private static final ResourceLocation ID = new ResourceLocation("used_totem");
+	private final Map<PlayerAdvancements, UsedTotemTrigger.Listeners> listeners = Maps.newHashMap();
 
-        if (usedtotemtrigger$listeners == null)
-        {
-            usedtotemtrigger$listeners = new UsedTotemTrigger.Listeners(playerAdvancementsIn);
-            listeners.put(playerAdvancementsIn, usedtotemtrigger$listeners);
-        }
+	public ResourceLocation getId() {
 
-        usedtotemtrigger$listeners.add(listener);
-    }
+		return ID;
+	}
 
-    public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<UsedTotemTrigger.Instance> listener)
-    {
-        UsedTotemTrigger.Listeners usedtotemtrigger$listeners = listeners.get(playerAdvancementsIn);
+	public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<UsedTotemTrigger.Instance> listener) {
 
-        if (usedtotemtrigger$listeners != null)
-        {
-            usedtotemtrigger$listeners.remove(listener);
+		UsedTotemTrigger.Listeners usedtotemtrigger$listeners = listeners.get(playerAdvancementsIn);
 
-            if (usedtotemtrigger$listeners.isEmpty())
-            {
-                listeners.remove(playerAdvancementsIn);
-            }
-        }
-    }
+		if (usedtotemtrigger$listeners == null) {
+			usedtotemtrigger$listeners = new UsedTotemTrigger.Listeners(playerAdvancementsIn);
+			listeners.put(playerAdvancementsIn, usedtotemtrigger$listeners);
+		}
 
-    public void removeAllListeners(PlayerAdvancements playerAdvancementsIn)
-    {
-        listeners.remove(playerAdvancementsIn);
-    }
+		usedtotemtrigger$listeners.add(listener);
+	}
 
-    /**
-     * Deserialize a ICriterionInstance of this trigger from the data in the JSON.
-     */
-    public UsedTotemTrigger.Instance deserializeInstance(JsonObject json, JsonDeserializationContext context)
-    {
-        ItemPredicate itempredicate = ItemPredicate.deserialize(json.get("item"));
-        return new UsedTotemTrigger.Instance(itempredicate);
-    }
+	public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<UsedTotemTrigger.Instance> listener) {
 
-    public void trigger(EntityPlayerMP player, ItemStack item)
-    {
-        UsedTotemTrigger.Listeners usedtotemtrigger$listeners = listeners.get(player.getAdvancements());
+		UsedTotemTrigger.Listeners usedtotemtrigger$listeners = listeners.get(playerAdvancementsIn);
 
-        if (usedtotemtrigger$listeners != null)
-        {
-            usedtotemtrigger$listeners.trigger(item);
-        }
-    }
+		if (usedtotemtrigger$listeners != null) {
+			usedtotemtrigger$listeners.remove(listener);
 
-    public static class Instance extends AbstractCriterionInstance
-    {
-        private final ItemPredicate item;
+			if (usedtotemtrigger$listeners.isEmpty()) {
+				listeners.remove(playerAdvancementsIn);
+			}
+		}
+	}
 
-        public Instance(ItemPredicate item)
-        {
-            super(UsedTotemTrigger.ID);
-            this.item = item;
-        }
+	public void removeAllListeners(PlayerAdvancements playerAdvancementsIn) {
 
-        public boolean test(ItemStack item)
-        {
-            return this.item.test(item);
-        }
-    }
+		listeners.remove(playerAdvancementsIn);
+	}
 
-    static class Listeners
-    {
-        private final PlayerAdvancements playerAdvancements;
-        private final Set<ICriterionTrigger.Listener<UsedTotemTrigger.Instance>> listeners = Sets.<ICriterionTrigger.Listener<UsedTotemTrigger.Instance>>newHashSet();
+	/**
+	 * Deserialize a ICriterionInstance of this trigger from the data in the JSON.
+	 */
+	public UsedTotemTrigger.Instance deserializeInstance(JsonObject json, JsonDeserializationContext context) {
 
-        public Listeners(PlayerAdvancements playerAdvancementsIn)
-        {
-            playerAdvancements = playerAdvancementsIn;
-        }
+		ItemPredicate itempredicate = ItemPredicate.deserialize(json.get("item"));
+		return new UsedTotemTrigger.Instance(itempredicate);
+	}
 
-        public boolean isEmpty()
-        {
-            return listeners.isEmpty();
-        }
+	public void trigger(EntityPlayerMP player, ItemStack item) {
 
-        public void add(ICriterionTrigger.Listener<UsedTotemTrigger.Instance> listener)
-        {
-            listeners.add(listener);
-        }
+		UsedTotemTrigger.Listeners usedtotemtrigger$listeners = listeners.get(player.getAdvancements());
 
-        public void remove(ICriterionTrigger.Listener<UsedTotemTrigger.Instance> listener)
-        {
-            listeners.remove(listener);
-        }
+		if (usedtotemtrigger$listeners != null) {
+			usedtotemtrigger$listeners.trigger(item);
+		}
+	}
 
-        public void trigger(ItemStack item)
-        {
-            List<ICriterionTrigger.Listener<UsedTotemTrigger.Instance>> list = null;
+	public static class Instance extends AbstractCriterionInstance {
 
-            for (ICriterionTrigger.Listener<UsedTotemTrigger.Instance> listener : listeners)
-            {
-                if (((UsedTotemTrigger.Instance)listener.getCriterionInstance()).test(item))
-                {
-                    if (list == null)
-                    {
-                        list = Lists.<ICriterionTrigger.Listener<UsedTotemTrigger.Instance>>newArrayList();
-                    }
+		private final ItemPredicate item;
 
-                    list.add(listener);
-                }
-            }
+		public Instance(ItemPredicate item) {
 
-            if (list != null)
-            {
-                for (ICriterionTrigger.Listener<UsedTotemTrigger.Instance> listener1 : list)
-                {
-                    listener1.grantCriterion(playerAdvancements);
-                }
-            }
-        }
-    }
+			super(UsedTotemTrigger.ID);
+			this.item = item;
+		}
+
+		public boolean test(ItemStack item) {
+
+			return this.item.test(item);
+		}
+
+	}
+
+	static class Listeners {
+
+		private final PlayerAdvancements playerAdvancements;
+		private final Set<ICriterionTrigger.Listener<UsedTotemTrigger.Instance>> listeners = Sets.newHashSet();
+
+		public Listeners(PlayerAdvancements playerAdvancementsIn) {
+
+			playerAdvancements = playerAdvancementsIn;
+		}
+
+		public boolean isEmpty() {
+
+			return listeners.isEmpty();
+		}
+
+		public void add(ICriterionTrigger.Listener<UsedTotemTrigger.Instance> listener) {
+
+			listeners.add(listener);
+		}
+
+		public void remove(ICriterionTrigger.Listener<UsedTotemTrigger.Instance> listener) {
+
+			listeners.remove(listener);
+		}
+
+		public void trigger(ItemStack item) {
+
+			List<ICriterionTrigger.Listener<UsedTotemTrigger.Instance>> list = null;
+
+			for (ICriterionTrigger.Listener<UsedTotemTrigger.Instance> listener : listeners) {
+				if (listener.getCriterionInstance().test(item)) {
+					if (list == null) {
+						list = Lists.newArrayList();
+					}
+
+					list.add(listener);
+				}
+			}
+
+			if (list != null) {
+				for (ICriterionTrigger.Listener<UsedTotemTrigger.Instance> listener1 : list) {
+					listener1.grantCriterion(playerAdvancements);
+				}
+			}
+		}
+
+	}
+
 }

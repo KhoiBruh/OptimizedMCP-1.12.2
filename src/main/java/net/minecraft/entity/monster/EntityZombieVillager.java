@@ -1,7 +1,5 @@
 package net.minecraft.entity.monster;
 
-import java.util.UUID;
-import javax.annotation.Nullable;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLiving;
@@ -29,301 +27,282 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 
-public class EntityZombieVillager extends EntityZombie
-{
-    private static final DataParameter<Boolean> CONVERTING = EntityDataManager.<Boolean>createKey(EntityZombieVillager.class, DataSerializers.BOOLEAN);
-    private static final DataParameter<Integer> PROFESSION = EntityDataManager.<Integer>createKey(EntityZombieVillager.class, DataSerializers.VARINT);
+import javax.annotation.Nullable;
+import java.util.UUID;
 
-    /**
-     * Ticker used to determine the time remaining for this zombie to convert into a villager when cured.
-     */
-    private int conversionTime;
+public class EntityZombieVillager extends EntityZombie {
 
-    /**
-     * The entity that started the conversion, used for the {@link CriteriaTriggers#CURED_ZOMBIE_VILLAGER} advancement
-     * criteria
-     */
-    private UUID converstionStarter;
+	private static final DataParameter<Boolean> CONVERTING = EntityDataManager.createKey(EntityZombieVillager.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Integer> PROFESSION = EntityDataManager.createKey(EntityZombieVillager.class, DataSerializers.VARINT);
 
-    public EntityZombieVillager(World worldIn)
-    {
-        super(worldIn);
-    }
+	/**
+	 * Ticker used to determine the time remaining for this zombie to convert into a villager when cured.
+	 */
+	private int conversionTime;
 
-    protected void entityInit()
-    {
-        super.entityInit();
-        dataManager.register(CONVERTING, Boolean.valueOf(false));
-        dataManager.register(PROFESSION, Integer.valueOf(0));
-    }
+	/**
+	 * The entity that started the conversion, used for the {@link CriteriaTriggers#CURED_ZOMBIE_VILLAGER} advancement
+	 * criteria
+	 */
+	private UUID converstionStarter;
 
-    public void setProfession(int profession)
-    {
-        dataManager.set(PROFESSION, Integer.valueOf(profession));
-    }
+	public EntityZombieVillager(World worldIn) {
 
-    public int getProfession()
-    {
-        return Math.max(((Integer) dataManager.get(PROFESSION)).intValue() % 6, 0);
-    }
+		super(worldIn);
+	}
 
-    public static void registerFixesZombieVillager(DataFixer fixer)
-    {
-        EntityLiving.registerFixesMob(fixer, EntityZombieVillager.class);
-    }
+	protected void entityInit() {
 
-    /**
-     * (abstract) Protected helper method to write subclass entity data to NBT.
-     */
-    public void writeEntityToNBT(NBTTagCompound compound)
-    {
-        super.writeEntityToNBT(compound);
-        compound.setInteger("Profession", getProfession());
-        compound.setInteger("ConversionTime", isConverting() ? conversionTime : -1);
+		super.entityInit();
+		dataManager.register(CONVERTING, Boolean.valueOf(false));
+		dataManager.register(PROFESSION, Integer.valueOf(0));
+	}
 
-        if (converstionStarter != null)
-        {
-            compound.setUniqueId("ConversionPlayer", converstionStarter);
-        }
-    }
+	public void setProfession(int profession) {
 
-    /**
-     * (abstract) Protected helper method to read subclass entity data from NBT.
-     */
-    public void readEntityFromNBT(NBTTagCompound compound)
-    {
-        super.readEntityFromNBT(compound);
-        setProfession(compound.getInteger("Profession"));
+		dataManager.set(PROFESSION, Integer.valueOf(profession));
+	}
 
-        if (compound.hasKey("ConversionTime", 99) && compound.getInteger("ConversionTime") > -1)
-        {
-            startConverting(compound.hasUniqueId("ConversionPlayer") ? compound.getUniqueId("ConversionPlayer") : null, compound.getInteger("ConversionTime"));
-        }
-    }
+	public int getProfession() {
 
-    @Nullable
+		return Math.max(dataManager.get(PROFESSION).intValue() % 6, 0);
+	}
 
-    /**
-     * Called only once on an entity when first time spawned, via egg, mob spawner, natural spawning etc, but not called
-     * when entity is reloaded from nbt. Mainly used for initializing attributes and inventory.
-     *  
-     * The livingdata parameter is used to pass data between all instances during a pack spawn. It will be null on the
-     * first call. Subclasses may check if it's null, and then create a new one and return it if so, initializing all
-     * entities in the pack with the contained data.
-     *  
-     * @return The IEntityLivingData to pass to this method for other instances of this entity class within the same
-     * pack
-     *  
-     * @param difficulty The current local difficulty
-     * @param livingdata Shared spawn data. Will usually be null. (See return value for more information)
-     */
-    public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata)
-    {
-        setProfession(world.rand.nextInt(6));
-        return super.onInitialSpawn(difficulty, livingdata);
-    }
+	public static void registerFixesZombieVillager(DataFixer fixer) {
 
-    /**
-     * Called to update the entity's position/logic.
-     */
-    public void onUpdate()
-    {
-        if (!world.isRemote && isConverting())
-        {
-            int i = getConversionProgress();
-            conversionTime -= i;
+		EntityLiving.registerFixesMob(fixer, EntityZombieVillager.class);
+	}
 
-            if (conversionTime <= 0)
-            {
-                finishConversion();
-            }
-        }
+	/**
+	 * (abstract) Protected helper method to write subclass entity data to NBT.
+	 */
+	public void writeEntityToNBT(NBTTagCompound compound) {
 
-        super.onUpdate();
-    }
+		super.writeEntityToNBT(compound);
+		compound.setInteger("Profession", getProfession());
+		compound.setInteger("ConversionTime", isConverting() ? conversionTime : -1);
 
-    public boolean processInteract(EntityPlayer player, EnumHand hand)
-    {
-        ItemStack itemstack = player.getHeldItem(hand);
+		if (converstionStarter != null) {
+			compound.setUniqueId("ConversionPlayer", converstionStarter);
+		}
+	}
 
-        if (itemstack.getItem() == Items.GOLDEN_APPLE && itemstack.getMetadata() == 0 && isPotionActive(MobEffects.WEAKNESS))
-        {
-            if (!player.capabilities.isCreativeMode)
-            {
-                itemstack.shrink(1);
-            }
+	/**
+	 * (abstract) Protected helper method to read subclass entity data from NBT.
+	 */
+	public void readEntityFromNBT(NBTTagCompound compound) {
 
-            if (!world.isRemote)
-            {
-                startConverting(player.getUniqueID(), rand.nextInt(2401) + 3600);
-            }
+		super.readEntityFromNBT(compound);
+		setProfession(compound.getInteger("Profession"));
 
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
+		if (compound.hasKey("ConversionTime", 99) && compound.getInteger("ConversionTime") > -1) {
+			startConverting(compound.hasUniqueId("ConversionPlayer") ? compound.getUniqueId("ConversionPlayer") : null, compound.getInteger("ConversionTime"));
+		}
+	}
 
-    /**
-     * Determines if an entity can be despawned, used on idle far away entities
-     */
-    protected boolean canDespawn()
-    {
-        return !isConverting();
-    }
+	@Nullable
 
-    /**
-     * Returns whether this zombie is in the process of converting to a villager
-     */
-    public boolean isConverting()
-    {
-        return ((Boolean) getDataManager().get(CONVERTING)).booleanValue();
-    }
+	/**
+	 * Called only once on an entity when first time spawned, via egg, mob spawner, natural spawning etc, but not called
+	 * when entity is reloaded from nbt. Mainly used for initializing attributes and inventory.
+	 *
+	 * The livingdata parameter is used to pass data between all instances during a pack spawn. It will be null on the
+	 * first call. Subclasses may check if it's null, and then create a new one and return it if so, initializing all
+	 * entities in the pack with the contained data.
+	 *
+	 * @return The IEntityLivingData to pass to this method for other instances of this entity class within the same
+	 * pack
+	 *
+	 * @param difficulty The current local difficulty
+	 * @param livingdata Shared spawn data. Will usually be null. (See return value for more information)
+	 */
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 
-    /**
-     * Starts conversion of this zombie villager to a villager
-     *  
-     * @param conversionStarterIn The entity that started the conversion's UUID
-     * @param conversionTimeIn The time that it will take to finish conversion
-     */
-    protected void startConverting(@Nullable UUID conversionStarterIn, int conversionTimeIn)
-    {
-        converstionStarter = conversionStarterIn;
-        conversionTime = conversionTimeIn;
-        getDataManager().set(CONVERTING, Boolean.valueOf(true));
-        removePotionEffect(MobEffects.WEAKNESS);
-        addPotionEffect(new PotionEffect(MobEffects.STRENGTH, conversionTimeIn, Math.min(world.getDifficulty().getDifficultyId() - 1, 0)));
-        world.setEntityState(this, (byte)16);
-    }
+		setProfession(world.rand.nextInt(6));
+		return super.onInitialSpawn(difficulty, livingdata);
+	}
 
-    /**
-     * Handler for {@link World#setEntityState}
-     */
-    public void handleStatusUpdate(byte id)
-    {
-        if (id == 16)
-        {
-            if (!isSilent())
-            {
-                world.playSound(posX + 0.5D, posY + 0.5D, posZ + 0.5D, SoundEvents.ENTITY_ZOMBIE_VILLAGER_CURE, getSoundCategory(), 1.0F + rand.nextFloat(), rand.nextFloat() * 0.7F + 0.3F, false);
-            }
-        }
-        else
-        {
-            super.handleStatusUpdate(id);
-        }
-    }
+	/**
+	 * Called to update the entity's position/logic.
+	 */
+	public void onUpdate() {
 
-    protected void finishConversion()
-    {
-        EntityVillager entityvillager = new EntityVillager(world);
-        entityvillager.copyLocationAndAnglesFrom(this);
-        entityvillager.setProfession(getProfession());
-        entityvillager.finalizeMobSpawn(world.getDifficultyForLocation(new BlockPos(entityvillager)), (IEntityLivingData)null, false);
-        entityvillager.setLookingForHome();
+		if (!world.isRemote && isConverting()) {
+			int i = getConversionProgress();
+			conversionTime -= i;
 
-        if (isChild())
-        {
-            entityvillager.setGrowingAge(-24000);
-        }
+			if (conversionTime <= 0) {
+				finishConversion();
+			}
+		}
 
-        world.removeEntity(this);
-        entityvillager.setNoAI(isAIDisabled());
+		super.onUpdate();
+	}
 
-        if (hasCustomName())
-        {
-            entityvillager.setCustomNameTag(getCustomNameTag());
-            entityvillager.setAlwaysRenderNameTag(getAlwaysRenderNameTag());
-        }
+	public boolean processInteract(EntityPlayer player, EnumHand hand) {
 
-        world.spawnEntity(entityvillager);
+		ItemStack itemstack = player.getHeldItem(hand);
 
-        if (converstionStarter != null)
-        {
-            EntityPlayer entityplayer = world.getPlayerEntityByUUID(converstionStarter);
+		if (itemstack.getItem() == Items.GOLDEN_APPLE && itemstack.getMetadata() == 0 && isPotionActive(MobEffects.WEAKNESS)) {
+			if (!player.capabilities.isCreativeMode) {
+				itemstack.shrink(1);
+			}
 
-            if (entityplayer instanceof EntityPlayerMP)
-            {
-                CriteriaTriggers.CURED_ZOMBIE_VILLAGER.trigger((EntityPlayerMP)entityplayer, this, entityvillager);
-            }
-        }
+			if (!world.isRemote) {
+				startConverting(player.getUniqueID(), rand.nextInt(2401) + 3600);
+			}
 
-        entityvillager.addPotionEffect(new PotionEffect(MobEffects.NAUSEA, 200, 0));
-        world.playEvent((EntityPlayer)null, 1027, new BlockPos((int) posX, (int) posY, (int) posZ), 0);
-    }
+			return true;
+		} else {
+			return false;
+		}
+	}
 
-    protected int getConversionProgress()
-    {
-        int i = 1;
+	/**
+	 * Determines if an entity can be despawned, used on idle far away entities
+	 */
+	protected boolean canDespawn() {
 
-        if (rand.nextFloat() < 0.01F)
-        {
-            int j = 0;
-            BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
+		return !isConverting();
+	}
 
-            for (int k = (int) posX - 4; k < (int) posX + 4 && j < 14; ++k)
-            {
-                for (int l = (int) posY - 4; l < (int) posY + 4 && j < 14; ++l)
-                {
-                    for (int i1 = (int) posZ - 4; i1 < (int) posZ + 4 && j < 14; ++i1)
-                    {
-                        Block block = world.getBlockState(blockpos$mutableblockpos.setPos(k, l, i1)).getBlock();
+	/**
+	 * Returns whether this zombie is in the process of converting to a villager
+	 */
+	public boolean isConverting() {
 
-                        if (block == Blocks.IRON_BARS || block == Blocks.BED)
-                        {
-                            if (rand.nextFloat() < 0.3F)
-                            {
-                                ++i;
-                            }
+		return getDataManager().get(CONVERTING).booleanValue();
+	}
 
-                            ++j;
-                        }
-                    }
-                }
-            }
-        }
+	/**
+	 * Starts conversion of this zombie villager to a villager
+	 *
+	 * @param conversionStarterIn The entity that started the conversion's UUID
+	 * @param conversionTimeIn    The time that it will take to finish conversion
+	 */
+	protected void startConverting(@Nullable UUID conversionStarterIn, int conversionTimeIn) {
 
-        return i;
-    }
+		converstionStarter = conversionStarterIn;
+		conversionTime = conversionTimeIn;
+		getDataManager().set(CONVERTING, Boolean.valueOf(true));
+		removePotionEffect(MobEffects.WEAKNESS);
+		addPotionEffect(new PotionEffect(MobEffects.STRENGTH, conversionTimeIn, Math.min(world.getDifficulty().getDifficultyId() - 1, 0)));
+		world.setEntityState(this, (byte) 16);
+	}
 
-    /**
-     * Gets the pitch of living sounds in living entities.
-     */
-    protected float getSoundPitch()
-    {
-        return isChild() ? (rand.nextFloat() - rand.nextFloat()) * 0.2F + 2.0F : (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F;
-    }
+	/**
+	 * Handler for {@link World#setEntityState}
+	 */
+	public void handleStatusUpdate(byte id) {
 
-    public SoundEvent getAmbientSound()
-    {
-        return SoundEvents.ENTITY_ZOMBIE_VILLAGER_AMBIENT;
-    }
+		if (id == 16) {
+			if (!isSilent()) {
+				world.playSound(posX + 0.5D, posY + 0.5D, posZ + 0.5D, SoundEvents.ENTITY_ZOMBIE_VILLAGER_CURE, getSoundCategory(), 1.0F + rand.nextFloat(), rand.nextFloat() * 0.7F + 0.3F, false);
+			}
+		} else {
+			super.handleStatusUpdate(id);
+		}
+	}
 
-    public SoundEvent getHurtSound(DamageSource damageSourceIn)
-    {
-        return SoundEvents.ENTITY_ZOMBIE_VILLAGER_HURT;
-    }
+	protected void finishConversion() {
 
-    public SoundEvent getDeathSound()
-    {
-        return SoundEvents.ENTITY_ZOMBIE_VILLAGER_DEATH;
-    }
+		EntityVillager entityvillager = new EntityVillager(world);
+		entityvillager.copyLocationAndAnglesFrom(this);
+		entityvillager.setProfession(getProfession());
+		entityvillager.finalizeMobSpawn(world.getDifficultyForLocation(new BlockPos(entityvillager)), null, false);
+		entityvillager.setLookingForHome();
 
-    public SoundEvent getStepSound()
-    {
-        return SoundEvents.ENTITY_ZOMBIE_VILLAGER_STEP;
-    }
+		if (isChild()) {
+			entityvillager.setGrowingAge(-24000);
+		}
 
-    @Nullable
-    protected ResourceLocation getLootTable()
-    {
-        return LootTableList.ENTITIES_ZOMBIE_VILLAGER;
-    }
+		world.removeEntity(this);
+		entityvillager.setNoAI(isAIDisabled());
 
-    protected ItemStack getSkullDrop()
-    {
-        return ItemStack.EMPTY;
-    }
+		if (hasCustomName()) {
+			entityvillager.setCustomNameTag(getCustomNameTag());
+			entityvillager.setAlwaysRenderNameTag(getAlwaysRenderNameTag());
+		}
+
+		world.spawnEntity(entityvillager);
+
+		if (converstionStarter != null) {
+			EntityPlayer entityplayer = world.getPlayerEntityByUUID(converstionStarter);
+
+			if (entityplayer instanceof EntityPlayerMP) {
+				CriteriaTriggers.CURED_ZOMBIE_VILLAGER.trigger((EntityPlayerMP) entityplayer, this, entityvillager);
+			}
+		}
+
+		entityvillager.addPotionEffect(new PotionEffect(MobEffects.NAUSEA, 200, 0));
+		world.playEvent(null, 1027, new BlockPos((int) posX, (int) posY, (int) posZ), 0);
+	}
+
+	protected int getConversionProgress() {
+
+		int i = 1;
+
+		if (rand.nextFloat() < 0.01F) {
+			int j = 0;
+			BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
+
+			for (int k = (int) posX - 4; k < (int) posX + 4 && j < 14; ++k) {
+				for (int l = (int) posY - 4; l < (int) posY + 4 && j < 14; ++l) {
+					for (int i1 = (int) posZ - 4; i1 < (int) posZ + 4 && j < 14; ++i1) {
+						Block block = world.getBlockState(blockpos$mutableblockpos.setPos(k, l, i1)).getBlock();
+
+						if (block == Blocks.IRON_BARS || block == Blocks.BED) {
+							if (rand.nextFloat() < 0.3F) {
+								++i;
+							}
+
+							++j;
+						}
+					}
+				}
+			}
+		}
+
+		return i;
+	}
+
+	/**
+	 * Gets the pitch of living sounds in living entities.
+	 */
+	protected float getSoundPitch() {
+
+		return isChild() ? (rand.nextFloat() - rand.nextFloat()) * 0.2F + 2.0F : (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F;
+	}
+
+	public SoundEvent getAmbientSound() {
+
+		return SoundEvents.ENTITY_ZOMBIE_VILLAGER_AMBIENT;
+	}
+
+	public SoundEvent getHurtSound(DamageSource damageSourceIn) {
+
+		return SoundEvents.ENTITY_ZOMBIE_VILLAGER_HURT;
+	}
+
+	public SoundEvent getDeathSound() {
+
+		return SoundEvents.ENTITY_ZOMBIE_VILLAGER_DEATH;
+	}
+
+	public SoundEvent getStepSound() {
+
+		return SoundEvents.ENTITY_ZOMBIE_VILLAGER_STEP;
+	}
+
+	@Nullable
+	protected ResourceLocation getLootTable() {
+
+		return LootTableList.ENTITIES_ZOMBIE_VILLAGER;
+	}
+
+	protected ItemStack getSkullDrop() {
+
+		return ItemStack.EMPTY;
+	}
+
 }

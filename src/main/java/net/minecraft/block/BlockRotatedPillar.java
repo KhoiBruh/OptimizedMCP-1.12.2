@@ -14,103 +14,96 @@ import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class BlockRotatedPillar extends Block
-{
-    public static final PropertyEnum<EnumFacing.Axis> AXIS = PropertyEnum.<EnumFacing.Axis>create("axis", EnumFacing.Axis.class);
+public class BlockRotatedPillar extends Block {
 
-    protected BlockRotatedPillar(Material materialIn)
-    {
-        super(materialIn, materialIn.getMaterialMapColor());
-    }
+	public static final PropertyEnum<EnumFacing.Axis> AXIS = PropertyEnum.create("axis", EnumFacing.Axis.class);
 
-    protected BlockRotatedPillar(Material materialIn, MapColor color)
-    {
-        super(materialIn, color);
-    }
+	protected BlockRotatedPillar(Material materialIn) {
 
-    /**
-     * Returns the blockstate with the given rotation from the passed blockstate. If inapplicable, returns the passed
-     * blockstate.
-     */
-    public IBlockState withRotation(IBlockState state, Rotation rot)
-    {
-        switch (rot)
-        {
-            case COUNTERCLOCKWISE_90:
-            case CLOCKWISE_90:
-                switch ((EnumFacing.Axis)state.getValue(AXIS))
-                {
-                    case X:
-                        return state.withProperty(AXIS, EnumFacing.Axis.Z);
+		super(materialIn, materialIn.getMaterialMapColor());
+	}
 
-                    case Z:
-                        return state.withProperty(AXIS, EnumFacing.Axis.X);
+	protected BlockRotatedPillar(Material materialIn, MapColor color) {
 
-                    default:
-                        return state;
-                }
+		super(materialIn, color);
+	}
 
-            default:
-                return state;
-        }
-    }
+	/**
+	 * Returns the blockstate with the given rotation from the passed blockstate. If inapplicable, returns the passed
+	 * blockstate.
+	 */
+	public IBlockState withRotation(IBlockState state, Rotation rot) {
 
-    /**
-     * Convert the given metadata into a BlockState for this Block
-     */
-    public IBlockState getStateFromMeta(int meta)
-    {
-        EnumFacing.Axis enumfacing$axis = EnumFacing.Axis.Y;
-        int i = meta & 12;
+		switch (rot) {
+			case COUNTERCLOCKWISE_90:
+			case CLOCKWISE_90:
+				switch (state.getValue(AXIS)) {
+					case X:
+						return state.withProperty(AXIS, EnumFacing.Axis.Z);
 
-        if (i == 4)
-        {
-            enumfacing$axis = EnumFacing.Axis.X;
-        }
-        else if (i == 8)
-        {
-            enumfacing$axis = EnumFacing.Axis.Z;
-        }
+					case Z:
+						return state.withProperty(AXIS, EnumFacing.Axis.X);
 
-        return getDefaultState().withProperty(AXIS, enumfacing$axis);
-    }
+					default:
+						return state;
+				}
 
-    /**
-     * Convert the BlockState into the correct metadata value
-     */
-    public int getMetaFromState(IBlockState state)
-    {
-        int i = 0;
-        EnumFacing.Axis enumfacing$axis = (EnumFacing.Axis)state.getValue(AXIS);
+			default:
+				return state;
+		}
+	}
 
-        if (enumfacing$axis == EnumFacing.Axis.X)
-        {
-            i |= 4;
-        }
-        else if (enumfacing$axis == EnumFacing.Axis.Z)
-        {
-            i |= 8;
-        }
+	/**
+	 * Convert the given metadata into a BlockState for this Block
+	 */
+	public IBlockState getStateFromMeta(int meta) {
 
-        return i;
-    }
+		EnumFacing.Axis enumfacing$axis = EnumFacing.Axis.Y;
+		int i = meta & 12;
 
-    protected BlockStateContainer createBlockState()
-    {
-        return new BlockStateContainer(this, new IProperty[] {AXIS});
-    }
+		if (i == 4) {
+			enumfacing$axis = EnumFacing.Axis.X;
+		} else if (i == 8) {
+			enumfacing$axis = EnumFacing.Axis.Z;
+		}
 
-    protected ItemStack getSilkTouchDrop(IBlockState state)
-    {
-        return new ItemStack(Item.getItemFromBlock(this));
-    }
+		return getDefaultState().withProperty(AXIS, enumfacing$axis);
+	}
 
-    /**
-     * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
-     * IBlockstate
-     */
-    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
-    {
-        return super.getStateForPlacement(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer).withProperty(AXIS, facing.getAxis());
-    }
+	/**
+	 * Convert the BlockState into the correct metadata value
+	 */
+	public int getMetaFromState(IBlockState state) {
+
+		int i = 0;
+		EnumFacing.Axis enumfacing$axis = state.getValue(AXIS);
+
+		if (enumfacing$axis == EnumFacing.Axis.X) {
+			i |= 4;
+		} else if (enumfacing$axis == EnumFacing.Axis.Z) {
+			i |= 8;
+		}
+
+		return i;
+	}
+
+	protected BlockStateContainer createBlockState() {
+
+		return new BlockStateContainer(this, AXIS);
+	}
+
+	protected ItemStack getSilkTouchDrop(IBlockState state) {
+
+		return new ItemStack(Item.getItemFromBlock(this));
+	}
+
+	/**
+	 * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
+	 * IBlockstate
+	 */
+	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+
+		return super.getStateForPlacement(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer).withProperty(AXIS, facing.getAxis());
+	}
+
 }

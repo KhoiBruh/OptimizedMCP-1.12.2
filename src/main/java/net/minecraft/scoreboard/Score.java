@@ -2,115 +2,102 @@ package net.minecraft.scoreboard;
 
 import java.util.Comparator;
 
-public class Score
-{
-    public static final Comparator<Score> SCORE_COMPARATOR = new Comparator<Score>()
-    {
-        public int compare(Score p_compare_1_, Score p_compare_2_)
-        {
-            if (p_compare_1_.getScorePoints() > p_compare_2_.getScorePoints())
-            {
-                return 1;
-            }
-            else
-            {
-                return p_compare_1_.getScorePoints() < p_compare_2_.getScorePoints() ? -1 : p_compare_2_.getPlayerName().compareToIgnoreCase(p_compare_1_.getPlayerName());
-            }
-        }
-    };
-    private final Scoreboard scoreboard;
-    private final ScoreObjective objective;
-    private final String scorePlayerName;
-    private int scorePoints;
-    private boolean locked;
-    private boolean forceUpdate;
+public class Score {
 
-    public Score(Scoreboard scoreboard, ScoreObjective objective, String playerName)
-    {
-        this.scoreboard = scoreboard;
-        this.objective = objective;
-        scorePlayerName = playerName;
-        forceUpdate = true;
-    }
+	public static final Comparator<Score> SCORE_COMPARATOR = new Comparator<Score>() {
+		public int compare(Score p_compare_1_, Score p_compare_2_) {
 
-    public void increaseScore(int amount)
-    {
-        if (objective.getCriteria().isReadOnly())
-        {
-            throw new IllegalStateException("Cannot modify read-only score");
-        }
-        else
-        {
-            setScorePoints(getScorePoints() + amount);
-        }
-    }
+			if (p_compare_1_.getScorePoints() > p_compare_2_.getScorePoints()) {
+				return 1;
+			} else {
+				return p_compare_1_.getScorePoints() < p_compare_2_.getScorePoints() ? -1 : p_compare_2_.getPlayerName().compareToIgnoreCase(p_compare_1_.getPlayerName());
+			}
+		}
+	};
+	private final Scoreboard scoreboard;
+	private final ScoreObjective objective;
+	private final String scorePlayerName;
+	private int scorePoints;
+	private boolean locked;
+	private boolean forceUpdate;
 
-    public void decreaseScore(int amount)
-    {
-        if (objective.getCriteria().isReadOnly())
-        {
-            throw new IllegalStateException("Cannot modify read-only score");
-        }
-        else
-        {
-            setScorePoints(getScorePoints() - amount);
-        }
-    }
+	public Score(Scoreboard scoreboard, ScoreObjective objective, String playerName) {
 
-    public void incrementScore()
-    {
-        if (objective.getCriteria().isReadOnly())
-        {
-            throw new IllegalStateException("Cannot modify read-only score");
-        }
-        else
-        {
-            increaseScore(1);
-        }
-    }
+		this.scoreboard = scoreboard;
+		this.objective = objective;
+		scorePlayerName = playerName;
+		forceUpdate = true;
+	}
 
-    public int getScorePoints()
-    {
-        return scorePoints;
-    }
+	public void increaseScore(int amount) {
 
-    public void setScorePoints(int points)
-    {
-        int i = scorePoints;
-        scorePoints = points;
+		if (objective.getCriteria().isReadOnly()) {
+			throw new IllegalStateException("Cannot modify read-only score");
+		} else {
+			setScorePoints(getScorePoints() + amount);
+		}
+	}
 
-        if (i != points || forceUpdate)
-        {
-            forceUpdate = false;
-            getScoreScoreboard().onScoreUpdated(this);
-        }
-    }
+	public void decreaseScore(int amount) {
 
-    public ScoreObjective getObjective()
-    {
-        return objective;
-    }
+		if (objective.getCriteria().isReadOnly()) {
+			throw new IllegalStateException("Cannot modify read-only score");
+		} else {
+			setScorePoints(getScorePoints() - amount);
+		}
+	}
 
-    /**
-     * Returns the name of the player this score belongs to
-     */
-    public String getPlayerName()
-    {
-        return scorePlayerName;
-    }
+	public void incrementScore() {
 
-    public Scoreboard getScoreScoreboard()
-    {
-        return scoreboard;
-    }
+		if (objective.getCriteria().isReadOnly()) {
+			throw new IllegalStateException("Cannot modify read-only score");
+		} else {
+			increaseScore(1);
+		}
+	}
 
-    public boolean isLocked()
-    {
-        return locked;
-    }
+	public int getScorePoints() {
 
-    public void setLocked(boolean locked)
-    {
-        this.locked = locked;
-    }
+		return scorePoints;
+	}
+
+	public void setScorePoints(int points) {
+
+		int i = scorePoints;
+		scorePoints = points;
+
+		if (i != points || forceUpdate) {
+			forceUpdate = false;
+			getScoreScoreboard().onScoreUpdated(this);
+		}
+	}
+
+	public ScoreObjective getObjective() {
+
+		return objective;
+	}
+
+	/**
+	 * Returns the name of the player this score belongs to
+	 */
+	public String getPlayerName() {
+
+		return scorePlayerName;
+	}
+
+	public Scoreboard getScoreScoreboard() {
+
+		return scoreboard;
+	}
+
+	public boolean isLocked() {
+
+		return locked;
+	}
+
+	public void setLocked(boolean locked) {
+
+		this.locked = locked;
+	}
+
 }

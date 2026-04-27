@@ -9,226 +9,219 @@ import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class BlockRail extends BlockRailBase
-{
-    public static final PropertyEnum<BlockRailBase.EnumRailDirection> SHAPE = PropertyEnum.<BlockRailBase.EnumRailDirection>create("shape", BlockRailBase.EnumRailDirection.class);
+public class BlockRail extends BlockRailBase {
 
-    protected BlockRail()
-    {
-        super(false);
-        setDefaultState(blockState.getBaseState().withProperty(SHAPE, BlockRailBase.EnumRailDirection.NORTH_SOUTH));
-    }
+	public static final PropertyEnum<BlockRailBase.EnumRailDirection> SHAPE = PropertyEnum.create("shape", BlockRailBase.EnumRailDirection.class);
 
-    protected void updateState(IBlockState state, World worldIn, BlockPos pos, Block blockIn)
-    {
-        if (blockIn.getDefaultState().canProvidePower() && (new BlockRailBase.Rail(worldIn, pos, state)).countAdjacentRails() == 3)
-        {
-            updateDir(worldIn, pos, state, false);
-        }
-    }
+	protected BlockRail() {
 
-    public IProperty<BlockRailBase.EnumRailDirection> getShapeProperty()
-    {
-        return SHAPE;
-    }
+		super(false);
+		setDefaultState(blockState.getBaseState().withProperty(SHAPE, BlockRailBase.EnumRailDirection.NORTH_SOUTH));
+	}
 
-    /**
-     * Convert the given metadata into a BlockState for this Block
-     */
-    public IBlockState getStateFromMeta(int meta)
-    {
-        return getDefaultState().withProperty(SHAPE, BlockRailBase.EnumRailDirection.byMetadata(meta));
-    }
+	protected void updateState(IBlockState state, World worldIn, BlockPos pos, Block blockIn) {
 
-    /**
-     * Convert the BlockState into the correct metadata value
-     */
-    public int getMetaFromState(IBlockState state)
-    {
-        return ((BlockRailBase.EnumRailDirection)state.getValue(SHAPE)).getMetadata();
-    }
+		if (blockIn.getDefaultState().canProvidePower() && (new BlockRailBase.Rail(worldIn, pos, state)).countAdjacentRails() == 3) {
+			updateDir(worldIn, pos, state, false);
+		}
+	}
 
-    @SuppressWarnings("incomplete-switch")
+	public IProperty<BlockRailBase.EnumRailDirection> getShapeProperty() {
 
-    /**
-     * Returns the blockstate with the given rotation from the passed blockstate. If inapplicable, returns the passed
-     * blockstate.
-     */
-    public IBlockState withRotation(IBlockState state, Rotation rot)
-    {
-        switch (rot)
-        {
-            case CLOCKWISE_180:
-                switch ((BlockRailBase.EnumRailDirection)state.getValue(SHAPE))
-                {
-                    case ASCENDING_EAST:
-                        return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.ASCENDING_WEST);
+		return SHAPE;
+	}
 
-                    case ASCENDING_WEST:
-                        return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.ASCENDING_EAST);
+	/**
+	 * Convert the given metadata into a BlockState for this Block
+	 */
+	public IBlockState getStateFromMeta(int meta) {
 
-                    case ASCENDING_NORTH:
-                        return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.ASCENDING_SOUTH);
+		return getDefaultState().withProperty(SHAPE, BlockRailBase.EnumRailDirection.byMetadata(meta));
+	}
 
-                    case ASCENDING_SOUTH:
-                        return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.ASCENDING_NORTH);
+	/**
+	 * Convert the BlockState into the correct metadata value
+	 */
+	public int getMetaFromState(IBlockState state) {
 
-                    case SOUTH_EAST:
-                        return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.NORTH_WEST);
+		return state.getValue(SHAPE).getMetadata();
+	}
 
-                    case SOUTH_WEST:
-                        return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.NORTH_EAST);
+	@SuppressWarnings("incomplete-switch")
 
-                    case NORTH_WEST:
-                        return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.SOUTH_EAST);
+	/**
+	 * Returns the blockstate with the given rotation from the passed blockstate. If inapplicable, returns the passed
+	 * blockstate.
+	 */
+	public IBlockState withRotation(IBlockState state, Rotation rot) {
 
-                    case NORTH_EAST:
-                        return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.SOUTH_WEST);
-                }
+		switch (rot) {
+			case CLOCKWISE_180:
+				switch (state.getValue(SHAPE)) {
+					case ASCENDING_EAST:
+						return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.ASCENDING_WEST);
 
-            case COUNTERCLOCKWISE_90:
-                switch ((BlockRailBase.EnumRailDirection)state.getValue(SHAPE))
-                {
-                    case ASCENDING_EAST:
-                        return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.ASCENDING_NORTH);
+					case ASCENDING_WEST:
+						return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.ASCENDING_EAST);
 
-                    case ASCENDING_WEST:
-                        return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.ASCENDING_SOUTH);
+					case ASCENDING_NORTH:
+						return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.ASCENDING_SOUTH);
 
-                    case ASCENDING_NORTH:
-                        return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.ASCENDING_WEST);
+					case ASCENDING_SOUTH:
+						return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.ASCENDING_NORTH);
 
-                    case ASCENDING_SOUTH:
-                        return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.ASCENDING_EAST);
+					case SOUTH_EAST:
+						return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.NORTH_WEST);
 
-                    case SOUTH_EAST:
-                        return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.NORTH_EAST);
+					case SOUTH_WEST:
+						return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.NORTH_EAST);
 
-                    case SOUTH_WEST:
-                        return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.SOUTH_EAST);
+					case NORTH_WEST:
+						return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.SOUTH_EAST);
 
-                    case NORTH_WEST:
-                        return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.SOUTH_WEST);
+					case NORTH_EAST:
+						return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.SOUTH_WEST);
+				}
 
-                    case NORTH_EAST:
-                        return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.NORTH_WEST);
+			case COUNTERCLOCKWISE_90:
+				switch (state.getValue(SHAPE)) {
+					case ASCENDING_EAST:
+						return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.ASCENDING_NORTH);
 
-                    case NORTH_SOUTH:
-                        return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.EAST_WEST);
+					case ASCENDING_WEST:
+						return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.ASCENDING_SOUTH);
 
-                    case EAST_WEST:
-                        return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.NORTH_SOUTH);
-                }
+					case ASCENDING_NORTH:
+						return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.ASCENDING_WEST);
 
-            case CLOCKWISE_90:
-                switch ((BlockRailBase.EnumRailDirection)state.getValue(SHAPE))
-                {
-                    case ASCENDING_EAST:
-                        return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.ASCENDING_SOUTH);
+					case ASCENDING_SOUTH:
+						return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.ASCENDING_EAST);
 
-                    case ASCENDING_WEST:
-                        return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.ASCENDING_NORTH);
+					case SOUTH_EAST:
+						return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.NORTH_EAST);
 
-                    case ASCENDING_NORTH:
-                        return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.ASCENDING_EAST);
+					case SOUTH_WEST:
+						return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.SOUTH_EAST);
 
-                    case ASCENDING_SOUTH:
-                        return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.ASCENDING_WEST);
+					case NORTH_WEST:
+						return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.SOUTH_WEST);
 
-                    case SOUTH_EAST:
-                        return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.SOUTH_WEST);
+					case NORTH_EAST:
+						return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.NORTH_WEST);
 
-                    case SOUTH_WEST:
-                        return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.NORTH_WEST);
+					case NORTH_SOUTH:
+						return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.EAST_WEST);
 
-                    case NORTH_WEST:
-                        return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.NORTH_EAST);
+					case EAST_WEST:
+						return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.NORTH_SOUTH);
+				}
 
-                    case NORTH_EAST:
-                        return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.SOUTH_EAST);
+			case CLOCKWISE_90:
+				switch (state.getValue(SHAPE)) {
+					case ASCENDING_EAST:
+						return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.ASCENDING_SOUTH);
 
-                    case NORTH_SOUTH:
-                        return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.EAST_WEST);
+					case ASCENDING_WEST:
+						return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.ASCENDING_NORTH);
 
-                    case EAST_WEST:
-                        return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.NORTH_SOUTH);
-                }
+					case ASCENDING_NORTH:
+						return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.ASCENDING_EAST);
 
-            default:
-                return state;
-        }
-    }
+					case ASCENDING_SOUTH:
+						return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.ASCENDING_WEST);
 
-    @SuppressWarnings("incomplete-switch")
+					case SOUTH_EAST:
+						return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.SOUTH_WEST);
 
-    /**
-     * Returns the blockstate with the given mirror of the passed blockstate. If inapplicable, returns the passed
-     * blockstate.
-     */
-    public IBlockState withMirror(IBlockState state, Mirror mirrorIn)
-    {
-        BlockRailBase.EnumRailDirection blockrailbase$enumraildirection = (BlockRailBase.EnumRailDirection)state.getValue(SHAPE);
+					case SOUTH_WEST:
+						return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.NORTH_WEST);
 
-        switch (mirrorIn)
-        {
-            case LEFT_RIGHT:
-                switch (blockrailbase$enumraildirection)
-                {
-                    case ASCENDING_NORTH:
-                        return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.ASCENDING_SOUTH);
+					case NORTH_WEST:
+						return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.NORTH_EAST);
 
-                    case ASCENDING_SOUTH:
-                        return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.ASCENDING_NORTH);
+					case NORTH_EAST:
+						return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.SOUTH_EAST);
 
-                    case SOUTH_EAST:
-                        return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.NORTH_EAST);
+					case NORTH_SOUTH:
+						return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.EAST_WEST);
 
-                    case SOUTH_WEST:
-                        return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.NORTH_WEST);
+					case EAST_WEST:
+						return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.NORTH_SOUTH);
+				}
 
-                    case NORTH_WEST:
-                        return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.SOUTH_WEST);
+			default:
+				return state;
+		}
+	}
 
-                    case NORTH_EAST:
-                        return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.SOUTH_EAST);
+	@SuppressWarnings("incomplete-switch")
 
-                    default:
-                        return super.withMirror(state, mirrorIn);
-                }
+	/**
+	 * Returns the blockstate with the given mirror of the passed blockstate. If inapplicable, returns the passed
+	 * blockstate.
+	 */
+	public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
 
-            case FRONT_BACK:
-                switch (blockrailbase$enumraildirection)
-                {
-                    case ASCENDING_EAST:
-                        return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.ASCENDING_WEST);
+		BlockRailBase.EnumRailDirection blockrailbase$enumraildirection = state.getValue(SHAPE);
 
-                    case ASCENDING_WEST:
-                        return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.ASCENDING_EAST);
+		switch (mirrorIn) {
+			case LEFT_RIGHT:
+				switch (blockrailbase$enumraildirection) {
+					case ASCENDING_NORTH:
+						return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.ASCENDING_SOUTH);
 
-                    case ASCENDING_NORTH:
-                    case ASCENDING_SOUTH:
-                    default:
-                        break;
+					case ASCENDING_SOUTH:
+						return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.ASCENDING_NORTH);
 
-                    case SOUTH_EAST:
-                        return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.SOUTH_WEST);
+					case SOUTH_EAST:
+						return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.NORTH_EAST);
 
-                    case SOUTH_WEST:
-                        return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.SOUTH_EAST);
+					case SOUTH_WEST:
+						return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.NORTH_WEST);
 
-                    case NORTH_WEST:
-                        return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.NORTH_EAST);
+					case NORTH_WEST:
+						return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.SOUTH_WEST);
 
-                    case NORTH_EAST:
-                        return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.NORTH_WEST);
-                }
-        }
+					case NORTH_EAST:
+						return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.SOUTH_EAST);
 
-        return super.withMirror(state, mirrorIn);
-    }
+					default:
+						return super.withMirror(state, mirrorIn);
+				}
 
-    protected BlockStateContainer createBlockState()
-    {
-        return new BlockStateContainer(this, new IProperty[] {SHAPE});
-    }
+			case FRONT_BACK:
+				switch (blockrailbase$enumraildirection) {
+					case ASCENDING_EAST:
+						return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.ASCENDING_WEST);
+
+					case ASCENDING_WEST:
+						return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.ASCENDING_EAST);
+
+					case ASCENDING_NORTH:
+					case ASCENDING_SOUTH:
+					default:
+						break;
+
+					case SOUTH_EAST:
+						return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.SOUTH_WEST);
+
+					case SOUTH_WEST:
+						return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.SOUTH_EAST);
+
+					case NORTH_WEST:
+						return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.NORTH_EAST);
+
+					case NORTH_EAST:
+						return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.NORTH_WEST);
+				}
+		}
+
+		return super.withMirror(state, mirrorIn);
+	}
+
+	protected BlockStateContainer createBlockState() {
+
+		return new BlockStateContainer(this, SHAPE);
+	}
+
 }

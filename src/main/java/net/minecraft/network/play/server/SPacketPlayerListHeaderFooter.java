@@ -1,49 +1,51 @@
 package net.minecraft.network.play.server;
 
-import java.io.IOException;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayClient;
 import net.minecraft.util.text.ITextComponent;
 
-public class SPacketPlayerListHeaderFooter implements Packet<INetHandlerPlayClient>
-{
-    private ITextComponent header;
-    private ITextComponent footer;
+import java.io.IOException;
 
-    /**
-     * Reads the raw packet data from the data stream.
-     */
-    public void readPacketData(PacketBuffer buf) throws IOException
-    {
-        header = buf.readTextComponent();
-        footer = buf.readTextComponent();
-    }
+public class SPacketPlayerListHeaderFooter implements Packet<INetHandlerPlayClient> {
 
-    /**
-     * Writes the raw packet data to the data stream.
-     */
-    public void writePacketData(PacketBuffer buf) throws IOException
-    {
-        buf.writeTextComponent(header);
-        buf.writeTextComponent(footer);
-    }
+	private ITextComponent header;
+	private ITextComponent footer;
 
-    /**
-     * Passes this Packet on to the NetHandler for processing.
-     */
-    public void processPacket(INetHandlerPlayClient handler)
-    {
-        handler.handlePlayerListHeaderFooter(this);
-    }
+	/**
+	 * Reads the raw packet data from the data stream.
+	 */
+	public void readPacketData(PacketBuffer buf) throws IOException {
 
-    public ITextComponent getHeader()
-    {
-        return header;
-    }
+		header = buf.readTextComponent();
+		footer = buf.readTextComponent();
+	}
 
-    public ITextComponent getFooter()
-    {
-        return footer;
-    }
+	/**
+	 * Writes the raw packet data to the data stream.
+	 */
+	public void writePacketData(PacketBuffer buf) throws IOException {
+
+		buf.writeTextComponent(header);
+		buf.writeTextComponent(footer);
+	}
+
+	/**
+	 * Passes this Packet on to the NetHandler for processing.
+	 */
+	public void processPacket(INetHandlerPlayClient handler) {
+
+		handler.handlePlayerListHeaderFooter(this);
+	}
+
+	public ITextComponent getHeader() {
+
+		return header;
+	}
+
+	public ITextComponent getFooter() {
+
+		return footer;
+	}
+
 }

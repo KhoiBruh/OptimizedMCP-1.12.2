@@ -1,19 +1,20 @@
 package net.minecraft.scoreboard;
 
-public class ScoreCriteriaHealth extends ScoreCriteria
-{
-    public ScoreCriteriaHealth(String name)
-    {
-        super(name);
-    }
+public class ScoreCriteriaHealth extends ScoreCriteria {
 
-    public boolean isReadOnly()
-    {
-        return true;
-    }
+	public ScoreCriteriaHealth(String name) {
 
-    public IScoreCriteria.EnumRenderType getRenderType()
-    {
-        return IScoreCriteria.EnumRenderType.HEARTS;
-    }
+		super(name);
+	}
+
+	public boolean isReadOnly() {
+
+		return true;
+	}
+
+	public IScoreCriteria.EnumRenderType getRenderType() {
+
+		return IScoreCriteria.EnumRenderType.HEARTS;
+	}
+
 }

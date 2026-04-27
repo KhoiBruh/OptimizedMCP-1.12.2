@@ -1,6 +1,5 @@
 package net.minecraft.entity.monster;
 
-import javax.annotation.Nullable;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
@@ -11,238 +10,227 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
-public abstract class EntitySpellcasterIllager extends AbstractIllager
-{
-    private static final DataParameter<Byte> SPELL = EntityDataManager.<Byte>createKey(EntitySpellcasterIllager.class, DataSerializers.BYTE);
-    protected int spellTicks;
-    private EntitySpellcasterIllager.SpellType activeSpell = EntitySpellcasterIllager.SpellType.NONE;
+import javax.annotation.Nullable;
 
-    public EntitySpellcasterIllager(World p_i47506_1_)
-    {
-        super(p_i47506_1_);
-    }
+public abstract class EntitySpellcasterIllager extends AbstractIllager {
 
-    protected void entityInit()
-    {
-        super.entityInit();
-        dataManager.register(SPELL, Byte.valueOf((byte)0));
-    }
+	private static final DataParameter<Byte> SPELL = EntityDataManager.createKey(EntitySpellcasterIllager.class, DataSerializers.BYTE);
+	protected int spellTicks;
+	private EntitySpellcasterIllager.SpellType activeSpell = EntitySpellcasterIllager.SpellType.NONE;
 
-    /**
-     * (abstract) Protected helper method to read subclass entity data from NBT.
-     */
-    public void readEntityFromNBT(NBTTagCompound compound)
-    {
-        super.readEntityFromNBT(compound);
-        spellTicks = compound.getInteger("SpellTicks");
-    }
+	public EntitySpellcasterIllager(World p_i47506_1_) {
 
-    /**
-     * (abstract) Protected helper method to write subclass entity data to NBT.
-     */
-    public void writeEntityToNBT(NBTTagCompound compound)
-    {
-        super.writeEntityToNBT(compound);
-        compound.setInteger("SpellTicks", spellTicks);
-    }
+		super(p_i47506_1_);
+	}
 
-    public AbstractIllager.IllagerArmPose getArmPose()
-    {
-        return isSpellcasting() ? AbstractIllager.IllagerArmPose.SPELLCASTING : AbstractIllager.IllagerArmPose.CROSSED;
-    }
+	protected void entityInit() {
 
-    public boolean isSpellcasting()
-    {
-        if (world.isRemote)
-        {
-            return ((Byte) dataManager.get(SPELL)).byteValue() > 0;
-        }
-        else
-        {
-            return spellTicks > 0;
-        }
-    }
+		super.entityInit();
+		dataManager.register(SPELL, Byte.valueOf((byte) 0));
+	}
 
-    public void setSpellType(EntitySpellcasterIllager.SpellType spellType)
-    {
-        activeSpell = spellType;
-        dataManager.set(SPELL, Byte.valueOf((byte)spellType.id));
-    }
+	/**
+	 * (abstract) Protected helper method to read subclass entity data from NBT.
+	 */
+	public void readEntityFromNBT(NBTTagCompound compound) {
 
-    protected EntitySpellcasterIllager.SpellType getSpellType()
-    {
-        return !world.isRemote ? activeSpell : EntitySpellcasterIllager.SpellType.getFromId(((Byte) dataManager.get(SPELL)).byteValue());
-    }
+		super.readEntityFromNBT(compound);
+		spellTicks = compound.getInteger("SpellTicks");
+	}
 
-    protected void updateAITasks()
-    {
-        super.updateAITasks();
+	/**
+	 * (abstract) Protected helper method to write subclass entity data to NBT.
+	 */
+	public void writeEntityToNBT(NBTTagCompound compound) {
 
-        if (spellTicks > 0)
-        {
-            --spellTicks;
-        }
-    }
+		super.writeEntityToNBT(compound);
+		compound.setInteger("SpellTicks", spellTicks);
+	}
 
-    /**
-     * Called to update the entity's position/logic.
-     */
-    public void onUpdate()
-    {
-        super.onUpdate();
+	public AbstractIllager.IllagerArmPose getArmPose() {
 
-        if (world.isRemote && isSpellcasting())
-        {
-            EntitySpellcasterIllager.SpellType entityspellcasterillager$spelltype = getSpellType();
-            double d0 = entityspellcasterillager$spelltype.particleSpeed[0];
-            double d1 = entityspellcasterillager$spelltype.particleSpeed[1];
-            double d2 = entityspellcasterillager$spelltype.particleSpeed[2];
-            float f = renderYawOffset * 0.017453292F + MathHelper.cos((float) ticksExisted * 0.6662F) * 0.25F;
-            float f1 = MathHelper.cos(f);
-            float f2 = MathHelper.sin(f);
-            world.spawnParticle(EnumParticleTypes.SPELL_MOB, posX + (double)f1 * 0.6D, posY + 1.8D, posZ + (double)f2 * 0.6D, d0, d1, d2);
-            world.spawnParticle(EnumParticleTypes.SPELL_MOB, posX - (double)f1 * 0.6D, posY + 1.8D, posZ - (double)f2 * 0.6D, d0, d1, d2);
-        }
-    }
+		return isSpellcasting() ? AbstractIllager.IllagerArmPose.SPELLCASTING : AbstractIllager.IllagerArmPose.CROSSED;
+	}
 
-    protected int getSpellTicks()
-    {
-        return spellTicks;
-    }
+	public boolean isSpellcasting() {
 
-    protected abstract SoundEvent getSpellSound();
+		if (world.isRemote) {
+			return dataManager.get(SPELL).byteValue() > 0;
+		} else {
+			return spellTicks > 0;
+		}
+	}
 
-    public class AICastingApell extends EntityAIBase
-    {
-        public AICastingApell()
-        {
-            setMutexBits(3);
-        }
+	public void setSpellType(EntitySpellcasterIllager.SpellType spellType) {
 
-        public boolean shouldExecute()
-        {
-            return getSpellTicks() > 0;
-        }
+		activeSpell = spellType;
+		dataManager.set(SPELL, Byte.valueOf((byte) spellType.id));
+	}
 
-        public void startExecuting()
-        {
-            super.startExecuting();
-            navigator.clearPath();
-        }
+	protected EntitySpellcasterIllager.SpellType getSpellType() {
 
-        public void resetTask()
-        {
-            super.resetTask();
-            setSpellType(EntitySpellcasterIllager.SpellType.NONE);
-        }
+		return !world.isRemote ? activeSpell : EntitySpellcasterIllager.SpellType.getFromId(dataManager.get(SPELL).byteValue());
+	}
 
-        public void updateTask()
-        {
-            if (getAttackTarget() != null)
-            {
-                getLookHelper().setLookPositionWithEntity(getAttackTarget(), (float) getHorizontalFaceSpeed(), (float) getVerticalFaceSpeed());
-            }
-        }
-    }
+	protected void updateAITasks() {
 
-    public abstract class AIUseSpell extends EntityAIBase
-    {
-        protected int spellWarmup;
-        protected int spellCooldown;
+		super.updateAITasks();
 
-        public boolean shouldExecute()
-        {
-            if (getAttackTarget() == null)
-            {
-                return false;
-            }
-            else if (isSpellcasting())
-            {
-                return false;
-            }
-            else
-            {
-                return ticksExisted >= spellCooldown;
-            }
-        }
+		if (spellTicks > 0) {
+			--spellTicks;
+		}
+	}
 
-        public boolean shouldContinueExecuting()
-        {
-            return getAttackTarget() != null && spellWarmup > 0;
-        }
+	/**
+	 * Called to update the entity's position/logic.
+	 */
+	public void onUpdate() {
 
-        public void startExecuting()
-        {
-            spellWarmup = getCastWarmupTime();
-            spellTicks = getCastingTime();
-            spellCooldown = ticksExisted + getCastingInterval();
-            SoundEvent soundevent = getSpellPrepareSound();
+		super.onUpdate();
 
-            if (soundevent != null)
-            {
-                playSound(soundevent, 1.0F, 1.0F);
-            }
+		if (world.isRemote && isSpellcasting()) {
+			EntitySpellcasterIllager.SpellType entityspellcasterillager$spelltype = getSpellType();
+			double d0 = entityspellcasterillager$spelltype.particleSpeed[0];
+			double d1 = entityspellcasterillager$spelltype.particleSpeed[1];
+			double d2 = entityspellcasterillager$spelltype.particleSpeed[2];
+			float f = renderYawOffset * 0.017453292F + MathHelper.cos((float) ticksExisted * 0.6662F) * 0.25F;
+			float f1 = MathHelper.cos(f);
+			float f2 = MathHelper.sin(f);
+			world.spawnParticle(EnumParticleTypes.SPELL_MOB, posX + (double) f1 * 0.6D, posY + 1.8D, posZ + (double) f2 * 0.6D, d0, d1, d2);
+			world.spawnParticle(EnumParticleTypes.SPELL_MOB, posX - (double) f1 * 0.6D, posY + 1.8D, posZ - (double) f2 * 0.6D, d0, d1, d2);
+		}
+	}
 
-            setSpellType(getSpellType());
-        }
+	protected int getSpellTicks() {
 
-        public void updateTask()
-        {
-            --spellWarmup;
+		return spellTicks;
+	}
 
-            if (spellWarmup == 0)
-            {
-                castSpell();
-                playSound(getSpellSound(), 1.0F, 1.0F);
-            }
-        }
+	protected abstract SoundEvent getSpellSound();
 
-        protected abstract void castSpell();
+	public class AICastingApell extends EntityAIBase {
 
-        protected int getCastWarmupTime()
-        {
-            return 20;
-        }
+		public AICastingApell() {
 
-        protected abstract int getCastingTime();
+			setMutexBits(3);
+		}
 
-        protected abstract int getCastingInterval();
+		public boolean shouldExecute() {
 
-        @Nullable
-        protected abstract SoundEvent getSpellPrepareSound();
+			return getSpellTicks() > 0;
+		}
 
-        protected abstract EntitySpellcasterIllager.SpellType getSpellType();
-    }
+		public void startExecuting() {
 
-    public static enum SpellType
-    {
-        NONE(0, 0.0D, 0.0D, 0.0D),
-        SUMMON_VEX(1, 0.7D, 0.7D, 0.8D),
-        FANGS(2, 0.4D, 0.3D, 0.35D),
-        WOLOLO(3, 0.7D, 0.5D, 0.2D),
-        DISAPPEAR(4, 0.3D, 0.3D, 0.8D),
-        BLINDNESS(5, 0.1D, 0.1D, 0.2D);
+			super.startExecuting();
+			navigator.clearPath();
+		}
 
-        private final int id;
-        private final double[] particleSpeed;
+		public void resetTask() {
 
-        private SpellType(int idIn, double xParticleSpeed, double yParticleSpeed, double zParticleSpeed)
-        {
-            id = idIn;
-            particleSpeed = new double[] {xParticleSpeed, yParticleSpeed, zParticleSpeed};
-        }
+			super.resetTask();
+			setSpellType(EntitySpellcasterIllager.SpellType.NONE);
+		}
 
-        public static EntitySpellcasterIllager.SpellType getFromId(int idIn)
-        {
-            for (EntitySpellcasterIllager.SpellType entityspellcasterillager$spelltype : values())
-            {
-                if (idIn == entityspellcasterillager$spelltype.id)
-                {
-                    return entityspellcasterillager$spelltype;
-                }
-            }
+		public void updateTask() {
 
-            return NONE;
-        }
-    }
+			if (getAttackTarget() != null) {
+				getLookHelper().setLookPositionWithEntity(getAttackTarget(), (float) getHorizontalFaceSpeed(), (float) getVerticalFaceSpeed());
+			}
+		}
+
+	}
+
+	public abstract class AIUseSpell extends EntityAIBase {
+
+		protected int spellWarmup;
+		protected int spellCooldown;
+
+		public boolean shouldExecute() {
+
+			if (getAttackTarget() == null) {
+				return false;
+			} else if (isSpellcasting()) {
+				return false;
+			} else {
+				return ticksExisted >= spellCooldown;
+			}
+		}
+
+		public boolean shouldContinueExecuting() {
+
+			return getAttackTarget() != null && spellWarmup > 0;
+		}
+
+		public void startExecuting() {
+
+			spellWarmup = getCastWarmupTime();
+			spellTicks = getCastingTime();
+			spellCooldown = ticksExisted + getCastingInterval();
+			SoundEvent soundevent = getSpellPrepareSound();
+
+			if (soundevent != null) {
+				playSound(soundevent, 1.0F, 1.0F);
+			}
+
+			setSpellType(getSpellType());
+		}
+
+		public void updateTask() {
+
+			--spellWarmup;
+
+			if (spellWarmup == 0) {
+				castSpell();
+				playSound(getSpellSound(), 1.0F, 1.0F);
+			}
+		}
+
+		protected abstract void castSpell();
+
+		protected int getCastWarmupTime() {
+
+			return 20;
+		}
+
+		protected abstract int getCastingTime();
+
+		protected abstract int getCastingInterval();
+
+		@Nullable
+		protected abstract SoundEvent getSpellPrepareSound();
+
+		protected abstract EntitySpellcasterIllager.SpellType getSpellType();
+
+	}
+
+	public enum SpellType {
+		NONE(0, 0.0D, 0.0D, 0.0D),
+		SUMMON_VEX(1, 0.7D, 0.7D, 0.8D),
+		FANGS(2, 0.4D, 0.3D, 0.35D),
+		WOLOLO(3, 0.7D, 0.5D, 0.2D),
+		DISAPPEAR(4, 0.3D, 0.3D, 0.8D),
+		BLINDNESS(5, 0.1D, 0.1D, 0.2D);
+
+		private final int id;
+		private final double[] particleSpeed;
+
+		SpellType(int idIn, double xParticleSpeed, double yParticleSpeed, double zParticleSpeed) {
+
+			id = idIn;
+			particleSpeed = new double[]{xParticleSpeed, yParticleSpeed, zParticleSpeed};
+		}
+
+		public static EntitySpellcasterIllager.SpellType getFromId(int idIn) {
+
+			for (EntitySpellcasterIllager.SpellType entityspellcasterillager$spelltype : values()) {
+				if (idIn == entityspellcasterillager$spelltype.id) {
+					return entityspellcasterillager$spelltype;
+				}
+			}
+
+			return NONE;
+		}
+	}
+
 }

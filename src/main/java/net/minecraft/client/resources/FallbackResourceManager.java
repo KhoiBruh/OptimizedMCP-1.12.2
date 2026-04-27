@@ -1,138 +1,127 @@
 package net.minecraft.client.resources;
 
 import com.google.common.collect.Lists;
-import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.PrintStream;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
 import net.minecraft.client.resources.data.MetadataSerializer;
 import net.minecraft.util.ResourceLocation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class FallbackResourceManager implements IResourceManager
-{
-    private static final Logger LOGGER = LogManager.getLogger();
-    protected final List<IResourcePack> resourcePacks = Lists.<IResourcePack>newArrayList();
-    private final MetadataSerializer frmMetadataSerializer;
+import java.io.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
 
-    public FallbackResourceManager(MetadataSerializer frmMetadataSerializerIn)
-    {
-        frmMetadataSerializer = frmMetadataSerializerIn;
-    }
+public class FallbackResourceManager implements IResourceManager {
 
-    public void addResourcePack(IResourcePack resourcePack)
-    {
-        resourcePacks.add(resourcePack);
-    }
+	private static final Logger LOGGER = LogManager.getLogger();
+	protected final List<IResourcePack> resourcePacks = Lists.newArrayList();
+	private final MetadataSerializer frmMetadataSerializer;
 
-    public Set<String> getResourceDomains()
-    {
-        return Collections.<String>emptySet();
-    }
+	public FallbackResourceManager(MetadataSerializer frmMetadataSerializerIn) {
 
-    public IResource getResource(ResourceLocation location) throws IOException
-    {
-        checkResourcePath(location);
-        IResourcePack iresourcepack = null;
-        ResourceLocation resourcelocation = getLocationMcmeta(location);
+		frmMetadataSerializer = frmMetadataSerializerIn;
+	}
 
-        for (int i = resourcePacks.size() - 1; i >= 0; --i)
-        {
-            IResourcePack iresourcepack1 = resourcePacks.get(i);
+	public void addResourcePack(IResourcePack resourcePack) {
 
-            if (iresourcepack == null && iresourcepack1.resourceExists(resourcelocation))
-            {
-                iresourcepack = iresourcepack1;
-            }
+		resourcePacks.add(resourcePack);
+	}
 
-            if (iresourcepack1.resourceExists(location))
-            {
-                InputStream inputstream = null;
+	public Set<String> getResourceDomains() {
 
-                if (iresourcepack != null)
-                {
-                    inputstream = getInputStream(resourcelocation, iresourcepack);
-                }
+		return Collections.emptySet();
+	}
 
-                return new SimpleResource(iresourcepack1.getPackName(), location, getInputStream(location, iresourcepack1), inputstream, frmMetadataSerializer);
-            }
-        }
+	public IResource getResource(ResourceLocation location) throws IOException {
 
-        throw new FileNotFoundException(location.toString());
-    }
+		checkResourcePath(location);
+		IResourcePack iresourcepack = null;
+		ResourceLocation resourcelocation = getLocationMcmeta(location);
 
-    protected InputStream getInputStream(ResourceLocation location, IResourcePack resourcePack) throws IOException
-    {
-        InputStream inputstream = resourcePack.getInputStream(location);
-        return (InputStream)(LOGGER.isDebugEnabled() ? new FallbackResourceManager.InputStreamLeakedResourceLogger(inputstream, location, resourcePack.getPackName()) : inputstream);
-    }
+		for (int i = resourcePacks.size() - 1; i >= 0; --i) {
+			IResourcePack iresourcepack1 = resourcePacks.get(i);
 
-    private void checkResourcePath(ResourceLocation p_188552_1_) throws IOException
-    {
-        if (p_188552_1_.getResourcePath().contains(".."))
-        {
-            throw new IOException("Invalid relative path to resource: " + p_188552_1_);
-        }
-    }
+			if (iresourcepack == null && iresourcepack1.resourceExists(resourcelocation)) {
+				iresourcepack = iresourcepack1;
+			}
 
-    public List<IResource> getAllResources(ResourceLocation location) throws IOException
-    {
-        checkResourcePath(location);
-        List<IResource> list = Lists.<IResource>newArrayList();
-        ResourceLocation resourcelocation = getLocationMcmeta(location);
+			if (iresourcepack1.resourceExists(location)) {
+				InputStream inputstream = null;
 
-        for (IResourcePack iresourcepack : resourcePacks)
-        {
-            if (iresourcepack.resourceExists(location))
-            {
-                InputStream inputstream = iresourcepack.resourceExists(resourcelocation) ? getInputStream(resourcelocation, iresourcepack) : null;
-                list.add(new SimpleResource(iresourcepack.getPackName(), location, getInputStream(location, iresourcepack), inputstream, frmMetadataSerializer));
-            }
-        }
+				if (iresourcepack != null) {
+					inputstream = getInputStream(resourcelocation, iresourcepack);
+				}
 
-        if (list.isEmpty())
-        {
-            throw new FileNotFoundException(location.toString());
-        }
-        else
-        {
-            return list;
-        }
-    }
+				return new SimpleResource(iresourcepack1.getPackName(), location, getInputStream(location, iresourcepack1), inputstream, frmMetadataSerializer);
+			}
+		}
 
-    static ResourceLocation getLocationMcmeta(ResourceLocation location)
-    {
-        return new ResourceLocation(location.getResourceDomain(), location.getResourcePath() + ".mcmeta");
-    }
+		throw new FileNotFoundException(location.toString());
+	}
 
-    static class InputStreamLeakedResourceLogger extends InputStream
-    {
-        private final InputStream inputStream;
-        private final String message;
-        private boolean isClosed;
+	protected InputStream getInputStream(ResourceLocation location, IResourcePack resourcePack) throws IOException {
 
-        public InputStreamLeakedResourceLogger(InputStream p_i46093_1_, ResourceLocation location, String resourcePack)
-        {
-            inputStream = p_i46093_1_;
-            ByteArrayOutputStream bytearrayoutputstream = new ByteArrayOutputStream();
-            (new Exception()).printStackTrace(new PrintStream(bytearrayoutputstream));
-            message = "Leaked resource: '" + location + "' loaded from pack: '" + resourcePack + "'\n" + bytearrayoutputstream;
-        }
+		InputStream inputstream = resourcePack.getInputStream(location);
+		return LOGGER.isDebugEnabled() ? new InputStreamLeakedResourceLogger(inputstream, location, resourcePack.getPackName()) : inputstream;
+	}
 
-        public void close() throws IOException
-        {
-            inputStream.close();
-            isClosed = true;
-        }
+	private void checkResourcePath(ResourceLocation p_188552_1_) throws IOException {
 
-        public int read() throws IOException
-        {
-            return inputStream.read();
-        }
-    }
+		if (p_188552_1_.getResourcePath().contains("..")) {
+			throw new IOException("Invalid relative path to resource: " + p_188552_1_);
+		}
+	}
+
+	public List<IResource> getAllResources(ResourceLocation location) throws IOException {
+
+		checkResourcePath(location);
+		List<IResource> list = Lists.newArrayList();
+		ResourceLocation resourcelocation = getLocationMcmeta(location);
+
+		for (IResourcePack iresourcepack : resourcePacks) {
+			if (iresourcepack.resourceExists(location)) {
+				InputStream inputstream = iresourcepack.resourceExists(resourcelocation) ? getInputStream(resourcelocation, iresourcepack) : null;
+				list.add(new SimpleResource(iresourcepack.getPackName(), location, getInputStream(location, iresourcepack), inputstream, frmMetadataSerializer));
+			}
+		}
+
+		if (list.isEmpty()) {
+			throw new FileNotFoundException(location.toString());
+		} else {
+			return list;
+		}
+	}
+
+	static ResourceLocation getLocationMcmeta(ResourceLocation location) {
+
+		return new ResourceLocation(location.getResourceDomain(), location.getResourcePath() + ".mcmeta");
+	}
+
+	static class InputStreamLeakedResourceLogger extends InputStream {
+
+		private final InputStream inputStream;
+		private final String message;
+		private boolean isClosed;
+
+		public InputStreamLeakedResourceLogger(InputStream p_i46093_1_, ResourceLocation location, String resourcePack) {
+
+			inputStream = p_i46093_1_;
+			ByteArrayOutputStream bytearrayoutputstream = new ByteArrayOutputStream();
+			(new Exception()).printStackTrace(new PrintStream(bytearrayoutputstream));
+			message = "Leaked resource: '" + location + "' loaded from pack: '" + resourcePack + "'\n" + bytearrayoutputstream;
+		}
+
+		public void close() throws IOException {
+
+			inputStream.close();
+			isClosed = true;
+		}
+
+		public int read() throws IOException {
+
+			return inputStream.read();
+		}
+
+	}
+
 }

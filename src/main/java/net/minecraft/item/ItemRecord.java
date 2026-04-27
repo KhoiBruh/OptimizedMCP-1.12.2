@@ -1,9 +1,6 @@
 package net.minecraft.item;
 
 import com.google.common.collect.Maps;
-import java.util.List;
-import java.util.Map;
-import javax.annotation.Nullable;
 import net.minecraft.block.BlockJukebox;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.util.ITooltipFlag;
@@ -19,76 +16,77 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 
-public class ItemRecord extends Item
-{
-    private static final Map<SoundEvent, ItemRecord> RECORDS = Maps.<SoundEvent, ItemRecord>newHashMap();
-    private final SoundEvent sound;
-    private final String displayName;
+import javax.annotation.Nullable;
+import java.util.List;
+import java.util.Map;
 
-    protected ItemRecord(String p_i46742_1_, SoundEvent soundIn)
-    {
-        displayName = "item.record." + p_i46742_1_ + ".desc";
-        sound = soundIn;
-        maxStackSize = 1;
-        setCreativeTab(CreativeTabs.MISC);
-        RECORDS.put(sound, this);
-    }
+public class ItemRecord extends Item {
 
-    /**
-     * Called when a Block is right-clicked with this Item
-     */
-    public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
-    {
-        IBlockState iblockstate = worldIn.getBlockState(pos);
+	private static final Map<SoundEvent, ItemRecord> RECORDS = Maps.newHashMap();
+	private final SoundEvent sound;
+	private final String displayName;
 
-        if (iblockstate.getBlock() == Blocks.JUKEBOX && !((Boolean)iblockstate.getValue(BlockJukebox.HAS_RECORD)).booleanValue())
-        {
-            if (!worldIn.isRemote)
-            {
-                ItemStack itemstack = player.getHeldItem(hand);
-                ((BlockJukebox)Blocks.JUKEBOX).insertRecord(worldIn, pos, iblockstate, itemstack);
-                worldIn.playEvent((EntityPlayer)null, 1010, pos, Item.getIdFromItem(this));
-                itemstack.shrink(1);
-                player.addStat(StatList.RECORD_PLAYED);
-            }
+	protected ItemRecord(String p_i46742_1_, SoundEvent soundIn) {
 
-            return EnumActionResult.SUCCESS;
-        }
-        else
-        {
-            return EnumActionResult.PASS;
-        }
-    }
+		displayName = "item.record." + p_i46742_1_ + ".desc";
+		sound = soundIn;
+		maxStackSize = 1;
+		setCreativeTab(CreativeTabs.MISC);
+		RECORDS.put(sound, this);
+	}
 
-    /**
-     * allows items to add custom lines of information to the mouseover description
-     */
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn)
-    {
-        tooltip.add(getRecordNameLocal());
-    }
+	/**
+	 * Called when a Block is right-clicked with this Item
+	 */
+	public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 
-    public String getRecordNameLocal()
-    {
-        return I18n.translateToLocal(displayName);
-    }
+		IBlockState iblockstate = worldIn.getBlockState(pos);
 
-    /**
-     * Return an item rarity from EnumRarity
-     */
-    public EnumRarity getRarity(ItemStack stack)
-    {
-        return EnumRarity.RARE;
-    }
+		if (iblockstate.getBlock() == Blocks.JUKEBOX && !iblockstate.getValue(BlockJukebox.HAS_RECORD).booleanValue()) {
+			if (!worldIn.isRemote) {
+				ItemStack itemstack = player.getHeldItem(hand);
+				((BlockJukebox) Blocks.JUKEBOX).insertRecord(worldIn, pos, iblockstate, itemstack);
+				worldIn.playEvent(null, 1010, pos, Item.getIdFromItem(this));
+				itemstack.shrink(1);
+				player.addStat(StatList.RECORD_PLAYED);
+			}
 
-    @Nullable
-    public static ItemRecord getBySound(SoundEvent soundIn)
-    {
-        return RECORDS.get(soundIn);
-    }
+			return EnumActionResult.SUCCESS;
+		} else {
+			return EnumActionResult.PASS;
+		}
+	}
 
-    public SoundEvent getSound()
-    {
-        return sound;
-    }
+	/**
+	 * allows items to add custom lines of information to the mouseover description
+	 */
+	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+
+		tooltip.add(getRecordNameLocal());
+	}
+
+	public String getRecordNameLocal() {
+
+		return I18n.translateToLocal(displayName);
+	}
+
+	/**
+	 * Return an item rarity from EnumRarity
+	 */
+	public EnumRarity getRarity(ItemStack stack) {
+
+		return EnumRarity.RARE;
+	}
+
+	@Nullable
+	public static ItemRecord getBySound(SoundEvent soundIn) {
+
+		return RECORDS.get(soundIn);
+	}
+
+	public SoundEvent getSound() {
+
+		return sound;
+	}
+
 }

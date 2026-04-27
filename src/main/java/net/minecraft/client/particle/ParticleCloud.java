@@ -7,84 +7,82 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
-public class ParticleCloud extends Particle
-{
-    float oSize;
+public class ParticleCloud extends Particle {
 
-    protected ParticleCloud(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double p_i1221_8_, double p_i1221_10_, double p_i1221_12_)
-    {
-        super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0.0D, 0.0D, 0.0D);
-        float f = 2.5F;
-        motionX *= 0.10000000149011612D;
-        motionY *= 0.10000000149011612D;
-        motionZ *= 0.10000000149011612D;
-        motionX += p_i1221_8_;
-        motionY += p_i1221_10_;
-        motionZ += p_i1221_12_;
-        float f1 = 1.0F - (float)(Math.random() * 0.30000001192092896D);
-        particleRed = f1;
-        particleGreen = f1;
-        particleBlue = f1;
-        particleScale *= 0.75F;
-        particleScale *= 2.5F;
-        oSize = particleScale;
-        particleMaxAge = (int)(8.0D / (Math.random() * 0.8D + 0.3D));
-        particleMaxAge = (int)((float) particleMaxAge * 2.5F);
-    }
+	float oSize;
 
-    /**
-     * Renders the particle
-     */
-    public void renderParticle(BufferBuilder buffer, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ)
-    {
-        float f = ((float) particleAge + partialTicks) / (float) particleMaxAge * 32.0F;
-        f = MathHelper.clamp(f, 0.0F, 1.0F);
-        particleScale = oSize * f;
-        super.renderParticle(buffer, entityIn, partialTicks, rotationX, rotationZ, rotationYZ, rotationXY, rotationXZ);
-    }
+	protected ParticleCloud(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double p_i1221_8_, double p_i1221_10_, double p_i1221_12_) {
 
-    public void onUpdate()
-    {
-        prevPosX = posX;
-        prevPosY = posY;
-        prevPosZ = posZ;
+		super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0.0D, 0.0D, 0.0D);
+		float f = 2.5F;
+		motionX *= 0.10000000149011612D;
+		motionY *= 0.10000000149011612D;
+		motionZ *= 0.10000000149011612D;
+		motionX += p_i1221_8_;
+		motionY += p_i1221_10_;
+		motionZ += p_i1221_12_;
+		float f1 = 1.0F - (float) (Math.random() * 0.30000001192092896D);
+		particleRed = f1;
+		particleGreen = f1;
+		particleBlue = f1;
+		particleScale *= 0.75F;
+		particleScale *= 2.5F;
+		oSize = particleScale;
+		particleMaxAge = (int) (8.0D / (Math.random() * 0.8D + 0.3D));
+		particleMaxAge = (int) ((float) particleMaxAge * 2.5F);
+	}
 
-        if (particleAge++ >= particleMaxAge)
-        {
-            setExpired();
-        }
+	/**
+	 * Renders the particle
+	 */
+	public void renderParticle(BufferBuilder buffer, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
 
-        setParticleTextureIndex(7 - particleAge * 8 / particleMaxAge);
-        move(motionX, motionY, motionZ);
-        motionX *= 0.9599999785423279D;
-        motionY *= 0.9599999785423279D;
-        motionZ *= 0.9599999785423279D;
-        EntityPlayer entityplayer = world.getClosestPlayer(posX, posY, posZ, 2.0D, false);
+		float f = ((float) particleAge + partialTicks) / (float) particleMaxAge * 32.0F;
+		f = MathHelper.clamp(f, 0.0F, 1.0F);
+		particleScale = oSize * f;
+		super.renderParticle(buffer, entityIn, partialTicks, rotationX, rotationZ, rotationYZ, rotationXY, rotationXZ);
+	}
 
-        if (entityplayer != null)
-        {
-            AxisAlignedBB axisalignedbb = entityplayer.getEntityBoundingBox();
+	public void onUpdate() {
 
-            if (posY > axisalignedbb.minY)
-            {
-                posY += (axisalignedbb.minY - posY) * 0.2D;
-                motionY += (entityplayer.motionY - motionY) * 0.2D;
-                setPosition(posX, posY, posZ);
-            }
-        }
+		prevPosX = posX;
+		prevPosY = posY;
+		prevPosZ = posZ;
 
-        if (onGround)
-        {
-            motionX *= 0.699999988079071D;
-            motionZ *= 0.699999988079071D;
-        }
-    }
+		if (particleAge++ >= particleMaxAge) {
+			setExpired();
+		}
 
-    public static class Factory implements IParticleFactory
-    {
-        public Particle createParticle(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_)
-        {
-            return new ParticleCloud(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
-        }
-    }
+		setParticleTextureIndex(7 - particleAge * 8 / particleMaxAge);
+		move(motionX, motionY, motionZ);
+		motionX *= 0.9599999785423279D;
+		motionY *= 0.9599999785423279D;
+		motionZ *= 0.9599999785423279D;
+		EntityPlayer entityplayer = world.getClosestPlayer(posX, posY, posZ, 2.0D, false);
+
+		if (entityplayer != null) {
+			AxisAlignedBB axisalignedbb = entityplayer.getEntityBoundingBox();
+
+			if (posY > axisalignedbb.minY) {
+				posY += (axisalignedbb.minY - posY) * 0.2D;
+				motionY += (entityplayer.motionY - motionY) * 0.2D;
+				setPosition(posX, posY, posZ);
+			}
+		}
+
+		if (onGround) {
+			motionX *= 0.699999988079071D;
+			motionZ *= 0.699999988079071D;
+		}
+	}
+
+	public static class Factory implements IParticleFactory {
+
+		public Particle createParticle(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_) {
+
+			return new ParticleCloud(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
+		}
+
+	}
+
 }

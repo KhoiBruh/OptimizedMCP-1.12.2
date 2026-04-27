@@ -3,46 +3,45 @@ package net.minecraft.entity.player;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
 
-public enum EnumPlayerModelParts
-{
-    CAPE(0, "cape"),
-    JACKET(1, "jacket"),
-    LEFT_SLEEVE(2, "left_sleeve"),
-    RIGHT_SLEEVE(3, "right_sleeve"),
-    LEFT_PANTS_LEG(4, "left_pants_leg"),
-    RIGHT_PANTS_LEG(5, "right_pants_leg"),
-    HAT(6, "hat");
+public enum EnumPlayerModelParts {
+	CAPE(0, "cape"),
+	JACKET(1, "jacket"),
+	LEFT_SLEEVE(2, "left_sleeve"),
+	RIGHT_SLEEVE(3, "right_sleeve"),
+	LEFT_PANTS_LEG(4, "left_pants_leg"),
+	RIGHT_PANTS_LEG(5, "right_pants_leg"),
+	HAT(6, "hat");
 
-    private final int partId;
-    private final int partMask;
-    private final String partName;
-    private final ITextComponent name;
+	private final int partId;
+	private final int partMask;
+	private final String partName;
+	private final ITextComponent name;
 
-    private EnumPlayerModelParts(int partIdIn, String partNameIn)
-    {
-        partId = partIdIn;
-        partMask = 1 << partIdIn;
-        partName = partNameIn;
-        name = new TextComponentTranslation("options.modelPart." + partNameIn, new Object[0]);
-    }
+	EnumPlayerModelParts(int partIdIn, String partNameIn) {
 
-    public int getPartMask()
-    {
-        return partMask;
-    }
+		partId = partIdIn;
+		partMask = 1 << partIdIn;
+		partName = partNameIn;
+		name = new TextComponentTranslation("options.modelPart." + partNameIn);
+	}
 
-    public int getPartId()
-    {
-        return partId;
-    }
+	public int getPartMask() {
 
-    public String getPartName()
-    {
-        return partName;
-    }
+		return partMask;
+	}
 
-    public ITextComponent getName()
-    {
-        return name;
-    }
+	public int getPartId() {
+
+		return partId;
+	}
+
+	public String getPartName() {
+
+		return partName;
+	}
+
+	public ITextComponent getName() {
+
+		return name;
+	}
 }

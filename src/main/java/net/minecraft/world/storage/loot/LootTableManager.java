@@ -8,11 +8,6 @@ import com.google.common.io.Resources;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParseException;
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import javax.annotation.Nullable;
 import net.minecraft.util.JsonUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.conditions.LootCondition;
@@ -22,149 +17,127 @@ import net.minecraft.world.storage.loot.functions.LootFunctionManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class LootTableManager
-{
-    private static final Logger LOGGER = LogManager.getLogger();
-    private static final Gson GSON_INSTANCE = (new GsonBuilder()).registerTypeAdapter(RandomValueRange.class, new RandomValueRange.Serializer()).registerTypeAdapter(LootPool.class, new LootPool.Serializer()).registerTypeAdapter(LootTable.class, new LootTable.Serializer()).registerTypeHierarchyAdapter(LootEntry.class, new LootEntry.Serializer()).registerTypeHierarchyAdapter(LootFunction.class, new LootFunctionManager.Serializer()).registerTypeHierarchyAdapter(LootCondition.class, new LootConditionManager.Serializer()).registerTypeHierarchyAdapter(LootContext.EntityTarget.class, new LootContext.EntityTarget.Serializer()).create();
-    private final LoadingCache<ResourceLocation, LootTable> registeredLootTables = CacheBuilder.newBuilder().<ResourceLocation, LootTable>build(new LootTableManager.Loader());
-    private final File baseFolder;
+import javax.annotation.Nullable;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
-    public LootTableManager(@Nullable File folder)
-    {
-        baseFolder = folder;
-        reloadLootTables();
-    }
+public class LootTableManager {
 
-    public LootTable getLootTableFromLocation(ResourceLocation ressources)
-    {
-        return registeredLootTables.getUnchecked(ressources);
-    }
+	private static final Logger LOGGER = LogManager.getLogger();
+	private static final Gson GSON_INSTANCE = (new GsonBuilder()).registerTypeAdapter(RandomValueRange.class, new RandomValueRange.Serializer()).registerTypeAdapter(LootPool.class, new LootPool.Serializer()).registerTypeAdapter(LootTable.class, new LootTable.Serializer()).registerTypeHierarchyAdapter(LootEntry.class, new LootEntry.Serializer()).registerTypeHierarchyAdapter(LootFunction.class, new LootFunctionManager.Serializer()).registerTypeHierarchyAdapter(LootCondition.class, new LootConditionManager.Serializer()).registerTypeHierarchyAdapter(LootContext.EntityTarget.class, new LootContext.EntityTarget.Serializer()).create();
+	private final LoadingCache<ResourceLocation, LootTable> registeredLootTables = CacheBuilder.newBuilder().build(new LootTableManager.Loader());
+	private final File baseFolder;
 
-    public void reloadLootTables()
-    {
-        registeredLootTables.invalidateAll();
+	public LootTableManager(@Nullable File folder) {
 
-        for (ResourceLocation resourcelocation : LootTableList.getAll())
-        {
-            getLootTableFromLocation(resourcelocation);
-        }
-    }
+		baseFolder = folder;
+		reloadLootTables();
+	}
 
-    class Loader extends CacheLoader<ResourceLocation, LootTable>
-    {
-        private Loader()
-        {
-        }
+	public LootTable getLootTableFromLocation(ResourceLocation ressources) {
 
-        public LootTable load(ResourceLocation p_load_1_) throws Exception
-        {
-            if (p_load_1_.getResourcePath().contains("."))
-            {
-                LootTableManager.LOGGER.debug("Invalid loot table name '{}' (can't contain periods)", (Object)p_load_1_);
-                return LootTable.EMPTY_LOOT_TABLE;
-            }
-            else
-            {
-                LootTable loottable = loadLootTable(p_load_1_);
+		return registeredLootTables.getUnchecked(ressources);
+	}
 
-                if (loottable == null)
-                {
-                    loottable = loadBuiltinLootTable(p_load_1_);
-                }
+	public void reloadLootTables() {
 
-                if (loottable == null)
-                {
-                    loottable = LootTable.EMPTY_LOOT_TABLE;
-                    LootTableManager.LOGGER.warn("Couldn't find resource table {}", (Object)p_load_1_);
-                }
+		registeredLootTables.invalidateAll();
 
-                return loottable;
-            }
-        }
+		for (ResourceLocation resourcelocation : LootTableList.getAll()) {
+			getLootTableFromLocation(resourcelocation);
+		}
+	}
 
-        @Nullable
-        private LootTable loadLootTable(ResourceLocation resource)
-        {
-            if (baseFolder == null)
-            {
-                return null;
-            }
-            else
-            {
-                File file1 = new File(new File(baseFolder, resource.getResourceDomain()), resource.getResourcePath() + ".json");
+	class Loader extends CacheLoader<ResourceLocation, LootTable> {
 
-                if (file1.exists())
-                {
-                    if (file1.isFile())
-                    {
-                        String s;
+		private Loader() {
 
-                        try
-                        {
-                            s = Files.toString(file1, StandardCharsets.UTF_8);
-                        }
-                        catch (IOException ioexception)
-                        {
-                            LootTableManager.LOGGER.warn("Couldn't load loot table {} from {}", resource, file1, ioexception);
-                            return LootTable.EMPTY_LOOT_TABLE;
-                        }
+		}
 
-                        try
-                        {
-                            return (LootTable)JsonUtils.gsonDeserialize(LootTableManager.GSON_INSTANCE, s, LootTable.class);
-                        }
-                        catch (IllegalArgumentException | JsonParseException jsonparseexception)
-                        {
-                            LootTableManager.LOGGER.error("Couldn't load loot table {} from {}", resource, file1, jsonparseexception);
-                            return LootTable.EMPTY_LOOT_TABLE;
-                        }
-                    }
-                    else
-                    {
-                        LootTableManager.LOGGER.warn("Expected to find loot table {} at {} but it was a folder.", resource, file1);
-                        return LootTable.EMPTY_LOOT_TABLE;
-                    }
-                }
-                else
-                {
-                    return null;
-                }
-            }
-        }
+		public LootTable load(ResourceLocation p_load_1_) throws Exception {
 
-        @Nullable
-        private LootTable loadBuiltinLootTable(ResourceLocation resource)
-        {
-            URL url = LootTableManager.class.getResource("/assets/" + resource.getResourceDomain() + "/loot_tables/" + resource.getResourcePath() + ".json");
+			if (p_load_1_.getResourcePath().contains(".")) {
+				LootTableManager.LOGGER.debug("Invalid loot table name '{}' (can't contain periods)", p_load_1_);
+				return LootTable.EMPTY_LOOT_TABLE;
+			} else {
+				LootTable loottable = loadLootTable(p_load_1_);
 
-            if (url != null)
-            {
-                String s;
+				if (loottable == null) {
+					loottable = loadBuiltinLootTable(p_load_1_);
+				}
 
-                try
-                {
-                    s = Resources.toString(url, StandardCharsets.UTF_8);
-                }
-                catch (IOException ioexception)
-                {
-                    LootTableManager.LOGGER.warn("Couldn't load loot table {} from {}", resource, url, ioexception);
-                    return LootTable.EMPTY_LOOT_TABLE;
-                }
+				if (loottable == null) {
+					loottable = LootTable.EMPTY_LOOT_TABLE;
+					LootTableManager.LOGGER.warn("Couldn't find resource table {}", p_load_1_);
+				}
 
-                try
-                {
-                    return (LootTable)JsonUtils.gsonDeserialize(LootTableManager.GSON_INSTANCE, s, LootTable.class);
-                }
-                catch (JsonParseException jsonparseexception)
-                {
-                    LootTableManager.LOGGER.error("Couldn't load loot table {} from {}", resource, url, jsonparseexception);
-                    return LootTable.EMPTY_LOOT_TABLE;
-                }
-            }
-            else
-            {
-                return null;
-            }
-        }
-    }
+				return loottable;
+			}
+		}
+
+		@Nullable
+		private LootTable loadLootTable(ResourceLocation resource) {
+
+			if (baseFolder == null) {
+				return null;
+			} else {
+				File file1 = new File(new File(baseFolder, resource.getResourceDomain()), resource.getResourcePath() + ".json");
+
+				if (file1.exists()) {
+					if (file1.isFile()) {
+						String s;
+
+						try {
+							s = Files.toString(file1, StandardCharsets.UTF_8);
+						} catch (IOException ioexception) {
+							LootTableManager.LOGGER.warn("Couldn't load loot table {} from {}", resource, file1, ioexception);
+							return LootTable.EMPTY_LOOT_TABLE;
+						}
+
+						try {
+							return JsonUtils.gsonDeserialize(LootTableManager.GSON_INSTANCE, s, LootTable.class);
+						} catch (IllegalArgumentException | JsonParseException jsonparseexception) {
+							LootTableManager.LOGGER.error("Couldn't load loot table {} from {}", resource, file1, jsonparseexception);
+							return LootTable.EMPTY_LOOT_TABLE;
+						}
+					} else {
+						LootTableManager.LOGGER.warn("Expected to find loot table {} at {} but it was a folder.", resource, file1);
+						return LootTable.EMPTY_LOOT_TABLE;
+					}
+				} else {
+					return null;
+				}
+			}
+		}
+
+		@Nullable
+		private LootTable loadBuiltinLootTable(ResourceLocation resource) {
+
+			URL url = LootTableManager.class.getResource("/assets/" + resource.getResourceDomain() + "/loot_tables/" + resource.getResourcePath() + ".json");
+
+			if (url != null) {
+				String s;
+
+				try {
+					s = Resources.toString(url, StandardCharsets.UTF_8);
+				} catch (IOException ioexception) {
+					LootTableManager.LOGGER.warn("Couldn't load loot table {} from {}", resource, url, ioexception);
+					return LootTable.EMPTY_LOOT_TABLE;
+				}
+
+				try {
+					return JsonUtils.gsonDeserialize(LootTableManager.GSON_INSTANCE, s, LootTable.class);
+				} catch (JsonParseException jsonparseexception) {
+					LootTableManager.LOGGER.error("Couldn't load loot table {} from {}", resource, url, jsonparseexception);
+					return LootTable.EMPTY_LOOT_TABLE;
+				}
+			} else {
+				return null;
+			}
+		}
+
+	}
+
 }

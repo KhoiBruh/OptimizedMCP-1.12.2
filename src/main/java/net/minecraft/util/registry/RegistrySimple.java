@@ -1,84 +1,78 @@
 package net.minecraft.util.registry;
 
 import com.google.common.collect.Maps;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Random;
-import java.util.Set;
-import javax.annotation.Nullable;
 import org.apache.commons.lang3.Validate;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class RegistrySimple<K, V> implements IRegistry<K, V>
-{
-    private static final Logger LOGGER = LogManager.getLogger();
-    protected final Map<K, V> registryObjects = createUnderlyingMap();
-    private Object[] values;
+import javax.annotation.Nullable;
+import java.util.*;
 
-    protected Map<K, V> createUnderlyingMap()
-    {
-        return Maps.<K, V>newHashMap();
-    }
+public class RegistrySimple<K, V> implements IRegistry<K, V> {
 
-    @Nullable
-    public V getObject(@Nullable K name)
-    {
-        return registryObjects.get(name);
-    }
+	private static final Logger LOGGER = LogManager.getLogger();
+	protected final Map<K, V> registryObjects = createUnderlyingMap();
+	private Object[] values;
 
-    /**
-     * Register an object on this registry.
-     */
-    public void putObject(K key, V value)
-    {
-        Validate.notNull(key);
-        Validate.notNull(value);
-        values = null;
+	protected Map<K, V> createUnderlyingMap() {
 
-        if (registryObjects.containsKey(key))
-        {
-            LOGGER.debug("Adding duplicate key '{}' to registry", key);
-        }
+		return Maps.newHashMap();
+	}
 
-        registryObjects.put(key, value);
-    }
+	@Nullable
+	public V getObject(@Nullable K name) {
 
-    public Set<K> getKeys()
-    {
-        return Collections.<K>unmodifiableSet(registryObjects.keySet());
-    }
+		return registryObjects.get(name);
+	}
 
-    @Nullable
-    public V getRandomObject(Random random)
-    {
-        if (values == null)
-        {
-            Collection<?> collection = registryObjects.values();
+	/**
+	 * Register an object on this registry.
+	 */
+	public void putObject(K key, V value) {
 
-            if (collection.isEmpty())
-            {
-                return (V)null;
-            }
+		Validate.notNull(key);
+		Validate.notNull(value);
+		values = null;
 
-            values = collection.toArray(new Object[collection.size()]);
-        }
+		if (registryObjects.containsKey(key)) {
+			LOGGER.debug("Adding duplicate key '{}' to registry", key);
+		}
 
-        return (V) values[random.nextInt(values.length)];
-    }
+		registryObjects.put(key, value);
+	}
 
-    /**
-     * Does this registry contain an entry for the given key?
-     */
-    public boolean containsKey(K key)
-    {
-        return registryObjects.containsKey(key);
-    }
+	public Set<K> getKeys() {
 
-    public Iterator<V> iterator()
-    {
-        return registryObjects.values().iterator();
-    }
+		return Collections.unmodifiableSet(registryObjects.keySet());
+	}
+
+	@Nullable
+	public V getRandomObject(Random random) {
+
+		if (values == null) {
+			Collection<?> collection = registryObjects.values();
+
+			if (collection.isEmpty()) {
+				return null;
+			}
+
+			values = collection.toArray(new Object[collection.size()]);
+		}
+
+		return (V) values[random.nextInt(values.length)];
+	}
+
+	/**
+	 * Does this registry contain an entry for the given key?
+	 */
+	public boolean containsKey(K key) {
+
+		return registryObjects.containsKey(key);
+	}
+
+	public Iterator<V> iterator() {
+
+		return registryObjects.values().iterator();
+	}
+
 }

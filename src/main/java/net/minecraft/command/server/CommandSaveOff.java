@@ -6,52 +6,47 @@ import net.minecraft.command.ICommandSender;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.WorldServer;
 
-public class CommandSaveOff extends CommandBase
-{
-    /**
-     * Gets the name of the command
-     */
-    public String getName()
-    {
-        return "save-off";
-    }
+public class CommandSaveOff extends CommandBase {
 
-    /**
-     * Gets the usage string for the command.
-     */
-    public String getUsage(ICommandSender sender)
-    {
-        return "commands.save-off.usage";
-    }
+	/**
+	 * Gets the name of the command
+	 */
+	public String getName() {
 
-    /**
-     * Callback for when the command is executed
-     */
-    public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException
-    {
-        boolean flag = false;
+		return "save-off";
+	}
 
-        for (int i = 0; i < server.worlds.length; ++i)
-        {
-            if (server.worlds[i] != null)
-            {
-                WorldServer worldserver = server.worlds[i];
+	/**
+	 * Gets the usage string for the command.
+	 */
+	public String getUsage(ICommandSender sender) {
 
-                if (!worldserver.disableLevelSaving)
-                {
-                    worldserver.disableLevelSaving = true;
-                    flag = true;
-                }
-            }
-        }
+		return "commands.save-off.usage";
+	}
 
-        if (flag)
-        {
-            notifyCommandListener(sender, this, "commands.save.disabled", new Object[0]);
-        }
-        else
-        {
-            throw new CommandException("commands.save-off.alreadyOff", new Object[0]);
-        }
-    }
+	/**
+	 * Callback for when the command is executed
+	 */
+	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
+
+		boolean flag = false;
+
+		for (int i = 0; i < server.worlds.length; ++i) {
+			if (server.worlds[i] != null) {
+				WorldServer worldserver = server.worlds[i];
+
+				if (!worldserver.disableLevelSaving) {
+					worldserver.disableLevelSaving = true;
+					flag = true;
+				}
+			}
+		}
+
+		if (flag) {
+			notifyCommandListener(sender, this, "commands.save.disabled");
+		} else {
+			throw new CommandException("commands.save-off.alreadyOff");
+		}
+	}
+
 }

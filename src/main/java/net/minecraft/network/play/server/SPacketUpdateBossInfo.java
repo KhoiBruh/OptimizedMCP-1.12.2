@@ -1,209 +1,205 @@
 package net.minecraft.network.play.server;
 
-import java.io.IOException;
-import java.util.UUID;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayClient;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.BossInfo;
 
-public class SPacketUpdateBossInfo implements Packet<INetHandlerPlayClient>
-{
-    private UUID uniqueId;
-    private SPacketUpdateBossInfo.Operation operation;
-    private ITextComponent name;
-    private float percent;
-    private BossInfo.Color color;
-    private BossInfo.Overlay overlay;
-    private boolean darkenSky;
-    private boolean playEndBossMusic;
-    private boolean createFog;
+import java.io.IOException;
+import java.util.UUID;
 
-    public SPacketUpdateBossInfo()
-    {
-    }
+public class SPacketUpdateBossInfo implements Packet<INetHandlerPlayClient> {
 
-    public SPacketUpdateBossInfo(SPacketUpdateBossInfo.Operation operationIn, BossInfo data)
-    {
-        operation = operationIn;
-        uniqueId = data.getUniqueId();
-        name = data.getName();
-        percent = data.getPercent();
-        color = data.getColor();
-        overlay = data.getOverlay();
-        darkenSky = data.shouldDarkenSky();
-        playEndBossMusic = data.shouldPlayEndBossMusic();
-        createFog = data.shouldCreateFog();
-    }
+	private UUID uniqueId;
+	private SPacketUpdateBossInfo.Operation operation;
+	private ITextComponent name;
+	private float percent;
+	private BossInfo.Color color;
+	private BossInfo.Overlay overlay;
+	private boolean darkenSky;
+	private boolean playEndBossMusic;
+	private boolean createFog;
 
-    /**
-     * Reads the raw packet data from the data stream.
-     */
-    public void readPacketData(PacketBuffer buf) throws IOException
-    {
-        uniqueId = buf.readUniqueId();
-        operation = (SPacketUpdateBossInfo.Operation)buf.readEnumValue(SPacketUpdateBossInfo.Operation.class);
+	public SPacketUpdateBossInfo() {
 
-        switch (operation)
-        {
-            case ADD:
-                name = buf.readTextComponent();
-                percent = buf.readFloat();
-                color = (BossInfo.Color)buf.readEnumValue(BossInfo.Color.class);
-                overlay = (BossInfo.Overlay)buf.readEnumValue(BossInfo.Overlay.class);
-                setFlags(buf.readUnsignedByte());
+	}
 
-            case REMOVE:
-            default:
-                break;
+	public SPacketUpdateBossInfo(SPacketUpdateBossInfo.Operation operationIn, BossInfo data) {
 
-            case UPDATE_PCT:
-                percent = buf.readFloat();
-                break;
+		operation = operationIn;
+		uniqueId = data.getUniqueId();
+		name = data.getName();
+		percent = data.getPercent();
+		color = data.getColor();
+		overlay = data.getOverlay();
+		darkenSky = data.shouldDarkenSky();
+		playEndBossMusic = data.shouldPlayEndBossMusic();
+		createFog = data.shouldCreateFog();
+	}
 
-            case UPDATE_NAME:
-                name = buf.readTextComponent();
-                break;
+	/**
+	 * Reads the raw packet data from the data stream.
+	 */
+	public void readPacketData(PacketBuffer buf) throws IOException {
 
-            case UPDATE_STYLE:
-                color = (BossInfo.Color)buf.readEnumValue(BossInfo.Color.class);
-                overlay = (BossInfo.Overlay)buf.readEnumValue(BossInfo.Overlay.class);
-                break;
+		uniqueId = buf.readUniqueId();
+		operation = buf.readEnumValue(Operation.class);
 
-            case UPDATE_PROPERTIES:
-                setFlags(buf.readUnsignedByte());
-        }
-    }
+		switch (operation) {
+			case ADD:
+				name = buf.readTextComponent();
+				percent = buf.readFloat();
+				color = buf.readEnumValue(BossInfo.Color.class);
+				overlay = buf.readEnumValue(BossInfo.Overlay.class);
+				setFlags(buf.readUnsignedByte());
 
-    private void setFlags(int flags)
-    {
-        darkenSky = (flags & 1) > 0;
-        playEndBossMusic = (flags & 2) > 0;
-        createFog = (flags & 2) > 0;
-    }
+			case REMOVE:
+			default:
+				break;
 
-    /**
-     * Writes the raw packet data to the data stream.
-     */
-    public void writePacketData(PacketBuffer buf) throws IOException
-    {
-        buf.writeUniqueId(uniqueId);
-        buf.writeEnumValue(operation);
+			case UPDATE_PCT:
+				percent = buf.readFloat();
+				break;
 
-        switch (operation)
-        {
-            case ADD:
-                buf.writeTextComponent(name);
-                buf.writeFloat(percent);
-                buf.writeEnumValue(color);
-                buf.writeEnumValue(overlay);
-                buf.writeByte(getFlags());
+			case UPDATE_NAME:
+				name = buf.readTextComponent();
+				break;
 
-            case REMOVE:
-            default:
-                break;
+			case UPDATE_STYLE:
+				color = buf.readEnumValue(BossInfo.Color.class);
+				overlay = buf.readEnumValue(BossInfo.Overlay.class);
+				break;
 
-            case UPDATE_PCT:
-                buf.writeFloat(percent);
-                break;
+			case UPDATE_PROPERTIES:
+				setFlags(buf.readUnsignedByte());
+		}
+	}
 
-            case UPDATE_NAME:
-                buf.writeTextComponent(name);
-                break;
+	private void setFlags(int flags) {
 
-            case UPDATE_STYLE:
-                buf.writeEnumValue(color);
-                buf.writeEnumValue(overlay);
-                break;
+		darkenSky = (flags & 1) > 0;
+		playEndBossMusic = (flags & 2) > 0;
+		createFog = (flags & 2) > 0;
+	}
 
-            case UPDATE_PROPERTIES:
-                buf.writeByte(getFlags());
-        }
-    }
+	/**
+	 * Writes the raw packet data to the data stream.
+	 */
+	public void writePacketData(PacketBuffer buf) throws IOException {
 
-    private int getFlags()
-    {
-        int i = 0;
+		buf.writeUniqueId(uniqueId);
+		buf.writeEnumValue(operation);
 
-        if (darkenSky)
-        {
-            i |= 1;
-        }
+		switch (operation) {
+			case ADD:
+				buf.writeTextComponent(name);
+				buf.writeFloat(percent);
+				buf.writeEnumValue(color);
+				buf.writeEnumValue(overlay);
+				buf.writeByte(getFlags());
 
-        if (playEndBossMusic)
-        {
-            i |= 2;
-        }
+			case REMOVE:
+			default:
+				break;
 
-        if (createFog)
-        {
-            i |= 2;
-        }
+			case UPDATE_PCT:
+				buf.writeFloat(percent);
+				break;
 
-        return i;
-    }
+			case UPDATE_NAME:
+				buf.writeTextComponent(name);
+				break;
 
-    /**
-     * Passes this Packet on to the NetHandler for processing.
-     */
-    public void processPacket(INetHandlerPlayClient handler)
-    {
-        handler.handleUpdateBossInfo(this);
-    }
+			case UPDATE_STYLE:
+				buf.writeEnumValue(color);
+				buf.writeEnumValue(overlay);
+				break;
 
-    public UUID getUniqueId()
-    {
-        return uniqueId;
-    }
+			case UPDATE_PROPERTIES:
+				buf.writeByte(getFlags());
+		}
+	}
 
-    public SPacketUpdateBossInfo.Operation getOperation()
-    {
-        return operation;
-    }
+	private int getFlags() {
 
-    public ITextComponent getName()
-    {
-        return name;
-    }
+		int i = 0;
 
-    public float getPercent()
-    {
-        return percent;
-    }
+		if (darkenSky) {
+			i |= 1;
+		}
 
-    public BossInfo.Color getColor()
-    {
-        return color;
-    }
+		if (playEndBossMusic) {
+			i |= 2;
+		}
 
-    public BossInfo.Overlay getOverlay()
-    {
-        return overlay;
-    }
+		if (createFog) {
+			i |= 2;
+		}
 
-    public boolean shouldDarkenSky()
-    {
-        return darkenSky;
-    }
+		return i;
+	}
 
-    public boolean shouldPlayEndBossMusic()
-    {
-        return playEndBossMusic;
-    }
+	/**
+	 * Passes this Packet on to the NetHandler for processing.
+	 */
+	public void processPacket(INetHandlerPlayClient handler) {
 
-    public boolean shouldCreateFog()
-    {
-        return createFog;
-    }
+		handler.handleUpdateBossInfo(this);
+	}
 
-    public static enum Operation
-    {
-        ADD,
-        REMOVE,
-        UPDATE_PCT,
-        UPDATE_NAME,
-        UPDATE_STYLE,
-        UPDATE_PROPERTIES;
-    }
+	public UUID getUniqueId() {
+
+		return uniqueId;
+	}
+
+	public SPacketUpdateBossInfo.Operation getOperation() {
+
+		return operation;
+	}
+
+	public ITextComponent getName() {
+
+		return name;
+	}
+
+	public float getPercent() {
+
+		return percent;
+	}
+
+	public BossInfo.Color getColor() {
+
+		return color;
+	}
+
+	public BossInfo.Overlay getOverlay() {
+
+		return overlay;
+	}
+
+	public boolean shouldDarkenSky() {
+
+		return darkenSky;
+	}
+
+	public boolean shouldPlayEndBossMusic() {
+
+		return playEndBossMusic;
+	}
+
+	public boolean shouldCreateFog() {
+
+		return createFog;
+	}
+
+	public enum Operation {
+		ADD,
+		REMOVE,
+		UPDATE_PCT,
+		UPDATE_NAME,
+		UPDATE_STYLE,
+		UPDATE_PROPERTIES
+	}
+
 }

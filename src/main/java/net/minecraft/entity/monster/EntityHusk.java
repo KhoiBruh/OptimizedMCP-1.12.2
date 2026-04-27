@@ -1,6 +1,5 @@
 package net.minecraft.entity.monster;
 
-import javax.annotation.Nullable;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
@@ -16,72 +15,74 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 
-public class EntityHusk extends EntityZombie
-{
-    public EntityHusk(World worldIn)
-    {
-        super(worldIn);
-    }
+import javax.annotation.Nullable;
 
-    public static void registerFixesHusk(DataFixer fixer)
-    {
-        EntityLiving.registerFixesMob(fixer, EntityHusk.class);
-    }
+public class EntityHusk extends EntityZombie {
 
-    /**
-     * Checks if the entity's current position is a valid location to spawn this entity.
-     */
-    public boolean getCanSpawnHere()
-    {
-        return super.getCanSpawnHere() && world.canSeeSky(new BlockPos(this));
-    }
+	public EntityHusk(World worldIn) {
 
-    protected boolean shouldBurnInDay()
-    {
-        return false;
-    }
+		super(worldIn);
+	}
 
-    protected SoundEvent getAmbientSound()
-    {
-        return SoundEvents.ENTITY_HUSK_AMBIENT;
-    }
+	public static void registerFixesHusk(DataFixer fixer) {
 
-    protected SoundEvent getHurtSound(DamageSource damageSourceIn)
-    {
-        return SoundEvents.ENTITY_HUSK_HURT;
-    }
+		EntityLiving.registerFixesMob(fixer, EntityHusk.class);
+	}
 
-    protected SoundEvent getDeathSound()
-    {
-        return SoundEvents.ENTITY_HUSK_DEATH;
-    }
+	/**
+	 * Checks if the entity's current position is a valid location to spawn this entity.
+	 */
+	public boolean getCanSpawnHere() {
 
-    protected SoundEvent getStepSound()
-    {
-        return SoundEvents.ENTITY_HUSK_STEP;
-    }
+		return super.getCanSpawnHere() && world.canSeeSky(new BlockPos(this));
+	}
 
-    @Nullable
-    protected ResourceLocation getLootTable()
-    {
-        return LootTableList.ENTITIES_HUSK;
-    }
+	protected boolean shouldBurnInDay() {
 
-    public boolean attackEntityAsMob(Entity entityIn)
-    {
-        boolean flag = super.attackEntityAsMob(entityIn);
+		return false;
+	}
 
-        if (flag && getHeldItemMainhand().isEmpty() && entityIn instanceof EntityLivingBase)
-        {
-            float f = world.getDifficultyForLocation(new BlockPos(this)).getAdditionalDifficulty();
-            ((EntityLivingBase)entityIn).addPotionEffect(new PotionEffect(MobEffects.HUNGER, 140 * (int)f));
-        }
+	protected SoundEvent getAmbientSound() {
 
-        return flag;
-    }
+		return SoundEvents.ENTITY_HUSK_AMBIENT;
+	}
 
-    protected ItemStack getSkullDrop()
-    {
-        return ItemStack.EMPTY;
-    }
+	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+
+		return SoundEvents.ENTITY_HUSK_HURT;
+	}
+
+	protected SoundEvent getDeathSound() {
+
+		return SoundEvents.ENTITY_HUSK_DEATH;
+	}
+
+	protected SoundEvent getStepSound() {
+
+		return SoundEvents.ENTITY_HUSK_STEP;
+	}
+
+	@Nullable
+	protected ResourceLocation getLootTable() {
+
+		return LootTableList.ENTITIES_HUSK;
+	}
+
+	public boolean attackEntityAsMob(Entity entityIn) {
+
+		boolean flag = super.attackEntityAsMob(entityIn);
+
+		if (flag && getHeldItemMainhand().isEmpty() && entityIn instanceof EntityLivingBase) {
+			float f = world.getDifficultyForLocation(new BlockPos(this)).getAdditionalDifficulty();
+			((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(MobEffects.HUNGER, 140 * (int) f));
+		}
+
+		return flag;
+	}
+
+	protected ItemStack getSkullDrop() {
+
+		return ItemStack.EMPTY;
+	}
+
 }

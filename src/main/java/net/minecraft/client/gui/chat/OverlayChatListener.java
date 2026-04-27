@@ -4,24 +4,25 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.util.text.ChatType;
 import net.minecraft.util.text.ITextComponent;
 
-public class OverlayChatListener implements IChatListener
-{
-    private final Minecraft mc;
+public class OverlayChatListener implements IChatListener {
 
-    public OverlayChatListener(Minecraft minecraftIn)
-    {
-        mc = minecraftIn;
-    }
+	private final Minecraft mc;
 
-    /**
-     * Called whenever this listener receives a chat message, if this listener is registered to the given type in {@link
-     * net.minecraft.client.gui.GuiIngame#chatListeners chatListeners}
-     *  
-     * @param chatTypeIn The type of chat message
-     * @param message The chat message.
-     */
-    public void say(ChatType chatTypeIn, ITextComponent message)
-    {
-        mc.ingameGUI.setOverlayMessage(message, false);
-    }
+	public OverlayChatListener(Minecraft minecraftIn) {
+
+		mc = minecraftIn;
+	}
+
+	/**
+	 * Called whenever this listener receives a chat message, if this listener is registered to the given type in {@link
+	 * net.minecraft.client.gui.GuiIngame#chatListeners chatListeners}
+	 *
+	 * @param chatTypeIn The type of chat message
+	 * @param message    The chat message.
+	 */
+	public void say(ChatType chatTypeIn, ITextComponent message) {
+
+		mc.ingameGUI.setOverlayMessage(message, false);
+	}
+
 }

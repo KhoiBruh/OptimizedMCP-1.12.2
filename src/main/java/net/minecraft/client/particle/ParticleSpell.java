@@ -1,123 +1,128 @@
 package net.minecraft.client.particle;
 
-import java.util.Random;
 import net.minecraft.world.World;
 
-public class ParticleSpell extends Particle
-{
-    private static final Random RANDOM = new Random();
+import java.util.Random;
 
-    /** Base spell texture index */
-    private int baseSpellTextureIndex = 128;
+public class ParticleSpell extends Particle {
 
-    protected ParticleSpell(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double p_i1229_8_, double ySpeed, double p_i1229_12_)
-    {
-        super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0.5D - RANDOM.nextDouble(), ySpeed, 0.5D - RANDOM.nextDouble());
-        motionY *= 0.20000000298023224D;
+	private static final Random RANDOM = new Random();
 
-        if (p_i1229_8_ == 0.0D && p_i1229_12_ == 0.0D)
-        {
-            motionX *= 0.10000000149011612D;
-            motionZ *= 0.10000000149011612D;
-        }
+	/**
+	 * Base spell texture index
+	 */
+	private int baseSpellTextureIndex = 128;
 
-        particleScale *= 0.75F;
-        particleMaxAge = (int)(8.0D / (Math.random() * 0.8D + 0.2D));
-    }
+	protected ParticleSpell(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double p_i1229_8_, double ySpeed, double p_i1229_12_) {
 
-    public boolean shouldDisableDepth()
-    {
-        return true;
-    }
+		super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0.5D - RANDOM.nextDouble(), ySpeed, 0.5D - RANDOM.nextDouble());
+		motionY *= 0.20000000298023224D;
 
-    public void onUpdate()
-    {
-        prevPosX = posX;
-        prevPosY = posY;
-        prevPosZ = posZ;
+		if (p_i1229_8_ == 0.0D && p_i1229_12_ == 0.0D) {
+			motionX *= 0.10000000149011612D;
+			motionZ *= 0.10000000149011612D;
+		}
 
-        if (particleAge++ >= particleMaxAge)
-        {
-            setExpired();
-        }
+		particleScale *= 0.75F;
+		particleMaxAge = (int) (8.0D / (Math.random() * 0.8D + 0.2D));
+	}
 
-        setParticleTextureIndex(baseSpellTextureIndex + (7 - particleAge * 8 / particleMaxAge));
-        motionY += 0.004D;
-        move(motionX, motionY, motionZ);
+	public boolean shouldDisableDepth() {
 
-        if (posY == prevPosY)
-        {
-            motionX *= 1.1D;
-            motionZ *= 1.1D;
-        }
+		return true;
+	}
 
-        motionX *= 0.9599999785423279D;
-        motionY *= 0.9599999785423279D;
-        motionZ *= 0.9599999785423279D;
+	public void onUpdate() {
 
-        if (onGround)
-        {
-            motionX *= 0.699999988079071D;
-            motionZ *= 0.699999988079071D;
-        }
-    }
+		prevPosX = posX;
+		prevPosY = posY;
+		prevPosZ = posZ;
 
-    /**
-     * Sets the base spell texture index
-     */
-    public void setBaseSpellTextureIndex(int baseSpellTextureIndexIn)
-    {
-        baseSpellTextureIndex = baseSpellTextureIndexIn;
-    }
+		if (particleAge++ >= particleMaxAge) {
+			setExpired();
+		}
 
-    public static class AmbientMobFactory implements IParticleFactory
-    {
-        public Particle createParticle(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_)
-        {
-            Particle particle = new ParticleSpell(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
-            particle.setAlphaF(0.15F);
-            particle.setRBGColorF((float)xSpeedIn, (float)ySpeedIn, (float)zSpeedIn);
-            return particle;
-        }
-    }
+		setParticleTextureIndex(baseSpellTextureIndex + (7 - particleAge * 8 / particleMaxAge));
+		motionY += 0.004D;
+		move(motionX, motionY, motionZ);
 
-    public static class Factory implements IParticleFactory
-    {
-        public Particle createParticle(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_)
-        {
-            return new ParticleSpell(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
-        }
-    }
+		if (posY == prevPosY) {
+			motionX *= 1.1D;
+			motionZ *= 1.1D;
+		}
 
-    public static class InstantFactory implements IParticleFactory
-    {
-        public Particle createParticle(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_)
-        {
-            Particle particle = new ParticleSpell(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
-            ((ParticleSpell)particle).setBaseSpellTextureIndex(144);
-            return particle;
-        }
-    }
+		motionX *= 0.9599999785423279D;
+		motionY *= 0.9599999785423279D;
+		motionZ *= 0.9599999785423279D;
 
-    public static class MobFactory implements IParticleFactory
-    {
-        public Particle createParticle(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_)
-        {
-            Particle particle = new ParticleSpell(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
-            particle.setRBGColorF((float)xSpeedIn, (float)ySpeedIn, (float)zSpeedIn);
-            return particle;
-        }
-    }
+		if (onGround) {
+			motionX *= 0.699999988079071D;
+			motionZ *= 0.699999988079071D;
+		}
+	}
 
-    public static class WitchFactory implements IParticleFactory
-    {
-        public Particle createParticle(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_)
-        {
-            Particle particle = new ParticleSpell(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
-            ((ParticleSpell)particle).setBaseSpellTextureIndex(144);
-            float f = worldIn.rand.nextFloat() * 0.5F + 0.35F;
-            particle.setRBGColorF(1.0F * f, 0.0F * f, 1.0F * f);
-            return particle;
-        }
-    }
+	/**
+	 * Sets the base spell texture index
+	 */
+	public void setBaseSpellTextureIndex(int baseSpellTextureIndexIn) {
+
+		baseSpellTextureIndex = baseSpellTextureIndexIn;
+	}
+
+	public static class AmbientMobFactory implements IParticleFactory {
+
+		public Particle createParticle(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_) {
+
+			Particle particle = new ParticleSpell(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
+			particle.setAlphaF(0.15F);
+			particle.setRBGColorF((float) xSpeedIn, (float) ySpeedIn, (float) zSpeedIn);
+			return particle;
+		}
+
+	}
+
+	public static class Factory implements IParticleFactory {
+
+		public Particle createParticle(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_) {
+
+			return new ParticleSpell(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
+		}
+
+	}
+
+	public static class InstantFactory implements IParticleFactory {
+
+		public Particle createParticle(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_) {
+
+			Particle particle = new ParticleSpell(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
+			((ParticleSpell) particle).setBaseSpellTextureIndex(144);
+			return particle;
+		}
+
+	}
+
+	public static class MobFactory implements IParticleFactory {
+
+		public Particle createParticle(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_) {
+
+			Particle particle = new ParticleSpell(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
+			particle.setRBGColorF((float) xSpeedIn, (float) ySpeedIn, (float) zSpeedIn);
+			return particle;
+		}
+
+	}
+
+	public static class WitchFactory implements IParticleFactory {
+
+		public Particle createParticle(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_) {
+
+			Particle particle = new ParticleSpell(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
+			((ParticleSpell) particle).setBaseSpellTextureIndex(144);
+			float f = worldIn.rand.nextFloat() * 0.5F + 0.35F;
+			particle.setRBGColorF(f, 0.0F * f, f);
+			return particle;
+		}
+
+	}
+
 }

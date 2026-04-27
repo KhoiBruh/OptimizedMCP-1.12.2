@@ -5,159 +5,149 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import net.minecraft.advancements.ICriterionTrigger;
 import net.minecraft.advancements.PlayerAdvancements;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
-public class ItemDurabilityTrigger implements ICriterionTrigger<ItemDurabilityTrigger.Instance>
-{
-    private static final ResourceLocation ID = new ResourceLocation("item_durability_changed");
-    private final Map<PlayerAdvancements, ItemDurabilityTrigger.Listeners> listeners = Maps.<PlayerAdvancements, ItemDurabilityTrigger.Listeners>newHashMap();
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-    public ResourceLocation getId()
-    {
-        return ID;
-    }
+public class ItemDurabilityTrigger implements ICriterionTrigger<ItemDurabilityTrigger.Instance> {
 
-    public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<ItemDurabilityTrigger.Instance> listener)
-    {
-        ItemDurabilityTrigger.Listeners itemdurabilitytrigger$listeners = listeners.get(playerAdvancementsIn);
+	private static final ResourceLocation ID = new ResourceLocation("item_durability_changed");
+	private final Map<PlayerAdvancements, ItemDurabilityTrigger.Listeners> listeners = Maps.newHashMap();
 
-        if (itemdurabilitytrigger$listeners == null)
-        {
-            itemdurabilitytrigger$listeners = new ItemDurabilityTrigger.Listeners(playerAdvancementsIn);
-            listeners.put(playerAdvancementsIn, itemdurabilitytrigger$listeners);
-        }
+	public ResourceLocation getId() {
 
-        itemdurabilitytrigger$listeners.add(listener);
-    }
+		return ID;
+	}
 
-    public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<ItemDurabilityTrigger.Instance> listener)
-    {
-        ItemDurabilityTrigger.Listeners itemdurabilitytrigger$listeners = listeners.get(playerAdvancementsIn);
+	public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<ItemDurabilityTrigger.Instance> listener) {
 
-        if (itemdurabilitytrigger$listeners != null)
-        {
-            itemdurabilitytrigger$listeners.remove(listener);
+		ItemDurabilityTrigger.Listeners itemdurabilitytrigger$listeners = listeners.get(playerAdvancementsIn);
 
-            if (itemdurabilitytrigger$listeners.isEmpty())
-            {
-                listeners.remove(playerAdvancementsIn);
-            }
-        }
-    }
+		if (itemdurabilitytrigger$listeners == null) {
+			itemdurabilitytrigger$listeners = new ItemDurabilityTrigger.Listeners(playerAdvancementsIn);
+			listeners.put(playerAdvancementsIn, itemdurabilitytrigger$listeners);
+		}
 
-    public void removeAllListeners(PlayerAdvancements playerAdvancementsIn)
-    {
-        listeners.remove(playerAdvancementsIn);
-    }
+		itemdurabilitytrigger$listeners.add(listener);
+	}
 
-    /**
-     * Deserialize a ICriterionInstance of this trigger from the data in the JSON.
-     */
-    public ItemDurabilityTrigger.Instance deserializeInstance(JsonObject json, JsonDeserializationContext context)
-    {
-        ItemPredicate itempredicate = ItemPredicate.deserialize(json.get("item"));
-        MinMaxBounds minmaxbounds = MinMaxBounds.deserialize(json.get("durability"));
-        MinMaxBounds minmaxbounds1 = MinMaxBounds.deserialize(json.get("delta"));
-        return new ItemDurabilityTrigger.Instance(itempredicate, minmaxbounds, minmaxbounds1);
-    }
+	public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<ItemDurabilityTrigger.Instance> listener) {
 
-    public void trigger(EntityPlayerMP player, ItemStack itemIn, int newDurability)
-    {
-        ItemDurabilityTrigger.Listeners itemdurabilitytrigger$listeners = listeners.get(player.getAdvancements());
+		ItemDurabilityTrigger.Listeners itemdurabilitytrigger$listeners = listeners.get(playerAdvancementsIn);
 
-        if (itemdurabilitytrigger$listeners != null)
-        {
-            itemdurabilitytrigger$listeners.trigger(itemIn, newDurability);
-        }
-    }
+		if (itemdurabilitytrigger$listeners != null) {
+			itemdurabilitytrigger$listeners.remove(listener);
 
-    public static class Instance extends AbstractCriterionInstance
-    {
-        private final ItemPredicate item;
-        private final MinMaxBounds durability;
-        private final MinMaxBounds delta;
+			if (itemdurabilitytrigger$listeners.isEmpty()) {
+				listeners.remove(playerAdvancementsIn);
+			}
+		}
+	}
 
-        public Instance(ItemPredicate item, MinMaxBounds durability, MinMaxBounds delta)
-        {
-            super(ItemDurabilityTrigger.ID);
-            this.item = item;
-            this.durability = durability;
-            this.delta = delta;
-        }
+	public void removeAllListeners(PlayerAdvancements playerAdvancementsIn) {
 
-        public boolean test(ItemStack item, int p_193197_2_)
-        {
-            if (!this.item.test(item))
-            {
-                return false;
-            }
-            else if (!durability.test((float)(item.getMaxDamage() - p_193197_2_)))
-            {
-                return false;
-            }
-            else
-            {
-                return delta.test((float)(item.getItemDamage() - p_193197_2_));
-            }
-        }
-    }
+		listeners.remove(playerAdvancementsIn);
+	}
 
-    static class Listeners
-    {
-        private final PlayerAdvancements playerAdvancements;
-        private final Set<ICriterionTrigger.Listener<ItemDurabilityTrigger.Instance>> listeners = Sets.<ICriterionTrigger.Listener<ItemDurabilityTrigger.Instance>>newHashSet();
+	/**
+	 * Deserialize a ICriterionInstance of this trigger from the data in the JSON.
+	 */
+	public ItemDurabilityTrigger.Instance deserializeInstance(JsonObject json, JsonDeserializationContext context) {
 
-        public Listeners(PlayerAdvancements playerAdvancementsIn)
-        {
-            playerAdvancements = playerAdvancementsIn;
-        }
+		ItemPredicate itempredicate = ItemPredicate.deserialize(json.get("item"));
+		MinMaxBounds minmaxbounds = MinMaxBounds.deserialize(json.get("durability"));
+		MinMaxBounds minmaxbounds1 = MinMaxBounds.deserialize(json.get("delta"));
+		return new ItemDurabilityTrigger.Instance(itempredicate, minmaxbounds, minmaxbounds1);
+	}
 
-        public boolean isEmpty()
-        {
-            return listeners.isEmpty();
-        }
+	public void trigger(EntityPlayerMP player, ItemStack itemIn, int newDurability) {
 
-        public void add(ICriterionTrigger.Listener<ItemDurabilityTrigger.Instance> listener)
-        {
-            listeners.add(listener);
-        }
+		ItemDurabilityTrigger.Listeners itemdurabilitytrigger$listeners = listeners.get(player.getAdvancements());
 
-        public void remove(ICriterionTrigger.Listener<ItemDurabilityTrigger.Instance> listener)
-        {
-            listeners.remove(listener);
-        }
+		if (itemdurabilitytrigger$listeners != null) {
+			itemdurabilitytrigger$listeners.trigger(itemIn, newDurability);
+		}
+	}
 
-        public void trigger(ItemStack item, int newDurability)
-        {
-            List<ICriterionTrigger.Listener<ItemDurabilityTrigger.Instance>> list = null;
+	public static class Instance extends AbstractCriterionInstance {
 
-            for (ICriterionTrigger.Listener<ItemDurabilityTrigger.Instance> listener : listeners)
-            {
-                if (((ItemDurabilityTrigger.Instance)listener.getCriterionInstance()).test(item, newDurability))
-                {
-                    if (list == null)
-                    {
-                        list = Lists.<ICriterionTrigger.Listener<ItemDurabilityTrigger.Instance>>newArrayList();
-                    }
+		private final ItemPredicate item;
+		private final MinMaxBounds durability;
+		private final MinMaxBounds delta;
 
-                    list.add(listener);
-                }
-            }
+		public Instance(ItemPredicate item, MinMaxBounds durability, MinMaxBounds delta) {
 
-            if (list != null)
-            {
-                for (ICriterionTrigger.Listener<ItemDurabilityTrigger.Instance> listener1 : list)
-                {
-                    listener1.grantCriterion(playerAdvancements);
-                }
-            }
-        }
-    }
+			super(ItemDurabilityTrigger.ID);
+			this.item = item;
+			this.durability = durability;
+			this.delta = delta;
+		}
+
+		public boolean test(ItemStack item, int p_193197_2_) {
+
+			if (!this.item.test(item)) {
+				return false;
+			} else if (!durability.test((float) (item.getMaxDamage() - p_193197_2_))) {
+				return false;
+			} else {
+				return delta.test((float) (item.getItemDamage() - p_193197_2_));
+			}
+		}
+
+	}
+
+	static class Listeners {
+
+		private final PlayerAdvancements playerAdvancements;
+		private final Set<ICriterionTrigger.Listener<ItemDurabilityTrigger.Instance>> listeners = Sets.newHashSet();
+
+		public Listeners(PlayerAdvancements playerAdvancementsIn) {
+
+			playerAdvancements = playerAdvancementsIn;
+		}
+
+		public boolean isEmpty() {
+
+			return listeners.isEmpty();
+		}
+
+		public void add(ICriterionTrigger.Listener<ItemDurabilityTrigger.Instance> listener) {
+
+			listeners.add(listener);
+		}
+
+		public void remove(ICriterionTrigger.Listener<ItemDurabilityTrigger.Instance> listener) {
+
+			listeners.remove(listener);
+		}
+
+		public void trigger(ItemStack item, int newDurability) {
+
+			List<ICriterionTrigger.Listener<ItemDurabilityTrigger.Instance>> list = null;
+
+			for (ICriterionTrigger.Listener<ItemDurabilityTrigger.Instance> listener : listeners) {
+				if (listener.getCriterionInstance().test(item, newDurability)) {
+					if (list == null) {
+						list = Lists.newArrayList();
+					}
+
+					list.add(listener);
+				}
+			}
+
+			if (list != null) {
+				for (ICriterionTrigger.Listener<ItemDurabilityTrigger.Instance> listener1 : list) {
+					listener1.grantCriterion(playerAdvancements);
+				}
+			}
+		}
+
+	}
+
 }

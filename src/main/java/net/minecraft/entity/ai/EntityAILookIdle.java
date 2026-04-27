@@ -2,61 +2,68 @@ package net.minecraft.entity.ai;
 
 import net.minecraft.entity.EntityLiving;
 
-public class EntityAILookIdle extends EntityAIBase
-{
-    /** The entity that is looking idle. */
-    private final EntityLiving idleEntity;
+public class EntityAILookIdle extends EntityAIBase {
 
-    /** X offset to look at */
-    private double lookX;
+	/**
+	 * The entity that is looking idle.
+	 */
+	private final EntityLiving idleEntity;
 
-    /** Z offset to look at */
-    private double lookZ;
+	/**
+	 * X offset to look at
+	 */
+	private double lookX;
 
-    /**
-     * A decrementing tick that stops the entity from being idle once it reaches 0.
-     */
-    private int idleTime;
+	/**
+	 * Z offset to look at
+	 */
+	private double lookZ;
 
-    public EntityAILookIdle(EntityLiving entitylivingIn)
-    {
-        idleEntity = entitylivingIn;
-        setMutexBits(3);
-    }
+	/**
+	 * A decrementing tick that stops the entity from being idle once it reaches 0.
+	 */
+	private int idleTime;
 
-    /**
-     * Returns whether the EntityAIBase should begin execution.
-     */
-    public boolean shouldExecute()
-    {
-        return idleEntity.getRNG().nextFloat() < 0.02F;
-    }
+	public EntityAILookIdle(EntityLiving entitylivingIn) {
 
-    /**
-     * Returns whether an in-progress EntityAIBase should continue executing
-     */
-    public boolean shouldContinueExecuting()
-    {
-        return idleTime >= 0;
-    }
+		idleEntity = entitylivingIn;
+		setMutexBits(3);
+	}
 
-    /**
-     * Execute a one shot task or start executing a continuous task
-     */
-    public void startExecuting()
-    {
-        double d0 = (Math.PI * 2D) * idleEntity.getRNG().nextDouble();
-        lookX = Math.cos(d0);
-        lookZ = Math.sin(d0);
-        idleTime = 20 + idleEntity.getRNG().nextInt(20);
-    }
+	/**
+	 * Returns whether the EntityAIBase should begin execution.
+	 */
+	public boolean shouldExecute() {
 
-    /**
-     * Keep ticking a continuous task that has already been started
-     */
-    public void updateTask()
-    {
-        --idleTime;
-        idleEntity.getLookHelper().setLookPosition(idleEntity.posX + lookX, idleEntity.posY + (double) idleEntity.getEyeHeight(), idleEntity.posZ + lookZ, (float) idleEntity.getHorizontalFaceSpeed(), (float) idleEntity.getVerticalFaceSpeed());
-    }
+		return idleEntity.getRNG().nextFloat() < 0.02F;
+	}
+
+	/**
+	 * Returns whether an in-progress EntityAIBase should continue executing
+	 */
+	public boolean shouldContinueExecuting() {
+
+		return idleTime >= 0;
+	}
+
+	/**
+	 * Execute a one shot task or start executing a continuous task
+	 */
+	public void startExecuting() {
+
+		double d0 = (Math.PI * 2D) * idleEntity.getRNG().nextDouble();
+		lookX = Math.cos(d0);
+		lookZ = Math.sin(d0);
+		idleTime = 20 + idleEntity.getRNG().nextInt(20);
+	}
+
+	/**
+	 * Keep ticking a continuous task that has already been started
+	 */
+	public void updateTask() {
+
+		--idleTime;
+		idleEntity.getLookHelper().setLookPosition(idleEntity.posX + lookX, idleEntity.posY + (double) idleEntity.getEyeHeight(), idleEntity.posZ + lookZ, (float) idleEntity.getHorizontalFaceSpeed(), (float) idleEntity.getVerticalFaceSpeed());
+	}
+
 }

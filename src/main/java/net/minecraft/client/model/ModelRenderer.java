@@ -1,312 +1,290 @@
 package net.minecraft.client.model;
 
 import com.google.common.collect.Lists;
-import java.util.List;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GLAllocation;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 
-public class ModelRenderer
-{
-    /** The size of the texture file's width in pixels. */
-    public float textureWidth;
+import java.util.List;
 
-    /** The size of the texture file's height in pixels. */
-    public float textureHeight;
+public class ModelRenderer {
 
-    /** The X offset into the texture used for displaying this model */
-    private int textureOffsetX;
+	/**
+	 * The size of the texture file's width in pixels.
+	 */
+	public float textureWidth;
 
-    /** The Y offset into the texture used for displaying this model */
-    private int textureOffsetY;
-    public float rotationPointX;
-    public float rotationPointY;
-    public float rotationPointZ;
-    public float rotateAngleX;
-    public float rotateAngleY;
-    public float rotateAngleZ;
-    private boolean compiled;
+	/**
+	 * The size of the texture file's height in pixels.
+	 */
+	public float textureHeight;
 
-    /** The GL display list rendered by the Tessellator for this model */
-    private int displayList;
-    public boolean mirror;
-    public boolean showModel;
+	/**
+	 * The X offset into the texture used for displaying this model
+	 */
+	private int textureOffsetX;
 
-    /** Hides the model. */
-    public boolean isHidden;
-    public List<ModelBox> cubeList;
-    public List<ModelRenderer> childModels;
-    public final String boxName;
-    private final ModelBase baseModel;
-    public float offsetX;
-    public float offsetY;
-    public float offsetZ;
+	/**
+	 * The Y offset into the texture used for displaying this model
+	 */
+	private int textureOffsetY;
+	public float rotationPointX;
+	public float rotationPointY;
+	public float rotationPointZ;
+	public float rotateAngleX;
+	public float rotateAngleY;
+	public float rotateAngleZ;
+	private boolean compiled;
 
-    public ModelRenderer(ModelBase model, String boxNameIn)
-    {
-        textureWidth = 64.0F;
-        textureHeight = 32.0F;
-        showModel = true;
-        cubeList = Lists.<ModelBox>newArrayList();
-        baseModel = model;
-        model.boxList.add(this);
-        boxName = boxNameIn;
-        setTextureSize(model.textureWidth, model.textureHeight);
-    }
+	/**
+	 * The GL display list rendered by the Tessellator for this model
+	 */
+	private int displayList;
+	public boolean mirror;
+	public boolean showModel;
 
-    public ModelRenderer(ModelBase model)
-    {
-        this(model, (String)null);
-    }
+	/**
+	 * Hides the model.
+	 */
+	public boolean isHidden;
+	public List<ModelBox> cubeList;
+	public List<ModelRenderer> childModels;
+	public final String boxName;
+	private final ModelBase baseModel;
+	public float offsetX;
+	public float offsetY;
+	public float offsetZ;
 
-    public ModelRenderer(ModelBase model, int texOffX, int texOffY)
-    {
-        this(model);
-        setTextureOffset(texOffX, texOffY);
-    }
+	public ModelRenderer(ModelBase model, String boxNameIn) {
 
-    /**
-     * Sets the current box's rotation points and rotation angles to another box.
-     */
-    public void addChild(ModelRenderer renderer)
-    {
-        if (childModels == null)
-        {
-            childModels = Lists.<ModelRenderer>newArrayList();
-        }
+		textureWidth = 64.0F;
+		textureHeight = 32.0F;
+		showModel = true;
+		cubeList = Lists.newArrayList();
+		baseModel = model;
+		model.boxList.add(this);
+		boxName = boxNameIn;
+		setTextureSize(model.textureWidth, model.textureHeight);
+	}
 
-        childModels.add(renderer);
-    }
+	public ModelRenderer(ModelBase model) {
 
-    public ModelRenderer setTextureOffset(int x, int y)
-    {
-        textureOffsetX = x;
-        textureOffsetY = y;
-        return this;
-    }
+		this(model, null);
+	}
 
-    public ModelRenderer addBox(String partName, float offX, float offY, float offZ, int width, int height, int depth)
-    {
-        partName = boxName + "." + partName;
-        TextureOffset textureoffset = baseModel.getTextureOffset(partName);
-        setTextureOffset(textureoffset.textureOffsetX, textureoffset.textureOffsetY);
-        cubeList.add((new ModelBox(this, textureOffsetX, textureOffsetY, offX, offY, offZ, width, height, depth, 0.0F)).setBoxName(partName));
-        return this;
-    }
+	public ModelRenderer(ModelBase model, int texOffX, int texOffY) {
 
-    public ModelRenderer addBox(float offX, float offY, float offZ, int width, int height, int depth)
-    {
-        cubeList.add(new ModelBox(this, textureOffsetX, textureOffsetY, offX, offY, offZ, width, height, depth, 0.0F));
-        return this;
-    }
+		this(model);
+		setTextureOffset(texOffX, texOffY);
+	}
 
-    public ModelRenderer addBox(float offX, float offY, float offZ, int width, int height, int depth, boolean mirrored)
-    {
-        cubeList.add(new ModelBox(this, textureOffsetX, textureOffsetY, offX, offY, offZ, width, height, depth, 0.0F, mirrored));
-        return this;
-    }
+	/**
+	 * Sets the current box's rotation points and rotation angles to another box.
+	 */
+	public void addChild(ModelRenderer renderer) {
 
-    /**
-     * Creates a textured box.
-     */
-    public void addBox(float offX, float offY, float offZ, int width, int height, int depth, float scaleFactor)
-    {
-        cubeList.add(new ModelBox(this, textureOffsetX, textureOffsetY, offX, offY, offZ, width, height, depth, scaleFactor));
-    }
+		if (childModels == null) {
+			childModels = Lists.newArrayList();
+		}
 
-    public void setRotationPoint(float rotationPointXIn, float rotationPointYIn, float rotationPointZIn)
-    {
-        rotationPointX = rotationPointXIn;
-        rotationPointY = rotationPointYIn;
-        rotationPointZ = rotationPointZIn;
-    }
+		childModels.add(renderer);
+	}
 
-    public void render(float scale)
-    {
-        if (!isHidden)
-        {
-            if (showModel)
-            {
-                if (!compiled)
-                {
-                    compileDisplayList(scale);
-                }
+	public ModelRenderer setTextureOffset(int x, int y) {
 
-                GlStateManager.translate(offsetX, offsetY, offsetZ);
+		textureOffsetX = x;
+		textureOffsetY = y;
+		return this;
+	}
 
-                if (rotateAngleX == 0.0F && rotateAngleY == 0.0F && rotateAngleZ == 0.0F)
-                {
-                    if (rotationPointX == 0.0F && rotationPointY == 0.0F && rotationPointZ == 0.0F)
-                    {
-                        GlStateManager.callList(displayList);
+	public ModelRenderer addBox(String partName, float offX, float offY, float offZ, int width, int height, int depth) {
 
-                        if (childModels != null)
-                        {
-                            for (int k = 0; k < childModels.size(); ++k)
-                            {
-                                ((ModelRenderer) childModels.get(k)).render(scale);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        GlStateManager.translate(rotationPointX * scale, rotationPointY * scale, rotationPointZ * scale);
-                        GlStateManager.callList(displayList);
+		partName = boxName + "." + partName;
+		TextureOffset textureoffset = baseModel.getTextureOffset(partName);
+		setTextureOffset(textureoffset.textureOffsetX(), textureoffset.textureOffsetY());
+		cubeList.add((new ModelBox(this, textureOffsetX, textureOffsetY, offX, offY, offZ, width, height, depth, 0.0F)).setBoxName(partName));
+		return this;
+	}
 
-                        if (childModels != null)
-                        {
-                            for (int j = 0; j < childModels.size(); ++j)
-                            {
-                                ((ModelRenderer) childModels.get(j)).render(scale);
-                            }
-                        }
+	public ModelRenderer addBox(float offX, float offY, float offZ, int width, int height, int depth) {
 
-                        GlStateManager.translate(-rotationPointX * scale, -rotationPointY * scale, -rotationPointZ * scale);
-                    }
-                }
-                else
-                {
-                    GlStateManager.pushMatrix();
-                    GlStateManager.translate(rotationPointX * scale, rotationPointY * scale, rotationPointZ * scale);
+		cubeList.add(new ModelBox(this, textureOffsetX, textureOffsetY, offX, offY, offZ, width, height, depth, 0.0F));
+		return this;
+	}
 
-                    if (rotateAngleZ != 0.0F)
-                    {
-                        GlStateManager.rotate(rotateAngleZ * (180F / (float)Math.PI), 0.0F, 0.0F, 1.0F);
-                    }
+	public ModelRenderer addBox(float offX, float offY, float offZ, int width, int height, int depth, boolean mirrored) {
 
-                    if (rotateAngleY != 0.0F)
-                    {
-                        GlStateManager.rotate(rotateAngleY * (180F / (float)Math.PI), 0.0F, 1.0F, 0.0F);
-                    }
+		cubeList.add(new ModelBox(this, textureOffsetX, textureOffsetY, offX, offY, offZ, width, height, depth, 0.0F, mirrored));
+		return this;
+	}
 
-                    if (rotateAngleX != 0.0F)
-                    {
-                        GlStateManager.rotate(rotateAngleX * (180F / (float)Math.PI), 1.0F, 0.0F, 0.0F);
-                    }
+	/**
+	 * Creates a textured box.
+	 */
+	public void addBox(float offX, float offY, float offZ, int width, int height, int depth, float scaleFactor) {
 
-                    GlStateManager.callList(displayList);
+		cubeList.add(new ModelBox(this, textureOffsetX, textureOffsetY, offX, offY, offZ, width, height, depth, scaleFactor));
+	}
 
-                    if (childModels != null)
-                    {
-                        for (int i = 0; i < childModels.size(); ++i)
-                        {
-                            ((ModelRenderer) childModels.get(i)).render(scale);
-                        }
-                    }
+	public void setRotationPoint(float rotationPointXIn, float rotationPointYIn, float rotationPointZIn) {
 
-                    GlStateManager.popMatrix();
-                }
+		rotationPointX = rotationPointXIn;
+		rotationPointY = rotationPointYIn;
+		rotationPointZ = rotationPointZIn;
+	}
 
-                GlStateManager.translate(-offsetX, -offsetY, -offsetZ);
-            }
-        }
-    }
+	public void render(float scale) {
 
-    public void renderWithRotation(float scale)
-    {
-        if (!isHidden)
-        {
-            if (showModel)
-            {
-                if (!compiled)
-                {
-                    compileDisplayList(scale);
-                }
+		if (!isHidden) {
+			if (showModel) {
+				if (!compiled) {
+					compileDisplayList(scale);
+				}
 
-                GlStateManager.pushMatrix();
-                GlStateManager.translate(rotationPointX * scale, rotationPointY * scale, rotationPointZ * scale);
+				GlStateManager.translate(offsetX, offsetY, offsetZ);
 
-                if (rotateAngleY != 0.0F)
-                {
-                    GlStateManager.rotate(rotateAngleY * (180F / (float)Math.PI), 0.0F, 1.0F, 0.0F);
-                }
+				if (rotateAngleX == 0.0F && rotateAngleY == 0.0F && rotateAngleZ == 0.0F) {
+					if (rotationPointX == 0.0F && rotationPointY == 0.0F && rotationPointZ == 0.0F) {
+						GlStateManager.callList(displayList);
 
-                if (rotateAngleX != 0.0F)
-                {
-                    GlStateManager.rotate(rotateAngleX * (180F / (float)Math.PI), 1.0F, 0.0F, 0.0F);
-                }
+						if (childModels != null) {
+							for (int k = 0; k < childModels.size(); ++k) {
+								childModels.get(k).render(scale);
+							}
+						}
+					} else {
+						GlStateManager.translate(rotationPointX * scale, rotationPointY * scale, rotationPointZ * scale);
+						GlStateManager.callList(displayList);
 
-                if (rotateAngleZ != 0.0F)
-                {
-                    GlStateManager.rotate(rotateAngleZ * (180F / (float)Math.PI), 0.0F, 0.0F, 1.0F);
-                }
+						if (childModels != null) {
+							for (int j = 0; j < childModels.size(); ++j) {
+								childModels.get(j).render(scale);
+							}
+						}
 
-                GlStateManager.callList(displayList);
-                GlStateManager.popMatrix();
-            }
-        }
-    }
+						GlStateManager.translate(-rotationPointX * scale, -rotationPointY * scale, -rotationPointZ * scale);
+					}
+				} else {
+					GlStateManager.pushMatrix();
+					GlStateManager.translate(rotationPointX * scale, rotationPointY * scale, rotationPointZ * scale);
 
-    /**
-     * Allows the changing of Angles after a box has been rendered
-     */
-    public void postRender(float scale)
-    {
-        if (!isHidden)
-        {
-            if (showModel)
-            {
-                if (!compiled)
-                {
-                    compileDisplayList(scale);
-                }
+					if (rotateAngleZ != 0.0F) {
+						GlStateManager.rotate(rotateAngleZ * (180F / (float) Math.PI), 0.0F, 0.0F, 1.0F);
+					}
 
-                if (rotateAngleX == 0.0F && rotateAngleY == 0.0F && rotateAngleZ == 0.0F)
-                {
-                    if (rotationPointX != 0.0F || rotationPointY != 0.0F || rotationPointZ != 0.0F)
-                    {
-                        GlStateManager.translate(rotationPointX * scale, rotationPointY * scale, rotationPointZ * scale);
-                    }
-                }
-                else
-                {
-                    GlStateManager.translate(rotationPointX * scale, rotationPointY * scale, rotationPointZ * scale);
+					if (rotateAngleY != 0.0F) {
+						GlStateManager.rotate(rotateAngleY * (180F / (float) Math.PI), 0.0F, 1.0F, 0.0F);
+					}
 
-                    if (rotateAngleZ != 0.0F)
-                    {
-                        GlStateManager.rotate(rotateAngleZ * (180F / (float)Math.PI), 0.0F, 0.0F, 1.0F);
-                    }
+					if (rotateAngleX != 0.0F) {
+						GlStateManager.rotate(rotateAngleX * (180F / (float) Math.PI), 1.0F, 0.0F, 0.0F);
+					}
 
-                    if (rotateAngleY != 0.0F)
-                    {
-                        GlStateManager.rotate(rotateAngleY * (180F / (float)Math.PI), 0.0F, 1.0F, 0.0F);
-                    }
+					GlStateManager.callList(displayList);
 
-                    if (rotateAngleX != 0.0F)
-                    {
-                        GlStateManager.rotate(rotateAngleX * (180F / (float)Math.PI), 1.0F, 0.0F, 0.0F);
-                    }
-                }
-            }
-        }
-    }
+					if (childModels != null) {
+						for (int i = 0; i < childModels.size(); ++i) {
+							childModels.get(i).render(scale);
+						}
+					}
 
-    /**
-     * Compiles a GL display list for this model
-     */
-    private void compileDisplayList(float scale)
-    {
-        displayList = GLAllocation.generateDisplayLists(1);
-        GlStateManager.glNewList(displayList, 4864);
-        BufferBuilder bufferbuilder = Tessellator.getInstance().getBuffer();
+					GlStateManager.popMatrix();
+				}
 
-        for (int i = 0; i < cubeList.size(); ++i)
-        {
-            ((ModelBox) cubeList.get(i)).render(bufferbuilder, scale);
-        }
+				GlStateManager.translate(-offsetX, -offsetY, -offsetZ);
+			}
+		}
+	}
 
-        GlStateManager.glEndList();
-        compiled = true;
-    }
+	public void renderWithRotation(float scale) {
 
-    /**
-     * Returns the model renderer with the new texture parameters.
-     */
-    public ModelRenderer setTextureSize(int textureWidthIn, int textureHeightIn)
-    {
-        textureWidth = (float)textureWidthIn;
-        textureHeight = (float)textureHeightIn;
-        return this;
-    }
+		if (!isHidden) {
+			if (showModel) {
+				if (!compiled) {
+					compileDisplayList(scale);
+				}
+
+				GlStateManager.pushMatrix();
+				GlStateManager.translate(rotationPointX * scale, rotationPointY * scale, rotationPointZ * scale);
+
+				if (rotateAngleY != 0.0F) {
+					GlStateManager.rotate(rotateAngleY * (180F / (float) Math.PI), 0.0F, 1.0F, 0.0F);
+				}
+
+				if (rotateAngleX != 0.0F) {
+					GlStateManager.rotate(rotateAngleX * (180F / (float) Math.PI), 1.0F, 0.0F, 0.0F);
+				}
+
+				if (rotateAngleZ != 0.0F) {
+					GlStateManager.rotate(rotateAngleZ * (180F / (float) Math.PI), 0.0F, 0.0F, 1.0F);
+				}
+
+				GlStateManager.callList(displayList);
+				GlStateManager.popMatrix();
+			}
+		}
+	}
+
+	/**
+	 * Allows the changing of Angles after a box has been rendered
+	 */
+	public void postRender(float scale) {
+
+		if (!isHidden) {
+			if (showModel) {
+				if (!compiled) {
+					compileDisplayList(scale);
+				}
+
+				if (rotateAngleX == 0.0F && rotateAngleY == 0.0F && rotateAngleZ == 0.0F) {
+					if (rotationPointX != 0.0F || rotationPointY != 0.0F || rotationPointZ != 0.0F) {
+						GlStateManager.translate(rotationPointX * scale, rotationPointY * scale, rotationPointZ * scale);
+					}
+				} else {
+					GlStateManager.translate(rotationPointX * scale, rotationPointY * scale, rotationPointZ * scale);
+
+					if (rotateAngleZ != 0.0F) {
+						GlStateManager.rotate(rotateAngleZ * (180F / (float) Math.PI), 0.0F, 0.0F, 1.0F);
+					}
+
+					if (rotateAngleY != 0.0F) {
+						GlStateManager.rotate(rotateAngleY * (180F / (float) Math.PI), 0.0F, 1.0F, 0.0F);
+					}
+
+					if (rotateAngleX != 0.0F) {
+						GlStateManager.rotate(rotateAngleX * (180F / (float) Math.PI), 1.0F, 0.0F, 0.0F);
+					}
+				}
+			}
+		}
+	}
+
+	/**
+	 * Compiles a GL display list for this model
+	 */
+	private void compileDisplayList(float scale) {
+
+		displayList = GLAllocation.generateDisplayLists(1);
+		GlStateManager.glNewList(displayList, 4864);
+		BufferBuilder bufferbuilder = Tessellator.getInstance().getBuffer();
+
+		for (int i = 0; i < cubeList.size(); ++i) {
+			cubeList.get(i).render(bufferbuilder, scale);
+		}
+
+		GlStateManager.glEndList();
+		compiled = true;
+	}
+
+	/**
+	 * Returns the model renderer with the new texture parameters.
+	 */
+	public ModelRenderer setTextureSize(int textureWidthIn, int textureHeightIn) {
+
+		textureWidth = (float) textureWidthIn;
+		textureHeight = (float) textureHeightIn;
+		return this;
+	}
+
 }

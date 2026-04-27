@@ -1,60 +1,62 @@
 package net.minecraft.network.play.server;
 
-import java.io.IOException;
 import net.minecraft.entity.Entity;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayClient;
 import net.minecraft.world.World;
 
-public class SPacketEntityHeadLook implements Packet<INetHandlerPlayClient>
-{
-    private int entityId;
-    private byte yaw;
+import java.io.IOException;
 
-    public SPacketEntityHeadLook()
-    {
-    }
+public class SPacketEntityHeadLook implements Packet<INetHandlerPlayClient> {
 
-    public SPacketEntityHeadLook(Entity entityIn, byte yawIn)
-    {
-        entityId = entityIn.getEntityId();
-        yaw = yawIn;
-    }
+	private int entityId;
+	private byte yaw;
 
-    /**
-     * Reads the raw packet data from the data stream.
-     */
-    public void readPacketData(PacketBuffer buf) throws IOException
-    {
-        entityId = buf.readVarInt();
-        yaw = buf.readByte();
-    }
+	public SPacketEntityHeadLook() {
 
-    /**
-     * Writes the raw packet data to the data stream.
-     */
-    public void writePacketData(PacketBuffer buf) throws IOException
-    {
-        buf.writeVarInt(entityId);
-        buf.writeByte(yaw);
-    }
+	}
 
-    /**
-     * Passes this Packet on to the NetHandler for processing.
-     */
-    public void processPacket(INetHandlerPlayClient handler)
-    {
-        handler.handleEntityHeadLook(this);
-    }
+	public SPacketEntityHeadLook(Entity entityIn, byte yawIn) {
 
-    public Entity getEntity(World worldIn)
-    {
-        return worldIn.getEntityByID(entityId);
-    }
+		entityId = entityIn.getEntityId();
+		yaw = yawIn;
+	}
 
-    public byte getYaw()
-    {
-        return yaw;
-    }
+	/**
+	 * Reads the raw packet data from the data stream.
+	 */
+	public void readPacketData(PacketBuffer buf) throws IOException {
+
+		entityId = buf.readVarInt();
+		yaw = buf.readByte();
+	}
+
+	/**
+	 * Writes the raw packet data to the data stream.
+	 */
+	public void writePacketData(PacketBuffer buf) throws IOException {
+
+		buf.writeVarInt(entityId);
+		buf.writeByte(yaw);
+	}
+
+	/**
+	 * Passes this Packet on to the NetHandler for processing.
+	 */
+	public void processPacket(INetHandlerPlayClient handler) {
+
+		handler.handleEntityHeadLook(this);
+	}
+
+	public Entity getEntity(World worldIn) {
+
+		return worldIn.getEntityByID(entityId);
+	}
+
+	public byte getYaw() {
+
+		return yaw;
+	}
+
 }

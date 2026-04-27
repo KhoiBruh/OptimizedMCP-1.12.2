@@ -14,129 +14,127 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.IBlockAccess;
 
-public class BlockPrismarine extends Block
-{
-    public static final PropertyEnum<BlockPrismarine.EnumType> VARIANT = PropertyEnum.<BlockPrismarine.EnumType>create("variant", BlockPrismarine.EnumType.class);
-    public static final int ROUGH_META = BlockPrismarine.EnumType.ROUGH.getMetadata();
-    public static final int BRICKS_META = BlockPrismarine.EnumType.BRICKS.getMetadata();
-    public static final int DARK_META = BlockPrismarine.EnumType.DARK.getMetadata();
+public class BlockPrismarine extends Block {
 
-    public BlockPrismarine()
-    {
-        super(Material.ROCK);
-        setDefaultState(blockState.getBaseState().withProperty(VARIANT, BlockPrismarine.EnumType.ROUGH));
-        setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
-    }
+	public static final PropertyEnum<BlockPrismarine.EnumType> VARIANT = PropertyEnum.create("variant", BlockPrismarine.EnumType.class);
+	public static final int ROUGH_META = BlockPrismarine.EnumType.ROUGH.getMetadata();
+	public static final int BRICKS_META = BlockPrismarine.EnumType.BRICKS.getMetadata();
+	public static final int DARK_META = BlockPrismarine.EnumType.DARK.getMetadata();
 
-    /**
-     * Gets the localized name of this block. Used for the statistics page.
-     */
-    public String getLocalizedName()
-    {
-        return I18n.translateToLocal(getUnlocalizedName() + "." + BlockPrismarine.EnumType.ROUGH.getUnlocalizedName() + ".name");
-    }
+	public BlockPrismarine() {
 
-    /**
-     * Get the MapColor for this Block and the given BlockState
-     */
-    public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos)
-    {
-        return state.getValue(VARIANT) == BlockPrismarine.EnumType.ROUGH ? MapColor.CYAN : MapColor.DIAMOND;
-    }
+		super(Material.ROCK);
+		setDefaultState(blockState.getBaseState().withProperty(VARIANT, BlockPrismarine.EnumType.ROUGH));
+		setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
+	}
 
-    /**
-     * Gets the metadata of the item this Block can drop. This method is called when the block gets destroyed. It
-     * returns the metadata of the dropped item based on the old metadata of the block.
-     */
-    public int damageDropped(IBlockState state)
-    {
-        return ((BlockPrismarine.EnumType)state.getValue(VARIANT)).getMetadata();
-    }
+	/**
+	 * Gets the localized name of this block. Used for the statistics page.
+	 */
+	public String getLocalizedName() {
 
-    /**
-     * Convert the BlockState into the correct metadata value
-     */
-    public int getMetaFromState(IBlockState state)
-    {
-        return ((BlockPrismarine.EnumType)state.getValue(VARIANT)).getMetadata();
-    }
+		return I18n.translateToLocal(getUnlocalizedName() + "." + BlockPrismarine.EnumType.ROUGH.getUnlocalizedName() + ".name");
+	}
 
-    protected BlockStateContainer createBlockState()
-    {
-        return new BlockStateContainer(this, new IProperty[] {VARIANT});
-    }
+	/**
+	 * Get the MapColor for this Block and the given BlockState
+	 */
+	public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
 
-    /**
-     * Convert the given metadata into a BlockState for this Block
-     */
-    public IBlockState getStateFromMeta(int meta)
-    {
-        return getDefaultState().withProperty(VARIANT, BlockPrismarine.EnumType.byMetadata(meta));
-    }
+		return state.getValue(VARIANT) == BlockPrismarine.EnumType.ROUGH ? MapColor.CYAN : MapColor.DIAMOND;
+	}
 
-    /**
-     * returns a list of blocks with the same ID, but different meta (eg: wood returns 4 blocks)
-     */
-    public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items)
-    {
-        items.add(new ItemStack(this, 1, ROUGH_META));
-        items.add(new ItemStack(this, 1, BRICKS_META));
-        items.add(new ItemStack(this, 1, DARK_META));
-    }
+	/**
+	 * Gets the metadata of the item this Block can drop. This method is called when the block gets destroyed. It
+	 * returns the metadata of the dropped item based on the old metadata of the block.
+	 */
+	public int damageDropped(IBlockState state) {
 
-    public static enum EnumType implements IStringSerializable
-    {
-        ROUGH(0, "prismarine", "rough"),
-        BRICKS(1, "prismarine_bricks", "bricks"),
-        DARK(2, "dark_prismarine", "dark");
+		return state.getValue(VARIANT).getMetadata();
+	}
 
-        private static final BlockPrismarine.EnumType[] META_LOOKUP = new BlockPrismarine.EnumType[values().length];
-        private final int meta;
-        private final String name;
-        private final String unlocalizedName;
+	/**
+	 * Convert the BlockState into the correct metadata value
+	 */
+	public int getMetaFromState(IBlockState state) {
 
-        private EnumType(int meta, String name, String unlocalizedName)
-        {
-            this.meta = meta;
-            this.name = name;
-            this.unlocalizedName = unlocalizedName;
-        }
+		return state.getValue(VARIANT).getMetadata();
+	}
 
-        public int getMetadata()
-        {
-            return meta;
-        }
+	protected BlockStateContainer createBlockState() {
 
-        public String toString()
-        {
-            return name;
-        }
+		return new BlockStateContainer(this, VARIANT);
+	}
 
-        public static BlockPrismarine.EnumType byMetadata(int meta)
-        {
-            if (meta < 0 || meta >= META_LOOKUP.length)
-            {
-                meta = 0;
-            }
+	/**
+	 * Convert the given metadata into a BlockState for this Block
+	 */
+	public IBlockState getStateFromMeta(int meta) {
 
-            return META_LOOKUP[meta];
-        }
+		return getDefaultState().withProperty(VARIANT, BlockPrismarine.EnumType.byMetadata(meta));
+	}
 
-        public String getName()
-        {
-            return name;
-        }
+	/**
+	 * returns a list of blocks with the same ID, but different meta (eg: wood returns 4 blocks)
+	 */
+	public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
 
-        public String getUnlocalizedName()
-        {
-            return unlocalizedName;
-        }
+		items.add(new ItemStack(this, 1, ROUGH_META));
+		items.add(new ItemStack(this, 1, BRICKS_META));
+		items.add(new ItemStack(this, 1, DARK_META));
+	}
 
-        static {
-            for (BlockPrismarine.EnumType blockprismarine$enumtype : values())
-            {
-                META_LOOKUP[blockprismarine$enumtype.getMetadata()] = blockprismarine$enumtype;
-            }
-        }
-    }
+	public enum EnumType implements IStringSerializable {
+		ROUGH(0, "prismarine", "rough"),
+		BRICKS(1, "prismarine_bricks", "bricks"),
+		DARK(2, "dark_prismarine", "dark");
+
+		private static final BlockPrismarine.EnumType[] META_LOOKUP = new BlockPrismarine.EnumType[values().length];
+		private final int meta;
+		private final String name;
+		private final String unlocalizedName;
+
+		EnumType(int meta, String name, String unlocalizedName) {
+
+			this.meta = meta;
+			this.name = name;
+			this.unlocalizedName = unlocalizedName;
+		}
+
+		public int getMetadata() {
+
+			return meta;
+		}
+
+		public String toString() {
+
+			return name;
+		}
+
+		public static BlockPrismarine.EnumType byMetadata(int meta) {
+
+			if (meta < 0 || meta >= META_LOOKUP.length) {
+				meta = 0;
+			}
+
+			return META_LOOKUP[meta];
+		}
+
+		public String getName() {
+
+			return name;
+		}
+
+		public String getUnlocalizedName() {
+
+			return unlocalizedName;
+		}
+
+		static {
+			for (BlockPrismarine.EnumType blockprismarine$enumtype : values()) {
+				META_LOOKUP[blockprismarine$enumtype.getMetadata()] = blockprismarine$enumtype;
+			}
+		}
+	}
+
 }

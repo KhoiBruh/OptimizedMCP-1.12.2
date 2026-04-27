@@ -1,69 +1,71 @@
 package net.minecraft.network.play.client;
 
-import java.io.IOException;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayServer;
 
-public class CPacketPlaceRecipe implements Packet<INetHandlerPlayServer>
-{
-    private int field_194320_a;
-    private IRecipe field_194321_b;
-    private boolean field_194322_c;
+import java.io.IOException;
 
-    public CPacketPlaceRecipe()
-    {
-    }
+public class CPacketPlaceRecipe implements Packet<INetHandlerPlayServer> {
 
-    public CPacketPlaceRecipe(int p_i47614_1_, IRecipe p_i47614_2_, boolean p_i47614_3_)
-    {
-        field_194320_a = p_i47614_1_;
-        field_194321_b = p_i47614_2_;
-        field_194322_c = p_i47614_3_;
-    }
+	private int field_194320_a;
+	private IRecipe field_194321_b;
+	private boolean field_194322_c;
 
-    /**
-     * Reads the raw packet data from the data stream.
-     */
-    public void readPacketData(PacketBuffer buf) throws IOException
-    {
-        field_194320_a = buf.readByte();
-        field_194321_b = CraftingManager.getRecipeById(buf.readVarInt());
-        field_194322_c = buf.readBoolean();
-    }
+	public CPacketPlaceRecipe() {
 
-    /**
-     * Writes the raw packet data to the data stream.
-     */
-    public void writePacketData(PacketBuffer buf) throws IOException
-    {
-        buf.writeByte(field_194320_a);
-        buf.writeVarInt(CraftingManager.getIDForRecipe(field_194321_b));
-        buf.writeBoolean(field_194322_c);
-    }
+	}
 
-    /**
-     * Passes this Packet on to the NetHandler for processing.
-     */
-    public void processPacket(INetHandlerPlayServer handler)
-    {
-        handler.func_194308_a(this);
-    }
+	public CPacketPlaceRecipe(int p_i47614_1_, IRecipe p_i47614_2_, boolean p_i47614_3_) {
 
-    public int func_194318_a()
-    {
-        return field_194320_a;
-    }
+		field_194320_a = p_i47614_1_;
+		field_194321_b = p_i47614_2_;
+		field_194322_c = p_i47614_3_;
+	}
 
-    public IRecipe func_194317_b()
-    {
-        return field_194321_b;
-    }
+	/**
+	 * Reads the raw packet data from the data stream.
+	 */
+	public void readPacketData(PacketBuffer buf) throws IOException {
 
-    public boolean func_194319_c()
-    {
-        return field_194322_c;
-    }
+		field_194320_a = buf.readByte();
+		field_194321_b = CraftingManager.getRecipeById(buf.readVarInt());
+		field_194322_c = buf.readBoolean();
+	}
+
+	/**
+	 * Writes the raw packet data to the data stream.
+	 */
+	public void writePacketData(PacketBuffer buf) throws IOException {
+
+		buf.writeByte(field_194320_a);
+		buf.writeVarInt(CraftingManager.getIDForRecipe(field_194321_b));
+		buf.writeBoolean(field_194322_c);
+	}
+
+	/**
+	 * Passes this Packet on to the NetHandler for processing.
+	 */
+	public void processPacket(INetHandlerPlayServer handler) {
+
+		handler.func_194308_a(this);
+	}
+
+	public int func_194318_a() {
+
+		return field_194320_a;
+	}
+
+	public IRecipe func_194317_b() {
+
+		return field_194321_b;
+	}
+
+	public boolean func_194319_c() {
+
+		return field_194322_c;
+	}
+
 }

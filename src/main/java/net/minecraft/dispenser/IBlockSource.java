@@ -4,21 +4,23 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 
-public interface IBlockSource extends ILocatableSource
-{
-    double getX();
+public interface IBlockSource extends ILocatableSource {
 
-    double getY();
+	double x();
 
-    double getZ();
+	double y();
 
-    BlockPos getBlockPos();
+	double z();
 
-    /**
-     * Gets the block state of this position and returns it.
-     *  @return Block state in this position
-     */
-    IBlockState getBlockState();
+	BlockPos getBlockPos();
 
-    <T extends TileEntity> T getBlockTileEntity();
+	/**
+	 * Gets the block state of this position and returns it.
+	 *
+	 * @return Block state in this position
+	 */
+	IBlockState getBlockState();
+
+	<T extends TileEntity> T getBlockTileEntity();
+
 }

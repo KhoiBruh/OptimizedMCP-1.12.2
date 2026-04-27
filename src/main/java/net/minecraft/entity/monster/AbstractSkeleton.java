@@ -1,25 +1,8 @@
 package net.minecraft.entity.monster;
 
-import java.util.Calendar;
-import javax.annotation.Nullable;
 import net.minecraft.block.Block;
-import net.minecraft.entity.EntityCreature;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.EnumCreatureAttribute;
-import net.minecraft.entity.IEntityLivingData;
-import net.minecraft.entity.IRangedAttackMob;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAIAttackMelee;
-import net.minecraft.entity.ai.EntityAIAttackRangedBow;
-import net.minecraft.entity.ai.EntityAIAvoidEntity;
-import net.minecraft.entity.ai.EntityAIFleeSun;
-import net.minecraft.entity.ai.EntityAIHurtByTarget;
-import net.minecraft.entity.ai.EntityAILookIdle;
-import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
-import net.minecraft.entity.ai.EntityAIRestrictSun;
-import net.minecraft.entity.ai.EntityAISwimming;
-import net.minecraft.entity.ai.EntityAIWanderAvoidWater;
-import net.minecraft.entity.ai.EntityAIWatchClosest;
+import net.minecraft.entity.*;
+import net.minecraft.entity.ai.*;
 import net.minecraft.entity.item.EntityBoat;
 import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.entity.player.EntityPlayer;
@@ -41,266 +24,254 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
-public abstract class AbstractSkeleton extends EntityMob implements IRangedAttackMob
-{
-    private static final DataParameter<Boolean> SWINGING_ARMS = EntityDataManager.<Boolean>createKey(AbstractSkeleton.class, DataSerializers.BOOLEAN);
-    private final EntityAIAttackRangedBow<AbstractSkeleton> aiArrowAttack = new EntityAIAttackRangedBow<AbstractSkeleton>(this, 1.0D, 20, 15.0F);
-    private final EntityAIAttackMelee aiAttackOnCollide = new EntityAIAttackMelee(this, 1.2D, false)
-    {
-        public void resetTask()
-        {
-            super.resetTask();
-            setSwingingArms(false);
-        }
-        public void startExecuting()
-        {
-            super.startExecuting();
-            setSwingingArms(true);
-        }
-    };
+import javax.annotation.Nullable;
+import java.util.Calendar;
 
-    public AbstractSkeleton(World worldIn)
-    {
-        super(worldIn);
-        setSize(0.6F, 1.99F);
-        setCombatTask();
-    }
+public abstract class AbstractSkeleton extends EntityMob implements IRangedAttackMob {
 
-    protected void initEntityAI()
-    {
-        tasks.addTask(1, new EntityAISwimming(this));
-        tasks.addTask(2, new EntityAIRestrictSun(this));
-        tasks.addTask(3, new EntityAIFleeSun(this, 1.0D));
-        tasks.addTask(3, new EntityAIAvoidEntity(this, EntityWolf.class, 6.0F, 1.0D, 1.2D));
-        tasks.addTask(5, new EntityAIWanderAvoidWater(this, 1.0D));
-        tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
-        tasks.addTask(6, new EntityAILookIdle(this));
-        targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
-        targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
-        targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityIronGolem.class, true));
-    }
+	private static final DataParameter<Boolean> SWINGING_ARMS = EntityDataManager.createKey(AbstractSkeleton.class, DataSerializers.BOOLEAN);
+	private final EntityAIAttackRangedBow<AbstractSkeleton> aiArrowAttack = new EntityAIAttackRangedBow<AbstractSkeleton>(this, 1.0D, 20, 15.0F);
+	private final EntityAIAttackMelee aiAttackOnCollide = new EntityAIAttackMelee(this, 1.2D, false) {
+		public void resetTask() {
 
-    protected void applyEntityAttributes()
-    {
-        super.applyEntityAttributes();
-        getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25D);
-    }
+			super.resetTask();
+			setSwingingArms(false);
+		}
 
-    protected void entityInit()
-    {
-        super.entityInit();
-        dataManager.register(SWINGING_ARMS, Boolean.valueOf(false));
-    }
+		public void startExecuting() {
 
-    protected void playStepSound(BlockPos pos, Block blockIn)
-    {
-        playSound(getStepSound(), 0.15F, 1.0F);
-    }
+			super.startExecuting();
+			setSwingingArms(true);
+		}
+	};
 
-    abstract SoundEvent getStepSound();
+	public AbstractSkeleton(World worldIn) {
 
-    /**
-     * Get this Entity's EnumCreatureAttribute
-     */
-    public EnumCreatureAttribute getCreatureAttribute()
-    {
-        return EnumCreatureAttribute.UNDEAD;
-    }
+		super(worldIn);
+		setSize(0.6F, 1.99F);
+		setCombatTask();
+	}
 
-    /**
-     * Called frequently so the entity can update its state every tick as required. For example, zombies and skeletons
-     * use this to react to sunlight and start to burn.
-     */
-    public void onLivingUpdate()
-    {
-        if (world.isDaytime() && !world.isRemote)
-        {
-            float f = getBrightness();
-            BlockPos blockpos = getRidingEntity() instanceof EntityBoat ? (new BlockPos(posX, (double)Math.round(posY), posZ)).up() : new BlockPos(posX, (double)Math.round(posY), posZ);
+	protected void initEntityAI() {
 
-            if (f > 0.5F && rand.nextFloat() * 30.0F < (f - 0.4F) * 2.0F && world.canSeeSky(blockpos))
-            {
-                boolean flag = true;
-                ItemStack itemstack = getItemStackFromSlot(EntityEquipmentSlot.HEAD);
+		tasks.addTask(1, new EntityAISwimming(this));
+		tasks.addTask(2, new EntityAIRestrictSun(this));
+		tasks.addTask(3, new EntityAIFleeSun(this, 1.0D));
+		tasks.addTask(3, new EntityAIAvoidEntity(this, EntityWolf.class, 6.0F, 1.0D, 1.2D));
+		tasks.addTask(5, new EntityAIWanderAvoidWater(this, 1.0D));
+		tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
+		tasks.addTask(6, new EntityAILookIdle(this));
+		targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
+		targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
+		targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityIronGolem.class, true));
+	}
 
-                if (!itemstack.isEmpty())
-                {
-                    if (itemstack.isItemStackDamageable())
-                    {
-                        itemstack.setItemDamage(itemstack.getItemDamage() + rand.nextInt(2));
+	protected void applyEntityAttributes() {
 
-                        if (itemstack.getItemDamage() >= itemstack.getMaxDamage())
-                        {
-                            renderBrokenItemStack(itemstack);
-                            setItemStackToSlot(EntityEquipmentSlot.HEAD, ItemStack.EMPTY);
-                        }
-                    }
+		super.applyEntityAttributes();
+		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25D);
+	}
 
-                    flag = false;
-                }
+	protected void entityInit() {
 
-                if (flag)
-                {
-                    setFire(8);
-                }
-            }
-        }
+		super.entityInit();
+		dataManager.register(SWINGING_ARMS, Boolean.valueOf(false));
+	}
 
-        super.onLivingUpdate();
-    }
+	protected void playStepSound(BlockPos pos, Block blockIn) {
 
-    /**
-     * Handles updating while riding another entity
-     */
-    public void updateRidden()
-    {
-        super.updateRidden();
+		playSound(getStepSound(), 0.15F, 1.0F);
+	}
 
-        if (getRidingEntity() instanceof EntityCreature)
-        {
-            EntityCreature entitycreature = (EntityCreature) getRidingEntity();
-            renderYawOffset = entitycreature.renderYawOffset;
-        }
-    }
+	abstract SoundEvent getStepSound();
 
-    /**
-     * Gives armor or weapon for entity based on given DifficultyInstance
-     */
-    protected void setEquipmentBasedOnDifficulty(DifficultyInstance difficulty)
-    {
-        super.setEquipmentBasedOnDifficulty(difficulty);
-        setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
-    }
+	/**
+	 * Get this Entity's EnumCreatureAttribute
+	 */
+	public EnumCreatureAttribute getCreatureAttribute() {
 
-    @Nullable
+		return EnumCreatureAttribute.UNDEAD;
+	}
 
-    /**
-     * Called only once on an entity when first time spawned, via egg, mob spawner, natural spawning etc, but not called
-     * when entity is reloaded from nbt. Mainly used for initializing attributes and inventory.
-     *  
-     * The livingdata parameter is used to pass data between all instances during a pack spawn. It will be null on the
-     * first call. Subclasses may check if it's null, and then create a new one and return it if so, initializing all
-     * entities in the pack with the contained data.
-     *  
-     * @return The IEntityLivingData to pass to this method for other instances of this entity class within the same
-     * pack
-     *  
-     * @param difficulty The current local difficulty
-     * @param livingdata Shared spawn data. Will usually be null. (See return value for more information)
-     */
-    public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata)
-    {
-        livingdata = super.onInitialSpawn(difficulty, livingdata);
-        setEquipmentBasedOnDifficulty(difficulty);
-        setEnchantmentBasedOnDifficulty(difficulty);
-        setCombatTask();
-        setCanPickUpLoot(rand.nextFloat() < 0.55F * difficulty.getClampedAdditionalDifficulty());
+	/**
+	 * Called frequently so the entity can update its state every tick as required. For example, zombies and skeletons
+	 * use this to react to sunlight and start to burn.
+	 */
+	public void onLivingUpdate() {
 
-        if (getItemStackFromSlot(EntityEquipmentSlot.HEAD).isEmpty())
-        {
-            Calendar calendar = world.getCurrentDate();
+		if (world.isDaytime() && !world.isRemote) {
+			float f = getBrightness();
+			BlockPos blockpos = getRidingEntity() instanceof EntityBoat ? (new BlockPos(posX, (double) Math.round(posY), posZ)).up() : new BlockPos(posX, (double) Math.round(posY), posZ);
 
-            if (calendar.get(2) + 1 == 10 && calendar.get(5) == 31 && rand.nextFloat() < 0.25F)
-            {
-                setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(rand.nextFloat() < 0.1F ? Blocks.LIT_PUMPKIN : Blocks.PUMPKIN));
-                inventoryArmorDropChances[EntityEquipmentSlot.HEAD.getIndex()] = 0.0F;
-            }
-        }
+			if (f > 0.5F && rand.nextFloat() * 30.0F < (f - 0.4F) * 2.0F && world.canSeeSky(blockpos)) {
+				boolean flag = true;
+				ItemStack itemstack = getItemStackFromSlot(EntityEquipmentSlot.HEAD);
 
-        return livingdata;
-    }
+				if (!itemstack.isEmpty()) {
+					if (itemstack.isItemStackDamageable()) {
+						itemstack.setItemDamage(itemstack.getItemDamage() + rand.nextInt(2));
 
-    /**
-     * sets this entity's combat AI.
-     */
-    public void setCombatTask()
-    {
-        if (world != null && !world.isRemote)
-        {
-            tasks.removeTask(aiAttackOnCollide);
-            tasks.removeTask(aiArrowAttack);
-            ItemStack itemstack = getHeldItemMainhand();
+						if (itemstack.getItemDamage() >= itemstack.getMaxDamage()) {
+							renderBrokenItemStack(itemstack);
+							setItemStackToSlot(EntityEquipmentSlot.HEAD, ItemStack.EMPTY);
+						}
+					}
 
-            if (itemstack.getItem() == Items.BOW)
-            {
-                int i = 20;
+					flag = false;
+				}
 
-                if (world.getDifficulty() != EnumDifficulty.HARD)
-                {
-                    i = 40;
-                }
+				if (flag) {
+					setFire(8);
+				}
+			}
+		}
 
-                aiArrowAttack.setAttackCooldown(i);
-                tasks.addTask(4, aiArrowAttack);
-            }
-            else
-            {
-                tasks.addTask(4, aiAttackOnCollide);
-            }
-        }
-    }
+		super.onLivingUpdate();
+	}
 
-    /**
-     * Attack the specified entity using a ranged attack.
-     */
-    public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor)
-    {
-        EntityArrow entityarrow = getArrow(distanceFactor);
-        double d0 = target.posX - posX;
-        double d1 = target.getEntityBoundingBox().minY + (double)(target.height / 3.0F) - entityarrow.posY;
-        double d2 = target.posZ - posZ;
-        double d3 = (double)MathHelper.sqrt(d0 * d0 + d2 * d2);
-        entityarrow.shoot(d0, d1 + d3 * 0.20000000298023224D, d2, 1.6F, (float)(14 - world.getDifficulty().getDifficultyId() * 4));
-        playSound(SoundEvents.ENTITY_SKELETON_SHOOT, 1.0F, 1.0F / (getRNG().nextFloat() * 0.4F + 0.8F));
-        world.spawnEntity(entityarrow);
-    }
+	/**
+	 * Handles updating while riding another entity
+	 */
+	public void updateRidden() {
 
-    protected EntityArrow getArrow(float p_190726_1_)
-    {
-        EntityTippedArrow entitytippedarrow = new EntityTippedArrow(world, this);
-        entitytippedarrow.setEnchantmentEffectsFromEntity(this, p_190726_1_);
-        return entitytippedarrow;
-    }
+		super.updateRidden();
 
-    /**
-     * (abstract) Protected helper method to read subclass entity data from NBT.
-     */
-    public void readEntityFromNBT(NBTTagCompound compound)
-    {
-        super.readEntityFromNBT(compound);
-        setCombatTask();
-    }
+		if (getRidingEntity() instanceof EntityCreature entitycreature) {
+			renderYawOffset = entitycreature.renderYawOffset;
+		}
+	}
 
-    public void setItemStackToSlot(EntityEquipmentSlot slotIn, ItemStack stack)
-    {
-        super.setItemStackToSlot(slotIn, stack);
+	/**
+	 * Gives armor or weapon for entity based on given DifficultyInstance
+	 */
+	protected void setEquipmentBasedOnDifficulty(DifficultyInstance difficulty) {
 
-        if (!world.isRemote && slotIn == EntityEquipmentSlot.MAINHAND)
-        {
-            setCombatTask();
-        }
-    }
+		super.setEquipmentBasedOnDifficulty(difficulty);
+		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
+	}
 
-    public float getEyeHeight()
-    {
-        return 1.74F;
-    }
+	@Nullable
 
-    /**
-     * Returns the Y Offset of this entity.
-     */
-    public double getYOffset()
-    {
-        return -0.6D;
-    }
+	/**
+	 * Called only once on an entity when first time spawned, via egg, mob spawner, natural spawning etc, but not called
+	 * when entity is reloaded from nbt. Mainly used for initializing attributes and inventory.
+	 *
+	 * The livingdata parameter is used to pass data between all instances during a pack spawn. It will be null on the
+	 * first call. Subclasses may check if it's null, and then create a new one and return it if so, initializing all
+	 * entities in the pack with the contained data.
+	 *
+	 * @return The IEntityLivingData to pass to this method for other instances of this entity class within the same
+	 * pack
+	 *
+	 * @param difficulty The current local difficulty
+	 * @param livingdata Shared spawn data. Will usually be null. (See return value for more information)
+	 */
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 
-    public boolean isSwingingArms()
-    {
-        return ((Boolean) dataManager.get(SWINGING_ARMS)).booleanValue();
-    }
+		livingdata = super.onInitialSpawn(difficulty, livingdata);
+		setEquipmentBasedOnDifficulty(difficulty);
+		setEnchantmentBasedOnDifficulty(difficulty);
+		setCombatTask();
+		setCanPickUpLoot(rand.nextFloat() < 0.55F * difficulty.getClampedAdditionalDifficulty());
 
-    public void setSwingingArms(boolean swingingArms)
-    {
-        dataManager.set(SWINGING_ARMS, Boolean.valueOf(swingingArms));
-    }
+		if (getItemStackFromSlot(EntityEquipmentSlot.HEAD).isEmpty()) {
+			Calendar calendar = world.getCurrentDate();
+
+			if (calendar.get(2) + 1 == 10 && calendar.get(5) == 31 && rand.nextFloat() < 0.25F) {
+				setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(rand.nextFloat() < 0.1F ? Blocks.LIT_PUMPKIN : Blocks.PUMPKIN));
+				inventoryArmorDropChances[EntityEquipmentSlot.HEAD.getIndex()] = 0.0F;
+			}
+		}
+
+		return livingdata;
+	}
+
+	/**
+	 * sets this entity's combat AI.
+	 */
+	public void setCombatTask() {
+
+		if (world != null && !world.isRemote) {
+			tasks.removeTask(aiAttackOnCollide);
+			tasks.removeTask(aiArrowAttack);
+			ItemStack itemstack = getHeldItemMainhand();
+
+			if (itemstack.getItem() == Items.BOW) {
+				int i = 20;
+
+				if (world.getDifficulty() != EnumDifficulty.HARD) {
+					i = 40;
+				}
+
+				aiArrowAttack.setAttackCooldown(i);
+				tasks.addTask(4, aiArrowAttack);
+			} else {
+				tasks.addTask(4, aiAttackOnCollide);
+			}
+		}
+	}
+
+	/**
+	 * Attack the specified entity using a ranged attack.
+	 */
+	public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor) {
+
+		EntityArrow entityarrow = getArrow(distanceFactor);
+		double d0 = target.posX - posX;
+		double d1 = target.getEntityBoundingBox().minY + (double) (target.height / 3.0F) - entityarrow.posY;
+		double d2 = target.posZ - posZ;
+		double d3 = MathHelper.sqrt(d0 * d0 + d2 * d2);
+		entityarrow.shoot(d0, d1 + d3 * 0.20000000298023224D, d2, 1.6F, (float) (14 - world.getDifficulty().getDifficultyId() * 4));
+		playSound(SoundEvents.ENTITY_SKELETON_SHOOT, 1.0F, 1.0F / (getRNG().nextFloat() * 0.4F + 0.8F));
+		world.spawnEntity(entityarrow);
+	}
+
+	protected EntityArrow getArrow(float p_190726_1_) {
+
+		EntityTippedArrow entitytippedarrow = new EntityTippedArrow(world, this);
+		entitytippedarrow.setEnchantmentEffectsFromEntity(this, p_190726_1_);
+		return entitytippedarrow;
+	}
+
+	/**
+	 * (abstract) Protected helper method to read subclass entity data from NBT.
+	 */
+	public void readEntityFromNBT(NBTTagCompound compound) {
+
+		super.readEntityFromNBT(compound);
+		setCombatTask();
+	}
+
+	public void setItemStackToSlot(EntityEquipmentSlot slotIn, ItemStack stack) {
+
+		super.setItemStackToSlot(slotIn, stack);
+
+		if (!world.isRemote && slotIn == EntityEquipmentSlot.MAINHAND) {
+			setCombatTask();
+		}
+	}
+
+	public float getEyeHeight() {
+
+		return 1.74F;
+	}
+
+	/**
+	 * Returns the Y Offset of this entity.
+	 */
+	public double getYOffset() {
+
+		return -0.6D;
+	}
+
+	public boolean isSwingingArms() {
+
+		return dataManager.get(SWINGING_ARMS).booleanValue();
+	}
+
+	public void setSwingingArms(boolean swingingArms) {
+
+		dataManager.set(SWINGING_ARMS, Boolean.valueOf(swingingArms));
+	}
+
 }

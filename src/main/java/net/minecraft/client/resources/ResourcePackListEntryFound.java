@@ -2,38 +2,39 @@ package net.minecraft.client.resources;
 
 import net.minecraft.client.gui.GuiScreenResourcePacks;
 
-public class ResourcePackListEntryFound extends ResourcePackListEntry
-{
-    private final ResourcePackRepository.Entry resourcePackEntry;
+public class ResourcePackListEntryFound extends ResourcePackListEntry {
 
-    public ResourcePackListEntryFound(GuiScreenResourcePacks resourcePacksGUIIn, ResourcePackRepository.Entry entry)
-    {
-        super(resourcePacksGUIIn);
-        resourcePackEntry = entry;
-    }
+	private final ResourcePackRepository.Entry resourcePackEntry;
 
-    protected void bindResourcePackIcon()
-    {
-        resourcePackEntry.bindTexturePackIcon(mc.getTextureManager());
-    }
+	public ResourcePackListEntryFound(GuiScreenResourcePacks resourcePacksGUIIn, ResourcePackRepository.Entry entry) {
 
-    protected int getResourcePackFormat()
-    {
-        return resourcePackEntry.getPackFormat();
-    }
+		super(resourcePacksGUIIn);
+		resourcePackEntry = entry;
+	}
 
-    protected String getResourcePackDescription()
-    {
-        return resourcePackEntry.getTexturePackDescription();
-    }
+	protected void bindResourcePackIcon() {
 
-    protected String getResourcePackName()
-    {
-        return resourcePackEntry.getResourcePackName();
-    }
+		resourcePackEntry.bindTexturePackIcon(mc.getTextureManager());
+	}
 
-    public ResourcePackRepository.Entry getResourcePackEntry()
-    {
-        return resourcePackEntry;
-    }
+	protected int getResourcePackFormat() {
+
+		return resourcePackEntry.getPackFormat();
+	}
+
+	protected String getResourcePackDescription() {
+
+		return resourcePackEntry.getTexturePackDescription();
+	}
+
+	protected String getResourcePackName() {
+
+		return resourcePackEntry.getResourcePackName();
+	}
+
+	public ResourcePackRepository.Entry getResourcePackEntry() {
+
+		return resourcePackEntry;
+	}
+
 }

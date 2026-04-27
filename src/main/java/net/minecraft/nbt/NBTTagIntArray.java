@@ -6,111 +6,109 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-public class NBTTagIntArray extends NBTBase
-{
-    /** The array of saved integers */
-    private int[] intArray;
+public class NBTTagIntArray extends NBTBase {
 
-    NBTTagIntArray()
-    {
-    }
+	/**
+	 * The array of saved integers
+	 */
+	private int[] intArray;
 
-    public NBTTagIntArray(int[] p_i45132_1_)
-    {
-        intArray = p_i45132_1_;
-    }
+	NBTTagIntArray() {
 
-    public NBTTagIntArray(List<Integer> p_i47528_1_)
-    {
-        this(toArray(p_i47528_1_));
-    }
+	}
 
-    private static int[] toArray(List<Integer> p_193584_0_)
-    {
-        int[] aint = new int[p_193584_0_.size()];
+	public NBTTagIntArray(int[] p_i45132_1_) {
 
-        for (int i = 0; i < p_193584_0_.size(); ++i)
-        {
-            Integer integer = p_193584_0_.get(i);
-            aint[i] = integer == null ? 0 : integer.intValue();
-        }
+		intArray = p_i45132_1_;
+	}
 
-        return aint;
-    }
+	public NBTTagIntArray(List<Integer> p_i47528_1_) {
 
-    /**
-     * Write the actual data contents of the tag, implemented in NBT extension classes
-     */
-    void write(DataOutput output) throws IOException
-    {
-        output.writeInt(intArray.length);
+		this(toArray(p_i47528_1_));
+	}
 
-        for (int i : intArray)
-        {
-            output.writeInt(i);
-        }
-    }
+	private static int[] toArray(List<Integer> p_193584_0_) {
 
-    void read(DataInput input, int depth, NBTSizeTracker sizeTracker) throws IOException
-    {
-        sizeTracker.read(192L);
-        int i = input.readInt();
-        sizeTracker.read((long)(32 * i));
-        intArray = new int[i];
+		int[] aint = new int[p_193584_0_.size()];
 
-        for (int j = 0; j < i; ++j)
-        {
-            intArray[j] = input.readInt();
-        }
-    }
+		for (int i = 0; i < p_193584_0_.size(); ++i) {
+			Integer integer = p_193584_0_.get(i);
+			aint[i] = integer == null ? 0 : integer.intValue();
+		}
 
-    /**
-     * Gets the type byte for the tag.
-     */
-    public byte getId()
-    {
-        return 11;
-    }
+		return aint;
+	}
 
-    public String toString()
-    {
-        StringBuilder stringbuilder = new StringBuilder("[I;");
+	/**
+	 * Write the actual data contents of the tag, implemented in NBT extension classes
+	 */
+	void write(DataOutput output) throws IOException {
 
-        for (int i = 0; i < intArray.length; ++i)
-        {
-            if (i != 0)
-            {
-                stringbuilder.append(',');
-            }
+		output.writeInt(intArray.length);
 
-            stringbuilder.append(intArray[i]);
-        }
+		for (int i : intArray) {
+			output.writeInt(i);
+		}
+	}
 
-        return stringbuilder.append(']').toString();
-    }
+	void read(DataInput input, int depth, NBTSizeTracker sizeTracker) throws IOException {
 
-    /**
-     * Creates a clone of the tag.
-     */
-    public NBTTagIntArray copy()
-    {
-        int[] aint = new int[intArray.length];
-        System.arraycopy(intArray, 0, aint, 0, intArray.length);
-        return new NBTTagIntArray(aint);
-    }
+		sizeTracker.read(192L);
+		int i = input.readInt();
+		sizeTracker.read(32L * i);
+		intArray = new int[i];
 
-    public boolean equals(Object p_equals_1_)
-    {
-        return super.equals(p_equals_1_) && Arrays.equals(intArray, ((NBTTagIntArray)p_equals_1_).intArray);
-    }
+		for (int j = 0; j < i; ++j) {
+			intArray[j] = input.readInt();
+		}
+	}
 
-    public int hashCode()
-    {
-        return super.hashCode() ^ Arrays.hashCode(intArray);
-    }
+	/**
+	 * Gets the type byte for the tag.
+	 */
+	public byte getId() {
 
-    public int[] getIntArray()
-    {
-        return intArray;
-    }
+		return 11;
+	}
+
+	public String toString() {
+
+		StringBuilder stringbuilder = new StringBuilder("[I;");
+
+		for (int i = 0; i < intArray.length; ++i) {
+			if (i != 0) {
+				stringbuilder.append(',');
+			}
+
+			stringbuilder.append(intArray[i]);
+		}
+
+		return stringbuilder.append(']').toString();
+	}
+
+	/**
+	 * Creates a clone of the tag.
+	 */
+	public NBTTagIntArray copy() {
+
+		int[] aint = new int[intArray.length];
+		System.arraycopy(intArray, 0, aint, 0, intArray.length);
+		return new NBTTagIntArray(aint);
+	}
+
+	public boolean equals(Object p_equals_1_) {
+
+		return super.equals(p_equals_1_) && Arrays.equals(intArray, ((NBTTagIntArray) p_equals_1_).intArray);
+	}
+
+	public int hashCode() {
+
+		return super.hashCode() ^ Arrays.hashCode(intArray);
+	}
+
+	public int[] getIntArray() {
+
+		return intArray;
+	}
+
 }

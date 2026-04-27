@@ -1,6 +1,5 @@
 package net.minecraft.world.biome;
 
-import java.util.Random;
 import net.minecraft.block.BlockDoublePlant;
 import net.minecraft.entity.passive.EntityDonkey;
 import net.minecraft.entity.passive.EntityHorse;
@@ -10,48 +9,49 @@ import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 import net.minecraft.world.gen.feature.WorldGenSavannaTree;
 
-public class BiomeSavanna extends Biome
-{
-    private static final WorldGenSavannaTree SAVANNA_TREE = new WorldGenSavannaTree(false);
+import java.util.Random;
 
-    protected BiomeSavanna(Biome.BiomeProperties properties)
-    {
-        super(properties);
-        spawnableCreatureList.add(new Biome.SpawnListEntry(EntityHorse.class, 1, 2, 6));
-        spawnableCreatureList.add(new Biome.SpawnListEntry(EntityDonkey.class, 1, 1, 1));
+public class BiomeSavanna extends Biome {
 
-        if (getBaseHeight() > 1.1F)
-        {
-            spawnableCreatureList.add(new Biome.SpawnListEntry(EntityLlama.class, 8, 4, 4));
-        }
+	private static final WorldGenSavannaTree SAVANNA_TREE = new WorldGenSavannaTree(false);
 
-        decorator.treesPerChunk = 1;
-        decorator.flowersPerChunk = 4;
-        decorator.grassPerChunk = 20;
-    }
+	protected BiomeSavanna(Biome.BiomeProperties properties) {
 
-    public WorldGenAbstractTree getRandomTreeFeature(Random rand)
-    {
-        return (WorldGenAbstractTree)(rand.nextInt(5) > 0 ? SAVANNA_TREE : TREE_FEATURE);
-    }
+		super(properties);
+		spawnableCreatureList.add(new Biome.SpawnListEntry(EntityHorse.class, 1, 2, 6));
+		spawnableCreatureList.add(new Biome.SpawnListEntry(EntityDonkey.class, 1, 1, 1));
 
-    public void decorate(World worldIn, Random rand, BlockPos pos)
-    {
-        DOUBLE_PLANT_GENERATOR.setPlantType(BlockDoublePlant.EnumPlantType.GRASS);
+		if (getBaseHeight() > 1.1F) {
+			spawnableCreatureList.add(new Biome.SpawnListEntry(EntityLlama.class, 8, 4, 4));
+		}
 
-        for (int i = 0; i < 7; ++i)
-        {
-            int j = rand.nextInt(16) + 8;
-            int k = rand.nextInt(16) + 8;
-            int l = rand.nextInt(worldIn.getHeight(pos.add(j, 0, k)).getY() + 32);
-            DOUBLE_PLANT_GENERATOR.generate(worldIn, rand, pos.add(j, l, k));
-        }
+		decorator.treesPerChunk = 1;
+		decorator.flowersPerChunk = 4;
+		decorator.grassPerChunk = 20;
+	}
 
-        super.decorate(worldIn, rand, pos);
-    }
+	public WorldGenAbstractTree getRandomTreeFeature(Random rand) {
 
-    public Class <? extends Biome > getBiomeClass()
-    {
-        return BiomeSavanna.class;
-    }
+		return rand.nextInt(5) > 0 ? SAVANNA_TREE : TREE_FEATURE;
+	}
+
+	public void decorate(World worldIn, Random rand, BlockPos pos) {
+
+		DOUBLE_PLANT_GENERATOR.setPlantType(BlockDoublePlant.EnumPlantType.GRASS);
+
+		for (int i = 0; i < 7; ++i) {
+			int j = rand.nextInt(16) + 8;
+			int k = rand.nextInt(16) + 8;
+			int l = rand.nextInt(worldIn.getHeight(pos.add(j, 0, k)).getY() + 32);
+			DOUBLE_PLANT_GENERATOR.generate(worldIn, rand, pos.add(j, l, k));
+		}
+
+		super.decorate(worldIn, rand, pos);
+	}
+
+	public Class<? extends Biome> getBiomeClass() {
+
+		return BiomeSavanna.class;
+	}
+
 }

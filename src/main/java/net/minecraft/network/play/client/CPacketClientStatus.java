@@ -1,55 +1,56 @@
 package net.minecraft.network.play.client;
 
-import java.io.IOException;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayServer;
 
-public class CPacketClientStatus implements Packet<INetHandlerPlayServer>
-{
-    private CPacketClientStatus.State status;
+import java.io.IOException;
 
-    public CPacketClientStatus()
-    {
-    }
+public class CPacketClientStatus implements Packet<INetHandlerPlayServer> {
 
-    public CPacketClientStatus(CPacketClientStatus.State p_i46886_1_)
-    {
-        status = p_i46886_1_;
-    }
+	private CPacketClientStatus.State status;
 
-    /**
-     * Reads the raw packet data from the data stream.
-     */
-    public void readPacketData(PacketBuffer buf) throws IOException
-    {
-        status = (CPacketClientStatus.State)buf.readEnumValue(CPacketClientStatus.State.class);
-    }
+	public CPacketClientStatus() {
 
-    /**
-     * Writes the raw packet data to the data stream.
-     */
-    public void writePacketData(PacketBuffer buf) throws IOException
-    {
-        buf.writeEnumValue(status);
-    }
+	}
 
-    /**
-     * Passes this Packet on to the NetHandler for processing.
-     */
-    public void processPacket(INetHandlerPlayServer handler)
-    {
-        handler.processClientStatus(this);
-    }
+	public CPacketClientStatus(CPacketClientStatus.State p_i46886_1_) {
 
-    public CPacketClientStatus.State getStatus()
-    {
-        return status;
-    }
+		status = p_i46886_1_;
+	}
 
-    public static enum State
-    {
-        PERFORM_RESPAWN,
-        REQUEST_STATS;
-    }
+	/**
+	 * Reads the raw packet data from the data stream.
+	 */
+	public void readPacketData(PacketBuffer buf) throws IOException {
+
+		status = buf.readEnumValue(State.class);
+	}
+
+	/**
+	 * Writes the raw packet data to the data stream.
+	 */
+	public void writePacketData(PacketBuffer buf) throws IOException {
+
+		buf.writeEnumValue(status);
+	}
+
+	/**
+	 * Passes this Packet on to the NetHandler for processing.
+	 */
+	public void processPacket(INetHandlerPlayServer handler) {
+
+		handler.processClientStatus(this);
+	}
+
+	public CPacketClientStatus.State getStatus() {
+
+		return status;
+	}
+
+	public enum State {
+		PERFORM_RESPAWN,
+		REQUEST_STATS
+	}
+
 }

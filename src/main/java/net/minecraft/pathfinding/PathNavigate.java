@@ -1,6 +1,5 @@
 package net.minecraft.pathfinding;
 
-import javax.annotation.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -15,427 +14,388 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.ChunkCache;
 import net.minecraft.world.World;
 
-public abstract class PathNavigate
-{
-    protected EntityLiving entity;
-    protected World world;
-    @Nullable
+import javax.annotation.Nullable;
 
-    /** The PathEntity being followed. */
-    protected Path currentPath;
-    protected double speed;
+public abstract class PathNavigate {
 
-    /**
-     * The number of blocks (extra) +/- in each axis that get pulled out as cache for the pathfinder's search space
-     */
-    private final IAttributeInstance pathSearchRange;
+	protected EntityLiving entity;
+	protected World world;
 
-    /** Time, in number of ticks, following the current path */
-    protected int totalTicks;
+	@Nullable
 
-    /**
-     * The time when the last position check was done (to detect successful movement)
-     */
-    private int ticksAtLastPos;
+	/** The PathEntity being followed. */
+	protected Path currentPath;
+	protected double speed;
 
-    /**
-     * Coordinates of the entity's position last time a check was done (part of monitoring getting 'stuck')
-     */
-    private Vec3d lastPosCheck = Vec3d.ZERO;
-    private Vec3d timeoutCachedNode = Vec3d.ZERO;
-    private long timeoutTimer;
-    private long lastTimeoutCheck;
-    private double timeoutLimit;
-    protected float maxDistanceToWaypoint = 0.5F;
-    protected boolean tryUpdatePath;
-    private long lastTimeUpdated;
-    protected NodeProcessor nodeProcessor;
-    private BlockPos targetPos;
-    private final PathFinder pathFinder;
+	/**
+	 * The number of blocks (extra) +/- in each axis that get pulled out as cache for the pathfinder's search space
+	 */
+	private final IAttributeInstance pathSearchRange;
 
-    public PathNavigate(EntityLiving entityIn, World worldIn)
-    {
-        entity = entityIn;
-        world = worldIn;
-        pathSearchRange = entityIn.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE);
-        pathFinder = getPathFinder();
-    }
+	/**
+	 * Time, in number of ticks, following the current path
+	 */
+	protected int totalTicks;
 
-    protected abstract PathFinder getPathFinder();
+	/**
+	 * The time when the last position check was done (to detect successful movement)
+	 */
+	private int ticksAtLastPos;
 
-    /**
-     * Sets the speed
-     */
-    public void setSpeed(double speedIn)
-    {
-        speed = speedIn;
-    }
+	/**
+	 * Coordinates of the entity's position last time a check was done (part of monitoring getting 'stuck')
+	 */
+	private Vec3d lastPosCheck = Vec3d.ZERO;
+	private Vec3d timeoutCachedNode = Vec3d.ZERO;
+	private long timeoutTimer;
+	private long lastTimeoutCheck;
+	private double timeoutLimit;
+	protected float maxDistanceToWaypoint = 0.5F;
+	protected boolean tryUpdatePath;
+	private long lastTimeUpdated;
+	protected NodeProcessor nodeProcessor;
+	private BlockPos targetPos;
+	private final PathFinder pathFinder;
 
-    /**
-     * Gets the maximum distance that the path finding will search in.
-     */
-    public float getPathSearchRange()
-    {
-        return (float) pathSearchRange.getAttributeValue();
-    }
+	public PathNavigate(EntityLiving entityIn, World worldIn) {
 
-    /**
-     * Returns true if path can be changed by {@link net.minecraft.pathfinding.PathNavigate#onUpdateNavigation()
-     * onUpdateNavigation()}
-     */
-    public boolean canUpdatePathOnTimeout()
-    {
-        return tryUpdatePath;
-    }
+		entity = entityIn;
+		world = worldIn;
+		pathSearchRange = entityIn.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE);
+		pathFinder = getPathFinder();
+	}
 
-    public void updatePath()
-    {
-        if (world.getTotalWorldTime() - lastTimeUpdated > 20L)
-        {
-            if (targetPos != null)
-            {
-                currentPath = null;
-                currentPath = getPathToPos(targetPos);
-                lastTimeUpdated = world.getTotalWorldTime();
-                tryUpdatePath = false;
-            }
-        }
-        else
-        {
-            tryUpdatePath = true;
-        }
-    }
+	protected abstract PathFinder getPathFinder();
 
-    @Nullable
+	/**
+	 * Sets the speed
+	 */
+	public void setSpeed(double speedIn) {
 
-    /**
-     * Returns the path to the given coordinates. Args : x, y, z
-     */
-    public final Path getPathToXYZ(double x, double y, double z)
-    {
-        return getPathToPos(new BlockPos(x, y, z));
-    }
+		speed = speedIn;
+	}
 
-    @Nullable
+	/**
+	 * Gets the maximum distance that the path finding will search in.
+	 */
+	public float getPathSearchRange() {
 
-    /**
-     * Returns path to given BlockPos
-     */
-    public Path getPathToPos(BlockPos pos)
-    {
-        if (!canNavigate())
-        {
-            return null;
-        }
-        else if (currentPath != null && !currentPath.isFinished() && pos.equals(targetPos))
-        {
-            return currentPath;
-        }
-        else
-        {
-            targetPos = pos;
-            float f = getPathSearchRange();
-            world.profiler.startSection("pathfind");
-            BlockPos blockpos = new BlockPos(entity);
-            int i = (int)(f + 8.0F);
-            ChunkCache chunkcache = new ChunkCache(world, blockpos.add(-i, -i, -i), blockpos.add(i, i, i), 0);
-            Path path = pathFinder.findPath(chunkcache, entity, targetPos, f);
-            world.profiler.endSection();
-            return path;
-        }
-    }
+		return (float) pathSearchRange.getAttributeValue();
+	}
 
-    @Nullable
+	/**
+	 * Returns true if path can be changed by {@link net.minecraft.pathfinding.PathNavigate#onUpdateNavigation()
+	 * onUpdateNavigation()}
+	 */
+	public boolean canUpdatePathOnTimeout() {
 
-    /**
-     * Returns the path to the given EntityLiving. Args : entity
-     */
-    public Path getPathToEntityLiving(Entity entityIn)
-    {
-        if (!canNavigate())
-        {
-            return null;
-        }
-        else
-        {
-            BlockPos blockpos = new BlockPos(entityIn);
+		return tryUpdatePath;
+	}
 
-            if (currentPath != null && !currentPath.isFinished() && blockpos.equals(targetPos))
-            {
-                return currentPath;
-            }
-            else
-            {
-                targetPos = blockpos;
-                float f = getPathSearchRange();
-                world.profiler.startSection("pathfind");
-                BlockPos blockpos1 = (new BlockPos(entity)).up();
-                int i = (int)(f + 16.0F);
-                ChunkCache chunkcache = new ChunkCache(world, blockpos1.add(-i, -i, -i), blockpos1.add(i, i, i), 0);
-                Path path = pathFinder.findPath(chunkcache, entity, entityIn, f);
-                world.profiler.endSection();
-                return path;
-            }
-        }
-    }
+	public void updatePath() {
 
-    /**
-     * Try to find and set a path to XYZ. Returns true if successful. Args : x, y, z, speed
-     */
-    public boolean tryMoveToXYZ(double x, double y, double z, double speedIn)
-    {
-        return setPath(getPathToXYZ(x, y, z), speedIn);
-    }
+		if (world.getTotalWorldTime() - lastTimeUpdated > 20L) {
+			if (targetPos != null) {
+				currentPath = null;
+				currentPath = getPathToPos(targetPos);
+				lastTimeUpdated = world.getTotalWorldTime();
+				tryUpdatePath = false;
+			}
+		} else {
+			tryUpdatePath = true;
+		}
+	}
 
-    /**
-     * Try to find and set a path to EntityLiving. Returns true if successful. Args : entity, speed
-     */
-    public boolean tryMoveToEntityLiving(Entity entityIn, double speedIn)
-    {
-        Path path = getPathToEntityLiving(entityIn);
-        return path != null && setPath(path, speedIn);
-    }
+	@Nullable
 
-    /**
-     * Sets a new path. If it's diferent from the old path. Checks to adjust path for sun avoiding, and stores start
-     * coords. Args : path, speed
-     */
-    public boolean setPath(@Nullable Path pathentityIn, double speedIn)
-    {
-        if (pathentityIn == null)
-        {
-            currentPath = null;
-            return false;
-        }
-        else
-        {
-            if (!pathentityIn.isSamePath(currentPath))
-            {
-                currentPath = pathentityIn;
-            }
+	/**
+	 * Returns the path to the given coordinates. Args : x, y, z
+	 */
+	public final Path getPathToXYZ(double x, double y, double z) {
 
-            removeSunnyPath();
+		return getPathToPos(new BlockPos(x, y, z));
+	}
 
-            if (currentPath.getCurrentPathLength() <= 0)
-            {
-                return false;
-            }
-            else
-            {
-                speed = speedIn;
-                Vec3d vec3d = getEntityPosition();
-                ticksAtLastPos = totalTicks;
-                lastPosCheck = vec3d;
-                return true;
-            }
-        }
-    }
+	@Nullable
 
-    @Nullable
+	/**
+	 * Returns path to given BlockPos
+	 */
+	public Path getPathToPos(BlockPos pos) {
 
-    /**
-     * gets the actively used PathEntity
-     */
-    public Path getPath()
-    {
-        return currentPath;
-    }
+		if (!canNavigate()) {
+			return null;
+		} else if (currentPath != null && !currentPath.isFinished() && pos.equals(targetPos)) {
+			return currentPath;
+		} else {
+			targetPos = pos;
+			float f = getPathSearchRange();
+			world.profiler.startSection("pathfind");
+			BlockPos blockpos = new BlockPos(entity);
+			int i = (int) (f + 8.0F);
+			ChunkCache chunkcache = new ChunkCache(world, blockpos.add(-i, -i, -i), blockpos.add(i, i, i), 0);
+			Path path = pathFinder.findPath(chunkcache, entity, targetPos, f);
+			world.profiler.endSection();
+			return path;
+		}
+	}
 
-    public void onUpdateNavigation()
-    {
-        ++totalTicks;
+	@Nullable
 
-        if (tryUpdatePath)
-        {
-            updatePath();
-        }
+	/**
+	 * Returns the path to the given EntityLiving. Args : entity
+	 */
+	public Path getPathToEntityLiving(Entity entityIn) {
 
-        if (!noPath())
-        {
-            if (canNavigate())
-            {
-                pathFollow();
-            }
-            else if (currentPath != null && currentPath.getCurrentPathIndex() < currentPath.getCurrentPathLength())
-            {
-                Vec3d vec3d = getEntityPosition();
-                Vec3d vec3d1 = currentPath.getVectorFromIndex(entity, currentPath.getCurrentPathIndex());
+		if (!canNavigate()) {
+			return null;
+		} else {
+			BlockPos blockpos = new BlockPos(entityIn);
 
-                if (vec3d.y > vec3d1.y && !entity.onGround && MathHelper.floor(vec3d.x) == MathHelper.floor(vec3d1.x) && MathHelper.floor(vec3d.z) == MathHelper.floor(vec3d1.z))
-                {
-                    currentPath.setCurrentPathIndex(currentPath.getCurrentPathIndex() + 1);
-                }
-            }
+			if (currentPath != null && !currentPath.isFinished() && blockpos.equals(targetPos)) {
+				return currentPath;
+			} else {
+				targetPos = blockpos;
+				float f = getPathSearchRange();
+				world.profiler.startSection("pathfind");
+				BlockPos blockpos1 = (new BlockPos(entity)).up();
+				int i = (int) (f + 16.0F);
+				ChunkCache chunkcache = new ChunkCache(world, blockpos1.add(-i, -i, -i), blockpos1.add(i, i, i), 0);
+				Path path = pathFinder.findPath(chunkcache, entity, entityIn, f);
+				world.profiler.endSection();
+				return path;
+			}
+		}
+	}
 
-            debugPathFinding();
+	/**
+	 * Try to find and set a path to XYZ. Returns true if successful. Args : x, y, z, speed
+	 */
+	public boolean tryMoveToXYZ(double x, double y, double z, double speedIn) {
 
-            if (!noPath())
-            {
-                Vec3d vec3d2 = currentPath.getPosition(entity);
-                BlockPos blockpos = (new BlockPos(vec3d2)).down();
-                AxisAlignedBB axisalignedbb = world.getBlockState(blockpos).getBoundingBox(world, blockpos);
-                vec3d2 = vec3d2.subtract(0.0D, 1.0D - axisalignedbb.maxY, 0.0D);
-                entity.getMoveHelper().setMoveTo(vec3d2.x, vec3d2.y, vec3d2.z, speed);
-            }
-        }
-    }
+		return setPath(getPathToXYZ(x, y, z), speedIn);
+	}
 
-    protected void debugPathFinding()
-    {
-    }
+	/**
+	 * Try to find and set a path to EntityLiving. Returns true if successful. Args : entity, speed
+	 */
+	public boolean tryMoveToEntityLiving(Entity entityIn, double speedIn) {
 
-    protected void pathFollow()
-    {
-        Vec3d vec3d = getEntityPosition();
-        int i = currentPath.getCurrentPathLength();
+		Path path = getPathToEntityLiving(entityIn);
+		return path != null && setPath(path, speedIn);
+	}
 
-        for (int j = currentPath.getCurrentPathIndex(); j < currentPath.getCurrentPathLength(); ++j)
-        {
-            if ((double) currentPath.getPathPointFromIndex(j).y != Math.floor(vec3d.y))
-            {
-                i = j;
-                break;
-            }
-        }
+	/**
+	 * Sets a new path. If it's diferent from the old path. Checks to adjust path for sun avoiding, and stores start
+	 * coords. Args : path, speed
+	 */
+	public boolean setPath(@Nullable Path pathentityIn, double speedIn) {
 
-        maxDistanceToWaypoint = entity.width > 0.75F ? entity.width / 2.0F : 0.75F - entity.width / 2.0F;
-        Vec3d vec3d1 = currentPath.getCurrentPos();
+		if (pathentityIn == null) {
+			currentPath = null;
+			return false;
+		} else {
+			if (!pathentityIn.isSamePath(currentPath)) {
+				currentPath = pathentityIn;
+			}
 
-        if (MathHelper.abs((float)(entity.posX - (vec3d1.x + 0.5D))) < maxDistanceToWaypoint && MathHelper.abs((float)(entity.posZ - (vec3d1.z + 0.5D))) < maxDistanceToWaypoint && Math.abs(entity.posY - vec3d1.y) < 1.0D)
-        {
-            currentPath.setCurrentPathIndex(currentPath.getCurrentPathIndex() + 1);
-        }
+			removeSunnyPath();
 
-        int k = MathHelper.ceil(entity.width);
-        int l = MathHelper.ceil(entity.height);
-        int i1 = k;
+			if (currentPath.getCurrentPathLength() <= 0) {
+				return false;
+			} else {
+				speed = speedIn;
+				Vec3d vec3d = getEntityPosition();
+				ticksAtLastPos = totalTicks;
+				lastPosCheck = vec3d;
+				return true;
+			}
+		}
+	}
 
-        for (int j1 = i - 1; j1 >= currentPath.getCurrentPathIndex(); --j1)
-        {
-            if (isDirectPathBetweenPoints(vec3d, currentPath.getVectorFromIndex(entity, j1), k, l, i1))
-            {
-                currentPath.setCurrentPathIndex(j1);
-                break;
-            }
-        }
+	@Nullable
 
-        checkForStuck(vec3d);
-    }
+	/**
+	 * gets the actively used PathEntity
+	 */
+	public Path getPath() {
 
-    /**
-     * Checks if entity haven't been moved when last checked and if so, clears current {@link
-     * net.minecraft.pathfinding.PathEntity}
-     */
-    protected void checkForStuck(Vec3d positionVec3)
-    {
-        if (totalTicks - ticksAtLastPos > 100)
-        {
-            if (positionVec3.squareDistanceTo(lastPosCheck) < 2.25D)
-            {
-                clearPath();
-            }
+		return currentPath;
+	}
 
-            ticksAtLastPos = totalTicks;
-            lastPosCheck = positionVec3;
-        }
+	public void onUpdateNavigation() {
 
-        if (currentPath != null && !currentPath.isFinished())
-        {
-            Vec3d vec3d = currentPath.getCurrentPos();
+		++totalTicks;
 
-            if (vec3d.equals(timeoutCachedNode))
-            {
-                timeoutTimer += System.currentTimeMillis() - lastTimeoutCheck;
-            }
-            else
-            {
-                timeoutCachedNode = vec3d;
-                double d0 = positionVec3.distanceTo(timeoutCachedNode);
-                timeoutLimit = entity.getAIMoveSpeed() > 0.0F ? d0 / (double) entity.getAIMoveSpeed() * 1000.0D : 0.0D;
-            }
+		if (tryUpdatePath) {
+			updatePath();
+		}
 
-            if (timeoutLimit > 0.0D && (double) timeoutTimer > timeoutLimit * 3.0D)
-            {
-                timeoutCachedNode = Vec3d.ZERO;
-                timeoutTimer = 0L;
-                timeoutLimit = 0.0D;
-                clearPath();
-            }
+		if (!noPath()) {
+			if (canNavigate()) {
+				pathFollow();
+			} else if (currentPath != null && currentPath.getCurrentPathIndex() < currentPath.getCurrentPathLength()) {
+				Vec3d vec3d = getEntityPosition();
+				Vec3d vec3d1 = currentPath.getVectorFromIndex(entity, currentPath.getCurrentPathIndex());
 
-            lastTimeoutCheck = System.currentTimeMillis();
-        }
-    }
+				if (vec3d.y() > vec3d1.y() && !entity.onGround && MathHelper.floor(vec3d.x()) == MathHelper.floor(vec3d1.x()) && MathHelper.floor(vec3d.z()) == MathHelper.floor(vec3d1.z())) {
+					currentPath.setCurrentPathIndex(currentPath.getCurrentPathIndex() + 1);
+				}
+			}
 
-    /**
-     * If null path or reached the end
-     */
-    public boolean noPath()
-    {
-        return currentPath == null || currentPath.isFinished();
-    }
+			debugPathFinding();
 
-    /**
-     * sets active PathEntity to null
-     */
-    public void clearPath()
-    {
-        currentPath = null;
-    }
+			if (!noPath()) {
+				Vec3d vec3d2 = currentPath.getPosition(entity);
+				BlockPos blockpos = (new BlockPos(vec3d2)).down();
+				AxisAlignedBB axisalignedbb = world.getBlockState(blockpos).getBoundingBox(world, blockpos);
+				vec3d2 = vec3d2.subtract(0.0D, 1.0D - axisalignedbb.maxY, 0.0D);
+				entity.getMoveHelper().setMoveTo(vec3d2.x(), vec3d2.y(), vec3d2.z(), speed);
+			}
+		}
+	}
 
-    protected abstract Vec3d getEntityPosition();
+	protected void debugPathFinding() {
 
-    /**
-     * If on ground or swimming and can swim
-     */
-    protected abstract boolean canNavigate();
+	}
 
-    /**
-     * Returns true if the entity is in water or lava, false otherwise
-     */
-    protected boolean isInLiquid()
-    {
-        return entity.isInWater() || entity.isInLava();
-    }
+	protected void pathFollow() {
 
-    /**
-     * Trims path data from the end to the first sun covered block
-     */
-    protected void removeSunnyPath()
-    {
-        if (currentPath != null)
-        {
-            for (int i = 0; i < currentPath.getCurrentPathLength(); ++i)
-            {
-                PathPoint pathpoint = currentPath.getPathPointFromIndex(i);
-                PathPoint pathpoint1 = i + 1 < currentPath.getCurrentPathLength() ? currentPath.getPathPointFromIndex(i + 1) : null;
-                IBlockState iblockstate = world.getBlockState(new BlockPos(pathpoint.x, pathpoint.y, pathpoint.z));
-                Block block = iblockstate.getBlock();
+		Vec3d vec3d = getEntityPosition();
+		int i = currentPath.getCurrentPathLength();
 
-                if (block == Blocks.CAULDRON)
-                {
-                    currentPath.setPoint(i, pathpoint.cloneMove(pathpoint.x, pathpoint.y + 1, pathpoint.z));
+		for (int j = currentPath.getCurrentPathIndex(); j < currentPath.getCurrentPathLength(); ++j) {
+			if ((double) currentPath.getPathPointFromIndex(j).y != Math.floor(vec3d.y())) {
+				i = j;
+				break;
+			}
+		}
 
-                    if (pathpoint1 != null && pathpoint.y >= pathpoint1.y)
-                    {
-                        currentPath.setPoint(i + 1, pathpoint1.cloneMove(pathpoint1.x, pathpoint.y + 1, pathpoint1.z));
-                    }
-                }
-            }
-        }
-    }
+		maxDistanceToWaypoint = entity.width > 0.75F ? entity.width / 2.0F : 0.75F - entity.width / 2.0F;
+		Vec3d vec3d1 = currentPath.getCurrentPos();
 
-    /**
-     * Checks if the specified entity can safely walk to the specified location.
-     */
-    protected abstract boolean isDirectPathBetweenPoints(Vec3d posVec31, Vec3d posVec32, int sizeX, int sizeY, int sizeZ);
+		if (MathHelper.abs((float) (entity.posX - (vec3d1.x() + 0.5D))) < maxDistanceToWaypoint && MathHelper.abs((float) (entity.posZ - (vec3d1.z() + 0.5D))) < maxDistanceToWaypoint && Math.abs(entity.posY - vec3d1.y()) < 1.0D) {
+			currentPath.setCurrentPathIndex(currentPath.getCurrentPathIndex() + 1);
+		}
 
-    public boolean canEntityStandOnPos(BlockPos pos)
-    {
-        return world.getBlockState(pos.down()).isFullBlock();
-    }
+		int k = MathHelper.ceil(entity.width);
+		int l = MathHelper.ceil(entity.height);
+		int i1 = k;
 
-    public NodeProcessor getNodeProcessor()
-    {
-        return nodeProcessor;
-    }
+		for (int j1 = i - 1; j1 >= currentPath.getCurrentPathIndex(); --j1) {
+			if (isDirectPathBetweenPoints(vec3d, currentPath.getVectorFromIndex(entity, j1), k, l, i1)) {
+				currentPath.setCurrentPathIndex(j1);
+				break;
+			}
+		}
+
+		checkForStuck(vec3d);
+	}
+
+	/**
+	 * Checks if entity haven't been moved when last checked and if so, clears current {@link
+	 * net.minecraft.pathfinding.PathEntity}
+	 */
+	protected void checkForStuck(Vec3d positionVec3) {
+
+		if (totalTicks - ticksAtLastPos > 100) {
+			if (positionVec3.squareDistanceTo(lastPosCheck) < 2.25D) {
+				clearPath();
+			}
+
+			ticksAtLastPos = totalTicks;
+			lastPosCheck = positionVec3;
+		}
+
+		if (currentPath != null && !currentPath.isFinished()) {
+			Vec3d vec3d = currentPath.getCurrentPos();
+
+			if (vec3d.equals(timeoutCachedNode)) {
+				timeoutTimer += System.currentTimeMillis() - lastTimeoutCheck;
+			} else {
+				timeoutCachedNode = vec3d;
+				double d0 = positionVec3.distanceTo(timeoutCachedNode);
+				timeoutLimit = entity.getAIMoveSpeed() > 0.0F ? d0 / (double) entity.getAIMoveSpeed() * 1000.0D : 0.0D;
+			}
+
+			if (timeoutLimit > 0.0D && (double) timeoutTimer > timeoutLimit * 3.0D) {
+				timeoutCachedNode = Vec3d.ZERO;
+				timeoutTimer = 0L;
+				timeoutLimit = 0.0D;
+				clearPath();
+			}
+
+			lastTimeoutCheck = System.currentTimeMillis();
+		}
+	}
+
+	/**
+	 * If null path or reached the end
+	 */
+	public boolean noPath() {
+
+		return currentPath == null || currentPath.isFinished();
+	}
+
+	/**
+	 * sets active PathEntity to null
+	 */
+	public void clearPath() {
+
+		currentPath = null;
+	}
+
+	protected abstract Vec3d getEntityPosition();
+
+	/**
+	 * If on ground or swimming and can swim
+	 */
+	protected abstract boolean canNavigate();
+
+	/**
+	 * Returns true if the entity is in water or lava, false otherwise
+	 */
+	protected boolean isInLiquid() {
+
+		return entity.isInWater() || entity.isInLava();
+	}
+
+	/**
+	 * Trims path data from the end to the first sun covered block
+	 */
+	protected void removeSunnyPath() {
+
+		if (currentPath != null) {
+			for (int i = 0; i < currentPath.getCurrentPathLength(); ++i) {
+				PathPoint pathpoint = currentPath.getPathPointFromIndex(i);
+				PathPoint pathpoint1 = i + 1 < currentPath.getCurrentPathLength() ? currentPath.getPathPointFromIndex(i + 1) : null;
+				IBlockState iblockstate = world.getBlockState(new BlockPos(pathpoint.x, pathpoint.y, pathpoint.z));
+				Block block = iblockstate.getBlock();
+
+				if (block == Blocks.CAULDRON) {
+					currentPath.setPoint(i, pathpoint.cloneMove(pathpoint.x, pathpoint.y + 1, pathpoint.z));
+
+					if (pathpoint1 != null && pathpoint.y >= pathpoint1.y) {
+						currentPath.setPoint(i + 1, pathpoint1.cloneMove(pathpoint1.x, pathpoint.y + 1, pathpoint1.z));
+					}
+				}
+			}
+		}
+	}
+
+	/**
+	 * Checks if the specified entity can safely walk to the specified location.
+	 */
+	protected abstract boolean isDirectPathBetweenPoints(Vec3d posVec31, Vec3d posVec32, int sizeX, int sizeY, int sizeZ);
+
+	public boolean canEntityStandOnPos(BlockPos pos) {
+
+		return world.getBlockState(pos.down()).isFullBlock();
+	}
+
+	public NodeProcessor getNodeProcessor() {
+
+		return nodeProcessor;
+	}
+
 }

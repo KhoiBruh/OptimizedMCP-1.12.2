@@ -1,185 +1,190 @@
 package net.minecraft.network.play.client;
 
-import java.io.IOException;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayServer;
 
-public class CPacketPlayer implements Packet<INetHandlerPlayServer>
-{
-    protected double x;
-    protected double y;
-    protected double z;
-    protected float yaw;
-    protected float pitch;
-    protected boolean onGround;
-    protected boolean moving;
-    protected boolean rotating;
+import java.io.IOException;
 
-    public CPacketPlayer()
-    {
-    }
+public class CPacketPlayer implements Packet<INetHandlerPlayServer> {
 
-    public CPacketPlayer(boolean onGroundIn)
-    {
-        onGround = onGroundIn;
-    }
+	protected double x;
+	protected double y;
+	protected double z;
+	protected float yaw;
+	protected float pitch;
+	protected boolean onGround;
+	protected boolean moving;
+	protected boolean rotating;
 
-    /**
-     * Passes this Packet on to the NetHandler for processing.
-     */
-    public void processPacket(INetHandlerPlayServer handler)
-    {
-        handler.processPlayer(this);
-    }
+	public CPacketPlayer() {
 
-    /**
-     * Reads the raw packet data from the data stream.
-     */
-    public void readPacketData(PacketBuffer buf) throws IOException
-    {
-        onGround = buf.readUnsignedByte() != 0;
-    }
+	}
 
-    /**
-     * Writes the raw packet data to the data stream.
-     */
-    public void writePacketData(PacketBuffer buf) throws IOException
-    {
-        buf.writeByte(onGround ? 1 : 0);
-    }
+	public CPacketPlayer(boolean onGroundIn) {
 
-    public double getX(double defaultValue)
-    {
-        return moving ? x : defaultValue;
-    }
+		onGround = onGroundIn;
+	}
 
-    public double getY(double defaultValue)
-    {
-        return moving ? y : defaultValue;
-    }
+	/**
+	 * Passes this Packet on to the NetHandler for processing.
+	 */
+	public void processPacket(INetHandlerPlayServer handler) {
 
-    public double getZ(double defaultValue)
-    {
-        return moving ? z : defaultValue;
-    }
+		handler.processPlayer(this);
+	}
 
-    public float getYaw(float defaultValue)
-    {
-        return rotating ? yaw : defaultValue;
-    }
+	/**
+	 * Reads the raw packet data from the data stream.
+	 */
+	public void readPacketData(PacketBuffer buf) throws IOException {
 
-    public float getPitch(float defaultValue)
-    {
-        return rotating ? pitch : defaultValue;
-    }
+		onGround = buf.readUnsignedByte() != 0;
+	}
 
-    public boolean isOnGround()
-    {
-        return onGround;
-    }
+	/**
+	 * Writes the raw packet data to the data stream.
+	 */
+	public void writePacketData(PacketBuffer buf) throws IOException {
 
-    public static class Position extends CPacketPlayer
-    {
-        public Position()
-        {
-            moving = true;
-        }
+		buf.writeByte(onGround ? 1 : 0);
+	}
 
-        public Position(double xIn, double yIn, double zIn, boolean onGroundIn)
-        {
-            x = xIn;
-            y = yIn;
-            z = zIn;
-            onGround = onGroundIn;
-            moving = true;
-        }
+	public double getX(double defaultValue) {
 
-        public void readPacketData(PacketBuffer buf) throws IOException
-        {
-            x = buf.readDouble();
-            y = buf.readDouble();
-            z = buf.readDouble();
-            super.readPacketData(buf);
-        }
+		return moving ? x : defaultValue;
+	}
 
-        public void writePacketData(PacketBuffer buf) throws IOException
-        {
-            buf.writeDouble(x);
-            buf.writeDouble(y);
-            buf.writeDouble(z);
-            super.writePacketData(buf);
-        }
-    }
+	public double getY(double defaultValue) {
 
-    public static class PositionRotation extends CPacketPlayer
-    {
-        public PositionRotation()
-        {
-            moving = true;
-            rotating = true;
-        }
+		return moving ? y : defaultValue;
+	}
 
-        public PositionRotation(double xIn, double yIn, double zIn, float yawIn, float pitchIn, boolean onGroundIn)
-        {
-            x = xIn;
-            y = yIn;
-            z = zIn;
-            yaw = yawIn;
-            pitch = pitchIn;
-            onGround = onGroundIn;
-            rotating = true;
-            moving = true;
-        }
+	public double getZ(double defaultValue) {
 
-        public void readPacketData(PacketBuffer buf) throws IOException
-        {
-            x = buf.readDouble();
-            y = buf.readDouble();
-            z = buf.readDouble();
-            yaw = buf.readFloat();
-            pitch = buf.readFloat();
-            super.readPacketData(buf);
-        }
+		return moving ? z : defaultValue;
+	}
 
-        public void writePacketData(PacketBuffer buf) throws IOException
-        {
-            buf.writeDouble(x);
-            buf.writeDouble(y);
-            buf.writeDouble(z);
-            buf.writeFloat(yaw);
-            buf.writeFloat(pitch);
-            super.writePacketData(buf);
-        }
-    }
+	public float getYaw(float defaultValue) {
 
-    public static class Rotation extends CPacketPlayer
-    {
-        public Rotation()
-        {
-            rotating = true;
-        }
+		return rotating ? yaw : defaultValue;
+	}
 
-        public Rotation(float yawIn, float pitchIn, boolean onGroundIn)
-        {
-            yaw = yawIn;
-            pitch = pitchIn;
-            onGround = onGroundIn;
-            rotating = true;
-        }
+	public float getPitch(float defaultValue) {
 
-        public void readPacketData(PacketBuffer buf) throws IOException
-        {
-            yaw = buf.readFloat();
-            pitch = buf.readFloat();
-            super.readPacketData(buf);
-        }
+		return rotating ? pitch : defaultValue;
+	}
 
-        public void writePacketData(PacketBuffer buf) throws IOException
-        {
-            buf.writeFloat(yaw);
-            buf.writeFloat(pitch);
-            super.writePacketData(buf);
-        }
-    }
+	public boolean isOnGround() {
+
+		return onGround;
+	}
+
+	public static class Position extends CPacketPlayer {
+
+		public Position() {
+
+			moving = true;
+		}
+
+		public Position(double xIn, double yIn, double zIn, boolean onGroundIn) {
+
+			x = xIn;
+			y = yIn;
+			z = zIn;
+			onGround = onGroundIn;
+			moving = true;
+		}
+
+		public void readPacketData(PacketBuffer buf) throws IOException {
+
+			x = buf.readDouble();
+			y = buf.readDouble();
+			z = buf.readDouble();
+			super.readPacketData(buf);
+		}
+
+		public void writePacketData(PacketBuffer buf) throws IOException {
+
+			buf.writeDouble(x);
+			buf.writeDouble(y);
+			buf.writeDouble(z);
+			super.writePacketData(buf);
+		}
+
+	}
+
+	public static class PositionRotation extends CPacketPlayer {
+
+		public PositionRotation() {
+
+			moving = true;
+			rotating = true;
+		}
+
+		public PositionRotation(double xIn, double yIn, double zIn, float yawIn, float pitchIn, boolean onGroundIn) {
+
+			x = xIn;
+			y = yIn;
+			z = zIn;
+			yaw = yawIn;
+			pitch = pitchIn;
+			onGround = onGroundIn;
+			rotating = true;
+			moving = true;
+		}
+
+		public void readPacketData(PacketBuffer buf) throws IOException {
+
+			x = buf.readDouble();
+			y = buf.readDouble();
+			z = buf.readDouble();
+			yaw = buf.readFloat();
+			pitch = buf.readFloat();
+			super.readPacketData(buf);
+		}
+
+		public void writePacketData(PacketBuffer buf) throws IOException {
+
+			buf.writeDouble(x);
+			buf.writeDouble(y);
+			buf.writeDouble(z);
+			buf.writeFloat(yaw);
+			buf.writeFloat(pitch);
+			super.writePacketData(buf);
+		}
+
+	}
+
+	public static class Rotation extends CPacketPlayer {
+
+		public Rotation() {
+
+			rotating = true;
+		}
+
+		public Rotation(float yawIn, float pitchIn, boolean onGroundIn) {
+
+			yaw = yawIn;
+			pitch = pitchIn;
+			onGround = onGroundIn;
+			rotating = true;
+		}
+
+		public void readPacketData(PacketBuffer buf) throws IOException {
+
+			yaw = buf.readFloat();
+			pitch = buf.readFloat();
+			super.readPacketData(buf);
+		}
+
+		public void writePacketData(PacketBuffer buf) throws IOException {
+
+			buf.writeFloat(yaw);
+			buf.writeFloat(pitch);
+			super.writePacketData(buf);
+		}
+
+	}
+
 }

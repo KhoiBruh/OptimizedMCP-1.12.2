@@ -7,77 +7,76 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 
-public class GuiBrewingStand extends GuiContainer
-{
-    private static final ResourceLocation BREWING_STAND_GUI_TEXTURES = new ResourceLocation("textures/gui/container/brewing_stand.png");
-    private static final int[] BUBBLELENGTHS = new int[] {29, 24, 20, 16, 11, 6, 0};
+public class GuiBrewingStand extends GuiContainer {
 
-    /** The player inventory bound to this GUI. */
-    private final InventoryPlayer playerInventory;
-    private final IInventory tileBrewingStand;
+	private static final ResourceLocation BREWING_STAND_GUI_TEXTURES = new ResourceLocation("textures/gui/container/brewing_stand.png");
+	private static final int[] BUBBLELENGTHS = new int[]{29, 24, 20, 16, 11, 6, 0};
 
-    public GuiBrewingStand(InventoryPlayer playerInv, IInventory p_i45506_2_)
-    {
-        super(new ContainerBrewingStand(playerInv, p_i45506_2_));
-        playerInventory = playerInv;
-        tileBrewingStand = p_i45506_2_;
-    }
+	/**
+	 * The player inventory bound to this GUI.
+	 */
+	private final InventoryPlayer playerInventory;
+	private final IInventory tileBrewingStand;
 
-    /**
-     * Draws the screen and all the components in it.
-     */
-    public void drawScreen(int mouseX, int mouseY, float partialTicks)
-    {
-        drawDefaultBackground();
-        super.drawScreen(mouseX, mouseY, partialTicks);
-        renderHoveredToolTip(mouseX, mouseY);
-    }
+	public GuiBrewingStand(InventoryPlayer playerInv, IInventory p_i45506_2_) {
 
-    /**
-     * Draw the foreground layer for the GuiContainer (everything in front of the items)
-     */
-    protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
-    {
-        String s = tileBrewingStand.getDisplayName().getUnformattedText();
-        fontRenderer.drawString(s, xSize / 2 - fontRenderer.getStringWidth(s) / 2, 6, 4210752);
-        fontRenderer.drawString(playerInventory.getDisplayName().getUnformattedText(), 8, ySize - 96 + 2, 4210752);
-    }
+		super(new ContainerBrewingStand(playerInv, p_i45506_2_));
+		playerInventory = playerInv;
+		tileBrewingStand = p_i45506_2_;
+	}
 
-    /**
-     * Draws the background layer of this container (behind the items).
-     */
-    protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY)
-    {
-        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        mc.getTextureManager().bindTexture(BREWING_STAND_GUI_TEXTURES);
-        int i = (width - xSize) / 2;
-        int j = (height - ySize) / 2;
-        drawTexturedModalRect(i, j, 0, 0, xSize, ySize);
-        int k = tileBrewingStand.getField(1);
-        int l = MathHelper.clamp((18 * k + 20 - 1) / 20, 0, 18);
+	/**
+	 * Draws the screen and all the components in it.
+	 */
+	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 
-        if (l > 0)
-        {
-            drawTexturedModalRect(i + 60, j + 44, 176, 29, l, 4);
-        }
+		drawDefaultBackground();
+		super.drawScreen(mouseX, mouseY, partialTicks);
+		renderHoveredToolTip(mouseX, mouseY);
+	}
 
-        int i1 = tileBrewingStand.getField(0);
+	/**
+	 * Draw the foreground layer for the GuiContainer (everything in front of the items)
+	 */
+	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
 
-        if (i1 > 0)
-        {
-            int j1 = (int)(28.0F * (1.0F - (float)i1 / 400.0F));
+		String s = tileBrewingStand.displayName().getUnformattedText();
+		fontRenderer.drawString(s, xSize / 2 - fontRenderer.getStringWidth(s) / 2, 6, 4210752);
+		fontRenderer.drawString(playerInventory.displayName().getUnformattedText(), 8, ySize - 96 + 2, 4210752);
+	}
 
-            if (j1 > 0)
-            {
-                drawTexturedModalRect(i + 97, j + 16, 176, 0, 9, j1);
-            }
+	/**
+	 * Draws the background layer of this container (behind the items).
+	 */
+	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
 
-            j1 = BUBBLELENGTHS[i1 / 2 % 7];
+		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+		mc.getTextureManager().bindTexture(BREWING_STAND_GUI_TEXTURES);
+		int i = (width - xSize) / 2;
+		int j = (height - ySize) / 2;
+		drawTexturedModalRect(i, j, 0, 0, xSize, ySize);
+		int k = tileBrewingStand.getField(1);
+		int l = MathHelper.clamp((18 * k + 20 - 1) / 20, 0, 18);
 
-            if (j1 > 0)
-            {
-                drawTexturedModalRect(i + 63, j + 14 + 29 - j1, 185, 29 - j1, 12, j1);
-            }
-        }
-    }
+		if (l > 0) {
+			drawTexturedModalRect(i + 60, j + 44, 176, 29, l, 4);
+		}
+
+		int i1 = tileBrewingStand.getField(0);
+
+		if (i1 > 0) {
+			int j1 = (int) (28.0F * (1.0F - (float) i1 / 400.0F));
+
+			if (j1 > 0) {
+				drawTexturedModalRect(i + 97, j + 16, 176, 0, 9, j1);
+			}
+
+			j1 = BUBBLELENGTHS[i1 / 2 % 7];
+
+			if (j1 > 0) {
+				drawTexturedModalRect(i + 63, j + 14 + 29 - j1, 185, 29 - j1, 12, j1);
+			}
+		}
+	}
+
 }

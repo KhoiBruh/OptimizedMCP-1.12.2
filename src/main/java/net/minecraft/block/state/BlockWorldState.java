@@ -1,70 +1,69 @@
 package net.minecraft.block.state;
 
 import com.google.common.base.Predicate;
-import javax.annotation.Nullable;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class BlockWorldState
-{
-    private final World world;
-    private final BlockPos pos;
-    private final boolean forceLoad;
-    private IBlockState state;
-    private TileEntity tileEntity;
-    private boolean tileEntityInitialized;
+import javax.annotation.Nullable;
 
-    public BlockWorldState(World worldIn, BlockPos posIn, boolean forceLoadIn)
-    {
-        world = worldIn;
-        pos = posIn;
-        forceLoad = forceLoadIn;
-    }
+public class BlockWorldState {
 
-    /**
-     * Gets the block state as currently held, or (if it has not gotten it from the world) loads it from the world.
-     *  This will only look up the state from the world if {@link #forceLoad} is true or the block position is loaded.
-     */
-    public IBlockState getBlockState()
-    {
-        if (state == null && (forceLoad || world.isBlockLoaded(pos)))
-        {
-            state = world.getBlockState(pos);
-        }
+	private final World world;
+	private final BlockPos pos;
+	private final boolean forceLoad;
+	private IBlockState state;
+	private TileEntity tileEntity;
+	private boolean tileEntityInitialized;
 
-        return state;
-    }
+	public BlockWorldState(World worldIn, BlockPos posIn, boolean forceLoadIn) {
 
-    @Nullable
+		world = worldIn;
+		pos = posIn;
+		forceLoad = forceLoadIn;
+	}
 
-    /**
-     * Gets the tile entity as currently held, or (if it has not gotten it from the world) loads it from the world.
-     */
-    public TileEntity getTileEntity()
-    {
-        if (tileEntity == null && !tileEntityInitialized)
-        {
-            tileEntity = world.getTileEntity(pos);
-            tileEntityInitialized = true;
-        }
+	/**
+	 * Gets the block state as currently held, or (if it has not gotten it from the world) loads it from the world.
+	 * This will only look up the state from the world if {@link #forceLoad} is true or the block position is loaded.
+	 */
+	public IBlockState getBlockState() {
 
-        return tileEntity;
-    }
+		if (state == null && (forceLoad || world.isBlockLoaded(pos))) {
+			state = world.getBlockState(pos);
+		}
 
-    public BlockPos getPos()
-    {
-        return pos;
-    }
+		return state;
+	}
 
-    public static Predicate<BlockWorldState> hasState(final Predicate<IBlockState> predicatesIn)
-    {
-        return new Predicate<BlockWorldState>()
-        {
-            public boolean apply(@Nullable BlockWorldState p_apply_1_)
-            {
-                return p_apply_1_ != null && predicatesIn.apply(p_apply_1_.getBlockState());
-            }
-        };
-    }
+	@Nullable
+
+	/**
+	 * Gets the tile entity as currently held, or (if it has not gotten it from the world) loads it from the world.
+	 */
+	public TileEntity getTileEntity() {
+
+		if (tileEntity == null && !tileEntityInitialized) {
+			tileEntity = world.getTileEntity(pos);
+			tileEntityInitialized = true;
+		}
+
+		return tileEntity;
+	}
+
+	public BlockPos getPos() {
+
+		return pos;
+	}
+
+	public static Predicate<BlockWorldState> hasState(final Predicate<IBlockState> predicatesIn) {
+
+		return new Predicate<BlockWorldState>() {
+			public boolean apply(@Nullable BlockWorldState p_apply_1_) {
+
+				return p_apply_1_ != null && predicatesIn.apply(p_apply_1_.getBlockState());
+			}
+		};
+	}
+
 }

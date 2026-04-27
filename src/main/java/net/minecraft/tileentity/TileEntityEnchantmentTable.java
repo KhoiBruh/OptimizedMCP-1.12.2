@@ -1,6 +1,5 @@
 package net.minecraft.tileentity;
 
-import java.util.Random;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -13,159 +12,147 @@ import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.IInteractionObject;
 
-public class TileEntityEnchantmentTable extends TileEntity implements ITickable, IInteractionObject
-{
-    public int tickCount;
-    public float pageFlip;
-    public float pageFlipPrev;
-    public float flipT;
-    public float flipA;
-    public float bookSpread;
-    public float bookSpreadPrev;
-    public float bookRotation;
-    public float bookRotationPrev;
-    public float tRot;
-    private static final Random rand = new Random();
-    private String customName;
+import java.util.Random;
 
-    public NBTTagCompound writeToNBT(NBTTagCompound compound)
-    {
-        super.writeToNBT(compound);
+public class TileEntityEnchantmentTable extends TileEntity implements ITickable, IInteractionObject {
 
-        if (hasCustomName())
-        {
-            compound.setString("CustomName", customName);
-        }
+	public int tickCount;
+	public float pageFlip;
+	public float pageFlipPrev;
+	public float flipT;
+	public float flipA;
+	public float bookSpread;
+	public float bookSpreadPrev;
+	public float bookRotation;
+	public float bookRotationPrev;
+	public float tRot;
+	private static final Random rand = new Random();
+	private String customName;
 
-        return compound;
-    }
+	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
 
-    public void readFromNBT(NBTTagCompound compound)
-    {
-        super.readFromNBT(compound);
+		super.writeToNBT(compound);
 
-        if (compound.hasKey("CustomName", 8))
-        {
-            customName = compound.getString("CustomName");
-        }
-    }
+		if (hasCustomName()) {
+			compound.setString("CustomName", customName);
+		}
 
-    /**
-     * Like the old updateEntity(), except more generic.
-     */
-    public void update()
-    {
-        bookSpreadPrev = bookSpread;
-        bookRotationPrev = bookRotation;
-        EntityPlayer entityplayer = world.getClosestPlayer((double)((float) pos.getX() + 0.5F), (double)((float) pos.getY() + 0.5F), (double)((float) pos.getZ() + 0.5F), 3.0D, false);
+		return compound;
+	}
 
-        if (entityplayer != null)
-        {
-            double d0 = entityplayer.posX - (double)((float) pos.getX() + 0.5F);
-            double d1 = entityplayer.posZ - (double)((float) pos.getZ() + 0.5F);
-            tRot = (float)MathHelper.atan2(d1, d0);
-            bookSpread += 0.1F;
+	public void readFromNBT(NBTTagCompound compound) {
 
-            if (bookSpread < 0.5F || rand.nextInt(40) == 0)
-            {
-                float f1 = flipT;
+		super.readFromNBT(compound);
 
-                while (true)
-                {
-                    flipT += (float)(rand.nextInt(4) - rand.nextInt(4));
+		if (compound.hasKey("CustomName", 8)) {
+			customName = compound.getString("CustomName");
+		}
+	}
 
-                    if (f1 != flipT)
-                    {
-                        break;
-                    }
-                }
-            }
-        }
-        else
-        {
-            tRot += 0.02F;
-            bookSpread -= 0.1F;
-        }
+	/**
+	 * Like the old updateEntity(), except more generic.
+	 */
+	public void update() {
 
-        while (bookRotation >= (float)Math.PI)
-        {
-            bookRotation -= ((float)Math.PI * 2F);
-        }
+		bookSpreadPrev = bookSpread;
+		bookRotationPrev = bookRotation;
+		EntityPlayer entityplayer = world.getClosestPlayer((float) pos.getX() + 0.5F, (float) pos.getY() + 0.5F, (float) pos.getZ() + 0.5F, 3.0D, false);
 
-        while (bookRotation < -(float)Math.PI)
-        {
-            bookRotation += ((float)Math.PI * 2F);
-        }
+		if (entityplayer != null) {
+			double d0 = entityplayer.posX - (double) ((float) pos.getX() + 0.5F);
+			double d1 = entityplayer.posZ - (double) ((float) pos.getZ() + 0.5F);
+			tRot = (float) MathHelper.atan2(d1, d0);
+			bookSpread += 0.1F;
 
-        while (tRot >= (float)Math.PI)
-        {
-            tRot -= ((float)Math.PI * 2F);
-        }
+			if (bookSpread < 0.5F || rand.nextInt(40) == 0) {
+				float f1 = flipT;
 
-        while (tRot < -(float)Math.PI)
-        {
-            tRot += ((float)Math.PI * 2F);
-        }
+				while (true) {
+					flipT += (float) (rand.nextInt(4) - rand.nextInt(4));
 
-        float f2;
+					if (f1 != flipT) {
+						break;
+					}
+				}
+			}
+		} else {
+			tRot += 0.02F;
+			bookSpread -= 0.1F;
+		}
 
-        for (f2 = tRot - bookRotation; f2 >= (float)Math.PI; f2 -= ((float)Math.PI * 2F))
-        {
-            ;
-        }
+		while (bookRotation >= (float) Math.PI) {
+			bookRotation -= ((float) Math.PI * 2F);
+		}
 
-        while (f2 < -(float)Math.PI)
-        {
-            f2 += ((float)Math.PI * 2F);
-        }
+		while (bookRotation < -(float) Math.PI) {
+			bookRotation += ((float) Math.PI * 2F);
+		}
 
-        bookRotation += f2 * 0.4F;
-        bookSpread = MathHelper.clamp(bookSpread, 0.0F, 1.0F);
-        ++tickCount;
-        pageFlipPrev = pageFlip;
-        float f = (flipT - pageFlip) * 0.4F;
-        float f3 = 0.2F;
-        f = MathHelper.clamp(f, -0.2F, 0.2F);
-        flipA += (f - flipA) * 0.9F;
-        pageFlip += flipA;
-    }
+		while (tRot >= (float) Math.PI) {
+			tRot -= ((float) Math.PI * 2F);
+		}
 
-    /**
-     * Get the name of this object. For players this returns their username
-     */
-    public String getName()
-    {
-        return hasCustomName() ? customName : "container.enchant";
-    }
+		while (tRot < -(float) Math.PI) {
+			tRot += ((float) Math.PI * 2F);
+		}
 
-    /**
-     * Returns true if this thing is named
-     */
-    public boolean hasCustomName()
-    {
-        return customName != null && !customName.isEmpty();
-    }
+		float f2;
 
-    public void setCustomName(String customNameIn)
-    {
-        customName = customNameIn;
-    }
+		for (f2 = tRot - bookRotation; f2 >= (float) Math.PI; f2 -= ((float) Math.PI * 2F)) {
+		}
 
-    /**
-     * Get the formatted ChatComponent that will be used for the sender's username in chat
-     */
-    public ITextComponent getDisplayName()
-    {
-        return (ITextComponent)(hasCustomName() ? new TextComponentString(getName()) : new TextComponentTranslation(getName(), new Object[0]));
-    }
+		while (f2 < -(float) Math.PI) {
+			f2 += ((float) Math.PI * 2F);
+		}
 
-    public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn)
-    {
-        return new ContainerEnchantment(playerInventory, world, pos);
-    }
+		bookRotation += f2 * 0.4F;
+		bookSpread = MathHelper.clamp(bookSpread, 0.0F, 1.0F);
+		++tickCount;
+		pageFlipPrev = pageFlip;
+		float f = (flipT - pageFlip) * 0.4F;
+		float f3 = 0.2F;
+		f = MathHelper.clamp(f, -0.2F, 0.2F);
+		flipA += (f - flipA) * 0.9F;
+		pageFlip += flipA;
+	}
 
-    public String getGuiID()
-    {
-        return "minecraft:enchanting_table";
-    }
+	/**
+	 * Get the name of this object. For players this returns their username
+	 */
+	public String getName() {
+
+		return hasCustomName() ? customName : "container.enchant";
+	}
+
+	/**
+	 * Returns true if this thing is named
+	 */
+	public boolean hasCustomName() {
+
+		return customName != null && !customName.isEmpty();
+	}
+
+	public void setCustomName(String customNameIn) {
+
+		customName = customNameIn;
+	}
+
+	/**
+	 * Get the formatted ChatComponent that will be used for the sender's username in chat
+	 */
+	public ITextComponent displayName() {
+
+		return hasCustomName() ? new TextComponentString(getName()) : new TextComponentTranslation(getName(), new Object[0]);
+	}
+
+	public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
+
+		return new ContainerEnchantment(playerInventory, world, pos);
+	}
+
+	public String guiID() {
+
+		return "minecraft:enchanting_table";
+	}
+
 }

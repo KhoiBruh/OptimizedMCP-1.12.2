@@ -15,76 +15,76 @@ import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class BlockGlazedTerracotta extends BlockHorizontal
-{
-    public BlockGlazedTerracotta(EnumDyeColor color)
-    {
-        super(Material.ROCK, MapColor.getBlockColor(color));
-        setHardness(1.4F);
-        setSoundType(SoundType.STONE);
-        String s = color.getUnlocalizedName();
+public class BlockGlazedTerracotta extends BlockHorizontal {
 
-        if (s.length() > 1)
-        {
-            String s1 = s.substring(0, 1).toUpperCase() + s.substring(1, s.length());
-            setUnlocalizedName("glazedTerracotta" + s1);
-        }
+	public BlockGlazedTerracotta(EnumDyeColor color) {
 
-        setCreativeTab(CreativeTabs.DECORATIONS);
-    }
+		super(Material.ROCK, MapColor.getBlockColor(color));
+		setHardness(1.4F);
+		setSoundType(SoundType.STONE);
+		String s = color.getUnlocalizedName();
 
-    protected BlockStateContainer createBlockState()
-    {
-        return new BlockStateContainer(this, new IProperty[] {FACING});
-    }
+		if (s.length() > 1) {
+			String s1 = s.substring(0, 1).toUpperCase() + s.substring(1);
+			setUnlocalizedName("glazedTerracotta" + s1);
+		}
 
-    /**
-     * Returns the blockstate with the given rotation from the passed blockstate. If inapplicable, returns the passed
-     * blockstate.
-     */
-    public IBlockState withRotation(IBlockState state, Rotation rot)
-    {
-        return state.withProperty(FACING, rot.rotate((EnumFacing)state.getValue(FACING)));
-    }
+		setCreativeTab(CreativeTabs.DECORATIONS);
+	}
 
-    /**
-     * Returns the blockstate with the given mirror of the passed blockstate. If inapplicable, returns the passed
-     * blockstate.
-     */
-    public IBlockState withMirror(IBlockState state, Mirror mirrorIn)
-    {
-        return state.withRotation(mirrorIn.toRotation((EnumFacing)state.getValue(FACING)));
-    }
+	protected BlockStateContainer createBlockState() {
 
-    /**
-     * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
-     * IBlockstate
-     */
-    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
-    {
-        return getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
-    }
+		return new BlockStateContainer(this, FACING);
+	}
 
-    /**
-     * Convert the BlockState into the correct metadata value
-     */
-    public int getMetaFromState(IBlockState state)
-    {
-        int i = 0;
-        i = i | ((EnumFacing)state.getValue(FACING)).getHorizontalIndex();
-        return i;
-    }
+	/**
+	 * Returns the blockstate with the given rotation from the passed blockstate. If inapplicable, returns the passed
+	 * blockstate.
+	 */
+	public IBlockState withRotation(IBlockState state, Rotation rot) {
 
-    /**
-     * Convert the given metadata into a BlockState for this Block
-     */
-    public IBlockState getStateFromMeta(int meta)
-    {
-        return getDefaultState().withProperty(FACING, EnumFacing.getHorizontal(meta));
-    }
+		return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
+	}
 
-    public EnumPushReaction getMobilityFlag(IBlockState state)
-    {
-        return EnumPushReaction.PUSH_ONLY;
-    }
+	/**
+	 * Returns the blockstate with the given mirror of the passed blockstate. If inapplicable, returns the passed
+	 * blockstate.
+	 */
+	public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
+
+		return state.withRotation(mirrorIn.toRotation(state.getValue(FACING)));
+	}
+
+	/**
+	 * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
+	 * IBlockstate
+	 */
+	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+
+		return getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
+	}
+
+	/**
+	 * Convert the BlockState into the correct metadata value
+	 */
+	public int getMetaFromState(IBlockState state) {
+
+		int i = 0;
+		i = i | state.getValue(FACING).getHorizontalIndex();
+		return i;
+	}
+
+	/**
+	 * Convert the given metadata into a BlockState for this Block
+	 */
+	public IBlockState getStateFromMeta(int meta) {
+
+		return getDefaultState().withProperty(FACING, EnumFacing.getHorizontal(meta));
+	}
+
+	public EnumPushReaction getMobilityFlag(IBlockState state) {
+
+		return EnumPushReaction.PUSH_ONLY;
+	}
+
 }

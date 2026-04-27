@@ -1,7 +1,5 @@
 package net.minecraft.block;
 
-import java.util.Random;
-import javax.annotation.Nullable;
 import net.minecraft.block.material.EnumPushReaction;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
@@ -15,239 +13,234 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public abstract class BlockBasePressurePlate extends Block
-{
-    /** The bounding box for the pressure plate pressed state */
-    protected static final AxisAlignedBB PRESSED_AABB = new AxisAlignedBB(0.0625D, 0.0D, 0.0625D, 0.9375D, 0.03125D, 0.9375D);
-    protected static final AxisAlignedBB UNPRESSED_AABB = new AxisAlignedBB(0.0625D, 0.0D, 0.0625D, 0.9375D, 0.0625D, 0.9375D);
+import javax.annotation.Nullable;
+import java.util.Random;
 
-    /**
-     * This bounding box is used to check for entities in a certain area and then determine the pressed state.
-     */
-    protected static final AxisAlignedBB PRESSURE_AABB = new AxisAlignedBB(0.125D, 0.0D, 0.125D, 0.875D, 0.25D, 0.875D);
+public abstract class BlockBasePressurePlate extends Block {
 
-    protected BlockBasePressurePlate(Material materialIn)
-    {
-        this(materialIn, materialIn.getMaterialMapColor());
-    }
+	/**
+	 * The bounding box for the pressure plate pressed state
+	 */
+	protected static final AxisAlignedBB PRESSED_AABB = new AxisAlignedBB(0.0625D, 0.0D, 0.0625D, 0.9375D, 0.03125D, 0.9375D);
+	protected static final AxisAlignedBB UNPRESSED_AABB = new AxisAlignedBB(0.0625D, 0.0D, 0.0625D, 0.9375D, 0.0625D, 0.9375D);
 
-    protected BlockBasePressurePlate(Material materialIn, MapColor mapColorIn)
-    {
-        super(materialIn, mapColorIn);
-        setCreativeTab(CreativeTabs.REDSTONE);
-        setTickRandomly(true);
-    }
+	/**
+	 * This bounding box is used to check for entities in a certain area and then determine the pressed state.
+	 */
+	protected static final AxisAlignedBB PRESSURE_AABB = new AxisAlignedBB(0.125D, 0.0D, 0.125D, 0.875D, 0.25D, 0.875D);
 
-    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
-    {
-        boolean flag = getRedstoneStrength(state) > 0;
-        return flag ? PRESSED_AABB : UNPRESSED_AABB;
-    }
+	protected BlockBasePressurePlate(Material materialIn) {
 
-    /**
-     * How many world ticks before ticking
-     */
-    public int tickRate(World worldIn)
-    {
-        return 20;
-    }
+		this(materialIn, materialIn.getMaterialMapColor());
+	}
 
-    @Nullable
-    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos)
-    {
-        return NULL_AABB;
-    }
+	protected BlockBasePressurePlate(Material materialIn, MapColor mapColorIn) {
 
-    /**
-     * Used to determine ambient occlusion and culling when rebuilding chunks for render
-     */
-    public boolean isOpaqueCube(IBlockState state)
-    {
-        return false;
-    }
+		super(materialIn, mapColorIn);
+		setCreativeTab(CreativeTabs.REDSTONE);
+		setTickRandomly(true);
+	}
 
-    public boolean isFullCube(IBlockState state)
-    {
-        return false;
-    }
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
 
-    /**
-     * Determines if an entity can path through this block
-     */
-    public boolean isPassable(IBlockAccess worldIn, BlockPos pos)
-    {
-        return true;
-    }
+		boolean flag = getRedstoneStrength(state) > 0;
+		return flag ? PRESSED_AABB : UNPRESSED_AABB;
+	}
 
-    /**
-     * Return true if an entity can be spawned inside the block (used to get the player's bed spawn location)
-     */
-    public boolean canSpawnInBlock()
-    {
-        return true;
-    }
+	/**
+	 * How many world ticks before ticking
+	 */
+	public int tickRate(World worldIn) {
 
-    /**
-     * Checks if this block can be placed exactly at the given position.
-     */
-    public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
-    {
-        return canBePlacedOn(worldIn, pos.down());
-    }
+		return 20;
+	}
 
-    /**
-     * Called when a neighboring block was changed and marks that this state should perform any checks during a neighbor
-     * change. Cases may include when redstone power is updated, cactus blocks popping off due to a neighboring solid
-     * block, etc.
-     */
-    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos)
-    {
-        if (!canBePlacedOn(worldIn, pos.down()))
-        {
-            dropBlockAsItem(worldIn, pos, state, 0);
-            worldIn.setBlockToAir(pos);
-        }
-    }
+	@Nullable
+	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
 
-    private boolean canBePlacedOn(World worldIn, BlockPos pos)
-    {
-        return worldIn.getBlockState(pos).isTopSolid() || worldIn.getBlockState(pos).getBlock() instanceof BlockFence;
-    }
+		return NULL_AABB;
+	}
 
-    /**
-     * Called randomly when setTickRandomly is set to true (used by e.g. crops to grow, etc.)
-     */
-    public void randomTick(World worldIn, BlockPos pos, IBlockState state, Random random)
-    {
-    }
+	/**
+	 * Used to determine ambient occlusion and culling when rebuilding chunks for render
+	 */
+	public boolean isOpaqueCube(IBlockState state) {
 
-    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
-    {
-        if (!worldIn.isRemote)
-        {
-            int i = getRedstoneStrength(state);
+		return false;
+	}
 
-            if (i > 0)
-            {
-                updateState(worldIn, pos, state, i);
-            }
-        }
-    }
+	public boolean isFullCube(IBlockState state) {
 
-    /**
-     * Called When an Entity Collided with the Block
-     */
-    public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn)
-    {
-        if (!worldIn.isRemote)
-        {
-            int i = getRedstoneStrength(state);
+		return false;
+	}
 
-            if (i == 0)
-            {
-                updateState(worldIn, pos, state, i);
-            }
-        }
-    }
+	/**
+	 * Determines if an entity can path through this block
+	 */
+	public boolean isPassable(IBlockAccess worldIn, BlockPos pos) {
 
-    /**
-     * Updates the pressure plate when stepped on
-     */
-    protected void updateState(World worldIn, BlockPos pos, IBlockState state, int oldRedstoneStrength)
-    {
-        int i = computeRedstoneStrength(worldIn, pos);
-        boolean flag = oldRedstoneStrength > 0;
-        boolean flag1 = i > 0;
+		return true;
+	}
 
-        if (oldRedstoneStrength != i)
-        {
-            state = setRedstoneStrength(state, i);
-            worldIn.setBlockState(pos, state, 2);
-            updateNeighbors(worldIn, pos);
-            worldIn.markBlockRangeForRenderUpdate(pos, pos);
-        }
+	/**
+	 * Return true if an entity can be spawned inside the block (used to get the player's bed spawn location)
+	 */
+	public boolean canSpawnInBlock() {
 
-        if (!flag1 && flag)
-        {
-            playClickOffSound(worldIn, pos);
-        }
-        else if (flag1 && !flag)
-        {
-            playClickOnSound(worldIn, pos);
-        }
+		return true;
+	}
 
-        if (flag1)
-        {
-            worldIn.scheduleUpdate(new BlockPos(pos), this, tickRate(worldIn));
-        }
-    }
+	/**
+	 * Checks if this block can be placed exactly at the given position.
+	 */
+	public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
 
-    protected abstract void playClickOnSound(World worldIn, BlockPos color);
+		return canBePlacedOn(worldIn, pos.down());
+	}
 
-    protected abstract void playClickOffSound(World worldIn, BlockPos pos);
+	/**
+	 * Called when a neighboring block was changed and marks that this state should perform any checks during a neighbor
+	 * change. Cases may include when redstone power is updated, cactus blocks popping off due to a neighboring solid
+	 * block, etc.
+	 */
+	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
 
-    /**
-     * Called serverside after this block is replaced with another in Chunk, but before the Tile Entity is updated
-     */
-    public void breakBlock(World worldIn, BlockPos pos, IBlockState state)
-    {
-        if (getRedstoneStrength(state) > 0)
-        {
-            updateNeighbors(worldIn, pos);
-        }
+		if (!canBePlacedOn(worldIn, pos.down())) {
+			dropBlockAsItem(worldIn, pos, state, 0);
+			worldIn.setBlockToAir(pos);
+		}
+	}
 
-        super.breakBlock(worldIn, pos, state);
-    }
+	private boolean canBePlacedOn(World worldIn, BlockPos pos) {
 
-    /**
-     * Notify block and block below of changes
-     */
-    protected void updateNeighbors(World worldIn, BlockPos pos)
-    {
-        worldIn.notifyNeighborsOfStateChange(pos, this, false);
-        worldIn.notifyNeighborsOfStateChange(pos.down(), this, false);
-    }
+		return worldIn.getBlockState(pos).isTopSolid() || worldIn.getBlockState(pos).getBlock() instanceof BlockFence;
+	}
 
-    public int getWeakPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side)
-    {
-        return getRedstoneStrength(blockState);
-    }
+	/**
+	 * Called randomly when setTickRandomly is set to true (used by e.g. crops to grow, etc.)
+	 */
+	public void randomTick(World worldIn, BlockPos pos, IBlockState state, Random random) {
 
-    public int getStrongPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side)
-    {
-        return side == EnumFacing.UP ? getRedstoneStrength(blockState) : 0;
-    }
+	}
 
-    /**
-     * Can this block provide power. Only wire currently seems to have this change based on its state.
-     */
-    public boolean canProvidePower(IBlockState state)
-    {
-        return true;
-    }
+	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
 
-    public EnumPushReaction getMobilityFlag(IBlockState state)
-    {
-        return EnumPushReaction.DESTROY;
-    }
+		if (!worldIn.isRemote) {
+			int i = getRedstoneStrength(state);
 
-    protected abstract int computeRedstoneStrength(World worldIn, BlockPos pos);
+			if (i > 0) {
+				updateState(worldIn, pos, state, i);
+			}
+		}
+	}
 
-    protected abstract int getRedstoneStrength(IBlockState state);
+	/**
+	 * Called When an Entity Collided with the Block
+	 */
+	public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
 
-    protected abstract IBlockState setRedstoneStrength(IBlockState state, int strength);
+		if (!worldIn.isRemote) {
+			int i = getRedstoneStrength(state);
 
-    /**
-     * Get the geometry of the queried face at the given position and state. This is used to decide whether things like
-     * buttons are allowed to be placed on the face, or how glass panes connect to the face, among other things.
-     * <p>
-     * Common values are {@code SOLID}, which is the default, and {@code UNDEFINED}, which represents something that
-     * does not fit the other descriptions and will generally cause other things not to connect to the face.
+			if (i == 0) {
+				updateState(worldIn, pos, state, i);
+			}
+		}
+	}
 
-     * @return an approximation of the form of the given face
-     */
-    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face)
-    {
-        return BlockFaceShape.UNDEFINED;
-    }
+	/**
+	 * Updates the pressure plate when stepped on
+	 */
+	protected void updateState(World worldIn, BlockPos pos, IBlockState state, int oldRedstoneStrength) {
+
+		int i = computeRedstoneStrength(worldIn, pos);
+		boolean flag = oldRedstoneStrength > 0;
+		boolean flag1 = i > 0;
+
+		if (oldRedstoneStrength != i) {
+			state = setRedstoneStrength(state, i);
+			worldIn.setBlockState(pos, state, 2);
+			updateNeighbors(worldIn, pos);
+			worldIn.markBlockRangeForRenderUpdate(pos, pos);
+		}
+
+		if (!flag1 && flag) {
+			playClickOffSound(worldIn, pos);
+		} else if (flag1 && !flag) {
+			playClickOnSound(worldIn, pos);
+		}
+
+		if (flag1) {
+			worldIn.scheduleUpdate(new BlockPos(pos), this, tickRate(worldIn));
+		}
+	}
+
+	protected abstract void playClickOnSound(World worldIn, BlockPos color);
+
+	protected abstract void playClickOffSound(World worldIn, BlockPos pos);
+
+	/**
+	 * Called serverside after this block is replaced with another in Chunk, but before the Tile Entity is updated
+	 */
+	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
+
+		if (getRedstoneStrength(state) > 0) {
+			updateNeighbors(worldIn, pos);
+		}
+
+		super.breakBlock(worldIn, pos, state);
+	}
+
+	/**
+	 * Notify block and block below of changes
+	 */
+	protected void updateNeighbors(World worldIn, BlockPos pos) {
+
+		worldIn.notifyNeighborsOfStateChange(pos, this, false);
+		worldIn.notifyNeighborsOfStateChange(pos.down(), this, false);
+	}
+
+	public int getWeakPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
+
+		return getRedstoneStrength(blockState);
+	}
+
+	public int getStrongPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
+
+		return side == EnumFacing.UP ? getRedstoneStrength(blockState) : 0;
+	}
+
+	/**
+	 * Can this block provide power. Only wire currently seems to have this change based on its state.
+	 */
+	public boolean canProvidePower(IBlockState state) {
+
+		return true;
+	}
+
+	public EnumPushReaction getMobilityFlag(IBlockState state) {
+
+		return EnumPushReaction.DESTROY;
+	}
+
+	protected abstract int computeRedstoneStrength(World worldIn, BlockPos pos);
+
+	protected abstract int getRedstoneStrength(IBlockState state);
+
+	protected abstract IBlockState setRedstoneStrength(IBlockState state, int strength);
+
+	/**
+	 * Get the geometry of the queried face at the given position and state. This is used to decide whether things like
+	 * buttons are allowed to be placed on the face, or how glass panes connect to the face, among other things.
+	 * <p>
+	 * Common values are {@code SOLID}, which is the default, and {@code UNDEFINED}, which represents something that
+	 * does not fit the other descriptions and will generally cause other things not to connect to the face.
+	 *
+	 * @return an approximation of the form of the given face
+	 */
+	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
+
+		return BlockFaceShape.UNDEFINED;
+	}
+
 }

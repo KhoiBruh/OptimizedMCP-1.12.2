@@ -1,10 +1,5 @@
 package net.minecraft.world.gen;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import javax.annotation.Nullable;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.init.Biomes;
@@ -17,247 +12,219 @@ import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.feature.WorldGenDungeons;
 import net.minecraft.world.gen.feature.WorldGenLakes;
-import net.minecraft.world.gen.structure.MapGenMineshaft;
-import net.minecraft.world.gen.structure.MapGenScatteredFeature;
-import net.minecraft.world.gen.structure.MapGenStronghold;
-import net.minecraft.world.gen.structure.MapGenStructure;
-import net.minecraft.world.gen.structure.MapGenVillage;
-import net.minecraft.world.gen.structure.StructureOceanMonument;
+import net.minecraft.world.gen.structure.*;
 
-public class ChunkGeneratorFlat implements IChunkGenerator
-{
-    private final World world;
-    private final Random random;
-    private final IBlockState[] cachedBlockIDs = new IBlockState[256];
-    private final FlatGeneratorInfo flatWorldGenInfo;
-    private final Map<String, MapGenStructure> structureGenerators = new HashMap<String, MapGenStructure>();
-    private final boolean hasDecoration;
-    private final boolean hasDungeons;
-    private WorldGenLakes waterLakeGenerator;
-    private WorldGenLakes lavaLakeGenerator;
+import javax.annotation.Nullable;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
-    public ChunkGeneratorFlat(World worldIn, long seed, boolean generateStructures, String flatGeneratorSettings)
-    {
-        world = worldIn;
-        random = new Random(seed);
-        flatWorldGenInfo = FlatGeneratorInfo.createFlatGeneratorFromString(flatGeneratorSettings);
+public class ChunkGeneratorFlat implements IChunkGenerator {
 
-        if (generateStructures)
-        {
-            Map<String, Map<String, String>> map = flatWorldGenInfo.getWorldFeatures();
+	private final World world;
+	private final Random random;
+	private final IBlockState[] cachedBlockIDs = new IBlockState[256];
+	private final FlatGeneratorInfo flatWorldGenInfo;
+	private final Map<String, MapGenStructure> structureGenerators = new HashMap<String, MapGenStructure>();
+	private final boolean hasDecoration;
+	private final boolean hasDungeons;
+	private WorldGenLakes waterLakeGenerator;
+	private WorldGenLakes lavaLakeGenerator;
 
-            if (map.containsKey("village"))
-            {
-                Map<String, String> map1 = (Map)map.get("village");
+	public ChunkGeneratorFlat(World worldIn, long seed, boolean generateStructures, String flatGeneratorSettings) {
 
-                if (!map1.containsKey("size"))
-                {
-                    map1.put("size", "1");
-                }
+		world = worldIn;
+		random = new Random(seed);
+		flatWorldGenInfo = FlatGeneratorInfo.createFlatGeneratorFromString(flatGeneratorSettings);
 
-                structureGenerators.put("Village", new MapGenVillage(map1));
-            }
+		if (generateStructures) {
+			Map<String, Map<String, String>> map = flatWorldGenInfo.getWorldFeatures();
 
-            if (map.containsKey("biome_1"))
-            {
-                structureGenerators.put("Temple", new MapGenScatteredFeature(map.get("biome_1")));
-            }
+			if (map.containsKey("village")) {
+				Map<String, String> map1 = map.get("village");
 
-            if (map.containsKey("mineshaft"))
-            {
-                structureGenerators.put("Mineshaft", new MapGenMineshaft(map.get("mineshaft")));
-            }
+				if (!map1.containsKey("size")) {
+					map1.put("size", "1");
+				}
 
-            if (map.containsKey("stronghold"))
-            {
-                structureGenerators.put("Stronghold", new MapGenStronghold(map.get("stronghold")));
-            }
+				structureGenerators.put("Village", new MapGenVillage(map1));
+			}
 
-            if (map.containsKey("oceanmonument"))
-            {
-                structureGenerators.put("Monument", new StructureOceanMonument(map.get("oceanmonument")));
-            }
-        }
+			if (map.containsKey("biome_1")) {
+				structureGenerators.put("Temple", new MapGenScatteredFeature(map.get("biome_1")));
+			}
 
-        if (flatWorldGenInfo.getWorldFeatures().containsKey("lake"))
-        {
-            waterLakeGenerator = new WorldGenLakes(Blocks.WATER);
-        }
+			if (map.containsKey("mineshaft")) {
+				structureGenerators.put("Mineshaft", new MapGenMineshaft(map.get("mineshaft")));
+			}
 
-        if (flatWorldGenInfo.getWorldFeatures().containsKey("lava_lake"))
-        {
-            lavaLakeGenerator = new WorldGenLakes(Blocks.LAVA);
-        }
+			if (map.containsKey("stronghold")) {
+				structureGenerators.put("Stronghold", new MapGenStronghold(map.get("stronghold")));
+			}
 
-        hasDungeons = flatWorldGenInfo.getWorldFeatures().containsKey("dungeon");
-        int j = 0;
-        int k = 0;
-        boolean flag = true;
+			if (map.containsKey("oceanmonument")) {
+				structureGenerators.put("Monument", new StructureOceanMonument(map.get("oceanmonument")));
+			}
+		}
 
-        for (FlatLayerInfo flatlayerinfo : flatWorldGenInfo.getFlatLayers())
-        {
-            for (int i = flatlayerinfo.getMinY(); i < flatlayerinfo.getMinY() + flatlayerinfo.getLayerCount(); ++i)
-            {
-                IBlockState iblockstate = flatlayerinfo.getLayerMaterial();
+		if (flatWorldGenInfo.getWorldFeatures().containsKey("lake")) {
+			waterLakeGenerator = new WorldGenLakes(Blocks.WATER);
+		}
 
-                if (iblockstate.getBlock() != Blocks.AIR)
-                {
-                    flag = false;
-                    cachedBlockIDs[i] = iblockstate;
-                }
-            }
+		if (flatWorldGenInfo.getWorldFeatures().containsKey("lava_lake")) {
+			lavaLakeGenerator = new WorldGenLakes(Blocks.LAVA);
+		}
 
-            if (flatlayerinfo.getLayerMaterial().getBlock() == Blocks.AIR)
-            {
-                k += flatlayerinfo.getLayerCount();
-            }
-            else
-            {
-                j += flatlayerinfo.getLayerCount() + k;
-                k = 0;
-            }
-        }
+		hasDungeons = flatWorldGenInfo.getWorldFeatures().containsKey("dungeon");
+		int j = 0;
+		int k = 0;
+		boolean flag = true;
 
-        worldIn.setSeaLevel(j);
-        hasDecoration = flag && flatWorldGenInfo.getBiome() != Biome.getIdForBiome(Biomes.VOID) ? false : flatWorldGenInfo.getWorldFeatures().containsKey("decoration");
-    }
+		for (FlatLayerInfo flatlayerinfo : flatWorldGenInfo.getFlatLayers()) {
+			for (int i = flatlayerinfo.getMinY(); i < flatlayerinfo.getMinY() + flatlayerinfo.getLayerCount(); ++i) {
+				IBlockState iblockstate = flatlayerinfo.getLayerMaterial();
 
-    /**
-     * Generates the chunk at the specified position, from scratch
-     */
-    public Chunk generateChunk(int x, int z)
-    {
-        ChunkPrimer chunkprimer = new ChunkPrimer();
+				if (iblockstate.getBlock() != Blocks.AIR) {
+					flag = false;
+					cachedBlockIDs[i] = iblockstate;
+				}
+			}
 
-        for (int i = 0; i < cachedBlockIDs.length; ++i)
-        {
-            IBlockState iblockstate = cachedBlockIDs[i];
+			if (flatlayerinfo.getLayerMaterial().getBlock() == Blocks.AIR) {
+				k += flatlayerinfo.getLayerCount();
+			} else {
+				j += flatlayerinfo.getLayerCount() + k;
+				k = 0;
+			}
+		}
 
-            if (iblockstate != null)
-            {
-                for (int j = 0; j < 16; ++j)
-                {
-                    for (int k = 0; k < 16; ++k)
-                    {
-                        chunkprimer.setBlockState(j, i, k, iblockstate);
-                    }
-                }
-            }
-        }
+		worldIn.setSeaLevel(j);
+		hasDecoration = (!flag || flatWorldGenInfo.getBiome() == Biome.getIdForBiome(Biomes.VOID)) && flatWorldGenInfo.getWorldFeatures().containsKey("decoration");
+	}
 
-        for (MapGenBase mapgenbase : structureGenerators.values())
-        {
-            mapgenbase.generate(world, x, z, chunkprimer);
-        }
+	/**
+	 * Generates the chunk at the specified position, from scratch
+	 */
+	public Chunk generateChunk(int x, int z) {
 
-        Chunk chunk = new Chunk(world, chunkprimer, x, z);
-        Biome[] abiome = world.getBiomeProvider().getBiomes((Biome[])null, x * 16, z * 16, 16, 16);
-        byte[] abyte = chunk.getBiomeArray();
+		ChunkPrimer chunkprimer = new ChunkPrimer();
 
-        for (int l = 0; l < abyte.length; ++l)
-        {
-            abyte[l] = (byte)Biome.getIdForBiome(abiome[l]);
-        }
+		for (int i = 0; i < cachedBlockIDs.length; ++i) {
+			IBlockState iblockstate = cachedBlockIDs[i];
 
-        chunk.generateSkylightMap();
-        return chunk;
-    }
+			if (iblockstate != null) {
+				for (int j = 0; j < 16; ++j) {
+					for (int k = 0; k < 16; ++k) {
+						chunkprimer.setBlockState(j, i, k, iblockstate);
+					}
+				}
+			}
+		}
 
-    /**
-     * Generate initial structures in this chunk, e.g. mineshafts, temples, lakes, and dungeons
-     *  
-     * @param x Chunk x coordinate
-     * @param z Chunk z coordinate
-     */
-    public void populate(int x, int z)
-    {
-        int i = x * 16;
-        int j = z * 16;
-        BlockPos blockpos = new BlockPos(i, 0, j);
-        Biome biome = world.getBiome(new BlockPos(i + 16, 0, j + 16));
-        boolean flag = false;
-        random.setSeed(world.getSeed());
-        long k = random.nextLong() / 2L * 2L + 1L;
-        long l = random.nextLong() / 2L * 2L + 1L;
-        random.setSeed((long)x * k + (long)z * l ^ world.getSeed());
-        ChunkPos chunkpos = new ChunkPos(x, z);
+		for (MapGenBase mapgenbase : structureGenerators.values()) {
+			mapgenbase.generate(world, x, z, chunkprimer);
+		}
 
-        for (MapGenStructure mapgenstructure : structureGenerators.values())
-        {
-            boolean flag1 = mapgenstructure.generateStructure(world, random, chunkpos);
+		Chunk chunk = new Chunk(world, chunkprimer, x, z);
+		Biome[] abiome = world.getBiomeProvider().getBiomes(null, x * 16, z * 16, 16, 16);
+		byte[] abyte = chunk.getBiomeArray();
 
-            if (mapgenstructure instanceof MapGenVillage)
-            {
-                flag |= flag1;
-            }
-        }
+		for (int l = 0; l < abyte.length; ++l) {
+			abyte[l] = (byte) Biome.getIdForBiome(abiome[l]);
+		}
 
-        if (waterLakeGenerator != null && !flag && random.nextInt(4) == 0)
-        {
-            waterLakeGenerator.generate(world, random, blockpos.add(random.nextInt(16) + 8, random.nextInt(256), random.nextInt(16) + 8));
-        }
+		chunk.generateSkylightMap();
+		return chunk;
+	}
 
-        if (lavaLakeGenerator != null && !flag && random.nextInt(8) == 0)
-        {
-            BlockPos blockpos1 = blockpos.add(random.nextInt(16) + 8, random.nextInt(random.nextInt(248) + 8), random.nextInt(16) + 8);
+	/**
+	 * Generate initial structures in this chunk, e.g. mineshafts, temples, lakes, and dungeons
+	 *
+	 * @param x Chunk x coordinate
+	 * @param z Chunk z coordinate
+	 */
+	public void populate(int x, int z) {
 
-            if (blockpos1.getY() < world.getSeaLevel() || random.nextInt(10) == 0)
-            {
-                lavaLakeGenerator.generate(world, random, blockpos1);
-            }
-        }
+		int i = x * 16;
+		int j = z * 16;
+		BlockPos blockpos = new BlockPos(i, 0, j);
+		Biome biome = world.getBiome(new BlockPos(i + 16, 0, j + 16));
+		boolean flag = false;
+		random.setSeed(world.getSeed());
+		long k = random.nextLong() / 2L * 2L + 1L;
+		long l = random.nextLong() / 2L * 2L + 1L;
+		random.setSeed((long) x * k + (long) z * l ^ world.getSeed());
+		ChunkPos chunkpos = new ChunkPos(x, z);
 
-        if (hasDungeons)
-        {
-            for (int i1 = 0; i1 < 8; ++i1)
-            {
-                (new WorldGenDungeons()).generate(world, random, blockpos.add(random.nextInt(16) + 8, random.nextInt(256), random.nextInt(16) + 8));
-            }
-        }
+		for (MapGenStructure mapgenstructure : structureGenerators.values()) {
+			boolean flag1 = mapgenstructure.generateStructure(world, random, chunkpos);
 
-        if (hasDecoration)
-        {
-            biome.decorate(world, random, blockpos);
-        }
-    }
+			if (mapgenstructure instanceof MapGenVillage) {
+				flag |= flag1;
+			}
+		}
 
-    /**
-     * Called to generate additional structures after initial worldgen, used by ocean monuments
-     */
-    public boolean generateStructures(Chunk chunkIn, int x, int z)
-    {
-        return false;
-    }
+		if (waterLakeGenerator != null && !flag && random.nextInt(4) == 0) {
+			waterLakeGenerator.generate(world, random, blockpos.add(random.nextInt(16) + 8, random.nextInt(256), random.nextInt(16) + 8));
+		}
 
-    public List<Biome.SpawnListEntry> getPossibleCreatures(EnumCreatureType creatureType, BlockPos pos)
-    {
-        Biome biome = world.getBiome(pos);
-        return biome.getSpawnableList(creatureType);
-    }
+		if (lavaLakeGenerator != null && !flag && random.nextInt(8) == 0) {
+			BlockPos blockpos1 = blockpos.add(random.nextInt(16) + 8, random.nextInt(random.nextInt(248) + 8), random.nextInt(16) + 8);
 
-    @Nullable
-    public BlockPos getNearestStructurePos(World worldIn, String structureName, BlockPos position, boolean findUnexplored)
-    {
-        MapGenStructure mapgenstructure = structureGenerators.get(structureName);
-        return mapgenstructure != null ? mapgenstructure.getNearestStructurePos(worldIn, position, findUnexplored) : null;
-    }
+			if (blockpos1.getY() < world.getSeaLevel() || random.nextInt(10) == 0) {
+				lavaLakeGenerator.generate(world, random, blockpos1);
+			}
+		}
 
-    public boolean isInsideStructure(World worldIn, String structureName, BlockPos pos)
-    {
-        MapGenStructure mapgenstructure = structureGenerators.get(structureName);
-        return mapgenstructure != null ? mapgenstructure.isInsideStructure(pos) : false;
-    }
+		if (hasDungeons) {
+			for (int i1 = 0; i1 < 8; ++i1) {
+				(new WorldGenDungeons()).generate(world, random, blockpos.add(random.nextInt(16) + 8, random.nextInt(256), random.nextInt(16) + 8));
+			}
+		}
 
-    /**
-     * Recreates data about structures intersecting given chunk (used for example by getPossibleCreatures), without
-     * placing any blocks. When called for the first time before any chunk is generated - also initializes the internal
-     * state needed by getPossibleCreatures.
-     */
-    public void recreateStructures(Chunk chunkIn, int x, int z)
-    {
-        for (MapGenStructure mapgenstructure : structureGenerators.values())
-        {
-            mapgenstructure.generate(world, x, z, (ChunkPrimer)null);
-        }
-    }
+		if (hasDecoration) {
+			biome.decorate(world, random, blockpos);
+		}
+	}
+
+	/**
+	 * Called to generate additional structures after initial worldgen, used by ocean monuments
+	 */
+	public boolean generateStructures(Chunk chunkIn, int x, int z) {
+
+		return false;
+	}
+
+	public List<Biome.SpawnListEntry> getPossibleCreatures(EnumCreatureType creatureType, BlockPos pos) {
+
+		Biome biome = world.getBiome(pos);
+		return biome.getSpawnableList(creatureType);
+	}
+
+	@Nullable
+	public BlockPos getNearestStructurePos(World worldIn, String structureName, BlockPos position, boolean findUnexplored) {
+
+		MapGenStructure mapgenstructure = structureGenerators.get(structureName);
+		return mapgenstructure != null ? mapgenstructure.getNearestStructurePos(worldIn, position, findUnexplored) : null;
+	}
+
+	public boolean isInsideStructure(World worldIn, String structureName, BlockPos pos) {
+
+		MapGenStructure mapgenstructure = structureGenerators.get(structureName);
+		return mapgenstructure != null && mapgenstructure.isInsideStructure(pos);
+	}
+
+	/**
+	 * Recreates data about structures intersecting given chunk (used for example by getPossibleCreatures), without
+	 * placing any blocks. When called for the first time before any chunk is generated - also initializes the internal
+	 * state needed by getPossibleCreatures.
+	 */
+	public void recreateStructures(Chunk chunkIn, int x, int z) {
+
+		for (MapGenStructure mapgenstructure : structureGenerators.values()) {
+			mapgenstructure.generate(world, x, z, null);
+		}
+	}
+
 }

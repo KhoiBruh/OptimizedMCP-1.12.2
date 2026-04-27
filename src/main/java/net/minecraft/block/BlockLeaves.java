@@ -1,6 +1,5 @@
 package net.minecraft.block;
 
-import java.util.Random;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.IBlockState;
@@ -15,284 +14,248 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public abstract class BlockLeaves extends Block
-{
-    public static final PropertyBool DECAYABLE = PropertyBool.create("decayable");
-    public static final PropertyBool CHECK_DECAY = PropertyBool.create("check_decay");
-    protected boolean leavesFancy;
-    int[] surroundings;
+import java.util.Random;
 
-    public BlockLeaves()
-    {
-        super(Material.LEAVES);
-        setTickRandomly(true);
-        setCreativeTab(CreativeTabs.DECORATIONS);
-        setHardness(0.2F);
-        setLightOpacity(1);
-        setSoundType(SoundType.PLANT);
-    }
+public abstract class BlockLeaves extends Block {
 
-    /**
-     * Called serverside after this block is replaced with another in Chunk, but before the Tile Entity is updated
-     */
-    public void breakBlock(World worldIn, BlockPos pos, IBlockState state)
-    {
-        int i = 1;
-        int j = 2;
-        int k = pos.getX();
-        int l = pos.getY();
-        int i1 = pos.getZ();
+	public static final PropertyBool DECAYABLE = PropertyBool.create("decayable");
+	public static final PropertyBool CHECK_DECAY = PropertyBool.create("check_decay");
+	protected boolean leavesFancy;
+	int[] surroundings;
 
-        if (worldIn.isAreaLoaded(new BlockPos(k - 2, l - 2, i1 - 2), new BlockPos(k + 2, l + 2, i1 + 2)))
-        {
-            for (int j1 = -1; j1 <= 1; ++j1)
-            {
-                for (int k1 = -1; k1 <= 1; ++k1)
-                {
-                    for (int l1 = -1; l1 <= 1; ++l1)
-                    {
-                        BlockPos blockpos = pos.add(j1, k1, l1);
-                        IBlockState iblockstate = worldIn.getBlockState(blockpos);
+	public BlockLeaves() {
 
-                        if (iblockstate.getMaterial() == Material.LEAVES && !((Boolean)iblockstate.getValue(CHECK_DECAY)).booleanValue())
-                        {
-                            worldIn.setBlockState(blockpos, iblockstate.withProperty(CHECK_DECAY, Boolean.valueOf(true)), 4);
-                        }
-                    }
-                }
-            }
-        }
-    }
+		super(Material.LEAVES);
+		setTickRandomly(true);
+		setCreativeTab(CreativeTabs.DECORATIONS);
+		setHardness(0.2F);
+		setLightOpacity(1);
+		setSoundType(SoundType.PLANT);
+	}
 
-    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
-    {
-        if (!worldIn.isRemote)
-        {
-            if (((Boolean)state.getValue(CHECK_DECAY)).booleanValue() && ((Boolean)state.getValue(DECAYABLE)).booleanValue())
-            {
-                int i = 4;
-                int j = 5;
-                int k = pos.getX();
-                int l = pos.getY();
-                int i1 = pos.getZ();
-                int j1 = 32;
-                int k1 = 1024;
-                int l1 = 16;
+	/**
+	 * Called serverside after this block is replaced with another in Chunk, but before the Tile Entity is updated
+	 */
+	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
 
-                if (surroundings == null)
-                {
-                    surroundings = new int[32768];
-                }
+		int i = 1;
+		int j = 2;
+		int k = pos.getX();
+		int l = pos.getY();
+		int i1 = pos.getZ();
 
-                if (worldIn.isAreaLoaded(new BlockPos(k - 5, l - 5, i1 - 5), new BlockPos(k + 5, l + 5, i1 + 5)))
-                {
-                    BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
+		if (worldIn.isAreaLoaded(new BlockPos(k - 2, l - 2, i1 - 2), new BlockPos(k + 2, l + 2, i1 + 2))) {
+			for (int j1 = -1; j1 <= 1; ++j1) {
+				for (int k1 = -1; k1 <= 1; ++k1) {
+					for (int l1 = -1; l1 <= 1; ++l1) {
+						BlockPos blockpos = pos.add(j1, k1, l1);
+						IBlockState iblockstate = worldIn.getBlockState(blockpos);
 
-                    for (int i2 = -4; i2 <= 4; ++i2)
-                    {
-                        for (int j2 = -4; j2 <= 4; ++j2)
-                        {
-                            for (int k2 = -4; k2 <= 4; ++k2)
-                            {
-                                IBlockState iblockstate = worldIn.getBlockState(blockpos$mutableblockpos.setPos(k + i2, l + j2, i1 + k2));
-                                Block block = iblockstate.getBlock();
+						if (iblockstate.getMaterial() == Material.LEAVES && !iblockstate.getValue(CHECK_DECAY).booleanValue()) {
+							worldIn.setBlockState(blockpos, iblockstate.withProperty(CHECK_DECAY, Boolean.valueOf(true)), 4);
+						}
+					}
+				}
+			}
+		}
+	}
 
-                                if (block != Blocks.LOG && block != Blocks.LOG2)
-                                {
-                                    if (iblockstate.getMaterial() == Material.LEAVES)
-                                    {
-                                        surroundings[(i2 + 16) * 1024 + (j2 + 16) * 32 + k2 + 16] = -2;
-                                    }
-                                    else
-                                    {
-                                        surroundings[(i2 + 16) * 1024 + (j2 + 16) * 32 + k2 + 16] = -1;
-                                    }
-                                }
-                                else
-                                {
-                                    surroundings[(i2 + 16) * 1024 + (j2 + 16) * 32 + k2 + 16] = 0;
-                                }
-                            }
-                        }
-                    }
+	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
 
-                    for (int i3 = 1; i3 <= 4; ++i3)
-                    {
-                        for (int j3 = -4; j3 <= 4; ++j3)
-                        {
-                            for (int k3 = -4; k3 <= 4; ++k3)
-                            {
-                                for (int l3 = -4; l3 <= 4; ++l3)
-                                {
-                                    if (surroundings[(j3 + 16) * 1024 + (k3 + 16) * 32 + l3 + 16] == i3 - 1)
-                                    {
-                                        if (surroundings[(j3 + 16 - 1) * 1024 + (k3 + 16) * 32 + l3 + 16] == -2)
-                                        {
-                                            surroundings[(j3 + 16 - 1) * 1024 + (k3 + 16) * 32 + l3 + 16] = i3;
-                                        }
+		if (!worldIn.isRemote) {
+			if (state.getValue(CHECK_DECAY).booleanValue() && state.getValue(DECAYABLE).booleanValue()) {
+				int i = 4;
+				int j = 5;
+				int k = pos.getX();
+				int l = pos.getY();
+				int i1 = pos.getZ();
+				int j1 = 32;
+				int k1 = 1024;
+				int l1 = 16;
 
-                                        if (surroundings[(j3 + 16 + 1) * 1024 + (k3 + 16) * 32 + l3 + 16] == -2)
-                                        {
-                                            surroundings[(j3 + 16 + 1) * 1024 + (k3 + 16) * 32 + l3 + 16] = i3;
-                                        }
+				if (surroundings == null) {
+					surroundings = new int[32768];
+				}
 
-                                        if (surroundings[(j3 + 16) * 1024 + (k3 + 16 - 1) * 32 + l3 + 16] == -2)
-                                        {
-                                            surroundings[(j3 + 16) * 1024 + (k3 + 16 - 1) * 32 + l3 + 16] = i3;
-                                        }
+				if (worldIn.isAreaLoaded(new BlockPos(k - 5, l - 5, i1 - 5), new BlockPos(k + 5, l + 5, i1 + 5))) {
+					BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
 
-                                        if (surroundings[(j3 + 16) * 1024 + (k3 + 16 + 1) * 32 + l3 + 16] == -2)
-                                        {
-                                            surroundings[(j3 + 16) * 1024 + (k3 + 16 + 1) * 32 + l3 + 16] = i3;
-                                        }
+					for (int i2 = -4; i2 <= 4; ++i2) {
+						for (int j2 = -4; j2 <= 4; ++j2) {
+							for (int k2 = -4; k2 <= 4; ++k2) {
+								IBlockState iblockstate = worldIn.getBlockState(blockpos$mutableblockpos.setPos(k + i2, l + j2, i1 + k2));
+								Block block = iblockstate.getBlock();
 
-                                        if (surroundings[(j3 + 16) * 1024 + (k3 + 16) * 32 + (l3 + 16 - 1)] == -2)
-                                        {
-                                            surroundings[(j3 + 16) * 1024 + (k3 + 16) * 32 + (l3 + 16 - 1)] = i3;
-                                        }
+								if (block != Blocks.LOG && block != Blocks.LOG2) {
+									if (iblockstate.getMaterial() == Material.LEAVES) {
+										surroundings[(i2 + 16) * 1024 + (j2 + 16) * 32 + k2 + 16] = -2;
+									} else {
+										surroundings[(i2 + 16) * 1024 + (j2 + 16) * 32 + k2 + 16] = -1;
+									}
+								} else {
+									surroundings[(i2 + 16) * 1024 + (j2 + 16) * 32 + k2 + 16] = 0;
+								}
+							}
+						}
+					}
 
-                                        if (surroundings[(j3 + 16) * 1024 + (k3 + 16) * 32 + l3 + 16 + 1] == -2)
-                                        {
-                                            surroundings[(j3 + 16) * 1024 + (k3 + 16) * 32 + l3 + 16 + 1] = i3;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+					for (int i3 = 1; i3 <= 4; ++i3) {
+						for (int j3 = -4; j3 <= 4; ++j3) {
+							for (int k3 = -4; k3 <= 4; ++k3) {
+								for (int l3 = -4; l3 <= 4; ++l3) {
+									if (surroundings[(j3 + 16) * 1024 + (k3 + 16) * 32 + l3 + 16] == i3 - 1) {
+										if (surroundings[(j3 + 16 - 1) * 1024 + (k3 + 16) * 32 + l3 + 16] == -2) {
+											surroundings[(j3 + 16 - 1) * 1024 + (k3 + 16) * 32 + l3 + 16] = i3;
+										}
 
-                int l2 = surroundings[16912];
+										if (surroundings[(j3 + 16 + 1) * 1024 + (k3 + 16) * 32 + l3 + 16] == -2) {
+											surroundings[(j3 + 16 + 1) * 1024 + (k3 + 16) * 32 + l3 + 16] = i3;
+										}
 
-                if (l2 >= 0)
-                {
-                    worldIn.setBlockState(pos, state.withProperty(CHECK_DECAY, Boolean.valueOf(false)), 4);
-                }
-                else
-                {
-                    destroy(worldIn, pos);
-                }
-            }
-        }
-    }
+										if (surroundings[(j3 + 16) * 1024 + (k3 + 16 - 1) * 32 + l3 + 16] == -2) {
+											surroundings[(j3 + 16) * 1024 + (k3 + 16 - 1) * 32 + l3 + 16] = i3;
+										}
 
-    public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand)
-    {
-        if (worldIn.isRainingAt(pos.up()) && !worldIn.getBlockState(pos.down()).isTopSolid() && rand.nextInt(15) == 1)
-        {
-            double d0 = (double)((float)pos.getX() + rand.nextFloat());
-            double d1 = (double)pos.getY() - 0.05D;
-            double d2 = (double)((float)pos.getZ() + rand.nextFloat());
-            worldIn.spawnParticle(EnumParticleTypes.DRIP_WATER, d0, d1, d2, 0.0D, 0.0D, 0.0D);
-        }
-    }
+										if (surroundings[(j3 + 16) * 1024 + (k3 + 16 + 1) * 32 + l3 + 16] == -2) {
+											surroundings[(j3 + 16) * 1024 + (k3 + 16 + 1) * 32 + l3 + 16] = i3;
+										}
 
-    private void destroy(World worldIn, BlockPos pos)
-    {
-        dropBlockAsItem(worldIn, pos, worldIn.getBlockState(pos), 0);
-        worldIn.setBlockToAir(pos);
-    }
+										if (surroundings[(j3 + 16) * 1024 + (k3 + 16) * 32 + (l3 + 16 - 1)] == -2) {
+											surroundings[(j3 + 16) * 1024 + (k3 + 16) * 32 + (l3 + 16 - 1)] = i3;
+										}
 
-    /**
-     * Returns the quantity of items to drop on block destruction.
-     */
-    public int quantityDropped(Random random)
-    {
-        return random.nextInt(20) == 0 ? 1 : 0;
-    }
+										if (surroundings[(j3 + 16) * 1024 + (k3 + 16) * 32 + l3 + 16 + 1] == -2) {
+											surroundings[(j3 + 16) * 1024 + (k3 + 16) * 32 + l3 + 16 + 1] = i3;
+										}
+									}
+								}
+							}
+						}
+					}
+				}
 
-    /**
-     * Get the Item that this Block should drop when harvested.
-     */
-    public Item getItemDropped(IBlockState state, Random rand, int fortune)
-    {
-        return Item.getItemFromBlock(Blocks.SAPLING);
-    }
+				int l2 = surroundings[16912];
 
-    /**
-     * Spawns this Block's drops into the World as EntityItems.
-     */
-    public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune)
-    {
-        if (!worldIn.isRemote)
-        {
-            int i = getSaplingDropChance(state);
+				if (l2 >= 0) {
+					worldIn.setBlockState(pos, state.withProperty(CHECK_DECAY, Boolean.valueOf(false)), 4);
+				} else {
+					destroy(worldIn, pos);
+				}
+			}
+		}
+	}
 
-            if (fortune > 0)
-            {
-                i -= 2 << fortune;
+	public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
 
-                if (i < 10)
-                {
-                    i = 10;
-                }
-            }
+		if (worldIn.isRainingAt(pos.up()) && !worldIn.getBlockState(pos.down()).isTopSolid() && rand.nextInt(15) == 1) {
+			double d0 = (float) pos.getX() + rand.nextFloat();
+			double d1 = (double) pos.getY() - 0.05D;
+			double d2 = (float) pos.getZ() + rand.nextFloat();
+			worldIn.spawnParticle(EnumParticleTypes.DRIP_WATER, d0, d1, d2, 0.0D, 0.0D, 0.0D);
+		}
+	}
 
-            if (worldIn.rand.nextInt(i) == 0)
-            {
-                Item item = getItemDropped(state, worldIn.rand, fortune);
-                spawnAsEntity(worldIn, pos, new ItemStack(item, 1, damageDropped(state)));
-            }
+	private void destroy(World worldIn, BlockPos pos) {
 
-            i = 200;
+		dropBlockAsItem(worldIn, pos, worldIn.getBlockState(pos), 0);
+		worldIn.setBlockToAir(pos);
+	}
 
-            if (fortune > 0)
-            {
-                i -= 10 << fortune;
+	/**
+	 * Returns the quantity of items to drop on block destruction.
+	 */
+	public int quantityDropped(Random random) {
 
-                if (i < 40)
-                {
-                    i = 40;
-                }
-            }
+		return random.nextInt(20) == 0 ? 1 : 0;
+	}
 
-            dropApple(worldIn, pos, state, i);
-        }
-    }
+	/**
+	 * Get the Item that this Block should drop when harvested.
+	 */
+	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
 
-    protected void dropApple(World worldIn, BlockPos pos, IBlockState state, int chance)
-    {
-    }
+		return Item.getItemFromBlock(Blocks.SAPLING);
+	}
 
-    protected int getSaplingDropChance(IBlockState state)
-    {
-        return 20;
-    }
+	/**
+	 * Spawns this Block's drops into the World as EntityItems.
+	 */
+	public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune) {
 
-    /**
-     * Used to determine ambient occlusion and culling when rebuilding chunks for render
-     */
-    public boolean isOpaqueCube(IBlockState state)
-    {
-        return !leavesFancy;
-    }
+		if (!worldIn.isRemote) {
+			int i = getSaplingDropChance(state);
 
-    /**
-     * Pass true to draw this block using fancy graphics, or false for fast graphics.
-     */
-    public void setGraphicsLevel(boolean fancy)
-    {
-        leavesFancy = fancy;
-    }
+			if (fortune > 0) {
+				i -= 2 << fortune;
 
-    /**
-     * Gets the render layer this block will render on. SOLID for solid blocks, CUTOUT or CUTOUT_MIPPED for on-off
-     * transparency (glass, reeds), TRANSLUCENT for fully blended transparency (stained glass)
-     */
-    public BlockRenderLayer getBlockLayer()
-    {
-        return leavesFancy ? BlockRenderLayer.CUTOUT_MIPPED : BlockRenderLayer.SOLID;
-    }
+				if (i < 10) {
+					i = 10;
+				}
+			}
 
-    public boolean causesSuffocation(IBlockState state)
-    {
-        return false;
-    }
+			if (worldIn.rand.nextInt(i) == 0) {
+				Item item = getItemDropped(state, worldIn.rand, fortune);
+				spawnAsEntity(worldIn, pos, new ItemStack(item, 1, damageDropped(state)));
+			}
 
-    public abstract BlockPlanks.EnumType getWoodType(int meta);
+			i = 200;
 
-    public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side)
-    {
-        return !leavesFancy && blockAccess.getBlockState(pos.offset(side)).getBlock() == this ? false : super.shouldSideBeRendered(blockState, blockAccess, pos, side);
-    }
+			if (fortune > 0) {
+				i -= 10 << fortune;
+
+				if (i < 40) {
+					i = 40;
+				}
+			}
+
+			dropApple(worldIn, pos, state, i);
+		}
+	}
+
+	protected void dropApple(World worldIn, BlockPos pos, IBlockState state, int chance) {
+
+	}
+
+	protected int getSaplingDropChance(IBlockState state) {
+
+		return 20;
+	}
+
+	/**
+	 * Used to determine ambient occlusion and culling when rebuilding chunks for render
+	 */
+	public boolean isOpaqueCube(IBlockState state) {
+
+		return !leavesFancy;
+	}
+
+	/**
+	 * Pass true to draw this block using fancy graphics, or false for fast graphics.
+	 */
+	public void setGraphicsLevel(boolean fancy) {
+
+		leavesFancy = fancy;
+	}
+
+	/**
+	 * Gets the render layer this block will render on. SOLID for solid blocks, CUTOUT or CUTOUT_MIPPED for on-off
+	 * transparency (glass, reeds), TRANSLUCENT for fully blended transparency (stained glass)
+	 */
+	public BlockRenderLayer getBlockLayer() {
+
+		return leavesFancy ? BlockRenderLayer.CUTOUT_MIPPED : BlockRenderLayer.SOLID;
+	}
+
+	public boolean causesSuffocation(IBlockState state) {
+
+		return false;
+	}
+
+	public abstract BlockPlanks.EnumType getWoodType(int meta);
+
+	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
+
+		return (leavesFancy || blockAccess.getBlockState(pos.offset(side)).getBlock() != this) && super.shouldSideBeRendered(blockState, blockAccess, pos, side);
+	}
+
 }

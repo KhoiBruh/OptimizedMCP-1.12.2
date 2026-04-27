@@ -11,84 +11,79 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 
-public abstract class TileEntitySpecialRenderer<T extends TileEntity>
-{
-    protected static final ResourceLocation[] DESTROY_STAGES = new ResourceLocation[] {new ResourceLocation("textures/blocks/destroy_stage_0.png"), new ResourceLocation("textures/blocks/destroy_stage_1.png"), new ResourceLocation("textures/blocks/destroy_stage_2.png"), new ResourceLocation("textures/blocks/destroy_stage_3.png"), new ResourceLocation("textures/blocks/destroy_stage_4.png"), new ResourceLocation("textures/blocks/destroy_stage_5.png"), new ResourceLocation("textures/blocks/destroy_stage_6.png"), new ResourceLocation("textures/blocks/destroy_stage_7.png"), new ResourceLocation("textures/blocks/destroy_stage_8.png"), new ResourceLocation("textures/blocks/destroy_stage_9.png")};
-    protected TileEntityRendererDispatcher rendererDispatcher;
+public abstract class TileEntitySpecialRenderer<T extends TileEntity> {
 
-    public void render(T te, double x, double y, double z, float partialTicks, int destroyStage, float alpha)
-    {
-        ITextComponent itextcomponent = te.getDisplayName();
+	protected static final ResourceLocation[] DESTROY_STAGES = new ResourceLocation[]{new ResourceLocation("textures/blocks/destroy_stage_0.png"), new ResourceLocation("textures/blocks/destroy_stage_1.png"), new ResourceLocation("textures/blocks/destroy_stage_2.png"), new ResourceLocation("textures/blocks/destroy_stage_3.png"), new ResourceLocation("textures/blocks/destroy_stage_4.png"), new ResourceLocation("textures/blocks/destroy_stage_5.png"), new ResourceLocation("textures/blocks/destroy_stage_6.png"), new ResourceLocation("textures/blocks/destroy_stage_7.png"), new ResourceLocation("textures/blocks/destroy_stage_8.png"), new ResourceLocation("textures/blocks/destroy_stage_9.png")};
+	protected TileEntityRendererDispatcher rendererDispatcher;
 
-        if (itextcomponent != null && rendererDispatcher.cameraHitResult != null && te.getPos().equals(rendererDispatcher.cameraHitResult.getBlockPos()))
-        {
-            setLightmapDisabled(true);
-            drawNameplate(te, itextcomponent.getFormattedText(), x, y, z, 12);
-            setLightmapDisabled(false);
-        }
-    }
+	public void render(T te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
 
-    /**
-     * Sets whether to use the light map when rendering. Disabling this allows rendering ignoring lighting, which can be
-     * useful for floating text, e.g.
-     */
-    protected void setLightmapDisabled(boolean disabled)
-    {
-        GlStateManager.setActiveTexture(OpenGlHelper.lightmapTexUnit);
+		ITextComponent itextcomponent = te.getDisplayName();
 
-        if (disabled)
-        {
-            GlStateManager.disableTexture2D();
-        }
-        else
-        {
-            GlStateManager.enableTexture2D();
-        }
+		if (itextcomponent != null && rendererDispatcher.cameraHitResult != null && te.getPos().equals(rendererDispatcher.cameraHitResult.getBlockPos())) {
+			setLightmapDisabled(true);
+			drawNameplate(te, itextcomponent.getFormattedText(), x, y, z, 12);
+			setLightmapDisabled(false);
+		}
+	}
 
-        GlStateManager.setActiveTexture(OpenGlHelper.defaultTexUnit);
-    }
+	/**
+	 * Sets whether to use the light map when rendering. Disabling this allows rendering ignoring lighting, which can be
+	 * useful for floating text, e.g.
+	 */
+	protected void setLightmapDisabled(boolean disabled) {
 
-    protected void bindTexture(ResourceLocation location)
-    {
-        TextureManager texturemanager = rendererDispatcher.renderEngine;
+		GlStateManager.setActiveTexture(OpenGlHelper.lightmapTexUnit);
 
-        if (texturemanager != null)
-        {
-            texturemanager.bindTexture(location);
-        }
-    }
+		if (disabled) {
+			GlStateManager.disableTexture2D();
+		} else {
+			GlStateManager.enableTexture2D();
+		}
 
-    protected World getWorld()
-    {
-        return rendererDispatcher.world;
-    }
+		GlStateManager.setActiveTexture(OpenGlHelper.defaultTexUnit);
+	}
 
-    public void setRendererDispatcher(TileEntityRendererDispatcher rendererDispatcherIn)
-    {
-        rendererDispatcher = rendererDispatcherIn;
-    }
+	protected void bindTexture(ResourceLocation location) {
 
-    public FontRenderer getFontRenderer()
-    {
-        return rendererDispatcher.getFontRenderer();
-    }
+		TextureManager texturemanager = rendererDispatcher.renderEngine;
 
-    public boolean isGlobalRenderer(T te)
-    {
-        return false;
-    }
+		if (texturemanager != null) {
+			texturemanager.bindTexture(location);
+		}
+	}
 
-    protected void drawNameplate(T te, String str, double x, double y, double z, int maxDistance)
-    {
-        Entity entity = rendererDispatcher.entity;
-        double d0 = te.getDistanceSq(entity.posX, entity.posY, entity.posZ);
+	protected World getWorld() {
 
-        if (d0 <= (double)(maxDistance * maxDistance))
-        {
-            float f = rendererDispatcher.entityYaw;
-            float f1 = rendererDispatcher.entityPitch;
-            boolean flag = false;
-            EntityRenderer.drawNameplate(getFontRenderer(), str, (float)x + 0.5F, (float)y + 1.5F, (float)z + 0.5F, 0, f, f1, false, false);
-        }
-    }
+		return rendererDispatcher.world;
+	}
+
+	public void setRendererDispatcher(TileEntityRendererDispatcher rendererDispatcherIn) {
+
+		rendererDispatcher = rendererDispatcherIn;
+	}
+
+	public FontRenderer getFontRenderer() {
+
+		return rendererDispatcher.getFontRenderer();
+	}
+
+	public boolean isGlobalRenderer(T te) {
+
+		return false;
+	}
+
+	protected void drawNameplate(T te, String str, double x, double y, double z, int maxDistance) {
+
+		Entity entity = rendererDispatcher.entity;
+		double d0 = te.getDistanceSq(entity.posX, entity.posY, entity.posZ);
+
+		if (d0 <= (double) (maxDistance * maxDistance)) {
+			float f = rendererDispatcher.entityYaw;
+			float f1 = rendererDispatcher.entityPitch;
+			boolean flag = false;
+			EntityRenderer.drawNameplate(getFontRenderer(), str, (float) x + 0.5F, (float) y + 1.5F, (float) z + 0.5F, 0, f, f1, false, false);
+		}
+	}
+
 }

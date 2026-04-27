@@ -3,20 +3,21 @@ package net.minecraft.client.resources;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreenResourcePacks;
 
-public class ResourcePackListEntryDefault extends ResourcePackListEntryServer
-{
-    public ResourcePackListEntryDefault(GuiScreenResourcePacks resourcePacksGUIIn)
-    {
-        super(resourcePacksGUIIn, Minecraft.getMinecraft().getResourcePackRepository().rprDefaultResourcePack);
-    }
+public class ResourcePackListEntryDefault extends ResourcePackListEntryServer {
 
-    protected String getResourcePackName()
-    {
-        return "Default";
-    }
+	public ResourcePackListEntryDefault(GuiScreenResourcePacks resourcePacksGUIIn) {
 
-    public boolean isServerPack()
-    {
-        return false;
-    }
+		super(resourcePacksGUIIn, Minecraft.getMinecraft().getResourcePackRepository().rprDefaultResourcePack);
+	}
+
+	protected String getResourcePackName() {
+
+		return "Default";
+	}
+
+	public boolean isServerPack() {
+
+		return false;
+	}
+
 }

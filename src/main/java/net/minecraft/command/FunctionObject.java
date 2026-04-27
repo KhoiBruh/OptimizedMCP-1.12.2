@@ -1,159 +1,145 @@
 package net.minecraft.command;
 
 import com.google.common.collect.Lists;
-import java.util.ArrayDeque;
-import java.util.List;
-import javax.annotation.Nullable;
 import net.minecraft.advancements.FunctionManager;
 import net.minecraft.util.ResourceLocation;
 
-public class FunctionObject
-{
-    private final FunctionObject.Entry[] entries;
+import javax.annotation.Nullable;
+import java.util.ArrayDeque;
+import java.util.List;
 
-    public FunctionObject(FunctionObject.Entry[] entriesIn)
-    {
-        entries = entriesIn;
-    }
+public record FunctionObject(Entry[] entries) {
 
-    public FunctionObject.Entry[] getEntries()
-    {
-        return entries;
-    }
+	/**
+	 * Create a Function from the given function definition.
+	 */
+	public static FunctionObject create(FunctionManager functionManagerIn, List<String> commands) {
 
-    /**
-     * Create a Function from the given function definition.
-     */
-    public static FunctionObject create(FunctionManager functionManagerIn, List<String> commands)
-    {
-        List<FunctionObject.Entry> list = Lists.<FunctionObject.Entry>newArrayListWithCapacity(commands.size());
+		List<Entry> list = Lists.newArrayListWithCapacity(commands.size());
 
-        for (String s : commands)
-        {
-            s = s.trim();
+		for (String s : commands) {
+			s = s.trim();
 
-            if (!s.startsWith("#") && !s.isEmpty())
-            {
-                String[] astring = s.split(" ", 2);
-                String s1 = astring[0];
+			if (!s.startsWith("#") && !s.isEmpty()) {
+				String[] astring = s.split(" ", 2);
+				String s1 = astring[0];
 
-                if (!functionManagerIn.getCommandManager().getCommands().containsKey(s1))
-                {
-                    if (s1.startsWith("//"))
-                    {
-                        throw new IllegalArgumentException("Unknown or invalid command '" + s1 + "' (if you intended to make a comment, use '#' not '//')");
-                    }
+				if (!functionManagerIn.getCommandManager().getCommands().containsKey(s1)) {
+					if (s1.startsWith("//")) {
+						throw new IllegalArgumentException("Unknown or invalid command '" + s1 + "' (if you intended to make a comment, use '#' not '//')");
+					}
 
-                    if (s1.startsWith("/") && s1.length() > 1)
-                    {
-                        throw new IllegalArgumentException("Unknown or invalid command '" + s1 + "' (did you mean '" + s1.substring(1) + "'? Do not use a preceding forwards slash.)");
-                    }
+					if (s1.startsWith("/") && s1.length() > 1) {
+						throw new IllegalArgumentException("Unknown or invalid command '" + s1 + "' (did you mean '" + s1.substring(1) + "'? Do not use a preceding forwards slash.)");
+					}
 
-                    throw new IllegalArgumentException("Unknown or invalid command '" + s1 + "'");
-                }
+					throw new IllegalArgumentException("Unknown or invalid command '" + s1 + "'");
+				}
 
-                list.add(new FunctionObject.CommandEntry(s));
-            }
-        }
+				list.add(new CommandEntry(s));
+			}
+		}
 
-        return new FunctionObject((FunctionObject.Entry[])list.toArray(new FunctionObject.Entry[list.size()]));
-    }
+		return new FunctionObject(list.toArray(new Entry[list.size()]));
+	}
 
-    public static class CacheableFunction
-    {
-        public static final FunctionObject.CacheableFunction EMPTY = new FunctionObject.CacheableFunction((ResourceLocation)null);
-        @Nullable
-        private final ResourceLocation id;
-        private boolean isValid;
-        private FunctionObject function;
+	public static class CacheableFunction {
 
-        public CacheableFunction(@Nullable ResourceLocation idIn)
-        {
-            id = idIn;
-        }
+		public static final CacheableFunction EMPTY = new CacheableFunction((ResourceLocation) null);
 
-        public CacheableFunction(FunctionObject functionIn)
-        {
-            id = null;
-            function = functionIn;
-        }
+		@Nullable
+		private final ResourceLocation id;
+		private boolean isValid;
+		private FunctionObject function;
 
-        @Nullable
-        public FunctionObject get(FunctionManager functionManagerIn)
-        {
-            if (!isValid)
-            {
-                if (id != null)
-                {
-                    function = functionManagerIn.getFunction(id);
-                }
+		public CacheableFunction(@Nullable ResourceLocation idIn) {
 
-                isValid = true;
-            }
+			id = idIn;
+		}
 
-            return function;
-        }
+		public CacheableFunction(FunctionObject functionIn) {
 
-        public String toString()
-        {
-            return String.valueOf((Object) id);
-        }
-    }
+			id = null;
+			function = functionIn;
+		}
 
-    public static class CommandEntry implements FunctionObject.Entry
-    {
-        private final String command;
+		@Nullable
+		public FunctionObject get(FunctionManager functionManagerIn) {
 
-        public CommandEntry(String p_i47534_1_)
-        {
-            command = p_i47534_1_;
-        }
+			if (!isValid) {
+				if (id != null) {
+					function = functionManagerIn.getFunction(id);
+				}
 
-        public void execute(FunctionManager functionManagerIn, ICommandSender sender, ArrayDeque<FunctionManager.QueuedCommand> commandQueue, int maxCommandChainLength)
-        {
-            functionManagerIn.getCommandManager().executeCommand(sender, command);
-        }
+				isValid = true;
+			}
 
-        public String toString()
-        {
-            return "/" + command;
-        }
-    }
+			return function;
+		}
 
-    public interface Entry
-    {
-        void execute(FunctionManager functionManagerIn, ICommandSender sender, ArrayDeque<FunctionManager.QueuedCommand> commandQueue, int maxCommandChainLength);
-    }
+		public String toString() {
 
-    public static class FunctionEntry implements FunctionObject.Entry
-    {
-        private final FunctionObject.CacheableFunction function;
+			return String.valueOf(id);
+		}
 
-        public FunctionEntry(FunctionObject functionIn)
-        {
-            function = new FunctionObject.CacheableFunction(functionIn);
-        }
+	}
 
-        public void execute(FunctionManager functionManagerIn, ICommandSender sender, ArrayDeque<FunctionManager.QueuedCommand> commandQueue, int maxCommandChainLength)
-        {
-            FunctionObject functionobject = function.get(functionManagerIn);
+	public static class CommandEntry implements Entry {
 
-            if (functionobject != null)
-            {
-                FunctionObject.Entry[] afunctionobject$entry = functionobject.getEntries();
-                int i = maxCommandChainLength - commandQueue.size();
-                int j = Math.min(afunctionobject$entry.length, i);
+		private final String command;
 
-                for (int k = j - 1; k >= 0; --k)
-                {
-                    commandQueue.addFirst(new FunctionManager.QueuedCommand(functionManagerIn, sender, afunctionobject$entry[k]));
-                }
-            }
-        }
+		public CommandEntry(String p_i47534_1_) {
 
-        public String toString()
-        {
-            return "/function " + function;
-        }
-    }
+			command = p_i47534_1_;
+		}
+
+		public void execute(FunctionManager functionManagerIn, ICommandSender sender, ArrayDeque<FunctionManager.QueuedCommand> commandQueue, int maxCommandChainLength) {
+
+			functionManagerIn.getCommandManager().executeCommand(sender, command);
+		}
+
+		public String toString() {
+
+			return "/" + command;
+		}
+
+	}
+
+	public interface Entry {
+
+		void execute(FunctionManager functionManagerIn, ICommandSender sender, ArrayDeque<FunctionManager.QueuedCommand> commandQueue, int maxCommandChainLength);
+
+	}
+
+	public static class FunctionEntry implements Entry {
+
+		private final CacheableFunction function;
+
+		public FunctionEntry(FunctionObject functionIn) {
+
+			function = new CacheableFunction(functionIn);
+		}
+
+		public void execute(FunctionManager functionManagerIn, ICommandSender sender, ArrayDeque<FunctionManager.QueuedCommand> commandQueue, int maxCommandChainLength) {
+
+			FunctionObject functionobject = function.get(functionManagerIn);
+
+			if (functionobject != null) {
+				Entry[] afunctionobject$entry = functionobject.entries();
+				int i = maxCommandChainLength - commandQueue.size();
+				int j = Math.min(afunctionobject$entry.length, i);
+
+				for (int k = j - 1; k >= 0; --k) {
+					commandQueue.addFirst(new FunctionManager.QueuedCommand(functionManagerIn, sender, afunctionobject$entry[k]));
+				}
+			}
+		}
+
+		public String toString() {
+
+			return "/function " + function;
+		}
+
+	}
+
 }

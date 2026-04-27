@@ -1,150 +1,144 @@
 package net.minecraft.network.play.server;
 
-import java.io.IOException;
-import java.util.Locale;
-import javax.annotation.Nullable;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayClient;
 import net.minecraft.util.text.ITextComponent;
 
-public class SPacketTitle implements Packet<INetHandlerPlayClient>
-{
-    private SPacketTitle.Type type;
-    private ITextComponent message;
-    private int fadeInTime;
-    private int displayTime;
-    private int fadeOutTime;
+import javax.annotation.Nullable;
+import java.io.IOException;
+import java.util.Locale;
 
-    public SPacketTitle()
-    {
-    }
+public class SPacketTitle implements Packet<INetHandlerPlayClient> {
 
-    public SPacketTitle(SPacketTitle.Type typeIn, ITextComponent messageIn)
-    {
-        this(typeIn, messageIn, -1, -1, -1);
-    }
+	private SPacketTitle.Type type;
+	private ITextComponent message;
+	private int fadeInTime;
+	private int displayTime;
+	private int fadeOutTime;
 
-    public SPacketTitle(int fadeInTimeIn, int displayTimeIn, int fadeOutTimeIn)
-    {
-        this(SPacketTitle.Type.TIMES, (ITextComponent)null, fadeInTimeIn, displayTimeIn, fadeOutTimeIn);
-    }
+	public SPacketTitle() {
 
-    public SPacketTitle(SPacketTitle.Type typeIn, @Nullable ITextComponent messageIn, int fadeInTimeIn, int displayTimeIn, int fadeOutTimeIn)
-    {
-        type = typeIn;
-        message = messageIn;
-        fadeInTime = fadeInTimeIn;
-        displayTime = displayTimeIn;
-        fadeOutTime = fadeOutTimeIn;
-    }
+	}
 
-    /**
-     * Reads the raw packet data from the data stream.
-     */
-    public void readPacketData(PacketBuffer buf) throws IOException
-    {
-        type = (SPacketTitle.Type)buf.readEnumValue(SPacketTitle.Type.class);
+	public SPacketTitle(SPacketTitle.Type typeIn, ITextComponent messageIn) {
 
-        if (type == SPacketTitle.Type.TITLE || type == SPacketTitle.Type.SUBTITLE || type == SPacketTitle.Type.ACTIONBAR)
-        {
-            message = buf.readTextComponent();
-        }
+		this(typeIn, messageIn, -1, -1, -1);
+	}
 
-        if (type == SPacketTitle.Type.TIMES)
-        {
-            fadeInTime = buf.readInt();
-            displayTime = buf.readInt();
-            fadeOutTime = buf.readInt();
-        }
-    }
+	public SPacketTitle(int fadeInTimeIn, int displayTimeIn, int fadeOutTimeIn) {
 
-    /**
-     * Writes the raw packet data to the data stream.
-     */
-    public void writePacketData(PacketBuffer buf) throws IOException
-    {
-        buf.writeEnumValue(type);
+		this(SPacketTitle.Type.TIMES, null, fadeInTimeIn, displayTimeIn, fadeOutTimeIn);
+	}
 
-        if (type == SPacketTitle.Type.TITLE || type == SPacketTitle.Type.SUBTITLE || type == SPacketTitle.Type.ACTIONBAR)
-        {
-            buf.writeTextComponent(message);
-        }
+	public SPacketTitle(SPacketTitle.Type typeIn, @Nullable ITextComponent messageIn, int fadeInTimeIn, int displayTimeIn, int fadeOutTimeIn) {
 
-        if (type == SPacketTitle.Type.TIMES)
-        {
-            buf.writeInt(fadeInTime);
-            buf.writeInt(displayTime);
-            buf.writeInt(fadeOutTime);
-        }
-    }
+		type = typeIn;
+		message = messageIn;
+		fadeInTime = fadeInTimeIn;
+		displayTime = displayTimeIn;
+		fadeOutTime = fadeOutTimeIn;
+	}
 
-    /**
-     * Passes this Packet on to the NetHandler for processing.
-     */
-    public void processPacket(INetHandlerPlayClient handler)
-    {
-        handler.handleTitle(this);
-    }
+	/**
+	 * Reads the raw packet data from the data stream.
+	 */
+	public void readPacketData(PacketBuffer buf) throws IOException {
 
-    public SPacketTitle.Type getType()
-    {
-        return type;
-    }
+		type = buf.readEnumValue(Type.class);
 
-    public ITextComponent getMessage()
-    {
-        return message;
-    }
+		if (type == SPacketTitle.Type.TITLE || type == SPacketTitle.Type.SUBTITLE || type == SPacketTitle.Type.ACTIONBAR) {
+			message = buf.readTextComponent();
+		}
 
-    public int getFadeInTime()
-    {
-        return fadeInTime;
-    }
+		if (type == SPacketTitle.Type.TIMES) {
+			fadeInTime = buf.readInt();
+			displayTime = buf.readInt();
+			fadeOutTime = buf.readInt();
+		}
+	}
 
-    public int getDisplayTime()
-    {
-        return displayTime;
-    }
+	/**
+	 * Writes the raw packet data to the data stream.
+	 */
+	public void writePacketData(PacketBuffer buf) throws IOException {
 
-    public int getFadeOutTime()
-    {
-        return fadeOutTime;
-    }
+		buf.writeEnumValue(type);
 
-    public static enum Type
-    {
-        TITLE,
-        SUBTITLE,
-        ACTIONBAR,
-        TIMES,
-        CLEAR,
-        RESET;
+		if (type == SPacketTitle.Type.TITLE || type == SPacketTitle.Type.SUBTITLE || type == SPacketTitle.Type.ACTIONBAR) {
+			buf.writeTextComponent(message);
+		}
 
-        public static SPacketTitle.Type byName(String name)
-        {
-            for (SPacketTitle.Type spackettitle$type : values())
-            {
-                if (spackettitle$type.name().equalsIgnoreCase(name))
-                {
-                    return spackettitle$type;
-                }
-            }
+		if (type == SPacketTitle.Type.TIMES) {
+			buf.writeInt(fadeInTime);
+			buf.writeInt(displayTime);
+			buf.writeInt(fadeOutTime);
+		}
+	}
 
-            return TITLE;
-        }
+	/**
+	 * Passes this Packet on to the NetHandler for processing.
+	 */
+	public void processPacket(INetHandlerPlayClient handler) {
 
-        public static String[] getNames()
-        {
-            String[] astring = new String[values().length];
-            int i = 0;
+		handler.handleTitle(this);
+	}
 
-            for (SPacketTitle.Type spackettitle$type : values())
-            {
-                astring[i++] = spackettitle$type.name().toLowerCase(Locale.ROOT);
-            }
+	public SPacketTitle.Type getType() {
 
-            return astring;
-        }
-    }
+		return type;
+	}
+
+	public ITextComponent getMessage() {
+
+		return message;
+	}
+
+	public int getFadeInTime() {
+
+		return fadeInTime;
+	}
+
+	public int getDisplayTime() {
+
+		return displayTime;
+	}
+
+	public int getFadeOutTime() {
+
+		return fadeOutTime;
+	}
+
+	public enum Type {
+		TITLE,
+		SUBTITLE,
+		ACTIONBAR,
+		TIMES,
+		CLEAR,
+		RESET;
+
+		public static SPacketTitle.Type byName(String name) {
+
+			for (SPacketTitle.Type spackettitle$type : values()) {
+				if (spackettitle$type.name().equalsIgnoreCase(name)) {
+					return spackettitle$type;
+				}
+			}
+
+			return TITLE;
+		}
+
+		public static String[] getNames() {
+
+			String[] astring = new String[values().length];
+			int i = 0;
+
+			for (SPacketTitle.Type spackettitle$type : values()) {
+				astring[i++] = spackettitle$type.name().toLowerCase(Locale.ROOT);
+			}
+
+			return astring;
+		}
+	}
+
 }

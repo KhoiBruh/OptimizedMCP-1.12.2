@@ -2,11 +2,6 @@ package net.minecraft.advancements;
 
 import com.google.common.collect.Maps;
 import com.google.common.io.Files;
-import java.io.File;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayDeque;
-import java.util.Map;
-import javax.annotation.Nullable;
 import net.minecraft.command.FunctionObject;
 import net.minecraft.command.ICommandManager;
 import net.minecraft.command.ICommandSender;
@@ -19,202 +14,192 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class FunctionManager implements ITickable
-{
-    private static final Logger LOGGER = LogManager.getLogger();
-    private final File functionDir;
-    private final MinecraftServer server;
-    private final Map<ResourceLocation, FunctionObject> functions = Maps.<ResourceLocation, FunctionObject>newHashMap();
-    private String currentGameLoopFunctionId = "-";
-    private FunctionObject gameLoopFunction;
-    private final ArrayDeque<FunctionManager.QueuedCommand> commandQueue = new ArrayDeque<FunctionManager.QueuedCommand>();
-    private boolean isExecuting = false;
-    private final ICommandSender gameLoopFunctionSender = new ICommandSender()
-    {
-        public String getName()
-        {
-            return currentGameLoopFunctionId;
-        }
-        public boolean canUseCommand(int permLevel, String commandName)
-        {
-            return permLevel <= 2;
-        }
-        public World getEntityWorld()
-        {
-            return server.worlds[0];
-        }
-        public MinecraftServer getServer()
-        {
-            return server;
-        }
-    };
+import javax.annotation.Nullable;
+import java.io.File;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayDeque;
+import java.util.Map;
 
-    public FunctionManager(@Nullable File functionDirIn, MinecraftServer serverIn)
-    {
-        functionDir = functionDirIn;
-        server = serverIn;
-        reload();
-    }
+public class FunctionManager implements ITickable {
 
-    @Nullable
-    public FunctionObject getFunction(ResourceLocation id)
-    {
-        return functions.get(id);
-    }
+	private static final Logger LOGGER = LogManager.getLogger();
+	private final File functionDir;
+	private final MinecraftServer server;
+	private final Map<ResourceLocation, FunctionObject> functions = Maps.newHashMap();
+	private String currentGameLoopFunctionId = "-";
+	private FunctionObject gameLoopFunction;
+	private final ArrayDeque<FunctionManager.QueuedCommand> commandQueue = new ArrayDeque<FunctionManager.QueuedCommand>();
+	private boolean isExecuting = false;
+	private final ICommandSender gameLoopFunctionSender = new ICommandSender() {
+		public String getName() {
 
-    public ICommandManager getCommandManager()
-    {
-        return server.getCommandManager();
-    }
+			return currentGameLoopFunctionId;
+		}
 
-    public int getMaxCommandChainLength()
-    {
-        return server.worlds[0].getGameRules().getInt("maxCommandChainLength");
-    }
+		public boolean canUseCommand(int permLevel, String commandName) {
 
-    public Map<ResourceLocation, FunctionObject> getFunctions()
-    {
-        return functions;
-    }
+			return permLevel <= 2;
+		}
 
-    /**
-     * Like the old updateEntity(), except more generic.
-     */
-    public void update()
-    {
-        String s = server.worlds[0].getGameRules().getString("gameLoopFunction");
+		public World getEntityWorld() {
 
-        if (!s.equals(currentGameLoopFunctionId))
-        {
-            currentGameLoopFunctionId = s;
-            gameLoopFunction = getFunction(new ResourceLocation(s));
-        }
+			return server.worlds[0];
+		}
 
-        if (gameLoopFunction != null)
-        {
-            execute(gameLoopFunction, gameLoopFunctionSender);
-        }
-    }
+		public MinecraftServer getServer() {
 
-    public int execute(FunctionObject function, ICommandSender sender)
-    {
-        int i = getMaxCommandChainLength();
+			return server;
+		}
+	};
 
-        if (isExecuting)
-        {
-            if (commandQueue.size() < i)
-            {
-                commandQueue.addFirst(new FunctionManager.QueuedCommand(this, sender, new FunctionObject.FunctionEntry(function)));
-            }
+	public FunctionManager(@Nullable File functionDirIn, MinecraftServer serverIn) {
 
-            return 0;
-        }
-        else
-        {
-            int l;
+		functionDir = functionDirIn;
+		server = serverIn;
+		reload();
+	}
 
-            try
-            {
-                isExecuting = true;
-                int j = 0;
-                FunctionObject.Entry[] afunctionobject$entry = function.getEntries();
+	@Nullable
+	public FunctionObject getFunction(ResourceLocation id) {
 
-                for (int k = afunctionobject$entry.length - 1; k >= 0; --k)
-                {
-                    commandQueue.push(new FunctionManager.QueuedCommand(this, sender, afunctionobject$entry[k]));
-                }
+		return functions.get(id);
+	}
 
-                while (true)
-                {
-                    if (commandQueue.isEmpty())
-                    {
-                        l = j;
-                        return l;
-                    }
+	public ICommandManager getCommandManager() {
 
-                    (commandQueue.removeFirst()).execute(commandQueue, i);
-                    ++j;
+		return server.getCommandManager();
+	}
 
-                    if (j >= i)
-                    {
-                        break;
-                    }
-                }
+	public int getMaxCommandChainLength() {
 
-                l = j;
-            }
-            finally
-            {
-                commandQueue.clear();
-                isExecuting = false;
-            }
+		return server.worlds[0].getGameRules().getInt("maxCommandChainLength");
+	}
 
-            return l;
-        }
-    }
+	public Map<ResourceLocation, FunctionObject> getFunctions() {
 
-    public void reload()
-    {
-        functions.clear();
-        gameLoopFunction = null;
-        currentGameLoopFunctionId = "-";
-        loadFunctions();
-    }
+		return functions;
+	}
 
-    private void loadFunctions()
-    {
-        if (functionDir != null)
-        {
-            functionDir.mkdirs();
+	/**
+	 * Like the old updateEntity(), except more generic.
+	 */
+	public void update() {
 
-            for (File file1 : FileUtils.listFiles(functionDir, new String[] {"mcfunction"}, true))
-            {
-                String s = FilenameUtils.removeExtension(functionDir.toURI().relativize(file1.toURI()).toString());
-                String[] astring = s.split("/", 2);
+		String s = server.worlds[0].getGameRules().getString("gameLoopFunction");
 
-                if (astring.length == 2)
-                {
-                    ResourceLocation resourcelocation = new ResourceLocation(astring[0], astring[1]);
+		if (!s.equals(currentGameLoopFunctionId)) {
+			currentGameLoopFunctionId = s;
+			gameLoopFunction = getFunction(new ResourceLocation(s));
+		}
 
-                    try
-                    {
-                        functions.put(resourcelocation, FunctionObject.create(this, Files.readLines(file1, StandardCharsets.UTF_8)));
-                    }
-                    catch (Throwable throwable)
-                    {
-                        LOGGER.error("Couldn't read custom function " + resourcelocation + " from " + file1, throwable);
-                    }
-                }
-            }
+		if (gameLoopFunction != null) {
+			execute(gameLoopFunction, gameLoopFunctionSender);
+		}
+	}
 
-            if (!functions.isEmpty())
-            {
-                LOGGER.info("Loaded " + functions.size() + " custom command functions");
-            }
-        }
-    }
+	public int execute(FunctionObject function, ICommandSender sender) {
 
-    public static class QueuedCommand
-    {
-        private final FunctionManager functionManager;
-        private final ICommandSender sender;
-        private final FunctionObject.Entry entry;
+		int i = getMaxCommandChainLength();
 
-        public QueuedCommand(FunctionManager functionManagerIn, ICommandSender senderIn, FunctionObject.Entry entryIn)
-        {
-            functionManager = functionManagerIn;
-            sender = senderIn;
-            entry = entryIn;
-        }
+		if (isExecuting) {
+			if (commandQueue.size() < i) {
+				commandQueue.addFirst(new FunctionManager.QueuedCommand(this, sender, new FunctionObject.FunctionEntry(function)));
+			}
 
-        public void execute(ArrayDeque<FunctionManager.QueuedCommand> commandQueue, int maxCommandChainLength)
-        {
-            entry.execute(functionManager, sender, commandQueue, maxCommandChainLength);
-        }
+			return 0;
+		} else {
+			int l;
 
-        public String toString()
-        {
-            return entry.toString();
-        }
-    }
+			try {
+				isExecuting = true;
+				int j = 0;
+				FunctionObject.Entry[] afunctionobject$entry = function.entries();
+
+				for (int k = afunctionobject$entry.length - 1; k >= 0; --k) {
+					commandQueue.push(new FunctionManager.QueuedCommand(this, sender, afunctionobject$entry[k]));
+				}
+
+				while (true) {
+					if (commandQueue.isEmpty()) {
+						l = j;
+						return l;
+					}
+
+					(commandQueue.removeFirst()).execute(commandQueue, i);
+					++j;
+
+					if (j >= i) {
+						break;
+					}
+				}
+
+				l = j;
+			} finally {
+				commandQueue.clear();
+				isExecuting = false;
+			}
+
+			return l;
+		}
+	}
+
+	public void reload() {
+
+		functions.clear();
+		gameLoopFunction = null;
+		currentGameLoopFunctionId = "-";
+		loadFunctions();
+	}
+
+	private void loadFunctions() {
+
+		if (functionDir != null) {
+			functionDir.mkdirs();
+
+			for (File file1 : FileUtils.listFiles(functionDir, new String[]{"mcfunction"}, true)) {
+				String s = FilenameUtils.removeExtension(functionDir.toURI().relativize(file1.toURI()).toString());
+				String[] astring = s.split("/", 2);
+
+				if (astring.length == 2) {
+					ResourceLocation resourcelocation = new ResourceLocation(astring[0], astring[1]);
+
+					try {
+						functions.put(resourcelocation, FunctionObject.create(this, Files.readLines(file1, StandardCharsets.UTF_8)));
+					} catch (Throwable throwable) {
+						LOGGER.error("Couldn't read custom function " + resourcelocation + " from " + file1, throwable);
+					}
+				}
+			}
+
+			if (!functions.isEmpty()) {
+				LOGGER.info("Loaded " + functions.size() + " custom command functions");
+			}
+		}
+	}
+
+	public static class QueuedCommand {
+
+		private final FunctionManager functionManager;
+		private final ICommandSender sender;
+		private final FunctionObject.Entry entry;
+
+		public QueuedCommand(FunctionManager functionManagerIn, ICommandSender senderIn, FunctionObject.Entry entryIn) {
+
+			functionManager = functionManagerIn;
+			sender = senderIn;
+			entry = entryIn;
+		}
+
+		public void execute(ArrayDeque<FunctionManager.QueuedCommand> commandQueue, int maxCommandChainLength) {
+
+			entry.execute(functionManager, sender, commandQueue, maxCommandChainLength);
+		}
+
+		public String toString() {
+
+			return entry.toString();
+		}
+
+	}
+
 }

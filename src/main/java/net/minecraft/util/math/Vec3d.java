@@ -2,299 +2,270 @@ package net.minecraft.util.math;
 
 import javax.annotation.Nullable;
 
-public class Vec3d
-{
-    public static final Vec3d ZERO = new Vec3d(0.0D, 0.0D, 0.0D);
+/**
+ * @param x X coordinate of Vec3D
+ * @param y Y coordinate of Vec3D
+ * @param z Z coordinate of Vec3D
+ */
+public record Vec3d(double x, double y, double z) {
 
-    /** X coordinate of Vec3D */
-    public final double x;
+	public static final Vec3d ZERO = new Vec3d(0.0D, 0.0D, 0.0D);
 
-    /** Y coordinate of Vec3D */
-    public final double y;
+	public Vec3d {
 
-    /** Z coordinate of Vec3D */
-    public final double z;
+		if (x == -0.0D) {
+			x = 0.0D;
+		}
 
-    public Vec3d(double xIn, double yIn, double zIn)
-    {
-        if (xIn == -0.0D)
-        {
-            xIn = 0.0D;
-        }
+		if (y == -0.0D) {
+			y = 0.0D;
+		}
 
-        if (yIn == -0.0D)
-        {
-            yIn = 0.0D;
-        }
+		if (z == -0.0D) {
+			z = 0.0D;
+		}
 
-        if (zIn == -0.0D)
-        {
-            zIn = 0.0D;
-        }
+	}
 
-        x = xIn;
-        y = yIn;
-        z = zIn;
-    }
+	public Vec3d(Vec3i vector) {
 
-    public Vec3d(Vec3i vector)
-    {
-        this((double)vector.getX(), (double)vector.getY(), (double)vector.getZ());
-    }
+		this(vector.getX(), vector.getY(), vector.getZ());
+	}
 
-    /**
-     * Returns a new vector with the result of the specified vector minus this.
-     */
-    public Vec3d subtractReverse(Vec3d vec)
-    {
-        return new Vec3d(vec.x - x, vec.y - y, vec.z - z);
-    }
+	/**
+	 * Returns a new vector with the result of the specified vector minus this.
+	 */
+	public Vec3d subtractReverse(Vec3d vec) {
 
-    /**
-     * Normalizes the vector to a length of 1 (except if it is the zero vector)
-     */
-    public Vec3d normalize()
-    {
-        double d0 = (double)MathHelper.sqrt(x * x + y * y + z * z);
-        return d0 < 1.0E-4D ? ZERO : new Vec3d(x / d0, y / d0, z / d0);
-    }
+		return new Vec3d(vec.x - x, vec.y - y, vec.z - z);
+	}
 
-    public double dotProduct(Vec3d vec)
-    {
-        return x * vec.x + y * vec.y + z * vec.z;
-    }
+	/**
+	 * Normalizes the vector to a length of 1 (except if it is the zero vector)
+	 */
+	public Vec3d normalize() {
 
-    /**
-     * Returns a new vector with the result of this vector x the specified vector.
-     */
-    public Vec3d crossProduct(Vec3d vec)
-    {
-        return new Vec3d(y * vec.z - z * vec.y, z * vec.x - x * vec.z, x * vec.y - y * vec.x);
-    }
+		double d0 = MathHelper.sqrt(x * x + y * y + z * z);
+		return d0 < 1.0E-4D ? ZERO : new Vec3d(x / d0, y / d0, z / d0);
+	}
 
-    public Vec3d subtract(Vec3d vec)
-    {
-        return subtract(vec.x, vec.y, vec.z);
-    }
+	public double dotProduct(Vec3d vec) {
 
-    public Vec3d subtract(double x, double y, double z)
-    {
-        return addVector(-x, -y, -z);
-    }
+		return x * vec.x + y * vec.y + z * vec.z;
+	}
 
-    public Vec3d add(Vec3d vec)
-    {
-        return addVector(vec.x, vec.y, vec.z);
-    }
+	/**
+	 * Returns a new vector with the result of this vector x the specified vector.
+	 */
+	public Vec3d crossProduct(Vec3d vec) {
 
-    /**
-     * Adds the specified x,y,z vector components to this vector and returns the resulting vector. Does not change this
-     * vector.
-     */
-    public Vec3d addVector(double x, double y, double z)
-    {
-        return new Vec3d(this.x + x, this.y + y, this.z + z);
-    }
+		return new Vec3d(y * vec.z - z * vec.y, z * vec.x - x * vec.z, x * vec.y - y * vec.x);
+	}
 
-    /**
-     * Euclidean distance between this and the specified vector, returned as double.
-     */
-    public double distanceTo(Vec3d vec)
-    {
-        double d0 = vec.x - x;
-        double d1 = vec.y - y;
-        double d2 = vec.z - z;
-        return (double)MathHelper.sqrt(d0 * d0 + d1 * d1 + d2 * d2);
-    }
+	public Vec3d subtract(Vec3d vec) {
 
-    /**
-     * The square of the Euclidean distance between this and the specified vector.
-     */
-    public double squareDistanceTo(Vec3d vec)
-    {
-        double d0 = vec.x - x;
-        double d1 = vec.y - y;
-        double d2 = vec.z - z;
-        return d0 * d0 + d1 * d1 + d2 * d2;
-    }
+		return subtract(vec.x, vec.y, vec.z);
+	}
 
-    public double squareDistanceTo(double xIn, double yIn, double zIn)
-    {
-        double d0 = xIn - x;
-        double d1 = yIn - y;
-        double d2 = zIn - z;
-        return d0 * d0 + d1 * d1 + d2 * d2;
-    }
+	public Vec3d subtract(double x, double y, double z) {
 
-    public Vec3d scale(double factor)
-    {
-        return new Vec3d(x * factor, y * factor, z * factor);
-    }
+		return addVector(-x, -y, -z);
+	}
 
-    /**
-     * Returns the length of the vector.
-     */
-    public double lengthVector()
-    {
-        return (double)MathHelper.sqrt(x * x + y * y + z * z);
-    }
+	public Vec3d add(Vec3d vec) {
 
-    public double lengthSquared()
-    {
-        return x * x + y * y + z * z;
-    }
+		return addVector(vec.x, vec.y, vec.z);
+	}
 
-    @Nullable
+	/**
+	 * Adds the specified x,y,z vector components to this vector and returns the resulting vector. Does not change this
+	 * vector.
+	 */
+	public Vec3d addVector(double x, double y, double z) {
 
-    /**
-     * Returns a new vector with x value equal to the second parameter, along the line between this vector and the
-     * passed in vector, or null if not possible.
-     */
-    public Vec3d getIntermediateWithXValue(Vec3d vec, double x)
-    {
-        double d0 = vec.x - this.x;
-        double d1 = vec.y - y;
-        double d2 = vec.z - z;
+		return new Vec3d(this.x + x, this.y + y, this.z + z);
+	}
 
-        if (d0 * d0 < 1.0000000116860974E-7D)
-        {
-            return null;
-        }
-        else
-        {
-            double d3 = (x - this.x) / d0;
-            return d3 >= 0.0D && d3 <= 1.0D ? new Vec3d(this.x + d0 * d3, y + d1 * d3, z + d2 * d3) : null;
-        }
-    }
+	/**
+	 * Euclidean distance between this and the specified vector, returned as double.
+	 */
+	public double distanceTo(Vec3d vec) {
 
-    @Nullable
+		double d0 = vec.x - x;
+		double d1 = vec.y - y;
+		double d2 = vec.z - z;
+		return MathHelper.sqrt(d0 * d0 + d1 * d1 + d2 * d2);
+	}
 
-    /**
-     * Returns a new vector with y value equal to the second parameter, along the line between this vector and the
-     * passed in vector, or null if not possible.
-     */
-    public Vec3d getIntermediateWithYValue(Vec3d vec, double y)
-    {
-        double d0 = vec.x - x;
-        double d1 = vec.y - this.y;
-        double d2 = vec.z - z;
+	/**
+	 * The square of the Euclidean distance between this and the specified vector.
+	 */
+	public double squareDistanceTo(Vec3d vec) {
 
-        if (d1 * d1 < 1.0000000116860974E-7D)
-        {
-            return null;
-        }
-        else
-        {
-            double d3 = (y - this.y) / d1;
-            return d3 >= 0.0D && d3 <= 1.0D ? new Vec3d(x + d0 * d3, this.y + d1 * d3, z + d2 * d3) : null;
-        }
-    }
+		double d0 = vec.x - x;
+		double d1 = vec.y - y;
+		double d2 = vec.z - z;
+		return d0 * d0 + d1 * d1 + d2 * d2;
+	}
 
-    @Nullable
+	public double squareDistanceTo(double xIn, double yIn, double zIn) {
 
-    /**
-     * Returns a new vector with z value equal to the second parameter, along the line between this vector and the
-     * passed in vector, or null if not possible.
-     */
-    public Vec3d getIntermediateWithZValue(Vec3d vec, double z)
-    {
-        double d0 = vec.x - x;
-        double d1 = vec.y - y;
-        double d2 = vec.z - this.z;
+		double d0 = xIn - x;
+		double d1 = yIn - y;
+		double d2 = zIn - z;
+		return d0 * d0 + d1 * d1 + d2 * d2;
+	}
 
-        if (d2 * d2 < 1.0000000116860974E-7D)
-        {
-            return null;
-        }
-        else
-        {
-            double d3 = (z - this.z) / d2;
-            return d3 >= 0.0D && d3 <= 1.0D ? new Vec3d(x + d0 * d3, y + d1 * d3, this.z + d2 * d3) : null;
-        }
-    }
+	public Vec3d scale(double factor) {
 
-    public boolean equals(Object p_equals_1_)
-    {
-        if (this == p_equals_1_)
-        {
-            return true;
-        }
-        else if (!(p_equals_1_ instanceof Vec3d))
-        {
-            return false;
-        }
-        else
-        {
-            Vec3d vec3d = (Vec3d)p_equals_1_;
+		return new Vec3d(x * factor, y * factor, z * factor);
+	}
 
-            if (Double.compare(vec3d.x, x) != 0)
-            {
-                return false;
-            }
-            else if (Double.compare(vec3d.y, y) != 0)
-            {
-                return false;
-            }
-            else
-            {
-                return Double.compare(vec3d.z, z) == 0;
-            }
-        }
-    }
+	/**
+	 * Returns the length of the vector.
+	 */
+	public double lengthVector() {
 
-    public int hashCode()
-    {
-        long j = Double.doubleToLongBits(x);
-        int i = (int)(j ^ j >>> 32);
-        j = Double.doubleToLongBits(y);
-        i = 31 * i + (int)(j ^ j >>> 32);
-        j = Double.doubleToLongBits(z);
-        i = 31 * i + (int)(j ^ j >>> 32);
-        return i;
-    }
+		return MathHelper.sqrt(x * x + y * y + z * z);
+	}
 
-    public String toString()
-    {
-        return "(" + x + ", " + y + ", " + z + ")";
-    }
+	public double lengthSquared() {
 
-    public Vec3d rotatePitch(float pitch)
-    {
-        float f = MathHelper.cos(pitch);
-        float f1 = MathHelper.sin(pitch);
-        double d0 = x;
-        double d1 = y * (double)f + z * (double)f1;
-        double d2 = z * (double)f - y * (double)f1;
-        return new Vec3d(d0, d1, d2);
-    }
+		return x * x + y * y + z * z;
+	}
 
-    public Vec3d rotateYaw(float yaw)
-    {
-        float f = MathHelper.cos(yaw);
-        float f1 = MathHelper.sin(yaw);
-        double d0 = x * (double)f + z * (double)f1;
-        double d1 = y;
-        double d2 = z * (double)f - x * (double)f1;
-        return new Vec3d(d0, d1, d2);
-    }
+	@Nullable
 
-    /**
-     * returns a Vec3d from given pitch and yaw degrees as Vec2f
-     */
-    public static Vec3d fromPitchYawVector(Vec2f p_189984_0_)
-    {
-        return fromPitchYaw(p_189984_0_.x, p_189984_0_.y);
-    }
+	/**
+	 * Returns a new vector with x value equal to the second parameter, along the line between this vector and the
+	 * passed in vector, or null if not possible.
+	 */
+	public Vec3d getIntermediateWithXValue(Vec3d vec, double x) {
 
-    /**
-     * returns a Vec3d from given pitch and yaw degrees
-     */
-    public static Vec3d fromPitchYaw(float p_189986_0_, float p_189986_1_)
-    {
-        float f = MathHelper.cos(-p_189986_1_ * 0.017453292F - (float)Math.PI);
-        float f1 = MathHelper.sin(-p_189986_1_ * 0.017453292F - (float)Math.PI);
-        float f2 = -MathHelper.cos(-p_189986_0_ * 0.017453292F);
-        float f3 = MathHelper.sin(-p_189986_0_ * 0.017453292F);
-        return new Vec3d((double)(f1 * f2), (double)f3, (double)(f * f2));
-    }
+		double d0 = vec.x - this.x;
+		double d1 = vec.y - y;
+		double d2 = vec.z - z;
+
+		if (d0 * d0 < 1.0000000116860974E-7D) {
+			return null;
+		} else {
+			double d3 = (x - this.x) / d0;
+			return d3 >= 0.0D && d3 <= 1.0D ? new Vec3d(this.x + d0 * d3, y + d1 * d3, z + d2 * d3) : null;
+		}
+	}
+
+	@Nullable
+
+	/**
+	 * Returns a new vector with y value equal to the second parameter, along the line between this vector and the
+	 * passed in vector, or null if not possible.
+	 */
+	public Vec3d getIntermediateWithYValue(Vec3d vec, double y) {
+
+		double d0 = vec.x - x;
+		double d1 = vec.y - this.y;
+		double d2 = vec.z - z;
+
+		if (d1 * d1 < 1.0000000116860974E-7D) {
+			return null;
+		} else {
+			double d3 = (y - this.y) / d1;
+			return d3 >= 0.0D && d3 <= 1.0D ? new Vec3d(x + d0 * d3, this.y + d1 * d3, z + d2 * d3) : null;
+		}
+	}
+
+	@Nullable
+
+	/**
+	 * Returns a new vector with z value equal to the second parameter, along the line between this vector and the
+	 * passed in vector, or null if not possible.
+	 */
+	public Vec3d getIntermediateWithZValue(Vec3d vec, double z) {
+
+		double d0 = vec.x - x;
+		double d1 = vec.y - y;
+		double d2 = vec.z - this.z;
+
+		if (d2 * d2 < 1.0000000116860974E-7D) {
+			return null;
+		} else {
+			double d3 = (z - this.z) / d2;
+			return d3 >= 0.0D && d3 <= 1.0D ? new Vec3d(x + d0 * d3, y + d1 * d3, this.z + d2 * d3) : null;
+		}
+	}
+
+	public boolean equals(Object p_equals_1_) {
+
+		if (this == p_equals_1_) {
+			return true;
+		} else if (!(p_equals_1_ instanceof Vec3d vec3d)) {
+			return false;
+		} else {
+
+			if (Double.compare(vec3d.x, x) != 0) {
+				return false;
+			} else if (Double.compare(vec3d.y, y) != 0) {
+				return false;
+			} else {
+				return Double.compare(vec3d.z, z) == 0;
+			}
+		}
+	}
+
+	public int hashCode() {
+
+		long j = Double.doubleToLongBits(x);
+		int i = (int) (j ^ j >>> 32);
+		j = Double.doubleToLongBits(y);
+		i = 31 * i + (int) (j ^ j >>> 32);
+		j = Double.doubleToLongBits(z);
+		i = 31 * i + (int) (j ^ j >>> 32);
+		return i;
+	}
+
+	public String toString() {
+
+		return "(" + x + ", " + y + ", " + z + ")";
+	}
+
+	public Vec3d rotatePitch(float pitch) {
+
+		float f = MathHelper.cos(pitch);
+		float f1 = MathHelper.sin(pitch);
+		double d0 = x;
+		double d1 = y * (double) f + z * (double) f1;
+		double d2 = z * (double) f - y * (double) f1;
+		return new Vec3d(d0, d1, d2);
+	}
+
+	public Vec3d rotateYaw(float yaw) {
+
+		float f = MathHelper.cos(yaw);
+		float f1 = MathHelper.sin(yaw);
+		double d0 = x * (double) f + z * (double) f1;
+		double d1 = y;
+		double d2 = z * (double) f - x * (double) f1;
+		return new Vec3d(d0, d1, d2);
+	}
+
+	/**
+	 * returns a Vec3d from given pitch and yaw degrees as Vec2f
+	 */
+	public static Vec3d fromPitchYawVector(Vec2f p_189984_0_) {
+
+		return fromPitchYaw(p_189984_0_.x(), p_189984_0_.y());
+	}
+
+	/**
+	 * returns a Vec3d from given pitch and yaw degrees
+	 */
+	public static Vec3d fromPitchYaw(float p_189986_0_, float p_189986_1_) {
+
+		float f = MathHelper.cos(-p_189986_1_ * 0.017453292F - (float) Math.PI);
+		float f1 = MathHelper.sin(-p_189986_1_ * 0.017453292F - (float) Math.PI);
+		float f2 = -MathHelper.cos(-p_189986_0_ * 0.017453292F);
+		float f3 = MathHelper.sin(-p_189986_0_ * 0.017453292F);
+		return new Vec3d(f1 * f2, f3, f * f2);
+	}
+
 }

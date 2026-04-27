@@ -1,6 +1,5 @@
 package net.minecraft.block;
 
-import java.util.Random;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -18,208 +17,196 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public abstract class BlockStoneSlab extends BlockSlab
-{
-    public static final PropertyBool SEAMLESS = PropertyBool.create("seamless");
-    public static final PropertyEnum<BlockStoneSlab.EnumType> VARIANT = PropertyEnum.<BlockStoneSlab.EnumType>create("variant", BlockStoneSlab.EnumType.class);
+import java.util.Random;
 
-    public BlockStoneSlab()
-    {
-        super(Material.ROCK);
-        IBlockState iblockstate = blockState.getBaseState();
+public abstract class BlockStoneSlab extends BlockSlab {
 
-        if (isDouble())
-        {
-            iblockstate = iblockstate.withProperty(SEAMLESS, Boolean.valueOf(false));
-        }
-        else
-        {
-            iblockstate = iblockstate.withProperty(HALF, BlockSlab.EnumBlockHalf.BOTTOM);
-        }
+	public static final PropertyBool SEAMLESS = PropertyBool.create("seamless");
+	public static final PropertyEnum<BlockStoneSlab.EnumType> VARIANT = PropertyEnum.create("variant", BlockStoneSlab.EnumType.class);
 
-        setDefaultState(iblockstate.withProperty(VARIANT, BlockStoneSlab.EnumType.STONE));
-        setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
-    }
+	public BlockStoneSlab() {
 
-    /**
-     * Get the Item that this Block should drop when harvested.
-     */
-    public Item getItemDropped(IBlockState state, Random rand, int fortune)
-    {
-        return Item.getItemFromBlock(Blocks.STONE_SLAB);
-    }
+		super(Material.ROCK);
+		IBlockState iblockstate = blockState.getBaseState();
 
-    public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state)
-    {
-        return new ItemStack(Blocks.STONE_SLAB, 1, ((BlockStoneSlab.EnumType)state.getValue(VARIANT)).getMetadata());
-    }
+		if (isDouble()) {
+			iblockstate = iblockstate.withProperty(SEAMLESS, Boolean.valueOf(false));
+		} else {
+			iblockstate = iblockstate.withProperty(HALF, BlockSlab.EnumBlockHalf.BOTTOM);
+		}
 
-    /**
-     * Returns the slab block name with the type associated with it
-     */
-    public String getUnlocalizedName(int meta)
-    {
-        return super.getUnlocalizedName() + "." + BlockStoneSlab.EnumType.byMetadata(meta).getUnlocalizedName();
-    }
+		setDefaultState(iblockstate.withProperty(VARIANT, BlockStoneSlab.EnumType.STONE));
+		setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
+	}
 
-    public IProperty<?> getVariantProperty()
-    {
-        return VARIANT;
-    }
+	/**
+	 * Get the Item that this Block should drop when harvested.
+	 */
+	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
 
-    public Comparable<?> getTypeForItem(ItemStack stack)
-    {
-        return BlockStoneSlab.EnumType.byMetadata(stack.getMetadata() & 7);
-    }
+		return Item.getItemFromBlock(Blocks.STONE_SLAB);
+	}
 
-    /**
-     * returns a list of blocks with the same ID, but different meta (eg: wood returns 4 blocks)
-     */
-    public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items)
-    {
-        for (BlockStoneSlab.EnumType blockstoneslab$enumtype : BlockStoneSlab.EnumType.values())
-        {
-            if (blockstoneslab$enumtype != BlockStoneSlab.EnumType.WOOD)
-            {
-                items.add(new ItemStack(this, 1, blockstoneslab$enumtype.getMetadata()));
-            }
-        }
-    }
+	public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
 
-    /**
-     * Convert the given metadata into a BlockState for this Block
-     */
-    public IBlockState getStateFromMeta(int meta)
-    {
-        IBlockState iblockstate = getDefaultState().withProperty(VARIANT, BlockStoneSlab.EnumType.byMetadata(meta & 7));
+		return new ItemStack(Blocks.STONE_SLAB, 1, state.getValue(VARIANT).getMetadata());
+	}
 
-        if (isDouble())
-        {
-            iblockstate = iblockstate.withProperty(SEAMLESS, Boolean.valueOf((meta & 8) != 0));
-        }
-        else
-        {
-            iblockstate = iblockstate.withProperty(HALF, (meta & 8) == 0 ? BlockSlab.EnumBlockHalf.BOTTOM : BlockSlab.EnumBlockHalf.TOP);
-        }
+	/**
+	 * Returns the slab block name with the type associated with it
+	 */
+	public String getUnlocalizedName(int meta) {
 
-        return iblockstate;
-    }
+		return super.getUnlocalizedName() + "." + BlockStoneSlab.EnumType.byMetadata(meta).getUnlocalizedName();
+	}
 
-    /**
-     * Convert the BlockState into the correct metadata value
-     */
-    public int getMetaFromState(IBlockState state)
-    {
-        int i = 0;
-        i = i | ((BlockStoneSlab.EnumType)state.getValue(VARIANT)).getMetadata();
+	public IProperty<?> getVariantProperty() {
 
-        if (isDouble())
-        {
-            if (((Boolean)state.getValue(SEAMLESS)).booleanValue())
-            {
-                i |= 8;
-            }
-        }
-        else if (state.getValue(HALF) == BlockSlab.EnumBlockHalf.TOP)
-        {
-            i |= 8;
-        }
+		return VARIANT;
+	}
 
-        return i;
-    }
+	public Comparable<?> getTypeForItem(ItemStack stack) {
 
-    protected BlockStateContainer createBlockState()
-    {
-        return isDouble() ? new BlockStateContainer(this, new IProperty[] {SEAMLESS, VARIANT}) : new BlockStateContainer(this, new IProperty[] {HALF, VARIANT});
-    }
+		return BlockStoneSlab.EnumType.byMetadata(stack.getMetadata() & 7);
+	}
 
-    /**
-     * Gets the metadata of the item this Block can drop. This method is called when the block gets destroyed. It
-     * returns the metadata of the dropped item based on the old metadata of the block.
-     */
-    public int damageDropped(IBlockState state)
-    {
-        return ((BlockStoneSlab.EnumType)state.getValue(VARIANT)).getMetadata();
-    }
+	/**
+	 * returns a list of blocks with the same ID, but different meta (eg: wood returns 4 blocks)
+	 */
+	public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
 
-    /**
-     * Get the MapColor for this Block and the given BlockState
-     */
-    public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos)
-    {
-        return ((BlockStoneSlab.EnumType)state.getValue(VARIANT)).getMapColor();
-    }
+		for (BlockStoneSlab.EnumType blockstoneslab$enumtype : BlockStoneSlab.EnumType.values()) {
+			if (blockstoneslab$enumtype != BlockStoneSlab.EnumType.WOOD) {
+				items.add(new ItemStack(this, 1, blockstoneslab$enumtype.getMetadata()));
+			}
+		}
+	}
 
-    public static enum EnumType implements IStringSerializable
-    {
-        STONE(0, MapColor.STONE, "stone"),
-        SAND(1, MapColor.SAND, "sandstone", "sand"),
-        WOOD(2, MapColor.WOOD, "wood_old", "wood"),
-        COBBLESTONE(3, MapColor.STONE, "cobblestone", "cobble"),
-        BRICK(4, MapColor.RED, "brick"),
-        SMOOTHBRICK(5, MapColor.STONE, "stone_brick", "smoothStoneBrick"),
-        NETHERBRICK(6, MapColor.NETHERRACK, "nether_brick", "netherBrick"),
-        QUARTZ(7, MapColor.QUARTZ, "quartz");
+	/**
+	 * Convert the given metadata into a BlockState for this Block
+	 */
+	public IBlockState getStateFromMeta(int meta) {
 
-        private static final BlockStoneSlab.EnumType[] META_LOOKUP = new BlockStoneSlab.EnumType[values().length];
-        private final int meta;
-        private final MapColor mapColor;
-        private final String name;
-        private final String unlocalizedName;
+		IBlockState iblockstate = getDefaultState().withProperty(VARIANT, BlockStoneSlab.EnumType.byMetadata(meta & 7));
 
-        private EnumType(int p_i46381_3_, MapColor p_i46381_4_, String p_i46381_5_)
-        {
-            this(p_i46381_3_, p_i46381_4_, p_i46381_5_, p_i46381_5_);
-        }
+		if (isDouble()) {
+			iblockstate = iblockstate.withProperty(SEAMLESS, Boolean.valueOf((meta & 8) != 0));
+		} else {
+			iblockstate = iblockstate.withProperty(HALF, (meta & 8) == 0 ? BlockSlab.EnumBlockHalf.BOTTOM : BlockSlab.EnumBlockHalf.TOP);
+		}
 
-        private EnumType(int p_i46382_3_, MapColor p_i46382_4_, String p_i46382_5_, String p_i46382_6_)
-        {
-            meta = p_i46382_3_;
-            mapColor = p_i46382_4_;
-            name = p_i46382_5_;
-            unlocalizedName = p_i46382_6_;
-        }
+		return iblockstate;
+	}
 
-        public int getMetadata()
-        {
-            return meta;
-        }
+	/**
+	 * Convert the BlockState into the correct metadata value
+	 */
+	public int getMetaFromState(IBlockState state) {
 
-        public MapColor getMapColor()
-        {
-            return mapColor;
-        }
+		int i = 0;
+		i = i | state.getValue(VARIANT).getMetadata();
 
-        public String toString()
-        {
-            return name;
-        }
+		if (isDouble()) {
+			if (state.getValue(SEAMLESS).booleanValue()) {
+				i |= 8;
+			}
+		} else if (state.getValue(HALF) == BlockSlab.EnumBlockHalf.TOP) {
+			i |= 8;
+		}
 
-        public static BlockStoneSlab.EnumType byMetadata(int meta)
-        {
-            if (meta < 0 || meta >= META_LOOKUP.length)
-            {
-                meta = 0;
-            }
+		return i;
+	}
 
-            return META_LOOKUP[meta];
-        }
+	protected BlockStateContainer createBlockState() {
 
-        public String getName()
-        {
-            return name;
-        }
+		return isDouble() ? new BlockStateContainer(this, SEAMLESS, VARIANT) : new BlockStateContainer(this, HALF, VARIANT);
+	}
 
-        public String getUnlocalizedName()
-        {
-            return unlocalizedName;
-        }
+	/**
+	 * Gets the metadata of the item this Block can drop. This method is called when the block gets destroyed. It
+	 * returns the metadata of the dropped item based on the old metadata of the block.
+	 */
+	public int damageDropped(IBlockState state) {
 
-        static {
-            for (BlockStoneSlab.EnumType blockstoneslab$enumtype : values())
-            {
-                META_LOOKUP[blockstoneslab$enumtype.getMetadata()] = blockstoneslab$enumtype;
-            }
-        }
-    }
+		return state.getValue(VARIANT).getMetadata();
+	}
+
+	/**
+	 * Get the MapColor for this Block and the given BlockState
+	 */
+	public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
+
+		return state.getValue(VARIANT).getMapColor();
+	}
+
+	public enum EnumType implements IStringSerializable {
+		STONE(0, MapColor.STONE, "stone"),
+		SAND(1, MapColor.SAND, "sandstone", "sand"),
+		WOOD(2, MapColor.WOOD, "wood_old", "wood"),
+		COBBLESTONE(3, MapColor.STONE, "cobblestone", "cobble"),
+		BRICK(4, MapColor.RED, "brick"),
+		SMOOTHBRICK(5, MapColor.STONE, "stone_brick", "smoothStoneBrick"),
+		NETHERBRICK(6, MapColor.NETHERRACK, "nether_brick", "netherBrick"),
+		QUARTZ(7, MapColor.QUARTZ, "quartz");
+
+		private static final BlockStoneSlab.EnumType[] META_LOOKUP = new BlockStoneSlab.EnumType[values().length];
+		private final int meta;
+		private final MapColor mapColor;
+		private final String name;
+		private final String unlocalizedName;
+
+		EnumType(int p_i46381_3_, MapColor p_i46381_4_, String p_i46381_5_) {
+
+			this(p_i46381_3_, p_i46381_4_, p_i46381_5_, p_i46381_5_);
+		}
+
+		EnumType(int p_i46382_3_, MapColor p_i46382_4_, String p_i46382_5_, String p_i46382_6_) {
+
+			meta = p_i46382_3_;
+			mapColor = p_i46382_4_;
+			name = p_i46382_5_;
+			unlocalizedName = p_i46382_6_;
+		}
+
+		public int getMetadata() {
+
+			return meta;
+		}
+
+		public MapColor getMapColor() {
+
+			return mapColor;
+		}
+
+		public String toString() {
+
+			return name;
+		}
+
+		public static BlockStoneSlab.EnumType byMetadata(int meta) {
+
+			if (meta < 0 || meta >= META_LOOKUP.length) {
+				meta = 0;
+			}
+
+			return META_LOOKUP[meta];
+		}
+
+		public String getName() {
+
+			return name;
+		}
+
+		public String getUnlocalizedName() {
+
+			return unlocalizedName;
+		}
+
+		static {
+			for (BlockStoneSlab.EnumType blockstoneslab$enumtype : values()) {
+				META_LOOKUP[blockstoneslab$enumtype.getMetadata()] = blockstoneslab$enumtype;
+			}
+		}
+	}
+
 }

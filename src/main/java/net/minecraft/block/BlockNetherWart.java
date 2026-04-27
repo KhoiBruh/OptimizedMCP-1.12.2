@@ -1,6 +1,5 @@
 package net.minecraft.block;
 
-import java.util.Random;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -17,115 +16,113 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class BlockNetherWart extends BlockBush
-{
-    public static final PropertyInteger AGE = PropertyInteger.create("age", 0, 3);
-    private static final AxisAlignedBB[] NETHER_WART_AABB = new AxisAlignedBB[] {new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.3125D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.5D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.6875D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.875D, 1.0D)};
+import java.util.Random;
 
-    protected BlockNetherWart()
-    {
-        super(Material.PLANTS, MapColor.RED);
-        setDefaultState(blockState.getBaseState().withProperty(AGE, Integer.valueOf(0)));
-        setTickRandomly(true);
-        setCreativeTab((CreativeTabs)null);
-    }
+public class BlockNetherWart extends BlockBush {
 
-    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
-    {
-        return NETHER_WART_AABB[((Integer)state.getValue(AGE)).intValue()];
-    }
+	public static final PropertyInteger AGE = PropertyInteger.create("age", 0, 3);
+	private static final AxisAlignedBB[] NETHER_WART_AABB = new AxisAlignedBB[]{new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.3125D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.5D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.6875D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.875D, 1.0D)};
 
-    /**
-     * Return true if the block can sustain a Bush
-     */
-    protected boolean canSustainBush(IBlockState state)
-    {
-        return state.getBlock() == Blocks.SOUL_SAND;
-    }
+	protected BlockNetherWart() {
 
-    public boolean canBlockStay(World worldIn, BlockPos pos, IBlockState state)
-    {
-        return canSustainBush(worldIn.getBlockState(pos.down()));
-    }
+		super(Material.PLANTS, MapColor.RED);
+		setDefaultState(blockState.getBaseState().withProperty(AGE, Integer.valueOf(0)));
+		setTickRandomly(true);
+		setCreativeTab(null);
+	}
 
-    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
-    {
-        int i = ((Integer)state.getValue(AGE)).intValue();
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
 
-        if (i < 3 && rand.nextInt(10) == 0)
-        {
-            state = state.withProperty(AGE, Integer.valueOf(i + 1));
-            worldIn.setBlockState(pos, state, 2);
-        }
+		return NETHER_WART_AABB[state.getValue(AGE).intValue()];
+	}
 
-        super.updateTick(worldIn, pos, state, rand);
-    }
+	/**
+	 * Return true if the block can sustain a Bush
+	 */
+	protected boolean canSustainBush(IBlockState state) {
 
-    /**
-     * Spawns this Block's drops into the World as EntityItems.
-     */
-    public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune)
-    {
-        if (!worldIn.isRemote)
-        {
-            int i = 1;
+		return state.getBlock() == Blocks.SOUL_SAND;
+	}
 
-            if (((Integer)state.getValue(AGE)).intValue() >= 3)
-            {
-                i = 2 + worldIn.rand.nextInt(3);
+	public boolean canBlockStay(World worldIn, BlockPos pos, IBlockState state) {
 
-                if (fortune > 0)
-                {
-                    i += worldIn.rand.nextInt(fortune + 1);
-                }
-            }
+		return canSustainBush(worldIn.getBlockState(pos.down()));
+	}
 
-            for (int j = 0; j < i; ++j)
-            {
-                spawnAsEntity(worldIn, pos, new ItemStack(Items.NETHER_WART));
-            }
-        }
-    }
+	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
 
-    /**
-     * Get the Item that this Block should drop when harvested.
-     */
-    public Item getItemDropped(IBlockState state, Random rand, int fortune)
-    {
-        return Items.AIR;
-    }
+		int i = state.getValue(AGE).intValue();
 
-    /**
-     * Returns the quantity of items to drop on block destruction.
-     */
-    public int quantityDropped(Random random)
-    {
-        return 0;
-    }
+		if (i < 3 && rand.nextInt(10) == 0) {
+			state = state.withProperty(AGE, Integer.valueOf(i + 1));
+			worldIn.setBlockState(pos, state, 2);
+		}
 
-    public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state)
-    {
-        return new ItemStack(Items.NETHER_WART);
-    }
+		super.updateTick(worldIn, pos, state, rand);
+	}
 
-    /**
-     * Convert the given metadata into a BlockState for this Block
-     */
-    public IBlockState getStateFromMeta(int meta)
-    {
-        return getDefaultState().withProperty(AGE, Integer.valueOf(meta));
-    }
+	/**
+	 * Spawns this Block's drops into the World as EntityItems.
+	 */
+	public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune) {
 
-    /**
-     * Convert the BlockState into the correct metadata value
-     */
-    public int getMetaFromState(IBlockState state)
-    {
-        return ((Integer)state.getValue(AGE)).intValue();
-    }
+		if (!worldIn.isRemote) {
+			int i = 1;
 
-    protected BlockStateContainer createBlockState()
-    {
-        return new BlockStateContainer(this, new IProperty[] {AGE});
-    }
+			if (state.getValue(AGE).intValue() >= 3) {
+				i = 2 + worldIn.rand.nextInt(3);
+
+				if (fortune > 0) {
+					i += worldIn.rand.nextInt(fortune + 1);
+				}
+			}
+
+			for (int j = 0; j < i; ++j) {
+				spawnAsEntity(worldIn, pos, new ItemStack(Items.NETHER_WART));
+			}
+		}
+	}
+
+	/**
+	 * Get the Item that this Block should drop when harvested.
+	 */
+	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
+
+		return Items.AIR;
+	}
+
+	/**
+	 * Returns the quantity of items to drop on block destruction.
+	 */
+	public int quantityDropped(Random random) {
+
+		return 0;
+	}
+
+	public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
+
+		return new ItemStack(Items.NETHER_WART);
+	}
+
+	/**
+	 * Convert the given metadata into a BlockState for this Block
+	 */
+	public IBlockState getStateFromMeta(int meta) {
+
+		return getDefaultState().withProperty(AGE, Integer.valueOf(meta));
+	}
+
+	/**
+	 * Convert the BlockState into the correct metadata value
+	 */
+	public int getMetaFromState(IBlockState state) {
+
+		return state.getValue(AGE).intValue();
+	}
+
+	protected BlockStateContainer createBlockState() {
+
+		return new BlockStateContainer(this, AGE);
+	}
+
 }

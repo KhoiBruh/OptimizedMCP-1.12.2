@@ -2,8 +2,6 @@ package net.minecraft.item;
 
 import com.google.common.base.Predicates;
 import com.google.common.collect.Multimap;
-import java.util.List;
-import java.util.UUID;
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.dispenser.BehaviorDefaultDispenseItem;
@@ -18,324 +16,294 @@ import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.EntitySelectors;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.SoundEvent;
+import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class ItemArmor extends Item
-{
-    /** Holds the 'base' maxDamage that each armorType have. */
-    private static final int[] MAX_DAMAGE_ARRAY = new int[] {13, 15, 16, 11};
-    private static final UUID[] ARMOR_MODIFIERS = new UUID[] {UUID.fromString("845DB27C-C624-495F-8C9F-6020A9A58B6B"), UUID.fromString("D8499B04-0E66-4726-AB29-64469D734E0D"), UUID.fromString("9F3D476D-C118-4544-8365-64846904B48E"), UUID.fromString("2AD3F246-FEE1-4E67-B886-69FD380BB150")};
-    public static final String[] EMPTY_SLOT_NAMES = new String[] {"minecraft:items/empty_armor_slot_boots", "minecraft:items/empty_armor_slot_leggings", "minecraft:items/empty_armor_slot_chestplate", "minecraft:items/empty_armor_slot_helmet"};
-    public static final IBehaviorDispenseItem DISPENSER_BEHAVIOR = new BehaviorDefaultDispenseItem()
-    {
-        protected ItemStack dispenseStack(IBlockSource source, ItemStack stack)
-        {
-            ItemStack itemstack = ItemArmor.dispenseArmor(source, stack);
-            return itemstack.isEmpty() ? super.dispenseStack(source, stack) : itemstack;
-        }
-    };
+import java.util.List;
+import java.util.UUID;
 
-    /**
-     * Stores the armor type: 0 is helmet, 1 is plate, 2 is legs and 3 is boots
-     */
-    public final EntityEquipmentSlot armorType;
+public class ItemArmor extends Item {
 
-    /** Holds the amount of damage that the armor reduces at full durability. */
-    public final int damageReduceAmount;
-    public final float toughness;
+	/**
+	 * Holds the 'base' maxDamage that each armorType have.
+	 */
+	private static final int[] MAX_DAMAGE_ARRAY = new int[]{13, 15, 16, 11};
+	private static final UUID[] ARMOR_MODIFIERS = new UUID[]{UUID.fromString("845DB27C-C624-495F-8C9F-6020A9A58B6B"), UUID.fromString("D8499B04-0E66-4726-AB29-64469D734E0D"), UUID.fromString("9F3D476D-C118-4544-8365-64846904B48E"), UUID.fromString("2AD3F246-FEE1-4E67-B886-69FD380BB150")};
+	public static final String[] EMPTY_SLOT_NAMES = new String[]{"minecraft:items/empty_armor_slot_boots", "minecraft:items/empty_armor_slot_leggings", "minecraft:items/empty_armor_slot_chestplate", "minecraft:items/empty_armor_slot_helmet"};
+	public static final IBehaviorDispenseItem DISPENSER_BEHAVIOR = new BehaviorDefaultDispenseItem() {
+		protected ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
 
-    /**
-     * Used on RenderPlayer to select the correspondent armor to be rendered on the player: 0 is cloth, 1 is chain, 2 is
-     * iron, 3 is diamond and 4 is gold.
-     */
-    public final int renderIndex;
+			ItemStack itemstack = ItemArmor.dispenseArmor(source, stack);
+			return itemstack.isEmpty() ? super.dispenseStack(source, stack) : itemstack;
+		}
+	};
 
-    /** The EnumArmorMaterial used for this ItemArmor */
-    private final ItemArmor.ArmorMaterial material;
+	/**
+	 * Stores the armor type: 0 is helmet, 1 is plate, 2 is legs and 3 is boots
+	 */
+	public final EntityEquipmentSlot armorType;
 
-    public static ItemStack dispenseArmor(IBlockSource blockSource, ItemStack stack)
-    {
-        BlockPos blockpos = blockSource.getBlockPos().offset((EnumFacing)blockSource.getBlockState().getValue(BlockDispenser.FACING));
-        List<EntityLivingBase> list = blockSource.getWorld().<EntityLivingBase>getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(blockpos), Predicates.and(EntitySelectors.NOT_SPECTATING, new EntitySelectors.ArmoredMob(stack)));
+	/**
+	 * Holds the amount of damage that the armor reduces at full durability.
+	 */
+	public final int damageReduceAmount;
+	public final float toughness;
 
-        if (list.isEmpty())
-        {
-            return ItemStack.EMPTY;
-        }
-        else
-        {
-            EntityLivingBase entitylivingbase = list.get(0);
-            EntityEquipmentSlot entityequipmentslot = EntityLiving.getSlotForItemStack(stack);
-            ItemStack itemstack = stack.splitStack(1);
-            entitylivingbase.setItemStackToSlot(entityequipmentslot, itemstack);
+	/**
+	 * Used on RenderPlayer to select the correspondent armor to be rendered on the player: 0 is cloth, 1 is chain, 2 is
+	 * iron, 3 is diamond and 4 is gold.
+	 */
+	public final int renderIndex;
 
-            if (entitylivingbase instanceof EntityLiving)
-            {
-                ((EntityLiving)entitylivingbase).setDropChance(entityequipmentslot, 2.0F);
-            }
+	/**
+	 * The EnumArmorMaterial used for this ItemArmor
+	 */
+	private final ItemArmor.ArmorMaterial material;
 
-            return stack;
-        }
-    }
+	public static ItemStack dispenseArmor(IBlockSource blockSource, ItemStack stack) {
 
-    public ItemArmor(ItemArmor.ArmorMaterial materialIn, int renderIndexIn, EntityEquipmentSlot equipmentSlotIn)
-    {
-        material = materialIn;
-        armorType = equipmentSlotIn;
-        renderIndex = renderIndexIn;
-        damageReduceAmount = materialIn.getDamageReductionAmount(equipmentSlotIn);
-        setMaxDamage(materialIn.getDurability(equipmentSlotIn));
-        toughness = materialIn.getToughness();
-        maxStackSize = 1;
-        setCreativeTab(CreativeTabs.COMBAT);
-        BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(this, DISPENSER_BEHAVIOR);
-    }
+		BlockPos blockpos = blockSource.getBlockPos().offset(blockSource.getBlockState().getValue(BlockDispenser.FACING));
+		List<EntityLivingBase> list = blockSource.getWorld().getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(blockpos), Predicates.and(EntitySelectors.NOT_SPECTATING, new EntitySelectors.ArmoredMob(stack)));
 
-    /**
-     * Gets the equipment slot of this armor piece (formerly known as armor type)
-     */
-    public EntityEquipmentSlot getEquipmentSlot()
-    {
-        return armorType;
-    }
+		if (list.isEmpty()) {
+			return ItemStack.EMPTY;
+		} else {
+			EntityLivingBase entitylivingbase = list.get(0);
+			EntityEquipmentSlot entityequipmentslot = EntityLiving.getSlotForItemStack(stack);
+			ItemStack itemstack = stack.splitStack(1);
+			entitylivingbase.setItemStackToSlot(entityequipmentslot, itemstack);
 
-    /**
-     * Return the enchantability factor of the item, most of the time is based on material.
-     */
-    public int getItemEnchantability()
-    {
-        return material.getEnchantability();
-    }
+			if (entitylivingbase instanceof EntityLiving) {
+				((EntityLiving) entitylivingbase).setDropChance(entityequipmentslot, 2.0F);
+			}
 
-    /**
-     * Return the armor material for this armor item.
-     */
-    public ItemArmor.ArmorMaterial getArmorMaterial()
-    {
-        return material;
-    }
+			return stack;
+		}
+	}
 
-    /**
-     * Return whether the specified armor ItemStack has a color.
-     */
-    public boolean hasColor(ItemStack stack)
-    {
-        if (material != ItemArmor.ArmorMaterial.LEATHER)
-        {
-            return false;
-        }
-        else
-        {
-            NBTTagCompound nbttagcompound = stack.getTagCompound();
-            return nbttagcompound != null && nbttagcompound.hasKey("display", 10) ? nbttagcompound.getCompoundTag("display").hasKey("color", 3) : false;
-        }
-    }
+	public ItemArmor(ItemArmor.ArmorMaterial materialIn, int renderIndexIn, EntityEquipmentSlot equipmentSlotIn) {
 
-    /**
-     * Return the color for the specified armor ItemStack.
-     */
-    public int getColor(ItemStack stack)
-    {
-        if (material != ItemArmor.ArmorMaterial.LEATHER)
-        {
-            return 16777215;
-        }
-        else
-        {
-            NBTTagCompound nbttagcompound = stack.getTagCompound();
+		material = materialIn;
+		armorType = equipmentSlotIn;
+		renderIndex = renderIndexIn;
+		damageReduceAmount = materialIn.getDamageReductionAmount(equipmentSlotIn);
+		setMaxDamage(materialIn.getDurability(equipmentSlotIn));
+		toughness = materialIn.getToughness();
+		maxStackSize = 1;
+		setCreativeTab(CreativeTabs.COMBAT);
+		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(this, DISPENSER_BEHAVIOR);
+	}
 
-            if (nbttagcompound != null)
-            {
-                NBTTagCompound nbttagcompound1 = nbttagcompound.getCompoundTag("display");
+	/**
+	 * Gets the equipment slot of this armor piece (formerly known as armor type)
+	 */
+	public EntityEquipmentSlot getEquipmentSlot() {
 
-                if (nbttagcompound1 != null && nbttagcompound1.hasKey("color", 3))
-                {
-                    return nbttagcompound1.getInteger("color");
-                }
-            }
+		return armorType;
+	}
 
-            return 10511680;
-        }
-    }
+	/**
+	 * Return the enchantability factor of the item, most of the time is based on material.
+	 */
+	public int getItemEnchantability() {
 
-    /**
-     * Remove the color from the specified armor ItemStack.
-     */
-    public void removeColor(ItemStack stack)
-    {
-        if (material == ItemArmor.ArmorMaterial.LEATHER)
-        {
-            NBTTagCompound nbttagcompound = stack.getTagCompound();
+		return material.getEnchantability();
+	}
 
-            if (nbttagcompound != null)
-            {
-                NBTTagCompound nbttagcompound1 = nbttagcompound.getCompoundTag("display");
+	/**
+	 * Return the armor material for this armor item.
+	 */
+	public ItemArmor.ArmorMaterial getArmorMaterial() {
 
-                if (nbttagcompound1.hasKey("color"))
-                {
-                    nbttagcompound1.removeTag("color");
-                }
-            }
-        }
-    }
+		return material;
+	}
 
-    /**
-     * Sets the color of the specified armor ItemStack
-     */
-    public void setColor(ItemStack stack, int color)
-    {
-        if (material != ItemArmor.ArmorMaterial.LEATHER)
-        {
-            throw new UnsupportedOperationException("Can't dye non-leather!");
-        }
-        else
-        {
-            NBTTagCompound nbttagcompound = stack.getTagCompound();
+	/**
+	 * Return whether the specified armor ItemStack has a color.
+	 */
+	public boolean hasColor(ItemStack stack) {
 
-            if (nbttagcompound == null)
-            {
-                nbttagcompound = new NBTTagCompound();
-                stack.setTagCompound(nbttagcompound);
-            }
+		if (material != ItemArmor.ArmorMaterial.LEATHER) {
+			return false;
+		} else {
+			NBTTagCompound nbttagcompound = stack.getTagCompound();
+			return nbttagcompound != null && nbttagcompound.hasKey("display", 10) && nbttagcompound.getCompoundTag("display").hasKey("color", 3);
+		}
+	}
 
-            NBTTagCompound nbttagcompound1 = nbttagcompound.getCompoundTag("display");
+	/**
+	 * Return the color for the specified armor ItemStack.
+	 */
+	public int getColor(ItemStack stack) {
 
-            if (!nbttagcompound.hasKey("display", 10))
-            {
-                nbttagcompound.setTag("display", nbttagcompound1);
-            }
+		if (material != ItemArmor.ArmorMaterial.LEATHER) {
+			return 16777215;
+		} else {
+			NBTTagCompound nbttagcompound = stack.getTagCompound();
 
-            nbttagcompound1.setInteger("color", color);
-        }
-    }
+			if (nbttagcompound != null) {
+				NBTTagCompound nbttagcompound1 = nbttagcompound.getCompoundTag("display");
 
-    /**
-     * Return whether this item is repairable in an anvil.
-     *  
-     * @param toRepair the {@code ItemStack} being repaired
-     * @param repair the {@code ItemStack} being used to perform the repair
-     */
-    public boolean getIsRepairable(ItemStack toRepair, ItemStack repair)
-    {
-        return material.getRepairItem() == repair.getItem() ? true : super.getIsRepairable(toRepair, repair);
-    }
+				if (nbttagcompound1 != null && nbttagcompound1.hasKey("color", 3)) {
+					return nbttagcompound1.getInteger("color");
+				}
+			}
 
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn)
-    {
-        ItemStack itemstack = playerIn.getHeldItem(handIn);
-        EntityEquipmentSlot entityequipmentslot = EntityLiving.getSlotForItemStack(itemstack);
-        ItemStack itemstack1 = playerIn.getItemStackFromSlot(entityequipmentslot);
+			return 10511680;
+		}
+	}
 
-        if (itemstack1.isEmpty())
-        {
-            playerIn.setItemStackToSlot(entityequipmentslot, itemstack.copy());
-            itemstack.setCount(0);
-            return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemstack);
-        }
-        else
-        {
-            return new ActionResult<ItemStack>(EnumActionResult.FAIL, itemstack);
-        }
-    }
+	/**
+	 * Remove the color from the specified armor ItemStack.
+	 */
+	public void removeColor(ItemStack stack) {
 
-    public Multimap<String, AttributeModifier> getItemAttributeModifiers(EntityEquipmentSlot equipmentSlot)
-    {
-        Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers(equipmentSlot);
+		if (material == ItemArmor.ArmorMaterial.LEATHER) {
+			NBTTagCompound nbttagcompound = stack.getTagCompound();
 
-        if (equipmentSlot == armorType)
-        {
-            multimap.put(SharedMonsterAttributes.ARMOR.getName(), new AttributeModifier(ARMOR_MODIFIERS[equipmentSlot.getIndex()], "Armor modifier", (double) damageReduceAmount, 0));
-            multimap.put(SharedMonsterAttributes.ARMOR_TOUGHNESS.getName(), new AttributeModifier(ARMOR_MODIFIERS[equipmentSlot.getIndex()], "Armor toughness", (double) toughness, 0));
-        }
+			if (nbttagcompound != null) {
+				NBTTagCompound nbttagcompound1 = nbttagcompound.getCompoundTag("display");
 
-        return multimap;
-    }
+				if (nbttagcompound1.hasKey("color")) {
+					nbttagcompound1.removeTag("color");
+				}
+			}
+		}
+	}
 
-    public static enum ArmorMaterial
-    {
-        LEATHER("leather", 5, new int[]{1, 2, 3, 1}, 15, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0.0F),
-        CHAIN("chainmail", 15, new int[]{1, 4, 5, 2}, 12, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, 0.0F),
-        IRON("iron", 15, new int[]{2, 5, 6, 2}, 9, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 0.0F),
-        GOLD("gold", 7, new int[]{1, 3, 5, 2}, 25, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 0.0F),
-        DIAMOND("diamond", 33, new int[]{3, 6, 8, 3}, 10, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 2.0F);
+	/**
+	 * Sets the color of the specified armor ItemStack
+	 */
+	public void setColor(ItemStack stack, int color) {
 
-        private final String name;
-        private final int maxDamageFactor;
-        private final int[] damageReductionAmountArray;
-        private final int enchantability;
-        private final SoundEvent soundEvent;
-        private final float toughness;
+		if (material != ItemArmor.ArmorMaterial.LEATHER) {
+			throw new UnsupportedOperationException("Can't dye non-leather!");
+		} else {
+			NBTTagCompound nbttagcompound = stack.getTagCompound();
 
-        private ArmorMaterial(String nameIn, int maxDamageFactorIn, int[] damageReductionAmountArrayIn, int enchantabilityIn, SoundEvent soundEventIn, float toughnessIn)
-        {
-            name = nameIn;
-            maxDamageFactor = maxDamageFactorIn;
-            damageReductionAmountArray = damageReductionAmountArrayIn;
-            enchantability = enchantabilityIn;
-            soundEvent = soundEventIn;
-            toughness = toughnessIn;
-        }
+			if (nbttagcompound == null) {
+				nbttagcompound = new NBTTagCompound();
+				stack.setTagCompound(nbttagcompound);
+			}
 
-        public int getDurability(EntityEquipmentSlot armorType)
-        {
-            return ItemArmor.MAX_DAMAGE_ARRAY[armorType.getIndex()] * maxDamageFactor;
-        }
+			NBTTagCompound nbttagcompound1 = nbttagcompound.getCompoundTag("display");
 
-        public int getDamageReductionAmount(EntityEquipmentSlot armorType)
-        {
-            return damageReductionAmountArray[armorType.getIndex()];
-        }
+			if (!nbttagcompound.hasKey("display", 10)) {
+				nbttagcompound.setTag("display", nbttagcompound1);
+			}
 
-        public int getEnchantability()
-        {
-            return enchantability;
-        }
+			nbttagcompound1.setInteger("color", color);
+		}
+	}
 
-        public SoundEvent getSoundEvent()
-        {
-            return soundEvent;
-        }
+	/**
+	 * Return whether this item is repairable in an anvil.
+	 *
+	 * @param toRepair the {@code ItemStack} being repaired
+	 * @param repair   the {@code ItemStack} being used to perform the repair
+	 */
+	public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
 
-        public Item getRepairItem()
-        {
-            if (this == LEATHER)
-            {
-                return Items.LEATHER;
-            }
-            else if (this == CHAIN)
-            {
-                return Items.IRON_INGOT;
-            }
-            else if (this == GOLD)
-            {
-                return Items.GOLD_INGOT;
-            }
-            else if (this == IRON)
-            {
-                return Items.IRON_INGOT;
-            }
-            else
-            {
-                return this == DIAMOND ? Items.DIAMOND : null;
-            }
-        }
+		return material.getRepairItem() == repair.getItem() || super.getIsRepairable(toRepair, repair);
+	}
 
-        public String getName()
-        {
-            return name;
-        }
+	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
 
-        public float getToughness()
-        {
-            return toughness;
-        }
-    }
+		ItemStack itemstack = playerIn.getHeldItem(handIn);
+		EntityEquipmentSlot entityequipmentslot = EntityLiving.getSlotForItemStack(itemstack);
+		ItemStack itemstack1 = playerIn.getItemStackFromSlot(entityequipmentslot);
+
+		if (itemstack1.isEmpty()) {
+			playerIn.setItemStackToSlot(entityequipmentslot, itemstack.copy());
+			itemstack.setCount(0);
+			return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemstack);
+		} else {
+			return new ActionResult<ItemStack>(EnumActionResult.FAIL, itemstack);
+		}
+	}
+
+	public Multimap<String, AttributeModifier> getItemAttributeModifiers(EntityEquipmentSlot equipmentSlot) {
+
+		Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers(equipmentSlot);
+
+		if (equipmentSlot == armorType) {
+			multimap.put(SharedMonsterAttributes.ARMOR.getName(), new AttributeModifier(ARMOR_MODIFIERS[equipmentSlot.getIndex()], "Armor modifier", damageReduceAmount, 0));
+			multimap.put(SharedMonsterAttributes.ARMOR_TOUGHNESS.getName(), new AttributeModifier(ARMOR_MODIFIERS[equipmentSlot.getIndex()], "Armor toughness", toughness, 0));
+		}
+
+		return multimap;
+	}
+
+	public enum ArmorMaterial {
+		LEATHER("leather", 5, new int[]{1, 2, 3, 1}, 15, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0.0F),
+		CHAIN("chainmail", 15, new int[]{1, 4, 5, 2}, 12, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, 0.0F),
+		IRON("iron", 15, new int[]{2, 5, 6, 2}, 9, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 0.0F),
+		GOLD("gold", 7, new int[]{1, 3, 5, 2}, 25, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 0.0F),
+		DIAMOND("diamond", 33, new int[]{3, 6, 8, 3}, 10, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 2.0F);
+
+		private final String name;
+		private final int maxDamageFactor;
+		private final int[] damageReductionAmountArray;
+		private final int enchantability;
+		private final SoundEvent soundEvent;
+		private final float toughness;
+
+		ArmorMaterial(String nameIn, int maxDamageFactorIn, int[] damageReductionAmountArrayIn, int enchantabilityIn, SoundEvent soundEventIn, float toughnessIn) {
+
+			name = nameIn;
+			maxDamageFactor = maxDamageFactorIn;
+			damageReductionAmountArray = damageReductionAmountArrayIn;
+			enchantability = enchantabilityIn;
+			soundEvent = soundEventIn;
+			toughness = toughnessIn;
+		}
+
+		public int getDurability(EntityEquipmentSlot armorType) {
+
+			return ItemArmor.MAX_DAMAGE_ARRAY[armorType.getIndex()] * maxDamageFactor;
+		}
+
+		public int getDamageReductionAmount(EntityEquipmentSlot armorType) {
+
+			return damageReductionAmountArray[armorType.getIndex()];
+		}
+
+		public int getEnchantability() {
+
+			return enchantability;
+		}
+
+		public SoundEvent getSoundEvent() {
+
+			return soundEvent;
+		}
+
+		public Item getRepairItem() {
+
+			if (this == LEATHER) {
+				return Items.LEATHER;
+			} else if (this == CHAIN) {
+				return Items.IRON_INGOT;
+			} else if (this == GOLD) {
+				return Items.GOLD_INGOT;
+			} else if (this == IRON) {
+				return Items.IRON_INGOT;
+			} else {
+				return this == DIAMOND ? Items.DIAMOND : null;
+			}
+		}
+
+		public String getName() {
+
+			return name;
+		}
+
+		public float getToughness() {
+
+			return toughness;
+		}
+	}
+
 }

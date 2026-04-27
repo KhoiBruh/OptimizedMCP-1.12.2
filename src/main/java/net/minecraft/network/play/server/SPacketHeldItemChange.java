@@ -1,49 +1,51 @@
 package net.minecraft.network.play.server;
 
-import java.io.IOException;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayClient;
 
-public class SPacketHeldItemChange implements Packet<INetHandlerPlayClient>
-{
-    private int heldItemHotbarIndex;
+import java.io.IOException;
 
-    public SPacketHeldItemChange()
-    {
-    }
+public class SPacketHeldItemChange implements Packet<INetHandlerPlayClient> {
 
-    public SPacketHeldItemChange(int hotbarIndexIn)
-    {
-        heldItemHotbarIndex = hotbarIndexIn;
-    }
+	private int heldItemHotbarIndex;
 
-    /**
-     * Reads the raw packet data from the data stream.
-     */
-    public void readPacketData(PacketBuffer buf) throws IOException
-    {
-        heldItemHotbarIndex = buf.readByte();
-    }
+	public SPacketHeldItemChange() {
 
-    /**
-     * Writes the raw packet data to the data stream.
-     */
-    public void writePacketData(PacketBuffer buf) throws IOException
-    {
-        buf.writeByte(heldItemHotbarIndex);
-    }
+	}
 
-    /**
-     * Passes this Packet on to the NetHandler for processing.
-     */
-    public void processPacket(INetHandlerPlayClient handler)
-    {
-        handler.handleHeldItemChange(this);
-    }
+	public SPacketHeldItemChange(int hotbarIndexIn) {
 
-    public int getHeldItemHotbarIndex()
-    {
-        return heldItemHotbarIndex;
-    }
+		heldItemHotbarIndex = hotbarIndexIn;
+	}
+
+	/**
+	 * Reads the raw packet data from the data stream.
+	 */
+	public void readPacketData(PacketBuffer buf) throws IOException {
+
+		heldItemHotbarIndex = buf.readByte();
+	}
+
+	/**
+	 * Writes the raw packet data to the data stream.
+	 */
+	public void writePacketData(PacketBuffer buf) throws IOException {
+
+		buf.writeByte(heldItemHotbarIndex);
+	}
+
+	/**
+	 * Passes this Packet on to the NetHandler for processing.
+	 */
+	public void processPacket(INetHandlerPlayClient handler) {
+
+		handler.handleHeldItemChange(this);
+	}
+
+	public int getHeldItemHotbarIndex() {
+
+		return heldItemHotbarIndex;
+	}
+
 }

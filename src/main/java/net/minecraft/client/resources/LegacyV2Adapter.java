@@ -1,75 +1,74 @@
 package net.minecraft.client.resources;
 
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Set;
-import javax.annotation.Nullable;
 import net.minecraft.client.resources.data.IMetadataSection;
 import net.minecraft.client.resources.data.MetadataSerializer;
 import net.minecraft.util.ResourceLocation;
 
-public class LegacyV2Adapter implements IResourcePack
-{
-    private final IResourcePack pack;
+import javax.annotation.Nullable;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Set;
 
-    public LegacyV2Adapter(IResourcePack packIn)
-    {
-        pack = packIn;
-    }
+public class LegacyV2Adapter implements IResourcePack {
 
-    public InputStream getInputStream(ResourceLocation location) throws IOException
-    {
-        return pack.getInputStream(fudgePath(location));
-    }
+	private final IResourcePack pack;
 
-    private ResourceLocation fudgePath(ResourceLocation p_191382_1_)
-    {
-        String s = p_191382_1_.getResourcePath();
+	public LegacyV2Adapter(IResourcePack packIn) {
 
-        if (!"lang/swg_de.lang".equals(s) && s.startsWith("lang/") && s.endsWith(".lang"))
-        {
-            int i = s.indexOf(95);
+		pack = packIn;
+	}
 
-            if (i != -1)
-            {
-                final String s1 = s.substring(0, i + 1) + s.substring(i + 1, s.indexOf(46, i)).toUpperCase() + ".lang";
-                return new ResourceLocation(p_191382_1_.getResourceDomain(), "")
-                {
-                    public String getResourcePath()
-                    {
-                        return s1;
-                    }
-                };
-            }
-        }
+	public InputStream getInputStream(ResourceLocation location) throws IOException {
 
-        return p_191382_1_;
-    }
+		return pack.getInputStream(fudgePath(location));
+	}
 
-    public boolean resourceExists(ResourceLocation location)
-    {
-        return pack.resourceExists(fudgePath(location));
-    }
+	private ResourceLocation fudgePath(ResourceLocation p_191382_1_) {
 
-    public Set<String> getResourceDomains()
-    {
-        return pack.getResourceDomains();
-    }
+		String s = p_191382_1_.getResourcePath();
 
-    @Nullable
-    public <T extends IMetadataSection> T getPackMetadata(MetadataSerializer metadataSerializer, String metadataSectionName) throws IOException
-    {
-        return (T) pack.getPackMetadata(metadataSerializer, metadataSectionName);
-    }
+		if (!"lang/swg_de.lang".equals(s) && s.startsWith("lang/") && s.endsWith(".lang")) {
+			int i = s.indexOf(95);
 
-    public BufferedImage getPackImage() throws IOException
-    {
-        return pack.getPackImage();
-    }
+			if (i != -1) {
+				final String s1 = s.substring(0, i + 1) + s.substring(i + 1, s.indexOf(46, i)).toUpperCase() + ".lang";
+				return new ResourceLocation(p_191382_1_.getResourceDomain(), "") {
+					public String getResourcePath() {
 
-    public String getPackName()
-    {
-        return pack.getPackName();
-    }
+						return s1;
+					}
+				};
+			}
+		}
+
+		return p_191382_1_;
+	}
+
+	public boolean resourceExists(ResourceLocation location) {
+
+		return pack.resourceExists(fudgePath(location));
+	}
+
+	public Set<String> getResourceDomains() {
+
+		return pack.getResourceDomains();
+	}
+
+	@Nullable
+	public <T extends IMetadataSection> T getPackMetadata(MetadataSerializer metadataSerializer, String metadataSectionName) throws IOException {
+
+		return pack.getPackMetadata(metadataSerializer, metadataSectionName);
+	}
+
+	public BufferedImage getPackImage() throws IOException {
+
+		return pack.getPackImage();
+	}
+
+	public String getPackName() {
+
+		return pack.getPackName();
+	}
+
 }

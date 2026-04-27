@@ -5,95 +5,86 @@ import net.minecraft.entity.passive.AbstractHorse;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.Vec3d;
 
-public class EntityAIRunAroundLikeCrazy extends EntityAIBase
-{
-    private final AbstractHorse horseHost;
-    private final double speed;
-    private double targetX;
-    private double targetY;
-    private double targetZ;
+public class EntityAIRunAroundLikeCrazy extends EntityAIBase {
 
-    public EntityAIRunAroundLikeCrazy(AbstractHorse horse, double speedIn)
-    {
-        horseHost = horse;
-        speed = speedIn;
-        setMutexBits(1);
-    }
+	private final AbstractHorse horseHost;
+	private final double speed;
+	private double targetX;
+	private double targetY;
+	private double targetZ;
 
-    /**
-     * Returns whether the EntityAIBase should begin execution.
-     */
-    public boolean shouldExecute()
-    {
-        if (!horseHost.isTame() && horseHost.isBeingRidden())
-        {
-            Vec3d vec3d = RandomPositionGenerator.findRandomTarget(horseHost, 5, 4);
+	public EntityAIRunAroundLikeCrazy(AbstractHorse horse, double speedIn) {
 
-            if (vec3d == null)
-            {
-                return false;
-            }
-            else
-            {
-                targetX = vec3d.x;
-                targetY = vec3d.y;
-                targetZ = vec3d.z;
-                return true;
-            }
-        }
-        else
-        {
-            return false;
-        }
-    }
+		horseHost = horse;
+		speed = speedIn;
+		setMutexBits(1);
+	}
 
-    /**
-     * Execute a one shot task or start executing a continuous task
-     */
-    public void startExecuting()
-    {
-        horseHost.getNavigator().tryMoveToXYZ(targetX, targetY, targetZ, speed);
-    }
+	/**
+	 * Returns whether the EntityAIBase should begin execution.
+	 */
+	public boolean shouldExecute() {
 
-    /**
-     * Returns whether an in-progress EntityAIBase should continue executing
-     */
-    public boolean shouldContinueExecuting()
-    {
-        return !horseHost.isTame() && !horseHost.getNavigator().noPath() && horseHost.isBeingRidden();
-    }
+		if (!horseHost.isTame() && horseHost.isBeingRidden()) {
+			Vec3d vec3d = RandomPositionGenerator.findRandomTarget(horseHost, 5, 4);
 
-    /**
-     * Keep ticking a continuous task that has already been started
-     */
-    public void updateTask()
-    {
-        if (!horseHost.isTame() && horseHost.getRNG().nextInt(50) == 0)
-        {
-            Entity entity = (Entity) horseHost.getPassengers().get(0);
+			if (vec3d == null) {
+				return false;
+			} else {
+				targetX = vec3d.x();
+				targetY = vec3d.y();
+				targetZ = vec3d.z();
+				return true;
+			}
+		} else {
+			return false;
+		}
+	}
 
-            if (entity == null)
-            {
-                return;
-            }
+	/**
+	 * Execute a one shot task or start executing a continuous task
+	 */
+	public void startExecuting() {
 
-            if (entity instanceof EntityPlayer)
-            {
-                int i = horseHost.getTemper();
-                int j = horseHost.getMaxTemper();
+		horseHost.getNavigator().tryMoveToXYZ(targetX, targetY, targetZ, speed);
+	}
 
-                if (j > 0 && horseHost.getRNG().nextInt(j) < i)
-                {
-                    horseHost.setTamedBy((EntityPlayer)entity);
-                    return;
-                }
+	/**
+	 * Returns whether an in-progress EntityAIBase should continue executing
+	 */
+	public boolean shouldContinueExecuting() {
 
-                horseHost.increaseTemper(5);
-            }
+		return !horseHost.isTame() && !horseHost.getNavigator().noPath() && horseHost.isBeingRidden();
+	}
 
-            horseHost.removePassengers();
-            horseHost.makeMad();
-            horseHost.world.setEntityState(horseHost, (byte)6);
-        }
-    }
+	/**
+	 * Keep ticking a continuous task that has already been started
+	 */
+	public void updateTask() {
+
+		if (!horseHost.isTame() && horseHost.getRNG().nextInt(50) == 0) {
+			Entity entity = horseHost.getPassengers().get(0);
+
+			if (entity == null) {
+				return;
+			}
+
+			if (entity instanceof EntityPlayer) {
+				int i = horseHost.getTemper();
+				int j = horseHost.getMaxTemper();
+
+				if (j > 0 && horseHost.getRNG().nextInt(j) < i) {
+					horseHost.setTamedBy((EntityPlayer) entity);
+					return;
+				}
+
+				horseHost.increaseTemper(5);
+			}
+
+			horseHost.removePassengers();
+			horseHost.makeMad();
+			horseHost.world.setEntityState(horseHost, (byte) 6);
+		}
+	}
+
 }

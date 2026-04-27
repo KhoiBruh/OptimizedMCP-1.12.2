@@ -7,81 +7,75 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
-public class ParticleRain extends Particle
-{
-    protected ParticleRain(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn)
-    {
-        super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0.0D, 0.0D, 0.0D);
-        motionX *= 0.30000001192092896D;
-        motionY = Math.random() * 0.20000000298023224D + 0.10000000149011612D;
-        motionZ *= 0.30000001192092896D;
-        particleRed = 1.0F;
-        particleGreen = 1.0F;
-        particleBlue = 1.0F;
-        setParticleTextureIndex(19 + rand.nextInt(4));
-        setSize(0.01F, 0.01F);
-        particleGravity = 0.06F;
-        particleMaxAge = (int)(8.0D / (Math.random() * 0.8D + 0.2D));
-    }
+public class ParticleRain extends Particle {
 
-    public void onUpdate()
-    {
-        prevPosX = posX;
-        prevPosY = posY;
-        prevPosZ = posZ;
-        motionY -= (double) particleGravity;
-        move(motionX, motionY, motionZ);
-        motionX *= 0.9800000190734863D;
-        motionY *= 0.9800000190734863D;
-        motionZ *= 0.9800000190734863D;
+	protected ParticleRain(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn) {
 
-        if (particleMaxAge-- <= 0)
-        {
-            setExpired();
-        }
+		super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0.0D, 0.0D, 0.0D);
+		motionX *= 0.30000001192092896D;
+		motionY = Math.random() * 0.20000000298023224D + 0.10000000149011612D;
+		motionZ *= 0.30000001192092896D;
+		particleRed = 1.0F;
+		particleGreen = 1.0F;
+		particleBlue = 1.0F;
+		setParticleTextureIndex(19 + rand.nextInt(4));
+		setSize(0.01F, 0.01F);
+		particleGravity = 0.06F;
+		particleMaxAge = (int) (8.0D / (Math.random() * 0.8D + 0.2D));
+	}
 
-        if (onGround)
-        {
-            if (Math.random() < 0.5D)
-            {
-                setExpired();
-            }
+	public void onUpdate() {
 
-            motionX *= 0.699999988079071D;
-            motionZ *= 0.699999988079071D;
-        }
+		prevPosX = posX;
+		prevPosY = posY;
+		prevPosZ = posZ;
+		motionY -= particleGravity;
+		move(motionX, motionY, motionZ);
+		motionX *= 0.9800000190734863D;
+		motionY *= 0.9800000190734863D;
+		motionZ *= 0.9800000190734863D;
 
-        BlockPos blockpos = new BlockPos(posX, posY, posZ);
-        IBlockState iblockstate = world.getBlockState(blockpos);
-        Material material = iblockstate.getMaterial();
+		if (particleMaxAge-- <= 0) {
+			setExpired();
+		}
 
-        if (material.isLiquid() || material.isSolid())
-        {
-            double d0;
+		if (onGround) {
+			if (Math.random() < 0.5D) {
+				setExpired();
+			}
 
-            if (iblockstate.getBlock() instanceof BlockLiquid)
-            {
-                d0 = (double)(1.0F - BlockLiquid.getLiquidHeightPercent(((Integer)iblockstate.getValue(BlockLiquid.LEVEL)).intValue()));
-            }
-            else
-            {
-                d0 = iblockstate.getBoundingBox(world, blockpos).maxY;
-            }
+			motionX *= 0.699999988079071D;
+			motionZ *= 0.699999988079071D;
+		}
 
-            double d1 = (double)MathHelper.floor(posY) + d0;
+		BlockPos blockpos = new BlockPos(posX, posY, posZ);
+		IBlockState iblockstate = world.getBlockState(blockpos);
+		Material material = iblockstate.getMaterial();
 
-            if (posY < d1)
-            {
-                setExpired();
-            }
-        }
-    }
+		if (material.isLiquid() || material.isSolid()) {
+			double d0;
 
-    public static class Factory implements IParticleFactory
-    {
-        public Particle createParticle(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_)
-        {
-            return new ParticleRain(worldIn, xCoordIn, yCoordIn, zCoordIn);
-        }
-    }
+			if (iblockstate.getBlock() instanceof BlockLiquid) {
+				d0 = 1.0F - BlockLiquid.getLiquidHeightPercent(iblockstate.getValue(BlockLiquid.LEVEL).intValue());
+			} else {
+				d0 = iblockstate.getBoundingBox(world, blockpos).maxY;
+			}
+
+			double d1 = (double) MathHelper.floor(posY) + d0;
+
+			if (posY < d1) {
+				setExpired();
+			}
+		}
+	}
+
+	public static class Factory implements IParticleFactory {
+
+		public Particle createParticle(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_) {
+
+			return new ParticleRain(worldIn, xCoordIn, yCoordIn, zCoordIn);
+		}
+
+	}
+
 }

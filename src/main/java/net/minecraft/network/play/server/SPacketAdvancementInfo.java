@@ -2,11 +2,6 @@ package net.minecraft.network.play.server;
 
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
-import java.io.IOException;
-import java.util.Collection;
-import java.util.Map;
-import java.util.Set;
-import java.util.Map.Entry;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementProgress;
 import net.minecraft.network.Packet;
@@ -14,123 +9,123 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayClient;
 import net.minecraft.util.ResourceLocation;
 
-public class SPacketAdvancementInfo implements Packet<INetHandlerPlayClient>
-{
-    private boolean firstSync;
-    private Map<ResourceLocation, Advancement.Builder> advancementsToAdd;
-    private Set<ResourceLocation> advancementsToRemove;
-    private Map<ResourceLocation, AdvancementProgress> progressUpdates;
+import java.io.IOException;
+import java.util.Collection;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
-    public SPacketAdvancementInfo()
-    {
-    }
+public class SPacketAdvancementInfo implements Packet<INetHandlerPlayClient> {
 
-    public SPacketAdvancementInfo(boolean p_i47519_1_, Collection<Advancement> p_i47519_2_, Set<ResourceLocation> p_i47519_3_, Map<ResourceLocation, AdvancementProgress> p_i47519_4_)
-    {
-        firstSync = p_i47519_1_;
-        advancementsToAdd = Maps.<ResourceLocation, Advancement.Builder>newHashMap();
+	private boolean firstSync;
+	private Map<ResourceLocation, Advancement.Builder> advancementsToAdd;
+	private Set<ResourceLocation> advancementsToRemove;
+	private Map<ResourceLocation, AdvancementProgress> progressUpdates;
 
-        for (Advancement advancement : p_i47519_2_)
-        {
-            advancementsToAdd.put(advancement.getId(), advancement.copy());
-        }
+	public SPacketAdvancementInfo() {
 
-        advancementsToRemove = p_i47519_3_;
-        progressUpdates = Maps.<ResourceLocation, AdvancementProgress>newHashMap(p_i47519_4_);
-    }
+	}
 
-    /**
-     * Passes this Packet on to the NetHandler for processing.
-     */
-    public void processPacket(INetHandlerPlayClient handler)
-    {
-        handler.handleAdvancementInfo(this);
-    }
+	public SPacketAdvancementInfo(boolean p_i47519_1_, Collection<Advancement> p_i47519_2_, Set<ResourceLocation> p_i47519_3_, Map<ResourceLocation, AdvancementProgress> p_i47519_4_) {
 
-    /**
-     * Reads the raw packet data from the data stream.
-     */
-    public void readPacketData(PacketBuffer buf) throws IOException
-    {
-        firstSync = buf.readBoolean();
-        advancementsToAdd = Maps.<ResourceLocation, Advancement.Builder>newHashMap();
-        advancementsToRemove = Sets.<ResourceLocation>newLinkedHashSet();
-        progressUpdates = Maps.<ResourceLocation, AdvancementProgress>newHashMap();
-        int i = buf.readVarInt();
+		firstSync = p_i47519_1_;
+		advancementsToAdd = Maps.newHashMap();
 
-        for (int j = 0; j < i; ++j)
-        {
-            ResourceLocation resourcelocation = buf.readResourceLocation();
-            Advancement.Builder advancement$builder = Advancement.Builder.readFrom(buf);
-            advancementsToAdd.put(resourcelocation, advancement$builder);
-        }
+		for (Advancement advancement : p_i47519_2_) {
+			advancementsToAdd.put(advancement.getId(), advancement.copy());
+		}
 
-        i = buf.readVarInt();
+		advancementsToRemove = p_i47519_3_;
+		progressUpdates = Maps.newHashMap(p_i47519_4_);
+	}
 
-        for (int k = 0; k < i; ++k)
-        {
-            ResourceLocation resourcelocation1 = buf.readResourceLocation();
-            advancementsToRemove.add(resourcelocation1);
-        }
+	/**
+	 * Passes this Packet on to the NetHandler for processing.
+	 */
+	public void processPacket(INetHandlerPlayClient handler) {
 
-        i = buf.readVarInt();
+		handler.handleAdvancementInfo(this);
+	}
 
-        for (int l = 0; l < i; ++l)
-        {
-            ResourceLocation resourcelocation2 = buf.readResourceLocation();
-            progressUpdates.put(resourcelocation2, AdvancementProgress.fromNetwork(buf));
-        }
-    }
+	/**
+	 * Reads the raw packet data from the data stream.
+	 */
+	public void readPacketData(PacketBuffer buf) throws IOException {
 
-    /**
-     * Writes the raw packet data to the data stream.
-     */
-    public void writePacketData(PacketBuffer buf) throws IOException
-    {
-        buf.writeBoolean(firstSync);
-        buf.writeVarInt(advancementsToAdd.size());
+		firstSync = buf.readBoolean();
+		advancementsToAdd = Maps.newHashMap();
+		advancementsToRemove = Sets.newLinkedHashSet();
+		progressUpdates = Maps.newHashMap();
+		int i = buf.readVarInt();
 
-        for (Entry<ResourceLocation, Advancement.Builder> entry : advancementsToAdd.entrySet())
-        {
-            ResourceLocation resourcelocation = entry.getKey();
-            Advancement.Builder advancement$builder = entry.getValue();
-            buf.writeResourceLocation(resourcelocation);
-            advancement$builder.writeTo(buf);
-        }
+		for (int j = 0; j < i; ++j) {
+			ResourceLocation resourcelocation = buf.readResourceLocation();
+			Advancement.Builder advancement$builder = Advancement.Builder.readFrom(buf);
+			advancementsToAdd.put(resourcelocation, advancement$builder);
+		}
 
-        buf.writeVarInt(advancementsToRemove.size());
+		i = buf.readVarInt();
 
-        for (ResourceLocation resourcelocation1 : advancementsToRemove)
-        {
-            buf.writeResourceLocation(resourcelocation1);
-        }
+		for (int k = 0; k < i; ++k) {
+			ResourceLocation resourcelocation1 = buf.readResourceLocation();
+			advancementsToRemove.add(resourcelocation1);
+		}
 
-        buf.writeVarInt(progressUpdates.size());
+		i = buf.readVarInt();
 
-        for (Entry<ResourceLocation, AdvancementProgress> entry1 : progressUpdates.entrySet())
-        {
-            buf.writeResourceLocation(entry1.getKey());
-            ((AdvancementProgress)entry1.getValue()).serializeToNetwork(buf);
-        }
-    }
+		for (int l = 0; l < i; ++l) {
+			ResourceLocation resourcelocation2 = buf.readResourceLocation();
+			progressUpdates.put(resourcelocation2, AdvancementProgress.fromNetwork(buf));
+		}
+	}
 
-    public Map<ResourceLocation, Advancement.Builder> getAdvancementsToAdd()
-    {
-        return advancementsToAdd;
-    }
+	/**
+	 * Writes the raw packet data to the data stream.
+	 */
+	public void writePacketData(PacketBuffer buf) throws IOException {
 
-    public Set<ResourceLocation> getAdvancementsToRemove()
-    {
-        return advancementsToRemove;
-    }
+		buf.writeBoolean(firstSync);
+		buf.writeVarInt(advancementsToAdd.size());
 
-    public Map<ResourceLocation, AdvancementProgress> getProgressUpdates()
-    {
-        return progressUpdates;
-    }
+		for (Entry<ResourceLocation, Advancement.Builder> entry : advancementsToAdd.entrySet()) {
+			ResourceLocation resourcelocation = entry.getKey();
+			Advancement.Builder advancement$builder = entry.getValue();
+			buf.writeResourceLocation(resourcelocation);
+			advancement$builder.writeTo(buf);
+		}
 
-    public boolean isFirstSync()
-    {
-        return firstSync;
-    }
+		buf.writeVarInt(advancementsToRemove.size());
+
+		for (ResourceLocation resourcelocation1 : advancementsToRemove) {
+			buf.writeResourceLocation(resourcelocation1);
+		}
+
+		buf.writeVarInt(progressUpdates.size());
+
+		for (Entry<ResourceLocation, AdvancementProgress> entry1 : progressUpdates.entrySet()) {
+			buf.writeResourceLocation(entry1.getKey());
+			entry1.getValue().serializeToNetwork(buf);
+		}
+	}
+
+	public Map<ResourceLocation, Advancement.Builder> getAdvancementsToAdd() {
+
+		return advancementsToAdd;
+	}
+
+	public Set<ResourceLocation> getAdvancementsToRemove() {
+
+		return advancementsToRemove;
+	}
+
+	public Map<ResourceLocation, AdvancementProgress> getProgressUpdates() {
+
+		return progressUpdates;
+	}
+
+	public boolean isFirstSync() {
+
+		return firstSync;
+	}
+
 }

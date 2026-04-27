@@ -3,87 +3,88 @@ package net.minecraft.util;
 import net.minecraft.util.math.MathHelper;
 import org.apache.commons.lang3.Validate;
 
-public class BitArray
-{
-    /** The long array that is used to store the data for this BitArray. */
-    private final long[] longArray;
+public class BitArray {
 
-    /** Number of bits a single entry takes up */
-    private final int bitsPerEntry;
+	/**
+	 * The long array that is used to store the data for this BitArray.
+	 */
+	private final long[] longArray;
 
-    /**
-     * The maximum value for a single entry. This also asks as a bitmask for a single entry.
-     * For instance, if bitsPerEntry were 5, this value would be 31 (ie, {@code 0b00011111}).
-     */
-    private final long maxEntryValue;
+	/**
+	 * Number of bits a single entry takes up
+	 */
+	private final int bitsPerEntry;
 
-    /**
-     * Number of entries in this array (<b>not</b> the length of the long array that internally backs this array)
-     */
-    private final int arraySize;
+	/**
+	 * The maximum value for a single entry. This also asks as a bitmask for a single entry.
+	 * For instance, if bitsPerEntry were 5, this value would be 31 (ie, {@code 0b00011111}).
+	 */
+	private final long maxEntryValue;
 
-    public BitArray(int bitsPerEntryIn, int arraySizeIn)
-    {
-        Validate.inclusiveBetween(1L, 32L, (long)bitsPerEntryIn);
-        arraySize = arraySizeIn;
-        bitsPerEntry = bitsPerEntryIn;
-        maxEntryValue = (1L << bitsPerEntryIn) - 1L;
-        longArray = new long[MathHelper.roundUp(arraySizeIn * bitsPerEntryIn, 64) / 64];
-    }
+	/**
+	 * Number of entries in this array (<b>not</b> the length of the long array that internally backs this array)
+	 */
+	private final int arraySize;
 
-    /**
-     * Sets the entry at the given location to the given value
-     */
-    public void setAt(int index, int value)
-    {
-        Validate.inclusiveBetween(0L, (long)(arraySize - 1), (long)index);
-        Validate.inclusiveBetween(0L, maxEntryValue, (long)value);
-        int i = index * bitsPerEntry;
-        int j = i / 64;
-        int k = ((index + 1) * bitsPerEntry - 1) / 64;
-        int l = i % 64;
-        longArray[j] = longArray[j] & ~(maxEntryValue << l) | ((long)value & maxEntryValue) << l;
+	public BitArray(int bitsPerEntryIn, int arraySizeIn) {
 
-        if (j != k)
-        {
-            int i1 = 64 - l;
-            int j1 = bitsPerEntry - i1;
-            longArray[k] = longArray[k] >>> j1 << j1 | ((long)value & maxEntryValue) >> i1;
-        }
-    }
+		Validate.inclusiveBetween(1L, 32L, bitsPerEntryIn);
+		arraySize = arraySizeIn;
+		bitsPerEntry = bitsPerEntryIn;
+		maxEntryValue = (1L << bitsPerEntryIn) - 1L;
+		longArray = new long[MathHelper.roundUp(arraySizeIn * bitsPerEntryIn, 64) / 64];
+	}
 
-    /**
-     * Gets the entry at the given index
-     */
-    public int getAt(int index)
-    {
-        Validate.inclusiveBetween(0L, (long)(arraySize - 1), (long)index);
-        int i = index * bitsPerEntry;
-        int j = i / 64;
-        int k = ((index + 1) * bitsPerEntry - 1) / 64;
-        int l = i % 64;
+	/**
+	 * Sets the entry at the given location to the given value
+	 */
+	public void setAt(int index, int value) {
 
-        if (j == k)
-        {
-            return (int)(longArray[j] >>> l & maxEntryValue);
-        }
-        else
-        {
-            int i1 = 64 - l;
-            return (int)((longArray[j] >>> l | longArray[k] << i1) & maxEntryValue);
-        }
-    }
+		Validate.inclusiveBetween(0L, arraySize - 1, index);
+		Validate.inclusiveBetween(0L, maxEntryValue, value);
+		int i = index * bitsPerEntry;
+		int j = i / 64;
+		int k = ((index + 1) * bitsPerEntry - 1) / 64;
+		int l = i % 64;
+		longArray[j] = longArray[j] & ~(maxEntryValue << l) | ((long) value & maxEntryValue) << l;
 
-    /**
-     * Gets the long array that is used to store the data in this BitArray. This is useful for sending packet data.
-     */
-    public long[] getBackingLongArray()
-    {
-        return longArray;
-    }
+		if (j != k) {
+			int i1 = 64 - l;
+			int j1 = bitsPerEntry - i1;
+			longArray[k] = longArray[k] >>> j1 << j1 | ((long) value & maxEntryValue) >> i1;
+		}
+	}
 
-    public int size()
-    {
-        return arraySize;
-    }
+	/**
+	 * Gets the entry at the given index
+	 */
+	public int getAt(int index) {
+
+		Validate.inclusiveBetween(0L, arraySize - 1, index);
+		int i = index * bitsPerEntry;
+		int j = i / 64;
+		int k = ((index + 1) * bitsPerEntry - 1) / 64;
+		int l = i % 64;
+
+		if (j == k) {
+			return (int) (longArray[j] >>> l & maxEntryValue);
+		} else {
+			int i1 = 64 - l;
+			return (int) ((longArray[j] >>> l | longArray[k] << i1) & maxEntryValue);
+		}
+	}
+
+	/**
+	 * Gets the long array that is used to store the data in this BitArray. This is useful for sending packet data.
+	 */
+	public long[] getBackingLongArray() {
+
+		return longArray;
+	}
+
+	public int size() {
+
+		return arraySize;
+	}
+
 }

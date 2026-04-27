@@ -11,58 +11,55 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class DebugRendererWater implements DebugRenderer.IDebugRenderer
-{
-    private final Minecraft minecraft;
-    private EntityPlayer player;
-    private double xo;
-    private double yo;
-    private double zo;
+public class DebugRendererWater implements DebugRenderer.IDebugRenderer {
 
-    public DebugRendererWater(Minecraft minecraftIn)
-    {
-        minecraft = minecraftIn;
-    }
+	private final Minecraft minecraft;
+	private EntityPlayer player;
+	private double xo;
+	private double yo;
+	private double zo;
 
-    public void render(float partialTicks, long finishTimeNano)
-    {
-        player = minecraft.player;
-        xo = player.lastTickPosX + (player.posX - player.lastTickPosX) * (double)partialTicks;
-        yo = player.lastTickPosY + (player.posY - player.lastTickPosY) * (double)partialTicks;
-        zo = player.lastTickPosZ + (player.posZ - player.lastTickPosZ) * (double)partialTicks;
-        BlockPos blockpos = minecraft.player.getPosition();
-        World world = minecraft.player.world;
-        GlStateManager.enableBlend();
-        GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-        GlStateManager.color(0.0F, 1.0F, 0.0F, 0.75F);
-        GlStateManager.disableTexture2D();
-        GlStateManager.glLineWidth(6.0F);
+	public DebugRendererWater(Minecraft minecraftIn) {
 
-        for (BlockPos blockpos1 : BlockPos.getAllInBox(blockpos.add(-10, -10, -10), blockpos.add(10, 10, 10)))
-        {
-            IBlockState iblockstate = world.getBlockState(blockpos1);
+		minecraft = minecraftIn;
+	}
 
-            if (iblockstate.getBlock() == Blocks.WATER || iblockstate.getBlock() == Blocks.FLOWING_WATER)
-            {
-                double d0 = (double)BlockLiquid.getLiquidHeight(iblockstate, world, blockpos1);
-                RenderGlobal.renderFilledBox((new AxisAlignedBB((double)((float)blockpos1.getX() + 0.01F), (double)((float)blockpos1.getY() + 0.01F), (double)((float)blockpos1.getZ() + 0.01F), (double)((float)blockpos1.getX() + 0.99F), d0, (double)((float)blockpos1.getZ() + 0.99F))).offset(-xo, -yo, -zo), 1.0F, 1.0F, 1.0F, 0.2F);
-            }
-        }
+	public void render(float partialTicks, long finishTimeNano) {
 
-        for (BlockPos blockpos2 : BlockPos.getAllInBox(blockpos.add(-10, -10, -10), blockpos.add(10, 10, 10)))
-        {
-            IBlockState iblockstate1 = world.getBlockState(blockpos2);
+		player = minecraft.player;
+		xo = player.lastTickPosX + (player.posX - player.lastTickPosX) * (double) partialTicks;
+		yo = player.lastTickPosY + (player.posY - player.lastTickPosY) * (double) partialTicks;
+		zo = player.lastTickPosZ + (player.posZ - player.lastTickPosZ) * (double) partialTicks;
+		BlockPos blockpos = minecraft.player.getPosition();
+		World world = minecraft.player.world;
+		GlStateManager.enableBlend();
+		GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+		GlStateManager.color(0.0F, 1.0F, 0.0F, 0.75F);
+		GlStateManager.disableTexture2D();
+		GlStateManager.glLineWidth(6.0F);
 
-            if (iblockstate1.getBlock() == Blocks.WATER || iblockstate1.getBlock() == Blocks.FLOWING_WATER)
-            {
-                Integer integer = (Integer)iblockstate1.getValue(BlockLiquid.LEVEL);
-                double d1 = integer.intValue() > 7 ? 0.9D : 1.0D - 0.11D * (double)integer.intValue();
-                String s = iblockstate1.getBlock() == Blocks.FLOWING_WATER ? "f" : "s";
-                DebugRenderer.renderDebugText(s + " " + integer, (double)blockpos2.getX() + 0.5D, (double)blockpos2.getY() + d1, (double)blockpos2.getZ() + 0.5D, partialTicks, -16777216);
-            }
-        }
+		for (BlockPos blockpos1 : BlockPos.getAllInBox(blockpos.add(-10, -10, -10), blockpos.add(10, 10, 10))) {
+			IBlockState iblockstate = world.getBlockState(blockpos1);
 
-        GlStateManager.enableTexture2D();
-        GlStateManager.disableBlend();
-    }
+			if (iblockstate.getBlock() == Blocks.WATER || iblockstate.getBlock() == Blocks.FLOWING_WATER) {
+				double d0 = BlockLiquid.getLiquidHeight(iblockstate, world, blockpos1);
+				RenderGlobal.renderFilledBox((new AxisAlignedBB((float) blockpos1.getX() + 0.01F, (float) blockpos1.getY() + 0.01F, (float) blockpos1.getZ() + 0.01F, (float) blockpos1.getX() + 0.99F, d0, (float) blockpos1.getZ() + 0.99F)).offset(-xo, -yo, -zo), 1.0F, 1.0F, 1.0F, 0.2F);
+			}
+		}
+
+		for (BlockPos blockpos2 : BlockPos.getAllInBox(blockpos.add(-10, -10, -10), blockpos.add(10, 10, 10))) {
+			IBlockState iblockstate1 = world.getBlockState(blockpos2);
+
+			if (iblockstate1.getBlock() == Blocks.WATER || iblockstate1.getBlock() == Blocks.FLOWING_WATER) {
+				Integer integer = iblockstate1.getValue(BlockLiquid.LEVEL);
+				double d1 = integer.intValue() > 7 ? 0.9D : 1.0D - 0.11D * (double) integer.intValue();
+				String s = iblockstate1.getBlock() == Blocks.FLOWING_WATER ? "f" : "s";
+				DebugRenderer.renderDebugText(s + " " + integer, (double) blockpos2.getX() + 0.5D, (double) blockpos2.getY() + d1, (double) blockpos2.getZ() + 0.5D, partialTicks, -16777216);
+			}
+		}
+
+		GlStateManager.enableTexture2D();
+		GlStateManager.disableBlend();
+	}
+
 }

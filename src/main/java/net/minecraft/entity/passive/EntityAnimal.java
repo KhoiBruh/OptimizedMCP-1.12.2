@@ -1,7 +1,5 @@
 package net.minecraft.entity.passive;
 
-import java.util.UUID;
-import javax.annotation.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.player.EntityPlayer;
@@ -17,263 +15,242 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
-public abstract class EntityAnimal extends EntityAgeable implements IAnimals
-{
-    protected Block spawnableBlock = Blocks.GRASS;
-    private int inLove;
-    private UUID playerInLove;
+import javax.annotation.Nullable;
+import java.util.UUID;
 
-    public EntityAnimal(World worldIn)
-    {
-        super(worldIn);
-    }
+public abstract class EntityAnimal extends EntityAgeable implements IAnimals {
 
-    protected void updateAITasks()
-    {
-        if (getGrowingAge() != 0)
-        {
-            inLove = 0;
-        }
+	protected Block spawnableBlock = Blocks.GRASS;
+	private int inLove;
+	private UUID playerInLove;
 
-        super.updateAITasks();
-    }
+	public EntityAnimal(World worldIn) {
 
-    /**
-     * Called frequently so the entity can update its state every tick as required. For example, zombies and skeletons
-     * use this to react to sunlight and start to burn.
-     */
-    public void onLivingUpdate()
-    {
-        super.onLivingUpdate();
+		super(worldIn);
+	}
 
-        if (getGrowingAge() != 0)
-        {
-            inLove = 0;
-        }
+	protected void updateAITasks() {
 
-        if (inLove > 0)
-        {
-            --inLove;
+		if (getGrowingAge() != 0) {
+			inLove = 0;
+		}
 
-            if (inLove % 10 == 0)
-            {
-                double d0 = rand.nextGaussian() * 0.02D;
-                double d1 = rand.nextGaussian() * 0.02D;
-                double d2 = rand.nextGaussian() * 0.02D;
-                world.spawnParticle(EnumParticleTypes.HEART, posX + (double)(rand.nextFloat() * width * 2.0F) - (double) width, posY + 0.5D + (double)(rand.nextFloat() * height), posZ + (double)(rand.nextFloat() * width * 2.0F) - (double) width, d0, d1, d2);
-            }
-        }
-    }
+		super.updateAITasks();
+	}
 
-    /**
-     * Called when the entity is attacked.
-     */
-    public boolean attackEntityFrom(DamageSource source, float amount)
-    {
-        if (isEntityInvulnerable(source))
-        {
-            return false;
-        }
-        else
-        {
-            inLove = 0;
-            return super.attackEntityFrom(source, amount);
-        }
-    }
+	/**
+	 * Called frequently so the entity can update its state every tick as required. For example, zombies and skeletons
+	 * use this to react to sunlight and start to burn.
+	 */
+	public void onLivingUpdate() {
 
-    public float getBlockPathWeight(BlockPos pos)
-    {
-        return world.getBlockState(pos.down()).getBlock() == spawnableBlock ? 10.0F : world.getLightBrightness(pos) - 0.5F;
-    }
+		super.onLivingUpdate();
 
-    /**
-     * (abstract) Protected helper method to write subclass entity data to NBT.
-     */
-    public void writeEntityToNBT(NBTTagCompound compound)
-    {
-        super.writeEntityToNBT(compound);
-        compound.setInteger("InLove", inLove);
+		if (getGrowingAge() != 0) {
+			inLove = 0;
+		}
 
-        if (playerInLove != null)
-        {
-            compound.setUniqueId("LoveCause", playerInLove);
-        }
-    }
+		if (inLove > 0) {
+			--inLove;
 
-    /**
-     * Returns the Y Offset of this entity.
-     */
-    public double getYOffset()
-    {
-        return 0.14D;
-    }
+			if (inLove % 10 == 0) {
+				double d0 = rand.nextGaussian() * 0.02D;
+				double d1 = rand.nextGaussian() * 0.02D;
+				double d2 = rand.nextGaussian() * 0.02D;
+				world.spawnParticle(EnumParticleTypes.HEART, posX + (double) (rand.nextFloat() * width * 2.0F) - (double) width, posY + 0.5D + (double) (rand.nextFloat() * height), posZ + (double) (rand.nextFloat() * width * 2.0F) - (double) width, d0, d1, d2);
+			}
+		}
+	}
 
-    /**
-     * (abstract) Protected helper method to read subclass entity data from NBT.
-     */
-    public void readEntityFromNBT(NBTTagCompound compound)
-    {
-        super.readEntityFromNBT(compound);
-        inLove = compound.getInteger("InLove");
-        playerInLove = compound.hasUniqueId("LoveCause") ? compound.getUniqueId("LoveCause") : null;
-    }
+	/**
+	 * Called when the entity is attacked.
+	 */
+	public boolean attackEntityFrom(DamageSource source, float amount) {
 
-    /**
-     * Checks if the entity's current position is a valid location to spawn this entity.
-     */
-    public boolean getCanSpawnHere()
-    {
-        int i = MathHelper.floor(posX);
-        int j = MathHelper.floor(getEntityBoundingBox().minY);
-        int k = MathHelper.floor(posZ);
-        BlockPos blockpos = new BlockPos(i, j, k);
-        return world.getBlockState(blockpos.down()).getBlock() == spawnableBlock && world.getLight(blockpos) > 8 && super.getCanSpawnHere();
-    }
+		if (isEntityInvulnerable(source)) {
+			return false;
+		} else {
+			inLove = 0;
+			return super.attackEntityFrom(source, amount);
+		}
+	}
 
-    /**
-     * Get number of ticks, at least during which the living entity will be silent.
-     */
-    public int getTalkInterval()
-    {
-        return 120;
-    }
+	public float getBlockPathWeight(BlockPos pos) {
 
-    /**
-     * Determines if an entity can be despawned, used on idle far away entities
-     */
-    protected boolean canDespawn()
-    {
-        return false;
-    }
+		return world.getBlockState(pos.down()).getBlock() == spawnableBlock ? 10.0F : world.getLightBrightness(pos) - 0.5F;
+	}
 
-    /**
-     * Get the experience points the entity currently has.
-     */
-    protected int getExperiencePoints(EntityPlayer player)
-    {
-        return 1 + world.rand.nextInt(3);
-    }
+	/**
+	 * (abstract) Protected helper method to write subclass entity data to NBT.
+	 */
+	public void writeEntityToNBT(NBTTagCompound compound) {
 
-    /**
-     * Checks if the parameter is an item which this animal can be fed to breed it (wheat, carrots or seeds depending on
-     * the animal type)
-     */
-    public boolean isBreedingItem(ItemStack stack)
-    {
-        return stack.getItem() == Items.WHEAT;
-    }
+		super.writeEntityToNBT(compound);
+		compound.setInteger("InLove", inLove);
 
-    public boolean processInteract(EntityPlayer player, EnumHand hand)
-    {
-        ItemStack itemstack = player.getHeldItem(hand);
+		if (playerInLove != null) {
+			compound.setUniqueId("LoveCause", playerInLove);
+		}
+	}
 
-        if (!itemstack.isEmpty())
-        {
-            if (isBreedingItem(itemstack) && getGrowingAge() == 0 && inLove <= 0)
-            {
-                consumeItemFromStack(player, itemstack);
-                setInLove(player);
-                return true;
-            }
+	/**
+	 * Returns the Y Offset of this entity.
+	 */
+	public double getYOffset() {
 
-            if (isChild() && isBreedingItem(itemstack))
-            {
-                consumeItemFromStack(player, itemstack);
-                ageUp((int)((float)(-getGrowingAge() / 20) * 0.1F), true);
-                return true;
-            }
-        }
+		return 0.14D;
+	}
 
-        return super.processInteract(player, hand);
-    }
+	/**
+	 * (abstract) Protected helper method to read subclass entity data from NBT.
+	 */
+	public void readEntityFromNBT(NBTTagCompound compound) {
 
-    /**
-     * Decreases ItemStack size by one
-     */
-    protected void consumeItemFromStack(EntityPlayer player, ItemStack stack)
-    {
-        if (!player.capabilities.isCreativeMode)
-        {
-            stack.shrink(1);
-        }
-    }
+		super.readEntityFromNBT(compound);
+		inLove = compound.getInteger("InLove");
+		playerInLove = compound.hasUniqueId("LoveCause") ? compound.getUniqueId("LoveCause") : null;
+	}
 
-    public void setInLove(@Nullable EntityPlayer player)
-    {
-        inLove = 600;
+	/**
+	 * Checks if the entity's current position is a valid location to spawn this entity.
+	 */
+	public boolean getCanSpawnHere() {
 
-        if (player != null)
-        {
-            playerInLove = player.getUniqueID();
-        }
+		int i = MathHelper.floor(posX);
+		int j = MathHelper.floor(getEntityBoundingBox().minY);
+		int k = MathHelper.floor(posZ);
+		BlockPos blockpos = new BlockPos(i, j, k);
+		return world.getBlockState(blockpos.down()).getBlock() == spawnableBlock && world.getLight(blockpos) > 8 && super.getCanSpawnHere();
+	}
 
-        world.setEntityState(this, (byte)18);
-    }
+	/**
+	 * Get number of ticks, at least during which the living entity will be silent.
+	 */
+	public int getTalkInterval() {
 
-    @Nullable
-    public EntityPlayerMP getLoveCause()
-    {
-        if (playerInLove == null)
-        {
-            return null;
-        }
-        else
-        {
-            EntityPlayer entityplayer = world.getPlayerEntityByUUID(playerInLove);
-            return entityplayer instanceof EntityPlayerMP ? (EntityPlayerMP)entityplayer : null;
-        }
-    }
+		return 120;
+	}
 
-    /**
-     * Returns if the entity is currently in 'love mode'.
-     */
-    public boolean isInLove()
-    {
-        return inLove > 0;
-    }
+	/**
+	 * Determines if an entity can be despawned, used on idle far away entities
+	 */
+	protected boolean canDespawn() {
 
-    public void resetInLove()
-    {
-        inLove = 0;
-    }
+		return false;
+	}
 
-    /**
-     * Returns true if the mob is currently able to mate with the specified mob.
-     */
-    public boolean canMateWith(EntityAnimal otherAnimal)
-    {
-        if (otherAnimal == this)
-        {
-            return false;
-        }
-        else if (otherAnimal.getClass() != getClass())
-        {
-            return false;
-        }
-        else
-        {
-            return isInLove() && otherAnimal.isInLove();
-        }
-    }
+	/**
+	 * Get the experience points the entity currently has.
+	 */
+	protected int getExperiencePoints(EntityPlayer player) {
 
-    /**
-     * Handler for {@link World#setEntityState}
-     */
-    public void handleStatusUpdate(byte id)
-    {
-        if (id == 18)
-        {
-            for (int i = 0; i < 7; ++i)
-            {
-                double d0 = rand.nextGaussian() * 0.02D;
-                double d1 = rand.nextGaussian() * 0.02D;
-                double d2 = rand.nextGaussian() * 0.02D;
-                world.spawnParticle(EnumParticleTypes.HEART, posX + (double)(rand.nextFloat() * width * 2.0F) - (double) width, posY + 0.5D + (double)(rand.nextFloat() * height), posZ + (double)(rand.nextFloat() * width * 2.0F) - (double) width, d0, d1, d2);
-            }
-        }
-        else
-        {
-            super.handleStatusUpdate(id);
-        }
-    }
+		return 1 + world.rand.nextInt(3);
+	}
+
+	/**
+	 * Checks if the parameter is an item which this animal can be fed to breed it (wheat, carrots or seeds depending on
+	 * the animal type)
+	 */
+	public boolean isBreedingItem(ItemStack stack) {
+
+		return stack.getItem() == Items.WHEAT;
+	}
+
+	public boolean processInteract(EntityPlayer player, EnumHand hand) {
+
+		ItemStack itemstack = player.getHeldItem(hand);
+
+		if (!itemstack.isEmpty()) {
+			if (isBreedingItem(itemstack) && getGrowingAge() == 0 && inLove <= 0) {
+				consumeItemFromStack(player, itemstack);
+				setInLove(player);
+				return true;
+			}
+
+			if (isChild() && isBreedingItem(itemstack)) {
+				consumeItemFromStack(player, itemstack);
+				ageUp((int) ((float) (-getGrowingAge() / 20) * 0.1F), true);
+				return true;
+			}
+		}
+
+		return super.processInteract(player, hand);
+	}
+
+	/**
+	 * Decreases ItemStack size by one
+	 */
+	protected void consumeItemFromStack(EntityPlayer player, ItemStack stack) {
+
+		if (!player.capabilities.isCreativeMode) {
+			stack.shrink(1);
+		}
+	}
+
+	public void setInLove(@Nullable EntityPlayer player) {
+
+		inLove = 600;
+
+		if (player != null) {
+			playerInLove = player.getUniqueID();
+		}
+
+		world.setEntityState(this, (byte) 18);
+	}
+
+	@Nullable
+	public EntityPlayerMP getLoveCause() {
+
+		if (playerInLove == null) {
+			return null;
+		} else {
+			EntityPlayer entityplayer = world.getPlayerEntityByUUID(playerInLove);
+			return entityplayer instanceof EntityPlayerMP ? (EntityPlayerMP) entityplayer : null;
+		}
+	}
+
+	/**
+	 * Returns if the entity is currently in 'love mode'.
+	 */
+	public boolean isInLove() {
+
+		return inLove > 0;
+	}
+
+	public void resetInLove() {
+
+		inLove = 0;
+	}
+
+	/**
+	 * Returns true if the mob is currently able to mate with the specified mob.
+	 */
+	public boolean canMateWith(EntityAnimal otherAnimal) {
+
+		if (otherAnimal == this) {
+			return false;
+		} else if (otherAnimal.getClass() != getClass()) {
+			return false;
+		} else {
+			return isInLove() && otherAnimal.isInLove();
+		}
+	}
+
+	/**
+	 * Handler for {@link World#setEntityState}
+	 */
+	public void handleStatusUpdate(byte id) {
+
+		if (id == 18) {
+			for (int i = 0; i < 7; ++i) {
+				double d0 = rand.nextGaussian() * 0.02D;
+				double d1 = rand.nextGaussian() * 0.02D;
+				double d2 = rand.nextGaussian() * 0.02D;
+				world.spawnParticle(EnumParticleTypes.HEART, posX + (double) (rand.nextFloat() * width * 2.0F) - (double) width, posY + 0.5D + (double) (rand.nextFloat() * height), posZ + (double) (rand.nextFloat() * width * 2.0F) - (double) width, d0, d1, d2);
+			}
+		} else {
+			super.handleStatusUpdate(id);
+		}
+	}
+
 }

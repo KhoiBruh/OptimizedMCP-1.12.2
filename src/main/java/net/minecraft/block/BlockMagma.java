@@ -1,6 +1,5 @@
 package net.minecraft.block;
 
-import java.util.Random;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -19,61 +18,61 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 
-public class BlockMagma extends Block
-{
-    public BlockMagma()
-    {
-        super(Material.ROCK);
-        setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
-        setLightLevel(0.2F);
-        setTickRandomly(true);
-    }
+import java.util.Random;
 
-    /**
-     * Get the MapColor for this Block and the given BlockState
-     */
-    public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos)
-    {
-        return MapColor.NETHERRACK;
-    }
+public class BlockMagma extends Block {
 
-    /**
-     * Called when the given entity walks on this Block
-     */
-    public void onEntityWalk(World worldIn, BlockPos pos, Entity entityIn)
-    {
-        if (!entityIn.isImmuneToFire() && entityIn instanceof EntityLivingBase && !EnchantmentHelper.hasFrostWalkerEnchantment((EntityLivingBase)entityIn))
-        {
-            entityIn.attackEntityFrom(DamageSource.HOT_FLOOR, 1.0F);
-        }
+	public BlockMagma() {
 
-        super.onEntityWalk(worldIn, pos, entityIn);
-    }
+		super(Material.ROCK);
+		setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
+		setLightLevel(0.2F);
+		setTickRandomly(true);
+	}
 
-    public int getPackedLightmapCoords(IBlockState state, IBlockAccess source, BlockPos pos)
-    {
-        return 15728880;
-    }
+	/**
+	 * Get the MapColor for this Block and the given BlockState
+	 */
+	public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
 
-    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
-    {
-        BlockPos blockpos = pos.up();
-        IBlockState iblockstate = worldIn.getBlockState(blockpos);
+		return MapColor.NETHERRACK;
+	}
 
-        if (iblockstate.getBlock() == Blocks.WATER || iblockstate.getBlock() == Blocks.FLOWING_WATER)
-        {
-            worldIn.setBlockToAir(blockpos);
-            worldIn.playSound((EntityPlayer)null, pos, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 0.5F, 2.6F + (worldIn.rand.nextFloat() - worldIn.rand.nextFloat()) * 0.8F);
+	/**
+	 * Called when the given entity walks on this Block
+	 */
+	public void onEntityWalk(World worldIn, BlockPos pos, Entity entityIn) {
 
-            if (worldIn instanceof WorldServer)
-            {
-                ((WorldServer)worldIn).spawnParticle(EnumParticleTypes.SMOKE_LARGE, (double)blockpos.getX() + 0.5D, (double)blockpos.getY() + 0.25D, (double)blockpos.getZ() + 0.5D, 8, 0.5D, 0.25D, 0.5D, 0.0D);
-            }
-        }
-    }
+		if (!entityIn.isImmuneToFire() && entityIn instanceof EntityLivingBase && !EnchantmentHelper.hasFrostWalkerEnchantment((EntityLivingBase) entityIn)) {
+			entityIn.attackEntityFrom(DamageSource.HOT_FLOOR, 1.0F);
+		}
 
-    public boolean canEntitySpawn(IBlockState state, Entity entityIn)
-    {
-        return entityIn.isImmuneToFire();
-    }
+		super.onEntityWalk(worldIn, pos, entityIn);
+	}
+
+	public int getPackedLightmapCoords(IBlockState state, IBlockAccess source, BlockPos pos) {
+
+		return 15728880;
+	}
+
+	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
+
+		BlockPos blockpos = pos.up();
+		IBlockState iblockstate = worldIn.getBlockState(blockpos);
+
+		if (iblockstate.getBlock() == Blocks.WATER || iblockstate.getBlock() == Blocks.FLOWING_WATER) {
+			worldIn.setBlockToAir(blockpos);
+			worldIn.playSound(null, pos, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 0.5F, 2.6F + (worldIn.rand.nextFloat() - worldIn.rand.nextFloat()) * 0.8F);
+
+			if (worldIn instanceof WorldServer) {
+				((WorldServer) worldIn).spawnParticle(EnumParticleTypes.SMOKE_LARGE, (double) blockpos.getX() + 0.5D, (double) blockpos.getY() + 0.25D, (double) blockpos.getZ() + 0.5D, 8, 0.5D, 0.25D, 0.5D, 0.0D);
+			}
+		}
+	}
+
+	public boolean canEntitySpawn(IBlockState state, Entity entityIn) {
+
+		return entityIn.isImmuneToFire();
+	}
+
 }

@@ -1,6 +1,5 @@
 package net.minecraft.client.renderer.entity;
 
-import javax.annotation.Nullable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockRendererDispatcher;
 import net.minecraft.client.renderer.GlStateManager;
@@ -18,134 +17,125 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.storage.MapData;
 
-public class RenderItemFrame extends Render<EntityItemFrame>
-{
-    private static final ResourceLocation MAP_BACKGROUND_TEXTURES = new ResourceLocation("textures/map/map_background.png");
-    private final Minecraft mc = Minecraft.getMinecraft();
-    private final ModelResourceLocation itemFrameModel = new ModelResourceLocation("item_frame", "normal");
-    private final ModelResourceLocation mapModel = new ModelResourceLocation("item_frame", "map");
-    private final RenderItem itemRenderer;
+import javax.annotation.Nullable;
 
-    public RenderItemFrame(RenderManager renderManagerIn, RenderItem itemRendererIn)
-    {
-        super(renderManagerIn);
-        itemRenderer = itemRendererIn;
-    }
+public class RenderItemFrame extends Render<EntityItemFrame> {
 
-    /**
-     * Renders the desired {@code T} type Entity.
-     */
-    public void doRender(EntityItemFrame entity, double x, double y, double z, float entityYaw, float partialTicks)
-    {
-        GlStateManager.pushMatrix();
-        BlockPos blockpos = entity.getHangingPosition();
-        double d0 = (double)blockpos.getX() - entity.posX + x;
-        double d1 = (double)blockpos.getY() - entity.posY + y;
-        double d2 = (double)blockpos.getZ() - entity.posZ + z;
-        GlStateManager.translate(d0 + 0.5D, d1 + 0.5D, d2 + 0.5D);
-        GlStateManager.rotate(180.0F - entity.rotationYaw, 0.0F, 1.0F, 0.0F);
-        renderManager.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-        BlockRendererDispatcher blockrendererdispatcher = mc.getBlockRendererDispatcher();
-        ModelManager modelmanager = blockrendererdispatcher.getBlockModelShapes().getModelManager();
-        IBakedModel ibakedmodel;
+	private static final ResourceLocation MAP_BACKGROUND_TEXTURES = new ResourceLocation("textures/map/map_background.png");
+	private final Minecraft mc = Minecraft.getMinecraft();
+	private final ModelResourceLocation itemFrameModel = new ModelResourceLocation("item_frame", "normal");
+	private final ModelResourceLocation mapModel = new ModelResourceLocation("item_frame", "map");
+	private final RenderItem itemRenderer;
 
-        if (entity.getDisplayedItem().getItem() == Items.FILLED_MAP)
-        {
-            ibakedmodel = modelmanager.getModel(mapModel);
-        }
-        else
-        {
-            ibakedmodel = modelmanager.getModel(itemFrameModel);
-        }
+	public RenderItemFrame(RenderManager renderManagerIn, RenderItem itemRendererIn) {
 
-        GlStateManager.pushMatrix();
-        GlStateManager.translate(-0.5F, -0.5F, -0.5F);
+		super(renderManagerIn);
+		itemRenderer = itemRendererIn;
+	}
 
-        if (renderOutlines)
-        {
-            GlStateManager.enableColorMaterial();
-            GlStateManager.enableOutlineMode(getTeamColor(entity));
-        }
+	/**
+	 * Renders the desired {@code T} type Entity.
+	 */
+	public void doRender(EntityItemFrame entity, double x, double y, double z, float entityYaw, float partialTicks) {
 
-        blockrendererdispatcher.getBlockModelRenderer().renderModelBrightnessColor(ibakedmodel, 1.0F, 1.0F, 1.0F, 1.0F);
+		GlStateManager.pushMatrix();
+		BlockPos blockpos = entity.getHangingPosition();
+		double d0 = (double) blockpos.getX() - entity.posX + x;
+		double d1 = (double) blockpos.getY() - entity.posY + y;
+		double d2 = (double) blockpos.getZ() - entity.posZ + z;
+		GlStateManager.translate(d0 + 0.5D, d1 + 0.5D, d2 + 0.5D);
+		GlStateManager.rotate(180.0F - entity.rotationYaw, 0.0F, 1.0F, 0.0F);
+		renderManager.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+		BlockRendererDispatcher blockrendererdispatcher = mc.getBlockRendererDispatcher();
+		ModelManager modelmanager = blockrendererdispatcher.getBlockModelShapes().getModelManager();
+		IBakedModel ibakedmodel;
 
-        if (renderOutlines)
-        {
-            GlStateManager.disableOutlineMode();
-            GlStateManager.disableColorMaterial();
-        }
+		if (entity.getDisplayedItem().getItem() == Items.FILLED_MAP) {
+			ibakedmodel = modelmanager.getModel(mapModel);
+		} else {
+			ibakedmodel = modelmanager.getModel(itemFrameModel);
+		}
 
-        GlStateManager.popMatrix();
-        GlStateManager.translate(0.0F, 0.0F, 0.4375F);
-        renderItem(entity);
-        GlStateManager.popMatrix();
-        renderName(entity, x + (double)((float)entity.facingDirection.getFrontOffsetX() * 0.3F), y - 0.25D, z + (double)((float)entity.facingDirection.getFrontOffsetZ() * 0.3F));
-    }
+		GlStateManager.pushMatrix();
+		GlStateManager.translate(-0.5F, -0.5F, -0.5F);
 
-    @Nullable
+		if (renderOutlines) {
+			GlStateManager.enableColorMaterial();
+			GlStateManager.enableOutlineMode(getTeamColor(entity));
+		}
 
-    /**
-     * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
-     */
-    protected ResourceLocation getEntityTexture(EntityItemFrame entity)
-    {
-        return null;
-    }
+		blockrendererdispatcher.getBlockModelRenderer().renderModelBrightnessColor(ibakedmodel, 1.0F, 1.0F, 1.0F, 1.0F);
 
-    private void renderItem(EntityItemFrame itemFrame)
-    {
-        ItemStack itemstack = itemFrame.getDisplayedItem();
+		if (renderOutlines) {
+			GlStateManager.disableOutlineMode();
+			GlStateManager.disableColorMaterial();
+		}
 
-        if (!itemstack.isEmpty())
-        {
-            GlStateManager.pushMatrix();
-            GlStateManager.disableLighting();
-            boolean flag = itemstack.getItem() == Items.FILLED_MAP;
-            int i = flag ? itemFrame.getRotation() % 4 * 2 : itemFrame.getRotation();
-            GlStateManager.rotate((float)i * 360.0F / 8.0F, 0.0F, 0.0F, 1.0F);
+		GlStateManager.popMatrix();
+		GlStateManager.translate(0.0F, 0.0F, 0.4375F);
+		renderItem(entity);
+		GlStateManager.popMatrix();
+		renderName(entity, x + (double) ((float) entity.facingDirection.getFrontOffsetX() * 0.3F), y - 0.25D, z + (double) ((float) entity.facingDirection.getFrontOffsetZ() * 0.3F));
+	}
 
-            if (flag)
-            {
-                renderManager.renderEngine.bindTexture(MAP_BACKGROUND_TEXTURES);
-                GlStateManager.rotate(180.0F, 0.0F, 0.0F, 1.0F);
-                float f = 0.0078125F;
-                GlStateManager.scale(0.0078125F, 0.0078125F, 0.0078125F);
-                GlStateManager.translate(-64.0F, -64.0F, 0.0F);
-                MapData mapdata = Items.FILLED_MAP.getMapData(itemstack, itemFrame.world);
-                GlStateManager.translate(0.0F, 0.0F, -1.0F);
+	@Nullable
 
-                if (mapdata != null)
-                {
-                    mc.entityRenderer.getMapItemRenderer().renderMap(mapdata, true);
-                }
-            }
-            else
-            {
-                GlStateManager.scale(0.5F, 0.5F, 0.5F);
-                GlStateManager.pushAttrib();
-                RenderHelper.enableStandardItemLighting();
-                itemRenderer.renderItem(itemstack, ItemCameraTransforms.TransformType.FIXED);
-                RenderHelper.disableStandardItemLighting();
-                GlStateManager.popAttrib();
-            }
+	/**
+	 * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
+	 */
+	protected ResourceLocation getEntityTexture(EntityItemFrame entity) {
 
-            GlStateManager.enableLighting();
-            GlStateManager.popMatrix();
-        }
-    }
+		return null;
+	}
 
-    protected void renderName(EntityItemFrame entity, double x, double y, double z)
-    {
-        if (Minecraft.isGuiEnabled() && !entity.getDisplayedItem().isEmpty() && entity.getDisplayedItem().hasDisplayName() && renderManager.pointedEntity == entity)
-        {
-            double d0 = entity.getDistanceSq(renderManager.renderViewEntity);
-            float f = entity.isSneaking() ? 32.0F : 64.0F;
+	private void renderItem(EntityItemFrame itemFrame) {
 
-            if (d0 < (double)(f * f))
-            {
-                String s = entity.getDisplayedItem().getDisplayName();
-                renderLivingLabel(entity, s, x, y, z, 64);
-            }
-        }
-    }
+		ItemStack itemstack = itemFrame.getDisplayedItem();
+
+		if (!itemstack.isEmpty()) {
+			GlStateManager.pushMatrix();
+			GlStateManager.disableLighting();
+			boolean flag = itemstack.getItem() == Items.FILLED_MAP;
+			int i = flag ? itemFrame.getRotation() % 4 * 2 : itemFrame.getRotation();
+			GlStateManager.rotate((float) i * 360.0F / 8.0F, 0.0F, 0.0F, 1.0F);
+
+			if (flag) {
+				renderManager.renderEngine.bindTexture(MAP_BACKGROUND_TEXTURES);
+				GlStateManager.rotate(180.0F, 0.0F, 0.0F, 1.0F);
+				float f = 0.0078125F;
+				GlStateManager.scale(0.0078125F, 0.0078125F, 0.0078125F);
+				GlStateManager.translate(-64.0F, -64.0F, 0.0F);
+				MapData mapdata = Items.FILLED_MAP.getMapData(itemstack, itemFrame.world);
+				GlStateManager.translate(0.0F, 0.0F, -1.0F);
+
+				if (mapdata != null) {
+					mc.entityRenderer.getMapItemRenderer().renderMap(mapdata, true);
+				}
+			} else {
+				GlStateManager.scale(0.5F, 0.5F, 0.5F);
+				GlStateManager.pushAttrib();
+				RenderHelper.enableStandardItemLighting();
+				itemRenderer.renderItem(itemstack, ItemCameraTransforms.TransformType.FIXED);
+				RenderHelper.disableStandardItemLighting();
+				GlStateManager.popAttrib();
+			}
+
+			GlStateManager.enableLighting();
+			GlStateManager.popMatrix();
+		}
+	}
+
+	protected void renderName(EntityItemFrame entity, double x, double y, double z) {
+
+		if (Minecraft.isGuiEnabled() && !entity.getDisplayedItem().isEmpty() && entity.getDisplayedItem().hasDisplayName() && renderManager.pointedEntity == entity) {
+			double d0 = entity.getDistanceSq(renderManager.renderViewEntity);
+			float f = entity.isSneaking() ? 32.0F : 64.0F;
+
+			if (d0 < (double) (f * f)) {
+				String s = entity.getDisplayedItem().getDisplayName();
+				renderLivingLabel(entity, s, x, y, z, 64);
+			}
+		}
+	}
+
 }

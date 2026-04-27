@@ -7,198 +7,184 @@ import net.minecraft.pathfinding.PathNavigate;
 import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.util.math.MathHelper;
 
-public class EntityMoveHelper
-{
-    /** The EntityLiving that is being moved */
-    protected final EntityLiving entity;
-    protected double posX;
-    protected double posY;
-    protected double posZ;
+public class EntityMoveHelper {
 
-    /** Multiplier for the entity's speed attribute value */
-    protected double speed;
-    protected float moveForward;
-    protected float moveStrafe;
-    public EntityMoveHelper.Action action = EntityMoveHelper.Action.WAIT;
+	/**
+	 * The EntityLiving that is being moved
+	 */
+	protected final EntityLiving entity;
+	protected double posX;
+	protected double posY;
+	protected double posZ;
 
-    public EntityMoveHelper(EntityLiving entitylivingIn)
-    {
-        entity = entitylivingIn;
-    }
+	/**
+	 * Multiplier for the entity's speed attribute value
+	 */
+	protected double speed;
+	protected float moveForward;
+	protected float moveStrafe;
+	public EntityMoveHelper.Action action = EntityMoveHelper.Action.WAIT;
 
-    public boolean isUpdating()
-    {
-        return action == EntityMoveHelper.Action.MOVE_TO;
-    }
+	public EntityMoveHelper(EntityLiving entitylivingIn) {
 
-    public double getSpeed()
-    {
-        return speed;
-    }
+		entity = entitylivingIn;
+	}
 
-    /**
-     * Sets the speed and location to move to
-     */
-    public void setMoveTo(double x, double y, double z, double speedIn)
-    {
-        posX = x;
-        posY = y;
-        posZ = z;
-        speed = speedIn;
-        action = EntityMoveHelper.Action.MOVE_TO;
-    }
+	public boolean isUpdating() {
 
-    public void strafe(float forward, float strafe)
-    {
-        action = EntityMoveHelper.Action.STRAFE;
-        moveForward = forward;
-        moveStrafe = strafe;
-        speed = 0.25D;
-    }
+		return action == EntityMoveHelper.Action.MOVE_TO;
+	}
 
-    public void read(EntityMoveHelper that)
-    {
-        action = that.action;
-        posX = that.posX;
-        posY = that.posY;
-        posZ = that.posZ;
-        speed = Math.max(that.speed, 1.0D);
-        moveForward = that.moveForward;
-        moveStrafe = that.moveStrafe;
-    }
+	public double getSpeed() {
 
-    public void onUpdateMoveHelper()
-    {
-        if (action == EntityMoveHelper.Action.STRAFE)
-        {
-            float f = (float) entity.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue();
-            float f1 = (float) speed * f;
-            float f2 = moveForward;
-            float f3 = moveStrafe;
-            float f4 = MathHelper.sqrt(f2 * f2 + f3 * f3);
+		return speed;
+	}
 
-            if (f4 < 1.0F)
-            {
-                f4 = 1.0F;
-            }
+	/**
+	 * Sets the speed and location to move to
+	 */
+	public void setMoveTo(double x, double y, double z, double speedIn) {
 
-            f4 = f1 / f4;
-            f2 = f2 * f4;
-            f3 = f3 * f4;
-            float f5 = MathHelper.sin(entity.rotationYaw * 0.017453292F);
-            float f6 = MathHelper.cos(entity.rotationYaw * 0.017453292F);
-            float f7 = f2 * f6 - f3 * f5;
-            float f8 = f3 * f6 + f2 * f5;
-            PathNavigate pathnavigate = entity.getNavigator();
+		posX = x;
+		posY = y;
+		posZ = z;
+		speed = speedIn;
+		action = EntityMoveHelper.Action.MOVE_TO;
+	}
 
-            if (pathnavigate != null)
-            {
-                NodeProcessor nodeprocessor = pathnavigate.getNodeProcessor();
+	public void strafe(float forward, float strafe) {
 
-                if (nodeprocessor != null && nodeprocessor.getPathNodeType(entity.world, MathHelper.floor(entity.posX + (double)f7), MathHelper.floor(entity.posY), MathHelper.floor(entity.posZ + (double)f8)) != PathNodeType.WALKABLE)
-                {
-                    moveForward = 1.0F;
-                    moveStrafe = 0.0F;
-                    f1 = f;
-                }
-            }
+		action = EntityMoveHelper.Action.STRAFE;
+		moveForward = forward;
+		moveStrafe = strafe;
+		speed = 0.25D;
+	}
 
-            entity.setAIMoveSpeed(f1);
-            entity.setMoveForward(moveForward);
-            entity.setMoveStrafing(moveStrafe);
-            action = EntityMoveHelper.Action.WAIT;
-        }
-        else if (action == EntityMoveHelper.Action.MOVE_TO)
-        {
-            action = EntityMoveHelper.Action.WAIT;
-            double d0 = posX - entity.posX;
-            double d1 = posZ - entity.posZ;
-            double d2 = posY - entity.posY;
-            double d3 = d0 * d0 + d2 * d2 + d1 * d1;
+	public void read(EntityMoveHelper that) {
 
-            if (d3 < 2.500000277905201E-7D)
-            {
-                entity.setMoveForward(0.0F);
-                return;
-            }
+		action = that.action;
+		posX = that.posX;
+		posY = that.posY;
+		posZ = that.posZ;
+		speed = Math.max(that.speed, 1.0D);
+		moveForward = that.moveForward;
+		moveStrafe = that.moveStrafe;
+	}
 
-            float f9 = (float)(MathHelper.atan2(d1, d0) * (180D / Math.PI)) - 90.0F;
-            entity.rotationYaw = limitAngle(entity.rotationYaw, f9, 90.0F);
-            entity.setAIMoveSpeed((float)(speed * entity.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue()));
+	public void onUpdateMoveHelper() {
 
-            if (d2 > (double) entity.stepHeight && d0 * d0 + d1 * d1 < (double)Math.max(1.0F, entity.width))
-            {
-                entity.getJumpHelper().setJumping();
-                action = EntityMoveHelper.Action.JUMPING;
-            }
-        }
-        else if (action == EntityMoveHelper.Action.JUMPING)
-        {
-            entity.setAIMoveSpeed((float)(speed * entity.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue()));
+		if (action == EntityMoveHelper.Action.STRAFE) {
+			float f = (float) entity.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue();
+			float f1 = (float) speed * f;
+			float f2 = moveForward;
+			float f3 = moveStrafe;
+			float f4 = MathHelper.sqrt(f2 * f2 + f3 * f3);
 
-            if (entity.onGround)
-            {
-                action = EntityMoveHelper.Action.WAIT;
-            }
-        }
-        else
-        {
-            entity.setMoveForward(0.0F);
-        }
-    }
+			if (f4 < 1.0F) {
+				f4 = 1.0F;
+			}
 
-    /**
-     * Attempt to rotate the first angle to become the second angle, but only allow overall direction change to at max
-     * be third parameter
-     */
-    protected float limitAngle(float sourceAngle, float targetAngle, float maximumChange)
-    {
-        float f = MathHelper.wrapDegrees(targetAngle - sourceAngle);
+			f4 = f1 / f4;
+			f2 = f2 * f4;
+			f3 = f3 * f4;
+			float f5 = MathHelper.sin(entity.rotationYaw * 0.017453292F);
+			float f6 = MathHelper.cos(entity.rotationYaw * 0.017453292F);
+			float f7 = f2 * f6 - f3 * f5;
+			float f8 = f3 * f6 + f2 * f5;
+			PathNavigate pathnavigate = entity.getNavigator();
 
-        if (f > maximumChange)
-        {
-            f = maximumChange;
-        }
+			if (pathnavigate != null) {
+				NodeProcessor nodeprocessor = pathnavigate.getNodeProcessor();
 
-        if (f < -maximumChange)
-        {
-            f = -maximumChange;
-        }
+				if (nodeprocessor != null && nodeprocessor.getPathNodeType(entity.world, MathHelper.floor(entity.posX + (double) f7), MathHelper.floor(entity.posY), MathHelper.floor(entity.posZ + (double) f8)) != PathNodeType.WALKABLE) {
+					moveForward = 1.0F;
+					moveStrafe = 0.0F;
+					f1 = f;
+				}
+			}
 
-        float f1 = sourceAngle + f;
+			entity.setAIMoveSpeed(f1);
+			entity.setMoveForward(moveForward);
+			entity.setMoveStrafing(moveStrafe);
+			action = EntityMoveHelper.Action.WAIT;
+		} else if (action == EntityMoveHelper.Action.MOVE_TO) {
+			action = EntityMoveHelper.Action.WAIT;
+			double d0 = posX - entity.posX;
+			double d1 = posZ - entity.posZ;
+			double d2 = posY - entity.posY;
+			double d3 = d0 * d0 + d2 * d2 + d1 * d1;
 
-        if (f1 < 0.0F)
-        {
-            f1 += 360.0F;
-        }
-        else if (f1 > 360.0F)
-        {
-            f1 -= 360.0F;
-        }
+			if (d3 < 2.500000277905201E-7D) {
+				entity.setMoveForward(0.0F);
+				return;
+			}
 
-        return f1;
-    }
+			float f9 = (float) (MathHelper.atan2(d1, d0) * (180D / Math.PI)) - 90.0F;
+			entity.rotationYaw = limitAngle(entity.rotationYaw, f9, 90.0F);
+			entity.setAIMoveSpeed((float) (speed * entity.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue()));
 
-    public double getX()
-    {
-        return posX;
-    }
+			if (d2 > (double) entity.stepHeight && d0 * d0 + d1 * d1 < (double) Math.max(1.0F, entity.width)) {
+				entity.getJumpHelper().setJumping();
+				action = EntityMoveHelper.Action.JUMPING;
+			}
+		} else if (action == EntityMoveHelper.Action.JUMPING) {
+			entity.setAIMoveSpeed((float) (speed * entity.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue()));
 
-    public double getY()
-    {
-        return posY;
-    }
+			if (entity.onGround) {
+				action = EntityMoveHelper.Action.WAIT;
+			}
+		} else {
+			entity.setMoveForward(0.0F);
+		}
+	}
 
-    public double getZ()
-    {
-        return posZ;
-    }
+	/**
+	 * Attempt to rotate the first angle to become the second angle, but only allow overall direction change to at max
+	 * be third parameter
+	 */
+	protected float limitAngle(float sourceAngle, float targetAngle, float maximumChange) {
 
-    public static enum Action
-    {
-        WAIT,
-        MOVE_TO,
-        STRAFE,
-        JUMPING;
-    }
+		float f = MathHelper.wrapDegrees(targetAngle - sourceAngle);
+
+		if (f > maximumChange) {
+			f = maximumChange;
+		}
+
+		if (f < -maximumChange) {
+			f = -maximumChange;
+		}
+
+		float f1 = sourceAngle + f;
+
+		if (f1 < 0.0F) {
+			f1 += 360.0F;
+		} else if (f1 > 360.0F) {
+			f1 -= 360.0F;
+		}
+
+		return f1;
+	}
+
+	public double getX() {
+
+		return posX;
+	}
+
+	public double getY() {
+
+		return posY;
+	}
+
+	public double getZ() {
+
+		return posZ;
+	}
+
+	public enum Action {
+		WAIT,
+		MOVE_TO,
+		STRAFE,
+		JUMPING
+	}
+
 }

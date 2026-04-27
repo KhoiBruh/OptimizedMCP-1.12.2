@@ -1,20 +1,22 @@
 package net.minecraft.block.properties;
 
 import com.google.common.base.Optional;
+
 import java.util.Collection;
 
-public interface IProperty<T extends Comparable<T>>
-{
-    String getName();
+public interface IProperty<T extends Comparable<T>> {
 
-    Collection<T> getAllowedValues();
+	String getName();
 
-    Class<T> getValueClass();
+	Collection<T> getAllowedValues();
 
-    Optional<T> parseValue(String value);
+	Class<T> getValueClass();
 
-    /**
-     * Get the name for the given value.
-     */
-    String getName(T value);
+	Optional<T> parseValue(String value);
+
+	/**
+	 * Get the name for the given value.
+	 */
+	String getName(T value);
+
 }

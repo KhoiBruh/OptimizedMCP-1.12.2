@@ -8,37 +8,38 @@ import net.minecraft.util.MovementInput;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 
-public interface ITutorialStep
-{
-default void onStop()
-    {
-    }
+public interface ITutorialStep {
 
-default void update()
-    {
-    }
+	default void onStop() {
 
-default void handleMovement(MovementInput input)
-    {
-    }
+	}
 
-default void handleMouse(MouseHelper mouseHelperIn)
-    {
-    }
+	default void update() {
 
-default void onMouseHover(WorldClient worldIn, RayTraceResult result)
-    {
-    }
+	}
 
-default void onHitBlock(WorldClient worldIn, BlockPos pos, IBlockState state, float diggingStage)
-    {
-    }
+	default void handleMovement(MovementInput input) {
 
-default void openInventory()
-    {
-    }
+	}
 
-default void handleSetSlot(ItemStack stack)
-    {
-    }
+	default void handleMouse(MouseHelper mouseHelperIn) {
+
+	}
+
+	default void onMouseHover(WorldClient worldIn, RayTraceResult result) {
+
+	}
+
+	default void onHitBlock(WorldClient worldIn, BlockPos pos, IBlockState state, float diggingStage) {
+
+	}
+
+	default void openInventory() {
+
+	}
+
+	default void handleSetSlot(ItemStack stack) {
+
+	}
+
 }

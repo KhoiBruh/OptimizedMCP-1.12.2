@@ -3,65 +3,63 @@ package net.minecraft.client.gui;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.math.MathHelper;
 
-public class ScaledResolution
-{
-    private final double scaledWidthD;
-    private final double scaledHeightD;
-    private int scaledWidth;
-    private int scaledHeight;
-    private int scaleFactor;
+public class ScaledResolution {
 
-    public ScaledResolution(Minecraft minecraftClient)
-    {
-        scaledWidth = minecraftClient.displayWidth;
-        scaledHeight = minecraftClient.displayHeight;
-        scaleFactor = 1;
-        boolean flag = minecraftClient.isUnicode();
-        int i = minecraftClient.gameSettings.guiScale;
+	private final double scaledWidthD;
+	private final double scaledHeightD;
+	private int scaledWidth;
+	private int scaledHeight;
+	private int scaleFactor;
 
-        if (i == 0)
-        {
-            i = 1000;
-        }
+	public ScaledResolution(Minecraft minecraftClient) {
 
-        while (scaleFactor < i && scaledWidth / (scaleFactor + 1) >= 320 && scaledHeight / (scaleFactor + 1) >= 240)
-        {
-            ++scaleFactor;
-        }
+		scaledWidth = minecraftClient.displayWidth;
+		scaledHeight = minecraftClient.displayHeight;
+		scaleFactor = 1;
+		boolean flag = minecraftClient.isUnicode();
+		int i = minecraftClient.gameSettings.guiScale;
 
-        if (flag && scaleFactor % 2 != 0 && scaleFactor != 1)
-        {
-            --scaleFactor;
-        }
+		if (i == 0) {
+			i = 1000;
+		}
 
-        scaledWidthD = (double) scaledWidth / (double) scaleFactor;
-        scaledHeightD = (double) scaledHeight / (double) scaleFactor;
-        scaledWidth = MathHelper.ceil(scaledWidthD);
-        scaledHeight = MathHelper.ceil(scaledHeightD);
-    }
+		while (scaleFactor < i && scaledWidth / (scaleFactor + 1) >= 320 && scaledHeight / (scaleFactor + 1) >= 240) {
+			++scaleFactor;
+		}
 
-    public int getScaledWidth()
-    {
-        return scaledWidth;
-    }
+		if (flag && scaleFactor % 2 != 0 && scaleFactor != 1) {
+			--scaleFactor;
+		}
 
-    public int getScaledHeight()
-    {
-        return scaledHeight;
-    }
+		scaledWidthD = (double) scaledWidth / (double) scaleFactor;
+		scaledHeightD = (double) scaledHeight / (double) scaleFactor;
+		scaledWidth = MathHelper.ceil(scaledWidthD);
+		scaledHeight = MathHelper.ceil(scaledHeightD);
+	}
 
-    public double getScaledWidth_double()
-    {
-        return scaledWidthD;
-    }
+	public int getScaledWidth() {
 
-    public double getScaledHeight_double()
-    {
-        return scaledHeightD;
-    }
+		return scaledWidth;
+	}
 
-    public int getScaleFactor()
-    {
-        return scaleFactor;
-    }
+	public int getScaledHeight() {
+
+		return scaledHeight;
+	}
+
+	public double getScaledWidth_double() {
+
+		return scaledWidthD;
+	}
+
+	public double getScaledHeight_double() {
+
+		return scaledHeightD;
+	}
+
+	public int getScaleFactor() {
+
+		return scaleFactor;
+	}
+
 }

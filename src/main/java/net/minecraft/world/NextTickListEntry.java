@@ -3,90 +3,84 @@ package net.minecraft.world;
 import net.minecraft.block.Block;
 import net.minecraft.util.math.BlockPos;
 
-public class NextTickListEntry implements Comparable<NextTickListEntry>
-{
-    /** The id number for the next tick entry */
-    private static long nextTickEntryID;
-    private final Block block;
-    public final BlockPos position;
+public class NextTickListEntry implements Comparable<NextTickListEntry> {
 
-    /** Time this tick is scheduled to occur at */
-    public long scheduledTime;
-    public int priority;
+	/**
+	 * The id number for the next tick entry
+	 */
+	private static long nextTickEntryID;
+	private final Block block;
+	public final BlockPos position;
 
-    /** The id of the tick entry */
-    private final long tickEntryID;
+	/**
+	 * Time this tick is scheduled to occur at
+	 */
+	public long scheduledTime;
+	public int priority;
 
-    public NextTickListEntry(BlockPos positionIn, Block blockIn)
-    {
-        tickEntryID = (long)(nextTickEntryID++);
-        position = positionIn.toImmutable();
-        block = blockIn;
-    }
+	/**
+	 * The id of the tick entry
+	 */
+	private final long tickEntryID;
 
-    public boolean equals(Object p_equals_1_)
-    {
-        if (!(p_equals_1_ instanceof NextTickListEntry))
-        {
-            return false;
-        }
-        else
-        {
-            NextTickListEntry nextticklistentry = (NextTickListEntry)p_equals_1_;
-            return position.equals(nextticklistentry.position) && Block.isEqualTo(block, nextticklistentry.block);
-        }
-    }
+	public NextTickListEntry(BlockPos positionIn, Block blockIn) {
 
-    public int hashCode()
-    {
-        return position.hashCode();
-    }
+		tickEntryID = nextTickEntryID++;
+		position = positionIn.toImmutable();
+		block = blockIn;
+	}
 
-    /**
-     * Sets the scheduled time for this tick entry
-     */
-    public NextTickListEntry setScheduledTime(long scheduledTimeIn)
-    {
-        scheduledTime = scheduledTimeIn;
-        return this;
-    }
+	public boolean equals(Object p_equals_1_) {
 
-    public void setPriority(int priorityIn)
-    {
-        priority = priorityIn;
-    }
+		if (!(p_equals_1_ instanceof NextTickListEntry nextticklistentry)) {
+			return false;
+		} else {
+			return position.equals(nextticklistentry.position) && Block.isEqualTo(block, nextticklistentry.block);
+		}
+	}
 
-    public int compareTo(NextTickListEntry p_compareTo_1_)
-    {
-        if (scheduledTime < p_compareTo_1_.scheduledTime)
-        {
-            return -1;
-        }
-        else if (scheduledTime > p_compareTo_1_.scheduledTime)
-        {
-            return 1;
-        }
-        else if (priority != p_compareTo_1_.priority)
-        {
-            return priority - p_compareTo_1_.priority;
-        }
-        else if (tickEntryID < p_compareTo_1_.tickEntryID)
-        {
-            return -1;
-        }
-        else
-        {
-            return tickEntryID > p_compareTo_1_.tickEntryID ? 1 : 0;
-        }
-    }
+	public int hashCode() {
 
-    public String toString()
-    {
-        return Block.getIdFromBlock(block) + ": " + position + ", " + scheduledTime + ", " + priority + ", " + tickEntryID;
-    }
+		return position.hashCode();
+	}
 
-    public Block getBlock()
-    {
-        return block;
-    }
+	/**
+	 * Sets the scheduled time for this tick entry
+	 */
+	public NextTickListEntry setScheduledTime(long scheduledTimeIn) {
+
+		scheduledTime = scheduledTimeIn;
+		return this;
+	}
+
+	public void setPriority(int priorityIn) {
+
+		priority = priorityIn;
+	}
+
+	public int compareTo(NextTickListEntry p_compareTo_1_) {
+
+		if (scheduledTime < p_compareTo_1_.scheduledTime) {
+			return -1;
+		} else if (scheduledTime > p_compareTo_1_.scheduledTime) {
+			return 1;
+		} else if (priority != p_compareTo_1_.priority) {
+			return priority - p_compareTo_1_.priority;
+		} else if (tickEntryID < p_compareTo_1_.tickEntryID) {
+			return -1;
+		} else {
+			return tickEntryID > p_compareTo_1_.tickEntryID ? 1 : 0;
+		}
+	}
+
+	public String toString() {
+
+		return Block.getIdFromBlock(block) + ": " + position + ", " + scheduledTime + ", " + priority + ", " + tickEntryID;
+	}
+
+	public Block getBlock() {
+
+		return block;
+	}
+
 }

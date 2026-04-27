@@ -4,24 +4,25 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.network.play.server.SPacketCooldown;
 
-public class CooldownTrackerServer extends CooldownTracker
-{
-    private final EntityPlayerMP player;
+public class CooldownTrackerServer extends CooldownTracker {
 
-    public CooldownTrackerServer(EntityPlayerMP playerIn)
-    {
-        player = playerIn;
-    }
+	private final EntityPlayerMP player;
 
-    protected void notifyOnSet(Item itemIn, int ticksIn)
-    {
-        super.notifyOnSet(itemIn, ticksIn);
-        player.connection.sendPacket(new SPacketCooldown(itemIn, ticksIn));
-    }
+	public CooldownTrackerServer(EntityPlayerMP playerIn) {
 
-    protected void notifyOnRemove(Item itemIn)
-    {
-        super.notifyOnRemove(itemIn);
-        player.connection.sendPacket(new SPacketCooldown(itemIn, 0));
-    }
+		player = playerIn;
+	}
+
+	protected void notifyOnSet(Item itemIn, int ticksIn) {
+
+		super.notifyOnSet(itemIn, ticksIn);
+		player.connection.sendPacket(new SPacketCooldown(itemIn, ticksIn));
+	}
+
+	protected void notifyOnRemove(Item itemIn) {
+
+		super.notifyOnRemove(itemIn);
+		player.connection.sendPacket(new SPacketCooldown(itemIn, 0));
+	}
+
 }

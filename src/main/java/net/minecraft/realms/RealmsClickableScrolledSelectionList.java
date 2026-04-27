@@ -2,105 +2,106 @@ package net.minecraft.realms;
 
 import net.minecraft.client.gui.GuiClickableScrolledSelectionListProxy;
 
-public class RealmsClickableScrolledSelectionList
-{
-    private final GuiClickableScrolledSelectionListProxy proxy;
+public class RealmsClickableScrolledSelectionList {
 
-    public RealmsClickableScrolledSelectionList(int p_i46052_1_, int p_i46052_2_, int p_i46052_3_, int p_i46052_4_, int p_i46052_5_)
-    {
-        proxy = new GuiClickableScrolledSelectionListProxy(this, p_i46052_1_, p_i46052_2_, p_i46052_3_, p_i46052_4_, p_i46052_5_);
-    }
+	private final GuiClickableScrolledSelectionListProxy proxy;
 
-    public void render(int p_render_1_, int p_render_2_, float p_render_3_)
-    {
-        proxy.drawScreen(p_render_1_, p_render_2_, p_render_3_);
-    }
+	public RealmsClickableScrolledSelectionList(int p_i46052_1_, int p_i46052_2_, int p_i46052_3_, int p_i46052_4_, int p_i46052_5_) {
 
-    public int width()
-    {
-        return proxy.width();
-    }
+		proxy = new GuiClickableScrolledSelectionListProxy(this, p_i46052_1_, p_i46052_2_, p_i46052_3_, p_i46052_4_, p_i46052_5_);
+	}
 
-    public int ym()
-    {
-        return proxy.mouseY();
-    }
+	public void render(int p_render_1_, int p_render_2_, float p_render_3_) {
 
-    public int xm()
-    {
-        return proxy.mouseX();
-    }
+		proxy.drawScreen(p_render_1_, p_render_2_, p_render_3_);
+	}
 
-    protected void renderItem(int p_renderItem_1_, int p_renderItem_2_, int p_renderItem_3_, int p_renderItem_4_, Tezzelator p_renderItem_5_, int p_renderItem_6_, int p_renderItem_7_)
-    {
-    }
+	public int width() {
 
-    public void renderItem(int p_renderItem_1_, int p_renderItem_2_, int p_renderItem_3_, int p_renderItem_4_, int p_renderItem_5_, int p_renderItem_6_)
-    {
-        renderItem(p_renderItem_1_, p_renderItem_2_, p_renderItem_3_, p_renderItem_4_, Tezzelator.instance, p_renderItem_5_, p_renderItem_6_);
-    }
+		return proxy.width();
+	}
 
-    public int getItemCount()
-    {
-        return 0;
-    }
+	public int ym() {
 
-    public void selectItem(int p_selectItem_1_, boolean p_selectItem_2_, int p_selectItem_3_, int p_selectItem_4_)
-    {
-    }
+		return proxy.mouseY();
+	}
 
-    public boolean isSelectedItem(int p_isSelectedItem_1_)
-    {
-        return false;
-    }
+	public int xm() {
 
-    public void renderBackground()
-    {
-    }
+		return proxy.mouseX();
+	}
 
-    public int getMaxPosition()
-    {
-        return 0;
-    }
+	protected void renderItem(int p_renderItem_1_, int p_renderItem_2_, int p_renderItem_3_, int p_renderItem_4_, Tezzelator p_renderItem_5_, int p_renderItem_6_, int p_renderItem_7_) {
 
-    public int getScrollbarPosition()
-    {
-        return proxy.width() / 2 + 124;
-    }
+	}
 
-    public void mouseEvent()
-    {
-        proxy.handleMouseInput();
-    }
+	public void renderItem(int p_renderItem_1_, int p_renderItem_2_, int p_renderItem_3_, int p_renderItem_4_, int p_renderItem_5_, int p_renderItem_6_) {
 
-    public void customMouseEvent(int p_customMouseEvent_1_, int p_customMouseEvent_2_, int p_customMouseEvent_3_, float p_customMouseEvent_4_, int p_customMouseEvent_5_)
-    {
-    }
+		renderItem(p_renderItem_1_, p_renderItem_2_, p_renderItem_3_, p_renderItem_4_, Tezzelator.instance, p_renderItem_5_, p_renderItem_6_);
+	}
 
-    public void scroll(int p_scroll_1_)
-    {
-        proxy.scrollBy(p_scroll_1_);
-    }
+	public int getItemCount() {
 
-    public int getScroll()
-    {
-        return proxy.getAmountScrolled();
-    }
+		return 0;
+	}
 
-    protected void renderList(int p_renderList_1_, int p_renderList_2_, int p_renderList_3_, int p_renderList_4_)
-    {
-    }
+	public void selectItem(int p_selectItem_1_, boolean p_selectItem_2_, int p_selectItem_3_, int p_selectItem_4_) {
 
-    public void itemClicked(int p_itemClicked_1_, int p_itemClicked_2_, int p_itemClicked_3_, int p_itemClicked_4_, int p_itemClicked_5_)
-    {
-    }
+	}
 
-    public void renderSelected(int p_renderSelected_1_, int p_renderSelected_2_, int p_renderSelected_3_, Tezzelator p_renderSelected_4_)
-    {
-    }
+	public boolean isSelectedItem(int p_isSelectedItem_1_) {
 
-    public void setLeftPos(int p_setLeftPos_1_)
-    {
-        proxy.setSlotXBoundsFromLeft(p_setLeftPos_1_);
-    }
+		return false;
+	}
+
+	public void renderBackground() {
+
+	}
+
+	public int getMaxPosition() {
+
+		return 0;
+	}
+
+	public int getScrollbarPosition() {
+
+		return proxy.width() / 2 + 124;
+	}
+
+	public void mouseEvent() {
+
+		proxy.handleMouseInput();
+	}
+
+	public void customMouseEvent(int p_customMouseEvent_1_, int p_customMouseEvent_2_, int p_customMouseEvent_3_, float p_customMouseEvent_4_, int p_customMouseEvent_5_) {
+
+	}
+
+	public void scroll(int p_scroll_1_) {
+
+		proxy.scrollBy(p_scroll_1_);
+	}
+
+	public int getScroll() {
+
+		return proxy.getAmountScrolled();
+	}
+
+	protected void renderList(int p_renderList_1_, int p_renderList_2_, int p_renderList_3_, int p_renderList_4_) {
+
+	}
+
+	public void itemClicked(int p_itemClicked_1_, int p_itemClicked_2_, int p_itemClicked_3_, int p_itemClicked_4_, int p_itemClicked_5_) {
+
+	}
+
+	public void renderSelected(int p_renderSelected_1_, int p_renderSelected_2_, int p_renderSelected_3_, Tezzelator p_renderSelected_4_) {
+
+	}
+
+	public void setLeftPos(int p_setLeftPos_1_) {
+
+		proxy.setSlotXBoundsFromLeft(p_setLeftPos_1_);
+	}
+
 }

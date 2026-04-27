@@ -1,107 +1,121 @@
 package net.minecraft.network.play.client;
 
-import java.io.IOException;
 import net.minecraft.inventory.ClickType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayServer;
 
-public class CPacketClickWindow implements Packet<INetHandlerPlayServer>
-{
-    /** The id of the window which was clicked. 0 for player inventory. */
-    private int windowId;
+import java.io.IOException;
 
-    /** Id of the clicked slot */
-    private int slotId;
+public class CPacketClickWindow implements Packet<INetHandlerPlayServer> {
 
-    /** Button used */
-    private int packedClickData;
+	/**
+	 * The id of the window which was clicked. 0 for player inventory.
+	 */
+	private int windowId;
 
-    /** A unique number for the action, used for transaction handling */
-    private short actionNumber;
+	/**
+	 * Id of the clicked slot
+	 */
+	private int slotId;
 
-    /** The item stack present in the slot */
-    private ItemStack clickedItem = ItemStack.EMPTY;
+	/**
+	 * Button used
+	 */
+	private int packedClickData;
 
-    /** Inventory operation mode */
-    private ClickType mode;
+	/**
+	 * A unique number for the action, used for transaction handling
+	 */
+	private short actionNumber;
 
-    public CPacketClickWindow()
-    {
-    }
+	/**
+	 * The item stack present in the slot
+	 */
+	private ItemStack clickedItem = ItemStack.EMPTY;
 
-    public CPacketClickWindow(int windowIdIn, int slotIdIn, int usedButtonIn, ClickType modeIn, ItemStack clickedItemIn, short actionNumberIn)
-    {
-        windowId = windowIdIn;
-        slotId = slotIdIn;
-        packedClickData = usedButtonIn;
-        clickedItem = clickedItemIn.copy();
-        actionNumber = actionNumberIn;
-        mode = modeIn;
-    }
+	/**
+	 * Inventory operation mode
+	 */
+	private ClickType mode;
 
-    /**
-     * Passes this Packet on to the NetHandler for processing.
-     */
-    public void processPacket(INetHandlerPlayServer handler)
-    {
-        handler.processClickWindow(this);
-    }
+	public CPacketClickWindow() {
 
-    /**
-     * Reads the raw packet data from the data stream.
-     */
-    public void readPacketData(PacketBuffer buf) throws IOException
-    {
-        windowId = buf.readByte();
-        slotId = buf.readShort();
-        packedClickData = buf.readByte();
-        actionNumber = buf.readShort();
-        mode = (ClickType)buf.readEnumValue(ClickType.class);
-        clickedItem = buf.readItemStack();
-    }
+	}
 
-    /**
-     * Writes the raw packet data to the data stream.
-     */
-    public void writePacketData(PacketBuffer buf) throws IOException
-    {
-        buf.writeByte(windowId);
-        buf.writeShort(slotId);
-        buf.writeByte(packedClickData);
-        buf.writeShort(actionNumber);
-        buf.writeEnumValue(mode);
-        buf.writeItemStack(clickedItem);
-    }
+	public CPacketClickWindow(int windowIdIn, int slotIdIn, int usedButtonIn, ClickType modeIn, ItemStack clickedItemIn, short actionNumberIn) {
 
-    public int getWindowId()
-    {
-        return windowId;
-    }
+		windowId = windowIdIn;
+		slotId = slotIdIn;
+		packedClickData = usedButtonIn;
+		clickedItem = clickedItemIn.copy();
+		actionNumber = actionNumberIn;
+		mode = modeIn;
+	}
 
-    public int getSlotId()
-    {
-        return slotId;
-    }
+	/**
+	 * Passes this Packet on to the NetHandler for processing.
+	 */
+	public void processPacket(INetHandlerPlayServer handler) {
 
-    public int getUsedButton()
-    {
-        return packedClickData;
-    }
+		handler.processClickWindow(this);
+	}
 
-    public short getActionNumber()
-    {
-        return actionNumber;
-    }
+	/**
+	 * Reads the raw packet data from the data stream.
+	 */
+	public void readPacketData(PacketBuffer buf) throws IOException {
 
-    public ItemStack getClickedItem()
-    {
-        return clickedItem;
-    }
+		windowId = buf.readByte();
+		slotId = buf.readShort();
+		packedClickData = buf.readByte();
+		actionNumber = buf.readShort();
+		mode = buf.readEnumValue(ClickType.class);
+		clickedItem = buf.readItemStack();
+	}
 
-    public ClickType getClickType()
-    {
-        return mode;
-    }
+	/**
+	 * Writes the raw packet data to the data stream.
+	 */
+	public void writePacketData(PacketBuffer buf) throws IOException {
+
+		buf.writeByte(windowId);
+		buf.writeShort(slotId);
+		buf.writeByte(packedClickData);
+		buf.writeShort(actionNumber);
+		buf.writeEnumValue(mode);
+		buf.writeItemStack(clickedItem);
+	}
+
+	public int getWindowId() {
+
+		return windowId;
+	}
+
+	public int getSlotId() {
+
+		return slotId;
+	}
+
+	public int getUsedButton() {
+
+		return packedClickData;
+	}
+
+	public short getActionNumber() {
+
+		return actionNumber;
+	}
+
+	public ItemStack getClickedItem() {
+
+		return clickedItem;
+	}
+
+	public ClickType getClickType() {
+
+		return mode;
+	}
+
 }

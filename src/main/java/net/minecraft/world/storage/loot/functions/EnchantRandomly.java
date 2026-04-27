@@ -1,17 +1,7 @@
 package net.minecraft.world.storage.loot.functions;
 
 import com.google.common.collect.Lists;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
-import com.google.gson.JsonSerializationContext;
-import com.google.gson.JsonSyntaxException;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
-import javax.annotation.Nullable;
+import com.google.gson.*;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentData;
 import net.minecraft.init.Items;
@@ -25,111 +15,103 @@ import net.minecraft.world.storage.loot.conditions.LootCondition;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class EnchantRandomly extends LootFunction
-{
-    private static final Logger LOGGER = LogManager.getLogger();
-    private final List<Enchantment> enchantments;
+import javax.annotation.Nullable;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
 
-    public EnchantRandomly(LootCondition[] conditionsIn, @Nullable List<Enchantment> enchantmentsIn)
-    {
-        super(conditionsIn);
-        enchantments = enchantmentsIn == null ? Collections.emptyList() : enchantmentsIn;
-    }
+public class EnchantRandomly extends LootFunction {
 
-    public ItemStack apply(ItemStack stack, Random rand, LootContext context)
-    {
-        Enchantment enchantment;
+	private static final Logger LOGGER = LogManager.getLogger();
+	private final List<Enchantment> enchantments;
 
-        if (enchantments.isEmpty())
-        {
-            List<Enchantment> list = Lists.<Enchantment>newArrayList();
+	public EnchantRandomly(LootCondition[] conditionsIn, @Nullable List<Enchantment> enchantmentsIn) {
 
-            for (Enchantment enchantment1 : Enchantment.REGISTRY)
-            {
-                if (stack.getItem() == Items.BOOK || enchantment1.canApply(stack))
-                {
-                    list.add(enchantment1);
-                }
-            }
+		super(conditionsIn);
+		enchantments = enchantmentsIn == null ? Collections.emptyList() : enchantmentsIn;
+	}
 
-            if (list.isEmpty())
-            {
-                LOGGER.warn("Couldn't find a compatible enchantment for {}", (Object)stack);
-                return stack;
-            }
+	public ItemStack apply(ItemStack stack, Random rand, LootContext context) {
 
-            enchantment = list.get(rand.nextInt(list.size()));
-        }
-        else
-        {
-            enchantment = enchantments.get(rand.nextInt(enchantments.size()));
-        }
+		Enchantment enchantment;
 
-        int i = MathHelper.getInt(rand, enchantment.getMinLevel(), enchantment.getMaxLevel());
+		if (enchantments.isEmpty()) {
+			List<Enchantment> list = Lists.newArrayList();
 
-        if (stack.getItem() == Items.BOOK)
-        {
-            stack = new ItemStack(Items.ENCHANTED_BOOK);
-            ItemEnchantedBook.addEnchantment(stack, new EnchantmentData(enchantment, i));
-        }
-        else
-        {
-            stack.addEnchantment(enchantment, i);
-        }
+			for (Enchantment enchantment1 : Enchantment.REGISTRY) {
+				if (stack.getItem() == Items.BOOK || enchantment1.canApply(stack)) {
+					list.add(enchantment1);
+				}
+			}
 
-        return stack;
-    }
+			if (list.isEmpty()) {
+				LOGGER.warn("Couldn't find a compatible enchantment for {}", stack);
+				return stack;
+			}
 
-    public static class Serializer extends LootFunction.Serializer<EnchantRandomly>
-    {
-        public Serializer()
-        {
-            super(new ResourceLocation("enchant_randomly"), EnchantRandomly.class);
-        }
+			enchantment = list.get(rand.nextInt(list.size()));
+		} else {
+			enchantment = enchantments.get(rand.nextInt(enchantments.size()));
+		}
 
-        public void serialize(JsonObject object, EnchantRandomly functionClazz, JsonSerializationContext serializationContext)
-        {
-            if (!functionClazz.enchantments.isEmpty())
-            {
-                JsonArray jsonarray = new JsonArray();
+		int i = MathHelper.getInt(rand, enchantment.getMinLevel(), enchantment.getMaxLevel());
 
-                for (Enchantment enchantment : functionClazz.enchantments)
-                {
-                    ResourceLocation resourcelocation = Enchantment.REGISTRY.getNameForObject(enchantment);
+		if (stack.getItem() == Items.BOOK) {
+			stack = new ItemStack(Items.ENCHANTED_BOOK);
+			ItemEnchantedBook.addEnchantment(stack, new EnchantmentData(enchantment, i));
+		} else {
+			stack.addEnchantment(enchantment, i);
+		}
 
-                    if (resourcelocation == null)
-                    {
-                        throw new IllegalArgumentException("Don't know how to serialize enchantment " + enchantment);
-                    }
+		return stack;
+	}
 
-                    jsonarray.add(new JsonPrimitive(resourcelocation.toString()));
-                }
+	public static class Serializer extends LootFunction.Serializer<EnchantRandomly> {
 
-                object.add("enchantments", jsonarray);
-            }
-        }
+		public Serializer() {
 
-        public EnchantRandomly deserialize(JsonObject object, JsonDeserializationContext deserializationContext, LootCondition[] conditionsIn)
-        {
-            List<Enchantment> list = Lists.<Enchantment>newArrayList();
+			super(new ResourceLocation("enchant_randomly"), EnchantRandomly.class);
+		}
 
-            if (object.has("enchantments"))
-            {
-                for (JsonElement jsonelement : JsonUtils.getJsonArray(object, "enchantments"))
-                {
-                    String s = JsonUtils.getString(jsonelement, "enchantment");
-                    Enchantment enchantment = Enchantment.REGISTRY.getObject(new ResourceLocation(s));
+		public void serialize(JsonObject object, EnchantRandomly functionClazz, JsonSerializationContext serializationContext) {
 
-                    if (enchantment == null)
-                    {
-                        throw new JsonSyntaxException("Unknown enchantment '" + s + "'");
-                    }
+			if (!functionClazz.enchantments.isEmpty()) {
+				JsonArray jsonarray = new JsonArray();
 
-                    list.add(enchantment);
-                }
-            }
+				for (Enchantment enchantment : functionClazz.enchantments) {
+					ResourceLocation resourcelocation = Enchantment.REGISTRY.getNameForObject(enchantment);
 
-            return new EnchantRandomly(conditionsIn, list);
-        }
-    }
+					if (resourcelocation == null) {
+						throw new IllegalArgumentException("Don't know how to serialize enchantment " + enchantment);
+					}
+
+					jsonarray.add(new JsonPrimitive(resourcelocation.toString()));
+				}
+
+				object.add("enchantments", jsonarray);
+			}
+		}
+
+		public EnchantRandomly deserialize(JsonObject object, JsonDeserializationContext deserializationContext, LootCondition[] conditionsIn) {
+
+			List<Enchantment> list = Lists.newArrayList();
+
+			if (object.has("enchantments")) {
+				for (JsonElement jsonelement : JsonUtils.getJsonArray(object, "enchantments")) {
+					String s = JsonUtils.getString(jsonelement, "enchantment");
+					Enchantment enchantment = Enchantment.REGISTRY.getObject(new ResourceLocation(s));
+
+					if (enchantment == null) {
+						throw new JsonSyntaxException("Unknown enchantment '" + s + "'");
+					}
+
+					list.add(enchantment);
+				}
+			}
+
+			return new EnchantRandomly(conditionsIn, list);
+		}
+
+	}
+
 }

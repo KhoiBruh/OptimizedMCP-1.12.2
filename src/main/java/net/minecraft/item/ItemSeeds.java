@@ -11,42 +11,41 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class ItemSeeds extends Item
-{
-    private final Block crops;
+public class ItemSeeds extends Item {
 
-    /** BlockID of the block the seeds can be planted on. */
-    private final Block soilBlockID;
+	private final Block crops;
 
-    public ItemSeeds(Block crops, Block soil)
-    {
-        this.crops = crops;
-        soilBlockID = soil;
-        setCreativeTab(CreativeTabs.MATERIALS);
-    }
+	/**
+	 * BlockID of the block the seeds can be planted on.
+	 */
+	private final Block soilBlockID;
 
-    /**
-     * Called when a Block is right-clicked with this Item
-     */
-    public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
-    {
-        ItemStack itemstack = player.getHeldItem(hand);
+	public ItemSeeds(Block crops, Block soil) {
 
-        if (facing == EnumFacing.UP && player.canPlayerEdit(pos.offset(facing), facing, itemstack) && worldIn.getBlockState(pos).getBlock() == soilBlockID && worldIn.isAirBlock(pos.up()))
-        {
-            worldIn.setBlockState(pos.up(), crops.getDefaultState());
+		this.crops = crops;
+		soilBlockID = soil;
+		setCreativeTab(CreativeTabs.MATERIALS);
+	}
 
-            if (player instanceof EntityPlayerMP)
-            {
-                CriteriaTriggers.PLACED_BLOCK.trigger((EntityPlayerMP)player, pos.up(), itemstack);
-            }
+	/**
+	 * Called when a Block is right-clicked with this Item
+	 */
+	public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 
-            itemstack.shrink(1);
-            return EnumActionResult.SUCCESS;
-        }
-        else
-        {
-            return EnumActionResult.FAIL;
-        }
-    }
+		ItemStack itemstack = player.getHeldItem(hand);
+
+		if (facing == EnumFacing.UP && player.canPlayerEdit(pos.offset(facing), facing, itemstack) && worldIn.getBlockState(pos).getBlock() == soilBlockID && worldIn.isAirBlock(pos.up())) {
+			worldIn.setBlockState(pos.up(), crops.getDefaultState());
+
+			if (player instanceof EntityPlayerMP) {
+				CriteriaTriggers.PLACED_BLOCK.trigger((EntityPlayerMP) player, pos.up(), itemstack);
+			}
+
+			itemstack.shrink(1);
+			return EnumActionResult.SUCCESS;
+		} else {
+			return EnumActionResult.FAIL;
+		}
+	}
+
 }

@@ -1,11 +1,6 @@
 package net.minecraft.world.storage;
 
 import com.google.common.collect.Lists;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.util.List;
-import javax.annotation.Nullable;
 import net.minecraft.client.AnvilConverterException;
 import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTTagCompound;
@@ -15,267 +10,239 @@ import net.minecraft.util.datafix.FixTypes;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class SaveFormatOld implements ISaveFormat
-{
-    private static final Logger LOGGER = LogManager.getLogger();
+import javax.annotation.Nullable;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.util.List;
 
-    /**
-     * Reference to the File object representing the directory for the world saves
-     */
-    protected final File savesDirectory;
-    protected final DataFixer dataFixer;
+public class SaveFormatOld implements ISaveFormat {
 
-    public SaveFormatOld(File savesDirectoryIn, DataFixer dataFixerIn)
-    {
-        dataFixer = dataFixerIn;
+	private static final Logger LOGGER = LogManager.getLogger();
 
-        if (!savesDirectoryIn.exists())
-        {
-            savesDirectoryIn.mkdirs();
-        }
+	/**
+	 * Reference to the File object representing the directory for the world saves
+	 */
+	protected final File savesDirectory;
+	protected final DataFixer dataFixer;
 
-        savesDirectory = savesDirectoryIn;
-    }
+	public SaveFormatOld(File savesDirectoryIn, DataFixer dataFixerIn) {
 
-    /**
-     * Returns the name of the save format.
-     */
-    public String getName()
-    {
-        return "Old Format";
-    }
+		dataFixer = dataFixerIn;
 
-    public List<WorldSummary> getSaveList() throws AnvilConverterException
-    {
-        List<WorldSummary> list = Lists.<WorldSummary>newArrayList();
+		if (!savesDirectoryIn.exists()) {
+			savesDirectoryIn.mkdirs();
+		}
 
-        for (int i = 0; i < 5; ++i)
-        {
-            String s = "World" + (i + 1);
-            WorldInfo worldinfo = getWorldInfo(s);
+		savesDirectory = savesDirectoryIn;
+	}
 
-            if (worldinfo != null)
-            {
-                list.add(new WorldSummary(worldinfo, s, "", worldinfo.getSizeOnDisk(), false));
-            }
-        }
+	/**
+	 * Returns the name of the save format.
+	 */
+	public String getName() {
 
-        return list;
-    }
+		return "Old Format";
+	}
 
-    public void flushCache()
-    {
-    }
+	public List<WorldSummary> getSaveList() throws AnvilConverterException {
 
-    @Nullable
+		List<WorldSummary> list = Lists.newArrayList();
 
-    /**
-     * Returns the world's WorldInfo object
-     */
-    public WorldInfo getWorldInfo(String saveName)
-    {
-        File file1 = new File(savesDirectory, saveName);
+		for (int i = 0; i < 5; ++i) {
+			String s = "World" + (i + 1);
+			WorldInfo worldinfo = getWorldInfo(s);
 
-        if (!file1.exists())
-        {
-            return null;
-        }
-        else
-        {
-            File file2 = new File(file1, "level.dat");
+			if (worldinfo != null) {
+				list.add(new WorldSummary(worldinfo, s, "", worldinfo.getSizeOnDisk(), false));
+			}
+		}
 
-            if (file2.exists())
-            {
-                WorldInfo worldinfo = getWorldData(file2, dataFixer);
+		return list;
+	}
 
-                if (worldinfo != null)
-                {
-                    return worldinfo;
-                }
-            }
+	public void flushCache() {
 
-            file2 = new File(file1, "level.dat_old");
-            return file2.exists() ? getWorldData(file2, dataFixer) : null;
-        }
-    }
+	}
 
-    @Nullable
-    public static WorldInfo getWorldData(File p_186353_0_, DataFixer dataFixerIn)
-    {
-        try
-        {
-            NBTTagCompound nbttagcompound = CompressedStreamTools.readCompressed(new FileInputStream(p_186353_0_));
-            NBTTagCompound nbttagcompound1 = nbttagcompound.getCompoundTag("Data");
-            return new WorldInfo(dataFixerIn.process(FixTypes.LEVEL, nbttagcompound1));
-        }
-        catch (Exception exception)
-        {
-            LOGGER.error("Exception reading {}", p_186353_0_, exception);
-            return null;
-        }
-    }
+	@Nullable
 
-    /**
-     * Renames the world by storing the new name in level.dat. It does *not* rename the directory containing the world
-     * data.
-     */
-    public void renameWorld(String dirName, String newName)
-    {
-        File file1 = new File(savesDirectory, dirName);
+	/**
+	 * Returns the world's WorldInfo object
+	 */
+	public WorldInfo getWorldInfo(String saveName) {
 
-        if (file1.exists())
-        {
-            File file2 = new File(file1, "level.dat");
+		File file1 = new File(savesDirectory, saveName);
 
-            if (file2.exists())
-            {
-                try
-                {
-                    NBTTagCompound nbttagcompound = CompressedStreamTools.readCompressed(new FileInputStream(file2));
-                    NBTTagCompound nbttagcompound1 = nbttagcompound.getCompoundTag("Data");
-                    nbttagcompound1.setString("LevelName", newName);
-                    CompressedStreamTools.writeCompressed(nbttagcompound, new FileOutputStream(file2));
-                }
-                catch (Exception exception)
-                {
-                    exception.printStackTrace();
-                }
-            }
-        }
-    }
+		if (!file1.exists()) {
+			return null;
+		} else {
+			File file2 = new File(file1, "level.dat");
 
-    public boolean isNewLevelIdAcceptable(String saveName)
-    {
-        File file1 = new File(savesDirectory, saveName);
+			if (file2.exists()) {
+				WorldInfo worldinfo = getWorldData(file2, dataFixer);
 
-        if (file1.exists())
-        {
-            return false;
-        }
-        else
-        {
-            try
-            {
-                file1.mkdir();
-                file1.delete();
-                return true;
-            }
-            catch (Throwable throwable)
-            {
-                LOGGER.warn("Couldn't make new level", throwable);
-                return false;
-            }
-        }
-    }
+				if (worldinfo != null) {
+					return worldinfo;
+				}
+			}
 
-    /**
-     * Deletes a world directory.
-     */
-    public boolean deleteWorldDirectory(String saveName)
-    {
-        File file1 = new File(savesDirectory, saveName);
+			file2 = new File(file1, "level.dat_old");
+			return file2.exists() ? getWorldData(file2, dataFixer) : null;
+		}
+	}
 
-        if (!file1.exists())
-        {
-            return true;
-        }
-        else
-        {
-            LOGGER.info("Deleting level {}", (Object)saveName);
+	@Nullable
+	public static WorldInfo getWorldData(File p_186353_0_, DataFixer dataFixerIn) {
 
-            for (int i = 1; i <= 5; ++i)
-            {
-                LOGGER.info("Attempt {}...", (int)i);
+		try {
+			NBTTagCompound nbttagcompound = CompressedStreamTools.readCompressed(new FileInputStream(p_186353_0_));
+			NBTTagCompound nbttagcompound1 = nbttagcompound.getCompoundTag("Data");
+			return new WorldInfo(dataFixerIn.process(FixTypes.LEVEL, nbttagcompound1));
+		} catch (Exception exception) {
+			LOGGER.error("Exception reading {}", p_186353_0_, exception);
+			return null;
+		}
+	}
 
-                if (deleteFiles(file1.listFiles()))
-                {
-                    break;
-                }
+	/**
+	 * Renames the world by storing the new name in level.dat. It does *not* rename the directory containing the world
+	 * data.
+	 */
+	public void renameWorld(String dirName, String newName) {
 
-                LOGGER.warn("Unsuccessful in deleting contents.");
+		File file1 = new File(savesDirectory, dirName);
 
-                if (i < 5)
-                {
-                    try
-                    {
-                        Thread.sleep(500L);
-                    }
-                    catch (InterruptedException var5)
-                    {
-                        ;
-                    }
-                }
-            }
+		if (file1.exists()) {
+			File file2 = new File(file1, "level.dat");
 
-            return file1.delete();
-        }
-    }
+			if (file2.exists()) {
+				try {
+					NBTTagCompound nbttagcompound = CompressedStreamTools.readCompressed(new FileInputStream(file2));
+					NBTTagCompound nbttagcompound1 = nbttagcompound.getCompoundTag("Data");
+					nbttagcompound1.setString("LevelName", newName);
+					CompressedStreamTools.writeCompressed(nbttagcompound, new FileOutputStream(file2));
+				} catch (Exception exception) {
+					exception.printStackTrace();
+				}
+			}
+		}
+	}
 
-    /**
-     * Deletes a list of files and directories.
-     */
-    protected static boolean deleteFiles(File[] files)
-    {
-        for (File file1 : files)
-        {
-            LOGGER.debug("Deleting {}", (Object)file1);
+	public boolean isNewLevelIdAcceptable(String saveName) {
 
-            if (file1.isDirectory() && !deleteFiles(file1.listFiles()))
-            {
-                LOGGER.warn("Couldn't delete directory {}", (Object)file1);
-                return false;
-            }
+		File file1 = new File(savesDirectory, saveName);
 
-            if (!file1.delete())
-            {
-                LOGGER.warn("Couldn't delete file {}", (Object)file1);
-                return false;
-            }
-        }
+		if (file1.exists()) {
+			return false;
+		} else {
+			try {
+				file1.mkdir();
+				file1.delete();
+				return true;
+			} catch (Throwable throwable) {
+				LOGGER.warn("Couldn't make new level", throwable);
+				return false;
+			}
+		}
+	}
 
-        return true;
-    }
+	/**
+	 * Deletes a world directory.
+	 */
+	public boolean deleteWorldDirectory(String saveName) {
 
-    /**
-     * Returns back a loader for the specified save directory
-     */
-    public ISaveHandler getSaveLoader(String saveName, boolean storePlayerdata)
-    {
-        return new SaveHandler(savesDirectory, saveName, storePlayerdata, dataFixer);
-    }
+		File file1 = new File(savesDirectory, saveName);
 
-    public boolean isConvertible(String saveName)
-    {
-        return false;
-    }
+		if (!file1.exists()) {
+			return true;
+		} else {
+			LOGGER.info("Deleting level {}", saveName);
 
-    /**
-     * gets if the map is old chunk saving (true) or McRegion (false)
-     */
-    public boolean isOldMapFormat(String saveName)
-    {
-        return false;
-    }
+			for (int i = 1; i <= 5; ++i) {
+				LOGGER.info("Attempt {}...", i);
 
-    /**
-     * converts the map to mcRegion
-     */
-    public boolean convertMapFormat(String filename, IProgressUpdate progressCallback)
-    {
-        return false;
-    }
+				if (deleteFiles(file1.listFiles())) {
+					break;
+				}
 
-    /**
-     * Return whether the given world can be loaded.
-     */
-    public boolean canLoadWorld(String saveName)
-    {
-        File file1 = new File(savesDirectory, saveName);
-        return file1.isDirectory();
-    }
+				LOGGER.warn("Unsuccessful in deleting contents.");
 
-    public File getFile(String p_186352_1_, String p_186352_2_)
-    {
-        return new File(new File(savesDirectory, p_186352_1_), p_186352_2_);
-    }
+				if (i < 5) {
+					try {
+						Thread.sleep(500L);
+					} catch (InterruptedException var5) {
+					}
+				}
+			}
+
+			return file1.delete();
+		}
+	}
+
+	/**
+	 * Deletes a list of files and directories.
+	 */
+	protected static boolean deleteFiles(File[] files) {
+
+		for (File file1 : files) {
+			LOGGER.debug("Deleting {}", file1);
+
+			if (file1.isDirectory() && !deleteFiles(file1.listFiles())) {
+				LOGGER.warn("Couldn't delete directory {}", file1);
+				return false;
+			}
+
+			if (!file1.delete()) {
+				LOGGER.warn("Couldn't delete file {}", file1);
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	/**
+	 * Returns back a loader for the specified save directory
+	 */
+	public ISaveHandler getSaveLoader(String saveName, boolean storePlayerdata) {
+
+		return new SaveHandler(savesDirectory, saveName, storePlayerdata, dataFixer);
+	}
+
+	public boolean isConvertible(String saveName) {
+
+		return false;
+	}
+
+	/**
+	 * gets if the map is old chunk saving (true) or McRegion (false)
+	 */
+	public boolean isOldMapFormat(String saveName) {
+
+		return false;
+	}
+
+	/**
+	 * converts the map to mcRegion
+	 */
+	public boolean convertMapFormat(String filename, IProgressUpdate progressCallback) {
+
+		return false;
+	}
+
+	/**
+	 * Return whether the given world can be loaded.
+	 */
+	public boolean canLoadWorld(String saveName) {
+
+		File file1 = new File(savesDirectory, saveName);
+		return file1.isDirectory();
+	}
+
+	public File getFile(String p_186352_1_, String p_186352_2_) {
+
+		return new File(new File(savesDirectory, p_186352_1_), p_186352_2_);
+	}
+
 }

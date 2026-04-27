@@ -2,112 +2,107 @@ package net.minecraft.client.gui.recipebook;
 
 import com.google.common.collect.Lists;
 import it.unimi.dsi.fastutil.ints.IntList;
-import java.util.BitSet;
-import java.util.List;
 import net.minecraft.client.util.RecipeItemHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.stats.RecipeBook;
 
-public class RecipeList
-{
-    private List<IRecipe> recipes = Lists.<IRecipe>newArrayList();
-    private final BitSet craftable = new BitSet();
-    private final BitSet canFit = new BitSet();
-    private final BitSet inBook = new BitSet();
-    private boolean singleResultItem = true;
+import java.util.BitSet;
+import java.util.List;
 
-    /**
-     * Checks if recipebook is not empty
-     */
-    public boolean isNotEmpty()
-    {
-        return !inBook.isEmpty();
-    }
+public class RecipeList {
 
-    public void updateKnownRecipes(RecipeBook book)
-    {
-        for (int i = 0; i < recipes.size(); ++i)
-        {
-            inBook.set(i, book.isUnlocked(recipes.get(i)));
-        }
-    }
+	private final List<IRecipe> recipes = Lists.newArrayList();
+	private final BitSet craftable = new BitSet();
+	private final BitSet canFit = new BitSet();
+	private final BitSet inBook = new BitSet();
+	private boolean singleResultItem = true;
 
-    public void canCraft(RecipeItemHelper handler, int width, int height, RecipeBook book)
-    {
-        for (int i = 0; i < recipes.size(); ++i)
-        {
-            IRecipe irecipe = recipes.get(i);
-            boolean flag = irecipe.canFit(width, height) && book.isUnlocked(irecipe);
-            canFit.set(i, flag);
-            craftable.set(i, flag && handler.canCraft(irecipe, (IntList)null));
-        }
-    }
+	/**
+	 * Checks if recipebook is not empty
+	 */
+	public boolean isNotEmpty() {
 
-    public boolean isCraftable(IRecipe recipe)
-    {
-        return craftable.get(recipes.indexOf(recipe));
-    }
+		return !inBook.isEmpty();
+	}
 
-    public boolean containsCraftableRecipes()
-    {
-        return !craftable.isEmpty();
-    }
+	public void updateKnownRecipes(RecipeBook book) {
 
-    public boolean containsValidRecipes()
-    {
-        return !canFit.isEmpty();
-    }
+		for (int i = 0; i < recipes.size(); ++i) {
+			inBook.set(i, book.isUnlocked(recipes.get(i)));
+		}
+	}
 
-    public List<IRecipe> getRecipes()
-    {
-        return recipes;
-    }
+	public void canCraft(RecipeItemHelper handler, int width, int height, RecipeBook book) {
 
-    public List<IRecipe> getRecipes(boolean p_194208_1_)
-    {
-        List<IRecipe> list = Lists.<IRecipe>newArrayList();
+		for (int i = 0; i < recipes.size(); ++i) {
+			IRecipe irecipe = recipes.get(i);
+			boolean flag = irecipe.canFit(width, height) && book.isUnlocked(irecipe);
+			canFit.set(i, flag);
+			craftable.set(i, flag && handler.canCraft(irecipe, null));
+		}
+	}
 
-        for (int i = inBook.nextSetBit(0); i >= 0; i = inBook.nextSetBit(i + 1))
-        {
-            if ((p_194208_1_ ? craftable : canFit).get(i))
-            {
-                list.add(recipes.get(i));
-            }
-        }
+	public boolean isCraftable(IRecipe recipe) {
 
-        return list;
-    }
+		return craftable.get(recipes.indexOf(recipe));
+	}
 
-    public List<IRecipe> getDisplayRecipes(boolean onlyCraftable)
-    {
-        List<IRecipe> list = Lists.<IRecipe>newArrayList();
+	public boolean containsCraftableRecipes() {
 
-        for (int i = inBook.nextSetBit(0); i >= 0; i = inBook.nextSetBit(i + 1))
-        {
-            if (canFit.get(i) && craftable.get(i) == onlyCraftable)
-            {
-                list.add(recipes.get(i));
-            }
-        }
+		return !craftable.isEmpty();
+	}
 
-        return list;
-    }
+	public boolean containsValidRecipes() {
 
-    public void add(IRecipe recipe)
-    {
-        recipes.add(recipe);
+		return !canFit.isEmpty();
+	}
 
-        if (singleResultItem)
-        {
-            ItemStack itemstack = ((IRecipe) recipes.get(0)).getRecipeOutput();
-            ItemStack itemstack1 = recipe.getRecipeOutput();
-            singleResultItem = ItemStack.areItemsEqual(itemstack, itemstack1) && ItemStack.areItemStackTagsEqual(itemstack, itemstack1);
-        }
-    }
+	public List<IRecipe> getRecipes() {
 
-    public boolean hasSingleResultItem()
-    {
-        return singleResultItem;
-    }
+		return recipes;
+	}
+
+	public List<IRecipe> getRecipes(boolean p_194208_1_) {
+
+		List<IRecipe> list = Lists.newArrayList();
+
+		for (int i = inBook.nextSetBit(0); i >= 0; i = inBook.nextSetBit(i + 1)) {
+			if ((p_194208_1_ ? craftable : canFit).get(i)) {
+				list.add(recipes.get(i));
+			}
+		}
+
+		return list;
+	}
+
+	public List<IRecipe> getDisplayRecipes(boolean onlyCraftable) {
+
+		List<IRecipe> list = Lists.newArrayList();
+
+		for (int i = inBook.nextSetBit(0); i >= 0; i = inBook.nextSetBit(i + 1)) {
+			if (canFit.get(i) && craftable.get(i) == onlyCraftable) {
+				list.add(recipes.get(i));
+			}
+		}
+
+		return list;
+	}
+
+	public void add(IRecipe recipe) {
+
+		recipes.add(recipe);
+
+		if (singleResultItem) {
+			ItemStack itemstack = recipes.get(0).getRecipeOutput();
+			ItemStack itemstack1 = recipe.getRecipeOutput();
+			singleResultItem = ItemStack.areItemsEqual(itemstack, itemstack1) && ItemStack.areItemStackTagsEqual(itemstack, itemstack1);
+		}
+	}
+
+	public boolean hasSingleResultItem() {
+
+		return singleResultItem;
+	}
+
 }

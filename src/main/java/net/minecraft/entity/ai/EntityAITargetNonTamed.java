@@ -4,21 +4,22 @@ import com.google.common.base.Predicate;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.EntityTameable;
 
-public class EntityAITargetNonTamed<T extends EntityLivingBase> extends EntityAINearestAttackableTarget<T>
-{
-    private final EntityTameable tameable;
+public class EntityAITargetNonTamed<T extends EntityLivingBase> extends EntityAINearestAttackableTarget<T> {
 
-    public EntityAITargetNonTamed(EntityTameable entityIn, Class<T> classTarget, boolean checkSight, Predicate <? super T > targetSelector)
-    {
-        super(entityIn, classTarget, 10, checkSight, false, targetSelector);
-        tameable = entityIn;
-    }
+	private final EntityTameable tameable;
 
-    /**
-     * Returns whether the EntityAIBase should begin execution.
-     */
-    public boolean shouldExecute()
-    {
-        return !tameable.isTamed() && super.shouldExecute();
-    }
+	public EntityAITargetNonTamed(EntityTameable entityIn, Class<T> classTarget, boolean checkSight, Predicate<? super T> targetSelector) {
+
+		super(entityIn, classTarget, 10, checkSight, false, targetSelector);
+		tameable = entityIn;
+	}
+
+	/**
+	 * Returns whether the EntityAIBase should begin execution.
+	 */
+	public boolean shouldExecute() {
+
+		return !tameable.isTamed() && super.shouldExecute();
+	}
+
 }

@@ -7,48 +7,48 @@ import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.ILockableContainer;
 import net.minecraft.world.LockCode;
 
-public abstract class TileEntityLockable extends TileEntity implements ILockableContainer
-{
-    private LockCode code = LockCode.EMPTY_CODE;
+public abstract class TileEntityLockable extends TileEntity implements ILockableContainer {
 
-    public void readFromNBT(NBTTagCompound compound)
-    {
-        super.readFromNBT(compound);
-        code = LockCode.fromNBT(compound);
-    }
+	private LockCode code = LockCode.EMPTY_CODE;
 
-    public NBTTagCompound writeToNBT(NBTTagCompound compound)
-    {
-        super.writeToNBT(compound);
+	public void readFromNBT(NBTTagCompound compound) {
 
-        if (code != null)
-        {
-            code.toNBT(compound);
-        }
+		super.readFromNBT(compound);
+		code = LockCode.fromNBT(compound);
+	}
 
-        return compound;
-    }
+	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
 
-    public boolean isLocked()
-    {
-        return code != null && !code.isEmpty();
-    }
+		super.writeToNBT(compound);
 
-    public LockCode getLockCode()
-    {
-        return code;
-    }
+		if (code != null) {
+			code.toNBT(compound);
+		}
 
-    public void setLockCode(LockCode code)
-    {
-        this.code = code;
-    }
+		return compound;
+	}
 
-    /**
-     * Get the formatted ChatComponent that will be used for the sender's username in chat
-     */
-    public ITextComponent getDisplayName()
-    {
-        return (ITextComponent)(hasCustomName() ? new TextComponentString(getName()) : new TextComponentTranslation(getName(), new Object[0]));
-    }
+	public boolean isLocked() {
+
+		return code != null && !code.isEmpty();
+	}
+
+	public LockCode getLockCode() {
+
+		return code;
+	}
+
+	public void setLockCode(LockCode code) {
+
+		this.code = code;
+	}
+
+	/**
+	 * Get the formatted ChatComponent that will be used for the sender's username in chat
+	 */
+	public ITextComponent displayName() {
+
+		return hasCustomName() ? new TextComponentString(getName()) : new TextComponentTranslation(getName(), new Object[0]);
+	}
+
 }

@@ -4,92 +4,95 @@ import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 
-public class NBTTagByte extends NBTPrimitive
-{
-    /** The byte value for the tag. */
-    private byte data;
+public class NBTTagByte extends NBTPrimitive {
 
-    NBTTagByte()
-    {
-    }
+	/**
+	 * The byte value for the tag.
+	 */
+	private byte data;
 
-    public NBTTagByte(byte data)
-    {
-        this.data = data;
-    }
+	NBTTagByte() {
 
-    /**
-     * Write the actual data contents of the tag, implemented in NBT extension classes
-     */
-    void write(DataOutput output) throws IOException
-    {
-        output.writeByte(data);
-    }
+	}
 
-    void read(DataInput input, int depth, NBTSizeTracker sizeTracker) throws IOException
-    {
-        sizeTracker.read(72L);
-        data = input.readByte();
-    }
+	public NBTTagByte(byte data) {
 
-    /**
-     * Gets the type byte for the tag.
-     */
-    public byte getId()
-    {
-        return 1;
-    }
+		this.data = data;
+	}
 
-    public String toString()
-    {
-        return data + "b";
-    }
+	/**
+	 * Write the actual data contents of the tag, implemented in NBT extension classes
+	 */
+	void write(DataOutput output) throws IOException {
 
-    /**
-     * Creates a clone of the tag.
-     */
-    public NBTTagByte copy()
-    {
-        return new NBTTagByte(data);
-    }
+		output.writeByte(data);
+	}
 
-    public boolean equals(Object p_equals_1_)
-    {
-        return super.equals(p_equals_1_) && data == ((NBTTagByte)p_equals_1_).data;
-    }
+	void read(DataInput input, int depth, NBTSizeTracker sizeTracker) throws IOException {
 
-    public int hashCode()
-    {
-        return super.hashCode() ^ data;
-    }
+		sizeTracker.read(72L);
+		data = input.readByte();
+	}
 
-    public long getLong()
-    {
-        return (long) data;
-    }
+	/**
+	 * Gets the type byte for the tag.
+	 */
+	public byte getId() {
 
-    public int getInt()
-    {
-        return data;
-    }
+		return 1;
+	}
 
-    public short getShort()
-    {
-        return (short) data;
-    }
+	public String toString() {
 
-    public byte getByte()
-    {
-        return data;
-    }
+		return data + "b";
+	}
 
-    public double getDouble()
-    {
-        return (double) data;
-    }
+	/**
+	 * Creates a clone of the tag.
+	 */
+	public NBTTagByte copy() {
 
-    public float getFloat()
-    {
-        return (float) data;
-    }
+		return new NBTTagByte(data);
+	}
+
+	public boolean equals(Object p_equals_1_) {
+
+		return super.equals(p_equals_1_) && data == ((NBTTagByte) p_equals_1_).data;
+	}
+
+	public int hashCode() {
+
+		return super.hashCode() ^ data;
+	}
+
+	public long getLong() {
+
+		return data;
+	}
+
+	public int getInt() {
+
+		return data;
+	}
+
+	public short getShort() {
+
+		return data;
+	}
+
+	public byte getByte() {
+
+		return data;
+	}
+
+	public double getDouble() {
+
+		return data;
+	}
+
+	public float getFloat() {
+
+		return data;
+	}
+
 }

@@ -1,208 +1,178 @@
 package net.minecraft.client.renderer.chunk;
 
 import com.google.common.collect.Queues;
-import java.util.BitSet;
-import java.util.EnumSet;
-import java.util.Queue;
-import java.util.Set;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IntegerCache;
 import net.minecraft.util.math.BlockPos;
 
-public class VisGraph
-{
-    private static final int DX = (int)Math.pow(16.0D, 0.0D);
-    private static final int DZ = (int)Math.pow(16.0D, 1.0D);
-    private static final int DY = (int)Math.pow(16.0D, 2.0D);
-    private final BitSet bitSet = new BitSet(4096);
-    private static final int[] INDEX_OF_EDGES = new int[1352];
-    private int empty = 4096;
+import java.util.BitSet;
+import java.util.EnumSet;
+import java.util.Queue;
+import java.util.Set;
 
-    public void setOpaqueCube(BlockPos pos)
-    {
-        bitSet.set(getIndex(pos), true);
-        --empty;
-    }
+public class VisGraph {
 
-    private static int getIndex(BlockPos pos)
-    {
-        return getIndex(pos.getX() & 15, pos.getY() & 15, pos.getZ() & 15);
-    }
+	private static final int DX = (int) Math.pow(16.0D, 0.0D);
+	private static final int DZ = (int) Math.pow(16.0D, 1.0D);
+	private static final int DY = (int) Math.pow(16.0D, 2.0D);
+	private final BitSet bitSet = new BitSet(4096);
+	private static final int[] INDEX_OF_EDGES = new int[1352];
+	private int empty = 4096;
 
-    private static int getIndex(int x, int y, int z)
-    {
-        return x << 0 | y << 8 | z << 4;
-    }
+	public void setOpaqueCube(BlockPos pos) {
 
-    public SetVisibility computeVisibility()
-    {
-        SetVisibility setvisibility = new SetVisibility();
+		bitSet.set(getIndex(pos), true);
+		--empty;
+	}
 
-        if (4096 - empty < 256)
-        {
-            setvisibility.setAllVisible(true);
-        }
-        else if (empty == 0)
-        {
-            setvisibility.setAllVisible(false);
-        }
-        else
-        {
-            for (int i : INDEX_OF_EDGES)
-            {
-                if (!bitSet.get(i))
-                {
-                    setvisibility.setManyVisible(floodFill(i));
-                }
-            }
-        }
+	private static int getIndex(BlockPos pos) {
 
-        return setvisibility;
-    }
+		return getIndex(pos.getX() & 15, pos.getY() & 15, pos.getZ() & 15);
+	}
 
-    public Set<EnumFacing> getVisibleFacings(BlockPos pos)
-    {
-        return floodFill(getIndex(pos));
-    }
+	private static int getIndex(int x, int y, int z) {
 
-    private Set<EnumFacing> floodFill(int pos)
-    {
-        Set<EnumFacing> set = EnumSet.<EnumFacing>noneOf(EnumFacing.class);
-        Queue<Integer> queue = Queues.<Integer>newArrayDeque();
-        queue.add(IntegerCache.getInteger(pos));
-        bitSet.set(pos, true);
+		return x << 0 | y << 8 | z << 4;
+	}
 
-        while (!queue.isEmpty())
-        {
-            int i = ((Integer)queue.poll()).intValue();
-            addEdges(i, set);
+	public SetVisibility computeVisibility() {
 
-            for (EnumFacing enumfacing : EnumFacing.values())
-            {
-                int j = getNeighborIndexAtFace(i, enumfacing);
+		SetVisibility setvisibility = new SetVisibility();
 
-                if (j >= 0 && !bitSet.get(j))
-                {
-                    bitSet.set(j, true);
-                    queue.add(IntegerCache.getInteger(j));
-                }
-            }
-        }
+		if (4096 - empty < 256) {
+			setvisibility.setAllVisible(true);
+		} else if (empty == 0) {
+			setvisibility.setAllVisible(false);
+		} else {
+			for (int i : INDEX_OF_EDGES) {
+				if (!bitSet.get(i)) {
+					setvisibility.setManyVisible(floodFill(i));
+				}
+			}
+		}
 
-        return set;
-    }
+		return setvisibility;
+	}
 
-    private void addEdges(int pos, Set<EnumFacing> p_178610_2_)
-    {
-        int i = pos >> 0 & 15;
+	public Set<EnumFacing> getVisibleFacings(BlockPos pos) {
 
-        if (i == 0)
-        {
-            p_178610_2_.add(EnumFacing.WEST);
-        }
-        else if (i == 15)
-        {
-            p_178610_2_.add(EnumFacing.EAST);
-        }
+		return floodFill(getIndex(pos));
+	}
 
-        int j = pos >> 8 & 15;
+	private Set<EnumFacing> floodFill(int pos) {
 
-        if (j == 0)
-        {
-            p_178610_2_.add(EnumFacing.DOWN);
-        }
-        else if (j == 15)
-        {
-            p_178610_2_.add(EnumFacing.UP);
-        }
+		Set<EnumFacing> set = EnumSet.noneOf(EnumFacing.class);
+		Queue<Integer> queue = Queues.newArrayDeque();
+		queue.add(IntegerCache.getInteger(pos));
+		bitSet.set(pos, true);
 
-        int k = pos >> 4 & 15;
+		while (!queue.isEmpty()) {
+			int i = queue.poll().intValue();
+			addEdges(i, set);
 
-        if (k == 0)
-        {
-            p_178610_2_.add(EnumFacing.NORTH);
-        }
-        else if (k == 15)
-        {
-            p_178610_2_.add(EnumFacing.SOUTH);
-        }
-    }
+			for (EnumFacing enumfacing : EnumFacing.values()) {
+				int j = getNeighborIndexAtFace(i, enumfacing);
 
-    private int getNeighborIndexAtFace(int pos, EnumFacing facing)
-    {
-        switch (facing)
-        {
-            case DOWN:
-                if ((pos >> 8 & 15) == 0)
-                {
-                    return -1;
-                }
+				if (j >= 0 && !bitSet.get(j)) {
+					bitSet.set(j, true);
+					queue.add(IntegerCache.getInteger(j));
+				}
+			}
+		}
 
-                return pos - DY;
+		return set;
+	}
 
-            case UP:
-                if ((pos >> 8 & 15) == 15)
-                {
-                    return -1;
-                }
+	private void addEdges(int pos, Set<EnumFacing> p_178610_2_) {
 
-                return pos + DY;
+		int i = pos >> 0 & 15;
 
-            case NORTH:
-                if ((pos >> 4 & 15) == 0)
-                {
-                    return -1;
-                }
+		if (i == 0) {
+			p_178610_2_.add(EnumFacing.WEST);
+		} else if (i == 15) {
+			p_178610_2_.add(EnumFacing.EAST);
+		}
 
-                return pos - DZ;
+		int j = pos >> 8 & 15;
 
-            case SOUTH:
-                if ((pos >> 4 & 15) == 15)
-                {
-                    return -1;
-                }
+		if (j == 0) {
+			p_178610_2_.add(EnumFacing.DOWN);
+		} else if (j == 15) {
+			p_178610_2_.add(EnumFacing.UP);
+		}
 
-                return pos + DZ;
+		int k = pos >> 4 & 15;
 
-            case WEST:
-                if ((pos >> 0 & 15) == 0)
-                {
-                    return -1;
-                }
+		if (k == 0) {
+			p_178610_2_.add(EnumFacing.NORTH);
+		} else if (k == 15) {
+			p_178610_2_.add(EnumFacing.SOUTH);
+		}
+	}
 
-                return pos - DX;
+	private int getNeighborIndexAtFace(int pos, EnumFacing facing) {
 
-            case EAST:
-                if ((pos >> 0 & 15) == 15)
-                {
-                    return -1;
-                }
+		switch (facing) {
+			case DOWN:
+				if ((pos >> 8 & 15) == 0) {
+					return -1;
+				}
 
-                return pos + DX;
+				return pos - DY;
 
-            default:
-                return -1;
-        }
-    }
+			case UP:
+				if ((pos >> 8 & 15) == 15) {
+					return -1;
+				}
 
-    static
-    {
-        int i = 0;
-        int j = 15;
-        int k = 0;
+				return pos + DY;
 
-        for (int l = 0; l < 16; ++l)
-        {
-            for (int i1 = 0; i1 < 16; ++i1)
-            {
-                for (int j1 = 0; j1 < 16; ++j1)
-                {
-                    if (l == 0 || l == 15 || i1 == 0 || i1 == 15 || j1 == 0 || j1 == 15)
-                    {
-                        INDEX_OF_EDGES[k++] = getIndex(l, i1, j1);
-                    }
-                }
-            }
-        }
-    }
+			case NORTH:
+				if ((pos >> 4 & 15) == 0) {
+					return -1;
+				}
+
+				return pos - DZ;
+
+			case SOUTH:
+				if ((pos >> 4 & 15) == 15) {
+					return -1;
+				}
+
+				return pos + DZ;
+
+			case WEST:
+				if ((pos >> 0 & 15) == 0) {
+					return -1;
+				}
+
+				return pos - DX;
+
+			case EAST:
+				if ((pos >> 0 & 15) == 15) {
+					return -1;
+				}
+
+				return pos + DX;
+
+			default:
+				return -1;
+		}
+	}
+
+	static {
+		int i = 0;
+		int j = 15;
+		int k = 0;
+
+		for (int l = 0; l < 16; ++l) {
+			for (int i1 = 0; i1 < 16; ++i1) {
+				for (int j1 = 0; j1 < 16; ++j1) {
+					if (l == 0 || l == 15 || i1 == 0 || i1 == 15 || j1 == 0 || j1 == 15) {
+						INDEX_OF_EDGES[k++] = getIndex(l, i1, j1);
+					}
+				}
+			}
+		}
+	}
 }

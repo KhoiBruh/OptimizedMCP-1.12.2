@@ -1,103 +1,98 @@
 package net.minecraft.network.play.client;
 
-import java.io.IOException;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayServer;
 
-public class CPacketRecipeInfo implements Packet<INetHandlerPlayServer>
-{
-    private CPacketRecipeInfo.Purpose purpose;
-    private IRecipe recipe;
-    private boolean isGuiOpen;
-    private boolean filteringCraftable;
+import java.io.IOException;
 
-    public CPacketRecipeInfo()
-    {
-    }
+public class CPacketRecipeInfo implements Packet<INetHandlerPlayServer> {
 
-    public CPacketRecipeInfo(IRecipe p_i47518_1_)
-    {
-        purpose = CPacketRecipeInfo.Purpose.SHOWN;
-        recipe = p_i47518_1_;
-    }
+	private CPacketRecipeInfo.Purpose purpose;
+	private IRecipe recipe;
+	private boolean isGuiOpen;
+	private boolean filteringCraftable;
 
-    public CPacketRecipeInfo(boolean p_i47424_1_, boolean p_i47424_2_)
-    {
-        purpose = CPacketRecipeInfo.Purpose.SETTINGS;
-        isGuiOpen = p_i47424_1_;
-        filteringCraftable = p_i47424_2_;
-    }
+	public CPacketRecipeInfo() {
 
-    /**
-     * Reads the raw packet data from the data stream.
-     */
-    public void readPacketData(PacketBuffer buf) throws IOException
-    {
-        purpose = (CPacketRecipeInfo.Purpose)buf.readEnumValue(CPacketRecipeInfo.Purpose.class);
+	}
 
-        if (purpose == CPacketRecipeInfo.Purpose.SHOWN)
-        {
-            recipe = CraftingManager.getRecipeById(buf.readInt());
-        }
-        else if (purpose == CPacketRecipeInfo.Purpose.SETTINGS)
-        {
-            isGuiOpen = buf.readBoolean();
-            filteringCraftable = buf.readBoolean();
-        }
-    }
+	public CPacketRecipeInfo(IRecipe p_i47518_1_) {
 
-    /**
-     * Writes the raw packet data to the data stream.
-     */
-    public void writePacketData(PacketBuffer buf) throws IOException
-    {
-        buf.writeEnumValue(purpose);
+		purpose = CPacketRecipeInfo.Purpose.SHOWN;
+		recipe = p_i47518_1_;
+	}
 
-        if (purpose == CPacketRecipeInfo.Purpose.SHOWN)
-        {
-            buf.writeInt(CraftingManager.getIDForRecipe(recipe));
-        }
-        else if (purpose == CPacketRecipeInfo.Purpose.SETTINGS)
-        {
-            buf.writeBoolean(isGuiOpen);
-            buf.writeBoolean(filteringCraftable);
-        }
-    }
+	public CPacketRecipeInfo(boolean p_i47424_1_, boolean p_i47424_2_) {
 
-    /**
-     * Passes this Packet on to the NetHandler for processing.
-     */
-    public void processPacket(INetHandlerPlayServer handler)
-    {
-        handler.handleRecipeBookUpdate(this);
-    }
+		purpose = CPacketRecipeInfo.Purpose.SETTINGS;
+		isGuiOpen = p_i47424_1_;
+		filteringCraftable = p_i47424_2_;
+	}
 
-    public CPacketRecipeInfo.Purpose getPurpose()
-    {
-        return purpose;
-    }
+	/**
+	 * Reads the raw packet data from the data stream.
+	 */
+	public void readPacketData(PacketBuffer buf) throws IOException {
 
-    public IRecipe getRecipe()
-    {
-        return recipe;
-    }
+		purpose = buf.readEnumValue(Purpose.class);
 
-    public boolean isGuiOpen()
-    {
-        return isGuiOpen;
-    }
+		if (purpose == CPacketRecipeInfo.Purpose.SHOWN) {
+			recipe = CraftingManager.getRecipeById(buf.readInt());
+		} else if (purpose == CPacketRecipeInfo.Purpose.SETTINGS) {
+			isGuiOpen = buf.readBoolean();
+			filteringCraftable = buf.readBoolean();
+		}
+	}
 
-    public boolean isFilteringCraftable()
-    {
-        return filteringCraftable;
-    }
+	/**
+	 * Writes the raw packet data to the data stream.
+	 */
+	public void writePacketData(PacketBuffer buf) throws IOException {
 
-    public static enum Purpose
-    {
-        SHOWN,
-        SETTINGS;
-    }
+		buf.writeEnumValue(purpose);
+
+		if (purpose == CPacketRecipeInfo.Purpose.SHOWN) {
+			buf.writeInt(CraftingManager.getIDForRecipe(recipe));
+		} else if (purpose == CPacketRecipeInfo.Purpose.SETTINGS) {
+			buf.writeBoolean(isGuiOpen);
+			buf.writeBoolean(filteringCraftable);
+		}
+	}
+
+	/**
+	 * Passes this Packet on to the NetHandler for processing.
+	 */
+	public void processPacket(INetHandlerPlayServer handler) {
+
+		handler.handleRecipeBookUpdate(this);
+	}
+
+	public CPacketRecipeInfo.Purpose getPurpose() {
+
+		return purpose;
+	}
+
+	public IRecipe getRecipe() {
+
+		return recipe;
+	}
+
+	public boolean isGuiOpen() {
+
+		return isGuiOpen;
+	}
+
+	public boolean isFilteringCraftable() {
+
+		return filteringCraftable;
+	}
+
+	public enum Purpose {
+		SHOWN,
+		SETTINGS
+	}
+
 }

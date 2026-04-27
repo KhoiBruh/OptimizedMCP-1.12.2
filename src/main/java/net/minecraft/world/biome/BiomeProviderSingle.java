@@ -1,87 +1,89 @@
 package net.minecraft.world.biome;
 
+import net.minecraft.util.math.BlockPos;
+
+import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
-import javax.annotation.Nullable;
-import net.minecraft.util.math.BlockPos;
 
-public class BiomeProviderSingle extends BiomeProvider
-{
-    /** The biome generator object. */
-    private final Biome biome;
+public class BiomeProviderSingle extends BiomeProvider {
 
-    public BiomeProviderSingle(Biome biomeIn)
-    {
-        biome = biomeIn;
-    }
+	/**
+	 * The biome generator object.
+	 */
+	private final Biome biome;
 
-    /**
-     * Returns the biome generator
-     */
-    public Biome getBiome(BlockPos pos)
-    {
-        return biome;
-    }
+	public BiomeProviderSingle(Biome biomeIn) {
 
-    /**
-     * Returns an array of biomes for the location input.
-     */
-    public Biome[] getBiomesForGeneration(Biome[] biomes, int x, int z, int width, int height)
-    {
-        if (biomes == null || biomes.length < width * height)
-        {
-            biomes = new Biome[width * height];
-        }
+		biome = biomeIn;
+	}
 
-        Arrays.fill(biomes, 0, width * height, biome);
-        return biomes;
-    }
+	/**
+	 * Returns the biome generator
+	 */
+	public Biome getBiome(BlockPos pos) {
 
-    /**
-     * Gets biomes to use for the blocks and loads the other data like temperature and humidity onto the
-     * WorldChunkManager.
-     */
-    public Biome[] getBiomes(@Nullable Biome[] oldBiomeList, int x, int z, int width, int depth)
-    {
-        if (oldBiomeList == null || oldBiomeList.length < width * depth)
-        {
-            oldBiomeList = new Biome[width * depth];
-        }
+		return biome;
+	}
 
-        Arrays.fill(oldBiomeList, 0, width * depth, biome);
-        return oldBiomeList;
-    }
+	/**
+	 * Returns an array of biomes for the location input.
+	 */
+	public Biome[] getBiomesForGeneration(Biome[] biomes, int x, int z, int width, int height) {
 
-    /**
-     * Gets a list of biomes for the specified blocks.
-     */
-    public Biome[] getBiomes(@Nullable Biome[] listToReuse, int x, int z, int width, int length, boolean cacheFlag)
-    {
-        return getBiomes(listToReuse, x, z, width, length);
-    }
+		if (biomes == null || biomes.length < width * height) {
+			biomes = new Biome[width * height];
+		}
 
-    @Nullable
-    public BlockPos findBiomePosition(int x, int z, int range, List<Biome> biomes, Random random)
-    {
-        return biomes.contains(biome) ? new BlockPos(x - range + random.nextInt(range * 2 + 1), 0, z - range + random.nextInt(range * 2 + 1)) : null;
-    }
+		Arrays.fill(biomes, 0, width * height, biome);
+		return biomes;
+	}
 
-    /**
-     * checks given Chunk's Biomes against List of allowed ones
-     */
-    public boolean areBiomesViable(int x, int z, int radius, List<Biome> allowed)
-    {
-        return allowed.contains(biome);
-    }
+	/**
+	 * Gets biomes to use for the blocks and loads the other data like temperature and humidity onto the
+	 * WorldChunkManager.
+	 */
+	public Biome[] getBiomes(@Nullable Biome[] oldBiomeList, int x, int z, int width, int depth) {
 
-    public boolean isFixedBiome()
-    {
-        return true;
-    }
+		if (oldBiomeList == null || oldBiomeList.length < width * depth) {
+			oldBiomeList = new Biome[width * depth];
+		}
 
-    public Biome getFixedBiome()
-    {
-        return biome;
-    }
+		Arrays.fill(oldBiomeList, 0, width * depth, biome);
+		return oldBiomeList;
+	}
+
+	/**
+	 * Gets a list of biomes for the specified blocks.
+	 */
+	public Biome[] getBiomes(@Nullable Biome[] listToReuse, int x, int z, int width, int length, boolean cacheFlag) {
+
+		return getBiomes(listToReuse, x, z, width, length);
+	}
+
+	@Nullable
+	public BlockPos findBiomePosition(int x, int z, int range, List<Biome> biomes, Random random) {
+
+		return biomes.contains(biome) ? new BlockPos(x - range + random.nextInt(range * 2 + 1), 0, z - range + random.nextInt(range * 2 + 1)) : null;
+	}
+
+	/**
+	 * checks given Chunk's Biomes against List of allowed ones
+	 */
+	public boolean areBiomesViable(int x, int z, int radius, List<Biome> allowed) {
+
+		return allowed.contains(biome);
+	}
+
+	public boolean isFixedBiome() {
+
+		return true;
+	}
+
+	public Biome getFixedBiome() {
+
+		return biome;
+	}
+
 }

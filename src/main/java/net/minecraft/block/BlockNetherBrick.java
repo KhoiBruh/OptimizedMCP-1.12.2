@@ -7,19 +7,20 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 
-public class BlockNetherBrick extends Block
-{
-    public BlockNetherBrick()
-    {
-        super(Material.ROCK);
-        setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
-    }
+public class BlockNetherBrick extends Block {
 
-    /**
-     * Get the MapColor for this Block and the given BlockState
-     */
-    public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos)
-    {
-        return MapColor.NETHERRACK;
-    }
+	public BlockNetherBrick() {
+
+		super(Material.ROCK);
+		setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
+	}
+
+	/**
+	 * Get the MapColor for this Block and the given BlockState
+	 */
+	public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
+
+		return MapColor.NETHERRACK;
+	}
+
 }

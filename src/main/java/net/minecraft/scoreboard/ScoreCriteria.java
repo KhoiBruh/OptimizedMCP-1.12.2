@@ -1,27 +1,28 @@
 package net.minecraft.scoreboard;
 
-public class ScoreCriteria implements IScoreCriteria
-{
-    private final String dummyName;
+public class ScoreCriteria implements IScoreCriteria {
 
-    public ScoreCriteria(String name)
-    {
-        dummyName = name;
-        IScoreCriteria.INSTANCES.put(name, this);
-    }
+	private final String dummyName;
 
-    public String getName()
-    {
-        return dummyName;
-    }
+	public ScoreCriteria(String name) {
 
-    public boolean isReadOnly()
-    {
-        return false;
-    }
+		dummyName = name;
+		IScoreCriteria.INSTANCES.put(name, this);
+	}
 
-    public IScoreCriteria.EnumRenderType getRenderType()
-    {
-        return IScoreCriteria.EnumRenderType.INTEGER;
-    }
+	public String getName() {
+
+		return dummyName;
+	}
+
+	public boolean isReadOnly() {
+
+		return false;
+	}
+
+	public IScoreCriteria.EnumRenderType getRenderType() {
+
+		return IScoreCriteria.EnumRenderType.INTEGER;
+	}
+
 }

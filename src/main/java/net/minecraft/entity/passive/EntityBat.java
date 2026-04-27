@@ -1,7 +1,5 @@
 package net.minecraft.entity.passive;
 
-import java.util.Calendar;
-import javax.annotation.Nullable;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
@@ -21,286 +19,265 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 
-public class EntityBat extends EntityAmbientCreature
-{
-    private static final DataParameter<Byte> HANGING = EntityDataManager.<Byte>createKey(EntityBat.class, DataSerializers.BYTE);
+import javax.annotation.Nullable;
+import java.util.Calendar;
 
-    /** Coordinates of where the bat spawned. */
-    private BlockPos spawnPosition;
+public class EntityBat extends EntityAmbientCreature {
 
-    public EntityBat(World worldIn)
-    {
-        super(worldIn);
-        setSize(0.5F, 0.9F);
-        setIsBatHanging(true);
-    }
+	private static final DataParameter<Byte> HANGING = EntityDataManager.createKey(EntityBat.class, DataSerializers.BYTE);
 
-    protected void entityInit()
-    {
-        super.entityInit();
-        dataManager.register(HANGING, Byte.valueOf((byte)0));
-    }
+	/**
+	 * Coordinates of where the bat spawned.
+	 */
+	private BlockPos spawnPosition;
 
-    /**
-     * Returns the volume for the sounds this mob makes.
-     */
-    protected float getSoundVolume()
-    {
-        return 0.1F;
-    }
+	public EntityBat(World worldIn) {
 
-    /**
-     * Gets the pitch of living sounds in living entities.
-     */
-    protected float getSoundPitch()
-    {
-        return super.getSoundPitch() * 0.95F;
-    }
+		super(worldIn);
+		setSize(0.5F, 0.9F);
+		setIsBatHanging(true);
+	}
 
-    @Nullable
-    public SoundEvent getAmbientSound()
-    {
-        return getIsBatHanging() && rand.nextInt(4) != 0 ? null : SoundEvents.ENTITY_BAT_AMBIENT;
-    }
+	protected void entityInit() {
 
-    protected SoundEvent getHurtSound(DamageSource damageSourceIn)
-    {
-        return SoundEvents.ENTITY_BAT_HURT;
-    }
+		super.entityInit();
+		dataManager.register(HANGING, Byte.valueOf((byte) 0));
+	}
 
-    protected SoundEvent getDeathSound()
-    {
-        return SoundEvents.ENTITY_BAT_DEATH;
-    }
+	/**
+	 * Returns the volume for the sounds this mob makes.
+	 */
+	protected float getSoundVolume() {
 
-    /**
-     * Returns true if this entity should push and be pushed by other entities when colliding.
-     */
-    public boolean canBePushed()
-    {
-        return false;
-    }
+		return 0.1F;
+	}
 
-    protected void collideWithEntity(Entity entityIn)
-    {
-    }
+	/**
+	 * Gets the pitch of living sounds in living entities.
+	 */
+	protected float getSoundPitch() {
 
-    protected void collideWithNearbyEntities()
-    {
-    }
+		return super.getSoundPitch() * 0.95F;
+	}
 
-    protected void applyEntityAttributes()
-    {
-        super.applyEntityAttributes();
-        getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(6.0D);
-    }
+	@Nullable
+	public SoundEvent getAmbientSound() {
 
-    public boolean getIsBatHanging()
-    {
-        return (((Byte) dataManager.get(HANGING)).byteValue() & 1) != 0;
-    }
+		return getIsBatHanging() && rand.nextInt(4) != 0 ? null : SoundEvents.ENTITY_BAT_AMBIENT;
+	}
 
-    public void setIsBatHanging(boolean isHanging)
-    {
-        byte b0 = ((Byte) dataManager.get(HANGING)).byteValue();
+	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
 
-        if (isHanging)
-        {
-            dataManager.set(HANGING, Byte.valueOf((byte)(b0 | 1)));
-        }
-        else
-        {
-            dataManager.set(HANGING, Byte.valueOf((byte)(b0 & -2)));
-        }
-    }
+		return SoundEvents.ENTITY_BAT_HURT;
+	}
 
-    /**
-     * Called to update the entity's position/logic.
-     */
-    public void onUpdate()
-    {
-        super.onUpdate();
+	protected SoundEvent getDeathSound() {
 
-        if (getIsBatHanging())
-        {
-            motionX = 0.0D;
-            motionY = 0.0D;
-            motionZ = 0.0D;
-            posY = (double)MathHelper.floor(posY) + 1.0D - (double) height;
-        }
-        else
-        {
-            motionY *= 0.6000000238418579D;
-        }
-    }
+		return SoundEvents.ENTITY_BAT_DEATH;
+	}
 
-    protected void updateAITasks()
-    {
-        super.updateAITasks();
-        BlockPos blockpos = new BlockPos(this);
-        BlockPos blockpos1 = blockpos.up();
+	/**
+	 * Returns true if this entity should push and be pushed by other entities when colliding.
+	 */
+	public boolean canBePushed() {
 
-        if (getIsBatHanging())
-        {
-            if (world.getBlockState(blockpos1).isNormalCube())
-            {
-                if (rand.nextInt(200) == 0)
-                {
-                    rotationYawHead = (float) rand.nextInt(360);
-                }
+		return false;
+	}
 
-                if (world.getNearestPlayerNotCreative(this, 4.0D) != null)
-                {
-                    setIsBatHanging(false);
-                    world.playEvent((EntityPlayer)null, 1025, blockpos, 0);
-                }
-            }
-            else
-            {
-                setIsBatHanging(false);
-                world.playEvent((EntityPlayer)null, 1025, blockpos, 0);
-            }
-        }
-        else
-        {
-            if (spawnPosition != null && (!world.isAirBlock(spawnPosition) || spawnPosition.getY() < 1))
-            {
-                spawnPosition = null;
-            }
+	protected void collideWithEntity(Entity entityIn) {
 
-            if (spawnPosition == null || rand.nextInt(30) == 0 || spawnPosition.distanceSq((double)((int) posX), (double)((int) posY), (double)((int) posZ)) < 4.0D)
-            {
-                spawnPosition = new BlockPos((int) posX + rand.nextInt(7) - rand.nextInt(7), (int) posY + rand.nextInt(6) - 2, (int) posZ + rand.nextInt(7) - rand.nextInt(7));
-            }
+	}
 
-            double d0 = (double) spawnPosition.getX() + 0.5D - posX;
-            double d1 = (double) spawnPosition.getY() + 0.1D - posY;
-            double d2 = (double) spawnPosition.getZ() + 0.5D - posZ;
-            motionX += (Math.signum(d0) * 0.5D - motionX) * 0.10000000149011612D;
-            motionY += (Math.signum(d1) * 0.699999988079071D - motionY) * 0.10000000149011612D;
-            motionZ += (Math.signum(d2) * 0.5D - motionZ) * 0.10000000149011612D;
-            float f = (float)(MathHelper.atan2(motionZ, motionX) * (180D / Math.PI)) - 90.0F;
-            float f1 = MathHelper.wrapDegrees(f - rotationYaw);
-            moveForward = 0.5F;
-            rotationYaw += f1;
+	protected void collideWithNearbyEntities() {
 
-            if (rand.nextInt(100) == 0 && world.getBlockState(blockpos1).isNormalCube())
-            {
-                setIsBatHanging(true);
-            }
-        }
-    }
+	}
 
-    /**
-     * returns if this entity triggers Block.onEntityWalking on the blocks they walk on. used for spiders and wolves to
-     * prevent them from trampling crops
-     */
-    protected boolean canTriggerWalking()
-    {
-        return false;
-    }
+	protected void applyEntityAttributes() {
 
-    public void fall(float distance, float damageMultiplier)
-    {
-    }
+		super.applyEntityAttributes();
+		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(6.0D);
+	}
 
-    protected void updateFallState(double y, boolean onGroundIn, IBlockState state, BlockPos pos)
-    {
-    }
+	public boolean getIsBatHanging() {
 
-    /**
-     * Return whether this entity should NOT trigger a pressure plate or a tripwire.
-     */
-    public boolean doesEntityNotTriggerPressurePlate()
-    {
-        return true;
-    }
+		return (dataManager.get(HANGING).byteValue() & 1) != 0;
+	}
 
-    /**
-     * Called when the entity is attacked.
-     */
-    public boolean attackEntityFrom(DamageSource source, float amount)
-    {
-        if (isEntityInvulnerable(source))
-        {
-            return false;
-        }
-        else
-        {
-            if (!world.isRemote && getIsBatHanging())
-            {
-                setIsBatHanging(false);
-            }
+	public void setIsBatHanging(boolean isHanging) {
 
-            return super.attackEntityFrom(source, amount);
-        }
-    }
+		byte b0 = dataManager.get(HANGING).byteValue();
 
-    public static void registerFixesBat(DataFixer fixer)
-    {
-        EntityLiving.registerFixesMob(fixer, EntityBat.class);
-    }
+		if (isHanging) {
+			dataManager.set(HANGING, Byte.valueOf((byte) (b0 | 1)));
+		} else {
+			dataManager.set(HANGING, Byte.valueOf((byte) (b0 & -2)));
+		}
+	}
 
-    /**
-     * (abstract) Protected helper method to read subclass entity data from NBT.
-     */
-    public void readEntityFromNBT(NBTTagCompound compound)
-    {
-        super.readEntityFromNBT(compound);
-        dataManager.set(HANGING, Byte.valueOf(compound.getByte("BatFlags")));
-    }
+	/**
+	 * Called to update the entity's position/logic.
+	 */
+	public void onUpdate() {
 
-    /**
-     * (abstract) Protected helper method to write subclass entity data to NBT.
-     */
-    public void writeEntityToNBT(NBTTagCompound compound)
-    {
-        super.writeEntityToNBT(compound);
-        compound.setByte("BatFlags", ((Byte) dataManager.get(HANGING)).byteValue());
-    }
+		super.onUpdate();
 
-    /**
-     * Checks if the entity's current position is a valid location to spawn this entity.
-     */
-    public boolean getCanSpawnHere()
-    {
-        BlockPos blockpos = new BlockPos(posX, getEntityBoundingBox().minY, posZ);
+		if (getIsBatHanging()) {
+			motionX = 0.0D;
+			motionY = 0.0D;
+			motionZ = 0.0D;
+			posY = (double) MathHelper.floor(posY) + 1.0D - (double) height;
+		} else {
+			motionY *= 0.6000000238418579D;
+		}
+	}
 
-        if (blockpos.getY() >= world.getSeaLevel())
-        {
-            return false;
-        }
-        else
-        {
-            int i = world.getLightFromNeighbors(blockpos);
-            int j = 4;
+	protected void updateAITasks() {
 
-            if (isDateAroundHalloween(world.getCurrentDate()))
-            {
-                j = 7;
-            }
-            else if (rand.nextBoolean())
-            {
-                return false;
-            }
+		super.updateAITasks();
+		BlockPos blockpos = new BlockPos(this);
+		BlockPos blockpos1 = blockpos.up();
 
-            return i > rand.nextInt(j) ? false : super.getCanSpawnHere();
-        }
-    }
+		if (getIsBatHanging()) {
+			if (world.getBlockState(blockpos1).isNormalCube()) {
+				if (rand.nextInt(200) == 0) {
+					rotationYawHead = (float) rand.nextInt(360);
+				}
 
-    private boolean isDateAroundHalloween(Calendar p_175569_1_)
-    {
-        return p_175569_1_.get(2) + 1 == 10 && p_175569_1_.get(5) >= 20 || p_175569_1_.get(2) + 1 == 11 && p_175569_1_.get(5) <= 3;
-    }
+				if (world.getNearestPlayerNotCreative(this, 4.0D) != null) {
+					setIsBatHanging(false);
+					world.playEvent(null, 1025, blockpos, 0);
+				}
+			} else {
+				setIsBatHanging(false);
+				world.playEvent(null, 1025, blockpos, 0);
+			}
+		} else {
+			if (spawnPosition != null && (!world.isAirBlock(spawnPosition) || spawnPosition.getY() < 1)) {
+				spawnPosition = null;
+			}
 
-    public float getEyeHeight()
-    {
-        return height / 2.0F;
-    }
+			if (spawnPosition == null || rand.nextInt(30) == 0 || spawnPosition.distanceSq((int) posX, (int) posY, (int) posZ) < 4.0D) {
+				spawnPosition = new BlockPos((int) posX + rand.nextInt(7) - rand.nextInt(7), (int) posY + rand.nextInt(6) - 2, (int) posZ + rand.nextInt(7) - rand.nextInt(7));
+			}
 
-    @Nullable
-    protected ResourceLocation getLootTable()
-    {
-        return LootTableList.ENTITIES_BAT;
-    }
+			double d0 = (double) spawnPosition.getX() + 0.5D - posX;
+			double d1 = (double) spawnPosition.getY() + 0.1D - posY;
+			double d2 = (double) spawnPosition.getZ() + 0.5D - posZ;
+			motionX += (Math.signum(d0) * 0.5D - motionX) * 0.10000000149011612D;
+			motionY += (Math.signum(d1) * 0.699999988079071D - motionY) * 0.10000000149011612D;
+			motionZ += (Math.signum(d2) * 0.5D - motionZ) * 0.10000000149011612D;
+			float f = (float) (MathHelper.atan2(motionZ, motionX) * (180D / Math.PI)) - 90.0F;
+			float f1 = MathHelper.wrapDegrees(f - rotationYaw);
+			moveForward = 0.5F;
+			rotationYaw += f1;
+
+			if (rand.nextInt(100) == 0 && world.getBlockState(blockpos1).isNormalCube()) {
+				setIsBatHanging(true);
+			}
+		}
+	}
+
+	/**
+	 * returns if this entity triggers Block.onEntityWalking on the blocks they walk on. used for spiders and wolves to
+	 * prevent them from trampling crops
+	 */
+	protected boolean canTriggerWalking() {
+
+		return false;
+	}
+
+	public void fall(float distance, float damageMultiplier) {
+
+	}
+
+	protected void updateFallState(double y, boolean onGroundIn, IBlockState state, BlockPos pos) {
+
+	}
+
+	/**
+	 * Return whether this entity should NOT trigger a pressure plate or a tripwire.
+	 */
+	public boolean doesEntityNotTriggerPressurePlate() {
+
+		return true;
+	}
+
+	/**
+	 * Called when the entity is attacked.
+	 */
+	public boolean attackEntityFrom(DamageSource source, float amount) {
+
+		if (isEntityInvulnerable(source)) {
+			return false;
+		} else {
+			if (!world.isRemote && getIsBatHanging()) {
+				setIsBatHanging(false);
+			}
+
+			return super.attackEntityFrom(source, amount);
+		}
+	}
+
+	public static void registerFixesBat(DataFixer fixer) {
+
+		EntityLiving.registerFixesMob(fixer, EntityBat.class);
+	}
+
+	/**
+	 * (abstract) Protected helper method to read subclass entity data from NBT.
+	 */
+	public void readEntityFromNBT(NBTTagCompound compound) {
+
+		super.readEntityFromNBT(compound);
+		dataManager.set(HANGING, Byte.valueOf(compound.getByte("BatFlags")));
+	}
+
+	/**
+	 * (abstract) Protected helper method to write subclass entity data to NBT.
+	 */
+	public void writeEntityToNBT(NBTTagCompound compound) {
+
+		super.writeEntityToNBT(compound);
+		compound.setByte("BatFlags", dataManager.get(HANGING).byteValue());
+	}
+
+	/**
+	 * Checks if the entity's current position is a valid location to spawn this entity.
+	 */
+	public boolean getCanSpawnHere() {
+
+		BlockPos blockpos = new BlockPos(posX, getEntityBoundingBox().minY, posZ);
+
+		if (blockpos.getY() >= world.getSeaLevel()) {
+			return false;
+		} else {
+			int i = world.getLightFromNeighbors(blockpos);
+			int j = 4;
+
+			if (isDateAroundHalloween(world.getCurrentDate())) {
+				j = 7;
+			} else if (rand.nextBoolean()) {
+				return false;
+			}
+
+			return i <= rand.nextInt(j) && super.getCanSpawnHere();
+		}
+	}
+
+	private boolean isDateAroundHalloween(Calendar p_175569_1_) {
+
+		return p_175569_1_.get(2) + 1 == 10 && p_175569_1_.get(5) >= 20 || p_175569_1_.get(2) + 1 == 11 && p_175569_1_.get(5) <= 3;
+	}
+
+	public float getEyeHeight() {
+
+		return height / 2.0F;
+	}
+
+	@Nullable
+	protected ResourceLocation getLootTable() {
+
+		return LootTableList.ENTITIES_BAT;
+	}
+
 }

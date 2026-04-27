@@ -1,15 +1,6 @@
 package net.minecraft.world.storage.loot.functions;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
-import com.google.gson.JsonSerializationContext;
-import com.google.gson.JsonSyntaxException;
-import java.util.Random;
-import java.util.UUID;
-import javax.annotation.Nullable;
+import com.google.gson.*;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
@@ -21,216 +12,194 @@ import net.minecraft.world.storage.loot.conditions.LootCondition;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class SetAttributes extends LootFunction
-{
-    private static final Logger LOGGER = LogManager.getLogger();
-    private final SetAttributes.Modifier[] modifiers;
+import javax.annotation.Nullable;
+import java.util.Random;
+import java.util.UUID;
 
-    public SetAttributes(LootCondition[] conditionsIn, SetAttributes.Modifier[] modifiersIn)
-    {
-        super(conditionsIn);
-        modifiers = modifiersIn;
-    }
+public class SetAttributes extends LootFunction {
 
-    public ItemStack apply(ItemStack stack, Random rand, LootContext context)
-    {
-        for (SetAttributes.Modifier setattributes$modifier : modifiers)
-        {
-            UUID uuid = setattributes$modifier.uuid;
+	private static final Logger LOGGER = LogManager.getLogger();
+	private final SetAttributes.Modifier[] modifiers;
 
-            if (uuid == null)
-            {
-                uuid = UUID.randomUUID();
-            }
+	public SetAttributes(LootCondition[] conditionsIn, SetAttributes.Modifier[] modifiersIn) {
 
-            EntityEquipmentSlot entityequipmentslot = setattributes$modifier.slots[rand.nextInt(setattributes$modifier.slots.length)];
-            stack.addAttributeModifier(setattributes$modifier.attributeName, new AttributeModifier(uuid, setattributes$modifier.modifierName, (double)setattributes$modifier.amount.generateFloat(rand), setattributes$modifier.operation), entityequipmentslot);
-        }
+		super(conditionsIn);
+		modifiers = modifiersIn;
+	}
 
-        return stack;
-    }
+	public ItemStack apply(ItemStack stack, Random rand, LootContext context) {
 
-    static class Modifier
-    {
-        private final String modifierName;
-        private final String attributeName;
-        private final int operation;
-        private final RandomValueRange amount;
-        @Nullable
-        private final UUID uuid;
-        private final EntityEquipmentSlot[] slots;
+		for (SetAttributes.Modifier setattributes$modifier : modifiers) {
+			UUID uuid = setattributes$modifier.uuid;
 
-        private Modifier(String modifName, String attrName, int operationIn, RandomValueRange randomAmount, EntityEquipmentSlot[] slotsIn, @Nullable UUID uuidIn)
-        {
-            modifierName = modifName;
-            attributeName = attrName;
-            operation = operationIn;
-            amount = randomAmount;
-            uuid = uuidIn;
-            slots = slotsIn;
-        }
+			if (uuid == null) {
+				uuid = UUID.randomUUID();
+			}
 
-        public JsonObject serialize(JsonSerializationContext context)
-        {
-            JsonObject jsonobject = new JsonObject();
-            jsonobject.addProperty("name", modifierName);
-            jsonobject.addProperty("attribute", attributeName);
-            jsonobject.addProperty("operation", getOperationFromStr(operation));
-            jsonobject.add("amount", context.serialize(amount));
+			EntityEquipmentSlot entityequipmentslot = setattributes$modifier.slots[rand.nextInt(setattributes$modifier.slots.length)];
+			stack.addAttributeModifier(setattributes$modifier.attributeName, new AttributeModifier(uuid, setattributes$modifier.modifierName, setattributes$modifier.amount.generateFloat(rand), setattributes$modifier.operation), entityequipmentslot);
+		}
 
-            if (uuid != null)
-            {
-                jsonobject.addProperty("id", uuid.toString());
-            }
+		return stack;
+	}
 
-            if (slots.length == 1)
-            {
-                jsonobject.addProperty("slot", slots[0].getName());
-            }
-            else
-            {
-                JsonArray jsonarray = new JsonArray();
+	static class Modifier {
 
-                for (EntityEquipmentSlot entityequipmentslot : slots)
-                {
-                    jsonarray.add(new JsonPrimitive(entityequipmentslot.getName()));
-                }
+		private final String modifierName;
+		private final String attributeName;
+		private final int operation;
+		private final RandomValueRange amount;
 
-                jsonobject.add("slot", jsonarray);
-            }
+		@Nullable
+		private final UUID uuid;
+		private final EntityEquipmentSlot[] slots;
 
-            return jsonobject;
-        }
+		private Modifier(String modifName, String attrName, int operationIn, RandomValueRange randomAmount, EntityEquipmentSlot[] slotsIn, @Nullable UUID uuidIn) {
 
-        public static SetAttributes.Modifier deserialize(JsonObject jsonObj, JsonDeserializationContext context)
-        {
-            String s = JsonUtils.getString(jsonObj, "name");
-            String s1 = JsonUtils.getString(jsonObj, "attribute");
-            int i = getOperationFromInt(JsonUtils.getString(jsonObj, "operation"));
-            RandomValueRange randomvaluerange = (RandomValueRange)JsonUtils.deserializeClass(jsonObj, "amount", context, RandomValueRange.class);
-            UUID uuid = null;
-            EntityEquipmentSlot[] aentityequipmentslot;
+			modifierName = modifName;
+			attributeName = attrName;
+			operation = operationIn;
+			amount = randomAmount;
+			uuid = uuidIn;
+			slots = slotsIn;
+		}
 
-            if (JsonUtils.isString(jsonObj, "slot"))
-            {
-                aentityequipmentslot = new EntityEquipmentSlot[] {EntityEquipmentSlot.fromString(JsonUtils.getString(jsonObj, "slot"))};
-            }
-            else
-            {
-                if (!JsonUtils.isJsonArray(jsonObj, "slot"))
-                {
-                    throw new JsonSyntaxException("Invalid or missing attribute modifier slot; must be either string or array of strings.");
-                }
+		public JsonObject serialize(JsonSerializationContext context) {
 
-                JsonArray jsonarray = JsonUtils.getJsonArray(jsonObj, "slot");
-                aentityequipmentslot = new EntityEquipmentSlot[jsonarray.size()];
-                int j = 0;
+			JsonObject jsonobject = new JsonObject();
+			jsonobject.addProperty("name", modifierName);
+			jsonobject.addProperty("attribute", attributeName);
+			jsonobject.addProperty("operation", getOperationFromStr(operation));
+			jsonobject.add("amount", context.serialize(amount));
 
-                for (JsonElement jsonelement : jsonarray)
-                {
-                    aentityequipmentslot[j++] = EntityEquipmentSlot.fromString(JsonUtils.getString(jsonelement, "slot"));
-                }
+			if (uuid != null) {
+				jsonobject.addProperty("id", uuid.toString());
+			}
 
-                if (aentityequipmentslot.length == 0)
-                {
-                    throw new JsonSyntaxException("Invalid attribute modifier slot; must contain at least one entry.");
-                }
-            }
+			if (slots.length == 1) {
+				jsonobject.addProperty("slot", slots[0].getName());
+			} else {
+				JsonArray jsonarray = new JsonArray();
 
-            if (jsonObj.has("id"))
-            {
-                String s2 = JsonUtils.getString(jsonObj, "id");
+				for (EntityEquipmentSlot entityequipmentslot : slots) {
+					jsonarray.add(new JsonPrimitive(entityequipmentslot.getName()));
+				}
 
-                try
-                {
-                    uuid = UUID.fromString(s2);
-                }
-                catch (IllegalArgumentException var12)
-                {
-                    throw new JsonSyntaxException("Invalid attribute modifier id '" + s2 + "' (must be UUID format, with dashes)");
-                }
-            }
+				jsonobject.add("slot", jsonarray);
+			}
 
-            return new SetAttributes.Modifier(s, s1, i, randomvaluerange, aentityequipmentslot, uuid);
-        }
+			return jsonobject;
+		}
 
-        private static String getOperationFromStr(int operationIn)
-        {
-            switch (operationIn)
-            {
-                case 0:
-                    return "addition";
+		public static SetAttributes.Modifier deserialize(JsonObject jsonObj, JsonDeserializationContext context) {
 
-                case 1:
-                    return "multiply_base";
+			String s = JsonUtils.getString(jsonObj, "name");
+			String s1 = JsonUtils.getString(jsonObj, "attribute");
+			int i = getOperationFromInt(JsonUtils.getString(jsonObj, "operation"));
+			RandomValueRange randomvaluerange = JsonUtils.deserializeClass(jsonObj, "amount", context, RandomValueRange.class);
+			UUID uuid = null;
+			EntityEquipmentSlot[] aentityequipmentslot;
 
-                case 2:
-                    return "multiply_total";
+			if (JsonUtils.isString(jsonObj, "slot")) {
+				aentityequipmentslot = new EntityEquipmentSlot[]{EntityEquipmentSlot.fromString(JsonUtils.getString(jsonObj, "slot"))};
+			} else {
+				if (!JsonUtils.isJsonArray(jsonObj, "slot")) {
+					throw new JsonSyntaxException("Invalid or missing attribute modifier slot; must be either string or array of strings.");
+				}
 
-                default:
-                    throw new IllegalArgumentException("Unknown operation " + operationIn);
-            }
-        }
+				JsonArray jsonarray = JsonUtils.getJsonArray(jsonObj, "slot");
+				aentityequipmentslot = new EntityEquipmentSlot[jsonarray.size()];
+				int j = 0;
 
-        private static int getOperationFromInt(String operationIn)
-        {
-            if ("addition".equals(operationIn))
-            {
-                return 0;
-            }
-            else if ("multiply_base".equals(operationIn))
-            {
-                return 1;
-            }
-            else if ("multiply_total".equals(operationIn))
-            {
-                return 2;
-            }
-            else
-            {
-                throw new JsonSyntaxException("Unknown attribute modifier operation " + operationIn);
-            }
-        }
-    }
+				for (JsonElement jsonelement : jsonarray) {
+					aentityequipmentslot[j++] = EntityEquipmentSlot.fromString(JsonUtils.getString(jsonelement, "slot"));
+				}
 
-    public static class Serializer extends LootFunction.Serializer<SetAttributes>
-    {
-        public Serializer()
-        {
-            super(new ResourceLocation("set_attributes"), SetAttributes.class);
-        }
+				if (aentityequipmentslot.length == 0) {
+					throw new JsonSyntaxException("Invalid attribute modifier slot; must contain at least one entry.");
+				}
+			}
 
-        public void serialize(JsonObject object, SetAttributes functionClazz, JsonSerializationContext serializationContext)
-        {
-            JsonArray jsonarray = new JsonArray();
+			if (jsonObj.has("id")) {
+				String s2 = JsonUtils.getString(jsonObj, "id");
 
-            for (SetAttributes.Modifier setattributes$modifier : functionClazz.modifiers)
-            {
-                jsonarray.add(setattributes$modifier.serialize(serializationContext));
-            }
+				try {
+					uuid = UUID.fromString(s2);
+				} catch (IllegalArgumentException var12) {
+					throw new JsonSyntaxException("Invalid attribute modifier id '" + s2 + "' (must be UUID format, with dashes)");
+				}
+			}
 
-            object.add("modifiers", jsonarray);
-        }
+			return new SetAttributes.Modifier(s, s1, i, randomvaluerange, aentityequipmentslot, uuid);
+		}
 
-        public SetAttributes deserialize(JsonObject object, JsonDeserializationContext deserializationContext, LootCondition[] conditionsIn)
-        {
-            JsonArray jsonarray = JsonUtils.getJsonArray(object, "modifiers");
-            SetAttributes.Modifier[] asetattributes$modifier = new SetAttributes.Modifier[jsonarray.size()];
-            int i = 0;
+		private static String getOperationFromStr(int operationIn) {
 
-            for (JsonElement jsonelement : jsonarray)
-            {
-                asetattributes$modifier[i++] = SetAttributes.Modifier.deserialize(JsonUtils.getJsonObject(jsonelement, "modifier"), deserializationContext);
-            }
+			switch (operationIn) {
+				case 0:
+					return "addition";
 
-            if (asetattributes$modifier.length == 0)
-            {
-                throw new JsonSyntaxException("Invalid attribute modifiers array; cannot be empty");
-            }
-            else
-            {
-                return new SetAttributes(conditionsIn, asetattributes$modifier);
-            }
-        }
-    }
+				case 1:
+					return "multiply_base";
+
+				case 2:
+					return "multiply_total";
+
+				default:
+					throw new IllegalArgumentException("Unknown operation " + operationIn);
+			}
+		}
+
+		private static int getOperationFromInt(String operationIn) {
+
+			if ("addition".equals(operationIn)) {
+				return 0;
+			} else if ("multiply_base".equals(operationIn)) {
+				return 1;
+			} else if ("multiply_total".equals(operationIn)) {
+				return 2;
+			} else {
+				throw new JsonSyntaxException("Unknown attribute modifier operation " + operationIn);
+			}
+		}
+
+	}
+
+	public static class Serializer extends LootFunction.Serializer<SetAttributes> {
+
+		public Serializer() {
+
+			super(new ResourceLocation("set_attributes"), SetAttributes.class);
+		}
+
+		public void serialize(JsonObject object, SetAttributes functionClazz, JsonSerializationContext serializationContext) {
+
+			JsonArray jsonarray = new JsonArray();
+
+			for (SetAttributes.Modifier setattributes$modifier : functionClazz.modifiers) {
+				jsonarray.add(setattributes$modifier.serialize(serializationContext));
+			}
+
+			object.add("modifiers", jsonarray);
+		}
+
+		public SetAttributes deserialize(JsonObject object, JsonDeserializationContext deserializationContext, LootCondition[] conditionsIn) {
+
+			JsonArray jsonarray = JsonUtils.getJsonArray(object, "modifiers");
+			SetAttributes.Modifier[] asetattributes$modifier = new SetAttributes.Modifier[jsonarray.size()];
+			int i = 0;
+
+			for (JsonElement jsonelement : jsonarray) {
+				asetattributes$modifier[i++] = SetAttributes.Modifier.deserialize(JsonUtils.getJsonObject(jsonelement, "modifier"), deserializationContext);
+			}
+
+			if (asetattributes$modifier.length == 0) {
+				throw new JsonSyntaxException("Invalid attribute modifiers array; cannot be empty");
+			} else {
+				return new SetAttributes(conditionsIn, asetattributes$modifier);
+			}
+		}
+
+	}
+
 }

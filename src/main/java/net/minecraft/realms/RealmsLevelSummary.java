@@ -2,69 +2,67 @@ package net.minecraft.realms;
 
 import net.minecraft.world.storage.WorldSummary;
 
-public class RealmsLevelSummary implements Comparable<RealmsLevelSummary>
-{
-    private final WorldSummary levelSummary;
+public class RealmsLevelSummary implements Comparable<RealmsLevelSummary> {
 
-    public RealmsLevelSummary(WorldSummary levelSummaryIn)
-    {
-        levelSummary = levelSummaryIn;
-    }
+	private final WorldSummary levelSummary;
 
-    public int getGameMode()
-    {
-        return levelSummary.getEnumGameType().getID();
-    }
+	public RealmsLevelSummary(WorldSummary levelSummaryIn) {
 
-    public String getLevelId()
-    {
-        return levelSummary.getFileName();
-    }
+		levelSummary = levelSummaryIn;
+	}
 
-    public boolean hasCheats()
-    {
-        return levelSummary.getCheatsEnabled();
-    }
+	public int getGameMode() {
 
-    public boolean isHardcore()
-    {
-        return levelSummary.isHardcoreModeEnabled();
-    }
+		return levelSummary.getEnumGameType().getID();
+	}
 
-    public boolean isRequiresConversion()
-    {
-        return levelSummary.requiresConversion();
-    }
+	public String getLevelId() {
 
-    public String getLevelName()
-    {
-        return levelSummary.getDisplayName();
-    }
+		return levelSummary.getFileName();
+	}
 
-    public long getLastPlayed()
-    {
-        return levelSummary.getLastTimePlayed();
-    }
+	public boolean hasCheats() {
 
-    public int compareTo(WorldSummary p_compareTo_1_)
-    {
-        return levelSummary.compareTo(p_compareTo_1_);
-    }
+		return levelSummary.getCheatsEnabled();
+	}
 
-    public long getSizeOnDisk()
-    {
-        return levelSummary.getSizeOnDisk();
-    }
+	public boolean isHardcore() {
 
-    public int compareTo(RealmsLevelSummary p_compareTo_1_)
-    {
-        if (levelSummary.getLastTimePlayed() < p_compareTo_1_.getLastPlayed())
-        {
-            return 1;
-        }
-        else
-        {
-            return levelSummary.getLastTimePlayed() > p_compareTo_1_.getLastPlayed() ? -1 : levelSummary.getFileName().compareTo(p_compareTo_1_.getLevelId());
-        }
-    }
+		return levelSummary.isHardcoreModeEnabled();
+	}
+
+	public boolean isRequiresConversion() {
+
+		return levelSummary.requiresConversion();
+	}
+
+	public String getLevelName() {
+
+		return levelSummary.getDisplayName();
+	}
+
+	public long getLastPlayed() {
+
+		return levelSummary.getLastTimePlayed();
+	}
+
+	public int compareTo(WorldSummary p_compareTo_1_) {
+
+		return levelSummary.compareTo(p_compareTo_1_);
+	}
+
+	public long getSizeOnDisk() {
+
+		return levelSummary.getSizeOnDisk();
+	}
+
+	public int compareTo(RealmsLevelSummary p_compareTo_1_) {
+
+		if (levelSummary.getLastTimePlayed() < p_compareTo_1_.getLastPlayed()) {
+			return 1;
+		} else {
+			return levelSummary.getLastTimePlayed() > p_compareTo_1_.getLastPlayed() ? -1 : levelSummary.getFileName().compareTo(p_compareTo_1_.getLevelId());
+		}
+	}
+
 }

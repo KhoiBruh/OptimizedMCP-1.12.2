@@ -1,6 +1,5 @@
 package net.minecraft.block;
 
-import java.util.Random;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
@@ -15,166 +14,159 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class BlockObserver extends BlockDirectional
-{
-    public static final PropertyBool POWERED = PropertyBool.create("powered");
+import java.util.Random;
 
-    public BlockObserver()
-    {
-        super(Material.ROCK);
-        setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.SOUTH).withProperty(POWERED, Boolean.valueOf(false)));
-        setCreativeTab(CreativeTabs.REDSTONE);
-    }
+public class BlockObserver extends BlockDirectional {
 
-    protected BlockStateContainer createBlockState()
-    {
-        return new BlockStateContainer(this, new IProperty[] {FACING, POWERED});
-    }
+	public static final PropertyBool POWERED = PropertyBool.create("powered");
 
-    /**
-     * Returns the blockstate with the given rotation from the passed blockstate. If inapplicable, returns the passed
-     * blockstate.
-     */
-    public IBlockState withRotation(IBlockState state, Rotation rot)
-    {
-        return state.withProperty(FACING, rot.rotate((EnumFacing)state.getValue(FACING)));
-    }
+	public BlockObserver() {
 
-    /**
-     * Returns the blockstate with the given mirror of the passed blockstate. If inapplicable, returns the passed
-     * blockstate.
-     */
-    public IBlockState withMirror(IBlockState state, Mirror mirrorIn)
-    {
-        return state.withRotation(mirrorIn.toRotation((EnumFacing)state.getValue(FACING)));
-    }
+		super(Material.ROCK);
+		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.SOUTH).withProperty(POWERED, Boolean.valueOf(false)));
+		setCreativeTab(CreativeTabs.REDSTONE);
+	}
 
-    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
-    {
-        if (((Boolean)state.getValue(POWERED)).booleanValue())
-        {
-            worldIn.setBlockState(pos, state.withProperty(POWERED, Boolean.valueOf(false)), 2);
-        }
-        else
-        {
-            worldIn.setBlockState(pos, state.withProperty(POWERED, Boolean.valueOf(true)), 2);
-            worldIn.scheduleUpdate(pos, this, 2);
-        }
+	protected BlockStateContainer createBlockState() {
 
-        updateNeighborsInFront(worldIn, pos, state);
-    }
+		return new BlockStateContainer(this, FACING, POWERED);
+	}
 
-    /**
-     * Called when a neighboring block was changed and marks that this state should perform any checks during a neighbor
-     * change. Cases may include when redstone power is updated, cactus blocks popping off due to a neighboring solid
-     * block, etc.
-     */
-    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos)
-    {
-    }
+	/**
+	 * Returns the blockstate with the given rotation from the passed blockstate. If inapplicable, returns the passed
+	 * blockstate.
+	 */
+	public IBlockState withRotation(IBlockState state, Rotation rot) {
 
-    public void observedNeighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos)
-    {
-        if (!worldIn.isRemote && pos.offset((EnumFacing)state.getValue(FACING)).equals(fromPos))
-        {
-            startSignal(state, worldIn, pos);
-        }
-    }
+		return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
+	}
 
-    private void startSignal(IBlockState p_190960_1_, World p_190960_2_, BlockPos pos)
-    {
-        if (!((Boolean)p_190960_1_.getValue(POWERED)).booleanValue())
-        {
-            if (!p_190960_2_.isUpdateScheduled(pos, this))
-            {
-                p_190960_2_.scheduleUpdate(pos, this, 2);
-            }
-        }
-    }
+	/**
+	 * Returns the blockstate with the given mirror of the passed blockstate. If inapplicable, returns the passed
+	 * blockstate.
+	 */
+	public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
 
-    protected void updateNeighborsInFront(World worldIn, BlockPos pos, IBlockState state)
-    {
-        EnumFacing enumfacing = (EnumFacing)state.getValue(FACING);
-        BlockPos blockpos = pos.offset(enumfacing.getOpposite());
-        worldIn.neighborChanged(blockpos, this, pos);
-        worldIn.notifyNeighborsOfStateExcept(blockpos, this, enumfacing);
-    }
+		return state.withRotation(mirrorIn.toRotation(state.getValue(FACING)));
+	}
 
-    /**
-     * Can this block provide power. Only wire currently seems to have this change based on its state.
-     */
-    public boolean canProvidePower(IBlockState state)
-    {
-        return true;
-    }
+	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
 
-    public int getStrongPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side)
-    {
-        return blockState.getWeakPower(blockAccess, pos, side);
-    }
+		if (state.getValue(POWERED).booleanValue()) {
+			worldIn.setBlockState(pos, state.withProperty(POWERED, Boolean.valueOf(false)), 2);
+		} else {
+			worldIn.setBlockState(pos, state.withProperty(POWERED, Boolean.valueOf(true)), 2);
+			worldIn.scheduleUpdate(pos, this, 2);
+		}
 
-    public int getWeakPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side)
-    {
-        return ((Boolean)blockState.getValue(POWERED)).booleanValue() && blockState.getValue(FACING) == side ? 15 : 0;
-    }
+		updateNeighborsInFront(worldIn, pos, state);
+	}
 
-    /**
-     * Called after the block is set in the Chunk data, but before the Tile Entity is set
-     */
-    public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state)
-    {
-        if (!worldIn.isRemote)
-        {
-            if (((Boolean)state.getValue(POWERED)).booleanValue())
-            {
-                updateTick(worldIn, pos, state, worldIn.rand);
-            }
+	/**
+	 * Called when a neighboring block was changed and marks that this state should perform any checks during a neighbor
+	 * change. Cases may include when redstone power is updated, cactus blocks popping off due to a neighboring solid
+	 * block, etc.
+	 */
+	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
 
-            startSignal(state, worldIn, pos);
-        }
-    }
+	}
 
-    /**
-     * Called serverside after this block is replaced with another in Chunk, but before the Tile Entity is updated
-     */
-    public void breakBlock(World worldIn, BlockPos pos, IBlockState state)
-    {
-        if (((Boolean)state.getValue(POWERED)).booleanValue() && worldIn.isUpdateScheduled(pos, this))
-        {
-            updateNeighborsInFront(worldIn, pos, state.withProperty(POWERED, Boolean.valueOf(false)));
-        }
-    }
+	public void observedNeighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
 
-    /**
-     * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
-     * IBlockstate
-     */
-    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
-    {
-        return getDefaultState().withProperty(FACING, EnumFacing.getDirectionFromEntityLiving(pos, placer).getOpposite());
-    }
+		if (!worldIn.isRemote && pos.offset(state.getValue(FACING)).equals(fromPos)) {
+			startSignal(state, worldIn, pos);
+		}
+	}
 
-    /**
-     * Convert the BlockState into the correct metadata value
-     */
-    public int getMetaFromState(IBlockState state)
-    {
-        int i = 0;
-        i = i | ((EnumFacing)state.getValue(FACING)).getIndex();
+	private void startSignal(IBlockState p_190960_1_, World p_190960_2_, BlockPos pos) {
 
-        if (((Boolean)state.getValue(POWERED)).booleanValue())
-        {
-            i |= 8;
-        }
+		if (!p_190960_1_.getValue(POWERED).booleanValue()) {
+			if (!p_190960_2_.isUpdateScheduled(pos, this)) {
+				p_190960_2_.scheduleUpdate(pos, this, 2);
+			}
+		}
+	}
 
-        return i;
-    }
+	protected void updateNeighborsInFront(World worldIn, BlockPos pos, IBlockState state) {
 
-    /**
-     * Convert the given metadata into a BlockState for this Block
-     */
-    public IBlockState getStateFromMeta(int meta)
-    {
-        return getDefaultState().withProperty(FACING, EnumFacing.getFront(meta & 7));
-    }
+		EnumFacing enumfacing = state.getValue(FACING);
+		BlockPos blockpos = pos.offset(enumfacing.getOpposite());
+		worldIn.neighborChanged(blockpos, this, pos);
+		worldIn.notifyNeighborsOfStateExcept(blockpos, this, enumfacing);
+	}
+
+	/**
+	 * Can this block provide power. Only wire currently seems to have this change based on its state.
+	 */
+	public boolean canProvidePower(IBlockState state) {
+
+		return true;
+	}
+
+	public int getStrongPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
+
+		return blockState.getWeakPower(blockAccess, pos, side);
+	}
+
+	public int getWeakPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
+
+		return blockState.getValue(POWERED).booleanValue() && blockState.getValue(FACING) == side ? 15 : 0;
+	}
+
+	/**
+	 * Called after the block is set in the Chunk data, but before the Tile Entity is set
+	 */
+	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
+
+		if (!worldIn.isRemote) {
+			if (state.getValue(POWERED).booleanValue()) {
+				updateTick(worldIn, pos, state, worldIn.rand);
+			}
+
+			startSignal(state, worldIn, pos);
+		}
+	}
+
+	/**
+	 * Called serverside after this block is replaced with another in Chunk, but before the Tile Entity is updated
+	 */
+	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
+
+		if (state.getValue(POWERED).booleanValue() && worldIn.isUpdateScheduled(pos, this)) {
+			updateNeighborsInFront(worldIn, pos, state.withProperty(POWERED, Boolean.valueOf(false)));
+		}
+	}
+
+	/**
+	 * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
+	 * IBlockstate
+	 */
+	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+
+		return getDefaultState().withProperty(FACING, EnumFacing.getDirectionFromEntityLiving(pos, placer).getOpposite());
+	}
+
+	/**
+	 * Convert the BlockState into the correct metadata value
+	 */
+	public int getMetaFromState(IBlockState state) {
+
+		int i = 0;
+		i = i | state.getValue(FACING).getIndex();
+
+		if (state.getValue(POWERED).booleanValue()) {
+			i |= 8;
+		}
+
+		return i;
+	}
+
+	/**
+	 * Convert the given metadata into a BlockState for this Block
+	 */
+	public IBlockState getStateFromMeta(int meta) {
+
+		return getDefaultState().withProperty(FACING, EnumFacing.getFront(meta & 7));
+	}
+
 }

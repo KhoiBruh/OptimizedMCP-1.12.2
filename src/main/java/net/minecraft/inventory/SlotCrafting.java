@@ -7,118 +7,112 @@ import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.NonNullList;
 
-public class SlotCrafting extends Slot
-{
-    /** The craft matrix inventory linked to this result slot. */
-    private final InventoryCrafting craftMatrix;
+public class SlotCrafting extends Slot {
 
-    /** The player that is using the GUI where this slot resides. */
-    private final EntityPlayer player;
+	/**
+	 * The craft matrix inventory linked to this result slot.
+	 */
+	private final InventoryCrafting craftMatrix;
 
-    /**
-     * The number of items that have been crafted so far. Gets passed to ItemStack.onCrafting before being reset.
-     */
-    private int amountCrafted;
+	/**
+	 * The player that is using the GUI where this slot resides.
+	 */
+	private final EntityPlayer player;
 
-    public SlotCrafting(EntityPlayer player, InventoryCrafting craftingInventory, IInventory inventoryIn, int slotIndex, int xPosition, int yPosition)
-    {
-        super(inventoryIn, slotIndex, xPosition, yPosition);
-        this.player = player;
-        craftMatrix = craftingInventory;
-    }
+	/**
+	 * The number of items that have been crafted so far. Gets passed to ItemStack.onCrafting before being reset.
+	 */
+	private int amountCrafted;
 
-    /**
-     * Check if the stack is allowed to be placed in this slot, used for armor slots as well as furnace fuel.
-     */
-    public boolean isItemValid(ItemStack stack)
-    {
-        return false;
-    }
+	public SlotCrafting(EntityPlayer player, InventoryCrafting craftingInventory, IInventory inventoryIn, int slotIndex, int xPosition, int yPosition) {
 
-    /**
-     * Decrease the size of the stack in slot (first int arg) by the amount of the second int arg. Returns the new
-     * stack.
-     */
-    public ItemStack decrStackSize(int amount)
-    {
-        if (getHasStack())
-        {
-            amountCrafted += Math.min(amount, getStack().getCount());
-        }
+		super(inventoryIn, slotIndex, xPosition, yPosition);
+		this.player = player;
+		craftMatrix = craftingInventory;
+	}
 
-        return super.decrStackSize(amount);
-    }
+	/**
+	 * Check if the stack is allowed to be placed in this slot, used for armor slots as well as furnace fuel.
+	 */
+	public boolean isItemValid(ItemStack stack) {
 
-    /**
-     * the itemStack passed in is the output - ie, iron ingots, and pickaxes, not ore and wood. Typically increases an
-     * internal count then calls onCrafting(item).
-     */
-    protected void onCrafting(ItemStack stack, int amount)
-    {
-        amountCrafted += amount;
-        onCrafting(stack);
-    }
+		return false;
+	}
 
-    protected void onSwapCraft(int p_190900_1_)
-    {
-        amountCrafted += p_190900_1_;
-    }
+	/**
+	 * Decrease the size of the stack in slot (first int arg) by the amount of the second int arg. Returns the new
+	 * stack.
+	 */
+	public ItemStack decrStackSize(int amount) {
 
-    /**
-     * the itemStack passed in is the output - ie, iron ingots, and pickaxes, not ore and wood.
-     */
-    protected void onCrafting(ItemStack stack)
-    {
-        if (amountCrafted > 0)
-        {
-            stack.onCrafting(player.world, player, amountCrafted);
-        }
+		if (getHasStack()) {
+			amountCrafted += Math.min(amount, getStack().getCount());
+		}
 
-        amountCrafted = 0;
-        InventoryCraftResult inventorycraftresult = (InventoryCraftResult) inventory;
-        IRecipe irecipe = inventorycraftresult.getRecipeUsed();
+		return super.decrStackSize(amount);
+	}
 
-        if (irecipe != null && !irecipe.isDynamic())
-        {
-            player.unlockRecipes(Lists.newArrayList(irecipe));
-            inventorycraftresult.setRecipeUsed((IRecipe)null);
-        }
-    }
+	/**
+	 * the itemStack passed in is the output - ie, iron ingots, and pickaxes, not ore and wood. Typically increases an
+	 * internal count then calls onCrafting(item).
+	 */
+	protected void onCrafting(ItemStack stack, int amount) {
 
-    public ItemStack onTake(EntityPlayer thePlayer, ItemStack stack)
-    {
-        onCrafting(stack);
-        NonNullList<ItemStack> nonnulllist = CraftingManager.getRemainingItems(craftMatrix, thePlayer.world);
+		amountCrafted += amount;
+		onCrafting(stack);
+	}
 
-        for (int i = 0; i < nonnulllist.size(); ++i)
-        {
-            ItemStack itemstack = craftMatrix.getStackInSlot(i);
-            ItemStack itemstack1 = nonnulllist.get(i);
+	protected void onSwapCraft(int p_190900_1_) {
 
-            if (!itemstack.isEmpty())
-            {
-                craftMatrix.decrStackSize(i, 1);
-                itemstack = craftMatrix.getStackInSlot(i);
-            }
+		amountCrafted += p_190900_1_;
+	}
 
-            if (!itemstack1.isEmpty())
-            {
-                if (itemstack.isEmpty())
-                {
-                    craftMatrix.setInventorySlotContents(i, itemstack1);
-                }
-                else if (ItemStack.areItemsEqual(itemstack, itemstack1) && ItemStack.areItemStackTagsEqual(itemstack, itemstack1))
-                {
-                    itemstack1.grow(itemstack.getCount());
-                    craftMatrix.setInventorySlotContents(i, itemstack1);
-                }
-                else if (!player.inventory.addItemStackToInventory(itemstack1))
-                {
-                    player.dropItem(itemstack1, false);
-                }
-            }
-        }
+	/**
+	 * the itemStack passed in is the output - ie, iron ingots, and pickaxes, not ore and wood.
+	 */
+	protected void onCrafting(ItemStack stack) {
 
-        return stack;
-    }
+		if (amountCrafted > 0) {
+			stack.onCrafting(player.world, player, amountCrafted);
+		}
+
+		amountCrafted = 0;
+		InventoryCraftResult inventorycraftresult = (InventoryCraftResult) inventory;
+		IRecipe irecipe = inventorycraftresult.getRecipeUsed();
+
+		if (irecipe != null && !irecipe.isDynamic()) {
+			player.unlockRecipes(Lists.newArrayList(irecipe));
+			inventorycraftresult.setRecipeUsed(null);
+		}
+	}
+
+	public ItemStack onTake(EntityPlayer thePlayer, ItemStack stack) {
+
+		onCrafting(stack);
+		NonNullList<ItemStack> nonnulllist = CraftingManager.getRemainingItems(craftMatrix, thePlayer.world);
+
+		for (int i = 0; i < nonnulllist.size(); ++i) {
+			ItemStack itemstack = craftMatrix.getStackInSlot(i);
+			ItemStack itemstack1 = nonnulllist.get(i);
+
+			if (!itemstack.isEmpty()) {
+				craftMatrix.decrStackSize(i, 1);
+				itemstack = craftMatrix.getStackInSlot(i);
+			}
+
+			if (!itemstack1.isEmpty()) {
+				if (itemstack.isEmpty()) {
+					craftMatrix.setInventorySlotContents(i, itemstack1);
+				} else if (ItemStack.areItemsEqual(itemstack, itemstack1) && ItemStack.areItemStackTagsEqual(itemstack, itemstack1)) {
+					itemstack1.grow(itemstack.getCount());
+					craftMatrix.setInventorySlotContents(i, itemstack1);
+				} else if (!player.inventory.addItemStackToInventory(itemstack1)) {
+					player.dropItem(itemstack1, false);
+				}
+			}
+		}
+
+		return stack;
+	}
+
 }

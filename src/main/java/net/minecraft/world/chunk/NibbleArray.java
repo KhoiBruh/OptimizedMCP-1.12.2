@@ -1,81 +1,71 @@
 package net.minecraft.world.chunk;
 
-public class NibbleArray
-{
-    /**
-     * Byte array of data stored in this holder. Possibly a light map or some chunk data. Data is accessed in 4-bit
-     * pieces.
-     */
-    private final byte[] data;
+/**
+ * @param data Byte array of data stored in this holder. Possibly a light map or some chunk data. Data is accessed in 4-bit
+ *             pieces.
+ */
+public record NibbleArray(byte[] data) {
 
-    public NibbleArray()
-    {
-        data = new byte[2048];
-    }
+	public NibbleArray() {
 
-    public NibbleArray(byte[] storageArray)
-    {
-        data = storageArray;
+		this(new byte[2048]);
+	}
 
-        if (storageArray.length != 2048)
-        {
-            throw new IllegalArgumentException("ChunkNibbleArrays should be 2048 bytes not: " + storageArray.length);
-        }
-    }
+	public NibbleArray(byte[] data) {
 
-    /**
-     * Returns the nibble of data corresponding to the passed in x, y, z. y is at most 6 bits, z is at most 4.
-     */
-    public int get(int x, int y, int z)
-    {
-        return getFromIndex(getCoordinateIndex(x, y, z));
-    }
+		this.data = data;
 
-    /**
-     * Arguments are x, y, z, val. Sets the nibble of data at x << 11 | z << 7 | y to val.
-     */
-    public void set(int x, int y, int z, int value)
-    {
-        setIndex(getCoordinateIndex(x, y, z), value);
-    }
+		if (data.length != 2048) {
+			throw new IllegalArgumentException("ChunkNibbleArrays should be 2048 bytes not: " + data.length);
+		}
+	}
 
-    private int getCoordinateIndex(int x, int y, int z)
-    {
-        return y << 8 | z << 4 | x;
-    }
+	/**
+	 * Returns the nibble of data corresponding to the passed in x, y, z. y is at most 6 bits, z is at most 4.
+	 */
+	public int get(int x, int y, int z) {
 
-    public int getFromIndex(int index)
-    {
-        int i = getNibbleIndex(index);
-        return isLowerNibble(index) ? data[i] & 15 : data[i] >> 4 & 15;
-    }
+		return getFromIndex(getCoordinateIndex(x, y, z));
+	}
 
-    public void setIndex(int index, int value)
-    {
-        int i = getNibbleIndex(index);
+	/**
+	 * Arguments are x, y, z, val. Sets the nibble of data at x << 11 | z << 7 | y to val.
+	 */
+	public void set(int x, int y, int z, int value) {
 
-        if (isLowerNibble(index))
-        {
-            data[i] = (byte)(data[i] & 240 | value & 15);
-        }
-        else
-        {
-            data[i] = (byte)(data[i] & 15 | (value & 15) << 4);
-        }
-    }
+		setIndex(getCoordinateIndex(x, y, z), value);
+	}
 
-    private boolean isLowerNibble(int index)
-    {
-        return (index & 1) == 0;
-    }
+	private int getCoordinateIndex(int x, int y, int z) {
 
-    private int getNibbleIndex(int index)
-    {
-        return index >> 1;
-    }
+		return y << 8 | z << 4 | x;
+	}
 
-    public byte[] getData()
-    {
-        return data;
-    }
+	public int getFromIndex(int index) {
+
+		int i = getNibbleIndex(index);
+		return isLowerNibble(index) ? data[i] & 15 : data[i] >> 4 & 15;
+	}
+
+	public void setIndex(int index, int value) {
+
+		int i = getNibbleIndex(index);
+
+		if (isLowerNibble(index)) {
+			data[i] = (byte) (data[i] & 240 | value & 15);
+		} else {
+			data[i] = (byte) (data[i] & 15 | (value & 15) << 4);
+		}
+	}
+
+	private boolean isLowerNibble(int index) {
+
+		return (index & 1) == 0;
+	}
+
+	private int getNibbleIndex(int index) {
+
+		return index >> 1;
+	}
+
 }

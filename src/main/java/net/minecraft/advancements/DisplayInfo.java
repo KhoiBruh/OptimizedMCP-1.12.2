@@ -3,8 +3,6 @@ package net.minecraft.advancements;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
-import java.io.IOException;
-import javax.annotation.Nullable;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
@@ -12,169 +10,163 @@ import net.minecraft.util.JsonUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 
-public class DisplayInfo
-{
-    private final ITextComponent title;
-    private final ITextComponent description;
-    private final ItemStack icon;
-    private final ResourceLocation background;
-    private final FrameType frame;
-    private final boolean showToast;
-    private final boolean announceToChat;
-    private final boolean hidden;
-    private float x;
-    private float y;
+import javax.annotation.Nullable;
+import java.io.IOException;
 
-    public DisplayInfo(ItemStack icon, ITextComponent title, ITextComponent description, @Nullable ResourceLocation background, FrameType frame, boolean showToast, boolean announceToChat, boolean hidden)
-    {
-        this.title = title;
-        this.description = description;
-        this.icon = icon;
-        this.background = background;
-        this.frame = frame;
-        this.showToast = showToast;
-        this.announceToChat = announceToChat;
-        this.hidden = hidden;
-    }
+public class DisplayInfo {
 
-    public void setPosition(float x, float y)
-    {
-        this.x = x;
-        this.y = y;
-    }
+	private final ITextComponent title;
+	private final ITextComponent description;
+	private final ItemStack icon;
+	private final ResourceLocation background;
+	private final FrameType frame;
+	private final boolean showToast;
+	private final boolean announceToChat;
+	private final boolean hidden;
+	private float x;
+	private float y;
 
-    public ITextComponent getTitle()
-    {
-        return title;
-    }
+	public DisplayInfo(ItemStack icon, ITextComponent title, ITextComponent description, @Nullable ResourceLocation background, FrameType frame, boolean showToast, boolean announceToChat, boolean hidden) {
 
-    public ITextComponent getDescription()
-    {
-        return description;
-    }
+		this.title = title;
+		this.description = description;
+		this.icon = icon;
+		this.background = background;
+		this.frame = frame;
+		this.showToast = showToast;
+		this.announceToChat = announceToChat;
+		this.hidden = hidden;
+	}
 
-    public ItemStack getIcon()
-    {
-        return icon;
-    }
+	public void setPosition(float x, float y) {
 
-    @Nullable
-    public ResourceLocation getBackground()
-    {
-        return background;
-    }
+		this.x = x;
+		this.y = y;
+	}
 
-    public FrameType getFrame()
-    {
-        return frame;
-    }
+	public ITextComponent getTitle() {
 
-    public float getX()
-    {
-        return x;
-    }
+		return title;
+	}
 
-    public float getY()
-    {
-        return y;
-    }
+	public ITextComponent getDescription() {
 
-    public boolean shouldShowToast()
-    {
-        return showToast;
-    }
+		return description;
+	}
 
-    public boolean shouldAnnounceToChat()
-    {
-        return announceToChat;
-    }
+	public ItemStack getIcon() {
 
-    public boolean isHidden()
-    {
-        return hidden;
-    }
+		return icon;
+	}
 
-    public static DisplayInfo deserialize(JsonObject object, JsonDeserializationContext context)
-    {
-        ITextComponent itextcomponent = (ITextComponent)JsonUtils.deserializeClass(object, "title", context, ITextComponent.class);
-        ITextComponent itextcomponent1 = (ITextComponent)JsonUtils.deserializeClass(object, "description", context, ITextComponent.class);
+	@Nullable
+	public ResourceLocation getBackground() {
 
-        if (itextcomponent != null && itextcomponent1 != null)
-        {
-            ItemStack itemstack = deserializeIcon(JsonUtils.getJsonObject(object, "icon"));
-            ResourceLocation resourcelocation = object.has("background") ? new ResourceLocation(JsonUtils.getString(object, "background")) : null;
-            FrameType frametype = object.has("frame") ? FrameType.byName(JsonUtils.getString(object, "frame")) : FrameType.TASK;
-            boolean flag = JsonUtils.getBoolean(object, "show_toast", true);
-            boolean flag1 = JsonUtils.getBoolean(object, "announce_to_chat", true);
-            boolean flag2 = JsonUtils.getBoolean(object, "hidden", false);
-            return new DisplayInfo(itemstack, itextcomponent, itextcomponent1, resourcelocation, frametype, flag, flag1, flag2);
-        }
-        else
-        {
-            throw new JsonSyntaxException("Both title and description must be set");
-        }
-    }
+		return background;
+	}
 
-    private static ItemStack deserializeIcon(JsonObject object)
-    {
-        if (!object.has("item"))
-        {
-            throw new JsonSyntaxException("Unsupported icon type, currently only items are supported (add 'item' key)");
-        }
-        else
-        {
-            Item item = JsonUtils.getItem(object, "item");
-            int i = JsonUtils.getInt(object, "data", 0);
-            return new ItemStack(item, 1, i);
-        }
-    }
+	public FrameType getFrame() {
 
-    public void write(PacketBuffer buf)
-    {
-        buf.writeTextComponent(title);
-        buf.writeTextComponent(description);
-        buf.writeItemStack(icon);
-        buf.writeEnumValue(frame);
-        int i = 0;
+		return frame;
+	}
 
-        if (background != null)
-        {
-            i |= 1;
-        }
+	public float getX() {
 
-        if (showToast)
-        {
-            i |= 2;
-        }
+		return x;
+	}
 
-        if (hidden)
-        {
-            i |= 4;
-        }
+	public float getY() {
 
-        buf.writeInt(i);
+		return y;
+	}
 
-        if (background != null)
-        {
-            buf.writeResourceLocation(background);
-        }
+	public boolean shouldShowToast() {
 
-        buf.writeFloat(x);
-        buf.writeFloat(y);
-    }
+		return showToast;
+	}
 
-    public static DisplayInfo read(PacketBuffer buf) throws IOException
-    {
-        ITextComponent itextcomponent = buf.readTextComponent();
-        ITextComponent itextcomponent1 = buf.readTextComponent();
-        ItemStack itemstack = buf.readItemStack();
-        FrameType frametype = (FrameType)buf.readEnumValue(FrameType.class);
-        int i = buf.readInt();
-        ResourceLocation resourcelocation = (i & 1) != 0 ? buf.readResourceLocation() : null;
-        boolean flag = (i & 2) != 0;
-        boolean flag1 = (i & 4) != 0;
-        DisplayInfo displayinfo = new DisplayInfo(itemstack, itextcomponent, itextcomponent1, resourcelocation, frametype, flag, false, flag1);
-        displayinfo.setPosition(buf.readFloat(), buf.readFloat());
-        return displayinfo;
-    }
+	public boolean shouldAnnounceToChat() {
+
+		return announceToChat;
+	}
+
+	public boolean isHidden() {
+
+		return hidden;
+	}
+
+	public static DisplayInfo deserialize(JsonObject object, JsonDeserializationContext context) {
+
+		ITextComponent itextcomponent = JsonUtils.deserializeClass(object, "title", context, ITextComponent.class);
+		ITextComponent itextcomponent1 = JsonUtils.deserializeClass(object, "description", context, ITextComponent.class);
+
+		if (itextcomponent != null && itextcomponent1 != null) {
+			ItemStack itemstack = deserializeIcon(JsonUtils.getJsonObject(object, "icon"));
+			ResourceLocation resourcelocation = object.has("background") ? new ResourceLocation(JsonUtils.getString(object, "background")) : null;
+			FrameType frametype = object.has("frame") ? FrameType.byName(JsonUtils.getString(object, "frame")) : FrameType.TASK;
+			boolean flag = JsonUtils.getBoolean(object, "show_toast", true);
+			boolean flag1 = JsonUtils.getBoolean(object, "announce_to_chat", true);
+			boolean flag2 = JsonUtils.getBoolean(object, "hidden", false);
+			return new DisplayInfo(itemstack, itextcomponent, itextcomponent1, resourcelocation, frametype, flag, flag1, flag2);
+		} else {
+			throw new JsonSyntaxException("Both title and description must be set");
+		}
+	}
+
+	private static ItemStack deserializeIcon(JsonObject object) {
+
+		if (!object.has("item")) {
+			throw new JsonSyntaxException("Unsupported icon type, currently only items are supported (add 'item' key)");
+		} else {
+			Item item = JsonUtils.getItem(object, "item");
+			int i = JsonUtils.getInt(object, "data", 0);
+			return new ItemStack(item, 1, i);
+		}
+	}
+
+	public void write(PacketBuffer buf) {
+
+		buf.writeTextComponent(title);
+		buf.writeTextComponent(description);
+		buf.writeItemStack(icon);
+		buf.writeEnumValue(frame);
+		int i = 0;
+
+		if (background != null) {
+			i |= 1;
+		}
+
+		if (showToast) {
+			i |= 2;
+		}
+
+		if (hidden) {
+			i |= 4;
+		}
+
+		buf.writeInt(i);
+
+		if (background != null) {
+			buf.writeResourceLocation(background);
+		}
+
+		buf.writeFloat(x);
+		buf.writeFloat(y);
+	}
+
+	public static DisplayInfo read(PacketBuffer buf) throws IOException {
+
+		ITextComponent itextcomponent = buf.readTextComponent();
+		ITextComponent itextcomponent1 = buf.readTextComponent();
+		ItemStack itemstack = buf.readItemStack();
+		FrameType frametype = buf.readEnumValue(FrameType.class);
+		int i = buf.readInt();
+		ResourceLocation resourcelocation = (i & 1) != 0 ? buf.readResourceLocation() : null;
+		boolean flag = (i & 2) != 0;
+		boolean flag1 = (i & 4) != 0;
+		DisplayInfo displayinfo = new DisplayInfo(itemstack, itextcomponent, itextcomponent1, resourcelocation, frametype, flag, false, flag1);
+		displayinfo.setPosition(buf.readFloat(), buf.readFloat());
+		return displayinfo;
+	}
+
 }

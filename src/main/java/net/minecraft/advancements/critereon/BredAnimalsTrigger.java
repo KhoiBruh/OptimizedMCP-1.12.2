@@ -5,9 +5,6 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import net.minecraft.advancements.ICriterionTrigger;
 import net.minecraft.advancements.PlayerAdvancements;
 import net.minecraft.entity.EntityAgeable;
@@ -15,146 +12,141 @@ import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.ResourceLocation;
 
-public class BredAnimalsTrigger implements ICriterionTrigger<BredAnimalsTrigger.Instance>
-{
-    private static final ResourceLocation ID = new ResourceLocation("bred_animals");
-    private final Map<PlayerAdvancements, BredAnimalsTrigger.Listeners> listeners = Maps.<PlayerAdvancements, BredAnimalsTrigger.Listeners>newHashMap();
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-    public ResourceLocation getId()
-    {
-        return ID;
-    }
+public class BredAnimalsTrigger implements ICriterionTrigger<BredAnimalsTrigger.Instance> {
 
-    public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<BredAnimalsTrigger.Instance> listener)
-    {
-        BredAnimalsTrigger.Listeners bredanimalstrigger$listeners = listeners.get(playerAdvancementsIn);
+	private static final ResourceLocation ID = new ResourceLocation("bred_animals");
+	private final Map<PlayerAdvancements, BredAnimalsTrigger.Listeners> listeners = Maps.newHashMap();
 
-        if (bredanimalstrigger$listeners == null)
-        {
-            bredanimalstrigger$listeners = new BredAnimalsTrigger.Listeners(playerAdvancementsIn);
-            listeners.put(playerAdvancementsIn, bredanimalstrigger$listeners);
-        }
+	public ResourceLocation getId() {
 
-        bredanimalstrigger$listeners.add(listener);
-    }
+		return ID;
+	}
 
-    public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<BredAnimalsTrigger.Instance> listener)
-    {
-        BredAnimalsTrigger.Listeners bredanimalstrigger$listeners = listeners.get(playerAdvancementsIn);
+	public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<BredAnimalsTrigger.Instance> listener) {
 
-        if (bredanimalstrigger$listeners != null)
-        {
-            bredanimalstrigger$listeners.remove(listener);
+		BredAnimalsTrigger.Listeners bredanimalstrigger$listeners = listeners.get(playerAdvancementsIn);
 
-            if (bredanimalstrigger$listeners.isEmpty())
-            {
-                listeners.remove(playerAdvancementsIn);
-            }
-        }
-    }
+		if (bredanimalstrigger$listeners == null) {
+			bredanimalstrigger$listeners = new BredAnimalsTrigger.Listeners(playerAdvancementsIn);
+			listeners.put(playerAdvancementsIn, bredanimalstrigger$listeners);
+		}
 
-    public void removeAllListeners(PlayerAdvancements playerAdvancementsIn)
-    {
-        listeners.remove(playerAdvancementsIn);
-    }
+		bredanimalstrigger$listeners.add(listener);
+	}
 
-    /**
-     * Deserialize a ICriterionInstance of this trigger from the data in the JSON.
-     */
-    public BredAnimalsTrigger.Instance deserializeInstance(JsonObject json, JsonDeserializationContext context)
-    {
-        EntityPredicate entitypredicate = EntityPredicate.deserialize(json.get("parent"));
-        EntityPredicate entitypredicate1 = EntityPredicate.deserialize(json.get("partner"));
-        EntityPredicate entitypredicate2 = EntityPredicate.deserialize(json.get("child"));
-        return new BredAnimalsTrigger.Instance(entitypredicate, entitypredicate1, entitypredicate2);
-    }
+	public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<BredAnimalsTrigger.Instance> listener) {
 
-    public void trigger(EntityPlayerMP player, EntityAnimal parent1, EntityAnimal parent2, EntityAgeable child)
-    {
-        BredAnimalsTrigger.Listeners bredanimalstrigger$listeners = listeners.get(player.getAdvancements());
+		BredAnimalsTrigger.Listeners bredanimalstrigger$listeners = listeners.get(playerAdvancementsIn);
 
-        if (bredanimalstrigger$listeners != null)
-        {
-            bredanimalstrigger$listeners.trigger(player, parent1, parent2, child);
-        }
-    }
+		if (bredanimalstrigger$listeners != null) {
+			bredanimalstrigger$listeners.remove(listener);
 
-    public static class Instance extends AbstractCriterionInstance
-    {
-        private final EntityPredicate parent;
-        private final EntityPredicate partner;
-        private final EntityPredicate child;
+			if (bredanimalstrigger$listeners.isEmpty()) {
+				listeners.remove(playerAdvancementsIn);
+			}
+		}
+	}
 
-        public Instance(EntityPredicate parent, EntityPredicate partner, EntityPredicate child)
-        {
-            super(BredAnimalsTrigger.ID);
-            this.parent = parent;
-            this.partner = partner;
-            this.child = child;
-        }
+	public void removeAllListeners(PlayerAdvancements playerAdvancementsIn) {
 
-        public boolean test(EntityPlayerMP player, EntityAnimal parent1In, EntityAnimal parent2In, EntityAgeable childIn)
-        {
-            if (!child.test(player, childIn))
-            {
-                return false;
-            }
-            else
-            {
-                return parent.test(player, parent1In) && partner.test(player, parent2In) || parent.test(player, parent2In) && partner.test(player, parent1In);
-            }
-        }
-    }
+		listeners.remove(playerAdvancementsIn);
+	}
 
-    static class Listeners
-    {
-        private final PlayerAdvancements playerAdvancements;
-        private final Set<ICriterionTrigger.Listener<BredAnimalsTrigger.Instance>> listeners = Sets.<ICriterionTrigger.Listener<BredAnimalsTrigger.Instance>>newHashSet();
+	/**
+	 * Deserialize a ICriterionInstance of this trigger from the data in the JSON.
+	 */
+	public BredAnimalsTrigger.Instance deserializeInstance(JsonObject json, JsonDeserializationContext context) {
 
-        public Listeners(PlayerAdvancements playerAdvancementsIn)
-        {
-            playerAdvancements = playerAdvancementsIn;
-        }
+		EntityPredicate entitypredicate = EntityPredicate.deserialize(json.get("parent"));
+		EntityPredicate entitypredicate1 = EntityPredicate.deserialize(json.get("partner"));
+		EntityPredicate entitypredicate2 = EntityPredicate.deserialize(json.get("child"));
+		return new BredAnimalsTrigger.Instance(entitypredicate, entitypredicate1, entitypredicate2);
+	}
 
-        public boolean isEmpty()
-        {
-            return listeners.isEmpty();
-        }
+	public void trigger(EntityPlayerMP player, EntityAnimal parent1, EntityAnimal parent2, EntityAgeable child) {
 
-        public void add(ICriterionTrigger.Listener<BredAnimalsTrigger.Instance> listener)
-        {
-            listeners.add(listener);
-        }
+		BredAnimalsTrigger.Listeners bredanimalstrigger$listeners = listeners.get(player.getAdvancements());
 
-        public void remove(ICriterionTrigger.Listener<BredAnimalsTrigger.Instance> listener)
-        {
-            listeners.remove(listener);
-        }
+		if (bredanimalstrigger$listeners != null) {
+			bredanimalstrigger$listeners.trigger(player, parent1, parent2, child);
+		}
+	}
 
-        public void trigger(EntityPlayerMP player, EntityAnimal parent1, EntityAnimal parent2, EntityAgeable child)
-        {
-            List<ICriterionTrigger.Listener<BredAnimalsTrigger.Instance>> list = null;
+	public static class Instance extends AbstractCriterionInstance {
 
-            for (ICriterionTrigger.Listener<BredAnimalsTrigger.Instance> listener : listeners)
-            {
-                if (((BredAnimalsTrigger.Instance)listener.getCriterionInstance()).test(player, parent1, parent2, child))
-                {
-                    if (list == null)
-                    {
-                        list = Lists.<ICriterionTrigger.Listener<BredAnimalsTrigger.Instance>>newArrayList();
-                    }
+		private final EntityPredicate parent;
+		private final EntityPredicate partner;
+		private final EntityPredicate child;
 
-                    list.add(listener);
-                }
-            }
+		public Instance(EntityPredicate parent, EntityPredicate partner, EntityPredicate child) {
 
-            if (list != null)
-            {
-                for (ICriterionTrigger.Listener<BredAnimalsTrigger.Instance> listener1 : list)
-                {
-                    listener1.grantCriterion(playerAdvancements);
-                }
-            }
-        }
-    }
+			super(BredAnimalsTrigger.ID);
+			this.parent = parent;
+			this.partner = partner;
+			this.child = child;
+		}
+
+		public boolean test(EntityPlayerMP player, EntityAnimal parent1In, EntityAnimal parent2In, EntityAgeable childIn) {
+
+			if (!child.test(player, childIn)) {
+				return false;
+			} else {
+				return parent.test(player, parent1In) && partner.test(player, parent2In) || parent.test(player, parent2In) && partner.test(player, parent1In);
+			}
+		}
+
+	}
+
+	static class Listeners {
+
+		private final PlayerAdvancements playerAdvancements;
+		private final Set<ICriterionTrigger.Listener<BredAnimalsTrigger.Instance>> listeners = Sets.newHashSet();
+
+		public Listeners(PlayerAdvancements playerAdvancementsIn) {
+
+			playerAdvancements = playerAdvancementsIn;
+		}
+
+		public boolean isEmpty() {
+
+			return listeners.isEmpty();
+		}
+
+		public void add(ICriterionTrigger.Listener<BredAnimalsTrigger.Instance> listener) {
+
+			listeners.add(listener);
+		}
+
+		public void remove(ICriterionTrigger.Listener<BredAnimalsTrigger.Instance> listener) {
+
+			listeners.remove(listener);
+		}
+
+		public void trigger(EntityPlayerMP player, EntityAnimal parent1, EntityAnimal parent2, EntityAgeable child) {
+
+			List<ICriterionTrigger.Listener<BredAnimalsTrigger.Instance>> list = null;
+
+			for (ICriterionTrigger.Listener<BredAnimalsTrigger.Instance> listener : listeners) {
+				if (listener.getCriterionInstance().test(player, parent1, parent2, child)) {
+					if (list == null) {
+						list = Lists.newArrayList();
+					}
+
+					list.add(listener);
+				}
+			}
+
+			if (list != null) {
+				for (ICriterionTrigger.Listener<BredAnimalsTrigger.Instance> listener1 : list) {
+					listener1.grantCriterion(playerAdvancements);
+				}
+			}
+		}
+
+	}
+
 }

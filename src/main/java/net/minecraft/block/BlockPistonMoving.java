@@ -1,8 +1,5 @@
 package net.minecraft.block;
 
-import java.util.List;
-import java.util.Random;
-import javax.annotation.Nullable;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
@@ -28,254 +25,247 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class BlockPistonMoving extends BlockContainer
-{
-    public static final PropertyDirection FACING = BlockPistonExtension.FACING;
-    public static final PropertyEnum<BlockPistonExtension.EnumPistonType> TYPE = BlockPistonExtension.TYPE;
+import javax.annotation.Nullable;
+import java.util.List;
+import java.util.Random;
 
-    public BlockPistonMoving()
-    {
-        super(Material.PISTON);
-        setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(TYPE, BlockPistonExtension.EnumPistonType.DEFAULT));
-        setHardness(-1.0F);
-    }
+public class BlockPistonMoving extends BlockContainer {
 
-    @Nullable
+	public static final PropertyDirection FACING = BlockPistonExtension.FACING;
+	public static final PropertyEnum<BlockPistonExtension.EnumPistonType> TYPE = BlockPistonExtension.TYPE;
 
-    /**
-     * Returns a new instance of a block's tile entity class. Called on placing the block.
-     */
-    public TileEntity createNewTileEntity(World worldIn, int meta)
-    {
-        return null;
-    }
+	public BlockPistonMoving() {
 
-    public static TileEntity createTilePiston(IBlockState blockStateIn, EnumFacing facingIn, boolean extendingIn, boolean shouldHeadBeRenderedIn)
-    {
-        return new TileEntityPiston(blockStateIn, facingIn, extendingIn, shouldHeadBeRenderedIn);
-    }
+		super(Material.PISTON);
+		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(TYPE, BlockPistonExtension.EnumPistonType.DEFAULT));
+		setHardness(-1.0F);
+	}
 
-    /**
-     * Called serverside after this block is replaced with another in Chunk, but before the Tile Entity is updated
-     */
-    public void breakBlock(World worldIn, BlockPos pos, IBlockState state)
-    {
-        TileEntity tileentity = worldIn.getTileEntity(pos);
+	@Nullable
 
-        if (tileentity instanceof TileEntityPiston)
-        {
-            ((TileEntityPiston)tileentity).clearPistonTileEntity();
-        }
-        else
-        {
-            super.breakBlock(worldIn, pos, state);
-        }
-    }
+	/**
+	 * Returns a new instance of a block's tile entity class. Called on placing the block.
+	 */
+	public TileEntity createNewTileEntity(World worldIn, int meta) {
 
-    /**
-     * Checks if this block can be placed exactly at the given position.
-     */
-    public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
-    {
-        return false;
-    }
+		return null;
+	}
 
-    /**
-     * Check whether this Block can be placed at pos, while aiming at the specified side of an adjacent block
-     */
-    public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, EnumFacing side)
-    {
-        return false;
-    }
+	public static TileEntity createTilePiston(IBlockState blockStateIn, EnumFacing facingIn, boolean extendingIn, boolean shouldHeadBeRenderedIn) {
 
-    /**
-     * Called after a player destroys this Block - the posiiton pos may no longer hold the state indicated.
-     */
-    public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state)
-    {
-        BlockPos blockpos = pos.offset(((EnumFacing)state.getValue(FACING)).getOpposite());
-        IBlockState iblockstate = worldIn.getBlockState(blockpos);
+		return new TileEntityPiston(blockStateIn, facingIn, extendingIn, shouldHeadBeRenderedIn);
+	}
 
-        if (iblockstate.getBlock() instanceof BlockPistonBase && ((Boolean)iblockstate.getValue(BlockPistonBase.EXTENDED)).booleanValue())
-        {
-            worldIn.setBlockToAir(blockpos);
-        }
-    }
+	/**
+	 * Called serverside after this block is replaced with another in Chunk, but before the Tile Entity is updated
+	 */
+	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
 
-    /**
-     * Used to determine ambient occlusion and culling when rebuilding chunks for render
-     */
-    public boolean isOpaqueCube(IBlockState state)
-    {
-        return false;
-    }
+		TileEntity tileentity = worldIn.getTileEntity(pos);
 
-    public boolean isFullCube(IBlockState state)
-    {
-        return false;
-    }
+		if (tileentity instanceof TileEntityPiston) {
+			((TileEntityPiston) tileentity).clearPistonTileEntity();
+		} else {
+			super.breakBlock(worldIn, pos, state);
+		}
+	}
 
-    /**
-     * Called when the block is right clicked by a player.
-     */
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
-    {
-        if (!worldIn.isRemote && worldIn.getTileEntity(pos) == null)
-        {
-            worldIn.setBlockToAir(pos);
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
+	/**
+	 * Checks if this block can be placed exactly at the given position.
+	 */
+	public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
 
-    /**
-     * Get the Item that this Block should drop when harvested.
-     */
-    public Item getItemDropped(IBlockState state, Random rand, int fortune)
-    {
-        return Items.AIR;
-    }
+		return false;
+	}
 
-    /**
-     * Spawns this Block's drops into the World as EntityItems.
-     */
-    public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune)
-    {
-        if (!worldIn.isRemote)
-        {
-            TileEntityPiston tileentitypiston = getTilePistonAt(worldIn, pos);
+	/**
+	 * Check whether this Block can be placed at pos, while aiming at the specified side of an adjacent block
+	 */
+	public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, EnumFacing side) {
 
-            if (tileentitypiston != null)
-            {
-                IBlockState iblockstate = tileentitypiston.getPistonState();
-                iblockstate.getBlock().dropBlockAsItem(worldIn, pos, iblockstate, 0);
-            }
-        }
-    }
+		return false;
+	}
 
-    @Nullable
+	/**
+	 * Called after a player destroys this Block - the posiiton pos may no longer hold the state indicated.
+	 */
+	public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state) {
 
-    /**
-     * Ray traces through the blocks collision from start vector to end vector returning a ray trace hit.
-     */
-    public RayTraceResult collisionRayTrace(IBlockState blockState, World worldIn, BlockPos pos, Vec3d start, Vec3d end)
-    {
-        return null;
-    }
+		BlockPos blockpos = pos.offset(state.getValue(FACING).getOpposite());
+		IBlockState iblockstate = worldIn.getBlockState(blockpos);
 
-    /**
-     * Called when a neighboring block was changed and marks that this state should perform any checks during a neighbor
-     * change. Cases may include when redstone power is updated, cactus blocks popping off due to a neighboring solid
-     * block, etc.
-     */
-    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos)
-    {
-        if (!worldIn.isRemote)
-        {
-            worldIn.getTileEntity(pos);
-        }
-    }
+		if (iblockstate.getBlock() instanceof BlockPistonBase && iblockstate.getValue(BlockPistonBase.EXTENDED).booleanValue()) {
+			worldIn.setBlockToAir(blockpos);
+		}
+	}
 
-    @Nullable
-    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos)
-    {
-        TileEntityPiston tileentitypiston = getTilePistonAt(worldIn, pos);
-        return tileentitypiston == null ? null : tileentitypiston.getAABB(worldIn, pos);
-    }
+	/**
+	 * Used to determine ambient occlusion and culling when rebuilding chunks for render
+	 */
+	public boolean isOpaqueCube(IBlockState state) {
 
-    public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, @Nullable Entity entityIn, boolean isActualState)
-    {
-        TileEntityPiston tileentitypiston = getTilePistonAt(worldIn, pos);
+		return false;
+	}
 
-        if (tileentitypiston != null)
-        {
-            tileentitypiston.addCollissionAABBs(worldIn, pos, entityBox, collidingBoxes, entityIn);
-        }
-    }
+	public boolean isFullCube(IBlockState state) {
 
-    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
-    {
-        TileEntityPiston tileentitypiston = getTilePistonAt(source, pos);
-        return tileentitypiston != null ? tileentitypiston.getAABB(source, pos) : FULL_BLOCK_AABB;
-    }
+		return false;
+	}
 
-    @Nullable
+	/**
+	 * Called when the block is right clicked by a player.
+	 */
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 
-    /**
-     * Gets a TileEntityPiston at the given position. Returns null if the tile is not an instance of TileEntityPiston.
-     */
-    private TileEntityPiston getTilePistonAt(IBlockAccess iBlockAccessIn, BlockPos blockPosIn)
-    {
-        TileEntity tileentity = iBlockAccessIn.getTileEntity(blockPosIn);
-        return tileentity instanceof TileEntityPiston ? (TileEntityPiston)tileentity : null;
-    }
+		if (!worldIn.isRemote && worldIn.getTileEntity(pos) == null) {
+			worldIn.setBlockToAir(pos);
+			return true;
+		} else {
+			return false;
+		}
+	}
 
-    public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state)
-    {
-        return ItemStack.EMPTY;
-    }
+	/**
+	 * Get the Item that this Block should drop when harvested.
+	 */
+	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
 
-    /**
-     * Convert the given metadata into a BlockState for this Block
-     */
-    public IBlockState getStateFromMeta(int meta)
-    {
-        return getDefaultState().withProperty(FACING, BlockPistonExtension.getFacing(meta)).withProperty(TYPE, (meta & 8) > 0 ? BlockPistonExtension.EnumPistonType.STICKY : BlockPistonExtension.EnumPistonType.DEFAULT);
-    }
+		return Items.AIR;
+	}
 
-    /**
-     * Returns the blockstate with the given rotation from the passed blockstate. If inapplicable, returns the passed
-     * blockstate.
-     */
-    public IBlockState withRotation(IBlockState state, Rotation rot)
-    {
-        return state.withProperty(FACING, rot.rotate((EnumFacing)state.getValue(FACING)));
-    }
+	/**
+	 * Spawns this Block's drops into the World as EntityItems.
+	 */
+	public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune) {
 
-    /**
-     * Returns the blockstate with the given mirror of the passed blockstate. If inapplicable, returns the passed
-     * blockstate.
-     */
-    public IBlockState withMirror(IBlockState state, Mirror mirrorIn)
-    {
-        return state.withRotation(mirrorIn.toRotation((EnumFacing)state.getValue(FACING)));
-    }
+		if (!worldIn.isRemote) {
+			TileEntityPiston tileentitypiston = getTilePistonAt(worldIn, pos);
 
-    /**
-     * Convert the BlockState into the correct metadata value
-     */
-    public int getMetaFromState(IBlockState state)
-    {
-        int i = 0;
-        i = i | ((EnumFacing)state.getValue(FACING)).getIndex();
+			if (tileentitypiston != null) {
+				IBlockState iblockstate = tileentitypiston.getPistonState();
+				iblockstate.getBlock().dropBlockAsItem(worldIn, pos, iblockstate, 0);
+			}
+		}
+	}
 
-        if (state.getValue(TYPE) == BlockPistonExtension.EnumPistonType.STICKY)
-        {
-            i |= 8;
-        }
+	@Nullable
 
-        return i;
-    }
+	/**
+	 * Ray traces through the blocks collision from start vector to end vector returning a ray trace hit.
+	 */
+	public RayTraceResult collisionRayTrace(IBlockState blockState, World worldIn, BlockPos pos, Vec3d start, Vec3d end) {
 
-    protected BlockStateContainer createBlockState()
-    {
-        return new BlockStateContainer(this, new IProperty[] {FACING, TYPE});
-    }
+		return null;
+	}
 
-    /**
-     * Get the geometry of the queried face at the given position and state. This is used to decide whether things like
-     * buttons are allowed to be placed on the face, or how glass panes connect to the face, among other things.
-     * <p>
-     * Common values are {@code SOLID}, which is the default, and {@code UNDEFINED}, which represents something that
-     * does not fit the other descriptions and will generally cause other things not to connect to the face.
+	/**
+	 * Called when a neighboring block was changed and marks that this state should perform any checks during a neighbor
+	 * change. Cases may include when redstone power is updated, cactus blocks popping off due to a neighboring solid
+	 * block, etc.
+	 */
+	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
 
-     * @return an approximation of the form of the given face
-     */
-    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face)
-    {
-        return BlockFaceShape.UNDEFINED;
-    }
+		if (!worldIn.isRemote) {
+			worldIn.getTileEntity(pos);
+		}
+	}
+
+	@Nullable
+	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
+
+		TileEntityPiston tileentitypiston = getTilePistonAt(worldIn, pos);
+		return tileentitypiston == null ? null : tileentitypiston.getAABB(worldIn, pos);
+	}
+
+	public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, @Nullable Entity entityIn, boolean isActualState) {
+
+		TileEntityPiston tileentitypiston = getTilePistonAt(worldIn, pos);
+
+		if (tileentitypiston != null) {
+			tileentitypiston.addCollissionAABBs(worldIn, pos, entityBox, collidingBoxes, entityIn);
+		}
+	}
+
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+
+		TileEntityPiston tileentitypiston = getTilePistonAt(source, pos);
+		return tileentitypiston != null ? tileentitypiston.getAABB(source, pos) : FULL_BLOCK_AABB;
+	}
+
+	@Nullable
+
+	/**
+	 * Gets a TileEntityPiston at the given position. Returns null if the tile is not an instance of TileEntityPiston.
+	 */
+	private TileEntityPiston getTilePistonAt(IBlockAccess iBlockAccessIn, BlockPos blockPosIn) {
+
+		TileEntity tileentity = iBlockAccessIn.getTileEntity(blockPosIn);
+		return tileentity instanceof TileEntityPiston ? (TileEntityPiston) tileentity : null;
+	}
+
+	public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
+
+		return ItemStack.EMPTY;
+	}
+
+	/**
+	 * Convert the given metadata into a BlockState for this Block
+	 */
+	public IBlockState getStateFromMeta(int meta) {
+
+		return getDefaultState().withProperty(FACING, BlockPistonExtension.getFacing(meta)).withProperty(TYPE, (meta & 8) > 0 ? BlockPistonExtension.EnumPistonType.STICKY : BlockPistonExtension.EnumPistonType.DEFAULT);
+	}
+
+	/**
+	 * Returns the blockstate with the given rotation from the passed blockstate. If inapplicable, returns the passed
+	 * blockstate.
+	 */
+	public IBlockState withRotation(IBlockState state, Rotation rot) {
+
+		return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
+	}
+
+	/**
+	 * Returns the blockstate with the given mirror of the passed blockstate. If inapplicable, returns the passed
+	 * blockstate.
+	 */
+	public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
+
+		return state.withRotation(mirrorIn.toRotation(state.getValue(FACING)));
+	}
+
+	/**
+	 * Convert the BlockState into the correct metadata value
+	 */
+	public int getMetaFromState(IBlockState state) {
+
+		int i = 0;
+		i = i | state.getValue(FACING).getIndex();
+
+		if (state.getValue(TYPE) == BlockPistonExtension.EnumPistonType.STICKY) {
+			i |= 8;
+		}
+
+		return i;
+	}
+
+	protected BlockStateContainer createBlockState() {
+
+		return new BlockStateContainer(this, FACING, TYPE);
+	}
+
+	/**
+	 * Get the geometry of the queried face at the given position and state. This is used to decide whether things like
+	 * buttons are allowed to be placed on the face, or how glass panes connect to the face, among other things.
+	 * <p>
+	 * Common values are {@code SOLID}, which is the default, and {@code UNDEFINED}, which represents something that
+	 * does not fit the other descriptions and will generally cause other things not to connect to the face.
+	 *
+	 * @return an approximation of the form of the given face
+	 */
+	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
+
+		return BlockFaceShape.UNDEFINED;
+	}
+
 }

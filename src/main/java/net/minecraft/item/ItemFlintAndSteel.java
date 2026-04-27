@@ -14,42 +14,38 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class ItemFlintAndSteel extends Item
-{
-    public ItemFlintAndSteel()
-    {
-        maxStackSize = 1;
-        setMaxDamage(64);
-        setCreativeTab(CreativeTabs.TOOLS);
-    }
+public class ItemFlintAndSteel extends Item {
 
-    /**
-     * Called when a Block is right-clicked with this Item
-     */
-    public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
-    {
-        pos = pos.offset(facing);
-        ItemStack itemstack = player.getHeldItem(hand);
+	public ItemFlintAndSteel() {
 
-        if (!player.canPlayerEdit(pos, facing, itemstack))
-        {
-            return EnumActionResult.FAIL;
-        }
-        else
-        {
-            if (worldIn.getBlockState(pos).getMaterial() == Material.AIR)
-            {
-                worldIn.playSound(player, pos, SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.BLOCKS, 1.0F, itemRand.nextFloat() * 0.4F + 0.8F);
-                worldIn.setBlockState(pos, Blocks.FIRE.getDefaultState(), 11);
-            }
+		maxStackSize = 1;
+		setMaxDamage(64);
+		setCreativeTab(CreativeTabs.TOOLS);
+	}
 
-            if (player instanceof EntityPlayerMP)
-            {
-                CriteriaTriggers.PLACED_BLOCK.trigger((EntityPlayerMP)player, pos, itemstack);
-            }
+	/**
+	 * Called when a Block is right-clicked with this Item
+	 */
+	public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 
-            itemstack.damageItem(1, player);
-            return EnumActionResult.SUCCESS;
-        }
-    }
+		pos = pos.offset(facing);
+		ItemStack itemstack = player.getHeldItem(hand);
+
+		if (!player.canPlayerEdit(pos, facing, itemstack)) {
+			return EnumActionResult.FAIL;
+		} else {
+			if (worldIn.getBlockState(pos).getMaterial() == Material.AIR) {
+				worldIn.playSound(player, pos, SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.BLOCKS, 1.0F, itemRand.nextFloat() * 0.4F + 0.8F);
+				worldIn.setBlockState(pos, Blocks.FIRE.getDefaultState(), 11);
+			}
+
+			if (player instanceof EntityPlayerMP) {
+				CriteriaTriggers.PLACED_BLOCK.trigger((EntityPlayerMP) player, pos, itemstack);
+			}
+
+			itemstack.damageItem(1, player);
+			return EnumActionResult.SUCCESS;
+		}
+	}
+
 }

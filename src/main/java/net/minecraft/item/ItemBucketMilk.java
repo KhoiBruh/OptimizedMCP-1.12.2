@@ -12,59 +12,56 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 
-public class ItemBucketMilk extends Item
-{
-    public ItemBucketMilk()
-    {
-        setMaxStackSize(1);
-        setCreativeTab(CreativeTabs.MISC);
-    }
+public class ItemBucketMilk extends Item {
 
-    /**
-     * Called when the player finishes using this Item (E.g. finishes eating.). Not called when the player stops using
-     * the Item before the action is complete.
-     */
-    public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityLivingBase entityLiving)
-    {
-        if (entityLiving instanceof EntityPlayerMP)
-        {
-            EntityPlayerMP entityplayermp = (EntityPlayerMP)entityLiving;
-            CriteriaTriggers.CONSUME_ITEM.trigger(entityplayermp, stack);
-            entityplayermp.addStat(StatList.getObjectUseStats(this));
-        }
+	public ItemBucketMilk() {
 
-        if (entityLiving instanceof EntityPlayer && !((EntityPlayer)entityLiving).capabilities.isCreativeMode)
-        {
-            stack.shrink(1);
-        }
+		setMaxStackSize(1);
+		setCreativeTab(CreativeTabs.MISC);
+	}
 
-        if (!worldIn.isRemote)
-        {
-            entityLiving.clearActivePotions();
-        }
+	/**
+	 * Called when the player finishes using this Item (E.g. finishes eating.). Not called when the player stops using
+	 * the Item before the action is complete.
+	 */
+	public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityLivingBase entityLiving) {
 
-        return stack.isEmpty() ? new ItemStack(Items.BUCKET) : stack;
-    }
+		if (entityLiving instanceof EntityPlayerMP entityplayermp) {
+			CriteriaTriggers.CONSUME_ITEM.trigger(entityplayermp, stack);
+			entityplayermp.addStat(StatList.getObjectUseStats(this));
+		}
 
-    /**
-     * How long it takes to use or consume an item
-     */
-    public int getMaxItemUseDuration(ItemStack stack)
-    {
-        return 32;
-    }
+		if (entityLiving instanceof EntityPlayer && !((EntityPlayer) entityLiving).capabilities.isCreativeMode) {
+			stack.shrink(1);
+		}
 
-    /**
-     * returns the action that specifies what animation to play when the items is being used
-     */
-    public EnumAction getItemUseAction(ItemStack stack)
-    {
-        return EnumAction.DRINK;
-    }
+		if (!worldIn.isRemote) {
+			entityLiving.clearActivePotions();
+		}
 
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn)
-    {
-        playerIn.setActiveHand(handIn);
-        return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, playerIn.getHeldItem(handIn));
-    }
+		return stack.isEmpty() ? new ItemStack(Items.BUCKET) : stack;
+	}
+
+	/**
+	 * How long it takes to use or consume an item
+	 */
+	public int getMaxItemUseDuration(ItemStack stack) {
+
+		return 32;
+	}
+
+	/**
+	 * returns the action that specifies what animation to play when the items is being used
+	 */
+	public EnumAction getItemUseAction(ItemStack stack) {
+
+		return EnumAction.DRINK;
+	}
+
+	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
+
+		playerIn.setActiveHand(handIn);
+		return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, playerIn.getHeldItem(handIn));
+	}
+
 }

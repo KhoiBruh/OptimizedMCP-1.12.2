@@ -3,18 +3,19 @@ package net.minecraft.stats;
 import net.minecraft.item.Item;
 import net.minecraft.util.text.ITextComponent;
 
-public class StatCrafting extends StatBase
-{
-    private final Item item;
+public class StatCrafting extends StatBase {
 
-    public StatCrafting(String p_i45910_1_, String p_i45910_2_, ITextComponent statNameIn, Item p_i45910_4_)
-    {
-        super(p_i45910_1_ + p_i45910_2_, statNameIn);
-        item = p_i45910_4_;
-    }
+	private final Item item;
 
-    public Item getItem()
-    {
-        return item;
-    }
+	public StatCrafting(String p_i45910_1_, String p_i45910_2_, ITextComponent statNameIn, Item p_i45910_4_) {
+
+		super(p_i45910_1_ + p_i45910_2_, statNameIn);
+		item = p_i45910_4_;
+	}
+
+	public Item getItem() {
+
+		return item;
+	}
+
 }

@@ -1,38 +1,39 @@
 package net.minecraft.client.audio;
 
-import java.util.List;
 import javax.annotation.Nullable;
+import java.util.List;
 
-public class SoundList
-{
-    private final List<Sound> sounds;
+public class SoundList {
 
-    /**
-     * if true it will override all the sounds from the resourcepacks loaded before
-     */
-    private final boolean replaceExisting;
-    private final String subtitle;
+	private final List<Sound> sounds;
 
-    public SoundList(List<Sound> soundsIn, boolean replceIn, String subtitleIn)
-    {
-        sounds = soundsIn;
-        replaceExisting = replceIn;
-        subtitle = subtitleIn;
-    }
+	/**
+	 * if true it will override all the sounds from the resourcepacks loaded before
+	 */
+	private final boolean replaceExisting;
+	private final String subtitle;
 
-    public List<Sound> getSounds()
-    {
-        return sounds;
-    }
+	public SoundList(List<Sound> soundsIn, boolean replceIn, String subtitleIn) {
 
-    public boolean canReplaceExisting()
-    {
-        return replaceExisting;
-    }
+		sounds = soundsIn;
+		replaceExisting = replceIn;
+		subtitle = subtitleIn;
+	}
 
-    @Nullable
-    public String getSubtitle()
-    {
-        return subtitle;
-    }
+	public List<Sound> getSounds() {
+
+		return sounds;
+	}
+
+	public boolean canReplaceExisting() {
+
+		return replaceExisting;
+	}
+
+	@Nullable
+	public String getSubtitle() {
+
+		return subtitle;
+	}
+
 }

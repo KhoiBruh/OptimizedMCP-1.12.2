@@ -13,64 +13,64 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.world.World;
 
-public class EntityMinecartChest extends EntityMinecartContainer
-{
-    public EntityMinecartChest(World worldIn)
-    {
-        super(worldIn);
-    }
+public class EntityMinecartChest extends EntityMinecartContainer {
 
-    public EntityMinecartChest(World worldIn, double x, double y, double z)
-    {
-        super(worldIn, x, y, z);
-    }
+	public EntityMinecartChest(World worldIn) {
 
-    public static void registerFixesMinecartChest(DataFixer fixer)
-    {
-        EntityMinecartContainer.addDataFixers(fixer, EntityMinecartChest.class);
-    }
+		super(worldIn);
+	}
 
-    public void killMinecart(DamageSource source)
-    {
-        super.killMinecart(source);
+	public EntityMinecartChest(World worldIn, double x, double y, double z) {
 
-        if (world.getGameRules().getBoolean("doEntityDrops"))
-        {
-            dropItemWithOffset(Item.getItemFromBlock(Blocks.CHEST), 1, 0.0F);
-        }
-    }
+		super(worldIn, x, y, z);
+	}
 
-    /**
-     * Returns the number of slots in the inventory.
-     */
-    public int getSizeInventory()
-    {
-        return 27;
-    }
+	public static void registerFixesMinecartChest(DataFixer fixer) {
 
-    public EntityMinecart.Type getType()
-    {
-        return EntityMinecart.Type.CHEST;
-    }
+		EntityMinecartContainer.addDataFixers(fixer, EntityMinecartChest.class);
+	}
 
-    public IBlockState getDefaultDisplayTile()
-    {
-        return Blocks.CHEST.getDefaultState().withProperty(BlockChest.FACING, EnumFacing.NORTH);
-    }
+	public void killMinecart(DamageSource source) {
 
-    public int getDefaultDisplayTileOffset()
-    {
-        return 8;
-    }
+		super.killMinecart(source);
 
-    public String getGuiID()
-    {
-        return "minecraft:chest";
-    }
+		if (world.getGameRules().getBoolean("doEntityDrops")) {
+			dropItemWithOffset(Item.getItemFromBlock(Blocks.CHEST), 1, 0.0F);
+		}
+	}
 
-    public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn)
-    {
-        addLoot(playerIn);
-        return new ContainerChest(playerInventory, this, playerIn);
-    }
+	/**
+	 * Returns the number of slots in the inventory.
+	 */
+	public int getSizeInventory() {
+
+		return 27;
+	}
+
+	public EntityMinecart.Type getType() {
+
+		return EntityMinecart.Type.CHEST;
+	}
+
+	public IBlockState getDefaultDisplayTile() {
+
+		return Blocks.CHEST.getDefaultState().withProperty(BlockChest.FACING, EnumFacing.NORTH);
+	}
+
+	public int getDefaultDisplayTileOffset() {
+
+		return 8;
+	}
+
+	public String guiID() {
+
+		return "minecraft:chest";
+	}
+
+	public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
+
+		addLoot(playerIn);
+		return new ContainerChest(playerInventory, this, playerIn);
+	}
+
 }

@@ -44,18 +44,21 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet<?>> {
 	public static final AttributeKey<EnumConnectionState> PROTOCOL_ATTRIBUTE_KEY = AttributeKey.valueOf("protocol");
 
 	public static final ThreadFactory nettyIOFactory = Thread.ofVirtual().name("Netty IO #%d", 0).factory();
-    public static final LazyLoadBase<MultiThreadIoEventLoopGroup> CLIENT_NIO_EVENT_LOOP = new LazyLoadBase<>() {
-        protected MultiThreadIoEventLoopGroup load() {
-            return new MultiThreadIoEventLoopGroup(0, nettyIOFactory, NioIoHandler.newFactory());
-        }
-    };
-    public static final LazyLoadBase<MultiThreadIoEventLoopGroup> CLIENT_LOCAL_EVENT_LOOP = new LazyLoadBase<>() {
-        protected MultiThreadIoEventLoopGroup load() {
-            return new MultiThreadIoEventLoopGroup(0, nettyIOFactory, LocalIoHandler.newFactory());
-        }
-    };
+	public static final LazyLoadBase<MultiThreadIoEventLoopGroup> CLIENT_NIO_EVENT_LOOP = new LazyLoadBase<>() {
+		protected MultiThreadIoEventLoopGroup load() {
+
+			return new MultiThreadIoEventLoopGroup(0, nettyIOFactory, NioIoHandler.newFactory());
+		}
+	};
+	public static final LazyLoadBase<MultiThreadIoEventLoopGroup> CLIENT_LOCAL_EVENT_LOOP = new LazyLoadBase<>() {
+		protected MultiThreadIoEventLoopGroup load() {
+
+			return new MultiThreadIoEventLoopGroup(0, nettyIOFactory, LocalIoHandler.newFactory());
+		}
+	};
 	public static final LazyLoadBase<MultiThreadIoEventLoopGroup> CLIENT_EPOLL_EVENT_LOOP = new LazyLoadBase<>() {
 		protected MultiThreadIoEventLoopGroup load() {
+
 			return new MultiThreadIoEventLoopGroup(0, nettyIOFactory, EpollIoHandler.newFactory());
 		}
 	};
@@ -96,6 +99,7 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet<?>> {
 	 * Create a new NetworkManager from the server host and connect it to the server
 	 */
 	public static NetworkManager createNetworkManagerAndConnect(InetAddress address, int serverPort, boolean useNativeTransport) {
+
 		final NetworkManager networkmanager = new NetworkManager(EnumPacketDirection.CLIENTBOUND);
 		Class<? extends SocketChannel> oclass;
 		LazyLoadBase<? extends EventLoopGroup> lazyloadbase;
@@ -113,6 +117,7 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet<?>> {
 				.handler(
 						new ChannelInitializer<>() {
 							protected void initChannel(Channel channel) {
+
 								channel.config().setOption(ChannelOption.TCP_NODELAY, true);
 
 								channel.pipeline()
@@ -136,15 +141,17 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet<?>> {
 	 * pipeline. Returns the newly created instance.
 	 */
 	public static NetworkManager provideLocalClient(SocketAddress address) {
+
 		final NetworkManager manager = new NetworkManager(EnumPacketDirection.CLIENTBOUND);
 
 		new Bootstrap()
 				.group(CLIENT_LOCAL_EVENT_LOOP.getValue())
 				.handler(new ChannelInitializer<>() {
-						protected void initChannel(Channel channel) {
-							channel.pipeline().addLast("packet_handler", manager);
-						}
-					}
+					         protected void initChannel(Channel channel) {
+
+						         channel.pipeline().addLast("packet_handler", manager);
+					         }
+				         }
 				)
 				.channel(LocalChannel.class)
 				.connect(address)
@@ -154,6 +161,7 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet<?>> {
 	}
 
 	public void channelActive(ChannelHandlerContext context) throws Exception {
+
 		super.channelActive(context);
 		channel = context.channel();
 		socketAddress = channel.remoteAddress();
@@ -195,6 +203,7 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet<?>> {
 	}
 
 	protected void channelRead0(ChannelHandlerContext context, Packet<?> packet) {
+
 		if (channel.isOpen()) {
 			try {
 				((Packet<INetHandler>) packet).processPacket(packetListener);
@@ -459,5 +468,7 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet<?>> {
 			packet = inPacket;
 			futureListeners = inFutureListeners;
 		}
+
 	}
+
 }

@@ -1,314 +1,314 @@
 package net.minecraft.world.storage;
 
-import javax.annotation.Nullable;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.DimensionType;
-import net.minecraft.world.EnumDifficulty;
-import net.minecraft.world.GameRules;
-import net.minecraft.world.GameType;
-import net.minecraft.world.WorldType;
+import net.minecraft.world.*;
 
-public class DerivedWorldInfo extends WorldInfo
-{
-    /** Instance of WorldInfo. */
-    private final WorldInfo delegate;
+import javax.annotation.Nullable;
 
-    public DerivedWorldInfo(WorldInfo worldInfoIn)
-    {
-        delegate = worldInfoIn;
-    }
+public class DerivedWorldInfo extends WorldInfo {
 
-    /**
-     * Creates a new NBTTagCompound for the world, with the given NBTTag as the "Player"
-     */
-    public NBTTagCompound cloneNBTCompound(@Nullable NBTTagCompound nbt)
-    {
-        return delegate.cloneNBTCompound(nbt);
-    }
+	/**
+	 * Instance of WorldInfo.
+	 */
+	private final WorldInfo delegate;
 
-    /**
-     * Returns the seed of current world.
-     */
-    public long getSeed()
-    {
-        return delegate.getSeed();
-    }
+	public DerivedWorldInfo(WorldInfo worldInfoIn) {
 
-    /**
-     * Returns the x spawn position
-     */
-    public int getSpawnX()
-    {
-        return delegate.getSpawnX();
-    }
+		delegate = worldInfoIn;
+	}
 
-    /**
-     * Return the Y axis spawning point of the player.
-     */
-    public int getSpawnY()
-    {
-        return delegate.getSpawnY();
-    }
+	/**
+	 * Creates a new NBTTagCompound for the world, with the given NBTTag as the "Player"
+	 */
+	public NBTTagCompound cloneNBTCompound(@Nullable NBTTagCompound nbt) {
 
-    /**
-     * Returns the z spawn position
-     */
-    public int getSpawnZ()
-    {
-        return delegate.getSpawnZ();
-    }
+		return delegate.cloneNBTCompound(nbt);
+	}
 
-    public long getWorldTotalTime()
-    {
-        return delegate.getWorldTotalTime();
-    }
+	/**
+	 * Returns the seed of current world.
+	 */
+	public long getSeed() {
 
-    /**
-     * Get current world time
-     */
-    public long getWorldTime()
-    {
-        return delegate.getWorldTime();
-    }
+		return delegate.getSeed();
+	}
 
-    public long getSizeOnDisk()
-    {
-        return delegate.getSizeOnDisk();
-    }
+	/**
+	 * Returns the x spawn position
+	 */
+	public int getSpawnX() {
 
-    /**
-     * Returns the player's NBTTagCompound to be loaded
-     */
-    public NBTTagCompound getPlayerNBTTagCompound()
-    {
-        return delegate.getPlayerNBTTagCompound();
-    }
+		return delegate.getSpawnX();
+	}
 
-    /**
-     * Get current world name
-     */
-    public String getWorldName()
-    {
-        return delegate.getWorldName();
-    }
+	/**
+	 * Return the Y axis spawning point of the player.
+	 */
+	public int getSpawnY() {
 
-    /**
-     * Returns the save version of this world
-     */
-    public int getSaveVersion()
-    {
-        return delegate.getSaveVersion();
-    }
+		return delegate.getSpawnY();
+	}
 
-    /**
-     * Return the last time the player was in this world.
-     */
-    public long getLastTimePlayed()
-    {
-        return delegate.getLastTimePlayed();
-    }
+	/**
+	 * Returns the z spawn position
+	 */
+	public int getSpawnZ() {
 
-    /**
-     * Returns true if it is thundering, false otherwise.
-     */
-    public boolean isThundering()
-    {
-        return delegate.isThundering();
-    }
+		return delegate.getSpawnZ();
+	}
 
-    /**
-     * Returns the number of ticks until next thunderbolt.
-     */
-    public int getThunderTime()
-    {
-        return delegate.getThunderTime();
-    }
+	public long getWorldTotalTime() {
 
-    /**
-     * Returns true if it is raining, false otherwise.
-     */
-    public boolean isRaining()
-    {
-        return delegate.isRaining();
-    }
+		return delegate.getWorldTotalTime();
+	}
 
-    /**
-     * Return the number of ticks until rain.
-     */
-    public int getRainTime()
-    {
-        return delegate.getRainTime();
-    }
+	/**
+	 * Get current world time
+	 */
+	public long getWorldTime() {
 
-    /**
-     * Gets the GameType.
-     */
-    public GameType getGameType()
-    {
-        return delegate.getGameType();
-    }
+		return delegate.getWorldTime();
+	}
 
-    /**
-     * Set the x spawn position to the passed in value
-     */
-    public void setSpawnX(int x)
-    {
-    }
+	public long getSizeOnDisk() {
 
-    /**
-     * Sets the y spawn position
-     */
-    public void setSpawnY(int y)
-    {
-    }
+		return delegate.getSizeOnDisk();
+	}
 
-    /**
-     * Set the z spawn position to the passed in value
-     */
-    public void setSpawnZ(int z)
-    {
-    }
+	/**
+	 * Returns the player's NBTTagCompound to be loaded
+	 */
+	public NBTTagCompound getPlayerNBTTagCompound() {
 
-    public void setWorldTotalTime(long time)
-    {
-    }
+		return delegate.getPlayerNBTTagCompound();
+	}
 
-    /**
-     * Set current world time
-     */
-    public void setWorldTime(long time)
-    {
-    }
+	/**
+	 * Get current world name
+	 */
+	public String getWorldName() {
 
-    public void setSpawn(BlockPos spawnPoint)
-    {
-    }
+		return delegate.getWorldName();
+	}
 
-    public void setWorldName(String worldName)
-    {
-    }
+	/**
+	 * Returns the save version of this world
+	 */
+	public int getSaveVersion() {
 
-    /**
-     * Sets the save version of the world
-     */
-    public void setSaveVersion(int version)
-    {
-    }
+		return delegate.getSaveVersion();
+	}
 
-    /**
-     * Sets whether it is thundering or not.
-     */
-    public void setThundering(boolean thunderingIn)
-    {
-    }
+	/**
+	 * Return the last time the player was in this world.
+	 */
+	public long getLastTimePlayed() {
 
-    /**
-     * Defines the number of ticks until next thunderbolt.
-     */
-    public void setThunderTime(int time)
-    {
-    }
+		return delegate.getLastTimePlayed();
+	}
 
-    /**
-     * Sets whether it is raining or not.
-     */
-    public void setRaining(boolean isRaining)
-    {
-    }
+	/**
+	 * Returns true if it is thundering, false otherwise.
+	 */
+	public boolean isThundering() {
 
-    /**
-     * Sets the number of ticks until rain.
-     */
-    public void setRainTime(int time)
-    {
-    }
+		return delegate.isThundering();
+	}
 
-    /**
-     * Get whether the map features (e.g. strongholds) generation is enabled or disabled.
-     */
-    public boolean isMapFeaturesEnabled()
-    {
-        return delegate.isMapFeaturesEnabled();
-    }
+	/**
+	 * Returns the number of ticks until next thunderbolt.
+	 */
+	public int getThunderTime() {
 
-    /**
-     * Returns true if hardcore mode is enabled, otherwise false
-     */
-    public boolean isHardcoreModeEnabled()
-    {
-        return delegate.isHardcoreModeEnabled();
-    }
+		return delegate.getThunderTime();
+	}
 
-    public WorldType getTerrainType()
-    {
-        return delegate.getTerrainType();
-    }
+	/**
+	 * Returns true if it is raining, false otherwise.
+	 */
+	public boolean isRaining() {
 
-    public void setTerrainType(WorldType type)
-    {
-    }
+		return delegate.isRaining();
+	}
 
-    /**
-     * Returns true if commands are allowed on this World.
-     */
-    public boolean areCommandsAllowed()
-    {
-        return delegate.areCommandsAllowed();
-    }
+	/**
+	 * Return the number of ticks until rain.
+	 */
+	public int getRainTime() {
 
-    public void setAllowCommands(boolean allow)
-    {
-    }
+		return delegate.getRainTime();
+	}
 
-    /**
-     * Returns true if the World is initialized.
-     */
-    public boolean isInitialized()
-    {
-        return delegate.isInitialized();
-    }
+	/**
+	 * Gets the GameType.
+	 */
+	public GameType getGameType() {
 
-    /**
-     * Sets the initialization status of the World.
-     */
-    public void setServerInitialized(boolean initializedIn)
-    {
-    }
+		return delegate.getGameType();
+	}
 
-    /**
-     * Gets the GameRules class Instance.
-     */
-    public GameRules getGameRulesInstance()
-    {
-        return delegate.getGameRulesInstance();
-    }
+	/**
+	 * Set the x spawn position to the passed in value
+	 */
+	public void setSpawnX(int x) {
 
-    public EnumDifficulty getDifficulty()
-    {
-        return delegate.getDifficulty();
-    }
+	}
 
-    public void setDifficulty(EnumDifficulty newDifficulty)
-    {
-    }
+	/**
+	 * Sets the y spawn position
+	 */
+	public void setSpawnY(int y) {
 
-    public boolean isDifficultyLocked()
-    {
-        return delegate.isDifficultyLocked();
-    }
+	}
 
-    public void setDifficultyLocked(boolean locked)
-    {
-    }
+	/**
+	 * Set the z spawn position to the passed in value
+	 */
+	public void setSpawnZ(int z) {
 
-    public void setDimensionData(DimensionType dimensionIn, NBTTagCompound compound)
-    {
-        delegate.setDimensionData(dimensionIn, compound);
-    }
+	}
 
-    public NBTTagCompound getDimensionData(DimensionType dimensionIn)
-    {
-        return delegate.getDimensionData(dimensionIn);
-    }
+	public void setWorldTotalTime(long time) {
+
+	}
+
+	/**
+	 * Set current world time
+	 */
+	public void setWorldTime(long time) {
+
+	}
+
+	public void setSpawn(BlockPos spawnPoint) {
+
+	}
+
+	public void setWorldName(String worldName) {
+
+	}
+
+	/**
+	 * Sets the save version of the world
+	 */
+	public void setSaveVersion(int version) {
+
+	}
+
+	/**
+	 * Sets whether it is thundering or not.
+	 */
+	public void setThundering(boolean thunderingIn) {
+
+	}
+
+	/**
+	 * Defines the number of ticks until next thunderbolt.
+	 */
+	public void setThunderTime(int time) {
+
+	}
+
+	/**
+	 * Sets whether it is raining or not.
+	 */
+	public void setRaining(boolean isRaining) {
+
+	}
+
+	/**
+	 * Sets the number of ticks until rain.
+	 */
+	public void setRainTime(int time) {
+
+	}
+
+	/**
+	 * Get whether the map features (e.g. strongholds) generation is enabled or disabled.
+	 */
+	public boolean isMapFeaturesEnabled() {
+
+		return delegate.isMapFeaturesEnabled();
+	}
+
+	/**
+	 * Returns true if hardcore mode is enabled, otherwise false
+	 */
+	public boolean isHardcoreModeEnabled() {
+
+		return delegate.isHardcoreModeEnabled();
+	}
+
+	public WorldType getTerrainType() {
+
+		return delegate.getTerrainType();
+	}
+
+	public void setTerrainType(WorldType type) {
+
+	}
+
+	/**
+	 * Returns true if commands are allowed on this World.
+	 */
+	public boolean areCommandsAllowed() {
+
+		return delegate.areCommandsAllowed();
+	}
+
+	public void setAllowCommands(boolean allow) {
+
+	}
+
+	/**
+	 * Returns true if the World is initialized.
+	 */
+	public boolean isInitialized() {
+
+		return delegate.isInitialized();
+	}
+
+	/**
+	 * Sets the initialization status of the World.
+	 */
+	public void setServerInitialized(boolean initializedIn) {
+
+	}
+
+	/**
+	 * Gets the GameRules class Instance.
+	 */
+	public GameRules getGameRulesInstance() {
+
+		return delegate.getGameRulesInstance();
+	}
+
+	public EnumDifficulty getDifficulty() {
+
+		return delegate.getDifficulty();
+	}
+
+	public void setDifficulty(EnumDifficulty newDifficulty) {
+
+	}
+
+	public boolean isDifficultyLocked() {
+
+		return delegate.isDifficultyLocked();
+	}
+
+	public void setDifficultyLocked(boolean locked) {
+
+	}
+
+	public void setDimensionData(DimensionType dimensionIn, NBTTagCompound compound) {
+
+		delegate.setDimensionData(dimensionIn, compound);
+	}
+
+	public NBTTagCompound getDimensionData(DimensionType dimensionIn) {
+
+		return delegate.getDimensionData(dimensionIn);
+	}
+
 }

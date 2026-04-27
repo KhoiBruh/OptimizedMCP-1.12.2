@@ -6,85 +6,79 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntityEnderChest;
 
-public class InventoryEnderChest extends InventoryBasic
-{
-    private TileEntityEnderChest associatedChest;
+public class InventoryEnderChest extends InventoryBasic {
 
-    public InventoryEnderChest()
-    {
-        super("container.enderchest", false, 27);
-    }
+	private TileEntityEnderChest associatedChest;
 
-    public void setChestTileEntity(TileEntityEnderChest chestTileEntity)
-    {
-        associatedChest = chestTileEntity;
-    }
+	public InventoryEnderChest() {
 
-    public void loadInventoryFromNBT(NBTTagList p_70486_1_)
-    {
-        for (int i = 0; i < getSizeInventory(); ++i)
-        {
-            setInventorySlotContents(i, ItemStack.EMPTY);
-        }
+		super("container.enderchest", false, 27);
+	}
 
-        for (int k = 0; k < p_70486_1_.tagCount(); ++k)
-        {
-            NBTTagCompound nbttagcompound = p_70486_1_.getCompoundTagAt(k);
-            int j = nbttagcompound.getByte("Slot") & 255;
+	public void setChestTileEntity(TileEntityEnderChest chestTileEntity) {
 
-            if (j >= 0 && j < getSizeInventory())
-            {
-                setInventorySlotContents(j, new ItemStack(nbttagcompound));
-            }
-        }
-    }
+		associatedChest = chestTileEntity;
+	}
 
-    public NBTTagList saveInventoryToNBT()
-    {
-        NBTTagList nbttaglist = new NBTTagList();
+	public void loadInventoryFromNBT(NBTTagList p_70486_1_) {
 
-        for (int i = 0; i < getSizeInventory(); ++i)
-        {
-            ItemStack itemstack = getStackInSlot(i);
+		for (int i = 0; i < getSizeInventory(); ++i) {
+			setInventorySlotContents(i, ItemStack.EMPTY);
+		}
 
-            if (!itemstack.isEmpty())
-            {
-                NBTTagCompound nbttagcompound = new NBTTagCompound();
-                nbttagcompound.setByte("Slot", (byte)i);
-                itemstack.writeToNBT(nbttagcompound);
-                nbttaglist.appendTag(nbttagcompound);
-            }
-        }
+		for (int k = 0; k < p_70486_1_.tagCount(); ++k) {
+			NBTTagCompound nbttagcompound = p_70486_1_.getCompoundTagAt(k);
+			int j = nbttagcompound.getByte("Slot") & 255;
 
-        return nbttaglist;
-    }
+			if (j >= 0 && j < getSizeInventory()) {
+				setInventorySlotContents(j, new ItemStack(nbttagcompound));
+			}
+		}
+	}
 
-    /**
-     * Don't rename this method to canInteractWith due to conflicts with Container
-     */
-    public boolean isUsableByPlayer(EntityPlayer player)
-    {
-        return associatedChest != null && !associatedChest.canBeUsed(player) ? false : super.isUsableByPlayer(player);
-    }
+	public NBTTagList saveInventoryToNBT() {
 
-    public void openInventory(EntityPlayer player)
-    {
-        if (associatedChest != null)
-        {
-            associatedChest.openChest();
-        }
+		NBTTagList nbttaglist = new NBTTagList();
 
-        super.openInventory(player);
-    }
+		for (int i = 0; i < getSizeInventory(); ++i) {
+			ItemStack itemstack = getStackInSlot(i);
 
-    public void closeInventory(EntityPlayer player)
-    {
-        if (associatedChest != null)
-        {
-            associatedChest.closeChest();
-        }
+			if (!itemstack.isEmpty()) {
+				NBTTagCompound nbttagcompound = new NBTTagCompound();
+				nbttagcompound.setByte("Slot", (byte) i);
+				itemstack.writeToNBT(nbttagcompound);
+				nbttaglist.appendTag(nbttagcompound);
+			}
+		}
 
-        super.closeInventory(player);
-        associatedChest = null;
-    }
+		return nbttaglist;
+	}
+
+	/**
+	 * Don't rename this method to canInteractWith due to conflicts with Container
+	 */
+	public boolean isUsableByPlayer(EntityPlayer player) {
+
+		return (associatedChest == null || associatedChest.canBeUsed(player)) && super.isUsableByPlayer(player);
+	}
+
+	public void openInventory(EntityPlayer player) {
+
+		if (associatedChest != null) {
+			associatedChest.openChest();
+		}
+
+		super.openInventory(player);
+	}
+
+	public void closeInventory(EntityPlayer player) {
+
+		if (associatedChest != null) {
+			associatedChest.closeChest();
+		}
+
+		super.closeInventory(player);
+		associatedChest = null;
+	}
+
 }

@@ -6,110 +6,111 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
 import net.minecraft.village.MerchantRecipe;
 
-public class SlotMerchantResult extends Slot
-{
-    /** Merchant's inventory. */
-    private final InventoryMerchant merchantInventory;
+public class SlotMerchantResult extends Slot {
 
-    /** The Player whos trying to buy/sell stuff. */
-    private final EntityPlayer player;
-    private int removeCount;
+	/**
+	 * Merchant's inventory.
+	 */
+	private final InventoryMerchant merchantInventory;
 
-    /** "Instance" of the Merchant. */
-    private final IMerchant merchant;
+	/**
+	 * The Player whos trying to buy/sell stuff.
+	 */
+	private final EntityPlayer player;
+	private int removeCount;
 
-    public SlotMerchantResult(EntityPlayer player, IMerchant merchant, InventoryMerchant merchantInventory, int slotIndex, int xPosition, int yPosition)
-    {
-        super(merchantInventory, slotIndex, xPosition, yPosition);
-        this.player = player;
-        this.merchant = merchant;
-        this.merchantInventory = merchantInventory;
-    }
+	/**
+	 * "Instance" of the Merchant.
+	 */
+	private final IMerchant merchant;
 
-    /**
-     * Check if the stack is allowed to be placed in this slot, used for armor slots as well as furnace fuel.
-     */
-    public boolean isItemValid(ItemStack stack)
-    {
-        return false;
-    }
+	public SlotMerchantResult(EntityPlayer player, IMerchant merchant, InventoryMerchant merchantInventory, int slotIndex, int xPosition, int yPosition) {
 
-    /**
-     * Decrease the size of the stack in slot (first int arg) by the amount of the second int arg. Returns the new
-     * stack.
-     */
-    public ItemStack decrStackSize(int amount)
-    {
-        if (getHasStack())
-        {
-            removeCount += Math.min(amount, getStack().getCount());
-        }
+		super(merchantInventory, slotIndex, xPosition, yPosition);
+		this.player = player;
+		this.merchant = merchant;
+		this.merchantInventory = merchantInventory;
+	}
 
-        return super.decrStackSize(amount);
-    }
+	/**
+	 * Check if the stack is allowed to be placed in this slot, used for armor slots as well as furnace fuel.
+	 */
+	public boolean isItemValid(ItemStack stack) {
 
-    /**
-     * the itemStack passed in is the output - ie, iron ingots, and pickaxes, not ore and wood. Typically increases an
-     * internal count then calls onCrafting(item).
-     */
-    protected void onCrafting(ItemStack stack, int amount)
-    {
-        removeCount += amount;
-        onCrafting(stack);
-    }
+		return false;
+	}
 
-    /**
-     * the itemStack passed in is the output - ie, iron ingots, and pickaxes, not ore and wood.
-     */
-    protected void onCrafting(ItemStack stack)
-    {
-        stack.onCrafting(player.world, player, removeCount);
-        removeCount = 0;
-    }
+	/**
+	 * Decrease the size of the stack in slot (first int arg) by the amount of the second int arg. Returns the new
+	 * stack.
+	 */
+	public ItemStack decrStackSize(int amount) {
 
-    public ItemStack onTake(EntityPlayer thePlayer, ItemStack stack)
-    {
-        onCrafting(stack);
-        MerchantRecipe merchantrecipe = merchantInventory.getCurrentRecipe();
+		if (getHasStack()) {
+			removeCount += Math.min(amount, getStack().getCount());
+		}
 
-        if (merchantrecipe != null)
-        {
-            ItemStack itemstack = merchantInventory.getStackInSlot(0);
-            ItemStack itemstack1 = merchantInventory.getStackInSlot(1);
+		return super.decrStackSize(amount);
+	}
 
-            if (doTrade(merchantrecipe, itemstack, itemstack1) || doTrade(merchantrecipe, itemstack1, itemstack))
-            {
-                merchant.useRecipe(merchantrecipe);
-                thePlayer.addStat(StatList.TRADED_WITH_VILLAGER);
-                merchantInventory.setInventorySlotContents(0, itemstack);
-                merchantInventory.setInventorySlotContents(1, itemstack1);
-            }
-        }
+	/**
+	 * the itemStack passed in is the output - ie, iron ingots, and pickaxes, not ore and wood. Typically increases an
+	 * internal count then calls onCrafting(item).
+	 */
+	protected void onCrafting(ItemStack stack, int amount) {
 
-        return stack;
-    }
+		removeCount += amount;
+		onCrafting(stack);
+	}
 
-    private boolean doTrade(MerchantRecipe trade, ItemStack firstItem, ItemStack secondItem)
-    {
-        ItemStack itemstack = trade.getItemToBuy();
-        ItemStack itemstack1 = trade.getSecondItemToBuy();
+	/**
+	 * the itemStack passed in is the output - ie, iron ingots, and pickaxes, not ore and wood.
+	 */
+	protected void onCrafting(ItemStack stack) {
 
-        if (firstItem.getItem() == itemstack.getItem() && firstItem.getCount() >= itemstack.getCount())
-        {
-            if (!itemstack1.isEmpty() && !secondItem.isEmpty() && itemstack1.getItem() == secondItem.getItem() && secondItem.getCount() >= itemstack1.getCount())
-            {
-                firstItem.shrink(itemstack.getCount());
-                secondItem.shrink(itemstack1.getCount());
-                return true;
-            }
+		stack.onCrafting(player.world, player, removeCount);
+		removeCount = 0;
+	}
 
-            if (itemstack1.isEmpty() && secondItem.isEmpty())
-            {
-                firstItem.shrink(itemstack.getCount());
-                return true;
-            }
-        }
+	public ItemStack onTake(EntityPlayer thePlayer, ItemStack stack) {
 
-        return false;
-    }
+		onCrafting(stack);
+		MerchantRecipe merchantrecipe = merchantInventory.getCurrentRecipe();
+
+		if (merchantrecipe != null) {
+			ItemStack itemstack = merchantInventory.getStackInSlot(0);
+			ItemStack itemstack1 = merchantInventory.getStackInSlot(1);
+
+			if (doTrade(merchantrecipe, itemstack, itemstack1) || doTrade(merchantrecipe, itemstack1, itemstack)) {
+				merchant.useRecipe(merchantrecipe);
+				thePlayer.addStat(StatList.TRADED_WITH_VILLAGER);
+				merchantInventory.setInventorySlotContents(0, itemstack);
+				merchantInventory.setInventorySlotContents(1, itemstack1);
+			}
+		}
+
+		return stack;
+	}
+
+	private boolean doTrade(MerchantRecipe trade, ItemStack firstItem, ItemStack secondItem) {
+
+		ItemStack itemstack = trade.getItemToBuy();
+		ItemStack itemstack1 = trade.getSecondItemToBuy();
+
+		if (firstItem.getItem() == itemstack.getItem() && firstItem.getCount() >= itemstack.getCount()) {
+			if (!itemstack1.isEmpty() && !secondItem.isEmpty() && itemstack1.getItem() == secondItem.getItem() && secondItem.getCount() >= itemstack1.getCount()) {
+				firstItem.shrink(itemstack.getCount());
+				secondItem.shrink(itemstack1.getCount());
+				return true;
+			}
+
+			if (itemstack1.isEmpty() && secondItem.isEmpty()) {
+				firstItem.shrink(itemstack.getCount());
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 }

@@ -5,123 +5,108 @@ import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import java.lang.reflect.Array;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 import net.minecraft.block.state.BlockWorldState;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 
-public class FactoryBlockPattern
-{
-    private static final Joiner COMMA_JOIN = Joiner.on(",");
-    private final List<String[]> depth = Lists.<String[]>newArrayList();
-    private final Map<Character, Predicate<BlockWorldState>> symbolMap = Maps.<Character, Predicate<BlockWorldState>>newHashMap();
-    private int aisleHeight;
-    private int rowWidth;
+import java.lang.reflect.Array;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
-    private FactoryBlockPattern()
-    {
-        symbolMap.put(' ', Predicates.alwaysTrue());
-    }
+public class FactoryBlockPattern {
 
-    /**
-     * Adds a single aisle to this pattern, going in the z axis. (so multiple calls to this will increase the z-size by
-     * 1)
-     */
-    public FactoryBlockPattern aisle(String... aisle)
-    {
-        if (!ArrayUtils.isEmpty((Object[])aisle) && !StringUtils.isEmpty(aisle[0]))
-        {
-            if (depth.isEmpty())
-            {
-                aisleHeight = aisle.length;
-                rowWidth = aisle[0].length();
-            }
+	private static final Joiner COMMA_JOIN = Joiner.on(",");
+	private final List<String[]> depth = Lists.newArrayList();
+	private final Map<Character, Predicate<BlockWorldState>> symbolMap = Maps.newHashMap();
+	private int aisleHeight;
+	private int rowWidth;
 
-            if (aisle.length != aisleHeight)
-            {
-                throw new IllegalArgumentException("Expected aisle with height of " + aisleHeight + ", but was given one with a height of " + aisle.length + ")");
-            }
-            else
-            {
-                for (String s : aisle)
-                {
-                    if (s.length() != rowWidth)
-                    {
-                        throw new IllegalArgumentException("Not all rows in the given aisle are the correct width (expected " + rowWidth + ", found one with " + s.length() + ")");
-                    }
+	private FactoryBlockPattern() {
 
-                    for (char c0 : s.toCharArray())
-                    {
-                        if (!symbolMap.containsKey(Character.valueOf(c0)))
-                        {
-                            symbolMap.put(Character.valueOf(c0), null);
-                        }
-                    }
-                }
+		symbolMap.put(' ', Predicates.alwaysTrue());
+	}
 
-                depth.add(aisle);
-                return this;
-            }
-        }
-        else
-        {
-            throw new IllegalArgumentException("Empty pattern for aisle");
-        }
-    }
+	/**
+	 * Adds a single aisle to this pattern, going in the z axis. (so multiple calls to this will increase the z-size by
+	 * 1)
+	 */
+	public FactoryBlockPattern aisle(String... aisle) {
 
-    public static FactoryBlockPattern start()
-    {
-        return new FactoryBlockPattern();
-    }
+		if (!ArrayUtils.isEmpty(aisle) && !StringUtils.isEmpty(aisle[0])) {
+			if (depth.isEmpty()) {
+				aisleHeight = aisle.length;
+				rowWidth = aisle[0].length();
+			}
 
-    public FactoryBlockPattern where(char symbol, Predicate<BlockWorldState> blockMatcher)
-    {
-        symbolMap.put(Character.valueOf(symbol), blockMatcher);
-        return this;
-    }
+			if (aisle.length != aisleHeight) {
+				throw new IllegalArgumentException("Expected aisle with height of " + aisleHeight + ", but was given one with a height of " + aisle.length + ")");
+			} else {
+				for (String s : aisle) {
+					if (s.length() != rowWidth) {
+						throw new IllegalArgumentException("Not all rows in the given aisle are the correct width (expected " + rowWidth + ", found one with " + s.length() + ")");
+					}
 
-    public BlockPattern build()
-    {
-        return new BlockPattern(makePredicateArray());
-    }
+					for (char c0 : s.toCharArray()) {
+						if (!symbolMap.containsKey(Character.valueOf(c0))) {
+							symbolMap.put(Character.valueOf(c0), null);
+						}
+					}
+				}
 
-    private Predicate<BlockWorldState>[][][] makePredicateArray()
-    {
-        checkMissingPredicates();
-        Predicate<BlockWorldState>[][][] predicate = (Predicate[][][])((Predicate[][][])Array.newInstance(Predicate.class, depth.size(), aisleHeight, rowWidth));
+				depth.add(aisle);
+				return this;
+			}
+		} else {
+			throw new IllegalArgumentException("Empty pattern for aisle");
+		}
+	}
 
-        for (int i = 0; i < depth.size(); ++i)
-        {
-            for (int j = 0; j < aisleHeight; ++j)
-            {
-                for (int k = 0; k < rowWidth; ++k)
-                {
-                    predicate[i][j][k] = symbolMap.get(Character.valueOf(((String[]) depth.get(i))[j].charAt(k)));
-                }
-            }
-        }
+	public static FactoryBlockPattern start() {
 
-        return predicate;
-    }
+		return new FactoryBlockPattern();
+	}
 
-    private void checkMissingPredicates()
-    {
-        List<Character> list = Lists.<Character>newArrayList();
+	public FactoryBlockPattern where(char symbol, Predicate<BlockWorldState> blockMatcher) {
 
-        for (Entry<Character, Predicate<BlockWorldState>> entry : symbolMap.entrySet())
-        {
-            if (entry.getValue() == null)
-            {
-                list.add(entry.getKey());
-            }
-        }
+		symbolMap.put(Character.valueOf(symbol), blockMatcher);
+		return this;
+	}
 
-        if (!list.isEmpty())
-        {
-            throw new IllegalStateException("Predicates for character(s) " + COMMA_JOIN.join(list) + " are missing");
-        }
-    }
+	public BlockPattern build() {
+
+		return new BlockPattern(makePredicateArray());
+	}
+
+	private Predicate<BlockWorldState>[][][] makePredicateArray() {
+
+		checkMissingPredicates();
+		Predicate<BlockWorldState>[][][] predicate = (Predicate[][][]) Array.newInstance(Predicate.class, depth.size(), aisleHeight, rowWidth);
+
+		for (int i = 0; i < depth.size(); ++i) {
+			for (int j = 0; j < aisleHeight; ++j) {
+				for (int k = 0; k < rowWidth; ++k) {
+					predicate[i][j][k] = symbolMap.get(Character.valueOf(((String[]) depth.get(i))[j].charAt(k)));
+				}
+			}
+		}
+
+		return predicate;
+	}
+
+	private void checkMissingPredicates() {
+
+		List<Character> list = Lists.newArrayList();
+
+		for (Entry<Character, Predicate<BlockWorldState>> entry : symbolMap.entrySet()) {
+			if (entry.getValue() == null) {
+				list.add(entry.getKey());
+			}
+		}
+
+		if (!list.isEmpty()) {
+			throw new IllegalStateException("Predicates for character(s) " + COMMA_JOIN.join(list) + " are missing");
+		}
+	}
+
 }

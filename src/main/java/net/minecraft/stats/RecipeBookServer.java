@@ -1,8 +1,6 @@
 package net.minecraft.stats;
 
 import com.google.common.collect.Lists;
-import java.util.Collections;
-import java.util.List;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.crafting.CraftingManager;
@@ -15,138 +13,126 @@ import net.minecraft.util.ResourceLocation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class RecipeBookServer extends RecipeBook
-{
-    private static final Logger LOGGER = LogManager.getLogger();
+import java.util.Collections;
+import java.util.List;
 
-    public void add(List<IRecipe> recipesIn, EntityPlayerMP player)
-    {
-        List<IRecipe> list = Lists.<IRecipe>newArrayList();
+public class RecipeBookServer extends RecipeBook {
 
-        for (IRecipe irecipe : recipesIn)
-        {
-            if (!recipes.get(getRecipeId(irecipe)) && !irecipe.isDynamic())
-            {
-                unlock(irecipe);
-                markNew(irecipe);
-                list.add(irecipe);
-                CriteriaTriggers.RECIPE_UNLOCKED.trigger(player, irecipe);
-            }
-        }
+	private static final Logger LOGGER = LogManager.getLogger();
 
-        sendPacket(SPacketRecipeBook.State.ADD, player, list);
-    }
+	public void add(List<IRecipe> recipesIn, EntityPlayerMP player) {
 
-    public void remove(List<IRecipe> recipesIn, EntityPlayerMP player)
-    {
-        List<IRecipe> list = Lists.<IRecipe>newArrayList();
+		List<IRecipe> list = Lists.newArrayList();
 
-        for (IRecipe irecipe : recipesIn)
-        {
-            if (recipes.get(getRecipeId(irecipe)))
-            {
-                lock(irecipe);
-                list.add(irecipe);
-            }
-        }
+		for (IRecipe irecipe : recipesIn) {
+			if (!recipes.get(getRecipeId(irecipe)) && !irecipe.isDynamic()) {
+				unlock(irecipe);
+				markNew(irecipe);
+				list.add(irecipe);
+				CriteriaTriggers.RECIPE_UNLOCKED.trigger(player, irecipe);
+			}
+		}
 
-        sendPacket(SPacketRecipeBook.State.REMOVE, player, list);
-    }
+		sendPacket(SPacketRecipeBook.State.ADD, player, list);
+	}
 
-    private void sendPacket(SPacketRecipeBook.State state, EntityPlayerMP player, List<IRecipe> recipesIn)
-    {
-        player.connection.sendPacket(new SPacketRecipeBook(state, recipesIn, Collections.emptyList(), isGuiOpen, isFilteringCraftable));
-    }
+	public void remove(List<IRecipe> recipesIn, EntityPlayerMP player) {
 
-    public NBTTagCompound write()
-    {
-        NBTTagCompound nbttagcompound = new NBTTagCompound();
-        nbttagcompound.setBoolean("isGuiOpen", isGuiOpen);
-        nbttagcompound.setBoolean("isFilteringCraftable", isFilteringCraftable);
-        NBTTagList nbttaglist = new NBTTagList();
+		List<IRecipe> list = Lists.newArrayList();
 
-        for (IRecipe irecipe : getRecipes())
-        {
-            nbttaglist.appendTag(new NBTTagString(((ResourceLocation)CraftingManager.REGISTRY.getNameForObject(irecipe)).toString()));
-        }
+		for (IRecipe irecipe : recipesIn) {
+			if (recipes.get(getRecipeId(irecipe))) {
+				lock(irecipe);
+				list.add(irecipe);
+			}
+		}
 
-        nbttagcompound.setTag("recipes", nbttaglist);
-        NBTTagList nbttaglist1 = new NBTTagList();
+		sendPacket(SPacketRecipeBook.State.REMOVE, player, list);
+	}
 
-        for (IRecipe irecipe1 : getDisplayedRecipes())
-        {
-            nbttaglist1.appendTag(new NBTTagString(((ResourceLocation)CraftingManager.REGISTRY.getNameForObject(irecipe1)).toString()));
-        }
+	private void sendPacket(SPacketRecipeBook.State state, EntityPlayerMP player, List<IRecipe> recipesIn) {
 
-        nbttagcompound.setTag("toBeDisplayed", nbttaglist1);
-        return nbttagcompound;
-    }
+		player.connection.sendPacket(new SPacketRecipeBook(state, recipesIn, Collections.emptyList(), isGuiOpen, isFilteringCraftable));
+	}
 
-    public void read(NBTTagCompound tag)
-    {
-        isGuiOpen = tag.getBoolean("isGuiOpen");
-        isFilteringCraftable = tag.getBoolean("isFilteringCraftable");
-        NBTTagList nbttaglist = tag.getTagList("recipes", 8);
+	public NBTTagCompound write() {
 
-        for (int i = 0; i < nbttaglist.tagCount(); ++i)
-        {
-            ResourceLocation resourcelocation = new ResourceLocation(nbttaglist.getStringTagAt(i));
-            IRecipe irecipe = CraftingManager.getRecipe(resourcelocation);
+		NBTTagCompound nbttagcompound = new NBTTagCompound();
+		nbttagcompound.setBoolean("isGuiOpen", isGuiOpen);
+		nbttagcompound.setBoolean("isFilteringCraftable", isFilteringCraftable);
+		NBTTagList nbttaglist = new NBTTagList();
 
-            if (irecipe == null)
-            {
-                LOGGER.info("Tried to load unrecognized recipe: {} removed now.", (Object)resourcelocation);
-            }
-            else
-            {
-                unlock(irecipe);
-            }
-        }
+		for (IRecipe irecipe : getRecipes()) {
+			nbttaglist.appendTag(new NBTTagString(CraftingManager.REGISTRY.getNameForObject(irecipe).toString()));
+		}
 
-        NBTTagList nbttaglist1 = tag.getTagList("toBeDisplayed", 8);
+		nbttagcompound.setTag("recipes", nbttaglist);
+		NBTTagList nbttaglist1 = new NBTTagList();
 
-        for (int j = 0; j < nbttaglist1.tagCount(); ++j)
-        {
-            ResourceLocation resourcelocation1 = new ResourceLocation(nbttaglist1.getStringTagAt(j));
-            IRecipe irecipe1 = CraftingManager.getRecipe(resourcelocation1);
+		for (IRecipe irecipe1 : getDisplayedRecipes()) {
+			nbttaglist1.appendTag(new NBTTagString(CraftingManager.REGISTRY.getNameForObject(irecipe1).toString()));
+		}
 
-            if (irecipe1 == null)
-            {
-                LOGGER.info("Tried to load unrecognized recipe: {} removed now.", (Object)resourcelocation1);
-            }
-            else
-            {
-                markNew(irecipe1);
-            }
-        }
-    }
+		nbttagcompound.setTag("toBeDisplayed", nbttaglist1);
+		return nbttagcompound;
+	}
 
-    private List<IRecipe> getRecipes()
-    {
-        List<IRecipe> list = Lists.<IRecipe>newArrayList();
+	public void read(NBTTagCompound tag) {
 
-        for (int i = recipes.nextSetBit(0); i >= 0; i = recipes.nextSetBit(i + 1))
-        {
-            list.add(CraftingManager.REGISTRY.getObjectById(i));
-        }
+		isGuiOpen = tag.getBoolean("isGuiOpen");
+		isFilteringCraftable = tag.getBoolean("isFilteringCraftable");
+		NBTTagList nbttaglist = tag.getTagList("recipes", 8);
 
-        return list;
-    }
+		for (int i = 0; i < nbttaglist.tagCount(); ++i) {
+			ResourceLocation resourcelocation = new ResourceLocation(nbttaglist.getStringTagAt(i));
+			IRecipe irecipe = CraftingManager.getRecipe(resourcelocation);
 
-    private List<IRecipe> getDisplayedRecipes()
-    {
-        List<IRecipe> list = Lists.<IRecipe>newArrayList();
+			if (irecipe == null) {
+				LOGGER.info("Tried to load unrecognized recipe: {} removed now.", resourcelocation);
+			} else {
+				unlock(irecipe);
+			}
+		}
 
-        for (int i = newRecipes.nextSetBit(0); i >= 0; i = newRecipes.nextSetBit(i + 1))
-        {
-            list.add(CraftingManager.REGISTRY.getObjectById(i));
-        }
+		NBTTagList nbttaglist1 = tag.getTagList("toBeDisplayed", 8);
 
-        return list;
-    }
+		for (int j = 0; j < nbttaglist1.tagCount(); ++j) {
+			ResourceLocation resourcelocation1 = new ResourceLocation(nbttaglist1.getStringTagAt(j));
+			IRecipe irecipe1 = CraftingManager.getRecipe(resourcelocation1);
 
-    public void init(EntityPlayerMP player)
-    {
-        player.connection.sendPacket(new SPacketRecipeBook(SPacketRecipeBook.State.INIT, getRecipes(), getDisplayedRecipes(), isGuiOpen, isFilteringCraftable));
-    }
+			if (irecipe1 == null) {
+				LOGGER.info("Tried to load unrecognized recipe: {} removed now.", resourcelocation1);
+			} else {
+				markNew(irecipe1);
+			}
+		}
+	}
+
+	private List<IRecipe> getRecipes() {
+
+		List<IRecipe> list = Lists.newArrayList();
+
+		for (int i = recipes.nextSetBit(0); i >= 0; i = recipes.nextSetBit(i + 1)) {
+			list.add(CraftingManager.REGISTRY.getObjectById(i));
+		}
+
+		return list;
+	}
+
+	private List<IRecipe> getDisplayedRecipes() {
+
+		List<IRecipe> list = Lists.newArrayList();
+
+		for (int i = newRecipes.nextSetBit(0); i >= 0; i = newRecipes.nextSetBit(i + 1)) {
+			list.add(CraftingManager.REGISTRY.getObjectById(i));
+		}
+
+		return list;
+	}
+
+	public void init(EntityPlayerMP player) {
+
+		player.connection.sendPacket(new SPacketRecipeBook(SPacketRecipeBook.State.INIT, getRecipes(), getDisplayedRecipes(), isGuiOpen, isFilteringCraftable));
+	}
+
 }

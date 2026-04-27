@@ -1,11 +1,5 @@
 package net.minecraft.client.gui;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import javax.imageio.ImageIO;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.renderer.GlStateManager;
@@ -24,278 +18,241 @@ import org.apache.commons.lang3.Validate;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class GuiListWorldSelectionEntry implements GuiListExtended.IGuiListEntry
-{
-    private static final Logger LOGGER = LogManager.getLogger();
-    private static final DateFormat DATE_FORMAT = new SimpleDateFormat();
-    private static final ResourceLocation ICON_MISSING = new ResourceLocation("textures/misc/unknown_server.png");
-    private static final ResourceLocation ICON_OVERLAY_LOCATION = new ResourceLocation("textures/gui/world_selection.png");
-    private final Minecraft client;
-    private final GuiWorldSelection worldSelScreen;
-    private final WorldSummary worldSummary;
-    private final ResourceLocation iconLocation;
-    private final GuiListWorldSelection containingListSel;
-    private File iconFile;
-    private DynamicTexture icon;
-    private long lastClickTime;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-    public GuiListWorldSelectionEntry(GuiListWorldSelection listWorldSelIn, WorldSummary worldSummaryIn, ISaveFormat saveFormat)
-    {
-        containingListSel = listWorldSelIn;
-        worldSelScreen = listWorldSelIn.getGuiWorldSelection();
-        worldSummary = worldSummaryIn;
-        client = Minecraft.getMinecraft();
-        iconLocation = new ResourceLocation("worlds/" + worldSummaryIn.getFileName() + "/icon");
-        iconFile = saveFormat.getFile(worldSummaryIn.getFileName(), "icon.png");
+public class GuiListWorldSelectionEntry implements GuiListExtended.IGuiListEntry {
 
-        if (!iconFile.isFile())
-        {
-            iconFile = null;
-        }
+	private static final Logger LOGGER = LogManager.getLogger();
+	private static final DateFormat DATE_FORMAT = new SimpleDateFormat();
+	private static final ResourceLocation ICON_MISSING = new ResourceLocation("textures/misc/unknown_server.png");
+	private static final ResourceLocation ICON_OVERLAY_LOCATION = new ResourceLocation("textures/gui/world_selection.png");
+	private final Minecraft client;
+	private final GuiWorldSelection worldSelScreen;
+	private final WorldSummary worldSummary;
+	private final ResourceLocation iconLocation;
+	private final GuiListWorldSelection containingListSel;
+	private File iconFile;
+	private DynamicTexture icon;
+	private long lastClickTime;
 
-        loadServerIcon();
-    }
+	public GuiListWorldSelectionEntry(GuiListWorldSelection listWorldSelIn, WorldSummary worldSummaryIn, ISaveFormat saveFormat) {
 
-    public void drawEntry(int slotIndex, int x, int y, int listWidth, int slotHeight, int mouseX, int mouseY, boolean isSelected, float partialTicks)
-    {
-        String s = worldSummary.getDisplayName();
-        String s1 = worldSummary.getFileName() + " (" + DATE_FORMAT.format(new Date(worldSummary.getLastTimePlayed())) + ")";
-        String s2 = "";
+		containingListSel = listWorldSelIn;
+		worldSelScreen = listWorldSelIn.getGuiWorldSelection();
+		worldSummary = worldSummaryIn;
+		client = Minecraft.getMinecraft();
+		iconLocation = new ResourceLocation("worlds/" + worldSummaryIn.getFileName() + "/icon");
+		iconFile = saveFormat.getFile(worldSummaryIn.getFileName(), "icon.png");
 
-        if (StringUtils.isEmpty(s))
-        {
-            s = I18n.format("selectWorld.world") + " " + (slotIndex + 1);
-        }
+		if (!iconFile.isFile()) {
+			iconFile = null;
+		}
 
-        if (worldSummary.requiresConversion())
-        {
-            s2 = I18n.format("selectWorld.conversion") + " " + s2;
-        }
-        else
-        {
-            s2 = I18n.format("gameMode." + worldSummary.getEnumGameType().getName());
+		loadServerIcon();
+	}
 
-            if (worldSummary.isHardcoreModeEnabled())
-            {
-                s2 = TextFormatting.DARK_RED + I18n.format("gameMode.hardcore") + TextFormatting.RESET;
-            }
+	public void drawEntry(int slotIndex, int x, int y, int listWidth, int slotHeight, int mouseX, int mouseY, boolean isSelected, float partialTicks) {
 
-            if (worldSummary.getCheatsEnabled())
-            {
-                s2 = s2 + ", " + I18n.format("selectWorld.cheats");
-            }
+		String s = worldSummary.getDisplayName();
+		String s1 = worldSummary.getFileName() + " (" + DATE_FORMAT.format(new Date(worldSummary.getLastTimePlayed())) + ")";
+		String s2 = "";
 
-            String s3 = worldSummary.getVersionName();
+		if (StringUtils.isEmpty(s)) {
+			s = I18n.format("selectWorld.world") + " " + (slotIndex + 1);
+		}
 
-            if (worldSummary.markVersionInList())
-            {
-                if (worldSummary.askToOpenWorld())
-                {
-                    s2 = s2 + ", " + I18n.format("selectWorld.version") + " " + TextFormatting.RED + s3 + TextFormatting.RESET;
-                }
-                else
-                {
-                    s2 = s2 + ", " + I18n.format("selectWorld.version") + " " + TextFormatting.ITALIC + s3 + TextFormatting.RESET;
-                }
-            }
-            else
-            {
-                s2 = s2 + ", " + I18n.format("selectWorld.version") + " " + s3;
-            }
-        }
+		if (worldSummary.requiresConversion()) {
+			s2 = I18n.format("selectWorld.conversion") + " " + s2;
+		} else {
+			s2 = I18n.format("gameMode." + worldSummary.getEnumGameType().getName());
 
-        client.fontRenderer.drawString(s, x + 32 + 3, y + 1, 16777215);
-        client.fontRenderer.drawString(s1, x + 32 + 3, y + client.fontRenderer.FONT_HEIGHT + 3, 8421504);
-        client.fontRenderer.drawString(s2, x + 32 + 3, y + client.fontRenderer.FONT_HEIGHT + client.fontRenderer.FONT_HEIGHT + 3, 8421504);
-        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        client.getTextureManager().bindTexture(icon != null ? iconLocation : ICON_MISSING);
-        GlStateManager.enableBlend();
-        Gui.drawModalRectWithCustomSizedTexture(x, y, 0.0F, 0.0F, 32, 32, 32.0F, 32.0F);
-        GlStateManager.disableBlend();
+			if (worldSummary.isHardcoreModeEnabled()) {
+				s2 = TextFormatting.DARK_RED + I18n.format("gameMode.hardcore") + TextFormatting.RESET;
+			}
 
-        if (client.gameSettings.touchscreen || isSelected)
-        {
-            client.getTextureManager().bindTexture(ICON_OVERLAY_LOCATION);
-            Gui.drawRect(x, y, x + 32, y + 32, -1601138544);
-            GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-            int j = mouseX - x;
-            int i = j < 32 ? 32 : 0;
+			if (worldSummary.getCheatsEnabled()) {
+				s2 = s2 + ", " + I18n.format("selectWorld.cheats");
+			}
 
-            if (worldSummary.markVersionInList())
-            {
-                Gui.drawModalRectWithCustomSizedTexture(x, y, 32.0F, (float)i, 32, 32, 256.0F, 256.0F);
+			String s3 = worldSummary.getVersionName();
 
-                if (worldSummary.askToOpenWorld())
-                {
-                    Gui.drawModalRectWithCustomSizedTexture(x, y, 96.0F, (float)i, 32, 32, 256.0F, 256.0F);
+			if (worldSummary.markVersionInList()) {
+				if (worldSummary.askToOpenWorld()) {
+					s2 = s2 + ", " + I18n.format("selectWorld.version") + " " + TextFormatting.RED + s3 + TextFormatting.RESET;
+				} else {
+					s2 = s2 + ", " + I18n.format("selectWorld.version") + " " + TextFormatting.ITALIC + s3 + TextFormatting.RESET;
+				}
+			} else {
+				s2 = s2 + ", " + I18n.format("selectWorld.version") + " " + s3;
+			}
+		}
 
-                    if (j < 32)
-                    {
-                        worldSelScreen.setVersionTooltip(TextFormatting.RED + I18n.format("selectWorld.tooltip.fromNewerVersion1") + "\n" + TextFormatting.RED + I18n.format("selectWorld.tooltip.fromNewerVersion2"));
-                    }
-                }
-                else
-                {
-                    Gui.drawModalRectWithCustomSizedTexture(x, y, 64.0F, (float)i, 32, 32, 256.0F, 256.0F);
+		client.fontRenderer.drawString(s, x + 32 + 3, y + 1, 16777215);
+		client.fontRenderer.drawString(s1, x + 32 + 3, y + client.fontRenderer.FONT_HEIGHT + 3, 8421504);
+		client.fontRenderer.drawString(s2, x + 32 + 3, y + client.fontRenderer.FONT_HEIGHT + client.fontRenderer.FONT_HEIGHT + 3, 8421504);
+		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+		client.getTextureManager().bindTexture(icon != null ? iconLocation : ICON_MISSING);
+		GlStateManager.enableBlend();
+		Gui.drawModalRectWithCustomSizedTexture(x, y, 0.0F, 0.0F, 32, 32, 32.0F, 32.0F);
+		GlStateManager.disableBlend();
 
-                    if (j < 32)
-                    {
-                        worldSelScreen.setVersionTooltip(TextFormatting.GOLD + I18n.format("selectWorld.tooltip.snapshot1") + "\n" + TextFormatting.GOLD + I18n.format("selectWorld.tooltip.snapshot2"));
-                    }
-                }
-            }
-            else
-            {
-                Gui.drawModalRectWithCustomSizedTexture(x, y, 0.0F, (float)i, 32, 32, 256.0F, 256.0F);
-            }
-        }
-    }
+		if (client.gameSettings.touchscreen || isSelected) {
+			client.getTextureManager().bindTexture(ICON_OVERLAY_LOCATION);
+			Gui.drawRect(x, y, x + 32, y + 32, -1601138544);
+			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+			int j = mouseX - x;
+			int i = j < 32 ? 32 : 0;
 
-    /**
-     * Called when the mouse is clicked within this entry. Returning true means that something within this entry was
-     * clicked and the list should not be dragged.
-     */
-    public boolean mousePressed(int slotIndex, int mouseX, int mouseY, int mouseEvent, int relativeX, int relativeY)
-    {
-        containingListSel.selectWorld(slotIndex);
+			if (worldSummary.markVersionInList()) {
+				Gui.drawModalRectWithCustomSizedTexture(x, y, 32.0F, (float) i, 32, 32, 256.0F, 256.0F);
 
-        if (relativeX <= 32 && relativeX < 32)
-        {
-            joinWorld();
-            return true;
-        }
-        else if (Minecraft.getSystemTime() - lastClickTime < 250L)
-        {
-            joinWorld();
-            return true;
-        }
-        else
-        {
-            lastClickTime = Minecraft.getSystemTime();
-            return false;
-        }
-    }
+				if (worldSummary.askToOpenWorld()) {
+					Gui.drawModalRectWithCustomSizedTexture(x, y, 96.0F, (float) i, 32, 32, 256.0F, 256.0F);
 
-    public void joinWorld()
-    {
-        if (worldSummary.askToOpenWorld())
-        {
-            client.displayGuiScreen(new GuiYesNo(new GuiYesNoCallback()
-            {
-                public void confirmClicked(boolean result, int id)
-                {
-                    if (result)
-                    {
-                        loadWorld();
-                    }
-                    else
-                    {
-                        client.displayGuiScreen(worldSelScreen);
-                    }
-                }
-            }, I18n.format("selectWorld.versionQuestion"), I18n.format("selectWorld.versionWarning", worldSummary.getVersionName()), I18n.format("selectWorld.versionJoinButton"), I18n.format("gui.cancel"), 0));
-        }
-        else
-        {
-            loadWorld();
-        }
-    }
+					if (j < 32) {
+						worldSelScreen.setVersionTooltip(TextFormatting.RED + I18n.format("selectWorld.tooltip.fromNewerVersion1") + "\n" + TextFormatting.RED + I18n.format("selectWorld.tooltip.fromNewerVersion2"));
+					}
+				} else {
+					Gui.drawModalRectWithCustomSizedTexture(x, y, 64.0F, (float) i, 32, 32, 256.0F, 256.0F);
 
-    public void deleteWorld()
-    {
-        client.displayGuiScreen(new GuiYesNo(new GuiYesNoCallback()
-        {
-            public void confirmClicked(boolean result, int id)
-            {
-                if (result)
-                {
-                    client.displayGuiScreen(new GuiScreenWorking());
-                    ISaveFormat isaveformat = client.getSaveLoader();
-                    isaveformat.flushCache();
-                    isaveformat.deleteWorldDirectory(worldSummary.getFileName());
-                    containingListSel.refreshList();
-                }
+					if (j < 32) {
+						worldSelScreen.setVersionTooltip(TextFormatting.GOLD + I18n.format("selectWorld.tooltip.snapshot1") + "\n" + TextFormatting.GOLD + I18n.format("selectWorld.tooltip.snapshot2"));
+					}
+				}
+			} else {
+				Gui.drawModalRectWithCustomSizedTexture(x, y, 0.0F, (float) i, 32, 32, 256.0F, 256.0F);
+			}
+		}
+	}
 
-                client.displayGuiScreen(worldSelScreen);
-            }
-        }, I18n.format("selectWorld.deleteQuestion"), "'" + worldSummary.getDisplayName() + "' " + I18n.format("selectWorld.deleteWarning"), I18n.format("selectWorld.deleteButton"), I18n.format("gui.cancel"), 0));
-    }
+	/**
+	 * Called when the mouse is clicked within this entry. Returning true means that something within this entry was
+	 * clicked and the list should not be dragged.
+	 */
+	public boolean mousePressed(int slotIndex, int mouseX, int mouseY, int mouseEvent, int relativeX, int relativeY) {
 
-    public void editWorld()
-    {
-        client.displayGuiScreen(new GuiWorldEdit(worldSelScreen, worldSummary.getFileName()));
-    }
+		containingListSel.selectWorld(slotIndex);
 
-    public void recreateWorld()
-    {
-        client.displayGuiScreen(new GuiScreenWorking());
-        GuiCreateWorld guicreateworld = new GuiCreateWorld(worldSelScreen);
-        ISaveHandler isavehandler = client.getSaveLoader().getSaveLoader(worldSummary.getFileName(), false);
-        WorldInfo worldinfo = isavehandler.loadWorldInfo();
-        isavehandler.flush();
+		if (relativeX <= 32 && relativeX < 32) {
+			joinWorld();
+			return true;
+		} else if (Minecraft.getSystemTime() - lastClickTime < 250L) {
+			joinWorld();
+			return true;
+		} else {
+			lastClickTime = Minecraft.getSystemTime();
+			return false;
+		}
+	}
 
-        if (worldinfo != null)
-        {
-            guicreateworld.recreateFromExistingWorld(worldinfo);
-            client.displayGuiScreen(guicreateworld);
-        }
-    }
+	public void joinWorld() {
 
-    private void loadWorld()
-    {
-        client.getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(SoundEvents.UI_BUTTON_CLICK, 1.0F));
+		if (worldSummary.askToOpenWorld()) {
+			client.displayGuiScreen(new GuiYesNo(new GuiYesNoCallback() {
+				public void confirmClicked(boolean result, int id) {
 
-        if (client.getSaveLoader().canLoadWorld(worldSummary.getFileName()))
-        {
-            client.launchIntegratedServer(worldSummary.getFileName(), worldSummary.getDisplayName(), (WorldSettings)null);
-        }
-    }
+					if (result) {
+						loadWorld();
+					} else {
+						client.displayGuiScreen(worldSelScreen);
+					}
+				}
+			}, I18n.format("selectWorld.versionQuestion"), I18n.format("selectWorld.versionWarning", worldSummary.getVersionName()), I18n.format("selectWorld.versionJoinButton"), I18n.format("gui.cancel"), 0));
+		} else {
+			loadWorld();
+		}
+	}
 
-    private void loadServerIcon()
-    {
-        boolean flag = iconFile != null && iconFile.isFile();
+	public void deleteWorld() {
 
-        if (flag)
-        {
-            BufferedImage bufferedimage;
+		client.displayGuiScreen(new GuiYesNo(new GuiYesNoCallback() {
+			public void confirmClicked(boolean result, int id) {
 
-            try
-            {
-                bufferedimage = ImageIO.read(iconFile);
-                Validate.validState(bufferedimage.getWidth() == 64, "Must be 64 pixels wide");
-                Validate.validState(bufferedimage.getHeight() == 64, "Must be 64 pixels high");
-            }
-            catch (Throwable throwable)
-            {
-                LOGGER.error("Invalid icon for world {}", worldSummary.getFileName(), throwable);
-                iconFile = null;
-                return;
-            }
+				if (result) {
+					client.displayGuiScreen(new GuiScreenWorking());
+					ISaveFormat isaveformat = client.getSaveLoader();
+					isaveformat.flushCache();
+					isaveformat.deleteWorldDirectory(worldSummary.getFileName());
+					containingListSel.refreshList();
+				}
 
-            if (icon == null)
-            {
-                icon = new DynamicTexture(bufferedimage.getWidth(), bufferedimage.getHeight());
-                client.getTextureManager().loadTexture(iconLocation, icon);
-            }
+				client.displayGuiScreen(worldSelScreen);
+			}
+		}, I18n.format("selectWorld.deleteQuestion"), "'" + worldSummary.getDisplayName() + "' " + I18n.format("selectWorld.deleteWarning"), I18n.format("selectWorld.deleteButton"), I18n.format("gui.cancel"), 0));
+	}
 
-            bufferedimage.getRGB(0, 0, bufferedimage.getWidth(), bufferedimage.getHeight(), icon.getTextureData(), 0, bufferedimage.getWidth());
-            icon.updateDynamicTexture();
-        }
-        else if (!flag)
-        {
-            client.getTextureManager().deleteTexture(iconLocation);
-            icon = null;
-        }
-    }
+	public void editWorld() {
 
-    /**
-     * Fired when the mouse button is released. Arguments: index, x, y, mouseEvent, relativeX, relativeY
-     */
-    public void mouseReleased(int slotIndex, int x, int y, int mouseEvent, int relativeX, int relativeY)
-    {
-    }
+		client.displayGuiScreen(new GuiWorldEdit(worldSelScreen, worldSummary.getFileName()));
+	}
 
-    public void updatePosition(int slotIndex, int x, int y, float partialTicks)
-    {
-    }
+	public void recreateWorld() {
+
+		client.displayGuiScreen(new GuiScreenWorking());
+		GuiCreateWorld guicreateworld = new GuiCreateWorld(worldSelScreen);
+		ISaveHandler isavehandler = client.getSaveLoader().getSaveLoader(worldSummary.getFileName(), false);
+		WorldInfo worldinfo = isavehandler.loadWorldInfo();
+		isavehandler.flush();
+
+		if (worldinfo != null) {
+			guicreateworld.recreateFromExistingWorld(worldinfo);
+			client.displayGuiScreen(guicreateworld);
+		}
+	}
+
+	private void loadWorld() {
+
+		client.getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(SoundEvents.UI_BUTTON_CLICK, 1.0F));
+
+		if (client.getSaveLoader().canLoadWorld(worldSummary.getFileName())) {
+			client.launchIntegratedServer(worldSummary.getFileName(), worldSummary.getDisplayName(), null);
+		}
+	}
+
+	private void loadServerIcon() {
+
+		boolean flag = iconFile != null && iconFile.isFile();
+
+		if (flag) {
+			BufferedImage bufferedimage;
+
+			try {
+				bufferedimage = ImageIO.read(iconFile);
+				Validate.validState(bufferedimage.getWidth() == 64, "Must be 64 pixels wide");
+				Validate.validState(bufferedimage.getHeight() == 64, "Must be 64 pixels high");
+			} catch (Throwable throwable) {
+				LOGGER.error("Invalid icon for world {}", worldSummary.getFileName(), throwable);
+				iconFile = null;
+				return;
+			}
+
+			if (icon == null) {
+				icon = new DynamicTexture(bufferedimage.getWidth(), bufferedimage.getHeight());
+				client.getTextureManager().loadTexture(iconLocation, icon);
+			}
+
+			bufferedimage.getRGB(0, 0, bufferedimage.getWidth(), bufferedimage.getHeight(), icon.getTextureData(), 0, bufferedimage.getWidth());
+			icon.updateDynamicTexture();
+		} else if (!flag) {
+			client.getTextureManager().deleteTexture(iconLocation);
+			icon = null;
+		}
+	}
+
+	/**
+	 * Fired when the mouse button is released. Arguments: index, x, y, mouseEvent, relativeX, relativeY
+	 */
+	public void mouseReleased(int slotIndex, int x, int y, int mouseEvent, int relativeX, int relativeY) {
+
+	}
+
+	public void updatePosition(int slotIndex, int x, int y, float partialTicks) {
+
+	}
+
 }

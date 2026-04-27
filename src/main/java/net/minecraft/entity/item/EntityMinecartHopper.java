@@ -1,6 +1,5 @@
 package net.minecraft.entity.item;
 
-import java.util.List;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -19,227 +18,219 @@ import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class EntityMinecartHopper extends EntityMinecartContainer implements IHopper
-{
-    /** Whether this hopper minecart is being blocked by an activator rail. */
-    private boolean isBlocked = true;
-    private int transferTicker = -1;
-    private final BlockPos lastPosition = BlockPos.ORIGIN;
+import java.util.List;
 
-    public EntityMinecartHopper(World worldIn)
-    {
-        super(worldIn);
-    }
+public class EntityMinecartHopper extends EntityMinecartContainer implements IHopper {
 
-    public EntityMinecartHopper(World worldIn, double x, double y, double z)
-    {
-        super(worldIn, x, y, z);
-    }
+	/**
+	 * Whether this hopper minecart is being blocked by an activator rail.
+	 */
+	private boolean isBlocked = true;
+	private int transferTicker = -1;
+	private final BlockPos lastPosition = BlockPos.ORIGIN;
 
-    public EntityMinecart.Type getType()
-    {
-        return EntityMinecart.Type.HOPPER;
-    }
+	public EntityMinecartHopper(World worldIn) {
 
-    public IBlockState getDefaultDisplayTile()
-    {
-        return Blocks.HOPPER.getDefaultState();
-    }
+		super(worldIn);
+	}
 
-    public int getDefaultDisplayTileOffset()
-    {
-        return 1;
-    }
+	public EntityMinecartHopper(World worldIn, double x, double y, double z) {
 
-    /**
-     * Returns the number of slots in the inventory.
-     */
-    public int getSizeInventory()
-    {
-        return 5;
-    }
+		super(worldIn, x, y, z);
+	}
 
-    public boolean processInitialInteract(EntityPlayer player, EnumHand hand)
-    {
-        if (!world.isRemote)
-        {
-            player.displayGUIChest(this);
-        }
+	public EntityMinecart.Type getType() {
 
-        return true;
-    }
+		return EntityMinecart.Type.HOPPER;
+	}
 
-    /**
-     * Called every tick the minecart is on an activator rail.
-     */
-    public void onActivatorRailPass(int x, int y, int z, boolean receivingPower)
-    {
-        boolean flag = !receivingPower;
+	public IBlockState getDefaultDisplayTile() {
 
-        if (flag != getBlocked())
-        {
-            setBlocked(flag);
-        }
-    }
+		return Blocks.HOPPER.getDefaultState();
+	}
 
-    /**
-     * Get whether this hopper minecart is being blocked by an activator rail.
-     */
-    public boolean getBlocked()
-    {
-        return isBlocked;
-    }
+	public int getDefaultDisplayTileOffset() {
 
-    /**
-     * Set whether this hopper minecart is being blocked by an activator rail.
-     */
-    public void setBlocked(boolean p_96110_1_)
-    {
-        isBlocked = p_96110_1_;
-    }
+		return 1;
+	}
 
-    /**
-     * Returns the worldObj for this tileEntity.
-     */
-    public World getWorld()
-    {
-        return world;
-    }
+	/**
+	 * Returns the number of slots in the inventory.
+	 */
+	public int getSizeInventory() {
 
-    /**
-     * Gets the world X position for this hopper entity.
-     */
-    public double getXPos()
-    {
-        return posX;
-    }
+		return 5;
+	}
 
-    /**
-     * Gets the world Y position for this hopper entity.
-     */
-    public double getYPos()
-    {
-        return posY + 0.5D;
-    }
+	public boolean processInitialInteract(EntityPlayer player, EnumHand hand) {
 
-    /**
-     * Gets the world Z position for this hopper entity.
-     */
-    public double getZPos()
-    {
-        return posZ;
-    }
+		if (!world.isRemote) {
+			player.displayGUIChest(this);
+		}
 
-    /**
-     * Called to update the entity's position/logic.
-     */
-    public void onUpdate()
-    {
-        super.onUpdate();
+		return true;
+	}
 
-        if (!world.isRemote && isEntityAlive() && getBlocked())
-        {
-            BlockPos blockpos = new BlockPos(this);
+	/**
+	 * Called every tick the minecart is on an activator rail.
+	 */
+	public void onActivatorRailPass(int x, int y, int z, boolean receivingPower) {
 
-            if (blockpos.equals(lastPosition))
-            {
-                --transferTicker;
-            }
-            else
-            {
-                setTransferTicker(0);
-            }
+		boolean flag = !receivingPower;
 
-            if (!canTransfer())
-            {
-                setTransferTicker(0);
+		if (flag != getBlocked()) {
+			setBlocked(flag);
+		}
+	}
 
-                if (captureDroppedItems())
-                {
-                    setTransferTicker(4);
-                    markDirty();
-                }
-            }
-        }
-    }
+	/**
+	 * Get whether this hopper minecart is being blocked by an activator rail.
+	 */
+	public boolean getBlocked() {
 
-    public boolean captureDroppedItems()
-    {
-        if (TileEntityHopper.pullItems(this))
-        {
-            return true;
-        }
-        else
-        {
-            List<EntityItem> list = world.<EntityItem>getEntitiesWithinAABB(EntityItem.class, getEntityBoundingBox().grow(0.25D, 0.0D, 0.25D), EntitySelectors.IS_ALIVE);
+		return isBlocked;
+	}
 
-            if (!list.isEmpty())
-            {
-                TileEntityHopper.putDropInInventoryAllSlots((IInventory)null, this, list.get(0));
-            }
+	/**
+	 * Set whether this hopper minecart is being blocked by an activator rail.
+	 */
+	public void setBlocked(boolean p_96110_1_) {
 
-            return false;
-        }
-    }
+		isBlocked = p_96110_1_;
+	}
 
-    public void killMinecart(DamageSource source)
-    {
-        super.killMinecart(source);
+	/**
+	 * Returns the worldObj for this tileEntity.
+	 */
+	public World getWorld() {
 
-        if (world.getGameRules().getBoolean("doEntityDrops"))
-        {
-            dropItemWithOffset(Item.getItemFromBlock(Blocks.HOPPER), 1, 0.0F);
-        }
-    }
+		return world;
+	}
 
-    public static void registerFixesMinecartHopper(DataFixer fixer)
-    {
-        EntityMinecartContainer.addDataFixers(fixer, EntityMinecartHopper.class);
-    }
+	/**
+	 * Gets the world X position for this hopper entity.
+	 */
+	public double getXPos() {
 
-    /**
-     * (abstract) Protected helper method to write subclass entity data to NBT.
-     */
-    protected void writeEntityToNBT(NBTTagCompound compound)
-    {
-        super.writeEntityToNBT(compound);
-        compound.setInteger("TransferCooldown", transferTicker);
-        compound.setBoolean("Enabled", isBlocked);
-    }
+		return posX;
+	}
 
-    /**
-     * (abstract) Protected helper method to read subclass entity data from NBT.
-     */
-    protected void readEntityFromNBT(NBTTagCompound compound)
-    {
-        super.readEntityFromNBT(compound);
-        transferTicker = compound.getInteger("TransferCooldown");
-        isBlocked = compound.hasKey("Enabled") ? compound.getBoolean("Enabled") : true;
-    }
+	/**
+	 * Gets the world Y position for this hopper entity.
+	 */
+	public double getYPos() {
 
-    /**
-     * Sets the transfer ticker, used to determine the delay between transfers.
-     */
-    public void setTransferTicker(int p_98042_1_)
-    {
-        transferTicker = p_98042_1_;
-    }
+		return posY + 0.5D;
+	}
 
-    /**
-     * Returns whether the hopper cart can currently transfer an item.
-     */
-    public boolean canTransfer()
-    {
-        return transferTicker > 0;
-    }
+	/**
+	 * Gets the world Z position for this hopper entity.
+	 */
+	public double getZPos() {
 
-    public String getGuiID()
-    {
-        return "minecraft:hopper";
-    }
+		return posZ;
+	}
 
-    public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn)
-    {
-        return new ContainerHopper(playerInventory, this, playerIn);
-    }
+	/**
+	 * Called to update the entity's position/logic.
+	 */
+	public void onUpdate() {
+
+		super.onUpdate();
+
+		if (!world.isRemote && isEntityAlive() && getBlocked()) {
+			BlockPos blockpos = new BlockPos(this);
+
+			if (blockpos.equals(lastPosition)) {
+				--transferTicker;
+			} else {
+				setTransferTicker(0);
+			}
+
+			if (!canTransfer()) {
+				setTransferTicker(0);
+
+				if (captureDroppedItems()) {
+					setTransferTicker(4);
+					markDirty();
+				}
+			}
+		}
+	}
+
+	public boolean captureDroppedItems() {
+
+		if (TileEntityHopper.pullItems(this)) {
+			return true;
+		} else {
+			List<EntityItem> list = world.getEntitiesWithinAABB(EntityItem.class, getEntityBoundingBox().grow(0.25D, 0.0D, 0.25D), EntitySelectors.IS_ALIVE);
+
+			if (!list.isEmpty()) {
+				TileEntityHopper.putDropInInventoryAllSlots(null, this, list.get(0));
+			}
+
+			return false;
+		}
+	}
+
+	public void killMinecart(DamageSource source) {
+
+		super.killMinecart(source);
+
+		if (world.getGameRules().getBoolean("doEntityDrops")) {
+			dropItemWithOffset(Item.getItemFromBlock(Blocks.HOPPER), 1, 0.0F);
+		}
+	}
+
+	public static void registerFixesMinecartHopper(DataFixer fixer) {
+
+		EntityMinecartContainer.addDataFixers(fixer, EntityMinecartHopper.class);
+	}
+
+	/**
+	 * (abstract) Protected helper method to write subclass entity data to NBT.
+	 */
+	protected void writeEntityToNBT(NBTTagCompound compound) {
+
+		super.writeEntityToNBT(compound);
+		compound.setInteger("TransferCooldown", transferTicker);
+		compound.setBoolean("Enabled", isBlocked);
+	}
+
+	/**
+	 * (abstract) Protected helper method to read subclass entity data from NBT.
+	 */
+	protected void readEntityFromNBT(NBTTagCompound compound) {
+
+		super.readEntityFromNBT(compound);
+		transferTicker = compound.getInteger("TransferCooldown");
+		isBlocked = !compound.hasKey("Enabled") || compound.getBoolean("Enabled");
+	}
+
+	/**
+	 * Sets the transfer ticker, used to determine the delay between transfers.
+	 */
+	public void setTransferTicker(int p_98042_1_) {
+
+		transferTicker = p_98042_1_;
+	}
+
+	/**
+	 * Returns whether the hopper cart can currently transfer an item.
+	 */
+	public boolean canTransfer() {
+
+		return transferTicker > 0;
+	}
+
+	public String guiID() {
+
+		return "minecraft:hopper";
+	}
+
+	public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
+
+		return new ContainerHopper(playerInventory, this, playerIn);
+	}
+
 }
