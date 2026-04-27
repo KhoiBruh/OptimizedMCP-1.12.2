@@ -14,18 +14,18 @@ public class SpectatorDetails
 
     public SpectatorDetails(ISpectatorMenuView categoryIn, List<ISpectatorMenuObject> itemsIn, int selectedIndex)
     {
-        this.category = categoryIn;
-        this.items = itemsIn;
-        this.selectedSlot = selectedIndex;
+        category = categoryIn;
+        items = itemsIn;
+        selectedSlot = selectedIndex;
     }
 
     public ISpectatorMenuObject getObject(int index)
     {
-        return index >= 0 && index < this.items.size() ? (ISpectatorMenuObject)MoreObjects.firstNonNull(this.items.get(index), SpectatorMenu.EMPTY_SLOT) : SpectatorMenu.EMPTY_SLOT;
+        return index >= 0 && index < items.size() ? (ISpectatorMenuObject)MoreObjects.firstNonNull(items.get(index), SpectatorMenu.EMPTY_SLOT) : SpectatorMenu.EMPTY_SLOT;
     }
 
     public int getSelectedSlot()
     {
-        return this.selectedSlot;
+        return selectedSlot;
     }
 }

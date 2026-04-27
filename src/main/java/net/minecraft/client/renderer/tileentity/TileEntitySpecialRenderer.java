@@ -20,11 +20,11 @@ public abstract class TileEntitySpecialRenderer<T extends TileEntity>
     {
         ITextComponent itextcomponent = te.getDisplayName();
 
-        if (itextcomponent != null && this.rendererDispatcher.cameraHitResult != null && te.getPos().equals(this.rendererDispatcher.cameraHitResult.getBlockPos()))
+        if (itextcomponent != null && rendererDispatcher.cameraHitResult != null && te.getPos().equals(rendererDispatcher.cameraHitResult.getBlockPos()))
         {
-            this.setLightmapDisabled(true);
-            this.drawNameplate(te, itextcomponent.getFormattedText(), x, y, z, 12);
-            this.setLightmapDisabled(false);
+            setLightmapDisabled(true);
+            drawNameplate(te, itextcomponent.getFormattedText(), x, y, z, 12);
+            setLightmapDisabled(false);
         }
     }
 
@@ -50,7 +50,7 @@ public abstract class TileEntitySpecialRenderer<T extends TileEntity>
 
     protected void bindTexture(ResourceLocation location)
     {
-        TextureManager texturemanager = this.rendererDispatcher.renderEngine;
+        TextureManager texturemanager = rendererDispatcher.renderEngine;
 
         if (texturemanager != null)
         {
@@ -60,17 +60,17 @@ public abstract class TileEntitySpecialRenderer<T extends TileEntity>
 
     protected World getWorld()
     {
-        return this.rendererDispatcher.world;
+        return rendererDispatcher.world;
     }
 
     public void setRendererDispatcher(TileEntityRendererDispatcher rendererDispatcherIn)
     {
-        this.rendererDispatcher = rendererDispatcherIn;
+        rendererDispatcher = rendererDispatcherIn;
     }
 
     public FontRenderer getFontRenderer()
     {
-        return this.rendererDispatcher.getFontRenderer();
+        return rendererDispatcher.getFontRenderer();
     }
 
     public boolean isGlobalRenderer(T te)
@@ -80,15 +80,15 @@ public abstract class TileEntitySpecialRenderer<T extends TileEntity>
 
     protected void drawNameplate(T te, String str, double x, double y, double z, int maxDistance)
     {
-        Entity entity = this.rendererDispatcher.entity;
+        Entity entity = rendererDispatcher.entity;
         double d0 = te.getDistanceSq(entity.posX, entity.posY, entity.posZ);
 
         if (d0 <= (double)(maxDistance * maxDistance))
         {
-            float f = this.rendererDispatcher.entityYaw;
-            float f1 = this.rendererDispatcher.entityPitch;
+            float f = rendererDispatcher.entityYaw;
+            float f1 = rendererDispatcher.entityPitch;
             boolean flag = false;
-            EntityRenderer.drawNameplate(this.getFontRenderer(), str, (float)x + 0.5F, (float)y + 1.5F, (float)z + 0.5F, 0, f, f1, false, false);
+            EntityRenderer.drawNameplate(getFontRenderer(), str, (float)x + 0.5F, (float)y + 1.5F, (float)z + 0.5F, 0, f, f1, false, false);
         }
     }
 }

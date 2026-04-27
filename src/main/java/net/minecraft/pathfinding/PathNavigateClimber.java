@@ -21,7 +21,7 @@ public class PathNavigateClimber extends PathNavigateGround
      */
     public Path getPathToPos(BlockPos pos)
     {
-        this.targetPosition = pos;
+        targetPosition = pos;
         return super.getPathToPos(pos);
     }
 
@@ -30,7 +30,7 @@ public class PathNavigateClimber extends PathNavigateGround
      */
     public Path getPathToEntityLiving(Entity entityIn)
     {
-        this.targetPosition = new BlockPos(entityIn);
+        targetPosition = new BlockPos(entityIn);
         return super.getPathToEntityLiving(entityIn);
     }
 
@@ -39,39 +39,39 @@ public class PathNavigateClimber extends PathNavigateGround
      */
     public boolean tryMoveToEntityLiving(Entity entityIn, double speedIn)
     {
-        Path path = this.getPathToEntityLiving(entityIn);
+        Path path = getPathToEntityLiving(entityIn);
 
         if (path != null)
         {
-            return this.setPath(path, speedIn);
+            return setPath(path, speedIn);
         }
         else
         {
-            this.targetPosition = new BlockPos(entityIn);
-            this.speed = speedIn;
+            targetPosition = new BlockPos(entityIn);
+            speed = speedIn;
             return true;
         }
     }
 
     public void onUpdateNavigation()
     {
-        if (!this.noPath())
+        if (!noPath())
         {
             super.onUpdateNavigation();
         }
         else
         {
-            if (this.targetPosition != null)
+            if (targetPosition != null)
             {
-                double d0 = (double)(this.entity.width * this.entity.width);
+                double d0 = (double)(entity.width * entity.width);
 
-                if (this.entity.getDistanceSqToCenter(this.targetPosition) >= d0 && (this.entity.posY <= (double)this.targetPosition.getY() || this.entity.getDistanceSqToCenter(new BlockPos(this.targetPosition.getX(), MathHelper.floor(this.entity.posY), this.targetPosition.getZ())) >= d0))
+                if (entity.getDistanceSqToCenter(targetPosition) >= d0 && (entity.posY <= (double) targetPosition.getY() || entity.getDistanceSqToCenter(new BlockPos(targetPosition.getX(), MathHelper.floor(entity.posY), targetPosition.getZ())) >= d0))
                 {
-                    this.entity.getMoveHelper().setMoveTo((double)this.targetPosition.getX(), (double)this.targetPosition.getY(), (double)this.targetPosition.getZ(), this.speed);
+                    entity.getMoveHelper().setMoveTo((double) targetPosition.getX(), (double) targetPosition.getY(), (double) targetPosition.getZ(), speed);
                 }
                 else
                 {
-                    this.targetPosition = null;
+                    targetPosition = null;
                 }
             }
         }

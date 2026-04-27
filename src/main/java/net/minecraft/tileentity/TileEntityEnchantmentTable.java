@@ -32,9 +32,9 @@ public class TileEntityEnchantmentTable extends TileEntity implements ITickable,
     {
         super.writeToNBT(compound);
 
-        if (this.hasCustomName())
+        if (hasCustomName())
         {
-            compound.setString("CustomName", this.customName);
+            compound.setString("CustomName", customName);
         }
 
         return compound;
@@ -46,7 +46,7 @@ public class TileEntityEnchantmentTable extends TileEntity implements ITickable,
 
         if (compound.hasKey("CustomName", 8))
         {
-            this.customName = compound.getString("CustomName");
+            customName = compound.getString("CustomName");
         }
     }
 
@@ -55,26 +55,26 @@ public class TileEntityEnchantmentTable extends TileEntity implements ITickable,
      */
     public void update()
     {
-        this.bookSpreadPrev = this.bookSpread;
-        this.bookRotationPrev = this.bookRotation;
-        EntityPlayer entityplayer = this.world.getClosestPlayer((double)((float)this.pos.getX() + 0.5F), (double)((float)this.pos.getY() + 0.5F), (double)((float)this.pos.getZ() + 0.5F), 3.0D, false);
+        bookSpreadPrev = bookSpread;
+        bookRotationPrev = bookRotation;
+        EntityPlayer entityplayer = world.getClosestPlayer((double)((float) pos.getX() + 0.5F), (double)((float) pos.getY() + 0.5F), (double)((float) pos.getZ() + 0.5F), 3.0D, false);
 
         if (entityplayer != null)
         {
-            double d0 = entityplayer.posX - (double)((float)this.pos.getX() + 0.5F);
-            double d1 = entityplayer.posZ - (double)((float)this.pos.getZ() + 0.5F);
-            this.tRot = (float)MathHelper.atan2(d1, d0);
-            this.bookSpread += 0.1F;
+            double d0 = entityplayer.posX - (double)((float) pos.getX() + 0.5F);
+            double d1 = entityplayer.posZ - (double)((float) pos.getZ() + 0.5F);
+            tRot = (float)MathHelper.atan2(d1, d0);
+            bookSpread += 0.1F;
 
-            if (this.bookSpread < 0.5F || rand.nextInt(40) == 0)
+            if (bookSpread < 0.5F || rand.nextInt(40) == 0)
             {
-                float f1 = this.flipT;
+                float f1 = flipT;
 
                 while (true)
                 {
-                    this.flipT += (float)(rand.nextInt(4) - rand.nextInt(4));
+                    flipT += (float)(rand.nextInt(4) - rand.nextInt(4));
 
-                    if (f1 != this.flipT)
+                    if (f1 != flipT)
                     {
                         break;
                     }
@@ -83,33 +83,33 @@ public class TileEntityEnchantmentTable extends TileEntity implements ITickable,
         }
         else
         {
-            this.tRot += 0.02F;
-            this.bookSpread -= 0.1F;
+            tRot += 0.02F;
+            bookSpread -= 0.1F;
         }
 
-        while (this.bookRotation >= (float)Math.PI)
+        while (bookRotation >= (float)Math.PI)
         {
-            this.bookRotation -= ((float)Math.PI * 2F);
+            bookRotation -= ((float)Math.PI * 2F);
         }
 
-        while (this.bookRotation < -(float)Math.PI)
+        while (bookRotation < -(float)Math.PI)
         {
-            this.bookRotation += ((float)Math.PI * 2F);
+            bookRotation += ((float)Math.PI * 2F);
         }
 
-        while (this.tRot >= (float)Math.PI)
+        while (tRot >= (float)Math.PI)
         {
-            this.tRot -= ((float)Math.PI * 2F);
+            tRot -= ((float)Math.PI * 2F);
         }
 
-        while (this.tRot < -(float)Math.PI)
+        while (tRot < -(float)Math.PI)
         {
-            this.tRot += ((float)Math.PI * 2F);
+            tRot += ((float)Math.PI * 2F);
         }
 
         float f2;
 
-        for (f2 = this.tRot - this.bookRotation; f2 >= (float)Math.PI; f2 -= ((float)Math.PI * 2F))
+        for (f2 = tRot - bookRotation; f2 >= (float)Math.PI; f2 -= ((float)Math.PI * 2F))
         {
             ;
         }
@@ -119,15 +119,15 @@ public class TileEntityEnchantmentTable extends TileEntity implements ITickable,
             f2 += ((float)Math.PI * 2F);
         }
 
-        this.bookRotation += f2 * 0.4F;
-        this.bookSpread = MathHelper.clamp(this.bookSpread, 0.0F, 1.0F);
-        ++this.tickCount;
-        this.pageFlipPrev = this.pageFlip;
-        float f = (this.flipT - this.pageFlip) * 0.4F;
+        bookRotation += f2 * 0.4F;
+        bookSpread = MathHelper.clamp(bookSpread, 0.0F, 1.0F);
+        ++tickCount;
+        pageFlipPrev = pageFlip;
+        float f = (flipT - pageFlip) * 0.4F;
         float f3 = 0.2F;
         f = MathHelper.clamp(f, -0.2F, 0.2F);
-        this.flipA += (f - this.flipA) * 0.9F;
-        this.pageFlip += this.flipA;
+        flipA += (f - flipA) * 0.9F;
+        pageFlip += flipA;
     }
 
     /**
@@ -135,7 +135,7 @@ public class TileEntityEnchantmentTable extends TileEntity implements ITickable,
      */
     public String getName()
     {
-        return this.hasCustomName() ? this.customName : "container.enchant";
+        return hasCustomName() ? customName : "container.enchant";
     }
 
     /**
@@ -143,12 +143,12 @@ public class TileEntityEnchantmentTable extends TileEntity implements ITickable,
      */
     public boolean hasCustomName()
     {
-        return this.customName != null && !this.customName.isEmpty();
+        return customName != null && !customName.isEmpty();
     }
 
     public void setCustomName(String customNameIn)
     {
-        this.customName = customNameIn;
+        customName = customNameIn;
     }
 
     /**
@@ -156,12 +156,12 @@ public class TileEntityEnchantmentTable extends TileEntity implements ITickable,
      */
     public ITextComponent getDisplayName()
     {
-        return (ITextComponent)(this.hasCustomName() ? new TextComponentString(this.getName()) : new TextComponentTranslation(this.getName(), new Object[0]));
+        return (ITextComponent)(hasCustomName() ? new TextComponentString(getName()) : new TextComponentTranslation(getName(), new Object[0]));
     }
 
     public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn)
     {
-        return new ContainerEnchantment(playerInventory, this.world, this.pos);
+        return new ContainerEnchantment(playerInventory, world, pos);
     }
 
     public String getGuiID()

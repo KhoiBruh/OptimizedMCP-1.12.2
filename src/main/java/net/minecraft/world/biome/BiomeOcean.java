@@ -5,7 +5,7 @@ public class BiomeOcean extends Biome
     public BiomeOcean(Biome.BiomeProperties properties)
     {
         super(properties);
-        this.spawnableCreatureList.clear();
+        spawnableCreatureList.clear();
     }
 
     public Biome.TempCategory getTempCategory()

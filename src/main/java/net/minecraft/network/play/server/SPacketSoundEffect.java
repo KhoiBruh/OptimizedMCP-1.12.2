@@ -25,13 +25,13 @@ public class SPacketSoundEffect implements Packet<INetHandlerPlayClient>
     public SPacketSoundEffect(SoundEvent soundIn, SoundCategory categoryIn, double xIn, double yIn, double zIn, float volumeIn, float pitchIn)
     {
         Validate.notNull(soundIn, "sound");
-        this.sound = soundIn;
-        this.category = categoryIn;
-        this.posX = (int)(xIn * 8.0D);
-        this.posY = (int)(yIn * 8.0D);
-        this.posZ = (int)(zIn * 8.0D);
-        this.soundVolume = volumeIn;
-        this.soundPitch = pitchIn;
+        sound = soundIn;
+        category = categoryIn;
+        posX = (int)(xIn * 8.0D);
+        posY = (int)(yIn * 8.0D);
+        posZ = (int)(zIn * 8.0D);
+        soundVolume = volumeIn;
+        soundPitch = pitchIn;
     }
 
     /**
@@ -39,13 +39,13 @@ public class SPacketSoundEffect implements Packet<INetHandlerPlayClient>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.sound = SoundEvent.REGISTRY.getObjectById(buf.readVarInt());
-        this.category = (SoundCategory)buf.readEnumValue(SoundCategory.class);
-        this.posX = buf.readInt();
-        this.posY = buf.readInt();
-        this.posZ = buf.readInt();
-        this.soundVolume = buf.readFloat();
-        this.soundPitch = buf.readFloat();
+        sound = SoundEvent.REGISTRY.getObjectById(buf.readVarInt());
+        category = (SoundCategory)buf.readEnumValue(SoundCategory.class);
+        posX = buf.readInt();
+        posY = buf.readInt();
+        posZ = buf.readInt();
+        soundVolume = buf.readFloat();
+        soundPitch = buf.readFloat();
     }
 
     /**
@@ -53,48 +53,48 @@ public class SPacketSoundEffect implements Packet<INetHandlerPlayClient>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeVarInt(SoundEvent.REGISTRY.getIDForObject(this.sound));
-        buf.writeEnumValue(this.category);
-        buf.writeInt(this.posX);
-        buf.writeInt(this.posY);
-        buf.writeInt(this.posZ);
-        buf.writeFloat(this.soundVolume);
-        buf.writeFloat(this.soundPitch);
+        buf.writeVarInt(SoundEvent.REGISTRY.getIDForObject(sound));
+        buf.writeEnumValue(category);
+        buf.writeInt(posX);
+        buf.writeInt(posY);
+        buf.writeInt(posZ);
+        buf.writeFloat(soundVolume);
+        buf.writeFloat(soundPitch);
     }
 
     public SoundEvent getSound()
     {
-        return this.sound;
+        return sound;
     }
 
     public SoundCategory getCategory()
     {
-        return this.category;
+        return category;
     }
 
     public double getX()
     {
-        return (double)((float)this.posX / 8.0F);
+        return (double)((float) posX / 8.0F);
     }
 
     public double getY()
     {
-        return (double)((float)this.posY / 8.0F);
+        return (double)((float) posY / 8.0F);
     }
 
     public double getZ()
     {
-        return (double)((float)this.posZ / 8.0F);
+        return (double)((float) posZ / 8.0F);
     }
 
     public float getVolume()
     {
-        return this.soundVolume;
+        return soundVolume;
     }
 
     public float getPitch()
     {
-        return this.soundPitch;
+        return soundPitch;
     }
 
     /**

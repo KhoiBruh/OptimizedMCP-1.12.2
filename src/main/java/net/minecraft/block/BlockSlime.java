@@ -14,8 +14,8 @@ public class BlockSlime extends BlockBreakable
     public BlockSlime()
     {
         super(Material.CLAY, false, MapColor.GRASS);
-        this.setCreativeTab(CreativeTabs.DECORATIONS);
-        this.slipperiness = 0.8F;
+        setCreativeTab(CreativeTabs.DECORATIONS);
+        slipperiness = 0.8F;
     }
 
     /**

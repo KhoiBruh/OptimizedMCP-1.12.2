@@ -16,16 +16,16 @@ public class GenLayerBiome extends GenLayer
     public GenLayerBiome(long p_i45560_1_, GenLayer p_i45560_3_, WorldType p_i45560_4_, ChunkGeneratorSettings p_i45560_5_)
     {
         super(p_i45560_1_);
-        this.parent = p_i45560_3_;
+        parent = p_i45560_3_;
 
         if (p_i45560_4_ == WorldType.DEFAULT_1_1)
         {
-            this.warmBiomes = new Biome[] {Biomes.DESERT, Biomes.FOREST, Biomes.EXTREME_HILLS, Biomes.SWAMPLAND, Biomes.PLAINS, Biomes.TAIGA};
-            this.settings = null;
+            warmBiomes = new Biome[] {Biomes.DESERT, Biomes.FOREST, Biomes.EXTREME_HILLS, Biomes.SWAMPLAND, Biomes.PLAINS, Biomes.TAIGA};
+            settings = null;
         }
         else
         {
-            this.settings = p_i45560_5_;
+            settings = p_i45560_5_;
         }
     }
 
@@ -35,21 +35,21 @@ public class GenLayerBiome extends GenLayer
      */
     public int[] getInts(int areaX, int areaY, int areaWidth, int areaHeight)
     {
-        int[] aint = this.parent.getInts(areaX, areaY, areaWidth, areaHeight);
+        int[] aint = parent.getInts(areaX, areaY, areaWidth, areaHeight);
         int[] aint1 = IntCache.getIntCache(areaWidth * areaHeight);
 
         for (int i = 0; i < areaHeight; ++i)
         {
             for (int j = 0; j < areaWidth; ++j)
             {
-                this.initChunkSeed((long)(j + areaX), (long)(i + areaY));
+                initChunkSeed((long)(j + areaX), (long)(i + areaY));
                 int k = aint[j + i * areaWidth];
                 int l = (k & 3840) >> 8;
                 k = k & -3841;
 
-                if (this.settings != null && this.settings.fixedBiome >= 0)
+                if (settings != null && settings.fixedBiome >= 0)
                 {
-                    aint1[j + i * areaWidth] = this.settings.fixedBiome;
+                    aint1[j + i * areaWidth] = settings.fixedBiome;
                 }
                 else if (isBiomeOceanic(k))
                 {
@@ -63,7 +63,7 @@ public class GenLayerBiome extends GenLayer
                 {
                     if (l > 0)
                     {
-                        if (this.nextInt(3) == 0)
+                        if (nextInt(3) == 0)
                         {
                             aint1[j + i * areaWidth] = Biome.getIdForBiome(Biomes.MESA_CLEAR_ROCK);
                         }
@@ -74,7 +74,7 @@ public class GenLayerBiome extends GenLayer
                     }
                     else
                     {
-                        aint1[j + i * areaWidth] = Biome.getIdForBiome(this.warmBiomes[this.nextInt(this.warmBiomes.length)]);
+                        aint1[j + i * areaWidth] = Biome.getIdForBiome(warmBiomes[nextInt(warmBiomes.length)]);
                     }
                 }
                 else if (k == 2)
@@ -85,7 +85,7 @@ public class GenLayerBiome extends GenLayer
                     }
                     else
                     {
-                        aint1[j + i * areaWidth] = Biome.getIdForBiome(this.mediumBiomes[this.nextInt(this.mediumBiomes.length)]);
+                        aint1[j + i * areaWidth] = Biome.getIdForBiome(mediumBiomes[nextInt(mediumBiomes.length)]);
                     }
                 }
                 else if (k == 3)
@@ -96,12 +96,12 @@ public class GenLayerBiome extends GenLayer
                     }
                     else
                     {
-                        aint1[j + i * areaWidth] = Biome.getIdForBiome(this.coldBiomes[this.nextInt(this.coldBiomes.length)]);
+                        aint1[j + i * areaWidth] = Biome.getIdForBiome(coldBiomes[nextInt(coldBiomes.length)]);
                     }
                 }
                 else if (k == 4)
                 {
-                    aint1[j + i * areaWidth] = Biome.getIdForBiome(this.iceBiomes[this.nextInt(this.iceBiomes.length)]);
+                    aint1[j + i * areaWidth] = Biome.getIdForBiome(iceBiomes[nextInt(iceBiomes.length)]);
                 }
                 else
                 {

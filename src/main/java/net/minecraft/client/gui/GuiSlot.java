@@ -63,29 +63,29 @@ public abstract class GuiSlot
 
     public GuiSlot(Minecraft mcIn, int width, int height, int topIn, int bottomIn, int slotHeightIn)
     {
-        this.mc = mcIn;
+        mc = mcIn;
         this.width = width;
         this.height = height;
-        this.top = topIn;
-        this.bottom = bottomIn;
-        this.slotHeight = slotHeightIn;
-        this.left = 0;
-        this.right = width;
+        top = topIn;
+        bottom = bottomIn;
+        slotHeight = slotHeightIn;
+        left = 0;
+        right = width;
     }
 
     public void setDimensions(int widthIn, int heightIn, int topIn, int bottomIn)
     {
-        this.width = widthIn;
-        this.height = heightIn;
-        this.top = topIn;
-        this.bottom = bottomIn;
-        this.left = 0;
-        this.right = widthIn;
+        width = widthIn;
+        height = heightIn;
+        top = topIn;
+        bottom = bottomIn;
+        left = 0;
+        right = widthIn;
     }
 
     public void setShowSelectionBox(boolean showSelectionBoxIn)
     {
-        this.showSelectionBox = showSelectionBoxIn;
+        showSelectionBox = showSelectionBoxIn;
     }
 
     /**
@@ -94,12 +94,12 @@ public abstract class GuiSlot
      */
     protected void setHasListHeader(boolean hasListHeaderIn, int headerPaddingIn)
     {
-        this.hasListHeader = hasListHeaderIn;
-        this.headerPadding = headerPaddingIn;
+        hasListHeader = hasListHeaderIn;
+        headerPadding = headerPaddingIn;
 
         if (!hasListHeaderIn)
         {
-            this.headerPadding = 0;
+            headerPadding = 0;
         }
     }
 
@@ -120,7 +120,7 @@ public abstract class GuiSlot
      */
     protected int getContentHeight()
     {
-        return this.getSize() * this.slotHeight + this.headerPadding;
+        return getSize() * slotHeight + headerPadding;
     }
 
     protected abstract void drawBackground();
@@ -148,11 +148,11 @@ public abstract class GuiSlot
 
     public int getSlotIndexFromScreenCoords(int posX, int posY)
     {
-        int i = this.left + this.width / 2 - this.getListWidth() / 2;
-        int j = this.left + this.width / 2 + this.getListWidth() / 2;
-        int k = posY - this.top - this.headerPadding + (int)this.amountScrolled - 4;
-        int l = k / this.slotHeight;
-        return posX < this.getScrollBarX() && posX >= i && posX <= j && l >= 0 && k >= 0 && l < this.getSize() ? l : -1;
+        int i = left + width / 2 - getListWidth() / 2;
+        int j = left + width / 2 + getListWidth() / 2;
+        int k = posY - top - headerPadding + (int) amountScrolled - 4;
+        int l = k / slotHeight;
+        return posX < getScrollBarX() && posX >= i && posX <= j && l >= 0 && k >= 0 && l < getSize() ? l : -1;
     }
 
     /**
@@ -160,8 +160,8 @@ public abstract class GuiSlot
      */
     public void registerScrollButtons(int scrollUpButtonIDIn, int scrollDownButtonIDIn)
     {
-        this.scrollUpButtonID = scrollUpButtonIDIn;
-        this.scrollDownButtonID = scrollDownButtonIDIn;
+        scrollUpButtonID = scrollUpButtonIDIn;
+        scrollDownButtonID = scrollDownButtonIDIn;
     }
 
     /**
@@ -169,12 +169,12 @@ public abstract class GuiSlot
      */
     protected void bindAmountScrolled()
     {
-        this.amountScrolled = MathHelper.clamp(this.amountScrolled, 0.0F, (float)this.getMaxScroll());
+        amountScrolled = MathHelper.clamp(amountScrolled, 0.0F, (float) getMaxScroll());
     }
 
     public int getMaxScroll()
     {
-        return Math.max(0, this.getContentHeight() - (this.bottom - this.top - 4));
+        return Math.max(0, getContentHeight() - (bottom - top - 4));
     }
 
     /**
@@ -182,12 +182,12 @@ public abstract class GuiSlot
      */
     public int getAmountScrolled()
     {
-        return (int)this.amountScrolled;
+        return (int) amountScrolled;
     }
 
     public boolean isMouseYWithinSlotBounds(int p_148141_1_)
     {
-        return p_148141_1_ >= this.top && p_148141_1_ <= this.bottom && this.mouseX >= this.left && this.mouseX <= this.right;
+        return p_148141_1_ >= top && p_148141_1_ <= bottom && mouseX >= left && mouseX <= right;
     }
 
     /**
@@ -195,65 +195,65 @@ public abstract class GuiSlot
      */
     public void scrollBy(int amount)
     {
-        this.amountScrolled += (float)amount;
-        this.bindAmountScrolled();
-        this.initialClickY = -2;
+        amountScrolled += (float)amount;
+        bindAmountScrolled();
+        initialClickY = -2;
     }
 
     public void actionPerformed(GuiButton button)
     {
         if (button.enabled)
         {
-            if (button.id == this.scrollUpButtonID)
+            if (button.id == scrollUpButtonID)
             {
-                this.amountScrolled -= (float)(this.slotHeight * 2 / 3);
-                this.initialClickY = -2;
-                this.bindAmountScrolled();
+                amountScrolled -= (float)(slotHeight * 2 / 3);
+                initialClickY = -2;
+                bindAmountScrolled();
             }
-            else if (button.id == this.scrollDownButtonID)
+            else if (button.id == scrollDownButtonID)
             {
-                this.amountScrolled += (float)(this.slotHeight * 2 / 3);
-                this.initialClickY = -2;
-                this.bindAmountScrolled();
+                amountScrolled += (float)(slotHeight * 2 / 3);
+                initialClickY = -2;
+                bindAmountScrolled();
             }
         }
     }
 
     public void drawScreen(int mouseXIn, int mouseYIn, float partialTicks)
     {
-        if (this.visible)
+        if (visible)
         {
-            this.mouseX = mouseXIn;
-            this.mouseY = mouseYIn;
-            this.drawBackground();
-            int i = this.getScrollBarX();
+            mouseX = mouseXIn;
+            mouseY = mouseYIn;
+            drawBackground();
+            int i = getScrollBarX();
             int j = i + 6;
-            this.bindAmountScrolled();
+            bindAmountScrolled();
             GlStateManager.disableLighting();
             GlStateManager.disableFog();
             Tessellator tessellator = Tessellator.getInstance();
             BufferBuilder bufferbuilder = tessellator.getBuffer();
-            this.mc.getTextureManager().bindTexture(Gui.OPTIONS_BACKGROUND);
+            mc.getTextureManager().bindTexture(Gui.OPTIONS_BACKGROUND);
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
             float f = 32.0F;
             bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-            bufferbuilder.pos((double)this.left, (double)this.bottom, 0.0D).tex((double)((float)this.left / 32.0F), (double)((float)(this.bottom + (int)this.amountScrolled) / 32.0F)).color(32, 32, 32, 255).endVertex();
-            bufferbuilder.pos((double)this.right, (double)this.bottom, 0.0D).tex((double)((float)this.right / 32.0F), (double)((float)(this.bottom + (int)this.amountScrolled) / 32.0F)).color(32, 32, 32, 255).endVertex();
-            bufferbuilder.pos((double)this.right, (double)this.top, 0.0D).tex((double)((float)this.right / 32.0F), (double)((float)(this.top + (int)this.amountScrolled) / 32.0F)).color(32, 32, 32, 255).endVertex();
-            bufferbuilder.pos((double)this.left, (double)this.top, 0.0D).tex((double)((float)this.left / 32.0F), (double)((float)(this.top + (int)this.amountScrolled) / 32.0F)).color(32, 32, 32, 255).endVertex();
+            bufferbuilder.pos((double) left, (double) bottom, 0.0D).tex((double)((float) left / 32.0F), (double)((float)(bottom + (int) amountScrolled) / 32.0F)).color(32, 32, 32, 255).endVertex();
+            bufferbuilder.pos((double) right, (double) bottom, 0.0D).tex((double)((float) right / 32.0F), (double)((float)(bottom + (int) amountScrolled) / 32.0F)).color(32, 32, 32, 255).endVertex();
+            bufferbuilder.pos((double) right, (double) top, 0.0D).tex((double)((float) right / 32.0F), (double)((float)(top + (int) amountScrolled) / 32.0F)).color(32, 32, 32, 255).endVertex();
+            bufferbuilder.pos((double) left, (double) top, 0.0D).tex((double)((float) left / 32.0F), (double)((float)(top + (int) amountScrolled) / 32.0F)).color(32, 32, 32, 255).endVertex();
             tessellator.draw();
-            int k = this.left + this.width / 2 - this.getListWidth() / 2 + 2;
-            int l = this.top + 4 - (int)this.amountScrolled;
+            int k = left + width / 2 - getListWidth() / 2 + 2;
+            int l = top + 4 - (int) amountScrolled;
 
-            if (this.hasListHeader)
+            if (hasListHeader)
             {
-                this.drawListHeader(k, l, tessellator);
+                drawListHeader(k, l, tessellator);
             }
 
-            this.drawSelectionBox(k, l, mouseXIn, mouseYIn, partialTicks);
+            drawSelectionBox(k, l, mouseXIn, mouseYIn, partialTicks);
             GlStateManager.disableDepth();
-            this.overlayBackground(0, this.top, 255, 255);
-            this.overlayBackground(this.bottom, this.height, 255, 255);
+            overlayBackground(0, top, 255, 255);
+            overlayBackground(bottom, height, 255, 255);
             GlStateManager.enableBlend();
             GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ZERO, GlStateManager.DestFactor.ONE);
             GlStateManager.disableAlpha();
@@ -261,35 +261,35 @@ public abstract class GuiSlot
             GlStateManager.disableTexture2D();
             int i1 = 4;
             bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-            bufferbuilder.pos((double)this.left, (double)(this.top + 4), 0.0D).tex(0.0D, 1.0D).color(0, 0, 0, 0).endVertex();
-            bufferbuilder.pos((double)this.right, (double)(this.top + 4), 0.0D).tex(1.0D, 1.0D).color(0, 0, 0, 0).endVertex();
-            bufferbuilder.pos((double)this.right, (double)this.top, 0.0D).tex(1.0D, 0.0D).color(0, 0, 0, 255).endVertex();
-            bufferbuilder.pos((double)this.left, (double)this.top, 0.0D).tex(0.0D, 0.0D).color(0, 0, 0, 255).endVertex();
+            bufferbuilder.pos((double) left, (double)(top + 4), 0.0D).tex(0.0D, 1.0D).color(0, 0, 0, 0).endVertex();
+            bufferbuilder.pos((double) right, (double)(top + 4), 0.0D).tex(1.0D, 1.0D).color(0, 0, 0, 0).endVertex();
+            bufferbuilder.pos((double) right, (double) top, 0.0D).tex(1.0D, 0.0D).color(0, 0, 0, 255).endVertex();
+            bufferbuilder.pos((double) left, (double) top, 0.0D).tex(0.0D, 0.0D).color(0, 0, 0, 255).endVertex();
             tessellator.draw();
             bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-            bufferbuilder.pos((double)this.left, (double)this.bottom, 0.0D).tex(0.0D, 1.0D).color(0, 0, 0, 255).endVertex();
-            bufferbuilder.pos((double)this.right, (double)this.bottom, 0.0D).tex(1.0D, 1.0D).color(0, 0, 0, 255).endVertex();
-            bufferbuilder.pos((double)this.right, (double)(this.bottom - 4), 0.0D).tex(1.0D, 0.0D).color(0, 0, 0, 0).endVertex();
-            bufferbuilder.pos((double)this.left, (double)(this.bottom - 4), 0.0D).tex(0.0D, 0.0D).color(0, 0, 0, 0).endVertex();
+            bufferbuilder.pos((double) left, (double) bottom, 0.0D).tex(0.0D, 1.0D).color(0, 0, 0, 255).endVertex();
+            bufferbuilder.pos((double) right, (double) bottom, 0.0D).tex(1.0D, 1.0D).color(0, 0, 0, 255).endVertex();
+            bufferbuilder.pos((double) right, (double)(bottom - 4), 0.0D).tex(1.0D, 0.0D).color(0, 0, 0, 0).endVertex();
+            bufferbuilder.pos((double) left, (double)(bottom - 4), 0.0D).tex(0.0D, 0.0D).color(0, 0, 0, 0).endVertex();
             tessellator.draw();
-            int j1 = this.getMaxScroll();
+            int j1 = getMaxScroll();
 
             if (j1 > 0)
             {
-                int k1 = (this.bottom - this.top) * (this.bottom - this.top) / this.getContentHeight();
-                k1 = MathHelper.clamp(k1, 32, this.bottom - this.top - 8);
-                int l1 = (int)this.amountScrolled * (this.bottom - this.top - k1) / j1 + this.top;
+                int k1 = (bottom - top) * (bottom - top) / getContentHeight();
+                k1 = MathHelper.clamp(k1, 32, bottom - top - 8);
+                int l1 = (int) amountScrolled * (bottom - top - k1) / j1 + top;
 
-                if (l1 < this.top)
+                if (l1 < top)
                 {
-                    l1 = this.top;
+                    l1 = top;
                 }
 
                 bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-                bufferbuilder.pos((double)i, (double)this.bottom, 0.0D).tex(0.0D, 1.0D).color(0, 0, 0, 255).endVertex();
-                bufferbuilder.pos((double)j, (double)this.bottom, 0.0D).tex(1.0D, 1.0D).color(0, 0, 0, 255).endVertex();
-                bufferbuilder.pos((double)j, (double)this.top, 0.0D).tex(1.0D, 0.0D).color(0, 0, 0, 255).endVertex();
-                bufferbuilder.pos((double)i, (double)this.top, 0.0D).tex(0.0D, 0.0D).color(0, 0, 0, 255).endVertex();
+                bufferbuilder.pos((double)i, (double) bottom, 0.0D).tex(0.0D, 1.0D).color(0, 0, 0, 255).endVertex();
+                bufferbuilder.pos((double)j, (double) bottom, 0.0D).tex(1.0D, 1.0D).color(0, 0, 0, 255).endVertex();
+                bufferbuilder.pos((double)j, (double) top, 0.0D).tex(1.0D, 0.0D).color(0, 0, 0, 255).endVertex();
+                bufferbuilder.pos((double)i, (double) top, 0.0D).tex(0.0D, 0.0D).color(0, 0, 0, 255).endVertex();
                 tessellator.draw();
                 bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
                 bufferbuilder.pos((double)i, (double)(l1 + k1), 0.0D).tex(0.0D, 1.0D).color(128, 128, 128, 255).endVertex();
@@ -305,7 +305,7 @@ public abstract class GuiSlot
                 tessellator.draw();
             }
 
-            this.renderDecorations(mouseXIn, mouseYIn);
+            renderDecorations(mouseXIn, mouseYIn);
             GlStateManager.enableTexture2D();
             GlStateManager.shadeModel(7424);
             GlStateManager.enableAlpha();
@@ -315,97 +315,97 @@ public abstract class GuiSlot
 
     public void handleMouseInput()
     {
-        if (this.isMouseYWithinSlotBounds(this.mouseY))
+        if (isMouseYWithinSlotBounds(mouseY))
         {
-            if (Mouse.getEventButton() == 0 && Mouse.getEventButtonState() && this.mouseY >= this.top && this.mouseY <= this.bottom)
+            if (Mouse.getEventButton() == 0 && Mouse.getEventButtonState() && mouseY >= top && mouseY <= bottom)
             {
-                int i = (this.width - this.getListWidth()) / 2;
-                int j = (this.width + this.getListWidth()) / 2;
-                int k = this.mouseY - this.top - this.headerPadding + (int)this.amountScrolled - 4;
-                int l = k / this.slotHeight;
+                int i = (width - getListWidth()) / 2;
+                int j = (width + getListWidth()) / 2;
+                int k = mouseY - top - headerPadding + (int) amountScrolled - 4;
+                int l = k / slotHeight;
 
-                if (l < this.getSize() && this.mouseX >= i && this.mouseX <= j && l >= 0 && k >= 0)
+                if (l < getSize() && mouseX >= i && mouseX <= j && l >= 0 && k >= 0)
                 {
-                    this.elementClicked(l, false, this.mouseX, this.mouseY);
-                    this.selectedElement = l;
+                    elementClicked(l, false, mouseX, mouseY);
+                    selectedElement = l;
                 }
-                else if (this.mouseX >= i && this.mouseX <= j && k < 0)
+                else if (mouseX >= i && mouseX <= j && k < 0)
                 {
-                    this.clickedHeader(this.mouseX - i, this.mouseY - this.top + (int)this.amountScrolled - 4);
+                    clickedHeader(mouseX - i, mouseY - top + (int) amountScrolled - 4);
                 }
             }
 
-            if (Mouse.isButtonDown(0) && this.getEnabled())
+            if (Mouse.isButtonDown(0) && getEnabled())
             {
-                if (this.initialClickY == -1)
+                if (initialClickY == -1)
                 {
                     boolean flag1 = true;
 
-                    if (this.mouseY >= this.top && this.mouseY <= this.bottom)
+                    if (mouseY >= top && mouseY <= bottom)
                     {
-                        int j2 = (this.width - this.getListWidth()) / 2;
-                        int k2 = (this.width + this.getListWidth()) / 2;
-                        int l2 = this.mouseY - this.top - this.headerPadding + (int)this.amountScrolled - 4;
-                        int i1 = l2 / this.slotHeight;
+                        int j2 = (width - getListWidth()) / 2;
+                        int k2 = (width + getListWidth()) / 2;
+                        int l2 = mouseY - top - headerPadding + (int) amountScrolled - 4;
+                        int i1 = l2 / slotHeight;
 
-                        if (i1 < this.getSize() && this.mouseX >= j2 && this.mouseX <= k2 && i1 >= 0 && l2 >= 0)
+                        if (i1 < getSize() && mouseX >= j2 && mouseX <= k2 && i1 >= 0 && l2 >= 0)
                         {
-                            boolean flag = i1 == this.selectedElement && Minecraft.getSystemTime() - this.lastClicked < 250L;
-                            this.elementClicked(i1, flag, this.mouseX, this.mouseY);
-                            this.selectedElement = i1;
-                            this.lastClicked = Minecraft.getSystemTime();
+                            boolean flag = i1 == selectedElement && Minecraft.getSystemTime() - lastClicked < 250L;
+                            elementClicked(i1, flag, mouseX, mouseY);
+                            selectedElement = i1;
+                            lastClicked = Minecraft.getSystemTime();
                         }
-                        else if (this.mouseX >= j2 && this.mouseX <= k2 && l2 < 0)
+                        else if (mouseX >= j2 && mouseX <= k2 && l2 < 0)
                         {
-                            this.clickedHeader(this.mouseX - j2, this.mouseY - this.top + (int)this.amountScrolled - 4);
+                            clickedHeader(mouseX - j2, mouseY - top + (int) amountScrolled - 4);
                             flag1 = false;
                         }
 
-                        int i3 = this.getScrollBarX();
+                        int i3 = getScrollBarX();
                         int j1 = i3 + 6;
 
-                        if (this.mouseX >= i3 && this.mouseX <= j1)
+                        if (mouseX >= i3 && mouseX <= j1)
                         {
-                            this.scrollMultiplier = -1.0F;
-                            int k1 = this.getMaxScroll();
+                            scrollMultiplier = -1.0F;
+                            int k1 = getMaxScroll();
 
                             if (k1 < 1)
                             {
                                 k1 = 1;
                             }
 
-                            int l1 = (int)((float)((this.bottom - this.top) * (this.bottom - this.top)) / (float)this.getContentHeight());
-                            l1 = MathHelper.clamp(l1, 32, this.bottom - this.top - 8);
-                            this.scrollMultiplier /= (float)(this.bottom - this.top - l1) / (float)k1;
+                            int l1 = (int)((float)((bottom - top) * (bottom - top)) / (float) getContentHeight());
+                            l1 = MathHelper.clamp(l1, 32, bottom - top - 8);
+                            scrollMultiplier /= (float)(bottom - top - l1) / (float)k1;
                         }
                         else
                         {
-                            this.scrollMultiplier = 1.0F;
+                            scrollMultiplier = 1.0F;
                         }
 
                         if (flag1)
                         {
-                            this.initialClickY = this.mouseY;
+                            initialClickY = mouseY;
                         }
                         else
                         {
-                            this.initialClickY = -2;
+                            initialClickY = -2;
                         }
                     }
                     else
                     {
-                        this.initialClickY = -2;
+                        initialClickY = -2;
                     }
                 }
-                else if (this.initialClickY >= 0)
+                else if (initialClickY >= 0)
                 {
-                    this.amountScrolled -= (float)(this.mouseY - this.initialClickY) * this.scrollMultiplier;
-                    this.initialClickY = this.mouseY;
+                    amountScrolled -= (float)(mouseY - initialClickY) * scrollMultiplier;
+                    initialClickY = mouseY;
                 }
             }
             else
             {
-                this.initialClickY = -1;
+                initialClickY = -1;
             }
 
             int i2 = Mouse.getEventDWheel();
@@ -421,19 +421,19 @@ public abstract class GuiSlot
                     i2 = 1;
                 }
 
-                this.amountScrolled += (float)(i2 * this.slotHeight / 2);
+                amountScrolled += (float)(i2 * slotHeight / 2);
             }
         }
     }
 
     public void setEnabled(boolean enabledIn)
     {
-        this.enabled = enabledIn;
+        enabled = enabledIn;
     }
 
     public boolean getEnabled()
     {
-        return this.enabled;
+        return enabled;
     }
 
     /**
@@ -449,24 +449,24 @@ public abstract class GuiSlot
      */
     protected void drawSelectionBox(int insideLeft, int insideTop, int mouseXIn, int mouseYIn, float partialTicks)
     {
-        int i = this.getSize();
+        int i = getSize();
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder bufferbuilder = tessellator.getBuffer();
 
         for (int j = 0; j < i; ++j)
         {
-            int k = insideTop + j * this.slotHeight + this.headerPadding;
-            int l = this.slotHeight - 4;
+            int k = insideTop + j * slotHeight + headerPadding;
+            int l = slotHeight - 4;
 
-            if (k > this.bottom || k + l < this.top)
+            if (k > bottom || k + l < top)
             {
-                this.updateItemPos(j, insideLeft, k, partialTicks);
+                updateItemPos(j, insideLeft, k, partialTicks);
             }
 
-            if (this.showSelectionBox && this.isSelected(j))
+            if (showSelectionBox && isSelected(j))
             {
-                int i1 = this.left + (this.width / 2 - this.getListWidth() / 2);
-                int j1 = this.left + this.width / 2 + this.getListWidth() / 2;
+                int i1 = left + (width / 2 - getListWidth() / 2);
+                int j1 = left + width / 2 + getListWidth() / 2;
                 GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
                 GlStateManager.disableTexture2D();
                 bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
@@ -482,13 +482,13 @@ public abstract class GuiSlot
                 GlStateManager.enableTexture2D();
             }
 
-            this.drawSlot(j, insideLeft, k, l, mouseXIn, mouseYIn, partialTicks);
+            drawSlot(j, insideLeft, k, l, mouseXIn, mouseYIn, partialTicks);
         }
     }
 
     protected int getScrollBarX()
     {
-        return this.width / 2 + 124;
+        return width / 2 + 124;
     }
 
     /**
@@ -498,14 +498,14 @@ public abstract class GuiSlot
     {
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder bufferbuilder = tessellator.getBuffer();
-        this.mc.getTextureManager().bindTexture(Gui.OPTIONS_BACKGROUND);
+        mc.getTextureManager().bindTexture(Gui.OPTIONS_BACKGROUND);
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         float f = 32.0F;
         bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-        bufferbuilder.pos((double)this.left, (double)endY, 0.0D).tex(0.0D, (double)((float)endY / 32.0F)).color(64, 64, 64, endAlpha).endVertex();
-        bufferbuilder.pos((double)(this.left + this.width), (double)endY, 0.0D).tex((double)((float)this.width / 32.0F), (double)((float)endY / 32.0F)).color(64, 64, 64, endAlpha).endVertex();
-        bufferbuilder.pos((double)(this.left + this.width), (double)startY, 0.0D).tex((double)((float)this.width / 32.0F), (double)((float)startY / 32.0F)).color(64, 64, 64, startAlpha).endVertex();
-        bufferbuilder.pos((double)this.left, (double)startY, 0.0D).tex(0.0D, (double)((float)startY / 32.0F)).color(64, 64, 64, startAlpha).endVertex();
+        bufferbuilder.pos((double) left, (double)endY, 0.0D).tex(0.0D, (double)((float)endY / 32.0F)).color(64, 64, 64, endAlpha).endVertex();
+        bufferbuilder.pos((double)(left + width), (double)endY, 0.0D).tex((double)((float) width / 32.0F), (double)((float)endY / 32.0F)).color(64, 64, 64, endAlpha).endVertex();
+        bufferbuilder.pos((double)(left + width), (double)startY, 0.0D).tex((double)((float) width / 32.0F), (double)((float)startY / 32.0F)).color(64, 64, 64, startAlpha).endVertex();
+        bufferbuilder.pos((double) left, (double)startY, 0.0D).tex(0.0D, (double)((float)startY / 32.0F)).color(64, 64, 64, startAlpha).endVertex();
         tessellator.draw();
     }
 
@@ -514,12 +514,12 @@ public abstract class GuiSlot
      */
     public void setSlotXBoundsFromLeft(int leftIn)
     {
-        this.left = leftIn;
-        this.right = leftIn + this.width;
+        left = leftIn;
+        right = leftIn + width;
     }
 
     public int getSlotHeight()
     {
-        return this.slotHeight;
+        return slotHeight;
     }
 }

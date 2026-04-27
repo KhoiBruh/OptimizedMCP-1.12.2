@@ -26,7 +26,7 @@ public class ItemEnderEye extends Item
 {
     public ItemEnderEye()
     {
-        this.setCreativeTab(CreativeTabs.MISC);
+        setCreativeTab(CreativeTabs.MISC);
     }
 
     /**
@@ -90,7 +90,7 @@ public class ItemEnderEye extends Item
     public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn)
     {
         ItemStack itemstack = playerIn.getHeldItem(handIn);
-        RayTraceResult raytraceresult = this.rayTrace(worldIn, playerIn, false);
+        RayTraceResult raytraceresult = rayTrace(worldIn, playerIn, false);
 
         if (raytraceresult != null && raytraceresult.typeOfHit == RayTraceResult.Type.BLOCK && worldIn.getBlockState(raytraceresult.getBlockPos()).getBlock() == Blocks.END_PORTAL_FRAME)
         {

@@ -26,21 +26,21 @@ public class SPacketMaps implements Packet<INetHandlerPlayClient>
 
     public SPacketMaps(int mapIdIn, byte mapScaleIn, boolean trackingPositionIn, Collection<MapDecoration> iconsIn, byte[] p_i46937_5_, int minXIn, int minZIn, int columnsIn, int rowsIn)
     {
-        this.mapId = mapIdIn;
-        this.mapScale = mapScaleIn;
-        this.trackingPosition = trackingPositionIn;
-        this.icons = (MapDecoration[])iconsIn.toArray(new MapDecoration[iconsIn.size()]);
-        this.minX = minXIn;
-        this.minZ = minZIn;
-        this.columns = columnsIn;
-        this.rows = rowsIn;
-        this.mapDataBytes = new byte[columnsIn * rowsIn];
+        mapId = mapIdIn;
+        mapScale = mapScaleIn;
+        trackingPosition = trackingPositionIn;
+        icons = (MapDecoration[])iconsIn.toArray(new MapDecoration[iconsIn.size()]);
+        minX = minXIn;
+        minZ = minZIn;
+        columns = columnsIn;
+        rows = rowsIn;
+        mapDataBytes = new byte[columnsIn * rowsIn];
 
         for (int i = 0; i < columnsIn; ++i)
         {
             for (int j = 0; j < rowsIn; ++j)
             {
-                this.mapDataBytes[i + j * columnsIn] = p_i46937_5_[minXIn + i + (minZIn + j) * 128];
+                mapDataBytes[i + j * columnsIn] = p_i46937_5_[minXIn + i + (minZIn + j) * 128];
             }
         }
     }
@@ -50,25 +50,25 @@ public class SPacketMaps implements Packet<INetHandlerPlayClient>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.mapId = buf.readVarInt();
-        this.mapScale = buf.readByte();
-        this.trackingPosition = buf.readBoolean();
-        this.icons = new MapDecoration[buf.readVarInt()];
+        mapId = buf.readVarInt();
+        mapScale = buf.readByte();
+        trackingPosition = buf.readBoolean();
+        icons = new MapDecoration[buf.readVarInt()];
 
-        for (int i = 0; i < this.icons.length; ++i)
+        for (int i = 0; i < icons.length; ++i)
         {
             short short1 = (short)buf.readByte();
-            this.icons[i] = new MapDecoration(MapDecoration.Type.byIcon((byte)(short1 >> 4 & 15)), buf.readByte(), buf.readByte(), (byte)(short1 & 15));
+            icons[i] = new MapDecoration(MapDecoration.Type.byIcon((byte)(short1 >> 4 & 15)), buf.readByte(), buf.readByte(), (byte)(short1 & 15));
         }
 
-        this.columns = buf.readUnsignedByte();
+        columns = buf.readUnsignedByte();
 
-        if (this.columns > 0)
+        if (columns > 0)
         {
-            this.rows = buf.readUnsignedByte();
-            this.minX = buf.readUnsignedByte();
-            this.minZ = buf.readUnsignedByte();
-            this.mapDataBytes = buf.readByteArray();
+            rows = buf.readUnsignedByte();
+            minX = buf.readUnsignedByte();
+            minZ = buf.readUnsignedByte();
+            mapDataBytes = buf.readByteArray();
         }
     }
 
@@ -77,26 +77,26 @@ public class SPacketMaps implements Packet<INetHandlerPlayClient>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeVarInt(this.mapId);
-        buf.writeByte(this.mapScale);
-        buf.writeBoolean(this.trackingPosition);
-        buf.writeVarInt(this.icons.length);
+        buf.writeVarInt(mapId);
+        buf.writeByte(mapScale);
+        buf.writeBoolean(trackingPosition);
+        buf.writeVarInt(icons.length);
 
-        for (MapDecoration mapdecoration : this.icons)
+        for (MapDecoration mapdecoration : icons)
         {
             buf.writeByte((mapdecoration.getImage() & 15) << 4 | mapdecoration.getRotation() & 15);
             buf.writeByte(mapdecoration.getX());
             buf.writeByte(mapdecoration.getY());
         }
 
-        buf.writeByte(this.columns);
+        buf.writeByte(columns);
 
-        if (this.columns > 0)
+        if (columns > 0)
         {
-            buf.writeByte(this.rows);
-            buf.writeByte(this.minX);
-            buf.writeByte(this.minZ);
-            buf.writeByteArray(this.mapDataBytes);
+            buf.writeByte(rows);
+            buf.writeByte(minX);
+            buf.writeByte(minZ);
+            buf.writeByteArray(mapDataBytes);
         }
     }
 
@@ -110,7 +110,7 @@ public class SPacketMaps implements Packet<INetHandlerPlayClient>
 
     public int getMapId()
     {
-        return this.mapId;
+        return mapId;
     }
 
     /**
@@ -118,21 +118,21 @@ public class SPacketMaps implements Packet<INetHandlerPlayClient>
      */
     public void setMapdataTo(MapData mapdataIn)
     {
-        mapdataIn.scale = this.mapScale;
-        mapdataIn.trackingPosition = this.trackingPosition;
+        mapdataIn.scale = mapScale;
+        mapdataIn.trackingPosition = trackingPosition;
         mapdataIn.mapDecorations.clear();
 
-        for (int i = 0; i < this.icons.length; ++i)
+        for (int i = 0; i < icons.length; ++i)
         {
-            MapDecoration mapdecoration = this.icons[i];
+            MapDecoration mapdecoration = icons[i];
             mapdataIn.mapDecorations.put("icon-" + i, mapdecoration);
         }
 
-        for (int j = 0; j < this.columns; ++j)
+        for (int j = 0; j < columns; ++j)
         {
-            for (int k = 0; k < this.rows; ++k)
+            for (int k = 0; k < rows; ++k)
             {
-                mapdataIn.colors[this.minX + j + (this.minZ + k) * 128] = this.mapDataBytes[j + k * this.columns];
+                mapdataIn.colors[minX + j + (minZ + k) * 128] = mapDataBytes[j + k * columns];
             }
         }
     }

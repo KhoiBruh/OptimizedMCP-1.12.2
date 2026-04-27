@@ -34,27 +34,27 @@ public class BiomeJungle extends Biome
     public BiomeJungle(boolean isEdgeIn, Biome.BiomeProperties properties)
     {
         super(properties);
-        this.isEdge = isEdgeIn;
+        isEdge = isEdgeIn;
 
         if (isEdgeIn)
         {
-            this.decorator.treesPerChunk = 2;
+            decorator.treesPerChunk = 2;
         }
         else
         {
-            this.decorator.treesPerChunk = 50;
+            decorator.treesPerChunk = 50;
         }
 
-        this.decorator.grassPerChunk = 25;
-        this.decorator.flowersPerChunk = 4;
+        decorator.grassPerChunk = 25;
+        decorator.flowersPerChunk = 4;
 
         if (!isEdgeIn)
         {
-            this.spawnableMonsterList.add(new Biome.SpawnListEntry(EntityOcelot.class, 2, 1, 1));
+            spawnableMonsterList.add(new Biome.SpawnListEntry(EntityOcelot.class, 2, 1, 1));
         }
 
-        this.spawnableCreatureList.add(new Biome.SpawnListEntry(EntityParrot.class, 40, 1, 2));
-        this.spawnableCreatureList.add(new Biome.SpawnListEntry(EntityChicken.class, 10, 4, 4));
+        spawnableCreatureList.add(new Biome.SpawnListEntry(EntityParrot.class, 40, 1, 2));
+        spawnableCreatureList.add(new Biome.SpawnListEntry(EntityChicken.class, 10, 4, 4));
     }
 
     public WorldGenAbstractTree getRandomTreeFeature(Random rand)
@@ -69,7 +69,7 @@ public class BiomeJungle extends Biome
         }
         else
         {
-            return (WorldGenAbstractTree)(!this.isEdge && rand.nextInt(3) == 0 ? new WorldGenMegaJungle(false, 10, 20, JUNGLE_LOG, JUNGLE_LEAF) : new WorldGenTrees(false, 4 + rand.nextInt(7), JUNGLE_LOG, JUNGLE_LEAF, true));
+            return (WorldGenAbstractTree)(!isEdge && rand.nextInt(3) == 0 ? new WorldGenMegaJungle(false, 10, 20, JUNGLE_LOG, JUNGLE_LEAF) : new WorldGenTrees(false, 4 + rand.nextInt(7), JUNGLE_LOG, JUNGLE_LEAF, true));
         }
     }
 

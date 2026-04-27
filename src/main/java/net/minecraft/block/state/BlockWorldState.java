@@ -17,9 +17,9 @@ public class BlockWorldState
 
     public BlockWorldState(World worldIn, BlockPos posIn, boolean forceLoadIn)
     {
-        this.world = worldIn;
-        this.pos = posIn;
-        this.forceLoad = forceLoadIn;
+        world = worldIn;
+        pos = posIn;
+        forceLoad = forceLoadIn;
     }
 
     /**
@@ -28,12 +28,12 @@ public class BlockWorldState
      */
     public IBlockState getBlockState()
     {
-        if (this.state == null && (this.forceLoad || this.world.isBlockLoaded(this.pos)))
+        if (state == null && (forceLoad || world.isBlockLoaded(pos)))
         {
-            this.state = this.world.getBlockState(this.pos);
+            state = world.getBlockState(pos);
         }
 
-        return this.state;
+        return state;
     }
 
     @Nullable
@@ -43,18 +43,18 @@ public class BlockWorldState
      */
     public TileEntity getTileEntity()
     {
-        if (this.tileEntity == null && !this.tileEntityInitialized)
+        if (tileEntity == null && !tileEntityInitialized)
         {
-            this.tileEntity = this.world.getTileEntity(this.pos);
-            this.tileEntityInitialized = true;
+            tileEntity = world.getTileEntity(pos);
+            tileEntityInitialized = true;
         }
 
-        return this.tileEntity;
+        return tileEntity;
     }
 
     public BlockPos getPos()
     {
-        return this.pos;
+        return pos;
     }
 
     public static Predicate<BlockWorldState> hasState(final Predicate<IBlockState> predicatesIn)

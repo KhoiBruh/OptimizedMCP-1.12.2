@@ -21,15 +21,15 @@ public class LootEntryItem extends LootEntry
     public LootEntryItem(Item itemIn, int weightIn, int qualityIn, LootFunction[] functionsIn, LootCondition[] conditionsIn)
     {
         super(weightIn, qualityIn, conditionsIn);
-        this.item = itemIn;
-        this.functions = functionsIn;
+        item = itemIn;
+        functions = functionsIn;
     }
 
     public void addLoot(Collection<ItemStack> stacks, Random rand, LootContext context)
     {
-        ItemStack itemstack = new ItemStack(this.item);
+        ItemStack itemstack = new ItemStack(item);
 
-        for (LootFunction lootfunction : this.functions)
+        for (LootFunction lootfunction : functions)
         {
             if (LootConditionManager.testAllConditions(lootfunction.getConditions(), rand, context))
             {
@@ -39,7 +39,7 @@ public class LootEntryItem extends LootEntry
 
         if (!itemstack.isEmpty())
         {
-            if (itemstack.getCount() < this.item.getItemStackLimit())
+            if (itemstack.getCount() < item.getItemStackLimit())
             {
                 stacks.add(itemstack);
             }
@@ -60,16 +60,16 @@ public class LootEntryItem extends LootEntry
 
     protected void serialize(JsonObject json, JsonSerializationContext context)
     {
-        if (this.functions != null && this.functions.length > 0)
+        if (functions != null && functions.length > 0)
         {
-            json.add("functions", context.serialize(this.functions));
+            json.add("functions", context.serialize(functions));
         }
 
-        ResourceLocation resourcelocation = Item.REGISTRY.getNameForObject(this.item);
+        ResourceLocation resourcelocation = Item.REGISTRY.getNameForObject(item);
 
         if (resourcelocation == null)
         {
-            throw new IllegalArgumentException("Can't serialize unknown item " + this.item);
+            throw new IllegalArgumentException("Can't serialize unknown item " + item);
         }
         else
         {

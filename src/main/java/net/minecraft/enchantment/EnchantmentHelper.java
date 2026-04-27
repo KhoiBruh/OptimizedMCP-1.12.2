@@ -479,7 +479,7 @@ public class EnchantmentHelper
 
         public void calculateModifier(Enchantment enchantmentIn, int enchantmentLevel)
         {
-            enchantmentIn.onEntityDamaged(this.user, this.target, enchantmentLevel);
+            enchantmentIn.onEntityDamaged(user, target, enchantmentLevel);
         }
     }
 
@@ -494,7 +494,7 @@ public class EnchantmentHelper
 
         public void calculateModifier(Enchantment enchantmentIn, int enchantmentLevel)
         {
-            enchantmentIn.onUserHurt(this.user, this.attacker, enchantmentLevel);
+            enchantmentIn.onUserHurt(user, attacker, enchantmentLevel);
         }
     }
 
@@ -514,7 +514,7 @@ public class EnchantmentHelper
 
         public void calculateModifier(Enchantment enchantmentIn, int enchantmentLevel)
         {
-            this.damageModifier += enchantmentIn.calcModifierDamage(enchantmentLevel, this.source);
+            damageModifier += enchantmentIn.calcModifierDamage(enchantmentLevel, source);
         }
     }
 
@@ -529,7 +529,7 @@ public class EnchantmentHelper
 
         public void calculateModifier(Enchantment enchantmentIn, int enchantmentLevel)
         {
-            this.livingModifier += enchantmentIn.calcDamageByCreature(enchantmentLevel, this.entityLiving);
+            livingModifier += enchantmentIn.calcDamageByCreature(enchantmentLevel, entityLiving);
         }
     }
 }

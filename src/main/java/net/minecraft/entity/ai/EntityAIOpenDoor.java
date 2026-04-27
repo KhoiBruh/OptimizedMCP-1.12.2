@@ -15,8 +15,8 @@ public class EntityAIOpenDoor extends EntityAIDoorInteract
     public EntityAIOpenDoor(EntityLiving entitylivingIn, boolean shouldClose)
     {
         super(entitylivingIn);
-        this.entity = entitylivingIn;
-        this.closeDoor = shouldClose;
+        entity = entitylivingIn;
+        closeDoor = shouldClose;
     }
 
     /**
@@ -24,7 +24,7 @@ public class EntityAIOpenDoor extends EntityAIDoorInteract
      */
     public boolean shouldContinueExecuting()
     {
-        return this.closeDoor && this.closeDoorTemporisation > 0 && super.shouldContinueExecuting();
+        return closeDoor && closeDoorTemporisation > 0 && super.shouldContinueExecuting();
     }
 
     /**
@@ -32,8 +32,8 @@ public class EntityAIOpenDoor extends EntityAIDoorInteract
      */
     public void startExecuting()
     {
-        this.closeDoorTemporisation = 20;
-        this.doorBlock.toggleDoor(this.entity.world, this.doorPosition, true);
+        closeDoorTemporisation = 20;
+        doorBlock.toggleDoor(entity.world, doorPosition, true);
     }
 
     /**
@@ -41,9 +41,9 @@ public class EntityAIOpenDoor extends EntityAIDoorInteract
      */
     public void resetTask()
     {
-        if (this.closeDoor)
+        if (closeDoor)
         {
-            this.doorBlock.toggleDoor(this.entity.world, this.doorPosition, false);
+            doorBlock.toggleDoor(entity.world, doorPosition, false);
         }
     }
 
@@ -52,7 +52,7 @@ public class EntityAIOpenDoor extends EntityAIDoorInteract
      */
     public void updateTask()
     {
-        --this.closeDoorTemporisation;
+        --closeDoorTemporisation;
         super.updateTask();
     }
 }

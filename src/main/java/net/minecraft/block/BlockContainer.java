@@ -28,7 +28,7 @@ public abstract class BlockContainer extends Block implements ITileEntityProvide
     protected BlockContainer(Material materialIn, MapColor color)
     {
         super(materialIn, color);
-        this.hasTileEntity = true;
+        hasTileEntity = true;
     }
 
     protected boolean isInvalidNeighbor(World worldIn, BlockPos pos, EnumFacing facing)
@@ -38,7 +38,7 @@ public abstract class BlockContainer extends Block implements ITileEntityProvide
 
     protected boolean hasInvalidNeighbor(World worldIn, BlockPos pos)
     {
-        return this.isInvalidNeighbor(worldIn, pos, EnumFacing.NORTH) || this.isInvalidNeighbor(worldIn, pos, EnumFacing.SOUTH) || this.isInvalidNeighbor(worldIn, pos, EnumFacing.WEST) || this.isInvalidNeighbor(worldIn, pos, EnumFacing.EAST);
+        return isInvalidNeighbor(worldIn, pos, EnumFacing.NORTH) || isInvalidNeighbor(worldIn, pos, EnumFacing.SOUTH) || isInvalidNeighbor(worldIn, pos, EnumFacing.WEST) || isInvalidNeighbor(worldIn, pos, EnumFacing.EAST);
     }
 
     /**
@@ -76,14 +76,14 @@ public abstract class BlockContainer extends Block implements ITileEntityProvide
             }
 
             int i = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack);
-            Item item = this.getItemDropped(state, worldIn.rand, i);
+            Item item = getItemDropped(state, worldIn.rand, i);
 
             if (item == Items.AIR)
             {
                 return;
             }
 
-            ItemStack itemstack = new ItemStack(item, this.quantityDropped(worldIn.rand));
+            ItemStack itemstack = new ItemStack(item, quantityDropped(worldIn.rand));
             itemstack.setStackDisplayName(((IWorldNameable)te).getName());
             spawnAsEntity(worldIn, pos, itemstack);
         }

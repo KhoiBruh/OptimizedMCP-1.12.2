@@ -18,11 +18,11 @@ public class DamagePredicate
 
     public DamagePredicate()
     {
-        this.dealt = MinMaxBounds.UNBOUNDED;
-        this.taken = MinMaxBounds.UNBOUNDED;
-        this.sourceEntity = EntityPredicate.ANY;
-        this.blocked = null;
-        this.type = DamageSourcePredicate.ANY;
+        dealt = MinMaxBounds.UNBOUNDED;
+        taken = MinMaxBounds.UNBOUNDED;
+        sourceEntity = EntityPredicate.ANY;
+        blocked = null;
+        type = DamageSourcePredicate.ANY;
     }
 
     public DamagePredicate(MinMaxBounds dealt, MinMaxBounds taken, EntityPredicate sourceEntity, @Nullable Boolean blocked, DamageSourcePredicate type)
@@ -48,7 +48,7 @@ public class DamagePredicate
         {
             return false;
         }
-        else if (!this.sourceEntity.test(player, source.getTrueSource()))
+        else if (!sourceEntity.test(player, source.getTrueSource()))
         {
             return false;
         }
@@ -58,7 +58,7 @@ public class DamagePredicate
         }
         else
         {
-            return this.type.test(player, source);
+            return type.test(player, source);
         }
     }
 

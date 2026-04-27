@@ -20,11 +20,11 @@ public class SPacketSpawnExperienceOrb implements Packet<INetHandlerPlayClient>
 
     public SPacketSpawnExperienceOrb(EntityXPOrb orb)
     {
-        this.entityID = orb.getEntityId();
-        this.posX = orb.posX;
-        this.posY = orb.posY;
-        this.posZ = orb.posZ;
-        this.xpValue = orb.getXpValue();
+        entityID = orb.getEntityId();
+        posX = orb.posX;
+        posY = orb.posY;
+        posZ = orb.posZ;
+        xpValue = orb.getXpValue();
     }
 
     /**
@@ -32,11 +32,11 @@ public class SPacketSpawnExperienceOrb implements Packet<INetHandlerPlayClient>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.entityID = buf.readVarInt();
-        this.posX = buf.readDouble();
-        this.posY = buf.readDouble();
-        this.posZ = buf.readDouble();
-        this.xpValue = buf.readShort();
+        entityID = buf.readVarInt();
+        posX = buf.readDouble();
+        posY = buf.readDouble();
+        posZ = buf.readDouble();
+        xpValue = buf.readShort();
     }
 
     /**
@@ -44,11 +44,11 @@ public class SPacketSpawnExperienceOrb implements Packet<INetHandlerPlayClient>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeVarInt(this.entityID);
-        buf.writeDouble(this.posX);
-        buf.writeDouble(this.posY);
-        buf.writeDouble(this.posZ);
-        buf.writeShort(this.xpValue);
+        buf.writeVarInt(entityID);
+        buf.writeDouble(posX);
+        buf.writeDouble(posY);
+        buf.writeDouble(posZ);
+        buf.writeShort(xpValue);
     }
 
     /**
@@ -61,26 +61,26 @@ public class SPacketSpawnExperienceOrb implements Packet<INetHandlerPlayClient>
 
     public int getEntityID()
     {
-        return this.entityID;
+        return entityID;
     }
 
     public double getX()
     {
-        return this.posX;
+        return posX;
     }
 
     public double getY()
     {
-        return this.posY;
+        return posY;
     }
 
     public double getZ()
     {
-        return this.posZ;
+        return posZ;
     }
 
     public int getXPValue()
     {
-        return this.xpValue;
+        return xpValue;
     }
 }

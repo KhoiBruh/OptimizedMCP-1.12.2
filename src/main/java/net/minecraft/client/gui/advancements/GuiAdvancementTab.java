@@ -37,64 +37,64 @@ public class GuiAdvancementTab extends Gui
 
     public GuiAdvancementTab(Minecraft p_i47589_1_, GuiScreenAdvancements p_i47589_2_, AdvancementTabType p_i47589_3_, int p_i47589_4_, Advancement p_i47589_5_, DisplayInfo p_i47589_6_)
     {
-        this.minecraft = p_i47589_1_;
-        this.screen = p_i47589_2_;
-        this.type = p_i47589_3_;
-        this.index = p_i47589_4_;
-        this.advancement = p_i47589_5_;
-        this.display = p_i47589_6_;
-        this.icon = p_i47589_6_.getIcon();
-        this.title = p_i47589_6_.getTitle().getFormattedText();
-        this.root = new GuiAdvancement(this, p_i47589_1_, p_i47589_5_, p_i47589_6_);
-        this.addGuiAdvancement(this.root, p_i47589_5_);
+        minecraft = p_i47589_1_;
+        screen = p_i47589_2_;
+        type = p_i47589_3_;
+        index = p_i47589_4_;
+        advancement = p_i47589_5_;
+        display = p_i47589_6_;
+        icon = p_i47589_6_.getIcon();
+        title = p_i47589_6_.getTitle().getFormattedText();
+        root = new GuiAdvancement(this, p_i47589_1_, p_i47589_5_, p_i47589_6_);
+        addGuiAdvancement(root, p_i47589_5_);
     }
 
     public Advancement getAdvancement()
     {
-        return this.advancement;
+        return advancement;
     }
 
     public String getTitle()
     {
-        return this.title;
+        return title;
     }
 
     public void drawTab(int p_191798_1_, int p_191798_2_, boolean p_191798_3_)
     {
-        this.type.draw(this, p_191798_1_, p_191798_2_, p_191798_3_, this.index);
+        type.draw(this, p_191798_1_, p_191798_2_, p_191798_3_, index);
     }
 
     public void drawIcon(int p_191796_1_, int p_191796_2_, RenderItem p_191796_3_)
     {
-        this.type.drawIcon(p_191796_1_, p_191796_2_, this.index, p_191796_3_, this.icon);
+        type.drawIcon(p_191796_1_, p_191796_2_, index, p_191796_3_, icon);
     }
 
     public void drawContents()
     {
-        if (!this.centered)
+        if (!centered)
         {
-            this.scrollX = 117 - (this.maxX + this.minX) / 2;
-            this.scrollY = 56 - (this.maxY + this.minY) / 2;
-            this.centered = true;
+            scrollX = 117 - (maxX + minX) / 2;
+            scrollY = 56 - (maxY + minY) / 2;
+            centered = true;
         }
 
         GlStateManager.depthFunc(518);
         drawRect(0, 0, 234, 113, -16777216);
         GlStateManager.depthFunc(515);
-        ResourceLocation resourcelocation = this.display.getBackground();
+        ResourceLocation resourcelocation = display.getBackground();
 
         if (resourcelocation != null)
         {
-            this.minecraft.getTextureManager().bindTexture(resourcelocation);
+            minecraft.getTextureManager().bindTexture(resourcelocation);
         }
         else
         {
-            this.minecraft.getTextureManager().bindTexture(TextureManager.RESOURCE_LOCATION_EMPTY);
+            minecraft.getTextureManager().bindTexture(TextureManager.RESOURCE_LOCATION_EMPTY);
         }
 
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        int i = this.scrollX % 16;
-        int j = this.scrollY % 16;
+        int i = scrollX % 16;
+        int j = scrollY % 16;
 
         for (int k = -1; k <= 15; ++k)
         {
@@ -104,26 +104,26 @@ public class GuiAdvancementTab extends Gui
             }
         }
 
-        this.root.drawConnectivity(this.scrollX, this.scrollY, true);
-        this.root.drawConnectivity(this.scrollX, this.scrollY, false);
-        this.root.draw(this.scrollX, this.scrollY);
+        root.drawConnectivity(scrollX, scrollY, true);
+        root.drawConnectivity(scrollX, scrollY, false);
+        root.draw(scrollX, scrollY);
     }
 
     public void drawToolTips(int p_192991_1_, int p_192991_2_, int p_192991_3_, int p_192991_4_)
     {
         GlStateManager.pushMatrix();
         GlStateManager.translate(0.0F, 0.0F, 200.0F);
-        drawRect(0, 0, 234, 113, MathHelper.floor(this.fade * 255.0F) << 24);
+        drawRect(0, 0, 234, 113, MathHelper.floor(fade * 255.0F) << 24);
         boolean flag = false;
 
         if (p_192991_1_ > 0 && p_192991_1_ < 234 && p_192991_2_ > 0 && p_192991_2_ < 113)
         {
-            for (GuiAdvancement guiadvancement : this.guis.values())
+            for (GuiAdvancement guiadvancement : guis.values())
             {
-                if (guiadvancement.isMouseOver(this.scrollX, this.scrollY, p_192991_1_, p_192991_2_))
+                if (guiadvancement.isMouseOver(scrollX, scrollY, p_192991_1_, p_192991_2_))
                 {
                     flag = true;
-                    guiadvancement.drawHover(this.scrollX, this.scrollY, this.fade, p_192991_3_, p_192991_4_);
+                    guiadvancement.drawHover(scrollX, scrollY, fade, p_192991_3_, p_192991_4_);
                     break;
                 }
             }
@@ -133,17 +133,17 @@ public class GuiAdvancementTab extends Gui
 
         if (flag)
         {
-            this.fade = MathHelper.clamp(this.fade + 0.02F, 0.0F, 0.3F);
+            fade = MathHelper.clamp(fade + 0.02F, 0.0F, 0.3F);
         }
         else
         {
-            this.fade = MathHelper.clamp(this.fade - 0.04F, 0.0F, 1.0F);
+            fade = MathHelper.clamp(fade - 0.04F, 0.0F, 1.0F);
         }
     }
 
     public boolean isMouseOver(int p_191793_1_, int p_191793_2_, int p_191793_3_, int p_191793_4_)
     {
-        return this.type.isMouseOver(p_191793_1_, p_191793_2_, this.index, p_191793_3_, p_191793_4_);
+        return type.isMouseOver(p_191793_1_, p_191793_2_, index, p_191793_3_, p_191793_4_);
     }
 
     @Nullable
@@ -171,14 +171,14 @@ public class GuiAdvancementTab extends Gui
 
     public void scroll(int p_191797_1_, int p_191797_2_)
     {
-        if (this.maxX - this.minX > 234)
+        if (maxX - minX > 234)
         {
-            this.scrollX = MathHelper.clamp(this.scrollX + p_191797_1_, -(this.maxX - 234), 0);
+            scrollX = MathHelper.clamp(scrollX + p_191797_1_, -(maxX - 234), 0);
         }
 
-        if (this.maxY - this.minY > 113)
+        if (maxY - minY > 113)
         {
-            this.scrollY = MathHelper.clamp(this.scrollY + p_191797_2_, -(this.maxY - 113), 0);
+            scrollY = MathHelper.clamp(scrollY + p_191797_2_, -(maxY - 113), 0);
         }
     }
 
@@ -186,24 +186,24 @@ public class GuiAdvancementTab extends Gui
     {
         if (p_191800_1_.getDisplay() != null)
         {
-            GuiAdvancement guiadvancement = new GuiAdvancement(this, this.minecraft, p_191800_1_, p_191800_1_.getDisplay());
-            this.addGuiAdvancement(guiadvancement, p_191800_1_);
+            GuiAdvancement guiadvancement = new GuiAdvancement(this, minecraft, p_191800_1_, p_191800_1_.getDisplay());
+            addGuiAdvancement(guiadvancement, p_191800_1_);
         }
     }
 
     private void addGuiAdvancement(GuiAdvancement p_193937_1_, Advancement p_193937_2_)
     {
-        this.guis.put(p_193937_2_, p_193937_1_);
+        guis.put(p_193937_2_, p_193937_1_);
         int i = p_193937_1_.getX();
         int j = i + 28;
         int k = p_193937_1_.getY();
         int l = k + 27;
-        this.minX = Math.min(this.minX, i);
-        this.maxX = Math.max(this.maxX, j);
-        this.minY = Math.min(this.minY, k);
-        this.maxY = Math.max(this.maxY, l);
+        minX = Math.min(minX, i);
+        maxX = Math.max(maxX, j);
+        minY = Math.min(minY, k);
+        maxY = Math.max(maxY, l);
 
-        for (GuiAdvancement guiadvancement : this.guis.values())
+        for (GuiAdvancement guiadvancement : guis.values())
         {
             guiadvancement.attachToParent();
         }
@@ -212,11 +212,11 @@ public class GuiAdvancementTab extends Gui
     @Nullable
     public GuiAdvancement getAdvancementGui(Advancement p_191794_1_)
     {
-        return this.guis.get(p_191794_1_);
+        return guis.get(p_191794_1_);
     }
 
     public GuiScreenAdvancements getScreen()
     {
-        return this.screen;
+        return screen;
     }
 }

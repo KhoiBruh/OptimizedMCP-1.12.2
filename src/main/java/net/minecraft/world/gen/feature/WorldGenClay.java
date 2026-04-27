@@ -16,7 +16,7 @@ public class WorldGenClay extends WorldGenerator
 
     public WorldGenClay(int p_i2011_1_)
     {
-        this.numberOfBlocks = p_i2011_1_;
+        numberOfBlocks = p_i2011_1_;
     }
 
     public boolean generate(World worldIn, Random rand, BlockPos position)
@@ -27,7 +27,7 @@ public class WorldGenClay extends WorldGenerator
         }
         else
         {
-            int i = rand.nextInt(this.numberOfBlocks - 2) + 2;
+            int i = rand.nextInt(numberOfBlocks - 2) + 2;
             int j = 1;
 
             for (int k = position.getX() - i; k <= position.getX() + i; ++k)

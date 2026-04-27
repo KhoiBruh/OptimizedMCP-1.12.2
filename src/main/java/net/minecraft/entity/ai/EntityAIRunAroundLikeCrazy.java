@@ -15,9 +15,9 @@ public class EntityAIRunAroundLikeCrazy extends EntityAIBase
 
     public EntityAIRunAroundLikeCrazy(AbstractHorse horse, double speedIn)
     {
-        this.horseHost = horse;
-        this.speed = speedIn;
-        this.setMutexBits(1);
+        horseHost = horse;
+        speed = speedIn;
+        setMutexBits(1);
     }
 
     /**
@@ -25,9 +25,9 @@ public class EntityAIRunAroundLikeCrazy extends EntityAIBase
      */
     public boolean shouldExecute()
     {
-        if (!this.horseHost.isTame() && this.horseHost.isBeingRidden())
+        if (!horseHost.isTame() && horseHost.isBeingRidden())
         {
-            Vec3d vec3d = RandomPositionGenerator.findRandomTarget(this.horseHost, 5, 4);
+            Vec3d vec3d = RandomPositionGenerator.findRandomTarget(horseHost, 5, 4);
 
             if (vec3d == null)
             {
@@ -35,9 +35,9 @@ public class EntityAIRunAroundLikeCrazy extends EntityAIBase
             }
             else
             {
-                this.targetX = vec3d.x;
-                this.targetY = vec3d.y;
-                this.targetZ = vec3d.z;
+                targetX = vec3d.x;
+                targetY = vec3d.y;
+                targetZ = vec3d.z;
                 return true;
             }
         }
@@ -52,7 +52,7 @@ public class EntityAIRunAroundLikeCrazy extends EntityAIBase
      */
     public void startExecuting()
     {
-        this.horseHost.getNavigator().tryMoveToXYZ(this.targetX, this.targetY, this.targetZ, this.speed);
+        horseHost.getNavigator().tryMoveToXYZ(targetX, targetY, targetZ, speed);
     }
 
     /**
@@ -60,7 +60,7 @@ public class EntityAIRunAroundLikeCrazy extends EntityAIBase
      */
     public boolean shouldContinueExecuting()
     {
-        return !this.horseHost.isTame() && !this.horseHost.getNavigator().noPath() && this.horseHost.isBeingRidden();
+        return !horseHost.isTame() && !horseHost.getNavigator().noPath() && horseHost.isBeingRidden();
     }
 
     /**
@@ -68,9 +68,9 @@ public class EntityAIRunAroundLikeCrazy extends EntityAIBase
      */
     public void updateTask()
     {
-        if (!this.horseHost.isTame() && this.horseHost.getRNG().nextInt(50) == 0)
+        if (!horseHost.isTame() && horseHost.getRNG().nextInt(50) == 0)
         {
-            Entity entity = (Entity)this.horseHost.getPassengers().get(0);
+            Entity entity = (Entity) horseHost.getPassengers().get(0);
 
             if (entity == null)
             {
@@ -79,21 +79,21 @@ public class EntityAIRunAroundLikeCrazy extends EntityAIBase
 
             if (entity instanceof EntityPlayer)
             {
-                int i = this.horseHost.getTemper();
-                int j = this.horseHost.getMaxTemper();
+                int i = horseHost.getTemper();
+                int j = horseHost.getMaxTemper();
 
-                if (j > 0 && this.horseHost.getRNG().nextInt(j) < i)
+                if (j > 0 && horseHost.getRNG().nextInt(j) < i)
                 {
-                    this.horseHost.setTamedBy((EntityPlayer)entity);
+                    horseHost.setTamedBy((EntityPlayer)entity);
                     return;
                 }
 
-                this.horseHost.increaseTemper(5);
+                horseHost.increaseTemper(5);
             }
 
-            this.horseHost.removePassengers();
-            this.horseHost.makeMad();
-            this.horseHost.world.setEntityState(this.horseHost, (byte)6);
+            horseHost.removePassengers();
+            horseHost.makeMad();
+            horseHost.world.setEntityState(horseHost, (byte)6);
         }
     }
 }

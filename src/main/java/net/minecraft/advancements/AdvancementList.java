@@ -25,28 +25,28 @@ public class AdvancementList
     {
         for (Advancement advancement : advancementIn.getChildren())
         {
-            this.remove(advancement);
+            remove(advancement);
         }
 
         LOGGER.info("Forgot about advancement " + advancementIn.getId());
-        this.advancements.remove(advancementIn.getId());
+        advancements.remove(advancementIn.getId());
 
         if (advancementIn.getParent() == null)
         {
-            this.roots.remove(advancementIn);
+            roots.remove(advancementIn);
 
-            if (this.listener != null)
+            if (listener != null)
             {
-                this.listener.rootAdvancementRemoved(advancementIn);
+                listener.rootAdvancementRemoved(advancementIn);
             }
         }
         else
         {
-            this.nonRoots.remove(advancementIn);
+            nonRoots.remove(advancementIn);
 
-            if (this.listener != null)
+            if (listener != null)
             {
-                this.listener.nonRootAdvancementRemoved(advancementIn);
+                listener.nonRootAdvancementRemoved(advancementIn);
             }
         }
     }
@@ -55,7 +55,7 @@ public class AdvancementList
     {
         for (ResourceLocation resourcelocation : ids)
         {
-            Advancement advancement = this.advancements.get(resourcelocation);
+            Advancement advancement = advancements.get(resourcelocation);
 
             if (advancement == null)
             {
@@ -63,14 +63,14 @@ public class AdvancementList
             }
             else
             {
-                this.remove(advancement);
+                remove(advancement);
             }
         }
     }
 
     public void loadAdvancements(Map<ResourceLocation, Advancement.Builder> advancementsIn)
     {
-        Function<ResourceLocation, Advancement> function = Functions.<ResourceLocation, Advancement>forMap(this.advancements, null);
+        Function<ResourceLocation, Advancement> function = Functions.<ResourceLocation, Advancement>forMap(advancements, null);
         label42:
 
         while (!advancementsIn.isEmpty())
@@ -87,26 +87,26 @@ public class AdvancementList
                 if (advancement$builder.resolveParent(function))
                 {
                     Advancement advancement = advancement$builder.build(resourcelocation);
-                    this.advancements.put(resourcelocation, advancement);
+                    advancements.put(resourcelocation, advancement);
                     flag = true;
                     iterator.remove();
 
                     if (advancement.getParent() == null)
                     {
-                        this.roots.add(advancement);
+                        roots.add(advancement);
 
-                        if (this.listener != null)
+                        if (listener != null)
                         {
-                            this.listener.rootAdvancementAdded(advancement);
+                            listener.rootAdvancementAdded(advancement);
                         }
                     }
                     else
                     {
-                        this.nonRoots.add(advancement);
+                        nonRoots.add(advancement);
 
-                        if (this.listener != null)
+                        if (listener != null)
                         {
-                            this.listener.nonRootAdvancementAdded(advancement);
+                            listener.nonRootAdvancementAdded(advancement);
                         }
                     }
                 }
@@ -129,49 +129,49 @@ public class AdvancementList
             }
         }
 
-        LOGGER.info("Loaded " + this.advancements.size() + " advancements");
+        LOGGER.info("Loaded " + advancements.size() + " advancements");
     }
 
     public void clear()
     {
-        this.advancements.clear();
-        this.roots.clear();
-        this.nonRoots.clear();
+        advancements.clear();
+        roots.clear();
+        nonRoots.clear();
 
-        if (this.listener != null)
+        if (listener != null)
         {
-            this.listener.advancementsCleared();
+            listener.advancementsCleared();
         }
     }
 
     public Iterable<Advancement> getRoots()
     {
-        return this.roots;
+        return roots;
     }
 
     public Iterable<Advancement> getAdvancements()
     {
-        return this.advancements.values();
+        return advancements.values();
     }
 
     @Nullable
     public Advancement getAdvancement(ResourceLocation id)
     {
-        return this.advancements.get(id);
+        return advancements.get(id);
     }
 
     public void setListener(@Nullable AdvancementList.Listener listenerIn)
     {
-        this.listener = listenerIn;
+        listener = listenerIn;
 
         if (listenerIn != null)
         {
-            for (Advancement advancement : this.roots)
+            for (Advancement advancement : roots)
             {
                 listenerIn.rootAdvancementAdded(advancement);
             }
 
-            for (Advancement advancement1 : this.nonRoots)
+            for (Advancement advancement1 : nonRoots)
             {
                 listenerIn.nonRootAdvancementAdded(advancement1);
             }

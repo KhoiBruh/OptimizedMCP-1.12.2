@@ -33,7 +33,7 @@ public abstract class EntityCreature extends EntityLiving
      */
     public boolean getCanSpawnHere()
     {
-        return super.getCanSpawnHere() && this.getBlockPathWeight(new BlockPos(this.posX, this.getEntityBoundingBox().minY, this.posZ)) >= 0.0F;
+        return super.getCanSpawnHere() && getBlockPathWeight(new BlockPos(posX, getEntityBoundingBox().minY, posZ)) >= 0.0F;
     }
 
     /**
@@ -41,23 +41,23 @@ public abstract class EntityCreature extends EntityLiving
      */
     public boolean hasPath()
     {
-        return !this.navigator.noPath();
+        return !navigator.noPath();
     }
 
     public boolean isWithinHomeDistanceCurrentPosition()
     {
-        return this.isWithinHomeDistanceFromPosition(new BlockPos(this));
+        return isWithinHomeDistanceFromPosition(new BlockPos(this));
     }
 
     public boolean isWithinHomeDistanceFromPosition(BlockPos pos)
     {
-        if (this.maximumHomeDistance == -1.0F)
+        if (maximumHomeDistance == -1.0F)
         {
             return true;
         }
         else
         {
-            return this.homePosition.distanceSq(pos) < (double)(this.maximumHomeDistance * this.maximumHomeDistance);
+            return homePosition.distanceSq(pos) < (double)(maximumHomeDistance * maximumHomeDistance);
         }
     }
 
@@ -66,23 +66,23 @@ public abstract class EntityCreature extends EntityLiving
      */
     public void setHomePosAndDistance(BlockPos pos, int distance)
     {
-        this.homePosition = pos;
-        this.maximumHomeDistance = (float)distance;
+        homePosition = pos;
+        maximumHomeDistance = (float)distance;
     }
 
     public BlockPos getHomePosition()
     {
-        return this.homePosition;
+        return homePosition;
     }
 
     public float getMaximumHomeDistance()
     {
-        return this.maximumHomeDistance;
+        return maximumHomeDistance;
     }
 
     public void detachHome()
     {
-        this.maximumHomeDistance = -1.0F;
+        maximumHomeDistance = -1.0F;
     }
 
     /**
@@ -90,7 +90,7 @@ public abstract class EntityCreature extends EntityLiving
      */
     public boolean hasHome()
     {
-        return this.maximumHomeDistance != -1.0F;
+        return maximumHomeDistance != -1.0F;
     }
 
     /**
@@ -100,44 +100,44 @@ public abstract class EntityCreature extends EntityLiving
     {
         super.updateLeashedState();
 
-        if (this.getLeashed() && this.getLeashHolder() != null && this.getLeashHolder().world == this.world)
+        if (getLeashed() && getLeashHolder() != null && getLeashHolder().world == world)
         {
-            Entity entity = this.getLeashHolder();
-            this.setHomePosAndDistance(new BlockPos((int)entity.posX, (int)entity.posY, (int)entity.posZ), 5);
-            float f = this.getDistance(entity);
+            Entity entity = getLeashHolder();
+            setHomePosAndDistance(new BlockPos((int)entity.posX, (int)entity.posY, (int)entity.posZ), 5);
+            float f = getDistance(entity);
 
             if (this instanceof EntityTameable && ((EntityTameable)this).isSitting())
             {
                 if (f > 10.0F)
                 {
-                    this.clearLeashed(true, true);
+                    clearLeashed(true, true);
                 }
 
                 return;
             }
 
-            this.onLeashDistance(f);
+            onLeashDistance(f);
 
             if (f > 10.0F)
             {
-                this.clearLeashed(true, true);
-                this.tasks.disableControlFlag(1);
+                clearLeashed(true, true);
+                tasks.disableControlFlag(1);
             }
             else if (f > 6.0F)
             {
-                double d0 = (entity.posX - this.posX) / (double)f;
-                double d1 = (entity.posY - this.posY) / (double)f;
-                double d2 = (entity.posZ - this.posZ) / (double)f;
-                this.motionX += d0 * Math.abs(d0) * 0.4D;
-                this.motionY += d1 * Math.abs(d1) * 0.4D;
-                this.motionZ += d2 * Math.abs(d2) * 0.4D;
+                double d0 = (entity.posX - posX) / (double)f;
+                double d1 = (entity.posY - posY) / (double)f;
+                double d2 = (entity.posZ - posZ) / (double)f;
+                motionX += d0 * Math.abs(d0) * 0.4D;
+                motionY += d1 * Math.abs(d1) * 0.4D;
+                motionZ += d2 * Math.abs(d2) * 0.4D;
             }
             else
             {
-                this.tasks.enableControlFlag(1);
+                tasks.enableControlFlag(1);
                 float f1 = 2.0F;
-                Vec3d vec3d = (new Vec3d(entity.posX - this.posX, entity.posY - this.posY, entity.posZ - this.posZ)).normalize().scale((double)Math.max(f - 2.0F, 0.0F));
-                this.getNavigator().tryMoveToXYZ(this.posX + vec3d.x, this.posY + vec3d.y, this.posZ + vec3d.z, this.followLeashSpeed());
+                Vec3d vec3d = (new Vec3d(entity.posX - posX, entity.posY - posY, entity.posZ - posZ)).normalize().scale((double)Math.max(f - 2.0F, 0.0F));
+                getNavigator().tryMoveToXYZ(posX + vec3d.x, posY + vec3d.y, posZ + vec3d.z, followLeashSpeed());
             }
         }
     }

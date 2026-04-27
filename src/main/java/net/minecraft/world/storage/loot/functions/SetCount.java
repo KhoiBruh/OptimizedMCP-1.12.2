@@ -18,12 +18,12 @@ public class SetCount extends LootFunction
     public SetCount(LootCondition[] conditionsIn, RandomValueRange countRangeIn)
     {
         super(conditionsIn);
-        this.countRange = countRangeIn;
+        countRange = countRangeIn;
     }
 
     public ItemStack apply(ItemStack stack, Random rand, LootContext context)
     {
-        stack.setCount(this.countRange.generateInt(rand));
+        stack.setCount(countRange.generateInt(rand));
         return stack;
     }
 

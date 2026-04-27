@@ -11,14 +11,14 @@ public class ModelEvokerFangs extends ModelBase
 
     public ModelEvokerFangs()
     {
-        this.base.setRotationPoint(-5.0F, 22.0F, -5.0F);
-        this.base.addBox(0.0F, 0.0F, 0.0F, 10, 12, 10);
-        this.upperJaw = new ModelRenderer(this, 40, 0);
-        this.upperJaw.setRotationPoint(1.5F, 22.0F, -4.0F);
-        this.upperJaw.addBox(0.0F, 0.0F, 0.0F, 4, 14, 8);
-        this.lowerJaw = new ModelRenderer(this, 40, 0);
-        this.lowerJaw.setRotationPoint(-1.5F, 22.0F, 4.0F);
-        this.lowerJaw.addBox(0.0F, 0.0F, 0.0F, 4, 14, 8);
+        base.setRotationPoint(-5.0F, 22.0F, -5.0F);
+        base.addBox(0.0F, 0.0F, 0.0F, 10, 12, 10);
+        upperJaw = new ModelRenderer(this, 40, 0);
+        upperJaw.setRotationPoint(1.5F, 22.0F, -4.0F);
+        upperJaw.addBox(0.0F, 0.0F, 0.0F, 4, 14, 8);
+        lowerJaw = new ModelRenderer(this, 40, 0);
+        lowerJaw.setRotationPoint(-1.5F, 22.0F, 4.0F);
+        lowerJaw.addBox(0.0F, 0.0F, 0.0F, 4, 14, 8);
     }
 
     /**
@@ -34,15 +34,15 @@ public class ModelEvokerFangs extends ModelBase
         }
 
         f = 1.0F - f * f * f;
-        this.upperJaw.rotateAngleZ = (float)Math.PI - f * 0.35F * (float)Math.PI;
-        this.lowerJaw.rotateAngleZ = (float)Math.PI + f * 0.35F * (float)Math.PI;
-        this.lowerJaw.rotateAngleY = (float)Math.PI;
+        upperJaw.rotateAngleZ = (float)Math.PI - f * 0.35F * (float)Math.PI;
+        lowerJaw.rotateAngleZ = (float)Math.PI + f * 0.35F * (float)Math.PI;
+        lowerJaw.rotateAngleY = (float)Math.PI;
         float f1 = (limbSwing + MathHelper.sin(limbSwing * 2.7F)) * 0.6F * 12.0F;
-        this.upperJaw.rotationPointY = 24.0F - f1;
-        this.lowerJaw.rotationPointY = this.upperJaw.rotationPointY;
-        this.base.rotationPointY = this.upperJaw.rotationPointY;
-        this.base.render(scale);
-        this.upperJaw.render(scale);
-        this.lowerJaw.render(scale);
+        upperJaw.rotationPointY = 24.0F - f1;
+        lowerJaw.rotationPointY = upperJaw.rotationPointY;
+        base.rotationPointY = upperJaw.rotationPointY;
+        base.render(scale);
+        upperJaw.render(scale);
+        lowerJaw.render(scale);
     }
 }

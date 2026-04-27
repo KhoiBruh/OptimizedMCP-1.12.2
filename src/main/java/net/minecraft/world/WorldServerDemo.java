@@ -13,6 +13,6 @@ public class WorldServerDemo extends WorldServer
     public WorldServerDemo(MinecraftServer server, ISaveHandler saveHandlerIn, WorldInfo worldInfoIn, int dimensionId, Profiler profilerIn)
     {
         super(server, saveHandlerIn, worldInfoIn, dimensionId, profilerIn);
-        this.worldInfo.populateFromWorldSettings(DEMO_WORLD_SETTINGS);
+        worldInfo.populateFromWorldSettings(DEMO_WORLD_SETTINGS);
     }
 }

@@ -208,7 +208,7 @@ public class CommandStats extends CommandBase
         {
             if ((args.length != 4 || !"entity".equals(args[0])) && (args.length != 6 || !"block".equals(args[0])))
             {
-                return (args.length != 6 || !"entity".equals(args[0])) && (args.length != 8 || !"block".equals(args[0])) ? Collections.emptyList() : getListOfStringsMatchingLastWord(args, this.getObjectiveNames(server));
+                return (args.length != 6 || !"entity".equals(args[0])) && (args.length != 8 || !"block".equals(args[0])) ? Collections.emptyList() : getListOfStringsMatchingLastWord(args, getObjectiveNames(server));
             }
             else
             {

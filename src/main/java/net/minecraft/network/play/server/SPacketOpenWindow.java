@@ -25,16 +25,16 @@ public class SPacketOpenWindow implements Packet<INetHandlerPlayClient>
 
     public SPacketOpenWindow(int windowIdIn, String inventoryTypeIn, ITextComponent windowTitleIn, int slotCountIn)
     {
-        this.windowId = windowIdIn;
-        this.inventoryType = inventoryTypeIn;
-        this.windowTitle = windowTitleIn;
-        this.slotCount = slotCountIn;
+        windowId = windowIdIn;
+        inventoryType = inventoryTypeIn;
+        windowTitle = windowTitleIn;
+        slotCount = slotCountIn;
     }
 
     public SPacketOpenWindow(int windowIdIn, String inventoryTypeIn, ITextComponent windowTitleIn, int slotCountIn, int entityIdIn)
     {
         this(windowIdIn, inventoryTypeIn, windowTitleIn, slotCountIn);
-        this.entityId = entityIdIn;
+        entityId = entityIdIn;
     }
 
     /**
@@ -50,14 +50,14 @@ public class SPacketOpenWindow implements Packet<INetHandlerPlayClient>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.windowId = buf.readUnsignedByte();
-        this.inventoryType = buf.readString(32);
-        this.windowTitle = buf.readTextComponent();
-        this.slotCount = buf.readUnsignedByte();
+        windowId = buf.readUnsignedByte();
+        inventoryType = buf.readString(32);
+        windowTitle = buf.readTextComponent();
+        slotCount = buf.readUnsignedByte();
 
-        if (this.inventoryType.equals("EntityHorse"))
+        if (inventoryType.equals("EntityHorse"))
         {
-            this.entityId = buf.readInt();
+            entityId = buf.readInt();
         }
     }
 
@@ -66,44 +66,44 @@ public class SPacketOpenWindow implements Packet<INetHandlerPlayClient>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeByte(this.windowId);
-        buf.writeString(this.inventoryType);
-        buf.writeTextComponent(this.windowTitle);
-        buf.writeByte(this.slotCount);
+        buf.writeByte(windowId);
+        buf.writeString(inventoryType);
+        buf.writeTextComponent(windowTitle);
+        buf.writeByte(slotCount);
 
-        if (this.inventoryType.equals("EntityHorse"))
+        if (inventoryType.equals("EntityHorse"))
         {
-            buf.writeInt(this.entityId);
+            buf.writeInt(entityId);
         }
     }
 
     public int getWindowId()
     {
-        return this.windowId;
+        return windowId;
     }
 
     public String getGuiId()
     {
-        return this.inventoryType;
+        return inventoryType;
     }
 
     public ITextComponent getWindowTitle()
     {
-        return this.windowTitle;
+        return windowTitle;
     }
 
     public int getSlotCount()
     {
-        return this.slotCount;
+        return slotCount;
     }
 
     public int getEntityId()
     {
-        return this.entityId;
+        return entityId;
     }
 
     public boolean hasSlots()
     {
-        return this.slotCount > 0;
+        return slotCount > 0;
     }
 }

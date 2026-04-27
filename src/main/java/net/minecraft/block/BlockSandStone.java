@@ -20,8 +20,8 @@ public class BlockSandStone extends Block
     public BlockSandStone()
     {
         super(Material.ROCK);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(TYPE, BlockSandStone.EnumType.DEFAULT));
-        this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
+        setDefaultState(blockState.getBaseState().withProperty(TYPE, BlockSandStone.EnumType.DEFAULT));
+        setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
     }
 
     /**
@@ -57,7 +57,7 @@ public class BlockSandStone extends Block
      */
     public IBlockState getStateFromMeta(int meta)
     {
-        return this.getDefaultState().withProperty(TYPE, BlockSandStone.EnumType.byMetadata(meta));
+        return getDefaultState().withProperty(TYPE, BlockSandStone.EnumType.byMetadata(meta));
     }
 
     /**
@@ -86,19 +86,19 @@ public class BlockSandStone extends Block
 
         private EnumType(int meta, String name, String unlocalizedName)
         {
-            this.metadata = meta;
+            metadata = meta;
             this.name = name;
             this.unlocalizedName = unlocalizedName;
         }
 
         public int getMetadata()
         {
-            return this.metadata;
+            return metadata;
         }
 
         public String toString()
         {
-            return this.name;
+            return name;
         }
 
         public static BlockSandStone.EnumType byMetadata(int meta)
@@ -113,12 +113,12 @@ public class BlockSandStone extends Block
 
         public String getName()
         {
-            return this.name;
+            return name;
         }
 
         public String getUnlocalizedName()
         {
-            return this.unlocalizedName;
+            return unlocalizedName;
         }
 
         static {

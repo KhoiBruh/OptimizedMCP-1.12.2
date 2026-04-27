@@ -14,8 +14,8 @@ public class WorldGenBlockBlob extends WorldGenerator
     public WorldGenBlockBlob(Block blockIn, int startRadiusIn)
     {
         super(false);
-        this.block = blockIn;
-        this.startRadius = startRadiusIn;
+        block = blockIn;
+        startRadius = startRadiusIn;
     }
 
     public boolean generate(World worldIn, Random rand, BlockPos position)
@@ -44,7 +44,7 @@ public class WorldGenBlockBlob extends WorldGenerator
                     return false;
                 }
 
-                int i1 = this.startRadius;
+                int i1 = startRadius;
 
                 for (int i = 0; i1 >= 0 && i < 3; ++i)
                 {
@@ -57,7 +57,7 @@ public class WorldGenBlockBlob extends WorldGenerator
                     {
                         if (blockpos.distanceSq(position) <= (double)(f * f))
                         {
-                            worldIn.setBlockState(blockpos, this.block.getDefaultState(), 4);
+                            worldIn.setBlockState(blockpos, block.getDefaultState(), 4);
                         }
                     }
 

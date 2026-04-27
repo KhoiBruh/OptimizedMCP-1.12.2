@@ -38,48 +38,48 @@ public class ExtendedBlockStorage
 
     public ExtendedBlockStorage(int y, boolean storeSkylight)
     {
-        this.yBase = y;
-        this.data = new BlockStateContainer();
-        this.blockLight = new NibbleArray();
+        yBase = y;
+        data = new BlockStateContainer();
+        blockLight = new NibbleArray();
 
         if (storeSkylight)
         {
-            this.skyLight = new NibbleArray();
+            skyLight = new NibbleArray();
         }
     }
 
     public IBlockState get(int x, int y, int z)
     {
-        return this.data.get(x, y, z);
+        return data.get(x, y, z);
     }
 
     public void set(int x, int y, int z, IBlockState state)
     {
-        IBlockState iblockstate = this.get(x, y, z);
+        IBlockState iblockstate = get(x, y, z);
         Block block = iblockstate.getBlock();
         Block block1 = state.getBlock();
 
         if (block != Blocks.AIR)
         {
-            --this.blockRefCount;
+            --blockRefCount;
 
             if (block.getTickRandomly())
             {
-                --this.tickRefCount;
+                --tickRefCount;
             }
         }
 
         if (block1 != Blocks.AIR)
         {
-            ++this.blockRefCount;
+            ++blockRefCount;
 
             if (block1.getTickRandomly())
             {
-                ++this.tickRefCount;
+                ++tickRefCount;
             }
         }
 
-        this.data.set(x, y, z, state);
+        data.set(x, y, z, state);
     }
 
     /**
@@ -87,7 +87,7 @@ public class ExtendedBlockStorage
      */
     public boolean isEmpty()
     {
-        return this.blockRefCount == 0;
+        return blockRefCount == 0;
     }
 
     /**
@@ -96,7 +96,7 @@ public class ExtendedBlockStorage
      */
     public boolean needsRandomTick()
     {
-        return this.tickRefCount > 0;
+        return tickRefCount > 0;
     }
 
     /**
@@ -104,7 +104,7 @@ public class ExtendedBlockStorage
      */
     public int getYLocation()
     {
-        return this.yBase;
+        return yBase;
     }
 
     /**
@@ -112,7 +112,7 @@ public class ExtendedBlockStorage
      */
     public void setSkyLight(int x, int y, int z, int value)
     {
-        this.skyLight.set(x, y, z, value);
+        skyLight.set(x, y, z, value);
     }
 
     /**
@@ -120,7 +120,7 @@ public class ExtendedBlockStorage
      */
     public int getSkyLight(int x, int y, int z)
     {
-        return this.skyLight.get(x, y, z);
+        return skyLight.get(x, y, z);
     }
 
     /**
@@ -128,7 +128,7 @@ public class ExtendedBlockStorage
      */
     public void setBlockLight(int x, int y, int z, int value)
     {
-        this.blockLight.set(x, y, z, value);
+        blockLight.set(x, y, z, value);
     }
 
     /**
@@ -136,13 +136,13 @@ public class ExtendedBlockStorage
      */
     public int getBlockLight(int x, int y, int z)
     {
-        return this.blockLight.get(x, y, z);
+        return blockLight.get(x, y, z);
     }
 
     public void recalculateRefCounts()
     {
-        this.blockRefCount = 0;
-        this.tickRefCount = 0;
+        blockRefCount = 0;
+        tickRefCount = 0;
 
         for (int i = 0; i < 16; ++i)
         {
@@ -150,15 +150,15 @@ public class ExtendedBlockStorage
             {
                 for (int k = 0; k < 16; ++k)
                 {
-                    Block block = this.get(i, j, k).getBlock();
+                    Block block = get(i, j, k).getBlock();
 
                     if (block != Blocks.AIR)
                     {
-                        ++this.blockRefCount;
+                        ++blockRefCount;
 
                         if (block.getTickRandomly())
                         {
-                            ++this.tickRefCount;
+                            ++tickRefCount;
                         }
                     }
                 }
@@ -168,7 +168,7 @@ public class ExtendedBlockStorage
 
     public BlockStateContainer getData()
     {
-        return this.data;
+        return data;
     }
 
     /**
@@ -176,7 +176,7 @@ public class ExtendedBlockStorage
      */
     public NibbleArray getBlockLight()
     {
-        return this.blockLight;
+        return blockLight;
     }
 
     /**
@@ -184,7 +184,7 @@ public class ExtendedBlockStorage
      */
     public NibbleArray getSkyLight()
     {
-        return this.skyLight;
+        return skyLight;
     }
 
     /**
@@ -192,7 +192,7 @@ public class ExtendedBlockStorage
      */
     public void setBlockLight(NibbleArray newBlocklightArray)
     {
-        this.blockLight = newBlocklightArray;
+        blockLight = newBlocklightArray;
     }
 
     /**
@@ -200,6 +200,6 @@ public class ExtendedBlockStorage
      */
     public void setSkyLight(NibbleArray newSkylightArray)
     {
-        this.skyLight = newSkylightArray;
+        skyLight = newSkylightArray;
     }
 }

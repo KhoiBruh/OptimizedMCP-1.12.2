@@ -40,12 +40,12 @@ public interface ISound
 
         private AttenuationType(int typeIn)
         {
-            this.type = typeIn;
+            type = typeIn;
         }
 
         public int getTypeInt()
         {
-            return this.type;
+            return type;
         }
     }
 }

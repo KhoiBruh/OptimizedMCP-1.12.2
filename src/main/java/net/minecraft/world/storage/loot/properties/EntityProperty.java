@@ -18,18 +18,18 @@ public interface EntityProperty
 
         protected Serializer(ResourceLocation nameIn, Class<T> propertyClassIn)
         {
-            this.name = nameIn;
-            this.propertyClass = propertyClassIn;
+            name = nameIn;
+            propertyClass = propertyClassIn;
         }
 
         public ResourceLocation getName()
         {
-            return this.name;
+            return name;
         }
 
         public Class<T> getPropertyClass()
         {
-            return this.propertyClass;
+            return propertyClass;
         }
 
         public abstract JsonElement serialize(T property, JsonSerializationContext serializationContext);

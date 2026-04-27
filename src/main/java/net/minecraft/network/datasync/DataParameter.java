@@ -7,18 +7,18 @@ public class DataParameter<T>
 
     public DataParameter(int idIn, DataSerializer<T> serializerIn)
     {
-        this.id = idIn;
-        this.serializer = serializerIn;
+        id = idIn;
+        serializer = serializerIn;
     }
 
     public int getId()
     {
-        return this.id;
+        return id;
     }
 
     public DataSerializer<T> getSerializer()
     {
-        return this.serializer;
+        return serializer;
     }
 
     public boolean equals(Object p_equals_1_)
@@ -27,10 +27,10 @@ public class DataParameter<T>
         {
             return true;
         }
-        else if (p_equals_1_ != null && this.getClass() == p_equals_1_.getClass())
+        else if (p_equals_1_ != null && getClass() == p_equals_1_.getClass())
         {
             DataParameter<?> dataparameter = (DataParameter)p_equals_1_;
-            return this.id == dataparameter.id;
+            return id == dataparameter.id;
         }
         else
         {
@@ -40,6 +40,6 @@ public class DataParameter<T>
 
     public int hashCode()
     {
-        return this.id;
+        return id;
     }
 }

@@ -16,8 +16,8 @@ public class RenderEnderman extends RenderLiving<EntityEnderman>
     public RenderEnderman(RenderManager renderManagerIn)
     {
         super(renderManagerIn, new ModelEnderman(0.0F), 0.5F);
-        this.addLayer(new LayerEndermanEyes(this));
-        this.addLayer(new LayerHeldBlock(this));
+        addLayer(new LayerEndermanEyes(this));
+        addLayer(new LayerHeldBlock(this));
     }
 
     public ModelEnderman getMainModel()
@@ -31,15 +31,15 @@ public class RenderEnderman extends RenderLiving<EntityEnderman>
     public void doRender(EntityEnderman entity, double x, double y, double z, float entityYaw, float partialTicks)
     {
         IBlockState iblockstate = entity.getHeldBlockState();
-        ModelEnderman modelenderman = this.getMainModel();
+        ModelEnderman modelenderman = getMainModel();
         modelenderman.isCarrying = iblockstate != null;
         modelenderman.isAttacking = entity.isScreaming();
 
         if (entity.isScreaming())
         {
             double d0 = 0.02D;
-            x += this.rnd.nextGaussian() * 0.02D;
-            z += this.rnd.nextGaussian() * 0.02D;
+            x += rnd.nextGaussian() * 0.02D;
+            z += rnd.nextGaussian() * 0.02D;
         }
 
         super.doRender(entity, x, y, z, entityYaw, partialTicks);

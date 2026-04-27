@@ -10,7 +10,7 @@ public class EntityAILookAtTradePlayer extends EntityAIWatchClosest
     public EntityAILookAtTradePlayer(EntityVillager villagerIn)
     {
         super(villagerIn, EntityPlayer.class, 8.0F);
-        this.villager = villagerIn;
+        villager = villagerIn;
     }
 
     /**
@@ -18,9 +18,9 @@ public class EntityAILookAtTradePlayer extends EntityAIWatchClosest
      */
     public boolean shouldExecute()
     {
-        if (this.villager.isTrading())
+        if (villager.isTrading())
         {
-            this.closestEntity = this.villager.getCustomer();
+            closestEntity = villager.getCustomer();
             return true;
         }
         else

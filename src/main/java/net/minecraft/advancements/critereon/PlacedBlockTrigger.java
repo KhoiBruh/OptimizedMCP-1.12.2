@@ -38,12 +38,12 @@ public class PlacedBlockTrigger implements ICriterionTrigger<PlacedBlockTrigger.
 
     public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<PlacedBlockTrigger.Instance> listener)
     {
-        PlacedBlockTrigger.Listeners placedblocktrigger$listeners = this.listeners.get(playerAdvancementsIn);
+        PlacedBlockTrigger.Listeners placedblocktrigger$listeners = listeners.get(playerAdvancementsIn);
 
         if (placedblocktrigger$listeners == null)
         {
             placedblocktrigger$listeners = new PlacedBlockTrigger.Listeners(playerAdvancementsIn);
-            this.listeners.put(playerAdvancementsIn, placedblocktrigger$listeners);
+            listeners.put(playerAdvancementsIn, placedblocktrigger$listeners);
         }
 
         placedblocktrigger$listeners.add(listener);
@@ -51,7 +51,7 @@ public class PlacedBlockTrigger implements ICriterionTrigger<PlacedBlockTrigger.
 
     public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<PlacedBlockTrigger.Instance> listener)
     {
-        PlacedBlockTrigger.Listeners placedblocktrigger$listeners = this.listeners.get(playerAdvancementsIn);
+        PlacedBlockTrigger.Listeners placedblocktrigger$listeners = listeners.get(playerAdvancementsIn);
 
         if (placedblocktrigger$listeners != null)
         {
@@ -59,14 +59,14 @@ public class PlacedBlockTrigger implements ICriterionTrigger<PlacedBlockTrigger.
 
             if (placedblocktrigger$listeners.isEmpty())
             {
-                this.listeners.remove(playerAdvancementsIn);
+                listeners.remove(playerAdvancementsIn);
             }
         }
     }
 
     public void removeAllListeners(PlayerAdvancements playerAdvancementsIn)
     {
-        this.listeners.remove(playerAdvancementsIn);
+        listeners.remove(playerAdvancementsIn);
     }
 
     /**
@@ -133,7 +133,7 @@ public class PlacedBlockTrigger implements ICriterionTrigger<PlacedBlockTrigger.
     public void trigger(EntityPlayerMP player, BlockPos pos, ItemStack item)
     {
         IBlockState iblockstate = player.world.getBlockState(pos);
-        PlacedBlockTrigger.Listeners placedblocktrigger$listeners = this.listeners.get(player.getAdvancements());
+        PlacedBlockTrigger.Listeners placedblocktrigger$listeners = listeners.get(player.getAdvancements());
 
         if (placedblocktrigger$listeners != null)
         {
@@ -152,22 +152,22 @@ public class PlacedBlockTrigger implements ICriterionTrigger<PlacedBlockTrigger.
         {
             super(PlacedBlockTrigger.ID);
             this.block = block;
-            this.properties = propertiesIn;
-            this.location = locationIn;
-            this.item = itemIn;
+            properties = propertiesIn;
+            location = locationIn;
+            item = itemIn;
         }
 
         public boolean test(IBlockState state, BlockPos pos, WorldServer world, ItemStack item)
         {
-            if (this.block != null && state.getBlock() != this.block)
+            if (block != null && state.getBlock() != block)
             {
                 return false;
             }
             else
             {
-                if (this.properties != null)
+                if (properties != null)
                 {
-                    for (Entry < IProperty<?>, Object > entry : this.properties.entrySet())
+                    for (Entry < IProperty<?>, Object > entry : properties.entrySet())
                     {
                         if (state.getValue(entry.getKey()) != entry.getValue())
                         {
@@ -176,7 +176,7 @@ public class PlacedBlockTrigger implements ICriterionTrigger<PlacedBlockTrigger.
                     }
                 }
 
-                if (!this.location.test(world, (float)pos.getX(), (float)pos.getY(), (float)pos.getZ()))
+                if (!location.test(world, (float)pos.getX(), (float)pos.getY(), (float)pos.getZ()))
                 {
                     return false;
                 }
@@ -195,29 +195,29 @@ public class PlacedBlockTrigger implements ICriterionTrigger<PlacedBlockTrigger.
 
         public Listeners(PlayerAdvancements playerAdvancementsIn)
         {
-            this.playerAdvancements = playerAdvancementsIn;
+            playerAdvancements = playerAdvancementsIn;
         }
 
         public boolean isEmpty()
         {
-            return this.listeners.isEmpty();
+            return listeners.isEmpty();
         }
 
         public void add(ICriterionTrigger.Listener<PlacedBlockTrigger.Instance> listener)
         {
-            this.listeners.add(listener);
+            listeners.add(listener);
         }
 
         public void remove(ICriterionTrigger.Listener<PlacedBlockTrigger.Instance> listener)
         {
-            this.listeners.remove(listener);
+            listeners.remove(listener);
         }
 
         public void trigger(IBlockState state, BlockPos pos, WorldServer world, ItemStack item)
         {
             List<ICriterionTrigger.Listener<PlacedBlockTrigger.Instance>> list = null;
 
-            for (ICriterionTrigger.Listener<PlacedBlockTrigger.Instance> listener : this.listeners)
+            for (ICriterionTrigger.Listener<PlacedBlockTrigger.Instance> listener : listeners)
             {
                 if (((PlacedBlockTrigger.Instance)listener.getCriterionInstance()).test(state, pos, world, item))
                 {
@@ -234,7 +234,7 @@ public class PlacedBlockTrigger implements ICriterionTrigger<PlacedBlockTrigger.
             {
                 for (ICriterionTrigger.Listener<PlacedBlockTrigger.Instance> listener1 : list)
                 {
-                    listener1.grantCriterion(this.playerAdvancements);
+                    listener1.grantCriterion(playerAdvancements);
                 }
             }
         }

@@ -10,7 +10,7 @@ public class ItemArrow extends Item
 {
     public ItemArrow()
     {
-        this.setCreativeTab(CreativeTabs.COMBAT);
+        setCreativeTab(CreativeTabs.COMBAT);
     }
 
     public EntityArrow createArrow(World worldIn, ItemStack stack, EntityLivingBase shooter)

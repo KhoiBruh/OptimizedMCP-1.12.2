@@ -11,12 +11,12 @@ public class ItemStackDataLists extends Filtered
     public ItemStackDataLists(Class<?> p_i47310_1_, String... matchingTagsIn)
     {
         super(p_i47310_1_);
-        this.matchingTags = matchingTagsIn;
+        matchingTags = matchingTagsIn;
     }
 
     NBTTagCompound filteredProcess(IDataFixer fixer, NBTTagCompound compound, int versionIn)
     {
-        for (String s : this.matchingTags)
+        for (String s : matchingTags)
         {
             compound = DataFixesManager.processInventory(fixer, compound, versionIn, s);
         }

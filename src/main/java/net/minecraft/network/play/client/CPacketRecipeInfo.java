@@ -20,15 +20,15 @@ public class CPacketRecipeInfo implements Packet<INetHandlerPlayServer>
 
     public CPacketRecipeInfo(IRecipe p_i47518_1_)
     {
-        this.purpose = CPacketRecipeInfo.Purpose.SHOWN;
-        this.recipe = p_i47518_1_;
+        purpose = CPacketRecipeInfo.Purpose.SHOWN;
+        recipe = p_i47518_1_;
     }
 
     public CPacketRecipeInfo(boolean p_i47424_1_, boolean p_i47424_2_)
     {
-        this.purpose = CPacketRecipeInfo.Purpose.SETTINGS;
-        this.isGuiOpen = p_i47424_1_;
-        this.filteringCraftable = p_i47424_2_;
+        purpose = CPacketRecipeInfo.Purpose.SETTINGS;
+        isGuiOpen = p_i47424_1_;
+        filteringCraftable = p_i47424_2_;
     }
 
     /**
@@ -36,16 +36,16 @@ public class CPacketRecipeInfo implements Packet<INetHandlerPlayServer>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.purpose = (CPacketRecipeInfo.Purpose)buf.readEnumValue(CPacketRecipeInfo.Purpose.class);
+        purpose = (CPacketRecipeInfo.Purpose)buf.readEnumValue(CPacketRecipeInfo.Purpose.class);
 
-        if (this.purpose == CPacketRecipeInfo.Purpose.SHOWN)
+        if (purpose == CPacketRecipeInfo.Purpose.SHOWN)
         {
-            this.recipe = CraftingManager.getRecipeById(buf.readInt());
+            recipe = CraftingManager.getRecipeById(buf.readInt());
         }
-        else if (this.purpose == CPacketRecipeInfo.Purpose.SETTINGS)
+        else if (purpose == CPacketRecipeInfo.Purpose.SETTINGS)
         {
-            this.isGuiOpen = buf.readBoolean();
-            this.filteringCraftable = buf.readBoolean();
+            isGuiOpen = buf.readBoolean();
+            filteringCraftable = buf.readBoolean();
         }
     }
 
@@ -54,16 +54,16 @@ public class CPacketRecipeInfo implements Packet<INetHandlerPlayServer>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeEnumValue(this.purpose);
+        buf.writeEnumValue(purpose);
 
-        if (this.purpose == CPacketRecipeInfo.Purpose.SHOWN)
+        if (purpose == CPacketRecipeInfo.Purpose.SHOWN)
         {
-            buf.writeInt(CraftingManager.getIDForRecipe(this.recipe));
+            buf.writeInt(CraftingManager.getIDForRecipe(recipe));
         }
-        else if (this.purpose == CPacketRecipeInfo.Purpose.SETTINGS)
+        else if (purpose == CPacketRecipeInfo.Purpose.SETTINGS)
         {
-            buf.writeBoolean(this.isGuiOpen);
-            buf.writeBoolean(this.filteringCraftable);
+            buf.writeBoolean(isGuiOpen);
+            buf.writeBoolean(filteringCraftable);
         }
     }
 
@@ -77,22 +77,22 @@ public class CPacketRecipeInfo implements Packet<INetHandlerPlayServer>
 
     public CPacketRecipeInfo.Purpose getPurpose()
     {
-        return this.purpose;
+        return purpose;
     }
 
     public IRecipe getRecipe()
     {
-        return this.recipe;
+        return recipe;
     }
 
     public boolean isGuiOpen()
     {
-        return this.isGuiOpen;
+        return isGuiOpen;
     }
 
     public boolean isFilteringCraftable()
     {
-        return this.filteringCraftable;
+        return filteringCraftable;
     }
 
     public static enum Purpose

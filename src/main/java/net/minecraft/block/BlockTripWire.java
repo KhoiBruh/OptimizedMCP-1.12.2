@@ -39,8 +39,8 @@ public class BlockTripWire extends Block
     public BlockTripWire()
     {
         super(Material.CIRCUITS);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(POWERED, Boolean.valueOf(false)).withProperty(ATTACHED, Boolean.valueOf(false)).withProperty(DISARMED, Boolean.valueOf(false)).withProperty(NORTH, Boolean.valueOf(false)).withProperty(EAST, Boolean.valueOf(false)).withProperty(SOUTH, Boolean.valueOf(false)).withProperty(WEST, Boolean.valueOf(false)));
-        this.setTickRandomly(true);
+        setDefaultState(blockState.getBaseState().withProperty(POWERED, Boolean.valueOf(false)).withProperty(ATTACHED, Boolean.valueOf(false)).withProperty(DISARMED, Boolean.valueOf(false)).withProperty(NORTH, Boolean.valueOf(false)).withProperty(EAST, Boolean.valueOf(false)).withProperty(SOUTH, Boolean.valueOf(false)).withProperty(WEST, Boolean.valueOf(false)));
+        setTickRandomly(true);
     }
 
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
@@ -104,7 +104,7 @@ public class BlockTripWire extends Block
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state)
     {
         worldIn.setBlockState(pos, state, 3);
-        this.notifyHook(worldIn, pos, state);
+        notifyHook(worldIn, pos, state);
     }
 
     /**
@@ -112,7 +112,7 @@ public class BlockTripWire extends Block
      */
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state)
     {
-        this.notifyHook(worldIn, pos, state.withProperty(POWERED, Boolean.valueOf(true)));
+        notifyHook(worldIn, pos, state.withProperty(POWERED, Boolean.valueOf(true)));
     }
 
     /**
@@ -166,7 +166,7 @@ public class BlockTripWire extends Block
         {
             if (!((Boolean)state.getValue(POWERED)).booleanValue())
             {
-                this.updateState(worldIn, pos);
+                updateState(worldIn, pos);
             }
         }
     }
@@ -184,7 +184,7 @@ public class BlockTripWire extends Block
         {
             if (((Boolean)worldIn.getBlockState(pos).getValue(POWERED)).booleanValue())
             {
-                this.updateState(worldIn, pos);
+                updateState(worldIn, pos);
             }
         }
     }
@@ -212,12 +212,12 @@ public class BlockTripWire extends Block
         {
             iblockstate = iblockstate.withProperty(POWERED, Boolean.valueOf(flag1));
             worldIn.setBlockState(pos, iblockstate, 3);
-            this.notifyHook(worldIn, pos, iblockstate);
+            notifyHook(worldIn, pos, iblockstate);
         }
 
         if (flag1)
         {
-            worldIn.scheduleUpdate(new BlockPos(pos), this, this.tickRate(worldIn));
+            worldIn.scheduleUpdate(new BlockPos(pos), this, tickRate(worldIn));
         }
     }
 
@@ -243,7 +243,7 @@ public class BlockTripWire extends Block
      */
     public IBlockState getStateFromMeta(int meta)
     {
-        return this.getDefaultState().withProperty(POWERED, Boolean.valueOf((meta & 1) > 0)).withProperty(ATTACHED, Boolean.valueOf((meta & 4) > 0)).withProperty(DISARMED, Boolean.valueOf((meta & 8) > 0));
+        return getDefaultState().withProperty(POWERED, Boolean.valueOf((meta & 1) > 0)).withProperty(ATTACHED, Boolean.valueOf((meta & 4) > 0)).withProperty(DISARMED, Boolean.valueOf((meta & 8) > 0));
     }
 
     /**

@@ -25,13 +25,13 @@ public class JsonToNBT
     @VisibleForTesting
     NBTTagCompound readSingleStruct() throws NBTException
     {
-        NBTTagCompound nbttagcompound = this.readStruct();
-        this.skipWhitespace();
+        NBTTagCompound nbttagcompound = readStruct();
+        skipWhitespace();
 
-        if (this.canRead())
+        if (canRead())
         {
-            ++this.cursor;
-            throw this.exception("Trailing data found");
+            ++cursor;
+            throw exception("Trailing data found");
         }
         else
         {
@@ -42,47 +42,47 @@ public class JsonToNBT
     @VisibleForTesting
     JsonToNBT(String stringIn)
     {
-        this.string = stringIn;
+        string = stringIn;
     }
 
     protected String readKey() throws NBTException
     {
-        this.skipWhitespace();
+        skipWhitespace();
 
-        if (!this.canRead())
+        if (!canRead())
         {
-            throw this.exception("Expected key");
+            throw exception("Expected key");
         }
         else
         {
-            return this.peek() == '"' ? this.readQuotedString() : this.readString();
+            return peek() == '"' ? readQuotedString() : readString();
         }
     }
 
     private NBTException exception(String message)
     {
-        return new NBTException(message, this.string, this.cursor);
+        return new NBTException(message, string, cursor);
     }
 
     protected NBTBase readTypedValue() throws NBTException
     {
-        this.skipWhitespace();
+        skipWhitespace();
 
-        if (this.peek() == '"')
+        if (peek() == '"')
         {
-            return new NBTTagString(this.readQuotedString());
+            return new NBTTagString(readQuotedString());
         }
         else
         {
-            String s = this.readString();
+            String s = readString();
 
             if (s.isEmpty())
             {
-                throw this.exception("Expected value");
+                throw exception("Expected value");
             }
             else
             {
-                return this.type(s);
+                return type(s);
             }
         }
     }
@@ -146,19 +146,19 @@ public class JsonToNBT
 
     private String readQuotedString() throws NBTException
     {
-        int i = ++this.cursor;
+        int i = ++cursor;
         StringBuilder stringbuilder = null;
         boolean flag = false;
 
-        while (this.canRead())
+        while (canRead())
         {
-            char c0 = this.pop();
+            char c0 = pop();
 
             if (flag)
             {
                 if (c0 != '\\' && c0 != '"')
                 {
-                    throw this.exception("Invalid escape of '" + c0 + "'");
+                    throw exception("Invalid escape of '" + c0 + "'");
                 }
 
                 flag = false;
@@ -171,7 +171,7 @@ public class JsonToNBT
 
                     if (stringbuilder == null)
                     {
-                        stringbuilder = new StringBuilder(this.string.substring(i, this.cursor - 1));
+                        stringbuilder = new StringBuilder(string.substring(i, cursor - 1));
                     }
 
                     continue;
@@ -179,7 +179,7 @@ public class JsonToNBT
 
                 if (c0 == '"')
                 {
-                    return stringbuilder == null ? this.string.substring(i, this.cursor - 1) : stringbuilder.toString();
+                    return stringbuilder == null ? string.substring(i, cursor - 1) : stringbuilder.toString();
                 }
             }
 
@@ -189,99 +189,99 @@ public class JsonToNBT
             }
         }
 
-        throw this.exception("Missing termination quote");
+        throw exception("Missing termination quote");
     }
 
     private String readString()
     {
         int i;
 
-        for (i = this.cursor; this.canRead() && this.isAllowedInKey(this.peek()); ++this.cursor)
+        for (i = cursor; canRead() && isAllowedInKey(peek()); ++cursor)
         {
             ;
         }
 
-        return this.string.substring(i, this.cursor);
+        return string.substring(i, cursor);
     }
 
     protected NBTBase readValue() throws NBTException
     {
-        this.skipWhitespace();
+        skipWhitespace();
 
-        if (!this.canRead())
+        if (!canRead())
         {
-            throw this.exception("Expected value");
+            throw exception("Expected value");
         }
         else
         {
-            char c0 = this.peek();
+            char c0 = peek();
 
             if (c0 == '{')
             {
-                return this.readStruct();
+                return readStruct();
             }
             else
             {
-                return c0 == '[' ? this.readList() : this.readTypedValue();
+                return c0 == '[' ? readList() : readTypedValue();
             }
         }
     }
 
     protected NBTBase readList() throws NBTException
     {
-        return this.canRead(2) && this.peek(1) != '"' && this.peek(2) == ';' ? this.readArrayTag() : this.readListTag();
+        return canRead(2) && peek(1) != '"' && peek(2) == ';' ? readArrayTag() : readListTag();
     }
 
     protected NBTTagCompound readStruct() throws NBTException
     {
-        this.expect('{');
+        expect('{');
         NBTTagCompound nbttagcompound = new NBTTagCompound();
-        this.skipWhitespace();
+        skipWhitespace();
 
-        while (this.canRead() && this.peek() != '}')
+        while (canRead() && peek() != '}')
         {
-            String s = this.readKey();
+            String s = readKey();
 
             if (s.isEmpty())
             {
-                throw this.exception("Expected non-empty key");
+                throw exception("Expected non-empty key");
             }
 
-            this.expect(':');
-            nbttagcompound.setTag(s, this.readValue());
+            expect(':');
+            nbttagcompound.setTag(s, readValue());
 
-            if (!this.hasElementSeparator())
+            if (!hasElementSeparator())
             {
                 break;
             }
 
-            if (!this.canRead())
+            if (!canRead())
             {
-                throw this.exception("Expected key");
+                throw exception("Expected key");
             }
         }
 
-        this.expect('}');
+        expect('}');
         return nbttagcompound;
     }
 
     private NBTBase readListTag() throws NBTException
     {
-        this.expect('[');
-        this.skipWhitespace();
+        expect('[');
+        skipWhitespace();
 
-        if (!this.canRead())
+        if (!canRead())
         {
-            throw this.exception("Expected value");
+            throw exception("Expected value");
         }
         else
         {
             NBTTagList nbttaglist = new NBTTagList();
             int i = -1;
 
-            while (this.peek() != ']')
+            while (peek() != ']')
             {
-                NBTBase nbtbase = this.readValue();
+                NBTBase nbtbase = readValue();
                 int j = nbtbase.getId();
 
                 if (i < 0)
@@ -290,53 +290,53 @@ public class JsonToNBT
                 }
                 else if (j != i)
                 {
-                    throw this.exception("Unable to insert " + NBTBase.getTagTypeName(j) + " into ListTag of type " + NBTBase.getTagTypeName(i));
+                    throw exception("Unable to insert " + NBTBase.getTagTypeName(j) + " into ListTag of type " + NBTBase.getTagTypeName(i));
                 }
 
                 nbttaglist.appendTag(nbtbase);
 
-                if (!this.hasElementSeparator())
+                if (!hasElementSeparator())
                 {
                     break;
                 }
 
-                if (!this.canRead())
+                if (!canRead())
                 {
-                    throw this.exception("Expected value");
+                    throw exception("Expected value");
                 }
             }
 
-            this.expect(']');
+            expect(']');
             return nbttaglist;
         }
     }
 
     private NBTBase readArrayTag() throws NBTException
     {
-        this.expect('[');
-        char c0 = this.pop();
-        this.pop();
-        this.skipWhitespace();
+        expect('[');
+        char c0 = pop();
+        pop();
+        skipWhitespace();
 
-        if (!this.canRead())
+        if (!canRead())
         {
-            throw this.exception("Expected value");
+            throw exception("Expected value");
         }
         else if (c0 == 'B')
         {
-            return new NBTTagByteArray(this.readArray((byte)7, (byte)1));
+            return new NBTTagByteArray(readArray((byte)7, (byte)1));
         }
         else if (c0 == 'L')
         {
-            return new NBTTagLongArray(this.readArray((byte)12, (byte)4));
+            return new NBTTagLongArray(readArray((byte)12, (byte)4));
         }
         else if (c0 == 'I')
         {
-            return new NBTTagIntArray(this.readArray((byte)11, (byte)3));
+            return new NBTTagIntArray(readArray((byte)11, (byte)3));
         }
         else
         {
-            throw this.exception("Invalid array type '" + c0 + "' found");
+            throw exception("Invalid array type '" + c0 + "' found");
         }
     }
 
@@ -346,14 +346,14 @@ public class JsonToNBT
 
         while (true)
         {
-            if (this.peek() != ']')
+            if (peek() != ']')
             {
-                NBTBase nbtbase = this.readValue();
+                NBTBase nbtbase = readValue();
                 int i = nbtbase.getId();
 
                 if (i != p_193603_2_)
                 {
-                    throw this.exception("Unable to insert " + NBTBase.getTagTypeName(i) + " into " + NBTBase.getTagTypeName(p_193603_1_));
+                    throw exception("Unable to insert " + NBTBase.getTagTypeName(i) + " into " + NBTBase.getTagTypeName(p_193603_1_));
                 }
 
                 if (p_193603_2_ == 1)
@@ -369,38 +369,38 @@ public class JsonToNBT
                     list.add((T)Integer.valueOf(((NBTPrimitive)nbtbase).getInt()));
                 }
 
-                if (this.hasElementSeparator())
+                if (hasElementSeparator())
                 {
-                    if (!this.canRead())
+                    if (!canRead())
                     {
-                        throw this.exception("Expected value");
+                        throw exception("Expected value");
                     }
 
                     continue;
                 }
             }
 
-            this.expect(']');
+            expect(']');
             return list;
         }
     }
 
     private void skipWhitespace()
     {
-        while (this.canRead() && Character.isWhitespace(this.peek()))
+        while (canRead() && Character.isWhitespace(peek()))
         {
-            ++this.cursor;
+            ++cursor;
         }
     }
 
     private boolean hasElementSeparator()
     {
-        this.skipWhitespace();
+        skipWhitespace();
 
-        if (this.canRead() && this.peek() == ',')
+        if (canRead() && peek() == ',')
         {
-            ++this.cursor;
-            this.skipWhitespace();
+            ++cursor;
+            skipWhitespace();
             return true;
         }
         else
@@ -411,16 +411,16 @@ public class JsonToNBT
 
     private void expect(char expected) throws NBTException
     {
-        this.skipWhitespace();
-        boolean flag = this.canRead();
+        skipWhitespace();
+        boolean flag = canRead();
 
-        if (flag && this.peek() == expected)
+        if (flag && peek() == expected)
         {
-            ++this.cursor;
+            ++cursor;
         }
         else
         {
-            throw new NBTException("Expected '" + expected + "' but got '" + (flag ? this.peek() : "<EOF>") + "'", this.string, this.cursor + 1);
+            throw new NBTException("Expected '" + expected + "' but got '" + (flag ? peek() : "<EOF>") + "'", string, cursor + 1);
         }
     }
 
@@ -431,26 +431,26 @@ public class JsonToNBT
 
     private boolean canRead(int p_193608_1_)
     {
-        return this.cursor + p_193608_1_ < this.string.length();
+        return cursor + p_193608_1_ < string.length();
     }
 
     boolean canRead()
     {
-        return this.canRead(0);
+        return canRead(0);
     }
 
     private char peek(int p_193597_1_)
     {
-        return this.string.charAt(this.cursor + p_193597_1_);
+        return string.charAt(cursor + p_193597_1_);
     }
 
     private char peek()
     {
-        return this.peek(0);
+        return peek(0);
     }
 
     private char pop()
     {
-        return this.string.charAt(this.cursor++);
+        return string.charAt(cursor++);
     }
 }

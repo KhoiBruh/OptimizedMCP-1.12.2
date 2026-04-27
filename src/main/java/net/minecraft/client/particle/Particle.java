@@ -73,61 +73,61 @@ public class Particle
 
     protected Particle(World worldIn, double posXIn, double posYIn, double posZIn)
     {
-        this.boundingBox = EMPTY_AABB;
-        this.width = 0.6F;
-        this.height = 1.8F;
-        this.rand = new Random();
-        this.particleAlpha = 1.0F;
-        this.world = worldIn;
-        this.setSize(0.2F, 0.2F);
-        this.setPosition(posXIn, posYIn, posZIn);
-        this.prevPosX = posXIn;
-        this.prevPosY = posYIn;
-        this.prevPosZ = posZIn;
-        this.particleRed = 1.0F;
-        this.particleGreen = 1.0F;
-        this.particleBlue = 1.0F;
-        this.particleTextureJitterX = this.rand.nextFloat() * 3.0F;
-        this.particleTextureJitterY = this.rand.nextFloat() * 3.0F;
-        this.particleScale = (this.rand.nextFloat() * 0.5F + 0.5F) * 2.0F;
-        this.particleMaxAge = (int)(4.0F / (this.rand.nextFloat() * 0.9F + 0.1F));
-        this.particleAge = 0;
-        this.canCollide = true;
+        boundingBox = EMPTY_AABB;
+        width = 0.6F;
+        height = 1.8F;
+        rand = new Random();
+        particleAlpha = 1.0F;
+        world = worldIn;
+        setSize(0.2F, 0.2F);
+        setPosition(posXIn, posYIn, posZIn);
+        prevPosX = posXIn;
+        prevPosY = posYIn;
+        prevPosZ = posZIn;
+        particleRed = 1.0F;
+        particleGreen = 1.0F;
+        particleBlue = 1.0F;
+        particleTextureJitterX = rand.nextFloat() * 3.0F;
+        particleTextureJitterY = rand.nextFloat() * 3.0F;
+        particleScale = (rand.nextFloat() * 0.5F + 0.5F) * 2.0F;
+        particleMaxAge = (int)(4.0F / (rand.nextFloat() * 0.9F + 0.1F));
+        particleAge = 0;
+        canCollide = true;
     }
 
     public Particle(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn)
     {
         this(worldIn, xCoordIn, yCoordIn, zCoordIn);
-        this.motionX = xSpeedIn + (Math.random() * 2.0D - 1.0D) * 0.4000000059604645D;
-        this.motionY = ySpeedIn + (Math.random() * 2.0D - 1.0D) * 0.4000000059604645D;
-        this.motionZ = zSpeedIn + (Math.random() * 2.0D - 1.0D) * 0.4000000059604645D;
+        motionX = xSpeedIn + (Math.random() * 2.0D - 1.0D) * 0.4000000059604645D;
+        motionY = ySpeedIn + (Math.random() * 2.0D - 1.0D) * 0.4000000059604645D;
+        motionZ = zSpeedIn + (Math.random() * 2.0D - 1.0D) * 0.4000000059604645D;
         float f = (float)(Math.random() + Math.random() + 1.0D) * 0.15F;
-        float f1 = MathHelper.sqrt(this.motionX * this.motionX + this.motionY * this.motionY + this.motionZ * this.motionZ);
-        this.motionX = this.motionX / (double)f1 * (double)f * 0.4000000059604645D;
-        this.motionY = this.motionY / (double)f1 * (double)f * 0.4000000059604645D + 0.10000000149011612D;
-        this.motionZ = this.motionZ / (double)f1 * (double)f * 0.4000000059604645D;
+        float f1 = MathHelper.sqrt(motionX * motionX + motionY * motionY + motionZ * motionZ);
+        motionX = motionX / (double)f1 * (double)f * 0.4000000059604645D;
+        motionY = motionY / (double)f1 * (double)f * 0.4000000059604645D + 0.10000000149011612D;
+        motionZ = motionZ / (double)f1 * (double)f * 0.4000000059604645D;
     }
 
     public Particle multiplyVelocity(float multiplier)
     {
-        this.motionX *= (double)multiplier;
-        this.motionY = (this.motionY - 0.10000000149011612D) * (double)multiplier + 0.10000000149011612D;
-        this.motionZ *= (double)multiplier;
+        motionX *= (double)multiplier;
+        motionY = (motionY - 0.10000000149011612D) * (double)multiplier + 0.10000000149011612D;
+        motionZ *= (double)multiplier;
         return this;
     }
 
     public Particle multipleParticleScaleBy(float scale)
     {
-        this.setSize(0.2F * scale, 0.2F * scale);
-        this.particleScale *= scale;
+        setSize(0.2F * scale, 0.2F * scale);
+        particleScale *= scale;
         return this;
     }
 
     public void setRBGColorF(float particleRedIn, float particleGreenIn, float particleBlueIn)
     {
-        this.particleRed = particleRedIn;
-        this.particleGreen = particleGreenIn;
-        this.particleBlue = particleBlueIn;
+        particleRed = particleRedIn;
+        particleGreen = particleGreenIn;
+        particleBlue = particleBlueIn;
     }
 
     /**
@@ -135,7 +135,7 @@ public class Particle
      */
     public void setAlphaF(float alpha)
     {
-        this.particleAlpha = alpha;
+        particleAlpha = alpha;
     }
 
     public boolean shouldDisableDepth()
@@ -145,45 +145,45 @@ public class Particle
 
     public float getRedColorF()
     {
-        return this.particleRed;
+        return particleRed;
     }
 
     public float getGreenColorF()
     {
-        return this.particleGreen;
+        return particleGreen;
     }
 
     public float getBlueColorF()
     {
-        return this.particleBlue;
+        return particleBlue;
     }
 
     public void setMaxAge(int p_187114_1_)
     {
-        this.particleMaxAge = p_187114_1_;
+        particleMaxAge = p_187114_1_;
     }
 
     public void onUpdate()
     {
-        this.prevPosX = this.posX;
-        this.prevPosY = this.posY;
-        this.prevPosZ = this.posZ;
+        prevPosX = posX;
+        prevPosY = posY;
+        prevPosZ = posZ;
 
-        if (this.particleAge++ >= this.particleMaxAge)
+        if (particleAge++ >= particleMaxAge)
         {
-            this.setExpired();
+            setExpired();
         }
 
-        this.motionY -= 0.04D * (double)this.particleGravity;
-        this.move(this.motionX, this.motionY, this.motionZ);
-        this.motionX *= 0.9800000190734863D;
-        this.motionY *= 0.9800000190734863D;
-        this.motionZ *= 0.9800000190734863D;
+        motionY -= 0.04D * (double) particleGravity;
+        move(motionX, motionY, motionZ);
+        motionX *= 0.9800000190734863D;
+        motionY *= 0.9800000190734863D;
+        motionZ *= 0.9800000190734863D;
 
-        if (this.onGround)
+        if (onGround)
         {
-            this.motionX *= 0.699999988079071D;
-            this.motionZ *= 0.699999988079071D;
+            motionX *= 0.699999988079071D;
+            motionZ *= 0.699999988079071D;
         }
     }
 
@@ -192,31 +192,31 @@ public class Particle
      */
     public void renderParticle(BufferBuilder buffer, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ)
     {
-        float f = (float)this.particleTextureIndexX / 16.0F;
+        float f = (float) particleTextureIndexX / 16.0F;
         float f1 = f + 0.0624375F;
-        float f2 = (float)this.particleTextureIndexY / 16.0F;
+        float f2 = (float) particleTextureIndexY / 16.0F;
         float f3 = f2 + 0.0624375F;
-        float f4 = 0.1F * this.particleScale;
+        float f4 = 0.1F * particleScale;
 
-        if (this.particleTexture != null)
+        if (particleTexture != null)
         {
-            f = this.particleTexture.getMinU();
-            f1 = this.particleTexture.getMaxU();
-            f2 = this.particleTexture.getMinV();
-            f3 = this.particleTexture.getMaxV();
+            f = particleTexture.getMinU();
+            f1 = particleTexture.getMaxU();
+            f2 = particleTexture.getMinV();
+            f3 = particleTexture.getMaxV();
         }
 
-        float f5 = (float)(this.prevPosX + (this.posX - this.prevPosX) * (double)partialTicks - interpPosX);
-        float f6 = (float)(this.prevPosY + (this.posY - this.prevPosY) * (double)partialTicks - interpPosY);
-        float f7 = (float)(this.prevPosZ + (this.posZ - this.prevPosZ) * (double)partialTicks - interpPosZ);
-        int i = this.getBrightnessForRender(partialTicks);
+        float f5 = (float)(prevPosX + (posX - prevPosX) * (double)partialTicks - interpPosX);
+        float f6 = (float)(prevPosY + (posY - prevPosY) * (double)partialTicks - interpPosY);
+        float f7 = (float)(prevPosZ + (posZ - prevPosZ) * (double)partialTicks - interpPosZ);
+        int i = getBrightnessForRender(partialTicks);
         int j = i >> 16 & 65535;
         int k = i & 65535;
         Vec3d[] avec3d = new Vec3d[] {new Vec3d((double)(-rotationX * f4 - rotationXY * f4), (double)(-rotationZ * f4), (double)(-rotationYZ * f4 - rotationXZ * f4)), new Vec3d((double)(-rotationX * f4 + rotationXY * f4), (double)(rotationZ * f4), (double)(-rotationYZ * f4 + rotationXZ * f4)), new Vec3d((double)(rotationX * f4 + rotationXY * f4), (double)(rotationZ * f4), (double)(rotationYZ * f4 + rotationXZ * f4)), new Vec3d((double)(rotationX * f4 - rotationXY * f4), (double)(-rotationZ * f4), (double)(rotationYZ * f4 - rotationXZ * f4))};
 
-        if (this.particleAngle != 0.0F)
+        if (particleAngle != 0.0F)
         {
-            float f8 = this.particleAngle + (this.particleAngle - this.prevParticleAngle) * partialTicks;
+            float f8 = particleAngle + (particleAngle - prevParticleAngle) * partialTicks;
             float f9 = MathHelper.cos(f8 * 0.5F);
             float f10 = MathHelper.sin(f8 * 0.5F) * (float)cameraViewDir.x;
             float f11 = MathHelper.sin(f8 * 0.5F) * (float)cameraViewDir.y;
@@ -229,10 +229,10 @@ public class Particle
             }
         }
 
-        buffer.pos((double)f5 + avec3d[0].x, (double)f6 + avec3d[0].y, (double)f7 + avec3d[0].z).tex((double)f1, (double)f3).color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).lightmap(j, k).endVertex();
-        buffer.pos((double)f5 + avec3d[1].x, (double)f6 + avec3d[1].y, (double)f7 + avec3d[1].z).tex((double)f1, (double)f2).color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).lightmap(j, k).endVertex();
-        buffer.pos((double)f5 + avec3d[2].x, (double)f6 + avec3d[2].y, (double)f7 + avec3d[2].z).tex((double)f, (double)f2).color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).lightmap(j, k).endVertex();
-        buffer.pos((double)f5 + avec3d[3].x, (double)f6 + avec3d[3].y, (double)f7 + avec3d[3].z).tex((double)f, (double)f3).color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).lightmap(j, k).endVertex();
+        buffer.pos((double)f5 + avec3d[0].x, (double)f6 + avec3d[0].y, (double)f7 + avec3d[0].z).tex((double)f1, (double)f3).color(particleRed, particleGreen, particleBlue, particleAlpha).lightmap(j, k).endVertex();
+        buffer.pos((double)f5 + avec3d[1].x, (double)f6 + avec3d[1].y, (double)f7 + avec3d[1].z).tex((double)f1, (double)f2).color(particleRed, particleGreen, particleBlue, particleAlpha).lightmap(j, k).endVertex();
+        buffer.pos((double)f5 + avec3d[2].x, (double)f6 + avec3d[2].y, (double)f7 + avec3d[2].z).tex((double)f, (double)f2).color(particleRed, particleGreen, particleBlue, particleAlpha).lightmap(j, k).endVertex();
+        buffer.pos((double)f5 + avec3d[3].x, (double)f6 + avec3d[3].y, (double)f7 + avec3d[3].z).tex((double)f, (double)f3).color(particleRed, particleGreen, particleBlue, particleAlpha).lightmap(j, k).endVertex();
     }
 
     /**
@@ -249,11 +249,11 @@ public class Particle
      */
     public void setParticleTexture(TextureAtlasSprite texture)
     {
-        int i = this.getFXLayer();
+        int i = getFXLayer();
 
         if (i == 1)
         {
-            this.particleTexture = texture;
+            particleTexture = texture;
         }
         else
         {
@@ -266,25 +266,25 @@ public class Particle
      */
     public void setParticleTextureIndex(int particleTextureIndex)
     {
-        if (this.getFXLayer() != 0)
+        if (getFXLayer() != 0)
         {
             throw new RuntimeException("Invalid call to Particle.setMiscTex");
         }
         else
         {
-            this.particleTextureIndexX = particleTextureIndex % 16;
-            this.particleTextureIndexY = particleTextureIndex / 16;
+            particleTextureIndexX = particleTextureIndex % 16;
+            particleTextureIndexY = particleTextureIndex / 16;
         }
     }
 
     public void nextTextureIndexX()
     {
-        ++this.particleTextureIndexX;
+        ++particleTextureIndexX;
     }
 
     public String toString()
     {
-        return this.getClass().getSimpleName() + ", Pos (" + this.posX + "," + this.posY + "," + this.posZ + "), RGBA (" + this.particleRed + "," + this.particleGreen + "," + this.particleBlue + "," + this.particleAlpha + "), Age " + this.particleAge;
+        return getClass().getSimpleName() + ", Pos (" + posX + "," + posY + "," + posZ + "), RGBA (" + particleRed + "," + particleGreen + "," + particleBlue + "," + particleAlpha + "), Age " + particleAge;
     }
 
     /**
@@ -292,90 +292,90 @@ public class Particle
      */
     public void setExpired()
     {
-        this.isExpired = true;
+        isExpired = true;
     }
 
     protected void setSize(float p_187115_1_, float p_187115_2_)
     {
-        if (p_187115_1_ != this.width || p_187115_2_ != this.height)
+        if (p_187115_1_ != width || p_187115_2_ != height)
         {
-            this.width = p_187115_1_;
-            this.height = p_187115_2_;
-            AxisAlignedBB axisalignedbb = this.getBoundingBox();
-            this.setBoundingBox(new AxisAlignedBB(axisalignedbb.minX, axisalignedbb.minY, axisalignedbb.minZ, axisalignedbb.minX + (double)this.width, axisalignedbb.minY + (double)this.height, axisalignedbb.minZ + (double)this.width));
+            width = p_187115_1_;
+            height = p_187115_2_;
+            AxisAlignedBB axisalignedbb = getBoundingBox();
+            setBoundingBox(new AxisAlignedBB(axisalignedbb.minX, axisalignedbb.minY, axisalignedbb.minZ, axisalignedbb.minX + (double) width, axisalignedbb.minY + (double) height, axisalignedbb.minZ + (double) width));
         }
     }
 
     public void setPosition(double p_187109_1_, double p_187109_3_, double p_187109_5_)
     {
-        this.posX = p_187109_1_;
-        this.posY = p_187109_3_;
-        this.posZ = p_187109_5_;
-        float f = this.width / 2.0F;
-        float f1 = this.height;
-        this.setBoundingBox(new AxisAlignedBB(p_187109_1_ - (double)f, p_187109_3_, p_187109_5_ - (double)f, p_187109_1_ + (double)f, p_187109_3_ + (double)f1, p_187109_5_ + (double)f));
+        posX = p_187109_1_;
+        posY = p_187109_3_;
+        posZ = p_187109_5_;
+        float f = width / 2.0F;
+        float f1 = height;
+        setBoundingBox(new AxisAlignedBB(p_187109_1_ - (double)f, p_187109_3_, p_187109_5_ - (double)f, p_187109_1_ + (double)f, p_187109_3_ + (double)f1, p_187109_5_ + (double)f));
     }
 
     public void move(double x, double y, double z)
     {
         double d0 = y;
 
-        if (this.canCollide)
+        if (canCollide)
         {
-            List<AxisAlignedBB> list = this.world.getCollisionBoxes((Entity)null, this.getBoundingBox().expand(x, y, z));
+            List<AxisAlignedBB> list = world.getCollisionBoxes((Entity)null, getBoundingBox().expand(x, y, z));
 
             for (AxisAlignedBB axisalignedbb : list)
             {
-                y = axisalignedbb.calculateYOffset(this.getBoundingBox(), y);
+                y = axisalignedbb.calculateYOffset(getBoundingBox(), y);
             }
 
-            this.setBoundingBox(this.getBoundingBox().offset(0.0D, y, 0.0D));
+            setBoundingBox(getBoundingBox().offset(0.0D, y, 0.0D));
 
             for (AxisAlignedBB axisalignedbb1 : list)
             {
-                x = axisalignedbb1.calculateXOffset(this.getBoundingBox(), x);
+                x = axisalignedbb1.calculateXOffset(getBoundingBox(), x);
             }
 
-            this.setBoundingBox(this.getBoundingBox().offset(x, 0.0D, 0.0D));
+            setBoundingBox(getBoundingBox().offset(x, 0.0D, 0.0D));
 
             for (AxisAlignedBB axisalignedbb2 : list)
             {
-                z = axisalignedbb2.calculateZOffset(this.getBoundingBox(), z);
+                z = axisalignedbb2.calculateZOffset(getBoundingBox(), z);
             }
 
-            this.setBoundingBox(this.getBoundingBox().offset(0.0D, 0.0D, z));
+            setBoundingBox(getBoundingBox().offset(0.0D, 0.0D, z));
         }
         else
         {
-            this.setBoundingBox(this.getBoundingBox().offset(x, y, z));
+            setBoundingBox(getBoundingBox().offset(x, y, z));
         }
 
-        this.resetPositionToBB();
-        this.onGround = y != y && d0 < 0.0D;
+        resetPositionToBB();
+        onGround = y != y && d0 < 0.0D;
 
         if (x != x)
         {
-            this.motionX = 0.0D;
+            motionX = 0.0D;
         }
 
         if (z != z)
         {
-            this.motionZ = 0.0D;
+            motionZ = 0.0D;
         }
     }
 
     protected void resetPositionToBB()
     {
-        AxisAlignedBB axisalignedbb = this.getBoundingBox();
-        this.posX = (axisalignedbb.minX + axisalignedbb.maxX) / 2.0D;
-        this.posY = axisalignedbb.minY;
-        this.posZ = (axisalignedbb.minZ + axisalignedbb.maxZ) / 2.0D;
+        AxisAlignedBB axisalignedbb = getBoundingBox();
+        posX = (axisalignedbb.minX + axisalignedbb.maxX) / 2.0D;
+        posY = axisalignedbb.minY;
+        posZ = (axisalignedbb.minZ + axisalignedbb.maxZ) / 2.0D;
     }
 
     public int getBrightnessForRender(float p_189214_1_)
     {
-        BlockPos blockpos = new BlockPos(this.posX, this.posY, this.posZ);
-        return this.world.isBlockLoaded(blockpos) ? this.world.getCombinedLight(blockpos, 0) : 0;
+        BlockPos blockpos = new BlockPos(posX, posY, posZ);
+        return world.isBlockLoaded(blockpos) ? world.getCombinedLight(blockpos, 0) : 0;
     }
 
     /**
@@ -383,16 +383,16 @@ public class Particle
      */
     public boolean isAlive()
     {
-        return !this.isExpired;
+        return !isExpired;
     }
 
     public AxisAlignedBB getBoundingBox()
     {
-        return this.boundingBox;
+        return boundingBox;
     }
 
     public void setBoundingBox(AxisAlignedBB bb)
     {
-        this.boundingBox = bb;
+        boundingBox = bb;
     }
 }

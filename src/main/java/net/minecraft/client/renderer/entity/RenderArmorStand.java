@@ -25,14 +25,14 @@ public class RenderArmorStand extends RenderLivingBase<EntityArmorStand>
         {
             protected void initArmor()
             {
-                this.modelLeggings = new ModelArmorStandArmor(0.5F);
-                this.modelArmor = new ModelArmorStandArmor(1.0F);
+                modelLeggings = new ModelArmorStandArmor(0.5F);
+                modelArmor = new ModelArmorStandArmor(1.0F);
             }
         };
-        this.addLayer(layerbipedarmor);
-        this.addLayer(new LayerHeldItem(this));
-        this.addLayer(new LayerElytra(this));
-        this.addLayer(new LayerCustomHead(this.getMainModel().bipedHead));
+        addLayer(layerbipedarmor);
+        addLayer(new LayerHeldItem(this));
+        addLayer(new LayerElytra(this));
+        addLayer(new LayerCustomHead(getMainModel().bipedHead));
     }
 
     /**
@@ -71,14 +71,14 @@ public class RenderArmorStand extends RenderLivingBase<EntityArmorStand>
     {
         if (entity.hasMarker())
         {
-            this.renderMarker = true;
+            renderMarker = true;
         }
 
         super.doRender(entity, x, y, z, entityYaw, partialTicks);
 
         if (entity.hasMarker())
         {
-            this.renderMarker = false;
+            renderMarker = false;
         }
     }
 }

@@ -23,26 +23,26 @@ public class BlockFluidRenderer
 
     public BlockFluidRenderer(BlockColors blockColorsIn)
     {
-        this.blockColors = blockColorsIn;
-        this.initAtlasSprites();
+        blockColors = blockColorsIn;
+        initAtlasSprites();
     }
 
     protected void initAtlasSprites()
     {
         TextureMap texturemap = Minecraft.getMinecraft().getTextureMapBlocks();
-        this.atlasSpritesLava[0] = texturemap.getAtlasSprite("minecraft:blocks/lava_still");
-        this.atlasSpritesLava[1] = texturemap.getAtlasSprite("minecraft:blocks/lava_flow");
-        this.atlasSpritesWater[0] = texturemap.getAtlasSprite("minecraft:blocks/water_still");
-        this.atlasSpritesWater[1] = texturemap.getAtlasSprite("minecraft:blocks/water_flow");
-        this.atlasSpriteWaterOverlay = texturemap.getAtlasSprite("minecraft:blocks/water_overlay");
+        atlasSpritesLava[0] = texturemap.getAtlasSprite("minecraft:blocks/lava_still");
+        atlasSpritesLava[1] = texturemap.getAtlasSprite("minecraft:blocks/lava_flow");
+        atlasSpritesWater[0] = texturemap.getAtlasSprite("minecraft:blocks/water_still");
+        atlasSpritesWater[1] = texturemap.getAtlasSprite("minecraft:blocks/water_flow");
+        atlasSpriteWaterOverlay = texturemap.getAtlasSprite("minecraft:blocks/water_overlay");
     }
 
     public boolean renderFluid(IBlockAccess blockAccess, IBlockState blockStateIn, BlockPos blockPosIn, BufferBuilder bufferBuilderIn)
     {
         BlockLiquid blockliquid = (BlockLiquid)blockStateIn.getBlock();
         boolean flag = blockStateIn.getMaterial() == Material.LAVA;
-        TextureAtlasSprite[] atextureatlassprite = flag ? this.atlasSpritesLava : this.atlasSpritesWater;
-        int i = this.blockColors.colorMultiplier(blockStateIn, blockAccess, blockPosIn, 0);
+        TextureAtlasSprite[] atextureatlassprite = flag ? atlasSpritesLava : atlasSpritesWater;
+        int i = blockColors.colorMultiplier(blockStateIn, blockAccess, blockPosIn, 0);
         float f = (float)(i >> 16 & 255) / 255.0F;
         float f1 = (float)(i >> 8 & 255) / 255.0F;
         float f2 = (float)(i & 255) / 255.0F;
@@ -62,10 +62,10 @@ public class BlockFluidRenderer
             float f5 = 0.8F;
             float f6 = 0.6F;
             Material material = blockStateIn.getMaterial();
-            float f7 = this.getFluidHeight(blockAccess, blockPosIn, material);
-            float f8 = this.getFluidHeight(blockAccess, blockPosIn.south(), material);
-            float f9 = this.getFluidHeight(blockAccess, blockPosIn.east().south(), material);
-            float f10 = this.getFluidHeight(blockAccess, blockPosIn.east(), material);
+            float f7 = getFluidHeight(blockAccess, blockPosIn, material);
+            float f8 = getFluidHeight(blockAccess, blockPosIn.south(), material);
+            float f9 = getFluidHeight(blockAccess, blockPosIn.east().south(), material);
+            float f10 = getFluidHeight(blockAccess, blockPosIn.east(), material);
             double d0 = (double)blockPosIn.getX();
             double d1 = (double)blockPosIn.getY();
             double d2 = (double)blockPosIn.getZ();
@@ -185,7 +185,7 @@ public class BlockFluidRenderer
 
                     if (block == Blocks.GLASS || block == Blocks.STAINED_GLASS)
                     {
-                        textureatlassprite1 = this.atlasSpriteWaterOverlay;
+                        textureatlassprite1 = atlasSpriteWaterOverlay;
                     }
                 }
 
@@ -253,7 +253,7 @@ public class BlockFluidRenderer
                     bufferBuilderIn.pos(d5, d1 + 0.0D, d6).color(f32, f33, f34, 1.0F).tex((double)f27, (double)f30).lightmap(k, l).endVertex();
                     bufferBuilderIn.pos(d3, d1 + 0.0D, d4).color(f32, f33, f34, 1.0F).tex((double)f41, (double)f30).lightmap(k, l).endVertex();
 
-                    if (textureatlassprite1 != this.atlasSpriteWaterOverlay)
+                    if (textureatlassprite1 != atlasSpriteWaterOverlay)
                     {
                         bufferBuilderIn.pos(d3, d1 + 0.0D, d4).color(f32, f33, f34, 1.0F).tex((double)f41, (double)f30).lightmap(k, l).endVertex();
                         bufferBuilderIn.pos(d5, d1 + 0.0D, d6).color(f32, f33, f34, 1.0F).tex((double)f27, (double)f30).lightmap(k, l).endVertex();

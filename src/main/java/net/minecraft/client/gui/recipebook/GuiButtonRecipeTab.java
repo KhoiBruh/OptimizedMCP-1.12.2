@@ -21,8 +21,8 @@ public class GuiButtonRecipeTab extends GuiButtonToggle
     public GuiButtonRecipeTab(int p_i47588_1_, CreativeTabs p_i47588_2_)
     {
         super(p_i47588_1_, 0, 0, 35, 27, false);
-        this.category = p_i47588_2_;
-        this.initTextureValues(153, 2, 35, 0, GuiRecipeBook.RECIPE_BOOK);
+        category = p_i47588_2_;
+        initTextureValues(153, 2, 35, 0, GuiRecipeBook.RECIPE_BOOK);
     }
 
     public void startAnimation(Minecraft p_193918_1_)
@@ -30,7 +30,7 @@ public class GuiButtonRecipeTab extends GuiButtonToggle
         RecipeBook recipebook = p_193918_1_.player.getRecipeBook();
         label21:
 
-        for (RecipeList recipelist : RecipeBookClient.RECIPES_BY_TAB.get(this.category))
+        for (RecipeList recipelist : RecipeBookClient.RECIPES_BY_TAB.get(category))
         {
             Iterator iterator = recipelist.getRecipes(recipebook.isFilteringCraftable()).iterator();
 
@@ -49,7 +49,7 @@ public class GuiButtonRecipeTab extends GuiButtonToggle
                 }
             }
 
-            this.animationTime = 15.0F;
+            animationTime = 15.0F;
             return;
         }
     }
@@ -59,96 +59,96 @@ public class GuiButtonRecipeTab extends GuiButtonToggle
      */
     public void drawButton(Minecraft mc, int mouseX, int mouseY, float partialTicks)
     {
-        if (this.visible)
+        if (visible)
         {
-            if (this.animationTime > 0.0F)
+            if (animationTime > 0.0F)
             {
-                float f = 1.0F + 0.1F * (float)Math.sin((double)(this.animationTime / 15.0F * (float)Math.PI));
+                float f = 1.0F + 0.1F * (float)Math.sin((double)(animationTime / 15.0F * (float)Math.PI));
                 GlStateManager.pushMatrix();
-                GlStateManager.translate((float)(this.x + 8), (float)(this.y + 12), 0.0F);
+                GlStateManager.translate((float)(x + 8), (float)(y + 12), 0.0F);
                 GlStateManager.scale(1.0F, f, 1.0F);
-                GlStateManager.translate((float)(-(this.x + 8)), (float)(-(this.y + 12)), 0.0F);
+                GlStateManager.translate((float)(-(x + 8)), (float)(-(y + 12)), 0.0F);
             }
 
-            this.hovered = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width && mouseY < this.y + this.height;
-            mc.getTextureManager().bindTexture(this.resourceLocation);
+            hovered = mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
+            mc.getTextureManager().bindTexture(resourceLocation);
             GlStateManager.disableDepth();
-            int k = this.xTexStart;
-            int i = this.yTexStart;
+            int k = xTexStart;
+            int i = yTexStart;
 
-            if (this.stateTriggered)
+            if (stateTriggered)
             {
-                k += this.xDiffTex;
+                k += xDiffTex;
             }
 
-            if (this.hovered)
+            if (hovered)
             {
-                i += this.yDiffTex;
+                i += yDiffTex;
             }
 
-            int j = this.x;
+            int j = x;
 
-            if (this.stateTriggered)
+            if (stateTriggered)
             {
                 j -= 2;
             }
 
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-            this.drawTexturedModalRect(j, this.y, k, i, this.width, this.height);
+            drawTexturedModalRect(j, y, k, i, width, height);
             GlStateManager.enableDepth();
             RenderHelper.enableGUIStandardItemLighting();
             GlStateManager.disableLighting();
-            this.renderIcon(mc.getRenderItem());
+            renderIcon(mc.getRenderItem());
             GlStateManager.enableLighting();
             RenderHelper.disableStandardItemLighting();
 
-            if (this.animationTime > 0.0F)
+            if (animationTime > 0.0F)
             {
                 GlStateManager.popMatrix();
-                this.animationTime -= partialTicks;
+                animationTime -= partialTicks;
             }
         }
     }
 
     private void renderIcon(RenderItem p_193920_1_)
     {
-        ItemStack itemstack = this.category.getIconItemStack();
+        ItemStack itemstack = category.getIconItemStack();
 
-        if (this.category == CreativeTabs.TOOLS)
+        if (category == CreativeTabs.TOOLS)
         {
-            p_193920_1_.renderItemAndEffectIntoGUI(itemstack, this.x + 3, this.y + 5);
-            p_193920_1_.renderItemAndEffectIntoGUI(CreativeTabs.COMBAT.getIconItemStack(), this.x + 14, this.y + 5);
+            p_193920_1_.renderItemAndEffectIntoGUI(itemstack, x + 3, y + 5);
+            p_193920_1_.renderItemAndEffectIntoGUI(CreativeTabs.COMBAT.getIconItemStack(), x + 14, y + 5);
         }
-        else if (this.category == CreativeTabs.MISC)
+        else if (category == CreativeTabs.MISC)
         {
-            p_193920_1_.renderItemAndEffectIntoGUI(itemstack, this.x + 3, this.y + 5);
-            p_193920_1_.renderItemAndEffectIntoGUI(CreativeTabs.FOOD.getIconItemStack(), this.x + 14, this.y + 5);
+            p_193920_1_.renderItemAndEffectIntoGUI(itemstack, x + 3, y + 5);
+            p_193920_1_.renderItemAndEffectIntoGUI(CreativeTabs.FOOD.getIconItemStack(), x + 14, y + 5);
         }
         else
         {
-            p_193920_1_.renderItemAndEffectIntoGUI(itemstack, this.x + 9, this.y + 5);
+            p_193920_1_.renderItemAndEffectIntoGUI(itemstack, x + 9, y + 5);
         }
     }
 
     public CreativeTabs getCategory()
     {
-        return this.category;
+        return category;
     }
 
     public boolean updateVisibility()
     {
-        List<RecipeList> list = (List)RecipeBookClient.RECIPES_BY_TAB.get(this.category);
-        this.visible = false;
+        List<RecipeList> list = (List)RecipeBookClient.RECIPES_BY_TAB.get(category);
+        visible = false;
 
         for (RecipeList recipelist : list)
         {
             if (recipelist.isNotEmpty() && recipelist.containsValidRecipes())
             {
-                this.visible = true;
+                visible = true;
                 break;
             }
         }
 
-        return this.visible;
+        return visible;
     }
 }

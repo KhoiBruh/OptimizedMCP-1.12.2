@@ -18,7 +18,7 @@ public class PhaseSittingAttacking extends PhaseSittingBase
      */
     public void doClientRenderEffects()
     {
-        this.dragon.world.playSound(this.dragon.posX, this.dragon.posY, this.dragon.posZ, SoundEvents.ENTITY_ENDERDRAGON_GROWL, this.dragon.getSoundCategory(), 2.5F, 0.8F + this.dragon.getRNG().nextFloat() * 0.3F, false);
+        dragon.world.playSound(dragon.posX, dragon.posY, dragon.posZ, SoundEvents.ENTITY_ENDERDRAGON_GROWL, dragon.getSoundCategory(), 2.5F, 0.8F + dragon.getRNG().nextFloat() * 0.3F, false);
     }
 
     /**
@@ -27,9 +27,9 @@ public class PhaseSittingAttacking extends PhaseSittingBase
      */
     public void doLocalUpdate()
     {
-        if (this.attackingTicks++ >= 40)
+        if (attackingTicks++ >= 40)
         {
-            this.dragon.getPhaseManager().setPhase(PhaseList.SITTING_FLAMING);
+            dragon.getPhaseManager().setPhase(PhaseList.SITTING_FLAMING);
         }
     }
 
@@ -38,7 +38,7 @@ public class PhaseSittingAttacking extends PhaseSittingBase
      */
     public void initPhase()
     {
-        this.attackingTicks = 0;
+        attackingTicks = 0;
     }
 
     public PhaseList<PhaseSittingAttacking> getType()

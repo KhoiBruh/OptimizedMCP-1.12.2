@@ -28,7 +28,7 @@ public class GuiScreenResourcePacks extends GuiScreen
 
     public GuiScreenResourcePacks(GuiScreen parentScreenIn)
     {
-        this.parentScreen = parentScreenIn;
+        parentScreen = parentScreenIn;
     }
 
     /**
@@ -37,44 +37,44 @@ public class GuiScreenResourcePacks extends GuiScreen
      */
     public void initGui()
     {
-        this.buttonList.add(new GuiOptionButton(2, this.width / 2 - 154, this.height - 48, I18n.format("resourcePack.openFolder")));
-        this.buttonList.add(new GuiOptionButton(1, this.width / 2 + 4, this.height - 48, I18n.format("gui.done")));
+        buttonList.add(new GuiOptionButton(2, width / 2 - 154, height - 48, I18n.format("resourcePack.openFolder")));
+        buttonList.add(new GuiOptionButton(1, width / 2 + 4, height - 48, I18n.format("gui.done")));
 
-        if (!this.changed)
+        if (!changed)
         {
-            this.availableResourcePacks = Lists.<ResourcePackListEntry>newArrayList();
-            this.selectedResourcePacks = Lists.<ResourcePackListEntry>newArrayList();
-            ResourcePackRepository resourcepackrepository = this.mc.getResourcePackRepository();
+            availableResourcePacks = Lists.<ResourcePackListEntry>newArrayList();
+            selectedResourcePacks = Lists.<ResourcePackListEntry>newArrayList();
+            ResourcePackRepository resourcepackrepository = mc.getResourcePackRepository();
             resourcepackrepository.updateRepositoryEntriesAll();
             List<ResourcePackRepository.Entry> list = Lists.newArrayList(resourcepackrepository.getRepositoryEntriesAll());
             list.removeAll(resourcepackrepository.getRepositoryEntries());
 
             for (ResourcePackRepository.Entry resourcepackrepository$entry : list)
             {
-                this.availableResourcePacks.add(new ResourcePackListEntryFound(this, resourcepackrepository$entry));
+                availableResourcePacks.add(new ResourcePackListEntryFound(this, resourcepackrepository$entry));
             }
 
             ResourcePackRepository.Entry resourcepackrepository$entry2 = resourcepackrepository.getResourcePackEntry();
 
             if (resourcepackrepository$entry2 != null)
             {
-                this.selectedResourcePacks.add(new ResourcePackListEntryServer(this, resourcepackrepository.getServerResourcePack()));
+                selectedResourcePacks.add(new ResourcePackListEntryServer(this, resourcepackrepository.getServerResourcePack()));
             }
 
             for (ResourcePackRepository.Entry resourcepackrepository$entry1 : Lists.reverse(resourcepackrepository.getRepositoryEntries()))
             {
-                this.selectedResourcePacks.add(new ResourcePackListEntryFound(this, resourcepackrepository$entry1));
+                selectedResourcePacks.add(new ResourcePackListEntryFound(this, resourcepackrepository$entry1));
             }
 
-            this.selectedResourcePacks.add(new ResourcePackListEntryDefault(this));
+            selectedResourcePacks.add(new ResourcePackListEntryDefault(this));
         }
 
-        this.availableResourcePacksList = new GuiResourcePackAvailable(this.mc, 200, this.height, this.availableResourcePacks);
-        this.availableResourcePacksList.setSlotXBoundsFromLeft(this.width / 2 - 4 - 200);
-        this.availableResourcePacksList.registerScrollButtons(7, 8);
-        this.selectedResourcePacksList = new GuiResourcePackSelected(this.mc, 200, this.height, this.selectedResourcePacks);
-        this.selectedResourcePacksList.setSlotXBoundsFromLeft(this.width / 2 + 4);
-        this.selectedResourcePacksList.registerScrollButtons(7, 8);
+        availableResourcePacksList = new GuiResourcePackAvailable(mc, 200, height, availableResourcePacks);
+        availableResourcePacksList.setSlotXBoundsFromLeft(width / 2 - 4 - 200);
+        availableResourcePacksList.registerScrollButtons(7, 8);
+        selectedResourcePacksList = new GuiResourcePackSelected(mc, 200, height, selectedResourcePacks);
+        selectedResourcePacksList.setSlotXBoundsFromLeft(width / 2 + 4);
+        selectedResourcePacksList.registerScrollButtons(7, 8);
     }
 
     /**
@@ -83,28 +83,28 @@ public class GuiScreenResourcePacks extends GuiScreen
     public void handleMouseInput() throws IOException
     {
         super.handleMouseInput();
-        this.selectedResourcePacksList.handleMouseInput();
-        this.availableResourcePacksList.handleMouseInput();
+        selectedResourcePacksList.handleMouseInput();
+        availableResourcePacksList.handleMouseInput();
     }
 
     public boolean hasResourcePackEntry(ResourcePackListEntry resourcePackEntry)
     {
-        return this.selectedResourcePacks.contains(resourcePackEntry);
+        return selectedResourcePacks.contains(resourcePackEntry);
     }
 
     public List<ResourcePackListEntry> getListContaining(ResourcePackListEntry resourcePackEntry)
     {
-        return this.hasResourcePackEntry(resourcePackEntry) ? this.selectedResourcePacks : this.availableResourcePacks;
+        return hasResourcePackEntry(resourcePackEntry) ? selectedResourcePacks : availableResourcePacks;
     }
 
     public List<ResourcePackListEntry> getAvailableResourcePacks()
     {
-        return this.availableResourcePacks;
+        return availableResourcePacks;
     }
 
     public List<ResourcePackListEntry> getSelectedResourcePacks()
     {
-        return this.selectedResourcePacks;
+        return selectedResourcePacks;
     }
 
     /**
@@ -116,16 +116,16 @@ public class GuiScreenResourcePacks extends GuiScreen
         {
             if (button.id == 2)
             {
-                File file1 = this.mc.getResourcePackRepository().getDirResourcepacks();
+                File file1 = mc.getResourcePackRepository().getDirResourcepacks();
                 OpenGlHelper.openFile(file1);
             }
             else if (button.id == 1)
             {
-                if (this.changed)
+                if (changed)
                 {
                     List<ResourcePackRepository.Entry> list = Lists.<ResourcePackRepository.Entry>newArrayList();
 
-                    for (ResourcePackListEntry resourcepacklistentry : this.selectedResourcePacks)
+                    for (ResourcePackListEntry resourcepacklistentry : selectedResourcePacks)
                     {
                         if (resourcepacklistentry instanceof ResourcePackListEntryFound)
                         {
@@ -134,25 +134,25 @@ public class GuiScreenResourcePacks extends GuiScreen
                     }
 
                     Collections.reverse(list);
-                    this.mc.getResourcePackRepository().setRepositories(list);
-                    this.mc.gameSettings.resourcePacks.clear();
-                    this.mc.gameSettings.incompatibleResourcePacks.clear();
+                    mc.getResourcePackRepository().setRepositories(list);
+                    mc.gameSettings.resourcePacks.clear();
+                    mc.gameSettings.incompatibleResourcePacks.clear();
 
                     for (ResourcePackRepository.Entry resourcepackrepository$entry : list)
                     {
-                        this.mc.gameSettings.resourcePacks.add(resourcepackrepository$entry.getResourcePackName());
+                        mc.gameSettings.resourcePacks.add(resourcepackrepository$entry.getResourcePackName());
 
                         if (resourcepackrepository$entry.getPackFormat() != 3)
                         {
-                            this.mc.gameSettings.incompatibleResourcePacks.add(resourcepackrepository$entry.getResourcePackName());
+                            mc.gameSettings.incompatibleResourcePacks.add(resourcepackrepository$entry.getResourcePackName());
                         }
                     }
 
-                    this.mc.gameSettings.saveOptions();
-                    this.mc.refreshResources();
+                    mc.gameSettings.saveOptions();
+                    mc.refreshResources();
                 }
 
-                this.mc.displayGuiScreen(this.parentScreen);
+                mc.displayGuiScreen(parentScreen);
             }
         }
     }
@@ -163,8 +163,8 @@ public class GuiScreenResourcePacks extends GuiScreen
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException
     {
         super.mouseClicked(mouseX, mouseY, mouseButton);
-        this.availableResourcePacksList.mouseClicked(mouseX, mouseY, mouseButton);
-        this.selectedResourcePacksList.mouseClicked(mouseX, mouseY, mouseButton);
+        availableResourcePacksList.mouseClicked(mouseX, mouseY, mouseButton);
+        selectedResourcePacksList.mouseClicked(mouseX, mouseY, mouseButton);
     }
 
     /**
@@ -180,11 +180,11 @@ public class GuiScreenResourcePacks extends GuiScreen
      */
     public void drawScreen(int mouseX, int mouseY, float partialTicks)
     {
-        this.drawBackground(0);
-        this.availableResourcePacksList.drawScreen(mouseX, mouseY, partialTicks);
-        this.selectedResourcePacksList.drawScreen(mouseX, mouseY, partialTicks);
-        this.drawCenteredString(this.fontRenderer, I18n.format("resourcePack.title"), this.width / 2, 16, 16777215);
-        this.drawCenteredString(this.fontRenderer, I18n.format("resourcePack.folderInfo"), this.width / 2 - 77, this.height - 26, 8421504);
+        drawBackground(0);
+        availableResourcePacksList.drawScreen(mouseX, mouseY, partialTicks);
+        selectedResourcePacksList.drawScreen(mouseX, mouseY, partialTicks);
+        drawCenteredString(fontRenderer, I18n.format("resourcePack.title"), width / 2, 16, 16777215);
+        drawCenteredString(fontRenderer, I18n.format("resourcePack.folderInfo"), width / 2 - 77, height - 26, 8421504);
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
 
@@ -193,6 +193,6 @@ public class GuiScreenResourcePacks extends GuiScreen
      */
     public void markChanged()
     {
-        this.changed = true;
+        changed = true;
     }
 }

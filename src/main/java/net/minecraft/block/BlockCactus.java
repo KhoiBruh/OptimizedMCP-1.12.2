@@ -27,9 +27,9 @@ public class BlockCactus extends Block
     protected BlockCactus()
     {
         super(Material.CACTUS);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(AGE, Integer.valueOf(0)));
-        this.setTickRandomly(true);
-        this.setCreativeTab(CreativeTabs.DECORATIONS);
+        setDefaultState(blockState.getBaseState().withProperty(AGE, Integer.valueOf(0)));
+        setTickRandomly(true);
+        setCreativeTab(CreativeTabs.DECORATIONS);
     }
 
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
@@ -51,7 +51,7 @@ public class BlockCactus extends Block
 
                 if (j == 15)
                 {
-                    worldIn.setBlockState(blockpos, this.getDefaultState());
+                    worldIn.setBlockState(blockpos, getDefaultState());
                     IBlockState iblockstate = state.withProperty(AGE, Integer.valueOf(0));
                     worldIn.setBlockState(pos, iblockstate, 4);
                     iblockstate.neighborChanged(worldIn, blockpos, this, pos);
@@ -95,7 +95,7 @@ public class BlockCactus extends Block
      */
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
     {
-        return super.canPlaceBlockAt(worldIn, pos) ? this.canBlockStay(worldIn, pos) : false;
+        return super.canPlaceBlockAt(worldIn, pos) ? canBlockStay(worldIn, pos) : false;
     }
 
     /**
@@ -105,7 +105,7 @@ public class BlockCactus extends Block
      */
     public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos)
     {
-        if (!this.canBlockStay(worldIn, pos))
+        if (!canBlockStay(worldIn, pos))
         {
             worldIn.destroyBlock(pos, true);
         }
@@ -149,7 +149,7 @@ public class BlockCactus extends Block
      */
     public IBlockState getStateFromMeta(int meta)
     {
-        return this.getDefaultState().withProperty(AGE, Integer.valueOf(meta));
+        return getDefaultState().withProperty(AGE, Integer.valueOf(meta));
     }
 
     /**

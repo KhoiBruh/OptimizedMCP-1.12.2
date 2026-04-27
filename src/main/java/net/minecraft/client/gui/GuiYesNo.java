@@ -25,22 +25,22 @@ public class GuiYesNo extends GuiScreen
 
     public GuiYesNo(GuiYesNoCallback parentScreenIn, String messageLine1In, String messageLine2In, int parentButtonClickedIdIn)
     {
-        this.parentScreen = parentScreenIn;
-        this.messageLine1 = messageLine1In;
-        this.messageLine2 = messageLine2In;
-        this.parentButtonClickedId = parentButtonClickedIdIn;
-        this.confirmButtonText = I18n.format("gui.yes");
-        this.cancelButtonText = I18n.format("gui.no");
+        parentScreen = parentScreenIn;
+        messageLine1 = messageLine1In;
+        messageLine2 = messageLine2In;
+        parentButtonClickedId = parentButtonClickedIdIn;
+        confirmButtonText = I18n.format("gui.yes");
+        cancelButtonText = I18n.format("gui.no");
     }
 
     public GuiYesNo(GuiYesNoCallback parentScreenIn, String messageLine1In, String messageLine2In, String confirmButtonTextIn, String cancelButtonTextIn, int parentButtonClickedIdIn)
     {
-        this.parentScreen = parentScreenIn;
-        this.messageLine1 = messageLine1In;
-        this.messageLine2 = messageLine2In;
-        this.confirmButtonText = confirmButtonTextIn;
-        this.cancelButtonText = cancelButtonTextIn;
-        this.parentButtonClickedId = parentButtonClickedIdIn;
+        parentScreen = parentScreenIn;
+        messageLine1 = messageLine1In;
+        messageLine2 = messageLine2In;
+        confirmButtonText = confirmButtonTextIn;
+        cancelButtonText = cancelButtonTextIn;
+        parentButtonClickedId = parentButtonClickedIdIn;
     }
 
     /**
@@ -49,10 +49,10 @@ public class GuiYesNo extends GuiScreen
      */
     public void initGui()
     {
-        this.buttonList.add(new GuiOptionButton(0, this.width / 2 - 155, this.height / 6 + 96, this.confirmButtonText));
-        this.buttonList.add(new GuiOptionButton(1, this.width / 2 - 155 + 160, this.height / 6 + 96, this.cancelButtonText));
-        this.listLines.clear();
-        this.listLines.addAll(this.fontRenderer.listFormattedStringToWidth(this.messageLine2, this.width - 50));
+        buttonList.add(new GuiOptionButton(0, width / 2 - 155, height / 6 + 96, confirmButtonText));
+        buttonList.add(new GuiOptionButton(1, width / 2 - 155 + 160, height / 6 + 96, cancelButtonText));
+        listLines.clear();
+        listLines.addAll(fontRenderer.listFormattedStringToWidth(messageLine2, width - 50));
     }
 
     /**
@@ -60,7 +60,7 @@ public class GuiYesNo extends GuiScreen
      */
     protected void actionPerformed(GuiButton button) throws IOException
     {
-        this.parentScreen.confirmClicked(button.id == 0, this.parentButtonClickedId);
+        parentScreen.confirmClicked(button.id == 0, parentButtonClickedId);
     }
 
     /**
@@ -68,14 +68,14 @@ public class GuiYesNo extends GuiScreen
      */
     public void drawScreen(int mouseX, int mouseY, float partialTicks)
     {
-        this.drawDefaultBackground();
-        this.drawCenteredString(this.fontRenderer, this.messageLine1, this.width / 2, 70, 16777215);
+        drawDefaultBackground();
+        drawCenteredString(fontRenderer, messageLine1, width / 2, 70, 16777215);
         int i = 90;
 
-        for (String s : this.listLines)
+        for (String s : listLines)
         {
-            this.drawCenteredString(this.fontRenderer, s, this.width / 2, i, 16777215);
-            i += this.fontRenderer.FONT_HEIGHT;
+            drawCenteredString(fontRenderer, s, width / 2, i, 16777215);
+            i += fontRenderer.FONT_HEIGHT;
         }
 
         super.drawScreen(mouseX, mouseY, partialTicks);
@@ -86,9 +86,9 @@ public class GuiYesNo extends GuiScreen
      */
     public void setButtonDelay(int ticksUntilEnableIn)
     {
-        this.ticksUntilEnable = ticksUntilEnableIn;
+        ticksUntilEnable = ticksUntilEnableIn;
 
-        for (GuiButton guibutton : this.buttonList)
+        for (GuiButton guibutton : buttonList)
         {
             guibutton.enabled = false;
         }
@@ -101,9 +101,9 @@ public class GuiYesNo extends GuiScreen
     {
         super.updateScreen();
 
-        if (--this.ticksUntilEnable == 0)
+        if (--ticksUntilEnable == 0)
         {
-            for (GuiButton guibutton : this.buttonList)
+            for (GuiButton guibutton : buttonList)
             {
                 guibutton.enabled = true;
             }

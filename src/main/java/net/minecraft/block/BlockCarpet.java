@@ -25,9 +25,9 @@ public class BlockCarpet extends Block
     protected BlockCarpet()
     {
         super(Material.CARPET);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(COLOR, EnumDyeColor.WHITE));
-        this.setTickRandomly(true);
-        this.setCreativeTab(CreativeTabs.DECORATIONS);
+        setDefaultState(blockState.getBaseState().withProperty(COLOR, EnumDyeColor.WHITE));
+        setTickRandomly(true);
+        setCreativeTab(CreativeTabs.DECORATIONS);
     }
 
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
@@ -61,7 +61,7 @@ public class BlockCarpet extends Block
      */
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
     {
-        return super.canPlaceBlockAt(worldIn, pos) && this.canBlockStay(worldIn, pos);
+        return super.canPlaceBlockAt(worldIn, pos) && canBlockStay(worldIn, pos);
     }
 
     /**
@@ -71,14 +71,14 @@ public class BlockCarpet extends Block
      */
     public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos)
     {
-        this.checkForDrop(worldIn, pos, state);
+        checkForDrop(worldIn, pos, state);
     }
 
     private boolean checkForDrop(World worldIn, BlockPos pos, IBlockState state)
     {
-        if (!this.canBlockStay(worldIn, pos))
+        if (!canBlockStay(worldIn, pos))
         {
-            this.dropBlockAsItem(worldIn, pos, state, 0);
+            dropBlockAsItem(worldIn, pos, state, 0);
             worldIn.setBlockToAir(pos);
             return false;
         }
@@ -130,7 +130,7 @@ public class BlockCarpet extends Block
      */
     public IBlockState getStateFromMeta(int meta)
     {
-        return this.getDefaultState().withProperty(COLOR, EnumDyeColor.byMetadata(meta));
+        return getDefaultState().withProperty(COLOR, EnumDyeColor.byMetadata(meta));
     }
 
     /**

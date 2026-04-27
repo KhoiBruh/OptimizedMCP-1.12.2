@@ -20,14 +20,14 @@ public class WorldGenBirchTree extends WorldGenAbstractTree
     public WorldGenBirchTree(boolean notify, boolean useExtraRandomHeightIn)
     {
         super(notify);
-        this.useExtraRandomHeight = useExtraRandomHeightIn;
+        useExtraRandomHeight = useExtraRandomHeightIn;
     }
 
     public boolean generate(World worldIn, Random rand, BlockPos position)
     {
         int i = rand.nextInt(3) + 5;
 
-        if (this.useExtraRandomHeight)
+        if (useExtraRandomHeight)
         {
             i += rand.nextInt(7);
         }
@@ -58,7 +58,7 @@ public class WorldGenBirchTree extends WorldGenAbstractTree
                     {
                         if (j >= 0 && j < 256)
                         {
-                            if (!this.canGrowInto(worldIn.getBlockState(blockpos$mutableblockpos.setPos(l, j, i1)).getBlock()))
+                            if (!canGrowInto(worldIn.getBlockState(blockpos$mutableblockpos.setPos(l, j, i1)).getBlock()))
                             {
                                 flag = false;
                             }
@@ -81,7 +81,7 @@ public class WorldGenBirchTree extends WorldGenAbstractTree
 
                 if ((block == Blocks.GRASS || block == Blocks.DIRT || block == Blocks.FARMLAND) && position.getY() < 256 - i - 1)
                 {
-                    this.setDirtAt(worldIn, position.down());
+                    setDirtAt(worldIn, position.down());
 
                     for (int i2 = position.getY() - 3 + i; i2 <= position.getY() + i; ++i2)
                     {
@@ -103,7 +103,7 @@ public class WorldGenBirchTree extends WorldGenAbstractTree
 
                                     if (material == Material.AIR || material == Material.LEAVES)
                                     {
-                                        this.setBlockAndNotifyAdequately(worldIn, blockpos, LEAF);
+                                        setBlockAndNotifyAdequately(worldIn, blockpos, LEAF);
                                     }
                                 }
                             }
@@ -116,7 +116,7 @@ public class WorldGenBirchTree extends WorldGenAbstractTree
 
                         if (material1 == Material.AIR || material1 == Material.LEAVES)
                         {
-                            this.setBlockAndNotifyAdequately(worldIn, position.up(j2), LOG);
+                            setBlockAndNotifyAdequately(worldIn, position.up(j2), LOG);
                         }
                     }
 

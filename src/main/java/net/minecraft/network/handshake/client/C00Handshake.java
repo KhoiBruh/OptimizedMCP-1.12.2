@@ -19,10 +19,10 @@ public class C00Handshake implements Packet<INetHandlerHandshakeServer>
 
     public C00Handshake(String p_i47613_1_, int p_i47613_2_, EnumConnectionState p_i47613_3_)
     {
-        this.protocolVersion = 340;
-        this.ip = p_i47613_1_;
-        this.port = p_i47613_2_;
-        this.requestedState = p_i47613_3_;
+        protocolVersion = 340;
+        ip = p_i47613_1_;
+        port = p_i47613_2_;
+        requestedState = p_i47613_3_;
     }
 
     /**
@@ -30,10 +30,10 @@ public class C00Handshake implements Packet<INetHandlerHandshakeServer>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.protocolVersion = buf.readVarInt();
-        this.ip = buf.readString(255);
-        this.port = buf.readUnsignedShort();
-        this.requestedState = EnumConnectionState.getById(buf.readVarInt());
+        protocolVersion = buf.readVarInt();
+        ip = buf.readString(255);
+        port = buf.readUnsignedShort();
+        requestedState = EnumConnectionState.getById(buf.readVarInt());
     }
 
     /**
@@ -41,10 +41,10 @@ public class C00Handshake implements Packet<INetHandlerHandshakeServer>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeVarInt(this.protocolVersion);
-        buf.writeString(this.ip);
-        buf.writeShort(this.port);
-        buf.writeVarInt(this.requestedState.getId());
+        buf.writeVarInt(protocolVersion);
+        buf.writeString(ip);
+        buf.writeShort(port);
+        buf.writeVarInt(requestedState.getId());
     }
 
     /**
@@ -57,11 +57,11 @@ public class C00Handshake implements Packet<INetHandlerHandshakeServer>
 
     public EnumConnectionState getRequestedState()
     {
-        return this.requestedState;
+        return requestedState;
     }
 
     public int getProtocolVersion()
     {
-        return this.protocolVersion;
+        return protocolVersion;
     }
 }

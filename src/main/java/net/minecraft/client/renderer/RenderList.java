@@ -8,19 +8,19 @@ public class RenderList extends ChunkRenderContainer
 {
     public void renderChunkLayer(BlockRenderLayer layer)
     {
-        if (this.initialized)
+        if (initialized)
         {
-            for (RenderChunk renderchunk : this.renderChunks)
+            for (RenderChunk renderchunk : renderChunks)
             {
                 ListedRenderChunk listedrenderchunk = (ListedRenderChunk)renderchunk;
                 GlStateManager.pushMatrix();
-                this.preRenderChunk(renderchunk);
+                preRenderChunk(renderchunk);
                 GlStateManager.callList(listedrenderchunk.getDisplayList(layer, listedrenderchunk.getCompiledChunk()));
                 GlStateManager.popMatrix();
             }
 
             GlStateManager.resetColor();
-            this.renderChunks.clear();
+            renderChunks.clear();
         }
     }
 }

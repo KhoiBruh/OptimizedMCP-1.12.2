@@ -48,8 +48,8 @@ public class BlockFence extends Block
     public BlockFence(Material materialIn, MapColor mapColorIn)
     {
         super(materialIn, mapColorIn);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(NORTH, Boolean.valueOf(false)).withProperty(EAST, Boolean.valueOf(false)).withProperty(SOUTH, Boolean.valueOf(false)).withProperty(WEST, Boolean.valueOf(false)));
-        this.setCreativeTab(CreativeTabs.DECORATIONS);
+        setDefaultState(blockState.getBaseState().withProperty(NORTH, Boolean.valueOf(false)).withProperty(EAST, Boolean.valueOf(false)).withProperty(SOUTH, Boolean.valueOf(false)).withProperty(WEST, Boolean.valueOf(false)));
+        setCreativeTab(CreativeTabs.DECORATIONS);
     }
 
     public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, @Nullable Entity entityIn, boolean isActualState)
@@ -84,7 +84,7 @@ public class BlockFence extends Block
 
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
     {
-        state = this.getActualState(state, source, pos);
+        state = getActualState(state, source, pos);
         return BOUNDING_BOXES[getBoundingBoxIdx(state)];
     }
 
@@ -144,7 +144,7 @@ public class BlockFence extends Block
         IBlockState iblockstate = worldIn.getBlockState(pos);
         BlockFaceShape blockfaceshape = iblockstate.getBlockFaceShape(worldIn, pos, facing);
         Block block = iblockstate.getBlock();
-        boolean flag = blockfaceshape == BlockFaceShape.MIDDLE_POLE && (iblockstate.getMaterial() == this.blockMaterial || block instanceof BlockFenceGate);
+        boolean flag = blockfaceshape == BlockFaceShape.MIDDLE_POLE && (iblockstate.getMaterial() == blockMaterial || block instanceof BlockFenceGate);
         return !isExcepBlockForAttachWithPiston(block) && blockfaceshape == BlockFaceShape.SOLID || flag;
     }
 
@@ -188,7 +188,7 @@ public class BlockFence extends Block
      */
     public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos)
     {
-        return state.withProperty(NORTH, Boolean.valueOf(this.canConnectTo(worldIn, pos.north(), EnumFacing.SOUTH))).withProperty(EAST, Boolean.valueOf(this.canConnectTo(worldIn, pos.east(), EnumFacing.WEST))).withProperty(SOUTH, Boolean.valueOf(this.canConnectTo(worldIn, pos.south(), EnumFacing.NORTH))).withProperty(WEST, Boolean.valueOf(this.canConnectTo(worldIn, pos.west(), EnumFacing.EAST)));
+        return state.withProperty(NORTH, Boolean.valueOf(canConnectTo(worldIn, pos.north(), EnumFacing.SOUTH))).withProperty(EAST, Boolean.valueOf(canConnectTo(worldIn, pos.east(), EnumFacing.WEST))).withProperty(SOUTH, Boolean.valueOf(canConnectTo(worldIn, pos.south(), EnumFacing.NORTH))).withProperty(WEST, Boolean.valueOf(canConnectTo(worldIn, pos.west(), EnumFacing.EAST)));
     }
 
     /**

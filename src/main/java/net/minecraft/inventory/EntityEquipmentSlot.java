@@ -16,20 +16,20 @@ public enum EntityEquipmentSlot
 
     private EntityEquipmentSlot(EntityEquipmentSlot.Type slotTypeIn, int indexIn, int slotIndexIn, String nameIn)
     {
-        this.slotType = slotTypeIn;
-        this.index = indexIn;
-        this.slotIndex = slotIndexIn;
-        this.name = nameIn;
+        slotType = slotTypeIn;
+        index = indexIn;
+        slotIndex = slotIndexIn;
+        name = nameIn;
     }
 
     public EntityEquipmentSlot.Type getSlotType()
     {
-        return this.slotType;
+        return slotType;
     }
 
     public int getIndex()
     {
-        return this.index;
+        return index;
     }
 
     /**
@@ -37,12 +37,12 @@ public enum EntityEquipmentSlot
      */
     public int getSlotIndex()
     {
-        return this.slotIndex;
+        return slotIndex;
     }
 
     public String getName()
     {
-        return this.name;
+        return name;
     }
 
     public static EntityEquipmentSlot fromString(String targetName)

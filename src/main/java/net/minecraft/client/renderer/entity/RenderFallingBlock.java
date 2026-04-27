@@ -20,7 +20,7 @@ public class RenderFallingBlock extends Render<EntityFallingBlock>
     public RenderFallingBlock(RenderManager renderManagerIn)
     {
         super(renderManagerIn);
-        this.shadowSize = 0.5F;
+        shadowSize = 0.5F;
     }
 
     /**
@@ -38,16 +38,16 @@ public class RenderFallingBlock extends Render<EntityFallingBlock>
 
                 if (iblockstate != world.getBlockState(new BlockPos(entity)) && iblockstate.getRenderType() != EnumBlockRenderType.INVISIBLE)
                 {
-                    this.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+                    bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
                     GlStateManager.pushMatrix();
                     GlStateManager.disableLighting();
                     Tessellator tessellator = Tessellator.getInstance();
                     BufferBuilder bufferbuilder = tessellator.getBuffer();
 
-                    if (this.renderOutlines)
+                    if (renderOutlines)
                     {
                         GlStateManager.enableColorMaterial();
-                        GlStateManager.enableOutlineMode(this.getTeamColor(entity));
+                        GlStateManager.enableOutlineMode(getTeamColor(entity));
                     }
 
                     bufferbuilder.begin(7, DefaultVertexFormats.BLOCK);
@@ -57,7 +57,7 @@ public class RenderFallingBlock extends Render<EntityFallingBlock>
                     blockrendererdispatcher.getBlockModelRenderer().renderModel(world, blockrendererdispatcher.getModelForState(iblockstate), iblockstate, blockpos, bufferbuilder, false, MathHelper.getPositionRandom(entity.getOrigin()));
                     tessellator.draw();
 
-                    if (this.renderOutlines)
+                    if (renderOutlines)
                     {
                         GlStateManager.disableOutlineMode();
                         GlStateManager.disableColorMaterial();

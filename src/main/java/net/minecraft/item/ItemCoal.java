@@ -7,9 +7,9 @@ public class ItemCoal extends Item
 {
     public ItemCoal()
     {
-        this.setHasSubtypes(true);
-        this.setMaxDamage(0);
-        this.setCreativeTab(CreativeTabs.MATERIALS);
+        setHasSubtypes(true);
+        setMaxDamage(0);
+        setCreativeTab(CreativeTabs.MATERIALS);
     }
 
     /**
@@ -26,7 +26,7 @@ public class ItemCoal extends Item
      */
     public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items)
     {
-        if (this.isInCreativeTab(tab))
+        if (isInCreativeTab(tab))
         {
             items.add(new ItemStack(this, 1, 0));
             items.add(new ItemStack(this, 1, 1));

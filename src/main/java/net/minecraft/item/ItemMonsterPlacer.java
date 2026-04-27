@@ -37,12 +37,12 @@ public class ItemMonsterPlacer extends Item
 {
     public ItemMonsterPlacer()
     {
-        this.setCreativeTab(CreativeTabs.MISC);
+        setCreativeTab(CreativeTabs.MISC);
     }
 
     public String getItemStackDisplayName(ItemStack stack)
     {
-        String s = ("" + I18n.translateToLocal(this.getUnlocalizedName() + ".name")).trim();
+        String s = ("" + I18n.translateToLocal(getUnlocalizedName() + ".name")).trim();
         String s1 = EntityList.getTranslationName(getNamedIdFrom(stack));
 
         if (s1 != null)
@@ -94,7 +94,7 @@ public class ItemMonsterPlacer extends Item
             }
 
             BlockPos blockpos = pos.offset(facing);
-            double d0 = this.getYOffset(worldIn, blockpos);
+            double d0 = getYOffset(worldIn, blockpos);
             Entity entity = spawnCreature(worldIn, getNamedIdFrom(itemstack), (double)blockpos.getX() + 0.5D, (double)blockpos.getY() + d0, (double)blockpos.getZ() + 0.5D);
 
             if (entity != null)
@@ -175,7 +175,7 @@ public class ItemMonsterPlacer extends Item
         }
         else
         {
-            RayTraceResult raytraceresult = this.rayTrace(worldIn, playerIn, true);
+            RayTraceResult raytraceresult = rayTrace(worldIn, playerIn, true);
 
             if (raytraceresult != null && raytraceresult.typeOfHit == RayTraceResult.Type.BLOCK)
             {
@@ -264,7 +264,7 @@ public class ItemMonsterPlacer extends Item
      */
     public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items)
     {
-        if (this.isInCreativeTab(tab))
+        if (isInCreativeTab(tab))
         {
             for (EntityList.EntityEggInfo entitylist$entityegginfo : EntityList.ENTITY_EGGS.values())
             {

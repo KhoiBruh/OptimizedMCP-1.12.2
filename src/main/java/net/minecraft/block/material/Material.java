@@ -78,7 +78,7 @@ public class Material
 
     public Material(MapColor color)
     {
-        this.materialMapColor = color;
+        materialMapColor = color;
     }
 
     /**
@@ -118,7 +118,7 @@ public class Material
      */
     private Material setTranslucent()
     {
-        this.isTranslucent = true;
+        isTranslucent = true;
         return this;
     }
 
@@ -127,7 +127,7 @@ public class Material
      */
     protected Material setRequiresTool()
     {
-        this.requiresNoTool = false;
+        requiresNoTool = false;
         return this;
     }
 
@@ -136,7 +136,7 @@ public class Material
      */
     protected Material setBurning()
     {
-        this.canBurn = true;
+        canBurn = true;
         return this;
     }
 
@@ -145,7 +145,7 @@ public class Material
      */
     public boolean getCanBurn()
     {
-        return this.canBurn;
+        return canBurn;
     }
 
     /**
@@ -153,7 +153,7 @@ public class Material
      */
     public Material setReplaceable()
     {
-        this.replaceable = true;
+        replaceable = true;
         return this;
     }
 
@@ -162,7 +162,7 @@ public class Material
      */
     public boolean isReplaceable()
     {
-        return this.replaceable;
+        return replaceable;
     }
 
     /**
@@ -170,7 +170,7 @@ public class Material
      */
     public boolean isOpaque()
     {
-        return this.isTranslucent ? false : this.blocksMovement();
+        return isTranslucent ? false : blocksMovement();
     }
 
     /**
@@ -178,12 +178,12 @@ public class Material
      */
     public boolean isToolNotRequired()
     {
-        return this.requiresNoTool;
+        return requiresNoTool;
     }
 
     public EnumPushReaction getMobilityFlag()
     {
-        return this.mobilityFlag;
+        return mobilityFlag;
     }
 
     /**
@@ -191,7 +191,7 @@ public class Material
      */
     protected Material setNoPushMobility()
     {
-        this.mobilityFlag = EnumPushReaction.DESTROY;
+        mobilityFlag = EnumPushReaction.DESTROY;
         return this;
     }
 
@@ -200,7 +200,7 @@ public class Material
      */
     protected Material setImmovableMobility()
     {
-        this.mobilityFlag = EnumPushReaction.BLOCK;
+        mobilityFlag = EnumPushReaction.BLOCK;
         return this;
     }
 
@@ -209,7 +209,7 @@ public class Material
      */
     protected Material setAdventureModeExempt()
     {
-        this.isAdventureModeExempt = true;
+        isAdventureModeExempt = true;
         return this;
     }
 
@@ -218,6 +218,6 @@ public class Material
      */
     public MapColor getMaterialMapColor()
     {
-        return this.materialMapColor;
+        return materialMapColor;
     }
 }

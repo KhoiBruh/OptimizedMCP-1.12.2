@@ -49,17 +49,17 @@ public class Template
 
     public BlockPos getSize()
     {
-        return this.size;
+        return size;
     }
 
     public void setAuthor(String authorIn)
     {
-        this.author = authorIn;
+        author = authorIn;
     }
 
     public String getAuthor()
     {
-        return this.author;
+        return author;
     }
 
     /**
@@ -75,7 +75,7 @@ public class Template
             List<Template.BlockInfo> list2 = Lists.<Template.BlockInfo>newArrayList();
             BlockPos blockpos1 = new BlockPos(Math.min(startPos.getX(), blockpos.getX()), Math.min(startPos.getY(), blockpos.getY()), Math.min(startPos.getZ(), blockpos.getZ()));
             BlockPos blockpos2 = new BlockPos(Math.max(startPos.getX(), blockpos.getX()), Math.max(startPos.getY(), blockpos.getY()), Math.max(startPos.getZ(), blockpos.getZ()));
-            this.size = endPos;
+            size = endPos;
 
             for (BlockPos.MutableBlockPos blockpos$mutableblockpos : BlockPos.getAllInBoxMutable(blockpos1, blockpos2))
             {
@@ -105,18 +105,18 @@ public class Template
                 }
             }
 
-            this.blocks.clear();
-            this.blocks.addAll(list);
-            this.blocks.addAll(list1);
-            this.blocks.addAll(list2);
+            blocks.clear();
+            blocks.addAll(list);
+            blocks.addAll(list1);
+            blocks.addAll(list2);
 
             if (takeEntities)
             {
-                this.takeEntitiesFromWorld(worldIn, blockpos1, blockpos2.add(1, 1, 1));
+                takeEntitiesFromWorld(worldIn, blockpos1, blockpos2.add(1, 1, 1));
             }
             else
             {
-                this.entities.clear();
+                entities.clear();
             }
         }
     }
@@ -133,7 +133,7 @@ public class Template
                 return !(p_apply_1_ instanceof EntityPlayer);
             }
         });
-        this.entities.clear();
+        entities.clear();
 
         for (Entity entity : list)
         {
@@ -151,7 +151,7 @@ public class Template
                 blockpos = new BlockPos(vec3d);
             }
 
-            this.entities.add(new Template.EntityInfo(vec3d, blockpos, nbttagcompound));
+            entities.add(new Template.EntityInfo(vec3d, blockpos, nbttagcompound));
         }
     }
 
@@ -160,7 +160,7 @@ public class Template
         Map<BlockPos, String> map = Maps.<BlockPos, String>newHashMap();
         StructureBoundingBox structureboundingbox = placementIn.getBoundingBox();
 
-        for (Template.BlockInfo template$blockinfo : this.blocks)
+        for (Template.BlockInfo template$blockinfo : blocks)
         {
             BlockPos blockpos = transformedBlockPos(placementIn, template$blockinfo.pos).add(pos);
 
@@ -207,7 +207,7 @@ public class Template
     public void addBlocksToWorldChunk(World worldIn, BlockPos pos, PlacementSettings placementIn)
     {
         placementIn.setBoundingBoxFromChunk();
-        this.addBlocksToWorld(worldIn, pos, placementIn);
+        addBlocksToWorld(worldIn, pos, placementIn);
     }
 
     /**
@@ -219,7 +219,7 @@ public class Template
      */
     public void addBlocksToWorld(World worldIn, BlockPos pos, PlacementSettings placementIn)
     {
-        this.addBlocksToWorld(worldIn, pos, new BlockRotationProcessor(pos, placementIn), placementIn, 2);
+        addBlocksToWorld(worldIn, pos, new BlockRotationProcessor(pos, placementIn), placementIn, 2);
     }
 
     /**
@@ -232,7 +232,7 @@ public class Template
      */
     public void addBlocksToWorld(World worldIn, BlockPos pos, PlacementSettings placementIn, int flags)
     {
-        this.addBlocksToWorld(worldIn, pos, new BlockRotationProcessor(pos, placementIn), placementIn, flags);
+        addBlocksToWorld(worldIn, pos, new BlockRotationProcessor(pos, placementIn), placementIn, flags);
     }
 
     /**
@@ -246,12 +246,12 @@ public class Template
      */
     public void addBlocksToWorld(World worldIn, BlockPos pos, @Nullable ITemplateProcessor templateProcessor, PlacementSettings placementIn, int flags)
     {
-        if ((!this.blocks.isEmpty() || !placementIn.getIgnoreEntities() && !this.entities.isEmpty()) && this.size.getX() >= 1 && this.size.getY() >= 1 && this.size.getZ() >= 1)
+        if ((!blocks.isEmpty() || !placementIn.getIgnoreEntities() && !entities.isEmpty()) && size.getX() >= 1 && size.getY() >= 1 && size.getZ() >= 1)
         {
             Block block = placementIn.getReplacedBlock();
             StructureBoundingBox structureboundingbox = placementIn.getBoundingBox();
 
-            for (Template.BlockInfo template$blockinfo : this.blocks)
+            for (Template.BlockInfo template$blockinfo : blocks)
             {
                 BlockPos blockpos = transformedBlockPos(placementIn, template$blockinfo.pos).add(pos);
                 Template.BlockInfo template$blockinfo1 = templateProcessor != null ? templateProcessor.processBlock(worldIn, blockpos, template$blockinfo) : template$blockinfo;
@@ -298,7 +298,7 @@ public class Template
                 }
             }
 
-            for (Template.BlockInfo template$blockinfo2 : this.blocks)
+            for (Template.BlockInfo template$blockinfo2 : blocks)
             {
                 if (block == null || block != template$blockinfo2.blockState.getBlock())
                 {
@@ -323,14 +323,14 @@ public class Template
 
             if (!placementIn.getIgnoreEntities())
             {
-                this.addEntitiesToWorld(worldIn, pos, placementIn.getMirror(), placementIn.getRotation(), structureboundingbox);
+                addEntitiesToWorld(worldIn, pos, placementIn.getMirror(), placementIn.getRotation(), structureboundingbox);
             }
         }
     }
 
     private void addEntitiesToWorld(World worldIn, BlockPos pos, Mirror mirrorIn, Rotation rotationIn, @Nullable StructureBoundingBox aabb)
     {
-        for (Template.EntityInfo template$entityinfo : this.entities)
+        for (Template.EntityInfo template$entityinfo : entities)
         {
             BlockPos blockpos = transformedBlockPos(template$entityinfo.blockPos, mirrorIn, rotationIn).add(pos);
 
@@ -373,10 +373,10 @@ public class Template
         {
             case COUNTERCLOCKWISE_90:
             case CLOCKWISE_90:
-                return new BlockPos(this.size.getZ(), this.size.getY(), this.size.getX());
+                return new BlockPos(size.getZ(), size.getY(), size.getX());
 
             default:
-                return this.size;
+                return size;
         }
     }
 
@@ -456,7 +456,7 @@ public class Template
 
     public BlockPos getZeroPositionWithTransform(BlockPos p_189961_1_, Mirror p_189961_2_, Rotation p_189961_3_)
     {
-        return getZeroPositionWithTransform(p_189961_1_, p_189961_2_, p_189961_3_, this.getSize().getX(), this.getSize().getZ());
+        return getZeroPositionWithTransform(p_189961_1_, p_189961_2_, p_189961_3_, getSize().getX(), getSize().getZ());
     }
 
     public static BlockPos getZeroPositionWithTransform(BlockPos p_191157_0_, Mirror p_191157_1_, Rotation p_191157_2_, int p_191157_3_, int p_191157_4_)
@@ -534,10 +534,10 @@ public class Template
         Template.BasicPalette template$basicpalette = new Template.BasicPalette();
         NBTTagList nbttaglist = new NBTTagList();
 
-        for (Template.BlockInfo template$blockinfo : this.blocks)
+        for (Template.BlockInfo template$blockinfo : blocks)
         {
             NBTTagCompound nbttagcompound = new NBTTagCompound();
-            nbttagcompound.setTag("pos", this.writeInts(template$blockinfo.pos.getX(), template$blockinfo.pos.getY(), template$blockinfo.pos.getZ()));
+            nbttagcompound.setTag("pos", writeInts(template$blockinfo.pos.getX(), template$blockinfo.pos.getY(), template$blockinfo.pos.getZ()));
             nbttagcompound.setInteger("state", template$basicpalette.idFor(template$blockinfo.blockState));
 
             if (template$blockinfo.tileentityData != null)
@@ -550,11 +550,11 @@ public class Template
 
         NBTTagList nbttaglist1 = new NBTTagList();
 
-        for (Template.EntityInfo template$entityinfo : this.entities)
+        for (Template.EntityInfo template$entityinfo : entities)
         {
             NBTTagCompound nbttagcompound1 = new NBTTagCompound();
-            nbttagcompound1.setTag("pos", this.writeDoubles(template$entityinfo.pos.x, template$entityinfo.pos.y, template$entityinfo.pos.z));
-            nbttagcompound1.setTag("blockPos", this.writeInts(template$entityinfo.blockPos.getX(), template$entityinfo.blockPos.getY(), template$entityinfo.blockPos.getZ()));
+            nbttagcompound1.setTag("pos", writeDoubles(template$entityinfo.pos.x, template$entityinfo.pos.y, template$entityinfo.pos.z));
+            nbttagcompound1.setTag("blockPos", writeInts(template$entityinfo.blockPos.getX(), template$entityinfo.blockPos.getY(), template$entityinfo.blockPos.getZ()));
 
             if (template$entityinfo.entityData != null)
             {
@@ -574,19 +574,19 @@ public class Template
         nbt.setTag("palette", nbttaglist2);
         nbt.setTag("blocks", nbttaglist);
         nbt.setTag("entities", nbttaglist1);
-        nbt.setTag("size", this.writeInts(this.size.getX(), this.size.getY(), this.size.getZ()));
-        nbt.setString("author", this.author);
+        nbt.setTag("size", writeInts(size.getX(), size.getY(), size.getZ()));
+        nbt.setString("author", author);
         nbt.setInteger("DataVersion", 1343);
         return nbt;
     }
 
     public void read(NBTTagCompound compound)
     {
-        this.blocks.clear();
-        this.entities.clear();
+        blocks.clear();
+        entities.clear();
         NBTTagList nbttaglist = compound.getTagList("size", 3);
-        this.size = new BlockPos(nbttaglist.getIntAt(0), nbttaglist.getIntAt(1), nbttaglist.getIntAt(2));
-        this.author = compound.getString("author");
+        size = new BlockPos(nbttaglist.getIntAt(0), nbttaglist.getIntAt(1), nbttaglist.getIntAt(2));
+        author = compound.getString("author");
         Template.BasicPalette template$basicpalette = new Template.BasicPalette();
         NBTTagList nbttaglist1 = compound.getTagList("palette", 10);
 
@@ -614,7 +614,7 @@ public class Template
                 nbttagcompound1 = null;
             }
 
-            this.blocks.add(new Template.BlockInfo(blockpos, iblockstate, nbttagcompound1));
+            blocks.add(new Template.BlockInfo(blockpos, iblockstate, nbttagcompound1));
         }
 
         NBTTagList nbttaglist4 = compound.getTagList("entities", 10);
@@ -630,7 +630,7 @@ public class Template
             if (nbttagcompound3.hasKey("nbt"))
             {
                 NBTTagCompound nbttagcompound2 = nbttagcompound3.getCompoundTag("nbt");
-                this.entities.add(new Template.EntityInfo(vec3d, blockpos1, nbttagcompound2));
+                entities.add(new Template.EntityInfo(vec3d, blockpos1, nbttagcompound2));
             }
         }
     }
@@ -667,17 +667,17 @@ public class Template
 
         private BasicPalette()
         {
-            this.ids = new ObjectIntIdentityMap<IBlockState>(16);
+            ids = new ObjectIntIdentityMap<IBlockState>(16);
         }
 
         public int idFor(IBlockState state)
         {
-            int i = this.ids.get(state);
+            int i = ids.get(state);
 
             if (i == -1)
             {
-                i = this.lastId++;
-                this.ids.put(state, i);
+                i = lastId++;
+                ids.put(state, i);
             }
 
             return i;
@@ -686,18 +686,18 @@ public class Template
         @Nullable
         public IBlockState stateFor(int id)
         {
-            IBlockState iblockstate = this.ids.getByValue(id);
+            IBlockState iblockstate = ids.getByValue(id);
             return iblockstate == null ? DEFAULT_BLOCK_STATE : iblockstate;
         }
 
         public Iterator<IBlockState> iterator()
         {
-            return this.ids.iterator();
+            return ids.iterator();
         }
 
         public void addMapping(IBlockState p_189956_1_, int p_189956_2_)
         {
-            this.ids.put(p_189956_1_, p_189956_2_);
+            ids.put(p_189956_1_, p_189956_2_);
         }
     }
 
@@ -709,9 +709,9 @@ public class Template
 
         public BlockInfo(BlockPos posIn, IBlockState stateIn, @Nullable NBTTagCompound compoundIn)
         {
-            this.pos = posIn;
-            this.blockState = stateIn;
-            this.tileentityData = compoundIn;
+            pos = posIn;
+            blockState = stateIn;
+            tileentityData = compoundIn;
         }
     }
 
@@ -723,9 +723,9 @@ public class Template
 
         public EntityInfo(Vec3d vecIn, BlockPos posIn, NBTTagCompound compoundIn)
         {
-            this.pos = vecIn;
-            this.blockPos = posIn;
-            this.entityData = compoundIn;
+            pos = vecIn;
+            blockPos = posIn;
+            entityData = compoundIn;
         }
     }
 }

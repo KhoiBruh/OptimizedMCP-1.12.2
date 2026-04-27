@@ -14,7 +14,7 @@ public class RenderTNTPrimed extends Render<EntityTNTPrimed>
     public RenderTNTPrimed(RenderManager renderManagerIn)
     {
         super(renderManagerIn);
-        this.shadowSize = 0.5F;
+        shadowSize = 0.5F;
     }
 
     /**
@@ -37,16 +37,16 @@ public class RenderTNTPrimed extends Render<EntityTNTPrimed>
         }
 
         float f2 = (1.0F - ((float)entity.getFuse() - partialTicks + 1.0F) / 100.0F) * 0.8F;
-        this.bindEntityTexture(entity);
+        bindEntityTexture(entity);
         GlStateManager.rotate(-90.0F, 0.0F, 1.0F, 0.0F);
         GlStateManager.translate(-0.5F, -0.5F, 0.5F);
         blockrendererdispatcher.renderBlockBrightness(Blocks.TNT.getDefaultState(), entity.getBrightness());
         GlStateManager.translate(0.0F, 0.0F, 1.0F);
 
-        if (this.renderOutlines)
+        if (renderOutlines)
         {
             GlStateManager.enableColorMaterial();
-            GlStateManager.enableOutlineMode(this.getTeamColor(entity));
+            GlStateManager.enableOutlineMode(getTeamColor(entity));
             blockrendererdispatcher.renderBlockBrightness(Blocks.TNT.getDefaultState(), 1.0F);
             GlStateManager.disableOutlineMode();
             GlStateManager.disableColorMaterial();

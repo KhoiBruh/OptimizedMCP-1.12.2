@@ -16,8 +16,8 @@ public class CPacketSteerBoat implements Packet<INetHandlerPlayServer>
 
     public CPacketSteerBoat(boolean p_i46873_1_, boolean p_i46873_2_)
     {
-        this.left = p_i46873_1_;
-        this.right = p_i46873_2_;
+        left = p_i46873_1_;
+        right = p_i46873_2_;
     }
 
     /**
@@ -25,8 +25,8 @@ public class CPacketSteerBoat implements Packet<INetHandlerPlayServer>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.left = buf.readBoolean();
-        this.right = buf.readBoolean();
+        left = buf.readBoolean();
+        right = buf.readBoolean();
     }
 
     /**
@@ -34,8 +34,8 @@ public class CPacketSteerBoat implements Packet<INetHandlerPlayServer>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeBoolean(this.left);
-        buf.writeBoolean(this.right);
+        buf.writeBoolean(left);
+        buf.writeBoolean(right);
     }
 
     /**
@@ -48,11 +48,11 @@ public class CPacketSteerBoat implements Packet<INetHandlerPlayServer>
 
     public boolean getLeft()
     {
-        return this.left;
+        return left;
     }
 
     public boolean getRight()
     {
-        return this.right;
+        return right;
     }
 }

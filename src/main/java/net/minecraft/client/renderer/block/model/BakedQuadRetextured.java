@@ -10,8 +10,8 @@ public class BakedQuadRetextured extends BakedQuad
     public BakedQuadRetextured(BakedQuad quad, TextureAtlasSprite textureIn)
     {
         super(Arrays.copyOf(quad.getVertexData(), quad.getVertexData().length), quad.tintIndex, FaceBakery.getFacingFromVertexData(quad.getVertexData()), quad.getSprite());
-        this.texture = textureIn;
-        this.remapQuad();
+        texture = textureIn;
+        remapQuad();
     }
 
     private void remapQuad()
@@ -19,8 +19,8 @@ public class BakedQuadRetextured extends BakedQuad
         for (int i = 0; i < 4; ++i)
         {
             int j = 7 * i;
-            this.vertexData[j + 4] = Float.floatToRawIntBits(this.texture.getInterpolatedU((double)this.sprite.getUnInterpolatedU(Float.intBitsToFloat(this.vertexData[j + 4]))));
-            this.vertexData[j + 4 + 1] = Float.floatToRawIntBits(this.texture.getInterpolatedV((double)this.sprite.getUnInterpolatedV(Float.intBitsToFloat(this.vertexData[j + 4 + 1]))));
+            vertexData[j + 4] = Float.floatToRawIntBits(texture.getInterpolatedU((double) sprite.getUnInterpolatedU(Float.intBitsToFloat(vertexData[j + 4]))));
+            vertexData[j + 4 + 1] = Float.floatToRawIntBits(texture.getInterpolatedV((double) sprite.getUnInterpolatedV(Float.intBitsToFloat(vertexData[j + 4 + 1]))));
         }
     }
 }

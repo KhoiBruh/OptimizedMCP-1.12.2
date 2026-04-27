@@ -47,14 +47,14 @@ public class WorldType
     {
         this.name = name;
         this.version = version;
-        this.canBeCreated = true;
+        canBeCreated = true;
         this.id = id;
         WORLD_TYPES[id] = this;
     }
 
     public String getName()
     {
-        return this.name;
+        return name;
     }
 
     /**
@@ -62,7 +62,7 @@ public class WorldType
      */
     public String getTranslationKey()
     {
-        return "generator." + this.name;
+        return "generator." + name;
     }
 
     /**
@@ -70,7 +70,7 @@ public class WorldType
      */
     public String getInfoTranslationKey()
     {
-        return this.getTranslationKey() + ".info";
+        return getTranslationKey() + ".info";
     }
 
     /**
@@ -78,7 +78,7 @@ public class WorldType
      */
     public int getVersion()
     {
-        return this.version;
+        return version;
     }
 
     public WorldType getWorldTypeForGeneratorVersion(int version)
@@ -91,7 +91,7 @@ public class WorldType
      */
     private WorldType setCanBeCreated(boolean enable)
     {
-        this.canBeCreated = enable;
+        canBeCreated = enable;
         return this;
     }
 
@@ -100,7 +100,7 @@ public class WorldType
      */
     public boolean canBeCreated()
     {
-        return this.canBeCreated;
+        return canBeCreated;
     }
 
     /**
@@ -108,7 +108,7 @@ public class WorldType
      */
     private WorldType setVersioned()
     {
-        this.versioned = true;
+        versioned = true;
         return this;
     }
 
@@ -117,7 +117,7 @@ public class WorldType
      */
     public boolean isVersioned()
     {
-        return this.versioned;
+        return versioned;
     }
 
     public static WorldType parseWorldType(String type)
@@ -135,7 +135,7 @@ public class WorldType
 
     public int getId()
     {
-        return this.id;
+        return id;
     }
 
     /**
@@ -144,7 +144,7 @@ public class WorldType
      */
     public boolean hasInfoNotice()
     {
-        return this.hasInfoNotice;
+        return hasInfoNotice;
     }
 
     /**
@@ -152,7 +152,7 @@ public class WorldType
      */
     private WorldType enableInfoNotice()
     {
-        this.hasInfoNotice = true;
+        hasInfoNotice = true;
         return this;
     }
 }

@@ -15,15 +15,15 @@ public class TileEntityBedRenderer extends TileEntitySpecialRenderer<TileEntityB
 
     public TileEntityBedRenderer()
     {
-        this.version = this.model.getModelVersion();
+        version = model.getModelVersion();
     }
 
     public void render(TileEntityBed te, double x, double y, double z, float partialTicks, int destroyStage, float alpha)
     {
-        if (this.version != this.model.getModelVersion())
+        if (version != model.getModelVersion())
         {
-            this.model = new ModelBed();
-            this.version = this.model.getModelVersion();
+            model = new ModelBed();
+            version = model.getModelVersion();
         }
 
         boolean flag = te.getWorld() != null;
@@ -33,7 +33,7 @@ public class TileEntityBedRenderer extends TileEntitySpecialRenderer<TileEntityB
 
         if (destroyStage >= 0)
         {
-            this.bindTexture(DESTROY_STAGES[destroyStage]);
+            bindTexture(DESTROY_STAGES[destroyStage]);
             GlStateManager.matrixMode(5890);
             GlStateManager.pushMatrix();
             GlStateManager.scale(4.0F, 4.0F, 1.0F);
@@ -46,19 +46,19 @@ public class TileEntityBedRenderer extends TileEntitySpecialRenderer<TileEntityB
 
             if (resourcelocation != null)
             {
-                this.bindTexture(resourcelocation);
+                bindTexture(resourcelocation);
             }
         }
 
         if (flag)
         {
-            this.renderPiece(flag1, x, y, z, i, alpha);
+            renderPiece(flag1, x, y, z, i, alpha);
         }
         else
         {
             GlStateManager.pushMatrix();
-            this.renderPiece(true, x, y, z, i, alpha);
-            this.renderPiece(false, x, y, z - 1.0D, i, alpha);
+            renderPiece(true, x, y, z, i, alpha);
+            renderPiece(false, x, y, z - 1.0D, i, alpha);
             GlStateManager.popMatrix();
         }
 
@@ -72,7 +72,7 @@ public class TileEntityBedRenderer extends TileEntitySpecialRenderer<TileEntityB
 
     private void renderPiece(boolean p_193847_1_, double x, double y, double z, int p_193847_8_, float alpha)
     {
-        this.model.preparePiece(p_193847_1_);
+        model.preparePiece(p_193847_1_);
         GlStateManager.pushMatrix();
         float f = 0.0F;
         float f1 = 0.0F;
@@ -104,7 +104,7 @@ public class TileEntityBedRenderer extends TileEntitySpecialRenderer<TileEntityB
         GlStateManager.rotate(f, 0.0F, 0.0F, 1.0F);
         GlStateManager.enableRescaleNormal();
         GlStateManager.pushMatrix();
-        this.model.render();
+        model.render();
         GlStateManager.popMatrix();
         GlStateManager.color(1.0F, 1.0F, 1.0F, alpha);
         GlStateManager.popMatrix();

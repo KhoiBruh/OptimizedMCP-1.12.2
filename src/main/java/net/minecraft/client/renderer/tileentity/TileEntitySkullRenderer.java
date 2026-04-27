@@ -35,7 +35,7 @@ public class TileEntitySkullRenderer extends TileEntitySpecialRenderer<TileEntit
     {
         EnumFacing enumfacing = EnumFacing.getFront(te.getBlockMetadata() & 7);
         float f = te.getAnimationProgress(partialTicks);
-        this.renderSkull((float)x, (float)y, (float)z, enumfacing, (float)(te.getSkullRotation() * 360) / 16.0F, te.getSkullType(), te.getPlayerProfile(), destroyStage, f);
+        renderSkull((float)x, (float)y, (float)z, enumfacing, (float)(te.getSkullRotation() * 360) / 16.0F, te.getSkullType(), te.getPlayerProfile(), destroyStage, f);
     }
 
     public void setRendererDispatcher(TileEntityRendererDispatcher rendererDispatcherIn)
@@ -46,11 +46,11 @@ public class TileEntitySkullRenderer extends TileEntitySpecialRenderer<TileEntit
 
     public void renderSkull(float x, float y, float z, EnumFacing facing, float rotationIn, int skullType, @Nullable GameProfile profile, int destroyStage, float animateTicks)
     {
-        ModelBase modelbase = this.skeletonHead;
+        ModelBase modelbase = skeletonHead;
 
         if (destroyStage >= 0)
         {
-            this.bindTexture(DESTROY_STAGES[destroyStage]);
+            bindTexture(DESTROY_STAGES[destroyStage]);
             GlStateManager.matrixMode(5890);
             GlStateManager.pushMatrix();
             GlStateManager.scale(4.0F, 2.0F, 1.0F);
@@ -63,20 +63,20 @@ public class TileEntitySkullRenderer extends TileEntitySpecialRenderer<TileEntit
             {
                 case 0:
                 default:
-                    this.bindTexture(SKELETON_TEXTURES);
+                    bindTexture(SKELETON_TEXTURES);
                     break;
 
                 case 1:
-                    this.bindTexture(WITHER_SKELETON_TEXTURES);
+                    bindTexture(WITHER_SKELETON_TEXTURES);
                     break;
 
                 case 2:
-                    this.bindTexture(ZOMBIE_TEXTURES);
-                    modelbase = this.humanoidHead;
+                    bindTexture(ZOMBIE_TEXTURES);
+                    modelbase = humanoidHead;
                     break;
 
                 case 3:
-                    modelbase = this.humanoidHead;
+                    modelbase = humanoidHead;
                     ResourceLocation resourcelocation = DefaultPlayerSkin.getDefaultSkinLegacy();
 
                     if (profile != null)
@@ -95,16 +95,16 @@ public class TileEntitySkullRenderer extends TileEntitySpecialRenderer<TileEntit
                         }
                     }
 
-                    this.bindTexture(resourcelocation);
+                    bindTexture(resourcelocation);
                     break;
 
                 case 4:
-                    this.bindTexture(CREEPER_TEXTURES);
+                    bindTexture(CREEPER_TEXTURES);
                     break;
 
                 case 5:
-                    this.bindTexture(DRAGON_TEXTURES);
-                    modelbase = this.dragonHead;
+                    bindTexture(DRAGON_TEXTURES);
+                    modelbase = dragonHead;
             }
         }
 

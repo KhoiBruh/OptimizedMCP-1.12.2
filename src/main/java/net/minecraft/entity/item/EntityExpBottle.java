@@ -44,19 +44,19 @@ public class EntityExpBottle extends EntityThrowable
      */
     protected void onImpact(RayTraceResult result)
     {
-        if (!this.world.isRemote)
+        if (!world.isRemote)
         {
-            this.world.playEvent(2002, new BlockPos(this), PotionUtils.getPotionColor(PotionTypes.WATER));
-            int i = 3 + this.world.rand.nextInt(5) + this.world.rand.nextInt(5);
+            world.playEvent(2002, new BlockPos(this), PotionUtils.getPotionColor(PotionTypes.WATER));
+            int i = 3 + world.rand.nextInt(5) + world.rand.nextInt(5);
 
             while (i > 0)
             {
                 int j = EntityXPOrb.getXPSplit(i);
                 i -= j;
-                this.world.spawnEntity(new EntityXPOrb(this.world, this.posX, this.posY, this.posZ, j));
+                world.spawnEntity(new EntityXPOrb(world, posX, posY, posZ, j));
             }
 
-            this.setDead();
+            setDead();
         }
     }
 }

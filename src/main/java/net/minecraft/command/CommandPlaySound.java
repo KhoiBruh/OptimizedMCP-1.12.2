@@ -44,7 +44,7 @@ public class CommandPlaySound extends CommandBase
     {
         if (args.length < 2)
         {
-            throw new WrongUsageException(this.getUsage(sender), new Object[0]);
+            throw new WrongUsageException(getUsage(sender), new Object[0]);
         }
         else
         {

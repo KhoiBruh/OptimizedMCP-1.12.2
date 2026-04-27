@@ -91,7 +91,7 @@ public class WorldGenSwamp extends WorldGenAbstractTree
 
                 if ((block1 == Blocks.GRASS || block1 == Blocks.DIRT) && position.getY() < 256 - i - 1)
                 {
-                    this.setDirtAt(worldIn, position.down());
+                    setDirtAt(worldIn, position.down());
 
                     for (int k1 = position.getY() - 3 + i; k1 <= position.getY() + i; ++k1)
                     {
@@ -112,7 +112,7 @@ public class WorldGenSwamp extends WorldGenAbstractTree
 
                                     if (!worldIn.getBlockState(blockpos).isFullBlock())
                                     {
-                                        this.setBlockAndNotifyAdequately(worldIn, blockpos, LEAF);
+                                        setBlockAndNotifyAdequately(worldIn, blockpos, LEAF);
                                     }
                                 }
                             }
@@ -126,7 +126,7 @@ public class WorldGenSwamp extends WorldGenAbstractTree
 
                         if (iblockstate1.getMaterial() == Material.AIR || iblockstate1.getMaterial() == Material.LEAVES || block2 == Blocks.FLOWING_WATER || block2 == Blocks.WATER)
                         {
-                            this.setBlockAndNotifyAdequately(worldIn, position.up(l1), TRUNK);
+                            setBlockAndNotifyAdequately(worldIn, position.up(l1), TRUNK);
                         }
                     }
 
@@ -151,22 +151,22 @@ public class WorldGenSwamp extends WorldGenAbstractTree
 
                                     if (rand.nextInt(4) == 0 && worldIn.getBlockState(blockpos3).getMaterial() == Material.AIR)
                                     {
-                                        this.addVine(worldIn, blockpos3, BlockVine.EAST);
+                                        addVine(worldIn, blockpos3, BlockVine.EAST);
                                     }
 
                                     if (rand.nextInt(4) == 0 && worldIn.getBlockState(blockpos4).getMaterial() == Material.AIR)
                                     {
-                                        this.addVine(worldIn, blockpos4, BlockVine.WEST);
+                                        addVine(worldIn, blockpos4, BlockVine.WEST);
                                     }
 
                                     if (rand.nextInt(4) == 0 && worldIn.getBlockState(blockpos1).getMaterial() == Material.AIR)
                                     {
-                                        this.addVine(worldIn, blockpos1, BlockVine.SOUTH);
+                                        addVine(worldIn, blockpos1, BlockVine.SOUTH);
                                     }
 
                                     if (rand.nextInt(4) == 0 && worldIn.getBlockState(blockpos2).getMaterial() == Material.AIR)
                                     {
-                                        this.addVine(worldIn, blockpos2, BlockVine.NORTH);
+                                        addVine(worldIn, blockpos2, BlockVine.NORTH);
                                     }
                                 }
                             }
@@ -190,12 +190,12 @@ public class WorldGenSwamp extends WorldGenAbstractTree
     private void addVine(World worldIn, BlockPos pos, PropertyBool prop)
     {
         IBlockState iblockstate = Blocks.VINE.getDefaultState().withProperty(prop, Boolean.valueOf(true));
-        this.setBlockAndNotifyAdequately(worldIn, pos, iblockstate);
+        setBlockAndNotifyAdequately(worldIn, pos, iblockstate);
         int i = 4;
 
         for (BlockPos blockpos = pos.down(); worldIn.getBlockState(blockpos).getMaterial() == Material.AIR && i > 0; --i)
         {
-            this.setBlockAndNotifyAdequately(worldIn, blockpos, iblockstate);
+            setBlockAndNotifyAdequately(worldIn, blockpos, iblockstate);
             blockpos = blockpos.down();
         }
     }

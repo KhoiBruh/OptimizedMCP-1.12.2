@@ -28,7 +28,7 @@ public class GuiWorldSelection extends GuiScreen
 
     public GuiWorldSelection(GuiScreen screenIn)
     {
-        this.prevScreen = screenIn;
+        prevScreen = screenIn;
     }
 
     /**
@@ -37,9 +37,9 @@ public class GuiWorldSelection extends GuiScreen
      */
     public void initGui()
     {
-        this.title = I18n.format("selectWorld.title");
-        this.selectionList = new GuiListWorldSelection(this, this.mc, this.width, this.height, 32, this.height - 64, 36);
-        this.postInit();
+        title = I18n.format("selectWorld.title");
+        selectionList = new GuiListWorldSelection(this, mc, width, height, 32, height - 64, 36);
+        postInit();
     }
 
     /**
@@ -48,21 +48,21 @@ public class GuiWorldSelection extends GuiScreen
     public void handleMouseInput() throws IOException
     {
         super.handleMouseInput();
-        this.selectionList.handleMouseInput();
+        selectionList.handleMouseInput();
     }
 
     public void postInit()
     {
-        this.selectButton = this.addButton(new GuiButton(1, this.width / 2 - 154, this.height - 52, 150, 20, I18n.format("selectWorld.select")));
-        this.addButton(new GuiButton(3, this.width / 2 + 4, this.height - 52, 150, 20, I18n.format("selectWorld.create")));
-        this.renameButton = this.addButton(new GuiButton(4, this.width / 2 - 154, this.height - 28, 72, 20, I18n.format("selectWorld.edit")));
-        this.deleteButton = this.addButton(new GuiButton(2, this.width / 2 - 76, this.height - 28, 72, 20, I18n.format("selectWorld.delete")));
-        this.copyButton = this.addButton(new GuiButton(5, this.width / 2 + 4, this.height - 28, 72, 20, I18n.format("selectWorld.recreate")));
-        this.addButton(new GuiButton(0, this.width / 2 + 82, this.height - 28, 72, 20, I18n.format("gui.cancel")));
-        this.selectButton.enabled = false;
-        this.deleteButton.enabled = false;
-        this.renameButton.enabled = false;
-        this.copyButton.enabled = false;
+        selectButton = addButton(new GuiButton(1, width / 2 - 154, height - 52, 150, 20, I18n.format("selectWorld.select")));
+        addButton(new GuiButton(3, width / 2 + 4, height - 52, 150, 20, I18n.format("selectWorld.create")));
+        renameButton = addButton(new GuiButton(4, width / 2 - 154, height - 28, 72, 20, I18n.format("selectWorld.edit")));
+        deleteButton = addButton(new GuiButton(2, width / 2 - 76, height - 28, 72, 20, I18n.format("selectWorld.delete")));
+        copyButton = addButton(new GuiButton(5, width / 2 + 4, height - 28, 72, 20, I18n.format("selectWorld.recreate")));
+        addButton(new GuiButton(0, width / 2 + 82, height - 28, 72, 20, I18n.format("gui.cancel")));
+        selectButton.enabled = false;
+        deleteButton.enabled = false;
+        renameButton.enabled = false;
+        copyButton.enabled = false;
     }
 
     /**
@@ -72,7 +72,7 @@ public class GuiWorldSelection extends GuiScreen
     {
         if (button.enabled)
         {
-            GuiListWorldSelectionEntry guilistworldselectionentry = this.selectionList.getSelectedWorld();
+            GuiListWorldSelectionEntry guilistworldselectionentry = selectionList.getSelectedWorld();
 
             if (button.id == 2)
             {
@@ -90,7 +90,7 @@ public class GuiWorldSelection extends GuiScreen
             }
             else if (button.id == 3)
             {
-                this.mc.displayGuiScreen(new GuiCreateWorld(this));
+                mc.displayGuiScreen(new GuiCreateWorld(this));
             }
             else if (button.id == 4)
             {
@@ -101,7 +101,7 @@ public class GuiWorldSelection extends GuiScreen
             }
             else if (button.id == 0)
             {
-                this.mc.displayGuiScreen(this.prevScreen);
+                mc.displayGuiScreen(prevScreen);
             }
             else if (button.id == 5 && guilistworldselectionentry != null)
             {
@@ -115,14 +115,14 @@ public class GuiWorldSelection extends GuiScreen
      */
     public void drawScreen(int mouseX, int mouseY, float partialTicks)
     {
-        this.worldVersTooltip = null;
-        this.selectionList.drawScreen(mouseX, mouseY, partialTicks);
-        this.drawCenteredString(this.fontRenderer, this.title, this.width / 2, 20, 16777215);
+        worldVersTooltip = null;
+        selectionList.drawScreen(mouseX, mouseY, partialTicks);
+        drawCenteredString(fontRenderer, title, width / 2, 20, 16777215);
         super.drawScreen(mouseX, mouseY, partialTicks);
 
-        if (this.worldVersTooltip != null)
+        if (worldVersTooltip != null)
         {
-            this.drawHoveringText(Lists.newArrayList(Splitter.on("\n").split(this.worldVersTooltip)), mouseX, mouseY);
+            drawHoveringText(Lists.newArrayList(Splitter.on("\n").split(worldVersTooltip)), mouseX, mouseY);
         }
     }
 
@@ -132,7 +132,7 @@ public class GuiWorldSelection extends GuiScreen
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException
     {
         super.mouseClicked(mouseX, mouseY, mouseButton);
-        this.selectionList.mouseClicked(mouseX, mouseY, mouseButton);
+        selectionList.mouseClicked(mouseX, mouseY, mouseButton);
     }
 
     /**
@@ -141,7 +141,7 @@ public class GuiWorldSelection extends GuiScreen
     protected void mouseReleased(int mouseX, int mouseY, int state)
     {
         super.mouseReleased(mouseX, mouseY, state);
-        this.selectionList.mouseReleased(mouseX, mouseY, state);
+        selectionList.mouseReleased(mouseX, mouseY, state);
     }
 
     /**
@@ -149,15 +149,15 @@ public class GuiWorldSelection extends GuiScreen
      */
     public void setVersionTooltip(String p_184861_1_)
     {
-        this.worldVersTooltip = p_184861_1_;
+        worldVersTooltip = p_184861_1_;
     }
 
     public void selectWorld(@Nullable GuiListWorldSelectionEntry entry)
     {
         boolean flag = entry != null;
-        this.selectButton.enabled = flag;
-        this.deleteButton.enabled = flag;
-        this.renameButton.enabled = flag;
-        this.copyButton.enabled = flag;
+        selectButton.enabled = flag;
+        deleteButton.enabled = flag;
+        renameButton.enabled = flag;
+        copyButton.enabled = flag;
     }
 }

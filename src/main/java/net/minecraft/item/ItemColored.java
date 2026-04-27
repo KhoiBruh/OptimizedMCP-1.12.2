@@ -12,8 +12,8 @@ public class ItemColored extends ItemBlock
 
         if (hasSubtypes)
         {
-            this.setMaxDamage(0);
-            this.setHasSubtypes(true);
+            setMaxDamage(0);
+            setHasSubtypes(true);
         }
     }
 
@@ -28,7 +28,7 @@ public class ItemColored extends ItemBlock
 
     public ItemColored setSubtypeNames(String[] names)
     {
-        this.subtypeNames = names;
+        subtypeNames = names;
         return this;
     }
 
@@ -38,14 +38,14 @@ public class ItemColored extends ItemBlock
      */
     public String getUnlocalizedName(ItemStack stack)
     {
-        if (this.subtypeNames == null)
+        if (subtypeNames == null)
         {
             return super.getUnlocalizedName(stack);
         }
         else
         {
             int i = stack.getMetadata();
-            return i >= 0 && i < this.subtypeNames.length ? super.getUnlocalizedName(stack) + "." + this.subtypeNames[i] : super.getUnlocalizedName(stack);
+            return i >= 0 && i < subtypeNames.length ? super.getUnlocalizedName(stack) + "." + subtypeNames[i] : super.getUnlocalizedName(stack);
         }
     }
 }

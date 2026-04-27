@@ -20,7 +20,7 @@ public class RecipeFireworks implements IRecipe
      */
     public boolean matches(InventoryCrafting inv, World worldIn)
     {
-        this.resultItem = ItemStack.EMPTY;
+        resultItem = ItemStack.EMPTY;
         int i = 0;
         int j = 0;
         int k = 0;
@@ -88,7 +88,7 @@ public class RecipeFireworks implements IRecipe
         {
             if (j >= 1 && i == 1 && i1 == 0)
             {
-                this.resultItem = new ItemStack(Items.FIREWORKS, 3);
+                resultItem = new ItemStack(Items.FIREWORKS, 3);
                 NBTTagCompound nbttagcompound1 = new NBTTagCompound();
 
                 if (l > 0)
@@ -111,12 +111,12 @@ public class RecipeFireworks implements IRecipe
                 nbttagcompound1.setByte("Flight", (byte)j);
                 NBTTagCompound nbttagcompound3 = new NBTTagCompound();
                 nbttagcompound3.setTag("Fireworks", nbttagcompound1);
-                this.resultItem.setTagCompound(nbttagcompound3);
+                resultItem.setTagCompound(nbttagcompound3);
                 return true;
             }
             else if (j == 1 && i == 0 && l == 0 && k > 0 && j1 <= 1)
             {
-                this.resultItem = new ItemStack(Items.FIREWORK_CHARGE);
+                resultItem = new ItemStack(Items.FIREWORK_CHARGE);
                 NBTTagCompound nbttagcompound = new NBTTagCompound();
                 NBTTagCompound nbttagcompound2 = new NBTTagCompound();
                 byte b0 = 0;
@@ -169,7 +169,7 @@ public class RecipeFireworks implements IRecipe
                 nbttagcompound2.setIntArray("Colors", aint1);
                 nbttagcompound2.setByte("Type", b0);
                 nbttagcompound.setTag("Explosion", nbttagcompound2);
-                this.resultItem.setTagCompound(nbttagcompound);
+                resultItem.setTagCompound(nbttagcompound);
                 return true;
             }
             else if (j == 0 && i == 0 && l == 1 && k > 0 && k == i1)
@@ -188,8 +188,8 @@ public class RecipeFireworks implements IRecipe
                         }
                         else if (itemstack1.getItem() == Items.FIREWORK_CHARGE)
                         {
-                            this.resultItem = itemstack1.copy();
-                            this.resultItem.setCount(1);
+                            resultItem = itemstack1.copy();
+                            resultItem.setCount(1);
                         }
                     }
                 }
@@ -201,9 +201,9 @@ public class RecipeFireworks implements IRecipe
                     aint[j2] = ((Integer)list1.get(j2)).intValue();
                 }
 
-                if (!this.resultItem.isEmpty() && this.resultItem.hasTagCompound())
+                if (!resultItem.isEmpty() && resultItem.hasTagCompound())
                 {
-                    NBTTagCompound nbttagcompound4 = this.resultItem.getTagCompound().getCompoundTag("Explosion");
+                    NBTTagCompound nbttagcompound4 = resultItem.getTagCompound().getCompoundTag("Explosion");
 
                     if (nbttagcompound4 == null)
                     {
@@ -236,12 +236,12 @@ public class RecipeFireworks implements IRecipe
      */
     public ItemStack getCraftingResult(InventoryCrafting inv)
     {
-        return this.resultItem.copy();
+        return resultItem.copy();
     }
 
     public ItemStack getRecipeOutput()
     {
-        return this.resultItem;
+        return resultItem;
     }
 
     public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv)

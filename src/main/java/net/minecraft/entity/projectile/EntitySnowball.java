@@ -39,7 +39,7 @@ public class EntitySnowball extends EntityThrowable
         {
             for (int i = 0; i < 8; ++i)
             {
-                this.world.spawnParticle(EnumParticleTypes.SNOWBALL, this.posX, this.posY, this.posZ, 0.0D, 0.0D, 0.0D);
+                world.spawnParticle(EnumParticleTypes.SNOWBALL, posX, posY, posZ, 0.0D, 0.0D, 0.0D);
             }
         }
     }
@@ -58,13 +58,13 @@ public class EntitySnowball extends EntityThrowable
                 i = 3;
             }
 
-            result.entityHit.attackEntityFrom(DamageSource.causeThrownDamage(this, this.getThrower()), (float)i);
+            result.entityHit.attackEntityFrom(DamageSource.causeThrownDamage(this, getThrower()), (float)i);
         }
 
-        if (!this.world.isRemote)
+        if (!world.isRemote)
         {
-            this.world.setEntityState(this, (byte)3);
-            this.setDead();
+            world.setEntityState(this, (byte)3);
+            setDead();
         }
     }
 }

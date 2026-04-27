@@ -16,22 +16,22 @@ public class CreativeSettings
 
     public CreativeSettings(Minecraft minecraftIn, File dataDir)
     {
-        this.minecraft = minecraftIn;
-        this.dataFile = new File(dataDir, "hotbar.nbt");
+        minecraft = minecraftIn;
+        dataFile = new File(dataDir, "hotbar.nbt");
 
         for (int i = 0; i < 9; ++i)
         {
-            this.hotbarSnapshots[i] = new HotbarSnapshot();
+            hotbarSnapshots[i] = new HotbarSnapshot();
         }
 
-        this.read();
+        read();
     }
 
     public void read()
     {
         try
         {
-            NBTTagCompound nbttagcompound = CompressedStreamTools.read(this.dataFile);
+            NBTTagCompound nbttagcompound = CompressedStreamTools.read(dataFile);
 
             if (nbttagcompound == null)
             {
@@ -40,7 +40,7 @@ public class CreativeSettings
 
             for (int i = 0; i < 9; ++i)
             {
-                this.hotbarSnapshots[i].fromTag(nbttagcompound.getTagList(String.valueOf(i), 10));
+                hotbarSnapshots[i].fromTag(nbttagcompound.getTagList(String.valueOf(i), 10));
             }
         }
         catch (Exception exception)
@@ -57,10 +57,10 @@ public class CreativeSettings
 
             for (int i = 0; i < 9; ++i)
             {
-                nbttagcompound.setTag(String.valueOf(i), this.hotbarSnapshots[i].createTag());
+                nbttagcompound.setTag(String.valueOf(i), hotbarSnapshots[i].createTag());
             }
 
-            CompressedStreamTools.write(nbttagcompound, this.dataFile);
+            CompressedStreamTools.write(nbttagcompound, dataFile);
         }
         catch (Exception exception)
         {
@@ -70,6 +70,6 @@ public class CreativeSettings
 
     public HotbarSnapshot getHotbarSnapshot(int p_192563_1_)
     {
-        return this.hotbarSnapshots[p_192563_1_];
+        return hotbarSnapshots[p_192563_1_];
     }
 }

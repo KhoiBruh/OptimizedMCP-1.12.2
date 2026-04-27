@@ -21,9 +21,9 @@ public class CPacketTabComplete implements Packet<INetHandlerPlayServer>
 
     public CPacketTabComplete(String messageIn, @Nullable BlockPos targetBlockIn, boolean hasTargetBlockIn)
     {
-        this.message = messageIn;
-        this.targetBlock = targetBlockIn;
-        this.hasTargetBlock = hasTargetBlockIn;
+        message = messageIn;
+        targetBlock = targetBlockIn;
+        hasTargetBlock = hasTargetBlockIn;
     }
 
     /**
@@ -31,13 +31,13 @@ public class CPacketTabComplete implements Packet<INetHandlerPlayServer>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.message = buf.readString(32767);
-        this.hasTargetBlock = buf.readBoolean();
+        message = buf.readString(32767);
+        hasTargetBlock = buf.readBoolean();
         boolean flag = buf.readBoolean();
 
         if (flag)
         {
-            this.targetBlock = buf.readBlockPos();
+            targetBlock = buf.readBlockPos();
         }
     }
 
@@ -46,14 +46,14 @@ public class CPacketTabComplete implements Packet<INetHandlerPlayServer>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeString(StringUtils.substring(this.message, 0, 32767));
-        buf.writeBoolean(this.hasTargetBlock);
-        boolean flag = this.targetBlock != null;
+        buf.writeString(StringUtils.substring(message, 0, 32767));
+        buf.writeBoolean(hasTargetBlock);
+        boolean flag = targetBlock != null;
         buf.writeBoolean(flag);
 
         if (flag)
         {
-            buf.writeBlockPos(this.targetBlock);
+            buf.writeBlockPos(targetBlock);
         }
     }
 
@@ -67,17 +67,17 @@ public class CPacketTabComplete implements Packet<INetHandlerPlayServer>
 
     public String getMessage()
     {
-        return this.message;
+        return message;
     }
 
     @Nullable
     public BlockPos getTargetBlock()
     {
-        return this.targetBlock;
+        return targetBlock;
     }
 
     public boolean hasTargetBlock()
     {
-        return this.hasTargetBlock;
+        return hasTargetBlock;
     }
 }

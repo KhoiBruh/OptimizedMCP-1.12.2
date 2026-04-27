@@ -18,7 +18,7 @@ public class RenderIllusionIllager extends RenderLiving<EntityMob>
     public RenderIllusionIllager(RenderManager p_i47477_1_)
     {
         super(p_i47477_1_, new ModelIllager(0.0F, 0.0F, 64, 64), 0.5F);
-        this.addLayer(new LayerHeldItem(this)
+        addLayer(new LayerHeldItem(this)
         {
             public void doRenderLayer(EntityLivingBase entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale)
             {
@@ -29,10 +29,10 @@ public class RenderIllusionIllager extends RenderLiving<EntityMob>
             }
             protected void translateToHand(EnumHandSide p_191361_1_)
             {
-                ((ModelIllager)this.livingEntityRenderer.getMainModel()).getArm(p_191361_1_).postRender(0.0625F);
+                ((ModelIllager) livingEntityRenderer.getMainModel()).getArm(p_191361_1_).postRender(0.0625F);
             }
         });
-        ((ModelIllager)this.getMainModel()).hat.showModel = true;
+        ((ModelIllager) getMainModel()).hat.showModel = true;
     }
 
     /**
@@ -60,7 +60,7 @@ public class RenderIllusionIllager extends RenderLiving<EntityMob>
         if (entity.isInvisible())
         {
             Vec3d[] avec3d = ((EntityIllusionIllager)entity).getRenderLocations(partialTicks);
-            float f = this.handleRotationFloat(entity, partialTicks);
+            float f = handleRotationFloat(entity, partialTicks);
 
             for (int i = 0; i < avec3d.length; ++i)
             {

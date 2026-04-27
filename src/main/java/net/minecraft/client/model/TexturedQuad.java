@@ -13,8 +13,8 @@ public class TexturedQuad
 
     public TexturedQuad(PositionTextureVertex[] vertices)
     {
-        this.vertexPositions = vertices;
-        this.nVertices = vertices.length;
+        vertexPositions = vertices;
+        nVertices = vertices.length;
     }
 
     public TexturedQuad(PositionTextureVertex[] vertices, int texcoordU1, int texcoordV1, int texcoordU2, int texcoordV2, float textureWidth, float textureHeight)
@@ -30,14 +30,14 @@ public class TexturedQuad
 
     public void flipFace()
     {
-        PositionTextureVertex[] apositiontexturevertex = new PositionTextureVertex[this.vertexPositions.length];
+        PositionTextureVertex[] apositiontexturevertex = new PositionTextureVertex[vertexPositions.length];
 
-        for (int i = 0; i < this.vertexPositions.length; ++i)
+        for (int i = 0; i < vertexPositions.length; ++i)
         {
-            apositiontexturevertex[i] = this.vertexPositions[this.vertexPositions.length - i - 1];
+            apositiontexturevertex[i] = vertexPositions[vertexPositions.length - i - 1];
         }
 
-        this.vertexPositions = apositiontexturevertex;
+        vertexPositions = apositiontexturevertex;
     }
 
     /**
@@ -46,14 +46,14 @@ public class TexturedQuad
      */
     public void draw(BufferBuilder renderer, float scale)
     {
-        Vec3d vec3d = this.vertexPositions[1].vector3D.subtractReverse(this.vertexPositions[0].vector3D);
-        Vec3d vec3d1 = this.vertexPositions[1].vector3D.subtractReverse(this.vertexPositions[2].vector3D);
+        Vec3d vec3d = vertexPositions[1].vector3D.subtractReverse(vertexPositions[0].vector3D);
+        Vec3d vec3d1 = vertexPositions[1].vector3D.subtractReverse(vertexPositions[2].vector3D);
         Vec3d vec3d2 = vec3d1.crossProduct(vec3d).normalize();
         float f = (float)vec3d2.x;
         float f1 = (float)vec3d2.y;
         float f2 = (float)vec3d2.z;
 
-        if (this.invertNormal)
+        if (invertNormal)
         {
             f = -f;
             f1 = -f1;
@@ -64,7 +64,7 @@ public class TexturedQuad
 
         for (int i = 0; i < 4; ++i)
         {
-            PositionTextureVertex positiontexturevertex = this.vertexPositions[i];
+            PositionTextureVertex positiontexturevertex = vertexPositions[i];
             renderer.pos(positiontexturevertex.vector3D.x * (double)scale, positiontexturevertex.vector3D.y * (double)scale, positiontexturevertex.vector3D.z * (double)scale).tex((double)positiontexturevertex.texturePositionX, (double)positiontexturevertex.texturePositionY).normal(f, f1, f2).endVertex();
         }
 

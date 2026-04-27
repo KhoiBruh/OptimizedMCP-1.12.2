@@ -23,10 +23,10 @@ public abstract class WorldGenHugeTrees extends WorldGenAbstractTree
     public WorldGenHugeTrees(boolean notify, int baseHeightIn, int extraRandomHeightIn, IBlockState woodMetadataIn, IBlockState leavesMetadataIn)
     {
         super(notify);
-        this.baseHeight = baseHeightIn;
-        this.extraRandomHeight = extraRandomHeightIn;
-        this.woodMetadata = woodMetadataIn;
-        this.leavesMetadata = leavesMetadataIn;
+        baseHeight = baseHeightIn;
+        extraRandomHeight = extraRandomHeightIn;
+        woodMetadata = woodMetadataIn;
+        leavesMetadata = leavesMetadataIn;
     }
 
     /**
@@ -34,11 +34,11 @@ public abstract class WorldGenHugeTrees extends WorldGenAbstractTree
      */
     protected int getHeight(Random rand)
     {
-        int i = rand.nextInt(3) + this.baseHeight;
+        int i = rand.nextInt(3) + baseHeight;
 
-        if (this.extraRandomHeight > 1)
+        if (extraRandomHeight > 1)
         {
-            i += rand.nextInt(this.extraRandomHeight);
+            i += rand.nextInt(extraRandomHeight);
         }
 
         return i;
@@ -70,7 +70,7 @@ public abstract class WorldGenHugeTrees extends WorldGenAbstractTree
                 {
                     for (int l = -j; l <= j && flag; ++l)
                     {
-                        if (leavesPos.getY() + i < 0 || leavesPos.getY() + i >= 256 || !this.canGrowInto(worldIn.getBlockState(leavesPos.add(k, i, l)).getBlock()))
+                        if (leavesPos.getY() + i < 0 || leavesPos.getY() + i >= 256 || !canGrowInto(worldIn.getBlockState(leavesPos.add(k, i, l)).getBlock()))
                         {
                             flag = false;
                         }
@@ -97,10 +97,10 @@ public abstract class WorldGenHugeTrees extends WorldGenAbstractTree
 
         if ((block == Blocks.GRASS || block == Blocks.DIRT) && pos.getY() >= 2)
         {
-            this.setDirtAt(worldIn, blockpos);
-            this.setDirtAt(worldIn, blockpos.east());
-            this.setDirtAt(worldIn, blockpos.south());
-            this.setDirtAt(worldIn, blockpos.south().east());
+            setDirtAt(worldIn, blockpos);
+            setDirtAt(worldIn, blockpos.east());
+            setDirtAt(worldIn, blockpos.south());
+            setDirtAt(worldIn, blockpos.south().east());
             return true;
         }
         else
@@ -115,7 +115,7 @@ public abstract class WorldGenHugeTrees extends WorldGenAbstractTree
      */
     protected boolean ensureGrowable(World worldIn, Random rand, BlockPos treePos, int height)
     {
-        return this.isSpaceAt(worldIn, treePos, height) && this.ensureDirtsUnderneath(treePos, worldIn);
+        return isSpaceAt(worldIn, treePos, height) && ensureDirtsUnderneath(treePos, worldIn);
     }
 
     /**
@@ -139,7 +139,7 @@ public abstract class WorldGenHugeTrees extends WorldGenAbstractTree
 
                     if (material == Material.AIR || material == Material.LEAVES)
                     {
-                        this.setBlockAndNotifyAdequately(worldIn, blockpos, this.leavesMetadata);
+                        setBlockAndNotifyAdequately(worldIn, blockpos, leavesMetadata);
                     }
                 }
             }
@@ -164,7 +164,7 @@ public abstract class WorldGenHugeTrees extends WorldGenAbstractTree
 
                     if (material == Material.AIR || material == Material.LEAVES)
                     {
-                        this.setBlockAndNotifyAdequately(worldIn, blockpos, this.leavesMetadata);
+                        setBlockAndNotifyAdequately(worldIn, blockpos, leavesMetadata);
                     }
                 }
             }

@@ -22,11 +22,11 @@ public class SPacketEntityProperties implements Packet<INetHandlerPlayClient>
 
     public SPacketEntityProperties(int entityIdIn, Collection<IAttributeInstance> instances)
     {
-        this.entityId = entityIdIn;
+        entityId = entityIdIn;
 
         for (IAttributeInstance iattributeinstance : instances)
         {
-            this.snapshots.add(new SPacketEntityProperties.Snapshot(iattributeinstance.getAttribute().getName(), iattributeinstance.getBaseValue(), iattributeinstance.getModifiers()));
+            snapshots.add(new SPacketEntityProperties.Snapshot(iattributeinstance.getAttribute().getName(), iattributeinstance.getBaseValue(), iattributeinstance.getModifiers()));
         }
     }
 
@@ -35,7 +35,7 @@ public class SPacketEntityProperties implements Packet<INetHandlerPlayClient>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.entityId = buf.readVarInt();
+        entityId = buf.readVarInt();
         int i = buf.readInt();
 
         for (int j = 0; j < i; ++j)
@@ -51,7 +51,7 @@ public class SPacketEntityProperties implements Packet<INetHandlerPlayClient>
                 list.add(new AttributeModifier(uuid, "Unknown synced attribute modifier", buf.readDouble(), buf.readByte()));
             }
 
-            this.snapshots.add(new SPacketEntityProperties.Snapshot(s, d0, list));
+            snapshots.add(new SPacketEntityProperties.Snapshot(s, d0, list));
         }
     }
 
@@ -60,10 +60,10 @@ public class SPacketEntityProperties implements Packet<INetHandlerPlayClient>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeVarInt(this.entityId);
-        buf.writeInt(this.snapshots.size());
+        buf.writeVarInt(entityId);
+        buf.writeInt(snapshots.size());
 
-        for (SPacketEntityProperties.Snapshot spacketentityproperties$snapshot : this.snapshots)
+        for (SPacketEntityProperties.Snapshot spacketentityproperties$snapshot : snapshots)
         {
             buf.writeString(spacketentityproperties$snapshot.getName());
             buf.writeDouble(spacketentityproperties$snapshot.getBaseValue());
@@ -88,12 +88,12 @@ public class SPacketEntityProperties implements Packet<INetHandlerPlayClient>
 
     public int getEntityId()
     {
-        return this.entityId;
+        return entityId;
     }
 
     public List<SPacketEntityProperties.Snapshot> getSnapshots()
     {
-        return this.snapshots;
+        return snapshots;
     }
 
     public class Snapshot
@@ -104,24 +104,24 @@ public class SPacketEntityProperties implements Packet<INetHandlerPlayClient>
 
         public Snapshot(String nameIn, double baseValueIn, Collection<AttributeModifier> modifiersIn)
         {
-            this.name = nameIn;
-            this.baseValue = baseValueIn;
-            this.modifiers = modifiersIn;
+            name = nameIn;
+            baseValue = baseValueIn;
+            modifiers = modifiersIn;
         }
 
         public String getName()
         {
-            return this.name;
+            return name;
         }
 
         public double getBaseValue()
         {
-            return this.baseValue;
+            return baseValue;
         }
 
         public Collection<AttributeModifier> getModifiers()
         {
-            return this.modifiers;
+            return modifiers;
         }
     }
 }

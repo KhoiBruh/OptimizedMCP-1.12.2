@@ -13,7 +13,7 @@ public class TileEntityBed extends TileEntity
 
     public void setItemValues(ItemStack p_193051_1_)
     {
-        this.setColor(EnumDyeColor.byMetadata(p_193051_1_.getMetadata()));
+        setColor(EnumDyeColor.byMetadata(p_193051_1_.getMetadata()));
     }
 
     public void readFromNBT(NBTTagCompound compound)
@@ -22,45 +22,45 @@ public class TileEntityBed extends TileEntity
 
         if (compound.hasKey("color"))
         {
-            this.color = EnumDyeColor.byMetadata(compound.getInteger("color"));
+            color = EnumDyeColor.byMetadata(compound.getInteger("color"));
         }
     }
 
     public NBTTagCompound writeToNBT(NBTTagCompound compound)
     {
         super.writeToNBT(compound);
-        compound.setInteger("color", this.color.getMetadata());
+        compound.setInteger("color", color.getMetadata());
         return compound;
     }
 
     public NBTTagCompound getUpdateTag()
     {
-        return this.writeToNBT(new NBTTagCompound());
+        return writeToNBT(new NBTTagCompound());
     }
 
     public SPacketUpdateTileEntity getUpdatePacket()
     {
-        return new SPacketUpdateTileEntity(this.pos, 11, this.getUpdateTag());
+        return new SPacketUpdateTileEntity(pos, 11, getUpdateTag());
     }
 
     public EnumDyeColor getColor()
     {
-        return this.color;
+        return color;
     }
 
     public void setColor(EnumDyeColor color)
     {
         this.color = color;
-        this.markDirty();
+        markDirty();
     }
 
     public boolean isHeadPiece()
     {
-        return BlockBed.isHeadPiece(this.getBlockMetadata());
+        return BlockBed.isHeadPiece(getBlockMetadata());
     }
 
     public ItemStack getItemStack()
     {
-        return new ItemStack(Items.BED, 1, this.color.getMetadata());
+        return new ItemStack(Items.BED, 1, color.getMetadata());
     }
 }

@@ -29,7 +29,7 @@ public class ItemMap extends ItemMapBase
 {
     protected ItemMap()
     {
-        this.setHasSubtypes(true);
+        setHasSubtypes(true);
     }
 
     public static ItemStack setupNewMap(World worldIn, double worldX, double worldZ, byte scale, boolean trackingPosition, boolean unlimitedTracking)
@@ -386,7 +386,7 @@ public class ItemMap extends ItemMapBase
     {
         if (!worldIn.isRemote)
         {
-            MapData mapdata = this.getMapData(stack, worldIn);
+            MapData mapdata = getMapData(stack, worldIn);
 
             if (entityIn instanceof EntityPlayer)
             {
@@ -396,7 +396,7 @@ public class ItemMap extends ItemMapBase
 
             if (isSelected || entityIn instanceof EntityPlayer && ((EntityPlayer)entityIn).getHeldItemOffhand() == stack)
             {
-                this.updateMapData(worldIn, entityIn, mapdata);
+                updateMapData(worldIn, entityIn, mapdata);
             }
         }
     }
@@ -404,7 +404,7 @@ public class ItemMap extends ItemMapBase
     @Nullable
     public Packet<?> createMapDataPacket(ItemStack stack, World worldIn, EntityPlayer player)
     {
-        return this.getMapData(stack, worldIn).getMapPacket(stack, worldIn, player);
+        return getMapData(stack, worldIn).getMapPacket(stack, worldIn, player);
     }
 
     /**
@@ -471,7 +471,7 @@ public class ItemMap extends ItemMapBase
     {
         if (flagIn.isAdvanced())
         {
-            MapData mapdata = worldIn == null ? null : this.getMapData(stack, worldIn);
+            MapData mapdata = worldIn == null ? null : getMapData(stack, worldIn);
 
             if (mapdata != null)
             {

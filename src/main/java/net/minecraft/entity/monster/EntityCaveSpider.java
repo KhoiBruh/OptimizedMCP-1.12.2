@@ -20,7 +20,7 @@ public class EntityCaveSpider extends EntitySpider
     public EntityCaveSpider(World worldIn)
     {
         super(worldIn);
-        this.setSize(0.7F, 0.5F);
+        setSize(0.7F, 0.5F);
     }
 
     public static void registerFixesCaveSpider(DataFixer fixer)
@@ -31,7 +31,7 @@ public class EntityCaveSpider extends EntitySpider
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(12.0D);
+        getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(12.0D);
     }
 
     public boolean attackEntityAsMob(Entity entityIn)
@@ -42,11 +42,11 @@ public class EntityCaveSpider extends EntitySpider
             {
                 int i = 0;
 
-                if (this.world.getDifficulty() == EnumDifficulty.NORMAL)
+                if (world.getDifficulty() == EnumDifficulty.NORMAL)
                 {
                     i = 7;
                 }
-                else if (this.world.getDifficulty() == EnumDifficulty.HARD)
+                else if (world.getDifficulty() == EnumDifficulty.HARD)
                 {
                     i = 15;
                 }

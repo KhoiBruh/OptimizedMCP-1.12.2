@@ -24,44 +24,44 @@ public class SPacketTeams implements Packet<INetHandlerPlayClient>
 
     public SPacketTeams()
     {
-        this.nameTagVisibility = Team.EnumVisible.ALWAYS.internalName;
-        this.collisionRule = Team.CollisionRule.ALWAYS.name;
-        this.color = -1;
-        this.players = Lists.<String>newArrayList();
+        nameTagVisibility = Team.EnumVisible.ALWAYS.internalName;
+        collisionRule = Team.CollisionRule.ALWAYS.name;
+        color = -1;
+        players = Lists.<String>newArrayList();
     }
 
     public SPacketTeams(ScorePlayerTeam teamIn, int actionIn)
     {
-        this.nameTagVisibility = Team.EnumVisible.ALWAYS.internalName;
-        this.collisionRule = Team.CollisionRule.ALWAYS.name;
-        this.color = -1;
-        this.players = Lists.<String>newArrayList();
-        this.name = teamIn.getName();
-        this.action = actionIn;
+        nameTagVisibility = Team.EnumVisible.ALWAYS.internalName;
+        collisionRule = Team.CollisionRule.ALWAYS.name;
+        color = -1;
+        players = Lists.<String>newArrayList();
+        name = teamIn.getName();
+        action = actionIn;
 
         if (actionIn == 0 || actionIn == 2)
         {
-            this.displayName = teamIn.getDisplayName();
-            this.prefix = teamIn.getPrefix();
-            this.suffix = teamIn.getSuffix();
-            this.friendlyFlags = teamIn.getFriendlyFlags();
-            this.nameTagVisibility = teamIn.getNameTagVisibility().internalName;
-            this.collisionRule = teamIn.getCollisionRule().name;
-            this.color = teamIn.getColor().getColorIndex();
+            displayName = teamIn.getDisplayName();
+            prefix = teamIn.getPrefix();
+            suffix = teamIn.getSuffix();
+            friendlyFlags = teamIn.getFriendlyFlags();
+            nameTagVisibility = teamIn.getNameTagVisibility().internalName;
+            collisionRule = teamIn.getCollisionRule().name;
+            color = teamIn.getColor().getColorIndex();
         }
 
         if (actionIn == 0)
         {
-            this.players.addAll(teamIn.getMembershipCollection());
+            players.addAll(teamIn.getMembershipCollection());
         }
     }
 
     public SPacketTeams(ScorePlayerTeam teamIn, Collection<String> playersIn, int actionIn)
     {
-        this.nameTagVisibility = Team.EnumVisible.ALWAYS.internalName;
-        this.collisionRule = Team.CollisionRule.ALWAYS.name;
-        this.color = -1;
-        this.players = Lists.<String>newArrayList();
+        nameTagVisibility = Team.EnumVisible.ALWAYS.internalName;
+        collisionRule = Team.CollisionRule.ALWAYS.name;
+        color = -1;
+        players = Lists.<String>newArrayList();
 
         if (actionIn != 3 && actionIn != 4)
         {
@@ -69,9 +69,9 @@ public class SPacketTeams implements Packet<INetHandlerPlayClient>
         }
         else if (playersIn != null && !playersIn.isEmpty())
         {
-            this.action = actionIn;
-            this.name = teamIn.getName();
-            this.players.addAll(playersIn);
+            action = actionIn;
+            name = teamIn.getName();
+            players.addAll(playersIn);
         }
         else
         {
@@ -84,27 +84,27 @@ public class SPacketTeams implements Packet<INetHandlerPlayClient>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.name = buf.readString(16);
-        this.action = buf.readByte();
+        name = buf.readString(16);
+        action = buf.readByte();
 
-        if (this.action == 0 || this.action == 2)
+        if (action == 0 || action == 2)
         {
-            this.displayName = buf.readString(32);
-            this.prefix = buf.readString(16);
-            this.suffix = buf.readString(16);
-            this.friendlyFlags = buf.readByte();
-            this.nameTagVisibility = buf.readString(32);
-            this.collisionRule = buf.readString(32);
-            this.color = buf.readByte();
+            displayName = buf.readString(32);
+            prefix = buf.readString(16);
+            suffix = buf.readString(16);
+            friendlyFlags = buf.readByte();
+            nameTagVisibility = buf.readString(32);
+            collisionRule = buf.readString(32);
+            color = buf.readByte();
         }
 
-        if (this.action == 0 || this.action == 3 || this.action == 4)
+        if (action == 0 || action == 3 || action == 4)
         {
             int i = buf.readVarInt();
 
             for (int j = 0; j < i; ++j)
             {
-                this.players.add(buf.readString(40));
+                players.add(buf.readString(40));
             }
         }
     }
@@ -114,25 +114,25 @@ public class SPacketTeams implements Packet<INetHandlerPlayClient>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeString(this.name);
-        buf.writeByte(this.action);
+        buf.writeString(name);
+        buf.writeByte(action);
 
-        if (this.action == 0 || this.action == 2)
+        if (action == 0 || action == 2)
         {
-            buf.writeString(this.displayName);
-            buf.writeString(this.prefix);
-            buf.writeString(this.suffix);
-            buf.writeByte(this.friendlyFlags);
-            buf.writeString(this.nameTagVisibility);
-            buf.writeString(this.collisionRule);
-            buf.writeByte(this.color);
+            buf.writeString(displayName);
+            buf.writeString(prefix);
+            buf.writeString(suffix);
+            buf.writeByte(friendlyFlags);
+            buf.writeString(nameTagVisibility);
+            buf.writeString(collisionRule);
+            buf.writeByte(color);
         }
 
-        if (this.action == 0 || this.action == 3 || this.action == 4)
+        if (action == 0 || action == 3 || action == 4)
         {
-            buf.writeVarInt(this.players.size());
+            buf.writeVarInt(players.size());
 
-            for (String s : this.players)
+            for (String s : players)
             {
                 buf.writeString(s);
             }
@@ -149,51 +149,51 @@ public class SPacketTeams implements Packet<INetHandlerPlayClient>
 
     public String getName()
     {
-        return this.name;
+        return name;
     }
 
     public String getDisplayName()
     {
-        return this.displayName;
+        return displayName;
     }
 
     public String getPrefix()
     {
-        return this.prefix;
+        return prefix;
     }
 
     public String getSuffix()
     {
-        return this.suffix;
+        return suffix;
     }
 
     public Collection<String> getPlayers()
     {
-        return this.players;
+        return players;
     }
 
     public int getAction()
     {
-        return this.action;
+        return action;
     }
 
     public int getFriendlyFlags()
     {
-        return this.friendlyFlags;
+        return friendlyFlags;
     }
 
     public int getColor()
     {
-        return this.color;
+        return color;
     }
 
     public String getNameTagVisibility()
     {
-        return this.nameTagVisibility;
+        return nameTagVisibility;
     }
 
     public String getCollisionRule()
     {
-        return this.collisionRule;
+        return collisionRule;
     }
 }

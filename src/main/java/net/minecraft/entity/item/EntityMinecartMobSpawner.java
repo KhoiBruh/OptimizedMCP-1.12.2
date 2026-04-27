@@ -22,11 +22,11 @@ public class EntityMinecartMobSpawner extends EntityMinecart
     {
         public void broadcastEvent(int id)
         {
-            EntityMinecartMobSpawner.this.world.setEntityState(EntityMinecartMobSpawner.this, (byte)id);
+            world.setEntityState(EntityMinecartMobSpawner.this, (byte)id);
         }
         public World getSpawnerWorld()
         {
-            return EntityMinecartMobSpawner.this.world;
+            return world;
         }
         public BlockPos getSpawnerPosition()
         {
@@ -81,7 +81,7 @@ public class EntityMinecartMobSpawner extends EntityMinecart
     protected void readEntityFromNBT(NBTTagCompound compound)
     {
         super.readEntityFromNBT(compound);
-        this.mobSpawnerLogic.readFromNBT(compound);
+        mobSpawnerLogic.readFromNBT(compound);
     }
 
     /**
@@ -90,7 +90,7 @@ public class EntityMinecartMobSpawner extends EntityMinecart
     protected void writeEntityToNBT(NBTTagCompound compound)
     {
         super.writeEntityToNBT(compound);
-        this.mobSpawnerLogic.writeToNBT(compound);
+        mobSpawnerLogic.writeToNBT(compound);
     }
 
     /**
@@ -98,7 +98,7 @@ public class EntityMinecartMobSpawner extends EntityMinecart
      */
     public void handleStatusUpdate(byte id)
     {
-        this.mobSpawnerLogic.setDelayToMin(id);
+        mobSpawnerLogic.setDelayToMin(id);
     }
 
     /**
@@ -107,6 +107,6 @@ public class EntityMinecartMobSpawner extends EntityMinecart
     public void onUpdate()
     {
         super.onUpdate();
-        this.mobSpawnerLogic.updateSpawner();
+        mobSpawnerLogic.updateSpawner();
     }
 }

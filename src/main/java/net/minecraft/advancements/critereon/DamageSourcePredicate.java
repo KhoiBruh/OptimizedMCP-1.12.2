@@ -22,15 +22,15 @@ public class DamageSourcePredicate
 
     public DamageSourcePredicate()
     {
-        this.isProjectile = null;
-        this.isExplosion = null;
-        this.bypassesArmor = null;
-        this.bypassesInvulnerability = null;
-        this.bypassesMagic = null;
-        this.isFire = null;
-        this.isMagic = null;
-        this.directEntity = EntityPredicate.ANY;
-        this.sourceEntity = EntityPredicate.ANY;
+        isProjectile = null;
+        isExplosion = null;
+        bypassesArmor = null;
+        bypassesInvulnerability = null;
+        bypassesMagic = null;
+        isFire = null;
+        isMagic = null;
+        directEntity = EntityPredicate.ANY;
+        sourceEntity = EntityPredicate.ANY;
     }
 
     public DamageSourcePredicate(@Nullable Boolean isProjectile, @Nullable Boolean isExplosion, @Nullable Boolean bypassesArmor, @Nullable Boolean bypassesInvulnerability, @Nullable Boolean bypassesMagic, @Nullable Boolean isFire, @Nullable Boolean isMagic, EntityPredicate directEntity, EntityPredicate sourceEntity)
@@ -52,41 +52,41 @@ public class DamageSourcePredicate
         {
             return true;
         }
-        else if (this.isProjectile != null && this.isProjectile.booleanValue() != source.isProjectile())
+        else if (isProjectile != null && isProjectile.booleanValue() != source.isProjectile())
         {
             return false;
         }
-        else if (this.isExplosion != null && this.isExplosion.booleanValue() != source.isExplosion())
+        else if (isExplosion != null && isExplosion.booleanValue() != source.isExplosion())
         {
             return false;
         }
-        else if (this.bypassesArmor != null && this.bypassesArmor.booleanValue() != source.isUnblockable())
+        else if (bypassesArmor != null && bypassesArmor.booleanValue() != source.isUnblockable())
         {
             return false;
         }
-        else if (this.bypassesInvulnerability != null && this.bypassesInvulnerability.booleanValue() != source.canHarmInCreative())
+        else if (bypassesInvulnerability != null && bypassesInvulnerability.booleanValue() != source.canHarmInCreative())
         {
             return false;
         }
-        else if (this.bypassesMagic != null && this.bypassesMagic.booleanValue() != source.isDamageAbsolute())
+        else if (bypassesMagic != null && bypassesMagic.booleanValue() != source.isDamageAbsolute())
         {
             return false;
         }
-        else if (this.isFire != null && this.isFire.booleanValue() != source.isFireDamage())
+        else if (isFire != null && isFire.booleanValue() != source.isFireDamage())
         {
             return false;
         }
-        else if (this.isMagic != null && this.isMagic.booleanValue() != source.isMagicDamage())
+        else if (isMagic != null && isMagic.booleanValue() != source.isMagicDamage())
         {
             return false;
         }
-        else if (!this.directEntity.test(player, source.getImmediateSource()))
+        else if (!directEntity.test(player, source.getImmediateSource()))
         {
             return false;
         }
         else
         {
-            return this.sourceEntity.test(player, source.getTrueSource());
+            return sourceEntity.test(player, source.getTrueSource());
         }
     }
 

@@ -93,18 +93,18 @@ public class NetworkManager extends SimpleChannelInboundHandler < Packet<? >>
 
     public NetworkManager(EnumPacketDirection packetDirection)
     {
-        this.direction = packetDirection;
+        direction = packetDirection;
     }
 
     public void channelActive(ChannelHandlerContext p_channelActive_1_) throws Exception
     {
         super.channelActive(p_channelActive_1_);
-        this.channel = p_channelActive_1_.channel();
-        this.socketAddress = this.channel.remoteAddress();
+        channel = p_channelActive_1_.channel();
+        socketAddress = channel.remoteAddress();
 
         try
         {
-            this.setConnectionState(EnumConnectionState.HANDSHAKING);
+            setConnectionState(EnumConnectionState.HANDSHAKING);
         }
         catch (Throwable throwable)
         {
@@ -117,14 +117,14 @@ public class NetworkManager extends SimpleChannelInboundHandler < Packet<? >>
      */
     public void setConnectionState(EnumConnectionState newState)
     {
-        this.channel.attr(PROTOCOL_ATTRIBUTE_KEY).set(newState);
-        this.channel.config().setAutoRead(true);
+        channel.attr(PROTOCOL_ATTRIBUTE_KEY).set(newState);
+        channel.config().setAutoRead(true);
         LOGGER.debug("Enabled auto read");
     }
 
     public void channelInactive(ChannelHandlerContext p_channelInactive_1_) throws Exception
     {
-        this.closeChannel(new TextComponentTranslation("disconnect.endOfStream", new Object[0]));
+        closeChannel(new TextComponentTranslation("disconnect.endOfStream", new Object[0]));
     }
 
     public void exceptionCaught(ChannelHandlerContext p_exceptionCaught_1_, Throwable p_exceptionCaught_2_) throws Exception
@@ -141,16 +141,16 @@ public class NetworkManager extends SimpleChannelInboundHandler < Packet<? >>
         }
 
         LOGGER.debug(textcomponenttranslation.getUnformattedText(), p_exceptionCaught_2_);
-        this.closeChannel(textcomponenttranslation);
+        closeChannel(textcomponenttranslation);
     }
 
     protected void channelRead0(ChannelHandlerContext p_channelRead0_1_, Packet<?> p_channelRead0_2_) throws Exception
     {
-        if (this.channel.isOpen())
+        if (channel.isOpen())
         {
             try
             {
-                ((Packet<INetHandler>)p_channelRead0_2_).processPacket(this.packetListener);
+                ((Packet<INetHandler>)p_channelRead0_2_).processPacket(packetListener);
             }
             catch (ThreadQuickExitException var4)
             {
@@ -167,49 +167,49 @@ public class NetworkManager extends SimpleChannelInboundHandler < Packet<? >>
     {
         Validate.notNull(handler, "packetListener");
         LOGGER.debug("Set listener of {} to {}", this, handler);
-        this.packetListener = handler;
+        packetListener = handler;
     }
 
     public void sendPacket(Packet<?> packetIn)
     {
-        if (this.isChannelOpen())
+        if (isChannelOpen())
         {
-            this.flushOutboundQueue();
-            this.dispatchPacket(packetIn, (GenericFutureListener[])null);
+            flushOutboundQueue();
+            dispatchPacket(packetIn, (GenericFutureListener[])null);
         }
         else
         {
-            this.readWriteLock.writeLock().lock();
+            readWriteLock.writeLock().lock();
 
             try
             {
-                this.outboundPacketsQueue.add(new NetworkManager.InboundHandlerTuplePacketListener(packetIn, new GenericFutureListener[0]));
+                outboundPacketsQueue.add(new NetworkManager.InboundHandlerTuplePacketListener(packetIn, new GenericFutureListener[0]));
             }
             finally
             {
-                this.readWriteLock.writeLock().unlock();
+                readWriteLock.writeLock().unlock();
             }
         }
     }
 
     public void sendPacket(Packet<?> packetIn, GenericFutureListener <? extends Future <? super Void >> listener, GenericFutureListener <? extends Future <? super Void >> ... listeners)
     {
-        if (this.isChannelOpen())
+        if (isChannelOpen())
         {
-            this.flushOutboundQueue();
-            this.dispatchPacket(packetIn, (GenericFutureListener[])ArrayUtils.add(listeners, 0, listener));
+            flushOutboundQueue();
+            dispatchPacket(packetIn, (GenericFutureListener[])ArrayUtils.add(listeners, 0, listener));
         }
         else
         {
-            this.readWriteLock.writeLock().lock();
+            readWriteLock.writeLock().lock();
 
             try
             {
-                this.outboundPacketsQueue.add(new NetworkManager.InboundHandlerTuplePacketListener(packetIn, (GenericFutureListener[])ArrayUtils.add(listeners, 0, listener)));
+                outboundPacketsQueue.add(new NetworkManager.InboundHandlerTuplePacketListener(packetIn, (GenericFutureListener[])ArrayUtils.add(listeners, 0, listener)));
             }
             finally
             {
-                this.readWriteLock.writeLock().unlock();
+                readWriteLock.writeLock().unlock();
             }
         }
     }
@@ -221,22 +221,22 @@ public class NetworkManager extends SimpleChannelInboundHandler < Packet<? >>
     private void dispatchPacket(final Packet<?> inPacket, @Nullable final GenericFutureListener <? extends Future <? super Void >> [] futureListeners)
     {
         final EnumConnectionState enumconnectionstate = EnumConnectionState.getFromPacket(inPacket);
-        final EnumConnectionState enumconnectionstate1 = (EnumConnectionState)this.channel.attr(PROTOCOL_ATTRIBUTE_KEY).get();
+        final EnumConnectionState enumconnectionstate1 = (EnumConnectionState) channel.attr(PROTOCOL_ATTRIBUTE_KEY).get();
 
         if (enumconnectionstate1 != enumconnectionstate)
         {
             LOGGER.debug("Disabled auto read");
-            this.channel.config().setAutoRead(false);
+            channel.config().setAutoRead(false);
         }
 
-        if (this.channel.eventLoop().inEventLoop())
+        if (channel.eventLoop().inEventLoop())
         {
             if (enumconnectionstate != enumconnectionstate1)
             {
-                this.setConnectionState(enumconnectionstate);
+                setConnectionState(enumconnectionstate);
             }
 
-            ChannelFuture channelfuture = this.channel.writeAndFlush(inPacket);
+            ChannelFuture channelfuture = channel.writeAndFlush(inPacket);
 
             if (futureListeners != null)
             {
@@ -247,16 +247,16 @@ public class NetworkManager extends SimpleChannelInboundHandler < Packet<? >>
         }
         else
         {
-            this.channel.eventLoop().execute(new Runnable()
+            channel.eventLoop().execute(new Runnable()
             {
                 public void run()
                 {
                     if (enumconnectionstate != enumconnectionstate1)
                     {
-                        NetworkManager.this.setConnectionState(enumconnectionstate);
+                        setConnectionState(enumconnectionstate);
                     }
 
-                    ChannelFuture channelfuture1 = NetworkManager.this.channel.writeAndFlush(inPacket);
+                    ChannelFuture channelfuture1 = channel.writeAndFlush(inPacket);
 
                     if (futureListeners != null)
                     {
@@ -274,21 +274,21 @@ public class NetworkManager extends SimpleChannelInboundHandler < Packet<? >>
      */
     private void flushOutboundQueue()
     {
-        if (this.channel != null && this.channel.isOpen())
+        if (channel != null && channel.isOpen())
         {
-            this.readWriteLock.readLock().lock();
+            readWriteLock.readLock().lock();
 
             try
             {
-                while (!this.outboundPacketsQueue.isEmpty())
+                while (!outboundPacketsQueue.isEmpty())
                 {
-                    NetworkManager.InboundHandlerTuplePacketListener networkmanager$inboundhandlertuplepacketlistener = this.outboundPacketsQueue.poll();
-                    this.dispatchPacket(networkmanager$inboundhandlertuplepacketlistener.packet, networkmanager$inboundhandlertuplepacketlistener.futureListeners);
+                    NetworkManager.InboundHandlerTuplePacketListener networkmanager$inboundhandlertuplepacketlistener = outboundPacketsQueue.poll();
+                    dispatchPacket(networkmanager$inboundhandlertuplepacketlistener.packet, networkmanager$inboundhandlertuplepacketlistener.futureListeners);
                 }
             }
             finally
             {
-                this.readWriteLock.readLock().unlock();
+                readWriteLock.readLock().unlock();
             }
         }
     }
@@ -298,16 +298,16 @@ public class NetworkManager extends SimpleChannelInboundHandler < Packet<? >>
      */
     public void processReceivedPackets()
     {
-        this.flushOutboundQueue();
+        flushOutboundQueue();
 
-        if (this.packetListener instanceof ITickable)
+        if (packetListener instanceof ITickable)
         {
-            ((ITickable)this.packetListener).update();
+            ((ITickable) packetListener).update();
         }
 
-        if (this.channel != null)
+        if (channel != null)
         {
-            this.channel.flush();
+            channel.flush();
         }
     }
 
@@ -316,7 +316,7 @@ public class NetworkManager extends SimpleChannelInboundHandler < Packet<? >>
      */
     public SocketAddress getRemoteAddress()
     {
-        return this.socketAddress;
+        return socketAddress;
     }
 
     /**
@@ -324,10 +324,10 @@ public class NetworkManager extends SimpleChannelInboundHandler < Packet<? >>
      */
     public void closeChannel(ITextComponent message)
     {
-        if (this.channel.isOpen())
+        if (channel.isOpen())
         {
-            this.channel.close().awaitUninterruptibly();
-            this.terminationReason = message;
+            channel.close().awaitUninterruptibly();
+            terminationReason = message;
         }
     }
 
@@ -337,7 +337,7 @@ public class NetworkManager extends SimpleChannelInboundHandler < Packet<? >>
      */
     public boolean isLocalChannel()
     {
-        return this.channel instanceof LocalChannel || this.channel instanceof LocalServerChannel;
+        return channel instanceof LocalChannel || channel instanceof LocalServerChannel;
     }
 
     /**
@@ -401,14 +401,14 @@ public class NetworkManager extends SimpleChannelInboundHandler < Packet<? >>
      */
     public void enableEncryption(SecretKey key)
     {
-        this.isEncrypted = true;
-        this.channel.pipeline().addBefore("splitter", "decrypt", new NettyEncryptingDecoder(CryptManager.createNetCipherInstance(2, key)));
-        this.channel.pipeline().addBefore("prepender", "encrypt", new NettyEncryptingEncoder(CryptManager.createNetCipherInstance(1, key)));
+        isEncrypted = true;
+        channel.pipeline().addBefore("splitter", "decrypt", new NettyEncryptingDecoder(CryptManager.createNetCipherInstance(2, key)));
+        channel.pipeline().addBefore("prepender", "encrypt", new NettyEncryptingEncoder(CryptManager.createNetCipherInstance(1, key)));
     }
 
     public boolean isEncrypted()
     {
-        return this.isEncrypted;
+        return isEncrypted;
     }
 
     /**
@@ -416,12 +416,12 @@ public class NetworkManager extends SimpleChannelInboundHandler < Packet<? >>
      */
     public boolean isChannelOpen()
     {
-        return this.channel != null && this.channel.isOpen();
+        return channel != null && channel.isOpen();
     }
 
     public boolean hasNoChannel()
     {
-        return this.channel == null;
+        return channel == null;
     }
 
     /**
@@ -429,7 +429,7 @@ public class NetworkManager extends SimpleChannelInboundHandler < Packet<? >>
      */
     public INetHandler getNetHandler()
     {
-        return this.packetListener;
+        return packetListener;
     }
 
     /**
@@ -437,7 +437,7 @@ public class NetworkManager extends SimpleChannelInboundHandler < Packet<? >>
      */
     public ITextComponent getExitMessage()
     {
-        return this.terminationReason;
+        return terminationReason;
     }
 
     /**
@@ -445,64 +445,64 @@ public class NetworkManager extends SimpleChannelInboundHandler < Packet<? >>
      */
     public void disableAutoRead()
     {
-        this.channel.config().setAutoRead(false);
+        channel.config().setAutoRead(false);
     }
 
     public void setCompressionThreshold(int threshold)
     {
         if (threshold >= 0)
         {
-            if (this.channel.pipeline().get("decompress") instanceof NettyCompressionDecoder)
+            if (channel.pipeline().get("decompress") instanceof NettyCompressionDecoder)
             {
-                ((NettyCompressionDecoder)this.channel.pipeline().get("decompress")).setCompressionThreshold(threshold);
+                ((NettyCompressionDecoder) channel.pipeline().get("decompress")).setCompressionThreshold(threshold);
             }
             else
             {
-                this.channel.pipeline().addBefore("decoder", "decompress", new NettyCompressionDecoder(threshold));
+                channel.pipeline().addBefore("decoder", "decompress", new NettyCompressionDecoder(threshold));
             }
 
-            if (this.channel.pipeline().get("compress") instanceof NettyCompressionEncoder)
+            if (channel.pipeline().get("compress") instanceof NettyCompressionEncoder)
             {
-                ((NettyCompressionEncoder)this.channel.pipeline().get("compress")).setCompressionThreshold(threshold);
+                ((NettyCompressionEncoder) channel.pipeline().get("compress")).setCompressionThreshold(threshold);
             }
             else
             {
-                this.channel.pipeline().addBefore("encoder", "compress", new NettyCompressionEncoder(threshold));
+                channel.pipeline().addBefore("encoder", "compress", new NettyCompressionEncoder(threshold));
             }
         }
         else
         {
-            if (this.channel.pipeline().get("decompress") instanceof NettyCompressionDecoder)
+            if (channel.pipeline().get("decompress") instanceof NettyCompressionDecoder)
             {
-                this.channel.pipeline().remove("decompress");
+                channel.pipeline().remove("decompress");
             }
 
-            if (this.channel.pipeline().get("compress") instanceof NettyCompressionEncoder)
+            if (channel.pipeline().get("compress") instanceof NettyCompressionEncoder)
             {
-                this.channel.pipeline().remove("compress");
+                channel.pipeline().remove("compress");
             }
         }
     }
 
     public void checkDisconnected()
     {
-        if (this.channel != null && !this.channel.isOpen())
+        if (channel != null && !channel.isOpen())
         {
-            if (this.disconnected)
+            if (disconnected)
             {
                 LOGGER.warn("handleDisconnection() called twice");
             }
             else
             {
-                this.disconnected = true;
+                disconnected = true;
 
-                if (this.getExitMessage() != null)
+                if (getExitMessage() != null)
                 {
-                    this.getNetHandler().onDisconnect(this.getExitMessage());
+                    getNetHandler().onDisconnect(getExitMessage());
                 }
-                else if (this.getNetHandler() != null)
+                else if (getNetHandler() != null)
                 {
-                    this.getNetHandler().onDisconnect(new TextComponentTranslation("multiplayer.disconnect.generic", new Object[0]));
+                    getNetHandler().onDisconnect(new TextComponentTranslation("multiplayer.disconnect.generic", new Object[0]));
                 }
             }
         }
@@ -515,8 +515,8 @@ public class NetworkManager extends SimpleChannelInboundHandler < Packet<? >>
 
         public InboundHandlerTuplePacketListener(Packet<?> inPacket, GenericFutureListener <? extends Future <? super Void >> ... inFutureListeners)
         {
-            this.packet = inPacket;
-            this.futureListeners = inFutureListeners;
+            packet = inPacket;
+            futureListeners = inFutureListeners;
         }
     }
 }

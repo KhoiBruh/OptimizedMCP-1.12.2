@@ -32,7 +32,7 @@ public class TileEntityPistonRenderer extends TileEntitySpecialRenderer<TileEnti
         {
             Tessellator tessellator = Tessellator.getInstance();
             BufferBuilder bufferbuilder = tessellator.getBuffer();
-            this.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+            bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
             RenderHelper.disableStandardItemLighting();
             GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
             GlStateManager.enableBlend();
@@ -49,26 +49,26 @@ public class TileEntityPistonRenderer extends TileEntitySpecialRenderer<TileEnti
 
             bufferbuilder.begin(7, DefaultVertexFormats.BLOCK);
             bufferbuilder.setTranslation(x - (double)blockpos.getX() + (double)te.getOffsetX(partialTicks), y - (double)blockpos.getY() + (double)te.getOffsetY(partialTicks), z - (double)blockpos.getZ() + (double)te.getOffsetZ(partialTicks));
-            World world = this.getWorld();
+            World world = getWorld();
 
             if (block == Blocks.PISTON_HEAD && te.getProgress(partialTicks) <= 0.25F)
             {
                 iblockstate = iblockstate.withProperty(BlockPistonExtension.SHORT, Boolean.valueOf(true));
-                this.renderStateModel(blockpos, iblockstate, bufferbuilder, world, true);
+                renderStateModel(blockpos, iblockstate, bufferbuilder, world, true);
             }
             else if (te.shouldPistonHeadBeRendered() && !te.isExtending())
             {
                 BlockPistonExtension.EnumPistonType blockpistonextension$enumpistontype = block == Blocks.STICKY_PISTON ? BlockPistonExtension.EnumPistonType.STICKY : BlockPistonExtension.EnumPistonType.DEFAULT;
                 IBlockState iblockstate1 = Blocks.PISTON_HEAD.getDefaultState().withProperty(BlockPistonExtension.TYPE, blockpistonextension$enumpistontype).withProperty(BlockPistonExtension.FACING, iblockstate.getValue(BlockPistonBase.FACING));
                 iblockstate1 = iblockstate1.withProperty(BlockPistonExtension.SHORT, Boolean.valueOf(te.getProgress(partialTicks) >= 0.5F));
-                this.renderStateModel(blockpos, iblockstate1, bufferbuilder, world, true);
+                renderStateModel(blockpos, iblockstate1, bufferbuilder, world, true);
                 bufferbuilder.setTranslation(x - (double)blockpos.getX(), y - (double)blockpos.getY(), z - (double)blockpos.getZ());
                 iblockstate = iblockstate.withProperty(BlockPistonBase.EXTENDED, Boolean.valueOf(true));
-                this.renderStateModel(blockpos, iblockstate, bufferbuilder, world, true);
+                renderStateModel(blockpos, iblockstate, bufferbuilder, world, true);
             }
             else
             {
-                this.renderStateModel(blockpos, iblockstate, bufferbuilder, world, false);
+                renderStateModel(blockpos, iblockstate, bufferbuilder, world, false);
             }
 
             bufferbuilder.setTranslation(0.0D, 0.0D, 0.0D);
@@ -79,6 +79,6 @@ public class TileEntityPistonRenderer extends TileEntitySpecialRenderer<TileEnti
 
     private boolean renderStateModel(BlockPos pos, IBlockState state, BufferBuilder buffer, World p_188186_4_, boolean checkSides)
     {
-        return this.blockRenderer.getBlockModelRenderer().renderModel(p_188186_4_, this.blockRenderer.getModelForState(state), state, pos, buffer, checkSides);
+        return blockRenderer.getBlockModelRenderer().renderModel(p_188186_4_, blockRenderer.getModelForState(state), state, pos, buffer, checkSides);
     }
 }

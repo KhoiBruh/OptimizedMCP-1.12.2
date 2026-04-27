@@ -18,17 +18,17 @@ public class SimpleTexture extends AbstractTexture
 
     public SimpleTexture(ResourceLocation textureResourceLocation)
     {
-        this.textureLocation = textureResourceLocation;
+        textureLocation = textureResourceLocation;
     }
 
     public void loadTexture(IResourceManager resourceManager) throws IOException
     {
-        this.deleteGlTexture();
+        deleteGlTexture();
         IResource iresource = null;
 
         try
         {
-            iresource = resourceManager.getResource(this.textureLocation);
+            iresource = resourceManager.getResource(textureLocation);
             BufferedImage bufferedimage = TextureUtil.readBufferedImage(iresource.getInputStream());
             boolean flag = false;
             boolean flag1 = false;
@@ -47,11 +47,11 @@ public class SimpleTexture extends AbstractTexture
                 }
                 catch (RuntimeException runtimeexception)
                 {
-                    LOGGER.warn("Failed reading metadata of: {}", this.textureLocation, runtimeexception);
+                    LOGGER.warn("Failed reading metadata of: {}", textureLocation, runtimeexception);
                 }
             }
 
-            TextureUtil.uploadTextureImageAllocate(this.getGlTextureId(), bufferedimage, flag, flag1);
+            TextureUtil.uploadTextureImageAllocate(getGlTextureId(), bufferedimage, flag, flag1);
         }
         finally
         {

@@ -35,12 +35,12 @@ public class EnterBlockTrigger implements ICriterionTrigger<EnterBlockTrigger.In
 
     public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<EnterBlockTrigger.Instance> listener)
     {
-        EnterBlockTrigger.Listeners enterblocktrigger$listeners = this.listeners.get(playerAdvancementsIn);
+        EnterBlockTrigger.Listeners enterblocktrigger$listeners = listeners.get(playerAdvancementsIn);
 
         if (enterblocktrigger$listeners == null)
         {
             enterblocktrigger$listeners = new EnterBlockTrigger.Listeners(playerAdvancementsIn);
-            this.listeners.put(playerAdvancementsIn, enterblocktrigger$listeners);
+            listeners.put(playerAdvancementsIn, enterblocktrigger$listeners);
         }
 
         enterblocktrigger$listeners.add(listener);
@@ -48,7 +48,7 @@ public class EnterBlockTrigger implements ICriterionTrigger<EnterBlockTrigger.In
 
     public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<EnterBlockTrigger.Instance> listener)
     {
-        EnterBlockTrigger.Listeners enterblocktrigger$listeners = this.listeners.get(playerAdvancementsIn);
+        EnterBlockTrigger.Listeners enterblocktrigger$listeners = listeners.get(playerAdvancementsIn);
 
         if (enterblocktrigger$listeners != null)
         {
@@ -56,14 +56,14 @@ public class EnterBlockTrigger implements ICriterionTrigger<EnterBlockTrigger.In
 
             if (enterblocktrigger$listeners.isEmpty())
             {
-                this.listeners.remove(playerAdvancementsIn);
+                listeners.remove(playerAdvancementsIn);
             }
         }
     }
 
     public void removeAllListeners(PlayerAdvancements playerAdvancementsIn)
     {
-        this.listeners.remove(playerAdvancementsIn);
+        listeners.remove(playerAdvancementsIn);
     }
 
     /**
@@ -127,7 +127,7 @@ public class EnterBlockTrigger implements ICriterionTrigger<EnterBlockTrigger.In
 
     public void trigger(EntityPlayerMP player, IBlockState state)
     {
-        EnterBlockTrigger.Listeners enterblocktrigger$listeners = this.listeners.get(player.getAdvancements());
+        EnterBlockTrigger.Listeners enterblocktrigger$listeners = listeners.get(player.getAdvancements());
 
         if (enterblocktrigger$listeners != null)
         {
@@ -143,21 +143,21 @@ public class EnterBlockTrigger implements ICriterionTrigger<EnterBlockTrigger.In
         public Instance(@Nullable Block blockIn, @Nullable Map < IProperty<?>, Object > propertiesIn)
         {
             super(EnterBlockTrigger.ID);
-            this.block = blockIn;
-            this.properties = propertiesIn;
+            block = blockIn;
+            properties = propertiesIn;
         }
 
         public boolean test(IBlockState state)
         {
-            if (this.block != null && state.getBlock() != this.block)
+            if (block != null && state.getBlock() != block)
             {
                 return false;
             }
             else
             {
-                if (this.properties != null)
+                if (properties != null)
                 {
-                    for (Entry < IProperty<?>, Object > entry : this.properties.entrySet())
+                    for (Entry < IProperty<?>, Object > entry : properties.entrySet())
                     {
                         if (state.getValue(entry.getKey()) != entry.getValue())
                         {
@@ -178,29 +178,29 @@ public class EnterBlockTrigger implements ICriterionTrigger<EnterBlockTrigger.In
 
         public Listeners(PlayerAdvancements playerAdvancementsIn)
         {
-            this.playerAdvancements = playerAdvancementsIn;
+            playerAdvancements = playerAdvancementsIn;
         }
 
         public boolean isEmpty()
         {
-            return this.listeners.isEmpty();
+            return listeners.isEmpty();
         }
 
         public void add(ICriterionTrigger.Listener<EnterBlockTrigger.Instance> listener)
         {
-            this.listeners.add(listener);
+            listeners.add(listener);
         }
 
         public void remove(ICriterionTrigger.Listener<EnterBlockTrigger.Instance> listener)
         {
-            this.listeners.remove(listener);
+            listeners.remove(listener);
         }
 
         public void trigger(IBlockState state)
         {
             List<ICriterionTrigger.Listener<EnterBlockTrigger.Instance>> list = null;
 
-            for (ICriterionTrigger.Listener<EnterBlockTrigger.Instance> listener : this.listeners)
+            for (ICriterionTrigger.Listener<EnterBlockTrigger.Instance> listener : listeners)
             {
                 if (((EnterBlockTrigger.Instance)listener.getCriterionInstance()).test(state))
                 {
@@ -217,7 +217,7 @@ public class EnterBlockTrigger implements ICriterionTrigger<EnterBlockTrigger.In
             {
                 for (ICriterionTrigger.Listener<EnterBlockTrigger.Instance> listener1 : list)
                 {
-                    listener1.grantCriterion(this.playerAdvancements);
+                    listener1.grantCriterion(playerAdvancements);
                 }
             }
         }

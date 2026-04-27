@@ -25,9 +25,9 @@ public class BlockNetherWart extends BlockBush
     protected BlockNetherWart()
     {
         super(Material.PLANTS, MapColor.RED);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(AGE, Integer.valueOf(0)));
-        this.setTickRandomly(true);
-        this.setCreativeTab((CreativeTabs)null);
+        setDefaultState(blockState.getBaseState().withProperty(AGE, Integer.valueOf(0)));
+        setTickRandomly(true);
+        setCreativeTab((CreativeTabs)null);
     }
 
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
@@ -45,7 +45,7 @@ public class BlockNetherWart extends BlockBush
 
     public boolean canBlockStay(World worldIn, BlockPos pos, IBlockState state)
     {
-        return this.canSustainBush(worldIn.getBlockState(pos.down()));
+        return canSustainBush(worldIn.getBlockState(pos.down()));
     }
 
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
@@ -113,7 +113,7 @@ public class BlockNetherWart extends BlockBush
      */
     public IBlockState getStateFromMeta(int meta)
     {
-        return this.getDefaultState().withProperty(AGE, Integer.valueOf(meta));
+        return getDefaultState().withProperty(AGE, Integer.valueOf(meta));
     }
 
     /**

@@ -40,13 +40,13 @@ public class EntityXPOrb extends Entity
     public EntityXPOrb(World worldIn, double x, double y, double z, int expValue)
     {
         super(worldIn);
-        this.setSize(0.5F, 0.5F);
-        this.setPosition(x, y, z);
-        this.rotationYaw = (float)(Math.random() * 360.0D);
-        this.motionX = (double)((float)(Math.random() * 0.20000000298023224D - 0.10000000149011612D) * 2.0F);
-        this.motionY = (double)((float)(Math.random() * 0.2D) * 2.0F);
-        this.motionZ = (double)((float)(Math.random() * 0.20000000298023224D - 0.10000000149011612D) * 2.0F);
-        this.xpValue = expValue;
+        setSize(0.5F, 0.5F);
+        setPosition(x, y, z);
+        rotationYaw = (float)(Math.random() * 360.0D);
+        motionX = (double)((float)(Math.random() * 0.20000000298023224D - 0.10000000149011612D) * 2.0F);
+        motionY = (double)((float)(Math.random() * 0.2D) * 2.0F);
+        motionZ = (double)((float)(Math.random() * 0.20000000298023224D - 0.10000000149011612D) * 2.0F);
+        xpValue = expValue;
     }
 
     /**
@@ -61,7 +61,7 @@ public class EntityXPOrb extends Entity
     public EntityXPOrb(World worldIn)
     {
         super(worldIn);
-        this.setSize(0.25F, 0.25F);
+        setSize(0.25F, 0.25F);
     }
 
     protected void entityInit()
@@ -92,86 +92,86 @@ public class EntityXPOrb extends Entity
     {
         super.onUpdate();
 
-        if (this.delayBeforeCanPickup > 0)
+        if (delayBeforeCanPickup > 0)
         {
-            --this.delayBeforeCanPickup;
+            --delayBeforeCanPickup;
         }
 
-        this.prevPosX = this.posX;
-        this.prevPosY = this.posY;
-        this.prevPosZ = this.posZ;
+        prevPosX = posX;
+        prevPosY = posY;
+        prevPosZ = posZ;
 
-        if (!this.hasNoGravity())
+        if (!hasNoGravity())
         {
-            this.motionY -= 0.029999999329447746D;
+            motionY -= 0.029999999329447746D;
         }
 
-        if (this.world.getBlockState(new BlockPos(this)).getMaterial() == Material.LAVA)
+        if (world.getBlockState(new BlockPos(this)).getMaterial() == Material.LAVA)
         {
-            this.motionY = 0.20000000298023224D;
-            this.motionX = (double)((this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F);
-            this.motionZ = (double)((this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F);
-            this.playSound(SoundEvents.ENTITY_GENERIC_BURN, 0.4F, 2.0F + this.rand.nextFloat() * 0.4F);
+            motionY = 0.20000000298023224D;
+            motionX = (double)((rand.nextFloat() - rand.nextFloat()) * 0.2F);
+            motionZ = (double)((rand.nextFloat() - rand.nextFloat()) * 0.2F);
+            playSound(SoundEvents.ENTITY_GENERIC_BURN, 0.4F, 2.0F + rand.nextFloat() * 0.4F);
         }
 
-        this.pushOutOfBlocks(this.posX, (this.getEntityBoundingBox().minY + this.getEntityBoundingBox().maxY) / 2.0D, this.posZ);
+        pushOutOfBlocks(posX, (getEntityBoundingBox().minY + getEntityBoundingBox().maxY) / 2.0D, posZ);
         double d0 = 8.0D;
 
-        if (this.xpTargetColor < this.xpColor - 20 + this.getEntityId() % 100)
+        if (xpTargetColor < xpColor - 20 + getEntityId() % 100)
         {
-            if (this.closestPlayer == null || this.closestPlayer.getDistanceSq(this) > 64.0D)
+            if (closestPlayer == null || closestPlayer.getDistanceSq(this) > 64.0D)
             {
-                this.closestPlayer = this.world.getClosestPlayerToEntity(this, 8.0D);
+                closestPlayer = world.getClosestPlayerToEntity(this, 8.0D);
             }
 
-            this.xpTargetColor = this.xpColor;
+            xpTargetColor = xpColor;
         }
 
-        if (this.closestPlayer != null && this.closestPlayer.isSpectator())
+        if (closestPlayer != null && closestPlayer.isSpectator())
         {
-            this.closestPlayer = null;
+            closestPlayer = null;
         }
 
-        if (this.closestPlayer != null)
+        if (closestPlayer != null)
         {
-            double d1 = (this.closestPlayer.posX - this.posX) / 8.0D;
-            double d2 = (this.closestPlayer.posY + (double)this.closestPlayer.getEyeHeight() / 2.0D - this.posY) / 8.0D;
-            double d3 = (this.closestPlayer.posZ - this.posZ) / 8.0D;
+            double d1 = (closestPlayer.posX - posX) / 8.0D;
+            double d2 = (closestPlayer.posY + (double) closestPlayer.getEyeHeight() / 2.0D - posY) / 8.0D;
+            double d3 = (closestPlayer.posZ - posZ) / 8.0D;
             double d4 = Math.sqrt(d1 * d1 + d2 * d2 + d3 * d3);
             double d5 = 1.0D - d4;
 
             if (d5 > 0.0D)
             {
                 d5 = d5 * d5;
-                this.motionX += d1 / d4 * d5 * 0.1D;
-                this.motionY += d2 / d4 * d5 * 0.1D;
-                this.motionZ += d3 / d4 * d5 * 0.1D;
+                motionX += d1 / d4 * d5 * 0.1D;
+                motionY += d2 / d4 * d5 * 0.1D;
+                motionZ += d3 / d4 * d5 * 0.1D;
             }
         }
 
-        this.move(MoverType.SELF, this.motionX, this.motionY, this.motionZ);
+        move(MoverType.SELF, motionX, motionY, motionZ);
         float f = 0.98F;
 
-        if (this.onGround)
+        if (onGround)
         {
-            f = this.world.getBlockState(new BlockPos(MathHelper.floor(this.posX), MathHelper.floor(this.getEntityBoundingBox().minY) - 1, MathHelper.floor(this.posZ))).getBlock().slipperiness * 0.98F;
+            f = world.getBlockState(new BlockPos(MathHelper.floor(posX), MathHelper.floor(getEntityBoundingBox().minY) - 1, MathHelper.floor(posZ))).getBlock().slipperiness * 0.98F;
         }
 
-        this.motionX *= (double)f;
-        this.motionY *= 0.9800000190734863D;
-        this.motionZ *= (double)f;
+        motionX *= (double)f;
+        motionY *= 0.9800000190734863D;
+        motionZ *= (double)f;
 
-        if (this.onGround)
+        if (onGround)
         {
-            this.motionY *= -0.8999999761581421D;
+            motionY *= -0.8999999761581421D;
         }
 
-        ++this.xpColor;
-        ++this.xpOrbAge;
+        ++xpColor;
+        ++xpOrbAge;
 
-        if (this.xpOrbAge >= 6000)
+        if (xpOrbAge >= 6000)
         {
-            this.setDead();
+            setDead();
         }
     }
 
@@ -180,7 +180,7 @@ public class EntityXPOrb extends Entity
      */
     public boolean handleWaterMovement()
     {
-        return this.world.handleMaterialAcceleration(this.getEntityBoundingBox(), Material.WATER, this);
+        return world.handleMaterialAcceleration(getEntityBoundingBox(), Material.WATER, this);
     }
 
     /**
@@ -188,7 +188,7 @@ public class EntityXPOrb extends Entity
      */
     protected void dealFireDamage(int amount)
     {
-        this.attackEntityFrom(DamageSource.IN_FIRE, (float)amount);
+        attackEntityFrom(DamageSource.IN_FIRE, (float)amount);
     }
 
     /**
@@ -196,18 +196,18 @@ public class EntityXPOrb extends Entity
      */
     public boolean attackEntityFrom(DamageSource source, float amount)
     {
-        if (this.isEntityInvulnerable(source))
+        if (isEntityInvulnerable(source))
         {
             return false;
         }
         else
         {
-            this.markVelocityChanged();
-            this.xpOrbHealth = (int)((float)this.xpOrbHealth - amount);
+            markVelocityChanged();
+            xpOrbHealth = (int)((float) xpOrbHealth - amount);
 
-            if (this.xpOrbHealth <= 0)
+            if (xpOrbHealth <= 0)
             {
-                this.setDead();
+                setDead();
             }
 
             return false;
@@ -219,9 +219,9 @@ public class EntityXPOrb extends Entity
      */
     public void writeEntityToNBT(NBTTagCompound compound)
     {
-        compound.setShort("Health", (short)this.xpOrbHealth);
-        compound.setShort("Age", (short)this.xpOrbAge);
-        compound.setShort("Value", (short)this.xpValue);
+        compound.setShort("Health", (short) xpOrbHealth);
+        compound.setShort("Age", (short) xpOrbAge);
+        compound.setShort("Value", (short) xpValue);
     }
 
     /**
@@ -229,9 +229,9 @@ public class EntityXPOrb extends Entity
      */
     public void readEntityFromNBT(NBTTagCompound compound)
     {
-        this.xpOrbHealth = compound.getShort("Health");
-        this.xpOrbAge = compound.getShort("Age");
-        this.xpValue = compound.getShort("Value");
+        xpOrbHealth = compound.getShort("Health");
+        xpOrbAge = compound.getShort("Age");
+        xpValue = compound.getShort("Value");
     }
 
     /**
@@ -239,9 +239,9 @@ public class EntityXPOrb extends Entity
      */
     public void onCollideWithPlayer(EntityPlayer entityIn)
     {
-        if (!this.world.isRemote)
+        if (!world.isRemote)
         {
-            if (this.delayBeforeCanPickup == 0 && entityIn.xpCooldown == 0)
+            if (delayBeforeCanPickup == 0 && entityIn.xpCooldown == 0)
             {
                 entityIn.xpCooldown = 2;
                 entityIn.onItemPickup(this, 1);
@@ -249,17 +249,17 @@ public class EntityXPOrb extends Entity
 
                 if (!itemstack.isEmpty() && itemstack.isItemDamaged())
                 {
-                    int i = Math.min(this.xpToDurability(this.xpValue), itemstack.getItemDamage());
-                    this.xpValue -= this.durabilityToXp(i);
+                    int i = Math.min(xpToDurability(xpValue), itemstack.getItemDamage());
+                    xpValue -= durabilityToXp(i);
                     itemstack.setItemDamage(itemstack.getItemDamage() - i);
                 }
 
-                if (this.xpValue > 0)
+                if (xpValue > 0)
                 {
-                    entityIn.addExperience(this.xpValue);
+                    entityIn.addExperience(xpValue);
                 }
 
-                this.setDead();
+                setDead();
             }
         }
     }
@@ -279,7 +279,7 @@ public class EntityXPOrb extends Entity
      */
     public int getXpValue()
     {
-        return this.xpValue;
+        return xpValue;
     }
 
     /**
@@ -288,45 +288,45 @@ public class EntityXPOrb extends Entity
      */
     public int getTextureByXP()
     {
-        if (this.xpValue >= 2477)
+        if (xpValue >= 2477)
         {
             return 10;
         }
-        else if (this.xpValue >= 1237)
+        else if (xpValue >= 1237)
         {
             return 9;
         }
-        else if (this.xpValue >= 617)
+        else if (xpValue >= 617)
         {
             return 8;
         }
-        else if (this.xpValue >= 307)
+        else if (xpValue >= 307)
         {
             return 7;
         }
-        else if (this.xpValue >= 149)
+        else if (xpValue >= 149)
         {
             return 6;
         }
-        else if (this.xpValue >= 73)
+        else if (xpValue >= 73)
         {
             return 5;
         }
-        else if (this.xpValue >= 37)
+        else if (xpValue >= 37)
         {
             return 4;
         }
-        else if (this.xpValue >= 17)
+        else if (xpValue >= 17)
         {
             return 3;
         }
-        else if (this.xpValue >= 7)
+        else if (xpValue >= 7)
         {
             return 2;
         }
         else
         {
-            return this.xpValue >= 3 ? 1 : 0;
+            return xpValue >= 3 ? 1 : 0;
         }
     }
 

@@ -25,7 +25,7 @@ public class BlockRedstoneOre extends Block
 
         if (isOn)
         {
-            this.setTickRandomly(true);
+            setTickRandomly(true);
         }
 
         this.isOn = isOn;
@@ -41,7 +41,7 @@ public class BlockRedstoneOre extends Block
 
     public void onBlockClicked(World worldIn, BlockPos pos, EntityPlayer playerIn)
     {
-        this.activate(worldIn, pos);
+        activate(worldIn, pos);
         super.onBlockClicked(worldIn, pos, playerIn);
     }
 
@@ -50,7 +50,7 @@ public class BlockRedstoneOre extends Block
      */
     public void onEntityWalk(World worldIn, BlockPos pos, Entity entityIn)
     {
-        this.activate(worldIn, pos);
+        activate(worldIn, pos);
         super.onEntityWalk(worldIn, pos, entityIn);
     }
 
@@ -59,13 +59,13 @@ public class BlockRedstoneOre extends Block
      */
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
     {
-        this.activate(worldIn, pos);
+        activate(worldIn, pos);
         return super.onBlockActivated(worldIn, pos, state, playerIn, hand, facing, hitX, hitY, hitZ);
     }
 
     private void activate(World worldIn, BlockPos pos)
     {
-        this.spawnParticles(worldIn, pos);
+        spawnParticles(worldIn, pos);
 
         if (this == Blocks.REDSTONE_ORE)
         {
@@ -94,7 +94,7 @@ public class BlockRedstoneOre extends Block
      */
     public int quantityDroppedWithBonus(int fortune, Random random)
     {
-        return this.quantityDropped(random) + random.nextInt(fortune + 1);
+        return quantityDropped(random) + random.nextInt(fortune + 1);
     }
 
     /**
@@ -112,18 +112,18 @@ public class BlockRedstoneOre extends Block
     {
         super.dropBlockAsItemWithChance(worldIn, pos, state, chance, fortune);
 
-        if (this.getItemDropped(state, worldIn.rand, fortune) != Item.getItemFromBlock(this))
+        if (getItemDropped(state, worldIn.rand, fortune) != Item.getItemFromBlock(this))
         {
             int i = 1 + worldIn.rand.nextInt(5);
-            this.dropXpOnBlockBreak(worldIn, pos, i);
+            dropXpOnBlockBreak(worldIn, pos, i);
         }
     }
 
     public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand)
     {
-        if (this.isOn)
+        if (isOn)
         {
-            this.spawnParticles(worldIn, pos);
+            spawnParticles(worldIn, pos);
         }
     }
 
@@ -182,6 +182,6 @@ public class BlockRedstoneOre extends Block
 
     public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state)
     {
-        return new ItemStack(Item.getItemFromBlock(Blocks.REDSTONE_ORE), 1, this.damageDropped(state));
+        return new ItemStack(Item.getItemFromBlock(Blocks.REDSTONE_ORE), 1, damageDropped(state));
     }
 }

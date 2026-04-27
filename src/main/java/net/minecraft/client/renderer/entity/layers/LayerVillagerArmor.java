@@ -12,7 +12,7 @@ public class LayerVillagerArmor extends LayerBipedArmor
 
     protected void initArmor()
     {
-        this.modelLeggings = new ModelZombieVillager(0.5F, 0.0F, true);
-        this.modelArmor = new ModelZombieVillager(1.0F, 0.0F, true);
+        modelLeggings = new ModelZombieVillager(0.5F, 0.0F, true);
+        modelArmor = new ModelZombieVillager(1.0F, 0.0F, true);
     }
 }

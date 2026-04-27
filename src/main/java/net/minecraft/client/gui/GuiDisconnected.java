@@ -15,9 +15,9 @@ public class GuiDisconnected extends GuiScreen
 
     public GuiDisconnected(GuiScreen screen, String reasonLocalizationKey, ITextComponent chatComp)
     {
-        this.parentScreen = screen;
-        this.reason = I18n.format(reasonLocalizationKey);
-        this.message = chatComp;
+        parentScreen = screen;
+        reason = I18n.format(reasonLocalizationKey);
+        message = chatComp;
     }
 
     /**
@@ -34,10 +34,10 @@ public class GuiDisconnected extends GuiScreen
      */
     public void initGui()
     {
-        this.buttonList.clear();
-        this.multilineMessage = this.fontRenderer.listFormattedStringToWidth(this.message.getFormattedText(), this.width - 50);
-        this.textHeight = this.multilineMessage.size() * this.fontRenderer.FONT_HEIGHT;
-        this.buttonList.add(new GuiButton(0, this.width / 2 - 100, Math.min(this.height / 2 + this.textHeight / 2 + this.fontRenderer.FONT_HEIGHT, this.height - 30), I18n.format("gui.toMenu")));
+        buttonList.clear();
+        multilineMessage = fontRenderer.listFormattedStringToWidth(message.getFormattedText(), width - 50);
+        textHeight = multilineMessage.size() * fontRenderer.FONT_HEIGHT;
+        buttonList.add(new GuiButton(0, width / 2 - 100, Math.min(height / 2 + textHeight / 2 + fontRenderer.FONT_HEIGHT, height - 30), I18n.format("gui.toMenu")));
     }
 
     /**
@@ -47,7 +47,7 @@ public class GuiDisconnected extends GuiScreen
     {
         if (button.id == 0)
         {
-            this.mc.displayGuiScreen(this.parentScreen);
+            mc.displayGuiScreen(parentScreen);
         }
     }
 
@@ -56,16 +56,16 @@ public class GuiDisconnected extends GuiScreen
      */
     public void drawScreen(int mouseX, int mouseY, float partialTicks)
     {
-        this.drawDefaultBackground();
-        this.drawCenteredString(this.fontRenderer, this.reason, this.width / 2, this.height / 2 - this.textHeight / 2 - this.fontRenderer.FONT_HEIGHT * 2, 11184810);
-        int i = this.height / 2 - this.textHeight / 2;
+        drawDefaultBackground();
+        drawCenteredString(fontRenderer, reason, width / 2, height / 2 - textHeight / 2 - fontRenderer.FONT_HEIGHT * 2, 11184810);
+        int i = height / 2 - textHeight / 2;
 
-        if (this.multilineMessage != null)
+        if (multilineMessage != null)
         {
-            for (String s : this.multilineMessage)
+            for (String s : multilineMessage)
             {
-                this.drawCenteredString(this.fontRenderer, s, this.width / 2, i, 16777215);
-                i += this.fontRenderer.FONT_HEIGHT;
+                drawCenteredString(fontRenderer, s, width / 2, i, 16777215);
+                i += fontRenderer.FONT_HEIGHT;
             }
         }
 

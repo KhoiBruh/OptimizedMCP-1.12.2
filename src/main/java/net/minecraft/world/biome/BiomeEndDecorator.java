@@ -22,15 +22,15 @@ public class BiomeEndDecorator extends BiomeDecorator
 
     protected void genDecorations(Biome biomeIn, World worldIn, Random random)
     {
-        this.generateOres(worldIn, random);
+        generateOres(worldIn, random);
         WorldGenSpikes.EndSpike[] aworldgenspikes$endspike = getSpikesForWorld(worldIn);
 
         for (WorldGenSpikes.EndSpike worldgenspikes$endspike : aworldgenspikes$endspike)
         {
-            if (worldgenspikes$endspike.doesStartInChunk(this.chunkPos))
+            if (worldgenspikes$endspike.doesStartInChunk(chunkPos))
             {
-                this.spikeGen.setSpike(worldgenspikes$endspike);
-                this.spikeGen.generate(worldIn, random, new BlockPos(worldgenspikes$endspike.getCenterX(), 45, worldgenspikes$endspike.getCenterZ()));
+                spikeGen.setSpike(worldgenspikes$endspike);
+                spikeGen.generate(worldIn, random, new BlockPos(worldgenspikes$endspike.getCenterX(), 45, worldgenspikes$endspike.getCenterZ()));
             }
         }
     }

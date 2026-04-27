@@ -47,9 +47,9 @@ public class TileEntityShulkerBox extends TileEntityLockableLoot implements ITic
 
     public TileEntityShulkerBox(@Nullable EnumDyeColor colorIn)
     {
-        this.items = NonNullList.<ItemStack>withSize(27, ItemStack.EMPTY);
-        this.animationStatus = TileEntityShulkerBox.AnimationStatus.CLOSED;
-        this.color = colorIn;
+        items = NonNullList.<ItemStack>withSize(27, ItemStack.EMPTY);
+        animationStatus = TileEntityShulkerBox.AnimationStatus.CLOSED;
+        color = colorIn;
     }
 
     /**
@@ -57,82 +57,82 @@ public class TileEntityShulkerBox extends TileEntityLockableLoot implements ITic
      */
     public void update()
     {
-        this.updateAnimation();
+        updateAnimation();
 
-        if (this.animationStatus == TileEntityShulkerBox.AnimationStatus.OPENING || this.animationStatus == TileEntityShulkerBox.AnimationStatus.CLOSING)
+        if (animationStatus == TileEntityShulkerBox.AnimationStatus.OPENING || animationStatus == TileEntityShulkerBox.AnimationStatus.CLOSING)
         {
-            this.moveCollidedEntities();
+            moveCollidedEntities();
         }
     }
 
     protected void updateAnimation()
     {
-        this.progressOld = this.progress;
+        progressOld = progress;
 
-        switch (this.animationStatus)
+        switch (animationStatus)
         {
             case CLOSED:
-                this.progress = 0.0F;
+                progress = 0.0F;
                 break;
 
             case OPENING:
-                this.progress += 0.1F;
+                progress += 0.1F;
 
-                if (this.progress >= 1.0F)
+                if (progress >= 1.0F)
                 {
-                    this.moveCollidedEntities();
-                    this.animationStatus = TileEntityShulkerBox.AnimationStatus.OPENED;
-                    this.progress = 1.0F;
+                    moveCollidedEntities();
+                    animationStatus = TileEntityShulkerBox.AnimationStatus.OPENED;
+                    progress = 1.0F;
                 }
 
                 break;
 
             case CLOSING:
-                this.progress -= 0.1F;
+                progress -= 0.1F;
 
-                if (this.progress <= 0.0F)
+                if (progress <= 0.0F)
                 {
-                    this.animationStatus = TileEntityShulkerBox.AnimationStatus.CLOSED;
-                    this.progress = 0.0F;
+                    animationStatus = TileEntityShulkerBox.AnimationStatus.CLOSED;
+                    progress = 0.0F;
                 }
 
                 break;
 
             case OPENED:
-                this.progress = 1.0F;
+                progress = 1.0F;
         }
     }
 
     public TileEntityShulkerBox.AnimationStatus getAnimationStatus()
     {
-        return this.animationStatus;
+        return animationStatus;
     }
 
     public AxisAlignedBB getBoundingBox(IBlockState p_190584_1_)
     {
-        return this.getBoundingBox((EnumFacing)p_190584_1_.getValue(BlockShulkerBox.FACING));
+        return getBoundingBox((EnumFacing)p_190584_1_.getValue(BlockShulkerBox.FACING));
     }
 
     public AxisAlignedBB getBoundingBox(EnumFacing p_190587_1_)
     {
-        return Block.FULL_BLOCK_AABB.expand((double)(0.5F * this.getProgress(1.0F) * (float)p_190587_1_.getFrontOffsetX()), (double)(0.5F * this.getProgress(1.0F) * (float)p_190587_1_.getFrontOffsetY()), (double)(0.5F * this.getProgress(1.0F) * (float)p_190587_1_.getFrontOffsetZ()));
+        return Block.FULL_BLOCK_AABB.expand((double)(0.5F * getProgress(1.0F) * (float)p_190587_1_.getFrontOffsetX()), (double)(0.5F * getProgress(1.0F) * (float)p_190587_1_.getFrontOffsetY()), (double)(0.5F * getProgress(1.0F) * (float)p_190587_1_.getFrontOffsetZ()));
     }
 
     private AxisAlignedBB getTopBoundingBox(EnumFacing p_190588_1_)
     {
         EnumFacing enumfacing = p_190588_1_.getOpposite();
-        return this.getBoundingBox(p_190588_1_).contract((double)enumfacing.getFrontOffsetX(), (double)enumfacing.getFrontOffsetY(), (double)enumfacing.getFrontOffsetZ());
+        return getBoundingBox(p_190588_1_).contract((double)enumfacing.getFrontOffsetX(), (double)enumfacing.getFrontOffsetY(), (double)enumfacing.getFrontOffsetZ());
     }
 
     private void moveCollidedEntities()
     {
-        IBlockState iblockstate = this.world.getBlockState(this.getPos());
+        IBlockState iblockstate = world.getBlockState(getPos());
 
         if (iblockstate.getBlock() instanceof BlockShulkerBox)
         {
             EnumFacing enumfacing = (EnumFacing)iblockstate.getValue(BlockShulkerBox.FACING);
-            AxisAlignedBB axisalignedbb = this.getTopBoundingBox(enumfacing).offset(this.pos);
-            List<Entity> list = this.world.getEntitiesWithinAABBExcludingEntity((Entity)null, axisalignedbb);
+            AxisAlignedBB axisalignedbb = getTopBoundingBox(enumfacing).offset(pos);
+            List<Entity> list = world.getEntitiesWithinAABBExcludingEntity((Entity)null, axisalignedbb);
 
             if (!list.isEmpty())
             {
@@ -200,7 +200,7 @@ public class TileEntityShulkerBox extends TileEntityLockableLoot implements ITic
      */
     public int getSizeInventory()
     {
-        return this.items.size();
+        return items.size();
     }
 
     /**
@@ -215,16 +215,16 @@ public class TileEntityShulkerBox extends TileEntityLockableLoot implements ITic
     {
         if (id == 1)
         {
-            this.openCount = type;
+            openCount = type;
 
             if (type == 0)
             {
-                this.animationStatus = TileEntityShulkerBox.AnimationStatus.CLOSING;
+                animationStatus = TileEntityShulkerBox.AnimationStatus.CLOSING;
             }
 
             if (type == 1)
             {
-                this.animationStatus = TileEntityShulkerBox.AnimationStatus.OPENING;
+                animationStatus = TileEntityShulkerBox.AnimationStatus.OPENING;
             }
 
             return true;
@@ -239,17 +239,17 @@ public class TileEntityShulkerBox extends TileEntityLockableLoot implements ITic
     {
         if (!player.isSpectator())
         {
-            if (this.openCount < 0)
+            if (openCount < 0)
             {
-                this.openCount = 0;
+                openCount = 0;
             }
 
-            ++this.openCount;
-            this.world.addBlockEvent(this.pos, this.getBlockType(), 1, this.openCount);
+            ++openCount;
+            world.addBlockEvent(pos, getBlockType(), 1, openCount);
 
-            if (this.openCount == 1)
+            if (openCount == 1)
             {
-                this.world.playSound((EntityPlayer)null, this.pos, SoundEvents.BLOCK_SHULKER_BOX_OPEN, SoundCategory.BLOCKS, 0.5F, this.world.rand.nextFloat() * 0.1F + 0.9F);
+                world.playSound((EntityPlayer)null, pos, SoundEvents.BLOCK_SHULKER_BOX_OPEN, SoundCategory.BLOCKS, 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
             }
         }
     }
@@ -258,12 +258,12 @@ public class TileEntityShulkerBox extends TileEntityLockableLoot implements ITic
     {
         if (!player.isSpectator())
         {
-            --this.openCount;
-            this.world.addBlockEvent(this.pos, this.getBlockType(), 1, this.openCount);
+            --openCount;
+            world.addBlockEvent(pos, getBlockType(), 1, openCount);
 
-            if (this.openCount <= 0)
+            if (openCount <= 0)
             {
-                this.world.playSound((EntityPlayer)null, this.pos, SoundEvents.BLOCK_SHULKER_BOX_CLOSE, SoundCategory.BLOCKS, 0.5F, this.world.rand.nextFloat() * 0.1F + 0.9F);
+                world.playSound((EntityPlayer)null, pos, SoundEvents.BLOCK_SHULKER_BOX_CLOSE, SoundCategory.BLOCKS, 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
             }
         }
     }
@@ -283,7 +283,7 @@ public class TileEntityShulkerBox extends TileEntityLockableLoot implements ITic
      */
     public String getName()
     {
-        return this.hasCustomName() ? this.customName : "container.shulkerBox";
+        return hasCustomName() ? customName : "container.shulkerBox";
     }
 
     public static void registerFixesShulkerBox(DataFixer fixer)
@@ -294,45 +294,45 @@ public class TileEntityShulkerBox extends TileEntityLockableLoot implements ITic
     public void readFromNBT(NBTTagCompound compound)
     {
         super.readFromNBT(compound);
-        this.loadFromNbt(compound);
+        loadFromNbt(compound);
     }
 
     public NBTTagCompound writeToNBT(NBTTagCompound compound)
     {
         super.writeToNBT(compound);
-        return this.saveToNbt(compound);
+        return saveToNbt(compound);
     }
 
     public void loadFromNbt(NBTTagCompound compound)
     {
-        this.items = NonNullList.<ItemStack>withSize(this.getSizeInventory(), ItemStack.EMPTY);
+        items = NonNullList.<ItemStack>withSize(getSizeInventory(), ItemStack.EMPTY);
 
-        if (!this.checkLootAndRead(compound) && compound.hasKey("Items", 9))
+        if (!checkLootAndRead(compound) && compound.hasKey("Items", 9))
         {
-            ItemStackHelper.loadAllItems(compound, this.items);
+            ItemStackHelper.loadAllItems(compound, items);
         }
 
         if (compound.hasKey("CustomName", 8))
         {
-            this.customName = compound.getString("CustomName");
+            customName = compound.getString("CustomName");
         }
     }
 
     public NBTTagCompound saveToNbt(NBTTagCompound compound)
     {
-        if (!this.checkLootAndWrite(compound))
+        if (!checkLootAndWrite(compound))
         {
-            ItemStackHelper.saveAllItems(compound, this.items, false);
+            ItemStackHelper.saveAllItems(compound, items, false);
         }
 
-        if (this.hasCustomName())
+        if (hasCustomName())
         {
-            compound.setString("CustomName", this.customName);
+            compound.setString("CustomName", customName);
         }
 
-        if (!compound.hasKey("Lock") && this.isLocked())
+        if (!compound.hasKey("Lock") && isLocked())
         {
-            this.getLockCode().toNBT(compound);
+            getLockCode().toNBT(compound);
         }
 
         return compound;
@@ -340,12 +340,12 @@ public class TileEntityShulkerBox extends TileEntityLockableLoot implements ITic
 
     protected NonNullList<ItemStack> getItems()
     {
-        return this.items;
+        return items;
     }
 
     public boolean isEmpty()
     {
-        for (ItemStack itemstack : this.items)
+        for (ItemStack itemstack : items)
         {
             if (!itemstack.isEmpty())
             {
@@ -379,49 +379,49 @@ public class TileEntityShulkerBox extends TileEntityLockableLoot implements ITic
 
     public void clear()
     {
-        this.hasBeenCleared = true;
+        hasBeenCleared = true;
         super.clear();
     }
 
     public boolean isCleared()
     {
-        return this.hasBeenCleared;
+        return hasBeenCleared;
     }
 
     public float getProgress(float p_190585_1_)
     {
-        return this.progressOld + (this.progress - this.progressOld) * p_190585_1_;
+        return progressOld + (progress - progressOld) * p_190585_1_;
     }
 
     public EnumDyeColor getColor()
     {
-        if (this.color == null)
+        if (color == null)
         {
-            this.color = BlockShulkerBox.getColorFromBlock(this.getBlockType());
+            color = BlockShulkerBox.getColorFromBlock(getBlockType());
         }
 
-        return this.color;
+        return color;
     }
 
     @Nullable
     public SPacketUpdateTileEntity getUpdatePacket()
     {
-        return new SPacketUpdateTileEntity(this.pos, 10, this.getUpdateTag());
+        return new SPacketUpdateTileEntity(pos, 10, getUpdateTag());
     }
 
     public boolean isDestroyedByCreativePlayer()
     {
-        return this.destroyedByCreativePlayer;
+        return destroyedByCreativePlayer;
     }
 
     public void setDestroyedByCreativePlayer(boolean p_190579_1_)
     {
-        this.destroyedByCreativePlayer = p_190579_1_;
+        destroyedByCreativePlayer = p_190579_1_;
     }
 
     public boolean shouldDrop()
     {
-        return !this.isDestroyedByCreativePlayer() || !this.isEmpty() || this.hasCustomName() || this.lootTable != null;
+        return !isDestroyedByCreativePlayer() || !isEmpty() || hasCustomName() || lootTable != null;
     }
 
     static

@@ -22,7 +22,7 @@ public class InventoryLargeChest implements ILockableContainer
 
     public InventoryLargeChest(String nameIn, ILockableContainer upperChestIn, ILockableContainer lowerChestIn)
     {
-        this.name = nameIn;
+        name = nameIn;
 
         if (upperChestIn == null)
         {
@@ -34,8 +34,8 @@ public class InventoryLargeChest implements ILockableContainer
             lowerChestIn = upperChestIn;
         }
 
-        this.upperChest = upperChestIn;
-        this.lowerChest = lowerChestIn;
+        upperChest = upperChestIn;
+        lowerChest = lowerChestIn;
 
         if (upperChestIn.isLocked())
         {
@@ -52,12 +52,12 @@ public class InventoryLargeChest implements ILockableContainer
      */
     public int getSizeInventory()
     {
-        return this.upperChest.getSizeInventory() + this.lowerChest.getSizeInventory();
+        return upperChest.getSizeInventory() + lowerChest.getSizeInventory();
     }
 
     public boolean isEmpty()
     {
-        return this.upperChest.isEmpty() && this.lowerChest.isEmpty();
+        return upperChest.isEmpty() && lowerChest.isEmpty();
     }
 
     /**
@@ -65,7 +65,7 @@ public class InventoryLargeChest implements ILockableContainer
      */
     public boolean isPartOfLargeChest(IInventory inventoryIn)
     {
-        return this.upperChest == inventoryIn || this.lowerChest == inventoryIn;
+        return upperChest == inventoryIn || lowerChest == inventoryIn;
     }
 
     /**
@@ -73,13 +73,13 @@ public class InventoryLargeChest implements ILockableContainer
      */
     public String getName()
     {
-        if (this.upperChest.hasCustomName())
+        if (upperChest.hasCustomName())
         {
-            return this.upperChest.getName();
+            return upperChest.getName();
         }
         else
         {
-            return this.lowerChest.hasCustomName() ? this.lowerChest.getName() : this.name;
+            return lowerChest.hasCustomName() ? lowerChest.getName() : name;
         }
     }
 
@@ -88,7 +88,7 @@ public class InventoryLargeChest implements ILockableContainer
      */
     public boolean hasCustomName()
     {
-        return this.upperChest.hasCustomName() || this.lowerChest.hasCustomName();
+        return upperChest.hasCustomName() || lowerChest.hasCustomName();
     }
 
     /**
@@ -96,7 +96,7 @@ public class InventoryLargeChest implements ILockableContainer
      */
     public ITextComponent getDisplayName()
     {
-        return (ITextComponent)(this.hasCustomName() ? new TextComponentString(this.getName()) : new TextComponentTranslation(this.getName(), new Object[0]));
+        return (ITextComponent)(hasCustomName() ? new TextComponentString(getName()) : new TextComponentTranslation(getName(), new Object[0]));
     }
 
     /**
@@ -104,7 +104,7 @@ public class InventoryLargeChest implements ILockableContainer
      */
     public ItemStack getStackInSlot(int index)
     {
-        return index >= this.upperChest.getSizeInventory() ? this.lowerChest.getStackInSlot(index - this.upperChest.getSizeInventory()) : this.upperChest.getStackInSlot(index);
+        return index >= upperChest.getSizeInventory() ? lowerChest.getStackInSlot(index - upperChest.getSizeInventory()) : upperChest.getStackInSlot(index);
     }
 
     /**
@@ -112,7 +112,7 @@ public class InventoryLargeChest implements ILockableContainer
      */
     public ItemStack decrStackSize(int index, int count)
     {
-        return index >= this.upperChest.getSizeInventory() ? this.lowerChest.decrStackSize(index - this.upperChest.getSizeInventory(), count) : this.upperChest.decrStackSize(index, count);
+        return index >= upperChest.getSizeInventory() ? lowerChest.decrStackSize(index - upperChest.getSizeInventory(), count) : upperChest.decrStackSize(index, count);
     }
 
     /**
@@ -120,7 +120,7 @@ public class InventoryLargeChest implements ILockableContainer
      */
     public ItemStack removeStackFromSlot(int index)
     {
-        return index >= this.upperChest.getSizeInventory() ? this.lowerChest.removeStackFromSlot(index - this.upperChest.getSizeInventory()) : this.upperChest.removeStackFromSlot(index);
+        return index >= upperChest.getSizeInventory() ? lowerChest.removeStackFromSlot(index - upperChest.getSizeInventory()) : upperChest.removeStackFromSlot(index);
     }
 
     /**
@@ -128,13 +128,13 @@ public class InventoryLargeChest implements ILockableContainer
      */
     public void setInventorySlotContents(int index, ItemStack stack)
     {
-        if (index >= this.upperChest.getSizeInventory())
+        if (index >= upperChest.getSizeInventory())
         {
-            this.lowerChest.setInventorySlotContents(index - this.upperChest.getSizeInventory(), stack);
+            lowerChest.setInventorySlotContents(index - upperChest.getSizeInventory(), stack);
         }
         else
         {
-            this.upperChest.setInventorySlotContents(index, stack);
+            upperChest.setInventorySlotContents(index, stack);
         }
     }
 
@@ -143,7 +143,7 @@ public class InventoryLargeChest implements ILockableContainer
      */
     public int getInventoryStackLimit()
     {
-        return this.upperChest.getInventoryStackLimit();
+        return upperChest.getInventoryStackLimit();
     }
 
     /**
@@ -152,8 +152,8 @@ public class InventoryLargeChest implements ILockableContainer
      */
     public void markDirty()
     {
-        this.upperChest.markDirty();
-        this.lowerChest.markDirty();
+        upperChest.markDirty();
+        lowerChest.markDirty();
     }
 
     /**
@@ -161,19 +161,19 @@ public class InventoryLargeChest implements ILockableContainer
      */
     public boolean isUsableByPlayer(EntityPlayer player)
     {
-        return this.upperChest.isUsableByPlayer(player) && this.lowerChest.isUsableByPlayer(player);
+        return upperChest.isUsableByPlayer(player) && lowerChest.isUsableByPlayer(player);
     }
 
     public void openInventory(EntityPlayer player)
     {
-        this.upperChest.openInventory(player);
-        this.lowerChest.openInventory(player);
+        upperChest.openInventory(player);
+        lowerChest.openInventory(player);
     }
 
     public void closeInventory(EntityPlayer player)
     {
-        this.upperChest.closeInventory(player);
-        this.lowerChest.closeInventory(player);
+        upperChest.closeInventory(player);
+        lowerChest.closeInventory(player);
     }
 
     /**
@@ -201,23 +201,23 @@ public class InventoryLargeChest implements ILockableContainer
 
     public boolean isLocked()
     {
-        return this.upperChest.isLocked() || this.lowerChest.isLocked();
+        return upperChest.isLocked() || lowerChest.isLocked();
     }
 
     public void setLockCode(LockCode code)
     {
-        this.upperChest.setLockCode(code);
-        this.lowerChest.setLockCode(code);
+        upperChest.setLockCode(code);
+        lowerChest.setLockCode(code);
     }
 
     public LockCode getLockCode()
     {
-        return this.upperChest.getLockCode();
+        return upperChest.getLockCode();
     }
 
     public String getGuiID()
     {
-        return this.upperChest.getGuiID();
+        return upperChest.getGuiID();
     }
 
     public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn)
@@ -227,7 +227,7 @@ public class InventoryLargeChest implements ILockableContainer
 
     public void clear()
     {
-        this.upperChest.clear();
-        this.lowerChest.clear();
+        upperChest.clear();
+        lowerChest.clear();
     }
 }

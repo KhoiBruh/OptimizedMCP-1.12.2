@@ -17,8 +17,8 @@ public class SPacketServerDifficulty implements Packet<INetHandlerPlayClient>
 
     public SPacketServerDifficulty(EnumDifficulty difficultyIn, boolean difficultyLockedIn)
     {
-        this.difficulty = difficultyIn;
-        this.difficultyLocked = difficultyLockedIn;
+        difficulty = difficultyIn;
+        difficultyLocked = difficultyLockedIn;
     }
 
     /**
@@ -34,7 +34,7 @@ public class SPacketServerDifficulty implements Packet<INetHandlerPlayClient>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.difficulty = EnumDifficulty.getDifficultyEnum(buf.readUnsignedByte());
+        difficulty = EnumDifficulty.getDifficultyEnum(buf.readUnsignedByte());
     }
 
     /**
@@ -42,16 +42,16 @@ public class SPacketServerDifficulty implements Packet<INetHandlerPlayClient>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeByte(this.difficulty.getDifficultyId());
+        buf.writeByte(difficulty.getDifficultyId());
     }
 
     public boolean isDifficultyLocked()
     {
-        return this.difficultyLocked;
+        return difficultyLocked;
     }
 
     public EnumDifficulty getDifficulty()
     {
-        return this.difficulty;
+        return difficulty;
     }
 }

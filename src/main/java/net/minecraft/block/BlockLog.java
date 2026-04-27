@@ -18,9 +18,9 @@ public abstract class BlockLog extends BlockRotatedPillar
     public BlockLog()
     {
         super(Material.WOOD);
-        this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
-        this.setHardness(2.0F);
-        this.setSoundType(SoundType.WOOD);
+        setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
+        setHardness(2.0F);
+        setSoundType(SoundType.WOOD);
     }
 
     /**
@@ -51,7 +51,7 @@ public abstract class BlockLog extends BlockRotatedPillar
      */
     public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
     {
-        return this.getStateFromMeta(meta).withProperty(LOG_AXIS, BlockLog.EnumAxis.fromFacingAxis(facing.getAxis()));
+        return getStateFromMeta(meta).withProperty(LOG_AXIS, BlockLog.EnumAxis.fromFacingAxis(facing.getAxis()));
     }
 
     /**
@@ -97,7 +97,7 @@ public abstract class BlockLog extends BlockRotatedPillar
 
         public String toString()
         {
-            return this.name;
+            return name;
         }
 
         public static BlockLog.EnumAxis fromFacingAxis(EnumFacing.Axis axis)
@@ -120,7 +120,7 @@ public abstract class BlockLog extends BlockRotatedPillar
 
         public String getName()
         {
-            return this.name;
+            return name;
         }
     }
 }

@@ -26,12 +26,12 @@ public class LevitationTrigger implements ICriterionTrigger<LevitationTrigger.In
 
     public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<LevitationTrigger.Instance> listener)
     {
-        LevitationTrigger.Listeners levitationtrigger$listeners = this.listeners.get(playerAdvancementsIn);
+        LevitationTrigger.Listeners levitationtrigger$listeners = listeners.get(playerAdvancementsIn);
 
         if (levitationtrigger$listeners == null)
         {
             levitationtrigger$listeners = new LevitationTrigger.Listeners(playerAdvancementsIn);
-            this.listeners.put(playerAdvancementsIn, levitationtrigger$listeners);
+            listeners.put(playerAdvancementsIn, levitationtrigger$listeners);
         }
 
         levitationtrigger$listeners.add(listener);
@@ -39,7 +39,7 @@ public class LevitationTrigger implements ICriterionTrigger<LevitationTrigger.In
 
     public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<LevitationTrigger.Instance> listener)
     {
-        LevitationTrigger.Listeners levitationtrigger$listeners = this.listeners.get(playerAdvancementsIn);
+        LevitationTrigger.Listeners levitationtrigger$listeners = listeners.get(playerAdvancementsIn);
 
         if (levitationtrigger$listeners != null)
         {
@@ -47,14 +47,14 @@ public class LevitationTrigger implements ICriterionTrigger<LevitationTrigger.In
 
             if (levitationtrigger$listeners.isEmpty())
             {
-                this.listeners.remove(playerAdvancementsIn);
+                listeners.remove(playerAdvancementsIn);
             }
         }
     }
 
     public void removeAllListeners(PlayerAdvancements playerAdvancementsIn)
     {
-        this.listeners.remove(playerAdvancementsIn);
+        listeners.remove(playerAdvancementsIn);
     }
 
     /**
@@ -69,7 +69,7 @@ public class LevitationTrigger implements ICriterionTrigger<LevitationTrigger.In
 
     public void trigger(EntityPlayerMP player, Vec3d startPos, int duration)
     {
-        LevitationTrigger.Listeners levitationtrigger$listeners = this.listeners.get(player.getAdvancements());
+        LevitationTrigger.Listeners levitationtrigger$listeners = listeners.get(player.getAdvancements());
 
         if (levitationtrigger$listeners != null)
         {
@@ -91,13 +91,13 @@ public class LevitationTrigger implements ICriterionTrigger<LevitationTrigger.In
 
         public boolean test(EntityPlayerMP player, Vec3d startPos, int durationIn)
         {
-            if (!this.distance.test(startPos.x, startPos.y, startPos.z, player.posX, player.posY, player.posZ))
+            if (!distance.test(startPos.x, startPos.y, startPos.z, player.posX, player.posY, player.posZ))
             {
                 return false;
             }
             else
             {
-                return this.duration.test((float)durationIn);
+                return duration.test((float)durationIn);
             }
         }
     }
@@ -109,29 +109,29 @@ public class LevitationTrigger implements ICriterionTrigger<LevitationTrigger.In
 
         public Listeners(PlayerAdvancements playerAdvancementsIn)
         {
-            this.playerAdvancements = playerAdvancementsIn;
+            playerAdvancements = playerAdvancementsIn;
         }
 
         public boolean isEmpty()
         {
-            return this.listeners.isEmpty();
+            return listeners.isEmpty();
         }
 
         public void add(ICriterionTrigger.Listener<LevitationTrigger.Instance> listener)
         {
-            this.listeners.add(listener);
+            listeners.add(listener);
         }
 
         public void remove(ICriterionTrigger.Listener<LevitationTrigger.Instance> listener)
         {
-            this.listeners.remove(listener);
+            listeners.remove(listener);
         }
 
         public void trigger(EntityPlayerMP player, Vec3d startPos, int durationIn)
         {
             List<ICriterionTrigger.Listener<LevitationTrigger.Instance>> list = null;
 
-            for (ICriterionTrigger.Listener<LevitationTrigger.Instance> listener : this.listeners)
+            for (ICriterionTrigger.Listener<LevitationTrigger.Instance> listener : listeners)
             {
                 if (((LevitationTrigger.Instance)listener.getCriterionInstance()).test(player, startPos, durationIn))
                 {
@@ -148,7 +148,7 @@ public class LevitationTrigger implements ICriterionTrigger<LevitationTrigger.In
             {
                 for (ICriterionTrigger.Listener<LevitationTrigger.Instance> listener1 : list)
                 {
-                    listener1.grantCriterion(this.playerAdvancements);
+                    listener1.grantCriterion(playerAdvancements);
                 }
             }
         }

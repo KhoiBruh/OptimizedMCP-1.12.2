@@ -34,8 +34,8 @@ public class BlockChorusPlant extends Block
     protected BlockChorusPlant()
     {
         super(Material.PLANTS, MapColor.PURPLE);
-        this.setCreativeTab(CreativeTabs.DECORATIONS);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(NORTH, Boolean.valueOf(false)).withProperty(EAST, Boolean.valueOf(false)).withProperty(SOUTH, Boolean.valueOf(false)).withProperty(WEST, Boolean.valueOf(false)).withProperty(UP, Boolean.valueOf(false)).withProperty(DOWN, Boolean.valueOf(false)));
+        setCreativeTab(CreativeTabs.DECORATIONS);
+        setDefaultState(blockState.getBaseState().withProperty(NORTH, Boolean.valueOf(false)).withProperty(EAST, Boolean.valueOf(false)).withProperty(SOUTH, Boolean.valueOf(false)).withProperty(WEST, Boolean.valueOf(false)).withProperty(UP, Boolean.valueOf(false)).withProperty(DOWN, Boolean.valueOf(false)));
     }
 
     /**
@@ -118,7 +118,7 @@ public class BlockChorusPlant extends Block
 
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
     {
-        if (!this.canSurviveAt(worldIn, pos))
+        if (!canSurviveAt(worldIn, pos))
         {
             worldIn.destroyBlock(pos, true);
         }
@@ -158,7 +158,7 @@ public class BlockChorusPlant extends Block
      */
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
     {
-        return super.canPlaceBlockAt(worldIn, pos) ? this.canSurviveAt(worldIn, pos) : false;
+        return super.canPlaceBlockAt(worldIn, pos) ? canSurviveAt(worldIn, pos) : false;
     }
 
     /**
@@ -168,7 +168,7 @@ public class BlockChorusPlant extends Block
      */
     public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos)
     {
-        if (!this.canSurviveAt(worldIn, pos))
+        if (!canSurviveAt(worldIn, pos))
         {
             worldIn.scheduleUpdate(pos, this, 1);
         }

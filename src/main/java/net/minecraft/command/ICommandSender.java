@@ -18,7 +18,7 @@ public interface ICommandSender
 
 default ITextComponent getDisplayName()
     {
-        return new TextComponentString(this.getName());
+        return new TextComponentString(getName());
     }
 
 default void sendMessage(ITextComponent component)

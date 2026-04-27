@@ -26,12 +26,12 @@ public class ConsumeItemTrigger implements ICriterionTrigger<ConsumeItemTrigger.
 
     public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<ConsumeItemTrigger.Instance> listener)
     {
-        ConsumeItemTrigger.Listeners consumeitemtrigger$listeners = this.listeners.get(playerAdvancementsIn);
+        ConsumeItemTrigger.Listeners consumeitemtrigger$listeners = listeners.get(playerAdvancementsIn);
 
         if (consumeitemtrigger$listeners == null)
         {
             consumeitemtrigger$listeners = new ConsumeItemTrigger.Listeners(playerAdvancementsIn);
-            this.listeners.put(playerAdvancementsIn, consumeitemtrigger$listeners);
+            listeners.put(playerAdvancementsIn, consumeitemtrigger$listeners);
         }
 
         consumeitemtrigger$listeners.add(listener);
@@ -39,7 +39,7 @@ public class ConsumeItemTrigger implements ICriterionTrigger<ConsumeItemTrigger.
 
     public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<ConsumeItemTrigger.Instance> listener)
     {
-        ConsumeItemTrigger.Listeners consumeitemtrigger$listeners = this.listeners.get(playerAdvancementsIn);
+        ConsumeItemTrigger.Listeners consumeitemtrigger$listeners = listeners.get(playerAdvancementsIn);
 
         if (consumeitemtrigger$listeners != null)
         {
@@ -47,14 +47,14 @@ public class ConsumeItemTrigger implements ICriterionTrigger<ConsumeItemTrigger.
 
             if (consumeitemtrigger$listeners.isEmpty())
             {
-                this.listeners.remove(playerAdvancementsIn);
+                listeners.remove(playerAdvancementsIn);
             }
         }
     }
 
     public void removeAllListeners(PlayerAdvancements playerAdvancementsIn)
     {
-        this.listeners.remove(playerAdvancementsIn);
+        listeners.remove(playerAdvancementsIn);
     }
 
     /**
@@ -68,7 +68,7 @@ public class ConsumeItemTrigger implements ICriterionTrigger<ConsumeItemTrigger.
 
     public void trigger(EntityPlayerMP player, ItemStack item)
     {
-        ConsumeItemTrigger.Listeners consumeitemtrigger$listeners = this.listeners.get(player.getAdvancements());
+        ConsumeItemTrigger.Listeners consumeitemtrigger$listeners = listeners.get(player.getAdvancements());
 
         if (consumeitemtrigger$listeners != null)
         {
@@ -99,29 +99,29 @@ public class ConsumeItemTrigger implements ICriterionTrigger<ConsumeItemTrigger.
 
         public Listeners(PlayerAdvancements playerAdvancementsIn)
         {
-            this.playerAdvancements = playerAdvancementsIn;
+            playerAdvancements = playerAdvancementsIn;
         }
 
         public boolean isEmpty()
         {
-            return this.listeners.isEmpty();
+            return listeners.isEmpty();
         }
 
         public void add(ICriterionTrigger.Listener<ConsumeItemTrigger.Instance> listener)
         {
-            this.listeners.add(listener);
+            listeners.add(listener);
         }
 
         public void remove(ICriterionTrigger.Listener<ConsumeItemTrigger.Instance> listener)
         {
-            this.listeners.remove(listener);
+            listeners.remove(listener);
         }
 
         public void trigger(ItemStack item)
         {
             List<ICriterionTrigger.Listener<ConsumeItemTrigger.Instance>> list = null;
 
-            for (ICriterionTrigger.Listener<ConsumeItemTrigger.Instance> listener : this.listeners)
+            for (ICriterionTrigger.Listener<ConsumeItemTrigger.Instance> listener : listeners)
             {
                 if (((ConsumeItemTrigger.Instance)listener.getCriterionInstance()).test(item))
                 {
@@ -138,7 +138,7 @@ public class ConsumeItemTrigger implements ICriterionTrigger<ConsumeItemTrigger.
             {
                 for (ICriterionTrigger.Listener<ConsumeItemTrigger.Instance> listener1 : list)
                 {
-                    listener1.grantCriterion(this.playerAdvancements);
+                    listener1.grantCriterion(playerAdvancements);
                 }
             }
         }

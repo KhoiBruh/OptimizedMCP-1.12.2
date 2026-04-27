@@ -14,7 +14,7 @@ public class RenderVex extends RenderBiped<EntityVex>
     public RenderVex(RenderManager p_i47190_1_)
     {
         super(p_i47190_1_, new ModelVex(), 0.3F);
-        this.modelVersion = ((ModelVex)this.mainModel).getModelVersion();
+        modelVersion = ((ModelVex) mainModel).getModelVersion();
     }
 
     /**
@@ -30,12 +30,12 @@ public class RenderVex extends RenderBiped<EntityVex>
      */
     public void doRender(EntityVex entity, double x, double y, double z, float entityYaw, float partialTicks)
     {
-        int i = ((ModelVex)this.mainModel).getModelVersion();
+        int i = ((ModelVex) mainModel).getModelVersion();
 
-        if (i != this.modelVersion)
+        if (i != modelVersion)
         {
-            this.mainModel = new ModelVex();
-            this.modelVersion = i;
+            mainModel = new ModelVex();
+            modelVersion = i;
         }
 
         super.doRender(entity, x, y, z, entityYaw, partialTicks);

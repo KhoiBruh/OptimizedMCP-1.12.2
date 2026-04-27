@@ -38,31 +38,31 @@ public class ItemCameraTransforms
 
     public ItemCameraTransforms(ItemCameraTransforms transforms)
     {
-        this.thirdperson_left = transforms.thirdperson_left;
-        this.thirdperson_right = transforms.thirdperson_right;
-        this.firstperson_left = transforms.firstperson_left;
-        this.firstperson_right = transforms.firstperson_right;
-        this.head = transforms.head;
-        this.gui = transforms.gui;
-        this.ground = transforms.ground;
-        this.fixed = transforms.fixed;
+        thirdperson_left = transforms.thirdperson_left;
+        thirdperson_right = transforms.thirdperson_right;
+        firstperson_left = transforms.firstperson_left;
+        firstperson_right = transforms.firstperson_right;
+        head = transforms.head;
+        gui = transforms.gui;
+        ground = transforms.ground;
+        fixed = transforms.fixed;
     }
 
     public ItemCameraTransforms(ItemTransformVec3f thirdperson_leftIn, ItemTransformVec3f thirdperson_rightIn, ItemTransformVec3f firstperson_leftIn, ItemTransformVec3f firstperson_rightIn, ItemTransformVec3f headIn, ItemTransformVec3f guiIn, ItemTransformVec3f groundIn, ItemTransformVec3f fixedIn)
     {
-        this.thirdperson_left = thirdperson_leftIn;
-        this.thirdperson_right = thirdperson_rightIn;
-        this.firstperson_left = firstperson_leftIn;
-        this.firstperson_right = firstperson_rightIn;
-        this.head = headIn;
-        this.gui = guiIn;
-        this.ground = groundIn;
-        this.fixed = fixedIn;
+        thirdperson_left = thirdperson_leftIn;
+        thirdperson_right = thirdperson_rightIn;
+        firstperson_left = firstperson_leftIn;
+        firstperson_right = firstperson_rightIn;
+        head = headIn;
+        gui = guiIn;
+        ground = groundIn;
+        fixed = fixedIn;
     }
 
     public void applyTransform(ItemCameraTransforms.TransformType type)
     {
-        applyTransformSide(this.getTransform(type), false);
+        applyTransformSide(getTransform(type), false);
     }
 
     public static void applyTransformSide(ItemTransformVec3f vec, boolean leftHand)
@@ -105,28 +105,28 @@ public class ItemCameraTransforms
         switch (type)
         {
             case THIRD_PERSON_LEFT_HAND:
-                return this.thirdperson_left;
+                return thirdperson_left;
 
             case THIRD_PERSON_RIGHT_HAND:
-                return this.thirdperson_right;
+                return thirdperson_right;
 
             case FIRST_PERSON_LEFT_HAND:
-                return this.firstperson_left;
+                return firstperson_left;
 
             case FIRST_PERSON_RIGHT_HAND:
-                return this.firstperson_right;
+                return firstperson_right;
 
             case HEAD:
-                return this.head;
+                return head;
 
             case GUI:
-                return this.gui;
+                return gui;
 
             case GROUND:
-                return this.ground;
+                return ground;
 
             case FIXED:
-                return this.fixed;
+                return fixed;
 
             default:
                 return ItemTransformVec3f.DEFAULT;
@@ -135,7 +135,7 @@ public class ItemCameraTransforms
 
     public boolean hasCustomTransform(ItemCameraTransforms.TransformType type)
     {
-        return this.getTransform(type) != ItemTransformVec3f.DEFAULT;
+        return getTransform(type) != ItemTransformVec3f.DEFAULT;
     }
 
     static class Deserializer implements JsonDeserializer<ItemCameraTransforms>
@@ -143,26 +143,26 @@ public class ItemCameraTransforms
         public ItemCameraTransforms deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException
         {
             JsonObject jsonobject = p_deserialize_1_.getAsJsonObject();
-            ItemTransformVec3f itemtransformvec3f = this.getTransform(p_deserialize_3_, jsonobject, "thirdperson_righthand");
-            ItemTransformVec3f itemtransformvec3f1 = this.getTransform(p_deserialize_3_, jsonobject, "thirdperson_lefthand");
+            ItemTransformVec3f itemtransformvec3f = getTransform(p_deserialize_3_, jsonobject, "thirdperson_righthand");
+            ItemTransformVec3f itemtransformvec3f1 = getTransform(p_deserialize_3_, jsonobject, "thirdperson_lefthand");
 
             if (itemtransformvec3f1 == ItemTransformVec3f.DEFAULT)
             {
                 itemtransformvec3f1 = itemtransformvec3f;
             }
 
-            ItemTransformVec3f itemtransformvec3f2 = this.getTransform(p_deserialize_3_, jsonobject, "firstperson_righthand");
-            ItemTransformVec3f itemtransformvec3f3 = this.getTransform(p_deserialize_3_, jsonobject, "firstperson_lefthand");
+            ItemTransformVec3f itemtransformvec3f2 = getTransform(p_deserialize_3_, jsonobject, "firstperson_righthand");
+            ItemTransformVec3f itemtransformvec3f3 = getTransform(p_deserialize_3_, jsonobject, "firstperson_lefthand");
 
             if (itemtransformvec3f3 == ItemTransformVec3f.DEFAULT)
             {
                 itemtransformvec3f3 = itemtransformvec3f2;
             }
 
-            ItemTransformVec3f itemtransformvec3f4 = this.getTransform(p_deserialize_3_, jsonobject, "head");
-            ItemTransformVec3f itemtransformvec3f5 = this.getTransform(p_deserialize_3_, jsonobject, "gui");
-            ItemTransformVec3f itemtransformvec3f6 = this.getTransform(p_deserialize_3_, jsonobject, "ground");
-            ItemTransformVec3f itemtransformvec3f7 = this.getTransform(p_deserialize_3_, jsonobject, "fixed");
+            ItemTransformVec3f itemtransformvec3f4 = getTransform(p_deserialize_3_, jsonobject, "head");
+            ItemTransformVec3f itemtransformvec3f5 = getTransform(p_deserialize_3_, jsonobject, "gui");
+            ItemTransformVec3f itemtransformvec3f6 = getTransform(p_deserialize_3_, jsonobject, "ground");
+            ItemTransformVec3f itemtransformvec3f7 = getTransform(p_deserialize_3_, jsonobject, "fixed");
             return new ItemCameraTransforms(itemtransformvec3f1, itemtransformvec3f, itemtransformvec3f3, itemtransformvec3f2, itemtransformvec3f4, itemtransformvec3f5, itemtransformvec3f6, itemtransformvec3f7);
         }
 

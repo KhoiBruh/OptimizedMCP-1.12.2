@@ -12,7 +12,7 @@ public class ItemEmptyMap extends ItemMapBase
 {
     protected ItemEmptyMap()
     {
-        this.setCreativeTab(CreativeTabs.MISC);
+        setCreativeTab(CreativeTabs.MISC);
     }
 
     public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn)

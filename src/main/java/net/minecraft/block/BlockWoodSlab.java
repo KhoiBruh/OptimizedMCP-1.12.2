@@ -23,15 +23,15 @@ public abstract class BlockWoodSlab extends BlockSlab
     public BlockWoodSlab()
     {
         super(Material.WOOD);
-        IBlockState iblockstate = this.blockState.getBaseState();
+        IBlockState iblockstate = blockState.getBaseState();
 
-        if (!this.isDouble())
+        if (!isDouble())
         {
             iblockstate = iblockstate.withProperty(HALF, BlockSlab.EnumBlockHalf.BOTTOM);
         }
 
-        this.setDefaultState(iblockstate.withProperty(VARIANT, BlockPlanks.EnumType.OAK));
-        this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
+        setDefaultState(iblockstate.withProperty(VARIANT, BlockPlanks.EnumType.OAK));
+        setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
     }
 
     /**
@@ -89,9 +89,9 @@ public abstract class BlockWoodSlab extends BlockSlab
      */
     public IBlockState getStateFromMeta(int meta)
     {
-        IBlockState iblockstate = this.getDefaultState().withProperty(VARIANT, BlockPlanks.EnumType.byMetadata(meta & 7));
+        IBlockState iblockstate = getDefaultState().withProperty(VARIANT, BlockPlanks.EnumType.byMetadata(meta & 7));
 
-        if (!this.isDouble())
+        if (!isDouble())
         {
             iblockstate = iblockstate.withProperty(HALF, (meta & 8) == 0 ? BlockSlab.EnumBlockHalf.BOTTOM : BlockSlab.EnumBlockHalf.TOP);
         }
@@ -107,7 +107,7 @@ public abstract class BlockWoodSlab extends BlockSlab
         int i = 0;
         i = i | ((BlockPlanks.EnumType)state.getValue(VARIANT)).getMetadata();
 
-        if (!this.isDouble() && state.getValue(HALF) == BlockSlab.EnumBlockHalf.TOP)
+        if (!isDouble() && state.getValue(HALF) == BlockSlab.EnumBlockHalf.TOP)
         {
             i |= 8;
         }
@@ -117,7 +117,7 @@ public abstract class BlockWoodSlab extends BlockSlab
 
     protected BlockStateContainer createBlockState()
     {
-        return this.isDouble() ? new BlockStateContainer(this, new IProperty[] {VARIANT}) : new BlockStateContainer(this, new IProperty[] {HALF, VARIANT});
+        return isDouble() ? new BlockStateContainer(this, new IProperty[] {VARIANT}) : new BlockStateContainer(this, new IProperty[] {HALF, VARIANT});
     }
 
     /**

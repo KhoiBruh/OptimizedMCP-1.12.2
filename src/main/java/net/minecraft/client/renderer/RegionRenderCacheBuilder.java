@@ -8,19 +8,19 @@ public class RegionRenderCacheBuilder
 
     public RegionRenderCacheBuilder()
     {
-        this.worldRenderers[BlockRenderLayer.SOLID.ordinal()] = new BufferBuilder(2097152);
-        this.worldRenderers[BlockRenderLayer.CUTOUT.ordinal()] = new BufferBuilder(131072);
-        this.worldRenderers[BlockRenderLayer.CUTOUT_MIPPED.ordinal()] = new BufferBuilder(131072);
-        this.worldRenderers[BlockRenderLayer.TRANSLUCENT.ordinal()] = new BufferBuilder(262144);
+        worldRenderers[BlockRenderLayer.SOLID.ordinal()] = new BufferBuilder(2097152);
+        worldRenderers[BlockRenderLayer.CUTOUT.ordinal()] = new BufferBuilder(131072);
+        worldRenderers[BlockRenderLayer.CUTOUT_MIPPED.ordinal()] = new BufferBuilder(131072);
+        worldRenderers[BlockRenderLayer.TRANSLUCENT.ordinal()] = new BufferBuilder(262144);
     }
 
     public BufferBuilder getWorldRendererByLayer(BlockRenderLayer layer)
     {
-        return this.worldRenderers[layer.ordinal()];
+        return worldRenderers[layer.ordinal()];
     }
 
     public BufferBuilder getWorldRendererByLayerId(int id)
     {
-        return this.worldRenderers[id];
+        return worldRenderers[id];
     }
 }

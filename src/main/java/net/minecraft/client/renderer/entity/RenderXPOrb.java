@@ -17,8 +17,8 @@ public class RenderXPOrb extends Render<EntityXPOrb>
     public RenderXPOrb(RenderManager renderManagerIn)
     {
         super(renderManagerIn);
-        this.shadowSize = 0.15F;
-        this.shadowOpaque = 0.75F;
+        shadowSize = 0.15F;
+        shadowOpaque = 0.75F;
     }
 
     /**
@@ -26,11 +26,11 @@ public class RenderXPOrb extends Render<EntityXPOrb>
      */
     public void doRender(EntityXPOrb entity, double x, double y, double z, float entityYaw, float partialTicks)
     {
-        if (!this.renderOutlines)
+        if (!renderOutlines)
         {
             GlStateManager.pushMatrix();
             GlStateManager.translate((float)x, (float)y, (float)z);
-            this.bindEntityTexture(entity);
+            bindEntityTexture(entity);
             RenderHelper.enableStandardItemLighting();
             int i = entity.getTextureByXP();
             float f = (float)(i % 4 * 16 + 0) / 64.0F;
@@ -51,8 +51,8 @@ public class RenderXPOrb extends Render<EntityXPOrb>
             int i1 = 255;
             int j1 = (int)((MathHelper.sin(f9 + 4.1887903F) + 1.0F) * 0.1F * 255.0F);
             GlStateManager.translate(0.0F, 0.1F, 0.0F);
-            GlStateManager.rotate(180.0F - this.renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
-            GlStateManager.rotate((float)(this.renderManager.options.thirdPersonView == 2 ? -1 : 1) * -this.renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
+            GlStateManager.rotate(180.0F - renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
+            GlStateManager.rotate((float)(renderManager.options.thirdPersonView == 2 ? -1 : 1) * -renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
             float f7 = 0.3F;
             GlStateManager.scale(0.3F, 0.3F, 0.3F);
             Tessellator tessellator = Tessellator.getInstance();

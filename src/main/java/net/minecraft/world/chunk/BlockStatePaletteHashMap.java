@@ -14,22 +14,22 @@ public class BlockStatePaletteHashMap implements IBlockStatePalette
 
     public BlockStatePaletteHashMap(int bitsIn, IBlockStatePaletteResizer paletteResizerIn)
     {
-        this.bits = bitsIn;
-        this.paletteResizer = paletteResizerIn;
-        this.statePaletteMap = new IntIdentityHashBiMap<IBlockState>(1 << bitsIn);
+        bits = bitsIn;
+        paletteResizer = paletteResizerIn;
+        statePaletteMap = new IntIdentityHashBiMap<IBlockState>(1 << bitsIn);
     }
 
     public int idFor(IBlockState state)
     {
-        int i = this.statePaletteMap.getId(state);
+        int i = statePaletteMap.getId(state);
 
         if (i == -1)
         {
-            i = this.statePaletteMap.add(state);
+            i = statePaletteMap.add(state);
 
-            if (i >= 1 << this.bits)
+            if (i >= 1 << bits)
             {
-                i = this.paletteResizer.onResize(this.bits + 1, state);
+                i = paletteResizer.onResize(bits + 1, state);
             }
         }
 
@@ -43,38 +43,38 @@ public class BlockStatePaletteHashMap implements IBlockStatePalette
      */
     public IBlockState getBlockState(int indexKey)
     {
-        return this.statePaletteMap.get(indexKey);
+        return statePaletteMap.get(indexKey);
     }
 
     public void read(PacketBuffer buf)
     {
-        this.statePaletteMap.clear();
+        statePaletteMap.clear();
         int i = buf.readVarInt();
 
         for (int j = 0; j < i; ++j)
         {
-            this.statePaletteMap.add(Block.BLOCK_STATE_IDS.getByValue(buf.readVarInt()));
+            statePaletteMap.add(Block.BLOCK_STATE_IDS.getByValue(buf.readVarInt()));
         }
     }
 
     public void write(PacketBuffer buf)
     {
-        int i = this.statePaletteMap.size();
+        int i = statePaletteMap.size();
         buf.writeVarInt(i);
 
         for (int j = 0; j < i; ++j)
         {
-            buf.writeVarInt(Block.BLOCK_STATE_IDS.get(this.statePaletteMap.get(j)));
+            buf.writeVarInt(Block.BLOCK_STATE_IDS.get(statePaletteMap.get(j)));
         }
     }
 
     public int getSerializedSize()
     {
-        int i = PacketBuffer.getVarIntSize(this.statePaletteMap.size());
+        int i = PacketBuffer.getVarIntSize(statePaletteMap.size());
 
-        for (int j = 0; j < this.statePaletteMap.size(); ++j)
+        for (int j = 0; j < statePaletteMap.size(); ++j)
         {
-            i += PacketBuffer.getVarIntSize(Block.BLOCK_STATE_IDS.get(this.statePaletteMap.get(j)));
+            i += PacketBuffer.getVarIntSize(Block.BLOCK_STATE_IDS.get(statePaletteMap.get(j)));
         }
 
         return i;

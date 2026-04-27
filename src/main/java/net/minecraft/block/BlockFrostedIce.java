@@ -17,7 +17,7 @@ public class BlockFrostedIce extends BlockIce
 
     public BlockFrostedIce()
     {
-        this.setDefaultState(this.blockState.getBaseState().withProperty(AGE, Integer.valueOf(0)));
+        setDefaultState(blockState.getBaseState().withProperty(AGE, Integer.valueOf(0)));
     }
 
     /**
@@ -33,14 +33,14 @@ public class BlockFrostedIce extends BlockIce
      */
     public IBlockState getStateFromMeta(int meta)
     {
-        return this.getDefaultState().withProperty(AGE, Integer.valueOf(MathHelper.clamp(meta, 0, 3)));
+        return getDefaultState().withProperty(AGE, Integer.valueOf(MathHelper.clamp(meta, 0, 3)));
     }
 
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
     {
-        if ((rand.nextInt(3) == 0 || this.countNeighbors(worldIn, pos) < 4) && worldIn.getLightFromNeighbors(pos) > 11 - ((Integer)state.getValue(AGE)).intValue() - state.getLightOpacity())
+        if ((rand.nextInt(3) == 0 || countNeighbors(worldIn, pos) < 4) && worldIn.getLightFromNeighbors(pos) > 11 - ((Integer)state.getValue(AGE)).intValue() - state.getLightOpacity())
         {
-            this.slightlyMelt(worldIn, pos, state, rand, true);
+            slightlyMelt(worldIn, pos, state, rand, true);
         }
         else
         {
@@ -57,11 +57,11 @@ public class BlockFrostedIce extends BlockIce
     {
         if (blockIn == this)
         {
-            int i = this.countNeighbors(worldIn, pos);
+            int i = countNeighbors(worldIn, pos);
 
             if (i < 2)
             {
-                this.turnIntoWater(worldIn, pos);
+                turnIntoWater(worldIn, pos);
             }
         }
     }
@@ -97,7 +97,7 @@ public class BlockFrostedIce extends BlockIce
         }
         else
         {
-            this.turnIntoWater(worldIn, pos);
+            turnIntoWater(worldIn, pos);
 
             if (meltNeighbors)
             {
@@ -108,7 +108,7 @@ public class BlockFrostedIce extends BlockIce
 
                     if (iblockstate.getBlock() == this)
                     {
-                        this.slightlyMelt(worldIn, blockpos, iblockstate, rand, false);
+                        slightlyMelt(worldIn, blockpos, iblockstate, rand, false);
                     }
                 }
             }

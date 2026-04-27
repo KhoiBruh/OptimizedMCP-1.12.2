@@ -20,10 +20,10 @@ public class ItemShield extends Item
 {
     public ItemShield()
     {
-        this.maxStackSize = 1;
-        this.setCreativeTab(CreativeTabs.COMBAT);
-        this.setMaxDamage(336);
-        this.addPropertyOverride(new ResourceLocation("blocking"), new IItemPropertyGetter()
+        maxStackSize = 1;
+        setCreativeTab(CreativeTabs.COMBAT);
+        setMaxDamage(336);
+        addPropertyOverride(new ResourceLocation("blocking"), new IItemPropertyGetter()
         {
             public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn)
             {

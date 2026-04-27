@@ -15,7 +15,7 @@ public class MapGenEndCity extends MapGenStructure
 
     public MapGenEndCity(ChunkGeneratorEnd p_i46665_1_)
     {
-        this.endProvider = p_i46665_1_;
+        endProvider = p_i46665_1_;
     }
 
     public String getStructureName()
@@ -40,15 +40,15 @@ public class MapGenEndCity extends MapGenStructure
 
         int k = chunkX / 20;
         int l = chunkZ / 20;
-        Random random = this.world.setRandomSeed(k, l, 10387313);
+        Random random = world.setRandomSeed(k, l, 10387313);
         k = k * 20;
         l = l * 20;
         k = k + (random.nextInt(9) + random.nextInt(9)) / 2;
         l = l + (random.nextInt(9) + random.nextInt(9)) / 2;
 
-        if (i == k && j == l && this.endProvider.isIslandChunk(i, j))
+        if (i == k && j == l && endProvider.isIslandChunk(i, j))
         {
-            int i1 = getYPosForStructure(i, j, this.endProvider);
+            int i1 = getYPosForStructure(i, j, endProvider);
             return i1 >= 60;
         }
         else
@@ -59,12 +59,12 @@ public class MapGenEndCity extends MapGenStructure
 
     protected StructureStart getStructureStart(int chunkX, int chunkZ)
     {
-        return new MapGenEndCity.Start(this.world, this.endProvider, this.rand, chunkX, chunkZ);
+        return new MapGenEndCity.Start(world, endProvider, rand, chunkX, chunkZ);
     }
 
     public BlockPos getNearestStructurePos(World worldIn, BlockPos pos, boolean findUnexplored)
     {
-        this.world = worldIn;
+        world = worldIn;
         return findNearestStructurePosBySpacing(worldIn, this, pos, 20, 11, 10387313, true, 100, findUnexplored);
     }
 
@@ -110,7 +110,7 @@ public class MapGenEndCity extends MapGenStructure
         public Start(World worldIn, ChunkGeneratorEnd chunkProvider, Random random, int chunkX, int chunkZ)
         {
             super(chunkX, chunkZ);
-            this.create(worldIn, chunkProvider, random, chunkX, chunkZ);
+            create(worldIn, chunkProvider, random, chunkX, chunkZ);
         }
 
         private void create(World worldIn, ChunkGeneratorEnd chunkProvider, Random rnd, int chunkX, int chunkZ)
@@ -121,20 +121,20 @@ public class MapGenEndCity extends MapGenStructure
 
             if (i < 60)
             {
-                this.isSizeable = false;
+                isSizeable = false;
             }
             else
             {
                 BlockPos blockpos = new BlockPos(chunkX * 16 + 8, i, chunkZ * 16 + 8);
-                StructureEndCityPieces.startHouseTower(worldIn.getSaveHandler().getStructureTemplateManager(), blockpos, rotation, this.components, rnd);
-                this.updateBoundingBox();
-                this.isSizeable = true;
+                StructureEndCityPieces.startHouseTower(worldIn.getSaveHandler().getStructureTemplateManager(), blockpos, rotation, components, rnd);
+                updateBoundingBox();
+                isSizeable = true;
             }
         }
 
         public boolean isSizeableStructure()
         {
-            return this.isSizeable;
+            return isSizeable;
         }
     }
 }

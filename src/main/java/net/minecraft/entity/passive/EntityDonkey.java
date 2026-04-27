@@ -61,14 +61,14 @@ public class EntityDonkey extends AbstractChestHorse
         }
         else
         {
-            return this.canMate() && ((AbstractHorse)otherAnimal).canMate();
+            return canMate() && ((AbstractHorse)otherAnimal).canMate();
         }
     }
 
     public EntityAgeable createChild(EntityAgeable ageable)
     {
-        AbstractHorse abstracthorse = (AbstractHorse)(ageable instanceof EntityHorse ? new EntityMule(this.world) : new EntityDonkey(this.world));
-        this.setOffspringAttributes(ageable, abstracthorse);
+        AbstractHorse abstracthorse = (AbstractHorse)(ageable instanceof EntityHorse ? new EntityMule(world) : new EntityDonkey(world));
+        setOffspringAttributes(ageable, abstracthorse);
         return abstracthorse;
     }
 }

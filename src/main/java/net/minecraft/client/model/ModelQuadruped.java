@@ -17,23 +17,23 @@ public class ModelQuadruped extends ModelBase
 
     public ModelQuadruped(int height, float scale)
     {
-        this.head.addBox(-4.0F, -4.0F, -8.0F, 8, 8, 8, scale);
-        this.head.setRotationPoint(0.0F, (float)(18 - height), -6.0F);
-        this.body = new ModelRenderer(this, 28, 8);
-        this.body.addBox(-5.0F, -10.0F, -7.0F, 10, 16, 8, scale);
-        this.body.setRotationPoint(0.0F, (float)(17 - height), 2.0F);
-        this.leg1 = new ModelRenderer(this, 0, 16);
-        this.leg1.addBox(-2.0F, 0.0F, -2.0F, 4, height, 4, scale);
-        this.leg1.setRotationPoint(-3.0F, (float)(24 - height), 7.0F);
-        this.leg2 = new ModelRenderer(this, 0, 16);
-        this.leg2.addBox(-2.0F, 0.0F, -2.0F, 4, height, 4, scale);
-        this.leg2.setRotationPoint(3.0F, (float)(24 - height), 7.0F);
-        this.leg3 = new ModelRenderer(this, 0, 16);
-        this.leg3.addBox(-2.0F, 0.0F, -2.0F, 4, height, 4, scale);
-        this.leg3.setRotationPoint(-3.0F, (float)(24 - height), -5.0F);
-        this.leg4 = new ModelRenderer(this, 0, 16);
-        this.leg4.addBox(-2.0F, 0.0F, -2.0F, 4, height, 4, scale);
-        this.leg4.setRotationPoint(3.0F, (float)(24 - height), -5.0F);
+        head.addBox(-4.0F, -4.0F, -8.0F, 8, 8, 8, scale);
+        head.setRotationPoint(0.0F, (float)(18 - height), -6.0F);
+        body = new ModelRenderer(this, 28, 8);
+        body.addBox(-5.0F, -10.0F, -7.0F, 10, 16, 8, scale);
+        body.setRotationPoint(0.0F, (float)(17 - height), 2.0F);
+        leg1 = new ModelRenderer(this, 0, 16);
+        leg1.addBox(-2.0F, 0.0F, -2.0F, 4, height, 4, scale);
+        leg1.setRotationPoint(-3.0F, (float)(24 - height), 7.0F);
+        leg2 = new ModelRenderer(this, 0, 16);
+        leg2.addBox(-2.0F, 0.0F, -2.0F, 4, height, 4, scale);
+        leg2.setRotationPoint(3.0F, (float)(24 - height), 7.0F);
+        leg3 = new ModelRenderer(this, 0, 16);
+        leg3.addBox(-2.0F, 0.0F, -2.0F, 4, height, 4, scale);
+        leg3.setRotationPoint(-3.0F, (float)(24 - height), -5.0F);
+        leg4 = new ModelRenderer(this, 0, 16);
+        leg4.addBox(-2.0F, 0.0F, -2.0F, 4, height, 4, scale);
+        leg4.setRotationPoint(3.0F, (float)(24 - height), -5.0F);
     }
 
     /**
@@ -41,33 +41,33 @@ public class ModelQuadruped extends ModelBase
      */
     public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale)
     {
-        this.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
+        setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
 
-        if (this.isChild)
+        if (isChild)
         {
             float f = 2.0F;
             GlStateManager.pushMatrix();
-            GlStateManager.translate(0.0F, this.childYOffset * scale, this.childZOffset * scale);
-            this.head.render(scale);
+            GlStateManager.translate(0.0F, childYOffset * scale, childZOffset * scale);
+            head.render(scale);
             GlStateManager.popMatrix();
             GlStateManager.pushMatrix();
             GlStateManager.scale(0.5F, 0.5F, 0.5F);
             GlStateManager.translate(0.0F, 24.0F * scale, 0.0F);
-            this.body.render(scale);
-            this.leg1.render(scale);
-            this.leg2.render(scale);
-            this.leg3.render(scale);
-            this.leg4.render(scale);
+            body.render(scale);
+            leg1.render(scale);
+            leg2.render(scale);
+            leg3.render(scale);
+            leg4.render(scale);
             GlStateManager.popMatrix();
         }
         else
         {
-            this.head.render(scale);
-            this.body.render(scale);
-            this.leg1.render(scale);
-            this.leg2.render(scale);
-            this.leg3.render(scale);
-            this.leg4.render(scale);
+            head.render(scale);
+            body.render(scale);
+            leg1.render(scale);
+            leg2.render(scale);
+            leg3.render(scale);
+            leg4.render(scale);
         }
     }
 
@@ -78,12 +78,12 @@ public class ModelQuadruped extends ModelBase
      */
     public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn)
     {
-        this.head.rotateAngleX = headPitch * 0.017453292F;
-        this.head.rotateAngleY = netHeadYaw * 0.017453292F;
-        this.body.rotateAngleX = ((float)Math.PI / 2F);
-        this.leg1.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
-        this.leg2.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
-        this.leg3.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
-        this.leg4.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+        head.rotateAngleX = headPitch * 0.017453292F;
+        head.rotateAngleY = netHeadYaw * 0.017453292F;
+        body.rotateAngleX = ((float)Math.PI / 2F);
+        leg1.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+        leg2.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
+        leg3.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
+        leg4.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
     }
 }

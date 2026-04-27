@@ -90,8 +90,8 @@ public abstract class Team
 
         private CollisionRule(String nameIn, int idIn)
         {
-            this.name = nameIn;
-            this.id = idIn;
+            name = nameIn;
+            id = idIn;
         }
 
         static {
@@ -126,8 +126,8 @@ public abstract class Team
 
         private EnumVisible(String nameIn, int idIn)
         {
-            this.internalName = nameIn;
-            this.id = idIn;
+            internalName = nameIn;
+            id = idIn;
         }
 
         static {

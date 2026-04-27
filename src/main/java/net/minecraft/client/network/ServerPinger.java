@@ -53,7 +53,7 @@ public class ServerPinger
     {
         ServerAddress serveraddress = ServerAddress.fromString(server.serverIP);
         final NetworkManager networkmanager = NetworkManager.createNetworkManagerAndConnect(InetAddress.getByName(serveraddress.getIP()), serveraddress.getPort(), false);
-        this.pingDestinations.add(networkmanager);
+        pingDestinations.add(networkmanager);
         server.serverMOTD = I18n.format("multiplayer.status.pinging");
         server.pingToServer = -1L;
         server.playerList = null;
@@ -64,13 +64,13 @@ public class ServerPinger
             private long pingSentAt;
             public void handleServerInfo(SPacketServerInfo packetIn)
             {
-                if (this.receivedStatus)
+                if (receivedStatus)
                 {
                     networkmanager.closeChannel(new TextComponentTranslation("multiplayer.status.unrequested", new Object[0]));
                 }
                 else
                 {
-                    this.receivedStatus = true;
+                    receivedStatus = true;
                     ServerStatusResponse serverstatusresponse = packetIn.getResponse();
 
                     if (serverstatusresponse.getServerDescription() != null)
@@ -147,26 +147,26 @@ public class ServerPinger
                         server.setBase64EncodedIconData((String)null);
                     }
 
-                    this.pingSentAt = Minecraft.getSystemTime();
-                    networkmanager.sendPacket(new CPacketPing(this.pingSentAt));
-                    this.successful = true;
+                    pingSentAt = Minecraft.getSystemTime();
+                    networkmanager.sendPacket(new CPacketPing(pingSentAt));
+                    successful = true;
                 }
             }
             public void handlePong(SPacketPong packetIn)
             {
-                long i = this.pingSentAt;
+                long i = pingSentAt;
                 long j = Minecraft.getSystemTime();
                 server.pingToServer = j - i;
                 networkmanager.closeChannel(new TextComponentString("Finished"));
             }
             public void onDisconnect(ITextComponent reason)
             {
-                if (!this.successful)
+                if (!successful)
                 {
                     ServerPinger.LOGGER.error("Can't ping {}: {}", server.serverIP, reason.getUnformattedText());
                     server.serverMOTD = TextFormatting.DARK_RED + I18n.format("multiplayer.status.cannot_connect");
                     server.populationInfo = "";
-                    ServerPinger.this.tryCompatibilityPing(server);
+                    tryCompatibilityPing(server);
                 }
             }
         });
@@ -272,9 +272,9 @@ public class ServerPinger
 
     public void pingPendingNetworks()
     {
-        synchronized (this.pingDestinations)
+        synchronized (pingDestinations)
         {
-            Iterator<NetworkManager> iterator = this.pingDestinations.iterator();
+            Iterator<NetworkManager> iterator = pingDestinations.iterator();
 
             while (iterator.hasNext())
             {
@@ -295,9 +295,9 @@ public class ServerPinger
 
     public void clearPendingNetworks()
     {
-        synchronized (this.pingDestinations)
+        synchronized (pingDestinations)
         {
-            Iterator<NetworkManager> iterator = this.pingDestinations.iterator();
+            Iterator<NetworkManager> iterator = pingDestinations.iterator();
 
             while (iterator.hasNext())
             {

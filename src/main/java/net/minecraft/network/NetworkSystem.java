@@ -75,8 +75,8 @@ public class NetworkSystem
 
     public NetworkSystem(MinecraftServer server)
     {
-        this.mcServer = server;
-        this.isAlive = true;
+        mcServer = server;
+        isAlive = true;
     }
 
     /**
@@ -84,12 +84,12 @@ public class NetworkSystem
      */
     public void addLanEndpoint(InetAddress address, int port) throws IOException
     {
-        synchronized (this.endpoints)
+        synchronized (endpoints)
         {
             Class <? extends ServerSocketChannel > oclass;
             LazyLoadBase <? extends EventLoopGroup > lazyloadbase;
 
-            if (Epoll.isAvailable() && this.mcServer.shouldUseNativeTransport())
+            if (Epoll.isAvailable() && mcServer.shouldUseNativeTransport())
             {
                 oclass = EpollServerSocketChannel.class;
                 lazyloadbase = SERVER_EPOLL_EVENTLOOP;
@@ -102,7 +102,7 @@ public class NetworkSystem
                 LOGGER.info("Using default channel type");
             }
 
-            this.endpoints.add(((ServerBootstrap)((ServerBootstrap)(new ServerBootstrap()).channel(oclass)).childHandler(new ChannelInitializer<Channel>()
+            endpoints.add(((ServerBootstrap)((ServerBootstrap)(new ServerBootstrap()).channel(oclass)).childHandler(new ChannelInitializer<Channel>()
             {
                 protected void initChannel(Channel p_initChannel_1_) throws Exception
                 {
@@ -117,9 +117,9 @@ public class NetworkSystem
 
                     p_initChannel_1_.pipeline().addLast("timeout", new ReadTimeoutHandler(30)).addLast("legacy_query", new LegacyPingHandler(NetworkSystem.this)).addLast("splitter", new NettyVarint21FrameDecoder()).addLast("decoder", new NettyPacketDecoder(EnumPacketDirection.SERVERBOUND)).addLast("prepender", new NettyVarint21FrameEncoder()).addLast("encoder", new NettyPacketEncoder(EnumPacketDirection.CLIENTBOUND));
                     NetworkManager networkmanager = new NetworkManager(EnumPacketDirection.SERVERBOUND);
-                    NetworkSystem.this.networkManagers.add(networkmanager);
+                    networkManagers.add(networkmanager);
                     p_initChannel_1_.pipeline().addLast("packet_handler", networkmanager);
-                    networkmanager.setNetHandler(new NetHandlerHandshakeTCP(NetworkSystem.this.mcServer, networkmanager));
+                    networkmanager.setNetHandler(new NetHandlerHandshakeTCP(mcServer, networkmanager));
                 }
             }).group(lazyloadbase.getValue()).localAddress(address, port)).bind().syncUninterruptibly());
         }
@@ -132,19 +132,19 @@ public class NetworkSystem
     {
         ChannelFuture channelfuture;
 
-        synchronized (this.endpoints)
+        synchronized (endpoints)
         {
             channelfuture = ((ServerBootstrap)((ServerBootstrap)(new ServerBootstrap()).channel(LocalServerChannel.class)).childHandler(new ChannelInitializer<Channel>()
             {
                 protected void initChannel(Channel p_initChannel_1_) throws Exception
                 {
                     NetworkManager networkmanager = new NetworkManager(EnumPacketDirection.SERVERBOUND);
-                    networkmanager.setNetHandler(new NetHandlerHandshakeMemory(NetworkSystem.this.mcServer, networkmanager));
-                    NetworkSystem.this.networkManagers.add(networkmanager);
+                    networkmanager.setNetHandler(new NetHandlerHandshakeMemory(mcServer, networkmanager));
+                    networkManagers.add(networkmanager);
                     p_initChannel_1_.pipeline().addLast("packet_handler", networkmanager);
                 }
             }).group(SERVER_NIO_EVENTLOOP.getValue()).localAddress(LocalAddress.ANY)).bind().syncUninterruptibly();
-            this.endpoints.add(channelfuture);
+            endpoints.add(channelfuture);
         }
 
         return channelfuture.channel().localAddress();
@@ -155,9 +155,9 @@ public class NetworkSystem
      */
     public void terminateEndpoints()
     {
-        this.isAlive = false;
+        isAlive = false;
 
-        for (ChannelFuture channelfuture : this.endpoints)
+        for (ChannelFuture channelfuture : endpoints)
         {
             try
             {
@@ -176,9 +176,9 @@ public class NetworkSystem
      */
     public void networkTick()
     {
-        synchronized (this.networkManagers)
+        synchronized (networkManagers)
         {
-            Iterator<NetworkManager> iterator = this.networkManagers.iterator();
+            Iterator<NetworkManager> iterator = networkManagers.iterator();
 
             while (iterator.hasNext())
             {
@@ -232,6 +232,6 @@ public class NetworkSystem
 
     public MinecraftServer getServer()
     {
-        return this.mcServer;
+        return mcServer;
     }
 }

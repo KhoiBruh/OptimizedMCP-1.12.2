@@ -27,8 +27,8 @@ public class BlockSponge extends Block
     protected BlockSponge()
     {
         super(Material.SPONGE);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(WET, Boolean.valueOf(false)));
-        this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
+        setDefaultState(blockState.getBaseState().withProperty(WET, Boolean.valueOf(false)));
+        setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
     }
 
     /**
@@ -36,7 +36,7 @@ public class BlockSponge extends Block
      */
     public String getLocalizedName()
     {
-        return I18n.translateToLocal(this.getUnlocalizedName() + ".dry.name");
+        return I18n.translateToLocal(getUnlocalizedName() + ".dry.name");
     }
 
     /**
@@ -53,7 +53,7 @@ public class BlockSponge extends Block
      */
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state)
     {
-        this.tryAbsorb(worldIn, pos, state);
+        tryAbsorb(worldIn, pos, state);
     }
 
     /**
@@ -63,13 +63,13 @@ public class BlockSponge extends Block
      */
     public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos)
     {
-        this.tryAbsorb(worldIn, pos, state);
+        tryAbsorb(worldIn, pos, state);
         super.neighborChanged(state, worldIn, pos, blockIn, fromPos);
     }
 
     protected void tryAbsorb(World worldIn, BlockPos pos, IBlockState state)
     {
-        if (!((Boolean)state.getValue(WET)).booleanValue() && this.absorb(worldIn, pos))
+        if (!((Boolean)state.getValue(WET)).booleanValue() && absorb(worldIn, pos))
         {
             worldIn.setBlockState(pos, state.withProperty(WET, Boolean.valueOf(true)), 2);
             worldIn.playEvent(2001, pos, Block.getIdFromBlock(Blocks.WATER));
@@ -134,7 +134,7 @@ public class BlockSponge extends Block
      */
     public IBlockState getStateFromMeta(int meta)
     {
-        return this.getDefaultState().withProperty(WET, Boolean.valueOf((meta & 1) == 1));
+        return getDefaultState().withProperty(WET, Boolean.valueOf((meta & 1) == 1));
     }
 
     /**

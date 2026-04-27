@@ -18,16 +18,16 @@ public class ModelVex extends ModelBiped
     public ModelVex(float p_i47224_1_)
     {
         super(p_i47224_1_, 0.0F, 64, 64);
-        this.bipedLeftLeg.showModel = false;
-        this.bipedHeadwear.showModel = false;
-        this.bipedRightLeg = new ModelRenderer(this, 32, 0);
-        this.bipedRightLeg.addBox(-1.0F, -1.0F, -2.0F, 6, 10, 4, 0.0F);
-        this.bipedRightLeg.setRotationPoint(-1.9F, 12.0F, 0.0F);
-        this.rightWing = new ModelRenderer(this, 0, 32);
-        this.rightWing.addBox(-20.0F, 0.0F, 0.0F, 20, 12, 1);
-        this.leftWing = new ModelRenderer(this, 0, 32);
-        this.leftWing.mirror = true;
-        this.leftWing.addBox(0.0F, 0.0F, 0.0F, 20, 12, 1);
+        bipedLeftLeg.showModel = false;
+        bipedHeadwear.showModel = false;
+        bipedRightLeg = new ModelRenderer(this, 32, 0);
+        bipedRightLeg.addBox(-1.0F, -1.0F, -2.0F, 6, 10, 4, 0.0F);
+        bipedRightLeg.setRotationPoint(-1.9F, 12.0F, 0.0F);
+        rightWing = new ModelRenderer(this, 0, 32);
+        rightWing.addBox(-20.0F, 0.0F, 0.0F, 20, 12, 1);
+        leftWing = new ModelRenderer(this, 0, 32);
+        leftWing.mirror = true;
+        leftWing.addBox(0.0F, 0.0F, 0.0F, 20, 12, 1);
     }
 
     /**
@@ -36,8 +36,8 @@ public class ModelVex extends ModelBiped
     public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale)
     {
         super.render(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
-        this.rightWing.render(scale);
-        this.leftWing.render(scale);
+        rightWing.render(scale);
+        leftWing.render(scale);
     }
 
     /**
@@ -54,25 +54,25 @@ public class ModelVex extends ModelBiped
         {
             if (entityvex.getPrimaryHand() == EnumHandSide.RIGHT)
             {
-                this.bipedRightArm.rotateAngleX = 3.7699115F;
+                bipedRightArm.rotateAngleX = 3.7699115F;
             }
             else
             {
-                this.bipedLeftArm.rotateAngleX = 3.7699115F;
+                bipedLeftArm.rotateAngleX = 3.7699115F;
             }
         }
 
-        this.bipedRightLeg.rotateAngleX += ((float)Math.PI / 5F);
-        this.rightWing.rotationPointZ = 2.0F;
-        this.leftWing.rotationPointZ = 2.0F;
-        this.rightWing.rotationPointY = 1.0F;
-        this.leftWing.rotationPointY = 1.0F;
-        this.rightWing.rotateAngleY = 0.47123894F + MathHelper.cos(ageInTicks * 0.8F) * (float)Math.PI * 0.05F;
-        this.leftWing.rotateAngleY = -this.rightWing.rotateAngleY;
-        this.leftWing.rotateAngleZ = -0.47123894F;
-        this.leftWing.rotateAngleX = 0.47123894F;
-        this.rightWing.rotateAngleX = 0.47123894F;
-        this.rightWing.rotateAngleZ = 0.47123894F;
+        bipedRightLeg.rotateAngleX += ((float)Math.PI / 5F);
+        rightWing.rotationPointZ = 2.0F;
+        leftWing.rotationPointZ = 2.0F;
+        rightWing.rotationPointY = 1.0F;
+        leftWing.rotationPointY = 1.0F;
+        rightWing.rotateAngleY = 0.47123894F + MathHelper.cos(ageInTicks * 0.8F) * (float)Math.PI * 0.05F;
+        leftWing.rotateAngleY = -rightWing.rotateAngleY;
+        leftWing.rotateAngleZ = -0.47123894F;
+        leftWing.rotateAngleX = 0.47123894F;
+        rightWing.rotateAngleX = 0.47123894F;
+        rightWing.rotateAngleZ = 0.47123894F;
     }
 
     public int getModelVersion()

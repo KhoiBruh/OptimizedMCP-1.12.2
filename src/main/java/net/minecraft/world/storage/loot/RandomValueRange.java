@@ -20,39 +20,39 @@ public class RandomValueRange
 
     public RandomValueRange(float minIn, float maxIn)
     {
-        this.min = minIn;
-        this.max = maxIn;
+        min = minIn;
+        max = maxIn;
     }
 
     public RandomValueRange(float value)
     {
-        this.min = value;
-        this.max = value;
+        min = value;
+        max = value;
     }
 
     public float getMin()
     {
-        return this.min;
+        return min;
     }
 
     public float getMax()
     {
-        return this.max;
+        return max;
     }
 
     public int generateInt(Random rand)
     {
-        return MathHelper.getInt(rand, MathHelper.floor(this.min), MathHelper.floor(this.max));
+        return MathHelper.getInt(rand, MathHelper.floor(min), MathHelper.floor(max));
     }
 
     public float generateFloat(Random rand)
     {
-        return MathHelper.nextFloat(rand, this.min, this.max);
+        return MathHelper.nextFloat(rand, min, max);
     }
 
     public boolean isInRange(int value)
     {
-        return (float)value <= this.max && (float)value >= this.min;
+        return (float)value <= max && (float)value >= min;
     }
 
     public static class Serializer implements JsonDeserializer<RandomValueRange>, JsonSerializer<RandomValueRange>

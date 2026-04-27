@@ -15,7 +15,7 @@ public class LayerCape implements LayerRenderer<AbstractClientPlayer>
 
     public LayerCape(RenderPlayer playerRendererIn)
     {
-        this.playerRenderer = playerRendererIn;
+        playerRenderer = playerRendererIn;
     }
 
     public void doRenderLayer(AbstractClientPlayer entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale)
@@ -27,7 +27,7 @@ public class LayerCape implements LayerRenderer<AbstractClientPlayer>
             if (itemstack.getItem() != Items.ELYTRA)
             {
                 GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-                this.playerRenderer.bindTexture(entitylivingbaseIn.getLocationCape());
+                playerRenderer.bindTexture(entitylivingbaseIn.getLocationCape());
                 GlStateManager.pushMatrix();
                 GlStateManager.translate(0.0F, 0.0F, 0.125F);
                 double d0 = entitylivingbaseIn.prevChasingPosX + (entitylivingbaseIn.chasingPosX - entitylivingbaseIn.prevChasingPosX) * (double)partialTicks - (entitylivingbaseIn.prevPosX + (entitylivingbaseIn.posX - entitylivingbaseIn.prevPosX) * (double)partialTicks);
@@ -58,7 +58,7 @@ public class LayerCape implements LayerRenderer<AbstractClientPlayer>
                 GlStateManager.rotate(f3 / 2.0F, 0.0F, 0.0F, 1.0F);
                 GlStateManager.rotate(-f3 / 2.0F, 0.0F, 1.0F, 0.0F);
                 GlStateManager.rotate(180.0F, 0.0F, 1.0F, 0.0F);
-                this.playerRenderer.getMainModel().renderCape(0.0625F);
+                playerRenderer.getMainModel().renderCape(0.0625F);
                 GlStateManager.popMatrix();
             }
         }

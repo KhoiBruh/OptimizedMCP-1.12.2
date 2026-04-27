@@ -33,14 +33,14 @@ public class EnchantRandomly extends LootFunction
     public EnchantRandomly(LootCondition[] conditionsIn, @Nullable List<Enchantment> enchantmentsIn)
     {
         super(conditionsIn);
-        this.enchantments = enchantmentsIn == null ? Collections.emptyList() : enchantmentsIn;
+        enchantments = enchantmentsIn == null ? Collections.emptyList() : enchantmentsIn;
     }
 
     public ItemStack apply(ItemStack stack, Random rand, LootContext context)
     {
         Enchantment enchantment;
 
-        if (this.enchantments.isEmpty())
+        if (enchantments.isEmpty())
         {
             List<Enchantment> list = Lists.<Enchantment>newArrayList();
 
@@ -62,7 +62,7 @@ public class EnchantRandomly extends LootFunction
         }
         else
         {
-            enchantment = this.enchantments.get(rand.nextInt(this.enchantments.size()));
+            enchantment = enchantments.get(rand.nextInt(enchantments.size()));
         }
 
         int i = MathHelper.getInt(rand, enchantment.getMinLevel(), enchantment.getMaxLevel());

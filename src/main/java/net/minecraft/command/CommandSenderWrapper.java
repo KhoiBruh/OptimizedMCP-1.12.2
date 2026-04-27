@@ -25,12 +25,12 @@ public class CommandSenderWrapper implements ICommandSender
 
     public CommandSenderWrapper(ICommandSender delegateIn, @Nullable Vec3d positionVectorIn, @Nullable BlockPos positionIn, @Nullable Integer permissionLevelIn, @Nullable Entity entityIn, @Nullable Boolean sendCommandFeedbackIn)
     {
-        this.delegate = delegateIn;
-        this.positionVector = positionVectorIn;
-        this.position = positionIn;
-        this.permissionLevel = permissionLevelIn;
-        this.entity = entityIn;
-        this.sendCommandFeedback = sendCommandFeedbackIn;
+        delegate = delegateIn;
+        positionVector = positionVectorIn;
+        position = positionIn;
+        permissionLevel = permissionLevelIn;
+        entity = entityIn;
+        sendCommandFeedback = sendCommandFeedbackIn;
     }
 
     public static CommandSenderWrapper create(ICommandSender sender)
@@ -40,22 +40,22 @@ public class CommandSenderWrapper implements ICommandSender
 
     public CommandSenderWrapper withEntity(Entity entityIn, Vec3d p_193997_2_)
     {
-        return this.entity == entityIn && Objects.equals(this.positionVector, p_193997_2_) ? this : new CommandSenderWrapper(this.delegate, p_193997_2_, new BlockPos(p_193997_2_), this.permissionLevel, entityIn, this.sendCommandFeedback);
+        return entity == entityIn && Objects.equals(positionVector, p_193997_2_) ? this : new CommandSenderWrapper(delegate, p_193997_2_, new BlockPos(p_193997_2_), permissionLevel, entityIn, sendCommandFeedback);
     }
 
     public CommandSenderWrapper withPermissionLevel(int level)
     {
-        return this.permissionLevel != null && this.permissionLevel.intValue() <= level ? this : new CommandSenderWrapper(this.delegate, this.positionVector, this.position, level, this.entity, this.sendCommandFeedback);
+        return permissionLevel != null && permissionLevel.intValue() <= level ? this : new CommandSenderWrapper(delegate, positionVector, position, level, entity, sendCommandFeedback);
     }
 
     public CommandSenderWrapper withSendCommandFeedback(boolean sendCommandFeedbackIn)
     {
-        return this.sendCommandFeedback == null || this.sendCommandFeedback.booleanValue() && !sendCommandFeedbackIn ? new CommandSenderWrapper(this.delegate, this.positionVector, this.position, this.permissionLevel, this.entity, sendCommandFeedbackIn) : this;
+        return sendCommandFeedback == null || sendCommandFeedback.booleanValue() && !sendCommandFeedbackIn ? new CommandSenderWrapper(delegate, positionVector, position, permissionLevel, entity, sendCommandFeedbackIn) : this;
     }
 
     public CommandSenderWrapper computePositionVector()
     {
-        return this.positionVector != null ? this : new CommandSenderWrapper(this.delegate, this.getPositionVector(), this.getPosition(), this.permissionLevel, this.entity, this.sendCommandFeedback);
+        return positionVector != null ? this : new CommandSenderWrapper(delegate, getPositionVector(), getPosition(), permissionLevel, entity, sendCommandFeedback);
     }
 
     /**
@@ -63,7 +63,7 @@ public class CommandSenderWrapper implements ICommandSender
      */
     public String getName()
     {
-        return this.entity != null ? this.entity.getName() : this.delegate.getName();
+        return entity != null ? entity.getName() : delegate.getName();
     }
 
     /**
@@ -71,7 +71,7 @@ public class CommandSenderWrapper implements ICommandSender
      */
     public ITextComponent getDisplayName()
     {
-        return this.entity != null ? this.entity.getDisplayName() : this.delegate.getDisplayName();
+        return entity != null ? entity.getDisplayName() : delegate.getDisplayName();
     }
 
     /**
@@ -79,9 +79,9 @@ public class CommandSenderWrapper implements ICommandSender
      */
     public void sendMessage(ITextComponent component)
     {
-        if (this.sendCommandFeedback == null || this.sendCommandFeedback.booleanValue())
+        if (sendCommandFeedback == null || sendCommandFeedback.booleanValue())
         {
-            this.delegate.sendMessage(component);
+            delegate.sendMessage(component);
         }
     }
 
@@ -90,7 +90,7 @@ public class CommandSenderWrapper implements ICommandSender
      */
     public boolean canUseCommand(int permLevel, String commandName)
     {
-        return this.permissionLevel != null && this.permissionLevel.intValue() < permLevel ? false : this.delegate.canUseCommand(permLevel, commandName);
+        return permissionLevel != null && permissionLevel.intValue() < permLevel ? false : delegate.canUseCommand(permLevel, commandName);
     }
 
     /**
@@ -99,13 +99,13 @@ public class CommandSenderWrapper implements ICommandSender
      */
     public BlockPos getPosition()
     {
-        if (this.position != null)
+        if (position != null)
         {
-            return this.position;
+            return position;
         }
         else
         {
-            return this.entity != null ? this.entity.getPosition() : this.delegate.getPosition();
+            return entity != null ? entity.getPosition() : delegate.getPosition();
         }
     }
 
@@ -115,13 +115,13 @@ public class CommandSenderWrapper implements ICommandSender
      */
     public Vec3d getPositionVector()
     {
-        if (this.positionVector != null)
+        if (positionVector != null)
         {
-            return this.positionVector;
+            return positionVector;
         }
         else
         {
-            return this.entity != null ? this.entity.getPositionVector() : this.delegate.getPositionVector();
+            return entity != null ? entity.getPositionVector() : delegate.getPositionVector();
         }
     }
 
@@ -131,7 +131,7 @@ public class CommandSenderWrapper implements ICommandSender
      */
     public World getEntityWorld()
     {
-        return this.entity != null ? this.entity.getEntityWorld() : this.delegate.getEntityWorld();
+        return entity != null ? entity.getEntityWorld() : delegate.getEntityWorld();
     }
 
     @Nullable
@@ -141,7 +141,7 @@ public class CommandSenderWrapper implements ICommandSender
      */
     public Entity getCommandSenderEntity()
     {
-        return this.entity != null ? this.entity.getCommandSenderEntity() : this.delegate.getCommandSenderEntity();
+        return entity != null ? entity.getCommandSenderEntity() : delegate.getCommandSenderEntity();
     }
 
     /**
@@ -149,18 +149,18 @@ public class CommandSenderWrapper implements ICommandSender
      */
     public boolean sendCommandFeedback()
     {
-        return this.sendCommandFeedback != null ? this.sendCommandFeedback.booleanValue() : this.delegate.sendCommandFeedback();
+        return sendCommandFeedback != null ? sendCommandFeedback.booleanValue() : delegate.sendCommandFeedback();
     }
 
     public void setCommandStat(CommandResultStats.Type type, int amount)
     {
-        if (this.entity != null)
+        if (entity != null)
         {
-            this.entity.setCommandStat(type, amount);
+            entity.setCommandStat(type, amount);
         }
         else
         {
-            this.delegate.setCommandStat(type, amount);
+            delegate.setCommandStat(type, amount);
         }
     }
 
@@ -171,6 +171,6 @@ public class CommandSenderWrapper implements ICommandSender
      */
     public MinecraftServer getServer()
     {
-        return this.delegate.getServer();
+        return delegate.getServer();
     }
 }

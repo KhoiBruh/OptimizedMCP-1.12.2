@@ -7,7 +7,7 @@ public class EnchantmentOxygen extends Enchantment
     public EnchantmentOxygen(Enchantment.Rarity rarityIn, EntityEquipmentSlot... slots)
     {
         super(rarityIn, EnumEnchantmentType.ARMOR_HEAD, slots);
-        this.setName("oxygen");
+        setName("oxygen");
     }
 
     /**
@@ -23,7 +23,7 @@ public class EnchantmentOxygen extends Enchantment
      */
     public int getMaxEnchantability(int enchantmentLevel)
     {
-        return this.getMinEnchantability(enchantmentLevel) + 30;
+        return getMinEnchantability(enchantmentLevel) + 30;
     }
 
     /**

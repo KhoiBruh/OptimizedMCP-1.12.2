@@ -11,7 +11,7 @@ public class RenderStray extends RenderSkeleton
     public RenderStray(RenderManager p_i47191_1_)
     {
         super(p_i47191_1_);
-        this.addLayer(new LayerStrayClothing(this));
+        addLayer(new LayerStrayClothing(this));
     }
 
     /**

@@ -22,20 +22,20 @@ public class ModelSkeleton extends ModelBiped
 
         if (!p_i46303_2_)
         {
-            this.bipedRightArm = new ModelRenderer(this, 40, 16);
-            this.bipedRightArm.addBox(-1.0F, -2.0F, -1.0F, 2, 12, 2, modelSize);
-            this.bipedRightArm.setRotationPoint(-5.0F, 2.0F, 0.0F);
-            this.bipedLeftArm = new ModelRenderer(this, 40, 16);
-            this.bipedLeftArm.mirror = true;
-            this.bipedLeftArm.addBox(-1.0F, -2.0F, -1.0F, 2, 12, 2, modelSize);
-            this.bipedLeftArm.setRotationPoint(5.0F, 2.0F, 0.0F);
-            this.bipedRightLeg = new ModelRenderer(this, 0, 16);
-            this.bipedRightLeg.addBox(-1.0F, 0.0F, -1.0F, 2, 12, 2, modelSize);
-            this.bipedRightLeg.setRotationPoint(-2.0F, 12.0F, 0.0F);
-            this.bipedLeftLeg = new ModelRenderer(this, 0, 16);
-            this.bipedLeftLeg.mirror = true;
-            this.bipedLeftLeg.addBox(-1.0F, 0.0F, -1.0F, 2, 12, 2, modelSize);
-            this.bipedLeftLeg.setRotationPoint(2.0F, 12.0F, 0.0F);
+            bipedRightArm = new ModelRenderer(this, 40, 16);
+            bipedRightArm.addBox(-1.0F, -2.0F, -1.0F, 2, 12, 2, modelSize);
+            bipedRightArm.setRotationPoint(-5.0F, 2.0F, 0.0F);
+            bipedLeftArm = new ModelRenderer(this, 40, 16);
+            bipedLeftArm.mirror = true;
+            bipedLeftArm.addBox(-1.0F, -2.0F, -1.0F, 2, 12, 2, modelSize);
+            bipedLeftArm.setRotationPoint(5.0F, 2.0F, 0.0F);
+            bipedRightLeg = new ModelRenderer(this, 0, 16);
+            bipedRightLeg.addBox(-1.0F, 0.0F, -1.0F, 2, 12, 2, modelSize);
+            bipedRightLeg.setRotationPoint(-2.0F, 12.0F, 0.0F);
+            bipedLeftLeg = new ModelRenderer(this, 0, 16);
+            bipedLeftLeg.mirror = true;
+            bipedLeftLeg.addBox(-1.0F, 0.0F, -1.0F, 2, 12, 2, modelSize);
+            bipedLeftLeg.setRotationPoint(2.0F, 12.0F, 0.0F);
         }
     }
 
@@ -45,19 +45,19 @@ public class ModelSkeleton extends ModelBiped
      */
     public void setLivingAnimations(EntityLivingBase entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTickTime)
     {
-        this.rightArmPose = ModelBiped.ArmPose.EMPTY;
-        this.leftArmPose = ModelBiped.ArmPose.EMPTY;
+        rightArmPose = ModelBiped.ArmPose.EMPTY;
+        leftArmPose = ModelBiped.ArmPose.EMPTY;
         ItemStack itemstack = entitylivingbaseIn.getHeldItem(EnumHand.MAIN_HAND);
 
         if (itemstack.getItem() == Items.BOW && ((AbstractSkeleton)entitylivingbaseIn).isSwingingArms())
         {
             if (entitylivingbaseIn.getPrimaryHand() == EnumHandSide.RIGHT)
             {
-                this.rightArmPose = ModelBiped.ArmPose.BOW_AND_ARROW;
+                rightArmPose = ModelBiped.ArmPose.BOW_AND_ARROW;
             }
             else
             {
-                this.leftArmPose = ModelBiped.ArmPose.BOW_AND_ARROW;
+                leftArmPose = ModelBiped.ArmPose.BOW_AND_ARROW;
             }
         }
 
@@ -77,27 +77,27 @@ public class ModelSkeleton extends ModelBiped
 
         if (abstractskeleton.isSwingingArms() && (itemstack.isEmpty() || itemstack.getItem() != Items.BOW))
         {
-            float f = MathHelper.sin(this.swingProgress * (float)Math.PI);
-            float f1 = MathHelper.sin((1.0F - (1.0F - this.swingProgress) * (1.0F - this.swingProgress)) * (float)Math.PI);
-            this.bipedRightArm.rotateAngleZ = 0.0F;
-            this.bipedLeftArm.rotateAngleZ = 0.0F;
-            this.bipedRightArm.rotateAngleY = -(0.1F - f * 0.6F);
-            this.bipedLeftArm.rotateAngleY = 0.1F - f * 0.6F;
-            this.bipedRightArm.rotateAngleX = -((float)Math.PI / 2F);
-            this.bipedLeftArm.rotateAngleX = -((float)Math.PI / 2F);
-            this.bipedRightArm.rotateAngleX -= f * 1.2F - f1 * 0.4F;
-            this.bipedLeftArm.rotateAngleX -= f * 1.2F - f1 * 0.4F;
-            this.bipedRightArm.rotateAngleZ += MathHelper.cos(ageInTicks * 0.09F) * 0.05F + 0.05F;
-            this.bipedLeftArm.rotateAngleZ -= MathHelper.cos(ageInTicks * 0.09F) * 0.05F + 0.05F;
-            this.bipedRightArm.rotateAngleX += MathHelper.sin(ageInTicks * 0.067F) * 0.05F;
-            this.bipedLeftArm.rotateAngleX -= MathHelper.sin(ageInTicks * 0.067F) * 0.05F;
+            float f = MathHelper.sin(swingProgress * (float)Math.PI);
+            float f1 = MathHelper.sin((1.0F - (1.0F - swingProgress) * (1.0F - swingProgress)) * (float)Math.PI);
+            bipedRightArm.rotateAngleZ = 0.0F;
+            bipedLeftArm.rotateAngleZ = 0.0F;
+            bipedRightArm.rotateAngleY = -(0.1F - f * 0.6F);
+            bipedLeftArm.rotateAngleY = 0.1F - f * 0.6F;
+            bipedRightArm.rotateAngleX = -((float)Math.PI / 2F);
+            bipedLeftArm.rotateAngleX = -((float)Math.PI / 2F);
+            bipedRightArm.rotateAngleX -= f * 1.2F - f1 * 0.4F;
+            bipedLeftArm.rotateAngleX -= f * 1.2F - f1 * 0.4F;
+            bipedRightArm.rotateAngleZ += MathHelper.cos(ageInTicks * 0.09F) * 0.05F + 0.05F;
+            bipedLeftArm.rotateAngleZ -= MathHelper.cos(ageInTicks * 0.09F) * 0.05F + 0.05F;
+            bipedRightArm.rotateAngleX += MathHelper.sin(ageInTicks * 0.067F) * 0.05F;
+            bipedLeftArm.rotateAngleX -= MathHelper.sin(ageInTicks * 0.067F) * 0.05F;
         }
     }
 
     public void postRenderArm(float scale, EnumHandSide side)
     {
         float f = side == EnumHandSide.RIGHT ? 1.0F : -1.0F;
-        ModelRenderer modelrenderer = this.getArmForSide(side);
+        ModelRenderer modelrenderer = getArmForSide(side);
         modelrenderer.rotationPointX += f;
         modelrenderer.postRender(scale);
         modelrenderer.rotationPointX -= f;

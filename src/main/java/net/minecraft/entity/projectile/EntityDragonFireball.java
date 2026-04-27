@@ -17,19 +17,19 @@ public class EntityDragonFireball extends EntityFireball
     public EntityDragonFireball(World worldIn)
     {
         super(worldIn);
-        this.setSize(1.0F, 1.0F);
+        setSize(1.0F, 1.0F);
     }
 
     public EntityDragonFireball(World worldIn, double x, double y, double z, double accelX, double accelY, double accelZ)
     {
         super(worldIn, x, y, z, accelX, accelY, accelZ);
-        this.setSize(1.0F, 1.0F);
+        setSize(1.0F, 1.0F);
     }
 
     public EntityDragonFireball(World worldIn, EntityLivingBase shooter, double accelX, double accelY, double accelZ)
     {
         super(worldIn, shooter, accelX, accelY, accelZ);
-        this.setSize(1.0F, 1.0F);
+        setSize(1.0F, 1.0F);
     }
 
     public static void registerFixesDragonFireball(DataFixer fixer)
@@ -42,13 +42,13 @@ public class EntityDragonFireball extends EntityFireball
      */
     protected void onImpact(RayTraceResult result)
     {
-        if (result.entityHit == null || !result.entityHit.isEntityEqual(this.shootingEntity))
+        if (result.entityHit == null || !result.entityHit.isEntityEqual(shootingEntity))
         {
-            if (!this.world.isRemote)
+            if (!world.isRemote)
             {
-                List<EntityLivingBase> list = this.world.<EntityLivingBase>getEntitiesWithinAABB(EntityLivingBase.class, this.getEntityBoundingBox().grow(4.0D, 2.0D, 4.0D));
-                EntityAreaEffectCloud entityareaeffectcloud = new EntityAreaEffectCloud(this.world, this.posX, this.posY, this.posZ);
-                entityareaeffectcloud.setOwner(this.shootingEntity);
+                List<EntityLivingBase> list = world.<EntityLivingBase>getEntitiesWithinAABB(EntityLivingBase.class, getEntityBoundingBox().grow(4.0D, 2.0D, 4.0D));
+                EntityAreaEffectCloud entityareaeffectcloud = new EntityAreaEffectCloud(world, posX, posY, posZ);
+                entityareaeffectcloud.setOwner(shootingEntity);
                 entityareaeffectcloud.setParticle(EnumParticleTypes.DRAGON_BREATH);
                 entityareaeffectcloud.setRadius(3.0F);
                 entityareaeffectcloud.setDuration(600);
@@ -59,7 +59,7 @@ public class EntityDragonFireball extends EntityFireball
                 {
                     for (EntityLivingBase entitylivingbase : list)
                     {
-                        double d0 = this.getDistanceSq(entitylivingbase);
+                        double d0 = getDistanceSq(entitylivingbase);
 
                         if (d0 < 16.0D)
                         {
@@ -69,9 +69,9 @@ public class EntityDragonFireball extends EntityFireball
                     }
                 }
 
-                this.world.playEvent(2006, new BlockPos(this.posX, this.posY, this.posZ), 0);
-                this.world.spawnEntity(entityareaeffectcloud);
-                this.setDead();
+                world.playEvent(2006, new BlockPos(posX, posY, posZ), 0);
+                world.spawnEntity(entityareaeffectcloud);
+                setDead();
             }
         }
     }

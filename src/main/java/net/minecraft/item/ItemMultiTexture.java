@@ -10,10 +10,10 @@ public class ItemMultiTexture extends ItemBlock
     public ItemMultiTexture(Block p_i47262_1_, Block p_i47262_2_, ItemMultiTexture.Mapper p_i47262_3_)
     {
         super(p_i47262_1_);
-        this.unused = p_i47262_2_;
-        this.nameFunction = p_i47262_3_;
-        this.setMaxDamage(0);
-        this.setHasSubtypes(true);
+        unused = p_i47262_2_;
+        nameFunction = p_i47262_3_;
+        setMaxDamage(0);
+        setHasSubtypes(true);
     }
 
     public ItemMultiTexture(Block block, Block block2, final String[] namesByMeta)
@@ -49,7 +49,7 @@ public class ItemMultiTexture extends ItemBlock
      */
     public String getUnlocalizedName(ItemStack stack)
     {
-        return super.getUnlocalizedName() + "." + this.nameFunction.apply(stack);
+        return super.getUnlocalizedName() + "." + nameFunction.apply(stack);
     }
 
     public interface Mapper

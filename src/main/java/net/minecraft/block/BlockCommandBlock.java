@@ -37,7 +37,7 @@ public class BlockCommandBlock extends BlockContainer
     public BlockCommandBlock(MapColor color)
     {
         super(Material.IRON, color);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(CONDITIONAL, Boolean.valueOf(false)));
+        setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(CONDITIONAL, Boolean.valueOf(false)));
     }
 
     /**
@@ -73,7 +73,7 @@ public class BlockCommandBlock extends BlockContainer
                     if (flag)
                     {
                         tileentitycommandblock.setConditionMet();
-                        worldIn.scheduleUpdate(pos, this, this.tickRate(worldIn));
+                        worldIn.scheduleUpdate(pos, this, tickRate(worldIn));
                     }
                 }
             }
@@ -100,7 +100,7 @@ public class BlockCommandBlock extends BlockContainer
 
                     if (flag1)
                     {
-                        this.execute(state, worldIn, pos, commandblockbaselogic, flag);
+                        execute(state, worldIn, pos, commandblockbaselogic, flag);
                     }
                     else if (tileentitycommandblock.isConditional())
                     {
@@ -109,14 +109,14 @@ public class BlockCommandBlock extends BlockContainer
 
                     if (tileentitycommandblock.isPowered() || tileentitycommandblock.isAuto())
                     {
-                        worldIn.scheduleUpdate(pos, this, this.tickRate(worldIn));
+                        worldIn.scheduleUpdate(pos, this, tickRate(worldIn));
                     }
                 }
                 else if (tileentitycommandblock$mode == TileEntityCommandBlock.Mode.REDSTONE)
                 {
                     if (flag1)
                     {
-                        this.execute(state, worldIn, pos, commandblockbaselogic, flag);
+                        execute(state, worldIn, pos, commandblockbaselogic, flag);
                     }
                     else if (tileentitycommandblock.isConditional())
                     {
@@ -238,7 +238,7 @@ public class BlockCommandBlock extends BlockContainer
      */
     public IBlockState getStateFromMeta(int meta)
     {
-        return this.getDefaultState().withProperty(FACING, EnumFacing.getFront(meta & 7)).withProperty(CONDITIONAL, Boolean.valueOf((meta & 8) != 0));
+        return getDefaultState().withProperty(FACING, EnumFacing.getFront(meta & 7)).withProperty(CONDITIONAL, Boolean.valueOf((meta & 8) != 0));
     }
 
     /**
@@ -278,7 +278,7 @@ public class BlockCommandBlock extends BlockContainer
      */
     public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
     {
-        return this.getDefaultState().withProperty(FACING, EnumFacing.getDirectionFromEntityLiving(pos, placer)).withProperty(CONDITIONAL, Boolean.valueOf(false));
+        return getDefaultState().withProperty(FACING, EnumFacing.getDirectionFromEntityLiving(pos, placer)).withProperty(CONDITIONAL, Boolean.valueOf(false));
     }
 
     private static void executeChain(World p_193386_0_, BlockPos p_193386_1_, EnumFacing p_193386_2_)

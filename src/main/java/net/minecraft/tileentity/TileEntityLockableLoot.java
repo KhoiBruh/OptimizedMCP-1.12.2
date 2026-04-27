@@ -23,8 +23,8 @@ public abstract class TileEntityLockableLoot extends TileEntityLockable implemen
     {
         if (compound.hasKey("LootTable", 8))
         {
-            this.lootTable = new ResourceLocation(compound.getString("LootTable"));
-            this.lootTableSeed = compound.getLong("LootTableSeed");
+            lootTable = new ResourceLocation(compound.getString("LootTable"));
+            lootTableSeed = compound.getLong("LootTableSeed");
             return true;
         }
         else
@@ -35,13 +35,13 @@ public abstract class TileEntityLockableLoot extends TileEntityLockable implemen
 
     protected boolean checkLootAndWrite(NBTTagCompound compound)
     {
-        if (this.lootTable != null)
+        if (lootTable != null)
         {
-            compound.setString("LootTable", this.lootTable.toString());
+            compound.setString("LootTable", lootTable.toString());
 
-            if (this.lootTableSeed != 0L)
+            if (lootTableSeed != 0L)
             {
-                compound.setLong("LootTableSeed", this.lootTableSeed);
+                compound.setLong("LootTableSeed", lootTableSeed);
             }
 
             return true;
@@ -54,22 +54,22 @@ public abstract class TileEntityLockableLoot extends TileEntityLockable implemen
 
     public void fillWithLoot(@Nullable EntityPlayer player)
     {
-        if (this.lootTable != null)
+        if (lootTable != null)
         {
-            LootTable loottable = this.world.getLootTableManager().getLootTableFromLocation(this.lootTable);
-            this.lootTable = null;
+            LootTable loottable = world.getLootTableManager().getLootTableFromLocation(lootTable);
+            lootTable = null;
             Random random;
 
-            if (this.lootTableSeed == 0L)
+            if (lootTableSeed == 0L)
             {
                 random = new Random();
             }
             else
             {
-                random = new Random(this.lootTableSeed);
+                random = new Random(lootTableSeed);
             }
 
-            LootContext.Builder lootcontext$builder = new LootContext.Builder((WorldServer)this.world);
+            LootContext.Builder lootcontext$builder = new LootContext.Builder((WorldServer) world);
 
             if (player != null)
             {
@@ -82,13 +82,13 @@ public abstract class TileEntityLockableLoot extends TileEntityLockable implemen
 
     public ResourceLocation getLootTable()
     {
-        return this.lootTable;
+        return lootTable;
     }
 
     public void setLootTable(ResourceLocation p_189404_1_, long p_189404_2_)
     {
-        this.lootTable = p_189404_1_;
-        this.lootTableSeed = p_189404_2_;
+        lootTable = p_189404_1_;
+        lootTableSeed = p_189404_2_;
     }
 
     /**
@@ -96,12 +96,12 @@ public abstract class TileEntityLockableLoot extends TileEntityLockable implemen
      */
     public boolean hasCustomName()
     {
-        return this.customName != null && !this.customName.isEmpty();
+        return customName != null && !customName.isEmpty();
     }
 
     public void setCustomName(String p_190575_1_)
     {
-        this.customName = p_190575_1_;
+        customName = p_190575_1_;
     }
 
     /**
@@ -109,8 +109,8 @@ public abstract class TileEntityLockableLoot extends TileEntityLockable implemen
      */
     public ItemStack getStackInSlot(int index)
     {
-        this.fillWithLoot((EntityPlayer)null);
-        return (ItemStack)this.getItems().get(index);
+        fillWithLoot((EntityPlayer)null);
+        return (ItemStack) getItems().get(index);
     }
 
     /**
@@ -118,12 +118,12 @@ public abstract class TileEntityLockableLoot extends TileEntityLockable implemen
      */
     public ItemStack decrStackSize(int index, int count)
     {
-        this.fillWithLoot((EntityPlayer)null);
-        ItemStack itemstack = ItemStackHelper.getAndSplit(this.getItems(), index, count);
+        fillWithLoot((EntityPlayer)null);
+        ItemStack itemstack = ItemStackHelper.getAndSplit(getItems(), index, count);
 
         if (!itemstack.isEmpty())
         {
-            this.markDirty();
+            markDirty();
         }
 
         return itemstack;
@@ -134,8 +134,8 @@ public abstract class TileEntityLockableLoot extends TileEntityLockable implemen
      */
     public ItemStack removeStackFromSlot(int index)
     {
-        this.fillWithLoot((EntityPlayer)null);
-        return ItemStackHelper.getAndRemove(this.getItems(), index);
+        fillWithLoot((EntityPlayer)null);
+        return ItemStackHelper.getAndRemove(getItems(), index);
     }
 
     /**
@@ -143,15 +143,15 @@ public abstract class TileEntityLockableLoot extends TileEntityLockable implemen
      */
     public void setInventorySlotContents(int index, @Nullable ItemStack stack)
     {
-        this.fillWithLoot((EntityPlayer)null);
-        this.getItems().set(index, stack);
+        fillWithLoot((EntityPlayer)null);
+        getItems().set(index, stack);
 
-        if (stack.getCount() > this.getInventoryStackLimit())
+        if (stack.getCount() > getInventoryStackLimit())
         {
-            stack.setCount(this.getInventoryStackLimit());
+            stack.setCount(getInventoryStackLimit());
         }
 
-        this.markDirty();
+        markDirty();
     }
 
     /**
@@ -159,13 +159,13 @@ public abstract class TileEntityLockableLoot extends TileEntityLockable implemen
      */
     public boolean isUsableByPlayer(EntityPlayer player)
     {
-        if (this.world.getTileEntity(this.pos) != this)
+        if (world.getTileEntity(pos) != this)
         {
             return false;
         }
         else
         {
-            return player.getDistanceSq((double)this.pos.getX() + 0.5D, (double)this.pos.getY() + 0.5D, (double)this.pos.getZ() + 0.5D) <= 64.0D;
+            return player.getDistanceSq((double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D) <= 64.0D;
         }
     }
 
@@ -202,8 +202,8 @@ public abstract class TileEntityLockableLoot extends TileEntityLockable implemen
 
     public void clear()
     {
-        this.fillWithLoot((EntityPlayer)null);
-        this.getItems().clear();
+        fillWithLoot((EntityPlayer)null);
+        getItems().clear();
     }
 
     protected abstract NonNullList<ItemStack> getItems();

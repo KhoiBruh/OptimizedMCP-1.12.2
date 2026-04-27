@@ -18,9 +18,9 @@ public class ItemFlintAndSteel extends Item
 {
     public ItemFlintAndSteel()
     {
-        this.maxStackSize = 1;
-        this.setMaxDamage(64);
-        this.setCreativeTab(CreativeTabs.TOOLS);
+        maxStackSize = 1;
+        setMaxDamage(64);
+        setCreativeTab(CreativeTabs.TOOLS);
     }
 
     /**

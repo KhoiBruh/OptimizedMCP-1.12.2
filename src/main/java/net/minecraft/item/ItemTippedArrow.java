@@ -33,7 +33,7 @@ public class ItemTippedArrow extends ItemArrow
      */
     public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items)
     {
-        if (this.isInCreativeTab(tab))
+        if (isInCreativeTab(tab))
         {
             for (PotionType potiontype : PotionType.REGISTRY)
             {

@@ -83,28 +83,28 @@ public class EntitySheep extends EntityAnimal
     public EntitySheep(World worldIn)
     {
         super(worldIn);
-        this.setSize(0.9F, 1.3F);
-        this.inventoryCrafting.setInventorySlotContents(0, new ItemStack(Items.DYE));
-        this.inventoryCrafting.setInventorySlotContents(1, new ItemStack(Items.DYE));
+        setSize(0.9F, 1.3F);
+        inventoryCrafting.setInventorySlotContents(0, new ItemStack(Items.DYE));
+        inventoryCrafting.setInventorySlotContents(1, new ItemStack(Items.DYE));
     }
 
     protected void initEntityAI()
     {
-        this.entityAIEatGrass = new EntityAIEatGrass(this);
-        this.tasks.addTask(0, new EntityAISwimming(this));
-        this.tasks.addTask(1, new EntityAIPanic(this, 1.25D));
-        this.tasks.addTask(2, new EntityAIMate(this, 1.0D));
-        this.tasks.addTask(3, new EntityAITempt(this, 1.1D, Items.WHEAT, false));
-        this.tasks.addTask(4, new EntityAIFollowParent(this, 1.1D));
-        this.tasks.addTask(5, this.entityAIEatGrass);
-        this.tasks.addTask(6, new EntityAIWanderAvoidWater(this, 1.0D));
-        this.tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
-        this.tasks.addTask(8, new EntityAILookIdle(this));
+        entityAIEatGrass = new EntityAIEatGrass(this);
+        tasks.addTask(0, new EntityAISwimming(this));
+        tasks.addTask(1, new EntityAIPanic(this, 1.25D));
+        tasks.addTask(2, new EntityAIMate(this, 1.0D));
+        tasks.addTask(3, new EntityAITempt(this, 1.1D, Items.WHEAT, false));
+        tasks.addTask(4, new EntityAIFollowParent(this, 1.1D));
+        tasks.addTask(5, entityAIEatGrass);
+        tasks.addTask(6, new EntityAIWanderAvoidWater(this, 1.0D));
+        tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
+        tasks.addTask(8, new EntityAILookIdle(this));
     }
 
     protected void updateAITasks()
     {
-        this.sheepTimer = this.entityAIEatGrass.getEatingGrassTimer();
+        sheepTimer = entityAIEatGrass.getEatingGrassTimer();
         super.updateAITasks();
     }
 
@@ -114,9 +114,9 @@ public class EntitySheep extends EntityAnimal
      */
     public void onLivingUpdate()
     {
-        if (this.world.isRemote)
+        if (world.isRemote)
         {
-            this.sheepTimer = Math.max(0, this.sheepTimer - 1);
+            sheepTimer = Math.max(0, sheepTimer - 1);
         }
 
         super.onLivingUpdate();
@@ -125,26 +125,26 @@ public class EntitySheep extends EntityAnimal
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(8.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.23000000417232513D);
+        getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(8.0D);
+        getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.23000000417232513D);
     }
 
     protected void entityInit()
     {
         super.entityInit();
-        this.dataManager.register(DYE_COLOR, Byte.valueOf((byte)0));
+        dataManager.register(DYE_COLOR, Byte.valueOf((byte)0));
     }
 
     @Nullable
     protected ResourceLocation getLootTable()
     {
-        if (this.getSheared())
+        if (getSheared())
         {
             return LootTableList.ENTITIES_SHEEP;
         }
         else
         {
-            switch (this.getFleeceColor())
+            switch (getFleeceColor())
             {
                 case WHITE:
                 default:
@@ -205,7 +205,7 @@ public class EntitySheep extends EntityAnimal
     {
         if (id == 10)
         {
-            this.sheepTimer = 40;
+            sheepTimer = 40;
         }
         else
         {
@@ -215,30 +215,30 @@ public class EntitySheep extends EntityAnimal
 
     public float getHeadRotationPointY(float p_70894_1_)
     {
-        if (this.sheepTimer <= 0)
+        if (sheepTimer <= 0)
         {
             return 0.0F;
         }
-        else if (this.sheepTimer >= 4 && this.sheepTimer <= 36)
+        else if (sheepTimer >= 4 && sheepTimer <= 36)
         {
             return 1.0F;
         }
         else
         {
-            return this.sheepTimer < 4 ? ((float)this.sheepTimer - p_70894_1_) / 4.0F : -((float)(this.sheepTimer - 40) - p_70894_1_) / 4.0F;
+            return sheepTimer < 4 ? ((float) sheepTimer - p_70894_1_) / 4.0F : -((float)(sheepTimer - 40) - p_70894_1_) / 4.0F;
         }
     }
 
     public float getHeadRotationAngleX(float p_70890_1_)
     {
-        if (this.sheepTimer > 4 && this.sheepTimer <= 36)
+        if (sheepTimer > 4 && sheepTimer <= 36)
         {
-            float f = ((float)(this.sheepTimer - 4) - p_70890_1_) / 32.0F;
+            float f = ((float)(sheepTimer - 4) - p_70890_1_) / 32.0F;
             return ((float)Math.PI / 5F) + ((float)Math.PI * 7F / 100F) * MathHelper.sin(f * 28.7F);
         }
         else
         {
-            return this.sheepTimer > 0 ? ((float)Math.PI / 5F) : this.rotationPitch * 0.017453292F;
+            return sheepTimer > 0 ? ((float)Math.PI / 5F) : rotationPitch * 0.017453292F;
         }
     }
 
@@ -246,24 +246,24 @@ public class EntitySheep extends EntityAnimal
     {
         ItemStack itemstack = player.getHeldItem(hand);
 
-        if (itemstack.getItem() == Items.SHEARS && !this.getSheared() && !this.isChild())
+        if (itemstack.getItem() == Items.SHEARS && !getSheared() && !isChild())
         {
-            if (!this.world.isRemote)
+            if (!world.isRemote)
             {
-                this.setSheared(true);
-                int i = 1 + this.rand.nextInt(3);
+                setSheared(true);
+                int i = 1 + rand.nextInt(3);
 
                 for (int j = 0; j < i; ++j)
                 {
-                    EntityItem entityitem = this.entityDropItem(new ItemStack(Item.getItemFromBlock(Blocks.WOOL), 1, this.getFleeceColor().getMetadata()), 1.0F);
-                    entityitem.motionY += (double)(this.rand.nextFloat() * 0.05F);
-                    entityitem.motionX += (double)((this.rand.nextFloat() - this.rand.nextFloat()) * 0.1F);
-                    entityitem.motionZ += (double)((this.rand.nextFloat() - this.rand.nextFloat()) * 0.1F);
+                    EntityItem entityitem = entityDropItem(new ItemStack(Item.getItemFromBlock(Blocks.WOOL), 1, getFleeceColor().getMetadata()), 1.0F);
+                    entityitem.motionY += (double)(rand.nextFloat() * 0.05F);
+                    entityitem.motionX += (double)((rand.nextFloat() - rand.nextFloat()) * 0.1F);
+                    entityitem.motionZ += (double)((rand.nextFloat() - rand.nextFloat()) * 0.1F);
                 }
             }
 
             itemstack.damageItem(1, player);
-            this.playSound(SoundEvents.ENTITY_SHEEP_SHEAR, 1.0F, 1.0F);
+            playSound(SoundEvents.ENTITY_SHEEP_SHEAR, 1.0F, 1.0F);
         }
 
         return super.processInteract(player, hand);
@@ -280,8 +280,8 @@ public class EntitySheep extends EntityAnimal
     public void writeEntityToNBT(NBTTagCompound compound)
     {
         super.writeEntityToNBT(compound);
-        compound.setBoolean("Sheared", this.getSheared());
-        compound.setByte("Color", (byte)this.getFleeceColor().getMetadata());
+        compound.setBoolean("Sheared", getSheared());
+        compound.setByte("Color", (byte) getFleeceColor().getMetadata());
     }
 
     /**
@@ -290,8 +290,8 @@ public class EntitySheep extends EntityAnimal
     public void readEntityFromNBT(NBTTagCompound compound)
     {
         super.readEntityFromNBT(compound);
-        this.setSheared(compound.getBoolean("Sheared"));
-        this.setFleeceColor(EnumDyeColor.byMetadata(compound.getByte("Color")));
+        setSheared(compound.getBoolean("Sheared"));
+        setFleeceColor(EnumDyeColor.byMetadata(compound.getByte("Color")));
     }
 
     protected SoundEvent getAmbientSound()
@@ -311,7 +311,7 @@ public class EntitySheep extends EntityAnimal
 
     protected void playStepSound(BlockPos pos, Block blockIn)
     {
-        this.playSound(SoundEvents.ENTITY_SHEEP_STEP, 0.15F, 1.0F);
+        playSound(SoundEvents.ENTITY_SHEEP_STEP, 0.15F, 1.0F);
     }
 
     /**
@@ -319,7 +319,7 @@ public class EntitySheep extends EntityAnimal
      */
     public EnumDyeColor getFleeceColor()
     {
-        return EnumDyeColor.byMetadata(((Byte)this.dataManager.get(DYE_COLOR)).byteValue() & 15);
+        return EnumDyeColor.byMetadata(((Byte) dataManager.get(DYE_COLOR)).byteValue() & 15);
     }
 
     /**
@@ -327,8 +327,8 @@ public class EntitySheep extends EntityAnimal
      */
     public void setFleeceColor(EnumDyeColor color)
     {
-        byte b0 = ((Byte)this.dataManager.get(DYE_COLOR)).byteValue();
-        this.dataManager.set(DYE_COLOR, Byte.valueOf((byte)(b0 & 240 | color.getMetadata() & 15)));
+        byte b0 = ((Byte) dataManager.get(DYE_COLOR)).byteValue();
+        dataManager.set(DYE_COLOR, Byte.valueOf((byte)(b0 & 240 | color.getMetadata() & 15)));
     }
 
     /**
@@ -336,7 +336,7 @@ public class EntitySheep extends EntityAnimal
      */
     public boolean getSheared()
     {
-        return (((Byte)this.dataManager.get(DYE_COLOR)).byteValue() & 16) != 0;
+        return (((Byte) dataManager.get(DYE_COLOR)).byteValue() & 16) != 0;
     }
 
     /**
@@ -344,15 +344,15 @@ public class EntitySheep extends EntityAnimal
      */
     public void setSheared(boolean sheared)
     {
-        byte b0 = ((Byte)this.dataManager.get(DYE_COLOR)).byteValue();
+        byte b0 = ((Byte) dataManager.get(DYE_COLOR)).byteValue();
 
         if (sheared)
         {
-            this.dataManager.set(DYE_COLOR, Byte.valueOf((byte)(b0 | 16)));
+            dataManager.set(DYE_COLOR, Byte.valueOf((byte)(b0 | 16)));
         }
         else
         {
-            this.dataManager.set(DYE_COLOR, Byte.valueOf((byte)(b0 & -17)));
+            dataManager.set(DYE_COLOR, Byte.valueOf((byte)(b0 & -17)));
         }
     }
 
@@ -388,8 +388,8 @@ public class EntitySheep extends EntityAnimal
     public EntitySheep createChild(EntityAgeable ageable)
     {
         EntitySheep entitysheep = (EntitySheep)ageable;
-        EntitySheep entitysheep1 = new EntitySheep(this.world);
-        entitysheep1.setFleeceColor(this.getDyeColorMixFromParents(this, entitysheep));
+        EntitySheep entitysheep1 = new EntitySheep(world);
+        entitysheep1.setFleeceColor(getDyeColorMixFromParents(this, entitysheep));
         return entitysheep1;
     }
 
@@ -399,11 +399,11 @@ public class EntitySheep extends EntityAnimal
      */
     public void eatGrassBonus()
     {
-        this.setSheared(false);
+        setSheared(false);
 
-        if (this.isChild())
+        if (isChild())
         {
-            this.addGrowth(60);
+            addGrowth(60);
         }
     }
 
@@ -426,7 +426,7 @@ public class EntitySheep extends EntityAnimal
     public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata)
     {
         livingdata = super.onInitialSpawn(difficulty, livingdata);
-        this.setFleeceColor(getRandomSheepColor(this.world.rand));
+        setFleeceColor(getRandomSheepColor(world.rand));
         return livingdata;
     }
 
@@ -437,9 +437,9 @@ public class EntitySheep extends EntityAnimal
     {
         int i = ((EntitySheep)father).getFleeceColor().getDyeDamage();
         int j = ((EntitySheep)mother).getFleeceColor().getDyeDamage();
-        this.inventoryCrafting.getStackInSlot(0).setItemDamage(i);
-        this.inventoryCrafting.getStackInSlot(1).setItemDamage(j);
-        ItemStack itemstack = CraftingManager.findMatchingResult(this.inventoryCrafting, ((EntitySheep)father).world);
+        inventoryCrafting.getStackInSlot(0).setItemDamage(i);
+        inventoryCrafting.getStackInSlot(1).setItemDamage(j);
+        ItemStack itemstack = CraftingManager.findMatchingResult(inventoryCrafting, ((EntitySheep)father).world);
         int k;
 
         if (itemstack.getItem() == Items.DYE)
@@ -448,7 +448,7 @@ public class EntitySheep extends EntityAnimal
         }
         else
         {
-            k = this.world.rand.nextBoolean() ? i : j;
+            k = world.rand.nextBoolean() ? i : j;
         }
 
         return EnumDyeColor.byDyeDamage(k);
@@ -456,7 +456,7 @@ public class EntitySheep extends EntityAnimal
 
     public float getEyeHeight()
     {
-        return 0.95F * this.height;
+        return 0.95F * height;
     }
 
     static

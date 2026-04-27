@@ -49,7 +49,7 @@ public abstract class TileEntity
      */
     public World getWorld()
     {
-        return this.world;
+        return world;
     }
 
     /**
@@ -57,7 +57,7 @@ public abstract class TileEntity
      */
     public void setWorld(World worldIn)
     {
-        this.world = worldIn;
+        world = worldIn;
     }
 
     /**
@@ -65,33 +65,33 @@ public abstract class TileEntity
      */
     public boolean hasWorld()
     {
-        return this.world != null;
+        return world != null;
     }
 
     public void readFromNBT(NBTTagCompound compound)
     {
-        this.pos = new BlockPos(compound.getInteger("x"), compound.getInteger("y"), compound.getInteger("z"));
+        pos = new BlockPos(compound.getInteger("x"), compound.getInteger("y"), compound.getInteger("z"));
     }
 
     public NBTTagCompound writeToNBT(NBTTagCompound compound)
     {
-        return this.writeInternal(compound);
+        return writeInternal(compound);
     }
 
     private NBTTagCompound writeInternal(NBTTagCompound compound)
     {
-        ResourceLocation resourcelocation = REGISTRY.getNameForObject(this.getClass());
+        ResourceLocation resourcelocation = REGISTRY.getNameForObject(getClass());
 
         if (resourcelocation == null)
         {
-            throw new RuntimeException(this.getClass() + " is missing a mapping! This is a bug!");
+            throw new RuntimeException(getClass() + " is missing a mapping! This is a bug!");
         }
         else
         {
             compound.setString("id", resourcelocation.toString());
-            compound.setInteger("x", this.pos.getX());
-            compound.setInteger("y", this.pos.getY());
-            compound.setInteger("z", this.pos.getZ());
+            compound.setInteger("x", pos.getX());
+            compound.setInteger("y", pos.getY());
+            compound.setInteger("z", pos.getZ());
             return compound;
         }
     }
@@ -143,13 +143,13 @@ public abstract class TileEntity
 
     public int getBlockMetadata()
     {
-        if (this.blockMetadata == -1)
+        if (blockMetadata == -1)
         {
-            IBlockState iblockstate = this.world.getBlockState(this.pos);
-            this.blockMetadata = iblockstate.getBlock().getMetaFromState(iblockstate);
+            IBlockState iblockstate = world.getBlockState(pos);
+            blockMetadata = iblockstate.getBlock().getMetaFromState(iblockstate);
         }
 
-        return this.blockMetadata;
+        return blockMetadata;
     }
 
     /**
@@ -158,15 +158,15 @@ public abstract class TileEntity
      */
     public void markDirty()
     {
-        if (this.world != null)
+        if (world != null)
         {
-            IBlockState iblockstate = this.world.getBlockState(this.pos);
-            this.blockMetadata = iblockstate.getBlock().getMetaFromState(iblockstate);
-            this.world.markChunkDirty(this.pos, this);
+            IBlockState iblockstate = world.getBlockState(pos);
+            blockMetadata = iblockstate.getBlock().getMetaFromState(iblockstate);
+            world.markChunkDirty(pos, this);
 
-            if (this.getBlockType() != Blocks.AIR)
+            if (getBlockType() != Blocks.AIR)
             {
-                this.world.updateComparatorOutputLevel(this.pos, this.getBlockType());
+                world.updateComparatorOutputLevel(pos, getBlockType());
             }
         }
     }
@@ -176,9 +176,9 @@ public abstract class TileEntity
      */
     public double getDistanceSq(double x, double y, double z)
     {
-        double d0 = (double)this.pos.getX() + 0.5D - x;
-        double d1 = (double)this.pos.getY() + 0.5D - y;
-        double d2 = (double)this.pos.getZ() + 0.5D - z;
+        double d0 = (double) pos.getX() + 0.5D - x;
+        double d1 = (double) pos.getY() + 0.5D - y;
+        double d2 = (double) pos.getZ() + 0.5D - z;
         return d0 * d0 + d1 * d1 + d2 * d2;
     }
 
@@ -189,7 +189,7 @@ public abstract class TileEntity
 
     public BlockPos getPos()
     {
-        return this.pos;
+        return pos;
     }
 
     /**
@@ -197,12 +197,12 @@ public abstract class TileEntity
      */
     public Block getBlockType()
     {
-        if (this.blockType == null && this.world != null)
+        if (blockType == null && world != null)
         {
-            this.blockType = this.world.getBlockState(this.pos).getBlock();
+            blockType = world.getBlockState(pos).getBlock();
         }
 
-        return this.blockType;
+        return blockType;
     }
 
     @Nullable
@@ -213,12 +213,12 @@ public abstract class TileEntity
 
     public NBTTagCompound getUpdateTag()
     {
-        return this.writeInternal(new NBTTagCompound());
+        return writeInternal(new NBTTagCompound());
     }
 
     public boolean isInvalid()
     {
-        return this.tileEntityInvalid;
+        return tileEntityInvalid;
     }
 
     /**
@@ -226,7 +226,7 @@ public abstract class TileEntity
      */
     public void invalidate()
     {
-        this.tileEntityInvalid = true;
+        tileEntityInvalid = true;
     }
 
     /**
@@ -234,7 +234,7 @@ public abstract class TileEntity
      */
     public void validate()
     {
-        this.tileEntityInvalid = false;
+        tileEntityInvalid = false;
     }
 
     public boolean receiveClientEvent(int id, int type)
@@ -244,8 +244,8 @@ public abstract class TileEntity
 
     public void updateContainingBlockInfo()
     {
-        this.blockType = null;
-        this.blockMetadata = -1;
+        blockType = null;
+        blockMetadata = -1;
     }
 
     public void addInfoToCrashReport(CrashReportCategory reportCategory)
@@ -258,14 +258,14 @@ public abstract class TileEntity
             }
         });
 
-        if (this.world != null)
+        if (world != null)
         {
-            CrashReportCategory.addBlockInfo(reportCategory, this.pos, this.getBlockType(), this.getBlockMetadata());
+            CrashReportCategory.addBlockInfo(reportCategory, pos, getBlockType(), getBlockMetadata());
             reportCategory.addDetail("Actual block type", new ICrashReportDetail<String>()
             {
                 public String call() throws Exception
                 {
-                    int i = Block.getIdFromBlock(TileEntity.this.world.getBlockState(TileEntity.this.pos).getBlock());
+                    int i = Block.getIdFromBlock(world.getBlockState(pos).getBlock());
 
                     try
                     {
@@ -281,7 +281,7 @@ public abstract class TileEntity
             {
                 public String call() throws Exception
                 {
-                    IBlockState iblockstate = TileEntity.this.world.getBlockState(TileEntity.this.pos);
+                    IBlockState iblockstate = world.getBlockState(pos);
                     int i = iblockstate.getBlock().getMetaFromState(iblockstate);
 
                     if (i < 0)
@@ -300,7 +300,7 @@ public abstract class TileEntity
 
     public void setPos(BlockPos posIn)
     {
-        this.pos = posIn.toImmutable();
+        pos = posIn.toImmutable();
     }
 
     public boolean onlyOpsCanSetNbt()

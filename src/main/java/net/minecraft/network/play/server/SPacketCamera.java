@@ -18,7 +18,7 @@ public class SPacketCamera implements Packet<INetHandlerPlayClient>
 
     public SPacketCamera(Entity entityIn)
     {
-        this.entityId = entityIn.getEntityId();
+        entityId = entityIn.getEntityId();
     }
 
     /**
@@ -26,7 +26,7 @@ public class SPacketCamera implements Packet<INetHandlerPlayClient>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.entityId = buf.readVarInt();
+        entityId = buf.readVarInt();
     }
 
     /**
@@ -34,7 +34,7 @@ public class SPacketCamera implements Packet<INetHandlerPlayClient>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeVarInt(this.entityId);
+        buf.writeVarInt(entityId);
     }
 
     /**
@@ -48,6 +48,6 @@ public class SPacketCamera implements Packet<INetHandlerPlayClient>
     @Nullable
     public Entity getEntity(World worldIn)
     {
-        return worldIn.getEntityByID(this.entityId);
+        return worldIn.getEntityByID(entityId);
     }
 }

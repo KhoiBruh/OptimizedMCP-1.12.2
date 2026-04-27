@@ -15,7 +15,7 @@ public class SPacketTabComplete implements Packet<INetHandlerPlayClient>
 
     public SPacketTabComplete(String[] matchesIn)
     {
-        this.matches = matchesIn;
+        matches = matchesIn;
     }
 
     /**
@@ -23,11 +23,11 @@ public class SPacketTabComplete implements Packet<INetHandlerPlayClient>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.matches = new String[buf.readVarInt()];
+        matches = new String[buf.readVarInt()];
 
-        for (int i = 0; i < this.matches.length; ++i)
+        for (int i = 0; i < matches.length; ++i)
         {
-            this.matches[i] = buf.readString(32767);
+            matches[i] = buf.readString(32767);
         }
     }
 
@@ -36,9 +36,9 @@ public class SPacketTabComplete implements Packet<INetHandlerPlayClient>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeVarInt(this.matches.length);
+        buf.writeVarInt(matches.length);
 
-        for (String s : this.matches)
+        for (String s : matches)
         {
             buf.writeString(s);
         }
@@ -54,6 +54,6 @@ public class SPacketTabComplete implements Packet<INetHandlerPlayClient>
 
     public String[] getMatches()
     {
-        return this.matches;
+        return matches;
     }
 }

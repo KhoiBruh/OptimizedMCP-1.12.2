@@ -97,7 +97,7 @@ public abstract class CommandBase implements ICommand
      */
     public boolean checkPermission(MinecraftServer server, ICommandSender sender)
     {
-        return sender.canUseCommand(this.getRequiredPermissionLevel(), this.getName());
+        return sender.canUseCommand(getRequiredPermissionLevel(), getName());
     }
 
     public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, @Nullable BlockPos targetPos)
@@ -942,7 +942,7 @@ public abstract class CommandBase implements ICommand
 
     public int compareTo(ICommand p_compareTo_1_)
     {
-        return this.getName().compareTo(p_compareTo_1_.getName());
+        return getName().compareTo(p_compareTo_1_.getName());
     }
 
     public static class CoordinateArg
@@ -953,24 +953,24 @@ public abstract class CommandBase implements ICommand
 
         protected CoordinateArg(double resultIn, double amountIn, boolean relative)
         {
-            this.result = resultIn;
-            this.amount = amountIn;
-            this.isRelative = relative;
+            result = resultIn;
+            amount = amountIn;
+            isRelative = relative;
         }
 
         public double getResult()
         {
-            return this.result;
+            return result;
         }
 
         public double getAmount()
         {
-            return this.amount;
+            return amount;
         }
 
         public boolean isRelative()
         {
-            return this.isRelative;
+            return isRelative;
         }
     }
 }

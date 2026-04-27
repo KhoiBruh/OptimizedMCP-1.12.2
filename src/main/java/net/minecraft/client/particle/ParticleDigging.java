@@ -18,13 +18,13 @@ public class ParticleDigging extends Particle
     protected ParticleDigging(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, IBlockState state)
     {
         super(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
-        this.sourceState = state;
-        this.setParticleTexture(Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getTexture(state));
-        this.particleGravity = state.getBlock().blockParticleGravity;
-        this.particleRed = 0.6F;
-        this.particleGreen = 0.6F;
-        this.particleBlue = 0.6F;
-        this.particleScale /= 2.0F;
+        sourceState = state;
+        setParticleTexture(Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getTexture(state));
+        particleGravity = state.getBlock().blockParticleGravity;
+        particleRed = 0.6F;
+        particleGreen = 0.6F;
+        particleBlue = 0.6F;
+        particleScale /= 2.0F;
     }
 
     /**
@@ -32,23 +32,23 @@ public class ParticleDigging extends Particle
      */
     public ParticleDigging setBlockPos(BlockPos pos)
     {
-        this.sourcePos = pos;
+        sourcePos = pos;
 
-        if (this.sourceState.getBlock() == Blocks.GRASS)
+        if (sourceState.getBlock() == Blocks.GRASS)
         {
             return this;
         }
         else
         {
-            this.multiplyColor(pos);
+            multiplyColor(pos);
             return this;
         }
     }
 
     public ParticleDigging init()
     {
-        this.sourcePos = new BlockPos(this.posX, this.posY, this.posZ);
-        Block block = this.sourceState.getBlock();
+        sourcePos = new BlockPos(posX, posY, posZ);
+        Block block = sourceState.getBlock();
 
         if (block == Blocks.GRASS)
         {
@@ -56,17 +56,17 @@ public class ParticleDigging extends Particle
         }
         else
         {
-            this.multiplyColor(this.sourcePos);
+            multiplyColor(sourcePos);
             return this;
         }
     }
 
     protected void multiplyColor(@Nullable BlockPos p_187154_1_)
     {
-        int i = Minecraft.getMinecraft().getBlockColors().colorMultiplier(this.sourceState, this.world, p_187154_1_, 0);
-        this.particleRed *= (float)(i >> 16 & 255) / 255.0F;
-        this.particleGreen *= (float)(i >> 8 & 255) / 255.0F;
-        this.particleBlue *= (float)(i & 255) / 255.0F;
+        int i = Minecraft.getMinecraft().getBlockColors().colorMultiplier(sourceState, world, p_187154_1_, 0);
+        particleRed *= (float)(i >> 16 & 255) / 255.0F;
+        particleGreen *= (float)(i >> 8 & 255) / 255.0F;
+        particleBlue *= (float)(i & 255) / 255.0F;
     }
 
     /**
@@ -83,30 +83,30 @@ public class ParticleDigging extends Particle
      */
     public void renderParticle(BufferBuilder buffer, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ)
     {
-        float f = ((float)this.particleTextureIndexX + this.particleTextureJitterX / 4.0F) / 16.0F;
+        float f = ((float) particleTextureIndexX + particleTextureJitterX / 4.0F) / 16.0F;
         float f1 = f + 0.015609375F;
-        float f2 = ((float)this.particleTextureIndexY + this.particleTextureJitterY / 4.0F) / 16.0F;
+        float f2 = ((float) particleTextureIndexY + particleTextureJitterY / 4.0F) / 16.0F;
         float f3 = f2 + 0.015609375F;
-        float f4 = 0.1F * this.particleScale;
+        float f4 = 0.1F * particleScale;
 
-        if (this.particleTexture != null)
+        if (particleTexture != null)
         {
-            f = this.particleTexture.getInterpolatedU((double)(this.particleTextureJitterX / 4.0F * 16.0F));
-            f1 = this.particleTexture.getInterpolatedU((double)((this.particleTextureJitterX + 1.0F) / 4.0F * 16.0F));
-            f2 = this.particleTexture.getInterpolatedV((double)(this.particleTextureJitterY / 4.0F * 16.0F));
-            f3 = this.particleTexture.getInterpolatedV((double)((this.particleTextureJitterY + 1.0F) / 4.0F * 16.0F));
+            f = particleTexture.getInterpolatedU((double)(particleTextureJitterX / 4.0F * 16.0F));
+            f1 = particleTexture.getInterpolatedU((double)((particleTextureJitterX + 1.0F) / 4.0F * 16.0F));
+            f2 = particleTexture.getInterpolatedV((double)(particleTextureJitterY / 4.0F * 16.0F));
+            f3 = particleTexture.getInterpolatedV((double)((particleTextureJitterY + 1.0F) / 4.0F * 16.0F));
         }
 
-        float f5 = (float)(this.prevPosX + (this.posX - this.prevPosX) * (double)partialTicks - interpPosX);
-        float f6 = (float)(this.prevPosY + (this.posY - this.prevPosY) * (double)partialTicks - interpPosY);
-        float f7 = (float)(this.prevPosZ + (this.posZ - this.prevPosZ) * (double)partialTicks - interpPosZ);
-        int i = this.getBrightnessForRender(partialTicks);
+        float f5 = (float)(prevPosX + (posX - prevPosX) * (double)partialTicks - interpPosX);
+        float f6 = (float)(prevPosY + (posY - prevPosY) * (double)partialTicks - interpPosY);
+        float f7 = (float)(prevPosZ + (posZ - prevPosZ) * (double)partialTicks - interpPosZ);
+        int i = getBrightnessForRender(partialTicks);
         int j = i >> 16 & 65535;
         int k = i & 65535;
-        buffer.pos((double)(f5 - rotationX * f4 - rotationXY * f4), (double)(f6 - rotationZ * f4), (double)(f7 - rotationYZ * f4 - rotationXZ * f4)).tex((double)f, (double)f3).color(this.particleRed, this.particleGreen, this.particleBlue, 1.0F).lightmap(j, k).endVertex();
-        buffer.pos((double)(f5 - rotationX * f4 + rotationXY * f4), (double)(f6 + rotationZ * f4), (double)(f7 - rotationYZ * f4 + rotationXZ * f4)).tex((double)f, (double)f2).color(this.particleRed, this.particleGreen, this.particleBlue, 1.0F).lightmap(j, k).endVertex();
-        buffer.pos((double)(f5 + rotationX * f4 + rotationXY * f4), (double)(f6 + rotationZ * f4), (double)(f7 + rotationYZ * f4 + rotationXZ * f4)).tex((double)f1, (double)f2).color(this.particleRed, this.particleGreen, this.particleBlue, 1.0F).lightmap(j, k).endVertex();
-        buffer.pos((double)(f5 + rotationX * f4 - rotationXY * f4), (double)(f6 - rotationZ * f4), (double)(f7 + rotationYZ * f4 - rotationXZ * f4)).tex((double)f1, (double)f3).color(this.particleRed, this.particleGreen, this.particleBlue, 1.0F).lightmap(j, k).endVertex();
+        buffer.pos((double)(f5 - rotationX * f4 - rotationXY * f4), (double)(f6 - rotationZ * f4), (double)(f7 - rotationYZ * f4 - rotationXZ * f4)).tex((double)f, (double)f3).color(particleRed, particleGreen, particleBlue, 1.0F).lightmap(j, k).endVertex();
+        buffer.pos((double)(f5 - rotationX * f4 + rotationXY * f4), (double)(f6 + rotationZ * f4), (double)(f7 - rotationYZ * f4 + rotationXZ * f4)).tex((double)f, (double)f2).color(particleRed, particleGreen, particleBlue, 1.0F).lightmap(j, k).endVertex();
+        buffer.pos((double)(f5 + rotationX * f4 + rotationXY * f4), (double)(f6 + rotationZ * f4), (double)(f7 + rotationYZ * f4 + rotationXZ * f4)).tex((double)f1, (double)f2).color(particleRed, particleGreen, particleBlue, 1.0F).lightmap(j, k).endVertex();
+        buffer.pos((double)(f5 + rotationX * f4 - rotationXY * f4), (double)(f6 - rotationZ * f4), (double)(f7 + rotationYZ * f4 - rotationXZ * f4)).tex((double)f1, (double)f3).color(particleRed, particleGreen, particleBlue, 1.0F).lightmap(j, k).endVertex();
     }
 
     public int getBrightnessForRender(float p_189214_1_)
@@ -114,9 +114,9 @@ public class ParticleDigging extends Particle
         int i = super.getBrightnessForRender(p_189214_1_);
         int j = 0;
 
-        if (this.world.isBlockLoaded(this.sourcePos))
+        if (world.isBlockLoaded(sourcePos))
         {
-            j = this.world.getCombinedLight(this.sourcePos, 0);
+            j = world.getCombinedLight(sourcePos, 0);
         }
 
         return i == 0 ? j : i;

@@ -18,7 +18,7 @@ public class EnchantmentFrostWalker extends Enchantment
     public EnchantmentFrostWalker(Enchantment.Rarity rarityIn, EntityEquipmentSlot... slots)
     {
         super(rarityIn, EnumEnchantmentType.ARMOR_FEET, slots);
-        this.setName("frostWalker");
+        setName("frostWalker");
     }
 
     /**
@@ -34,7 +34,7 @@ public class EnchantmentFrostWalker extends Enchantment
      */
     public int getMaxEnchantability(int enchantmentLevel)
     {
-        return this.getMinEnchantability(enchantmentLevel) + 15;
+        return getMinEnchantability(enchantmentLevel) + 15;
     }
 
     public boolean isTreasureEnchantment()

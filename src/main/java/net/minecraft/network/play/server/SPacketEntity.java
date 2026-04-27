@@ -24,7 +24,7 @@ public class SPacketEntity implements Packet<INetHandlerPlayClient>
 
     public SPacketEntity(int entityIdIn)
     {
-        this.entityId = entityIdIn;
+        entityId = entityIdIn;
     }
 
     /**
@@ -32,7 +32,7 @@ public class SPacketEntity implements Packet<INetHandlerPlayClient>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.entityId = buf.readVarInt();
+        entityId = buf.readVarInt();
     }
 
     /**
@@ -40,7 +40,7 @@ public class SPacketEntity implements Packet<INetHandlerPlayClient>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeVarInt(this.entityId);
+        buf.writeVarInt(entityId);
     }
 
     /**
@@ -58,42 +58,42 @@ public class SPacketEntity implements Packet<INetHandlerPlayClient>
 
     public Entity getEntity(World worldIn)
     {
-        return worldIn.getEntityByID(this.entityId);
+        return worldIn.getEntityByID(entityId);
     }
 
     public int getX()
     {
-        return this.posX;
+        return posX;
     }
 
     public int getY()
     {
-        return this.posY;
+        return posY;
     }
 
     public int getZ()
     {
-        return this.posZ;
+        return posZ;
     }
 
     public byte getYaw()
     {
-        return this.yaw;
+        return yaw;
     }
 
     public byte getPitch()
     {
-        return this.pitch;
+        return pitch;
     }
 
     public boolean isRotating()
     {
-        return this.rotating;
+        return rotating;
     }
 
     public boolean getOnGround()
     {
-        return this.onGround;
+        return onGround;
     }
 
     public static class S15PacketEntityRelMove extends SPacketEntity
@@ -105,28 +105,28 @@ public class SPacketEntity implements Packet<INetHandlerPlayClient>
         public S15PacketEntityRelMove(int entityIdIn, long xIn, long yIn, long zIn, boolean onGroundIn)
         {
             super(entityIdIn);
-            this.posX = (int)xIn;
-            this.posY = (int)yIn;
-            this.posZ = (int)zIn;
-            this.onGround = onGroundIn;
+            posX = (int)xIn;
+            posY = (int)yIn;
+            posZ = (int)zIn;
+            onGround = onGroundIn;
         }
 
         public void readPacketData(PacketBuffer buf) throws IOException
         {
             super.readPacketData(buf);
-            this.posX = buf.readShort();
-            this.posY = buf.readShort();
-            this.posZ = buf.readShort();
-            this.onGround = buf.readBoolean();
+            posX = buf.readShort();
+            posY = buf.readShort();
+            posZ = buf.readShort();
+            onGround = buf.readBoolean();
         }
 
         public void writePacketData(PacketBuffer buf) throws IOException
         {
             super.writePacketData(buf);
-            buf.writeShort(this.posX);
-            buf.writeShort(this.posY);
-            buf.writeShort(this.posZ);
-            buf.writeBoolean(this.onGround);
+            buf.writeShort(posX);
+            buf.writeShort(posY);
+            buf.writeShort(posZ);
+            buf.writeBoolean(onGround);
         }
     }
 
@@ -134,32 +134,32 @@ public class SPacketEntity implements Packet<INetHandlerPlayClient>
     {
         public S16PacketEntityLook()
         {
-            this.rotating = true;
+            rotating = true;
         }
 
         public S16PacketEntityLook(int entityIdIn, byte yawIn, byte pitchIn, boolean onGroundIn)
         {
             super(entityIdIn);
-            this.yaw = yawIn;
-            this.pitch = pitchIn;
-            this.rotating = true;
-            this.onGround = onGroundIn;
+            yaw = yawIn;
+            pitch = pitchIn;
+            rotating = true;
+            onGround = onGroundIn;
         }
 
         public void readPacketData(PacketBuffer buf) throws IOException
         {
             super.readPacketData(buf);
-            this.yaw = buf.readByte();
-            this.pitch = buf.readByte();
-            this.onGround = buf.readBoolean();
+            yaw = buf.readByte();
+            pitch = buf.readByte();
+            onGround = buf.readBoolean();
         }
 
         public void writePacketData(PacketBuffer buf) throws IOException
         {
             super.writePacketData(buf);
-            buf.writeByte(this.yaw);
-            buf.writeByte(this.pitch);
-            buf.writeBoolean(this.onGround);
+            buf.writeByte(yaw);
+            buf.writeByte(pitch);
+            buf.writeBoolean(onGround);
         }
     }
 
@@ -167,41 +167,41 @@ public class SPacketEntity implements Packet<INetHandlerPlayClient>
     {
         public S17PacketEntityLookMove()
         {
-            this.rotating = true;
+            rotating = true;
         }
 
         public S17PacketEntityLookMove(int entityIdIn, long xIn, long yIn, long zIn, byte yawIn, byte pitchIn, boolean onGroundIn)
         {
             super(entityIdIn);
-            this.posX = (int)xIn;
-            this.posY = (int)yIn;
-            this.posZ = (int)zIn;
-            this.yaw = yawIn;
-            this.pitch = pitchIn;
-            this.onGround = onGroundIn;
-            this.rotating = true;
+            posX = (int)xIn;
+            posY = (int)yIn;
+            posZ = (int)zIn;
+            yaw = yawIn;
+            pitch = pitchIn;
+            onGround = onGroundIn;
+            rotating = true;
         }
 
         public void readPacketData(PacketBuffer buf) throws IOException
         {
             super.readPacketData(buf);
-            this.posX = buf.readShort();
-            this.posY = buf.readShort();
-            this.posZ = buf.readShort();
-            this.yaw = buf.readByte();
-            this.pitch = buf.readByte();
-            this.onGround = buf.readBoolean();
+            posX = buf.readShort();
+            posY = buf.readShort();
+            posZ = buf.readShort();
+            yaw = buf.readByte();
+            pitch = buf.readByte();
+            onGround = buf.readBoolean();
         }
 
         public void writePacketData(PacketBuffer buf) throws IOException
         {
             super.writePacketData(buf);
-            buf.writeShort(this.posX);
-            buf.writeShort(this.posY);
-            buf.writeShort(this.posZ);
-            buf.writeByte(this.yaw);
-            buf.writeByte(this.pitch);
-            buf.writeBoolean(this.onGround);
+            buf.writeShort(posX);
+            buf.writeShort(posY);
+            buf.writeShort(posZ);
+            buf.writeByte(yaw);
+            buf.writeByte(pitch);
+            buf.writeBoolean(onGround);
         }
     }
 }

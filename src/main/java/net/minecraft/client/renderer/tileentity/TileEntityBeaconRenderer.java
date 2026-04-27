@@ -15,13 +15,13 @@ public class TileEntityBeaconRenderer extends TileEntitySpecialRenderer<TileEnti
 
     public void render(TileEntityBeacon te, double x, double y, double z, float partialTicks, int destroyStage, float alpha)
     {
-        this.renderBeacon(x, y, z, (double)partialTicks, (double)te.shouldBeamRender(), te.getBeamSegments(), (double)te.getWorld().getTotalWorldTime());
+        renderBeacon(x, y, z, (double)partialTicks, (double)te.shouldBeamRender(), te.getBeamSegments(), (double)te.getWorld().getTotalWorldTime());
     }
 
     public void renderBeacon(double x, double y, double z, double partialTicks, double textureScale, List<TileEntityBeacon.BeamSegment> beamSegments, double totalWorldTime)
     {
         GlStateManager.alphaFunc(516, 0.1F);
-        this.bindTexture(TEXTURE_BEACON_BEAM);
+        bindTexture(TEXTURE_BEACON_BEAM);
 
         if (textureScale > 0.0D)
         {

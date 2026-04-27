@@ -21,12 +21,12 @@ public enum EnumFaceDirection
 
     private EnumFaceDirection(EnumFaceDirection.VertexInformation[] vertexInfosIn)
     {
-        this.vertexInfos = vertexInfosIn;
+        vertexInfos = vertexInfosIn;
     }
 
     public EnumFaceDirection.VertexInformation getVertexInformation(int index)
     {
-        return this.vertexInfos[index];
+        return vertexInfos[index];
     }
 
     static {
@@ -54,9 +54,9 @@ public enum EnumFaceDirection
 
         private VertexInformation(int xIndexIn, int yIndexIn, int zIndexIn)
         {
-            this.xIndex = xIndexIn;
-            this.yIndex = yIndexIn;
-            this.zIndex = zIndexIn;
+            xIndex = xIndexIn;
+            yIndex = yIndexIn;
+            zIndex = zIndexIn;
         }
     }
 }

@@ -71,7 +71,7 @@ public class Cartesian
 
         public Iterator<T[]> iterator()
         {
-            return (Iterator<T[]>)(this.iterables.length <= 0 ? Collections.singletonList(Cartesian.createArray(this.clazz, 0)).iterator() : new Cartesian.Product.ProductIterator(this.clazz, this.iterables));
+            return (Iterator<T[]>)(iterables.length <= 0 ? Collections.singletonList(Cartesian.createArray(clazz, 0)).iterator() : new Cartesian.Product.ProductIterator(clazz, iterables));
         }
 
         static class ProductIterator<T> extends UnmodifiableIterator<T[]>
@@ -83,36 +83,36 @@ public class Cartesian
 
             private ProductIterator(Class<T> clazz, Iterable <? extends T > [] iterables)
             {
-                this.index = -2;
+                index = -2;
                 this.iterables = iterables;
-                this.iterators = (Iterator[])Cartesian.createArray(Iterator.class, this.iterables.length);
+                iterators = (Iterator[])Cartesian.createArray(Iterator.class, this.iterables.length);
 
                 for (int i = 0; i < this.iterables.length; ++i)
                 {
-                    this.iterators[i] = iterables[i].iterator();
+                    iterators[i] = iterables[i].iterator();
                 }
 
-                this.results = (T[])Cartesian.createArray(clazz, this.iterators.length);
+                results = (T[])Cartesian.createArray(clazz, iterators.length);
             }
 
             private void endOfData()
             {
-                this.index = -1;
-                Arrays.fill(this.iterators, (Object)null);
-                Arrays.fill(this.results, (Object)null);
+                index = -1;
+                Arrays.fill(iterators, (Object)null);
+                Arrays.fill(results, (Object)null);
             }
 
             public boolean hasNext()
             {
-                if (this.index == -2)
+                if (index == -2)
                 {
-                    this.index = 0;
+                    index = 0;
 
-                    for (Iterator <? extends T > iterator1 : this.iterators)
+                    for (Iterator <? extends T > iterator1 : iterators)
                     {
                         if (!iterator1.hasNext())
                         {
-                            this.endOfData();
+                            endOfData();
                             break;
                         }
                     }
@@ -121,53 +121,53 @@ public class Cartesian
                 }
                 else
                 {
-                    if (this.index >= this.iterators.length)
+                    if (index >= iterators.length)
                     {
-                        for (this.index = this.iterators.length - 1; this.index >= 0; --this.index)
+                        for (index = iterators.length - 1; index >= 0; --index)
                         {
-                            Iterator <? extends T > iterator = this.iterators[this.index];
+                            Iterator <? extends T > iterator = iterators[index];
 
                             if (iterator.hasNext())
                             {
                                 break;
                             }
 
-                            if (this.index == 0)
+                            if (index == 0)
                             {
-                                this.endOfData();
+                                endOfData();
                                 break;
                             }
 
-                            iterator = this.iterables[this.index].iterator();
-                            this.iterators[this.index] = iterator;
+                            iterator = iterables[index].iterator();
+                            iterators[index] = iterator;
 
                             if (!iterator.hasNext())
                             {
-                                this.endOfData();
+                                endOfData();
                                 break;
                             }
                         }
                     }
 
-                    return this.index >= 0;
+                    return index >= 0;
                 }
             }
 
             public T[] next()
             {
-                if (!this.hasNext())
+                if (!hasNext())
                 {
                     throw new NoSuchElementException();
                 }
                 else
                 {
-                    while (this.index < this.iterators.length)
+                    while (index < iterators.length)
                     {
-                        this.results[this.index] = this.iterators[this.index].next();
-                        ++this.index;
+                        results[index] = iterators[index].next();
+                        ++index;
                     }
 
-                    return (T[])((Object[])this.results.clone());
+                    return (T[])((Object[]) results.clone());
                 }
             }
         }

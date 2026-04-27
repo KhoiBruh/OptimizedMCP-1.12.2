@@ -29,18 +29,18 @@ public class TemplateManager
 
     public TemplateManager(String p_i47239_1_, DataFixer p_i47239_2_)
     {
-        this.baseFolder = p_i47239_1_;
-        this.fixer = p_i47239_2_;
+        baseFolder = p_i47239_1_;
+        fixer = p_i47239_2_;
     }
 
     public Template getTemplate(@Nullable MinecraftServer server, ResourceLocation id)
     {
-        Template template = this.get(server, id);
+        Template template = get(server, id);
 
         if (template == null)
         {
             template = new Template();
-            this.templates.put(id.getResourcePath(), template);
+            templates.put(id.getResourcePath(), template);
         }
 
         return template;
@@ -51,22 +51,22 @@ public class TemplateManager
     {
         String s = templatePath.getResourcePath();
 
-        if (this.templates.containsKey(s))
+        if (templates.containsKey(s))
         {
-            return this.templates.get(s);
+            return templates.get(s);
         }
         else
         {
             if (server == null)
             {
-                this.readTemplateFromJar(templatePath);
+                readTemplateFromJar(templatePath);
             }
             else
             {
-                this.readTemplate(templatePath);
+                readTemplate(templatePath);
             }
 
-            return this.templates.containsKey(s) ? (Template)this.templates.get(s) : null;
+            return templates.containsKey(s) ? (Template) templates.get(s) : null;
         }
     }
 
@@ -78,11 +78,11 @@ public class TemplateManager
     public boolean readTemplate(ResourceLocation server)
     {
         String s = server.getResourcePath();
-        File file1 = new File(this.baseFolder, s + ".nbt");
+        File file1 = new File(baseFolder, s + ".nbt");
 
         if (!file1.exists())
         {
-            return this.readTemplateFromJar(server);
+            return readTemplateFromJar(server);
         }
         else
         {
@@ -92,7 +92,7 @@ public class TemplateManager
             try
             {
                 inputstream = new FileInputStream(file1);
-                this.readTemplateFromStream(s, inputstream);
+                readTemplateFromStream(s, inputstream);
                 return true;
             }
             catch (Throwable var10)
@@ -121,7 +121,7 @@ public class TemplateManager
         try
         {
             inputstream = MinecraftServer.class.getResourceAsStream("/assets/" + s + "/structures/" + s1 + ".nbt");
-            this.readTemplateFromStream(s1, inputstream);
+            readTemplateFromStream(s1, inputstream);
             return true;
         }
         catch (Throwable var10)
@@ -149,8 +149,8 @@ public class TemplateManager
         }
 
         Template template = new Template();
-        template.read(this.fixer.process(FixTypes.STRUCTURE, nbttagcompound));
-        this.templates.put(id, template);
+        template.read(fixer.process(FixTypes.STRUCTURE, nbttagcompound));
+        templates.put(id, template);
     }
 
     /**
@@ -160,9 +160,9 @@ public class TemplateManager
     {
         String s = id.getResourcePath();
 
-        if (server != null && this.templates.containsKey(s))
+        if (server != null && templates.containsKey(s))
         {
-            File file1 = new File(this.baseFolder);
+            File file1 = new File(baseFolder);
 
             if (!file1.exists())
             {
@@ -177,7 +177,7 @@ public class TemplateManager
             }
 
             File file2 = new File(file1, s + ".nbt");
-            Template template = this.templates.get(s);
+            Template template = templates.get(s);
             OutputStream outputstream = null;
             boolean flag;
 
@@ -207,6 +207,6 @@ public class TemplateManager
 
     public void remove(ResourceLocation templatePath)
     {
-        this.templates.remove(templatePath.getResourcePath());
+        templates.remove(templatePath.getResourcePath());
     }
 }

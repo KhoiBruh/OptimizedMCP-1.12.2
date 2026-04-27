@@ -26,8 +26,8 @@ public class EntityWitherSkeleton extends AbstractSkeleton
     public EntityWitherSkeleton(World worldIn)
     {
         super(worldIn);
-        this.setSize(0.7F, 2.4F);
-        this.isImmuneToFire = true;
+        setSize(0.7F, 2.4F);
+        isImmuneToFire = true;
     }
 
     public static void registerFixesWitherSkeleton(DataFixer fixer)
@@ -75,7 +75,7 @@ public class EntityWitherSkeleton extends AbstractSkeleton
             if (entitycreeper.getPowered() && entitycreeper.ableToCauseSkullDrop())
             {
                 entitycreeper.incrementDroppedSkulls();
-                this.entityDropItem(new ItemStack(Items.SKULL, 1, 1), 0.0F);
+                entityDropItem(new ItemStack(Items.SKULL, 1, 1), 0.0F);
             }
         }
     }
@@ -85,7 +85,7 @@ public class EntityWitherSkeleton extends AbstractSkeleton
      */
     protected void setEquipmentBasedOnDifficulty(DifficultyInstance difficulty)
     {
-        this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.STONE_SWORD));
+        setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.STONE_SWORD));
     }
 
     /**
@@ -114,8 +114,8 @@ public class EntityWitherSkeleton extends AbstractSkeleton
     public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata)
     {
         IEntityLivingData ientitylivingdata = super.onInitialSpawn(difficulty, livingdata);
-        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4.0D);
-        this.setCombatTask();
+        getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4.0D);
+        setCombatTask();
         return ientitylivingdata;
     }
 

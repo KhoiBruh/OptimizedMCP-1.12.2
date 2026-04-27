@@ -50,15 +50,15 @@ public class FaceBakery
 
         if (uvLocked)
         {
-            blockfaceuv = this.applyUVLock(face.blockFaceUV, facing, modelRotationIn);
+            blockfaceuv = applyUVLock(face.blockFaceUV, facing, modelRotationIn);
         }
 
-        int[] aint = this.makeQuadVertexData(blockfaceuv, sprite, facing, this.getPositionsDiv16(posFrom, posTo), modelRotationIn, partRotation, shade);
+        int[] aint = makeQuadVertexData(blockfaceuv, sprite, facing, getPositionsDiv16(posFrom, posTo), modelRotationIn, partRotation, shade);
         EnumFacing enumfacing = getFacingFromVertexData(aint);
 
         if (partRotation == null)
         {
-            this.applyFacing(aint, enumfacing);
+            applyFacing(aint, enumfacing);
         }
 
         return new BakedQuad(aint, face.tintIndex, enumfacing, sprite);
@@ -75,7 +75,7 @@ public class FaceBakery
 
         for (int i = 0; i < 4; ++i)
         {
-            this.fillVertexData(aint, i, orientation, uvs, p_188012_4_, sprite, rotationIn, partRotation, shade);
+            fillVertexData(aint, i, orientation, uvs, p_188012_4_, sprite, rotationIn, partRotation, shade);
         }
 
         return aint;
@@ -83,7 +83,7 @@ public class FaceBakery
 
     private int getFaceShadeColor(EnumFacing facing)
     {
-        float f = this.getFaceBrightness(facing);
+        float f = getFaceBrightness(facing);
         int i = MathHelper.clamp((int)(f * 255.0F), 0, 255);
         return -16777216 | i << 16 | i << 8 | i;
     }
@@ -126,12 +126,12 @@ public class FaceBakery
     private void fillVertexData(int[] p_188015_1_, int p_188015_2_, EnumFacing p_188015_3_, BlockFaceUV p_188015_4_, float[] p_188015_5_, TextureAtlasSprite p_188015_6_, ModelRotation p_188015_7_, @Nullable BlockPartRotation p_188015_8_, boolean p_188015_9_)
     {
         EnumFacing enumfacing = p_188015_7_.rotateFace(p_188015_3_);
-        int i = p_188015_9_ ? this.getFaceShadeColor(enumfacing) : -1;
+        int i = p_188015_9_ ? getFaceShadeColor(enumfacing) : -1;
         EnumFaceDirection.VertexInformation enumfacedirection$vertexinformation = EnumFaceDirection.getFacing(p_188015_3_).getVertexInformation(p_188015_2_);
         Vector3f vector3f = new Vector3f(p_188015_5_[enumfacedirection$vertexinformation.xIndex], p_188015_5_[enumfacedirection$vertexinformation.yIndex], p_188015_5_[enumfacedirection$vertexinformation.zIndex]);
-        this.rotatePart(vector3f, p_188015_8_);
-        int j = this.rotateVertex(vector3f, p_188015_3_, p_188015_2_, p_188015_7_);
-        this.storeVertexData(p_188015_1_, j, p_188015_2_, vector3f, i, p_188015_6_, p_188015_4_);
+        rotatePart(vector3f, p_188015_8_);
+        int j = rotateVertex(vector3f, p_188015_3_, p_188015_2_, p_188015_7_);
+        storeVertexData(p_188015_1_, j, p_188015_2_, vector3f, i, p_188015_6_, p_188015_4_);
     }
 
     private void storeVertexData(int[] faceData, int storeIndex, int vertexIndex, Vector3f position, int shadeColor, TextureAtlasSprite sprite, BlockFaceUV faceUV)
@@ -149,7 +149,7 @@ public class FaceBakery
     {
         if (partRotation != null)
         {
-            Matrix4f matrix4f = this.getMatrixIdentity();
+            Matrix4f matrix4f = getMatrixIdentity();
             Vector3f vector3f = new Vector3f(0.0F, 0.0F, 0.0F);
 
             switch (partRotation.axis)
@@ -187,7 +187,7 @@ public class FaceBakery
                 vector3f.set(1.0F, 1.0F, 1.0F);
             }
 
-            this.rotateScale(p_178407_1_, new Vector3f(partRotation.origin), matrix4f, vector3f);
+            rotateScale(p_178407_1_, new Vector3f(partRotation.origin), matrix4f, vector3f);
         }
     }
 
@@ -199,7 +199,7 @@ public class FaceBakery
         }
         else
         {
-            this.rotateScale(p_188011_1_, new Vector3f(0.5F, 0.5F, 0.5F), p_188011_4_.getMatrix4d(), new Vector3f(1.0F, 1.0F, 1.0F));
+            rotateScale(p_188011_1_, new Vector3f(0.5F, 0.5F, 0.5F), p_188011_4_.getMatrix4d(), new Vector3f(1.0F, 1.0F, 1.0F));
             return p_188011_4_.rotateVertex(p_188011_2_, p_188011_3_);
         }
     }
@@ -463,7 +463,7 @@ public class FaceBakery
             float f1 = p_188006_1_.getVertexV(p_188006_1_.getVertexRotatedRev(0));
             float f2 = p_188006_1_.getVertexU(p_188006_1_.getVertexRotatedRev(2));
             float f3 = p_188006_1_.getVertexV(p_188006_1_.getVertexRotatedRev(2));
-            return this.makeRotatedUV(f, f1, f2, f3);
+            return makeRotatedUV(f, f1, f2, f3);
         }
 
         abstract BlockFaceUV makeRotatedUV(float p_188007_1_, float p_188007_2_, float p_188007_3_, float p_188007_4_);

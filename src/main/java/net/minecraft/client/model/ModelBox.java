@@ -38,14 +38,14 @@ public class ModelBox
 
     public ModelBox(ModelRenderer renderer, int texU, int texV, float x, float y, float z, int dx, int dy, int dz, float delta, boolean mirror)
     {
-        this.posX1 = x;
-        this.posY1 = y;
-        this.posZ1 = z;
-        this.posX2 = x + (float)dx;
-        this.posY2 = y + (float)dy;
-        this.posZ2 = z + (float)dz;
-        this.vertexPositions = new PositionTextureVertex[8];
-        this.quadList = new TexturedQuad[6];
+        posX1 = x;
+        posY1 = y;
+        posZ1 = z;
+        posX2 = x + (float)dx;
+        posY2 = y + (float)dy;
+        posZ2 = z + (float)dz;
+        vertexPositions = new PositionTextureVertex[8];
+        quadList = new TexturedQuad[6];
         float f = x + (float)dx;
         float f1 = y + (float)dy;
         float f2 = z + (float)dz;
@@ -71,24 +71,24 @@ public class ModelBox
         PositionTextureVertex positiontexturevertex4 = new PositionTextureVertex(f, y, f2, 0.0F, 8.0F);
         PositionTextureVertex positiontexturevertex5 = new PositionTextureVertex(f, f1, f2, 8.0F, 8.0F);
         PositionTextureVertex positiontexturevertex6 = new PositionTextureVertex(x, f1, f2, 8.0F, 0.0F);
-        this.vertexPositions[0] = positiontexturevertex7;
-        this.vertexPositions[1] = positiontexturevertex;
-        this.vertexPositions[2] = positiontexturevertex1;
-        this.vertexPositions[3] = positiontexturevertex2;
-        this.vertexPositions[4] = positiontexturevertex3;
-        this.vertexPositions[5] = positiontexturevertex4;
-        this.vertexPositions[6] = positiontexturevertex5;
-        this.vertexPositions[7] = positiontexturevertex6;
-        this.quadList[0] = new TexturedQuad(new PositionTextureVertex[] {positiontexturevertex4, positiontexturevertex, positiontexturevertex1, positiontexturevertex5}, texU + dz + dx, texV + dz, texU + dz + dx + dz, texV + dz + dy, renderer.textureWidth, renderer.textureHeight);
-        this.quadList[1] = new TexturedQuad(new PositionTextureVertex[] {positiontexturevertex7, positiontexturevertex3, positiontexturevertex6, positiontexturevertex2}, texU, texV + dz, texU + dz, texV + dz + dy, renderer.textureWidth, renderer.textureHeight);
-        this.quadList[2] = new TexturedQuad(new PositionTextureVertex[] {positiontexturevertex4, positiontexturevertex3, positiontexturevertex7, positiontexturevertex}, texU + dz, texV, texU + dz + dx, texV + dz, renderer.textureWidth, renderer.textureHeight);
-        this.quadList[3] = new TexturedQuad(new PositionTextureVertex[] {positiontexturevertex1, positiontexturevertex2, positiontexturevertex6, positiontexturevertex5}, texU + dz + dx, texV + dz, texU + dz + dx + dx, texV, renderer.textureWidth, renderer.textureHeight);
-        this.quadList[4] = new TexturedQuad(new PositionTextureVertex[] {positiontexturevertex, positiontexturevertex7, positiontexturevertex2, positiontexturevertex1}, texU + dz, texV + dz, texU + dz + dx, texV + dz + dy, renderer.textureWidth, renderer.textureHeight);
-        this.quadList[5] = new TexturedQuad(new PositionTextureVertex[] {positiontexturevertex3, positiontexturevertex4, positiontexturevertex5, positiontexturevertex6}, texU + dz + dx + dz, texV + dz, texU + dz + dx + dz + dx, texV + dz + dy, renderer.textureWidth, renderer.textureHeight);
+        vertexPositions[0] = positiontexturevertex7;
+        vertexPositions[1] = positiontexturevertex;
+        vertexPositions[2] = positiontexturevertex1;
+        vertexPositions[3] = positiontexturevertex2;
+        vertexPositions[4] = positiontexturevertex3;
+        vertexPositions[5] = positiontexturevertex4;
+        vertexPositions[6] = positiontexturevertex5;
+        vertexPositions[7] = positiontexturevertex6;
+        quadList[0] = new TexturedQuad(new PositionTextureVertex[] {positiontexturevertex4, positiontexturevertex, positiontexturevertex1, positiontexturevertex5}, texU + dz + dx, texV + dz, texU + dz + dx + dz, texV + dz + dy, renderer.textureWidth, renderer.textureHeight);
+        quadList[1] = new TexturedQuad(new PositionTextureVertex[] {positiontexturevertex7, positiontexturevertex3, positiontexturevertex6, positiontexturevertex2}, texU, texV + dz, texU + dz, texV + dz + dy, renderer.textureWidth, renderer.textureHeight);
+        quadList[2] = new TexturedQuad(new PositionTextureVertex[] {positiontexturevertex4, positiontexturevertex3, positiontexturevertex7, positiontexturevertex}, texU + dz, texV, texU + dz + dx, texV + dz, renderer.textureWidth, renderer.textureHeight);
+        quadList[3] = new TexturedQuad(new PositionTextureVertex[] {positiontexturevertex1, positiontexturevertex2, positiontexturevertex6, positiontexturevertex5}, texU + dz + dx, texV + dz, texU + dz + dx + dx, texV, renderer.textureWidth, renderer.textureHeight);
+        quadList[4] = new TexturedQuad(new PositionTextureVertex[] {positiontexturevertex, positiontexturevertex7, positiontexturevertex2, positiontexturevertex1}, texU + dz, texV + dz, texU + dz + dx, texV + dz + dy, renderer.textureWidth, renderer.textureHeight);
+        quadList[5] = new TexturedQuad(new PositionTextureVertex[] {positiontexturevertex3, positiontexturevertex4, positiontexturevertex5, positiontexturevertex6}, texU + dz + dx + dz, texV + dz, texU + dz + dx + dz + dx, texV + dz + dy, renderer.textureWidth, renderer.textureHeight);
 
         if (mirror)
         {
-            for (TexturedQuad texturedquad : this.quadList)
+            for (TexturedQuad texturedquad : quadList)
             {
                 texturedquad.flipFace();
             }
@@ -97,7 +97,7 @@ public class ModelBox
 
     public void render(BufferBuilder renderer, float scale)
     {
-        for (TexturedQuad texturedquad : this.quadList)
+        for (TexturedQuad texturedquad : quadList)
         {
             texturedquad.draw(renderer, scale);
         }
@@ -105,7 +105,7 @@ public class ModelBox
 
     public ModelBox setBoxName(String name)
     {
-        this.boxName = name;
+        boxName = name;
         return this;
     }
 }

@@ -16,7 +16,7 @@ public class IntegratedPlayerList extends PlayerList
     public IntegratedPlayerList(IntegratedServer server)
     {
         super(server);
-        this.setViewDistance(10);
+        setViewDistance(10);
     }
 
     /**
@@ -24,9 +24,9 @@ public class IntegratedPlayerList extends PlayerList
      */
     protected void writePlayerData(EntityPlayerMP playerIn)
     {
-        if (playerIn.getName().equals(this.getServerInstance().getServerOwner()))
+        if (playerIn.getName().equals(getServerInstance().getServerOwner()))
         {
-            this.hostPlayerData = playerIn.writeToNBT(new NBTTagCompound());
+            hostPlayerData = playerIn.writeToNBT(new NBTTagCompound());
         }
 
         super.writePlayerData(playerIn);
@@ -37,7 +37,7 @@ public class IntegratedPlayerList extends PlayerList
      */
     public String allowUserToConnect(SocketAddress address, GameProfile profile)
     {
-        return profile.getName().equalsIgnoreCase(this.getServerInstance().getServerOwner()) && this.getPlayerByUsername(profile.getName()) != null ? "That name is already taken." : super.allowUserToConnect(address, profile);
+        return profile.getName().equalsIgnoreCase(getServerInstance().getServerOwner()) && getPlayerByUsername(profile.getName()) != null ? "That name is already taken." : super.allowUserToConnect(address, profile);
     }
 
     public IntegratedServer getServerInstance()
@@ -50,6 +50,6 @@ public class IntegratedPlayerList extends PlayerList
      */
     public NBTTagCompound getHostPlayerData()
     {
-        return this.hostPlayerData;
+        return hostPlayerData;
     }
 }

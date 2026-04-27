@@ -7,7 +7,7 @@ public class EnchantmentFireAspect extends Enchantment
     protected EnchantmentFireAspect(Enchantment.Rarity rarityIn, EntityEquipmentSlot... slots)
     {
         super(rarityIn, EnumEnchantmentType.WEAPON, slots);
-        this.setName("fire");
+        setName("fire");
     }
 
     /**

@@ -40,9 +40,9 @@ public class SlotMerchantResult extends Slot
      */
     public ItemStack decrStackSize(int amount)
     {
-        if (this.getHasStack())
+        if (getHasStack())
         {
-            this.removeCount += Math.min(amount, this.getStack().getCount());
+            removeCount += Math.min(amount, getStack().getCount());
         }
 
         return super.decrStackSize(amount);
@@ -54,8 +54,8 @@ public class SlotMerchantResult extends Slot
      */
     protected void onCrafting(ItemStack stack, int amount)
     {
-        this.removeCount += amount;
-        this.onCrafting(stack);
+        removeCount += amount;
+        onCrafting(stack);
     }
 
     /**
@@ -63,26 +63,26 @@ public class SlotMerchantResult extends Slot
      */
     protected void onCrafting(ItemStack stack)
     {
-        stack.onCrafting(this.player.world, this.player, this.removeCount);
-        this.removeCount = 0;
+        stack.onCrafting(player.world, player, removeCount);
+        removeCount = 0;
     }
 
     public ItemStack onTake(EntityPlayer thePlayer, ItemStack stack)
     {
-        this.onCrafting(stack);
-        MerchantRecipe merchantrecipe = this.merchantInventory.getCurrentRecipe();
+        onCrafting(stack);
+        MerchantRecipe merchantrecipe = merchantInventory.getCurrentRecipe();
 
         if (merchantrecipe != null)
         {
-            ItemStack itemstack = this.merchantInventory.getStackInSlot(0);
-            ItemStack itemstack1 = this.merchantInventory.getStackInSlot(1);
+            ItemStack itemstack = merchantInventory.getStackInSlot(0);
+            ItemStack itemstack1 = merchantInventory.getStackInSlot(1);
 
-            if (this.doTrade(merchantrecipe, itemstack, itemstack1) || this.doTrade(merchantrecipe, itemstack1, itemstack))
+            if (doTrade(merchantrecipe, itemstack, itemstack1) || doTrade(merchantrecipe, itemstack1, itemstack))
             {
-                this.merchant.useRecipe(merchantrecipe);
+                merchant.useRecipe(merchantrecipe);
                 thePlayer.addStat(StatList.TRADED_WITH_VILLAGER);
-                this.merchantInventory.setInventorySlotContents(0, itemstack);
-                this.merchantInventory.setInventorySlotContents(1, itemstack1);
+                merchantInventory.setInventorySlotContents(0, itemstack);
+                merchantInventory.setInventorySlotContents(1, itemstack1);
             }
         }
 

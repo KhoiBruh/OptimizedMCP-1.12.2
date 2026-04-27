@@ -24,13 +24,13 @@ public class SPacketCustomSound implements Packet<INetHandlerPlayClient>
     public SPacketCustomSound(String soundNameIn, SoundCategory categoryIn, double xIn, double yIn, double zIn, float volumeIn, float pitchIn)
     {
         Validate.notNull(soundNameIn, "name");
-        this.soundName = soundNameIn;
-        this.category = categoryIn;
-        this.x = (int)(xIn * 8.0D);
-        this.y = (int)(yIn * 8.0D);
-        this.z = (int)(zIn * 8.0D);
-        this.volume = volumeIn;
-        this.pitch = pitchIn;
+        soundName = soundNameIn;
+        category = categoryIn;
+        x = (int)(xIn * 8.0D);
+        y = (int)(yIn * 8.0D);
+        z = (int)(zIn * 8.0D);
+        volume = volumeIn;
+        pitch = pitchIn;
     }
 
     /**
@@ -38,13 +38,13 @@ public class SPacketCustomSound implements Packet<INetHandlerPlayClient>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.soundName = buf.readString(256);
-        this.category = (SoundCategory)buf.readEnumValue(SoundCategory.class);
-        this.x = buf.readInt();
-        this.y = buf.readInt();
-        this.z = buf.readInt();
-        this.volume = buf.readFloat();
-        this.pitch = buf.readFloat();
+        soundName = buf.readString(256);
+        category = (SoundCategory)buf.readEnumValue(SoundCategory.class);
+        x = buf.readInt();
+        y = buf.readInt();
+        z = buf.readInt();
+        volume = buf.readFloat();
+        pitch = buf.readFloat();
     }
 
     /**
@@ -52,48 +52,48 @@ public class SPacketCustomSound implements Packet<INetHandlerPlayClient>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeString(this.soundName);
-        buf.writeEnumValue(this.category);
-        buf.writeInt(this.x);
-        buf.writeInt(this.y);
-        buf.writeInt(this.z);
-        buf.writeFloat(this.volume);
-        buf.writeFloat(this.pitch);
+        buf.writeString(soundName);
+        buf.writeEnumValue(category);
+        buf.writeInt(x);
+        buf.writeInt(y);
+        buf.writeInt(z);
+        buf.writeFloat(volume);
+        buf.writeFloat(pitch);
     }
 
     public String getSoundName()
     {
-        return this.soundName;
+        return soundName;
     }
 
     public SoundCategory getCategory()
     {
-        return this.category;
+        return category;
     }
 
     public double getX()
     {
-        return (double)((float)this.x / 8.0F);
+        return (double)((float) x / 8.0F);
     }
 
     public double getY()
     {
-        return (double)((float)this.y / 8.0F);
+        return (double)((float) y / 8.0F);
     }
 
     public double getZ()
     {
-        return (double)((float)this.z / 8.0F);
+        return (double)((float) z / 8.0F);
     }
 
     public float getVolume()
     {
-        return this.volume;
+        return volume;
     }
 
     public float getPitch()
     {
-        return this.pitch;
+        return pitch;
     }
 
     /**

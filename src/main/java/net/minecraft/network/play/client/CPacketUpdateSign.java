@@ -18,8 +18,8 @@ public class CPacketUpdateSign implements Packet<INetHandlerPlayServer>
 
     public CPacketUpdateSign(BlockPos posIn, ITextComponent[] linesIn)
     {
-        this.pos = posIn;
-        this.lines = new String[] {linesIn[0].getUnformattedText(), linesIn[1].getUnformattedText(), linesIn[2].getUnformattedText(), linesIn[3].getUnformattedText()};
+        pos = posIn;
+        lines = new String[] {linesIn[0].getUnformattedText(), linesIn[1].getUnformattedText(), linesIn[2].getUnformattedText(), linesIn[3].getUnformattedText()};
     }
 
     /**
@@ -27,12 +27,12 @@ public class CPacketUpdateSign implements Packet<INetHandlerPlayServer>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.pos = buf.readBlockPos();
-        this.lines = new String[4];
+        pos = buf.readBlockPos();
+        lines = new String[4];
 
         for (int i = 0; i < 4; ++i)
         {
-            this.lines[i] = buf.readString(384);
+            lines[i] = buf.readString(384);
         }
     }
 
@@ -41,11 +41,11 @@ public class CPacketUpdateSign implements Packet<INetHandlerPlayServer>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeBlockPos(this.pos);
+        buf.writeBlockPos(pos);
 
         for (int i = 0; i < 4; ++i)
         {
-            buf.writeString(this.lines[i]);
+            buf.writeString(lines[i]);
         }
     }
 
@@ -59,11 +59,11 @@ public class CPacketUpdateSign implements Packet<INetHandlerPlayServer>
 
     public BlockPos getPosition()
     {
-        return this.pos;
+        return pos;
     }
 
     public String[] getLines()
     {
-        return this.lines;
+        return lines;
     }
 }

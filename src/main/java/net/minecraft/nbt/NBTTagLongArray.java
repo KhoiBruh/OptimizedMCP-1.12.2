@@ -16,7 +16,7 @@ public class NBTTagLongArray extends NBTBase
 
     public NBTTagLongArray(long[] p_i47524_1_)
     {
-        this.data = p_i47524_1_;
+        data = p_i47524_1_;
     }
 
     public NBTTagLongArray(List<Long> p_i47525_1_)
@@ -42,9 +42,9 @@ public class NBTTagLongArray extends NBTBase
      */
     void write(DataOutput output) throws IOException
     {
-        output.writeInt(this.data.length);
+        output.writeInt(data.length);
 
-        for (long i : this.data)
+        for (long i : data)
         {
             output.writeLong(i);
         }
@@ -55,11 +55,11 @@ public class NBTTagLongArray extends NBTBase
         sizeTracker.read(192L);
         int i = input.readInt();
         sizeTracker.read((long)(64 * i));
-        this.data = new long[i];
+        data = new long[i];
 
         for (int j = 0; j < i; ++j)
         {
-            this.data[j] = input.readLong();
+            data[j] = input.readLong();
         }
     }
 
@@ -75,14 +75,14 @@ public class NBTTagLongArray extends NBTBase
     {
         StringBuilder stringbuilder = new StringBuilder("[L;");
 
-        for (int i = 0; i < this.data.length; ++i)
+        for (int i = 0; i < data.length; ++i)
         {
             if (i != 0)
             {
                 stringbuilder.append(',');
             }
 
-            stringbuilder.append(this.data[i]).append('L');
+            stringbuilder.append(data[i]).append('L');
         }
 
         return stringbuilder.append(']').toString();
@@ -93,18 +93,18 @@ public class NBTTagLongArray extends NBTBase
      */
     public NBTTagLongArray copy()
     {
-        long[] along = new long[this.data.length];
-        System.arraycopy(this.data, 0, along, 0, this.data.length);
+        long[] along = new long[data.length];
+        System.arraycopy(data, 0, along, 0, data.length);
         return new NBTTagLongArray(along);
     }
 
     public boolean equals(Object p_equals_1_)
     {
-        return super.equals(p_equals_1_) && Arrays.equals(this.data, ((NBTTagLongArray)p_equals_1_).data);
+        return super.equals(p_equals_1_) && Arrays.equals(data, ((NBTTagLongArray)p_equals_1_).data);
     }
 
     public int hashCode()
     {
-        return super.hashCode() ^ Arrays.hashCode(this.data);
+        return super.hashCode() ^ Arrays.hashCode(data);
     }
 }

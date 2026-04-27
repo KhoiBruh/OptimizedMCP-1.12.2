@@ -18,13 +18,13 @@ public class SPacketSetPassengers implements Packet<INetHandlerPlayClient>
 
     public SPacketSetPassengers(Entity entityIn)
     {
-        this.entityId = entityIn.getEntityId();
+        entityId = entityIn.getEntityId();
         List<Entity> list = entityIn.getPassengers();
-        this.passengerIds = new int[list.size()];
+        passengerIds = new int[list.size()];
 
         for (int i = 0; i < list.size(); ++i)
         {
-            this.passengerIds[i] = ((Entity)list.get(i)).getEntityId();
+            passengerIds[i] = ((Entity)list.get(i)).getEntityId();
         }
     }
 
@@ -33,8 +33,8 @@ public class SPacketSetPassengers implements Packet<INetHandlerPlayClient>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.entityId = buf.readVarInt();
-        this.passengerIds = buf.readVarIntArray();
+        entityId = buf.readVarInt();
+        passengerIds = buf.readVarIntArray();
     }
 
     /**
@@ -42,8 +42,8 @@ public class SPacketSetPassengers implements Packet<INetHandlerPlayClient>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeVarInt(this.entityId);
-        buf.writeVarIntArray(this.passengerIds);
+        buf.writeVarInt(entityId);
+        buf.writeVarIntArray(passengerIds);
     }
 
     /**
@@ -56,11 +56,11 @@ public class SPacketSetPassengers implements Packet<INetHandlerPlayClient>
 
     public int[] getPassengerIds()
     {
-        return this.passengerIds;
+        return passengerIds;
     }
 
     public int getEntityId()
     {
-        return this.entityId;
+        return entityId;
     }
 }

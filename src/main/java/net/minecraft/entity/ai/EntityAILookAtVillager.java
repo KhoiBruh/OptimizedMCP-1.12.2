@@ -11,8 +11,8 @@ public class EntityAILookAtVillager extends EntityAIBase
 
     public EntityAILookAtVillager(EntityIronGolem ironGolemIn)
     {
-        this.ironGolem = ironGolemIn;
-        this.setMutexBits(3);
+        ironGolem = ironGolemIn;
+        setMutexBits(3);
     }
 
     /**
@@ -20,18 +20,18 @@ public class EntityAILookAtVillager extends EntityAIBase
      */
     public boolean shouldExecute()
     {
-        if (!this.ironGolem.world.isDaytime())
+        if (!ironGolem.world.isDaytime())
         {
             return false;
         }
-        else if (this.ironGolem.getRNG().nextInt(8000) != 0)
+        else if (ironGolem.getRNG().nextInt(8000) != 0)
         {
             return false;
         }
         else
         {
-            this.villager = (EntityVillager)this.ironGolem.world.findNearestEntityWithinAABB(EntityVillager.class, this.ironGolem.getEntityBoundingBox().grow(6.0D, 2.0D, 6.0D), this.ironGolem);
-            return this.villager != null;
+            villager = (EntityVillager) ironGolem.world.findNearestEntityWithinAABB(EntityVillager.class, ironGolem.getEntityBoundingBox().grow(6.0D, 2.0D, 6.0D), ironGolem);
+            return villager != null;
         }
     }
 
@@ -40,7 +40,7 @@ public class EntityAILookAtVillager extends EntityAIBase
      */
     public boolean shouldContinueExecuting()
     {
-        return this.lookTime > 0;
+        return lookTime > 0;
     }
 
     /**
@@ -48,8 +48,8 @@ public class EntityAILookAtVillager extends EntityAIBase
      */
     public void startExecuting()
     {
-        this.lookTime = 400;
-        this.ironGolem.setHoldingRose(true);
+        lookTime = 400;
+        ironGolem.setHoldingRose(true);
     }
 
     /**
@@ -57,8 +57,8 @@ public class EntityAILookAtVillager extends EntityAIBase
      */
     public void resetTask()
     {
-        this.ironGolem.setHoldingRose(false);
-        this.villager = null;
+        ironGolem.setHoldingRose(false);
+        villager = null;
     }
 
     /**
@@ -66,7 +66,7 @@ public class EntityAILookAtVillager extends EntityAIBase
      */
     public void updateTask()
     {
-        this.ironGolem.getLookHelper().setLookPositionWithEntity(this.villager, 30.0F, 30.0F);
-        --this.lookTime;
+        ironGolem.getLookHelper().setLookPositionWithEntity(villager, 30.0F, 30.0F);
+        --lookTime;
     }
 }

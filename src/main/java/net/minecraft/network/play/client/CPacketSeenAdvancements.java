@@ -19,8 +19,8 @@ public class CPacketSeenAdvancements implements Packet<INetHandlerPlayServer>
 
     public CPacketSeenAdvancements(CPacketSeenAdvancements.Action p_i47595_1_, @Nullable ResourceLocation p_i47595_2_)
     {
-        this.action = p_i47595_1_;
-        this.tab = p_i47595_2_;
+        action = p_i47595_1_;
+        tab = p_i47595_2_;
     }
 
     public static CPacketSeenAdvancements openedTab(Advancement p_194163_0_)
@@ -38,11 +38,11 @@ public class CPacketSeenAdvancements implements Packet<INetHandlerPlayServer>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.action = (CPacketSeenAdvancements.Action)buf.readEnumValue(CPacketSeenAdvancements.Action.class);
+        action = (CPacketSeenAdvancements.Action)buf.readEnumValue(CPacketSeenAdvancements.Action.class);
 
-        if (this.action == CPacketSeenAdvancements.Action.OPENED_TAB)
+        if (action == CPacketSeenAdvancements.Action.OPENED_TAB)
         {
-            this.tab = buf.readResourceLocation();
+            tab = buf.readResourceLocation();
         }
     }
 
@@ -51,11 +51,11 @@ public class CPacketSeenAdvancements implements Packet<INetHandlerPlayServer>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeEnumValue(this.action);
+        buf.writeEnumValue(action);
 
-        if (this.action == CPacketSeenAdvancements.Action.OPENED_TAB)
+        if (action == CPacketSeenAdvancements.Action.OPENED_TAB)
         {
-            buf.writeResourceLocation(this.tab);
+            buf.writeResourceLocation(tab);
         }
     }
 
@@ -69,12 +69,12 @@ public class CPacketSeenAdvancements implements Packet<INetHandlerPlayServer>
 
     public CPacketSeenAdvancements.Action getAction()
     {
-        return this.action;
+        return action;
     }
 
     public ResourceLocation getTab()
     {
-        return this.tab;
+        return tab;
     }
 
     public static enum Action

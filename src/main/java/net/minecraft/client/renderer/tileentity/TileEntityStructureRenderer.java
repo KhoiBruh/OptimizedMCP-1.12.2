@@ -96,20 +96,20 @@ public class TileEntityStructureRenderer extends TileEntitySpecialRenderer<TileE
                     GlStateManager.disableTexture2D();
                     GlStateManager.enableBlend();
                     GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-                    this.setLightmapDisabled(true);
+                    setLightmapDisabled(true);
 
                     if (te.getMode() == TileEntityStructure.Mode.SAVE || te.showsBoundingBox())
                     {
-                        this.renderBox(tessellator, bufferbuilder, d5, d6, d7, d8, d9, d10, 255, 223, 127);
+                        renderBox(tessellator, bufferbuilder, d5, d6, d7, d8, d9, d10, 255, 223, 127);
                     }
 
                     if (te.getMode() == TileEntityStructure.Mode.SAVE && te.showsAir())
                     {
-                        this.renderInvisibleBlocks(te, x, y, z, blockpos, tessellator, bufferbuilder, true);
-                        this.renderInvisibleBlocks(te, x, y, z, blockpos, tessellator, bufferbuilder, false);
+                        renderInvisibleBlocks(te, x, y, z, blockpos, tessellator, bufferbuilder, true);
+                        renderInvisibleBlocks(te, x, y, z, blockpos, tessellator, bufferbuilder, false);
                     }
 
-                    this.setLightmapDisabled(false);
+                    setLightmapDisabled(false);
                     GlStateManager.glLineWidth(1.0F);
                     GlStateManager.enableLighting();
                     GlStateManager.enableTexture2D();

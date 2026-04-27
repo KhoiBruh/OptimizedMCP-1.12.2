@@ -29,12 +29,12 @@ public class SetAttributes extends LootFunction
     public SetAttributes(LootCondition[] conditionsIn, SetAttributes.Modifier[] modifiersIn)
     {
         super(conditionsIn);
-        this.modifiers = modifiersIn;
+        modifiers = modifiersIn;
     }
 
     public ItemStack apply(ItemStack stack, Random rand, LootContext context)
     {
-        for (SetAttributes.Modifier setattributes$modifier : this.modifiers)
+        for (SetAttributes.Modifier setattributes$modifier : modifiers)
         {
             UUID uuid = setattributes$modifier.uuid;
 
@@ -62,36 +62,36 @@ public class SetAttributes extends LootFunction
 
         private Modifier(String modifName, String attrName, int operationIn, RandomValueRange randomAmount, EntityEquipmentSlot[] slotsIn, @Nullable UUID uuidIn)
         {
-            this.modifierName = modifName;
-            this.attributeName = attrName;
-            this.operation = operationIn;
-            this.amount = randomAmount;
-            this.uuid = uuidIn;
-            this.slots = slotsIn;
+            modifierName = modifName;
+            attributeName = attrName;
+            operation = operationIn;
+            amount = randomAmount;
+            uuid = uuidIn;
+            slots = slotsIn;
         }
 
         public JsonObject serialize(JsonSerializationContext context)
         {
             JsonObject jsonobject = new JsonObject();
-            jsonobject.addProperty("name", this.modifierName);
-            jsonobject.addProperty("attribute", this.attributeName);
-            jsonobject.addProperty("operation", getOperationFromStr(this.operation));
-            jsonobject.add("amount", context.serialize(this.amount));
+            jsonobject.addProperty("name", modifierName);
+            jsonobject.addProperty("attribute", attributeName);
+            jsonobject.addProperty("operation", getOperationFromStr(operation));
+            jsonobject.add("amount", context.serialize(amount));
 
-            if (this.uuid != null)
+            if (uuid != null)
             {
-                jsonobject.addProperty("id", this.uuid.toString());
+                jsonobject.addProperty("id", uuid.toString());
             }
 
-            if (this.slots.length == 1)
+            if (slots.length == 1)
             {
-                jsonobject.addProperty("slot", this.slots[0].getName());
+                jsonobject.addProperty("slot", slots[0].getName());
             }
             else
             {
                 JsonArray jsonarray = new JsonArray();
 
-                for (EntityEquipmentSlot entityequipmentslot : this.slots)
+                for (EntityEquipmentSlot entityequipmentslot : slots)
                 {
                     jsonarray.add(new JsonPrimitive(entityequipmentslot.getName()));
                 }

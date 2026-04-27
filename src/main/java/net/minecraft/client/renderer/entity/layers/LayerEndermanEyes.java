@@ -14,12 +14,12 @@ public class LayerEndermanEyes implements LayerRenderer<EntityEnderman>
 
     public LayerEndermanEyes(RenderEnderman endermanRendererIn)
     {
-        this.endermanRenderer = endermanRendererIn;
+        endermanRenderer = endermanRendererIn;
     }
 
     public void doRenderLayer(EntityEnderman entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale)
     {
-        this.endermanRenderer.bindTexture(RES_ENDERMAN_EYES);
+        endermanRenderer.bindTexture(RES_ENDERMAN_EYES);
         GlStateManager.enableBlend();
         GlStateManager.disableAlpha();
         GlStateManager.blendFunc(GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ONE);
@@ -32,9 +32,9 @@ public class LayerEndermanEyes implements LayerRenderer<EntityEnderman>
         GlStateManager.enableLighting();
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
-        this.endermanRenderer.getMainModel().render(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+        endermanRenderer.getMainModel().render(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
         Minecraft.getMinecraft().entityRenderer.setupFogColor(false);
-        this.endermanRenderer.setLightmap(entitylivingbaseIn);
+        endermanRenderer.setLightmap(entitylivingbaseIn);
         GlStateManager.depthMask(true);
         GlStateManager.disableBlend();
         GlStateManager.enableAlpha();

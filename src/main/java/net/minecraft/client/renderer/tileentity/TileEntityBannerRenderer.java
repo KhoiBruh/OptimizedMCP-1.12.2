@@ -28,7 +28,7 @@ public class TileEntityBannerRenderer extends TileEntitySpecialRenderer<TileEnti
             GlStateManager.translate((float)x + 0.5F, (float)y + 0.5F, (float)z + 0.5F);
             float f1 = (float)(i * 360) / 16.0F;
             GlStateManager.rotate(-f1, 0.0F, 1.0F, 0.0F);
-            this.bannerModel.bannerStand.showModel = true;
+            bannerModel.bannerStand.showModel = true;
         }
         else
         {
@@ -52,21 +52,21 @@ public class TileEntityBannerRenderer extends TileEntitySpecialRenderer<TileEnti
             GlStateManager.translate((float)x + 0.5F, (float)y - 0.16666667F, (float)z + 0.5F);
             GlStateManager.rotate(-f2, 0.0F, 1.0F, 0.0F);
             GlStateManager.translate(0.0F, -0.3125F, -0.4375F);
-            this.bannerModel.bannerStand.showModel = false;
+            bannerModel.bannerStand.showModel = false;
         }
 
         BlockPos blockpos = te.getPos();
         float f3 = (float)(blockpos.getX() * 7 + blockpos.getY() * 9 + blockpos.getZ() * 13) + (float)j + partialTicks;
-        this.bannerModel.bannerSlate.rotateAngleX = (-0.0125F + 0.01F * MathHelper.cos(f3 * (float)Math.PI * 0.02F)) * (float)Math.PI;
+        bannerModel.bannerSlate.rotateAngleX = (-0.0125F + 0.01F * MathHelper.cos(f3 * (float)Math.PI * 0.02F)) * (float)Math.PI;
         GlStateManager.enableRescaleNormal();
-        ResourceLocation resourcelocation = this.getBannerResourceLocation(te);
+        ResourceLocation resourcelocation = getBannerResourceLocation(te);
 
         if (resourcelocation != null)
         {
-            this.bindTexture(resourcelocation);
+            bindTexture(resourcelocation);
             GlStateManager.pushMatrix();
             GlStateManager.scale(0.6666667F, -0.6666667F, -0.6666667F);
-            this.bannerModel.renderBanner();
+            bannerModel.renderBanner();
             GlStateManager.popMatrix();
         }
 

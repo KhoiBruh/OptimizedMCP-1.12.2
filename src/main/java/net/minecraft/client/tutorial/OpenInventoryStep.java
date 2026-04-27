@@ -20,28 +20,28 @@ public class OpenInventoryStep implements ITutorialStep
 
     public void update()
     {
-        ++this.timeWaiting;
+        ++timeWaiting;
 
-        if (this.tutorial.getGameType() != GameType.SURVIVAL)
+        if (tutorial.getGameType() != GameType.SURVIVAL)
         {
-            this.tutorial.setStep(TutorialSteps.NONE);
+            tutorial.setStep(TutorialSteps.NONE);
         }
         else
         {
-            if (this.timeWaiting >= 600 && this.toast == null)
+            if (timeWaiting >= 600 && toast == null)
             {
-                this.toast = new TutorialToast(TutorialToast.Icons.RECIPE_BOOK, TITLE, DESCRIPTION, false);
-                this.tutorial.getMinecraft().getToastGui().add(this.toast);
+                toast = new TutorialToast(TutorialToast.Icons.RECIPE_BOOK, TITLE, DESCRIPTION, false);
+                tutorial.getMinecraft().getToastGui().add(toast);
             }
         }
     }
 
     public void onStop()
     {
-        if (this.toast != null)
+        if (toast != null)
         {
-            this.toast.hide();
-            this.toast = null;
+            toast.hide();
+            toast = null;
         }
     }
 
@@ -50,6 +50,6 @@ public class OpenInventoryStep implements ITutorialStep
      */
     public void openInventory()
     {
-        this.tutorial.setStep(TutorialSteps.CRAFT_PLANKS);
+        tutorial.setStep(TutorialSteps.CRAFT_PLANKS);
     }
 }

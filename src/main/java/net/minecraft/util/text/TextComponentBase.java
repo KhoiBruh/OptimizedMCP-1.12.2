@@ -20,14 +20,14 @@ public abstract class TextComponentBase implements ITextComponent
      */
     public ITextComponent appendSibling(ITextComponent component)
     {
-        component.getStyle().setParentStyle(this.getStyle());
-        this.siblings.add(component);
+        component.getStyle().setParentStyle(getStyle());
+        siblings.add(component);
         return this;
     }
 
     public List<ITextComponent> getSiblings()
     {
-        return this.siblings;
+        return siblings;
     }
 
     /**
@@ -38,7 +38,7 @@ public abstract class TextComponentBase implements ITextComponent
      */
     public ITextComponent appendText(String text)
     {
-        return this.appendSibling(new TextComponentString(text));
+        return appendSibling(new TextComponentString(text));
     }
 
     /**
@@ -48,9 +48,9 @@ public abstract class TextComponentBase implements ITextComponent
     {
         this.style = style;
 
-        for (ITextComponent itextcomponent : this.siblings)
+        for (ITextComponent itextcomponent : siblings)
         {
-            itextcomponent.getStyle().setParentStyle(this.getStyle());
+            itextcomponent.getStyle().setParentStyle(getStyle());
         }
 
         return this;
@@ -68,22 +68,22 @@ public abstract class TextComponentBase implements ITextComponent
      */
     public Style getStyle()
     {
-        if (this.style == null)
+        if (style == null)
         {
-            this.style = new Style();
+            style = new Style();
 
-            for (ITextComponent itextcomponent : this.siblings)
+            for (ITextComponent itextcomponent : siblings)
             {
-                itextcomponent.getStyle().setParentStyle(this.style);
+                itextcomponent.getStyle().setParentStyle(style);
             }
         }
 
-        return this.style;
+        return style;
     }
 
     public Iterator<ITextComponent> iterator()
     {
-        return Iterators.<ITextComponent>concat(Iterators.forArray(this), createDeepCopyIterator(this.siblings));
+        return Iterators.<ITextComponent>concat(Iterators.forArray(this), createDeepCopyIterator(siblings));
     }
 
     /**
@@ -157,17 +157,17 @@ public abstract class TextComponentBase implements ITextComponent
         else
         {
             TextComponentBase textcomponentbase = (TextComponentBase)p_equals_1_;
-            return this.siblings.equals(textcomponentbase.siblings) && this.getStyle().equals(textcomponentbase.getStyle());
+            return siblings.equals(textcomponentbase.siblings) && getStyle().equals(textcomponentbase.getStyle());
         }
     }
 
     public int hashCode()
     {
-        return 31 * this.style.hashCode() + this.siblings.hashCode();
+        return 31 * style.hashCode() + siblings.hashCode();
     }
 
     public String toString()
     {
-        return "BaseComponent{style=" + this.style + ", siblings=" + this.siblings + '}';
+        return "BaseComponent{style=" + style + ", siblings=" + siblings + '}';
     }
 }

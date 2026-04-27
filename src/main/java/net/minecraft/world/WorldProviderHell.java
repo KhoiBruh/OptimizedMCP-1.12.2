@@ -17,9 +17,9 @@ public class WorldProviderHell extends WorldProvider
      */
     public void init()
     {
-        this.biomeProvider = new BiomeProviderSingle(Biomes.HELL);
-        this.doesWaterVaporize = true;
-        this.nether = true;
+        biomeProvider = new BiomeProviderSingle(Biomes.HELL);
+        doesWaterVaporize = true;
+        nether = true;
     }
 
     /**
@@ -40,13 +40,13 @@ public class WorldProviderHell extends WorldProvider
         for (int i = 0; i <= 15; ++i)
         {
             float f1 = 1.0F - (float)i / 15.0F;
-            this.lightBrightnessTable[i] = (1.0F - f1) / (f1 * 3.0F + 1.0F) * 0.9F + 0.1F;
+            lightBrightnessTable[i] = (1.0F - f1) / (f1 * 3.0F + 1.0F) * 0.9F + 0.1F;
         }
     }
 
     public IChunkGenerator createChunkGenerator()
     {
-        return new ChunkGeneratorHell(this.world, this.world.getWorldInfo().isMapFeaturesEnabled(), this.world.getSeed());
+        return new ChunkGeneratorHell(world, world.getWorldInfo().isMapFeaturesEnabled(), world.getSeed());
     }
 
     /**

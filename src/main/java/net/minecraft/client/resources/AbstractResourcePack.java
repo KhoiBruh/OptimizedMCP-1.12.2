@@ -26,7 +26,7 @@ public abstract class AbstractResourcePack implements IResourcePack
 
     public AbstractResourcePack(File resourcePackFileIn)
     {
-        this.resourcePackFile = resourcePackFileIn;
+        resourcePackFile = resourcePackFileIn;
     }
 
     private static String locationToName(ResourceLocation location)
@@ -41,12 +41,12 @@ public abstract class AbstractResourcePack implements IResourcePack
 
     public InputStream getInputStream(ResourceLocation location) throws IOException
     {
-        return this.getInputStreamByName(locationToName(location));
+        return getInputStreamByName(locationToName(location));
     }
 
     public boolean resourceExists(ResourceLocation location)
     {
-        return this.hasResourceName(locationToName(location));
+        return hasResourceName(locationToName(location));
     }
 
     protected abstract InputStream getInputStreamByName(String name) throws IOException;
@@ -55,12 +55,12 @@ public abstract class AbstractResourcePack implements IResourcePack
 
     protected void logNameNotLowercase(String name)
     {
-        LOGGER.warn("ResourcePack: ignored non-lowercase namespace: {} in {}", name, this.resourcePackFile);
+        LOGGER.warn("ResourcePack: ignored non-lowercase namespace: {} in {}", name, resourcePackFile);
     }
 
     public <T extends IMetadataSection> T getPackMetadata(MetadataSerializer metadataSerializer, String metadataSectionName) throws IOException
     {
-        return (T)readMetadata(metadataSerializer, this.getInputStreamByName("pack.mcmeta"), metadataSectionName);
+        return (T)readMetadata(metadataSerializer, getInputStreamByName("pack.mcmeta"), metadataSectionName);
     }
 
     static <T extends IMetadataSection> T readMetadata(MetadataSerializer metadataSerializer, InputStream p_110596_1_, String sectionName)
@@ -87,11 +87,11 @@ public abstract class AbstractResourcePack implements IResourcePack
 
     public BufferedImage getPackImage() throws IOException
     {
-        return TextureUtil.readBufferedImage(this.getInputStreamByName("pack.png"));
+        return TextureUtil.readBufferedImage(getInputStreamByName("pack.png"));
     }
 
     public String getPackName()
     {
-        return this.resourcePackFile.getName();
+        return resourcePackFile.getName();
     }
 }

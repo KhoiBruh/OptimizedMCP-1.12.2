@@ -18,7 +18,7 @@ public class SPacketSelectAdvancementsTab implements Packet<INetHandlerPlayClien
 
     public SPacketSelectAdvancementsTab(@Nullable ResourceLocation p_i47596_1_)
     {
-        this.tab = p_i47596_1_;
+        tab = p_i47596_1_;
     }
 
     /**
@@ -36,7 +36,7 @@ public class SPacketSelectAdvancementsTab implements Packet<INetHandlerPlayClien
     {
         if (buf.readBoolean())
         {
-            this.tab = buf.readResourceLocation();
+            tab = buf.readResourceLocation();
         }
     }
 
@@ -45,17 +45,17 @@ public class SPacketSelectAdvancementsTab implements Packet<INetHandlerPlayClien
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeBoolean(this.tab != null);
+        buf.writeBoolean(tab != null);
 
-        if (this.tab != null)
+        if (tab != null)
         {
-            buf.writeResourceLocation(this.tab);
+            buf.writeResourceLocation(tab);
         }
     }
 
     @Nullable
     public ResourceLocation getTab()
     {
-        return this.tab;
+        return tab;
     }
 }

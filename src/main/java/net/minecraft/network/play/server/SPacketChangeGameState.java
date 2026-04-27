@@ -17,8 +17,8 @@ public class SPacketChangeGameState implements Packet<INetHandlerPlayClient>
 
     public SPacketChangeGameState(int stateIn, float valueIn)
     {
-        this.state = stateIn;
-        this.value = valueIn;
+        state = stateIn;
+        value = valueIn;
     }
 
     /**
@@ -26,8 +26,8 @@ public class SPacketChangeGameState implements Packet<INetHandlerPlayClient>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.state = buf.readUnsignedByte();
-        this.value = buf.readFloat();
+        state = buf.readUnsignedByte();
+        value = buf.readFloat();
     }
 
     /**
@@ -35,8 +35,8 @@ public class SPacketChangeGameState implements Packet<INetHandlerPlayClient>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeByte(this.state);
-        buf.writeFloat(this.value);
+        buf.writeByte(state);
+        buf.writeFloat(value);
     }
 
     /**
@@ -49,11 +49,11 @@ public class SPacketChangeGameState implements Packet<INetHandlerPlayClient>
 
     public int getGameState()
     {
-        return this.state;
+        return state;
     }
 
     public float getValue()
     {
-        return this.value;
+        return value;
     }
 }

@@ -16,8 +16,8 @@ public class NetHandlerHandshakeTCP implements INetHandlerHandshakeServer
 
     public NetHandlerHandshakeTCP(MinecraftServer serverIn, NetworkManager netManager)
     {
-        this.server = serverIn;
-        this.networkManager = netManager;
+        server = serverIn;
+        networkManager = netManager;
     }
 
     /**
@@ -30,30 +30,30 @@ public class NetHandlerHandshakeTCP implements INetHandlerHandshakeServer
         switch (packetIn.getRequestedState())
         {
             case LOGIN:
-                this.networkManager.setConnectionState(EnumConnectionState.LOGIN);
+                networkManager.setConnectionState(EnumConnectionState.LOGIN);
 
                 if (packetIn.getProtocolVersion() > 340)
                 {
                     ITextComponent itextcomponent = new TextComponentTranslation("multiplayer.disconnect.outdated_server", new Object[] {"1.12.2"});
-                    this.networkManager.sendPacket(new SPacketDisconnect(itextcomponent));
-                    this.networkManager.closeChannel(itextcomponent);
+                    networkManager.sendPacket(new SPacketDisconnect(itextcomponent));
+                    networkManager.closeChannel(itextcomponent);
                 }
                 else if (packetIn.getProtocolVersion() < 340)
                 {
                     ITextComponent itextcomponent1 = new TextComponentTranslation("multiplayer.disconnect.outdated_client", new Object[] {"1.12.2"});
-                    this.networkManager.sendPacket(new SPacketDisconnect(itextcomponent1));
-                    this.networkManager.closeChannel(itextcomponent1);
+                    networkManager.sendPacket(new SPacketDisconnect(itextcomponent1));
+                    networkManager.closeChannel(itextcomponent1);
                 }
                 else
                 {
-                    this.networkManager.setNetHandler(new NetHandlerLoginServer(this.server, this.networkManager));
+                    networkManager.setNetHandler(new NetHandlerLoginServer(server, networkManager));
                 }
 
                 break;
 
             case STATUS:
-                this.networkManager.setConnectionState(EnumConnectionState.STATUS);
-                this.networkManager.setNetHandler(new NetHandlerStatusServer(this.server, this.networkManager));
+                networkManager.setConnectionState(EnumConnectionState.STATUS);
+                networkManager.setNetHandler(new NetHandlerStatusServer(server, networkManager));
                 break;
 
             default:

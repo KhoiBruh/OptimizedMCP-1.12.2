@@ -19,7 +19,7 @@ public class ItemSeedFood extends ItemFood
     {
         super(healAmount, saturation, false);
         this.crops = crops;
-        this.soilId = soil;
+        soilId = soil;
     }
 
     /**
@@ -29,9 +29,9 @@ public class ItemSeedFood extends ItemFood
     {
         ItemStack itemstack = player.getHeldItem(hand);
 
-        if (facing == EnumFacing.UP && player.canPlayerEdit(pos.offset(facing), facing, itemstack) && worldIn.getBlockState(pos).getBlock() == this.soilId && worldIn.isAirBlock(pos.up()))
+        if (facing == EnumFacing.UP && player.canPlayerEdit(pos.offset(facing), facing, itemstack) && worldIn.getBlockState(pos).getBlock() == soilId && worldIn.isAirBlock(pos.up()))
         {
-            worldIn.setBlockState(pos.up(), this.crops.getDefaultState(), 11);
+            worldIn.setBlockState(pos.up(), crops.getDefaultState(), 11);
             itemstack.shrink(1);
             return EnumActionResult.SUCCESS;
         }

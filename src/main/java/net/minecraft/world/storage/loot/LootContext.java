@@ -27,50 +27,50 @@ public class LootContext
 
     public LootContext(float luckIn, WorldServer worldIn, LootTableManager lootTableManagerIn, @Nullable Entity lootedEntityIn, @Nullable EntityPlayer playerIn, @Nullable DamageSource damageSourceIn)
     {
-        this.luck = luckIn;
-        this.world = worldIn;
-        this.lootTableManager = lootTableManagerIn;
-        this.lootedEntity = lootedEntityIn;
-        this.player = playerIn;
-        this.damageSource = damageSourceIn;
+        luck = luckIn;
+        world = worldIn;
+        lootTableManager = lootTableManagerIn;
+        lootedEntity = lootedEntityIn;
+        player = playerIn;
+        damageSource = damageSourceIn;
     }
 
     @Nullable
     public Entity getLootedEntity()
     {
-        return this.lootedEntity;
+        return lootedEntity;
     }
 
     @Nullable
     public Entity getKillerPlayer()
     {
-        return this.player;
+        return player;
     }
 
     @Nullable
     public Entity getKiller()
     {
-        return this.damageSource == null ? null : this.damageSource.getTrueSource();
+        return damageSource == null ? null : damageSource.getTrueSource();
     }
 
     public boolean addLootTable(LootTable lootTableIn)
     {
-        return this.lootTables.add(lootTableIn);
+        return lootTables.add(lootTableIn);
     }
 
     public void removeLootTable(LootTable lootTableIn)
     {
-        this.lootTables.remove(lootTableIn);
+        lootTables.remove(lootTableIn);
     }
 
     public LootTableManager getLootTableManager()
     {
-        return this.lootTableManager;
+        return lootTableManager;
     }
 
     public float getLuck()
     {
-        return this.luck;
+        return luck;
     }
 
     @Nullable
@@ -79,13 +79,13 @@ public class LootContext
         switch (target)
         {
             case THIS:
-                return this.getLootedEntity();
+                return getLootedEntity();
 
             case KILLER:
-                return this.getKiller();
+                return getKiller();
 
             case KILLER_PLAYER:
-                return this.getKillerPlayer();
+                return getKillerPlayer();
 
             default:
                 return null;
@@ -102,36 +102,36 @@ public class LootContext
 
         public Builder(WorldServer worldIn)
         {
-            this.world = worldIn;
+            world = worldIn;
         }
 
         public LootContext.Builder withLuck(float luckIn)
         {
-            this.luck = luckIn;
+            luck = luckIn;
             return this;
         }
 
         public LootContext.Builder withLootedEntity(Entity entityIn)
         {
-            this.lootedEntity = entityIn;
+            lootedEntity = entityIn;
             return this;
         }
 
         public LootContext.Builder withPlayer(EntityPlayer playerIn)
         {
-            this.player = playerIn;
+            player = playerIn;
             return this;
         }
 
         public LootContext.Builder withDamageSource(DamageSource dmgSource)
         {
-            this.damageSource = dmgSource;
+            damageSource = dmgSource;
             return this;
         }
 
         public LootContext build()
         {
-            return new LootContext(this.luck, this.world, this.world.getLootTableManager(), this.lootedEntity, this.player, this.damageSource);
+            return new LootContext(luck, world, world.getLootTableManager(), lootedEntity, player, damageSource);
         }
     }
 
@@ -145,7 +145,7 @@ public class LootContext
 
         private EntityTarget(String type)
         {
-            this.targetType = type;
+            targetType = type;
         }
 
         public static LootContext.EntityTarget fromString(String type)

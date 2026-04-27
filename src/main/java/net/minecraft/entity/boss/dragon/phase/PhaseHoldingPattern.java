@@ -34,11 +34,11 @@ public class PhaseHoldingPattern extends PhaseBase
      */
     public void doLocalUpdate()
     {
-        double d0 = this.targetLocation == null ? 0.0D : this.targetLocation.squareDistanceTo(this.dragon.posX, this.dragon.posY, this.dragon.posZ);
+        double d0 = targetLocation == null ? 0.0D : targetLocation.squareDistanceTo(dragon.posX, dragon.posY, dragon.posZ);
 
-        if (d0 < 100.0D || d0 > 22500.0D || this.dragon.collidedHorizontally || this.dragon.collidedVertically)
+        if (d0 < 100.0D || d0 > 22500.0D || dragon.collidedHorizontally || dragon.collidedVertically)
         {
-            this.findNewTarget();
+            findNewTarget();
         }
     }
 
@@ -47,8 +47,8 @@ public class PhaseHoldingPattern extends PhaseBase
      */
     public void initPhase()
     {
-        this.currentPath = null;
-        this.targetLocation = null;
+        currentPath = null;
+        targetLocation = null;
     }
 
     @Nullable
@@ -58,49 +58,49 @@ public class PhaseHoldingPattern extends PhaseBase
      */
     public Vec3d getTargetLocation()
     {
-        return this.targetLocation;
+        return targetLocation;
     }
 
     private void findNewTarget()
     {
-        if (this.currentPath != null && this.currentPath.isFinished())
+        if (currentPath != null && currentPath.isFinished())
         {
-            BlockPos blockpos = this.dragon.world.getTopSolidOrLiquidBlock(new BlockPos(WorldGenEndPodium.END_PODIUM_LOCATION));
-            int i = this.dragon.getFightManager() == null ? 0 : this.dragon.getFightManager().getNumAliveCrystals();
+            BlockPos blockpos = dragon.world.getTopSolidOrLiquidBlock(new BlockPos(WorldGenEndPodium.END_PODIUM_LOCATION));
+            int i = dragon.getFightManager() == null ? 0 : dragon.getFightManager().getNumAliveCrystals();
 
-            if (this.dragon.getRNG().nextInt(i + 3) == 0)
+            if (dragon.getRNG().nextInt(i + 3) == 0)
             {
-                this.dragon.getPhaseManager().setPhase(PhaseList.LANDING_APPROACH);
+                dragon.getPhaseManager().setPhase(PhaseList.LANDING_APPROACH);
                 return;
             }
 
             double d0 = 64.0D;
-            EntityPlayer entityplayer = this.dragon.world.getNearestAttackablePlayer(blockpos, d0, d0);
+            EntityPlayer entityplayer = dragon.world.getNearestAttackablePlayer(blockpos, d0, d0);
 
             if (entityplayer != null)
             {
                 d0 = entityplayer.getDistanceSqToCenter(blockpos) / 512.0D;
             }
 
-            if (entityplayer != null && (this.dragon.getRNG().nextInt(MathHelper.abs((int)d0) + 2) == 0 || this.dragon.getRNG().nextInt(i + 2) == 0))
+            if (entityplayer != null && (dragon.getRNG().nextInt(MathHelper.abs((int)d0) + 2) == 0 || dragon.getRNG().nextInt(i + 2) == 0))
             {
-                this.strafePlayer(entityplayer);
+                strafePlayer(entityplayer);
                 return;
             }
         }
 
-        if (this.currentPath == null || this.currentPath.isFinished())
+        if (currentPath == null || currentPath.isFinished())
         {
-            int j = this.dragon.initPathPoints();
+            int j = dragon.initPathPoints();
             int k = j;
 
-            if (this.dragon.getRNG().nextInt(8) == 0)
+            if (dragon.getRNG().nextInt(8) == 0)
             {
-                this.clockwise = !this.clockwise;
+                clockwise = !clockwise;
                 k = j + 6;
             }
 
-            if (this.clockwise)
+            if (clockwise)
             {
                 ++k;
             }
@@ -109,7 +109,7 @@ public class PhaseHoldingPattern extends PhaseBase
                 --k;
             }
 
-            if (this.dragon.getFightManager() != null && this.dragon.getFightManager().getNumAliveCrystals() >= 0)
+            if (dragon.getFightManager() != null && dragon.getFightManager().getNumAliveCrystals() >= 0)
             {
                 k = k % 12;
 
@@ -125,36 +125,36 @@ public class PhaseHoldingPattern extends PhaseBase
                 k = k + 12;
             }
 
-            this.currentPath = this.dragon.findPath(j, k, (PathPoint)null);
+            currentPath = dragon.findPath(j, k, (PathPoint)null);
 
-            if (this.currentPath != null)
+            if (currentPath != null)
             {
-                this.currentPath.incrementPathIndex();
+                currentPath.incrementPathIndex();
             }
         }
 
-        this.navigateToNextPathNode();
+        navigateToNextPathNode();
     }
 
     private void strafePlayer(EntityPlayer player)
     {
-        this.dragon.getPhaseManager().setPhase(PhaseList.STRAFE_PLAYER);
-        ((PhaseStrafePlayer)this.dragon.getPhaseManager().getPhase(PhaseList.STRAFE_PLAYER)).setTarget(player);
+        dragon.getPhaseManager().setPhase(PhaseList.STRAFE_PLAYER);
+        ((PhaseStrafePlayer) dragon.getPhaseManager().getPhase(PhaseList.STRAFE_PLAYER)).setTarget(player);
     }
 
     private void navigateToNextPathNode()
     {
-        if (this.currentPath != null && !this.currentPath.isFinished())
+        if (currentPath != null && !currentPath.isFinished())
         {
-            Vec3d vec3d = this.currentPath.getCurrentPos();
-            this.currentPath.incrementPathIndex();
+            Vec3d vec3d = currentPath.getCurrentPos();
+            currentPath.incrementPathIndex();
             double d0 = vec3d.x;
             double d1 = vec3d.z;
             double d2;
 
             while (true)
             {
-                d2 = vec3d.y + (double)(this.dragon.getRNG().nextFloat() * 20.0F);
+                d2 = vec3d.y + (double)(dragon.getRNG().nextFloat() * 20.0F);
 
                 if (d2 >= vec3d.y)
                 {
@@ -162,7 +162,7 @@ public class PhaseHoldingPattern extends PhaseBase
                 }
             }
 
-            this.targetLocation = new Vec3d(d0, d2, d1);
+            targetLocation = new Vec3d(d0, d2, d1);
         }
     }
 
@@ -170,7 +170,7 @@ public class PhaseHoldingPattern extends PhaseBase
     {
         if (plyr != null && !plyr.capabilities.disableDamage)
         {
-            this.strafePlayer(plyr);
+            strafePlayer(plyr);
         }
     }
 }

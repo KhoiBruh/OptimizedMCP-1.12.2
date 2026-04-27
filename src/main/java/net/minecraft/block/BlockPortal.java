@@ -38,8 +38,8 @@ public class BlockPortal extends BlockBreakable
     public BlockPortal()
     {
         super(Material.PORTAL, false);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(AXIS, EnumFacing.Axis.X));
-        this.setTickRandomly(true);
+        setDefaultState(blockState.getBaseState().withProperty(AXIS, EnumFacing.Axis.X));
+        setTickRandomly(true);
     }
 
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
@@ -281,7 +281,7 @@ public class BlockPortal extends BlockBreakable
      */
     public IBlockState getStateFromMeta(int meta)
     {
-        return this.getDefaultState().withProperty(AXIS, (meta & 3) == 2 ? EnumFacing.Axis.Z : EnumFacing.Axis.X);
+        return getDefaultState().withProperty(AXIS, (meta & 3) == 2 ? EnumFacing.Axis.Z : EnumFacing.Axis.X);
     }
 
     /**
@@ -405,42 +405,42 @@ public class BlockPortal extends BlockBreakable
 
         public Size(World worldIn, BlockPos p_i45694_2_, EnumFacing.Axis p_i45694_3_)
         {
-            this.world = worldIn;
-            this.axis = p_i45694_3_;
+            world = worldIn;
+            axis = p_i45694_3_;
 
             if (p_i45694_3_ == EnumFacing.Axis.X)
             {
-                this.leftDir = EnumFacing.EAST;
-                this.rightDir = EnumFacing.WEST;
+                leftDir = EnumFacing.EAST;
+                rightDir = EnumFacing.WEST;
             }
             else
             {
-                this.leftDir = EnumFacing.NORTH;
-                this.rightDir = EnumFacing.SOUTH;
+                leftDir = EnumFacing.NORTH;
+                rightDir = EnumFacing.SOUTH;
             }
 
-            for (BlockPos blockpos = p_i45694_2_; p_i45694_2_.getY() > blockpos.getY() - 21 && p_i45694_2_.getY() > 0 && this.isEmptyBlock(worldIn.getBlockState(p_i45694_2_.down()).getBlock()); p_i45694_2_ = p_i45694_2_.down())
+            for (BlockPos blockpos = p_i45694_2_; p_i45694_2_.getY() > blockpos.getY() - 21 && p_i45694_2_.getY() > 0 && isEmptyBlock(worldIn.getBlockState(p_i45694_2_.down()).getBlock()); p_i45694_2_ = p_i45694_2_.down())
             {
                 ;
             }
 
-            int i = this.getDistanceUntilEdge(p_i45694_2_, this.leftDir) - 1;
+            int i = getDistanceUntilEdge(p_i45694_2_, leftDir) - 1;
 
             if (i >= 0)
             {
-                this.bottomLeft = p_i45694_2_.offset(this.leftDir, i);
-                this.width = this.getDistanceUntilEdge(this.bottomLeft, this.rightDir);
+                bottomLeft = p_i45694_2_.offset(leftDir, i);
+                width = getDistanceUntilEdge(bottomLeft, rightDir);
 
-                if (this.width < 2 || this.width > 21)
+                if (width < 2 || width > 21)
                 {
-                    this.bottomLeft = null;
-                    this.width = 0;
+                    bottomLeft = null;
+                    width = 0;
                 }
             }
 
-            if (this.bottomLeft != null)
+            if (bottomLeft != null)
             {
-                this.height = this.calculatePortalHeight();
+                height = calculatePortalHeight();
             }
         }
 
@@ -452,59 +452,59 @@ public class BlockPortal extends BlockBreakable
             {
                 BlockPos blockpos = p_180120_1_.offset(p_180120_2_, i);
 
-                if (!this.isEmptyBlock(this.world.getBlockState(blockpos).getBlock()) || this.world.getBlockState(blockpos.down()).getBlock() != Blocks.OBSIDIAN)
+                if (!isEmptyBlock(world.getBlockState(blockpos).getBlock()) || world.getBlockState(blockpos.down()).getBlock() != Blocks.OBSIDIAN)
                 {
                     break;
                 }
             }
 
-            Block block = this.world.getBlockState(p_180120_1_.offset(p_180120_2_, i)).getBlock();
+            Block block = world.getBlockState(p_180120_1_.offset(p_180120_2_, i)).getBlock();
             return block == Blocks.OBSIDIAN ? i : 0;
         }
 
         public int getHeight()
         {
-            return this.height;
+            return height;
         }
 
         public int getWidth()
         {
-            return this.width;
+            return width;
         }
 
         protected int calculatePortalHeight()
         {
             label56:
 
-            for (this.height = 0; this.height < 21; ++this.height)
+            for (height = 0; height < 21; ++height)
             {
-                for (int i = 0; i < this.width; ++i)
+                for (int i = 0; i < width; ++i)
                 {
-                    BlockPos blockpos = this.bottomLeft.offset(this.rightDir, i).up(this.height);
-                    Block block = this.world.getBlockState(blockpos).getBlock();
+                    BlockPos blockpos = bottomLeft.offset(rightDir, i).up(height);
+                    Block block = world.getBlockState(blockpos).getBlock();
 
-                    if (!this.isEmptyBlock(block))
+                    if (!isEmptyBlock(block))
                     {
                         break label56;
                     }
 
                     if (block == Blocks.PORTAL)
                     {
-                        ++this.portalBlockCount;
+                        ++portalBlockCount;
                     }
 
                     if (i == 0)
                     {
-                        block = this.world.getBlockState(blockpos.offset(this.leftDir)).getBlock();
+                        block = world.getBlockState(blockpos.offset(leftDir)).getBlock();
 
                         if (block != Blocks.OBSIDIAN)
                         {
                             break label56;
                         }
                     }
-                    else if (i == this.width - 1)
+                    else if (i == width - 1)
                     {
-                        block = this.world.getBlockState(blockpos.offset(this.rightDir)).getBlock();
+                        block = world.getBlockState(blockpos.offset(rightDir)).getBlock();
 
                         if (block != Blocks.OBSIDIAN)
                         {
@@ -514,24 +514,24 @@ public class BlockPortal extends BlockBreakable
                 }
             }
 
-            for (int j = 0; j < this.width; ++j)
+            for (int j = 0; j < width; ++j)
             {
-                if (this.world.getBlockState(this.bottomLeft.offset(this.rightDir, j).up(this.height)).getBlock() != Blocks.OBSIDIAN)
+                if (world.getBlockState(bottomLeft.offset(rightDir, j).up(height)).getBlock() != Blocks.OBSIDIAN)
                 {
-                    this.height = 0;
+                    height = 0;
                     break;
                 }
             }
 
-            if (this.height <= 21 && this.height >= 3)
+            if (height <= 21 && height >= 3)
             {
-                return this.height;
+                return height;
             }
             else
             {
-                this.bottomLeft = null;
-                this.width = 0;
-                this.height = 0;
+                bottomLeft = null;
+                width = 0;
+                height = 0;
                 return 0;
             }
         }
@@ -543,18 +543,18 @@ public class BlockPortal extends BlockBreakable
 
         public boolean isValid()
         {
-            return this.bottomLeft != null && this.width >= 2 && this.width <= 21 && this.height >= 3 && this.height <= 21;
+            return bottomLeft != null && width >= 2 && width <= 21 && height >= 3 && height <= 21;
         }
 
         public void placePortalBlocks()
         {
-            for (int i = 0; i < this.width; ++i)
+            for (int i = 0; i < width; ++i)
             {
-                BlockPos blockpos = this.bottomLeft.offset(this.rightDir, i);
+                BlockPos blockpos = bottomLeft.offset(rightDir, i);
 
-                for (int j = 0; j < this.height; ++j)
+                for (int j = 0; j < height; ++j)
                 {
-                    this.world.setBlockState(blockpos.up(j), Blocks.PORTAL.getDefaultState().withProperty(BlockPortal.AXIS, this.axis), 2);
+                    world.setBlockState(blockpos.up(j), Blocks.PORTAL.getDefaultState().withProperty(BlockPortal.AXIS, axis), 2);
                 }
             }
         }

@@ -28,8 +28,8 @@ public class BlockLadder extends Block
     protected BlockLadder()
     {
         super(Material.CIRCUITS);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
-        this.setCreativeTab(CreativeTabs.DECORATIONS);
+        setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
+        setCreativeTab(CreativeTabs.DECORATIONS);
     }
 
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
@@ -69,21 +69,21 @@ public class BlockLadder extends Block
      */
     public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, EnumFacing side)
     {
-        if (this.canAttachTo(worldIn, pos.west(), side))
+        if (canAttachTo(worldIn, pos.west(), side))
         {
             return true;
         }
-        else if (this.canAttachTo(worldIn, pos.east(), side))
+        else if (canAttachTo(worldIn, pos.east(), side))
         {
             return true;
         }
-        else if (this.canAttachTo(worldIn, pos.north(), side))
+        else if (canAttachTo(worldIn, pos.north(), side))
         {
             return true;
         }
         else
         {
-            return this.canAttachTo(worldIn, pos.south(), side);
+            return canAttachTo(worldIn, pos.south(), side);
         }
     }
 
@@ -100,21 +100,21 @@ public class BlockLadder extends Block
      */
     public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
     {
-        if (facing.getAxis().isHorizontal() && this.canAttachTo(worldIn, pos.offset(facing.getOpposite()), facing))
+        if (facing.getAxis().isHorizontal() && canAttachTo(worldIn, pos.offset(facing.getOpposite()), facing))
         {
-            return this.getDefaultState().withProperty(FACING, facing);
+            return getDefaultState().withProperty(FACING, facing);
         }
         else
         {
             for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL)
             {
-                if (this.canAttachTo(worldIn, pos.offset(enumfacing.getOpposite()), enumfacing))
+                if (canAttachTo(worldIn, pos.offset(enumfacing.getOpposite()), enumfacing))
                 {
-                    return this.getDefaultState().withProperty(FACING, enumfacing);
+                    return getDefaultState().withProperty(FACING, enumfacing);
                 }
             }
 
-            return this.getDefaultState();
+            return getDefaultState();
         }
     }
 
@@ -127,9 +127,9 @@ public class BlockLadder extends Block
     {
         EnumFacing enumfacing = (EnumFacing)state.getValue(FACING);
 
-        if (!this.canAttachTo(worldIn, pos.offset(enumfacing.getOpposite()), enumfacing))
+        if (!canAttachTo(worldIn, pos.offset(enumfacing.getOpposite()), enumfacing))
         {
-            this.dropBlockAsItem(worldIn, pos, state, 0);
+            dropBlockAsItem(worldIn, pos, state, 0);
             worldIn.setBlockToAir(pos);
         }
 
@@ -157,7 +157,7 @@ public class BlockLadder extends Block
             enumfacing = EnumFacing.NORTH;
         }
 
-        return this.getDefaultState().withProperty(FACING, enumfacing);
+        return getDefaultState().withProperty(FACING, enumfacing);
     }
 
     /**

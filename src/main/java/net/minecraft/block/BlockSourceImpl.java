@@ -13,33 +13,33 @@ public class BlockSourceImpl implements IBlockSource
 
     public BlockSourceImpl(World worldIn, BlockPos posIn)
     {
-        this.world = worldIn;
-        this.pos = posIn;
+        world = worldIn;
+        pos = posIn;
     }
 
     public World getWorld()
     {
-        return this.world;
+        return world;
     }
 
     public double getX()
     {
-        return (double)this.pos.getX() + 0.5D;
+        return (double) pos.getX() + 0.5D;
     }
 
     public double getY()
     {
-        return (double)this.pos.getY() + 0.5D;
+        return (double) pos.getY() + 0.5D;
     }
 
     public double getZ()
     {
-        return (double)this.pos.getZ() + 0.5D;
+        return (double) pos.getZ() + 0.5D;
     }
 
     public BlockPos getBlockPos()
     {
-        return this.pos;
+        return pos;
     }
 
     /**
@@ -48,11 +48,11 @@ public class BlockSourceImpl implements IBlockSource
      */
     public IBlockState getBlockState()
     {
-        return this.world.getBlockState(this.pos);
+        return world.getBlockState(pos);
     }
 
     public <T extends TileEntity> T getBlockTileEntity()
     {
-        return (T)this.world.getTileEntity(this.pos);
+        return (T) world.getTileEntity(pos);
     }
 }

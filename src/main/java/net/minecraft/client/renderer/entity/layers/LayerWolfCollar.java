@@ -12,17 +12,17 @@ public class LayerWolfCollar implements LayerRenderer<EntityWolf>
 
     public LayerWolfCollar(RenderWolf wolfRendererIn)
     {
-        this.wolfRenderer = wolfRendererIn;
+        wolfRenderer = wolfRendererIn;
     }
 
     public void doRenderLayer(EntityWolf entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale)
     {
         if (entitylivingbaseIn.isTamed() && !entitylivingbaseIn.isInvisible())
         {
-            this.wolfRenderer.bindTexture(WOLF_COLLAR);
+            wolfRenderer.bindTexture(WOLF_COLLAR);
             float[] afloat = entitylivingbaseIn.getCollarColor().getColorComponentValues();
             GlStateManager.color(afloat[0], afloat[1], afloat[2]);
-            this.wolfRenderer.getMainModel().render(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+            wolfRenderer.getMainModel().render(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
         }
     }
 

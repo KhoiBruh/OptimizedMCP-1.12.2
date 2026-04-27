@@ -17,16 +17,16 @@ public class BiomeDesert extends Biome
     public BiomeDesert(Biome.BiomeProperties properties)
     {
         super(properties);
-        this.spawnableCreatureList.clear();
-        this.topBlock = Blocks.SAND.getDefaultState();
-        this.fillerBlock = Blocks.SAND.getDefaultState();
-        this.decorator.treesPerChunk = -999;
-        this.decorator.deadBushPerChunk = 2;
-        this.decorator.reedsPerChunk = 50;
-        this.decorator.cactiPerChunk = 10;
-        this.spawnableCreatureList.clear();
-        this.spawnableCreatureList.add(new Biome.SpawnListEntry(EntityRabbit.class, 4, 2, 3));
-        Iterator<Biome.SpawnListEntry> iterator = this.spawnableMonsterList.iterator();
+        spawnableCreatureList.clear();
+        topBlock = Blocks.SAND.getDefaultState();
+        fillerBlock = Blocks.SAND.getDefaultState();
+        decorator.treesPerChunk = -999;
+        decorator.deadBushPerChunk = 2;
+        decorator.reedsPerChunk = 50;
+        decorator.cactiPerChunk = 10;
+        spawnableCreatureList.clear();
+        spawnableCreatureList.add(new Biome.SpawnListEntry(EntityRabbit.class, 4, 2, 3));
+        Iterator<Biome.SpawnListEntry> iterator = spawnableMonsterList.iterator();
 
         while (iterator.hasNext())
         {
@@ -38,9 +38,9 @@ public class BiomeDesert extends Biome
             }
         }
 
-        this.spawnableMonsterList.add(new Biome.SpawnListEntry(EntityZombie.class, 19, 4, 4));
-        this.spawnableMonsterList.add(new Biome.SpawnListEntry(EntityZombieVillager.class, 1, 1, 1));
-        this.spawnableMonsterList.add(new Biome.SpawnListEntry(EntityHusk.class, 80, 4, 4));
+        spawnableMonsterList.add(new Biome.SpawnListEntry(EntityZombie.class, 19, 4, 4));
+        spawnableMonsterList.add(new Biome.SpawnListEntry(EntityZombieVillager.class, 1, 1, 1));
+        spawnableMonsterList.add(new Biome.SpawnListEntry(EntityHusk.class, 80, 4, 4));
     }
 
     public void decorate(World worldIn, Random rand, BlockPos pos)

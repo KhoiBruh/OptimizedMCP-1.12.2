@@ -26,12 +26,12 @@ public class TextComponentKeybind extends TextComponentBase
      */
     public String getUnformattedComponentText()
     {
-        if (this.displaySupplier == null)
+        if (displaySupplier == null)
         {
-            this.displaySupplier = (Supplier)displaySupplierFunction.apply(this.keybind);
+            displaySupplier = (Supplier)displaySupplierFunction.apply(keybind);
         }
 
-        return this.displaySupplier.get();
+        return displaySupplier.get();
     }
 
     /**
@@ -39,10 +39,10 @@ public class TextComponentKeybind extends TextComponentBase
      */
     public TextComponentKeybind createCopy()
     {
-        TextComponentKeybind textcomponentkeybind = new TextComponentKeybind(this.keybind);
-        textcomponentkeybind.setStyle(this.getStyle().createShallowCopy());
+        TextComponentKeybind textcomponentkeybind = new TextComponentKeybind(keybind);
+        textcomponentkeybind.setStyle(getStyle().createShallowCopy());
 
-        for (ITextComponent itextcomponent : this.getSiblings())
+        for (ITextComponent itextcomponent : getSiblings())
         {
             textcomponentkeybind.appendSibling(itextcomponent.createCopy());
         }
@@ -63,17 +63,17 @@ public class TextComponentKeybind extends TextComponentBase
         else
         {
             TextComponentKeybind textcomponentkeybind = (TextComponentKeybind)p_equals_1_;
-            return this.keybind.equals(textcomponentkeybind.keybind) && super.equals(p_equals_1_);
+            return keybind.equals(textcomponentkeybind.keybind) && super.equals(p_equals_1_);
         }
     }
 
     public String toString()
     {
-        return "KeybindComponent{keybind='" + this.keybind + '\'' + ", siblings=" + this.siblings + ", style=" + this.getStyle() + '}';
+        return "KeybindComponent{keybind='" + keybind + '\'' + ", siblings=" + siblings + ", style=" + getStyle() + '}';
     }
 
     public String getKeybind()
     {
-        return this.keybind;
+        return keybind;
     }
 }

@@ -84,11 +84,11 @@ public class StatBase
 
     public StatBase(String statIdIn, ITextComponent statNameIn, IStatType formatterIn)
     {
-        this.statId = statIdIn;
-        this.statName = statNameIn;
-        this.formatter = formatterIn;
-        this.objectiveCriteria = new ScoreCriteriaStat(this);
-        IScoreCriteria.INSTANCES.put(this.objectiveCriteria.getName(), this.objectiveCriteria);
+        statId = statIdIn;
+        statName = statNameIn;
+        formatter = formatterIn;
+        objectiveCriteria = new ScoreCriteriaStat(this);
+        IScoreCriteria.INSTANCES.put(objectiveCriteria.getName(), objectiveCriteria);
     }
 
     public StatBase(String statIdIn, ITextComponent statNameIn)
@@ -102,7 +102,7 @@ public class StatBase
      */
     public StatBase initIndependentStat()
     {
-        this.isIndependent = true;
+        isIndependent = true;
         return this;
     }
 
@@ -111,26 +111,26 @@ public class StatBase
      */
     public StatBase registerStat()
     {
-        if (StatList.ID_TO_STAT_MAP.containsKey(this.statId))
+        if (StatList.ID_TO_STAT_MAP.containsKey(statId))
         {
-            throw new RuntimeException("Duplicate stat id: \"" + (StatList.ID_TO_STAT_MAP.get(this.statId)).statName + "\" and \"" + this.statName + "\" at id " + this.statId);
+            throw new RuntimeException("Duplicate stat id: \"" + (StatList.ID_TO_STAT_MAP.get(statId)).statName + "\" and \"" + statName + "\" at id " + statId);
         }
         else
         {
             StatList.ALL_STATS.add(this);
-            StatList.ID_TO_STAT_MAP.put(this.statId, this);
+            StatList.ID_TO_STAT_MAP.put(statId, this);
             return this;
         }
     }
 
     public String format(int number)
     {
-        return this.formatter.format(number);
+        return formatter.format(number);
     }
 
     public ITextComponent getStatName()
     {
-        ITextComponent itextcomponent = this.statName.createCopy();
+        ITextComponent itextcomponent = statName.createCopy();
         itextcomponent.getStyle().setColor(TextFormatting.GRAY);
         return itextcomponent;
     }
@@ -141,10 +141,10 @@ public class StatBase
         {
             return true;
         }
-        else if (p_equals_1_ != null && this.getClass() == p_equals_1_.getClass())
+        else if (p_equals_1_ != null && getClass() == p_equals_1_.getClass())
         {
             StatBase statbase = (StatBase)p_equals_1_;
-            return this.statId.equals(statbase.statId);
+            return statId.equals(statbase.statId);
         }
         else
         {
@@ -154,12 +154,12 @@ public class StatBase
 
     public int hashCode()
     {
-        return this.statId.hashCode();
+        return statId.hashCode();
     }
 
     public String toString()
     {
-        return "Stat{id=" + this.statId + ", nameId=" + this.statName + ", awardLocallyOnly=" + this.isIndependent + ", formatter=" + this.formatter + ", objectiveCriteria=" + this.objectiveCriteria + '}';
+        return "Stat{id=" + statId + ", nameId=" + statName + ", awardLocallyOnly=" + isIndependent + ", formatter=" + formatter + ", objectiveCriteria=" + objectiveCriteria + '}';
     }
 
     /**
@@ -167,11 +167,11 @@ public class StatBase
      */
     public IScoreCriteria getCriteria()
     {
-        return this.objectiveCriteria;
+        return objectiveCriteria;
     }
 
     public Class <? extends IJsonSerializable > getSerializableClazz()
     {
-        return this.serializableClazz;
+        return serializableClazz;
     }
 }

@@ -26,10 +26,10 @@ public class MapGenScatteredFeature extends MapGenStructure
 
     public MapGenScatteredFeature()
     {
-        this.monsters = Lists.<Biome.SpawnListEntry>newArrayList();
-        this.maxDistanceBetweenScatteredFeatures = 32;
-        this.minDistanceBetweenScatteredFeatures = 8;
-        this.monsters.add(new Biome.SpawnListEntry(EntityWitch.class, 1, 1, 1));
+        monsters = Lists.<Biome.SpawnListEntry>newArrayList();
+        maxDistanceBetweenScatteredFeatures = 32;
+        minDistanceBetweenScatteredFeatures = 8;
+        monsters.add(new Biome.SpawnListEntry(EntityWitch.class, 1, 1, 1));
     }
 
     public MapGenScatteredFeature(Map<String, String> p_i2061_1_)
@@ -40,7 +40,7 @@ public class MapGenScatteredFeature extends MapGenStructure
         {
             if (((String)entry.getKey()).equals("distance"))
             {
-                this.maxDistanceBetweenScatteredFeatures = MathHelper.getInt(entry.getValue(), this.maxDistanceBetweenScatteredFeatures, 9);
+                maxDistanceBetweenScatteredFeatures = MathHelper.getInt(entry.getValue(), maxDistanceBetweenScatteredFeatures, 9);
             }
         }
     }
@@ -57,25 +57,25 @@ public class MapGenScatteredFeature extends MapGenStructure
 
         if (chunkX < 0)
         {
-            chunkX -= this.maxDistanceBetweenScatteredFeatures - 1;
+            chunkX -= maxDistanceBetweenScatteredFeatures - 1;
         }
 
         if (chunkZ < 0)
         {
-            chunkZ -= this.maxDistanceBetweenScatteredFeatures - 1;
+            chunkZ -= maxDistanceBetweenScatteredFeatures - 1;
         }
 
-        int k = chunkX / this.maxDistanceBetweenScatteredFeatures;
-        int l = chunkZ / this.maxDistanceBetweenScatteredFeatures;
-        Random random = this.world.setRandomSeed(k, l, 14357617);
-        k = k * this.maxDistanceBetweenScatteredFeatures;
-        l = l * this.maxDistanceBetweenScatteredFeatures;
-        k = k + random.nextInt(this.maxDistanceBetweenScatteredFeatures - 8);
-        l = l + random.nextInt(this.maxDistanceBetweenScatteredFeatures - 8);
+        int k = chunkX / maxDistanceBetweenScatteredFeatures;
+        int l = chunkZ / maxDistanceBetweenScatteredFeatures;
+        Random random = world.setRandomSeed(k, l, 14357617);
+        k = k * maxDistanceBetweenScatteredFeatures;
+        l = l * maxDistanceBetweenScatteredFeatures;
+        k = k + random.nextInt(maxDistanceBetweenScatteredFeatures - 8);
+        l = l + random.nextInt(maxDistanceBetweenScatteredFeatures - 8);
 
         if (i == k && j == l)
         {
-            Biome biome = this.world.getBiomeProvider().getBiome(new BlockPos(i * 16 + 8, 0, j * 16 + 8));
+            Biome biome = world.getBiomeProvider().getBiome(new BlockPos(i * 16 + 8, 0, j * 16 + 8));
 
             if (biome == null)
             {
@@ -96,18 +96,18 @@ public class MapGenScatteredFeature extends MapGenStructure
 
     public BlockPos getNearestStructurePos(World worldIn, BlockPos pos, boolean findUnexplored)
     {
-        this.world = worldIn;
-        return findNearestStructurePosBySpacing(worldIn, this, pos, this.maxDistanceBetweenScatteredFeatures, 8, 14357617, false, 100, findUnexplored);
+        world = worldIn;
+        return findNearestStructurePosBySpacing(worldIn, this, pos, maxDistanceBetweenScatteredFeatures, 8, 14357617, false, 100, findUnexplored);
     }
 
     protected StructureStart getStructureStart(int chunkX, int chunkZ)
     {
-        return new MapGenScatteredFeature.Start(this.world, this.rand, chunkX, chunkZ);
+        return new MapGenScatteredFeature.Start(world, rand, chunkX, chunkZ);
     }
 
     public boolean isSwampHut(BlockPos pos)
     {
-        StructureStart structurestart = this.getStructureAt(pos);
+        StructureStart structurestart = getStructureAt(pos);
 
         if (structurestart != null && structurestart instanceof MapGenScatteredFeature.Start && !structurestart.components.isEmpty())
         {
@@ -122,7 +122,7 @@ public class MapGenScatteredFeature extends MapGenStructure
 
     public List<Biome.SpawnListEntry> getMonsters()
     {
-        return this.monsters;
+        return monsters;
     }
 
     public static class Start extends StructureStart
@@ -145,29 +145,29 @@ public class MapGenScatteredFeature extends MapGenStructure
                 if (biomeIn == Biomes.SWAMPLAND)
                 {
                     ComponentScatteredFeaturePieces.SwampHut componentscatteredfeaturepieces$swamphut = new ComponentScatteredFeaturePieces.SwampHut(random, chunkX * 16, chunkZ * 16);
-                    this.components.add(componentscatteredfeaturepieces$swamphut);
+                    components.add(componentscatteredfeaturepieces$swamphut);
                 }
                 else if (biomeIn != Biomes.DESERT && biomeIn != Biomes.DESERT_HILLS)
                 {
                     if (biomeIn == Biomes.ICE_PLAINS || biomeIn == Biomes.COLD_TAIGA)
                     {
                         ComponentScatteredFeaturePieces.Igloo componentscatteredfeaturepieces$igloo = new ComponentScatteredFeaturePieces.Igloo(random, chunkX * 16, chunkZ * 16);
-                        this.components.add(componentscatteredfeaturepieces$igloo);
+                        components.add(componentscatteredfeaturepieces$igloo);
                     }
                 }
                 else
                 {
                     ComponentScatteredFeaturePieces.DesertPyramid componentscatteredfeaturepieces$desertpyramid = new ComponentScatteredFeaturePieces.DesertPyramid(random, chunkX * 16, chunkZ * 16);
-                    this.components.add(componentscatteredfeaturepieces$desertpyramid);
+                    components.add(componentscatteredfeaturepieces$desertpyramid);
                 }
             }
             else
             {
                 ComponentScatteredFeaturePieces.JunglePyramid componentscatteredfeaturepieces$junglepyramid = new ComponentScatteredFeaturePieces.JunglePyramid(random, chunkX * 16, chunkZ * 16);
-                this.components.add(componentscatteredfeaturepieces$junglepyramid);
+                components.add(componentscatteredfeaturepieces$junglepyramid);
             }
 
-            this.updateBoundingBox();
+            updateBoundingBox();
         }
     }
 }

@@ -33,7 +33,7 @@ public class ItemModelGenerator
             String s1 = blockModel.resolveTextureName(s);
             map.put(s, s1);
             TextureAtlasSprite textureatlassprite = textureMapIn.getAtlasSprite((new ResourceLocation(s1)).toString());
-            list.addAll(this.getBlockParts(i, s, textureatlassprite));
+            list.addAll(getBlockParts(i, s, textureatlassprite));
         }
 
         if (list.isEmpty())
@@ -54,7 +54,7 @@ public class ItemModelGenerator
         map.put(EnumFacing.NORTH, new BlockPartFace((EnumFacing)null, tintIndex, p_178394_2_, new BlockFaceUV(new float[] {16.0F, 0.0F, 0.0F, 16.0F}, 0)));
         List<BlockPart> list = Lists.<BlockPart>newArrayList();
         list.add(new BlockPart(new Vector3f(0.0F, 0.0F, 7.5F), new Vector3f(16.0F, 16.0F, 8.5F), map, (BlockPartRotation)null, true));
-        list.addAll(this.getBlockParts(p_178394_3_, p_178394_2_, tintIndex));
+        list.addAll(getBlockParts(p_178394_3_, p_178394_2_, tintIndex));
         return list;
     }
 
@@ -64,7 +64,7 @@ public class ItemModelGenerator
         float f1 = (float)p_178397_1_.getIconHeight();
         List<BlockPart> list = Lists.<BlockPart>newArrayList();
 
-        for (ItemModelGenerator.Span itemmodelgenerator$span : this.getSpans(p_178397_1_))
+        for (ItemModelGenerator.Span itemmodelgenerator$span : getSpans(p_178397_1_))
         {
             float f2 = 0.0F;
             float f3 = 0.0F;
@@ -182,11 +182,11 @@ public class ItemModelGenerator
             {
                 for (int i1 = 0; i1 < i; ++i1)
                 {
-                    boolean flag = !this.isTransparent(aint, i1, l, i, j);
-                    this.checkTransition(ItemModelGenerator.SpanFacing.UP, list, aint, i1, l, i, j, flag);
-                    this.checkTransition(ItemModelGenerator.SpanFacing.DOWN, list, aint, i1, l, i, j, flag);
-                    this.checkTransition(ItemModelGenerator.SpanFacing.LEFT, list, aint, i1, l, i, j, flag);
-                    this.checkTransition(ItemModelGenerator.SpanFacing.RIGHT, list, aint, i1, l, i, j, flag);
+                    boolean flag = !isTransparent(aint, i1, l, i, j);
+                    checkTransition(ItemModelGenerator.SpanFacing.UP, list, aint, i1, l, i, j, flag);
+                    checkTransition(ItemModelGenerator.SpanFacing.DOWN, list, aint, i1, l, i, j, flag);
+                    checkTransition(ItemModelGenerator.SpanFacing.LEFT, list, aint, i1, l, i, j, flag);
+                    checkTransition(ItemModelGenerator.SpanFacing.RIGHT, list, aint, i1, l, i, j, flag);
                 }
             }
         }
@@ -196,11 +196,11 @@ public class ItemModelGenerator
 
     private void checkTransition(ItemModelGenerator.SpanFacing p_178396_1_, List<ItemModelGenerator.Span> p_178396_2_, int[] p_178396_3_, int p_178396_4_, int p_178396_5_, int p_178396_6_, int p_178396_7_, boolean p_178396_8_)
     {
-        boolean flag = this.isTransparent(p_178396_3_, p_178396_4_ + p_178396_1_.getXOffset(), p_178396_5_ + p_178396_1_.getYOffset(), p_178396_6_, p_178396_7_) && p_178396_8_;
+        boolean flag = isTransparent(p_178396_3_, p_178396_4_ + p_178396_1_.getXOffset(), p_178396_5_ + p_178396_1_.getYOffset(), p_178396_6_, p_178396_7_) && p_178396_8_;
 
         if (flag)
         {
-            this.createOrExpandSpan(p_178396_2_, p_178396_1_, p_178396_4_, p_178396_5_);
+            createOrExpandSpan(p_178396_2_, p_178396_1_, p_178396_4_, p_178396_5_);
         }
     }
 
@@ -256,42 +256,42 @@ public class ItemModelGenerator
 
         public Span(ItemModelGenerator.SpanFacing spanFacingIn, int p_i46216_2_, int p_i46216_3_)
         {
-            this.spanFacing = spanFacingIn;
-            this.min = p_i46216_2_;
-            this.max = p_i46216_2_;
-            this.anchor = p_i46216_3_;
+            spanFacing = spanFacingIn;
+            min = p_i46216_2_;
+            max = p_i46216_2_;
+            anchor = p_i46216_3_;
         }
 
         public void expand(int p_178382_1_)
         {
-            if (p_178382_1_ < this.min)
+            if (p_178382_1_ < min)
             {
-                this.min = p_178382_1_;
+                min = p_178382_1_;
             }
-            else if (p_178382_1_ > this.max)
+            else if (p_178382_1_ > max)
             {
-                this.max = p_178382_1_;
+                max = p_178382_1_;
             }
         }
 
         public ItemModelGenerator.SpanFacing getFacing()
         {
-            return this.spanFacing;
+            return spanFacing;
         }
 
         public int getMin()
         {
-            return this.min;
+            return min;
         }
 
         public int getMax()
         {
-            return this.max;
+            return max;
         }
 
         public int getAnchor()
         {
-            return this.anchor;
+            return anchor;
         }
     }
 
@@ -309,23 +309,23 @@ public class ItemModelGenerator
         private SpanFacing(EnumFacing facing, int p_i46215_4_, int p_i46215_5_)
         {
             this.facing = facing;
-            this.xOffset = p_i46215_4_;
-            this.yOffset = p_i46215_5_;
+            xOffset = p_i46215_4_;
+            yOffset = p_i46215_5_;
         }
 
         public EnumFacing getFacing()
         {
-            return this.facing;
+            return facing;
         }
 
         public int getXOffset()
         {
-            return this.xOffset;
+            return xOffset;
         }
 
         public int getYOffset()
         {
-            return this.yOffset;
+            return yOffset;
         }
 
         private boolean isHorizontal()

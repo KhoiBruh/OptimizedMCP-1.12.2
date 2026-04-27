@@ -10,7 +10,7 @@ public class EntityAIRestrictSun extends EntityAIBase
 
     public EntityAIRestrictSun(EntityCreature creature)
     {
-        this.entity = creature;
+        entity = creature;
     }
 
     /**
@@ -18,7 +18,7 @@ public class EntityAIRestrictSun extends EntityAIBase
      */
     public boolean shouldExecute()
     {
-        return this.entity.world.isDaytime() && this.entity.getItemStackFromSlot(EntityEquipmentSlot.HEAD).isEmpty();
+        return entity.world.isDaytime() && entity.getItemStackFromSlot(EntityEquipmentSlot.HEAD).isEmpty();
     }
 
     /**
@@ -26,7 +26,7 @@ public class EntityAIRestrictSun extends EntityAIBase
      */
     public void startExecuting()
     {
-        ((PathNavigateGround)this.entity.getNavigator()).setAvoidSun(true);
+        ((PathNavigateGround) entity.getNavigator()).setAvoidSun(true);
     }
 
     /**
@@ -34,6 +34,6 @@ public class EntityAIRestrictSun extends EntityAIBase
      */
     public void resetTask()
     {
-        ((PathNavigateGround)this.entity.getNavigator()).setAvoidSun(false);
+        ((PathNavigateGround) entity.getNavigator()).setAvoidSun(false);
     }
 }

@@ -18,14 +18,14 @@ public class UserListIPBans extends UserList<String, UserListIPBansEntry>
 
     public boolean isBanned(SocketAddress address)
     {
-        String s = this.addressToString(address);
-        return this.hasEntry(s);
+        String s = addressToString(address);
+        return hasEntry(s);
     }
 
     public UserListIPBansEntry getBanEntry(SocketAddress address)
     {
-        String s = this.addressToString(address);
-        return (UserListIPBansEntry)this.getEntry(s);
+        String s = addressToString(address);
+        return (UserListIPBansEntry) getEntry(s);
     }
 
     private String addressToString(SocketAddress address)

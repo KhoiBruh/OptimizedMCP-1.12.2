@@ -28,10 +28,10 @@ public class LootPool
 
     public LootPool(LootEntry[] lootEntriesIn, LootCondition[] poolConditionsIn, RandomValueRange rollsIn, RandomValueRange bonusRollsIn)
     {
-        this.lootEntries = lootEntriesIn;
-        this.poolConditions = poolConditionsIn;
-        this.rolls = rollsIn;
-        this.bonusRolls = bonusRollsIn;
+        lootEntries = lootEntriesIn;
+        poolConditions = poolConditionsIn;
+        rolls = rollsIn;
+        bonusRolls = bonusRollsIn;
     }
 
     /**
@@ -45,7 +45,7 @@ public class LootPool
         List<LootEntry> list = Lists.<LootEntry>newArrayList();
         int i = 0;
 
-        for (LootEntry lootentry : this.lootEntries)
+        for (LootEntry lootentry : lootEntries)
         {
             if (LootConditionManager.testAllConditions(lootentry.conditions, rand, context))
             {
@@ -81,13 +81,13 @@ public class LootPool
      */
     public void generateLoot(Collection<ItemStack> stacks, Random rand, LootContext context)
     {
-        if (LootConditionManager.testAllConditions(this.poolConditions, rand, context))
+        if (LootConditionManager.testAllConditions(poolConditions, rand, context))
         {
-            int i = this.rolls.generateInt(rand) + MathHelper.floor(this.bonusRolls.generateFloat(rand) * context.getLuck());
+            int i = rolls.generateInt(rand) + MathHelper.floor(bonusRolls.generateFloat(rand) * context.getLuck());
 
             for (int j = 0; j < i; ++j)
             {
-                this.createLootRoll(stacks, rand, context);
+                createLootRoll(stacks, rand, context);
             }
         }
     }

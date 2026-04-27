@@ -19,9 +19,9 @@ public class PhaseHover extends PhaseBase
      */
     public void doLocalUpdate()
     {
-        if (this.targetLocation == null)
+        if (targetLocation == null)
         {
-            this.targetLocation = new Vec3d(this.dragon.posX, this.dragon.posY, this.dragon.posZ);
+            targetLocation = new Vec3d(dragon.posX, dragon.posY, dragon.posZ);
         }
     }
 
@@ -35,7 +35,7 @@ public class PhaseHover extends PhaseBase
      */
     public void initPhase()
     {
-        this.targetLocation = null;
+        targetLocation = null;
     }
 
     /**
@@ -53,7 +53,7 @@ public class PhaseHover extends PhaseBase
      */
     public Vec3d getTargetLocation()
     {
-        return this.targetLocation;
+        return targetLocation;
     }
 
     public PhaseList<PhaseHover> getType()

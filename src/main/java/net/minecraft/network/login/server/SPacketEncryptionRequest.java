@@ -19,9 +19,9 @@ public class SPacketEncryptionRequest implements Packet<INetHandlerLoginClient>
 
     public SPacketEncryptionRequest(String serverIdIn, PublicKey publicKeyIn, byte[] verifyTokenIn)
     {
-        this.hashedServerId = serverIdIn;
-        this.publicKey = publicKeyIn;
-        this.verifyToken = verifyTokenIn;
+        hashedServerId = serverIdIn;
+        publicKey = publicKeyIn;
+        verifyToken = verifyTokenIn;
     }
 
     /**
@@ -29,9 +29,9 @@ public class SPacketEncryptionRequest implements Packet<INetHandlerLoginClient>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.hashedServerId = buf.readString(20);
-        this.publicKey = CryptManager.decodePublicKey(buf.readByteArray());
-        this.verifyToken = buf.readByteArray();
+        hashedServerId = buf.readString(20);
+        publicKey = CryptManager.decodePublicKey(buf.readByteArray());
+        verifyToken = buf.readByteArray();
     }
 
     /**
@@ -39,9 +39,9 @@ public class SPacketEncryptionRequest implements Packet<INetHandlerLoginClient>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeString(this.hashedServerId);
-        buf.writeByteArray(this.publicKey.getEncoded());
-        buf.writeByteArray(this.verifyToken);
+        buf.writeString(hashedServerId);
+        buf.writeByteArray(publicKey.getEncoded());
+        buf.writeByteArray(verifyToken);
     }
 
     /**
@@ -54,16 +54,16 @@ public class SPacketEncryptionRequest implements Packet<INetHandlerLoginClient>
 
     public String getServerId()
     {
-        return this.hashedServerId;
+        return hashedServerId;
     }
 
     public PublicKey getPublicKey()
     {
-        return this.publicKey;
+        return publicKey;
     }
 
     public byte[] getVerifyToken()
     {
-        return this.verifyToken;
+        return verifyToken;
     }
 }

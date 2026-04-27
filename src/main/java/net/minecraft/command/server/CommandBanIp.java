@@ -67,7 +67,7 @@ public class CommandBanIp extends CommandBase
 
             if (matcher.matches())
             {
-                this.banIp(server, sender, args[0], itextcomponent == null ? null : itextcomponent.getUnformattedText());
+                banIp(server, sender, args[0], itextcomponent == null ? null : itextcomponent.getUnformattedText());
             }
             else
             {
@@ -78,7 +78,7 @@ public class CommandBanIp extends CommandBase
                     throw new PlayerNotFoundException("commands.banip.invalid");
                 }
 
-                this.banIp(server, sender, entityplayermp.getPlayerIP(), itextcomponent == null ? null : itextcomponent.getUnformattedText());
+                banIp(server, sender, entityplayermp.getPlayerIP(), itextcomponent == null ? null : itextcomponent.getUnformattedText());
             }
         }
         else

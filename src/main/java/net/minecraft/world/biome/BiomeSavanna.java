@@ -17,17 +17,17 @@ public class BiomeSavanna extends Biome
     protected BiomeSavanna(Biome.BiomeProperties properties)
     {
         super(properties);
-        this.spawnableCreatureList.add(new Biome.SpawnListEntry(EntityHorse.class, 1, 2, 6));
-        this.spawnableCreatureList.add(new Biome.SpawnListEntry(EntityDonkey.class, 1, 1, 1));
+        spawnableCreatureList.add(new Biome.SpawnListEntry(EntityHorse.class, 1, 2, 6));
+        spawnableCreatureList.add(new Biome.SpawnListEntry(EntityDonkey.class, 1, 1, 1));
 
-        if (this.getBaseHeight() > 1.1F)
+        if (getBaseHeight() > 1.1F)
         {
-            this.spawnableCreatureList.add(new Biome.SpawnListEntry(EntityLlama.class, 8, 4, 4));
+            spawnableCreatureList.add(new Biome.SpawnListEntry(EntityLlama.class, 8, 4, 4));
         }
 
-        this.decorator.treesPerChunk = 1;
-        this.decorator.flowersPerChunk = 4;
-        this.decorator.grassPerChunk = 20;
+        decorator.treesPerChunk = 1;
+        decorator.flowersPerChunk = 4;
+        decorator.grassPerChunk = 20;
     }
 
     public WorldGenAbstractTree getRandomTreeFeature(Random rand)

@@ -16,13 +16,13 @@ public class ItemAxe extends ItemTool
     protected ItemAxe(Item.ToolMaterial material)
     {
         super(material, EFFECTIVE_ON);
-        this.attackDamage = ATTACK_DAMAGES[material.ordinal()];
-        this.attackSpeed = ATTACK_SPEEDS[material.ordinal()];
+        attackDamage = ATTACK_DAMAGES[material.ordinal()];
+        attackSpeed = ATTACK_SPEEDS[material.ordinal()];
     }
 
     public float getDestroySpeed(ItemStack stack, IBlockState state)
     {
         Material material = state.getMaterial();
-        return material != Material.WOOD && material != Material.PLANTS && material != Material.VINE ? super.getDestroySpeed(stack, state) : this.efficiency;
+        return material != Material.WOOD && material != Material.PLANTS && material != Material.VINE ? super.getDestroySpeed(stack, state) : efficiency;
     }
 }

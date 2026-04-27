@@ -17,7 +17,7 @@ public class SPacketLoginSuccess implements Packet<INetHandlerLoginClient>
 
     public SPacketLoginSuccess(GameProfile profileIn)
     {
-        this.profile = profileIn;
+        profile = profileIn;
     }
 
     /**
@@ -28,7 +28,7 @@ public class SPacketLoginSuccess implements Packet<INetHandlerLoginClient>
         String s = buf.readString(36);
         String s1 = buf.readString(16);
         UUID uuid = UUID.fromString(s);
-        this.profile = new GameProfile(uuid, s1);
+        profile = new GameProfile(uuid, s1);
     }
 
     /**
@@ -36,9 +36,9 @@ public class SPacketLoginSuccess implements Packet<INetHandlerLoginClient>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        UUID uuid = this.profile.getId();
+        UUID uuid = profile.getId();
         buf.writeString(uuid == null ? "" : uuid.toString());
-        buf.writeString(this.profile.getName());
+        buf.writeString(profile.getName());
     }
 
     /**
@@ -51,6 +51,6 @@ public class SPacketLoginSuccess implements Packet<INetHandlerLoginClient>
 
     public GameProfile getProfile()
     {
-        return this.profile;
+        return profile;
     }
 }

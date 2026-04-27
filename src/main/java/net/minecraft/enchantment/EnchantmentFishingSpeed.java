@@ -7,7 +7,7 @@ public class EnchantmentFishingSpeed extends Enchantment
     protected EnchantmentFishingSpeed(Enchantment.Rarity rarityIn, EnumEnchantmentType typeIn, EntityEquipmentSlot... slots)
     {
         super(rarityIn, typeIn, slots);
-        this.setName("fishingSpeed");
+        setName("fishingSpeed");
     }
 
     /**

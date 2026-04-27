@@ -27,12 +27,12 @@ public class BredAnimalsTrigger implements ICriterionTrigger<BredAnimalsTrigger.
 
     public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<BredAnimalsTrigger.Instance> listener)
     {
-        BredAnimalsTrigger.Listeners bredanimalstrigger$listeners = this.listeners.get(playerAdvancementsIn);
+        BredAnimalsTrigger.Listeners bredanimalstrigger$listeners = listeners.get(playerAdvancementsIn);
 
         if (bredanimalstrigger$listeners == null)
         {
             bredanimalstrigger$listeners = new BredAnimalsTrigger.Listeners(playerAdvancementsIn);
-            this.listeners.put(playerAdvancementsIn, bredanimalstrigger$listeners);
+            listeners.put(playerAdvancementsIn, bredanimalstrigger$listeners);
         }
 
         bredanimalstrigger$listeners.add(listener);
@@ -40,7 +40,7 @@ public class BredAnimalsTrigger implements ICriterionTrigger<BredAnimalsTrigger.
 
     public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<BredAnimalsTrigger.Instance> listener)
     {
-        BredAnimalsTrigger.Listeners bredanimalstrigger$listeners = this.listeners.get(playerAdvancementsIn);
+        BredAnimalsTrigger.Listeners bredanimalstrigger$listeners = listeners.get(playerAdvancementsIn);
 
         if (bredanimalstrigger$listeners != null)
         {
@@ -48,14 +48,14 @@ public class BredAnimalsTrigger implements ICriterionTrigger<BredAnimalsTrigger.
 
             if (bredanimalstrigger$listeners.isEmpty())
             {
-                this.listeners.remove(playerAdvancementsIn);
+                listeners.remove(playerAdvancementsIn);
             }
         }
     }
 
     public void removeAllListeners(PlayerAdvancements playerAdvancementsIn)
     {
-        this.listeners.remove(playerAdvancementsIn);
+        listeners.remove(playerAdvancementsIn);
     }
 
     /**
@@ -71,7 +71,7 @@ public class BredAnimalsTrigger implements ICriterionTrigger<BredAnimalsTrigger.
 
     public void trigger(EntityPlayerMP player, EntityAnimal parent1, EntityAnimal parent2, EntityAgeable child)
     {
-        BredAnimalsTrigger.Listeners bredanimalstrigger$listeners = this.listeners.get(player.getAdvancements());
+        BredAnimalsTrigger.Listeners bredanimalstrigger$listeners = listeners.get(player.getAdvancements());
 
         if (bredanimalstrigger$listeners != null)
         {
@@ -95,13 +95,13 @@ public class BredAnimalsTrigger implements ICriterionTrigger<BredAnimalsTrigger.
 
         public boolean test(EntityPlayerMP player, EntityAnimal parent1In, EntityAnimal parent2In, EntityAgeable childIn)
         {
-            if (!this.child.test(player, childIn))
+            if (!child.test(player, childIn))
             {
                 return false;
             }
             else
             {
-                return this.parent.test(player, parent1In) && this.partner.test(player, parent2In) || this.parent.test(player, parent2In) && this.partner.test(player, parent1In);
+                return parent.test(player, parent1In) && partner.test(player, parent2In) || parent.test(player, parent2In) && partner.test(player, parent1In);
             }
         }
     }
@@ -113,29 +113,29 @@ public class BredAnimalsTrigger implements ICriterionTrigger<BredAnimalsTrigger.
 
         public Listeners(PlayerAdvancements playerAdvancementsIn)
         {
-            this.playerAdvancements = playerAdvancementsIn;
+            playerAdvancements = playerAdvancementsIn;
         }
 
         public boolean isEmpty()
         {
-            return this.listeners.isEmpty();
+            return listeners.isEmpty();
         }
 
         public void add(ICriterionTrigger.Listener<BredAnimalsTrigger.Instance> listener)
         {
-            this.listeners.add(listener);
+            listeners.add(listener);
         }
 
         public void remove(ICriterionTrigger.Listener<BredAnimalsTrigger.Instance> listener)
         {
-            this.listeners.remove(listener);
+            listeners.remove(listener);
         }
 
         public void trigger(EntityPlayerMP player, EntityAnimal parent1, EntityAnimal parent2, EntityAgeable child)
         {
             List<ICriterionTrigger.Listener<BredAnimalsTrigger.Instance>> list = null;
 
-            for (ICriterionTrigger.Listener<BredAnimalsTrigger.Instance> listener : this.listeners)
+            for (ICriterionTrigger.Listener<BredAnimalsTrigger.Instance> listener : listeners)
             {
                 if (((BredAnimalsTrigger.Instance)listener.getCriterionInstance()).test(player, parent1, parent2, child))
                 {
@@ -152,7 +152,7 @@ public class BredAnimalsTrigger implements ICriterionTrigger<BredAnimalsTrigger.
             {
                 for (ICriterionTrigger.Listener<BredAnimalsTrigger.Instance> listener1 : list)
                 {
-                    listener1.grantCriterion(this.playerAdvancements);
+                    listener1.grantCriterion(playerAdvancements);
                 }
             }
         }

@@ -18,7 +18,7 @@ public class BlockSand extends BlockFalling
 
     public BlockSand()
     {
-        this.setDefaultState(this.blockState.getBaseState().withProperty(VARIANT, BlockSand.EnumType.SAND));
+        setDefaultState(blockState.getBaseState().withProperty(VARIANT, BlockSand.EnumType.SAND));
     }
 
     /**
@@ -54,7 +54,7 @@ public class BlockSand extends BlockFalling
      */
     public IBlockState getStateFromMeta(int meta)
     {
-        return this.getDefaultState().withProperty(VARIANT, BlockSand.EnumType.byMetadata(meta));
+        return getDefaultState().withProperty(VARIANT, BlockSand.EnumType.byMetadata(meta));
     }
 
     /**
@@ -90,31 +90,31 @@ public class BlockSand extends BlockFalling
 
         private EnumType(int p_i47157_3_, String p_i47157_4_, String p_i47157_5_, MapColor p_i47157_6_, int p_i47157_7_)
         {
-            this.meta = p_i47157_3_;
-            this.name = p_i47157_4_;
-            this.mapColor = p_i47157_6_;
-            this.unlocalizedName = p_i47157_5_;
-            this.dustColor = p_i47157_7_;
+            meta = p_i47157_3_;
+            name = p_i47157_4_;
+            mapColor = p_i47157_6_;
+            unlocalizedName = p_i47157_5_;
+            dustColor = p_i47157_7_;
         }
 
         public int getDustColor()
         {
-            return this.dustColor;
+            return dustColor;
         }
 
         public int getMetadata()
         {
-            return this.meta;
+            return meta;
         }
 
         public String toString()
         {
-            return this.name;
+            return name;
         }
 
         public MapColor getMapColor()
         {
-            return this.mapColor;
+            return mapColor;
         }
 
         public static BlockSand.EnumType byMetadata(int meta)
@@ -129,12 +129,12 @@ public class BlockSand extends BlockFalling
 
         public String getName()
         {
-            return this.name;
+            return name;
         }
 
         public String getUnlocalizedName()
         {
-            return this.unlocalizedName;
+            return unlocalizedName;
         }
 
         static {

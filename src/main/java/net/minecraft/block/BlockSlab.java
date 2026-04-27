@@ -31,8 +31,8 @@ public abstract class BlockSlab extends Block
     public BlockSlab(Material p_i47249_1_, MapColor p_i47249_2_)
     {
         super(p_i47249_1_, p_i47249_2_);
-        this.fullBlock = this.isDouble();
-        this.setLightOpacity(255);
+        fullBlock = isDouble();
+        setLightOpacity(255);
     }
 
     protected boolean canSilkHarvest()
@@ -42,7 +42,7 @@ public abstract class BlockSlab extends Block
 
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
     {
-        if (this.isDouble())
+        if (isDouble())
         {
             return FULL_BLOCK_AABB;
         }
@@ -90,7 +90,7 @@ public abstract class BlockSlab extends Block
      */
     public boolean isOpaqueCube(IBlockState state)
     {
-        return this.isDouble();
+        return isDouble();
     }
 
     /**
@@ -101,7 +101,7 @@ public abstract class BlockSlab extends Block
     {
         IBlockState iblockstate = super.getStateForPlacement(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer).withProperty(HALF, BlockSlab.EnumBlockHalf.BOTTOM);
 
-        if (this.isDouble())
+        if (isDouble())
         {
             return iblockstate;
         }
@@ -116,17 +116,17 @@ public abstract class BlockSlab extends Block
      */
     public int quantityDropped(Random random)
     {
-        return this.isDouble() ? 2 : 1;
+        return isDouble() ? 2 : 1;
     }
 
     public boolean isFullCube(IBlockState state)
     {
-        return this.isDouble();
+        return isDouble();
     }
 
     public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side)
     {
-        if (this.isDouble())
+        if (isDouble())
         {
             return super.shouldSideBeRendered(blockState, blockAccess, pos, side);
         }
@@ -201,12 +201,12 @@ public abstract class BlockSlab extends Block
 
         public String toString()
         {
-            return this.name;
+            return name;
         }
 
         public String getName()
         {
-            return this.name;
+            return name;
         }
     }
 }

@@ -12,12 +12,12 @@ public class GuiClickableScrolledSelectionListProxy extends GuiSlot
     public GuiClickableScrolledSelectionListProxy(RealmsClickableScrolledSelectionList selectionList, int widthIn, int heightIn, int topIn, int bottomIn, int slotHeightIn)
     {
         super(Minecraft.getMinecraft(), widthIn, heightIn, topIn, bottomIn, slotHeightIn);
-        this.proxy = selectionList;
+        proxy = selectionList;
     }
 
     protected int getSize()
     {
-        return this.proxy.getItemCount();
+        return proxy.getItemCount();
     }
 
     /**
@@ -25,7 +25,7 @@ public class GuiClickableScrolledSelectionListProxy extends GuiSlot
      */
     protected void elementClicked(int slotIndex, boolean isDoubleClick, int mouseX, int mouseY)
     {
-        this.proxy.selectItem(slotIndex, isDoubleClick, mouseX, mouseY);
+        proxy.selectItem(slotIndex, isDoubleClick, mouseX, mouseY);
     }
 
     /**
@@ -33,32 +33,32 @@ public class GuiClickableScrolledSelectionListProxy extends GuiSlot
      */
     protected boolean isSelected(int slotIndex)
     {
-        return this.proxy.isSelectedItem(slotIndex);
+        return proxy.isSelectedItem(slotIndex);
     }
 
     protected void drawBackground()
     {
-        this.proxy.renderBackground();
+        proxy.renderBackground();
     }
 
     protected void drawSlot(int slotIndex, int xPos, int yPos, int heightIn, int mouseXIn, int mouseYIn, float partialTicks)
     {
-        this.proxy.renderItem(slotIndex, xPos, yPos, heightIn, mouseXIn, mouseYIn);
+        proxy.renderItem(slotIndex, xPos, yPos, heightIn, mouseXIn, mouseYIn);
     }
 
     public int width()
     {
-        return this.width;
+        return width;
     }
 
     public int mouseY()
     {
-        return this.mouseY;
+        return mouseY;
     }
 
     public int mouseX()
     {
-        return this.mouseX;
+        return mouseX;
     }
 
     /**
@@ -66,27 +66,27 @@ public class GuiClickableScrolledSelectionListProxy extends GuiSlot
      */
     protected int getContentHeight()
     {
-        return this.proxy.getMaxPosition();
+        return proxy.getMaxPosition();
     }
 
     protected int getScrollBarX()
     {
-        return this.proxy.getScrollbarPosition();
+        return proxy.getScrollbarPosition();
     }
 
     public void handleMouseInput()
     {
         super.handleMouseInput();
 
-        if (this.scrollMultiplier > 0.0F && Mouse.getEventButtonState())
+        if (scrollMultiplier > 0.0F && Mouse.getEventButtonState())
         {
-            this.proxy.customMouseEvent(this.top, this.bottom, this.headerPadding, this.amountScrolled, this.slotHeight);
+            proxy.customMouseEvent(top, bottom, headerPadding, amountScrolled, slotHeight);
         }
     }
 
     public void renderSelected(int p_178043_1_, int p_178043_2_, int p_178043_3_, Tezzelator p_178043_4_)
     {
-        this.proxy.renderSelected(p_178043_1_, p_178043_2_, p_178043_3_, p_178043_4_);
+        proxy.renderSelected(p_178043_1_, p_178043_2_, p_178043_3_, p_178043_4_);
     }
 
     /**
@@ -94,24 +94,24 @@ public class GuiClickableScrolledSelectionListProxy extends GuiSlot
      */
     protected void drawSelectionBox(int insideLeft, int insideTop, int mouseXIn, int mouseYIn, float partialTicks)
     {
-        int i = this.getSize();
+        int i = getSize();
 
         for (int j = 0; j < i; ++j)
         {
-            int k = insideTop + j * this.slotHeight + this.headerPadding;
-            int l = this.slotHeight - 4;
+            int k = insideTop + j * slotHeight + headerPadding;
+            int l = slotHeight - 4;
 
-            if (k > this.bottom || k + l < this.top)
+            if (k > bottom || k + l < top)
             {
-                this.updateItemPos(j, insideLeft, k, partialTicks);
+                updateItemPos(j, insideLeft, k, partialTicks);
             }
 
-            if (this.showSelectionBox && this.isSelected(j))
+            if (showSelectionBox && isSelected(j))
             {
-                this.renderSelected(this.width, k, l, Tezzelator.instance);
+                renderSelected(width, k, l, Tezzelator.instance);
             }
 
-            this.drawSlot(j, insideLeft, k, l, mouseXIn, mouseYIn, partialTicks);
+            drawSlot(j, insideLeft, k, l, mouseXIn, mouseYIn, partialTicks);
         }
     }
 }

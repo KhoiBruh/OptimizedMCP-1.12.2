@@ -31,7 +31,7 @@ public class GuiEditSign extends GuiScreen
 
     public GuiEditSign(TileEntitySign teSign)
     {
-        this.tileSign = teSign;
+        tileSign = teSign;
     }
 
     /**
@@ -40,10 +40,10 @@ public class GuiEditSign extends GuiScreen
      */
     public void initGui()
     {
-        this.buttonList.clear();
+        buttonList.clear();
         Keyboard.enableRepeatEvents(true);
-        this.doneBtn = this.addButton(new GuiButton(0, this.width / 2 - 100, this.height / 4 + 120, I18n.format("gui.done")));
-        this.tileSign.setEditable(false);
+        doneBtn = addButton(new GuiButton(0, width / 2 - 100, height / 4 + 120, I18n.format("gui.done")));
+        tileSign.setEditable(false);
     }
 
     /**
@@ -52,14 +52,14 @@ public class GuiEditSign extends GuiScreen
     public void onGuiClosed()
     {
         Keyboard.enableRepeatEvents(false);
-        NetHandlerPlayClient nethandlerplayclient = this.mc.getConnection();
+        NetHandlerPlayClient nethandlerplayclient = mc.getConnection();
 
         if (nethandlerplayclient != null)
         {
-            nethandlerplayclient.sendPacket(new CPacketUpdateSign(this.tileSign.getPos(), this.tileSign.signText));
+            nethandlerplayclient.sendPacket(new CPacketUpdateSign(tileSign.getPos(), tileSign.signText));
         }
 
-        this.tileSign.setEditable(true);
+        tileSign.setEditable(true);
     }
 
     /**
@@ -67,7 +67,7 @@ public class GuiEditSign extends GuiScreen
      */
     public void updateScreen()
     {
-        ++this.updateCounter;
+        ++updateCounter;
     }
 
     /**
@@ -79,8 +79,8 @@ public class GuiEditSign extends GuiScreen
         {
             if (button.id == 0)
             {
-                this.tileSign.markDirty();
-                this.mc.displayGuiScreen((GuiScreen)null);
+                tileSign.markDirty();
+                mc.displayGuiScreen((GuiScreen)null);
             }
         }
     }
@@ -93,31 +93,31 @@ public class GuiEditSign extends GuiScreen
     {
         if (keyCode == 200)
         {
-            this.editLine = this.editLine - 1 & 3;
+            editLine = editLine - 1 & 3;
         }
 
         if (keyCode == 208 || keyCode == 28 || keyCode == 156)
         {
-            this.editLine = this.editLine + 1 & 3;
+            editLine = editLine + 1 & 3;
         }
 
-        String s = this.tileSign.signText[this.editLine].getUnformattedText();
+        String s = tileSign.signText[editLine].getUnformattedText();
 
         if (keyCode == 14 && !s.isEmpty())
         {
             s = s.substring(0, s.length() - 1);
         }
 
-        if (ChatAllowedCharacters.isAllowedCharacter(typedChar) && this.fontRenderer.getStringWidth(s + typedChar) <= 90)
+        if (ChatAllowedCharacters.isAllowedCharacter(typedChar) && fontRenderer.getStringWidth(s + typedChar) <= 90)
         {
             s = s + typedChar;
         }
 
-        this.tileSign.signText[this.editLine] = new TextComponentString(s);
+        tileSign.signText[editLine] = new TextComponentString(s);
 
         if (keyCode == 1)
         {
-            this.actionPerformed(this.doneBtn);
+            actionPerformed(doneBtn);
         }
     }
 
@@ -126,25 +126,25 @@ public class GuiEditSign extends GuiScreen
      */
     public void drawScreen(int mouseX, int mouseY, float partialTicks)
     {
-        this.drawDefaultBackground();
-        this.drawCenteredString(this.fontRenderer, I18n.format("sign.edit"), this.width / 2, 40, 16777215);
+        drawDefaultBackground();
+        drawCenteredString(fontRenderer, I18n.format("sign.edit"), width / 2, 40, 16777215);
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         GlStateManager.pushMatrix();
-        GlStateManager.translate((float)(this.width / 2), 0.0F, 50.0F);
+        GlStateManager.translate((float)(width / 2), 0.0F, 50.0F);
         float f = 93.75F;
         GlStateManager.scale(-93.75F, -93.75F, -93.75F);
         GlStateManager.rotate(180.0F, 0.0F, 1.0F, 0.0F);
-        Block block = this.tileSign.getBlockType();
+        Block block = tileSign.getBlockType();
 
         if (block == Blocks.STANDING_SIGN)
         {
-            float f1 = (float)(this.tileSign.getBlockMetadata() * 360) / 16.0F;
+            float f1 = (float)(tileSign.getBlockMetadata() * 360) / 16.0F;
             GlStateManager.rotate(f1, 0.0F, 1.0F, 0.0F);
             GlStateManager.translate(0.0F, -1.0625F, 0.0F);
         }
         else
         {
-            int i = this.tileSign.getBlockMetadata();
+            int i = tileSign.getBlockMetadata();
             float f2 = 0.0F;
 
             if (i == 2)
@@ -166,13 +166,13 @@ public class GuiEditSign extends GuiScreen
             GlStateManager.translate(0.0F, -1.0625F, 0.0F);
         }
 
-        if (this.updateCounter / 6 % 2 == 0)
+        if (updateCounter / 6 % 2 == 0)
         {
-            this.tileSign.lineBeingEdited = this.editLine;
+            tileSign.lineBeingEdited = editLine;
         }
 
-        TileEntityRendererDispatcher.instance.render(this.tileSign, -0.5D, -0.75D, -0.5D, 0.0F);
-        this.tileSign.lineBeingEdited = -1;
+        TileEntityRendererDispatcher.instance.render(tileSign, -0.5D, -0.75D, -0.5D, 0.0F);
+        tileSign.lineBeingEdited = -1;
         GlStateManager.popMatrix();
         super.drawScreen(mouseX, mouseY, partialTicks);
     }

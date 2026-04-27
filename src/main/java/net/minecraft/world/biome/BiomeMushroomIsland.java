@@ -8,15 +8,15 @@ public class BiomeMushroomIsland extends Biome
     public BiomeMushroomIsland(Biome.BiomeProperties properties)
     {
         super(properties);
-        this.decorator.treesPerChunk = -100;
-        this.decorator.flowersPerChunk = -100;
-        this.decorator.grassPerChunk = -100;
-        this.decorator.mushroomsPerChunk = 1;
-        this.decorator.bigMushroomsPerChunk = 1;
-        this.topBlock = Blocks.MYCELIUM.getDefaultState();
-        this.spawnableMonsterList.clear();
-        this.spawnableCreatureList.clear();
-        this.spawnableWaterCreatureList.clear();
-        this.spawnableCreatureList.add(new Biome.SpawnListEntry(EntityMooshroom.class, 8, 4, 8));
+        decorator.treesPerChunk = -100;
+        decorator.flowersPerChunk = -100;
+        decorator.grassPerChunk = -100;
+        decorator.mushroomsPerChunk = 1;
+        decorator.bigMushroomsPerChunk = 1;
+        topBlock = Blocks.MYCELIUM.getDefaultState();
+        spawnableMonsterList.clear();
+        spawnableCreatureList.clear();
+        spawnableWaterCreatureList.clear();
+        spawnableCreatureList.add(new Biome.SpawnListEntry(EntityMooshroom.class, 8, 4, 8));
     }
 }

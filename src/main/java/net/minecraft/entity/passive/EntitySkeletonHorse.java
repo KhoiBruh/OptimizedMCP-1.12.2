@@ -31,9 +31,9 @@ public class EntitySkeletonHorse extends AbstractHorse
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(15.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.20000000298023224D);
-        this.getEntityAttribute(JUMP_STRENGTH).setBaseValue(this.getModifiedJumpStrength());
+        getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(15.0D);
+        getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.20000000298023224D);
+        getEntityAttribute(JUMP_STRENGTH).setBaseValue(getModifiedJumpStrength());
     }
 
     protected SoundEvent getAmbientSound()
@@ -84,9 +84,9 @@ public class EntitySkeletonHorse extends AbstractHorse
     {
         super.onLivingUpdate();
 
-        if (this.isTrap() && this.skeletonTrapTime++ >= 18000)
+        if (isTrap() && skeletonTrapTime++ >= 18000)
         {
-            this.setDead();
+            setDead();
         }
     }
 
@@ -101,8 +101,8 @@ public class EntitySkeletonHorse extends AbstractHorse
     public void writeEntityToNBT(NBTTagCompound compound)
     {
         super.writeEntityToNBT(compound);
-        compound.setBoolean("SkeletonTrap", this.isTrap());
-        compound.setInteger("SkeletonTrapTime", this.skeletonTrapTime);
+        compound.setBoolean("SkeletonTrap", isTrap());
+        compound.setInteger("SkeletonTrapTime", skeletonTrapTime);
     }
 
     /**
@@ -111,28 +111,28 @@ public class EntitySkeletonHorse extends AbstractHorse
     public void readEntityFromNBT(NBTTagCompound compound)
     {
         super.readEntityFromNBT(compound);
-        this.setTrap(compound.getBoolean("SkeletonTrap"));
-        this.skeletonTrapTime = compound.getInteger("SkeletonTrapTime");
+        setTrap(compound.getBoolean("SkeletonTrap"));
+        skeletonTrapTime = compound.getInteger("SkeletonTrapTime");
     }
 
     public boolean isTrap()
     {
-        return this.skeletonTrap;
+        return skeletonTrap;
     }
 
     public void setTrap(boolean trap)
     {
-        if (trap != this.skeletonTrap)
+        if (trap != skeletonTrap)
         {
-            this.skeletonTrap = trap;
+            skeletonTrap = trap;
 
             if (trap)
             {
-                this.tasks.addTask(1, this.skeletonTrapAI);
+                tasks.addTask(1, skeletonTrapAI);
             }
             else
             {
-                this.tasks.removeTask(this.skeletonTrapAI);
+                tasks.removeTask(skeletonTrapAI);
             }
         }
     }
@@ -146,20 +146,20 @@ public class EntitySkeletonHorse extends AbstractHorse
         {
             return super.processInteract(player, hand);
         }
-        else if (!this.isTame())
+        else if (!isTame())
         {
             return false;
         }
-        else if (this.isChild())
+        else if (isChild())
         {
             return super.processInteract(player, hand);
         }
         else if (player.isSneaking())
         {
-            this.openGUI(player);
+            openGUI(player);
             return true;
         }
-        else if (this.isBeingRidden())
+        else if (isBeingRidden())
         {
             return super.processInteract(player, hand);
         }
@@ -167,9 +167,9 @@ public class EntitySkeletonHorse extends AbstractHorse
         {
             if (flag)
             {
-                if (itemstack.getItem() == Items.SADDLE && !this.isHorseSaddled())
+                if (itemstack.getItem() == Items.SADDLE && !isHorseSaddled())
                 {
-                    this.openGUI(player);
+                    openGUI(player);
                     return true;
                 }
 
@@ -179,7 +179,7 @@ public class EntitySkeletonHorse extends AbstractHorse
                 }
             }
 
-            this.mountTo(player);
+            mountTo(player);
             return true;
         }
     }

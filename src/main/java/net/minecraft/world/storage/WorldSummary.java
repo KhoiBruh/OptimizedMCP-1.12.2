@@ -25,17 +25,17 @@ public class WorldSummary implements Comparable<WorldSummary>
 
     public WorldSummary(WorldInfo info, String fileNameIn, String displayNameIn, long sizeOnDiskIn, boolean requiresConversionIn)
     {
-        this.fileName = fileNameIn;
-        this.displayName = displayNameIn;
-        this.lastTimePlayed = info.getLastTimePlayed();
-        this.sizeOnDisk = sizeOnDiskIn;
-        this.gameType = info.getGameType();
-        this.requiresConversion = requiresConversionIn;
-        this.hardcore = info.isHardcoreModeEnabled();
-        this.cheatsEnabled = info.areCommandsAllowed();
-        this.versionName = info.getVersionName();
-        this.versionId = info.getVersionId();
-        this.versionSnapshot = info.isVersionSnapshot();
+        fileName = fileNameIn;
+        displayName = displayNameIn;
+        lastTimePlayed = info.getLastTimePlayed();
+        sizeOnDisk = sizeOnDiskIn;
+        gameType = info.getGameType();
+        requiresConversion = requiresConversionIn;
+        hardcore = info.isHardcoreModeEnabled();
+        cheatsEnabled = info.areCommandsAllowed();
+        versionName = info.getVersionName();
+        versionId = info.getVersionId();
+        versionSnapshot = info.isVersionSnapshot();
     }
 
     /**
@@ -43,7 +43,7 @@ public class WorldSummary implements Comparable<WorldSummary>
      */
     public String getFileName()
     {
-        return this.fileName;
+        return fileName;
     }
 
     /**
@@ -51,33 +51,33 @@ public class WorldSummary implements Comparable<WorldSummary>
      */
     public String getDisplayName()
     {
-        return this.displayName;
+        return displayName;
     }
 
     public long getSizeOnDisk()
     {
-        return this.sizeOnDisk;
+        return sizeOnDisk;
     }
 
     public boolean requiresConversion()
     {
-        return this.requiresConversion;
+        return requiresConversion;
     }
 
     public long getLastTimePlayed()
     {
-        return this.lastTimePlayed;
+        return lastTimePlayed;
     }
 
     public int compareTo(WorldSummary p_compareTo_1_)
     {
-        if (this.lastTimePlayed < p_compareTo_1_.lastTimePlayed)
+        if (lastTimePlayed < p_compareTo_1_.lastTimePlayed)
         {
             return 1;
         }
         else
         {
-            return this.lastTimePlayed > p_compareTo_1_.lastTimePlayed ? -1 : this.fileName.compareTo(p_compareTo_1_.fileName);
+            return lastTimePlayed > p_compareTo_1_.lastTimePlayed ? -1 : fileName.compareTo(p_compareTo_1_.fileName);
         }
     }
 
@@ -86,12 +86,12 @@ public class WorldSummary implements Comparable<WorldSummary>
      */
     public GameType getEnumGameType()
     {
-        return this.gameType;
+        return gameType;
     }
 
     public boolean isHardcoreModeEnabled()
     {
-        return this.hardcore;
+        return hardcore;
     }
 
     /**
@@ -99,21 +99,21 @@ public class WorldSummary implements Comparable<WorldSummary>
      */
     public boolean getCheatsEnabled()
     {
-        return this.cheatsEnabled;
+        return cheatsEnabled;
     }
 
     public String getVersionName()
     {
-        return StringUtils.isNullOrEmpty(this.versionName) ? I18n.translateToLocal("selectWorld.versionUnknown") : this.versionName;
+        return StringUtils.isNullOrEmpty(versionName) ? I18n.translateToLocal("selectWorld.versionUnknown") : versionName;
     }
 
     public boolean markVersionInList()
     {
-        return this.askToOpenWorld();
+        return askToOpenWorld();
     }
 
     public boolean askToOpenWorld()
     {
-        return this.versionId > 1343;
+        return versionId > 1343;
     }
 }

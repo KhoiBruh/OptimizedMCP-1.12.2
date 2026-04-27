@@ -19,9 +19,9 @@ public class CPacketPlaceRecipe implements Packet<INetHandlerPlayServer>
 
     public CPacketPlaceRecipe(int p_i47614_1_, IRecipe p_i47614_2_, boolean p_i47614_3_)
     {
-        this.field_194320_a = p_i47614_1_;
-        this.field_194321_b = p_i47614_2_;
-        this.field_194322_c = p_i47614_3_;
+        field_194320_a = p_i47614_1_;
+        field_194321_b = p_i47614_2_;
+        field_194322_c = p_i47614_3_;
     }
 
     /**
@@ -29,9 +29,9 @@ public class CPacketPlaceRecipe implements Packet<INetHandlerPlayServer>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.field_194320_a = buf.readByte();
-        this.field_194321_b = CraftingManager.getRecipeById(buf.readVarInt());
-        this.field_194322_c = buf.readBoolean();
+        field_194320_a = buf.readByte();
+        field_194321_b = CraftingManager.getRecipeById(buf.readVarInt());
+        field_194322_c = buf.readBoolean();
     }
 
     /**
@@ -39,9 +39,9 @@ public class CPacketPlaceRecipe implements Packet<INetHandlerPlayServer>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeByte(this.field_194320_a);
-        buf.writeVarInt(CraftingManager.getIDForRecipe(this.field_194321_b));
-        buf.writeBoolean(this.field_194322_c);
+        buf.writeByte(field_194320_a);
+        buf.writeVarInt(CraftingManager.getIDForRecipe(field_194321_b));
+        buf.writeBoolean(field_194322_c);
     }
 
     /**
@@ -54,16 +54,16 @@ public class CPacketPlaceRecipe implements Packet<INetHandlerPlayServer>
 
     public int func_194318_a()
     {
-        return this.field_194320_a;
+        return field_194320_a;
     }
 
     public IRecipe func_194317_b()
     {
-        return this.field_194321_b;
+        return field_194321_b;
     }
 
     public boolean func_194319_c()
     {
-        return this.field_194322_c;
+        return field_194322_c;
     }
 }

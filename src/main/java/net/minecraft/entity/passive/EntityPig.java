@@ -50,27 +50,27 @@ public class EntityPig extends EntityAnimal
     public EntityPig(World worldIn)
     {
         super(worldIn);
-        this.setSize(0.9F, 0.9F);
+        setSize(0.9F, 0.9F);
     }
 
     protected void initEntityAI()
     {
-        this.tasks.addTask(0, new EntityAISwimming(this));
-        this.tasks.addTask(1, new EntityAIPanic(this, 1.25D));
-        this.tasks.addTask(3, new EntityAIMate(this, 1.0D));
-        this.tasks.addTask(4, new EntityAITempt(this, 1.2D, Items.CARROT_ON_A_STICK, false));
-        this.tasks.addTask(4, new EntityAITempt(this, 1.2D, false, TEMPTATION_ITEMS));
-        this.tasks.addTask(5, new EntityAIFollowParent(this, 1.1D));
-        this.tasks.addTask(6, new EntityAIWanderAvoidWater(this, 1.0D));
-        this.tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
-        this.tasks.addTask(8, new EntityAILookIdle(this));
+        tasks.addTask(0, new EntityAISwimming(this));
+        tasks.addTask(1, new EntityAIPanic(this, 1.25D));
+        tasks.addTask(3, new EntityAIMate(this, 1.0D));
+        tasks.addTask(4, new EntityAITempt(this, 1.2D, Items.CARROT_ON_A_STICK, false));
+        tasks.addTask(4, new EntityAITempt(this, 1.2D, false, TEMPTATION_ITEMS));
+        tasks.addTask(5, new EntityAIFollowParent(this, 1.1D));
+        tasks.addTask(6, new EntityAIWanderAvoidWater(this, 1.0D));
+        tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
+        tasks.addTask(8, new EntityAILookIdle(this));
     }
 
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(10.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25D);
+        getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(10.0D);
+        getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25D);
     }
 
     @Nullable
@@ -81,7 +81,7 @@ public class EntityPig extends EntityAnimal
      */
     public Entity getControllingPassenger()
     {
-        return this.getPassengers().isEmpty() ? null : (Entity)this.getPassengers().get(0);
+        return getPassengers().isEmpty() ? null : (Entity) getPassengers().get(0);
     }
 
     /**
@@ -90,7 +90,7 @@ public class EntityPig extends EntityAnimal
      */
     public boolean canBeSteered()
     {
-        Entity entity = this.getControllingPassenger();
+        Entity entity = getControllingPassenger();
 
         if (!(entity instanceof EntityPlayer))
         {
@@ -105,11 +105,11 @@ public class EntityPig extends EntityAnimal
 
     public void notifyDataManagerChange(DataParameter<?> key)
     {
-        if (BOOST_TIME.equals(key) && this.world.isRemote)
+        if (BOOST_TIME.equals(key) && world.isRemote)
         {
-            this.boosting = true;
-            this.boostTime = 0;
-            this.totalBoostTime = ((Integer)this.dataManager.get(BOOST_TIME)).intValue();
+            boosting = true;
+            boostTime = 0;
+            totalBoostTime = ((Integer) dataManager.get(BOOST_TIME)).intValue();
         }
 
         super.notifyDataManagerChange(key);
@@ -118,8 +118,8 @@ public class EntityPig extends EntityAnimal
     protected void entityInit()
     {
         super.entityInit();
-        this.dataManager.register(SADDLED, Boolean.valueOf(false));
-        this.dataManager.register(BOOST_TIME, Integer.valueOf(0));
+        dataManager.register(SADDLED, Boolean.valueOf(false));
+        dataManager.register(BOOST_TIME, Integer.valueOf(0));
     }
 
     public static void registerFixesPig(DataFixer fixer)
@@ -133,7 +133,7 @@ public class EntityPig extends EntityAnimal
     public void writeEntityToNBT(NBTTagCompound compound)
     {
         super.writeEntityToNBT(compound);
-        compound.setBoolean("Saddle", this.getSaddled());
+        compound.setBoolean("Saddle", getSaddled());
     }
 
     /**
@@ -142,7 +142,7 @@ public class EntityPig extends EntityAnimal
     public void readEntityFromNBT(NBTTagCompound compound)
     {
         super.readEntityFromNBT(compound);
-        this.setSaddled(compound.getBoolean("Saddle"));
+        setSaddled(compound.getBoolean("Saddle"));
     }
 
     protected SoundEvent getAmbientSound()
@@ -162,7 +162,7 @@ public class EntityPig extends EntityAnimal
 
     protected void playStepSound(BlockPos pos, Block blockIn)
     {
-        this.playSound(SoundEvents.ENTITY_PIG_STEP, 0.15F, 1.0F);
+        playSound(SoundEvents.ENTITY_PIG_STEP, 0.15F, 1.0F);
     }
 
     public boolean processInteract(EntityPlayer player, EnumHand hand)
@@ -176,9 +176,9 @@ public class EntityPig extends EntityAnimal
                 itemstack.interactWithEntity(player, this, hand);
                 return true;
             }
-            else if (this.getSaddled() && !this.isBeingRidden())
+            else if (getSaddled() && !isBeingRidden())
             {
-                if (!this.world.isRemote)
+                if (!world.isRemote)
                 {
                     player.startRiding(this);
                 }
@@ -208,11 +208,11 @@ public class EntityPig extends EntityAnimal
     {
         super.onDeath(cause);
 
-        if (!this.world.isRemote)
+        if (!world.isRemote)
         {
-            if (this.getSaddled())
+            if (getSaddled())
             {
-                this.dropItem(Items.SADDLE, 1);
+                dropItem(Items.SADDLE, 1);
             }
         }
     }
@@ -228,7 +228,7 @@ public class EntityPig extends EntityAnimal
      */
     public boolean getSaddled()
     {
-        return ((Boolean)this.dataManager.get(SADDLED)).booleanValue();
+        return ((Boolean) dataManager.get(SADDLED)).booleanValue();
     }
 
     /**
@@ -238,11 +238,11 @@ public class EntityPig extends EntityAnimal
     {
         if (saddled)
         {
-            this.dataManager.set(SADDLED, Boolean.valueOf(true));
+            dataManager.set(SADDLED, Boolean.valueOf(true));
         }
         else
         {
-            this.dataManager.set(SADDLED, Boolean.valueOf(false));
+            dataManager.set(SADDLED, Boolean.valueOf(false));
         }
     }
 
@@ -251,66 +251,66 @@ public class EntityPig extends EntityAnimal
      */
     public void onStruckByLightning(EntityLightningBolt lightningBolt)
     {
-        if (!this.world.isRemote && !this.isDead)
+        if (!world.isRemote && !isDead)
         {
-            EntityPigZombie entitypigzombie = new EntityPigZombie(this.world);
+            EntityPigZombie entitypigzombie = new EntityPigZombie(world);
             entitypigzombie.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.GOLDEN_SWORD));
-            entitypigzombie.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, this.rotationPitch);
-            entitypigzombie.setNoAI(this.isAIDisabled());
+            entitypigzombie.setLocationAndAngles(posX, posY, posZ, rotationYaw, rotationPitch);
+            entitypigzombie.setNoAI(isAIDisabled());
 
-            if (this.hasCustomName())
+            if (hasCustomName())
             {
-                entitypigzombie.setCustomNameTag(this.getCustomNameTag());
-                entitypigzombie.setAlwaysRenderNameTag(this.getAlwaysRenderNameTag());
+                entitypigzombie.setCustomNameTag(getCustomNameTag());
+                entitypigzombie.setAlwaysRenderNameTag(getAlwaysRenderNameTag());
             }
 
-            this.world.spawnEntity(entitypigzombie);
-            this.setDead();
+            world.spawnEntity(entitypigzombie);
+            setDead();
         }
     }
 
     public void travel(float strafe, float vertical, float forward)
     {
-        Entity entity = this.getPassengers().isEmpty() ? null : (Entity)this.getPassengers().get(0);
+        Entity entity = getPassengers().isEmpty() ? null : (Entity) getPassengers().get(0);
 
-        if (this.isBeingRidden() && this.canBeSteered())
+        if (isBeingRidden() && canBeSteered())
         {
-            this.rotationYaw = entity.rotationYaw;
-            this.prevRotationYaw = this.rotationYaw;
-            this.rotationPitch = entity.rotationPitch * 0.5F;
-            this.setRotation(this.rotationYaw, this.rotationPitch);
-            this.renderYawOffset = this.rotationYaw;
-            this.rotationYawHead = this.rotationYaw;
-            this.stepHeight = 1.0F;
-            this.jumpMovementFactor = this.getAIMoveSpeed() * 0.1F;
+            rotationYaw = entity.rotationYaw;
+            prevRotationYaw = rotationYaw;
+            rotationPitch = entity.rotationPitch * 0.5F;
+            setRotation(rotationYaw, rotationPitch);
+            renderYawOffset = rotationYaw;
+            rotationYawHead = rotationYaw;
+            stepHeight = 1.0F;
+            jumpMovementFactor = getAIMoveSpeed() * 0.1F;
 
-            if (this.boosting && this.boostTime++ > this.totalBoostTime)
+            if (boosting && boostTime++ > totalBoostTime)
             {
-                this.boosting = false;
+                boosting = false;
             }
 
-            if (this.canPassengerSteer())
+            if (canPassengerSteer())
             {
-                float f = (float)this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue() * 0.225F;
+                float f = (float) getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue() * 0.225F;
 
-                if (this.boosting)
+                if (boosting)
                 {
-                    f += f * 1.15F * MathHelper.sin((float)this.boostTime / (float)this.totalBoostTime * (float)Math.PI);
+                    f += f * 1.15F * MathHelper.sin((float) boostTime / (float) totalBoostTime * (float)Math.PI);
                 }
 
-                this.setAIMoveSpeed(f);
+                setAIMoveSpeed(f);
                 super.travel(0.0F, 0.0F, 1.0F);
             }
             else
             {
-                this.motionX = 0.0D;
-                this.motionY = 0.0D;
-                this.motionZ = 0.0D;
+                motionX = 0.0D;
+                motionY = 0.0D;
+                motionZ = 0.0D;
             }
 
-            this.prevLimbSwingAmount = this.limbSwingAmount;
-            double d1 = this.posX - this.prevPosX;
-            double d0 = this.posZ - this.prevPosZ;
+            prevLimbSwingAmount = limbSwingAmount;
+            double d1 = posX - prevPosX;
+            double d0 = posZ - prevPosZ;
             float f1 = MathHelper.sqrt(d1 * d1 + d0 * d0) * 4.0F;
 
             if (f1 > 1.0F)
@@ -318,36 +318,36 @@ public class EntityPig extends EntityAnimal
                 f1 = 1.0F;
             }
 
-            this.limbSwingAmount += (f1 - this.limbSwingAmount) * 0.4F;
-            this.limbSwing += this.limbSwingAmount;
+            limbSwingAmount += (f1 - limbSwingAmount) * 0.4F;
+            limbSwing += limbSwingAmount;
         }
         else
         {
-            this.stepHeight = 0.5F;
-            this.jumpMovementFactor = 0.02F;
+            stepHeight = 0.5F;
+            jumpMovementFactor = 0.02F;
             super.travel(strafe, vertical, forward);
         }
     }
 
     public boolean boost()
     {
-        if (this.boosting)
+        if (boosting)
         {
             return false;
         }
         else
         {
-            this.boosting = true;
-            this.boostTime = 0;
-            this.totalBoostTime = this.getRNG().nextInt(841) + 140;
-            this.getDataManager().set(BOOST_TIME, Integer.valueOf(this.totalBoostTime));
+            boosting = true;
+            boostTime = 0;
+            totalBoostTime = getRNG().nextInt(841) + 140;
+            getDataManager().set(BOOST_TIME, Integer.valueOf(totalBoostTime));
             return true;
         }
     }
 
     public EntityPig createChild(EntityAgeable ageable)
     {
-        return new EntityPig(this.world);
+        return new EntityPig(world);
     }
 
     /**

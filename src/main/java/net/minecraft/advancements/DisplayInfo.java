@@ -45,53 +45,53 @@ public class DisplayInfo
 
     public ITextComponent getTitle()
     {
-        return this.title;
+        return title;
     }
 
     public ITextComponent getDescription()
     {
-        return this.description;
+        return description;
     }
 
     public ItemStack getIcon()
     {
-        return this.icon;
+        return icon;
     }
 
     @Nullable
     public ResourceLocation getBackground()
     {
-        return this.background;
+        return background;
     }
 
     public FrameType getFrame()
     {
-        return this.frame;
+        return frame;
     }
 
     public float getX()
     {
-        return this.x;
+        return x;
     }
 
     public float getY()
     {
-        return this.y;
+        return y;
     }
 
     public boolean shouldShowToast()
     {
-        return this.showToast;
+        return showToast;
     }
 
     public boolean shouldAnnounceToChat()
     {
-        return this.announceToChat;
+        return announceToChat;
     }
 
     public boolean isHidden()
     {
-        return this.hidden;
+        return hidden;
     }
 
     public static DisplayInfo deserialize(JsonObject object, JsonDeserializationContext context)
@@ -131,36 +131,36 @@ public class DisplayInfo
 
     public void write(PacketBuffer buf)
     {
-        buf.writeTextComponent(this.title);
-        buf.writeTextComponent(this.description);
-        buf.writeItemStack(this.icon);
-        buf.writeEnumValue(this.frame);
+        buf.writeTextComponent(title);
+        buf.writeTextComponent(description);
+        buf.writeItemStack(icon);
+        buf.writeEnumValue(frame);
         int i = 0;
 
-        if (this.background != null)
+        if (background != null)
         {
             i |= 1;
         }
 
-        if (this.showToast)
+        if (showToast)
         {
             i |= 2;
         }
 
-        if (this.hidden)
+        if (hidden)
         {
             i |= 4;
         }
 
         buf.writeInt(i);
 
-        if (this.background != null)
+        if (background != null)
         {
-            buf.writeResourceLocation(this.background);
+            buf.writeResourceLocation(background);
         }
 
-        buf.writeFloat(this.x);
-        buf.writeFloat(this.y);
+        buf.writeFloat(x);
+        buf.writeFloat(y);
     }
 
     public static DisplayInfo read(PacketBuffer buf) throws IOException

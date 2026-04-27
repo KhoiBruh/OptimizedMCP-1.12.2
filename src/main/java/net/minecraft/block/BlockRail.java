@@ -16,14 +16,14 @@ public class BlockRail extends BlockRailBase
     protected BlockRail()
     {
         super(false);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(SHAPE, BlockRailBase.EnumRailDirection.NORTH_SOUTH));
+        setDefaultState(blockState.getBaseState().withProperty(SHAPE, BlockRailBase.EnumRailDirection.NORTH_SOUTH));
     }
 
     protected void updateState(IBlockState state, World worldIn, BlockPos pos, Block blockIn)
     {
         if (blockIn.getDefaultState().canProvidePower() && (new BlockRailBase.Rail(worldIn, pos, state)).countAdjacentRails() == 3)
         {
-            this.updateDir(worldIn, pos, state, false);
+            updateDir(worldIn, pos, state, false);
         }
     }
 
@@ -37,7 +37,7 @@ public class BlockRail extends BlockRailBase
      */
     public IBlockState getStateFromMeta(int meta)
     {
-        return this.getDefaultState().withProperty(SHAPE, BlockRailBase.EnumRailDirection.byMetadata(meta));
+        return getDefaultState().withProperty(SHAPE, BlockRailBase.EnumRailDirection.byMetadata(meta));
     }
 
     /**

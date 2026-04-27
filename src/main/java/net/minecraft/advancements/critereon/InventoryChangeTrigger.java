@@ -29,12 +29,12 @@ public class InventoryChangeTrigger implements ICriterionTrigger<InventoryChange
 
     public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<InventoryChangeTrigger.Instance> listener)
     {
-        InventoryChangeTrigger.Listeners inventorychangetrigger$listeners = this.listeners.get(playerAdvancementsIn);
+        InventoryChangeTrigger.Listeners inventorychangetrigger$listeners = listeners.get(playerAdvancementsIn);
 
         if (inventorychangetrigger$listeners == null)
         {
             inventorychangetrigger$listeners = new InventoryChangeTrigger.Listeners(playerAdvancementsIn);
-            this.listeners.put(playerAdvancementsIn, inventorychangetrigger$listeners);
+            listeners.put(playerAdvancementsIn, inventorychangetrigger$listeners);
         }
 
         inventorychangetrigger$listeners.add(listener);
@@ -42,7 +42,7 @@ public class InventoryChangeTrigger implements ICriterionTrigger<InventoryChange
 
     public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<InventoryChangeTrigger.Instance> listener)
     {
-        InventoryChangeTrigger.Listeners inventorychangetrigger$listeners = this.listeners.get(playerAdvancementsIn);
+        InventoryChangeTrigger.Listeners inventorychangetrigger$listeners = listeners.get(playerAdvancementsIn);
 
         if (inventorychangetrigger$listeners != null)
         {
@@ -50,14 +50,14 @@ public class InventoryChangeTrigger implements ICriterionTrigger<InventoryChange
 
             if (inventorychangetrigger$listeners.isEmpty())
             {
-                this.listeners.remove(playerAdvancementsIn);
+                listeners.remove(playerAdvancementsIn);
             }
         }
     }
 
     public void removeAllListeners(PlayerAdvancements playerAdvancementsIn)
     {
-        this.listeners.remove(playerAdvancementsIn);
+        listeners.remove(playerAdvancementsIn);
     }
 
     /**
@@ -75,7 +75,7 @@ public class InventoryChangeTrigger implements ICriterionTrigger<InventoryChange
 
     public void trigger(EntityPlayerMP player, InventoryPlayer inventory)
     {
-        InventoryChangeTrigger.Listeners inventorychangetrigger$listeners = this.listeners.get(player.getAdvancements());
+        InventoryChangeTrigger.Listeners inventorychangetrigger$listeners = listeners.get(player.getAdvancements());
 
         if (inventorychangetrigger$listeners != null)
         {
@@ -104,7 +104,7 @@ public class InventoryChangeTrigger implements ICriterionTrigger<InventoryChange
             int i = 0;
             int j = 0;
             int k = 0;
-            List<ItemPredicate> list = Lists.newArrayList(this.items);
+            List<ItemPredicate> list = Lists.newArrayList(items);
 
             for (int l = 0; l < inventory.getSizeInventory(); ++l)
             {
@@ -137,15 +137,15 @@ public class InventoryChangeTrigger implements ICriterionTrigger<InventoryChange
                 }
             }
 
-            if (!this.full.test((float)i))
+            if (!full.test((float)i))
             {
                 return false;
             }
-            else if (!this.empty.test((float)j))
+            else if (!empty.test((float)j))
             {
                 return false;
             }
-            else if (!this.occupied.test((float)k))
+            else if (!occupied.test((float)k))
             {
                 return false;
             }
@@ -167,29 +167,29 @@ public class InventoryChangeTrigger implements ICriterionTrigger<InventoryChange
 
         public Listeners(PlayerAdvancements playerAdvancementsIn)
         {
-            this.playerAdvancements = playerAdvancementsIn;
+            playerAdvancements = playerAdvancementsIn;
         }
 
         public boolean isEmpty()
         {
-            return this.listeners.isEmpty();
+            return listeners.isEmpty();
         }
 
         public void add(ICriterionTrigger.Listener<InventoryChangeTrigger.Instance> listener)
         {
-            this.listeners.add(listener);
+            listeners.add(listener);
         }
 
         public void remove(ICriterionTrigger.Listener<InventoryChangeTrigger.Instance> listener)
         {
-            this.listeners.remove(listener);
+            listeners.remove(listener);
         }
 
         public void trigger(InventoryPlayer inventory)
         {
             List<ICriterionTrigger.Listener<InventoryChangeTrigger.Instance>> list = null;
 
-            for (ICriterionTrigger.Listener<InventoryChangeTrigger.Instance> listener : this.listeners)
+            for (ICriterionTrigger.Listener<InventoryChangeTrigger.Instance> listener : listeners)
             {
                 if (((InventoryChangeTrigger.Instance)listener.getCriterionInstance()).test(inventory))
                 {
@@ -206,7 +206,7 @@ public class InventoryChangeTrigger implements ICriterionTrigger<InventoryChange
             {
                 for (ICriterionTrigger.Listener<InventoryChangeTrigger.Instance> listener1 : list)
                 {
-                    listener1.grantCriterion(this.playerAdvancements);
+                    listener1.grantCriterion(playerAdvancements);
                 }
             }
         }

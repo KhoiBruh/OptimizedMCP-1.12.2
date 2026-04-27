@@ -14,12 +14,12 @@ public class GuiLockIconButton extends GuiButton
 
     public boolean isLocked()
     {
-        return this.locked;
+        return locked;
     }
 
     public void setLocked(boolean lockedIn)
     {
-        this.locked = lockedIn;
+        locked = lockedIn;
     }
 
     /**
@@ -27,16 +27,16 @@ public class GuiLockIconButton extends GuiButton
      */
     public void drawButton(Minecraft mc, int mouseX, int mouseY, float partialTicks)
     {
-        if (this.visible)
+        if (visible)
         {
             mc.getTextureManager().bindTexture(GuiButton.BUTTON_TEXTURES);
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-            boolean flag = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width && mouseY < this.y + this.height;
+            boolean flag = mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
             GuiLockIconButton.Icon guilockiconbutton$icon;
 
-            if (this.locked)
+            if (locked)
             {
-                if (!this.enabled)
+                if (!enabled)
                 {
                     guilockiconbutton$icon = GuiLockIconButton.Icon.LOCKED_DISABLED;
                 }
@@ -49,7 +49,7 @@ public class GuiLockIconButton extends GuiButton
                     guilockiconbutton$icon = GuiLockIconButton.Icon.LOCKED;
                 }
             }
-            else if (!this.enabled)
+            else if (!enabled)
             {
                 guilockiconbutton$icon = GuiLockIconButton.Icon.UNLOCKED_DISABLED;
             }
@@ -62,7 +62,7 @@ public class GuiLockIconButton extends GuiButton
                 guilockiconbutton$icon = GuiLockIconButton.Icon.UNLOCKED;
             }
 
-            this.drawTexturedModalRect(this.x, this.y, guilockiconbutton$icon.getX(), guilockiconbutton$icon.getY(), this.width, this.height);
+            drawTexturedModalRect(x, y, guilockiconbutton$icon.getX(), guilockiconbutton$icon.getY(), width, height);
         }
     }
 
@@ -80,18 +80,18 @@ public class GuiLockIconButton extends GuiButton
 
         private Icon(int xIn, int yIn)
         {
-            this.x = xIn;
-            this.y = yIn;
+            x = xIn;
+            y = yIn;
         }
 
         public int getX()
         {
-            return this.x;
+            return x;
         }
 
         public int getY()
         {
-            return this.y;
+            return y;
         }
     }
 }

@@ -7,12 +7,12 @@ public class CommandException extends Exception
     public CommandException(String message, Object... objects)
     {
         super(message);
-        this.errorObjects = objects;
+        errorObjects = objects;
     }
 
     public Object[] getErrorObjects()
     {
-        return this.errorObjects;
+        return errorObjects;
     }
 
     public synchronized Throwable fillInStackTrace()

@@ -16,7 +16,7 @@ public class SPacketDisconnect implements Packet<INetHandlerLoginClient>
 
     public SPacketDisconnect(ITextComponent p_i46853_1_)
     {
-        this.reason = p_i46853_1_;
+        reason = p_i46853_1_;
     }
 
     /**
@@ -24,7 +24,7 @@ public class SPacketDisconnect implements Packet<INetHandlerLoginClient>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.reason = ITextComponent.Serializer.fromJsonLenient(buf.readString(32767));
+        reason = ITextComponent.Serializer.fromJsonLenient(buf.readString(32767));
     }
 
     /**
@@ -32,7 +32,7 @@ public class SPacketDisconnect implements Packet<INetHandlerLoginClient>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeTextComponent(this.reason);
+        buf.writeTextComponent(reason);
     }
 
     /**
@@ -45,6 +45,6 @@ public class SPacketDisconnect implements Packet<INetHandlerLoginClient>
 
     public ITextComponent getReason()
     {
-        return this.reason;
+        return reason;
     }
 }

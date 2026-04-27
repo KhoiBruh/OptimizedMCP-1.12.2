@@ -17,7 +17,7 @@ public class LayerArrow implements LayerRenderer<EntityLivingBase>
 
     public LayerArrow(RenderLivingBase<?> rendererIn)
     {
-        this.renderer = rendererIn;
+        renderer = rendererIn;
     }
 
     public void doRenderLayer(EntityLivingBase entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale)
@@ -33,7 +33,7 @@ public class LayerArrow implements LayerRenderer<EntityLivingBase>
             for (int j = 0; j < i; ++j)
             {
                 GlStateManager.pushMatrix();
-                ModelRenderer modelrenderer = this.renderer.getMainModel().getRandomModelBox(random);
+                ModelRenderer modelrenderer = renderer.getMainModel().getRandomModelBox(random);
                 ModelBox modelbox = modelrenderer.cubeList.get(random.nextInt(modelrenderer.cubeList.size()));
                 modelrenderer.postRender(0.0625F);
                 float f = random.nextFloat();
@@ -57,7 +57,7 @@ public class LayerArrow implements LayerRenderer<EntityLivingBase>
                 double d0 = 0.0D;
                 double d1 = 0.0D;
                 double d2 = 0.0D;
-                this.renderer.getRenderManager().renderEntity(entity, 0.0D, 0.0D, 0.0D, 0.0F, partialTicks, false);
+                renderer.getRenderManager().renderEntity(entity, 0.0D, 0.0D, 0.0D, 0.0F, partialTicks, false);
                 GlStateManager.popMatrix();
             }
 

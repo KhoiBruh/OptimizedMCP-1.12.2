@@ -33,12 +33,12 @@ public class CPacketClickWindow implements Packet<INetHandlerPlayServer>
 
     public CPacketClickWindow(int windowIdIn, int slotIdIn, int usedButtonIn, ClickType modeIn, ItemStack clickedItemIn, short actionNumberIn)
     {
-        this.windowId = windowIdIn;
-        this.slotId = slotIdIn;
-        this.packedClickData = usedButtonIn;
-        this.clickedItem = clickedItemIn.copy();
-        this.actionNumber = actionNumberIn;
-        this.mode = modeIn;
+        windowId = windowIdIn;
+        slotId = slotIdIn;
+        packedClickData = usedButtonIn;
+        clickedItem = clickedItemIn.copy();
+        actionNumber = actionNumberIn;
+        mode = modeIn;
     }
 
     /**
@@ -54,12 +54,12 @@ public class CPacketClickWindow implements Packet<INetHandlerPlayServer>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.windowId = buf.readByte();
-        this.slotId = buf.readShort();
-        this.packedClickData = buf.readByte();
-        this.actionNumber = buf.readShort();
-        this.mode = (ClickType)buf.readEnumValue(ClickType.class);
-        this.clickedItem = buf.readItemStack();
+        windowId = buf.readByte();
+        slotId = buf.readShort();
+        packedClickData = buf.readByte();
+        actionNumber = buf.readShort();
+        mode = (ClickType)buf.readEnumValue(ClickType.class);
+        clickedItem = buf.readItemStack();
     }
 
     /**
@@ -67,41 +67,41 @@ public class CPacketClickWindow implements Packet<INetHandlerPlayServer>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeByte(this.windowId);
-        buf.writeShort(this.slotId);
-        buf.writeByte(this.packedClickData);
-        buf.writeShort(this.actionNumber);
-        buf.writeEnumValue(this.mode);
-        buf.writeItemStack(this.clickedItem);
+        buf.writeByte(windowId);
+        buf.writeShort(slotId);
+        buf.writeByte(packedClickData);
+        buf.writeShort(actionNumber);
+        buf.writeEnumValue(mode);
+        buf.writeItemStack(clickedItem);
     }
 
     public int getWindowId()
     {
-        return this.windowId;
+        return windowId;
     }
 
     public int getSlotId()
     {
-        return this.slotId;
+        return slotId;
     }
 
     public int getUsedButton()
     {
-        return this.packedClickData;
+        return packedClickData;
     }
 
     public short getActionNumber()
     {
-        return this.actionNumber;
+        return actionNumber;
     }
 
     public ItemStack getClickedItem()
     {
-        return this.clickedItem;
+        return clickedItem;
     }
 
     public ClickType getClickType()
     {
-        return this.mode;
+        return mode;
     }
 }

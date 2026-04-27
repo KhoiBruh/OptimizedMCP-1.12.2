@@ -44,12 +44,12 @@ public class EntityPolarBear extends EntityAnimal
     public EntityPolarBear(World worldIn)
     {
         super(worldIn);
-        this.setSize(1.3F, 1.4F);
+        setSize(1.3F, 1.4F);
     }
 
     public EntityAgeable createChild(EntityAgeable ageable)
     {
-        return new EntityPolarBear(this.world);
+        return new EntityPolarBear(world);
     }
 
     /**
@@ -64,30 +64,30 @@ public class EntityPolarBear extends EntityAnimal
     protected void initEntityAI()
     {
         super.initEntityAI();
-        this.tasks.addTask(0, new EntityAISwimming(this));
-        this.tasks.addTask(1, new EntityPolarBear.AIMeleeAttack());
-        this.tasks.addTask(1, new EntityPolarBear.AIPanic());
-        this.tasks.addTask(4, new EntityAIFollowParent(this, 1.25D));
-        this.tasks.addTask(5, new EntityAIWander(this, 1.0D));
-        this.tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
-        this.tasks.addTask(7, new EntityAILookIdle(this));
-        this.targetTasks.addTask(1, new EntityPolarBear.AIHurtByTarget());
-        this.targetTasks.addTask(2, new EntityPolarBear.AIAttackPlayer());
+        tasks.addTask(0, new EntityAISwimming(this));
+        tasks.addTask(1, new EntityPolarBear.AIMeleeAttack());
+        tasks.addTask(1, new EntityPolarBear.AIPanic());
+        tasks.addTask(4, new EntityAIFollowParent(this, 1.25D));
+        tasks.addTask(5, new EntityAIWander(this, 1.0D));
+        tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
+        tasks.addTask(7, new EntityAILookIdle(this));
+        targetTasks.addTask(1, new EntityPolarBear.AIHurtByTarget());
+        targetTasks.addTask(2, new EntityPolarBear.AIAttackPlayer());
     }
 
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(30.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(20.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25D);
-        this.getAttributeMap().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE);
-        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(6.0D);
+        getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(30.0D);
+        getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(20.0D);
+        getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25D);
+        getAttributeMap().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE);
+        getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(6.0D);
     }
 
     protected SoundEvent getAmbientSound()
     {
-        return this.isChild() ? SoundEvents.ENTITY_POLAR_BEAR_BABY_AMBIENT : SoundEvents.ENTITY_POLAR_BEAR_AMBIENT;
+        return isChild() ? SoundEvents.ENTITY_POLAR_BEAR_BABY_AMBIENT : SoundEvents.ENTITY_POLAR_BEAR_AMBIENT;
     }
 
     protected SoundEvent getHurtSound(DamageSource damageSourceIn)
@@ -102,15 +102,15 @@ public class EntityPolarBear extends EntityAnimal
 
     protected void playStepSound(BlockPos pos, Block blockIn)
     {
-        this.playSound(SoundEvents.ENTITY_POLAR_BEAR_STEP, 0.15F, 1.0F);
+        playSound(SoundEvents.ENTITY_POLAR_BEAR_STEP, 0.15F, 1.0F);
     }
 
     protected void playWarningSound()
     {
-        if (this.warningSoundTicks <= 0)
+        if (warningSoundTicks <= 0)
         {
-            this.playSound(SoundEvents.ENTITY_POLAR_BEAR_WARNING, 1.0F, 1.0F);
-            this.warningSoundTicks = 40;
+            playSound(SoundEvents.ENTITY_POLAR_BEAR_WARNING, 1.0F, 1.0F);
+            warningSoundTicks = 40;
         }
     }
 
@@ -123,7 +123,7 @@ public class EntityPolarBear extends EntityAnimal
     protected void entityInit()
     {
         super.entityInit();
-        this.dataManager.register(IS_STANDING, Boolean.valueOf(false));
+        dataManager.register(IS_STANDING, Boolean.valueOf(false));
     }
 
     /**
@@ -133,33 +133,33 @@ public class EntityPolarBear extends EntityAnimal
     {
         super.onUpdate();
 
-        if (this.world.isRemote)
+        if (world.isRemote)
         {
-            this.clientSideStandAnimation0 = this.clientSideStandAnimation;
+            clientSideStandAnimation0 = clientSideStandAnimation;
 
-            if (this.isStanding())
+            if (isStanding())
             {
-                this.clientSideStandAnimation = MathHelper.clamp(this.clientSideStandAnimation + 1.0F, 0.0F, 6.0F);
+                clientSideStandAnimation = MathHelper.clamp(clientSideStandAnimation + 1.0F, 0.0F, 6.0F);
             }
             else
             {
-                this.clientSideStandAnimation = MathHelper.clamp(this.clientSideStandAnimation - 1.0F, 0.0F, 6.0F);
+                clientSideStandAnimation = MathHelper.clamp(clientSideStandAnimation - 1.0F, 0.0F, 6.0F);
             }
         }
 
-        if (this.warningSoundTicks > 0)
+        if (warningSoundTicks > 0)
         {
-            --this.warningSoundTicks;
+            --warningSoundTicks;
         }
     }
 
     public boolean attackEntityAsMob(Entity entityIn)
     {
-        boolean flag = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), (float)((int)this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue()));
+        boolean flag = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), (float)((int) getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue()));
 
         if (flag)
         {
-            this.applyEnchantments(this, entityIn);
+            applyEnchantments(this, entityIn);
         }
 
         return flag;
@@ -167,17 +167,17 @@ public class EntityPolarBear extends EntityAnimal
 
     public boolean isStanding()
     {
-        return ((Boolean)this.dataManager.get(IS_STANDING)).booleanValue();
+        return ((Boolean) dataManager.get(IS_STANDING)).booleanValue();
     }
 
     public void setStanding(boolean standing)
     {
-        this.dataManager.set(IS_STANDING, Boolean.valueOf(standing));
+        dataManager.set(IS_STANDING, Boolean.valueOf(standing));
     }
 
     public float getStandingAnimationScale(float p_189795_1_)
     {
-        return (this.clientSideStandAnimation0 + (this.clientSideStandAnimation - this.clientSideStandAnimation0) * p_189795_1_) / 6.0F;
+        return (clientSideStandAnimation0 + (clientSideStandAnimation - clientSideStandAnimation0) * p_189795_1_) / 6.0F;
     }
 
     protected float getWaterSlowDown()
@@ -205,7 +205,7 @@ public class EntityPolarBear extends EntityAnimal
         {
             if (((EntityPolarBear.GroupData)livingdata).madeParent)
             {
-                this.setGrowingAge(-24000);
+                setGrowingAge(-24000);
             }
         }
         else
@@ -227,7 +227,7 @@ public class EntityPolarBear extends EntityAnimal
 
         public boolean shouldExecute()
         {
-            if (EntityPolarBear.this.isChild())
+            if (isChild())
             {
                 return false;
             }
@@ -235,7 +235,7 @@ public class EntityPolarBear extends EntityAnimal
             {
                 if (super.shouldExecute())
                 {
-                    for (EntityPolarBear entitypolarbear : EntityPolarBear.this.world.getEntitiesWithinAABB(EntityPolarBear.class, EntityPolarBear.this.getEntityBoundingBox().grow(8.0D, 4.0D, 8.0D)))
+                    for (EntityPolarBear entitypolarbear : world.getEntitiesWithinAABB(EntityPolarBear.class, getEntityBoundingBox().grow(8.0D, 4.0D, 8.0D)))
                     {
                         if (entitypolarbear.isChild())
                         {
@@ -244,7 +244,7 @@ public class EntityPolarBear extends EntityAnimal
                     }
                 }
 
-                EntityPolarBear.this.setAttackTarget((EntityLivingBase)null);
+                setAttackTarget((EntityLivingBase)null);
                 return false;
             }
         }
@@ -266,10 +266,10 @@ public class EntityPolarBear extends EntityAnimal
         {
             super.startExecuting();
 
-            if (EntityPolarBear.this.isChild())
+            if (isChild())
             {
-                this.alertOthers();
-                this.resetTask();
+                alertOthers();
+                resetTask();
             }
         }
 
@@ -291,38 +291,38 @@ public class EntityPolarBear extends EntityAnimal
 
         protected void checkAndPerformAttack(EntityLivingBase enemy, double distToEnemySqr)
         {
-            double d0 = this.getAttackReachSqr(enemy);
+            double d0 = getAttackReachSqr(enemy);
 
-            if (distToEnemySqr <= d0 && this.attackTick <= 0)
+            if (distToEnemySqr <= d0 && attackTick <= 0)
             {
-                this.attackTick = 20;
-                this.attacker.attackEntityAsMob(enemy);
-                EntityPolarBear.this.setStanding(false);
+                attackTick = 20;
+                attacker.attackEntityAsMob(enemy);
+                setStanding(false);
             }
             else if (distToEnemySqr <= d0 * 2.0D)
             {
-                if (this.attackTick <= 0)
+                if (attackTick <= 0)
                 {
-                    EntityPolarBear.this.setStanding(false);
-                    this.attackTick = 20;
+                    setStanding(false);
+                    attackTick = 20;
                 }
 
-                if (this.attackTick <= 10)
+                if (attackTick <= 10)
                 {
-                    EntityPolarBear.this.setStanding(true);
-                    EntityPolarBear.this.playWarningSound();
+                    setStanding(true);
+                    playWarningSound();
                 }
             }
             else
             {
-                this.attackTick = 20;
-                EntityPolarBear.this.setStanding(false);
+                attackTick = 20;
+                setStanding(false);
             }
         }
 
         public void resetTask()
         {
-            EntityPolarBear.this.setStanding(false);
+            setStanding(false);
             super.resetTask();
         }
 
@@ -341,7 +341,7 @@ public class EntityPolarBear extends EntityAnimal
 
         public boolean shouldExecute()
         {
-            return !EntityPolarBear.this.isChild() && !EntityPolarBear.this.isBurning() ? false : super.shouldExecute();
+            return !isChild() && !isBurning() ? false : super.shouldExecute();
         }
     }
 

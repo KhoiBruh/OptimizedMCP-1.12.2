@@ -33,7 +33,7 @@ public class EnchantmentDamage extends Enchantment
     public EnchantmentDamage(Enchantment.Rarity rarityIn, int damageTypeIn, EntityEquipmentSlot... slots)
     {
         super(rarityIn, EnumEnchantmentType.WEAPON, slots);
-        this.damageType = damageTypeIn;
+        damageType = damageTypeIn;
     }
 
     /**
@@ -41,7 +41,7 @@ public class EnchantmentDamage extends Enchantment
      */
     public int getMinEnchantability(int enchantmentLevel)
     {
-        return MIN_COST[this.damageType] + (enchantmentLevel - 1) * LEVEL_COST[this.damageType];
+        return MIN_COST[damageType] + (enchantmentLevel - 1) * LEVEL_COST[damageType];
     }
 
     /**
@@ -49,7 +49,7 @@ public class EnchantmentDamage extends Enchantment
      */
     public int getMaxEnchantability(int enchantmentLevel)
     {
-        return this.getMinEnchantability(enchantmentLevel) + LEVEL_COST_SPAN[this.damageType];
+        return getMinEnchantability(enchantmentLevel) + LEVEL_COST_SPAN[damageType];
     }
 
     /**
@@ -66,17 +66,17 @@ public class EnchantmentDamage extends Enchantment
      */
     public float calcDamageByCreature(int level, EnumCreatureAttribute creatureType)
     {
-        if (this.damageType == 0)
+        if (damageType == 0)
         {
             return 1.0F + (float)Math.max(0, level - 1) * 0.5F;
         }
-        else if (this.damageType == 1 && creatureType == EnumCreatureAttribute.UNDEAD)
+        else if (damageType == 1 && creatureType == EnumCreatureAttribute.UNDEAD)
         {
             return (float)level * 2.5F;
         }
         else
         {
-            return this.damageType == 2 && creatureType == EnumCreatureAttribute.ARTHROPOD ? (float)level * 2.5F : 0.0F;
+            return damageType == 2 && creatureType == EnumCreatureAttribute.ARTHROPOD ? (float)level * 2.5F : 0.0F;
         }
     }
 
@@ -85,7 +85,7 @@ public class EnchantmentDamage extends Enchantment
      */
     public String getName()
     {
-        return "enchantment.damage." + DAMAGE_NAMES[this.damageType];
+        return "enchantment.damage." + DAMAGE_NAMES[damageType];
     }
 
     /**
@@ -113,7 +113,7 @@ public class EnchantmentDamage extends Enchantment
         {
             EntityLivingBase entitylivingbase = (EntityLivingBase)target;
 
-            if (this.damageType == 2 && entitylivingbase.getCreatureAttribute() == EnumCreatureAttribute.ARTHROPOD)
+            if (damageType == 2 && entitylivingbase.getCreatureAttribute() == EnumCreatureAttribute.ARTHROPOD)
             {
                 int i = 20 + user.getRNG().nextInt(10 * level);
                 entitylivingbase.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, i, 3));

@@ -37,8 +37,8 @@ public class BlockRailDetector extends BlockRailBase
     public BlockRailDetector()
     {
         super(true);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(POWERED, Boolean.valueOf(false)).withProperty(SHAPE, BlockRailBase.EnumRailDirection.NORTH_SOUTH));
-        this.setTickRandomly(true);
+        setDefaultState(blockState.getBaseState().withProperty(POWERED, Boolean.valueOf(false)).withProperty(SHAPE, BlockRailBase.EnumRailDirection.NORTH_SOUTH));
+        setTickRandomly(true);
     }
 
     /**
@@ -66,7 +66,7 @@ public class BlockRailDetector extends BlockRailBase
         {
             if (!((Boolean)state.getValue(POWERED)).booleanValue())
             {
-                this.updatePoweredState(worldIn, pos, state);
+                updatePoweredState(worldIn, pos, state);
             }
         }
     }
@@ -82,7 +82,7 @@ public class BlockRailDetector extends BlockRailBase
     {
         if (!worldIn.isRemote && ((Boolean)state.getValue(POWERED)).booleanValue())
         {
-            this.updatePoweredState(worldIn, pos, state);
+            updatePoweredState(worldIn, pos, state);
         }
     }
 
@@ -117,7 +117,7 @@ public class BlockRailDetector extends BlockRailBase
         if (flag1 && !flag)
         {
             worldIn.setBlockState(pos, state.withProperty(POWERED, Boolean.valueOf(true)), 3);
-            this.updateConnectedRails(worldIn, pos, state, true);
+            updateConnectedRails(worldIn, pos, state, true);
             worldIn.notifyNeighborsOfStateChange(pos, this, false);
             worldIn.notifyNeighborsOfStateChange(pos.down(), this, false);
             worldIn.markBlockRangeForRenderUpdate(pos, pos);
@@ -126,7 +126,7 @@ public class BlockRailDetector extends BlockRailBase
         if (!flag1 && flag)
         {
             worldIn.setBlockState(pos, state.withProperty(POWERED, Boolean.valueOf(false)), 3);
-            this.updateConnectedRails(worldIn, pos, state, false);
+            updateConnectedRails(worldIn, pos, state, false);
             worldIn.notifyNeighborsOfStateChange(pos, this, false);
             worldIn.notifyNeighborsOfStateChange(pos.down(), this, false);
             worldIn.markBlockRangeForRenderUpdate(pos, pos);
@@ -134,7 +134,7 @@ public class BlockRailDetector extends BlockRailBase
 
         if (flag1)
         {
-            worldIn.scheduleUpdate(new BlockPos(pos), this, this.tickRate(worldIn));
+            worldIn.scheduleUpdate(new BlockPos(pos), this, tickRate(worldIn));
         }
 
         worldIn.updateComparatorOutputLevel(pos, this);
@@ -161,7 +161,7 @@ public class BlockRailDetector extends BlockRailBase
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state)
     {
         super.onBlockAdded(worldIn, pos, state);
-        this.updatePoweredState(worldIn, pos, state);
+        updatePoweredState(worldIn, pos, state);
     }
 
     public IProperty<BlockRailBase.EnumRailDirection> getShapeProperty()
@@ -198,7 +198,7 @@ public class BlockRailDetector extends BlockRailBase
 
     protected <T extends EntityMinecart> List<T> findMinecarts(World worldIn, BlockPos pos, Class<T> clazz, Predicate<Entity>... filter)
     {
-        AxisAlignedBB axisalignedbb = this.getDectectionBox(pos);
+        AxisAlignedBB axisalignedbb = getDectectionBox(pos);
         return filter.length != 1 ? worldIn.getEntitiesWithinAABB(clazz, axisalignedbb) : worldIn.getEntitiesWithinAABB(clazz, axisalignedbb, filter[0]);
     }
 
@@ -213,7 +213,7 @@ public class BlockRailDetector extends BlockRailBase
      */
     public IBlockState getStateFromMeta(int meta)
     {
-        return this.getDefaultState().withProperty(SHAPE, BlockRailBase.EnumRailDirection.byMetadata(meta & 7)).withProperty(POWERED, Boolean.valueOf((meta & 8) > 0));
+        return getDefaultState().withProperty(SHAPE, BlockRailBase.EnumRailDirection.byMetadata(meta & 7)).withProperty(POWERED, Boolean.valueOf((meta & 8) > 0));
     }
 
     /**

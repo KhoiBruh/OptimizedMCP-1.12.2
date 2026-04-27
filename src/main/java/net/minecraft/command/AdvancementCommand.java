@@ -67,7 +67,7 @@ public class AdvancementCommand extends CommandBase
                     throw advancementcommand$actiontype.wrongUsage();
                 }
 
-                this.perform(server, sender, args, entityplayermp, advancementcommand$actiontype, advancementcommand$mode);
+                perform(server, sender, args, entityplayermp, advancementcommand$actiontype, advancementcommand$mode);
             }
             else
             {
@@ -78,7 +78,7 @@ public class AdvancementCommand extends CommandBase
 
                 if (args.length == 3)
                 {
-                    this.testAdvancement(sender, getPlayer(server, sender, args[1]), findAdvancement(server, args[2]));
+                    testAdvancement(sender, getPlayer(server, sender, args[1]), findAdvancement(server, args[2]));
                 }
                 else
                 {
@@ -87,7 +87,7 @@ public class AdvancementCommand extends CommandBase
                         throw new WrongUsageException("commands.advancement.test.usage", new Object[0]);
                     }
 
-                    this.testCriterion(sender, getPlayer(server, sender, args[1]), findAdvancement(server, args[2]), args[3]);
+                    testCriterion(sender, getPlayer(server, sender, args[1]), findAdvancement(server, args[2]), args[3]);
                 }
             }
         }
@@ -146,7 +146,7 @@ public class AdvancementCommand extends CommandBase
                     throw p_193516_6_.usage(p_193516_5_);
                 }
 
-                List<Advancement> list = this.getAdvancements(advancement, p_193516_6_);
+                List<Advancement> list = getAdvancements(advancement, p_193516_6_);
                 int i = p_193516_5_.perform(player, list);
 
                 if (i == 0)
@@ -164,7 +164,7 @@ public class AdvancementCommand extends CommandBase
         for (Advancement advancement : p_193515_1_.getChildren())
         {
             p_193515_2_.add(advancement);
-            this.addChildren(advancement, p_193515_2_);
+            addChildren(advancement, p_193515_2_);
         }
     }
 
@@ -184,7 +184,7 @@ public class AdvancementCommand extends CommandBase
 
         if (p_193514_2_.children)
         {
-            this.addChildren(p_193514_1_, list);
+            addChildren(p_193514_1_, list);
         }
 
         return list;
@@ -251,7 +251,7 @@ public class AdvancementCommand extends CommandBase
                 {
                     if (args.length == 4)
                     {
-                        return getListOfStringsMatchingLastWord(args, this.getAdvancementNames(server));
+                        return getListOfStringsMatchingLastWord(args, getAdvancementNames(server));
                     }
 
                     if (args.length == 5 && advancementcommand$mode == AdvancementCommand.Mode.ONLY)
@@ -275,7 +275,7 @@ public class AdvancementCommand extends CommandBase
 
                 if (args.length == 3)
                 {
-                    return getListOfStringsMatchingLastWord(args, this.getAdvancementNames(server));
+                    return getListOfStringsMatchingLastWord(args, getAdvancementNames(server));
                 }
 
                 if (args.length == 4)
@@ -385,8 +385,8 @@ public class AdvancementCommand extends CommandBase
 
         private ActionType(String nameIn)
         {
-            this.name = nameIn;
-            this.baseTranslationKey = "commands.advancement." + nameIn;
+            name = nameIn;
+            baseTranslationKey = "commands.advancement." + nameIn;
         }
 
         @Nullable
@@ -405,7 +405,7 @@ public class AdvancementCommand extends CommandBase
 
         CommandException wrongUsage()
         {
-            return new CommandException(this.baseTranslationKey + ".usage", new Object[0]);
+            return new CommandException(baseTranslationKey + ".usage", new Object[0]);
         }
 
         public int perform(EntityPlayerMP p_193532_1_, Iterable<Advancement> p_193532_2_)
@@ -414,7 +414,7 @@ public class AdvancementCommand extends CommandBase
 
             for (Advancement advancement : p_193532_2_)
             {
-                if (this.perform(p_193532_1_, advancement))
+                if (perform(p_193532_1_, advancement))
                 {
                     ++i;
                 }
@@ -443,24 +443,24 @@ public class AdvancementCommand extends CommandBase
 
         private Mode(String p_i47556_3_, boolean p_i47556_4_, boolean p_i47556_5_)
         {
-            this.name = p_i47556_3_;
-            this.parents = p_i47556_4_;
-            this.children = p_i47556_5_;
+            name = p_i47556_3_;
+            parents = p_i47556_4_;
+            children = p_i47556_5_;
         }
 
         CommandException fail(AdvancementCommand.ActionType p_193543_1_, Object... p_193543_2_)
         {
-            return new CommandException(p_193543_1_.baseTranslationKey + "." + this.name + ".failed", p_193543_2_);
+            return new CommandException(p_193543_1_.baseTranslationKey + "." + name + ".failed", p_193543_2_);
         }
 
         CommandException usage(AdvancementCommand.ActionType p_193544_1_)
         {
-            return new CommandException(p_193544_1_.baseTranslationKey + "." + this.name + ".usage", new Object[0]);
+            return new CommandException(p_193544_1_.baseTranslationKey + "." + name + ".usage", new Object[0]);
         }
 
         void success(ICommandSender sender, AdvancementCommand p_193546_2_, AdvancementCommand.ActionType type, Object... args)
         {
-            CommandBase.notifyCommandListener(sender, p_193546_2_, type.baseTranslationKey + "." + this.name + ".success", args);
+            CommandBase.notifyCommandListener(sender, p_193546_2_, type.baseTranslationKey + "." + name + ".success", args);
         }
 
         @Nullable

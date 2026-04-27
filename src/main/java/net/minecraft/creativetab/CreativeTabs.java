@@ -121,20 +121,20 @@ public abstract class CreativeTabs
 
     public CreativeTabs(int index, String label)
     {
-        this.tabIndex = index;
-        this.tabLabel = label;
-        this.iconItemStack = ItemStack.EMPTY;
+        tabIndex = index;
+        tabLabel = label;
+        iconItemStack = ItemStack.EMPTY;
         CREATIVE_TAB_ARRAY[index] = this;
     }
 
     public int getTabIndex()
     {
-        return this.tabIndex;
+        return tabIndex;
     }
 
     public String getTabLabel()
     {
-        return this.tabLabel;
+        return tabLabel;
     }
 
     /**
@@ -142,51 +142,51 @@ public abstract class CreativeTabs
      */
     public String getTranslatedTabLabel()
     {
-        return "itemGroup." + this.getTabLabel();
+        return "itemGroup." + getTabLabel();
     }
 
     public ItemStack getIconItemStack()
     {
-        if (this.iconItemStack.isEmpty())
+        if (iconItemStack.isEmpty())
         {
-            this.iconItemStack = this.getTabIconItem();
+            iconItemStack = getTabIconItem();
         }
 
-        return this.iconItemStack;
+        return iconItemStack;
     }
 
     public abstract ItemStack getTabIconItem();
 
     public String getBackgroundImageName()
     {
-        return this.backgroundTexture;
+        return backgroundTexture;
     }
 
     public CreativeTabs setBackgroundImageName(String texture)
     {
-        this.backgroundTexture = texture;
+        backgroundTexture = texture;
         return this;
     }
 
     public boolean drawInForegroundOfTab()
     {
-        return this.drawTitle;
+        return drawTitle;
     }
 
     public CreativeTabs setNoTitle()
     {
-        this.drawTitle = false;
+        drawTitle = false;
         return this;
     }
 
     public boolean shouldHidePlayerInventory()
     {
-        return this.hasScrollbar;
+        return hasScrollbar;
     }
 
     public CreativeTabs setNoScrollbar()
     {
-        this.hasScrollbar = false;
+        hasScrollbar = false;
         return this;
     }
 
@@ -195,7 +195,7 @@ public abstract class CreativeTabs
      */
     public int getTabColumn()
     {
-        return this.tabIndex % 6;
+        return tabIndex % 6;
     }
 
     /**
@@ -203,12 +203,12 @@ public abstract class CreativeTabs
      */
     public boolean isTabInFirstRow()
     {
-        return this.tabIndex < 6;
+        return tabIndex < 6;
     }
 
     public boolean isAlignedRight()
     {
-        return this.getTabColumn() == 5;
+        return getTabColumn() == 5;
     }
 
     /**
@@ -216,7 +216,7 @@ public abstract class CreativeTabs
      */
     public EnumEnchantmentType[] getRelevantEnchantmentTypes()
     {
-        return this.enchantmentTypes;
+        return enchantmentTypes;
     }
 
     /**
@@ -224,7 +224,7 @@ public abstract class CreativeTabs
      */
     public CreativeTabs setRelevantEnchantmentTypes(EnumEnchantmentType... types)
     {
-        this.enchantmentTypes = types;
+        enchantmentTypes = types;
         return this;
     }
 
@@ -232,7 +232,7 @@ public abstract class CreativeTabs
     {
         if (enchantmentType != null)
         {
-            for (EnumEnchantmentType enumenchantmenttype : this.enchantmentTypes)
+            for (EnumEnchantmentType enumenchantmenttype : enchantmentTypes)
             {
                 if (enumenchantmenttype == enchantmentType)
                 {

@@ -45,40 +45,40 @@ public class EntityIllusionIllager extends EntitySpellcasterIllager implements I
     public EntityIllusionIllager(World worldIn)
     {
         super(worldIn);
-        this.setSize(0.6F, 1.95F);
-        this.experienceValue = 5;
-        this.renderLocations = new Vec3d[2][4];
+        setSize(0.6F, 1.95F);
+        experienceValue = 5;
+        renderLocations = new Vec3d[2][4];
 
         for (int i = 0; i < 4; ++i)
         {
-            this.renderLocations[0][i] = new Vec3d(0.0D, 0.0D, 0.0D);
-            this.renderLocations[1][i] = new Vec3d(0.0D, 0.0D, 0.0D);
+            renderLocations[0][i] = new Vec3d(0.0D, 0.0D, 0.0D);
+            renderLocations[1][i] = new Vec3d(0.0D, 0.0D, 0.0D);
         }
     }
 
     protected void initEntityAI()
     {
         super.initEntityAI();
-        this.tasks.addTask(0, new EntityAISwimming(this));
-        this.tasks.addTask(1, new EntitySpellcasterIllager.AICastingApell());
-        this.tasks.addTask(4, new EntityIllusionIllager.AIMirriorSpell());
-        this.tasks.addTask(5, new EntityIllusionIllager.AIBlindnessSpell());
-        this.tasks.addTask(6, new EntityAIAttackRangedBow(this, 0.5D, 20, 15.0F));
-        this.tasks.addTask(8, new EntityAIWander(this, 0.6D));
-        this.tasks.addTask(9, new EntityAIWatchClosest(this, EntityPlayer.class, 3.0F, 1.0F));
-        this.tasks.addTask(10, new EntityAIWatchClosest(this, EntityLiving.class, 8.0F));
-        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, new Class[] {EntityIllusionIllager.class}));
-        this.targetTasks.addTask(2, (new EntityAINearestAttackableTarget(this, EntityPlayer.class, true)).setUnseenMemoryTicks(300));
-        this.targetTasks.addTask(3, (new EntityAINearestAttackableTarget(this, EntityVillager.class, false)).setUnseenMemoryTicks(300));
-        this.targetTasks.addTask(3, (new EntityAINearestAttackableTarget(this, EntityIronGolem.class, false)).setUnseenMemoryTicks(300));
+        tasks.addTask(0, new EntityAISwimming(this));
+        tasks.addTask(1, new EntitySpellcasterIllager.AICastingApell());
+        tasks.addTask(4, new EntityIllusionIllager.AIMirriorSpell());
+        tasks.addTask(5, new EntityIllusionIllager.AIBlindnessSpell());
+        tasks.addTask(6, new EntityAIAttackRangedBow(this, 0.5D, 20, 15.0F));
+        tasks.addTask(8, new EntityAIWander(this, 0.6D));
+        tasks.addTask(9, new EntityAIWatchClosest(this, EntityPlayer.class, 3.0F, 1.0F));
+        tasks.addTask(10, new EntityAIWatchClosest(this, EntityLiving.class, 8.0F));
+        targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, new Class[] {EntityIllusionIllager.class}));
+        targetTasks.addTask(2, (new EntityAINearestAttackableTarget(this, EntityPlayer.class, true)).setUnseenMemoryTicks(300));
+        targetTasks.addTask(3, (new EntityAINearestAttackableTarget(this, EntityVillager.class, false)).setUnseenMemoryTicks(300));
+        targetTasks.addTask(3, (new EntityAINearestAttackableTarget(this, EntityIronGolem.class, false)).setUnseenMemoryTicks(300));
     }
 
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.5D);
-        this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(18.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(32.0D);
+        getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.5D);
+        getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(18.0D);
+        getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(32.0D);
     }
 
     /**
@@ -97,7 +97,7 @@ public class EntityIllusionIllager extends EntitySpellcasterIllager implements I
      */
     public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata)
     {
-        this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
+        setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
         return super.onInitialSpawn(difficulty, livingdata);
     }
 
@@ -117,7 +117,7 @@ public class EntityIllusionIllager extends EntitySpellcasterIllager implements I
      */
     public AxisAlignedBB getRenderBoundingBox()
     {
-        return this.getEntityBoundingBox().grow(3.0D, 0.0D, 3.0D);
+        return getEntityBoundingBox().grow(3.0D, 0.0D, 3.0D);
     }
 
     /**
@@ -128,65 +128,65 @@ public class EntityIllusionIllager extends EntitySpellcasterIllager implements I
     {
         super.onLivingUpdate();
 
-        if (this.world.isRemote && this.isInvisible())
+        if (world.isRemote && isInvisible())
         {
-            --this.ghostTime;
+            --ghostTime;
 
-            if (this.ghostTime < 0)
+            if (ghostTime < 0)
             {
-                this.ghostTime = 0;
+                ghostTime = 0;
             }
 
-            if (this.hurtTime != 1 && this.ticksExisted % 1200 != 0)
+            if (hurtTime != 1 && ticksExisted % 1200 != 0)
             {
-                if (this.hurtTime == this.maxHurtTime - 1)
+                if (hurtTime == maxHurtTime - 1)
                 {
-                    this.ghostTime = 3;
+                    ghostTime = 3;
 
                     for (int k = 0; k < 4; ++k)
                     {
-                        this.renderLocations[0][k] = this.renderLocations[1][k];
-                        this.renderLocations[1][k] = new Vec3d(0.0D, 0.0D, 0.0D);
+                        renderLocations[0][k] = renderLocations[1][k];
+                        renderLocations[1][k] = new Vec3d(0.0D, 0.0D, 0.0D);
                     }
                 }
             }
             else
             {
-                this.ghostTime = 3;
+                ghostTime = 3;
                 float f = -6.0F;
                 int i = 13;
 
                 for (int j = 0; j < 4; ++j)
                 {
-                    this.renderLocations[0][j] = this.renderLocations[1][j];
-                    this.renderLocations[1][j] = new Vec3d((double)(-6.0F + (float)this.rand.nextInt(13)) * 0.5D, (double)Math.max(0, this.rand.nextInt(6) - 4), (double)(-6.0F + (float)this.rand.nextInt(13)) * 0.5D);
+                    renderLocations[0][j] = renderLocations[1][j];
+                    renderLocations[1][j] = new Vec3d((double)(-6.0F + (float) rand.nextInt(13)) * 0.5D, (double)Math.max(0, rand.nextInt(6) - 4), (double)(-6.0F + (float) rand.nextInt(13)) * 0.5D);
                 }
 
                 for (int l = 0; l < 16; ++l)
                 {
-                    this.world.spawnParticle(EnumParticleTypes.CLOUD, this.posX + (this.rand.nextDouble() - 0.5D) * (double)this.width, this.posY + this.rand.nextDouble() * (double)this.height, this.posZ + (this.rand.nextDouble() - 0.5D) * (double)this.width, 0.0D, 0.0D, 0.0D);
+                    world.spawnParticle(EnumParticleTypes.CLOUD, posX + (rand.nextDouble() - 0.5D) * (double) width, posY + rand.nextDouble() * (double) height, posZ + (rand.nextDouble() - 0.5D) * (double) width, 0.0D, 0.0D, 0.0D);
                 }
 
-                this.world.playSound(this.posX, this.posY, this.posZ, SoundEvents.ENTITY_ILLAGER_MIRROR_MOVE, this.getSoundCategory(), 1.0F, 1.0F, false);
+                world.playSound(posX, posY, posZ, SoundEvents.ENTITY_ILLAGER_MIRROR_MOVE, getSoundCategory(), 1.0F, 1.0F, false);
             }
         }
     }
 
     public Vec3d[] getRenderLocations(float p_193098_1_)
     {
-        if (this.ghostTime <= 0)
+        if (ghostTime <= 0)
         {
-            return this.renderLocations[1];
+            return renderLocations[1];
         }
         else
         {
-            double d0 = (double)(((float)this.ghostTime - p_193098_1_) / 3.0F);
+            double d0 = (double)(((float) ghostTime - p_193098_1_) / 3.0F);
             d0 = Math.pow(d0, 0.25D);
             Vec3d[] avec3d = new Vec3d[4];
 
             for (int i = 0; i < 4; ++i)
             {
-                avec3d[i] = this.renderLocations[1][i].scale(1.0D - d0).add(this.renderLocations[0][i].scale(d0));
+                avec3d[i] = renderLocations[1][i].scale(1.0D - d0).add(renderLocations[0][i].scale(d0));
             }
 
             return avec3d;
@@ -204,7 +204,7 @@ public class EntityIllusionIllager extends EntitySpellcasterIllager implements I
         }
         else if (entityIn instanceof EntityLivingBase && ((EntityLivingBase)entityIn).getCreatureAttribute() == EnumCreatureAttribute.ILLAGER)
         {
-            return this.getTeam() == null && entityIn.getTeam() == null;
+            return getTeam() == null && entityIn.getTeam() == null;
         }
         else
         {
@@ -237,42 +237,42 @@ public class EntityIllusionIllager extends EntitySpellcasterIllager implements I
      */
     public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor)
     {
-        EntityArrow entityarrow = this.createArrowEntity(distanceFactor);
-        double d0 = target.posX - this.posX;
+        EntityArrow entityarrow = createArrowEntity(distanceFactor);
+        double d0 = target.posX - posX;
         double d1 = target.getEntityBoundingBox().minY + (double)(target.height / 3.0F) - entityarrow.posY;
-        double d2 = target.posZ - this.posZ;
+        double d2 = target.posZ - posZ;
         double d3 = (double)MathHelper.sqrt(d0 * d0 + d2 * d2);
-        entityarrow.shoot(d0, d1 + d3 * 0.20000000298023224D, d2, 1.6F, (float)(14 - this.world.getDifficulty().getDifficultyId() * 4));
-        this.playSound(SoundEvents.ENTITY_SKELETON_SHOOT, 1.0F, 1.0F / (this.getRNG().nextFloat() * 0.4F + 0.8F));
-        this.world.spawnEntity(entityarrow);
+        entityarrow.shoot(d0, d1 + d3 * 0.20000000298023224D, d2, 1.6F, (float)(14 - world.getDifficulty().getDifficultyId() * 4));
+        playSound(SoundEvents.ENTITY_SKELETON_SHOOT, 1.0F, 1.0F / (getRNG().nextFloat() * 0.4F + 0.8F));
+        world.spawnEntity(entityarrow);
     }
 
     protected EntityArrow createArrowEntity(float p_193097_1_)
     {
-        EntityTippedArrow entitytippedarrow = new EntityTippedArrow(this.world, this);
+        EntityTippedArrow entitytippedarrow = new EntityTippedArrow(world, this);
         entitytippedarrow.setEnchantmentEffectsFromEntity(this, p_193097_1_);
         return entitytippedarrow;
     }
 
     public boolean isAggressive()
     {
-        return this.isAggressive(1);
+        return isAggressive(1);
     }
 
     public void setSwingingArms(boolean swingingArms)
     {
-        this.setAggressive(1, swingingArms);
+        setAggressive(1, swingingArms);
     }
 
     public AbstractIllager.IllagerArmPose getArmPose()
     {
-        if (this.isSpellcasting())
+        if (isSpellcasting())
         {
             return AbstractIllager.IllagerArmPose.SPELLCASTING;
         }
         else
         {
-            return this.isAggressive() ? AbstractIllager.IllagerArmPose.BOW_AND_ARROW : AbstractIllager.IllagerArmPose.CROSSED;
+            return isAggressive() ? AbstractIllager.IllagerArmPose.BOW_AND_ARROW : AbstractIllager.IllagerArmPose.CROSSED;
         }
     }
 
@@ -290,24 +290,24 @@ public class EntityIllusionIllager extends EntitySpellcasterIllager implements I
             {
                 return false;
             }
-            else if (EntityIllusionIllager.this.getAttackTarget() == null)
+            else if (getAttackTarget() == null)
             {
                 return false;
             }
-            else if (EntityIllusionIllager.this.getAttackTarget().getEntityId() == this.lastTargetId)
+            else if (getAttackTarget().getEntityId() == lastTargetId)
             {
                 return false;
             }
             else
             {
-                return EntityIllusionIllager.this.world.getDifficultyForLocation(new BlockPos(EntityIllusionIllager.this)).isHarderThan((float)EnumDifficulty.NORMAL.ordinal());
+                return world.getDifficultyForLocation(new BlockPos(EntityIllusionIllager.this)).isHarderThan((float)EnumDifficulty.NORMAL.ordinal());
             }
         }
 
         public void startExecuting()
         {
             super.startExecuting();
-            this.lastTargetId = EntityIllusionIllager.this.getAttackTarget().getEntityId();
+            lastTargetId = getAttackTarget().getEntityId();
         }
 
         protected int getCastingTime()
@@ -322,7 +322,7 @@ public class EntityIllusionIllager extends EntitySpellcasterIllager implements I
 
         protected void castSpell()
         {
-            EntityIllusionIllager.this.getAttackTarget().addPotionEffect(new PotionEffect(MobEffects.BLINDNESS, 400));
+            getAttackTarget().addPotionEffect(new PotionEffect(MobEffects.BLINDNESS, 400));
         }
 
         protected SoundEvent getSpellPrepareSound()
@@ -350,7 +350,7 @@ public class EntityIllusionIllager extends EntitySpellcasterIllager implements I
             }
             else
             {
-                return !EntityIllusionIllager.this.isPotionActive(MobEffects.INVISIBILITY);
+                return !isPotionActive(MobEffects.INVISIBILITY);
             }
         }
 
@@ -366,7 +366,7 @@ public class EntityIllusionIllager extends EntitySpellcasterIllager implements I
 
         protected void castSpell()
         {
-            EntityIllusionIllager.this.addPotionEffect(new PotionEffect(MobEffects.INVISIBILITY, 1200));
+            addPotionEffect(new PotionEffect(MobEffects.INVISIBILITY, 1200));
         }
 
         @Nullable

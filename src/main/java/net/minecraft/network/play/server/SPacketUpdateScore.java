@@ -20,26 +20,26 @@ public class SPacketUpdateScore implements Packet<INetHandlerPlayClient>
 
     public SPacketUpdateScore(Score scoreIn)
     {
-        this.name = scoreIn.getPlayerName();
-        this.objective = scoreIn.getObjective().getName();
-        this.value = scoreIn.getScorePoints();
-        this.action = SPacketUpdateScore.Action.CHANGE;
+        name = scoreIn.getPlayerName();
+        objective = scoreIn.getObjective().getName();
+        value = scoreIn.getScorePoints();
+        action = SPacketUpdateScore.Action.CHANGE;
     }
 
     public SPacketUpdateScore(String nameIn)
     {
-        this.name = nameIn;
-        this.objective = "";
-        this.value = 0;
-        this.action = SPacketUpdateScore.Action.REMOVE;
+        name = nameIn;
+        objective = "";
+        value = 0;
+        action = SPacketUpdateScore.Action.REMOVE;
     }
 
     public SPacketUpdateScore(String nameIn, ScoreObjective objectiveIn)
     {
-        this.name = nameIn;
-        this.objective = objectiveIn.getName();
-        this.value = 0;
-        this.action = SPacketUpdateScore.Action.REMOVE;
+        name = nameIn;
+        objective = objectiveIn.getName();
+        value = 0;
+        action = SPacketUpdateScore.Action.REMOVE;
     }
 
     /**
@@ -47,13 +47,13 @@ public class SPacketUpdateScore implements Packet<INetHandlerPlayClient>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.name = buf.readString(40);
-        this.action = (SPacketUpdateScore.Action)buf.readEnumValue(SPacketUpdateScore.Action.class);
-        this.objective = buf.readString(16);
+        name = buf.readString(40);
+        action = (SPacketUpdateScore.Action)buf.readEnumValue(SPacketUpdateScore.Action.class);
+        objective = buf.readString(16);
 
-        if (this.action != SPacketUpdateScore.Action.REMOVE)
+        if (action != SPacketUpdateScore.Action.REMOVE)
         {
-            this.value = buf.readVarInt();
+            value = buf.readVarInt();
         }
     }
 
@@ -62,13 +62,13 @@ public class SPacketUpdateScore implements Packet<INetHandlerPlayClient>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeString(this.name);
-        buf.writeEnumValue(this.action);
-        buf.writeString(this.objective);
+        buf.writeString(name);
+        buf.writeEnumValue(action);
+        buf.writeString(objective);
 
-        if (this.action != SPacketUpdateScore.Action.REMOVE)
+        if (action != SPacketUpdateScore.Action.REMOVE)
         {
-            buf.writeVarInt(this.value);
+            buf.writeVarInt(value);
         }
     }
 
@@ -82,22 +82,22 @@ public class SPacketUpdateScore implements Packet<INetHandlerPlayClient>
 
     public String getPlayerName()
     {
-        return this.name;
+        return name;
     }
 
     public String getObjectiveName()
     {
-        return this.objective;
+        return objective;
     }
 
     public int getScoreValue()
     {
-        return this.value;
+        return value;
     }
 
     public SPacketUpdateScore.Action getScoreAction()
     {
-        return this.action;
+        return action;
     }
 
     public static enum Action

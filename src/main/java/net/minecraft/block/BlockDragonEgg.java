@@ -34,7 +34,7 @@ public class BlockDragonEgg extends Block
      */
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state)
     {
-        worldIn.scheduleUpdate(pos, this, this.tickRate(worldIn));
+        worldIn.scheduleUpdate(pos, this, tickRate(worldIn));
     }
 
     /**
@@ -44,12 +44,12 @@ public class BlockDragonEgg extends Block
      */
     public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos)
     {
-        worldIn.scheduleUpdate(pos, this, this.tickRate(worldIn));
+        worldIn.scheduleUpdate(pos, this, tickRate(worldIn));
     }
 
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
     {
-        this.checkFall(worldIn, pos);
+        checkFall(worldIn, pos);
     }
 
     private void checkFall(World worldIn, BlockPos pos)
@@ -60,7 +60,7 @@ public class BlockDragonEgg extends Block
 
             if (!BlockFalling.fallInstantly && worldIn.isAreaLoaded(pos.add(-32, -32, -32), pos.add(32, 32, 32)))
             {
-                worldIn.spawnEntity(new EntityFallingBlock(worldIn, (double)((float)pos.getX() + 0.5F), (double)pos.getY(), (double)((float)pos.getZ() + 0.5F), this.getDefaultState()));
+                worldIn.spawnEntity(new EntityFallingBlock(worldIn, (double)((float)pos.getX() + 0.5F), (double)pos.getY(), (double)((float)pos.getZ() + 0.5F), getDefaultState()));
             }
             else
             {
@@ -74,7 +74,7 @@ public class BlockDragonEgg extends Block
 
                 if (blockpos.getY() > 0)
                 {
-                    worldIn.setBlockState(blockpos, this.getDefaultState(), 2);
+                    worldIn.setBlockState(blockpos, getDefaultState(), 2);
                 }
             }
         }
@@ -85,13 +85,13 @@ public class BlockDragonEgg extends Block
      */
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
     {
-        this.teleport(worldIn, pos);
+        teleport(worldIn, pos);
         return true;
     }
 
     public void onBlockClicked(World worldIn, BlockPos pos, EntityPlayer playerIn)
     {
-        this.teleport(worldIn, pos);
+        teleport(worldIn, pos);
     }
 
     private void teleport(World worldIn, BlockPos pos)

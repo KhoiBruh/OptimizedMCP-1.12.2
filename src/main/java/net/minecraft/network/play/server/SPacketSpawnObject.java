@@ -35,27 +35,27 @@ public class SPacketSpawnObject implements Packet<INetHandlerPlayClient>
 
     public SPacketSpawnObject(Entity entityIn, int typeIn, int dataIn)
     {
-        this.entityId = entityIn.getEntityId();
-        this.uniqueId = entityIn.getUniqueID();
-        this.x = entityIn.posX;
-        this.y = entityIn.posY;
-        this.z = entityIn.posZ;
-        this.pitch = MathHelper.floor(entityIn.rotationPitch * 256.0F / 360.0F);
-        this.yaw = MathHelper.floor(entityIn.rotationYaw * 256.0F / 360.0F);
-        this.type = typeIn;
-        this.data = dataIn;
+        entityId = entityIn.getEntityId();
+        uniqueId = entityIn.getUniqueID();
+        x = entityIn.posX;
+        y = entityIn.posY;
+        z = entityIn.posZ;
+        pitch = MathHelper.floor(entityIn.rotationPitch * 256.0F / 360.0F);
+        yaw = MathHelper.floor(entityIn.rotationYaw * 256.0F / 360.0F);
+        type = typeIn;
+        data = dataIn;
         double d0 = 3.9D;
-        this.speedX = (int)(MathHelper.clamp(entityIn.motionX, -3.9D, 3.9D) * 8000.0D);
-        this.speedY = (int)(MathHelper.clamp(entityIn.motionY, -3.9D, 3.9D) * 8000.0D);
-        this.speedZ = (int)(MathHelper.clamp(entityIn.motionZ, -3.9D, 3.9D) * 8000.0D);
+        speedX = (int)(MathHelper.clamp(entityIn.motionX, -3.9D, 3.9D) * 8000.0D);
+        speedY = (int)(MathHelper.clamp(entityIn.motionY, -3.9D, 3.9D) * 8000.0D);
+        speedZ = (int)(MathHelper.clamp(entityIn.motionZ, -3.9D, 3.9D) * 8000.0D);
     }
 
     public SPacketSpawnObject(Entity entityIn, int typeIn, int dataIn, BlockPos pos)
     {
         this(entityIn, typeIn, dataIn);
-        this.x = (double)pos.getX();
-        this.y = (double)pos.getY();
-        this.z = (double)pos.getZ();
+        x = (double)pos.getX();
+        y = (double)pos.getY();
+        z = (double)pos.getZ();
     }
 
     /**
@@ -63,18 +63,18 @@ public class SPacketSpawnObject implements Packet<INetHandlerPlayClient>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.entityId = buf.readVarInt();
-        this.uniqueId = buf.readUniqueId();
-        this.type = buf.readByte();
-        this.x = buf.readDouble();
-        this.y = buf.readDouble();
-        this.z = buf.readDouble();
-        this.pitch = buf.readByte();
-        this.yaw = buf.readByte();
-        this.data = buf.readInt();
-        this.speedX = buf.readShort();
-        this.speedY = buf.readShort();
-        this.speedZ = buf.readShort();
+        entityId = buf.readVarInt();
+        uniqueId = buf.readUniqueId();
+        type = buf.readByte();
+        x = buf.readDouble();
+        y = buf.readDouble();
+        z = buf.readDouble();
+        pitch = buf.readByte();
+        yaw = buf.readByte();
+        data = buf.readInt();
+        speedX = buf.readShort();
+        speedY = buf.readShort();
+        speedZ = buf.readShort();
     }
 
     /**
@@ -82,18 +82,18 @@ public class SPacketSpawnObject implements Packet<INetHandlerPlayClient>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeVarInt(this.entityId);
-        buf.writeUniqueId(this.uniqueId);
-        buf.writeByte(this.type);
-        buf.writeDouble(this.x);
-        buf.writeDouble(this.y);
-        buf.writeDouble(this.z);
-        buf.writeByte(this.pitch);
-        buf.writeByte(this.yaw);
-        buf.writeInt(this.data);
-        buf.writeShort(this.speedX);
-        buf.writeShort(this.speedY);
-        buf.writeShort(this.speedZ);
+        buf.writeVarInt(entityId);
+        buf.writeUniqueId(uniqueId);
+        buf.writeByte(type);
+        buf.writeDouble(x);
+        buf.writeDouble(y);
+        buf.writeDouble(z);
+        buf.writeByte(pitch);
+        buf.writeByte(yaw);
+        buf.writeInt(data);
+        buf.writeShort(speedX);
+        buf.writeShort(speedY);
+        buf.writeShort(speedZ);
     }
 
     /**
@@ -106,81 +106,81 @@ public class SPacketSpawnObject implements Packet<INetHandlerPlayClient>
 
     public int getEntityID()
     {
-        return this.entityId;
+        return entityId;
     }
 
     public UUID getUniqueId()
     {
-        return this.uniqueId;
+        return uniqueId;
     }
 
     public double getX()
     {
-        return this.x;
+        return x;
     }
 
     public double getY()
     {
-        return this.y;
+        return y;
     }
 
     public double getZ()
     {
-        return this.z;
+        return z;
     }
 
     public int getSpeedX()
     {
-        return this.speedX;
+        return speedX;
     }
 
     public int getSpeedY()
     {
-        return this.speedY;
+        return speedY;
     }
 
     public int getSpeedZ()
     {
-        return this.speedZ;
+        return speedZ;
     }
 
     public int getPitch()
     {
-        return this.pitch;
+        return pitch;
     }
 
     public int getYaw()
     {
-        return this.yaw;
+        return yaw;
     }
 
     public int getType()
     {
-        return this.type;
+        return type;
     }
 
     public int getData()
     {
-        return this.data;
+        return data;
     }
 
     public void setSpeedX(int newSpeedX)
     {
-        this.speedX = newSpeedX;
+        speedX = newSpeedX;
     }
 
     public void setSpeedY(int newSpeedY)
     {
-        this.speedY = newSpeedY;
+        speedY = newSpeedY;
     }
 
     public void setSpeedZ(int newSpeedZ)
     {
-        this.speedZ = newSpeedZ;
+        speedZ = newSpeedZ;
     }
 
     public void setData(int dataIn)
     {
-        this.data = dataIn;
+        data = dataIn;
     }
 }

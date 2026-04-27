@@ -24,14 +24,14 @@ public class BlockRendererDispatcher implements IResourceManagerReloadListener
 
     public BlockRendererDispatcher(BlockModelShapes p_i46577_1_, BlockColors p_i46577_2_)
     {
-        this.blockModelShapes = p_i46577_1_;
-        this.blockModelRenderer = new BlockModelRenderer(p_i46577_2_);
-        this.fluidRenderer = new BlockFluidRenderer(p_i46577_2_);
+        blockModelShapes = p_i46577_1_;
+        blockModelRenderer = new BlockModelRenderer(p_i46577_2_);
+        fluidRenderer = new BlockFluidRenderer(p_i46577_2_);
     }
 
     public BlockModelShapes getBlockModelShapes()
     {
-        return this.blockModelShapes;
+        return blockModelShapes;
     }
 
     public void renderBlockDamage(IBlockState state, BlockPos pos, TextureAtlasSprite texture, IBlockAccess blockAccess)
@@ -39,9 +39,9 @@ public class BlockRendererDispatcher implements IResourceManagerReloadListener
         if (state.getRenderType() == EnumBlockRenderType.MODEL)
         {
             state = state.getActualState(blockAccess, pos);
-            IBakedModel ibakedmodel = this.blockModelShapes.getModelForState(state);
+            IBakedModel ibakedmodel = blockModelShapes.getModelForState(state);
             IBakedModel ibakedmodel1 = (new SimpleBakedModel.Builder(state, ibakedmodel, texture, pos)).makeBakedModel();
-            this.blockModelRenderer.renderModel(blockAccess, ibakedmodel1, state, pos, Tessellator.getInstance().getBuffer(), true);
+            blockModelRenderer.renderModel(blockAccess, ibakedmodel1, state, pos, Tessellator.getInstance().getBuffer(), true);
         }
     }
 
@@ -72,13 +72,13 @@ public class BlockRendererDispatcher implements IResourceManagerReloadListener
                 switch (enumblockrendertype)
                 {
                     case MODEL:
-                        return this.blockModelRenderer.renderModel(blockAccess, this.getModelForState(state), state, pos, bufferBuilderIn, true);
+                        return blockModelRenderer.renderModel(blockAccess, getModelForState(state), state, pos, bufferBuilderIn, true);
 
                     case ENTITYBLOCK_ANIMATED:
                         return false;
 
                     case LIQUID:
-                        return this.fluidRenderer.renderFluid(blockAccess, state, pos, bufferBuilderIn);
+                        return fluidRenderer.renderFluid(blockAccess, state, pos, bufferBuilderIn);
 
                     default:
                         return false;
@@ -96,12 +96,12 @@ public class BlockRendererDispatcher implements IResourceManagerReloadListener
 
     public BlockModelRenderer getBlockModelRenderer()
     {
-        return this.blockModelRenderer;
+        return blockModelRenderer;
     }
 
     public IBakedModel getModelForState(IBlockState state)
     {
-        return this.blockModelShapes.getModelForState(state);
+        return blockModelShapes.getModelForState(state);
     }
 
     @SuppressWarnings("incomplete-switch")
@@ -114,12 +114,12 @@ public class BlockRendererDispatcher implements IResourceManagerReloadListener
             switch (enumblockrendertype)
             {
                 case MODEL:
-                    IBakedModel ibakedmodel = this.getModelForState(state);
-                    this.blockModelRenderer.renderModelBrightness(ibakedmodel, state, brightness, true);
+                    IBakedModel ibakedmodel = getModelForState(state);
+                    blockModelRenderer.renderModelBrightness(ibakedmodel, state, brightness, true);
                     break;
 
                 case ENTITYBLOCK_ANIMATED:
-                    this.chestRenderer.renderChestBrightness(state.getBlock(), brightness);
+                    chestRenderer.renderChestBrightness(state.getBlock(), brightness);
 
                 case LIQUID:
             }
@@ -128,6 +128,6 @@ public class BlockRendererDispatcher implements IResourceManagerReloadListener
 
     public void onResourceManagerReload(IResourceManager resourceManager)
     {
-        this.fluidRenderer.initAtlasSprites();
+        fluidRenderer.initAtlasSprites();
     }
 }

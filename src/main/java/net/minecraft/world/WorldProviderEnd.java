@@ -23,14 +23,14 @@ public class WorldProviderEnd extends WorldProvider
      */
     public void init()
     {
-        this.biomeProvider = new BiomeProviderSingle(Biomes.SKY);
-        NBTTagCompound nbttagcompound = this.world.getWorldInfo().getDimensionData(DimensionType.THE_END);
-        this.dragonFightManager = this.world instanceof WorldServer ? new DragonFightManager((WorldServer)this.world, nbttagcompound.getCompoundTag("DragonFight")) : null;
+        biomeProvider = new BiomeProviderSingle(Biomes.SKY);
+        NBTTagCompound nbttagcompound = world.getWorldInfo().getDimensionData(DimensionType.THE_END);
+        dragonFightManager = world instanceof WorldServer ? new DragonFightManager((WorldServer) world, nbttagcompound.getCompoundTag("DragonFight")) : null;
     }
 
     public IChunkGenerator createChunkGenerator()
     {
-        return new ChunkGeneratorEnd(this.world, this.world.getWorldInfo().isMapFeaturesEnabled(), this.world.getSeed(), this.getSpawnCoordinate());
+        return new ChunkGeneratorEnd(world, world.getWorldInfo().isMapFeaturesEnabled(), world.getSeed(), getSpawnCoordinate());
     }
 
     /**
@@ -102,7 +102,7 @@ public class WorldProviderEnd extends WorldProvider
      */
     public boolean canCoordinateBeSpawn(int x, int z)
     {
-        return this.world.getGroundAboveSeaLevel(new BlockPos(x, 0, z)).getMaterial().blocksMovement();
+        return world.getGroundAboveSeaLevel(new BlockPos(x, 0, z)).getMaterial().blocksMovement();
     }
 
     public BlockPos getSpawnCoordinate()
@@ -136,12 +136,12 @@ public class WorldProviderEnd extends WorldProvider
     {
         NBTTagCompound nbttagcompound = new NBTTagCompound();
 
-        if (this.dragonFightManager != null)
+        if (dragonFightManager != null)
         {
-            nbttagcompound.setTag("DragonFight", this.dragonFightManager.getCompound());
+            nbttagcompound.setTag("DragonFight", dragonFightManager.getCompound());
         }
 
-        this.world.getWorldInfo().setDimensionData(DimensionType.THE_END, nbttagcompound);
+        world.getWorldInfo().setDimensionData(DimensionType.THE_END, nbttagcompound);
     }
 
     /**
@@ -150,15 +150,15 @@ public class WorldProviderEnd extends WorldProvider
      */
     public void onWorldUpdateEntities()
     {
-        if (this.dragonFightManager != null)
+        if (dragonFightManager != null)
         {
-            this.dragonFightManager.tick();
+            dragonFightManager.tick();
         }
     }
 
     @Nullable
     public DragonFightManager getDragonFightManager()
     {
-        return this.dragonFightManager;
+        return dragonFightManager;
     }
 }

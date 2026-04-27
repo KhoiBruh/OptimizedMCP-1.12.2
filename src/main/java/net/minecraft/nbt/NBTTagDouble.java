@@ -24,13 +24,13 @@ public class NBTTagDouble extends NBTPrimitive
      */
     void write(DataOutput output) throws IOException
     {
-        output.writeDouble(this.data);
+        output.writeDouble(data);
     }
 
     void read(DataInput input, int depth, NBTSizeTracker sizeTracker) throws IOException
     {
         sizeTracker.read(128L);
-        this.data = input.readDouble();
+        data = input.readDouble();
     }
 
     /**
@@ -43,7 +43,7 @@ public class NBTTagDouble extends NBTPrimitive
 
     public String toString()
     {
-        return this.data + "d";
+        return data + "d";
     }
 
     /**
@@ -51,47 +51,47 @@ public class NBTTagDouble extends NBTPrimitive
      */
     public NBTTagDouble copy()
     {
-        return new NBTTagDouble(this.data);
+        return new NBTTagDouble(data);
     }
 
     public boolean equals(Object p_equals_1_)
     {
-        return super.equals(p_equals_1_) && this.data == ((NBTTagDouble)p_equals_1_).data;
+        return super.equals(p_equals_1_) && data == ((NBTTagDouble)p_equals_1_).data;
     }
 
     public int hashCode()
     {
-        long i = Double.doubleToLongBits(this.data);
+        long i = Double.doubleToLongBits(data);
         return super.hashCode() ^ (int)(i ^ i >>> 32);
     }
 
     public long getLong()
     {
-        return (long)Math.floor(this.data);
+        return (long)Math.floor(data);
     }
 
     public int getInt()
     {
-        return MathHelper.floor(this.data);
+        return MathHelper.floor(data);
     }
 
     public short getShort()
     {
-        return (short)(MathHelper.floor(this.data) & 65535);
+        return (short)(MathHelper.floor(data) & 65535);
     }
 
     public byte getByte()
     {
-        return (byte)(MathHelper.floor(this.data) & 255);
+        return (byte)(MathHelper.floor(data) & 255);
     }
 
     public double getDouble()
     {
-        return this.data;
+        return data;
     }
 
     public float getFloat()
     {
-        return (float)this.data;
+        return (float) data;
     }
 }

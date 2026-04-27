@@ -50,51 +50,51 @@ public abstract class AbstractSkeleton extends EntityMob implements IRangedAttac
         public void resetTask()
         {
             super.resetTask();
-            AbstractSkeleton.this.setSwingingArms(false);
+            setSwingingArms(false);
         }
         public void startExecuting()
         {
             super.startExecuting();
-            AbstractSkeleton.this.setSwingingArms(true);
+            setSwingingArms(true);
         }
     };
 
     public AbstractSkeleton(World worldIn)
     {
         super(worldIn);
-        this.setSize(0.6F, 1.99F);
-        this.setCombatTask();
+        setSize(0.6F, 1.99F);
+        setCombatTask();
     }
 
     protected void initEntityAI()
     {
-        this.tasks.addTask(1, new EntityAISwimming(this));
-        this.tasks.addTask(2, new EntityAIRestrictSun(this));
-        this.tasks.addTask(3, new EntityAIFleeSun(this, 1.0D));
-        this.tasks.addTask(3, new EntityAIAvoidEntity(this, EntityWolf.class, 6.0F, 1.0D, 1.2D));
-        this.tasks.addTask(5, new EntityAIWanderAvoidWater(this, 1.0D));
-        this.tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
-        this.tasks.addTask(6, new EntityAILookIdle(this));
-        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
-        this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
-        this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityIronGolem.class, true));
+        tasks.addTask(1, new EntityAISwimming(this));
+        tasks.addTask(2, new EntityAIRestrictSun(this));
+        tasks.addTask(3, new EntityAIFleeSun(this, 1.0D));
+        tasks.addTask(3, new EntityAIAvoidEntity(this, EntityWolf.class, 6.0F, 1.0D, 1.2D));
+        tasks.addTask(5, new EntityAIWanderAvoidWater(this, 1.0D));
+        tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
+        tasks.addTask(6, new EntityAILookIdle(this));
+        targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
+        targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
+        targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityIronGolem.class, true));
     }
 
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25D);
+        getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25D);
     }
 
     protected void entityInit()
     {
         super.entityInit();
-        this.dataManager.register(SWINGING_ARMS, Boolean.valueOf(false));
+        dataManager.register(SWINGING_ARMS, Boolean.valueOf(false));
     }
 
     protected void playStepSound(BlockPos pos, Block blockIn)
     {
-        this.playSound(this.getStepSound(), 0.15F, 1.0F);
+        playSound(getStepSound(), 0.15F, 1.0F);
     }
 
     abstract SoundEvent getStepSound();
@@ -113,26 +113,26 @@ public abstract class AbstractSkeleton extends EntityMob implements IRangedAttac
      */
     public void onLivingUpdate()
     {
-        if (this.world.isDaytime() && !this.world.isRemote)
+        if (world.isDaytime() && !world.isRemote)
         {
-            float f = this.getBrightness();
-            BlockPos blockpos = this.getRidingEntity() instanceof EntityBoat ? (new BlockPos(this.posX, (double)Math.round(this.posY), this.posZ)).up() : new BlockPos(this.posX, (double)Math.round(this.posY), this.posZ);
+            float f = getBrightness();
+            BlockPos blockpos = getRidingEntity() instanceof EntityBoat ? (new BlockPos(posX, (double)Math.round(posY), posZ)).up() : new BlockPos(posX, (double)Math.round(posY), posZ);
 
-            if (f > 0.5F && this.rand.nextFloat() * 30.0F < (f - 0.4F) * 2.0F && this.world.canSeeSky(blockpos))
+            if (f > 0.5F && rand.nextFloat() * 30.0F < (f - 0.4F) * 2.0F && world.canSeeSky(blockpos))
             {
                 boolean flag = true;
-                ItemStack itemstack = this.getItemStackFromSlot(EntityEquipmentSlot.HEAD);
+                ItemStack itemstack = getItemStackFromSlot(EntityEquipmentSlot.HEAD);
 
                 if (!itemstack.isEmpty())
                 {
                     if (itemstack.isItemStackDamageable())
                     {
-                        itemstack.setItemDamage(itemstack.getItemDamage() + this.rand.nextInt(2));
+                        itemstack.setItemDamage(itemstack.getItemDamage() + rand.nextInt(2));
 
                         if (itemstack.getItemDamage() >= itemstack.getMaxDamage())
                         {
-                            this.renderBrokenItemStack(itemstack);
-                            this.setItemStackToSlot(EntityEquipmentSlot.HEAD, ItemStack.EMPTY);
+                            renderBrokenItemStack(itemstack);
+                            setItemStackToSlot(EntityEquipmentSlot.HEAD, ItemStack.EMPTY);
                         }
                     }
 
@@ -141,7 +141,7 @@ public abstract class AbstractSkeleton extends EntityMob implements IRangedAttac
 
                 if (flag)
                 {
-                    this.setFire(8);
+                    setFire(8);
                 }
             }
         }
@@ -156,10 +156,10 @@ public abstract class AbstractSkeleton extends EntityMob implements IRangedAttac
     {
         super.updateRidden();
 
-        if (this.getRidingEntity() instanceof EntityCreature)
+        if (getRidingEntity() instanceof EntityCreature)
         {
-            EntityCreature entitycreature = (EntityCreature)this.getRidingEntity();
-            this.renderYawOffset = entitycreature.renderYawOffset;
+            EntityCreature entitycreature = (EntityCreature) getRidingEntity();
+            renderYawOffset = entitycreature.renderYawOffset;
         }
     }
 
@@ -169,7 +169,7 @@ public abstract class AbstractSkeleton extends EntityMob implements IRangedAttac
     protected void setEquipmentBasedOnDifficulty(DifficultyInstance difficulty)
     {
         super.setEquipmentBasedOnDifficulty(difficulty);
-        this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
+        setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
     }
 
     @Nullable
@@ -191,19 +191,19 @@ public abstract class AbstractSkeleton extends EntityMob implements IRangedAttac
     public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata)
     {
         livingdata = super.onInitialSpawn(difficulty, livingdata);
-        this.setEquipmentBasedOnDifficulty(difficulty);
-        this.setEnchantmentBasedOnDifficulty(difficulty);
-        this.setCombatTask();
-        this.setCanPickUpLoot(this.rand.nextFloat() < 0.55F * difficulty.getClampedAdditionalDifficulty());
+        setEquipmentBasedOnDifficulty(difficulty);
+        setEnchantmentBasedOnDifficulty(difficulty);
+        setCombatTask();
+        setCanPickUpLoot(rand.nextFloat() < 0.55F * difficulty.getClampedAdditionalDifficulty());
 
-        if (this.getItemStackFromSlot(EntityEquipmentSlot.HEAD).isEmpty())
+        if (getItemStackFromSlot(EntityEquipmentSlot.HEAD).isEmpty())
         {
-            Calendar calendar = this.world.getCurrentDate();
+            Calendar calendar = world.getCurrentDate();
 
-            if (calendar.get(2) + 1 == 10 && calendar.get(5) == 31 && this.rand.nextFloat() < 0.25F)
+            if (calendar.get(2) + 1 == 10 && calendar.get(5) == 31 && rand.nextFloat() < 0.25F)
             {
-                this.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(this.rand.nextFloat() < 0.1F ? Blocks.LIT_PUMPKIN : Blocks.PUMPKIN));
-                this.inventoryArmorDropChances[EntityEquipmentSlot.HEAD.getIndex()] = 0.0F;
+                setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(rand.nextFloat() < 0.1F ? Blocks.LIT_PUMPKIN : Blocks.PUMPKIN));
+                inventoryArmorDropChances[EntityEquipmentSlot.HEAD.getIndex()] = 0.0F;
             }
         }
 
@@ -215,27 +215,27 @@ public abstract class AbstractSkeleton extends EntityMob implements IRangedAttac
      */
     public void setCombatTask()
     {
-        if (this.world != null && !this.world.isRemote)
+        if (world != null && !world.isRemote)
         {
-            this.tasks.removeTask(this.aiAttackOnCollide);
-            this.tasks.removeTask(this.aiArrowAttack);
-            ItemStack itemstack = this.getHeldItemMainhand();
+            tasks.removeTask(aiAttackOnCollide);
+            tasks.removeTask(aiArrowAttack);
+            ItemStack itemstack = getHeldItemMainhand();
 
             if (itemstack.getItem() == Items.BOW)
             {
                 int i = 20;
 
-                if (this.world.getDifficulty() != EnumDifficulty.HARD)
+                if (world.getDifficulty() != EnumDifficulty.HARD)
                 {
                     i = 40;
                 }
 
-                this.aiArrowAttack.setAttackCooldown(i);
-                this.tasks.addTask(4, this.aiArrowAttack);
+                aiArrowAttack.setAttackCooldown(i);
+                tasks.addTask(4, aiArrowAttack);
             }
             else
             {
-                this.tasks.addTask(4, this.aiAttackOnCollide);
+                tasks.addTask(4, aiAttackOnCollide);
             }
         }
     }
@@ -245,19 +245,19 @@ public abstract class AbstractSkeleton extends EntityMob implements IRangedAttac
      */
     public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor)
     {
-        EntityArrow entityarrow = this.getArrow(distanceFactor);
-        double d0 = target.posX - this.posX;
+        EntityArrow entityarrow = getArrow(distanceFactor);
+        double d0 = target.posX - posX;
         double d1 = target.getEntityBoundingBox().minY + (double)(target.height / 3.0F) - entityarrow.posY;
-        double d2 = target.posZ - this.posZ;
+        double d2 = target.posZ - posZ;
         double d3 = (double)MathHelper.sqrt(d0 * d0 + d2 * d2);
-        entityarrow.shoot(d0, d1 + d3 * 0.20000000298023224D, d2, 1.6F, (float)(14 - this.world.getDifficulty().getDifficultyId() * 4));
-        this.playSound(SoundEvents.ENTITY_SKELETON_SHOOT, 1.0F, 1.0F / (this.getRNG().nextFloat() * 0.4F + 0.8F));
-        this.world.spawnEntity(entityarrow);
+        entityarrow.shoot(d0, d1 + d3 * 0.20000000298023224D, d2, 1.6F, (float)(14 - world.getDifficulty().getDifficultyId() * 4));
+        playSound(SoundEvents.ENTITY_SKELETON_SHOOT, 1.0F, 1.0F / (getRNG().nextFloat() * 0.4F + 0.8F));
+        world.spawnEntity(entityarrow);
     }
 
     protected EntityArrow getArrow(float p_190726_1_)
     {
-        EntityTippedArrow entitytippedarrow = new EntityTippedArrow(this.world, this);
+        EntityTippedArrow entitytippedarrow = new EntityTippedArrow(world, this);
         entitytippedarrow.setEnchantmentEffectsFromEntity(this, p_190726_1_);
         return entitytippedarrow;
     }
@@ -268,16 +268,16 @@ public abstract class AbstractSkeleton extends EntityMob implements IRangedAttac
     public void readEntityFromNBT(NBTTagCompound compound)
     {
         super.readEntityFromNBT(compound);
-        this.setCombatTask();
+        setCombatTask();
     }
 
     public void setItemStackToSlot(EntityEquipmentSlot slotIn, ItemStack stack)
     {
         super.setItemStackToSlot(slotIn, stack);
 
-        if (!this.world.isRemote && slotIn == EntityEquipmentSlot.MAINHAND)
+        if (!world.isRemote && slotIn == EntityEquipmentSlot.MAINHAND)
         {
-            this.setCombatTask();
+            setCombatTask();
         }
     }
 
@@ -296,11 +296,11 @@ public abstract class AbstractSkeleton extends EntityMob implements IRangedAttac
 
     public boolean isSwingingArms()
     {
-        return ((Boolean)this.dataManager.get(SWINGING_ARMS)).booleanValue();
+        return ((Boolean) dataManager.get(SWINGING_ARMS)).booleanValue();
     }
 
     public void setSwingingArms(boolean swingingArms)
     {
-        this.dataManager.set(SWINGING_ARMS, Boolean.valueOf(swingingArms));
+        dataManager.set(SWINGING_ARMS, Boolean.valueOf(swingingArms));
     }
 }

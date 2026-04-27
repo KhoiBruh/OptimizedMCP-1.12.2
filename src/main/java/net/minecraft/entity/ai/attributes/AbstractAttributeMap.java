@@ -17,13 +17,13 @@ public abstract class AbstractAttributeMap
 
     public IAttributeInstance getAttributeInstance(IAttribute attribute)
     {
-        return this.attributes.get(attribute);
+        return attributes.get(attribute);
     }
 
     @Nullable
     public IAttributeInstance getAttributeInstanceByName(String attributeName)
     {
-        return this.attributesByName.get(attributeName);
+        return attributesByName.get(attributeName);
     }
 
     /**
@@ -31,19 +31,19 @@ public abstract class AbstractAttributeMap
      */
     public IAttributeInstance registerAttribute(IAttribute attribute)
     {
-        if (this.attributesByName.containsKey(attribute.getName()))
+        if (attributesByName.containsKey(attribute.getName()))
         {
             throw new IllegalArgumentException("Attribute is already registered!");
         }
         else
         {
-            IAttributeInstance iattributeinstance = this.createInstance(attribute);
-            this.attributesByName.put(attribute.getName(), iattributeinstance);
-            this.attributes.put(attribute, iattributeinstance);
+            IAttributeInstance iattributeinstance = createInstance(attribute);
+            attributesByName.put(attribute.getName(), iattributeinstance);
+            attributes.put(attribute, iattributeinstance);
 
             for (IAttribute iattribute = attribute.getParent(); iattribute != null; iattribute = iattribute.getParent())
             {
-                this.descendantsByParent.put(iattribute, attribute);
+                descendantsByParent.put(iattribute, attribute);
             }
 
             return iattributeinstance;
@@ -54,7 +54,7 @@ public abstract class AbstractAttributeMap
 
     public Collection<IAttributeInstance> getAllAttributes()
     {
-        return this.attributesByName.values();
+        return attributesByName.values();
     }
 
     public void onAttributeModified(IAttributeInstance instance)
@@ -65,7 +65,7 @@ public abstract class AbstractAttributeMap
     {
         for (Entry<String, AttributeModifier> entry : modifiers.entries())
         {
-            IAttributeInstance iattributeinstance = this.getAttributeInstanceByName(entry.getKey());
+            IAttributeInstance iattributeinstance = getAttributeInstanceByName(entry.getKey());
 
             if (iattributeinstance != null)
             {
@@ -78,7 +78,7 @@ public abstract class AbstractAttributeMap
     {
         for (Entry<String, AttributeModifier> entry : modifiers.entries())
         {
-            IAttributeInstance iattributeinstance = this.getAttributeInstanceByName(entry.getKey());
+            IAttributeInstance iattributeinstance = getAttributeInstanceByName(entry.getKey());
 
             if (iattributeinstance != null)
             {

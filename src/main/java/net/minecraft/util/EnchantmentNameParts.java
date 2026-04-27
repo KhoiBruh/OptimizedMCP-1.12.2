@@ -20,7 +20,7 @@ public class EnchantmentNameParts
      */
     public String generateNewRandomName(FontRenderer fontRendererIn, int length)
     {
-        int i = this.rand.nextInt(2) + 3;
+        int i = rand.nextInt(2) + 3;
         String s = "";
 
         for (int j = 0; j < i; ++j)
@@ -30,7 +30,7 @@ public class EnchantmentNameParts
                 s = s + " ";
             }
 
-            s = s + this.namePartsArray[this.rand.nextInt(this.namePartsArray.length)];
+            s = s + namePartsArray[rand.nextInt(namePartsArray.length)];
         }
 
         List<String> list = fontRendererIn.listFormattedStringToWidth(s, length);
@@ -42,6 +42,6 @@ public class EnchantmentNameParts
      */
     public void reseedRandomGenerator(long seed)
     {
-        this.rand.setSeed(seed);
+        rand.setSeed(seed);
     }
 }

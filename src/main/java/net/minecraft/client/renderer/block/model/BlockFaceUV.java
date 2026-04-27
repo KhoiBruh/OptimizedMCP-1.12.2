@@ -17,51 +17,51 @@ public class BlockFaceUV
 
     public BlockFaceUV(@Nullable float[] uvsIn, int rotationIn)
     {
-        this.uvs = uvsIn;
-        this.rotation = rotationIn;
+        uvs = uvsIn;
+        rotation = rotationIn;
     }
 
     public float getVertexU(int p_178348_1_)
     {
-        if (this.uvs == null)
+        if (uvs == null)
         {
             throw new NullPointerException("uvs");
         }
         else
         {
-            int i = this.getVertexRotated(p_178348_1_);
-            return i != 0 && i != 1 ? this.uvs[2] : this.uvs[0];
+            int i = getVertexRotated(p_178348_1_);
+            return i != 0 && i != 1 ? uvs[2] : uvs[0];
         }
     }
 
     public float getVertexV(int p_178346_1_)
     {
-        if (this.uvs == null)
+        if (uvs == null)
         {
             throw new NullPointerException("uvs");
         }
         else
         {
-            int i = this.getVertexRotated(p_178346_1_);
-            return i != 0 && i != 3 ? this.uvs[3] : this.uvs[1];
+            int i = getVertexRotated(p_178346_1_);
+            return i != 0 && i != 3 ? uvs[3] : uvs[1];
         }
     }
 
     private int getVertexRotated(int p_178347_1_)
     {
-        return (p_178347_1_ + this.rotation / 90) % 4;
+        return (p_178347_1_ + rotation / 90) % 4;
     }
 
     public int getVertexRotatedRev(int p_178345_1_)
     {
-        return (p_178345_1_ + (4 - this.rotation / 90)) % 4;
+        return (p_178345_1_ + (4 - rotation / 90)) % 4;
     }
 
     public void setUvs(float[] uvsIn)
     {
-        if (this.uvs == null)
+        if (uvs == null)
         {
-            this.uvs = uvsIn;
+            uvs = uvsIn;
         }
     }
 
@@ -70,8 +70,8 @@ public class BlockFaceUV
         public BlockFaceUV deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException
         {
             JsonObject jsonobject = p_deserialize_1_.getAsJsonObject();
-            float[] afloat = this.parseUV(jsonobject);
-            int i = this.parseRotation(jsonobject);
+            float[] afloat = parseUV(jsonobject);
+            int i = parseRotation(jsonobject);
             return new BlockFaceUV(afloat, i);
         }
 

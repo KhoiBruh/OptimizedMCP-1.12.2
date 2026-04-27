@@ -15,7 +15,7 @@ public class LayerHeldItem implements LayerRenderer<EntityLivingBase>
 
     public LayerHeldItem(RenderLivingBase<?> livingEntityRendererIn)
     {
-        this.livingEntityRenderer = livingEntityRendererIn;
+        livingEntityRenderer = livingEntityRendererIn;
     }
 
     public void doRenderLayer(EntityLivingBase entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale)
@@ -28,15 +28,15 @@ public class LayerHeldItem implements LayerRenderer<EntityLivingBase>
         {
             GlStateManager.pushMatrix();
 
-            if (this.livingEntityRenderer.getMainModel().isChild)
+            if (livingEntityRenderer.getMainModel().isChild)
             {
                 float f = 0.5F;
                 GlStateManager.translate(0.0F, 0.75F, 0.0F);
                 GlStateManager.scale(0.5F, 0.5F, 0.5F);
             }
 
-            this.renderHeldItem(entitylivingbaseIn, itemstack1, ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND, EnumHandSide.RIGHT);
-            this.renderHeldItem(entitylivingbaseIn, itemstack, ItemCameraTransforms.TransformType.THIRD_PERSON_LEFT_HAND, EnumHandSide.LEFT);
+            renderHeldItem(entitylivingbaseIn, itemstack1, ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND, EnumHandSide.RIGHT);
+            renderHeldItem(entitylivingbaseIn, itemstack, ItemCameraTransforms.TransformType.THIRD_PERSON_LEFT_HAND, EnumHandSide.LEFT);
             GlStateManager.popMatrix();
         }
     }
@@ -46,7 +46,7 @@ public class LayerHeldItem implements LayerRenderer<EntityLivingBase>
         if (!p_188358_2_.isEmpty())
         {
             GlStateManager.pushMatrix();
-            this.translateToHand(handSide);
+            translateToHand(handSide);
 
             if (p_188358_1_.isSneaking())
             {
@@ -64,7 +64,7 @@ public class LayerHeldItem implements LayerRenderer<EntityLivingBase>
 
     protected void translateToHand(EnumHandSide p_191361_1_)
     {
-        ((ModelBiped)this.livingEntityRenderer.getMainModel()).postRenderArm(0.0625F, p_191361_1_);
+        ((ModelBiped) livingEntityRenderer.getMainModel()).postRenderArm(0.0625F, p_191361_1_);
     }
 
     public boolean shouldCombineTextures()

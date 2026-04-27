@@ -18,11 +18,11 @@ public class GameConfiguration
 
     public GameConfiguration(GameConfiguration.UserInformation userInfoIn, GameConfiguration.DisplayInformation displayInfoIn, GameConfiguration.FolderInformation folderInfoIn, GameConfiguration.GameInformation gameInfoIn, GameConfiguration.ServerInformation serverInfoIn)
     {
-        this.userInfo = userInfoIn;
-        this.displayInfo = displayInfoIn;
-        this.folderInfo = folderInfoIn;
-        this.gameInfo = gameInfoIn;
-        this.serverInfo = serverInfoIn;
+        userInfo = userInfoIn;
+        displayInfo = displayInfoIn;
+        folderInfo = folderInfoIn;
+        gameInfo = gameInfoIn;
+        serverInfo = serverInfoIn;
     }
 
     public static class DisplayInformation
@@ -34,10 +34,10 @@ public class GameConfiguration
 
         public DisplayInformation(int widthIn, int heightIn, boolean fullscreenIn, boolean checkGlErrorsIn)
         {
-            this.width = widthIn;
-            this.height = heightIn;
-            this.fullscreen = fullscreenIn;
-            this.checkGlErrors = checkGlErrorsIn;
+            width = widthIn;
+            height = heightIn;
+            fullscreen = fullscreenIn;
+            checkGlErrors = checkGlErrorsIn;
         }
     }
 
@@ -50,15 +50,15 @@ public class GameConfiguration
 
         public FolderInformation(File mcDataDirIn, File resourcePacksDirIn, File assetsDirIn, @Nullable String assetIndexIn)
         {
-            this.mcDataDir = mcDataDirIn;
-            this.resourcePacksDir = resourcePacksDirIn;
-            this.assetsDir = assetsDirIn;
-            this.assetIndex = assetIndexIn;
+            mcDataDir = mcDataDirIn;
+            resourcePacksDir = resourcePacksDirIn;
+            assetsDir = assetsDirIn;
+            assetIndex = assetIndexIn;
         }
 
         public ResourceIndex getAssetsIndex()
         {
-            return (ResourceIndex)(this.assetIndex == null ? new ResourceIndexFolder(this.assetsDir) : new ResourceIndex(this.assetsDir, this.assetIndex));
+            return (ResourceIndex)(assetIndex == null ? new ResourceIndexFolder(assetsDir) : new ResourceIndex(assetsDir, assetIndex));
         }
     }
 
@@ -70,9 +70,9 @@ public class GameConfiguration
 
         public GameInformation(boolean demo, String versionIn, String versionTypeIn)
         {
-            this.isDemo = demo;
-            this.version = versionIn;
-            this.versionType = versionTypeIn;
+            isDemo = demo;
+            version = versionIn;
+            versionType = versionTypeIn;
         }
     }
 
@@ -83,8 +83,8 @@ public class GameConfiguration
 
         public ServerInformation(String serverNameIn, int serverPortIn)
         {
-            this.serverName = serverNameIn;
-            this.serverPort = serverPortIn;
+            serverName = serverNameIn;
+            serverPort = serverPortIn;
         }
     }
 
@@ -97,10 +97,10 @@ public class GameConfiguration
 
         public UserInformation(Session sessionIn, PropertyMap userPropertiesIn, PropertyMap profilePropertiesIn, Proxy proxyIn)
         {
-            this.session = sessionIn;
-            this.userProperties = userPropertiesIn;
-            this.profileProperties = profilePropertiesIn;
-            this.proxy = proxyIn;
+            session = sessionIn;
+            userProperties = userPropertiesIn;
+            profileProperties = profilePropertiesIn;
+            proxy = proxyIn;
         }
     }
 }

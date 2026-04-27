@@ -36,11 +36,11 @@ public class EntityAIAttackMelee extends EntityAIBase
 
     public EntityAIAttackMelee(EntityCreature creature, double speedIn, boolean useLongMemory)
     {
-        this.attacker = creature;
-        this.world = creature.world;
-        this.speedTowardsTarget = speedIn;
-        this.longMemory = useLongMemory;
-        this.setMutexBits(3);
+        attacker = creature;
+        world = creature.world;
+        speedTowardsTarget = speedIn;
+        longMemory = useLongMemory;
+        setMutexBits(3);
     }
 
     /**
@@ -48,7 +48,7 @@ public class EntityAIAttackMelee extends EntityAIBase
      */
     public boolean shouldExecute()
     {
-        EntityLivingBase entitylivingbase = this.attacker.getAttackTarget();
+        EntityLivingBase entitylivingbase = attacker.getAttackTarget();
 
         if (entitylivingbase == null)
         {
@@ -60,15 +60,15 @@ public class EntityAIAttackMelee extends EntityAIBase
         }
         else
         {
-            this.path = this.attacker.getNavigator().getPathToEntityLiving(entitylivingbase);
+            path = attacker.getNavigator().getPathToEntityLiving(entitylivingbase);
 
-            if (this.path != null)
+            if (path != null)
             {
                 return true;
             }
             else
             {
-                return this.getAttackReachSqr(entitylivingbase) >= this.attacker.getDistanceSq(entitylivingbase.posX, entitylivingbase.getEntityBoundingBox().minY, entitylivingbase.posZ);
+                return getAttackReachSqr(entitylivingbase) >= attacker.getDistanceSq(entitylivingbase.posX, entitylivingbase.getEntityBoundingBox().minY, entitylivingbase.posZ);
             }
         }
     }
@@ -78,7 +78,7 @@ public class EntityAIAttackMelee extends EntityAIBase
      */
     public boolean shouldContinueExecuting()
     {
-        EntityLivingBase entitylivingbase = this.attacker.getAttackTarget();
+        EntityLivingBase entitylivingbase = attacker.getAttackTarget();
 
         if (entitylivingbase == null)
         {
@@ -88,11 +88,11 @@ public class EntityAIAttackMelee extends EntityAIBase
         {
             return false;
         }
-        else if (!this.longMemory)
+        else if (!longMemory)
         {
-            return !this.attacker.getNavigator().noPath();
+            return !attacker.getNavigator().noPath();
         }
-        else if (!this.attacker.isWithinHomeDistanceFromPosition(new BlockPos(entitylivingbase)))
+        else if (!attacker.isWithinHomeDistanceFromPosition(new BlockPos(entitylivingbase)))
         {
             return false;
         }
@@ -107,8 +107,8 @@ public class EntityAIAttackMelee extends EntityAIBase
      */
     public void startExecuting()
     {
-        this.attacker.getNavigator().setPath(this.path, this.speedTowardsTarget);
-        this.delayCounter = 0;
+        attacker.getNavigator().setPath(path, speedTowardsTarget);
+        delayCounter = 0;
     }
 
     /**
@@ -116,14 +116,14 @@ public class EntityAIAttackMelee extends EntityAIBase
      */
     public void resetTask()
     {
-        EntityLivingBase entitylivingbase = this.attacker.getAttackTarget();
+        EntityLivingBase entitylivingbase = attacker.getAttackTarget();
 
         if (entitylivingbase instanceof EntityPlayer && (((EntityPlayer)entitylivingbase).isSpectator() || ((EntityPlayer)entitylivingbase).isCreative()))
         {
-            this.attacker.setAttackTarget((EntityLivingBase)null);
+            attacker.setAttackTarget((EntityLivingBase)null);
         }
 
-        this.attacker.getNavigator().clearPath();
+        attacker.getNavigator().clearPath();
     }
 
     /**
@@ -131,51 +131,51 @@ public class EntityAIAttackMelee extends EntityAIBase
      */
     public void updateTask()
     {
-        EntityLivingBase entitylivingbase = this.attacker.getAttackTarget();
-        this.attacker.getLookHelper().setLookPositionWithEntity(entitylivingbase, 30.0F, 30.0F);
-        double d0 = this.attacker.getDistanceSq(entitylivingbase.posX, entitylivingbase.getEntityBoundingBox().minY, entitylivingbase.posZ);
-        --this.delayCounter;
+        EntityLivingBase entitylivingbase = attacker.getAttackTarget();
+        attacker.getLookHelper().setLookPositionWithEntity(entitylivingbase, 30.0F, 30.0F);
+        double d0 = attacker.getDistanceSq(entitylivingbase.posX, entitylivingbase.getEntityBoundingBox().minY, entitylivingbase.posZ);
+        --delayCounter;
 
-        if ((this.longMemory || this.attacker.getEntitySenses().canSee(entitylivingbase)) && this.delayCounter <= 0 && (this.targetX == 0.0D && this.targetY == 0.0D && this.targetZ == 0.0D || entitylivingbase.getDistanceSq(this.targetX, this.targetY, this.targetZ) >= 1.0D || this.attacker.getRNG().nextFloat() < 0.05F))
+        if ((longMemory || attacker.getEntitySenses().canSee(entitylivingbase)) && delayCounter <= 0 && (targetX == 0.0D && targetY == 0.0D && targetZ == 0.0D || entitylivingbase.getDistanceSq(targetX, targetY, targetZ) >= 1.0D || attacker.getRNG().nextFloat() < 0.05F))
         {
-            this.targetX = entitylivingbase.posX;
-            this.targetY = entitylivingbase.getEntityBoundingBox().minY;
-            this.targetZ = entitylivingbase.posZ;
-            this.delayCounter = 4 + this.attacker.getRNG().nextInt(7);
+            targetX = entitylivingbase.posX;
+            targetY = entitylivingbase.getEntityBoundingBox().minY;
+            targetZ = entitylivingbase.posZ;
+            delayCounter = 4 + attacker.getRNG().nextInt(7);
 
             if (d0 > 1024.0D)
             {
-                this.delayCounter += 10;
+                delayCounter += 10;
             }
             else if (d0 > 256.0D)
             {
-                this.delayCounter += 5;
+                delayCounter += 5;
             }
 
-            if (!this.attacker.getNavigator().tryMoveToEntityLiving(entitylivingbase, this.speedTowardsTarget))
+            if (!attacker.getNavigator().tryMoveToEntityLiving(entitylivingbase, speedTowardsTarget))
             {
-                this.delayCounter += 15;
+                delayCounter += 15;
             }
         }
 
-        this.attackTick = Math.max(this.attackTick - 1, 0);
-        this.checkAndPerformAttack(entitylivingbase, d0);
+        attackTick = Math.max(attackTick - 1, 0);
+        checkAndPerformAttack(entitylivingbase, d0);
     }
 
     protected void checkAndPerformAttack(EntityLivingBase enemy, double distToEnemySqr)
     {
-        double d0 = this.getAttackReachSqr(enemy);
+        double d0 = getAttackReachSqr(enemy);
 
-        if (distToEnemySqr <= d0 && this.attackTick <= 0)
+        if (distToEnemySqr <= d0 && attackTick <= 0)
         {
-            this.attackTick = 20;
-            this.attacker.swingArm(EnumHand.MAIN_HAND);
-            this.attacker.attackEntityAsMob(enemy);
+            attackTick = 20;
+            attacker.swingArm(EnumHand.MAIN_HAND);
+            attacker.attackEntityAsMob(enemy);
         }
     }
 
     protected double getAttackReachSqr(EntityLivingBase attackTarget)
     {
-        return (double)(this.attacker.width * 2.0F * this.attacker.width * 2.0F + attackTarget.width);
+        return (double)(attacker.width * 2.0F * attacker.width * 2.0F + attackTarget.width);
     }
 }

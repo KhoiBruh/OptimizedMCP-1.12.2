@@ -27,36 +27,36 @@ public abstract class AbstractChestHorse extends AbstractHorse
     public AbstractChestHorse(World worldIn)
     {
         super(worldIn);
-        this.canGallop = false;
+        canGallop = false;
     }
 
     protected void entityInit()
     {
         super.entityInit();
-        this.dataManager.register(DATA_ID_CHEST, Boolean.valueOf(false));
+        dataManager.register(DATA_ID_CHEST, Boolean.valueOf(false));
     }
 
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue((double)this.getModifiedMaxHealth());
-        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.17499999701976776D);
-        this.getEntityAttribute(JUMP_STRENGTH).setBaseValue(0.5D);
+        getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue((double) getModifiedMaxHealth());
+        getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.17499999701976776D);
+        getEntityAttribute(JUMP_STRENGTH).setBaseValue(0.5D);
     }
 
     public boolean hasChest()
     {
-        return ((Boolean)this.dataManager.get(DATA_ID_CHEST)).booleanValue();
+        return ((Boolean) dataManager.get(DATA_ID_CHEST)).booleanValue();
     }
 
     public void setChested(boolean chested)
     {
-        this.dataManager.set(DATA_ID_CHEST, Boolean.valueOf(chested));
+        dataManager.set(DATA_ID_CHEST, Boolean.valueOf(chested));
     }
 
     protected int getInventorySize()
     {
-        return this.hasChest() ? 17 : super.getInventorySize();
+        return hasChest() ? 17 : super.getInventorySize();
     }
 
     /**
@@ -80,14 +80,14 @@ public abstract class AbstractChestHorse extends AbstractHorse
     {
         super.onDeath(cause);
 
-        if (this.hasChest())
+        if (hasChest())
         {
-            if (!this.world.isRemote)
+            if (!world.isRemote)
             {
-                this.dropItem(Item.getItemFromBlock(Blocks.CHEST), 1);
+                dropItem(Item.getItemFromBlock(Blocks.CHEST), 1);
             }
 
-            this.setChested(false);
+            setChested(false);
         }
     }
 
@@ -103,15 +103,15 @@ public abstract class AbstractChestHorse extends AbstractHorse
     public void writeEntityToNBT(NBTTagCompound compound)
     {
         super.writeEntityToNBT(compound);
-        compound.setBoolean("ChestedHorse", this.hasChest());
+        compound.setBoolean("ChestedHorse", hasChest());
 
-        if (this.hasChest())
+        if (hasChest())
         {
             NBTTagList nbttaglist = new NBTTagList();
 
-            for (int i = 2; i < this.horseChest.getSizeInventory(); ++i)
+            for (int i = 2; i < horseChest.getSizeInventory(); ++i)
             {
-                ItemStack itemstack = this.horseChest.getStackInSlot(i);
+                ItemStack itemstack = horseChest.getStackInSlot(i);
 
                 if (!itemstack.isEmpty())
                 {
@@ -132,43 +132,43 @@ public abstract class AbstractChestHorse extends AbstractHorse
     public void readEntityFromNBT(NBTTagCompound compound)
     {
         super.readEntityFromNBT(compound);
-        this.setChested(compound.getBoolean("ChestedHorse"));
+        setChested(compound.getBoolean("ChestedHorse"));
 
-        if (this.hasChest())
+        if (hasChest())
         {
             NBTTagList nbttaglist = compound.getTagList("Items", 10);
-            this.initHorseChest();
+            initHorseChest();
 
             for (int i = 0; i < nbttaglist.tagCount(); ++i)
             {
                 NBTTagCompound nbttagcompound = nbttaglist.getCompoundTagAt(i);
                 int j = nbttagcompound.getByte("Slot") & 255;
 
-                if (j >= 2 && j < this.horseChest.getSizeInventory())
+                if (j >= 2 && j < horseChest.getSizeInventory())
                 {
-                    this.horseChest.setInventorySlotContents(j, new ItemStack(nbttagcompound));
+                    horseChest.setInventorySlotContents(j, new ItemStack(nbttagcompound));
                 }
             }
         }
 
-        this.updateHorseSlots();
+        updateHorseSlots();
     }
 
     public boolean replaceItemInInventory(int inventorySlot, ItemStack itemStackIn)
     {
         if (inventorySlot == 499)
         {
-            if (this.hasChest() && itemStackIn.isEmpty())
+            if (hasChest() && itemStackIn.isEmpty())
             {
-                this.setChested(false);
-                this.initHorseChest();
+                setChested(false);
+                initHorseChest();
                 return true;
             }
 
-            if (!this.hasChest() && itemStackIn.getItem() == Item.getItemFromBlock(Blocks.CHEST))
+            if (!hasChest() && itemStackIn.getItem() == Item.getItemFromBlock(Blocks.CHEST))
             {
-                this.setChested(true);
-                this.initHorseChest();
+                setChested(true);
+                initHorseChest();
                 return true;
             }
         }
@@ -186,15 +186,15 @@ public abstract class AbstractChestHorse extends AbstractHorse
         }
         else
         {
-            if (!this.isChild())
+            if (!isChild())
             {
-                if (this.isTame() && player.isSneaking())
+                if (isTame() && player.isSneaking())
                 {
-                    this.openGUI(player);
+                    openGUI(player);
                     return true;
                 }
 
-                if (this.isBeingRidden())
+                if (isBeingRidden())
                 {
                     return super.processInteract(player, hand);
                 }
@@ -202,30 +202,30 @@ public abstract class AbstractChestHorse extends AbstractHorse
 
             if (!itemstack.isEmpty())
             {
-                boolean flag = this.handleEating(player, itemstack);
+                boolean flag = handleEating(player, itemstack);
 
-                if (!flag && !this.isTame())
+                if (!flag && !isTame())
                 {
                     if (itemstack.interactWithEntity(player, this, hand))
                     {
                         return true;
                     }
 
-                    this.makeMad();
+                    makeMad();
                     return true;
                 }
 
-                if (!flag && !this.hasChest() && itemstack.getItem() == Item.getItemFromBlock(Blocks.CHEST))
+                if (!flag && !hasChest() && itemstack.getItem() == Item.getItemFromBlock(Blocks.CHEST))
                 {
-                    this.setChested(true);
-                    this.playChestEquipSound();
+                    setChested(true);
+                    playChestEquipSound();
                     flag = true;
-                    this.initHorseChest();
+                    initHorseChest();
                 }
 
-                if (!flag && !this.isChild() && !this.isHorseSaddled() && itemstack.getItem() == Items.SADDLE)
+                if (!flag && !isChild() && !isHorseSaddled() && itemstack.getItem() == Items.SADDLE)
                 {
-                    this.openGUI(player);
+                    openGUI(player);
                     return true;
                 }
 
@@ -240,7 +240,7 @@ public abstract class AbstractChestHorse extends AbstractHorse
                 }
             }
 
-            if (this.isChild())
+            if (isChild())
             {
                 return super.processInteract(player, hand);
             }
@@ -250,7 +250,7 @@ public abstract class AbstractChestHorse extends AbstractHorse
             }
             else
             {
-                this.mountTo(player);
+                mountTo(player);
                 return true;
             }
         }
@@ -258,7 +258,7 @@ public abstract class AbstractChestHorse extends AbstractHorse
 
     protected void playChestEquipSound()
     {
-        this.playSound(SoundEvents.ENTITY_DONKEY_CHEST, 1.0F, (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
+        playSound(SoundEvents.ENTITY_DONKEY_CHEST, 1.0F, (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F);
     }
 
     public int getInventoryColumns()

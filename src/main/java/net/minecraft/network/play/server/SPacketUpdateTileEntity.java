@@ -21,9 +21,9 @@ public class SPacketUpdateTileEntity implements Packet<INetHandlerPlayClient>
 
     public SPacketUpdateTileEntity(BlockPos blockPosIn, int tileEntityTypeIn, NBTTagCompound compoundIn)
     {
-        this.blockPos = blockPosIn;
-        this.tileEntityType = tileEntityTypeIn;
-        this.nbt = compoundIn;
+        blockPos = blockPosIn;
+        tileEntityType = tileEntityTypeIn;
+        nbt = compoundIn;
     }
 
     /**
@@ -31,9 +31,9 @@ public class SPacketUpdateTileEntity implements Packet<INetHandlerPlayClient>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.blockPos = buf.readBlockPos();
-        this.tileEntityType = buf.readUnsignedByte();
-        this.nbt = buf.readCompoundTag();
+        blockPos = buf.readBlockPos();
+        tileEntityType = buf.readUnsignedByte();
+        nbt = buf.readCompoundTag();
     }
 
     /**
@@ -41,9 +41,9 @@ public class SPacketUpdateTileEntity implements Packet<INetHandlerPlayClient>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeBlockPos(this.blockPos);
-        buf.writeByte((byte)this.tileEntityType);
-        buf.writeCompoundTag(this.nbt);
+        buf.writeBlockPos(blockPos);
+        buf.writeByte((byte) tileEntityType);
+        buf.writeCompoundTag(nbt);
     }
 
     /**
@@ -56,16 +56,16 @@ public class SPacketUpdateTileEntity implements Packet<INetHandlerPlayClient>
 
     public BlockPos getPos()
     {
-        return this.blockPos;
+        return blockPos;
     }
 
     public int getTileEntityType()
     {
-        return this.tileEntityType;
+        return tileEntityType;
     }
 
     public NBTTagCompound getNbtCompound()
     {
-        return this.nbt;
+        return nbt;
     }
 }

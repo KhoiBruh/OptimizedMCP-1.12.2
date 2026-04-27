@@ -26,7 +26,7 @@ public class ItemWrittenBook extends Item
 {
     public ItemWrittenBook()
     {
-        this.setMaxStackSize(1);
+        setMaxStackSize(1);
     }
 
     public static boolean validBookTagContents(NBTTagCompound nbt)
@@ -95,7 +95,7 @@ public class ItemWrittenBook extends Item
 
         if (!worldIn.isRemote)
         {
-            this.resolveContents(itemstack, playerIn);
+            resolveContents(itemstack, playerIn);
         }
 
         playerIn.openBook(itemstack, handIn);

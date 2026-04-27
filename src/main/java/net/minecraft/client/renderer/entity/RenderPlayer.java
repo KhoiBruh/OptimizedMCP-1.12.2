@@ -36,15 +36,15 @@ public class RenderPlayer extends RenderLivingBase<AbstractClientPlayer>
     public RenderPlayer(RenderManager renderManager, boolean useSmallArms)
     {
         super(renderManager, new ModelPlayer(0.0F, useSmallArms), 0.5F);
-        this.smallArms = useSmallArms;
-        this.addLayer(new LayerBipedArmor(this));
-        this.addLayer(new LayerHeldItem(this));
-        this.addLayer(new LayerArrow(this));
-        this.addLayer(new LayerDeadmau5Head(this));
-        this.addLayer(new LayerCape(this));
-        this.addLayer(new LayerCustomHead(this.getMainModel().bipedHead));
-        this.addLayer(new LayerElytra(this));
-        this.addLayer(new LayerEntityOnShoulder(renderManager));
+        smallArms = useSmallArms;
+        addLayer(new LayerBipedArmor(this));
+        addLayer(new LayerHeldItem(this));
+        addLayer(new LayerArrow(this));
+        addLayer(new LayerDeadmau5Head(this));
+        addLayer(new LayerCape(this));
+        addLayer(new LayerCustomHead(getMainModel().bipedHead));
+        addLayer(new LayerElytra(this));
+        addLayer(new LayerEntityOnShoulder(renderManager));
     }
 
     public ModelPlayer getMainModel()
@@ -57,7 +57,7 @@ public class RenderPlayer extends RenderLivingBase<AbstractClientPlayer>
      */
     public void doRender(AbstractClientPlayer entity, double x, double y, double z, float entityYaw, float partialTicks)
     {
-        if (!entity.isUser() || this.renderManager.renderViewEntity == entity)
+        if (!entity.isUser() || renderManager.renderViewEntity == entity)
         {
             double d0 = y;
 
@@ -66,7 +66,7 @@ public class RenderPlayer extends RenderLivingBase<AbstractClientPlayer>
                 d0 = y - 0.125D;
             }
 
-            this.setModelVisibilities(entity);
+            setModelVisibilities(entity);
             GlStateManager.enableBlendProfile(GlStateManager.Profile.PLAYER_SKIN);
             super.doRender(entity, x, d0, z, entityYaw, partialTicks);
             GlStateManager.disableBlendProfile(GlStateManager.Profile.PLAYER_SKIN);
@@ -75,7 +75,7 @@ public class RenderPlayer extends RenderLivingBase<AbstractClientPlayer>
 
     private void setModelVisibilities(AbstractClientPlayer clientPlayer)
     {
-        ModelPlayer modelplayer = this.getMainModel();
+        ModelPlayer modelplayer = getMainModel();
 
         if (clientPlayer.isSpectator())
         {
@@ -177,8 +177,8 @@ public class RenderPlayer extends RenderLivingBase<AbstractClientPlayer>
             if (scoreobjective != null)
             {
                 Score score = scoreboard.getOrCreateScore(entityIn.getName(), scoreobjective);
-                this.renderLivingLabel(entityIn, score.getScorePoints() + " " + scoreobjective.getDisplayName(), x, y, z, 64);
-                y += (double)((float)this.getFontRendererFromRenderManager().FONT_HEIGHT * 1.15F * 0.025F);
+                renderLivingLabel(entityIn, score.getScorePoints() + " " + scoreobjective.getDisplayName(), x, y, z, 64);
+                y += (double)((float) getFontRendererFromRenderManager().FONT_HEIGHT * 1.15F * 0.025F);
             }
         }
 
@@ -190,8 +190,8 @@ public class RenderPlayer extends RenderLivingBase<AbstractClientPlayer>
         float f = 1.0F;
         GlStateManager.color(1.0F, 1.0F, 1.0F);
         float f1 = 0.0625F;
-        ModelPlayer modelplayer = this.getMainModel();
-        this.setModelVisibilities(clientPlayer);
+        ModelPlayer modelplayer = getMainModel();
+        setModelVisibilities(clientPlayer);
         GlStateManager.enableBlend();
         modelplayer.swingProgress = 0.0F;
         modelplayer.isSneak = false;
@@ -208,8 +208,8 @@ public class RenderPlayer extends RenderLivingBase<AbstractClientPlayer>
         float f = 1.0F;
         GlStateManager.color(1.0F, 1.0F, 1.0F);
         float f1 = 0.0625F;
-        ModelPlayer modelplayer = this.getMainModel();
-        this.setModelVisibilities(clientPlayer);
+        ModelPlayer modelplayer = getMainModel();
+        setModelVisibilities(clientPlayer);
         GlStateManager.enableBlend();
         modelplayer.isSneak = false;
         modelplayer.swingProgress = 0.0F;
@@ -241,7 +241,7 @@ public class RenderPlayer extends RenderLivingBase<AbstractClientPlayer>
         if (entityLiving.isEntityAlive() && entityLiving.isPlayerSleeping())
         {
             GlStateManager.rotate(entityLiving.getBedOrientationInDegrees(), 0.0F, 1.0F, 0.0F);
-            GlStateManager.rotate(this.getDeathMaxRotation(entityLiving), 0.0F, 0.0F, 1.0F);
+            GlStateManager.rotate(getDeathMaxRotation(entityLiving), 0.0F, 0.0F, 1.0F);
             GlStateManager.rotate(270.0F, 0.0F, 1.0F, 0.0F);
         }
         else if (entityLiving.isElytraFlying())

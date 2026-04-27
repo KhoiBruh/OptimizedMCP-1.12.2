@@ -24,13 +24,13 @@ public class NBTTagFloat extends NBTPrimitive
      */
     void write(DataOutput output) throws IOException
     {
-        output.writeFloat(this.data);
+        output.writeFloat(data);
     }
 
     void read(DataInput input, int depth, NBTSizeTracker sizeTracker) throws IOException
     {
         sizeTracker.read(96L);
-        this.data = input.readFloat();
+        data = input.readFloat();
     }
 
     /**
@@ -43,7 +43,7 @@ public class NBTTagFloat extends NBTPrimitive
 
     public String toString()
     {
-        return this.data + "f";
+        return data + "f";
     }
 
     /**
@@ -51,46 +51,46 @@ public class NBTTagFloat extends NBTPrimitive
      */
     public NBTTagFloat copy()
     {
-        return new NBTTagFloat(this.data);
+        return new NBTTagFloat(data);
     }
 
     public boolean equals(Object p_equals_1_)
     {
-        return super.equals(p_equals_1_) && this.data == ((NBTTagFloat)p_equals_1_).data;
+        return super.equals(p_equals_1_) && data == ((NBTTagFloat)p_equals_1_).data;
     }
 
     public int hashCode()
     {
-        return super.hashCode() ^ Float.floatToIntBits(this.data);
+        return super.hashCode() ^ Float.floatToIntBits(data);
     }
 
     public long getLong()
     {
-        return (long)this.data;
+        return (long) data;
     }
 
     public int getInt()
     {
-        return MathHelper.floor(this.data);
+        return MathHelper.floor(data);
     }
 
     public short getShort()
     {
-        return (short)(MathHelper.floor(this.data) & 65535);
+        return (short)(MathHelper.floor(data) & 65535);
     }
 
     public byte getByte()
     {
-        return (byte)(MathHelper.floor(this.data) & 255);
+        return (byte)(MathHelper.floor(data) & 255);
     }
 
     public double getDouble()
     {
-        return (double)this.data;
+        return (double) data;
     }
 
     public float getFloat()
     {
-        return this.data;
+        return data;
     }
 }

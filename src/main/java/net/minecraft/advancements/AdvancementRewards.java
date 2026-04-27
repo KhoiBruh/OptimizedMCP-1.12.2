@@ -48,11 +48,11 @@ public class AdvancementRewards
 
     public void apply(final EntityPlayerMP player)
     {
-        player.addExperience(this.experience);
+        player.addExperience(experience);
         LootContext lootcontext = (new LootContext.Builder(player.getServerWorld())).withLootedEntity(player).build();
         boolean flag = false;
 
-        for (ResourceLocation resourcelocation : this.loot)
+        for (ResourceLocation resourcelocation : loot)
         {
             for (ItemStack itemstack : player.world.getLootTableManager().getLootTableFromLocation(resourcelocation).generateLootForPools(player.getRNG(), lootcontext))
             {
@@ -79,13 +79,13 @@ public class AdvancementRewards
             player.inventoryContainer.detectAndSendChanges();
         }
 
-        if (this.recipes.length > 0)
+        if (recipes.length > 0)
         {
-            player.unlockRecipes(this.recipes);
+            player.unlockRecipes(recipes);
         }
 
         final MinecraftServer minecraftserver = player.mcServer;
-        FunctionObject functionobject = this.function.get(minecraftserver.getFunctionManager());
+        FunctionObject functionobject = function.get(minecraftserver.getFunctionManager());
 
         if (functionobject != null)
         {
@@ -141,7 +141,7 @@ public class AdvancementRewards
 
     public String toString()
     {
-        return "AdvancementRewards{experience=" + this.experience + ", loot=" + Arrays.toString((Object[])this.loot) + ", recipes=" + Arrays.toString((Object[])this.recipes) + ", function=" + this.function + '}';
+        return "AdvancementRewards{experience=" + experience + ", loot=" + Arrays.toString((Object[]) loot) + ", recipes=" + Arrays.toString((Object[]) recipes) + ", function=" + function + '}';
     }
 
     public static class Deserializer implements JsonDeserializer<AdvancementRewards>

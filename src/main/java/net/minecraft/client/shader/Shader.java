@@ -25,22 +25,22 @@ public class Shader
 
     public Shader(IResourceManager resourceManager, String programName, Framebuffer framebufferInIn, Framebuffer framebufferOutIn) throws JsonException, IOException
     {
-        this.manager = new ShaderManager(resourceManager, programName);
-        this.framebufferIn = framebufferInIn;
-        this.framebufferOut = framebufferOutIn;
+        manager = new ShaderManager(resourceManager, programName);
+        framebufferIn = framebufferInIn;
+        framebufferOut = framebufferOutIn;
     }
 
     public void deleteShader()
     {
-        this.manager.deleteShader();
+        manager.deleteShader();
     }
 
     public void addAuxFramebuffer(String auxName, Object auxFramebufferIn, int width, int height)
     {
-        this.listAuxNames.add(this.listAuxNames.size(), auxName);
-        this.listAuxFramebuffers.add(this.listAuxFramebuffers.size(), auxFramebufferIn);
-        this.listAuxWidths.add(this.listAuxWidths.size(), Integer.valueOf(width));
-        this.listAuxHeights.add(this.listAuxHeights.size(), Integer.valueOf(height));
+        listAuxNames.add(listAuxNames.size(), auxName);
+        listAuxFramebuffers.add(listAuxFramebuffers.size(), auxFramebufferIn);
+        listAuxWidths.add(listAuxWidths.size(), Integer.valueOf(width));
+        listAuxHeights.add(listAuxHeights.size(), Integer.valueOf(height));
     }
 
     private void preRender()
@@ -58,33 +58,33 @@ public class Shader
 
     public void setProjectionMatrix(Matrix4f projectionMatrixIn)
     {
-        this.projectionMatrix = projectionMatrixIn;
+        projectionMatrix = projectionMatrixIn;
     }
 
     public void render(float partialTicks)
     {
-        this.preRender();
-        this.framebufferIn.unbindFramebuffer();
-        float f = (float)this.framebufferOut.framebufferTextureWidth;
-        float f1 = (float)this.framebufferOut.framebufferTextureHeight;
+        preRender();
+        framebufferIn.unbindFramebuffer();
+        float f = (float) framebufferOut.framebufferTextureWidth;
+        float f1 = (float) framebufferOut.framebufferTextureHeight;
         GlStateManager.viewport(0, 0, (int)f, (int)f1);
-        this.manager.addSamplerTexture("DiffuseSampler", this.framebufferIn);
+        manager.addSamplerTexture("DiffuseSampler", framebufferIn);
 
-        for (int i = 0; i < this.listAuxFramebuffers.size(); ++i)
+        for (int i = 0; i < listAuxFramebuffers.size(); ++i)
         {
-            this.manager.addSamplerTexture(this.listAuxNames.get(i), this.listAuxFramebuffers.get(i));
-            this.manager.getShaderUniformOrDefault("AuxSize" + i).set((float)((Integer)this.listAuxWidths.get(i)).intValue(), (float)((Integer)this.listAuxHeights.get(i)).intValue());
+            manager.addSamplerTexture(listAuxNames.get(i), listAuxFramebuffers.get(i));
+            manager.getShaderUniformOrDefault("AuxSize" + i).set((float)((Integer) listAuxWidths.get(i)).intValue(), (float)((Integer) listAuxHeights.get(i)).intValue());
         }
 
-        this.manager.getShaderUniformOrDefault("ProjMat").set(this.projectionMatrix);
-        this.manager.getShaderUniformOrDefault("InSize").set((float)this.framebufferIn.framebufferTextureWidth, (float)this.framebufferIn.framebufferTextureHeight);
-        this.manager.getShaderUniformOrDefault("OutSize").set(f, f1);
-        this.manager.getShaderUniformOrDefault("Time").set(partialTicks);
+        manager.getShaderUniformOrDefault("ProjMat").set(projectionMatrix);
+        manager.getShaderUniformOrDefault("InSize").set((float) framebufferIn.framebufferTextureWidth, (float) framebufferIn.framebufferTextureHeight);
+        manager.getShaderUniformOrDefault("OutSize").set(f, f1);
+        manager.getShaderUniformOrDefault("Time").set(partialTicks);
         Minecraft minecraft = Minecraft.getMinecraft();
-        this.manager.getShaderUniformOrDefault("ScreenSize").set((float)minecraft.displayWidth, (float)minecraft.displayHeight);
-        this.manager.useShader();
-        this.framebufferOut.framebufferClear();
-        this.framebufferOut.bindFramebuffer(false);
+        manager.getShaderUniformOrDefault("ScreenSize").set((float)minecraft.displayWidth, (float)minecraft.displayHeight);
+        manager.useShader();
+        framebufferOut.framebufferClear();
+        framebufferOut.bindFramebuffer(false);
         GlStateManager.depthMask(false);
         GlStateManager.colorMask(true, true, true, true);
         Tessellator tessellator = Tessellator.getInstance();
@@ -97,11 +97,11 @@ public class Shader
         tessellator.draw();
         GlStateManager.depthMask(true);
         GlStateManager.colorMask(true, true, true, true);
-        this.manager.endShader();
-        this.framebufferOut.unbindFramebuffer();
-        this.framebufferIn.unbindFramebufferTexture();
+        manager.endShader();
+        framebufferOut.unbindFramebuffer();
+        framebufferIn.unbindFramebufferTexture();
 
-        for (Object object : this.listAuxFramebuffers)
+        for (Object object : listAuxFramebuffers)
         {
             if (object instanceof Framebuffer)
             {
@@ -112,6 +112,6 @@ public class Shader
 
     public ShaderManager getShaderManager()
     {
-        return this.manager;
+        return manager;
     }
 }

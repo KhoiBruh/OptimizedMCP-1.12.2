@@ -11,7 +11,7 @@ public class WorldGenBush extends WorldGenerator
 
     public WorldGenBush(BlockBush blockIn)
     {
-        this.block = blockIn;
+        block = blockIn;
     }
 
     public boolean generate(World worldIn, Random rand, BlockPos position)
@@ -20,9 +20,9 @@ public class WorldGenBush extends WorldGenerator
         {
             BlockPos blockpos = position.add(rand.nextInt(8) - rand.nextInt(8), rand.nextInt(4) - rand.nextInt(4), rand.nextInt(8) - rand.nextInt(8));
 
-            if (worldIn.isAirBlock(blockpos) && (!worldIn.provider.isNether() || blockpos.getY() < 255) && this.block.canBlockStay(worldIn, blockpos, this.block.getDefaultState()))
+            if (worldIn.isAirBlock(blockpos) && (!worldIn.provider.isNether() || blockpos.getY() < 255) && block.canBlockStay(worldIn, blockpos, block.getDefaultState()))
             {
-                worldIn.setBlockState(blockpos, this.block.getDefaultState(), 2);
+                worldIn.setBlockState(blockpos, block.getDefaultState(), 2);
             }
         }
 

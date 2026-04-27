@@ -10,12 +10,12 @@ public class SoundEvent
 
     public SoundEvent(ResourceLocation soundNameIn)
     {
-        this.soundName = soundNameIn;
+        soundName = soundNameIn;
     }
 
     public ResourceLocation getSoundName()
     {
-        return this.soundName;
+        return soundName;
     }
 
     public static void registerSounds()

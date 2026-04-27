@@ -19,9 +19,9 @@ public class SPacketEntityEquipment implements Packet<INetHandlerPlayClient>
 
     public SPacketEntityEquipment(int entityIdIn, EntityEquipmentSlot equipmentSlotIn, ItemStack itemStackIn)
     {
-        this.entityID = entityIdIn;
-        this.equipmentSlot = equipmentSlotIn;
-        this.itemStack = itemStackIn.copy();
+        entityID = entityIdIn;
+        equipmentSlot = equipmentSlotIn;
+        itemStack = itemStackIn.copy();
     }
 
     /**
@@ -29,9 +29,9 @@ public class SPacketEntityEquipment implements Packet<INetHandlerPlayClient>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.entityID = buf.readVarInt();
-        this.equipmentSlot = (EntityEquipmentSlot)buf.readEnumValue(EntityEquipmentSlot.class);
-        this.itemStack = buf.readItemStack();
+        entityID = buf.readVarInt();
+        equipmentSlot = (EntityEquipmentSlot)buf.readEnumValue(EntityEquipmentSlot.class);
+        itemStack = buf.readItemStack();
     }
 
     /**
@@ -39,9 +39,9 @@ public class SPacketEntityEquipment implements Packet<INetHandlerPlayClient>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeVarInt(this.entityID);
-        buf.writeEnumValue(this.equipmentSlot);
-        buf.writeItemStack(this.itemStack);
+        buf.writeVarInt(entityID);
+        buf.writeEnumValue(equipmentSlot);
+        buf.writeItemStack(itemStack);
     }
 
     /**
@@ -54,16 +54,16 @@ public class SPacketEntityEquipment implements Packet<INetHandlerPlayClient>
 
     public ItemStack getItemStack()
     {
-        return this.itemStack;
+        return itemStack;
     }
 
     public int getEntityID()
     {
-        return this.entityID;
+        return entityID;
     }
 
     public EntityEquipmentSlot getEquipmentSlot()
     {
-        return this.equipmentSlot;
+        return equipmentSlot;
     }
 }

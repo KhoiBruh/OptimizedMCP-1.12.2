@@ -200,7 +200,7 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener
     {
         super(worldIn, profile);
         interactionManagerIn.player = this;
-        this.interactionManager = interactionManagerIn;
+        interactionManager = interactionManagerIn;
         BlockPos blockpos = worldIn.getSpawnPoint();
 
         if (worldIn.provider.hasSkyLight() && worldIn.getWorldInfo().getGameType() != GameType.ADVENTURE)
@@ -218,18 +218,18 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener
                 i = 1;
             }
 
-            blockpos = worldIn.getTopSolidOrLiquidBlock(blockpos.add(this.rand.nextInt(i * 2 + 1) - i, 0, this.rand.nextInt(i * 2 + 1) - i));
+            blockpos = worldIn.getTopSolidOrLiquidBlock(blockpos.add(rand.nextInt(i * 2 + 1) - i, 0, rand.nextInt(i * 2 + 1) - i));
         }
 
-        this.mcServer = server;
-        this.statsFile = server.getPlayerList().getPlayerStatsFile(this);
-        this.advancements = server.getPlayerList().getPlayerAdvancements(this);
-        this.stepHeight = 1.0F;
-        this.moveToBlockPosAndAngles(blockpos, 0.0F, 0.0F);
+        mcServer = server;
+        statsFile = server.getPlayerList().getPlayerStatsFile(this);
+        advancements = server.getPlayerList().getPlayerAdvancements(this);
+        stepHeight = 1.0F;
+        moveToBlockPosAndAngles(blockpos, 0.0F, 0.0F);
 
-        while (!worldIn.getCollisionBoxes(this, this.getEntityBoundingBox()).isEmpty() && this.posY < 255.0D)
+        while (!worldIn.getCollisionBoxes(this, getEntityBoundingBox()).isEmpty() && posY < 255.0D)
         {
-            this.setPosition(this.posX, this.posY + 1.0D, this.posZ);
+            setPosition(posX, posY + 1.0D, posZ);
         }
     }
 
@@ -242,27 +242,27 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener
 
         if (compound.hasKey("playerGameType", 99))
         {
-            if (this.getServer().getForceGamemode())
+            if (getServer().getForceGamemode())
             {
-                this.interactionManager.setGameType(this.getServer().getGameType());
+                interactionManager.setGameType(getServer().getGameType());
             }
             else
             {
-                this.interactionManager.setGameType(GameType.getByID(compound.getInteger("playerGameType")));
+                interactionManager.setGameType(GameType.getByID(compound.getInteger("playerGameType")));
             }
         }
 
         if (compound.hasKey("enteredNetherPosition", 10))
         {
             NBTTagCompound nbttagcompound = compound.getCompoundTag("enteredNetherPosition");
-            this.enteredNetherPosition = new Vec3d(nbttagcompound.getDouble("x"), nbttagcompound.getDouble("y"), nbttagcompound.getDouble("z"));
+            enteredNetherPosition = new Vec3d(nbttagcompound.getDouble("x"), nbttagcompound.getDouble("y"), nbttagcompound.getDouble("z"));
         }
 
-        this.seenCredits = compound.getBoolean("seenCredits");
+        seenCredits = compound.getBoolean("seenCredits");
 
         if (compound.hasKey("recipeBook", 10))
         {
-            this.recipeBook.read(compound.getCompoundTag("recipeBook"));
+            recipeBook.read(compound.getCompoundTag("recipeBook"));
         }
     }
 
@@ -293,20 +293,20 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener
     public void writeEntityToNBT(NBTTagCompound compound)
     {
         super.writeEntityToNBT(compound);
-        compound.setInteger("playerGameType", this.interactionManager.getGameType().getID());
-        compound.setBoolean("seenCredits", this.seenCredits);
+        compound.setInteger("playerGameType", interactionManager.getGameType().getID());
+        compound.setBoolean("seenCredits", seenCredits);
 
-        if (this.enteredNetherPosition != null)
+        if (enteredNetherPosition != null)
         {
             NBTTagCompound nbttagcompound = new NBTTagCompound();
-            nbttagcompound.setDouble("x", this.enteredNetherPosition.x);
-            nbttagcompound.setDouble("y", this.enteredNetherPosition.y);
-            nbttagcompound.setDouble("z", this.enteredNetherPosition.z);
+            nbttagcompound.setDouble("x", enteredNetherPosition.x);
+            nbttagcompound.setDouble("y", enteredNetherPosition.y);
+            nbttagcompound.setDouble("z", enteredNetherPosition.z);
             compound.setTag("enteredNetherPosition", nbttagcompound);
         }
 
-        Entity entity1 = this.getLowestRidingEntity();
-        Entity entity = this.getRidingEntity();
+        Entity entity1 = getLowestRidingEntity();
+        Entity entity = getRidingEntity();
 
         if (entity != null && entity1 != this && entity1.getRecursivePassengersByType(EntityPlayerMP.class).size() == 1)
         {
@@ -318,7 +318,7 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener
             compound.setTag("RootVehicle", nbttagcompound1);
         }
 
-        compound.setTag("recipeBook", this.recipeBook.write());
+        compound.setTag("recipeBook", recipeBook.write());
     }
 
     /**
@@ -327,18 +327,18 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener
     public void addExperienceLevel(int levels)
     {
         super.addExperienceLevel(levels);
-        this.lastExperience = -1;
+        lastExperience = -1;
     }
 
     public void onEnchant(ItemStack enchantedItem, int cost)
     {
         super.onEnchant(enchantedItem, cost);
-        this.lastExperience = -1;
+        lastExperience = -1;
     }
 
     public void addSelfToInternalCraftingInventory()
     {
-        this.openContainer.addListener(this);
+        openContainer.addListener(this);
     }
 
     /**
@@ -347,7 +347,7 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener
     public void sendEnterCombat()
     {
         super.sendEnterCombat();
-        this.connection.sendPacket(new SPacketCombatEvent(this.getCombatTracker(), SPacketCombatEvent.Event.ENTER_COMBAT));
+        connection.sendPacket(new SPacketCombatEvent(getCombatTracker(), SPacketCombatEvent.Event.ENTER_COMBAT));
     }
 
     /**
@@ -356,7 +356,7 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener
     public void sendEndCombat()
     {
         super.sendEndCombat();
-        this.connection.sendPacket(new SPacketCombatEvent(this.getCombatTracker(), SPacketCombatEvent.Event.END_COMBAT));
+        connection.sendPacket(new SPacketCombatEvent(getCombatTracker(), SPacketCombatEvent.Event.END_COMBAT));
     }
 
     protected void onInsideBlock(IBlockState p_191955_1_)
@@ -374,27 +374,27 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener
      */
     public void onUpdate()
     {
-        this.interactionManager.updateBlockRemoving();
-        --this.respawnInvulnerabilityTicks;
+        interactionManager.updateBlockRemoving();
+        --respawnInvulnerabilityTicks;
 
-        if (this.hurtResistantTime > 0)
+        if (hurtResistantTime > 0)
         {
-            --this.hurtResistantTime;
+            --hurtResistantTime;
         }
 
-        this.openContainer.detectAndSendChanges();
+        openContainer.detectAndSendChanges();
 
-        if (!this.world.isRemote && !this.openContainer.canInteractWith(this))
+        if (!world.isRemote && !openContainer.canInteractWith(this))
         {
-            this.closeScreen();
-            this.openContainer = this.inventoryContainer;
+            closeScreen();
+            openContainer = inventoryContainer;
         }
 
-        while (!this.entityRemoveQueue.isEmpty())
+        while (!entityRemoveQueue.isEmpty())
         {
-            int i = Math.min(this.entityRemoveQueue.size(), Integer.MAX_VALUE);
+            int i = Math.min(entityRemoveQueue.size(), Integer.MAX_VALUE);
             int[] aint = new int[i];
-            Iterator<Integer> iterator = this.entityRemoveQueue.iterator();
+            Iterator<Integer> iterator = entityRemoveQueue.iterator();
             int j = 0;
 
             while (iterator.hasNext() && j < i)
@@ -403,37 +403,37 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener
                 iterator.remove();
             }
 
-            this.connection.sendPacket(new SPacketDestroyEntities(aint));
+            connection.sendPacket(new SPacketDestroyEntities(aint));
         }
 
-        Entity entity = this.getSpectatingEntity();
+        Entity entity = getSpectatingEntity();
 
         if (entity != this)
         {
             if (entity.isEntityAlive())
             {
-                this.setPositionAndRotation(entity.posX, entity.posY, entity.posZ, entity.rotationYaw, entity.rotationPitch);
-                this.mcServer.getPlayerList().serverUpdateMovingPlayer(this);
+                setPositionAndRotation(entity.posX, entity.posY, entity.posZ, entity.rotationYaw, entity.rotationPitch);
+                mcServer.getPlayerList().serverUpdateMovingPlayer(this);
 
-                if (this.isSneaking())
+                if (isSneaking())
                 {
-                    this.setSpectatingEntity(this);
+                    setSpectatingEntity(this);
                 }
             }
             else
             {
-                this.setSpectatingEntity(this);
+                setSpectatingEntity(this);
             }
         }
 
         CriteriaTriggers.TICK.trigger(this);
 
-        if (this.levitationStartPos != null)
+        if (levitationStartPos != null)
         {
-            CriteriaTriggers.LEVITATION.trigger(this, this.levitationStartPos, this.ticksExisted - this.levitatingSince);
+            CriteriaTriggers.LEVITATION.trigger(this, levitationStartPos, ticksExisted - levitatingSince);
         }
 
-        this.advancements.flushDirty(this);
+        advancements.flushDirty(this);
     }
 
     public void onUpdateEntity()
@@ -442,72 +442,72 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener
         {
             super.onUpdate();
 
-            for (int i = 0; i < this.inventory.getSizeInventory(); ++i)
+            for (int i = 0; i < inventory.getSizeInventory(); ++i)
             {
-                ItemStack itemstack = this.inventory.getStackInSlot(i);
+                ItemStack itemstack = inventory.getStackInSlot(i);
 
                 if (!itemstack.isEmpty() && itemstack.getItem().isMap())
                 {
-                    Packet<?> packet = ((ItemMapBase)itemstack.getItem()).createMapDataPacket(itemstack, this.world, this);
+                    Packet<?> packet = ((ItemMapBase)itemstack.getItem()).createMapDataPacket(itemstack, world, this);
 
                     if (packet != null)
                     {
-                        this.connection.sendPacket(packet);
+                        connection.sendPacket(packet);
                     }
                 }
             }
 
-            if (this.getHealth() != this.lastHealth || this.lastFoodLevel != this.foodStats.getFoodLevel() || this.foodStats.getSaturationLevel() == 0.0F != this.wasHungry)
+            if (getHealth() != lastHealth || lastFoodLevel != foodStats.getFoodLevel() || foodStats.getSaturationLevel() == 0.0F != wasHungry)
             {
-                this.connection.sendPacket(new SPacketUpdateHealth(this.getHealth(), this.foodStats.getFoodLevel(), this.foodStats.getSaturationLevel()));
-                this.lastHealth = this.getHealth();
-                this.lastFoodLevel = this.foodStats.getFoodLevel();
-                this.wasHungry = this.foodStats.getSaturationLevel() == 0.0F;
+                connection.sendPacket(new SPacketUpdateHealth(getHealth(), foodStats.getFoodLevel(), foodStats.getSaturationLevel()));
+                lastHealth = getHealth();
+                lastFoodLevel = foodStats.getFoodLevel();
+                wasHungry = foodStats.getSaturationLevel() == 0.0F;
             }
 
-            if (this.getHealth() + this.getAbsorptionAmount() != this.lastHealthScore)
+            if (getHealth() + getAbsorptionAmount() != lastHealthScore)
             {
-                this.lastHealthScore = this.getHealth() + this.getAbsorptionAmount();
-                this.updateScorePoints(IScoreCriteria.HEALTH, MathHelper.ceil(this.lastHealthScore));
+                lastHealthScore = getHealth() + getAbsorptionAmount();
+                updateScorePoints(IScoreCriteria.HEALTH, MathHelper.ceil(lastHealthScore));
             }
 
-            if (this.foodStats.getFoodLevel() != this.lastFoodScore)
+            if (foodStats.getFoodLevel() != lastFoodScore)
             {
-                this.lastFoodScore = this.foodStats.getFoodLevel();
-                this.updateScorePoints(IScoreCriteria.FOOD, MathHelper.ceil((float)this.lastFoodScore));
+                lastFoodScore = foodStats.getFoodLevel();
+                updateScorePoints(IScoreCriteria.FOOD, MathHelper.ceil((float) lastFoodScore));
             }
 
-            if (this.getAir() != this.lastAirScore)
+            if (getAir() != lastAirScore)
             {
-                this.lastAirScore = this.getAir();
-                this.updateScorePoints(IScoreCriteria.AIR, MathHelper.ceil((float)this.lastAirScore));
+                lastAirScore = getAir();
+                updateScorePoints(IScoreCriteria.AIR, MathHelper.ceil((float) lastAirScore));
             }
 
-            if (this.getTotalArmorValue() != this.lastArmorScore)
+            if (getTotalArmorValue() != lastArmorScore)
             {
-                this.lastArmorScore = this.getTotalArmorValue();
-                this.updateScorePoints(IScoreCriteria.ARMOR, MathHelper.ceil((float)this.lastArmorScore));
+                lastArmorScore = getTotalArmorValue();
+                updateScorePoints(IScoreCriteria.ARMOR, MathHelper.ceil((float) lastArmorScore));
             }
 
-            if (this.experienceTotal != this.lastExperienceScore)
+            if (experienceTotal != lastExperienceScore)
             {
-                this.lastExperienceScore = this.experienceTotal;
-                this.updateScorePoints(IScoreCriteria.XP, MathHelper.ceil((float)this.lastExperienceScore));
+                lastExperienceScore = experienceTotal;
+                updateScorePoints(IScoreCriteria.XP, MathHelper.ceil((float) lastExperienceScore));
             }
 
-            if (this.experienceLevel != this.lastLevelScore)
+            if (experienceLevel != lastLevelScore)
             {
-                this.lastLevelScore = this.experienceLevel;
-                this.updateScorePoints(IScoreCriteria.LEVEL, MathHelper.ceil((float)this.lastLevelScore));
+                lastLevelScore = experienceLevel;
+                updateScorePoints(IScoreCriteria.LEVEL, MathHelper.ceil((float) lastLevelScore));
             }
 
-            if (this.experienceTotal != this.lastExperience)
+            if (experienceTotal != lastExperience)
             {
-                this.lastExperience = this.experienceTotal;
-                this.connection.sendPacket(new SPacketSetExperience(this.experience, this.experienceTotal, this.experienceLevel));
+                lastExperience = experienceTotal;
+                connection.sendPacket(new SPacketSetExperience(experience, experienceTotal, experienceLevel));
             }
 
-            if (this.ticksExisted % 20 == 0)
+            if (ticksExisted % 20 == 0)
             {
                 CriteriaTriggers.LOCATION.trigger(this);
             }
@@ -516,16 +516,16 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener
         {
             CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Ticking player");
             CrashReportCategory crashreportcategory = crashreport.makeCategory("Player being ticked");
-            this.addEntityCrashInfo(crashreportcategory);
+            addEntityCrashInfo(crashreportcategory);
             throw new ReportedException(crashreport);
         }
     }
 
     private void updateScorePoints(IScoreCriteria criteria, int points)
     {
-        for (ScoreObjective scoreobjective : this.getWorldScoreboard().getObjectivesFromCriteria(criteria))
+        for (ScoreObjective scoreobjective : getWorldScoreboard().getObjectivesFromCriteria(criteria))
         {
-            Score score = this.getWorldScoreboard().getOrCreateScore(this.getName(), scoreobjective);
+            Score score = getWorldScoreboard().getOrCreateScore(getName(), scoreobjective);
             score.setScorePoints(points);
         }
     }
@@ -535,45 +535,45 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener
      */
     public void onDeath(DamageSource cause)
     {
-        boolean flag = this.world.getGameRules().getBoolean("showDeathMessages");
-        this.connection.sendPacket(new SPacketCombatEvent(this.getCombatTracker(), SPacketCombatEvent.Event.ENTITY_DIED, flag));
+        boolean flag = world.getGameRules().getBoolean("showDeathMessages");
+        connection.sendPacket(new SPacketCombatEvent(getCombatTracker(), SPacketCombatEvent.Event.ENTITY_DIED, flag));
 
         if (flag)
         {
-            Team team = this.getTeam();
+            Team team = getTeam();
 
             if (team != null && team.getDeathMessageVisibility() != Team.EnumVisible.ALWAYS)
             {
                 if (team.getDeathMessageVisibility() == Team.EnumVisible.HIDE_FOR_OTHER_TEAMS)
                 {
-                    this.mcServer.getPlayerList().sendMessageToAllTeamMembers(this, this.getCombatTracker().getDeathMessage());
+                    mcServer.getPlayerList().sendMessageToAllTeamMembers(this, getCombatTracker().getDeathMessage());
                 }
                 else if (team.getDeathMessageVisibility() == Team.EnumVisible.HIDE_FOR_OWN_TEAM)
                 {
-                    this.mcServer.getPlayerList().sendMessageToTeamOrAllPlayers(this, this.getCombatTracker().getDeathMessage());
+                    mcServer.getPlayerList().sendMessageToTeamOrAllPlayers(this, getCombatTracker().getDeathMessage());
                 }
             }
             else
             {
-                this.mcServer.getPlayerList().sendMessage(this.getCombatTracker().getDeathMessage());
+                mcServer.getPlayerList().sendMessage(getCombatTracker().getDeathMessage());
             }
         }
 
-        this.spawnShoulderEntities();
+        spawnShoulderEntities();
 
-        if (!this.world.getGameRules().getBoolean("keepInventory") && !this.isSpectator())
+        if (!world.getGameRules().getBoolean("keepInventory") && !isSpectator())
         {
-            this.destroyVanishingCursedItems();
-            this.inventory.dropAllItems();
+            destroyVanishingCursedItems();
+            inventory.dropAllItems();
         }
 
-        for (ScoreObjective scoreobjective : this.world.getScoreboard().getObjectivesFromCriteria(IScoreCriteria.DEATH_COUNT))
+        for (ScoreObjective scoreobjective : world.getScoreboard().getObjectivesFromCriteria(IScoreCriteria.DEATH_COUNT))
         {
-            Score score = this.getWorldScoreboard().getOrCreateScore(this.getName(), scoreobjective);
+            Score score = getWorldScoreboard().getOrCreateScore(getName(), scoreobjective);
             score.incrementScore();
         }
 
-        EntityLivingBase entitylivingbase = this.getAttackingEntity();
+        EntityLivingBase entitylivingbase = getAttackingEntity();
 
         if (entitylivingbase != null)
         {
@@ -581,17 +581,17 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener
 
             if (entitylist$entityegginfo != null)
             {
-                this.addStat(entitylist$entityegginfo.entityKilledByStat);
+                addStat(entitylist$entityegginfo.entityKilledByStat);
             }
 
-            entitylivingbase.awardKillScore(this, this.scoreValue, cause);
+            entitylivingbase.awardKillScore(this, scoreValue, cause);
         }
 
-        this.addStat(StatList.DEATHS);
-        this.takeStat(StatList.TIME_SINCE_DEATH);
-        this.extinguish();
-        this.setFlag(0, false);
-        this.getCombatTracker().reset();
+        addStat(StatList.DEATHS);
+        takeStat(StatList.TIME_SINCE_DEATH);
+        extinguish();
+        setFlag(0, false);
+        getCombatTracker().reset();
     }
 
     public void awardKillScore(Entity p_191956_1_, int p_191956_2_, DamageSource p_191956_3_)
@@ -599,24 +599,24 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener
         if (p_191956_1_ != this)
         {
             super.awardKillScore(p_191956_1_, p_191956_2_, p_191956_3_);
-            this.addScore(p_191956_2_);
-            Collection<ScoreObjective> collection = this.getWorldScoreboard().getObjectivesFromCriteria(IScoreCriteria.TOTAL_KILL_COUNT);
+            addScore(p_191956_2_);
+            Collection<ScoreObjective> collection = getWorldScoreboard().getObjectivesFromCriteria(IScoreCriteria.TOTAL_KILL_COUNT);
 
             if (p_191956_1_ instanceof EntityPlayer)
             {
-                this.addStat(StatList.PLAYER_KILLS);
-                collection.addAll(this.getWorldScoreboard().getObjectivesFromCriteria(IScoreCriteria.PLAYER_KILL_COUNT));
+                addStat(StatList.PLAYER_KILLS);
+                collection.addAll(getWorldScoreboard().getObjectivesFromCriteria(IScoreCriteria.PLAYER_KILL_COUNT));
             }
             else
             {
-                this.addStat(StatList.MOB_KILLS);
+                addStat(StatList.MOB_KILLS);
             }
 
-            collection.addAll(this.awardTeamKillScores(p_191956_1_));
+            collection.addAll(awardTeamKillScores(p_191956_1_));
 
             for (ScoreObjective scoreobjective : collection)
             {
-                this.getWorldScoreboard().getOrCreateScore(this.getName(), scoreobjective).incrementScore();
+                getWorldScoreboard().getOrCreateScore(getName(), scoreobjective).incrementScore();
             }
 
             CriteriaTriggers.PLAYER_KILLED_ENTITY.trigger(this, p_191956_1_, p_191956_3_);
@@ -626,7 +626,7 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener
     private Collection<ScoreObjective> awardTeamKillScores(Entity p_192038_1_)
     {
         String s = p_192038_1_ instanceof EntityPlayer ? p_192038_1_.getName() : p_192038_1_.getCachedUniqueIdString();
-        ScorePlayerTeam scoreplayerteam = this.getWorldScoreboard().getPlayersTeam(this.getName());
+        ScorePlayerTeam scoreplayerteam = getWorldScoreboard().getPlayersTeam(getName());
 
         if (scoreplayerteam != null)
         {
@@ -634,15 +634,15 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener
 
             if (i >= 0 && i < IScoreCriteria.KILLED_BY_TEAM.length)
             {
-                for (ScoreObjective scoreobjective : this.getWorldScoreboard().getObjectivesFromCriteria(IScoreCriteria.KILLED_BY_TEAM[i]))
+                for (ScoreObjective scoreobjective : getWorldScoreboard().getObjectivesFromCriteria(IScoreCriteria.KILLED_BY_TEAM[i]))
                 {
-                    Score score = this.getWorldScoreboard().getOrCreateScore(s, scoreobjective);
+                    Score score = getWorldScoreboard().getOrCreateScore(s, scoreobjective);
                     score.incrementScore();
                 }
             }
         }
 
-        ScorePlayerTeam scoreplayerteam1 = this.getWorldScoreboard().getPlayersTeam(s);
+        ScorePlayerTeam scoreplayerteam1 = getWorldScoreboard().getPlayersTeam(s);
 
         if (scoreplayerteam1 != null)
         {
@@ -650,7 +650,7 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener
 
             if (j >= 0 && j < IScoreCriteria.TEAM_KILL.length)
             {
-                return this.getWorldScoreboard().getObjectivesFromCriteria(IScoreCriteria.TEAM_KILL[j]);
+                return getWorldScoreboard().getObjectivesFromCriteria(IScoreCriteria.TEAM_KILL[j]);
             }
         }
 
@@ -662,15 +662,15 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener
      */
     public boolean attackEntityFrom(DamageSource source, float amount)
     {
-        if (this.isEntityInvulnerable(source))
+        if (isEntityInvulnerable(source))
         {
             return false;
         }
         else
         {
-            boolean flag = this.mcServer.isDedicatedServer() && this.canPlayersAttack() && "fall".equals(source.damageType);
+            boolean flag = mcServer.isDedicatedServer() && canPlayersAttack() && "fall".equals(source.damageType);
 
-            if (!flag && this.respawnInvulnerabilityTicks > 0 && source != DamageSource.OUT_OF_WORLD)
+            if (!flag && respawnInvulnerabilityTicks > 0 && source != DamageSource.OUT_OF_WORLD)
             {
                 return false;
             }
@@ -680,7 +680,7 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener
                 {
                     Entity entity = source.getTrueSource();
 
-                    if (entity instanceof EntityPlayer && !this.canAttackPlayer((EntityPlayer)entity))
+                    if (entity instanceof EntityPlayer && !canAttackPlayer((EntityPlayer)entity))
                     {
                         return false;
                     }
@@ -689,7 +689,7 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener
                     {
                         EntityArrow entityarrow = (EntityArrow)entity;
 
-                        if (entityarrow.shootingEntity instanceof EntityPlayer && !this.canAttackPlayer((EntityPlayer)entityarrow.shootingEntity))
+                        if (entityarrow.shootingEntity instanceof EntityPlayer && !canAttackPlayer((EntityPlayer)entityarrow.shootingEntity))
                         {
                             return false;
                         }
@@ -703,7 +703,7 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener
 
     public boolean canAttackPlayer(EntityPlayer other)
     {
-        return !this.canPlayersAttack() ? false : super.canAttackPlayer(other);
+        return !canPlayersAttack() ? false : super.canAttackPlayer(other);
     }
 
     /**
@@ -711,48 +711,48 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener
      */
     private boolean canPlayersAttack()
     {
-        return this.mcServer.isPVPEnabled();
+        return mcServer.isPVPEnabled();
     }
 
     @Nullable
     public Entity changeDimension(int dimensionIn)
     {
-        this.invulnerableDimensionChange = true;
+        invulnerableDimensionChange = true;
 
-        if (this.dimension == 0 && dimensionIn == -1)
+        if (dimension == 0 && dimensionIn == -1)
         {
-            this.enteredNetherPosition = new Vec3d(this.posX, this.posY, this.posZ);
+            enteredNetherPosition = new Vec3d(posX, posY, posZ);
         }
-        else if (this.dimension != -1 && dimensionIn != 0)
+        else if (dimension != -1 && dimensionIn != 0)
         {
-            this.enteredNetherPosition = null;
+            enteredNetherPosition = null;
         }
 
-        if (this.dimension == 1 && dimensionIn == 1)
+        if (dimension == 1 && dimensionIn == 1)
         {
-            this.world.removeEntity(this);
+            world.removeEntity(this);
 
-            if (!this.queuedEndExit)
+            if (!queuedEndExit)
             {
-                this.queuedEndExit = true;
-                this.connection.sendPacket(new SPacketChangeGameState(4, this.seenCredits ? 0.0F : 1.0F));
-                this.seenCredits = true;
+                queuedEndExit = true;
+                connection.sendPacket(new SPacketChangeGameState(4, seenCredits ? 0.0F : 1.0F));
+                seenCredits = true;
             }
 
             return this;
         }
         else
         {
-            if (this.dimension == 0 && dimensionIn == 1)
+            if (dimension == 0 && dimensionIn == 1)
             {
                 dimensionIn = 1;
             }
 
-            this.mcServer.getPlayerList().changePlayerDimension(this, dimensionIn);
-            this.connection.sendPacket(new SPacketEffect(1032, BlockPos.ORIGIN, 0, false));
-            this.lastExperience = -1;
-            this.lastHealth = -1.0F;
-            this.lastFoodLevel = -1;
+            mcServer.getPlayerList().changePlayerDimension(this, dimensionIn);
+            connection.sendPacket(new SPacketEffect(1032, BlockPos.ORIGIN, 0, false));
+            lastExperience = -1;
+            lastHealth = -1.0F;
+            lastFoodLevel = -1;
             return this;
         }
     }
@@ -761,11 +761,11 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener
     {
         if (player.isSpectator())
         {
-            return this.getSpectatingEntity() == this;
+            return getSpectatingEntity() == this;
         }
         else
         {
-            return this.isSpectator() ? false : super.isSpectatedByPlayer(player);
+            return isSpectator() ? false : super.isSpectatedByPlayer(player);
         }
     }
 
@@ -777,7 +777,7 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener
 
             if (spacketupdatetileentity != null)
             {
-                this.connection.sendPacket(spacketupdatetileentity);
+                connection.sendPacket(spacketupdatetileentity);
             }
         }
     }
@@ -788,7 +788,7 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener
     public void onItemPickup(Entity entityIn, int quantity)
     {
         super.onItemPickup(entityIn, quantity);
-        this.openContainer.detectAndSendChanges();
+        openContainer.detectAndSendChanges();
     }
 
     public EntityPlayer.SleepResult trySleep(BlockPos bedLocation)
@@ -797,11 +797,11 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener
 
         if (entityplayer$sleepresult == EntityPlayer.SleepResult.OK)
         {
-            this.addStat(StatList.SLEEP_IN_BED);
+            addStat(StatList.SLEEP_IN_BED);
             Packet<?> packet = new SPacketUseBed(this, bedLocation);
-            this.getServerWorld().getEntityTracker().sendToTracking(this, packet);
-            this.connection.setPlayerLocation(this.posX, this.posY, this.posZ, this.rotationYaw, this.rotationPitch);
-            this.connection.sendPacket(packet);
+            getServerWorld().getEntityTracker().sendToTracking(this, packet);
+            connection.setPlayerLocation(posX, posY, posZ, rotationYaw, rotationPitch);
+            connection.sendPacket(packet);
             CriteriaTriggers.SLEPT_IN_BED.trigger(this);
         }
 
@@ -813,22 +813,22 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener
      */
     public void wakeUpPlayer(boolean immediately, boolean updateWorldFlag, boolean setSpawn)
     {
-        if (this.isPlayerSleeping())
+        if (isPlayerSleeping())
         {
-            this.getServerWorld().getEntityTracker().sendToTrackingAndSelf(this, new SPacketAnimation(this, 2));
+            getServerWorld().getEntityTracker().sendToTrackingAndSelf(this, new SPacketAnimation(this, 2));
         }
 
         super.wakeUpPlayer(immediately, updateWorldFlag, setSpawn);
 
-        if (this.connection != null)
+        if (connection != null)
         {
-            this.connection.setPlayerLocation(this.posX, this.posY, this.posZ, this.rotationYaw, this.rotationPitch);
+            connection.setPlayerLocation(posX, posY, posZ, rotationYaw, rotationPitch);
         }
     }
 
     public boolean startRiding(Entity entityIn, boolean force)
     {
-        Entity entity = this.getRidingEntity();
+        Entity entity = getRidingEntity();
 
         if (!super.startRiding(entityIn, force))
         {
@@ -836,11 +836,11 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener
         }
         else
         {
-            Entity entity1 = this.getRidingEntity();
+            Entity entity1 = getRidingEntity();
 
-            if (entity1 != entity && this.connection != null)
+            if (entity1 != entity && connection != null)
             {
-                this.connection.setPlayerLocation(this.posX, this.posY, this.posZ, this.rotationYaw, this.rotationPitch);
+                connection.setPlayerLocation(posX, posY, posZ, rotationYaw, rotationPitch);
             }
 
             return true;
@@ -852,13 +852,13 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener
      */
     public void dismountRidingEntity()
     {
-        Entity entity = this.getRidingEntity();
+        Entity entity = getRidingEntity();
         super.dismountRidingEntity();
-        Entity entity1 = this.getRidingEntity();
+        Entity entity1 = getRidingEntity();
 
-        if (entity1 != entity && this.connection != null)
+        if (entity1 != entity && connection != null)
         {
-            this.connection.setPlayerLocation(this.posX, this.posY, this.posZ, this.rotationYaw, this.rotationPitch);
+            connection.setPlayerLocation(posX, posY, posZ, rotationYaw, rotationPitch);
         }
     }
 
@@ -867,7 +867,7 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener
      */
     public boolean isEntityInvulnerable(DamageSource source)
     {
-        return super.isEntityInvulnerable(source) || this.isInvulnerableDimensionChange();
+        return super.isEntityInvulnerable(source) || isInvulnerableDimensionChange();
     }
 
     protected void updateFallState(double y, boolean onGroundIn, IBlockState state, BlockPos pos)
@@ -876,7 +876,7 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener
 
     protected void frostWalk(BlockPos pos)
     {
-        if (!this.isSpectator())
+        if (!isSpectator())
         {
             super.frostWalk(pos);
         }
@@ -887,16 +887,16 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener
      */
     public void handleFalling(double y, boolean onGroundIn)
     {
-        int i = MathHelper.floor(this.posX);
-        int j = MathHelper.floor(this.posY - 0.20000000298023224D);
-        int k = MathHelper.floor(this.posZ);
+        int i = MathHelper.floor(posX);
+        int j = MathHelper.floor(posY - 0.20000000298023224D);
+        int k = MathHelper.floor(posZ);
         BlockPos blockpos = new BlockPos(i, j, k);
-        IBlockState iblockstate = this.world.getBlockState(blockpos);
+        IBlockState iblockstate = world.getBlockState(blockpos);
 
         if (iblockstate.getMaterial() == Material.AIR)
         {
             BlockPos blockpos1 = blockpos.down();
-            IBlockState iblockstate1 = this.world.getBlockState(blockpos1);
+            IBlockState iblockstate1 = world.getBlockState(blockpos1);
             Block block = iblockstate1.getBlock();
 
             if (block instanceof BlockFence || block instanceof BlockWall || block instanceof BlockFenceGate)
@@ -912,7 +912,7 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener
     public void openEditSign(TileEntitySign signTile)
     {
         signTile.setPlayer(this);
-        this.connection.sendPacket(new SPacketSignEditorOpen(signTile.getPos()));
+        connection.sendPacket(new SPacketSignEditorOpen(signTile.getPos()));
     }
 
     /**
@@ -920,22 +920,22 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener
      */
     private void getNextWindowId()
     {
-        this.currentWindowId = this.currentWindowId % 100 + 1;
+        currentWindowId = currentWindowId % 100 + 1;
     }
 
     public void displayGui(IInteractionObject guiOwner)
     {
-        if (guiOwner instanceof ILootContainer && ((ILootContainer)guiOwner).getLootTable() != null && this.isSpectator())
+        if (guiOwner instanceof ILootContainer && ((ILootContainer)guiOwner).getLootTable() != null && isSpectator())
         {
-            this.sendStatusMessage((new TextComponentTranslation("container.spectatorCantOpen", new Object[0])).setStyle((new Style()).setColor(TextFormatting.RED)), true);
+            sendStatusMessage((new TextComponentTranslation("container.spectatorCantOpen", new Object[0])).setStyle((new Style()).setColor(TextFormatting.RED)), true);
         }
         else
         {
-            this.getNextWindowId();
-            this.connection.sendPacket(new SPacketOpenWindow(this.currentWindowId, guiOwner.getGuiID(), guiOwner.getDisplayName()));
-            this.openContainer = guiOwner.createContainer(this.inventory, this);
-            this.openContainer.windowId = this.currentWindowId;
-            this.openContainer.addListener(this);
+            getNextWindowId();
+            connection.sendPacket(new SPacketOpenWindow(currentWindowId, guiOwner.getGuiID(), guiOwner.getDisplayName()));
+            openContainer = guiOwner.createContainer(inventory, this);
+            openContainer.windowId = currentWindowId;
+            openContainer.addListener(this);
         }
     }
 
@@ -944,79 +944,79 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener
      */
     public void displayGUIChest(IInventory chestInventory)
     {
-        if (chestInventory instanceof ILootContainer && ((ILootContainer)chestInventory).getLootTable() != null && this.isSpectator())
+        if (chestInventory instanceof ILootContainer && ((ILootContainer)chestInventory).getLootTable() != null && isSpectator())
         {
-            this.sendStatusMessage((new TextComponentTranslation("container.spectatorCantOpen", new Object[0])).setStyle((new Style()).setColor(TextFormatting.RED)), true);
+            sendStatusMessage((new TextComponentTranslation("container.spectatorCantOpen", new Object[0])).setStyle((new Style()).setColor(TextFormatting.RED)), true);
         }
         else
         {
-            if (this.openContainer != this.inventoryContainer)
+            if (openContainer != inventoryContainer)
             {
-                this.closeScreen();
+                closeScreen();
             }
 
             if (chestInventory instanceof ILockableContainer)
             {
                 ILockableContainer ilockablecontainer = (ILockableContainer)chestInventory;
 
-                if (ilockablecontainer.isLocked() && !this.canOpen(ilockablecontainer.getLockCode()) && !this.isSpectator())
+                if (ilockablecontainer.isLocked() && !canOpen(ilockablecontainer.getLockCode()) && !isSpectator())
                 {
-                    this.connection.sendPacket(new SPacketChat(new TextComponentTranslation("container.isLocked", new Object[] {chestInventory.getDisplayName()}), ChatType.GAME_INFO));
-                    this.connection.sendPacket(new SPacketSoundEffect(SoundEvents.BLOCK_CHEST_LOCKED, SoundCategory.BLOCKS, this.posX, this.posY, this.posZ, 1.0F, 1.0F));
+                    connection.sendPacket(new SPacketChat(new TextComponentTranslation("container.isLocked", new Object[] {chestInventory.getDisplayName()}), ChatType.GAME_INFO));
+                    connection.sendPacket(new SPacketSoundEffect(SoundEvents.BLOCK_CHEST_LOCKED, SoundCategory.BLOCKS, posX, posY, posZ, 1.0F, 1.0F));
                     return;
                 }
             }
 
-            this.getNextWindowId();
+            getNextWindowId();
 
             if (chestInventory instanceof IInteractionObject)
             {
-                this.connection.sendPacket(new SPacketOpenWindow(this.currentWindowId, ((IInteractionObject)chestInventory).getGuiID(), chestInventory.getDisplayName(), chestInventory.getSizeInventory()));
-                this.openContainer = ((IInteractionObject)chestInventory).createContainer(this.inventory, this);
+                connection.sendPacket(new SPacketOpenWindow(currentWindowId, ((IInteractionObject)chestInventory).getGuiID(), chestInventory.getDisplayName(), chestInventory.getSizeInventory()));
+                openContainer = ((IInteractionObject)chestInventory).createContainer(inventory, this);
             }
             else
             {
-                this.connection.sendPacket(new SPacketOpenWindow(this.currentWindowId, "minecraft:container", chestInventory.getDisplayName(), chestInventory.getSizeInventory()));
-                this.openContainer = new ContainerChest(this.inventory, chestInventory, this);
+                connection.sendPacket(new SPacketOpenWindow(currentWindowId, "minecraft:container", chestInventory.getDisplayName(), chestInventory.getSizeInventory()));
+                openContainer = new ContainerChest(inventory, chestInventory, this);
             }
 
-            this.openContainer.windowId = this.currentWindowId;
-            this.openContainer.addListener(this);
+            openContainer.windowId = currentWindowId;
+            openContainer.addListener(this);
         }
     }
 
     public void displayVillagerTradeGui(IMerchant villager)
     {
-        this.getNextWindowId();
-        this.openContainer = new ContainerMerchant(this.inventory, villager, this.world);
-        this.openContainer.windowId = this.currentWindowId;
-        this.openContainer.addListener(this);
-        IInventory iinventory = ((ContainerMerchant)this.openContainer).getMerchantInventory();
+        getNextWindowId();
+        openContainer = new ContainerMerchant(inventory, villager, world);
+        openContainer.windowId = currentWindowId;
+        openContainer.addListener(this);
+        IInventory iinventory = ((ContainerMerchant) openContainer).getMerchantInventory();
         ITextComponent itextcomponent = villager.getDisplayName();
-        this.connection.sendPacket(new SPacketOpenWindow(this.currentWindowId, "minecraft:villager", itextcomponent, iinventory.getSizeInventory()));
+        connection.sendPacket(new SPacketOpenWindow(currentWindowId, "minecraft:villager", itextcomponent, iinventory.getSizeInventory()));
         MerchantRecipeList merchantrecipelist = villager.getRecipes(this);
 
         if (merchantrecipelist != null)
         {
             PacketBuffer packetbuffer = new PacketBuffer(Unpooled.buffer());
-            packetbuffer.writeInt(this.currentWindowId);
+            packetbuffer.writeInt(currentWindowId);
             merchantrecipelist.writeToBuf(packetbuffer);
-            this.connection.sendPacket(new SPacketCustomPayload("MC|TrList", packetbuffer));
+            connection.sendPacket(new SPacketCustomPayload("MC|TrList", packetbuffer));
         }
     }
 
     public void openGuiHorseInventory(AbstractHorse horse, IInventory inventoryIn)
     {
-        if (this.openContainer != this.inventoryContainer)
+        if (openContainer != inventoryContainer)
         {
-            this.closeScreen();
+            closeScreen();
         }
 
-        this.getNextWindowId();
-        this.connection.sendPacket(new SPacketOpenWindow(this.currentWindowId, "EntityHorse", inventoryIn.getDisplayName(), inventoryIn.getSizeInventory(), horse.getEntityId()));
-        this.openContainer = new ContainerHorseInventory(this.inventory, inventoryIn, horse, this);
-        this.openContainer.windowId = this.currentWindowId;
-        this.openContainer.addListener(this);
+        getNextWindowId();
+        connection.sendPacket(new SPacketOpenWindow(currentWindowId, "EntityHorse", inventoryIn.getDisplayName(), inventoryIn.getSizeInventory(), horse.getEntityId()));
+        openContainer = new ContainerHorseInventory(inventory, inventoryIn, horse, this);
+        openContainer.windowId = currentWindowId;
+        openContainer.addListener(this);
     }
 
     public void openBook(ItemStack stack, EnumHand hand)
@@ -1027,14 +1027,14 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener
         {
             PacketBuffer packetbuffer = new PacketBuffer(Unpooled.buffer());
             packetbuffer.writeEnumValue(hand);
-            this.connection.sendPacket(new SPacketCustomPayload("MC|BOpen", packetbuffer));
+            connection.sendPacket(new SPacketCustomPayload("MC|BOpen", packetbuffer));
         }
     }
 
     public void displayGuiCommandBlock(TileEntityCommandBlock commandBlock)
     {
         commandBlock.setSendToClient(true);
-        this.sendTileEntityUpdate(commandBlock);
+        sendTileEntityUpdate(commandBlock);
     }
 
     /**
@@ -1045,21 +1045,21 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener
     {
         if (!(containerToSend.getSlot(slotInd) instanceof SlotCrafting))
         {
-            if (containerToSend == this.inventoryContainer)
+            if (containerToSend == inventoryContainer)
             {
-                CriteriaTriggers.INVENTORY_CHANGED.trigger(this, this.inventory);
+                CriteriaTriggers.INVENTORY_CHANGED.trigger(this, inventory);
             }
 
-            if (!this.isChangingQuantityOnly)
+            if (!isChangingQuantityOnly)
             {
-                this.connection.sendPacket(new SPacketSetSlot(containerToSend.windowId, slotInd, stack));
+                connection.sendPacket(new SPacketSetSlot(containerToSend.windowId, slotInd, stack));
             }
         }
     }
 
     public void sendContainerToPlayer(Container containerIn)
     {
-        this.sendAllContents(containerIn, containerIn.getInventory());
+        sendAllContents(containerIn, containerIn.getInventory());
     }
 
     /**
@@ -1067,8 +1067,8 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener
      */
     public void sendAllContents(Container containerToSend, NonNullList<ItemStack> itemsList)
     {
-        this.connection.sendPacket(new SPacketWindowItems(containerToSend.windowId, itemsList));
-        this.connection.sendPacket(new SPacketSetSlot(-1, -1, this.inventory.getItemStack()));
+        connection.sendPacket(new SPacketWindowItems(containerToSend.windowId, itemsList));
+        connection.sendPacket(new SPacketSetSlot(-1, -1, inventory.getItemStack()));
     }
 
     /**
@@ -1078,14 +1078,14 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener
      */
     public void sendWindowProperty(Container containerIn, int varToUpdate, int newValue)
     {
-        this.connection.sendPacket(new SPacketWindowProperty(containerIn.windowId, varToUpdate, newValue));
+        connection.sendPacket(new SPacketWindowProperty(containerIn.windowId, varToUpdate, newValue));
     }
 
     public void sendAllWindowProperties(Container containerIn, IInventory inventory)
     {
         for (int i = 0; i < inventory.getFieldCount(); ++i)
         {
-            this.connection.sendPacket(new SPacketWindowProperty(containerIn.windowId, i, inventory.getField(i)));
+            connection.sendPacket(new SPacketWindowProperty(containerIn.windowId, i, inventory.getField(i)));
         }
     }
 
@@ -1094,8 +1094,8 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener
      */
     public void closeScreen()
     {
-        this.connection.sendPacket(new SPacketCloseWindow(this.openContainer.windowId));
-        this.closeContainer();
+        connection.sendPacket(new SPacketCloseWindow(openContainer.windowId));
+        closeContainer();
     }
 
     /**
@@ -1103,9 +1103,9 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener
      */
     public void updateHeldItem()
     {
-        if (!this.isChangingQuantityOnly)
+        if (!isChangingQuantityOnly)
         {
-            this.connection.sendPacket(new SPacketSetSlot(-1, -1, this.inventory.getItemStack()));
+            connection.sendPacket(new SPacketSetSlot(-1, -1, inventory.getItemStack()));
         }
     }
 
@@ -1114,26 +1114,26 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener
      */
     public void closeContainer()
     {
-        this.openContainer.onContainerClosed(this);
-        this.openContainer = this.inventoryContainer;
+        openContainer.onContainerClosed(this);
+        openContainer = inventoryContainer;
     }
 
     public void setEntityActionState(float strafe, float forward, boolean jumping, boolean sneaking)
     {
-        if (this.isRiding())
+        if (isRiding())
         {
             if (strafe >= -1.0F && strafe <= 1.0F)
             {
-                this.moveStrafing = strafe;
+                moveStrafing = strafe;
             }
 
             if (forward >= -1.0F && forward <= 1.0F)
             {
-                this.moveForward = forward;
+                moveForward = forward;
             }
 
-            this.isJumping = jumping;
-            this.setSneaking(sneaking);
+            isJumping = jumping;
+            setSneaking(sneaking);
         }
     }
 
@@ -1144,11 +1144,11 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener
     {
         if (stat != null)
         {
-            this.statsFile.increaseStat(this, stat, amount);
+            statsFile.increaseStat(this, stat, amount);
 
-            for (ScoreObjective scoreobjective : this.getWorldScoreboard().getObjectivesFromCriteria(stat.getCriteria()))
+            for (ScoreObjective scoreobjective : getWorldScoreboard().getObjectivesFromCriteria(stat.getCriteria()))
             {
-                this.getWorldScoreboard().getOrCreateScore(this.getName(), scoreobjective).increaseScore(amount);
+                getWorldScoreboard().getOrCreateScore(getName(), scoreobjective).increaseScore(amount);
             }
         }
     }
@@ -1157,18 +1157,18 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener
     {
         if (stat != null)
         {
-            this.statsFile.unlockAchievement(this, stat, 0);
+            statsFile.unlockAchievement(this, stat, 0);
 
-            for (ScoreObjective scoreobjective : this.getWorldScoreboard().getObjectivesFromCriteria(stat.getCriteria()))
+            for (ScoreObjective scoreobjective : getWorldScoreboard().getObjectivesFromCriteria(stat.getCriteria()))
             {
-                this.getWorldScoreboard().getOrCreateScore(this.getName(), scoreobjective).setScorePoints(0);
+                getWorldScoreboard().getOrCreateScore(getName(), scoreobjective).setScorePoints(0);
             }
         }
     }
 
     public void unlockRecipes(List<IRecipe> p_192021_1_)
     {
-        this.recipeBook.add(p_192021_1_, this);
+        recipeBook.add(p_192021_1_, this);
     }
 
     public void unlockRecipes(ResourceLocation[] p_193102_1_)
@@ -1180,28 +1180,28 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener
             list.add(CraftingManager.getRecipe(resourcelocation));
         }
 
-        this.unlockRecipes(list);
+        unlockRecipes(list);
     }
 
     public void resetRecipes(List<IRecipe> p_192022_1_)
     {
-        this.recipeBook.remove(p_192022_1_, this);
+        recipeBook.remove(p_192022_1_, this);
     }
 
     public void mountEntityAndWakeUp()
     {
-        this.disconnected = true;
-        this.removePassengers();
+        disconnected = true;
+        removePassengers();
 
-        if (this.sleeping)
+        if (sleeping)
         {
-            this.wakeUpPlayer(true, false, false);
+            wakeUpPlayer(true, false, false);
         }
     }
 
     public boolean hasDisconnected()
     {
-        return this.disconnected;
+        return disconnected;
     }
 
     /**
@@ -1210,12 +1210,12 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener
      */
     public void setPlayerHealthUpdated()
     {
-        this.lastHealth = -1.0E8F;
+        lastHealth = -1.0E8F;
     }
 
     public void sendStatusMessage(ITextComponent chatComponent, boolean actionBar)
     {
-        this.connection.sendPacket(new SPacketChat(chatComponent, actionBar ? ChatType.GAME_INFO : ChatType.CHAT));
+        connection.sendPacket(new SPacketChat(chatComponent, actionBar ? ChatType.GAME_INFO : ChatType.CHAT));
     }
 
     /**
@@ -1223,9 +1223,9 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener
      */
     protected void onItemUseFinish()
     {
-        if (!this.activeItemStack.isEmpty() && this.isHandActive())
+        if (!activeItemStack.isEmpty() && isHandActive())
         {
-            this.connection.sendPacket(new SPacketEntityStatus(this, (byte)9));
+            connection.sendPacket(new SPacketEntityStatus(this, (byte)9));
             super.onItemUseFinish();
         }
     }
@@ -1234,49 +1234,49 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener
     {
         if (keepEverything)
         {
-            this.inventory.copyInventory(that.inventory);
-            this.setHealth(that.getHealth());
-            this.foodStats = that.foodStats;
-            this.experienceLevel = that.experienceLevel;
-            this.experienceTotal = that.experienceTotal;
-            this.experience = that.experience;
-            this.setScore(that.getScore());
-            this.lastPortalPos = that.lastPortalPos;
-            this.lastPortalVec = that.lastPortalVec;
-            this.teleportDirection = that.teleportDirection;
+            inventory.copyInventory(that.inventory);
+            setHealth(that.getHealth());
+            foodStats = that.foodStats;
+            experienceLevel = that.experienceLevel;
+            experienceTotal = that.experienceTotal;
+            experience = that.experience;
+            setScore(that.getScore());
+            lastPortalPos = that.lastPortalPos;
+            lastPortalVec = that.lastPortalVec;
+            teleportDirection = that.teleportDirection;
         }
-        else if (this.world.getGameRules().getBoolean("keepInventory") || that.isSpectator())
+        else if (world.getGameRules().getBoolean("keepInventory") || that.isSpectator())
         {
-            this.inventory.copyInventory(that.inventory);
-            this.experienceLevel = that.experienceLevel;
-            this.experienceTotal = that.experienceTotal;
-            this.experience = that.experience;
-            this.setScore(that.getScore());
+            inventory.copyInventory(that.inventory);
+            experienceLevel = that.experienceLevel;
+            experienceTotal = that.experienceTotal;
+            experience = that.experience;
+            setScore(that.getScore());
         }
 
-        this.xpSeed = that.xpSeed;
-        this.enderChest = that.enderChest;
-        this.getDataManager().set(PLAYER_MODEL_FLAG, that.getDataManager().get(PLAYER_MODEL_FLAG));
-        this.lastExperience = -1;
-        this.lastHealth = -1.0F;
-        this.lastFoodLevel = -1;
-        this.recipeBook.copyFrom(that.recipeBook);
-        this.entityRemoveQueue.addAll(that.entityRemoveQueue);
-        this.seenCredits = that.seenCredits;
-        this.enteredNetherPosition = that.enteredNetherPosition;
-        this.setLeftShoulderEntity(that.getLeftShoulderEntity());
-        this.setRightShoulderEntity(that.getRightShoulderEntity());
+        xpSeed = that.xpSeed;
+        enderChest = that.enderChest;
+        getDataManager().set(PLAYER_MODEL_FLAG, that.getDataManager().get(PLAYER_MODEL_FLAG));
+        lastExperience = -1;
+        lastHealth = -1.0F;
+        lastFoodLevel = -1;
+        recipeBook.copyFrom(that.recipeBook);
+        entityRemoveQueue.addAll(that.entityRemoveQueue);
+        seenCredits = that.seenCredits;
+        enteredNetherPosition = that.enteredNetherPosition;
+        setLeftShoulderEntity(that.getLeftShoulderEntity());
+        setRightShoulderEntity(that.getRightShoulderEntity());
     }
 
     protected void onNewPotionEffect(PotionEffect id)
     {
         super.onNewPotionEffect(id);
-        this.connection.sendPacket(new SPacketEntityEffect(this.getEntityId(), id));
+        connection.sendPacket(new SPacketEntityEffect(getEntityId(), id));
 
         if (id.getPotion() == MobEffects.LEVITATION)
         {
-            this.levitatingSince = this.ticksExisted;
-            this.levitationStartPos = new Vec3d(this.posX, this.posY, this.posZ);
+            levitatingSince = ticksExisted;
+            levitationStartPos = new Vec3d(posX, posY, posZ);
         }
 
         CriteriaTriggers.EFFECTS_CHANGED.trigger(this);
@@ -1285,18 +1285,18 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener
     protected void onChangedPotionEffect(PotionEffect id, boolean p_70695_2_)
     {
         super.onChangedPotionEffect(id, p_70695_2_);
-        this.connection.sendPacket(new SPacketEntityEffect(this.getEntityId(), id));
+        connection.sendPacket(new SPacketEntityEffect(getEntityId(), id));
         CriteriaTriggers.EFFECTS_CHANGED.trigger(this);
     }
 
     protected void onFinishedPotionEffect(PotionEffect effect)
     {
         super.onFinishedPotionEffect(effect);
-        this.connection.sendPacket(new SPacketRemoveEntityEffect(this.getEntityId(), effect.getPotion()));
+        connection.sendPacket(new SPacketRemoveEntityEffect(getEntityId(), effect.getPotion()));
 
         if (effect.getPotion() == MobEffects.LEVITATION)
         {
-            this.levitationStartPos = null;
+            levitationStartPos = null;
         }
 
         CriteriaTriggers.EFFECTS_CHANGED.trigger(this);
@@ -1307,7 +1307,7 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener
      */
     public void setPositionAndUpdate(double x, double y, double z)
     {
-        this.connection.setPlayerLocation(x, y, z, this.rotationYaw, this.rotationPitch);
+        connection.setPlayerLocation(x, y, z, rotationYaw, rotationPitch);
     }
 
     /**
@@ -1315,12 +1315,12 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener
      */
     public void onCriticalHit(Entity entityHit)
     {
-        this.getServerWorld().getEntityTracker().sendToTrackingAndSelf(this, new SPacketAnimation(entityHit, 4));
+        getServerWorld().getEntityTracker().sendToTrackingAndSelf(this, new SPacketAnimation(entityHit, 4));
     }
 
     public void onEnchantmentCritical(Entity entityHit)
     {
-        this.getServerWorld().getEntityTracker().sendToTrackingAndSelf(this, new SPacketAnimation(entityHit, 5));
+        getServerWorld().getEntityTracker().sendToTrackingAndSelf(this, new SPacketAnimation(entityHit, 5));
     }
 
     /**
@@ -1328,16 +1328,16 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener
      */
     public void sendPlayerAbilities()
     {
-        if (this.connection != null)
+        if (connection != null)
         {
-            this.connection.sendPacket(new SPacketPlayerAbilities(this.capabilities));
-            this.updatePotionMetadata();
+            connection.sendPacket(new SPacketPlayerAbilities(capabilities));
+            updatePotionMetadata();
         }
     }
 
     public WorldServer getServerWorld()
     {
-        return (WorldServer)this.world;
+        return (WorldServer) world;
     }
 
     /**
@@ -1345,21 +1345,21 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener
      */
     public void setGameType(GameType gameType)
     {
-        this.interactionManager.setGameType(gameType);
-        this.connection.sendPacket(new SPacketChangeGameState(3, (float)gameType.getID()));
+        interactionManager.setGameType(gameType);
+        connection.sendPacket(new SPacketChangeGameState(3, (float)gameType.getID()));
 
         if (gameType == GameType.SPECTATOR)
         {
-            this.spawnShoulderEntities();
-            this.dismountRidingEntity();
+            spawnShoulderEntities();
+            dismountRidingEntity();
         }
         else
         {
-            this.setSpectatingEntity(this);
+            setSpectatingEntity(this);
         }
 
-        this.sendPlayerAbilities();
-        this.markPotionsDirty();
+        sendPlayerAbilities();
+        markPotionsDirty();
     }
 
     /**
@@ -1367,12 +1367,12 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener
      */
     public boolean isSpectator()
     {
-        return this.interactionManager.getGameType() == GameType.SPECTATOR;
+        return interactionManager.getGameType() == GameType.SPECTATOR;
     }
 
     public boolean isCreative()
     {
-        return this.interactionManager.getGameType() == GameType.CREATIVE;
+        return interactionManager.getGameType() == GameType.CREATIVE;
     }
 
     /**
@@ -1380,7 +1380,7 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener
      */
     public void sendMessage(ITextComponent component)
     {
-        this.connection.sendPacket(new SPacketChat(component));
+        connection.sendPacket(new SPacketChat(component));
     }
 
     /**
@@ -1388,15 +1388,15 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener
      */
     public boolean canUseCommand(int permLevel, String commandName)
     {
-        if ("seed".equals(commandName) && !this.mcServer.isDedicatedServer())
+        if ("seed".equals(commandName) && !mcServer.isDedicatedServer())
         {
             return true;
         }
         else if (!"tell".equals(commandName) && !"help".equals(commandName) && !"me".equals(commandName) && !"trigger".equals(commandName))
         {
-            if (this.mcServer.getPlayerList().canSendCommands(this.getGameProfile()))
+            if (mcServer.getPlayerList().canSendCommands(getGameProfile()))
             {
-                UserListOpsEntry userlistopsentry = (UserListOpsEntry)this.mcServer.getPlayerList().getOppedPlayers().getEntry(this.getGameProfile());
+                UserListOpsEntry userlistopsentry = (UserListOpsEntry) mcServer.getPlayerList().getOppedPlayers().getEntry(getGameProfile());
 
                 if (userlistopsentry != null)
                 {
@@ -1404,7 +1404,7 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener
                 }
                 else
                 {
-                    return this.mcServer.getOpPermissionLevel() >= permLevel;
+                    return mcServer.getOpPermissionLevel() >= permLevel;
                 }
             }
             else
@@ -1423,7 +1423,7 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener
      */
     public String getPlayerIP()
     {
-        String s = this.connection.netManager.getRemoteAddress().toString();
+        String s = connection.netManager.getRemoteAddress().toString();
         s = s.substring(s.indexOf("/") + 1);
         s = s.substring(0, s.indexOf(":"));
         return s;
@@ -1431,21 +1431,21 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener
 
     public void handleClientSettings(CPacketClientSettings packetIn)
     {
-        this.language = packetIn.getLang();
-        this.chatVisibility = packetIn.getChatVisibility();
-        this.chatColours = packetIn.isColorsEnabled();
-        this.getDataManager().set(PLAYER_MODEL_FLAG, Byte.valueOf((byte)packetIn.getModelPartFlags()));
-        this.getDataManager().set(MAIN_HAND, Byte.valueOf((byte)(packetIn.getMainHand() == EnumHandSide.LEFT ? 0 : 1)));
+        language = packetIn.getLang();
+        chatVisibility = packetIn.getChatVisibility();
+        chatColours = packetIn.isColorsEnabled();
+        getDataManager().set(PLAYER_MODEL_FLAG, Byte.valueOf((byte)packetIn.getModelPartFlags()));
+        getDataManager().set(MAIN_HAND, Byte.valueOf((byte)(packetIn.getMainHand() == EnumHandSide.LEFT ? 0 : 1)));
     }
 
     public EntityPlayer.EnumChatVisibility getChatVisibility()
     {
-        return this.chatVisibility;
+        return chatVisibility;
     }
 
     public void loadResourcePack(String url, String hash)
     {
-        this.connection.sendPacket(new SPacketResourcePackSend(url, hash));
+        connection.sendPacket(new SPacketResourcePackSend(url, hash));
     }
 
     /**
@@ -1454,12 +1454,12 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener
      */
     public BlockPos getPosition()
     {
-        return new BlockPos(this.posX, this.posY + 0.5D, this.posZ);
+        return new BlockPos(posX, posY + 0.5D, posZ);
     }
 
     public void markPlayerActive()
     {
-        this.playerLastActiveTime = MinecraftServer.getCurrentTimeMillis();
+        playerLastActiveTime = MinecraftServer.getCurrentTimeMillis();
     }
 
     /**
@@ -1467,12 +1467,12 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener
      */
     public StatisticsManagerServer getStatFile()
     {
-        return this.statsFile;
+        return statsFile;
     }
 
     public RecipeBookServer getRecipeBook()
     {
-        return this.recipeBook;
+        return recipeBook;
     }
 
     /**
@@ -1482,17 +1482,17 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener
     {
         if (entityIn instanceof EntityPlayer)
         {
-            this.connection.sendPacket(new SPacketDestroyEntities(new int[] {entityIn.getEntityId()}));
+            connection.sendPacket(new SPacketDestroyEntities(new int[] {entityIn.getEntityId()}));
         }
         else
         {
-            this.entityRemoveQueue.add(Integer.valueOf(entityIn.getEntityId()));
+            entityRemoveQueue.add(Integer.valueOf(entityIn.getEntityId()));
         }
     }
 
     public void addEntity(Entity entityIn)
     {
-        this.entityRemoveQueue.remove(Integer.valueOf(entityIn.getEntityId()));
+        entityRemoveQueue.remove(Integer.valueOf(entityIn.getEntityId()));
     }
 
     /**
@@ -1501,33 +1501,33 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener
      */
     protected void updatePotionMetadata()
     {
-        if (this.isSpectator())
+        if (isSpectator())
         {
-            this.resetPotionEffectMetadata();
-            this.setInvisible(true);
+            resetPotionEffectMetadata();
+            setInvisible(true);
         }
         else
         {
             super.updatePotionMetadata();
         }
 
-        this.getServerWorld().getEntityTracker().updateVisibility(this);
+        getServerWorld().getEntityTracker().updateVisibility(this);
     }
 
     public Entity getSpectatingEntity()
     {
-        return (Entity)(this.spectatingEntity == null ? this : this.spectatingEntity);
+        return (Entity)(spectatingEntity == null ? this : spectatingEntity);
     }
 
     public void setSpectatingEntity(Entity entityToSpectate)
     {
-        Entity entity = this.getSpectatingEntity();
-        this.spectatingEntity = (Entity)(entityToSpectate == null ? this : entityToSpectate);
+        Entity entity = getSpectatingEntity();
+        spectatingEntity = (Entity)(entityToSpectate == null ? this : entityToSpectate);
 
-        if (entity != this.spectatingEntity)
+        if (entity != spectatingEntity)
         {
-            this.connection.sendPacket(new SPacketCamera(this.spectatingEntity));
-            this.setPositionAndUpdate(this.spectatingEntity.posX, this.spectatingEntity.posY, this.spectatingEntity.posZ);
+            connection.sendPacket(new SPacketCamera(spectatingEntity));
+            setPositionAndUpdate(spectatingEntity.posX, spectatingEntity.posY, spectatingEntity.posZ);
         }
     }
 
@@ -1536,9 +1536,9 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener
      */
     protected void decrementTimeUntilPortal()
     {
-        if (this.timeUntilPortal > 0 && !this.invulnerableDimensionChange)
+        if (timeUntilPortal > 0 && !invulnerableDimensionChange)
         {
-            --this.timeUntilPortal;
+            --timeUntilPortal;
         }
     }
 
@@ -1548,9 +1548,9 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener
      */
     public void attackTargetEntityWithCurrentItem(Entity targetEntity)
     {
-        if (this.interactionManager.getGameType() == GameType.SPECTATOR)
+        if (interactionManager.getGameType() == GameType.SPECTATOR)
         {
-            this.setSpectatingEntity(targetEntity);
+            setSpectatingEntity(targetEntity);
         }
         else
         {
@@ -1560,7 +1560,7 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener
 
     public long getLastActiveTime()
     {
-        return this.playerLastActiveTime;
+        return playerLastActiveTime;
     }
 
     @Nullable
@@ -1577,38 +1577,38 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener
     public void swingArm(EnumHand hand)
     {
         super.swingArm(hand);
-        this.resetCooldown();
+        resetCooldown();
     }
 
     public boolean isInvulnerableDimensionChange()
     {
-        return this.invulnerableDimensionChange;
+        return invulnerableDimensionChange;
     }
 
     public void clearInvulnerableDimensionChange()
     {
-        this.invulnerableDimensionChange = false;
+        invulnerableDimensionChange = false;
     }
 
     public void setElytraFlying()
     {
-        this.setFlag(7, true);
+        setFlag(7, true);
     }
 
     public void clearElytraFlying()
     {
-        this.setFlag(7, true);
-        this.setFlag(7, false);
+        setFlag(7, true);
+        setFlag(7, false);
     }
 
     public PlayerAdvancements getAdvancements()
     {
-        return this.advancements;
+        return advancements;
     }
 
     @Nullable
     public Vec3d getEnteredNetherPosition()
     {
-        return this.enteredNetherPosition;
+        return enteredNetherPosition;
     }
 }

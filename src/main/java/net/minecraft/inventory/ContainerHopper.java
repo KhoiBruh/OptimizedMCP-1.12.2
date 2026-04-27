@@ -10,26 +10,26 @@ public class ContainerHopper extends Container
 
     public ContainerHopper(InventoryPlayer playerInventory, IInventory hopperInventoryIn, EntityPlayer player)
     {
-        this.hopperInventory = hopperInventoryIn;
+        hopperInventory = hopperInventoryIn;
         hopperInventoryIn.openInventory(player);
         int i = 51;
 
         for (int j = 0; j < hopperInventoryIn.getSizeInventory(); ++j)
         {
-            this.addSlotToContainer(new Slot(hopperInventoryIn, j, 44 + j * 18, 20));
+            addSlotToContainer(new Slot(hopperInventoryIn, j, 44 + j * 18, 20));
         }
 
         for (int l = 0; l < 3; ++l)
         {
             for (int k = 0; k < 9; ++k)
             {
-                this.addSlotToContainer(new Slot(playerInventory, k + l * 9 + 9, 8 + k * 18, l * 18 + 51));
+                addSlotToContainer(new Slot(playerInventory, k + l * 9 + 9, 8 + k * 18, l * 18 + 51));
             }
         }
 
         for (int i1 = 0; i1 < 9; ++i1)
         {
-            this.addSlotToContainer(new Slot(playerInventory, i1, 8 + i1 * 18, 109));
+            addSlotToContainer(new Slot(playerInventory, i1, 8 + i1 * 18, 109));
         }
     }
 
@@ -38,7 +38,7 @@ public class ContainerHopper extends Container
      */
     public boolean canInteractWith(EntityPlayer playerIn)
     {
-        return this.hopperInventory.isUsableByPlayer(playerIn);
+        return hopperInventory.isUsableByPlayer(playerIn);
     }
 
     /**
@@ -48,21 +48,21 @@ public class ContainerHopper extends Container
     public ItemStack transferStackInSlot(EntityPlayer playerIn, int index)
     {
         ItemStack itemstack = ItemStack.EMPTY;
-        Slot slot = this.inventorySlots.get(index);
+        Slot slot = inventorySlots.get(index);
 
         if (slot != null && slot.getHasStack())
         {
             ItemStack itemstack1 = slot.getStack();
             itemstack = itemstack1.copy();
 
-            if (index < this.hopperInventory.getSizeInventory())
+            if (index < hopperInventory.getSizeInventory())
             {
-                if (!this.mergeItemStack(itemstack1, this.hopperInventory.getSizeInventory(), this.inventorySlots.size(), true))
+                if (!mergeItemStack(itemstack1, hopperInventory.getSizeInventory(), inventorySlots.size(), true))
                 {
                     return ItemStack.EMPTY;
                 }
             }
-            else if (!this.mergeItemStack(itemstack1, 0, this.hopperInventory.getSizeInventory(), false))
+            else if (!mergeItemStack(itemstack1, 0, hopperInventory.getSizeInventory(), false))
             {
                 return ItemStack.EMPTY;
             }
@@ -86,6 +86,6 @@ public class ContainerHopper extends Container
     public void onContainerClosed(EntityPlayer playerIn)
     {
         super.onContainerClosed(playerIn);
-        this.hopperInventory.closeInventory(playerIn);
+        hopperInventory.closeInventory(playerIn);
     }
 }

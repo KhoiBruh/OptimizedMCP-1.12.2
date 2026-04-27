@@ -28,8 +28,8 @@ public class TileEntityEndPortalRenderer extends TileEntitySpecialRenderer<TileE
         GlStateManager.getFloat(2982, MODELVIEW);
         GlStateManager.getFloat(2983, PROJECTION);
         double d0 = x * x + y * y + z * z;
-        int i = this.getPasses(d0);
-        float f = this.getOffset();
+        int i = getPasses(d0);
+        float f = getOffset();
         boolean flag = false;
 
         for (int j = 0; j < i; ++j)
@@ -39,7 +39,7 @@ public class TileEntityEndPortalRenderer extends TileEntitySpecialRenderer<TileE
 
             if (j == 0)
             {
-                this.bindTexture(END_SKY_TEXTURE);
+                bindTexture(END_SKY_TEXTURE);
                 f1 = 0.15F;
                 GlStateManager.enableBlend();
                 GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
@@ -47,7 +47,7 @@ public class TileEntityEndPortalRenderer extends TileEntitySpecialRenderer<TileE
 
             if (j >= 1)
             {
-                this.bindTexture(END_PORTAL_TEXTURE);
+                bindTexture(END_PORTAL_TEXTURE);
                 flag = true;
                 Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
             }
@@ -61,9 +61,9 @@ public class TileEntityEndPortalRenderer extends TileEntitySpecialRenderer<TileE
             GlStateManager.texGen(GlStateManager.TexGen.S, 9216);
             GlStateManager.texGen(GlStateManager.TexGen.T, 9216);
             GlStateManager.texGen(GlStateManager.TexGen.R, 9216);
-            GlStateManager.texGen(GlStateManager.TexGen.S, 9474, this.getBuffer(1.0F, 0.0F, 0.0F, 0.0F));
-            GlStateManager.texGen(GlStateManager.TexGen.T, 9474, this.getBuffer(0.0F, 1.0F, 0.0F, 0.0F));
-            GlStateManager.texGen(GlStateManager.TexGen.R, 9474, this.getBuffer(0.0F, 0.0F, 1.0F, 0.0F));
+            GlStateManager.texGen(GlStateManager.TexGen.S, 9474, getBuffer(1.0F, 0.0F, 0.0F, 0.0F));
+            GlStateManager.texGen(GlStateManager.TexGen.T, 9474, getBuffer(0.0F, 1.0F, 0.0F, 0.0F));
+            GlStateManager.texGen(GlStateManager.TexGen.R, 9474, getBuffer(0.0F, 0.0F, 1.0F, 0.0F));
             GlStateManager.enableTexGenCoord(GlStateManager.TexGen.S);
             GlStateManager.enableTexGenCoord(GlStateManager.TexGen.T);
             GlStateManager.enableTexGenCoord(GlStateManager.TexGen.R);
@@ -137,7 +137,7 @@ public class TileEntityEndPortalRenderer extends TileEntitySpecialRenderer<TileE
             tessellator.draw();
             GlStateManager.popMatrix();
             GlStateManager.matrixMode(5888);
-            this.bindTexture(END_SKY_TEXTURE);
+            bindTexture(END_SKY_TEXTURE);
         }
 
         GlStateManager.disableBlend();
@@ -203,9 +203,9 @@ public class TileEntityEndPortalRenderer extends TileEntitySpecialRenderer<TileE
 
     private FloatBuffer getBuffer(float p_147525_1_, float p_147525_2_, float p_147525_3_, float p_147525_4_)
     {
-        this.buffer.clear();
-        this.buffer.put(p_147525_1_).put(p_147525_2_).put(p_147525_3_).put(p_147525_4_);
-        this.buffer.flip();
-        return this.buffer;
+        buffer.clear();
+        buffer.put(p_147525_1_).put(p_147525_2_).put(p_147525_3_).put(p_147525_4_);
+        buffer.flip();
+        return buffer;
     }
 }

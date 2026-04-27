@@ -25,11 +25,11 @@ public abstract class BlockLeaves extends Block
     public BlockLeaves()
     {
         super(Material.LEAVES);
-        this.setTickRandomly(true);
-        this.setCreativeTab(CreativeTabs.DECORATIONS);
-        this.setHardness(0.2F);
-        this.setLightOpacity(1);
-        this.setSoundType(SoundType.PLANT);
+        setTickRandomly(true);
+        setCreativeTab(CreativeTabs.DECORATIONS);
+        setHardness(0.2F);
+        setLightOpacity(1);
+        setSoundType(SoundType.PLANT);
     }
 
     /**
@@ -79,9 +79,9 @@ public abstract class BlockLeaves extends Block
                 int k1 = 1024;
                 int l1 = 16;
 
-                if (this.surroundings == null)
+                if (surroundings == null)
                 {
-                    this.surroundings = new int[32768];
+                    surroundings = new int[32768];
                 }
 
                 if (worldIn.isAreaLoaded(new BlockPos(k - 5, l - 5, i1 - 5), new BlockPos(k + 5, l + 5, i1 + 5)))
@@ -101,16 +101,16 @@ public abstract class BlockLeaves extends Block
                                 {
                                     if (iblockstate.getMaterial() == Material.LEAVES)
                                     {
-                                        this.surroundings[(i2 + 16) * 1024 + (j2 + 16) * 32 + k2 + 16] = -2;
+                                        surroundings[(i2 + 16) * 1024 + (j2 + 16) * 32 + k2 + 16] = -2;
                                     }
                                     else
                                     {
-                                        this.surroundings[(i2 + 16) * 1024 + (j2 + 16) * 32 + k2 + 16] = -1;
+                                        surroundings[(i2 + 16) * 1024 + (j2 + 16) * 32 + k2 + 16] = -1;
                                     }
                                 }
                                 else
                                 {
-                                    this.surroundings[(i2 + 16) * 1024 + (j2 + 16) * 32 + k2 + 16] = 0;
+                                    surroundings[(i2 + 16) * 1024 + (j2 + 16) * 32 + k2 + 16] = 0;
                                 }
                             }
                         }
@@ -124,36 +124,36 @@ public abstract class BlockLeaves extends Block
                             {
                                 for (int l3 = -4; l3 <= 4; ++l3)
                                 {
-                                    if (this.surroundings[(j3 + 16) * 1024 + (k3 + 16) * 32 + l3 + 16] == i3 - 1)
+                                    if (surroundings[(j3 + 16) * 1024 + (k3 + 16) * 32 + l3 + 16] == i3 - 1)
                                     {
-                                        if (this.surroundings[(j3 + 16 - 1) * 1024 + (k3 + 16) * 32 + l3 + 16] == -2)
+                                        if (surroundings[(j3 + 16 - 1) * 1024 + (k3 + 16) * 32 + l3 + 16] == -2)
                                         {
-                                            this.surroundings[(j3 + 16 - 1) * 1024 + (k3 + 16) * 32 + l3 + 16] = i3;
+                                            surroundings[(j3 + 16 - 1) * 1024 + (k3 + 16) * 32 + l3 + 16] = i3;
                                         }
 
-                                        if (this.surroundings[(j3 + 16 + 1) * 1024 + (k3 + 16) * 32 + l3 + 16] == -2)
+                                        if (surroundings[(j3 + 16 + 1) * 1024 + (k3 + 16) * 32 + l3 + 16] == -2)
                                         {
-                                            this.surroundings[(j3 + 16 + 1) * 1024 + (k3 + 16) * 32 + l3 + 16] = i3;
+                                            surroundings[(j3 + 16 + 1) * 1024 + (k3 + 16) * 32 + l3 + 16] = i3;
                                         }
 
-                                        if (this.surroundings[(j3 + 16) * 1024 + (k3 + 16 - 1) * 32 + l3 + 16] == -2)
+                                        if (surroundings[(j3 + 16) * 1024 + (k3 + 16 - 1) * 32 + l3 + 16] == -2)
                                         {
-                                            this.surroundings[(j3 + 16) * 1024 + (k3 + 16 - 1) * 32 + l3 + 16] = i3;
+                                            surroundings[(j3 + 16) * 1024 + (k3 + 16 - 1) * 32 + l3 + 16] = i3;
                                         }
 
-                                        if (this.surroundings[(j3 + 16) * 1024 + (k3 + 16 + 1) * 32 + l3 + 16] == -2)
+                                        if (surroundings[(j3 + 16) * 1024 + (k3 + 16 + 1) * 32 + l3 + 16] == -2)
                                         {
-                                            this.surroundings[(j3 + 16) * 1024 + (k3 + 16 + 1) * 32 + l3 + 16] = i3;
+                                            surroundings[(j3 + 16) * 1024 + (k3 + 16 + 1) * 32 + l3 + 16] = i3;
                                         }
 
-                                        if (this.surroundings[(j3 + 16) * 1024 + (k3 + 16) * 32 + (l3 + 16 - 1)] == -2)
+                                        if (surroundings[(j3 + 16) * 1024 + (k3 + 16) * 32 + (l3 + 16 - 1)] == -2)
                                         {
-                                            this.surroundings[(j3 + 16) * 1024 + (k3 + 16) * 32 + (l3 + 16 - 1)] = i3;
+                                            surroundings[(j3 + 16) * 1024 + (k3 + 16) * 32 + (l3 + 16 - 1)] = i3;
                                         }
 
-                                        if (this.surroundings[(j3 + 16) * 1024 + (k3 + 16) * 32 + l3 + 16 + 1] == -2)
+                                        if (surroundings[(j3 + 16) * 1024 + (k3 + 16) * 32 + l3 + 16 + 1] == -2)
                                         {
-                                            this.surroundings[(j3 + 16) * 1024 + (k3 + 16) * 32 + l3 + 16 + 1] = i3;
+                                            surroundings[(j3 + 16) * 1024 + (k3 + 16) * 32 + l3 + 16 + 1] = i3;
                                         }
                                     }
                                 }
@@ -162,7 +162,7 @@ public abstract class BlockLeaves extends Block
                     }
                 }
 
-                int l2 = this.surroundings[16912];
+                int l2 = surroundings[16912];
 
                 if (l2 >= 0)
                 {
@@ -170,7 +170,7 @@ public abstract class BlockLeaves extends Block
                 }
                 else
                 {
-                    this.destroy(worldIn, pos);
+                    destroy(worldIn, pos);
                 }
             }
         }
@@ -189,7 +189,7 @@ public abstract class BlockLeaves extends Block
 
     private void destroy(World worldIn, BlockPos pos)
     {
-        this.dropBlockAsItem(worldIn, pos, worldIn.getBlockState(pos), 0);
+        dropBlockAsItem(worldIn, pos, worldIn.getBlockState(pos), 0);
         worldIn.setBlockToAir(pos);
     }
 
@@ -216,7 +216,7 @@ public abstract class BlockLeaves extends Block
     {
         if (!worldIn.isRemote)
         {
-            int i = this.getSaplingDropChance(state);
+            int i = getSaplingDropChance(state);
 
             if (fortune > 0)
             {
@@ -230,8 +230,8 @@ public abstract class BlockLeaves extends Block
 
             if (worldIn.rand.nextInt(i) == 0)
             {
-                Item item = this.getItemDropped(state, worldIn.rand, fortune);
-                spawnAsEntity(worldIn, pos, new ItemStack(item, 1, this.damageDropped(state)));
+                Item item = getItemDropped(state, worldIn.rand, fortune);
+                spawnAsEntity(worldIn, pos, new ItemStack(item, 1, damageDropped(state)));
             }
 
             i = 200;
@@ -246,7 +246,7 @@ public abstract class BlockLeaves extends Block
                 }
             }
 
-            this.dropApple(worldIn, pos, state, i);
+            dropApple(worldIn, pos, state, i);
         }
     }
 
@@ -264,7 +264,7 @@ public abstract class BlockLeaves extends Block
      */
     public boolean isOpaqueCube(IBlockState state)
     {
-        return !this.leavesFancy;
+        return !leavesFancy;
     }
 
     /**
@@ -272,7 +272,7 @@ public abstract class BlockLeaves extends Block
      */
     public void setGraphicsLevel(boolean fancy)
     {
-        this.leavesFancy = fancy;
+        leavesFancy = fancy;
     }
 
     /**
@@ -281,7 +281,7 @@ public abstract class BlockLeaves extends Block
      */
     public BlockRenderLayer getBlockLayer()
     {
-        return this.leavesFancy ? BlockRenderLayer.CUTOUT_MIPPED : BlockRenderLayer.SOLID;
+        return leavesFancy ? BlockRenderLayer.CUTOUT_MIPPED : BlockRenderLayer.SOLID;
     }
 
     public boolean causesSuffocation(IBlockState state)
@@ -293,6 +293,6 @@ public abstract class BlockLeaves extends Block
 
     public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side)
     {
-        return !this.leavesFancy && blockAccess.getBlockState(pos.offset(side)).getBlock() == this ? false : super.shouldSideBeRendered(blockState, blockAccess, pos, side);
+        return !leavesFancy && blockAccess.getBlockState(pos.offset(side)).getBlock() == this ? false : super.shouldSideBeRendered(blockState, blockAccess, pos, side);
     }
 }

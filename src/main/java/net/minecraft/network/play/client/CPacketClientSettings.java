@@ -22,12 +22,12 @@ public class CPacketClientSettings implements Packet<INetHandlerPlayServer>
 
     public CPacketClientSettings(String langIn, int renderDistanceIn, EntityPlayer.EnumChatVisibility chatVisibilityIn, boolean chatColorsIn, int modelPartsIn, EnumHandSide mainHandIn)
     {
-        this.lang = langIn;
-        this.view = renderDistanceIn;
-        this.chatVisibility = chatVisibilityIn;
-        this.enableColors = chatColorsIn;
-        this.modelPartFlags = modelPartsIn;
-        this.mainHand = mainHandIn;
+        lang = langIn;
+        view = renderDistanceIn;
+        chatVisibility = chatVisibilityIn;
+        enableColors = chatColorsIn;
+        modelPartFlags = modelPartsIn;
+        mainHand = mainHandIn;
     }
 
     /**
@@ -35,12 +35,12 @@ public class CPacketClientSettings implements Packet<INetHandlerPlayServer>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.lang = buf.readString(16);
-        this.view = buf.readByte();
-        this.chatVisibility = (EntityPlayer.EnumChatVisibility)buf.readEnumValue(EntityPlayer.EnumChatVisibility.class);
-        this.enableColors = buf.readBoolean();
-        this.modelPartFlags = buf.readUnsignedByte();
-        this.mainHand = (EnumHandSide)buf.readEnumValue(EnumHandSide.class);
+        lang = buf.readString(16);
+        view = buf.readByte();
+        chatVisibility = (EntityPlayer.EnumChatVisibility)buf.readEnumValue(EntityPlayer.EnumChatVisibility.class);
+        enableColors = buf.readBoolean();
+        modelPartFlags = buf.readUnsignedByte();
+        mainHand = (EnumHandSide)buf.readEnumValue(EnumHandSide.class);
     }
 
     /**
@@ -48,12 +48,12 @@ public class CPacketClientSettings implements Packet<INetHandlerPlayServer>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeString(this.lang);
-        buf.writeByte(this.view);
-        buf.writeEnumValue(this.chatVisibility);
-        buf.writeBoolean(this.enableColors);
-        buf.writeByte(this.modelPartFlags);
-        buf.writeEnumValue(this.mainHand);
+        buf.writeString(lang);
+        buf.writeByte(view);
+        buf.writeEnumValue(chatVisibility);
+        buf.writeBoolean(enableColors);
+        buf.writeByte(modelPartFlags);
+        buf.writeEnumValue(mainHand);
     }
 
     /**
@@ -66,26 +66,26 @@ public class CPacketClientSettings implements Packet<INetHandlerPlayServer>
 
     public String getLang()
     {
-        return this.lang;
+        return lang;
     }
 
     public EntityPlayer.EnumChatVisibility getChatVisibility()
     {
-        return this.chatVisibility;
+        return chatVisibility;
     }
 
     public boolean isColorsEnabled()
     {
-        return this.enableColors;
+        return enableColors;
     }
 
     public int getModelPartFlags()
     {
-        return this.modelPartFlags;
+        return modelPartFlags;
     }
 
     public EnumHandSide getMainHand()
     {
-        return this.mainHand;
+        return mainHand;
     }
 }

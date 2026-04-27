@@ -72,7 +72,7 @@ public class BlockRotatedPillar extends Block
             enumfacing$axis = EnumFacing.Axis.Z;
         }
 
-        return this.getDefaultState().withProperty(AXIS, enumfacing$axis);
+        return getDefaultState().withProperty(AXIS, enumfacing$axis);
     }
 
     /**

@@ -99,85 +99,85 @@ public class ChunkGeneratorSettings
 
     private ChunkGeneratorSettings(ChunkGeneratorSettings.Factory settingsFactory)
     {
-        this.coordinateScale = settingsFactory.coordinateScale;
-        this.heightScale = settingsFactory.heightScale;
-        this.upperLimitScale = settingsFactory.upperLimitScale;
-        this.lowerLimitScale = settingsFactory.lowerLimitScale;
-        this.depthNoiseScaleX = settingsFactory.depthNoiseScaleX;
-        this.depthNoiseScaleZ = settingsFactory.depthNoiseScaleZ;
-        this.depthNoiseScaleExponent = settingsFactory.depthNoiseScaleExponent;
-        this.mainNoiseScaleX = settingsFactory.mainNoiseScaleX;
-        this.mainNoiseScaleY = settingsFactory.mainNoiseScaleY;
-        this.mainNoiseScaleZ = settingsFactory.mainNoiseScaleZ;
-        this.baseSize = settingsFactory.baseSize;
-        this.stretchY = settingsFactory.stretchY;
-        this.biomeDepthWeight = settingsFactory.biomeDepthWeight;
-        this.biomeDepthOffSet = settingsFactory.biomeDepthOffset;
-        this.biomeScaleWeight = settingsFactory.biomeScaleWeight;
-        this.biomeScaleOffset = settingsFactory.biomeScaleOffset;
-        this.seaLevel = settingsFactory.seaLevel;
-        this.useCaves = settingsFactory.useCaves;
-        this.useDungeons = settingsFactory.useDungeons;
-        this.dungeonChance = settingsFactory.dungeonChance;
-        this.useStrongholds = settingsFactory.useStrongholds;
-        this.useVillages = settingsFactory.useVillages;
-        this.useMineShafts = settingsFactory.useMineShafts;
-        this.useTemples = settingsFactory.useTemples;
-        this.useMonuments = settingsFactory.useMonuments;
-        this.useMansions = settingsFactory.useMansions;
-        this.useRavines = settingsFactory.useRavines;
-        this.useWaterLakes = settingsFactory.useWaterLakes;
-        this.waterLakeChance = settingsFactory.waterLakeChance;
-        this.useLavaLakes = settingsFactory.useLavaLakes;
-        this.lavaLakeChance = settingsFactory.lavaLakeChance;
-        this.useLavaOceans = settingsFactory.useLavaOceans;
-        this.fixedBiome = settingsFactory.fixedBiome;
-        this.biomeSize = settingsFactory.biomeSize;
-        this.riverSize = settingsFactory.riverSize;
-        this.dirtSize = settingsFactory.dirtSize;
-        this.dirtCount = settingsFactory.dirtCount;
-        this.dirtMinHeight = settingsFactory.dirtMinHeight;
-        this.dirtMaxHeight = settingsFactory.dirtMaxHeight;
-        this.gravelSize = settingsFactory.gravelSize;
-        this.gravelCount = settingsFactory.gravelCount;
-        this.gravelMinHeight = settingsFactory.gravelMinHeight;
-        this.gravelMaxHeight = settingsFactory.gravelMaxHeight;
-        this.graniteSize = settingsFactory.graniteSize;
-        this.graniteCount = settingsFactory.graniteCount;
-        this.graniteMinHeight = settingsFactory.graniteMinHeight;
-        this.graniteMaxHeight = settingsFactory.graniteMaxHeight;
-        this.dioriteSize = settingsFactory.dioriteSize;
-        this.dioriteCount = settingsFactory.dioriteCount;
-        this.dioriteMinHeight = settingsFactory.dioriteMinHeight;
-        this.dioriteMaxHeight = settingsFactory.dioriteMaxHeight;
-        this.andesiteSize = settingsFactory.andesiteSize;
-        this.andesiteCount = settingsFactory.andesiteCount;
-        this.andesiteMinHeight = settingsFactory.andesiteMinHeight;
-        this.andesiteMaxHeight = settingsFactory.andesiteMaxHeight;
-        this.coalSize = settingsFactory.coalSize;
-        this.coalCount = settingsFactory.coalCount;
-        this.coalMinHeight = settingsFactory.coalMinHeight;
-        this.coalMaxHeight = settingsFactory.coalMaxHeight;
-        this.ironSize = settingsFactory.ironSize;
-        this.ironCount = settingsFactory.ironCount;
-        this.ironMinHeight = settingsFactory.ironMinHeight;
-        this.ironMaxHeight = settingsFactory.ironMaxHeight;
-        this.goldSize = settingsFactory.goldSize;
-        this.goldCount = settingsFactory.goldCount;
-        this.goldMinHeight = settingsFactory.goldMinHeight;
-        this.goldMaxHeight = settingsFactory.goldMaxHeight;
-        this.redstoneSize = settingsFactory.redstoneSize;
-        this.redstoneCount = settingsFactory.redstoneCount;
-        this.redstoneMinHeight = settingsFactory.redstoneMinHeight;
-        this.redstoneMaxHeight = settingsFactory.redstoneMaxHeight;
-        this.diamondSize = settingsFactory.diamondSize;
-        this.diamondCount = settingsFactory.diamondCount;
-        this.diamondMinHeight = settingsFactory.diamondMinHeight;
-        this.diamondMaxHeight = settingsFactory.diamondMaxHeight;
-        this.lapisSize = settingsFactory.lapisSize;
-        this.lapisCount = settingsFactory.lapisCount;
-        this.lapisCenterHeight = settingsFactory.lapisCenterHeight;
-        this.lapisSpread = settingsFactory.lapisSpread;
+        coordinateScale = settingsFactory.coordinateScale;
+        heightScale = settingsFactory.heightScale;
+        upperLimitScale = settingsFactory.upperLimitScale;
+        lowerLimitScale = settingsFactory.lowerLimitScale;
+        depthNoiseScaleX = settingsFactory.depthNoiseScaleX;
+        depthNoiseScaleZ = settingsFactory.depthNoiseScaleZ;
+        depthNoiseScaleExponent = settingsFactory.depthNoiseScaleExponent;
+        mainNoiseScaleX = settingsFactory.mainNoiseScaleX;
+        mainNoiseScaleY = settingsFactory.mainNoiseScaleY;
+        mainNoiseScaleZ = settingsFactory.mainNoiseScaleZ;
+        baseSize = settingsFactory.baseSize;
+        stretchY = settingsFactory.stretchY;
+        biomeDepthWeight = settingsFactory.biomeDepthWeight;
+        biomeDepthOffSet = settingsFactory.biomeDepthOffset;
+        biomeScaleWeight = settingsFactory.biomeScaleWeight;
+        biomeScaleOffset = settingsFactory.biomeScaleOffset;
+        seaLevel = settingsFactory.seaLevel;
+        useCaves = settingsFactory.useCaves;
+        useDungeons = settingsFactory.useDungeons;
+        dungeonChance = settingsFactory.dungeonChance;
+        useStrongholds = settingsFactory.useStrongholds;
+        useVillages = settingsFactory.useVillages;
+        useMineShafts = settingsFactory.useMineShafts;
+        useTemples = settingsFactory.useTemples;
+        useMonuments = settingsFactory.useMonuments;
+        useMansions = settingsFactory.useMansions;
+        useRavines = settingsFactory.useRavines;
+        useWaterLakes = settingsFactory.useWaterLakes;
+        waterLakeChance = settingsFactory.waterLakeChance;
+        useLavaLakes = settingsFactory.useLavaLakes;
+        lavaLakeChance = settingsFactory.lavaLakeChance;
+        useLavaOceans = settingsFactory.useLavaOceans;
+        fixedBiome = settingsFactory.fixedBiome;
+        biomeSize = settingsFactory.biomeSize;
+        riverSize = settingsFactory.riverSize;
+        dirtSize = settingsFactory.dirtSize;
+        dirtCount = settingsFactory.dirtCount;
+        dirtMinHeight = settingsFactory.dirtMinHeight;
+        dirtMaxHeight = settingsFactory.dirtMaxHeight;
+        gravelSize = settingsFactory.gravelSize;
+        gravelCount = settingsFactory.gravelCount;
+        gravelMinHeight = settingsFactory.gravelMinHeight;
+        gravelMaxHeight = settingsFactory.gravelMaxHeight;
+        graniteSize = settingsFactory.graniteSize;
+        graniteCount = settingsFactory.graniteCount;
+        graniteMinHeight = settingsFactory.graniteMinHeight;
+        graniteMaxHeight = settingsFactory.graniteMaxHeight;
+        dioriteSize = settingsFactory.dioriteSize;
+        dioriteCount = settingsFactory.dioriteCount;
+        dioriteMinHeight = settingsFactory.dioriteMinHeight;
+        dioriteMaxHeight = settingsFactory.dioriteMaxHeight;
+        andesiteSize = settingsFactory.andesiteSize;
+        andesiteCount = settingsFactory.andesiteCount;
+        andesiteMinHeight = settingsFactory.andesiteMinHeight;
+        andesiteMaxHeight = settingsFactory.andesiteMaxHeight;
+        coalSize = settingsFactory.coalSize;
+        coalCount = settingsFactory.coalCount;
+        coalMinHeight = settingsFactory.coalMinHeight;
+        coalMaxHeight = settingsFactory.coalMaxHeight;
+        ironSize = settingsFactory.ironSize;
+        ironCount = settingsFactory.ironCount;
+        ironMinHeight = settingsFactory.ironMinHeight;
+        ironMaxHeight = settingsFactory.ironMaxHeight;
+        goldSize = settingsFactory.goldSize;
+        goldCount = settingsFactory.goldCount;
+        goldMinHeight = settingsFactory.goldMinHeight;
+        goldMaxHeight = settingsFactory.goldMaxHeight;
+        redstoneSize = settingsFactory.redstoneSize;
+        redstoneCount = settingsFactory.redstoneCount;
+        redstoneMinHeight = settingsFactory.redstoneMinHeight;
+        redstoneMaxHeight = settingsFactory.redstoneMaxHeight;
+        diamondSize = settingsFactory.diamondSize;
+        diamondCount = settingsFactory.diamondCount;
+        diamondMinHeight = settingsFactory.diamondMinHeight;
+        diamondMaxHeight = settingsFactory.diamondMaxHeight;
+        lapisSize = settingsFactory.lapisSize;
+        lapisCount = settingsFactory.lapisCount;
+        lapisCenterHeight = settingsFactory.lapisCenterHeight;
+        lapisSpread = settingsFactory.lapisSpread;
     }
 
     public static class Factory
@@ -290,90 +290,90 @@ public class ChunkGeneratorSettings
 
         public Factory()
         {
-            this.setDefaults();
+            setDefaults();
         }
 
         public void setDefaults()
         {
-            this.coordinateScale = 684.412F;
-            this.heightScale = 684.412F;
-            this.upperLimitScale = 512.0F;
-            this.lowerLimitScale = 512.0F;
-            this.depthNoiseScaleX = 200.0F;
-            this.depthNoiseScaleZ = 200.0F;
-            this.depthNoiseScaleExponent = 0.5F;
-            this.mainNoiseScaleX = 80.0F;
-            this.mainNoiseScaleY = 160.0F;
-            this.mainNoiseScaleZ = 80.0F;
-            this.baseSize = 8.5F;
-            this.stretchY = 12.0F;
-            this.biomeDepthWeight = 1.0F;
-            this.biomeDepthOffset = 0.0F;
-            this.biomeScaleWeight = 1.0F;
-            this.biomeScaleOffset = 0.0F;
-            this.seaLevel = 63;
-            this.useCaves = true;
-            this.useDungeons = true;
-            this.dungeonChance = 8;
-            this.useStrongholds = true;
-            this.useVillages = true;
-            this.useMineShafts = true;
-            this.useTemples = true;
-            this.useMonuments = true;
-            this.useMansions = true;
-            this.useRavines = true;
-            this.useWaterLakes = true;
-            this.waterLakeChance = 4;
-            this.useLavaLakes = true;
-            this.lavaLakeChance = 80;
-            this.useLavaOceans = false;
-            this.fixedBiome = -1;
-            this.biomeSize = 4;
-            this.riverSize = 4;
-            this.dirtSize = 33;
-            this.dirtCount = 10;
-            this.dirtMinHeight = 0;
-            this.dirtMaxHeight = 256;
-            this.gravelSize = 33;
-            this.gravelCount = 8;
-            this.gravelMinHeight = 0;
-            this.gravelMaxHeight = 256;
-            this.graniteSize = 33;
-            this.graniteCount = 10;
-            this.graniteMinHeight = 0;
-            this.graniteMaxHeight = 80;
-            this.dioriteSize = 33;
-            this.dioriteCount = 10;
-            this.dioriteMinHeight = 0;
-            this.dioriteMaxHeight = 80;
-            this.andesiteSize = 33;
-            this.andesiteCount = 10;
-            this.andesiteMinHeight = 0;
-            this.andesiteMaxHeight = 80;
-            this.coalSize = 17;
-            this.coalCount = 20;
-            this.coalMinHeight = 0;
-            this.coalMaxHeight = 128;
-            this.ironSize = 9;
-            this.ironCount = 20;
-            this.ironMinHeight = 0;
-            this.ironMaxHeight = 64;
-            this.goldSize = 9;
-            this.goldCount = 2;
-            this.goldMinHeight = 0;
-            this.goldMaxHeight = 32;
-            this.redstoneSize = 8;
-            this.redstoneCount = 8;
-            this.redstoneMinHeight = 0;
-            this.redstoneMaxHeight = 16;
-            this.diamondSize = 8;
-            this.diamondCount = 1;
-            this.diamondMinHeight = 0;
-            this.diamondMaxHeight = 16;
-            this.lapisSize = 7;
-            this.lapisCount = 1;
-            this.lapisCenterHeight = 16;
-            this.lapisSpread = 16;
+            coordinateScale = 684.412F;
+            heightScale = 684.412F;
+            upperLimitScale = 512.0F;
+            lowerLimitScale = 512.0F;
+            depthNoiseScaleX = 200.0F;
+            depthNoiseScaleZ = 200.0F;
+            depthNoiseScaleExponent = 0.5F;
+            mainNoiseScaleX = 80.0F;
+            mainNoiseScaleY = 160.0F;
+            mainNoiseScaleZ = 80.0F;
+            baseSize = 8.5F;
+            stretchY = 12.0F;
+            biomeDepthWeight = 1.0F;
+            biomeDepthOffset = 0.0F;
+            biomeScaleWeight = 1.0F;
+            biomeScaleOffset = 0.0F;
+            seaLevel = 63;
+            useCaves = true;
+            useDungeons = true;
+            dungeonChance = 8;
+            useStrongholds = true;
+            useVillages = true;
+            useMineShafts = true;
+            useTemples = true;
+            useMonuments = true;
+            useMansions = true;
+            useRavines = true;
+            useWaterLakes = true;
+            waterLakeChance = 4;
+            useLavaLakes = true;
+            lavaLakeChance = 80;
+            useLavaOceans = false;
+            fixedBiome = -1;
+            biomeSize = 4;
+            riverSize = 4;
+            dirtSize = 33;
+            dirtCount = 10;
+            dirtMinHeight = 0;
+            dirtMaxHeight = 256;
+            gravelSize = 33;
+            gravelCount = 8;
+            gravelMinHeight = 0;
+            gravelMaxHeight = 256;
+            graniteSize = 33;
+            graniteCount = 10;
+            graniteMinHeight = 0;
+            graniteMaxHeight = 80;
+            dioriteSize = 33;
+            dioriteCount = 10;
+            dioriteMinHeight = 0;
+            dioriteMaxHeight = 80;
+            andesiteSize = 33;
+            andesiteCount = 10;
+            andesiteMinHeight = 0;
+            andesiteMaxHeight = 80;
+            coalSize = 17;
+            coalCount = 20;
+            coalMinHeight = 0;
+            coalMaxHeight = 128;
+            ironSize = 9;
+            ironCount = 20;
+            ironMinHeight = 0;
+            ironMaxHeight = 64;
+            goldSize = 9;
+            goldCount = 2;
+            goldMinHeight = 0;
+            goldMaxHeight = 32;
+            redstoneSize = 8;
+            redstoneCount = 8;
+            redstoneMinHeight = 0;
+            redstoneMaxHeight = 16;
+            diamondSize = 8;
+            diamondCount = 1;
+            diamondMinHeight = 0;
+            diamondMaxHeight = 16;
+            lapisSize = 7;
+            lapisCount = 1;
+            lapisCenterHeight = 16;
+            lapisSpread = 16;
         }
 
         public boolean equals(Object p_equals_1_)
@@ -382,325 +382,325 @@ public class ChunkGeneratorSettings
             {
                 return true;
             }
-            else if (p_equals_1_ != null && this.getClass() == p_equals_1_.getClass())
+            else if (p_equals_1_ != null && getClass() == p_equals_1_.getClass())
             {
                 ChunkGeneratorSettings.Factory chunkgeneratorsettings$factory = (ChunkGeneratorSettings.Factory)p_equals_1_;
 
-                if (this.andesiteCount != chunkgeneratorsettings$factory.andesiteCount)
+                if (andesiteCount != chunkgeneratorsettings$factory.andesiteCount)
                 {
                     return false;
                 }
-                else if (this.andesiteMaxHeight != chunkgeneratorsettings$factory.andesiteMaxHeight)
+                else if (andesiteMaxHeight != chunkgeneratorsettings$factory.andesiteMaxHeight)
                 {
                     return false;
                 }
-                else if (this.andesiteMinHeight != chunkgeneratorsettings$factory.andesiteMinHeight)
+                else if (andesiteMinHeight != chunkgeneratorsettings$factory.andesiteMinHeight)
                 {
                     return false;
                 }
-                else if (this.andesiteSize != chunkgeneratorsettings$factory.andesiteSize)
+                else if (andesiteSize != chunkgeneratorsettings$factory.andesiteSize)
                 {
                     return false;
                 }
-                else if (Float.compare(chunkgeneratorsettings$factory.baseSize, this.baseSize) != 0)
+                else if (Float.compare(chunkgeneratorsettings$factory.baseSize, baseSize) != 0)
                 {
                     return false;
                 }
-                else if (Float.compare(chunkgeneratorsettings$factory.biomeDepthOffset, this.biomeDepthOffset) != 0)
+                else if (Float.compare(chunkgeneratorsettings$factory.biomeDepthOffset, biomeDepthOffset) != 0)
                 {
                     return false;
                 }
-                else if (Float.compare(chunkgeneratorsettings$factory.biomeDepthWeight, this.biomeDepthWeight) != 0)
+                else if (Float.compare(chunkgeneratorsettings$factory.biomeDepthWeight, biomeDepthWeight) != 0)
                 {
                     return false;
                 }
-                else if (Float.compare(chunkgeneratorsettings$factory.biomeScaleOffset, this.biomeScaleOffset) != 0)
+                else if (Float.compare(chunkgeneratorsettings$factory.biomeScaleOffset, biomeScaleOffset) != 0)
                 {
                     return false;
                 }
-                else if (Float.compare(chunkgeneratorsettings$factory.biomeScaleWeight, this.biomeScaleWeight) != 0)
+                else if (Float.compare(chunkgeneratorsettings$factory.biomeScaleWeight, biomeScaleWeight) != 0)
                 {
                     return false;
                 }
-                else if (this.biomeSize != chunkgeneratorsettings$factory.biomeSize)
+                else if (biomeSize != chunkgeneratorsettings$factory.biomeSize)
                 {
                     return false;
                 }
-                else if (this.coalCount != chunkgeneratorsettings$factory.coalCount)
+                else if (coalCount != chunkgeneratorsettings$factory.coalCount)
                 {
                     return false;
                 }
-                else if (this.coalMaxHeight != chunkgeneratorsettings$factory.coalMaxHeight)
+                else if (coalMaxHeight != chunkgeneratorsettings$factory.coalMaxHeight)
                 {
                     return false;
                 }
-                else if (this.coalMinHeight != chunkgeneratorsettings$factory.coalMinHeight)
+                else if (coalMinHeight != chunkgeneratorsettings$factory.coalMinHeight)
                 {
                     return false;
                 }
-                else if (this.coalSize != chunkgeneratorsettings$factory.coalSize)
+                else if (coalSize != chunkgeneratorsettings$factory.coalSize)
                 {
                     return false;
                 }
-                else if (Float.compare(chunkgeneratorsettings$factory.coordinateScale, this.coordinateScale) != 0)
+                else if (Float.compare(chunkgeneratorsettings$factory.coordinateScale, coordinateScale) != 0)
                 {
                     return false;
                 }
-                else if (Float.compare(chunkgeneratorsettings$factory.depthNoiseScaleExponent, this.depthNoiseScaleExponent) != 0)
+                else if (Float.compare(chunkgeneratorsettings$factory.depthNoiseScaleExponent, depthNoiseScaleExponent) != 0)
                 {
                     return false;
                 }
-                else if (Float.compare(chunkgeneratorsettings$factory.depthNoiseScaleX, this.depthNoiseScaleX) != 0)
+                else if (Float.compare(chunkgeneratorsettings$factory.depthNoiseScaleX, depthNoiseScaleX) != 0)
                 {
                     return false;
                 }
-                else if (Float.compare(chunkgeneratorsettings$factory.depthNoiseScaleZ, this.depthNoiseScaleZ) != 0)
+                else if (Float.compare(chunkgeneratorsettings$factory.depthNoiseScaleZ, depthNoiseScaleZ) != 0)
                 {
                     return false;
                 }
-                else if (this.diamondCount != chunkgeneratorsettings$factory.diamondCount)
+                else if (diamondCount != chunkgeneratorsettings$factory.diamondCount)
                 {
                     return false;
                 }
-                else if (this.diamondMaxHeight != chunkgeneratorsettings$factory.diamondMaxHeight)
+                else if (diamondMaxHeight != chunkgeneratorsettings$factory.diamondMaxHeight)
                 {
                     return false;
                 }
-                else if (this.diamondMinHeight != chunkgeneratorsettings$factory.diamondMinHeight)
+                else if (diamondMinHeight != chunkgeneratorsettings$factory.diamondMinHeight)
                 {
                     return false;
                 }
-                else if (this.diamondSize != chunkgeneratorsettings$factory.diamondSize)
+                else if (diamondSize != chunkgeneratorsettings$factory.diamondSize)
                 {
                     return false;
                 }
-                else if (this.dioriteCount != chunkgeneratorsettings$factory.dioriteCount)
+                else if (dioriteCount != chunkgeneratorsettings$factory.dioriteCount)
                 {
                     return false;
                 }
-                else if (this.dioriteMaxHeight != chunkgeneratorsettings$factory.dioriteMaxHeight)
+                else if (dioriteMaxHeight != chunkgeneratorsettings$factory.dioriteMaxHeight)
                 {
                     return false;
                 }
-                else if (this.dioriteMinHeight != chunkgeneratorsettings$factory.dioriteMinHeight)
+                else if (dioriteMinHeight != chunkgeneratorsettings$factory.dioriteMinHeight)
                 {
                     return false;
                 }
-                else if (this.dioriteSize != chunkgeneratorsettings$factory.dioriteSize)
+                else if (dioriteSize != chunkgeneratorsettings$factory.dioriteSize)
                 {
                     return false;
                 }
-                else if (this.dirtCount != chunkgeneratorsettings$factory.dirtCount)
+                else if (dirtCount != chunkgeneratorsettings$factory.dirtCount)
                 {
                     return false;
                 }
-                else if (this.dirtMaxHeight != chunkgeneratorsettings$factory.dirtMaxHeight)
+                else if (dirtMaxHeight != chunkgeneratorsettings$factory.dirtMaxHeight)
                 {
                     return false;
                 }
-                else if (this.dirtMinHeight != chunkgeneratorsettings$factory.dirtMinHeight)
+                else if (dirtMinHeight != chunkgeneratorsettings$factory.dirtMinHeight)
                 {
                     return false;
                 }
-                else if (this.dirtSize != chunkgeneratorsettings$factory.dirtSize)
+                else if (dirtSize != chunkgeneratorsettings$factory.dirtSize)
                 {
                     return false;
                 }
-                else if (this.dungeonChance != chunkgeneratorsettings$factory.dungeonChance)
+                else if (dungeonChance != chunkgeneratorsettings$factory.dungeonChance)
                 {
                     return false;
                 }
-                else if (this.fixedBiome != chunkgeneratorsettings$factory.fixedBiome)
+                else if (fixedBiome != chunkgeneratorsettings$factory.fixedBiome)
                 {
                     return false;
                 }
-                else if (this.goldCount != chunkgeneratorsettings$factory.goldCount)
+                else if (goldCount != chunkgeneratorsettings$factory.goldCount)
                 {
                     return false;
                 }
-                else if (this.goldMaxHeight != chunkgeneratorsettings$factory.goldMaxHeight)
+                else if (goldMaxHeight != chunkgeneratorsettings$factory.goldMaxHeight)
                 {
                     return false;
                 }
-                else if (this.goldMinHeight != chunkgeneratorsettings$factory.goldMinHeight)
+                else if (goldMinHeight != chunkgeneratorsettings$factory.goldMinHeight)
                 {
                     return false;
                 }
-                else if (this.goldSize != chunkgeneratorsettings$factory.goldSize)
+                else if (goldSize != chunkgeneratorsettings$factory.goldSize)
                 {
                     return false;
                 }
-                else if (this.graniteCount != chunkgeneratorsettings$factory.graniteCount)
+                else if (graniteCount != chunkgeneratorsettings$factory.graniteCount)
                 {
                     return false;
                 }
-                else if (this.graniteMaxHeight != chunkgeneratorsettings$factory.graniteMaxHeight)
+                else if (graniteMaxHeight != chunkgeneratorsettings$factory.graniteMaxHeight)
                 {
                     return false;
                 }
-                else if (this.graniteMinHeight != chunkgeneratorsettings$factory.graniteMinHeight)
+                else if (graniteMinHeight != chunkgeneratorsettings$factory.graniteMinHeight)
                 {
                     return false;
                 }
-                else if (this.graniteSize != chunkgeneratorsettings$factory.graniteSize)
+                else if (graniteSize != chunkgeneratorsettings$factory.graniteSize)
                 {
                     return false;
                 }
-                else if (this.gravelCount != chunkgeneratorsettings$factory.gravelCount)
+                else if (gravelCount != chunkgeneratorsettings$factory.gravelCount)
                 {
                     return false;
                 }
-                else if (this.gravelMaxHeight != chunkgeneratorsettings$factory.gravelMaxHeight)
+                else if (gravelMaxHeight != chunkgeneratorsettings$factory.gravelMaxHeight)
                 {
                     return false;
                 }
-                else if (this.gravelMinHeight != chunkgeneratorsettings$factory.gravelMinHeight)
+                else if (gravelMinHeight != chunkgeneratorsettings$factory.gravelMinHeight)
                 {
                     return false;
                 }
-                else if (this.gravelSize != chunkgeneratorsettings$factory.gravelSize)
+                else if (gravelSize != chunkgeneratorsettings$factory.gravelSize)
                 {
                     return false;
                 }
-                else if (Float.compare(chunkgeneratorsettings$factory.heightScale, this.heightScale) != 0)
+                else if (Float.compare(chunkgeneratorsettings$factory.heightScale, heightScale) != 0)
                 {
                     return false;
                 }
-                else if (this.ironCount != chunkgeneratorsettings$factory.ironCount)
+                else if (ironCount != chunkgeneratorsettings$factory.ironCount)
                 {
                     return false;
                 }
-                else if (this.ironMaxHeight != chunkgeneratorsettings$factory.ironMaxHeight)
+                else if (ironMaxHeight != chunkgeneratorsettings$factory.ironMaxHeight)
                 {
                     return false;
                 }
-                else if (this.ironMinHeight != chunkgeneratorsettings$factory.ironMinHeight)
+                else if (ironMinHeight != chunkgeneratorsettings$factory.ironMinHeight)
                 {
                     return false;
                 }
-                else if (this.ironSize != chunkgeneratorsettings$factory.ironSize)
+                else if (ironSize != chunkgeneratorsettings$factory.ironSize)
                 {
                     return false;
                 }
-                else if (this.lapisCenterHeight != chunkgeneratorsettings$factory.lapisCenterHeight)
+                else if (lapisCenterHeight != chunkgeneratorsettings$factory.lapisCenterHeight)
                 {
                     return false;
                 }
-                else if (this.lapisCount != chunkgeneratorsettings$factory.lapisCount)
+                else if (lapisCount != chunkgeneratorsettings$factory.lapisCount)
                 {
                     return false;
                 }
-                else if (this.lapisSize != chunkgeneratorsettings$factory.lapisSize)
+                else if (lapisSize != chunkgeneratorsettings$factory.lapisSize)
                 {
                     return false;
                 }
-                else if (this.lapisSpread != chunkgeneratorsettings$factory.lapisSpread)
+                else if (lapisSpread != chunkgeneratorsettings$factory.lapisSpread)
                 {
                     return false;
                 }
-                else if (this.lavaLakeChance != chunkgeneratorsettings$factory.lavaLakeChance)
+                else if (lavaLakeChance != chunkgeneratorsettings$factory.lavaLakeChance)
                 {
                     return false;
                 }
-                else if (Float.compare(chunkgeneratorsettings$factory.lowerLimitScale, this.lowerLimitScale) != 0)
+                else if (Float.compare(chunkgeneratorsettings$factory.lowerLimitScale, lowerLimitScale) != 0)
                 {
                     return false;
                 }
-                else if (Float.compare(chunkgeneratorsettings$factory.mainNoiseScaleX, this.mainNoiseScaleX) != 0)
+                else if (Float.compare(chunkgeneratorsettings$factory.mainNoiseScaleX, mainNoiseScaleX) != 0)
                 {
                     return false;
                 }
-                else if (Float.compare(chunkgeneratorsettings$factory.mainNoiseScaleY, this.mainNoiseScaleY) != 0)
+                else if (Float.compare(chunkgeneratorsettings$factory.mainNoiseScaleY, mainNoiseScaleY) != 0)
                 {
                     return false;
                 }
-                else if (Float.compare(chunkgeneratorsettings$factory.mainNoiseScaleZ, this.mainNoiseScaleZ) != 0)
+                else if (Float.compare(chunkgeneratorsettings$factory.mainNoiseScaleZ, mainNoiseScaleZ) != 0)
                 {
                     return false;
                 }
-                else if (this.redstoneCount != chunkgeneratorsettings$factory.redstoneCount)
+                else if (redstoneCount != chunkgeneratorsettings$factory.redstoneCount)
                 {
                     return false;
                 }
-                else if (this.redstoneMaxHeight != chunkgeneratorsettings$factory.redstoneMaxHeight)
+                else if (redstoneMaxHeight != chunkgeneratorsettings$factory.redstoneMaxHeight)
                 {
                     return false;
                 }
-                else if (this.redstoneMinHeight != chunkgeneratorsettings$factory.redstoneMinHeight)
+                else if (redstoneMinHeight != chunkgeneratorsettings$factory.redstoneMinHeight)
                 {
                     return false;
                 }
-                else if (this.redstoneSize != chunkgeneratorsettings$factory.redstoneSize)
+                else if (redstoneSize != chunkgeneratorsettings$factory.redstoneSize)
                 {
                     return false;
                 }
-                else if (this.riverSize != chunkgeneratorsettings$factory.riverSize)
+                else if (riverSize != chunkgeneratorsettings$factory.riverSize)
                 {
                     return false;
                 }
-                else if (this.seaLevel != chunkgeneratorsettings$factory.seaLevel)
+                else if (seaLevel != chunkgeneratorsettings$factory.seaLevel)
                 {
                     return false;
                 }
-                else if (Float.compare(chunkgeneratorsettings$factory.stretchY, this.stretchY) != 0)
+                else if (Float.compare(chunkgeneratorsettings$factory.stretchY, stretchY) != 0)
                 {
                     return false;
                 }
-                else if (Float.compare(chunkgeneratorsettings$factory.upperLimitScale, this.upperLimitScale) != 0)
+                else if (Float.compare(chunkgeneratorsettings$factory.upperLimitScale, upperLimitScale) != 0)
                 {
                     return false;
                 }
-                else if (this.useCaves != chunkgeneratorsettings$factory.useCaves)
+                else if (useCaves != chunkgeneratorsettings$factory.useCaves)
                 {
                     return false;
                 }
-                else if (this.useDungeons != chunkgeneratorsettings$factory.useDungeons)
+                else if (useDungeons != chunkgeneratorsettings$factory.useDungeons)
                 {
                     return false;
                 }
-                else if (this.useLavaLakes != chunkgeneratorsettings$factory.useLavaLakes)
+                else if (useLavaLakes != chunkgeneratorsettings$factory.useLavaLakes)
                 {
                     return false;
                 }
-                else if (this.useLavaOceans != chunkgeneratorsettings$factory.useLavaOceans)
+                else if (useLavaOceans != chunkgeneratorsettings$factory.useLavaOceans)
                 {
                     return false;
                 }
-                else if (this.useMineShafts != chunkgeneratorsettings$factory.useMineShafts)
+                else if (useMineShafts != chunkgeneratorsettings$factory.useMineShafts)
                 {
                     return false;
                 }
-                else if (this.useRavines != chunkgeneratorsettings$factory.useRavines)
+                else if (useRavines != chunkgeneratorsettings$factory.useRavines)
                 {
                     return false;
                 }
-                else if (this.useStrongholds != chunkgeneratorsettings$factory.useStrongholds)
+                else if (useStrongholds != chunkgeneratorsettings$factory.useStrongholds)
                 {
                     return false;
                 }
-                else if (this.useTemples != chunkgeneratorsettings$factory.useTemples)
+                else if (useTemples != chunkgeneratorsettings$factory.useTemples)
                 {
                     return false;
                 }
-                else if (this.useMonuments != chunkgeneratorsettings$factory.useMonuments)
+                else if (useMonuments != chunkgeneratorsettings$factory.useMonuments)
                 {
                     return false;
                 }
-                else if (this.useMansions != chunkgeneratorsettings$factory.useMansions)
+                else if (useMansions != chunkgeneratorsettings$factory.useMansions)
                 {
                     return false;
                 }
-                else if (this.useVillages != chunkgeneratorsettings$factory.useVillages)
+                else if (useVillages != chunkgeneratorsettings$factory.useVillages)
                 {
                     return false;
                 }
-                else if (this.useWaterLakes != chunkgeneratorsettings$factory.useWaterLakes)
+                else if (useWaterLakes != chunkgeneratorsettings$factory.useWaterLakes)
                 {
                     return false;
                 }
                 else
                 {
-                    return this.waterLakeChance == chunkgeneratorsettings$factory.waterLakeChance;
+                    return waterLakeChance == chunkgeneratorsettings$factory.waterLakeChance;
                 }
             }
             else
@@ -711,85 +711,85 @@ public class ChunkGeneratorSettings
 
         public int hashCode()
         {
-            int i = this.coordinateScale == 0.0F ? 0 : Float.floatToIntBits(this.coordinateScale);
-            i = 31 * i + (this.heightScale == 0.0F ? 0 : Float.floatToIntBits(this.heightScale));
-            i = 31 * i + (this.upperLimitScale == 0.0F ? 0 : Float.floatToIntBits(this.upperLimitScale));
-            i = 31 * i + (this.lowerLimitScale == 0.0F ? 0 : Float.floatToIntBits(this.lowerLimitScale));
-            i = 31 * i + (this.depthNoiseScaleX == 0.0F ? 0 : Float.floatToIntBits(this.depthNoiseScaleX));
-            i = 31 * i + (this.depthNoiseScaleZ == 0.0F ? 0 : Float.floatToIntBits(this.depthNoiseScaleZ));
-            i = 31 * i + (this.depthNoiseScaleExponent == 0.0F ? 0 : Float.floatToIntBits(this.depthNoiseScaleExponent));
-            i = 31 * i + (this.mainNoiseScaleX == 0.0F ? 0 : Float.floatToIntBits(this.mainNoiseScaleX));
-            i = 31 * i + (this.mainNoiseScaleY == 0.0F ? 0 : Float.floatToIntBits(this.mainNoiseScaleY));
-            i = 31 * i + (this.mainNoiseScaleZ == 0.0F ? 0 : Float.floatToIntBits(this.mainNoiseScaleZ));
-            i = 31 * i + (this.baseSize == 0.0F ? 0 : Float.floatToIntBits(this.baseSize));
-            i = 31 * i + (this.stretchY == 0.0F ? 0 : Float.floatToIntBits(this.stretchY));
-            i = 31 * i + (this.biomeDepthWeight == 0.0F ? 0 : Float.floatToIntBits(this.biomeDepthWeight));
-            i = 31 * i + (this.biomeDepthOffset == 0.0F ? 0 : Float.floatToIntBits(this.biomeDepthOffset));
-            i = 31 * i + (this.biomeScaleWeight == 0.0F ? 0 : Float.floatToIntBits(this.biomeScaleWeight));
-            i = 31 * i + (this.biomeScaleOffset == 0.0F ? 0 : Float.floatToIntBits(this.biomeScaleOffset));
-            i = 31 * i + this.seaLevel;
-            i = 31 * i + (this.useCaves ? 1 : 0);
-            i = 31 * i + (this.useDungeons ? 1 : 0);
-            i = 31 * i + this.dungeonChance;
-            i = 31 * i + (this.useStrongholds ? 1 : 0);
-            i = 31 * i + (this.useVillages ? 1 : 0);
-            i = 31 * i + (this.useMineShafts ? 1 : 0);
-            i = 31 * i + (this.useTemples ? 1 : 0);
-            i = 31 * i + (this.useMonuments ? 1 : 0);
-            i = 31 * i + (this.useMansions ? 1 : 0);
-            i = 31 * i + (this.useRavines ? 1 : 0);
-            i = 31 * i + (this.useWaterLakes ? 1 : 0);
-            i = 31 * i + this.waterLakeChance;
-            i = 31 * i + (this.useLavaLakes ? 1 : 0);
-            i = 31 * i + this.lavaLakeChance;
-            i = 31 * i + (this.useLavaOceans ? 1 : 0);
-            i = 31 * i + this.fixedBiome;
-            i = 31 * i + this.biomeSize;
-            i = 31 * i + this.riverSize;
-            i = 31 * i + this.dirtSize;
-            i = 31 * i + this.dirtCount;
-            i = 31 * i + this.dirtMinHeight;
-            i = 31 * i + this.dirtMaxHeight;
-            i = 31 * i + this.gravelSize;
-            i = 31 * i + this.gravelCount;
-            i = 31 * i + this.gravelMinHeight;
-            i = 31 * i + this.gravelMaxHeight;
-            i = 31 * i + this.graniteSize;
-            i = 31 * i + this.graniteCount;
-            i = 31 * i + this.graniteMinHeight;
-            i = 31 * i + this.graniteMaxHeight;
-            i = 31 * i + this.dioriteSize;
-            i = 31 * i + this.dioriteCount;
-            i = 31 * i + this.dioriteMinHeight;
-            i = 31 * i + this.dioriteMaxHeight;
-            i = 31 * i + this.andesiteSize;
-            i = 31 * i + this.andesiteCount;
-            i = 31 * i + this.andesiteMinHeight;
-            i = 31 * i + this.andesiteMaxHeight;
-            i = 31 * i + this.coalSize;
-            i = 31 * i + this.coalCount;
-            i = 31 * i + this.coalMinHeight;
-            i = 31 * i + this.coalMaxHeight;
-            i = 31 * i + this.ironSize;
-            i = 31 * i + this.ironCount;
-            i = 31 * i + this.ironMinHeight;
-            i = 31 * i + this.ironMaxHeight;
-            i = 31 * i + this.goldSize;
-            i = 31 * i + this.goldCount;
-            i = 31 * i + this.goldMinHeight;
-            i = 31 * i + this.goldMaxHeight;
-            i = 31 * i + this.redstoneSize;
-            i = 31 * i + this.redstoneCount;
-            i = 31 * i + this.redstoneMinHeight;
-            i = 31 * i + this.redstoneMaxHeight;
-            i = 31 * i + this.diamondSize;
-            i = 31 * i + this.diamondCount;
-            i = 31 * i + this.diamondMinHeight;
-            i = 31 * i + this.diamondMaxHeight;
-            i = 31 * i + this.lapisSize;
-            i = 31 * i + this.lapisCount;
-            i = 31 * i + this.lapisCenterHeight;
-            i = 31 * i + this.lapisSpread;
+            int i = coordinateScale == 0.0F ? 0 : Float.floatToIntBits(coordinateScale);
+            i = 31 * i + (heightScale == 0.0F ? 0 : Float.floatToIntBits(heightScale));
+            i = 31 * i + (upperLimitScale == 0.0F ? 0 : Float.floatToIntBits(upperLimitScale));
+            i = 31 * i + (lowerLimitScale == 0.0F ? 0 : Float.floatToIntBits(lowerLimitScale));
+            i = 31 * i + (depthNoiseScaleX == 0.0F ? 0 : Float.floatToIntBits(depthNoiseScaleX));
+            i = 31 * i + (depthNoiseScaleZ == 0.0F ? 0 : Float.floatToIntBits(depthNoiseScaleZ));
+            i = 31 * i + (depthNoiseScaleExponent == 0.0F ? 0 : Float.floatToIntBits(depthNoiseScaleExponent));
+            i = 31 * i + (mainNoiseScaleX == 0.0F ? 0 : Float.floatToIntBits(mainNoiseScaleX));
+            i = 31 * i + (mainNoiseScaleY == 0.0F ? 0 : Float.floatToIntBits(mainNoiseScaleY));
+            i = 31 * i + (mainNoiseScaleZ == 0.0F ? 0 : Float.floatToIntBits(mainNoiseScaleZ));
+            i = 31 * i + (baseSize == 0.0F ? 0 : Float.floatToIntBits(baseSize));
+            i = 31 * i + (stretchY == 0.0F ? 0 : Float.floatToIntBits(stretchY));
+            i = 31 * i + (biomeDepthWeight == 0.0F ? 0 : Float.floatToIntBits(biomeDepthWeight));
+            i = 31 * i + (biomeDepthOffset == 0.0F ? 0 : Float.floatToIntBits(biomeDepthOffset));
+            i = 31 * i + (biomeScaleWeight == 0.0F ? 0 : Float.floatToIntBits(biomeScaleWeight));
+            i = 31 * i + (biomeScaleOffset == 0.0F ? 0 : Float.floatToIntBits(biomeScaleOffset));
+            i = 31 * i + seaLevel;
+            i = 31 * i + (useCaves ? 1 : 0);
+            i = 31 * i + (useDungeons ? 1 : 0);
+            i = 31 * i + dungeonChance;
+            i = 31 * i + (useStrongholds ? 1 : 0);
+            i = 31 * i + (useVillages ? 1 : 0);
+            i = 31 * i + (useMineShafts ? 1 : 0);
+            i = 31 * i + (useTemples ? 1 : 0);
+            i = 31 * i + (useMonuments ? 1 : 0);
+            i = 31 * i + (useMansions ? 1 : 0);
+            i = 31 * i + (useRavines ? 1 : 0);
+            i = 31 * i + (useWaterLakes ? 1 : 0);
+            i = 31 * i + waterLakeChance;
+            i = 31 * i + (useLavaLakes ? 1 : 0);
+            i = 31 * i + lavaLakeChance;
+            i = 31 * i + (useLavaOceans ? 1 : 0);
+            i = 31 * i + fixedBiome;
+            i = 31 * i + biomeSize;
+            i = 31 * i + riverSize;
+            i = 31 * i + dirtSize;
+            i = 31 * i + dirtCount;
+            i = 31 * i + dirtMinHeight;
+            i = 31 * i + dirtMaxHeight;
+            i = 31 * i + gravelSize;
+            i = 31 * i + gravelCount;
+            i = 31 * i + gravelMinHeight;
+            i = 31 * i + gravelMaxHeight;
+            i = 31 * i + graniteSize;
+            i = 31 * i + graniteCount;
+            i = 31 * i + graniteMinHeight;
+            i = 31 * i + graniteMaxHeight;
+            i = 31 * i + dioriteSize;
+            i = 31 * i + dioriteCount;
+            i = 31 * i + dioriteMinHeight;
+            i = 31 * i + dioriteMaxHeight;
+            i = 31 * i + andesiteSize;
+            i = 31 * i + andesiteCount;
+            i = 31 * i + andesiteMinHeight;
+            i = 31 * i + andesiteMaxHeight;
+            i = 31 * i + coalSize;
+            i = 31 * i + coalCount;
+            i = 31 * i + coalMinHeight;
+            i = 31 * i + coalMaxHeight;
+            i = 31 * i + ironSize;
+            i = 31 * i + ironCount;
+            i = 31 * i + ironMinHeight;
+            i = 31 * i + ironMaxHeight;
+            i = 31 * i + goldSize;
+            i = 31 * i + goldCount;
+            i = 31 * i + goldMinHeight;
+            i = 31 * i + goldMaxHeight;
+            i = 31 * i + redstoneSize;
+            i = 31 * i + redstoneCount;
+            i = 31 * i + redstoneMinHeight;
+            i = 31 * i + redstoneMaxHeight;
+            i = 31 * i + diamondSize;
+            i = 31 * i + diamondCount;
+            i = 31 * i + diamondMinHeight;
+            i = 31 * i + diamondMaxHeight;
+            i = 31 * i + lapisSize;
+            i = 31 * i + lapisCount;
+            i = 31 * i + lapisCenterHeight;
+            i = 31 * i + lapisSpread;
             return i;
         }
 

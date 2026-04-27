@@ -12,7 +12,7 @@ public enum Rotation
 
     private Rotation(String nameIn)
     {
-        this.name = nameIn;
+        name = nameIn;
     }
 
     public Rotation add(Rotation rotation)

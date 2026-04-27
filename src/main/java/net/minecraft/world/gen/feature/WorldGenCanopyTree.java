@@ -39,16 +39,16 @@ public class WorldGenCanopyTree extends WorldGenAbstractTree
             {
                 return false;
             }
-            else if (!this.placeTreeOfHeight(worldIn, position, i))
+            else if (!placeTreeOfHeight(worldIn, position, i))
             {
                 return false;
             }
             else
             {
-                this.setDirtAt(worldIn, blockpos);
-                this.setDirtAt(worldIn, blockpos.east());
-                this.setDirtAt(worldIn, blockpos.south());
-                this.setDirtAt(worldIn, blockpos.south().east());
+                setDirtAt(worldIn, blockpos);
+                setDirtAt(worldIn, blockpos.east());
+                setDirtAt(worldIn, blockpos.south());
+                setDirtAt(worldIn, blockpos.south().east());
                 EnumFacing enumfacing = EnumFacing.Plane.HORIZONTAL.random(rand);
                 int i1 = i - rand.nextInt(4);
                 int j1 = 2 - rand.nextInt(3);
@@ -71,10 +71,10 @@ public class WorldGenCanopyTree extends WorldGenAbstractTree
 
                     if (material == Material.AIR || material == Material.LEAVES)
                     {
-                        this.placeLogAt(worldIn, blockpos1);
-                        this.placeLogAt(worldIn, blockpos1.east());
-                        this.placeLogAt(worldIn, blockpos1.south());
-                        this.placeLogAt(worldIn, blockpos1.east().south());
+                        placeLogAt(worldIn, blockpos1);
+                        placeLogAt(worldIn, blockpos1.east());
+                        placeLogAt(worldIn, blockpos1.south());
+                        placeLogAt(worldIn, blockpos1.east().south());
                     }
                 }
 
@@ -83,28 +83,28 @@ public class WorldGenCanopyTree extends WorldGenAbstractTree
                     for (int l3 = -2; l3 <= 0; ++l3)
                     {
                         int k4 = -1;
-                        this.placeLeafAt(worldIn, k1 + i3, i2 + k4, l1 + l3);
-                        this.placeLeafAt(worldIn, 1 + k1 - i3, i2 + k4, l1 + l3);
-                        this.placeLeafAt(worldIn, k1 + i3, i2 + k4, 1 + l1 - l3);
-                        this.placeLeafAt(worldIn, 1 + k1 - i3, i2 + k4, 1 + l1 - l3);
+                        placeLeafAt(worldIn, k1 + i3, i2 + k4, l1 + l3);
+                        placeLeafAt(worldIn, 1 + k1 - i3, i2 + k4, l1 + l3);
+                        placeLeafAt(worldIn, k1 + i3, i2 + k4, 1 + l1 - l3);
+                        placeLeafAt(worldIn, 1 + k1 - i3, i2 + k4, 1 + l1 - l3);
 
                         if ((i3 > -2 || l3 > -1) && (i3 != -1 || l3 != -2))
                         {
                             k4 = 1;
-                            this.placeLeafAt(worldIn, k1 + i3, i2 + k4, l1 + l3);
-                            this.placeLeafAt(worldIn, 1 + k1 - i3, i2 + k4, l1 + l3);
-                            this.placeLeafAt(worldIn, k1 + i3, i2 + k4, 1 + l1 - l3);
-                            this.placeLeafAt(worldIn, 1 + k1 - i3, i2 + k4, 1 + l1 - l3);
+                            placeLeafAt(worldIn, k1 + i3, i2 + k4, l1 + l3);
+                            placeLeafAt(worldIn, 1 + k1 - i3, i2 + k4, l1 + l3);
+                            placeLeafAt(worldIn, k1 + i3, i2 + k4, 1 + l1 - l3);
+                            placeLeafAt(worldIn, 1 + k1 - i3, i2 + k4, 1 + l1 - l3);
                         }
                     }
                 }
 
                 if (rand.nextBoolean())
                 {
-                    this.placeLeafAt(worldIn, k1, i2 + 2, l1);
-                    this.placeLeafAt(worldIn, k1 + 1, i2 + 2, l1);
-                    this.placeLeafAt(worldIn, k1 + 1, i2 + 2, l1 + 1);
-                    this.placeLeafAt(worldIn, k1, i2 + 2, l1 + 1);
+                    placeLeafAt(worldIn, k1, i2 + 2, l1);
+                    placeLeafAt(worldIn, k1 + 1, i2 + 2, l1);
+                    placeLeafAt(worldIn, k1 + 1, i2 + 2, l1 + 1);
+                    placeLeafAt(worldIn, k1, i2 + 2, l1 + 1);
                 }
 
                 for (int j3 = -3; j3 <= 4; ++j3)
@@ -113,7 +113,7 @@ public class WorldGenCanopyTree extends WorldGenAbstractTree
                     {
                         if ((j3 != -3 || i4 != -3) && (j3 != -3 || i4 != 4) && (j3 != 4 || i4 != -3) && (j3 != 4 || i4 != 4) && (Math.abs(j3) < 3 || Math.abs(i4) < 3))
                         {
-                            this.placeLeafAt(worldIn, k1 + j3, i2, l1 + i4);
+                            placeLeafAt(worldIn, k1 + j3, i2, l1 + i4);
                         }
                     }
                 }
@@ -128,14 +128,14 @@ public class WorldGenCanopyTree extends WorldGenAbstractTree
 
                             for (int i5 = 0; i5 < l4; ++i5)
                             {
-                                this.placeLogAt(worldIn, new BlockPos(j + k3, i2 - i5 - 1, l + j4));
+                                placeLogAt(worldIn, new BlockPos(j + k3, i2 - i5 - 1, l + j4));
                             }
 
                             for (int j5 = -1; j5 <= 1; ++j5)
                             {
                                 for (int l2 = -1; l2 <= 1; ++l2)
                                 {
-                                    this.placeLeafAt(worldIn, k1 + k3 + j5, i2, l1 + j4 + l2);
+                                    placeLeafAt(worldIn, k1 + k3 + j5, i2, l1 + j4 + l2);
                                 }
                             }
 
@@ -145,7 +145,7 @@ public class WorldGenCanopyTree extends WorldGenAbstractTree
                                 {
                                     if (Math.abs(k5) != 2 || Math.abs(l5) != 2)
                                     {
-                                        this.placeLeafAt(worldIn, k1 + k3 + k5, i2 - 1, l1 + j4 + l5);
+                                        placeLeafAt(worldIn, k1 + k3 + k5, i2 - 1, l1 + j4 + l5);
                                     }
                                 }
                             }
@@ -187,7 +187,7 @@ public class WorldGenCanopyTree extends WorldGenAbstractTree
             {
                 for (int k1 = -i1; k1 <= i1; ++k1)
                 {
-                    if (!this.canGrowInto(worldIn.getBlockState(blockpos$mutableblockpos.setPos(i + j1, j + l, k + k1)).getBlock()))
+                    if (!canGrowInto(worldIn.getBlockState(blockpos$mutableblockpos.setPos(i + j1, j + l, k + k1)).getBlock()))
                     {
                         return false;
                     }
@@ -200,9 +200,9 @@ public class WorldGenCanopyTree extends WorldGenAbstractTree
 
     private void placeLogAt(World worldIn, BlockPos pos)
     {
-        if (this.canGrowInto(worldIn.getBlockState(pos).getBlock()))
+        if (canGrowInto(worldIn.getBlockState(pos).getBlock()))
         {
-            this.setBlockAndNotifyAdequately(worldIn, pos, DARK_OAK_LOG);
+            setBlockAndNotifyAdequately(worldIn, pos, DARK_OAK_LOG);
         }
     }
 
@@ -213,7 +213,7 @@ public class WorldGenCanopyTree extends WorldGenAbstractTree
 
         if (material == Material.AIR)
         {
-            this.setBlockAndNotifyAdequately(worldIn, blockpos, DARK_OAK_LEAVES);
+            setBlockAndNotifyAdequately(worldIn, blockpos, DARK_OAK_LEAVES);
         }
     }
 }

@@ -19,10 +19,10 @@ public class TutorialToast implements IToast
 
     public TutorialToast(TutorialToast.Icons iconIn, ITextComponent titleComponent, @Nullable ITextComponent subtitleComponent, boolean drawProgressBar)
     {
-        this.icon = iconIn;
-        this.title = titleComponent.getFormattedText();
-        this.subtitle = subtitleComponent == null ? null : subtitleComponent.getFormattedText();
-        this.hasProgressBar = drawProgressBar;
+        icon = iconIn;
+        title = titleComponent.getFormattedText();
+        subtitle = subtitleComponent == null ? null : subtitleComponent.getFormattedText();
+        hasProgressBar = drawProgressBar;
     }
 
     public IToast.Visibility draw(GuiToast toastGui, long delta)
@@ -30,25 +30,25 @@ public class TutorialToast implements IToast
         toastGui.getMinecraft().getTextureManager().bindTexture(TEXTURE_TOASTS);
         GlStateManager.color(1.0F, 1.0F, 1.0F);
         toastGui.drawTexturedModalRect(0, 0, 0, 96, 160, 32);
-        this.icon.draw(toastGui, 6, 6);
+        icon.draw(toastGui, 6, 6);
 
-        if (this.subtitle == null)
+        if (subtitle == null)
         {
-            toastGui.getMinecraft().fontRenderer.drawString(this.title, 30, 12, -11534256);
+            toastGui.getMinecraft().fontRenderer.drawString(title, 30, 12, -11534256);
         }
         else
         {
-            toastGui.getMinecraft().fontRenderer.drawString(this.title, 30, 7, -11534256);
-            toastGui.getMinecraft().fontRenderer.drawString(this.subtitle, 30, 18, -16777216);
+            toastGui.getMinecraft().fontRenderer.drawString(title, 30, 7, -11534256);
+            toastGui.getMinecraft().fontRenderer.drawString(subtitle, 30, 18, -16777216);
         }
 
-        if (this.hasProgressBar)
+        if (hasProgressBar)
         {
             Gui.drawRect(3, 28, 157, 29, -1);
-            float f = (float)MathHelper.clampedLerp((double)this.displayedProgress, (double)this.currentProgress, (double)((float)(delta - this.lastDelta) / 100.0F));
+            float f = (float)MathHelper.clampedLerp((double) displayedProgress, (double) currentProgress, (double)((float)(delta - lastDelta) / 100.0F));
             int i;
 
-            if (this.currentProgress >= this.displayedProgress)
+            if (currentProgress >= displayedProgress)
             {
                 i = -16755456;
             }
@@ -58,21 +58,21 @@ public class TutorialToast implements IToast
             }
 
             Gui.drawRect(3, 28, (int)(3.0F + 154.0F * f), 29, i);
-            this.displayedProgress = f;
-            this.lastDelta = delta;
+            displayedProgress = f;
+            lastDelta = delta;
         }
 
-        return this.visibility;
+        return visibility;
     }
 
     public void hide()
     {
-        this.visibility = IToast.Visibility.HIDE;
+        visibility = IToast.Visibility.HIDE;
     }
 
     public void setProgress(float progress)
     {
-        this.currentProgress = progress;
+        currentProgress = progress;
     }
 
     public static enum Icons
@@ -88,14 +88,14 @@ public class TutorialToast implements IToast
 
         private Icons(int columnIn, int rowIn)
         {
-            this.column = columnIn;
-            this.row = rowIn;
+            column = columnIn;
+            row = rowIn;
         }
 
         public void draw(Gui guiIn, int x, int y)
         {
             GlStateManager.enableBlend();
-            guiIn.drawTexturedModalRect(x, y, 176 + this.column * 20, this.row * 20, 20, 20);
+            guiIn.drawTexturedModalRect(x, y, 176 + column * 20, row * 20, 20, 20);
             GlStateManager.enableBlend();
         }
     }

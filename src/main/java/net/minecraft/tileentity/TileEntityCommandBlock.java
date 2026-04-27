@@ -25,25 +25,25 @@ public class TileEntityCommandBlock extends TileEntity
     {
         public BlockPos getPosition()
         {
-            return TileEntityCommandBlock.this.pos;
+            return pos;
         }
         public Vec3d getPositionVector()
         {
-            return new Vec3d((double)TileEntityCommandBlock.this.pos.getX() + 0.5D, (double)TileEntityCommandBlock.this.pos.getY() + 0.5D, (double)TileEntityCommandBlock.this.pos.getZ() + 0.5D);
+            return new Vec3d((double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D);
         }
         public World getEntityWorld()
         {
-            return TileEntityCommandBlock.this.getWorld();
+            return getWorld();
         }
         public void setCommand(String command)
         {
             super.setCommand(command);
-            TileEntityCommandBlock.this.markDirty();
+            markDirty();
         }
         public void updateCommand()
         {
-            IBlockState iblockstate = TileEntityCommandBlock.this.world.getBlockState(TileEntityCommandBlock.this.pos);
-            TileEntityCommandBlock.this.getWorld().notifyBlockUpdate(TileEntityCommandBlock.this.pos, iblockstate, iblockstate, 3);
+            IBlockState iblockstate = world.getBlockState(pos);
+            getWorld().notifyBlockUpdate(pos, iblockstate, iblockstate, 3);
         }
         public int getCommandBlockType()
         {
@@ -51,43 +51,43 @@ public class TileEntityCommandBlock extends TileEntity
         }
         public void fillInInfo(ByteBuf buf)
         {
-            buf.writeInt(TileEntityCommandBlock.this.pos.getX());
-            buf.writeInt(TileEntityCommandBlock.this.pos.getY());
-            buf.writeInt(TileEntityCommandBlock.this.pos.getZ());
+            buf.writeInt(pos.getX());
+            buf.writeInt(pos.getY());
+            buf.writeInt(pos.getZ());
         }
         public MinecraftServer getServer()
         {
-            return TileEntityCommandBlock.this.world.getMinecraftServer();
+            return world.getMinecraftServer();
         }
     };
 
     public NBTTagCompound writeToNBT(NBTTagCompound compound)
     {
         super.writeToNBT(compound);
-        this.commandBlockLogic.writeToNBT(compound);
-        compound.setBoolean("powered", this.isPowered());
-        compound.setBoolean("conditionMet", this.isConditionMet());
-        compound.setBoolean("auto", this.isAuto());
+        commandBlockLogic.writeToNBT(compound);
+        compound.setBoolean("powered", isPowered());
+        compound.setBoolean("conditionMet", isConditionMet());
+        compound.setBoolean("auto", isAuto());
         return compound;
     }
 
     public void readFromNBT(NBTTagCompound compound)
     {
         super.readFromNBT(compound);
-        this.commandBlockLogic.readDataFromNBT(compound);
-        this.powered = compound.getBoolean("powered");
-        this.conditionMet = compound.getBoolean("conditionMet");
-        this.setAuto(compound.getBoolean("auto"));
+        commandBlockLogic.readDataFromNBT(compound);
+        powered = compound.getBoolean("powered");
+        conditionMet = compound.getBoolean("conditionMet");
+        setAuto(compound.getBoolean("auto"));
     }
 
     @Nullable
     public SPacketUpdateTileEntity getUpdatePacket()
     {
-        if (this.isSendToClient())
+        if (isSendToClient())
         {
-            this.setSendToClient(false);
-            NBTTagCompound nbttagcompound = this.writeToNBT(new NBTTagCompound());
-            return new SPacketUpdateTileEntity(this.pos, 2, nbttagcompound);
+            setSendToClient(false);
+            NBTTagCompound nbttagcompound = writeToNBT(new NBTTagCompound());
+            return new SPacketUpdateTileEntity(pos, 2, nbttagcompound);
         }
         else
         {
@@ -102,86 +102,86 @@ public class TileEntityCommandBlock extends TileEntity
 
     public CommandBlockBaseLogic getCommandBlockLogic()
     {
-        return this.commandBlockLogic;
+        return commandBlockLogic;
     }
 
     public CommandResultStats getCommandResultStats()
     {
-        return this.commandBlockLogic.getCommandResultStats();
+        return commandBlockLogic.getCommandResultStats();
     }
 
     public void setPowered(boolean poweredIn)
     {
-        this.powered = poweredIn;
+        powered = poweredIn;
     }
 
     public boolean isPowered()
     {
-        return this.powered;
+        return powered;
     }
 
     public boolean isAuto()
     {
-        return this.auto;
+        return auto;
     }
 
     public void setAuto(boolean autoIn)
     {
-        boolean flag = this.auto;
-        this.auto = autoIn;
+        boolean flag = auto;
+        auto = autoIn;
 
-        if (!flag && autoIn && !this.powered && this.world != null && this.getMode() != TileEntityCommandBlock.Mode.SEQUENCE)
+        if (!flag && autoIn && !powered && world != null && getMode() != TileEntityCommandBlock.Mode.SEQUENCE)
         {
-            Block block = this.getBlockType();
+            Block block = getBlockType();
 
             if (block instanceof BlockCommandBlock)
             {
-                this.setConditionMet();
-                this.world.scheduleUpdate(this.pos, block, block.tickRate(this.world));
+                setConditionMet();
+                world.scheduleUpdate(pos, block, block.tickRate(world));
             }
         }
     }
 
     public boolean isConditionMet()
     {
-        return this.conditionMet;
+        return conditionMet;
     }
 
     public boolean setConditionMet()
     {
-        this.conditionMet = true;
+        conditionMet = true;
 
-        if (this.isConditional())
+        if (isConditional())
         {
-            BlockPos blockpos = this.pos.offset(((EnumFacing)this.world.getBlockState(this.pos).getValue(BlockCommandBlock.FACING)).getOpposite());
+            BlockPos blockpos = pos.offset(((EnumFacing) world.getBlockState(pos).getValue(BlockCommandBlock.FACING)).getOpposite());
 
-            if (this.world.getBlockState(blockpos).getBlock() instanceof BlockCommandBlock)
+            if (world.getBlockState(blockpos).getBlock() instanceof BlockCommandBlock)
             {
-                TileEntity tileentity = this.world.getTileEntity(blockpos);
-                this.conditionMet = tileentity instanceof TileEntityCommandBlock && ((TileEntityCommandBlock)tileentity).getCommandBlockLogic().getSuccessCount() > 0;
+                TileEntity tileentity = world.getTileEntity(blockpos);
+                conditionMet = tileentity instanceof TileEntityCommandBlock && ((TileEntityCommandBlock)tileentity).getCommandBlockLogic().getSuccessCount() > 0;
             }
             else
             {
-                this.conditionMet = false;
+                conditionMet = false;
             }
         }
 
-        return this.conditionMet;
+        return conditionMet;
     }
 
     public boolean isSendToClient()
     {
-        return this.sendToClient;
+        return sendToClient;
     }
 
     public void setSendToClient(boolean p_184252_1_)
     {
-        this.sendToClient = p_184252_1_;
+        sendToClient = p_184252_1_;
     }
 
     public TileEntityCommandBlock.Mode getMode()
     {
-        Block block = this.getBlockType();
+        Block block = getBlockType();
 
         if (block == Blocks.COMMAND_BLOCK)
         {
@@ -199,7 +199,7 @@ public class TileEntityCommandBlock extends TileEntity
 
     public boolean isConditional()
     {
-        IBlockState iblockstate = this.world.getBlockState(this.getPos());
+        IBlockState iblockstate = world.getBlockState(getPos());
         return iblockstate.getBlock() instanceof BlockCommandBlock ? ((Boolean)iblockstate.getValue(BlockCommandBlock.CONDITIONAL)).booleanValue() : false;
     }
 
@@ -208,7 +208,7 @@ public class TileEntityCommandBlock extends TileEntity
      */
     public void validate()
     {
-        this.blockType = null;
+        blockType = null;
         super.validate();
     }
 

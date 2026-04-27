@@ -35,16 +35,16 @@ public class BlockWall extends Block
     public BlockWall(Block modelBlock)
     {
         super(modelBlock.blockMaterial);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(UP, Boolean.valueOf(false)).withProperty(NORTH, Boolean.valueOf(false)).withProperty(EAST, Boolean.valueOf(false)).withProperty(SOUTH, Boolean.valueOf(false)).withProperty(WEST, Boolean.valueOf(false)).withProperty(VARIANT, BlockWall.EnumType.NORMAL));
-        this.setHardness(modelBlock.blockHardness);
-        this.setResistance(modelBlock.blockResistance / 3.0F);
-        this.setSoundType(modelBlock.blockSoundType);
-        this.setCreativeTab(CreativeTabs.DECORATIONS);
+        setDefaultState(blockState.getBaseState().withProperty(UP, Boolean.valueOf(false)).withProperty(NORTH, Boolean.valueOf(false)).withProperty(EAST, Boolean.valueOf(false)).withProperty(SOUTH, Boolean.valueOf(false)).withProperty(WEST, Boolean.valueOf(false)).withProperty(VARIANT, BlockWall.EnumType.NORMAL));
+        setHardness(modelBlock.blockHardness);
+        setResistance(modelBlock.blockResistance / 3.0F);
+        setSoundType(modelBlock.blockSoundType);
+        setCreativeTab(CreativeTabs.DECORATIONS);
     }
 
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
     {
-        state = this.getActualState(state, source, pos);
+        state = getActualState(state, source, pos);
         return AABB_BY_INDEX[getAABBIndex(state)];
     }
 
@@ -52,7 +52,7 @@ public class BlockWall extends Block
     {
         if (!isActualState)
         {
-            state = this.getActualState(state, worldIn, pos);
+            state = getActualState(state, worldIn, pos);
         }
 
         addCollisionBoxToList(pos, entityBox, collidingBoxes, CLIP_AABB_BY_INDEX[getAABBIndex(state)]);
@@ -61,7 +61,7 @@ public class BlockWall extends Block
     @Nullable
     public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos)
     {
-        blockState = this.getActualState(blockState, worldIn, pos);
+        blockState = getActualState(blockState, worldIn, pos);
         return CLIP_AABB_BY_INDEX[getAABBIndex(blockState)];
     }
 
@@ -97,7 +97,7 @@ public class BlockWall extends Block
      */
     public String getLocalizedName()
     {
-        return I18n.translateToLocal(this.getUnlocalizedName() + "." + BlockWall.EnumType.NORMAL.getUnlocalizedName() + ".name");
+        return I18n.translateToLocal(getUnlocalizedName() + "." + BlockWall.EnumType.NORMAL.getUnlocalizedName() + ".name");
     }
 
     public boolean isFullCube(IBlockState state)
@@ -165,7 +165,7 @@ public class BlockWall extends Block
      */
     public IBlockState getStateFromMeta(int meta)
     {
-        return this.getDefaultState().withProperty(VARIANT, BlockWall.EnumType.byMetadata(meta));
+        return getDefaultState().withProperty(VARIANT, BlockWall.EnumType.byMetadata(meta));
     }
 
     /**
@@ -182,10 +182,10 @@ public class BlockWall extends Block
      */
     public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos)
     {
-        boolean flag = this.canConnectTo(worldIn, pos.north(), EnumFacing.SOUTH);
-        boolean flag1 = this.canConnectTo(worldIn, pos.east(), EnumFacing.WEST);
-        boolean flag2 = this.canConnectTo(worldIn, pos.south(), EnumFacing.NORTH);
-        boolean flag3 = this.canConnectTo(worldIn, pos.west(), EnumFacing.EAST);
+        boolean flag = canConnectTo(worldIn, pos.north(), EnumFacing.SOUTH);
+        boolean flag1 = canConnectTo(worldIn, pos.east(), EnumFacing.WEST);
+        boolean flag2 = canConnectTo(worldIn, pos.south(), EnumFacing.NORTH);
+        boolean flag3 = canConnectTo(worldIn, pos.west(), EnumFacing.EAST);
         boolean flag4 = flag && !flag1 && flag2 && !flag3 || !flag && flag1 && !flag2 && flag3;
         return state.withProperty(UP, Boolean.valueOf(!flag4 || !worldIn.isAirBlock(pos.up()))).withProperty(NORTH, Boolean.valueOf(flag)).withProperty(EAST, Boolean.valueOf(flag1)).withProperty(SOUTH, Boolean.valueOf(flag2)).withProperty(WEST, Boolean.valueOf(flag3));
     }
@@ -228,12 +228,12 @@ public class BlockWall extends Block
 
         public int getMetadata()
         {
-            return this.meta;
+            return meta;
         }
 
         public String toString()
         {
-            return this.name;
+            return name;
         }
 
         public static BlockWall.EnumType byMetadata(int meta)
@@ -248,12 +248,12 @@ public class BlockWall extends Block
 
         public String getName()
         {
-            return this.name;
+            return name;
         }
 
         public String getUnlocalizedName()
         {
-            return this.unlocalizedName;
+            return unlocalizedName;
         }
 
         static {

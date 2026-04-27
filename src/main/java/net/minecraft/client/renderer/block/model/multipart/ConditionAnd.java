@@ -14,12 +14,12 @@ public class ConditionAnd implements ICondition
 
     public ConditionAnd(Iterable<ICondition> conditionsIn)
     {
-        this.conditions = conditionsIn;
+        conditions = conditionsIn;
     }
 
     public Predicate<IBlockState> getPredicate(final BlockStateContainer blockState)
     {
-        return Predicates.and(Iterables.transform(this.conditions, new Function<ICondition, Predicate<IBlockState>>()
+        return Predicates.and(Iterables.transform(conditions, new Function<ICondition, Predicate<IBlockState>>()
         {
             @Nullable
             public Predicate<IBlockState> apply(@Nullable ICondition p_apply_1_)

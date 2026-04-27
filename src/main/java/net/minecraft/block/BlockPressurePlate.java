@@ -23,8 +23,8 @@ public class BlockPressurePlate extends BlockBasePressurePlate
     protected BlockPressurePlate(Material materialIn, BlockPressurePlate.Sensitivity sensitivityIn)
     {
         super(materialIn);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(POWERED, Boolean.valueOf(false)));
-        this.sensitivity = sensitivityIn;
+        setDefaultState(blockState.getBaseState().withProperty(POWERED, Boolean.valueOf(false)));
+        sensitivity = sensitivityIn;
     }
 
     protected int getRedstoneStrength(IBlockState state)
@@ -39,7 +39,7 @@ public class BlockPressurePlate extends BlockBasePressurePlate
 
     protected void playClickOnSound(World worldIn, BlockPos color)
     {
-        if (this.blockMaterial == Material.WOOD)
+        if (blockMaterial == Material.WOOD)
         {
             worldIn.playSound((EntityPlayer)null, color, SoundEvents.BLOCK_WOOD_PRESSPLATE_CLICK_ON, SoundCategory.BLOCKS, 0.3F, 0.8F);
         }
@@ -51,7 +51,7 @@ public class BlockPressurePlate extends BlockBasePressurePlate
 
     protected void playClickOffSound(World worldIn, BlockPos pos)
     {
-        if (this.blockMaterial == Material.WOOD)
+        if (blockMaterial == Material.WOOD)
         {
             worldIn.playSound((EntityPlayer)null, pos, SoundEvents.BLOCK_WOOD_PRESSPLATE_CLICK_OFF, SoundCategory.BLOCKS, 0.3F, 0.7F);
         }
@@ -66,7 +66,7 @@ public class BlockPressurePlate extends BlockBasePressurePlate
         AxisAlignedBB axisalignedbb = PRESSURE_AABB.offset(pos);
         List <? extends Entity > list;
 
-        switch (this.sensitivity)
+        switch (sensitivity)
         {
             case EVERYTHING:
                 list = worldIn.getEntitiesWithinAABBExcludingEntity((Entity)null, axisalignedbb);
@@ -99,7 +99,7 @@ public class BlockPressurePlate extends BlockBasePressurePlate
      */
     public IBlockState getStateFromMeta(int meta)
     {
-        return this.getDefaultState().withProperty(POWERED, Boolean.valueOf(meta == 1));
+        return getDefaultState().withProperty(POWERED, Boolean.valueOf(meta == 1));
     }
 
     /**

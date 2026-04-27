@@ -51,9 +51,9 @@ public class PlayerAdvancements
     public PlayerAdvancements(MinecraftServer server, File p_i47422_2_, EntityPlayerMP player)
     {
         this.server = server;
-        this.progressFile = p_i47422_2_;
+        progressFile = p_i47422_2_;
         this.player = player;
-        this.load();
+        load();
     }
 
     public void setPlayer(EntityPlayerMP player)
@@ -71,21 +71,21 @@ public class PlayerAdvancements
 
     public void reload()
     {
-        this.dispose();
-        this.progress.clear();
-        this.visible.clear();
-        this.visibilityChanged.clear();
-        this.progressChanged.clear();
-        this.isFirstPacket = true;
-        this.lastSelectedTab = null;
-        this.load();
+        dispose();
+        progress.clear();
+        visible.clear();
+        visibilityChanged.clear();
+        progressChanged.clear();
+        isFirstPacket = true;
+        lastSelectedTab = null;
+        load();
     }
 
     private void registerListeners()
     {
-        for (Advancement advancement : this.server.getAdvancementManager().getAdvancements())
+        for (Advancement advancement : server.getAdvancementManager().getAdvancements())
         {
-            this.registerListeners(advancement);
+            registerListeners(advancement);
         }
     }
 
@@ -93,40 +93,40 @@ public class PlayerAdvancements
     {
         List<Advancement> list = Lists.<Advancement>newArrayList();
 
-        for (Entry<Advancement, AdvancementProgress> entry : this.progress.entrySet())
+        for (Entry<Advancement, AdvancementProgress> entry : progress.entrySet())
         {
             if (((AdvancementProgress)entry.getValue()).isDone())
             {
                 list.add(entry.getKey());
-                this.progressChanged.add(entry.getKey());
+                progressChanged.add(entry.getKey());
             }
         }
 
         for (Advancement advancement : list)
         {
-            this.ensureVisibility(advancement);
+            ensureVisibility(advancement);
         }
     }
 
     private void checkForAutomaticTriggers()
     {
-        for (Advancement advancement : this.server.getAdvancementManager().getAdvancements())
+        for (Advancement advancement : server.getAdvancementManager().getAdvancements())
         {
             if (advancement.getCriteria().isEmpty())
             {
-                this.grantCriterion(advancement, "");
-                advancement.getRewards().apply(this.player);
+                grantCriterion(advancement, "");
+                advancement.getRewards().apply(player);
             }
         }
     }
 
     private void load()
     {
-        if (this.progressFile.isFile())
+        if (progressFile.isFile())
         {
             try
             {
-                String s = Files.toString(this.progressFile, StandardCharsets.UTF_8);
+                String s = Files.toString(progressFile, StandardCharsets.UTF_8);
                 Map<ResourceLocation, AdvancementProgress> map = (Map)JsonUtils.gsonDeserialize(GSON, s, MAP_TOKEN.getType());
 
                 if (map == null)
@@ -138,38 +138,38 @@ public class PlayerAdvancements
 
                 for (Entry<ResourceLocation, AdvancementProgress> entry : stream.collect(Collectors.toList()))
                 {
-                    Advancement advancement = this.server.getAdvancementManager().getAdvancement(entry.getKey());
+                    Advancement advancement = server.getAdvancementManager().getAdvancement(entry.getKey());
 
                     if (advancement == null)
                     {
-                        LOGGER.warn("Ignored advancement '" + entry.getKey() + "' in progress file " + this.progressFile + " - it doesn't exist anymore?");
+                        LOGGER.warn("Ignored advancement '" + entry.getKey() + "' in progress file " + progressFile + " - it doesn't exist anymore?");
                     }
                     else
                     {
-                        this.startProgress(advancement, entry.getValue());
+                        startProgress(advancement, entry.getValue());
                     }
                 }
             }
             catch (JsonParseException jsonparseexception)
             {
-                LOGGER.error("Couldn't parse player advancements in " + this.progressFile, (Throwable)jsonparseexception);
+                LOGGER.error("Couldn't parse player advancements in " + progressFile, (Throwable)jsonparseexception);
             }
             catch (IOException ioexception)
             {
-                LOGGER.error("Couldn't access player advancements in " + this.progressFile, (Throwable)ioexception);
+                LOGGER.error("Couldn't access player advancements in " + progressFile, (Throwable)ioexception);
             }
         }
 
-        this.checkForAutomaticTriggers();
-        this.ensureAllVisible();
-        this.registerListeners();
+        checkForAutomaticTriggers();
+        ensureAllVisible();
+        registerListeners();
     }
 
     public void save()
     {
         Map<ResourceLocation, AdvancementProgress> map = Maps.<ResourceLocation, AdvancementProgress>newHashMap();
 
-        for (Entry<Advancement, AdvancementProgress> entry : this.progress.entrySet())
+        for (Entry<Advancement, AdvancementProgress> entry : progress.entrySet())
         {
             AdvancementProgress advancementprogress = entry.getValue();
 
@@ -179,47 +179,47 @@ public class PlayerAdvancements
             }
         }
 
-        if (this.progressFile.getParentFile() != null)
+        if (progressFile.getParentFile() != null)
         {
-            this.progressFile.getParentFile().mkdirs();
+            progressFile.getParentFile().mkdirs();
         }
 
         try
         {
-            Files.write(GSON.toJson(map), this.progressFile, StandardCharsets.UTF_8);
+            Files.write(GSON.toJson(map), progressFile, StandardCharsets.UTF_8);
         }
         catch (IOException ioexception)
         {
-            LOGGER.error("Couldn't save player advancements to " + this.progressFile, (Throwable)ioexception);
+            LOGGER.error("Couldn't save player advancements to " + progressFile, (Throwable)ioexception);
         }
     }
 
     public boolean grantCriterion(Advancement p_192750_1_, String p_192750_2_)
     {
         boolean flag = false;
-        AdvancementProgress advancementprogress = this.getProgress(p_192750_1_);
+        AdvancementProgress advancementprogress = getProgress(p_192750_1_);
         boolean flag1 = advancementprogress.isDone();
 
         if (advancementprogress.grantCriterion(p_192750_2_))
         {
-            this.unregisterListeners(p_192750_1_);
-            this.progressChanged.add(p_192750_1_);
+            unregisterListeners(p_192750_1_);
+            progressChanged.add(p_192750_1_);
             flag = true;
 
             if (!flag1 && advancementprogress.isDone())
             {
-                p_192750_1_.getRewards().apply(this.player);
+                p_192750_1_.getRewards().apply(player);
 
-                if (p_192750_1_.getDisplay() != null && p_192750_1_.getDisplay().shouldAnnounceToChat() && this.player.world.getGameRules().getBoolean("announceAdvancements"))
+                if (p_192750_1_.getDisplay() != null && p_192750_1_.getDisplay().shouldAnnounceToChat() && player.world.getGameRules().getBoolean("announceAdvancements"))
                 {
-                    this.server.getPlayerList().sendMessage(new TextComponentTranslation("chat.type.advancement." + p_192750_1_.getDisplay().getFrame().getName(), new Object[] {this.player.getDisplayName(), p_192750_1_.getDisplayText()}));
+                    server.getPlayerList().sendMessage(new TextComponentTranslation("chat.type.advancement." + p_192750_1_.getDisplay().getFrame().getName(), new Object[] {player.getDisplayName(), p_192750_1_.getDisplayText()}));
                 }
             }
         }
 
         if (advancementprogress.isDone())
         {
-            this.ensureVisibility(p_192750_1_);
+            ensureVisibility(p_192750_1_);
         }
 
         return flag;
@@ -228,18 +228,18 @@ public class PlayerAdvancements
     public boolean revokeCriterion(Advancement p_192744_1_, String p_192744_2_)
     {
         boolean flag = false;
-        AdvancementProgress advancementprogress = this.getProgress(p_192744_1_);
+        AdvancementProgress advancementprogress = getProgress(p_192744_1_);
 
         if (advancementprogress.revokeCriterion(p_192744_2_))
         {
-            this.registerListeners(p_192744_1_);
-            this.progressChanged.add(p_192744_1_);
+            registerListeners(p_192744_1_);
+            progressChanged.add(p_192744_1_);
             flag = true;
         }
 
         if (!advancementprogress.hasProgress())
         {
-            this.ensureVisibility(p_192744_1_);
+            ensureVisibility(p_192744_1_);
         }
 
         return flag;
@@ -247,7 +247,7 @@ public class PlayerAdvancements
 
     private void registerListeners(Advancement p_193764_1_)
     {
-        AdvancementProgress advancementprogress = this.getProgress(p_193764_1_);
+        AdvancementProgress advancementprogress = getProgress(p_193764_1_);
 
         if (!advancementprogress.isDone())
         {
@@ -275,7 +275,7 @@ public class PlayerAdvancements
 
     private void unregisterListeners(Advancement p_193765_1_)
     {
-        AdvancementProgress advancementprogress = this.getProgress(p_193765_1_);
+        AdvancementProgress advancementprogress = getProgress(p_193765_1_);
 
         for (Entry<String, Criterion> entry : p_193765_1_.getCriteria().entrySet())
         {
@@ -300,23 +300,23 @@ public class PlayerAdvancements
 
     public void flushDirty(EntityPlayerMP p_192741_1_)
     {
-        if (!this.visibilityChanged.isEmpty() || !this.progressChanged.isEmpty())
+        if (!visibilityChanged.isEmpty() || !progressChanged.isEmpty())
         {
             Map<ResourceLocation, AdvancementProgress> map = Maps.<ResourceLocation, AdvancementProgress>newHashMap();
             Set<Advancement> set = Sets.<Advancement>newLinkedHashSet();
             Set<ResourceLocation> set1 = Sets.<ResourceLocation>newLinkedHashSet();
 
-            for (Advancement advancement : this.progressChanged)
+            for (Advancement advancement : progressChanged)
             {
-                if (this.visible.contains(advancement))
+                if (visible.contains(advancement))
                 {
-                    map.put(advancement.getId(), this.progress.get(advancement));
+                    map.put(advancement.getId(), progress.get(advancement));
                 }
             }
 
-            for (Advancement advancement1 : this.visibilityChanged)
+            for (Advancement advancement1 : visibilityChanged)
             {
-                if (this.visible.contains(advancement1))
+                if (visible.contains(advancement1))
                 {
                     set.add(advancement1);
                 }
@@ -328,42 +328,42 @@ public class PlayerAdvancements
 
             if (!map.isEmpty() || !set.isEmpty() || !set1.isEmpty())
             {
-                p_192741_1_.connection.sendPacket(new SPacketAdvancementInfo(this.isFirstPacket, set, set1, map));
-                this.visibilityChanged.clear();
-                this.progressChanged.clear();
+                p_192741_1_.connection.sendPacket(new SPacketAdvancementInfo(isFirstPacket, set, set1, map));
+                visibilityChanged.clear();
+                progressChanged.clear();
             }
         }
 
-        this.isFirstPacket = false;
+        isFirstPacket = false;
     }
 
     public void setSelectedTab(@Nullable Advancement p_194220_1_)
     {
-        Advancement advancement = this.lastSelectedTab;
+        Advancement advancement = lastSelectedTab;
 
         if (p_194220_1_ != null && p_194220_1_.getParent() == null && p_194220_1_.getDisplay() != null)
         {
-            this.lastSelectedTab = p_194220_1_;
+            lastSelectedTab = p_194220_1_;
         }
         else
         {
-            this.lastSelectedTab = null;
+            lastSelectedTab = null;
         }
 
-        if (advancement != this.lastSelectedTab)
+        if (advancement != lastSelectedTab)
         {
-            this.player.connection.sendPacket(new SPacketSelectAdvancementsTab(this.lastSelectedTab == null ? null : this.lastSelectedTab.getId()));
+            player.connection.sendPacket(new SPacketSelectAdvancementsTab(lastSelectedTab == null ? null : lastSelectedTab.getId()));
         }
     }
 
     public AdvancementProgress getProgress(Advancement advancementIn)
     {
-        AdvancementProgress advancementprogress = this.progress.get(advancementIn);
+        AdvancementProgress advancementprogress = progress.get(advancementIn);
 
         if (advancementprogress == null)
         {
             advancementprogress = new AdvancementProgress();
-            this.startProgress(advancementIn, advancementprogress);
+            startProgress(advancementIn, advancementprogress);
         }
 
         return advancementprogress;
@@ -372,38 +372,38 @@ public class PlayerAdvancements
     private void startProgress(Advancement p_192743_1_, AdvancementProgress p_192743_2_)
     {
         p_192743_2_.update(p_192743_1_.getCriteria(), p_192743_1_.getRequirements());
-        this.progress.put(p_192743_1_, p_192743_2_);
+        progress.put(p_192743_1_, p_192743_2_);
     }
 
     private void ensureVisibility(Advancement p_192742_1_)
     {
-        boolean flag = this.shouldBeVisible(p_192742_1_);
-        boolean flag1 = this.visible.contains(p_192742_1_);
+        boolean flag = shouldBeVisible(p_192742_1_);
+        boolean flag1 = visible.contains(p_192742_1_);
 
         if (flag && !flag1)
         {
-            this.visible.add(p_192742_1_);
-            this.visibilityChanged.add(p_192742_1_);
+            visible.add(p_192742_1_);
+            visibilityChanged.add(p_192742_1_);
 
-            if (this.progress.containsKey(p_192742_1_))
+            if (progress.containsKey(p_192742_1_))
             {
-                this.progressChanged.add(p_192742_1_);
+                progressChanged.add(p_192742_1_);
             }
         }
         else if (!flag && flag1)
         {
-            this.visible.remove(p_192742_1_);
-            this.visibilityChanged.add(p_192742_1_);
+            visible.remove(p_192742_1_);
+            visibilityChanged.add(p_192742_1_);
         }
 
         if (flag != flag1 && p_192742_1_.getParent() != null)
         {
-            this.ensureVisibility(p_192742_1_.getParent());
+            ensureVisibility(p_192742_1_.getParent());
         }
 
         for (Advancement advancement : p_192742_1_.getChildren())
         {
-            this.ensureVisibility(advancement);
+            ensureVisibility(advancement);
         }
     }
 
@@ -411,7 +411,7 @@ public class PlayerAdvancements
     {
         for (int i = 0; p_192738_1_ != null && i <= 2; ++i)
         {
-            if (i == 0 && this.hasCompletedChildrenOrSelf(p_192738_1_))
+            if (i == 0 && hasCompletedChildrenOrSelf(p_192738_1_))
             {
                 return true;
             }
@@ -421,7 +421,7 @@ public class PlayerAdvancements
                 return false;
             }
 
-            AdvancementProgress advancementprogress = this.getProgress(p_192738_1_);
+            AdvancementProgress advancementprogress = getProgress(p_192738_1_);
 
             if (advancementprogress.isDone())
             {
@@ -441,7 +441,7 @@ public class PlayerAdvancements
 
     private boolean hasCompletedChildrenOrSelf(Advancement p_192746_1_)
     {
-        AdvancementProgress advancementprogress = this.getProgress(p_192746_1_);
+        AdvancementProgress advancementprogress = getProgress(p_192746_1_);
 
         if (advancementprogress.isDone())
         {
@@ -451,7 +451,7 @@ public class PlayerAdvancements
         {
             for (Advancement advancement : p_192746_1_.getChildren())
             {
-                if (this.hasCompletedChildrenOrSelf(advancement))
+                if (hasCompletedChildrenOrSelf(advancement))
                 {
                     return true;
                 }

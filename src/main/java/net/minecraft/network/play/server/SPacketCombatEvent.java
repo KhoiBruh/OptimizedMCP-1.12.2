@@ -29,27 +29,27 @@ public class SPacketCombatEvent implements Packet<INetHandlerPlayClient>
     @SuppressWarnings("incomplete-switch")
     public SPacketCombatEvent(CombatTracker tracker, SPacketCombatEvent.Event eventIn, boolean showDeathMessage)
     {
-        this.eventType = eventIn;
+        eventType = eventIn;
         EntityLivingBase entitylivingbase = tracker.getBestAttacker();
 
         switch (eventIn)
         {
             case END_COMBAT:
-                this.duration = tracker.getCombatDuration();
-                this.entityId = entitylivingbase == null ? -1 : entitylivingbase.getEntityId();
+                duration = tracker.getCombatDuration();
+                entityId = entitylivingbase == null ? -1 : entitylivingbase.getEntityId();
                 break;
 
             case ENTITY_DIED:
-                this.playerId = tracker.getFighter().getEntityId();
-                this.entityId = entitylivingbase == null ? -1 : entitylivingbase.getEntityId();
+                playerId = tracker.getFighter().getEntityId();
+                entityId = entitylivingbase == null ? -1 : entitylivingbase.getEntityId();
 
                 if (showDeathMessage)
                 {
-                    this.deathMessage = tracker.getDeathMessage();
+                    deathMessage = tracker.getDeathMessage();
                 }
                 else
                 {
-                    this.deathMessage = new TextComponentString("");
+                    deathMessage = new TextComponentString("");
                 }
         }
     }
@@ -59,18 +59,18 @@ public class SPacketCombatEvent implements Packet<INetHandlerPlayClient>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.eventType = (SPacketCombatEvent.Event)buf.readEnumValue(SPacketCombatEvent.Event.class);
+        eventType = (SPacketCombatEvent.Event)buf.readEnumValue(SPacketCombatEvent.Event.class);
 
-        if (this.eventType == SPacketCombatEvent.Event.END_COMBAT)
+        if (eventType == SPacketCombatEvent.Event.END_COMBAT)
         {
-            this.duration = buf.readVarInt();
-            this.entityId = buf.readInt();
+            duration = buf.readVarInt();
+            entityId = buf.readInt();
         }
-        else if (this.eventType == SPacketCombatEvent.Event.ENTITY_DIED)
+        else if (eventType == SPacketCombatEvent.Event.ENTITY_DIED)
         {
-            this.playerId = buf.readVarInt();
-            this.entityId = buf.readInt();
-            this.deathMessage = buf.readTextComponent();
+            playerId = buf.readVarInt();
+            entityId = buf.readInt();
+            deathMessage = buf.readTextComponent();
         }
     }
 
@@ -79,18 +79,18 @@ public class SPacketCombatEvent implements Packet<INetHandlerPlayClient>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeEnumValue(this.eventType);
+        buf.writeEnumValue(eventType);
 
-        if (this.eventType == SPacketCombatEvent.Event.END_COMBAT)
+        if (eventType == SPacketCombatEvent.Event.END_COMBAT)
         {
-            buf.writeVarInt(this.duration);
-            buf.writeInt(this.entityId);
+            buf.writeVarInt(duration);
+            buf.writeInt(entityId);
         }
-        else if (this.eventType == SPacketCombatEvent.Event.ENTITY_DIED)
+        else if (eventType == SPacketCombatEvent.Event.ENTITY_DIED)
         {
-            buf.writeVarInt(this.playerId);
-            buf.writeInt(this.entityId);
-            buf.writeTextComponent(this.deathMessage);
+            buf.writeVarInt(playerId);
+            buf.writeInt(entityId);
+            buf.writeTextComponent(deathMessage);
         }
     }
 

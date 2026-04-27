@@ -20,17 +20,17 @@ public class TileEntityNote extends TileEntity
     public NBTTagCompound writeToNBT(NBTTagCompound compound)
     {
         super.writeToNBT(compound);
-        compound.setByte("note", this.note);
-        compound.setBoolean("powered", this.previousRedstoneState);
+        compound.setByte("note", note);
+        compound.setBoolean("powered", previousRedstoneState);
         return compound;
     }
 
     public void readFromNBT(NBTTagCompound compound)
     {
         super.readFromNBT(compound);
-        this.note = compound.getByte("note");
-        this.note = (byte)MathHelper.clamp(this.note, 0, 24);
-        this.previousRedstoneState = compound.getBoolean("powered");
+        note = compound.getByte("note");
+        note = (byte)MathHelper.clamp(note, 0, 24);
+        previousRedstoneState = compound.getBoolean("powered");
     }
 
     /**
@@ -38,8 +38,8 @@ public class TileEntityNote extends TileEntity
      */
     public void changePitch()
     {
-        this.note = (byte)((this.note + 1) % 25);
-        this.markDirty();
+        note = (byte)((note + 1) % 25);
+        markDirty();
     }
 
     public void triggerNote(World worldIn, BlockPos posIn)
@@ -97,7 +97,7 @@ public class TileEntityNote extends TileEntity
                 i = 9;
             }
 
-            worldIn.addBlockEvent(posIn, Blocks.NOTEBLOCK, i, this.note);
+            worldIn.addBlockEvent(posIn, Blocks.NOTEBLOCK, i, note);
         }
     }
 }

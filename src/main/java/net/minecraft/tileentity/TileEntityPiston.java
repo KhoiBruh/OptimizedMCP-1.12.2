@@ -46,20 +46,20 @@ public class TileEntityPiston extends TileEntity implements ITickable
 
     public TileEntityPiston(IBlockState pistonStateIn, EnumFacing pistonFacingIn, boolean extendingIn, boolean shouldHeadBeRenderedIn)
     {
-        this.pistonState = pistonStateIn;
-        this.pistonFacing = pistonFacingIn;
-        this.extending = extendingIn;
-        this.shouldHeadBeRendered = shouldHeadBeRenderedIn;
+        pistonState = pistonStateIn;
+        pistonFacing = pistonFacingIn;
+        extending = extendingIn;
+        shouldHeadBeRendered = shouldHeadBeRenderedIn;
     }
 
     public IBlockState getPistonState()
     {
-        return this.pistonState;
+        return pistonState;
     }
 
     public NBTTagCompound getUpdateTag()
     {
-        return this.writeToNBT(new NBTTagCompound());
+        return writeToNBT(new NBTTagCompound());
     }
 
     public int getBlockMetadata()
@@ -72,17 +72,17 @@ public class TileEntityPiston extends TileEntity implements ITickable
      */
     public boolean isExtending()
     {
-        return this.extending;
+        return extending;
     }
 
     public EnumFacing getFacing()
     {
-        return this.pistonFacing;
+        return pistonFacing;
     }
 
     public boolean shouldPistonHeadBeRendered()
     {
-        return this.shouldHeadBeRendered;
+        return shouldHeadBeRendered;
     }
 
     /**
@@ -96,61 +96,61 @@ public class TileEntityPiston extends TileEntity implements ITickable
             ticks = 1.0F;
         }
 
-        return this.lastProgress + (this.progress - this.lastProgress) * ticks;
+        return lastProgress + (progress - lastProgress) * ticks;
     }
 
     public float getOffsetX(float ticks)
     {
-        return (float)this.pistonFacing.getFrontOffsetX() * this.getExtendedProgress(this.getProgress(ticks));
+        return (float) pistonFacing.getFrontOffsetX() * getExtendedProgress(getProgress(ticks));
     }
 
     public float getOffsetY(float ticks)
     {
-        return (float)this.pistonFacing.getFrontOffsetY() * this.getExtendedProgress(this.getProgress(ticks));
+        return (float) pistonFacing.getFrontOffsetY() * getExtendedProgress(getProgress(ticks));
     }
 
     public float getOffsetZ(float ticks)
     {
-        return (float)this.pistonFacing.getFrontOffsetZ() * this.getExtendedProgress(this.getProgress(ticks));
+        return (float) pistonFacing.getFrontOffsetZ() * getExtendedProgress(getProgress(ticks));
     }
 
     private float getExtendedProgress(float p_184320_1_)
     {
-        return this.extending ? p_184320_1_ - 1.0F : 1.0F - p_184320_1_;
+        return extending ? p_184320_1_ - 1.0F : 1.0F - p_184320_1_;
     }
 
     public AxisAlignedBB getAABB(IBlockAccess p_184321_1_, BlockPos p_184321_2_)
     {
-        return this.getAABB(p_184321_1_, p_184321_2_, this.progress).union(this.getAABB(p_184321_1_, p_184321_2_, this.lastProgress));
+        return getAABB(p_184321_1_, p_184321_2_, progress).union(getAABB(p_184321_1_, p_184321_2_, lastProgress));
     }
 
     public AxisAlignedBB getAABB(IBlockAccess p_184319_1_, BlockPos p_184319_2_, float p_184319_3_)
     {
-        p_184319_3_ = this.getExtendedProgress(p_184319_3_);
-        IBlockState iblockstate = this.getCollisionRelatedBlockState();
-        return iblockstate.getBoundingBox(p_184319_1_, p_184319_2_).offset((double)(p_184319_3_ * (float)this.pistonFacing.getFrontOffsetX()), (double)(p_184319_3_ * (float)this.pistonFacing.getFrontOffsetY()), (double)(p_184319_3_ * (float)this.pistonFacing.getFrontOffsetZ()));
+        p_184319_3_ = getExtendedProgress(p_184319_3_);
+        IBlockState iblockstate = getCollisionRelatedBlockState();
+        return iblockstate.getBoundingBox(p_184319_1_, p_184319_2_).offset((double)(p_184319_3_ * (float) pistonFacing.getFrontOffsetX()), (double)(p_184319_3_ * (float) pistonFacing.getFrontOffsetY()), (double)(p_184319_3_ * (float) pistonFacing.getFrontOffsetZ()));
     }
 
     private IBlockState getCollisionRelatedBlockState()
     {
-        return !this.isExtending() && this.shouldPistonHeadBeRendered() ? Blocks.PISTON_HEAD.getDefaultState().withProperty(BlockPistonExtension.TYPE, this.pistonState.getBlock() == Blocks.STICKY_PISTON ? BlockPistonExtension.EnumPistonType.STICKY : BlockPistonExtension.EnumPistonType.DEFAULT).withProperty(BlockPistonExtension.FACING, this.pistonState.getValue(BlockPistonBase.FACING)) : this.pistonState;
+        return !isExtending() && shouldPistonHeadBeRendered() ? Blocks.PISTON_HEAD.getDefaultState().withProperty(BlockPistonExtension.TYPE, pistonState.getBlock() == Blocks.STICKY_PISTON ? BlockPistonExtension.EnumPistonType.STICKY : BlockPistonExtension.EnumPistonType.DEFAULT).withProperty(BlockPistonExtension.FACING, pistonState.getValue(BlockPistonBase.FACING)) : pistonState;
     }
 
     private void moveCollidedEntities(float p_184322_1_)
     {
-        EnumFacing enumfacing = this.extending ? this.pistonFacing : this.pistonFacing.getOpposite();
-        double d0 = (double)(p_184322_1_ - this.progress);
+        EnumFacing enumfacing = extending ? pistonFacing : pistonFacing.getOpposite();
+        double d0 = (double)(p_184322_1_ - progress);
         List<AxisAlignedBB> list = Lists.<AxisAlignedBB>newArrayList();
-        this.getCollisionRelatedBlockState().addCollisionBoxToList(this.world, BlockPos.ORIGIN, new AxisAlignedBB(BlockPos.ORIGIN), list, (Entity)null, true);
+        getCollisionRelatedBlockState().addCollisionBoxToList(world, BlockPos.ORIGIN, new AxisAlignedBB(BlockPos.ORIGIN), list, (Entity)null, true);
 
         if (!list.isEmpty())
         {
-            AxisAlignedBB axisalignedbb = this.moveByPositionAndProgress(this.getMinMaxPiecesAABB(list));
-            List<Entity> list1 = this.world.getEntitiesWithinAABBExcludingEntity((Entity)null, this.getMovementArea(axisalignedbb, enumfacing, d0).union(axisalignedbb));
+            AxisAlignedBB axisalignedbb = moveByPositionAndProgress(getMinMaxPiecesAABB(list));
+            List<Entity> list1 = world.getEntitiesWithinAABBExcludingEntity((Entity)null, getMovementArea(axisalignedbb, enumfacing, d0).union(axisalignedbb));
 
             if (!list1.isEmpty())
             {
-                boolean flag = this.pistonState.getBlock() == Blocks.SLIME_BLOCK;
+                boolean flag = pistonState.getBlock() == Blocks.SLIME_BLOCK;
 
                 for (int i = 0; i < list1.size(); ++i)
                 {
@@ -179,12 +179,12 @@ public class TileEntityPiston extends TileEntity implements ITickable
 
                         for (int j = 0; j < list.size(); ++j)
                         {
-                            AxisAlignedBB axisalignedbb1 = this.getMovementArea(this.moveByPositionAndProgress(list.get(j)), enumfacing, d0);
+                            AxisAlignedBB axisalignedbb1 = getMovementArea(moveByPositionAndProgress(list.get(j)), enumfacing, d0);
                             AxisAlignedBB axisalignedbb2 = entity.getEntityBoundingBox();
 
                             if (axisalignedbb1.intersects(axisalignedbb2))
                             {
-                                d1 = Math.max(d1, this.getMovement(axisalignedbb1, enumfacing, axisalignedbb2));
+                                d1 = Math.max(d1, getMovement(axisalignedbb1, enumfacing, axisalignedbb2));
 
                                 if (d1 >= d0)
                                 {
@@ -200,9 +200,9 @@ public class TileEntityPiston extends TileEntity implements ITickable
                             entity.move(MoverType.PISTON, d1 * (double)enumfacing.getFrontOffsetX(), d1 * (double)enumfacing.getFrontOffsetY(), d1 * (double)enumfacing.getFrontOffsetZ());
                             MOVING_ENTITY.set(null);
 
-                            if (!this.extending && this.shouldHeadBeRendered)
+                            if (!extending && shouldHeadBeRendered)
                             {
-                                this.fixEntityWithinPistonBase(entity, enumfacing, d0);
+                                fixEntityWithinPistonBase(entity, enumfacing, d0);
                             }
                         }
                     }
@@ -251,8 +251,8 @@ public class TileEntityPiston extends TileEntity implements ITickable
 
     private AxisAlignedBB moveByPositionAndProgress(AxisAlignedBB p_190607_1_)
     {
-        double d0 = (double)this.getExtendedProgress(this.progress);
-        return p_190607_1_.offset((double)this.pos.getX() + d0 * (double)this.pistonFacing.getFrontOffsetX(), (double)this.pos.getY() + d0 * (double)this.pistonFacing.getFrontOffsetY(), (double)this.pos.getZ() + d0 * (double)this.pistonFacing.getFrontOffsetZ());
+        double d0 = (double) getExtendedProgress(progress);
+        return p_190607_1_.offset((double) pos.getX() + d0 * (double) pistonFacing.getFrontOffsetX(), (double) pos.getY() + d0 * (double) pistonFacing.getFrontOffsetY(), (double) pos.getZ() + d0 * (double) pistonFacing.getFrontOffsetZ());
     }
 
     private AxisAlignedBB getMovementArea(AxisAlignedBB p_190610_1_, EnumFacing p_190610_2_, double p_190610_3_)
@@ -287,13 +287,13 @@ public class TileEntityPiston extends TileEntity implements ITickable
     private void fixEntityWithinPistonBase(Entity p_190605_1_, EnumFacing p_190605_2_, double p_190605_3_)
     {
         AxisAlignedBB axisalignedbb = p_190605_1_.getEntityBoundingBox();
-        AxisAlignedBB axisalignedbb1 = Block.FULL_BLOCK_AABB.offset(this.pos);
+        AxisAlignedBB axisalignedbb1 = Block.FULL_BLOCK_AABB.offset(pos);
 
         if (axisalignedbb.intersects(axisalignedbb1))
         {
             EnumFacing enumfacing = p_190605_2_.getOpposite();
-            double d0 = this.getMovement(axisalignedbb1, enumfacing, axisalignedbb) + 0.01D;
-            double d1 = this.getMovement(axisalignedbb1, enumfacing, axisalignedbb.intersect(axisalignedbb1)) + 0.01D;
+            double d0 = getMovement(axisalignedbb1, enumfacing, axisalignedbb) + 0.01D;
+            double d1 = getMovement(axisalignedbb1, enumfacing, axisalignedbb.intersect(axisalignedbb1)) + 0.01D;
 
             if (Math.abs(d0 - d1) < 0.01D)
             {
@@ -325,17 +325,17 @@ public class TileEntityPiston extends TileEntity implements ITickable
      */
     public void clearPistonTileEntity()
     {
-        if (this.lastProgress < 1.0F && this.world != null)
+        if (lastProgress < 1.0F && world != null)
         {
-            this.progress = 1.0F;
-            this.lastProgress = this.progress;
-            this.world.removeTileEntity(this.pos);
-            this.invalidate();
+            progress = 1.0F;
+            lastProgress = progress;
+            world.removeTileEntity(pos);
+            invalidate();
 
-            if (this.world.getBlockState(this.pos).getBlock() == Blocks.PISTON_EXTENSION)
+            if (world.getBlockState(pos).getBlock() == Blocks.PISTON_EXTENSION)
             {
-                this.world.setBlockState(this.pos, this.pistonState, 3);
-                this.world.neighborChanged(this.pos, this.pistonState.getBlock(), this.pos);
+                world.setBlockState(pos, pistonState, 3);
+                world.neighborChanged(pos, pistonState.getBlock(), pos);
             }
         }
     }
@@ -345,28 +345,28 @@ public class TileEntityPiston extends TileEntity implements ITickable
      */
     public void update()
     {
-        this.lastProgress = this.progress;
+        lastProgress = progress;
 
-        if (this.lastProgress >= 1.0F)
+        if (lastProgress >= 1.0F)
         {
-            this.world.removeTileEntity(this.pos);
-            this.invalidate();
+            world.removeTileEntity(pos);
+            invalidate();
 
-            if (this.world.getBlockState(this.pos).getBlock() == Blocks.PISTON_EXTENSION)
+            if (world.getBlockState(pos).getBlock() == Blocks.PISTON_EXTENSION)
             {
-                this.world.setBlockState(this.pos, this.pistonState, 3);
-                this.world.neighborChanged(this.pos, this.pistonState.getBlock(), this.pos);
+                world.setBlockState(pos, pistonState, 3);
+                world.neighborChanged(pos, pistonState.getBlock(), pos);
             }
         }
         else
         {
-            float f = this.progress + 0.5F;
-            this.moveCollidedEntities(f);
-            this.progress = f;
+            float f = progress + 0.5F;
+            moveCollidedEntities(f);
+            progress = f;
 
-            if (this.progress >= 1.0F)
+            if (progress >= 1.0F)
             {
-                this.progress = 1.0F;
+                progress = 1.0F;
             }
         }
     }
@@ -378,53 +378,53 @@ public class TileEntityPiston extends TileEntity implements ITickable
     public void readFromNBT(NBTTagCompound compound)
     {
         super.readFromNBT(compound);
-        this.pistonState = Block.getBlockById(compound.getInteger("blockId")).getStateFromMeta(compound.getInteger("blockData"));
-        this.pistonFacing = EnumFacing.getFront(compound.getInteger("facing"));
-        this.progress = compound.getFloat("progress");
-        this.lastProgress = this.progress;
-        this.extending = compound.getBoolean("extending");
-        this.shouldHeadBeRendered = compound.getBoolean("source");
+        pistonState = Block.getBlockById(compound.getInteger("blockId")).getStateFromMeta(compound.getInteger("blockData"));
+        pistonFacing = EnumFacing.getFront(compound.getInteger("facing"));
+        progress = compound.getFloat("progress");
+        lastProgress = progress;
+        extending = compound.getBoolean("extending");
+        shouldHeadBeRendered = compound.getBoolean("source");
     }
 
     public NBTTagCompound writeToNBT(NBTTagCompound compound)
     {
         super.writeToNBT(compound);
-        compound.setInteger("blockId", Block.getIdFromBlock(this.pistonState.getBlock()));
-        compound.setInteger("blockData", this.pistonState.getBlock().getMetaFromState(this.pistonState));
-        compound.setInteger("facing", this.pistonFacing.getIndex());
-        compound.setFloat("progress", this.lastProgress);
-        compound.setBoolean("extending", this.extending);
-        compound.setBoolean("source", this.shouldHeadBeRendered);
+        compound.setInteger("blockId", Block.getIdFromBlock(pistonState.getBlock()));
+        compound.setInteger("blockData", pistonState.getBlock().getMetaFromState(pistonState));
+        compound.setInteger("facing", pistonFacing.getIndex());
+        compound.setFloat("progress", lastProgress);
+        compound.setBoolean("extending", extending);
+        compound.setBoolean("source", shouldHeadBeRendered);
         return compound;
     }
 
     public void addCollissionAABBs(World p_190609_1_, BlockPos p_190609_2_, AxisAlignedBB p_190609_3_, List<AxisAlignedBB> p_190609_4_, @Nullable Entity p_190609_5_)
     {
-        if (!this.extending && this.shouldHeadBeRendered)
+        if (!extending && shouldHeadBeRendered)
         {
-            this.pistonState.withProperty(BlockPistonBase.EXTENDED, Boolean.valueOf(true)).addCollisionBoxToList(p_190609_1_, p_190609_2_, p_190609_3_, p_190609_4_, p_190609_5_, false);
+            pistonState.withProperty(BlockPistonBase.EXTENDED, Boolean.valueOf(true)).addCollisionBoxToList(p_190609_1_, p_190609_2_, p_190609_3_, p_190609_4_, p_190609_5_, false);
         }
 
         EnumFacing enumfacing = MOVING_ENTITY.get();
 
-        if ((double)this.progress >= 1.0D || enumfacing != (this.extending ? this.pistonFacing : this.pistonFacing.getOpposite()))
+        if ((double) progress >= 1.0D || enumfacing != (extending ? pistonFacing : pistonFacing.getOpposite()))
         {
             int i = p_190609_4_.size();
             IBlockState iblockstate;
 
-            if (this.shouldPistonHeadBeRendered())
+            if (shouldPistonHeadBeRendered())
             {
-                iblockstate = Blocks.PISTON_HEAD.getDefaultState().withProperty(BlockPistonExtension.FACING, this.pistonFacing).withProperty(BlockPistonExtension.SHORT, Boolean.valueOf(this.extending != 1.0F - this.progress < 0.25F));
+                iblockstate = Blocks.PISTON_HEAD.getDefaultState().withProperty(BlockPistonExtension.FACING, pistonFacing).withProperty(BlockPistonExtension.SHORT, Boolean.valueOf(extending != 1.0F - progress < 0.25F));
             }
             else
             {
-                iblockstate = this.pistonState;
+                iblockstate = pistonState;
             }
 
-            float f = this.getExtendedProgress(this.progress);
-            double d0 = (double)((float)this.pistonFacing.getFrontOffsetX() * f);
-            double d1 = (double)((float)this.pistonFacing.getFrontOffsetY() * f);
-            double d2 = (double)((float)this.pistonFacing.getFrontOffsetZ() * f);
+            float f = getExtendedProgress(progress);
+            double d0 = (double)((float) pistonFacing.getFrontOffsetX() * f);
+            double d1 = (double)((float) pistonFacing.getFrontOffsetY() * f);
+            double d2 = (double)((float) pistonFacing.getFrontOffsetZ() * f);
             iblockstate.addCollisionBoxToList(p_190609_1_, p_190609_2_, p_190609_3_.offset(-d0, -d1, -d2), p_190609_4_, p_190609_5_, true);
 
             for (int j = i; j < p_190609_4_.size(); ++j)

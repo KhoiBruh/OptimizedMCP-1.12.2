@@ -32,91 +32,91 @@ public class MovementStep implements ITutorialStep
 
     public void update()
     {
-        ++this.timeWaiting;
+        ++timeWaiting;
 
-        if (this.moved)
+        if (moved)
         {
-            ++this.timeMoved;
-            this.moved = false;
+            ++timeMoved;
+            moved = false;
         }
 
-        if (this.turned)
+        if (turned)
         {
-            ++this.timeLooked;
-            this.turned = false;
+            ++timeLooked;
+            turned = false;
         }
 
-        if (this.moveCompleted == -1 && this.timeMoved > 40)
+        if (moveCompleted == -1 && timeMoved > 40)
         {
-            if (this.moveToast != null)
+            if (moveToast != null)
             {
-                this.moveToast.hide();
-                this.moveToast = null;
+                moveToast.hide();
+                moveToast = null;
             }
 
-            this.moveCompleted = this.timeWaiting;
+            moveCompleted = timeWaiting;
         }
 
-        if (this.lookCompleted == -1 && this.timeLooked > 40)
+        if (lookCompleted == -1 && timeLooked > 40)
         {
-            if (this.lookToast != null)
+            if (lookToast != null)
             {
-                this.lookToast.hide();
-                this.lookToast = null;
+                lookToast.hide();
+                lookToast = null;
             }
 
-            this.lookCompleted = this.timeWaiting;
+            lookCompleted = timeWaiting;
         }
 
-        if (this.moveCompleted != -1 && this.lookCompleted != -1)
+        if (moveCompleted != -1 && lookCompleted != -1)
         {
-            if (this.tutorial.getGameType() == GameType.SURVIVAL)
+            if (tutorial.getGameType() == GameType.SURVIVAL)
             {
-                this.tutorial.setStep(TutorialSteps.FIND_TREE);
+                tutorial.setStep(TutorialSteps.FIND_TREE);
             }
             else
             {
-                this.tutorial.setStep(TutorialSteps.NONE);
+                tutorial.setStep(TutorialSteps.NONE);
             }
         }
 
-        if (this.moveToast != null)
+        if (moveToast != null)
         {
-            this.moveToast.setProgress((float)this.timeMoved / 40.0F);
+            moveToast.setProgress((float) timeMoved / 40.0F);
         }
 
-        if (this.lookToast != null)
+        if (lookToast != null)
         {
-            this.lookToast.setProgress((float)this.timeLooked / 40.0F);
+            lookToast.setProgress((float) timeLooked / 40.0F);
         }
 
-        if (this.timeWaiting >= 100)
+        if (timeWaiting >= 100)
         {
-            if (this.moveCompleted == -1 && this.moveToast == null)
+            if (moveCompleted == -1 && moveToast == null)
             {
-                this.moveToast = new TutorialToast(TutorialToast.Icons.MOVEMENT_KEYS, MOVE_TITLE, MOVE_DESCRIPTION, true);
-                this.tutorial.getMinecraft().getToastGui().add(this.moveToast);
+                moveToast = new TutorialToast(TutorialToast.Icons.MOVEMENT_KEYS, MOVE_TITLE, MOVE_DESCRIPTION, true);
+                tutorial.getMinecraft().getToastGui().add(moveToast);
             }
-            else if (this.moveCompleted != -1 && this.timeWaiting - this.moveCompleted >= 20 && this.lookCompleted == -1 && this.lookToast == null)
+            else if (moveCompleted != -1 && timeWaiting - moveCompleted >= 20 && lookCompleted == -1 && lookToast == null)
             {
-                this.lookToast = new TutorialToast(TutorialToast.Icons.MOUSE, LOOK_TITLE, LOOK_DESCRIPTION, true);
-                this.tutorial.getMinecraft().getToastGui().add(this.lookToast);
+                lookToast = new TutorialToast(TutorialToast.Icons.MOUSE, LOOK_TITLE, LOOK_DESCRIPTION, true);
+                tutorial.getMinecraft().getToastGui().add(lookToast);
             }
         }
     }
 
     public void onStop()
     {
-        if (this.moveToast != null)
+        if (moveToast != null)
         {
-            this.moveToast.hide();
-            this.moveToast = null;
+            moveToast.hide();
+            moveToast = null;
         }
 
-        if (this.lookToast != null)
+        if (lookToast != null)
         {
-            this.lookToast.hide();
-            this.lookToast = null;
+            lookToast.hide();
+            lookToast = null;
         }
     }
 
@@ -129,7 +129,7 @@ public class MovementStep implements ITutorialStep
     {
         if (input.forwardKeyDown || input.backKeyDown || input.leftKeyDown || input.rightKeyDown || input.jump)
         {
-            this.moved = true;
+            moved = true;
         }
     }
 
@@ -142,7 +142,7 @@ public class MovementStep implements ITutorialStep
     {
         if ((double)MathHelper.abs(mouseHelperIn.deltaX) > 0.01D || (double)MathHelper.abs(mouseHelperIn.deltaY) > 0.01D)
         {
-            this.turned = true;
+            turned = true;
         }
     }
 }

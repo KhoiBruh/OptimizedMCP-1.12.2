@@ -26,17 +26,17 @@ public class PositionTrigger implements ICriterionTrigger<PositionTrigger.Instan
 
     public ResourceLocation getId()
     {
-        return this.id;
+        return id;
     }
 
     public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<PositionTrigger.Instance> listener)
     {
-        PositionTrigger.Listeners positiontrigger$listeners = this.listeners.get(playerAdvancementsIn);
+        PositionTrigger.Listeners positiontrigger$listeners = listeners.get(playerAdvancementsIn);
 
         if (positiontrigger$listeners == null)
         {
             positiontrigger$listeners = new PositionTrigger.Listeners(playerAdvancementsIn);
-            this.listeners.put(playerAdvancementsIn, positiontrigger$listeners);
+            listeners.put(playerAdvancementsIn, positiontrigger$listeners);
         }
 
         positiontrigger$listeners.add(listener);
@@ -44,7 +44,7 @@ public class PositionTrigger implements ICriterionTrigger<PositionTrigger.Instan
 
     public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<PositionTrigger.Instance> listener)
     {
-        PositionTrigger.Listeners positiontrigger$listeners = this.listeners.get(playerAdvancementsIn);
+        PositionTrigger.Listeners positiontrigger$listeners = listeners.get(playerAdvancementsIn);
 
         if (positiontrigger$listeners != null)
         {
@@ -52,14 +52,14 @@ public class PositionTrigger implements ICriterionTrigger<PositionTrigger.Instan
 
             if (positiontrigger$listeners.isEmpty())
             {
-                this.listeners.remove(playerAdvancementsIn);
+                listeners.remove(playerAdvancementsIn);
             }
         }
     }
 
     public void removeAllListeners(PlayerAdvancements playerAdvancementsIn)
     {
-        this.listeners.remove(playerAdvancementsIn);
+        listeners.remove(playerAdvancementsIn);
     }
 
     /**
@@ -68,12 +68,12 @@ public class PositionTrigger implements ICriterionTrigger<PositionTrigger.Instan
     public PositionTrigger.Instance deserializeInstance(JsonObject json, JsonDeserializationContext context)
     {
         LocationPredicate locationpredicate = LocationPredicate.deserialize(json);
-        return new PositionTrigger.Instance(this.id, locationpredicate);
+        return new PositionTrigger.Instance(id, locationpredicate);
     }
 
     public void trigger(EntityPlayerMP player)
     {
-        PositionTrigger.Listeners positiontrigger$listeners = this.listeners.get(player.getAdvancements());
+        PositionTrigger.Listeners positiontrigger$listeners = listeners.get(player.getAdvancements());
 
         if (positiontrigger$listeners != null)
         {
@@ -93,7 +93,7 @@ public class PositionTrigger implements ICriterionTrigger<PositionTrigger.Instan
 
         public boolean test(WorldServer world, double x, double y, double z)
         {
-            return this.location.test(world, x, y, z);
+            return location.test(world, x, y, z);
         }
     }
 
@@ -104,29 +104,29 @@ public class PositionTrigger implements ICriterionTrigger<PositionTrigger.Instan
 
         public Listeners(PlayerAdvancements playerAdvancementsIn)
         {
-            this.playerAdvancements = playerAdvancementsIn;
+            playerAdvancements = playerAdvancementsIn;
         }
 
         public boolean isEmpty()
         {
-            return this.listeners.isEmpty();
+            return listeners.isEmpty();
         }
 
         public void add(ICriterionTrigger.Listener<PositionTrigger.Instance> listener)
         {
-            this.listeners.add(listener);
+            listeners.add(listener);
         }
 
         public void remove(ICriterionTrigger.Listener<PositionTrigger.Instance> listener)
         {
-            this.listeners.remove(listener);
+            listeners.remove(listener);
         }
 
         public void trigger(WorldServer world, double x, double y, double z)
         {
             List<ICriterionTrigger.Listener<PositionTrigger.Instance>> list = null;
 
-            for (ICriterionTrigger.Listener<PositionTrigger.Instance> listener : this.listeners)
+            for (ICriterionTrigger.Listener<PositionTrigger.Instance> listener : listeners)
             {
                 if (((PositionTrigger.Instance)listener.getCriterionInstance()).test(world, x, y, z))
                 {
@@ -143,7 +143,7 @@ public class PositionTrigger implements ICriterionTrigger<PositionTrigger.Instan
             {
                 for (ICriterionTrigger.Listener<PositionTrigger.Instance> listener1 : list)
                 {
-                    listener1.grantCriterion(this.playerAdvancements);
+                    listener1.grantCriterion(playerAdvancements);
                 }
             }
         }

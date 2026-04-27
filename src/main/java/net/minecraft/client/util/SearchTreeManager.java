@@ -15,7 +15,7 @@ public class SearchTreeManager implements IResourceManagerReloadListener
 
     public void onResourceManagerReload(IResourceManager resourceManager)
     {
-        for (SearchTree<?> searchtree : this.trees.values())
+        for (SearchTree<?> searchtree : trees.values())
         {
             searchtree.recalculate();
         }
@@ -23,12 +23,12 @@ public class SearchTreeManager implements IResourceManagerReloadListener
 
     public <T> void register(SearchTreeManager.Key<T> key, SearchTree<T> searchTreeIn)
     {
-        this.trees.put(key, searchTreeIn);
+        trees.put(key, searchTreeIn);
     }
 
     public <T> ISearchTree<T> get(SearchTreeManager.Key<T> key)
     {
-        return (ISearchTree)this.trees.get(key);
+        return (ISearchTree) trees.get(key);
     }
 
     public static class Key<T>

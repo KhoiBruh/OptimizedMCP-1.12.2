@@ -27,16 +27,16 @@ public class SPacketAdvancementInfo implements Packet<INetHandlerPlayClient>
 
     public SPacketAdvancementInfo(boolean p_i47519_1_, Collection<Advancement> p_i47519_2_, Set<ResourceLocation> p_i47519_3_, Map<ResourceLocation, AdvancementProgress> p_i47519_4_)
     {
-        this.firstSync = p_i47519_1_;
-        this.advancementsToAdd = Maps.<ResourceLocation, Advancement.Builder>newHashMap();
+        firstSync = p_i47519_1_;
+        advancementsToAdd = Maps.<ResourceLocation, Advancement.Builder>newHashMap();
 
         for (Advancement advancement : p_i47519_2_)
         {
-            this.advancementsToAdd.put(advancement.getId(), advancement.copy());
+            advancementsToAdd.put(advancement.getId(), advancement.copy());
         }
 
-        this.advancementsToRemove = p_i47519_3_;
-        this.progressUpdates = Maps.<ResourceLocation, AdvancementProgress>newHashMap(p_i47519_4_);
+        advancementsToRemove = p_i47519_3_;
+        progressUpdates = Maps.<ResourceLocation, AdvancementProgress>newHashMap(p_i47519_4_);
     }
 
     /**
@@ -52,17 +52,17 @@ public class SPacketAdvancementInfo implements Packet<INetHandlerPlayClient>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.firstSync = buf.readBoolean();
-        this.advancementsToAdd = Maps.<ResourceLocation, Advancement.Builder>newHashMap();
-        this.advancementsToRemove = Sets.<ResourceLocation>newLinkedHashSet();
-        this.progressUpdates = Maps.<ResourceLocation, AdvancementProgress>newHashMap();
+        firstSync = buf.readBoolean();
+        advancementsToAdd = Maps.<ResourceLocation, Advancement.Builder>newHashMap();
+        advancementsToRemove = Sets.<ResourceLocation>newLinkedHashSet();
+        progressUpdates = Maps.<ResourceLocation, AdvancementProgress>newHashMap();
         int i = buf.readVarInt();
 
         for (int j = 0; j < i; ++j)
         {
             ResourceLocation resourcelocation = buf.readResourceLocation();
             Advancement.Builder advancement$builder = Advancement.Builder.readFrom(buf);
-            this.advancementsToAdd.put(resourcelocation, advancement$builder);
+            advancementsToAdd.put(resourcelocation, advancement$builder);
         }
 
         i = buf.readVarInt();
@@ -70,7 +70,7 @@ public class SPacketAdvancementInfo implements Packet<INetHandlerPlayClient>
         for (int k = 0; k < i; ++k)
         {
             ResourceLocation resourcelocation1 = buf.readResourceLocation();
-            this.advancementsToRemove.add(resourcelocation1);
+            advancementsToRemove.add(resourcelocation1);
         }
 
         i = buf.readVarInt();
@@ -78,7 +78,7 @@ public class SPacketAdvancementInfo implements Packet<INetHandlerPlayClient>
         for (int l = 0; l < i; ++l)
         {
             ResourceLocation resourcelocation2 = buf.readResourceLocation();
-            this.progressUpdates.put(resourcelocation2, AdvancementProgress.fromNetwork(buf));
+            progressUpdates.put(resourcelocation2, AdvancementProgress.fromNetwork(buf));
         }
     }
 
@@ -87,10 +87,10 @@ public class SPacketAdvancementInfo implements Packet<INetHandlerPlayClient>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeBoolean(this.firstSync);
-        buf.writeVarInt(this.advancementsToAdd.size());
+        buf.writeBoolean(firstSync);
+        buf.writeVarInt(advancementsToAdd.size());
 
-        for (Entry<ResourceLocation, Advancement.Builder> entry : this.advancementsToAdd.entrySet())
+        for (Entry<ResourceLocation, Advancement.Builder> entry : advancementsToAdd.entrySet())
         {
             ResourceLocation resourcelocation = entry.getKey();
             Advancement.Builder advancement$builder = entry.getValue();
@@ -98,16 +98,16 @@ public class SPacketAdvancementInfo implements Packet<INetHandlerPlayClient>
             advancement$builder.writeTo(buf);
         }
 
-        buf.writeVarInt(this.advancementsToRemove.size());
+        buf.writeVarInt(advancementsToRemove.size());
 
-        for (ResourceLocation resourcelocation1 : this.advancementsToRemove)
+        for (ResourceLocation resourcelocation1 : advancementsToRemove)
         {
             buf.writeResourceLocation(resourcelocation1);
         }
 
-        buf.writeVarInt(this.progressUpdates.size());
+        buf.writeVarInt(progressUpdates.size());
 
-        for (Entry<ResourceLocation, AdvancementProgress> entry1 : this.progressUpdates.entrySet())
+        for (Entry<ResourceLocation, AdvancementProgress> entry1 : progressUpdates.entrySet())
         {
             buf.writeResourceLocation(entry1.getKey());
             ((AdvancementProgress)entry1.getValue()).serializeToNetwork(buf);
@@ -116,21 +116,21 @@ public class SPacketAdvancementInfo implements Packet<INetHandlerPlayClient>
 
     public Map<ResourceLocation, Advancement.Builder> getAdvancementsToAdd()
     {
-        return this.advancementsToAdd;
+        return advancementsToAdd;
     }
 
     public Set<ResourceLocation> getAdvancementsToRemove()
     {
-        return this.advancementsToRemove;
+        return advancementsToRemove;
     }
 
     public Map<ResourceLocation, AdvancementProgress> getProgressUpdates()
     {
-        return this.progressUpdates;
+        return progressUpdates;
     }
 
     public boolean isFirstSync()
     {
-        return this.firstSync;
+        return firstSync;
     }
 }

@@ -33,7 +33,7 @@ public class GuiInventory extends InventoryEffectRenderer implements IRecipeShow
     public GuiInventory(EntityPlayer player)
     {
         super(player.inventoryContainer);
-        this.allowUserInput = true;
+        allowUserInput = true;
     }
 
     /**
@@ -41,12 +41,12 @@ public class GuiInventory extends InventoryEffectRenderer implements IRecipeShow
      */
     public void updateScreen()
     {
-        if (this.mc.playerController.isInCreativeMode())
+        if (mc.playerController.isInCreativeMode())
         {
-            this.mc.displayGuiScreen(new GuiContainerCreative(this.mc.player));
+            mc.displayGuiScreen(new GuiContainerCreative(mc.player));
         }
 
-        this.recipeBookGui.tick();
+        recipeBookGui.tick();
     }
 
     /**
@@ -55,22 +55,22 @@ public class GuiInventory extends InventoryEffectRenderer implements IRecipeShow
      */
     public void initGui()
     {
-        this.buttonList.clear();
+        buttonList.clear();
 
-        if (this.mc.playerController.isInCreativeMode())
+        if (mc.playerController.isInCreativeMode())
         {
-            this.mc.displayGuiScreen(new GuiContainerCreative(this.mc.player));
+            mc.displayGuiScreen(new GuiContainerCreative(mc.player));
         }
         else
         {
             super.initGui();
         }
 
-        this.widthTooNarrow = this.width < 379;
-        this.recipeBookGui.func_194303_a(this.width, this.height, this.mc, this.widthTooNarrow, ((ContainerPlayer)this.inventorySlots).craftMatrix);
-        this.guiLeft = this.recipeBookGui.updateScreenPosition(this.widthTooNarrow, this.width, this.xSize);
-        this.recipeButton = new GuiButtonImage(10, this.guiLeft + 104, this.height / 2 - 22, 20, 18, 178, 0, 19, INVENTORY_BACKGROUND);
-        this.buttonList.add(this.recipeButton);
+        widthTooNarrow = width < 379;
+        recipeBookGui.func_194303_a(width, height, mc, widthTooNarrow, ((ContainerPlayer) inventorySlots).craftMatrix);
+        guiLeft = recipeBookGui.updateScreenPosition(widthTooNarrow, width, xSize);
+        recipeButton = new GuiButtonImage(10, guiLeft + 104, height / 2 - 22, 20, 18, 178, 0, 19, INVENTORY_BACKGROUND);
+        buttonList.add(recipeButton);
     }
 
     /**
@@ -78,7 +78,7 @@ public class GuiInventory extends InventoryEffectRenderer implements IRecipeShow
      */
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
     {
-        this.fontRenderer.drawString(I18n.format("container.crafting"), 97, 8, 4210752);
+        fontRenderer.drawString(I18n.format("container.crafting"), 97, 8, 4210752);
     }
 
     /**
@@ -86,25 +86,25 @@ public class GuiInventory extends InventoryEffectRenderer implements IRecipeShow
      */
     public void drawScreen(int mouseX, int mouseY, float partialTicks)
     {
-        this.drawDefaultBackground();
-        this.hasActivePotionEffects = !this.recipeBookGui.isVisible();
+        drawDefaultBackground();
+        hasActivePotionEffects = !recipeBookGui.isVisible();
 
-        if (this.recipeBookGui.isVisible() && this.widthTooNarrow)
+        if (recipeBookGui.isVisible() && widthTooNarrow)
         {
-            this.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
-            this.recipeBookGui.render(mouseX, mouseY, partialTicks);
+            drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
+            recipeBookGui.render(mouseX, mouseY, partialTicks);
         }
         else
         {
-            this.recipeBookGui.render(mouseX, mouseY, partialTicks);
+            recipeBookGui.render(mouseX, mouseY, partialTicks);
             super.drawScreen(mouseX, mouseY, partialTicks);
-            this.recipeBookGui.renderGhostRecipe(this.guiLeft, this.guiTop, false, partialTicks);
+            recipeBookGui.renderGhostRecipe(guiLeft, guiTop, false, partialTicks);
         }
 
-        this.renderHoveredToolTip(mouseX, mouseY);
-        this.recipeBookGui.renderTooltip(this.guiLeft, this.guiTop, mouseX, mouseY);
-        this.oldMouseX = (float)mouseX;
-        this.oldMouseY = (float)mouseY;
+        renderHoveredToolTip(mouseX, mouseY);
+        recipeBookGui.renderTooltip(guiLeft, guiTop, mouseX, mouseY);
+        oldMouseX = (float)mouseX;
+        oldMouseY = (float)mouseY;
     }
 
     /**
@@ -113,11 +113,11 @@ public class GuiInventory extends InventoryEffectRenderer implements IRecipeShow
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY)
     {
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        this.mc.getTextureManager().bindTexture(INVENTORY_BACKGROUND);
-        int i = this.guiLeft;
-        int j = this.guiTop;
-        this.drawTexturedModalRect(i, j, 0, 0, this.xSize, this.ySize);
-        drawEntityOnScreen(i + 51, j + 75, 30, (float)(i + 51) - this.oldMouseX, (float)(j + 75 - 50) - this.oldMouseY, this.mc.player);
+        mc.getTextureManager().bindTexture(INVENTORY_BACKGROUND);
+        int i = guiLeft;
+        int j = guiTop;
+        drawTexturedModalRect(i, j, 0, 0, xSize, ySize);
+        drawEntityOnScreen(i + 51, j + 75, 30, (float)(i + 51) - oldMouseX, (float)(j + 75 - 50) - oldMouseY, mc.player);
     }
 
     /**
@@ -169,7 +169,7 @@ public class GuiInventory extends InventoryEffectRenderer implements IRecipeShow
      */
     protected boolean isPointInRegion(int rectX, int rectY, int rectWidth, int rectHeight, int pointX, int pointY)
     {
-        return (!this.widthTooNarrow || !this.recipeBookGui.isVisible()) && super.isPointInRegion(rectX, rectY, rectWidth, rectHeight, pointX, pointY);
+        return (!widthTooNarrow || !recipeBookGui.isVisible()) && super.isPointInRegion(rectX, rectY, rectWidth, rectHeight, pointX, pointY);
     }
 
     /**
@@ -177,9 +177,9 @@ public class GuiInventory extends InventoryEffectRenderer implements IRecipeShow
      */
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException
     {
-        if (!this.recipeBookGui.mouseClicked(mouseX, mouseY, mouseButton))
+        if (!recipeBookGui.mouseClicked(mouseX, mouseY, mouseButton))
         {
-            if (!this.widthTooNarrow || !this.recipeBookGui.isVisible())
+            if (!widthTooNarrow || !recipeBookGui.isVisible())
             {
                 super.mouseClicked(mouseX, mouseY, mouseButton);
             }
@@ -191,9 +191,9 @@ public class GuiInventory extends InventoryEffectRenderer implements IRecipeShow
      */
     protected void mouseReleased(int mouseX, int mouseY, int state)
     {
-        if (this.buttonClicked)
+        if (buttonClicked)
         {
-            this.buttonClicked = false;
+            buttonClicked = false;
         }
         else
         {
@@ -203,8 +203,8 @@ public class GuiInventory extends InventoryEffectRenderer implements IRecipeShow
 
     protected boolean hasClickedOutside(int p_193983_1_, int p_193983_2_, int p_193983_3_, int p_193983_4_)
     {
-        boolean flag = p_193983_1_ < p_193983_3_ || p_193983_2_ < p_193983_4_ || p_193983_1_ >= p_193983_3_ + this.xSize || p_193983_2_ >= p_193983_4_ + this.ySize;
-        return this.recipeBookGui.hasClickedOutside(p_193983_1_, p_193983_2_, this.guiLeft, this.guiTop, this.xSize, this.ySize) && flag;
+        boolean flag = p_193983_1_ < p_193983_3_ || p_193983_2_ < p_193983_4_ || p_193983_1_ >= p_193983_3_ + xSize || p_193983_2_ >= p_193983_4_ + ySize;
+        return recipeBookGui.hasClickedOutside(p_193983_1_, p_193983_2_, guiLeft, guiTop, xSize, ySize) && flag;
     }
 
     /**
@@ -214,11 +214,11 @@ public class GuiInventory extends InventoryEffectRenderer implements IRecipeShow
     {
         if (button.id == 10)
         {
-            this.recipeBookGui.initVisuals(this.widthTooNarrow, ((ContainerPlayer)this.inventorySlots).craftMatrix);
-            this.recipeBookGui.toggleVisibility();
-            this.guiLeft = this.recipeBookGui.updateScreenPosition(this.widthTooNarrow, this.width, this.xSize);
-            this.recipeButton.setPosition(this.guiLeft + 104, this.height / 2 - 22);
-            this.buttonClicked = true;
+            recipeBookGui.initVisuals(widthTooNarrow, ((ContainerPlayer) inventorySlots).craftMatrix);
+            recipeBookGui.toggleVisibility();
+            guiLeft = recipeBookGui.updateScreenPosition(widthTooNarrow, width, xSize);
+            recipeButton.setPosition(guiLeft + 104, height / 2 - 22);
+            buttonClicked = true;
         }
     }
 
@@ -228,7 +228,7 @@ public class GuiInventory extends InventoryEffectRenderer implements IRecipeShow
      */
     protected void keyTyped(char typedChar, int keyCode) throws IOException
     {
-        if (!this.recipeBookGui.keyPressed(typedChar, keyCode))
+        if (!recipeBookGui.keyPressed(typedChar, keyCode))
         {
             super.keyTyped(typedChar, keyCode);
         }
@@ -240,12 +240,12 @@ public class GuiInventory extends InventoryEffectRenderer implements IRecipeShow
     protected void handleMouseClick(Slot slotIn, int slotId, int mouseButton, ClickType type)
     {
         super.handleMouseClick(slotIn, slotId, mouseButton, type);
-        this.recipeBookGui.slotClicked(slotIn);
+        recipeBookGui.slotClicked(slotIn);
     }
 
     public void recipesUpdated()
     {
-        this.recipeBookGui.recipesUpdated();
+        recipeBookGui.recipesUpdated();
     }
 
     /**
@@ -253,12 +253,12 @@ public class GuiInventory extends InventoryEffectRenderer implements IRecipeShow
      */
     public void onGuiClosed()
     {
-        this.recipeBookGui.removed();
+        recipeBookGui.removed();
         super.onGuiClosed();
     }
 
     public GuiRecipeBook func_194310_f()
     {
-        return this.recipeBookGui;
+        return recipeBookGui;
     }
 }

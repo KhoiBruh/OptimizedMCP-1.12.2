@@ -13,7 +13,7 @@ public class EntityAIRestrictOpenDoor extends EntityAIBase
 
     public EntityAIRestrictOpenDoor(EntityCreature creatureIn)
     {
-        this.entity = creatureIn;
+        entity = creatureIn;
 
         if (!(creatureIn.getNavigator() instanceof PathNavigateGround))
         {
@@ -26,14 +26,14 @@ public class EntityAIRestrictOpenDoor extends EntityAIBase
      */
     public boolean shouldExecute()
     {
-        if (this.entity.world.isDaytime())
+        if (entity.world.isDaytime())
         {
             return false;
         }
         else
         {
-            BlockPos blockpos = new BlockPos(this.entity);
-            Village village = this.entity.world.getVillageCollection().getNearestVillage(blockpos, 16);
+            BlockPos blockpos = new BlockPos(entity);
+            Village village = entity.world.getVillageCollection().getNearestVillage(blockpos, 16);
 
             if (village == null)
             {
@@ -41,15 +41,15 @@ public class EntityAIRestrictOpenDoor extends EntityAIBase
             }
             else
             {
-                this.frontDoor = village.getNearestDoor(blockpos);
+                frontDoor = village.getNearestDoor(blockpos);
 
-                if (this.frontDoor == null)
+                if (frontDoor == null)
                 {
                     return false;
                 }
                 else
                 {
-                    return (double)this.frontDoor.getDistanceToInsideBlockSq(blockpos) < 2.25D;
+                    return (double) frontDoor.getDistanceToInsideBlockSq(blockpos) < 2.25D;
                 }
             }
         }
@@ -60,13 +60,13 @@ public class EntityAIRestrictOpenDoor extends EntityAIBase
      */
     public boolean shouldContinueExecuting()
     {
-        if (this.entity.world.isDaytime())
+        if (entity.world.isDaytime())
         {
             return false;
         }
         else
         {
-            return !this.frontDoor.getIsDetachedFromVillageFlag() && this.frontDoor.isInsideSide(new BlockPos(this.entity));
+            return !frontDoor.getIsDetachedFromVillageFlag() && frontDoor.isInsideSide(new BlockPos(entity));
         }
     }
 
@@ -75,8 +75,8 @@ public class EntityAIRestrictOpenDoor extends EntityAIBase
      */
     public void startExecuting()
     {
-        ((PathNavigateGround)this.entity.getNavigator()).setBreakDoors(false);
-        ((PathNavigateGround)this.entity.getNavigator()).setEnterDoors(false);
+        ((PathNavigateGround) entity.getNavigator()).setBreakDoors(false);
+        ((PathNavigateGround) entity.getNavigator()).setEnterDoors(false);
     }
 
     /**
@@ -84,9 +84,9 @@ public class EntityAIRestrictOpenDoor extends EntityAIBase
      */
     public void resetTask()
     {
-        ((PathNavigateGround)this.entity.getNavigator()).setBreakDoors(true);
-        ((PathNavigateGround)this.entity.getNavigator()).setEnterDoors(true);
-        this.frontDoor = null;
+        ((PathNavigateGround) entity.getNavigator()).setBreakDoors(true);
+        ((PathNavigateGround) entity.getNavigator()).setEnterDoors(true);
+        frontDoor = null;
     }
 
     /**
@@ -94,6 +94,6 @@ public class EntityAIRestrictOpenDoor extends EntityAIBase
      */
     public void updateTask()
     {
-        this.frontDoor.incrementDoorOpeningRestrictionCounter();
+        frontDoor.incrementDoorOpeningRestrictionCounter();
     }
 }

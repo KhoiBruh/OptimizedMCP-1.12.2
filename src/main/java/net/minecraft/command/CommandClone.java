@@ -298,9 +298,9 @@ public class CommandClone extends CommandBase
 
         public StaticCloneData(BlockPos posIn, IBlockState stateIn, NBTTagCompound compoundIn)
         {
-            this.pos = posIn;
-            this.blockState = stateIn;
-            this.nbt = compoundIn;
+            pos = posIn;
+            blockState = stateIn;
+            nbt = compoundIn;
         }
     }
 }

@@ -30,7 +30,7 @@ public class NettyPacketEncoder extends MessageToByteEncoder < Packet<? >>
         }
         else
         {
-            Integer integer = enumconnectionstate.getPacketId(this.direction, p_encode_2_);
+            Integer integer = enumconnectionstate.getPacketId(direction, p_encode_2_);
 
             if (LOGGER.isDebugEnabled())
             {

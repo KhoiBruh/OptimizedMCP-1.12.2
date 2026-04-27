@@ -26,48 +26,48 @@ public class CraftPlanksStep implements ITutorialStep
 
     public void update()
     {
-        ++this.timeWaiting;
+        ++timeWaiting;
 
-        if (this.tutorial.getGameType() != GameType.SURVIVAL)
+        if (tutorial.getGameType() != GameType.SURVIVAL)
         {
-            this.tutorial.setStep(TutorialSteps.NONE);
+            tutorial.setStep(TutorialSteps.NONE);
         }
         else
         {
-            if (this.timeWaiting == 1)
+            if (timeWaiting == 1)
             {
-                EntityPlayerSP entityplayersp = this.tutorial.getMinecraft().player;
+                EntityPlayerSP entityplayersp = tutorial.getMinecraft().player;
 
                 if (entityplayersp != null)
                 {
                     if (entityplayersp.inventory.hasItemStack(new ItemStack(Blocks.PLANKS)))
                     {
-                        this.tutorial.setStep(TutorialSteps.NONE);
+                        tutorial.setStep(TutorialSteps.NONE);
                         return;
                     }
 
                     if (didPlayerCraftedPlanks(entityplayersp))
                     {
-                        this.tutorial.setStep(TutorialSteps.NONE);
+                        tutorial.setStep(TutorialSteps.NONE);
                         return;
                     }
                 }
             }
 
-            if (this.timeWaiting >= 1200 && this.toast == null)
+            if (timeWaiting >= 1200 && toast == null)
             {
-                this.toast = new TutorialToast(TutorialToast.Icons.WOODEN_PLANKS, TITLE, DESCRIPTION, false);
-                this.tutorial.getMinecraft().getToastGui().add(this.toast);
+                toast = new TutorialToast(TutorialToast.Icons.WOODEN_PLANKS, TITLE, DESCRIPTION, false);
+                tutorial.getMinecraft().getToastGui().add(toast);
             }
         }
     }
 
     public void onStop()
     {
-        if (this.toast != null)
+        if (toast != null)
         {
-            this.toast.hide();
-            this.toast = null;
+            toast.hide();
+            toast = null;
         }
     }
 
@@ -80,7 +80,7 @@ public class CraftPlanksStep implements ITutorialStep
     {
         if (stack.getItem() == Item.getItemFromBlock(Blocks.PLANKS))
         {
-            this.tutorial.setStep(TutorialSteps.NONE);
+            tutorial.setStep(TutorialSteps.NONE);
         }
     }
 

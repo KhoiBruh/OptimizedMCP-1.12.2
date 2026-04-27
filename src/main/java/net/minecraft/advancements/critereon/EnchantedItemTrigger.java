@@ -26,12 +26,12 @@ public class EnchantedItemTrigger implements ICriterionTrigger<EnchantedItemTrig
 
     public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<EnchantedItemTrigger.Instance> listener)
     {
-        EnchantedItemTrigger.Listeners enchanteditemtrigger$listeners = this.listeners.get(playerAdvancementsIn);
+        EnchantedItemTrigger.Listeners enchanteditemtrigger$listeners = listeners.get(playerAdvancementsIn);
 
         if (enchanteditemtrigger$listeners == null)
         {
             enchanteditemtrigger$listeners = new EnchantedItemTrigger.Listeners(playerAdvancementsIn);
-            this.listeners.put(playerAdvancementsIn, enchanteditemtrigger$listeners);
+            listeners.put(playerAdvancementsIn, enchanteditemtrigger$listeners);
         }
 
         enchanteditemtrigger$listeners.add(listener);
@@ -39,7 +39,7 @@ public class EnchantedItemTrigger implements ICriterionTrigger<EnchantedItemTrig
 
     public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<EnchantedItemTrigger.Instance> listener)
     {
-        EnchantedItemTrigger.Listeners enchanteditemtrigger$listeners = this.listeners.get(playerAdvancementsIn);
+        EnchantedItemTrigger.Listeners enchanteditemtrigger$listeners = listeners.get(playerAdvancementsIn);
 
         if (enchanteditemtrigger$listeners != null)
         {
@@ -47,14 +47,14 @@ public class EnchantedItemTrigger implements ICriterionTrigger<EnchantedItemTrig
 
             if (enchanteditemtrigger$listeners.isEmpty())
             {
-                this.listeners.remove(playerAdvancementsIn);
+                listeners.remove(playerAdvancementsIn);
             }
         }
     }
 
     public void removeAllListeners(PlayerAdvancements playerAdvancementsIn)
     {
-        this.listeners.remove(playerAdvancementsIn);
+        listeners.remove(playerAdvancementsIn);
     }
 
     /**
@@ -69,7 +69,7 @@ public class EnchantedItemTrigger implements ICriterionTrigger<EnchantedItemTrig
 
     public void trigger(EntityPlayerMP player, ItemStack item, int levelsSpent)
     {
-        EnchantedItemTrigger.Listeners enchanteditemtrigger$listeners = this.listeners.get(player.getAdvancements());
+        EnchantedItemTrigger.Listeners enchanteditemtrigger$listeners = listeners.get(player.getAdvancements());
 
         if (enchanteditemtrigger$listeners != null)
         {
@@ -97,7 +97,7 @@ public class EnchantedItemTrigger implements ICriterionTrigger<EnchantedItemTrig
             }
             else
             {
-                return this.levels.test((float)levelsIn);
+                return levels.test((float)levelsIn);
             }
         }
     }
@@ -109,29 +109,29 @@ public class EnchantedItemTrigger implements ICriterionTrigger<EnchantedItemTrig
 
         public Listeners(PlayerAdvancements playerAdvancementsIn)
         {
-            this.playerAdvancements = playerAdvancementsIn;
+            playerAdvancements = playerAdvancementsIn;
         }
 
         public boolean isEmpty()
         {
-            return this.listeners.isEmpty();
+            return listeners.isEmpty();
         }
 
         public void add(ICriterionTrigger.Listener<EnchantedItemTrigger.Instance> listener)
         {
-            this.listeners.add(listener);
+            listeners.add(listener);
         }
 
         public void remove(ICriterionTrigger.Listener<EnchantedItemTrigger.Instance> listener)
         {
-            this.listeners.remove(listener);
+            listeners.remove(listener);
         }
 
         public void trigger(ItemStack item, int levelsIn)
         {
             List<ICriterionTrigger.Listener<EnchantedItemTrigger.Instance>> list = null;
 
-            for (ICriterionTrigger.Listener<EnchantedItemTrigger.Instance> listener : this.listeners)
+            for (ICriterionTrigger.Listener<EnchantedItemTrigger.Instance> listener : listeners)
             {
                 if (((EnchantedItemTrigger.Instance)listener.getCriterionInstance()).test(item, levelsIn))
                 {
@@ -148,7 +148,7 @@ public class EnchantedItemTrigger implements ICriterionTrigger<EnchantedItemTrig
             {
                 for (ICriterionTrigger.Listener<EnchantedItemTrigger.Instance> listener1 : list)
                 {
-                    listener1.grantCriterion(this.playerAdvancements);
+                    listener1.grantCriterion(playerAdvancements);
                 }
             }
         }

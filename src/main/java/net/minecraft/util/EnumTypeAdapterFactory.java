@@ -30,7 +30,7 @@ public class EnumTypeAdapterFactory implements TypeAdapterFactory
 
             for (T t : oclass.getEnumConstants())
             {
-                map.put(this.getName(t), t);
+                map.put(getName(t), t);
             }
 
             return new TypeAdapter<T>()
@@ -43,7 +43,7 @@ public class EnumTypeAdapterFactory implements TypeAdapterFactory
                     }
                     else
                     {
-                        p_write_1_.value(EnumTypeAdapterFactory.this.getName(p_write_2_));
+                        p_write_1_.value(getName(p_write_2_));
                     }
                 }
                 @Nullable

@@ -17,47 +17,47 @@ public class CriterionProgress
 
     public CriterionProgress(AdvancementProgress advancementProgressIn)
     {
-        this.advancementProgress = advancementProgressIn;
+        advancementProgress = advancementProgressIn;
     }
 
     public boolean isObtained()
     {
-        return this.obtained != null;
+        return obtained != null;
     }
 
     public void obtain()
     {
-        this.obtained = new Date();
+        obtained = new Date();
     }
 
     public void reset()
     {
-        this.obtained = null;
+        obtained = null;
     }
 
     public Date getObtained()
     {
-        return this.obtained;
+        return obtained;
     }
 
     public String toString()
     {
-        return "CriterionProgress{obtained=" + (this.obtained == null ? "false" : this.obtained) + '}';
+        return "CriterionProgress{obtained=" + (obtained == null ? "false" : obtained) + '}';
     }
 
     public void write(PacketBuffer buf)
     {
-        buf.writeBoolean(this.obtained != null);
+        buf.writeBoolean(obtained != null);
 
-        if (this.obtained != null)
+        if (obtained != null)
         {
-            buf.writeTime(this.obtained);
+            buf.writeTime(obtained);
         }
     }
 
     public JsonElement serialize()
     {
-        return (JsonElement)(this.obtained != null ? new JsonPrimitive(DATE_TIME_FORMATTER.format(this.obtained)) : JsonNull.INSTANCE);
+        return (JsonElement)(obtained != null ? new JsonPrimitive(DATE_TIME_FORMATTER.format(obtained)) : JsonNull.INSTANCE);
     }
 
     public static CriterionProgress read(PacketBuffer buf, AdvancementProgress advancementProgressIn)

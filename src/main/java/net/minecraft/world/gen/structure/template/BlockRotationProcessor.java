@@ -12,13 +12,13 @@ public class BlockRotationProcessor implements ITemplateProcessor
 
     public BlockRotationProcessor(BlockPos pos, PlacementSettings settings)
     {
-        this.chance = settings.getIntegrity();
-        this.random = settings.getRandom(pos);
+        chance = settings.getIntegrity();
+        random = settings.getRandom(pos);
     }
 
     @Nullable
     public Template.BlockInfo processBlock(World worldIn, BlockPos pos, Template.BlockInfo blockInfoIn)
     {
-        return this.chance < 1.0F && this.random.nextFloat() > this.chance ? null : blockInfoIn;
+        return chance < 1.0F && random.nextFloat() > chance ? null : blockInfoIn;
     }
 }

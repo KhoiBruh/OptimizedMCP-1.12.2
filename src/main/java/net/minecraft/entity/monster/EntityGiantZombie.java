@@ -14,7 +14,7 @@ public class EntityGiantZombie extends EntityMob
     public EntityGiantZombie(World worldIn)
     {
         super(worldIn);
-        this.setSize(this.width * 6.0F, this.height * 6.0F);
+        setSize(width * 6.0F, height * 6.0F);
     }
 
     public static void registerFixesGiantZombie(DataFixer fixer)
@@ -30,14 +30,14 @@ public class EntityGiantZombie extends EntityMob
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(100.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.5D);
-        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(50.0D);
+        getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(100.0D);
+        getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.5D);
+        getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(50.0D);
     }
 
     public float getBlockPathWeight(BlockPos pos)
     {
-        return this.world.getLightBrightness(pos) - 0.5F;
+        return world.getLightBrightness(pos) - 0.5F;
     }
 
     @Nullable

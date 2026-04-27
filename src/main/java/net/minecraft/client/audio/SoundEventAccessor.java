@@ -17,15 +17,15 @@ public class SoundEventAccessor implements ISoundEventAccessor<Sound>
 
     public SoundEventAccessor(ResourceLocation locationIn, @Nullable String subtitleIn)
     {
-        this.location = locationIn;
-        this.subtitle = subtitleIn == null ? null : new TextComponentTranslation(subtitleIn, new Object[0]);
+        location = locationIn;
+        subtitle = subtitleIn == null ? null : new TextComponentTranslation(subtitleIn, new Object[0]);
     }
 
     public int getWeight()
     {
         int i = 0;
 
-        for (ISoundEventAccessor<Sound> isoundeventaccessor : this.accessorList)
+        for (ISoundEventAccessor<Sound> isoundeventaccessor : accessorList)
         {
             i += isoundeventaccessor.getWeight();
         }
@@ -35,13 +35,13 @@ public class SoundEventAccessor implements ISoundEventAccessor<Sound>
 
     public Sound cloneEntry()
     {
-        int i = this.getWeight();
+        int i = getWeight();
 
-        if (!this.accessorList.isEmpty() && i != 0)
+        if (!accessorList.isEmpty() && i != 0)
         {
-            int j = this.rnd.nextInt(i);
+            int j = rnd.nextInt(i);
 
-            for (ISoundEventAccessor<Sound> isoundeventaccessor : this.accessorList)
+            for (ISoundEventAccessor<Sound> isoundeventaccessor : accessorList)
             {
                 j -= isoundeventaccessor.getWeight();
 
@@ -61,17 +61,17 @@ public class SoundEventAccessor implements ISoundEventAccessor<Sound>
 
     public void addSound(ISoundEventAccessor<Sound> p_188715_1_)
     {
-        this.accessorList.add(p_188715_1_);
+        accessorList.add(p_188715_1_);
     }
 
     public ResourceLocation getLocation()
     {
-        return this.location;
+        return location;
     }
 
     @Nullable
     public ITextComponent getSubtitle()
     {
-        return this.subtitle;
+        return subtitle;
     }
 }

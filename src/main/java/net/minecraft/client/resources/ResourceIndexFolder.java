@@ -9,16 +9,16 @@ public class ResourceIndexFolder extends ResourceIndex
 
     public ResourceIndexFolder(File folder)
     {
-        this.baseDir = folder;
+        baseDir = folder;
     }
 
     public File getFile(ResourceLocation location)
     {
-        return new File(this.baseDir, location.toString().replace(':', '/'));
+        return new File(baseDir, location.toString().replace(':', '/'));
     }
 
     public File getPackMcmeta()
     {
-        return new File(this.baseDir, "pack.mcmeta");
+        return new File(baseDir, "pack.mcmeta");
     }
 }

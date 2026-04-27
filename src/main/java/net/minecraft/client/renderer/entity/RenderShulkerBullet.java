@@ -39,7 +39,7 @@ public class RenderShulkerBullet extends Render<EntityShulkerBullet>
     public void doRender(EntityShulkerBullet entity, double x, double y, double z, float entityYaw, float partialTicks)
     {
         GlStateManager.pushMatrix();
-        float f = this.rotLerp(entity.prevRotationYaw, entity.rotationYaw, partialTicks);
+        float f = rotLerp(entity.prevRotationYaw, entity.rotationYaw, partialTicks);
         float f1 = entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * partialTicks;
         float f2 = (float)entity.ticksExisted + partialTicks;
         GlStateManager.translate((float)x, (float)y + 0.15F, (float)z);
@@ -49,12 +49,12 @@ public class RenderShulkerBullet extends Render<EntityShulkerBullet>
         float f3 = 0.03125F;
         GlStateManager.enableRescaleNormal();
         GlStateManager.scale(-1.0F, -1.0F, 1.0F);
-        this.bindEntityTexture(entity);
-        this.model.render(entity, 0.0F, 0.0F, 0.0F, f, f1, 0.03125F);
+        bindEntityTexture(entity);
+        model.render(entity, 0.0F, 0.0F, 0.0F, f, f1, 0.03125F);
         GlStateManager.enableBlend();
         GlStateManager.color(1.0F, 1.0F, 1.0F, 0.5F);
         GlStateManager.scale(1.5F, 1.5F, 1.5F);
-        this.model.render(entity, 0.0F, 0.0F, 0.0F, f, f1, 0.03125F);
+        model.render(entity, 0.0F, 0.0F, 0.0F, f, f1, 0.03125F);
         GlStateManager.disableBlend();
         GlStateManager.popMatrix();
         super.doRender(entity, x, y, z, entityYaw, partialTicks);

@@ -18,10 +18,10 @@ public class ItemElytra extends Item
 {
     public ItemElytra()
     {
-        this.maxStackSize = 1;
-        this.setMaxDamage(432);
-        this.setCreativeTab(CreativeTabs.TRANSPORTATION);
-        this.addPropertyOverride(new ResourceLocation("broken"), new IItemPropertyGetter()
+        maxStackSize = 1;
+        setMaxDamage(432);
+        setCreativeTab(CreativeTabs.TRANSPORTATION);
+        addPropertyOverride(new ResourceLocation("broken"), new IItemPropertyGetter()
         {
             public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn)
             {

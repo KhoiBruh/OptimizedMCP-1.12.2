@@ -13,7 +13,7 @@ public class RenderWitch extends RenderLiving<EntityWitch>
     public RenderWitch(RenderManager renderManagerIn)
     {
         super(renderManagerIn, new ModelWitch(0.0F), 0.5F);
-        this.addLayer(new LayerHeldItemWitch(this));
+        addLayer(new LayerHeldItemWitch(this));
     }
 
     public ModelWitch getMainModel()
@@ -26,7 +26,7 @@ public class RenderWitch extends RenderLiving<EntityWitch>
      */
     public void doRender(EntityWitch entity, double x, double y, double z, float entityYaw, float partialTicks)
     {
-        ((ModelWitch)this.mainModel).holdingItem = !entity.getHeldItemMainhand().isEmpty();
+        ((ModelWitch) mainModel).holdingItem = !entity.getHeldItemMainhand().isEmpty();
         super.doRender(entity, x, y, z, entityYaw, partialTicks);
     }
 

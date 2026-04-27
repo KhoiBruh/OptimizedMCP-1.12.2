@@ -14,7 +14,7 @@ public class GuiScreenWorking extends GuiScreen implements IProgressUpdate
      */
     public void displaySavingString(String message)
     {
-        this.resetProgressAndMessage(message);
+        resetProgressAndMessage(message);
     }
 
     /**
@@ -23,8 +23,8 @@ public class GuiScreenWorking extends GuiScreen implements IProgressUpdate
      */
     public void resetProgressAndMessage(String message)
     {
-        this.title = message;
-        this.displayLoadingString("Working...");
+        title = message;
+        displayLoadingString("Working...");
     }
 
     /**
@@ -32,8 +32,8 @@ public class GuiScreenWorking extends GuiScreen implements IProgressUpdate
      */
     public void displayLoadingString(String message)
     {
-        this.stage = message;
-        this.setLoadingProgress(0);
+        stage = message;
+        setLoadingProgress(0);
     }
 
     /**
@@ -46,7 +46,7 @@ public class GuiScreenWorking extends GuiScreen implements IProgressUpdate
 
     public void setDoneWorking()
     {
-        this.doneWorking = true;
+        doneWorking = true;
     }
 
     /**
@@ -54,18 +54,18 @@ public class GuiScreenWorking extends GuiScreen implements IProgressUpdate
      */
     public void drawScreen(int mouseX, int mouseY, float partialTicks)
     {
-        if (this.doneWorking)
+        if (doneWorking)
         {
-            if (!this.mc.isConnectedToRealms())
+            if (!mc.isConnectedToRealms())
             {
-                this.mc.displayGuiScreen((GuiScreen)null);
+                mc.displayGuiScreen((GuiScreen)null);
             }
         }
         else
         {
-            this.drawDefaultBackground();
-            this.drawCenteredString(this.fontRenderer, this.title, this.width / 2, 70, 16777215);
-            this.drawCenteredString(this.fontRenderer, this.stage + " " + this.progress + "%", this.width / 2, 90, 16777215);
+            drawDefaultBackground();
+            drawCenteredString(fontRenderer, title, width / 2, 70, 16777215);
+            drawCenteredString(fontRenderer, stage + " " + progress + "%", width / 2, 90, 16777215);
             super.drawScreen(mouseX, mouseY, partialTicks);
         }
     }

@@ -13,14 +13,14 @@ public class LayerBipedArmor extends LayerArmorBase<ModelBiped>
 
     protected void initArmor()
     {
-        this.modelLeggings = new ModelBiped(0.5F);
-        this.modelArmor = new ModelBiped(1.0F);
+        modelLeggings = new ModelBiped(0.5F);
+        modelArmor = new ModelBiped(1.0F);
     }
 
     @SuppressWarnings("incomplete-switch")
     protected void setModelSlotVisible(ModelBiped p_188359_1_, EntityEquipmentSlot slotIn)
     {
-        this.setModelVisible(p_188359_1_);
+        setModelVisible(p_188359_1_);
 
         switch (slotIn)
         {

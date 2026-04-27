@@ -22,12 +22,12 @@ public class DefaultResourcePack implements IResourcePack
 
     public DefaultResourcePack(ResourceIndex resourceIndexIn)
     {
-        this.resourceIndex = resourceIndexIn;
+        resourceIndex = resourceIndexIn;
     }
 
     public InputStream getInputStream(ResourceLocation location) throws IOException
     {
-        InputStream inputstream = this.getInputStreamAssets(location);
+        InputStream inputstream = getInputStreamAssets(location);
 
         if (inputstream != null)
         {
@@ -35,7 +35,7 @@ public class DefaultResourcePack implements IResourcePack
         }
         else
         {
-            InputStream inputstream1 = this.getResourceStream(location);
+            InputStream inputstream1 = getResourceStream(location);
 
             if (inputstream1 != null)
             {
@@ -51,7 +51,7 @@ public class DefaultResourcePack implements IResourcePack
     @Nullable
     public InputStream getInputStreamAssets(ResourceLocation location) throws IOException, FileNotFoundException
     {
-        File file1 = this.resourceIndex.getFile(location);
+        File file1 = resourceIndex.getFile(location);
         return file1 != null && file1.isFile() ? new FileInputStream(file1) : null;
     }
 
@@ -73,7 +73,7 @@ public class DefaultResourcePack implements IResourcePack
 
     public boolean resourceExists(ResourceLocation location)
     {
-        return this.getResourceStream(location) != null || this.resourceIndex.isFileExisting(location);
+        return getResourceStream(location) != null || resourceIndex.isFileExisting(location);
     }
 
     public Set<String> getResourceDomains()
@@ -86,7 +86,7 @@ public class DefaultResourcePack implements IResourcePack
     {
         try
         {
-            InputStream inputstream = new FileInputStream(this.resourceIndex.getPackMcmeta());
+            InputStream inputstream = new FileInputStream(resourceIndex.getPackMcmeta());
             return (T)AbstractResourcePack.readMetadata(metadataSerializer, inputstream, metadataSectionName);
         }
         catch (RuntimeException var4)

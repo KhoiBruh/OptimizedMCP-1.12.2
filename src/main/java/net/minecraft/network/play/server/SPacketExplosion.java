@@ -26,17 +26,17 @@ public class SPacketExplosion implements Packet<INetHandlerPlayClient>
 
     public SPacketExplosion(double xIn, double yIn, double zIn, float strengthIn, List<BlockPos> affectedBlockPositionsIn, Vec3d motion)
     {
-        this.posX = xIn;
-        this.posY = yIn;
-        this.posZ = zIn;
-        this.strength = strengthIn;
-        this.affectedBlockPositions = Lists.newArrayList(affectedBlockPositionsIn);
+        posX = xIn;
+        posY = yIn;
+        posZ = zIn;
+        strength = strengthIn;
+        affectedBlockPositions = Lists.newArrayList(affectedBlockPositionsIn);
 
         if (motion != null)
         {
-            this.motionX = (float)motion.x;
-            this.motionY = (float)motion.y;
-            this.motionZ = (float)motion.z;
+            motionX = (float)motion.x;
+            motionY = (float)motion.y;
+            motionZ = (float)motion.z;
         }
     }
 
@@ -45,27 +45,27 @@ public class SPacketExplosion implements Packet<INetHandlerPlayClient>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.posX = (double)buf.readFloat();
-        this.posY = (double)buf.readFloat();
-        this.posZ = (double)buf.readFloat();
-        this.strength = buf.readFloat();
+        posX = (double)buf.readFloat();
+        posY = (double)buf.readFloat();
+        posZ = (double)buf.readFloat();
+        strength = buf.readFloat();
         int i = buf.readInt();
-        this.affectedBlockPositions = Lists.<BlockPos>newArrayListWithCapacity(i);
-        int j = (int)this.posX;
-        int k = (int)this.posY;
-        int l = (int)this.posZ;
+        affectedBlockPositions = Lists.<BlockPos>newArrayListWithCapacity(i);
+        int j = (int) posX;
+        int k = (int) posY;
+        int l = (int) posZ;
 
         for (int i1 = 0; i1 < i; ++i1)
         {
             int j1 = buf.readByte() + j;
             int k1 = buf.readByte() + k;
             int l1 = buf.readByte() + l;
-            this.affectedBlockPositions.add(new BlockPos(j1, k1, l1));
+            affectedBlockPositions.add(new BlockPos(j1, k1, l1));
         }
 
-        this.motionX = buf.readFloat();
-        this.motionY = buf.readFloat();
-        this.motionZ = buf.readFloat();
+        motionX = buf.readFloat();
+        motionY = buf.readFloat();
+        motionZ = buf.readFloat();
     }
 
     /**
@@ -73,16 +73,16 @@ public class SPacketExplosion implements Packet<INetHandlerPlayClient>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeFloat((float)this.posX);
-        buf.writeFloat((float)this.posY);
-        buf.writeFloat((float)this.posZ);
-        buf.writeFloat(this.strength);
-        buf.writeInt(this.affectedBlockPositions.size());
-        int i = (int)this.posX;
-        int j = (int)this.posY;
-        int k = (int)this.posZ;
+        buf.writeFloat((float) posX);
+        buf.writeFloat((float) posY);
+        buf.writeFloat((float) posZ);
+        buf.writeFloat(strength);
+        buf.writeInt(affectedBlockPositions.size());
+        int i = (int) posX;
+        int j = (int) posY;
+        int k = (int) posZ;
 
-        for (BlockPos blockpos : this.affectedBlockPositions)
+        for (BlockPos blockpos : affectedBlockPositions)
         {
             int l = blockpos.getX() - i;
             int i1 = blockpos.getY() - j;
@@ -92,9 +92,9 @@ public class SPacketExplosion implements Packet<INetHandlerPlayClient>
             buf.writeByte(j1);
         }
 
-        buf.writeFloat(this.motionX);
-        buf.writeFloat(this.motionY);
-        buf.writeFloat(this.motionZ);
+        buf.writeFloat(motionX);
+        buf.writeFloat(motionY);
+        buf.writeFloat(motionZ);
     }
 
     /**
@@ -107,41 +107,41 @@ public class SPacketExplosion implements Packet<INetHandlerPlayClient>
 
     public float getMotionX()
     {
-        return this.motionX;
+        return motionX;
     }
 
     public float getMotionY()
     {
-        return this.motionY;
+        return motionY;
     }
 
     public float getMotionZ()
     {
-        return this.motionZ;
+        return motionZ;
     }
 
     public double getX()
     {
-        return this.posX;
+        return posX;
     }
 
     public double getY()
     {
-        return this.posY;
+        return posY;
     }
 
     public double getZ()
     {
-        return this.posZ;
+        return posZ;
     }
 
     public float getStrength()
     {
-        return this.strength;
+        return strength;
     }
 
     public List<BlockPos> getAffectedBlockPositions()
     {
-        return this.affectedBlockPositions;
+        return affectedBlockPositions;
     }
 }

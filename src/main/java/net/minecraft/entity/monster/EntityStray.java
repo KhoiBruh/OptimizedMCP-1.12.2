@@ -32,7 +32,7 @@ public class EntityStray extends AbstractSkeleton
      */
     public boolean getCanSpawnHere()
     {
-        return super.getCanSpawnHere() && this.world.canSeeSky(new BlockPos(this));
+        return super.getCanSpawnHere() && world.canSeeSky(new BlockPos(this));
     }
 
     @Nullable

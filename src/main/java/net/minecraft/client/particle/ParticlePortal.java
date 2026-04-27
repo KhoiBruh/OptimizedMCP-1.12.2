@@ -14,29 +14,29 @@ public class ParticlePortal extends Particle
     protected ParticlePortal(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn)
     {
         super(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
-        this.motionX = xSpeedIn;
-        this.motionY = ySpeedIn;
-        this.motionZ = zSpeedIn;
-        this.posX = xCoordIn;
-        this.posY = yCoordIn;
-        this.posZ = zCoordIn;
-        this.portalPosX = this.posX;
-        this.portalPosY = this.posY;
-        this.portalPosZ = this.posZ;
-        float f = this.rand.nextFloat() * 0.6F + 0.4F;
-        this.particleScale = this.rand.nextFloat() * 0.2F + 0.5F;
-        this.portalParticleScale = this.particleScale;
-        this.particleRed = f * 0.9F;
-        this.particleGreen = f * 0.3F;
-        this.particleBlue = f;
-        this.particleMaxAge = (int)(Math.random() * 10.0D) + 40;
-        this.setParticleTextureIndex((int)(Math.random() * 8.0D));
+        motionX = xSpeedIn;
+        motionY = ySpeedIn;
+        motionZ = zSpeedIn;
+        posX = xCoordIn;
+        posY = yCoordIn;
+        posZ = zCoordIn;
+        portalPosX = posX;
+        portalPosY = posY;
+        portalPosZ = posZ;
+        float f = rand.nextFloat() * 0.6F + 0.4F;
+        particleScale = rand.nextFloat() * 0.2F + 0.5F;
+        portalParticleScale = particleScale;
+        particleRed = f * 0.9F;
+        particleGreen = f * 0.3F;
+        particleBlue = f;
+        particleMaxAge = (int)(Math.random() * 10.0D) + 40;
+        setParticleTextureIndex((int)(Math.random() * 8.0D));
     }
 
     public void move(double x, double y, double z)
     {
-        this.setBoundingBox(this.getBoundingBox().offset(x, y, z));
-        this.resetPositionToBB();
+        setBoundingBox(getBoundingBox().offset(x, y, z));
+        resetPositionToBB();
     }
 
     /**
@@ -44,18 +44,18 @@ public class ParticlePortal extends Particle
      */
     public void renderParticle(BufferBuilder buffer, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ)
     {
-        float f = ((float)this.particleAge + partialTicks) / (float)this.particleMaxAge;
+        float f = ((float) particleAge + partialTicks) / (float) particleMaxAge;
         f = 1.0F - f;
         f = f * f;
         f = 1.0F - f;
-        this.particleScale = this.portalParticleScale * f;
+        particleScale = portalParticleScale * f;
         super.renderParticle(buffer, entityIn, partialTicks, rotationX, rotationZ, rotationYZ, rotationXY, rotationXZ);
     }
 
     public int getBrightnessForRender(float p_189214_1_)
     {
         int i = super.getBrightnessForRender(p_189214_1_);
-        float f = (float)this.particleAge / (float)this.particleMaxAge;
+        float f = (float) particleAge / (float) particleMaxAge;
         f = f * f;
         f = f * f;
         int j = i & 255;
@@ -72,19 +72,19 @@ public class ParticlePortal extends Particle
 
     public void onUpdate()
     {
-        this.prevPosX = this.posX;
-        this.prevPosY = this.posY;
-        this.prevPosZ = this.posZ;
-        float f = (float)this.particleAge / (float)this.particleMaxAge;
+        prevPosX = posX;
+        prevPosY = posY;
+        prevPosZ = posZ;
+        float f = (float) particleAge / (float) particleMaxAge;
         float f1 = -f + f * f * 2.0F;
         float f2 = 1.0F - f1;
-        this.posX = this.portalPosX + this.motionX * (double)f2;
-        this.posY = this.portalPosY + this.motionY * (double)f2 + (double)(1.0F - f);
-        this.posZ = this.portalPosZ + this.motionZ * (double)f2;
+        posX = portalPosX + motionX * (double)f2;
+        posY = portalPosY + motionY * (double)f2 + (double)(1.0F - f);
+        posZ = portalPosZ + motionZ * (double)f2;
 
-        if (this.particleAge++ >= this.particleMaxAge)
+        if (particleAge++ >= particleMaxAge)
         {
-            this.setExpired();
+            setExpired();
         }
     }
 

@@ -25,7 +25,7 @@ public abstract class BlockStateBase implements IBlockState
             else
             {
                 IProperty<?> iproperty = (IProperty)p_apply_1_.getKey();
-                return iproperty.getName() + "=" + this.getPropertyName(iproperty, p_apply_1_.getValue());
+                return iproperty.getName() + "=" + getPropertyName(iproperty, p_apply_1_.getValue());
             }
         }
         private <T extends Comparable<T>> String getPropertyName(IProperty<T> property, Comparable<?> entry)
@@ -36,7 +36,7 @@ public abstract class BlockStateBase implements IBlockState
 
     public <T extends Comparable<T>> IBlockState cycleProperty(IProperty<T> property)
     {
-        return this.withProperty(property, cyclePropertyValue(property.getAllowedValues(), this.getValue(property)));
+        return withProperty(property, cyclePropertyValue(property.getAllowedValues(), getValue(property)));
     }
 
     protected static <T> T cyclePropertyValue(Collection<T> values, T currentValue)
@@ -62,12 +62,12 @@ public abstract class BlockStateBase implements IBlockState
     public String toString()
     {
         StringBuilder stringbuilder = new StringBuilder();
-        stringbuilder.append(Block.REGISTRY.getNameForObject(this.getBlock()));
+        stringbuilder.append(Block.REGISTRY.getNameForObject(getBlock()));
 
-        if (!this.getProperties().isEmpty())
+        if (!getProperties().isEmpty())
         {
             stringbuilder.append("[");
-            COMMA_JOINER.appendTo(stringbuilder, Iterables.transform(this.getProperties().entrySet(), MAP_ENTRY_TO_STRING));
+            COMMA_JOINER.appendTo(stringbuilder, Iterables.transform(getProperties().entrySet(), MAP_ENTRY_TO_STRING));
             stringbuilder.append("]");
         }
 

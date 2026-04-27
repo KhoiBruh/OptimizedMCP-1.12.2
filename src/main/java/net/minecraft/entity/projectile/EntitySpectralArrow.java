@@ -36,9 +36,9 @@ public class EntitySpectralArrow extends EntityArrow
     {
         super.onUpdate();
 
-        if (this.world.isRemote && !this.inGround)
+        if (world.isRemote && !inGround)
         {
-            this.world.spawnParticle(EnumParticleTypes.SPELL_INSTANT, this.posX, this.posY, this.posZ, 0.0D, 0.0D, 0.0D);
+            world.spawnParticle(EnumParticleTypes.SPELL_INSTANT, posX, posY, posZ, 0.0D, 0.0D, 0.0D);
         }
     }
 
@@ -50,7 +50,7 @@ public class EntitySpectralArrow extends EntityArrow
     protected void arrowHit(EntityLivingBase living)
     {
         super.arrowHit(living);
-        PotionEffect potioneffect = new PotionEffect(MobEffects.GLOWING, this.duration, 0);
+        PotionEffect potioneffect = new PotionEffect(MobEffects.GLOWING, duration, 0);
         living.addPotionEffect(potioneffect);
     }
 
@@ -68,7 +68,7 @@ public class EntitySpectralArrow extends EntityArrow
 
         if (compound.hasKey("Duration"))
         {
-            this.duration = compound.getInteger("Duration");
+            duration = compound.getInteger("Duration");
         }
     }
 
@@ -78,6 +78,6 @@ public class EntitySpectralArrow extends EntityArrow
     public void writeEntityToNBT(NBTTagCompound compound)
     {
         super.writeEntityToNBT(compound);
-        compound.setInteger("Duration", this.duration);
+        compound.setInteger("Duration", duration);
     }
 }

@@ -25,23 +25,23 @@ public class PropertyEnum<T extends Enum<T> & IStringSerializable> extends Prope
         {
             String s = ((IStringSerializable)t).getName();
 
-            if (this.nameToValue.containsKey(s))
+            if (nameToValue.containsKey(s))
             {
                 throw new IllegalArgumentException("Multiple values have the same name '" + s + "'");
             }
 
-            this.nameToValue.put(s, t);
+            nameToValue.put(s, t);
         }
     }
 
     public Collection<T> getAllowedValues()
     {
-        return this.allowedValues;
+        return allowedValues;
     }
 
     public Optional<T> parseValue(String value)
     {
-        return Optional.<T>fromNullable(this.nameToValue.get(value));
+        return Optional.<T>fromNullable(nameToValue.get(value));
     }
 
     /**
@@ -61,7 +61,7 @@ public class PropertyEnum<T extends Enum<T> & IStringSerializable> extends Prope
         else if (p_equals_1_ instanceof PropertyEnum && super.equals(p_equals_1_))
         {
             PropertyEnum<?> propertyenum = (PropertyEnum)p_equals_1_;
-            return this.allowedValues.equals(propertyenum.allowedValues) && this.nameToValue.equals(propertyenum.nameToValue);
+            return allowedValues.equals(propertyenum.allowedValues) && nameToValue.equals(propertyenum.nameToValue);
         }
         else
         {
@@ -72,8 +72,8 @@ public class PropertyEnum<T extends Enum<T> & IStringSerializable> extends Prope
     public int hashCode()
     {
         int i = super.hashCode();
-        i = 31 * i + this.allowedValues.hashCode();
-        i = 31 * i + this.nameToValue.hashCode();
+        i = 31 * i + allowedValues.hashCode();
+        i = 31 * i + nameToValue.hashCode();
         return i;
     }
 

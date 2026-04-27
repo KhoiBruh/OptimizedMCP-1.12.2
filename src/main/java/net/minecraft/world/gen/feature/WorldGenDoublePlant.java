@@ -12,7 +12,7 @@ public class WorldGenDoublePlant extends WorldGenerator
 
     public void setPlantType(BlockDoublePlant.EnumPlantType plantTypeIn)
     {
-        this.plantType = plantTypeIn;
+        plantType = plantTypeIn;
     }
 
     public boolean generate(World worldIn, Random rand, BlockPos position)
@@ -25,7 +25,7 @@ public class WorldGenDoublePlant extends WorldGenerator
 
             if (worldIn.isAirBlock(blockpos) && (!worldIn.provider.isNether() || blockpos.getY() < 254) && Blocks.DOUBLE_PLANT.canPlaceBlockAt(worldIn, blockpos))
             {
-                Blocks.DOUBLE_PLANT.placeAt(worldIn, blockpos, this.plantType, 2);
+                Blocks.DOUBLE_PLANT.placeAt(worldIn, blockpos, plantType, 2);
                 flag = true;
             }
         }

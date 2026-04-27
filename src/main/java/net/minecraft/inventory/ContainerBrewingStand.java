@@ -30,31 +30,31 @@ public class ContainerBrewingStand extends Container
 
     public ContainerBrewingStand(InventoryPlayer playerInventory, IInventory tileBrewingStandIn)
     {
-        this.tileBrewingStand = tileBrewingStandIn;
-        this.addSlotToContainer(new ContainerBrewingStand.Potion(tileBrewingStandIn, 0, 56, 51));
-        this.addSlotToContainer(new ContainerBrewingStand.Potion(tileBrewingStandIn, 1, 79, 58));
-        this.addSlotToContainer(new ContainerBrewingStand.Potion(tileBrewingStandIn, 2, 102, 51));
-        this.slot = this.addSlotToContainer(new ContainerBrewingStand.Ingredient(tileBrewingStandIn, 3, 79, 17));
-        this.addSlotToContainer(new ContainerBrewingStand.Fuel(tileBrewingStandIn, 4, 17, 17));
+        tileBrewingStand = tileBrewingStandIn;
+        addSlotToContainer(new ContainerBrewingStand.Potion(tileBrewingStandIn, 0, 56, 51));
+        addSlotToContainer(new ContainerBrewingStand.Potion(tileBrewingStandIn, 1, 79, 58));
+        addSlotToContainer(new ContainerBrewingStand.Potion(tileBrewingStandIn, 2, 102, 51));
+        slot = addSlotToContainer(new ContainerBrewingStand.Ingredient(tileBrewingStandIn, 3, 79, 17));
+        addSlotToContainer(new ContainerBrewingStand.Fuel(tileBrewingStandIn, 4, 17, 17));
 
         for (int i = 0; i < 3; ++i)
         {
             for (int j = 0; j < 9; ++j)
             {
-                this.addSlotToContainer(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
+                addSlotToContainer(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
             }
         }
 
         for (int k = 0; k < 9; ++k)
         {
-            this.addSlotToContainer(new Slot(playerInventory, k, 8 + k * 18, 142));
+            addSlotToContainer(new Slot(playerInventory, k, 8 + k * 18, 142));
         }
     }
 
     public void addListener(IContainerListener listener)
     {
         super.addListener(listener);
-        listener.sendAllWindowProperties(this, this.tileBrewingStand);
+        listener.sendAllWindowProperties(this, tileBrewingStand);
     }
 
     /**
@@ -64,28 +64,28 @@ public class ContainerBrewingStand extends Container
     {
         super.detectAndSendChanges();
 
-        for (int i = 0; i < this.listeners.size(); ++i)
+        for (int i = 0; i < listeners.size(); ++i)
         {
-            IContainerListener icontainerlistener = this.listeners.get(i);
+            IContainerListener icontainerlistener = listeners.get(i);
 
-            if (this.prevBrewTime != this.tileBrewingStand.getField(0))
+            if (prevBrewTime != tileBrewingStand.getField(0))
             {
-                icontainerlistener.sendWindowProperty(this, 0, this.tileBrewingStand.getField(0));
+                icontainerlistener.sendWindowProperty(this, 0, tileBrewingStand.getField(0));
             }
 
-            if (this.prevFuel != this.tileBrewingStand.getField(1))
+            if (prevFuel != tileBrewingStand.getField(1))
             {
-                icontainerlistener.sendWindowProperty(this, 1, this.tileBrewingStand.getField(1));
+                icontainerlistener.sendWindowProperty(this, 1, tileBrewingStand.getField(1));
             }
         }
 
-        this.prevBrewTime = this.tileBrewingStand.getField(0);
-        this.prevFuel = this.tileBrewingStand.getField(1);
+        prevBrewTime = tileBrewingStand.getField(0);
+        prevFuel = tileBrewingStand.getField(1);
     }
 
     public void updateProgressBar(int id, int data)
     {
-        this.tileBrewingStand.setField(id, data);
+        tileBrewingStand.setField(id, data);
     }
 
     /**
@@ -93,7 +93,7 @@ public class ContainerBrewingStand extends Container
      */
     public boolean canInteractWith(EntityPlayer playerIn)
     {
-        return this.tileBrewingStand.isUsableByPlayer(playerIn);
+        return tileBrewingStand.isUsableByPlayer(playerIn);
     }
 
     /**
@@ -103,7 +103,7 @@ public class ContainerBrewingStand extends Container
     public ItemStack transferStackInSlot(EntityPlayer playerIn, int index)
     {
         ItemStack itemstack = ItemStack.EMPTY;
-        Slot slot = this.inventorySlots.get(index);
+        Slot slot = inventorySlots.get(index);
 
         if (slot != null && slot.getHasStack())
         {
@@ -114,47 +114,47 @@ public class ContainerBrewingStand extends Container
             {
                 if (this.slot.isItemValid(itemstack1))
                 {
-                    if (!this.mergeItemStack(itemstack1, 3, 4, false))
+                    if (!mergeItemStack(itemstack1, 3, 4, false))
                     {
                         return ItemStack.EMPTY;
                     }
                 }
                 else if (ContainerBrewingStand.Potion.canHoldPotion(itemstack) && itemstack.getCount() == 1)
                 {
-                    if (!this.mergeItemStack(itemstack1, 0, 3, false))
+                    if (!mergeItemStack(itemstack1, 0, 3, false))
                     {
                         return ItemStack.EMPTY;
                     }
                 }
                 else if (ContainerBrewingStand.Fuel.isValidBrewingFuel(itemstack))
                 {
-                    if (!this.mergeItemStack(itemstack1, 4, 5, false))
+                    if (!mergeItemStack(itemstack1, 4, 5, false))
                     {
                         return ItemStack.EMPTY;
                     }
                 }
                 else if (index >= 5 && index < 32)
                 {
-                    if (!this.mergeItemStack(itemstack1, 32, 41, false))
+                    if (!mergeItemStack(itemstack1, 32, 41, false))
                     {
                         return ItemStack.EMPTY;
                     }
                 }
                 else if (index >= 32 && index < 41)
                 {
-                    if (!this.mergeItemStack(itemstack1, 5, 32, false))
+                    if (!mergeItemStack(itemstack1, 5, 32, false))
                     {
                         return ItemStack.EMPTY;
                     }
                 }
-                else if (!this.mergeItemStack(itemstack1, 5, 41, false))
+                else if (!mergeItemStack(itemstack1, 5, 41, false))
                 {
                     return ItemStack.EMPTY;
                 }
             }
             else
             {
-                if (!this.mergeItemStack(itemstack1, 5, 41, true))
+                if (!mergeItemStack(itemstack1, 5, 41, true))
                 {
                     return ItemStack.EMPTY;
                 }

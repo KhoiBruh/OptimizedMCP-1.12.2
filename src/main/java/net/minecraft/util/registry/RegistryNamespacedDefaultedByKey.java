@@ -17,14 +17,14 @@ public class RegistryNamespacedDefaultedByKey<K, V> extends RegistryNamespaced<K
 
     public RegistryNamespacedDefaultedByKey(K defaultValueKeyIn)
     {
-        this.defaultValueKey = defaultValueKeyIn;
+        defaultValueKey = defaultValueKeyIn;
     }
 
     public void register(int id, K key, V value)
     {
-        if (this.defaultValueKey.equals(key))
+        if (defaultValueKey.equals(key))
         {
-            this.defaultValue = value;
+            defaultValue = value;
         }
 
         super.register(id, key, value);
@@ -35,7 +35,7 @@ public class RegistryNamespacedDefaultedByKey<K, V> extends RegistryNamespaced<K
      */
     public void validateKey()
     {
-        Validate.notNull(this.defaultValue, "Missing default of DefaultedMappedRegistry: " + this.defaultValueKey);
+        Validate.notNull(defaultValue, "Missing default of DefaultedMappedRegistry: " + defaultValueKey);
     }
 
     /**
@@ -44,7 +44,7 @@ public class RegistryNamespacedDefaultedByKey<K, V> extends RegistryNamespaced<K
     public int getIDForObject(V value)
     {
         int i = super.getIDForObject(value);
-        return i == -1 ? super.getIDForObject(this.defaultValue) : i;
+        return i == -1 ? super.getIDForObject(defaultValue) : i;
     }
 
     @Nonnull
@@ -55,14 +55,14 @@ public class RegistryNamespacedDefaultedByKey<K, V> extends RegistryNamespaced<K
     public K getNameForObject(V value)
     {
         K k = (K)super.getNameForObject(value);
-        return (K)(k == null ? this.defaultValueKey : k);
+        return (K)(k == null ? defaultValueKey : k);
     }
 
     @Nonnull
     public V getObject(@Nullable K name)
     {
         V v = (V)super.getObject(name);
-        return (V)(v == null ? this.defaultValue : v);
+        return (V)(v == null ? defaultValue : v);
     }
 
     @Nonnull
@@ -73,13 +73,13 @@ public class RegistryNamespacedDefaultedByKey<K, V> extends RegistryNamespaced<K
     public V getObjectById(int id)
     {
         V v = (V)super.getObjectById(id);
-        return (V)(v == null ? this.defaultValue : v);
+        return (V)(v == null ? defaultValue : v);
     }
 
     @Nonnull
     public V getRandomObject(Random random)
     {
         V v = (V)super.getRandomObject(random);
-        return (V)(v == null ? this.defaultValue : v);
+        return (V)(v == null ? defaultValue : v);
     }
 }

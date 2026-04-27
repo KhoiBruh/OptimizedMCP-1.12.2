@@ -23,8 +23,8 @@ public class ServerWorldEventHandler implements IWorldEventListener
 
     public ServerWorldEventHandler(MinecraftServer mcServerIn, WorldServer worldServerIn)
     {
-        this.mcServer = mcServerIn;
-        this.world = worldServerIn;
+        mcServer = mcServerIn;
+        world = worldServerIn;
     }
 
     public void spawnParticle(int particleID, boolean ignoreRange, double xCoord, double yCoord, double zCoord, double xSpeed, double ySpeed, double zSpeed, int... parameters)
@@ -41,11 +41,11 @@ public class ServerWorldEventHandler implements IWorldEventListener
      */
     public void onEntityAdded(Entity entityIn)
     {
-        this.world.getEntityTracker().track(entityIn);
+        world.getEntityTracker().track(entityIn);
 
         if (entityIn instanceof EntityPlayerMP)
         {
-            this.world.provider.onPlayerAdded((EntityPlayerMP)entityIn);
+            world.provider.onPlayerAdded((EntityPlayerMP)entityIn);
         }
     }
 
@@ -55,18 +55,18 @@ public class ServerWorldEventHandler implements IWorldEventListener
      */
     public void onEntityRemoved(Entity entityIn)
     {
-        this.world.getEntityTracker().untrack(entityIn);
-        this.world.getScoreboard().removeEntity(entityIn);
+        world.getEntityTracker().untrack(entityIn);
+        world.getScoreboard().removeEntity(entityIn);
 
         if (entityIn instanceof EntityPlayerMP)
         {
-            this.world.provider.onPlayerRemoved((EntityPlayerMP)entityIn);
+            world.provider.onPlayerRemoved((EntityPlayerMP)entityIn);
         }
     }
 
     public void playSoundToAllNearExcept(@Nullable EntityPlayer player, SoundEvent soundIn, SoundCategory category, double x, double y, double z, float volume, float pitch)
     {
-        this.mcServer.getPlayerList().sendToAllNearExcept(player, x, y, z, volume > 1.0F ? (double)(16.0F * volume) : 16.0D, this.world.provider.getDimensionType().getId(), new SPacketSoundEffect(soundIn, category, x, y, z, volume, pitch));
+        mcServer.getPlayerList().sendToAllNearExcept(player, x, y, z, volume > 1.0F ? (double)(16.0F * volume) : 16.0D, world.provider.getDimensionType().getId(), new SPacketSoundEffect(soundIn, category, x, y, z, volume, pitch));
     }
 
     /**
@@ -78,7 +78,7 @@ public class ServerWorldEventHandler implements IWorldEventListener
 
     public void notifyBlockUpdate(World worldIn, BlockPos pos, IBlockState oldState, IBlockState newState, int flags)
     {
-        this.world.getPlayerChunkMap().markBlockForUpdate(pos);
+        world.getPlayerChunkMap().markBlockForUpdate(pos);
     }
 
     public void notifyLightSet(BlockPos pos)
@@ -91,19 +91,19 @@ public class ServerWorldEventHandler implements IWorldEventListener
 
     public void playEvent(EntityPlayer player, int type, BlockPos blockPosIn, int data)
     {
-        this.mcServer.getPlayerList().sendToAllNearExcept(player, (double)blockPosIn.getX(), (double)blockPosIn.getY(), (double)blockPosIn.getZ(), 64.0D, this.world.provider.getDimensionType().getId(), new SPacketEffect(type, blockPosIn, data, false));
+        mcServer.getPlayerList().sendToAllNearExcept(player, (double)blockPosIn.getX(), (double)blockPosIn.getY(), (double)blockPosIn.getZ(), 64.0D, world.provider.getDimensionType().getId(), new SPacketEffect(type, blockPosIn, data, false));
     }
 
     public void broadcastSound(int soundID, BlockPos pos, int data)
     {
-        this.mcServer.getPlayerList().sendPacketToAllPlayers(new SPacketEffect(soundID, pos, data, true));
+        mcServer.getPlayerList().sendPacketToAllPlayers(new SPacketEffect(soundID, pos, data, true));
     }
 
     public void sendBlockBreakProgress(int breakerId, BlockPos pos, int progress)
     {
-        for (EntityPlayerMP entityplayermp : this.mcServer.getPlayerList().getPlayers())
+        for (EntityPlayerMP entityplayermp : mcServer.getPlayerList().getPlayers())
         {
-            if (entityplayermp != null && entityplayermp.world == this.world && entityplayermp.getEntityId() != breakerId)
+            if (entityplayermp != null && entityplayermp.world == world && entityplayermp.getEntityId() != breakerId)
             {
                 double d0 = (double)pos.getX() - entityplayermp.posX;
                 double d1 = (double)pos.getY() - entityplayermp.posY;

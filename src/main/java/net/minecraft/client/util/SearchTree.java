@@ -22,8 +22,8 @@ public class SearchTree<T> implements ISearchTree<T>
 
     public SearchTree(Function<T, Iterable<String>> nameFuncIn, Function<T, Iterable<ResourceLocation>> idFuncIn)
     {
-        this.nameFunc = nameFuncIn;
-        this.idFunc = idFuncIn;
+        nameFunc = nameFuncIn;
+        idFunc = idFuncIn;
     }
 
     /**
@@ -32,16 +32,16 @@ public class SearchTree<T> implements ISearchTree<T>
      */
     public void recalculate()
     {
-        this.byId = new SuffixArray<T>();
-        this.byName = new SuffixArray<T>();
+        byId = new SuffixArray<T>();
+        byName = new SuffixArray<T>();
 
-        for (T t : this.contents)
+        for (T t : contents)
         {
-            this.index(t);
+            index(t);
         }
 
-        this.byId.generate();
-        this.byName.generate();
+        byId.generate();
+        byName.generate();
     }
 
     /**
@@ -51,9 +51,9 @@ public class SearchTree<T> implements ISearchTree<T>
      */
     public void add(T element)
     {
-        this.numericContents.put(element, this.contents.size());
-        this.contents.add(element);
-        this.index(element);
+        numericContents.put(element, contents.size());
+        contents.add(element);
+        index(element);
     }
 
     /**
@@ -64,19 +64,19 @@ public class SearchTree<T> implements ISearchTree<T>
      */
     private void index(T element)
     {
-        (this.idFunc.apply(element)).forEach((p_194039_2_) ->
+        (idFunc.apply(element)).forEach((p_194039_2_) ->
         {
-            this.byName.add(element, p_194039_2_.toString().toLowerCase(Locale.ROOT));
+            byName.add(element, p_194039_2_.toString().toLowerCase(Locale.ROOT));
         });
-        (this.nameFunc.apply(element)).forEach((p_194041_2_) ->
+        (nameFunc.apply(element)).forEach((p_194041_2_) ->
         {
-            this.byId.add(element, p_194041_2_.toLowerCase(Locale.ROOT));
+            byId.add(element, p_194041_2_.toLowerCase(Locale.ROOT));
         });
     }
 
     public List<T> search(String searchText)
     {
-        List<T> list = this.byId.search(searchText);
+        List<T> list = byId.search(searchText);
 
         if (searchText.indexOf(58) < 0)
         {
@@ -84,8 +84,8 @@ public class SearchTree<T> implements ISearchTree<T>
         }
         else
         {
-            List<T> list1 = this.byName.search(searchText);
-            return (List<T>)(list1.isEmpty() ? list : Lists.newArrayList(new SearchTree.MergingIterator(list.iterator(), list1.iterator(), this.numericContents)));
+            List<T> list1 = byName.search(searchText);
+            return (List<T>)(list1.isEmpty() ? list : Lists.newArrayList(new SearchTree.MergingIterator(list.iterator(), list1.iterator(), numericContents)));
         }
     }
 
@@ -99,50 +99,50 @@ public class SearchTree<T> implements ISearchTree<T>
 
         public MergingIterator(Iterator<T> leftIn, Iterator<T> rightIn, Object2IntMap<T> numbersIn)
         {
-            this.leftItr = leftIn;
-            this.rightItr = rightIn;
-            this.numbers = numbersIn;
-            this.left = (T)(leftIn.hasNext() ? leftIn.next() : null);
-            this.right = (T)(rightIn.hasNext() ? rightIn.next() : null);
+            leftItr = leftIn;
+            rightItr = rightIn;
+            numbers = numbersIn;
+            left = (T)(leftIn.hasNext() ? leftIn.next() : null);
+            right = (T)(rightIn.hasNext() ? rightIn.next() : null);
         }
 
         protected T computeNext()
         {
-            if (this.left == null && this.right == null)
+            if (left == null && right == null)
             {
-                return (T)this.endOfData();
+                return (T) endOfData();
             }
             else
             {
                 int i;
 
-                if (this.left == this.right)
+                if (left == right)
                 {
                     i = 0;
                 }
-                else if (this.left == null)
+                else if (left == null)
                 {
                     i = 1;
                 }
-                else if (this.right == null)
+                else if (right == null)
                 {
                     i = -1;
                 }
                 else
                 {
-                    i = Integer.compare(this.numbers.getInt(this.left), this.numbers.getInt(this.right));
+                    i = Integer.compare(numbers.getInt(left), numbers.getInt(right));
                 }
 
-                T t = (T)(i <= 0 ? this.left : this.right);
+                T t = (T)(i <= 0 ? left : right);
 
                 if (i <= 0)
                 {
-                    this.left = (T)(this.leftItr.hasNext() ? this.leftItr.next() : null);
+                    left = (T)(leftItr.hasNext() ? leftItr.next() : null);
                 }
 
                 if (i >= 0)
                 {
-                    this.right = (T)(this.rightItr.hasNext() ? this.rightItr.next() : null);
+                    right = (T)(rightItr.hasNext() ? rightItr.next() : null);
                 }
 
                 return t;

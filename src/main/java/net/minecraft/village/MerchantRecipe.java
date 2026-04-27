@@ -26,10 +26,10 @@ public class MerchantRecipe
 
     public MerchantRecipe(NBTTagCompound tagCompound)
     {
-        this.itemToBuy = ItemStack.EMPTY;
-        this.secondItemToBuy = ItemStack.EMPTY;
-        this.itemToSell = ItemStack.EMPTY;
-        this.readFromTags(tagCompound);
+        itemToBuy = ItemStack.EMPTY;
+        secondItemToBuy = ItemStack.EMPTY;
+        itemToSell = ItemStack.EMPTY;
+        readFromTags(tagCompound);
     }
 
     public MerchantRecipe(ItemStack buy1, ItemStack buy2, ItemStack sell)
@@ -39,15 +39,15 @@ public class MerchantRecipe
 
     public MerchantRecipe(ItemStack buy1, ItemStack buy2, ItemStack sell, int toolUsesIn, int maxTradeUsesIn)
     {
-        this.itemToBuy = ItemStack.EMPTY;
-        this.secondItemToBuy = ItemStack.EMPTY;
-        this.itemToSell = ItemStack.EMPTY;
-        this.itemToBuy = buy1;
-        this.secondItemToBuy = buy2;
-        this.itemToSell = sell;
-        this.toolUses = toolUsesIn;
-        this.maxTradeUses = maxTradeUsesIn;
-        this.rewardsExp = true;
+        itemToBuy = ItemStack.EMPTY;
+        secondItemToBuy = ItemStack.EMPTY;
+        itemToSell = ItemStack.EMPTY;
+        itemToBuy = buy1;
+        secondItemToBuy = buy2;
+        itemToSell = sell;
+        toolUses = toolUsesIn;
+        maxTradeUses = maxTradeUsesIn;
+        rewardsExp = true;
     }
 
     public MerchantRecipe(ItemStack buy1, ItemStack sell)
@@ -65,7 +65,7 @@ public class MerchantRecipe
      */
     public ItemStack getItemToBuy()
     {
-        return this.itemToBuy;
+        return itemToBuy;
     }
 
     /**
@@ -73,7 +73,7 @@ public class MerchantRecipe
      */
     public ItemStack getSecondItemToBuy()
     {
-        return this.secondItemToBuy;
+        return secondItemToBuy;
     }
 
     /**
@@ -81,7 +81,7 @@ public class MerchantRecipe
      */
     public boolean hasSecondItemToBuy()
     {
-        return !this.secondItemToBuy.isEmpty();
+        return !secondItemToBuy.isEmpty();
     }
 
     /**
@@ -89,32 +89,32 @@ public class MerchantRecipe
      */
     public ItemStack getItemToSell()
     {
-        return this.itemToSell;
+        return itemToSell;
     }
 
     public int getToolUses()
     {
-        return this.toolUses;
+        return toolUses;
     }
 
     public int getMaxTradeUses()
     {
-        return this.maxTradeUses;
+        return maxTradeUses;
     }
 
     public void incrementToolUses()
     {
-        ++this.toolUses;
+        ++toolUses;
     }
 
     public void increaseMaxTradeUses(int increment)
     {
-        this.maxTradeUses += increment;
+        maxTradeUses += increment;
     }
 
     public boolean isRecipeDisabled()
     {
-        return this.toolUses >= this.maxTradeUses;
+        return toolUses >= maxTradeUses;
     }
 
     /**
@@ -123,64 +123,64 @@ public class MerchantRecipe
      */
     public void compensateToolUses()
     {
-        this.toolUses = this.maxTradeUses;
+        toolUses = maxTradeUses;
     }
 
     public boolean getRewardsExp()
     {
-        return this.rewardsExp;
+        return rewardsExp;
     }
 
     public void readFromTags(NBTTagCompound tagCompound)
     {
         NBTTagCompound nbttagcompound = tagCompound.getCompoundTag("buy");
-        this.itemToBuy = new ItemStack(nbttagcompound);
+        itemToBuy = new ItemStack(nbttagcompound);
         NBTTagCompound nbttagcompound1 = tagCompound.getCompoundTag("sell");
-        this.itemToSell = new ItemStack(nbttagcompound1);
+        itemToSell = new ItemStack(nbttagcompound1);
 
         if (tagCompound.hasKey("buyB", 10))
         {
-            this.secondItemToBuy = new ItemStack(tagCompound.getCompoundTag("buyB"));
+            secondItemToBuy = new ItemStack(tagCompound.getCompoundTag("buyB"));
         }
 
         if (tagCompound.hasKey("uses", 99))
         {
-            this.toolUses = tagCompound.getInteger("uses");
+            toolUses = tagCompound.getInteger("uses");
         }
 
         if (tagCompound.hasKey("maxUses", 99))
         {
-            this.maxTradeUses = tagCompound.getInteger("maxUses");
+            maxTradeUses = tagCompound.getInteger("maxUses");
         }
         else
         {
-            this.maxTradeUses = 7;
+            maxTradeUses = 7;
         }
 
         if (tagCompound.hasKey("rewardExp", 1))
         {
-            this.rewardsExp = tagCompound.getBoolean("rewardExp");
+            rewardsExp = tagCompound.getBoolean("rewardExp");
         }
         else
         {
-            this.rewardsExp = true;
+            rewardsExp = true;
         }
     }
 
     public NBTTagCompound writeToTags()
     {
         NBTTagCompound nbttagcompound = new NBTTagCompound();
-        nbttagcompound.setTag("buy", this.itemToBuy.writeToNBT(new NBTTagCompound()));
-        nbttagcompound.setTag("sell", this.itemToSell.writeToNBT(new NBTTagCompound()));
+        nbttagcompound.setTag("buy", itemToBuy.writeToNBT(new NBTTagCompound()));
+        nbttagcompound.setTag("sell", itemToSell.writeToNBT(new NBTTagCompound()));
 
-        if (!this.secondItemToBuy.isEmpty())
+        if (!secondItemToBuy.isEmpty())
         {
-            nbttagcompound.setTag("buyB", this.secondItemToBuy.writeToNBT(new NBTTagCompound()));
+            nbttagcompound.setTag("buyB", secondItemToBuy.writeToNBT(new NBTTagCompound()));
         }
 
-        nbttagcompound.setInteger("uses", this.toolUses);
-        nbttagcompound.setInteger("maxUses", this.maxTradeUses);
-        nbttagcompound.setBoolean("rewardExp", this.rewardsExp);
+        nbttagcompound.setInteger("uses", toolUses);
+        nbttagcompound.setInteger("maxUses", maxTradeUses);
+        nbttagcompound.setBoolean("rewardExp", rewardsExp);
         return nbttagcompound;
     }
 }

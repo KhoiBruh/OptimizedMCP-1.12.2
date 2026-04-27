@@ -38,49 +38,49 @@ public class NonNullList<E> extends AbstractList<E>
 
     protected NonNullList(List<E> delegateIn, @Nullable E listType)
     {
-        this.delegate = delegateIn;
-        this.defaultElement = listType;
+        delegate = delegateIn;
+        defaultElement = listType;
     }
 
     @Nonnull
     public E get(int p_get_1_)
     {
-        return this.delegate.get(p_get_1_);
+        return delegate.get(p_get_1_);
     }
 
     public E set(int p_set_1_, E p_set_2_)
     {
         Validate.notNull(p_set_2_);
-        return this.delegate.set(p_set_1_, p_set_2_);
+        return delegate.set(p_set_1_, p_set_2_);
     }
 
     public void add(int p_add_1_, E p_add_2_)
     {
         Validate.notNull(p_add_2_);
-        this.delegate.add(p_add_1_, p_add_2_);
+        delegate.add(p_add_1_, p_add_2_);
     }
 
     public E remove(int p_remove_1_)
     {
-        return this.delegate.remove(p_remove_1_);
+        return delegate.remove(p_remove_1_);
     }
 
     public int size()
     {
-        return this.delegate.size();
+        return delegate.size();
     }
 
     public void clear()
     {
-        if (this.defaultElement == null)
+        if (defaultElement == null)
         {
             super.clear();
         }
         else
         {
-            for (int i = 0; i < this.size(); ++i)
+            for (int i = 0; i < size(); ++i)
             {
-                this.set(i, this.defaultElement);
+                set(i, defaultElement);
             }
         }
     }

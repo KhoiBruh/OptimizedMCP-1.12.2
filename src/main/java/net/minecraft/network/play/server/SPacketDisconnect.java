@@ -16,7 +16,7 @@ public class SPacketDisconnect implements Packet<INetHandlerPlayClient>
 
     public SPacketDisconnect(ITextComponent messageIn)
     {
-        this.reason = messageIn;
+        reason = messageIn;
     }
 
     /**
@@ -24,7 +24,7 @@ public class SPacketDisconnect implements Packet<INetHandlerPlayClient>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.reason = buf.readTextComponent();
+        reason = buf.readTextComponent();
     }
 
     /**
@@ -32,7 +32,7 @@ public class SPacketDisconnect implements Packet<INetHandlerPlayClient>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeTextComponent(this.reason);
+        buf.writeTextComponent(reason);
     }
 
     /**
@@ -45,6 +45,6 @@ public class SPacketDisconnect implements Packet<INetHandlerPlayClient>
 
     public ITextComponent getReason()
     {
-        return this.reason;
+        return reason;
     }
 }

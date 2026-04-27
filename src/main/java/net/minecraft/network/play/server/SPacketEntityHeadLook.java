@@ -18,8 +18,8 @@ public class SPacketEntityHeadLook implements Packet<INetHandlerPlayClient>
 
     public SPacketEntityHeadLook(Entity entityIn, byte yawIn)
     {
-        this.entityId = entityIn.getEntityId();
-        this.yaw = yawIn;
+        entityId = entityIn.getEntityId();
+        yaw = yawIn;
     }
 
     /**
@@ -27,8 +27,8 @@ public class SPacketEntityHeadLook implements Packet<INetHandlerPlayClient>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.entityId = buf.readVarInt();
-        this.yaw = buf.readByte();
+        entityId = buf.readVarInt();
+        yaw = buf.readByte();
     }
 
     /**
@@ -36,8 +36,8 @@ public class SPacketEntityHeadLook implements Packet<INetHandlerPlayClient>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeVarInt(this.entityId);
-        buf.writeByte(this.yaw);
+        buf.writeVarInt(entityId);
+        buf.writeByte(yaw);
     }
 
     /**
@@ -50,11 +50,11 @@ public class SPacketEntityHeadLook implements Packet<INetHandlerPlayClient>
 
     public Entity getEntity(World worldIn)
     {
-        return worldIn.getEntityByID(this.entityId);
+        return worldIn.getEntityByID(entityId);
     }
 
     public byte getYaw()
     {
-        return this.yaw;
+        return yaw;
     }
 }

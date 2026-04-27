@@ -16,7 +16,7 @@ public class BlockSeaLantern extends Block
     public BlockSeaLantern(Material materialIn)
     {
         super(materialIn);
-        this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
+        setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
     }
 
     /**
@@ -32,7 +32,7 @@ public class BlockSeaLantern extends Block
      */
     public int quantityDroppedWithBonus(int fortune, Random random)
     {
-        return MathHelper.clamp(this.quantityDropped(random) + random.nextInt(fortune + 1), 1, 5);
+        return MathHelper.clamp(quantityDropped(random) + random.nextInt(fortune + 1), 1, 5);
     }
 
     /**

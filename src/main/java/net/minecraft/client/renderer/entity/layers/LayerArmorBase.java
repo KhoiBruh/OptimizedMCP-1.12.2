@@ -27,16 +27,16 @@ public abstract class LayerArmorBase<T extends ModelBase> implements LayerRender
 
     public LayerArmorBase(RenderLivingBase<?> rendererIn)
     {
-        this.renderer = rendererIn;
-        this.initArmor();
+        renderer = rendererIn;
+        initArmor();
     }
 
     public void doRenderLayer(EntityLivingBase entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale)
     {
-        this.renderArmorLayer(entitylivingbaseIn, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch, scale, EntityEquipmentSlot.CHEST);
-        this.renderArmorLayer(entitylivingbaseIn, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch, scale, EntityEquipmentSlot.LEGS);
-        this.renderArmorLayer(entitylivingbaseIn, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch, scale, EntityEquipmentSlot.FEET);
-        this.renderArmorLayer(entitylivingbaseIn, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch, scale, EntityEquipmentSlot.HEAD);
+        renderArmorLayer(entitylivingbaseIn, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch, scale, EntityEquipmentSlot.CHEST);
+        renderArmorLayer(entitylivingbaseIn, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch, scale, EntityEquipmentSlot.LEGS);
+        renderArmorLayer(entitylivingbaseIn, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch, scale, EntityEquipmentSlot.FEET);
+        renderArmorLayer(entitylivingbaseIn, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch, scale, EntityEquipmentSlot.HEAD);
     }
 
     public boolean shouldCombineTextures()
@@ -54,12 +54,12 @@ public abstract class LayerArmorBase<T extends ModelBase> implements LayerRender
 
             if (itemarmor.getEquipmentSlot() == slotIn)
             {
-                T t = this.getModelFromSlot(slotIn);
-                t.setModelAttributes(this.renderer.getMainModel());
+                T t = getModelFromSlot(slotIn);
+                t.setModelAttributes(renderer.getMainModel());
                 t.setLivingAnimations(entityLivingBaseIn, limbSwing, limbSwingAmount, partialTicks);
-                this.setModelSlotVisible(t, slotIn);
-                boolean flag = this.isLegSlot(slotIn);
-                this.renderer.bindTexture(this.getArmorResource(itemarmor, flag));
+                setModelSlotVisible(t, slotIn);
+                boolean flag = isLegSlot(slotIn);
+                renderer.bindTexture(getArmorResource(itemarmor, flag));
 
                 switch (itemarmor.getArmorMaterial())
                 {
@@ -68,21 +68,21 @@ public abstract class LayerArmorBase<T extends ModelBase> implements LayerRender
                         float f = (float)(i >> 16 & 255) / 255.0F;
                         float f1 = (float)(i >> 8 & 255) / 255.0F;
                         float f2 = (float)(i & 255) / 255.0F;
-                        GlStateManager.color(this.colorR * f, this.colorG * f1, this.colorB * f2, this.alpha);
+                        GlStateManager.color(colorR * f, colorG * f1, colorB * f2, alpha);
                         t.render(entityLivingBaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
-                        this.renderer.bindTexture(this.getArmorResource(itemarmor, flag, "overlay"));
+                        renderer.bindTexture(getArmorResource(itemarmor, flag, "overlay"));
 
                     case CHAIN:
                     case IRON:
                     case GOLD:
                     case DIAMOND:
-                        GlStateManager.color(this.colorR, this.colorG, this.colorB, this.alpha);
+                        GlStateManager.color(colorR, colorG, colorB, alpha);
                         t.render(entityLivingBaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
 
                     default:
-                        if (!this.skipRenderGlint && itemstack.isItemEnchanted())
+                        if (!skipRenderGlint && itemstack.isItemEnchanted())
                         {
-                            renderEnchantedGlint(this.renderer, entityLivingBaseIn, t, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch, scale);
+                            renderEnchantedGlint(renderer, entityLivingBaseIn, t, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch, scale);
                         }
                 }
             }
@@ -91,7 +91,7 @@ public abstract class LayerArmorBase<T extends ModelBase> implements LayerRender
 
     public T getModelFromSlot(EntityEquipmentSlot slotIn)
     {
-        return (T)(this.isLegSlot(slotIn) ? this.modelLeggings : this.modelArmor);
+        return (T)(isLegSlot(slotIn) ? modelLeggings : modelArmor);
     }
 
     private boolean isLegSlot(EntityEquipmentSlot slotIn)
@@ -139,7 +139,7 @@ public abstract class LayerArmorBase<T extends ModelBase> implements LayerRender
 
     private ResourceLocation getArmorResource(ItemArmor armor, boolean p_177181_2_)
     {
-        return this.getArmorResource(armor, p_177181_2_, (String)null);
+        return getArmorResource(armor, p_177181_2_, (String)null);
     }
 
     private ResourceLocation getArmorResource(ItemArmor armor, boolean p_177178_2_, String p_177178_3_)

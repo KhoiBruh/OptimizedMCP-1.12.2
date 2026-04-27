@@ -21,13 +21,13 @@ public class EntityHasProperty implements LootCondition
 
     public EntityHasProperty(EntityProperty[] propertiesIn, LootContext.EntityTarget targetIn)
     {
-        this.properties = propertiesIn;
-        this.target = targetIn;
+        properties = propertiesIn;
+        target = targetIn;
     }
 
     public boolean testCondition(Random rand, LootContext context)
     {
-        Entity entity = context.getEntity(this.target);
+        Entity entity = context.getEntity(target);
 
         if (entity == null)
         {
@@ -35,7 +35,7 @@ public class EntityHasProperty implements LootCondition
         }
         else
         {
-            for (EntityProperty entityproperty : this.properties)
+            for (EntityProperty entityproperty : properties)
             {
                 if (!entityproperty.testProperty(rand, entity))
                 {

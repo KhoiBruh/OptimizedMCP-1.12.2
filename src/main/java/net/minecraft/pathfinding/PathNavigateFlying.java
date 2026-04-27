@@ -16,9 +16,9 @@ public class PathNavigateFlying extends PathNavigate
 
     protected PathFinder getPathFinder()
     {
-        this.nodeProcessor = new FlyingNodeProcessor();
-        this.nodeProcessor.setCanEnterDoors(true);
-        return new PathFinder(this.nodeProcessor);
+        nodeProcessor = new FlyingNodeProcessor();
+        nodeProcessor.setCanEnterDoors(true);
+        return new PathFinder(nodeProcessor);
     }
 
     /**
@@ -26,12 +26,12 @@ public class PathNavigateFlying extends PathNavigate
      */
     protected boolean canNavigate()
     {
-        return this.canFloat() && this.isInLiquid() || !this.entity.isRiding();
+        return canFloat() && isInLiquid() || !entity.isRiding();
     }
 
     protected Vec3d getEntityPosition()
     {
-        return new Vec3d(this.entity.posX, this.entity.posY, this.entity.posZ);
+        return new Vec3d(entity.posX, entity.posY, entity.posZ);
     }
 
     /**
@@ -39,40 +39,40 @@ public class PathNavigateFlying extends PathNavigate
      */
     public Path getPathToEntityLiving(Entity entityIn)
     {
-        return this.getPathToPos(new BlockPos(entityIn));
+        return getPathToPos(new BlockPos(entityIn));
     }
 
     public void onUpdateNavigation()
     {
-        ++this.totalTicks;
+        ++totalTicks;
 
-        if (this.tryUpdatePath)
+        if (tryUpdatePath)
         {
-            this.updatePath();
+            updatePath();
         }
 
-        if (!this.noPath())
+        if (!noPath())
         {
-            if (this.canNavigate())
+            if (canNavigate())
             {
-                this.pathFollow();
+                pathFollow();
             }
-            else if (this.currentPath != null && this.currentPath.getCurrentPathIndex() < this.currentPath.getCurrentPathLength())
+            else if (currentPath != null && currentPath.getCurrentPathIndex() < currentPath.getCurrentPathLength())
             {
-                Vec3d vec3d = this.currentPath.getVectorFromIndex(this.entity, this.currentPath.getCurrentPathIndex());
+                Vec3d vec3d = currentPath.getVectorFromIndex(entity, currentPath.getCurrentPathIndex());
 
-                if (MathHelper.floor(this.entity.posX) == MathHelper.floor(vec3d.x) && MathHelper.floor(this.entity.posY) == MathHelper.floor(vec3d.y) && MathHelper.floor(this.entity.posZ) == MathHelper.floor(vec3d.z))
+                if (MathHelper.floor(entity.posX) == MathHelper.floor(vec3d.x) && MathHelper.floor(entity.posY) == MathHelper.floor(vec3d.y) && MathHelper.floor(entity.posZ) == MathHelper.floor(vec3d.z))
                 {
-                    this.currentPath.setCurrentPathIndex(this.currentPath.getCurrentPathIndex() + 1);
+                    currentPath.setCurrentPathIndex(currentPath.getCurrentPathIndex() + 1);
                 }
             }
 
-            this.debugPathFinding();
+            debugPathFinding();
 
-            if (!this.noPath())
+            if (!noPath())
             {
-                Vec3d vec3d1 = this.currentPath.getPosition(this.entity);
-                this.entity.getMoveHelper().setMoveTo(vec3d1.x, vec3d1.y, vec3d1.z, this.speed);
+                Vec3d vec3d1 = currentPath.getPosition(entity);
+                entity.getMoveHelper().setMoveTo(vec3d1.x, vec3d1.y, vec3d1.z, speed);
             }
         }
     }
@@ -163,26 +163,26 @@ public class PathNavigateFlying extends PathNavigate
 
     public void setCanOpenDoors(boolean p_192879_1_)
     {
-        this.nodeProcessor.setCanOpenDoors(p_192879_1_);
+        nodeProcessor.setCanOpenDoors(p_192879_1_);
     }
 
     public void setCanEnterDoors(boolean p_192878_1_)
     {
-        this.nodeProcessor.setCanEnterDoors(p_192878_1_);
+        nodeProcessor.setCanEnterDoors(p_192878_1_);
     }
 
     public void setCanFloat(boolean p_192877_1_)
     {
-        this.nodeProcessor.setCanSwim(p_192877_1_);
+        nodeProcessor.setCanSwim(p_192877_1_);
     }
 
     public boolean canFloat()
     {
-        return this.nodeProcessor.getCanSwim();
+        return nodeProcessor.getCanSwim();
     }
 
     public boolean canEntityStandOnPos(BlockPos pos)
     {
-        return this.world.getBlockState(pos).isTopSolid();
+        return world.getBlockState(pos).isTopSolid();
     }
 }

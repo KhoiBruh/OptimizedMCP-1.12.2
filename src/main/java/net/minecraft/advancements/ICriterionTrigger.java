@@ -27,19 +27,19 @@ public interface ICriterionTrigger<T extends ICriterionInstance>
 
         public Listener(T criterionInstanceIn, Advancement advancementIn, String criterionNameIn)
         {
-            this.criterionInstance = criterionInstanceIn;
-            this.advancement = advancementIn;
-            this.criterionName = criterionNameIn;
+            criterionInstance = criterionInstanceIn;
+            advancement = advancementIn;
+            criterionName = criterionNameIn;
         }
 
         public T getCriterionInstance()
         {
-            return this.criterionInstance;
+            return criterionInstance;
         }
 
         public void grantCriterion(PlayerAdvancements playerAdvancementsIn)
         {
-            playerAdvancementsIn.grantCriterion(this.advancement, this.criterionName);
+            playerAdvancementsIn.grantCriterion(advancement, criterionName);
         }
 
         public boolean equals(Object p_equals_1_)
@@ -48,17 +48,17 @@ public interface ICriterionTrigger<T extends ICriterionInstance>
             {
                 return true;
             }
-            else if (p_equals_1_ != null && this.getClass() == p_equals_1_.getClass())
+            else if (p_equals_1_ != null && getClass() == p_equals_1_.getClass())
             {
                 ICriterionTrigger.Listener<?> listener = (ICriterionTrigger.Listener)p_equals_1_;
 
-                if (!this.criterionInstance.equals(listener.criterionInstance))
+                if (!criterionInstance.equals(listener.criterionInstance))
                 {
                     return false;
                 }
                 else
                 {
-                    return !this.advancement.equals(listener.advancement) ? false : this.criterionName.equals(listener.criterionName);
+                    return !advancement.equals(listener.advancement) ? false : criterionName.equals(listener.criterionName);
                 }
             }
             else
@@ -69,9 +69,9 @@ public interface ICriterionTrigger<T extends ICriterionInstance>
 
         public int hashCode()
         {
-            int i = this.criterionInstance.hashCode();
-            i = 31 * i + this.advancement.hashCode();
-            i = 31 * i + this.criterionName.hashCode();
+            int i = criterionInstance.hashCode();
+            i = 31 * i + advancement.hashCode();
+            i = 31 * i + criterionName.hashCode();
             return i;
         }
     }

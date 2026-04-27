@@ -7,7 +7,7 @@ public class EnchantmentArrowFire extends Enchantment
     public EnchantmentArrowFire(Enchantment.Rarity rarityIn, EntityEquipmentSlot... slots)
     {
         super(rarityIn, EnumEnchantmentType.BOW, slots);
-        this.setName("arrowFire");
+        setName("arrowFire");
     }
 
     /**

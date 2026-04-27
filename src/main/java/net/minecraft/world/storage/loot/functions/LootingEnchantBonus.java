@@ -22,8 +22,8 @@ public class LootingEnchantBonus extends LootFunction
     public LootingEnchantBonus(LootCondition[] conditions, RandomValueRange countIn, int limitIn)
     {
         super(conditions);
-        this.count = countIn;
-        this.limit = limitIn;
+        count = countIn;
+        limit = limitIn;
     }
 
     public ItemStack apply(ItemStack stack, Random rand, LootContext context)
@@ -39,12 +39,12 @@ public class LootingEnchantBonus extends LootFunction
                 return stack;
             }
 
-            float f = (float)i * this.count.generateFloat(rand);
+            float f = (float)i * count.generateFloat(rand);
             stack.grow(Math.round(f));
 
-            if (this.limit != 0 && stack.getCount() > this.limit)
+            if (limit != 0 && stack.getCount() > limit)
             {
-                stack.setCount(this.limit);
+                stack.setCount(limit);
             }
         }
 

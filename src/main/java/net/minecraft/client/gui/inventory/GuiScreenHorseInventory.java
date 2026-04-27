@@ -31,10 +31,10 @@ public class GuiScreenHorseInventory extends GuiContainer
     public GuiScreenHorseInventory(IInventory playerInv, IInventory horseInv, AbstractHorse horse)
     {
         super(new ContainerHorseInventory(playerInv, horseInv, horse, Minecraft.getMinecraft().player));
-        this.playerInventory = playerInv;
-        this.horseInventory = horseInv;
-        this.horseEntity = horse;
-        this.allowUserInput = false;
+        playerInventory = playerInv;
+        horseInventory = horseInv;
+        horseEntity = horse;
+        allowUserInput = false;
     }
 
     /**
@@ -42,8 +42,8 @@ public class GuiScreenHorseInventory extends GuiContainer
      */
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
     {
-        this.fontRenderer.drawString(this.horseInventory.getDisplayName().getUnformattedText(), 8, 6, 4210752);
-        this.fontRenderer.drawString(this.playerInventory.getDisplayName().getUnformattedText(), 8, this.ySize - 96 + 2, 4210752);
+        fontRenderer.drawString(horseInventory.getDisplayName().getUnformattedText(), 8, 6, 4210752);
+        fontRenderer.drawString(playerInventory.getDisplayName().getUnformattedText(), 8, ySize - 96 + 2, 4210752);
     }
 
     /**
@@ -52,39 +52,39 @@ public class GuiScreenHorseInventory extends GuiContainer
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY)
     {
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        this.mc.getTextureManager().bindTexture(HORSE_GUI_TEXTURES);
-        int i = (this.width - this.xSize) / 2;
-        int j = (this.height - this.ySize) / 2;
-        this.drawTexturedModalRect(i, j, 0, 0, this.xSize, this.ySize);
+        mc.getTextureManager().bindTexture(HORSE_GUI_TEXTURES);
+        int i = (width - xSize) / 2;
+        int j = (height - ySize) / 2;
+        drawTexturedModalRect(i, j, 0, 0, xSize, ySize);
 
-        if (this.horseEntity instanceof AbstractChestHorse)
+        if (horseEntity instanceof AbstractChestHorse)
         {
-            AbstractChestHorse abstractchesthorse = (AbstractChestHorse)this.horseEntity;
+            AbstractChestHorse abstractchesthorse = (AbstractChestHorse) horseEntity;
 
             if (abstractchesthorse.hasChest())
             {
-                this.drawTexturedModalRect(i + 79, j + 17, 0, this.ySize, abstractchesthorse.getInventoryColumns() * 18, 54);
+                drawTexturedModalRect(i + 79, j + 17, 0, ySize, abstractchesthorse.getInventoryColumns() * 18, 54);
             }
         }
 
-        if (this.horseEntity.canBeSaddled())
+        if (horseEntity.canBeSaddled())
         {
-            this.drawTexturedModalRect(i + 7, j + 35 - 18, 18, this.ySize + 54, 18, 18);
+            drawTexturedModalRect(i + 7, j + 35 - 18, 18, ySize + 54, 18, 18);
         }
 
-        if (this.horseEntity.wearsArmor())
+        if (horseEntity.wearsArmor())
         {
-            if (this.horseEntity instanceof EntityLlama)
+            if (horseEntity instanceof EntityLlama)
             {
-                this.drawTexturedModalRect(i + 7, j + 35, 36, this.ySize + 54, 18, 18);
+                drawTexturedModalRect(i + 7, j + 35, 36, ySize + 54, 18, 18);
             }
             else
             {
-                this.drawTexturedModalRect(i + 7, j + 35, 0, this.ySize + 54, 18, 18);
+                drawTexturedModalRect(i + 7, j + 35, 0, ySize + 54, 18, 18);
             }
         }
 
-        GuiInventory.drawEntityOnScreen(i + 51, j + 60, 17, (float)(i + 51) - this.mousePosx, (float)(j + 75 - 50) - this.mousePosY, this.horseEntity);
+        GuiInventory.drawEntityOnScreen(i + 51, j + 60, 17, (float)(i + 51) - mousePosx, (float)(j + 75 - 50) - mousePosY, horseEntity);
     }
 
     /**
@@ -92,10 +92,10 @@ public class GuiScreenHorseInventory extends GuiContainer
      */
     public void drawScreen(int mouseX, int mouseY, float partialTicks)
     {
-        this.drawDefaultBackground();
-        this.mousePosx = (float)mouseX;
-        this.mousePosY = (float)mouseY;
+        drawDefaultBackground();
+        mousePosx = (float)mouseX;
+        mousePosY = (float)mouseY;
         super.drawScreen(mouseX, mouseY, partialTicks);
-        this.renderHoveredToolTip(mouseX, mouseY);
+        renderHoveredToolTip(mouseX, mouseY);
     }
 }

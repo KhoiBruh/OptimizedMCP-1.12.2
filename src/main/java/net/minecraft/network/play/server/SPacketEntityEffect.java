@@ -21,29 +21,29 @@ public class SPacketEntityEffect implements Packet<INetHandlerPlayClient>
 
     public SPacketEntityEffect(int entityIdIn, PotionEffect effect)
     {
-        this.entityId = entityIdIn;
-        this.effectId = (byte)(Potion.getIdFromPotion(effect.getPotion()) & 255);
-        this.amplifier = (byte)(effect.getAmplifier() & 255);
+        entityId = entityIdIn;
+        effectId = (byte)(Potion.getIdFromPotion(effect.getPotion()) & 255);
+        amplifier = (byte)(effect.getAmplifier() & 255);
 
         if (effect.getDuration() > 32767)
         {
-            this.duration = 32767;
+            duration = 32767;
         }
         else
         {
-            this.duration = effect.getDuration();
+            duration = effect.getDuration();
         }
 
-        this.flags = 0;
+        flags = 0;
 
         if (effect.getIsAmbient())
         {
-            this.flags = (byte)(this.flags | 1);
+            flags = (byte)(flags | 1);
         }
 
         if (effect.doesShowParticles())
         {
-            this.flags = (byte)(this.flags | 2);
+            flags = (byte)(flags | 2);
         }
     }
 
@@ -52,11 +52,11 @@ public class SPacketEntityEffect implements Packet<INetHandlerPlayClient>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.entityId = buf.readVarInt();
-        this.effectId = buf.readByte();
-        this.amplifier = buf.readByte();
-        this.duration = buf.readVarInt();
-        this.flags = buf.readByte();
+        entityId = buf.readVarInt();
+        effectId = buf.readByte();
+        amplifier = buf.readByte();
+        duration = buf.readVarInt();
+        flags = buf.readByte();
     }
 
     /**
@@ -64,16 +64,16 @@ public class SPacketEntityEffect implements Packet<INetHandlerPlayClient>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeVarInt(this.entityId);
-        buf.writeByte(this.effectId);
-        buf.writeByte(this.amplifier);
-        buf.writeVarInt(this.duration);
-        buf.writeByte(this.flags);
+        buf.writeVarInt(entityId);
+        buf.writeByte(effectId);
+        buf.writeByte(amplifier);
+        buf.writeVarInt(duration);
+        buf.writeByte(flags);
     }
 
     public boolean isMaxDuration()
     {
-        return this.duration == 32767;
+        return duration == 32767;
     }
 
     /**
@@ -86,31 +86,31 @@ public class SPacketEntityEffect implements Packet<INetHandlerPlayClient>
 
     public int getEntityId()
     {
-        return this.entityId;
+        return entityId;
     }
 
     public byte getEffectId()
     {
-        return this.effectId;
+        return effectId;
     }
 
     public byte getAmplifier()
     {
-        return this.amplifier;
+        return amplifier;
     }
 
     public int getDuration()
     {
-        return this.duration;
+        return duration;
     }
 
     public boolean doesShowParticles()
     {
-        return (this.flags & 2) == 2;
+        return (flags & 2) == 2;
     }
 
     public boolean getIsAmbient()
     {
-        return (this.flags & 1) == 1;
+        return (flags & 1) == 1;
     }
 }

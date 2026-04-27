@@ -13,7 +13,7 @@ public class ItemCompass extends Item
 {
     public ItemCompass()
     {
-        this.addPropertyOverride(new ResourceLocation("angle"), new IItemPropertyGetter()
+        addPropertyOverride(new ResourceLocation("angle"), new IItemPropertyGetter()
         {
             double rotation;
             double rota;
@@ -38,9 +38,9 @@ public class ItemCompass extends Item
 
                     if (worldIn.provider.isSurfaceWorld())
                     {
-                        double d1 = flag ? (double)entity.rotationYaw : this.getFrameRotation((EntityItemFrame)entity);
+                        double d1 = flag ? (double)entity.rotationYaw : getFrameRotation((EntityItemFrame)entity);
                         d1 = MathHelper.positiveModulo(d1 / 360.0D, 1.0D);
-                        double d2 = this.getSpawnToAngle(worldIn, entity) / (Math.PI * 2D);
+                        double d2 = getSpawnToAngle(worldIn, entity) / (Math.PI * 2D);
                         d0 = 0.5D - (d1 - 0.25D - d2);
                     }
                     else
@@ -50,7 +50,7 @@ public class ItemCompass extends Item
 
                     if (flag)
                     {
-                        d0 = this.wobble(worldIn, d0);
+                        d0 = wobble(worldIn, d0);
                     }
 
                     return MathHelper.positiveModulo((float)d0, 1.0F);
@@ -58,17 +58,17 @@ public class ItemCompass extends Item
             }
             private double wobble(World worldIn, double p_185093_2_)
             {
-                if (worldIn.getTotalWorldTime() != this.lastUpdateTick)
+                if (worldIn.getTotalWorldTime() != lastUpdateTick)
                 {
-                    this.lastUpdateTick = worldIn.getTotalWorldTime();
-                    double d0 = p_185093_2_ - this.rotation;
+                    lastUpdateTick = worldIn.getTotalWorldTime();
+                    double d0 = p_185093_2_ - rotation;
                     d0 = MathHelper.positiveModulo(d0 + 0.5D, 1.0D) - 0.5D;
-                    this.rota += d0 * 0.1D;
-                    this.rota *= 0.8D;
-                    this.rotation = MathHelper.positiveModulo(this.rotation + this.rota, 1.0D);
+                    rota += d0 * 0.1D;
+                    rota *= 0.8D;
+                    rotation = MathHelper.positiveModulo(rotation + rota, 1.0D);
                 }
 
-                return this.rotation;
+                return rotation;
             }
             private double getFrameRotation(EntityItemFrame p_185094_1_)
             {

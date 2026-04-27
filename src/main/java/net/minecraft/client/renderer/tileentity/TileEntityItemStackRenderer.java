@@ -39,7 +39,7 @@ public class TileEntityItemStackRenderer
 
     public void renderByItem(ItemStack itemStackIn)
     {
-        this.renderByItem(itemStackIn, 1.0F);
+        renderByItem(itemStackIn, 1.0F);
     }
 
     public void renderByItem(ItemStack p_192838_1_, float partialTicks)
@@ -48,20 +48,20 @@ public class TileEntityItemStackRenderer
 
         if (item == Items.BANNER)
         {
-            this.banner.setItemValues(p_192838_1_, false);
-            TileEntityRendererDispatcher.instance.render(this.banner, 0.0D, 0.0D, 0.0D, 0.0F, partialTicks);
+            banner.setItemValues(p_192838_1_, false);
+            TileEntityRendererDispatcher.instance.render(banner, 0.0D, 0.0D, 0.0D, 0.0F, partialTicks);
         }
         else if (item == Items.BED)
         {
-            this.bed.setItemValues(p_192838_1_);
-            TileEntityRendererDispatcher.instance.render(this.bed, 0.0D, 0.0D, 0.0D, 0.0F);
+            bed.setItemValues(p_192838_1_);
+            TileEntityRendererDispatcher.instance.render(bed, 0.0D, 0.0D, 0.0D, 0.0F);
         }
         else if (item == Items.SHIELD)
         {
             if (p_192838_1_.getSubCompound("BlockEntityTag") != null)
             {
-                this.banner.setItemValues(p_192838_1_, true);
-                Minecraft.getMinecraft().getTextureManager().bindTexture(BannerTextures.SHIELD_DESIGNS.getResourceLocation(this.banner.getPatternResourceLocation(), this.banner.getPatternList(), this.banner.getColorList()));
+                banner.setItemValues(p_192838_1_, true);
+                Minecraft.getMinecraft().getTextureManager().bindTexture(BannerTextures.SHIELD_DESIGNS.getResourceLocation(banner.getPatternResourceLocation(), banner.getPatternList(), banner.getColorList()));
             }
             else
             {
@@ -70,7 +70,7 @@ public class TileEntityItemStackRenderer
 
             GlStateManager.pushMatrix();
             GlStateManager.scale(1.0F, -1.0F, -1.0F);
-            this.modelShield.render();
+            modelShield.render();
             GlStateManager.popMatrix();
         }
         else if (item == Items.SKULL)
@@ -105,11 +105,11 @@ public class TileEntityItemStackRenderer
         }
         else if (item == Item.getItemFromBlock(Blocks.ENDER_CHEST))
         {
-            TileEntityRendererDispatcher.instance.render(this.enderChest, 0.0D, 0.0D, 0.0D, 0.0F, partialTicks);
+            TileEntityRendererDispatcher.instance.render(enderChest, 0.0D, 0.0D, 0.0D, 0.0F, partialTicks);
         }
         else if (item == Item.getItemFromBlock(Blocks.TRAPPED_CHEST))
         {
-            TileEntityRendererDispatcher.instance.render(this.chestTrap, 0.0D, 0.0D, 0.0D, 0.0F, partialTicks);
+            TileEntityRendererDispatcher.instance.render(chestTrap, 0.0D, 0.0D, 0.0D, 0.0F, partialTicks);
         }
         else if (Block.getBlockFromItem(item) instanceof BlockShulkerBox)
         {
@@ -117,7 +117,7 @@ public class TileEntityItemStackRenderer
         }
         else
         {
-            TileEntityRendererDispatcher.instance.render(this.chestBasic, 0.0D, 0.0D, 0.0D, 0.0F, partialTicks);
+            TileEntityRendererDispatcher.instance.render(chestBasic, 0.0D, 0.0D, 0.0D, 0.0F, partialTicks);
         }
     }
 

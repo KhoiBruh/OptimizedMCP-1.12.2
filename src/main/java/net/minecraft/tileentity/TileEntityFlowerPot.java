@@ -19,8 +19,8 @@ public class TileEntityFlowerPot extends TileEntity
 
     public TileEntityFlowerPot(Item potItem, int potData)
     {
-        this.flowerPotItem = potItem;
-        this.flowerPotData = potData;
+        flowerPotItem = potItem;
+        flowerPotData = potData;
     }
 
     public static void registerFixesFlowerPot(DataFixer fixer)
@@ -30,9 +30,9 @@ public class TileEntityFlowerPot extends TileEntity
     public NBTTagCompound writeToNBT(NBTTagCompound compound)
     {
         super.writeToNBT(compound);
-        ResourceLocation resourcelocation = Item.REGISTRY.getNameForObject(this.flowerPotItem);
+        ResourceLocation resourcelocation = Item.REGISTRY.getNameForObject(flowerPotItem);
         compound.setString("Item", resourcelocation == null ? "" : resourcelocation.toString());
-        compound.setInteger("Data", this.flowerPotData);
+        compound.setInteger("Data", flowerPotData);
         return compound;
     }
 
@@ -42,46 +42,46 @@ public class TileEntityFlowerPot extends TileEntity
 
         if (compound.hasKey("Item", 8))
         {
-            this.flowerPotItem = Item.getByNameOrId(compound.getString("Item"));
+            flowerPotItem = Item.getByNameOrId(compound.getString("Item"));
         }
         else
         {
-            this.flowerPotItem = Item.getItemById(compound.getInteger("Item"));
+            flowerPotItem = Item.getItemById(compound.getInteger("Item"));
         }
 
-        this.flowerPotData = compound.getInteger("Data");
+        flowerPotData = compound.getInteger("Data");
     }
 
     @Nullable
     public SPacketUpdateTileEntity getUpdatePacket()
     {
-        return new SPacketUpdateTileEntity(this.pos, 5, this.getUpdateTag());
+        return new SPacketUpdateTileEntity(pos, 5, getUpdateTag());
     }
 
     public NBTTagCompound getUpdateTag()
     {
-        return this.writeToNBT(new NBTTagCompound());
+        return writeToNBT(new NBTTagCompound());
     }
 
     public void setItemStack(ItemStack stack)
     {
-        this.flowerPotItem = stack.getItem();
-        this.flowerPotData = stack.getMetadata();
+        flowerPotItem = stack.getItem();
+        flowerPotData = stack.getMetadata();
     }
 
     public ItemStack getFlowerItemStack()
     {
-        return this.flowerPotItem == null ? ItemStack.EMPTY : new ItemStack(this.flowerPotItem, 1, this.flowerPotData);
+        return flowerPotItem == null ? ItemStack.EMPTY : new ItemStack(flowerPotItem, 1, flowerPotData);
     }
 
     @Nullable
     public Item getFlowerPotItem()
     {
-        return this.flowerPotItem;
+        return flowerPotItem;
     }
 
     public int getFlowerPotData()
     {
-        return this.flowerPotData;
+        return flowerPotData;
     }
 }

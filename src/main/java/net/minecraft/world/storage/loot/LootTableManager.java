@@ -31,22 +31,22 @@ public class LootTableManager
 
     public LootTableManager(@Nullable File folder)
     {
-        this.baseFolder = folder;
-        this.reloadLootTables();
+        baseFolder = folder;
+        reloadLootTables();
     }
 
     public LootTable getLootTableFromLocation(ResourceLocation ressources)
     {
-        return this.registeredLootTables.getUnchecked(ressources);
+        return registeredLootTables.getUnchecked(ressources);
     }
 
     public void reloadLootTables()
     {
-        this.registeredLootTables.invalidateAll();
+        registeredLootTables.invalidateAll();
 
         for (ResourceLocation resourcelocation : LootTableList.getAll())
         {
-            this.getLootTableFromLocation(resourcelocation);
+            getLootTableFromLocation(resourcelocation);
         }
     }
 
@@ -65,11 +65,11 @@ public class LootTableManager
             }
             else
             {
-                LootTable loottable = this.loadLootTable(p_load_1_);
+                LootTable loottable = loadLootTable(p_load_1_);
 
                 if (loottable == null)
                 {
-                    loottable = this.loadBuiltinLootTable(p_load_1_);
+                    loottable = loadBuiltinLootTable(p_load_1_);
                 }
 
                 if (loottable == null)
@@ -85,13 +85,13 @@ public class LootTableManager
         @Nullable
         private LootTable loadLootTable(ResourceLocation resource)
         {
-            if (LootTableManager.this.baseFolder == null)
+            if (baseFolder == null)
             {
                 return null;
             }
             else
             {
-                File file1 = new File(new File(LootTableManager.this.baseFolder, resource.getResourceDomain()), resource.getResourcePath() + ".json");
+                File file1 = new File(new File(baseFolder, resource.getResourceDomain()), resource.getResourcePath() + ".json");
 
                 if (file1.exists())
                 {

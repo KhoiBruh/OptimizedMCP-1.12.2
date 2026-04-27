@@ -24,13 +24,13 @@ public class GuiListWorldSelection extends GuiListExtended
     public GuiListWorldSelection(GuiWorldSelection p_i46590_1_, Minecraft clientIn, int widthIn, int heightIn, int topIn, int bottomIn, int slotHeightIn)
     {
         super(clientIn, widthIn, heightIn, topIn, bottomIn, slotHeightIn);
-        this.worldSelection = p_i46590_1_;
-        this.refreshList();
+        worldSelection = p_i46590_1_;
+        refreshList();
     }
 
     public void refreshList()
     {
-        ISaveFormat isaveformat = this.mc.getSaveLoader();
+        ISaveFormat isaveformat = mc.getSaveLoader();
         List<WorldSummary> list;
 
         try
@@ -40,7 +40,7 @@ public class GuiListWorldSelection extends GuiListExtended
         catch (AnvilConverterException anvilconverterexception)
         {
             LOGGER.error("Couldn't load level list", (Throwable)anvilconverterexception);
-            this.mc.displayGuiScreen(new GuiErrorScreen(I18n.format("selectWorld.unable_to_load"), anvilconverterexception.getMessage()));
+            mc.displayGuiScreen(new GuiErrorScreen(I18n.format("selectWorld.unable_to_load"), anvilconverterexception.getMessage()));
             return;
         }
 
@@ -48,7 +48,7 @@ public class GuiListWorldSelection extends GuiListExtended
 
         for (WorldSummary worldsummary : list)
         {
-            this.entries.add(new GuiListWorldSelectionEntry(this, worldsummary, this.mc.getSaveLoader()));
+            entries.add(new GuiListWorldSelectionEntry(this, worldsummary, mc.getSaveLoader()));
         }
     }
 
@@ -57,12 +57,12 @@ public class GuiListWorldSelection extends GuiListExtended
      */
     public GuiListWorldSelectionEntry getListEntry(int index)
     {
-        return this.entries.get(index);
+        return entries.get(index);
     }
 
     protected int getSize()
     {
-        return this.entries.size();
+        return entries.size();
     }
 
     protected int getScrollBarX()
@@ -80,8 +80,8 @@ public class GuiListWorldSelection extends GuiListExtended
 
     public void selectWorld(int idx)
     {
-        this.selectedIdx = idx;
-        this.worldSelection.selectWorld(this.getSelectedWorld());
+        selectedIdx = idx;
+        worldSelection.selectWorld(getSelectedWorld());
     }
 
     /**
@@ -89,17 +89,17 @@ public class GuiListWorldSelection extends GuiListExtended
      */
     protected boolean isSelected(int slotIndex)
     {
-        return slotIndex == this.selectedIdx;
+        return slotIndex == selectedIdx;
     }
 
     @Nullable
     public GuiListWorldSelectionEntry getSelectedWorld()
     {
-        return this.selectedIdx >= 0 && this.selectedIdx < this.getSize() ? this.getListEntry(this.selectedIdx) : null;
+        return selectedIdx >= 0 && selectedIdx < getSize() ? getListEntry(selectedIdx) : null;
     }
 
     public GuiWorldSelection getGuiWorldSelection()
     {
-        return this.worldSelection;
+        return worldSelection;
     }
 }

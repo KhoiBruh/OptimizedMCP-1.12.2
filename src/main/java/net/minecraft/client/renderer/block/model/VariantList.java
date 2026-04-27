@@ -15,12 +15,12 @@ public class VariantList
 
     public VariantList(List<Variant> variantListIn)
     {
-        this.variantList = variantListIn;
+        variantList = variantListIn;
     }
 
     public List<Variant> getVariantList()
     {
-        return this.variantList;
+        return variantList;
     }
 
     public boolean equals(Object p_equals_1_)
@@ -32,7 +32,7 @@ public class VariantList
         else if (p_equals_1_ instanceof VariantList)
         {
             VariantList variantlist = (VariantList)p_equals_1_;
-            return this.variantList.equals(variantlist.variantList);
+            return variantList.equals(variantlist.variantList);
         }
         else
         {
@@ -42,7 +42,7 @@ public class VariantList
 
     public int hashCode()
     {
-        return this.variantList.hashCode();
+        return variantList.hashCode();
     }
 
     public static class Deserializer implements JsonDeserializer<VariantList>

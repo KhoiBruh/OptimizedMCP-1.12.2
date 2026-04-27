@@ -31,9 +31,9 @@ public class BlockSnow extends Block
     protected BlockSnow()
     {
         super(Material.SNOW);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(LAYERS, Integer.valueOf(1)));
-        this.setTickRandomly(true);
-        this.setCreativeTab(CreativeTabs.DECORATIONS);
+        setDefaultState(blockState.getBaseState().withProperty(LAYERS, Integer.valueOf(1)));
+        setTickRandomly(true);
+        setCreativeTab(CreativeTabs.DECORATIONS);
     }
 
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
@@ -119,14 +119,14 @@ public class BlockSnow extends Block
      */
     public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos)
     {
-        this.checkAndDropBlock(worldIn, pos, state);
+        checkAndDropBlock(worldIn, pos, state);
     }
 
     private boolean checkAndDropBlock(World worldIn, BlockPos pos, IBlockState state)
     {
-        if (!this.canPlaceBlockAt(worldIn, pos))
+        if (!canPlaceBlockAt(worldIn, pos))
         {
-            this.dropBlockAsItem(worldIn, pos, state, 0);
+            dropBlockAsItem(worldIn, pos, state, 0);
             worldIn.setBlockToAir(pos);
             return false;
         }
@@ -167,7 +167,7 @@ public class BlockSnow extends Block
     {
         if (worldIn.getLightFor(EnumSkyBlock.BLOCK, pos) > 11)
         {
-            this.dropBlockAsItem(worldIn, pos, worldIn.getBlockState(pos), 0);
+            dropBlockAsItem(worldIn, pos, worldIn.getBlockState(pos), 0);
             worldIn.setBlockToAir(pos);
         }
     }
@@ -190,7 +190,7 @@ public class BlockSnow extends Block
      */
     public IBlockState getStateFromMeta(int meta)
     {
-        return this.getDefaultState().withProperty(LAYERS, Integer.valueOf((meta & 7) + 1));
+        return getDefaultState().withProperty(LAYERS, Integer.valueOf((meta & 7) + 1));
     }
 
     /**

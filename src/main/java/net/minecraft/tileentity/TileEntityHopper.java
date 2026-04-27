@@ -42,35 +42,35 @@ public class TileEntityHopper extends TileEntityLockableLoot implements IHopper,
     public void readFromNBT(NBTTagCompound compound)
     {
         super.readFromNBT(compound);
-        this.inventory = NonNullList.<ItemStack>withSize(this.getSizeInventory(), ItemStack.EMPTY);
+        inventory = NonNullList.<ItemStack>withSize(getSizeInventory(), ItemStack.EMPTY);
 
-        if (!this.checkLootAndRead(compound))
+        if (!checkLootAndRead(compound))
         {
-            ItemStackHelper.loadAllItems(compound, this.inventory);
+            ItemStackHelper.loadAllItems(compound, inventory);
         }
 
         if (compound.hasKey("CustomName", 8))
         {
-            this.customName = compound.getString("CustomName");
+            customName = compound.getString("CustomName");
         }
 
-        this.transferCooldown = compound.getInteger("TransferCooldown");
+        transferCooldown = compound.getInteger("TransferCooldown");
     }
 
     public NBTTagCompound writeToNBT(NBTTagCompound compound)
     {
         super.writeToNBT(compound);
 
-        if (!this.checkLootAndWrite(compound))
+        if (!checkLootAndWrite(compound))
         {
-            ItemStackHelper.saveAllItems(compound, this.inventory);
+            ItemStackHelper.saveAllItems(compound, inventory);
         }
 
-        compound.setInteger("TransferCooldown", this.transferCooldown);
+        compound.setInteger("TransferCooldown", transferCooldown);
 
-        if (this.hasCustomName())
+        if (hasCustomName())
         {
-            compound.setString("CustomName", this.customName);
+            compound.setString("CustomName", customName);
         }
 
         return compound;
@@ -81,7 +81,7 @@ public class TileEntityHopper extends TileEntityLockableLoot implements IHopper,
      */
     public int getSizeInventory()
     {
-        return this.inventory.size();
+        return inventory.size();
     }
 
     /**
@@ -89,8 +89,8 @@ public class TileEntityHopper extends TileEntityLockableLoot implements IHopper,
      */
     public ItemStack decrStackSize(int index, int count)
     {
-        this.fillWithLoot((EntityPlayer)null);
-        ItemStack itemstack = ItemStackHelper.getAndSplit(this.getItems(), index, count);
+        fillWithLoot((EntityPlayer)null);
+        ItemStack itemstack = ItemStackHelper.getAndSplit(getItems(), index, count);
         return itemstack;
     }
 
@@ -99,12 +99,12 @@ public class TileEntityHopper extends TileEntityLockableLoot implements IHopper,
      */
     public void setInventorySlotContents(int index, ItemStack stack)
     {
-        this.fillWithLoot((EntityPlayer)null);
-        this.getItems().set(index, stack);
+        fillWithLoot((EntityPlayer)null);
+        getItems().set(index, stack);
 
-        if (stack.getCount() > this.getInventoryStackLimit())
+        if (stack.getCount() > getInventoryStackLimit())
         {
-            stack.setCount(this.getInventoryStackLimit());
+            stack.setCount(getInventoryStackLimit());
         }
     }
 
@@ -113,7 +113,7 @@ public class TileEntityHopper extends TileEntityLockableLoot implements IHopper,
      */
     public String getName()
     {
-        return this.hasCustomName() ? this.customName : "container.hopper";
+        return hasCustomName() ? customName : "container.hopper";
     }
 
     /**
@@ -129,41 +129,41 @@ public class TileEntityHopper extends TileEntityLockableLoot implements IHopper,
      */
     public void update()
     {
-        if (this.world != null && !this.world.isRemote)
+        if (world != null && !world.isRemote)
         {
-            --this.transferCooldown;
-            this.tickedGameTime = this.world.getTotalWorldTime();
+            --transferCooldown;
+            tickedGameTime = world.getTotalWorldTime();
 
-            if (!this.isOnTransferCooldown())
+            if (!isOnTransferCooldown())
             {
-                this.setTransferCooldown(0);
-                this.updateHopper();
+                setTransferCooldown(0);
+                updateHopper();
             }
         }
     }
 
     private boolean updateHopper()
     {
-        if (this.world != null && !this.world.isRemote)
+        if (world != null && !world.isRemote)
         {
-            if (!this.isOnTransferCooldown() && BlockHopper.isEnabled(this.getBlockMetadata()))
+            if (!isOnTransferCooldown() && BlockHopper.isEnabled(getBlockMetadata()))
             {
                 boolean flag = false;
 
-                if (!this.isInventoryEmpty())
+                if (!isInventoryEmpty())
                 {
-                    flag = this.transferItemsOut();
+                    flag = transferItemsOut();
                 }
 
-                if (!this.isFull())
+                if (!isFull())
                 {
                     flag = pullItems(this) || flag;
                 }
 
                 if (flag)
                 {
-                    this.setTransferCooldown(8);
-                    this.markDirty();
+                    setTransferCooldown(8);
+                    markDirty();
                     return true;
                 }
             }
@@ -178,7 +178,7 @@ public class TileEntityHopper extends TileEntityLockableLoot implements IHopper,
 
     private boolean isInventoryEmpty()
     {
-        for (ItemStack itemstack : this.inventory)
+        for (ItemStack itemstack : inventory)
         {
             if (!itemstack.isEmpty())
             {
@@ -191,12 +191,12 @@ public class TileEntityHopper extends TileEntityLockableLoot implements IHopper,
 
     public boolean isEmpty()
     {
-        return this.isInventoryEmpty();
+        return isInventoryEmpty();
     }
 
     private boolean isFull()
     {
-        for (ItemStack itemstack : this.inventory)
+        for (ItemStack itemstack : inventory)
         {
             if (itemstack.isEmpty() || itemstack.getCount() != itemstack.getMaxStackSize())
             {
@@ -209,7 +209,7 @@ public class TileEntityHopper extends TileEntityLockableLoot implements IHopper,
 
     private boolean transferItemsOut()
     {
-        IInventory iinventory = this.getInventoryForHopperTransfer();
+        IInventory iinventory = getInventoryForHopperTransfer();
 
         if (iinventory == null)
         {
@@ -217,20 +217,20 @@ public class TileEntityHopper extends TileEntityLockableLoot implements IHopper,
         }
         else
         {
-            EnumFacing enumfacing = BlockHopper.getFacing(this.getBlockMetadata()).getOpposite();
+            EnumFacing enumfacing = BlockHopper.getFacing(getBlockMetadata()).getOpposite();
 
-            if (this.isInventoryFull(iinventory, enumfacing))
+            if (isInventoryFull(iinventory, enumfacing))
             {
                 return false;
             }
             else
             {
-                for (int i = 0; i < this.getSizeInventory(); ++i)
+                for (int i = 0; i < getSizeInventory(); ++i)
                 {
-                    if (!this.getStackInSlot(i).isEmpty())
+                    if (!getStackInSlot(i).isEmpty())
                     {
-                        ItemStack itemstack = this.getStackInSlot(i).copy();
-                        ItemStack itemstack1 = putStackInInventoryAllSlots(this, iinventory, this.decrStackSize(i, 1), enumfacing);
+                        ItemStack itemstack = getStackInSlot(i).copy();
+                        ItemStack itemstack1 = putStackInInventoryAllSlots(this, iinventory, decrStackSize(i, 1), enumfacing);
 
                         if (itemstack1.isEmpty())
                         {
@@ -238,7 +238,7 @@ public class TileEntityHopper extends TileEntityLockableLoot implements IHopper,
                             return true;
                         }
 
-                        this.setInventorySlotContents(i, itemstack);
+                        setInventorySlotContents(i, itemstack);
                     }
                 }
 
@@ -549,8 +549,8 @@ public class TileEntityHopper extends TileEntityLockableLoot implements IHopper,
      */
     private IInventory getInventoryForHopperTransfer()
     {
-        EnumFacing enumfacing = BlockHopper.getFacing(this.getBlockMetadata());
-        return getInventoryAtPosition(this.getWorld(), this.getXPos() + (double)enumfacing.getFrontOffsetX(), this.getYPos() + (double)enumfacing.getFrontOffsetY(), this.getZPos() + (double)enumfacing.getFrontOffsetZ());
+        EnumFacing enumfacing = BlockHopper.getFacing(getBlockMetadata());
+        return getInventoryAtPosition(getWorld(), getXPos() + (double)enumfacing.getFrontOffsetX(), getYPos() + (double)enumfacing.getFrontOffsetY(), getZPos() + (double)enumfacing.getFrontOffsetZ());
     }
 
     /**
@@ -631,7 +631,7 @@ public class TileEntityHopper extends TileEntityLockableLoot implements IHopper,
      */
     public double getXPos()
     {
-        return (double)this.pos.getX() + 0.5D;
+        return (double) pos.getX() + 0.5D;
     }
 
     /**
@@ -639,7 +639,7 @@ public class TileEntityHopper extends TileEntityLockableLoot implements IHopper,
      */
     public double getYPos()
     {
-        return (double)this.pos.getY() + 0.5D;
+        return (double) pos.getY() + 0.5D;
     }
 
     /**
@@ -647,22 +647,22 @@ public class TileEntityHopper extends TileEntityLockableLoot implements IHopper,
      */
     public double getZPos()
     {
-        return (double)this.pos.getZ() + 0.5D;
+        return (double) pos.getZ() + 0.5D;
     }
 
     private void setTransferCooldown(int ticks)
     {
-        this.transferCooldown = ticks;
+        transferCooldown = ticks;
     }
 
     private boolean isOnTransferCooldown()
     {
-        return this.transferCooldown > 0;
+        return transferCooldown > 0;
     }
 
     private boolean mayTransfer()
     {
-        return this.transferCooldown > 8;
+        return transferCooldown > 8;
     }
 
     public String getGuiID()
@@ -672,12 +672,12 @@ public class TileEntityHopper extends TileEntityLockableLoot implements IHopper,
 
     public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn)
     {
-        this.fillWithLoot(playerIn);
+        fillWithLoot(playerIn);
         return new ContainerHopper(playerInventory, this, playerIn);
     }
 
     protected NonNullList<ItemStack> getItems()
     {
-        return this.inventory;
+        return inventory;
     }
 }

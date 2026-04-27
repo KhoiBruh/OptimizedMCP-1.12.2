@@ -9,17 +9,17 @@ public class PackMetadataSection implements IMetadataSection
 
     public PackMetadataSection(ITextComponent packDescriptionIn, int packFormatIn)
     {
-        this.packDescription = packDescriptionIn;
-        this.packFormat = packFormatIn;
+        packDescription = packDescriptionIn;
+        packFormat = packFormatIn;
     }
 
     public ITextComponent getPackDescription()
     {
-        return this.packDescription;
+        return packDescription;
     }
 
     public int getPackFormat()
     {
-        return this.packFormat;
+        return packFormat;
     }
 }

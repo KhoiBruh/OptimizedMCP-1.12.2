@@ -24,16 +24,16 @@ public class PhaseList<T extends IPhase>
 
     private PhaseList(int idIn, Class <? extends IPhase > clazzIn, String nameIn)
     {
-        this.id = idIn;
-        this.clazz = clazzIn;
-        this.name = nameIn;
+        id = idIn;
+        clazz = clazzIn;
+        name = nameIn;
     }
 
     public IPhase createPhase(EntityDragon dragon)
     {
         try
         {
-            Constructor <? extends IPhase > constructor = this.getConstructor();
+            Constructor <? extends IPhase > constructor = getConstructor();
             return constructor.newInstance(dragon);
         }
         catch (Exception exception)
@@ -44,17 +44,17 @@ public class PhaseList<T extends IPhase>
 
     protected Constructor <? extends IPhase > getConstructor() throws NoSuchMethodException
     {
-        return this.clazz.getConstructor(EntityDragon.class);
+        return clazz.getConstructor(EntityDragon.class);
     }
 
     public int getId()
     {
-        return this.id;
+        return id;
     }
 
     public String toString()
     {
-        return this.name + " (#" + this.id + ")";
+        return name + " (#" + id + ")";
     }
 
     public static PhaseList<?> getById(int idIn)

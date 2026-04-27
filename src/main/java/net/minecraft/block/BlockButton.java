@@ -44,9 +44,9 @@ public abstract class BlockButton extends BlockDirectional
     protected BlockButton(boolean wooden)
     {
         super(Material.CIRCUITS);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(POWERED, Boolean.valueOf(false)));
-        this.setTickRandomly(true);
-        this.setCreativeTab(CreativeTabs.REDSTONE);
+        setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(POWERED, Boolean.valueOf(false)));
+        setTickRandomly(true);
+        setCreativeTab(CreativeTabs.REDSTONE);
         this.wooden = wooden;
     }
 
@@ -61,7 +61,7 @@ public abstract class BlockButton extends BlockDirectional
      */
     public int tickRate(World worldIn)
     {
-        return this.wooden ? 30 : 20;
+        return wooden ? 30 : 20;
     }
 
     /**
@@ -127,7 +127,7 @@ public abstract class BlockButton extends BlockDirectional
      */
     public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
     {
-        return canPlaceBlock(worldIn, pos, facing) ? this.getDefaultState().withProperty(FACING, facing).withProperty(POWERED, Boolean.valueOf(false)) : this.getDefaultState().withProperty(FACING, EnumFacing.DOWN).withProperty(POWERED, Boolean.valueOf(false));
+        return canPlaceBlock(worldIn, pos, facing) ? getDefaultState().withProperty(FACING, facing).withProperty(POWERED, Boolean.valueOf(false)) : getDefaultState().withProperty(FACING, EnumFacing.DOWN).withProperty(POWERED, Boolean.valueOf(false));
     }
 
     /**
@@ -137,22 +137,22 @@ public abstract class BlockButton extends BlockDirectional
      */
     public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos)
     {
-        if (this.checkForDrop(worldIn, pos, state) && !canPlaceBlock(worldIn, pos, (EnumFacing)state.getValue(FACING)))
+        if (checkForDrop(worldIn, pos, state) && !canPlaceBlock(worldIn, pos, (EnumFacing)state.getValue(FACING)))
         {
-            this.dropBlockAsItem(worldIn, pos, state, 0);
+            dropBlockAsItem(worldIn, pos, state, 0);
             worldIn.setBlockToAir(pos);
         }
     }
 
     private boolean checkForDrop(World worldIn, BlockPos pos, IBlockState state)
     {
-        if (this.canPlaceBlockAt(worldIn, pos))
+        if (canPlaceBlockAt(worldIn, pos))
         {
             return true;
         }
         else
         {
-            this.dropBlockAsItem(worldIn, pos, state, 0);
+            dropBlockAsItem(worldIn, pos, state, 0);
             worldIn.setBlockToAir(pos);
             return false;
         }
@@ -199,9 +199,9 @@ public abstract class BlockButton extends BlockDirectional
         {
             worldIn.setBlockState(pos, state.withProperty(POWERED, Boolean.valueOf(true)), 3);
             worldIn.markBlockRangeForRenderUpdate(pos, pos);
-            this.playClickSound(playerIn, worldIn, pos);
-            this.notifyNeighbors(worldIn, pos, (EnumFacing)state.getValue(FACING));
-            worldIn.scheduleUpdate(pos, this, this.tickRate(worldIn));
+            playClickSound(playerIn, worldIn, pos);
+            notifyNeighbors(worldIn, pos, (EnumFacing)state.getValue(FACING));
+            worldIn.scheduleUpdate(pos, this, tickRate(worldIn));
             return true;
         }
     }
@@ -217,7 +217,7 @@ public abstract class BlockButton extends BlockDirectional
     {
         if (((Boolean)state.getValue(POWERED)).booleanValue())
         {
-            this.notifyNeighbors(worldIn, pos, (EnumFacing)state.getValue(FACING));
+            notifyNeighbors(worldIn, pos, (EnumFacing)state.getValue(FACING));
         }
 
         super.breakBlock(worldIn, pos, state);
@@ -261,15 +261,15 @@ public abstract class BlockButton extends BlockDirectional
         {
             if (((Boolean)state.getValue(POWERED)).booleanValue())
             {
-                if (this.wooden)
+                if (wooden)
                 {
-                    this.checkPressed(state, worldIn, pos);
+                    checkPressed(state, worldIn, pos);
                 }
                 else
                 {
                     worldIn.setBlockState(pos, state.withProperty(POWERED, Boolean.valueOf(false)));
-                    this.notifyNeighbors(worldIn, pos, (EnumFacing)state.getValue(FACING));
-                    this.playReleaseSound(worldIn, pos);
+                    notifyNeighbors(worldIn, pos, (EnumFacing)state.getValue(FACING));
+                    playReleaseSound(worldIn, pos);
                     worldIn.markBlockRangeForRenderUpdate(pos, pos);
                 }
             }
@@ -283,11 +283,11 @@ public abstract class BlockButton extends BlockDirectional
     {
         if (!worldIn.isRemote)
         {
-            if (this.wooden)
+            if (wooden)
             {
                 if (!((Boolean)state.getValue(POWERED)).booleanValue())
                 {
-                    this.checkPressed(state, worldIn, pos);
+                    checkPressed(state, worldIn, pos);
                 }
             }
         }
@@ -302,22 +302,22 @@ public abstract class BlockButton extends BlockDirectional
         if (flag && !flag1)
         {
             worldIn.setBlockState(pos, state.withProperty(POWERED, Boolean.valueOf(true)));
-            this.notifyNeighbors(worldIn, pos, (EnumFacing)state.getValue(FACING));
+            notifyNeighbors(worldIn, pos, (EnumFacing)state.getValue(FACING));
             worldIn.markBlockRangeForRenderUpdate(pos, pos);
-            this.playClickSound((EntityPlayer)null, worldIn, pos);
+            playClickSound((EntityPlayer)null, worldIn, pos);
         }
 
         if (!flag && flag1)
         {
             worldIn.setBlockState(pos, state.withProperty(POWERED, Boolean.valueOf(false)));
-            this.notifyNeighbors(worldIn, pos, (EnumFacing)state.getValue(FACING));
+            notifyNeighbors(worldIn, pos, (EnumFacing)state.getValue(FACING));
             worldIn.markBlockRangeForRenderUpdate(pos, pos);
-            this.playReleaseSound(worldIn, pos);
+            playReleaseSound(worldIn, pos);
         }
 
         if (flag)
         {
-            worldIn.scheduleUpdate(new BlockPos(pos), this, this.tickRate(worldIn));
+            worldIn.scheduleUpdate(new BlockPos(pos), this, tickRate(worldIn));
         }
     }
 
@@ -361,7 +361,7 @@ public abstract class BlockButton extends BlockDirectional
                 enumfacing = EnumFacing.UP;
         }
 
-        return this.getDefaultState().withProperty(FACING, enumfacing).withProperty(POWERED, Boolean.valueOf((meta & 8) > 0));
+        return getDefaultState().withProperty(FACING, enumfacing).withProperty(POWERED, Boolean.valueOf((meta & 8) > 0));
     }
 
     /**

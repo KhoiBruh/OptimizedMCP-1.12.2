@@ -51,8 +51,8 @@ public class BlockHopper extends BlockContainer
     public BlockHopper()
     {
         super(Material.IRON, MapColor.STONE);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.DOWN).withProperty(ENABLED, Boolean.valueOf(true)));
-        this.setCreativeTab(CreativeTabs.REDSTONE);
+        setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.DOWN).withProperty(ENABLED, Boolean.valueOf(true)));
+        setCreativeTab(CreativeTabs.REDSTONE);
     }
 
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
@@ -82,7 +82,7 @@ public class BlockHopper extends BlockContainer
             enumfacing = EnumFacing.DOWN;
         }
 
-        return this.getDefaultState().withProperty(FACING, enumfacing).withProperty(ENABLED, Boolean.valueOf(true));
+        return getDefaultState().withProperty(FACING, enumfacing).withProperty(ENABLED, Boolean.valueOf(true));
     }
 
     /**
@@ -124,7 +124,7 @@ public class BlockHopper extends BlockContainer
      */
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state)
     {
-        this.updateState(worldIn, pos, state);
+        updateState(worldIn, pos, state);
     }
 
     /**
@@ -157,7 +157,7 @@ public class BlockHopper extends BlockContainer
      */
     public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos)
     {
-        this.updateState(worldIn, pos, state);
+        updateState(worldIn, pos, state);
     }
 
     private void updateState(World worldIn, BlockPos pos, IBlockState state)
@@ -251,7 +251,7 @@ public class BlockHopper extends BlockContainer
      */
     public IBlockState getStateFromMeta(int meta)
     {
-        return this.getDefaultState().withProperty(FACING, getFacing(meta)).withProperty(ENABLED, Boolean.valueOf(isEnabled(meta)));
+        return getDefaultState().withProperty(FACING, getFacing(meta)).withProperty(ENABLED, Boolean.valueOf(isEnabled(meta)));
     }
 
     /**

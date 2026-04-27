@@ -15,7 +15,7 @@ public class EntityBodyHelper
 
     public EntityBodyHelper(EntityLivingBase livingIn)
     {
-        this.living = livingIn;
+        living = livingIn;
     }
 
     /**
@@ -23,39 +23,39 @@ public class EntityBodyHelper
      */
     public void updateRenderAngles()
     {
-        double d0 = this.living.posX - this.living.prevPosX;
-        double d1 = this.living.posZ - this.living.prevPosZ;
+        double d0 = living.posX - living.prevPosX;
+        double d1 = living.posZ - living.prevPosZ;
 
         if (d0 * d0 + d1 * d1 > 2.500000277905201E-7D)
         {
-            this.living.renderYawOffset = this.living.rotationYaw;
-            this.living.rotationYawHead = this.computeAngleWithBound(this.living.renderYawOffset, this.living.rotationYawHead, 75.0F);
-            this.prevRenderYawHead = this.living.rotationYawHead;
-            this.rotationTickCounter = 0;
+            living.renderYawOffset = living.rotationYaw;
+            living.rotationYawHead = computeAngleWithBound(living.renderYawOffset, living.rotationYawHead, 75.0F);
+            prevRenderYawHead = living.rotationYawHead;
+            rotationTickCounter = 0;
         }
         else
         {
-            if (this.living.getPassengers().isEmpty() || !(this.living.getPassengers().get(0) instanceof EntityLiving))
+            if (living.getPassengers().isEmpty() || !(living.getPassengers().get(0) instanceof EntityLiving))
             {
                 float f = 75.0F;
 
-                if (Math.abs(this.living.rotationYawHead - this.prevRenderYawHead) > 15.0F)
+                if (Math.abs(living.rotationYawHead - prevRenderYawHead) > 15.0F)
                 {
-                    this.rotationTickCounter = 0;
-                    this.prevRenderYawHead = this.living.rotationYawHead;
+                    rotationTickCounter = 0;
+                    prevRenderYawHead = living.rotationYawHead;
                 }
                 else
                 {
-                    ++this.rotationTickCounter;
+                    ++rotationTickCounter;
                     int i = 10;
 
-                    if (this.rotationTickCounter > 10)
+                    if (rotationTickCounter > 10)
                     {
-                        f = Math.max(1.0F - (float)(this.rotationTickCounter - 10) / 10.0F, 0.0F) * 75.0F;
+                        f = Math.max(1.0F - (float)(rotationTickCounter - 10) / 10.0F, 0.0F) * 75.0F;
                     }
                 }
 
-                this.living.renderYawOffset = this.computeAngleWithBound(this.living.rotationYawHead, this.living.renderYawOffset, f);
+                living.renderYawOffset = computeAngleWithBound(living.rotationYawHead, living.renderYawOffset, f);
             }
         }
     }

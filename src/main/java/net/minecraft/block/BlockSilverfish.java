@@ -22,9 +22,9 @@ public class BlockSilverfish extends Block
     public BlockSilverfish()
     {
         super(Material.CLAY);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(VARIANT, BlockSilverfish.EnumType.STONE));
-        this.setHardness(0.0F);
-        this.setCreativeTab(CreativeTabs.DECORATIONS);
+        setDefaultState(blockState.getBaseState().withProperty(VARIANT, BlockSilverfish.EnumType.STONE));
+        setHardness(0.0F);
+        setCreativeTab(CreativeTabs.DECORATIONS);
     }
 
     /**
@@ -100,7 +100,7 @@ public class BlockSilverfish extends Block
      */
     public IBlockState getStateFromMeta(int meta)
     {
-        return this.getDefaultState().withProperty(VARIANT, BlockSilverfish.EnumType.byMetadata(meta));
+        return getDefaultState().withProperty(VARIANT, BlockSilverfish.EnumType.byMetadata(meta));
     }
 
     /**
@@ -180,12 +180,12 @@ public class BlockSilverfish extends Block
 
         public int getMetadata()
         {
-            return this.meta;
+            return meta;
         }
 
         public String toString()
         {
-            return this.name;
+            return name;
         }
 
         public static BlockSilverfish.EnumType byMetadata(int meta)
@@ -200,12 +200,12 @@ public class BlockSilverfish extends Block
 
         public String getName()
         {
-            return this.name;
+            return name;
         }
 
         public String getUnlocalizedName()
         {
-            return this.unlocalizedName;
+            return unlocalizedName;
         }
 
         public abstract IBlockState getModelBlock();

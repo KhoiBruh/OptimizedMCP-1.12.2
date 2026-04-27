@@ -40,15 +40,15 @@ public class ShaderGroup
 
     public ShaderGroup(TextureManager p_i1050_1_, IResourceManager resourceManagerIn, Framebuffer mainFramebufferIn, ResourceLocation p_i1050_4_) throws JsonException, IOException, JsonSyntaxException
     {
-        this.resourceManager = resourceManagerIn;
-        this.mainFramebuffer = mainFramebufferIn;
-        this.time = 0.0F;
-        this.lastStamp = 0.0F;
-        this.mainFramebufferWidth = mainFramebufferIn.framebufferWidth;
-        this.mainFramebufferHeight = mainFramebufferIn.framebufferHeight;
-        this.shaderGroupName = p_i1050_4_.toString();
-        this.resetProjectionMatrix();
-        this.parseGroup(p_i1050_1_, p_i1050_4_);
+        resourceManager = resourceManagerIn;
+        mainFramebuffer = mainFramebufferIn;
+        time = 0.0F;
+        lastStamp = 0.0F;
+        mainFramebufferWidth = mainFramebufferIn.framebufferWidth;
+        mainFramebufferHeight = mainFramebufferIn.framebufferHeight;
+        shaderGroupName = p_i1050_4_.toString();
+        resetProjectionMatrix();
+        parseGroup(p_i1050_1_, p_i1050_4_);
     }
 
     public void parseGroup(TextureManager p_152765_1_, ResourceLocation p_152765_2_) throws JsonException, IOException, JsonSyntaxException
@@ -58,7 +58,7 @@ public class ShaderGroup
 
         try
         {
-            iresource = this.resourceManager.getResource(p_152765_2_);
+            iresource = resourceManager.getResource(p_152765_2_);
             JsonObject jsonobject = jsonparser.parse(IOUtils.toString(iresource.getInputStream(), StandardCharsets.UTF_8)).getAsJsonObject();
 
             if (JsonUtils.isJsonArray(jsonobject, "targets"))
@@ -70,7 +70,7 @@ public class ShaderGroup
                 {
                     try
                     {
-                        this.initTarget(jsonelement);
+                        initTarget(jsonelement);
                     }
                     catch (Exception exception1)
                     {
@@ -92,7 +92,7 @@ public class ShaderGroup
                 {
                     try
                     {
-                        this.parsePass(p_152765_1_, jsonelement1);
+                        parsePass(p_152765_1_, jsonelement1);
                     }
                     catch (Exception exception)
                     {
@@ -121,21 +121,21 @@ public class ShaderGroup
     {
         if (JsonUtils.isString(p_148027_1_))
         {
-            this.addFramebuffer(p_148027_1_.getAsString(), this.mainFramebufferWidth, this.mainFramebufferHeight);
+            addFramebuffer(p_148027_1_.getAsString(), mainFramebufferWidth, mainFramebufferHeight);
         }
         else
         {
             JsonObject jsonobject = JsonUtils.getJsonObject(p_148027_1_, "target");
             String s = JsonUtils.getString(jsonobject, "name");
-            int i = JsonUtils.getInt(jsonobject, "width", this.mainFramebufferWidth);
-            int j = JsonUtils.getInt(jsonobject, "height", this.mainFramebufferHeight);
+            int i = JsonUtils.getInt(jsonobject, "width", mainFramebufferWidth);
+            int j = JsonUtils.getInt(jsonobject, "height", mainFramebufferHeight);
 
-            if (this.mapFramebuffers.containsKey(s))
+            if (mapFramebuffers.containsKey(s))
             {
                 throw new JsonException(s + " is already defined");
             }
 
-            this.addFramebuffer(s, i, j);
+            addFramebuffer(s, i, j);
         }
     }
 
@@ -145,8 +145,8 @@ public class ShaderGroup
         String s = JsonUtils.getString(jsonobject, "name");
         String s1 = JsonUtils.getString(jsonobject, "intarget");
         String s2 = JsonUtils.getString(jsonobject, "outtarget");
-        Framebuffer framebuffer = this.getFramebuffer(s1);
-        Framebuffer framebuffer1 = this.getFramebuffer(s2);
+        Framebuffer framebuffer = getFramebuffer(s1);
+        Framebuffer framebuffer1 = getFramebuffer(s2);
 
         if (framebuffer == null)
         {
@@ -158,7 +158,7 @@ public class ShaderGroup
         }
         else
         {
-            Shader shader = this.addShader(s, framebuffer, framebuffer1);
+            Shader shader = addShader(s, framebuffer, framebuffer1);
             JsonArray jsonarray = JsonUtils.getJsonArray(jsonobject, "auxtargets", (JsonArray)null);
 
             if (jsonarray != null)
@@ -172,7 +172,7 @@ public class ShaderGroup
                         JsonObject jsonobject1 = JsonUtils.getJsonObject(jsonelement, "auxtarget");
                         String s4 = JsonUtils.getString(jsonobject1, "name");
                         String s3 = JsonUtils.getString(jsonobject1, "id");
-                        Framebuffer framebuffer2 = this.getFramebuffer(s3);
+                        Framebuffer framebuffer2 = getFramebuffer(s3);
 
                         if (framebuffer2 == null)
                         {
@@ -181,7 +181,7 @@ public class ShaderGroup
 
                             try
                             {
-                                iresource = this.resourceManager.getResource(resourcelocation);
+                                iresource = resourceManager.getResource(resourcelocation);
                             }
                             catch (FileNotFoundException var29)
                             {
@@ -237,7 +237,7 @@ public class ShaderGroup
                 {
                     try
                     {
-                        this.initUniform(jsonelement1);
+                        initUniform(jsonelement1);
                     }
                     catch (Exception exception)
                     {
@@ -256,7 +256,7 @@ public class ShaderGroup
     {
         JsonObject jsonobject = JsonUtils.getJsonObject(json, "uniform");
         String s = JsonUtils.getString(jsonobject, "name");
-        ShaderUniform shaderuniform = ((Shader)this.listShaders.get(this.listShaders.size() - 1)).getShaderManager().getShaderUniform(s);
+        ShaderUniform shaderuniform = ((Shader) listShaders.get(listShaders.size() - 1)).getShaderManager().getShaderUniform(s);
 
         if (shaderuniform == null)
         {
@@ -309,68 +309,68 @@ public class ShaderGroup
 
     public Framebuffer getFramebufferRaw(String attributeName)
     {
-        return this.mapFramebuffers.get(attributeName);
+        return mapFramebuffers.get(attributeName);
     }
 
     public void addFramebuffer(String name, int width, int height)
     {
         Framebuffer framebuffer = new Framebuffer(width, height, true);
         framebuffer.setFramebufferColor(0.0F, 0.0F, 0.0F, 0.0F);
-        this.mapFramebuffers.put(name, framebuffer);
+        mapFramebuffers.put(name, framebuffer);
 
-        if (width == this.mainFramebufferWidth && height == this.mainFramebufferHeight)
+        if (width == mainFramebufferWidth && height == mainFramebufferHeight)
         {
-            this.listFramebuffers.add(framebuffer);
+            listFramebuffers.add(framebuffer);
         }
     }
 
     public void deleteShaderGroup()
     {
-        for (Framebuffer framebuffer : this.mapFramebuffers.values())
+        for (Framebuffer framebuffer : mapFramebuffers.values())
         {
             framebuffer.deleteFramebuffer();
         }
 
-        for (Shader shader : this.listShaders)
+        for (Shader shader : listShaders)
         {
             shader.deleteShader();
         }
 
-        this.listShaders.clear();
+        listShaders.clear();
     }
 
     public Shader addShader(String programName, Framebuffer framebufferIn, Framebuffer framebufferOut) throws JsonException, IOException
     {
-        Shader shader = new Shader(this.resourceManager, programName, framebufferIn, framebufferOut);
-        this.listShaders.add(this.listShaders.size(), shader);
+        Shader shader = new Shader(resourceManager, programName, framebufferIn, framebufferOut);
+        listShaders.add(listShaders.size(), shader);
         return shader;
     }
 
     private void resetProjectionMatrix()
     {
-        this.projectionMatrix = new Matrix4f();
-        this.projectionMatrix.setIdentity();
-        this.projectionMatrix.m00 = 2.0F / (float)this.mainFramebuffer.framebufferTextureWidth;
-        this.projectionMatrix.m11 = 2.0F / (float)(-this.mainFramebuffer.framebufferTextureHeight);
-        this.projectionMatrix.m22 = -0.0020001999F;
-        this.projectionMatrix.m33 = 1.0F;
-        this.projectionMatrix.m03 = -1.0F;
-        this.projectionMatrix.m13 = 1.0F;
-        this.projectionMatrix.m23 = -1.0001999F;
+        projectionMatrix = new Matrix4f();
+        projectionMatrix.setIdentity();
+        projectionMatrix.m00 = 2.0F / (float) mainFramebuffer.framebufferTextureWidth;
+        projectionMatrix.m11 = 2.0F / (float)(-mainFramebuffer.framebufferTextureHeight);
+        projectionMatrix.m22 = -0.0020001999F;
+        projectionMatrix.m33 = 1.0F;
+        projectionMatrix.m03 = -1.0F;
+        projectionMatrix.m13 = 1.0F;
+        projectionMatrix.m23 = -1.0001999F;
     }
 
     public void createBindFramebuffers(int width, int height)
     {
-        this.mainFramebufferWidth = this.mainFramebuffer.framebufferTextureWidth;
-        this.mainFramebufferHeight = this.mainFramebuffer.framebufferTextureHeight;
-        this.resetProjectionMatrix();
+        mainFramebufferWidth = mainFramebuffer.framebufferTextureWidth;
+        mainFramebufferHeight = mainFramebuffer.framebufferTextureHeight;
+        resetProjectionMatrix();
 
-        for (Shader shader : this.listShaders)
+        for (Shader shader : listShaders)
         {
-            shader.setProjectionMatrix(this.projectionMatrix);
+            shader.setProjectionMatrix(projectionMatrix);
         }
 
-        for (Framebuffer framebuffer : this.listFramebuffers)
+        for (Framebuffer framebuffer : listFramebuffers)
         {
             framebuffer.createBindFramebuffer(width, height);
         }
@@ -378,30 +378,30 @@ public class ShaderGroup
 
     public void render(float partialTicks)
     {
-        if (partialTicks < this.lastStamp)
+        if (partialTicks < lastStamp)
         {
-            this.time += 1.0F - this.lastStamp;
-            this.time += partialTicks;
+            time += 1.0F - lastStamp;
+            time += partialTicks;
         }
         else
         {
-            this.time += partialTicks - this.lastStamp;
+            time += partialTicks - lastStamp;
         }
 
-        for (this.lastStamp = partialTicks; this.time > 20.0F; this.time -= 20.0F)
+        for (lastStamp = partialTicks; time > 20.0F; time -= 20.0F)
         {
             ;
         }
 
-        for (Shader shader : this.listShaders)
+        for (Shader shader : listShaders)
         {
-            shader.render(this.time / 20.0F);
+            shader.render(time / 20.0F);
         }
     }
 
     public final String getShaderGroupName()
     {
-        return this.shaderGroupName;
+        return shaderGroupName;
     }
 
     private Framebuffer getFramebuffer(String p_148017_1_)
@@ -412,7 +412,7 @@ public class ShaderGroup
         }
         else
         {
-            return p_148017_1_.equals("minecraft:main") ? this.mainFramebuffer : (Framebuffer)this.mapFramebuffers.get(p_148017_1_);
+            return p_148017_1_.equals("minecraft:main") ? mainFramebuffer : (Framebuffer) mapFramebuffers.get(p_148017_1_);
         }
     }
 }

@@ -24,9 +24,9 @@ public class BlockMagma extends Block
     public BlockMagma()
     {
         super(Material.ROCK);
-        this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
-        this.setLightLevel(0.2F);
-        this.setTickRandomly(true);
+        setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
+        setLightLevel(0.2F);
+        setTickRandomly(true);
     }
 
     /**

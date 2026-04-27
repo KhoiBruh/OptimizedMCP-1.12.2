@@ -13,13 +13,13 @@ public class BaseSpectatorGroup implements ISpectatorMenuView
 
     public BaseSpectatorGroup()
     {
-        this.items.add(new TeleportToPlayer());
-        this.items.add(new TeleportToTeam());
+        items.add(new TeleportToPlayer());
+        items.add(new TeleportToTeam());
     }
 
     public List<ISpectatorMenuObject> getItems()
     {
-        return this.items;
+        return items;
     }
 
     public ITextComponent getPrompt()

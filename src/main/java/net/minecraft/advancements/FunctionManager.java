@@ -33,7 +33,7 @@ public class FunctionManager implements ITickable
     {
         public String getName()
         {
-            return FunctionManager.this.currentGameLoopFunctionId;
+            return currentGameLoopFunctionId;
         }
         public boolean canUseCommand(int permLevel, String commandName)
         {
@@ -41,40 +41,40 @@ public class FunctionManager implements ITickable
         }
         public World getEntityWorld()
         {
-            return FunctionManager.this.server.worlds[0];
+            return server.worlds[0];
         }
         public MinecraftServer getServer()
         {
-            return FunctionManager.this.server;
+            return server;
         }
     };
 
     public FunctionManager(@Nullable File functionDirIn, MinecraftServer serverIn)
     {
-        this.functionDir = functionDirIn;
-        this.server = serverIn;
-        this.reload();
+        functionDir = functionDirIn;
+        server = serverIn;
+        reload();
     }
 
     @Nullable
     public FunctionObject getFunction(ResourceLocation id)
     {
-        return this.functions.get(id);
+        return functions.get(id);
     }
 
     public ICommandManager getCommandManager()
     {
-        return this.server.getCommandManager();
+        return server.getCommandManager();
     }
 
     public int getMaxCommandChainLength()
     {
-        return this.server.worlds[0].getGameRules().getInt("maxCommandChainLength");
+        return server.worlds[0].getGameRules().getInt("maxCommandChainLength");
     }
 
     public Map<ResourceLocation, FunctionObject> getFunctions()
     {
-        return this.functions;
+        return functions;
     }
 
     /**
@@ -82,29 +82,29 @@ public class FunctionManager implements ITickable
      */
     public void update()
     {
-        String s = this.server.worlds[0].getGameRules().getString("gameLoopFunction");
+        String s = server.worlds[0].getGameRules().getString("gameLoopFunction");
 
-        if (!s.equals(this.currentGameLoopFunctionId))
+        if (!s.equals(currentGameLoopFunctionId))
         {
-            this.currentGameLoopFunctionId = s;
-            this.gameLoopFunction = this.getFunction(new ResourceLocation(s));
+            currentGameLoopFunctionId = s;
+            gameLoopFunction = getFunction(new ResourceLocation(s));
         }
 
-        if (this.gameLoopFunction != null)
+        if (gameLoopFunction != null)
         {
-            this.execute(this.gameLoopFunction, this.gameLoopFunctionSender);
+            execute(gameLoopFunction, gameLoopFunctionSender);
         }
     }
 
     public int execute(FunctionObject function, ICommandSender sender)
     {
-        int i = this.getMaxCommandChainLength();
+        int i = getMaxCommandChainLength();
 
-        if (this.isExecuting)
+        if (isExecuting)
         {
-            if (this.commandQueue.size() < i)
+            if (commandQueue.size() < i)
             {
-                this.commandQueue.addFirst(new FunctionManager.QueuedCommand(this, sender, new FunctionObject.FunctionEntry(function)));
+                commandQueue.addFirst(new FunctionManager.QueuedCommand(this, sender, new FunctionObject.FunctionEntry(function)));
             }
 
             return 0;
@@ -115,24 +115,24 @@ public class FunctionManager implements ITickable
 
             try
             {
-                this.isExecuting = true;
+                isExecuting = true;
                 int j = 0;
                 FunctionObject.Entry[] afunctionobject$entry = function.getEntries();
 
                 for (int k = afunctionobject$entry.length - 1; k >= 0; --k)
                 {
-                    this.commandQueue.push(new FunctionManager.QueuedCommand(this, sender, afunctionobject$entry[k]));
+                    commandQueue.push(new FunctionManager.QueuedCommand(this, sender, afunctionobject$entry[k]));
                 }
 
                 while (true)
                 {
-                    if (this.commandQueue.isEmpty())
+                    if (commandQueue.isEmpty())
                     {
                         l = j;
                         return l;
                     }
 
-                    (this.commandQueue.removeFirst()).execute(this.commandQueue, i);
+                    (commandQueue.removeFirst()).execute(commandQueue, i);
                     ++j;
 
                     if (j >= i)
@@ -145,8 +145,8 @@ public class FunctionManager implements ITickable
             }
             finally
             {
-                this.commandQueue.clear();
-                this.isExecuting = false;
+                commandQueue.clear();
+                isExecuting = false;
             }
 
             return l;
@@ -155,21 +155,21 @@ public class FunctionManager implements ITickable
 
     public void reload()
     {
-        this.functions.clear();
-        this.gameLoopFunction = null;
-        this.currentGameLoopFunctionId = "-";
-        this.loadFunctions();
+        functions.clear();
+        gameLoopFunction = null;
+        currentGameLoopFunctionId = "-";
+        loadFunctions();
     }
 
     private void loadFunctions()
     {
-        if (this.functionDir != null)
+        if (functionDir != null)
         {
-            this.functionDir.mkdirs();
+            functionDir.mkdirs();
 
-            for (File file1 : FileUtils.listFiles(this.functionDir, new String[] {"mcfunction"}, true))
+            for (File file1 : FileUtils.listFiles(functionDir, new String[] {"mcfunction"}, true))
             {
-                String s = FilenameUtils.removeExtension(this.functionDir.toURI().relativize(file1.toURI()).toString());
+                String s = FilenameUtils.removeExtension(functionDir.toURI().relativize(file1.toURI()).toString());
                 String[] astring = s.split("/", 2);
 
                 if (astring.length == 2)
@@ -178,7 +178,7 @@ public class FunctionManager implements ITickable
 
                     try
                     {
-                        this.functions.put(resourcelocation, FunctionObject.create(this, Files.readLines(file1, StandardCharsets.UTF_8)));
+                        functions.put(resourcelocation, FunctionObject.create(this, Files.readLines(file1, StandardCharsets.UTF_8)));
                     }
                     catch (Throwable throwable)
                     {
@@ -187,9 +187,9 @@ public class FunctionManager implements ITickable
                 }
             }
 
-            if (!this.functions.isEmpty())
+            if (!functions.isEmpty())
             {
-                LOGGER.info("Loaded " + this.functions.size() + " custom command functions");
+                LOGGER.info("Loaded " + functions.size() + " custom command functions");
             }
         }
     }
@@ -202,19 +202,19 @@ public class FunctionManager implements ITickable
 
         public QueuedCommand(FunctionManager functionManagerIn, ICommandSender senderIn, FunctionObject.Entry entryIn)
         {
-            this.functionManager = functionManagerIn;
-            this.sender = senderIn;
-            this.entry = entryIn;
+            functionManager = functionManagerIn;
+            sender = senderIn;
+            entry = entryIn;
         }
 
         public void execute(ArrayDeque<FunctionManager.QueuedCommand> commandQueue, int maxCommandChainLength)
         {
-            this.entry.execute(this.functionManager, this.sender, commandQueue, maxCommandChainLength);
+            entry.execute(functionManager, sender, commandQueue, maxCommandChainLength);
         }
 
         public String toString()
         {
-            return this.entry.toString();
+            return entry.toString();
         }
     }
 }

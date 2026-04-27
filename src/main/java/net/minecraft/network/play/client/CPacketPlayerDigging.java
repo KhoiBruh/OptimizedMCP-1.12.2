@@ -21,9 +21,9 @@ public class CPacketPlayerDigging implements Packet<INetHandlerPlayServer>
 
     public CPacketPlayerDigging(CPacketPlayerDigging.Action actionIn, BlockPos posIn, EnumFacing facingIn)
     {
-        this.action = actionIn;
-        this.position = posIn;
-        this.facing = facingIn;
+        action = actionIn;
+        position = posIn;
+        facing = facingIn;
     }
 
     /**
@@ -31,9 +31,9 @@ public class CPacketPlayerDigging implements Packet<INetHandlerPlayServer>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.action = (CPacketPlayerDigging.Action)buf.readEnumValue(CPacketPlayerDigging.Action.class);
-        this.position = buf.readBlockPos();
-        this.facing = EnumFacing.getFront(buf.readUnsignedByte());
+        action = (CPacketPlayerDigging.Action)buf.readEnumValue(CPacketPlayerDigging.Action.class);
+        position = buf.readBlockPos();
+        facing = EnumFacing.getFront(buf.readUnsignedByte());
     }
 
     /**
@@ -41,9 +41,9 @@ public class CPacketPlayerDigging implements Packet<INetHandlerPlayServer>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeEnumValue(this.action);
-        buf.writeBlockPos(this.position);
-        buf.writeByte(this.facing.getIndex());
+        buf.writeEnumValue(action);
+        buf.writeBlockPos(position);
+        buf.writeByte(facing.getIndex());
     }
 
     /**
@@ -56,17 +56,17 @@ public class CPacketPlayerDigging implements Packet<INetHandlerPlayServer>
 
     public BlockPos getPosition()
     {
-        return this.position;
+        return position;
     }
 
     public EnumFacing getFacing()
     {
-        return this.facing;
+        return facing;
     }
 
     public CPacketPlayerDigging.Action getAction()
     {
-        return this.action;
+        return action;
     }
 
     public static enum Action

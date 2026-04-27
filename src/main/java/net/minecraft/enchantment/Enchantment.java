@@ -59,16 +59,16 @@ public abstract class Enchantment
 
     protected Enchantment(Enchantment.Rarity rarityIn, EnumEnchantmentType typeIn, EntityEquipmentSlot[] slots)
     {
-        this.rarity = rarityIn;
-        this.type = typeIn;
-        this.applicableEquipmentTypes = slots;
+        rarity = rarityIn;
+        type = typeIn;
+        applicableEquipmentTypes = slots;
     }
 
     public List<ItemStack> getEntityEquipment(EntityLivingBase entityIn)
     {
         List<ItemStack> list = Lists.<ItemStack>newArrayList();
 
-        for (EntityEquipmentSlot entityequipmentslot : this.applicableEquipmentTypes)
+        for (EntityEquipmentSlot entityequipmentslot : applicableEquipmentTypes)
         {
             ItemStack itemstack = entityIn.getItemStackFromSlot(entityequipmentslot);
 
@@ -87,7 +87,7 @@ public abstract class Enchantment
      */
     public Enchantment.Rarity getRarity()
     {
-        return this.rarity;
+        return rarity;
     }
 
     /**
@@ -119,7 +119,7 @@ public abstract class Enchantment
      */
     public int getMaxEnchantability(int enchantmentLevel)
     {
-        return this.getMinEnchantability(enchantmentLevel) + 5;
+        return getMinEnchantability(enchantmentLevel) + 5;
     }
 
     /**
@@ -141,7 +141,7 @@ public abstract class Enchantment
 
     public final boolean isCompatibleWith(Enchantment p_191560_1_)
     {
-        return this.canApplyTogether(p_191560_1_) && p_191560_1_.canApplyTogether(this);
+        return canApplyTogether(p_191560_1_) && p_191560_1_.canApplyTogether(this);
     }
 
     /**
@@ -157,7 +157,7 @@ public abstract class Enchantment
      */
     public Enchantment setName(String enchName)
     {
-        this.name = enchName;
+        name = enchName;
         return this;
     }
 
@@ -166,7 +166,7 @@ public abstract class Enchantment
      */
     public String getName()
     {
-        return "enchantment." + this.name;
+        return "enchantment." + name;
     }
 
     /**
@@ -174,14 +174,14 @@ public abstract class Enchantment
      */
     public String getTranslatedName(int level)
     {
-        String s = I18n.translateToLocal(this.getName());
+        String s = I18n.translateToLocal(getName());
 
-        if (this.isCurse())
+        if (isCurse())
         {
             s = TextFormatting.RED + s;
         }
 
-        return level == 1 && this.getMaxLevel() == 1 ? s : s + " " + I18n.translateToLocal("enchantment.level." + level);
+        return level == 1 && getMaxLevel() == 1 ? s : s + " " + I18n.translateToLocal("enchantment.level." + level);
     }
 
     /**
@@ -189,7 +189,7 @@ public abstract class Enchantment
      */
     public boolean canApply(ItemStack stack)
     {
-        return this.type.canEnchantItem(stack.getItem());
+        return type.canEnchantItem(stack.getItem());
     }
 
     /**
@@ -266,12 +266,12 @@ public abstract class Enchantment
 
         private Rarity(int rarityWeight)
         {
-            this.weight = rarityWeight;
+            weight = rarityWeight;
         }
 
         public int getWeight()
         {
-            return this.weight;
+            return weight;
         }
     }
 }

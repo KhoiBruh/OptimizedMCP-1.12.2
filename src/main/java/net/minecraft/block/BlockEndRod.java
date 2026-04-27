@@ -29,8 +29,8 @@ public class BlockEndRod extends BlockDirectional
     protected BlockEndRod()
     {
         super(Material.CIRCUITS);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.UP));
-        this.setCreativeTab(CreativeTabs.DECORATIONS);
+        setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.UP));
+        setCreativeTab(CreativeTabs.DECORATIONS);
     }
 
     /**
@@ -102,11 +102,11 @@ public class BlockEndRod extends BlockDirectional
 
             if (enumfacing == facing)
             {
-                return this.getDefaultState().withProperty(FACING, facing.getOpposite());
+                return getDefaultState().withProperty(FACING, facing.getOpposite());
             }
         }
 
-        return this.getDefaultState().withProperty(FACING, facing);
+        return getDefaultState().withProperty(FACING, facing);
     }
 
     public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand)
@@ -137,7 +137,7 @@ public class BlockEndRod extends BlockDirectional
      */
     public IBlockState getStateFromMeta(int meta)
     {
-        IBlockState iblockstate = this.getDefaultState();
+        IBlockState iblockstate = getDefaultState();
         iblockstate = iblockstate.withProperty(FACING, EnumFacing.getFront(meta));
         return iblockstate;
     }

@@ -9,8 +9,8 @@ public class ServerListEntryLanScan implements GuiListExtended.IGuiListEntry
 
     public void drawEntry(int slotIndex, int x, int y, int listWidth, int slotHeight, int mouseX, int mouseY, boolean isSelected, float partialTicks)
     {
-        int i = y + slotHeight / 2 - this.mc.fontRenderer.FONT_HEIGHT / 2;
-        this.mc.fontRenderer.drawString(I18n.format("lanServer.scanning"), this.mc.currentScreen.width / 2 - this.mc.fontRenderer.getStringWidth(I18n.format("lanServer.scanning")) / 2, i, 16777215);
+        int i = y + slotHeight / 2 - mc.fontRenderer.FONT_HEIGHT / 2;
+        mc.fontRenderer.drawString(I18n.format("lanServer.scanning"), mc.currentScreen.width / 2 - mc.fontRenderer.getStringWidth(I18n.format("lanServer.scanning")) / 2, i, 16777215);
         String s;
 
         switch ((int)(Minecraft.getSystemTime() / 300L % 4L))
@@ -29,7 +29,7 @@ public class ServerListEntryLanScan implements GuiListExtended.IGuiListEntry
                 s = "o o O";
         }
 
-        this.mc.fontRenderer.drawString(s, this.mc.currentScreen.width / 2 - this.mc.fontRenderer.getStringWidth(s) / 2, i + this.mc.fontRenderer.FONT_HEIGHT, 8421504);
+        mc.fontRenderer.drawString(s, mc.currentScreen.width / 2 - mc.fontRenderer.getStringWidth(s) / 2, i + mc.fontRenderer.FONT_HEIGHT, 8421504);
     }
 
     public void updatePosition(int slotIndex, int x, int y, float partialTicks)

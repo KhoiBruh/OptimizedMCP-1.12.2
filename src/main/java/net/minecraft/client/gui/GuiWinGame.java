@@ -35,12 +35,12 @@ public class GuiWinGame extends GuiScreen
 
     public GuiWinGame(boolean poemIn, Runnable onFinishedIn)
     {
-        this.poem = poemIn;
-        this.onFinished = onFinishedIn;
+        poem = poemIn;
+        onFinished = onFinishedIn;
 
         if (!poemIn)
         {
-            this.scrollSpeed = 0.75F;
+            scrollSpeed = 0.75F;
         }
     }
 
@@ -49,13 +49,13 @@ public class GuiWinGame extends GuiScreen
      */
     public void updateScreen()
     {
-        this.mc.getMusicTicker().update();
-        this.mc.getSoundHandler().update();
-        float f = (float)(this.totalScrollLength + this.height + this.height + 24) / this.scrollSpeed;
+        mc.getMusicTicker().update();
+        mc.getSoundHandler().update();
+        float f = (float)(totalScrollLength + height + height + 24) / scrollSpeed;
 
-        if (this.time > f)
+        if (time > f)
         {
-            this.sendRespawnPacket();
+            sendRespawnPacket();
         }
     }
 
@@ -67,14 +67,14 @@ public class GuiWinGame extends GuiScreen
     {
         if (keyCode == 1)
         {
-            this.sendRespawnPacket();
+            sendRespawnPacket();
         }
     }
 
     private void sendRespawnPacket()
     {
-        this.onFinished.run();
-        this.mc.displayGuiScreen((GuiScreen)null);
+        onFinished.run();
+        mc.displayGuiScreen((GuiScreen)null);
     }
 
     /**
@@ -91,9 +91,9 @@ public class GuiWinGame extends GuiScreen
      */
     public void initGui()
     {
-        if (this.lines == null)
+        if (lines == null)
         {
-            this.lines = Lists.<String>newArrayList();
+            lines = Lists.<String>newArrayList();
             IResource iresource = null;
 
             try
@@ -101,9 +101,9 @@ public class GuiWinGame extends GuiScreen
                 String s = "" + TextFormatting.WHITE + TextFormatting.OBFUSCATED + TextFormatting.GREEN + TextFormatting.AQUA;
                 int i = 274;
 
-                if (this.poem)
+                if (poem)
                 {
-                    iresource = this.mc.getResourceManager().getResource(new ResourceLocation("texts/end.txt"));
+                    iresource = mc.getResourceManager().getResource(new ResourceLocation("texts/end.txt"));
                     InputStream inputstream = iresource.getInputStream();
                     BufferedReader bufferedreader = new BufferedReader(new InputStreamReader(inputstream, StandardCharsets.UTF_8));
                     Random random = new Random(8124371L);
@@ -114,39 +114,39 @@ public class GuiWinGame extends GuiScreen
                         String s2;
                         String s3;
 
-                        for (s1 = s1.replaceAll("PLAYERNAME", this.mc.getSession().getUsername()); s1.contains(s); s1 = s2 + TextFormatting.WHITE + TextFormatting.OBFUSCATED + "XXXXXXXX".substring(0, random.nextInt(4) + 3) + s3)
+                        for (s1 = s1.replaceAll("PLAYERNAME", mc.getSession().getUsername()); s1.contains(s); s1 = s2 + TextFormatting.WHITE + TextFormatting.OBFUSCATED + "XXXXXXXX".substring(0, random.nextInt(4) + 3) + s3)
                         {
                             int j = s1.indexOf(s);
                             s2 = s1.substring(0, j);
                             s3 = s1.substring(j + s.length());
                         }
 
-                        this.lines.addAll(this.mc.fontRenderer.listFormattedStringToWidth(s1, 274));
-                        this.lines.add("");
+                        lines.addAll(mc.fontRenderer.listFormattedStringToWidth(s1, 274));
+                        lines.add("");
                     }
 
                     inputstream.close();
 
                     for (int k = 0; k < 8; ++k)
                     {
-                        this.lines.add("");
+                        lines.add("");
                     }
                 }
 
-                InputStream inputstream1 = this.mc.getResourceManager().getResource(new ResourceLocation("texts/credits.txt")).getInputStream();
+                InputStream inputstream1 = mc.getResourceManager().getResource(new ResourceLocation("texts/credits.txt")).getInputStream();
                 BufferedReader bufferedreader1 = new BufferedReader(new InputStreamReader(inputstream1, StandardCharsets.UTF_8));
                 String s4;
 
                 while ((s4 = bufferedreader1.readLine()) != null)
                 {
-                    s4 = s4.replaceAll("PLAYERNAME", this.mc.getSession().getUsername());
+                    s4 = s4.replaceAll("PLAYERNAME", mc.getSession().getUsername());
                     s4 = s4.replaceAll("\t", "    ");
-                    this.lines.addAll(this.mc.fontRenderer.listFormattedStringToWidth(s4, 274));
-                    this.lines.add("");
+                    lines.addAll(mc.fontRenderer.listFormattedStringToWidth(s4, 274));
+                    lines.add("");
                 }
 
                 inputstream1.close();
-                this.totalScrollLength = this.lines.size() * 12;
+                totalScrollLength = lines.size() * 12;
             }
             catch (Exception exception)
             {
@@ -163,15 +163,15 @@ public class GuiWinGame extends GuiScreen
     {
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder bufferbuilder = tessellator.getBuffer();
-        this.mc.getTextureManager().bindTexture(Gui.OPTIONS_BACKGROUND);
+        mc.getTextureManager().bindTexture(Gui.OPTIONS_BACKGROUND);
         bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-        int i = this.width;
-        float f = -this.time * 0.5F * this.scrollSpeed;
-        float f1 = (float)this.height - this.time * 0.5F * this.scrollSpeed;
+        int i = width;
+        float f = -time * 0.5F * scrollSpeed;
+        float f1 = (float) height - time * 0.5F * scrollSpeed;
         float f2 = 0.015625F;
-        float f3 = this.time * 0.02F;
-        float f4 = (float)(this.totalScrollLength + this.height + this.height + 24) / this.scrollSpeed;
-        float f5 = (f4 - 20.0F - this.time) * 0.005F;
+        float f3 = time * 0.02F;
+        float f4 = (float)(totalScrollLength + height + height + 24) / scrollSpeed;
+        float f5 = (f4 - 20.0F - time) * 0.005F;
 
         if (f5 < f3)
         {
@@ -185,10 +185,10 @@ public class GuiWinGame extends GuiScreen
 
         f3 = f3 * f3;
         f3 = f3 * 96.0F / 255.0F;
-        bufferbuilder.pos(0.0D, (double)this.height, (double)this.zLevel).tex(0.0D, (double)(f * 0.015625F)).color(f3, f3, f3, 1.0F).endVertex();
-        bufferbuilder.pos((double)i, (double)this.height, (double)this.zLevel).tex((double)((float)i * 0.015625F), (double)(f * 0.015625F)).color(f3, f3, f3, 1.0F).endVertex();
-        bufferbuilder.pos((double)i, 0.0D, (double)this.zLevel).tex((double)((float)i * 0.015625F), (double)(f1 * 0.015625F)).color(f3, f3, f3, 1.0F).endVertex();
-        bufferbuilder.pos(0.0D, 0.0D, (double)this.zLevel).tex(0.0D, (double)(f1 * 0.015625F)).color(f3, f3, f3, 1.0F).endVertex();
+        bufferbuilder.pos(0.0D, (double) height, (double) zLevel).tex(0.0D, (double)(f * 0.015625F)).color(f3, f3, f3, 1.0F).endVertex();
+        bufferbuilder.pos((double)i, (double) height, (double) zLevel).tex((double)((float)i * 0.015625F), (double)(f * 0.015625F)).color(f3, f3, f3, 1.0F).endVertex();
+        bufferbuilder.pos((double)i, 0.0D, (double) zLevel).tex((double)((float)i * 0.015625F), (double)(f1 * 0.015625F)).color(f3, f3, f3, 1.0F).endVertex();
+        bufferbuilder.pos(0.0D, 0.0D, (double) zLevel).tex(0.0D, (double)(f1 * 0.015625F)).color(f3, f3, f3, 1.0F).endVertex();
         tessellator.draw();
     }
 
@@ -197,31 +197,31 @@ public class GuiWinGame extends GuiScreen
      */
     public void drawScreen(int mouseX, int mouseY, float partialTicks)
     {
-        this.drawWinGameScreen(mouseX, mouseY, partialTicks);
+        drawWinGameScreen(mouseX, mouseY, partialTicks);
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder bufferbuilder = tessellator.getBuffer();
         int i = 274;
-        int j = this.width / 2 - 137;
-        int k = this.height + 50;
-        this.time += partialTicks;
-        float f = -this.time * this.scrollSpeed;
+        int j = width / 2 - 137;
+        int k = height + 50;
+        time += partialTicks;
+        float f = -time * scrollSpeed;
         GlStateManager.pushMatrix();
         GlStateManager.translate(0.0F, f, 0.0F);
-        this.mc.getTextureManager().bindTexture(MINECRAFT_LOGO);
+        mc.getTextureManager().bindTexture(MINECRAFT_LOGO);
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         GlStateManager.enableAlpha();
-        this.drawTexturedModalRect(j, k, 0, 0, 155, 44);
-        this.drawTexturedModalRect(j + 155, k, 0, 45, 155, 44);
-        this.mc.getTextureManager().bindTexture(field_194401_g);
+        drawTexturedModalRect(j, k, 0, 0, 155, 44);
+        drawTexturedModalRect(j + 155, k, 0, 45, 155, 44);
+        mc.getTextureManager().bindTexture(field_194401_g);
         drawModalRectWithCustomSizedTexture(j + 88, k + 37, 0.0F, 0.0F, 98, 14, 128.0F, 16.0F);
         GlStateManager.disableAlpha();
         int l = k + 100;
 
-        for (int i1 = 0; i1 < this.lines.size(); ++i1)
+        for (int i1 = 0; i1 < lines.size(); ++i1)
         {
-            if (i1 == this.lines.size() - 1)
+            if (i1 == lines.size() - 1)
             {
-                float f1 = (float)l + f - (float)(this.height / 2 - 6);
+                float f1 = (float)l + f - (float)(height / 2 - 6);
 
                 if (f1 < 0.0F)
                 {
@@ -229,18 +229,18 @@ public class GuiWinGame extends GuiScreen
                 }
             }
 
-            if ((float)l + f + 12.0F + 8.0F > 0.0F && (float)l + f < (float)this.height)
+            if ((float)l + f + 12.0F + 8.0F > 0.0F && (float)l + f < (float) height)
             {
-                String s = this.lines.get(i1);
+                String s = lines.get(i1);
 
                 if (s.startsWith("[C]"))
                 {
-                    this.fontRenderer.drawStringWithShadow(s.substring(3), (float)(j + (274 - this.fontRenderer.getStringWidth(s.substring(3))) / 2), (float)l, 16777215);
+                    fontRenderer.drawStringWithShadow(s.substring(3), (float)(j + (274 - fontRenderer.getStringWidth(s.substring(3))) / 2), (float)l, 16777215);
                 }
                 else
                 {
-                    this.fontRenderer.fontRandom.setSeed((long)((float)((long)i1 * 4238972211L) + this.time / 4.0F));
-                    this.fontRenderer.drawStringWithShadow(s, (float)j, (float)l, 16777215);
+                    fontRenderer.fontRandom.setSeed((long)((float)((long)i1 * 4238972211L) + time / 4.0F));
+                    fontRenderer.drawStringWithShadow(s, (float)j, (float)l, 16777215);
                 }
             }
 
@@ -248,16 +248,16 @@ public class GuiWinGame extends GuiScreen
         }
 
         GlStateManager.popMatrix();
-        this.mc.getTextureManager().bindTexture(VIGNETTE_TEXTURE);
+        mc.getTextureManager().bindTexture(VIGNETTE_TEXTURE);
         GlStateManager.enableBlend();
         GlStateManager.blendFunc(GlStateManager.SourceFactor.ZERO, GlStateManager.DestFactor.ONE_MINUS_SRC_COLOR);
-        int j1 = this.width;
-        int k1 = this.height;
+        int j1 = width;
+        int k1 = height;
         bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-        bufferbuilder.pos(0.0D, (double)k1, (double)this.zLevel).tex(0.0D, 1.0D).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
-        bufferbuilder.pos((double)j1, (double)k1, (double)this.zLevel).tex(1.0D, 1.0D).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
-        bufferbuilder.pos((double)j1, 0.0D, (double)this.zLevel).tex(1.0D, 0.0D).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
-        bufferbuilder.pos(0.0D, 0.0D, (double)this.zLevel).tex(0.0D, 0.0D).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
+        bufferbuilder.pos(0.0D, (double)k1, (double) zLevel).tex(0.0D, 1.0D).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
+        bufferbuilder.pos((double)j1, (double)k1, (double) zLevel).tex(1.0D, 1.0D).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
+        bufferbuilder.pos((double)j1, 0.0D, (double) zLevel).tex(1.0D, 0.0D).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
+        bufferbuilder.pos(0.0D, 0.0D, (double) zLevel).tex(0.0D, 0.0D).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
         tessellator.draw();
         GlStateManager.disableBlend();
         super.drawScreen(mouseX, mouseY, partialTicks);

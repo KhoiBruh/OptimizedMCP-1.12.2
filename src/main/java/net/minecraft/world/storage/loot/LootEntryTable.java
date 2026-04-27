@@ -17,19 +17,19 @@ public class LootEntryTable extends LootEntry
     public LootEntryTable(ResourceLocation tableIn, int weightIn, int qualityIn, LootCondition[] conditionsIn)
     {
         super(weightIn, qualityIn, conditionsIn);
-        this.table = tableIn;
+        table = tableIn;
     }
 
     public void addLoot(Collection<ItemStack> stacks, Random rand, LootContext context)
     {
-        LootTable loottable = context.getLootTableManager().getLootTableFromLocation(this.table);
+        LootTable loottable = context.getLootTableManager().getLootTableFromLocation(table);
         Collection<ItemStack> collection = loottable.generateLootForPools(rand, context);
         stacks.addAll(collection);
     }
 
     protected void serialize(JsonObject json, JsonSerializationContext context)
     {
-        json.addProperty("name", this.table.toString());
+        json.addProperty("name", table.toString());
     }
 
     public static LootEntryTable deserialize(JsonObject object, JsonDeserializationContext deserializationContext, int weightIn, int qualityIn, LootCondition[] conditionsIn)

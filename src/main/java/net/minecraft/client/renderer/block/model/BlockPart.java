@@ -27,19 +27,19 @@ public class BlockPart
 
     public BlockPart(Vector3f positionFromIn, Vector3f positionToIn, Map<EnumFacing, BlockPartFace> mapFacesIn, @Nullable BlockPartRotation partRotationIn, boolean shadeIn)
     {
-        this.positionFrom = positionFromIn;
-        this.positionTo = positionToIn;
-        this.mapFaces = mapFacesIn;
-        this.partRotation = partRotationIn;
-        this.shade = shadeIn;
-        this.setDefaultUvs();
+        positionFrom = positionFromIn;
+        positionTo = positionToIn;
+        mapFaces = mapFacesIn;
+        partRotation = partRotationIn;
+        shade = shadeIn;
+        setDefaultUvs();
     }
 
     private void setDefaultUvs()
     {
-        for (Entry<EnumFacing, BlockPartFace> entry : this.mapFaces.entrySet())
+        for (Entry<EnumFacing, BlockPartFace> entry : mapFaces.entrySet())
         {
-            float[] afloat = this.getFaceUvs(entry.getKey());
+            float[] afloat = getFaceUvs(entry.getKey());
             (entry.getValue()).blockFaceUV.setUvs(afloat);
         }
     }
@@ -49,18 +49,18 @@ public class BlockPart
         switch (facing)
         {
             case DOWN:
-                return new float[] {this.positionFrom.x, 16.0F - this.positionTo.z, this.positionTo.x, 16.0F - this.positionFrom.z};
+                return new float[] {positionFrom.x, 16.0F - positionTo.z, positionTo.x, 16.0F - positionFrom.z};
             case UP:
-                return new float[] {this.positionFrom.x, this.positionFrom.z, this.positionTo.x, this.positionTo.z};
+                return new float[] {positionFrom.x, positionFrom.z, positionTo.x, positionTo.z};
             case NORTH:
             default:
-                return new float[] {16.0F - this.positionTo.x, 16.0F - this.positionTo.y, 16.0F - this.positionFrom.x, 16.0F - this.positionFrom.y};
+                return new float[] {16.0F - positionTo.x, 16.0F - positionTo.y, 16.0F - positionFrom.x, 16.0F - positionFrom.y};
             case SOUTH:
-                return new float[] {this.positionFrom.x, 16.0F - this.positionTo.y, this.positionTo.x, 16.0F - this.positionFrom.y};
+                return new float[] {positionFrom.x, 16.0F - positionTo.y, positionTo.x, 16.0F - positionFrom.y};
             case WEST:
-                return new float[] {this.positionFrom.z, 16.0F - this.positionTo.y, this.positionTo.z, 16.0F - this.positionFrom.y};
+                return new float[] {positionFrom.z, 16.0F - positionTo.y, positionTo.z, 16.0F - positionFrom.y};
             case EAST:
-                return new float[] {16.0F - this.positionTo.z, 16.0F - this.positionTo.y, 16.0F - this.positionFrom.z, 16.0F - this.positionFrom.y};
+                return new float[] {16.0F - positionTo.z, 16.0F - positionTo.y, 16.0F - positionFrom.z, 16.0F - positionFrom.y};
         }
     }
 
@@ -69,10 +69,10 @@ public class BlockPart
         public BlockPart deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException
         {
             JsonObject jsonobject = p_deserialize_1_.getAsJsonObject();
-            Vector3f vector3f = this.parsePositionFrom(jsonobject);
-            Vector3f vector3f1 = this.parsePositionTo(jsonobject);
-            BlockPartRotation blockpartrotation = this.parseRotation(jsonobject);
-            Map<EnumFacing, BlockPartFace> map = this.parseFacesCheck(p_deserialize_3_, jsonobject);
+            Vector3f vector3f = parsePositionFrom(jsonobject);
+            Vector3f vector3f1 = parsePositionTo(jsonobject);
+            BlockPartRotation blockpartrotation = parseRotation(jsonobject);
+            Map<EnumFacing, BlockPartFace> map = parseFacesCheck(p_deserialize_3_, jsonobject);
 
             if (jsonobject.has("shade") && !JsonUtils.isBoolean(jsonobject, "shade"))
             {
@@ -93,10 +93,10 @@ public class BlockPart
             if (object.has("rotation"))
             {
                 JsonObject jsonobject = JsonUtils.getJsonObject(object, "rotation");
-                Vector3f vector3f = this.parsePosition(jsonobject, "origin");
+                Vector3f vector3f = parsePosition(jsonobject, "origin");
                 vector3f.scale(0.0625F);
-                EnumFacing.Axis enumfacing$axis = this.parseAxis(jsonobject);
-                float f = this.parseAngle(jsonobject);
+                EnumFacing.Axis enumfacing$axis = parseAxis(jsonobject);
+                float f = parseAngle(jsonobject);
                 boolean flag = JsonUtils.getBoolean(jsonobject, "rescale", false);
                 blockpartrotation = new BlockPartRotation(vector3f, enumfacing$axis, f, flag);
             }
@@ -135,7 +135,7 @@ public class BlockPart
 
         private Map<EnumFacing, BlockPartFace> parseFacesCheck(JsonDeserializationContext deserializationContext, JsonObject object)
         {
-            Map<EnumFacing, BlockPartFace> map = this.parseFaces(deserializationContext, object);
+            Map<EnumFacing, BlockPartFace> map = parseFaces(deserializationContext, object);
 
             if (map.isEmpty())
             {
@@ -154,7 +154,7 @@ public class BlockPart
 
             for (Entry<String, JsonElement> entry : jsonobject.entrySet())
             {
-                EnumFacing enumfacing = this.parseEnumFacing(entry.getKey());
+                EnumFacing enumfacing = parseEnumFacing(entry.getKey());
                 map.put(enumfacing, (BlockPartFace)deserializationContext.deserialize(entry.getValue(), BlockPartFace.class));
             }
 
@@ -177,7 +177,7 @@ public class BlockPart
 
         private Vector3f parsePositionTo(JsonObject object)
         {
-            Vector3f vector3f = this.parsePosition(object, "to");
+            Vector3f vector3f = parsePosition(object, "to");
 
             if (vector3f.x >= -16.0F && vector3f.y >= -16.0F && vector3f.z >= -16.0F && vector3f.x <= 32.0F && vector3f.y <= 32.0F && vector3f.z <= 32.0F)
             {
@@ -191,7 +191,7 @@ public class BlockPart
 
         private Vector3f parsePositionFrom(JsonObject object)
         {
-            Vector3f vector3f = this.parsePosition(object, "from");
+            Vector3f vector3f = parsePosition(object, "from");
 
             if (vector3f.x >= -16.0F && vector3f.y >= -16.0F && vector3f.z >= -16.0F && vector3f.x <= 32.0F && vector3f.y <= 32.0F && vector3f.z <= 32.0F)
             {

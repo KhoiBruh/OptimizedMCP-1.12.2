@@ -27,8 +27,8 @@ public class BlockReed extends Block
     protected BlockReed()
     {
         super(Material.PLANTS);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(AGE, Integer.valueOf(0)));
-        this.setTickRandomly(true);
+        setDefaultState(blockState.getBaseState().withProperty(AGE, Integer.valueOf(0)));
+        setTickRandomly(true);
     }
 
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
@@ -38,7 +38,7 @@ public class BlockReed extends Block
 
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
     {
-        if (worldIn.getBlockState(pos.down()).getBlock() == Blocks.REEDS || this.checkForDrop(worldIn, pos, state))
+        if (worldIn.getBlockState(pos.down()).getBlock() == Blocks.REEDS || checkForDrop(worldIn, pos, state))
         {
             if (worldIn.isAirBlock(pos.up()))
             {
@@ -55,7 +55,7 @@ public class BlockReed extends Block
 
                     if (j == 15)
                     {
-                        worldIn.setBlockState(pos.up(), this.getDefaultState());
+                        worldIn.setBlockState(pos.up(), getDefaultState());
                         worldIn.setBlockState(pos, state.withProperty(AGE, Integer.valueOf(0)), 4);
                     }
                     else
@@ -107,18 +107,18 @@ public class BlockReed extends Block
      */
     public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos)
     {
-        this.checkForDrop(worldIn, pos, state);
+        checkForDrop(worldIn, pos, state);
     }
 
     protected final boolean checkForDrop(World worldIn, BlockPos pos, IBlockState state)
     {
-        if (this.canBlockStay(worldIn, pos))
+        if (canBlockStay(worldIn, pos))
         {
             return true;
         }
         else
         {
-            this.dropBlockAsItem(worldIn, pos, state, 0);
+            dropBlockAsItem(worldIn, pos, state, 0);
             worldIn.setBlockToAir(pos);
             return false;
         }
@@ -126,7 +126,7 @@ public class BlockReed extends Block
 
     public boolean canBlockStay(World worldIn, BlockPos pos)
     {
-        return this.canPlaceBlockAt(worldIn, pos);
+        return canPlaceBlockAt(worldIn, pos);
     }
 
     @Nullable
@@ -175,7 +175,7 @@ public class BlockReed extends Block
      */
     public IBlockState getStateFromMeta(int meta)
     {
-        return this.getDefaultState().withProperty(AGE, Integer.valueOf(meta));
+        return getDefaultState().withProperty(AGE, Integer.valueOf(meta));
     }
 
     /**

@@ -19,43 +19,43 @@ public class BossInfoServer extends BossInfo
     public BossInfoServer(ITextComponent nameIn, BossInfo.Color colorIn, BossInfo.Overlay overlayIn)
     {
         super(MathHelper.getRandomUUID(), nameIn, colorIn, overlayIn);
-        this.readOnlyPlayers = Collections.<EntityPlayerMP>unmodifiableSet(this.players);
-        this.visible = true;
+        readOnlyPlayers = Collections.<EntityPlayerMP>unmodifiableSet(players);
+        visible = true;
     }
 
     public void setPercent(float percentIn)
     {
-        if (percentIn != this.percent)
+        if (percentIn != percent)
         {
             super.setPercent(percentIn);
-            this.sendUpdate(SPacketUpdateBossInfo.Operation.UPDATE_PCT);
+            sendUpdate(SPacketUpdateBossInfo.Operation.UPDATE_PCT);
         }
     }
 
     public void setColor(BossInfo.Color colorIn)
     {
-        if (colorIn != this.color)
+        if (colorIn != color)
         {
             super.setColor(colorIn);
-            this.sendUpdate(SPacketUpdateBossInfo.Operation.UPDATE_STYLE);
+            sendUpdate(SPacketUpdateBossInfo.Operation.UPDATE_STYLE);
         }
     }
 
     public void setOverlay(BossInfo.Overlay overlayIn)
     {
-        if (overlayIn != this.overlay)
+        if (overlayIn != overlay)
         {
             super.setOverlay(overlayIn);
-            this.sendUpdate(SPacketUpdateBossInfo.Operation.UPDATE_STYLE);
+            sendUpdate(SPacketUpdateBossInfo.Operation.UPDATE_STYLE);
         }
     }
 
     public BossInfo setDarkenSky(boolean darkenSkyIn)
     {
-        if (darkenSkyIn != this.darkenSky)
+        if (darkenSkyIn != darkenSky)
         {
             super.setDarkenSky(darkenSkyIn);
-            this.sendUpdate(SPacketUpdateBossInfo.Operation.UPDATE_PROPERTIES);
+            sendUpdate(SPacketUpdateBossInfo.Operation.UPDATE_PROPERTIES);
         }
 
         return this;
@@ -63,10 +63,10 @@ public class BossInfoServer extends BossInfo
 
     public BossInfo setPlayEndBossMusic(boolean playEndBossMusicIn)
     {
-        if (playEndBossMusicIn != this.playEndBossMusic)
+        if (playEndBossMusicIn != playEndBossMusic)
         {
             super.setPlayEndBossMusic(playEndBossMusicIn);
-            this.sendUpdate(SPacketUpdateBossInfo.Operation.UPDATE_PROPERTIES);
+            sendUpdate(SPacketUpdateBossInfo.Operation.UPDATE_PROPERTIES);
         }
 
         return this;
@@ -74,10 +74,10 @@ public class BossInfoServer extends BossInfo
 
     public BossInfo setCreateFog(boolean createFogIn)
     {
-        if (createFogIn != this.createFog)
+        if (createFogIn != createFog)
         {
             super.setCreateFog(createFogIn);
-            this.sendUpdate(SPacketUpdateBossInfo.Operation.UPDATE_PROPERTIES);
+            sendUpdate(SPacketUpdateBossInfo.Operation.UPDATE_PROPERTIES);
         }
 
         return this;
@@ -85,20 +85,20 @@ public class BossInfoServer extends BossInfo
 
     public void setName(ITextComponent nameIn)
     {
-        if (!Objects.equal(nameIn, this.name))
+        if (!Objects.equal(nameIn, name))
         {
             super.setName(nameIn);
-            this.sendUpdate(SPacketUpdateBossInfo.Operation.UPDATE_NAME);
+            sendUpdate(SPacketUpdateBossInfo.Operation.UPDATE_NAME);
         }
     }
 
     private void sendUpdate(SPacketUpdateBossInfo.Operation operationIn)
     {
-        if (this.visible)
+        if (visible)
         {
             SPacketUpdateBossInfo spacketupdatebossinfo = new SPacketUpdateBossInfo(operationIn, this);
 
-            for (EntityPlayerMP entityplayermp : this.players)
+            for (EntityPlayerMP entityplayermp : players)
             {
                 entityplayermp.connection.sendPacket(spacketupdatebossinfo);
             }
@@ -110,7 +110,7 @@ public class BossInfoServer extends BossInfo
      */
     public void addPlayer(EntityPlayerMP player)
     {
-        if (this.players.add(player) && this.visible)
+        if (players.add(player) && visible)
         {
             player.connection.sendPacket(new SPacketUpdateBossInfo(SPacketUpdateBossInfo.Operation.ADD, this));
         }
@@ -121,7 +121,7 @@ public class BossInfoServer extends BossInfo
      */
     public void removePlayer(EntityPlayerMP player)
     {
-        if (this.players.remove(player) && this.visible)
+        if (players.remove(player) && visible)
         {
             player.connection.sendPacket(new SPacketUpdateBossInfo(SPacketUpdateBossInfo.Operation.REMOVE, this));
         }
@@ -129,11 +129,11 @@ public class BossInfoServer extends BossInfo
 
     public void setVisible(boolean visibleIn)
     {
-        if (visibleIn != this.visible)
+        if (visibleIn != visible)
         {
-            this.visible = visibleIn;
+            visible = visibleIn;
 
-            for (EntityPlayerMP entityplayermp : this.players)
+            for (EntityPlayerMP entityplayermp : players)
             {
                 entityplayermp.connection.sendPacket(new SPacketUpdateBossInfo(visibleIn ? SPacketUpdateBossInfo.Operation.ADD : SPacketUpdateBossInfo.Operation.REMOVE, this));
             }
@@ -142,6 +142,6 @@ public class BossInfoServer extends BossInfo
 
     public Collection<EntityPlayerMP> getPlayers()
     {
-        return this.readOnlyPlayers;
+        return readOnlyPlayers;
     }
 }

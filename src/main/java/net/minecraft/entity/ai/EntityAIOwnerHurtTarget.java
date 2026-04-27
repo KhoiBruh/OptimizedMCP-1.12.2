@@ -12,8 +12,8 @@ public class EntityAIOwnerHurtTarget extends EntityAITarget
     public EntityAIOwnerHurtTarget(EntityTameable theEntityTameableIn)
     {
         super(theEntityTameableIn, false);
-        this.tameable = theEntityTameableIn;
-        this.setMutexBits(1);
+        tameable = theEntityTameableIn;
+        setMutexBits(1);
     }
 
     /**
@@ -21,13 +21,13 @@ public class EntityAIOwnerHurtTarget extends EntityAITarget
      */
     public boolean shouldExecute()
     {
-        if (!this.tameable.isTamed())
+        if (!tameable.isTamed())
         {
             return false;
         }
         else
         {
-            EntityLivingBase entitylivingbase = this.tameable.getOwner();
+            EntityLivingBase entitylivingbase = tameable.getOwner();
 
             if (entitylivingbase == null)
             {
@@ -35,9 +35,9 @@ public class EntityAIOwnerHurtTarget extends EntityAITarget
             }
             else
             {
-                this.attacker = entitylivingbase.getLastAttackedEntity();
+                attacker = entitylivingbase.getLastAttackedEntity();
                 int i = entitylivingbase.getLastAttackedEntityTime();
-                return i != this.timestamp && this.isSuitableTarget(this.attacker, false) && this.tameable.shouldAttackEntity(this.attacker, entitylivingbase);
+                return i != timestamp && isSuitableTarget(attacker, false) && tameable.shouldAttackEntity(attacker, entitylivingbase);
             }
         }
     }
@@ -47,12 +47,12 @@ public class EntityAIOwnerHurtTarget extends EntityAITarget
      */
     public void startExecuting()
     {
-        this.taskOwner.setAttackTarget(this.attacker);
-        EntityLivingBase entitylivingbase = this.tameable.getOwner();
+        taskOwner.setAttackTarget(attacker);
+        EntityLivingBase entitylivingbase = tameable.getOwner();
 
         if (entitylivingbase != null)
         {
-            this.timestamp = entitylivingbase.getLastAttackedEntityTime();
+            timestamp = entitylivingbase.getLastAttackedEntityTime();
         }
 
         super.startExecuting();

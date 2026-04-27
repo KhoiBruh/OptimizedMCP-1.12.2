@@ -15,7 +15,7 @@ public class RenderWolf extends RenderLiving<EntityWolf>
     public RenderWolf(RenderManager p_i47187_1_)
     {
         super(p_i47187_1_, new ModelWolf(), 0.5F);
-        this.addLayer(new LayerWolfCollar(this));
+        addLayer(new LayerWolfCollar(this));
     }
 
     /**

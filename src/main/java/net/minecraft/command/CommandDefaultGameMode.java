@@ -34,8 +34,8 @@ public class CommandDefaultGameMode extends CommandGameMode
         }
         else
         {
-            GameType gametype = this.getGameModeFromCommand(sender, args[0]);
-            this.setDefaultGameType(gametype, server);
+            GameType gametype = getGameModeFromCommand(sender, args[0]);
+            setDefaultGameType(gametype, server);
             notifyCommandListener(sender, this, "commands.defaultgamemode.success", new Object[] {new TextComponentTranslation("gameMode." + gametype.getName(), new Object[0])});
         }
     }

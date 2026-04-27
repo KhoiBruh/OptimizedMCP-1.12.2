@@ -32,11 +32,11 @@ public class SPacketTitle implements Packet<INetHandlerPlayClient>
 
     public SPacketTitle(SPacketTitle.Type typeIn, @Nullable ITextComponent messageIn, int fadeInTimeIn, int displayTimeIn, int fadeOutTimeIn)
     {
-        this.type = typeIn;
-        this.message = messageIn;
-        this.fadeInTime = fadeInTimeIn;
-        this.displayTime = displayTimeIn;
-        this.fadeOutTime = fadeOutTimeIn;
+        type = typeIn;
+        message = messageIn;
+        fadeInTime = fadeInTimeIn;
+        displayTime = displayTimeIn;
+        fadeOutTime = fadeOutTimeIn;
     }
 
     /**
@@ -44,18 +44,18 @@ public class SPacketTitle implements Packet<INetHandlerPlayClient>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.type = (SPacketTitle.Type)buf.readEnumValue(SPacketTitle.Type.class);
+        type = (SPacketTitle.Type)buf.readEnumValue(SPacketTitle.Type.class);
 
-        if (this.type == SPacketTitle.Type.TITLE || this.type == SPacketTitle.Type.SUBTITLE || this.type == SPacketTitle.Type.ACTIONBAR)
+        if (type == SPacketTitle.Type.TITLE || type == SPacketTitle.Type.SUBTITLE || type == SPacketTitle.Type.ACTIONBAR)
         {
-            this.message = buf.readTextComponent();
+            message = buf.readTextComponent();
         }
 
-        if (this.type == SPacketTitle.Type.TIMES)
+        if (type == SPacketTitle.Type.TIMES)
         {
-            this.fadeInTime = buf.readInt();
-            this.displayTime = buf.readInt();
-            this.fadeOutTime = buf.readInt();
+            fadeInTime = buf.readInt();
+            displayTime = buf.readInt();
+            fadeOutTime = buf.readInt();
         }
     }
 
@@ -64,18 +64,18 @@ public class SPacketTitle implements Packet<INetHandlerPlayClient>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeEnumValue(this.type);
+        buf.writeEnumValue(type);
 
-        if (this.type == SPacketTitle.Type.TITLE || this.type == SPacketTitle.Type.SUBTITLE || this.type == SPacketTitle.Type.ACTIONBAR)
+        if (type == SPacketTitle.Type.TITLE || type == SPacketTitle.Type.SUBTITLE || type == SPacketTitle.Type.ACTIONBAR)
         {
-            buf.writeTextComponent(this.message);
+            buf.writeTextComponent(message);
         }
 
-        if (this.type == SPacketTitle.Type.TIMES)
+        if (type == SPacketTitle.Type.TIMES)
         {
-            buf.writeInt(this.fadeInTime);
-            buf.writeInt(this.displayTime);
-            buf.writeInt(this.fadeOutTime);
+            buf.writeInt(fadeInTime);
+            buf.writeInt(displayTime);
+            buf.writeInt(fadeOutTime);
         }
     }
 
@@ -89,27 +89,27 @@ public class SPacketTitle implements Packet<INetHandlerPlayClient>
 
     public SPacketTitle.Type getType()
     {
-        return this.type;
+        return type;
     }
 
     public ITextComponent getMessage()
     {
-        return this.message;
+        return message;
     }
 
     public int getFadeInTime()
     {
-        return this.fadeInTime;
+        return fadeInTime;
     }
 
     public int getDisplayTime()
     {
-        return this.displayTime;
+        return displayTime;
     }
 
     public int getFadeOutTime()
     {
-        return this.fadeOutTime;
+        return fadeOutTime;
     }
 
     public static enum Type

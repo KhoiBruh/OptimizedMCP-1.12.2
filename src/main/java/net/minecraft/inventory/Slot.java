@@ -23,10 +23,10 @@ public class Slot
 
     public Slot(IInventory inventoryIn, int index, int xPosition, int yPosition)
     {
-        this.inventory = inventoryIn;
-        this.slotIndex = index;
-        this.xPos = xPosition;
-        this.yPos = yPosition;
+        inventory = inventoryIn;
+        slotIndex = index;
+        xPos = xPosition;
+        yPos = yPosition;
     }
 
     /**
@@ -38,7 +38,7 @@ public class Slot
 
         if (i > 0)
         {
-            this.onCrafting(p_75220_2_, i);
+            onCrafting(p_75220_2_, i);
         }
     }
 
@@ -63,7 +63,7 @@ public class Slot
 
     public ItemStack onTake(EntityPlayer thePlayer, ItemStack stack)
     {
-        this.onSlotChanged();
+        onSlotChanged();
         return stack;
     }
 
@@ -80,7 +80,7 @@ public class Slot
      */
     public ItemStack getStack()
     {
-        return this.inventory.getStackInSlot(this.slotIndex);
+        return inventory.getStackInSlot(slotIndex);
     }
 
     /**
@@ -88,7 +88,7 @@ public class Slot
      */
     public boolean getHasStack()
     {
-        return !this.getStack().isEmpty();
+        return !getStack().isEmpty();
     }
 
     /**
@@ -96,8 +96,8 @@ public class Slot
      */
     public void putStack(ItemStack stack)
     {
-        this.inventory.setInventorySlotContents(this.slotIndex, stack);
-        this.onSlotChanged();
+        inventory.setInventorySlotContents(slotIndex, stack);
+        onSlotChanged();
     }
 
     /**
@@ -105,7 +105,7 @@ public class Slot
      */
     public void onSlotChanged()
     {
-        this.inventory.markDirty();
+        inventory.markDirty();
     }
 
     /**
@@ -114,12 +114,12 @@ public class Slot
      */
     public int getSlotStackLimit()
     {
-        return this.inventory.getInventoryStackLimit();
+        return inventory.getInventoryStackLimit();
     }
 
     public int getItemStackLimit(ItemStack stack)
     {
-        return this.getSlotStackLimit();
+        return getSlotStackLimit();
     }
 
     @Nullable
@@ -134,7 +134,7 @@ public class Slot
      */
     public ItemStack decrStackSize(int amount)
     {
-        return this.inventory.decrStackSize(this.slotIndex, amount);
+        return inventory.decrStackSize(slotIndex, amount);
     }
 
     /**
@@ -142,7 +142,7 @@ public class Slot
      */
     public boolean isHere(IInventory inv, int slotIn)
     {
-        return inv == this.inventory && slotIn == this.slotIndex;
+        return inv == inventory && slotIn == slotIndex;
     }
 
     /**

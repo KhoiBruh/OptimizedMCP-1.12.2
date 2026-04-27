@@ -37,9 +37,9 @@ public class ServerData
 
     public ServerData(String name, String ip, boolean isLan)
     {
-        this.serverName = name;
-        this.serverIP = ip;
-        this.lanServer = isLan;
+        serverName = name;
+        serverIP = ip;
+        lanServer = isLan;
     }
 
     /**
@@ -48,19 +48,19 @@ public class ServerData
     public NBTTagCompound getNBTCompound()
     {
         NBTTagCompound nbttagcompound = new NBTTagCompound();
-        nbttagcompound.setString("name", this.serverName);
-        nbttagcompound.setString("ip", this.serverIP);
+        nbttagcompound.setString("name", serverName);
+        nbttagcompound.setString("ip", serverIP);
 
-        if (this.serverIcon != null)
+        if (serverIcon != null)
         {
-            nbttagcompound.setString("icon", this.serverIcon);
+            nbttagcompound.setString("icon", serverIcon);
         }
 
-        if (this.resourceMode == ServerData.ServerResourceMode.ENABLED)
+        if (resourceMode == ServerData.ServerResourceMode.ENABLED)
         {
             nbttagcompound.setBoolean("acceptTextures", true);
         }
-        else if (this.resourceMode == ServerData.ServerResourceMode.DISABLED)
+        else if (resourceMode == ServerData.ServerResourceMode.DISABLED)
         {
             nbttagcompound.setBoolean("acceptTextures", false);
         }
@@ -70,12 +70,12 @@ public class ServerData
 
     public ServerData.ServerResourceMode getResourceMode()
     {
-        return this.resourceMode;
+        return resourceMode;
     }
 
     public void setResourceMode(ServerData.ServerResourceMode mode)
     {
-        this.resourceMode = mode;
+        resourceMode = mode;
     }
 
     /**
@@ -114,12 +114,12 @@ public class ServerData
      */
     public String getBase64EncodedIconData()
     {
-        return this.serverIcon;
+        return serverIcon;
     }
 
     public void setBase64EncodedIconData(String icon)
     {
-        this.serverIcon = icon;
+        serverIcon = icon;
     }
 
     /**
@@ -127,16 +127,16 @@ public class ServerData
      */
     public boolean isOnLAN()
     {
-        return this.lanServer;
+        return lanServer;
     }
 
     public void copyFrom(ServerData serverDataIn)
     {
-        this.serverIP = serverDataIn.serverIP;
-        this.serverName = serverDataIn.serverName;
-        this.setResourceMode(serverDataIn.getResourceMode());
-        this.serverIcon = serverDataIn.serverIcon;
-        this.lanServer = serverDataIn.lanServer;
+        serverIP = serverDataIn.serverIP;
+        serverName = serverDataIn.serverName;
+        setResourceMode(serverDataIn.getResourceMode());
+        serverIcon = serverDataIn.serverIcon;
+        lanServer = serverDataIn.lanServer;
     }
 
     public static enum ServerResourceMode
@@ -149,12 +149,12 @@ public class ServerData
 
         private ServerResourceMode(String name)
         {
-            this.motd = new TextComponentTranslation("addServer.resourcePack." + name, new Object[0]);
+            motd = new TextComponentTranslation("addServer.resourcePack." + name, new Object[0]);
         }
 
         public ITextComponent getMotd()
         {
-            return this.motd;
+            return motd;
         }
     }
 }

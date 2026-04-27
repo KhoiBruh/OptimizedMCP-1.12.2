@@ -20,9 +20,9 @@ public class EntityOtherPlayerMP extends AbstractClientPlayer
     public EntityOtherPlayerMP(World worldIn, GameProfile gameProfileIn)
     {
         super(worldIn, gameProfileIn);
-        this.stepHeight = 1.0F;
-        this.noClip = true;
-        this.renderOffsetY = 0.25F;
+        stepHeight = 1.0F;
+        noClip = true;
+        renderOffsetY = 0.25F;
     }
 
     /**
@@ -30,7 +30,7 @@ public class EntityOtherPlayerMP extends AbstractClientPlayer
      */
     public boolean isInRangeToRenderDist(double distance)
     {
-        double d0 = this.getEntityBoundingBox().getAverageEdgeLength() * 10.0D;
+        double d0 = getEntityBoundingBox().getAverageEdgeLength() * 10.0D;
 
         if (Double.isNaN(d0))
         {
@@ -54,12 +54,12 @@ public class EntityOtherPlayerMP extends AbstractClientPlayer
      */
     public void setPositionAndRotationDirect(double x, double y, double z, float yaw, float pitch, int posRotationIncrements, boolean teleport)
     {
-        this.otherPlayerMPX = x;
-        this.otherPlayerMPY = y;
-        this.otherPlayerMPZ = z;
-        this.otherPlayerMPYaw = (double)yaw;
-        this.otherPlayerMPPitch = (double)pitch;
-        this.otherPlayerMPPosRotationIncrements = posRotationIncrements;
+        otherPlayerMPX = x;
+        otherPlayerMPY = y;
+        otherPlayerMPZ = z;
+        otherPlayerMPYaw = (double)yaw;
+        otherPlayerMPPitch = (double)pitch;
+        otherPlayerMPPosRotationIncrements = posRotationIncrements;
     }
 
     /**
@@ -67,11 +67,11 @@ public class EntityOtherPlayerMP extends AbstractClientPlayer
      */
     public void onUpdate()
     {
-        this.renderOffsetY = 0.0F;
+        renderOffsetY = 0.0F;
         super.onUpdate();
-        this.prevLimbSwingAmount = this.limbSwingAmount;
-        double d0 = this.posX - this.prevPosX;
-        double d1 = this.posZ - this.prevPosZ;
+        prevLimbSwingAmount = limbSwingAmount;
+        double d0 = posX - prevPosX;
+        double d1 = posZ - prevPosZ;
         float f = MathHelper.sqrt(d0 * d0 + d1 * d1) * 4.0F;
 
         if (f > 1.0F)
@@ -79,8 +79,8 @@ public class EntityOtherPlayerMP extends AbstractClientPlayer
             f = 1.0F;
         }
 
-        this.limbSwingAmount += (f - this.limbSwingAmount) * 0.4F;
-        this.limbSwing += this.limbSwingAmount;
+        limbSwingAmount += (f - limbSwingAmount) * 0.4F;
+        limbSwing += limbSwingAmount;
     }
 
     /**
@@ -89,14 +89,14 @@ public class EntityOtherPlayerMP extends AbstractClientPlayer
      */
     public void onLivingUpdate()
     {
-        if (this.otherPlayerMPPosRotationIncrements > 0)
+        if (otherPlayerMPPosRotationIncrements > 0)
         {
-            double d0 = this.posX + (this.otherPlayerMPX - this.posX) / (double)this.otherPlayerMPPosRotationIncrements;
-            double d1 = this.posY + (this.otherPlayerMPY - this.posY) / (double)this.otherPlayerMPPosRotationIncrements;
-            double d2 = this.posZ + (this.otherPlayerMPZ - this.posZ) / (double)this.otherPlayerMPPosRotationIncrements;
+            double d0 = posX + (otherPlayerMPX - posX) / (double) otherPlayerMPPosRotationIncrements;
+            double d1 = posY + (otherPlayerMPY - posY) / (double) otherPlayerMPPosRotationIncrements;
+            double d2 = posZ + (otherPlayerMPZ - posZ) / (double) otherPlayerMPPosRotationIncrements;
             double d3;
 
-            for (d3 = this.otherPlayerMPYaw - (double)this.rotationYaw; d3 < -180.0D; d3 += 360.0D)
+            for (d3 = otherPlayerMPYaw - (double) rotationYaw; d3 < -180.0D; d3 += 360.0D)
             {
                 ;
             }
@@ -106,38 +106,38 @@ public class EntityOtherPlayerMP extends AbstractClientPlayer
                 d3 -= 360.0D;
             }
 
-            this.rotationYaw = (float)((double)this.rotationYaw + d3 / (double)this.otherPlayerMPPosRotationIncrements);
-            this.rotationPitch = (float)((double)this.rotationPitch + (this.otherPlayerMPPitch - (double)this.rotationPitch) / (double)this.otherPlayerMPPosRotationIncrements);
-            --this.otherPlayerMPPosRotationIncrements;
-            this.setPosition(d0, d1, d2);
-            this.setRotation(this.rotationYaw, this.rotationPitch);
+            rotationYaw = (float)((double) rotationYaw + d3 / (double) otherPlayerMPPosRotationIncrements);
+            rotationPitch = (float)((double) rotationPitch + (otherPlayerMPPitch - (double) rotationPitch) / (double) otherPlayerMPPosRotationIncrements);
+            --otherPlayerMPPosRotationIncrements;
+            setPosition(d0, d1, d2);
+            setRotation(rotationYaw, rotationPitch);
         }
 
-        this.prevCameraYaw = this.cameraYaw;
-        this.updateArmSwingProgress();
-        float f1 = MathHelper.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);
-        float f = (float)Math.atan(-this.motionY * 0.20000000298023224D) * 15.0F;
+        prevCameraYaw = cameraYaw;
+        updateArmSwingProgress();
+        float f1 = MathHelper.sqrt(motionX * motionX + motionZ * motionZ);
+        float f = (float)Math.atan(-motionY * 0.20000000298023224D) * 15.0F;
 
         if (f1 > 0.1F)
         {
             f1 = 0.1F;
         }
 
-        if (!this.onGround || this.getHealth() <= 0.0F)
+        if (!onGround || getHealth() <= 0.0F)
         {
             f1 = 0.0F;
         }
 
-        if (this.onGround || this.getHealth() <= 0.0F)
+        if (onGround || getHealth() <= 0.0F)
         {
             f = 0.0F;
         }
 
-        this.cameraYaw += (f1 - this.cameraYaw) * 0.4F;
-        this.cameraPitch += (f - this.cameraPitch) * 0.8F;
-        this.world.profiler.startSection("push");
-        this.collideWithNearbyEntities();
-        this.world.profiler.endSection();
+        cameraYaw += (f1 - cameraYaw) * 0.4F;
+        cameraPitch += (f - cameraPitch) * 0.8F;
+        world.profiler.startSection("push");
+        collideWithNearbyEntities();
+        world.profiler.endSection();
     }
 
     /**
@@ -162,6 +162,6 @@ public class EntityOtherPlayerMP extends AbstractClientPlayer
      */
     public BlockPos getPosition()
     {
-        return new BlockPos(this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D);
+        return new BlockPos(posX + 0.5D, posY + 0.5D, posZ + 0.5D);
     }
 }

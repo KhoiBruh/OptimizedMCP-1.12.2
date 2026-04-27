@@ -33,10 +33,10 @@ public class LoadingScreenRenderer implements IProgressUpdate
 
     public LoadingScreenRenderer(Minecraft mcIn)
     {
-        this.mc = mcIn;
-        this.scaledResolution = new ScaledResolution(mcIn);
-        this.framebuffer = new Framebuffer(mcIn.displayWidth, mcIn.displayHeight, false);
-        this.framebuffer.setFramebufferFilter(9728);
+        mc = mcIn;
+        scaledResolution = new ScaledResolution(mcIn);
+        framebuffer = new Framebuffer(mcIn.displayWidth, mcIn.displayHeight, false);
+        framebuffer.setFramebufferFilter(9728);
     }
 
     /**
@@ -45,8 +45,8 @@ public class LoadingScreenRenderer implements IProgressUpdate
      */
     public void resetProgressAndMessage(String message)
     {
-        this.loadingSuccess = false;
-        this.displayString(message);
+        loadingSuccess = false;
+        displayString(message);
     }
 
     /**
@@ -54,17 +54,17 @@ public class LoadingScreenRenderer implements IProgressUpdate
      */
     public void displaySavingString(String message)
     {
-        this.loadingSuccess = true;
-        this.displayString(message);
+        loadingSuccess = true;
+        displayString(message);
     }
 
     private void displayString(String message)
     {
-        this.currentlyDisplayedText = message;
+        currentlyDisplayedText = message;
 
-        if (!this.mc.running)
+        if (!mc.running)
         {
-            if (!this.loadingSuccess)
+            if (!loadingSuccess)
             {
                 throw new MinecraftError();
             }
@@ -77,12 +77,12 @@ public class LoadingScreenRenderer implements IProgressUpdate
 
             if (OpenGlHelper.isFramebufferEnabled())
             {
-                int i = this.scaledResolution.getScaleFactor();
-                GlStateManager.ortho(0.0D, (double)(this.scaledResolution.getScaledWidth() * i), (double)(this.scaledResolution.getScaledHeight() * i), 0.0D, 100.0D, 300.0D);
+                int i = scaledResolution.getScaleFactor();
+                GlStateManager.ortho(0.0D, (double)(scaledResolution.getScaledWidth() * i), (double)(scaledResolution.getScaledHeight() * i), 0.0D, 100.0D, 300.0D);
             }
             else
             {
-                ScaledResolution scaledresolution = new ScaledResolution(this.mc);
+                ScaledResolution scaledresolution = new ScaledResolution(mc);
                 GlStateManager.ortho(0.0D, scaledresolution.getScaledWidth_double(), scaledresolution.getScaledHeight_double(), 0.0D, 100.0D, 300.0D);
             }
 
@@ -97,19 +97,19 @@ public class LoadingScreenRenderer implements IProgressUpdate
      */
     public void displayLoadingString(String message)
     {
-        if (!this.mc.running)
+        if (!mc.running)
         {
-            if (!this.loadingSuccess)
+            if (!loadingSuccess)
             {
                 throw new MinecraftError();
             }
         }
         else
         {
-            this.systemTime = 0L;
+            systemTime = 0L;
             this.message = message;
-            this.setLoadingProgress(-1);
-            this.systemTime = 0L;
+            setLoadingProgress(-1);
+            systemTime = 0L;
         }
     }
 
@@ -118,9 +118,9 @@ public class LoadingScreenRenderer implements IProgressUpdate
      */
     public void setLoadingProgress(int progress)
     {
-        if (!this.mc.running)
+        if (!mc.running)
         {
-            if (!this.loadingSuccess)
+            if (!loadingSuccess)
             {
                 throw new MinecraftError();
             }
@@ -129,24 +129,24 @@ public class LoadingScreenRenderer implements IProgressUpdate
         {
             long i = Minecraft.getSystemTime();
 
-            if (i - this.systemTime >= 100L)
+            if (i - systemTime >= 100L)
             {
-                this.systemTime = i;
-                ScaledResolution scaledresolution = new ScaledResolution(this.mc);
+                systemTime = i;
+                ScaledResolution scaledresolution = new ScaledResolution(mc);
                 int j = scaledresolution.getScaleFactor();
                 int k = scaledresolution.getScaledWidth();
                 int l = scaledresolution.getScaledHeight();
 
                 if (OpenGlHelper.isFramebufferEnabled())
                 {
-                    this.framebuffer.framebufferClear();
+                    framebuffer.framebufferClear();
                 }
                 else
                 {
                     GlStateManager.clear(256);
                 }
 
-                this.framebuffer.bindFramebuffer(false);
+                framebuffer.bindFramebuffer(false);
                 GlStateManager.matrixMode(5889);
                 GlStateManager.loadIdentity();
                 GlStateManager.ortho(0.0D, scaledresolution.getScaledWidth_double(), scaledresolution.getScaledHeight_double(), 0.0D, 100.0D, 300.0D);
@@ -161,7 +161,7 @@ public class LoadingScreenRenderer implements IProgressUpdate
 
                 Tessellator tessellator = Tessellator.getInstance();
                 BufferBuilder bufferbuilder = tessellator.getBuffer();
-                this.mc.getTextureManager().bindTexture(Gui.OPTIONS_BACKGROUND);
+                mc.getTextureManager().bindTexture(Gui.OPTIONS_BACKGROUND);
                 float f = 32.0F;
                 bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
                 bufferbuilder.pos(0.0D, (double)l, 0.0D).tex(0.0D, (double)((float)l / 32.0F)).color(64, 64, 64, 255).endVertex();
@@ -192,16 +192,16 @@ public class LoadingScreenRenderer implements IProgressUpdate
 
                 GlStateManager.enableBlend();
                 GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-                this.mc.fontRenderer.drawStringWithShadow(this.currentlyDisplayedText, (float)((k - this.mc.fontRenderer.getStringWidth(this.currentlyDisplayedText)) / 2), (float)(l / 2 - 4 - 16), 16777215);
-                this.mc.fontRenderer.drawStringWithShadow(this.message, (float)((k - this.mc.fontRenderer.getStringWidth(this.message)) / 2), (float)(l / 2 - 4 + 8), 16777215);
-                this.framebuffer.unbindFramebuffer();
+                mc.fontRenderer.drawStringWithShadow(currentlyDisplayedText, (float)((k - mc.fontRenderer.getStringWidth(currentlyDisplayedText)) / 2), (float)(l / 2 - 4 - 16), 16777215);
+                mc.fontRenderer.drawStringWithShadow(message, (float)((k - mc.fontRenderer.getStringWidth(message)) / 2), (float)(l / 2 - 4 + 8), 16777215);
+                framebuffer.unbindFramebuffer();
 
                 if (OpenGlHelper.isFramebufferEnabled())
                 {
-                    this.framebuffer.framebufferRender(k * j, l * j);
+                    framebuffer.framebufferRender(k * j, l * j);
                 }
 
-                this.mc.updateDisplay();
+                mc.updateDisplay();
 
                 try
                 {

@@ -23,8 +23,8 @@ public class BlockConcretePowder extends BlockFalling
     public BlockConcretePowder()
     {
         super(Material.SAND);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(COLOR, EnumDyeColor.WHITE));
-        this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
+        setDefaultState(blockState.getBaseState().withProperty(COLOR, EnumDyeColor.WHITE));
+        setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
     }
 
     public void onEndFalling(World worldIn, BlockPos pos, IBlockState p_176502_3_, IBlockState p_176502_4_)
@@ -68,7 +68,7 @@ public class BlockConcretePowder extends BlockFalling
      */
     public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos)
     {
-        if (!this.tryTouchWater(worldIn, pos, state))
+        if (!tryTouchWater(worldIn, pos, state))
         {
             super.neighborChanged(state, worldIn, pos, blockIn, fromPos);
         }
@@ -79,7 +79,7 @@ public class BlockConcretePowder extends BlockFalling
      */
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state)
     {
-        if (!this.tryTouchWater(worldIn, pos, state))
+        if (!tryTouchWater(worldIn, pos, state))
         {
             super.onBlockAdded(worldIn, pos, state);
         }
@@ -118,7 +118,7 @@ public class BlockConcretePowder extends BlockFalling
      */
     public IBlockState getStateFromMeta(int meta)
     {
-        return this.getDefaultState().withProperty(COLOR, EnumDyeColor.byMetadata(meta));
+        return getDefaultState().withProperty(COLOR, EnumDyeColor.byMetadata(meta));
     }
 
     /**

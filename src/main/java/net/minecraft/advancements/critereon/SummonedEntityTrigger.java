@@ -26,12 +26,12 @@ public class SummonedEntityTrigger implements ICriterionTrigger<SummonedEntityTr
 
     public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<SummonedEntityTrigger.Instance> listener)
     {
-        SummonedEntityTrigger.Listeners summonedentitytrigger$listeners = this.listeners.get(playerAdvancementsIn);
+        SummonedEntityTrigger.Listeners summonedentitytrigger$listeners = listeners.get(playerAdvancementsIn);
 
         if (summonedentitytrigger$listeners == null)
         {
             summonedentitytrigger$listeners = new SummonedEntityTrigger.Listeners(playerAdvancementsIn);
-            this.listeners.put(playerAdvancementsIn, summonedentitytrigger$listeners);
+            listeners.put(playerAdvancementsIn, summonedentitytrigger$listeners);
         }
 
         summonedentitytrigger$listeners.add(listener);
@@ -39,7 +39,7 @@ public class SummonedEntityTrigger implements ICriterionTrigger<SummonedEntityTr
 
     public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<SummonedEntityTrigger.Instance> listener)
     {
-        SummonedEntityTrigger.Listeners summonedentitytrigger$listeners = this.listeners.get(playerAdvancementsIn);
+        SummonedEntityTrigger.Listeners summonedentitytrigger$listeners = listeners.get(playerAdvancementsIn);
 
         if (summonedentitytrigger$listeners != null)
         {
@@ -47,14 +47,14 @@ public class SummonedEntityTrigger implements ICriterionTrigger<SummonedEntityTr
 
             if (summonedentitytrigger$listeners.isEmpty())
             {
-                this.listeners.remove(playerAdvancementsIn);
+                listeners.remove(playerAdvancementsIn);
             }
         }
     }
 
     public void removeAllListeners(PlayerAdvancements playerAdvancementsIn)
     {
-        this.listeners.remove(playerAdvancementsIn);
+        listeners.remove(playerAdvancementsIn);
     }
 
     /**
@@ -68,7 +68,7 @@ public class SummonedEntityTrigger implements ICriterionTrigger<SummonedEntityTr
 
     public void trigger(EntityPlayerMP player, Entity entity)
     {
-        SummonedEntityTrigger.Listeners summonedentitytrigger$listeners = this.listeners.get(player.getAdvancements());
+        SummonedEntityTrigger.Listeners summonedentitytrigger$listeners = listeners.get(player.getAdvancements());
 
         if (summonedentitytrigger$listeners != null)
         {
@@ -99,29 +99,29 @@ public class SummonedEntityTrigger implements ICriterionTrigger<SummonedEntityTr
 
         public Listeners(PlayerAdvancements playerAdvancementsIn)
         {
-            this.playerAdvancements = playerAdvancementsIn;
+            playerAdvancements = playerAdvancementsIn;
         }
 
         public boolean isEmpty()
         {
-            return this.listeners.isEmpty();
+            return listeners.isEmpty();
         }
 
         public void add(ICriterionTrigger.Listener<SummonedEntityTrigger.Instance> listener)
         {
-            this.listeners.add(listener);
+            listeners.add(listener);
         }
 
         public void remove(ICriterionTrigger.Listener<SummonedEntityTrigger.Instance> listener)
         {
-            this.listeners.remove(listener);
+            listeners.remove(listener);
         }
 
         public void trigger(EntityPlayerMP player, Entity entity)
         {
             List<ICriterionTrigger.Listener<SummonedEntityTrigger.Instance>> list = null;
 
-            for (ICriterionTrigger.Listener<SummonedEntityTrigger.Instance> listener : this.listeners)
+            for (ICriterionTrigger.Listener<SummonedEntityTrigger.Instance> listener : listeners)
             {
                 if (((SummonedEntityTrigger.Instance)listener.getCriterionInstance()).test(player, entity))
                 {
@@ -138,7 +138,7 @@ public class SummonedEntityTrigger implements ICriterionTrigger<SummonedEntityTr
             {
                 for (ICriterionTrigger.Listener<SummonedEntityTrigger.Instance> listener1 : list)
                 {
-                    listener1.grantCriterion(this.playerAdvancements);
+                    listener1.grantCriterion(playerAdvancements);
                 }
             }
         }

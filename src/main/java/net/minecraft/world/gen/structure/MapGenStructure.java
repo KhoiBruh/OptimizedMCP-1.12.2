@@ -30,22 +30,22 @@ public abstract class MapGenStructure extends MapGenBase
      */
     protected final synchronized void recursiveGenerate(World worldIn, final int chunkX, final int chunkZ, int originalX, int originalZ, ChunkPrimer chunkPrimerIn)
     {
-        this.initializeStructureData(worldIn);
+        initializeStructureData(worldIn);
 
-        if (!this.structureMap.containsKey(ChunkPos.asLong(chunkX, chunkZ)))
+        if (!structureMap.containsKey(ChunkPos.asLong(chunkX, chunkZ)))
         {
-            this.rand.nextInt();
+            rand.nextInt();
 
             try
             {
-                if (this.canSpawnStructureAtCoords(chunkX, chunkZ))
+                if (canSpawnStructureAtCoords(chunkX, chunkZ))
                 {
-                    StructureStart structurestart = this.getStructureStart(chunkX, chunkZ);
-                    this.structureMap.put(ChunkPos.asLong(chunkX, chunkZ), structurestart);
+                    StructureStart structurestart = getStructureStart(chunkX, chunkZ);
+                    structureMap.put(ChunkPos.asLong(chunkX, chunkZ), structurestart);
 
                     if (structurestart.isSizeableStructure())
                     {
-                        this.setStructureStart(chunkX, chunkZ, structurestart);
+                        setStructureStart(chunkX, chunkZ, structurestart);
                     }
                 }
             }
@@ -57,7 +57,7 @@ public abstract class MapGenStructure extends MapGenBase
                 {
                     public String call() throws Exception
                     {
-                        return MapGenStructure.this.canSpawnStructureAtCoords(chunkX, chunkZ) ? "True" : "False";
+                        return canSpawnStructureAtCoords(chunkX, chunkZ) ? "True" : "False";
                     }
                 });
                 crashreportcategory.addCrashSection("Chunk location", String.format("%d,%d", chunkX, chunkZ));
@@ -82,11 +82,11 @@ public abstract class MapGenStructure extends MapGenBase
 
     public synchronized boolean generateStructure(World worldIn, Random randomIn, ChunkPos chunkCoord)
     {
-        this.initializeStructureData(worldIn);
+        initializeStructureData(worldIn);
         int i = (chunkCoord.x << 4) + 8;
         int j = (chunkCoord.z << 4) + 8;
         boolean flag = false;
-        ObjectIterator objectiterator = this.structureMap.values().iterator();
+        ObjectIterator objectiterator = structureMap.values().iterator();
 
         while (objectiterator.hasNext())
         {
@@ -97,7 +97,7 @@ public abstract class MapGenStructure extends MapGenBase
                 structurestart.generateStructure(worldIn, randomIn, new StructureBoundingBox(i, j, i + 15, j + 15));
                 structurestart.notifyPostProcessAt(chunkCoord);
                 flag = true;
-                this.setStructureStart(structurestart.getChunkPosX(), structurestart.getChunkPosZ(), structurestart);
+                setStructureStart(structurestart.getChunkPosX(), structurestart.getChunkPosZ(), structurestart);
             }
         }
 
@@ -106,21 +106,21 @@ public abstract class MapGenStructure extends MapGenBase
 
     public boolean isInsideStructure(BlockPos pos)
     {
-        if (this.world == null)
+        if (world == null)
         {
             return false;
         }
         else
         {
-            this.initializeStructureData(this.world);
-            return this.getStructureAt(pos) != null;
+            initializeStructureData(world);
+            return getStructureAt(pos) != null;
         }
     }
 
     @Nullable
     protected StructureStart getStructureAt(BlockPos pos)
     {
-        ObjectIterator objectiterator = this.structureMap.values().iterator();
+        ObjectIterator objectiterator = structureMap.values().iterator();
         label31:
 
         while (objectiterator.hasNext())
@@ -155,8 +155,8 @@ public abstract class MapGenStructure extends MapGenBase
 
     public boolean isPositionInStructure(World worldIn, BlockPos pos)
     {
-        this.initializeStructureData(worldIn);
-        ObjectIterator objectiterator = this.structureMap.values().iterator();
+        initializeStructureData(worldIn);
+        ObjectIterator objectiterator = structureMap.values().iterator();
 
         while (objectiterator.hasNext())
         {
@@ -176,18 +176,18 @@ public abstract class MapGenStructure extends MapGenBase
 
     protected void initializeStructureData(World worldIn)
     {
-        if (this.structureData == null && worldIn != null)
+        if (structureData == null && worldIn != null)
         {
-            this.structureData = (MapGenStructureData)worldIn.loadData(MapGenStructureData.class, this.getStructureName());
+            structureData = (MapGenStructureData)worldIn.loadData(MapGenStructureData.class, getStructureName());
 
-            if (this.structureData == null)
+            if (structureData == null)
             {
-                this.structureData = new MapGenStructureData(this.getStructureName());
-                worldIn.setData(this.getStructureName(), this.structureData);
+                structureData = new MapGenStructureData(getStructureName());
+                worldIn.setData(getStructureName(), structureData);
             }
             else
             {
-                NBTTagCompound nbttagcompound = this.structureData.getTagCompound();
+                NBTTagCompound nbttagcompound = structureData.getTagCompound();
 
                 for (String s : nbttagcompound.getKeySet())
                 {
@@ -205,7 +205,7 @@ public abstract class MapGenStructure extends MapGenBase
 
                             if (structurestart != null)
                             {
-                                this.structureMap.put(ChunkPos.asLong(i, j), structurestart);
+                                structureMap.put(ChunkPos.asLong(i, j), structurestart);
                             }
                         }
                     }
@@ -216,8 +216,8 @@ public abstract class MapGenStructure extends MapGenBase
 
     private void setStructureStart(int chunkX, int chunkZ, StructureStart start)
     {
-        this.structureData.writeInstance(start.writeStructureComponentsToNBT(chunkX, chunkZ), chunkX, chunkZ);
-        this.structureData.markDirty();
+        structureData.writeInstance(start.writeStructureComponentsToNBT(chunkX, chunkZ), chunkX, chunkZ);
+        structureData.markDirty();
     }
 
     protected abstract boolean canSpawnStructureAtCoords(int chunkX, int chunkZ);

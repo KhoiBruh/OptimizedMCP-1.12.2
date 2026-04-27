@@ -25,16 +25,16 @@ public class RecipeBookServer extends RecipeBook
 
         for (IRecipe irecipe : recipesIn)
         {
-            if (!this.recipes.get(getRecipeId(irecipe)) && !irecipe.isDynamic())
+            if (!recipes.get(getRecipeId(irecipe)) && !irecipe.isDynamic())
             {
-                this.unlock(irecipe);
-                this.markNew(irecipe);
+                unlock(irecipe);
+                markNew(irecipe);
                 list.add(irecipe);
                 CriteriaTriggers.RECIPE_UNLOCKED.trigger(player, irecipe);
             }
         }
 
-        this.sendPacket(SPacketRecipeBook.State.ADD, player, list);
+        sendPacket(SPacketRecipeBook.State.ADD, player, list);
     }
 
     public void remove(List<IRecipe> recipesIn, EntityPlayerMP player)
@@ -43,29 +43,29 @@ public class RecipeBookServer extends RecipeBook
 
         for (IRecipe irecipe : recipesIn)
         {
-            if (this.recipes.get(getRecipeId(irecipe)))
+            if (recipes.get(getRecipeId(irecipe)))
             {
-                this.lock(irecipe);
+                lock(irecipe);
                 list.add(irecipe);
             }
         }
 
-        this.sendPacket(SPacketRecipeBook.State.REMOVE, player, list);
+        sendPacket(SPacketRecipeBook.State.REMOVE, player, list);
     }
 
     private void sendPacket(SPacketRecipeBook.State state, EntityPlayerMP player, List<IRecipe> recipesIn)
     {
-        player.connection.sendPacket(new SPacketRecipeBook(state, recipesIn, Collections.emptyList(), this.isGuiOpen, this.isFilteringCraftable));
+        player.connection.sendPacket(new SPacketRecipeBook(state, recipesIn, Collections.emptyList(), isGuiOpen, isFilteringCraftable));
     }
 
     public NBTTagCompound write()
     {
         NBTTagCompound nbttagcompound = new NBTTagCompound();
-        nbttagcompound.setBoolean("isGuiOpen", this.isGuiOpen);
-        nbttagcompound.setBoolean("isFilteringCraftable", this.isFilteringCraftable);
+        nbttagcompound.setBoolean("isGuiOpen", isGuiOpen);
+        nbttagcompound.setBoolean("isFilteringCraftable", isFilteringCraftable);
         NBTTagList nbttaglist = new NBTTagList();
 
-        for (IRecipe irecipe : this.getRecipes())
+        for (IRecipe irecipe : getRecipes())
         {
             nbttaglist.appendTag(new NBTTagString(((ResourceLocation)CraftingManager.REGISTRY.getNameForObject(irecipe)).toString()));
         }
@@ -73,7 +73,7 @@ public class RecipeBookServer extends RecipeBook
         nbttagcompound.setTag("recipes", nbttaglist);
         NBTTagList nbttaglist1 = new NBTTagList();
 
-        for (IRecipe irecipe1 : this.getDisplayedRecipes())
+        for (IRecipe irecipe1 : getDisplayedRecipes())
         {
             nbttaglist1.appendTag(new NBTTagString(((ResourceLocation)CraftingManager.REGISTRY.getNameForObject(irecipe1)).toString()));
         }
@@ -84,8 +84,8 @@ public class RecipeBookServer extends RecipeBook
 
     public void read(NBTTagCompound tag)
     {
-        this.isGuiOpen = tag.getBoolean("isGuiOpen");
-        this.isFilteringCraftable = tag.getBoolean("isFilteringCraftable");
+        isGuiOpen = tag.getBoolean("isGuiOpen");
+        isFilteringCraftable = tag.getBoolean("isFilteringCraftable");
         NBTTagList nbttaglist = tag.getTagList("recipes", 8);
 
         for (int i = 0; i < nbttaglist.tagCount(); ++i)
@@ -99,7 +99,7 @@ public class RecipeBookServer extends RecipeBook
             }
             else
             {
-                this.unlock(irecipe);
+                unlock(irecipe);
             }
         }
 
@@ -116,7 +116,7 @@ public class RecipeBookServer extends RecipeBook
             }
             else
             {
-                this.markNew(irecipe1);
+                markNew(irecipe1);
             }
         }
     }
@@ -125,7 +125,7 @@ public class RecipeBookServer extends RecipeBook
     {
         List<IRecipe> list = Lists.<IRecipe>newArrayList();
 
-        for (int i = this.recipes.nextSetBit(0); i >= 0; i = this.recipes.nextSetBit(i + 1))
+        for (int i = recipes.nextSetBit(0); i >= 0; i = recipes.nextSetBit(i + 1))
         {
             list.add(CraftingManager.REGISTRY.getObjectById(i));
         }
@@ -137,7 +137,7 @@ public class RecipeBookServer extends RecipeBook
     {
         List<IRecipe> list = Lists.<IRecipe>newArrayList();
 
-        for (int i = this.newRecipes.nextSetBit(0); i >= 0; i = this.newRecipes.nextSetBit(i + 1))
+        for (int i = newRecipes.nextSetBit(0); i >= 0; i = newRecipes.nextSetBit(i + 1))
         {
             list.add(CraftingManager.REGISTRY.getObjectById(i));
         }
@@ -147,6 +147,6 @@ public class RecipeBookServer extends RecipeBook
 
     public void init(EntityPlayerMP player)
     {
-        player.connection.sendPacket(new SPacketRecipeBook(SPacketRecipeBook.State.INIT, this.getRecipes(), this.getDisplayedRecipes(), this.isGuiOpen, this.isFilteringCraftable));
+        player.connection.sendPacket(new SPacketRecipeBook(SPacketRecipeBook.State.INIT, getRecipes(), getDisplayedRecipes(), isGuiOpen, isFilteringCraftable));
     }
 }

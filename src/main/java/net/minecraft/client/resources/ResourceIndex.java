@@ -51,7 +51,7 @@ public class ResourceIndex
                     String s1 = astring.length == 1 ? astring[0] : astring[0] + ":" + astring[1];
                     String s2 = JsonUtils.getString(jsonobject2, "hash");
                     File file3 = new File(file1, s2.substring(0, 2) + "/" + s2);
-                    this.resourceMap.put(s1, file3);
+                    resourceMap.put(s1, file3);
                 }
             }
         }
@@ -73,17 +73,17 @@ public class ResourceIndex
     public File getFile(ResourceLocation location)
     {
         String s = location.toString();
-        return this.resourceMap.get(s);
+        return resourceMap.get(s);
     }
 
     public boolean isFileExisting(ResourceLocation location)
     {
-        File file1 = this.getFile(location);
+        File file1 = getFile(location);
         return file1 != null && file1.isFile();
     }
 
     public File getPackMcmeta()
     {
-        return this.resourceMap.get("pack.mcmeta");
+        return resourceMap.get("pack.mcmeta");
     }
 }

@@ -67,18 +67,18 @@ public class Potion
 
     protected Potion(boolean isBadEffectIn, int liquidColorIn)
     {
-        this.isBadEffect = isBadEffectIn;
+        isBadEffect = isBadEffectIn;
 
         if (isBadEffectIn)
         {
-            this.effectiveness = 0.5D;
+            effectiveness = 0.5D;
         }
         else
         {
-            this.effectiveness = 1.0D;
+            effectiveness = 1.0D;
         }
 
-        this.liquidColor = liquidColorIn;
+        liquidColor = liquidColorIn;
     }
 
     /**
@@ -86,7 +86,7 @@ public class Potion
      */
     protected Potion setIconIndex(int p_76399_1_, int p_76399_2_)
     {
-        this.statusIconIndex = p_76399_1_ + p_76399_2_ * 8;
+        statusIconIndex = p_76399_1_ + p_76399_2_ * 8;
         return this;
     }
 
@@ -222,7 +222,7 @@ public class Potion
      */
     public Potion setPotionName(String nameIn)
     {
-        this.name = nameIn;
+        name = nameIn;
         return this;
     }
 
@@ -231,7 +231,7 @@ public class Potion
      */
     public String getName()
     {
-        return this.name;
+        return name;
     }
 
     /**
@@ -239,7 +239,7 @@ public class Potion
      */
     public boolean hasStatusIcon()
     {
-        return this.statusIconIndex >= 0;
+        return statusIconIndex >= 0;
     }
 
     /**
@@ -247,7 +247,7 @@ public class Potion
      */
     public int getStatusIconIndex()
     {
-        return this.statusIconIndex;
+        return statusIconIndex;
     }
 
     /**
@@ -255,7 +255,7 @@ public class Potion
      */
     public boolean isBadEffect()
     {
-        return this.isBadEffect;
+        return isBadEffect;
     }
 
     public static String getPotionDurationString(PotionEffect effect, float durationFactor)
@@ -273,7 +273,7 @@ public class Potion
 
     protected Potion setEffectiveness(double effectivenessIn)
     {
-        this.effectiveness = effectivenessIn;
+        effectiveness = effectivenessIn;
         return this;
     }
 
@@ -282,7 +282,7 @@ public class Potion
      */
     public int getLiquidColor()
     {
-        return this.liquidColor;
+        return liquidColor;
     }
 
     /**
@@ -290,19 +290,19 @@ public class Potion
      */
     public Potion registerPotionAttributeModifier(IAttribute attribute, String uniqueId, double ammount, int operation)
     {
-        AttributeModifier attributemodifier = new AttributeModifier(UUID.fromString(uniqueId), this.getName(), ammount, operation);
-        this.attributeModifierMap.put(attribute, attributemodifier);
+        AttributeModifier attributemodifier = new AttributeModifier(UUID.fromString(uniqueId), getName(), ammount, operation);
+        attributeModifierMap.put(attribute, attributemodifier);
         return this;
     }
 
     public Map<IAttribute, AttributeModifier> getAttributeModifierMap()
     {
-        return this.attributeModifierMap;
+        return attributeModifierMap;
     }
 
     public void removeAttributesModifiersFromEntity(EntityLivingBase entityLivingBaseIn, AbstractAttributeMap attributeMapIn, int amplifier)
     {
-        for (Entry<IAttribute, AttributeModifier> entry : this.attributeModifierMap.entrySet())
+        for (Entry<IAttribute, AttributeModifier> entry : attributeModifierMap.entrySet())
         {
             IAttributeInstance iattributeinstance = attributeMapIn.getAttributeInstance(entry.getKey());
 
@@ -315,7 +315,7 @@ public class Potion
 
     public void applyAttributesModifiersToEntity(EntityLivingBase entityLivingBaseIn, AbstractAttributeMap attributeMapIn, int amplifier)
     {
-        for (Entry<IAttribute, AttributeModifier> entry : this.attributeModifierMap.entrySet())
+        for (Entry<IAttribute, AttributeModifier> entry : attributeModifierMap.entrySet())
         {
             IAttributeInstance iattributeinstance = attributeMapIn.getAttributeInstance(entry.getKey());
 
@@ -323,7 +323,7 @@ public class Potion
             {
                 AttributeModifier attributemodifier = entry.getValue();
                 iattributeinstance.removeModifier(attributemodifier);
-                iattributeinstance.applyModifier(new AttributeModifier(attributemodifier.getID(), this.getName() + " " + amplifier, this.getAttributeModifierAmount(amplifier, attributemodifier), attributemodifier.getOperation()));
+                iattributeinstance.applyModifier(new AttributeModifier(attributemodifier.getID(), getName() + " " + amplifier, getAttributeModifierAmount(amplifier, attributemodifier), attributemodifier.getOperation()));
             }
         }
     }
@@ -338,7 +338,7 @@ public class Potion
      */
     public boolean isBeneficial()
     {
-        return this.beneficial;
+        return beneficial;
     }
 
     /**
@@ -346,7 +346,7 @@ public class Potion
      */
     public Potion setBeneficial()
     {
-        this.beneficial = true;
+        beneficial = true;
         return this;
     }
 

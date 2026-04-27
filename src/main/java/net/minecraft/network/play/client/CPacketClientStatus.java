@@ -15,7 +15,7 @@ public class CPacketClientStatus implements Packet<INetHandlerPlayServer>
 
     public CPacketClientStatus(CPacketClientStatus.State p_i46886_1_)
     {
-        this.status = p_i46886_1_;
+        status = p_i46886_1_;
     }
 
     /**
@@ -23,7 +23,7 @@ public class CPacketClientStatus implements Packet<INetHandlerPlayServer>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.status = (CPacketClientStatus.State)buf.readEnumValue(CPacketClientStatus.State.class);
+        status = (CPacketClientStatus.State)buf.readEnumValue(CPacketClientStatus.State.class);
     }
 
     /**
@@ -31,7 +31,7 @@ public class CPacketClientStatus implements Packet<INetHandlerPlayServer>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeEnumValue(this.status);
+        buf.writeEnumValue(status);
     }
 
     /**
@@ -44,7 +44,7 @@ public class CPacketClientStatus implements Packet<INetHandlerPlayServer>
 
     public CPacketClientStatus.State getStatus()
     {
-        return this.status;
+        return status;
     }
 
     public static enum State

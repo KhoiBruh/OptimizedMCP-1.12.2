@@ -14,13 +14,13 @@ public class GuiScreenRealmsProxy extends GuiScreen
 
     public GuiScreenRealmsProxy(RealmsScreen proxyIn)
     {
-        this.proxy = proxyIn;
-        this.buttonList = Collections.<GuiButton>synchronizedList(Lists.newArrayList());
+        proxy = proxyIn;
+        buttonList = Collections.<GuiButton>synchronizedList(Lists.newArrayList());
     }
 
     public RealmsScreen getProxy()
     {
-        return this.proxy;
+        return proxy;
     }
 
     /**
@@ -29,24 +29,24 @@ public class GuiScreenRealmsProxy extends GuiScreen
      */
     public void initGui()
     {
-        this.proxy.init();
+        proxy.init();
         super.initGui();
     }
 
     public void drawCenteredString(String text, int x, int y, int color)
     {
-        super.drawCenteredString(this.fontRenderer, text, x, y, color);
+        super.drawCenteredString(fontRenderer, text, x, y, color);
     }
 
     public void drawString(String text, int x, int y, int color, boolean p_154322_5_)
     {
         if (p_154322_5_)
         {
-            super.drawString(this.fontRenderer, text, x, y, color);
+            super.drawString(fontRenderer, text, x, y, color);
         }
         else
         {
-            this.fontRenderer.drawString(text, x, y, color);
+            fontRenderer.drawString(text, x, y, color);
         }
     }
 
@@ -55,7 +55,7 @@ public class GuiScreenRealmsProxy extends GuiScreen
      */
     public void drawTexturedModalRect(int x, int y, int textureX, int textureY, int width, int height)
     {
-        this.proxy.blit(x, y, textureX, textureY, width, height);
+        proxy.blit(x, y, textureX, textureY, width, height);
         super.drawTexturedModalRect(x, y, textureX, textureY, width, height);
     }
 
@@ -94,7 +94,7 @@ public class GuiScreenRealmsProxy extends GuiScreen
      */
     public void drawScreen(int mouseX, int mouseY, float partialTicks)
     {
-        this.proxy.render(mouseX, mouseY, partialTicks);
+        proxy.render(mouseX, mouseY, partialTicks);
     }
 
     public void renderToolTip(ItemStack stack, int x, int y)
@@ -123,28 +123,28 @@ public class GuiScreenRealmsProxy extends GuiScreen
      */
     public void updateScreen()
     {
-        this.proxy.tick();
+        proxy.tick();
         super.updateScreen();
     }
 
     public int getFontHeight()
     {
-        return this.fontRenderer.FONT_HEIGHT;
+        return fontRenderer.FONT_HEIGHT;
     }
 
     public int getStringWidth(String text)
     {
-        return this.fontRenderer.getStringWidth(text);
+        return fontRenderer.getStringWidth(text);
     }
 
     public void fontDrawShadow(String text, int x, int y, int color)
     {
-        this.fontRenderer.drawStringWithShadow(text, (float)x, (float)y, color);
+        fontRenderer.drawStringWithShadow(text, (float)x, (float)y, color);
     }
 
     public List<String> fontSplit(String text, int wrapWidth)
     {
-        return this.fontRenderer.listFormattedStringToWidth(text, wrapWidth);
+        return fontRenderer.listFormattedStringToWidth(text, wrapWidth);
     }
 
     /**
@@ -152,24 +152,24 @@ public class GuiScreenRealmsProxy extends GuiScreen
      */
     public final void actionPerformed(GuiButton button) throws IOException
     {
-        this.proxy.buttonClicked(((GuiButtonRealmsProxy)button).getRealmsButton());
+        proxy.buttonClicked(((GuiButtonRealmsProxy)button).getRealmsButton());
     }
 
     public void buttonsClear()
     {
-        this.buttonList.clear();
+        buttonList.clear();
     }
 
     public void buttonsAdd(RealmsButton button)
     {
-        this.buttonList.add(button.getProxy());
+        buttonList.add(button.getProxy());
     }
 
     public List<RealmsButton> buttons()
     {
-        List<RealmsButton> list = Lists.<RealmsButton>newArrayListWithExpectedSize(this.buttonList.size());
+        List<RealmsButton> list = Lists.<RealmsButton>newArrayListWithExpectedSize(buttonList.size());
 
-        for (GuiButton guibutton : this.buttonList)
+        for (GuiButton guibutton : buttonList)
         {
             list.add(((GuiButtonRealmsProxy)guibutton).getRealmsButton());
         }
@@ -179,7 +179,7 @@ public class GuiScreenRealmsProxy extends GuiScreen
 
     public void buttonsRemove(RealmsButton button)
     {
-        this.buttonList.remove(button.getProxy());
+        buttonList.remove(button.getProxy());
     }
 
     /**
@@ -187,7 +187,7 @@ public class GuiScreenRealmsProxy extends GuiScreen
      */
     public void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException
     {
-        this.proxy.mouseClicked(mouseX, mouseY, mouseButton);
+        proxy.mouseClicked(mouseX, mouseY, mouseButton);
         super.mouseClicked(mouseX, mouseY, mouseButton);
     }
 
@@ -196,7 +196,7 @@ public class GuiScreenRealmsProxy extends GuiScreen
      */
     public void handleMouseInput() throws IOException
     {
-        this.proxy.mouseEvent();
+        proxy.mouseEvent();
         super.handleMouseInput();
     }
 
@@ -205,7 +205,7 @@ public class GuiScreenRealmsProxy extends GuiScreen
      */
     public void handleKeyboardInput() throws IOException
     {
-        this.proxy.keyboardEvent();
+        proxy.keyboardEvent();
         super.handleKeyboardInput();
     }
 
@@ -214,7 +214,7 @@ public class GuiScreenRealmsProxy extends GuiScreen
      */
     public void mouseReleased(int mouseX, int mouseY, int state)
     {
-        this.proxy.mouseReleased(mouseX, mouseY, state);
+        proxy.mouseReleased(mouseX, mouseY, state);
     }
 
     /**
@@ -223,7 +223,7 @@ public class GuiScreenRealmsProxy extends GuiScreen
      */
     public void mouseClickMove(int mouseX, int mouseY, int clickedMouseButton, long timeSinceLastClick)
     {
-        this.proxy.mouseDragged(mouseX, mouseY, clickedMouseButton, timeSinceLastClick);
+        proxy.mouseDragged(mouseX, mouseY, clickedMouseButton, timeSinceLastClick);
     }
 
     /**
@@ -232,12 +232,12 @@ public class GuiScreenRealmsProxy extends GuiScreen
      */
     public void keyTyped(char typedChar, int keyCode) throws IOException
     {
-        this.proxy.keyPressed(typedChar, keyCode);
+        proxy.keyPressed(typedChar, keyCode);
     }
 
     public void confirmClicked(boolean result, int id)
     {
-        this.proxy.confirmResult(result, id);
+        proxy.confirmResult(result, id);
     }
 
     /**
@@ -245,7 +245,7 @@ public class GuiScreenRealmsProxy extends GuiScreen
      */
     public void onGuiClosed()
     {
-        this.proxy.removed();
+        proxy.removed();
         super.onGuiClosed();
     }
 }

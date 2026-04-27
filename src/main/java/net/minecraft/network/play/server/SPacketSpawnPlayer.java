@@ -28,14 +28,14 @@ public class SPacketSpawnPlayer implements Packet<INetHandlerPlayClient>
 
     public SPacketSpawnPlayer(EntityPlayer player)
     {
-        this.entityId = player.getEntityId();
-        this.uniqueId = player.getGameProfile().getId();
-        this.x = player.posX;
-        this.y = player.posY;
-        this.z = player.posZ;
-        this.yaw = (byte)((int)(player.rotationYaw * 256.0F / 360.0F));
-        this.pitch = (byte)((int)(player.rotationPitch * 256.0F / 360.0F));
-        this.watcher = player.getDataManager();
+        entityId = player.getEntityId();
+        uniqueId = player.getGameProfile().getId();
+        x = player.posX;
+        y = player.posY;
+        z = player.posZ;
+        yaw = (byte)((int)(player.rotationYaw * 256.0F / 360.0F));
+        pitch = (byte)((int)(player.rotationPitch * 256.0F / 360.0F));
+        watcher = player.getDataManager();
     }
 
     /**
@@ -43,14 +43,14 @@ public class SPacketSpawnPlayer implements Packet<INetHandlerPlayClient>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.entityId = buf.readVarInt();
-        this.uniqueId = buf.readUniqueId();
-        this.x = buf.readDouble();
-        this.y = buf.readDouble();
-        this.z = buf.readDouble();
-        this.yaw = buf.readByte();
-        this.pitch = buf.readByte();
-        this.dataManagerEntries = EntityDataManager.readEntries(buf);
+        entityId = buf.readVarInt();
+        uniqueId = buf.readUniqueId();
+        x = buf.readDouble();
+        y = buf.readDouble();
+        z = buf.readDouble();
+        yaw = buf.readByte();
+        pitch = buf.readByte();
+        dataManagerEntries = EntityDataManager.readEntries(buf);
     }
 
     /**
@@ -58,14 +58,14 @@ public class SPacketSpawnPlayer implements Packet<INetHandlerPlayClient>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeVarInt(this.entityId);
-        buf.writeUniqueId(this.uniqueId);
-        buf.writeDouble(this.x);
-        buf.writeDouble(this.y);
-        buf.writeDouble(this.z);
-        buf.writeByte(this.yaw);
-        buf.writeByte(this.pitch);
-        this.watcher.writeEntries(buf);
+        buf.writeVarInt(entityId);
+        buf.writeUniqueId(uniqueId);
+        buf.writeDouble(x);
+        buf.writeDouble(y);
+        buf.writeDouble(z);
+        buf.writeByte(yaw);
+        buf.writeByte(pitch);
+        watcher.writeEntries(buf);
     }
 
     /**
@@ -79,41 +79,41 @@ public class SPacketSpawnPlayer implements Packet<INetHandlerPlayClient>
     @Nullable
     public List < EntityDataManager.DataEntry<? >> getDataManagerEntries()
     {
-        return this.dataManagerEntries;
+        return dataManagerEntries;
     }
 
     public int getEntityID()
     {
-        return this.entityId;
+        return entityId;
     }
 
     public UUID getUniqueId()
     {
-        return this.uniqueId;
+        return uniqueId;
     }
 
     public double getX()
     {
-        return this.x;
+        return x;
     }
 
     public double getY()
     {
-        return this.y;
+        return y;
     }
 
     public double getZ()
     {
-        return this.z;
+        return z;
     }
 
     public byte getYaw()
     {
-        return this.yaw;
+        return yaw;
     }
 
     public byte getPitch()
     {
-        return this.pitch;
+        return pitch;
     }
 }

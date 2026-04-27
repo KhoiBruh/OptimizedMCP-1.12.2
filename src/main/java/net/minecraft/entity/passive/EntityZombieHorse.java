@@ -30,9 +30,9 @@ public class EntityZombieHorse extends AbstractHorse
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(15.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.20000000298023224D);
-        this.getEntityAttribute(JUMP_STRENGTH).setBaseValue(this.getModifiedJumpStrength());
+        getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(15.0D);
+        getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.20000000298023224D);
+        getEntityAttribute(JUMP_STRENGTH).setBaseValue(getModifiedJumpStrength());
     }
 
     /**
@@ -76,20 +76,20 @@ public class EntityZombieHorse extends AbstractHorse
         {
             return super.processInteract(player, hand);
         }
-        else if (!this.isTame())
+        else if (!isTame())
         {
             return false;
         }
-        else if (this.isChild())
+        else if (isChild())
         {
             return super.processInteract(player, hand);
         }
         else if (player.isSneaking())
         {
-            this.openGUI(player);
+            openGUI(player);
             return true;
         }
-        else if (this.isBeingRidden())
+        else if (isBeingRidden())
         {
             return super.processInteract(player, hand);
         }
@@ -97,9 +97,9 @@ public class EntityZombieHorse extends AbstractHorse
         {
             if (flag)
             {
-                if (!this.isHorseSaddled() && itemstack.getItem() == Items.SADDLE)
+                if (!isHorseSaddled() && itemstack.getItem() == Items.SADDLE)
                 {
-                    this.openGUI(player);
+                    openGUI(player);
                     return true;
                 }
 
@@ -109,7 +109,7 @@ public class EntityZombieHorse extends AbstractHorse
                 }
             }
 
-            this.mountTo(player);
+            mountTo(player);
             return true;
         }
     }

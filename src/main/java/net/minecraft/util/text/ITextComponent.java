@@ -96,7 +96,7 @@ public interface ITextComponent extends Iterable<ITextComponent>
 
                     for (JsonElement jsonelement : jsonarray1)
                     {
-                        ITextComponent itextcomponent2 = this.deserialize(jsonelement, jsonelement.getClass(), p_deserialize_3_);
+                        ITextComponent itextcomponent2 = deserialize(jsonelement, jsonelement.getClass(), p_deserialize_3_);
 
                         if (itextcomponent1 == null)
                         {
@@ -135,7 +135,7 @@ public interface ITextComponent extends Iterable<ITextComponent>
 
                         for (int i = 0; i < aobject.length; ++i)
                         {
-                            aobject[i] = this.deserialize(jsonarray.get(i), p_deserialize_2_, p_deserialize_3_);
+                            aobject[i] = deserialize(jsonarray.get(i), p_deserialize_2_, p_deserialize_3_);
 
                             if (aobject[i] instanceof TextComponentString)
                             {
@@ -196,7 +196,7 @@ public interface ITextComponent extends Iterable<ITextComponent>
 
                     for (int j = 0; j < jsonarray2.size(); ++j)
                     {
-                        itextcomponent.appendSibling(this.deserialize(jsonarray2.get(j), p_deserialize_2_, p_deserialize_3_));
+                        itextcomponent.appendSibling(deserialize(jsonarray2.get(j), p_deserialize_2_, p_deserialize_3_));
                     }
                 }
 
@@ -226,7 +226,7 @@ public interface ITextComponent extends Iterable<ITextComponent>
 
             if (!p_serialize_1_.getStyle().isEmpty())
             {
-                this.serializeChatStyle(p_serialize_1_.getStyle(), jsonobject, p_serialize_3_);
+                serializeChatStyle(p_serialize_1_.getStyle(), jsonobject, p_serialize_3_);
             }
 
             if (!p_serialize_1_.getSiblings().isEmpty())
@@ -235,7 +235,7 @@ public interface ITextComponent extends Iterable<ITextComponent>
 
                 for (ITextComponent itextcomponent : p_serialize_1_.getSiblings())
                 {
-                    jsonarray.add(this.serialize(itextcomponent, itextcomponent.getClass(), p_serialize_3_));
+                    jsonarray.add(serialize(itextcomponent, itextcomponent.getClass(), p_serialize_3_));
                 }
 
                 jsonobject.add("extra", jsonarray);
@@ -258,7 +258,7 @@ public interface ITextComponent extends Iterable<ITextComponent>
                     {
                         if (object instanceof ITextComponent)
                         {
-                            jsonarray1.add(this.serialize((ITextComponent)object, object.getClass(), p_serialize_3_));
+                            jsonarray1.add(serialize((ITextComponent)object, object.getClass(), p_serialize_3_));
                         }
                         else
                         {

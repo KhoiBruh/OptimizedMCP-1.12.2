@@ -42,8 +42,8 @@ public class BlockDispenser extends BlockContainer
     protected BlockDispenser()
     {
         super(Material.ROCK);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(TRIGGERED, Boolean.valueOf(false)));
-        this.setCreativeTab(CreativeTabs.REDSTONE);
+        setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(TRIGGERED, Boolean.valueOf(false)));
+        setCreativeTab(CreativeTabs.REDSTONE);
     }
 
     /**
@@ -60,7 +60,7 @@ public class BlockDispenser extends BlockContainer
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state)
     {
         super.onBlockAdded(worldIn, pos, state);
-        this.setDefaultDirection(worldIn, pos, state);
+        setDefaultDirection(worldIn, pos, state);
     }
 
     private void setDefaultDirection(World worldIn, BlockPos pos, IBlockState state)
@@ -145,7 +145,7 @@ public class BlockDispenser extends BlockContainer
             else
             {
                 ItemStack itemstack = tileentitydispenser.getStackInSlot(i);
-                IBehaviorDispenseItem ibehaviordispenseitem = this.getBehavior(itemstack);
+                IBehaviorDispenseItem ibehaviordispenseitem = getBehavior(itemstack);
 
                 if (ibehaviordispenseitem != IBehaviorDispenseItem.DEFAULT_BEHAVIOR)
                 {
@@ -172,7 +172,7 @@ public class BlockDispenser extends BlockContainer
 
         if (flag && !flag1)
         {
-            worldIn.scheduleUpdate(pos, this, this.tickRate(worldIn));
+            worldIn.scheduleUpdate(pos, this, tickRate(worldIn));
             worldIn.setBlockState(pos, state.withProperty(TRIGGERED, Boolean.valueOf(true)), 4);
         }
         else if (!flag && flag1)
@@ -185,7 +185,7 @@ public class BlockDispenser extends BlockContainer
     {
         if (!worldIn.isRemote)
         {
-            this.dispense(worldIn, pos);
+            dispense(worldIn, pos);
         }
     }
 
@@ -203,7 +203,7 @@ public class BlockDispenser extends BlockContainer
      */
     public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
     {
-        return this.getDefaultState().withProperty(FACING, EnumFacing.getDirectionFromEntityLiving(pos, placer)).withProperty(TRIGGERED, Boolean.valueOf(false));
+        return getDefaultState().withProperty(FACING, EnumFacing.getDirectionFromEntityLiving(pos, placer)).withProperty(TRIGGERED, Boolean.valueOf(false));
     }
 
     /**
@@ -276,7 +276,7 @@ public class BlockDispenser extends BlockContainer
      */
     public IBlockState getStateFromMeta(int meta)
     {
-        return this.getDefaultState().withProperty(FACING, EnumFacing.getFront(meta & 7)).withProperty(TRIGGERED, Boolean.valueOf((meta & 8) > 0));
+        return getDefaultState().withProperty(FACING, EnumFacing.getFront(meta & 7)).withProperty(TRIGGERED, Boolean.valueOf((meta & 8) > 0));
     }
 
     /**

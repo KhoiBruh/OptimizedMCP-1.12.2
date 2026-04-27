@@ -34,15 +34,15 @@ public class SPacketSpawnMob implements Packet<INetHandlerPlayClient>
 
     public SPacketSpawnMob(EntityLivingBase entityIn)
     {
-        this.entityId = entityIn.getEntityId();
-        this.uniqueId = entityIn.getUniqueID();
-        this.type = EntityList.REGISTRY.getIDForObject(entityIn.getClass());
-        this.x = entityIn.posX;
-        this.y = entityIn.posY;
-        this.z = entityIn.posZ;
-        this.yaw = (byte)((int)(entityIn.rotationYaw * 256.0F / 360.0F));
-        this.pitch = (byte)((int)(entityIn.rotationPitch * 256.0F / 360.0F));
-        this.headPitch = (byte)((int)(entityIn.rotationYawHead * 256.0F / 360.0F));
+        entityId = entityIn.getEntityId();
+        uniqueId = entityIn.getUniqueID();
+        type = EntityList.REGISTRY.getIDForObject(entityIn.getClass());
+        x = entityIn.posX;
+        y = entityIn.posY;
+        z = entityIn.posZ;
+        yaw = (byte)((int)(entityIn.rotationYaw * 256.0F / 360.0F));
+        pitch = (byte)((int)(entityIn.rotationPitch * 256.0F / 360.0F));
+        headPitch = (byte)((int)(entityIn.rotationYawHead * 256.0F / 360.0F));
         double d0 = 3.9D;
         double d1 = entityIn.motionX;
         double d2 = entityIn.motionY;
@@ -78,10 +78,10 @@ public class SPacketSpawnMob implements Packet<INetHandlerPlayClient>
             d3 = 3.9D;
         }
 
-        this.velocityX = (int)(d1 * 8000.0D);
-        this.velocityY = (int)(d2 * 8000.0D);
-        this.velocityZ = (int)(d3 * 8000.0D);
-        this.dataManager = entityIn.getDataManager();
+        velocityX = (int)(d1 * 8000.0D);
+        velocityY = (int)(d2 * 8000.0D);
+        velocityZ = (int)(d3 * 8000.0D);
+        dataManager = entityIn.getDataManager();
     }
 
     /**
@@ -89,19 +89,19 @@ public class SPacketSpawnMob implements Packet<INetHandlerPlayClient>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.entityId = buf.readVarInt();
-        this.uniqueId = buf.readUniqueId();
-        this.type = buf.readVarInt();
-        this.x = buf.readDouble();
-        this.y = buf.readDouble();
-        this.z = buf.readDouble();
-        this.yaw = buf.readByte();
-        this.pitch = buf.readByte();
-        this.headPitch = buf.readByte();
-        this.velocityX = buf.readShort();
-        this.velocityY = buf.readShort();
-        this.velocityZ = buf.readShort();
-        this.dataManagerEntries = EntityDataManager.readEntries(buf);
+        entityId = buf.readVarInt();
+        uniqueId = buf.readUniqueId();
+        type = buf.readVarInt();
+        x = buf.readDouble();
+        y = buf.readDouble();
+        z = buf.readDouble();
+        yaw = buf.readByte();
+        pitch = buf.readByte();
+        headPitch = buf.readByte();
+        velocityX = buf.readShort();
+        velocityY = buf.readShort();
+        velocityZ = buf.readShort();
+        dataManagerEntries = EntityDataManager.readEntries(buf);
     }
 
     /**
@@ -109,19 +109,19 @@ public class SPacketSpawnMob implements Packet<INetHandlerPlayClient>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeVarInt(this.entityId);
-        buf.writeUniqueId(this.uniqueId);
-        buf.writeVarInt(this.type);
-        buf.writeDouble(this.x);
-        buf.writeDouble(this.y);
-        buf.writeDouble(this.z);
-        buf.writeByte(this.yaw);
-        buf.writeByte(this.pitch);
-        buf.writeByte(this.headPitch);
-        buf.writeShort(this.velocityX);
-        buf.writeShort(this.velocityY);
-        buf.writeShort(this.velocityZ);
-        this.dataManager.writeEntries(buf);
+        buf.writeVarInt(entityId);
+        buf.writeUniqueId(uniqueId);
+        buf.writeVarInt(type);
+        buf.writeDouble(x);
+        buf.writeDouble(y);
+        buf.writeDouble(z);
+        buf.writeByte(yaw);
+        buf.writeByte(pitch);
+        buf.writeByte(headPitch);
+        buf.writeShort(velocityX);
+        buf.writeShort(velocityY);
+        buf.writeShort(velocityZ);
+        dataManager.writeEntries(buf);
     }
 
     /**
@@ -135,66 +135,66 @@ public class SPacketSpawnMob implements Packet<INetHandlerPlayClient>
     @Nullable
     public List < EntityDataManager.DataEntry<? >> getDataManagerEntries()
     {
-        return this.dataManagerEntries;
+        return dataManagerEntries;
     }
 
     public int getEntityID()
     {
-        return this.entityId;
+        return entityId;
     }
 
     public UUID getUniqueId()
     {
-        return this.uniqueId;
+        return uniqueId;
     }
 
     public int getEntityType()
     {
-        return this.type;
+        return type;
     }
 
     public double getX()
     {
-        return this.x;
+        return x;
     }
 
     public double getY()
     {
-        return this.y;
+        return y;
     }
 
     public double getZ()
     {
-        return this.z;
+        return z;
     }
 
     public int getVelocityX()
     {
-        return this.velocityX;
+        return velocityX;
     }
 
     public int getVelocityY()
     {
-        return this.velocityY;
+        return velocityY;
     }
 
     public int getVelocityZ()
     {
-        return this.velocityZ;
+        return velocityZ;
     }
 
     public byte getYaw()
     {
-        return this.yaw;
+        return yaw;
     }
 
     public byte getPitch()
     {
-        return this.pitch;
+        return pitch;
     }
 
     public byte getHeadPitch()
     {
-        return this.headPitch;
+        return headPitch;
     }
 }

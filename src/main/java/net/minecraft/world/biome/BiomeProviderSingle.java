@@ -13,7 +13,7 @@ public class BiomeProviderSingle extends BiomeProvider
 
     public BiomeProviderSingle(Biome biomeIn)
     {
-        this.biome = biomeIn;
+        biome = biomeIn;
     }
 
     /**
@@ -21,7 +21,7 @@ public class BiomeProviderSingle extends BiomeProvider
      */
     public Biome getBiome(BlockPos pos)
     {
-        return this.biome;
+        return biome;
     }
 
     /**
@@ -34,7 +34,7 @@ public class BiomeProviderSingle extends BiomeProvider
             biomes = new Biome[width * height];
         }
 
-        Arrays.fill(biomes, 0, width * height, this.biome);
+        Arrays.fill(biomes, 0, width * height, biome);
         return biomes;
     }
 
@@ -49,7 +49,7 @@ public class BiomeProviderSingle extends BiomeProvider
             oldBiomeList = new Biome[width * depth];
         }
 
-        Arrays.fill(oldBiomeList, 0, width * depth, this.biome);
+        Arrays.fill(oldBiomeList, 0, width * depth, biome);
         return oldBiomeList;
     }
 
@@ -58,13 +58,13 @@ public class BiomeProviderSingle extends BiomeProvider
      */
     public Biome[] getBiomes(@Nullable Biome[] listToReuse, int x, int z, int width, int length, boolean cacheFlag)
     {
-        return this.getBiomes(listToReuse, x, z, width, length);
+        return getBiomes(listToReuse, x, z, width, length);
     }
 
     @Nullable
     public BlockPos findBiomePosition(int x, int z, int range, List<Biome> biomes, Random random)
     {
-        return biomes.contains(this.biome) ? new BlockPos(x - range + random.nextInt(range * 2 + 1), 0, z - range + random.nextInt(range * 2 + 1)) : null;
+        return biomes.contains(biome) ? new BlockPos(x - range + random.nextInt(range * 2 + 1), 0, z - range + random.nextInt(range * 2 + 1)) : null;
     }
 
     /**
@@ -72,7 +72,7 @@ public class BiomeProviderSingle extends BiomeProvider
      */
     public boolean areBiomesViable(int x, int z, int radius, List<Biome> allowed)
     {
-        return allowed.contains(this.biome);
+        return allowed.contains(biome);
     }
 
     public boolean isFixedBiome()
@@ -82,6 +82,6 @@ public class BiomeProviderSingle extends BiomeProvider
 
     public Biome getFixedBiome()
     {
-        return this.biome;
+        return biome;
     }
 }

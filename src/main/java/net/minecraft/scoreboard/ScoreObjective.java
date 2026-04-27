@@ -13,46 +13,46 @@ public class ScoreObjective
     public ScoreObjective(Scoreboard scoreboard, String nameIn, IScoreCriteria objectiveCriteriaIn)
     {
         this.scoreboard = scoreboard;
-        this.name = nameIn;
-        this.objectiveCriteria = objectiveCriteriaIn;
-        this.displayName = nameIn;
-        this.renderType = objectiveCriteriaIn.getRenderType();
+        name = nameIn;
+        objectiveCriteria = objectiveCriteriaIn;
+        displayName = nameIn;
+        renderType = objectiveCriteriaIn.getRenderType();
     }
 
     public Scoreboard getScoreboard()
     {
-        return this.scoreboard;
+        return scoreboard;
     }
 
     public String getName()
     {
-        return this.name;
+        return name;
     }
 
     public IScoreCriteria getCriteria()
     {
-        return this.objectiveCriteria;
+        return objectiveCriteria;
     }
 
     public String getDisplayName()
     {
-        return this.displayName;
+        return displayName;
     }
 
     public void setDisplayName(String nameIn)
     {
-        this.displayName = nameIn;
-        this.scoreboard.onObjectiveDisplayNameChanged(this);
+        displayName = nameIn;
+        scoreboard.onObjectiveDisplayNameChanged(this);
     }
 
     public IScoreCriteria.EnumRenderType getRenderType()
     {
-        return this.renderType;
+        return renderType;
     }
 
     public void setRenderType(IScoreCriteria.EnumRenderType type)
     {
-        this.renderType = type;
-        this.scoreboard.onObjectiveDisplayNameChanged(this);
+        renderType = type;
+        scoreboard.onObjectiveDisplayNameChanged(this);
     }
 }

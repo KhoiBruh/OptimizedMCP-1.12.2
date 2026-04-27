@@ -7,7 +7,7 @@ public class EnchantmentArrowInfinite extends Enchantment
     public EnchantmentArrowInfinite(Enchantment.Rarity rarityIn, EntityEquipmentSlot... slots)
     {
         super(rarityIn, EnumEnchantmentType.BOW, slots);
-        this.setName("arrowInfinite");
+        setName("arrowInfinite");
     }
 
     /**

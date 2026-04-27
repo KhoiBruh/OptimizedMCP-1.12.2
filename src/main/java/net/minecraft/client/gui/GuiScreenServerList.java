@@ -13,8 +13,8 @@ public class GuiScreenServerList extends GuiScreen
 
     public GuiScreenServerList(GuiScreen lastScreenIn, ServerData serverDataIn)
     {
-        this.lastScreen = lastScreenIn;
-        this.serverData = serverDataIn;
+        lastScreen = lastScreenIn;
+        serverData = serverDataIn;
     }
 
     /**
@@ -22,7 +22,7 @@ public class GuiScreenServerList extends GuiScreen
      */
     public void updateScreen()
     {
-        this.ipEdit.updateCursorCounter();
+        ipEdit.updateCursorCounter();
     }
 
     /**
@@ -32,14 +32,14 @@ public class GuiScreenServerList extends GuiScreen
     public void initGui()
     {
         Keyboard.enableRepeatEvents(true);
-        this.buttonList.clear();
-        this.buttonList.add(new GuiButton(0, this.width / 2 - 100, this.height / 4 + 96 + 12, I18n.format("selectServer.select")));
-        this.buttonList.add(new GuiButton(1, this.width / 2 - 100, this.height / 4 + 120 + 12, I18n.format("gui.cancel")));
-        this.ipEdit = new GuiTextField(2, this.fontRenderer, this.width / 2 - 100, 116, 200, 20);
-        this.ipEdit.setMaxStringLength(128);
-        this.ipEdit.setFocused(true);
-        this.ipEdit.setText(this.mc.gameSettings.lastServer);
-        (this.buttonList.get(0)).enabled = !this.ipEdit.getText().isEmpty() && this.ipEdit.getText().split(":").length > 0;
+        buttonList.clear();
+        buttonList.add(new GuiButton(0, width / 2 - 100, height / 4 + 96 + 12, I18n.format("selectServer.select")));
+        buttonList.add(new GuiButton(1, width / 2 - 100, height / 4 + 120 + 12, I18n.format("gui.cancel")));
+        ipEdit = new GuiTextField(2, fontRenderer, width / 2 - 100, 116, 200, 20);
+        ipEdit.setMaxStringLength(128);
+        ipEdit.setFocused(true);
+        ipEdit.setText(mc.gameSettings.lastServer);
+        (buttonList.get(0)).enabled = !ipEdit.getText().isEmpty() && ipEdit.getText().split(":").length > 0;
     }
 
     /**
@@ -48,8 +48,8 @@ public class GuiScreenServerList extends GuiScreen
     public void onGuiClosed()
     {
         Keyboard.enableRepeatEvents(false);
-        this.mc.gameSettings.lastServer = this.ipEdit.getText();
-        this.mc.gameSettings.saveOptions();
+        mc.gameSettings.lastServer = ipEdit.getText();
+        mc.gameSettings.saveOptions();
     }
 
     /**
@@ -61,12 +61,12 @@ public class GuiScreenServerList extends GuiScreen
         {
             if (button.id == 1)
             {
-                this.lastScreen.confirmClicked(false, 0);
+                lastScreen.confirmClicked(false, 0);
             }
             else if (button.id == 0)
             {
-                this.serverData.serverIP = this.ipEdit.getText();
-                this.lastScreen.confirmClicked(true, 0);
+                serverData.serverIP = ipEdit.getText();
+                lastScreen.confirmClicked(true, 0);
             }
         }
     }
@@ -77,13 +77,13 @@ public class GuiScreenServerList extends GuiScreen
      */
     protected void keyTyped(char typedChar, int keyCode) throws IOException
     {
-        if (this.ipEdit.textboxKeyTyped(typedChar, keyCode))
+        if (ipEdit.textboxKeyTyped(typedChar, keyCode))
         {
-            (this.buttonList.get(0)).enabled = !this.ipEdit.getText().isEmpty() && this.ipEdit.getText().split(":").length > 0;
+            (buttonList.get(0)).enabled = !ipEdit.getText().isEmpty() && ipEdit.getText().split(":").length > 0;
         }
         else if (keyCode == 28 || keyCode == 156)
         {
-            this.actionPerformed(this.buttonList.get(0));
+            actionPerformed(buttonList.get(0));
         }
     }
 
@@ -93,7 +93,7 @@ public class GuiScreenServerList extends GuiScreen
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException
     {
         super.mouseClicked(mouseX, mouseY, mouseButton);
-        this.ipEdit.mouseClicked(mouseX, mouseY, mouseButton);
+        ipEdit.mouseClicked(mouseX, mouseY, mouseButton);
     }
 
     /**
@@ -101,10 +101,10 @@ public class GuiScreenServerList extends GuiScreen
      */
     public void drawScreen(int mouseX, int mouseY, float partialTicks)
     {
-        this.drawDefaultBackground();
-        this.drawCenteredString(this.fontRenderer, I18n.format("selectServer.direct"), this.width / 2, 20, 16777215);
-        this.drawString(this.fontRenderer, I18n.format("addServer.enterIp"), this.width / 2 - 100, 100, 10526880);
-        this.ipEdit.drawTextBox();
+        drawDefaultBackground();
+        drawCenteredString(fontRenderer, I18n.format("selectServer.direct"), width / 2, 20, 16777215);
+        drawString(fontRenderer, I18n.format("addServer.enterIp"), width / 2 - 100, 100, 10526880);
+        ipEdit.drawTextBox();
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
 }

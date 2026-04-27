@@ -17,8 +17,8 @@ public class TextComponentScore extends TextComponentBase
 
     public TextComponentScore(String nameIn, String objectiveIn)
     {
-        this.name = nameIn;
-        this.objective = objectiveIn;
+        name = nameIn;
+        objective = objectiveIn;
     }
 
     /**
@@ -26,7 +26,7 @@ public class TextComponentScore extends TextComponentBase
      */
     public String getName()
     {
-        return this.name;
+        return name;
     }
 
     /**
@@ -34,7 +34,7 @@ public class TextComponentScore extends TextComponentBase
      */
     public String getObjective()
     {
-        return this.objective;
+        return objective;
     }
 
     /**
@@ -43,7 +43,7 @@ public class TextComponentScore extends TextComponentBase
      */
     public void setValue(String valueIn)
     {
-        this.value = valueIn;
+        value = valueIn;
     }
 
     /**
@@ -53,7 +53,7 @@ public class TextComponentScore extends TextComponentBase
      */
     public String getUnformattedComponentText()
     {
-        return this.value;
+        return value;
     }
 
     /**
@@ -63,19 +63,19 @@ public class TextComponentScore extends TextComponentBase
     {
         MinecraftServer minecraftserver = sender.getServer();
 
-        if (minecraftserver != null && minecraftserver.isAnvilFileSet() && StringUtils.isNullOrEmpty(this.value))
+        if (minecraftserver != null && minecraftserver.isAnvilFileSet() && StringUtils.isNullOrEmpty(value))
         {
             Scoreboard scoreboard = minecraftserver.getWorld(0).getScoreboard();
-            ScoreObjective scoreobjective = scoreboard.getObjective(this.objective);
+            ScoreObjective scoreobjective = scoreboard.getObjective(objective);
 
-            if (scoreboard.entityHasObjective(this.name, scoreobjective))
+            if (scoreboard.entityHasObjective(name, scoreobjective))
             {
-                Score score = scoreboard.getOrCreateScore(this.name, scoreobjective);
-                this.setValue(String.format("%d", score.getScorePoints()));
+                Score score = scoreboard.getOrCreateScore(name, scoreobjective);
+                setValue(String.format("%d", score.getScorePoints()));
             }
             else
             {
-                this.value = "";
+                value = "";
             }
         }
     }
@@ -85,11 +85,11 @@ public class TextComponentScore extends TextComponentBase
      */
     public TextComponentScore createCopy()
     {
-        TextComponentScore textcomponentscore = new TextComponentScore(this.name, this.objective);
-        textcomponentscore.setValue(this.value);
-        textcomponentscore.setStyle(this.getStyle().createShallowCopy());
+        TextComponentScore textcomponentscore = new TextComponentScore(name, objective);
+        textcomponentscore.setValue(value);
+        textcomponentscore.setStyle(getStyle().createShallowCopy());
 
-        for (ITextComponent itextcomponent : this.getSiblings())
+        for (ITextComponent itextcomponent : getSiblings())
         {
             textcomponentscore.appendSibling(itextcomponent.createCopy());
         }
@@ -110,12 +110,12 @@ public class TextComponentScore extends TextComponentBase
         else
         {
             TextComponentScore textcomponentscore = (TextComponentScore)p_equals_1_;
-            return this.name.equals(textcomponentscore.name) && this.objective.equals(textcomponentscore.objective) && super.equals(p_equals_1_);
+            return name.equals(textcomponentscore.name) && objective.equals(textcomponentscore.objective) && super.equals(p_equals_1_);
         }
     }
 
     public String toString()
     {
-        return "ScoreComponent{name='" + this.name + '\'' + "objective='" + this.objective + '\'' + ", siblings=" + this.siblings + ", style=" + this.getStyle() + '}';
+        return "ScoreComponent{name='" + name + '\'' + "objective='" + objective + '\'' + ", siblings=" + siblings + ", style=" + getStyle() + '}';
     }
 }

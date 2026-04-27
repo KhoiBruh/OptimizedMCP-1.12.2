@@ -55,7 +55,7 @@ public class EntityWitch extends EntityMob implements IRangedAttackMob
     public EntityWitch(World worldIn)
     {
         super(worldIn);
-        this.setSize(0.6F, 1.95F);
+        setSize(0.6F, 1.95F);
     }
 
     public static void registerFixesWitch(DataFixer fixer)
@@ -65,19 +65,19 @@ public class EntityWitch extends EntityMob implements IRangedAttackMob
 
     protected void initEntityAI()
     {
-        this.tasks.addTask(1, new EntityAISwimming(this));
-        this.tasks.addTask(2, new EntityAIAttackRanged(this, 1.0D, 60, 10.0F));
-        this.tasks.addTask(2, new EntityAIWanderAvoidWater(this, 1.0D));
-        this.tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
-        this.tasks.addTask(3, new EntityAILookIdle(this));
-        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
-        this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
+        tasks.addTask(1, new EntityAISwimming(this));
+        tasks.addTask(2, new EntityAIAttackRanged(this, 1.0D, 60, 10.0F));
+        tasks.addTask(2, new EntityAIWanderAvoidWater(this, 1.0D));
+        tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
+        tasks.addTask(3, new EntityAILookIdle(this));
+        targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
+        targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
     }
 
     protected void entityInit()
     {
         super.entityInit();
-        this.getDataManager().register(IS_DRINKING, Boolean.valueOf(false));
+        getDataManager().register(IS_DRINKING, Boolean.valueOf(false));
     }
 
     protected SoundEvent getAmbientSound()
@@ -100,19 +100,19 @@ public class EntityWitch extends EntityMob implements IRangedAttackMob
      */
     public void setDrinkingPotion(boolean drinkingPotion)
     {
-        this.getDataManager().set(IS_DRINKING, Boolean.valueOf(drinkingPotion));
+        getDataManager().set(IS_DRINKING, Boolean.valueOf(drinkingPotion));
     }
 
     public boolean isDrinkingPotion()
     {
-        return ((Boolean)this.getDataManager().get(IS_DRINKING)).booleanValue();
+        return ((Boolean) getDataManager().get(IS_DRINKING)).booleanValue();
     }
 
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(26.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25D);
+        getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(26.0D);
+        getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25D);
     }
 
     /**
@@ -121,15 +121,15 @@ public class EntityWitch extends EntityMob implements IRangedAttackMob
      */
     public void onLivingUpdate()
     {
-        if (!this.world.isRemote)
+        if (!world.isRemote)
         {
-            if (this.isDrinkingPotion())
+            if (isDrinkingPotion())
             {
-                if (this.potionUseTimer-- <= 0)
+                if (potionUseTimer-- <= 0)
                 {
-                    this.setDrinkingPotion(false);
-                    ItemStack itemstack = this.getHeldItemMainhand();
-                    this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, ItemStack.EMPTY);
+                    setDrinkingPotion(false);
+                    ItemStack itemstack = getHeldItemMainhand();
+                    setItemStackToSlot(EntityEquipmentSlot.MAINHAND, ItemStack.EMPTY);
 
                     if (itemstack.getItem() == Items.POTIONITEM)
                     {
@@ -139,50 +139,50 @@ public class EntityWitch extends EntityMob implements IRangedAttackMob
                         {
                             for (PotionEffect potioneffect : list)
                             {
-                                this.addPotionEffect(new PotionEffect(potioneffect));
+                                addPotionEffect(new PotionEffect(potioneffect));
                             }
                         }
                     }
 
-                    this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).removeModifier(MODIFIER);
+                    getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).removeModifier(MODIFIER);
                 }
             }
             else
             {
                 PotionType potiontype = null;
 
-                if (this.rand.nextFloat() < 0.15F && this.isInsideOfMaterial(Material.WATER) && !this.isPotionActive(MobEffects.WATER_BREATHING))
+                if (rand.nextFloat() < 0.15F && isInsideOfMaterial(Material.WATER) && !isPotionActive(MobEffects.WATER_BREATHING))
                 {
                     potiontype = PotionTypes.WATER_BREATHING;
                 }
-                else if (this.rand.nextFloat() < 0.15F && (this.isBurning() || this.getLastDamageSource() != null && this.getLastDamageSource().isFireDamage()) && !this.isPotionActive(MobEffects.FIRE_RESISTANCE))
+                else if (rand.nextFloat() < 0.15F && (isBurning() || getLastDamageSource() != null && getLastDamageSource().isFireDamage()) && !isPotionActive(MobEffects.FIRE_RESISTANCE))
                 {
                     potiontype = PotionTypes.FIRE_RESISTANCE;
                 }
-                else if (this.rand.nextFloat() < 0.05F && this.getHealth() < this.getMaxHealth())
+                else if (rand.nextFloat() < 0.05F && getHealth() < getMaxHealth())
                 {
                     potiontype = PotionTypes.HEALING;
                 }
-                else if (this.rand.nextFloat() < 0.5F && this.getAttackTarget() != null && !this.isPotionActive(MobEffects.SPEED) && this.getAttackTarget().getDistanceSq(this) > 121.0D)
+                else if (rand.nextFloat() < 0.5F && getAttackTarget() != null && !isPotionActive(MobEffects.SPEED) && getAttackTarget().getDistanceSq(this) > 121.0D)
                 {
                     potiontype = PotionTypes.SWIFTNESS;
                 }
 
                 if (potiontype != null)
                 {
-                    this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), potiontype));
-                    this.potionUseTimer = this.getHeldItemMainhand().getMaxItemUseDuration();
-                    this.setDrinkingPotion(true);
-                    this.world.playSound((EntityPlayer)null, this.posX, this.posY, this.posZ, SoundEvents.ENTITY_WITCH_DRINK, this.getSoundCategory(), 1.0F, 0.8F + this.rand.nextFloat() * 0.4F);
-                    IAttributeInstance iattributeinstance = this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED);
+                    setItemStackToSlot(EntityEquipmentSlot.MAINHAND, PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), potiontype));
+                    potionUseTimer = getHeldItemMainhand().getMaxItemUseDuration();
+                    setDrinkingPotion(true);
+                    world.playSound((EntityPlayer)null, posX, posY, posZ, SoundEvents.ENTITY_WITCH_DRINK, getSoundCategory(), 1.0F, 0.8F + rand.nextFloat() * 0.4F);
+                    IAttributeInstance iattributeinstance = getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED);
                     iattributeinstance.removeModifier(MODIFIER);
                     iattributeinstance.applyModifier(MODIFIER);
                 }
             }
 
-            if (this.rand.nextFloat() < 7.5E-4F)
+            if (rand.nextFloat() < 7.5E-4F)
             {
-                this.world.setEntityState(this, (byte)15);
+                world.setEntityState(this, (byte)15);
             }
         }
 
@@ -196,9 +196,9 @@ public class EntityWitch extends EntityMob implements IRangedAttackMob
     {
         if (id == 15)
         {
-            for (int i = 0; i < this.rand.nextInt(35) + 10; ++i)
+            for (int i = 0; i < rand.nextInt(35) + 10; ++i)
             {
-                this.world.spawnParticle(EnumParticleTypes.SPELL_WITCH, this.posX + this.rand.nextGaussian() * 0.12999999523162842D, this.getEntityBoundingBox().maxY + 0.5D + this.rand.nextGaussian() * 0.12999999523162842D, this.posZ + this.rand.nextGaussian() * 0.12999999523162842D, 0.0D, 0.0D, 0.0D);
+                world.spawnParticle(EnumParticleTypes.SPELL_WITCH, posX + rand.nextGaussian() * 0.12999999523162842D, getEntityBoundingBox().maxY + 0.5D + rand.nextGaussian() * 0.12999999523162842D, posZ + rand.nextGaussian() * 0.12999999523162842D, 0.0D, 0.0D, 0.0D);
             }
         }
         else
@@ -238,12 +238,12 @@ public class EntityWitch extends EntityMob implements IRangedAttackMob
      */
     public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor)
     {
-        if (!this.isDrinkingPotion())
+        if (!isDrinkingPotion())
         {
             double d0 = target.posY + (double)target.getEyeHeight() - 1.100000023841858D;
-            double d1 = target.posX + target.motionX - this.posX;
-            double d2 = d0 - this.posY;
-            double d3 = target.posZ + target.motionZ - this.posZ;
+            double d1 = target.posX + target.motionX - posX;
+            double d2 = d0 - posY;
+            double d3 = target.posZ + target.motionZ - posZ;
             float f = MathHelper.sqrt(d1 * d1 + d3 * d3);
             PotionType potiontype = PotionTypes.HARMING;
 
@@ -255,16 +255,16 @@ public class EntityWitch extends EntityMob implements IRangedAttackMob
             {
                 potiontype = PotionTypes.POISON;
             }
-            else if (f <= 3.0F && !target.isPotionActive(MobEffects.WEAKNESS) && this.rand.nextFloat() < 0.25F)
+            else if (f <= 3.0F && !target.isPotionActive(MobEffects.WEAKNESS) && rand.nextFloat() < 0.25F)
             {
                 potiontype = PotionTypes.WEAKNESS;
             }
 
-            EntityPotion entitypotion = new EntityPotion(this.world, this, PotionUtils.addPotionToItemStack(new ItemStack(Items.SPLASH_POTION), potiontype));
+            EntityPotion entitypotion = new EntityPotion(world, this, PotionUtils.addPotionToItemStack(new ItemStack(Items.SPLASH_POTION), potiontype));
             entitypotion.rotationPitch -= -20.0F;
             entitypotion.shoot(d1, d2 + (double)(f * 0.2F), d3, 0.75F, 8.0F);
-            this.world.playSound((EntityPlayer)null, this.posX, this.posY, this.posZ, SoundEvents.ENTITY_WITCH_THROW, this.getSoundCategory(), 1.0F, 0.8F + this.rand.nextFloat() * 0.4F);
-            this.world.spawnEntity(entitypotion);
+            world.playSound((EntityPlayer)null, posX, posY, posZ, SoundEvents.ENTITY_WITCH_THROW, getSoundCategory(), 1.0F, 0.8F + rand.nextFloat() * 0.4F);
+            world.spawnEntity(entitypotion);
         }
     }
 

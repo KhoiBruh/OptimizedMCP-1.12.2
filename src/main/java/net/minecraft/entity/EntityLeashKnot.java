@@ -23,12 +23,12 @@ public class EntityLeashKnot extends EntityHanging
     public EntityLeashKnot(World worldIn, BlockPos hangingPositionIn)
     {
         super(worldIn, hangingPositionIn);
-        this.setPosition((double)hangingPositionIn.getX() + 0.5D, (double)hangingPositionIn.getY() + 0.5D, (double)hangingPositionIn.getZ() + 0.5D);
+        setPosition((double)hangingPositionIn.getX() + 0.5D, (double)hangingPositionIn.getY() + 0.5D, (double)hangingPositionIn.getZ() + 0.5D);
         float f = 0.125F;
         float f1 = 0.1875F;
         float f2 = 0.25F;
-        this.setEntityBoundingBox(new AxisAlignedBB(this.posX - 0.1875D, this.posY - 0.25D + 0.125D, this.posZ - 0.1875D, this.posX + 0.1875D, this.posY + 0.25D + 0.125D, this.posZ + 0.1875D));
-        this.forceSpawn = true;
+        setEntityBoundingBox(new AxisAlignedBB(posX - 0.1875D, posY - 0.25D + 0.125D, posZ - 0.1875D, posX + 0.1875D, posY + 0.25D + 0.125D, posZ + 0.1875D));
+        forceSpawn = true;
     }
 
     /**
@@ -44,9 +44,9 @@ public class EntityLeashKnot extends EntityHanging
      */
     protected void updateBoundingBox()
     {
-        this.posX = (double)this.hangingPosition.getX() + 0.5D;
-        this.posY = (double)this.hangingPosition.getY() + 0.5D;
-        this.posZ = (double)this.hangingPosition.getZ() + 0.5D;
+        posX = (double) hangingPosition.getX() + 0.5D;
+        posY = (double) hangingPosition.getY() + 0.5D;
+        posZ = (double) hangingPosition.getZ() + 0.5D;
     }
 
     /**
@@ -84,7 +84,7 @@ public class EntityLeashKnot extends EntityHanging
      */
     public void onBroken(@Nullable Entity brokenEntity)
     {
-        this.playSound(SoundEvents.ENTITY_LEASHKNOT_BREAK, 1.0F, 1.0F);
+        playSound(SoundEvents.ENTITY_LEASHKNOT_BREAK, 1.0F, 1.0F);
     }
 
     /**
@@ -113,7 +113,7 @@ public class EntityLeashKnot extends EntityHanging
 
     public boolean processInitialInteract(EntityPlayer player, EnumHand hand)
     {
-        if (this.world.isRemote)
+        if (world.isRemote)
         {
             return true;
         }
@@ -121,7 +121,7 @@ public class EntityLeashKnot extends EntityHanging
         {
             boolean flag = false;
             double d0 = 7.0D;
-            List<EntityLiving> list = this.world.<EntityLiving>getEntitiesWithinAABB(EntityLiving.class, new AxisAlignedBB(this.posX - 7.0D, this.posY - 7.0D, this.posZ - 7.0D, this.posX + 7.0D, this.posY + 7.0D, this.posZ + 7.0D));
+            List<EntityLiving> list = world.<EntityLiving>getEntitiesWithinAABB(EntityLiving.class, new AxisAlignedBB(posX - 7.0D, posY - 7.0D, posZ - 7.0D, posX + 7.0D, posY + 7.0D, posZ + 7.0D));
 
             for (EntityLiving entityliving : list)
             {
@@ -134,7 +134,7 @@ public class EntityLeashKnot extends EntityHanging
 
             if (!flag)
             {
-                this.setDead();
+                setDead();
 
                 if (player.capabilities.isCreativeMode)
                 {
@@ -157,7 +157,7 @@ public class EntityLeashKnot extends EntityHanging
      */
     public boolean onValidSurface()
     {
-        return this.world.getBlockState(this.hangingPosition).getBlock() instanceof BlockFence;
+        return world.getBlockState(hangingPosition).getBlock() instanceof BlockFence;
     }
 
     public static EntityLeashKnot createKnot(World worldIn, BlockPos fence)
@@ -188,6 +188,6 @@ public class EntityLeashKnot extends EntityHanging
 
     public void playPlaceSound()
     {
-        this.playSound(SoundEvents.ENTITY_LEASHKNOT_PLACE, 1.0F, 1.0F);
+        playSound(SoundEvents.ENTITY_LEASHKNOT_PLACE, 1.0F, 1.0F);
     }
 }

@@ -18,7 +18,7 @@ public class RenderShulker extends RenderLiving<EntityShulker>
     public RenderShulker(RenderManager p_i47194_1_)
     {
         super(p_i47194_1_, new ModelShulker(), 0.0F);
-        this.addLayer(new RenderShulker.HeadLayer());
+        addLayer(new RenderShulker.HeadLayer());
     }
 
     public ModelShulker getMainModel()
@@ -177,10 +177,10 @@ public class RenderShulker extends RenderLiving<EntityShulker>
                     GlStateManager.translate(0.0F, -2.0F, 0.0F);
             }
 
-            ModelRenderer modelrenderer = RenderShulker.this.getMainModel().head;
+            ModelRenderer modelrenderer = getMainModel().head;
             modelrenderer.rotateAngleY = netHeadYaw * 0.017453292F;
             modelrenderer.rotateAngleX = headPitch * 0.017453292F;
-            RenderShulker.this.bindTexture(RenderShulker.SHULKER_ENDERGOLEM_TEXTURE[entitylivingbaseIn.getColor().getMetadata()]);
+            bindTexture(RenderShulker.SHULKER_ENDERGOLEM_TEXTURE[entitylivingbaseIn.getColor().getMetadata()]);
             modelrenderer.render(scale);
             GlStateManager.popMatrix();
         }

@@ -18,10 +18,10 @@ public class UserListOps extends UserList<GameProfile, UserListOpsEntry>
 
     public String[] getKeys()
     {
-        String[] astring = new String[this.getValues().size()];
+        String[] astring = new String[getValues().size()];
         int i = 0;
 
-        for (UserListOpsEntry userlistopsentry : this.getValues().values())
+        for (UserListOpsEntry userlistopsentry : getValues().values())
         {
             astring[i++] = ((GameProfile)userlistopsentry.getValue()).getName();
         }
@@ -34,13 +34,13 @@ public class UserListOps extends UserList<GameProfile, UserListOpsEntry>
      */
     public int getPermissionLevel(GameProfile profile)
     {
-        UserListOpsEntry userlistopsentry = (UserListOpsEntry)this.getEntry(profile);
+        UserListOpsEntry userlistopsentry = (UserListOpsEntry) getEntry(profile);
         return userlistopsentry != null ? userlistopsentry.getPermissionLevel() : 0;
     }
 
     public boolean bypassesPlayerLimit(GameProfile profile)
     {
-        UserListOpsEntry userlistopsentry = (UserListOpsEntry)this.getEntry(profile);
+        UserListOpsEntry userlistopsentry = (UserListOpsEntry) getEntry(profile);
         return userlistopsentry != null ? userlistopsentry.bypassesPlayerLimit() : false;
     }
 
@@ -57,7 +57,7 @@ public class UserListOps extends UserList<GameProfile, UserListOpsEntry>
      */
     public GameProfile getGameProfileFromName(String username)
     {
-        for (UserListOpsEntry userlistopsentry : this.getValues().values())
+        for (UserListOpsEntry userlistopsentry : getValues().values())
         {
             if (username.equalsIgnoreCase(((GameProfile)userlistopsentry.getValue()).getName()))
             {

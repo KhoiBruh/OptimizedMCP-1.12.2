@@ -20,122 +20,122 @@ public class ChunkCompileTaskGenerator implements Comparable<ChunkCompileTaskGen
 
     public ChunkCompileTaskGenerator(RenderChunk renderChunkIn, ChunkCompileTaskGenerator.Type typeIn, double distanceSqIn)
     {
-        this.renderChunk = renderChunkIn;
-        this.type = typeIn;
-        this.distanceSq = distanceSqIn;
+        renderChunk = renderChunkIn;
+        type = typeIn;
+        distanceSq = distanceSqIn;
     }
 
     public ChunkCompileTaskGenerator.Status getStatus()
     {
-        return this.status;
+        return status;
     }
 
     public RenderChunk getRenderChunk()
     {
-        return this.renderChunk;
+        return renderChunk;
     }
 
     public CompiledChunk getCompiledChunk()
     {
-        return this.compiledChunk;
+        return compiledChunk;
     }
 
     public void setCompiledChunk(CompiledChunk compiledChunkIn)
     {
-        this.compiledChunk = compiledChunkIn;
+        compiledChunk = compiledChunkIn;
     }
 
     public RegionRenderCacheBuilder getRegionRenderCacheBuilder()
     {
-        return this.regionRenderCacheBuilder;
+        return regionRenderCacheBuilder;
     }
 
     public void setRegionRenderCacheBuilder(RegionRenderCacheBuilder regionRenderCacheBuilderIn)
     {
-        this.regionRenderCacheBuilder = regionRenderCacheBuilderIn;
+        regionRenderCacheBuilder = regionRenderCacheBuilderIn;
     }
 
     public void setStatus(ChunkCompileTaskGenerator.Status statusIn)
     {
-        this.lock.lock();
+        lock.lock();
 
         try
         {
-            this.status = statusIn;
+            status = statusIn;
         }
         finally
         {
-            this.lock.unlock();
+            lock.unlock();
         }
     }
 
     public void finish()
     {
-        this.lock.lock();
+        lock.lock();
 
         try
         {
-            if (this.type == ChunkCompileTaskGenerator.Type.REBUILD_CHUNK && this.status != ChunkCompileTaskGenerator.Status.DONE)
+            if (type == ChunkCompileTaskGenerator.Type.REBUILD_CHUNK && status != ChunkCompileTaskGenerator.Status.DONE)
             {
-                this.renderChunk.setNeedsUpdate(false);
+                renderChunk.setNeedsUpdate(false);
             }
 
-            this.finished = true;
-            this.status = ChunkCompileTaskGenerator.Status.DONE;
+            finished = true;
+            status = ChunkCompileTaskGenerator.Status.DONE;
 
-            for (Runnable runnable : this.listFinishRunnables)
+            for (Runnable runnable : listFinishRunnables)
             {
                 runnable.run();
             }
         }
         finally
         {
-            this.lock.unlock();
+            lock.unlock();
         }
     }
 
     public void addFinishRunnable(Runnable runnable)
     {
-        this.lock.lock();
+        lock.lock();
 
         try
         {
-            this.listFinishRunnables.add(runnable);
+            listFinishRunnables.add(runnable);
 
-            if (this.finished)
+            if (finished)
             {
                 runnable.run();
             }
         }
         finally
         {
-            this.lock.unlock();
+            lock.unlock();
         }
     }
 
     public ReentrantLock getLock()
     {
-        return this.lock;
+        return lock;
     }
 
     public ChunkCompileTaskGenerator.Type getType()
     {
-        return this.type;
+        return type;
     }
 
     public boolean isFinished()
     {
-        return this.finished;
+        return finished;
     }
 
     public int compareTo(ChunkCompileTaskGenerator p_compareTo_1_)
     {
-        return Doubles.compare(this.distanceSq, p_compareTo_1_.distanceSq);
+        return Doubles.compare(distanceSq, p_compareTo_1_.distanceSq);
     }
 
     public double getDistanceSq()
     {
-        return this.distanceSq;
+        return distanceSq;
     }
 
     public static enum Status

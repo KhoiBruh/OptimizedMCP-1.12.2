@@ -23,14 +23,14 @@ public class EntityAIWanderAvoidWaterFlying extends EntityAIWanderAvoidWater
     {
         Vec3d vec3d = null;
 
-        if (this.entity.isInWater() || this.entity.isOverWater())
+        if (entity.isInWater() || entity.isOverWater())
         {
-            vec3d = RandomPositionGenerator.getLandPos(this.entity, 15, 15);
+            vec3d = RandomPositionGenerator.getLandPos(entity, 15, 15);
         }
 
-        if (this.entity.getRNG().nextFloat() >= this.probability)
+        if (entity.getRNG().nextFloat() >= probability)
         {
-            vec3d = this.getTreePos();
+            vec3d = getTreePos();
         }
 
         return vec3d == null ? super.getPosition() : vec3d;
@@ -39,10 +39,10 @@ public class EntityAIWanderAvoidWaterFlying extends EntityAIWanderAvoidWater
     @Nullable
     private Vec3d getTreePos()
     {
-        BlockPos blockpos = new BlockPos(this.entity);
+        BlockPos blockpos = new BlockPos(entity);
         BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
         BlockPos.MutableBlockPos blockpos$mutableblockpos1 = new BlockPos.MutableBlockPos();
-        Iterable<BlockPos.MutableBlockPos> iterable = BlockPos.MutableBlockPos.getAllInBoxMutable(MathHelper.floor(this.entity.posX - 3.0D), MathHelper.floor(this.entity.posY - 6.0D), MathHelper.floor(this.entity.posZ - 3.0D), MathHelper.floor(this.entity.posX + 3.0D), MathHelper.floor(this.entity.posY + 6.0D), MathHelper.floor(this.entity.posZ + 3.0D));
+        Iterable<BlockPos.MutableBlockPos> iterable = BlockPos.MutableBlockPos.getAllInBoxMutable(MathHelper.floor(entity.posX - 3.0D), MathHelper.floor(entity.posY - 6.0D), MathHelper.floor(entity.posZ - 3.0D), MathHelper.floor(entity.posX + 3.0D), MathHelper.floor(entity.posY + 6.0D), MathHelper.floor(entity.posZ + 3.0D));
         Iterator iterator = iterable.iterator();
         BlockPos blockpos1;
 
@@ -57,10 +57,10 @@ public class EntityAIWanderAvoidWaterFlying extends EntityAIWanderAvoidWater
 
             if (!blockpos.equals(blockpos1))
             {
-                Block block = this.entity.world.getBlockState(blockpos$mutableblockpos1.setPos(blockpos1).move(EnumFacing.DOWN)).getBlock();
+                Block block = entity.world.getBlockState(blockpos$mutableblockpos1.setPos(blockpos1).move(EnumFacing.DOWN)).getBlock();
                 boolean flag = block instanceof BlockLeaves || block == Blocks.LOG || block == Blocks.LOG2;
 
-                if (flag && this.entity.world.isAirBlock(blockpos1) && this.entity.world.isAirBlock(blockpos$mutableblockpos.setPos(blockpos1).move(EnumFacing.UP)))
+                if (flag && entity.world.isAirBlock(blockpos1) && entity.world.isAirBlock(blockpos$mutableblockpos.setPos(blockpos1).move(EnumFacing.UP)))
                 {
                     break;
                 }

@@ -17,18 +17,18 @@ public class WorldGenBigMushroom extends WorldGenerator
     public WorldGenBigMushroom(Block p_i46449_1_)
     {
         super(true);
-        this.mushroomType = p_i46449_1_;
+        mushroomType = p_i46449_1_;
     }
 
     public WorldGenBigMushroom()
     {
         super(false);
-        this.mushroomType = null;
+        mushroomType = null;
     }
 
     public boolean generate(World worldIn, Random rand, BlockPos position)
     {
-        Block block = this.mushroomType;
+        Block block = mushroomType;
 
         if (block == null)
         {
@@ -203,7 +203,7 @@ public class WorldGenBigMushroom extends WorldGenerator
 
                                     if (!worldIn.getBlockState(blockpos).isFullBlock())
                                     {
-                                        this.setBlockAndNotifyAdequately(worldIn, blockpos, block.getDefaultState().withProperty(BlockHugeMushroom.VARIANT, blockhugemushroom$enumtype));
+                                        setBlockAndNotifyAdequately(worldIn, blockpos, block.getDefaultState().withProperty(BlockHugeMushroom.VARIANT, blockhugemushroom$enumtype));
                                     }
                                 }
                             }
@@ -216,7 +216,7 @@ public class WorldGenBigMushroom extends WorldGenerator
 
                         if (!iblockstate.isFullBlock())
                         {
-                            this.setBlockAndNotifyAdequately(worldIn, position.up(i3), block.getDefaultState().withProperty(BlockHugeMushroom.VARIANT, BlockHugeMushroom.EnumType.STEM));
+                            setBlockAndNotifyAdequately(worldIn, position.up(i3), block.getDefaultState().withProperty(BlockHugeMushroom.VARIANT, BlockHugeMushroom.EnumType.STEM));
                         }
                     }
 

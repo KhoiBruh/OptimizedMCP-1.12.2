@@ -28,17 +28,17 @@ public class ParticleExplosionHuge extends Particle
     {
         for (int i = 0; i < 6; ++i)
         {
-            double d0 = this.posX + (this.rand.nextDouble() - this.rand.nextDouble()) * 4.0D;
-            double d1 = this.posY + (this.rand.nextDouble() - this.rand.nextDouble()) * 4.0D;
-            double d2 = this.posZ + (this.rand.nextDouble() - this.rand.nextDouble()) * 4.0D;
-            this.world.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, d0, d1, d2, (double)((float)this.timeSinceStart / (float)this.maximumTime), 0.0D, 0.0D);
+            double d0 = posX + (rand.nextDouble() - rand.nextDouble()) * 4.0D;
+            double d1 = posY + (rand.nextDouble() - rand.nextDouble()) * 4.0D;
+            double d2 = posZ + (rand.nextDouble() - rand.nextDouble()) * 4.0D;
+            world.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, d0, d1, d2, (double)((float) timeSinceStart / (float) maximumTime), 0.0D, 0.0D);
         }
 
-        ++this.timeSinceStart;
+        ++timeSinceStart;
 
-        if (this.timeSinceStart == this.maximumTime)
+        if (timeSinceStart == maximumTime)
         {
-            this.setExpired();
+            setExpired();
         }
     }
 

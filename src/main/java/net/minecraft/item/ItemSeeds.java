@@ -21,8 +21,8 @@ public class ItemSeeds extends Item
     public ItemSeeds(Block crops, Block soil)
     {
         this.crops = crops;
-        this.soilBlockID = soil;
-        this.setCreativeTab(CreativeTabs.MATERIALS);
+        soilBlockID = soil;
+        setCreativeTab(CreativeTabs.MATERIALS);
     }
 
     /**
@@ -32,9 +32,9 @@ public class ItemSeeds extends Item
     {
         ItemStack itemstack = player.getHeldItem(hand);
 
-        if (facing == EnumFacing.UP && player.canPlayerEdit(pos.offset(facing), facing, itemstack) && worldIn.getBlockState(pos).getBlock() == this.soilBlockID && worldIn.isAirBlock(pos.up()))
+        if (facing == EnumFacing.UP && player.canPlayerEdit(pos.offset(facing), facing, itemstack) && worldIn.getBlockState(pos).getBlock() == soilBlockID && worldIn.isAirBlock(pos.up()))
         {
-            worldIn.setBlockState(pos.up(), this.crops.getDefaultState());
+            worldIn.setBlockState(pos.up(), crops.getDefaultState());
 
             if (player instanceof EntityPlayerMP)
             {

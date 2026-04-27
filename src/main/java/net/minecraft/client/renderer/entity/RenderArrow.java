@@ -19,7 +19,7 @@ public abstract class RenderArrow<T extends EntityArrow> extends Render<T>
      */
     public void doRender(T entity, double x, double y, double z, float entityYaw, float partialTicks)
     {
-        this.bindEntityTexture(entity);
+        bindEntityTexture(entity);
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         GlStateManager.pushMatrix();
         GlStateManager.disableLighting();
@@ -51,10 +51,10 @@ public abstract class RenderArrow<T extends EntityArrow> extends Render<T>
         GlStateManager.scale(0.05625F, 0.05625F, 0.05625F);
         GlStateManager.translate(-4.0F, 0.0F, 0.0F);
 
-        if (this.renderOutlines)
+        if (renderOutlines)
         {
             GlStateManager.enableColorMaterial();
-            GlStateManager.enableOutlineMode(this.getTeamColor(entity));
+            GlStateManager.enableOutlineMode(getTeamColor(entity));
         }
 
         GlStateManager.glNormal3f(0.05625F, 0.0F, 0.0F);
@@ -84,7 +84,7 @@ public abstract class RenderArrow<T extends EntityArrow> extends Render<T>
             tessellator.draw();
         }
 
-        if (this.renderOutlines)
+        if (renderOutlines)
         {
             GlStateManager.disableOutlineMode();
             GlStateManager.disableColorMaterial();

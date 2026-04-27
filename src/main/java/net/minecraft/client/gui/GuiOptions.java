@@ -21,8 +21,8 @@ public class GuiOptions extends GuiScreen
 
     public GuiOptions(GuiScreen p_i1046_1_, GameSettings p_i1046_2_)
     {
-        this.lastScreen = p_i1046_1_;
-        this.settings = p_i1046_2_;
+        lastScreen = p_i1046_1_;
+        settings = p_i1046_2_;
     }
 
     /**
@@ -31,58 +31,58 @@ public class GuiOptions extends GuiScreen
      */
     public void initGui()
     {
-        this.title = I18n.format("options.title");
+        title = I18n.format("options.title");
         int i = 0;
 
         for (GameSettings.Options gamesettings$options : SCREEN_OPTIONS)
         {
             if (gamesettings$options.isFloat())
             {
-                this.buttonList.add(new GuiOptionSlider(gamesettings$options.getOrdinal(), this.width / 2 - 155 + i % 2 * 160, this.height / 6 - 12 + 24 * (i >> 1), gamesettings$options));
+                buttonList.add(new GuiOptionSlider(gamesettings$options.getOrdinal(), width / 2 - 155 + i % 2 * 160, height / 6 - 12 + 24 * (i >> 1), gamesettings$options));
             }
             else
             {
-                GuiOptionButton guioptionbutton = new GuiOptionButton(gamesettings$options.getOrdinal(), this.width / 2 - 155 + i % 2 * 160, this.height / 6 - 12 + 24 * (i >> 1), gamesettings$options, this.settings.getKeyBinding(gamesettings$options));
-                this.buttonList.add(guioptionbutton);
+                GuiOptionButton guioptionbutton = new GuiOptionButton(gamesettings$options.getOrdinal(), width / 2 - 155 + i % 2 * 160, height / 6 - 12 + 24 * (i >> 1), gamesettings$options, settings.getKeyBinding(gamesettings$options));
+                buttonList.add(guioptionbutton);
             }
 
             ++i;
         }
 
-        if (this.mc.world != null)
+        if (mc.world != null)
         {
-            EnumDifficulty enumdifficulty = this.mc.world.getDifficulty();
-            this.difficultyButton = new GuiButton(108, this.width / 2 - 155 + i % 2 * 160, this.height / 6 - 12 + 24 * (i >> 1), 150, 20, this.getDifficultyText(enumdifficulty));
-            this.buttonList.add(this.difficultyButton);
+            EnumDifficulty enumdifficulty = mc.world.getDifficulty();
+            difficultyButton = new GuiButton(108, width / 2 - 155 + i % 2 * 160, height / 6 - 12 + 24 * (i >> 1), 150, 20, getDifficultyText(enumdifficulty));
+            buttonList.add(difficultyButton);
 
-            if (this.mc.isSingleplayer() && !this.mc.world.getWorldInfo().isHardcoreModeEnabled())
+            if (mc.isSingleplayer() && !mc.world.getWorldInfo().isHardcoreModeEnabled())
             {
-                this.difficultyButton.setWidth(this.difficultyButton.getButtonWidth() - 20);
-                this.lockButton = new GuiLockIconButton(109, this.difficultyButton.x + this.difficultyButton.getButtonWidth(), this.difficultyButton.y);
-                this.buttonList.add(this.lockButton);
-                this.lockButton.setLocked(this.mc.world.getWorldInfo().isDifficultyLocked());
-                this.lockButton.enabled = !this.lockButton.isLocked();
-                this.difficultyButton.enabled = !this.lockButton.isLocked();
+                difficultyButton.setWidth(difficultyButton.getButtonWidth() - 20);
+                lockButton = new GuiLockIconButton(109, difficultyButton.x + difficultyButton.getButtonWidth(), difficultyButton.y);
+                buttonList.add(lockButton);
+                lockButton.setLocked(mc.world.getWorldInfo().isDifficultyLocked());
+                lockButton.enabled = !lockButton.isLocked();
+                difficultyButton.enabled = !lockButton.isLocked();
             }
             else
             {
-                this.difficultyButton.enabled = false;
+                difficultyButton.enabled = false;
             }
         }
         else
         {
-            this.buttonList.add(new GuiOptionButton(GameSettings.Options.REALMS_NOTIFICATIONS.getOrdinal(), this.width / 2 - 155 + i % 2 * 160, this.height / 6 - 12 + 24 * (i >> 1), GameSettings.Options.REALMS_NOTIFICATIONS, this.settings.getKeyBinding(GameSettings.Options.REALMS_NOTIFICATIONS)));
+            buttonList.add(new GuiOptionButton(GameSettings.Options.REALMS_NOTIFICATIONS.getOrdinal(), width / 2 - 155 + i % 2 * 160, height / 6 - 12 + 24 * (i >> 1), GameSettings.Options.REALMS_NOTIFICATIONS, settings.getKeyBinding(GameSettings.Options.REALMS_NOTIFICATIONS)));
         }
 
-        this.buttonList.add(new GuiButton(110, this.width / 2 - 155, this.height / 6 + 48 - 6, 150, 20, I18n.format("options.skinCustomisation")));
-        this.buttonList.add(new GuiButton(106, this.width / 2 + 5, this.height / 6 + 48 - 6, 150, 20, I18n.format("options.sounds")));
-        this.buttonList.add(new GuiButton(101, this.width / 2 - 155, this.height / 6 + 72 - 6, 150, 20, I18n.format("options.video")));
-        this.buttonList.add(new GuiButton(100, this.width / 2 + 5, this.height / 6 + 72 - 6, 150, 20, I18n.format("options.controls")));
-        this.buttonList.add(new GuiButton(102, this.width / 2 - 155, this.height / 6 + 96 - 6, 150, 20, I18n.format("options.language")));
-        this.buttonList.add(new GuiButton(103, this.width / 2 + 5, this.height / 6 + 96 - 6, 150, 20, I18n.format("options.chat.title")));
-        this.buttonList.add(new GuiButton(105, this.width / 2 - 155, this.height / 6 + 120 - 6, 150, 20, I18n.format("options.resourcepack")));
-        this.buttonList.add(new GuiButton(104, this.width / 2 + 5, this.height / 6 + 120 - 6, 150, 20, I18n.format("options.snooper.view")));
-        this.buttonList.add(new GuiButton(200, this.width / 2 - 100, this.height / 6 + 168, I18n.format("gui.done")));
+        buttonList.add(new GuiButton(110, width / 2 - 155, height / 6 + 48 - 6, 150, 20, I18n.format("options.skinCustomisation")));
+        buttonList.add(new GuiButton(106, width / 2 + 5, height / 6 + 48 - 6, 150, 20, I18n.format("options.sounds")));
+        buttonList.add(new GuiButton(101, width / 2 - 155, height / 6 + 72 - 6, 150, 20, I18n.format("options.video")));
+        buttonList.add(new GuiButton(100, width / 2 + 5, height / 6 + 72 - 6, 150, 20, I18n.format("options.controls")));
+        buttonList.add(new GuiButton(102, width / 2 - 155, height / 6 + 96 - 6, 150, 20, I18n.format("options.language")));
+        buttonList.add(new GuiButton(103, width / 2 + 5, height / 6 + 96 - 6, 150, 20, I18n.format("options.chat.title")));
+        buttonList.add(new GuiButton(105, width / 2 - 155, height / 6 + 120 - 6, 150, 20, I18n.format("options.resourcepack")));
+        buttonList.add(new GuiButton(104, width / 2 + 5, height / 6 + 120 - 6, 150, 20, I18n.format("options.snooper.view")));
+        buttonList.add(new GuiButton(200, width / 2 - 100, height / 6 + 168, I18n.format("gui.done")));
     }
 
     public String getDifficultyText(EnumDifficulty p_175355_1_)
@@ -96,14 +96,14 @@ public class GuiOptions extends GuiScreen
 
     public void confirmClicked(boolean result, int id)
     {
-        this.mc.displayGuiScreen(this);
+        mc.displayGuiScreen(this);
 
-        if (id == 109 && result && this.mc.world != null)
+        if (id == 109 && result && mc.world != null)
         {
-            this.mc.world.getWorldInfo().setDifficultyLocked(true);
-            this.lockButton.setLocked(true);
-            this.lockButton.enabled = false;
-            this.difficultyButton.enabled = false;
+            mc.world.getWorldInfo().setDifficultyLocked(true);
+            lockButton.setLocked(true);
+            lockButton.enabled = false;
+            difficultyButton.enabled = false;
         }
     }
 
@@ -115,7 +115,7 @@ public class GuiOptions extends GuiScreen
     {
         if (keyCode == 1)
         {
-            this.mc.gameSettings.saveOptions();
+            mc.gameSettings.saveOptions();
         }
 
         super.keyTyped(typedChar, keyCode);
@@ -131,73 +131,73 @@ public class GuiOptions extends GuiScreen
             if (button.id < 100 && button instanceof GuiOptionButton)
             {
                 GameSettings.Options gamesettings$options = ((GuiOptionButton)button).getOption();
-                this.settings.setOptionValue(gamesettings$options, 1);
-                button.displayString = this.settings.getKeyBinding(GameSettings.Options.byOrdinal(button.id));
+                settings.setOptionValue(gamesettings$options, 1);
+                button.displayString = settings.getKeyBinding(GameSettings.Options.byOrdinal(button.id));
             }
 
             if (button.id == 108)
             {
-                this.mc.world.getWorldInfo().setDifficulty(EnumDifficulty.getDifficultyEnum(this.mc.world.getDifficulty().getDifficultyId() + 1));
-                this.difficultyButton.displayString = this.getDifficultyText(this.mc.world.getDifficulty());
+                mc.world.getWorldInfo().setDifficulty(EnumDifficulty.getDifficultyEnum(mc.world.getDifficulty().getDifficultyId() + 1));
+                difficultyButton.displayString = getDifficultyText(mc.world.getDifficulty());
             }
 
             if (button.id == 109)
             {
-                this.mc.displayGuiScreen(new GuiYesNo(this, (new TextComponentTranslation("difficulty.lock.title", new Object[0])).getFormattedText(), (new TextComponentTranslation("difficulty.lock.question", new Object[] {new TextComponentTranslation(this.mc.world.getWorldInfo().getDifficulty().getDifficultyResourceKey(), new Object[0])})).getFormattedText(), 109));
+                mc.displayGuiScreen(new GuiYesNo(this, (new TextComponentTranslation("difficulty.lock.title", new Object[0])).getFormattedText(), (new TextComponentTranslation("difficulty.lock.question", new Object[] {new TextComponentTranslation(mc.world.getWorldInfo().getDifficulty().getDifficultyResourceKey(), new Object[0])})).getFormattedText(), 109));
             }
 
             if (button.id == 110)
             {
-                this.mc.gameSettings.saveOptions();
-                this.mc.displayGuiScreen(new GuiCustomizeSkin(this));
+                mc.gameSettings.saveOptions();
+                mc.displayGuiScreen(new GuiCustomizeSkin(this));
             }
 
             if (button.id == 101)
             {
-                this.mc.gameSettings.saveOptions();
-                this.mc.displayGuiScreen(new GuiVideoSettings(this, this.settings));
+                mc.gameSettings.saveOptions();
+                mc.displayGuiScreen(new GuiVideoSettings(this, settings));
             }
 
             if (button.id == 100)
             {
-                this.mc.gameSettings.saveOptions();
-                this.mc.displayGuiScreen(new GuiControls(this, this.settings));
+                mc.gameSettings.saveOptions();
+                mc.displayGuiScreen(new GuiControls(this, settings));
             }
 
             if (button.id == 102)
             {
-                this.mc.gameSettings.saveOptions();
-                this.mc.displayGuiScreen(new GuiLanguage(this, this.settings, this.mc.getLanguageManager()));
+                mc.gameSettings.saveOptions();
+                mc.displayGuiScreen(new GuiLanguage(this, settings, mc.getLanguageManager()));
             }
 
             if (button.id == 103)
             {
-                this.mc.gameSettings.saveOptions();
-                this.mc.displayGuiScreen(new ScreenChatOptions(this, this.settings));
+                mc.gameSettings.saveOptions();
+                mc.displayGuiScreen(new ScreenChatOptions(this, settings));
             }
 
             if (button.id == 104)
             {
-                this.mc.gameSettings.saveOptions();
-                this.mc.displayGuiScreen(new GuiSnooper(this, this.settings));
+                mc.gameSettings.saveOptions();
+                mc.displayGuiScreen(new GuiSnooper(this, settings));
             }
 
             if (button.id == 200)
             {
-                this.mc.gameSettings.saveOptions();
-                this.mc.displayGuiScreen(this.lastScreen);
+                mc.gameSettings.saveOptions();
+                mc.displayGuiScreen(lastScreen);
             }
 
             if (button.id == 105)
             {
-                this.mc.gameSettings.saveOptions();
-                this.mc.displayGuiScreen(new GuiScreenResourcePacks(this));
+                mc.gameSettings.saveOptions();
+                mc.displayGuiScreen(new GuiScreenResourcePacks(this));
             }
 
             if (button.id == 106)
             {
-                this.mc.gameSettings.saveOptions();
-                this.mc.displayGuiScreen(new GuiScreenOptionsSounds(this, this.settings));
+                mc.gameSettings.saveOptions();
+                mc.displayGuiScreen(new GuiScreenOptionsSounds(this, settings));
             }
         }
     }
@@ -207,8 +207,8 @@ public class GuiOptions extends GuiScreen
      */
     public void drawScreen(int mouseX, int mouseY, float partialTicks)
     {
-        this.drawDefaultBackground();
-        this.drawCenteredString(this.fontRenderer, this.title, this.width / 2, 15, 16777215);
+        drawDefaultBackground();
+        drawCenteredString(fontRenderer, title, width / 2, 15, 16777215);
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
 }

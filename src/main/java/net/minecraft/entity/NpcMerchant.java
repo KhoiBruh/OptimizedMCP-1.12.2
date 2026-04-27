@@ -25,15 +25,15 @@ public class NpcMerchant implements IMerchant
 
     public NpcMerchant(EntityPlayer customerIn, ITextComponent nameIn)
     {
-        this.customer = customerIn;
-        this.name = nameIn;
-        this.merchantInventory = new InventoryMerchant(customerIn, this);
+        customer = customerIn;
+        name = nameIn;
+        merchantInventory = new InventoryMerchant(customerIn, this);
     }
 
     @Nullable
     public EntityPlayer getCustomer()
     {
-        return this.customer;
+        return customer;
     }
 
     public void setCustomer(@Nullable EntityPlayer player)
@@ -43,7 +43,7 @@ public class NpcMerchant implements IMerchant
     @Nullable
     public MerchantRecipeList getRecipes(EntityPlayer player)
     {
-        return this.recipeList;
+        return recipeList;
     }
 
     public void setRecipes(@Nullable MerchantRecipeList recipeList)
@@ -69,16 +69,16 @@ public class NpcMerchant implements IMerchant
      */
     public ITextComponent getDisplayName()
     {
-        return (ITextComponent)(this.name != null ? this.name : new TextComponentTranslation("entity.Villager.name", new Object[0]));
+        return (ITextComponent)(name != null ? name : new TextComponentTranslation("entity.Villager.name", new Object[0]));
     }
 
     public World getWorld()
     {
-        return this.customer.world;
+        return customer.world;
     }
 
     public BlockPos getPos()
     {
-        return new BlockPos(this.customer);
+        return new BlockPos(customer);
     }
 }

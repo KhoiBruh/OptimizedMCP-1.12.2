@@ -29,8 +29,8 @@ public class BiomeProvider
 
     protected BiomeProvider()
     {
-        this.biomeCache = new BiomeCache(this);
-        this.biomesToSpawnIn = Lists.newArrayList(Biomes.FOREST, Biomes.PLAINS, Biomes.TAIGA, Biomes.TAIGA_HILLS, Biomes.FOREST_HILLS, Biomes.JUNGLE, Biomes.JUNGLE_HILLS);
+        biomeCache = new BiomeCache(this);
+        biomesToSpawnIn = Lists.newArrayList(Biomes.FOREST, Biomes.PLAINS, Biomes.TAIGA, Biomes.TAIGA_HILLS, Biomes.FOREST_HILLS, Biomes.JUNGLE, Biomes.JUNGLE_HILLS);
     }
 
     private BiomeProvider(long seed, WorldType worldTypeIn, String options)
@@ -39,12 +39,12 @@ public class BiomeProvider
 
         if (worldTypeIn == WorldType.CUSTOMIZED && !options.isEmpty())
         {
-            this.settings = ChunkGeneratorSettings.Factory.jsonToFactory(options).build();
+            settings = ChunkGeneratorSettings.Factory.jsonToFactory(options).build();
         }
 
-        GenLayer[] agenlayer = GenLayer.initializeAllBiomeGenerators(seed, worldTypeIn, this.settings);
-        this.genBiomes = agenlayer[0];
-        this.biomeIndexLayer = agenlayer[1];
+        GenLayer[] agenlayer = GenLayer.initializeAllBiomeGenerators(seed, worldTypeIn, settings);
+        genBiomes = agenlayer[0];
+        biomeIndexLayer = agenlayer[1];
     }
 
     public BiomeProvider(WorldInfo info)
@@ -54,7 +54,7 @@ public class BiomeProvider
 
     public List<Biome> getBiomesToSpawnIn()
     {
-        return this.biomesToSpawnIn;
+        return biomesToSpawnIn;
     }
 
     /**
@@ -62,12 +62,12 @@ public class BiomeProvider
      */
     public Biome getBiome(BlockPos pos)
     {
-        return this.getBiome(pos, (Biome)null);
+        return getBiome(pos, (Biome)null);
     }
 
     public Biome getBiome(BlockPos pos, Biome defaultBiome)
     {
-        return this.biomeCache.getBiome(pos.getX(), pos.getZ(), defaultBiome);
+        return biomeCache.getBiome(pos.getX(), pos.getZ(), defaultBiome);
     }
 
     /**
@@ -90,7 +90,7 @@ public class BiomeProvider
             biomes = new Biome[width * height];
         }
 
-        int[] aint = this.genBiomes.getInts(x, z, width, height);
+        int[] aint = genBiomes.getInts(x, z, width, height);
 
         try
         {
@@ -120,7 +120,7 @@ public class BiomeProvider
      */
     public Biome[] getBiomes(@Nullable Biome[] oldBiomeList, int x, int z, int width, int depth)
     {
-        return this.getBiomes(oldBiomeList, x, z, width, depth, true);
+        return getBiomes(oldBiomeList, x, z, width, depth, true);
     }
 
     /**
@@ -137,13 +137,13 @@ public class BiomeProvider
 
         if (cacheFlag && width == 16 && length == 16 && (x & 15) == 0 && (z & 15) == 0)
         {
-            Biome[] abiome = this.biomeCache.getCachedBiomes(x, z);
+            Biome[] abiome = biomeCache.getCachedBiomes(x, z);
             System.arraycopy(abiome, 0, listToReuse, 0, width * length);
             return listToReuse;
         }
         else
         {
-            int[] aint = this.biomeIndexLayer.getInts(x, z, width, length);
+            int[] aint = biomeIndexLayer.getInts(x, z, width, length);
 
             for (int i = 0; i < width * length; ++i)
             {
@@ -166,7 +166,7 @@ public class BiomeProvider
         int l = z + radius >> 2;
         int i1 = k - i + 1;
         int j1 = l - j + 1;
-        int[] aint = this.genBiomes.getInts(i, j, i1, j1);
+        int[] aint = genBiomes.getInts(i, j, i1, j1);
 
         try
         {
@@ -186,7 +186,7 @@ public class BiomeProvider
         {
             CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Invalid Biome id");
             CrashReportCategory crashreportcategory = crashreport.makeCategory("Layer");
-            crashreportcategory.addCrashSection("Layer", this.genBiomes.toString());
+            crashreportcategory.addCrashSection("Layer", genBiomes.toString());
             crashreportcategory.addCrashSection("x", Integer.valueOf(x));
             crashreportcategory.addCrashSection("z", Integer.valueOf(z));
             crashreportcategory.addCrashSection("radius", Integer.valueOf(radius));
@@ -205,7 +205,7 @@ public class BiomeProvider
         int l = z + range >> 2;
         int i1 = k - i + 1;
         int j1 = l - j + 1;
-        int[] aint = this.genBiomes.getInts(i, j, i1, j1);
+        int[] aint = genBiomes.getInts(i, j, i1, j1);
         BlockPos blockpos = null;
         int k1 = 0;
 
@@ -230,16 +230,16 @@ public class BiomeProvider
      */
     public void cleanupCache()
     {
-        this.biomeCache.cleanupCache();
+        biomeCache.cleanupCache();
     }
 
     public boolean isFixedBiome()
     {
-        return this.settings != null && this.settings.fixedBiome >= 0;
+        return settings != null && settings.fixedBiome >= 0;
     }
 
     public Biome getFixedBiome()
     {
-        return this.settings != null && this.settings.fixedBiome >= 0 ? Biome.getBiomeForId(this.settings.fixedBiome) : null;
+        return settings != null && settings.fixedBiome >= 0 ? Biome.getBiomeForId(settings.fixedBiome) : null;
     }
 }

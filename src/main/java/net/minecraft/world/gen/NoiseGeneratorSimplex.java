@@ -20,12 +20,12 @@ public class NoiseGeneratorSimplex
 
     public NoiseGeneratorSimplex(Random seed)
     {
-        this.p = new int[512];
-        this.xo = seed.nextDouble() * 256.0D;
-        this.yo = seed.nextDouble() * 256.0D;
-        this.zo = seed.nextDouble() * 256.0D;
+        p = new int[512];
+        xo = seed.nextDouble() * 256.0D;
+        yo = seed.nextDouble() * 256.0D;
+        zo = seed.nextDouble() * 256.0D;
 
-        for (int i = 0; i < 256; this.p[i] = i++)
+        for (int i = 0; i < 256; p[i] = i++)
         {
             ;
         }
@@ -33,10 +33,10 @@ public class NoiseGeneratorSimplex
         for (int l = 0; l < 256; ++l)
         {
             int j = seed.nextInt(256 - l) + l;
-            int k = this.p[l];
-            this.p[l] = this.p[j];
-            this.p[j] = k;
-            this.p[l + 256] = this.p[l];
+            int k = p[l];
+            p[l] = p[j];
+            p[j] = k;
+            p[l + 256] = p[l];
         }
     }
 
@@ -82,9 +82,9 @@ public class NoiseGeneratorSimplex
         double d14 = d10 - 1.0D + 2.0D * d5;
         int i1 = i & 255;
         int j1 = j & 255;
-        int k1 = this.p[i1 + this.p[j1]] % 12;
-        int l1 = this.p[i1 + k + this.p[j1 + l]] % 12;
-        int i2 = this.p[i1 + 1 + this.p[j1 + 1]] % 12;
+        int k1 = p[i1 + p[j1]] % 12;
+        int l1 = p[i1 + k + p[j1 + l]] % 12;
+        int i2 = p[i1 + 1 + p[j1 + 1]] % 12;
         double d15 = 0.5D - d9 * d9 - d10 * d10;
         double d0;
 
@@ -133,11 +133,11 @@ public class NoiseGeneratorSimplex
 
         for (int j = 0; j < p_151606_7_; ++j)
         {
-            double d0 = (p_151606_4_ + (double)j) * p_151606_10_ + this.yo;
+            double d0 = (p_151606_4_ + (double)j) * p_151606_10_ + yo;
 
             for (int k = 0; k < p_151606_6_; ++k)
             {
-                double d1 = (p_151606_2_ + (double)k) * p_151606_8_ + this.xo;
+                double d1 = (p_151606_2_ + (double)k) * p_151606_8_ + xo;
                 double d5 = (d1 + d0) * F2;
                 int l = fastFloor(d1 + d5);
                 int i1 = fastFloor(d0 + d5);
@@ -166,9 +166,9 @@ public class NoiseGeneratorSimplex
                 double d14 = d10 - 1.0D + 2.0D * G2;
                 int l1 = l & 255;
                 int i2 = i1 & 255;
-                int j2 = this.p[l1 + this.p[i2]] % 12;
-                int k2 = this.p[l1 + j1 + this.p[i2 + k1]] % 12;
-                int l2 = this.p[l1 + 1 + this.p[i2 + 1]] % 12;
+                int j2 = p[l1 + p[i2]] % 12;
+                int k2 = p[l1 + j1 + p[i2 + k1]] % 12;
+                int l2 = p[l1 + 1 + p[i2 + 1]] % 12;
                 double d15 = 0.5D - d9 * d9 - d10 * d10;
                 double d2;
 

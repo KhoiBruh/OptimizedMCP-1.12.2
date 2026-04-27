@@ -9,6 +9,6 @@ public class StitcherException extends RuntimeException
     public StitcherException(Stitcher.Holder holderIn, String message)
     {
         super(message);
-        this.holder = holderIn;
+        holder = holderIn;
     }
 }

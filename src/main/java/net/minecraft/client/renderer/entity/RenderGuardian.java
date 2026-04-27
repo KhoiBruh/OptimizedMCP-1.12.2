@@ -37,8 +37,8 @@ public class RenderGuardian extends RenderLiving<EntityGuardian>
 
                 if (entitylivingbase != null)
                 {
-                    Vec3d vec3d = this.getPosition(entitylivingbase, (double)entitylivingbase.height * 0.5D, 1.0F);
-                    Vec3d vec3d1 = this.getPosition(livingEntity, (double)livingEntity.getEyeHeight(), 1.0F);
+                    Vec3d vec3d = getPosition(entitylivingbase, (double)entitylivingbase.height * 0.5D, 1.0F);
+                    Vec3d vec3d1 = getPosition(livingEntity, (double)livingEntity.getEyeHeight(), 1.0F);
 
                     if (camera.isBoundingBoxInFrustum(new AxisAlignedBB(vec3d1.x, vec3d1.y, vec3d1.z, vec3d.x, vec3d.y, vec3d.z)))
                     {
@@ -72,7 +72,7 @@ public class RenderGuardian extends RenderLiving<EntityGuardian>
             float f = entity.getAttackAnimationScale(partialTicks);
             Tessellator tessellator = Tessellator.getInstance();
             BufferBuilder bufferbuilder = tessellator.getBuffer();
-            this.bindTexture(GUARDIAN_BEAM_TEXTURE);
+            bindTexture(GUARDIAN_BEAM_TEXTURE);
             GlStateManager.glTexParameteri(3553, 10242, 10497);
             GlStateManager.glTexParameteri(3553, 10243, 10497);
             GlStateManager.disableLighting();
@@ -87,8 +87,8 @@ public class RenderGuardian extends RenderLiving<EntityGuardian>
             float f4 = entity.getEyeHeight();
             GlStateManager.pushMatrix();
             GlStateManager.translate((float)x, (float)y + f4, (float)z);
-            Vec3d vec3d = this.getPosition(entitylivingbase, (double)entitylivingbase.height * 0.5D, partialTicks);
-            Vec3d vec3d1 = this.getPosition(entity, (double)f4, partialTicks);
+            Vec3d vec3d = getPosition(entitylivingbase, (double)entitylivingbase.height * 0.5D, partialTicks);
+            Vec3d vec3d1 = getPosition(entity, (double)f4, partialTicks);
             Vec3d vec3d2 = vec3d.subtract(vec3d1);
             double d0 = vec3d2.lengthVector() + 1.0D;
             vec3d2 = vec3d2.normalize();

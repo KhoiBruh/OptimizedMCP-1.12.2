@@ -36,20 +36,20 @@ public class TeleportToPlayer implements ISpectatorMenuView, ISpectatorMenuObjec
 
     public TeleportToPlayer(Collection<NetworkPlayerInfo> profiles)
     {
-        this.items = Lists.<ISpectatorMenuObject>newArrayList();
+        items = Lists.<ISpectatorMenuObject>newArrayList();
 
         for (NetworkPlayerInfo networkplayerinfo : PROFILE_ORDER.sortedCopy(profiles))
         {
             if (networkplayerinfo.getGameType() != GameType.SPECTATOR)
             {
-                this.items.add(new PlayerMenuObject(networkplayerinfo.getGameProfile()));
+                items.add(new PlayerMenuObject(networkplayerinfo.getGameProfile()));
             }
         }
     }
 
     public List<ISpectatorMenuObject> getItems()
     {
-        return this.items;
+        return items;
     }
 
     public ITextComponent getPrompt()
@@ -75,6 +75,6 @@ public class TeleportToPlayer implements ISpectatorMenuView, ISpectatorMenuObjec
 
     public boolean isEnabled()
     {
-        return !this.items.isEmpty();
+        return !items.isEmpty();
     }
 }

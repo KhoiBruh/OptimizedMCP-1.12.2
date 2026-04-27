@@ -15,14 +15,14 @@ public class LayerSheepWool implements LayerRenderer<EntitySheep>
 
     public LayerSheepWool(RenderSheep sheepRendererIn)
     {
-        this.sheepRenderer = sheepRendererIn;
+        sheepRenderer = sheepRendererIn;
     }
 
     public void doRenderLayer(EntitySheep entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale)
     {
         if (!entitylivingbaseIn.getSheared() && !entitylivingbaseIn.isInvisible())
         {
-            this.sheepRenderer.bindTexture(TEXTURE);
+            sheepRenderer.bindTexture(TEXTURE);
 
             if (entitylivingbaseIn.hasCustomName() && "jeb_".equals(entitylivingbaseIn.getCustomNameTag()))
             {
@@ -42,9 +42,9 @@ public class LayerSheepWool implements LayerRenderer<EntitySheep>
                 GlStateManager.color(afloat[0], afloat[1], afloat[2]);
             }
 
-            this.sheepModel.setModelAttributes(this.sheepRenderer.getMainModel());
-            this.sheepModel.setLivingAnimations(entitylivingbaseIn, limbSwing, limbSwingAmount, partialTicks);
-            this.sheepModel.render(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+            sheepModel.setModelAttributes(sheepRenderer.getMainModel());
+            sheepModel.setLivingAnimations(entitylivingbaseIn, limbSwing, limbSwingAmount, partialTicks);
+            sheepModel.render(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
         }
     }
 

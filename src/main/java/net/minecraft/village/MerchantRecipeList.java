@@ -17,7 +17,7 @@ public class MerchantRecipeList extends ArrayList<MerchantRecipe>
 
     public MerchantRecipeList(NBTTagCompound compound)
     {
-        this.readRecipiesFromTags(compound);
+        readRecipiesFromTags(compound);
     }
 
     @Nullable
@@ -27,18 +27,18 @@ public class MerchantRecipeList extends ArrayList<MerchantRecipe>
      */
     public MerchantRecipe canRecipeBeUsed(ItemStack stack0, ItemStack stack1, int index)
     {
-        if (index > 0 && index < this.size())
+        if (index > 0 && index < size())
         {
-            MerchantRecipe merchantrecipe1 = (MerchantRecipe)this.get(index);
-            return !this.areItemStacksExactlyEqual(stack0, merchantrecipe1.getItemToBuy()) || (!stack1.isEmpty() || merchantrecipe1.hasSecondItemToBuy()) && (!merchantrecipe1.hasSecondItemToBuy() || !this.areItemStacksExactlyEqual(stack1, merchantrecipe1.getSecondItemToBuy())) || stack0.getCount() < merchantrecipe1.getItemToBuy().getCount() || merchantrecipe1.hasSecondItemToBuy() && stack1.getCount() < merchantrecipe1.getSecondItemToBuy().getCount() ? null : merchantrecipe1;
+            MerchantRecipe merchantrecipe1 = (MerchantRecipe) get(index);
+            return !areItemStacksExactlyEqual(stack0, merchantrecipe1.getItemToBuy()) || (!stack1.isEmpty() || merchantrecipe1.hasSecondItemToBuy()) && (!merchantrecipe1.hasSecondItemToBuy() || !areItemStacksExactlyEqual(stack1, merchantrecipe1.getSecondItemToBuy())) || stack0.getCount() < merchantrecipe1.getItemToBuy().getCount() || merchantrecipe1.hasSecondItemToBuy() && stack1.getCount() < merchantrecipe1.getSecondItemToBuy().getCount() ? null : merchantrecipe1;
         }
         else
         {
-            for (int i = 0; i < this.size(); ++i)
+            for (int i = 0; i < size(); ++i)
             {
-                MerchantRecipe merchantrecipe = (MerchantRecipe)this.get(i);
+                MerchantRecipe merchantrecipe = (MerchantRecipe) get(i);
 
-                if (this.areItemStacksExactlyEqual(stack0, merchantrecipe.getItemToBuy()) && stack0.getCount() >= merchantrecipe.getItemToBuy().getCount() && (!merchantrecipe.hasSecondItemToBuy() && stack1.isEmpty() || merchantrecipe.hasSecondItemToBuy() && this.areItemStacksExactlyEqual(stack1, merchantrecipe.getSecondItemToBuy()) && stack1.getCount() >= merchantrecipe.getSecondItemToBuy().getCount()))
+                if (areItemStacksExactlyEqual(stack0, merchantrecipe.getItemToBuy()) && stack0.getCount() >= merchantrecipe.getItemToBuy().getCount() && (!merchantrecipe.hasSecondItemToBuy() && stack1.isEmpty() || merchantrecipe.hasSecondItemToBuy() && areItemStacksExactlyEqual(stack1, merchantrecipe.getSecondItemToBuy()) && stack1.getCount() >= merchantrecipe.getSecondItemToBuy().getCount()))
                 {
                     return merchantrecipe;
                 }
@@ -55,11 +55,11 @@ public class MerchantRecipeList extends ArrayList<MerchantRecipe>
 
     public void writeToBuf(PacketBuffer buffer)
     {
-        buffer.writeByte((byte)(this.size() & 255));
+        buffer.writeByte((byte)(size() & 255));
 
-        for (int i = 0; i < this.size(); ++i)
+        for (int i = 0; i < size(); ++i)
         {
-            MerchantRecipe merchantrecipe = (MerchantRecipe)this.get(i);
+            MerchantRecipe merchantrecipe = (MerchantRecipe) get(i);
             buffer.writeItemStack(merchantrecipe.getItemToBuy());
             buffer.writeItemStack(merchantrecipe.getItemToSell());
             ItemStack itemstack = merchantrecipe.getSecondItemToBuy();
@@ -115,7 +115,7 @@ public class MerchantRecipeList extends ArrayList<MerchantRecipe>
         for (int i = 0; i < nbttaglist.tagCount(); ++i)
         {
             NBTTagCompound nbttagcompound = nbttaglist.getCompoundTagAt(i);
-            this.add(new MerchantRecipe(nbttagcompound));
+            add(new MerchantRecipe(nbttagcompound));
         }
     }
 
@@ -124,9 +124,9 @@ public class MerchantRecipeList extends ArrayList<MerchantRecipe>
         NBTTagCompound nbttagcompound = new NBTTagCompound();
         NBTTagList nbttaglist = new NBTTagList();
 
-        for (int i = 0; i < this.size(); ++i)
+        for (int i = 0; i < size(); ++i)
         {
-            MerchantRecipe merchantrecipe = (MerchantRecipe)this.get(i);
+            MerchantRecipe merchantrecipe = (MerchantRecipe) get(i);
             nbttaglist.appendTag(merchantrecipe.writeToTags());
         }
 

@@ -15,7 +15,7 @@ public class PropertyBool extends PropertyHelper<Boolean>
 
     public Collection<Boolean> getAllowedValues()
     {
-        return this.allowedValues;
+        return allowedValues;
     }
 
     public static PropertyBool create(String name)
@@ -45,7 +45,7 @@ public class PropertyBool extends PropertyHelper<Boolean>
         else if (p_equals_1_ instanceof PropertyBool && super.equals(p_equals_1_))
         {
             PropertyBool propertybool = (PropertyBool)p_equals_1_;
-            return this.allowedValues.equals(propertybool.allowedValues);
+            return allowedValues.equals(propertybool.allowedValues);
         }
         else
         {
@@ -55,6 +55,6 @@ public class PropertyBool extends PropertyHelper<Boolean>
 
     public int hashCode()
     {
-        return 31 * super.hashCode() + this.allowedValues.hashCode();
+        return 31 * super.hashCode() + allowedValues.hashCode();
     }
 }

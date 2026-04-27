@@ -32,8 +32,8 @@ public class BlockBush extends Block
     protected BlockBush(Material materialIn, MapColor mapColorIn)
     {
         super(materialIn, mapColorIn);
-        this.setTickRandomly(true);
-        this.setCreativeTab(CreativeTabs.DECORATIONS);
+        setTickRandomly(true);
+        setCreativeTab(CreativeTabs.DECORATIONS);
     }
 
     /**
@@ -41,7 +41,7 @@ public class BlockBush extends Block
      */
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
     {
-        return super.canPlaceBlockAt(worldIn, pos) && this.canSustainBush(worldIn.getBlockState(pos.down()));
+        return super.canPlaceBlockAt(worldIn, pos) && canSustainBush(worldIn.getBlockState(pos.down()));
     }
 
     /**
@@ -60,26 +60,26 @@ public class BlockBush extends Block
     public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos)
     {
         super.neighborChanged(state, worldIn, pos, blockIn, fromPos);
-        this.checkAndDropBlock(worldIn, pos, state);
+        checkAndDropBlock(worldIn, pos, state);
     }
 
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
     {
-        this.checkAndDropBlock(worldIn, pos, state);
+        checkAndDropBlock(worldIn, pos, state);
     }
 
     protected void checkAndDropBlock(World worldIn, BlockPos pos, IBlockState state)
     {
-        if (!this.canBlockStay(worldIn, pos, state))
+        if (!canBlockStay(worldIn, pos, state))
         {
-            this.dropBlockAsItem(worldIn, pos, state, 0);
+            dropBlockAsItem(worldIn, pos, state, 0);
             worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 3);
         }
     }
 
     public boolean canBlockStay(World worldIn, BlockPos pos, IBlockState state)
     {
-        return this.canSustainBush(worldIn.getBlockState(pos.down()));
+        return canSustainBush(worldIn.getBlockState(pos.down()));
     }
 
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)

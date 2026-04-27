@@ -35,52 +35,52 @@ public class PlayerChunkMapEntry
 
     public PlayerChunkMapEntry(PlayerChunkMap mapIn, int chunkX, int chunkZ)
     {
-        this.playerChunkMap = mapIn;
-        this.pos = new ChunkPos(chunkX, chunkZ);
-        this.chunk = mapIn.getWorldServer().getChunkProvider().loadChunk(chunkX, chunkZ);
+        playerChunkMap = mapIn;
+        pos = new ChunkPos(chunkX, chunkZ);
+        chunk = mapIn.getWorldServer().getChunkProvider().loadChunk(chunkX, chunkZ);
     }
 
     public ChunkPos getPos()
     {
-        return this.pos;
+        return pos;
     }
 
     public void addPlayer(EntityPlayerMP player)
     {
-        if (this.players.contains(player))
+        if (players.contains(player))
         {
-            LOGGER.debug("Failed to add player. {} already is in chunk {}, {}", player, Integer.valueOf(this.pos.x), Integer.valueOf(this.pos.z));
+            LOGGER.debug("Failed to add player. {} already is in chunk {}, {}", player, Integer.valueOf(pos.x), Integer.valueOf(pos.z));
         }
         else
         {
-            if (this.players.isEmpty())
+            if (players.isEmpty())
             {
-                this.lastUpdateInhabitedTime = this.playerChunkMap.getWorldServer().getTotalWorldTime();
+                lastUpdateInhabitedTime = playerChunkMap.getWorldServer().getTotalWorldTime();
             }
 
-            this.players.add(player);
+            players.add(player);
 
-            if (this.sentToPlayers)
+            if (sentToPlayers)
             {
-                this.sendToPlayer(player);
+                sendToPlayer(player);
             }
         }
     }
 
     public void removePlayer(EntityPlayerMP player)
     {
-        if (this.players.contains(player))
+        if (players.contains(player))
         {
-            if (this.sentToPlayers)
+            if (sentToPlayers)
             {
-                player.connection.sendPacket(new SPacketUnloadChunk(this.pos.x, this.pos.z));
+                player.connection.sendPacket(new SPacketUnloadChunk(pos.x, pos.z));
             }
 
-            this.players.remove(player);
+            players.remove(player);
 
-            if (this.players.isEmpty())
+            if (players.isEmpty())
             {
-                this.playerChunkMap.removeEntry(this);
+                playerChunkMap.removeEntry(this);
             }
         }
     }
@@ -91,7 +91,7 @@ public class PlayerChunkMapEntry
      */
     public boolean providePlayerChunk(boolean canGenerate)
     {
-        if (this.chunk != null)
+        if (chunk != null)
         {
             return true;
         }
@@ -99,42 +99,42 @@ public class PlayerChunkMapEntry
         {
             if (canGenerate)
             {
-                this.chunk = this.playerChunkMap.getWorldServer().getChunkProvider().provideChunk(this.pos.x, this.pos.z);
+                chunk = playerChunkMap.getWorldServer().getChunkProvider().provideChunk(pos.x, pos.z);
             }
             else
             {
-                this.chunk = this.playerChunkMap.getWorldServer().getChunkProvider().loadChunk(this.pos.x, this.pos.z);
+                chunk = playerChunkMap.getWorldServer().getChunkProvider().loadChunk(pos.x, pos.z);
             }
 
-            return this.chunk != null;
+            return chunk != null;
         }
     }
 
     public boolean sendToPlayers()
     {
-        if (this.sentToPlayers)
+        if (sentToPlayers)
         {
             return true;
         }
-        else if (this.chunk == null)
+        else if (chunk == null)
         {
             return false;
         }
-        else if (!this.chunk.isPopulated())
+        else if (!chunk.isPopulated())
         {
             return false;
         }
         else
         {
-            this.changes = 0;
-            this.changedSectionFilter = 0;
-            this.sentToPlayers = true;
-            Packet<?> packet = new SPacketChunkData(this.chunk, 65535);
+            changes = 0;
+            changedSectionFilter = 0;
+            sentToPlayers = true;
+            Packet<?> packet = new SPacketChunkData(chunk, 65535);
 
-            for (EntityPlayerMP entityplayermp : this.players)
+            for (EntityPlayerMP entityplayermp : players)
             {
                 entityplayermp.connection.sendPacket(packet);
-                this.playerChunkMap.getWorldServer().getEntityTracker().sendLeashedEntitiesInChunk(entityplayermp, this.chunk);
+                playerChunkMap.getWorldServer().getEntityTracker().sendLeashedEntitiesInChunk(entityplayermp, chunk);
             }
 
             return true;
@@ -147,107 +147,107 @@ public class PlayerChunkMapEntry
      */
     public void sendToPlayer(EntityPlayerMP player)
     {
-        if (this.sentToPlayers)
+        if (sentToPlayers)
         {
-            player.connection.sendPacket(new SPacketChunkData(this.chunk, 65535));
-            this.playerChunkMap.getWorldServer().getEntityTracker().sendLeashedEntitiesInChunk(player, this.chunk);
+            player.connection.sendPacket(new SPacketChunkData(chunk, 65535));
+            playerChunkMap.getWorldServer().getEntityTracker().sendLeashedEntitiesInChunk(player, chunk);
         }
     }
 
     public void updateChunkInhabitedTime()
     {
-        long i = this.playerChunkMap.getWorldServer().getTotalWorldTime();
+        long i = playerChunkMap.getWorldServer().getTotalWorldTime();
 
-        if (this.chunk != null)
+        if (chunk != null)
         {
-            this.chunk.setInhabitedTime(this.chunk.getInhabitedTime() + i - this.lastUpdateInhabitedTime);
+            chunk.setInhabitedTime(chunk.getInhabitedTime() + i - lastUpdateInhabitedTime);
         }
 
-        this.lastUpdateInhabitedTime = i;
+        lastUpdateInhabitedTime = i;
     }
 
     public void blockChanged(int x, int y, int z)
     {
-        if (this.sentToPlayers)
+        if (sentToPlayers)
         {
-            if (this.changes == 0)
+            if (changes == 0)
             {
-                this.playerChunkMap.entryChanged(this);
+                playerChunkMap.entryChanged(this);
             }
 
-            this.changedSectionFilter |= 1 << (y >> 4);
+            changedSectionFilter |= 1 << (y >> 4);
 
-            if (this.changes < 64)
+            if (changes < 64)
             {
                 short short1 = (short)(x << 12 | z << 8 | y);
 
-                for (int i = 0; i < this.changes; ++i)
+                for (int i = 0; i < changes; ++i)
                 {
-                    if (this.changedBlocks[i] == short1)
+                    if (changedBlocks[i] == short1)
                     {
                         return;
                     }
                 }
 
-                this.changedBlocks[this.changes++] = short1;
+                changedBlocks[changes++] = short1;
             }
         }
     }
 
     public void sendPacket(Packet<?> packetIn)
     {
-        if (this.sentToPlayers)
+        if (sentToPlayers)
         {
-            for (int i = 0; i < this.players.size(); ++i)
+            for (int i = 0; i < players.size(); ++i)
             {
-                (this.players.get(i)).connection.sendPacket(packetIn);
+                (players.get(i)).connection.sendPacket(packetIn);
             }
         }
     }
 
     public void update()
     {
-        if (this.sentToPlayers && this.chunk != null)
+        if (sentToPlayers && chunk != null)
         {
-            if (this.changes != 0)
+            if (changes != 0)
             {
-                if (this.changes == 1)
+                if (changes == 1)
                 {
-                    int i = (this.changedBlocks[0] >> 12 & 15) + this.pos.x * 16;
-                    int j = this.changedBlocks[0] & 255;
-                    int k = (this.changedBlocks[0] >> 8 & 15) + this.pos.z * 16;
+                    int i = (changedBlocks[0] >> 12 & 15) + pos.x * 16;
+                    int j = changedBlocks[0] & 255;
+                    int k = (changedBlocks[0] >> 8 & 15) + pos.z * 16;
                     BlockPos blockpos = new BlockPos(i, j, k);
-                    this.sendPacket(new SPacketBlockChange(this.playerChunkMap.getWorldServer(), blockpos));
+                    sendPacket(new SPacketBlockChange(playerChunkMap.getWorldServer(), blockpos));
 
-                    if (this.playerChunkMap.getWorldServer().getBlockState(blockpos).getBlock().hasTileEntity())
+                    if (playerChunkMap.getWorldServer().getBlockState(blockpos).getBlock().hasTileEntity())
                     {
-                        this.sendBlockEntity(this.playerChunkMap.getWorldServer().getTileEntity(blockpos));
+                        sendBlockEntity(playerChunkMap.getWorldServer().getTileEntity(blockpos));
                     }
                 }
-                else if (this.changes == 64)
+                else if (changes == 64)
                 {
-                    this.sendPacket(new SPacketChunkData(this.chunk, this.changedSectionFilter));
+                    sendPacket(new SPacketChunkData(chunk, changedSectionFilter));
                 }
                 else
                 {
-                    this.sendPacket(new SPacketMultiBlockChange(this.changes, this.changedBlocks, this.chunk));
+                    sendPacket(new SPacketMultiBlockChange(changes, changedBlocks, chunk));
 
-                    for (int l = 0; l < this.changes; ++l)
+                    for (int l = 0; l < changes; ++l)
                     {
-                        int i1 = (this.changedBlocks[l] >> 12 & 15) + this.pos.x * 16;
-                        int j1 = this.changedBlocks[l] & 255;
-                        int k1 = (this.changedBlocks[l] >> 8 & 15) + this.pos.z * 16;
+                        int i1 = (changedBlocks[l] >> 12 & 15) + pos.x * 16;
+                        int j1 = changedBlocks[l] & 255;
+                        int k1 = (changedBlocks[l] >> 8 & 15) + pos.z * 16;
                         BlockPos blockpos1 = new BlockPos(i1, j1, k1);
 
-                        if (this.playerChunkMap.getWorldServer().getBlockState(blockpos1).getBlock().hasTileEntity())
+                        if (playerChunkMap.getWorldServer().getBlockState(blockpos1).getBlock().hasTileEntity())
                         {
-                            this.sendBlockEntity(this.playerChunkMap.getWorldServer().getTileEntity(blockpos1));
+                            sendBlockEntity(playerChunkMap.getWorldServer().getTileEntity(blockpos1));
                         }
                     }
                 }
 
-                this.changes = 0;
-                this.changedSectionFilter = 0;
+                changes = 0;
+                changedSectionFilter = 0;
             }
         }
     }
@@ -260,30 +260,30 @@ public class PlayerChunkMapEntry
 
             if (spacketupdatetileentity != null)
             {
-                this.sendPacket(spacketupdatetileentity);
+                sendPacket(spacketupdatetileentity);
             }
         }
     }
 
     public boolean containsPlayer(EntityPlayerMP player)
     {
-        return this.players.contains(player);
+        return players.contains(player);
     }
 
     public boolean hasPlayerMatching(Predicate<EntityPlayerMP> predicate)
     {
-        return Iterables.tryFind(this.players, predicate).isPresent();
+        return Iterables.tryFind(players, predicate).isPresent();
     }
 
     public boolean hasPlayerMatchingInRange(double range, Predicate<EntityPlayerMP> predicate)
     {
         int i = 0;
 
-        for (int j = this.players.size(); i < j; ++i)
+        for (int j = players.size(); i < j; ++i)
         {
-            EntityPlayerMP entityplayermp = this.players.get(i);
+            EntityPlayerMP entityplayermp = players.get(i);
 
-            if (predicate.apply(entityplayermp) && this.pos.getDistanceSq(entityplayermp) < range * range)
+            if (predicate.apply(entityplayermp) && pos.getDistanceSq(entityplayermp) < range * range)
             {
                 return true;
             }
@@ -294,22 +294,22 @@ public class PlayerChunkMapEntry
 
     public boolean isSentToPlayers()
     {
-        return this.sentToPlayers;
+        return sentToPlayers;
     }
 
     @Nullable
     public Chunk getChunk()
     {
-        return this.chunk;
+        return chunk;
     }
 
     public double getClosestPlayerDistance()
     {
         double d0 = Double.MAX_VALUE;
 
-        for (EntityPlayerMP entityplayermp : this.players)
+        for (EntityPlayerMP entityplayermp : players)
         {
-            double d1 = this.pos.getDistanceSq(entityplayermp);
+            double d1 = pos.getDistanceSq(entityplayermp);
 
             if (d1 < d0)
             {

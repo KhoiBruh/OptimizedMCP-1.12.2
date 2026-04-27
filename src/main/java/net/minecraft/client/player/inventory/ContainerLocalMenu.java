@@ -18,22 +18,22 @@ public class ContainerLocalMenu extends InventoryBasic implements ILockableConta
     public ContainerLocalMenu(String id, ITextComponent title, int slotCount)
     {
         super(title, slotCount);
-        this.guiID = id;
+        guiID = id;
     }
 
     public int getField(int id)
     {
-        return this.dataValues.containsKey(Integer.valueOf(id)) ? ((Integer)this.dataValues.get(Integer.valueOf(id))).intValue() : 0;
+        return dataValues.containsKey(Integer.valueOf(id)) ? ((Integer) dataValues.get(Integer.valueOf(id))).intValue() : 0;
     }
 
     public void setField(int id, int value)
     {
-        this.dataValues.put(Integer.valueOf(id), Integer.valueOf(value));
+        dataValues.put(Integer.valueOf(id), Integer.valueOf(value));
     }
 
     public int getFieldCount()
     {
-        return this.dataValues.size();
+        return dataValues.size();
     }
 
     public boolean isLocked()
@@ -52,7 +52,7 @@ public class ContainerLocalMenu extends InventoryBasic implements ILockableConta
 
     public String getGuiID()
     {
-        return this.guiID;
+        return guiID;
     }
 
     public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn)

@@ -18,18 +18,18 @@ public interface LootCondition
 
         protected Serializer(ResourceLocation location, Class<T> clazz)
         {
-            this.lootTableLocation = location;
-            this.conditionClass = clazz;
+            lootTableLocation = location;
+            conditionClass = clazz;
         }
 
         public ResourceLocation getLootTableLocation()
         {
-            return this.lootTableLocation;
+            return lootTableLocation;
         }
 
         public Class<T> getConditionClass()
         {
-            return this.conditionClass;
+            return conditionClass;
         }
 
         public abstract void serialize(JsonObject json, T value, JsonSerializationContext context);

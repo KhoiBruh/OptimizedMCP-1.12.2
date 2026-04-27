@@ -22,7 +22,7 @@ public class MapItemRenderer
 
     public MapItemRenderer(TextureManager textureManagerIn)
     {
-        this.textureManager = textureManagerIn;
+        textureManager = textureManagerIn;
     }
 
     /**
@@ -30,12 +30,12 @@ public class MapItemRenderer
      */
     public void updateMapTexture(MapData mapdataIn)
     {
-        this.getMapRendererInstance(mapdataIn).updateMapTexture();
+        getMapRendererInstance(mapdataIn).updateMapTexture();
     }
 
     public void renderMap(MapData mapdataIn, boolean noOverlayRendering)
     {
-        this.getMapRendererInstance(mapdataIn).render(noOverlayRendering);
+        getMapRendererInstance(mapdataIn).render(noOverlayRendering);
     }
 
     /**
@@ -43,12 +43,12 @@ public class MapItemRenderer
      */
     private MapItemRenderer.Instance getMapRendererInstance(MapData mapdataIn)
     {
-        MapItemRenderer.Instance mapitemrenderer$instance = this.loadedMaps.get(mapdataIn.mapName);
+        MapItemRenderer.Instance mapitemrenderer$instance = loadedMaps.get(mapdataIn.mapName);
 
         if (mapitemrenderer$instance == null)
         {
             mapitemrenderer$instance = new MapItemRenderer.Instance(mapdataIn);
-            this.loadedMaps.put(mapdataIn.mapName, mapitemrenderer$instance);
+            loadedMaps.put(mapdataIn.mapName, mapitemrenderer$instance);
         }
 
         return mapitemrenderer$instance;
@@ -57,7 +57,7 @@ public class MapItemRenderer
     @Nullable
     public MapItemRenderer.Instance getMapInstanceIfExists(String p_191205_1_)
     {
-        return this.loadedMaps.get(p_191205_1_);
+        return loadedMaps.get(p_191205_1_);
     }
 
     /**
@@ -65,12 +65,12 @@ public class MapItemRenderer
      */
     public void clearLoadedMaps()
     {
-        for (MapItemRenderer.Instance mapitemrenderer$instance : this.loadedMaps.values())
+        for (MapItemRenderer.Instance mapitemrenderer$instance : loadedMaps.values())
         {
-            this.textureManager.deleteTexture(mapitemrenderer$instance.location);
+            textureManager.deleteTexture(mapitemrenderer$instance.location);
         }
 
-        this.loadedMaps.clear();
+        loadedMaps.clear();
     }
 
     @Nullable
@@ -88,14 +88,14 @@ public class MapItemRenderer
 
         private Instance(MapData mapdataIn)
         {
-            this.mapData = mapdataIn;
-            this.mapTexture = new DynamicTexture(128, 128);
-            this.mapTextureData = this.mapTexture.getTextureData();
-            this.location = MapItemRenderer.this.textureManager.getDynamicTextureLocation("map/" + mapdataIn.mapName, this.mapTexture);
+            mapData = mapdataIn;
+            mapTexture = new DynamicTexture(128, 128);
+            mapTextureData = mapTexture.getTextureData();
+            location = textureManager.getDynamicTextureLocation("map/" + mapdataIn.mapName, mapTexture);
 
-            for (int i = 0; i < this.mapTextureData.length; ++i)
+            for (int i = 0; i < mapTextureData.length; ++i)
             {
-                this.mapTextureData[i] = 0;
+                mapTextureData[i] = 0;
             }
         }
 
@@ -103,19 +103,19 @@ public class MapItemRenderer
         {
             for (int i = 0; i < 16384; ++i)
             {
-                int j = this.mapData.colors[i] & 255;
+                int j = mapData.colors[i] & 255;
 
                 if (j / 4 == 0)
                 {
-                    this.mapTextureData[i] = (i + i / 128 & 1) * 8 + 16 << 24;
+                    mapTextureData[i] = (i + i / 128 & 1) * 8 + 16 << 24;
                 }
                 else
                 {
-                    this.mapTextureData[i] = MapColor.COLORS[j / 4].getMapColor(j & 3);
+                    mapTextureData[i] = MapColor.COLORS[j / 4].getMapColor(j & 3);
                 }
             }
 
-            this.mapTexture.updateDynamicTexture();
+            mapTexture.updateDynamicTexture();
         }
 
         private void render(boolean noOverlayRendering)
@@ -125,7 +125,7 @@ public class MapItemRenderer
             Tessellator tessellator = Tessellator.getInstance();
             BufferBuilder bufferbuilder = tessellator.getBuffer();
             float f = 0.0F;
-            MapItemRenderer.this.textureManager.bindTexture(this.location);
+            textureManager.bindTexture(location);
             GlStateManager.enableBlend();
             GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ZERO, GlStateManager.DestFactor.ONE);
             GlStateManager.disableAlpha();
@@ -137,10 +137,10 @@ public class MapItemRenderer
             tessellator.draw();
             GlStateManager.enableAlpha();
             GlStateManager.disableBlend();
-            MapItemRenderer.this.textureManager.bindTexture(MapItemRenderer.TEXTURE_MAP_ICONS);
+            textureManager.bindTexture(MapItemRenderer.TEXTURE_MAP_ICONS);
             int k = 0;
 
-            for (MapDecoration mapdecoration : this.mapData.mapDecorations.values())
+            for (MapDecoration mapdecoration : mapData.mapDecorations.values())
             {
                 if (!noOverlayRendering || mapdecoration.renderOnFrame())
                 {

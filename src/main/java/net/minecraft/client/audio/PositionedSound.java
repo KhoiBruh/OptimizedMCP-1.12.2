@@ -30,81 +30,81 @@ public abstract class PositionedSound implements ISound
 
     protected PositionedSound(ResourceLocation soundId, SoundCategory categoryIn)
     {
-        this.volume = 1.0F;
-        this.pitch = 1.0F;
-        this.attenuationType = ISound.AttenuationType.LINEAR;
-        this.positionedSoundLocation = soundId;
-        this.category = categoryIn;
+        volume = 1.0F;
+        pitch = 1.0F;
+        attenuationType = ISound.AttenuationType.LINEAR;
+        positionedSoundLocation = soundId;
+        category = categoryIn;
     }
 
     public ResourceLocation getSoundLocation()
     {
-        return this.positionedSoundLocation;
+        return positionedSoundLocation;
     }
 
     public SoundEventAccessor createAccessor(SoundHandler handler)
     {
-        this.soundEvent = handler.getAccessor(this.positionedSoundLocation);
+        soundEvent = handler.getAccessor(positionedSoundLocation);
 
-        if (this.soundEvent == null)
+        if (soundEvent == null)
         {
-            this.sound = SoundHandler.MISSING_SOUND;
+            sound = SoundHandler.MISSING_SOUND;
         }
         else
         {
-            this.sound = this.soundEvent.cloneEntry();
+            sound = soundEvent.cloneEntry();
         }
 
-        return this.soundEvent;
+        return soundEvent;
     }
 
     public Sound getSound()
     {
-        return this.sound;
+        return sound;
     }
 
     public SoundCategory getCategory()
     {
-        return this.category;
+        return category;
     }
 
     public boolean canRepeat()
     {
-        return this.repeat;
+        return repeat;
     }
 
     public int getRepeatDelay()
     {
-        return this.repeatDelay;
+        return repeatDelay;
     }
 
     public float getVolume()
     {
-        return this.volume * this.sound.getVolume();
+        return volume * sound.getVolume();
     }
 
     public float getPitch()
     {
-        return this.pitch * this.sound.getPitch();
+        return pitch * sound.getPitch();
     }
 
     public float getXPosF()
     {
-        return this.xPosF;
+        return xPosF;
     }
 
     public float getYPosF()
     {
-        return this.yPosF;
+        return yPosF;
     }
 
     public float getZPosF()
     {
-        return this.zPosF;
+        return zPosF;
     }
 
     public ISound.AttenuationType getAttenuationType()
     {
-        return this.attenuationType;
+        return attenuationType;
     }
 }

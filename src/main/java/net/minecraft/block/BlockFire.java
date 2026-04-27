@@ -41,14 +41,14 @@ public class BlockFire extends Block
      */
     public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos)
     {
-        return !worldIn.getBlockState(pos.down()).isTopSolid() && !Blocks.FIRE.canCatchFire(worldIn, pos.down()) ? state.withProperty(NORTH, Boolean.valueOf(this.canCatchFire(worldIn, pos.north()))).withProperty(EAST, Boolean.valueOf(this.canCatchFire(worldIn, pos.east()))).withProperty(SOUTH, Boolean.valueOf(this.canCatchFire(worldIn, pos.south()))).withProperty(WEST, Boolean.valueOf(this.canCatchFire(worldIn, pos.west()))).withProperty(UPPER, Boolean.valueOf(this.canCatchFire(worldIn, pos.up()))) : this.getDefaultState();
+        return !worldIn.getBlockState(pos.down()).isTopSolid() && !Blocks.FIRE.canCatchFire(worldIn, pos.down()) ? state.withProperty(NORTH, Boolean.valueOf(canCatchFire(worldIn, pos.north()))).withProperty(EAST, Boolean.valueOf(canCatchFire(worldIn, pos.east()))).withProperty(SOUTH, Boolean.valueOf(canCatchFire(worldIn, pos.south()))).withProperty(WEST, Boolean.valueOf(canCatchFire(worldIn, pos.west()))).withProperty(UPPER, Boolean.valueOf(canCatchFire(worldIn, pos.up()))) : getDefaultState();
     }
 
     protected BlockFire()
     {
         super(Material.FIRE);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(AGE, Integer.valueOf(0)).withProperty(NORTH, Boolean.valueOf(false)).withProperty(EAST, Boolean.valueOf(false)).withProperty(SOUTH, Boolean.valueOf(false)).withProperty(WEST, Boolean.valueOf(false)).withProperty(UPPER, Boolean.valueOf(false)));
-        this.setTickRandomly(true);
+        setDefaultState(blockState.getBaseState().withProperty(AGE, Integer.valueOf(0)).withProperty(NORTH, Boolean.valueOf(false)).withProperty(EAST, Boolean.valueOf(false)).withProperty(SOUTH, Boolean.valueOf(false)).withProperty(WEST, Boolean.valueOf(false)).withProperty(UPPER, Boolean.valueOf(false)));
+        setTickRandomly(true);
     }
 
     public static void init()
@@ -94,8 +94,8 @@ public class BlockFire extends Block
 
     public void setFireInfo(Block blockIn, int encouragement, int flammability)
     {
-        this.encouragements.put(blockIn, Integer.valueOf(encouragement));
-        this.flammabilities.put(blockIn, Integer.valueOf(flammability));
+        encouragements.put(blockIn, Integer.valueOf(encouragement));
+        flammabilities.put(blockIn, Integer.valueOf(flammability));
     }
 
     @Nullable
@@ -137,7 +137,7 @@ public class BlockFire extends Block
     {
         if (worldIn.getGameRules().getBoolean("doFireTick"))
         {
-            if (!this.canPlaceBlockAt(worldIn, pos))
+            if (!canPlaceBlockAt(worldIn, pos))
             {
                 worldIn.setBlockToAir(pos);
             }
@@ -152,7 +152,7 @@ public class BlockFire extends Block
 
             int i = ((Integer)state.getValue(AGE)).intValue();
 
-            if (!flag && worldIn.isRaining() && this.canDie(worldIn, pos) && rand.nextFloat() < 0.2F + (float)i * 0.03F)
+            if (!flag && worldIn.isRaining() && canDie(worldIn, pos) && rand.nextFloat() < 0.2F + (float)i * 0.03F)
             {
                 worldIn.setBlockToAir(pos);
             }
@@ -164,11 +164,11 @@ public class BlockFire extends Block
                     worldIn.setBlockState(pos, state, 4);
                 }
 
-                worldIn.scheduleUpdate(pos, this, this.tickRate(worldIn) + rand.nextInt(10));
+                worldIn.scheduleUpdate(pos, this, tickRate(worldIn) + rand.nextInt(10));
 
                 if (!flag)
                 {
-                    if (!this.canNeighborCatchFire(worldIn, pos))
+                    if (!canNeighborCatchFire(worldIn, pos))
                     {
                         if (!worldIn.getBlockState(pos.down()).isTopSolid() || i > 3)
                         {
@@ -178,7 +178,7 @@ public class BlockFire extends Block
                         return;
                     }
 
-                    if (!this.canCatchFire(worldIn, pos.down()) && i == 15 && rand.nextInt(4) == 0)
+                    if (!canCatchFire(worldIn, pos.down()) && i == 15 && rand.nextInt(4) == 0)
                     {
                         worldIn.setBlockToAir(pos);
                         return;
@@ -193,12 +193,12 @@ public class BlockFire extends Block
                     j = -50;
                 }
 
-                this.catchOnFire(worldIn, pos.east(), 300 + j, rand, i);
-                this.catchOnFire(worldIn, pos.west(), 300 + j, rand, i);
-                this.catchOnFire(worldIn, pos.down(), 250 + j, rand, i);
-                this.catchOnFire(worldIn, pos.up(), 250 + j, rand, i);
-                this.catchOnFire(worldIn, pos.north(), 300 + j, rand, i);
-                this.catchOnFire(worldIn, pos.south(), 300 + j, rand, i);
+                catchOnFire(worldIn, pos.east(), 300 + j, rand, i);
+                catchOnFire(worldIn, pos.west(), 300 + j, rand, i);
+                catchOnFire(worldIn, pos.down(), 250 + j, rand, i);
+                catchOnFire(worldIn, pos.up(), 250 + j, rand, i);
+                catchOnFire(worldIn, pos.north(), 300 + j, rand, i);
+                catchOnFire(worldIn, pos.south(), 300 + j, rand, i);
 
                 for (int k = -1; k <= 1; ++k)
                 {
@@ -216,7 +216,7 @@ public class BlockFire extends Block
                                 }
 
                                 BlockPos blockpos = pos.add(k, i1, l);
-                                int k1 = this.getNeighborEncouragement(worldIn, blockpos);
+                                int k1 = getNeighborEncouragement(worldIn, blockpos);
 
                                 if (k1 > 0)
                                 {
@@ -227,7 +227,7 @@ public class BlockFire extends Block
                                         l1 /= 2;
                                     }
 
-                                    if (l1 > 0 && rand.nextInt(j1) <= l1 && (!worldIn.isRaining() || !this.canDie(worldIn, blockpos)))
+                                    if (l1 > 0 && rand.nextInt(j1) <= l1 && (!worldIn.isRaining() || !canDie(worldIn, blockpos)))
                                     {
                                         int i2 = i + rand.nextInt(5) / 4;
 
@@ -259,19 +259,19 @@ public class BlockFire extends Block
 
     private int getFlammability(Block blockIn)
     {
-        Integer integer = this.flammabilities.get(blockIn);
+        Integer integer = flammabilities.get(blockIn);
         return integer == null ? 0 : integer.intValue();
     }
 
     private int getEncouragement(Block blockIn)
     {
-        Integer integer = this.encouragements.get(blockIn);
+        Integer integer = encouragements.get(blockIn);
         return integer == null ? 0 : integer.intValue();
     }
 
     private void catchOnFire(World worldIn, BlockPos pos, int chance, Random random, int age)
     {
-        int i = this.getFlammability(worldIn.getBlockState(pos).getBlock());
+        int i = getFlammability(worldIn.getBlockState(pos).getBlock());
 
         if (random.nextInt(chance) < i)
         {
@@ -286,7 +286,7 @@ public class BlockFire extends Block
                     j = 15;
                 }
 
-                worldIn.setBlockState(pos, this.getDefaultState().withProperty(AGE, Integer.valueOf(j)), 3);
+                worldIn.setBlockState(pos, getDefaultState().withProperty(AGE, Integer.valueOf(j)), 3);
             }
             else
             {
@@ -304,7 +304,7 @@ public class BlockFire extends Block
     {
         for (EnumFacing enumfacing : EnumFacing.values())
         {
-            if (this.canCatchFire(worldIn, pos.offset(enumfacing)))
+            if (canCatchFire(worldIn, pos.offset(enumfacing)))
             {
                 return true;
             }
@@ -325,7 +325,7 @@ public class BlockFire extends Block
 
             for (EnumFacing enumfacing : EnumFacing.values())
             {
-                i = Math.max(this.getEncouragement(worldIn.getBlockState(pos.offset(enumfacing)).getBlock()), i);
+                i = Math.max(getEncouragement(worldIn.getBlockState(pos.offset(enumfacing)).getBlock()), i);
             }
 
             return i;
@@ -346,7 +346,7 @@ public class BlockFire extends Block
      */
     public boolean canCatchFire(IBlockAccess worldIn, BlockPos pos)
     {
-        return this.getEncouragement(worldIn.getBlockState(pos).getBlock()) > 0;
+        return getEncouragement(worldIn.getBlockState(pos).getBlock()) > 0;
     }
 
     /**
@@ -354,7 +354,7 @@ public class BlockFire extends Block
      */
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
     {
-        return worldIn.getBlockState(pos.down()).isTopSolid() || this.canNeighborCatchFire(worldIn, pos);
+        return worldIn.getBlockState(pos.down()).isTopSolid() || canNeighborCatchFire(worldIn, pos);
     }
 
     /**
@@ -364,7 +364,7 @@ public class BlockFire extends Block
      */
     public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos)
     {
-        if (!worldIn.getBlockState(pos.down()).isTopSolid() && !this.canNeighborCatchFire(worldIn, pos))
+        if (!worldIn.getBlockState(pos.down()).isTopSolid() && !canNeighborCatchFire(worldIn, pos))
         {
             worldIn.setBlockToAir(pos);
         }
@@ -377,13 +377,13 @@ public class BlockFire extends Block
     {
         if (worldIn.provider.getDimensionType().getId() > 0 || !Blocks.PORTAL.trySpawnPortal(worldIn, pos))
         {
-            if (!worldIn.getBlockState(pos.down()).isTopSolid() && !this.canNeighborCatchFire(worldIn, pos))
+            if (!worldIn.getBlockState(pos.down()).isTopSolid() && !canNeighborCatchFire(worldIn, pos))
             {
                 worldIn.setBlockToAir(pos);
             }
             else
             {
-                worldIn.scheduleUpdate(pos, this, this.tickRate(worldIn) + worldIn.rand.nextInt(10));
+                worldIn.scheduleUpdate(pos, this, tickRate(worldIn) + worldIn.rand.nextInt(10));
             }
         }
     }
@@ -486,7 +486,7 @@ public class BlockFire extends Block
      */
     public IBlockState getStateFromMeta(int meta)
     {
-        return this.getDefaultState().withProperty(AGE, Integer.valueOf(meta));
+        return getDefaultState().withProperty(AGE, Integer.valueOf(meta));
     }
 
     /**

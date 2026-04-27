@@ -27,7 +27,7 @@ public class WalkNodeProcessor extends NodeProcessor
     public void init(IBlockAccess sourceIn, EntityLiving mob)
     {
         super.init(sourceIn, mob);
-        this.avoidsWater = mob.getPathPriority(PathNodeType.WATER);
+        avoidsWater = mob.getPathPriority(PathNodeType.WATER);
     }
 
     /**
@@ -37,7 +37,7 @@ public class WalkNodeProcessor extends NodeProcessor
      */
     public void postProcess()
     {
-        this.entity.setPathPriority(PathNodeType.WATER, this.avoidsWater);
+        entity.setPathPriority(PathNodeType.WATER, avoidsWater);
         super.postProcess();
     }
 
@@ -45,26 +45,26 @@ public class WalkNodeProcessor extends NodeProcessor
     {
         int i;
 
-        if (this.getCanSwim() && this.entity.isInWater())
+        if (getCanSwim() && entity.isInWater())
         {
-            i = (int)this.entity.getEntityBoundingBox().minY;
-            BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos(MathHelper.floor(this.entity.posX), i, MathHelper.floor(this.entity.posZ));
+            i = (int) entity.getEntityBoundingBox().minY;
+            BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos(MathHelper.floor(entity.posX), i, MathHelper.floor(entity.posZ));
 
-            for (Block block = this.blockaccess.getBlockState(blockpos$mutableblockpos).getBlock(); block == Blocks.FLOWING_WATER || block == Blocks.WATER; block = this.blockaccess.getBlockState(blockpos$mutableblockpos).getBlock())
+            for (Block block = blockaccess.getBlockState(blockpos$mutableblockpos).getBlock(); block == Blocks.FLOWING_WATER || block == Blocks.WATER; block = blockaccess.getBlockState(blockpos$mutableblockpos).getBlock())
             {
                 ++i;
-                blockpos$mutableblockpos.setPos(MathHelper.floor(this.entity.posX), i, MathHelper.floor(this.entity.posZ));
+                blockpos$mutableblockpos.setPos(MathHelper.floor(entity.posX), i, MathHelper.floor(entity.posZ));
             }
         }
-        else if (this.entity.onGround)
+        else if (entity.onGround)
         {
-            i = MathHelper.floor(this.entity.getEntityBoundingBox().minY + 0.5D);
+            i = MathHelper.floor(entity.getEntityBoundingBox().minY + 0.5D);
         }
         else
         {
             BlockPos blockpos;
 
-            for (blockpos = new BlockPos(this.entity); (this.blockaccess.getBlockState(blockpos).getMaterial() == Material.AIR || this.blockaccess.getBlockState(blockpos).getBlock().isPassable(this.blockaccess, blockpos)) && blockpos.getY() > 0; blockpos = blockpos.down())
+            for (blockpos = new BlockPos(entity); (blockaccess.getBlockState(blockpos).getMaterial() == Material.AIR || blockaccess.getBlockState(blockpos).getBlock().isPassable(blockaccess, blockpos)) && blockpos.getY() > 0; blockpos = blockpos.down())
             {
                 ;
             }
@@ -72,29 +72,29 @@ public class WalkNodeProcessor extends NodeProcessor
             i = blockpos.up().getY();
         }
 
-        BlockPos blockpos2 = new BlockPos(this.entity);
-        PathNodeType pathnodetype1 = this.getPathNodeType(this.entity, blockpos2.getX(), i, blockpos2.getZ());
+        BlockPos blockpos2 = new BlockPos(entity);
+        PathNodeType pathnodetype1 = getPathNodeType(entity, blockpos2.getX(), i, blockpos2.getZ());
 
-        if (this.entity.getPathPriority(pathnodetype1) < 0.0F)
+        if (entity.getPathPriority(pathnodetype1) < 0.0F)
         {
             Set<BlockPos> set = Sets.<BlockPos>newHashSet();
-            set.add(new BlockPos(this.entity.getEntityBoundingBox().minX, (double)i, this.entity.getEntityBoundingBox().minZ));
-            set.add(new BlockPos(this.entity.getEntityBoundingBox().minX, (double)i, this.entity.getEntityBoundingBox().maxZ));
-            set.add(new BlockPos(this.entity.getEntityBoundingBox().maxX, (double)i, this.entity.getEntityBoundingBox().minZ));
-            set.add(new BlockPos(this.entity.getEntityBoundingBox().maxX, (double)i, this.entity.getEntityBoundingBox().maxZ));
+            set.add(new BlockPos(entity.getEntityBoundingBox().minX, (double)i, entity.getEntityBoundingBox().minZ));
+            set.add(new BlockPos(entity.getEntityBoundingBox().minX, (double)i, entity.getEntityBoundingBox().maxZ));
+            set.add(new BlockPos(entity.getEntityBoundingBox().maxX, (double)i, entity.getEntityBoundingBox().minZ));
+            set.add(new BlockPos(entity.getEntityBoundingBox().maxX, (double)i, entity.getEntityBoundingBox().maxZ));
 
             for (BlockPos blockpos1 : set)
             {
-                PathNodeType pathnodetype = this.getPathNodeType(this.entity, blockpos1);
+                PathNodeType pathnodetype = getPathNodeType(entity, blockpos1);
 
-                if (this.entity.getPathPriority(pathnodetype) >= 0.0F)
+                if (entity.getPathPriority(pathnodetype) >= 0.0F)
                 {
-                    return this.openPoint(blockpos1.getX(), blockpos1.getY(), blockpos1.getZ());
+                    return openPoint(blockpos1.getX(), blockpos1.getY(), blockpos1.getZ());
                 }
             }
         }
 
-        return this.openPoint(blockpos2.getX(), i, blockpos2.getZ());
+        return openPoint(blockpos2.getX(), i, blockpos2.getZ());
     }
 
     /**
@@ -102,26 +102,26 @@ public class WalkNodeProcessor extends NodeProcessor
      */
     public PathPoint getPathPointToCoords(double x, double y, double z)
     {
-        return this.openPoint(MathHelper.floor(x), MathHelper.floor(y), MathHelper.floor(z));
+        return openPoint(MathHelper.floor(x), MathHelper.floor(y), MathHelper.floor(z));
     }
 
     public int findPathOptions(PathPoint[] pathOptions, PathPoint currentPoint, PathPoint targetPoint, float maxDistance)
     {
         int i = 0;
         int j = 0;
-        PathNodeType pathnodetype = this.getPathNodeType(this.entity, currentPoint.x, currentPoint.y + 1, currentPoint.z);
+        PathNodeType pathnodetype = getPathNodeType(entity, currentPoint.x, currentPoint.y + 1, currentPoint.z);
 
-        if (this.entity.getPathPriority(pathnodetype) >= 0.0F)
+        if (entity.getPathPriority(pathnodetype) >= 0.0F)
         {
-            j = MathHelper.floor(Math.max(1.0F, this.entity.stepHeight));
+            j = MathHelper.floor(Math.max(1.0F, entity.stepHeight));
         }
 
         BlockPos blockpos = (new BlockPos(currentPoint.x, currentPoint.y, currentPoint.z)).down();
-        double d0 = (double)currentPoint.y - (1.0D - this.blockaccess.getBlockState(blockpos).getBoundingBox(this.blockaccess, blockpos).maxY);
-        PathPoint pathpoint = this.getSafePoint(currentPoint.x, currentPoint.y, currentPoint.z + 1, j, d0, EnumFacing.SOUTH);
-        PathPoint pathpoint1 = this.getSafePoint(currentPoint.x - 1, currentPoint.y, currentPoint.z, j, d0, EnumFacing.WEST);
-        PathPoint pathpoint2 = this.getSafePoint(currentPoint.x + 1, currentPoint.y, currentPoint.z, j, d0, EnumFacing.EAST);
-        PathPoint pathpoint3 = this.getSafePoint(currentPoint.x, currentPoint.y, currentPoint.z - 1, j, d0, EnumFacing.NORTH);
+        double d0 = (double)currentPoint.y - (1.0D - blockaccess.getBlockState(blockpos).getBoundingBox(blockaccess, blockpos).maxY);
+        PathPoint pathpoint = getSafePoint(currentPoint.x, currentPoint.y, currentPoint.z + 1, j, d0, EnumFacing.SOUTH);
+        PathPoint pathpoint1 = getSafePoint(currentPoint.x - 1, currentPoint.y, currentPoint.z, j, d0, EnumFacing.WEST);
+        PathPoint pathpoint2 = getSafePoint(currentPoint.x + 1, currentPoint.y, currentPoint.z, j, d0, EnumFacing.EAST);
+        PathPoint pathpoint3 = getSafePoint(currentPoint.x, currentPoint.y, currentPoint.z - 1, j, d0, EnumFacing.NORTH);
 
         if (pathpoint != null && !pathpoint.visited && pathpoint.distanceTo(targetPoint) < maxDistance)
         {
@@ -150,7 +150,7 @@ public class WalkNodeProcessor extends NodeProcessor
 
         if (flag && flag3)
         {
-            PathPoint pathpoint4 = this.getSafePoint(currentPoint.x - 1, currentPoint.y, currentPoint.z - 1, j, d0, EnumFacing.NORTH);
+            PathPoint pathpoint4 = getSafePoint(currentPoint.x - 1, currentPoint.y, currentPoint.z - 1, j, d0, EnumFacing.NORTH);
 
             if (pathpoint4 != null && !pathpoint4.visited && pathpoint4.distanceTo(targetPoint) < maxDistance)
             {
@@ -160,7 +160,7 @@ public class WalkNodeProcessor extends NodeProcessor
 
         if (flag && flag2)
         {
-            PathPoint pathpoint5 = this.getSafePoint(currentPoint.x + 1, currentPoint.y, currentPoint.z - 1, j, d0, EnumFacing.NORTH);
+            PathPoint pathpoint5 = getSafePoint(currentPoint.x + 1, currentPoint.y, currentPoint.z - 1, j, d0, EnumFacing.NORTH);
 
             if (pathpoint5 != null && !pathpoint5.visited && pathpoint5.distanceTo(targetPoint) < maxDistance)
             {
@@ -170,7 +170,7 @@ public class WalkNodeProcessor extends NodeProcessor
 
         if (flag1 && flag3)
         {
-            PathPoint pathpoint6 = this.getSafePoint(currentPoint.x - 1, currentPoint.y, currentPoint.z + 1, j, d0, EnumFacing.SOUTH);
+            PathPoint pathpoint6 = getSafePoint(currentPoint.x - 1, currentPoint.y, currentPoint.z + 1, j, d0, EnumFacing.SOUTH);
 
             if (pathpoint6 != null && !pathpoint6.visited && pathpoint6.distanceTo(targetPoint) < maxDistance)
             {
@@ -180,7 +180,7 @@ public class WalkNodeProcessor extends NodeProcessor
 
         if (flag1 && flag2)
         {
-            PathPoint pathpoint7 = this.getSafePoint(currentPoint.x + 1, currentPoint.y, currentPoint.z + 1, j, d0, EnumFacing.SOUTH);
+            PathPoint pathpoint7 = getSafePoint(currentPoint.x + 1, currentPoint.y, currentPoint.z + 1, j, d0, EnumFacing.SOUTH);
 
             if (pathpoint7 != null && !pathpoint7.visited && pathpoint7.distanceTo(targetPoint) < maxDistance)
             {
@@ -201,7 +201,7 @@ public class WalkNodeProcessor extends NodeProcessor
         PathPoint pathpoint = null;
         BlockPos blockpos = new BlockPos(x, y, z);
         BlockPos blockpos1 = blockpos.down();
-        double d0 = (double)y - (1.0D - this.blockaccess.getBlockState(blockpos1).getBoundingBox(this.blockaccess, blockpos1).maxY);
+        double d0 = (double)y - (1.0D - blockaccess.getBlockState(blockpos1).getBoundingBox(blockaccess, blockpos1).maxY);
 
         if (d0 - p_186332_5_ > 1.125D)
         {
@@ -209,13 +209,13 @@ public class WalkNodeProcessor extends NodeProcessor
         }
         else
         {
-            PathNodeType pathnodetype = this.getPathNodeType(this.entity, x, y, z);
-            float f = this.entity.getPathPriority(pathnodetype);
-            double d1 = (double)this.entity.width / 2.0D;
+            PathNodeType pathnodetype = getPathNodeType(entity, x, y, z);
+            float f = entity.getPathPriority(pathnodetype);
+            double d1 = (double) entity.width / 2.0D;
 
             if (f >= 0.0F)
             {
-                pathpoint = this.openPoint(x, y, z);
+                pathpoint = openPoint(x, y, z);
                 pathpoint.nodeType = pathnodetype;
                 pathpoint.costMalus = Math.max(pathpoint.costMalus, f);
             }
@@ -228,17 +228,17 @@ public class WalkNodeProcessor extends NodeProcessor
             {
                 if (pathpoint == null && p_186332_4_ > 0 && pathnodetype != PathNodeType.FENCE && pathnodetype != PathNodeType.TRAPDOOR)
                 {
-                    pathpoint = this.getSafePoint(x, y + 1, z, p_186332_4_ - 1, p_186332_5_, facing);
+                    pathpoint = getSafePoint(x, y + 1, z, p_186332_4_ - 1, p_186332_5_, facing);
 
-                    if (pathpoint != null && (pathpoint.nodeType == PathNodeType.OPEN || pathpoint.nodeType == PathNodeType.WALKABLE) && this.entity.width < 1.0F)
+                    if (pathpoint != null && (pathpoint.nodeType == PathNodeType.OPEN || pathpoint.nodeType == PathNodeType.WALKABLE) && entity.width < 1.0F)
                     {
                         double d2 = (double)(x - facing.getFrontOffsetX()) + 0.5D;
                         double d3 = (double)(z - facing.getFrontOffsetZ()) + 0.5D;
-                        AxisAlignedBB axisalignedbb = new AxisAlignedBB(d2 - d1, (double)y + 0.001D, d3 - d1, d2 + d1, (double)((float)y + this.entity.height), d3 + d1);
-                        AxisAlignedBB axisalignedbb1 = this.blockaccess.getBlockState(blockpos).getBoundingBox(this.blockaccess, blockpos);
+                        AxisAlignedBB axisalignedbb = new AxisAlignedBB(d2 - d1, (double)y + 0.001D, d3 - d1, d2 + d1, (double)((float)y + entity.height), d3 + d1);
+                        AxisAlignedBB axisalignedbb1 = blockaccess.getBlockState(blockpos).getBoundingBox(blockaccess, blockpos);
                         AxisAlignedBB axisalignedbb2 = axisalignedbb.expand(0.0D, axisalignedbb1.maxY - 0.002D, 0.0D);
 
-                        if (this.entity.world.collidesWithAnyBlock(axisalignedbb2))
+                        if (entity.world.collidesWithAnyBlock(axisalignedbb2))
                         {
                             pathpoint = null;
                         }
@@ -247,20 +247,20 @@ public class WalkNodeProcessor extends NodeProcessor
 
                 if (pathnodetype == PathNodeType.OPEN)
                 {
-                    AxisAlignedBB axisalignedbb3 = new AxisAlignedBB((double)x - d1 + 0.5D, (double)y + 0.001D, (double)z - d1 + 0.5D, (double)x + d1 + 0.5D, (double)((float)y + this.entity.height), (double)z + d1 + 0.5D);
+                    AxisAlignedBB axisalignedbb3 = new AxisAlignedBB((double)x - d1 + 0.5D, (double)y + 0.001D, (double)z - d1 + 0.5D, (double)x + d1 + 0.5D, (double)((float)y + entity.height), (double)z + d1 + 0.5D);
 
-                    if (this.entity.world.collidesWithAnyBlock(axisalignedbb3))
+                    if (entity.world.collidesWithAnyBlock(axisalignedbb3))
                     {
                         return null;
                     }
 
-                    if (this.entity.width >= 1.0F)
+                    if (entity.width >= 1.0F)
                     {
-                        PathNodeType pathnodetype1 = this.getPathNodeType(this.entity, x, y - 1, z);
+                        PathNodeType pathnodetype1 = getPathNodeType(entity, x, y - 1, z);
 
                         if (pathnodetype1 == PathNodeType.BLOCKED)
                         {
-                            pathpoint = this.openPoint(x, y, z);
+                            pathpoint = openPoint(x, y, z);
                             pathpoint.nodeType = PathNodeType.WALKABLE;
                             pathpoint.costMalus = Math.max(pathpoint.costMalus, f);
                             return pathpoint;
@@ -273,17 +273,17 @@ public class WalkNodeProcessor extends NodeProcessor
                     {
                         --y;
 
-                        if (i++ >= this.entity.getMaxFallHeight())
+                        if (i++ >= entity.getMaxFallHeight())
                         {
                             return null;
                         }
 
-                        pathnodetype = this.getPathNodeType(this.entity, x, y, z);
-                        f = this.entity.getPathPriority(pathnodetype);
+                        pathnodetype = getPathNodeType(entity, x, y, z);
+                        f = entity.getPathPriority(pathnodetype);
 
                         if (pathnodetype != PathNodeType.OPEN && f >= 0.0F)
                         {
-                            pathpoint = this.openPoint(x, y, z);
+                            pathpoint = openPoint(x, y, z);
                             pathpoint.nodeType = pathnodetype;
                             pathpoint.costMalus = Math.max(pathpoint.costMalus, f);
                             break;
@@ -307,7 +307,7 @@ public class WalkNodeProcessor extends NodeProcessor
         PathNodeType pathnodetype = PathNodeType.BLOCKED;
         double d0 = (double)entitylivingIn.width / 2.0D;
         BlockPos blockpos = new BlockPos(entitylivingIn);
-        pathnodetype = this.getPathNodeType(blockaccessIn, x, y, z, xSize, ySize, zSize, canBreakDoorsIn, canEnterDoorsIn, enumset, pathnodetype, blockpos);
+        pathnodetype = getPathNodeType(blockaccessIn, x, y, z, xSize, ySize, zSize, canBreakDoorsIn, canEnterDoorsIn, enumset, pathnodetype, blockpos);
 
         if (enumset.contains(PathNodeType.FENCE))
         {
@@ -352,7 +352,7 @@ public class WalkNodeProcessor extends NodeProcessor
                     int l = i + x;
                     int i1 = j + y;
                     int j1 = k + z;
-                    PathNodeType pathnodetype = this.getPathNodeType(p_193577_1_, l, i1, j1);
+                    PathNodeType pathnodetype = getPathNodeType(p_193577_1_, l, i1, j1);
 
                     if (pathnodetype == PathNodeType.DOOR_WOOD_CLOSED && canOpenDoorsIn && canEnterDoorsIn)
                     {
@@ -384,22 +384,22 @@ public class WalkNodeProcessor extends NodeProcessor
 
     private PathNodeType getPathNodeType(EntityLiving entitylivingIn, BlockPos pos)
     {
-        return this.getPathNodeType(entitylivingIn, pos.getX(), pos.getY(), pos.getZ());
+        return getPathNodeType(entitylivingIn, pos.getX(), pos.getY(), pos.getZ());
     }
 
     private PathNodeType getPathNodeType(EntityLiving entitylivingIn, int x, int y, int z)
     {
-        return this.getPathNodeType(this.blockaccess, x, y, z, entitylivingIn, this.entitySizeX, this.entitySizeY, this.entitySizeZ, this.getCanOpenDoors(), this.getCanEnterDoors());
+        return getPathNodeType(blockaccess, x, y, z, entitylivingIn, entitySizeX, entitySizeY, entitySizeZ, getCanOpenDoors(), getCanEnterDoors());
     }
 
     public PathNodeType getPathNodeType(IBlockAccess blockaccessIn, int x, int y, int z)
     {
-        PathNodeType pathnodetype = this.getPathNodeTypeRaw(blockaccessIn, x, y, z);
+        PathNodeType pathnodetype = getPathNodeTypeRaw(blockaccessIn, x, y, z);
 
         if (pathnodetype == PathNodeType.OPEN && y >= 1)
         {
             Block block = blockaccessIn.getBlockState(new BlockPos(x, y - 1, z)).getBlock();
-            PathNodeType pathnodetype1 = this.getPathNodeTypeRaw(blockaccessIn, x, y - 1, z);
+            PathNodeType pathnodetype1 = getPathNodeTypeRaw(blockaccessIn, x, y - 1, z);
             pathnodetype = pathnodetype1 != PathNodeType.WALKABLE && pathnodetype1 != PathNodeType.OPEN && pathnodetype1 != PathNodeType.WATER && pathnodetype1 != PathNodeType.LAVA ? PathNodeType.WALKABLE : PathNodeType.OPEN;
 
             if (pathnodetype1 == PathNodeType.DAMAGE_FIRE || block == Blocks.MAGMA)
@@ -413,7 +413,7 @@ public class WalkNodeProcessor extends NodeProcessor
             }
         }
 
-        pathnodetype = this.checkNeighborBlocks(blockaccessIn, x, y, z, pathnodetype);
+        pathnodetype = checkNeighborBlocks(blockaccessIn, x, y, z, pathnodetype);
         return pathnodetype;
     }
 

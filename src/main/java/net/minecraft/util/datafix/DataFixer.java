@@ -18,21 +18,21 @@ public class DataFixer implements IDataFixer
 
     public DataFixer(int versionIn)
     {
-        this.version = versionIn;
+        version = versionIn;
     }
 
     public NBTTagCompound process(IFixType type, NBTTagCompound compound)
     {
         int i = compound.hasKey("DataVersion", 99) ? compound.getInteger("DataVersion") : -1;
-        return i >= 1343 ? compound : this.process(type, compound, i);
+        return i >= 1343 ? compound : process(type, compound, i);
     }
 
     public NBTTagCompound process(IFixType type, NBTTagCompound compound, int versionIn)
     {
-        if (versionIn < this.version)
+        if (versionIn < version)
         {
-            compound = this.processFixes(type, compound, versionIn);
-            compound = this.processWalkers(type, compound, versionIn);
+            compound = processFixes(type, compound, versionIn);
+            compound = processWalkers(type, compound, versionIn);
         }
 
         return compound;
@@ -40,7 +40,7 @@ public class DataFixer implements IDataFixer
 
     private NBTTagCompound processFixes(IFixType type, NBTTagCompound compound, int versionIn)
     {
-        List<IFixableData> list = (List)this.fixMap.get(type);
+        List<IFixableData> list = (List) fixMap.get(type);
 
         if (list != null)
         {
@@ -60,7 +60,7 @@ public class DataFixer implements IDataFixer
 
     private NBTTagCompound processWalkers(IFixType type, NBTTagCompound compound, int versionIn)
     {
-        List<IDataWalker> list = (List)this.walkerMap.get(type);
+        List<IDataWalker> list = (List) walkerMap.get(type);
 
         if (list != null)
         {
@@ -75,7 +75,7 @@ public class DataFixer implements IDataFixer
 
     public void registerWalker(FixTypes type, IDataWalker walker)
     {
-        this.registerVanillaWalker(type, walker);
+        registerVanillaWalker(type, walker);
     }
 
     /**
@@ -83,17 +83,17 @@ public class DataFixer implements IDataFixer
      */
     public void registerVanillaWalker(IFixType type, IDataWalker walker)
     {
-        this.getTypeList(this.walkerMap, type).add(walker);
+        getTypeList(walkerMap, type).add(walker);
     }
 
     public void registerFix(IFixType type, IFixableData fixable)
     {
-        List<IFixableData> list = this.<IFixableData>getTypeList(this.fixMap, type);
+        List<IFixableData> list = this.<IFixableData>getTypeList(fixMap, type);
         int i = fixable.getFixVersion();
 
-        if (i > this.version)
+        if (i > version)
         {
-            LOGGER.warn("Ignored fix registered for version: {} as the DataVersion of the game is: {}", Integer.valueOf(i), Integer.valueOf(this.version));
+            LOGGER.warn("Ignored fix registered for version: {} as the DataVersion of the game is: {}", Integer.valueOf(i), Integer.valueOf(version));
         }
         else
         {

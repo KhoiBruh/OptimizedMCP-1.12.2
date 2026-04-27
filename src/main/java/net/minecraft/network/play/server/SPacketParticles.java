@@ -30,17 +30,17 @@ public class SPacketParticles implements Packet<INetHandlerPlayClient>
 
     public SPacketParticles(EnumParticleTypes particleIn, boolean longDistanceIn, float xIn, float yIn, float zIn, float xOffsetIn, float yOffsetIn, float zOffsetIn, float speedIn, int countIn, int... argumentsIn)
     {
-        this.particleType = particleIn;
-        this.longDistance = longDistanceIn;
-        this.xCoord = xIn;
-        this.yCoord = yIn;
-        this.zCoord = zIn;
-        this.xOffset = xOffsetIn;
-        this.yOffset = yOffsetIn;
-        this.zOffset = zOffsetIn;
-        this.particleSpeed = speedIn;
-        this.particleCount = countIn;
-        this.particleArguments = argumentsIn;
+        particleType = particleIn;
+        longDistance = longDistanceIn;
+        xCoord = xIn;
+        yCoord = yIn;
+        zCoord = zIn;
+        xOffset = xOffsetIn;
+        yOffset = yOffsetIn;
+        zOffset = zOffsetIn;
+        particleSpeed = speedIn;
+        particleCount = countIn;
+        particleArguments = argumentsIn;
     }
 
     /**
@@ -48,28 +48,28 @@ public class SPacketParticles implements Packet<INetHandlerPlayClient>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.particleType = EnumParticleTypes.getParticleFromId(buf.readInt());
+        particleType = EnumParticleTypes.getParticleFromId(buf.readInt());
 
-        if (this.particleType == null)
+        if (particleType == null)
         {
-            this.particleType = EnumParticleTypes.BARRIER;
+            particleType = EnumParticleTypes.BARRIER;
         }
 
-        this.longDistance = buf.readBoolean();
-        this.xCoord = buf.readFloat();
-        this.yCoord = buf.readFloat();
-        this.zCoord = buf.readFloat();
-        this.xOffset = buf.readFloat();
-        this.yOffset = buf.readFloat();
-        this.zOffset = buf.readFloat();
-        this.particleSpeed = buf.readFloat();
-        this.particleCount = buf.readInt();
-        int i = this.particleType.getArgumentCount();
-        this.particleArguments = new int[i];
+        longDistance = buf.readBoolean();
+        xCoord = buf.readFloat();
+        yCoord = buf.readFloat();
+        zCoord = buf.readFloat();
+        xOffset = buf.readFloat();
+        yOffset = buf.readFloat();
+        zOffset = buf.readFloat();
+        particleSpeed = buf.readFloat();
+        particleCount = buf.readInt();
+        int i = particleType.getArgumentCount();
+        particleArguments = new int[i];
 
         for (int j = 0; j < i; ++j)
         {
-            this.particleArguments[j] = buf.readVarInt();
+            particleArguments[j] = buf.readVarInt();
         }
     }
 
@@ -78,32 +78,32 @@ public class SPacketParticles implements Packet<INetHandlerPlayClient>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeInt(this.particleType.getParticleID());
-        buf.writeBoolean(this.longDistance);
-        buf.writeFloat(this.xCoord);
-        buf.writeFloat(this.yCoord);
-        buf.writeFloat(this.zCoord);
-        buf.writeFloat(this.xOffset);
-        buf.writeFloat(this.yOffset);
-        buf.writeFloat(this.zOffset);
-        buf.writeFloat(this.particleSpeed);
-        buf.writeInt(this.particleCount);
-        int i = this.particleType.getArgumentCount();
+        buf.writeInt(particleType.getParticleID());
+        buf.writeBoolean(longDistance);
+        buf.writeFloat(xCoord);
+        buf.writeFloat(yCoord);
+        buf.writeFloat(zCoord);
+        buf.writeFloat(xOffset);
+        buf.writeFloat(yOffset);
+        buf.writeFloat(zOffset);
+        buf.writeFloat(particleSpeed);
+        buf.writeInt(particleCount);
+        int i = particleType.getArgumentCount();
 
         for (int j = 0; j < i; ++j)
         {
-            buf.writeVarInt(this.particleArguments[j]);
+            buf.writeVarInt(particleArguments[j]);
         }
     }
 
     public EnumParticleTypes getParticleType()
     {
-        return this.particleType;
+        return particleType;
     }
 
     public boolean isLongDistance()
     {
-        return this.longDistance;
+        return longDistance;
     }
 
     /**
@@ -111,7 +111,7 @@ public class SPacketParticles implements Packet<INetHandlerPlayClient>
      */
     public double getXCoordinate()
     {
-        return (double)this.xCoord;
+        return (double) xCoord;
     }
 
     /**
@@ -119,7 +119,7 @@ public class SPacketParticles implements Packet<INetHandlerPlayClient>
      */
     public double getYCoordinate()
     {
-        return (double)this.yCoord;
+        return (double) yCoord;
     }
 
     /**
@@ -127,7 +127,7 @@ public class SPacketParticles implements Packet<INetHandlerPlayClient>
      */
     public double getZCoordinate()
     {
-        return (double)this.zCoord;
+        return (double) zCoord;
     }
 
     /**
@@ -135,7 +135,7 @@ public class SPacketParticles implements Packet<INetHandlerPlayClient>
      */
     public float getXOffset()
     {
-        return this.xOffset;
+        return xOffset;
     }
 
     /**
@@ -143,7 +143,7 @@ public class SPacketParticles implements Packet<INetHandlerPlayClient>
      */
     public float getYOffset()
     {
-        return this.yOffset;
+        return yOffset;
     }
 
     /**
@@ -151,7 +151,7 @@ public class SPacketParticles implements Packet<INetHandlerPlayClient>
      */
     public float getZOffset()
     {
-        return this.zOffset;
+        return zOffset;
     }
 
     /**
@@ -159,7 +159,7 @@ public class SPacketParticles implements Packet<INetHandlerPlayClient>
      */
     public float getParticleSpeed()
     {
-        return this.particleSpeed;
+        return particleSpeed;
     }
 
     /**
@@ -167,7 +167,7 @@ public class SPacketParticles implements Packet<INetHandlerPlayClient>
      */
     public int getParticleCount()
     {
-        return this.particleCount;
+        return particleCount;
     }
 
     /**
@@ -176,7 +176,7 @@ public class SPacketParticles implements Packet<INetHandlerPlayClient>
      */
     public int[] getParticleArgs()
     {
-        return this.particleArguments;
+        return particleArguments;
     }
 
     /**

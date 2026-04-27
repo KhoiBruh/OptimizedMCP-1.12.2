@@ -18,14 +18,14 @@ public class ParticleMobAppearance extends Particle
     protected ParticleMobAppearance(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn)
     {
         super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0.0D, 0.0D, 0.0D);
-        this.particleRed = 1.0F;
-        this.particleGreen = 1.0F;
-        this.particleBlue = 1.0F;
-        this.motionX = 0.0D;
-        this.motionY = 0.0D;
-        this.motionZ = 0.0D;
-        this.particleGravity = 0.0F;
-        this.particleMaxAge = 30;
+        particleRed = 1.0F;
+        particleGreen = 1.0F;
+        particleBlue = 1.0F;
+        motionX = 0.0D;
+        motionY = 0.0D;
+        motionZ = 0.0D;
+        particleGravity = 0.0F;
+        particleMaxAge = 30;
     }
 
     /**
@@ -41,11 +41,11 @@ public class ParticleMobAppearance extends Particle
     {
         super.onUpdate();
 
-        if (this.entity == null)
+        if (entity == null)
         {
-            EntityElderGuardian entityelderguardian = new EntityElderGuardian(this.world);
+            EntityElderGuardian entityelderguardian = new EntityElderGuardian(world);
             entityelderguardian.setGhost();
-            this.entity = entityelderguardian;
+            entity = entityelderguardian;
         }
     }
 
@@ -54,12 +54,12 @@ public class ParticleMobAppearance extends Particle
      */
     public void renderParticle(BufferBuilder buffer, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ)
     {
-        if (this.entity != null)
+        if (entity != null)
         {
             RenderManager rendermanager = Minecraft.getMinecraft().getRenderManager();
             rendermanager.setRenderPosition(Particle.interpPosX, Particle.interpPosY, Particle.interpPosZ);
             float f = 0.42553192F;
-            float f1 = ((float)this.particleAge + partialTicks) / (float)this.particleMaxAge;
+            float f1 = ((float) particleAge + partialTicks) / (float) particleMaxAge;
             GlStateManager.depthMask(true);
             GlStateManager.enableBlend();
             GlStateManager.enableDepth();
@@ -74,11 +74,11 @@ public class ParticleMobAppearance extends Particle
             GlStateManager.rotate(60.0F - 150.0F * f1 - entityIn.rotationPitch, 1.0F, 0.0F, 0.0F);
             GlStateManager.translate(0.0F, -0.4F, -1.5F);
             GlStateManager.scale(0.42553192F, 0.42553192F, 0.42553192F);
-            this.entity.rotationYaw = 0.0F;
-            this.entity.rotationYawHead = 0.0F;
-            this.entity.prevRotationYaw = 0.0F;
-            this.entity.prevRotationYawHead = 0.0F;
-            rendermanager.renderEntity(this.entity, 0.0D, 0.0D, 0.0D, 0.0F, partialTicks, false);
+            entity.rotationYaw = 0.0F;
+            entity.rotationYawHead = 0.0F;
+            entity.prevRotationYaw = 0.0F;
+            entity.prevRotationYawHead = 0.0F;
+            rendermanager.renderEntity(entity, 0.0D, 0.0D, 0.0D, 0.0F, partialTicks, false);
             GlStateManager.popMatrix();
             GlStateManager.enableDepth();
         }

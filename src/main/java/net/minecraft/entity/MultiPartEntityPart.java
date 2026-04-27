@@ -12,7 +12,7 @@ public class MultiPartEntityPart extends Entity
     public MultiPartEntityPart(IEntityMultiPart parent, String partName, float width, float height)
     {
         super(parent.getWorld());
-        this.setSize(width, height);
+        setSize(width, height);
         this.parent = parent;
         this.partName = partName;
     }
@@ -48,7 +48,7 @@ public class MultiPartEntityPart extends Entity
      */
     public boolean attackEntityFrom(DamageSource source, float amount)
     {
-        return this.isEntityInvulnerable(source) ? false : this.parent.attackEntityFromPart(this, source, amount);
+        return isEntityInvulnerable(source) ? false : parent.attackEntityFromPart(this, source, amount);
     }
 
     /**
@@ -56,6 +56,6 @@ public class MultiPartEntityPart extends Entity
      */
     public boolean isEntityEqual(Entity entityIn)
     {
-        return this == entityIn || this.parent == entityIn;
+        return this == entityIn || parent == entityIn;
     }
 }

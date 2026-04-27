@@ -36,7 +36,7 @@ public class LocationPredicate
 
     public boolean test(WorldServer world, double x, double y, double z)
     {
-        return this.test(world, (float)x, (float)y, (float)z);
+        return test(world, (float)x, (float)y, (float)z);
     }
 
     public boolean test(WorldServer world, float x, float y, float z)
@@ -53,7 +53,7 @@ public class LocationPredicate
         {
             return false;
         }
-        else if (this.dimension != null && this.dimension != world.provider.getDimensionType())
+        else if (dimension != null && dimension != world.provider.getDimensionType())
         {
             return false;
         }
@@ -61,13 +61,13 @@ public class LocationPredicate
         {
             BlockPos blockpos = new BlockPos((double)x, (double)y, (double)z);
 
-            if (this.biome != null && this.biome != world.getBiome(blockpos))
+            if (biome != null && biome != world.getBiome(blockpos))
             {
                 return false;
             }
             else
             {
-                return this.feature == null || world.getChunkProvider().isInsideStructure(world, this.feature, blockpos);
+                return feature == null || world.getChunkProvider().isInsideStructure(world, feature, blockpos);
             }
         }
     }

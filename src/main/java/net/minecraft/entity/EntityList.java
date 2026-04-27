@@ -483,11 +483,11 @@ public class EntityList
 
         public EntityEggInfo(ResourceLocation idIn, int primaryColorIn, int secondaryColorIn)
         {
-            this.spawnedID = idIn;
-            this.primaryColor = primaryColorIn;
-            this.secondaryColor = secondaryColorIn;
-            this.killEntityStat = StatList.getStatKillEntity(this);
-            this.entityKilledByStat = StatList.getStatEntityKilledBy(this);
+            spawnedID = idIn;
+            primaryColor = primaryColorIn;
+            secondaryColor = secondaryColorIn;
+            killEntityStat = StatList.getStatKillEntity(this);
+            entityKilledByStat = StatList.getStatEntityKilledBy(this);
         }
     }
 }

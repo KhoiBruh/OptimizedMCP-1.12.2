@@ -19,25 +19,25 @@ public class MinMaxBounds
 
     public boolean test(float value)
     {
-        if (this.min != null && this.min.floatValue() > value)
+        if (min != null && min.floatValue() > value)
         {
             return false;
         }
         else
         {
-            return this.max == null || this.max.floatValue() >= value;
+            return max == null || max.floatValue() >= value;
         }
     }
 
     public boolean testSquare(double value)
     {
-        if (this.min != null && (double)(this.min.floatValue() * this.min.floatValue()) > value)
+        if (min != null && (double)(min.floatValue() * min.floatValue()) > value)
         {
             return false;
         }
         else
         {
-            return this.max == null || (double)(this.max.floatValue() * this.max.floatValue()) >= value;
+            return max == null || (double)(max.floatValue() * max.floatValue()) >= value;
         }
     }
 

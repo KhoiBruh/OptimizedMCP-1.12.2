@@ -20,8 +20,8 @@ public class SPacketRemoveEntityEffect implements Packet<INetHandlerPlayClient>
 
     public SPacketRemoveEntityEffect(int entityIdIn, Potion potionIn)
     {
-        this.entityId = entityIdIn;
-        this.effectId = potionIn;
+        entityId = entityIdIn;
+        effectId = potionIn;
     }
 
     /**
@@ -29,8 +29,8 @@ public class SPacketRemoveEntityEffect implements Packet<INetHandlerPlayClient>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.entityId = buf.readVarInt();
-        this.effectId = Potion.getPotionById(buf.readUnsignedByte());
+        entityId = buf.readVarInt();
+        effectId = Potion.getPotionById(buf.readUnsignedByte());
     }
 
     /**
@@ -38,8 +38,8 @@ public class SPacketRemoveEntityEffect implements Packet<INetHandlerPlayClient>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeVarInt(this.entityId);
-        buf.writeByte(Potion.getIdFromPotion(this.effectId));
+        buf.writeVarInt(entityId);
+        buf.writeByte(Potion.getIdFromPotion(effectId));
     }
 
     /**
@@ -53,12 +53,12 @@ public class SPacketRemoveEntityEffect implements Packet<INetHandlerPlayClient>
     @Nullable
     public Entity getEntity(World worldIn)
     {
-        return worldIn.getEntityByID(this.entityId);
+        return worldIn.getEntityByID(entityId);
     }
 
     @Nullable
     public Potion getPotion()
     {
-        return this.effectId;
+        return effectId;
     }
 }

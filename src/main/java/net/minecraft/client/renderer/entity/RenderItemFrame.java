@@ -29,7 +29,7 @@ public class RenderItemFrame extends Render<EntityItemFrame>
     public RenderItemFrame(RenderManager renderManagerIn, RenderItem itemRendererIn)
     {
         super(renderManagerIn);
-        this.itemRenderer = itemRendererIn;
+        itemRenderer = itemRendererIn;
     }
 
     /**
@@ -44,32 +44,32 @@ public class RenderItemFrame extends Render<EntityItemFrame>
         double d2 = (double)blockpos.getZ() - entity.posZ + z;
         GlStateManager.translate(d0 + 0.5D, d1 + 0.5D, d2 + 0.5D);
         GlStateManager.rotate(180.0F - entity.rotationYaw, 0.0F, 1.0F, 0.0F);
-        this.renderManager.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-        BlockRendererDispatcher blockrendererdispatcher = this.mc.getBlockRendererDispatcher();
+        renderManager.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+        BlockRendererDispatcher blockrendererdispatcher = mc.getBlockRendererDispatcher();
         ModelManager modelmanager = blockrendererdispatcher.getBlockModelShapes().getModelManager();
         IBakedModel ibakedmodel;
 
         if (entity.getDisplayedItem().getItem() == Items.FILLED_MAP)
         {
-            ibakedmodel = modelmanager.getModel(this.mapModel);
+            ibakedmodel = modelmanager.getModel(mapModel);
         }
         else
         {
-            ibakedmodel = modelmanager.getModel(this.itemFrameModel);
+            ibakedmodel = modelmanager.getModel(itemFrameModel);
         }
 
         GlStateManager.pushMatrix();
         GlStateManager.translate(-0.5F, -0.5F, -0.5F);
 
-        if (this.renderOutlines)
+        if (renderOutlines)
         {
             GlStateManager.enableColorMaterial();
-            GlStateManager.enableOutlineMode(this.getTeamColor(entity));
+            GlStateManager.enableOutlineMode(getTeamColor(entity));
         }
 
         blockrendererdispatcher.getBlockModelRenderer().renderModelBrightnessColor(ibakedmodel, 1.0F, 1.0F, 1.0F, 1.0F);
 
-        if (this.renderOutlines)
+        if (renderOutlines)
         {
             GlStateManager.disableOutlineMode();
             GlStateManager.disableColorMaterial();
@@ -77,9 +77,9 @@ public class RenderItemFrame extends Render<EntityItemFrame>
 
         GlStateManager.popMatrix();
         GlStateManager.translate(0.0F, 0.0F, 0.4375F);
-        this.renderItem(entity);
+        renderItem(entity);
         GlStateManager.popMatrix();
-        this.renderName(entity, x + (double)((float)entity.facingDirection.getFrontOffsetX() * 0.3F), y - 0.25D, z + (double)((float)entity.facingDirection.getFrontOffsetZ() * 0.3F));
+        renderName(entity, x + (double)((float)entity.facingDirection.getFrontOffsetX() * 0.3F), y - 0.25D, z + (double)((float)entity.facingDirection.getFrontOffsetZ() * 0.3F));
     }
 
     @Nullable
@@ -106,7 +106,7 @@ public class RenderItemFrame extends Render<EntityItemFrame>
 
             if (flag)
             {
-                this.renderManager.renderEngine.bindTexture(MAP_BACKGROUND_TEXTURES);
+                renderManager.renderEngine.bindTexture(MAP_BACKGROUND_TEXTURES);
                 GlStateManager.rotate(180.0F, 0.0F, 0.0F, 1.0F);
                 float f = 0.0078125F;
                 GlStateManager.scale(0.0078125F, 0.0078125F, 0.0078125F);
@@ -116,7 +116,7 @@ public class RenderItemFrame extends Render<EntityItemFrame>
 
                 if (mapdata != null)
                 {
-                    this.mc.entityRenderer.getMapItemRenderer().renderMap(mapdata, true);
+                    mc.entityRenderer.getMapItemRenderer().renderMap(mapdata, true);
                 }
             }
             else
@@ -124,7 +124,7 @@ public class RenderItemFrame extends Render<EntityItemFrame>
                 GlStateManager.scale(0.5F, 0.5F, 0.5F);
                 GlStateManager.pushAttrib();
                 RenderHelper.enableStandardItemLighting();
-                this.itemRenderer.renderItem(itemstack, ItemCameraTransforms.TransformType.FIXED);
+                itemRenderer.renderItem(itemstack, ItemCameraTransforms.TransformType.FIXED);
                 RenderHelper.disableStandardItemLighting();
                 GlStateManager.popAttrib();
             }
@@ -136,15 +136,15 @@ public class RenderItemFrame extends Render<EntityItemFrame>
 
     protected void renderName(EntityItemFrame entity, double x, double y, double z)
     {
-        if (Minecraft.isGuiEnabled() && !entity.getDisplayedItem().isEmpty() && entity.getDisplayedItem().hasDisplayName() && this.renderManager.pointedEntity == entity)
+        if (Minecraft.isGuiEnabled() && !entity.getDisplayedItem().isEmpty() && entity.getDisplayedItem().hasDisplayName() && renderManager.pointedEntity == entity)
         {
-            double d0 = entity.getDistanceSq(this.renderManager.renderViewEntity);
+            double d0 = entity.getDistanceSq(renderManager.renderViewEntity);
             float f = entity.isSneaking() ? 32.0F : 64.0F;
 
             if (d0 < (double)(f * f))
             {
                 String s = entity.getDisplayedItem().getDisplayName();
-                this.renderLivingLabel(entity, s, x, y, z, 64);
+                renderLivingLabel(entity, s, x, y, z, 64);
             }
         }
     }

@@ -11,7 +11,7 @@ public enum Mirror
 
     private Mirror(String nameIn)
     {
-        this.name = nameIn;
+        name = nameIn;
     }
 
     /**

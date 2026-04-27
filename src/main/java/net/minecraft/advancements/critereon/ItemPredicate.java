@@ -28,13 +28,13 @@ public class ItemPredicate
 
     public ItemPredicate()
     {
-        this.item = null;
-        this.data = null;
-        this.potion = null;
-        this.count = MinMaxBounds.UNBOUNDED;
-        this.durability = MinMaxBounds.UNBOUNDED;
-        this.enchantments = new EnchantmentPredicate[0];
-        this.nbt = NBTPredicate.ANY;
+        item = null;
+        data = null;
+        potion = null;
+        count = MinMaxBounds.UNBOUNDED;
+        durability = MinMaxBounds.UNBOUNDED;
+        enchantments = new EnchantmentPredicate[0];
+        nbt = NBTPredicate.ANY;
     }
 
     public ItemPredicate(@Nullable Item item, @Nullable Integer data, MinMaxBounds count, MinMaxBounds durability, EnchantmentPredicate[] enchantments, @Nullable PotionType potion, NBTPredicate nbt)
@@ -54,23 +54,23 @@ public class ItemPredicate
         {
             return false;
         }
-        else if (this.data != null && item.getMetadata() != this.data.intValue())
+        else if (data != null && item.getMetadata() != data.intValue())
         {
             return false;
         }
-        else if (!this.count.test((float)item.getCount()))
+        else if (!count.test((float)item.getCount()))
         {
             return false;
         }
-        else if (this.durability != MinMaxBounds.UNBOUNDED && !item.isItemStackDamageable())
+        else if (durability != MinMaxBounds.UNBOUNDED && !item.isItemStackDamageable())
         {
             return false;
         }
-        else if (!this.durability.test((float)(item.getMaxDamage() - item.getItemDamage())))
+        else if (!durability.test((float)(item.getMaxDamage() - item.getItemDamage())))
         {
             return false;
         }
-        else if (!this.nbt.test(item))
+        else if (!nbt.test(item))
         {
             return false;
         }
@@ -78,9 +78,9 @@ public class ItemPredicate
         {
             Map<Enchantment, Integer> map = EnchantmentHelper.getEnchantments(item);
 
-            for (int i = 0; i < this.enchantments.length; ++i)
+            for (int i = 0; i < enchantments.length; ++i)
             {
-                if (!this.enchantments[i].test(map))
+                if (!enchantments[i].test(map))
                 {
                     return false;
                 }
@@ -88,7 +88,7 @@ public class ItemPredicate
 
             PotionType potiontype = PotionUtils.getPotionFromItem(item);
 
-            if (this.potion != null && this.potion != potiontype)
+            if (potion != null && potion != potiontype)
             {
                 return false;
             }

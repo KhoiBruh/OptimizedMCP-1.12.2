@@ -29,12 +29,12 @@ public class RecipeUnlockedTrigger implements ICriterionTrigger<RecipeUnlockedTr
 
     public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<RecipeUnlockedTrigger.Instance> listener)
     {
-        RecipeUnlockedTrigger.Listeners recipeunlockedtrigger$listeners = this.listeners.get(playerAdvancementsIn);
+        RecipeUnlockedTrigger.Listeners recipeunlockedtrigger$listeners = listeners.get(playerAdvancementsIn);
 
         if (recipeunlockedtrigger$listeners == null)
         {
             recipeunlockedtrigger$listeners = new RecipeUnlockedTrigger.Listeners(playerAdvancementsIn);
-            this.listeners.put(playerAdvancementsIn, recipeunlockedtrigger$listeners);
+            listeners.put(playerAdvancementsIn, recipeunlockedtrigger$listeners);
         }
 
         recipeunlockedtrigger$listeners.add(listener);
@@ -42,7 +42,7 @@ public class RecipeUnlockedTrigger implements ICriterionTrigger<RecipeUnlockedTr
 
     public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<RecipeUnlockedTrigger.Instance> listener)
     {
-        RecipeUnlockedTrigger.Listeners recipeunlockedtrigger$listeners = this.listeners.get(playerAdvancementsIn);
+        RecipeUnlockedTrigger.Listeners recipeunlockedtrigger$listeners = listeners.get(playerAdvancementsIn);
 
         if (recipeunlockedtrigger$listeners != null)
         {
@@ -50,14 +50,14 @@ public class RecipeUnlockedTrigger implements ICriterionTrigger<RecipeUnlockedTr
 
             if (recipeunlockedtrigger$listeners.isEmpty())
             {
-                this.listeners.remove(playerAdvancementsIn);
+                listeners.remove(playerAdvancementsIn);
             }
         }
     }
 
     public void removeAllListeners(PlayerAdvancements playerAdvancementsIn)
     {
-        this.listeners.remove(playerAdvancementsIn);
+        listeners.remove(playerAdvancementsIn);
     }
 
     /**
@@ -80,7 +80,7 @@ public class RecipeUnlockedTrigger implements ICriterionTrigger<RecipeUnlockedTr
 
     public void trigger(EntityPlayerMP player, IRecipe recipe)
     {
-        RecipeUnlockedTrigger.Listeners recipeunlockedtrigger$listeners = this.listeners.get(player.getAdvancements());
+        RecipeUnlockedTrigger.Listeners recipeunlockedtrigger$listeners = listeners.get(player.getAdvancements());
 
         if (recipeunlockedtrigger$listeners != null)
         {
@@ -111,29 +111,29 @@ public class RecipeUnlockedTrigger implements ICriterionTrigger<RecipeUnlockedTr
 
         public Listeners(PlayerAdvancements playerAdvancementsIn)
         {
-            this.playerAdvancements = playerAdvancementsIn;
+            playerAdvancements = playerAdvancementsIn;
         }
 
         public boolean isEmpty()
         {
-            return this.listeners.isEmpty();
+            return listeners.isEmpty();
         }
 
         public void add(ICriterionTrigger.Listener<RecipeUnlockedTrigger.Instance> listener)
         {
-            this.listeners.add(listener);
+            listeners.add(listener);
         }
 
         public void remove(ICriterionTrigger.Listener<RecipeUnlockedTrigger.Instance> listener)
         {
-            this.listeners.remove(listener);
+            listeners.remove(listener);
         }
 
         public void trigger(IRecipe recipe)
         {
             List<ICriterionTrigger.Listener<RecipeUnlockedTrigger.Instance>> list = null;
 
-            for (ICriterionTrigger.Listener<RecipeUnlockedTrigger.Instance> listener : this.listeners)
+            for (ICriterionTrigger.Listener<RecipeUnlockedTrigger.Instance> listener : listeners)
             {
                 if (((RecipeUnlockedTrigger.Instance)listener.getCriterionInstance()).test(recipe))
                 {
@@ -150,7 +150,7 @@ public class RecipeUnlockedTrigger implements ICriterionTrigger<RecipeUnlockedTr
             {
                 for (ICriterionTrigger.Listener<RecipeUnlockedTrigger.Instance> listener1 : list)
                 {
-                    listener1.grantCriterion(this.playerAdvancements);
+                    listener1.grantCriterion(playerAdvancements);
                 }
             }
         }

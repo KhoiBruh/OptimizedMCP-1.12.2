@@ -15,7 +15,7 @@ public enum ChatType
 
     public byte getId()
     {
-        return this.id;
+        return id;
     }
 
     public static ChatType byId(byte idIn)

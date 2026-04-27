@@ -15,24 +15,24 @@ public class SoundList
 
     public SoundList(List<Sound> soundsIn, boolean replceIn, String subtitleIn)
     {
-        this.sounds = soundsIn;
-        this.replaceExisting = replceIn;
-        this.subtitle = subtitleIn;
+        sounds = soundsIn;
+        replaceExisting = replceIn;
+        subtitle = subtitleIn;
     }
 
     public List<Sound> getSounds()
     {
-        return this.sounds;
+        return sounds;
     }
 
     public boolean canReplaceExisting()
     {
-        return this.replaceExisting;
+        return replaceExisting;
     }
 
     @Nullable
     public String getSubtitle()
     {
-        return this.subtitle;
+        return subtitle;
     }
 }

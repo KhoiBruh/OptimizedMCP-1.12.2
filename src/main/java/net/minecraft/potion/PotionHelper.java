@@ -235,9 +235,9 @@ public class PotionHelper
 
         public MixPredicate(T p_i47570_1_, Ingredient p_i47570_2_, T p_i47570_3_)
         {
-            this.input = p_i47570_1_;
-            this.reagent = p_i47570_2_;
-            this.output = p_i47570_3_;
+            input = p_i47570_1_;
+            reagent = p_i47570_2_;
+            output = p_i47570_3_;
         }
     }
 }

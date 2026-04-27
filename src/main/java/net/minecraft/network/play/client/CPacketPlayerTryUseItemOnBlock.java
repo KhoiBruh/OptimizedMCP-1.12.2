@@ -23,12 +23,12 @@ public class CPacketPlayerTryUseItemOnBlock implements Packet<INetHandlerPlaySer
 
     public CPacketPlayerTryUseItemOnBlock(BlockPos posIn, EnumFacing placedBlockDirectionIn, EnumHand handIn, float facingXIn, float facingYIn, float facingZIn)
     {
-        this.position = posIn;
-        this.placedBlockDirection = placedBlockDirectionIn;
-        this.hand = handIn;
-        this.facingX = facingXIn;
-        this.facingY = facingYIn;
-        this.facingZ = facingZIn;
+        position = posIn;
+        placedBlockDirection = placedBlockDirectionIn;
+        hand = handIn;
+        facingX = facingXIn;
+        facingY = facingYIn;
+        facingZ = facingZIn;
     }
 
     /**
@@ -36,12 +36,12 @@ public class CPacketPlayerTryUseItemOnBlock implements Packet<INetHandlerPlaySer
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.position = buf.readBlockPos();
-        this.placedBlockDirection = (EnumFacing)buf.readEnumValue(EnumFacing.class);
-        this.hand = (EnumHand)buf.readEnumValue(EnumHand.class);
-        this.facingX = buf.readFloat();
-        this.facingY = buf.readFloat();
-        this.facingZ = buf.readFloat();
+        position = buf.readBlockPos();
+        placedBlockDirection = (EnumFacing)buf.readEnumValue(EnumFacing.class);
+        hand = (EnumHand)buf.readEnumValue(EnumHand.class);
+        facingX = buf.readFloat();
+        facingY = buf.readFloat();
+        facingZ = buf.readFloat();
     }
 
     /**
@@ -49,12 +49,12 @@ public class CPacketPlayerTryUseItemOnBlock implements Packet<INetHandlerPlaySer
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeBlockPos(this.position);
-        buf.writeEnumValue(this.placedBlockDirection);
-        buf.writeEnumValue(this.hand);
-        buf.writeFloat(this.facingX);
-        buf.writeFloat(this.facingY);
-        buf.writeFloat(this.facingZ);
+        buf.writeBlockPos(position);
+        buf.writeEnumValue(placedBlockDirection);
+        buf.writeEnumValue(hand);
+        buf.writeFloat(facingX);
+        buf.writeFloat(facingY);
+        buf.writeFloat(facingZ);
     }
 
     /**
@@ -67,31 +67,31 @@ public class CPacketPlayerTryUseItemOnBlock implements Packet<INetHandlerPlaySer
 
     public BlockPos getPos()
     {
-        return this.position;
+        return position;
     }
 
     public EnumFacing getDirection()
     {
-        return this.placedBlockDirection;
+        return placedBlockDirection;
     }
 
     public EnumHand getHand()
     {
-        return this.hand;
+        return hand;
     }
 
     public float getFacingX()
     {
-        return this.facingX;
+        return facingX;
     }
 
     public float getFacingY()
     {
-        return this.facingY;
+        return facingY;
     }
 
     public float getFacingZ()
     {
-        return this.facingZ;
+        return facingZ;
     }
 }

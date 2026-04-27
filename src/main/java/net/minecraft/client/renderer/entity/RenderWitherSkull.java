@@ -42,24 +42,24 @@ public class RenderWitherSkull extends Render<EntityWitherSkull>
     {
         GlStateManager.pushMatrix();
         GlStateManager.disableCull();
-        float f = this.getRenderYaw(entity.prevRotationYaw, entity.rotationYaw, partialTicks);
+        float f = getRenderYaw(entity.prevRotationYaw, entity.rotationYaw, partialTicks);
         float f1 = entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * partialTicks;
         GlStateManager.translate((float)x, (float)y, (float)z);
         float f2 = 0.0625F;
         GlStateManager.enableRescaleNormal();
         GlStateManager.scale(-1.0F, -1.0F, 1.0F);
         GlStateManager.enableAlpha();
-        this.bindEntityTexture(entity);
+        bindEntityTexture(entity);
 
-        if (this.renderOutlines)
+        if (renderOutlines)
         {
             GlStateManager.enableColorMaterial();
-            GlStateManager.enableOutlineMode(this.getTeamColor(entity));
+            GlStateManager.enableOutlineMode(getTeamColor(entity));
         }
 
-        this.skeletonHeadModel.render(entity, 0.0F, 0.0F, 0.0F, f, f1, 0.0625F);
+        skeletonHeadModel.render(entity, 0.0F, 0.0F, 0.0F, f, f1, 0.0625F);
 
-        if (this.renderOutlines)
+        if (renderOutlines)
         {
             GlStateManager.disableOutlineMode();
             GlStateManager.disableColorMaterial();

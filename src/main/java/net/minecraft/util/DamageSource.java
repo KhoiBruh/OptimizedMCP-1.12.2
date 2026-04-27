@@ -128,7 +128,7 @@ public class DamageSource
      */
     public boolean isProjectile()
     {
-        return this.projectile;
+        return projectile;
     }
 
     /**
@@ -136,24 +136,24 @@ public class DamageSource
      */
     public DamageSource setProjectile()
     {
-        this.projectile = true;
+        projectile = true;
         return this;
     }
 
     public boolean isExplosion()
     {
-        return this.explosion;
+        return explosion;
     }
 
     public DamageSource setExplosion()
     {
-        this.explosion = true;
+        explosion = true;
         return this;
     }
 
     public boolean isUnblockable()
     {
-        return this.isUnblockable;
+        return isUnblockable;
     }
 
     /**
@@ -161,12 +161,12 @@ public class DamageSource
      */
     public float getHungerDamage()
     {
-        return this.hungerDamage;
+        return hungerDamage;
     }
 
     public boolean canHarmInCreative()
     {
-        return this.isDamageAllowedInCreativeMode;
+        return isDamageAllowedInCreativeMode;
     }
 
     /**
@@ -174,12 +174,12 @@ public class DamageSource
      */
     public boolean isDamageAbsolute()
     {
-        return this.damageIsAbsolute;
+        return damageIsAbsolute;
     }
 
     protected DamageSource(String damageTypeIn)
     {
-        this.damageType = damageTypeIn;
+        damageType = damageTypeIn;
     }
 
     @Nullable
@@ -189,7 +189,7 @@ public class DamageSource
      */
     public Entity getImmediateSource()
     {
-        return this.getTrueSource();
+        return getTrueSource();
     }
 
     @Nullable
@@ -205,14 +205,14 @@ public class DamageSource
 
     protected DamageSource setDamageBypassesArmor()
     {
-        this.isUnblockable = true;
-        this.hungerDamage = 0.0F;
+        isUnblockable = true;
+        hungerDamage = 0.0F;
         return this;
     }
 
     protected DamageSource setDamageAllowedInCreativeMode()
     {
-        this.isDamageAllowedInCreativeMode = true;
+        isDamageAllowedInCreativeMode = true;
         return this;
     }
 
@@ -222,8 +222,8 @@ public class DamageSource
      */
     protected DamageSource setDamageIsAbsolute()
     {
-        this.damageIsAbsolute = true;
-        this.hungerDamage = 0.0F;
+        damageIsAbsolute = true;
+        hungerDamage = 0.0F;
         return this;
     }
 
@@ -232,7 +232,7 @@ public class DamageSource
      */
     protected DamageSource setFireDamage()
     {
-        this.fireDamage = true;
+        fireDamage = true;
         return this;
     }
 
@@ -242,7 +242,7 @@ public class DamageSource
     public ITextComponent getDeathMessage(EntityLivingBase entityLivingBaseIn)
     {
         EntityLivingBase entitylivingbase = entityLivingBaseIn.getAttackingEntity();
-        String s = "death.attack." + this.damageType;
+        String s = "death.attack." + damageType;
         String s1 = s + ".player";
         return entitylivingbase != null && I18n.canTranslate(s1) ? new TextComponentTranslation(s1, new Object[] {entityLivingBaseIn.getDisplayName(), entitylivingbase.getDisplayName()}) : new TextComponentTranslation(s, new Object[] {entityLivingBaseIn.getDisplayName()});
     }
@@ -252,7 +252,7 @@ public class DamageSource
      */
     public boolean isFireDamage()
     {
-        return this.fireDamage;
+        return fireDamage;
     }
 
     /**
@@ -260,7 +260,7 @@ public class DamageSource
      */
     public String getDamageType()
     {
-        return this.damageType;
+        return damageType;
     }
 
     /**
@@ -268,7 +268,7 @@ public class DamageSource
      */
     public DamageSource setDifficultyScaled()
     {
-        this.difficultyScaled = true;
+        difficultyScaled = true;
         return this;
     }
 
@@ -277,7 +277,7 @@ public class DamageSource
      */
     public boolean isDifficultyScaled()
     {
-        return this.difficultyScaled;
+        return difficultyScaled;
     }
 
     /**
@@ -285,7 +285,7 @@ public class DamageSource
      */
     public boolean isMagicDamage()
     {
-        return this.magicDamage;
+        return magicDamage;
     }
 
     /**
@@ -293,13 +293,13 @@ public class DamageSource
      */
     public DamageSource setMagicDamage()
     {
-        this.magicDamage = true;
+        magicDamage = true;
         return this;
     }
 
     public boolean isCreativePlayer()
     {
-        Entity entity = this.getTrueSource();
+        Entity entity = getTrueSource();
         return entity instanceof EntityPlayer && ((EntityPlayer)entity).capabilities.isCreativeMode;
     }
 

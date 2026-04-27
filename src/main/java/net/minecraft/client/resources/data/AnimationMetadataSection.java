@@ -14,64 +14,64 @@ public class AnimationMetadataSection implements IMetadataSection
 
     public AnimationMetadataSection(List<AnimationFrame> animationFramesIn, int frameWidthIn, int frameHeightIn, int frameTimeIn, boolean interpolateIn)
     {
-        this.animationFrames = animationFramesIn;
-        this.frameWidth = frameWidthIn;
-        this.frameHeight = frameHeightIn;
-        this.frameTime = frameTimeIn;
-        this.interpolate = interpolateIn;
+        animationFrames = animationFramesIn;
+        frameWidth = frameWidthIn;
+        frameHeight = frameHeightIn;
+        frameTime = frameTimeIn;
+        interpolate = interpolateIn;
     }
 
     public int getFrameHeight()
     {
-        return this.frameHeight;
+        return frameHeight;
     }
 
     public int getFrameWidth()
     {
-        return this.frameWidth;
+        return frameWidth;
     }
 
     public int getFrameCount()
     {
-        return this.animationFrames.size();
+        return animationFrames.size();
     }
 
     public int getFrameTime()
     {
-        return this.frameTime;
+        return frameTime;
     }
 
     public boolean isInterpolate()
     {
-        return this.interpolate;
+        return interpolate;
     }
 
     private AnimationFrame getAnimationFrame(int frame)
     {
-        return this.animationFrames.get(frame);
+        return animationFrames.get(frame);
     }
 
     public int getFrameTimeSingle(int frame)
     {
-        AnimationFrame animationframe = this.getAnimationFrame(frame);
-        return animationframe.hasNoTime() ? this.frameTime : animationframe.getFrameTime();
+        AnimationFrame animationframe = getAnimationFrame(frame);
+        return animationframe.hasNoTime() ? frameTime : animationframe.getFrameTime();
     }
 
     public boolean frameHasTime(int frame)
     {
-        return !((AnimationFrame)this.animationFrames.get(frame)).hasNoTime();
+        return !((AnimationFrame) animationFrames.get(frame)).hasNoTime();
     }
 
     public int getFrameIndex(int frame)
     {
-        return ((AnimationFrame)this.animationFrames.get(frame)).getFrameIndex();
+        return ((AnimationFrame) animationFrames.get(frame)).getFrameIndex();
     }
 
     public Set<Integer> getFrameIndexSet()
     {
         Set<Integer> set = Sets.<Integer>newHashSet();
 
-        for (AnimationFrame animationframe : this.animationFrames)
+        for (AnimationFrame animationframe : animationFrames)
         {
             set.add(Integer.valueOf(animationframe.getFrameIndex()));
         }

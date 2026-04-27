@@ -46,7 +46,7 @@ public class CommandWorldBorder extends CommandBase
         }
         else
         {
-            WorldBorder worldborder = this.getWorldBorder(server);
+            WorldBorder worldborder = getWorldBorder(server);
 
             if ("set".equals(args[0]))
             {

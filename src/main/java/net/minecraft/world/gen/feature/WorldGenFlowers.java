@@ -13,13 +13,13 @@ public class WorldGenFlowers extends WorldGenerator
 
     public WorldGenFlowers(BlockFlower flowerIn, BlockFlower.EnumFlowerType type)
     {
-        this.setGeneratedBlock(flowerIn, type);
+        setGeneratedBlock(flowerIn, type);
     }
 
     public void setGeneratedBlock(BlockFlower flowerIn, BlockFlower.EnumFlowerType typeIn)
     {
-        this.flower = flowerIn;
-        this.state = flowerIn.getDefaultState().withProperty(flowerIn.getTypeProperty(), typeIn);
+        flower = flowerIn;
+        state = flowerIn.getDefaultState().withProperty(flowerIn.getTypeProperty(), typeIn);
     }
 
     public boolean generate(World worldIn, Random rand, BlockPos position)
@@ -28,9 +28,9 @@ public class WorldGenFlowers extends WorldGenerator
         {
             BlockPos blockpos = position.add(rand.nextInt(8) - rand.nextInt(8), rand.nextInt(4) - rand.nextInt(4), rand.nextInt(8) - rand.nextInt(8));
 
-            if (worldIn.isAirBlock(blockpos) && (!worldIn.provider.isNether() || blockpos.getY() < 255) && this.flower.canBlockStay(worldIn, blockpos, this.state))
+            if (worldIn.isAirBlock(blockpos) && (!worldIn.provider.isNether() || blockpos.getY() < 255) && flower.canBlockStay(worldIn, blockpos, state))
             {
-                worldIn.setBlockState(blockpos, this.state, 2);
+                worldIn.setBlockState(blockpos, state, 2);
             }
         }
 

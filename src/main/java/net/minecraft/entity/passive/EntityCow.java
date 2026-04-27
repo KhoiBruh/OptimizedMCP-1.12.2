@@ -31,7 +31,7 @@ public class EntityCow extends EntityAnimal
     public EntityCow(World worldIn)
     {
         super(worldIn);
-        this.setSize(0.9F, 1.4F);
+        setSize(0.9F, 1.4F);
     }
 
     public static void registerFixesCow(DataFixer fixer)
@@ -41,21 +41,21 @@ public class EntityCow extends EntityAnimal
 
     protected void initEntityAI()
     {
-        this.tasks.addTask(0, new EntityAISwimming(this));
-        this.tasks.addTask(1, new EntityAIPanic(this, 2.0D));
-        this.tasks.addTask(2, new EntityAIMate(this, 1.0D));
-        this.tasks.addTask(3, new EntityAITempt(this, 1.25D, Items.WHEAT, false));
-        this.tasks.addTask(4, new EntityAIFollowParent(this, 1.25D));
-        this.tasks.addTask(5, new EntityAIWanderAvoidWater(this, 1.0D));
-        this.tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
-        this.tasks.addTask(7, new EntityAILookIdle(this));
+        tasks.addTask(0, new EntityAISwimming(this));
+        tasks.addTask(1, new EntityAIPanic(this, 2.0D));
+        tasks.addTask(2, new EntityAIMate(this, 1.0D));
+        tasks.addTask(3, new EntityAITempt(this, 1.25D, Items.WHEAT, false));
+        tasks.addTask(4, new EntityAIFollowParent(this, 1.25D));
+        tasks.addTask(5, new EntityAIWanderAvoidWater(this, 1.0D));
+        tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
+        tasks.addTask(7, new EntityAILookIdle(this));
     }
 
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(10.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.20000000298023224D);
+        getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(10.0D);
+        getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.20000000298023224D);
     }
 
     protected SoundEvent getAmbientSound()
@@ -75,7 +75,7 @@ public class EntityCow extends EntityAnimal
 
     protected void playStepSound(BlockPos pos, Block blockIn)
     {
-        this.playSound(SoundEvents.ENTITY_COW_STEP, 0.15F, 1.0F);
+        playSound(SoundEvents.ENTITY_COW_STEP, 0.15F, 1.0F);
     }
 
     /**
@@ -96,7 +96,7 @@ public class EntityCow extends EntityAnimal
     {
         ItemStack itemstack = player.getHeldItem(hand);
 
-        if (itemstack.getItem() == Items.BUCKET && !player.capabilities.isCreativeMode && !this.isChild())
+        if (itemstack.getItem() == Items.BUCKET && !player.capabilities.isCreativeMode && !isChild())
         {
             player.playSound(SoundEvents.ENTITY_COW_MILK, 1.0F, 1.0F);
             itemstack.shrink(1);
@@ -120,11 +120,11 @@ public class EntityCow extends EntityAnimal
 
     public EntityCow createChild(EntityAgeable ageable)
     {
-        return new EntityCow(this.world);
+        return new EntityCow(world);
     }
 
     public float getEyeHeight()
     {
-        return this.isChild() ? this.height : 1.3F;
+        return isChild() ? height : 1.3F;
     }
 }

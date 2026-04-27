@@ -12,17 +12,17 @@ public class ModelShulker extends ModelBase
 
     public ModelShulker()
     {
-        this.textureHeight = 64;
-        this.textureWidth = 64;
-        this.lid = new ModelRenderer(this);
-        this.base = new ModelRenderer(this);
-        this.head = new ModelRenderer(this);
-        this.lid.setTextureOffset(0, 0).addBox(-8.0F, -16.0F, -8.0F, 16, 12, 16);
-        this.lid.setRotationPoint(0.0F, 24.0F, 0.0F);
-        this.base.setTextureOffset(0, 28).addBox(-8.0F, -8.0F, -8.0F, 16, 8, 16);
-        this.base.setRotationPoint(0.0F, 24.0F, 0.0F);
-        this.head.setTextureOffset(0, 52).addBox(-3.0F, 0.0F, -3.0F, 6, 6, 6);
-        this.head.setRotationPoint(0.0F, 12.0F, 0.0F);
+        textureHeight = 64;
+        textureWidth = 64;
+        lid = new ModelRenderer(this);
+        base = new ModelRenderer(this);
+        head = new ModelRenderer(this);
+        lid.setTextureOffset(0, 0).addBox(-8.0F, -16.0F, -8.0F, 16, 12, 16);
+        lid.setRotationPoint(0.0F, 24.0F, 0.0F);
+        base.setTextureOffset(0, 28).addBox(-8.0F, -8.0F, -8.0F, 16, 8, 16);
+        base.setRotationPoint(0.0F, 24.0F, 0.0F);
+        head.setTextureOffset(0, 52).addBox(-3.0F, 0.0F, -3.0F, 6, 6, 6);
+        head.setRotationPoint(0.0F, 12.0F, 0.0F);
     }
 
     /**
@@ -43,19 +43,19 @@ public class ModelShulker extends ModelBase
             f3 = MathHelper.sin(ageInTicks * 0.1F) * 0.7F;
         }
 
-        this.lid.setRotationPoint(0.0F, 16.0F + MathHelper.sin(f1) * 8.0F + f3, 0.0F);
+        lid.setRotationPoint(0.0F, 16.0F + MathHelper.sin(f1) * 8.0F + f3, 0.0F);
 
         if (entityshulker.getClientPeekAmount(f) > 0.3F)
         {
-            this.lid.rotateAngleY = f2 * f2 * f2 * f2 * (float)Math.PI * 0.125F;
+            lid.rotateAngleY = f2 * f2 * f2 * f2 * (float)Math.PI * 0.125F;
         }
         else
         {
-            this.lid.rotateAngleY = 0.0F;
+            lid.rotateAngleY = 0.0F;
         }
 
-        this.head.rotateAngleX = headPitch * 0.017453292F;
-        this.head.rotateAngleY = netHeadYaw * 0.017453292F;
+        head.rotateAngleX = headPitch * 0.017453292F;
+        head.rotateAngleY = netHeadYaw * 0.017453292F;
     }
 
     /**
@@ -63,7 +63,7 @@ public class ModelShulker extends ModelBase
      */
     public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale)
     {
-        this.base.render(scale);
-        this.lid.render(scale);
+        base.render(scale);
+        lid.render(scale);
     }
 }

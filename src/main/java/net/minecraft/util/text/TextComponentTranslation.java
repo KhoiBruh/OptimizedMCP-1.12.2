@@ -23,14 +23,14 @@ public class TextComponentTranslation extends TextComponentBase
 
     public TextComponentTranslation(String translationKey, Object... args)
     {
-        this.key = translationKey;
-        this.formatArgs = args;
+        key = translationKey;
+        formatArgs = args;
 
         for (Object object : args)
         {
             if (object instanceof ITextComponent)
             {
-                ((ITextComponent)object).getStyle().setParentStyle(this.getStyle());
+                ((ITextComponent)object).getStyle().setParentStyle(getStyle());
             }
         }
     }
@@ -42,30 +42,30 @@ public class TextComponentTranslation extends TextComponentBase
      */
     synchronized void ensureInitialized()
     {
-        synchronized (this.syncLock)
+        synchronized (syncLock)
         {
             long i = I18n.getLastTranslationUpdateTimeInMilliseconds();
 
-            if (i == this.lastTranslationUpdateTimeInMilliseconds)
+            if (i == lastTranslationUpdateTimeInMilliseconds)
             {
                 return;
             }
 
-            this.lastTranslationUpdateTimeInMilliseconds = i;
-            this.children.clear();
+            lastTranslationUpdateTimeInMilliseconds = i;
+            children.clear();
         }
 
         try
         {
-            this.initializeFromFormat(I18n.translateToLocal(this.key));
+            initializeFromFormat(I18n.translateToLocal(key));
         }
         catch (TextComponentTranslationFormatException textcomponenttranslationformatexception)
         {
-            this.children.clear();
+            children.clear();
 
             try
             {
-                this.initializeFromFormat(I18n.translateToFallback(this.key));
+                initializeFromFormat(I18n.translateToFallback(key));
             }
             catch (TextComponentTranslationFormatException var5)
             {
@@ -96,8 +96,8 @@ public class TextComponentTranslation extends TextComponentBase
                 if (k > j)
                 {
                     TextComponentString textcomponentstring = new TextComponentString(String.format(format.substring(j, k)));
-                    textcomponentstring.getStyle().setParentStyle(this.getStyle());
-                    this.children.add(textcomponentstring);
+                    textcomponentstring.getStyle().setParentStyle(getStyle());
+                    children.add(textcomponentstring);
                 }
 
                 String s2 = matcher.group(2);
@@ -106,8 +106,8 @@ public class TextComponentTranslation extends TextComponentBase
                 if ("%".equals(s2) && "%%".equals(s))
                 {
                     TextComponentString textcomponentstring2 = new TextComponentString("%");
-                    textcomponentstring2.getStyle().setParentStyle(this.getStyle());
-                    this.children.add(textcomponentstring2);
+                    textcomponentstring2.getStyle().setParentStyle(getStyle());
+                    children.add(textcomponentstring2);
                 }
                 else
                 {
@@ -119,9 +119,9 @@ public class TextComponentTranslation extends TextComponentBase
                     String s1 = matcher.group(1);
                     int i1 = s1 != null ? Integer.parseInt(s1) - 1 : i++;
 
-                    if (i1 < this.formatArgs.length)
+                    if (i1 < formatArgs.length)
                     {
-                        this.children.add(this.getFormatArgumentAsComponent(i1));
+                        children.add(getFormatArgumentAsComponent(i1));
                     }
                 }
             }
@@ -129,8 +129,8 @@ public class TextComponentTranslation extends TextComponentBase
             if (j < format.length())
             {
                 TextComponentString textcomponentstring1 = new TextComponentString(String.format(format.substring(j)));
-                textcomponentstring1.getStyle().setParentStyle(this.getStyle());
-                this.children.add(textcomponentstring1);
+                textcomponentstring1.getStyle().setParentStyle(getStyle());
+                children.add(textcomponentstring1);
             }
         }
         catch (IllegalFormatException illegalformatexception)
@@ -141,13 +141,13 @@ public class TextComponentTranslation extends TextComponentBase
 
     private ITextComponent getFormatArgumentAsComponent(int index)
     {
-        if (index >= this.formatArgs.length)
+        if (index >= formatArgs.length)
         {
             throw new TextComponentTranslationFormatException(this, index);
         }
         else
         {
-            Object object = this.formatArgs[index];
+            Object object = formatArgs[index];
             ITextComponent itextcomponent;
 
             if (object instanceof ITextComponent)
@@ -157,7 +157,7 @@ public class TextComponentTranslation extends TextComponentBase
             else
             {
                 itextcomponent = new TextComponentString(object == null ? "null" : object.toString());
-                itextcomponent.getStyle().setParentStyle(this.getStyle());
+                itextcomponent.getStyle().setParentStyle(getStyle());
             }
 
             return itextcomponent;
@@ -171,17 +171,17 @@ public class TextComponentTranslation extends TextComponentBase
     {
         super.setStyle(style);
 
-        for (Object object : this.formatArgs)
+        for (Object object : formatArgs)
         {
             if (object instanceof ITextComponent)
             {
-                ((ITextComponent)object).getStyle().setParentStyle(this.getStyle());
+                ((ITextComponent)object).getStyle().setParentStyle(getStyle());
             }
         }
 
-        if (this.lastTranslationUpdateTimeInMilliseconds > -1L)
+        if (lastTranslationUpdateTimeInMilliseconds > -1L)
         {
-            for (ITextComponent itextcomponent : this.children)
+            for (ITextComponent itextcomponent : children)
             {
                 itextcomponent.getStyle().setParentStyle(style);
             }
@@ -192,8 +192,8 @@ public class TextComponentTranslation extends TextComponentBase
 
     public Iterator<ITextComponent> iterator()
     {
-        this.ensureInitialized();
-        return Iterators.<ITextComponent>concat(createDeepCopyIterator(this.children), createDeepCopyIterator(this.siblings));
+        ensureInitialized();
+        return Iterators.<ITextComponent>concat(createDeepCopyIterator(children), createDeepCopyIterator(siblings));
     }
 
     /**
@@ -203,10 +203,10 @@ public class TextComponentTranslation extends TextComponentBase
      */
     public String getUnformattedComponentText()
     {
-        this.ensureInitialized();
+        ensureInitialized();
         StringBuilder stringbuilder = new StringBuilder();
 
-        for (ITextComponent itextcomponent : this.children)
+        for (ITextComponent itextcomponent : children)
         {
             stringbuilder.append(itextcomponent.getUnformattedComponentText());
         }
@@ -219,24 +219,24 @@ public class TextComponentTranslation extends TextComponentBase
      */
     public TextComponentTranslation createCopy()
     {
-        Object[] aobject = new Object[this.formatArgs.length];
+        Object[] aobject = new Object[formatArgs.length];
 
-        for (int i = 0; i < this.formatArgs.length; ++i)
+        for (int i = 0; i < formatArgs.length; ++i)
         {
-            if (this.formatArgs[i] instanceof ITextComponent)
+            if (formatArgs[i] instanceof ITextComponent)
             {
-                aobject[i] = ((ITextComponent)this.formatArgs[i]).createCopy();
+                aobject[i] = ((ITextComponent) formatArgs[i]).createCopy();
             }
             else
             {
-                aobject[i] = this.formatArgs[i];
+                aobject[i] = formatArgs[i];
             }
         }
 
-        TextComponentTranslation textcomponenttranslation = new TextComponentTranslation(this.key, aobject);
-        textcomponenttranslation.setStyle(this.getStyle().createShallowCopy());
+        TextComponentTranslation textcomponenttranslation = new TextComponentTranslation(key, aobject);
+        textcomponenttranslation.setStyle(getStyle().createShallowCopy());
 
-        for (ITextComponent itextcomponent : this.getSiblings())
+        for (ITextComponent itextcomponent : getSiblings())
         {
             textcomponenttranslation.appendSibling(itextcomponent.createCopy());
         }
@@ -257,21 +257,21 @@ public class TextComponentTranslation extends TextComponentBase
         else
         {
             TextComponentTranslation textcomponenttranslation = (TextComponentTranslation)p_equals_1_;
-            return Arrays.equals(this.formatArgs, textcomponenttranslation.formatArgs) && this.key.equals(textcomponenttranslation.key) && super.equals(p_equals_1_);
+            return Arrays.equals(formatArgs, textcomponenttranslation.formatArgs) && key.equals(textcomponenttranslation.key) && super.equals(p_equals_1_);
         }
     }
 
     public int hashCode()
     {
         int i = super.hashCode();
-        i = 31 * i + this.key.hashCode();
-        i = 31 * i + Arrays.hashCode(this.formatArgs);
+        i = 31 * i + key.hashCode();
+        i = 31 * i + Arrays.hashCode(formatArgs);
         return i;
     }
 
     public String toString()
     {
-        return "TranslatableComponent{key='" + this.key + '\'' + ", args=" + Arrays.toString(this.formatArgs) + ", siblings=" + this.siblings + ", style=" + this.getStyle() + '}';
+        return "TranslatableComponent{key='" + key + '\'' + ", args=" + Arrays.toString(formatArgs) + ", siblings=" + siblings + ", style=" + getStyle() + '}';
     }
 
     /**
@@ -279,7 +279,7 @@ public class TextComponentTranslation extends TextComponentBase
      */
     public String getKey()
     {
-        return this.key;
+        return key;
     }
 
     /**
@@ -287,6 +287,6 @@ public class TextComponentTranslation extends TextComponentBase
      */
     public Object[] getFormatArgs()
     {
-        return this.formatArgs;
+        return formatArgs;
     }
 }

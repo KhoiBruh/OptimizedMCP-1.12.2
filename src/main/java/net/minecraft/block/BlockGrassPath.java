@@ -20,7 +20,7 @@ public class BlockGrassPath extends Block
     protected BlockGrassPath()
     {
         super(Material.GROUND);
-        this.setLightOpacity(255);
+        setLightOpacity(255);
     }
 
     public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side)
@@ -49,7 +49,7 @@ public class BlockGrassPath extends Block
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state)
     {
         super.onBlockAdded(worldIn, pos, state);
-        this.updateBlockState(worldIn, pos);
+        updateBlockState(worldIn, pos);
     }
 
     private void updateBlockState(World worldIn, BlockPos pos)
@@ -99,7 +99,7 @@ public class BlockGrassPath extends Block
     public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos)
     {
         super.neighborChanged(state, worldIn, pos, blockIn, fromPos);
-        this.updateBlockState(worldIn, pos);
+        updateBlockState(worldIn, pos);
     }
 
     /**

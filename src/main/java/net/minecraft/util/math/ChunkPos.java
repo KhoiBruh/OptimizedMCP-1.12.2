@@ -18,8 +18,8 @@ public class ChunkPos
 
     public ChunkPos(BlockPos pos)
     {
-        this.x = pos.getX() >> 4;
-        this.z = pos.getZ() >> 4;
+        x = pos.getX() >> 4;
+        z = pos.getZ() >> 4;
     }
 
     /**
@@ -32,8 +32,8 @@ public class ChunkPos
 
     public int hashCode()
     {
-        int i = 1664525 * this.x + 1013904223;
-        int j = 1664525 * (this.z ^ -559038737) + 1013904223;
+        int i = 1664525 * x + 1013904223;
+        int j = 1664525 * (z ^ -559038737) + 1013904223;
         return i ^ j;
     }
 
@@ -50,14 +50,14 @@ public class ChunkPos
         else
         {
             ChunkPos chunkpos = (ChunkPos)p_equals_1_;
-            return this.x == chunkpos.x && this.z == chunkpos.z;
+            return x == chunkpos.x && z == chunkpos.z;
         }
     }
 
     public double getDistanceSq(Entity entityIn)
     {
-        double d0 = (double)(this.x * 16 + 8);
-        double d1 = (double)(this.z * 16 + 8);
+        double d0 = (double)(x * 16 + 8);
+        double d1 = (double)(z * 16 + 8);
         double d2 = d0 - entityIn.posX;
         double d3 = d1 - entityIn.posZ;
         return d2 * d2 + d3 * d3;
@@ -68,7 +68,7 @@ public class ChunkPos
      */
     public int getXStart()
     {
-        return this.x << 4;
+        return x << 4;
     }
 
     /**
@@ -76,7 +76,7 @@ public class ChunkPos
      */
     public int getZStart()
     {
-        return this.z << 4;
+        return z << 4;
     }
 
     /**
@@ -84,7 +84,7 @@ public class ChunkPos
      */
     public int getXEnd()
     {
-        return (this.x << 4) + 15;
+        return (x << 4) + 15;
     }
 
     /**
@@ -92,7 +92,7 @@ public class ChunkPos
      */
     public int getZEnd()
     {
-        return (this.z << 4) + 15;
+        return (z << 4) + 15;
     }
 
     /**
@@ -105,6 +105,6 @@ public class ChunkPos
 
     public String toString()
     {
-        return "[" + this.x + ", " + this.z + "]";
+        return "[" + x + ", " + z + "]";
     }
 }

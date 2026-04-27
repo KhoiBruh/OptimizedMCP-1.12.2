@@ -155,7 +155,7 @@ public final class EntitySelectors
             {
                 EntityLivingBase entitylivingbase = (EntityLivingBase)p_apply_1_;
 
-                if (!entitylivingbase.getItemStackFromSlot(EntityLiving.getSlotForItemStack(this.armor)).isEmpty())
+                if (!entitylivingbase.getItemStackFromSlot(EntityLiving.getSlotForItemStack(armor)).isEmpty())
                 {
                     return false;
                 }

@@ -23,12 +23,12 @@ public class Ingredient implements Predicate<ItemStack>
 
     private Ingredient(ItemStack... p_i47503_1_)
     {
-        this.matchingStacks = p_i47503_1_;
+        matchingStacks = p_i47503_1_;
     }
 
     public ItemStack[] getMatchingStacks()
     {
-        return this.matchingStacks;
+        return matchingStacks;
     }
 
     public boolean apply(@Nullable ItemStack p_apply_1_)
@@ -39,7 +39,7 @@ public class Ingredient implements Predicate<ItemStack>
         }
         else
         {
-            for (ItemStack itemstack : this.matchingStacks)
+            for (ItemStack itemstack : matchingStacks)
             {
                 if (itemstack.getItem() == p_apply_1_.getItem())
                 {
@@ -58,19 +58,19 @@ public class Ingredient implements Predicate<ItemStack>
 
     public IntList getValidItemStacksPacked()
     {
-        if (this.matchingStacksPacked == null)
+        if (matchingStacksPacked == null)
         {
-            this.matchingStacksPacked = new IntArrayList(this.matchingStacks.length);
+            matchingStacksPacked = new IntArrayList(matchingStacks.length);
 
-            for (ItemStack itemstack : this.matchingStacks)
+            for (ItemStack itemstack : matchingStacks)
             {
-                this.matchingStacksPacked.add(RecipeItemHelper.pack(itemstack));
+                matchingStacksPacked.add(RecipeItemHelper.pack(itemstack));
             }
 
-            this.matchingStacksPacked.sort(IntComparators.NATURAL_COMPARATOR);
+            matchingStacksPacked.sort(IntComparators.NATURAL_COMPARATOR);
         }
 
-        return this.matchingStacksPacked;
+        return matchingStacksPacked;
     }
 
     public static Ingredient fromItem(Item p_193367_0_)

@@ -42,15 +42,15 @@ public class NetworkPlayerInfo
 
     public NetworkPlayerInfo(GameProfile profile)
     {
-        this.gameProfile = profile;
+        gameProfile = profile;
     }
 
     public NetworkPlayerInfo(SPacketPlayerListItem.AddPlayerData entry)
     {
-        this.gameProfile = entry.getProfile();
-        this.gameType = entry.getGameMode();
-        this.responseTime = entry.getPing();
-        this.displayName = entry.getDisplayName();
+        gameProfile = entry.getProfile();
+        gameType = entry.getGameMode();
+        responseTime = entry.getPing();
+        displayName = entry.getDisplayName();
     }
 
     /**
@@ -58,50 +58,50 @@ public class NetworkPlayerInfo
      */
     public GameProfile getGameProfile()
     {
-        return this.gameProfile;
+        return gameProfile;
     }
 
     public GameType getGameType()
     {
-        return this.gameType;
+        return gameType;
     }
 
     protected void setGameType(GameType gameMode)
     {
-        this.gameType = gameMode;
+        gameType = gameMode;
     }
 
     public int getResponseTime()
     {
-        return this.responseTime;
+        return responseTime;
     }
 
     protected void setResponseTime(int latency)
     {
-        this.responseTime = latency;
+        responseTime = latency;
     }
 
     public boolean hasLocationSkin()
     {
-        return this.getLocationSkin() != null;
+        return getLocationSkin() != null;
     }
 
     public String getSkinType()
     {
-        return this.skinType == null ? DefaultPlayerSkin.getSkinType(this.gameProfile.getId()) : this.skinType;
+        return skinType == null ? DefaultPlayerSkin.getSkinType(gameProfile.getId()) : skinType;
     }
 
     public ResourceLocation getLocationSkin()
     {
-        this.loadPlayerTextures();
-        return (ResourceLocation)MoreObjects.firstNonNull(this.playerTextures.get(Type.SKIN), DefaultPlayerSkin.getDefaultSkin(this.gameProfile.getId()));
+        loadPlayerTextures();
+        return (ResourceLocation)MoreObjects.firstNonNull(playerTextures.get(Type.SKIN), DefaultPlayerSkin.getDefaultSkin(gameProfile.getId()));
     }
 
     @Nullable
     public ResourceLocation getLocationCape()
     {
-        this.loadPlayerTextures();
-        return this.playerTextures.get(Type.CAPE);
+        loadPlayerTextures();
+        return playerTextures.get(Type.CAPE);
     }
 
     @Nullable
@@ -111,46 +111,46 @@ public class NetworkPlayerInfo
      */
     public ResourceLocation getLocationElytra()
     {
-        this.loadPlayerTextures();
-        return this.playerTextures.get(Type.ELYTRA);
+        loadPlayerTextures();
+        return playerTextures.get(Type.ELYTRA);
     }
 
     @Nullable
     public ScorePlayerTeam getPlayerTeam()
     {
-        return Minecraft.getMinecraft().world.getScoreboard().getPlayersTeam(this.getGameProfile().getName());
+        return Minecraft.getMinecraft().world.getScoreboard().getPlayersTeam(getGameProfile().getName());
     }
 
     protected void loadPlayerTextures()
     {
         synchronized (this)
         {
-            if (!this.playerTexturesLoaded)
+            if (!playerTexturesLoaded)
             {
-                this.playerTexturesLoaded = true;
-                Minecraft.getMinecraft().getSkinManager().loadProfileTextures(this.gameProfile, new SkinManager.SkinAvailableCallback()
+                playerTexturesLoaded = true;
+                Minecraft.getMinecraft().getSkinManager().loadProfileTextures(gameProfile, new SkinManager.SkinAvailableCallback()
                 {
                     public void skinAvailable(Type typeIn, ResourceLocation location, MinecraftProfileTexture profileTexture)
                     {
                         switch (typeIn)
                         {
                             case SKIN:
-                                NetworkPlayerInfo.this.playerTextures.put(Type.SKIN, location);
-                                NetworkPlayerInfo.this.skinType = profileTexture.getMetadata("model");
+                                playerTextures.put(Type.SKIN, location);
+                                skinType = profileTexture.getMetadata("model");
 
-                                if (NetworkPlayerInfo.this.skinType == null)
+                                if (skinType == null)
                                 {
-                                    NetworkPlayerInfo.this.skinType = "default";
+                                    skinType = "default";
                                 }
 
                                 break;
 
                             case CAPE:
-                                NetworkPlayerInfo.this.playerTextures.put(Type.CAPE, location);
+                                playerTextures.put(Type.CAPE, location);
                                 break;
 
                             case ELYTRA:
-                                NetworkPlayerInfo.this.playerTextures.put(Type.ELYTRA, location);
+                                playerTextures.put(Type.ELYTRA, location);
                         }
                     }
                 }, true);
@@ -160,62 +160,62 @@ public class NetworkPlayerInfo
 
     public void setDisplayName(@Nullable ITextComponent displayNameIn)
     {
-        this.displayName = displayNameIn;
+        displayName = displayNameIn;
     }
 
     @Nullable
     public ITextComponent getDisplayName()
     {
-        return this.displayName;
+        return displayName;
     }
 
     public int getLastHealth()
     {
-        return this.lastHealth;
+        return lastHealth;
     }
 
     public void setLastHealth(int p_178836_1_)
     {
-        this.lastHealth = p_178836_1_;
+        lastHealth = p_178836_1_;
     }
 
     public int getDisplayHealth()
     {
-        return this.displayHealth;
+        return displayHealth;
     }
 
     public void setDisplayHealth(int p_178857_1_)
     {
-        this.displayHealth = p_178857_1_;
+        displayHealth = p_178857_1_;
     }
 
     public long getLastHealthTime()
     {
-        return this.lastHealthTime;
+        return lastHealthTime;
     }
 
     public void setLastHealthTime(long p_178846_1_)
     {
-        this.lastHealthTime = p_178846_1_;
+        lastHealthTime = p_178846_1_;
     }
 
     public long getHealthBlinkTime()
     {
-        return this.healthBlinkTime;
+        return healthBlinkTime;
     }
 
     public void setHealthBlinkTime(long p_178844_1_)
     {
-        this.healthBlinkTime = p_178844_1_;
+        healthBlinkTime = p_178844_1_;
     }
 
     public long getRenderVisibilityId()
     {
-        return this.renderVisibilityId;
+        return renderVisibilityId;
     }
 
     public void setRenderVisibilityId(long p_178843_1_)
     {
-        this.renderVisibilityId = p_178843_1_;
+        renderVisibilityId = p_178843_1_;
     }
 }

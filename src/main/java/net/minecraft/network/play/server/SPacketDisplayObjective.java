@@ -17,15 +17,15 @@ public class SPacketDisplayObjective implements Packet<INetHandlerPlayClient>
 
     public SPacketDisplayObjective(int positionIn, ScoreObjective objective)
     {
-        this.position = positionIn;
+        position = positionIn;
 
         if (objective == null)
         {
-            this.scoreName = "";
+            scoreName = "";
         }
         else
         {
-            this.scoreName = objective.getName();
+            scoreName = objective.getName();
         }
     }
 
@@ -34,8 +34,8 @@ public class SPacketDisplayObjective implements Packet<INetHandlerPlayClient>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.position = buf.readByte();
-        this.scoreName = buf.readString(16);
+        position = buf.readByte();
+        scoreName = buf.readString(16);
     }
 
     /**
@@ -43,8 +43,8 @@ public class SPacketDisplayObjective implements Packet<INetHandlerPlayClient>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeByte(this.position);
-        buf.writeString(this.scoreName);
+        buf.writeByte(position);
+        buf.writeString(scoreName);
     }
 
     /**
@@ -57,11 +57,11 @@ public class SPacketDisplayObjective implements Packet<INetHandlerPlayClient>
 
     public int getPosition()
     {
-        return this.position;
+        return position;
     }
 
     public String getName()
     {
-        return this.scoreName;
+        return scoreName;
     }
 }

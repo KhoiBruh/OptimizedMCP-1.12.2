@@ -17,8 +17,8 @@ public class RenderSnowball<T extends Entity> extends Render<T>
     public RenderSnowball(RenderManager renderManagerIn, Item itemIn, RenderItem itemRendererIn)
     {
         super(renderManagerIn);
-        this.item = itemIn;
-        this.itemRenderer = itemRendererIn;
+        item = itemIn;
+        itemRenderer = itemRendererIn;
     }
 
     /**
@@ -29,20 +29,20 @@ public class RenderSnowball<T extends Entity> extends Render<T>
         GlStateManager.pushMatrix();
         GlStateManager.translate((float)x, (float)y, (float)z);
         GlStateManager.enableRescaleNormal();
-        GlStateManager.rotate(-this.renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
-        GlStateManager.rotate((float)(this.renderManager.options.thirdPersonView == 2 ? -1 : 1) * this.renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
+        GlStateManager.rotate(-renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
+        GlStateManager.rotate((float)(renderManager.options.thirdPersonView == 2 ? -1 : 1) * renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
         GlStateManager.rotate(180.0F, 0.0F, 1.0F, 0.0F);
-        this.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+        bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 
-        if (this.renderOutlines)
+        if (renderOutlines)
         {
             GlStateManager.enableColorMaterial();
-            GlStateManager.enableOutlineMode(this.getTeamColor(entity));
+            GlStateManager.enableOutlineMode(getTeamColor(entity));
         }
 
-        this.itemRenderer.renderItem(this.getStackToRender(entity), ItemCameraTransforms.TransformType.GROUND);
+        itemRenderer.renderItem(getStackToRender(entity), ItemCameraTransforms.TransformType.GROUND);
 
-        if (this.renderOutlines)
+        if (renderOutlines)
         {
             GlStateManager.disableOutlineMode();
             GlStateManager.disableColorMaterial();
@@ -55,7 +55,7 @@ public class RenderSnowball<T extends Entity> extends Render<T>
 
     public ItemStack getStackToRender(T entityIn)
     {
-        return new ItemStack(this.item);
+        return new ItemStack(item);
     }
 
     /**

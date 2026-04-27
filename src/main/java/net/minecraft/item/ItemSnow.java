@@ -20,7 +20,7 @@ public class ItemSnow extends ItemBlock
     public ItemSnow(Block block)
     {
         super(block);
-        this.setMaxDamage(0);
+        setMaxDamage(0);
     }
 
     /**

@@ -23,42 +23,42 @@ public class ServerStatusResponse
 
     public ITextComponent getServerDescription()
     {
-        return this.description;
+        return description;
     }
 
     public void setServerDescription(ITextComponent descriptionIn)
     {
-        this.description = descriptionIn;
+        description = descriptionIn;
     }
 
     public ServerStatusResponse.Players getPlayers()
     {
-        return this.players;
+        return players;
     }
 
     public void setPlayers(ServerStatusResponse.Players playersIn)
     {
-        this.players = playersIn;
+        players = playersIn;
     }
 
     public ServerStatusResponse.Version getVersion()
     {
-        return this.version;
+        return version;
     }
 
     public void setVersion(ServerStatusResponse.Version versionIn)
     {
-        this.version = versionIn;
+        version = versionIn;
     }
 
     public void setFavicon(String faviconBlob)
     {
-        this.favicon = faviconBlob;
+        favicon = faviconBlob;
     }
 
     public String getFavicon()
     {
-        return this.favicon;
+        return favicon;
     }
 
     public static class Players
@@ -69,28 +69,28 @@ public class ServerStatusResponse
 
         public Players(int maxOnlinePlayers, int onlinePlayers)
         {
-            this.maxPlayers = maxOnlinePlayers;
-            this.onlinePlayerCount = onlinePlayers;
+            maxPlayers = maxOnlinePlayers;
+            onlinePlayerCount = onlinePlayers;
         }
 
         public int getMaxPlayers()
         {
-            return this.maxPlayers;
+            return maxPlayers;
         }
 
         public int getOnlinePlayerCount()
         {
-            return this.onlinePlayerCount;
+            return onlinePlayerCount;
         }
 
         public GameProfile[] getPlayers()
         {
-            return this.players;
+            return players;
         }
 
         public void setPlayers(GameProfile[] playersIn)
         {
-            this.players = playersIn;
+            players = playersIn;
         }
 
         public static class Serializer implements JsonDeserializer<ServerStatusResponse.Players>, JsonSerializer<ServerStatusResponse.Players>
@@ -214,18 +214,18 @@ public class ServerStatusResponse
 
         public Version(String nameIn, int protocolIn)
         {
-            this.name = nameIn;
-            this.protocol = protocolIn;
+            name = nameIn;
+            protocol = protocolIn;
         }
 
         public String getName()
         {
-            return this.name;
+            return name;
         }
 
         public int getProtocol()
         {
-            return this.protocol;
+            return protocol;
         }
 
         public static class Serializer implements JsonDeserializer<ServerStatusResponse.Version>, JsonSerializer<ServerStatusResponse.Version>

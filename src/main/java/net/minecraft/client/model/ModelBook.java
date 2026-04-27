@@ -28,9 +28,9 @@ public class ModelBook extends ModelBase
 
     public ModelBook()
     {
-        this.coverRight.setRotationPoint(0.0F, 0.0F, -1.0F);
-        this.coverLeft.setRotationPoint(0.0F, 0.0F, 1.0F);
-        this.bookSpine.rotateAngleY = ((float)Math.PI / 2F);
+        coverRight.setRotationPoint(0.0F, 0.0F, -1.0F);
+        coverLeft.setRotationPoint(0.0F, 0.0F, 1.0F);
+        bookSpine.rotateAngleY = ((float)Math.PI / 2F);
     }
 
     /**
@@ -38,14 +38,14 @@ public class ModelBook extends ModelBase
      */
     public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale)
     {
-        this.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
-        this.coverRight.render(scale);
-        this.coverLeft.render(scale);
-        this.bookSpine.render(scale);
-        this.pagesRight.render(scale);
-        this.pagesLeft.render(scale);
-        this.flippingPageRight.render(scale);
-        this.flippingPageLeft.render(scale);
+        setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
+        coverRight.render(scale);
+        coverLeft.render(scale);
+        bookSpine.render(scale);
+        pagesRight.render(scale);
+        pagesLeft.render(scale);
+        flippingPageRight.render(scale);
+        flippingPageLeft.render(scale);
     }
 
     /**
@@ -56,15 +56,15 @@ public class ModelBook extends ModelBase
     public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn)
     {
         float f = (MathHelper.sin(limbSwing * 0.02F) * 0.1F + 1.25F) * netHeadYaw;
-        this.coverRight.rotateAngleY = (float)Math.PI + f;
-        this.coverLeft.rotateAngleY = -f;
-        this.pagesRight.rotateAngleY = f;
-        this.pagesLeft.rotateAngleY = -f;
-        this.flippingPageRight.rotateAngleY = f - f * 2.0F * limbSwingAmount;
-        this.flippingPageLeft.rotateAngleY = f - f * 2.0F * ageInTicks;
-        this.pagesRight.rotationPointX = MathHelper.sin(f);
-        this.pagesLeft.rotationPointX = MathHelper.sin(f);
-        this.flippingPageRight.rotationPointX = MathHelper.sin(f);
-        this.flippingPageLeft.rotationPointX = MathHelper.sin(f);
+        coverRight.rotateAngleY = (float)Math.PI + f;
+        coverLeft.rotateAngleY = -f;
+        pagesRight.rotateAngleY = f;
+        pagesLeft.rotateAngleY = -f;
+        flippingPageRight.rotateAngleY = f - f * 2.0F * limbSwingAmount;
+        flippingPageLeft.rotateAngleY = f - f * 2.0F * ageInTicks;
+        pagesRight.rotationPointX = MathHelper.sin(f);
+        pagesLeft.rotationPointX = MathHelper.sin(f);
+        flippingPageRight.rotationPointX = MathHelper.sin(f);
+        flippingPageLeft.rotationPointX = MathHelper.sin(f);
     }
 }

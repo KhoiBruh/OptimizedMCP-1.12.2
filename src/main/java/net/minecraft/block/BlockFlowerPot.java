@@ -40,7 +40,7 @@ public class BlockFlowerPot extends BlockContainer
     public BlockFlowerPot()
     {
         super(Material.CIRCUITS);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(CONTENTS, BlockFlowerPot.EnumFlowerType.EMPTY).withProperty(LEGACY_DATA, Integer.valueOf(0)));
+        setDefaultState(blockState.getBaseState().withProperty(CONTENTS, BlockFlowerPot.EnumFlowerType.EMPTY).withProperty(LEGACY_DATA, Integer.valueOf(0)));
     }
 
     /**
@@ -84,7 +84,7 @@ public class BlockFlowerPot extends BlockContainer
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
     {
         ItemStack itemstack = playerIn.getHeldItem(hand);
-        TileEntityFlowerPot tileentityflowerpot = this.getTileEntity(worldIn, pos);
+        TileEntityFlowerPot tileentityflowerpot = getTileEntity(worldIn, pos);
 
         if (tileentityflowerpot == null)
         {
@@ -96,7 +96,7 @@ public class BlockFlowerPot extends BlockContainer
 
             if (itemstack1.isEmpty())
             {
-                if (!this.canBePotted(itemstack))
+                if (!canBePotted(itemstack))
                 {
                     return false;
                 }
@@ -146,7 +146,7 @@ public class BlockFlowerPot extends BlockContainer
 
     public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state)
     {
-        TileEntityFlowerPot tileentityflowerpot = this.getTileEntity(worldIn, pos);
+        TileEntityFlowerPot tileentityflowerpot = getTileEntity(worldIn, pos);
 
         if (tileentityflowerpot != null)
         {
@@ -178,7 +178,7 @@ public class BlockFlowerPot extends BlockContainer
     {
         if (!worldIn.getBlockState(pos.down()).isTopSolid())
         {
-            this.dropBlockAsItem(worldIn, pos, state, 0);
+            dropBlockAsItem(worldIn, pos, state, 0);
             worldIn.setBlockToAir(pos);
         }
     }
@@ -188,7 +188,7 @@ public class BlockFlowerPot extends BlockContainer
      */
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state)
     {
-        TileEntityFlowerPot tileentityflowerpot = this.getTileEntity(worldIn, pos);
+        TileEntityFlowerPot tileentityflowerpot = getTileEntity(worldIn, pos);
 
         if (tileentityflowerpot != null && tileentityflowerpot.getFlowerPotItem() != null)
         {
@@ -208,7 +208,7 @@ public class BlockFlowerPot extends BlockContainer
 
         if (player.capabilities.isCreativeMode)
         {
-            TileEntityFlowerPot tileentityflowerpot = this.getTileEntity(worldIn, pos);
+            TileEntityFlowerPot tileentityflowerpot = getTileEntity(worldIn, pos);
 
             if (tileentityflowerpot != null)
             {
@@ -512,12 +512,12 @@ public class BlockFlowerPot extends BlockContainer
 
         public String toString()
         {
-            return this.name;
+            return name;
         }
 
         public String getName()
         {
-            return this.name;
+            return name;
         }
     }
 }

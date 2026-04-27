@@ -61,23 +61,23 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob
     public EntityLlama(World worldIn)
     {
         super(worldIn);
-        this.setSize(0.9F, 1.87F);
+        setSize(0.9F, 1.87F);
     }
 
     private void setStrength(int strengthIn)
     {
-        this.dataManager.set(DATA_STRENGTH_ID, Integer.valueOf(Math.max(1, Math.min(5, strengthIn))));
+        dataManager.set(DATA_STRENGTH_ID, Integer.valueOf(Math.max(1, Math.min(5, strengthIn))));
     }
 
     private void setRandomStrength()
     {
-        int i = this.rand.nextFloat() < 0.04F ? 5 : 3;
-        this.setStrength(1 + this.rand.nextInt(i));
+        int i = rand.nextFloat() < 0.04F ? 5 : 3;
+        setStrength(1 + rand.nextInt(i));
     }
 
     public int getStrength()
     {
-        return ((Integer)this.dataManager.get(DATA_STRENGTH_ID)).intValue();
+        return ((Integer) dataManager.get(DATA_STRENGTH_ID)).intValue();
     }
 
     /**
@@ -86,12 +86,12 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob
     public void writeEntityToNBT(NBTTagCompound compound)
     {
         super.writeEntityToNBT(compound);
-        compound.setInteger("Variant", this.getVariant());
-        compound.setInteger("Strength", this.getStrength());
+        compound.setInteger("Variant", getVariant());
+        compound.setInteger("Strength", getStrength());
 
-        if (!this.horseChest.getStackInSlot(1).isEmpty())
+        if (!horseChest.getStackInSlot(1).isEmpty())
         {
-            compound.setTag("DecorItem", this.horseChest.getStackInSlot(1).writeToNBT(new NBTTagCompound()));
+            compound.setTag("DecorItem", horseChest.getStackInSlot(1).writeToNBT(new NBTTagCompound()));
         }
     }
 
@@ -100,71 +100,71 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob
      */
     public void readEntityFromNBT(NBTTagCompound compound)
     {
-        this.setStrength(compound.getInteger("Strength"));
+        setStrength(compound.getInteger("Strength"));
         super.readEntityFromNBT(compound);
-        this.setVariant(compound.getInteger("Variant"));
+        setVariant(compound.getInteger("Variant"));
 
         if (compound.hasKey("DecorItem", 10))
         {
-            this.horseChest.setInventorySlotContents(1, new ItemStack(compound.getCompoundTag("DecorItem")));
+            horseChest.setInventorySlotContents(1, new ItemStack(compound.getCompoundTag("DecorItem")));
         }
 
-        this.updateHorseSlots();
+        updateHorseSlots();
     }
 
     protected void initEntityAI()
     {
-        this.tasks.addTask(0, new EntityAISwimming(this));
-        this.tasks.addTask(1, new EntityAIRunAroundLikeCrazy(this, 1.2D));
-        this.tasks.addTask(2, new EntityAILlamaFollowCaravan(this, 2.0999999046325684D));
-        this.tasks.addTask(3, new EntityAIAttackRanged(this, 1.25D, 40, 20.0F));
-        this.tasks.addTask(3, new EntityAIPanic(this, 1.2D));
-        this.tasks.addTask(4, new EntityAIMate(this, 1.0D));
-        this.tasks.addTask(5, new EntityAIFollowParent(this, 1.0D));
-        this.tasks.addTask(6, new EntityAIWanderAvoidWater(this, 0.7D));
-        this.tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
-        this.tasks.addTask(8, new EntityAILookIdle(this));
-        this.targetTasks.addTask(1, new EntityLlama.AIHurtByTarget(this));
-        this.targetTasks.addTask(2, new EntityLlama.AIDefendTarget(this));
+        tasks.addTask(0, new EntityAISwimming(this));
+        tasks.addTask(1, new EntityAIRunAroundLikeCrazy(this, 1.2D));
+        tasks.addTask(2, new EntityAILlamaFollowCaravan(this, 2.0999999046325684D));
+        tasks.addTask(3, new EntityAIAttackRanged(this, 1.25D, 40, 20.0F));
+        tasks.addTask(3, new EntityAIPanic(this, 1.2D));
+        tasks.addTask(4, new EntityAIMate(this, 1.0D));
+        tasks.addTask(5, new EntityAIFollowParent(this, 1.0D));
+        tasks.addTask(6, new EntityAIWanderAvoidWater(this, 0.7D));
+        tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
+        tasks.addTask(8, new EntityAILookIdle(this));
+        targetTasks.addTask(1, new EntityLlama.AIHurtByTarget(this));
+        targetTasks.addTask(2, new EntityLlama.AIDefendTarget(this));
     }
 
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(40.0D);
+        getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(40.0D);
     }
 
     protected void entityInit()
     {
         super.entityInit();
-        this.dataManager.register(DATA_STRENGTH_ID, Integer.valueOf(0));
-        this.dataManager.register(DATA_COLOR_ID, Integer.valueOf(-1));
-        this.dataManager.register(DATA_VARIANT_ID, Integer.valueOf(0));
+        dataManager.register(DATA_STRENGTH_ID, Integer.valueOf(0));
+        dataManager.register(DATA_COLOR_ID, Integer.valueOf(-1));
+        dataManager.register(DATA_VARIANT_ID, Integer.valueOf(0));
     }
 
     public int getVariant()
     {
-        return MathHelper.clamp(((Integer)this.dataManager.get(DATA_VARIANT_ID)).intValue(), 0, 3);
+        return MathHelper.clamp(((Integer) dataManager.get(DATA_VARIANT_ID)).intValue(), 0, 3);
     }
 
     public void setVariant(int variantIn)
     {
-        this.dataManager.set(DATA_VARIANT_ID, Integer.valueOf(variantIn));
+        dataManager.set(DATA_VARIANT_ID, Integer.valueOf(variantIn));
     }
 
     protected int getInventorySize()
     {
-        return this.hasChest() ? 2 + 3 * this.getInventoryColumns() : super.getInventorySize();
+        return hasChest() ? 2 + 3 * getInventoryColumns() : super.getInventorySize();
     }
 
     public void updatePassenger(Entity passenger)
     {
-        if (this.isPassenger(passenger))
+        if (isPassenger(passenger))
         {
-            float f = MathHelper.cos(this.renderYawOffset * 0.017453292F);
-            float f1 = MathHelper.sin(this.renderYawOffset * 0.017453292F);
+            float f = MathHelper.cos(renderYawOffset * 0.017453292F);
+            float f1 = MathHelper.sin(renderYawOffset * 0.017453292F);
             float f2 = 0.3F;
-            passenger.setPosition(this.posX + (double)(0.3F * f1), this.posY + this.getMountedYOffset() + passenger.getYOffset(), this.posZ - (double)(0.3F * f));
+            passenger.setPosition(posX + (double)(0.3F * f1), posY + getMountedYOffset() + passenger.getYOffset(), posZ - (double)(0.3F * f));
         }
     }
 
@@ -173,7 +173,7 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob
      */
     public double getMountedYOffset()
     {
-        return (double)this.height * 0.67D;
+        return (double) height * 0.67D;
     }
 
     /**
@@ -205,44 +205,44 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob
             j = 6;
             f = 10.0F;
 
-            if (this.isTame() && this.getGrowingAge() == 0)
+            if (isTame() && getGrowingAge() == 0)
             {
                 flag = true;
-                this.setInLove(player);
+                setInLove(player);
             }
         }
 
-        if (this.getHealth() < this.getMaxHealth() && f > 0.0F)
+        if (getHealth() < getMaxHealth() && f > 0.0F)
         {
-            this.heal(f);
+            heal(f);
             flag = true;
         }
 
-        if (this.isChild() && i > 0)
+        if (isChild() && i > 0)
         {
-            this.world.spawnParticle(EnumParticleTypes.VILLAGER_HAPPY, this.posX + (double)(this.rand.nextFloat() * this.width * 2.0F) - (double)this.width, this.posY + 0.5D + (double)(this.rand.nextFloat() * this.height), this.posZ + (double)(this.rand.nextFloat() * this.width * 2.0F) - (double)this.width, 0.0D, 0.0D, 0.0D);
+            world.spawnParticle(EnumParticleTypes.VILLAGER_HAPPY, posX + (double)(rand.nextFloat() * width * 2.0F) - (double) width, posY + 0.5D + (double)(rand.nextFloat() * height), posZ + (double)(rand.nextFloat() * width * 2.0F) - (double) width, 0.0D, 0.0D, 0.0D);
 
-            if (!this.world.isRemote)
+            if (!world.isRemote)
             {
-                this.addGrowth(i);
+                addGrowth(i);
             }
 
             flag = true;
         }
 
-        if (j > 0 && (flag || !this.isTame()) && this.getTemper() < this.getMaxTemper())
+        if (j > 0 && (flag || !isTame()) && getTemper() < getMaxTemper())
         {
             flag = true;
 
-            if (!this.world.isRemote)
+            if (!world.isRemote)
             {
-                this.increaseTemper(j);
+                increaseTemper(j);
             }
         }
 
-        if (flag && !this.isSilent())
+        if (flag && !isSilent())
         {
-            this.world.playSound((EntityPlayer)null, this.posX, this.posY, this.posZ, SoundEvents.ENTITY_LLAMA_EAT, this.getSoundCategory(), 1.0F, 1.0F + (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F);
+            world.playSound((EntityPlayer)null, posX, posY, posZ, SoundEvents.ENTITY_LLAMA_EAT, getSoundCategory(), 1.0F, 1.0F + (rand.nextFloat() - rand.nextFloat()) * 0.2F);
         }
 
         return flag;
@@ -253,7 +253,7 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob
      */
     protected boolean isMovementBlocked()
     {
-        return this.getHealth() <= 0.0F || this.isEatingHaystack();
+        return getHealth() <= 0.0F || isEatingHaystack();
     }
 
     @Nullable
@@ -275,7 +275,7 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob
     public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata)
     {
         livingdata = super.onInitialSpawn(difficulty, livingdata);
-        this.setRandomStrength();
+        setRandomStrength();
         int i;
 
         if (livingdata instanceof EntityLlama.GroupData)
@@ -284,17 +284,17 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob
         }
         else
         {
-            i = this.rand.nextInt(4);
+            i = rand.nextInt(4);
             livingdata = new EntityLlama.GroupData(i);
         }
 
-        this.setVariant(i);
+        setVariant(i);
         return livingdata;
     }
 
     public boolean hasColor()
     {
-        return this.getColor() != null;
+        return getColor() != null;
     }
 
     protected SoundEvent getAngrySound()
@@ -319,21 +319,21 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob
 
     protected void playStepSound(BlockPos pos, Block blockIn)
     {
-        this.playSound(SoundEvents.ENTITY_LLAMA_STEP, 0.15F, 1.0F);
+        playSound(SoundEvents.ENTITY_LLAMA_STEP, 0.15F, 1.0F);
     }
 
     protected void playChestEquipSound()
     {
-        this.playSound(SoundEvents.ENTITY_LLAMA_CHEST, 1.0F, (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
+        playSound(SoundEvents.ENTITY_LLAMA_CHEST, 1.0F, (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F);
     }
 
     public void makeMad()
     {
-        SoundEvent soundevent = this.getAngrySound();
+        SoundEvent soundevent = getAngrySound();
 
         if (soundevent != null)
         {
-            this.playSound(soundevent, this.getSoundVolume(), this.getSoundPitch());
+            playSound(soundevent, getSoundVolume(), getSoundPitch());
         }
     }
 
@@ -345,7 +345,7 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob
 
     public int getInventoryColumns()
     {
-        return this.getStrength();
+        return getStrength();
     }
 
     public boolean wearsArmor()
@@ -368,13 +368,13 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob
      */
     public void onInventoryChanged(IInventory invBasic)
     {
-        EnumDyeColor enumdyecolor = this.getColor();
+        EnumDyeColor enumdyecolor = getColor();
         super.onInventoryChanged(invBasic);
-        EnumDyeColor enumdyecolor1 = this.getColor();
+        EnumDyeColor enumdyecolor1 = getColor();
 
-        if (this.ticksExisted > 20 && enumdyecolor1 != null && enumdyecolor1 != enumdyecolor)
+        if (ticksExisted > 20 && enumdyecolor1 != null && enumdyecolor1 != enumdyecolor)
         {
-            this.playSound(SoundEvents.ENTITY_LLAMA_SWAG, 0.5F, 1.0F);
+            playSound(SoundEvents.ENTITY_LLAMA_SWAG, 0.5F, 1.0F);
         }
     }
 
@@ -383,34 +383,34 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob
      */
     protected void updateHorseSlots()
     {
-        if (!this.world.isRemote)
+        if (!world.isRemote)
         {
             super.updateHorseSlots();
-            this.setColorByItem(this.horseChest.getStackInSlot(1));
+            setColorByItem(horseChest.getStackInSlot(1));
         }
     }
 
     private void setColor(@Nullable EnumDyeColor color)
     {
-        this.dataManager.set(DATA_COLOR_ID, Integer.valueOf(color == null ? -1 : color.getMetadata()));
+        dataManager.set(DATA_COLOR_ID, Integer.valueOf(color == null ? -1 : color.getMetadata()));
     }
 
     private void setColorByItem(ItemStack stack)
     {
-        if (this.isArmor(stack))
+        if (isArmor(stack))
         {
-            this.setColor(EnumDyeColor.byMetadata(stack.getMetadata()));
+            setColor(EnumDyeColor.byMetadata(stack.getMetadata()));
         }
         else
         {
-            this.setColor((EnumDyeColor)null);
+            setColor((EnumDyeColor)null);
         }
     }
 
     @Nullable
     public EnumDyeColor getColor()
     {
-        int i = ((Integer)this.dataManager.get(DATA_COLOR_ID)).intValue();
+        int i = ((Integer) dataManager.get(DATA_COLOR_ID)).intValue();
         return i == -1 ? null : EnumDyeColor.byMetadata(i);
     }
 
@@ -424,42 +424,42 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob
      */
     public boolean canMateWith(EntityAnimal otherAnimal)
     {
-        return otherAnimal != this && otherAnimal instanceof EntityLlama && this.canMate() && ((EntityLlama)otherAnimal).canMate();
+        return otherAnimal != this && otherAnimal instanceof EntityLlama && canMate() && ((EntityLlama)otherAnimal).canMate();
     }
 
     public EntityLlama createChild(EntityAgeable ageable)
     {
-        EntityLlama entityllama = new EntityLlama(this.world);
-        this.setOffspringAttributes(ageable, entityllama);
+        EntityLlama entityllama = new EntityLlama(world);
+        setOffspringAttributes(ageable, entityllama);
         EntityLlama entityllama1 = (EntityLlama)ageable;
-        int i = this.rand.nextInt(Math.max(this.getStrength(), entityllama1.getStrength())) + 1;
+        int i = rand.nextInt(Math.max(getStrength(), entityllama1.getStrength())) + 1;
 
-        if (this.rand.nextFloat() < 0.03F)
+        if (rand.nextFloat() < 0.03F)
         {
             ++i;
         }
 
         entityllama.setStrength(i);
-        entityllama.setVariant(this.rand.nextBoolean() ? this.getVariant() : entityllama1.getVariant());
+        entityllama.setVariant(rand.nextBoolean() ? getVariant() : entityllama1.getVariant());
         return entityllama;
     }
 
     private void spit(EntityLivingBase target)
     {
-        EntityLlamaSpit entityllamaspit = new EntityLlamaSpit(this.world, this);
-        double d0 = target.posX - this.posX;
+        EntityLlamaSpit entityllamaspit = new EntityLlamaSpit(world, this);
+        double d0 = target.posX - posX;
         double d1 = target.getEntityBoundingBox().minY + (double)(target.height / 3.0F) - entityllamaspit.posY;
-        double d2 = target.posZ - this.posZ;
+        double d2 = target.posZ - posZ;
         float f = MathHelper.sqrt(d0 * d0 + d2 * d2) * 0.2F;
         entityllamaspit.shoot(d0, d1 + (double)f, d2, 1.5F, 10.0F);
-        this.world.playSound((EntityPlayer)null, this.posX, this.posY, this.posZ, SoundEvents.ENTITY_LLAMA_SPIT, this.getSoundCategory(), 1.0F, 1.0F + (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F);
-        this.world.spawnEntity(entityllamaspit);
-        this.didSpit = true;
+        world.playSound((EntityPlayer)null, posX, posY, posZ, SoundEvents.ENTITY_LLAMA_SPIT, getSoundCategory(), 1.0F, 1.0F + (rand.nextFloat() - rand.nextFloat()) * 0.2F);
+        world.spawnEntity(entityllamaspit);
+        didSpit = true;
     }
 
     private void setDidSpit(boolean didSpitIn)
     {
-        this.didSpit = didSpitIn;
+        didSpit = didSpitIn;
     }
 
     public void fall(float distance, float damageMultiplier)
@@ -470,58 +470,58 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob
         {
             if (distance >= 6.0F)
             {
-                this.attackEntityFrom(DamageSource.FALL, (float)i);
+                attackEntityFrom(DamageSource.FALL, (float)i);
 
-                if (this.isBeingRidden())
+                if (isBeingRidden())
                 {
-                    for (Entity entity : this.getRecursivePassengers())
+                    for (Entity entity : getRecursivePassengers())
                     {
                         entity.attackEntityFrom(DamageSource.FALL, (float)i);
                     }
                 }
             }
 
-            IBlockState iblockstate = this.world.getBlockState(new BlockPos(this.posX, this.posY - 0.2D - (double)this.prevRotationYaw, this.posZ));
+            IBlockState iblockstate = world.getBlockState(new BlockPos(posX, posY - 0.2D - (double) prevRotationYaw, posZ));
             Block block = iblockstate.getBlock();
 
-            if (iblockstate.getMaterial() != Material.AIR && !this.isSilent())
+            if (iblockstate.getMaterial() != Material.AIR && !isSilent())
             {
                 SoundType soundtype = block.getSoundType();
-                this.world.playSound((EntityPlayer)null, this.posX, this.posY, this.posZ, soundtype.getStepSound(), this.getSoundCategory(), soundtype.getVolume() * 0.5F, soundtype.getPitch() * 0.75F);
+                world.playSound((EntityPlayer)null, posX, posY, posZ, soundtype.getStepSound(), getSoundCategory(), soundtype.getVolume() * 0.5F, soundtype.getPitch() * 0.75F);
             }
         }
     }
 
     public void leaveCaravan()
     {
-        if (this.caravanHead != null)
+        if (caravanHead != null)
         {
-            this.caravanHead.caravanTail = null;
+            caravanHead.caravanTail = null;
         }
 
-        this.caravanHead = null;
+        caravanHead = null;
     }
 
     public void joinCaravan(EntityLlama caravanHeadIn)
     {
-        this.caravanHead = caravanHeadIn;
-        this.caravanHead.caravanTail = this;
+        caravanHead = caravanHeadIn;
+        caravanHead.caravanTail = this;
     }
 
     public boolean hasCaravanTrail()
     {
-        return this.caravanTail != null;
+        return caravanTail != null;
     }
 
     public boolean inCaravan()
     {
-        return this.caravanHead != null;
+        return caravanHead != null;
     }
 
     @Nullable
     public EntityLlama getCaravanHead()
     {
-        return this.caravanHead;
+        return caravanHead;
     }
 
     protected double followLeashSpeed()
@@ -531,7 +531,7 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob
 
     protected void followMother()
     {
-        if (!this.inCaravan() && this.isChild())
+        if (!inCaravan() && isChild())
         {
             super.followMother();
         }
@@ -547,7 +547,7 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob
      */
     public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor)
     {
-        this.spit(target);
+        spit(target);
     }
 
     public void setSwingingArms(boolean swingingArms)
@@ -563,13 +563,13 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob
 
         public boolean shouldExecute()
         {
-            if (super.shouldExecute() && this.targetEntity != null && !((EntityWolf)this.targetEntity).isTamed())
+            if (super.shouldExecute() && targetEntity != null && !((EntityWolf) targetEntity).isTamed())
             {
                 return true;
             }
             else
             {
-                this.taskOwner.setAttackTarget((EntityLivingBase)null);
+                taskOwner.setAttackTarget((EntityLivingBase)null);
                 return false;
             }
         }
@@ -589,9 +589,9 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob
 
         public boolean shouldContinueExecuting()
         {
-            if (this.taskOwner instanceof EntityLlama)
+            if (taskOwner instanceof EntityLlama)
             {
-                EntityLlama entityllama = (EntityLlama)this.taskOwner;
+                EntityLlama entityllama = (EntityLlama) taskOwner;
 
                 if (entityllama.didSpit)
                 {
@@ -610,7 +610,7 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob
 
         private GroupData(int variantIn)
         {
-            this.variant = variantIn;
+            variant = variantIn;
         }
     }
 }

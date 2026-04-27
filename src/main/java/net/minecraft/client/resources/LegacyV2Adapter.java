@@ -15,12 +15,12 @@ public class LegacyV2Adapter implements IResourcePack
 
     public LegacyV2Adapter(IResourcePack packIn)
     {
-        this.pack = packIn;
+        pack = packIn;
     }
 
     public InputStream getInputStream(ResourceLocation location) throws IOException
     {
-        return this.pack.getInputStream(this.fudgePath(location));
+        return pack.getInputStream(fudgePath(location));
     }
 
     private ResourceLocation fudgePath(ResourceLocation p_191382_1_)
@@ -49,27 +49,27 @@ public class LegacyV2Adapter implements IResourcePack
 
     public boolean resourceExists(ResourceLocation location)
     {
-        return this.pack.resourceExists(this.fudgePath(location));
+        return pack.resourceExists(fudgePath(location));
     }
 
     public Set<String> getResourceDomains()
     {
-        return this.pack.getResourceDomains();
+        return pack.getResourceDomains();
     }
 
     @Nullable
     public <T extends IMetadataSection> T getPackMetadata(MetadataSerializer metadataSerializer, String metadataSectionName) throws IOException
     {
-        return (T)this.pack.getPackMetadata(metadataSerializer, metadataSectionName);
+        return (T) pack.getPackMetadata(metadataSerializer, metadataSectionName);
     }
 
     public BufferedImage getPackImage() throws IOException
     {
-        return this.pack.getPackImage();
+        return pack.getPackImage();
     }
 
     public String getPackName()
     {
-        return this.pack.getPackName();
+        return pack.getPackName();
     }
 }

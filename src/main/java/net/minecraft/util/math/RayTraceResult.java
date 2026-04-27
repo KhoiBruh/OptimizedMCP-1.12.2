@@ -36,27 +36,27 @@ public class RayTraceResult
 
     public RayTraceResult(RayTraceResult.Type typeIn, Vec3d hitVecIn, EnumFacing sideHitIn, BlockPos blockPosIn)
     {
-        this.typeOfHit = typeIn;
-        this.blockPos = blockPosIn;
-        this.sideHit = sideHitIn;
-        this.hitVec = new Vec3d(hitVecIn.x, hitVecIn.y, hitVecIn.z);
+        typeOfHit = typeIn;
+        blockPos = blockPosIn;
+        sideHit = sideHitIn;
+        hitVec = new Vec3d(hitVecIn.x, hitVecIn.y, hitVecIn.z);
     }
 
     public RayTraceResult(Entity entityHitIn, Vec3d hitVecIn)
     {
-        this.typeOfHit = RayTraceResult.Type.ENTITY;
-        this.entityHit = entityHitIn;
-        this.hitVec = hitVecIn;
+        typeOfHit = RayTraceResult.Type.ENTITY;
+        entityHit = entityHitIn;
+        hitVec = hitVecIn;
     }
 
     public BlockPos getBlockPos()
     {
-        return this.blockPos;
+        return blockPos;
     }
 
     public String toString()
     {
-        return "HitResult{type=" + this.typeOfHit + ", blockpos=" + this.blockPos + ", f=" + this.sideHit + ", pos=" + this.hitVec + ", entity=" + this.entityHit + '}';
+        return "HitResult{type=" + typeOfHit + ", blockpos=" + blockPos + ", f=" + sideHit + ", pos=" + hitVec + ", entity=" + entityHit + '}';
     }
 
     public static enum Type

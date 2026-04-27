@@ -14,12 +14,12 @@ public class LayerEnderDragonEyes implements LayerRenderer<EntityDragon>
 
     public LayerEnderDragonEyes(RenderDragon dragonRendererIn)
     {
-        this.dragonRenderer = dragonRendererIn;
+        dragonRenderer = dragonRendererIn;
     }
 
     public void doRenderLayer(EntityDragon entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale)
     {
-        this.dragonRenderer.bindTexture(TEXTURE);
+        dragonRenderer.bindTexture(TEXTURE);
         GlStateManager.enableBlend();
         GlStateManager.disableAlpha();
         GlStateManager.blendFunc(GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ONE);
@@ -32,9 +32,9 @@ public class LayerEnderDragonEyes implements LayerRenderer<EntityDragon>
         GlStateManager.enableLighting();
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
-        this.dragonRenderer.getMainModel().render(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+        dragonRenderer.getMainModel().render(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
         Minecraft.getMinecraft().entityRenderer.setupFogColor(false);
-        this.dragonRenderer.setLightmap(entitylivingbaseIn);
+        dragonRenderer.setLightmap(entitylivingbaseIn);
         GlStateManager.disableBlend();
         GlStateManager.enableAlpha();
         GlStateManager.depthFunc(515);

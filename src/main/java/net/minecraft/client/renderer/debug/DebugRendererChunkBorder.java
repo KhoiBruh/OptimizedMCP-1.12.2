@@ -13,12 +13,12 @@ public class DebugRendererChunkBorder implements DebugRenderer.IDebugRenderer
 
     public DebugRendererChunkBorder(Minecraft minecraftIn)
     {
-        this.minecraft = minecraftIn;
+        minecraft = minecraftIn;
     }
 
     public void render(float partialTicks, long finishTimeNano)
     {
-        EntityPlayer entityplayer = this.minecraft.player;
+        EntityPlayer entityplayer = minecraft.player;
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder bufferbuilder = tessellator.getBuffer();
         double d0 = entityplayer.lastTickPosX + (entityplayer.posX - entityplayer.lastTickPosX) * (double)partialTicks;

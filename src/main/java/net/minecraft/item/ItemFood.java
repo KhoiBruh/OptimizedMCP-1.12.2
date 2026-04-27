@@ -41,11 +41,11 @@ public class ItemFood extends Item
 
     public ItemFood(int amount, float saturation, boolean isWolfFood)
     {
-        this.itemUseDuration = 32;
-        this.healAmount = amount;
-        this.isWolfsFavoriteMeat = isWolfFood;
-        this.saturationModifier = saturation;
-        this.setCreativeTab(CreativeTabs.FOOD);
+        itemUseDuration = 32;
+        healAmount = amount;
+        isWolfsFavoriteMeat = isWolfFood;
+        saturationModifier = saturation;
+        setCreativeTab(CreativeTabs.FOOD);
     }
 
     public ItemFood(int amount, boolean isWolfFood)
@@ -64,7 +64,7 @@ public class ItemFood extends Item
             EntityPlayer entityplayer = (EntityPlayer)entityLiving;
             entityplayer.getFoodStats().addStats(this, stack);
             worldIn.playSound((EntityPlayer)null, entityplayer.posX, entityplayer.posY, entityplayer.posZ, SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.PLAYERS, 0.5F, worldIn.rand.nextFloat() * 0.1F + 0.9F);
-            this.onFoodEaten(stack, worldIn, entityplayer);
+            onFoodEaten(stack, worldIn, entityplayer);
             entityplayer.addStat(StatList.getObjectUseStats(this));
 
             if (entityplayer instanceof EntityPlayerMP)
@@ -79,9 +79,9 @@ public class ItemFood extends Item
 
     protected void onFoodEaten(ItemStack stack, World worldIn, EntityPlayer player)
     {
-        if (!worldIn.isRemote && this.potionId != null && worldIn.rand.nextFloat() < this.potionEffectProbability)
+        if (!worldIn.isRemote && potionId != null && worldIn.rand.nextFloat() < potionEffectProbability)
         {
-            player.addPotionEffect(new PotionEffect(this.potionId));
+            player.addPotionEffect(new PotionEffect(potionId));
         }
     }
 
@@ -105,7 +105,7 @@ public class ItemFood extends Item
     {
         ItemStack itemstack = playerIn.getHeldItem(handIn);
 
-        if (playerIn.canEat(this.alwaysEdible))
+        if (playerIn.canEat(alwaysEdible))
         {
             playerIn.setActiveHand(handIn);
             return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemstack);
@@ -118,12 +118,12 @@ public class ItemFood extends Item
 
     public int getHealAmount(ItemStack stack)
     {
-        return this.healAmount;
+        return healAmount;
     }
 
     public float getSaturationModifier(ItemStack stack)
     {
-        return this.saturationModifier;
+        return saturationModifier;
     }
 
     /**
@@ -131,13 +131,13 @@ public class ItemFood extends Item
      */
     public boolean isWolfsFavoriteMeat()
     {
-        return this.isWolfsFavoriteMeat;
+        return isWolfsFavoriteMeat;
     }
 
     public ItemFood setPotionEffect(PotionEffect effect, float probability)
     {
-        this.potionId = effect;
-        this.potionEffectProbability = probability;
+        potionId = effect;
+        potionEffectProbability = probability;
         return this;
     }
 
@@ -146,7 +146,7 @@ public class ItemFood extends Item
      */
     public ItemFood setAlwaysEdible()
     {
-        this.alwaysEdible = true;
+        alwaysEdible = true;
         return this;
     }
 }

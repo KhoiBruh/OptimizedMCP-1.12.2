@@ -23,36 +23,36 @@ public class BiomeForest extends Biome
     public BiomeForest(BiomeForest.Type typeIn, Biome.BiomeProperties properties)
     {
         super(properties);
-        this.type = typeIn;
-        this.decorator.treesPerChunk = 10;
-        this.decorator.grassPerChunk = 2;
+        type = typeIn;
+        decorator.treesPerChunk = 10;
+        decorator.grassPerChunk = 2;
 
-        if (this.type == BiomeForest.Type.FLOWER)
+        if (type == BiomeForest.Type.FLOWER)
         {
-            this.decorator.treesPerChunk = 6;
-            this.decorator.flowersPerChunk = 100;
-            this.decorator.grassPerChunk = 1;
-            this.spawnableCreatureList.add(new Biome.SpawnListEntry(EntityRabbit.class, 4, 2, 3));
+            decorator.treesPerChunk = 6;
+            decorator.flowersPerChunk = 100;
+            decorator.grassPerChunk = 1;
+            spawnableCreatureList.add(new Biome.SpawnListEntry(EntityRabbit.class, 4, 2, 3));
         }
 
-        if (this.type == BiomeForest.Type.NORMAL)
+        if (type == BiomeForest.Type.NORMAL)
         {
-            this.spawnableCreatureList.add(new Biome.SpawnListEntry(EntityWolf.class, 5, 4, 4));
+            spawnableCreatureList.add(new Biome.SpawnListEntry(EntityWolf.class, 5, 4, 4));
         }
 
-        if (this.type == BiomeForest.Type.ROOFED)
+        if (type == BiomeForest.Type.ROOFED)
         {
-            this.decorator.treesPerChunk = -999;
+            decorator.treesPerChunk = -999;
         }
     }
 
     public WorldGenAbstractTree getRandomTreeFeature(Random rand)
     {
-        if (this.type == BiomeForest.Type.ROOFED && rand.nextInt(3) > 0)
+        if (type == BiomeForest.Type.ROOFED && rand.nextInt(3) > 0)
         {
             return ROOF_TREE;
         }
-        else if (this.type != BiomeForest.Type.BIRCH && rand.nextInt(5) != 0)
+        else if (type != BiomeForest.Type.BIRCH && rand.nextInt(5) != 0)
         {
             return (WorldGenAbstractTree)(rand.nextInt(10) == 0 ? BIG_TREE_FEATURE : TREE_FEATURE);
         }
@@ -64,7 +64,7 @@ public class BiomeForest extends Biome
 
     public BlockFlower.EnumFlowerType pickRandomFlower(Random rand, BlockPos pos)
     {
-        if (this.type == BiomeForest.Type.FLOWER)
+        if (type == BiomeForest.Type.FLOWER)
         {
             double d0 = MathHelper.clamp((1.0D + GRASS_COLOR_NOISE.getValue((double)pos.getX() / 48.0D, (double)pos.getZ() / 48.0D)) / 2.0D, 0.0D, 0.9999D);
             BlockFlower.EnumFlowerType blockflower$enumflowertype = BlockFlower.EnumFlowerType.values()[(int)(d0 * (double)BlockFlower.EnumFlowerType.values().length)];
@@ -78,19 +78,19 @@ public class BiomeForest extends Biome
 
     public void decorate(World worldIn, Random rand, BlockPos pos)
     {
-        if (this.type == BiomeForest.Type.ROOFED)
+        if (type == BiomeForest.Type.ROOFED)
         {
-            this.addMushrooms(worldIn, rand, pos);
+            addMushrooms(worldIn, rand, pos);
         }
 
         int i = rand.nextInt(5) - 3;
 
-        if (this.type == BiomeForest.Type.FLOWER)
+        if (type == BiomeForest.Type.FLOWER)
         {
             i += 2;
         }
 
-        this.addDoublePlants(worldIn, rand, pos, i);
+        addDoublePlants(worldIn, rand, pos, i);
         super.decorate(worldIn, rand, pos);
     }
 
@@ -111,7 +111,7 @@ public class BiomeForest extends Biome
                 }
                 else
                 {
-                    WorldGenAbstractTree worldgenabstracttree = this.getRandomTreeFeature(p_185379_2_);
+                    WorldGenAbstractTree worldgenabstracttree = getRandomTreeFeature(p_185379_2_);
                     worldgenabstracttree.setDecorationDefaults();
 
                     if (worldgenabstracttree.generate(p_185379_1_, p_185379_2_, blockpos))
@@ -164,7 +164,7 @@ public class BiomeForest extends Biome
     public int getGrassColorAtPos(BlockPos pos)
     {
         int i = super.getGrassColorAtPos(pos);
-        return this.type == BiomeForest.Type.ROOFED ? (i & 16711422) + 2634762 >> 1 : i;
+        return type == BiomeForest.Type.ROOFED ? (i & 16711422) + 2634762 >> 1 : i;
     }
 
     public static enum Type

@@ -20,8 +20,8 @@ public class CPacketEncryptionResponse implements Packet<INetHandlerLoginServer>
 
     public CPacketEncryptionResponse(SecretKey secret, PublicKey key, byte[] verifyToken)
     {
-        this.secretKeyEncrypted = CryptManager.encryptData(key, secret.getEncoded());
-        this.verifyTokenEncrypted = CryptManager.encryptData(key, verifyToken);
+        secretKeyEncrypted = CryptManager.encryptData(key, secret.getEncoded());
+        verifyTokenEncrypted = CryptManager.encryptData(key, verifyToken);
     }
 
     /**
@@ -29,8 +29,8 @@ public class CPacketEncryptionResponse implements Packet<INetHandlerLoginServer>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.secretKeyEncrypted = buf.readByteArray();
-        this.verifyTokenEncrypted = buf.readByteArray();
+        secretKeyEncrypted = buf.readByteArray();
+        verifyTokenEncrypted = buf.readByteArray();
     }
 
     /**
@@ -38,8 +38,8 @@ public class CPacketEncryptionResponse implements Packet<INetHandlerLoginServer>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeByteArray(this.secretKeyEncrypted);
-        buf.writeByteArray(this.verifyTokenEncrypted);
+        buf.writeByteArray(secretKeyEncrypted);
+        buf.writeByteArray(verifyTokenEncrypted);
     }
 
     /**
@@ -52,11 +52,11 @@ public class CPacketEncryptionResponse implements Packet<INetHandlerLoginServer>
 
     public SecretKey getSecretKey(PrivateKey key)
     {
-        return CryptManager.decryptSharedKey(key, this.secretKeyEncrypted);
+        return CryptManager.decryptSharedKey(key, secretKeyEncrypted);
     }
 
     public byte[] getVerifyToken(PrivateKey key)
     {
-        return key == null ? this.verifyTokenEncrypted : CryptManager.decryptData(key, this.verifyTokenEncrypted);
+        return key == null ? verifyTokenEncrypted : CryptManager.decryptData(key, verifyTokenEncrypted);
     }
 }

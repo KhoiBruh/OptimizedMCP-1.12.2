@@ -17,37 +17,37 @@ public class WorldGenSpikes extends WorldGenerator
 
     public void setSpike(WorldGenSpikes.EndSpike p_186143_1_)
     {
-        this.spike = p_186143_1_;
+        spike = p_186143_1_;
     }
 
     public void setCrystalInvulnerable(boolean p_186144_1_)
     {
-        this.crystalInvulnerable = p_186144_1_;
+        crystalInvulnerable = p_186144_1_;
     }
 
     public boolean generate(World worldIn, Random rand, BlockPos position)
     {
-        if (this.spike == null)
+        if (spike == null)
         {
             throw new IllegalStateException("Decoration requires priming with a spike");
         }
         else
         {
-            int i = this.spike.getRadius();
+            int i = spike.getRadius();
 
-            for (BlockPos.MutableBlockPos blockpos$mutableblockpos : BlockPos.getAllInBoxMutable(new BlockPos(position.getX() - i, 0, position.getZ() - i), new BlockPos(position.getX() + i, this.spike.getHeight() + 10, position.getZ() + i)))
+            for (BlockPos.MutableBlockPos blockpos$mutableblockpos : BlockPos.getAllInBoxMutable(new BlockPos(position.getX() - i, 0, position.getZ() - i), new BlockPos(position.getX() + i, spike.getHeight() + 10, position.getZ() + i)))
             {
-                if (blockpos$mutableblockpos.distanceSq((double)position.getX(), (double)blockpos$mutableblockpos.getY(), (double)position.getZ()) <= (double)(i * i + 1) && blockpos$mutableblockpos.getY() < this.spike.getHeight())
+                if (blockpos$mutableblockpos.distanceSq((double)position.getX(), (double)blockpos$mutableblockpos.getY(), (double)position.getZ()) <= (double)(i * i + 1) && blockpos$mutableblockpos.getY() < spike.getHeight())
                 {
-                    this.setBlockAndNotifyAdequately(worldIn, blockpos$mutableblockpos, Blocks.OBSIDIAN.getDefaultState());
+                    setBlockAndNotifyAdequately(worldIn, blockpos$mutableblockpos, Blocks.OBSIDIAN.getDefaultState());
                 }
                 else if (blockpos$mutableblockpos.getY() > 65)
                 {
-                    this.setBlockAndNotifyAdequately(worldIn, blockpos$mutableblockpos, Blocks.AIR.getDefaultState());
+                    setBlockAndNotifyAdequately(worldIn, blockpos$mutableblockpos, Blocks.AIR.getDefaultState());
                 }
             }
 
-            if (this.spike.isGuarded())
+            if (spike.isGuarded())
             {
                 for (int j = -2; j <= 2; ++j)
                 {
@@ -55,22 +55,22 @@ public class WorldGenSpikes extends WorldGenerator
                     {
                         if (MathHelper.abs(j) == 2 || MathHelper.abs(k) == 2)
                         {
-                            this.setBlockAndNotifyAdequately(worldIn, new BlockPos(position.getX() + j, this.spike.getHeight(), position.getZ() + k), Blocks.IRON_BARS.getDefaultState());
-                            this.setBlockAndNotifyAdequately(worldIn, new BlockPos(position.getX() + j, this.spike.getHeight() + 1, position.getZ() + k), Blocks.IRON_BARS.getDefaultState());
-                            this.setBlockAndNotifyAdequately(worldIn, new BlockPos(position.getX() + j, this.spike.getHeight() + 2, position.getZ() + k), Blocks.IRON_BARS.getDefaultState());
+                            setBlockAndNotifyAdequately(worldIn, new BlockPos(position.getX() + j, spike.getHeight(), position.getZ() + k), Blocks.IRON_BARS.getDefaultState());
+                            setBlockAndNotifyAdequately(worldIn, new BlockPos(position.getX() + j, spike.getHeight() + 1, position.getZ() + k), Blocks.IRON_BARS.getDefaultState());
+                            setBlockAndNotifyAdequately(worldIn, new BlockPos(position.getX() + j, spike.getHeight() + 2, position.getZ() + k), Blocks.IRON_BARS.getDefaultState());
                         }
 
-                        this.setBlockAndNotifyAdequately(worldIn, new BlockPos(position.getX() + j, this.spike.getHeight() + 3, position.getZ() + k), Blocks.IRON_BARS.getDefaultState());
+                        setBlockAndNotifyAdequately(worldIn, new BlockPos(position.getX() + j, spike.getHeight() + 3, position.getZ() + k), Blocks.IRON_BARS.getDefaultState());
                     }
                 }
             }
 
             EntityEnderCrystal entityendercrystal = new EntityEnderCrystal(worldIn);
-            entityendercrystal.setBeamTarget(this.beamTarget);
-            entityendercrystal.setEntityInvulnerable(this.crystalInvulnerable);
-            entityendercrystal.setLocationAndAngles((double)((float)position.getX() + 0.5F), (double)(this.spike.getHeight() + 1), (double)((float)position.getZ() + 0.5F), rand.nextFloat() * 360.0F, 0.0F);
+            entityendercrystal.setBeamTarget(beamTarget);
+            entityendercrystal.setEntityInvulnerable(crystalInvulnerable);
+            entityendercrystal.setLocationAndAngles((double)((float)position.getX() + 0.5F), (double)(spike.getHeight() + 1), (double)((float)position.getZ() + 0.5F), rand.nextFloat() * 360.0F, 0.0F);
             worldIn.spawnEntity(entityendercrystal);
-            this.setBlockAndNotifyAdequately(worldIn, new BlockPos(position.getX(), this.spike.getHeight(), position.getZ()), Blocks.BEDROCK.getDefaultState());
+            setBlockAndNotifyAdequately(worldIn, new BlockPos(position.getX(), spike.getHeight(), position.getZ()), Blocks.BEDROCK.getDefaultState());
             return true;
         }
     }
@@ -81,7 +81,7 @@ public class WorldGenSpikes extends WorldGenerator
      */
     public void setBeamTarget(@Nullable BlockPos pos)
     {
-        this.beamTarget = pos;
+        beamTarget = pos;
     }
 
     public static class EndSpike
@@ -95,49 +95,49 @@ public class WorldGenSpikes extends WorldGenerator
 
         public EndSpike(int p_i47020_1_, int p_i47020_2_, int p_i47020_3_, int p_i47020_4_, boolean p_i47020_5_)
         {
-            this.centerX = p_i47020_1_;
-            this.centerZ = p_i47020_2_;
-            this.radius = p_i47020_3_;
-            this.height = p_i47020_4_;
-            this.guarded = p_i47020_5_;
-            this.topBoundingBox = new AxisAlignedBB((double)(p_i47020_1_ - p_i47020_3_), 0.0D, (double)(p_i47020_2_ - p_i47020_3_), (double)(p_i47020_1_ + p_i47020_3_), 256.0D, (double)(p_i47020_2_ + p_i47020_3_));
+            centerX = p_i47020_1_;
+            centerZ = p_i47020_2_;
+            radius = p_i47020_3_;
+            height = p_i47020_4_;
+            guarded = p_i47020_5_;
+            topBoundingBox = new AxisAlignedBB((double)(p_i47020_1_ - p_i47020_3_), 0.0D, (double)(p_i47020_2_ - p_i47020_3_), (double)(p_i47020_1_ + p_i47020_3_), 256.0D, (double)(p_i47020_2_ + p_i47020_3_));
         }
 
         public boolean doesStartInChunk(BlockPos p_186154_1_)
         {
-            int i = this.centerX - this.radius;
-            int j = this.centerZ - this.radius;
+            int i = centerX - radius;
+            int j = centerZ - radius;
             return p_186154_1_.getX() == (i & -16) && p_186154_1_.getZ() == (j & -16);
         }
 
         public int getCenterX()
         {
-            return this.centerX;
+            return centerX;
         }
 
         public int getCenterZ()
         {
-            return this.centerZ;
+            return centerZ;
         }
 
         public int getRadius()
         {
-            return this.radius;
+            return radius;
         }
 
         public int getHeight()
         {
-            return this.height;
+            return height;
         }
 
         public boolean isGuarded()
         {
-            return this.guarded;
+            return guarded;
         }
 
         public AxisAlignedBB getTopBoundingBox()
         {
-            return this.topBoundingBox;
+            return topBoundingBox;
         }
     }
 }

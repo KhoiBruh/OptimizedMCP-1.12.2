@@ -10,11 +10,11 @@ public class StatCrafting extends StatBase
     public StatCrafting(String p_i45910_1_, String p_i45910_2_, ITextComponent statNameIn, Item p_i45910_4_)
     {
         super(p_i45910_1_ + p_i45910_2_, statNameIn);
-        this.item = p_i45910_4_;
+        item = p_i45910_4_;
     }
 
     public Item getItem()
     {
-        return this.item;
+        return item;
     }
 }

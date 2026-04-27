@@ -12,7 +12,7 @@ public class BlockNetherBrick extends Block
     public BlockNetherBrick()
     {
         super(Material.ROCK);
-        this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
+        setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
     }
 
     /**

@@ -11,7 +11,7 @@ public class ModelMagmaCube extends ModelBase
 
     public ModelMagmaCube()
     {
-        for (int i = 0; i < this.segments.length; ++i)
+        for (int i = 0; i < segments.length; ++i)
         {
             int j = 0;
             int k = i;
@@ -27,12 +27,12 @@ public class ModelMagmaCube extends ModelBase
                 k = 19;
             }
 
-            this.segments[i] = new ModelRenderer(this, j, k);
-            this.segments[i].addBox(-4.0F, (float)(16 + i), -4.0F, 8, 1, 8);
+            segments[i] = new ModelRenderer(this, j, k);
+            segments[i].addBox(-4.0F, (float)(16 + i), -4.0F, 8, 1, 8);
         }
 
-        this.core = new ModelRenderer(this, 0, 16);
-        this.core.addBox(-2.0F, 18.0F, -2.0F, 4, 4, 4);
+        core = new ModelRenderer(this, 0, 16);
+        core.addBox(-2.0F, 18.0F, -2.0F, 4, 4, 4);
     }
 
     /**
@@ -49,9 +49,9 @@ public class ModelMagmaCube extends ModelBase
             f = 0.0F;
         }
 
-        for (int i = 0; i < this.segments.length; ++i)
+        for (int i = 0; i < segments.length; ++i)
         {
-            this.segments[i].rotationPointY = (float)(-(4 - i)) * f * 1.7F;
+            segments[i].rotationPointY = (float)(-(4 - i)) * f * 1.7F;
         }
     }
 
@@ -60,10 +60,10 @@ public class ModelMagmaCube extends ModelBase
      */
     public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale)
     {
-        this.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
-        this.core.render(scale);
+        setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
+        core.render(scale);
 
-        for (ModelRenderer modelrenderer : this.segments)
+        for (ModelRenderer modelrenderer : segments)
         {
             modelrenderer.render(scale);
         }

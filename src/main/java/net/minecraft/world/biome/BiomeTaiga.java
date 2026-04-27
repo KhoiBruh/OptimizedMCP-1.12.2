@@ -30,29 +30,29 @@ public class BiomeTaiga extends Biome
     public BiomeTaiga(BiomeTaiga.Type typeIn, Biome.BiomeProperties properties)
     {
         super(properties);
-        this.type = typeIn;
-        this.spawnableCreatureList.add(new Biome.SpawnListEntry(EntityWolf.class, 8, 4, 4));
-        this.spawnableCreatureList.add(new Biome.SpawnListEntry(EntityRabbit.class, 4, 2, 3));
-        this.decorator.treesPerChunk = 10;
+        type = typeIn;
+        spawnableCreatureList.add(new Biome.SpawnListEntry(EntityWolf.class, 8, 4, 4));
+        spawnableCreatureList.add(new Biome.SpawnListEntry(EntityRabbit.class, 4, 2, 3));
+        decorator.treesPerChunk = 10;
 
         if (typeIn != BiomeTaiga.Type.MEGA && typeIn != BiomeTaiga.Type.MEGA_SPRUCE)
         {
-            this.decorator.grassPerChunk = 1;
-            this.decorator.mushroomsPerChunk = 1;
+            decorator.grassPerChunk = 1;
+            decorator.mushroomsPerChunk = 1;
         }
         else
         {
-            this.decorator.grassPerChunk = 7;
-            this.decorator.deadBushPerChunk = 1;
-            this.decorator.mushroomsPerChunk = 3;
+            decorator.grassPerChunk = 7;
+            decorator.deadBushPerChunk = 1;
+            decorator.mushroomsPerChunk = 3;
         }
     }
 
     public WorldGenAbstractTree getRandomTreeFeature(Random rand)
     {
-        if ((this.type == BiomeTaiga.Type.MEGA || this.type == BiomeTaiga.Type.MEGA_SPRUCE) && rand.nextInt(3) == 0)
+        if ((type == BiomeTaiga.Type.MEGA || type == BiomeTaiga.Type.MEGA_SPRUCE) && rand.nextInt(3) == 0)
         {
-            return this.type != BiomeTaiga.Type.MEGA_SPRUCE && rand.nextInt(13) != 0 ? MEGA_PINE_GENERATOR : MEGA_SPRUCE_GENERATOR;
+            return type != BiomeTaiga.Type.MEGA_SPRUCE && rand.nextInt(13) != 0 ? MEGA_PINE_GENERATOR : MEGA_SPRUCE_GENERATOR;
         }
         else
         {
@@ -70,7 +70,7 @@ public class BiomeTaiga extends Biome
 
     public void decorate(World worldIn, Random rand, BlockPos pos)
     {
-        if (this.type == BiomeTaiga.Type.MEGA || this.type == BiomeTaiga.Type.MEGA_SPRUCE)
+        if (type == BiomeTaiga.Type.MEGA || type == BiomeTaiga.Type.MEGA_SPRUCE)
         {
             int i = rand.nextInt(3);
 
@@ -98,22 +98,22 @@ public class BiomeTaiga extends Biome
 
     public void genTerrainBlocks(World worldIn, Random rand, ChunkPrimer chunkPrimerIn, int x, int z, double noiseVal)
     {
-        if (this.type == BiomeTaiga.Type.MEGA || this.type == BiomeTaiga.Type.MEGA_SPRUCE)
+        if (type == BiomeTaiga.Type.MEGA || type == BiomeTaiga.Type.MEGA_SPRUCE)
         {
-            this.topBlock = Blocks.GRASS.getDefaultState();
-            this.fillerBlock = Blocks.DIRT.getDefaultState();
+            topBlock = Blocks.GRASS.getDefaultState();
+            fillerBlock = Blocks.DIRT.getDefaultState();
 
             if (noiseVal > 1.75D)
             {
-                this.topBlock = Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.COARSE_DIRT);
+                topBlock = Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.COARSE_DIRT);
             }
             else if (noiseVal > -0.95D)
             {
-                this.topBlock = Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.PODZOL);
+                topBlock = Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.PODZOL);
             }
         }
 
-        this.generateBiomeTerrain(worldIn, rand, chunkPrimerIn, x, z, noiseVal);
+        generateBiomeTerrain(worldIn, rand, chunkPrimerIn, x, z, noiseVal);
     }
 
     public static enum Type

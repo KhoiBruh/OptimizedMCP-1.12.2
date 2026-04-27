@@ -57,7 +57,7 @@ public class BlockStateContainer
 
     public BlockStateContainer(Block blockIn, IProperty<?>... properties)
     {
-        this.block = blockIn;
+        block = blockIn;
         Map < String, IProperty<? >> map = Maps. < String, IProperty<? >> newHashMap();
 
         for (IProperty<?> iproperty : properties)
@@ -70,7 +70,7 @@ public class BlockStateContainer
         Map < Map < IProperty<?>, Comparable<? >> , BlockStateContainer.StateImplementation > map2 = Maps. < Map < IProperty<?>, Comparable<? >> , BlockStateContainer.StateImplementation > newLinkedHashMap();
         List<BlockStateContainer.StateImplementation> list1 = Lists.<BlockStateContainer.StateImplementation>newArrayList();
 
-        for (List < Comparable<? >> list : Cartesian.cartesianProduct(this.getAllowedValues()))
+        for (List < Comparable<? >> list : Cartesian.cartesianProduct(getAllowedValues()))
         {
             Map < IProperty<?>, Comparable<? >> map1 = MapPopulator. < IProperty<?>, Comparable<? >> createMap(this.properties.values(), list);
             BlockStateContainer.StateImplementation blockstatecontainer$stateimplementation = new BlockStateContainer.StateImplementation(blockIn, ImmutableMap.copyOf(map1));
@@ -83,7 +83,7 @@ public class BlockStateContainer
             blockstatecontainer$stateimplementation1.buildPropertyValueTable(map2);
         }
 
-        this.validStates = ImmutableList.<IBlockState>copyOf(list1);
+        validStates = ImmutableList.<IBlockState>copyOf(list1);
     }
 
     public static <T extends Comparable<T>> String validateProperty(Block block, IProperty<T> property)
@@ -112,13 +112,13 @@ public class BlockStateContainer
 
     public ImmutableList<IBlockState> getValidStates()
     {
-        return this.validStates;
+        return validStates;
     }
 
     private List < Iterable < Comparable<? >>> getAllowedValues()
     {
         List < Iterable < Comparable<? >>> list = Lists. < Iterable < Comparable<? >>> newArrayList();
-        ImmutableCollection < IProperty<? >> immutablecollection = this.properties.values();
+        ImmutableCollection < IProperty<? >> immutablecollection = properties.values();
         UnmodifiableIterator unmodifiableiterator = immutablecollection.iterator();
 
         while (unmodifiableiterator.hasNext())
@@ -132,28 +132,28 @@ public class BlockStateContainer
 
     public IBlockState getBaseState()
     {
-        return (IBlockState)this.validStates.get(0);
+        return (IBlockState) validStates.get(0);
     }
 
     public Block getBlock()
     {
-        return this.block;
+        return block;
     }
 
     public Collection < IProperty<? >> getProperties()
     {
-        return this.properties.values();
+        return properties.values();
     }
 
     public String toString()
     {
-        return MoreObjects.toStringHelper(this).add("block", Block.REGISTRY.getNameForObject(this.block)).add("properties", Iterables.transform(this.properties.values(), GET_NAME_FUNC)).toString();
+        return MoreObjects.toStringHelper(this).add("block", Block.REGISTRY.getNameForObject(block)).add("properties", Iterables.transform(properties.values(), GET_NAME_FUNC)).toString();
     }
 
     @Nullable
     public IProperty<?> getProperty(String propertyName)
     {
-        return (IProperty)this.properties.get(propertyName);
+        return (IProperty) properties.get(propertyName);
     }
 
     static class StateImplementation extends BlockStateBase
@@ -164,22 +164,22 @@ public class BlockStateContainer
 
         private StateImplementation(Block blockIn, ImmutableMap < IProperty<?>, Comparable<? >> propertiesIn)
         {
-            this.block = blockIn;
-            this.properties = propertiesIn;
+            block = blockIn;
+            properties = propertiesIn;
         }
 
         public Collection < IProperty<? >> getPropertyKeys()
         {
-            return Collections. < IProperty<? >> unmodifiableCollection(this.properties.keySet());
+            return Collections. < IProperty<? >> unmodifiableCollection(properties.keySet());
         }
 
         public <T extends Comparable<T>> T getValue(IProperty<T> property)
         {
-            Comparable<?> comparable = (Comparable)this.properties.get(property);
+            Comparable<?> comparable = (Comparable) properties.get(property);
 
             if (comparable == null)
             {
-                throw new IllegalArgumentException("Cannot get property " + property + " as it does not exist in " + this.block.getBlockState());
+                throw new IllegalArgumentException("Cannot get property " + property + " as it does not exist in " + block.getBlockState());
             }
             else
             {
@@ -189,11 +189,11 @@ public class BlockStateContainer
 
         public <T extends Comparable<T>, V extends T> IBlockState withProperty(IProperty<T> property, V value)
         {
-            Comparable<?> comparable = (Comparable)this.properties.get(property);
+            Comparable<?> comparable = (Comparable) properties.get(property);
 
             if (comparable == null)
             {
-                throw new IllegalArgumentException("Cannot set property " + property + " as it does not exist in " + this.block.getBlockState());
+                throw new IllegalArgumentException("Cannot set property " + property + " as it does not exist in " + block.getBlockState());
             }
             else if (comparable == value)
             {
@@ -201,11 +201,11 @@ public class BlockStateContainer
             }
             else
             {
-                IBlockState iblockstate = (IBlockState)this.propertyValueTable.get(property, value);
+                IBlockState iblockstate = (IBlockState) propertyValueTable.get(property, value);
 
                 if (iblockstate == null)
                 {
-                    throw new IllegalArgumentException("Cannot set property " + property + " to " + value + " on block " + Block.REGISTRY.getNameForObject(this.block) + ", it is not an allowed value");
+                    throw new IllegalArgumentException("Cannot set property " + property + " to " + value + " on block " + Block.REGISTRY.getNameForObject(block) + ", it is not an allowed value");
                 }
                 else
                 {
@@ -216,12 +216,12 @@ public class BlockStateContainer
 
         public ImmutableMap < IProperty<?>, Comparable<? >> getProperties()
         {
-            return this.properties;
+            return properties;
         }
 
         public Block getBlock()
         {
-            return this.block;
+            return block;
         }
 
         public boolean equals(Object p_equals_1_)
@@ -231,19 +231,19 @@ public class BlockStateContainer
 
         public int hashCode()
         {
-            return this.properties.hashCode();
+            return properties.hashCode();
         }
 
         public void buildPropertyValueTable(Map < Map < IProperty<?>, Comparable<? >> , BlockStateContainer.StateImplementation > map)
         {
-            if (this.propertyValueTable != null)
+            if (propertyValueTable != null)
             {
                 throw new IllegalStateException();
             }
             else
             {
                 Table < IProperty<?>, Comparable<?>, IBlockState > table = HashBasedTable. < IProperty<?>, Comparable<?>, IBlockState > create();
-                UnmodifiableIterator unmodifiableiterator = this.properties.entrySet().iterator();
+                UnmodifiableIterator unmodifiableiterator = properties.entrySet().iterator();
 
                 while (unmodifiableiterator.hasNext())
                 {
@@ -254,216 +254,216 @@ public class BlockStateContainer
                     {
                         if (comparable != entry.getValue())
                         {
-                            table.put(iproperty, comparable, map.get(this.getPropertiesWithValue(iproperty, comparable)));
+                            table.put(iproperty, comparable, map.get(getPropertiesWithValue(iproperty, comparable)));
                         }
                     }
                 }
 
-                this.propertyValueTable = ImmutableTable.copyOf(table);
+                propertyValueTable = ImmutableTable.copyOf(table);
             }
         }
 
         private Map < IProperty<?>, Comparable<? >> getPropertiesWithValue(IProperty<?> property, Comparable<?> value)
         {
-            Map < IProperty<?>, Comparable<? >> map = Maps. < IProperty<?>, Comparable<? >> newHashMap(this.properties);
+            Map < IProperty<?>, Comparable<? >> map = Maps. < IProperty<?>, Comparable<? >> newHashMap(properties);
             map.put(property, value);
             return map;
         }
 
         public Material getMaterial()
         {
-            return this.block.getMaterial(this);
+            return block.getMaterial(this);
         }
 
         public boolean isFullBlock()
         {
-            return this.block.isFullBlock(this);
+            return block.isFullBlock(this);
         }
 
         public boolean canEntitySpawn(Entity entityIn)
         {
-            return this.block.canEntitySpawn(this, entityIn);
+            return block.canEntitySpawn(this, entityIn);
         }
 
         public int getLightOpacity()
         {
-            return this.block.getLightOpacity(this);
+            return block.getLightOpacity(this);
         }
 
         public int getLightValue()
         {
-            return this.block.getLightValue(this);
+            return block.getLightValue(this);
         }
 
         public boolean isTranslucent()
         {
-            return this.block.isTranslucent(this);
+            return block.isTranslucent(this);
         }
 
         public boolean useNeighborBrightness()
         {
-            return this.block.getUseNeighborBrightness(this);
+            return block.getUseNeighborBrightness(this);
         }
 
         public MapColor getMapColor(IBlockAccess p_185909_1_, BlockPos p_185909_2_)
         {
-            return this.block.getMapColor(this, p_185909_1_, p_185909_2_);
+            return block.getMapColor(this, p_185909_1_, p_185909_2_);
         }
 
         public IBlockState withRotation(Rotation rot)
         {
-            return this.block.withRotation(this, rot);
+            return block.withRotation(this, rot);
         }
 
         public IBlockState withMirror(Mirror mirrorIn)
         {
-            return this.block.withMirror(this, mirrorIn);
+            return block.withMirror(this, mirrorIn);
         }
 
         public boolean isFullCube()
         {
-            return this.block.isFullCube(this);
+            return block.isFullCube(this);
         }
 
         public boolean hasCustomBreakingProgress()
         {
-            return this.block.hasCustomBreakingProgress(this);
+            return block.hasCustomBreakingProgress(this);
         }
 
         public EnumBlockRenderType getRenderType()
         {
-            return this.block.getRenderType(this);
+            return block.getRenderType(this);
         }
 
         public int getPackedLightmapCoords(IBlockAccess source, BlockPos pos)
         {
-            return this.block.getPackedLightmapCoords(this, source, pos);
+            return block.getPackedLightmapCoords(this, source, pos);
         }
 
         public float getAmbientOcclusionLightValue()
         {
-            return this.block.getAmbientOcclusionLightValue(this);
+            return block.getAmbientOcclusionLightValue(this);
         }
 
         public boolean isBlockNormalCube()
         {
-            return this.block.isBlockNormalCube(this);
+            return block.isBlockNormalCube(this);
         }
 
         public boolean isNormalCube()
         {
-            return this.block.isNormalCube(this);
+            return block.isNormalCube(this);
         }
 
         public boolean canProvidePower()
         {
-            return this.block.canProvidePower(this);
+            return block.canProvidePower(this);
         }
 
         public int getWeakPower(IBlockAccess blockAccess, BlockPos pos, EnumFacing side)
         {
-            return this.block.getWeakPower(this, blockAccess, pos, side);
+            return block.getWeakPower(this, blockAccess, pos, side);
         }
 
         public boolean hasComparatorInputOverride()
         {
-            return this.block.hasComparatorInputOverride(this);
+            return block.hasComparatorInputOverride(this);
         }
 
         public int getComparatorInputOverride(World worldIn, BlockPos pos)
         {
-            return this.block.getComparatorInputOverride(this, worldIn, pos);
+            return block.getComparatorInputOverride(this, worldIn, pos);
         }
 
         public float getBlockHardness(World worldIn, BlockPos pos)
         {
-            return this.block.getBlockHardness(this, worldIn, pos);
+            return block.getBlockHardness(this, worldIn, pos);
         }
 
         public float getPlayerRelativeBlockHardness(EntityPlayer player, World worldIn, BlockPos pos)
         {
-            return this.block.getPlayerRelativeBlockHardness(this, player, worldIn, pos);
+            return block.getPlayerRelativeBlockHardness(this, player, worldIn, pos);
         }
 
         public int getStrongPower(IBlockAccess blockAccess, BlockPos pos, EnumFacing side)
         {
-            return this.block.getStrongPower(this, blockAccess, pos, side);
+            return block.getStrongPower(this, blockAccess, pos, side);
         }
 
         public EnumPushReaction getMobilityFlag()
         {
-            return this.block.getMobilityFlag(this);
+            return block.getMobilityFlag(this);
         }
 
         public IBlockState getActualState(IBlockAccess blockAccess, BlockPos pos)
         {
-            return this.block.getActualState(this, blockAccess, pos);
+            return block.getActualState(this, blockAccess, pos);
         }
 
         public AxisAlignedBB getSelectedBoundingBox(World worldIn, BlockPos pos)
         {
-            return this.block.getSelectedBoundingBox(this, worldIn, pos);
+            return block.getSelectedBoundingBox(this, worldIn, pos);
         }
 
         public boolean shouldSideBeRendered(IBlockAccess blockAccess, BlockPos pos, EnumFacing facing)
         {
-            return this.block.shouldSideBeRendered(this, blockAccess, pos, facing);
+            return block.shouldSideBeRendered(this, blockAccess, pos, facing);
         }
 
         public boolean isOpaqueCube()
         {
-            return this.block.isOpaqueCube(this);
+            return block.isOpaqueCube(this);
         }
 
         @Nullable
         public AxisAlignedBB getCollisionBoundingBox(IBlockAccess worldIn, BlockPos pos)
         {
-            return this.block.getCollisionBoundingBox(this, worldIn, pos);
+            return block.getCollisionBoundingBox(this, worldIn, pos);
         }
 
         public void addCollisionBoxToList(World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, @Nullable Entity entityIn, boolean p_185908_6_)
         {
-            this.block.addCollisionBoxToList(this, worldIn, pos, entityBox, collidingBoxes, entityIn, p_185908_6_);
+            block.addCollisionBoxToList(this, worldIn, pos, entityBox, collidingBoxes, entityIn, p_185908_6_);
         }
 
         public AxisAlignedBB getBoundingBox(IBlockAccess blockAccess, BlockPos pos)
         {
-            return this.block.getBoundingBox(this, blockAccess, pos);
+            return block.getBoundingBox(this, blockAccess, pos);
         }
 
         public RayTraceResult collisionRayTrace(World worldIn, BlockPos pos, Vec3d start, Vec3d end)
         {
-            return this.block.collisionRayTrace(this, worldIn, pos, start, end);
+            return block.collisionRayTrace(this, worldIn, pos, start, end);
         }
 
         public boolean isTopSolid()
         {
-            return this.block.isTopSolid(this);
+            return block.isTopSolid(this);
         }
 
         public Vec3d getOffset(IBlockAccess access, BlockPos pos)
         {
-            return this.block.getOffset(this, access, pos);
+            return block.getOffset(this, access, pos);
         }
 
         public boolean onBlockEventReceived(World worldIn, BlockPos pos, int id, int param)
         {
-            return this.block.eventReceived(this, worldIn, pos, id, param);
+            return block.eventReceived(this, worldIn, pos, id, param);
         }
 
         public void neighborChanged(World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos)
         {
-            this.block.neighborChanged(this, worldIn, pos, blockIn, fromPos);
+            block.neighborChanged(this, worldIn, pos, blockIn, fromPos);
         }
 
         public boolean causesSuffocation()
         {
-            return this.block.causesSuffocation(this);
+            return block.causesSuffocation(this);
         }
 
         public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, BlockPos pos, EnumFacing facing)
         {
-            return this.block.getBlockFaceShape(worldIn, this, pos, facing);
+            return block.getBlockFaceShape(worldIn, this, pos, facing);
         }
     }
 }

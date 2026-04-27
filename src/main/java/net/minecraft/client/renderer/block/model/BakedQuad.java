@@ -16,34 +16,34 @@ public class BakedQuad
 
     public BakedQuad(int[] vertexDataIn, int tintIndexIn, EnumFacing faceIn, TextureAtlasSprite spriteIn)
     {
-        this.vertexData = vertexDataIn;
-        this.tintIndex = tintIndexIn;
-        this.face = faceIn;
-        this.sprite = spriteIn;
+        vertexData = vertexDataIn;
+        tintIndex = tintIndexIn;
+        face = faceIn;
+        sprite = spriteIn;
     }
 
     public TextureAtlasSprite getSprite()
     {
-        return this.sprite;
+        return sprite;
     }
 
     public int[] getVertexData()
     {
-        return this.vertexData;
+        return vertexData;
     }
 
     public boolean hasTintIndex()
     {
-        return this.tintIndex != -1;
+        return tintIndex != -1;
     }
 
     public int getTintIndex()
     {
-        return this.tintIndex;
+        return tintIndex;
     }
 
     public EnumFacing getFace()
     {
-        return this.face;
+        return face;
     }
 }

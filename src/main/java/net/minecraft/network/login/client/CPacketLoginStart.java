@@ -17,7 +17,7 @@ public class CPacketLoginStart implements Packet<INetHandlerLoginServer>
 
     public CPacketLoginStart(GameProfile profileIn)
     {
-        this.profile = profileIn;
+        profile = profileIn;
     }
 
     /**
@@ -25,7 +25,7 @@ public class CPacketLoginStart implements Packet<INetHandlerLoginServer>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.profile = new GameProfile((UUID)null, buf.readString(16));
+        profile = new GameProfile((UUID)null, buf.readString(16));
     }
 
     /**
@@ -33,7 +33,7 @@ public class CPacketLoginStart implements Packet<INetHandlerLoginServer>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeString(this.profile.getName());
+        buf.writeString(profile.getName());
     }
 
     /**
@@ -46,6 +46,6 @@ public class CPacketLoginStart implements Packet<INetHandlerLoginServer>
 
     public GameProfile getProfile()
     {
-        return this.profile;
+        return profile;
     }
 }

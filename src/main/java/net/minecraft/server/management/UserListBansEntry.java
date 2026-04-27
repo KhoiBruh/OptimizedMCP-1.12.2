@@ -24,10 +24,10 @@ public class UserListBansEntry extends UserListEntryBan<GameProfile>
 
     protected void onSerialization(JsonObject data)
     {
-        if (this.getValue() != null)
+        if (getValue() != null)
         {
-            data.addProperty("uuid", ((GameProfile)this.getValue()).getId() == null ? "" : ((GameProfile)this.getValue()).getId().toString());
-            data.addProperty("name", ((GameProfile)this.getValue()).getName());
+            data.addProperty("uuid", ((GameProfile) getValue()).getId() == null ? "" : ((GameProfile) getValue()).getId().toString());
+            data.addProperty("name", ((GameProfile) getValue()).getName());
             super.onSerialization(data);
         }
     }

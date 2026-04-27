@@ -47,6 +47,6 @@ public class EntityMule extends AbstractChestHorse
 
     protected void playChestEquipSound()
     {
-        this.playSound(SoundEvents.ENTITY_MULE_CHEST, 1.0F, (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
+        playSound(SoundEvents.ENTITY_MULE_CHEST, 1.0F, (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F);
     }
 }

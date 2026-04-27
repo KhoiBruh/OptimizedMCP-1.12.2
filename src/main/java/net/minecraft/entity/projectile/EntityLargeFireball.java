@@ -32,17 +32,17 @@ public class EntityLargeFireball extends EntityFireball
      */
     protected void onImpact(RayTraceResult result)
     {
-        if (!this.world.isRemote)
+        if (!world.isRemote)
         {
             if (result.entityHit != null)
             {
-                result.entityHit.attackEntityFrom(DamageSource.causeFireballDamage(this, this.shootingEntity), 6.0F);
-                this.applyEnchantments(this.shootingEntity, result.entityHit);
+                result.entityHit.attackEntityFrom(DamageSource.causeFireballDamage(this, shootingEntity), 6.0F);
+                applyEnchantments(shootingEntity, result.entityHit);
             }
 
-            boolean flag = this.world.getGameRules().getBoolean("mobGriefing");
-            this.world.newExplosion((Entity)null, this.posX, this.posY, this.posZ, (float)this.explosionPower, flag, flag);
-            this.setDead();
+            boolean flag = world.getGameRules().getBoolean("mobGriefing");
+            world.newExplosion((Entity)null, posX, posY, posZ, (float) explosionPower, flag, flag);
+            setDead();
         }
     }
 
@@ -57,7 +57,7 @@ public class EntityLargeFireball extends EntityFireball
     public void writeEntityToNBT(NBTTagCompound compound)
     {
         super.writeEntityToNBT(compound);
-        compound.setInteger("ExplosionPower", this.explosionPower);
+        compound.setInteger("ExplosionPower", explosionPower);
     }
 
     /**
@@ -69,7 +69,7 @@ public class EntityLargeFireball extends EntityFireball
 
         if (compound.hasKey("ExplosionPower", 99))
         {
-            this.explosionPower = compound.getInteger("ExplosionPower");
+            explosionPower = compound.getInteger("ExplosionPower");
         }
     }
 }

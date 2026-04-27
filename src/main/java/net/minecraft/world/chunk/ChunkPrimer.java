@@ -11,13 +11,13 @@ public class ChunkPrimer
 
     public IBlockState getBlockState(int x, int y, int z)
     {
-        IBlockState iblockstate = Block.BLOCK_STATE_IDS.getByValue(this.data[getBlockIndex(x, y, z)]);
+        IBlockState iblockstate = Block.BLOCK_STATE_IDS.getByValue(data[getBlockIndex(x, y, z)]);
         return iblockstate == null ? DEFAULT_STATE : iblockstate;
     }
 
     public void setBlockState(int x, int y, int z, IBlockState state)
     {
-        this.data[getBlockIndex(x, y, z)] = (char)Block.BLOCK_STATE_IDS.get(state);
+        data[getBlockIndex(x, y, z)] = (char)Block.BLOCK_STATE_IDS.get(state);
     }
 
     private static int getBlockIndex(int x, int y, int z)
@@ -35,7 +35,7 @@ public class ChunkPrimer
 
         for (int j = 255; j >= 0; --j)
         {
-            IBlockState iblockstate = Block.BLOCK_STATE_IDS.getByValue(this.data[i + j]);
+            IBlockState iblockstate = Block.BLOCK_STATE_IDS.getByValue(data[i + j]);
 
             if (iblockstate != null && iblockstate != DEFAULT_STATE)
             {

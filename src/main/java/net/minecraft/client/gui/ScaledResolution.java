@@ -13,9 +13,9 @@ public class ScaledResolution
 
     public ScaledResolution(Minecraft minecraftClient)
     {
-        this.scaledWidth = minecraftClient.displayWidth;
-        this.scaledHeight = minecraftClient.displayHeight;
-        this.scaleFactor = 1;
+        scaledWidth = minecraftClient.displayWidth;
+        scaledHeight = minecraftClient.displayHeight;
+        scaleFactor = 1;
         boolean flag = minecraftClient.isUnicode();
         int i = minecraftClient.gameSettings.guiScale;
 
@@ -24,44 +24,44 @@ public class ScaledResolution
             i = 1000;
         }
 
-        while (this.scaleFactor < i && this.scaledWidth / (this.scaleFactor + 1) >= 320 && this.scaledHeight / (this.scaleFactor + 1) >= 240)
+        while (scaleFactor < i && scaledWidth / (scaleFactor + 1) >= 320 && scaledHeight / (scaleFactor + 1) >= 240)
         {
-            ++this.scaleFactor;
+            ++scaleFactor;
         }
 
-        if (flag && this.scaleFactor % 2 != 0 && this.scaleFactor != 1)
+        if (flag && scaleFactor % 2 != 0 && scaleFactor != 1)
         {
-            --this.scaleFactor;
+            --scaleFactor;
         }
 
-        this.scaledWidthD = (double)this.scaledWidth / (double)this.scaleFactor;
-        this.scaledHeightD = (double)this.scaledHeight / (double)this.scaleFactor;
-        this.scaledWidth = MathHelper.ceil(this.scaledWidthD);
-        this.scaledHeight = MathHelper.ceil(this.scaledHeightD);
+        scaledWidthD = (double) scaledWidth / (double) scaleFactor;
+        scaledHeightD = (double) scaledHeight / (double) scaleFactor;
+        scaledWidth = MathHelper.ceil(scaledWidthD);
+        scaledHeight = MathHelper.ceil(scaledHeightD);
     }
 
     public int getScaledWidth()
     {
-        return this.scaledWidth;
+        return scaledWidth;
     }
 
     public int getScaledHeight()
     {
-        return this.scaledHeight;
+        return scaledHeight;
     }
 
     public double getScaledWidth_double()
     {
-        return this.scaledWidthD;
+        return scaledWidthD;
     }
 
     public double getScaledHeight_double()
     {
-        return this.scaledHeightD;
+        return scaledHeightD;
     }
 
     public int getScaleFactor()
     {
-        return this.scaleFactor;
+        return scaleFactor;
     }
 }

@@ -27,12 +27,12 @@ public class PlayerHurtEntityTrigger implements ICriterionTrigger<PlayerHurtEnti
 
     public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<PlayerHurtEntityTrigger.Instance> listener)
     {
-        PlayerHurtEntityTrigger.Listeners playerhurtentitytrigger$listeners = this.listeners.get(playerAdvancementsIn);
+        PlayerHurtEntityTrigger.Listeners playerhurtentitytrigger$listeners = listeners.get(playerAdvancementsIn);
 
         if (playerhurtentitytrigger$listeners == null)
         {
             playerhurtentitytrigger$listeners = new PlayerHurtEntityTrigger.Listeners(playerAdvancementsIn);
-            this.listeners.put(playerAdvancementsIn, playerhurtentitytrigger$listeners);
+            listeners.put(playerAdvancementsIn, playerhurtentitytrigger$listeners);
         }
 
         playerhurtentitytrigger$listeners.add(listener);
@@ -40,7 +40,7 @@ public class PlayerHurtEntityTrigger implements ICriterionTrigger<PlayerHurtEnti
 
     public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<PlayerHurtEntityTrigger.Instance> listener)
     {
-        PlayerHurtEntityTrigger.Listeners playerhurtentitytrigger$listeners = this.listeners.get(playerAdvancementsIn);
+        PlayerHurtEntityTrigger.Listeners playerhurtentitytrigger$listeners = listeners.get(playerAdvancementsIn);
 
         if (playerhurtentitytrigger$listeners != null)
         {
@@ -48,14 +48,14 @@ public class PlayerHurtEntityTrigger implements ICriterionTrigger<PlayerHurtEnti
 
             if (playerhurtentitytrigger$listeners.isEmpty())
             {
-                this.listeners.remove(playerAdvancementsIn);
+                listeners.remove(playerAdvancementsIn);
             }
         }
     }
 
     public void removeAllListeners(PlayerAdvancements playerAdvancementsIn)
     {
-        this.listeners.remove(playerAdvancementsIn);
+        listeners.remove(playerAdvancementsIn);
     }
 
     /**
@@ -70,7 +70,7 @@ public class PlayerHurtEntityTrigger implements ICriterionTrigger<PlayerHurtEnti
 
     public void trigger(EntityPlayerMP player, Entity entityIn, DamageSource source, float amountDealt, float amountTaken, boolean blocked)
     {
-        PlayerHurtEntityTrigger.Listeners playerhurtentitytrigger$listeners = this.listeners.get(player.getAdvancements());
+        PlayerHurtEntityTrigger.Listeners playerhurtentitytrigger$listeners = listeners.get(player.getAdvancements());
 
         if (playerhurtentitytrigger$listeners != null)
         {
@@ -92,7 +92,7 @@ public class PlayerHurtEntityTrigger implements ICriterionTrigger<PlayerHurtEnti
 
         public boolean test(EntityPlayerMP player, Entity entity, DamageSource source, float dealt, float taken, boolean blocked)
         {
-            if (!this.damage.test(player, source, dealt, taken, blocked))
+            if (!damage.test(player, source, dealt, taken, blocked))
             {
                 return false;
             }
@@ -110,29 +110,29 @@ public class PlayerHurtEntityTrigger implements ICriterionTrigger<PlayerHurtEnti
 
         public Listeners(PlayerAdvancements playerAdvancementsIn)
         {
-            this.playerAdvancements = playerAdvancementsIn;
+            playerAdvancements = playerAdvancementsIn;
         }
 
         public boolean isEmpty()
         {
-            return this.listeners.isEmpty();
+            return listeners.isEmpty();
         }
 
         public void add(ICriterionTrigger.Listener<PlayerHurtEntityTrigger.Instance> listener)
         {
-            this.listeners.add(listener);
+            listeners.add(listener);
         }
 
         public void remove(ICriterionTrigger.Listener<PlayerHurtEntityTrigger.Instance> listener)
         {
-            this.listeners.remove(listener);
+            listeners.remove(listener);
         }
 
         public void trigger(EntityPlayerMP player, Entity entity, DamageSource source, float dealt, float taken, boolean blocked)
         {
             List<ICriterionTrigger.Listener<PlayerHurtEntityTrigger.Instance>> list = null;
 
-            for (ICriterionTrigger.Listener<PlayerHurtEntityTrigger.Instance> listener : this.listeners)
+            for (ICriterionTrigger.Listener<PlayerHurtEntityTrigger.Instance> listener : listeners)
             {
                 if (((PlayerHurtEntityTrigger.Instance)listener.getCriterionInstance()).test(player, entity, source, dealt, taken, blocked))
                 {
@@ -149,7 +149,7 @@ public class PlayerHurtEntityTrigger implements ICriterionTrigger<PlayerHurtEnti
             {
                 for (ICriterionTrigger.Listener<PlayerHurtEntityTrigger.Instance> listener1 : list)
                 {
-                    listener1.grantCriterion(this.playerAdvancements);
+                    listener1.grantCriterion(playerAdvancements);
                 }
             }
         }

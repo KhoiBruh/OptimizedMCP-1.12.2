@@ -17,9 +17,9 @@ public class SPacketConfirmTransaction implements Packet<INetHandlerPlayClient>
 
     public SPacketConfirmTransaction(int windowIdIn, short actionNumberIn, boolean acceptedIn)
     {
-        this.windowId = windowIdIn;
-        this.actionNumber = actionNumberIn;
-        this.accepted = acceptedIn;
+        windowId = windowIdIn;
+        actionNumber = actionNumberIn;
+        accepted = acceptedIn;
     }
 
     /**
@@ -35,9 +35,9 @@ public class SPacketConfirmTransaction implements Packet<INetHandlerPlayClient>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.windowId = buf.readUnsignedByte();
-        this.actionNumber = buf.readShort();
-        this.accepted = buf.readBoolean();
+        windowId = buf.readUnsignedByte();
+        actionNumber = buf.readShort();
+        accepted = buf.readBoolean();
     }
 
     /**
@@ -45,23 +45,23 @@ public class SPacketConfirmTransaction implements Packet<INetHandlerPlayClient>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeByte(this.windowId);
-        buf.writeShort(this.actionNumber);
-        buf.writeBoolean(this.accepted);
+        buf.writeByte(windowId);
+        buf.writeShort(actionNumber);
+        buf.writeBoolean(accepted);
     }
 
     public int getWindowId()
     {
-        return this.windowId;
+        return windowId;
     }
 
     public short getActionNumber()
     {
-        return this.actionNumber;
+        return actionNumber;
     }
 
     public boolean wasAccepted()
     {
-        return this.accepted;
+        return accepted;
     }
 }

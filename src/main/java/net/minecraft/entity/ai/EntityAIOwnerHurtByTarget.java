@@ -12,8 +12,8 @@ public class EntityAIOwnerHurtByTarget extends EntityAITarget
     public EntityAIOwnerHurtByTarget(EntityTameable theDefendingTameableIn)
     {
         super(theDefendingTameableIn, false);
-        this.tameable = theDefendingTameableIn;
-        this.setMutexBits(1);
+        tameable = theDefendingTameableIn;
+        setMutexBits(1);
     }
 
     /**
@@ -21,13 +21,13 @@ public class EntityAIOwnerHurtByTarget extends EntityAITarget
      */
     public boolean shouldExecute()
     {
-        if (!this.tameable.isTamed())
+        if (!tameable.isTamed())
         {
             return false;
         }
         else
         {
-            EntityLivingBase entitylivingbase = this.tameable.getOwner();
+            EntityLivingBase entitylivingbase = tameable.getOwner();
 
             if (entitylivingbase == null)
             {
@@ -35,9 +35,9 @@ public class EntityAIOwnerHurtByTarget extends EntityAITarget
             }
             else
             {
-                this.attacker = entitylivingbase.getRevengeTarget();
+                attacker = entitylivingbase.getRevengeTarget();
                 int i = entitylivingbase.getRevengeTimer();
-                return i != this.timestamp && this.isSuitableTarget(this.attacker, false) && this.tameable.shouldAttackEntity(this.attacker, entitylivingbase);
+                return i != timestamp && isSuitableTarget(attacker, false) && tameable.shouldAttackEntity(attacker, entitylivingbase);
             }
         }
     }
@@ -47,12 +47,12 @@ public class EntityAIOwnerHurtByTarget extends EntityAITarget
      */
     public void startExecuting()
     {
-        this.taskOwner.setAttackTarget(this.attacker);
-        EntityLivingBase entitylivingbase = this.tameable.getOwner();
+        taskOwner.setAttackTarget(attacker);
+        EntityLivingBase entitylivingbase = tameable.getOwner();
 
         if (entitylivingbase != null)
         {
-            this.timestamp = entitylivingbase.getRevengeTimer();
+            timestamp = entitylivingbase.getRevengeTimer();
         }
 
         super.startExecuting();

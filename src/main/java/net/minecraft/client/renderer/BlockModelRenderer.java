@@ -27,12 +27,12 @@ public class BlockModelRenderer
 
     public BlockModelRenderer(BlockColors blockColorsIn)
     {
-        this.blockColors = blockColorsIn;
+        blockColors = blockColorsIn;
     }
 
     public boolean renderModel(IBlockAccess blockAccessIn, IBakedModel modelIn, IBlockState blockStateIn, BlockPos blockPosIn, BufferBuilder buffer, boolean checkSides)
     {
-        return this.renderModel(blockAccessIn, modelIn, blockStateIn, blockPosIn, buffer, checkSides, MathHelper.getPositionRandom(blockPosIn));
+        return renderModel(blockAccessIn, modelIn, blockStateIn, blockPosIn, buffer, checkSides, MathHelper.getPositionRandom(blockPosIn));
     }
 
     public boolean renderModel(IBlockAccess worldIn, IBakedModel modelIn, IBlockState stateIn, BlockPos posIn, BufferBuilder buffer, boolean checkSides, long rand)
@@ -41,7 +41,7 @@ public class BlockModelRenderer
 
         try
         {
-            return flag ? this.renderModelSmooth(worldIn, modelIn, stateIn, posIn, buffer, checkSides, rand) : this.renderModelFlat(worldIn, modelIn, stateIn, posIn, buffer, checkSides, rand);
+            return flag ? renderModelSmooth(worldIn, modelIn, stateIn, posIn, buffer, checkSides, rand) : renderModelFlat(worldIn, modelIn, stateIn, posIn, buffer, checkSides, rand);
         }
         catch (Throwable throwable)
         {
@@ -66,7 +66,7 @@ public class BlockModelRenderer
 
             if (!list.isEmpty() && (!checkSides || stateIn.shouldSideBeRendered(worldIn, posIn, enumfacing)))
             {
-                this.renderQuadsSmooth(worldIn, stateIn, posIn, buffer, list, afloat, bitset, blockmodelrenderer$ambientocclusionface);
+                renderQuadsSmooth(worldIn, stateIn, posIn, buffer, list, afloat, bitset, blockmodelrenderer$ambientocclusionface);
                 flag = true;
             }
         }
@@ -75,7 +75,7 @@ public class BlockModelRenderer
 
         if (!list1.isEmpty())
         {
-            this.renderQuadsSmooth(worldIn, stateIn, posIn, buffer, list1, afloat, bitset, blockmodelrenderer$ambientocclusionface);
+            renderQuadsSmooth(worldIn, stateIn, posIn, buffer, list1, afloat, bitset, blockmodelrenderer$ambientocclusionface);
             flag = true;
         }
 
@@ -94,7 +94,7 @@ public class BlockModelRenderer
             if (!list.isEmpty() && (!checkSides || stateIn.shouldSideBeRendered(worldIn, posIn, enumfacing)))
             {
                 int i = stateIn.getPackedLightmapCoords(worldIn, posIn.offset(enumfacing));
-                this.renderQuadsFlat(worldIn, stateIn, posIn, i, false, buffer, list, bitset);
+                renderQuadsFlat(worldIn, stateIn, posIn, i, false, buffer, list, bitset);
                 flag = true;
             }
         }
@@ -103,7 +103,7 @@ public class BlockModelRenderer
 
         if (!list1.isEmpty())
         {
-            this.renderQuadsFlat(worldIn, stateIn, posIn, -1, true, buffer, list1, bitset);
+            renderQuadsFlat(worldIn, stateIn, posIn, -1, true, buffer, list1, bitset);
             flag = true;
         }
 
@@ -121,14 +121,14 @@ public class BlockModelRenderer
         for (int j = list.size(); i < j; ++i)
         {
             BakedQuad bakedquad = list.get(i);
-            this.fillQuadBounds(stateIn, bakedquad.getVertexData(), bakedquad.getFace(), quadBounds, bitSet);
+            fillQuadBounds(stateIn, bakedquad.getVertexData(), bakedquad.getFace(), quadBounds, bitSet);
             aoFace.updateVertexBrightness(blockAccessIn, stateIn, posIn, bakedquad.getFace(), quadBounds, bitSet);
             buffer.addVertexData(bakedquad.getVertexData());
             buffer.putBrightness4(aoFace.vertexBrightness[0], aoFace.vertexBrightness[1], aoFace.vertexBrightness[2], aoFace.vertexBrightness[3]);
 
             if (bakedquad.hasTintIndex())
             {
-                int k = this.blockColors.colorMultiplier(stateIn, blockAccessIn, posIn, bakedquad.getTintIndex());
+                int k = blockColors.colorMultiplier(stateIn, blockAccessIn, posIn, bakedquad.getTintIndex());
 
                 if (EntityRenderer.anaglyphEnable)
                 {
@@ -244,7 +244,7 @@ public class BlockModelRenderer
 
             if (ownBrightness)
             {
-                this.fillQuadBounds(stateIn, bakedquad.getVertexData(), bakedquad.getFace(), (float[])null, bitSet);
+                fillQuadBounds(stateIn, bakedquad.getVertexData(), bakedquad.getFace(), (float[])null, bitSet);
                 BlockPos blockpos = bitSet.get(0) ? posIn.offset(bakedquad.getFace()) : posIn;
                 brightnessIn = stateIn.getPackedLightmapCoords(blockAccessIn, blockpos);
             }
@@ -254,7 +254,7 @@ public class BlockModelRenderer
 
             if (bakedquad.hasTintIndex())
             {
-                int k = this.blockColors.colorMultiplier(stateIn, blockAccessIn, posIn, bakedquad.getTintIndex());
+                int k = blockColors.colorMultiplier(stateIn, blockAccessIn, posIn, bakedquad.getTintIndex());
 
                 if (EntityRenderer.anaglyphEnable)
                 {
@@ -276,24 +276,24 @@ public class BlockModelRenderer
 
     public void renderModelBrightnessColor(IBakedModel bakedModel, float p_178262_2_, float red, float green, float blue)
     {
-        this.renderModelBrightnessColor((IBlockState)null, bakedModel, p_178262_2_, red, green, blue);
+        renderModelBrightnessColor((IBlockState)null, bakedModel, p_178262_2_, red, green, blue);
     }
 
     public void renderModelBrightnessColor(IBlockState state, IBakedModel p_187495_2_, float p_187495_3_, float p_187495_4_, float p_187495_5_, float p_187495_6_)
     {
         for (EnumFacing enumfacing : EnumFacing.values())
         {
-            this.renderModelBrightnessColorQuads(p_187495_3_, p_187495_4_, p_187495_5_, p_187495_6_, p_187495_2_.getQuads(state, enumfacing, 0L));
+            renderModelBrightnessColorQuads(p_187495_3_, p_187495_4_, p_187495_5_, p_187495_6_, p_187495_2_.getQuads(state, enumfacing, 0L));
         }
 
-        this.renderModelBrightnessColorQuads(p_187495_3_, p_187495_4_, p_187495_5_, p_187495_6_, p_187495_2_.getQuads(state, (EnumFacing)null, 0L));
+        renderModelBrightnessColorQuads(p_187495_3_, p_187495_4_, p_187495_5_, p_187495_6_, p_187495_2_.getQuads(state, (EnumFacing)null, 0L));
     }
 
     public void renderModelBrightness(IBakedModel model, IBlockState state, float brightness, boolean p_178266_4_)
     {
         Block block = state.getBlock();
         GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
-        int i = this.blockColors.colorMultiplier(state, (IBlockAccess)null, (BlockPos)null, 0);
+        int i = blockColors.colorMultiplier(state, (IBlockAccess)null, (BlockPos)null, 0);
 
         if (EntityRenderer.anaglyphEnable)
         {
@@ -309,7 +309,7 @@ public class BlockModelRenderer
             GlStateManager.color(brightness, brightness, brightness, 1.0F);
         }
 
-        this.renderModelBrightnessColor(state, model, brightness, f, f1, f2);
+        renderModelBrightnessColor(state, model, brightness, f, f1, f2);
     }
 
     private void renderModelBrightnessColorQuads(float brightness, float red, float green, float blue, List<BakedQuad> listQuads)
@@ -462,18 +462,18 @@ public class BlockModelRenderer
                 float f26 = faceShape[blockmodelrenderer$enumneighborinfo.vert3Weights[2].shape] * faceShape[blockmodelrenderer$enumneighborinfo.vert3Weights[3].shape];
                 float f27 = faceShape[blockmodelrenderer$enumneighborinfo.vert3Weights[4].shape] * faceShape[blockmodelrenderer$enumneighborinfo.vert3Weights[5].shape];
                 float f28 = faceShape[blockmodelrenderer$enumneighborinfo.vert3Weights[6].shape] * faceShape[blockmodelrenderer$enumneighborinfo.vert3Weights[7].shape];
-                this.vertexColorMultiplier[blockmodelrenderer$vertextranslations.vert0] = f29 * f13 + f30 * f14 + f31 * f15 + f32 * f16;
-                this.vertexColorMultiplier[blockmodelrenderer$vertextranslations.vert1] = f29 * f17 + f30 * f18 + f31 * f19 + f32 * f20;
-                this.vertexColorMultiplier[blockmodelrenderer$vertextranslations.vert2] = f29 * f21 + f30 * f22 + f31 * f23 + f32 * f24;
-                this.vertexColorMultiplier[blockmodelrenderer$vertextranslations.vert3] = f29 * f25 + f30 * f26 + f31 * f27 + f32 * f28;
-                int i2 = this.getAoBrightness(l, i, j1, i3);
-                int j2 = this.getAoBrightness(k, i, i1, i3);
-                int k2 = this.getAoBrightness(k, j, k1, i3);
-                int l2 = this.getAoBrightness(l, j, l1, i3);
-                this.vertexBrightness[blockmodelrenderer$vertextranslations.vert0] = this.getVertexBrightness(i2, j2, k2, l2, f13, f14, f15, f16);
-                this.vertexBrightness[blockmodelrenderer$vertextranslations.vert1] = this.getVertexBrightness(i2, j2, k2, l2, f17, f18, f19, f20);
-                this.vertexBrightness[blockmodelrenderer$vertextranslations.vert2] = this.getVertexBrightness(i2, j2, k2, l2, f21, f22, f23, f24);
-                this.vertexBrightness[blockmodelrenderer$vertextranslations.vert3] = this.getVertexBrightness(i2, j2, k2, l2, f25, f26, f27, f28);
+                vertexColorMultiplier[blockmodelrenderer$vertextranslations.vert0] = f29 * f13 + f30 * f14 + f31 * f15 + f32 * f16;
+                vertexColorMultiplier[blockmodelrenderer$vertextranslations.vert1] = f29 * f17 + f30 * f18 + f31 * f19 + f32 * f20;
+                vertexColorMultiplier[blockmodelrenderer$vertextranslations.vert2] = f29 * f21 + f30 * f22 + f31 * f23 + f32 * f24;
+                vertexColorMultiplier[blockmodelrenderer$vertextranslations.vert3] = f29 * f25 + f30 * f26 + f31 * f27 + f32 * f28;
+                int i2 = getAoBrightness(l, i, j1, i3);
+                int j2 = getAoBrightness(k, i, i1, i3);
+                int k2 = getAoBrightness(k, j, k1, i3);
+                int l2 = getAoBrightness(l, j, l1, i3);
+                vertexBrightness[blockmodelrenderer$vertextranslations.vert0] = getVertexBrightness(i2, j2, k2, l2, f13, f14, f15, f16);
+                vertexBrightness[blockmodelrenderer$vertextranslations.vert1] = getVertexBrightness(i2, j2, k2, l2, f17, f18, f19, f20);
+                vertexBrightness[blockmodelrenderer$vertextranslations.vert2] = getVertexBrightness(i2, j2, k2, l2, f21, f22, f23, f24);
+                vertexBrightness[blockmodelrenderer$vertextranslations.vert3] = getVertexBrightness(i2, j2, k2, l2, f25, f26, f27, f28);
             }
             else
             {
@@ -481,14 +481,14 @@ public class BlockModelRenderer
                 float f10 = (f2 + f + f4 + f8) * 0.25F;
                 float f11 = (f2 + f1 + f6 + f8) * 0.25F;
                 float f12 = (f3 + f1 + f7 + f8) * 0.25F;
-                this.vertexBrightness[blockmodelrenderer$vertextranslations.vert0] = this.getAoBrightness(l, i, j1, i3);
-                this.vertexBrightness[blockmodelrenderer$vertextranslations.vert1] = this.getAoBrightness(k, i, i1, i3);
-                this.vertexBrightness[blockmodelrenderer$vertextranslations.vert2] = this.getAoBrightness(k, j, k1, i3);
-                this.vertexBrightness[blockmodelrenderer$vertextranslations.vert3] = this.getAoBrightness(l, j, l1, i3);
-                this.vertexColorMultiplier[blockmodelrenderer$vertextranslations.vert0] = f9;
-                this.vertexColorMultiplier[blockmodelrenderer$vertextranslations.vert1] = f10;
-                this.vertexColorMultiplier[blockmodelrenderer$vertextranslations.vert2] = f11;
-                this.vertexColorMultiplier[blockmodelrenderer$vertextranslations.vert3] = f12;
+                vertexBrightness[blockmodelrenderer$vertextranslations.vert0] = getAoBrightness(l, i, j1, i3);
+                vertexBrightness[blockmodelrenderer$vertextranslations.vert1] = getAoBrightness(k, i, i1, i3);
+                vertexBrightness[blockmodelrenderer$vertextranslations.vert2] = getAoBrightness(k, j, k1, i3);
+                vertexBrightness[blockmodelrenderer$vertextranslations.vert3] = getAoBrightness(l, j, l1, i3);
+                vertexColorMultiplier[blockmodelrenderer$vertextranslations.vert0] = f9;
+                vertexColorMultiplier[blockmodelrenderer$vertextranslations.vert1] = f10;
+                vertexColorMultiplier[blockmodelrenderer$vertextranslations.vert2] = f11;
+                vertexColorMultiplier[blockmodelrenderer$vertextranslations.vert3] = f12;
             }
         }
 
@@ -540,13 +540,13 @@ public class BlockModelRenderer
 
         private EnumNeighborInfo(EnumFacing[] p_i46236_3_, float p_i46236_4_, boolean p_i46236_5_, BlockModelRenderer.Orientation[] p_i46236_6_, BlockModelRenderer.Orientation[] p_i46236_7_, BlockModelRenderer.Orientation[] p_i46236_8_, BlockModelRenderer.Orientation[] p_i46236_9_)
         {
-            this.corners = p_i46236_3_;
-            this.shadeWeight = p_i46236_4_;
-            this.doNonCubicWeight = p_i46236_5_;
-            this.vert0Weights = p_i46236_6_;
-            this.vert1Weights = p_i46236_7_;
-            this.vert2Weights = p_i46236_8_;
-            this.vert3Weights = p_i46236_9_;
+            corners = p_i46236_3_;
+            shadeWeight = p_i46236_4_;
+            doNonCubicWeight = p_i46236_5_;
+            vert0Weights = p_i46236_6_;
+            vert1Weights = p_i46236_7_;
+            vert2Weights = p_i46236_8_;
+            vert3Weights = p_i46236_9_;
         }
 
         public static BlockModelRenderer.EnumNeighborInfo getNeighbourInfo(EnumFacing p_178273_0_)
@@ -583,7 +583,7 @@ public class BlockModelRenderer
 
         private Orientation(EnumFacing p_i46233_3_, boolean p_i46233_4_)
         {
-            this.shape = p_i46233_3_.getIndex() + (p_i46233_4_ ? EnumFacing.values().length : 0);
+            shape = p_i46233_3_.getIndex() + (p_i46233_4_ ? EnumFacing.values().length : 0);
         }
     }
 
@@ -604,10 +604,10 @@ public class BlockModelRenderer
 
         private VertexTranslations(int p_i46234_3_, int p_i46234_4_, int p_i46234_5_, int p_i46234_6_)
         {
-            this.vert0 = p_i46234_3_;
-            this.vert1 = p_i46234_4_;
-            this.vert2 = p_i46234_5_;
-            this.vert3 = p_i46234_6_;
+            vert0 = p_i46234_3_;
+            vert1 = p_i46234_4_;
+            vert2 = p_i46234_5_;
+            vert3 = p_i46234_6_;
         }
 
         public static BlockModelRenderer.VertexTranslations getVertexTranslations(EnumFacing p_178184_0_)

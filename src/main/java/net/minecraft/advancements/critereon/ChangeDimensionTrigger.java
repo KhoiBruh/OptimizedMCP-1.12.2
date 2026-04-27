@@ -28,12 +28,12 @@ public class ChangeDimensionTrigger implements ICriterionTrigger<ChangeDimension
 
     public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<ChangeDimensionTrigger.Instance> listener)
     {
-        ChangeDimensionTrigger.Listeners changedimensiontrigger$listeners = this.listeners.get(playerAdvancementsIn);
+        ChangeDimensionTrigger.Listeners changedimensiontrigger$listeners = listeners.get(playerAdvancementsIn);
 
         if (changedimensiontrigger$listeners == null)
         {
             changedimensiontrigger$listeners = new ChangeDimensionTrigger.Listeners(playerAdvancementsIn);
-            this.listeners.put(playerAdvancementsIn, changedimensiontrigger$listeners);
+            listeners.put(playerAdvancementsIn, changedimensiontrigger$listeners);
         }
 
         changedimensiontrigger$listeners.add(listener);
@@ -41,7 +41,7 @@ public class ChangeDimensionTrigger implements ICriterionTrigger<ChangeDimension
 
     public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<ChangeDimensionTrigger.Instance> listener)
     {
-        ChangeDimensionTrigger.Listeners changedimensiontrigger$listeners = this.listeners.get(playerAdvancementsIn);
+        ChangeDimensionTrigger.Listeners changedimensiontrigger$listeners = listeners.get(playerAdvancementsIn);
 
         if (changedimensiontrigger$listeners != null)
         {
@@ -49,14 +49,14 @@ public class ChangeDimensionTrigger implements ICriterionTrigger<ChangeDimension
 
             if (changedimensiontrigger$listeners.isEmpty())
             {
-                this.listeners.remove(playerAdvancementsIn);
+                listeners.remove(playerAdvancementsIn);
             }
         }
     }
 
     public void removeAllListeners(PlayerAdvancements playerAdvancementsIn)
     {
-        this.listeners.remove(playerAdvancementsIn);
+        listeners.remove(playerAdvancementsIn);
     }
 
     /**
@@ -71,7 +71,7 @@ public class ChangeDimensionTrigger implements ICriterionTrigger<ChangeDimension
 
     public void trigger(EntityPlayerMP player, DimensionType from, DimensionType to)
     {
-        ChangeDimensionTrigger.Listeners changedimensiontrigger$listeners = this.listeners.get(player.getAdvancements());
+        ChangeDimensionTrigger.Listeners changedimensiontrigger$listeners = listeners.get(player.getAdvancements());
 
         if (changedimensiontrigger$listeners != null)
         {
@@ -113,29 +113,29 @@ public class ChangeDimensionTrigger implements ICriterionTrigger<ChangeDimension
 
         public Listeners(PlayerAdvancements playerAdvancementsIn)
         {
-            this.playerAdvancements = playerAdvancementsIn;
+            playerAdvancements = playerAdvancementsIn;
         }
 
         public boolean isEmpty()
         {
-            return this.listeners.isEmpty();
+            return listeners.isEmpty();
         }
 
         public void add(ICriterionTrigger.Listener<ChangeDimensionTrigger.Instance> listener)
         {
-            this.listeners.add(listener);
+            listeners.add(listener);
         }
 
         public void remove(ICriterionTrigger.Listener<ChangeDimensionTrigger.Instance> listener)
         {
-            this.listeners.remove(listener);
+            listeners.remove(listener);
         }
 
         public void trigger(DimensionType from, DimensionType to)
         {
             List<ICriterionTrigger.Listener<ChangeDimensionTrigger.Instance>> list = null;
 
-            for (ICriterionTrigger.Listener<ChangeDimensionTrigger.Instance> listener : this.listeners)
+            for (ICriterionTrigger.Listener<ChangeDimensionTrigger.Instance> listener : listeners)
             {
                 if (((ChangeDimensionTrigger.Instance)listener.getCriterionInstance()).test(from, to))
                 {
@@ -152,7 +152,7 @@ public class ChangeDimensionTrigger implements ICriterionTrigger<ChangeDimension
             {
                 for (ICriterionTrigger.Listener<ChangeDimensionTrigger.Instance> listener1 : list)
                 {
-                    listener1.grantCriterion(this.playerAdvancements);
+                    listener1.grantCriterion(playerAdvancements);
                 }
             }
         }

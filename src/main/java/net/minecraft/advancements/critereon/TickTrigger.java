@@ -24,12 +24,12 @@ public class TickTrigger implements ICriterionTrigger<TickTrigger.Instance>
 
     public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<TickTrigger.Instance> listener)
     {
-        TickTrigger.Listeners ticktrigger$listeners = this.listeners.get(playerAdvancementsIn);
+        TickTrigger.Listeners ticktrigger$listeners = listeners.get(playerAdvancementsIn);
 
         if (ticktrigger$listeners == null)
         {
             ticktrigger$listeners = new TickTrigger.Listeners(playerAdvancementsIn);
-            this.listeners.put(playerAdvancementsIn, ticktrigger$listeners);
+            listeners.put(playerAdvancementsIn, ticktrigger$listeners);
         }
 
         ticktrigger$listeners.add(listener);
@@ -37,7 +37,7 @@ public class TickTrigger implements ICriterionTrigger<TickTrigger.Instance>
 
     public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<TickTrigger.Instance> listener)
     {
-        TickTrigger.Listeners ticktrigger$listeners = this.listeners.get(playerAdvancementsIn);
+        TickTrigger.Listeners ticktrigger$listeners = listeners.get(playerAdvancementsIn);
 
         if (ticktrigger$listeners != null)
         {
@@ -45,14 +45,14 @@ public class TickTrigger implements ICriterionTrigger<TickTrigger.Instance>
 
             if (ticktrigger$listeners.isEmpty())
             {
-                this.listeners.remove(playerAdvancementsIn);
+                listeners.remove(playerAdvancementsIn);
             }
         }
     }
 
     public void removeAllListeners(PlayerAdvancements playerAdvancementsIn)
     {
-        this.listeners.remove(playerAdvancementsIn);
+        listeners.remove(playerAdvancementsIn);
     }
 
     /**
@@ -65,7 +65,7 @@ public class TickTrigger implements ICriterionTrigger<TickTrigger.Instance>
 
     public void trigger(EntityPlayerMP player)
     {
-        TickTrigger.Listeners ticktrigger$listeners = this.listeners.get(player.getAdvancements());
+        TickTrigger.Listeners ticktrigger$listeners = listeners.get(player.getAdvancements());
 
         if (ticktrigger$listeners != null)
         {
@@ -88,29 +88,29 @@ public class TickTrigger implements ICriterionTrigger<TickTrigger.Instance>
 
         public Listeners(PlayerAdvancements playerAdvancementsIn)
         {
-            this.playerAdvancements = playerAdvancementsIn;
+            playerAdvancements = playerAdvancementsIn;
         }
 
         public boolean isEmpty()
         {
-            return this.listeners.isEmpty();
+            return listeners.isEmpty();
         }
 
         public void add(ICriterionTrigger.Listener<TickTrigger.Instance> listener)
         {
-            this.listeners.add(listener);
+            listeners.add(listener);
         }
 
         public void remove(ICriterionTrigger.Listener<TickTrigger.Instance> listener)
         {
-            this.listeners.remove(listener);
+            listeners.remove(listener);
         }
 
         public void trigger()
         {
-            for (ICriterionTrigger.Listener<TickTrigger.Instance> listener : Lists.newArrayList(this.listeners))
+            for (ICriterionTrigger.Listener<TickTrigger.Instance> listener : Lists.newArrayList(listeners))
             {
-                listener.grantCriterion(this.playerAdvancements);
+                listener.grantCriterion(playerAdvancements);
             }
         }
     }

@@ -13,12 +13,12 @@ public class FunctionObject
 
     public FunctionObject(FunctionObject.Entry[] entriesIn)
     {
-        this.entries = entriesIn;
+        entries = entriesIn;
     }
 
     public FunctionObject.Entry[] getEntries()
     {
-        return this.entries;
+        return entries;
     }
 
     /**
@@ -69,34 +69,34 @@ public class FunctionObject
 
         public CacheableFunction(@Nullable ResourceLocation idIn)
         {
-            this.id = idIn;
+            id = idIn;
         }
 
         public CacheableFunction(FunctionObject functionIn)
         {
-            this.id = null;
-            this.function = functionIn;
+            id = null;
+            function = functionIn;
         }
 
         @Nullable
         public FunctionObject get(FunctionManager functionManagerIn)
         {
-            if (!this.isValid)
+            if (!isValid)
             {
-                if (this.id != null)
+                if (id != null)
                 {
-                    this.function = functionManagerIn.getFunction(this.id);
+                    function = functionManagerIn.getFunction(id);
                 }
 
-                this.isValid = true;
+                isValid = true;
             }
 
-            return this.function;
+            return function;
         }
 
         public String toString()
         {
-            return String.valueOf((Object)this.id);
+            return String.valueOf((Object) id);
         }
     }
 
@@ -106,17 +106,17 @@ public class FunctionObject
 
         public CommandEntry(String p_i47534_1_)
         {
-            this.command = p_i47534_1_;
+            command = p_i47534_1_;
         }
 
         public void execute(FunctionManager functionManagerIn, ICommandSender sender, ArrayDeque<FunctionManager.QueuedCommand> commandQueue, int maxCommandChainLength)
         {
-            functionManagerIn.getCommandManager().executeCommand(sender, this.command);
+            functionManagerIn.getCommandManager().executeCommand(sender, command);
         }
 
         public String toString()
         {
-            return "/" + this.command;
+            return "/" + command;
         }
     }
 
@@ -131,12 +131,12 @@ public class FunctionObject
 
         public FunctionEntry(FunctionObject functionIn)
         {
-            this.function = new FunctionObject.CacheableFunction(functionIn);
+            function = new FunctionObject.CacheableFunction(functionIn);
         }
 
         public void execute(FunctionManager functionManagerIn, ICommandSender sender, ArrayDeque<FunctionManager.QueuedCommand> commandQueue, int maxCommandChainLength)
         {
-            FunctionObject functionobject = this.function.get(functionManagerIn);
+            FunctionObject functionobject = function.get(functionManagerIn);
 
             if (functionobject != null)
             {
@@ -153,7 +153,7 @@ public class FunctionObject
 
         public String toString()
         {
-            return "/function " + this.function;
+            return "/function " + function;
         }
     }
 }

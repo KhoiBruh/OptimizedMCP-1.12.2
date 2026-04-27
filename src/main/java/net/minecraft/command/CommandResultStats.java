@@ -28,13 +28,13 @@ public class CommandResultStats
 
     public CommandResultStats()
     {
-        this.entitiesID = STRING_RESULT_TYPES;
-        this.objectives = STRING_RESULT_TYPES;
+        entitiesID = STRING_RESULT_TYPES;
+        objectives = STRING_RESULT_TYPES;
     }
 
     public void setCommandStatForSender(MinecraftServer server, final ICommandSender sender, CommandResultStats.Type typeIn, int p_184932_4_)
     {
-        String s = this.entitiesID[typeIn.getTypeID()];
+        String s = entitiesID[typeIn.getTypeID()];
 
         if (s != null)
         {
@@ -96,7 +96,7 @@ public class CommandResultStats
                 return;
             }
 
-            String s2 = this.objectives[typeIn.getTypeID()];
+            String s2 = objectives[typeIn.getTypeID()];
 
             if (s2 != null)
             {
@@ -142,8 +142,8 @@ public class CommandResultStats
 
         for (CommandResultStats.Type commandresultstats$type : CommandResultStats.Type.values())
         {
-            String s = this.entitiesID[commandresultstats$type.getTypeID()];
-            String s1 = this.objectives[commandresultstats$type.getTypeID()];
+            String s = entitiesID[commandresultstats$type.getTypeID()];
+            String s1 = objectives[commandresultstats$type.getTypeID()];
 
             if (s != null && s1 != null)
             {
@@ -232,18 +232,18 @@ public class CommandResultStats
 
         private Type(int id, String name)
         {
-            this.typeID = id;
-            this.typeName = name;
+            typeID = id;
+            typeName = name;
         }
 
         public int getTypeID()
         {
-            return this.typeID;
+            return typeID;
         }
 
         public String getTypeName()
         {
-            return this.typeName;
+            return typeName;
         }
 
         public static String[] getTypeNames()

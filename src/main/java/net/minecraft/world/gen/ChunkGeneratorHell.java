@@ -76,27 +76,27 @@ public class ChunkGeneratorHell implements IChunkGenerator
 
     public ChunkGeneratorHell(World worldIn, boolean p_i45637_2_, long seed)
     {
-        this.world = worldIn;
-        this.generateStructures = p_i45637_2_;
-        this.rand = new Random(seed);
-        this.lperlinNoise1 = new NoiseGeneratorOctaves(this.rand, 16);
-        this.lperlinNoise2 = new NoiseGeneratorOctaves(this.rand, 16);
-        this.perlinNoise1 = new NoiseGeneratorOctaves(this.rand, 8);
-        this.slowsandGravelNoiseGen = new NoiseGeneratorOctaves(this.rand, 4);
-        this.netherrackExculsivityNoiseGen = new NoiseGeneratorOctaves(this.rand, 4);
-        this.scaleNoise = new NoiseGeneratorOctaves(this.rand, 10);
-        this.depthNoise = new NoiseGeneratorOctaves(this.rand, 16);
+        world = worldIn;
+        generateStructures = p_i45637_2_;
+        rand = new Random(seed);
+        lperlinNoise1 = new NoiseGeneratorOctaves(rand, 16);
+        lperlinNoise2 = new NoiseGeneratorOctaves(rand, 16);
+        perlinNoise1 = new NoiseGeneratorOctaves(rand, 8);
+        slowsandGravelNoiseGen = new NoiseGeneratorOctaves(rand, 4);
+        netherrackExculsivityNoiseGen = new NoiseGeneratorOctaves(rand, 4);
+        scaleNoise = new NoiseGeneratorOctaves(rand, 10);
+        depthNoise = new NoiseGeneratorOctaves(rand, 16);
         worldIn.setSeaLevel(63);
     }
 
     public void prepareHeights(int p_185936_1_, int p_185936_2_, ChunkPrimer primer)
     {
         int i = 4;
-        int j = this.world.getSeaLevel() / 2 + 1;
+        int j = world.getSeaLevel() / 2 + 1;
         int k = 5;
         int l = 17;
         int i1 = 5;
-        this.buffer = this.getHeights(this.buffer, p_185936_1_ * 4, 0, p_185936_2_ * 4, 5, 17, 5);
+        buffer = getHeights(buffer, p_185936_1_ * 4, 0, p_185936_2_ * 4, 5, 17, 5);
 
         for (int j1 = 0; j1 < 4; ++j1)
         {
@@ -105,14 +105,14 @@ public class ChunkGeneratorHell implements IChunkGenerator
                 for (int l1 = 0; l1 < 16; ++l1)
                 {
                     double d0 = 0.125D;
-                    double d1 = this.buffer[((j1 + 0) * 5 + k1 + 0) * 17 + l1 + 0];
-                    double d2 = this.buffer[((j1 + 0) * 5 + k1 + 1) * 17 + l1 + 0];
-                    double d3 = this.buffer[((j1 + 1) * 5 + k1 + 0) * 17 + l1 + 0];
-                    double d4 = this.buffer[((j1 + 1) * 5 + k1 + 1) * 17 + l1 + 0];
-                    double d5 = (this.buffer[((j1 + 0) * 5 + k1 + 0) * 17 + l1 + 1] - d1) * 0.125D;
-                    double d6 = (this.buffer[((j1 + 0) * 5 + k1 + 1) * 17 + l1 + 1] - d2) * 0.125D;
-                    double d7 = (this.buffer[((j1 + 1) * 5 + k1 + 0) * 17 + l1 + 1] - d3) * 0.125D;
-                    double d8 = (this.buffer[((j1 + 1) * 5 + k1 + 1) * 17 + l1 + 1] - d4) * 0.125D;
+                    double d1 = buffer[((j1 + 0) * 5 + k1 + 0) * 17 + l1 + 0];
+                    double d2 = buffer[((j1 + 0) * 5 + k1 + 1) * 17 + l1 + 0];
+                    double d3 = buffer[((j1 + 1) * 5 + k1 + 0) * 17 + l1 + 0];
+                    double d4 = buffer[((j1 + 1) * 5 + k1 + 1) * 17 + l1 + 0];
+                    double d5 = (buffer[((j1 + 0) * 5 + k1 + 0) * 17 + l1 + 1] - d1) * 0.125D;
+                    double d6 = (buffer[((j1 + 0) * 5 + k1 + 1) * 17 + l1 + 1] - d2) * 0.125D;
+                    double d7 = (buffer[((j1 + 1) * 5 + k1 + 0) * 17 + l1 + 1] - d3) * 0.125D;
+                    double d8 = (buffer[((j1 + 1) * 5 + k1 + 1) * 17 + l1 + 1] - d4) * 0.125D;
 
                     for (int i2 = 0; i2 < 8; ++i2)
                     {
@@ -165,26 +165,26 @@ public class ChunkGeneratorHell implements IChunkGenerator
 
     public void buildSurfaces(int p_185937_1_, int p_185937_2_, ChunkPrimer primer)
     {
-        int i = this.world.getSeaLevel() + 1;
+        int i = world.getSeaLevel() + 1;
         double d0 = 0.03125D;
-        this.slowsandNoise = this.slowsandGravelNoiseGen.generateNoiseOctaves(this.slowsandNoise, p_185937_1_ * 16, p_185937_2_ * 16, 0, 16, 16, 1, 0.03125D, 0.03125D, 1.0D);
-        this.gravelNoise = this.slowsandGravelNoiseGen.generateNoiseOctaves(this.gravelNoise, p_185937_1_ * 16, 109, p_185937_2_ * 16, 16, 1, 16, 0.03125D, 1.0D, 0.03125D);
-        this.depthBuffer = this.netherrackExculsivityNoiseGen.generateNoiseOctaves(this.depthBuffer, p_185937_1_ * 16, p_185937_2_ * 16, 0, 16, 16, 1, 0.0625D, 0.0625D, 0.0625D);
+        slowsandNoise = slowsandGravelNoiseGen.generateNoiseOctaves(slowsandNoise, p_185937_1_ * 16, p_185937_2_ * 16, 0, 16, 16, 1, 0.03125D, 0.03125D, 1.0D);
+        gravelNoise = slowsandGravelNoiseGen.generateNoiseOctaves(gravelNoise, p_185937_1_ * 16, 109, p_185937_2_ * 16, 16, 1, 16, 0.03125D, 1.0D, 0.03125D);
+        depthBuffer = netherrackExculsivityNoiseGen.generateNoiseOctaves(depthBuffer, p_185937_1_ * 16, p_185937_2_ * 16, 0, 16, 16, 1, 0.0625D, 0.0625D, 0.0625D);
 
         for (int j = 0; j < 16; ++j)
         {
             for (int k = 0; k < 16; ++k)
             {
-                boolean flag = this.slowsandNoise[j + k * 16] + this.rand.nextDouble() * 0.2D > 0.0D;
-                boolean flag1 = this.gravelNoise[j + k * 16] + this.rand.nextDouble() * 0.2D > 0.0D;
-                int l = (int)(this.depthBuffer[j + k * 16] / 3.0D + 3.0D + this.rand.nextDouble() * 0.25D);
+                boolean flag = slowsandNoise[j + k * 16] + rand.nextDouble() * 0.2D > 0.0D;
+                boolean flag1 = gravelNoise[j + k * 16] + rand.nextDouble() * 0.2D > 0.0D;
+                int l = (int)(depthBuffer[j + k * 16] / 3.0D + 3.0D + rand.nextDouble() * 0.25D);
                 int i1 = -1;
                 IBlockState iblockstate = NETHERRACK;
                 IBlockState iblockstate1 = NETHERRACK;
 
                 for (int j1 = 127; j1 >= 0; --j1)
                 {
-                    if (j1 < 127 - this.rand.nextInt(5) && j1 > this.rand.nextInt(5))
+                    if (j1 < 127 - rand.nextInt(5) && j1 > rand.nextInt(5))
                     {
                         IBlockState iblockstate2 = primer.getBlockState(k, j1, j);
 
@@ -259,19 +259,19 @@ public class ChunkGeneratorHell implements IChunkGenerator
      */
     public Chunk generateChunk(int x, int z)
     {
-        this.rand.setSeed((long)x * 341873128712L + (long)z * 132897987541L);
+        rand.setSeed((long)x * 341873128712L + (long)z * 132897987541L);
         ChunkPrimer chunkprimer = new ChunkPrimer();
-        this.prepareHeights(x, z, chunkprimer);
-        this.buildSurfaces(x, z, chunkprimer);
-        this.genNetherCaves.generate(this.world, x, z, chunkprimer);
+        prepareHeights(x, z, chunkprimer);
+        buildSurfaces(x, z, chunkprimer);
+        genNetherCaves.generate(world, x, z, chunkprimer);
 
-        if (this.generateStructures)
+        if (generateStructures)
         {
-            this.genNetherBridge.generate(this.world, x, z, chunkprimer);
+            genNetherBridge.generate(world, x, z, chunkprimer);
         }
 
-        Chunk chunk = new Chunk(this.world, chunkprimer, x, z);
-        Biome[] abiome = this.world.getBiomeProvider().getBiomes((Biome[])null, x * 16, z * 16, 16, 16);
+        Chunk chunk = new Chunk(world, chunkprimer, x, z);
+        Biome[] abiome = world.getBiomeProvider().getBiomes((Biome[])null, x * 16, z * 16, 16, 16);
         byte[] abyte = chunk.getBiomeArray();
 
         for (int i = 0; i < abyte.length; ++i)
@@ -292,11 +292,11 @@ public class ChunkGeneratorHell implements IChunkGenerator
 
         double d0 = 684.412D;
         double d1 = 2053.236D;
-        this.noiseData4 = this.scaleNoise.generateNoiseOctaves(this.noiseData4, p_185938_2_, p_185938_3_, p_185938_4_, p_185938_5_, 1, p_185938_7_, 1.0D, 0.0D, 1.0D);
-        this.dr = this.depthNoise.generateNoiseOctaves(this.dr, p_185938_2_, p_185938_3_, p_185938_4_, p_185938_5_, 1, p_185938_7_, 100.0D, 0.0D, 100.0D);
-        this.pnr = this.perlinNoise1.generateNoiseOctaves(this.pnr, p_185938_2_, p_185938_3_, p_185938_4_, p_185938_5_, p_185938_6_, p_185938_7_, 8.555150000000001D, 34.2206D, 8.555150000000001D);
-        this.ar = this.lperlinNoise1.generateNoiseOctaves(this.ar, p_185938_2_, p_185938_3_, p_185938_4_, p_185938_5_, p_185938_6_, p_185938_7_, 684.412D, 2053.236D, 684.412D);
-        this.br = this.lperlinNoise2.generateNoiseOctaves(this.br, p_185938_2_, p_185938_3_, p_185938_4_, p_185938_5_, p_185938_6_, p_185938_7_, 684.412D, 2053.236D, 684.412D);
+        noiseData4 = scaleNoise.generateNoiseOctaves(noiseData4, p_185938_2_, p_185938_3_, p_185938_4_, p_185938_5_, 1, p_185938_7_, 1.0D, 0.0D, 1.0D);
+        dr = depthNoise.generateNoiseOctaves(dr, p_185938_2_, p_185938_3_, p_185938_4_, p_185938_5_, 1, p_185938_7_, 100.0D, 0.0D, 100.0D);
+        pnr = perlinNoise1.generateNoiseOctaves(pnr, p_185938_2_, p_185938_3_, p_185938_4_, p_185938_5_, p_185938_6_, p_185938_7_, 8.555150000000001D, 34.2206D, 8.555150000000001D);
+        ar = lperlinNoise1.generateNoiseOctaves(ar, p_185938_2_, p_185938_3_, p_185938_4_, p_185938_5_, p_185938_6_, p_185938_7_, 684.412D, 2053.236D, 684.412D);
+        br = lperlinNoise2.generateNoiseOctaves(br, p_185938_2_, p_185938_3_, p_185938_4_, p_185938_5_, p_185938_6_, p_185938_7_, 684.412D, 2053.236D, 684.412D);
         int i = 0;
         double[] adouble = new double[p_185938_6_];
 
@@ -326,9 +326,9 @@ public class ChunkGeneratorHell implements IChunkGenerator
                 for (int k = 0; k < p_185938_6_; ++k)
                 {
                     double d4 = adouble[k];
-                    double d5 = this.ar[i] / 512.0D;
-                    double d6 = this.br[i] / 512.0D;
-                    double d7 = (this.pnr[i] / 10.0D + 1.0D) / 2.0D;
+                    double d5 = ar[i] / 512.0D;
+                    double d6 = br[i] / 512.0D;
+                    double d7 = (pnr[i] / 10.0D + 1.0D) / 2.0D;
                     double d8;
 
                     if (d7 < 0.0D)
@@ -380,58 +380,58 @@ public class ChunkGeneratorHell implements IChunkGenerator
         int i = x * 16;
         int j = z * 16;
         BlockPos blockpos = new BlockPos(i, 0, j);
-        Biome biome = this.world.getBiome(blockpos.add(16, 0, 16));
+        Biome biome = world.getBiome(blockpos.add(16, 0, 16));
         ChunkPos chunkpos = new ChunkPos(x, z);
-        this.genNetherBridge.generateStructure(this.world, this.rand, chunkpos);
+        genNetherBridge.generateStructure(world, rand, chunkpos);
 
         for (int k = 0; k < 8; ++k)
         {
-            this.hellSpringGen.generate(this.world, this.rand, blockpos.add(this.rand.nextInt(16) + 8, this.rand.nextInt(120) + 4, this.rand.nextInt(16) + 8));
+            hellSpringGen.generate(world, rand, blockpos.add(rand.nextInt(16) + 8, rand.nextInt(120) + 4, rand.nextInt(16) + 8));
         }
 
-        for (int i1 = 0; i1 < this.rand.nextInt(this.rand.nextInt(10) + 1) + 1; ++i1)
+        for (int i1 = 0; i1 < rand.nextInt(rand.nextInt(10) + 1) + 1; ++i1)
         {
-            this.fireFeature.generate(this.world, this.rand, blockpos.add(this.rand.nextInt(16) + 8, this.rand.nextInt(120) + 4, this.rand.nextInt(16) + 8));
+            fireFeature.generate(world, rand, blockpos.add(rand.nextInt(16) + 8, rand.nextInt(120) + 4, rand.nextInt(16) + 8));
         }
 
-        for (int j1 = 0; j1 < this.rand.nextInt(this.rand.nextInt(10) + 1); ++j1)
+        for (int j1 = 0; j1 < rand.nextInt(rand.nextInt(10) + 1); ++j1)
         {
-            this.lightGemGen.generate(this.world, this.rand, blockpos.add(this.rand.nextInt(16) + 8, this.rand.nextInt(120) + 4, this.rand.nextInt(16) + 8));
+            lightGemGen.generate(world, rand, blockpos.add(rand.nextInt(16) + 8, rand.nextInt(120) + 4, rand.nextInt(16) + 8));
         }
 
         for (int k1 = 0; k1 < 10; ++k1)
         {
-            this.hellPortalGen.generate(this.world, this.rand, blockpos.add(this.rand.nextInt(16) + 8, this.rand.nextInt(128), this.rand.nextInt(16) + 8));
+            hellPortalGen.generate(world, rand, blockpos.add(rand.nextInt(16) + 8, rand.nextInt(128), rand.nextInt(16) + 8));
         }
 
-        if (this.rand.nextBoolean())
+        if (rand.nextBoolean())
         {
-            this.brownMushroomFeature.generate(this.world, this.rand, blockpos.add(this.rand.nextInt(16) + 8, this.rand.nextInt(128), this.rand.nextInt(16) + 8));
+            brownMushroomFeature.generate(world, rand, blockpos.add(rand.nextInt(16) + 8, rand.nextInt(128), rand.nextInt(16) + 8));
         }
 
-        if (this.rand.nextBoolean())
+        if (rand.nextBoolean())
         {
-            this.redMushroomFeature.generate(this.world, this.rand, blockpos.add(this.rand.nextInt(16) + 8, this.rand.nextInt(128), this.rand.nextInt(16) + 8));
+            redMushroomFeature.generate(world, rand, blockpos.add(rand.nextInt(16) + 8, rand.nextInt(128), rand.nextInt(16) + 8));
         }
 
         for (int l1 = 0; l1 < 16; ++l1)
         {
-            this.quartzGen.generate(this.world, this.rand, blockpos.add(this.rand.nextInt(16), this.rand.nextInt(108) + 10, this.rand.nextInt(16)));
+            quartzGen.generate(world, rand, blockpos.add(rand.nextInt(16), rand.nextInt(108) + 10, rand.nextInt(16)));
         }
 
-        int i2 = this.world.getSeaLevel() / 2 + 1;
+        int i2 = world.getSeaLevel() / 2 + 1;
 
         for (int l = 0; l < 4; ++l)
         {
-            this.magmaGen.generate(this.world, this.rand, blockpos.add(this.rand.nextInt(16), i2 - 5 + this.rand.nextInt(10), this.rand.nextInt(16)));
+            magmaGen.generate(world, rand, blockpos.add(rand.nextInt(16), i2 - 5 + rand.nextInt(10), rand.nextInt(16)));
         }
 
         for (int j2 = 0; j2 < 16; ++j2)
         {
-            this.lavaTrapGen.generate(this.world, this.rand, blockpos.add(this.rand.nextInt(16), this.rand.nextInt(108) + 10, this.rand.nextInt(16)));
+            lavaTrapGen.generate(world, rand, blockpos.add(rand.nextInt(16), rand.nextInt(108) + 10, rand.nextInt(16)));
         }
 
-        biome.decorate(this.world, this.rand, new BlockPos(i, 0, j));
+        biome.decorate(world, rand, new BlockPos(i, 0, j));
         BlockFalling.fallInstantly = false;
     }
 
@@ -447,30 +447,30 @@ public class ChunkGeneratorHell implements IChunkGenerator
     {
         if (creatureType == EnumCreatureType.MONSTER)
         {
-            if (this.genNetherBridge.isInsideStructure(pos))
+            if (genNetherBridge.isInsideStructure(pos))
             {
-                return this.genNetherBridge.getSpawnList();
+                return genNetherBridge.getSpawnList();
             }
 
-            if (this.genNetherBridge.isPositionInStructure(this.world, pos) && this.world.getBlockState(pos.down()).getBlock() == Blocks.NETHER_BRICK)
+            if (genNetherBridge.isPositionInStructure(world, pos) && world.getBlockState(pos.down()).getBlock() == Blocks.NETHER_BRICK)
             {
-                return this.genNetherBridge.getSpawnList();
+                return genNetherBridge.getSpawnList();
             }
         }
 
-        Biome biome = this.world.getBiome(pos);
+        Biome biome = world.getBiome(pos);
         return biome.getSpawnableList(creatureType);
     }
 
     @Nullable
     public BlockPos getNearestStructurePos(World worldIn, String structureName, BlockPos position, boolean findUnexplored)
     {
-        return "Fortress".equals(structureName) && this.genNetherBridge != null ? this.genNetherBridge.getNearestStructurePos(worldIn, position, findUnexplored) : null;
+        return "Fortress".equals(structureName) && genNetherBridge != null ? genNetherBridge.getNearestStructurePos(worldIn, position, findUnexplored) : null;
     }
 
     public boolean isInsideStructure(World worldIn, String structureName, BlockPos pos)
     {
-        return "Fortress".equals(structureName) && this.genNetherBridge != null ? this.genNetherBridge.isInsideStructure(pos) : false;
+        return "Fortress".equals(structureName) && genNetherBridge != null ? genNetherBridge.isInsideStructure(pos) : false;
     }
 
     /**
@@ -480,6 +480,6 @@ public class ChunkGeneratorHell implements IChunkGenerator
      */
     public void recreateStructures(Chunk chunkIn, int x, int z)
     {
-        this.genNetherBridge.generate(this.world, x, z, (ChunkPrimer)null);
+        genNetherBridge.generate(world, x, z, (ChunkPrimer)null);
     }
 }

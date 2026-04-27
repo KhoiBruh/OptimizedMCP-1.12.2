@@ -31,9 +31,9 @@ public class BannerTextures
 
         public Cache(String id, ResourceLocation baseResource, String resourcePath)
         {
-            this.cacheId = id;
-            this.cacheResourceLocation = baseResource;
-            this.cacheResourceBase = resourcePath;
+            cacheId = id;
+            cacheResourceLocation = baseResource;
+            cacheResourceBase = resourcePath;
         }
 
         @Nullable
@@ -45,12 +45,12 @@ public class BannerTextures
             }
             else
             {
-                id = this.cacheId + id;
-                BannerTextures.CacheEntry bannertextures$cacheentry = this.cacheMap.get(id);
+                id = cacheId + id;
+                BannerTextures.CacheEntry bannertextures$cacheentry = cacheMap.get(id);
 
                 if (bannertextures$cacheentry == null)
                 {
-                    if (this.cacheMap.size() >= 256 && !this.freeCacheSlot())
+                    if (cacheMap.size() >= 256 && !freeCacheSlot())
                     {
                         return BannerTextures.BANNER_BASE_TEXTURE;
                     }
@@ -59,13 +59,13 @@ public class BannerTextures
 
                     for (BannerPattern bannerpattern : patternList)
                     {
-                        list.add(this.cacheResourceBase + bannerpattern.getFileName() + ".png");
+                        list.add(cacheResourceBase + bannerpattern.getFileName() + ".png");
                     }
 
                     bannertextures$cacheentry = new BannerTextures.CacheEntry();
                     bannertextures$cacheentry.textureLocation = new ResourceLocation(id);
-                    Minecraft.getMinecraft().getTextureManager().loadTexture(bannertextures$cacheentry.textureLocation, new LayeredColorMaskTexture(this.cacheResourceLocation, list, colorList));
-                    this.cacheMap.put(id, bannertextures$cacheentry);
+                    Minecraft.getMinecraft().getTextureManager().loadTexture(bannertextures$cacheentry.textureLocation, new LayeredColorMaskTexture(cacheResourceLocation, list, colorList));
+                    cacheMap.put(id, bannertextures$cacheentry);
                 }
 
                 bannertextures$cacheentry.lastUseMillis = System.currentTimeMillis();
@@ -76,12 +76,12 @@ public class BannerTextures
         private boolean freeCacheSlot()
         {
             long i = System.currentTimeMillis();
-            Iterator<String> iterator = this.cacheMap.keySet().iterator();
+            Iterator<String> iterator = cacheMap.keySet().iterator();
 
             while (iterator.hasNext())
             {
                 String s = iterator.next();
-                BannerTextures.CacheEntry bannertextures$cacheentry = this.cacheMap.get(s);
+                BannerTextures.CacheEntry bannertextures$cacheentry = cacheMap.get(s);
 
                 if (i - bannertextures$cacheentry.lastUseMillis > 5000L)
                 {
@@ -91,7 +91,7 @@ public class BannerTextures
                 }
             }
 
-            return this.cacheMap.size() < 256;
+            return cacheMap.size() < 256;
         }
     }
 

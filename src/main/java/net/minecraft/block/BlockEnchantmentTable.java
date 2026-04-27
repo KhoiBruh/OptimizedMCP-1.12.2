@@ -28,8 +28,8 @@ public class BlockEnchantmentTable extends BlockContainer
     protected BlockEnchantmentTable()
     {
         super(Material.ROCK, MapColor.RED);
-        this.setLightOpacity(0);
-        this.setCreativeTab(CreativeTabs.DECORATIONS);
+        setLightOpacity(0);
+        setCreativeTab(CreativeTabs.DECORATIONS);
     }
 
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)

@@ -22,7 +22,7 @@ public class RenderMinecart<T extends EntityMinecart> extends Render<T>
     public RenderMinecart(RenderManager renderManagerIn)
     {
         super(renderManagerIn);
-        this.shadowSize = 0.5F;
+        shadowSize = 0.5F;
     }
 
     /**
@@ -31,7 +31,7 @@ public class RenderMinecart<T extends EntityMinecart> extends Render<T>
     public void doRender(T entity, double x, double y, double z, float entityYaw, float partialTicks)
     {
         GlStateManager.pushMatrix();
-        this.bindEntityTexture(entity);
+        bindEntityTexture(entity);
         long i = (long)entity.getEntityId() * 493286711L;
         i = i * i * 4392167121L + i * 98761L;
         float f = (((float)(i >> 16 & 7L) + 0.5F) / 8.0F - 0.5F) * 0.004F;
@@ -91,10 +91,10 @@ public class RenderMinecart<T extends EntityMinecart> extends Render<T>
 
         int j = entity.getDisplayTileOffset();
 
-        if (this.renderOutlines)
+        if (renderOutlines)
         {
             GlStateManager.enableColorMaterial();
-            GlStateManager.enableOutlineMode(this.getTeamColor(entity));
+            GlStateManager.enableOutlineMode(getTeamColor(entity));
         }
 
         IBlockState iblockstate = entity.getDisplayTile();
@@ -102,21 +102,21 @@ public class RenderMinecart<T extends EntityMinecart> extends Render<T>
         if (iblockstate.getRenderType() != EnumBlockRenderType.INVISIBLE)
         {
             GlStateManager.pushMatrix();
-            this.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+            bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
             float f4 = 0.75F;
             GlStateManager.scale(0.75F, 0.75F, 0.75F);
             GlStateManager.translate(-0.5F, (float)(j - 8) / 16.0F, 0.5F);
-            this.renderCartContents(entity, partialTicks, iblockstate);
+            renderCartContents(entity, partialTicks, iblockstate);
             GlStateManager.popMatrix();
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-            this.bindEntityTexture(entity);
+            bindEntityTexture(entity);
         }
 
         GlStateManager.scale(-1.0F, -1.0F, 1.0F);
-        this.modelMinecart.render(entity, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
+        modelMinecart.render(entity, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
         GlStateManager.popMatrix();
 
-        if (this.renderOutlines)
+        if (renderOutlines)
         {
             GlStateManager.disableOutlineMode();
             GlStateManager.disableColorMaterial();

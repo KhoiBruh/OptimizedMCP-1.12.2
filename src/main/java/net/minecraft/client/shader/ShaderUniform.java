@@ -22,33 +22,33 @@ public class ShaderUniform
 
     public ShaderUniform(String name, int type, int count, ShaderManager manager)
     {
-        this.shaderName = name;
-        this.uniformCount = count;
-        this.uniformType = type;
-        this.shaderManager = manager;
+        shaderName = name;
+        uniformCount = count;
+        uniformType = type;
+        shaderManager = manager;
 
         if (type <= 3)
         {
-            this.uniformIntBuffer = BufferUtils.createIntBuffer(count);
-            this.uniformFloatBuffer = null;
+            uniformIntBuffer = BufferUtils.createIntBuffer(count);
+            uniformFloatBuffer = null;
         }
         else
         {
-            this.uniformIntBuffer = null;
-            this.uniformFloatBuffer = BufferUtils.createFloatBuffer(count);
+            uniformIntBuffer = null;
+            uniformFloatBuffer = BufferUtils.createFloatBuffer(count);
         }
 
-        this.uniformLocation = -1;
-        this.markDirty();
+        uniformLocation = -1;
+        markDirty();
     }
 
     private void markDirty()
     {
-        this.dirty = true;
+        dirty = true;
 
-        if (this.shaderManager != null)
+        if (shaderManager != null)
         {
-            this.shaderManager.markDirty();
+            shaderManager.markDirty();
         }
     }
 
@@ -85,238 +85,238 @@ public class ShaderUniform
 
     public void setUniformLocation(int uniformLocationIn)
     {
-        this.uniformLocation = uniformLocationIn;
+        uniformLocation = uniformLocationIn;
     }
 
     public String getShaderName()
     {
-        return this.shaderName;
+        return shaderName;
     }
 
     public void set(float p_148090_1_)
     {
-        this.uniformFloatBuffer.position(0);
-        this.uniformFloatBuffer.put(0, p_148090_1_);
-        this.markDirty();
+        uniformFloatBuffer.position(0);
+        uniformFloatBuffer.put(0, p_148090_1_);
+        markDirty();
     }
 
     public void set(float p_148087_1_, float p_148087_2_)
     {
-        this.uniformFloatBuffer.position(0);
-        this.uniformFloatBuffer.put(0, p_148087_1_);
-        this.uniformFloatBuffer.put(1, p_148087_2_);
-        this.markDirty();
+        uniformFloatBuffer.position(0);
+        uniformFloatBuffer.put(0, p_148087_1_);
+        uniformFloatBuffer.put(1, p_148087_2_);
+        markDirty();
     }
 
     public void set(float p_148095_1_, float p_148095_2_, float p_148095_3_)
     {
-        this.uniformFloatBuffer.position(0);
-        this.uniformFloatBuffer.put(0, p_148095_1_);
-        this.uniformFloatBuffer.put(1, p_148095_2_);
-        this.uniformFloatBuffer.put(2, p_148095_3_);
-        this.markDirty();
+        uniformFloatBuffer.position(0);
+        uniformFloatBuffer.put(0, p_148095_1_);
+        uniformFloatBuffer.put(1, p_148095_2_);
+        uniformFloatBuffer.put(2, p_148095_3_);
+        markDirty();
     }
 
     public void set(float p_148081_1_, float p_148081_2_, float p_148081_3_, float p_148081_4_)
     {
-        this.uniformFloatBuffer.position(0);
-        this.uniformFloatBuffer.put(p_148081_1_);
-        this.uniformFloatBuffer.put(p_148081_2_);
-        this.uniformFloatBuffer.put(p_148081_3_);
-        this.uniformFloatBuffer.put(p_148081_4_);
-        this.uniformFloatBuffer.flip();
-        this.markDirty();
+        uniformFloatBuffer.position(0);
+        uniformFloatBuffer.put(p_148081_1_);
+        uniformFloatBuffer.put(p_148081_2_);
+        uniformFloatBuffer.put(p_148081_3_);
+        uniformFloatBuffer.put(p_148081_4_);
+        uniformFloatBuffer.flip();
+        markDirty();
     }
 
     public void setSafe(float p_148092_1_, float p_148092_2_, float p_148092_3_, float p_148092_4_)
     {
-        this.uniformFloatBuffer.position(0);
+        uniformFloatBuffer.position(0);
 
-        if (this.uniformType >= 4)
+        if (uniformType >= 4)
         {
-            this.uniformFloatBuffer.put(0, p_148092_1_);
+            uniformFloatBuffer.put(0, p_148092_1_);
         }
 
-        if (this.uniformType >= 5)
+        if (uniformType >= 5)
         {
-            this.uniformFloatBuffer.put(1, p_148092_2_);
+            uniformFloatBuffer.put(1, p_148092_2_);
         }
 
-        if (this.uniformType >= 6)
+        if (uniformType >= 6)
         {
-            this.uniformFloatBuffer.put(2, p_148092_3_);
+            uniformFloatBuffer.put(2, p_148092_3_);
         }
 
-        if (this.uniformType >= 7)
+        if (uniformType >= 7)
         {
-            this.uniformFloatBuffer.put(3, p_148092_4_);
+            uniformFloatBuffer.put(3, p_148092_4_);
         }
 
-        this.markDirty();
+        markDirty();
     }
 
     public void set(int p_148083_1_, int p_148083_2_, int p_148083_3_, int p_148083_4_)
     {
-        this.uniformIntBuffer.position(0);
+        uniformIntBuffer.position(0);
 
-        if (this.uniformType >= 0)
+        if (uniformType >= 0)
         {
-            this.uniformIntBuffer.put(0, p_148083_1_);
+            uniformIntBuffer.put(0, p_148083_1_);
         }
 
-        if (this.uniformType >= 1)
+        if (uniformType >= 1)
         {
-            this.uniformIntBuffer.put(1, p_148083_2_);
+            uniformIntBuffer.put(1, p_148083_2_);
         }
 
-        if (this.uniformType >= 2)
+        if (uniformType >= 2)
         {
-            this.uniformIntBuffer.put(2, p_148083_3_);
+            uniformIntBuffer.put(2, p_148083_3_);
         }
 
-        if (this.uniformType >= 3)
+        if (uniformType >= 3)
         {
-            this.uniformIntBuffer.put(3, p_148083_4_);
+            uniformIntBuffer.put(3, p_148083_4_);
         }
 
-        this.markDirty();
+        markDirty();
     }
 
     public void set(float[] p_148097_1_)
     {
-        if (p_148097_1_.length < this.uniformCount)
+        if (p_148097_1_.length < uniformCount)
         {
-            LOGGER.warn("Uniform.set called with a too-small value array (expected {}, got {}). Ignoring.", Integer.valueOf(this.uniformCount), Integer.valueOf(p_148097_1_.length));
+            LOGGER.warn("Uniform.set called with a too-small value array (expected {}, got {}). Ignoring.", Integer.valueOf(uniformCount), Integer.valueOf(p_148097_1_.length));
         }
         else
         {
-            this.uniformFloatBuffer.position(0);
-            this.uniformFloatBuffer.put(p_148097_1_);
-            this.uniformFloatBuffer.position(0);
-            this.markDirty();
+            uniformFloatBuffer.position(0);
+            uniformFloatBuffer.put(p_148097_1_);
+            uniformFloatBuffer.position(0);
+            markDirty();
         }
     }
 
     public void set(float m00, float m01, float m02, float m03, float m10, float m11, float m12, float m13, float m20, float m21, float m22, float m23, float m30, float m31, float m32, float m33)
     {
-        this.uniformFloatBuffer.position(0);
-        this.uniformFloatBuffer.put(0, m00);
-        this.uniformFloatBuffer.put(1, m01);
-        this.uniformFloatBuffer.put(2, m02);
-        this.uniformFloatBuffer.put(3, m03);
-        this.uniformFloatBuffer.put(4, m10);
-        this.uniformFloatBuffer.put(5, m11);
-        this.uniformFloatBuffer.put(6, m12);
-        this.uniformFloatBuffer.put(7, m13);
-        this.uniformFloatBuffer.put(8, m20);
-        this.uniformFloatBuffer.put(9, m21);
-        this.uniformFloatBuffer.put(10, m22);
-        this.uniformFloatBuffer.put(11, m23);
-        this.uniformFloatBuffer.put(12, m30);
-        this.uniformFloatBuffer.put(13, m31);
-        this.uniformFloatBuffer.put(14, m32);
-        this.uniformFloatBuffer.put(15, m33);
-        this.markDirty();
+        uniformFloatBuffer.position(0);
+        uniformFloatBuffer.put(0, m00);
+        uniformFloatBuffer.put(1, m01);
+        uniformFloatBuffer.put(2, m02);
+        uniformFloatBuffer.put(3, m03);
+        uniformFloatBuffer.put(4, m10);
+        uniformFloatBuffer.put(5, m11);
+        uniformFloatBuffer.put(6, m12);
+        uniformFloatBuffer.put(7, m13);
+        uniformFloatBuffer.put(8, m20);
+        uniformFloatBuffer.put(9, m21);
+        uniformFloatBuffer.put(10, m22);
+        uniformFloatBuffer.put(11, m23);
+        uniformFloatBuffer.put(12, m30);
+        uniformFloatBuffer.put(13, m31);
+        uniformFloatBuffer.put(14, m32);
+        uniformFloatBuffer.put(15, m33);
+        markDirty();
     }
 
     public void set(Matrix4f matrix)
     {
-        this.set(matrix.m00, matrix.m01, matrix.m02, matrix.m03, matrix.m10, matrix.m11, matrix.m12, matrix.m13, matrix.m20, matrix.m21, matrix.m22, matrix.m23, matrix.m30, matrix.m31, matrix.m32, matrix.m33);
+        set(matrix.m00, matrix.m01, matrix.m02, matrix.m03, matrix.m10, matrix.m11, matrix.m12, matrix.m13, matrix.m20, matrix.m21, matrix.m22, matrix.m23, matrix.m30, matrix.m31, matrix.m32, matrix.m33);
     }
 
     public void upload()
     {
-        if (!this.dirty)
+        if (!dirty)
         {
             ;
         }
 
-        this.dirty = false;
+        dirty = false;
 
-        if (this.uniformType <= 3)
+        if (uniformType <= 3)
         {
-            this.uploadInt();
+            uploadInt();
         }
-        else if (this.uniformType <= 7)
+        else if (uniformType <= 7)
         {
-            this.uploadFloat();
+            uploadFloat();
         }
         else
         {
-            if (this.uniformType > 10)
+            if (uniformType > 10)
             {
-                LOGGER.warn("Uniform.upload called, but type value ({}) is not a valid type. Ignoring.", (int)this.uniformType);
+                LOGGER.warn("Uniform.upload called, but type value ({}) is not a valid type. Ignoring.", (int) uniformType);
                 return;
             }
 
-            this.uploadFloatMatrix();
+            uploadFloatMatrix();
         }
     }
 
     private void uploadInt()
     {
-        switch (this.uniformType)
+        switch (uniformType)
         {
             case 0:
-                OpenGlHelper.glUniform1(this.uniformLocation, this.uniformIntBuffer);
+                OpenGlHelper.glUniform1(uniformLocation, uniformIntBuffer);
                 break;
 
             case 1:
-                OpenGlHelper.glUniform2(this.uniformLocation, this.uniformIntBuffer);
+                OpenGlHelper.glUniform2(uniformLocation, uniformIntBuffer);
                 break;
 
             case 2:
-                OpenGlHelper.glUniform3(this.uniformLocation, this.uniformIntBuffer);
+                OpenGlHelper.glUniform3(uniformLocation, uniformIntBuffer);
                 break;
 
             case 3:
-                OpenGlHelper.glUniform4(this.uniformLocation, this.uniformIntBuffer);
+                OpenGlHelper.glUniform4(uniformLocation, uniformIntBuffer);
                 break;
 
             default:
-                LOGGER.warn("Uniform.upload called, but count value ({}) is  not in the range of 1 to 4. Ignoring.", (int)this.uniformCount);
+                LOGGER.warn("Uniform.upload called, but count value ({}) is  not in the range of 1 to 4. Ignoring.", (int) uniformCount);
         }
     }
 
     private void uploadFloat()
     {
-        switch (this.uniformType)
+        switch (uniformType)
         {
             case 4:
-                OpenGlHelper.glUniform1(this.uniformLocation, this.uniformFloatBuffer);
+                OpenGlHelper.glUniform1(uniformLocation, uniformFloatBuffer);
                 break;
 
             case 5:
-                OpenGlHelper.glUniform2(this.uniformLocation, this.uniformFloatBuffer);
+                OpenGlHelper.glUniform2(uniformLocation, uniformFloatBuffer);
                 break;
 
             case 6:
-                OpenGlHelper.glUniform3(this.uniformLocation, this.uniformFloatBuffer);
+                OpenGlHelper.glUniform3(uniformLocation, uniformFloatBuffer);
                 break;
 
             case 7:
-                OpenGlHelper.glUniform4(this.uniformLocation, this.uniformFloatBuffer);
+                OpenGlHelper.glUniform4(uniformLocation, uniformFloatBuffer);
                 break;
 
             default:
-                LOGGER.warn("Uniform.upload called, but count value ({}) is not in the range of 1 to 4. Ignoring.", (int)this.uniformCount);
+                LOGGER.warn("Uniform.upload called, but count value ({}) is not in the range of 1 to 4. Ignoring.", (int) uniformCount);
         }
     }
 
     private void uploadFloatMatrix()
     {
-        switch (this.uniformType)
+        switch (uniformType)
         {
             case 8:
-                OpenGlHelper.glUniformMatrix2(this.uniformLocation, true, this.uniformFloatBuffer);
+                OpenGlHelper.glUniformMatrix2(uniformLocation, true, uniformFloatBuffer);
                 break;
 
             case 9:
-                OpenGlHelper.glUniformMatrix3(this.uniformLocation, true, this.uniformFloatBuffer);
+                OpenGlHelper.glUniformMatrix3(uniformLocation, true, uniformFloatBuffer);
                 break;
 
             case 10:
-                OpenGlHelper.glUniformMatrix4(this.uniformLocation, true, this.uniformFloatBuffer);
+                OpenGlHelper.glUniformMatrix4(uniformLocation, true, uniformFloatBuffer);
         }
     }
 }

@@ -22,7 +22,7 @@ public class EnchantmentSweepingEdge extends Enchantment
      */
     public int getMaxEnchantability(int enchantmentLevel)
     {
-        return this.getMinEnchantability(enchantmentLevel) + 15;
+        return getMinEnchantability(enchantmentLevel) + 15;
     }
 
     /**

@@ -73,26 +73,26 @@ public class ModelBakery
 
     public ModelBakery(IResourceManager resourceManagerIn, TextureMap textureMapIn, BlockModelShapes blockModelShapesIn)
     {
-        this.resourceManager = resourceManagerIn;
-        this.textureMap = textureMapIn;
-        this.blockModelShapes = blockModelShapesIn;
+        resourceManager = resourceManagerIn;
+        textureMap = textureMapIn;
+        blockModelShapes = blockModelShapesIn;
     }
 
     public IRegistry<ModelResourceLocation, IBakedModel> setupModelRegistry()
     {
-        this.loadBlocks();
-        this.loadVariantItemModels();
-        this.loadModelsCheck();
-        this.loadSprites();
-        this.makeItemModels();
-        this.bakeBlockModels();
-        this.bakeItemModels();
-        return this.bakedRegistry;
+        loadBlocks();
+        loadVariantItemModels();
+        loadModelsCheck();
+        loadSprites();
+        makeItemModels();
+        bakeBlockModels();
+        bakeItemModels();
+        return bakedRegistry;
     }
 
     private void loadBlocks()
     {
-        BlockStateMapper blockstatemapper = this.blockModelShapes.getBlockStateMapper();
+        BlockStateMapper blockstatemapper = blockModelShapes.getBlockStateMapper();
 
         for (Block block : Block.REGISTRY)
         {
@@ -100,19 +100,19 @@ public class ModelBakery
             {
                 try
                 {
-                    ModelBlockDefinition modelblockdefinition = this.getModelBlockDefinition(resourcelocation);
+                    ModelBlockDefinition modelblockdefinition = getModelBlockDefinition(resourcelocation);
                     Map<IBlockState, ModelResourceLocation> map = blockstatemapper.getVariants(block);
 
                     if (modelblockdefinition.hasMultipartData())
                     {
                         Collection<ModelResourceLocation> collection = Sets.newHashSet(map.values());
                         modelblockdefinition.getMultipartData().setStateContainer(block.getBlockState());
-                        Collection<ModelResourceLocation> collection1 = (Collection)this.multipartVariantMap.get(modelblockdefinition);
+                        Collection<ModelResourceLocation> collection1 = (Collection) multipartVariantMap.get(modelblockdefinition);
 
                         if (collection1 == null)
                         {
                             collection1 = Lists.<ModelResourceLocation>newArrayList();
-                            this.multipartVariantMap.put(modelblockdefinition, collection1);
+                            multipartVariantMap.put(modelblockdefinition, collection1);
                         }
 
                         collection1.addAll(Lists.newArrayList(Iterables.filter(collection, new Predicate<ModelResourceLocation>()
@@ -132,7 +132,7 @@ public class ModelBakery
                         {
                             try
                             {
-                                this.variants.put(modelresourcelocation, modelblockdefinition.getVariant(modelresourcelocation.getVariant()));
+                                variants.put(modelresourcelocation, modelblockdefinition.getVariant(modelresourcelocation.getVariant()));
                             }
                             catch (RuntimeException var12)
                             {
@@ -154,26 +154,26 @@ public class ModelBakery
 
     private void loadVariantItemModels()
     {
-        this.variants.put(MODEL_MISSING, new VariantList(Lists.newArrayList(new Variant(new ResourceLocation(MODEL_MISSING.getResourcePath()), ModelRotation.X0_Y0, false, 1))));
-        this.loadStaticModels();
-        this.loadVariantModels();
-        this.loadMultipartVariantModels();
-        this.loadItemModels();
+        variants.put(MODEL_MISSING, new VariantList(Lists.newArrayList(new Variant(new ResourceLocation(MODEL_MISSING.getResourcePath()), ModelRotation.X0_Y0, false, 1))));
+        loadStaticModels();
+        loadVariantModels();
+        loadMultipartVariantModels();
+        loadItemModels();
     }
 
     private void loadStaticModels()
     {
         ResourceLocation resourcelocation = new ResourceLocation("item_frame");
-        ModelBlockDefinition modelblockdefinition = this.getModelBlockDefinition(resourcelocation);
-        this.registerVariant(modelblockdefinition, new ModelResourceLocation(resourcelocation, "normal"));
-        this.registerVariant(modelblockdefinition, new ModelResourceLocation(resourcelocation, "map"));
+        ModelBlockDefinition modelblockdefinition = getModelBlockDefinition(resourcelocation);
+        registerVariant(modelblockdefinition, new ModelResourceLocation(resourcelocation, "normal"));
+        registerVariant(modelblockdefinition, new ModelResourceLocation(resourcelocation, "map"));
     }
 
     private void registerVariant(ModelBlockDefinition blockstateDefinition, ModelResourceLocation location)
     {
         try
         {
-            this.variants.put(location, blockstateDefinition.getVariant(location.getVariant()));
+            variants.put(location, blockstateDefinition.getVariant(location.getVariant()));
         }
         catch (RuntimeException var4)
         {
@@ -186,13 +186,13 @@ public class ModelBakery
 
     private ModelBlockDefinition getModelBlockDefinition(ResourceLocation location)
     {
-        ResourceLocation resourcelocation = this.getBlockstateLocation(location);
-        ModelBlockDefinition modelblockdefinition = this.blockDefinitions.get(resourcelocation);
+        ResourceLocation resourcelocation = getBlockstateLocation(location);
+        ModelBlockDefinition modelblockdefinition = blockDefinitions.get(resourcelocation);
 
         if (modelblockdefinition == null)
         {
-            modelblockdefinition = this.loadMultipartMBD(location, resourcelocation);
-            this.blockDefinitions.put(resourcelocation, modelblockdefinition);
+            modelblockdefinition = loadMultipartMBD(location, resourcelocation);
+            blockDefinitions.put(resourcelocation, modelblockdefinition);
         }
 
         return modelblockdefinition;
@@ -204,9 +204,9 @@ public class ModelBakery
 
         try
         {
-            for (IResource iresource : this.resourceManager.getAllResources(fileIn))
+            for (IResource iresource : resourceManager.getAllResources(fileIn))
             {
-                list.add(this.loadModelBlockDefinition(location, iresource));
+                list.add(loadModelBlockDefinition(location, iresource));
             }
         }
         catch (IOException ioexception)
@@ -246,21 +246,21 @@ public class ModelBakery
 
     private void loadVariantModels()
     {
-        for (Entry<ModelResourceLocation, VariantList> entry : this.variants.entrySet())
+        for (Entry<ModelResourceLocation, VariantList> entry : variants.entrySet())
         {
-            this.loadVariantList(entry.getKey(), entry.getValue());
+            loadVariantList(entry.getKey(), entry.getValue());
         }
     }
 
     private void loadMultipartVariantModels()
     {
-        for (Entry<ModelBlockDefinition, Collection<ModelResourceLocation>> entry : this.multipartVariantMap.entrySet())
+        for (Entry<ModelBlockDefinition, Collection<ModelResourceLocation>> entry : multipartVariantMap.entrySet())
         {
             ModelResourceLocation modelresourcelocation = (ModelResourceLocation)(entry.getValue()).iterator().next();
 
             for (VariantList variantlist : (entry.getKey()).getMultipartVariants())
             {
-                this.loadVariantList(modelresourcelocation, variantlist);
+                loadVariantList(modelresourcelocation, variantlist);
             }
         }
     }
@@ -271,11 +271,11 @@ public class ModelBakery
         {
             ResourceLocation resourcelocation = variant.getModelLocation();
 
-            if (this.models.get(resourcelocation) == null)
+            if (models.get(resourcelocation) == null)
             {
                 try
                 {
-                    this.models.put(resourcelocation, this.loadModel(resourcelocation));
+                    models.put(resourcelocation, loadModel(resourcelocation));
                 }
                 catch (Exception exception)
                 {
@@ -317,7 +317,7 @@ public class ModelBakery
                 }
                 else
                 {
-                    iresource = this.resourceManager.getResource(this.getModelLocation(location));
+                    iresource = resourceManager.getResource(getModelLocation(location));
                     reader = new InputStreamReader(iresource.getInputStream(), StandardCharsets.UTF_8);
                 }
 
@@ -345,25 +345,25 @@ public class ModelBakery
 
     private void loadItemModels()
     {
-        this.registerVariantNames();
+        registerVariantNames();
 
         for (Item item : Item.REGISTRY)
         {
-            for (String s : this.getVariantNames(item))
+            for (String s : getVariantNames(item))
             {
-                ResourceLocation resourcelocation = this.getItemLocation(s);
+                ResourceLocation resourcelocation = getItemLocation(s);
                 ResourceLocation resourcelocation1 = Item.REGISTRY.getNameForObject(item);
-                this.loadItemModel(s, resourcelocation, resourcelocation1);
+                loadItemModel(s, resourcelocation, resourcelocation1);
 
                 if (item.hasCustomProperties())
                 {
-                    ModelBlock modelblock = this.models.get(resourcelocation);
+                    ModelBlock modelblock = models.get(resourcelocation);
 
                     if (modelblock != null)
                     {
                         for (ResourceLocation resourcelocation2 : modelblock.getOverrideLocations())
                         {
-                            this.loadItemModel(resourcelocation2.toString(), resourcelocation2, resourcelocation1);
+                            loadItemModel(resourcelocation2.toString(), resourcelocation2, resourcelocation1);
                         }
                     }
                 }
@@ -373,14 +373,14 @@ public class ModelBakery
 
     private void loadItemModel(String variantName, ResourceLocation location, ResourceLocation itemName)
     {
-        this.itemLocations.put(variantName, location);
+        itemLocations.put(variantName, location);
 
-        if (this.models.get(location) == null)
+        if (models.get(location) == null)
         {
             try
             {
-                ModelBlock modelblock = this.loadModel(location);
-                this.models.put(location, modelblock);
+                ModelBlock modelblock = loadModel(location);
+                models.put(location, modelblock);
             }
             catch (Exception exception)
             {
@@ -391,58 +391,58 @@ public class ModelBakery
 
     private void registerVariantNames()
     {
-        this.variantNames.put(Item.getItemFromBlock(Blocks.STONE), Lists.newArrayList("stone", "granite", "granite_smooth", "diorite", "diorite_smooth", "andesite", "andesite_smooth"));
-        this.variantNames.put(Item.getItemFromBlock(Blocks.DIRT), Lists.newArrayList("dirt", "coarse_dirt", "podzol"));
-        this.variantNames.put(Item.getItemFromBlock(Blocks.PLANKS), Lists.newArrayList("oak_planks", "spruce_planks", "birch_planks", "jungle_planks", "acacia_planks", "dark_oak_planks"));
-        this.variantNames.put(Item.getItemFromBlock(Blocks.SAPLING), Lists.newArrayList("oak_sapling", "spruce_sapling", "birch_sapling", "jungle_sapling", "acacia_sapling", "dark_oak_sapling"));
-        this.variantNames.put(Item.getItemFromBlock(Blocks.SAND), Lists.newArrayList("sand", "red_sand"));
-        this.variantNames.put(Item.getItemFromBlock(Blocks.LOG), Lists.newArrayList("oak_log", "spruce_log", "birch_log", "jungle_log"));
-        this.variantNames.put(Item.getItemFromBlock(Blocks.LEAVES), Lists.newArrayList("oak_leaves", "spruce_leaves", "birch_leaves", "jungle_leaves"));
-        this.variantNames.put(Item.getItemFromBlock(Blocks.SPONGE), Lists.newArrayList("sponge", "sponge_wet"));
-        this.variantNames.put(Item.getItemFromBlock(Blocks.SANDSTONE), Lists.newArrayList("sandstone", "chiseled_sandstone", "smooth_sandstone"));
-        this.variantNames.put(Item.getItemFromBlock(Blocks.RED_SANDSTONE), Lists.newArrayList("red_sandstone", "chiseled_red_sandstone", "smooth_red_sandstone"));
-        this.variantNames.put(Item.getItemFromBlock(Blocks.TALLGRASS), Lists.newArrayList("dead_bush", "tall_grass", "fern"));
-        this.variantNames.put(Item.getItemFromBlock(Blocks.DEADBUSH), Lists.newArrayList("dead_bush"));
-        this.variantNames.put(Item.getItemFromBlock(Blocks.WOOL), Lists.newArrayList("black_wool", "red_wool", "green_wool", "brown_wool", "blue_wool", "purple_wool", "cyan_wool", "silver_wool", "gray_wool", "pink_wool", "lime_wool", "yellow_wool", "light_blue_wool", "magenta_wool", "orange_wool", "white_wool"));
-        this.variantNames.put(Item.getItemFromBlock(Blocks.YELLOW_FLOWER), Lists.newArrayList("dandelion"));
-        this.variantNames.put(Item.getItemFromBlock(Blocks.RED_FLOWER), Lists.newArrayList("poppy", "blue_orchid", "allium", "houstonia", "red_tulip", "orange_tulip", "white_tulip", "pink_tulip", "oxeye_daisy"));
-        this.variantNames.put(Item.getItemFromBlock(Blocks.STONE_SLAB), Lists.newArrayList("stone_slab", "sandstone_slab", "cobblestone_slab", "brick_slab", "stone_brick_slab", "nether_brick_slab", "quartz_slab"));
-        this.variantNames.put(Item.getItemFromBlock(Blocks.STONE_SLAB2), Lists.newArrayList("red_sandstone_slab"));
-        this.variantNames.put(Item.getItemFromBlock(Blocks.STAINED_GLASS), Lists.newArrayList("black_stained_glass", "red_stained_glass", "green_stained_glass", "brown_stained_glass", "blue_stained_glass", "purple_stained_glass", "cyan_stained_glass", "silver_stained_glass", "gray_stained_glass", "pink_stained_glass", "lime_stained_glass", "yellow_stained_glass", "light_blue_stained_glass", "magenta_stained_glass", "orange_stained_glass", "white_stained_glass"));
-        this.variantNames.put(Item.getItemFromBlock(Blocks.MONSTER_EGG), Lists.newArrayList("stone_monster_egg", "cobblestone_monster_egg", "stone_brick_monster_egg", "mossy_brick_monster_egg", "cracked_brick_monster_egg", "chiseled_brick_monster_egg"));
-        this.variantNames.put(Item.getItemFromBlock(Blocks.STONEBRICK), Lists.newArrayList("stonebrick", "mossy_stonebrick", "cracked_stonebrick", "chiseled_stonebrick"));
-        this.variantNames.put(Item.getItemFromBlock(Blocks.WOODEN_SLAB), Lists.newArrayList("oak_slab", "spruce_slab", "birch_slab", "jungle_slab", "acacia_slab", "dark_oak_slab"));
-        this.variantNames.put(Item.getItemFromBlock(Blocks.COBBLESTONE_WALL), Lists.newArrayList("cobblestone_wall", "mossy_cobblestone_wall"));
-        this.variantNames.put(Item.getItemFromBlock(Blocks.ANVIL), Lists.newArrayList("anvil_intact", "anvil_slightly_damaged", "anvil_very_damaged"));
-        this.variantNames.put(Item.getItemFromBlock(Blocks.QUARTZ_BLOCK), Lists.newArrayList("quartz_block", "chiseled_quartz_block", "quartz_column"));
-        this.variantNames.put(Item.getItemFromBlock(Blocks.STAINED_HARDENED_CLAY), Lists.newArrayList("black_stained_hardened_clay", "red_stained_hardened_clay", "green_stained_hardened_clay", "brown_stained_hardened_clay", "blue_stained_hardened_clay", "purple_stained_hardened_clay", "cyan_stained_hardened_clay", "silver_stained_hardened_clay", "gray_stained_hardened_clay", "pink_stained_hardened_clay", "lime_stained_hardened_clay", "yellow_stained_hardened_clay", "light_blue_stained_hardened_clay", "magenta_stained_hardened_clay", "orange_stained_hardened_clay", "white_stained_hardened_clay"));
-        this.variantNames.put(Item.getItemFromBlock(Blocks.STAINED_GLASS_PANE), Lists.newArrayList("black_stained_glass_pane", "red_stained_glass_pane", "green_stained_glass_pane", "brown_stained_glass_pane", "blue_stained_glass_pane", "purple_stained_glass_pane", "cyan_stained_glass_pane", "silver_stained_glass_pane", "gray_stained_glass_pane", "pink_stained_glass_pane", "lime_stained_glass_pane", "yellow_stained_glass_pane", "light_blue_stained_glass_pane", "magenta_stained_glass_pane", "orange_stained_glass_pane", "white_stained_glass_pane"));
-        this.variantNames.put(Item.getItemFromBlock(Blocks.LEAVES2), Lists.newArrayList("acacia_leaves", "dark_oak_leaves"));
-        this.variantNames.put(Item.getItemFromBlock(Blocks.LOG2), Lists.newArrayList("acacia_log", "dark_oak_log"));
-        this.variantNames.put(Item.getItemFromBlock(Blocks.PRISMARINE), Lists.newArrayList("prismarine", "prismarine_bricks", "dark_prismarine"));
-        this.variantNames.put(Item.getItemFromBlock(Blocks.CARPET), Lists.newArrayList("black_carpet", "red_carpet", "green_carpet", "brown_carpet", "blue_carpet", "purple_carpet", "cyan_carpet", "silver_carpet", "gray_carpet", "pink_carpet", "lime_carpet", "yellow_carpet", "light_blue_carpet", "magenta_carpet", "orange_carpet", "white_carpet"));
-        this.variantNames.put(Item.getItemFromBlock(Blocks.DOUBLE_PLANT), Lists.newArrayList("sunflower", "syringa", "double_grass", "double_fern", "double_rose", "paeonia"));
-        this.variantNames.put(Items.COAL, Lists.newArrayList("coal", "charcoal"));
-        this.variantNames.put(Items.FISH, Lists.newArrayList("cod", "salmon", "clownfish", "pufferfish"));
-        this.variantNames.put(Items.COOKED_FISH, Lists.newArrayList("cooked_cod", "cooked_salmon"));
-        this.variantNames.put(Items.DYE, Lists.newArrayList("dye_black", "dye_red", "dye_green", "dye_brown", "dye_blue", "dye_purple", "dye_cyan", "dye_silver", "dye_gray", "dye_pink", "dye_lime", "dye_yellow", "dye_light_blue", "dye_magenta", "dye_orange", "dye_white"));
-        this.variantNames.put(Items.POTIONITEM, Lists.newArrayList("bottle_drinkable"));
-        this.variantNames.put(Items.SKULL, Lists.newArrayList("skull_skeleton", "skull_wither", "skull_zombie", "skull_char", "skull_creeper", "skull_dragon"));
-        this.variantNames.put(Items.SPLASH_POTION, Lists.newArrayList("bottle_splash"));
-        this.variantNames.put(Items.LINGERING_POTION, Lists.newArrayList("bottle_lingering"));
-        this.variantNames.put(Item.getItemFromBlock(Blocks.CONCRETE), Lists.newArrayList("black_concrete", "red_concrete", "green_concrete", "brown_concrete", "blue_concrete", "purple_concrete", "cyan_concrete", "silver_concrete", "gray_concrete", "pink_concrete", "lime_concrete", "yellow_concrete", "light_blue_concrete", "magenta_concrete", "orange_concrete", "white_concrete"));
-        this.variantNames.put(Item.getItemFromBlock(Blocks.CONCRETE_POWDER), Lists.newArrayList("black_concrete_powder", "red_concrete_powder", "green_concrete_powder", "brown_concrete_powder", "blue_concrete_powder", "purple_concrete_powder", "cyan_concrete_powder", "silver_concrete_powder", "gray_concrete_powder", "pink_concrete_powder", "lime_concrete_powder", "yellow_concrete_powder", "light_blue_concrete_powder", "magenta_concrete_powder", "orange_concrete_powder", "white_concrete_powder"));
-        this.variantNames.put(Item.getItemFromBlock(Blocks.AIR), Collections.emptyList());
-        this.variantNames.put(Item.getItemFromBlock(Blocks.OAK_FENCE_GATE), Lists.newArrayList("oak_fence_gate"));
-        this.variantNames.put(Item.getItemFromBlock(Blocks.OAK_FENCE), Lists.newArrayList("oak_fence"));
-        this.variantNames.put(Items.OAK_DOOR, Lists.newArrayList("oak_door"));
-        this.variantNames.put(Items.BOAT, Lists.newArrayList("oak_boat"));
-        this.variantNames.put(Items.TOTEM_OF_UNDYING, Lists.newArrayList("totem"));
+        variantNames.put(Item.getItemFromBlock(Blocks.STONE), Lists.newArrayList("stone", "granite", "granite_smooth", "diorite", "diorite_smooth", "andesite", "andesite_smooth"));
+        variantNames.put(Item.getItemFromBlock(Blocks.DIRT), Lists.newArrayList("dirt", "coarse_dirt", "podzol"));
+        variantNames.put(Item.getItemFromBlock(Blocks.PLANKS), Lists.newArrayList("oak_planks", "spruce_planks", "birch_planks", "jungle_planks", "acacia_planks", "dark_oak_planks"));
+        variantNames.put(Item.getItemFromBlock(Blocks.SAPLING), Lists.newArrayList("oak_sapling", "spruce_sapling", "birch_sapling", "jungle_sapling", "acacia_sapling", "dark_oak_sapling"));
+        variantNames.put(Item.getItemFromBlock(Blocks.SAND), Lists.newArrayList("sand", "red_sand"));
+        variantNames.put(Item.getItemFromBlock(Blocks.LOG), Lists.newArrayList("oak_log", "spruce_log", "birch_log", "jungle_log"));
+        variantNames.put(Item.getItemFromBlock(Blocks.LEAVES), Lists.newArrayList("oak_leaves", "spruce_leaves", "birch_leaves", "jungle_leaves"));
+        variantNames.put(Item.getItemFromBlock(Blocks.SPONGE), Lists.newArrayList("sponge", "sponge_wet"));
+        variantNames.put(Item.getItemFromBlock(Blocks.SANDSTONE), Lists.newArrayList("sandstone", "chiseled_sandstone", "smooth_sandstone"));
+        variantNames.put(Item.getItemFromBlock(Blocks.RED_SANDSTONE), Lists.newArrayList("red_sandstone", "chiseled_red_sandstone", "smooth_red_sandstone"));
+        variantNames.put(Item.getItemFromBlock(Blocks.TALLGRASS), Lists.newArrayList("dead_bush", "tall_grass", "fern"));
+        variantNames.put(Item.getItemFromBlock(Blocks.DEADBUSH), Lists.newArrayList("dead_bush"));
+        variantNames.put(Item.getItemFromBlock(Blocks.WOOL), Lists.newArrayList("black_wool", "red_wool", "green_wool", "brown_wool", "blue_wool", "purple_wool", "cyan_wool", "silver_wool", "gray_wool", "pink_wool", "lime_wool", "yellow_wool", "light_blue_wool", "magenta_wool", "orange_wool", "white_wool"));
+        variantNames.put(Item.getItemFromBlock(Blocks.YELLOW_FLOWER), Lists.newArrayList("dandelion"));
+        variantNames.put(Item.getItemFromBlock(Blocks.RED_FLOWER), Lists.newArrayList("poppy", "blue_orchid", "allium", "houstonia", "red_tulip", "orange_tulip", "white_tulip", "pink_tulip", "oxeye_daisy"));
+        variantNames.put(Item.getItemFromBlock(Blocks.STONE_SLAB), Lists.newArrayList("stone_slab", "sandstone_slab", "cobblestone_slab", "brick_slab", "stone_brick_slab", "nether_brick_slab", "quartz_slab"));
+        variantNames.put(Item.getItemFromBlock(Blocks.STONE_SLAB2), Lists.newArrayList("red_sandstone_slab"));
+        variantNames.put(Item.getItemFromBlock(Blocks.STAINED_GLASS), Lists.newArrayList("black_stained_glass", "red_stained_glass", "green_stained_glass", "brown_stained_glass", "blue_stained_glass", "purple_stained_glass", "cyan_stained_glass", "silver_stained_glass", "gray_stained_glass", "pink_stained_glass", "lime_stained_glass", "yellow_stained_glass", "light_blue_stained_glass", "magenta_stained_glass", "orange_stained_glass", "white_stained_glass"));
+        variantNames.put(Item.getItemFromBlock(Blocks.MONSTER_EGG), Lists.newArrayList("stone_monster_egg", "cobblestone_monster_egg", "stone_brick_monster_egg", "mossy_brick_monster_egg", "cracked_brick_monster_egg", "chiseled_brick_monster_egg"));
+        variantNames.put(Item.getItemFromBlock(Blocks.STONEBRICK), Lists.newArrayList("stonebrick", "mossy_stonebrick", "cracked_stonebrick", "chiseled_stonebrick"));
+        variantNames.put(Item.getItemFromBlock(Blocks.WOODEN_SLAB), Lists.newArrayList("oak_slab", "spruce_slab", "birch_slab", "jungle_slab", "acacia_slab", "dark_oak_slab"));
+        variantNames.put(Item.getItemFromBlock(Blocks.COBBLESTONE_WALL), Lists.newArrayList("cobblestone_wall", "mossy_cobblestone_wall"));
+        variantNames.put(Item.getItemFromBlock(Blocks.ANVIL), Lists.newArrayList("anvil_intact", "anvil_slightly_damaged", "anvil_very_damaged"));
+        variantNames.put(Item.getItemFromBlock(Blocks.QUARTZ_BLOCK), Lists.newArrayList("quartz_block", "chiseled_quartz_block", "quartz_column"));
+        variantNames.put(Item.getItemFromBlock(Blocks.STAINED_HARDENED_CLAY), Lists.newArrayList("black_stained_hardened_clay", "red_stained_hardened_clay", "green_stained_hardened_clay", "brown_stained_hardened_clay", "blue_stained_hardened_clay", "purple_stained_hardened_clay", "cyan_stained_hardened_clay", "silver_stained_hardened_clay", "gray_stained_hardened_clay", "pink_stained_hardened_clay", "lime_stained_hardened_clay", "yellow_stained_hardened_clay", "light_blue_stained_hardened_clay", "magenta_stained_hardened_clay", "orange_stained_hardened_clay", "white_stained_hardened_clay"));
+        variantNames.put(Item.getItemFromBlock(Blocks.STAINED_GLASS_PANE), Lists.newArrayList("black_stained_glass_pane", "red_stained_glass_pane", "green_stained_glass_pane", "brown_stained_glass_pane", "blue_stained_glass_pane", "purple_stained_glass_pane", "cyan_stained_glass_pane", "silver_stained_glass_pane", "gray_stained_glass_pane", "pink_stained_glass_pane", "lime_stained_glass_pane", "yellow_stained_glass_pane", "light_blue_stained_glass_pane", "magenta_stained_glass_pane", "orange_stained_glass_pane", "white_stained_glass_pane"));
+        variantNames.put(Item.getItemFromBlock(Blocks.LEAVES2), Lists.newArrayList("acacia_leaves", "dark_oak_leaves"));
+        variantNames.put(Item.getItemFromBlock(Blocks.LOG2), Lists.newArrayList("acacia_log", "dark_oak_log"));
+        variantNames.put(Item.getItemFromBlock(Blocks.PRISMARINE), Lists.newArrayList("prismarine", "prismarine_bricks", "dark_prismarine"));
+        variantNames.put(Item.getItemFromBlock(Blocks.CARPET), Lists.newArrayList("black_carpet", "red_carpet", "green_carpet", "brown_carpet", "blue_carpet", "purple_carpet", "cyan_carpet", "silver_carpet", "gray_carpet", "pink_carpet", "lime_carpet", "yellow_carpet", "light_blue_carpet", "magenta_carpet", "orange_carpet", "white_carpet"));
+        variantNames.put(Item.getItemFromBlock(Blocks.DOUBLE_PLANT), Lists.newArrayList("sunflower", "syringa", "double_grass", "double_fern", "double_rose", "paeonia"));
+        variantNames.put(Items.COAL, Lists.newArrayList("coal", "charcoal"));
+        variantNames.put(Items.FISH, Lists.newArrayList("cod", "salmon", "clownfish", "pufferfish"));
+        variantNames.put(Items.COOKED_FISH, Lists.newArrayList("cooked_cod", "cooked_salmon"));
+        variantNames.put(Items.DYE, Lists.newArrayList("dye_black", "dye_red", "dye_green", "dye_brown", "dye_blue", "dye_purple", "dye_cyan", "dye_silver", "dye_gray", "dye_pink", "dye_lime", "dye_yellow", "dye_light_blue", "dye_magenta", "dye_orange", "dye_white"));
+        variantNames.put(Items.POTIONITEM, Lists.newArrayList("bottle_drinkable"));
+        variantNames.put(Items.SKULL, Lists.newArrayList("skull_skeleton", "skull_wither", "skull_zombie", "skull_char", "skull_creeper", "skull_dragon"));
+        variantNames.put(Items.SPLASH_POTION, Lists.newArrayList("bottle_splash"));
+        variantNames.put(Items.LINGERING_POTION, Lists.newArrayList("bottle_lingering"));
+        variantNames.put(Item.getItemFromBlock(Blocks.CONCRETE), Lists.newArrayList("black_concrete", "red_concrete", "green_concrete", "brown_concrete", "blue_concrete", "purple_concrete", "cyan_concrete", "silver_concrete", "gray_concrete", "pink_concrete", "lime_concrete", "yellow_concrete", "light_blue_concrete", "magenta_concrete", "orange_concrete", "white_concrete"));
+        variantNames.put(Item.getItemFromBlock(Blocks.CONCRETE_POWDER), Lists.newArrayList("black_concrete_powder", "red_concrete_powder", "green_concrete_powder", "brown_concrete_powder", "blue_concrete_powder", "purple_concrete_powder", "cyan_concrete_powder", "silver_concrete_powder", "gray_concrete_powder", "pink_concrete_powder", "lime_concrete_powder", "yellow_concrete_powder", "light_blue_concrete_powder", "magenta_concrete_powder", "orange_concrete_powder", "white_concrete_powder"));
+        variantNames.put(Item.getItemFromBlock(Blocks.AIR), Collections.emptyList());
+        variantNames.put(Item.getItemFromBlock(Blocks.OAK_FENCE_GATE), Lists.newArrayList("oak_fence_gate"));
+        variantNames.put(Item.getItemFromBlock(Blocks.OAK_FENCE), Lists.newArrayList("oak_fence"));
+        variantNames.put(Items.OAK_DOOR, Lists.newArrayList("oak_door"));
+        variantNames.put(Items.BOAT, Lists.newArrayList("oak_boat"));
+        variantNames.put(Items.TOTEM_OF_UNDYING, Lists.newArrayList("totem"));
     }
 
     private List<String> getVariantNames(Item stack)
     {
-        List<String> list = (List)this.variantNames.get(stack);
+        List<String> list = (List) variantNames.get(stack);
 
         if (list == null)
         {
@@ -460,17 +460,17 @@ public class ModelBakery
 
     private void bakeBlockModels()
     {
-        for (ModelResourceLocation modelresourcelocation : this.variants.keySet())
+        for (ModelResourceLocation modelresourcelocation : variants.keySet())
         {
-            IBakedModel ibakedmodel = this.createRandomModelForVariantList(this.variants.get(modelresourcelocation), modelresourcelocation.toString());
+            IBakedModel ibakedmodel = createRandomModelForVariantList(variants.get(modelresourcelocation), modelresourcelocation.toString());
 
             if (ibakedmodel != null)
             {
-                this.bakedRegistry.putObject(modelresourcelocation, ibakedmodel);
+                bakedRegistry.putObject(modelresourcelocation, ibakedmodel);
             }
         }
 
-        for (Entry<ModelBlockDefinition, Collection<ModelResourceLocation>> entry : this.multipartVariantMap.entrySet())
+        for (Entry<ModelBlockDefinition, Collection<ModelResourceLocation>> entry : multipartVariantMap.entrySet())
         {
             ModelBlockDefinition modelblockdefinition = entry.getKey();
             Multipart multipart = modelblockdefinition.getMultipartData();
@@ -479,7 +479,7 @@ public class ModelBakery
 
             for (Selector selector : multipart.getSelectors())
             {
-                IBakedModel ibakedmodel1 = this.createRandomModelForVariantList(selector.getVariantList(), "selector of " + s);
+                IBakedModel ibakedmodel1 = createRandomModelForVariantList(selector.getVariantList(), "selector of " + s);
 
                 if (ibakedmodel1 != null)
                 {
@@ -493,7 +493,7 @@ public class ModelBakery
             {
                 if (!modelblockdefinition.hasVariant(modelresourcelocation1.getVariant()))
                 {
-                    this.bakedRegistry.putObject(modelresourcelocation1, ibakedmodel2);
+                    bakedRegistry.putObject(modelresourcelocation1, ibakedmodel2);
                 }
             }
         }
@@ -513,7 +513,7 @@ public class ModelBakery
 
             for (Variant variant : variantsIn.getVariantList())
             {
-                ModelBlock modelblock = this.models.get(variant.getModelLocation());
+                ModelBlock modelblock = models.get(variant.getModelLocation());
 
                 if (modelblock != null && modelblock.isResolved())
                 {
@@ -523,7 +523,7 @@ public class ModelBakery
                     }
                     else
                     {
-                        IBakedModel ibakedmodel = this.bakeModel(modelblock, variant.getRotation(), variant.isUvLock());
+                        IBakedModel ibakedmodel = bakeModel(modelblock, variant.getRotation(), variant.isUvLock());
 
                         if (ibakedmodel != null)
                         {
@@ -559,11 +559,11 @@ public class ModelBakery
 
     private void bakeItemModels()
     {
-        for (Entry<String, ResourceLocation> entry : this.itemLocations.entrySet())
+        for (Entry<String, ResourceLocation> entry : itemLocations.entrySet())
         {
             ResourceLocation resourcelocation = entry.getValue();
             ModelResourceLocation modelresourcelocation = new ModelResourceLocation(entry.getKey(), "inventory");
-            ModelBlock modelblock = this.models.get(resourcelocation);
+            ModelBlock modelblock = models.get(resourcelocation);
 
             if (modelblock != null && modelblock.isResolved())
             {
@@ -571,17 +571,17 @@ public class ModelBakery
                 {
                     LOGGER.warn("Missing elements for: {}", (Object)resourcelocation);
                 }
-                else if (this.isCustomRenderer(modelblock))
+                else if (isCustomRenderer(modelblock))
                 {
-                    this.bakedRegistry.putObject(modelresourcelocation, new BuiltInModel(modelblock.getAllTransforms(), modelblock.createOverrides()));
+                    bakedRegistry.putObject(modelresourcelocation, new BuiltInModel(modelblock.getAllTransforms(), modelblock.createOverrides()));
                 }
                 else
                 {
-                    IBakedModel ibakedmodel = this.bakeModel(modelblock, ModelRotation.X0_Y0, false);
+                    IBakedModel ibakedmodel = bakeModel(modelblock, ModelRotation.X0_Y0, false);
 
                     if (ibakedmodel != null)
                     {
-                        this.bakedRegistry.putObject(modelresourcelocation, ibakedmodel);
+                        bakedRegistry.putObject(modelresourcelocation, ibakedmodel);
                     }
                 }
             }
@@ -595,7 +595,7 @@ public class ModelBakery
     private Set<ResourceLocation> getVariantsTextureLocations()
     {
         Set<ResourceLocation> set = Sets.<ResourceLocation>newHashSet();
-        List<ModelResourceLocation> list = Lists.newArrayList(this.variants.keySet());
+        List<ModelResourceLocation> list = Lists.newArrayList(variants.keySet());
         Collections.sort(list, new Comparator<ModelResourceLocation>()
         {
             public int compare(ModelResourceLocation p_compare_1_, ModelResourceLocation p_compare_2_)
@@ -606,11 +606,11 @@ public class ModelBakery
 
         for (ModelResourceLocation modelresourcelocation : list)
         {
-            VariantList variantlist = this.variants.get(modelresourcelocation);
+            VariantList variantlist = variants.get(modelresourcelocation);
 
             for (Variant variant : variantlist.getVariantList())
             {
-                ModelBlock modelblock = this.models.get(variant.getModelLocation());
+                ModelBlock modelblock = models.get(variant.getModelLocation());
 
                 if (modelblock == null)
                 {
@@ -618,18 +618,18 @@ public class ModelBakery
                 }
                 else
                 {
-                    set.addAll(this.getTextureLocations(modelblock));
+                    set.addAll(getTextureLocations(modelblock));
                 }
             }
         }
 
-        for (ModelBlockDefinition modelblockdefinition : this.multipartVariantMap.keySet())
+        for (ModelBlockDefinition modelblockdefinition : multipartVariantMap.keySet())
         {
             for (VariantList variantlist1 : modelblockdefinition.getMultipartData().getVariants())
             {
                 for (Variant variant1 : variantlist1.getVariantList())
                 {
-                    ModelBlock modelblock1 = this.models.get(variant1.getModelLocation());
+                    ModelBlock modelblock1 = models.get(variant1.getModelLocation());
 
                     if (modelblock1 == null)
                     {
@@ -637,7 +637,7 @@ public class ModelBakery
                     }
                     else
                     {
-                        set.addAll(this.getTextureLocations(modelblock1));
+                        set.addAll(getTextureLocations(modelblock1));
                     }
                 }
             }
@@ -650,7 +650,7 @@ public class ModelBakery
     @Nullable
     private IBakedModel bakeModel(ModelBlock modelBlockIn, ModelRotation modelRotationIn, boolean uvLocked)
     {
-        TextureAtlasSprite textureatlassprite = this.sprites.get(new ResourceLocation(modelBlockIn.resolveTextureName("particle")));
+        TextureAtlasSprite textureatlassprite = sprites.get(new ResourceLocation(modelBlockIn.resolveTextureName("particle")));
         SimpleBakedModel.Builder simplebakedmodel$builder = (new SimpleBakedModel.Builder(modelBlockIn, modelBlockIn.createOverrides())).setTexture(textureatlassprite);
 
         if (modelBlockIn.getElements().isEmpty())
@@ -664,15 +664,15 @@ public class ModelBakery
                 for (EnumFacing enumfacing : blockpart.mapFaces.keySet())
                 {
                     BlockPartFace blockpartface = blockpart.mapFaces.get(enumfacing);
-                    TextureAtlasSprite textureatlassprite1 = this.sprites.get(new ResourceLocation(modelBlockIn.resolveTextureName(blockpartface.texture)));
+                    TextureAtlasSprite textureatlassprite1 = sprites.get(new ResourceLocation(modelBlockIn.resolveTextureName(blockpartface.texture)));
 
                     if (blockpartface.cullFace == null)
                     {
-                        simplebakedmodel$builder.addGeneralQuad(this.makeBakedQuad(blockpart, blockpartface, textureatlassprite1, enumfacing, modelRotationIn, uvLocked));
+                        simplebakedmodel$builder.addGeneralQuad(makeBakedQuad(blockpart, blockpartface, textureatlassprite1, enumfacing, modelRotationIn, uvLocked));
                     }
                     else
                     {
-                        simplebakedmodel$builder.addFaceQuad(modelRotationIn.rotateFace(blockpartface.cullFace), this.makeBakedQuad(blockpart, blockpartface, textureatlassprite1, enumfacing, modelRotationIn, uvLocked));
+                        simplebakedmodel$builder.addFaceQuad(modelRotationIn.rotateFace(blockpartface.cullFace), makeBakedQuad(blockpart, blockpartface, textureatlassprite1, enumfacing, modelRotationIn, uvLocked));
                     }
                 }
             }
@@ -683,19 +683,19 @@ public class ModelBakery
 
     private BakedQuad makeBakedQuad(BlockPart p_177589_1_, BlockPartFace p_177589_2_, TextureAtlasSprite p_177589_3_, EnumFacing p_177589_4_, ModelRotation p_177589_5_, boolean p_177589_6_)
     {
-        return this.faceBakery.makeBakedQuad(p_177589_1_.positionFrom, p_177589_1_.positionTo, p_177589_2_, p_177589_3_, p_177589_4_, p_177589_5_, p_177589_1_.partRotation, p_177589_6_, p_177589_1_.shade);
+        return faceBakery.makeBakedQuad(p_177589_1_.positionFrom, p_177589_1_.positionTo, p_177589_2_, p_177589_3_, p_177589_4_, p_177589_5_, p_177589_1_.partRotation, p_177589_6_, p_177589_1_.shade);
     }
 
     private void loadModelsCheck()
     {
-        this.loadModels();
+        loadModels();
 
-        for (ModelBlock modelblock : this.models.values())
+        for (ModelBlock modelblock : models.values())
         {
-            modelblock.getParentFromMap(this.models);
+            modelblock.getParentFromMap(models);
         }
 
-        ModelBlock.checkModelHierarchy(this.models);
+        ModelBlock.checkModelHierarchy(models);
     }
 
     private void loadModels()
@@ -703,10 +703,10 @@ public class ModelBakery
         Deque<ResourceLocation> deque = Queues.<ResourceLocation>newArrayDeque();
         Set<ResourceLocation> set = Sets.<ResourceLocation>newHashSet();
 
-        for (ResourceLocation resourcelocation : this.models.keySet())
+        for (ResourceLocation resourcelocation : models.keySet())
         {
             set.add(resourcelocation);
-            this.addModelParentLocation(deque, set, this.models.get(resourcelocation));
+            addModelParentLocation(deque, set, models.get(resourcelocation));
         }
 
         while (!deque.isEmpty())
@@ -715,18 +715,18 @@ public class ModelBakery
 
             try
             {
-                if (this.models.get(resourcelocation1) != null)
+                if (models.get(resourcelocation1) != null)
                 {
                     continue;
                 }
 
-                ModelBlock modelblock = this.loadModel(resourcelocation1);
-                this.models.put(resourcelocation1, modelblock);
-                this.addModelParentLocation(deque, set, modelblock);
+                ModelBlock modelblock = loadModel(resourcelocation1);
+                models.put(resourcelocation1, modelblock);
+                addModelParentLocation(deque, set, modelblock);
             }
             catch (Exception exception)
             {
-                LOGGER.warn("In parent chain: {}; unable to load model: '{}'", JOINER.join(this.getParentPath(resourcelocation1)), resourcelocation1, exception);
+                LOGGER.warn("In parent chain: {}; unable to load model: '{}'", JOINER.join(getParentPath(resourcelocation1)), resourcelocation1, exception);
             }
 
             set.add(resourcelocation1);
@@ -748,7 +748,7 @@ public class ModelBakery
         List<ResourceLocation> list = Lists.newArrayList(p_177573_1_);
         ResourceLocation resourcelocation = p_177573_1_;
 
-        while ((resourcelocation = this.getParentLocation(resourcelocation)) != null)
+        while ((resourcelocation = getParentLocation(resourcelocation)) != null)
         {
             list.add(0, resourcelocation);
         }
@@ -759,7 +759,7 @@ public class ModelBakery
     @Nullable
     private ResourceLocation getParentLocation(ResourceLocation p_177576_1_)
     {
-        for (Entry<ResourceLocation, ModelBlock> entry : this.models.entrySet())
+        for (Entry<ResourceLocation, ModelBlock> entry : models.entrySet())
         {
             ModelBlock modelblock = entry.getValue();
 
@@ -791,8 +791,8 @@ public class ModelBakery
 
     private void loadSprites()
     {
-        final Set<ResourceLocation> set = this.getVariantsTextureLocations();
-        set.addAll(this.getItemsTextureLocations());
+        final Set<ResourceLocation> set = getVariantsTextureLocations();
+        set.addAll(getItemsTextureLocations());
         set.remove(TextureMap.LOCATION_MISSING_TEXTURE);
         ITextureMapPopulator itexturemappopulator = new ITextureMapPopulator()
         {
@@ -801,34 +801,34 @@ public class ModelBakery
                 for (ResourceLocation resourcelocation : set)
                 {
                     TextureAtlasSprite textureatlassprite = textureMapIn.registerSprite(resourcelocation);
-                    ModelBakery.this.sprites.put(resourcelocation, textureatlassprite);
+                    sprites.put(resourcelocation, textureatlassprite);
                 }
             }
         };
-        this.textureMap.loadSprites(this.resourceManager, itexturemappopulator);
-        this.sprites.put(new ResourceLocation("missingno"), this.textureMap.getMissingSprite());
+        textureMap.loadSprites(resourceManager, itexturemappopulator);
+        sprites.put(new ResourceLocation("missingno"), textureMap.getMissingSprite());
     }
 
     private Set<ResourceLocation> getItemsTextureLocations()
     {
         Set<ResourceLocation> set = Sets.<ResourceLocation>newHashSet();
 
-        for (ResourceLocation resourcelocation : this.itemLocations.values())
+        for (ResourceLocation resourcelocation : itemLocations.values())
         {
-            ModelBlock modelblock = this.models.get(resourcelocation);
+            ModelBlock modelblock = models.get(resourcelocation);
 
             if (modelblock != null)
             {
                 set.add(new ResourceLocation(modelblock.resolveTextureName("particle")));
 
-                if (this.hasItemModel(modelblock))
+                if (hasItemModel(modelblock))
                 {
                     for (String s : ItemModelGenerator.LAYERS)
                     {
                         set.add(new ResourceLocation(modelblock.resolveTextureName(s)));
                     }
                 }
-                else if (!this.isCustomRenderer(modelblock))
+                else if (!isCustomRenderer(modelblock))
                 {
                     for (BlockPart blockpart : modelblock.getElements())
                     {
@@ -872,28 +872,28 @@ public class ModelBakery
 
     private void makeItemModels()
     {
-        for (ResourceLocation resourcelocation : this.itemLocations.values())
+        for (ResourceLocation resourcelocation : itemLocations.values())
         {
-            ModelBlock modelblock = this.models.get(resourcelocation);
+            ModelBlock modelblock = models.get(resourcelocation);
 
-            if (this.hasItemModel(modelblock))
+            if (hasItemModel(modelblock))
             {
-                ModelBlock modelblock1 = this.makeItemModel(modelblock);
+                ModelBlock modelblock1 = makeItemModel(modelblock);
 
                 if (modelblock1 != null)
                 {
                     modelblock1.name = resourcelocation.toString();
                 }
 
-                this.models.put(resourcelocation, modelblock1);
+                models.put(resourcelocation, modelblock1);
             }
-            else if (this.isCustomRenderer(modelblock))
+            else if (isCustomRenderer(modelblock))
             {
-                this.models.put(resourcelocation, modelblock);
+                models.put(resourcelocation, modelblock);
             }
         }
 
-        for (TextureAtlasSprite textureatlassprite : this.sprites.values())
+        for (TextureAtlasSprite textureatlassprite : sprites.values())
         {
             if (!textureatlassprite.hasAnimationMetadata())
             {
@@ -904,7 +904,7 @@ public class ModelBakery
 
     private ModelBlock makeItemModel(ModelBlock p_177582_1_)
     {
-        return this.itemModelGenerator.makeItemModel(this.textureMap, p_177582_1_);
+        return itemModelGenerator.makeItemModel(textureMap, p_177582_1_);
     }
 
     static

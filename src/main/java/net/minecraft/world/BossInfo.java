@@ -16,89 +16,89 @@ public abstract class BossInfo
 
     public BossInfo(UUID uniqueIdIn, ITextComponent nameIn, BossInfo.Color colorIn, BossInfo.Overlay overlayIn)
     {
-        this.uniqueId = uniqueIdIn;
-        this.name = nameIn;
-        this.color = colorIn;
-        this.overlay = overlayIn;
-        this.percent = 1.0F;
+        uniqueId = uniqueIdIn;
+        name = nameIn;
+        color = colorIn;
+        overlay = overlayIn;
+        percent = 1.0F;
     }
 
     public UUID getUniqueId()
     {
-        return this.uniqueId;
+        return uniqueId;
     }
 
     public ITextComponent getName()
     {
-        return this.name;
+        return name;
     }
 
     public void setName(ITextComponent nameIn)
     {
-        this.name = nameIn;
+        name = nameIn;
     }
 
     public float getPercent()
     {
-        return this.percent;
+        return percent;
     }
 
     public void setPercent(float percentIn)
     {
-        this.percent = percentIn;
+        percent = percentIn;
     }
 
     public BossInfo.Color getColor()
     {
-        return this.color;
+        return color;
     }
 
     public void setColor(BossInfo.Color colorIn)
     {
-        this.color = colorIn;
+        color = colorIn;
     }
 
     public BossInfo.Overlay getOverlay()
     {
-        return this.overlay;
+        return overlay;
     }
 
     public void setOverlay(BossInfo.Overlay overlayIn)
     {
-        this.overlay = overlayIn;
+        overlay = overlayIn;
     }
 
     public boolean shouldDarkenSky()
     {
-        return this.darkenSky;
+        return darkenSky;
     }
 
     public BossInfo setDarkenSky(boolean darkenSkyIn)
     {
-        this.darkenSky = darkenSkyIn;
+        darkenSky = darkenSkyIn;
         return this;
     }
 
     public boolean shouldPlayEndBossMusic()
     {
-        return this.playEndBossMusic;
+        return playEndBossMusic;
     }
 
     public BossInfo setPlayEndBossMusic(boolean playEndBossMusicIn)
     {
-        this.playEndBossMusic = playEndBossMusicIn;
+        playEndBossMusic = playEndBossMusicIn;
         return this;
     }
 
     public BossInfo setCreateFog(boolean createFogIn)
     {
-        this.createFog = createFogIn;
+        createFog = createFogIn;
         return this;
     }
 
     public boolean shouldCreateFog()
     {
-        return this.createFog;
+        return createFog;
     }
 
     public static enum Color

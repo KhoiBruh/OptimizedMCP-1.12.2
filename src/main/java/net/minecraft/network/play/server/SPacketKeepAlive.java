@@ -15,7 +15,7 @@ public class SPacketKeepAlive implements Packet<INetHandlerPlayClient>
 
     public SPacketKeepAlive(long idIn)
     {
-        this.id = idIn;
+        id = idIn;
     }
 
     /**
@@ -31,7 +31,7 @@ public class SPacketKeepAlive implements Packet<INetHandlerPlayClient>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.id = buf.readLong();
+        id = buf.readLong();
     }
 
     /**
@@ -39,11 +39,11 @@ public class SPacketKeepAlive implements Packet<INetHandlerPlayClient>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeLong(this.id);
+        buf.writeLong(id);
     }
 
     public long getId()
     {
-        return this.id;
+        return id;
     }
 }

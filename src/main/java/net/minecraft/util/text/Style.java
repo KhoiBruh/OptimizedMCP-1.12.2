@@ -135,7 +135,7 @@ public class Style
      */
     public TextFormatting getColor()
     {
-        return this.color == null ? this.getParent().getColor() : this.color;
+        return color == null ? getParent().getColor() : color;
     }
 
     /**
@@ -143,7 +143,7 @@ public class Style
      */
     public boolean getBold()
     {
-        return this.bold == null ? this.getParent().getBold() : this.bold.booleanValue();
+        return bold == null ? getParent().getBold() : bold.booleanValue();
     }
 
     /**
@@ -151,7 +151,7 @@ public class Style
      */
     public boolean getItalic()
     {
-        return this.italic == null ? this.getParent().getItalic() : this.italic.booleanValue();
+        return italic == null ? getParent().getItalic() : italic.booleanValue();
     }
 
     /**
@@ -159,7 +159,7 @@ public class Style
      */
     public boolean getStrikethrough()
     {
-        return this.strikethrough == null ? this.getParent().getStrikethrough() : this.strikethrough.booleanValue();
+        return strikethrough == null ? getParent().getStrikethrough() : strikethrough.booleanValue();
     }
 
     /**
@@ -167,7 +167,7 @@ public class Style
      */
     public boolean getUnderlined()
     {
-        return this.underlined == null ? this.getParent().getUnderlined() : this.underlined.booleanValue();
+        return underlined == null ? getParent().getUnderlined() : underlined.booleanValue();
     }
 
     /**
@@ -175,7 +175,7 @@ public class Style
      */
     public boolean getObfuscated()
     {
-        return this.obfuscated == null ? this.getParent().getObfuscated() : this.obfuscated.booleanValue();
+        return obfuscated == null ? getParent().getObfuscated() : obfuscated.booleanValue();
     }
 
     /**
@@ -183,7 +183,7 @@ public class Style
      */
     public boolean isEmpty()
     {
-        return this.bold == null && this.italic == null && this.strikethrough == null && this.underlined == null && this.obfuscated == null && this.color == null && this.clickEvent == null && this.hoverEvent == null && this.insertion == null;
+        return bold == null && italic == null && strikethrough == null && underlined == null && obfuscated == null && color == null && clickEvent == null && hoverEvent == null && insertion == null;
     }
 
     @Nullable
@@ -193,7 +193,7 @@ public class Style
      */
     public ClickEvent getClickEvent()
     {
-        return this.clickEvent == null ? this.getParent().getClickEvent() : this.clickEvent;
+        return clickEvent == null ? getParent().getClickEvent() : clickEvent;
     }
 
     @Nullable
@@ -203,7 +203,7 @@ public class Style
      */
     public HoverEvent getHoverEvent()
     {
-        return this.hoverEvent == null ? this.getParent().getHoverEvent() : this.hoverEvent;
+        return hoverEvent == null ? getParent().getHoverEvent() : hoverEvent;
     }
 
     @Nullable
@@ -213,7 +213,7 @@ public class Style
      */
     public String getInsertion()
     {
-        return this.insertion == null ? this.getParent().getInsertion() : this.insertion;
+        return insertion == null ? getParent().getInsertion() : insertion;
     }
 
     /**
@@ -232,7 +232,7 @@ public class Style
      */
     public Style setBold(Boolean boldIn)
     {
-        this.bold = boldIn;
+        bold = boldIn;
         return this;
     }
 
@@ -281,7 +281,7 @@ public class Style
      */
     public Style setClickEvent(ClickEvent event)
     {
-        this.clickEvent = event;
+        clickEvent = event;
         return this;
     }
 
@@ -290,7 +290,7 @@ public class Style
      */
     public Style setHoverEvent(HoverEvent event)
     {
-        this.hoverEvent = event;
+        hoverEvent = event;
         return this;
     }
 
@@ -309,7 +309,7 @@ public class Style
      */
     public Style setParentStyle(Style parent)
     {
-        this.parentStyle = parent;
+        parentStyle = parent;
         return this;
     }
 
@@ -320,40 +320,40 @@ public class Style
      */
     public String getFormattingCode()
     {
-        if (this.isEmpty())
+        if (isEmpty())
         {
-            return this.parentStyle != null ? this.parentStyle.getFormattingCode() : "";
+            return parentStyle != null ? parentStyle.getFormattingCode() : "";
         }
         else
         {
             StringBuilder stringbuilder = new StringBuilder();
 
-            if (this.getColor() != null)
+            if (getColor() != null)
             {
-                stringbuilder.append((Object)this.getColor());
+                stringbuilder.append((Object) getColor());
             }
 
-            if (this.getBold())
+            if (getBold())
             {
                 stringbuilder.append((Object)TextFormatting.BOLD);
             }
 
-            if (this.getItalic())
+            if (getItalic())
             {
                 stringbuilder.append((Object)TextFormatting.ITALIC);
             }
 
-            if (this.getUnderlined())
+            if (getUnderlined())
             {
                 stringbuilder.append((Object)TextFormatting.UNDERLINE);
             }
 
-            if (this.getObfuscated())
+            if (getObfuscated())
             {
                 stringbuilder.append((Object)TextFormatting.OBFUSCATED);
             }
 
-            if (this.getStrikethrough())
+            if (getStrikethrough())
             {
                 stringbuilder.append((Object)TextFormatting.STRIKETHROUGH);
             }
@@ -367,12 +367,12 @@ public class Style
      */
     private Style getParent()
     {
-        return this.parentStyle == null ? ROOT : this.parentStyle;
+        return parentStyle == null ? ROOT : parentStyle;
     }
 
     public String toString()
     {
-        return "Style{hasParent=" + (this.parentStyle != null) + ", color=" + this.color + ", bold=" + this.bold + ", italic=" + this.italic + ", underlined=" + this.underlined + ", obfuscated=" + this.obfuscated + ", clickEvent=" + this.getClickEvent() + ", hoverEvent=" + this.getHoverEvent() + ", insertion=" + this.getInsertion() + '}';
+        return "Style{hasParent=" + (parentStyle != null) + ", color=" + color + ", bold=" + bold + ", italic=" + italic + ", underlined=" + underlined + ", obfuscated=" + obfuscated + ", clickEvent=" + getClickEvent() + ", hoverEvent=" + getHoverEvent() + ", insertion=" + getInsertion() + '}';
     }
 
     public boolean equals(Object p_equals_1_)
@@ -392,13 +392,13 @@ public class Style
             {
                 Style style = (Style)p_equals_1_;
 
-                if (this.getBold() == style.getBold() && this.getColor() == style.getColor() && this.getItalic() == style.getItalic() && this.getObfuscated() == style.getObfuscated() && this.getStrikethrough() == style.getStrikethrough() && this.getUnderlined() == style.getUnderlined())
+                if (getBold() == style.getBold() && getColor() == style.getColor() && getItalic() == style.getItalic() && getObfuscated() == style.getObfuscated() && getStrikethrough() == style.getStrikethrough() && getUnderlined() == style.getUnderlined())
                 {
                     label71:
                     {
-                        if (this.getClickEvent() != null)
+                        if (getClickEvent() != null)
                         {
-                            if (!this.getClickEvent().equals(style.getClickEvent()))
+                            if (!getClickEvent().equals(style.getClickEvent()))
                             {
                                 break label71;
                             }
@@ -408,9 +408,9 @@ public class Style
                             break label71;
                         }
 
-                        if (this.getHoverEvent() != null)
+                        if (getHoverEvent() != null)
                         {
-                            if (!this.getHoverEvent().equals(style.getHoverEvent()))
+                            if (!getHoverEvent().equals(style.getHoverEvent()))
                             {
                                 break label71;
                             }
@@ -420,9 +420,9 @@ public class Style
                             break label71;
                         }
 
-                        if (this.getInsertion() != null)
+                        if (getInsertion() != null)
                         {
-                            if (this.getInsertion().equals(style.getInsertion()))
+                            if (getInsertion().equals(style.getInsertion()))
                             {
                                 break label77;
                             }
@@ -444,15 +444,15 @@ public class Style
 
     public int hashCode()
     {
-        int i = this.color.hashCode();
-        i = 31 * i + this.bold.hashCode();
-        i = 31 * i + this.italic.hashCode();
-        i = 31 * i + this.underlined.hashCode();
-        i = 31 * i + this.strikethrough.hashCode();
-        i = 31 * i + this.obfuscated.hashCode();
-        i = 31 * i + this.clickEvent.hashCode();
-        i = 31 * i + this.hoverEvent.hashCode();
-        i = 31 * i + this.insertion.hashCode();
+        int i = color.hashCode();
+        i = 31 * i + bold.hashCode();
+        i = 31 * i + italic.hashCode();
+        i = 31 * i + underlined.hashCode();
+        i = 31 * i + strikethrough.hashCode();
+        i = 31 * i + obfuscated.hashCode();
+        i = 31 * i + clickEvent.hashCode();
+        i = 31 * i + hoverEvent.hashCode();
+        i = 31 * i + insertion.hashCode();
         return i;
     }
 
@@ -464,16 +464,16 @@ public class Style
     public Style createShallowCopy()
     {
         Style style = new Style();
-        style.bold = this.bold;
-        style.italic = this.italic;
-        style.strikethrough = this.strikethrough;
-        style.underlined = this.underlined;
-        style.obfuscated = this.obfuscated;
-        style.color = this.color;
-        style.clickEvent = this.clickEvent;
-        style.hoverEvent = this.hoverEvent;
-        style.parentStyle = this.parentStyle;
-        style.insertion = this.insertion;
+        style.bold = bold;
+        style.italic = italic;
+        style.strikethrough = strikethrough;
+        style.underlined = underlined;
+        style.obfuscated = obfuscated;
+        style.color = color;
+        style.clickEvent = clickEvent;
+        style.hoverEvent = hoverEvent;
+        style.parentStyle = parentStyle;
+        style.insertion = insertion;
         return style;
     }
 
@@ -484,15 +484,15 @@ public class Style
     public Style createDeepCopy()
     {
         Style style = new Style();
-        style.setBold(Boolean.valueOf(this.getBold()));
-        style.setItalic(Boolean.valueOf(this.getItalic()));
-        style.setStrikethrough(Boolean.valueOf(this.getStrikethrough()));
-        style.setUnderlined(Boolean.valueOf(this.getUnderlined()));
-        style.setObfuscated(Boolean.valueOf(this.getObfuscated()));
-        style.setColor(this.getColor());
-        style.setClickEvent(this.getClickEvent());
-        style.setHoverEvent(this.getHoverEvent());
-        style.setInsertion(this.getInsertion());
+        style.setBold(Boolean.valueOf(getBold()));
+        style.setItalic(Boolean.valueOf(getItalic()));
+        style.setStrikethrough(Boolean.valueOf(getStrikethrough()));
+        style.setUnderlined(Boolean.valueOf(getUnderlined()));
+        style.setObfuscated(Boolean.valueOf(getObfuscated()));
+        style.setColor(getColor());
+        style.setClickEvent(getClickEvent());
+        style.setHoverEvent(getHoverEvent());
+        style.setInsertion(getInsertion());
         return style;
     }
 

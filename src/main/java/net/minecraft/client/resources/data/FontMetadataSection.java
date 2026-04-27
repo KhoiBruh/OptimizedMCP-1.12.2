@@ -8,8 +8,8 @@ public class FontMetadataSection implements IMetadataSection
 
     public FontMetadataSection(float[] charWidthsIn, float[] charLeftsIn, float[] charSpacingsIn)
     {
-        this.charWidths = charWidthsIn;
-        this.charLefts = charLeftsIn;
-        this.charSpacings = charSpacingsIn;
+        charWidths = charWidthsIn;
+        charLefts = charLeftsIn;
+        charSpacings = charSpacingsIn;
     }
 }

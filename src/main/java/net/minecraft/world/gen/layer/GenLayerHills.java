@@ -13,8 +13,8 @@ public class GenLayerHills extends GenLayer
     public GenLayerHills(long p_i45479_1_, GenLayer p_i45479_3_, GenLayer p_i45479_4_)
     {
         super(p_i45479_1_);
-        this.parent = p_i45479_3_;
-        this.riverLayer = p_i45479_4_;
+        parent = p_i45479_3_;
+        riverLayer = p_i45479_4_;
     }
 
     /**
@@ -23,15 +23,15 @@ public class GenLayerHills extends GenLayer
      */
     public int[] getInts(int areaX, int areaY, int areaWidth, int areaHeight)
     {
-        int[] aint = this.parent.getInts(areaX - 1, areaY - 1, areaWidth + 2, areaHeight + 2);
-        int[] aint1 = this.riverLayer.getInts(areaX - 1, areaY - 1, areaWidth + 2, areaHeight + 2);
+        int[] aint = parent.getInts(areaX - 1, areaY - 1, areaWidth + 2, areaHeight + 2);
+        int[] aint1 = riverLayer.getInts(areaX - 1, areaY - 1, areaWidth + 2, areaHeight + 2);
         int[] aint2 = IntCache.getIntCache(areaWidth * areaHeight);
 
         for (int i = 0; i < areaHeight; ++i)
         {
             for (int j = 0; j < areaWidth; ++j)
             {
-                this.initChunkSeed((long)(j + areaX), (long)(i + areaY));
+                initChunkSeed((long)(j + areaX), (long)(i + areaY));
                 int k = aint[j + 1 + (i + 1) * (areaWidth + 2)];
                 int l = aint1[j + 1 + (i + 1) * (areaWidth + 2)];
                 boolean flag = (l - 2) % 29 == 0;
@@ -49,7 +49,7 @@ public class GenLayerHills extends GenLayer
                     Biome biome3 = Biome.getMutationForBiome(biome);
                     aint2[j + i * areaWidth] = biome3 == null ? k : Biome.getIdForBiome(biome3);
                 }
-                else if (this.nextInt(3) != 0 && !flag)
+                else if (nextInt(3) != 0 && !flag)
                 {
                     aint2[j + i * areaWidth] = k;
                 }
@@ -87,7 +87,7 @@ public class GenLayerHills extends GenLayer
                     }
                     else if (biome == Biomes.PLAINS)
                     {
-                        if (this.nextInt(3) == 0)
+                        if (nextInt(3) == 0)
                         {
                             biome1 = Biomes.FOREST_HILLS;
                         }
@@ -120,9 +120,9 @@ public class GenLayerHills extends GenLayer
                     {
                         biome1 = Biomes.MESA;
                     }
-                    else if (biome == Biomes.DEEP_OCEAN && this.nextInt(3) == 0)
+                    else if (biome == Biomes.DEEP_OCEAN && nextInt(3) == 0)
                     {
-                        int i1 = this.nextInt(2);
+                        int i1 = nextInt(2);
 
                         if (i1 == 0)
                         {

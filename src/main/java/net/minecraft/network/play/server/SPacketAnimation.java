@@ -17,8 +17,8 @@ public class SPacketAnimation implements Packet<INetHandlerPlayClient>
 
     public SPacketAnimation(Entity entityIn, int typeIn)
     {
-        this.entityId = entityIn.getEntityId();
-        this.type = typeIn;
+        entityId = entityIn.getEntityId();
+        type = typeIn;
     }
 
     /**
@@ -26,8 +26,8 @@ public class SPacketAnimation implements Packet<INetHandlerPlayClient>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.entityId = buf.readVarInt();
-        this.type = buf.readUnsignedByte();
+        entityId = buf.readVarInt();
+        type = buf.readUnsignedByte();
     }
 
     /**
@@ -35,8 +35,8 @@ public class SPacketAnimation implements Packet<INetHandlerPlayClient>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeVarInt(this.entityId);
-        buf.writeByte(this.type);
+        buf.writeVarInt(entityId);
+        buf.writeByte(type);
     }
 
     /**
@@ -49,11 +49,11 @@ public class SPacketAnimation implements Packet<INetHandlerPlayClient>
 
     public int getEntityID()
     {
-        return this.entityId;
+        return entityId;
     }
 
     public int getAnimationType()
     {
-        return this.type;
+        return type;
     }
 }

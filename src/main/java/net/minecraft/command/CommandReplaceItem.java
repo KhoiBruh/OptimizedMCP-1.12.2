@@ -97,7 +97,7 @@ public class CommandReplaceItem extends CommandBase
             }
 
             String s = args[i];
-            int j = this.getSlotForShortcut(args[i++]);
+            int j = getSlotForShortcut(args[i++]);
             Item item;
 
             try

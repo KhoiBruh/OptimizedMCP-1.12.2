@@ -36,20 +36,20 @@ public class ShapedRecipes implements IRecipe
     public ShapedRecipes(String group, int width, int height, NonNullList<Ingredient> ingredients, ItemStack result)
     {
         this.group = group;
-        this.recipeWidth = width;
-        this.recipeHeight = height;
-        this.recipeItems = ingredients;
-        this.recipeOutput = result;
+        recipeWidth = width;
+        recipeHeight = height;
+        recipeItems = ingredients;
+        recipeOutput = result;
     }
 
     public String getGroup()
     {
-        return this.group;
+        return group;
     }
 
     public ItemStack getRecipeOutput()
     {
-        return this.recipeOutput;
+        return recipeOutput;
     }
 
     public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv)
@@ -71,7 +71,7 @@ public class ShapedRecipes implements IRecipe
 
     public NonNullList<Ingredient> getIngredients()
     {
-        return this.recipeItems;
+        return recipeItems;
     }
 
     /**
@@ -79,7 +79,7 @@ public class ShapedRecipes implements IRecipe
      */
     public boolean canFit(int width, int height)
     {
-        return width >= this.recipeWidth && height >= this.recipeHeight;
+        return width >= recipeWidth && height >= recipeHeight;
     }
 
     /**
@@ -87,16 +87,16 @@ public class ShapedRecipes implements IRecipe
      */
     public boolean matches(InventoryCrafting inv, World worldIn)
     {
-        for (int i = 0; i <= 3 - this.recipeWidth; ++i)
+        for (int i = 0; i <= 3 - recipeWidth; ++i)
         {
-            for (int j = 0; j <= 3 - this.recipeHeight; ++j)
+            for (int j = 0; j <= 3 - recipeHeight; ++j)
             {
-                if (this.checkMatch(inv, i, j, true))
+                if (checkMatch(inv, i, j, true))
                 {
                     return true;
                 }
 
-                if (this.checkMatch(inv, i, j, false))
+                if (checkMatch(inv, i, j, false))
                 {
                     return true;
                 }
@@ -119,15 +119,15 @@ public class ShapedRecipes implements IRecipe
                 int l = j - p_77573_3_;
                 Ingredient ingredient = Ingredient.EMPTY;
 
-                if (k >= 0 && l >= 0 && k < this.recipeWidth && l < this.recipeHeight)
+                if (k >= 0 && l >= 0 && k < recipeWidth && l < recipeHeight)
                 {
                     if (p_77573_4_)
                     {
-                        ingredient = this.recipeItems.get(this.recipeWidth - k - 1 + l * this.recipeWidth);
+                        ingredient = recipeItems.get(recipeWidth - k - 1 + l * recipeWidth);
                     }
                     else
                     {
-                        ingredient = this.recipeItems.get(k + l * this.recipeWidth);
+                        ingredient = recipeItems.get(k + l * recipeWidth);
                     }
                 }
 
@@ -146,17 +146,17 @@ public class ShapedRecipes implements IRecipe
      */
     public ItemStack getCraftingResult(InventoryCrafting inv)
     {
-        return this.getRecipeOutput().copy();
+        return getRecipeOutput().copy();
     }
 
     public int getWidth()
     {
-        return this.recipeWidth;
+        return recipeWidth;
     }
 
     public int getHeight()
     {
-        return this.recipeHeight;
+        return recipeHeight;
     }
 
     public static ShapedRecipes deserialize(JsonObject p_193362_0_)

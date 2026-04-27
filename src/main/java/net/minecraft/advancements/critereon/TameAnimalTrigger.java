@@ -26,12 +26,12 @@ public class TameAnimalTrigger implements ICriterionTrigger<TameAnimalTrigger.In
 
     public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<TameAnimalTrigger.Instance> listener)
     {
-        TameAnimalTrigger.Listeners tameanimaltrigger$listeners = this.listeners.get(playerAdvancementsIn);
+        TameAnimalTrigger.Listeners tameanimaltrigger$listeners = listeners.get(playerAdvancementsIn);
 
         if (tameanimaltrigger$listeners == null)
         {
             tameanimaltrigger$listeners = new TameAnimalTrigger.Listeners(playerAdvancementsIn);
-            this.listeners.put(playerAdvancementsIn, tameanimaltrigger$listeners);
+            listeners.put(playerAdvancementsIn, tameanimaltrigger$listeners);
         }
 
         tameanimaltrigger$listeners.add(listener);
@@ -39,7 +39,7 @@ public class TameAnimalTrigger implements ICriterionTrigger<TameAnimalTrigger.In
 
     public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<TameAnimalTrigger.Instance> listener)
     {
-        TameAnimalTrigger.Listeners tameanimaltrigger$listeners = this.listeners.get(playerAdvancementsIn);
+        TameAnimalTrigger.Listeners tameanimaltrigger$listeners = listeners.get(playerAdvancementsIn);
 
         if (tameanimaltrigger$listeners != null)
         {
@@ -47,14 +47,14 @@ public class TameAnimalTrigger implements ICriterionTrigger<TameAnimalTrigger.In
 
             if (tameanimaltrigger$listeners.isEmpty())
             {
-                this.listeners.remove(playerAdvancementsIn);
+                listeners.remove(playerAdvancementsIn);
             }
         }
     }
 
     public void removeAllListeners(PlayerAdvancements playerAdvancementsIn)
     {
-        this.listeners.remove(playerAdvancementsIn);
+        listeners.remove(playerAdvancementsIn);
     }
 
     /**
@@ -68,7 +68,7 @@ public class TameAnimalTrigger implements ICriterionTrigger<TameAnimalTrigger.In
 
     public void trigger(EntityPlayerMP player, EntityAnimal entity)
     {
-        TameAnimalTrigger.Listeners tameanimaltrigger$listeners = this.listeners.get(player.getAdvancements());
+        TameAnimalTrigger.Listeners tameanimaltrigger$listeners = listeners.get(player.getAdvancements());
 
         if (tameanimaltrigger$listeners != null)
         {
@@ -99,29 +99,29 @@ public class TameAnimalTrigger implements ICriterionTrigger<TameAnimalTrigger.In
 
         public Listeners(PlayerAdvancements playerAdvancementsIn)
         {
-            this.playerAdvancements = playerAdvancementsIn;
+            playerAdvancements = playerAdvancementsIn;
         }
 
         public boolean isEmpty()
         {
-            return this.listeners.isEmpty();
+            return listeners.isEmpty();
         }
 
         public void add(ICriterionTrigger.Listener<TameAnimalTrigger.Instance> listener)
         {
-            this.listeners.add(listener);
+            listeners.add(listener);
         }
 
         public void remove(ICriterionTrigger.Listener<TameAnimalTrigger.Instance> listener)
         {
-            this.listeners.remove(listener);
+            listeners.remove(listener);
         }
 
         public void trigger(EntityPlayerMP player, EntityAnimal entity)
         {
             List<ICriterionTrigger.Listener<TameAnimalTrigger.Instance>> list = null;
 
-            for (ICriterionTrigger.Listener<TameAnimalTrigger.Instance> listener : this.listeners)
+            for (ICriterionTrigger.Listener<TameAnimalTrigger.Instance> listener : listeners)
             {
                 if (((TameAnimalTrigger.Instance)listener.getCriterionInstance()).test(player, entity))
                 {
@@ -138,7 +138,7 @@ public class TameAnimalTrigger implements ICriterionTrigger<TameAnimalTrigger.In
             {
                 for (ICriterionTrigger.Listener<TameAnimalTrigger.Instance> listener1 : list)
                 {
-                    listener1.grantCriterion(this.playerAdvancements);
+                    listener1.grantCriterion(playerAdvancements);
                 }
             }
         }

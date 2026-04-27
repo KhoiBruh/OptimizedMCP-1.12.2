@@ -11,7 +11,7 @@ public class StatisticsManager
 
     public void increaseStat(EntityPlayer player, StatBase stat, int amount)
     {
-        this.unlockAchievement(player, stat, this.readStat(stat) + amount);
+        unlockAchievement(player, stat, readStat(stat) + amount);
     }
 
     /**
@@ -19,12 +19,12 @@ public class StatisticsManager
      */
     public void unlockAchievement(EntityPlayer playerIn, StatBase statIn, int p_150873_3_)
     {
-        TupleIntJsonSerializable tupleintjsonserializable = this.statsData.get(statIn);
+        TupleIntJsonSerializable tupleintjsonserializable = statsData.get(statIn);
 
         if (tupleintjsonserializable == null)
         {
             tupleintjsonserializable = new TupleIntJsonSerializable();
-            this.statsData.put(statIn, tupleintjsonserializable);
+            statsData.put(statIn, tupleintjsonserializable);
         }
 
         tupleintjsonserializable.setIntegerValue(p_150873_3_);
@@ -35,7 +35,7 @@ public class StatisticsManager
      */
     public int readStat(StatBase stat)
     {
-        TupleIntJsonSerializable tupleintjsonserializable = this.statsData.get(stat);
+        TupleIntJsonSerializable tupleintjsonserializable = statsData.get(stat);
         return tupleintjsonserializable == null ? 0 : tupleintjsonserializable.getIntegerValue();
     }
 }

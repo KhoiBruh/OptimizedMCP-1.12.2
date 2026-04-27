@@ -10,7 +10,7 @@ public class OverlayChatListener implements IChatListener
 
     public OverlayChatListener(Minecraft minecraftIn)
     {
-        this.mc = minecraftIn;
+        mc = minecraftIn;
     }
 
     /**
@@ -22,6 +22,6 @@ public class OverlayChatListener implements IChatListener
      */
     public void say(ChatType chatTypeIn, ITextComponent message)
     {
-        this.mc.ingameGUI.setOverlayMessage(message, false);
+        mc.ingameGUI.setOverlayMessage(message, false);
     }
 }

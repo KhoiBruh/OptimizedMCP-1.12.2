@@ -10,7 +10,7 @@ public class GuiDownloadTerrain extends GuiScreen
      */
     public void initGui()
     {
-        this.buttonList.clear();
+        buttonList.clear();
     }
 
     /**
@@ -18,8 +18,8 @@ public class GuiDownloadTerrain extends GuiScreen
      */
     public void drawScreen(int mouseX, int mouseY, float partialTicks)
     {
-        this.drawBackground(0);
-        this.drawCenteredString(this.fontRenderer, I18n.format("multiplayer.downloadingTerrain"), this.width / 2, this.height / 2 - 50, 16777215);
+        drawBackground(0);
+        drawCenteredString(fontRenderer, I18n.format("multiplayer.downloadingTerrain"), width / 2, height / 2 - 50, 16777215);
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
 

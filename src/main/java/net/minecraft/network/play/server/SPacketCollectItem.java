@@ -17,9 +17,9 @@ public class SPacketCollectItem implements Packet<INetHandlerPlayClient>
 
     public SPacketCollectItem(int p_i47316_1_, int p_i47316_2_, int p_i47316_3_)
     {
-        this.collectedItemEntityId = p_i47316_1_;
-        this.entityId = p_i47316_2_;
-        this.collectedQuantity = p_i47316_3_;
+        collectedItemEntityId = p_i47316_1_;
+        entityId = p_i47316_2_;
+        collectedQuantity = p_i47316_3_;
     }
 
     /**
@@ -27,9 +27,9 @@ public class SPacketCollectItem implements Packet<INetHandlerPlayClient>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.collectedItemEntityId = buf.readVarInt();
-        this.entityId = buf.readVarInt();
-        this.collectedQuantity = buf.readVarInt();
+        collectedItemEntityId = buf.readVarInt();
+        entityId = buf.readVarInt();
+        collectedQuantity = buf.readVarInt();
     }
 
     /**
@@ -37,9 +37,9 @@ public class SPacketCollectItem implements Packet<INetHandlerPlayClient>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeVarInt(this.collectedItemEntityId);
-        buf.writeVarInt(this.entityId);
-        buf.writeVarInt(this.collectedQuantity);
+        buf.writeVarInt(collectedItemEntityId);
+        buf.writeVarInt(entityId);
+        buf.writeVarInt(collectedQuantity);
     }
 
     /**
@@ -52,16 +52,16 @@ public class SPacketCollectItem implements Packet<INetHandlerPlayClient>
 
     public int getCollectedItemEntityID()
     {
-        return this.collectedItemEntityId;
+        return collectedItemEntityId;
     }
 
     public int getEntityID()
     {
-        return this.entityId;
+        return entityId;
     }
 
     public int getAmount()
     {
-        return this.collectedQuantity;
+        return collectedQuantity;
     }
 }

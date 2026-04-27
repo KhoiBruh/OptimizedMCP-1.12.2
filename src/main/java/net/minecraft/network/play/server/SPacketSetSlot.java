@@ -18,9 +18,9 @@ public class SPacketSetSlot implements Packet<INetHandlerPlayClient>
 
     public SPacketSetSlot(int windowIdIn, int slotIn, ItemStack itemIn)
     {
-        this.windowId = windowIdIn;
-        this.slot = slotIn;
-        this.item = itemIn.copy();
+        windowId = windowIdIn;
+        slot = slotIn;
+        item = itemIn.copy();
     }
 
     /**
@@ -36,9 +36,9 @@ public class SPacketSetSlot implements Packet<INetHandlerPlayClient>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.windowId = buf.readByte();
-        this.slot = buf.readShort();
-        this.item = buf.readItemStack();
+        windowId = buf.readByte();
+        slot = buf.readShort();
+        item = buf.readItemStack();
     }
 
     /**
@@ -46,23 +46,23 @@ public class SPacketSetSlot implements Packet<INetHandlerPlayClient>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeByte(this.windowId);
-        buf.writeShort(this.slot);
-        buf.writeItemStack(this.item);
+        buf.writeByte(windowId);
+        buf.writeShort(slot);
+        buf.writeItemStack(item);
     }
 
     public int getWindowId()
     {
-        return this.windowId;
+        return windowId;
     }
 
     public int getSlot()
     {
-        return this.slot;
+        return slot;
     }
 
     public ItemStack getStack()
     {
-        return this.item;
+        return item;
     }
 }

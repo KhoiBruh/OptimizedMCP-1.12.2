@@ -22,24 +22,24 @@ public class TileEntityMobSpawner extends TileEntity implements ITickable
     {
         public void broadcastEvent(int id)
         {
-            TileEntityMobSpawner.this.world.addBlockEvent(TileEntityMobSpawner.this.pos, Blocks.MOB_SPAWNER, id, 0);
+            world.addBlockEvent(pos, Blocks.MOB_SPAWNER, id, 0);
         }
         public World getSpawnerWorld()
         {
-            return TileEntityMobSpawner.this.world;
+            return world;
         }
         public BlockPos getSpawnerPosition()
         {
-            return TileEntityMobSpawner.this.pos;
+            return pos;
         }
         public void setNextSpawnData(WeightedSpawnerEntity p_184993_1_)
         {
             super.setNextSpawnData(p_184993_1_);
 
-            if (this.getSpawnerWorld() != null)
+            if (getSpawnerWorld() != null)
             {
-                IBlockState iblockstate = this.getSpawnerWorld().getBlockState(this.getSpawnerPosition());
-                this.getSpawnerWorld().notifyBlockUpdate(TileEntityMobSpawner.this.pos, iblockstate, iblockstate, 4);
+                IBlockState iblockstate = getSpawnerWorld().getBlockState(getSpawnerPosition());
+                getSpawnerWorld().notifyBlockUpdate(pos, iblockstate, iblockstate, 4);
             }
         }
     };
@@ -74,13 +74,13 @@ public class TileEntityMobSpawner extends TileEntity implements ITickable
     public void readFromNBT(NBTTagCompound compound)
     {
         super.readFromNBT(compound);
-        this.spawnerLogic.readFromNBT(compound);
+        spawnerLogic.readFromNBT(compound);
     }
 
     public NBTTagCompound writeToNBT(NBTTagCompound compound)
     {
         super.writeToNBT(compound);
-        this.spawnerLogic.writeToNBT(compound);
+        spawnerLogic.writeToNBT(compound);
         return compound;
     }
 
@@ -89,25 +89,25 @@ public class TileEntityMobSpawner extends TileEntity implements ITickable
      */
     public void update()
     {
-        this.spawnerLogic.updateSpawner();
+        spawnerLogic.updateSpawner();
     }
 
     @Nullable
     public SPacketUpdateTileEntity getUpdatePacket()
     {
-        return new SPacketUpdateTileEntity(this.pos, 1, this.getUpdateTag());
+        return new SPacketUpdateTileEntity(pos, 1, getUpdateTag());
     }
 
     public NBTTagCompound getUpdateTag()
     {
-        NBTTagCompound nbttagcompound = this.writeToNBT(new NBTTagCompound());
+        NBTTagCompound nbttagcompound = writeToNBT(new NBTTagCompound());
         nbttagcompound.removeTag("SpawnPotentials");
         return nbttagcompound;
     }
 
     public boolean receiveClientEvent(int id, int type)
     {
-        return this.spawnerLogic.setDelayToMin(id) ? true : super.receiveClientEvent(id, type);
+        return spawnerLogic.setDelayToMin(id) ? true : super.receiveClientEvent(id, type);
     }
 
     public boolean onlyOpsCanSetNbt()
@@ -117,6 +117,6 @@ public class TileEntityMobSpawner extends TileEntity implements ITickable
 
     public MobSpawnerBaseLogic getSpawnerBaseLogic()
     {
-        return this.spawnerLogic;
+        return spawnerLogic;
     }
 }

@@ -16,32 +16,32 @@ public class GuiButtonToggle extends GuiButton
     public GuiButtonToggle(int buttonId, int xIn, int yIn, int widthIn, int heightIn, boolean buttonText)
     {
         super(buttonId, xIn, yIn, widthIn, heightIn, "");
-        this.stateTriggered = buttonText;
+        stateTriggered = buttonText;
     }
 
     public void initTextureValues(int xTexStartIn, int yTexStartIn, int xDiffTexIn, int yDiffTexIn, ResourceLocation resourceLocationIn)
     {
-        this.xTexStart = xTexStartIn;
-        this.yTexStart = yTexStartIn;
-        this.xDiffTex = xDiffTexIn;
-        this.yDiffTex = yDiffTexIn;
-        this.resourceLocation = resourceLocationIn;
+        xTexStart = xTexStartIn;
+        yTexStart = yTexStartIn;
+        xDiffTex = xDiffTexIn;
+        yDiffTex = yDiffTexIn;
+        resourceLocation = resourceLocationIn;
     }
 
     public void setStateTriggered(boolean p_191753_1_)
     {
-        this.stateTriggered = p_191753_1_;
+        stateTriggered = p_191753_1_;
     }
 
     public boolean isStateTriggered()
     {
-        return this.stateTriggered;
+        return stateTriggered;
     }
 
     public void setPosition(int p_191752_1_, int p_191752_2_)
     {
-        this.x = p_191752_1_;
-        this.y = p_191752_2_;
+        x = p_191752_1_;
+        y = p_191752_2_;
     }
 
     /**
@@ -49,25 +49,25 @@ public class GuiButtonToggle extends GuiButton
      */
     public void drawButton(Minecraft mc, int mouseX, int mouseY, float partialTicks)
     {
-        if (this.visible)
+        if (visible)
         {
-            this.hovered = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width && mouseY < this.y + this.height;
-            mc.getTextureManager().bindTexture(this.resourceLocation);
+            hovered = mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
+            mc.getTextureManager().bindTexture(resourceLocation);
             GlStateManager.disableDepth();
-            int i = this.xTexStart;
-            int j = this.yTexStart;
+            int i = xTexStart;
+            int j = yTexStart;
 
-            if (this.stateTriggered)
+            if (stateTriggered)
             {
-                i += this.xDiffTex;
+                i += xDiffTex;
             }
 
-            if (this.hovered)
+            if (hovered)
             {
-                j += this.yDiffTex;
+                j += yDiffTex;
             }
 
-            this.drawTexturedModalRect(this.x, this.y, i, j, this.width, this.height);
+            drawTexturedModalRect(x, y, i, j, width, height);
             GlStateManager.enableDepth();
         }
     }

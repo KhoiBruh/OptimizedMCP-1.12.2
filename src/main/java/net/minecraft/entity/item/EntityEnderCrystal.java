@@ -27,15 +27,15 @@ public class EntityEnderCrystal extends Entity
     public EntityEnderCrystal(World worldIn)
     {
         super(worldIn);
-        this.preventEntitySpawning = true;
-        this.setSize(2.0F, 2.0F);
-        this.innerRotation = this.rand.nextInt(100000);
+        preventEntitySpawning = true;
+        setSize(2.0F, 2.0F);
+        innerRotation = rand.nextInt(100000);
     }
 
     public EntityEnderCrystal(World worldIn, double x, double y, double z)
     {
         this(worldIn);
-        this.setPosition(x, y, z);
+        setPosition(x, y, z);
     }
 
     /**
@@ -49,8 +49,8 @@ public class EntityEnderCrystal extends Entity
 
     protected void entityInit()
     {
-        this.getDataManager().register(BEAM_TARGET, Optional.absent());
-        this.getDataManager().register(SHOW_BOTTOM, Boolean.valueOf(true));
+        getDataManager().register(BEAM_TARGET, Optional.absent());
+        getDataManager().register(SHOW_BOTTOM, Boolean.valueOf(true));
     }
 
     /**
@@ -58,18 +58,18 @@ public class EntityEnderCrystal extends Entity
      */
     public void onUpdate()
     {
-        this.prevPosX = this.posX;
-        this.prevPosY = this.posY;
-        this.prevPosZ = this.posZ;
-        ++this.innerRotation;
+        prevPosX = posX;
+        prevPosY = posY;
+        prevPosZ = posZ;
+        ++innerRotation;
 
-        if (!this.world.isRemote)
+        if (!world.isRemote)
         {
             BlockPos blockpos = new BlockPos(this);
 
-            if (this.world.provider instanceof WorldProviderEnd && this.world.getBlockState(blockpos).getBlock() != Blocks.FIRE)
+            if (world.provider instanceof WorldProviderEnd && world.getBlockState(blockpos).getBlock() != Blocks.FIRE)
             {
-                this.world.setBlockState(blockpos, Blocks.FIRE.getDefaultState());
+                world.setBlockState(blockpos, Blocks.FIRE.getDefaultState());
             }
         }
     }
@@ -79,12 +79,12 @@ public class EntityEnderCrystal extends Entity
      */
     protected void writeEntityToNBT(NBTTagCompound compound)
     {
-        if (this.getBeamTarget() != null)
+        if (getBeamTarget() != null)
         {
-            compound.setTag("BeamTarget", NBTUtil.createPosTag(this.getBeamTarget()));
+            compound.setTag("BeamTarget", NBTUtil.createPosTag(getBeamTarget()));
         }
 
-        compound.setBoolean("ShowBottom", this.shouldShowBottom());
+        compound.setBoolean("ShowBottom", shouldShowBottom());
     }
 
     /**
@@ -94,12 +94,12 @@ public class EntityEnderCrystal extends Entity
     {
         if (compound.hasKey("BeamTarget", 10))
         {
-            this.setBeamTarget(NBTUtil.getPosFromTag(compound.getCompoundTag("BeamTarget")));
+            setBeamTarget(NBTUtil.getPosFromTag(compound.getCompoundTag("BeamTarget")));
         }
 
         if (compound.hasKey("ShowBottom", 1))
         {
-            this.setShowBottom(compound.getBoolean("ShowBottom"));
+            setShowBottom(compound.getBoolean("ShowBottom"));
         }
     }
 
@@ -116,7 +116,7 @@ public class EntityEnderCrystal extends Entity
      */
     public boolean attackEntityFrom(DamageSource source, float amount)
     {
-        if (this.isEntityInvulnerable(source))
+        if (isEntityInvulnerable(source))
         {
             return false;
         }
@@ -126,18 +126,18 @@ public class EntityEnderCrystal extends Entity
         }
         else
         {
-            if (!this.isDead && !this.world.isRemote)
+            if (!isDead && !world.isRemote)
             {
-                this.setDead();
+                setDead();
 
-                if (!this.world.isRemote)
+                if (!world.isRemote)
                 {
                     if (!source.isExplosion())
                     {
-                        this.world.createExplosion((Entity)null, this.posX, this.posY, this.posZ, 6.0F, true);
+                        world.createExplosion((Entity)null, posX, posY, posZ, 6.0F, true);
                     }
 
-                    this.onCrystalDestroyed(source);
+                    onCrystalDestroyed(source);
                 }
             }
 
@@ -150,15 +150,15 @@ public class EntityEnderCrystal extends Entity
      */
     public void onKillCommand()
     {
-        this.onCrystalDestroyed(DamageSource.GENERIC);
+        onCrystalDestroyed(DamageSource.GENERIC);
         super.onKillCommand();
     }
 
     private void onCrystalDestroyed(DamageSource source)
     {
-        if (this.world.provider instanceof WorldProviderEnd)
+        if (world.provider instanceof WorldProviderEnd)
         {
-            WorldProviderEnd worldproviderend = (WorldProviderEnd)this.world.provider;
+            WorldProviderEnd worldproviderend = (WorldProviderEnd) world.provider;
             DragonFightManager dragonfightmanager = worldproviderend.getDragonFightManager();
 
             if (dragonfightmanager != null)
@@ -170,23 +170,23 @@ public class EntityEnderCrystal extends Entity
 
     public void setBeamTarget(@Nullable BlockPos beamTarget)
     {
-        this.getDataManager().set(BEAM_TARGET, Optional.fromNullable(beamTarget));
+        getDataManager().set(BEAM_TARGET, Optional.fromNullable(beamTarget));
     }
 
     @Nullable
     public BlockPos getBeamTarget()
     {
-        return (BlockPos)((Optional)this.getDataManager().get(BEAM_TARGET)).orNull();
+        return (BlockPos)((Optional) getDataManager().get(BEAM_TARGET)).orNull();
     }
 
     public void setShowBottom(boolean showBottom)
     {
-        this.getDataManager().set(SHOW_BOTTOM, Boolean.valueOf(showBottom));
+        getDataManager().set(SHOW_BOTTOM, Boolean.valueOf(showBottom));
     }
 
     public boolean shouldShowBottom()
     {
-        return ((Boolean)this.getDataManager().get(SHOW_BOTTOM)).booleanValue();
+        return ((Boolean) getDataManager().get(SHOW_BOTTOM)).booleanValue();
     }
 
     /**
@@ -194,6 +194,6 @@ public class EntityEnderCrystal extends Entity
      */
     public boolean isInRangeToRenderDist(double distance)
     {
-        return super.isInRangeToRenderDist(distance) || this.getBeamTarget() != null;
+        return super.isInRangeToRenderDist(distance) || getBeamTarget() != null;
     }
 }

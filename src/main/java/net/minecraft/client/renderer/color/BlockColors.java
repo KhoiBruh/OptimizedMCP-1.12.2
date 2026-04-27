@@ -161,7 +161,7 @@ public class BlockColors
 
     public int getColor(IBlockState state, World p_189991_2_, BlockPos p_189991_3_)
     {
-        IBlockColor iblockcolor = this.mapBlockColors.getByValue(Block.getIdFromBlock(state.getBlock()));
+        IBlockColor iblockcolor = mapBlockColors.getByValue(Block.getIdFromBlock(state.getBlock()));
 
         if (iblockcolor != null)
         {
@@ -176,7 +176,7 @@ public class BlockColors
 
     public int colorMultiplier(IBlockState state, @Nullable IBlockAccess blockAccess, @Nullable BlockPos pos, int renderPass)
     {
-        IBlockColor iblockcolor = this.mapBlockColors.getByValue(Block.getIdFromBlock(state.getBlock()));
+        IBlockColor iblockcolor = mapBlockColors.getByValue(Block.getIdFromBlock(state.getBlock()));
         return iblockcolor == null ? -1 : iblockcolor.colorMultiplier(state, blockAccess, pos, renderPass);
     }
 
@@ -184,7 +184,7 @@ public class BlockColors
     {
         for (Block block : blocksIn)
         {
-            this.mapBlockColors.put(blockColor, Block.getIdFromBlock(block));
+            mapBlockColors.put(blockColor, Block.getIdFromBlock(block));
         }
     }
 }

@@ -47,7 +47,7 @@ public class RecipesBanners
             }
             else
             {
-                return this.matchPatterns(inv) != null;
+                return matchPatterns(inv) != null;
             }
         }
 
@@ -67,7 +67,7 @@ public class RecipesBanners
                 }
             }
 
-            BannerPattern bannerpattern = this.matchPatterns(inv);
+            BannerPattern bannerpattern = matchPatterns(inv);
 
             if (bannerpattern != null)
             {

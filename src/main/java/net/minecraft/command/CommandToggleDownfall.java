@@ -34,7 +34,7 @@ public class CommandToggleDownfall extends CommandBase
      */
     public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException
     {
-        this.toggleRainfall(server);
+        toggleRainfall(server);
         notifyCommandListener(sender, this, "commands.downfall.success", new Object[0]);
     }
 

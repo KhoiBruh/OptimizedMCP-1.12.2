@@ -10,7 +10,7 @@ public class NormalChatListener implements IChatListener
 
     public NormalChatListener(Minecraft p_i47393_1_)
     {
-        this.mc = p_i47393_1_;
+        mc = p_i47393_1_;
     }
 
     /**
@@ -22,6 +22,6 @@ public class NormalChatListener implements IChatListener
      */
     public void say(ChatType chatTypeIn, ITextComponent message)
     {
-        this.mc.ingameGUI.getChatGUI().printChatMessage(message);
+        mc.ingameGUI.getChatGUI().printChatMessage(message);
     }
 }

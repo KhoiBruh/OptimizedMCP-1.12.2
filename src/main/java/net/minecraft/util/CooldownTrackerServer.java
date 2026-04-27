@@ -10,18 +10,18 @@ public class CooldownTrackerServer extends CooldownTracker
 
     public CooldownTrackerServer(EntityPlayerMP playerIn)
     {
-        this.player = playerIn;
+        player = playerIn;
     }
 
     protected void notifyOnSet(Item itemIn, int ticksIn)
     {
         super.notifyOnSet(itemIn, ticksIn);
-        this.player.connection.sendPacket(new SPacketCooldown(itemIn, ticksIn));
+        player.connection.sendPacket(new SPacketCooldown(itemIn, ticksIn));
     }
 
     protected void notifyOnRemove(Item itemIn)
     {
         super.notifyOnRemove(itemIn);
-        this.player.connection.sendPacket(new SPacketCooldown(itemIn, 0));
+        player.connection.sendPacket(new SPacketCooldown(itemIn, 0));
     }
 }

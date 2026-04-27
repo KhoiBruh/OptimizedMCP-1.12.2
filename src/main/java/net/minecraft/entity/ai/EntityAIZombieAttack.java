@@ -10,7 +10,7 @@ public class EntityAIZombieAttack extends EntityAIAttackMelee
     public EntityAIZombieAttack(EntityZombie zombieIn, double speedIn, boolean longMemoryIn)
     {
         super(zombieIn, speedIn, longMemoryIn);
-        this.zombie = zombieIn;
+        zombie = zombieIn;
     }
 
     /**
@@ -19,7 +19,7 @@ public class EntityAIZombieAttack extends EntityAIAttackMelee
     public void startExecuting()
     {
         super.startExecuting();
-        this.raiseArmTicks = 0;
+        raiseArmTicks = 0;
     }
 
     /**
@@ -28,7 +28,7 @@ public class EntityAIZombieAttack extends EntityAIAttackMelee
     public void resetTask()
     {
         super.resetTask();
-        this.zombie.setArmsRaised(false);
+        zombie.setArmsRaised(false);
     }
 
     /**
@@ -37,15 +37,15 @@ public class EntityAIZombieAttack extends EntityAIAttackMelee
     public void updateTask()
     {
         super.updateTask();
-        ++this.raiseArmTicks;
+        ++raiseArmTicks;
 
-        if (this.raiseArmTicks >= 5 && this.attackTick < 10)
+        if (raiseArmTicks >= 5 && attackTick < 10)
         {
-            this.zombie.setArmsRaised(true);
+            zombie.setArmsRaised(true);
         }
         else
         {
-            this.zombie.setArmsRaised(false);
+            zombie.setArmsRaised(false);
         }
     }
 }

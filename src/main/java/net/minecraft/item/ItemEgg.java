@@ -15,8 +15,8 @@ public class ItemEgg extends Item
 {
     public ItemEgg()
     {
-        this.maxStackSize = 16;
-        this.setCreativeTab(CreativeTabs.MATERIALS);
+        maxStackSize = 16;
+        setCreativeTab(CreativeTabs.MATERIALS);
     }
 
     public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn)

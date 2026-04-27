@@ -262,7 +262,7 @@ public class Bootstrap
             {
                 ItemBucket itembucket = (ItemBucket)stack.getItem();
                 BlockPos blockpos = source.getBlockPos().offset((EnumFacing)source.getBlockState().getValue(BlockDispenser.FACING));
-                return itembucket.tryPlaceContainedLiquid((EntityPlayer)null, source.getWorld(), blockpos) ? new ItemStack(Items.BUCKET) : this.dispenseBehavior.dispense(source, stack);
+                return itembucket.tryPlaceContainedLiquid((EntityPlayer)null, source.getWorld(), blockpos) ? new ItemStack(Items.BUCKET) : dispenseBehavior.dispense(source, stack);
             }
         };
         BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Items.LAVA_BUCKET, ibehaviordispenseitem);
@@ -304,7 +304,7 @@ public class Bootstrap
                 {
                     if (((TileEntityDispenser)source.getBlockTileEntity()).addItemStack(new ItemStack(item)) < 0)
                     {
-                        this.dispenseBehavior.dispense(source, new ItemStack(item));
+                        dispenseBehavior.dispense(source, new ItemStack(item));
                     }
 
                     return stack;
@@ -316,7 +316,7 @@ public class Bootstrap
             protected ItemStack dispenseStack(IBlockSource source, ItemStack stack)
             {
                 World world = source.getWorld();
-                this.successful = true;
+                successful = true;
                 BlockPos blockpos = source.getBlockPos().offset((EnumFacing)source.getBlockState().getValue(BlockDispenser.FACING));
 
                 if (world.isAirBlock(blockpos))
@@ -335,7 +335,7 @@ public class Bootstrap
                 }
                 else
                 {
-                    this.successful = false;
+                    successful = false;
                 }
 
                 return stack;
@@ -345,7 +345,7 @@ public class Bootstrap
         {
             protected ItemStack dispenseStack(IBlockSource source, ItemStack stack)
             {
-                this.successful = true;
+                successful = true;
 
                 if (EnumDyeColor.WHITE == EnumDyeColor.byDyeDamage(stack.getMetadata()))
                 {
@@ -361,7 +361,7 @@ public class Bootstrap
                     }
                     else
                     {
-                        this.successful = false;
+                        successful = false;
                     }
 
                     return stack;
@@ -393,7 +393,7 @@ public class Bootstrap
                 EnumFacing enumfacing = (EnumFacing)source.getBlockState().getValue(BlockDispenser.FACING);
                 BlockPos blockpos = source.getBlockPos().offset(enumfacing);
                 BlockSkull blockskull = Blocks.SKULL;
-                this.successful = true;
+                successful = true;
 
                 if (world.isAirBlock(blockpos) && blockskull.canDispenserPlace(world, blockpos, stack))
                 {
@@ -443,7 +443,7 @@ public class Bootstrap
                 }
                 else if (ItemArmor.dispenseArmor(source, stack).isEmpty())
                 {
-                    this.successful = false;
+                    successful = false;
                 }
 
                 return stack;
@@ -456,7 +456,7 @@ public class Bootstrap
                 World world = source.getWorld();
                 BlockPos blockpos = source.getBlockPos().offset((EnumFacing)source.getBlockState().getValue(BlockDispenser.FACING));
                 BlockPumpkin blockpumpkin = (BlockPumpkin)Blocks.PUMPKIN;
-                this.successful = true;
+                successful = true;
 
                 if (world.isAirBlock(blockpos) && blockpumpkin.canDispenserPlace(world, blockpos))
                 {
@@ -473,7 +473,7 @@ public class Bootstrap
 
                     if (itemstack.isEmpty())
                     {
-                        this.successful = false;
+                        successful = false;
                     }
                 }
 
@@ -562,7 +562,7 @@ public class Bootstrap
 
         public BehaviorDispenseBoat(EntityBoat.Type boatTypeIn)
         {
-            this.boatType = boatTypeIn;
+            boatType = boatTypeIn;
         }
 
         public ItemStack dispenseStack(IBlockSource source, ItemStack stack)
@@ -584,14 +584,14 @@ public class Bootstrap
             {
                 if (!Material.AIR.equals(material) || !Material.WATER.equals(world.getBlockState(blockpos.down()).getMaterial()))
                 {
-                    return this.dispenseBehavior.dispense(source, stack);
+                    return dispenseBehavior.dispense(source, stack);
                 }
 
                 d3 = 0.0D;
             }
 
             EntityBoat entityboat = new EntityBoat(world, d0, d1 + d3, d2);
-            entityboat.setBoatType(this.boatType);
+            entityboat.setBoatType(boatType);
             entityboat.rotationYaw = enumfacing.getHorizontalAngle();
             world.spawnEntity(entityboat);
             stack.shrink(1);
@@ -610,7 +610,7 @@ public class Bootstrap
 
         protected void playDispenseSound(IBlockSource source)
         {
-            source.getWorld().playEvent(this.successful ? 1000 : 1001, source.getBlockPos(), 0);
+            source.getWorld().playEvent(successful ? 1000 : 1001, source.getBlockPos(), 0);
         }
     }
 
@@ -626,9 +626,9 @@ public class Bootstrap
             World world = source.getWorld();
             EnumFacing enumfacing = (EnumFacing)source.getBlockState().getValue(BlockDispenser.FACING);
             BlockPos blockpos = source.getBlockPos().offset(enumfacing);
-            this.successful = world.mayPlace(block, blockpos, false, EnumFacing.DOWN, (Entity)null);
+            successful = world.mayPlace(block, blockpos, false, EnumFacing.DOWN, (Entity)null);
 
-            if (this.successful)
+            if (successful)
             {
                 EnumFacing enumfacing1 = world.isAirBlock(blockpos.down()) ? enumfacing : EnumFacing.UP;
                 IBlockState iblockstate = block.getDefaultState().withProperty(BlockShulkerBox.FACING, enumfacing1);

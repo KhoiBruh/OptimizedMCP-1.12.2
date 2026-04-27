@@ -15,7 +15,7 @@ public class SPacketPong implements Packet<INetHandlerStatusClient>
 
     public SPacketPong(long clientTimeIn)
     {
-        this.clientTime = clientTimeIn;
+        clientTime = clientTimeIn;
     }
 
     /**
@@ -23,7 +23,7 @@ public class SPacketPong implements Packet<INetHandlerStatusClient>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.clientTime = buf.readLong();
+        clientTime = buf.readLong();
     }
 
     /**
@@ -31,7 +31,7 @@ public class SPacketPong implements Packet<INetHandlerStatusClient>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeLong(this.clientTime);
+        buf.writeLong(clientTime);
     }
 
     /**

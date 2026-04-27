@@ -16,8 +16,8 @@ public class ItemBucketMilk extends Item
 {
     public ItemBucketMilk()
     {
-        this.setMaxStackSize(1);
-        this.setCreativeTab(CreativeTabs.MISC);
+        setMaxStackSize(1);
+        setCreativeTab(CreativeTabs.MISC);
     }
 
     /**

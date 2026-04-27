@@ -25,8 +25,8 @@ public class ItemPotion extends Item
 {
     public ItemPotion()
     {
-        this.setMaxStackSize(1);
-        this.setCreativeTab(CreativeTabs.BREWING);
+        setMaxStackSize(1);
+        setCreativeTab(CreativeTabs.BREWING);
     }
 
     public ItemStack getDefaultInstance()
@@ -141,7 +141,7 @@ public class ItemPotion extends Item
      */
     public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items)
     {
-        if (this.isInCreativeTab(tab))
+        if (isInCreativeTab(tab))
         {
             for (PotionType potiontype : PotionType.REGISTRY)
             {

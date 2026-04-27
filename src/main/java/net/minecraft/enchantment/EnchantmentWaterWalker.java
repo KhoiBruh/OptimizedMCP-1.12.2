@@ -8,7 +8,7 @@ public class EnchantmentWaterWalker extends Enchantment
     public EnchantmentWaterWalker(Enchantment.Rarity rarityIn, EntityEquipmentSlot... slots)
     {
         super(rarityIn, EnumEnchantmentType.ARMOR_FEET, slots);
-        this.setName("waterWalker");
+        setName("waterWalker");
     }
 
     /**
@@ -24,7 +24,7 @@ public class EnchantmentWaterWalker extends Enchantment
      */
     public int getMaxEnchantability(int enchantmentLevel)
     {
-        return this.getMinEnchantability(enchantmentLevel) + 15;
+        return getMinEnchantability(enchantmentLevel) + 15;
     }
 
     /**

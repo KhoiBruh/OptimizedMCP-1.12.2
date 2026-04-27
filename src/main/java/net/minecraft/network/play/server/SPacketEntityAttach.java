@@ -18,8 +18,8 @@ public class SPacketEntityAttach implements Packet<INetHandlerPlayClient>
 
     public SPacketEntityAttach(Entity entityIn, @Nullable Entity vehicleIn)
     {
-        this.entityId = entityIn.getEntityId();
-        this.vehicleEntityId = vehicleIn != null ? vehicleIn.getEntityId() : -1;
+        entityId = entityIn.getEntityId();
+        vehicleEntityId = vehicleIn != null ? vehicleIn.getEntityId() : -1;
     }
 
     /**
@@ -27,8 +27,8 @@ public class SPacketEntityAttach implements Packet<INetHandlerPlayClient>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.entityId = buf.readInt();
-        this.vehicleEntityId = buf.readInt();
+        entityId = buf.readInt();
+        vehicleEntityId = buf.readInt();
     }
 
     /**
@@ -36,8 +36,8 @@ public class SPacketEntityAttach implements Packet<INetHandlerPlayClient>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeInt(this.entityId);
-        buf.writeInt(this.vehicleEntityId);
+        buf.writeInt(entityId);
+        buf.writeInt(vehicleEntityId);
     }
 
     /**
@@ -50,11 +50,11 @@ public class SPacketEntityAttach implements Packet<INetHandlerPlayClient>
 
     public int getEntityId()
     {
-        return this.entityId;
+        return entityId;
     }
 
     public int getVehicleEntityId()
     {
-        return this.vehicleEntityId;
+        return vehicleEntityId;
     }
 }

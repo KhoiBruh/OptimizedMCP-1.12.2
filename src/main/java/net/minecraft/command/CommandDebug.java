@@ -71,8 +71,8 @@ public class CommandDebug extends CommandBase
 
                 notifyCommandListener(sender, this, "commands.debug.start", new Object[0]);
                 server.enableProfiling();
-                this.profileStartTime = MinecraftServer.getCurrentTimeMillis();
-                this.profileStartTick = server.getTickCounter();
+                profileStartTime = MinecraftServer.getCurrentTimeMillis();
+                profileStartTick = server.getTickCounter();
             }
             else
             {
@@ -93,9 +93,9 @@ public class CommandDebug extends CommandBase
 
                 long i = MinecraftServer.getCurrentTimeMillis();
                 int j = server.getTickCounter();
-                long k = i - this.profileStartTime;
-                int l = j - this.profileStartTick;
-                this.saveProfilerResults(k, l, server);
+                long k = i - profileStartTime;
+                int l = j - profileStartTick;
+                saveProfilerResults(k, l, server);
                 server.profiler.profilingEnabled = false;
                 notifyCommandListener(sender, this, "commands.debug.stop", new Object[] {String.format("%.2f", (float)k / 1000.0F), l});
             }
@@ -111,7 +111,7 @@ public class CommandDebug extends CommandBase
         try
         {
             writer = new OutputStreamWriter(new FileOutputStream(file1), StandardCharsets.UTF_8);
-            writer.write(this.getProfilerResults(timeSpan, tickSpan, server));
+            writer.write(getProfilerResults(timeSpan, tickSpan, server));
         }
         catch (Throwable throwable)
         {
@@ -134,7 +134,7 @@ public class CommandDebug extends CommandBase
         stringbuilder.append("Tick span: ").append(tickSpan).append(" ticks\n");
         stringbuilder.append("// This is approximately ").append(String.format("%.2f", (float)tickSpan / ((float)timeSpan / 1000.0F))).append(" ticks per second. It should be ").append((int)20).append(" ticks per second\n\n");
         stringbuilder.append("--- BEGIN PROFILE DUMP ---\n\n");
-        this.appendProfilerResults(0, "root", stringbuilder, server);
+        appendProfilerResults(0, "root", stringbuilder, server);
         stringbuilder.append("--- END PROFILE DUMP ---\n\n");
         return stringbuilder.toString();
     }
@@ -161,7 +161,7 @@ public class CommandDebug extends CommandBase
                 {
                     try
                     {
-                        this.appendProfilerResults(depth + 1, sectionName + "." + profiler$result.profilerName, builder, server);
+                        appendProfilerResults(depth + 1, sectionName + "." + profiler$result.profilerName, builder, server);
                     }
                     catch (Exception exception)
                     {

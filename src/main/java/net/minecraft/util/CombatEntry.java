@@ -15,12 +15,12 @@ public class CombatEntry
 
     public CombatEntry(DamageSource damageSrcIn, int timeIn, float healthAmount, float damageAmount, String fallSuffixIn, float fallDistanceIn)
     {
-        this.damageSrc = damageSrcIn;
-        this.time = timeIn;
-        this.damage = damageAmount;
-        this.health = healthAmount;
-        this.fallSuffix = fallSuffixIn;
-        this.fallDistance = fallDistanceIn;
+        damageSrc = damageSrcIn;
+        time = timeIn;
+        damage = damageAmount;
+        health = healthAmount;
+        fallSuffix = fallSuffixIn;
+        fallDistance = fallDistanceIn;
     }
 
     /**
@@ -28,12 +28,12 @@ public class CombatEntry
      */
     public DamageSource getDamageSrc()
     {
-        return this.damageSrc;
+        return damageSrc;
     }
 
     public float getDamage()
     {
-        return this.damage;
+        return damage;
     }
 
     /**
@@ -41,23 +41,23 @@ public class CombatEntry
      */
     public boolean isLivingDamageSrc()
     {
-        return this.damageSrc.getTrueSource() instanceof EntityLivingBase;
+        return damageSrc.getTrueSource() instanceof EntityLivingBase;
     }
 
     @Nullable
     public String getFallSuffix()
     {
-        return this.fallSuffix;
+        return fallSuffix;
     }
 
     @Nullable
     public ITextComponent getDamageSrcDisplayName()
     {
-        return this.getDamageSrc().getTrueSource() == null ? null : this.getDamageSrc().getTrueSource().getDisplayName();
+        return getDamageSrc().getTrueSource() == null ? null : getDamageSrc().getTrueSource().getDisplayName();
     }
 
     public float getDamageAmount()
     {
-        return this.damageSrc == DamageSource.OUT_OF_WORLD ? Float.MAX_VALUE : this.fallDistance;
+        return damageSrc == DamageSource.OUT_OF_WORLD ? Float.MAX_VALUE : fallDistance;
     }
 }

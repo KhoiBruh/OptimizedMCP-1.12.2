@@ -18,13 +18,13 @@ public class JsonBlendingMode
 
     private JsonBlendingMode(boolean separateBlendIn, boolean opaqueIn, int srcColorFactorIn, int destColorFactorIn, int srcAlphaFactorIn, int destAlphaFactorIn, int blendFunctionIn)
     {
-        this.separateBlend = separateBlendIn;
-        this.srcColorFactor = srcColorFactorIn;
-        this.destColorFactor = destColorFactorIn;
-        this.srcAlphaFactor = srcAlphaFactorIn;
-        this.destAlphaFactor = destAlphaFactorIn;
-        this.opaque = opaqueIn;
-        this.blendFunction = blendFunctionIn;
+        separateBlend = separateBlendIn;
+        srcColorFactor = srcColorFactorIn;
+        destColorFactor = destColorFactorIn;
+        srcAlphaFactor = srcAlphaFactorIn;
+        destAlphaFactor = destAlphaFactorIn;
+        opaque = opaqueIn;
+        blendFunction = blendFunctionIn;
     }
 
     public JsonBlendingMode()
@@ -44,13 +44,13 @@ public class JsonBlendingMode
 
     public void apply()
     {
-        if (!this.equals(lastApplied))
+        if (!equals(lastApplied))
         {
-            if (lastApplied == null || this.opaque != lastApplied.isOpaque())
+            if (lastApplied == null || opaque != lastApplied.isOpaque())
             {
                 lastApplied = this;
 
-                if (this.opaque)
+                if (opaque)
                 {
                     GlStateManager.disableBlend();
                     return;
@@ -59,15 +59,15 @@ public class JsonBlendingMode
                 GlStateManager.enableBlend();
             }
 
-            GlStateManager.glBlendEquation(this.blendFunction);
+            GlStateManager.glBlendEquation(blendFunction);
 
-            if (this.separateBlend)
+            if (separateBlend)
             {
-                GlStateManager.tryBlendFuncSeparate(this.srcColorFactor, this.destColorFactor, this.srcAlphaFactor, this.destAlphaFactor);
+                GlStateManager.tryBlendFuncSeparate(srcColorFactor, destColorFactor, srcAlphaFactor, destAlphaFactor);
             }
             else
             {
-                GlStateManager.blendFunc(this.srcColorFactor, this.destColorFactor);
+                GlStateManager.blendFunc(srcColorFactor, destColorFactor);
             }
         }
     }
@@ -86,52 +86,52 @@ public class JsonBlendingMode
         {
             JsonBlendingMode jsonblendingmode = (JsonBlendingMode)p_equals_1_;
 
-            if (this.blendFunction != jsonblendingmode.blendFunction)
+            if (blendFunction != jsonblendingmode.blendFunction)
             {
                 return false;
             }
-            else if (this.destAlphaFactor != jsonblendingmode.destAlphaFactor)
+            else if (destAlphaFactor != jsonblendingmode.destAlphaFactor)
             {
                 return false;
             }
-            else if (this.destColorFactor != jsonblendingmode.destColorFactor)
+            else if (destColorFactor != jsonblendingmode.destColorFactor)
             {
                 return false;
             }
-            else if (this.opaque != jsonblendingmode.opaque)
+            else if (opaque != jsonblendingmode.opaque)
             {
                 return false;
             }
-            else if (this.separateBlend != jsonblendingmode.separateBlend)
+            else if (separateBlend != jsonblendingmode.separateBlend)
             {
                 return false;
             }
-            else if (this.srcAlphaFactor != jsonblendingmode.srcAlphaFactor)
+            else if (srcAlphaFactor != jsonblendingmode.srcAlphaFactor)
             {
                 return false;
             }
             else
             {
-                return this.srcColorFactor == jsonblendingmode.srcColorFactor;
+                return srcColorFactor == jsonblendingmode.srcColorFactor;
             }
         }
     }
 
     public int hashCode()
     {
-        int i = this.srcColorFactor;
-        i = 31 * i + this.srcAlphaFactor;
-        i = 31 * i + this.destColorFactor;
-        i = 31 * i + this.destAlphaFactor;
-        i = 31 * i + this.blendFunction;
-        i = 31 * i + (this.separateBlend ? 1 : 0);
-        i = 31 * i + (this.opaque ? 1 : 0);
+        int i = srcColorFactor;
+        i = 31 * i + srcAlphaFactor;
+        i = 31 * i + destColorFactor;
+        i = 31 * i + destAlphaFactor;
+        i = 31 * i + blendFunction;
+        i = 31 * i + (separateBlend ? 1 : 0);
+        i = 31 * i + (opaque ? 1 : 0);
         return i;
     }
 
     public boolean isOpaque()
     {
-        return this.opaque;
+        return opaque;
     }
 
     public static JsonBlendingMode parseBlendNode(JsonObject json)

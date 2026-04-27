@@ -23,9 +23,9 @@ public class CPacketEntityAction implements Packet<INetHandlerPlayServer>
 
     public CPacketEntityAction(Entity entityIn, CPacketEntityAction.Action actionIn, int auxDataIn)
     {
-        this.entityID = entityIn.getEntityId();
-        this.action = actionIn;
-        this.auxData = auxDataIn;
+        entityID = entityIn.getEntityId();
+        action = actionIn;
+        auxData = auxDataIn;
     }
 
     /**
@@ -33,9 +33,9 @@ public class CPacketEntityAction implements Packet<INetHandlerPlayServer>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.entityID = buf.readVarInt();
-        this.action = (CPacketEntityAction.Action)buf.readEnumValue(CPacketEntityAction.Action.class);
-        this.auxData = buf.readVarInt();
+        entityID = buf.readVarInt();
+        action = (CPacketEntityAction.Action)buf.readEnumValue(CPacketEntityAction.Action.class);
+        auxData = buf.readVarInt();
     }
 
     /**
@@ -43,9 +43,9 @@ public class CPacketEntityAction implements Packet<INetHandlerPlayServer>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeVarInt(this.entityID);
-        buf.writeEnumValue(this.action);
-        buf.writeVarInt(this.auxData);
+        buf.writeVarInt(entityID);
+        buf.writeEnumValue(action);
+        buf.writeVarInt(auxData);
     }
 
     /**
@@ -58,12 +58,12 @@ public class CPacketEntityAction implements Packet<INetHandlerPlayServer>
 
     public CPacketEntityAction.Action getAction()
     {
-        return this.action;
+        return action;
     }
 
     public int getAuxData()
     {
-        return this.auxData;
+        return auxData;
     }
 
     public static enum Action

@@ -20,17 +20,17 @@ public class BlockGlazedTerracotta extends BlockHorizontal
     public BlockGlazedTerracotta(EnumDyeColor color)
     {
         super(Material.ROCK, MapColor.getBlockColor(color));
-        this.setHardness(1.4F);
-        this.setSoundType(SoundType.STONE);
+        setHardness(1.4F);
+        setSoundType(SoundType.STONE);
         String s = color.getUnlocalizedName();
 
         if (s.length() > 1)
         {
             String s1 = s.substring(0, 1).toUpperCase() + s.substring(1, s.length());
-            this.setUnlocalizedName("glazedTerracotta" + s1);
+            setUnlocalizedName("glazedTerracotta" + s1);
         }
 
-        this.setCreativeTab(CreativeTabs.DECORATIONS);
+        setCreativeTab(CreativeTabs.DECORATIONS);
     }
 
     protected BlockStateContainer createBlockState()
@@ -62,7 +62,7 @@ public class BlockGlazedTerracotta extends BlockHorizontal
      */
     public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
     {
-        return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
+        return getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
     }
 
     /**
@@ -80,7 +80,7 @@ public class BlockGlazedTerracotta extends BlockHorizontal
      */
     public IBlockState getStateFromMeta(int meta)
     {
-        return this.getDefaultState().withProperty(FACING, EnumFacing.getHorizontal(meta));
+        return getDefaultState().withProperty(FACING, EnumFacing.getHorizontal(meta));
     }
 
     public EnumPushReaction getMobilityFlag(IBlockState state)

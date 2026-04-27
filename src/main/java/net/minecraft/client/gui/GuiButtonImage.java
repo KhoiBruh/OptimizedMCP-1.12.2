@@ -14,16 +14,16 @@ public class GuiButtonImage extends GuiButton
     public GuiButtonImage(int p_i47392_1_, int p_i47392_2_, int p_i47392_3_, int p_i47392_4_, int p_i47392_5_, int p_i47392_6_, int p_i47392_7_, int p_i47392_8_, ResourceLocation p_i47392_9_)
     {
         super(p_i47392_1_, p_i47392_2_, p_i47392_3_, p_i47392_4_, p_i47392_5_, "");
-        this.xTexStart = p_i47392_6_;
-        this.yTexStart = p_i47392_7_;
-        this.yDiffText = p_i47392_8_;
-        this.resourceLocation = p_i47392_9_;
+        xTexStart = p_i47392_6_;
+        yTexStart = p_i47392_7_;
+        yDiffText = p_i47392_8_;
+        resourceLocation = p_i47392_9_;
     }
 
     public void setPosition(int p_191746_1_, int p_191746_2_)
     {
-        this.x = p_191746_1_;
-        this.y = p_191746_2_;
+        x = p_191746_1_;
+        y = p_191746_2_;
     }
 
     /**
@@ -31,20 +31,20 @@ public class GuiButtonImage extends GuiButton
      */
     public void drawButton(Minecraft mc, int mouseX, int mouseY, float partialTicks)
     {
-        if (this.visible)
+        if (visible)
         {
-            this.hovered = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width && mouseY < this.y + this.height;
-            mc.getTextureManager().bindTexture(this.resourceLocation);
+            hovered = mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
+            mc.getTextureManager().bindTexture(resourceLocation);
             GlStateManager.disableDepth();
-            int i = this.xTexStart;
-            int j = this.yTexStart;
+            int i = xTexStart;
+            int j = yTexStart;
 
-            if (this.hovered)
+            if (hovered)
             {
-                j += this.yDiffText;
+                j += yDiffText;
             }
 
-            this.drawTexturedModalRect(this.x, this.y, i, j, this.width, this.height);
+            drawTexturedModalRect(x, y, i, j, width, height);
             GlStateManager.enableDepth();
         }
     }

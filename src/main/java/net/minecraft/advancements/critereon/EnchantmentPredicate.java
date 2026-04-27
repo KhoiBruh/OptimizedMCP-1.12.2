@@ -19,8 +19,8 @@ public class EnchantmentPredicate
 
     public EnchantmentPredicate()
     {
-        this.enchantment = null;
-        this.levels = MinMaxBounds.UNBOUNDED;
+        enchantment = null;
+        levels = MinMaxBounds.UNBOUNDED;
     }
 
     public EnchantmentPredicate(@Nullable Enchantment enchantment, MinMaxBounds levels)
@@ -31,25 +31,25 @@ public class EnchantmentPredicate
 
     public boolean test(Map<Enchantment, Integer> enchantmentsIn)
     {
-        if (this.enchantment != null)
+        if (enchantment != null)
         {
-            if (!enchantmentsIn.containsKey(this.enchantment))
+            if (!enchantmentsIn.containsKey(enchantment))
             {
                 return false;
             }
 
-            int i = ((Integer)enchantmentsIn.get(this.enchantment)).intValue();
+            int i = ((Integer)enchantmentsIn.get(enchantment)).intValue();
 
-            if (this.levels != null && !this.levels.test((float)i))
+            if (levels != null && !levels.test((float)i))
             {
                 return false;
             }
         }
-        else if (this.levels != null)
+        else if (levels != null)
         {
             for (Integer integer : enchantmentsIn.values())
             {
-                if (this.levels.test((float)integer.intValue()))
+                if (levels.test((float)integer.intValue()))
                 {
                     return true;
                 }

@@ -134,30 +134,30 @@ public abstract class Biome
 
     protected Biome(Biome.BiomeProperties properties)
     {
-        this.biomeName = properties.biomeName;
-        this.baseHeight = properties.baseHeight;
-        this.heightVariation = properties.heightVariation;
-        this.temperature = properties.temperature;
-        this.rainfall = properties.rainfall;
-        this.waterColor = properties.waterColor;
-        this.enableSnow = properties.enableSnow;
-        this.enableRain = properties.enableRain;
-        this.baseBiomeRegName = properties.baseBiomeRegName;
-        this.decorator = this.createBiomeDecorator();
-        this.spawnableCreatureList.add(new Biome.SpawnListEntry(EntitySheep.class, 12, 4, 4));
-        this.spawnableCreatureList.add(new Biome.SpawnListEntry(EntityPig.class, 10, 4, 4));
-        this.spawnableCreatureList.add(new Biome.SpawnListEntry(EntityChicken.class, 10, 4, 4));
-        this.spawnableCreatureList.add(new Biome.SpawnListEntry(EntityCow.class, 8, 4, 4));
-        this.spawnableMonsterList.add(new Biome.SpawnListEntry(EntitySpider.class, 100, 4, 4));
-        this.spawnableMonsterList.add(new Biome.SpawnListEntry(EntityZombie.class, 95, 4, 4));
-        this.spawnableMonsterList.add(new Biome.SpawnListEntry(EntityZombieVillager.class, 5, 1, 1));
-        this.spawnableMonsterList.add(new Biome.SpawnListEntry(EntitySkeleton.class, 100, 4, 4));
-        this.spawnableMonsterList.add(new Biome.SpawnListEntry(EntityCreeper.class, 100, 4, 4));
-        this.spawnableMonsterList.add(new Biome.SpawnListEntry(EntitySlime.class, 100, 4, 4));
-        this.spawnableMonsterList.add(new Biome.SpawnListEntry(EntityEnderman.class, 10, 1, 4));
-        this.spawnableMonsterList.add(new Biome.SpawnListEntry(EntityWitch.class, 5, 1, 1));
-        this.spawnableWaterCreatureList.add(new Biome.SpawnListEntry(EntitySquid.class, 10, 4, 4));
-        this.spawnableCaveCreatureList.add(new Biome.SpawnListEntry(EntityBat.class, 10, 8, 8));
+        biomeName = properties.biomeName;
+        baseHeight = properties.baseHeight;
+        heightVariation = properties.heightVariation;
+        temperature = properties.temperature;
+        rainfall = properties.rainfall;
+        waterColor = properties.waterColor;
+        enableSnow = properties.enableSnow;
+        enableRain = properties.enableRain;
+        baseBiomeRegName = properties.baseBiomeRegName;
+        decorator = createBiomeDecorator();
+        spawnableCreatureList.add(new Biome.SpawnListEntry(EntitySheep.class, 12, 4, 4));
+        spawnableCreatureList.add(new Biome.SpawnListEntry(EntityPig.class, 10, 4, 4));
+        spawnableCreatureList.add(new Biome.SpawnListEntry(EntityChicken.class, 10, 4, 4));
+        spawnableCreatureList.add(new Biome.SpawnListEntry(EntityCow.class, 8, 4, 4));
+        spawnableMonsterList.add(new Biome.SpawnListEntry(EntitySpider.class, 100, 4, 4));
+        spawnableMonsterList.add(new Biome.SpawnListEntry(EntityZombie.class, 95, 4, 4));
+        spawnableMonsterList.add(new Biome.SpawnListEntry(EntityZombieVillager.class, 5, 1, 1));
+        spawnableMonsterList.add(new Biome.SpawnListEntry(EntitySkeleton.class, 100, 4, 4));
+        spawnableMonsterList.add(new Biome.SpawnListEntry(EntityCreeper.class, 100, 4, 4));
+        spawnableMonsterList.add(new Biome.SpawnListEntry(EntitySlime.class, 100, 4, 4));
+        spawnableMonsterList.add(new Biome.SpawnListEntry(EntityEnderman.class, 10, 1, 4));
+        spawnableMonsterList.add(new Biome.SpawnListEntry(EntityWitch.class, 5, 1, 1));
+        spawnableWaterCreatureList.add(new Biome.SpawnListEntry(EntitySquid.class, 10, 4, 4));
+        spawnableCaveCreatureList.add(new Biome.SpawnListEntry(EntityBat.class, 10, 8, 8));
     }
 
     /**
@@ -170,7 +170,7 @@ public abstract class Biome
 
     public boolean isMutation()
     {
-        return this.baseBiomeRegName != null;
+        return baseBiomeRegName != null;
     }
 
     public WorldGenAbstractTree getRandomTreeFeature(Random rand)
@@ -206,16 +206,16 @@ public abstract class Biome
         switch (creatureType)
         {
             case MONSTER:
-                return this.spawnableMonsterList;
+                return spawnableMonsterList;
 
             case CREATURE:
-                return this.spawnableCreatureList;
+                return spawnableCreatureList;
 
             case WATER_CREATURE:
-                return this.spawnableWaterCreatureList;
+                return spawnableWaterCreatureList;
 
             case AMBIENT:
-                return this.spawnableCaveCreatureList;
+                return spawnableCaveCreatureList;
 
             default:
                 return Collections.<Biome.SpawnListEntry>emptyList();
@@ -227,7 +227,7 @@ public abstract class Biome
      */
     public boolean getEnableSnow()
     {
-        return this.isSnowyBiome();
+        return isSnowyBiome();
     }
 
     /**
@@ -235,7 +235,7 @@ public abstract class Biome
      */
     public boolean canRain()
     {
-        return this.isSnowyBiome() ? false : this.enableRain;
+        return isSnowyBiome() ? false : enableRain;
     }
 
     /**
@@ -243,7 +243,7 @@ public abstract class Biome
      */
     public boolean isHighHumidity()
     {
-        return this.getRainfall() > 0.85F;
+        return getRainfall() > 0.85F;
     }
 
     /**
@@ -263,36 +263,36 @@ public abstract class Biome
         if (pos.getY() > 64)
         {
             float f = (float)(TEMPERATURE_NOISE.getValue((double)((float)pos.getX() / 8.0F), (double)((float)pos.getZ() / 8.0F)) * 4.0D);
-            return this.getDefaultTemperature() - (f + (float)pos.getY() - 64.0F) * 0.05F / 30.0F;
+            return getDefaultTemperature() - (f + (float)pos.getY() - 64.0F) * 0.05F / 30.0F;
         }
         else
         {
-            return this.getDefaultTemperature();
+            return getDefaultTemperature();
         }
     }
 
     public void decorate(World worldIn, Random rand, BlockPos pos)
     {
-        this.decorator.decorate(worldIn, rand, this, pos);
+        decorator.decorate(worldIn, rand, this, pos);
     }
 
     public int getGrassColorAtPos(BlockPos pos)
     {
-        double d0 = (double)MathHelper.clamp(this.getTemperature(pos), 0.0F, 1.0F);
-        double d1 = (double)MathHelper.clamp(this.getRainfall(), 0.0F, 1.0F);
+        double d0 = (double)MathHelper.clamp(getTemperature(pos), 0.0F, 1.0F);
+        double d1 = (double)MathHelper.clamp(getRainfall(), 0.0F, 1.0F);
         return ColorizerGrass.getGrassColor(d0, d1);
     }
 
     public int getFoliageColorAtPos(BlockPos pos)
     {
-        double d0 = (double)MathHelper.clamp(this.getTemperature(pos), 0.0F, 1.0F);
-        double d1 = (double)MathHelper.clamp(this.getRainfall(), 0.0F, 1.0F);
+        double d0 = (double)MathHelper.clamp(getTemperature(pos), 0.0F, 1.0F);
+        double d1 = (double)MathHelper.clamp(getRainfall(), 0.0F, 1.0F);
         return ColorizerFoliage.getFoliageColor(d0, d1);
     }
 
     public void genTerrainBlocks(World worldIn, Random rand, ChunkPrimer chunkPrimerIn, int x, int z, double noiseVal)
     {
-        this.generateBiomeTerrain(worldIn, rand, chunkPrimerIn, x, z, noiseVal);
+        generateBiomeTerrain(worldIn, rand, chunkPrimerIn, x, z, noiseVal);
     }
 
     /**
@@ -308,8 +308,8 @@ public abstract class Biome
     public final void generateBiomeTerrain(World worldIn, Random rand, ChunkPrimer chunkPrimerIn, int x, int z, double noiseVal)
     {
         int i = worldIn.getSeaLevel();
-        IBlockState iblockstate = this.topBlock;
-        IBlockState iblockstate1 = this.fillerBlock;
+        IBlockState iblockstate = topBlock;
+        IBlockState iblockstate1 = fillerBlock;
         int j = -1;
         int k = (int)(noiseVal / 3.0D + 3.0D + rand.nextDouble() * 0.25D);
         int l = x & 15;
@@ -341,13 +341,13 @@ public abstract class Biome
                         }
                         else if (j1 >= i - 4 && j1 <= i + 1)
                         {
-                            iblockstate = this.topBlock;
-                            iblockstate1 = this.fillerBlock;
+                            iblockstate = topBlock;
+                            iblockstate1 = fillerBlock;
                         }
 
                         if (j1 < i && (iblockstate == null || iblockstate.getMaterial() == Material.AIR))
                         {
-                            if (this.getTemperature(blockpos$mutableblockpos.setPos(x, j1, z)) < 0.15F)
+                            if (getTemperature(blockpos$mutableblockpos.setPos(x, j1, z)) < 0.15F)
                             {
                                 iblockstate = ICE;
                             }
@@ -392,18 +392,18 @@ public abstract class Biome
 
     public Class <? extends Biome > getBiomeClass()
     {
-        return this.getClass();
+        return getClass();
     }
 
     public Biome.TempCategory getTempCategory()
     {
-        if ((double)this.getDefaultTemperature() < 0.2D)
+        if ((double) getDefaultTemperature() < 0.2D)
         {
             return Biome.TempCategory.COLD;
         }
         else
         {
-            return (double)this.getDefaultTemperature() < 1.0D ? Biome.TempCategory.MEDIUM : Biome.TempCategory.WARM;
+            return (double) getDefaultTemperature() < 1.0D ? Biome.TempCategory.MEDIUM : Biome.TempCategory.WARM;
         }
     }
 
@@ -430,7 +430,7 @@ public abstract class Biome
 
     public final float getBaseHeight()
     {
-        return this.baseHeight;
+        return baseHeight;
     }
 
     /**
@@ -438,17 +438,17 @@ public abstract class Biome
      */
     public final float getRainfall()
     {
-        return this.rainfall;
+        return rainfall;
     }
 
     public final String getBiomeName()
     {
-        return this.biomeName;
+        return biomeName;
     }
 
     public final float getHeightVariation()
     {
-        return this.heightVariation;
+        return heightVariation;
     }
 
     /**
@@ -456,17 +456,17 @@ public abstract class Biome
      */
     public final float getDefaultTemperature()
     {
-        return this.temperature;
+        return temperature;
     }
 
     public final int getWaterColor()
     {
-        return this.waterColor;
+        return waterColor;
     }
 
     public final boolean isSnowyBiome()
     {
-        return this.enableSnow;
+        return enableSnow;
     }
 
     /**
@@ -566,7 +566,7 @@ public abstract class Biome
 
         public BiomeProperties(String nameIn)
         {
-            this.biomeName = nameIn;
+            biomeName = nameIn;
         }
 
         protected Biome.BiomeProperties setTemperature(float temperatureIn)
@@ -577,50 +577,50 @@ public abstract class Biome
             }
             else
             {
-                this.temperature = temperatureIn;
+                temperature = temperatureIn;
                 return this;
             }
         }
 
         protected Biome.BiomeProperties setRainfall(float rainfallIn)
         {
-            this.rainfall = rainfallIn;
+            rainfall = rainfallIn;
             return this;
         }
 
         protected Biome.BiomeProperties setBaseHeight(float baseHeightIn)
         {
-            this.baseHeight = baseHeightIn;
+            baseHeight = baseHeightIn;
             return this;
         }
 
         protected Biome.BiomeProperties setHeightVariation(float heightVariationIn)
         {
-            this.heightVariation = heightVariationIn;
+            heightVariation = heightVariationIn;
             return this;
         }
 
         protected Biome.BiomeProperties setRainDisabled()
         {
-            this.enableRain = false;
+            enableRain = false;
             return this;
         }
 
         protected Biome.BiomeProperties setSnowEnabled()
         {
-            this.enableSnow = true;
+            enableSnow = true;
             return this;
         }
 
         protected Biome.BiomeProperties setWaterColor(int waterColorIn)
         {
-            this.waterColor = waterColorIn;
+            waterColor = waterColorIn;
             return this;
         }
 
         protected Biome.BiomeProperties setBaseBiome(String nameIn)
         {
-            this.baseBiomeRegName = nameIn;
+            baseBiomeRegName = nameIn;
             return this;
         }
     }
@@ -634,14 +634,14 @@ public abstract class Biome
         public SpawnListEntry(Class <? extends EntityLiving > entityclassIn, int weight, int groupCountMin, int groupCountMax)
         {
             super(weight);
-            this.entityClass = entityclassIn;
-            this.minGroupCount = groupCountMin;
-            this.maxGroupCount = groupCountMax;
+            entityClass = entityclassIn;
+            minGroupCount = groupCountMin;
+            maxGroupCount = groupCountMax;
         }
 
         public String toString()
         {
-            return this.entityClass.getSimpleName() + "*(" + this.minGroupCount + "-" + this.maxGroupCount + "):" + this.itemWeight;
+            return entityClass.getSimpleName() + "*(" + minGroupCount + "-" + maxGroupCount + "):" + itemWeight;
         }
     }
 

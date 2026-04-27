@@ -17,7 +17,7 @@ public class RenderZombieVillager extends RenderBiped<EntityZombieVillager>
     public RenderZombieVillager(RenderManager p_i47186_1_)
     {
         super(p_i47186_1_, new ModelZombieVillager(), 0.5F);
-        this.addLayer(new LayerVillagerArmor(this));
+        addLayer(new LayerVillagerArmor(this));
     }
 
     /**

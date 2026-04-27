@@ -48,7 +48,7 @@ public class CommandGameMode extends CommandBase
         }
         else
         {
-            GameType gametype = this.getGameModeFromCommand(sender, args[0]);
+            GameType gametype = getGameModeFromCommand(sender, args[0]);
             EntityPlayer entityplayer = args.length >= 2 ? getPlayer(server, sender, args[1]) : getCommandSenderAsPlayer(sender);
             entityplayer.setGameType(gametype);
             ITextComponent itextcomponent = new TextComponentTranslation("gameMode." + gametype.getName(), new Object[0]);

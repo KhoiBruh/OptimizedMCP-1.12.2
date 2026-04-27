@@ -17,7 +17,7 @@ public class EntityAIVillagerInteract extends EntityAIWatchClosest2
     public EntityAIVillagerInteract(EntityVillager villagerIn)
     {
         super(villagerIn, EntityVillager.class, 3.0F, 0.02F);
-        this.villager = villagerIn;
+        villager = villagerIn;
     }
 
     /**
@@ -27,13 +27,13 @@ public class EntityAIVillagerInteract extends EntityAIWatchClosest2
     {
         super.startExecuting();
 
-        if (this.villager.canAbondonItems() && this.closestEntity instanceof EntityVillager && ((EntityVillager)this.closestEntity).wantsMoreFood())
+        if (villager.canAbondonItems() && closestEntity instanceof EntityVillager && ((EntityVillager) closestEntity).wantsMoreFood())
         {
-            this.interactionDelay = 10;
+            interactionDelay = 10;
         }
         else
         {
-            this.interactionDelay = 0;
+            interactionDelay = 0;
         }
     }
 
@@ -44,13 +44,13 @@ public class EntityAIVillagerInteract extends EntityAIWatchClosest2
     {
         super.updateTask();
 
-        if (this.interactionDelay > 0)
+        if (interactionDelay > 0)
         {
-            --this.interactionDelay;
+            --interactionDelay;
 
-            if (this.interactionDelay == 0)
+            if (interactionDelay == 0)
             {
-                InventoryBasic inventorybasic = this.villager.getVillagerInventory();
+                InventoryBasic inventorybasic = villager.getVillagerInventory();
 
                 for (int i = 0; i < inventorybasic.getSizeInventory(); ++i)
                 {
@@ -83,16 +83,16 @@ public class EntityAIVillagerInteract extends EntityAIWatchClosest2
 
                     if (!itemstack1.isEmpty())
                     {
-                        double d0 = this.villager.posY - 0.30000001192092896D + (double)this.villager.getEyeHeight();
-                        EntityItem entityitem = new EntityItem(this.villager.world, this.villager.posX, d0, this.villager.posZ, itemstack1);
+                        double d0 = villager.posY - 0.30000001192092896D + (double) villager.getEyeHeight();
+                        EntityItem entityitem = new EntityItem(villager.world, villager.posX, d0, villager.posZ, itemstack1);
                         float f = 0.3F;
-                        float f1 = this.villager.rotationYawHead;
-                        float f2 = this.villager.rotationPitch;
+                        float f1 = villager.rotationYawHead;
+                        float f2 = villager.rotationPitch;
                         entityitem.motionX = (double)(-MathHelper.sin(f1 * 0.017453292F) * MathHelper.cos(f2 * 0.017453292F) * 0.3F);
                         entityitem.motionZ = (double)(MathHelper.cos(f1 * 0.017453292F) * MathHelper.cos(f2 * 0.017453292F) * 0.3F);
                         entityitem.motionY = (double)(-MathHelper.sin(f2 * 0.017453292F) * 0.3F + 0.1F);
                         entityitem.setDefaultPickupDelay();
-                        this.villager.world.spawnEntity(entityitem);
+                        villager.world.spawnEntity(entityitem);
                         break;
                     }
                 }

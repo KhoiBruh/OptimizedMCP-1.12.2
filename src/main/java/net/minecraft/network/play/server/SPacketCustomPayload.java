@@ -17,8 +17,8 @@ public class SPacketCustomPayload implements Packet<INetHandlerPlayClient>
 
     public SPacketCustomPayload(String channelIn, PacketBuffer bufIn)
     {
-        this.channel = channelIn;
-        this.data = bufIn;
+        channel = channelIn;
+        data = bufIn;
 
         if (bufIn.writerIndex() > 1048576)
         {
@@ -31,12 +31,12 @@ public class SPacketCustomPayload implements Packet<INetHandlerPlayClient>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.channel = buf.readString(20);
+        channel = buf.readString(20);
         int i = buf.readableBytes();
 
         if (i >= 0 && i <= 1048576)
         {
-            this.data = new PacketBuffer(buf.readBytes(i));
+            data = new PacketBuffer(buf.readBytes(i));
         }
         else
         {
@@ -49,8 +49,8 @@ public class SPacketCustomPayload implements Packet<INetHandlerPlayClient>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeString(this.channel);
-        buf.writeBytes((ByteBuf)this.data);
+        buf.writeString(channel);
+        buf.writeBytes((ByteBuf) data);
     }
 
     /**
@@ -63,11 +63,11 @@ public class SPacketCustomPayload implements Packet<INetHandlerPlayClient>
 
     public String getChannelName()
     {
-        return this.channel;
+        return channel;
     }
 
     public PacketBuffer getBufferData()
     {
-        return this.data;
+        return data;
     }
 }

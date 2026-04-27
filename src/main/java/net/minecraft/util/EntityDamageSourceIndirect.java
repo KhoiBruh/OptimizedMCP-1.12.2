@@ -18,7 +18,7 @@ public class EntityDamageSourceIndirect extends EntityDamageSource
     public EntityDamageSourceIndirect(String damageTypeIn, Entity source, @Nullable Entity indirectEntityIn)
     {
         super(damageTypeIn, source);
-        this.indirectEntity = indirectEntityIn;
+        indirectEntity = indirectEntityIn;
     }
 
     @Nullable
@@ -28,7 +28,7 @@ public class EntityDamageSourceIndirect extends EntityDamageSource
      */
     public Entity getImmediateSource()
     {
-        return this.damageSourceEntity;
+        return damageSourceEntity;
     }
 
     @Nullable
@@ -39,7 +39,7 @@ public class EntityDamageSourceIndirect extends EntityDamageSource
      */
     public Entity getTrueSource()
     {
-        return this.indirectEntity;
+        return indirectEntity;
     }
 
     /**
@@ -47,9 +47,9 @@ public class EntityDamageSourceIndirect extends EntityDamageSource
      */
     public ITextComponent getDeathMessage(EntityLivingBase entityLivingBaseIn)
     {
-        ITextComponent itextcomponent = this.indirectEntity == null ? this.damageSourceEntity.getDisplayName() : this.indirectEntity.getDisplayName();
-        ItemStack itemstack = this.indirectEntity instanceof EntityLivingBase ? ((EntityLivingBase)this.indirectEntity).getHeldItemMainhand() : ItemStack.EMPTY;
-        String s = "death.attack." + this.damageType;
+        ITextComponent itextcomponent = indirectEntity == null ? damageSourceEntity.getDisplayName() : indirectEntity.getDisplayName();
+        ItemStack itemstack = indirectEntity instanceof EntityLivingBase ? ((EntityLivingBase) indirectEntity).getHeldItemMainhand() : ItemStack.EMPTY;
+        String s = "death.attack." + damageType;
         String s1 = s + ".item";
         return !itemstack.isEmpty() && itemstack.hasDisplayName() && I18n.canTranslate(s1) ? new TextComponentTranslation(s1, new Object[] {entityLivingBaseIn.getDisplayName(), itextcomponent, itemstack.getTextComponent()}) : new TextComponentTranslation(s, new Object[] {entityLivingBaseIn.getDisplayName(), itextcomponent});
     }

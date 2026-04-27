@@ -21,7 +21,7 @@ public class SetMetadata extends LootFunction
     public SetMetadata(LootCondition[] conditionsIn, RandomValueRange metaRangeIn)
     {
         super(conditionsIn);
-        this.metaRange = metaRangeIn;
+        metaRange = metaRangeIn;
     }
 
     public ItemStack apply(ItemStack stack, Random rand, LootContext context)
@@ -32,7 +32,7 @@ public class SetMetadata extends LootFunction
         }
         else
         {
-            stack.setItemDamage(this.metaRange.generateInt(rand));
+            stack.setItemDamage(metaRange.generateInt(rand));
         }
 
         return stack;

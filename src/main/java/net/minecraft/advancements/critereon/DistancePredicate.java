@@ -31,15 +31,15 @@ public class DistancePredicate
         float f1 = (float)(y1 - y2);
         float f2 = (float)(z1 - z2);
 
-        if (this.x.test(MathHelper.abs(f)) && this.y.test(MathHelper.abs(f1)) && this.z.test(MathHelper.abs(f2)))
+        if (x.test(MathHelper.abs(f)) && y.test(MathHelper.abs(f1)) && z.test(MathHelper.abs(f2)))
         {
-            if (!this.horizontal.testSquare((double)(f * f + f2 * f2)))
+            if (!horizontal.testSquare((double)(f * f + f2 * f2)))
             {
                 return false;
             }
             else
             {
-                return this.absolute.testSquare((double)(f * f + f1 * f1 + f2 * f2));
+                return absolute.testSquare((double)(f * f + f1 * f1 + f2 * f2));
             }
         }
         else

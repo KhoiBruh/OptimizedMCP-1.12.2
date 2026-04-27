@@ -73,60 +73,60 @@ public class EntityZombie extends EntityMob
     public EntityZombie(World worldIn)
     {
         super(worldIn);
-        this.setSize(0.6F, 1.95F);
+        setSize(0.6F, 1.95F);
     }
 
     protected void initEntityAI()
     {
-        this.tasks.addTask(0, new EntityAISwimming(this));
-        this.tasks.addTask(2, new EntityAIZombieAttack(this, 1.0D, false));
-        this.tasks.addTask(5, new EntityAIMoveTowardsRestriction(this, 1.0D));
-        this.tasks.addTask(7, new EntityAIWanderAvoidWater(this, 1.0D));
-        this.tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
-        this.tasks.addTask(8, new EntityAILookIdle(this));
-        this.applyEntityAI();
+        tasks.addTask(0, new EntityAISwimming(this));
+        tasks.addTask(2, new EntityAIZombieAttack(this, 1.0D, false));
+        tasks.addTask(5, new EntityAIMoveTowardsRestriction(this, 1.0D));
+        tasks.addTask(7, new EntityAIWanderAvoidWater(this, 1.0D));
+        tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
+        tasks.addTask(8, new EntityAILookIdle(this));
+        applyEntityAI();
     }
 
     protected void applyEntityAI()
     {
-        this.tasks.addTask(6, new EntityAIMoveThroughVillage(this, 1.0D, false));
-        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, new Class[] {EntityPigZombie.class}));
-        this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
-        this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityVillager.class, false));
-        this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityIronGolem.class, true));
+        tasks.addTask(6, new EntityAIMoveThroughVillage(this, 1.0D, false));
+        targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, new Class[] {EntityPigZombie.class}));
+        targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
+        targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityVillager.class, false));
+        targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityIronGolem.class, true));
     }
 
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(35.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.23000000417232513D);
-        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(3.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(2.0D);
-        this.getAttributeMap().registerAttribute(SPAWN_REINFORCEMENTS_CHANCE).setBaseValue(this.rand.nextDouble() * 0.10000000149011612D);
+        getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(35.0D);
+        getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.23000000417232513D);
+        getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(3.0D);
+        getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(2.0D);
+        getAttributeMap().registerAttribute(SPAWN_REINFORCEMENTS_CHANCE).setBaseValue(rand.nextDouble() * 0.10000000149011612D);
     }
 
     protected void entityInit()
     {
         super.entityInit();
-        this.getDataManager().register(IS_CHILD, Boolean.valueOf(false));
-        this.getDataManager().register(VILLAGER_TYPE, Integer.valueOf(0));
-        this.getDataManager().register(ARMS_RAISED, Boolean.valueOf(false));
+        getDataManager().register(IS_CHILD, Boolean.valueOf(false));
+        getDataManager().register(VILLAGER_TYPE, Integer.valueOf(0));
+        getDataManager().register(ARMS_RAISED, Boolean.valueOf(false));
     }
 
     public void setArmsRaised(boolean armsRaised)
     {
-        this.getDataManager().set(ARMS_RAISED, Boolean.valueOf(armsRaised));
+        getDataManager().set(ARMS_RAISED, Boolean.valueOf(armsRaised));
     }
 
     public boolean isArmsRaised()
     {
-        return ((Boolean)this.getDataManager().get(ARMS_RAISED)).booleanValue();
+        return ((Boolean) getDataManager().get(ARMS_RAISED)).booleanValue();
     }
 
     public boolean isBreakDoorsTaskSet()
     {
-        return this.isBreakDoorsTaskSet;
+        return isBreakDoorsTaskSet;
     }
 
     /**
@@ -134,18 +134,18 @@ public class EntityZombie extends EntityMob
      */
     public void setBreakDoorsAItask(boolean enabled)
     {
-        if (this.isBreakDoorsTaskSet != enabled)
+        if (isBreakDoorsTaskSet != enabled)
         {
-            this.isBreakDoorsTaskSet = enabled;
-            ((PathNavigateGround)this.getNavigator()).setBreakDoors(enabled);
+            isBreakDoorsTaskSet = enabled;
+            ((PathNavigateGround) getNavigator()).setBreakDoors(enabled);
 
             if (enabled)
             {
-                this.tasks.addTask(1, this.breakDoor);
+                tasks.addTask(1, breakDoor);
             }
             else
             {
-                this.tasks.removeTask(this.breakDoor);
+                tasks.removeTask(breakDoor);
             }
         }
     }
@@ -155,7 +155,7 @@ public class EntityZombie extends EntityMob
      */
     public boolean isChild()
     {
-        return ((Boolean)this.getDataManager().get(IS_CHILD)).booleanValue();
+        return ((Boolean) getDataManager().get(IS_CHILD)).booleanValue();
     }
 
     /**
@@ -163,9 +163,9 @@ public class EntityZombie extends EntityMob
      */
     protected int getExperiencePoints(EntityPlayer player)
     {
-        if (this.isChild())
+        if (isChild())
         {
-            this.experienceValue = (int)((float)this.experienceValue * 2.5F);
+            experienceValue = (int)((float) experienceValue * 2.5F);
         }
 
         return super.getExperiencePoints(player);
@@ -176,11 +176,11 @@ public class EntityZombie extends EntityMob
      */
     public void setChild(boolean childZombie)
     {
-        this.getDataManager().set(IS_CHILD, Boolean.valueOf(childZombie));
+        getDataManager().set(IS_CHILD, Boolean.valueOf(childZombie));
 
-        if (this.world != null && !this.world.isRemote)
+        if (world != null && !world.isRemote)
         {
-            IAttributeInstance iattributeinstance = this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED);
+            IAttributeInstance iattributeinstance = getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED);
             iattributeinstance.removeModifier(BABY_SPEED_BOOST);
 
             if (childZombie)
@@ -189,14 +189,14 @@ public class EntityZombie extends EntityMob
             }
         }
 
-        this.setChildSize(childZombie);
+        setChildSize(childZombie);
     }
 
     public void notifyDataManagerChange(DataParameter<?> key)
     {
         if (IS_CHILD.equals(key))
         {
-            this.setChildSize(this.isChild());
+            setChildSize(isChild());
         }
 
         super.notifyDataManagerChange(key);
@@ -208,25 +208,25 @@ public class EntityZombie extends EntityMob
      */
     public void onLivingUpdate()
     {
-        if (this.world.isDaytime() && !this.world.isRemote && !this.isChild() && this.shouldBurnInDay())
+        if (world.isDaytime() && !world.isRemote && !isChild() && shouldBurnInDay())
         {
-            float f = this.getBrightness();
+            float f = getBrightness();
 
-            if (f > 0.5F && this.rand.nextFloat() * 30.0F < (f - 0.4F) * 2.0F && this.world.canSeeSky(new BlockPos(this.posX, this.posY + (double)this.getEyeHeight(), this.posZ)))
+            if (f > 0.5F && rand.nextFloat() * 30.0F < (f - 0.4F) * 2.0F && world.canSeeSky(new BlockPos(posX, posY + (double) getEyeHeight(), posZ)))
             {
                 boolean flag = true;
-                ItemStack itemstack = this.getItemStackFromSlot(EntityEquipmentSlot.HEAD);
+                ItemStack itemstack = getItemStackFromSlot(EntityEquipmentSlot.HEAD);
 
                 if (!itemstack.isEmpty())
                 {
                     if (itemstack.isItemStackDamageable())
                     {
-                        itemstack.setItemDamage(itemstack.getItemDamage() + this.rand.nextInt(2));
+                        itemstack.setItemDamage(itemstack.getItemDamage() + rand.nextInt(2));
 
                         if (itemstack.getItemDamage() >= itemstack.getMaxDamage())
                         {
-                            this.renderBrokenItemStack(itemstack);
-                            this.setItemStackToSlot(EntityEquipmentSlot.HEAD, ItemStack.EMPTY);
+                            renderBrokenItemStack(itemstack);
+                            setItemStackToSlot(EntityEquipmentSlot.HEAD, ItemStack.EMPTY);
                         }
                     }
 
@@ -235,7 +235,7 @@ public class EntityZombie extends EntityMob
 
                 if (flag)
                 {
-                    this.setFire(8);
+                    setFire(8);
                 }
             }
         }
@@ -255,36 +255,36 @@ public class EntityZombie extends EntityMob
     {
         if (super.attackEntityFrom(source, amount))
         {
-            EntityLivingBase entitylivingbase = this.getAttackTarget();
+            EntityLivingBase entitylivingbase = getAttackTarget();
 
             if (entitylivingbase == null && source.getTrueSource() instanceof EntityLivingBase)
             {
                 entitylivingbase = (EntityLivingBase)source.getTrueSource();
             }
 
-            if (entitylivingbase != null && this.world.getDifficulty() == EnumDifficulty.HARD && (double)this.rand.nextFloat() < this.getEntityAttribute(SPAWN_REINFORCEMENTS_CHANCE).getAttributeValue() && this.world.getGameRules().getBoolean("doMobSpawning"))
+            if (entitylivingbase != null && world.getDifficulty() == EnumDifficulty.HARD && (double) rand.nextFloat() < getEntityAttribute(SPAWN_REINFORCEMENTS_CHANCE).getAttributeValue() && world.getGameRules().getBoolean("doMobSpawning"))
             {
-                int i = MathHelper.floor(this.posX);
-                int j = MathHelper.floor(this.posY);
-                int k = MathHelper.floor(this.posZ);
-                EntityZombie entityzombie = new EntityZombie(this.world);
+                int i = MathHelper.floor(posX);
+                int j = MathHelper.floor(posY);
+                int k = MathHelper.floor(posZ);
+                EntityZombie entityzombie = new EntityZombie(world);
 
                 for (int l = 0; l < 50; ++l)
                 {
-                    int i1 = i + MathHelper.getInt(this.rand, 7, 40) * MathHelper.getInt(this.rand, -1, 1);
-                    int j1 = j + MathHelper.getInt(this.rand, 7, 40) * MathHelper.getInt(this.rand, -1, 1);
-                    int k1 = k + MathHelper.getInt(this.rand, 7, 40) * MathHelper.getInt(this.rand, -1, 1);
+                    int i1 = i + MathHelper.getInt(rand, 7, 40) * MathHelper.getInt(rand, -1, 1);
+                    int j1 = j + MathHelper.getInt(rand, 7, 40) * MathHelper.getInt(rand, -1, 1);
+                    int k1 = k + MathHelper.getInt(rand, 7, 40) * MathHelper.getInt(rand, -1, 1);
 
-                    if (this.world.getBlockState(new BlockPos(i1, j1 - 1, k1)).isTopSolid() && this.world.getLightFromNeighbors(new BlockPos(i1, j1, k1)) < 10)
+                    if (world.getBlockState(new BlockPos(i1, j1 - 1, k1)).isTopSolid() && world.getLightFromNeighbors(new BlockPos(i1, j1, k1)) < 10)
                     {
                         entityzombie.setPosition((double)i1, (double)j1, (double)k1);
 
-                        if (!this.world.isAnyPlayerWithinRangeAt((double)i1, (double)j1, (double)k1, 7.0D) && this.world.checkNoEntityCollision(entityzombie.getEntityBoundingBox(), entityzombie) && this.world.getCollisionBoxes(entityzombie, entityzombie.getEntityBoundingBox()).isEmpty() && !this.world.containsAnyLiquid(entityzombie.getEntityBoundingBox()))
+                        if (!world.isAnyPlayerWithinRangeAt((double)i1, (double)j1, (double)k1, 7.0D) && world.checkNoEntityCollision(entityzombie.getEntityBoundingBox(), entityzombie) && world.getCollisionBoxes(entityzombie, entityzombie.getEntityBoundingBox()).isEmpty() && !world.containsAnyLiquid(entityzombie.getEntityBoundingBox()))
                         {
-                            this.world.spawnEntity(entityzombie);
+                            world.spawnEntity(entityzombie);
                             entityzombie.setAttackTarget(entitylivingbase);
-                            entityzombie.onInitialSpawn(this.world.getDifficultyForLocation(new BlockPos(entityzombie)), (IEntityLivingData)null);
-                            this.getEntityAttribute(SPAWN_REINFORCEMENTS_CHANCE).applyModifier(new AttributeModifier("Zombie reinforcement caller charge", -0.05000000074505806D, 0));
+                            entityzombie.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(entityzombie)), (IEntityLivingData)null);
+                            getEntityAttribute(SPAWN_REINFORCEMENTS_CHANCE).applyModifier(new AttributeModifier("Zombie reinforcement caller charge", -0.05000000074505806D, 0));
                             entityzombie.getEntityAttribute(SPAWN_REINFORCEMENTS_CHANCE).applyModifier(new AttributeModifier("Zombie reinforcement callee charge", -0.05000000074505806D, 0));
                             break;
                         }
@@ -306,9 +306,9 @@ public class EntityZombie extends EntityMob
 
         if (flag)
         {
-            float f = this.world.getDifficultyForLocation(new BlockPos(this)).getAdditionalDifficulty();
+            float f = world.getDifficultyForLocation(new BlockPos(this)).getAdditionalDifficulty();
 
-            if (this.getHeldItemMainhand().isEmpty() && this.isBurning() && this.rand.nextFloat() < f * 0.3F)
+            if (getHeldItemMainhand().isEmpty() && isBurning() && rand.nextFloat() < f * 0.3F)
             {
                 entityIn.setFire(2 * (int)f);
             }
@@ -339,7 +339,7 @@ public class EntityZombie extends EntityMob
 
     protected void playStepSound(BlockPos pos, Block blockIn)
     {
-        this.playSound(this.getStepSound(), 0.15F, 1.0F);
+        playSound(getStepSound(), 0.15F, 1.0F);
     }
 
     /**
@@ -363,17 +363,17 @@ public class EntityZombie extends EntityMob
     {
         super.setEquipmentBasedOnDifficulty(difficulty);
 
-        if (this.rand.nextFloat() < (this.world.getDifficulty() == EnumDifficulty.HARD ? 0.05F : 0.01F))
+        if (rand.nextFloat() < (world.getDifficulty() == EnumDifficulty.HARD ? 0.05F : 0.01F))
         {
-            int i = this.rand.nextInt(3);
+            int i = rand.nextInt(3);
 
             if (i == 0)
             {
-                this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SWORD));
+                setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SWORD));
             }
             else
             {
-                this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SHOVEL));
+                setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SHOVEL));
             }
         }
     }
@@ -390,12 +390,12 @@ public class EntityZombie extends EntityMob
     {
         super.writeEntityToNBT(compound);
 
-        if (this.isChild())
+        if (isChild())
         {
             compound.setBoolean("IsBaby", true);
         }
 
-        compound.setBoolean("CanBreakDoors", this.isBreakDoorsTaskSet());
+        compound.setBoolean("CanBreakDoors", isBreakDoorsTaskSet());
     }
 
     /**
@@ -407,10 +407,10 @@ public class EntityZombie extends EntityMob
 
         if (compound.getBoolean("IsBaby"))
         {
-            this.setChild(true);
+            setChild(true);
         }
 
-        this.setBreakDoorsAItask(compound.getBoolean("CanBreakDoors"));
+        setBreakDoorsAItask(compound.getBoolean("CanBreakDoors"));
     }
 
     /**
@@ -420,18 +420,18 @@ public class EntityZombie extends EntityMob
     {
         super.onKillEntity(entityLivingIn);
 
-        if ((this.world.getDifficulty() == EnumDifficulty.NORMAL || this.world.getDifficulty() == EnumDifficulty.HARD) && entityLivingIn instanceof EntityVillager)
+        if ((world.getDifficulty() == EnumDifficulty.NORMAL || world.getDifficulty() == EnumDifficulty.HARD) && entityLivingIn instanceof EntityVillager)
         {
-            if (this.world.getDifficulty() != EnumDifficulty.HARD && this.rand.nextBoolean())
+            if (world.getDifficulty() != EnumDifficulty.HARD && rand.nextBoolean())
             {
                 return;
             }
 
             EntityVillager entityvillager = (EntityVillager)entityLivingIn;
-            EntityZombieVillager entityzombievillager = new EntityZombieVillager(this.world);
+            EntityZombieVillager entityzombievillager = new EntityZombieVillager(world);
             entityzombievillager.copyLocationAndAnglesFrom(entityvillager);
-            this.world.removeEntity(entityvillager);
-            entityzombievillager.onInitialSpawn(this.world.getDifficultyForLocation(new BlockPos(entityzombievillager)), new EntityZombie.GroupData(false));
+            world.removeEntity(entityvillager);
+            entityzombievillager.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(entityzombievillager)), new EntityZombie.GroupData(false));
             entityzombievillager.setProfession(entityvillager.getProfession());
             entityzombievillager.setChild(entityvillager.isChild());
             entityzombievillager.setNoAI(entityvillager.isAIDisabled());
@@ -442,8 +442,8 @@ public class EntityZombie extends EntityMob
                 entityzombievillager.setAlwaysRenderNameTag(entityvillager.getAlwaysRenderNameTag());
             }
 
-            this.world.spawnEntity(entityzombievillager);
-            this.world.playEvent((EntityPlayer)null, 1026, new BlockPos(this), 0);
+            world.spawnEntity(entityzombievillager);
+            world.playEvent((EntityPlayer)null, 1026, new BlockPos(this), 0);
         }
     }
 
@@ -451,7 +451,7 @@ public class EntityZombie extends EntityMob
     {
         float f = 1.74F;
 
-        if (this.isChild())
+        if (isChild())
         {
             f = (float)((double)f - 0.81D);
         }
@@ -461,7 +461,7 @@ public class EntityZombie extends EntityMob
 
     protected boolean canEquipItem(ItemStack stack)
     {
-        return stack.getItem() == Items.EGG && this.isChild() && this.isRiding() ? false : super.canEquipItem(stack);
+        return stack.getItem() == Items.EGG && isChild() && isRiding() ? false : super.canEquipItem(stack);
     }
 
     @Nullable
@@ -484,11 +484,11 @@ public class EntityZombie extends EntityMob
     {
         livingdata = super.onInitialSpawn(difficulty, livingdata);
         float f = difficulty.getClampedAdditionalDifficulty();
-        this.setCanPickUpLoot(this.rand.nextFloat() < 0.55F * f);
+        setCanPickUpLoot(rand.nextFloat() < 0.55F * f);
 
         if (livingdata == null)
         {
-            livingdata = new EntityZombie.GroupData(this.world.rand.nextFloat() < 0.05F);
+            livingdata = new EntityZombie.GroupData(world.rand.nextFloat() < 0.05F);
         }
 
         if (livingdata instanceof EntityZombie.GroupData)
@@ -497,59 +497,59 @@ public class EntityZombie extends EntityMob
 
             if (entityzombie$groupdata.isChild)
             {
-                this.setChild(true);
+                setChild(true);
 
-                if ((double)this.world.rand.nextFloat() < 0.05D)
+                if ((double) world.rand.nextFloat() < 0.05D)
                 {
-                    List<EntityChicken> list = this.world.<EntityChicken>getEntitiesWithinAABB(EntityChicken.class, this.getEntityBoundingBox().grow(5.0D, 3.0D, 5.0D), EntitySelectors.IS_STANDALONE);
+                    List<EntityChicken> list = world.<EntityChicken>getEntitiesWithinAABB(EntityChicken.class, getEntityBoundingBox().grow(5.0D, 3.0D, 5.0D), EntitySelectors.IS_STANDALONE);
 
                     if (!list.isEmpty())
                     {
                         EntityChicken entitychicken = list.get(0);
                         entitychicken.setChickenJockey(true);
-                        this.startRiding(entitychicken);
+                        startRiding(entitychicken);
                     }
                 }
-                else if ((double)this.world.rand.nextFloat() < 0.05D)
+                else if ((double) world.rand.nextFloat() < 0.05D)
                 {
-                    EntityChicken entitychicken1 = new EntityChicken(this.world);
-                    entitychicken1.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
+                    EntityChicken entitychicken1 = new EntityChicken(world);
+                    entitychicken1.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
                     entitychicken1.onInitialSpawn(difficulty, (IEntityLivingData)null);
                     entitychicken1.setChickenJockey(true);
-                    this.world.spawnEntity(entitychicken1);
-                    this.startRiding(entitychicken1);
+                    world.spawnEntity(entitychicken1);
+                    startRiding(entitychicken1);
                 }
             }
         }
 
-        this.setBreakDoorsAItask(this.rand.nextFloat() < f * 0.1F);
-        this.setEquipmentBasedOnDifficulty(difficulty);
-        this.setEnchantmentBasedOnDifficulty(difficulty);
+        setBreakDoorsAItask(rand.nextFloat() < f * 0.1F);
+        setEquipmentBasedOnDifficulty(difficulty);
+        setEnchantmentBasedOnDifficulty(difficulty);
 
-        if (this.getItemStackFromSlot(EntityEquipmentSlot.HEAD).isEmpty())
+        if (getItemStackFromSlot(EntityEquipmentSlot.HEAD).isEmpty())
         {
-            Calendar calendar = this.world.getCurrentDate();
+            Calendar calendar = world.getCurrentDate();
 
-            if (calendar.get(2) + 1 == 10 && calendar.get(5) == 31 && this.rand.nextFloat() < 0.25F)
+            if (calendar.get(2) + 1 == 10 && calendar.get(5) == 31 && rand.nextFloat() < 0.25F)
             {
-                this.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(this.rand.nextFloat() < 0.1F ? Blocks.LIT_PUMPKIN : Blocks.PUMPKIN));
-                this.inventoryArmorDropChances[EntityEquipmentSlot.HEAD.getIndex()] = 0.0F;
+                setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(rand.nextFloat() < 0.1F ? Blocks.LIT_PUMPKIN : Blocks.PUMPKIN));
+                inventoryArmorDropChances[EntityEquipmentSlot.HEAD.getIndex()] = 0.0F;
             }
         }
 
-        this.getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).applyModifier(new AttributeModifier("Random spawn bonus", this.rand.nextDouble() * 0.05000000074505806D, 0));
-        double d0 = this.rand.nextDouble() * 1.5D * (double)f;
+        getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).applyModifier(new AttributeModifier("Random spawn bonus", rand.nextDouble() * 0.05000000074505806D, 0));
+        double d0 = rand.nextDouble() * 1.5D * (double)f;
 
         if (d0 > 1.0D)
         {
-            this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).applyModifier(new AttributeModifier("Random zombie-spawn bonus", d0, 2));
+            getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).applyModifier(new AttributeModifier("Random zombie-spawn bonus", d0, 2));
         }
 
-        if (this.rand.nextFloat() < f * 0.05F)
+        if (rand.nextFloat() < f * 0.05F)
         {
-            this.getEntityAttribute(SPAWN_REINFORCEMENTS_CHANCE).applyModifier(new AttributeModifier("Leader zombie bonus", this.rand.nextDouble() * 0.25D + 0.5D, 0));
-            this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).applyModifier(new AttributeModifier("Leader zombie bonus", this.rand.nextDouble() * 3.0D + 1.0D, 2));
-            this.setBreakDoorsAItask(true);
+            getEntityAttribute(SPAWN_REINFORCEMENTS_CHANCE).applyModifier(new AttributeModifier("Leader zombie bonus", rand.nextDouble() * 0.25D + 0.5D, 0));
+            getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).applyModifier(new AttributeModifier("Leader zombie bonus", rand.nextDouble() * 3.0D + 1.0D, 2));
+            setBreakDoorsAItask(true);
         }
 
         return livingdata;
@@ -560,7 +560,7 @@ public class EntityZombie extends EntityMob
      */
     public void setChildSize(boolean isChild)
     {
-        this.multiplySize(isChild ? 0.5F : 1.0F);
+        multiplySize(isChild ? 0.5F : 1.0F);
     }
 
     /**
@@ -568,13 +568,13 @@ public class EntityZombie extends EntityMob
      */
     protected final void setSize(float width, float height)
     {
-        boolean flag = this.zombieWidth > 0.0F && this.zombieHeight > 0.0F;
-        this.zombieWidth = width;
-        this.zombieHeight = height;
+        boolean flag = zombieWidth > 0.0F && zombieHeight > 0.0F;
+        zombieWidth = width;
+        zombieHeight = height;
 
         if (!flag)
         {
-            this.multiplySize(1.0F);
+            multiplySize(1.0F);
         }
     }
 
@@ -583,7 +583,7 @@ public class EntityZombie extends EntityMob
      */
     protected final void multiplySize(float size)
     {
-        super.setSize(this.zombieWidth * size, this.zombieHeight * size);
+        super.setSize(zombieWidth * size, zombieHeight * size);
     }
 
     /**
@@ -591,7 +591,7 @@ public class EntityZombie extends EntityMob
      */
     public double getYOffset()
     {
-        return this.isChild() ? 0.0D : -0.45D;
+        return isChild() ? 0.0D : -0.45D;
     }
 
     /**
@@ -608,11 +608,11 @@ public class EntityZombie extends EntityMob
             if (entitycreeper.getPowered() && entitycreeper.ableToCauseSkullDrop())
             {
                 entitycreeper.incrementDroppedSkulls();
-                ItemStack itemstack = this.getSkullDrop();
+                ItemStack itemstack = getSkullDrop();
 
                 if (!itemstack.isEmpty())
                 {
-                    this.entityDropItem(itemstack, 0.0F);
+                    entityDropItem(itemstack, 0.0F);
                 }
             }
         }
@@ -629,7 +629,7 @@ public class EntityZombie extends EntityMob
 
         private GroupData(boolean p_i47328_2_)
         {
-            this.isChild = p_i47328_2_;
+            isChild = p_i47328_2_;
         }
     }
 }

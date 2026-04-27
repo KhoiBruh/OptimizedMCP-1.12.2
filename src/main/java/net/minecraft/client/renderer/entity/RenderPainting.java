@@ -29,20 +29,20 @@ public class RenderPainting extends Render<EntityPainting>
         GlStateManager.translate(x, y, z);
         GlStateManager.rotate(180.0F - entityYaw, 0.0F, 1.0F, 0.0F);
         GlStateManager.enableRescaleNormal();
-        this.bindEntityTexture(entity);
+        bindEntityTexture(entity);
         EntityPainting.EnumArt entitypainting$enumart = entity.art;
         float f = 0.0625F;
         GlStateManager.scale(0.0625F, 0.0625F, 0.0625F);
 
-        if (this.renderOutlines)
+        if (renderOutlines)
         {
             GlStateManager.enableColorMaterial();
-            GlStateManager.enableOutlineMode(this.getTeamColor(entity));
+            GlStateManager.enableOutlineMode(getTeamColor(entity));
         }
 
-        this.renderPainting(entity, entitypainting$enumart.sizeX, entitypainting$enumart.sizeY, entitypainting$enumart.offsetX, entitypainting$enumart.offsetY);
+        renderPainting(entity, entitypainting$enumart.sizeX, entitypainting$enumart.sizeY, entitypainting$enumart.offsetX, entitypainting$enumart.offsetY);
 
-        if (this.renderOutlines)
+        if (renderOutlines)
         {
             GlStateManager.disableOutlineMode();
             GlStateManager.disableColorMaterial();
@@ -87,7 +87,7 @@ public class RenderPainting extends Render<EntityPainting>
                 float f16 = f + (float)(i * 16);
                 float f17 = f1 + (float)((j + 1) * 16);
                 float f18 = f1 + (float)(j * 16);
-                this.setLightmap(painting, (f15 + f16) / 2.0F, (f17 + f18) / 2.0F);
+                setLightmap(painting, (f15 + f16) / 2.0F, (f17 + f18) / 2.0F);
                 float f19 = (float)(textureU + width - i * 16) / 256.0F;
                 float f20 = (float)(textureU + width - (i + 1) * 16) / 256.0F;
                 float f21 = (float)(textureV + height - j * 16) / 256.0F;
@@ -151,7 +151,7 @@ public class RenderPainting extends Render<EntityPainting>
             k = MathHelper.floor(painting.posZ + (double)(p_77008_2_ / 16.0F));
         }
 
-        int l = this.renderManager.world.getCombinedLight(new BlockPos(i, j, k), 0);
+        int l = renderManager.world.getCombinedLight(new BlockPos(i, j, k), 0);
         int i1 = l % 65536;
         int j1 = l / 65536;
         OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float)i1, (float)j1);

@@ -28,12 +28,12 @@ public final class WorldSettings
 
     public WorldSettings(long seedIn, GameType gameType, boolean enableMapFeatures, boolean hardcoreMode, WorldType worldTypeIn)
     {
-        this.generatorOptions = "";
-        this.seed = seedIn;
+        generatorOptions = "";
+        seed = seedIn;
         this.gameType = gameType;
-        this.mapFeaturesEnabled = enableMapFeatures;
-        this.hardcoreEnabled = hardcoreMode;
-        this.terrainType = worldTypeIn;
+        mapFeaturesEnabled = enableMapFeatures;
+        hardcoreEnabled = hardcoreMode;
+        terrainType = worldTypeIn;
     }
 
     public WorldSettings(WorldInfo info)
@@ -46,7 +46,7 @@ public final class WorldSettings
      */
     public WorldSettings enableBonusChest()
     {
-        this.bonusChestEnabled = true;
+        bonusChestEnabled = true;
         return this;
     }
 
@@ -55,13 +55,13 @@ public final class WorldSettings
      */
     public WorldSettings enableCommands()
     {
-        this.commandsAllowed = true;
+        commandsAllowed = true;
         return this;
     }
 
     public WorldSettings setGeneratorOptions(String options)
     {
-        this.generatorOptions = options;
+        generatorOptions = options;
         return this;
     }
 
@@ -70,7 +70,7 @@ public final class WorldSettings
      */
     public boolean isBonusChestEnabled()
     {
-        return this.bonusChestEnabled;
+        return bonusChestEnabled;
     }
 
     /**
@@ -78,7 +78,7 @@ public final class WorldSettings
      */
     public long getSeed()
     {
-        return this.seed;
+        return seed;
     }
 
     /**
@@ -86,7 +86,7 @@ public final class WorldSettings
      */
     public GameType getGameType()
     {
-        return this.gameType;
+        return gameType;
     }
 
     /**
@@ -94,7 +94,7 @@ public final class WorldSettings
      */
     public boolean getHardcoreEnabled()
     {
-        return this.hardcoreEnabled;
+        return hardcoreEnabled;
     }
 
     /**
@@ -102,12 +102,12 @@ public final class WorldSettings
      */
     public boolean isMapFeaturesEnabled()
     {
-        return this.mapFeaturesEnabled;
+        return mapFeaturesEnabled;
     }
 
     public WorldType getTerrainType()
     {
-        return this.terrainType;
+        return terrainType;
     }
 
     /**
@@ -115,7 +115,7 @@ public final class WorldSettings
      */
     public boolean areCommandsAllowed()
     {
-        return this.commandsAllowed;
+        return commandsAllowed;
     }
 
     /**
@@ -128,6 +128,6 @@ public final class WorldSettings
 
     public String getGeneratorOptions()
     {
-        return this.generatorOptions;
+        return generatorOptions;
     }
 }

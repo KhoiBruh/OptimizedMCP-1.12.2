@@ -9,16 +9,16 @@ public class AbstractCriterionInstance implements ICriterionInstance
 
     public AbstractCriterionInstance(ResourceLocation criterionIn)
     {
-        this.criterion = criterionIn;
+        criterion = criterionIn;
     }
 
     public ResourceLocation getId()
     {
-        return this.criterion;
+        return criterion;
     }
 
     public String toString()
     {
-        return "AbstractCriterionInstance{criterion=" + this.criterion + '}';
+        return "AbstractCriterionInstance{criterion=" + criterion + '}';
     }
 }

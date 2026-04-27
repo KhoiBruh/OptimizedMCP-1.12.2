@@ -12,15 +12,15 @@ public class GuiOptionsRowList extends GuiListExtended
     public GuiOptionsRowList(Minecraft mcIn, int p_i45015_2_, int p_i45015_3_, int p_i45015_4_, int p_i45015_5_, int p_i45015_6_, GameSettings.Options... p_i45015_7_)
     {
         super(mcIn, p_i45015_2_, p_i45015_3_, p_i45015_4_, p_i45015_5_, p_i45015_6_);
-        this.centerListVertically = false;
+        centerListVertically = false;
 
         for (int i = 0; i < p_i45015_7_.length; i += 2)
         {
             GameSettings.Options gamesettings$options = p_i45015_7_[i];
             GameSettings.Options gamesettings$options1 = i < p_i45015_7_.length - 1 ? p_i45015_7_[i + 1] : null;
-            GuiButton guibutton = this.createButton(mcIn, p_i45015_2_ / 2 - 155, 0, gamesettings$options);
-            GuiButton guibutton1 = this.createButton(mcIn, p_i45015_2_ / 2 - 155 + 160, 0, gamesettings$options1);
-            this.options.add(new GuiOptionsRowList.Row(guibutton, guibutton1));
+            GuiButton guibutton = createButton(mcIn, p_i45015_2_ / 2 - 155, 0, gamesettings$options);
+            GuiButton guibutton1 = createButton(mcIn, p_i45015_2_ / 2 - 155 + 160, 0, gamesettings$options1);
+            options.add(new GuiOptionsRowList.Row(guibutton, guibutton1));
         }
     }
 
@@ -42,12 +42,12 @@ public class GuiOptionsRowList extends GuiListExtended
      */
     public GuiOptionsRowList.Row getListEntry(int index)
     {
-        return this.options.get(index);
+        return options.get(index);
     }
 
     protected int getSize()
     {
-        return this.options.size();
+        return options.size();
     }
 
     /**
@@ -71,43 +71,43 @@ public class GuiOptionsRowList extends GuiListExtended
 
         public Row(GuiButton buttonAIn, GuiButton buttonBIn)
         {
-            this.buttonA = buttonAIn;
-            this.buttonB = buttonBIn;
+            buttonA = buttonAIn;
+            buttonB = buttonBIn;
         }
 
         public void drawEntry(int slotIndex, int x, int y, int listWidth, int slotHeight, int mouseX, int mouseY, boolean isSelected, float partialTicks)
         {
-            if (this.buttonA != null)
+            if (buttonA != null)
             {
-                this.buttonA.y = y;
-                this.buttonA.drawButton(this.client, mouseX, mouseY, partialTicks);
+                buttonA.y = y;
+                buttonA.drawButton(client, mouseX, mouseY, partialTicks);
             }
 
-            if (this.buttonB != null)
+            if (buttonB != null)
             {
-                this.buttonB.y = y;
-                this.buttonB.drawButton(this.client, mouseX, mouseY, partialTicks);
+                buttonB.y = y;
+                buttonB.drawButton(client, mouseX, mouseY, partialTicks);
             }
         }
 
         public boolean mousePressed(int slotIndex, int mouseX, int mouseY, int mouseEvent, int relativeX, int relativeY)
         {
-            if (this.buttonA.mousePressed(this.client, mouseX, mouseY))
+            if (buttonA.mousePressed(client, mouseX, mouseY))
             {
-                if (this.buttonA instanceof GuiOptionButton)
+                if (buttonA instanceof GuiOptionButton)
                 {
-                    this.client.gameSettings.setOptionValue(((GuiOptionButton)this.buttonA).getOption(), 1);
-                    this.buttonA.displayString = this.client.gameSettings.getKeyBinding(GameSettings.Options.byOrdinal(this.buttonA.id));
+                    client.gameSettings.setOptionValue(((GuiOptionButton) buttonA).getOption(), 1);
+                    buttonA.displayString = client.gameSettings.getKeyBinding(GameSettings.Options.byOrdinal(buttonA.id));
                 }
 
                 return true;
             }
-            else if (this.buttonB != null && this.buttonB.mousePressed(this.client, mouseX, mouseY))
+            else if (buttonB != null && buttonB.mousePressed(client, mouseX, mouseY))
             {
-                if (this.buttonB instanceof GuiOptionButton)
+                if (buttonB instanceof GuiOptionButton)
                 {
-                    this.client.gameSettings.setOptionValue(((GuiOptionButton)this.buttonB).getOption(), 1);
-                    this.buttonB.displayString = this.client.gameSettings.getKeyBinding(GameSettings.Options.byOrdinal(this.buttonB.id));
+                    client.gameSettings.setOptionValue(((GuiOptionButton) buttonB).getOption(), 1);
+                    buttonB.displayString = client.gameSettings.getKeyBinding(GameSettings.Options.byOrdinal(buttonB.id));
                 }
 
                 return true;
@@ -120,14 +120,14 @@ public class GuiOptionsRowList extends GuiListExtended
 
         public void mouseReleased(int slotIndex, int x, int y, int mouseEvent, int relativeX, int relativeY)
         {
-            if (this.buttonA != null)
+            if (buttonA != null)
             {
-                this.buttonA.mouseReleased(x, y);
+                buttonA.mouseReleased(x, y);
             }
 
-            if (this.buttonB != null)
+            if (buttonB != null)
             {
-                this.buttonB.mouseReleased(x, y);
+                buttonB.mouseReleased(x, y);
             }
         }
 

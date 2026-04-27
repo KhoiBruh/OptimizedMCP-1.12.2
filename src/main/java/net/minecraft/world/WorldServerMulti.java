@@ -20,31 +20,31 @@ public class WorldServerMulti extends WorldServer
         {
             public void onSizeChanged(WorldBorder border, double newSize)
             {
-                WorldServerMulti.this.getWorldBorder().setTransition(newSize);
+                getWorldBorder().setTransition(newSize);
             }
             public void onTransitionStarted(WorldBorder border, double oldSize, double newSize, long time)
             {
-                WorldServerMulti.this.getWorldBorder().setTransition(oldSize, newSize, time);
+                getWorldBorder().setTransition(oldSize, newSize, time);
             }
             public void onCenterChanged(WorldBorder border, double x, double z)
             {
-                WorldServerMulti.this.getWorldBorder().setCenter(x, z);
+                getWorldBorder().setCenter(x, z);
             }
             public void onWarningTimeChanged(WorldBorder border, int newTime)
             {
-                WorldServerMulti.this.getWorldBorder().setWarningTime(newTime);
+                getWorldBorder().setWarningTime(newTime);
             }
             public void onWarningDistanceChanged(WorldBorder border, int newDistance)
             {
-                WorldServerMulti.this.getWorldBorder().setWarningDistance(newDistance);
+                getWorldBorder().setWarningDistance(newDistance);
             }
             public void onDamageAmountChanged(WorldBorder border, double newAmount)
             {
-                WorldServerMulti.this.getWorldBorder().setDamageAmount(newAmount);
+                getWorldBorder().setDamageAmount(newAmount);
             }
             public void onDamageBufferChanged(WorldBorder border, double newSize)
             {
-                WorldServerMulti.this.getWorldBorder().setDamageBuffer(newSize);
+                getWorldBorder().setDamageBuffer(newSize);
             }
         });
     }
@@ -58,22 +58,22 @@ public class WorldServerMulti extends WorldServer
 
     public World init()
     {
-        this.mapStorage = this.delegate.getMapStorage();
-        this.worldScoreboard = this.delegate.getScoreboard();
-        this.lootTable = this.delegate.getLootTableManager();
-        this.advancementManager = this.delegate.getAdvancementManager();
-        String s = VillageCollection.fileNameForProvider(this.provider);
-        VillageCollection villagecollection = (VillageCollection)this.mapStorage.getOrLoadData(VillageCollection.class, s);
+        mapStorage = delegate.getMapStorage();
+        worldScoreboard = delegate.getScoreboard();
+        lootTable = delegate.getLootTableManager();
+        advancementManager = delegate.getAdvancementManager();
+        String s = VillageCollection.fileNameForProvider(provider);
+        VillageCollection villagecollection = (VillageCollection) mapStorage.getOrLoadData(VillageCollection.class, s);
 
         if (villagecollection == null)
         {
-            this.villageCollection = new VillageCollection(this);
-            this.mapStorage.setData(s, this.villageCollection);
+            villageCollection = new VillageCollection(this);
+            mapStorage.setData(s, villageCollection);
         }
         else
         {
-            this.villageCollection = villagecollection;
-            this.villageCollection.setWorldsForAll(this);
+            villageCollection = villagecollection;
+            villageCollection.setWorldsForAll(this);
         }
 
         return this;
@@ -85,6 +85,6 @@ public class WorldServerMulti extends WorldServer
      */
     public void saveAdditionalData()
     {
-        this.provider.onWorldSave();
+        provider.onWorldSave();
     }
 }

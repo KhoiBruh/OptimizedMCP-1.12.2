@@ -26,14 +26,14 @@ public class NBTTagString extends NBTBase
      */
     void write(DataOutput output) throws IOException
     {
-        output.writeUTF(this.data);
+        output.writeUTF(data);
     }
 
     void read(DataInput input, int depth, NBTSizeTracker sizeTracker) throws IOException
     {
         sizeTracker.read(288L);
-        this.data = input.readUTF();
-        sizeTracker.read((long)(16 * this.data.length()));
+        data = input.readUTF();
+        sizeTracker.read((long)(16 * data.length()));
     }
 
     /**
@@ -46,7 +46,7 @@ public class NBTTagString extends NBTBase
 
     public String toString()
     {
-        return quoteAndEscape(this.data);
+        return quoteAndEscape(data);
     }
 
     /**
@@ -54,7 +54,7 @@ public class NBTTagString extends NBTBase
      */
     public NBTTagString copy()
     {
-        return new NBTTagString(this.data);
+        return new NBTTagString(data);
     }
 
     /**
@@ -62,7 +62,7 @@ public class NBTTagString extends NBTBase
      */
     public boolean hasNoTags()
     {
-        return this.data.isEmpty();
+        return data.isEmpty();
     }
 
     public boolean equals(Object p_equals_1_)
@@ -74,18 +74,18 @@ public class NBTTagString extends NBTBase
         else
         {
             NBTTagString nbttagstring = (NBTTagString)p_equals_1_;
-            return this.data == null && nbttagstring.data == null || Objects.equals(this.data, nbttagstring.data);
+            return data == null && nbttagstring.data == null || Objects.equals(data, nbttagstring.data);
         }
     }
 
     public int hashCode()
     {
-        return super.hashCode() ^ this.data.hashCode();
+        return super.hashCode() ^ data.hashCode();
     }
 
     public String getString()
     {
-        return this.data;
+        return data;
     }
 
     public static String quoteAndEscape(String p_193588_0_)

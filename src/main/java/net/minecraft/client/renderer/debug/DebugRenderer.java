@@ -25,18 +25,18 @@ public class DebugRenderer
 
     public DebugRenderer(Minecraft clientIn)
     {
-        this.pathfinding = new DebugRendererPathfinding(clientIn);
-        this.water = new DebugRendererWater(clientIn);
-        this.chunkBorder = new DebugRendererChunkBorder(clientIn);
-        this.heightMap = new DebugRendererHeightMap(clientIn);
-        this.collisionBox = new DebugRendererCollisionBox(clientIn);
-        this.neighborsUpdate = new DebugRendererNeighborsUpdate(clientIn);
-        this.solidFace = new DebugRendererSolidFace(clientIn);
+        pathfinding = new DebugRendererPathfinding(clientIn);
+        water = new DebugRendererWater(clientIn);
+        chunkBorder = new DebugRendererChunkBorder(clientIn);
+        heightMap = new DebugRendererHeightMap(clientIn);
+        collisionBox = new DebugRendererCollisionBox(clientIn);
+        neighborsUpdate = new DebugRendererNeighborsUpdate(clientIn);
+        solidFace = new DebugRendererSolidFace(clientIn);
     }
 
     public boolean shouldRender()
     {
-        return this.chunkBorderEnabled || this.pathfindingEnabled || this.waterEnabled || this.heightMapEnabled || this.collisionBoxEnabled || this.neighborsUpdateEnabled || this.solidFaceEnabled;
+        return chunkBorderEnabled || pathfindingEnabled || waterEnabled || heightMapEnabled || collisionBoxEnabled || neighborsUpdateEnabled || solidFaceEnabled;
     }
 
     /**
@@ -44,45 +44,45 @@ public class DebugRenderer
      */
     public boolean toggleChunkBorders()
     {
-        this.chunkBorderEnabled = !this.chunkBorderEnabled;
-        return this.chunkBorderEnabled;
+        chunkBorderEnabled = !chunkBorderEnabled;
+        return chunkBorderEnabled;
     }
 
     public void renderDebug(float partialTicks, long finishTimeNano)
     {
-        if (this.pathfindingEnabled)
+        if (pathfindingEnabled)
         {
-            this.pathfinding.render(partialTicks, finishTimeNano);
+            pathfinding.render(partialTicks, finishTimeNano);
         }
 
-        if (this.chunkBorderEnabled && !Minecraft.getMinecraft().isReducedDebug())
+        if (chunkBorderEnabled && !Minecraft.getMinecraft().isReducedDebug())
         {
-            this.chunkBorder.render(partialTicks, finishTimeNano);
+            chunkBorder.render(partialTicks, finishTimeNano);
         }
 
-        if (this.waterEnabled)
+        if (waterEnabled)
         {
-            this.water.render(partialTicks, finishTimeNano);
+            water.render(partialTicks, finishTimeNano);
         }
 
-        if (this.heightMapEnabled)
+        if (heightMapEnabled)
         {
-            this.heightMap.render(partialTicks, finishTimeNano);
+            heightMap.render(partialTicks, finishTimeNano);
         }
 
-        if (this.collisionBoxEnabled)
+        if (collisionBoxEnabled)
         {
-            this.collisionBox.render(partialTicks, finishTimeNano);
+            collisionBox.render(partialTicks, finishTimeNano);
         }
 
-        if (this.neighborsUpdateEnabled)
+        if (neighborsUpdateEnabled)
         {
-            this.neighborsUpdate.render(partialTicks, finishTimeNano);
+            neighborsUpdate.render(partialTicks, finishTimeNano);
         }
 
-        if (this.solidFaceEnabled)
+        if (solidFaceEnabled)
         {
-            this.solidFace.render(partialTicks, finishTimeNano);
+            solidFace.render(partialTicks, finishTimeNano);
         }
     }
 

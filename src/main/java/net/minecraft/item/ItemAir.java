@@ -12,7 +12,7 @@ public class ItemAir extends Item
 
     public ItemAir(Block blockIn)
     {
-        this.block = blockIn;
+        block = blockIn;
     }
 
     /**
@@ -21,7 +21,7 @@ public class ItemAir extends Item
      */
     public String getUnlocalizedName(ItemStack stack)
     {
-        return this.block.getUnlocalizedName();
+        return block.getUnlocalizedName();
     }
 
     /**
@@ -29,7 +29,7 @@ public class ItemAir extends Item
      */
     public String getUnlocalizedName()
     {
-        return this.block.getUnlocalizedName();
+        return block.getUnlocalizedName();
     }
 
     /**
@@ -38,6 +38,6 @@ public class ItemAir extends Item
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn)
     {
         super.addInformation(stack, worldIn, tooltip, flagIn);
-        this.block.addInformation(stack, worldIn, tooltip, flagIn);
+        block.addInformation(stack, worldIn, tooltip, flagIn);
     }
 }

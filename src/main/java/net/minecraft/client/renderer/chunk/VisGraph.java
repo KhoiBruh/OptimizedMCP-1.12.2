@@ -20,8 +20,8 @@ public class VisGraph
 
     public void setOpaqueCube(BlockPos pos)
     {
-        this.bitSet.set(getIndex(pos), true);
-        --this.empty;
+        bitSet.set(getIndex(pos), true);
+        --empty;
     }
 
     private static int getIndex(BlockPos pos)
@@ -38,11 +38,11 @@ public class VisGraph
     {
         SetVisibility setvisibility = new SetVisibility();
 
-        if (4096 - this.empty < 256)
+        if (4096 - empty < 256)
         {
             setvisibility.setAllVisible(true);
         }
-        else if (this.empty == 0)
+        else if (empty == 0)
         {
             setvisibility.setAllVisible(false);
         }
@@ -50,9 +50,9 @@ public class VisGraph
         {
             for (int i : INDEX_OF_EDGES)
             {
-                if (!this.bitSet.get(i))
+                if (!bitSet.get(i))
                 {
-                    setvisibility.setManyVisible(this.floodFill(i));
+                    setvisibility.setManyVisible(floodFill(i));
                 }
             }
         }
@@ -62,7 +62,7 @@ public class VisGraph
 
     public Set<EnumFacing> getVisibleFacings(BlockPos pos)
     {
-        return this.floodFill(getIndex(pos));
+        return floodFill(getIndex(pos));
     }
 
     private Set<EnumFacing> floodFill(int pos)
@@ -70,20 +70,20 @@ public class VisGraph
         Set<EnumFacing> set = EnumSet.<EnumFacing>noneOf(EnumFacing.class);
         Queue<Integer> queue = Queues.<Integer>newArrayDeque();
         queue.add(IntegerCache.getInteger(pos));
-        this.bitSet.set(pos, true);
+        bitSet.set(pos, true);
 
         while (!queue.isEmpty())
         {
             int i = ((Integer)queue.poll()).intValue();
-            this.addEdges(i, set);
+            addEdges(i, set);
 
             for (EnumFacing enumfacing : EnumFacing.values())
             {
-                int j = this.getNeighborIndexAtFace(i, enumfacing);
+                int j = getNeighborIndexAtFace(i, enumfacing);
 
-                if (j >= 0 && !this.bitSet.get(j))
+                if (j >= 0 && !bitSet.get(j))
                 {
-                    this.bitSet.set(j, true);
+                    bitSet.set(j, true);
                     queue.add(IntegerCache.getInteger(j));
                 }
             }

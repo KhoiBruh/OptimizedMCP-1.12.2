@@ -23,13 +23,13 @@ public class ItemFishFood extends ItemFood
     public int getHealAmount(ItemStack stack)
     {
         ItemFishFood.FishType itemfishfood$fishtype = ItemFishFood.FishType.byItemStack(stack);
-        return this.cooked && itemfishfood$fishtype.canCook() ? itemfishfood$fishtype.getCookedHealAmount() : itemfishfood$fishtype.getUncookedHealAmount();
+        return cooked && itemfishfood$fishtype.canCook() ? itemfishfood$fishtype.getCookedHealAmount() : itemfishfood$fishtype.getUncookedHealAmount();
     }
 
     public float getSaturationModifier(ItemStack stack)
     {
         ItemFishFood.FishType itemfishfood$fishtype = ItemFishFood.FishType.byItemStack(stack);
-        return this.cooked && itemfishfood$fishtype.canCook() ? itemfishfood$fishtype.getCookedSaturationModifier() : itemfishfood$fishtype.getUncookedSaturationModifier();
+        return cooked && itemfishfood$fishtype.canCook() ? itemfishfood$fishtype.getCookedSaturationModifier() : itemfishfood$fishtype.getUncookedSaturationModifier();
     }
 
     protected void onFoodEaten(ItemStack stack, World worldIn, EntityPlayer player)
@@ -51,11 +51,11 @@ public class ItemFishFood extends ItemFood
      */
     public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items)
     {
-        if (this.isInCreativeTab(tab))
+        if (isInCreativeTab(tab))
         {
             for (ItemFishFood.FishType itemfishfood$fishtype : ItemFishFood.FishType.values())
             {
-                if (!this.cooked || itemfishfood$fishtype.canCook())
+                if (!cooked || itemfishfood$fishtype.canCook())
                 {
                     items.add(new ItemStack(this, 1, itemfishfood$fishtype.getMetadata()));
                 }
@@ -70,7 +70,7 @@ public class ItemFishFood extends ItemFood
     public String getUnlocalizedName(ItemStack stack)
     {
         ItemFishFood.FishType itemfishfood$fishtype = ItemFishFood.FishType.byItemStack(stack);
-        return this.getUnlocalizedName() + "." + itemfishfood$fishtype.getUnlocalizedName() + "." + (this.cooked && itemfishfood$fishtype.canCook() ? "cooked" : "raw");
+        return getUnlocalizedName() + "." + itemfishfood$fishtype.getUnlocalizedName() + "." + (cooked && itemfishfood$fishtype.canCook() ? "cooked" : "raw");
     }
 
     public static enum FishType
@@ -93,57 +93,57 @@ public class ItemFishFood extends ItemFood
         {
             this.meta = meta;
             this.unlocalizedName = unlocalizedName;
-            this.uncookedHealAmount = uncookedHeal;
-            this.uncookedSaturationModifier = uncookedSaturation;
-            this.cookedHealAmount = cookedHeal;
-            this.cookedSaturationModifier = cookedSaturation;
-            this.cookable = true;
+            uncookedHealAmount = uncookedHeal;
+            uncookedSaturationModifier = uncookedSaturation;
+            cookedHealAmount = cookedHeal;
+            cookedSaturationModifier = cookedSaturation;
+            cookable = true;
         }
 
         private FishType(int meta, String unlocalizedName, int uncookedHeal, float uncookedSaturation)
         {
             this.meta = meta;
             this.unlocalizedName = unlocalizedName;
-            this.uncookedHealAmount = uncookedHeal;
-            this.uncookedSaturationModifier = uncookedSaturation;
-            this.cookedHealAmount = 0;
-            this.cookedSaturationModifier = 0.0F;
-            this.cookable = false;
+            uncookedHealAmount = uncookedHeal;
+            uncookedSaturationModifier = uncookedSaturation;
+            cookedHealAmount = 0;
+            cookedSaturationModifier = 0.0F;
+            cookable = false;
         }
 
         public int getMetadata()
         {
-            return this.meta;
+            return meta;
         }
 
         public String getUnlocalizedName()
         {
-            return this.unlocalizedName;
+            return unlocalizedName;
         }
 
         public int getUncookedHealAmount()
         {
-            return this.uncookedHealAmount;
+            return uncookedHealAmount;
         }
 
         public float getUncookedSaturationModifier()
         {
-            return this.uncookedSaturationModifier;
+            return uncookedSaturationModifier;
         }
 
         public int getCookedHealAmount()
         {
-            return this.cookedHealAmount;
+            return cookedHealAmount;
         }
 
         public float getCookedSaturationModifier()
         {
-            return this.cookedSaturationModifier;
+            return cookedSaturationModifier;
         }
 
         public boolean canCook()
         {
-            return this.cookable;
+            return cookable;
         }
 
         public static ItemFishFood.FishType byMetadata(int meta)

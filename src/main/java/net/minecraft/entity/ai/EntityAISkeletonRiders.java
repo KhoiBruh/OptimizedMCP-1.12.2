@@ -18,7 +18,7 @@ public class EntityAISkeletonRiders extends EntityAIBase
 
     public EntityAISkeletonRiders(EntitySkeletonHorse horseIn)
     {
-        this.horse = horseIn;
+        horse = horseIn;
     }
 
     /**
@@ -26,7 +26,7 @@ public class EntityAISkeletonRiders extends EntityAIBase
      */
     public boolean shouldExecute()
     {
-        return this.horse.world.isAnyPlayerWithinRangeAt(this.horse.posX, this.horse.posY, this.horse.posZ, 10.0D);
+        return horse.world.isAnyPlayerWithinRangeAt(horse.posX, horse.posY, horse.posZ, 10.0D);
     }
 
     /**
@@ -34,28 +34,28 @@ public class EntityAISkeletonRiders extends EntityAIBase
      */
     public void updateTask()
     {
-        DifficultyInstance difficultyinstance = this.horse.world.getDifficultyForLocation(new BlockPos(this.horse));
-        this.horse.setTrap(false);
-        this.horse.setHorseTamed(true);
-        this.horse.setGrowingAge(0);
-        this.horse.world.addWeatherEffect(new EntityLightningBolt(this.horse.world, this.horse.posX, this.horse.posY, this.horse.posZ, true));
-        EntitySkeleton entityskeleton = this.createSkeleton(difficultyinstance, this.horse);
-        entityskeleton.startRiding(this.horse);
+        DifficultyInstance difficultyinstance = horse.world.getDifficultyForLocation(new BlockPos(horse));
+        horse.setTrap(false);
+        horse.setHorseTamed(true);
+        horse.setGrowingAge(0);
+        horse.world.addWeatherEffect(new EntityLightningBolt(horse.world, horse.posX, horse.posY, horse.posZ, true));
+        EntitySkeleton entityskeleton = createSkeleton(difficultyinstance, horse);
+        entityskeleton.startRiding(horse);
 
         for (int i = 0; i < 3; ++i)
         {
-            AbstractHorse abstracthorse = this.createHorse(difficultyinstance);
-            EntitySkeleton entityskeleton1 = this.createSkeleton(difficultyinstance, abstracthorse);
+            AbstractHorse abstracthorse = createHorse(difficultyinstance);
+            EntitySkeleton entityskeleton1 = createSkeleton(difficultyinstance, abstracthorse);
             entityskeleton1.startRiding(abstracthorse);
-            abstracthorse.addVelocity(this.horse.getRNG().nextGaussian() * 0.5D, 0.0D, this.horse.getRNG().nextGaussian() * 0.5D);
+            abstracthorse.addVelocity(horse.getRNG().nextGaussian() * 0.5D, 0.0D, horse.getRNG().nextGaussian() * 0.5D);
         }
     }
 
     private AbstractHorse createHorse(DifficultyInstance p_188515_1_)
     {
-        EntitySkeletonHorse entityskeletonhorse = new EntitySkeletonHorse(this.horse.world);
+        EntitySkeletonHorse entityskeletonhorse = new EntitySkeletonHorse(horse.world);
         entityskeletonhorse.onInitialSpawn(p_188515_1_, (IEntityLivingData)null);
-        entityskeletonhorse.setPosition(this.horse.posX, this.horse.posY, this.horse.posZ);
+        entityskeletonhorse.setPosition(horse.posX, horse.posY, horse.posZ);
         entityskeletonhorse.hurtResistantTime = 60;
         entityskeletonhorse.enablePersistence();
         entityskeletonhorse.setHorseTamed(true);

@@ -19,14 +19,14 @@ public class AdvancementToast implements IToast
 
     public AdvancementToast(Advancement advancementIn)
     {
-        this.advancement = advancementIn;
+        advancement = advancementIn;
     }
 
     public IToast.Visibility draw(GuiToast toastGui, long delta)
     {
         toastGui.getMinecraft().getTextureManager().bindTexture(TEXTURE_TOASTS);
         GlStateManager.color(1.0F, 1.0F, 1.0F);
-        DisplayInfo displayinfo = this.advancement.getDisplay();
+        DisplayInfo displayinfo = advancement.getDisplay();
         toastGui.drawTexturedModalRect(0, 0, 0, 0, 160, 32);
 
         if (displayinfo != null)
@@ -62,9 +62,9 @@ public class AdvancementToast implements IToast
                 }
             }
 
-            if (!this.hasPlayedSound && delta > 0L)
+            if (!hasPlayedSound && delta > 0L)
             {
-                this.hasPlayedSound = true;
+                hasPlayedSound = true;
 
                 if (displayinfo.getFrame() == FrameType.CHALLENGE)
                 {

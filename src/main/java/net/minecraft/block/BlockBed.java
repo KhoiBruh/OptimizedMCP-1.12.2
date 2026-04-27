@@ -43,8 +43,8 @@ public class BlockBed extends BlockHorizontal implements ITileEntityProvider
     public BlockBed()
     {
         super(Material.CLOTH);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(PART, BlockBed.EnumPartType.FOOT).withProperty(OCCUPIED, Boolean.valueOf(false)));
-        this.hasTileEntity = true;
+        setDefaultState(blockState.getBaseState().withProperty(PART, BlockBed.EnumPartType.FOOT).withProperty(OCCUPIED, Boolean.valueOf(false)));
+        hasTileEntity = true;
     }
 
     /**
@@ -92,7 +92,7 @@ public class BlockBed extends BlockHorizontal implements ITileEntityProvider
             {
                 if (((Boolean)state.getValue(OCCUPIED)).booleanValue())
                 {
-                    EntityPlayer entityplayer = this.getPlayerInBed(worldIn, pos);
+                    EntityPlayer entityplayer = getPlayerInBed(worldIn, pos);
 
                     if (entityplayer != null)
                     {
@@ -222,7 +222,7 @@ public class BlockBed extends BlockHorizontal implements ITileEntityProvider
         {
             if (!worldIn.isRemote)
             {
-                this.dropBlockAsItem(worldIn, pos, state, 0);
+                dropBlockAsItem(worldIn, pos, state, 0);
             }
 
             worldIn.setBlockToAir(pos);
@@ -393,7 +393,7 @@ public class BlockBed extends BlockHorizontal implements ITileEntityProvider
     public IBlockState getStateFromMeta(int meta)
     {
         EnumFacing enumfacing = EnumFacing.getHorizontal(meta);
-        return (meta & 8) > 0 ? this.getDefaultState().withProperty(PART, BlockBed.EnumPartType.HEAD).withProperty(FACING, enumfacing).withProperty(OCCUPIED, Boolean.valueOf((meta & 4) > 0)) : this.getDefaultState().withProperty(PART, BlockBed.EnumPartType.FOOT).withProperty(FACING, enumfacing);
+        return (meta & 8) > 0 ? getDefaultState().withProperty(PART, BlockBed.EnumPartType.HEAD).withProperty(FACING, enumfacing).withProperty(OCCUPIED, Boolean.valueOf((meta & 4) > 0)) : getDefaultState().withProperty(PART, BlockBed.EnumPartType.FOOT).withProperty(FACING, enumfacing);
     }
 
     /**
@@ -500,12 +500,12 @@ public class BlockBed extends BlockHorizontal implements ITileEntityProvider
 
         public String toString()
         {
-            return this.name;
+            return name;
         }
 
         public String getName()
         {
-            return this.name;
+            return name;
         }
     }
 }

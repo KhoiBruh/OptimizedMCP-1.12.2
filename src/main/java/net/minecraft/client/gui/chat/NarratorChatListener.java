@@ -25,17 +25,17 @@ public class NarratorChatListener implements IChatListener
     {
         int i = Minecraft.getMinecraft().gameSettings.narrator;
 
-        if (i != 0 && this.narrator.active())
+        if (i != 0 && narrator.active())
         {
             if (i == 1 || i == 2 && chatTypeIn == ChatType.CHAT || i == 3 && chatTypeIn == ChatType.SYSTEM)
             {
                 if (message instanceof TextComponentTranslation && "chat.type.text".equals(((TextComponentTranslation)message).getKey()))
                 {
-                    this.narrator.say((new TextComponentTranslation("chat.type.text.narrate", ((TextComponentTranslation)message).getFormatArgs())).getUnformattedText());
+                    narrator.say((new TextComponentTranslation("chat.type.text.narrate", ((TextComponentTranslation)message).getFormatArgs())).getUnformattedText());
                 }
                 else
                 {
-                    this.narrator.say(message.getUnformattedText());
+                    narrator.say(message.getUnformattedText());
                 }
             }
         }
@@ -43,11 +43,11 @@ public class NarratorChatListener implements IChatListener
 
     public void announceMode(int p_193641_1_)
     {
-        this.narrator.clear();
-        this.narrator.say((new TextComponentTranslation("options.narrator", new Object[0])).getUnformattedText() + " : " + (new TextComponentTranslation(GameSettings.NARRATOR_MODES[p_193641_1_], new Object[0])).getUnformattedText());
+        narrator.clear();
+        narrator.say((new TextComponentTranslation("options.narrator", new Object[0])).getUnformattedText() + " : " + (new TextComponentTranslation(GameSettings.NARRATOR_MODES[p_193641_1_], new Object[0])).getUnformattedText());
         GuiToast guitoast = Minecraft.getMinecraft().getToastGui();
 
-        if (this.narrator.active())
+        if (narrator.active())
         {
             if (p_193641_1_ == 0)
             {
@@ -66,11 +66,11 @@ public class NarratorChatListener implements IChatListener
 
     public boolean isActive()
     {
-        return this.narrator.active();
+        return narrator.active();
     }
 
     public void clear()
     {
-        this.narrator.clear();
+        narrator.clear();
     }
 }

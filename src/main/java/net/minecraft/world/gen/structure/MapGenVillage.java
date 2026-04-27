@@ -23,8 +23,8 @@ public class MapGenVillage extends MapGenStructure
 
     public MapGenVillage()
     {
-        this.distance = 32;
-        this.minTownSeparation = 8;
+        distance = 32;
+        minTownSeparation = 8;
     }
 
     public MapGenVillage(Map<String, String> map)
@@ -35,11 +35,11 @@ public class MapGenVillage extends MapGenStructure
         {
             if (((String)entry.getKey()).equals("size"))
             {
-                this.size = MathHelper.getInt(entry.getValue(), this.size, 0);
+                size = MathHelper.getInt(entry.getValue(), size, 0);
             }
             else if (((String)entry.getKey()).equals("distance"))
             {
-                this.distance = MathHelper.getInt(entry.getValue(), this.distance, 9);
+                distance = MathHelper.getInt(entry.getValue(), distance, 9);
             }
         }
     }
@@ -56,25 +56,25 @@ public class MapGenVillage extends MapGenStructure
 
         if (chunkX < 0)
         {
-            chunkX -= this.distance - 1;
+            chunkX -= distance - 1;
         }
 
         if (chunkZ < 0)
         {
-            chunkZ -= this.distance - 1;
+            chunkZ -= distance - 1;
         }
 
-        int k = chunkX / this.distance;
-        int l = chunkZ / this.distance;
-        Random random = this.world.setRandomSeed(k, l, 10387312);
-        k = k * this.distance;
-        l = l * this.distance;
-        k = k + random.nextInt(this.distance - 8);
-        l = l + random.nextInt(this.distance - 8);
+        int k = chunkX / distance;
+        int l = chunkZ / distance;
+        Random random = world.setRandomSeed(k, l, 10387312);
+        k = k * distance;
+        l = l * distance;
+        k = k + random.nextInt(distance - 8);
+        l = l + random.nextInt(distance - 8);
 
         if (i == k && j == l)
         {
-            boolean flag = this.world.getBiomeProvider().areBiomesViable(i * 16 + 8, j * 16 + 8, 0, VILLAGE_SPAWN_BIOMES);
+            boolean flag = world.getBiomeProvider().areBiomesViable(i * 16 + 8, j * 16 + 8, 0, VILLAGE_SPAWN_BIOMES);
 
             if (flag)
             {
@@ -87,13 +87,13 @@ public class MapGenVillage extends MapGenStructure
 
     public BlockPos getNearestStructurePos(World worldIn, BlockPos pos, boolean findUnexplored)
     {
-        this.world = worldIn;
-        return findNearestStructurePosBySpacing(worldIn, this, pos, this.distance, 8, 10387312, false, 100, findUnexplored);
+        world = worldIn;
+        return findNearestStructurePosBySpacing(worldIn, this, pos, distance, 8, 10387312, false, 100, findUnexplored);
     }
 
     protected StructureStart getStructureStart(int chunkX, int chunkZ)
     {
-        return new MapGenVillage.Start(this.world, this.rand, chunkX, chunkZ, this.size);
+        return new MapGenVillage.Start(world, rand, chunkX, chunkZ, size);
     }
 
     public static class Start extends StructureStart
@@ -109,8 +109,8 @@ public class MapGenVillage extends MapGenStructure
             super(x, z);
             List<StructureVillagePieces.PieceWeight> list = StructureVillagePieces.getStructureVillageWeightedPieceList(rand, size);
             StructureVillagePieces.Start structurevillagepieces$start = new StructureVillagePieces.Start(worldIn.getBiomeProvider(), 0, rand, (x << 4) + 2, (z << 4) + 2, list, size);
-            this.components.add(structurevillagepieces$start);
-            structurevillagepieces$start.buildComponent(structurevillagepieces$start, this.components, rand);
+            components.add(structurevillagepieces$start);
+            structurevillagepieces$start.buildComponent(structurevillagepieces$start, components, rand);
             List<StructureComponent> list1 = structurevillagepieces$start.pendingRoads;
             List<StructureComponent> list2 = structurevillagepieces$start.pendingHouses;
 
@@ -120,20 +120,20 @@ public class MapGenVillage extends MapGenStructure
                 {
                     int i = rand.nextInt(list2.size());
                     StructureComponent structurecomponent = list2.remove(i);
-                    structurecomponent.buildComponent(structurevillagepieces$start, this.components, rand);
+                    structurecomponent.buildComponent(structurevillagepieces$start, components, rand);
                 }
                 else
                 {
                     int j = rand.nextInt(list1.size());
                     StructureComponent structurecomponent2 = list1.remove(j);
-                    structurecomponent2.buildComponent(structurevillagepieces$start, this.components, rand);
+                    structurecomponent2.buildComponent(structurevillagepieces$start, components, rand);
                 }
             }
 
-            this.updateBoundingBox();
+            updateBoundingBox();
             int k = 0;
 
-            for (StructureComponent structurecomponent1 : this.components)
+            for (StructureComponent structurecomponent1 : components)
             {
                 if (!(structurecomponent1 instanceof StructureVillagePieces.Road))
                 {
@@ -141,24 +141,24 @@ public class MapGenVillage extends MapGenStructure
                 }
             }
 
-            this.hasMoreThanTwoComponents = k > 2;
+            hasMoreThanTwoComponents = k > 2;
         }
 
         public boolean isSizeableStructure()
         {
-            return this.hasMoreThanTwoComponents;
+            return hasMoreThanTwoComponents;
         }
 
         public void writeToNBT(NBTTagCompound tagCompound)
         {
             super.writeToNBT(tagCompound);
-            tagCompound.setBoolean("Valid", this.hasMoreThanTwoComponents);
+            tagCompound.setBoolean("Valid", hasMoreThanTwoComponents);
         }
 
         public void readFromNBT(NBTTagCompound tagCompound)
         {
             super.readFromNBT(tagCompound);
-            this.hasMoreThanTwoComponents = tagCompound.getBoolean("Valid");
+            hasMoreThanTwoComponents = tagCompound.getBoolean("Valid");
         }
     }
 }

@@ -11,7 +11,7 @@ public class ItemClock extends Item
 {
     public ItemClock()
     {
-        this.addPropertyOverride(new ResourceLocation("time"), new IItemPropertyGetter()
+        addPropertyOverride(new ResourceLocation("time"), new IItemPropertyGetter()
         {
             double rotation;
             double rota;
@@ -43,23 +43,23 @@ public class ItemClock extends Item
                         d0 = Math.random();
                     }
 
-                    d0 = this.wobble(worldIn, d0);
+                    d0 = wobble(worldIn, d0);
                     return (float)d0;
                 }
             }
             private double wobble(World p_185087_1_, double p_185087_2_)
             {
-                if (p_185087_1_.getTotalWorldTime() != this.lastUpdateTick)
+                if (p_185087_1_.getTotalWorldTime() != lastUpdateTick)
                 {
-                    this.lastUpdateTick = p_185087_1_.getTotalWorldTime();
-                    double d0 = p_185087_2_ - this.rotation;
+                    lastUpdateTick = p_185087_1_.getTotalWorldTime();
+                    double d0 = p_185087_2_ - rotation;
                     d0 = MathHelper.positiveModulo(d0 + 0.5D, 1.0D) - 0.5D;
-                    this.rota += d0 * 0.1D;
-                    this.rota *= 0.9D;
-                    this.rotation = MathHelper.positiveModulo(this.rotation + this.rota, 1.0D);
+                    rota += d0 * 0.1D;
+                    rota *= 0.9D;
+                    rotation = MathHelper.positiveModulo(rotation + rota, 1.0D);
                 }
 
-                return this.rotation;
+                return rotation;
             }
         });
     }

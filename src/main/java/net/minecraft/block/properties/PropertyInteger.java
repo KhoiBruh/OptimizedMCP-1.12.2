@@ -31,13 +31,13 @@ public class PropertyInteger extends PropertyHelper<Integer>
                 set.add(Integer.valueOf(i));
             }
 
-            this.allowedValues = ImmutableSet.copyOf(set);
+            allowedValues = ImmutableSet.copyOf(set);
         }
     }
 
     public Collection<Integer> getAllowedValues()
     {
-        return this.allowedValues;
+        return allowedValues;
     }
 
     public boolean equals(Object p_equals_1_)
@@ -49,7 +49,7 @@ public class PropertyInteger extends PropertyHelper<Integer>
         else if (p_equals_1_ instanceof PropertyInteger && super.equals(p_equals_1_))
         {
             PropertyInteger propertyinteger = (PropertyInteger)p_equals_1_;
-            return this.allowedValues.equals(propertyinteger.allowedValues);
+            return allowedValues.equals(propertyinteger.allowedValues);
         }
         else
         {
@@ -59,7 +59,7 @@ public class PropertyInteger extends PropertyHelper<Integer>
 
     public int hashCode()
     {
-        return 31 * super.hashCode() + this.allowedValues.hashCode();
+        return 31 * super.hashCode() + allowedValues.hashCode();
     }
 
     public static PropertyInteger create(String name, int min, int max)
@@ -72,7 +72,7 @@ public class PropertyInteger extends PropertyHelper<Integer>
         try
         {
             Integer integer = Integer.valueOf(value);
-            return this.allowedValues.contains(integer) ? Optional.of(integer) : Optional.absent();
+            return allowedValues.contains(integer) ? Optional.of(integer) : Optional.absent();
         }
         catch (NumberFormatException var3)
         {

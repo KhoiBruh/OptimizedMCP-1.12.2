@@ -28,7 +28,7 @@ public class LootTable
 
     public LootTable(LootPool[] poolsIn)
     {
-        this.pools = poolsIn;
+        pools = poolsIn;
     }
 
     public List<ItemStack> generateLootForPools(Random rand, LootContext context)
@@ -37,7 +37,7 @@ public class LootTable
 
         if (context.addLootTable(this))
         {
-            for (LootPool lootpool : this.pools)
+            for (LootPool lootpool : pools)
             {
                 lootpool.generateLoot(list, rand, context);
             }
@@ -54,9 +54,9 @@ public class LootTable
 
     public void fillInventory(IInventory inventory, Random rand, LootContext context)
     {
-        List<ItemStack> list = this.generateLootForPools(rand, context);
-        List<Integer> list1 = this.getEmptySlotsRandomized(inventory, rand);
-        this.shuffleItems(list, list1.size(), rand);
+        List<ItemStack> list = generateLootForPools(rand, context);
+        List<Integer> list1 = getEmptySlotsRandomized(inventory, rand);
+        shuffleItems(list, list1.size(), rand);
 
         for (ItemStack itemstack : list)
         {

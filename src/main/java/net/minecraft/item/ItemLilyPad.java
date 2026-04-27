@@ -28,7 +28,7 @@ public class ItemLilyPad extends ItemColored
     public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn)
     {
         ItemStack itemstack = playerIn.getHeldItem(handIn);
-        RayTraceResult raytraceresult = this.rayTrace(worldIn, playerIn, true);
+        RayTraceResult raytraceresult = rayTrace(worldIn, playerIn, true);
 
         if (raytraceresult == null)
         {

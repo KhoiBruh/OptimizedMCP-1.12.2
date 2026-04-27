@@ -12,9 +12,9 @@ public class EntityAILlamaFollowCaravan extends EntityAIBase
 
     public EntityAILlamaFollowCaravan(EntityLlama llamaIn, double speedModifierIn)
     {
-        this.llama = llamaIn;
-        this.speedModifier = speedModifierIn;
-        this.setMutexBits(1);
+        llama = llamaIn;
+        speedModifier = speedModifierIn;
+        setMutexBits(1);
     }
 
     /**
@@ -22,9 +22,9 @@ public class EntityAILlamaFollowCaravan extends EntityAIBase
      */
     public boolean shouldExecute()
     {
-        if (!this.llama.getLeashed() && !this.llama.inCaravan())
+        if (!llama.getLeashed() && !llama.inCaravan())
         {
-            List<EntityLlama> list = this.llama.world.<EntityLlama>getEntitiesWithinAABB(this.llama.getClass(), this.llama.getEntityBoundingBox().grow(9.0D, 4.0D, 9.0D));
+            List<EntityLlama> list = llama.world.<EntityLlama>getEntitiesWithinAABB(llama.getClass(), llama.getEntityBoundingBox().grow(9.0D, 4.0D, 9.0D));
             EntityLlama entityllama = null;
             double d0 = Double.MAX_VALUE;
 
@@ -32,7 +32,7 @@ public class EntityAILlamaFollowCaravan extends EntityAIBase
             {
                 if (entityllama1.inCaravan() && !entityllama1.hasCaravanTrail())
                 {
-                    double d1 = this.llama.getDistanceSq(entityllama1);
+                    double d1 = llama.getDistanceSq(entityllama1);
 
                     if (d1 <= d0)
                     {
@@ -48,7 +48,7 @@ public class EntityAILlamaFollowCaravan extends EntityAIBase
                 {
                     if (entityllama2.getLeashed() && !entityllama2.hasCaravanTrail())
                     {
-                        double d2 = this.llama.getDistanceSq(entityllama2);
+                        double d2 = llama.getDistanceSq(entityllama2);
 
                         if (d2 <= d0)
                         {
@@ -67,13 +67,13 @@ public class EntityAILlamaFollowCaravan extends EntityAIBase
             {
                 return false;
             }
-            else if (!entityllama.getLeashed() && !this.firstIsLeashed(entityllama, 1))
+            else if (!entityllama.getLeashed() && !firstIsLeashed(entityllama, 1))
             {
                 return false;
             }
             else
             {
-                this.llama.joinCaravan(entityllama);
+                llama.joinCaravan(entityllama);
                 return true;
             }
         }
@@ -88,28 +88,28 @@ public class EntityAILlamaFollowCaravan extends EntityAIBase
      */
     public boolean shouldContinueExecuting()
     {
-        if (this.llama.inCaravan() && this.llama.getCaravanHead().isEntityAlive() && this.firstIsLeashed(this.llama, 0))
+        if (llama.inCaravan() && llama.getCaravanHead().isEntityAlive() && firstIsLeashed(llama, 0))
         {
-            double d0 = this.llama.getDistanceSq(this.llama.getCaravanHead());
+            double d0 = llama.getDistanceSq(llama.getCaravanHead());
 
             if (d0 > 676.0D)
             {
-                if (this.speedModifier <= 3.0D)
+                if (speedModifier <= 3.0D)
                 {
-                    this.speedModifier *= 1.2D;
-                    this.distCheckCounter = 40;
+                    speedModifier *= 1.2D;
+                    distCheckCounter = 40;
                     return true;
                 }
 
-                if (this.distCheckCounter == 0)
+                if (distCheckCounter == 0)
                 {
                     return false;
                 }
             }
 
-            if (this.distCheckCounter > 0)
+            if (distCheckCounter > 0)
             {
-                --this.distCheckCounter;
+                --distCheckCounter;
             }
 
             return true;
@@ -125,8 +125,8 @@ public class EntityAILlamaFollowCaravan extends EntityAIBase
      */
     public void resetTask()
     {
-        this.llama.leaveCaravan();
-        this.speedModifier = 2.1D;
+        llama.leaveCaravan();
+        speedModifier = 2.1D;
     }
 
     /**
@@ -134,13 +134,13 @@ public class EntityAILlamaFollowCaravan extends EntityAIBase
      */
     public void updateTask()
     {
-        if (this.llama.inCaravan())
+        if (llama.inCaravan())
         {
-            EntityLlama entityllama = this.llama.getCaravanHead();
-            double d0 = (double)this.llama.getDistance(entityllama);
+            EntityLlama entityllama = llama.getCaravanHead();
+            double d0 = (double) llama.getDistance(entityllama);
             float f = 2.0F;
-            Vec3d vec3d = (new Vec3d(entityllama.posX - this.llama.posX, entityllama.posY - this.llama.posY, entityllama.posZ - this.llama.posZ)).normalize().scale(Math.max(d0 - 2.0D, 0.0D));
-            this.llama.getNavigator().tryMoveToXYZ(this.llama.posX + vec3d.x, this.llama.posY + vec3d.y, this.llama.posZ + vec3d.z, this.speedModifier);
+            Vec3d vec3d = (new Vec3d(entityllama.posX - llama.posX, entityllama.posY - llama.posY, entityllama.posZ - llama.posZ)).normalize().scale(Math.max(d0 - 2.0D, 0.0D));
+            llama.getNavigator().tryMoveToXYZ(llama.posX + vec3d.x, llama.posY + vec3d.y, llama.posZ + vec3d.z, speedModifier);
         }
     }
 
@@ -160,7 +160,7 @@ public class EntityAILlamaFollowCaravan extends EntityAIBase
             {
                 EntityLlama entityllama = p_190858_1_.getCaravanHead();
                 ++p_190858_2_;
-                return this.firstIsLeashed(entityllama, p_190858_2_);
+                return firstIsLeashed(entityllama, p_190858_2_);
             }
         }
         else

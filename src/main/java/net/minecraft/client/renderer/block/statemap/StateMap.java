@@ -30,31 +30,31 @@ public class StateMap extends StateMapperBase
         Map < IProperty<?>, Comparable<? >> map = Maps. < IProperty<?>, Comparable<? >> newLinkedHashMap(state.getProperties());
         String s;
 
-        if (this.name == null)
+        if (name == null)
         {
             s = ((ResourceLocation)Block.REGISTRY.getNameForObject(state.getBlock())).toString();
         }
         else
         {
-            s = this.removeName(this.name, map);
+            s = removeName(name, map);
         }
 
-        if (this.suffix != null)
+        if (suffix != null)
         {
-            s = s + this.suffix;
+            s = s + suffix;
         }
 
-        for (IProperty<?> iproperty : this.ignored)
+        for (IProperty<?> iproperty : ignored)
         {
             map.remove(iproperty);
         }
 
-        return new ModelResourceLocation(s, this.getPropertyString(map));
+        return new ModelResourceLocation(s, getPropertyString(map));
     }
 
     private <T extends Comparable<T>> String removeName(IProperty<T> property, Map < IProperty<?>, Comparable<? >> values)
     {
-        return property.getName((T)values.remove(this.name));
+        return property.getName((T)values.remove(name));
     }
 
     public static class Builder
@@ -65,25 +65,25 @@ public class StateMap extends StateMapperBase
 
         public StateMap.Builder withName(IProperty<?> builderPropertyIn)
         {
-            this.name = builderPropertyIn;
+            name = builderPropertyIn;
             return this;
         }
 
         public StateMap.Builder withSuffix(String builderSuffixIn)
         {
-            this.suffix = builderSuffixIn;
+            suffix = builderSuffixIn;
             return this;
         }
 
         public StateMap.Builder ignore(IProperty<?>... ignores)
         {
-            Collections.addAll(this.ignored, ignores);
+            Collections.addAll(ignored, ignores);
             return this;
         }
 
         public StateMap build()
         {
-            return new StateMap(this.name, this.suffix, this.ignored);
+            return new StateMap(name, suffix, ignored);
         }
     }
 }

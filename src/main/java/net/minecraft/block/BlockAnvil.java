@@ -41,9 +41,9 @@ public class BlockAnvil extends BlockFalling
     protected BlockAnvil()
     {
         super(Material.ANVIL);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(DAMAGE, Integer.valueOf(0)));
-        this.setLightOpacity(0);
-        this.setCreativeTab(CreativeTabs.DECORATIONS);
+        setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(DAMAGE, Integer.valueOf(0)));
+        setLightOpacity(0);
+        setCreativeTab(CreativeTabs.DECORATIONS);
     }
 
     public boolean isFullCube(IBlockState state)
@@ -164,7 +164,7 @@ public class BlockAnvil extends BlockFalling
      */
     public IBlockState getStateFromMeta(int meta)
     {
-        return this.getDefaultState().withProperty(FACING, EnumFacing.getHorizontal(meta & 3)).withProperty(DAMAGE, Integer.valueOf((meta & 15) >> 2));
+        return getDefaultState().withProperty(FACING, EnumFacing.getHorizontal(meta & 3)).withProperty(DAMAGE, Integer.valueOf((meta & 15) >> 2));
     }
 
     /**
@@ -199,8 +199,8 @@ public class BlockAnvil extends BlockFalling
 
         public Anvil(World worldIn, BlockPos pos)
         {
-            this.world = worldIn;
-            this.position = pos;
+            world = worldIn;
+            position = pos;
         }
 
         public String getName()
@@ -220,7 +220,7 @@ public class BlockAnvil extends BlockFalling
 
         public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn)
         {
-            return new ContainerRepair(playerInventory, this.world, this.position, playerIn);
+            return new ContainerRepair(playerInventory, world, position, playerIn);
         }
 
         public String getGuiID()

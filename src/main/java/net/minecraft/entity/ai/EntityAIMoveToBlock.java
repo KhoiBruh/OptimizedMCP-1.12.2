@@ -22,9 +22,9 @@ public abstract class EntityAIMoveToBlock extends EntityAIBase
     public EntityAIMoveToBlock(EntityCreature creature, double speedIn, int length)
     {
         this.creature = creature;
-        this.movementSpeed = speedIn;
-        this.searchLength = length;
-        this.setMutexBits(5);
+        movementSpeed = speedIn;
+        searchLength = length;
+        setMutexBits(5);
     }
 
     /**
@@ -32,15 +32,15 @@ public abstract class EntityAIMoveToBlock extends EntityAIBase
      */
     public boolean shouldExecute()
     {
-        if (this.runDelay > 0)
+        if (runDelay > 0)
         {
-            --this.runDelay;
+            --runDelay;
             return false;
         }
         else
         {
-            this.runDelay = 200 + this.creature.getRNG().nextInt(200);
-            return this.searchForDestination();
+            runDelay = 200 + creature.getRNG().nextInt(200);
+            return searchForDestination();
         }
     }
 
@@ -49,7 +49,7 @@ public abstract class EntityAIMoveToBlock extends EntityAIBase
      */
     public boolean shouldContinueExecuting()
     {
-        return this.timeoutCounter >= -this.maxStayTicks && this.timeoutCounter <= 1200 && this.shouldMoveTo(this.creature.world, this.destinationBlock);
+        return timeoutCounter >= -maxStayTicks && timeoutCounter <= 1200 && shouldMoveTo(creature.world, destinationBlock);
     }
 
     /**
@@ -57,9 +57,9 @@ public abstract class EntityAIMoveToBlock extends EntityAIBase
      */
     public void startExecuting()
     {
-        this.creature.getNavigator().tryMoveToXYZ((double)((float)this.destinationBlock.getX()) + 0.5D, (double)(this.destinationBlock.getY() + 1), (double)((float)this.destinationBlock.getZ()) + 0.5D, this.movementSpeed);
-        this.timeoutCounter = 0;
-        this.maxStayTicks = this.creature.getRNG().nextInt(this.creature.getRNG().nextInt(1200) + 1200) + 1200;
+        creature.getNavigator().tryMoveToXYZ((double)((float) destinationBlock.getX()) + 0.5D, (double)(destinationBlock.getY() + 1), (double)((float) destinationBlock.getZ()) + 0.5D, movementSpeed);
+        timeoutCounter = 0;
+        maxStayTicks = creature.getRNG().nextInt(creature.getRNG().nextInt(1200) + 1200) + 1200;
     }
 
     /**
@@ -67,26 +67,26 @@ public abstract class EntityAIMoveToBlock extends EntityAIBase
      */
     public void updateTask()
     {
-        if (this.creature.getDistanceSqToCenter(this.destinationBlock.up()) > 1.0D)
+        if (creature.getDistanceSqToCenter(destinationBlock.up()) > 1.0D)
         {
-            this.isAboveDestination = false;
-            ++this.timeoutCounter;
+            isAboveDestination = false;
+            ++timeoutCounter;
 
-            if (this.timeoutCounter % 40 == 0)
+            if (timeoutCounter % 40 == 0)
             {
-                this.creature.getNavigator().tryMoveToXYZ((double)((float)this.destinationBlock.getX()) + 0.5D, (double)(this.destinationBlock.getY() + 1), (double)((float)this.destinationBlock.getZ()) + 0.5D, this.movementSpeed);
+                creature.getNavigator().tryMoveToXYZ((double)((float) destinationBlock.getX()) + 0.5D, (double)(destinationBlock.getY() + 1), (double)((float) destinationBlock.getZ()) + 0.5D, movementSpeed);
             }
         }
         else
         {
-            this.isAboveDestination = true;
-            --this.timeoutCounter;
+            isAboveDestination = true;
+            --timeoutCounter;
         }
     }
 
     protected boolean getIsAboveDestination()
     {
-        return this.isAboveDestination;
+        return isAboveDestination;
     }
 
     /**
@@ -96,9 +96,9 @@ public abstract class EntityAIMoveToBlock extends EntityAIBase
      */
     private boolean searchForDestination()
     {
-        int i = this.searchLength;
+        int i = searchLength;
         int j = 1;
-        BlockPos blockpos = new BlockPos(this.creature);
+        BlockPos blockpos = new BlockPos(creature);
 
         for (int k = 0; k <= 1; k = k > 0 ? -k : 1 - k)
         {
@@ -110,9 +110,9 @@ public abstract class EntityAIMoveToBlock extends EntityAIBase
                     {
                         BlockPos blockpos1 = blockpos.add(i1, k - 1, j1);
 
-                        if (this.creature.isWithinHomeDistanceFromPosition(blockpos1) && this.shouldMoveTo(this.creature.world, blockpos1))
+                        if (creature.isWithinHomeDistanceFromPosition(blockpos1) && shouldMoveTo(creature.world, blockpos1))
                         {
-                            this.destinationBlock = blockpos1;
+                            destinationBlock = blockpos1;
                             return true;
                         }
                     }

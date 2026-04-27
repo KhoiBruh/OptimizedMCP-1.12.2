@@ -15,7 +15,7 @@ public class SPacketEnableCompression implements Packet<INetHandlerLoginClient>
 
     public SPacketEnableCompression(int thresholdIn)
     {
-        this.compressionThreshold = thresholdIn;
+        compressionThreshold = thresholdIn;
     }
 
     /**
@@ -23,7 +23,7 @@ public class SPacketEnableCompression implements Packet<INetHandlerLoginClient>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.compressionThreshold = buf.readVarInt();
+        compressionThreshold = buf.readVarInt();
     }
 
     /**
@@ -31,7 +31,7 @@ public class SPacketEnableCompression implements Packet<INetHandlerLoginClient>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeVarInt(this.compressionThreshold);
+        buf.writeVarInt(compressionThreshold);
     }
 
     /**
@@ -44,6 +44,6 @@ public class SPacketEnableCompression implements Packet<INetHandlerLoginClient>
 
     public int getCompressionThreshold()
     {
-        return this.compressionThreshold;
+        return compressionThreshold;
     }
 }

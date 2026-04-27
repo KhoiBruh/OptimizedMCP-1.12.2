@@ -10,28 +10,28 @@ public class GuiButtonRealmsProxy extends GuiButton
     public GuiButtonRealmsProxy(RealmsButton realmsButtonIn, int buttonId, int x, int y, String text)
     {
         super(buttonId, x, y, text);
-        this.realmsButton = realmsButtonIn;
+        realmsButton = realmsButtonIn;
     }
 
     public GuiButtonRealmsProxy(RealmsButton realmsButtonIn, int buttonId, int x, int y, String text, int widthIn, int heightIn)
     {
         super(buttonId, x, y, widthIn, heightIn, text);
-        this.realmsButton = realmsButtonIn;
+        realmsButton = realmsButtonIn;
     }
 
     public int getId()
     {
-        return this.id;
+        return id;
     }
 
     public boolean getEnabled()
     {
-        return this.enabled;
+        return enabled;
     }
 
     public void setEnabled(boolean isEnabled)
     {
-        this.enabled = isEnabled;
+        enabled = isEnabled;
     }
 
     public void setText(String text)
@@ -46,7 +46,7 @@ public class GuiButtonRealmsProxy extends GuiButton
 
     public int getPositionY()
     {
-        return this.y;
+        return y;
     }
 
     /**
@@ -57,7 +57,7 @@ public class GuiButtonRealmsProxy extends GuiButton
     {
         if (super.mousePressed(mc, mouseX, mouseY))
         {
-            this.realmsButton.clicked(mouseX, mouseY);
+            realmsButton.clicked(mouseX, mouseY);
         }
 
         return super.mousePressed(mc, mouseX, mouseY);
@@ -68,7 +68,7 @@ public class GuiButtonRealmsProxy extends GuiButton
      */
     public void mouseReleased(int mouseX, int mouseY)
     {
-        this.realmsButton.released(mouseX, mouseY);
+        realmsButton.released(mouseX, mouseY);
     }
 
     /**
@@ -76,12 +76,12 @@ public class GuiButtonRealmsProxy extends GuiButton
      */
     public void mouseDragged(Minecraft mc, int mouseX, int mouseY)
     {
-        this.realmsButton.renderBg(mouseX, mouseY);
+        realmsButton.renderBg(mouseX, mouseY);
     }
 
     public RealmsButton getRealmsButton()
     {
-        return this.realmsButton;
+        return realmsButton;
     }
 
     /**
@@ -90,7 +90,7 @@ public class GuiButtonRealmsProxy extends GuiButton
      */
     public int getHoverState(boolean mouseOver)
     {
-        return this.realmsButton.getYImage(mouseOver);
+        return realmsButton.getYImage(mouseOver);
     }
 
     public int getYImage(boolean p_154312_1_)
@@ -100,6 +100,6 @@ public class GuiButtonRealmsProxy extends GuiButton
 
     public int getHeight()
     {
-        return this.height;
+        return height;
     }
 }

@@ -21,16 +21,16 @@ public class DebugRendererSolidFace implements DebugRenderer.IDebugRenderer
 
     public DebugRendererSolidFace(Minecraft minecraftIn)
     {
-        this.minecraft = minecraftIn;
+        minecraft = minecraftIn;
     }
 
     public void render(float partialTicks, long finishTimeNano)
     {
-        EntityPlayer entityplayer = this.minecraft.player;
+        EntityPlayer entityplayer = minecraft.player;
         double d0 = entityplayer.lastTickPosX + (entityplayer.posX - entityplayer.lastTickPosX) * (double)partialTicks;
         double d1 = entityplayer.lastTickPosY + (entityplayer.posY - entityplayer.lastTickPosY) * (double)partialTicks;
         double d2 = entityplayer.lastTickPosZ + (entityplayer.posZ - entityplayer.lastTickPosZ) * (double)partialTicks;
-        World world = this.minecraft.player.world;
+        World world = minecraft.player.world;
         Iterable<BlockPos> iterable = BlockPos.getAllInBox(MathHelper.floor(entityplayer.posX - 6.0D), MathHelper.floor(entityplayer.posY - 6.0D), MathHelper.floor(entityplayer.posZ - 6.0D), MathHelper.floor(entityplayer.posX + 6.0D), MathHelper.floor(entityplayer.posY + 6.0D), MathHelper.floor(entityplayer.posZ + 6.0D));
         GlStateManager.enableBlend();
         GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);

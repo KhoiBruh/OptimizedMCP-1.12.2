@@ -12,7 +12,7 @@ public class RenderPig extends RenderLiving<EntityPig>
     public RenderPig(RenderManager p_i47198_1_)
     {
         super(p_i47198_1_, new ModelPig(), 0.7F);
-        this.addLayer(new LayerSaddle(this));
+        addLayer(new LayerSaddle(this));
     }
 
     /**

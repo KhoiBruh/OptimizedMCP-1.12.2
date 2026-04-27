@@ -12,19 +12,19 @@ public class LanServerInfo
 
     public LanServerInfo(String p_i47130_1_, String p_i47130_2_)
     {
-        this.lanServerMotd = p_i47130_1_;
-        this.lanServerIpPort = p_i47130_2_;
-        this.timeLastSeen = Minecraft.getSystemTime();
+        lanServerMotd = p_i47130_1_;
+        lanServerIpPort = p_i47130_2_;
+        timeLastSeen = Minecraft.getSystemTime();
     }
 
     public String getServerMotd()
     {
-        return this.lanServerMotd;
+        return lanServerMotd;
     }
 
     public String getServerIpPort()
     {
-        return this.lanServerIpPort;
+        return lanServerIpPort;
     }
 
     /**
@@ -32,6 +32,6 @@ public class LanServerInfo
      */
     public void updateLastSeen()
     {
-        this.timeLastSeen = Minecraft.getSystemTime();
+        timeLastSeen = Minecraft.getSystemTime();
     }
 }

@@ -18,9 +18,9 @@ public class EntityAIBeg extends EntityAIBase
     public EntityAIBeg(EntityWolf wolf, float minDistance)
     {
         this.wolf = wolf;
-        this.world = wolf.world;
-        this.minPlayerDistance = minDistance;
-        this.setMutexBits(2);
+        world = wolf.world;
+        minPlayerDistance = minDistance;
+        setMutexBits(2);
     }
 
     /**
@@ -28,8 +28,8 @@ public class EntityAIBeg extends EntityAIBase
      */
     public boolean shouldExecute()
     {
-        this.player = this.world.getClosestPlayerToEntity(this.wolf, (double)this.minPlayerDistance);
-        return this.player == null ? false : this.hasTemptationItemInHand(this.player);
+        player = world.getClosestPlayerToEntity(wolf, (double) minPlayerDistance);
+        return player == null ? false : hasTemptationItemInHand(player);
     }
 
     /**
@@ -37,17 +37,17 @@ public class EntityAIBeg extends EntityAIBase
      */
     public boolean shouldContinueExecuting()
     {
-        if (!this.player.isEntityAlive())
+        if (!player.isEntityAlive())
         {
             return false;
         }
-        else if (this.wolf.getDistanceSq(this.player) > (double)(this.minPlayerDistance * this.minPlayerDistance))
+        else if (wolf.getDistanceSq(player) > (double)(minPlayerDistance * minPlayerDistance))
         {
             return false;
         }
         else
         {
-            return this.timeoutCounter > 0 && this.hasTemptationItemInHand(this.player);
+            return timeoutCounter > 0 && hasTemptationItemInHand(player);
         }
     }
 
@@ -56,8 +56,8 @@ public class EntityAIBeg extends EntityAIBase
      */
     public void startExecuting()
     {
-        this.wolf.setBegging(true);
-        this.timeoutCounter = 40 + this.wolf.getRNG().nextInt(40);
+        wolf.setBegging(true);
+        timeoutCounter = 40 + wolf.getRNG().nextInt(40);
     }
 
     /**
@@ -65,8 +65,8 @@ public class EntityAIBeg extends EntityAIBase
      */
     public void resetTask()
     {
-        this.wolf.setBegging(false);
-        this.player = null;
+        wolf.setBegging(false);
+        player = null;
     }
 
     /**
@@ -74,8 +74,8 @@ public class EntityAIBeg extends EntityAIBase
      */
     public void updateTask()
     {
-        this.wolf.getLookHelper().setLookPosition(this.player.posX, this.player.posY + (double)this.player.getEyeHeight(), this.player.posZ, 10.0F, (float)this.wolf.getVerticalFaceSpeed());
-        --this.timeoutCounter;
+        wolf.getLookHelper().setLookPosition(player.posX, player.posY + (double) player.getEyeHeight(), player.posZ, 10.0F, (float) wolf.getVerticalFaceSpeed());
+        --timeoutCounter;
     }
 
     /**
@@ -87,12 +87,12 @@ public class EntityAIBeg extends EntityAIBase
         {
             ItemStack itemstack = player.getHeldItem(enumhand);
 
-            if (this.wolf.isTamed() && itemstack.getItem() == Items.BONE)
+            if (wolf.isTamed() && itemstack.getItem() == Items.BONE)
             {
                 return true;
             }
 
-            if (this.wolf.isBreedingItem(itemstack))
+            if (wolf.isBreedingItem(itemstack))
             {
                 return true;
             }

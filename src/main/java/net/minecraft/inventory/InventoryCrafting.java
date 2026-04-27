@@ -23,10 +23,10 @@ public class InventoryCrafting implements IInventory
 
     public InventoryCrafting(Container eventHandlerIn, int width, int height)
     {
-        this.stackList = NonNullList.<ItemStack>withSize(width * height, ItemStack.EMPTY);
-        this.eventHandler = eventHandlerIn;
-        this.inventoryWidth = width;
-        this.inventoryHeight = height;
+        stackList = NonNullList.<ItemStack>withSize(width * height, ItemStack.EMPTY);
+        eventHandler = eventHandlerIn;
+        inventoryWidth = width;
+        inventoryHeight = height;
     }
 
     /**
@@ -34,12 +34,12 @@ public class InventoryCrafting implements IInventory
      */
     public int getSizeInventory()
     {
-        return this.stackList.size();
+        return stackList.size();
     }
 
     public boolean isEmpty()
     {
-        for (ItemStack itemstack : this.stackList)
+        for (ItemStack itemstack : stackList)
         {
             if (!itemstack.isEmpty())
             {
@@ -55,7 +55,7 @@ public class InventoryCrafting implements IInventory
      */
     public ItemStack getStackInSlot(int index)
     {
-        return index >= this.getSizeInventory() ? ItemStack.EMPTY : (ItemStack)this.stackList.get(index);
+        return index >= getSizeInventory() ? ItemStack.EMPTY : (ItemStack) stackList.get(index);
     }
 
     /**
@@ -63,7 +63,7 @@ public class InventoryCrafting implements IInventory
      */
     public ItemStack getStackInRowAndColumn(int row, int column)
     {
-        return row >= 0 && row < this.inventoryWidth && column >= 0 && column <= this.inventoryHeight ? this.getStackInSlot(row + column * this.inventoryWidth) : ItemStack.EMPTY;
+        return row >= 0 && row < inventoryWidth && column >= 0 && column <= inventoryHeight ? getStackInSlot(row + column * inventoryWidth) : ItemStack.EMPTY;
     }
 
     /**
@@ -87,7 +87,7 @@ public class InventoryCrafting implements IInventory
      */
     public ITextComponent getDisplayName()
     {
-        return (ITextComponent)(this.hasCustomName() ? new TextComponentString(this.getName()) : new TextComponentTranslation(this.getName(), new Object[0]));
+        return (ITextComponent)(hasCustomName() ? new TextComponentString(getName()) : new TextComponentTranslation(getName(), new Object[0]));
     }
 
     /**
@@ -95,7 +95,7 @@ public class InventoryCrafting implements IInventory
      */
     public ItemStack removeStackFromSlot(int index)
     {
-        return ItemStackHelper.getAndRemove(this.stackList, index);
+        return ItemStackHelper.getAndRemove(stackList, index);
     }
 
     /**
@@ -103,11 +103,11 @@ public class InventoryCrafting implements IInventory
      */
     public ItemStack decrStackSize(int index, int count)
     {
-        ItemStack itemstack = ItemStackHelper.getAndSplit(this.stackList, index, count);
+        ItemStack itemstack = ItemStackHelper.getAndSplit(stackList, index, count);
 
         if (!itemstack.isEmpty())
         {
-            this.eventHandler.onCraftMatrixChanged(this);
+            eventHandler.onCraftMatrixChanged(this);
         }
 
         return itemstack;
@@ -118,8 +118,8 @@ public class InventoryCrafting implements IInventory
      */
     public void setInventorySlotContents(int index, ItemStack stack)
     {
-        this.stackList.set(index, stack);
-        this.eventHandler.onCraftMatrixChanged(this);
+        stackList.set(index, stack);
+        eventHandler.onCraftMatrixChanged(this);
     }
 
     /**
@@ -179,22 +179,22 @@ public class InventoryCrafting implements IInventory
 
     public void clear()
     {
-        this.stackList.clear();
+        stackList.clear();
     }
 
     public int getHeight()
     {
-        return this.inventoryHeight;
+        return inventoryHeight;
     }
 
     public int getWidth()
     {
-        return this.inventoryWidth;
+        return inventoryWidth;
     }
 
     public void fillStackedContents(RecipeItemHelper helper)
     {
-        for (ItemStack itemstack : this.stackList)
+        for (ItemStack itemstack : stackList)
         {
             helper.accountStack(itemstack);
         }

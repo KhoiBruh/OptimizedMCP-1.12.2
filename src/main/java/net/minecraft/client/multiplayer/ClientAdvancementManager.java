@@ -29,38 +29,38 @@ public class ClientAdvancementManager
 
     public ClientAdvancementManager(Minecraft p_i47380_1_)
     {
-        this.mc = p_i47380_1_;
+        mc = p_i47380_1_;
     }
 
     public void read(SPacketAdvancementInfo p_192799_1_)
     {
         if (p_192799_1_.isFirstSync())
         {
-            this.advancementList.clear();
-            this.advancementToProgress.clear();
+            advancementList.clear();
+            advancementToProgress.clear();
         }
 
-        this.advancementList.removeAll(p_192799_1_.getAdvancementsToRemove());
-        this.advancementList.loadAdvancements(p_192799_1_.getAdvancementsToAdd());
+        advancementList.removeAll(p_192799_1_.getAdvancementsToRemove());
+        advancementList.loadAdvancements(p_192799_1_.getAdvancementsToAdd());
 
         for (Entry<ResourceLocation, AdvancementProgress> entry : p_192799_1_.getProgressUpdates().entrySet())
         {
-            Advancement advancement = this.advancementList.getAdvancement(entry.getKey());
+            Advancement advancement = advancementList.getAdvancement(entry.getKey());
 
             if (advancement != null)
             {
                 AdvancementProgress advancementprogress = entry.getValue();
                 advancementprogress.update(advancement.getCriteria(), advancement.getRequirements());
-                this.advancementToProgress.put(advancement, advancementprogress);
+                advancementToProgress.put(advancement, advancementprogress);
 
-                if (this.listener != null)
+                if (listener != null)
                 {
-                    this.listener.onUpdateAdvancementProgress(advancement, advancementprogress);
+                    listener.onUpdateAdvancementProgress(advancement, advancementprogress);
                 }
 
                 if (!p_192799_1_.isFirstSync() && advancementprogress.isDone() && advancement.getDisplay() != null && advancement.getDisplay().shouldShowToast())
                 {
-                    this.mc.getToastGui().add(new AdvancementToast(advancement));
+                    mc.getToastGui().add(new AdvancementToast(advancement));
                 }
             }
             else
@@ -72,42 +72,42 @@ public class ClientAdvancementManager
 
     public AdvancementList getAdvancementList()
     {
-        return this.advancementList;
+        return advancementList;
     }
 
     public void setSelectedTab(@Nullable Advancement p_194230_1_, boolean tellServer)
     {
-        NetHandlerPlayClient nethandlerplayclient = this.mc.getConnection();
+        NetHandlerPlayClient nethandlerplayclient = mc.getConnection();
 
         if (nethandlerplayclient != null && p_194230_1_ != null && tellServer)
         {
             nethandlerplayclient.sendPacket(CPacketSeenAdvancements.openedTab(p_194230_1_));
         }
 
-        if (this.selectedTab != p_194230_1_)
+        if (selectedTab != p_194230_1_)
         {
-            this.selectedTab = p_194230_1_;
+            selectedTab = p_194230_1_;
 
-            if (this.listener != null)
+            if (listener != null)
             {
-                this.listener.setSelectedTab(p_194230_1_);
+                listener.setSelectedTab(p_194230_1_);
             }
         }
     }
 
     public void setListener(@Nullable ClientAdvancementManager.IListener p_192798_1_)
     {
-        this.listener = p_192798_1_;
-        this.advancementList.setListener(p_192798_1_);
+        listener = p_192798_1_;
+        advancementList.setListener(p_192798_1_);
 
         if (p_192798_1_ != null)
         {
-            for (Entry<Advancement, AdvancementProgress> entry : this.advancementToProgress.entrySet())
+            for (Entry<Advancement, AdvancementProgress> entry : advancementToProgress.entrySet())
             {
                 p_192798_1_.onUpdateAdvancementProgress(entry.getKey(), entry.getValue());
             }
 
-            p_192798_1_.setSelectedTab(this.selectedTab);
+            p_192798_1_.setSelectedTab(selectedTab);
         }
     }
 

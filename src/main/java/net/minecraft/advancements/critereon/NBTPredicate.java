@@ -27,12 +27,12 @@ public class NBTPredicate
 
     public boolean test(ItemStack item)
     {
-        return this == ANY ? true : this.test(item.getTagCompound());
+        return this == ANY ? true : test(item.getTagCompound());
     }
 
     public boolean test(Entity entityIn)
     {
-        return this == ANY ? true : this.test(CommandBase.entityToNBT(entityIn));
+        return this == ANY ? true : test(CommandBase.entityToNBT(entityIn));
     }
 
     public boolean test(@Nullable NBTBase nbt)
@@ -43,7 +43,7 @@ public class NBTPredicate
         }
         else
         {
-            return this.tag == null || NBTUtil.areNBTEquals(this.tag, nbt, true);
+            return tag == null || NBTUtil.areNBTEquals(tag, nbt, true);
         }
     }
 

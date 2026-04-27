@@ -21,20 +21,20 @@ public class ParticleFallingDust extends Particle
     protected ParticleFallingDust(World p_i47135_1_, double p_i47135_2_, double p_i47135_4_, double p_i47135_6_, float p_i47135_8_, float p_i47135_9_, float p_i47135_10_)
     {
         super(p_i47135_1_, p_i47135_2_, p_i47135_4_, p_i47135_6_, 0.0D, 0.0D, 0.0D);
-        this.motionX = 0.0D;
-        this.motionY = 0.0D;
-        this.motionZ = 0.0D;
-        this.particleRed = p_i47135_8_;
-        this.particleGreen = p_i47135_9_;
-        this.particleBlue = p_i47135_10_;
+        motionX = 0.0D;
+        motionY = 0.0D;
+        motionZ = 0.0D;
+        particleRed = p_i47135_8_;
+        particleGreen = p_i47135_9_;
+        particleBlue = p_i47135_10_;
         float f = 0.9F;
-        this.particleScale *= 0.75F;
-        this.particleScale *= 0.9F;
-        this.oSize = this.particleScale;
-        this.particleMaxAge = (int)(32.0D / (Math.random() * 0.8D + 0.2D));
-        this.particleMaxAge = (int)((float)this.particleMaxAge * 0.9F);
-        this.rotSpeed = ((float)Math.random() - 0.5F) * 0.1F;
-        this.particleAngle = (float)Math.random() * ((float)Math.PI * 2F);
+        particleScale *= 0.75F;
+        particleScale *= 0.9F;
+        oSize = particleScale;
+        particleMaxAge = (int)(32.0D / (Math.random() * 0.8D + 0.2D));
+        particleMaxAge = (int)((float) particleMaxAge * 0.9F);
+        rotSpeed = ((float)Math.random() - 0.5F) * 0.1F;
+        particleAngle = (float)Math.random() * ((float)Math.PI * 2F);
     }
 
     /**
@@ -42,35 +42,35 @@ public class ParticleFallingDust extends Particle
      */
     public void renderParticle(BufferBuilder buffer, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ)
     {
-        float f = ((float)this.particleAge + partialTicks) / (float)this.particleMaxAge * 32.0F;
+        float f = ((float) particleAge + partialTicks) / (float) particleMaxAge * 32.0F;
         f = MathHelper.clamp(f, 0.0F, 1.0F);
-        this.particleScale = this.oSize * f;
+        particleScale = oSize * f;
         super.renderParticle(buffer, entityIn, partialTicks, rotationX, rotationZ, rotationYZ, rotationXY, rotationXZ);
     }
 
     public void onUpdate()
     {
-        this.prevPosX = this.posX;
-        this.prevPosY = this.posY;
-        this.prevPosZ = this.posZ;
+        prevPosX = posX;
+        prevPosY = posY;
+        prevPosZ = posZ;
 
-        if (this.particleAge++ >= this.particleMaxAge)
+        if (particleAge++ >= particleMaxAge)
         {
-            this.setExpired();
+            setExpired();
         }
 
-        this.prevParticleAngle = this.particleAngle;
-        this.particleAngle += (float)Math.PI * this.rotSpeed * 2.0F;
+        prevParticleAngle = particleAngle;
+        particleAngle += (float)Math.PI * rotSpeed * 2.0F;
 
-        if (this.onGround)
+        if (onGround)
         {
-            this.prevParticleAngle = this.particleAngle = 0.0F;
+            prevParticleAngle = particleAngle = 0.0F;
         }
 
-        this.setParticleTextureIndex(7 - this.particleAge * 8 / this.particleMaxAge);
-        this.move(this.motionX, this.motionY, this.motionZ);
-        this.motionY -= 0.003000000026077032D;
-        this.motionY = Math.max(this.motionY, -0.14000000059604645D);
+        setParticleTextureIndex(7 - particleAge * 8 / particleMaxAge);
+        move(motionX, motionY, motionZ);
+        motionY -= 0.003000000026077032D;
+        motionY = Math.max(motionY, -0.14000000059604645D);
     }
 
     public static class Factory implements IParticleFactory

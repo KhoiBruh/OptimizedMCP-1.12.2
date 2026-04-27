@@ -27,7 +27,7 @@ public abstract class StateMapperBase implements IStateMapper
             IProperty<?> iproperty = (IProperty)entry.getKey();
             stringbuilder.append(iproperty.getName());
             stringbuilder.append("=");
-            stringbuilder.append(this.getPropertyName(iproperty, entry.getValue()));
+            stringbuilder.append(getPropertyName(iproperty, entry.getValue()));
         }
 
         if (stringbuilder.length() == 0)
@@ -50,10 +50,10 @@ public abstract class StateMapperBase implements IStateMapper
         while (unmodifiableiterator.hasNext())
         {
             IBlockState iblockstate = (IBlockState)unmodifiableiterator.next();
-            this.mapStateModelLocations.put(iblockstate, this.getModelResourceLocation(iblockstate));
+            mapStateModelLocations.put(iblockstate, getModelResourceLocation(iblockstate));
         }
 
-        return this.mapStateModelLocations;
+        return mapStateModelLocations;
     }
 
     protected abstract ModelResourceLocation getModelResourceLocation(IBlockState state);

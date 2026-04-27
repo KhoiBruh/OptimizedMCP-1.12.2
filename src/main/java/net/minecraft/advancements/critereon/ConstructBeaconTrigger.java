@@ -26,12 +26,12 @@ public class ConstructBeaconTrigger implements ICriterionTrigger<ConstructBeacon
 
     public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<ConstructBeaconTrigger.Instance> listener)
     {
-        ConstructBeaconTrigger.Listeners constructbeacontrigger$listeners = this.listeners.get(playerAdvancementsIn);
+        ConstructBeaconTrigger.Listeners constructbeacontrigger$listeners = listeners.get(playerAdvancementsIn);
 
         if (constructbeacontrigger$listeners == null)
         {
             constructbeacontrigger$listeners = new ConstructBeaconTrigger.Listeners(playerAdvancementsIn);
-            this.listeners.put(playerAdvancementsIn, constructbeacontrigger$listeners);
+            listeners.put(playerAdvancementsIn, constructbeacontrigger$listeners);
         }
 
         constructbeacontrigger$listeners.add(listener);
@@ -39,7 +39,7 @@ public class ConstructBeaconTrigger implements ICriterionTrigger<ConstructBeacon
 
     public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<ConstructBeaconTrigger.Instance> listener)
     {
-        ConstructBeaconTrigger.Listeners constructbeacontrigger$listeners = this.listeners.get(playerAdvancementsIn);
+        ConstructBeaconTrigger.Listeners constructbeacontrigger$listeners = listeners.get(playerAdvancementsIn);
 
         if (constructbeacontrigger$listeners != null)
         {
@@ -47,14 +47,14 @@ public class ConstructBeaconTrigger implements ICriterionTrigger<ConstructBeacon
 
             if (constructbeacontrigger$listeners.isEmpty())
             {
-                this.listeners.remove(playerAdvancementsIn);
+                listeners.remove(playerAdvancementsIn);
             }
         }
     }
 
     public void removeAllListeners(PlayerAdvancements playerAdvancementsIn)
     {
-        this.listeners.remove(playerAdvancementsIn);
+        listeners.remove(playerAdvancementsIn);
     }
 
     /**
@@ -68,7 +68,7 @@ public class ConstructBeaconTrigger implements ICriterionTrigger<ConstructBeacon
 
     public void trigger(EntityPlayerMP player, TileEntityBeacon beacon)
     {
-        ConstructBeaconTrigger.Listeners constructbeacontrigger$listeners = this.listeners.get(player.getAdvancements());
+        ConstructBeaconTrigger.Listeners constructbeacontrigger$listeners = listeners.get(player.getAdvancements());
 
         if (constructbeacontrigger$listeners != null)
         {
@@ -88,7 +88,7 @@ public class ConstructBeaconTrigger implements ICriterionTrigger<ConstructBeacon
 
         public boolean test(TileEntityBeacon beacon)
         {
-            return this.level.test((float)beacon.getLevels());
+            return level.test((float)beacon.getLevels());
         }
     }
 
@@ -99,29 +99,29 @@ public class ConstructBeaconTrigger implements ICriterionTrigger<ConstructBeacon
 
         public Listeners(PlayerAdvancements playerAdvancementsIn)
         {
-            this.playerAdvancements = playerAdvancementsIn;
+            playerAdvancements = playerAdvancementsIn;
         }
 
         public boolean isEmpty()
         {
-            return this.listeners.isEmpty();
+            return listeners.isEmpty();
         }
 
         public void add(ICriterionTrigger.Listener<ConstructBeaconTrigger.Instance> listener)
         {
-            this.listeners.add(listener);
+            listeners.add(listener);
         }
 
         public void remove(ICriterionTrigger.Listener<ConstructBeaconTrigger.Instance> listener)
         {
-            this.listeners.remove(listener);
+            listeners.remove(listener);
         }
 
         public void trigger(TileEntityBeacon beacon)
         {
             List<ICriterionTrigger.Listener<ConstructBeaconTrigger.Instance>> list = null;
 
-            for (ICriterionTrigger.Listener<ConstructBeaconTrigger.Instance> listener : this.listeners)
+            for (ICriterionTrigger.Listener<ConstructBeaconTrigger.Instance> listener : listeners)
             {
                 if (((ConstructBeaconTrigger.Instance)listener.getCriterionInstance()).test(beacon))
                 {
@@ -138,7 +138,7 @@ public class ConstructBeaconTrigger implements ICriterionTrigger<ConstructBeacon
             {
                 for (ICriterionTrigger.Listener<ConstructBeaconTrigger.Instance> listener1 : list)
                 {
-                    listener1.grantCriterion(this.playerAdvancements);
+                    listener1.grantCriterion(playerAdvancements);
                 }
             }
         }

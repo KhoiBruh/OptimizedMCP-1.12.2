@@ -18,9 +18,9 @@ public class SPacketBlockBreakAnim implements Packet<INetHandlerPlayClient>
 
     public SPacketBlockBreakAnim(int breakerIdIn, BlockPos positionIn, int progressIn)
     {
-        this.breakerId = breakerIdIn;
-        this.position = positionIn;
-        this.progress = progressIn;
+        breakerId = breakerIdIn;
+        position = positionIn;
+        progress = progressIn;
     }
 
     /**
@@ -28,9 +28,9 @@ public class SPacketBlockBreakAnim implements Packet<INetHandlerPlayClient>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.breakerId = buf.readVarInt();
-        this.position = buf.readBlockPos();
-        this.progress = buf.readUnsignedByte();
+        breakerId = buf.readVarInt();
+        position = buf.readBlockPos();
+        progress = buf.readUnsignedByte();
     }
 
     /**
@@ -38,9 +38,9 @@ public class SPacketBlockBreakAnim implements Packet<INetHandlerPlayClient>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeVarInt(this.breakerId);
-        buf.writeBlockPos(this.position);
-        buf.writeByte(this.progress);
+        buf.writeVarInt(breakerId);
+        buf.writeBlockPos(position);
+        buf.writeByte(progress);
     }
 
     /**
@@ -53,16 +53,16 @@ public class SPacketBlockBreakAnim implements Packet<INetHandlerPlayClient>
 
     public int getBreakerId()
     {
-        return this.breakerId;
+        return breakerId;
     }
 
     public BlockPos getPosition()
     {
-        return this.position;
+        return position;
     }
 
     public int getProgress()
     {
-        return this.progress;
+        return progress;
     }
 }

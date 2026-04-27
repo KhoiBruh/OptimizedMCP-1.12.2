@@ -26,8 +26,8 @@ public class BlockBeacon extends BlockContainer
     public BlockBeacon()
     {
         super(Material.GLASS, MapColor.DIAMOND);
-        this.setHardness(3.0F);
-        this.setCreativeTab(CreativeTabs.MISC);
+        setHardness(3.0F);
+        setCreativeTab(CreativeTabs.MISC);
     }
 
     /**

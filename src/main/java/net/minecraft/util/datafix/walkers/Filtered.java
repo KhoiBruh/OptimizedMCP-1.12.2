@@ -16,23 +16,23 @@ public abstract class Filtered implements IDataWalker
     {
         if (Entity.class.isAssignableFrom(p_i47309_1_))
         {
-            this.key = EntityList.getKey((Class<Entity>)p_i47309_1_);
+            key = EntityList.getKey((Class<Entity>)p_i47309_1_);
         }
         else if (TileEntity.class.isAssignableFrom(p_i47309_1_))
         {
-            this.key = TileEntity.getKey((Class<TileEntity>)p_i47309_1_);
+            key = TileEntity.getKey((Class<TileEntity>)p_i47309_1_);
         }
         else
         {
-            this.key = null;
+            key = null;
         }
     }
 
     public NBTTagCompound process(IDataFixer fixer, NBTTagCompound compound, int versionIn)
     {
-        if ((new ResourceLocation(compound.getString("id"))).equals(this.key))
+        if ((new ResourceLocation(compound.getString("id"))).equals(key))
         {
-            compound = this.filteredProcess(fixer, compound, versionIn);
+            compound = filteredProcess(fixer, compound, versionIn);
         }
 
         return compound;

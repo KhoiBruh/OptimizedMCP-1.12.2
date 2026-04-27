@@ -15,8 +15,8 @@ public class RidingToPassengers implements IFixableData
     {
         while (compound.hasKey("Riding", 10))
         {
-            NBTTagCompound nbttagcompound = this.extractVehicle(compound);
-            this.addPassengerToVehicle(compound, nbttagcompound);
+            NBTTagCompound nbttagcompound = extractVehicle(compound);
+            addPassengerToVehicle(compound, nbttagcompound);
             compound = nbttagcompound;
         }
 

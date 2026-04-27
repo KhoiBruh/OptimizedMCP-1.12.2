@@ -20,8 +20,8 @@ public class ServerList
 
     public ServerList(Minecraft mcIn)
     {
-        this.mc = mcIn;
-        this.loadServerList();
+        mc = mcIn;
+        loadServerList();
     }
 
     /**
@@ -32,8 +32,8 @@ public class ServerList
     {
         try
         {
-            this.servers.clear();
-            NBTTagCompound nbttagcompound = CompressedStreamTools.read(new File(this.mc.mcDataDir, "servers.dat"));
+            servers.clear();
+            NBTTagCompound nbttagcompound = CompressedStreamTools.read(new File(mc.mcDataDir, "servers.dat"));
 
             if (nbttagcompound == null)
             {
@@ -44,7 +44,7 @@ public class ServerList
 
             for (int i = 0; i < nbttaglist.tagCount(); ++i)
             {
-                this.servers.add(ServerData.getServerDataFromNBTCompound(nbttaglist.getCompoundTagAt(i)));
+                servers.add(ServerData.getServerDataFromNBTCompound(nbttaglist.getCompoundTagAt(i)));
             }
         }
         catch (Exception exception)
@@ -63,14 +63,14 @@ public class ServerList
         {
             NBTTagList nbttaglist = new NBTTagList();
 
-            for (ServerData serverdata : this.servers)
+            for (ServerData serverdata : servers)
             {
                 nbttaglist.appendTag(serverdata.getNBTCompound());
             }
 
             NBTTagCompound nbttagcompound = new NBTTagCompound();
             nbttagcompound.setTag("servers", nbttaglist);
-            CompressedStreamTools.safeWrite(nbttagcompound, new File(this.mc.mcDataDir, "servers.dat"));
+            CompressedStreamTools.safeWrite(nbttagcompound, new File(mc.mcDataDir, "servers.dat"));
         }
         catch (Exception exception)
         {
@@ -83,7 +83,7 @@ public class ServerList
      */
     public ServerData getServerData(int index)
     {
-        return this.servers.get(index);
+        return servers.get(index);
     }
 
     /**
@@ -91,7 +91,7 @@ public class ServerList
      */
     public void removeServerData(int index)
     {
-        this.servers.remove(index);
+        servers.remove(index);
     }
 
     /**
@@ -99,7 +99,7 @@ public class ServerList
      */
     public void addServerData(ServerData server)
     {
-        this.servers.add(server);
+        servers.add(server);
     }
 
     /**
@@ -107,7 +107,7 @@ public class ServerList
      */
     public int countServers()
     {
-        return this.servers.size();
+        return servers.size();
     }
 
     /**
@@ -115,15 +115,15 @@ public class ServerList
      */
     public void swapServers(int pos1, int pos2)
     {
-        ServerData serverdata = this.getServerData(pos1);
-        this.servers.set(pos1, this.getServerData(pos2));
-        this.servers.set(pos2, serverdata);
-        this.saveServerList();
+        ServerData serverdata = getServerData(pos1);
+        servers.set(pos1, getServerData(pos2));
+        servers.set(pos2, serverdata);
+        saveServerList();
     }
 
     public void set(int index, ServerData server)
     {
-        this.servers.set(index, server);
+        servers.set(index, server);
     }
 
     public static void saveSingleServer(ServerData server)

@@ -30,8 +30,8 @@ public class GuiRepair extends GuiContainer implements IContainerListener
     public GuiRepair(InventoryPlayer inventoryIn, World worldIn)
     {
         super(new ContainerRepair(inventoryIn, worldIn, Minecraft.getMinecraft().player));
-        this.playerInventory = inventoryIn;
-        this.anvil = (ContainerRepair)this.inventorySlots;
+        playerInventory = inventoryIn;
+        anvil = (ContainerRepair) inventorySlots;
     }
 
     /**
@@ -42,15 +42,15 @@ public class GuiRepair extends GuiContainer implements IContainerListener
     {
         super.initGui();
         Keyboard.enableRepeatEvents(true);
-        int i = (this.width - this.xSize) / 2;
-        int j = (this.height - this.ySize) / 2;
-        this.nameField = new GuiTextField(0, this.fontRenderer, i + 62, j + 24, 103, 12);
-        this.nameField.setTextColor(-1);
-        this.nameField.setDisabledTextColour(-1);
-        this.nameField.setEnableBackgroundDrawing(false);
-        this.nameField.setMaxStringLength(35);
-        this.inventorySlots.removeListener(this);
-        this.inventorySlots.addListener(this);
+        int i = (width - xSize) / 2;
+        int j = (height - ySize) / 2;
+        nameField = new GuiTextField(0, fontRenderer, i + 62, j + 24, 103, 12);
+        nameField.setTextColor(-1);
+        nameField.setDisabledTextColour(-1);
+        nameField.setEnableBackgroundDrawing(false);
+        nameField.setMaxStringLength(35);
+        inventorySlots.removeListener(this);
+        inventorySlots.addListener(this);
     }
 
     /**
@@ -60,7 +60,7 @@ public class GuiRepair extends GuiContainer implements IContainerListener
     {
         super.onGuiClosed();
         Keyboard.enableRepeatEvents(false);
-        this.inventorySlots.removeListener(this);
+        inventorySlots.removeListener(this);
     }
 
     /**
@@ -70,24 +70,24 @@ public class GuiRepair extends GuiContainer implements IContainerListener
     {
         GlStateManager.disableLighting();
         GlStateManager.disableBlend();
-        this.fontRenderer.drawString(I18n.format("container.repair"), 60, 6, 4210752);
+        fontRenderer.drawString(I18n.format("container.repair"), 60, 6, 4210752);
 
-        if (this.anvil.maximumCost > 0)
+        if (anvil.maximumCost > 0)
         {
             int i = 8453920;
             boolean flag = true;
-            String s = I18n.format("container.repair.cost", this.anvil.maximumCost);
+            String s = I18n.format("container.repair.cost", anvil.maximumCost);
 
-            if (this.anvil.maximumCost >= 40 && !this.mc.player.capabilities.isCreativeMode)
+            if (anvil.maximumCost >= 40 && !mc.player.capabilities.isCreativeMode)
             {
                 s = I18n.format("container.repair.expensive");
                 i = 16736352;
             }
-            else if (!this.anvil.getSlot(2).getHasStack())
+            else if (!anvil.getSlot(2).getHasStack())
             {
                 flag = false;
             }
-            else if (!this.anvil.getSlot(2).canTakeStack(this.playerInventory.player))
+            else if (!anvil.getSlot(2).canTakeStack(playerInventory.player))
             {
                 i = 16736352;
             }
@@ -95,22 +95,22 @@ public class GuiRepair extends GuiContainer implements IContainerListener
             if (flag)
             {
                 int j = -16777216 | (i & 16579836) >> 2 | i & -16777216;
-                int k = this.xSize - 8 - this.fontRenderer.getStringWidth(s);
+                int k = xSize - 8 - fontRenderer.getStringWidth(s);
                 int l = 67;
 
-                if (this.fontRenderer.getUnicodeFlag())
+                if (fontRenderer.getUnicodeFlag())
                 {
-                    drawRect(k - 3, 65, this.xSize - 7, 77, -16777216);
-                    drawRect(k - 2, 66, this.xSize - 8, 76, -12895429);
+                    drawRect(k - 3, 65, xSize - 7, 77, -16777216);
+                    drawRect(k - 2, 66, xSize - 8, 76, -12895429);
                 }
                 else
                 {
-                    this.fontRenderer.drawString(s, k, 68, j);
-                    this.fontRenderer.drawString(s, k + 1, 67, j);
-                    this.fontRenderer.drawString(s, k + 1, 68, j);
+                    fontRenderer.drawString(s, k, 68, j);
+                    fontRenderer.drawString(s, k + 1, 67, j);
+                    fontRenderer.drawString(s, k + 1, 68, j);
                 }
 
-                this.fontRenderer.drawString(s, k, 67, i);
+                fontRenderer.drawString(s, k, 67, i);
             }
         }
 
@@ -123,9 +123,9 @@ public class GuiRepair extends GuiContainer implements IContainerListener
      */
     protected void keyTyped(char typedChar, int keyCode) throws IOException
     {
-        if (this.nameField.textboxKeyTyped(typedChar, keyCode))
+        if (nameField.textboxKeyTyped(typedChar, keyCode))
         {
-            this.renameItem();
+            renameItem();
         }
         else
         {
@@ -135,16 +135,16 @@ public class GuiRepair extends GuiContainer implements IContainerListener
 
     private void renameItem()
     {
-        String s = this.nameField.getText();
-        Slot slot = this.anvil.getSlot(0);
+        String s = nameField.getText();
+        Slot slot = anvil.getSlot(0);
 
         if (slot != null && slot.getHasStack() && !slot.getStack().hasDisplayName() && s.equals(slot.getStack().getDisplayName()))
         {
             s = "";
         }
 
-        this.anvil.updateItemName(s);
-        this.mc.player.connection.sendPacket(new CPacketCustomPayload("MC|ItemName", (new PacketBuffer(Unpooled.buffer())).writeString(s)));
+        anvil.updateItemName(s);
+        mc.player.connection.sendPacket(new CPacketCustomPayload("MC|ItemName", (new PacketBuffer(Unpooled.buffer())).writeString(s)));
     }
 
     /**
@@ -153,7 +153,7 @@ public class GuiRepair extends GuiContainer implements IContainerListener
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException
     {
         super.mouseClicked(mouseX, mouseY, mouseButton);
-        this.nameField.mouseClicked(mouseX, mouseY, mouseButton);
+        nameField.mouseClicked(mouseX, mouseY, mouseButton);
     }
 
     /**
@@ -161,12 +161,12 @@ public class GuiRepair extends GuiContainer implements IContainerListener
      */
     public void drawScreen(int mouseX, int mouseY, float partialTicks)
     {
-        this.drawDefaultBackground();
+        drawDefaultBackground();
         super.drawScreen(mouseX, mouseY, partialTicks);
-        this.renderHoveredToolTip(mouseX, mouseY);
+        renderHoveredToolTip(mouseX, mouseY);
         GlStateManager.disableLighting();
         GlStateManager.disableBlend();
-        this.nameField.drawTextBox();
+        nameField.drawTextBox();
     }
 
     /**
@@ -175,15 +175,15 @@ public class GuiRepair extends GuiContainer implements IContainerListener
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY)
     {
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        this.mc.getTextureManager().bindTexture(ANVIL_RESOURCE);
-        int i = (this.width - this.xSize) / 2;
-        int j = (this.height - this.ySize) / 2;
-        this.drawTexturedModalRect(i, j, 0, 0, this.xSize, this.ySize);
-        this.drawTexturedModalRect(i + 59, j + 20, 0, this.ySize + (this.anvil.getSlot(0).getHasStack() ? 0 : 16), 110, 16);
+        mc.getTextureManager().bindTexture(ANVIL_RESOURCE);
+        int i = (width - xSize) / 2;
+        int j = (height - ySize) / 2;
+        drawTexturedModalRect(i, j, 0, 0, xSize, ySize);
+        drawTexturedModalRect(i + 59, j + 20, 0, ySize + (anvil.getSlot(0).getHasStack() ? 0 : 16), 110, 16);
 
-        if ((this.anvil.getSlot(0).getHasStack() || this.anvil.getSlot(1).getHasStack()) && !this.anvil.getSlot(2).getHasStack())
+        if ((anvil.getSlot(0).getHasStack() || anvil.getSlot(1).getHasStack()) && !anvil.getSlot(2).getHasStack())
         {
-            this.drawTexturedModalRect(i + 99, j + 45, this.xSize, 0, 28, 21);
+            drawTexturedModalRect(i + 99, j + 45, xSize, 0, 28, 21);
         }
     }
 
@@ -192,7 +192,7 @@ public class GuiRepair extends GuiContainer implements IContainerListener
      */
     public void sendAllContents(Container containerToSend, NonNullList<ItemStack> itemsList)
     {
-        this.sendSlotContents(containerToSend, 0, containerToSend.getSlot(0).getStack());
+        sendSlotContents(containerToSend, 0, containerToSend.getSlot(0).getStack());
     }
 
     /**
@@ -203,12 +203,12 @@ public class GuiRepair extends GuiContainer implements IContainerListener
     {
         if (slotInd == 0)
         {
-            this.nameField.setText(stack.isEmpty() ? "" : stack.getDisplayName());
-            this.nameField.setEnabled(!stack.isEmpty());
+            nameField.setText(stack.isEmpty() ? "" : stack.getDisplayName());
+            nameField.setEnabled(!stack.isEmpty());
 
             if (!stack.isEmpty())
             {
-                this.renameItem();
+                renameItem();
             }
         }
     }

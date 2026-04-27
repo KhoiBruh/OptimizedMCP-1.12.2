@@ -21,10 +21,10 @@ public class ItemSword extends Item
     public ItemSword(Item.ToolMaterial material)
     {
         this.material = material;
-        this.maxStackSize = 1;
-        this.setMaxDamage(material.getMaxUses());
-        this.setCreativeTab(CreativeTabs.COMBAT);
-        this.attackDamage = 3.0F + material.getAttackDamage();
+        maxStackSize = 1;
+        setMaxDamage(material.getMaxUses());
+        setCreativeTab(CreativeTabs.COMBAT);
+        attackDamage = 3.0F + material.getAttackDamage();
     }
 
     /**
@@ -32,7 +32,7 @@ public class ItemSword extends Item
      */
     public float getAttackDamage()
     {
-        return this.material.getAttackDamage();
+        return material.getAttackDamage();
     }
 
     public float getDestroySpeed(ItemStack stack, IBlockState state)
@@ -94,7 +94,7 @@ public class ItemSword extends Item
      */
     public int getItemEnchantability()
     {
-        return this.material.getEnchantability();
+        return material.getEnchantability();
     }
 
     /**
@@ -102,7 +102,7 @@ public class ItemSword extends Item
      */
     public String getToolMaterialName()
     {
-        return this.material.toString();
+        return material.toString();
     }
 
     /**
@@ -113,7 +113,7 @@ public class ItemSword extends Item
      */
     public boolean getIsRepairable(ItemStack toRepair, ItemStack repair)
     {
-        return this.material.getRepairItem() == repair.getItem() ? true : super.getIsRepairable(toRepair, repair);
+        return material.getRepairItem() == repair.getItem() ? true : super.getIsRepairable(toRepair, repair);
     }
 
     public Multimap<String, AttributeModifier> getItemAttributeModifiers(EntityEquipmentSlot equipmentSlot)
@@ -122,7 +122,7 @@ public class ItemSword extends Item
 
         if (equipmentSlot == EntityEquipmentSlot.MAINHAND)
         {
-            multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", (double)this.attackDamage, 0));
+            multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", (double) attackDamage, 0));
             multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", -2.4000000953674316D, 0));
         }
 

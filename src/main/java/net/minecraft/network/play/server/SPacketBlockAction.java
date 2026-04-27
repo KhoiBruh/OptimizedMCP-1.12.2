@@ -20,10 +20,10 @@ public class SPacketBlockAction implements Packet<INetHandlerPlayClient>
 
     public SPacketBlockAction(BlockPos pos, Block blockIn, int instrumentIn, int pitchIn)
     {
-        this.blockPosition = pos;
-        this.instrument = instrumentIn;
-        this.pitch = pitchIn;
-        this.block = blockIn;
+        blockPosition = pos;
+        instrument = instrumentIn;
+        pitch = pitchIn;
+        block = blockIn;
     }
 
     /**
@@ -31,10 +31,10 @@ public class SPacketBlockAction implements Packet<INetHandlerPlayClient>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.blockPosition = buf.readBlockPos();
-        this.instrument = buf.readUnsignedByte();
-        this.pitch = buf.readUnsignedByte();
-        this.block = Block.getBlockById(buf.readVarInt() & 4095);
+        blockPosition = buf.readBlockPos();
+        instrument = buf.readUnsignedByte();
+        pitch = buf.readUnsignedByte();
+        block = Block.getBlockById(buf.readVarInt() & 4095);
     }
 
     /**
@@ -42,10 +42,10 @@ public class SPacketBlockAction implements Packet<INetHandlerPlayClient>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeBlockPos(this.blockPosition);
-        buf.writeByte(this.instrument);
-        buf.writeByte(this.pitch);
-        buf.writeVarInt(Block.getIdFromBlock(this.block) & 4095);
+        buf.writeBlockPos(blockPosition);
+        buf.writeByte(instrument);
+        buf.writeByte(pitch);
+        buf.writeVarInt(Block.getIdFromBlock(block) & 4095);
     }
 
     /**
@@ -58,7 +58,7 @@ public class SPacketBlockAction implements Packet<INetHandlerPlayClient>
 
     public BlockPos getBlockPosition()
     {
-        return this.blockPosition;
+        return blockPosition;
     }
 
     /**
@@ -66,7 +66,7 @@ public class SPacketBlockAction implements Packet<INetHandlerPlayClient>
      */
     public int getData1()
     {
-        return this.instrument;
+        return instrument;
     }
 
     /**
@@ -74,11 +74,11 @@ public class SPacketBlockAction implements Packet<INetHandlerPlayClient>
      */
     public int getData2()
     {
-        return this.pitch;
+        return pitch;
     }
 
     public Block getBlockType()
     {
-        return this.block;
+        return block;
     }
 }

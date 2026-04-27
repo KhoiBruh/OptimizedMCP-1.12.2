@@ -34,13 +34,13 @@ public class RenderEvokerFangs extends Render<EntityEvokerFangs>
             GlStateManager.pushMatrix();
             GlStateManager.disableCull();
             GlStateManager.enableAlpha();
-            this.bindEntityTexture(entity);
+            bindEntityTexture(entity);
             GlStateManager.translate((float)x, (float)y, (float)z);
             GlStateManager.rotate(90.0F - entity.rotationYaw, 0.0F, 1.0F, 0.0F);
             GlStateManager.scale(-f1, -f1, f1);
             float f2 = 0.03125F;
             GlStateManager.translate(0.0F, -0.626F, 0.0F);
-            this.model.render(entity, f, 0.0F, 0.0F, entity.rotationYaw, entity.rotationPitch, 0.03125F);
+            model.render(entity, f, 0.0F, 0.0F, entity.rotationYaw, entity.rotationPitch, 0.03125F);
             GlStateManager.popMatrix();
             GlStateManager.enableCull();
             super.doRender(entity, x, y, z, entityYaw, partialTicks);

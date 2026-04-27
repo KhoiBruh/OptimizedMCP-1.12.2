@@ -18,35 +18,35 @@ public class Variant
 
     public Variant(ResourceLocation modelLocationIn, ModelRotation rotationIn, boolean uvLockIn, int weightIn)
     {
-        this.modelLocation = modelLocationIn;
-        this.rotation = rotationIn;
-        this.uvLock = uvLockIn;
-        this.weight = weightIn;
+        modelLocation = modelLocationIn;
+        rotation = rotationIn;
+        uvLock = uvLockIn;
+        weight = weightIn;
     }
 
     public ResourceLocation getModelLocation()
     {
-        return this.modelLocation;
+        return modelLocation;
     }
 
     public ModelRotation getRotation()
     {
-        return this.rotation;
+        return rotation;
     }
 
     public boolean isUvLock()
     {
-        return this.uvLock;
+        return uvLock;
     }
 
     public int getWeight()
     {
-        return this.weight;
+        return weight;
     }
 
     public String toString()
     {
-        return "Variant{modelLocation=" + this.modelLocation + ", rotation=" + this.rotation + ", uvLock=" + this.uvLock + ", weight=" + this.weight + '}';
+        return "Variant{modelLocation=" + modelLocation + ", rotation=" + rotation + ", uvLock=" + uvLock + ", weight=" + weight + '}';
     }
 
     public boolean equals(Object p_equals_1_)
@@ -62,16 +62,16 @@ public class Variant
         else
         {
             Variant variant = (Variant)p_equals_1_;
-            return this.modelLocation.equals(variant.modelLocation) && this.rotation == variant.rotation && this.uvLock == variant.uvLock && this.weight == variant.weight;
+            return modelLocation.equals(variant.modelLocation) && rotation == variant.rotation && uvLock == variant.uvLock && weight == variant.weight;
         }
     }
 
     public int hashCode()
     {
-        int i = this.modelLocation.hashCode();
-        i = 31 * i + this.rotation.hashCode();
-        i = 31 * i + Boolean.valueOf(this.uvLock).hashCode();
-        i = 31 * i + this.weight;
+        int i = modelLocation.hashCode();
+        i = 31 * i + rotation.hashCode();
+        i = 31 * i + Boolean.valueOf(uvLock).hashCode();
+        i = 31 * i + weight;
         return i;
     }
 
@@ -80,11 +80,11 @@ public class Variant
         public Variant deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException
         {
             JsonObject jsonobject = p_deserialize_1_.getAsJsonObject();
-            String s = this.getStringModel(jsonobject);
-            ModelRotation modelrotation = this.parseModelRotation(jsonobject);
-            boolean flag = this.parseUvLock(jsonobject);
-            int i = this.parseWeight(jsonobject);
-            return new Variant(this.getResourceLocationBlock(s), modelrotation, flag, i);
+            String s = getStringModel(jsonobject);
+            ModelRotation modelrotation = parseModelRotation(jsonobject);
+            boolean flag = parseUvLock(jsonobject);
+            int i = parseWeight(jsonobject);
+            return new Variant(getResourceLocationBlock(s), modelrotation, flag, i);
         }
 
         private ResourceLocation getResourceLocationBlock(String p_188041_1_)

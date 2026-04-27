@@ -30,13 +30,13 @@ public class RenderFish extends Render<EntityFishHook>
     {
         EntityPlayer entityplayer = entity.getAngler();
 
-        if (entityplayer != null && !this.renderOutlines)
+        if (entityplayer != null && !renderOutlines)
         {
             GlStateManager.pushMatrix();
             GlStateManager.translate((float)x, (float)y, (float)z);
             GlStateManager.enableRescaleNormal();
             GlStateManager.scale(0.5F, 0.5F, 0.5F);
-            this.bindEntityTexture(entity);
+            bindEntityTexture(entity);
             Tessellator tessellator = Tessellator.getInstance();
             BufferBuilder bufferbuilder = tessellator.getBuffer();
             int i = 1;
@@ -48,13 +48,13 @@ public class RenderFish extends Render<EntityFishHook>
             float f4 = 1.0F;
             float f5 = 0.5F;
             float f6 = 0.5F;
-            GlStateManager.rotate(180.0F - this.renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
-            GlStateManager.rotate((float)(this.renderManager.options.thirdPersonView == 2 ? -1 : 1) * -this.renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
+            GlStateManager.rotate(180.0F - renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
+            GlStateManager.rotate((float)(renderManager.options.thirdPersonView == 2 ? -1 : 1) * -renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
 
-            if (this.renderOutlines)
+            if (renderOutlines)
             {
                 GlStateManager.enableColorMaterial();
-                GlStateManager.enableOutlineMode(this.getTeamColor(entity));
+                GlStateManager.enableOutlineMode(getTeamColor(entity));
             }
 
             bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_NORMAL);
@@ -64,7 +64,7 @@ public class RenderFish extends Render<EntityFishHook>
             bufferbuilder.pos(-0.5D, 0.5D, 0.0D).tex(0.0625D, 0.125D).normal(0.0F, 1.0F, 0.0F).endVertex();
             tessellator.draw();
 
-            if (this.renderOutlines)
+            if (renderOutlines)
             {
                 GlStateManager.disableOutlineMode();
                 GlStateManager.disableColorMaterial();
@@ -92,9 +92,9 @@ public class RenderFish extends Render<EntityFishHook>
             double d6;
             double d7;
 
-            if ((this.renderManager.options == null || this.renderManager.options.thirdPersonView <= 0) && entityplayer == Minecraft.getMinecraft().player)
+            if ((renderManager.options == null || renderManager.options.thirdPersonView <= 0) && entityplayer == Minecraft.getMinecraft().player)
             {
-                float f10 = this.renderManager.options.fovSetting;
+                float f10 = renderManager.options.fovSetting;
                 f10 = f10 / 100.0F;
                 Vec3d vec3d = new Vec3d((double)k * -0.36D * (double)f10, -0.045D * (double)f10, 0.4D);
                 vec3d = vec3d.rotatePitch(-(entityplayer.prevRotationPitch + (entityplayer.rotationPitch - entityplayer.prevRotationPitch) * partialTicks) * 0.017453292F);

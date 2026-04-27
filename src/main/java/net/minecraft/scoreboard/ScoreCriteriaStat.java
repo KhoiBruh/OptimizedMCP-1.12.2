@@ -9,6 +9,6 @@ public class ScoreCriteriaStat extends ScoreCriteria
     public ScoreCriteriaStat(StatBase statIn)
     {
         super(statIn.statId);
-        this.stat = statIn;
+        stat = statIn;
     }
 }

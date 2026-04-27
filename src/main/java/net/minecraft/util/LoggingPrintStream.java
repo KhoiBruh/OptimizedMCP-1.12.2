@@ -13,21 +13,21 @@ public class LoggingPrintStream extends PrintStream
     public LoggingPrintStream(String domainIn, OutputStream outStream)
     {
         super(outStream);
-        this.domain = domainIn;
+        domain = domainIn;
     }
 
     public void println(String p_println_1_)
     {
-        this.logString(p_println_1_);
+        logString(p_println_1_);
     }
 
     public void println(Object p_println_1_)
     {
-        this.logString(String.valueOf(p_println_1_));
+        logString(String.valueOf(p_println_1_));
     }
 
     protected void logString(String string)
     {
-        LOGGER.info("[{}]: {}", this.domain, string);
+        LOGGER.info("[{}]: {}", domain, string);
     }
 }

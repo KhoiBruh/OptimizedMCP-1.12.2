@@ -21,10 +21,10 @@ public class ItemBow extends Item
 {
     public ItemBow()
     {
-        this.maxStackSize = 1;
-        this.setMaxDamage(384);
-        this.setCreativeTab(CreativeTabs.COMBAT);
-        this.addPropertyOverride(new ResourceLocation("pull"), new IItemPropertyGetter()
+        maxStackSize = 1;
+        setMaxDamage(384);
+        setCreativeTab(CreativeTabs.COMBAT);
+        addPropertyOverride(new ResourceLocation("pull"), new IItemPropertyGetter()
         {
             public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn)
             {
@@ -38,7 +38,7 @@ public class ItemBow extends Item
                 }
             }
         });
-        this.addPropertyOverride(new ResourceLocation("pulling"), new IItemPropertyGetter()
+        addPropertyOverride(new ResourceLocation("pulling"), new IItemPropertyGetter()
         {
             public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn)
             {
@@ -49,11 +49,11 @@ public class ItemBow extends Item
 
     private ItemStack findAmmo(EntityPlayer player)
     {
-        if (this.isArrow(player.getHeldItem(EnumHand.OFF_HAND)))
+        if (isArrow(player.getHeldItem(EnumHand.OFF_HAND)))
         {
             return player.getHeldItem(EnumHand.OFF_HAND);
         }
-        else if (this.isArrow(player.getHeldItem(EnumHand.MAIN_HAND)))
+        else if (isArrow(player.getHeldItem(EnumHand.MAIN_HAND)))
         {
             return player.getHeldItem(EnumHand.MAIN_HAND);
         }
@@ -63,7 +63,7 @@ public class ItemBow extends Item
             {
                 ItemStack itemstack = player.inventory.getStackInSlot(i);
 
-                if (this.isArrow(itemstack))
+                if (isArrow(itemstack))
                 {
                     return itemstack;
                 }
@@ -87,7 +87,7 @@ public class ItemBow extends Item
         {
             EntityPlayer entityplayer = (EntityPlayer)entityLiving;
             boolean flag = entityplayer.capabilities.isCreativeMode || EnchantmentHelper.getEnchantmentLevel(Enchantments.INFINITY, stack) > 0;
-            ItemStack itemstack = this.findAmmo(entityplayer);
+            ItemStack itemstack = findAmmo(entityplayer);
 
             if (!itemstack.isEmpty() || flag)
             {
@@ -96,7 +96,7 @@ public class ItemBow extends Item
                     itemstack = new ItemStack(Items.ARROW);
                 }
 
-                int i = this.getMaxItemUseDuration(stack) - timeLeft;
+                int i = getMaxItemUseDuration(stack) - timeLeft;
                 float f = getArrowVelocity(i);
 
                 if ((double)f >= 0.1D)
@@ -196,7 +196,7 @@ public class ItemBow extends Item
     public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn)
     {
         ItemStack itemstack = playerIn.getHeldItem(handIn);
-        boolean flag = !this.findAmmo(playerIn).isEmpty();
+        boolean flag = !findAmmo(playerIn).isEmpty();
 
         if (!playerIn.capabilities.isCreativeMode && !flag)
         {

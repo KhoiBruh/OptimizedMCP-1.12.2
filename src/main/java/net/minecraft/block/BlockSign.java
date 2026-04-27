@@ -114,7 +114,7 @@ public class BlockSign extends BlockContainer
      */
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
     {
-        return !this.hasInvalidNeighbor(worldIn, pos) && super.canPlaceBlockAt(worldIn, pos);
+        return !hasInvalidNeighbor(worldIn, pos) && super.canPlaceBlockAt(worldIn, pos);
     }
 
     /**

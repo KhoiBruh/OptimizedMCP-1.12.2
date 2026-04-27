@@ -12,7 +12,7 @@ public class ItemAppleGold extends ItemFood
     public ItemAppleGold(int amount, float saturation, boolean isWolfFood)
     {
         super(amount, saturation, isWolfFood);
-        this.setHasSubtypes(true);
+        setHasSubtypes(true);
     }
 
     /**
@@ -60,7 +60,7 @@ public class ItemAppleGold extends ItemFood
      */
     public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items)
     {
-        if (this.isInCreativeTab(tab))
+        if (isInCreativeTab(tab))
         {
             items.add(new ItemStack(this));
             items.add(new ItemStack(this, 1, 1));

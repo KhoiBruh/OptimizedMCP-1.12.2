@@ -32,9 +32,9 @@ public class SlotFurnaceOutput extends Slot
      */
     public ItemStack decrStackSize(int amount)
     {
-        if (this.getHasStack())
+        if (getHasStack())
         {
-            this.removeCount += Math.min(amount, this.getStack().getCount());
+            removeCount += Math.min(amount, getStack().getCount());
         }
 
         return super.decrStackSize(amount);
@@ -42,7 +42,7 @@ public class SlotFurnaceOutput extends Slot
 
     public ItemStack onTake(EntityPlayer thePlayer, ItemStack stack)
     {
-        this.onCrafting(stack);
+        onCrafting(stack);
         super.onTake(thePlayer, stack);
         return stack;
     }
@@ -53,8 +53,8 @@ public class SlotFurnaceOutput extends Slot
      */
     protected void onCrafting(ItemStack stack, int amount)
     {
-        this.removeCount += amount;
-        this.onCrafting(stack);
+        removeCount += amount;
+        onCrafting(stack);
     }
 
     /**
@@ -62,11 +62,11 @@ public class SlotFurnaceOutput extends Slot
      */
     protected void onCrafting(ItemStack stack)
     {
-        stack.onCrafting(this.player.world, this.player, this.removeCount);
+        stack.onCrafting(player.world, player, removeCount);
 
-        if (!this.player.world.isRemote)
+        if (!player.world.isRemote)
         {
-            int i = this.removeCount;
+            int i = removeCount;
             float f = FurnaceRecipes.instance().getSmeltingExperience(stack);
 
             if (f == 0.0F)
@@ -89,10 +89,10 @@ public class SlotFurnaceOutput extends Slot
             {
                 int k = EntityXPOrb.getXPSplit(i);
                 i -= k;
-                this.player.world.spawnEntity(new EntityXPOrb(this.player.world, this.player.posX, this.player.posY + 0.5D, this.player.posZ + 0.5D, k));
+                player.world.spawnEntity(new EntityXPOrb(player.world, player.posX, player.posY + 0.5D, player.posZ + 0.5D, k));
             }
         }
 
-        this.removeCount = 0;
+        removeCount = 0;
     }
 }

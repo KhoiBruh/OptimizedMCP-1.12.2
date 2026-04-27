@@ -75,11 +75,11 @@ public enum TextFormatting
 
     private TextFormatting(String formattingName, char formattingCodeIn, boolean fancyStylingIn, int colorIndex)
     {
-        this.name = formattingName;
-        this.formattingCode = formattingCodeIn;
-        this.fancyStyling = fancyStylingIn;
+        name = formattingName;
+        formattingCode = formattingCodeIn;
+        fancyStyling = fancyStylingIn;
         this.colorIndex = colorIndex;
-        this.controlString = "\u00a7" + formattingCodeIn;
+        controlString = "\u00a7" + formattingCodeIn;
     }
 
     /**
@@ -87,7 +87,7 @@ public enum TextFormatting
      */
     public int getColorIndex()
     {
-        return this.colorIndex;
+        return colorIndex;
     }
 
     /**
@@ -95,7 +95,7 @@ public enum TextFormatting
      */
     public boolean isFancyStyling()
     {
-        return this.fancyStyling;
+        return fancyStyling;
     }
 
     /**
@@ -103,7 +103,7 @@ public enum TextFormatting
      */
     public boolean isColor()
     {
-        return !this.fancyStyling && this != RESET;
+        return !fancyStyling && this != RESET;
     }
 
     /**
@@ -111,12 +111,12 @@ public enum TextFormatting
      */
     public String getFriendlyName()
     {
-        return this.name().toLowerCase(Locale.ROOT);
+        return name().toLowerCase(Locale.ROOT);
     }
 
     public String toString()
     {
-        return this.controlString;
+        return controlString;
     }
 
     @Nullable

@@ -26,17 +26,17 @@ public class LanServerDetector
 
         public synchronized boolean getWasUpdated()
         {
-            return this.wasUpdated;
+            return wasUpdated;
         }
 
         public synchronized void setWasNotUpdated()
         {
-            this.wasUpdated = false;
+            wasUpdated = false;
         }
 
         public synchronized List<LanServerInfo> getLanServers()
         {
-            return Collections.<LanServerInfo>unmodifiableList(this.listOfLanServers);
+            return Collections.<LanServerInfo>unmodifiableList(listOfLanServers);
         }
 
         public synchronized void addServer(String pingResponse, InetAddress ipAddress)
@@ -49,7 +49,7 @@ public class LanServerDetector
                 s1 = ipAddress.getHostAddress() + ":" + s1;
                 boolean flag = false;
 
-                for (LanServerInfo lanserverinfo : this.listOfLanServers)
+                for (LanServerInfo lanserverinfo : listOfLanServers)
                 {
                     if (lanserverinfo.getServerIpPort().equals(s1))
                     {
@@ -61,8 +61,8 @@ public class LanServerDetector
 
                 if (!flag)
                 {
-                    this.listOfLanServers.add(new LanServerInfo(s, s1));
-                    this.wasUpdated = true;
+                    listOfLanServers.add(new LanServerInfo(s, s1));
+                    wasUpdated = true;
                 }
             }
         }
@@ -77,25 +77,25 @@ public class LanServerDetector
         public ThreadLanServerFind(LanServerDetector.LanServerList list) throws IOException
         {
             super("LanServerDetector #" + LanServerDetector.ATOMIC_COUNTER.incrementAndGet());
-            this.localServerList = list;
-            this.setDaemon(true);
-            this.socket = new MulticastSocket(4445);
-            this.broadcastAddress = InetAddress.getByName("224.0.2.60");
-            this.socket.setSoTimeout(5000);
-            this.socket.joinGroup(this.broadcastAddress);
+            localServerList = list;
+            setDaemon(true);
+            socket = new MulticastSocket(4445);
+            broadcastAddress = InetAddress.getByName("224.0.2.60");
+            socket.setSoTimeout(5000);
+            socket.joinGroup(broadcastAddress);
         }
 
         public void run()
         {
             byte[] abyte = new byte[1024];
 
-            while (!this.isInterrupted())
+            while (!isInterrupted())
             {
                 DatagramPacket datagrampacket = new DatagramPacket(abyte, abyte.length);
 
                 try
                 {
-                    this.socket.receive(datagrampacket);
+                    socket.receive(datagrampacket);
                 }
                 catch (SocketTimeoutException var5)
                 {
@@ -109,19 +109,19 @@ public class LanServerDetector
 
                 String s = new String(datagrampacket.getData(), datagrampacket.getOffset(), datagrampacket.getLength(), StandardCharsets.UTF_8);
                 LanServerDetector.LOGGER.debug("{}: {}", datagrampacket.getAddress(), s);
-                this.localServerList.addServer(s, datagrampacket.getAddress());
+                localServerList.addServer(s, datagrampacket.getAddress());
             }
 
             try
             {
-                this.socket.leaveGroup(this.broadcastAddress);
+                socket.leaveGroup(broadcastAddress);
             }
             catch (IOException var4)
             {
                 ;
             }
 
-            this.socket.close();
+            socket.close();
         }
     }
 }

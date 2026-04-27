@@ -12,13 +12,13 @@ public class RegistryDefaulted<K, V> extends RegistrySimple<K, V>
 
     public RegistryDefaulted(V defaultObjectIn)
     {
-        this.defaultObject = defaultObjectIn;
+        defaultObject = defaultObjectIn;
     }
 
     @Nonnull
     public V getObject(@Nullable K name)
     {
         V v = (V)super.getObject(name);
-        return (V)(v == null ? this.defaultObject : v);
+        return (V)(v == null ? defaultObject : v);
     }
 }

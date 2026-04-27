@@ -15,12 +15,12 @@ public class EntityOnFire implements EntityProperty
 
     public EntityOnFire(boolean onFireIn)
     {
-        this.onFire = onFireIn;
+        onFire = onFireIn;
     }
 
     public boolean testProperty(Random random, Entity entityIn)
     {
-        return entityIn.isBurning() == this.onFire;
+        return entityIn.isBurning() == onFire;
     }
 
     public static class Serializer extends EntityProperty.Serializer<EntityOnFire>

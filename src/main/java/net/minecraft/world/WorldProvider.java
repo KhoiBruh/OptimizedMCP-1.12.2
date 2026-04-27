@@ -54,11 +54,11 @@ public abstract class WorldProvider
      */
     public final void setWorld(World worldIn)
     {
-        this.world = worldIn;
-        this.terrainType = worldIn.getWorldInfo().getTerrainType();
-        this.generatorSettings = worldIn.getWorldInfo().getGeneratorOptions();
-        this.init();
-        this.generateLightBrightnessTable();
+        world = worldIn;
+        terrainType = worldIn.getWorldInfo().getTerrainType();
+        generatorSettings = worldIn.getWorldInfo().getGeneratorOptions();
+        init();
+        generateLightBrightnessTable();
     }
 
     /**
@@ -71,7 +71,7 @@ public abstract class WorldProvider
         for (int i = 0; i <= 15; ++i)
         {
             float f1 = 1.0F - (float)i / 15.0F;
-            this.lightBrightnessTable[i] = (1.0F - f1) / (f1 * 3.0F + 1.0F) * 1.0F + 0.0F;
+            lightBrightnessTable[i] = (1.0F - f1) / (f1 * 3.0F + 1.0F) * 1.0F + 0.0F;
         }
     }
 
@@ -83,37 +83,37 @@ public abstract class WorldProvider
      */
     protected void init()
     {
-        this.hasSkyLight = true;
-        WorldType worldtype = this.world.getWorldInfo().getTerrainType();
+        hasSkyLight = true;
+        WorldType worldtype = world.getWorldInfo().getTerrainType();
 
         if (worldtype == WorldType.FLAT)
         {
-            FlatGeneratorInfo flatgeneratorinfo = FlatGeneratorInfo.createFlatGeneratorFromString(this.world.getWorldInfo().getGeneratorOptions());
-            this.biomeProvider = new BiomeProviderSingle(Biome.getBiome(flatgeneratorinfo.getBiome(), Biomes.DEFAULT));
+            FlatGeneratorInfo flatgeneratorinfo = FlatGeneratorInfo.createFlatGeneratorFromString(world.getWorldInfo().getGeneratorOptions());
+            biomeProvider = new BiomeProviderSingle(Biome.getBiome(flatgeneratorinfo.getBiome(), Biomes.DEFAULT));
         }
         else if (worldtype == WorldType.DEBUG_ALL_BLOCK_STATES)
         {
-            this.biomeProvider = new BiomeProviderSingle(Biomes.PLAINS);
+            biomeProvider = new BiomeProviderSingle(Biomes.PLAINS);
         }
         else
         {
-            this.biomeProvider = new BiomeProvider(this.world.getWorldInfo());
+            biomeProvider = new BiomeProvider(world.getWorldInfo());
         }
     }
 
     public IChunkGenerator createChunkGenerator()
     {
-        if (this.terrainType == WorldType.FLAT)
+        if (terrainType == WorldType.FLAT)
         {
-            return new ChunkGeneratorFlat(this.world, this.world.getSeed(), this.world.getWorldInfo().isMapFeaturesEnabled(), this.generatorSettings);
+            return new ChunkGeneratorFlat(world, world.getSeed(), world.getWorldInfo().isMapFeaturesEnabled(), generatorSettings);
         }
-        else if (this.terrainType == WorldType.DEBUG_ALL_BLOCK_STATES)
+        else if (terrainType == WorldType.DEBUG_ALL_BLOCK_STATES)
         {
-            return new ChunkGeneratorDebug(this.world);
+            return new ChunkGeneratorDebug(world);
         }
         else
         {
-            return this.terrainType == WorldType.CUSTOMIZED ? new ChunkGeneratorOverworld(this.world, this.world.getSeed(), this.world.getWorldInfo().isMapFeaturesEnabled(), this.generatorSettings) : new ChunkGeneratorOverworld(this.world, this.world.getSeed(), this.world.getWorldInfo().isMapFeaturesEnabled(), this.generatorSettings);
+            return terrainType == WorldType.CUSTOMIZED ? new ChunkGeneratorOverworld(world, world.getSeed(), world.getWorldInfo().isMapFeaturesEnabled(), generatorSettings) : new ChunkGeneratorOverworld(world, world.getSeed(), world.getWorldInfo().isMapFeaturesEnabled(), generatorSettings);
         }
     }
 
@@ -124,13 +124,13 @@ public abstract class WorldProvider
     {
         BlockPos blockpos = new BlockPos(x, 0, z);
 
-        if (this.world.getBiome(blockpos).ignorePlayerSpawnSuitability())
+        if (world.getBiome(blockpos).ignorePlayerSpawnSuitability())
         {
             return true;
         }
         else
         {
-            return this.world.getGroundAboveSeaLevel(blockpos).getBlock() == Blocks.GRASS;
+            return world.getGroundAboveSeaLevel(blockpos).getBlock() == Blocks.GRASS;
         }
     }
 
@@ -186,11 +186,11 @@ public abstract class WorldProvider
             float f3 = (f1 - -0.0F) / 0.4F * 0.5F + 0.5F;
             float f4 = 1.0F - (1.0F - MathHelper.sin(f3 * (float)Math.PI)) * 0.99F;
             f4 = f4 * f4;
-            this.colorsSunriseSunset[0] = f3 * 0.3F + 0.7F;
-            this.colorsSunriseSunset[1] = f3 * f3 * 0.7F + 0.2F;
-            this.colorsSunriseSunset[2] = f3 * f3 * 0.0F + 0.2F;
-            this.colorsSunriseSunset[3] = f4;
-            return this.colorsSunriseSunset;
+            colorsSunriseSunset[0] = f3 * 0.3F + 0.7F;
+            colorsSunriseSunset[1] = f3 * f3 * 0.7F + 0.2F;
+            colorsSunriseSunset[2] = f3 * f3 * 0.0F + 0.2F;
+            colorsSunriseSunset[3] = f4;
+            return colorsSunriseSunset;
         }
         else
         {
@@ -243,7 +243,7 @@ public abstract class WorldProvider
 
     public int getAverageGroundLevel()
     {
-        return this.terrainType == WorldType.FLAT ? 4 : this.world.getSeaLevel() + 1;
+        return terrainType == WorldType.FLAT ? 4 : world.getSeaLevel() + 1;
     }
 
     /**
@@ -253,7 +253,7 @@ public abstract class WorldProvider
      */
     public double getVoidFogYFactor()
     {
-        return this.terrainType == WorldType.FLAT ? 1.0D : 0.03125D;
+        return terrainType == WorldType.FLAT ? 1.0D : 0.03125D;
     }
 
     /**
@@ -266,27 +266,27 @@ public abstract class WorldProvider
 
     public BiomeProvider getBiomeProvider()
     {
-        return this.biomeProvider;
+        return biomeProvider;
     }
 
     public boolean doesWaterVaporize()
     {
-        return this.doesWaterVaporize;
+        return doesWaterVaporize;
     }
 
     public boolean hasSkyLight()
     {
-        return this.hasSkyLight;
+        return hasSkyLight;
     }
 
     public boolean isNether()
     {
-        return this.nether;
+        return nether;
     }
 
     public float[] getLightBrightnessTable()
     {
-        return this.lightBrightnessTable;
+        return lightBrightnessTable;
     }
 
     public WorldBorder createWorldBorder()

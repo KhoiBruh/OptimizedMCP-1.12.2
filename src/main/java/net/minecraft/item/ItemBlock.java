@@ -49,7 +49,7 @@ public class ItemBlock extends Item
 
         if (!itemstack.isEmpty() && player.canPlayerEdit(pos, facing, itemstack) && worldIn.mayPlace(this.block, pos, false, facing, (Entity)null))
         {
-            int i = this.getMetadata(itemstack.getMetadata());
+            int i = getMetadata(itemstack.getMetadata());
             IBlockState iblockstate1 = this.block.getStateForPlacement(worldIn, pos, facing, hitX, hitY, hitZ, i, player);
 
             if (worldIn.setBlockState(pos, iblockstate1, 11))
@@ -145,7 +145,7 @@ public class ItemBlock extends Item
      */
     public String getUnlocalizedName(ItemStack stack)
     {
-        return this.block.getUnlocalizedName();
+        return block.getUnlocalizedName();
     }
 
     /**
@@ -153,7 +153,7 @@ public class ItemBlock extends Item
      */
     public String getUnlocalizedName()
     {
-        return this.block.getUnlocalizedName();
+        return block.getUnlocalizedName();
     }
 
     /**
@@ -161,7 +161,7 @@ public class ItemBlock extends Item
      */
     public CreativeTabs getCreativeTab()
     {
-        return this.block.getCreativeTabToDisplayOn();
+        return block.getCreativeTabToDisplayOn();
     }
 
     /**
@@ -169,9 +169,9 @@ public class ItemBlock extends Item
      */
     public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items)
     {
-        if (this.isInCreativeTab(tab))
+        if (isInCreativeTab(tab))
         {
-            this.block.getSubBlocks(tab, items);
+            block.getSubBlocks(tab, items);
         }
     }
 
@@ -181,11 +181,11 @@ public class ItemBlock extends Item
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn)
     {
         super.addInformation(stack, worldIn, tooltip, flagIn);
-        this.block.addInformation(stack, worldIn, tooltip, flagIn);
+        block.addInformation(stack, worldIn, tooltip, flagIn);
     }
 
     public Block getBlock()
     {
-        return this.block;
+        return block;
     }
 }

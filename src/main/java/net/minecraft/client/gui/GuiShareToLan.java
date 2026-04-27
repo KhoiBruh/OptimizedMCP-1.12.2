@@ -17,7 +17,7 @@ public class GuiShareToLan extends GuiScreen
 
     public GuiShareToLan(GuiScreen lastScreenIn)
     {
-        this.lastScreen = lastScreenIn;
+        lastScreen = lastScreenIn;
     }
 
     /**
@@ -26,26 +26,26 @@ public class GuiShareToLan extends GuiScreen
      */
     public void initGui()
     {
-        this.buttonList.clear();
-        this.buttonList.add(new GuiButton(101, this.width / 2 - 155, this.height - 28, 150, 20, I18n.format("lanServer.start")));
-        this.buttonList.add(new GuiButton(102, this.width / 2 + 5, this.height - 28, 150, 20, I18n.format("gui.cancel")));
-        this.gameModeButton = this.addButton(new GuiButton(104, this.width / 2 - 155, 100, 150, 20, I18n.format("selectWorld.gameMode")));
-        this.allowCheatsButton = this.addButton(new GuiButton(103, this.width / 2 + 5, 100, 150, 20, I18n.format("selectWorld.allowCommands")));
-        this.updateDisplayNames();
+        buttonList.clear();
+        buttonList.add(new GuiButton(101, width / 2 - 155, height - 28, 150, 20, I18n.format("lanServer.start")));
+        buttonList.add(new GuiButton(102, width / 2 + 5, height - 28, 150, 20, I18n.format("gui.cancel")));
+        gameModeButton = addButton(new GuiButton(104, width / 2 - 155, 100, 150, 20, I18n.format("selectWorld.gameMode")));
+        allowCheatsButton = addButton(new GuiButton(103, width / 2 + 5, 100, 150, 20, I18n.format("selectWorld.allowCommands")));
+        updateDisplayNames();
     }
 
     private void updateDisplayNames()
     {
-        this.gameModeButton.displayString = I18n.format("selectWorld.gameMode") + ": " + I18n.format("selectWorld.gameMode." + this.gameMode);
-        this.allowCheatsButton.displayString = I18n.format("selectWorld.allowCommands") + " ";
+        gameModeButton.displayString = I18n.format("selectWorld.gameMode") + ": " + I18n.format("selectWorld.gameMode." + gameMode);
+        allowCheatsButton.displayString = I18n.format("selectWorld.allowCommands") + " ";
 
-        if (this.allowCheats)
+        if (allowCheats)
         {
-            this.allowCheatsButton.displayString = this.allowCheatsButton.displayString + I18n.format("options.on");
+            allowCheatsButton.displayString = allowCheatsButton.displayString + I18n.format("options.on");
         }
         else
         {
-            this.allowCheatsButton.displayString = this.allowCheatsButton.displayString + I18n.format("options.off");
+            allowCheatsButton.displayString = allowCheatsButton.displayString + I18n.format("options.off");
         }
     }
 
@@ -56,38 +56,38 @@ public class GuiShareToLan extends GuiScreen
     {
         if (button.id == 102)
         {
-            this.mc.displayGuiScreen(this.lastScreen);
+            mc.displayGuiScreen(lastScreen);
         }
         else if (button.id == 104)
         {
-            if ("spectator".equals(this.gameMode))
+            if ("spectator".equals(gameMode))
             {
-                this.gameMode = "creative";
+                gameMode = "creative";
             }
-            else if ("creative".equals(this.gameMode))
+            else if ("creative".equals(gameMode))
             {
-                this.gameMode = "adventure";
+                gameMode = "adventure";
             }
-            else if ("adventure".equals(this.gameMode))
+            else if ("adventure".equals(gameMode))
             {
-                this.gameMode = "survival";
+                gameMode = "survival";
             }
             else
             {
-                this.gameMode = "spectator";
+                gameMode = "spectator";
             }
 
-            this.updateDisplayNames();
+            updateDisplayNames();
         }
         else if (button.id == 103)
         {
-            this.allowCheats = !this.allowCheats;
-            this.updateDisplayNames();
+            allowCheats = !allowCheats;
+            updateDisplayNames();
         }
         else if (button.id == 101)
         {
-            this.mc.displayGuiScreen((GuiScreen)null);
-            String s = this.mc.getIntegratedServer().shareToLAN(GameType.getByName(this.gameMode), this.allowCheats);
+            mc.displayGuiScreen((GuiScreen)null);
+            String s = mc.getIntegratedServer().shareToLAN(GameType.getByName(gameMode), allowCheats);
             ITextComponent itextcomponent;
 
             if (s != null)
@@ -99,7 +99,7 @@ public class GuiShareToLan extends GuiScreen
                 itextcomponent = new TextComponentString("commands.publish.failed");
             }
 
-            this.mc.ingameGUI.getChatGUI().printChatMessage(itextcomponent);
+            mc.ingameGUI.getChatGUI().printChatMessage(itextcomponent);
         }
     }
 
@@ -108,9 +108,9 @@ public class GuiShareToLan extends GuiScreen
      */
     public void drawScreen(int mouseX, int mouseY, float partialTicks)
     {
-        this.drawDefaultBackground();
-        this.drawCenteredString(this.fontRenderer, I18n.format("lanServer.title"), this.width / 2, 50, 16777215);
-        this.drawCenteredString(this.fontRenderer, I18n.format("lanServer.otherPlayers"), this.width / 2, 82, 16777215);
+        drawDefaultBackground();
+        drawCenteredString(fontRenderer, I18n.format("lanServer.title"), width / 2, 50, 16777215);
+        drawCenteredString(fontRenderer, I18n.format("lanServer.otherPlayers"), width / 2, 82, 16777215);
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
 }

@@ -13,26 +13,26 @@ public class BossInfoClient extends BossInfo
     public BossInfoClient(SPacketUpdateBossInfo packetIn)
     {
         super(packetIn.getUniqueId(), packetIn.getName(), packetIn.getColor(), packetIn.getOverlay());
-        this.rawPercent = packetIn.getPercent();
-        this.percent = packetIn.getPercent();
-        this.percentSetTime = Minecraft.getSystemTime();
-        this.setDarkenSky(packetIn.shouldDarkenSky());
-        this.setPlayEndBossMusic(packetIn.shouldPlayEndBossMusic());
-        this.setCreateFog(packetIn.shouldCreateFog());
+        rawPercent = packetIn.getPercent();
+        percent = packetIn.getPercent();
+        percentSetTime = Minecraft.getSystemTime();
+        setDarkenSky(packetIn.shouldDarkenSky());
+        setPlayEndBossMusic(packetIn.shouldPlayEndBossMusic());
+        setCreateFog(packetIn.shouldCreateFog());
     }
 
     public void setPercent(float percentIn)
     {
-        this.percent = this.getPercent();
-        this.rawPercent = percentIn;
-        this.percentSetTime = Minecraft.getSystemTime();
+        percent = getPercent();
+        rawPercent = percentIn;
+        percentSetTime = Minecraft.getSystemTime();
     }
 
     public float getPercent()
     {
-        long i = Minecraft.getSystemTime() - this.percentSetTime;
+        long i = Minecraft.getSystemTime() - percentSetTime;
         float f = MathHelper.clamp((float)i / 100.0F, 0.0F, 1.0F);
-        return this.percent + (this.rawPercent - this.percent) * f;
+        return percent + (rawPercent - percent) * f;
     }
 
     public void updateFromPacket(SPacketUpdateBossInfo packetIn)
@@ -40,21 +40,21 @@ public class BossInfoClient extends BossInfo
         switch (packetIn.getOperation())
         {
             case UPDATE_NAME:
-                this.setName(packetIn.getName());
+                setName(packetIn.getName());
                 break;
 
             case UPDATE_PCT:
-                this.setPercent(packetIn.getPercent());
+                setPercent(packetIn.getPercent());
                 break;
 
             case UPDATE_STYLE:
-                this.setColor(packetIn.getColor());
-                this.setOverlay(packetIn.getOverlay());
+                setColor(packetIn.getColor());
+                setOverlay(packetIn.getOverlay());
                 break;
 
             case UPDATE_PROPERTIES:
-                this.setDarkenSky(packetIn.shouldDarkenSky());
-                this.setPlayEndBossMusic(packetIn.shouldPlayEndBossMusic());
+                setDarkenSky(packetIn.shouldDarkenSky());
+                setPlayEndBossMusic(packetIn.shouldPlayEndBossMusic());
         }
     }
 }

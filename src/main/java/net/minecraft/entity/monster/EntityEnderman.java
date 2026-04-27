@@ -61,23 +61,23 @@ public class EntityEnderman extends EntityMob
     public EntityEnderman(World worldIn)
     {
         super(worldIn);
-        this.setSize(0.6F, 2.9F);
-        this.stepHeight = 1.0F;
-        this.setPathPriority(PathNodeType.WATER, -1.0F);
+        setSize(0.6F, 2.9F);
+        stepHeight = 1.0F;
+        setPathPriority(PathNodeType.WATER, -1.0F);
     }
 
     protected void initEntityAI()
     {
-        this.tasks.addTask(0, new EntityAISwimming(this));
-        this.tasks.addTask(2, new EntityAIAttackMelee(this, 1.0D, false));
-        this.tasks.addTask(7, new EntityAIWanderAvoidWater(this, 1.0D, 0.0F));
-        this.tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
-        this.tasks.addTask(8, new EntityAILookIdle(this));
-        this.tasks.addTask(10, new EntityEnderman.AIPlaceBlock(this));
-        this.tasks.addTask(11, new EntityEnderman.AITakeBlock(this));
-        this.targetTasks.addTask(1, new EntityEnderman.AIFindPlayer(this));
-        this.targetTasks.addTask(2, new EntityAIHurtByTarget(this, false, new Class[0]));
-        this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityEndermite.class, 10, true, false, new Predicate<EntityEndermite>()
+        tasks.addTask(0, new EntityAISwimming(this));
+        tasks.addTask(2, new EntityAIAttackMelee(this, 1.0D, false));
+        tasks.addTask(7, new EntityAIWanderAvoidWater(this, 1.0D, 0.0F));
+        tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
+        tasks.addTask(8, new EntityAILookIdle(this));
+        tasks.addTask(10, new EntityEnderman.AIPlaceBlock(this));
+        tasks.addTask(11, new EntityEnderman.AITakeBlock(this));
+        targetTasks.addTask(1, new EntityEnderman.AIFindPlayer(this));
+        targetTasks.addTask(2, new EntityAIHurtByTarget(this, false, new Class[0]));
+        targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityEndermite.class, 10, true, false, new Predicate<EntityEndermite>()
         {
             public boolean apply(@Nullable EntityEndermite p_apply_1_)
             {
@@ -89,10 +89,10 @@ public class EntityEnderman extends EntityMob
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(40.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.30000001192092896D);
-        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(7.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(64.0D);
+        getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(40.0D);
+        getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.30000001192092896D);
+        getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(7.0D);
+        getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(64.0D);
     }
 
     /**
@@ -101,18 +101,18 @@ public class EntityEnderman extends EntityMob
     public void setAttackTarget(@Nullable EntityLivingBase entitylivingbaseIn)
     {
         super.setAttackTarget(entitylivingbaseIn);
-        IAttributeInstance iattributeinstance = this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED);
+        IAttributeInstance iattributeinstance = getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED);
 
         if (entitylivingbaseIn == null)
         {
-            this.targetChangeTime = 0;
-            this.dataManager.set(SCREAMING, Boolean.valueOf(false));
+            targetChangeTime = 0;
+            dataManager.set(SCREAMING, Boolean.valueOf(false));
             iattributeinstance.removeModifier(ATTACKING_SPEED_BOOST);
         }
         else
         {
-            this.targetChangeTime = this.ticksExisted;
-            this.dataManager.set(SCREAMING, Boolean.valueOf(true));
+            targetChangeTime = ticksExisted;
+            dataManager.set(SCREAMING, Boolean.valueOf(true));
 
             if (!iattributeinstance.hasModifier(ATTACKING_SPEED_BOOST))
             {
@@ -124,28 +124,28 @@ public class EntityEnderman extends EntityMob
     protected void entityInit()
     {
         super.entityInit();
-        this.dataManager.register(CARRIED_BLOCK, Optional.absent());
-        this.dataManager.register(SCREAMING, Boolean.valueOf(false));
+        dataManager.register(CARRIED_BLOCK, Optional.absent());
+        dataManager.register(SCREAMING, Boolean.valueOf(false));
     }
 
     public void playEndermanSound()
     {
-        if (this.ticksExisted >= this.lastCreepySound + 400)
+        if (ticksExisted >= lastCreepySound + 400)
         {
-            this.lastCreepySound = this.ticksExisted;
+            lastCreepySound = ticksExisted;
 
-            if (!this.isSilent())
+            if (!isSilent())
             {
-                this.world.playSound(this.posX, this.posY + (double)this.getEyeHeight(), this.posZ, SoundEvents.ENTITY_ENDERMEN_STARE, this.getSoundCategory(), 2.5F, 1.0F, false);
+                world.playSound(posX, posY + (double) getEyeHeight(), posZ, SoundEvents.ENTITY_ENDERMEN_STARE, getSoundCategory(), 2.5F, 1.0F, false);
             }
         }
     }
 
     public void notifyDataManagerChange(DataParameter<?> key)
     {
-        if (SCREAMING.equals(key) && this.isScreaming() && this.world.isRemote)
+        if (SCREAMING.equals(key) && isScreaming() && world.isRemote)
         {
-            this.playEndermanSound();
+            playEndermanSound();
         }
 
         super.notifyDataManagerChange(key);
@@ -162,7 +162,7 @@ public class EntityEnderman extends EntityMob
     public void writeEntityToNBT(NBTTagCompound compound)
     {
         super.writeEntityToNBT(compound);
-        IBlockState iblockstate = this.getHeldBlockState();
+        IBlockState iblockstate = getHeldBlockState();
 
         if (iblockstate != null)
         {
@@ -193,7 +193,7 @@ public class EntityEnderman extends EntityMob
             iblockstate = null;
         }
 
-        this.setHeldBlockState(iblockstate);
+        setHeldBlockState(iblockstate);
     }
 
     /**
@@ -210,7 +210,7 @@ public class EntityEnderman extends EntityMob
         else
         {
             Vec3d vec3d = player.getLook(1.0F).normalize();
-            Vec3d vec3d1 = new Vec3d(this.posX - player.posX, this.getEntityBoundingBox().minY + (double)this.getEyeHeight() - (player.posY + (double)player.getEyeHeight()), this.posZ - player.posZ);
+            Vec3d vec3d1 = new Vec3d(posX - player.posX, getEntityBoundingBox().minY + (double) getEyeHeight() - (player.posY + (double)player.getEyeHeight()), posZ - player.posZ);
             double d0 = vec3d1.lengthVector();
             vec3d1 = vec3d1.normalize();
             double d1 = vec3d.dotProduct(vec3d1);
@@ -229,33 +229,33 @@ public class EntityEnderman extends EntityMob
      */
     public void onLivingUpdate()
     {
-        if (this.world.isRemote)
+        if (world.isRemote)
         {
             for (int i = 0; i < 2; ++i)
             {
-                this.world.spawnParticle(EnumParticleTypes.PORTAL, this.posX + (this.rand.nextDouble() - 0.5D) * (double)this.width, this.posY + this.rand.nextDouble() * (double)this.height - 0.25D, this.posZ + (this.rand.nextDouble() - 0.5D) * (double)this.width, (this.rand.nextDouble() - 0.5D) * 2.0D, -this.rand.nextDouble(), (this.rand.nextDouble() - 0.5D) * 2.0D);
+                world.spawnParticle(EnumParticleTypes.PORTAL, posX + (rand.nextDouble() - 0.5D) * (double) width, posY + rand.nextDouble() * (double) height - 0.25D, posZ + (rand.nextDouble() - 0.5D) * (double) width, (rand.nextDouble() - 0.5D) * 2.0D, -rand.nextDouble(), (rand.nextDouble() - 0.5D) * 2.0D);
             }
         }
 
-        this.isJumping = false;
+        isJumping = false;
         super.onLivingUpdate();
     }
 
     protected void updateAITasks()
     {
-        if (this.isWet())
+        if (isWet())
         {
-            this.attackEntityFrom(DamageSource.DROWN, 1.0F);
+            attackEntityFrom(DamageSource.DROWN, 1.0F);
         }
 
-        if (this.world.isDaytime() && this.ticksExisted >= this.targetChangeTime + 600)
+        if (world.isDaytime() && ticksExisted >= targetChangeTime + 600)
         {
-            float f = this.getBrightness();
+            float f = getBrightness();
 
-            if (f > 0.5F && this.world.canSeeSky(new BlockPos(this)) && this.rand.nextFloat() * 30.0F < (f - 0.4F) * 2.0F)
+            if (f > 0.5F && world.canSeeSky(new BlockPos(this)) && rand.nextFloat() * 30.0F < (f - 0.4F) * 2.0F)
             {
-                this.setAttackTarget((EntityLivingBase)null);
-                this.teleportRandomly();
+                setAttackTarget((EntityLivingBase)null);
+                teleportRandomly();
             }
         }
 
@@ -267,10 +267,10 @@ public class EntityEnderman extends EntityMob
      */
     protected boolean teleportRandomly()
     {
-        double d0 = this.posX + (this.rand.nextDouble() - 0.5D) * 64.0D;
-        double d1 = this.posY + (double)(this.rand.nextInt(64) - 32);
-        double d2 = this.posZ + (this.rand.nextDouble() - 0.5D) * 64.0D;
-        return this.teleportTo(d0, d1, d2);
+        double d0 = posX + (rand.nextDouble() - 0.5D) * 64.0D;
+        double d1 = posY + (double)(rand.nextInt(64) - 32);
+        double d2 = posZ + (rand.nextDouble() - 0.5D) * 64.0D;
+        return teleportTo(d0, d1, d2);
     }
 
     /**
@@ -278,13 +278,13 @@ public class EntityEnderman extends EntityMob
      */
     protected boolean teleportToEntity(Entity p_70816_1_)
     {
-        Vec3d vec3d = new Vec3d(this.posX - p_70816_1_.posX, this.getEntityBoundingBox().minY + (double)(this.height / 2.0F) - p_70816_1_.posY + (double)p_70816_1_.getEyeHeight(), this.posZ - p_70816_1_.posZ);
+        Vec3d vec3d = new Vec3d(posX - p_70816_1_.posX, getEntityBoundingBox().minY + (double)(height / 2.0F) - p_70816_1_.posY + (double)p_70816_1_.getEyeHeight(), posZ - p_70816_1_.posZ);
         vec3d = vec3d.normalize();
         double d0 = 16.0D;
-        double d1 = this.posX + (this.rand.nextDouble() - 0.5D) * 8.0D - vec3d.x * 16.0D;
-        double d2 = this.posY + (double)(this.rand.nextInt(16) - 8) - vec3d.y * 16.0D;
-        double d3 = this.posZ + (this.rand.nextDouble() - 0.5D) * 8.0D - vec3d.z * 16.0D;
-        return this.teleportTo(d1, d2, d3);
+        double d1 = posX + (rand.nextDouble() - 0.5D) * 8.0D - vec3d.x * 16.0D;
+        double d2 = posY + (double)(rand.nextInt(16) - 8) - vec3d.y * 16.0D;
+        double d3 = posZ + (rand.nextDouble() - 0.5D) * 8.0D - vec3d.z * 16.0D;
+        return teleportTo(d1, d2, d3);
     }
 
     /**
@@ -292,12 +292,12 @@ public class EntityEnderman extends EntityMob
      */
     private boolean teleportTo(double x, double y, double z)
     {
-        boolean flag = this.attemptTeleport(x, y, z);
+        boolean flag = attemptTeleport(x, y, z);
 
         if (flag)
         {
-            this.world.playSound((EntityPlayer)null, this.prevPosX, this.prevPosY, this.prevPosZ, SoundEvents.ENTITY_ENDERMEN_TELEPORT, this.getSoundCategory(), 1.0F, 1.0F);
-            this.playSound(SoundEvents.ENTITY_ENDERMEN_TELEPORT, 1.0F, 1.0F);
+            world.playSound((EntityPlayer)null, prevPosX, prevPosY, prevPosZ, SoundEvents.ENTITY_ENDERMEN_TELEPORT, getSoundCategory(), 1.0F, 1.0F);
+            playSound(SoundEvents.ENTITY_ENDERMEN_TELEPORT, 1.0F, 1.0F);
         }
 
         return flag;
@@ -305,7 +305,7 @@ public class EntityEnderman extends EntityMob
 
     protected SoundEvent getAmbientSound()
     {
-        return this.isScreaming() ? SoundEvents.ENTITY_ENDERMEN_SCREAM : SoundEvents.ENTITY_ENDERMEN_AMBIENT;
+        return isScreaming() ? SoundEvents.ENTITY_ENDERMEN_SCREAM : SoundEvents.ENTITY_ENDERMEN_AMBIENT;
     }
 
     protected SoundEvent getHurtSound(DamageSource damageSourceIn)
@@ -324,13 +324,13 @@ public class EntityEnderman extends EntityMob
     protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier)
     {
         super.dropEquipment(wasRecentlyHit, lootingModifier);
-        IBlockState iblockstate = this.getHeldBlockState();
+        IBlockState iblockstate = getHeldBlockState();
 
         if (iblockstate != null)
         {
             Item item = Item.getItemFromBlock(iblockstate.getBlock());
             int i = item.getHasSubtypes() ? iblockstate.getBlock().getMetaFromState(iblockstate) : 0;
-            this.entityDropItem(new ItemStack(item, 1, i), 0.0F);
+            entityDropItem(new ItemStack(item, 1, i), 0.0F);
         }
     }
 
@@ -345,7 +345,7 @@ public class EntityEnderman extends EntityMob
      */
     public void setHeldBlockState(@Nullable IBlockState state)
     {
-        this.dataManager.set(CARRIED_BLOCK, Optional.fromNullable(state));
+        dataManager.set(CARRIED_BLOCK, Optional.fromNullable(state));
     }
 
     @Nullable
@@ -355,7 +355,7 @@ public class EntityEnderman extends EntityMob
      */
     public IBlockState getHeldBlockState()
     {
-        return (IBlockState)((Optional)this.dataManager.get(CARRIED_BLOCK)).orNull();
+        return (IBlockState)((Optional) dataManager.get(CARRIED_BLOCK)).orNull();
     }
 
     /**
@@ -363,7 +363,7 @@ public class EntityEnderman extends EntityMob
      */
     public boolean attackEntityFrom(DamageSource source, float amount)
     {
-        if (this.isEntityInvulnerable(source))
+        if (isEntityInvulnerable(source))
         {
             return false;
         }
@@ -371,7 +371,7 @@ public class EntityEnderman extends EntityMob
         {
             for (int i = 0; i < 64; ++i)
             {
-                if (this.teleportRandomly())
+                if (teleportRandomly())
                 {
                     return true;
                 }
@@ -383,9 +383,9 @@ public class EntityEnderman extends EntityMob
         {
             boolean flag = super.attackEntityFrom(source, amount);
 
-            if (source.isUnblockable() && this.rand.nextInt(10) != 0)
+            if (source.isUnblockable() && rand.nextInt(10) != 0)
             {
-                this.teleportRandomly();
+                teleportRandomly();
             }
 
             return flag;
@@ -394,7 +394,7 @@ public class EntityEnderman extends EntityMob
 
     public boolean isScreaming()
     {
-        return ((Boolean)this.dataManager.get(SCREAMING)).booleanValue();
+        return ((Boolean) dataManager.get(SCREAMING)).booleanValue();
     }
 
     static
@@ -426,81 +426,81 @@ public class EntityEnderman extends EntityMob
         public AIFindPlayer(EntityEnderman p_i45842_1_)
         {
             super(p_i45842_1_, EntityPlayer.class, false);
-            this.enderman = p_i45842_1_;
+            enderman = p_i45842_1_;
         }
 
         public boolean shouldExecute()
         {
-            double d0 = this.getTargetDistance();
-            this.player = this.enderman.world.getNearestAttackablePlayer(this.enderman.posX, this.enderman.posY, this.enderman.posZ, d0, d0, (Function)null, new Predicate<EntityPlayer>()
+            double d0 = getTargetDistance();
+            player = enderman.world.getNearestAttackablePlayer(enderman.posX, enderman.posY, enderman.posZ, d0, d0, (Function)null, new Predicate<EntityPlayer>()
             {
                 public boolean apply(@Nullable EntityPlayer p_apply_1_)
                 {
-                    return p_apply_1_ != null && AIFindPlayer.this.enderman.shouldAttackPlayer(p_apply_1_);
+                    return p_apply_1_ != null && enderman.shouldAttackPlayer(p_apply_1_);
                 }
             });
-            return this.player != null;
+            return player != null;
         }
 
         public void startExecuting()
         {
-            this.aggroTime = 5;
-            this.teleportTime = 0;
+            aggroTime = 5;
+            teleportTime = 0;
         }
 
         public void resetTask()
         {
-            this.player = null;
+            player = null;
             super.resetTask();
         }
 
         public boolean shouldContinueExecuting()
         {
-            if (this.player != null)
+            if (player != null)
             {
-                if (!this.enderman.shouldAttackPlayer(this.player))
+                if (!enderman.shouldAttackPlayer(player))
                 {
                     return false;
                 }
                 else
                 {
-                    this.enderman.faceEntity(this.player, 10.0F, 10.0F);
+                    enderman.faceEntity(player, 10.0F, 10.0F);
                     return true;
                 }
             }
             else
             {
-                return this.targetEntity != null && ((EntityPlayer)this.targetEntity).isEntityAlive() ? true : super.shouldContinueExecuting();
+                return targetEntity != null && ((EntityPlayer) targetEntity).isEntityAlive() ? true : super.shouldContinueExecuting();
             }
         }
 
         public void updateTask()
         {
-            if (this.player != null)
+            if (player != null)
             {
-                if (--this.aggroTime <= 0)
+                if (--aggroTime <= 0)
                 {
-                    this.targetEntity = this.player;
-                    this.player = null;
+                    targetEntity = player;
+                    player = null;
                     super.startExecuting();
                 }
             }
             else
             {
-                if (this.targetEntity != null)
+                if (targetEntity != null)
                 {
-                    if (this.enderman.shouldAttackPlayer((EntityPlayer)this.targetEntity))
+                    if (enderman.shouldAttackPlayer((EntityPlayer) targetEntity))
                     {
-                        if (((EntityPlayer)this.targetEntity).getDistanceSq(this.enderman) < 16.0D)
+                        if (((EntityPlayer) targetEntity).getDistanceSq(enderman) < 16.0D)
                         {
-                            this.enderman.teleportRandomly();
+                            enderman.teleportRandomly();
                         }
 
-                        this.teleportTime = 0;
+                        teleportTime = 0;
                     }
-                    else if (((EntityPlayer)this.targetEntity).getDistanceSq(this.enderman) > 256.0D && this.teleportTime++ >= 30 && this.enderman.teleportToEntity(this.targetEntity))
+                    else if (((EntityPlayer) targetEntity).getDistanceSq(enderman) > 256.0D && teleportTime++ >= 30 && enderman.teleportToEntity(targetEntity))
                     {
-                        this.teleportTime = 0;
+                        teleportTime = 0;
                     }
                 }
 
@@ -515,41 +515,41 @@ public class EntityEnderman extends EntityMob
 
         public AIPlaceBlock(EntityEnderman p_i45843_1_)
         {
-            this.enderman = p_i45843_1_;
+            enderman = p_i45843_1_;
         }
 
         public boolean shouldExecute()
         {
-            if (this.enderman.getHeldBlockState() == null)
+            if (enderman.getHeldBlockState() == null)
             {
                 return false;
             }
-            else if (!this.enderman.world.getGameRules().getBoolean("mobGriefing"))
+            else if (!enderman.world.getGameRules().getBoolean("mobGriefing"))
             {
                 return false;
             }
             else
             {
-                return this.enderman.getRNG().nextInt(2000) == 0;
+                return enderman.getRNG().nextInt(2000) == 0;
             }
         }
 
         public void updateTask()
         {
-            Random random = this.enderman.getRNG();
-            World world = this.enderman.world;
-            int i = MathHelper.floor(this.enderman.posX - 1.0D + random.nextDouble() * 2.0D);
-            int j = MathHelper.floor(this.enderman.posY + random.nextDouble() * 2.0D);
-            int k = MathHelper.floor(this.enderman.posZ - 1.0D + random.nextDouble() * 2.0D);
+            Random random = enderman.getRNG();
+            World world = enderman.world;
+            int i = MathHelper.floor(enderman.posX - 1.0D + random.nextDouble() * 2.0D);
+            int j = MathHelper.floor(enderman.posY + random.nextDouble() * 2.0D);
+            int k = MathHelper.floor(enderman.posZ - 1.0D + random.nextDouble() * 2.0D);
             BlockPos blockpos = new BlockPos(i, j, k);
             IBlockState iblockstate = world.getBlockState(blockpos);
             IBlockState iblockstate1 = world.getBlockState(blockpos.down());
-            IBlockState iblockstate2 = this.enderman.getHeldBlockState();
+            IBlockState iblockstate2 = enderman.getHeldBlockState();
 
-            if (iblockstate2 != null && this.canPlaceBlock(world, blockpos, iblockstate2.getBlock(), iblockstate, iblockstate1))
+            if (iblockstate2 != null && canPlaceBlock(world, blockpos, iblockstate2.getBlock(), iblockstate, iblockstate1))
             {
                 world.setBlockState(blockpos, iblockstate2, 3);
-                this.enderman.setHeldBlockState((IBlockState)null);
+                enderman.setHeldBlockState((IBlockState)null);
             }
         }
 
@@ -580,41 +580,41 @@ public class EntityEnderman extends EntityMob
 
         public AITakeBlock(EntityEnderman p_i45841_1_)
         {
-            this.enderman = p_i45841_1_;
+            enderman = p_i45841_1_;
         }
 
         public boolean shouldExecute()
         {
-            if (this.enderman.getHeldBlockState() != null)
+            if (enderman.getHeldBlockState() != null)
             {
                 return false;
             }
-            else if (!this.enderman.world.getGameRules().getBoolean("mobGriefing"))
+            else if (!enderman.world.getGameRules().getBoolean("mobGriefing"))
             {
                 return false;
             }
             else
             {
-                return this.enderman.getRNG().nextInt(20) == 0;
+                return enderman.getRNG().nextInt(20) == 0;
             }
         }
 
         public void updateTask()
         {
-            Random random = this.enderman.getRNG();
-            World world = this.enderman.world;
-            int i = MathHelper.floor(this.enderman.posX - 2.0D + random.nextDouble() * 4.0D);
-            int j = MathHelper.floor(this.enderman.posY + random.nextDouble() * 3.0D);
-            int k = MathHelper.floor(this.enderman.posZ - 2.0D + random.nextDouble() * 4.0D);
+            Random random = enderman.getRNG();
+            World world = enderman.world;
+            int i = MathHelper.floor(enderman.posX - 2.0D + random.nextDouble() * 4.0D);
+            int j = MathHelper.floor(enderman.posY + random.nextDouble() * 3.0D);
+            int k = MathHelper.floor(enderman.posZ - 2.0D + random.nextDouble() * 4.0D);
             BlockPos blockpos = new BlockPos(i, j, k);
             IBlockState iblockstate = world.getBlockState(blockpos);
             Block block = iblockstate.getBlock();
-            RayTraceResult raytraceresult = world.rayTraceBlocks(new Vec3d((double)((float)MathHelper.floor(this.enderman.posX) + 0.5F), (double)((float)j + 0.5F), (double)((float)MathHelper.floor(this.enderman.posZ) + 0.5F)), new Vec3d((double)((float)i + 0.5F), (double)((float)j + 0.5F), (double)((float)k + 0.5F)), false, true, false);
+            RayTraceResult raytraceresult = world.rayTraceBlocks(new Vec3d((double)((float)MathHelper.floor(enderman.posX) + 0.5F), (double)((float)j + 0.5F), (double)((float)MathHelper.floor(enderman.posZ) + 0.5F)), new Vec3d((double)((float)i + 0.5F), (double)((float)j + 0.5F), (double)((float)k + 0.5F)), false, true, false);
             boolean flag = raytraceresult != null && raytraceresult.getBlockPos().equals(blockpos);
 
             if (EntityEnderman.CARRIABLE_BLOCKS.contains(block) && flag)
             {
-                this.enderman.setHeldBlockState(iblockstate);
+                enderman.setHeldBlockState(iblockstate);
                 world.setBlockToAir(blockpos);
             }
         }

@@ -18,18 +18,18 @@ public class SPacketPlaceGhostRecipe implements Packet<INetHandlerPlayClient>
 
     public SPacketPlaceGhostRecipe(int p_i47615_1_, IRecipe p_i47615_2_)
     {
-        this.field_194314_a = p_i47615_1_;
-        this.field_194315_b = p_i47615_2_;
+        field_194314_a = p_i47615_1_;
+        field_194315_b = p_i47615_2_;
     }
 
     public IRecipe func_194311_a()
     {
-        return this.field_194315_b;
+        return field_194315_b;
     }
 
     public int func_194313_b()
     {
-        return this.field_194314_a;
+        return field_194314_a;
     }
 
     /**
@@ -37,8 +37,8 @@ public class SPacketPlaceGhostRecipe implements Packet<INetHandlerPlayClient>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.field_194314_a = buf.readByte();
-        this.field_194315_b = CraftingManager.getRecipeById(buf.readVarInt());
+        field_194314_a = buf.readByte();
+        field_194315_b = CraftingManager.getRecipeById(buf.readVarInt());
     }
 
     /**
@@ -46,8 +46,8 @@ public class SPacketPlaceGhostRecipe implements Packet<INetHandlerPlayClient>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeByte(this.field_194314_a);
-        buf.writeVarInt(CraftingManager.getIDForRecipe(this.field_194315_b));
+        buf.writeByte(field_194314_a);
+        buf.writeVarInt(CraftingManager.getIDForRecipe(field_194315_b));
     }
 
     /**

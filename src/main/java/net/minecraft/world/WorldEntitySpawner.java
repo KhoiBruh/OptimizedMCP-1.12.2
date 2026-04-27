@@ -39,7 +39,7 @@ public final class WorldEntitySpawner
         }
         else
         {
-            this.eligibleChunksForSpawning.clear();
+            eligibleChunksForSpawning.clear();
             int i = 0;
 
             for (EntityPlayer entityplayer : worldServerIn.playerEntities)
@@ -57,7 +57,7 @@ public final class WorldEntitySpawner
                             boolean flag = i1 == -8 || i1 == 8 || j1 == -8 || j1 == 8;
                             ChunkPos chunkpos = new ChunkPos(i1 + j, j1 + k);
 
-                            if (!this.eligibleChunksForSpawning.contains(chunkpos))
+                            if (!eligibleChunksForSpawning.contains(chunkpos))
                             {
                                 ++i;
 
@@ -67,7 +67,7 @@ public final class WorldEntitySpawner
 
                                     if (playerchunkmapentry != null && playerchunkmapentry.isSentToPlayers())
                                     {
-                                        this.eligibleChunksForSpawning.add(chunkpos);
+                                        eligibleChunksForSpawning.add(chunkpos);
                                     }
                                 }
                             }
@@ -91,7 +91,7 @@ public final class WorldEntitySpawner
                         BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
                         label134:
 
-                        for (ChunkPos chunkpos1 : this.eligibleChunksForSpawning)
+                        for (ChunkPos chunkpos1 : eligibleChunksForSpawning)
                         {
                             BlockPos blockpos = getRandomChunkPosition(worldServerIn, chunkpos1.x, chunkpos1.z);
                             int k1 = blockpos.getX();

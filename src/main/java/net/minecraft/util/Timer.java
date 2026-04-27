@@ -32,8 +32,8 @@ public class Timer
 
     public Timer(float tps)
     {
-        this.tickLength = 1000.0F / tps;
-        this.lastSyncSysClock = Minecraft.getSystemTime();
+        tickLength = 1000.0F / tps;
+        lastSyncSysClock = Minecraft.getSystemTime();
     }
 
     /**
@@ -42,10 +42,10 @@ public class Timer
     public void updateTimer()
     {
         long i = Minecraft.getSystemTime();
-        this.elapsedPartialTicks = (float)(i - this.lastSyncSysClock) / this.tickLength;
-        this.lastSyncSysClock = i;
-        this.renderPartialTicks += this.elapsedPartialTicks;
-        this.elapsedTicks = (int)this.renderPartialTicks;
-        this.renderPartialTicks -= (float)this.elapsedTicks;
+        elapsedPartialTicks = (float)(i - lastSyncSysClock) / tickLength;
+        lastSyncSysClock = i;
+        renderPartialTicks += elapsedPartialTicks;
+        elapsedTicks = (int) renderPartialTicks;
+        renderPartialTicks -= (float) elapsedTicks;
     }
 }

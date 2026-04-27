@@ -16,8 +16,8 @@ public class WorldGenSand extends WorldGenerator
 
     public WorldGenSand(Block p_i45462_1_, int p_i45462_2_)
     {
-        this.block = p_i45462_1_;
-        this.radius = p_i45462_2_;
+        block = p_i45462_1_;
+        radius = p_i45462_2_;
     }
 
     public boolean generate(World worldIn, Random rand, BlockPos position)
@@ -28,7 +28,7 @@ public class WorldGenSand extends WorldGenerator
         }
         else
         {
-            int i = rand.nextInt(this.radius - 2) + 2;
+            int i = rand.nextInt(radius - 2) + 2;
             int j = 2;
 
             for (int k = position.getX() - i; k <= position.getX() + i; ++k)

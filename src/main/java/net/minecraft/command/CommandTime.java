@@ -57,7 +57,7 @@ public class CommandTime extends CommandBase
                     i1 = parseInt(args[1], 0);
                 }
 
-                this.setAllWorldTimes(server, i1);
+                setAllWorldTimes(server, i1);
                 notifyCommandListener(sender, this, "commands.time.set", new Object[] {i1});
                 return;
             }
@@ -65,7 +65,7 @@ public class CommandTime extends CommandBase
             if ("add".equals(args[0]))
             {
                 int l = parseInt(args[1], 0);
-                this.incrementAllWorldTimes(server, l);
+                incrementAllWorldTimes(server, l);
                 notifyCommandListener(sender, this, "commands.time.added", new Object[] {l});
                 return;
             }

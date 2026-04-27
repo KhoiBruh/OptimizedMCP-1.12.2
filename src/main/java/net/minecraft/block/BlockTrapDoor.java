@@ -38,8 +38,8 @@ public class BlockTrapDoor extends Block
     protected BlockTrapDoor(Material materialIn)
     {
         super(materialIn);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(OPEN, Boolean.valueOf(false)).withProperty(HALF, BlockTrapDoor.DoorHalf.BOTTOM));
-        this.setCreativeTab(CreativeTabs.REDSTONE);
+        setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(OPEN, Boolean.valueOf(false)).withProperty(HALF, BlockTrapDoor.DoorHalf.BOTTOM));
+        setCreativeTab(CreativeTabs.REDSTONE);
     }
 
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
@@ -105,7 +105,7 @@ public class BlockTrapDoor extends Block
      */
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
     {
-        if (this.blockMaterial == Material.IRON)
+        if (blockMaterial == Material.IRON)
         {
             return false;
         }
@@ -113,7 +113,7 @@ public class BlockTrapDoor extends Block
         {
             state = state.cycleProperty(OPEN);
             worldIn.setBlockState(pos, state, 2);
-            this.playSound(playerIn, worldIn, pos, ((Boolean)state.getValue(OPEN)).booleanValue());
+            playSound(playerIn, worldIn, pos, ((Boolean)state.getValue(OPEN)).booleanValue());
             return true;
         }
     }
@@ -122,12 +122,12 @@ public class BlockTrapDoor extends Block
     {
         if (p_185731_4_)
         {
-            int i = this.blockMaterial == Material.IRON ? 1037 : 1007;
+            int i = blockMaterial == Material.IRON ? 1037 : 1007;
             worldIn.playEvent(player, i, pos, 0);
         }
         else
         {
-            int j = this.blockMaterial == Material.IRON ? 1036 : 1013;
+            int j = blockMaterial == Material.IRON ? 1036 : 1013;
             worldIn.playEvent(player, j, pos, 0);
         }
     }
@@ -150,7 +150,7 @@ public class BlockTrapDoor extends Block
                 if (flag1 != flag)
                 {
                     worldIn.setBlockState(pos, state.withProperty(OPEN, Boolean.valueOf(flag)), 2);
-                    this.playSound((EntityPlayer)null, worldIn, pos, flag);
+                    playSound((EntityPlayer)null, worldIn, pos, flag);
                 }
             }
         }
@@ -162,7 +162,7 @@ public class BlockTrapDoor extends Block
      */
     public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
     {
-        IBlockState iblockstate = this.getDefaultState();
+        IBlockState iblockstate = getDefaultState();
 
         if (facing.getAxis().isHorizontal())
         {
@@ -243,7 +243,7 @@ public class BlockTrapDoor extends Block
      */
     public IBlockState getStateFromMeta(int meta)
     {
-        return this.getDefaultState().withProperty(FACING, getFacing(meta)).withProperty(OPEN, Boolean.valueOf((meta & 4) != 0)).withProperty(HALF, (meta & 8) == 0 ? BlockTrapDoor.DoorHalf.BOTTOM : BlockTrapDoor.DoorHalf.TOP);
+        return getDefaultState().withProperty(FACING, getFacing(meta)).withProperty(OPEN, Boolean.valueOf((meta & 4) != 0)).withProperty(HALF, (meta & 8) == 0 ? BlockTrapDoor.DoorHalf.BOTTOM : BlockTrapDoor.DoorHalf.TOP);
     }
 
     /**
@@ -318,12 +318,12 @@ public class BlockTrapDoor extends Block
 
         public String toString()
         {
-            return this.name;
+            return name;
         }
 
         public String getName()
         {
-            return this.name;
+            return name;
         }
     }
 }

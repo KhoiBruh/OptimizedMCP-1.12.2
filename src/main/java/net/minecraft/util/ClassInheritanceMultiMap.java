@@ -21,13 +21,13 @@ public class ClassInheritanceMultiMap<T> extends AbstractSet<T>
 
     public ClassInheritanceMultiMap(Class<T> baseClassIn)
     {
-        this.baseClass = baseClassIn;
-        this.knownKeys.add(baseClassIn);
-        this.map.put(baseClassIn, this.values);
+        baseClass = baseClassIn;
+        knownKeys.add(baseClassIn);
+        map.put(baseClassIn, values);
 
         for (Class<?> oclass : ALL_KNOWN)
         {
-            this.createLookup(oclass);
+            createLookup(oclass);
         }
     }
 
@@ -35,24 +35,24 @@ public class ClassInheritanceMultiMap<T> extends AbstractSet<T>
     {
         ALL_KNOWN.add(clazz);
 
-        for (T t : this.values)
+        for (T t : values)
         {
             if (clazz.isAssignableFrom(t.getClass()))
             {
-                this.addForClass(t, clazz);
+                addForClass(t, clazz);
             }
         }
 
-        this.knownKeys.add(clazz);
+        knownKeys.add(clazz);
     }
 
     protected Class<?> initializeClassLookup(Class<?> clazz)
     {
-        if (this.baseClass.isAssignableFrom(clazz))
+        if (baseClass.isAssignableFrom(clazz))
         {
-            if (!this.knownKeys.contains(clazz))
+            if (!knownKeys.contains(clazz))
             {
-                this.createLookup(clazz);
+                createLookup(clazz);
             }
 
             return clazz;
@@ -65,11 +65,11 @@ public class ClassInheritanceMultiMap<T> extends AbstractSet<T>
 
     public boolean add(T p_add_1_)
     {
-        for (Class<?> oclass : this.knownKeys)
+        for (Class<?> oclass : knownKeys)
         {
             if (oclass.isAssignableFrom(p_add_1_.getClass()))
             {
-                this.addForClass(p_add_1_, oclass);
+                addForClass(p_add_1_, oclass);
             }
         }
 
@@ -78,11 +78,11 @@ public class ClassInheritanceMultiMap<T> extends AbstractSet<T>
 
     private void addForClass(T value, Class<?> parentClass)
     {
-        List<T> list = (List)this.map.get(parentClass);
+        List<T> list = (List) map.get(parentClass);
 
         if (list == null)
         {
-            this.map.put(parentClass, Lists.newArrayList(value));
+            map.put(parentClass, Lists.newArrayList(value));
         }
         else
         {
@@ -95,11 +95,11 @@ public class ClassInheritanceMultiMap<T> extends AbstractSet<T>
         T t = (T)p_remove_1_;
         boolean flag = false;
 
-        for (Class<?> oclass : this.knownKeys)
+        for (Class<?> oclass : knownKeys)
         {
             if (oclass.isAssignableFrom(t.getClass()))
             {
-                List<T> list = (List)this.map.get(oclass);
+                List<T> list = (List) map.get(oclass);
 
                 if (list != null && list.remove(t))
                 {
@@ -113,7 +113,7 @@ public class ClassInheritanceMultiMap<T> extends AbstractSet<T>
 
     public boolean contains(Object p_contains_1_)
     {
-        return Iterators.contains(this.getByClass(p_contains_1_.getClass()).iterator(), p_contains_1_);
+        return Iterators.contains(getByClass(p_contains_1_.getClass()).iterator(), p_contains_1_);
     }
 
     public <S> Iterable<S> getByClass(final Class<S> clazz)
@@ -122,7 +122,7 @@ public class ClassInheritanceMultiMap<T> extends AbstractSet<T>
         {
             public Iterator<S> iterator()
             {
-                List<T> list = (List)ClassInheritanceMultiMap.this.map.get(ClassInheritanceMultiMap.this.initializeClassLookup(clazz));
+                List<T> list = (List) map.get(initializeClassLookup(clazz));
 
                 if (list == null)
                 {
@@ -139,11 +139,11 @@ public class ClassInheritanceMultiMap<T> extends AbstractSet<T>
 
     public Iterator<T> iterator()
     {
-        return (Iterator<T>)(this.values.isEmpty() ? Collections.emptyIterator() : Iterators.unmodifiableIterator(this.values.iterator()));
+        return (Iterator<T>)(values.isEmpty() ? Collections.emptyIterator() : Iterators.unmodifiableIterator(values.iterator()));
     }
 
     public int size()
     {
-        return this.values.size();
+        return values.size();
     }
 }

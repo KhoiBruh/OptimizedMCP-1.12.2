@@ -18,7 +18,7 @@ public class BlockSoulSand extends Block
     public BlockSoulSand()
     {
         super(Material.SAND, MapColor.BROWN);
-        this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
+        setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
     }
 
     @Nullable

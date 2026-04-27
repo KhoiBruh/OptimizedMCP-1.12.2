@@ -19,7 +19,7 @@ public class BlockLilyPad extends BlockBush
 
     protected BlockLilyPad()
     {
-        this.setCreativeTab(CreativeTabs.DECORATIONS);
+        setCreativeTab(CreativeTabs.DECORATIONS);
     }
 
     public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, @Nullable Entity entityIn, boolean isActualState)

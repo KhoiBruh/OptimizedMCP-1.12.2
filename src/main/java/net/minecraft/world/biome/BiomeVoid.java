@@ -5,11 +5,11 @@ public class BiomeVoid extends Biome
     public BiomeVoid(Biome.BiomeProperties properties)
     {
         super(properties);
-        this.spawnableMonsterList.clear();
-        this.spawnableCreatureList.clear();
-        this.spawnableWaterCreatureList.clear();
-        this.spawnableCaveCreatureList.clear();
-        this.decorator = new BiomeVoidDecorator();
+        spawnableMonsterList.clear();
+        spawnableCreatureList.clear();
+        spawnableWaterCreatureList.clear();
+        spawnableCaveCreatureList.clear();
+        decorator = new BiomeVoidDecorator();
     }
 
     public boolean ignorePlayerSpawnSuitability()

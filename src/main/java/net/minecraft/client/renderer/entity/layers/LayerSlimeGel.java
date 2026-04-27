@@ -13,7 +13,7 @@ public class LayerSlimeGel implements LayerRenderer<EntitySlime>
 
     public LayerSlimeGel(RenderSlime slimeRendererIn)
     {
-        this.slimeRenderer = slimeRendererIn;
+        slimeRenderer = slimeRendererIn;
     }
 
     public void doRenderLayer(EntitySlime entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale)
@@ -24,8 +24,8 @@ public class LayerSlimeGel implements LayerRenderer<EntitySlime>
             GlStateManager.enableNormalize();
             GlStateManager.enableBlend();
             GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
-            this.slimeModel.setModelAttributes(this.slimeRenderer.getMainModel());
-            this.slimeModel.render(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+            slimeModel.setModelAttributes(slimeRenderer.getMainModel());
+            slimeModel.render(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
             GlStateManager.disableBlend();
             GlStateManager.disableNormalize();
         }

@@ -12,7 +12,7 @@ public class RenderLlama extends RenderLiving<EntityLlama>
     public RenderLlama(RenderManager p_i47203_1_)
     {
         super(p_i47203_1_, new ModelLlama(0.0F), 0.7F);
-        this.addLayer(new LayerLlamaDecor(this));
+        addLayer(new LayerLlamaDecor(this));
     }
 
     /**

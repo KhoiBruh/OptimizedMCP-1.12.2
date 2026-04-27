@@ -40,34 +40,34 @@ public class EntityEvoker extends EntitySpellcasterIllager
     public EntityEvoker(World worldIn)
     {
         super(worldIn);
-        this.setSize(0.6F, 1.95F);
-        this.experienceValue = 10;
+        setSize(0.6F, 1.95F);
+        experienceValue = 10;
     }
 
     protected void initEntityAI()
     {
         super.initEntityAI();
-        this.tasks.addTask(0, new EntityAISwimming(this));
-        this.tasks.addTask(1, new EntityEvoker.AICastingSpell());
-        this.tasks.addTask(2, new EntityAIAvoidEntity(this, EntityPlayer.class, 8.0F, 0.6D, 1.0D));
-        this.tasks.addTask(4, new EntityEvoker.AISummonSpell());
-        this.tasks.addTask(5, new EntityEvoker.AIAttackSpell());
-        this.tasks.addTask(6, new EntityEvoker.AIWololoSpell());
-        this.tasks.addTask(8, new EntityAIWander(this, 0.6D));
-        this.tasks.addTask(9, new EntityAIWatchClosest(this, EntityPlayer.class, 3.0F, 1.0F));
-        this.tasks.addTask(10, new EntityAIWatchClosest(this, EntityLiving.class, 8.0F));
-        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, new Class[] {EntityEvoker.class}));
-        this.targetTasks.addTask(2, (new EntityAINearestAttackableTarget(this, EntityPlayer.class, true)).setUnseenMemoryTicks(300));
-        this.targetTasks.addTask(3, (new EntityAINearestAttackableTarget(this, EntityVillager.class, false)).setUnseenMemoryTicks(300));
-        this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityIronGolem.class, false));
+        tasks.addTask(0, new EntityAISwimming(this));
+        tasks.addTask(1, new EntityEvoker.AICastingSpell());
+        tasks.addTask(2, new EntityAIAvoidEntity(this, EntityPlayer.class, 8.0F, 0.6D, 1.0D));
+        tasks.addTask(4, new EntityEvoker.AISummonSpell());
+        tasks.addTask(5, new EntityEvoker.AIAttackSpell());
+        tasks.addTask(6, new EntityEvoker.AIWololoSpell());
+        tasks.addTask(8, new EntityAIWander(this, 0.6D));
+        tasks.addTask(9, new EntityAIWatchClosest(this, EntityPlayer.class, 3.0F, 1.0F));
+        tasks.addTask(10, new EntityAIWatchClosest(this, EntityLiving.class, 8.0F));
+        targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, new Class[] {EntityEvoker.class}));
+        targetTasks.addTask(2, (new EntityAINearestAttackableTarget(this, EntityPlayer.class, true)).setUnseenMemoryTicks(300));
+        targetTasks.addTask(3, (new EntityAINearestAttackableTarget(this, EntityVillager.class, false)).setUnseenMemoryTicks(300));
+        targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityIronGolem.class, false));
     }
 
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.5D);
-        this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(12.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(24.0D);
+        getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.5D);
+        getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(12.0D);
+        getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(24.0D);
     }
 
     protected void entityInit()
@@ -133,11 +133,11 @@ public class EntityEvoker extends EntitySpellcasterIllager
         }
         else if (entityIn instanceof EntityVex)
         {
-            return this.isOnSameTeam(((EntityVex)entityIn).getOwner());
+            return isOnSameTeam(((EntityVex)entityIn).getOwner());
         }
         else if (entityIn instanceof EntityLivingBase && ((EntityLivingBase)entityIn).getCreatureAttribute() == EnumCreatureAttribute.ILLAGER)
         {
-            return this.getTeam() == null && entityIn.getTeam() == null;
+            return getTeam() == null && entityIn.getTeam() == null;
         }
         else
         {
@@ -162,13 +162,13 @@ public class EntityEvoker extends EntitySpellcasterIllager
 
     private void setWololoTarget(@Nullable EntitySheep wololoTargetIn)
     {
-        this.wololoTarget = wololoTargetIn;
+        wololoTarget = wololoTargetIn;
     }
 
     @Nullable
     private EntitySheep getWololoTarget()
     {
-        return this.wololoTarget;
+        return wololoTarget;
     }
 
     protected SoundEvent getSpellSound()
@@ -194,23 +194,23 @@ public class EntityEvoker extends EntitySpellcasterIllager
 
         protected void castSpell()
         {
-            EntityLivingBase entitylivingbase = EntityEvoker.this.getAttackTarget();
-            double d0 = Math.min(entitylivingbase.posY, EntityEvoker.this.posY);
-            double d1 = Math.max(entitylivingbase.posY, EntityEvoker.this.posY) + 1.0D;
-            float f = (float)MathHelper.atan2(entitylivingbase.posZ - EntityEvoker.this.posZ, entitylivingbase.posX - EntityEvoker.this.posX);
+            EntityLivingBase entitylivingbase = getAttackTarget();
+            double d0 = Math.min(entitylivingbase.posY, posY);
+            double d1 = Math.max(entitylivingbase.posY, posY) + 1.0D;
+            float f = (float)MathHelper.atan2(entitylivingbase.posZ - posZ, entitylivingbase.posX - posX);
 
-            if (EntityEvoker.this.getDistanceSq(entitylivingbase) < 9.0D)
+            if (getDistanceSq(entitylivingbase) < 9.0D)
             {
                 for (int i = 0; i < 5; ++i)
                 {
                     float f1 = f + (float)i * (float)Math.PI * 0.4F;
-                    this.spawnFangs(EntityEvoker.this.posX + (double)MathHelper.cos(f1) * 1.5D, EntityEvoker.this.posZ + (double)MathHelper.sin(f1) * 1.5D, d0, d1, f1, 0);
+                    spawnFangs(posX + (double)MathHelper.cos(f1) * 1.5D, posZ + (double)MathHelper.sin(f1) * 1.5D, d0, d1, f1, 0);
                 }
 
                 for (int k = 0; k < 8; ++k)
                 {
                     float f2 = f + (float)k * (float)Math.PI * 2.0F / 8.0F + ((float)Math.PI * 2F / 5F);
-                    this.spawnFangs(EntityEvoker.this.posX + (double)MathHelper.cos(f2) * 2.5D, EntityEvoker.this.posZ + (double)MathHelper.sin(f2) * 2.5D, d0, d1, f2, 3);
+                    spawnFangs(posX + (double)MathHelper.cos(f2) * 2.5D, posZ + (double)MathHelper.sin(f2) * 2.5D, d0, d1, f2, 3);
                 }
             }
             else
@@ -219,7 +219,7 @@ public class EntityEvoker extends EntitySpellcasterIllager
                 {
                     double d2 = 1.25D * (double)(l + 1);
                     int j = 1 * l;
-                    this.spawnFangs(EntityEvoker.this.posX + (double)MathHelper.cos(f) * d2, EntityEvoker.this.posZ + (double)MathHelper.sin(f) * d2, d0, d1, f, j);
+                    spawnFangs(posX + (double)MathHelper.cos(f) * d2, posZ + (double)MathHelper.sin(f) * d2, d0, d1, f, j);
                 }
             }
         }
@@ -232,12 +232,12 @@ public class EntityEvoker extends EntitySpellcasterIllager
 
             while (true)
             {
-                if (!EntityEvoker.this.world.isBlockNormalCube(blockpos, true) && EntityEvoker.this.world.isBlockNormalCube(blockpos.down(), true))
+                if (!world.isBlockNormalCube(blockpos, true) && world.isBlockNormalCube(blockpos.down(), true))
                 {
-                    if (!EntityEvoker.this.world.isAirBlock(blockpos))
+                    if (!world.isAirBlock(blockpos))
                     {
-                        IBlockState iblockstate = EntityEvoker.this.world.getBlockState(blockpos);
-                        AxisAlignedBB axisalignedbb = iblockstate.getCollisionBoundingBox(EntityEvoker.this.world, blockpos);
+                        IBlockState iblockstate = world.getBlockState(blockpos);
+                        AxisAlignedBB axisalignedbb = iblockstate.getCollisionBoundingBox(world, blockpos);
 
                         if (axisalignedbb != null)
                         {
@@ -259,8 +259,8 @@ public class EntityEvoker extends EntitySpellcasterIllager
 
             if (flag)
             {
-                EntityEvokerFangs entityevokerfangs = new EntityEvokerFangs(EntityEvoker.this.world, p_190876_1_, (double)blockpos.getY() + d0, p_190876_3_, p_190876_9_, p_190876_10_, EntityEvoker.this);
-                EntityEvoker.this.world.spawnEntity(entityevokerfangs);
+                EntityEvokerFangs entityevokerfangs = new EntityEvokerFangs(world, p_190876_1_, (double)blockpos.getY() + d0, p_190876_3_, p_190876_9_, p_190876_10_, EntityEvoker.this);
+                world.spawnEntity(entityevokerfangs);
             }
         }
 
@@ -283,13 +283,13 @@ public class EntityEvoker extends EntitySpellcasterIllager
 
         public void updateTask()
         {
-            if (EntityEvoker.this.getAttackTarget() != null)
+            if (getAttackTarget() != null)
             {
-                EntityEvoker.this.getLookHelper().setLookPositionWithEntity(EntityEvoker.this.getAttackTarget(), (float)EntityEvoker.this.getHorizontalFaceSpeed(), (float)EntityEvoker.this.getVerticalFaceSpeed());
+                getLookHelper().setLookPositionWithEntity(getAttackTarget(), (float) getHorizontalFaceSpeed(), (float) getVerticalFaceSpeed());
             }
-            else if (EntityEvoker.this.getWololoTarget() != null)
+            else if (getWololoTarget() != null)
             {
-                EntityEvoker.this.getLookHelper().setLookPositionWithEntity(EntityEvoker.this.getWololoTarget(), (float)EntityEvoker.this.getHorizontalFaceSpeed(), (float)EntityEvoker.this.getVerticalFaceSpeed());
+                getLookHelper().setLookPositionWithEntity(getWololoTarget(), (float) getHorizontalFaceSpeed(), (float) getVerticalFaceSpeed());
             }
         }
     }
@@ -308,8 +308,8 @@ public class EntityEvoker extends EntitySpellcasterIllager
             }
             else
             {
-                int i = EntityEvoker.this.world.getEntitiesWithinAABB(EntityVex.class, EntityEvoker.this.getEntityBoundingBox().grow(16.0D)).size();
-                return EntityEvoker.this.rand.nextInt(8) + 1 > i;
+                int i = world.getEntitiesWithinAABB(EntityVex.class, getEntityBoundingBox().grow(16.0D)).size();
+                return rand.nextInt(8) + 1 > i;
             }
         }
 
@@ -327,14 +327,14 @@ public class EntityEvoker extends EntitySpellcasterIllager
         {
             for (int i = 0; i < 3; ++i)
             {
-                BlockPos blockpos = (new BlockPos(EntityEvoker.this)).add(-2 + EntityEvoker.this.rand.nextInt(5), 1, -2 + EntityEvoker.this.rand.nextInt(5));
-                EntityVex entityvex = new EntityVex(EntityEvoker.this.world);
+                BlockPos blockpos = (new BlockPos(EntityEvoker.this)).add(-2 + rand.nextInt(5), 1, -2 + rand.nextInt(5));
+                EntityVex entityvex = new EntityVex(world);
                 entityvex.moveToBlockPosAndAngles(blockpos, 0.0F, 0.0F);
-                entityvex.onInitialSpawn(EntityEvoker.this.world.getDifficultyForLocation(blockpos), (IEntityLivingData)null);
+                entityvex.onInitialSpawn(world.getDifficultyForLocation(blockpos), (IEntityLivingData)null);
                 entityvex.setOwner(EntityEvoker.this);
                 entityvex.setBoundOrigin(blockpos);
-                entityvex.setLimitedLife(20 * (30 + EntityEvoker.this.rand.nextInt(90)));
-                EntityEvoker.this.world.spawnEntity(entityvex);
+                entityvex.setLimitedLife(20 * (30 + rand.nextInt(90)));
+                world.spawnEntity(entityvex);
             }
         }
 
@@ -365,25 +365,25 @@ public class EntityEvoker extends EntitySpellcasterIllager
 
         public boolean shouldExecute()
         {
-            if (EntityEvoker.this.getAttackTarget() != null)
+            if (getAttackTarget() != null)
             {
                 return false;
             }
-            else if (EntityEvoker.this.isSpellcasting())
+            else if (isSpellcasting())
             {
                 return false;
             }
-            else if (EntityEvoker.this.ticksExisted < this.spellCooldown)
+            else if (ticksExisted < spellCooldown)
             {
                 return false;
             }
-            else if (!EntityEvoker.this.world.getGameRules().getBoolean("mobGriefing"))
+            else if (!world.getGameRules().getBoolean("mobGriefing"))
             {
                 return false;
             }
             else
             {
-                List<EntitySheep> list = EntityEvoker.this.world.<EntitySheep>getEntitiesWithinAABB(EntitySheep.class, EntityEvoker.this.getEntityBoundingBox().grow(16.0D, 4.0D, 16.0D), this.wololoSelector);
+                List<EntitySheep> list = world.<EntitySheep>getEntitiesWithinAABB(EntitySheep.class, getEntityBoundingBox().grow(16.0D, 4.0D, 16.0D), wololoSelector);
 
                 if (list.isEmpty())
                 {
@@ -391,7 +391,7 @@ public class EntityEvoker extends EntitySpellcasterIllager
                 }
                 else
                 {
-                    EntityEvoker.this.setWololoTarget(list.get(EntityEvoker.this.rand.nextInt(list.size())));
+                    setWololoTarget(list.get(rand.nextInt(list.size())));
                     return true;
                 }
             }
@@ -399,18 +399,18 @@ public class EntityEvoker extends EntitySpellcasterIllager
 
         public boolean shouldContinueExecuting()
         {
-            return EntityEvoker.this.getWololoTarget() != null && this.spellWarmup > 0;
+            return getWololoTarget() != null && spellWarmup > 0;
         }
 
         public void resetTask()
         {
             super.resetTask();
-            EntityEvoker.this.setWololoTarget((EntitySheep)null);
+            setWololoTarget((EntitySheep)null);
         }
 
         protected void castSpell()
         {
-            EntitySheep entitysheep = EntityEvoker.this.getWololoTarget();
+            EntitySheep entitysheep = getWololoTarget();
 
             if (entitysheep != null && entitysheep.isEntityAlive())
             {

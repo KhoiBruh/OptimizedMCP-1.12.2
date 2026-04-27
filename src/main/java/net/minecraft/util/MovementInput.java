@@ -22,6 +22,6 @@ public class MovementInput
 
     public Vec2f getMoveVector()
     {
-        return new Vec2f(this.moveStrafe, this.moveForward);
+        return new Vec2f(moveStrafe, moveForward);
     }
 }

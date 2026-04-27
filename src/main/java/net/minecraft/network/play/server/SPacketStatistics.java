@@ -20,7 +20,7 @@ public class SPacketStatistics implements Packet<INetHandlerPlayClient>
 
     public SPacketStatistics(Map<StatBase, Integer> statisticMapIn)
     {
-        this.statisticMap = statisticMapIn;
+        statisticMap = statisticMapIn;
     }
 
     /**
@@ -37,7 +37,7 @@ public class SPacketStatistics implements Packet<INetHandlerPlayClient>
     public void readPacketData(PacketBuffer buf) throws IOException
     {
         int i = buf.readVarInt();
-        this.statisticMap = Maps.<StatBase, Integer>newHashMap();
+        statisticMap = Maps.<StatBase, Integer>newHashMap();
 
         for (int j = 0; j < i; ++j)
         {
@@ -46,7 +46,7 @@ public class SPacketStatistics implements Packet<INetHandlerPlayClient>
 
             if (statbase != null)
             {
-                this.statisticMap.put(statbase, Integer.valueOf(k));
+                statisticMap.put(statbase, Integer.valueOf(k));
             }
         }
     }
@@ -56,9 +56,9 @@ public class SPacketStatistics implements Packet<INetHandlerPlayClient>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeVarInt(this.statisticMap.size());
+        buf.writeVarInt(statisticMap.size());
 
-        for (Entry<StatBase, Integer> entry : this.statisticMap.entrySet())
+        for (Entry<StatBase, Integer> entry : statisticMap.entrySet())
         {
             buf.writeString((entry.getKey()).statId);
             buf.writeVarInt(((Integer)entry.getValue()).intValue());
@@ -67,6 +67,6 @@ public class SPacketStatistics implements Packet<INetHandlerPlayClient>
 
     public Map<StatBase, Integer> getStatisticMap()
     {
-        return this.statisticMap;
+        return statisticMap;
     }
 }

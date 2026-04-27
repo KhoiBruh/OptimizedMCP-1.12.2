@@ -40,13 +40,13 @@ public class TileEntitySkull extends TileEntity implements ITickable
     public NBTTagCompound writeToNBT(NBTTagCompound compound)
     {
         super.writeToNBT(compound);
-        compound.setByte("SkullType", (byte)(this.skullType & 255));
-        compound.setByte("Rot", (byte)(this.skullRotation & 255));
+        compound.setByte("SkullType", (byte)(skullType & 255));
+        compound.setByte("Rot", (byte)(skullRotation & 255));
 
-        if (this.playerProfile != null)
+        if (playerProfile != null)
         {
             NBTTagCompound nbttagcompound = new NBTTagCompound();
-            NBTUtil.writeGameProfile(nbttagcompound, this.playerProfile);
+            NBTUtil.writeGameProfile(nbttagcompound, playerProfile);
             compound.setTag("Owner", nbttagcompound);
         }
 
@@ -56,14 +56,14 @@ public class TileEntitySkull extends TileEntity implements ITickable
     public void readFromNBT(NBTTagCompound compound)
     {
         super.readFromNBT(compound);
-        this.skullType = compound.getByte("SkullType");
-        this.skullRotation = compound.getByte("Rot");
+        skullType = compound.getByte("SkullType");
+        skullRotation = compound.getByte("Rot");
 
-        if (this.skullType == 3)
+        if (skullType == 3)
         {
             if (compound.hasKey("Owner", 10))
             {
-                this.playerProfile = NBTUtil.readGameProfileFromNBT(compound.getCompoundTag("Owner"));
+                playerProfile = NBTUtil.readGameProfileFromNBT(compound.getCompoundTag("Owner"));
             }
             else if (compound.hasKey("ExtraType", 8))
             {
@@ -71,8 +71,8 @@ public class TileEntitySkull extends TileEntity implements ITickable
 
                 if (!StringUtils.isNullOrEmpty(s))
                 {
-                    this.playerProfile = new GameProfile((UUID)null, s);
-                    this.updatePlayerProfile();
+                    playerProfile = new GameProfile((UUID)null, s);
+                    updatePlayerProfile();
                 }
             }
         }
@@ -83,59 +83,59 @@ public class TileEntitySkull extends TileEntity implements ITickable
      */
     public void update()
     {
-        if (this.skullType == 5)
+        if (skullType == 5)
         {
-            if (this.world.isBlockPowered(this.pos))
+            if (world.isBlockPowered(pos))
             {
-                this.dragonAnimated = true;
-                ++this.dragonAnimatedTicks;
+                dragonAnimated = true;
+                ++dragonAnimatedTicks;
             }
             else
             {
-                this.dragonAnimated = false;
+                dragonAnimated = false;
             }
         }
     }
 
     public float getAnimationProgress(float p_184295_1_)
     {
-        return this.dragonAnimated ? (float)this.dragonAnimatedTicks + p_184295_1_ : (float)this.dragonAnimatedTicks;
+        return dragonAnimated ? (float) dragonAnimatedTicks + p_184295_1_ : (float) dragonAnimatedTicks;
     }
 
     @Nullable
     public GameProfile getPlayerProfile()
     {
-        return this.playerProfile;
+        return playerProfile;
     }
 
     @Nullable
     public SPacketUpdateTileEntity getUpdatePacket()
     {
-        return new SPacketUpdateTileEntity(this.pos, 4, this.getUpdateTag());
+        return new SPacketUpdateTileEntity(pos, 4, getUpdateTag());
     }
 
     public NBTTagCompound getUpdateTag()
     {
-        return this.writeToNBT(new NBTTagCompound());
+        return writeToNBT(new NBTTagCompound());
     }
 
     public void setType(int type)
     {
-        this.skullType = type;
-        this.playerProfile = null;
+        skullType = type;
+        playerProfile = null;
     }
 
     public void setPlayerProfile(@Nullable GameProfile playerProfile)
     {
-        this.skullType = 3;
+        skullType = 3;
         this.playerProfile = playerProfile;
-        this.updatePlayerProfile();
+        updatePlayerProfile();
     }
 
     private void updatePlayerProfile()
     {
-        this.playerProfile = updateGameprofile(this.playerProfile);
-        this.markDirty();
+        playerProfile = updateGameprofile(playerProfile);
+        markDirty();
     }
 
     public static GameProfile updateGameprofile(GameProfile input)
@@ -179,32 +179,32 @@ public class TileEntitySkull extends TileEntity implements ITickable
 
     public int getSkullType()
     {
-        return this.skullType;
+        return skullType;
     }
 
     public int getSkullRotation()
     {
-        return this.skullRotation;
+        return skullRotation;
     }
 
     public void setSkullRotation(int rotation)
     {
-        this.skullRotation = rotation;
+        skullRotation = rotation;
     }
 
     public void mirror(Mirror mirrorIn)
     {
-        if (this.world != null && this.world.getBlockState(this.getPos()).getValue(BlockSkull.FACING) == EnumFacing.UP)
+        if (world != null && world.getBlockState(getPos()).getValue(BlockSkull.FACING) == EnumFacing.UP)
         {
-            this.skullRotation = mirrorIn.mirrorRotation(this.skullRotation, 16);
+            skullRotation = mirrorIn.mirrorRotation(skullRotation, 16);
         }
     }
 
     public void rotate(Rotation rotationIn)
     {
-        if (this.world != null && this.world.getBlockState(this.getPos()).getValue(BlockSkull.FACING) == EnumFacing.UP)
+        if (world != null && world.getBlockState(getPos()).getValue(BlockSkull.FACING) == EnumFacing.UP)
         {
-            this.skullRotation = rotationIn.rotate(this.skullRotation, 16);
+            skullRotation = rotationIn.rotate(skullRotation, 16);
         }
     }
 }

@@ -33,57 +33,57 @@ public class CompiledChunk
 
     public boolean isEmpty()
     {
-        return this.empty;
+        return empty;
     }
 
     protected void setLayerUsed(BlockRenderLayer layer)
     {
-        this.empty = false;
-        this.layersUsed[layer.ordinal()] = true;
+        empty = false;
+        layersUsed[layer.ordinal()] = true;
     }
 
     public boolean isLayerEmpty(BlockRenderLayer layer)
     {
-        return !this.layersUsed[layer.ordinal()];
+        return !layersUsed[layer.ordinal()];
     }
 
     public void setLayerStarted(BlockRenderLayer layer)
     {
-        this.layersStarted[layer.ordinal()] = true;
+        layersStarted[layer.ordinal()] = true;
     }
 
     public boolean isLayerStarted(BlockRenderLayer layer)
     {
-        return this.layersStarted[layer.ordinal()];
+        return layersStarted[layer.ordinal()];
     }
 
     public List<TileEntity> getTileEntities()
     {
-        return this.tileEntities;
+        return tileEntities;
     }
 
     public void addTileEntity(TileEntity tileEntityIn)
     {
-        this.tileEntities.add(tileEntityIn);
+        tileEntities.add(tileEntityIn);
     }
 
     public boolean isVisible(EnumFacing facing, EnumFacing facing2)
     {
-        return this.setVisibility.isVisible(facing, facing2);
+        return setVisibility.isVisible(facing, facing2);
     }
 
     public void setVisibility(SetVisibility visibility)
     {
-        this.setVisibility = visibility;
+        setVisibility = visibility;
     }
 
     public BufferBuilder.State getState()
     {
-        return this.state;
+        return state;
     }
 
     public void setState(BufferBuilder.State stateIn)
     {
-        this.state = stateIn;
+        state = stateIn;
     }
 }

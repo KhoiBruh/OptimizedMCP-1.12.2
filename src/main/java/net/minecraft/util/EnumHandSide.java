@@ -12,7 +12,7 @@ public enum EnumHandSide
 
     private EnumHandSide(ITextComponent nameIn)
     {
-        this.handName = nameIn;
+        handName = nameIn;
     }
 
     public EnumHandSide opposite()
@@ -22,6 +22,6 @@ public enum EnumHandSide
 
     public String toString()
     {
-        return this.handName.getUnformattedText();
+        return handName.getUnformattedText();
     }
 }

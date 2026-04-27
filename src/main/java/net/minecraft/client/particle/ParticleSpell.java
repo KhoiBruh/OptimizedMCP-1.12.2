@@ -13,16 +13,16 @@ public class ParticleSpell extends Particle
     protected ParticleSpell(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double p_i1229_8_, double ySpeed, double p_i1229_12_)
     {
         super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0.5D - RANDOM.nextDouble(), ySpeed, 0.5D - RANDOM.nextDouble());
-        this.motionY *= 0.20000000298023224D;
+        motionY *= 0.20000000298023224D;
 
         if (p_i1229_8_ == 0.0D && p_i1229_12_ == 0.0D)
         {
-            this.motionX *= 0.10000000149011612D;
-            this.motionZ *= 0.10000000149011612D;
+            motionX *= 0.10000000149011612D;
+            motionZ *= 0.10000000149011612D;
         }
 
-        this.particleScale *= 0.75F;
-        this.particleMaxAge = (int)(8.0D / (Math.random() * 0.8D + 0.2D));
+        particleScale *= 0.75F;
+        particleMaxAge = (int)(8.0D / (Math.random() * 0.8D + 0.2D));
     }
 
     public boolean shouldDisableDepth()
@@ -32,33 +32,33 @@ public class ParticleSpell extends Particle
 
     public void onUpdate()
     {
-        this.prevPosX = this.posX;
-        this.prevPosY = this.posY;
-        this.prevPosZ = this.posZ;
+        prevPosX = posX;
+        prevPosY = posY;
+        prevPosZ = posZ;
 
-        if (this.particleAge++ >= this.particleMaxAge)
+        if (particleAge++ >= particleMaxAge)
         {
-            this.setExpired();
+            setExpired();
         }
 
-        this.setParticleTextureIndex(this.baseSpellTextureIndex + (7 - this.particleAge * 8 / this.particleMaxAge));
-        this.motionY += 0.004D;
-        this.move(this.motionX, this.motionY, this.motionZ);
+        setParticleTextureIndex(baseSpellTextureIndex + (7 - particleAge * 8 / particleMaxAge));
+        motionY += 0.004D;
+        move(motionX, motionY, motionZ);
 
-        if (this.posY == this.prevPosY)
+        if (posY == prevPosY)
         {
-            this.motionX *= 1.1D;
-            this.motionZ *= 1.1D;
+            motionX *= 1.1D;
+            motionZ *= 1.1D;
         }
 
-        this.motionX *= 0.9599999785423279D;
-        this.motionY *= 0.9599999785423279D;
-        this.motionZ *= 0.9599999785423279D;
+        motionX *= 0.9599999785423279D;
+        motionY *= 0.9599999785423279D;
+        motionZ *= 0.9599999785423279D;
 
-        if (this.onGround)
+        if (onGround)
         {
-            this.motionX *= 0.699999988079071D;
-            this.motionZ *= 0.699999988079071D;
+            motionX *= 0.699999988079071D;
+            motionZ *= 0.699999988079071D;
         }
     }
 
@@ -67,7 +67,7 @@ public class ParticleSpell extends Particle
      */
     public void setBaseSpellTextureIndex(int baseSpellTextureIndexIn)
     {
-        this.baseSpellTextureIndex = baseSpellTextureIndexIn;
+        baseSpellTextureIndex = baseSpellTextureIndexIn;
     }
 
     public static class AmbientMobFactory implements IParticleFactory

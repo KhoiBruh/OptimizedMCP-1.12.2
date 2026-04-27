@@ -27,21 +27,21 @@ public class LayeredColorMaskTexture extends AbstractTexture
 
     public LayeredColorMaskTexture(ResourceLocation textureLocationIn, List<String> p_i46101_2_, List<EnumDyeColor> p_i46101_3_)
     {
-        this.textureLocation = textureLocationIn;
-        this.listTextures = p_i46101_2_;
-        this.listDyeColors = p_i46101_3_;
+        textureLocation = textureLocationIn;
+        listTextures = p_i46101_2_;
+        listDyeColors = p_i46101_3_;
     }
 
     public void loadTexture(IResourceManager resourceManager) throws IOException
     {
-        this.deleteGlTexture();
+        deleteGlTexture();
         IResource iresource = null;
         BufferedImage bufferedimage;
         label255:
         {
             try
             {
-                iresource = resourceManager.getResource(this.textureLocation);
+                iresource = resourceManager.getResource(textureLocation);
                 BufferedImage bufferedimage1 = TextureUtil.readBufferedImage(iresource.getInputStream());
                 int i = bufferedimage1.getType();
 
@@ -57,7 +57,7 @@ public class LayeredColorMaskTexture extends AbstractTexture
 
                 while (true)
                 {
-                    if (j >= 17 || j >= this.listTextures.size() || j >= this.listDyeColors.size())
+                    if (j >= 17 || j >= listTextures.size() || j >= listDyeColors.size())
                     {
                         break label255;
                     }
@@ -66,8 +66,8 @@ public class LayeredColorMaskTexture extends AbstractTexture
 
                     try
                     {
-                        String s = this.listTextures.get(j);
-                        int k = ((EnumDyeColor)this.listDyeColors.get(j)).getColorValue();
+                        String s = listTextures.get(j);
+                        int k = ((EnumDyeColor) listDyeColors.get(j)).getColorValue();
 
                         if (s != null)
                         {
@@ -115,6 +115,6 @@ public class LayeredColorMaskTexture extends AbstractTexture
 
             return;
         }
-        TextureUtil.uploadTextureImage(this.getGlTextureId(), bufferedimage);
+        TextureUtil.uploadTextureImage(getGlTextureId(), bufferedimage);
     }
 }

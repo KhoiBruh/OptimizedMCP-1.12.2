@@ -27,7 +27,7 @@ public class RenderParrot extends RenderLiving<EntityParrot>
      */
     public float handleRotationFloat(EntityParrot livingBase, float partialTicks)
     {
-        return this.getCustomBob(livingBase, partialTicks);
+        return getCustomBob(livingBase, partialTicks);
     }
 
     private float getCustomBob(EntityParrot parrot, float p_192861_2_)

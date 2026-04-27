@@ -26,22 +26,22 @@ public class FileResourcePack extends AbstractResourcePack implements Closeable
 
     private ZipFile getResourcePackZipFile() throws IOException
     {
-        if (this.resourcePackZipFile == null)
+        if (resourcePackZipFile == null)
         {
-            this.resourcePackZipFile = new ZipFile(this.resourcePackFile);
+            resourcePackZipFile = new ZipFile(resourcePackFile);
         }
 
-        return this.resourcePackZipFile;
+        return resourcePackZipFile;
     }
 
     protected InputStream getInputStreamByName(String name) throws IOException
     {
-        ZipFile zipfile = this.getResourcePackZipFile();
+        ZipFile zipfile = getResourcePackZipFile();
         ZipEntry zipentry = zipfile.getEntry(name);
 
         if (zipentry == null)
         {
-            throw new ResourcePackFileNotFoundException(this.resourcePackFile, name);
+            throw new ResourcePackFileNotFoundException(resourcePackFile, name);
         }
         else
         {
@@ -53,7 +53,7 @@ public class FileResourcePack extends AbstractResourcePack implements Closeable
     {
         try
         {
-            return this.getResourcePackZipFile().getEntry(name) != null;
+            return getResourcePackZipFile().getEntry(name) != null;
         }
         catch (IOException var3)
         {
@@ -67,7 +67,7 @@ public class FileResourcePack extends AbstractResourcePack implements Closeable
 
         try
         {
-            zipfile = this.getResourcePackZipFile();
+            zipfile = getResourcePackZipFile();
         }
         catch (IOException var8)
         {
@@ -96,7 +96,7 @@ public class FileResourcePack extends AbstractResourcePack implements Closeable
                     }
                     else
                     {
-                        this.logNameNotLowercase(s1);
+                        logNameNotLowercase(s1);
                     }
                 }
             }
@@ -107,10 +107,10 @@ public class FileResourcePack extends AbstractResourcePack implements Closeable
 
     public void close() throws IOException
     {
-        if (this.resourcePackZipFile != null)
+        if (resourcePackZipFile != null)
         {
-            this.resourcePackZipFile.close();
-            this.resourcePackZipFile = null;
+            resourcePackZipFile.close();
+            resourcePackZipFile = null;
         }
     }
 }

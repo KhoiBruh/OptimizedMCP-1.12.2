@@ -20,10 +20,10 @@ public class ParticleItemPickup extends Particle
     public ParticleItemPickup(World worldIn, Entity p_i1233_2_, Entity p_i1233_3_, float p_i1233_4_)
     {
         super(worldIn, p_i1233_2_.posX, p_i1233_2_.posY, p_i1233_2_.posZ, p_i1233_2_.motionX, p_i1233_2_.motionY, p_i1233_2_.motionZ);
-        this.item = p_i1233_2_;
-        this.target = p_i1233_3_;
-        this.maxAge = 3;
-        this.yOffset = p_i1233_4_;
+        item = p_i1233_2_;
+        target = p_i1233_3_;
+        maxAge = 3;
+        yOffset = p_i1233_4_;
     }
 
     /**
@@ -31,18 +31,18 @@ public class ParticleItemPickup extends Particle
      */
     public void renderParticle(BufferBuilder buffer, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ)
     {
-        float f = ((float)this.age + partialTicks) / (float)this.maxAge;
+        float f = ((float) age + partialTicks) / (float) maxAge;
         f = f * f;
-        double d0 = this.item.posX;
-        double d1 = this.item.posY;
-        double d2 = this.item.posZ;
-        double d3 = this.target.lastTickPosX + (this.target.posX - this.target.lastTickPosX) * (double)partialTicks;
-        double d4 = this.target.lastTickPosY + (this.target.posY - this.target.lastTickPosY) * (double)partialTicks + (double)this.yOffset;
-        double d5 = this.target.lastTickPosZ + (this.target.posZ - this.target.lastTickPosZ) * (double)partialTicks;
+        double d0 = item.posX;
+        double d1 = item.posY;
+        double d2 = item.posZ;
+        double d3 = target.lastTickPosX + (target.posX - target.lastTickPosX) * (double)partialTicks;
+        double d4 = target.lastTickPosY + (target.posY - target.lastTickPosY) * (double)partialTicks + (double) yOffset;
+        double d5 = target.lastTickPosZ + (target.posZ - target.lastTickPosZ) * (double)partialTicks;
         double d6 = d0 + (d3 - d0) * (double)f;
         double d7 = d1 + (d4 - d1) * (double)f;
         double d8 = d2 + (d5 - d2) * (double)f;
-        int i = this.getBrightnessForRender(partialTicks);
+        int i = getBrightnessForRender(partialTicks);
         int j = i % 65536;
         int k = i / 65536;
         OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float)j, (float)k);
@@ -51,16 +51,16 @@ public class ParticleItemPickup extends Particle
         d7 = d7 - interpPosY;
         d8 = d8 - interpPosZ;
         GlStateManager.enableLighting();
-        this.renderManager.renderEntity(this.item, d6, d7, d8, this.item.rotationYaw, partialTicks, false);
+        renderManager.renderEntity(item, d6, d7, d8, item.rotationYaw, partialTicks, false);
     }
 
     public void onUpdate()
     {
-        ++this.age;
+        ++age;
 
-        if (this.age == this.maxAge)
+        if (age == maxAge)
         {
-            this.setExpired();
+            setExpired();
         }
     }
 

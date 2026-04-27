@@ -54,10 +54,10 @@ public abstract class EntityAITarget extends EntityAIBase
 
     public EntityAITarget(EntityCreature creature, boolean checkSight, boolean onlyNearby)
     {
-        this.unseenMemoryTicks = 60;
-        this.taskOwner = creature;
-        this.shouldCheckSight = checkSight;
-        this.nearbyOnly = onlyNearby;
+        unseenMemoryTicks = 60;
+        taskOwner = creature;
+        shouldCheckSight = checkSight;
+        nearbyOnly = onlyNearby;
     }
 
     /**
@@ -65,11 +65,11 @@ public abstract class EntityAITarget extends EntityAIBase
      */
     public boolean shouldContinueExecuting()
     {
-        EntityLivingBase entitylivingbase = this.taskOwner.getAttackTarget();
+        EntityLivingBase entitylivingbase = taskOwner.getAttackTarget();
 
         if (entitylivingbase == null)
         {
-            entitylivingbase = this.target;
+            entitylivingbase = target;
         }
 
         if (entitylivingbase == null)
@@ -82,7 +82,7 @@ public abstract class EntityAITarget extends EntityAIBase
         }
         else
         {
-            Team team = this.taskOwner.getTeam();
+            Team team = taskOwner.getTeam();
             Team team1 = entitylivingbase.getTeam();
 
             if (team != null && team1 == team)
@@ -91,21 +91,21 @@ public abstract class EntityAITarget extends EntityAIBase
             }
             else
             {
-                double d0 = this.getTargetDistance();
+                double d0 = getTargetDistance();
 
-                if (this.taskOwner.getDistanceSq(entitylivingbase) > d0 * d0)
+                if (taskOwner.getDistanceSq(entitylivingbase) > d0 * d0)
                 {
                     return false;
                 }
                 else
                 {
-                    if (this.shouldCheckSight)
+                    if (shouldCheckSight)
                     {
-                        if (this.taskOwner.getEntitySenses().canSee(entitylivingbase))
+                        if (taskOwner.getEntitySenses().canSee(entitylivingbase))
                         {
-                            this.targetUnseenTicks = 0;
+                            targetUnseenTicks = 0;
                         }
-                        else if (++this.targetUnseenTicks > this.unseenMemoryTicks)
+                        else if (++targetUnseenTicks > unseenMemoryTicks)
                         {
                             return false;
                         }
@@ -117,7 +117,7 @@ public abstract class EntityAITarget extends EntityAIBase
                     }
                     else
                     {
-                        this.taskOwner.setAttackTarget(entitylivingbase);
+                        taskOwner.setAttackTarget(entitylivingbase);
                         return true;
                     }
                 }
@@ -127,7 +127,7 @@ public abstract class EntityAITarget extends EntityAIBase
 
     protected double getTargetDistance()
     {
-        IAttributeInstance iattributeinstance = this.taskOwner.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE);
+        IAttributeInstance iattributeinstance = taskOwner.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE);
         return iattributeinstance == null ? 16.0D : iattributeinstance.getAttributeValue();
     }
 
@@ -136,9 +136,9 @@ public abstract class EntityAITarget extends EntityAIBase
      */
     public void startExecuting()
     {
-        this.targetSearchStatus = 0;
-        this.targetSearchDelay = 0;
-        this.targetUnseenTicks = 0;
+        targetSearchStatus = 0;
+        targetSearchDelay = 0;
+        targetUnseenTicks = 0;
     }
 
     /**
@@ -146,8 +146,8 @@ public abstract class EntityAITarget extends EntityAIBase
      */
     public void resetTask()
     {
-        this.taskOwner.setAttackTarget((EntityLivingBase)null);
-        this.target = null;
+        taskOwner.setAttackTarget((EntityLivingBase)null);
+        target = null;
     }
 
     /**
@@ -204,29 +204,29 @@ public abstract class EntityAITarget extends EntityAIBase
      */
     protected boolean isSuitableTarget(@Nullable EntityLivingBase target, boolean includeInvincibles)
     {
-        if (!isSuitableTarget(this.taskOwner, target, includeInvincibles, this.shouldCheckSight))
+        if (!isSuitableTarget(taskOwner, target, includeInvincibles, shouldCheckSight))
         {
             return false;
         }
-        else if (!this.taskOwner.isWithinHomeDistanceFromPosition(new BlockPos(target)))
+        else if (!taskOwner.isWithinHomeDistanceFromPosition(new BlockPos(target)))
         {
             return false;
         }
         else
         {
-            if (this.nearbyOnly)
+            if (nearbyOnly)
             {
-                if (--this.targetSearchDelay <= 0)
+                if (--targetSearchDelay <= 0)
                 {
-                    this.targetSearchStatus = 0;
+                    targetSearchStatus = 0;
                 }
 
-                if (this.targetSearchStatus == 0)
+                if (targetSearchStatus == 0)
                 {
-                    this.targetSearchStatus = this.canEasilyReach(target) ? 1 : 2;
+                    targetSearchStatus = canEasilyReach(target) ? 1 : 2;
                 }
 
-                if (this.targetSearchStatus == 2)
+                if (targetSearchStatus == 2)
                 {
                     return false;
                 }
@@ -241,8 +241,8 @@ public abstract class EntityAITarget extends EntityAIBase
      */
     private boolean canEasilyReach(EntityLivingBase target)
     {
-        this.targetSearchDelay = 10 + this.taskOwner.getRNG().nextInt(5);
-        Path path = this.taskOwner.getNavigator().getPathToEntityLiving(target);
+        targetSearchDelay = 10 + taskOwner.getRNG().nextInt(5);
+        Path path = taskOwner.getNavigator().getPathToEntityLiving(target);
 
         if (path == null)
         {
@@ -267,7 +267,7 @@ public abstract class EntityAITarget extends EntityAIBase
 
     public EntityAITarget setUnseenMemoryTicks(int p_190882_1_)
     {
-        this.unseenMemoryTicks = p_190882_1_;
+        unseenMemoryTicks = p_190882_1_;
         return this;
     }
 }

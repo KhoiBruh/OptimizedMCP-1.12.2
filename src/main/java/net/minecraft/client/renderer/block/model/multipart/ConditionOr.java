@@ -14,12 +14,12 @@ public class ConditionOr implements ICondition
 
     public ConditionOr(Iterable<ICondition> conditionsIn)
     {
-        this.conditions = conditionsIn;
+        conditions = conditionsIn;
     }
 
     public Predicate<IBlockState> getPredicate(final BlockStateContainer blockState)
     {
-        return Predicates.or(Iterables.transform(this.conditions, new Function<ICondition, Predicate<IBlockState>>()
+        return Predicates.or(Iterables.transform(conditions, new Function<ICondition, Predicate<IBlockState>>()
         {
             @Nullable
             public Predicate<IBlockState> apply(@Nullable ICondition p_apply_1_)

@@ -29,9 +29,9 @@ public class Rotations
     public NBTTagList writeToNBT()
     {
         NBTTagList nbttaglist = new NBTTagList();
-        nbttaglist.appendTag(new NBTTagFloat(this.x));
-        nbttaglist.appendTag(new NBTTagFloat(this.y));
-        nbttaglist.appendTag(new NBTTagFloat(this.z));
+        nbttaglist.appendTag(new NBTTagFloat(x));
+        nbttaglist.appendTag(new NBTTagFloat(y));
+        nbttaglist.appendTag(new NBTTagFloat(z));
         return nbttaglist;
     }
 
@@ -44,7 +44,7 @@ public class Rotations
         else
         {
             Rotations rotations = (Rotations)p_equals_1_;
-            return this.x == rotations.x && this.y == rotations.y && this.z == rotations.z;
+            return x == rotations.x && y == rotations.y && z == rotations.z;
         }
     }
 
@@ -53,7 +53,7 @@ public class Rotations
      */
     public float getX()
     {
-        return this.x;
+        return x;
     }
 
     /**
@@ -61,7 +61,7 @@ public class Rotations
      */
     public float getY()
     {
-        return this.y;
+        return y;
     }
 
     /**
@@ -69,6 +69,6 @@ public class Rotations
      */
     public float getZ()
     {
-        return this.z;
+        return z;
     }
 }

@@ -31,16 +31,16 @@ public class ItemBucket extends Item
 
     public ItemBucket(Block containedBlockIn)
     {
-        this.maxStackSize = 1;
-        this.containedBlock = containedBlockIn;
-        this.setCreativeTab(CreativeTabs.MISC);
+        maxStackSize = 1;
+        containedBlock = containedBlockIn;
+        setCreativeTab(CreativeTabs.MISC);
     }
 
     public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn)
     {
-        boolean flag = this.containedBlock == Blocks.AIR;
+        boolean flag = containedBlock == Blocks.AIR;
         ItemStack itemstack = playerIn.getHeldItem(handIn);
-        RayTraceResult raytraceresult = this.rayTrace(worldIn, playerIn, flag);
+        RayTraceResult raytraceresult = rayTrace(worldIn, playerIn, flag);
 
         if (raytraceresult == null)
         {
@@ -74,14 +74,14 @@ public class ItemBucket extends Item
                         worldIn.setBlockState(blockpos, Blocks.AIR.getDefaultState(), 11);
                         playerIn.addStat(StatList.getObjectUseStats(this));
                         playerIn.playSound(SoundEvents.ITEM_BUCKET_FILL, 1.0F, 1.0F);
-                        return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, this.fillBucket(itemstack, playerIn, Items.WATER_BUCKET));
+                        return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, fillBucket(itemstack, playerIn, Items.WATER_BUCKET));
                     }
                     else if (material == Material.LAVA && ((Integer)iblockstate.getValue(BlockLiquid.LEVEL)).intValue() == 0)
                     {
                         playerIn.playSound(SoundEvents.ITEM_BUCKET_FILL_LAVA, 1.0F, 1.0F);
                         worldIn.setBlockState(blockpos, Blocks.AIR.getDefaultState(), 11);
                         playerIn.addStat(StatList.getObjectUseStats(this));
-                        return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, this.fillBucket(itemstack, playerIn, Items.LAVA_BUCKET));
+                        return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, fillBucket(itemstack, playerIn, Items.LAVA_BUCKET));
                     }
                     else
                     {
@@ -98,7 +98,7 @@ public class ItemBucket extends Item
                 {
                     return new ActionResult<ItemStack>(EnumActionResult.FAIL, itemstack);
                 }
-                else if (this.tryPlaceContainedLiquid(playerIn, worldIn, blockpos1))
+                else if (tryPlaceContainedLiquid(playerIn, worldIn, blockpos1))
                 {
                     if (playerIn instanceof EntityPlayerMP)
                     {
@@ -144,7 +144,7 @@ public class ItemBucket extends Item
 
     public boolean tryPlaceContainedLiquid(@Nullable EntityPlayer player, World worldIn, BlockPos posIn)
     {
-        if (this.containedBlock == Blocks.AIR)
+        if (containedBlock == Blocks.AIR)
         {
             return false;
         }
@@ -161,7 +161,7 @@ public class ItemBucket extends Item
             }
             else
             {
-                if (worldIn.provider.doesWaterVaporize() && this.containedBlock == Blocks.FLOWING_WATER)
+                if (worldIn.provider.doesWaterVaporize() && containedBlock == Blocks.FLOWING_WATER)
                 {
                     int l = posIn.getX();
                     int i = posIn.getY();
@@ -180,9 +180,9 @@ public class ItemBucket extends Item
                         worldIn.destroyBlock(posIn, true);
                     }
 
-                    SoundEvent soundevent = this.containedBlock == Blocks.FLOWING_LAVA ? SoundEvents.ITEM_BUCKET_EMPTY_LAVA : SoundEvents.ITEM_BUCKET_EMPTY;
+                    SoundEvent soundevent = containedBlock == Blocks.FLOWING_LAVA ? SoundEvents.ITEM_BUCKET_EMPTY_LAVA : SoundEvents.ITEM_BUCKET_EMPTY;
                     worldIn.playSound(player, posIn, soundevent, SoundCategory.BLOCKS, 1.0F, 1.0F);
-                    worldIn.setBlockState(posIn, this.containedBlock.getDefaultState(), 11);
+                    worldIn.setBlockState(posIn, containedBlock.getDefaultState(), 11);
                 }
 
                 return true;

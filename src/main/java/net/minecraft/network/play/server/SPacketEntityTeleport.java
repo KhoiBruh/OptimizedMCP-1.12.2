@@ -22,13 +22,13 @@ public class SPacketEntityTeleport implements Packet<INetHandlerPlayClient>
 
     public SPacketEntityTeleport(Entity entityIn)
     {
-        this.entityId = entityIn.getEntityId();
-        this.posX = entityIn.posX;
-        this.posY = entityIn.posY;
-        this.posZ = entityIn.posZ;
-        this.yaw = (byte)((int)(entityIn.rotationYaw * 256.0F / 360.0F));
-        this.pitch = (byte)((int)(entityIn.rotationPitch * 256.0F / 360.0F));
-        this.onGround = entityIn.onGround;
+        entityId = entityIn.getEntityId();
+        posX = entityIn.posX;
+        posY = entityIn.posY;
+        posZ = entityIn.posZ;
+        yaw = (byte)((int)(entityIn.rotationYaw * 256.0F / 360.0F));
+        pitch = (byte)((int)(entityIn.rotationPitch * 256.0F / 360.0F));
+        onGround = entityIn.onGround;
     }
 
     /**
@@ -36,13 +36,13 @@ public class SPacketEntityTeleport implements Packet<INetHandlerPlayClient>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.entityId = buf.readVarInt();
-        this.posX = buf.readDouble();
-        this.posY = buf.readDouble();
-        this.posZ = buf.readDouble();
-        this.yaw = buf.readByte();
-        this.pitch = buf.readByte();
-        this.onGround = buf.readBoolean();
+        entityId = buf.readVarInt();
+        posX = buf.readDouble();
+        posY = buf.readDouble();
+        posZ = buf.readDouble();
+        yaw = buf.readByte();
+        pitch = buf.readByte();
+        onGround = buf.readBoolean();
     }
 
     /**
@@ -50,13 +50,13 @@ public class SPacketEntityTeleport implements Packet<INetHandlerPlayClient>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeVarInt(this.entityId);
-        buf.writeDouble(this.posX);
-        buf.writeDouble(this.posY);
-        buf.writeDouble(this.posZ);
-        buf.writeByte(this.yaw);
-        buf.writeByte(this.pitch);
-        buf.writeBoolean(this.onGround);
+        buf.writeVarInt(entityId);
+        buf.writeDouble(posX);
+        buf.writeDouble(posY);
+        buf.writeDouble(posZ);
+        buf.writeByte(yaw);
+        buf.writeByte(pitch);
+        buf.writeBoolean(onGround);
     }
 
     /**
@@ -69,36 +69,36 @@ public class SPacketEntityTeleport implements Packet<INetHandlerPlayClient>
 
     public int getEntityId()
     {
-        return this.entityId;
+        return entityId;
     }
 
     public double getX()
     {
-        return this.posX;
+        return posX;
     }
 
     public double getY()
     {
-        return this.posY;
+        return posY;
     }
 
     public double getZ()
     {
-        return this.posZ;
+        return posZ;
     }
 
     public byte getYaw()
     {
-        return this.yaw;
+        return yaw;
     }
 
     public byte getPitch()
     {
-        return this.pitch;
+        return pitch;
     }
 
     public boolean getOnGround()
     {
-        return this.onGround;
+        return onGround;
     }
 }

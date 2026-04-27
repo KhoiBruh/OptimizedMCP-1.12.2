@@ -41,36 +41,36 @@ public enum EnumDyeColor implements IStringSerializable
 
     private EnumDyeColor(int metaIn, int dyeDamageIn, String nameIn, String unlocalizedNameIn, int colorValueIn, TextFormatting chatColorIn)
     {
-        this.meta = metaIn;
-        this.dyeDamage = dyeDamageIn;
-        this.name = nameIn;
-        this.unlocalizedName = unlocalizedNameIn;
-        this.colorValue = colorValueIn;
-        this.chatColor = chatColorIn;
+        meta = metaIn;
+        dyeDamage = dyeDamageIn;
+        name = nameIn;
+        unlocalizedName = unlocalizedNameIn;
+        colorValue = colorValueIn;
+        chatColor = chatColorIn;
         int i = (colorValueIn & 16711680) >> 16;
         int j = (colorValueIn & 65280) >> 8;
         int k = (colorValueIn & 255) >> 0;
-        this.colorComponentValues = new float[] {(float)i / 255.0F, (float)j / 255.0F, (float)k / 255.0F};
+        colorComponentValues = new float[] {(float)i / 255.0F, (float)j / 255.0F, (float)k / 255.0F};
     }
 
     public int getMetadata()
     {
-        return this.meta;
+        return meta;
     }
 
     public int getDyeDamage()
     {
-        return this.dyeDamage;
+        return dyeDamage;
     }
 
     public String getDyeColorName()
     {
-        return this.name;
+        return name;
     }
 
     public String getUnlocalizedName()
     {
-        return this.unlocalizedName;
+        return unlocalizedName;
     }
 
     /**
@@ -78,7 +78,7 @@ public enum EnumDyeColor implements IStringSerializable
      */
     public int getColorValue()
     {
-        return this.colorValue;
+        return colorValue;
     }
 
     /**
@@ -87,7 +87,7 @@ public enum EnumDyeColor implements IStringSerializable
      */
     public float[] getColorComponentValues()
     {
-        return this.colorComponentValues;
+        return colorComponentValues;
     }
 
     public static EnumDyeColor byDyeDamage(int damage)
@@ -112,12 +112,12 @@ public enum EnumDyeColor implements IStringSerializable
 
     public String toString()
     {
-        return this.unlocalizedName;
+        return unlocalizedName;
     }
 
     public String getName()
     {
-        return this.name;
+        return name;
     }
 
     static {

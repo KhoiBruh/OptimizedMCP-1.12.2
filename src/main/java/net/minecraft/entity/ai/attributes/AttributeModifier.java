@@ -24,33 +24,33 @@ public class AttributeModifier
 
     public AttributeModifier(UUID idIn, String nameIn, double amountIn, int operationIn)
     {
-        this.isSaved = true;
-        this.id = idIn;
-        this.name = nameIn;
-        this.amount = amountIn;
-        this.operation = operationIn;
+        isSaved = true;
+        id = idIn;
+        name = nameIn;
+        amount = amountIn;
+        operation = operationIn;
         Validate.notEmpty(nameIn, "Modifier name cannot be empty");
         Validate.inclusiveBetween(0L, 2L, (long)operationIn, "Invalid operation");
     }
 
     public UUID getID()
     {
-        return this.id;
+        return id;
     }
 
     public String getName()
     {
-        return this.name;
+        return name;
     }
 
     public int getOperation()
     {
-        return this.operation;
+        return operation;
     }
 
     public double getAmount()
     {
-        return this.amount;
+        return amount;
     }
 
     /**
@@ -58,7 +58,7 @@ public class AttributeModifier
      */
     public boolean isSaved()
     {
-        return this.isSaved;
+        return isSaved;
     }
 
     /**
@@ -66,7 +66,7 @@ public class AttributeModifier
      */
     public AttributeModifier setSaved(boolean saved)
     {
-        this.isSaved = saved;
+        isSaved = saved;
         return this;
     }
 
@@ -76,13 +76,13 @@ public class AttributeModifier
         {
             return true;
         }
-        else if (p_equals_1_ != null && this.getClass() == p_equals_1_.getClass())
+        else if (p_equals_1_ != null && getClass() == p_equals_1_.getClass())
         {
             AttributeModifier attributemodifier = (AttributeModifier)p_equals_1_;
 
-            if (this.id != null)
+            if (id != null)
             {
-                if (!this.id.equals(attributemodifier.id))
+                if (!id.equals(attributemodifier.id))
                 {
                     return false;
                 }
@@ -102,11 +102,11 @@ public class AttributeModifier
 
     public int hashCode()
     {
-        return this.id != null ? this.id.hashCode() : 0;
+        return id != null ? id.hashCode() : 0;
     }
 
     public String toString()
     {
-        return "AttributeModifier{amount=" + this.amount + ", operation=" + this.operation + ", name='" + this.name + '\'' + ", id=" + this.id + ", serialize=" + this.isSaved + '}';
+        return "AttributeModifier{amount=" + amount + ", operation=" + operation + ", name='" + name + '\'' + ", id=" + id + ", serialize=" + isSaved + '}';
     }
 }

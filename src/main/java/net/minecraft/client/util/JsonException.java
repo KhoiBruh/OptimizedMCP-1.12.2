@@ -13,31 +13,31 @@ public class JsonException extends IOException
 
     public JsonException(String messageIn)
     {
-        this.entries.add(new JsonException.Entry());
-        this.message = messageIn;
+        entries.add(new JsonException.Entry());
+        message = messageIn;
     }
 
     public JsonException(String messageIn, Throwable cause)
     {
         super(cause);
-        this.entries.add(new JsonException.Entry());
-        this.message = messageIn;
+        entries.add(new JsonException.Entry());
+        message = messageIn;
     }
 
     public void prependJsonKey(String key)
     {
-        ((JsonException.Entry)this.entries.get(0)).addJsonKey(key);
+        ((JsonException.Entry) entries.get(0)).addJsonKey(key);
     }
 
     public void setFilenameAndFlush(String filenameIn)
     {
-        (this.entries.get(0)).filename = filenameIn;
-        this.entries.add(0, new JsonException.Entry());
+        (entries.get(0)).filename = filenameIn;
+        entries.add(0, new JsonException.Entry());
     }
 
     public String getMessage()
     {
-        return "Invalid " + this.entries.get(this.entries.size() - 1) + ": " + this.message;
+        return "Invalid " + entries.get(entries.size() - 1) + ": " + message;
     }
 
     public static JsonException forException(Exception exception)
@@ -66,28 +66,28 @@ public class JsonException extends IOException
 
         private Entry()
         {
-            this.jsonKeys = Lists.<String>newArrayList();
+            jsonKeys = Lists.<String>newArrayList();
         }
 
         private void addJsonKey(String key)
         {
-            this.jsonKeys.add(0, key);
+            jsonKeys.add(0, key);
         }
 
         public String getJsonKeys()
         {
-            return StringUtils.join((Iterable)this.jsonKeys, "->");
+            return StringUtils.join((Iterable) jsonKeys, "->");
         }
 
         public String toString()
         {
-            if (this.filename != null)
+            if (filename != null)
             {
-                return this.jsonKeys.isEmpty() ? this.filename : this.filename + " " + this.getJsonKeys();
+                return jsonKeys.isEmpty() ? filename : filename + " " + getJsonKeys();
             }
             else
             {
-                return this.jsonKeys.isEmpty() ? "(Unknown file)" : "(Unknown file) " + this.getJsonKeys();
+                return jsonKeys.isEmpty() ? "(Unknown file)" : "(Unknown file) " + getJsonKeys();
             }
         }
     }

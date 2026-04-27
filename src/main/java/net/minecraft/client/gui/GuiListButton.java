@@ -16,10 +16,10 @@ public class GuiListButton extends GuiButton
     public GuiListButton(GuiPageButtonList.GuiResponder responder, int buttonId, int x, int y, String localizationStrIn, boolean valueIn)
     {
         super(buttonId, x, y, 150, 20, "");
-        this.localizationStr = localizationStrIn;
-        this.value = valueIn;
-        this.displayString = this.buildDisplayString();
-        this.guiResponder = responder;
+        localizationStr = localizationStrIn;
+        value = valueIn;
+        displayString = buildDisplayString();
+        guiResponder = responder;
     }
 
     /**
@@ -27,14 +27,14 @@ public class GuiListButton extends GuiButton
      */
     private String buildDisplayString()
     {
-        return I18n.format(this.localizationStr) + ": " + I18n.format(this.value ? "gui.yes" : "gui.no");
+        return I18n.format(localizationStr) + ": " + I18n.format(value ? "gui.yes" : "gui.no");
     }
 
     public void setValue(boolean valueIn)
     {
-        this.value = valueIn;
-        this.displayString = this.buildDisplayString();
-        this.guiResponder.setEntryValue(this.id, valueIn);
+        value = valueIn;
+        displayString = buildDisplayString();
+        guiResponder.setEntryValue(id, valueIn);
     }
 
     /**
@@ -45,9 +45,9 @@ public class GuiListButton extends GuiButton
     {
         if (super.mousePressed(mc, mouseX, mouseY))
         {
-            this.value = !this.value;
-            this.displayString = this.buildDisplayString();
-            this.guiResponder.setEntryValue(this.id, this.value);
+            value = !value;
+            displayString = buildDisplayString();
+            guiResponder.setEntryValue(id, value);
             return true;
         }
         else

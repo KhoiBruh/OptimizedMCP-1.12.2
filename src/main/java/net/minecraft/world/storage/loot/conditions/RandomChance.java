@@ -14,12 +14,12 @@ public class RandomChance implements LootCondition
 
     public RandomChance(float chanceIn)
     {
-        this.chance = chanceIn;
+        chance = chanceIn;
     }
 
     public boolean testCondition(Random rand, LootContext context)
     {
-        return rand.nextFloat() < this.chance;
+        return rand.nextFloat() < chance;
     }
 
     public static class Serializer extends LootCondition.Serializer<RandomChance>

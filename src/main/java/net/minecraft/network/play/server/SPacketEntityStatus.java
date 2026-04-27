@@ -18,8 +18,8 @@ public class SPacketEntityStatus implements Packet<INetHandlerPlayClient>
 
     public SPacketEntityStatus(Entity entityIn, byte opcodeIn)
     {
-        this.entityId = entityIn.getEntityId();
-        this.logicOpcode = opcodeIn;
+        entityId = entityIn.getEntityId();
+        logicOpcode = opcodeIn;
     }
 
     /**
@@ -27,8 +27,8 @@ public class SPacketEntityStatus implements Packet<INetHandlerPlayClient>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.entityId = buf.readInt();
-        this.logicOpcode = buf.readByte();
+        entityId = buf.readInt();
+        logicOpcode = buf.readByte();
     }
 
     /**
@@ -36,8 +36,8 @@ public class SPacketEntityStatus implements Packet<INetHandlerPlayClient>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeInt(this.entityId);
-        buf.writeByte(this.logicOpcode);
+        buf.writeInt(entityId);
+        buf.writeByte(logicOpcode);
     }
 
     /**
@@ -50,11 +50,11 @@ public class SPacketEntityStatus implements Packet<INetHandlerPlayClient>
 
     public Entity getEntity(World worldIn)
     {
-        return worldIn.getEntityByID(this.entityId);
+        return worldIn.getEntityByID(entityId);
     }
 
     public byte getOpCode()
     {
-        return this.logicOpcode;
+        return logicOpcode;
     }
 }

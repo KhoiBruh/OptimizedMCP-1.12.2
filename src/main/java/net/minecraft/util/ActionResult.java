@@ -7,17 +7,17 @@ public class ActionResult<T>
 
     public ActionResult(EnumActionResult typeIn, T resultIn)
     {
-        this.type = typeIn;
-        this.result = resultIn;
+        type = typeIn;
+        result = resultIn;
     }
 
     public EnumActionResult getType()
     {
-        return this.type;
+        return type;
     }
 
     public T getResult()
     {
-        return this.result;
+        return result;
     }
 }

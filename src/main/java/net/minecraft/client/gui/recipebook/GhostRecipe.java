@@ -22,50 +22,50 @@ public class GhostRecipe
 
     public void clear()
     {
-        this.recipe = null;
-        this.ingredients.clear();
-        this.time = 0.0F;
+        recipe = null;
+        ingredients.clear();
+        time = 0.0F;
     }
 
     public void addIngredient(Ingredient p_194187_1_, int p_194187_2_, int p_194187_3_)
     {
-        this.ingredients.add(new GhostRecipe.GhostIngredient(p_194187_1_, p_194187_2_, p_194187_3_));
+        ingredients.add(new GhostRecipe.GhostIngredient(p_194187_1_, p_194187_2_, p_194187_3_));
     }
 
     public GhostRecipe.GhostIngredient get(int p_192681_1_)
     {
-        return this.ingredients.get(p_192681_1_);
+        return ingredients.get(p_192681_1_);
     }
 
     public int size()
     {
-        return this.ingredients.size();
+        return ingredients.size();
     }
 
     @Nullable
     public IRecipe getRecipe()
     {
-        return this.recipe;
+        return recipe;
     }
 
     public void setRecipe(IRecipe p_192685_1_)
     {
-        this.recipe = p_192685_1_;
+        recipe = p_192685_1_;
     }
 
     public void render(Minecraft p_194188_1_, int p_194188_2_, int p_194188_3_, boolean p_194188_4_, float p_194188_5_)
     {
         if (!GuiScreen.isCtrlKeyDown())
         {
-            this.time += p_194188_5_;
+            time += p_194188_5_;
         }
 
         RenderHelper.enableGUIStandardItemLighting();
         GlStateManager.disableLighting();
 
-        for (int i = 0; i < this.ingredients.size(); ++i)
+        for (int i = 0; i < ingredients.size(); ++i)
         {
-            GhostRecipe.GhostIngredient ghostrecipe$ghostingredient = this.ingredients.get(i);
+            GhostRecipe.GhostIngredient ghostrecipe$ghostingredient = ingredients.get(i);
             int j = ghostrecipe$ghostingredient.getX() + p_194188_2_;
             int k = ghostrecipe$ghostingredient.getY() + p_194188_3_;
 
@@ -105,25 +105,25 @@ public class GhostRecipe
 
         public GhostIngredient(Ingredient p_i47604_2_, int p_i47604_3_, int p_i47604_4_)
         {
-            this.ingredient = p_i47604_2_;
-            this.x = p_i47604_3_;
-            this.y = p_i47604_4_;
+            ingredient = p_i47604_2_;
+            x = p_i47604_3_;
+            y = p_i47604_4_;
         }
 
         public int getX()
         {
-            return this.x;
+            return x;
         }
 
         public int getY()
         {
-            return this.y;
+            return y;
         }
 
         public ItemStack getItem()
         {
-            ItemStack[] aitemstack = this.ingredient.getMatchingStacks();
-            return aitemstack[MathHelper.floor(GhostRecipe.this.time / 30.0F) % aitemstack.length];
+            ItemStack[] aitemstack = ingredient.getMatchingStacks();
+            return aitemstack[MathHelper.floor(time / 30.0F) % aitemstack.length];
         }
     }
 }

@@ -16,9 +16,9 @@ public class ContainerBeacon extends Container
 
     public ContainerBeacon(IInventory playerInventory, IInventory tileBeaconIn)
     {
-        this.tileBeacon = tileBeaconIn;
-        this.beaconSlot = new ContainerBeacon.BeaconSlot(tileBeaconIn, 0, 136, 110);
-        this.addSlotToContainer(this.beaconSlot);
+        tileBeacon = tileBeaconIn;
+        beaconSlot = new ContainerBeacon.BeaconSlot(tileBeaconIn, 0, 136, 110);
+        addSlotToContainer(beaconSlot);
         int i = 36;
         int j = 137;
 
@@ -26,30 +26,30 @@ public class ContainerBeacon extends Container
         {
             for (int l = 0; l < 9; ++l)
             {
-                this.addSlotToContainer(new Slot(playerInventory, l + k * 9 + 9, 36 + l * 18, 137 + k * 18));
+                addSlotToContainer(new Slot(playerInventory, l + k * 9 + 9, 36 + l * 18, 137 + k * 18));
             }
         }
 
         for (int i1 = 0; i1 < 9; ++i1)
         {
-            this.addSlotToContainer(new Slot(playerInventory, i1, 36 + i1 * 18, 195));
+            addSlotToContainer(new Slot(playerInventory, i1, 36 + i1 * 18, 195));
         }
     }
 
     public void addListener(IContainerListener listener)
     {
         super.addListener(listener);
-        listener.sendAllWindowProperties(this, this.tileBeacon);
+        listener.sendAllWindowProperties(this, tileBeacon);
     }
 
     public void updateProgressBar(int id, int data)
     {
-        this.tileBeacon.setField(id, data);
+        tileBeacon.setField(id, data);
     }
 
     public IInventory getTileEntity()
     {
-        return this.tileBeacon;
+        return tileBeacon;
     }
 
     /**
@@ -61,7 +61,7 @@ public class ContainerBeacon extends Container
 
         if (!playerIn.world.isRemote)
         {
-            ItemStack itemstack = this.beaconSlot.decrStackSize(this.beaconSlot.getSlotStackLimit());
+            ItemStack itemstack = beaconSlot.decrStackSize(beaconSlot.getSlotStackLimit());
 
             if (!itemstack.isEmpty())
             {
@@ -75,7 +75,7 @@ public class ContainerBeacon extends Container
      */
     public boolean canInteractWith(EntityPlayer playerIn)
     {
-        return this.tileBeacon.isUsableByPlayer(playerIn);
+        return tileBeacon.isUsableByPlayer(playerIn);
     }
 
     /**
@@ -85,7 +85,7 @@ public class ContainerBeacon extends Container
     public ItemStack transferStackInSlot(EntityPlayer playerIn, int index)
     {
         ItemStack itemstack = ItemStack.EMPTY;
-        Slot slot = this.inventorySlots.get(index);
+        Slot slot = inventorySlots.get(index);
 
         if (slot != null && slot.getHasStack())
         {
@@ -94,35 +94,35 @@ public class ContainerBeacon extends Container
 
             if (index == 0)
             {
-                if (!this.mergeItemStack(itemstack1, 1, 37, true))
+                if (!mergeItemStack(itemstack1, 1, 37, true))
                 {
                     return ItemStack.EMPTY;
                 }
 
                 slot.onSlotChange(itemstack1, itemstack);
             }
-            else if (!this.beaconSlot.getHasStack() && this.beaconSlot.isItemValid(itemstack1) && itemstack1.getCount() == 1)
+            else if (!beaconSlot.getHasStack() && beaconSlot.isItemValid(itemstack1) && itemstack1.getCount() == 1)
             {
-                if (!this.mergeItemStack(itemstack1, 0, 1, false))
+                if (!mergeItemStack(itemstack1, 0, 1, false))
                 {
                     return ItemStack.EMPTY;
                 }
             }
             else if (index >= 1 && index < 28)
             {
-                if (!this.mergeItemStack(itemstack1, 28, 37, false))
+                if (!mergeItemStack(itemstack1, 28, 37, false))
                 {
                     return ItemStack.EMPTY;
                 }
             }
             else if (index >= 28 && index < 37)
             {
-                if (!this.mergeItemStack(itemstack1, 1, 28, false))
+                if (!mergeItemStack(itemstack1, 1, 28, false))
                 {
                     return ItemStack.EMPTY;
                 }
             }
-            else if (!this.mergeItemStack(itemstack1, 1, 37, false))
+            else if (!mergeItemStack(itemstack1, 1, 37, false))
             {
                 return ItemStack.EMPTY;
             }

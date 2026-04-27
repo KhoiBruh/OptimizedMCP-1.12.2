@@ -13,16 +13,16 @@ public class LayerLlamaDecor implements LayerRenderer<EntityLlama>
 
     public LayerLlamaDecor(RenderLlama p_i47184_1_)
     {
-        this.renderer = p_i47184_1_;
+        renderer = p_i47184_1_;
     }
 
     public void doRenderLayer(EntityLlama entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale)
     {
         if (entitylivingbaseIn.hasColor())
         {
-            this.renderer.bindTexture(LLAMA_DECOR_TEXTURES[entitylivingbaseIn.getColor().getMetadata()]);
-            this.model.setModelAttributes(this.renderer.getMainModel());
-            this.model.render(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+            renderer.bindTexture(LLAMA_DECOR_TEXTURES[entitylivingbaseIn.getColor().getMetadata()]);
+            model.setModelAttributes(renderer.getMainModel());
+            model.render(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
         }
     }
 

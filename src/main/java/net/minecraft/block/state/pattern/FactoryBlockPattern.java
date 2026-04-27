@@ -23,7 +23,7 @@ public class FactoryBlockPattern
 
     private FactoryBlockPattern()
     {
-        this.symbolMap.put(' ', Predicates.alwaysTrue());
+        symbolMap.put(' ', Predicates.alwaysTrue());
     }
 
     /**
@@ -34,35 +34,35 @@ public class FactoryBlockPattern
     {
         if (!ArrayUtils.isEmpty((Object[])aisle) && !StringUtils.isEmpty(aisle[0]))
         {
-            if (this.depth.isEmpty())
+            if (depth.isEmpty())
             {
-                this.aisleHeight = aisle.length;
-                this.rowWidth = aisle[0].length();
+                aisleHeight = aisle.length;
+                rowWidth = aisle[0].length();
             }
 
-            if (aisle.length != this.aisleHeight)
+            if (aisle.length != aisleHeight)
             {
-                throw new IllegalArgumentException("Expected aisle with height of " + this.aisleHeight + ", but was given one with a height of " + aisle.length + ")");
+                throw new IllegalArgumentException("Expected aisle with height of " + aisleHeight + ", but was given one with a height of " + aisle.length + ")");
             }
             else
             {
                 for (String s : aisle)
                 {
-                    if (s.length() != this.rowWidth)
+                    if (s.length() != rowWidth)
                     {
-                        throw new IllegalArgumentException("Not all rows in the given aisle are the correct width (expected " + this.rowWidth + ", found one with " + s.length() + ")");
+                        throw new IllegalArgumentException("Not all rows in the given aisle are the correct width (expected " + rowWidth + ", found one with " + s.length() + ")");
                     }
 
                     for (char c0 : s.toCharArray())
                     {
-                        if (!this.symbolMap.containsKey(Character.valueOf(c0)))
+                        if (!symbolMap.containsKey(Character.valueOf(c0)))
                         {
-                            this.symbolMap.put(Character.valueOf(c0), null);
+                            symbolMap.put(Character.valueOf(c0), null);
                         }
                     }
                 }
 
-                this.depth.add(aisle);
+                depth.add(aisle);
                 return this;
             }
         }
@@ -79,27 +79,27 @@ public class FactoryBlockPattern
 
     public FactoryBlockPattern where(char symbol, Predicate<BlockWorldState> blockMatcher)
     {
-        this.symbolMap.put(Character.valueOf(symbol), blockMatcher);
+        symbolMap.put(Character.valueOf(symbol), blockMatcher);
         return this;
     }
 
     public BlockPattern build()
     {
-        return new BlockPattern(this.makePredicateArray());
+        return new BlockPattern(makePredicateArray());
     }
 
     private Predicate<BlockWorldState>[][][] makePredicateArray()
     {
-        this.checkMissingPredicates();
-        Predicate<BlockWorldState>[][][] predicate = (Predicate[][][])((Predicate[][][])Array.newInstance(Predicate.class, this.depth.size(), this.aisleHeight, this.rowWidth));
+        checkMissingPredicates();
+        Predicate<BlockWorldState>[][][] predicate = (Predicate[][][])((Predicate[][][])Array.newInstance(Predicate.class, depth.size(), aisleHeight, rowWidth));
 
-        for (int i = 0; i < this.depth.size(); ++i)
+        for (int i = 0; i < depth.size(); ++i)
         {
-            for (int j = 0; j < this.aisleHeight; ++j)
+            for (int j = 0; j < aisleHeight; ++j)
             {
-                for (int k = 0; k < this.rowWidth; ++k)
+                for (int k = 0; k < rowWidth; ++k)
                 {
-                    predicate[i][j][k] = this.symbolMap.get(Character.valueOf(((String[])this.depth.get(i))[j].charAt(k)));
+                    predicate[i][j][k] = symbolMap.get(Character.valueOf(((String[]) depth.get(i))[j].charAt(k)));
                 }
             }
         }
@@ -111,7 +111,7 @@ public class FactoryBlockPattern
     {
         List<Character> list = Lists.<Character>newArrayList();
 
-        for (Entry<Character, Predicate<BlockWorldState>> entry : this.symbolMap.entrySet())
+        for (Entry<Character, Predicate<BlockWorldState>> entry : symbolMap.entrySet())
         {
             if (entry.getValue() == null)
             {

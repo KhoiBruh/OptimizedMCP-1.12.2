@@ -14,46 +14,46 @@ public class SystemToast implements IToast
 
     public SystemToast(SystemToast.Type typeIn, ITextComponent titleComponent, @Nullable ITextComponent subtitleComponent)
     {
-        this.type = typeIn;
-        this.title = titleComponent.getUnformattedText();
-        this.subtitle = subtitleComponent == null ? null : subtitleComponent.getUnformattedText();
+        type = typeIn;
+        title = titleComponent.getUnformattedText();
+        subtitle = subtitleComponent == null ? null : subtitleComponent.getUnformattedText();
     }
 
     public IToast.Visibility draw(GuiToast toastGui, long delta)
     {
-        if (this.newDisplay)
+        if (newDisplay)
         {
-            this.firstDrawTime = delta;
-            this.newDisplay = false;
+            firstDrawTime = delta;
+            newDisplay = false;
         }
 
         toastGui.getMinecraft().getTextureManager().bindTexture(TEXTURE_TOASTS);
         GlStateManager.color(1.0F, 1.0F, 1.0F);
         toastGui.drawTexturedModalRect(0, 0, 0, 64, 160, 32);
 
-        if (this.subtitle == null)
+        if (subtitle == null)
         {
-            toastGui.getMinecraft().fontRenderer.drawString(this.title, 18, 12, -256);
+            toastGui.getMinecraft().fontRenderer.drawString(title, 18, 12, -256);
         }
         else
         {
-            toastGui.getMinecraft().fontRenderer.drawString(this.title, 18, 7, -256);
-            toastGui.getMinecraft().fontRenderer.drawString(this.subtitle, 18, 18, -1);
+            toastGui.getMinecraft().fontRenderer.drawString(title, 18, 7, -256);
+            toastGui.getMinecraft().fontRenderer.drawString(subtitle, 18, 18, -1);
         }
 
-        return delta - this.firstDrawTime < 5000L ? IToast.Visibility.SHOW : IToast.Visibility.HIDE;
+        return delta - firstDrawTime < 5000L ? IToast.Visibility.SHOW : IToast.Visibility.HIDE;
     }
 
     public void setDisplayedText(ITextComponent titleComponent, @Nullable ITextComponent subtitleComponent)
     {
-        this.title = titleComponent.getUnformattedText();
-        this.subtitle = subtitleComponent == null ? null : subtitleComponent.getUnformattedText();
-        this.newDisplay = true;
+        title = titleComponent.getUnformattedText();
+        subtitle = subtitleComponent == null ? null : subtitleComponent.getUnformattedText();
+        newDisplay = true;
     }
 
     public SystemToast.Type getType()
     {
-        return this.type;
+        return type;
     }
 
     public static void addOrUpdate(GuiToast p_193657_0_, SystemToast.Type p_193657_1_, ITextComponent p_193657_2_, @Nullable ITextComponent p_193657_3_)

@@ -16,7 +16,7 @@ public class ItemFireball extends Item
 {
     public ItemFireball()
     {
-        this.setCreativeTab(CreativeTabs.MISC);
+        setCreativeTab(CreativeTabs.MISC);
     }
 
     /**

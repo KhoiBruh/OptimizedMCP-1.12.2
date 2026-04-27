@@ -20,19 +20,19 @@ public class Multipart
 
     public Multipart(List<Selector> selectorsIn)
     {
-        this.selectors = selectorsIn;
+        selectors = selectorsIn;
     }
 
     public List<Selector> getSelectors()
     {
-        return this.selectors;
+        return selectors;
     }
 
     public Set<VariantList> getVariants()
     {
         Set<VariantList> set = Sets.<VariantList>newHashSet();
 
-        for (Selector selector : this.selectors)
+        for (Selector selector : selectors)
         {
             set.add(selector.getVariantList());
         }
@@ -42,12 +42,12 @@ public class Multipart
 
     public void setStateContainer(BlockStateContainer stateContainerIn)
     {
-        this.stateContainer = stateContainerIn;
+        stateContainer = stateContainerIn;
     }
 
     public BlockStateContainer getStateContainer()
     {
-        return this.stateContainer;
+        return stateContainer;
     }
 
     public boolean equals(Object p_equals_1_)
@@ -62,14 +62,14 @@ public class Multipart
             {
                 Multipart multipart = (Multipart)p_equals_1_;
 
-                if (this.selectors.equals(multipart.selectors))
+                if (selectors.equals(multipart.selectors))
                 {
-                    if (this.stateContainer == null)
+                    if (stateContainer == null)
                     {
                         return multipart.stateContainer == null;
                     }
 
-                    return this.stateContainer.equals(multipart.stateContainer);
+                    return stateContainer.equals(multipart.stateContainer);
                 }
             }
 
@@ -79,14 +79,14 @@ public class Multipart
 
     public int hashCode()
     {
-        return 31 * this.selectors.hashCode() + (this.stateContainer == null ? 0 : this.stateContainer.hashCode());
+        return 31 * selectors.hashCode() + (stateContainer == null ? 0 : stateContainer.hashCode());
     }
 
     public static class Deserializer implements JsonDeserializer<Multipart>
     {
         public Multipart deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException
         {
-            return new Multipart(this.getSelectors(p_deserialize_3_, p_deserialize_1_.getAsJsonArray()));
+            return new Multipart(getSelectors(p_deserialize_3_, p_deserialize_1_.getAsJsonArray()));
         }
 
         private List<Selector> getSelectors(JsonDeserializationContext context, JsonArray elements)

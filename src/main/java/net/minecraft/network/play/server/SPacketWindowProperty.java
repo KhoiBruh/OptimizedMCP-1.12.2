@@ -17,9 +17,9 @@ public class SPacketWindowProperty implements Packet<INetHandlerPlayClient>
 
     public SPacketWindowProperty(int windowIdIn, int propertyIn, int valueIn)
     {
-        this.windowId = windowIdIn;
-        this.property = propertyIn;
-        this.value = valueIn;
+        windowId = windowIdIn;
+        property = propertyIn;
+        value = valueIn;
     }
 
     /**
@@ -35,9 +35,9 @@ public class SPacketWindowProperty implements Packet<INetHandlerPlayClient>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.windowId = buf.readUnsignedByte();
-        this.property = buf.readShort();
-        this.value = buf.readShort();
+        windowId = buf.readUnsignedByte();
+        property = buf.readShort();
+        value = buf.readShort();
     }
 
     /**
@@ -45,23 +45,23 @@ public class SPacketWindowProperty implements Packet<INetHandlerPlayClient>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeByte(this.windowId);
-        buf.writeShort(this.property);
-        buf.writeShort(this.value);
+        buf.writeByte(windowId);
+        buf.writeShort(property);
+        buf.writeShort(value);
     }
 
     public int getWindowId()
     {
-        return this.windowId;
+        return windowId;
     }
 
     public int getProperty()
     {
-        return this.property;
+        return property;
     }
 
     public int getValue()
     {
-        return this.value;
+        return value;
     }
 }

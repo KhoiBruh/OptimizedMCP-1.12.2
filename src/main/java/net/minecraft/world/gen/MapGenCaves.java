@@ -19,7 +19,7 @@ public class MapGenCaves extends MapGenBase
 
     protected void addRoom(long p_180703_1_, int p_180703_3_, int p_180703_4_, ChunkPrimer p_180703_5_, double p_180703_6_, double p_180703_8_, double p_180703_10_)
     {
-        this.addTunnel(p_180703_1_, p_180703_3_, p_180703_4_, p_180703_5_, p_180703_6_, p_180703_8_, p_180703_10_, 1.0F + this.rand.nextFloat() * 6.0F, 0.0F, 0.0F, -1, -1, 0.5D);
+        addTunnel(p_180703_1_, p_180703_3_, p_180703_4_, p_180703_5_, p_180703_6_, p_180703_8_, p_180703_10_, 1.0F + rand.nextFloat() * 6.0F, 0.0F, 0.0F, -1, -1, 0.5D);
     }
 
     protected void addTunnel(long p_180702_1_, int p_180702_3_, int p_180702_4_, ChunkPrimer p_180702_5_, double p_180702_6_, double p_180702_8_, double p_180702_10_, float p_180702_12_, float p_180702_13_, float p_180702_14_, int p_180702_15_, int p_180702_16_, double p_180702_17_)
@@ -32,7 +32,7 @@ public class MapGenCaves extends MapGenBase
 
         if (p_180702_16_ <= 0)
         {
-            int i = this.range * 16 - 16;
+            int i = range * 16 - 16;
             p_180702_16_ = i - random.nextInt(i / 4);
         }
 
@@ -74,8 +74,8 @@ public class MapGenCaves extends MapGenBase
 
             if (!flag2 && p_180702_15_ == j && p_180702_12_ > 1.0F && p_180702_16_ > 0)
             {
-                this.addTunnel(random.nextLong(), p_180702_3_, p_180702_4_, p_180702_5_, p_180702_6_, p_180702_8_, p_180702_10_, random.nextFloat() * 0.5F + 0.5F, p_180702_13_ - ((float)Math.PI / 2F), p_180702_14_ / 3.0F, p_180702_15_, p_180702_16_, 1.0D);
-                this.addTunnel(random.nextLong(), p_180702_3_, p_180702_4_, p_180702_5_, p_180702_6_, p_180702_8_, p_180702_10_, random.nextFloat() * 0.5F + 0.5F, p_180702_13_ + ((float)Math.PI / 2F), p_180702_14_ / 3.0F, p_180702_15_, p_180702_16_, 1.0D);
+                addTunnel(random.nextLong(), p_180702_3_, p_180702_4_, p_180702_5_, p_180702_6_, p_180702_8_, p_180702_10_, random.nextFloat() * 0.5F + 0.5F, p_180702_13_ - ((float)Math.PI / 2F), p_180702_14_ / 3.0F, p_180702_15_, p_180702_16_, 1.0D);
+                addTunnel(random.nextLong(), p_180702_3_, p_180702_4_, p_180702_5_, p_180702_6_, p_180702_8_, p_180702_10_, random.nextFloat() * 0.5F + 0.5F, p_180702_13_ + ((float)Math.PI / 2F), p_180702_14_ / 3.0F, p_180702_15_, p_180702_16_, 1.0D);
                 return;
             }
 
@@ -185,7 +185,7 @@ public class MapGenCaves extends MapGenBase
                                                 flag1 = true;
                                             }
 
-                                            if (this.canReplaceBlock(iblockstate1, iblockstate2))
+                                            if (canReplaceBlock(iblockstate1, iblockstate2))
                                             {
                                                 if (j2 - 1 < 10)
                                                 {
@@ -198,7 +198,7 @@ public class MapGenCaves extends MapGenBase
                                                     if (flag1 && p_180702_5_.getBlockState(j3, j2 - 1, i2).getBlock() == Blocks.DIRT)
                                                     {
                                                         blockpos$mutableblockpos.setPos(j3 + p_180702_3_ * 16, 0, i2 + p_180702_4_ * 16);
-                                                        p_180702_5_.setBlockState(j3, j2 - 1, i2, this.world.getBiome(blockpos$mutableblockpos).topBlock.getBlock().getDefaultState());
+                                                        p_180702_5_.setBlockState(j3, j2 - 1, i2, world.getBiome(blockpos$mutableblockpos).topBlock.getBlock().getDefaultState());
                                                     }
                                                 }
                                             }
@@ -267,38 +267,38 @@ public class MapGenCaves extends MapGenBase
      */
     protected void recursiveGenerate(World worldIn, int chunkX, int chunkZ, int originalX, int originalZ, ChunkPrimer chunkPrimerIn)
     {
-        int i = this.rand.nextInt(this.rand.nextInt(this.rand.nextInt(15) + 1) + 1);
+        int i = rand.nextInt(rand.nextInt(rand.nextInt(15) + 1) + 1);
 
-        if (this.rand.nextInt(7) != 0)
+        if (rand.nextInt(7) != 0)
         {
             i = 0;
         }
 
         for (int j = 0; j < i; ++j)
         {
-            double d0 = (double)(chunkX * 16 + this.rand.nextInt(16));
-            double d1 = (double)this.rand.nextInt(this.rand.nextInt(120) + 8);
-            double d2 = (double)(chunkZ * 16 + this.rand.nextInt(16));
+            double d0 = (double)(chunkX * 16 + rand.nextInt(16));
+            double d1 = (double) rand.nextInt(rand.nextInt(120) + 8);
+            double d2 = (double)(chunkZ * 16 + rand.nextInt(16));
             int k = 1;
 
-            if (this.rand.nextInt(4) == 0)
+            if (rand.nextInt(4) == 0)
             {
-                this.addRoom(this.rand.nextLong(), originalX, originalZ, chunkPrimerIn, d0, d1, d2);
-                k += this.rand.nextInt(4);
+                addRoom(rand.nextLong(), originalX, originalZ, chunkPrimerIn, d0, d1, d2);
+                k += rand.nextInt(4);
             }
 
             for (int l = 0; l < k; ++l)
             {
-                float f = this.rand.nextFloat() * ((float)Math.PI * 2F);
-                float f1 = (this.rand.nextFloat() - 0.5F) * 2.0F / 8.0F;
-                float f2 = this.rand.nextFloat() * 2.0F + this.rand.nextFloat();
+                float f = rand.nextFloat() * ((float)Math.PI * 2F);
+                float f1 = (rand.nextFloat() - 0.5F) * 2.0F / 8.0F;
+                float f2 = rand.nextFloat() * 2.0F + rand.nextFloat();
 
-                if (this.rand.nextInt(10) == 0)
+                if (rand.nextInt(10) == 0)
                 {
-                    f2 *= this.rand.nextFloat() * this.rand.nextFloat() * 3.0F + 1.0F;
+                    f2 *= rand.nextFloat() * rand.nextFloat() * 3.0F + 1.0F;
                 }
 
-                this.addTunnel(this.rand.nextLong(), originalX, originalZ, chunkPrimerIn, d0, d1, d2, f2, f, f1, 0, 0, 1.0D);
+                addTunnel(rand.nextLong(), originalX, originalZ, chunkPrimerIn, d0, d1, d2, f2, f, f1, 0, 0, 1.0D);
             }
         }
     }

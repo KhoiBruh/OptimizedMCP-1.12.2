@@ -23,23 +23,23 @@ public class AnvilSaveHandler extends SaveHandler
      */
     public IChunkLoader getChunkLoader(WorldProvider provider)
     {
-        File file1 = this.getWorldDirectory();
+        File file1 = getWorldDirectory();
 
         if (provider instanceof WorldProviderHell)
         {
             File file3 = new File(file1, "DIM-1");
             file3.mkdirs();
-            return new AnvilChunkLoader(file3, this.dataFixer);
+            return new AnvilChunkLoader(file3, dataFixer);
         }
         else if (provider instanceof WorldProviderEnd)
         {
             File file2 = new File(file1, "DIM1");
             file2.mkdirs();
-            return new AnvilChunkLoader(file2, this.dataFixer);
+            return new AnvilChunkLoader(file2, dataFixer);
         }
         else
         {
-            return new AnvilChunkLoader(file1, this.dataFixer);
+            return new AnvilChunkLoader(file1, dataFixer);
         }
     }
 

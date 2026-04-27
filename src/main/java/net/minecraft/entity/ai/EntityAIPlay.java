@@ -14,9 +14,9 @@ public class EntityAIPlay extends EntityAIBase
 
     public EntityAIPlay(EntityVillager villagerIn, double speedIn)
     {
-        this.villager = villagerIn;
-        this.speed = speedIn;
-        this.setMutexBits(1);
+        villager = villagerIn;
+        speed = speedIn;
+        setMutexBits(1);
     }
 
     /**
@@ -24,36 +24,36 @@ public class EntityAIPlay extends EntityAIBase
      */
     public boolean shouldExecute()
     {
-        if (this.villager.getGrowingAge() >= 0)
+        if (villager.getGrowingAge() >= 0)
         {
             return false;
         }
-        else if (this.villager.getRNG().nextInt(400) != 0)
+        else if (villager.getRNG().nextInt(400) != 0)
         {
             return false;
         }
         else
         {
-            List<EntityVillager> list = this.villager.world.<EntityVillager>getEntitiesWithinAABB(EntityVillager.class, this.villager.getEntityBoundingBox().grow(6.0D, 3.0D, 6.0D));
+            List<EntityVillager> list = villager.world.<EntityVillager>getEntitiesWithinAABB(EntityVillager.class, villager.getEntityBoundingBox().grow(6.0D, 3.0D, 6.0D));
             double d0 = Double.MAX_VALUE;
 
             for (EntityVillager entityvillager : list)
             {
-                if (entityvillager != this.villager && !entityvillager.isPlaying() && entityvillager.getGrowingAge() < 0)
+                if (entityvillager != villager && !entityvillager.isPlaying() && entityvillager.getGrowingAge() < 0)
                 {
-                    double d1 = entityvillager.getDistanceSq(this.villager);
+                    double d1 = entityvillager.getDistanceSq(villager);
 
                     if (d1 <= d0)
                     {
                         d0 = d1;
-                        this.targetVillager = entityvillager;
+                        targetVillager = entityvillager;
                     }
                 }
             }
 
-            if (this.targetVillager == null)
+            if (targetVillager == null)
             {
-                Vec3d vec3d = RandomPositionGenerator.findRandomTarget(this.villager, 16, 3);
+                Vec3d vec3d = RandomPositionGenerator.findRandomTarget(villager, 16, 3);
 
                 if (vec3d == null)
                 {
@@ -70,7 +70,7 @@ public class EntityAIPlay extends EntityAIBase
      */
     public boolean shouldContinueExecuting()
     {
-        return this.playTime > 0;
+        return playTime > 0;
     }
 
     /**
@@ -78,12 +78,12 @@ public class EntityAIPlay extends EntityAIBase
      */
     public void startExecuting()
     {
-        if (this.targetVillager != null)
+        if (targetVillager != null)
         {
-            this.villager.setPlaying(true);
+            villager.setPlaying(true);
         }
 
-        this.playTime = 1000;
+        playTime = 1000;
     }
 
     /**
@@ -91,8 +91,8 @@ public class EntityAIPlay extends EntityAIBase
      */
     public void resetTask()
     {
-        this.villager.setPlaying(false);
-        this.targetVillager = null;
+        villager.setPlaying(false);
+        targetVillager = null;
     }
 
     /**
@@ -100,25 +100,25 @@ public class EntityAIPlay extends EntityAIBase
      */
     public void updateTask()
     {
-        --this.playTime;
+        --playTime;
 
-        if (this.targetVillager != null)
+        if (targetVillager != null)
         {
-            if (this.villager.getDistanceSq(this.targetVillager) > 4.0D)
+            if (villager.getDistanceSq(targetVillager) > 4.0D)
             {
-                this.villager.getNavigator().tryMoveToEntityLiving(this.targetVillager, this.speed);
+                villager.getNavigator().tryMoveToEntityLiving(targetVillager, speed);
             }
         }
-        else if (this.villager.getNavigator().noPath())
+        else if (villager.getNavigator().noPath())
         {
-            Vec3d vec3d = RandomPositionGenerator.findRandomTarget(this.villager, 16, 3);
+            Vec3d vec3d = RandomPositionGenerator.findRandomTarget(villager, 16, 3);
 
             if (vec3d == null)
             {
                 return;
             }
 
-            this.villager.getNavigator().tryMoveToXYZ(vec3d.x, vec3d.y, vec3d.z, this.speed);
+            villager.getNavigator().tryMoveToXYZ(vec3d.x, vec3d.y, vec3d.z, speed);
         }
     }
 }

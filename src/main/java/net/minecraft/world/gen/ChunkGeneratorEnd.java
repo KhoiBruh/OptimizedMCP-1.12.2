@@ -57,16 +57,16 @@ public class ChunkGeneratorEnd implements IChunkGenerator
 
     public ChunkGeneratorEnd(World p_i47241_1_, boolean p_i47241_2_, long p_i47241_3_, BlockPos p_i47241_5_)
     {
-        this.world = p_i47241_1_;
-        this.mapFeaturesEnabled = p_i47241_2_;
-        this.spawnPoint = p_i47241_5_;
-        this.rand = new Random(p_i47241_3_);
-        this.lperlinNoise1 = new NoiseGeneratorOctaves(this.rand, 16);
-        this.lperlinNoise2 = new NoiseGeneratorOctaves(this.rand, 16);
-        this.perlinNoise1 = new NoiseGeneratorOctaves(this.rand, 8);
-        this.noiseGen5 = new NoiseGeneratorOctaves(this.rand, 10);
-        this.noiseGen6 = new NoiseGeneratorOctaves(this.rand, 16);
-        this.islandNoise = new NoiseGeneratorSimplex(this.rand);
+        world = p_i47241_1_;
+        mapFeaturesEnabled = p_i47241_2_;
+        spawnPoint = p_i47241_5_;
+        rand = new Random(p_i47241_3_);
+        lperlinNoise1 = new NoiseGeneratorOctaves(rand, 16);
+        lperlinNoise2 = new NoiseGeneratorOctaves(rand, 16);
+        perlinNoise1 = new NoiseGeneratorOctaves(rand, 8);
+        noiseGen5 = new NoiseGeneratorOctaves(rand, 10);
+        noiseGen6 = new NoiseGeneratorOctaves(rand, 16);
+        islandNoise = new NoiseGeneratorSimplex(rand);
     }
 
     /**
@@ -78,7 +78,7 @@ public class ChunkGeneratorEnd implements IChunkGenerator
         int j = 3;
         int k = 33;
         int l = 3;
-        this.buffer = this.getHeights(this.buffer, x * 2, 0, z * 2, 3, 33, 3);
+        buffer = getHeights(buffer, x * 2, 0, z * 2, 3, 33, 3);
 
         for (int i1 = 0; i1 < 2; ++i1)
         {
@@ -87,14 +87,14 @@ public class ChunkGeneratorEnd implements IChunkGenerator
                 for (int k1 = 0; k1 < 32; ++k1)
                 {
                     double d0 = 0.25D;
-                    double d1 = this.buffer[((i1 + 0) * 3 + j1 + 0) * 33 + k1 + 0];
-                    double d2 = this.buffer[((i1 + 0) * 3 + j1 + 1) * 33 + k1 + 0];
-                    double d3 = this.buffer[((i1 + 1) * 3 + j1 + 0) * 33 + k1 + 0];
-                    double d4 = this.buffer[((i1 + 1) * 3 + j1 + 1) * 33 + k1 + 0];
-                    double d5 = (this.buffer[((i1 + 0) * 3 + j1 + 0) * 33 + k1 + 1] - d1) * 0.25D;
-                    double d6 = (this.buffer[((i1 + 0) * 3 + j1 + 1) * 33 + k1 + 1] - d2) * 0.25D;
-                    double d7 = (this.buffer[((i1 + 1) * 3 + j1 + 0) * 33 + k1 + 1] - d3) * 0.25D;
-                    double d8 = (this.buffer[((i1 + 1) * 3 + j1 + 1) * 33 + k1 + 1] - d4) * 0.25D;
+                    double d1 = buffer[((i1 + 0) * 3 + j1 + 0) * 33 + k1 + 0];
+                    double d2 = buffer[((i1 + 0) * 3 + j1 + 1) * 33 + k1 + 0];
+                    double d3 = buffer[((i1 + 1) * 3 + j1 + 0) * 33 + k1 + 0];
+                    double d4 = buffer[((i1 + 1) * 3 + j1 + 1) * 33 + k1 + 0];
+                    double d5 = (buffer[((i1 + 0) * 3 + j1 + 0) * 33 + k1 + 1] - d1) * 0.25D;
+                    double d6 = (buffer[((i1 + 0) * 3 + j1 + 1) * 33 + k1 + 1] - d2) * 0.25D;
+                    double d7 = (buffer[((i1 + 1) * 3 + j1 + 0) * 33 + k1 + 1] - d3) * 0.25D;
+                    double d8 = (buffer[((i1 + 1) * 3 + j1 + 1) * 33 + k1 + 1] - d4) * 0.25D;
 
                     for (int l1 = 0; l1 < 4; ++l1)
                     {
@@ -190,23 +190,23 @@ public class ChunkGeneratorEnd implements IChunkGenerator
      */
     public Chunk generateChunk(int x, int z)
     {
-        this.rand.setSeed((long)x * 341873128712L + (long)z * 132897987541L);
+        rand.setSeed((long)x * 341873128712L + (long)z * 132897987541L);
         ChunkPrimer chunkprimer = new ChunkPrimer();
-        this.biomesForGeneration = this.world.getBiomeProvider().getBiomes(this.biomesForGeneration, x * 16, z * 16, 16, 16);
-        this.setBlocksInChunk(x, z, chunkprimer);
-        this.buildSurfaces(chunkprimer);
+        biomesForGeneration = world.getBiomeProvider().getBiomes(biomesForGeneration, x * 16, z * 16, 16, 16);
+        setBlocksInChunk(x, z, chunkprimer);
+        buildSurfaces(chunkprimer);
 
-        if (this.mapFeaturesEnabled)
+        if (mapFeaturesEnabled)
         {
-            this.endCityGen.generate(this.world, x, z, chunkprimer);
+            endCityGen.generate(world, x, z, chunkprimer);
         }
 
-        Chunk chunk = new Chunk(this.world, chunkprimer, x, z);
+        Chunk chunk = new Chunk(world, chunkprimer, x, z);
         byte[] abyte = chunk.getBiomeArray();
 
         for (int i = 0; i < abyte.length; ++i)
         {
-            abyte[i] = (byte)Biome.getIdForBiome(this.biomesForGeneration[i]);
+            abyte[i] = (byte)Biome.getIdForBiome(biomesForGeneration[i]);
         }
 
         chunk.generateSkylightMap();
@@ -236,7 +236,7 @@ public class ChunkGeneratorEnd implements IChunkGenerator
                 long k = (long)(p_185960_1_ + i);
                 long l = (long)(p_185960_2_ + j);
 
-                if (k * k + l * l > 4096L && this.islandNoise.getValue((double)k, (double)l) < -0.8999999761581421D)
+                if (k * k + l * l > 4096L && islandNoise.getValue((double)k, (double)l) < -0.8999999761581421D)
                 {
                     float f3 = (MathHelper.abs((float)k) * 3439.0F + MathHelper.abs((float)l) * 147.0F) % 13.0F + 9.0F;
                     f = (float)(p_185960_3_ - i * 2);
@@ -266,7 +266,7 @@ public class ChunkGeneratorEnd implements IChunkGenerator
 
     public boolean isIslandChunk(int p_185961_1_, int p_185961_2_)
     {
-        return (long)p_185961_1_ * (long)p_185961_1_ + (long)p_185961_2_ * (long)p_185961_2_ > 4096L && this.getIslandHeightValue(p_185961_1_, p_185961_2_, 1, 1) >= 0.0F;
+        return (long)p_185961_1_ * (long)p_185961_1_ + (long)p_185961_2_ * (long)p_185961_2_ > 4096L && getIslandHeightValue(p_185961_1_, p_185961_2_, 1, 1) >= 0.0F;
     }
 
     private double[] getHeights(double[] p_185963_1_, int p_185963_2_, int p_185963_3_, int p_185963_4_, int p_185963_5_, int p_185963_6_, int p_185963_7_)
@@ -279,9 +279,9 @@ public class ChunkGeneratorEnd implements IChunkGenerator
         double d0 = 684.412D;
         double d1 = 684.412D;
         d0 = d0 * 2.0D;
-        this.pnr = this.perlinNoise1.generateNoiseOctaves(this.pnr, p_185963_2_, p_185963_3_, p_185963_4_, p_185963_5_, p_185963_6_, p_185963_7_, d0 / 80.0D, 4.277575000000001D, d0 / 80.0D);
-        this.ar = this.lperlinNoise1.generateNoiseOctaves(this.ar, p_185963_2_, p_185963_3_, p_185963_4_, p_185963_5_, p_185963_6_, p_185963_7_, d0, 684.412D, d0);
-        this.br = this.lperlinNoise2.generateNoiseOctaves(this.br, p_185963_2_, p_185963_3_, p_185963_4_, p_185963_5_, p_185963_6_, p_185963_7_, d0, 684.412D, d0);
+        pnr = perlinNoise1.generateNoiseOctaves(pnr, p_185963_2_, p_185963_3_, p_185963_4_, p_185963_5_, p_185963_6_, p_185963_7_, d0 / 80.0D, 4.277575000000001D, d0 / 80.0D);
+        ar = lperlinNoise1.generateNoiseOctaves(ar, p_185963_2_, p_185963_3_, p_185963_4_, p_185963_5_, p_185963_6_, p_185963_7_, d0, 684.412D, d0);
+        br = lperlinNoise2.generateNoiseOctaves(br, p_185963_2_, p_185963_3_, p_185963_4_, p_185963_5_, p_185963_6_, p_185963_7_, d0, 684.412D, d0);
         int i = p_185963_2_ / 2;
         int j = p_185963_4_ / 2;
         int k = 0;
@@ -290,13 +290,13 @@ public class ChunkGeneratorEnd implements IChunkGenerator
         {
             for (int i1 = 0; i1 < p_185963_7_; ++i1)
             {
-                float f = this.getIslandHeightValue(i, j, l, i1);
+                float f = getIslandHeightValue(i, j, l, i1);
 
                 for (int j1 = 0; j1 < p_185963_6_; ++j1)
                 {
-                    double d2 = this.ar[k] / 512.0D;
-                    double d3 = this.br[k] / 512.0D;
-                    double d5 = (this.pnr[k] / 10.0D + 1.0D) / 2.0D;
+                    double d2 = ar[k] / 512.0D;
+                    double d3 = br[k] / 512.0D;
+                    double d5 = (pnr[k] / 10.0D + 1.0D) / 2.0D;
                     double d4;
 
                     if (d5 < 0.0D)
@@ -351,66 +351,66 @@ public class ChunkGeneratorEnd implements IChunkGenerator
         BlockFalling.fallInstantly = true;
         BlockPos blockpos = new BlockPos(x * 16, 0, z * 16);
 
-        if (this.mapFeaturesEnabled)
+        if (mapFeaturesEnabled)
         {
-            this.endCityGen.generateStructure(this.world, this.rand, new ChunkPos(x, z));
+            endCityGen.generateStructure(world, rand, new ChunkPos(x, z));
         }
 
-        this.world.getBiome(blockpos.add(16, 0, 16)).decorate(this.world, this.world.rand, blockpos);
+        world.getBiome(blockpos.add(16, 0, 16)).decorate(world, world.rand, blockpos);
         long i = (long)x * (long)x + (long)z * (long)z;
 
         if (i > 4096L)
         {
-            float f = this.getIslandHeightValue(x, z, 1, 1);
+            float f = getIslandHeightValue(x, z, 1, 1);
 
-            if (f < -20.0F && this.rand.nextInt(14) == 0)
+            if (f < -20.0F && rand.nextInt(14) == 0)
             {
-                this.endIslands.generate(this.world, this.rand, blockpos.add(this.rand.nextInt(16) + 8, 55 + this.rand.nextInt(16), this.rand.nextInt(16) + 8));
+                endIslands.generate(world, rand, blockpos.add(rand.nextInt(16) + 8, 55 + rand.nextInt(16), rand.nextInt(16) + 8));
 
-                if (this.rand.nextInt(4) == 0)
+                if (rand.nextInt(4) == 0)
                 {
-                    this.endIslands.generate(this.world, this.rand, blockpos.add(this.rand.nextInt(16) + 8, 55 + this.rand.nextInt(16), this.rand.nextInt(16) + 8));
+                    endIslands.generate(world, rand, blockpos.add(rand.nextInt(16) + 8, 55 + rand.nextInt(16), rand.nextInt(16) + 8));
                 }
             }
 
-            if (this.getIslandHeightValue(x, z, 1, 1) > 40.0F)
+            if (getIslandHeightValue(x, z, 1, 1) > 40.0F)
             {
-                int j = this.rand.nextInt(5);
+                int j = rand.nextInt(5);
 
                 for (int k = 0; k < j; ++k)
                 {
-                    int l = this.rand.nextInt(16) + 8;
-                    int i1 = this.rand.nextInt(16) + 8;
-                    int j1 = this.world.getHeight(blockpos.add(l, 0, i1)).getY();
+                    int l = rand.nextInt(16) + 8;
+                    int i1 = rand.nextInt(16) + 8;
+                    int j1 = world.getHeight(blockpos.add(l, 0, i1)).getY();
 
                     if (j1 > 0)
                     {
                         int k1 = j1 - 1;
 
-                        if (this.world.isAirBlock(blockpos.add(l, k1 + 1, i1)) && this.world.getBlockState(blockpos.add(l, k1, i1)).getBlock() == Blocks.END_STONE)
+                        if (world.isAirBlock(blockpos.add(l, k1 + 1, i1)) && world.getBlockState(blockpos.add(l, k1, i1)).getBlock() == Blocks.END_STONE)
                         {
-                            BlockChorusFlower.generatePlant(this.world, blockpos.add(l, k1 + 1, i1), this.rand, 8);
+                            BlockChorusFlower.generatePlant(world, blockpos.add(l, k1 + 1, i1), rand, 8);
                         }
                     }
                 }
 
-                if (this.rand.nextInt(700) == 0)
+                if (rand.nextInt(700) == 0)
                 {
-                    int l1 = this.rand.nextInt(16) + 8;
-                    int i2 = this.rand.nextInt(16) + 8;
-                    int j2 = this.world.getHeight(blockpos.add(l1, 0, i2)).getY();
+                    int l1 = rand.nextInt(16) + 8;
+                    int i2 = rand.nextInt(16) + 8;
+                    int j2 = world.getHeight(blockpos.add(l1, 0, i2)).getY();
 
                     if (j2 > 0)
                     {
-                        int k2 = j2 + 3 + this.rand.nextInt(7);
+                        int k2 = j2 + 3 + rand.nextInt(7);
                         BlockPos blockpos1 = blockpos.add(l1, k2, i2);
-                        (new WorldGenEndGateway()).generate(this.world, this.rand, blockpos1);
-                        TileEntity tileentity = this.world.getTileEntity(blockpos1);
+                        (new WorldGenEndGateway()).generate(world, rand, blockpos1);
+                        TileEntity tileentity = world.getTileEntity(blockpos1);
 
                         if (tileentity instanceof TileEntityEndGateway)
                         {
                             TileEntityEndGateway tileentityendgateway = (TileEntityEndGateway)tileentity;
-                            tileentityendgateway.setExactPosition(this.spawnPoint);
+                            tileentityendgateway.setExactPosition(spawnPoint);
                         }
                     }
                 }
@@ -430,18 +430,18 @@ public class ChunkGeneratorEnd implements IChunkGenerator
 
     public List<Biome.SpawnListEntry> getPossibleCreatures(EnumCreatureType creatureType, BlockPos pos)
     {
-        return this.world.getBiome(pos).getSpawnableList(creatureType);
+        return world.getBiome(pos).getSpawnableList(creatureType);
     }
 
     @Nullable
     public BlockPos getNearestStructurePos(World worldIn, String structureName, BlockPos position, boolean findUnexplored)
     {
-        return "EndCity".equals(structureName) && this.endCityGen != null ? this.endCityGen.getNearestStructurePos(worldIn, position, findUnexplored) : null;
+        return "EndCity".equals(structureName) && endCityGen != null ? endCityGen.getNearestStructurePos(worldIn, position, findUnexplored) : null;
     }
 
     public boolean isInsideStructure(World worldIn, String structureName, BlockPos pos)
     {
-        return "EndCity".equals(structureName) && this.endCityGen != null ? this.endCityGen.isInsideStructure(pos) : false;
+        return "EndCity".equals(structureName) && endCityGen != null ? endCityGen.isInsideStructure(pos) : false;
     }
 
     /**

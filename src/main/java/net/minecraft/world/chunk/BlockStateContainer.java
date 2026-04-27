@@ -18,7 +18,7 @@ public class BlockStateContainer implements IBlockStatePaletteResizer
 
     public BlockStateContainer()
     {
-        this.setBits(4);
+        setBits(4);
     }
 
     private static int getIndex(int x, int y, int z)
@@ -28,35 +28,35 @@ public class BlockStateContainer implements IBlockStatePaletteResizer
 
     private void setBits(int bitsIn)
     {
-        if (bitsIn != this.bits)
+        if (bitsIn != bits)
         {
-            this.bits = bitsIn;
+            bits = bitsIn;
 
-            if (this.bits <= 4)
+            if (bits <= 4)
             {
-                this.bits = 4;
-                this.palette = new BlockStatePaletteLinear(this.bits, this);
+                bits = 4;
+                palette = new BlockStatePaletteLinear(bits, this);
             }
-            else if (this.bits <= 8)
+            else if (bits <= 8)
             {
-                this.palette = new BlockStatePaletteHashMap(this.bits, this);
+                palette = new BlockStatePaletteHashMap(bits, this);
             }
             else
             {
-                this.palette = REGISTRY_BASED_PALETTE;
-                this.bits = MathHelper.log2DeBruijn(Block.BLOCK_STATE_IDS.size());
+                palette = REGISTRY_BASED_PALETTE;
+                bits = MathHelper.log2DeBruijn(Block.BLOCK_STATE_IDS.size());
             }
 
-            this.palette.idFor(AIR_BLOCK_STATE);
-            this.storage = new BitArray(this.bits, 4096);
+            palette.idFor(AIR_BLOCK_STATE);
+            storage = new BitArray(bits, 4096);
         }
     }
 
     public int onResize(int bits, IBlockState state)
     {
-        BitArray bitarray = this.storage;
-        IBlockStatePalette iblockstatepalette = this.palette;
-        this.setBits(bits);
+        BitArray bitarray = storage;
+        IBlockStatePalette iblockstatepalette = palette;
+        setBits(bits);
 
         for (int i = 0; i < bitarray.size(); ++i)
         {
@@ -64,32 +64,32 @@ public class BlockStateContainer implements IBlockStatePaletteResizer
 
             if (iblockstate != null)
             {
-                this.set(i, iblockstate);
+                set(i, iblockstate);
             }
         }
 
-        return this.palette.idFor(state);
+        return palette.idFor(state);
     }
 
     public void set(int x, int y, int z, IBlockState state)
     {
-        this.set(getIndex(x, y, z), state);
+        set(getIndex(x, y, z), state);
     }
 
     protected void set(int index, IBlockState state)
     {
-        int i = this.palette.idFor(state);
-        this.storage.setAt(index, i);
+        int i = palette.idFor(state);
+        storage.setAt(index, i);
     }
 
     public IBlockState get(int x, int y, int z)
     {
-        return this.get(getIndex(x, y, z));
+        return get(getIndex(x, y, z));
     }
 
     protected IBlockState get(int index)
     {
-        IBlockState iblockstate = this.palette.getBlockState(this.storage.getAt(index));
+        IBlockState iblockstate = palette.getBlockState(storage.getAt(index));
         return iblockstate == null ? AIR_BLOCK_STATE : iblockstate;
     }
 
@@ -97,20 +97,20 @@ public class BlockStateContainer implements IBlockStatePaletteResizer
     {
         int i = buf.readByte();
 
-        if (this.bits != i)
+        if (bits != i)
         {
-            this.setBits(i);
+            setBits(i);
         }
 
-        this.palette.read(buf);
-        buf.readLongArray(this.storage.getBackingLongArray());
+        palette.read(buf);
+        buf.readLongArray(storage.getBackingLongArray());
     }
 
     public void write(PacketBuffer buf)
     {
-        buf.writeByte(this.bits);
-        this.palette.write(buf);
-        buf.writeLongArray(this.storage.getBackingLongArray());
+        buf.writeByte(bits);
+        palette.write(buf);
+        buf.writeLongArray(storage.getBackingLongArray());
     }
 
     @Nullable
@@ -120,7 +120,7 @@ public class BlockStateContainer implements IBlockStatePaletteResizer
 
         for (int i = 0; i < 4096; ++i)
         {
-            int j = Block.BLOCK_STATE_IDS.get(this.get(i));
+            int j = Block.BLOCK_STATE_IDS.get(get(i));
             int k = i & 15;
             int l = i >> 8 & 15;
             int i1 = i >> 4 & 15;
@@ -151,12 +151,12 @@ public class BlockStateContainer implements IBlockStatePaletteResizer
             int l = i >> 4 & 15;
             int i1 = blockIdExtension == null ? 0 : blockIdExtension.get(j, k, l);
             int j1 = i1 << 12 | (blockIds[i] & 255) << 4 | data.get(j, k, l);
-            this.set(i, Block.BLOCK_STATE_IDS.getByValue(j1));
+            set(i, Block.BLOCK_STATE_IDS.getByValue(j1));
         }
     }
 
     public int getSerializedSize()
     {
-        return 1 + this.palette.getSerializedSize() + PacketBuffer.getVarIntSize(this.storage.size()) + this.storage.getBackingLongArray().length * 8;
+        return 1 + palette.getSerializedSize() + PacketBuffer.getVarIntSize(storage.size()) + storage.getBackingLongArray().length * 8;
     }
 }

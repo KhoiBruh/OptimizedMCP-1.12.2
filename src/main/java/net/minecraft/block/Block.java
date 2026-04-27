@@ -179,7 +179,7 @@ public class Block
      */
     public boolean isFullBlock(IBlockState state)
     {
-        return this.fullBlock;
+        return fullBlock;
     }
 
     @Deprecated
@@ -191,7 +191,7 @@ public class Block
     @Deprecated
     public int getLightOpacity(IBlockState state)
     {
-        return this.lightOpacity;
+        return lightOpacity;
     }
 
     @Deprecated
@@ -201,13 +201,13 @@ public class Block
      */
     public boolean isTranslucent(IBlockState state)
     {
-        return this.translucent;
+        return translucent;
     }
 
     @Deprecated
     public int getLightValue(IBlockState state)
     {
-        return this.lightValue;
+        return lightValue;
     }
 
     @Deprecated
@@ -217,7 +217,7 @@ public class Block
      */
     public boolean getUseNeighborBrightness(IBlockState state)
     {
-        return this.useNeighborBrightness;
+        return useNeighborBrightness;
     }
 
     @Deprecated
@@ -227,7 +227,7 @@ public class Block
      */
     public Material getMaterial(IBlockState state)
     {
-        return this.blockMaterial;
+        return blockMaterial;
     }
 
     @Deprecated
@@ -237,7 +237,7 @@ public class Block
      */
     public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos)
     {
-        return this.blockMapColor;
+        return blockMapColor;
     }
 
     @Deprecated
@@ -247,7 +247,7 @@ public class Block
      */
     public IBlockState getStateFromMeta(int meta)
     {
-        return this.getDefaultState();
+        return getDefaultState();
     }
 
     /**
@@ -300,17 +300,17 @@ public class Block
 
     public Block(Material blockMaterialIn, MapColor blockMapColorIn)
     {
-        this.enableStats = true;
-        this.blockSoundType = SoundType.STONE;
-        this.blockParticleGravity = 1.0F;
-        this.slipperiness = 0.6F;
-        this.blockMaterial = blockMaterialIn;
-        this.blockMapColor = blockMapColorIn;
-        this.blockState = this.createBlockState();
-        this.setDefaultState(this.blockState.getBaseState());
-        this.fullBlock = this.getDefaultState().isOpaqueCube();
-        this.lightOpacity = this.fullBlock ? 255 : 0;
-        this.translucent = !blockMaterialIn.blocksLight();
+        enableStats = true;
+        blockSoundType = SoundType.STONE;
+        blockParticleGravity = 1.0F;
+        slipperiness = 0.6F;
+        blockMaterial = blockMaterialIn;
+        blockMapColor = blockMapColorIn;
+        blockState = createBlockState();
+        setDefaultState(blockState.getBaseState());
+        fullBlock = getDefaultState().isOpaqueCube();
+        lightOpacity = fullBlock ? 255 : 0;
+        translucent = !blockMaterialIn.blocksLight();
     }
 
     protected Block(Material materialIn)
@@ -323,7 +323,7 @@ public class Block
      */
     protected Block setSoundType(SoundType sound)
     {
-        this.blockSoundType = sound;
+        blockSoundType = sound;
         return this;
     }
 
@@ -332,7 +332,7 @@ public class Block
      */
     protected Block setLightOpacity(int opacity)
     {
-        this.lightOpacity = opacity;
+        lightOpacity = opacity;
         return this;
     }
 
@@ -341,7 +341,7 @@ public class Block
      */
     protected Block setLightLevel(float value)
     {
-        this.lightValue = (int)(15.0F * value);
+        lightValue = (int)(15.0F * value);
         return this;
     }
 
@@ -350,7 +350,7 @@ public class Block
      */
     protected Block setResistance(float resistance)
     {
-        this.blockResistance = resistance * 3.0F;
+        blockResistance = resistance * 3.0F;
         return this;
     }
 
@@ -388,7 +388,7 @@ public class Block
     @Deprecated
     public boolean causesSuffocation(IBlockState state)
     {
-        return this.blockMaterial.blocksMovement() && this.getDefaultState().isFullCube();
+        return blockMaterial.blocksMovement() && getDefaultState().isFullCube();
     }
 
     @Deprecated
@@ -408,7 +408,7 @@ public class Block
      */
     public boolean isPassable(IBlockAccess worldIn, BlockPos pos)
     {
-        return !this.blockMaterial.blocksMovement();
+        return !blockMaterial.blocksMovement();
     }
 
     @Deprecated
@@ -435,11 +435,11 @@ public class Block
      */
     protected Block setHardness(float hardness)
     {
-        this.blockHardness = hardness;
+        blockHardness = hardness;
 
-        if (this.blockResistance < hardness * 5.0F)
+        if (blockResistance < hardness * 5.0F)
         {
-            this.blockResistance = hardness * 5.0F;
+            blockResistance = hardness * 5.0F;
         }
 
         return this;
@@ -447,14 +447,14 @@ public class Block
 
     protected Block setBlockUnbreakable()
     {
-        this.setHardness(-1.0F);
+        setHardness(-1.0F);
         return this;
     }
 
     @Deprecated
     public float getBlockHardness(IBlockState blockState, World worldIn, BlockPos pos)
     {
-        return this.blockHardness;
+        return blockHardness;
     }
 
     /**
@@ -462,7 +462,7 @@ public class Block
      */
     protected Block setTickRandomly(boolean shouldTick)
     {
-        this.needsRandomTick = shouldTick;
+        needsRandomTick = shouldTick;
         return this;
     }
 
@@ -472,12 +472,12 @@ public class Block
      */
     public boolean getTickRandomly()
     {
-        return this.needsRandomTick;
+        return needsRandomTick;
     }
 
     public boolean hasTileEntity()
     {
-        return this.hasTileEntity;
+        return hasTileEntity;
     }
 
     @Deprecated
@@ -624,7 +624,7 @@ public class Block
 
     public boolean canCollideCheck(IBlockState state, boolean hitIfLiquid)
     {
-        return this.isCollidable();
+        return isCollidable();
     }
 
     /**
@@ -641,7 +641,7 @@ public class Block
      */
     public void randomTick(World worldIn, BlockPos pos, IBlockState state, Random random)
     {
-        this.updateTick(worldIn, pos, state, random);
+        updateTick(worldIn, pos, state, random);
     }
 
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
@@ -732,7 +732,7 @@ public class Block
      */
     public final void dropBlockAsItem(World worldIn, BlockPos pos, IBlockState state, int fortune)
     {
-        this.dropBlockAsItemWithChance(worldIn, pos, state, 1.0F, fortune);
+        dropBlockAsItemWithChance(worldIn, pos, state, 1.0F, fortune);
     }
 
     /**
@@ -742,17 +742,17 @@ public class Block
     {
         if (!worldIn.isRemote)
         {
-            int i = this.quantityDroppedWithBonus(fortune, worldIn.rand);
+            int i = quantityDroppedWithBonus(fortune, worldIn.rand);
 
             for (int j = 0; j < i; ++j)
             {
                 if (worldIn.rand.nextFloat() <= chance)
                 {
-                    Item item = this.getItemDropped(state, worldIn.rand, fortune);
+                    Item item = getItemDropped(state, worldIn.rand, fortune);
 
                     if (item != Items.AIR)
                     {
-                        spawnAsEntity(worldIn, pos, new ItemStack(item, 1, this.damageDropped(state)));
+                        spawnAsEntity(worldIn, pos, new ItemStack(item, 1, damageDropped(state)));
                     }
                 }
             }
@@ -806,7 +806,7 @@ public class Block
      */
     public float getExplosionResistance(Entity exploder)
     {
-        return this.blockResistance / 5.0F;
+        return blockResistance / 5.0F;
     }
 
     @Deprecated
@@ -817,7 +817,7 @@ public class Block
      */
     public RayTraceResult collisionRayTrace(IBlockState blockState, World worldIn, BlockPos pos, Vec3d start, Vec3d end)
     {
-        return this.rayTrace(pos, start, end, blockState.getBoundingBox(worldIn, pos));
+        return rayTrace(pos, start, end, blockState.getBoundingBox(worldIn, pos));
     }
 
     @Nullable
@@ -850,7 +850,7 @@ public class Block
      */
     public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, EnumFacing side)
     {
-        return this.canPlaceBlockAt(worldIn, pos);
+        return canPlaceBlockAt(worldIn, pos);
     }
 
     /**
@@ -882,7 +882,7 @@ public class Block
      */
     public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
     {
-        return this.getStateFromMeta(meta);
+        return getStateFromMeta(meta);
     }
 
     public void onBlockClicked(World worldIn, BlockPos pos, EntityPlayer playerIn)
@@ -932,21 +932,21 @@ public class Block
         player.addStat(StatList.getBlockStats(this));
         player.addExhaustion(0.005F);
 
-        if (this.canSilkHarvest() && EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, stack) > 0)
+        if (canSilkHarvest() && EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, stack) > 0)
         {
-            ItemStack itemstack = this.getSilkTouchDrop(state);
+            ItemStack itemstack = getSilkTouchDrop(state);
             spawnAsEntity(worldIn, pos, itemstack);
         }
         else
         {
             int i = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack);
-            this.dropBlockAsItem(worldIn, pos, state, i);
+            dropBlockAsItem(worldIn, pos, state, i);
         }
     }
 
     protected boolean canSilkHarvest()
     {
-        return this.getDefaultState().isFullCube() && !this.hasTileEntity;
+        return getDefaultState().isFullCube() && !hasTileEntity;
     }
 
     protected ItemStack getSilkTouchDrop(IBlockState state)
@@ -956,7 +956,7 @@ public class Block
 
         if (item.getHasSubtypes())
         {
-            i = this.getMetaFromState(state);
+            i = getMetaFromState(state);
         }
 
         return new ItemStack(item, 1, i);
@@ -967,7 +967,7 @@ public class Block
      */
     public int quantityDroppedWithBonus(int fortune, Random random)
     {
-        return this.quantityDropped(random);
+        return quantityDropped(random);
     }
 
     /**
@@ -982,12 +982,12 @@ public class Block
      */
     public boolean canSpawnInBlock()
     {
-        return !this.blockMaterial.isSolid() && !this.blockMaterial.isLiquid();
+        return !blockMaterial.isSolid() && !blockMaterial.isLiquid();
     }
 
     public Block setUnlocalizedName(String name)
     {
-        this.unlocalizedName = name;
+        unlocalizedName = name;
         return this;
     }
 
@@ -996,7 +996,7 @@ public class Block
      */
     public String getLocalizedName()
     {
-        return I18n.translateToLocal(this.getUnlocalizedName() + ".name");
+        return I18n.translateToLocal(getUnlocalizedName() + ".name");
     }
 
     /**
@@ -1004,7 +1004,7 @@ public class Block
      */
     public String getUnlocalizedName()
     {
-        return "tile." + this.unlocalizedName;
+        return "tile." + unlocalizedName;
     }
 
     @Deprecated
@@ -1024,19 +1024,19 @@ public class Block
      */
     public boolean getEnableStats()
     {
-        return this.enableStats;
+        return enableStats;
     }
 
     protected Block disableStats()
     {
-        this.enableStats = false;
+        enableStats = false;
         return this;
     }
 
     @Deprecated
     public EnumPushReaction getMobilityFlag(IBlockState state)
     {
-        return this.blockMaterial.getMobilityFlag();
+        return blockMaterial.getMobilityFlag();
     }
 
     @Deprecated
@@ -1064,7 +1064,7 @@ public class Block
 
     public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state)
     {
-        return new ItemStack(Item.getItemFromBlock(this), 1, this.damageDropped(state));
+        return new ItemStack(Item.getItemFromBlock(this), 1, damageDropped(state));
     }
 
     /**
@@ -1080,12 +1080,12 @@ public class Block
      */
     public CreativeTabs getCreativeTabToDisplayOn()
     {
-        return this.displayOnCreativeTab;
+        return displayOnCreativeTab;
     }
 
     public Block setCreativeTab(CreativeTabs tab)
     {
-        this.displayOnCreativeTab = tab;
+        displayOnCreativeTab = tab;
         return this;
     }
 
@@ -1153,17 +1153,17 @@ public class Block
 
     public BlockStateContainer getBlockState()
     {
-        return this.blockState;
+        return blockState;
     }
 
     protected final void setDefaultState(IBlockState state)
     {
-        this.defaultBlockState = state;
+        defaultBlockState = state;
     }
 
     public final IBlockState getDefaultState()
     {
-        return this.defaultBlockState;
+        return defaultBlockState;
     }
 
     /**
@@ -1177,7 +1177,7 @@ public class Block
     @Deprecated
     public Vec3d getOffset(IBlockState state, IBlockAccess worldIn, BlockPos pos)
     {
-        Block.EnumOffsetType block$enumoffsettype = this.getOffsetType();
+        Block.EnumOffsetType block$enumoffsettype = getOffsetType();
 
         if (block$enumoffsettype == Block.EnumOffsetType.NONE)
         {
@@ -1192,7 +1192,7 @@ public class Block
 
     public SoundType getSoundType()
     {
-        return this.blockSoundType;
+        return blockSoundType;
     }
 
     public String toString()

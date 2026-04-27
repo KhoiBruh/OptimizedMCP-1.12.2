@@ -26,9 +26,9 @@ public class EntityAIEatGrass extends EntityAIBase
 
     public EntityAIEatGrass(EntityLiving grassEaterEntityIn)
     {
-        this.grassEaterEntity = grassEaterEntityIn;
-        this.entityWorld = grassEaterEntityIn.world;
-        this.setMutexBits(7);
+        grassEaterEntity = grassEaterEntityIn;
+        entityWorld = grassEaterEntityIn.world;
+        setMutexBits(7);
     }
 
     /**
@@ -36,21 +36,21 @@ public class EntityAIEatGrass extends EntityAIBase
      */
     public boolean shouldExecute()
     {
-        if (this.grassEaterEntity.getRNG().nextInt(this.grassEaterEntity.isChild() ? 50 : 1000) != 0)
+        if (grassEaterEntity.getRNG().nextInt(grassEaterEntity.isChild() ? 50 : 1000) != 0)
         {
             return false;
         }
         else
         {
-            BlockPos blockpos = new BlockPos(this.grassEaterEntity.posX, this.grassEaterEntity.posY, this.grassEaterEntity.posZ);
+            BlockPos blockpos = new BlockPos(grassEaterEntity.posX, grassEaterEntity.posY, grassEaterEntity.posZ);
 
-            if (IS_TALL_GRASS.apply(this.entityWorld.getBlockState(blockpos)))
+            if (IS_TALL_GRASS.apply(entityWorld.getBlockState(blockpos)))
             {
                 return true;
             }
             else
             {
-                return this.entityWorld.getBlockState(blockpos.down()).getBlock() == Blocks.GRASS;
+                return entityWorld.getBlockState(blockpos.down()).getBlock() == Blocks.GRASS;
             }
         }
     }
@@ -60,9 +60,9 @@ public class EntityAIEatGrass extends EntityAIBase
      */
     public void startExecuting()
     {
-        this.eatingGrassTimer = 40;
-        this.entityWorld.setEntityState(this.grassEaterEntity, (byte)10);
-        this.grassEaterEntity.getNavigator().clearPath();
+        eatingGrassTimer = 40;
+        entityWorld.setEntityState(grassEaterEntity, (byte)10);
+        grassEaterEntity.getNavigator().clearPath();
     }
 
     /**
@@ -70,7 +70,7 @@ public class EntityAIEatGrass extends EntityAIBase
      */
     public void resetTask()
     {
-        this.eatingGrassTimer = 0;
+        eatingGrassTimer = 0;
     }
 
     /**
@@ -78,7 +78,7 @@ public class EntityAIEatGrass extends EntityAIBase
      */
     public boolean shouldContinueExecuting()
     {
-        return this.eatingGrassTimer > 0;
+        return eatingGrassTimer > 0;
     }
 
     /**
@@ -86,7 +86,7 @@ public class EntityAIEatGrass extends EntityAIBase
      */
     public int getEatingGrassTimer()
     {
-        return this.eatingGrassTimer;
+        return eatingGrassTimer;
     }
 
     /**
@@ -94,34 +94,34 @@ public class EntityAIEatGrass extends EntityAIBase
      */
     public void updateTask()
     {
-        this.eatingGrassTimer = Math.max(0, this.eatingGrassTimer - 1);
+        eatingGrassTimer = Math.max(0, eatingGrassTimer - 1);
 
-        if (this.eatingGrassTimer == 4)
+        if (eatingGrassTimer == 4)
         {
-            BlockPos blockpos = new BlockPos(this.grassEaterEntity.posX, this.grassEaterEntity.posY, this.grassEaterEntity.posZ);
+            BlockPos blockpos = new BlockPos(grassEaterEntity.posX, grassEaterEntity.posY, grassEaterEntity.posZ);
 
-            if (IS_TALL_GRASS.apply(this.entityWorld.getBlockState(blockpos)))
+            if (IS_TALL_GRASS.apply(entityWorld.getBlockState(blockpos)))
             {
-                if (this.entityWorld.getGameRules().getBoolean("mobGriefing"))
+                if (entityWorld.getGameRules().getBoolean("mobGriefing"))
                 {
-                    this.entityWorld.destroyBlock(blockpos, false);
+                    entityWorld.destroyBlock(blockpos, false);
                 }
 
-                this.grassEaterEntity.eatGrassBonus();
+                grassEaterEntity.eatGrassBonus();
             }
             else
             {
                 BlockPos blockpos1 = blockpos.down();
 
-                if (this.entityWorld.getBlockState(blockpos1).getBlock() == Blocks.GRASS)
+                if (entityWorld.getBlockState(blockpos1).getBlock() == Blocks.GRASS)
                 {
-                    if (this.entityWorld.getGameRules().getBoolean("mobGriefing"))
+                    if (entityWorld.getGameRules().getBoolean("mobGriefing"))
                     {
-                        this.entityWorld.playEvent(2001, blockpos1, Block.getIdFromBlock(Blocks.GRASS));
-                        this.entityWorld.setBlockState(blockpos1, Blocks.DIRT.getDefaultState(), 2);
+                        entityWorld.playEvent(2001, blockpos1, Block.getIdFromBlock(Blocks.GRASS));
+                        entityWorld.setBlockState(blockpos1, Blocks.DIRT.getDefaultState(), 2);
                     }
 
-                    this.grassEaterEntity.eatGrassBonus();
+                    grassEaterEntity.eatGrassBonus();
                 }
             }
         }

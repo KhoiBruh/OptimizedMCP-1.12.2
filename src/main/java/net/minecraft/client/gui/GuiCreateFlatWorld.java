@@ -42,8 +42,8 @@ public class GuiCreateFlatWorld extends GuiScreen
 
     public GuiCreateFlatWorld(GuiCreateWorld createWorldGuiIn, String preset)
     {
-        this.createWorldGui = createWorldGuiIn;
-        this.setPreset(preset);
+        createWorldGui = createWorldGuiIn;
+        setPreset(preset);
     }
 
     /**
@@ -51,7 +51,7 @@ public class GuiCreateFlatWorld extends GuiScreen
      */
     public String getPreset()
     {
-        return this.generatorInfo.toString();
+        return generatorInfo.toString();
     }
 
     /**
@@ -59,7 +59,7 @@ public class GuiCreateFlatWorld extends GuiScreen
      */
     public void setPreset(String preset)
     {
-        this.generatorInfo = FlatGeneratorInfo.createFlatGeneratorFromString(preset);
+        generatorInfo = FlatGeneratorInfo.createFlatGeneratorFromString(preset);
     }
 
     /**
@@ -68,21 +68,21 @@ public class GuiCreateFlatWorld extends GuiScreen
      */
     public void initGui()
     {
-        this.buttonList.clear();
-        this.flatWorldTitle = I18n.format("createWorld.customize.flat.title");
-        this.materialText = I18n.format("createWorld.customize.flat.tile");
-        this.heightText = I18n.format("createWorld.customize.flat.height");
-        this.createFlatWorldListSlotGui = new GuiCreateFlatWorld.Details();
-        this.addLayerButton = this.addButton(new GuiButton(2, this.width / 2 - 154, this.height - 52, 100, 20, I18n.format("createWorld.customize.flat.addLayer") + " (NYI)"));
-        this.editLayerButton = this.addButton(new GuiButton(3, this.width / 2 - 50, this.height - 52, 100, 20, I18n.format("createWorld.customize.flat.editLayer") + " (NYI)"));
-        this.removeLayerButton = this.addButton(new GuiButton(4, this.width / 2 - 155, this.height - 52, 150, 20, I18n.format("createWorld.customize.flat.removeLayer")));
-        this.buttonList.add(new GuiButton(0, this.width / 2 - 155, this.height - 28, 150, 20, I18n.format("gui.done")));
-        this.buttonList.add(new GuiButton(5, this.width / 2 + 5, this.height - 52, 150, 20, I18n.format("createWorld.customize.presets")));
-        this.buttonList.add(new GuiButton(1, this.width / 2 + 5, this.height - 28, 150, 20, I18n.format("gui.cancel")));
-        this.addLayerButton.visible = false;
-        this.editLayerButton.visible = false;
-        this.generatorInfo.updateLayers();
-        this.onLayersChanged();
+        buttonList.clear();
+        flatWorldTitle = I18n.format("createWorld.customize.flat.title");
+        materialText = I18n.format("createWorld.customize.flat.tile");
+        heightText = I18n.format("createWorld.customize.flat.height");
+        createFlatWorldListSlotGui = new GuiCreateFlatWorld.Details();
+        addLayerButton = addButton(new GuiButton(2, width / 2 - 154, height - 52, 100, 20, I18n.format("createWorld.customize.flat.addLayer") + " (NYI)"));
+        editLayerButton = addButton(new GuiButton(3, width / 2 - 50, height - 52, 100, 20, I18n.format("createWorld.customize.flat.editLayer") + " (NYI)"));
+        removeLayerButton = addButton(new GuiButton(4, width / 2 - 155, height - 52, 150, 20, I18n.format("createWorld.customize.flat.removeLayer")));
+        buttonList.add(new GuiButton(0, width / 2 - 155, height - 28, 150, 20, I18n.format("gui.done")));
+        buttonList.add(new GuiButton(5, width / 2 + 5, height - 52, 150, 20, I18n.format("createWorld.customize.presets")));
+        buttonList.add(new GuiButton(1, width / 2 + 5, height - 28, 150, 20, I18n.format("gui.cancel")));
+        addLayerButton.visible = false;
+        editLayerButton.visible = false;
+        generatorInfo.updateLayers();
+        onLayersChanged();
     }
 
     /**
@@ -91,7 +91,7 @@ public class GuiCreateFlatWorld extends GuiScreen
     public void handleMouseInput() throws IOException
     {
         super.handleMouseInput();
-        this.createFlatWorldListSlotGui.handleMouseInput();
+        createFlatWorldListSlotGui.handleMouseInput();
     }
 
     /**
@@ -99,29 +99,29 @@ public class GuiCreateFlatWorld extends GuiScreen
      */
     protected void actionPerformed(GuiButton button) throws IOException
     {
-        int i = this.generatorInfo.getFlatLayers().size() - this.createFlatWorldListSlotGui.selectedLayer - 1;
+        int i = generatorInfo.getFlatLayers().size() - createFlatWorldListSlotGui.selectedLayer - 1;
 
         if (button.id == 1)
         {
-            this.mc.displayGuiScreen(this.createWorldGui);
+            mc.displayGuiScreen(createWorldGui);
         }
         else if (button.id == 0)
         {
-            this.createWorldGui.chunkProviderSettingsJson = this.getPreset();
-            this.mc.displayGuiScreen(this.createWorldGui);
+            createWorldGui.chunkProviderSettingsJson = getPreset();
+            mc.displayGuiScreen(createWorldGui);
         }
         else if (button.id == 5)
         {
-            this.mc.displayGuiScreen(new GuiFlatPresets(this));
+            mc.displayGuiScreen(new GuiFlatPresets(this));
         }
-        else if (button.id == 4 && this.hasSelectedLayer())
+        else if (button.id == 4 && hasSelectedLayer())
         {
-            this.generatorInfo.getFlatLayers().remove(i);
-            this.createFlatWorldListSlotGui.selectedLayer = Math.min(this.createFlatWorldListSlotGui.selectedLayer, this.generatorInfo.getFlatLayers().size() - 1);
+            generatorInfo.getFlatLayers().remove(i);
+            createFlatWorldListSlotGui.selectedLayer = Math.min(createFlatWorldListSlotGui.selectedLayer, generatorInfo.getFlatLayers().size() - 1);
         }
 
-        this.generatorInfo.updateLayers();
-        this.onLayersChanged();
+        generatorInfo.updateLayers();
+        onLayersChanged();
     }
 
     /**
@@ -130,11 +130,11 @@ public class GuiCreateFlatWorld extends GuiScreen
      */
     public void onLayersChanged()
     {
-        boolean flag = this.hasSelectedLayer();
-        this.removeLayerButton.enabled = flag;
-        this.editLayerButton.enabled = flag;
-        this.editLayerButton.enabled = false;
-        this.addLayerButton.enabled = false;
+        boolean flag = hasSelectedLayer();
+        removeLayerButton.enabled = flag;
+        editLayerButton.enabled = flag;
+        editLayerButton.enabled = false;
+        addLayerButton.enabled = false;
     }
 
     /**
@@ -142,7 +142,7 @@ public class GuiCreateFlatWorld extends GuiScreen
      */
     private boolean hasSelectedLayer()
     {
-        return this.createFlatWorldListSlotGui.selectedLayer > -1 && this.createFlatWorldListSlotGui.selectedLayer < this.generatorInfo.getFlatLayers().size();
+        return createFlatWorldListSlotGui.selectedLayer > -1 && createFlatWorldListSlotGui.selectedLayer < generatorInfo.getFlatLayers().size();
     }
 
     /**
@@ -150,12 +150,12 @@ public class GuiCreateFlatWorld extends GuiScreen
      */
     public void drawScreen(int mouseX, int mouseY, float partialTicks)
     {
-        this.drawDefaultBackground();
-        this.createFlatWorldListSlotGui.drawScreen(mouseX, mouseY, partialTicks);
-        this.drawCenteredString(this.fontRenderer, this.flatWorldTitle, this.width / 2, 8, 16777215);
-        int i = this.width / 2 - 92 - 16;
-        this.drawString(this.fontRenderer, this.materialText, i, 32, 16777215);
-        this.drawString(this.fontRenderer, this.heightText, i + 2 + 213 - this.fontRenderer.getStringWidth(this.heightText), 32, 16777215);
+        drawDefaultBackground();
+        createFlatWorldListSlotGui.drawScreen(mouseX, mouseY, partialTicks);
+        drawCenteredString(fontRenderer, flatWorldTitle, width / 2, 8, 16777215);
+        int i = width / 2 - 92 - 16;
+        drawString(fontRenderer, materialText, i, 32, 16777215);
+        drawString(fontRenderer, heightText, i + 2 + 213 - fontRenderer.getStringWidth(heightText), 32, 16777215);
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
 
@@ -170,13 +170,13 @@ public class GuiCreateFlatWorld extends GuiScreen
 
         private void drawItem(int x, int z, ItemStack itemToDraw)
         {
-            this.drawItemBackground(x + 1, z + 1);
+            drawItemBackground(x + 1, z + 1);
             GlStateManager.enableRescaleNormal();
 
             if (!itemToDraw.isEmpty())
             {
                 RenderHelper.enableGUIStandardItemLighting();
-                GuiCreateFlatWorld.this.itemRender.renderItemIntoGUI(itemToDraw, x + 2, z + 2);
+                itemRender.renderItemIntoGUI(itemToDraw, x + 2, z + 2);
                 RenderHelper.disableStandardItemLighting();
             }
 
@@ -185,13 +185,13 @@ public class GuiCreateFlatWorld extends GuiScreen
 
         private void drawItemBackground(int x, int y)
         {
-            this.drawItemBackground(x, y, 0, 0);
+            drawItemBackground(x, y, 0, 0);
         }
 
         private void drawItemBackground(int x, int z, int textureX, int textureY)
         {
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-            this.mc.getTextureManager().bindTexture(Gui.STAT_ICONS);
+            mc.getTextureManager().bindTexture(Gui.STAT_ICONS);
             float f = 0.0078125F;
             float f1 = 0.0078125F;
             int i = 18;
@@ -199,27 +199,27 @@ public class GuiCreateFlatWorld extends GuiScreen
             Tessellator tessellator = Tessellator.getInstance();
             BufferBuilder bufferbuilder = tessellator.getBuffer();
             bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
-            bufferbuilder.pos((double)(x + 0), (double)(z + 18), (double)GuiCreateFlatWorld.this.zLevel).tex((double)((float)(textureX + 0) * 0.0078125F), (double)((float)(textureY + 18) * 0.0078125F)).endVertex();
-            bufferbuilder.pos((double)(x + 18), (double)(z + 18), (double)GuiCreateFlatWorld.this.zLevel).tex((double)((float)(textureX + 18) * 0.0078125F), (double)((float)(textureY + 18) * 0.0078125F)).endVertex();
-            bufferbuilder.pos((double)(x + 18), (double)(z + 0), (double)GuiCreateFlatWorld.this.zLevel).tex((double)((float)(textureX + 18) * 0.0078125F), (double)((float)(textureY + 0) * 0.0078125F)).endVertex();
-            bufferbuilder.pos((double)(x + 0), (double)(z + 0), (double)GuiCreateFlatWorld.this.zLevel).tex((double)((float)(textureX + 0) * 0.0078125F), (double)((float)(textureY + 0) * 0.0078125F)).endVertex();
+            bufferbuilder.pos((double)(x + 0), (double)(z + 18), (double) zLevel).tex((double)((float)(textureX + 0) * 0.0078125F), (double)((float)(textureY + 18) * 0.0078125F)).endVertex();
+            bufferbuilder.pos((double)(x + 18), (double)(z + 18), (double) zLevel).tex((double)((float)(textureX + 18) * 0.0078125F), (double)((float)(textureY + 18) * 0.0078125F)).endVertex();
+            bufferbuilder.pos((double)(x + 18), (double)(z + 0), (double) zLevel).tex((double)((float)(textureX + 18) * 0.0078125F), (double)((float)(textureY + 0) * 0.0078125F)).endVertex();
+            bufferbuilder.pos((double)(x + 0), (double)(z + 0), (double) zLevel).tex((double)((float)(textureX + 0) * 0.0078125F), (double)((float)(textureY + 0) * 0.0078125F)).endVertex();
             tessellator.draw();
         }
 
         protected int getSize()
         {
-            return GuiCreateFlatWorld.this.generatorInfo.getFlatLayers().size();
+            return generatorInfo.getFlatLayers().size();
         }
 
         protected void elementClicked(int slotIndex, boolean isDoubleClick, int mouseX, int mouseY)
         {
-            this.selectedLayer = slotIndex;
-            GuiCreateFlatWorld.this.onLayersChanged();
+            selectedLayer = slotIndex;
+            onLayersChanged();
         }
 
         protected boolean isSelected(int slotIndex)
         {
-            return slotIndex == this.selectedLayer;
+            return slotIndex == selectedLayer;
         }
 
         protected void drawBackground()
@@ -228,7 +228,7 @@ public class GuiCreateFlatWorld extends GuiScreen
 
         protected void drawSlot(int slotIndex, int xPos, int yPos, int heightIn, int mouseXIn, int mouseYIn, float partialTicks)
         {
-            FlatLayerInfo flatlayerinfo = (FlatLayerInfo)GuiCreateFlatWorld.this.generatorInfo.getFlatLayers().get(GuiCreateFlatWorld.this.generatorInfo.getFlatLayers().size() - slotIndex - 1);
+            FlatLayerInfo flatlayerinfo = (FlatLayerInfo) generatorInfo.getFlatLayers().get(generatorInfo.getFlatLayers().size() - slotIndex - 1);
             IBlockState iblockstate = flatlayerinfo.getLayerMaterial();
             Block block = iblockstate.getBlock();
             Item item = Item.getItemFromBlock(block);
@@ -250,15 +250,15 @@ public class GuiCreateFlatWorld extends GuiScreen
 
             ItemStack itemstack = new ItemStack(item, 1, item.getHasSubtypes() ? block.getMetaFromState(iblockstate) : 0);
             String s = item.getItemStackDisplayName(itemstack);
-            this.drawItem(xPos, yPos, itemstack);
-            GuiCreateFlatWorld.this.fontRenderer.drawString(s, xPos + 18 + 5, yPos + 3, 16777215);
+            drawItem(xPos, yPos, itemstack);
+            fontRenderer.drawString(s, xPos + 18 + 5, yPos + 3, 16777215);
             String s1;
 
             if (slotIndex == 0)
             {
                 s1 = I18n.format("createWorld.customize.flat.layer.top", flatlayerinfo.getLayerCount());
             }
-            else if (slotIndex == GuiCreateFlatWorld.this.generatorInfo.getFlatLayers().size() - 1)
+            else if (slotIndex == generatorInfo.getFlatLayers().size() - 1)
             {
                 s1 = I18n.format("createWorld.customize.flat.layer.bottom", flatlayerinfo.getLayerCount());
             }
@@ -267,12 +267,12 @@ public class GuiCreateFlatWorld extends GuiScreen
                 s1 = I18n.format("createWorld.customize.flat.layer", flatlayerinfo.getLayerCount());
             }
 
-            GuiCreateFlatWorld.this.fontRenderer.drawString(s1, xPos + 2 + 213 - GuiCreateFlatWorld.this.fontRenderer.getStringWidth(s1), yPos + 3, 16777215);
+            fontRenderer.drawString(s1, xPos + 2 + 213 - fontRenderer.getStringWidth(s1), yPos + 3, 16777215);
         }
 
         protected int getScrollBarX()
         {
-            return this.width - 70;
+            return width - 70;
         }
     }
 }

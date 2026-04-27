@@ -10,12 +10,12 @@ public class GuiSlotRealmsProxy extends GuiSlot
     public GuiSlotRealmsProxy(RealmsScrolledSelectionList selectionListIn, int widthIn, int heightIn, int topIn, int bottomIn, int slotHeightIn)
     {
         super(Minecraft.getMinecraft(), widthIn, heightIn, topIn, bottomIn, slotHeightIn);
-        this.selectionList = selectionListIn;
+        selectionList = selectionListIn;
     }
 
     protected int getSize()
     {
-        return this.selectionList.getItemCount();
+        return selectionList.getItemCount();
     }
 
     /**
@@ -23,7 +23,7 @@ public class GuiSlotRealmsProxy extends GuiSlot
      */
     protected void elementClicked(int slotIndex, boolean isDoubleClick, int mouseX, int mouseY)
     {
-        this.selectionList.selectItem(slotIndex, isDoubleClick, mouseX, mouseY);
+        selectionList.selectItem(slotIndex, isDoubleClick, mouseX, mouseY);
     }
 
     /**
@@ -31,32 +31,32 @@ public class GuiSlotRealmsProxy extends GuiSlot
      */
     protected boolean isSelected(int slotIndex)
     {
-        return this.selectionList.isSelectedItem(slotIndex);
+        return selectionList.isSelectedItem(slotIndex);
     }
 
     protected void drawBackground()
     {
-        this.selectionList.renderBackground();
+        selectionList.renderBackground();
     }
 
     protected void drawSlot(int slotIndex, int xPos, int yPos, int heightIn, int mouseXIn, int mouseYIn, float partialTicks)
     {
-        this.selectionList.renderItem(slotIndex, xPos, yPos, heightIn, mouseXIn, mouseYIn);
+        selectionList.renderItem(slotIndex, xPos, yPos, heightIn, mouseXIn, mouseYIn);
     }
 
     public int getWidth()
     {
-        return this.width;
+        return width;
     }
 
     public int getMouseY()
     {
-        return this.mouseY;
+        return mouseY;
     }
 
     public int getMouseX()
     {
-        return this.mouseX;
+        return mouseX;
     }
 
     /**
@@ -64,12 +64,12 @@ public class GuiSlotRealmsProxy extends GuiSlot
      */
     protected int getContentHeight()
     {
-        return this.selectionList.getMaxPosition();
+        return selectionList.getMaxPosition();
     }
 
     protected int getScrollBarX()
     {
-        return this.selectionList.getScrollbarPosition();
+        return selectionList.getScrollbarPosition();
     }
 
     public void handleMouseInput()

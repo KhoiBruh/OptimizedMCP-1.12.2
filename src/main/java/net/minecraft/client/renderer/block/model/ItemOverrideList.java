@@ -21,16 +21,16 @@ public class ItemOverrideList
     {
         for (int i = overridesIn.size() - 1; i >= 0; --i)
         {
-            this.overrides.add(overridesIn.get(i));
+            overrides.add(overridesIn.get(i));
         }
     }
 
     @Nullable
     public ResourceLocation applyOverride(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn)
     {
-        if (!this.overrides.isEmpty())
+        if (!overrides.isEmpty())
         {
-            for (ItemOverride itemoverride : this.overrides)
+            for (ItemOverride itemoverride : overrides)
             {
                 if (itemoverride.matchesItemStack(stack, worldIn, entityIn))
                 {

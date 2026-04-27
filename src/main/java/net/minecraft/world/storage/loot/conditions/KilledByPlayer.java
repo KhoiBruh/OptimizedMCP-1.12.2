@@ -14,13 +14,13 @@ public class KilledByPlayer implements LootCondition
 
     public KilledByPlayer(boolean inverseIn)
     {
-        this.inverse = inverseIn;
+        inverse = inverseIn;
     }
 
     public boolean testCondition(Random rand, LootContext context)
     {
         boolean flag = context.getKillerPlayer() != null;
-        return flag == !this.inverse;
+        return flag == !inverse;
     }
 
     public static class Serializer extends LootCondition.Serializer<KilledByPlayer>

@@ -27,9 +27,9 @@ public class BlockFarmland extends Block
     protected BlockFarmland()
     {
         super(Material.GROUND);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(MOISTURE, Integer.valueOf(0)));
-        this.setTickRandomly(true);
-        this.setLightOpacity(255);
+        setDefaultState(blockState.getBaseState().withProperty(MOISTURE, Integer.valueOf(0)));
+        setTickRandomly(true);
+        setLightOpacity(255);
     }
 
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
@@ -54,13 +54,13 @@ public class BlockFarmland extends Block
     {
         int i = ((Integer)state.getValue(MOISTURE)).intValue();
 
-        if (!this.hasWater(worldIn, pos) && !worldIn.isRainingAt(pos.up()))
+        if (!hasWater(worldIn, pos) && !worldIn.isRainingAt(pos.up()))
         {
             if (i > 0)
             {
                 worldIn.setBlockState(pos, state.withProperty(MOISTURE, Integer.valueOf(i - 1)), 2);
             }
-            else if (!this.hasCrops(worldIn, pos))
+            else if (!hasCrops(worldIn, pos))
             {
                 turnToDirt(worldIn, pos);
             }
@@ -176,7 +176,7 @@ public class BlockFarmland extends Block
      */
     public IBlockState getStateFromMeta(int meta)
     {
-        return this.getDefaultState().withProperty(MOISTURE, Integer.valueOf(meta & 7));
+        return getDefaultState().withProperty(MOISTURE, Integer.valueOf(meta & 7));
     }
 
     /**

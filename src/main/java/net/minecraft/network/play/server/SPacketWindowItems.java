@@ -19,13 +19,13 @@ public class SPacketWindowItems implements Packet<INetHandlerPlayClient>
 
     public SPacketWindowItems(int p_i47317_1_, NonNullList<ItemStack> p_i47317_2_)
     {
-        this.windowId = p_i47317_1_;
-        this.itemStacks = NonNullList.<ItemStack>withSize(p_i47317_2_.size(), ItemStack.EMPTY);
+        windowId = p_i47317_1_;
+        itemStacks = NonNullList.<ItemStack>withSize(p_i47317_2_.size(), ItemStack.EMPTY);
 
-        for (int i = 0; i < this.itemStacks.size(); ++i)
+        for (int i = 0; i < itemStacks.size(); ++i)
         {
             ItemStack itemstack = p_i47317_2_.get(i);
-            this.itemStacks.set(i, itemstack.copy());
+            itemStacks.set(i, itemstack.copy());
         }
     }
 
@@ -34,13 +34,13 @@ public class SPacketWindowItems implements Packet<INetHandlerPlayClient>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.windowId = buf.readUnsignedByte();
+        windowId = buf.readUnsignedByte();
         int i = buf.readShort();
-        this.itemStacks = NonNullList.<ItemStack>withSize(i, ItemStack.EMPTY);
+        itemStacks = NonNullList.<ItemStack>withSize(i, ItemStack.EMPTY);
 
         for (int j = 0; j < i; ++j)
         {
-            this.itemStacks.set(j, buf.readItemStack());
+            itemStacks.set(j, buf.readItemStack());
         }
     }
 
@@ -49,10 +49,10 @@ public class SPacketWindowItems implements Packet<INetHandlerPlayClient>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeByte(this.windowId);
-        buf.writeShort(this.itemStacks.size());
+        buf.writeByte(windowId);
+        buf.writeShort(itemStacks.size());
 
-        for (ItemStack itemstack : this.itemStacks)
+        for (ItemStack itemstack : itemStacks)
         {
             buf.writeItemStack(itemstack);
         }
@@ -68,11 +68,11 @@ public class SPacketWindowItems implements Packet<INetHandlerPlayClient>
 
     public int getWindowId()
     {
-        return this.windowId;
+        return windowId;
     }
 
     public List<ItemStack> getItemStacks()
     {
-        return this.itemStacks;
+        return itemStacks;
     }
 }

@@ -15,7 +15,7 @@ public class SPacketDestroyEntities implements Packet<INetHandlerPlayClient>
 
     public SPacketDestroyEntities(int... entityIdsIn)
     {
-        this.entityIDs = entityIdsIn;
+        entityIDs = entityIdsIn;
     }
 
     /**
@@ -23,11 +23,11 @@ public class SPacketDestroyEntities implements Packet<INetHandlerPlayClient>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.entityIDs = new int[buf.readVarInt()];
+        entityIDs = new int[buf.readVarInt()];
 
-        for (int i = 0; i < this.entityIDs.length; ++i)
+        for (int i = 0; i < entityIDs.length; ++i)
         {
-            this.entityIDs[i] = buf.readVarInt();
+            entityIDs[i] = buf.readVarInt();
         }
     }
 
@@ -36,9 +36,9 @@ public class SPacketDestroyEntities implements Packet<INetHandlerPlayClient>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeVarInt(this.entityIDs.length);
+        buf.writeVarInt(entityIDs.length);
 
-        for (int i : this.entityIDs)
+        for (int i : entityIDs)
         {
             buf.writeVarInt(i);
         }
@@ -54,6 +54,6 @@ public class SPacketDestroyEntities implements Packet<INetHandlerPlayClient>
 
     public int[] getEntityIDs()
     {
-        return this.entityIDs;
+        return entityIDs;
     }
 }

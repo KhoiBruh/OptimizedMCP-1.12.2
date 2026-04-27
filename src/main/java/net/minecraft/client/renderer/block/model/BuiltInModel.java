@@ -14,8 +14,8 @@ public class BuiltInModel implements IBakedModel
 
     public BuiltInModel(ItemCameraTransforms p_i46537_1_, ItemOverrideList p_i46537_2_)
     {
-        this.cameraTransforms = p_i46537_1_;
-        this.overrideList = p_i46537_2_;
+        cameraTransforms = p_i46537_1_;
+        overrideList = p_i46537_2_;
     }
 
     public List<BakedQuad> getQuads(@Nullable IBlockState state, @Nullable EnumFacing side, long rand)
@@ -45,11 +45,11 @@ public class BuiltInModel implements IBakedModel
 
     public ItemCameraTransforms getItemCameraTransforms()
     {
-        return this.cameraTransforms;
+        return cameraTransforms;
     }
 
     public ItemOverrideList getOverrides()
     {
-        return this.overrideList;
+        return overrideList;
     }
 }

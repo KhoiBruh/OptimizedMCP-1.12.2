@@ -9,7 +9,7 @@ public class TextComponentSelector extends TextComponentBase
 
     public TextComponentSelector(String selectorIn)
     {
-        this.selector = selectorIn;
+        selector = selectorIn;
     }
 
     /**
@@ -17,7 +17,7 @@ public class TextComponentSelector extends TextComponentBase
      */
     public String getSelector()
     {
-        return this.selector;
+        return selector;
     }
 
     /**
@@ -27,7 +27,7 @@ public class TextComponentSelector extends TextComponentBase
      */
     public String getUnformattedComponentText()
     {
-        return this.selector;
+        return selector;
     }
 
     /**
@@ -35,10 +35,10 @@ public class TextComponentSelector extends TextComponentBase
      */
     public TextComponentSelector createCopy()
     {
-        TextComponentSelector textcomponentselector = new TextComponentSelector(this.selector);
-        textcomponentselector.setStyle(this.getStyle().createShallowCopy());
+        TextComponentSelector textcomponentselector = new TextComponentSelector(selector);
+        textcomponentselector.setStyle(getStyle().createShallowCopy());
 
-        for (ITextComponent itextcomponent : this.getSiblings())
+        for (ITextComponent itextcomponent : getSiblings())
         {
             textcomponentselector.appendSibling(itextcomponent.createCopy());
         }
@@ -59,12 +59,12 @@ public class TextComponentSelector extends TextComponentBase
         else
         {
             TextComponentSelector textcomponentselector = (TextComponentSelector)p_equals_1_;
-            return this.selector.equals(textcomponentselector.selector) && super.equals(p_equals_1_);
+            return selector.equals(textcomponentselector.selector) && super.equals(p_equals_1_);
         }
     }
 
     public String toString()
     {
-        return "SelectorComponent{pattern='" + this.selector + '\'' + ", siblings=" + this.siblings + ", style=" + this.getStyle() + '}';
+        return "SelectorComponent{pattern='" + selector + '\'' + ", siblings=" + siblings + ", style=" + getStyle() + '}';
     }
 }

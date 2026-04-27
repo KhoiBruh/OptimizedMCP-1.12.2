@@ -57,11 +57,11 @@ public class CommandHelp extends CommandBase
     {
         if (sender instanceof CommandBlockBaseLogic)
         {
-            sender.sendMessage((new TextComponentString("Searge says: ")).appendText(SEARGE_SAYS[this.rand.nextInt(SEARGE_SAYS.length) % SEARGE_SAYS.length]));
+            sender.sendMessage((new TextComponentString("Searge says: ")).appendText(SEARGE_SAYS[rand.nextInt(SEARGE_SAYS.length) % SEARGE_SAYS.length]));
         }
         else
         {
-            List<ICommand> list = this.getSortedPossibleCommands(sender, server);
+            List<ICommand> list = getSortedPossibleCommands(sender, server);
             int i = 7;
             int j = (list.size() - 1) / 7;
             int k = 0;
@@ -72,7 +72,7 @@ public class CommandHelp extends CommandBase
             }
             catch (NumberInvalidException numberinvalidexception)
             {
-                Map<String, ICommand> map = this.getCommandMap(server);
+                Map<String, ICommand> map = getCommandMap(server);
                 ICommand icommand = map.get(args[0]);
 
                 if (icommand != null)
@@ -126,7 +126,7 @@ public class CommandHelp extends CommandBase
     {
         if (args.length == 1)
         {
-            Set<String> set = this.getCommandMap(server).keySet();
+            Set<String> set = getCommandMap(server).keySet();
             return getListOfStringsMatchingLastWord(args, (String[])set.toArray(new String[set.size()]));
         }
         else

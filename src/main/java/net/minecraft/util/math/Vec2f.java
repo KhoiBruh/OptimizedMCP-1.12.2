@@ -38,7 +38,7 @@ public class Vec2f
 
     public Vec2f(float xIn, float yIn)
     {
-        this.x = xIn;
-        this.y = yIn;
+        x = xIn;
+        y = yIn;
     }
 }

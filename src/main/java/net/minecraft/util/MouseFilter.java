@@ -11,23 +11,23 @@ public class MouseFilter
      */
     public float smooth(float p_76333_1_, float p_76333_2_)
     {
-        this.targetValue += p_76333_1_;
-        p_76333_1_ = (this.targetValue - this.remainingValue) * p_76333_2_;
-        this.lastAmount += (p_76333_1_ - this.lastAmount) * 0.5F;
+        targetValue += p_76333_1_;
+        p_76333_1_ = (targetValue - remainingValue) * p_76333_2_;
+        lastAmount += (p_76333_1_ - lastAmount) * 0.5F;
 
-        if (p_76333_1_ > 0.0F && p_76333_1_ > this.lastAmount || p_76333_1_ < 0.0F && p_76333_1_ < this.lastAmount)
+        if (p_76333_1_ > 0.0F && p_76333_1_ > lastAmount || p_76333_1_ < 0.0F && p_76333_1_ < lastAmount)
         {
-            p_76333_1_ = this.lastAmount;
+            p_76333_1_ = lastAmount;
         }
 
-        this.remainingValue += p_76333_1_;
+        remainingValue += p_76333_1_;
         return p_76333_1_;
     }
 
     public void reset()
     {
-        this.targetValue = 0.0F;
-        this.remainingValue = 0.0F;
-        this.lastAmount = 0.0F;
+        targetValue = 0.0F;
+        remainingValue = 0.0F;
+        lastAmount = 0.0F;
     }
 }

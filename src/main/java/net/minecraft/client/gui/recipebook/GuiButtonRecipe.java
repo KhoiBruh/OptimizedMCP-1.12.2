@@ -29,8 +29,8 @@ public class GuiButtonRecipe extends GuiButton
 
     public void init(RecipeList p_193928_1_, RecipeBookPage p_193928_2_, RecipeBook p_193928_3_)
     {
-        this.list = p_193928_1_;
-        this.book = p_193928_3_;
+        list = p_193928_1_;
+        book = p_193928_3_;
         List<IRecipe> list = p_193928_1_.getRecipes(p_193928_3_.isFilteringCraftable());
 
         for (IRecipe irecipe : list)
@@ -38,7 +38,7 @@ public class GuiButtonRecipe extends GuiButton
             if (p_193928_3_.isNew(irecipe))
             {
                 p_193928_2_.recipesShown(list);
-                this.animationTime = 15.0F;
+                animationTime = 15.0F;
                 break;
             }
         }
@@ -46,13 +46,13 @@ public class GuiButtonRecipe extends GuiButton
 
     public RecipeList getList()
     {
-        return this.list;
+        return list;
     }
 
     public void setPosition(int p_191770_1_, int p_191770_2_)
     {
-        this.x = p_191770_1_;
-        this.y = p_191770_2_;
+        x = p_191770_1_;
+        y = p_191770_2_;
     }
 
     /**
@@ -60,56 +60,56 @@ public class GuiButtonRecipe extends GuiButton
      */
     public void drawButton(Minecraft mc, int mouseX, int mouseY, float partialTicks)
     {
-        if (this.visible)
+        if (visible)
         {
             if (!GuiScreen.isCtrlKeyDown())
             {
-                this.time += partialTicks;
+                time += partialTicks;
             }
 
-            this.hovered = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width && mouseY < this.y + this.height;
+            hovered = mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
             RenderHelper.enableGUIStandardItemLighting();
             mc.getTextureManager().bindTexture(RECIPE_BOOK);
             GlStateManager.disableLighting();
             int i = 29;
 
-            if (!this.list.containsCraftableRecipes())
+            if (!list.containsCraftableRecipes())
             {
                 i += 25;
             }
 
             int j = 206;
 
-            if (this.list.getRecipes(this.book.isFilteringCraftable()).size() > 1)
+            if (list.getRecipes(book.isFilteringCraftable()).size() > 1)
             {
                 j += 25;
             }
 
-            boolean flag = this.animationTime > 0.0F;
+            boolean flag = animationTime > 0.0F;
 
             if (flag)
             {
-                float f = 1.0F + 0.1F * (float)Math.sin((double)(this.animationTime / 15.0F * (float)Math.PI));
+                float f = 1.0F + 0.1F * (float)Math.sin((double)(animationTime / 15.0F * (float)Math.PI));
                 GlStateManager.pushMatrix();
-                GlStateManager.translate((float)(this.x + 8), (float)(this.y + 12), 0.0F);
+                GlStateManager.translate((float)(x + 8), (float)(y + 12), 0.0F);
                 GlStateManager.scale(f, f, 1.0F);
-                GlStateManager.translate((float)(-(this.x + 8)), (float)(-(this.y + 12)), 0.0F);
-                this.animationTime -= partialTicks;
+                GlStateManager.translate((float)(-(x + 8)), (float)(-(y + 12)), 0.0F);
+                animationTime -= partialTicks;
             }
 
-            this.drawTexturedModalRect(this.x, this.y, i, j, this.width, this.height);
-            List<IRecipe> list = this.getOrderedRecipes();
-            this.currentIndex = MathHelper.floor(this.time / 30.0F) % list.size();
-            ItemStack itemstack = ((IRecipe)list.get(this.currentIndex)).getRecipeOutput();
+            drawTexturedModalRect(x, y, i, j, width, height);
+            List<IRecipe> list = getOrderedRecipes();
+            currentIndex = MathHelper.floor(time / 30.0F) % list.size();
+            ItemStack itemstack = ((IRecipe)list.get(currentIndex)).getRecipeOutput();
             int k = 4;
 
-            if (this.list.hasSingleResultItem() && this.getOrderedRecipes().size() > 1)
+            if (this.list.hasSingleResultItem() && getOrderedRecipes().size() > 1)
             {
-                mc.getRenderItem().renderItemAndEffectIntoGUI(itemstack, this.x + k + 1, this.y + k + 1);
+                mc.getRenderItem().renderItemAndEffectIntoGUI(itemstack, x + k + 1, y + k + 1);
                 --k;
             }
 
-            mc.getRenderItem().renderItemAndEffectIntoGUI(itemstack, this.x + k, this.y + k);
+            mc.getRenderItem().renderItemAndEffectIntoGUI(itemstack, x + k, y + k);
 
             if (flag)
             {
@@ -125,7 +125,7 @@ public class GuiButtonRecipe extends GuiButton
     {
         List<IRecipe> list = this.list.getDisplayRecipes(true);
 
-        if (!this.book.isFilteringCraftable())
+        if (!book.isFilteringCraftable())
         {
             list.addAll(this.list.getDisplayRecipes(false));
         }
@@ -135,21 +135,21 @@ public class GuiButtonRecipe extends GuiButton
 
     public boolean isOnlyOption()
     {
-        return this.getOrderedRecipes().size() == 1;
+        return getOrderedRecipes().size() == 1;
     }
 
     public IRecipe getRecipe()
     {
-        List<IRecipe> list = this.getOrderedRecipes();
-        return list.get(this.currentIndex);
+        List<IRecipe> list = getOrderedRecipes();
+        return list.get(currentIndex);
     }
 
     public List<String> getToolTipText(GuiScreen p_191772_1_)
     {
-        ItemStack itemstack = ((IRecipe)this.getOrderedRecipes().get(this.currentIndex)).getRecipeOutput();
+        ItemStack itemstack = ((IRecipe) getOrderedRecipes().get(currentIndex)).getRecipeOutput();
         List<String> list = p_191772_1_.getItemToolTip(itemstack);
 
-        if (this.list.getRecipes(this.book.isFilteringCraftable()).size() > 1)
+        if (this.list.getRecipes(book.isFilteringCraftable()).size() > 1)
         {
             list.add(I18n.format("gui.recipebook.moreRecipes"));
         }

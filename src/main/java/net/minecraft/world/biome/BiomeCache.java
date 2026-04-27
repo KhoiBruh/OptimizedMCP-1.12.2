@@ -29,13 +29,13 @@ public class BiomeCache
         x = x >> 4;
         z = z >> 4;
         long i = (long)x & 4294967295L | ((long)z & 4294967295L) << 32;
-        BiomeCache.Block biomecache$block = (BiomeCache.Block)this.cacheMap.get(i);
+        BiomeCache.Block biomecache$block = (BiomeCache.Block) cacheMap.get(i);
 
         if (biomecache$block == null)
         {
             biomecache$block = new BiomeCache.Block(x, z);
-            this.cacheMap.put(i, biomecache$block);
-            this.cache.add(biomecache$block);
+            cacheMap.put(i, biomecache$block);
+            cache.add(biomecache$block);
         }
 
         biomecache$block.lastAccessTime = MinecraftServer.getCurrentTimeMillis();
@@ -44,7 +44,7 @@ public class BiomeCache
 
     public Biome getBiome(int x, int z, Biome defaultValue)
     {
-        Biome biome = this.getEntry(x, z).getBiome(x, z);
+        Biome biome = getEntry(x, z).getBiome(x, z);
         return biome == null ? defaultValue : biome;
     }
 
@@ -54,22 +54,22 @@ public class BiomeCache
     public void cleanupCache()
     {
         long i = MinecraftServer.getCurrentTimeMillis();
-        long j = i - this.lastCleanupTime;
+        long j = i - lastCleanupTime;
 
         if (j > 7500L || j < 0L)
         {
-            this.lastCleanupTime = i;
+            lastCleanupTime = i;
 
-            for (int k = 0; k < this.cache.size(); ++k)
+            for (int k = 0; k < cache.size(); ++k)
             {
-                BiomeCache.Block biomecache$block = this.cache.get(k);
+                BiomeCache.Block biomecache$block = cache.get(k);
                 long l = i - biomecache$block.lastAccessTime;
 
                 if (l > 30000L || l < 0L)
                 {
-                    this.cache.remove(k--);
+                    cache.remove(k--);
                     long i1 = (long)biomecache$block.x & 4294967295L | ((long)biomecache$block.z & 4294967295L) << 32;
-                    this.cacheMap.remove(i1);
+                    cacheMap.remove(i1);
                 }
             }
         }
@@ -80,7 +80,7 @@ public class BiomeCache
      */
     public Biome[] getCachedBiomes(int x, int z)
     {
-        return this.getEntry(x, z).biomes;
+        return getEntry(x, z).biomes;
     }
 
     public class Block
@@ -94,12 +94,12 @@ public class BiomeCache
         {
             this.x = x;
             this.z = z;
-            BiomeCache.this.provider.getBiomes(this.biomes, x << 4, z << 4, 16, 16, false);
+            provider.getBiomes(biomes, x << 4, z << 4, 16, 16, false);
         }
 
         public Biome getBiome(int x, int z)
         {
-            return this.biomes[x & 15 | (z & 15) << 4];
+            return biomes[x & 15 | (z & 15) << 4];
         }
     }
 }

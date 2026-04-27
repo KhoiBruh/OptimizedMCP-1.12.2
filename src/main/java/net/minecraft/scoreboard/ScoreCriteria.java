@@ -6,13 +6,13 @@ public class ScoreCriteria implements IScoreCriteria
 
     public ScoreCriteria(String name)
     {
-        this.dummyName = name;
+        dummyName = name;
         IScoreCriteria.INSTANCES.put(name, this);
     }
 
     public String getName()
     {
-        return this.dummyName;
+        return dummyName;
     }
 
     public boolean isReadOnly()

@@ -12,8 +12,8 @@ public class ItemSaddle extends Item
 {
     public ItemSaddle()
     {
-        this.maxStackSize = 1;
-        this.setCreativeTab(CreativeTabs.TRANSPORTATION);
+        maxStackSize = 1;
+        setCreativeTab(CreativeTabs.TRANSPORTATION);
     }
 
     /**

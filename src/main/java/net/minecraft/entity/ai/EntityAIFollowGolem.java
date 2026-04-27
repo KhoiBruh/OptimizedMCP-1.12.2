@@ -13,8 +13,8 @@ public class EntityAIFollowGolem extends EntityAIBase
 
     public EntityAIFollowGolem(EntityVillager villagerIn)
     {
-        this.villager = villagerIn;
-        this.setMutexBits(3);
+        villager = villagerIn;
+        setMutexBits(3);
     }
 
     /**
@@ -22,17 +22,17 @@ public class EntityAIFollowGolem extends EntityAIBase
      */
     public boolean shouldExecute()
     {
-        if (this.villager.getGrowingAge() >= 0)
+        if (villager.getGrowingAge() >= 0)
         {
             return false;
         }
-        else if (!this.villager.world.isDaytime())
+        else if (!villager.world.isDaytime())
         {
             return false;
         }
         else
         {
-            List<EntityIronGolem> list = this.villager.world.<EntityIronGolem>getEntitiesWithinAABB(EntityIronGolem.class, this.villager.getEntityBoundingBox().grow(6.0D, 2.0D, 6.0D));
+            List<EntityIronGolem> list = villager.world.<EntityIronGolem>getEntitiesWithinAABB(EntityIronGolem.class, villager.getEntityBoundingBox().grow(6.0D, 2.0D, 6.0D));
 
             if (list.isEmpty())
             {
@@ -44,12 +44,12 @@ public class EntityAIFollowGolem extends EntityAIBase
                 {
                     if (entityirongolem.getHoldRoseTick() > 0)
                     {
-                        this.ironGolem = entityirongolem;
+                        ironGolem = entityirongolem;
                         break;
                     }
                 }
 
-                return this.ironGolem != null;
+                return ironGolem != null;
             }
         }
     }
@@ -59,7 +59,7 @@ public class EntityAIFollowGolem extends EntityAIBase
      */
     public boolean shouldContinueExecuting()
     {
-        return this.ironGolem.getHoldRoseTick() > 0;
+        return ironGolem.getHoldRoseTick() > 0;
     }
 
     /**
@@ -67,9 +67,9 @@ public class EntityAIFollowGolem extends EntityAIBase
      */
     public void startExecuting()
     {
-        this.takeGolemRoseTick = this.villager.getRNG().nextInt(320);
-        this.tookGolemRose = false;
-        this.ironGolem.getNavigator().clearPath();
+        takeGolemRoseTick = villager.getRNG().nextInt(320);
+        tookGolemRose = false;
+        ironGolem.getNavigator().clearPath();
     }
 
     /**
@@ -77,8 +77,8 @@ public class EntityAIFollowGolem extends EntityAIBase
      */
     public void resetTask()
     {
-        this.ironGolem = null;
-        this.villager.getNavigator().clearPath();
+        ironGolem = null;
+        villager.getNavigator().clearPath();
     }
 
     /**
@@ -86,18 +86,18 @@ public class EntityAIFollowGolem extends EntityAIBase
      */
     public void updateTask()
     {
-        this.villager.getLookHelper().setLookPositionWithEntity(this.ironGolem, 30.0F, 30.0F);
+        villager.getLookHelper().setLookPositionWithEntity(ironGolem, 30.0F, 30.0F);
 
-        if (this.ironGolem.getHoldRoseTick() == this.takeGolemRoseTick)
+        if (ironGolem.getHoldRoseTick() == takeGolemRoseTick)
         {
-            this.villager.getNavigator().tryMoveToEntityLiving(this.ironGolem, 0.5D);
-            this.tookGolemRose = true;
+            villager.getNavigator().tryMoveToEntityLiving(ironGolem, 0.5D);
+            tookGolemRose = true;
         }
 
-        if (this.tookGolemRose && this.villager.getDistanceSq(this.ironGolem) < 4.0D)
+        if (tookGolemRose && villager.getDistanceSq(ironGolem) < 4.0D)
         {
-            this.ironGolem.setHoldingRose(false);
-            this.villager.getNavigator().clearPath();
+            ironGolem.setHoldingRose(false);
+            villager.getNavigator().clearPath();
         }
     }
 }

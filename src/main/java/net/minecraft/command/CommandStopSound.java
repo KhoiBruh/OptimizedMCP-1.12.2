@@ -88,7 +88,7 @@ public class CommandStopSound extends CommandBase
         }
         else
         {
-            throw new WrongUsageException(this.getUsage(sender), new Object[0]);
+            throw new WrongUsageException(getUsage(sender), new Object[0]);
         }
     }
 

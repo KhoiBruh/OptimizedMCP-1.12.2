@@ -22,45 +22,45 @@ public class ModelParrot extends ModelBase
 
     public ModelParrot()
     {
-        this.textureWidth = 32;
-        this.textureHeight = 32;
-        this.body = new ModelRenderer(this, 2, 8);
-        this.body.addBox(-1.5F, 0.0F, -1.5F, 3, 6, 3);
-        this.body.setRotationPoint(0.0F, 16.5F, -3.0F);
-        this.tail = new ModelRenderer(this, 22, 1);
-        this.tail.addBox(-1.5F, -1.0F, -1.0F, 3, 4, 1);
-        this.tail.setRotationPoint(0.0F, 21.07F, 1.16F);
-        this.wingLeft = new ModelRenderer(this, 19, 8);
-        this.wingLeft.addBox(-0.5F, 0.0F, -1.5F, 1, 5, 3);
-        this.wingLeft.setRotationPoint(1.5F, 16.94F, -2.76F);
-        this.wingRight = new ModelRenderer(this, 19, 8);
-        this.wingRight.addBox(-0.5F, 0.0F, -1.5F, 1, 5, 3);
-        this.wingRight.setRotationPoint(-1.5F, 16.94F, -2.76F);
-        this.head = new ModelRenderer(this, 2, 2);
-        this.head.addBox(-1.0F, -1.5F, -1.0F, 2, 3, 2);
-        this.head.setRotationPoint(0.0F, 15.69F, -2.76F);
-        this.head2 = new ModelRenderer(this, 10, 0);
-        this.head2.addBox(-1.0F, -0.5F, -2.0F, 2, 1, 4);
-        this.head2.setRotationPoint(0.0F, -2.0F, -1.0F);
-        this.head.addChild(this.head2);
-        this.beak1 = new ModelRenderer(this, 11, 7);
-        this.beak1.addBox(-0.5F, -1.0F, -0.5F, 1, 2, 1);
-        this.beak1.setRotationPoint(0.0F, -0.5F, -1.5F);
-        this.head.addChild(this.beak1);
-        this.beak2 = new ModelRenderer(this, 16, 7);
-        this.beak2.addBox(-0.5F, 0.0F, -0.5F, 1, 2, 1);
-        this.beak2.setRotationPoint(0.0F, -1.75F, -2.45F);
-        this.head.addChild(this.beak2);
-        this.feather = new ModelRenderer(this, 2, 18);
-        this.feather.addBox(0.0F, -4.0F, -2.0F, 0, 5, 4);
-        this.feather.setRotationPoint(0.0F, -2.15F, 0.15F);
-        this.head.addChild(this.feather);
-        this.legLeft = new ModelRenderer(this, 14, 18);
-        this.legLeft.addBox(-0.5F, 0.0F, -0.5F, 1, 2, 1);
-        this.legLeft.setRotationPoint(1.0F, 22.0F, -1.05F);
-        this.legRight = new ModelRenderer(this, 14, 18);
-        this.legRight.addBox(-0.5F, 0.0F, -0.5F, 1, 2, 1);
-        this.legRight.setRotationPoint(-1.0F, 22.0F, -1.05F);
+        textureWidth = 32;
+        textureHeight = 32;
+        body = new ModelRenderer(this, 2, 8);
+        body.addBox(-1.5F, 0.0F, -1.5F, 3, 6, 3);
+        body.setRotationPoint(0.0F, 16.5F, -3.0F);
+        tail = new ModelRenderer(this, 22, 1);
+        tail.addBox(-1.5F, -1.0F, -1.0F, 3, 4, 1);
+        tail.setRotationPoint(0.0F, 21.07F, 1.16F);
+        wingLeft = new ModelRenderer(this, 19, 8);
+        wingLeft.addBox(-0.5F, 0.0F, -1.5F, 1, 5, 3);
+        wingLeft.setRotationPoint(1.5F, 16.94F, -2.76F);
+        wingRight = new ModelRenderer(this, 19, 8);
+        wingRight.addBox(-0.5F, 0.0F, -1.5F, 1, 5, 3);
+        wingRight.setRotationPoint(-1.5F, 16.94F, -2.76F);
+        head = new ModelRenderer(this, 2, 2);
+        head.addBox(-1.0F, -1.5F, -1.0F, 2, 3, 2);
+        head.setRotationPoint(0.0F, 15.69F, -2.76F);
+        head2 = new ModelRenderer(this, 10, 0);
+        head2.addBox(-1.0F, -0.5F, -2.0F, 2, 1, 4);
+        head2.setRotationPoint(0.0F, -2.0F, -1.0F);
+        head.addChild(head2);
+        beak1 = new ModelRenderer(this, 11, 7);
+        beak1.addBox(-0.5F, -1.0F, -0.5F, 1, 2, 1);
+        beak1.setRotationPoint(0.0F, -0.5F, -1.5F);
+        head.addChild(beak1);
+        beak2 = new ModelRenderer(this, 16, 7);
+        beak2.addBox(-0.5F, 0.0F, -0.5F, 1, 2, 1);
+        beak2.setRotationPoint(0.0F, -1.75F, -2.45F);
+        head.addChild(beak2);
+        feather = new ModelRenderer(this, 2, 18);
+        feather.addBox(0.0F, -4.0F, -2.0F, 0, 5, 4);
+        feather.setRotationPoint(0.0F, -2.15F, 0.15F);
+        head.addChild(feather);
+        legLeft = new ModelRenderer(this, 14, 18);
+        legLeft.addBox(-0.5F, 0.0F, -0.5F, 1, 2, 1);
+        legLeft.setRotationPoint(1.0F, 22.0F, -1.05F);
+        legRight = new ModelRenderer(this, 14, 18);
+        legRight.addBox(-0.5F, 0.0F, -0.5F, 1, 2, 1);
+        legRight.setRotationPoint(-1.0F, 22.0F, -1.05F);
     }
 
     /**
@@ -68,13 +68,13 @@ public class ModelParrot extends ModelBase
      */
     public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale)
     {
-        this.body.render(scale);
-        this.wingLeft.render(scale);
-        this.wingRight.render(scale);
-        this.tail.render(scale);
-        this.head.render(scale);
-        this.legLeft.render(scale);
-        this.legRight.render(scale);
+        body.render(scale);
+        wingLeft.render(scale);
+        wingRight.render(scale);
+        tail.render(scale);
+        head.render(scale);
+        legLeft.render(scale);
+        legRight.render(scale);
     }
 
     /**
@@ -85,58 +85,58 @@ public class ModelParrot extends ModelBase
     public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn)
     {
         float f = ageInTicks * 0.3F;
-        this.head.rotateAngleX = headPitch * 0.017453292F;
-        this.head.rotateAngleY = netHeadYaw * 0.017453292F;
-        this.head.rotateAngleZ = 0.0F;
-        this.head.rotationPointX = 0.0F;
-        this.body.rotationPointX = 0.0F;
-        this.tail.rotationPointX = 0.0F;
-        this.wingRight.rotationPointX = -1.5F;
-        this.wingLeft.rotationPointX = 1.5F;
+        head.rotateAngleX = headPitch * 0.017453292F;
+        head.rotateAngleY = netHeadYaw * 0.017453292F;
+        head.rotateAngleZ = 0.0F;
+        head.rotationPointX = 0.0F;
+        body.rotationPointX = 0.0F;
+        tail.rotationPointX = 0.0F;
+        wingRight.rotationPointX = -1.5F;
+        wingLeft.rotationPointX = 1.5F;
 
-        if (this.state != ModelParrot.State.FLYING)
+        if (state != ModelParrot.State.FLYING)
         {
-            if (this.state == ModelParrot.State.SITTING)
+            if (state == ModelParrot.State.SITTING)
             {
                 return;
             }
 
-            if (this.state == ModelParrot.State.PARTY)
+            if (state == ModelParrot.State.PARTY)
             {
                 float f1 = MathHelper.cos((float)entityIn.ticksExisted);
                 float f2 = MathHelper.sin((float)entityIn.ticksExisted);
-                this.head.rotationPointX = f1;
-                this.head.rotationPointY = 15.69F + f2;
-                this.head.rotateAngleX = 0.0F;
-                this.head.rotateAngleY = 0.0F;
-                this.head.rotateAngleZ = MathHelper.sin((float)entityIn.ticksExisted) * 0.4F;
-                this.body.rotationPointX = f1;
-                this.body.rotationPointY = 16.5F + f2;
-                this.wingLeft.rotateAngleZ = -0.0873F - ageInTicks;
-                this.wingLeft.rotationPointX = 1.5F + f1;
-                this.wingLeft.rotationPointY = 16.94F + f2;
-                this.wingRight.rotateAngleZ = 0.0873F + ageInTicks;
-                this.wingRight.rotationPointX = -1.5F + f1;
-                this.wingRight.rotationPointY = 16.94F + f2;
-                this.tail.rotationPointX = f1;
-                this.tail.rotationPointY = 21.07F + f2;
+                head.rotationPointX = f1;
+                head.rotationPointY = 15.69F + f2;
+                head.rotateAngleX = 0.0F;
+                head.rotateAngleY = 0.0F;
+                head.rotateAngleZ = MathHelper.sin((float)entityIn.ticksExisted) * 0.4F;
+                body.rotationPointX = f1;
+                body.rotationPointY = 16.5F + f2;
+                wingLeft.rotateAngleZ = -0.0873F - ageInTicks;
+                wingLeft.rotationPointX = 1.5F + f1;
+                wingLeft.rotationPointY = 16.94F + f2;
+                wingRight.rotateAngleZ = 0.0873F + ageInTicks;
+                wingRight.rotationPointX = -1.5F + f1;
+                wingRight.rotationPointY = 16.94F + f2;
+                tail.rotationPointX = f1;
+                tail.rotationPointY = 21.07F + f2;
                 return;
             }
 
-            this.legLeft.rotateAngleX += MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
-            this.legRight.rotateAngleX += MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
+            legLeft.rotateAngleX += MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+            legRight.rotateAngleX += MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
         }
 
-        this.head.rotationPointY = 15.69F + f;
-        this.tail.rotateAngleX = 1.015F + MathHelper.cos(limbSwing * 0.6662F) * 0.3F * limbSwingAmount;
-        this.tail.rotationPointY = 21.07F + f;
-        this.body.rotationPointY = 16.5F + f;
-        this.wingLeft.rotateAngleZ = -0.0873F - ageInTicks;
-        this.wingLeft.rotationPointY = 16.94F + f;
-        this.wingRight.rotateAngleZ = 0.0873F + ageInTicks;
-        this.wingRight.rotationPointY = 16.94F + f;
-        this.legLeft.rotationPointY = 22.0F + f;
-        this.legRight.rotationPointY = 22.0F + f;
+        head.rotationPointY = 15.69F + f;
+        tail.rotateAngleX = 1.015F + MathHelper.cos(limbSwing * 0.6662F) * 0.3F * limbSwingAmount;
+        tail.rotationPointY = 21.07F + f;
+        body.rotationPointY = 16.5F + f;
+        wingLeft.rotateAngleZ = -0.0873F - ageInTicks;
+        wingLeft.rotationPointY = 16.94F + f;
+        wingRight.rotateAngleZ = 0.0873F + ageInTicks;
+        wingRight.rotationPointY = 16.94F + f;
+        legLeft.rotationPointY = 22.0F + f;
+        legRight.rotationPointY = 22.0F + f;
     }
 
     /**
@@ -145,16 +145,16 @@ public class ModelParrot extends ModelBase
      */
     public void setLivingAnimations(EntityLivingBase entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTickTime)
     {
-        this.feather.rotateAngleX = -0.2214F;
-        this.body.rotateAngleX = 0.4937F;
-        this.wingLeft.rotateAngleX = -((float)Math.PI * 2F / 9F);
-        this.wingLeft.rotateAngleY = -(float)Math.PI;
-        this.wingRight.rotateAngleX = -((float)Math.PI * 2F / 9F);
-        this.wingRight.rotateAngleY = -(float)Math.PI;
-        this.legLeft.rotateAngleX = -0.0299F;
-        this.legRight.rotateAngleX = -0.0299F;
-        this.legLeft.rotationPointY = 22.0F;
-        this.legRight.rotationPointY = 22.0F;
+        feather.rotateAngleX = -0.2214F;
+        body.rotateAngleX = 0.4937F;
+        wingLeft.rotateAngleX = -((float)Math.PI * 2F / 9F);
+        wingLeft.rotateAngleY = -(float)Math.PI;
+        wingRight.rotateAngleX = -((float)Math.PI * 2F / 9F);
+        wingRight.rotateAngleY = -(float)Math.PI;
+        legLeft.rotateAngleX = -0.0299F;
+        legRight.rotateAngleX = -0.0299F;
+        legLeft.rotationPointY = 22.0F;
+        legRight.rotationPointY = 22.0F;
 
         if (entitylivingbaseIn instanceof EntityParrot)
         {
@@ -162,42 +162,42 @@ public class ModelParrot extends ModelBase
 
             if (entityparrot.isPartying())
             {
-                this.legLeft.rotateAngleZ = -0.34906584F;
-                this.legRight.rotateAngleZ = 0.34906584F;
-                this.state = ModelParrot.State.PARTY;
+                legLeft.rotateAngleZ = -0.34906584F;
+                legRight.rotateAngleZ = 0.34906584F;
+                state = ModelParrot.State.PARTY;
                 return;
             }
 
             if (entityparrot.isSitting())
             {
                 float f = 1.9F;
-                this.head.rotationPointY = 17.59F;
-                this.tail.rotateAngleX = 1.5388988F;
-                this.tail.rotationPointY = 22.97F;
-                this.body.rotationPointY = 18.4F;
-                this.wingLeft.rotateAngleZ = -0.0873F;
-                this.wingLeft.rotationPointY = 18.84F;
-                this.wingRight.rotateAngleZ = 0.0873F;
-                this.wingRight.rotationPointY = 18.84F;
-                ++this.legLeft.rotationPointY;
-                ++this.legRight.rotationPointY;
-                ++this.legLeft.rotateAngleX;
-                ++this.legRight.rotateAngleX;
-                this.state = ModelParrot.State.SITTING;
+                head.rotationPointY = 17.59F;
+                tail.rotateAngleX = 1.5388988F;
+                tail.rotationPointY = 22.97F;
+                body.rotationPointY = 18.4F;
+                wingLeft.rotateAngleZ = -0.0873F;
+                wingLeft.rotationPointY = 18.84F;
+                wingRight.rotateAngleZ = 0.0873F;
+                wingRight.rotationPointY = 18.84F;
+                ++legLeft.rotationPointY;
+                ++legRight.rotationPointY;
+                ++legLeft.rotateAngleX;
+                ++legRight.rotateAngleX;
+                state = ModelParrot.State.SITTING;
             }
             else if (entityparrot.isFlying())
             {
-                this.legLeft.rotateAngleX += ((float)Math.PI * 2F / 9F);
-                this.legRight.rotateAngleX += ((float)Math.PI * 2F / 9F);
-                this.state = ModelParrot.State.FLYING;
+                legLeft.rotateAngleX += ((float)Math.PI * 2F / 9F);
+                legRight.rotateAngleX += ((float)Math.PI * 2F / 9F);
+                state = ModelParrot.State.FLYING;
             }
             else
             {
-                this.state = ModelParrot.State.STANDING;
+                state = ModelParrot.State.STANDING;
             }
 
-            this.legLeft.rotateAngleZ = 0.0F;
-            this.legRight.rotateAngleZ = 0.0F;
+            legLeft.rotateAngleZ = 0.0F;
+            legRight.rotateAngleZ = 0.0F;
         }
     }
 

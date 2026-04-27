@@ -20,13 +20,13 @@ public class EnchantWithLevels extends LootFunction
     public EnchantWithLevels(LootCondition[] conditionsIn, RandomValueRange randomRange, boolean isTreasureIn)
     {
         super(conditionsIn);
-        this.randomLevel = randomRange;
-        this.isTreasure = isTreasureIn;
+        randomLevel = randomRange;
+        isTreasure = isTreasureIn;
     }
 
     public ItemStack apply(ItemStack stack, Random rand, LootContext context)
     {
-        return EnchantmentHelper.addRandomEnchantment(rand, stack, this.randomLevel.generateInt(rand), this.isTreasure);
+        return EnchantmentHelper.addRandomEnchantment(rand, stack, randomLevel.generateInt(rand), isTreasure);
     }
 
     public static class Serializer extends LootFunction.Serializer<EnchantWithLevels>

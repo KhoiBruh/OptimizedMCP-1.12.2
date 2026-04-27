@@ -7,12 +7,12 @@ public class BiomeStoneBeach extends Biome
     public BiomeStoneBeach(Biome.BiomeProperties properties)
     {
         super(properties);
-        this.spawnableCreatureList.clear();
-        this.topBlock = Blocks.STONE.getDefaultState();
-        this.fillerBlock = Blocks.STONE.getDefaultState();
-        this.decorator.treesPerChunk = -999;
-        this.decorator.deadBushPerChunk = 0;
-        this.decorator.reedsPerChunk = 0;
-        this.decorator.cactiPerChunk = 0;
+        spawnableCreatureList.clear();
+        topBlock = Blocks.STONE.getDefaultState();
+        fillerBlock = Blocks.STONE.getDefaultState();
+        decorator.treesPerChunk = -999;
+        decorator.deadBushPerChunk = 0;
+        decorator.reedsPerChunk = 0;
+        decorator.cactiPerChunk = 0;
     }
 }

@@ -37,15 +37,15 @@ public class Snooper
     {
         try
         {
-            this.serverUrl = new URL("http://snoop.minecraft.net/" + side + "?version=" + 2);
+            serverUrl = new URL("http://snoop.minecraft.net/" + side + "?version=" + 2);
         }
         catch (MalformedURLException var6)
         {
             throw new IllegalArgumentException();
         }
 
-        this.playerStatsCollector = playerStatCollector;
-        this.minecraftStartTimeMilis = startTime;
+        playerStatsCollector = playerStatCollector;
+        minecraftStartTimeMilis = startTime;
     }
 
     /**
@@ -53,33 +53,33 @@ public class Snooper
      */
     public void startSnooper()
     {
-        if (!this.isRunning)
+        if (!isRunning)
         {
-            this.isRunning = true;
-            this.addOSData();
-            this.threadTrigger.schedule(new TimerTask()
+            isRunning = true;
+            addOSData();
+            threadTrigger.schedule(new TimerTask()
             {
                 public void run()
                 {
-                    if (Snooper.this.playerStatsCollector.isSnooperEnabled())
+                    if (playerStatsCollector.isSnooperEnabled())
                     {
                         Map<String, Object> map;
 
-                        synchronized (Snooper.this.syncLock)
+                        synchronized (syncLock)
                         {
-                            map = Maps.<String, Object>newHashMap(Snooper.this.clientStats);
+                            map = Maps.<String, Object>newHashMap(clientStats);
 
-                            if (Snooper.this.selfCounter == 0)
+                            if (selfCounter == 0)
                             {
-                                map.putAll(Snooper.this.snooperStats);
+                                map.putAll(snooperStats);
                             }
 
-                            map.put("snooper_count", Integer.valueOf(Snooper.this.selfCounter++));
-                            map.put("snooper_token", Snooper.this.uniqueID);
+                            map.put("snooper_count", Integer.valueOf(selfCounter++));
+                            map.put("snooper_token", uniqueID);
                         }
 
-                        MinecraftServer minecraftserver = Snooper.this.playerStatsCollector instanceof MinecraftServer ? (MinecraftServer)Snooper.this.playerStatsCollector : null;
-                        HttpUtil.postMap(Snooper.this.serverUrl, map, true, minecraftserver == null ? null : minecraftserver.getServerProxy());
+                        MinecraftServer minecraftserver = playerStatsCollector instanceof MinecraftServer ? (MinecraftServer) playerStatsCollector : null;
+                        HttpUtil.postMap(serverUrl, map, true, minecraftserver == null ? null : minecraftserver.getServerProxy());
                     }
                 }
             }, 0L, 900000L);
@@ -91,15 +91,15 @@ public class Snooper
      */
     private void addOSData()
     {
-        this.addJvmArgsToSnooper();
-        this.addClientStat("snooper_token", this.uniqueID);
-        this.addStatToSnooper("snooper_token", this.uniqueID);
-        this.addStatToSnooper("os_name", System.getProperty("os.name"));
-        this.addStatToSnooper("os_version", System.getProperty("os.version"));
-        this.addStatToSnooper("os_architecture", System.getProperty("os.arch"));
-        this.addStatToSnooper("java_version", System.getProperty("java.version"));
-        this.addClientStat("version", "1.12.2");
-        this.playerStatsCollector.addServerTypeToSnooper(this);
+        addJvmArgsToSnooper();
+        addClientStat("snooper_token", uniqueID);
+        addStatToSnooper("snooper_token", uniqueID);
+        addStatToSnooper("os_name", System.getProperty("os.name"));
+        addStatToSnooper("os_version", System.getProperty("os.version"));
+        addStatToSnooper("os_architecture", System.getProperty("os.arch"));
+        addStatToSnooper("java_version", System.getProperty("java.version"));
+        addClientStat("version", "1.12.2");
+        playerStatsCollector.addServerTypeToSnooper(this);
     }
 
     private void addJvmArgsToSnooper()
@@ -112,35 +112,35 @@ public class Snooper
         {
             if (s.startsWith("-X"))
             {
-                this.addClientStat("jvm_arg[" + i++ + "]", s);
+                addClientStat("jvm_arg[" + i++ + "]", s);
             }
         }
 
-        this.addClientStat("jvm_args", Integer.valueOf(i));
+        addClientStat("jvm_args", Integer.valueOf(i));
     }
 
     public void addMemoryStatsToSnooper()
     {
-        this.addStatToSnooper("memory_total", Long.valueOf(Runtime.getRuntime().totalMemory()));
-        this.addStatToSnooper("memory_max", Long.valueOf(Runtime.getRuntime().maxMemory()));
-        this.addStatToSnooper("memory_free", Long.valueOf(Runtime.getRuntime().freeMemory()));
-        this.addStatToSnooper("cpu_cores", Integer.valueOf(Runtime.getRuntime().availableProcessors()));
-        this.playerStatsCollector.addServerStatsToSnooper(this);
+        addStatToSnooper("memory_total", Long.valueOf(Runtime.getRuntime().totalMemory()));
+        addStatToSnooper("memory_max", Long.valueOf(Runtime.getRuntime().maxMemory()));
+        addStatToSnooper("memory_free", Long.valueOf(Runtime.getRuntime().freeMemory()));
+        addStatToSnooper("cpu_cores", Integer.valueOf(Runtime.getRuntime().availableProcessors()));
+        playerStatsCollector.addServerStatsToSnooper(this);
     }
 
     public void addClientStat(String statName, Object statValue)
     {
-        synchronized (this.syncLock)
+        synchronized (syncLock)
         {
-            this.clientStats.put(statName, statValue);
+            clientStats.put(statName, statValue);
         }
     }
 
     public void addStatToSnooper(String statName, Object statValue)
     {
-        synchronized (this.syncLock)
+        synchronized (syncLock)
         {
-            this.snooperStats.put(statName, statValue);
+            snooperStats.put(statName, statValue);
         }
     }
 
@@ -148,16 +148,16 @@ public class Snooper
     {
         Map<String, String> map = Maps.<String, String>newLinkedHashMap();
 
-        synchronized (this.syncLock)
+        synchronized (syncLock)
         {
-            this.addMemoryStatsToSnooper();
+            addMemoryStatsToSnooper();
 
-            for (Entry<String, Object> entry : this.snooperStats.entrySet())
+            for (Entry<String, Object> entry : snooperStats.entrySet())
             {
                 map.put(entry.getKey(), entry.getValue().toString());
             }
 
-            for (Entry<String, Object> entry1 : this.clientStats.entrySet())
+            for (Entry<String, Object> entry1 : clientStats.entrySet())
             {
                 map.put(entry1.getKey(), entry1.getValue().toString());
             }
@@ -168,17 +168,17 @@ public class Snooper
 
     public boolean isSnooperRunning()
     {
-        return this.isRunning;
+        return isRunning;
     }
 
     public void stopSnooper()
     {
-        this.threadTrigger.cancel();
+        threadTrigger.cancel();
     }
 
     public String getUniqueID()
     {
-        return this.uniqueID;
+        return uniqueID;
     }
 
     /**
@@ -186,6 +186,6 @@ public class Snooper
      */
     public long getMinecraftStartTimeMillis()
     {
-        return this.minecraftStartTimeMilis;
+        return minecraftStartTimeMilis;
     }
 }

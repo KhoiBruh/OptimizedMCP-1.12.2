@@ -15,8 +15,8 @@ public class WorldGenHellLava extends WorldGenerator
 
     public WorldGenHellLava(Block blockIn, boolean insideRockIn)
     {
-        this.block = blockIn;
-        this.insideRock = insideRockIn;
+        block = blockIn;
+        insideRock = insideRockIn;
     }
 
     public boolean generate(World worldIn, Random rand, BlockPos position)
@@ -85,9 +85,9 @@ public class WorldGenHellLava extends WorldGenerator
                 ++j;
             }
 
-            if (!this.insideRock && i == 4 && j == 1 || i == 5)
+            if (!insideRock && i == 4 && j == 1 || i == 5)
             {
-                IBlockState iblockstate = this.block.getDefaultState();
+                IBlockState iblockstate = block.getDefaultState();
                 worldIn.setBlockState(position, iblockstate, 2);
                 worldIn.immediateBlockTick(position, iblockstate, rand);
             }

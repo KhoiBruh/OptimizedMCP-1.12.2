@@ -50,87 +50,87 @@ public class ParticleManager
 
     public ParticleManager(World worldIn, TextureManager rendererIn)
     {
-        this.world = worldIn;
-        this.renderer = rendererIn;
+        world = worldIn;
+        renderer = rendererIn;
 
         for (int i = 0; i < 4; ++i)
         {
-            this.fxLayers[i] = new ArrayDeque[2];
+            fxLayers[i] = new ArrayDeque[2];
 
             for (int j = 0; j < 2; ++j)
             {
-                this.fxLayers[i][j] = Queues.newArrayDeque();
+                fxLayers[i][j] = Queues.newArrayDeque();
             }
         }
 
-        this.registerVanillaParticles();
+        registerVanillaParticles();
     }
 
     private void registerVanillaParticles()
     {
-        this.registerParticle(EnumParticleTypes.EXPLOSION_NORMAL.getParticleID(), new ParticleExplosion.Factory());
-        this.registerParticle(EnumParticleTypes.SPIT.getParticleID(), new ParticleSpit.Factory());
-        this.registerParticle(EnumParticleTypes.WATER_BUBBLE.getParticleID(), new ParticleBubble.Factory());
-        this.registerParticle(EnumParticleTypes.WATER_SPLASH.getParticleID(), new ParticleSplash.Factory());
-        this.registerParticle(EnumParticleTypes.WATER_WAKE.getParticleID(), new ParticleWaterWake.Factory());
-        this.registerParticle(EnumParticleTypes.WATER_DROP.getParticleID(), new ParticleRain.Factory());
-        this.registerParticle(EnumParticleTypes.SUSPENDED.getParticleID(), new ParticleSuspend.Factory());
-        this.registerParticle(EnumParticleTypes.SUSPENDED_DEPTH.getParticleID(), new ParticleSuspendedTown.Factory());
-        this.registerParticle(EnumParticleTypes.CRIT.getParticleID(), new ParticleCrit.Factory());
-        this.registerParticle(EnumParticleTypes.CRIT_MAGIC.getParticleID(), new ParticleCrit.MagicFactory());
-        this.registerParticle(EnumParticleTypes.SMOKE_NORMAL.getParticleID(), new ParticleSmokeNormal.Factory());
-        this.registerParticle(EnumParticleTypes.SMOKE_LARGE.getParticleID(), new ParticleSmokeLarge.Factory());
-        this.registerParticle(EnumParticleTypes.SPELL.getParticleID(), new ParticleSpell.Factory());
-        this.registerParticle(EnumParticleTypes.SPELL_INSTANT.getParticleID(), new ParticleSpell.InstantFactory());
-        this.registerParticle(EnumParticleTypes.SPELL_MOB.getParticleID(), new ParticleSpell.MobFactory());
-        this.registerParticle(EnumParticleTypes.SPELL_MOB_AMBIENT.getParticleID(), new ParticleSpell.AmbientMobFactory());
-        this.registerParticle(EnumParticleTypes.SPELL_WITCH.getParticleID(), new ParticleSpell.WitchFactory());
-        this.registerParticle(EnumParticleTypes.DRIP_WATER.getParticleID(), new ParticleDrip.WaterFactory());
-        this.registerParticle(EnumParticleTypes.DRIP_LAVA.getParticleID(), new ParticleDrip.LavaFactory());
-        this.registerParticle(EnumParticleTypes.VILLAGER_ANGRY.getParticleID(), new ParticleHeart.AngryVillagerFactory());
-        this.registerParticle(EnumParticleTypes.VILLAGER_HAPPY.getParticleID(), new ParticleSuspendedTown.HappyVillagerFactory());
-        this.registerParticle(EnumParticleTypes.TOWN_AURA.getParticleID(), new ParticleSuspendedTown.Factory());
-        this.registerParticle(EnumParticleTypes.NOTE.getParticleID(), new ParticleNote.Factory());
-        this.registerParticle(EnumParticleTypes.PORTAL.getParticleID(), new ParticlePortal.Factory());
-        this.registerParticle(EnumParticleTypes.ENCHANTMENT_TABLE.getParticleID(), new ParticleEnchantmentTable.EnchantmentTable());
-        this.registerParticle(EnumParticleTypes.FLAME.getParticleID(), new ParticleFlame.Factory());
-        this.registerParticle(EnumParticleTypes.LAVA.getParticleID(), new ParticleLava.Factory());
-        this.registerParticle(EnumParticleTypes.FOOTSTEP.getParticleID(), new ParticleFootStep.Factory());
-        this.registerParticle(EnumParticleTypes.CLOUD.getParticleID(), new ParticleCloud.Factory());
-        this.registerParticle(EnumParticleTypes.REDSTONE.getParticleID(), new ParticleRedstone.Factory());
-        this.registerParticle(EnumParticleTypes.FALLING_DUST.getParticleID(), new ParticleFallingDust.Factory());
-        this.registerParticle(EnumParticleTypes.SNOWBALL.getParticleID(), new ParticleBreaking.SnowballFactory());
-        this.registerParticle(EnumParticleTypes.SNOW_SHOVEL.getParticleID(), new ParticleSnowShovel.Factory());
-        this.registerParticle(EnumParticleTypes.SLIME.getParticleID(), new ParticleBreaking.SlimeFactory());
-        this.registerParticle(EnumParticleTypes.HEART.getParticleID(), new ParticleHeart.Factory());
-        this.registerParticle(EnumParticleTypes.BARRIER.getParticleID(), new Barrier.Factory());
-        this.registerParticle(EnumParticleTypes.ITEM_CRACK.getParticleID(), new ParticleBreaking.Factory());
-        this.registerParticle(EnumParticleTypes.BLOCK_CRACK.getParticleID(), new ParticleDigging.Factory());
-        this.registerParticle(EnumParticleTypes.BLOCK_DUST.getParticleID(), new ParticleBlockDust.Factory());
-        this.registerParticle(EnumParticleTypes.EXPLOSION_HUGE.getParticleID(), new ParticleExplosionHuge.Factory());
-        this.registerParticle(EnumParticleTypes.EXPLOSION_LARGE.getParticleID(), new ParticleExplosionLarge.Factory());
-        this.registerParticle(EnumParticleTypes.FIREWORKS_SPARK.getParticleID(), new ParticleFirework.Factory());
-        this.registerParticle(EnumParticleTypes.MOB_APPEARANCE.getParticleID(), new ParticleMobAppearance.Factory());
-        this.registerParticle(EnumParticleTypes.DRAGON_BREATH.getParticleID(), new ParticleDragonBreath.Factory());
-        this.registerParticle(EnumParticleTypes.END_ROD.getParticleID(), new ParticleEndRod.Factory());
-        this.registerParticle(EnumParticleTypes.DAMAGE_INDICATOR.getParticleID(), new ParticleCrit.DamageIndicatorFactory());
-        this.registerParticle(EnumParticleTypes.SWEEP_ATTACK.getParticleID(), new ParticleSweepAttack.Factory());
-        this.registerParticle(EnumParticleTypes.TOTEM.getParticleID(), new ParticleTotem.Factory());
+        registerParticle(EnumParticleTypes.EXPLOSION_NORMAL.getParticleID(), new ParticleExplosion.Factory());
+        registerParticle(EnumParticleTypes.SPIT.getParticleID(), new ParticleSpit.Factory());
+        registerParticle(EnumParticleTypes.WATER_BUBBLE.getParticleID(), new ParticleBubble.Factory());
+        registerParticle(EnumParticleTypes.WATER_SPLASH.getParticleID(), new ParticleSplash.Factory());
+        registerParticle(EnumParticleTypes.WATER_WAKE.getParticleID(), new ParticleWaterWake.Factory());
+        registerParticle(EnumParticleTypes.WATER_DROP.getParticleID(), new ParticleRain.Factory());
+        registerParticle(EnumParticleTypes.SUSPENDED.getParticleID(), new ParticleSuspend.Factory());
+        registerParticle(EnumParticleTypes.SUSPENDED_DEPTH.getParticleID(), new ParticleSuspendedTown.Factory());
+        registerParticle(EnumParticleTypes.CRIT.getParticleID(), new ParticleCrit.Factory());
+        registerParticle(EnumParticleTypes.CRIT_MAGIC.getParticleID(), new ParticleCrit.MagicFactory());
+        registerParticle(EnumParticleTypes.SMOKE_NORMAL.getParticleID(), new ParticleSmokeNormal.Factory());
+        registerParticle(EnumParticleTypes.SMOKE_LARGE.getParticleID(), new ParticleSmokeLarge.Factory());
+        registerParticle(EnumParticleTypes.SPELL.getParticleID(), new ParticleSpell.Factory());
+        registerParticle(EnumParticleTypes.SPELL_INSTANT.getParticleID(), new ParticleSpell.InstantFactory());
+        registerParticle(EnumParticleTypes.SPELL_MOB.getParticleID(), new ParticleSpell.MobFactory());
+        registerParticle(EnumParticleTypes.SPELL_MOB_AMBIENT.getParticleID(), new ParticleSpell.AmbientMobFactory());
+        registerParticle(EnumParticleTypes.SPELL_WITCH.getParticleID(), new ParticleSpell.WitchFactory());
+        registerParticle(EnumParticleTypes.DRIP_WATER.getParticleID(), new ParticleDrip.WaterFactory());
+        registerParticle(EnumParticleTypes.DRIP_LAVA.getParticleID(), new ParticleDrip.LavaFactory());
+        registerParticle(EnumParticleTypes.VILLAGER_ANGRY.getParticleID(), new ParticleHeart.AngryVillagerFactory());
+        registerParticle(EnumParticleTypes.VILLAGER_HAPPY.getParticleID(), new ParticleSuspendedTown.HappyVillagerFactory());
+        registerParticle(EnumParticleTypes.TOWN_AURA.getParticleID(), new ParticleSuspendedTown.Factory());
+        registerParticle(EnumParticleTypes.NOTE.getParticleID(), new ParticleNote.Factory());
+        registerParticle(EnumParticleTypes.PORTAL.getParticleID(), new ParticlePortal.Factory());
+        registerParticle(EnumParticleTypes.ENCHANTMENT_TABLE.getParticleID(), new ParticleEnchantmentTable.EnchantmentTable());
+        registerParticle(EnumParticleTypes.FLAME.getParticleID(), new ParticleFlame.Factory());
+        registerParticle(EnumParticleTypes.LAVA.getParticleID(), new ParticleLava.Factory());
+        registerParticle(EnumParticleTypes.FOOTSTEP.getParticleID(), new ParticleFootStep.Factory());
+        registerParticle(EnumParticleTypes.CLOUD.getParticleID(), new ParticleCloud.Factory());
+        registerParticle(EnumParticleTypes.REDSTONE.getParticleID(), new ParticleRedstone.Factory());
+        registerParticle(EnumParticleTypes.FALLING_DUST.getParticleID(), new ParticleFallingDust.Factory());
+        registerParticle(EnumParticleTypes.SNOWBALL.getParticleID(), new ParticleBreaking.SnowballFactory());
+        registerParticle(EnumParticleTypes.SNOW_SHOVEL.getParticleID(), new ParticleSnowShovel.Factory());
+        registerParticle(EnumParticleTypes.SLIME.getParticleID(), new ParticleBreaking.SlimeFactory());
+        registerParticle(EnumParticleTypes.HEART.getParticleID(), new ParticleHeart.Factory());
+        registerParticle(EnumParticleTypes.BARRIER.getParticleID(), new Barrier.Factory());
+        registerParticle(EnumParticleTypes.ITEM_CRACK.getParticleID(), new ParticleBreaking.Factory());
+        registerParticle(EnumParticleTypes.BLOCK_CRACK.getParticleID(), new ParticleDigging.Factory());
+        registerParticle(EnumParticleTypes.BLOCK_DUST.getParticleID(), new ParticleBlockDust.Factory());
+        registerParticle(EnumParticleTypes.EXPLOSION_HUGE.getParticleID(), new ParticleExplosionHuge.Factory());
+        registerParticle(EnumParticleTypes.EXPLOSION_LARGE.getParticleID(), new ParticleExplosionLarge.Factory());
+        registerParticle(EnumParticleTypes.FIREWORKS_SPARK.getParticleID(), new ParticleFirework.Factory());
+        registerParticle(EnumParticleTypes.MOB_APPEARANCE.getParticleID(), new ParticleMobAppearance.Factory());
+        registerParticle(EnumParticleTypes.DRAGON_BREATH.getParticleID(), new ParticleDragonBreath.Factory());
+        registerParticle(EnumParticleTypes.END_ROD.getParticleID(), new ParticleEndRod.Factory());
+        registerParticle(EnumParticleTypes.DAMAGE_INDICATOR.getParticleID(), new ParticleCrit.DamageIndicatorFactory());
+        registerParticle(EnumParticleTypes.SWEEP_ATTACK.getParticleID(), new ParticleSweepAttack.Factory());
+        registerParticle(EnumParticleTypes.TOTEM.getParticleID(), new ParticleTotem.Factory());
     }
 
     public void registerParticle(int id, IParticleFactory particleFactory)
     {
-        this.particleTypes.put(Integer.valueOf(id), particleFactory);
+        particleTypes.put(Integer.valueOf(id), particleFactory);
     }
 
     public void emitParticleAtEntity(Entity entityIn, EnumParticleTypes particleTypes)
     {
-        this.particleEmitters.add(new ParticleEmitter(this.world, entityIn, particleTypes));
+        particleEmitters.add(new ParticleEmitter(world, entityIn, particleTypes));
     }
 
     public void emitParticleAtEntity(Entity p_191271_1_, EnumParticleTypes p_191271_2_, int p_191271_3_)
     {
-        this.particleEmitters.add(new ParticleEmitter(this.world, p_191271_1_, p_191271_2_, p_191271_3_));
+        particleEmitters.add(new ParticleEmitter(world, p_191271_1_, p_191271_2_, p_191271_3_));
     }
 
     @Nullable
@@ -140,15 +140,15 @@ public class ParticleManager
      */
     public Particle spawnEffectParticle(int particleId, double xCoord, double yCoord, double zCoord, double xSpeed, double ySpeed, double zSpeed, int... parameters)
     {
-        IParticleFactory iparticlefactory = this.particleTypes.get(Integer.valueOf(particleId));
+        IParticleFactory iparticlefactory = particleTypes.get(Integer.valueOf(particleId));
 
         if (iparticlefactory != null)
         {
-            Particle particle = iparticlefactory.createParticle(particleId, this.world, xCoord, yCoord, zCoord, xSpeed, ySpeed, zSpeed, parameters);
+            Particle particle = iparticlefactory.createParticle(particleId, world, xCoord, yCoord, zCoord, xSpeed, ySpeed, zSpeed, parameters);
 
             if (particle != null)
             {
-                this.addEffect(particle);
+                addEffect(particle);
                 return particle;
             }
         }
@@ -158,21 +158,21 @@ public class ParticleManager
 
     public void addEffect(Particle effect)
     {
-        this.queue.add(effect);
+        queue.add(effect);
     }
 
     public void updateEffects()
     {
         for (int i = 0; i < 4; ++i)
         {
-            this.updateEffectLayer(i);
+            updateEffectLayer(i);
         }
 
-        if (!this.particleEmitters.isEmpty())
+        if (!particleEmitters.isEmpty())
         {
             List<ParticleEmitter> list = Lists.<ParticleEmitter>newArrayList();
 
-            for (ParticleEmitter particleemitter : this.particleEmitters)
+            for (ParticleEmitter particleemitter : particleEmitters)
             {
                 particleemitter.onUpdate();
 
@@ -182,38 +182,38 @@ public class ParticleManager
                 }
             }
 
-            this.particleEmitters.removeAll(list);
+            particleEmitters.removeAll(list);
         }
 
-        if (!this.queue.isEmpty())
+        if (!queue.isEmpty())
         {
-            for (Particle particle = this.queue.poll(); particle != null; particle = this.queue.poll())
+            for (Particle particle = queue.poll(); particle != null; particle = queue.poll())
             {
                 int j = particle.getFXLayer();
                 int k = particle.shouldDisableDepth() ? 0 : 1;
 
-                if (this.fxLayers[j][k].size() >= 16384)
+                if (fxLayers[j][k].size() >= 16384)
                 {
-                    this.fxLayers[j][k].removeFirst();
+                    fxLayers[j][k].removeFirst();
                 }
 
-                this.fxLayers[j][k].add(particle);
+                fxLayers[j][k].add(particle);
             }
         }
     }
 
     private void updateEffectLayer(int layer)
     {
-        this.world.profiler.startSection(String.valueOf(layer));
+        world.profiler.startSection(String.valueOf(layer));
 
         for (int i = 0; i < 2; ++i)
         {
-            this.world.profiler.startSection(String.valueOf(i));
-            this.tickParticleList(this.fxLayers[layer][i]);
-            this.world.profiler.endSection();
+            world.profiler.startSection(String.valueOf(i));
+            tickParticleList(fxLayers[layer][i]);
+            world.profiler.endSection();
         }
 
-        this.world.profiler.endSection();
+        world.profiler.endSection();
     }
 
     private void tickParticleList(Queue<Particle> p_187240_1_)
@@ -225,7 +225,7 @@ public class ParticleManager
             while (iterator.hasNext())
             {
                 Particle particle = iterator.next();
-                this.tickParticle(particle);
+                tickParticle(particle);
 
                 if (!particle.isAlive())
                 {
@@ -299,7 +299,7 @@ public class ParticleManager
 
             for (int j = 0; j < 2; ++j)
             {
-                if (!this.fxLayers[i][j].isEmpty())
+                if (!fxLayers[i][j].isEmpty())
                 {
                     switch (j)
                     {
@@ -315,11 +315,11 @@ public class ParticleManager
                     {
                         case 0:
                         default:
-                            this.renderer.bindTexture(PARTICLE_TEXTURES);
+                            renderer.bindTexture(PARTICLE_TEXTURES);
                             break;
 
                         case 1:
-                            this.renderer.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+                            renderer.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
                     }
 
                     GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
@@ -327,7 +327,7 @@ public class ParticleManager
                     BufferBuilder bufferbuilder = tessellator.getBuffer();
                     bufferbuilder.begin(7, DefaultVertexFormats.PARTICLE_POSITION_TEX_COLOR_LMAP);
 
-                    for (final Particle particle : this.fxLayers[i][j])
+                    for (final Particle particle : fxLayers[i][j])
                     {
                         try
                         {
@@ -387,7 +387,7 @@ public class ParticleManager
 
         for (int i = 0; i < 2; ++i)
         {
-            Queue<Particle> queue = this.fxLayers[3][i];
+            Queue<Particle> queue = fxLayers[3][i];
 
             if (!queue.isEmpty())
             {
@@ -404,24 +404,24 @@ public class ParticleManager
 
     public void clearEffects(@Nullable World worldIn)
     {
-        this.world = worldIn;
+        world = worldIn;
 
         for (int i = 0; i < 4; ++i)
         {
             for (int j = 0; j < 2; ++j)
             {
-                this.fxLayers[i][j].clear();
+                fxLayers[i][j].clear();
             }
         }
 
-        this.particleEmitters.clear();
+        particleEmitters.clear();
     }
 
     public void addBlockDestroyEffects(BlockPos pos, IBlockState state)
     {
         if (state.getMaterial() != Material.AIR)
         {
-            state = state.getActualState(this.world, pos);
+            state = state.getActualState(world, pos);
             int i = 4;
 
             for (int j = 0; j < 4; ++j)
@@ -433,7 +433,7 @@ public class ParticleManager
                         double d0 = ((double)j + 0.5D) / 4.0D;
                         double d1 = ((double)k + 0.5D) / 4.0D;
                         double d2 = ((double)l + 0.5D) / 4.0D;
-                        this.addEffect((new ParticleDigging(this.world, (double)pos.getX() + d0, (double)pos.getY() + d1, (double)pos.getZ() + d2, d0 - 0.5D, d1 - 0.5D, d2 - 0.5D, state)).setBlockPos(pos));
+                        addEffect((new ParticleDigging(world, (double)pos.getX() + d0, (double)pos.getY() + d1, (double)pos.getZ() + d2, d0 - 0.5D, d1 - 0.5D, d2 - 0.5D, state)).setBlockPos(pos));
                     }
                 }
             }
@@ -445,7 +445,7 @@ public class ParticleManager
      */
     public void addBlockHitEffects(BlockPos pos, EnumFacing side)
     {
-        IBlockState iblockstate = this.world.getBlockState(pos);
+        IBlockState iblockstate = world.getBlockState(pos);
 
         if (iblockstate.getRenderType() != EnumBlockRenderType.INVISIBLE)
         {
@@ -453,10 +453,10 @@ public class ParticleManager
             int j = pos.getY();
             int k = pos.getZ();
             float f = 0.1F;
-            AxisAlignedBB axisalignedbb = iblockstate.getBoundingBox(this.world, pos);
-            double d0 = (double)i + this.rand.nextDouble() * (axisalignedbb.maxX - axisalignedbb.minX - 0.20000000298023224D) + 0.10000000149011612D + axisalignedbb.minX;
-            double d1 = (double)j + this.rand.nextDouble() * (axisalignedbb.maxY - axisalignedbb.minY - 0.20000000298023224D) + 0.10000000149011612D + axisalignedbb.minY;
-            double d2 = (double)k + this.rand.nextDouble() * (axisalignedbb.maxZ - axisalignedbb.minZ - 0.20000000298023224D) + 0.10000000149011612D + axisalignedbb.minZ;
+            AxisAlignedBB axisalignedbb = iblockstate.getBoundingBox(world, pos);
+            double d0 = (double)i + rand.nextDouble() * (axisalignedbb.maxX - axisalignedbb.minX - 0.20000000298023224D) + 0.10000000149011612D + axisalignedbb.minX;
+            double d1 = (double)j + rand.nextDouble() * (axisalignedbb.maxY - axisalignedbb.minY - 0.20000000298023224D) + 0.10000000149011612D + axisalignedbb.minY;
+            double d2 = (double)k + rand.nextDouble() * (axisalignedbb.maxZ - axisalignedbb.minZ - 0.20000000298023224D) + 0.10000000149011612D + axisalignedbb.minZ;
 
             if (side == EnumFacing.DOWN)
             {
@@ -488,7 +488,7 @@ public class ParticleManager
                 d0 = (double)i + axisalignedbb.maxX + 0.10000000149011612D;
             }
 
-            this.addEffect((new ParticleDigging(this.world, d0, d1, d2, 0.0D, 0.0D, 0.0D, iblockstate)).setBlockPos(pos).multiplyVelocity(0.2F).multipleParticleScaleBy(0.6F));
+            addEffect((new ParticleDigging(world, d0, d1, d2, 0.0D, 0.0D, 0.0D, iblockstate)).setBlockPos(pos).multiplyVelocity(0.2F).multipleParticleScaleBy(0.6F));
         }
     }
 
@@ -500,7 +500,7 @@ public class ParticleManager
         {
             for (int k = 0; k < 2; ++k)
             {
-                i += this.fxLayers[j][k].size();
+                i += fxLayers[j][k].size();
             }
         }
 

@@ -8,6 +8,6 @@ public class DefaultStateMapper extends StateMapperBase
 {
     protected ModelResourceLocation getModelResourceLocation(IBlockState state)
     {
-        return new ModelResourceLocation(Block.REGISTRY.getNameForObject(state.getBlock()), this.getPropertyString(state.getProperties()));
+        return new ModelResourceLocation(Block.REGISTRY.getNameForObject(state.getBlock()), getPropertyString(state.getProperties()));
     }
 }

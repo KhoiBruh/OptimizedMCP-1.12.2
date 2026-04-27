@@ -16,9 +16,9 @@ public enum GameType
 
     private GameType(int idIn, String nameIn, String shortNameIn)
     {
-        this.id = idIn;
-        this.name = nameIn;
-        this.shortName = shortNameIn;
+        id = idIn;
+        name = nameIn;
+        shortName = shortNameIn;
     }
 
     /**
@@ -26,7 +26,7 @@ public enum GameType
      */
     public int getID()
     {
-        return this.id;
+        return id;
     }
 
     /**
@@ -34,7 +34,7 @@ public enum GameType
      */
     public String getName()
     {
-        return this.name;
+        return name;
     }
 
     /**
@@ -63,7 +63,7 @@ public enum GameType
             capabilities.isFlying = false;
         }
 
-        capabilities.allowEdit = !this.hasLimitedInteractions();
+        capabilities.allowEdit = !hasLimitedInteractions();
     }
 
     /**

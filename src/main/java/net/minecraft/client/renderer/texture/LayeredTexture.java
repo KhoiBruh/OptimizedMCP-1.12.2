@@ -20,15 +20,15 @@ public class LayeredTexture extends AbstractTexture
 
     public LayeredTexture(String... textureNames)
     {
-        this.layeredTextureNames = Lists.newArrayList(textureNames);
+        layeredTextureNames = Lists.newArrayList(textureNames);
     }
 
     public void loadTexture(IResourceManager resourceManager) throws IOException
     {
-        this.deleteGlTexture();
+        deleteGlTexture();
         BufferedImage bufferedimage = null;
 
-        for (String s : this.layeredTextureNames)
+        for (String s : layeredTextureNames)
         {
             IResource iresource = null;
 
@@ -61,6 +61,6 @@ public class LayeredTexture extends AbstractTexture
             return;
         }
 
-        TextureUtil.uploadTextureImage(this.getGlTextureId(), bufferedimage);
+        TextureUtil.uploadTextureImage(getGlTextureId(), bufferedimage);
     }
 }

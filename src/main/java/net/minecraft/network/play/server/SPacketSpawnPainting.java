@@ -23,11 +23,11 @@ public class SPacketSpawnPainting implements Packet<INetHandlerPlayClient>
 
     public SPacketSpawnPainting(EntityPainting painting)
     {
-        this.entityID = painting.getEntityId();
-        this.uniqueId = painting.getUniqueID();
-        this.position = painting.getHangingPosition();
-        this.facing = painting.facingDirection;
-        this.title = painting.art.title;
+        entityID = painting.getEntityId();
+        uniqueId = painting.getUniqueID();
+        position = painting.getHangingPosition();
+        facing = painting.facingDirection;
+        title = painting.art.title;
     }
 
     /**
@@ -35,11 +35,11 @@ public class SPacketSpawnPainting implements Packet<INetHandlerPlayClient>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.entityID = buf.readVarInt();
-        this.uniqueId = buf.readUniqueId();
-        this.title = buf.readString(EntityPainting.EnumArt.MAX_NAME_LENGTH);
-        this.position = buf.readBlockPos();
-        this.facing = EnumFacing.getHorizontal(buf.readUnsignedByte());
+        entityID = buf.readVarInt();
+        uniqueId = buf.readUniqueId();
+        title = buf.readString(EntityPainting.EnumArt.MAX_NAME_LENGTH);
+        position = buf.readBlockPos();
+        facing = EnumFacing.getHorizontal(buf.readUnsignedByte());
     }
 
     /**
@@ -47,11 +47,11 @@ public class SPacketSpawnPainting implements Packet<INetHandlerPlayClient>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeVarInt(this.entityID);
-        buf.writeUniqueId(this.uniqueId);
-        buf.writeString(this.title);
-        buf.writeBlockPos(this.position);
-        buf.writeByte(this.facing.getHorizontalIndex());
+        buf.writeVarInt(entityID);
+        buf.writeUniqueId(uniqueId);
+        buf.writeString(title);
+        buf.writeBlockPos(position);
+        buf.writeByte(facing.getHorizontalIndex());
     }
 
     /**
@@ -64,26 +64,26 @@ public class SPacketSpawnPainting implements Packet<INetHandlerPlayClient>
 
     public int getEntityID()
     {
-        return this.entityID;
+        return entityID;
     }
 
     public UUID getUniqueId()
     {
-        return this.uniqueId;
+        return uniqueId;
     }
 
     public BlockPos getPosition()
     {
-        return this.position;
+        return position;
     }
 
     public EnumFacing getFacing()
     {
-        return this.facing;
+        return facing;
     }
 
     public String getTitle()
     {
-        return this.title;
+        return title;
     }
 }

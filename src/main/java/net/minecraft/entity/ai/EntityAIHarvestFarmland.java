@@ -25,7 +25,7 @@ public class EntityAIHarvestFarmland extends EntityAIMoveToBlock
     public EntityAIHarvestFarmland(EntityVillager villagerIn, double speedIn)
     {
         super(villagerIn, speedIn, 16);
-        this.villager = villagerIn;
+        villager = villagerIn;
     }
 
     /**
@@ -33,16 +33,16 @@ public class EntityAIHarvestFarmland extends EntityAIMoveToBlock
      */
     public boolean shouldExecute()
     {
-        if (this.runDelay <= 0)
+        if (runDelay <= 0)
         {
-            if (!this.villager.world.getGameRules().getBoolean("mobGriefing"))
+            if (!villager.world.getGameRules().getBoolean("mobGriefing"))
             {
                 return false;
             }
 
-            this.currentTask = -1;
-            this.hasFarmItem = this.villager.isFarmItemInInventory();
-            this.wantsToReapStuff = this.villager.wantsMoreFood();
+            currentTask = -1;
+            hasFarmItem = villager.isFarmItemInInventory();
+            wantsToReapStuff = villager.wantsMoreFood();
         }
 
         return super.shouldExecute();
@@ -53,7 +53,7 @@ public class EntityAIHarvestFarmland extends EntityAIMoveToBlock
      */
     public boolean shouldContinueExecuting()
     {
-        return this.currentTask >= 0 && super.shouldContinueExecuting();
+        return currentTask >= 0 && super.shouldContinueExecuting();
     }
 
     /**
@@ -62,22 +62,22 @@ public class EntityAIHarvestFarmland extends EntityAIMoveToBlock
     public void updateTask()
     {
         super.updateTask();
-        this.villager.getLookHelper().setLookPosition((double)this.destinationBlock.getX() + 0.5D, (double)(this.destinationBlock.getY() + 1), (double)this.destinationBlock.getZ() + 0.5D, 10.0F, (float)this.villager.getVerticalFaceSpeed());
+        villager.getLookHelper().setLookPosition((double) destinationBlock.getX() + 0.5D, (double)(destinationBlock.getY() + 1), (double) destinationBlock.getZ() + 0.5D, 10.0F, (float) villager.getVerticalFaceSpeed());
 
-        if (this.getIsAboveDestination())
+        if (getIsAboveDestination())
         {
-            World world = this.villager.world;
-            BlockPos blockpos = this.destinationBlock.up();
+            World world = villager.world;
+            BlockPos blockpos = destinationBlock.up();
             IBlockState iblockstate = world.getBlockState(blockpos);
             Block block = iblockstate.getBlock();
 
-            if (this.currentTask == 0 && block instanceof BlockCrops && ((BlockCrops)block).isMaxAge(iblockstate))
+            if (currentTask == 0 && block instanceof BlockCrops && ((BlockCrops)block).isMaxAge(iblockstate))
             {
                 world.destroyBlock(blockpos, true);
             }
-            else if (this.currentTask == 1 && iblockstate.getMaterial() == Material.AIR)
+            else if (currentTask == 1 && iblockstate.getMaterial() == Material.AIR)
             {
-                InventoryBasic inventorybasic = this.villager.getVillagerInventory();
+                InventoryBasic inventorybasic = villager.getVillagerInventory();
 
                 for (int i = 0; i < inventorybasic.getSizeInventory(); ++i)
                 {
@@ -122,8 +122,8 @@ public class EntityAIHarvestFarmland extends EntityAIMoveToBlock
                 }
             }
 
-            this.currentTask = -1;
-            this.runDelay = 10;
+            currentTask = -1;
+            runDelay = 10;
         }
     }
 
@@ -140,15 +140,15 @@ public class EntityAIHarvestFarmland extends EntityAIMoveToBlock
             IBlockState iblockstate = worldIn.getBlockState(pos);
             block = iblockstate.getBlock();
 
-            if (block instanceof BlockCrops && ((BlockCrops)block).isMaxAge(iblockstate) && this.wantsToReapStuff && (this.currentTask == 0 || this.currentTask < 0))
+            if (block instanceof BlockCrops && ((BlockCrops)block).isMaxAge(iblockstate) && wantsToReapStuff && (currentTask == 0 || currentTask < 0))
             {
-                this.currentTask = 0;
+                currentTask = 0;
                 return true;
             }
 
-            if (iblockstate.getMaterial() == Material.AIR && this.hasFarmItem && (this.currentTask == 1 || this.currentTask < 0))
+            if (iblockstate.getMaterial() == Material.AIR && hasFarmItem && (currentTask == 1 || currentTask < 0))
             {
-                this.currentTask = 1;
+                currentTask = 1;
                 return true;
             }
         }

@@ -11,7 +11,7 @@ public class EntityAITargetNonTamed<T extends EntityLivingBase> extends EntityAI
     public EntityAITargetNonTamed(EntityTameable entityIn, Class<T> classTarget, boolean checkSight, Predicate <? super T > targetSelector)
     {
         super(entityIn, classTarget, 10, checkSight, false, targetSelector);
-        this.tameable = entityIn;
+        tameable = entityIn;
     }
 
     /**
@@ -19,6 +19,6 @@ public class EntityAITargetNonTamed<T extends EntityLivingBase> extends EntityAI
      */
     public boolean shouldExecute()
     {
-        return !this.tameable.isTamed() && super.shouldExecute();
+        return !tameable.isTamed() && super.shouldExecute();
     }
 }

@@ -40,12 +40,12 @@ public abstract class CommandHandler implements ICommandManager
         String[] astring = rawCommand.split(" ");
         String s = astring[0];
         astring = dropFirstString(astring);
-        ICommand icommand = this.commandMap.get(s);
+        ICommand icommand = commandMap.get(s);
         int i = 0;
 
         try
         {
-            int j = this.getUsernameIndex(icommand, astring);
+            int j = getUsernameIndex(icommand, astring);
 
             if (icommand == null)
             {
@@ -53,7 +53,7 @@ public abstract class CommandHandler implements ICommandManager
                 textcomponenttranslation1.getStyle().setColor(TextFormatting.RED);
                 sender.sendMessage(textcomponenttranslation1);
             }
-            else if (icommand.checkPermission(this.getServer(), sender))
+            else if (icommand.checkPermission(getServer(), sender))
             {
                 if (j > -1)
                 {
@@ -70,7 +70,7 @@ public abstract class CommandHandler implements ICommandManager
                     {
                         astring[j] = entity.getCachedUniqueIdString();
 
-                        if (this.tryExecute(sender, astring, icommand, rawCommand))
+                        if (tryExecute(sender, astring, icommand, rawCommand))
                         {
                             ++i;
                         }
@@ -82,7 +82,7 @@ public abstract class CommandHandler implements ICommandManager
                 {
                     sender.setCommandStat(CommandResultStats.Type.AFFECTED_ENTITIES, 1);
 
-                    if (this.tryExecute(sender, astring, icommand, rawCommand))
+                    if (tryExecute(sender, astring, icommand, rawCommand))
                     {
                         ++i;
                     }
@@ -110,7 +110,7 @@ public abstract class CommandHandler implements ICommandManager
     {
         try
         {
-            command.execute(this.getServer(), sender, args);
+            command.execute(getServer(), sender, args);
             return true;
         }
         catch (WrongUsageException wrongusageexception)
@@ -143,16 +143,16 @@ public abstract class CommandHandler implements ICommandManager
      */
     public ICommand registerCommand(ICommand command)
     {
-        this.commandMap.put(command.getName(), command);
-        this.commandSet.add(command);
+        commandMap.put(command.getName(), command);
+        commandSet.add(command);
 
         for (String s : command.getAliases())
         {
-            ICommand icommand = this.commandMap.get(s);
+            ICommand icommand = commandMap.get(s);
 
             if (icommand == null || !icommand.getName().equals(s))
             {
-                this.commandMap.put(s, command);
+                commandMap.put(s, command);
             }
         }
 
@@ -178,9 +178,9 @@ public abstract class CommandHandler implements ICommandManager
         {
             List<String> list = Lists.<String>newArrayList();
 
-            for (Entry<String, ICommand> entry : this.commandMap.entrySet())
+            for (Entry<String, ICommand> entry : commandMap.entrySet())
             {
-                if (CommandBase.doesStringStartWith(s, entry.getKey()) && ((ICommand)entry.getValue()).checkPermission(this.getServer(), sender))
+                if (CommandBase.doesStringStartWith(s, entry.getKey()) && ((ICommand)entry.getValue()).checkPermission(getServer(), sender))
                 {
                     list.add(entry.getKey());
                 }
@@ -192,11 +192,11 @@ public abstract class CommandHandler implements ICommandManager
         {
             if (astring.length > 1)
             {
-                ICommand icommand = this.commandMap.get(s);
+                ICommand icommand = commandMap.get(s);
 
-                if (icommand != null && icommand.checkPermission(this.getServer(), sender))
+                if (icommand != null && icommand.checkPermission(getServer(), sender))
                 {
-                    return icommand.getTabCompletions(this.getServer(), sender, dropFirstString(astring), pos);
+                    return icommand.getTabCompletions(getServer(), sender, dropFirstString(astring), pos);
                 }
             }
 
@@ -208,9 +208,9 @@ public abstract class CommandHandler implements ICommandManager
     {
         List<ICommand> list = Lists.<ICommand>newArrayList();
 
-        for (ICommand icommand : this.commandSet)
+        for (ICommand icommand : commandSet)
         {
-            if (icommand.checkPermission(this.getServer(), sender))
+            if (icommand.checkPermission(getServer(), sender))
             {
                 list.add(icommand);
             }
@@ -221,7 +221,7 @@ public abstract class CommandHandler implements ICommandManager
 
     public Map<String, ICommand> getCommands()
     {
-        return this.commandMap;
+        return commandMap;
     }
 
     /**

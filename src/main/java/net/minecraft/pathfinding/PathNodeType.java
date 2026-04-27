@@ -24,11 +24,11 @@ public enum PathNodeType
 
     private PathNodeType(float priorityIn)
     {
-        this.priority = priorityIn;
+        priority = priorityIn;
     }
 
     public float getPriority()
     {
-        return this.priority;
+        return priority;
     }
 }

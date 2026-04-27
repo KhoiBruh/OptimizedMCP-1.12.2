@@ -30,7 +30,7 @@ public class RealmsScreen
 
     public GuiScreenRealmsProxy getProxy()
     {
-        return this.proxy;
+        return proxy;
     }
 
     public void init()
@@ -43,22 +43,22 @@ public class RealmsScreen
 
     public void drawCenteredString(String p_drawCenteredString_1_, int p_drawCenteredString_2_, int p_drawCenteredString_3_, int p_drawCenteredString_4_)
     {
-        this.proxy.drawCenteredString(p_drawCenteredString_1_, p_drawCenteredString_2_, p_drawCenteredString_3_, p_drawCenteredString_4_);
+        proxy.drawCenteredString(p_drawCenteredString_1_, p_drawCenteredString_2_, p_drawCenteredString_3_, p_drawCenteredString_4_);
     }
 
     public void drawString(String p_drawString_1_, int p_drawString_2_, int p_drawString_3_, int p_drawString_4_)
     {
-        this.drawString(p_drawString_1_, p_drawString_2_, p_drawString_3_, p_drawString_4_, true);
+        drawString(p_drawString_1_, p_drawString_2_, p_drawString_3_, p_drawString_4_, true);
     }
 
     public void drawString(String p_drawString_1_, int p_drawString_2_, int p_drawString_3_, int p_drawString_4_, boolean p_drawString_5_)
     {
-        this.proxy.drawString(p_drawString_1_, p_drawString_2_, p_drawString_3_, p_drawString_4_, false);
+        proxy.drawString(p_drawString_1_, p_drawString_2_, p_drawString_3_, p_drawString_4_, false);
     }
 
     public void blit(int p_blit_1_, int p_blit_2_, int p_blit_3_, int p_blit_4_, int p_blit_5_, int p_blit_6_)
     {
-        this.proxy.drawTexturedModalRect(p_blit_1_, p_blit_2_, p_blit_3_, p_blit_4_, p_blit_5_, p_blit_6_);
+        proxy.drawTexturedModalRect(p_blit_1_, p_blit_2_, p_blit_3_, p_blit_4_, p_blit_5_, p_blit_6_);
     }
 
     public static void blit(int p_blit_0_, int p_blit_1_, float p_blit_2_, float p_blit_3_, int p_blit_4_, int p_blit_5_, int p_blit_6_, int p_blit_7_, float p_blit_8_, float p_blit_9_)
@@ -73,45 +73,45 @@ public class RealmsScreen
 
     public void fillGradient(int p_fillGradient_1_, int p_fillGradient_2_, int p_fillGradient_3_, int p_fillGradient_4_, int p_fillGradient_5_, int p_fillGradient_6_)
     {
-        this.proxy.drawGradientRect(p_fillGradient_1_, p_fillGradient_2_, p_fillGradient_3_, p_fillGradient_4_, p_fillGradient_5_, p_fillGradient_6_);
+        proxy.drawGradientRect(p_fillGradient_1_, p_fillGradient_2_, p_fillGradient_3_, p_fillGradient_4_, p_fillGradient_5_, p_fillGradient_6_);
     }
 
     public void renderBackground()
     {
-        this.proxy.drawDefaultBackground();
+        proxy.drawDefaultBackground();
     }
 
     public boolean isPauseScreen()
     {
-        return this.proxy.doesGuiPauseGame();
+        return proxy.doesGuiPauseGame();
     }
 
     public void renderBackground(int p_renderBackground_1_)
     {
-        this.proxy.drawWorldBackground(p_renderBackground_1_);
+        proxy.drawWorldBackground(p_renderBackground_1_);
     }
 
     public void render(int p_render_1_, int p_render_2_, float p_render_3_)
     {
-        for (int i = 0; i < this.proxy.buttons().size(); ++i)
+        for (int i = 0; i < proxy.buttons().size(); ++i)
         {
-            ((RealmsButton)this.proxy.buttons().get(i)).render(p_render_1_, p_render_2_, p_render_3_);
+            ((RealmsButton) proxy.buttons().get(i)).render(p_render_1_, p_render_2_, p_render_3_);
         }
     }
 
     public void renderTooltip(ItemStack p_renderTooltip_1_, int p_renderTooltip_2_, int p_renderTooltip_3_)
     {
-        this.proxy.renderToolTip(p_renderTooltip_1_, p_renderTooltip_2_, p_renderTooltip_3_);
+        proxy.renderToolTip(p_renderTooltip_1_, p_renderTooltip_2_, p_renderTooltip_3_);
     }
 
     public void renderTooltip(String p_renderTooltip_1_, int p_renderTooltip_2_, int p_renderTooltip_3_)
     {
-        this.proxy.drawHoveringText(p_renderTooltip_1_, p_renderTooltip_2_, p_renderTooltip_3_);
+        proxy.drawHoveringText(p_renderTooltip_1_, p_renderTooltip_2_, p_renderTooltip_3_);
     }
 
     public void renderTooltip(List<String> p_renderTooltip_1_, int p_renderTooltip_2_, int p_renderTooltip_3_)
     {
-        this.proxy.drawHoveringText(p_renderTooltip_1_, p_renderTooltip_2_, p_renderTooltip_3_);
+        proxy.drawHoveringText(p_renderTooltip_1_, p_renderTooltip_2_, p_renderTooltip_3_);
     }
 
     public static void bindFace(String p_bindFace_0_, String p_bindFace_1_)
@@ -139,32 +139,32 @@ public class RealmsScreen
 
     public int width()
     {
-        return this.proxy.width;
+        return proxy.width;
     }
 
     public int height()
     {
-        return this.proxy.height;
+        return proxy.height;
     }
 
     public int fontLineHeight()
     {
-        return this.proxy.getFontHeight();
+        return proxy.getFontHeight();
     }
 
     public int fontWidth(String p_fontWidth_1_)
     {
-        return this.proxy.getStringWidth(p_fontWidth_1_);
+        return proxy.getStringWidth(p_fontWidth_1_);
     }
 
     public void fontDrawShadow(String p_fontDrawShadow_1_, int p_fontDrawShadow_2_, int p_fontDrawShadow_3_, int p_fontDrawShadow_4_)
     {
-        this.proxy.fontDrawShadow(p_fontDrawShadow_1_, p_fontDrawShadow_2_, p_fontDrawShadow_3_, p_fontDrawShadow_4_);
+        proxy.fontDrawShadow(p_fontDrawShadow_1_, p_fontDrawShadow_2_, p_fontDrawShadow_3_, p_fontDrawShadow_4_);
     }
 
     public List<String> fontSplit(String p_fontSplit_1_, int p_fontSplit_2_)
     {
-        return this.proxy.fontSplit(p_fontSplit_1_, p_fontSplit_2_);
+        return proxy.fontSplit(p_fontSplit_1_, p_fontSplit_2_);
     }
 
     public void buttonClicked(RealmsButton p_buttonClicked_1_)
@@ -183,22 +183,22 @@ public class RealmsScreen
 
     public void buttonsClear()
     {
-        this.proxy.buttonsClear();
+        proxy.buttonsClear();
     }
 
     public void buttonsAdd(RealmsButton p_buttonsAdd_1_)
     {
-        this.proxy.buttonsAdd(p_buttonsAdd_1_);
+        proxy.buttonsAdd(p_buttonsAdd_1_);
     }
 
     public List<RealmsButton> buttons()
     {
-        return this.proxy.buttons();
+        return proxy.buttons();
     }
 
     public void buttonsRemove(RealmsButton p_buttonsRemove_1_)
     {
-        this.proxy.buttonsRemove(p_buttonsRemove_1_);
+        proxy.buttonsRemove(p_buttonsRemove_1_);
     }
 
     public RealmsEditBox newEditBox(int p_newEditBox_1_, int p_newEditBox_2_, int p_newEditBox_3_, int p_newEditBox_4_, int p_newEditBox_5_)

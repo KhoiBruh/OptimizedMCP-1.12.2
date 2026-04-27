@@ -104,8 +104,8 @@ public class EntityParrot extends EntityShoulderRiding implements EntityFlying
     public EntityParrot(World worldIn)
     {
         super(worldIn);
-        this.setSize(0.5F, 0.9F);
-        this.moveHelper = new EntityFlyHelper(this);
+        setSize(0.5F, 0.9F);
+        moveHelper = new EntityFlyHelper(this);
     }
 
     @Nullable
@@ -126,30 +126,30 @@ public class EntityParrot extends EntityShoulderRiding implements EntityFlying
      */
     public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata)
     {
-        this.setVariant(this.rand.nextInt(5));
+        setVariant(rand.nextInt(5));
         return super.onInitialSpawn(difficulty, livingdata);
     }
 
     protected void initEntityAI()
     {
-        this.aiSit = new EntityAISit(this);
-        this.tasks.addTask(0, new EntityAIPanic(this, 1.25D));
-        this.tasks.addTask(0, new EntityAISwimming(this));
-        this.tasks.addTask(1, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
-        this.tasks.addTask(2, this.aiSit);
-        this.tasks.addTask(2, new EntityAIFollowOwnerFlying(this, 1.0D, 5.0F, 1.0F));
-        this.tasks.addTask(2, new EntityAIWanderAvoidWaterFlying(this, 1.0D));
-        this.tasks.addTask(3, new EntityAILandOnOwnersShoulder(this));
-        this.tasks.addTask(3, new EntityAIFollow(this, 1.0D, 3.0F, 7.0F));
+        aiSit = new EntityAISit(this);
+        tasks.addTask(0, new EntityAIPanic(this, 1.25D));
+        tasks.addTask(0, new EntityAISwimming(this));
+        tasks.addTask(1, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
+        tasks.addTask(2, aiSit);
+        tasks.addTask(2, new EntityAIFollowOwnerFlying(this, 1.0D, 5.0F, 1.0F));
+        tasks.addTask(2, new EntityAIWanderAvoidWaterFlying(this, 1.0D));
+        tasks.addTask(3, new EntityAILandOnOwnersShoulder(this));
+        tasks.addTask(3, new EntityAIFollow(this, 1.0D, 3.0F, 7.0F));
     }
 
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-        this.getAttributeMap().registerAttribute(SharedMonsterAttributes.FLYING_SPEED);
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(6.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.FLYING_SPEED).setBaseValue(0.4000000059604645D);
-        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.20000000298023224D);
+        getAttributeMap().registerAttribute(SharedMonsterAttributes.FLYING_SPEED);
+        getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(6.0D);
+        getEntityAttribute(SharedMonsterAttributes.FLYING_SPEED).setBaseValue(0.4000000059604645D);
+        getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.20000000298023224D);
     }
 
     /**
@@ -166,7 +166,7 @@ public class EntityParrot extends EntityShoulderRiding implements EntityFlying
 
     public float getEyeHeight()
     {
-        return this.height * 0.6F;
+        return height * 0.6F;
     }
 
     /**
@@ -175,49 +175,49 @@ public class EntityParrot extends EntityShoulderRiding implements EntityFlying
      */
     public void onLivingUpdate()
     {
-        playMimicSound(this.world, this);
+        playMimicSound(world, this);
 
-        if (this.jukeboxPosition == null || this.jukeboxPosition.distanceSq(this.posX, this.posY, this.posZ) > 12.0D || this.world.getBlockState(this.jukeboxPosition).getBlock() != Blocks.JUKEBOX)
+        if (jukeboxPosition == null || jukeboxPosition.distanceSq(posX, posY, posZ) > 12.0D || world.getBlockState(jukeboxPosition).getBlock() != Blocks.JUKEBOX)
         {
-            this.partyParrot = false;
-            this.jukeboxPosition = null;
+            partyParrot = false;
+            jukeboxPosition = null;
         }
 
         super.onLivingUpdate();
-        this.calculateFlapping();
+        calculateFlapping();
     }
 
     public void setPartying(BlockPos pos, boolean p_191987_2_)
     {
-        this.jukeboxPosition = pos;
-        this.partyParrot = p_191987_2_;
+        jukeboxPosition = pos;
+        partyParrot = p_191987_2_;
     }
 
     public boolean isPartying()
     {
-        return this.partyParrot;
+        return partyParrot;
     }
 
     private void calculateFlapping()
     {
-        this.oFlap = this.flap;
-        this.oFlapSpeed = this.flapSpeed;
-        this.flapSpeed = (float)((double)this.flapSpeed + (double)(this.onGround ? -1 : 4) * 0.3D);
-        this.flapSpeed = MathHelper.clamp(this.flapSpeed, 0.0F, 1.0F);
+        oFlap = flap;
+        oFlapSpeed = flapSpeed;
+        flapSpeed = (float)((double) flapSpeed + (double)(onGround ? -1 : 4) * 0.3D);
+        flapSpeed = MathHelper.clamp(flapSpeed, 0.0F, 1.0F);
 
-        if (!this.onGround && this.flapping < 1.0F)
+        if (!onGround && flapping < 1.0F)
         {
-            this.flapping = 1.0F;
+            flapping = 1.0F;
         }
 
-        this.flapping = (float)((double)this.flapping * 0.9D);
+        flapping = (float)((double) flapping * 0.9D);
 
-        if (!this.onGround && this.motionY < 0.0D)
+        if (!onGround && motionY < 0.0D)
         {
-            this.motionY *= 0.6D;
+            motionY *= 0.6D;
         }
 
-        this.flap += this.flapping * 2.0F;
+        flap += flapping * 2.0F;
     }
 
     private static boolean playMimicSound(World worldIn, Entity p_192006_1_)
@@ -250,30 +250,30 @@ public class EntityParrot extends EntityShoulderRiding implements EntityFlying
     {
         ItemStack itemstack = player.getHeldItem(hand);
 
-        if (!this.isTamed() && TAME_ITEMS.contains(itemstack.getItem()))
+        if (!isTamed() && TAME_ITEMS.contains(itemstack.getItem()))
         {
             if (!player.capabilities.isCreativeMode)
             {
                 itemstack.shrink(1);
             }
 
-            if (!this.isSilent())
+            if (!isSilent())
             {
-                this.world.playSound((EntityPlayer)null, this.posX, this.posY, this.posZ, SoundEvents.ENTITY_PARROT_EAT, this.getSoundCategory(), 1.0F, 1.0F + (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F);
+                world.playSound((EntityPlayer)null, posX, posY, posZ, SoundEvents.ENTITY_PARROT_EAT, getSoundCategory(), 1.0F, 1.0F + (rand.nextFloat() - rand.nextFloat()) * 0.2F);
             }
 
-            if (!this.world.isRemote)
+            if (!world.isRemote)
             {
-                if (this.rand.nextInt(10) == 0)
+                if (rand.nextInt(10) == 0)
                 {
-                    this.setTamedBy(player);
-                    this.playTameEffect(true);
-                    this.world.setEntityState(this, (byte)7);
+                    setTamedBy(player);
+                    playTameEffect(true);
+                    world.setEntityState(this, (byte)7);
                 }
                 else
                 {
-                    this.playTameEffect(false);
-                    this.world.setEntityState(this, (byte)6);
+                    playTameEffect(false);
+                    world.setEntityState(this, (byte)6);
                 }
             }
 
@@ -286,20 +286,20 @@ public class EntityParrot extends EntityShoulderRiding implements EntityFlying
                 itemstack.shrink(1);
             }
 
-            this.addPotionEffect(new PotionEffect(MobEffects.POISON, 900));
+            addPotionEffect(new PotionEffect(MobEffects.POISON, 900));
 
-            if (player.isCreative() || !this.getIsInvulnerable())
+            if (player.isCreative() || !getIsInvulnerable())
             {
-                this.attackEntityFrom(DamageSource.causePlayerDamage(player), Float.MAX_VALUE);
+                attackEntityFrom(DamageSource.causePlayerDamage(player), Float.MAX_VALUE);
             }
 
             return true;
         }
         else
         {
-            if (!this.world.isRemote && !this.isFlying() && this.isTamed() && this.isOwner(player))
+            if (!world.isRemote && !isFlying() && isTamed() && isOwner(player))
             {
-                this.aiSit.setSitting(!this.isSitting());
+                aiSit.setSitting(!isSitting());
             }
 
             return super.processInteract(player, hand);
@@ -320,12 +320,12 @@ public class EntityParrot extends EntityShoulderRiding implements EntityFlying
      */
     public boolean getCanSpawnHere()
     {
-        int i = MathHelper.floor(this.posX);
-        int j = MathHelper.floor(this.getEntityBoundingBox().minY);
-        int k = MathHelper.floor(this.posZ);
+        int i = MathHelper.floor(posX);
+        int j = MathHelper.floor(getEntityBoundingBox().minY);
+        int k = MathHelper.floor(posZ);
         BlockPos blockpos = new BlockPos(i, j, k);
-        Block block = this.world.getBlockState(blockpos.down()).getBlock();
-        return block instanceof BlockLeaves || block == Blocks.GRASS || block instanceof BlockLog || block == Blocks.AIR && this.world.getLight(blockpos) > 8 && super.getCanSpawnHere();
+        Block block = world.getBlockState(blockpos.down()).getBlock();
+        return block instanceof BlockLeaves || block == Blocks.GRASS || block instanceof BlockLog || block == Blocks.AIR && world.getLight(blockpos) > 8 && super.getCanSpawnHere();
     }
 
     public void fall(float distance, float damageMultiplier)
@@ -366,7 +366,7 @@ public class EntityParrot extends EntityShoulderRiding implements EntityFlying
     @Nullable
     public SoundEvent getAmbientSound()
     {
-        return getAmbientSound(this.rand);
+        return getAmbientSound(rand);
     }
 
     private static SoundEvent getAmbientSound(Random random)
@@ -399,13 +399,13 @@ public class EntityParrot extends EntityShoulderRiding implements EntityFlying
 
     protected void playStepSound(BlockPos pos, Block blockIn)
     {
-        this.playSound(SoundEvents.ENTITY_PARROT_STEP, 0.15F, 1.0F);
+        playSound(SoundEvents.ENTITY_PARROT_STEP, 0.15F, 1.0F);
     }
 
     protected float playFlySound(float p_191954_1_)
     {
-        this.playSound(SoundEvents.ENTITY_PARROT_FLY, 0.15F, 1.0F);
-        return p_191954_1_ + this.flapSpeed / 2.0F;
+        playSound(SoundEvents.ENTITY_PARROT_FLY, 0.15F, 1.0F);
+        return p_191954_1_ + flapSpeed / 2.0F;
     }
 
     protected boolean makeFlySound()
@@ -418,7 +418,7 @@ public class EntityParrot extends EntityShoulderRiding implements EntityFlying
      */
     protected float getSoundPitch()
     {
-        return getPitch(this.rand);
+        return getPitch(rand);
     }
 
     private static float getPitch(Random random)
@@ -452,15 +452,15 @@ public class EntityParrot extends EntityShoulderRiding implements EntityFlying
      */
     public boolean attackEntityFrom(DamageSource source, float amount)
     {
-        if (this.isEntityInvulnerable(source))
+        if (isEntityInvulnerable(source))
         {
             return false;
         }
         else
         {
-            if (this.aiSit != null)
+            if (aiSit != null)
             {
-                this.aiSit.setSitting(false);
+                aiSit.setSitting(false);
             }
 
             return super.attackEntityFrom(source, amount);
@@ -469,18 +469,18 @@ public class EntityParrot extends EntityShoulderRiding implements EntityFlying
 
     public int getVariant()
     {
-        return MathHelper.clamp(((Integer)this.dataManager.get(VARIANT)).intValue(), 0, 4);
+        return MathHelper.clamp(((Integer) dataManager.get(VARIANT)).intValue(), 0, 4);
     }
 
     public void setVariant(int p_191997_1_)
     {
-        this.dataManager.set(VARIANT, Integer.valueOf(p_191997_1_));
+        dataManager.set(VARIANT, Integer.valueOf(p_191997_1_));
     }
 
     protected void entityInit()
     {
         super.entityInit();
-        this.dataManager.register(VARIANT, Integer.valueOf(0));
+        dataManager.register(VARIANT, Integer.valueOf(0));
     }
 
     /**
@@ -489,7 +489,7 @@ public class EntityParrot extends EntityShoulderRiding implements EntityFlying
     public void writeEntityToNBT(NBTTagCompound compound)
     {
         super.writeEntityToNBT(compound);
-        compound.setInteger("Variant", this.getVariant());
+        compound.setInteger("Variant", getVariant());
     }
 
     /**
@@ -498,7 +498,7 @@ public class EntityParrot extends EntityShoulderRiding implements EntityFlying
     public void readEntityFromNBT(NBTTagCompound compound)
     {
         super.readEntityFromNBT(compound);
-        this.setVariant(compound.getInteger("Variant"));
+        setVariant(compound.getInteger("Variant"));
     }
 
     @Nullable
@@ -509,7 +509,7 @@ public class EntityParrot extends EntityShoulderRiding implements EntityFlying
 
     public boolean isFlying()
     {
-        return !this.onGround;
+        return !onGround;
     }
 
     static

@@ -20,8 +20,8 @@ public class ItemEndCrystal extends Item
 {
     public ItemEndCrystal()
     {
-        this.setUnlocalizedName("end_crystal");
-        this.setCreativeTab(CreativeTabs.DECORATIONS);
+        setUnlocalizedName("end_crystal");
+        setCreativeTab(CreativeTabs.DECORATIONS);
     }
 
     /**

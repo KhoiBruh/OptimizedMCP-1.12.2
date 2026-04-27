@@ -20,13 +20,13 @@ public class PathWorldListener implements IWorldEventListener
 
     public void notifyBlockUpdate(World worldIn, BlockPos pos, IBlockState oldState, IBlockState newState, int flags)
     {
-        if (this.didBlockChange(worldIn, pos, oldState, newState))
+        if (didBlockChange(worldIn, pos, oldState, newState))
         {
             int i = 0;
 
-            for (int j = this.navigations.size(); i < j; ++i)
+            for (int j = navigations.size(); i < j; ++i)
             {
-                PathNavigate pathnavigate = this.navigations.get(i);
+                PathNavigate pathnavigate = navigations.get(i);
 
                 if (pathnavigate != null && !pathnavigate.canUpdatePathOnTimeout())
                 {
@@ -86,7 +86,7 @@ public class PathWorldListener implements IWorldEventListener
     {
         if (entityIn instanceof EntityLiving)
         {
-            this.navigations.add(((EntityLiving)entityIn).getNavigator());
+            navigations.add(((EntityLiving)entityIn).getNavigator());
         }
     }
 
@@ -98,7 +98,7 @@ public class PathWorldListener implements IWorldEventListener
     {
         if (entityIn instanceof EntityLiving)
         {
-            this.navigations.remove(((EntityLiving)entityIn).getNavigator());
+            navigations.remove(((EntityLiving)entityIn).getNavigator());
         }
     }
 

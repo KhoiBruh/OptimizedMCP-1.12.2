@@ -58,16 +58,16 @@ public class AdvancementManager
 
     public AdvancementManager(@Nullable File advancementsDirIn)
     {
-        this.advancementsDir = advancementsDirIn;
-        this.reload();
+        advancementsDir = advancementsDirIn;
+        reload();
     }
 
     public void reload()
     {
-        this.hasErrored = false;
+        hasErrored = false;
         ADVANCEMENT_LIST.clear();
-        Map<ResourceLocation, Advancement.Builder> map = this.loadCustomAdvancements();
-        this.loadBuiltInAdvancements(map);
+        Map<ResourceLocation, Advancement.Builder> map = loadCustomAdvancements();
+        loadBuiltInAdvancements(map);
         ADVANCEMENT_LIST.loadAdvancements(map);
 
         for (Advancement advancement : ADVANCEMENT_LIST.getRoots())
@@ -81,23 +81,23 @@ public class AdvancementManager
 
     public boolean hasErrored()
     {
-        return this.hasErrored;
+        return hasErrored;
     }
 
     private Map<ResourceLocation, Advancement.Builder> loadCustomAdvancements()
     {
-        if (this.advancementsDir == null)
+        if (advancementsDir == null)
         {
             return Maps.<ResourceLocation, Advancement.Builder>newHashMap();
         }
         else
         {
             Map<ResourceLocation, Advancement.Builder> map = Maps.<ResourceLocation, Advancement.Builder>newHashMap();
-            this.advancementsDir.mkdirs();
+            advancementsDir.mkdirs();
 
-            for (File file1 : FileUtils.listFiles(this.advancementsDir, new String[] {"json"}, true))
+            for (File file1 : FileUtils.listFiles(advancementsDir, new String[] {"json"}, true))
             {
-                String s = FilenameUtils.removeExtension(this.advancementsDir.toURI().relativize(file1.toURI()).toString());
+                String s = FilenameUtils.removeExtension(advancementsDir.toURI().relativize(file1.toURI()).toString());
                 String[] astring = s.split("/", 2);
 
                 if (astring.length == 2)
@@ -120,12 +120,12 @@ public class AdvancementManager
                     catch (IllegalArgumentException | JsonParseException jsonparseexception)
                     {
                         LOGGER.error("Parsing error loading custom advancement " + resourcelocation, (Throwable)jsonparseexception);
-                        this.hasErrored = true;
+                        hasErrored = true;
                     }
                     catch (IOException ioexception)
                     {
                         LOGGER.error("Couldn't read custom advancement " + resourcelocation + " from " + file1, (Throwable)ioexception);
-                        this.hasErrored = true;
+                        hasErrored = true;
                     }
                 }
             }
@@ -155,7 +155,7 @@ public class AdvancementManager
                     if (!"jar".equals(uri.getScheme()))
                     {
                         LOGGER.error("Unsupported scheme " + uri + " trying to list all built-in advancements (NYI?)");
-                        this.hasErrored = true;
+                        hasErrored = true;
                         return;
                     }
 
@@ -188,12 +188,12 @@ public class AdvancementManager
                             catch (JsonParseException jsonparseexception)
                             {
                                 LOGGER.error("Parsing error loading built-in advancement " + resourcelocation, (Throwable)jsonparseexception);
-                                this.hasErrored = true;
+                                hasErrored = true;
                             }
                             catch (IOException ioexception)
                             {
                                 LOGGER.error("Couldn't read advancement " + resourcelocation + " from " + path1, (Throwable)ioexception);
-                                this.hasErrored = true;
+                                hasErrored = true;
                             }
                             finally
                             {
@@ -207,12 +207,12 @@ public class AdvancementManager
             }
 
             LOGGER.error("Couldn't find .mcassetsroot");
-            this.hasErrored = true;
+            hasErrored = true;
         }
         catch (IOException | URISyntaxException urisyntaxexception)
         {
             LOGGER.error("Couldn't get a list of all built-in advancement files", (Throwable)urisyntaxexception);
-            this.hasErrored = true;
+            hasErrored = true;
             return;
         }
         finally

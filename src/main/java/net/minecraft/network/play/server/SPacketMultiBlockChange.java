@@ -21,12 +21,12 @@ public class SPacketMultiBlockChange implements Packet<INetHandlerPlayClient>
 
     public SPacketMultiBlockChange(int p_i46959_1_, short[] p_i46959_2_, Chunk p_i46959_3_)
     {
-        this.chunkPos = new ChunkPos(p_i46959_3_.x, p_i46959_3_.z);
-        this.changedBlocks = new SPacketMultiBlockChange.BlockUpdateData[p_i46959_1_];
+        chunkPos = new ChunkPos(p_i46959_3_.x, p_i46959_3_.z);
+        changedBlocks = new SPacketMultiBlockChange.BlockUpdateData[p_i46959_1_];
 
-        for (int i = 0; i < this.changedBlocks.length; ++i)
+        for (int i = 0; i < changedBlocks.length; ++i)
         {
-            this.changedBlocks[i] = new SPacketMultiBlockChange.BlockUpdateData(p_i46959_2_[i], p_i46959_3_);
+            changedBlocks[i] = new SPacketMultiBlockChange.BlockUpdateData(p_i46959_2_[i], p_i46959_3_);
         }
     }
 
@@ -35,12 +35,12 @@ public class SPacketMultiBlockChange implements Packet<INetHandlerPlayClient>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.chunkPos = new ChunkPos(buf.readInt(), buf.readInt());
-        this.changedBlocks = new SPacketMultiBlockChange.BlockUpdateData[buf.readVarInt()];
+        chunkPos = new ChunkPos(buf.readInt(), buf.readInt());
+        changedBlocks = new SPacketMultiBlockChange.BlockUpdateData[buf.readVarInt()];
 
-        for (int i = 0; i < this.changedBlocks.length; ++i)
+        for (int i = 0; i < changedBlocks.length; ++i)
         {
-            this.changedBlocks[i] = new SPacketMultiBlockChange.BlockUpdateData(buf.readShort(), Block.BLOCK_STATE_IDS.getByValue(buf.readVarInt()));
+            changedBlocks[i] = new SPacketMultiBlockChange.BlockUpdateData(buf.readShort(), Block.BLOCK_STATE_IDS.getByValue(buf.readVarInt()));
         }
     }
 
@@ -49,11 +49,11 @@ public class SPacketMultiBlockChange implements Packet<INetHandlerPlayClient>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeInt(this.chunkPos.x);
-        buf.writeInt(this.chunkPos.z);
-        buf.writeVarInt(this.changedBlocks.length);
+        buf.writeInt(chunkPos.x);
+        buf.writeInt(chunkPos.z);
+        buf.writeVarInt(changedBlocks.length);
 
-        for (SPacketMultiBlockChange.BlockUpdateData spacketmultiblockchange$blockupdatedata : this.changedBlocks)
+        for (SPacketMultiBlockChange.BlockUpdateData spacketmultiblockchange$blockupdatedata : changedBlocks)
         {
             buf.writeShort(spacketmultiblockchange$blockupdatedata.getOffset());
             buf.writeVarInt(Block.BLOCK_STATE_IDS.get(spacketmultiblockchange$blockupdatedata.getBlockState()));
@@ -70,7 +70,7 @@ public class SPacketMultiBlockChange implements Packet<INetHandlerPlayClient>
 
     public SPacketMultiBlockChange.BlockUpdateData[] getChangedBlocks()
     {
-        return this.changedBlocks;
+        return changedBlocks;
     }
 
     public class BlockUpdateData
@@ -80,29 +80,29 @@ public class SPacketMultiBlockChange implements Packet<INetHandlerPlayClient>
 
         public BlockUpdateData(short p_i46544_2_, IBlockState p_i46544_3_)
         {
-            this.offset = p_i46544_2_;
-            this.blockState = p_i46544_3_;
+            offset = p_i46544_2_;
+            blockState = p_i46544_3_;
         }
 
         public BlockUpdateData(short p_i46545_2_, Chunk p_i46545_3_)
         {
-            this.offset = p_i46545_2_;
-            this.blockState = p_i46545_3_.getBlockState(this.getPos());
+            offset = p_i46545_2_;
+            blockState = p_i46545_3_.getBlockState(getPos());
         }
 
         public BlockPos getPos()
         {
-            return new BlockPos(SPacketMultiBlockChange.this.chunkPos.getBlock(this.offset >> 12 & 15, this.offset & 255, this.offset >> 8 & 15));
+            return new BlockPos(chunkPos.getBlock(offset >> 12 & 15, offset & 255, offset >> 8 & 15));
         }
 
         public short getOffset()
         {
-            return this.offset;
+            return offset;
         }
 
         public IBlockState getBlockState()
         {
-            return this.blockState;
+            return blockState;
         }
     }
 }

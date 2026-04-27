@@ -27,12 +27,12 @@ default Object getType()
 
         private Visibility(SoundEvent soundIn)
         {
-            this.sound = soundIn;
+            sound = soundIn;
         }
 
         public void playSound(SoundHandler handler)
         {
-            handler.playSound(PositionedSoundRecord.getRecord(this.sound, 1.0F, 1.0F));
+            handler.playSound(PositionedSoundRecord.getRecord(sound, 1.0F, 1.0F));
         }
     }
 }

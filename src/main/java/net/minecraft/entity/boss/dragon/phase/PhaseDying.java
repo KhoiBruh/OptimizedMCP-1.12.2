@@ -23,12 +23,12 @@ public class PhaseDying extends PhaseBase
      */
     public void doClientRenderEffects()
     {
-        if (this.time++ % 10 == 0)
+        if (time++ % 10 == 0)
         {
-            float f = (this.dragon.getRNG().nextFloat() - 0.5F) * 8.0F;
-            float f1 = (this.dragon.getRNG().nextFloat() - 0.5F) * 4.0F;
-            float f2 = (this.dragon.getRNG().nextFloat() - 0.5F) * 8.0F;
-            this.dragon.world.spawnParticle(EnumParticleTypes.EXPLOSION_HUGE, this.dragon.posX + (double)f, this.dragon.posY + 2.0D + (double)f1, this.dragon.posZ + (double)f2, 0.0D, 0.0D, 0.0D);
+            float f = (dragon.getRNG().nextFloat() - 0.5F) * 8.0F;
+            float f1 = (dragon.getRNG().nextFloat() - 0.5F) * 4.0F;
+            float f2 = (dragon.getRNG().nextFloat() - 0.5F) * 8.0F;
+            dragon.world.spawnParticle(EnumParticleTypes.EXPLOSION_HUGE, dragon.posX + (double)f, dragon.posY + 2.0D + (double)f1, dragon.posZ + (double)f2, 0.0D, 0.0D, 0.0D);
         }
     }
 
@@ -38,23 +38,23 @@ public class PhaseDying extends PhaseBase
      */
     public void doLocalUpdate()
     {
-        ++this.time;
+        ++time;
 
-        if (this.targetLocation == null)
+        if (targetLocation == null)
         {
-            BlockPos blockpos = this.dragon.world.getHeight(WorldGenEndPodium.END_PODIUM_LOCATION);
-            this.targetLocation = new Vec3d((double)blockpos.getX(), (double)blockpos.getY(), (double)blockpos.getZ());
+            BlockPos blockpos = dragon.world.getHeight(WorldGenEndPodium.END_PODIUM_LOCATION);
+            targetLocation = new Vec3d((double)blockpos.getX(), (double)blockpos.getY(), (double)blockpos.getZ());
         }
 
-        double d0 = this.targetLocation.squareDistanceTo(this.dragon.posX, this.dragon.posY, this.dragon.posZ);
+        double d0 = targetLocation.squareDistanceTo(dragon.posX, dragon.posY, dragon.posZ);
 
-        if (d0 >= 100.0D && d0 <= 22500.0D && !this.dragon.collidedHorizontally && !this.dragon.collidedVertically)
+        if (d0 >= 100.0D && d0 <= 22500.0D && !dragon.collidedHorizontally && !dragon.collidedVertically)
         {
-            this.dragon.setHealth(1.0F);
+            dragon.setHealth(1.0F);
         }
         else
         {
-            this.dragon.setHealth(0.0F);
+            dragon.setHealth(0.0F);
         }
     }
 
@@ -63,8 +63,8 @@ public class PhaseDying extends PhaseBase
      */
     public void initPhase()
     {
-        this.targetLocation = null;
-        this.time = 0;
+        targetLocation = null;
+        time = 0;
     }
 
     /**
@@ -82,7 +82,7 @@ public class PhaseDying extends PhaseBase
      */
     public Vec3d getTargetLocation()
     {
-        return this.targetLocation;
+        return targetLocation;
     }
 
     public PhaseList<PhaseDying> getType()

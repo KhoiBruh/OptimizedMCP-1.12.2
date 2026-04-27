@@ -23,7 +23,7 @@ public class SPacketServerInfo implements Packet<INetHandlerStatusClient>
 
     public SPacketServerInfo(ServerStatusResponse responseIn)
     {
-        this.response = responseIn;
+        response = responseIn;
     }
 
     /**
@@ -31,7 +31,7 @@ public class SPacketServerInfo implements Packet<INetHandlerStatusClient>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.response = (ServerStatusResponse)JsonUtils.gsonDeserialize(GSON, buf.readString(32767), ServerStatusResponse.class);
+        response = (ServerStatusResponse)JsonUtils.gsonDeserialize(GSON, buf.readString(32767), ServerStatusResponse.class);
     }
 
     /**
@@ -39,7 +39,7 @@ public class SPacketServerInfo implements Packet<INetHandlerStatusClient>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeString(GSON.toJson(this.response));
+        buf.writeString(GSON.toJson(response));
     }
 
     /**
@@ -52,6 +52,6 @@ public class SPacketServerInfo implements Packet<INetHandlerStatusClient>
 
     public ServerStatusResponse getResponse()
     {
-        return this.response;
+        return response;
     }
 }

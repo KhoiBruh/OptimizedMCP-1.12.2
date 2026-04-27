@@ -24,8 +24,8 @@ public class BlockStone extends Block
     public BlockStone()
     {
         super(Material.ROCK);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(VARIANT, BlockStone.EnumType.STONE));
-        this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
+        setDefaultState(blockState.getBaseState().withProperty(VARIANT, BlockStone.EnumType.STONE));
+        setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
     }
 
     /**
@@ -33,7 +33,7 @@ public class BlockStone extends Block
      */
     public String getLocalizedName()
     {
-        return I18n.translateToLocal(this.getUnlocalizedName() + "." + BlockStone.EnumType.STONE.getUnlocalizedName() + ".name");
+        return I18n.translateToLocal(getUnlocalizedName() + "." + BlockStone.EnumType.STONE.getUnlocalizedName() + ".name");
     }
 
     /**
@@ -77,7 +77,7 @@ public class BlockStone extends Block
      */
     public IBlockState getStateFromMeta(int meta)
     {
-        return this.getDefaultState().withProperty(VARIANT, BlockStone.EnumType.byMetadata(meta));
+        return getDefaultState().withProperty(VARIANT, BlockStone.EnumType.byMetadata(meta));
     }
 
     /**
@@ -117,26 +117,26 @@ public class BlockStone extends Block
 
         private EnumType(int p_i46384_3_, MapColor p_i46384_4_, String p_i46384_5_, String p_i46384_6_, boolean p_i46384_7_)
         {
-            this.meta = p_i46384_3_;
-            this.name = p_i46384_5_;
-            this.unlocalizedName = p_i46384_6_;
-            this.mapColor = p_i46384_4_;
-            this.isNatural = p_i46384_7_;
+            meta = p_i46384_3_;
+            name = p_i46384_5_;
+            unlocalizedName = p_i46384_6_;
+            mapColor = p_i46384_4_;
+            isNatural = p_i46384_7_;
         }
 
         public int getMetadata()
         {
-            return this.meta;
+            return meta;
         }
 
         public MapColor getMapColor()
         {
-            return this.mapColor;
+            return mapColor;
         }
 
         public String toString()
         {
-            return this.name;
+            return name;
         }
 
         public static BlockStone.EnumType byMetadata(int meta)
@@ -151,17 +151,17 @@ public class BlockStone extends Block
 
         public String getName()
         {
-            return this.name;
+            return name;
         }
 
         public String getUnlocalizedName()
         {
-            return this.unlocalizedName;
+            return unlocalizedName;
         }
 
         public boolean isNatural()
         {
-            return this.isNatural;
+            return isNatural;
         }
 
         static {

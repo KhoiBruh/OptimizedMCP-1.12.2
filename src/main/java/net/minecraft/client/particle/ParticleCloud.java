@@ -15,21 +15,21 @@ public class ParticleCloud extends Particle
     {
         super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0.0D, 0.0D, 0.0D);
         float f = 2.5F;
-        this.motionX *= 0.10000000149011612D;
-        this.motionY *= 0.10000000149011612D;
-        this.motionZ *= 0.10000000149011612D;
-        this.motionX += p_i1221_8_;
-        this.motionY += p_i1221_10_;
-        this.motionZ += p_i1221_12_;
+        motionX *= 0.10000000149011612D;
+        motionY *= 0.10000000149011612D;
+        motionZ *= 0.10000000149011612D;
+        motionX += p_i1221_8_;
+        motionY += p_i1221_10_;
+        motionZ += p_i1221_12_;
         float f1 = 1.0F - (float)(Math.random() * 0.30000001192092896D);
-        this.particleRed = f1;
-        this.particleGreen = f1;
-        this.particleBlue = f1;
-        this.particleScale *= 0.75F;
-        this.particleScale *= 2.5F;
-        this.oSize = this.particleScale;
-        this.particleMaxAge = (int)(8.0D / (Math.random() * 0.8D + 0.3D));
-        this.particleMaxAge = (int)((float)this.particleMaxAge * 2.5F);
+        particleRed = f1;
+        particleGreen = f1;
+        particleBlue = f1;
+        particleScale *= 0.75F;
+        particleScale *= 2.5F;
+        oSize = particleScale;
+        particleMaxAge = (int)(8.0D / (Math.random() * 0.8D + 0.3D));
+        particleMaxAge = (int)((float) particleMaxAge * 2.5F);
     }
 
     /**
@@ -37,46 +37,46 @@ public class ParticleCloud extends Particle
      */
     public void renderParticle(BufferBuilder buffer, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ)
     {
-        float f = ((float)this.particleAge + partialTicks) / (float)this.particleMaxAge * 32.0F;
+        float f = ((float) particleAge + partialTicks) / (float) particleMaxAge * 32.0F;
         f = MathHelper.clamp(f, 0.0F, 1.0F);
-        this.particleScale = this.oSize * f;
+        particleScale = oSize * f;
         super.renderParticle(buffer, entityIn, partialTicks, rotationX, rotationZ, rotationYZ, rotationXY, rotationXZ);
     }
 
     public void onUpdate()
     {
-        this.prevPosX = this.posX;
-        this.prevPosY = this.posY;
-        this.prevPosZ = this.posZ;
+        prevPosX = posX;
+        prevPosY = posY;
+        prevPosZ = posZ;
 
-        if (this.particleAge++ >= this.particleMaxAge)
+        if (particleAge++ >= particleMaxAge)
         {
-            this.setExpired();
+            setExpired();
         }
 
-        this.setParticleTextureIndex(7 - this.particleAge * 8 / this.particleMaxAge);
-        this.move(this.motionX, this.motionY, this.motionZ);
-        this.motionX *= 0.9599999785423279D;
-        this.motionY *= 0.9599999785423279D;
-        this.motionZ *= 0.9599999785423279D;
-        EntityPlayer entityplayer = this.world.getClosestPlayer(this.posX, this.posY, this.posZ, 2.0D, false);
+        setParticleTextureIndex(7 - particleAge * 8 / particleMaxAge);
+        move(motionX, motionY, motionZ);
+        motionX *= 0.9599999785423279D;
+        motionY *= 0.9599999785423279D;
+        motionZ *= 0.9599999785423279D;
+        EntityPlayer entityplayer = world.getClosestPlayer(posX, posY, posZ, 2.0D, false);
 
         if (entityplayer != null)
         {
             AxisAlignedBB axisalignedbb = entityplayer.getEntityBoundingBox();
 
-            if (this.posY > axisalignedbb.minY)
+            if (posY > axisalignedbb.minY)
             {
-                this.posY += (axisalignedbb.minY - this.posY) * 0.2D;
-                this.motionY += (entityplayer.motionY - this.motionY) * 0.2D;
-                this.setPosition(this.posX, this.posY, this.posZ);
+                posY += (axisalignedbb.minY - posY) * 0.2D;
+                motionY += (entityplayer.motionY - motionY) * 0.2D;
+                setPosition(posX, posY, posZ);
             }
         }
 
-        if (this.onGround)
+        if (onGround)
         {
-            this.motionX *= 0.699999988079071D;
-            this.motionZ *= 0.699999988079071D;
+            motionX *= 0.699999988079071D;
+            motionZ *= 0.699999988079071D;
         }
     }
 

@@ -28,13 +28,13 @@ public class EntityMinecartEmpty extends EntityMinecart
         {
             return false;
         }
-        else if (this.isBeingRidden())
+        else if (isBeingRidden())
         {
             return true;
         }
         else
         {
-            if (!this.world.isRemote)
+            if (!world.isRemote)
             {
                 player.startRiding(this);
             }
@@ -50,17 +50,17 @@ public class EntityMinecartEmpty extends EntityMinecart
     {
         if (receivingPower)
         {
-            if (this.isBeingRidden())
+            if (isBeingRidden())
             {
-                this.removePassengers();
+                removePassengers();
             }
 
-            if (this.getRollingAmplitude() == 0)
+            if (getRollingAmplitude() == 0)
             {
-                this.setRollingDirection(-this.getRollingDirection());
-                this.setRollingAmplitude(10);
-                this.setDamage(50.0F);
-                this.markVelocityChanged();
+                setRollingDirection(-getRollingDirection());
+                setRollingAmplitude(10);
+                setDamage(50.0F);
+                markVelocityChanged();
             }
         }
     }

@@ -47,9 +47,9 @@ public class BlockShulkerBox extends BlockContainer
     public BlockShulkerBox(EnumDyeColor colorIn)
     {
         super(Material.ROCK, MapColor.AIR);
-        this.color = colorIn;
-        this.setCreativeTab(CreativeTabs.DECORATIONS);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.UP));
+        color = colorIn;
+        setCreativeTab(CreativeTabs.DECORATIONS);
+        setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.UP));
     }
 
     /**
@@ -57,7 +57,7 @@ public class BlockShulkerBox extends BlockContainer
      */
     public TileEntity createNewTileEntity(World worldIn, int meta)
     {
-        return new TileEntityShulkerBox(this.color);
+        return new TileEntityShulkerBox(color);
     }
 
     /**
@@ -145,7 +145,7 @@ public class BlockShulkerBox extends BlockContainer
      */
     public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
     {
-        return this.getDefaultState().withProperty(FACING, facing);
+        return getDefaultState().withProperty(FACING, facing);
     }
 
     protected BlockStateContainer createBlockState()
@@ -167,7 +167,7 @@ public class BlockShulkerBox extends BlockContainer
     public IBlockState getStateFromMeta(int meta)
     {
         EnumFacing enumfacing = EnumFacing.getFront(meta);
-        return this.getDefaultState().withProperty(FACING, enumfacing);
+        return getDefaultState().withProperty(FACING, enumfacing);
     }
 
     /**
@@ -386,7 +386,7 @@ public class BlockShulkerBox extends BlockContainer
 
     public EnumDyeColor getColor()
     {
-        return this.color;
+        return color;
     }
 
     public static ItemStack getColoredItemStack(EnumDyeColor colorIn)
@@ -423,7 +423,7 @@ public class BlockShulkerBox extends BlockContainer
      */
     public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face)
     {
-        state = this.getActualState(state, worldIn, pos);
+        state = getActualState(state, worldIn, pos);
         EnumFacing enumfacing = (EnumFacing)state.getValue(FACING);
         TileEntityShulkerBox.AnimationStatus tileentityshulkerbox$animationstatus = ((TileEntityShulkerBox)worldIn.getTileEntity(pos)).getAnimationStatus();
         return tileentityshulkerbox$animationstatus != TileEntityShulkerBox.AnimationStatus.CLOSED && (tileentityshulkerbox$animationstatus != TileEntityShulkerBox.AnimationStatus.OPENED || enumfacing != face.getOpposite() && enumfacing != face) ? BlockFaceShape.UNDEFINED : BlockFaceShape.SOLID;

@@ -51,7 +51,7 @@ public class RecipesMapExtending extends ShapedRecipes
                 {
                     return false;
                 }
-                else if (this.isExplorationMap(mapdata))
+                else if (isExplorationMap(mapdata))
                 {
                     return false;
                 }

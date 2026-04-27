@@ -37,11 +37,11 @@ public class FolderResourcePack extends AbstractResourcePack
 
     protected InputStream getInputStreamByName(String name) throws IOException
     {
-        File file1 = this.getFile(name);
+        File file1 = getFile(name);
 
         if (file1 == null)
         {
-            throw new ResourcePackFileNotFoundException(this.resourcePackFile, name);
+            throw new ResourcePackFileNotFoundException(resourcePackFile, name);
         }
         else
         {
@@ -51,7 +51,7 @@ public class FolderResourcePack extends AbstractResourcePack
 
     protected boolean hasResourceName(String name)
     {
-        return this.getFile(name) != null;
+        return getFile(name) != null;
     }
 
     @Nullable
@@ -59,7 +59,7 @@ public class FolderResourcePack extends AbstractResourcePack
     {
         try
         {
-            File file1 = new File(this.resourcePackFile, p_191385_1_);
+            File file1 = new File(resourcePackFile, p_191385_1_);
 
             if (file1.isFile() && validatePath(file1, p_191385_1_))
             {
@@ -77,7 +77,7 @@ public class FolderResourcePack extends AbstractResourcePack
     public Set<String> getResourceDomains()
     {
         Set<String> set = Sets.<String>newHashSet();
-        File file1 = new File(this.resourcePackFile, "assets/");
+        File file1 = new File(resourcePackFile, "assets/");
 
         if (file1.isDirectory())
         {
@@ -91,7 +91,7 @@ public class FolderResourcePack extends AbstractResourcePack
                 }
                 else
                 {
-                    this.logNameNotLowercase(s);
+                    logNameNotLowercase(s);
                 }
             }
         }

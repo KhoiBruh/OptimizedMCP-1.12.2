@@ -47,8 +47,8 @@ public class EntityHorse extends AbstractHorse
     protected void entityInit()
     {
         super.entityInit();
-        this.dataManager.register(HORSE_VARIANT, Integer.valueOf(0));
-        this.dataManager.register(HORSE_ARMOR, Integer.valueOf(HorseArmorType.NONE.getOrdinal()));
+        dataManager.register(HORSE_VARIANT, Integer.valueOf(0));
+        dataManager.register(HORSE_ARMOR, Integer.valueOf(HorseArmorType.NONE.getOrdinal()));
     }
 
     public static void registerFixesHorse(DataFixer fixer)
@@ -63,11 +63,11 @@ public class EntityHorse extends AbstractHorse
     public void writeEntityToNBT(NBTTagCompound compound)
     {
         super.writeEntityToNBT(compound);
-        compound.setInteger("Variant", this.getHorseVariant());
+        compound.setInteger("Variant", getHorseVariant());
 
-        if (!this.horseChest.getStackInSlot(1).isEmpty())
+        if (!horseChest.getStackInSlot(1).isEmpty())
         {
-            compound.setTag("ArmorItem", this.horseChest.getStackInSlot(1).writeToNBT(new NBTTagCompound()));
+            compound.setTag("ArmorItem", horseChest.getStackInSlot(1).writeToNBT(new NBTTagCompound()));
         }
     }
 
@@ -77,7 +77,7 @@ public class EntityHorse extends AbstractHorse
     public void readEntityFromNBT(NBTTagCompound compound)
     {
         super.readEntityFromNBT(compound);
-        this.setHorseVariant(compound.getInteger("Variant"));
+        setHorseVariant(compound.getInteger("Variant"));
 
         if (compound.hasKey("ArmorItem", 10))
         {
@@ -85,59 +85,59 @@ public class EntityHorse extends AbstractHorse
 
             if (!itemstack.isEmpty() && HorseArmorType.isHorseArmor(itemstack.getItem()))
             {
-                this.horseChest.setInventorySlotContents(1, itemstack);
+                horseChest.setInventorySlotContents(1, itemstack);
             }
         }
 
-        this.updateHorseSlots();
+        updateHorseSlots();
     }
 
     public void setHorseVariant(int variant)
     {
-        this.dataManager.set(HORSE_VARIANT, Integer.valueOf(variant));
-        this.resetTexturePrefix();
+        dataManager.set(HORSE_VARIANT, Integer.valueOf(variant));
+        resetTexturePrefix();
     }
 
     public int getHorseVariant()
     {
-        return ((Integer)this.dataManager.get(HORSE_VARIANT)).intValue();
+        return ((Integer) dataManager.get(HORSE_VARIANT)).intValue();
     }
 
     private void resetTexturePrefix()
     {
-        this.texturePrefix = null;
+        texturePrefix = null;
     }
 
     private void setHorseTexturePaths()
     {
-        int i = this.getHorseVariant();
+        int i = getHorseVariant();
         int j = (i & 255) % 7;
         int k = ((i & 65280) >> 8) % 5;
-        HorseArmorType horsearmortype = this.getHorseArmorType();
-        this.horseTexturesArray[0] = HORSE_TEXTURES[j];
-        this.horseTexturesArray[1] = HORSE_MARKING_TEXTURES[k];
-        this.horseTexturesArray[2] = horsearmortype.getTextureName();
-        this.texturePrefix = "horse/" + HORSE_TEXTURES_ABBR[j] + HORSE_MARKING_TEXTURES_ABBR[k] + horsearmortype.getHash();
+        HorseArmorType horsearmortype = getHorseArmorType();
+        horseTexturesArray[0] = HORSE_TEXTURES[j];
+        horseTexturesArray[1] = HORSE_MARKING_TEXTURES[k];
+        horseTexturesArray[2] = horsearmortype.getTextureName();
+        texturePrefix = "horse/" + HORSE_TEXTURES_ABBR[j] + HORSE_MARKING_TEXTURES_ABBR[k] + horsearmortype.getHash();
     }
 
     public String getHorseTexture()
     {
-        if (this.texturePrefix == null)
+        if (texturePrefix == null)
         {
-            this.setHorseTexturePaths();
+            setHorseTexturePaths();
         }
 
-        return this.texturePrefix;
+        return texturePrefix;
     }
 
     public String[] getVariantTexturePaths()
     {
-        if (this.texturePrefix == null)
+        if (texturePrefix == null)
         {
-            this.setHorseTexturePaths();
+            setHorseTexturePaths();
         }
 
-        return this.horseTexturesArray;
+        return horseTexturesArray;
     }
 
     /**
@@ -146,7 +146,7 @@ public class EntityHorse extends AbstractHorse
     protected void updateHorseSlots()
     {
         super.updateHorseSlots();
-        this.setHorseArmorStack(this.horseChest.getStackInSlot(1));
+        setHorseArmorStack(horseChest.getStackInSlot(1));
     }
 
     /**
@@ -155,24 +155,24 @@ public class EntityHorse extends AbstractHorse
     public void setHorseArmorStack(ItemStack itemStackIn)
     {
         HorseArmorType horsearmortype = HorseArmorType.getByItemStack(itemStackIn);
-        this.dataManager.set(HORSE_ARMOR, Integer.valueOf(horsearmortype.getOrdinal()));
-        this.resetTexturePrefix();
+        dataManager.set(HORSE_ARMOR, Integer.valueOf(horsearmortype.getOrdinal()));
+        resetTexturePrefix();
 
-        if (!this.world.isRemote)
+        if (!world.isRemote)
         {
-            this.getEntityAttribute(SharedMonsterAttributes.ARMOR).removeModifier(ARMOR_MODIFIER_UUID);
+            getEntityAttribute(SharedMonsterAttributes.ARMOR).removeModifier(ARMOR_MODIFIER_UUID);
             int i = horsearmortype.getProtection();
 
             if (i != 0)
             {
-                this.getEntityAttribute(SharedMonsterAttributes.ARMOR).applyModifier((new AttributeModifier(ARMOR_MODIFIER_UUID, "Horse armor bonus", (double)i, 0)).setSaved(false));
+                getEntityAttribute(SharedMonsterAttributes.ARMOR).applyModifier((new AttributeModifier(ARMOR_MODIFIER_UUID, "Horse armor bonus", (double)i, 0)).setSaved(false));
             }
         }
     }
 
     public HorseArmorType getHorseArmorType()
     {
-        return HorseArmorType.getByOrdinal(((Integer)this.dataManager.get(HORSE_ARMOR)).intValue());
+        return HorseArmorType.getByOrdinal(((Integer) dataManager.get(HORSE_ARMOR)).intValue());
     }
 
     /**
@@ -180,13 +180,13 @@ public class EntityHorse extends AbstractHorse
      */
     public void onInventoryChanged(IInventory invBasic)
     {
-        HorseArmorType horsearmortype = this.getHorseArmorType();
+        HorseArmorType horsearmortype = getHorseArmorType();
         super.onInventoryChanged(invBasic);
-        HorseArmorType horsearmortype1 = this.getHorseArmorType();
+        HorseArmorType horsearmortype1 = getHorseArmorType();
 
-        if (this.ticksExisted > 20 && horsearmortype != horsearmortype1 && horsearmortype1 != HorseArmorType.NONE)
+        if (ticksExisted > 20 && horsearmortype != horsearmortype1 && horsearmortype1 != HorseArmorType.NONE)
         {
-            this.playSound(SoundEvents.ENTITY_HORSE_ARMOR, 0.5F, 1.0F);
+            playSound(SoundEvents.ENTITY_HORSE_ARMOR, 0.5F, 1.0F);
         }
     }
 
@@ -194,18 +194,18 @@ public class EntityHorse extends AbstractHorse
     {
         super.playGallopSound(p_190680_1_);
 
-        if (this.rand.nextInt(10) == 0)
+        if (rand.nextInt(10) == 0)
         {
-            this.playSound(SoundEvents.ENTITY_HORSE_BREATHE, p_190680_1_.getVolume() * 0.6F, p_190680_1_.getPitch());
+            playSound(SoundEvents.ENTITY_HORSE_BREATHE, p_190680_1_.getVolume() * 0.6F, p_190680_1_.getPitch());
         }
     }
 
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue((double)this.getModifiedMaxHealth());
-        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(this.getModifiedMovementSpeed());
-        this.getEntityAttribute(JUMP_STRENGTH).setBaseValue(this.getModifiedJumpStrength());
+        getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue((double) getModifiedMaxHealth());
+        getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(getModifiedMovementSpeed());
+        getEntityAttribute(JUMP_STRENGTH).setBaseValue(getModifiedJumpStrength());
     }
 
     /**
@@ -215,10 +215,10 @@ public class EntityHorse extends AbstractHorse
     {
         super.onUpdate();
 
-        if (this.world.isRemote && this.dataManager.isDirty())
+        if (world.isRemote && dataManager.isDirty())
         {
-            this.dataManager.setClean();
-            this.resetTexturePrefix();
+            dataManager.setClean();
+            resetTexturePrefix();
         }
     }
 
@@ -262,15 +262,15 @@ public class EntityHorse extends AbstractHorse
         }
         else
         {
-            if (!this.isChild())
+            if (!isChild())
             {
-                if (this.isTame() && player.isSneaking())
+                if (isTame() && player.isSneaking())
                 {
-                    this.openGUI(player);
+                    openGUI(player);
                     return true;
                 }
 
-                if (this.isBeingRidden())
+                if (isBeingRidden())
                 {
                     return super.processInteract(player, hand);
                 }
@@ -278,7 +278,7 @@ public class EntityHorse extends AbstractHorse
 
             if (flag)
             {
-                if (this.handleEating(player, itemstack))
+                if (handleEating(player, itemstack))
                 {
                     if (!player.capabilities.isCreativeMode)
                     {
@@ -293,29 +293,29 @@ public class EntityHorse extends AbstractHorse
                     return true;
                 }
 
-                if (!this.isTame())
+                if (!isTame())
                 {
-                    this.makeMad();
+                    makeMad();
                     return true;
                 }
 
                 boolean flag1 = HorseArmorType.getByItemStack(itemstack) != HorseArmorType.NONE;
-                boolean flag2 = !this.isChild() && !this.isHorseSaddled() && itemstack.getItem() == Items.SADDLE;
+                boolean flag2 = !isChild() && !isHorseSaddled() && itemstack.getItem() == Items.SADDLE;
 
                 if (flag1 || flag2)
                 {
-                    this.openGUI(player);
+                    openGUI(player);
                     return true;
                 }
             }
 
-            if (this.isChild())
+            if (isChild())
             {
                 return super.processInteract(player, hand);
             }
             else
             {
-                this.mountTo(player);
+                mountTo(player);
                 return true;
             }
         }
@@ -336,7 +336,7 @@ public class EntityHorse extends AbstractHorse
         }
         else
         {
-            return this.canMate() && ((AbstractHorse)otherAnimal).canMate();
+            return canMate() && ((AbstractHorse)otherAnimal).canMate();
         }
     }
 
@@ -346,18 +346,18 @@ public class EntityHorse extends AbstractHorse
 
         if (ageable instanceof EntityDonkey)
         {
-            abstracthorse = new EntityMule(this.world);
+            abstracthorse = new EntityMule(world);
         }
         else
         {
             EntityHorse entityhorse = (EntityHorse)ageable;
-            abstracthorse = new EntityHorse(this.world);
-            int j = this.rand.nextInt(9);
+            abstracthorse = new EntityHorse(world);
+            int j = rand.nextInt(9);
             int i;
 
             if (j < 4)
             {
-                i = this.getHorseVariant() & 255;
+                i = getHorseVariant() & 255;
             }
             else if (j < 8)
             {
@@ -365,14 +365,14 @@ public class EntityHorse extends AbstractHorse
             }
             else
             {
-                i = this.rand.nextInt(7);
+                i = rand.nextInt(7);
             }
 
-            int k = this.rand.nextInt(5);
+            int k = rand.nextInt(5);
 
             if (k < 2)
             {
-                i = i | this.getHorseVariant() & 65280;
+                i = i | getHorseVariant() & 65280;
             }
             else if (k < 4)
             {
@@ -380,13 +380,13 @@ public class EntityHorse extends AbstractHorse
             }
             else
             {
-                i = i | this.rand.nextInt(5) << 8 & 65280;
+                i = i | rand.nextInt(5) << 8 & 65280;
             }
 
             ((EntityHorse)abstracthorse).setHorseVariant(i);
         }
 
-        this.setOffspringAttributes(ageable, abstracthorse);
+        setOffspringAttributes(ageable, abstracthorse);
         return abstracthorse;
     }
 
@@ -427,11 +427,11 @@ public class EntityHorse extends AbstractHorse
         }
         else
         {
-            i = this.rand.nextInt(7);
+            i = rand.nextInt(7);
             livingdata = new EntityHorse.GroupData(i);
         }
 
-        this.setHorseVariant(i | this.rand.nextInt(5) << 8);
+        setHorseVariant(i | rand.nextInt(5) << 8);
         return livingdata;
     }
 
@@ -441,7 +441,7 @@ public class EntityHorse extends AbstractHorse
 
         public GroupData(int variantIn)
         {
-            this.variant = variantIn;
+            variant = variantIn;
         }
     }
 }

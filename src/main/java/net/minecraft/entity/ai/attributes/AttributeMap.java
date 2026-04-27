@@ -22,7 +22,7 @@ public class AttributeMap extends AbstractAttributeMap
 
         if (iattributeinstance == null)
         {
-            iattributeinstance = this.instancesByName.get(attributeName);
+            iattributeinstance = instancesByName.get(attributeName);
         }
 
         return (ModifiableAttributeInstance)iattributeinstance;
@@ -37,7 +37,7 @@ public class AttributeMap extends AbstractAttributeMap
 
         if (attribute instanceof RangedAttribute && ((RangedAttribute)attribute).getDescription() != null)
         {
-            this.instancesByName.put(((RangedAttribute)attribute).getDescription(), iattributeinstance);
+            instancesByName.put(((RangedAttribute)attribute).getDescription(), iattributeinstance);
         }
 
         return iattributeinstance;
@@ -52,12 +52,12 @@ public class AttributeMap extends AbstractAttributeMap
     {
         if (instance.getAttribute().getShouldWatch())
         {
-            this.dirtyInstances.add(instance);
+            dirtyInstances.add(instance);
         }
 
-        for (IAttribute iattribute : this.descendantsByParent.get(instance.getAttribute()))
+        for (IAttribute iattribute : descendantsByParent.get(instance.getAttribute()))
         {
-            ModifiableAttributeInstance modifiableattributeinstance = this.getAttributeInstance(iattribute);
+            ModifiableAttributeInstance modifiableattributeinstance = getAttributeInstance(iattribute);
 
             if (modifiableattributeinstance != null)
             {
@@ -68,14 +68,14 @@ public class AttributeMap extends AbstractAttributeMap
 
     public Set<IAttributeInstance> getDirtyInstances()
     {
-        return this.dirtyInstances;
+        return dirtyInstances;
     }
 
     public Collection<IAttributeInstance> getWatchedAttributes()
     {
         Set<IAttributeInstance> set = Sets.<IAttributeInstance>newHashSet();
 
-        for (IAttributeInstance iattributeinstance : this.getAllAttributes())
+        for (IAttributeInstance iattributeinstance : getAllAttributes())
         {
             if (iattributeinstance.getAttribute().getShouldWatch())
             {

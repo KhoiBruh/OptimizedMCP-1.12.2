@@ -34,11 +34,11 @@ public class Advancement
     public Advancement(ResourceLocation id, @Nullable Advancement parentIn, @Nullable DisplayInfo displayIn, AdvancementRewards rewardsIn, Map<String, Criterion> criteriaIn, String[][] requirementsIn)
     {
         this.id = id;
-        this.display = displayIn;
-        this.criteria = ImmutableMap.copyOf(criteriaIn);
-        this.parent = parentIn;
-        this.rewards = rewardsIn;
-        this.requirements = requirementsIn;
+        display = displayIn;
+        criteria = ImmutableMap.copyOf(criteriaIn);
+        parent = parentIn;
+        rewards = rewardsIn;
+        requirements = requirementsIn;
 
         if (parentIn != null)
         {
@@ -47,12 +47,12 @@ public class Advancement
 
         if (displayIn == null)
         {
-            this.displayText = new TextComponentString(id.toString());
+            displayText = new TextComponentString(id.toString());
         }
         else
         {
-            this.displayText = new TextComponentString("[");
-            this.displayText.getStyle().setColor(displayIn.getFrame().getFormat());
+            displayText = new TextComponentString("[");
+            displayText.getStyle().setColor(displayIn.getFrame().getFormat());
             ITextComponent itextcomponent = displayIn.getTitle().createCopy();
             ITextComponent itextcomponent1 = new TextComponentString("");
             ITextComponent itextcomponent2 = itextcomponent.createCopy();
@@ -61,8 +61,8 @@ public class Advancement
             itextcomponent1.appendText("\n");
             itextcomponent1.appendSibling(displayIn.getDescription());
             itextcomponent.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, itextcomponent1));
-            this.displayText.appendSibling(itextcomponent);
-            this.displayText.appendText("]");
+            displayText.appendSibling(itextcomponent);
+            displayText.appendText("]");
         }
     }
 
@@ -71,7 +71,7 @@ public class Advancement
      */
     public Advancement.Builder copy()
     {
-        return new Advancement.Builder(this.parent == null ? null : this.parent.getId(), this.display, this.rewards, this.criteria, this.requirements);
+        return new Advancement.Builder(parent == null ? null : parent.getId(), display, rewards, criteria, requirements);
     }
 
     @Nullable
@@ -85,7 +85,7 @@ public class Advancement
      */
     public Advancement getParent()
     {
-        return this.parent;
+        return parent;
     }
 
     @Nullable
@@ -98,27 +98,27 @@ public class Advancement
      */
     public DisplayInfo getDisplay()
     {
-        return this.display;
+        return display;
     }
 
     public AdvancementRewards getRewards()
     {
-        return this.rewards;
+        return rewards;
     }
 
     public String toString()
     {
-        return "SimpleAdvancement{id=" + this.getId() + ", parent=" + (this.parent == null ? "null" : this.parent.getId()) + ", display=" + this.display + ", rewards=" + this.rewards + ", criteria=" + this.criteria + ", requirements=" + Arrays.deepToString(this.requirements) + '}';
+        return "SimpleAdvancement{id=" + getId() + ", parent=" + (parent == null ? "null" : parent.getId()) + ", display=" + display + ", rewards=" + rewards + ", criteria=" + criteria + ", requirements=" + Arrays.deepToString(requirements) + '}';
     }
 
     public Iterable<Advancement> getChildren()
     {
-        return this.children;
+        return children;
     }
 
     public Map<String, Criterion> getCriteria()
     {
-        return this.criteria;
+        return criteria;
     }
 
     /**
@@ -129,7 +129,7 @@ public class Advancement
      */
     public int getRequirementCount()
     {
-        return this.requirements.length;
+        return requirements.length;
     }
 
     /**
@@ -139,7 +139,7 @@ public class Advancement
      */
     public void addChild(Advancement advancementIn)
     {
-        this.children.add(advancementIn);
+        children.add(advancementIn);
     }
 
     /**
@@ -149,7 +149,7 @@ public class Advancement
      */
     public ResourceLocation getId()
     {
-        return this.id;
+        return id;
     }
 
     public boolean equals(Object p_equals_1_)
@@ -165,18 +165,18 @@ public class Advancement
         else
         {
             Advancement advancement = (Advancement)p_equals_1_;
-            return this.id.equals(advancement.id);
+            return id.equals(advancement.id);
         }
     }
 
     public int hashCode()
     {
-        return this.id.hashCode();
+        return id.hashCode();
     }
 
     public String[][] getRequirements()
     {
-        return this.requirements;
+        return requirements;
     }
 
     /**
@@ -191,7 +191,7 @@ public class Advancement
      */
     public ITextComponent getDisplayText()
     {
-        return this.displayText;
+        return displayText;
     }
 
     public static class Builder
@@ -205,57 +205,57 @@ public class Advancement
 
         Builder(@Nullable ResourceLocation p_i47414_1_, @Nullable DisplayInfo p_i47414_2_, AdvancementRewards p_i47414_3_, Map<String, Criterion> p_i47414_4_, String[][] p_i47414_5_)
         {
-            this.parentId = p_i47414_1_;
-            this.display = p_i47414_2_;
-            this.rewards = p_i47414_3_;
-            this.criteria = p_i47414_4_;
-            this.requirements = p_i47414_5_;
+            parentId = p_i47414_1_;
+            display = p_i47414_2_;
+            rewards = p_i47414_3_;
+            criteria = p_i47414_4_;
+            requirements = p_i47414_5_;
         }
 
         public boolean resolveParent(Function<ResourceLocation, Advancement> lookup)
         {
-            if (this.parentId == null)
+            if (parentId == null)
             {
                 return true;
             }
             else
             {
-                this.parent = lookup.apply(this.parentId);
-                return this.parent != null;
+                parent = lookup.apply(parentId);
+                return parent != null;
             }
         }
 
         public Advancement build(ResourceLocation id)
         {
-            return new Advancement(id, this.parent, this.display, this.rewards, this.criteria, this.requirements);
+            return new Advancement(id, parent, display, rewards, criteria, requirements);
         }
 
         public void writeTo(PacketBuffer buf)
         {
-            if (this.parentId == null)
+            if (parentId == null)
             {
                 buf.writeBoolean(false);
             }
             else
             {
                 buf.writeBoolean(true);
-                buf.writeResourceLocation(this.parentId);
+                buf.writeResourceLocation(parentId);
             }
 
-            if (this.display == null)
+            if (display == null)
             {
                 buf.writeBoolean(false);
             }
             else
             {
                 buf.writeBoolean(true);
-                this.display.write(buf);
+                display.write(buf);
             }
 
-            Criterion.serializeToNetwork(this.criteria, buf);
-            buf.writeVarInt(this.requirements.length);
+            Criterion.serializeToNetwork(criteria, buf);
+            buf.writeVarInt(requirements.length);
 
-            for (String[] astring : this.requirements)
+            for (String[] astring : requirements)
             {
                 buf.writeVarInt(astring.length);
 
@@ -268,7 +268,7 @@ public class Advancement
 
         public String toString()
         {
-            return "Task Advancement{parentId=" + this.parentId + ", display=" + this.display + ", rewards=" + this.rewards + ", criteria=" + this.criteria + ", requirements=" + Arrays.deepToString(this.requirements) + '}';
+            return "Task Advancement{parentId=" + parentId + ", display=" + display + ", rewards=" + rewards + ", criteria=" + criteria + ", requirements=" + Arrays.deepToString(requirements) + '}';
         }
 
         public static Advancement.Builder deserialize(JsonObject json, JsonDeserializationContext context)

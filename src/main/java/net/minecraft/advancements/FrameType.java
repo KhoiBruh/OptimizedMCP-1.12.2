@@ -14,19 +14,19 @@ public enum FrameType
 
     private FrameType(String nameIn, int iconIn, TextFormatting formatIn)
     {
-        this.name = nameIn;
-        this.icon = iconIn;
-        this.format = formatIn;
+        name = nameIn;
+        icon = iconIn;
+        format = formatIn;
     }
 
     public String getName()
     {
-        return this.name;
+        return name;
     }
 
     public int getIcon()
     {
-        return this.icon;
+        return icon;
     }
 
     public static FrameType byName(String nameIn)
@@ -44,6 +44,6 @@ public enum FrameType
 
     public TextFormatting getFormat()
     {
-        return this.format;
+        return format;
     }
 }

@@ -102,7 +102,7 @@ public class CommandSpreadPlayers extends CommandBase
             else
             {
                 sender.sendMessage(new TextComponentTranslation("commands.spreadplayers.spreading." + (flag ? "teams" : "players"), new Object[] {list.size(), d3, d0, d1, d2}));
-                this.spread(sender, list, new CommandSpreadPlayers.Position(d0, d1), d2, d3, (list.get(0)).world, flag);
+                spread(sender, list, new CommandSpreadPlayers.Position(d0, d1), d2, d3, (list.get(0)).world, flag);
             }
         }
     }
@@ -114,9 +114,9 @@ public class CommandSpreadPlayers extends CommandBase
         double d1 = pos.z - maxRange;
         double d2 = pos.x + maxRange;
         double d3 = pos.z + maxRange;
-        CommandSpreadPlayers.Position[] acommandspreadplayers$position = this.createInitialPositions(random, respectTeams ? this.getNumberOfTeams(p_110669_2_) : p_110669_2_.size(), d0, d1, d2, d3);
-        int i = this.spreadPositions(pos, spreadDistance, worldIn, random, d0, d1, d2, d3, acommandspreadplayers$position, respectTeams);
-        double d4 = this.setPlayerPositions(p_110669_2_, worldIn, acommandspreadplayers$position, respectTeams);
+        CommandSpreadPlayers.Position[] acommandspreadplayers$position = createInitialPositions(random, respectTeams ? getNumberOfTeams(p_110669_2_) : p_110669_2_.size(), d0, d1, d2, d3);
+        int i = spreadPositions(pos, spreadDistance, worldIn, random, d0, d1, d2, d3, acommandspreadplayers$position, respectTeams);
+        double d4 = setPlayerPositions(p_110669_2_, worldIn, acommandspreadplayers$position, respectTeams);
         notifyCommandListener(sender, this, "commands.spreadplayers.success." + (respectTeams ? "teams" : "players"), new Object[] {acommandspreadplayers$position.length, pos.x, pos.z});
 
         if (acommandspreadplayers$position.length > 1)
@@ -302,58 +302,58 @@ public class CommandSpreadPlayers extends CommandBase
 
         Position(double xIn, double zIn)
         {
-            this.x = xIn;
-            this.z = zIn;
+            x = xIn;
+            z = zIn;
         }
 
         double dist(CommandSpreadPlayers.Position pos)
         {
-            double d0 = this.x - pos.x;
-            double d1 = this.z - pos.z;
+            double d0 = x - pos.x;
+            double d1 = z - pos.z;
             return Math.sqrt(d0 * d0 + d1 * d1);
         }
 
         void normalize()
         {
-            double d0 = (double)this.getLength();
-            this.x /= d0;
-            this.z /= d0;
+            double d0 = (double) getLength();
+            x /= d0;
+            z /= d0;
         }
 
         float getLength()
         {
-            return MathHelper.sqrt(this.x * this.x + this.z * this.z);
+            return MathHelper.sqrt(x * x + z * z);
         }
 
         public void moveAway(CommandSpreadPlayers.Position pos)
         {
-            this.x -= pos.x;
-            this.z -= pos.z;
+            x -= pos.x;
+            z -= pos.z;
         }
 
         public boolean clamp(double p_111093_1_, double p_111093_3_, double p_111093_5_, double p_111093_7_)
         {
             boolean flag = false;
 
-            if (this.x < p_111093_1_)
+            if (x < p_111093_1_)
             {
-                this.x = p_111093_1_;
+                x = p_111093_1_;
                 flag = true;
             }
-            else if (this.x > p_111093_5_)
+            else if (x > p_111093_5_)
             {
-                this.x = p_111093_5_;
+                x = p_111093_5_;
                 flag = true;
             }
 
-            if (this.z < p_111093_3_)
+            if (z < p_111093_3_)
             {
-                this.z = p_111093_3_;
+                z = p_111093_3_;
                 flag = true;
             }
-            else if (this.z > p_111093_7_)
+            else if (z > p_111093_7_)
             {
-                this.z = p_111093_7_;
+                z = p_111093_7_;
                 flag = true;
             }
 
@@ -362,7 +362,7 @@ public class CommandSpreadPlayers extends CommandBase
 
         public int getSpawnY(World worldIn)
         {
-            BlockPos blockpos = new BlockPos(this.x, 256.0D, this.z);
+            BlockPos blockpos = new BlockPos(x, 256.0D, z);
 
             while (blockpos.getY() > 0)
             {
@@ -379,7 +379,7 @@ public class CommandSpreadPlayers extends CommandBase
 
         public boolean isSafe(World worldIn)
         {
-            BlockPos blockpos = new BlockPos(this.x, 256.0D, this.z);
+            BlockPos blockpos = new BlockPos(x, 256.0D, z);
 
             while (blockpos.getY() > 0)
             {
@@ -397,8 +397,8 @@ public class CommandSpreadPlayers extends CommandBase
 
         public void randomize(Random rand, double p_111097_2_, double p_111097_4_, double p_111097_6_, double p_111097_8_)
         {
-            this.x = MathHelper.nextDouble(rand, p_111097_2_, p_111097_6_);
-            this.z = MathHelper.nextDouble(rand, p_111097_4_, p_111097_8_);
+            x = MathHelper.nextDouble(rand, p_111097_2_, p_111097_6_);
+            z = MathHelper.nextDouble(rand, p_111097_4_, p_111097_8_);
         }
     }
 }

@@ -39,25 +39,25 @@ public class EntityPredicate
         {
             return false;
         }
-        else if (this.type != null && !EntityList.isMatchingName(entity, this.type))
+        else if (type != null && !EntityList.isMatchingName(entity, type))
         {
             return false;
         }
-        else if (!this.distance.test(player.posX, player.posY, player.posZ, entity.posX, entity.posY, entity.posZ))
+        else if (!distance.test(player.posX, player.posY, player.posZ, entity.posX, entity.posY, entity.posZ))
         {
             return false;
         }
-        else if (!this.location.test(player.getServerWorld(), entity.posX, entity.posY, entity.posZ))
+        else if (!location.test(player.getServerWorld(), entity.posX, entity.posY, entity.posZ))
         {
             return false;
         }
-        else if (!this.effects.test(entity))
+        else if (!effects.test(entity))
         {
             return false;
         }
         else
         {
-            return this.nbt.test(entity);
+            return nbt.test(entity);
         }
     }
 

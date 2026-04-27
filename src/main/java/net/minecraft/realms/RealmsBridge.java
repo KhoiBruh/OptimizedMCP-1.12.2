@@ -14,7 +14,7 @@ public class RealmsBridge extends RealmsScreen
 
     public void switchToRealms(GuiScreen p_switchToRealms_1_)
     {
-        this.previousScreen = p_switchToRealms_1_;
+        previousScreen = p_switchToRealms_1_;
 
         try
         {
@@ -38,7 +38,7 @@ public class RealmsBridge extends RealmsScreen
     {
         try
         {
-            this.previousScreen = p_getNotificationScreen_1_;
+            previousScreen = p_getNotificationScreen_1_;
             Class<?> oclass = Class.forName("com.mojang.realmsclient.gui.screens.RealmsNotificationsScreen");
             Constructor<?> constructor = oclass.getDeclaredConstructor(RealmsScreen.class);
             constructor.setAccessible(true);
@@ -59,6 +59,6 @@ public class RealmsBridge extends RealmsScreen
 
     public void init()
     {
-        Minecraft.getMinecraft().displayGuiScreen(this.previousScreen);
+        Minecraft.getMinecraft().displayGuiScreen(previousScreen);
     }
 }

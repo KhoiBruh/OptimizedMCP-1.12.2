@@ -15,7 +15,7 @@ public class CPacketPing implements Packet<INetHandlerStatusServer>
 
     public CPacketPing(long clientTimeIn)
     {
-        this.clientTime = clientTimeIn;
+        clientTime = clientTimeIn;
     }
 
     /**
@@ -23,7 +23,7 @@ public class CPacketPing implements Packet<INetHandlerStatusServer>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.clientTime = buf.readLong();
+        clientTime = buf.readLong();
     }
 
     /**
@@ -31,7 +31,7 @@ public class CPacketPing implements Packet<INetHandlerStatusServer>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeLong(this.clientTime);
+        buf.writeLong(clientTime);
     }
 
     /**
@@ -44,6 +44,6 @@ public class CPacketPing implements Packet<INetHandlerStatusServer>
 
     public long getClientTime()
     {
-        return this.clientTime;
+        return clientTime;
     }
 }

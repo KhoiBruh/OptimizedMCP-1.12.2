@@ -21,11 +21,11 @@ public class ParticleFootStep extends Particle
     protected ParticleFootStep(TextureManager currentFootStepsIn, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn)
     {
         super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0.0D, 0.0D, 0.0D);
-        this.currentFootSteps = currentFootStepsIn;
-        this.motionX = 0.0D;
-        this.motionY = 0.0D;
-        this.motionZ = 0.0D;
-        this.footstepMaxAge = 200;
+        currentFootSteps = currentFootStepsIn;
+        motionX = 0.0D;
+        motionY = 0.0D;
+        motionZ = 0.0D;
+        footstepMaxAge = 200;
     }
 
     /**
@@ -33,7 +33,7 @@ public class ParticleFootStep extends Particle
      */
     public void renderParticle(BufferBuilder buffer, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ)
     {
-        float f = ((float)this.footstepAge + partialTicks) / (float)this.footstepMaxAge;
+        float f = ((float) footstepAge + partialTicks) / (float) footstepMaxAge;
         f = f * f;
         float f1 = 2.0F - f * 2.0F;
 
@@ -45,11 +45,11 @@ public class ParticleFootStep extends Particle
         f1 = f1 * 0.2F;
         GlStateManager.disableLighting();
         float f2 = 0.125F;
-        float f3 = (float)(this.posX - interpPosX);
-        float f4 = (float)(this.posY - interpPosY);
-        float f5 = (float)(this.posZ - interpPosZ);
-        float f6 = this.world.getLightBrightness(new BlockPos(this.posX, this.posY, this.posZ));
-        this.currentFootSteps.bindTexture(FOOTPRINT_TEXTURE);
+        float f3 = (float)(posX - interpPosX);
+        float f4 = (float)(posY - interpPosY);
+        float f5 = (float)(posZ - interpPosZ);
+        float f6 = world.getLightBrightness(new BlockPos(posX, posY, posZ));
+        currentFootSteps.bindTexture(FOOTPRINT_TEXTURE);
         GlStateManager.enableBlend();
         GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
         buffer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
@@ -64,11 +64,11 @@ public class ParticleFootStep extends Particle
 
     public void onUpdate()
     {
-        ++this.footstepAge;
+        ++footstepAge;
 
-        if (this.footstepAge == this.footstepMaxAge)
+        if (footstepAge == footstepMaxAge)
         {
-            this.setExpired();
+            setExpired();
         }
     }
 

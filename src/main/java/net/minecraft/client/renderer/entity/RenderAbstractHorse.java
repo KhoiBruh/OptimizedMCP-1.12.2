@@ -24,7 +24,7 @@ public class RenderAbstractHorse extends RenderLiving<AbstractHorse>
     public RenderAbstractHorse(RenderManager p_i47213_1_, float p_i47213_2_)
     {
         super(p_i47213_1_, new ModelHorse(), 0.75F);
-        this.scale = p_i47213_2_;
+        scale = p_i47213_2_;
     }
 
     /**
@@ -32,7 +32,7 @@ public class RenderAbstractHorse extends RenderLiving<AbstractHorse>
      */
     protected void preRenderCallback(AbstractHorse entitylivingbaseIn, float partialTickTime)
     {
-        GlStateManager.scale(this.scale, this.scale, this.scale);
+        GlStateManager.scale(scale, scale, scale);
         super.preRenderCallback(entitylivingbaseIn, partialTickTime);
     }
 

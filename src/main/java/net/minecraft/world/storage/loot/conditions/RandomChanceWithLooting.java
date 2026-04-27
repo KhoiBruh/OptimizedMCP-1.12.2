@@ -17,8 +17,8 @@ public class RandomChanceWithLooting implements LootCondition
 
     public RandomChanceWithLooting(float chanceIn, float lootingMultiplierIn)
     {
-        this.chance = chanceIn;
-        this.lootingMultiplier = lootingMultiplierIn;
+        chance = chanceIn;
+        lootingMultiplier = lootingMultiplierIn;
     }
 
     public boolean testCondition(Random rand, LootContext context)
@@ -30,7 +30,7 @@ public class RandomChanceWithLooting implements LootCondition
             i = EnchantmentHelper.getLootingModifier((EntityLivingBase)context.getKiller());
         }
 
-        return rand.nextFloat() < this.chance + (float)i * this.lootingMultiplier;
+        return rand.nextFloat() < chance + (float)i * lootingMultiplier;
     }
 
     public static class Serializer extends LootCondition.Serializer<RandomChanceWithLooting>

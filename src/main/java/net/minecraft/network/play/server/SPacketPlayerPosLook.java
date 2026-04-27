@@ -23,13 +23,13 @@ public class SPacketPlayerPosLook implements Packet<INetHandlerPlayClient>
 
     public SPacketPlayerPosLook(double xIn, double yIn, double zIn, float yawIn, float pitchIn, Set<SPacketPlayerPosLook.EnumFlags> flagsIn, int teleportIdIn)
     {
-        this.x = xIn;
-        this.y = yIn;
-        this.z = zIn;
-        this.yaw = yawIn;
-        this.pitch = pitchIn;
-        this.flags = flagsIn;
-        this.teleportId = teleportIdIn;
+        x = xIn;
+        y = yIn;
+        z = zIn;
+        yaw = yawIn;
+        pitch = pitchIn;
+        flags = flagsIn;
+        teleportId = teleportIdIn;
     }
 
     /**
@@ -37,13 +37,13 @@ public class SPacketPlayerPosLook implements Packet<INetHandlerPlayClient>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.x = buf.readDouble();
-        this.y = buf.readDouble();
-        this.z = buf.readDouble();
-        this.yaw = buf.readFloat();
-        this.pitch = buf.readFloat();
-        this.flags = SPacketPlayerPosLook.EnumFlags.unpack(buf.readUnsignedByte());
-        this.teleportId = buf.readVarInt();
+        x = buf.readDouble();
+        y = buf.readDouble();
+        z = buf.readDouble();
+        yaw = buf.readFloat();
+        pitch = buf.readFloat();
+        flags = SPacketPlayerPosLook.EnumFlags.unpack(buf.readUnsignedByte());
+        teleportId = buf.readVarInt();
     }
 
     /**
@@ -51,13 +51,13 @@ public class SPacketPlayerPosLook implements Packet<INetHandlerPlayClient>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeDouble(this.x);
-        buf.writeDouble(this.y);
-        buf.writeDouble(this.z);
-        buf.writeFloat(this.yaw);
-        buf.writeFloat(this.pitch);
-        buf.writeByte(SPacketPlayerPosLook.EnumFlags.pack(this.flags));
-        buf.writeVarInt(this.teleportId);
+        buf.writeDouble(x);
+        buf.writeDouble(y);
+        buf.writeDouble(z);
+        buf.writeFloat(yaw);
+        buf.writeFloat(pitch);
+        buf.writeByte(SPacketPlayerPosLook.EnumFlags.pack(flags));
+        buf.writeVarInt(teleportId);
     }
 
     /**
@@ -70,37 +70,37 @@ public class SPacketPlayerPosLook implements Packet<INetHandlerPlayClient>
 
     public double getX()
     {
-        return this.x;
+        return x;
     }
 
     public double getY()
     {
-        return this.y;
+        return y;
     }
 
     public double getZ()
     {
-        return this.z;
+        return z;
     }
 
     public float getYaw()
     {
-        return this.yaw;
+        return yaw;
     }
 
     public float getPitch()
     {
-        return this.pitch;
+        return pitch;
     }
 
     public int getTeleportId()
     {
-        return this.teleportId;
+        return teleportId;
     }
 
     public Set<SPacketPlayerPosLook.EnumFlags> getFlags()
     {
-        return this.flags;
+        return flags;
     }
 
     public static enum EnumFlags
@@ -115,17 +115,17 @@ public class SPacketPlayerPosLook implements Packet<INetHandlerPlayClient>
 
         private EnumFlags(int bitIn)
         {
-            this.bit = bitIn;
+            bit = bitIn;
         }
 
         private int getMask()
         {
-            return 1 << this.bit;
+            return 1 << bit;
         }
 
         private boolean isSet(int flags)
         {
-            return (flags & this.getMask()) == this.getMask();
+            return (flags & getMask()) == getMask();
         }
 
         public static Set<SPacketPlayerPosLook.EnumFlags> unpack(int flags)

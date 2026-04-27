@@ -27,7 +27,7 @@ public class LayerCustomHead implements LayerRenderer<EntityLivingBase>
 
     public LayerCustomHead(ModelRenderer p_i46120_1_)
     {
-        this.modelRenderer = p_i46120_1_;
+        modelRenderer = p_i46120_1_;
     }
 
     public void doRenderLayer(EntityLivingBase entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale)
@@ -56,7 +56,7 @@ public class LayerCustomHead implements LayerRenderer<EntityLivingBase>
                 GlStateManager.translate(0.0F, 16.0F * scale, 0.0F);
             }
 
-            this.modelRenderer.postRender(0.0625F);
+            modelRenderer.postRender(0.0625F);
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 
             if (item == Items.SKULL)

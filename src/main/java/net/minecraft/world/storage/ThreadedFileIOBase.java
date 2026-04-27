@@ -32,7 +32,7 @@ public class ThreadedFileIOBase implements Runnable
     {
         while (true)
         {
-            this.processQueue();
+            processQueue();
         }
     }
 
@@ -41,20 +41,20 @@ public class ThreadedFileIOBase implements Runnable
      */
     private void processQueue()
     {
-        for (int i = 0; i < this.threadedIOQueue.size(); ++i)
+        for (int i = 0; i < threadedIOQueue.size(); ++i)
         {
-            IThreadedFileIO ithreadedfileio = this.threadedIOQueue.get(i);
+            IThreadedFileIO ithreadedfileio = threadedIOQueue.get(i);
             boolean flag = ithreadedfileio.writeNextIO();
 
             if (!flag)
             {
-                this.threadedIOQueue.remove(i--);
-                ++this.savedIOCounter;
+                threadedIOQueue.remove(i--);
+                ++savedIOCounter;
             }
 
             try
             {
-                Thread.sleep(this.isThreadWaiting ? 0L : 10L);
+                Thread.sleep(isThreadWaiting ? 0L : 10L);
             }
             catch (InterruptedException interruptedexception1)
             {
@@ -62,7 +62,7 @@ public class ThreadedFileIOBase implements Runnable
             }
         }
 
-        if (this.threadedIOQueue.isEmpty())
+        if (threadedIOQueue.isEmpty())
         {
             try
             {
@@ -80,10 +80,10 @@ public class ThreadedFileIOBase implements Runnable
      */
     public void queueIO(IThreadedFileIO fileIo)
     {
-        if (!this.threadedIOQueue.contains(fileIo))
+        if (!threadedIOQueue.contains(fileIo))
         {
-            ++this.writeQueuedCounter;
-            this.threadedIOQueue.add(fileIo);
+            ++writeQueuedCounter;
+            threadedIOQueue.add(fileIo);
         }
     }
 
@@ -93,13 +93,13 @@ public class ThreadedFileIOBase implements Runnable
      */
     public void waitForFinish() throws InterruptedException
     {
-        this.isThreadWaiting = true;
+        isThreadWaiting = true;
 
-        while (this.writeQueuedCounter != this.savedIOCounter)
+        while (writeQueuedCounter != savedIOCounter)
         {
             Thread.sleep(10L);
         }
 
-        this.isThreadWaiting = false;
+        isThreadWaiting = false;
     }
 }

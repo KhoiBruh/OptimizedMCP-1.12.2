@@ -19,7 +19,7 @@ public class CPacketSpectate implements Packet<INetHandlerPlayServer>
 
     public CPacketSpectate(UUID uniqueIdIn)
     {
-        this.id = uniqueIdIn;
+        id = uniqueIdIn;
     }
 
     /**
@@ -27,7 +27,7 @@ public class CPacketSpectate implements Packet<INetHandlerPlayServer>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.id = buf.readUniqueId();
+        id = buf.readUniqueId();
     }
 
     /**
@@ -35,7 +35,7 @@ public class CPacketSpectate implements Packet<INetHandlerPlayServer>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeUniqueId(this.id);
+        buf.writeUniqueId(id);
     }
 
     /**
@@ -49,6 +49,6 @@ public class CPacketSpectate implements Packet<INetHandlerPlayServer>
     @Nullable
     public Entity getEntity(WorldServer worldIn)
     {
-        return worldIn.getEntityFromUuid(this.id);
+        return worldIn.getEntityFromUuid(id);
     }
 }

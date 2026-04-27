@@ -27,11 +27,11 @@ public class ItemRecord extends Item
 
     protected ItemRecord(String p_i46742_1_, SoundEvent soundIn)
     {
-        this.displayName = "item.record." + p_i46742_1_ + ".desc";
-        this.sound = soundIn;
-        this.maxStackSize = 1;
-        this.setCreativeTab(CreativeTabs.MISC);
-        RECORDS.put(this.sound, this);
+        displayName = "item.record." + p_i46742_1_ + ".desc";
+        sound = soundIn;
+        maxStackSize = 1;
+        setCreativeTab(CreativeTabs.MISC);
+        RECORDS.put(sound, this);
     }
 
     /**
@@ -65,12 +65,12 @@ public class ItemRecord extends Item
      */
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn)
     {
-        tooltip.add(this.getRecordNameLocal());
+        tooltip.add(getRecordNameLocal());
     }
 
     public String getRecordNameLocal()
     {
-        return I18n.translateToLocal(this.displayName);
+        return I18n.translateToLocal(displayName);
     }
 
     /**
@@ -89,6 +89,6 @@ public class ItemRecord extends Item
 
     public SoundEvent getSound()
     {
-        return this.sound;
+        return sound;
     }
 }

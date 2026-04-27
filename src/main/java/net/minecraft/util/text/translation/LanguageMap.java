@@ -47,12 +47,12 @@ public class LanguageMap
                     {
                         String s1 = astring[0];
                         String s2 = NUMERIC_VARIABLE_PATTERN.matcher(astring[1]).replaceAll("%$1s");
-                        this.languageList.put(s1, s2);
+                        languageList.put(s1, s2);
                     }
                 }
             }
 
-            this.lastUpdateTimeInMilliseconds = System.currentTimeMillis();
+            lastUpdateTimeInMilliseconds = System.currentTimeMillis();
         }
         catch (Exception var7)
         {
@@ -83,7 +83,7 @@ public class LanguageMap
      */
     public synchronized String translateKey(String key)
     {
-        return this.tryTranslateKey(key);
+        return tryTranslateKey(key);
     }
 
     /**
@@ -91,7 +91,7 @@ public class LanguageMap
      */
     public synchronized String translateKeyFormat(String key, Object... format)
     {
-        String s = this.tryTranslateKey(key);
+        String s = tryTranslateKey(key);
 
         try
         {
@@ -108,7 +108,7 @@ public class LanguageMap
      */
     private String tryTranslateKey(String key)
     {
-        String s = this.languageList.get(key);
+        String s = languageList.get(key);
         return s == null ? key : s;
     }
 
@@ -117,7 +117,7 @@ public class LanguageMap
      */
     public synchronized boolean isKeyTranslated(String key)
     {
-        return this.languageList.containsKey(key);
+        return languageList.containsKey(key);
     }
 
     /**
@@ -125,6 +125,6 @@ public class LanguageMap
      */
     public long getLastUpdateTimeInMilliseconds()
     {
-        return this.lastUpdateTimeInMilliseconds;
+        return lastUpdateTimeInMilliseconds;
     }
 }

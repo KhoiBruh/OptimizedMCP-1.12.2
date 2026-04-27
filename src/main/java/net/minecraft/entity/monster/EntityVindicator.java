@@ -43,7 +43,7 @@ public class EntityVindicator extends AbstractIllager
     public EntityVindicator(World worldIn)
     {
         super(worldIn);
-        this.setSize(0.6F, 1.95F);
+        setSize(0.6F, 1.95F);
     }
 
     public static void registerFixesVindicator(DataFixer fixer)
@@ -54,25 +54,25 @@ public class EntityVindicator extends AbstractIllager
     protected void initEntityAI()
     {
         super.initEntityAI();
-        this.tasks.addTask(0, new EntityAISwimming(this));
-        this.tasks.addTask(4, new EntityAIAttackMelee(this, 1.0D, false));
-        this.tasks.addTask(8, new EntityAIWander(this, 0.6D));
-        this.tasks.addTask(9, new EntityAIWatchClosest(this, EntityPlayer.class, 3.0F, 1.0F));
-        this.tasks.addTask(10, new EntityAIWatchClosest(this, EntityLiving.class, 8.0F));
-        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, new Class[] {EntityVindicator.class}));
-        this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
-        this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityVillager.class, true));
-        this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityIronGolem.class, true));
-        this.targetTasks.addTask(4, new EntityVindicator.AIJohnnyAttack(this));
+        tasks.addTask(0, new EntityAISwimming(this));
+        tasks.addTask(4, new EntityAIAttackMelee(this, 1.0D, false));
+        tasks.addTask(8, new EntityAIWander(this, 0.6D));
+        tasks.addTask(9, new EntityAIWatchClosest(this, EntityPlayer.class, 3.0F, 1.0F));
+        tasks.addTask(10, new EntityAIWatchClosest(this, EntityLiving.class, 8.0F));
+        targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, new Class[] {EntityVindicator.class}));
+        targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
+        targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityVillager.class, true));
+        targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityIronGolem.class, true));
+        targetTasks.addTask(4, new EntityVindicator.AIJohnnyAttack(this));
     }
 
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.3499999940395355D);
-        this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(12.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(24.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(5.0D);
+        getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.3499999940395355D);
+        getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(12.0D);
+        getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(24.0D);
+        getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(5.0D);
     }
 
     protected void entityInit()
@@ -87,12 +87,12 @@ public class EntityVindicator extends AbstractIllager
 
     public boolean isAggressive()
     {
-        return this.isAggressive(1);
+        return isAggressive(1);
     }
 
     public void setAggressive(boolean p_190636_1_)
     {
-        this.setAggressive(1, p_190636_1_);
+        setAggressive(1, p_190636_1_);
     }
 
     /**
@@ -102,7 +102,7 @@ public class EntityVindicator extends AbstractIllager
     {
         super.writeEntityToNBT(compound);
 
-        if (this.johnny)
+        if (johnny)
         {
             compound.setBoolean("Johnny", true);
         }
@@ -110,7 +110,7 @@ public class EntityVindicator extends AbstractIllager
 
     public AbstractIllager.IllagerArmPose getArmPose()
     {
-        return this.isAggressive() ? AbstractIllager.IllagerArmPose.ATTACKING : AbstractIllager.IllagerArmPose.CROSSED;
+        return isAggressive() ? AbstractIllager.IllagerArmPose.ATTACKING : AbstractIllager.IllagerArmPose.CROSSED;
     }
 
     /**
@@ -122,7 +122,7 @@ public class EntityVindicator extends AbstractIllager
 
         if (compound.hasKey("Johnny", 99))
         {
-            this.johnny = compound.getBoolean("Johnny");
+            johnny = compound.getBoolean("Johnny");
         }
     }
 
@@ -145,8 +145,8 @@ public class EntityVindicator extends AbstractIllager
     public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata)
     {
         IEntityLivingData ientitylivingdata = super.onInitialSpawn(difficulty, livingdata);
-        this.setEquipmentBasedOnDifficulty(difficulty);
-        this.setEnchantmentBasedOnDifficulty(difficulty);
+        setEquipmentBasedOnDifficulty(difficulty);
+        setEnchantmentBasedOnDifficulty(difficulty);
         return ientitylivingdata;
     }
 
@@ -155,13 +155,13 @@ public class EntityVindicator extends AbstractIllager
      */
     protected void setEquipmentBasedOnDifficulty(DifficultyInstance difficulty)
     {
-        this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.IRON_AXE));
+        setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.IRON_AXE));
     }
 
     protected void updateAITasks()
     {
         super.updateAITasks();
-        this.setAggressive(this.getAttackTarget() != null);
+        setAggressive(getAttackTarget() != null);
     }
 
     /**
@@ -175,7 +175,7 @@ public class EntityVindicator extends AbstractIllager
         }
         else if (entityIn instanceof EntityLivingBase && ((EntityLivingBase)entityIn).getCreatureAttribute() == EnumCreatureAttribute.ILLAGER)
         {
-            return this.getTeam() == null && entityIn.getTeam() == null;
+            return getTeam() == null && entityIn.getTeam() == null;
         }
         else
         {
@@ -190,9 +190,9 @@ public class EntityVindicator extends AbstractIllager
     {
         super.setCustomNameTag(name);
 
-        if (!this.johnny && "Johnny".equals(name))
+        if (!johnny && "Johnny".equals(name))
         {
-            this.johnny = true;
+            johnny = true;
         }
     }
 
@@ -220,7 +220,7 @@ public class EntityVindicator extends AbstractIllager
 
         public boolean shouldExecute()
         {
-            return ((EntityVindicator)this.taskOwner).johnny && super.shouldExecute();
+            return ((EntityVindicator) taskOwner).johnny && super.shouldExecute();
         }
     }
 }

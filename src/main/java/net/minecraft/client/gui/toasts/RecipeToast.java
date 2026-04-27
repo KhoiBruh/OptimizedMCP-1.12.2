@@ -17,18 +17,18 @@ public class RecipeToast implements IToast
 
     public RecipeToast(ItemStack p_i47489_1_)
     {
-        this.recipesOutputs.add(p_i47489_1_);
+        recipesOutputs.add(p_i47489_1_);
     }
 
     public IToast.Visibility draw(GuiToast toastGui, long delta)
     {
-        if (this.hasNewOutputs)
+        if (hasNewOutputs)
         {
-            this.firstDrawTime = delta;
-            this.hasNewOutputs = false;
+            firstDrawTime = delta;
+            hasNewOutputs = false;
         }
 
-        if (this.recipesOutputs.isEmpty())
+        if (recipesOutputs.isEmpty())
         {
             return IToast.Visibility.HIDE;
         }
@@ -40,16 +40,16 @@ public class RecipeToast implements IToast
             toastGui.getMinecraft().fontRenderer.drawString(I18n.format("recipe.toast.title"), 30, 7, -11534256);
             toastGui.getMinecraft().fontRenderer.drawString(I18n.format("recipe.toast.description"), 30, 18, -16777216);
             RenderHelper.enableGUIStandardItemLighting();
-            toastGui.getMinecraft().getRenderItem().renderItemAndEffectIntoGUI((EntityLivingBase)null, this.recipesOutputs.get((int)(delta / (5000L / (long)this.recipesOutputs.size()) % (long)this.recipesOutputs.size())), 8, 8);
-            return delta - this.firstDrawTime >= 5000L ? IToast.Visibility.HIDE : IToast.Visibility.SHOW;
+            toastGui.getMinecraft().getRenderItem().renderItemAndEffectIntoGUI((EntityLivingBase)null, recipesOutputs.get((int)(delta / (5000L / (long) recipesOutputs.size()) % (long) recipesOutputs.size())), 8, 8);
+            return delta - firstDrawTime >= 5000L ? IToast.Visibility.HIDE : IToast.Visibility.SHOW;
         }
     }
 
     public void addRecipeOutput(ItemStack output)
     {
-        if (this.recipesOutputs.add(output))
+        if (recipesOutputs.add(output))
         {
-            this.hasNewOutputs = true;
+            hasNewOutputs = true;
         }
     }
 

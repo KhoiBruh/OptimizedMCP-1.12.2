@@ -36,13 +36,13 @@ public abstract class AbstractClientPlayer extends EntityPlayer
      */
     public boolean isSpectator()
     {
-        NetworkPlayerInfo networkplayerinfo = Minecraft.getMinecraft().getConnection().getPlayerInfo(this.getGameProfile().getId());
+        NetworkPlayerInfo networkplayerinfo = Minecraft.getMinecraft().getConnection().getPlayerInfo(getGameProfile().getId());
         return networkplayerinfo != null && networkplayerinfo.getGameType() == GameType.SPECTATOR;
     }
 
     public boolean isCreative()
     {
-        NetworkPlayerInfo networkplayerinfo = Minecraft.getMinecraft().getConnection().getPlayerInfo(this.getGameProfile().getId());
+        NetworkPlayerInfo networkplayerinfo = Minecraft.getMinecraft().getConnection().getPlayerInfo(getGameProfile().getId());
         return networkplayerinfo != null && networkplayerinfo.getGameType() == GameType.CREATIVE;
     }
 
@@ -51,18 +51,18 @@ public abstract class AbstractClientPlayer extends EntityPlayer
      */
     public boolean hasPlayerInfo()
     {
-        return this.getPlayerInfo() != null;
+        return getPlayerInfo() != null;
     }
 
     @Nullable
     protected NetworkPlayerInfo getPlayerInfo()
     {
-        if (this.playerInfo == null)
+        if (playerInfo == null)
         {
-            this.playerInfo = Minecraft.getMinecraft().getConnection().getPlayerInfo(this.getUniqueID());
+            playerInfo = Minecraft.getMinecraft().getConnection().getPlayerInfo(getUniqueID());
         }
 
-        return this.playerInfo;
+        return playerInfo;
     }
 
     /**
@@ -70,7 +70,7 @@ public abstract class AbstractClientPlayer extends EntityPlayer
      */
     public boolean hasSkin()
     {
-        NetworkPlayerInfo networkplayerinfo = this.getPlayerInfo();
+        NetworkPlayerInfo networkplayerinfo = getPlayerInfo();
         return networkplayerinfo != null && networkplayerinfo.hasLocationSkin();
     }
 
@@ -79,20 +79,20 @@ public abstract class AbstractClientPlayer extends EntityPlayer
      */
     public ResourceLocation getLocationSkin()
     {
-        NetworkPlayerInfo networkplayerinfo = this.getPlayerInfo();
-        return networkplayerinfo == null ? DefaultPlayerSkin.getDefaultSkin(this.getUniqueID()) : networkplayerinfo.getLocationSkin();
+        NetworkPlayerInfo networkplayerinfo = getPlayerInfo();
+        return networkplayerinfo == null ? DefaultPlayerSkin.getDefaultSkin(getUniqueID()) : networkplayerinfo.getLocationSkin();
     }
 
     @Nullable
     public ResourceLocation getLocationCape()
     {
-        NetworkPlayerInfo networkplayerinfo = this.getPlayerInfo();
+        NetworkPlayerInfo networkplayerinfo = getPlayerInfo();
         return networkplayerinfo == null ? null : networkplayerinfo.getLocationCape();
     }
 
     public boolean isPlayerInfoSet()
     {
-        return this.getPlayerInfo() != null;
+        return getPlayerInfo() != null;
     }
 
     @Nullable
@@ -102,7 +102,7 @@ public abstract class AbstractClientPlayer extends EntityPlayer
      */
     public ResourceLocation getLocationElytra()
     {
-        NetworkPlayerInfo networkplayerinfo = this.getPlayerInfo();
+        NetworkPlayerInfo networkplayerinfo = getPlayerInfo();
         return networkplayerinfo == null ? null : networkplayerinfo.getLocationElytra();
     }
 
@@ -130,30 +130,30 @@ public abstract class AbstractClientPlayer extends EntityPlayer
 
     public String getSkinType()
     {
-        NetworkPlayerInfo networkplayerinfo = this.getPlayerInfo();
-        return networkplayerinfo == null ? DefaultPlayerSkin.getSkinType(this.getUniqueID()) : networkplayerinfo.getSkinType();
+        NetworkPlayerInfo networkplayerinfo = getPlayerInfo();
+        return networkplayerinfo == null ? DefaultPlayerSkin.getSkinType(getUniqueID()) : networkplayerinfo.getSkinType();
     }
 
     public float getFovModifier()
     {
         float f = 1.0F;
 
-        if (this.capabilities.isFlying)
+        if (capabilities.isFlying)
         {
             f *= 1.1F;
         }
 
-        IAttributeInstance iattributeinstance = this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED);
-        f = (float)((double)f * ((iattributeinstance.getAttributeValue() / (double)this.capabilities.getWalkSpeed() + 1.0D) / 2.0D));
+        IAttributeInstance iattributeinstance = getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED);
+        f = (float)((double)f * ((iattributeinstance.getAttributeValue() / (double) capabilities.getWalkSpeed() + 1.0D) / 2.0D));
 
-        if (this.capabilities.getWalkSpeed() == 0.0F || Float.isNaN(f) || Float.isInfinite(f))
+        if (capabilities.getWalkSpeed() == 0.0F || Float.isNaN(f) || Float.isInfinite(f))
         {
             f = 1.0F;
         }
 
-        if (this.isHandActive() && this.getActiveItemStack().getItem() == Items.BOW)
+        if (isHandActive() && getActiveItemStack().getItem() == Items.BOW)
         {
-            int i = this.getItemInUseMaxCount();
+            int i = getItemInUseMaxCount();
             float f1 = (float)i / 20.0F;
 
             if (f1 > 1.0F)

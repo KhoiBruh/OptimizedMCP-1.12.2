@@ -25,7 +25,7 @@ public class BlockEndPortal extends BlockContainer
     protected BlockEndPortal(Material materialIn)
     {
         super(materialIn);
-        this.setLightLevel(1.0F);
+        setLightLevel(1.0F);
     }
 
     /**

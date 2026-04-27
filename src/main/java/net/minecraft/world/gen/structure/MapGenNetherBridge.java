@@ -18,11 +18,11 @@ public class MapGenNetherBridge extends MapGenStructure
 
     public MapGenNetherBridge()
     {
-        this.spawnList.add(new Biome.SpawnListEntry(EntityBlaze.class, 10, 2, 3));
-        this.spawnList.add(new Biome.SpawnListEntry(EntityPigZombie.class, 5, 4, 4));
-        this.spawnList.add(new Biome.SpawnListEntry(EntityWitherSkeleton.class, 8, 5, 5));
-        this.spawnList.add(new Biome.SpawnListEntry(EntitySkeleton.class, 2, 5, 5));
-        this.spawnList.add(new Biome.SpawnListEntry(EntityMagmaCube.class, 3, 4, 4));
+        spawnList.add(new Biome.SpawnListEntry(EntityBlaze.class, 10, 2, 3));
+        spawnList.add(new Biome.SpawnListEntry(EntityPigZombie.class, 5, 4, 4));
+        spawnList.add(new Biome.SpawnListEntry(EntityWitherSkeleton.class, 8, 5, 5));
+        spawnList.add(new Biome.SpawnListEntry(EntitySkeleton.class, 2, 5, 5));
+        spawnList.add(new Biome.SpawnListEntry(EntityMagmaCube.class, 3, 4, 4));
     }
 
     public String getStructureName()
@@ -32,33 +32,33 @@ public class MapGenNetherBridge extends MapGenStructure
 
     public List<Biome.SpawnListEntry> getSpawnList()
     {
-        return this.spawnList;
+        return spawnList;
     }
 
     protected boolean canSpawnStructureAtCoords(int chunkX, int chunkZ)
     {
         int i = chunkX >> 4;
         int j = chunkZ >> 4;
-        this.rand.setSeed((long)(i ^ j << 4) ^ this.world.getSeed());
-        this.rand.nextInt();
+        rand.setSeed((long)(i ^ j << 4) ^ world.getSeed());
+        rand.nextInt();
 
-        if (this.rand.nextInt(3) != 0)
+        if (rand.nextInt(3) != 0)
         {
             return false;
         }
-        else if (chunkX != (i << 4) + 4 + this.rand.nextInt(8))
+        else if (chunkX != (i << 4) + 4 + rand.nextInt(8))
         {
             return false;
         }
         else
         {
-            return chunkZ == (j << 4) + 4 + this.rand.nextInt(8);
+            return chunkZ == (j << 4) + 4 + rand.nextInt(8);
         }
     }
 
     protected StructureStart getStructureStart(int chunkX, int chunkZ)
     {
-        return new MapGenNetherBridge.Start(this.world, this.rand, chunkX, chunkZ);
+        return new MapGenNetherBridge.Start(world, rand, chunkX, chunkZ);
     }
 
     public BlockPos getNearestStructurePos(World worldIn, BlockPos pos, boolean findUnexplored)
@@ -82,7 +82,7 @@ public class MapGenNetherBridge extends MapGenStructure
                         int k1 = j + i1;
                         int l1 = k + j1;
 
-                        if (this.canSpawnStructureAtCoords(k1, l1) && (!findUnexplored || !worldIn.isChunkGeneratedAt(k1, l1)))
+                        if (canSpawnStructureAtCoords(k1, l1) && (!findUnexplored || !worldIn.isChunkGeneratedAt(k1, l1)))
                         {
                             return new BlockPos((k1 << 4) + 8, 64, (l1 << 4) + 8);
                         }
@@ -104,19 +104,19 @@ public class MapGenNetherBridge extends MapGenStructure
         {
             super(chunkX, chunkZ);
             StructureNetherBridgePieces.Start structurenetherbridgepieces$start = new StructureNetherBridgePieces.Start(random, (chunkX << 4) + 2, (chunkZ << 4) + 2);
-            this.components.add(structurenetherbridgepieces$start);
-            structurenetherbridgepieces$start.buildComponent(structurenetherbridgepieces$start, this.components, random);
+            components.add(structurenetherbridgepieces$start);
+            structurenetherbridgepieces$start.buildComponent(structurenetherbridgepieces$start, components, random);
             List<StructureComponent> list = structurenetherbridgepieces$start.pendingChildren;
 
             while (!list.isEmpty())
             {
                 int i = random.nextInt(list.size());
                 StructureComponent structurecomponent = list.remove(i);
-                structurecomponent.buildComponent(structurenetherbridgepieces$start, this.components, random);
+                structurecomponent.buildComponent(structurenetherbridgepieces$start, components, random);
             }
 
-            this.updateBoundingBox();
-            this.setRandomHeight(worldIn, random, 48, 70);
+            updateBoundingBox();
+            setRandomHeight(worldIn, random, 48, 70);
         }
     }
 }

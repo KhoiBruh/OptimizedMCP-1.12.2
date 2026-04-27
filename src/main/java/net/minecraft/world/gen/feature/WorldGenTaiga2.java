@@ -78,7 +78,7 @@ public class WorldGenTaiga2 extends WorldGenAbstractTree
 
                 if ((block == Blocks.GRASS || block == Blocks.DIRT || block == Blocks.FARMLAND) && position.getY() < 256 - i - 1)
                 {
-                    this.setDirtAt(worldIn, position.down());
+                    setDirtAt(worldIn, position.down());
                     int i3 = rand.nextInt(2);
                     int j3 = 1;
                     int k3 = 0;
@@ -101,7 +101,7 @@ public class WorldGenTaiga2 extends WorldGenAbstractTree
 
                                     if (!worldIn.getBlockState(blockpos).isFullBlock())
                                     {
-                                        this.setBlockAndNotifyAdequately(worldIn, blockpos, LEAF);
+                                        setBlockAndNotifyAdequately(worldIn, blockpos, LEAF);
                                     }
                                 }
                             }
@@ -132,7 +132,7 @@ public class WorldGenTaiga2 extends WorldGenAbstractTree
 
                         if (material1 == Material.AIR || material1 == Material.LEAVES)
                         {
-                            this.setBlockAndNotifyAdequately(worldIn, position.up(k4), TRUNK);
+                            setBlockAndNotifyAdequately(worldIn, position.up(k4), TRUNK);
                         }
                     }
 

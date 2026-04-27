@@ -29,66 +29,66 @@ public class Score
     {
         this.scoreboard = scoreboard;
         this.objective = objective;
-        this.scorePlayerName = playerName;
-        this.forceUpdate = true;
+        scorePlayerName = playerName;
+        forceUpdate = true;
     }
 
     public void increaseScore(int amount)
     {
-        if (this.objective.getCriteria().isReadOnly())
+        if (objective.getCriteria().isReadOnly())
         {
             throw new IllegalStateException("Cannot modify read-only score");
         }
         else
         {
-            this.setScorePoints(this.getScorePoints() + amount);
+            setScorePoints(getScorePoints() + amount);
         }
     }
 
     public void decreaseScore(int amount)
     {
-        if (this.objective.getCriteria().isReadOnly())
+        if (objective.getCriteria().isReadOnly())
         {
             throw new IllegalStateException("Cannot modify read-only score");
         }
         else
         {
-            this.setScorePoints(this.getScorePoints() - amount);
+            setScorePoints(getScorePoints() - amount);
         }
     }
 
     public void incrementScore()
     {
-        if (this.objective.getCriteria().isReadOnly())
+        if (objective.getCriteria().isReadOnly())
         {
             throw new IllegalStateException("Cannot modify read-only score");
         }
         else
         {
-            this.increaseScore(1);
+            increaseScore(1);
         }
     }
 
     public int getScorePoints()
     {
-        return this.scorePoints;
+        return scorePoints;
     }
 
     public void setScorePoints(int points)
     {
-        int i = this.scorePoints;
-        this.scorePoints = points;
+        int i = scorePoints;
+        scorePoints = points;
 
-        if (i != points || this.forceUpdate)
+        if (i != points || forceUpdate)
         {
-            this.forceUpdate = false;
-            this.getScoreScoreboard().onScoreUpdated(this);
+            forceUpdate = false;
+            getScoreScoreboard().onScoreUpdated(this);
         }
     }
 
     public ScoreObjective getObjective()
     {
-        return this.objective;
+        return objective;
     }
 
     /**
@@ -96,17 +96,17 @@ public class Score
      */
     public String getPlayerName()
     {
-        return this.scorePlayerName;
+        return scorePlayerName;
     }
 
     public Scoreboard getScoreScoreboard()
     {
-        return this.scoreboard;
+        return scoreboard;
     }
 
     public boolean isLocked()
     {
-        return this.locked;
+        return locked;
     }
 
     public void setLocked(boolean locked)

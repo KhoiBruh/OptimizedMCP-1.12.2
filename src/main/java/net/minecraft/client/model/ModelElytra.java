@@ -13,10 +13,10 @@ public class ModelElytra extends ModelBase
 
     public ModelElytra()
     {
-        this.leftWing.addBox(-10.0F, 0.0F, 0.0F, 10, 20, 2, 1.0F);
-        this.rightWing = new ModelRenderer(this, 22, 0);
-        this.rightWing.mirror = true;
-        this.rightWing.addBox(0.0F, 0.0F, 0.0F, 10, 20, 2, 1.0F);
+        leftWing.addBox(-10.0F, 0.0F, 0.0F, 10, 20, 2, 1.0F);
+        rightWing = new ModelRenderer(this, 22, 0);
+        rightWing.mirror = true;
+        rightWing.addBox(0.0F, 0.0F, 0.0F, 10, 20, 2, 1.0F);
     }
 
     /**
@@ -32,14 +32,14 @@ public class ModelElytra extends ModelBase
             GlStateManager.pushMatrix();
             GlStateManager.scale(0.5F, 0.5F, 0.5F);
             GlStateManager.translate(0.0F, 1.5F, -0.1F);
-            this.leftWing.render(scale);
-            this.rightWing.render(scale);
+            leftWing.render(scale);
+            rightWing.render(scale);
             GlStateManager.popMatrix();
         }
         else
         {
-            this.leftWing.render(scale);
-            this.rightWing.render(scale);
+            leftWing.render(scale);
+            rightWing.render(scale);
         }
     }
 
@@ -77,8 +77,8 @@ public class ModelElytra extends ModelBase
             f3 = 0.08726646F;
         }
 
-        this.leftWing.rotationPointX = 5.0F;
-        this.leftWing.rotationPointY = f2;
+        leftWing.rotationPointX = 5.0F;
+        leftWing.rotationPointY = f2;
 
         if (entityIn instanceof AbstractClientPlayer)
         {
@@ -86,21 +86,21 @@ public class ModelElytra extends ModelBase
             abstractclientplayer.rotateElytraX = (float)((double)abstractclientplayer.rotateElytraX + (double)(f - abstractclientplayer.rotateElytraX) * 0.1D);
             abstractclientplayer.rotateElytraY = (float)((double)abstractclientplayer.rotateElytraY + (double)(f3 - abstractclientplayer.rotateElytraY) * 0.1D);
             abstractclientplayer.rotateElytraZ = (float)((double)abstractclientplayer.rotateElytraZ + (double)(f1 - abstractclientplayer.rotateElytraZ) * 0.1D);
-            this.leftWing.rotateAngleX = abstractclientplayer.rotateElytraX;
-            this.leftWing.rotateAngleY = abstractclientplayer.rotateElytraY;
-            this.leftWing.rotateAngleZ = abstractclientplayer.rotateElytraZ;
+            leftWing.rotateAngleX = abstractclientplayer.rotateElytraX;
+            leftWing.rotateAngleY = abstractclientplayer.rotateElytraY;
+            leftWing.rotateAngleZ = abstractclientplayer.rotateElytraZ;
         }
         else
         {
-            this.leftWing.rotateAngleX = f;
-            this.leftWing.rotateAngleZ = f1;
-            this.leftWing.rotateAngleY = f3;
+            leftWing.rotateAngleX = f;
+            leftWing.rotateAngleZ = f1;
+            leftWing.rotateAngleY = f3;
         }
 
-        this.rightWing.rotationPointX = -this.leftWing.rotationPointX;
-        this.rightWing.rotateAngleY = -this.leftWing.rotateAngleY;
-        this.rightWing.rotationPointY = this.leftWing.rotationPointY;
-        this.rightWing.rotateAngleX = this.leftWing.rotateAngleX;
-        this.rightWing.rotateAngleZ = -this.leftWing.rotateAngleZ;
+        rightWing.rotationPointX = -leftWing.rotationPointX;
+        rightWing.rotateAngleY = -leftWing.rotateAngleY;
+        rightWing.rotationPointY = leftWing.rotationPointY;
+        rightWing.rotateAngleX = leftWing.rotateAngleX;
+        rightWing.rotateAngleZ = -leftWing.rotateAngleZ;
     }
 }

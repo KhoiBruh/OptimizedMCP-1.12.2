@@ -12,22 +12,22 @@ public class AnimationFrame
 
     public AnimationFrame(int frameIndexIn, int frameTimeIn)
     {
-        this.frameIndex = frameIndexIn;
-        this.frameTime = frameTimeIn;
+        frameIndex = frameIndexIn;
+        frameTime = frameTimeIn;
     }
 
     public boolean hasNoTime()
     {
-        return this.frameTime == -1;
+        return frameTime == -1;
     }
 
     public int getFrameTime()
     {
-        return this.frameTime;
+        return frameTime;
     }
 
     public int getFrameIndex()
     {
-        return this.frameIndex;
+        return frameIndex;
     }
 }

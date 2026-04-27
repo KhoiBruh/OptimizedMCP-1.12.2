@@ -8,16 +8,16 @@ public class NibbleArrayReader
 
     public NibbleArrayReader(byte[] dataIn, int depthBitsIn)
     {
-        this.data = dataIn;
-        this.depthBits = depthBitsIn;
-        this.depthBitsPlusFour = depthBitsIn + 4;
+        data = dataIn;
+        depthBits = depthBitsIn;
+        depthBitsPlusFour = depthBitsIn + 4;
     }
 
     public int get(int x, int y, int z)
     {
-        int i = x << this.depthBitsPlusFour | z << this.depthBits | y;
+        int i = x << depthBitsPlusFour | z << depthBits | y;
         int j = i >> 1;
         int k = i & 1;
-        return k == 0 ? this.data[j] & 15 : this.data[j] >> 4 & 15;
+        return k == 0 ? data[j] & 15 : data[j] >> 4 & 15;
     }
 }

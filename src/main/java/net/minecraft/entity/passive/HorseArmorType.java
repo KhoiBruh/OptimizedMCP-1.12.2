@@ -18,37 +18,37 @@ public enum HorseArmorType
 
     private HorseArmorType(int armorStrengthIn)
     {
-        this.protection = armorStrengthIn;
-        this.textureName = null;
-        this.hash = "";
+        protection = armorStrengthIn;
+        textureName = null;
+        hash = "";
     }
 
     private HorseArmorType(int armorStrengthIn, String p_i46800_4_, String p_i46800_5_)
     {
-        this.protection = armorStrengthIn;
-        this.textureName = "textures/entity/horse/armor/horse_armor_" + p_i46800_4_ + ".png";
-        this.hash = p_i46800_5_;
+        protection = armorStrengthIn;
+        textureName = "textures/entity/horse/armor/horse_armor_" + p_i46800_4_ + ".png";
+        hash = p_i46800_5_;
     }
 
     public int getOrdinal()
     {
-        return this.ordinal();
+        return ordinal();
     }
 
     public String getHash()
     {
-        return this.hash;
+        return hash;
     }
 
     public int getProtection()
     {
-        return this.protection;
+        return protection;
     }
 
     @Nullable
     public String getTextureName()
     {
-        return this.textureName;
+        return textureName;
     }
 
     public static HorseArmorType getByOrdinal(int ordinal)

@@ -32,7 +32,7 @@ public class SignStrictJSON implements IFixableData
 
                 for (JsonElement jsonelement : jsonarray)
                 {
-                    ITextComponent itextcomponent1 = this.deserialize(jsonelement, jsonelement.getClass(), p_deserialize_3_);
+                    ITextComponent itextcomponent1 = deserialize(jsonelement, jsonelement.getClass(), p_deserialize_3_);
 
                     if (itextcomponent == null)
                     {
@@ -62,10 +62,10 @@ public class SignStrictJSON implements IFixableData
     {
         if ("Sign".equals(compound.getString("id")))
         {
-            this.updateLine(compound, "Text1");
-            this.updateLine(compound, "Text2");
-            this.updateLine(compound, "Text3");
-            this.updateLine(compound, "Text4");
+            updateLine(compound, "Text1");
+            updateLine(compound, "Text2");
+            updateLine(compound, "Text3");
+            updateLine(compound, "Text4");
         }
 
         return compound;

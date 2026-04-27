@@ -12,7 +12,7 @@ public class EntityAILandOnOwnersShoulder extends EntityAIBase
 
     public EntityAILandOnOwnersShoulder(EntityShoulderRiding entityIn)
     {
-        this.entity = entityIn;
+        entity = entityIn;
     }
 
     /**
@@ -20,9 +20,9 @@ public class EntityAILandOnOwnersShoulder extends EntityAIBase
      */
     public boolean shouldExecute()
     {
-        EntityLivingBase entitylivingbase = this.entity.getOwner();
+        EntityLivingBase entitylivingbase = entity.getOwner();
         boolean flag = entitylivingbase != null && !((EntityPlayer)entitylivingbase).isSpectator() && !((EntityPlayer)entitylivingbase).capabilities.isFlying && !entitylivingbase.isInWater();
-        return !this.entity.isSitting() && flag && this.entity.canSitOnShoulder();
+        return !entity.isSitting() && flag && entity.canSitOnShoulder();
     }
 
     /**
@@ -31,7 +31,7 @@ public class EntityAILandOnOwnersShoulder extends EntityAIBase
      */
     public boolean isInterruptible()
     {
-        return !this.isSittingOnShoulder;
+        return !isSittingOnShoulder;
     }
 
     /**
@@ -39,8 +39,8 @@ public class EntityAILandOnOwnersShoulder extends EntityAIBase
      */
     public void startExecuting()
     {
-        this.owner = (EntityPlayer)this.entity.getOwner();
-        this.isSittingOnShoulder = false;
+        owner = (EntityPlayer) entity.getOwner();
+        isSittingOnShoulder = false;
     }
 
     /**
@@ -48,11 +48,11 @@ public class EntityAILandOnOwnersShoulder extends EntityAIBase
      */
     public void updateTask()
     {
-        if (!this.isSittingOnShoulder && !this.entity.isSitting() && !this.entity.getLeashed())
+        if (!isSittingOnShoulder && !entity.isSitting() && !entity.getLeashed())
         {
-            if (this.entity.getEntityBoundingBox().intersects(this.owner.getEntityBoundingBox()))
+            if (entity.getEntityBoundingBox().intersects(owner.getEntityBoundingBox()))
             {
-                this.isSittingOnShoulder = this.entity.setEntityOnShoulder(this.owner);
+                isSittingOnShoulder = entity.setEntityOnShoulder(owner);
             }
         }
     }

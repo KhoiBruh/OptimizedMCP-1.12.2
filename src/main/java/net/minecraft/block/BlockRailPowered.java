@@ -26,7 +26,7 @@ public class BlockRailPowered extends BlockRailBase
     protected BlockRailPowered()
     {
         super(true);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(SHAPE, BlockRailBase.EnumRailDirection.NORTH_SOUTH).withProperty(POWERED, Boolean.valueOf(false)));
+        setDefaultState(blockState.getBaseState().withProperty(SHAPE, BlockRailBase.EnumRailDirection.NORTH_SOUTH).withProperty(POWERED, Boolean.valueOf(false)));
     }
 
     @SuppressWarnings("incomplete-switch")
@@ -130,13 +130,13 @@ public class BlockRailPowered extends BlockRailBase
                     blockrailbase$enumraildirection = BlockRailBase.EnumRailDirection.NORTH_SOUTH;
             }
 
-            if (this.isSameRailWithPower(worldIn, new BlockPos(i, j, k), p_176566_4_, p_176566_5_, blockrailbase$enumraildirection))
+            if (isSameRailWithPower(worldIn, new BlockPos(i, j, k), p_176566_4_, p_176566_5_, blockrailbase$enumraildirection))
             {
                 return true;
             }
             else
             {
-                return flag && this.isSameRailWithPower(worldIn, new BlockPos(i, j - 1, k), p_176566_4_, p_176566_5_, blockrailbase$enumraildirection);
+                return flag && isSameRailWithPower(worldIn, new BlockPos(i, j - 1, k), p_176566_4_, p_176566_5_, blockrailbase$enumraildirection);
             }
         }
     }
@@ -159,7 +159,7 @@ public class BlockRailPowered extends BlockRailBase
                 {
                     if (((Boolean)iblockstate.getValue(POWERED)).booleanValue())
                     {
-                        return worldIn.isBlockPowered(pos) ? true : this.findPoweredRailSignal(worldIn, pos, iblockstate, p_176567_3_, distance + 1);
+                        return worldIn.isBlockPowered(pos) ? true : findPoweredRailSignal(worldIn, pos, iblockstate, p_176567_3_, distance + 1);
                     }
                     else
                     {
@@ -181,7 +181,7 @@ public class BlockRailPowered extends BlockRailBase
     protected void updateState(IBlockState state, World worldIn, BlockPos pos, Block blockIn)
     {
         boolean flag = ((Boolean)state.getValue(POWERED)).booleanValue();
-        boolean flag1 = worldIn.isBlockPowered(pos) || this.findPoweredRailSignal(worldIn, pos, state, true, 0) || this.findPoweredRailSignal(worldIn, pos, state, false, 0);
+        boolean flag1 = worldIn.isBlockPowered(pos) || findPoweredRailSignal(worldIn, pos, state, true, 0) || findPoweredRailSignal(worldIn, pos, state, false, 0);
 
         if (flag1 != flag)
         {
@@ -205,7 +205,7 @@ public class BlockRailPowered extends BlockRailBase
      */
     public IBlockState getStateFromMeta(int meta)
     {
-        return this.getDefaultState().withProperty(SHAPE, BlockRailBase.EnumRailDirection.byMetadata(meta & 7)).withProperty(POWERED, Boolean.valueOf((meta & 8) > 0));
+        return getDefaultState().withProperty(SHAPE, BlockRailBase.EnumRailDirection.byMetadata(meta & 7)).withProperty(POWERED, Boolean.valueOf((meta & 8) > 0));
     }
 
     /**

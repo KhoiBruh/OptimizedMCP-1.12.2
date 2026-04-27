@@ -64,7 +64,7 @@ public class EntityWither extends EntityMob implements IRangedAttackMob
 
     /** Time before the Wither tries to break blocks */
     private int blockBreakCounter;
-    private final BossInfoServer bossInfo = (BossInfoServer)(new BossInfoServer(this.getDisplayName(), BossInfo.Color.PURPLE, BossInfo.Overlay.PROGRESS)).setDarkenSky(true);
+    private final BossInfoServer bossInfo = (BossInfoServer)(new BossInfoServer(getDisplayName(), BossInfo.Color.PURPLE, BossInfo.Overlay.PROGRESS)).setDarkenSky(true);
     private static final Predicate<Entity> NOT_UNDEAD = new Predicate<Entity>()
     {
         public boolean apply(@Nullable Entity p_apply_1_)
@@ -76,32 +76,32 @@ public class EntityWither extends EntityMob implements IRangedAttackMob
     public EntityWither(World worldIn)
     {
         super(worldIn);
-        this.setHealth(this.getMaxHealth());
-        this.setSize(0.9F, 3.5F);
-        this.isImmuneToFire = true;
-        ((PathNavigateGround)this.getNavigator()).setCanSwim(true);
-        this.experienceValue = 50;
+        setHealth(getMaxHealth());
+        setSize(0.9F, 3.5F);
+        isImmuneToFire = true;
+        ((PathNavigateGround) getNavigator()).setCanSwim(true);
+        experienceValue = 50;
     }
 
     protected void initEntityAI()
     {
-        this.tasks.addTask(0, new EntityWither.AIDoNothing());
-        this.tasks.addTask(1, new EntityAISwimming(this));
-        this.tasks.addTask(2, new EntityAIAttackRanged(this, 1.0D, 40, 20.0F));
-        this.tasks.addTask(5, new EntityAIWanderAvoidWater(this, 1.0D));
-        this.tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
-        this.tasks.addTask(7, new EntityAILookIdle(this));
-        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
-        this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityLiving.class, 0, false, false, NOT_UNDEAD));
+        tasks.addTask(0, new EntityWither.AIDoNothing());
+        tasks.addTask(1, new EntityAISwimming(this));
+        tasks.addTask(2, new EntityAIAttackRanged(this, 1.0D, 40, 20.0F));
+        tasks.addTask(5, new EntityAIWanderAvoidWater(this, 1.0D));
+        tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
+        tasks.addTask(7, new EntityAILookIdle(this));
+        targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
+        targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityLiving.class, 0, false, false, NOT_UNDEAD));
     }
 
     protected void entityInit()
     {
         super.entityInit();
-        this.dataManager.register(FIRST_HEAD_TARGET, Integer.valueOf(0));
-        this.dataManager.register(SECOND_HEAD_TARGET, Integer.valueOf(0));
-        this.dataManager.register(THIRD_HEAD_TARGET, Integer.valueOf(0));
-        this.dataManager.register(INVULNERABILITY_TIME, Integer.valueOf(0));
+        dataManager.register(FIRST_HEAD_TARGET, Integer.valueOf(0));
+        dataManager.register(SECOND_HEAD_TARGET, Integer.valueOf(0));
+        dataManager.register(THIRD_HEAD_TARGET, Integer.valueOf(0));
+        dataManager.register(INVULNERABILITY_TIME, Integer.valueOf(0));
     }
 
     public static void registerFixesWither(DataFixer fixer)
@@ -115,7 +115,7 @@ public class EntityWither extends EntityMob implements IRangedAttackMob
     public void writeEntityToNBT(NBTTagCompound compound)
     {
         super.writeEntityToNBT(compound);
-        compound.setInteger("Invul", this.getInvulTime());
+        compound.setInteger("Invul", getInvulTime());
     }
 
     /**
@@ -124,11 +124,11 @@ public class EntityWither extends EntityMob implements IRangedAttackMob
     public void readEntityFromNBT(NBTTagCompound compound)
     {
         super.readEntityFromNBT(compound);
-        this.setInvulTime(compound.getInteger("Invul"));
+        setInvulTime(compound.getInteger("Invul"));
 
-        if (this.hasCustomName())
+        if (hasCustomName())
         {
-            this.bossInfo.setName(this.getDisplayName());
+            bossInfo.setName(getDisplayName());
         }
     }
 
@@ -138,7 +138,7 @@ public class EntityWither extends EntityMob implements IRangedAttackMob
     public void setCustomNameTag(String name)
     {
         super.setCustomNameTag(name);
-        this.bossInfo.setName(this.getDisplayName());
+        bossInfo.setName(getDisplayName());
     }
 
     protected SoundEvent getAmbientSound()
@@ -162,121 +162,121 @@ public class EntityWither extends EntityMob implements IRangedAttackMob
      */
     public void onLivingUpdate()
     {
-        this.motionY *= 0.6000000238418579D;
+        motionY *= 0.6000000238418579D;
 
-        if (!this.world.isRemote && this.getWatchedTargetId(0) > 0)
+        if (!world.isRemote && getWatchedTargetId(0) > 0)
         {
-            Entity entity = this.world.getEntityByID(this.getWatchedTargetId(0));
+            Entity entity = world.getEntityByID(getWatchedTargetId(0));
 
             if (entity != null)
             {
-                if (this.posY < entity.posY || !this.isArmored() && this.posY < entity.posY + 5.0D)
+                if (posY < entity.posY || !isArmored() && posY < entity.posY + 5.0D)
                 {
-                    if (this.motionY < 0.0D)
+                    if (motionY < 0.0D)
                     {
-                        this.motionY = 0.0D;
+                        motionY = 0.0D;
                     }
 
-                    this.motionY += (0.5D - this.motionY) * 0.6000000238418579D;
+                    motionY += (0.5D - motionY) * 0.6000000238418579D;
                 }
 
-                double d0 = entity.posX - this.posX;
-                double d1 = entity.posZ - this.posZ;
+                double d0 = entity.posX - posX;
+                double d1 = entity.posZ - posZ;
                 double d3 = d0 * d0 + d1 * d1;
 
                 if (d3 > 9.0D)
                 {
                     double d5 = (double)MathHelper.sqrt(d3);
-                    this.motionX += (d0 / d5 * 0.5D - this.motionX) * 0.6000000238418579D;
-                    this.motionZ += (d1 / d5 * 0.5D - this.motionZ) * 0.6000000238418579D;
+                    motionX += (d0 / d5 * 0.5D - motionX) * 0.6000000238418579D;
+                    motionZ += (d1 / d5 * 0.5D - motionZ) * 0.6000000238418579D;
                 }
             }
         }
 
-        if (this.motionX * this.motionX + this.motionZ * this.motionZ > 0.05000000074505806D)
+        if (motionX * motionX + motionZ * motionZ > 0.05000000074505806D)
         {
-            this.rotationYaw = (float)MathHelper.atan2(this.motionZ, this.motionX) * (180F / (float)Math.PI) - 90.0F;
+            rotationYaw = (float)MathHelper.atan2(motionZ, motionX) * (180F / (float)Math.PI) - 90.0F;
         }
 
         super.onLivingUpdate();
 
         for (int i = 0; i < 2; ++i)
         {
-            this.yRotOHeads[i] = this.yRotationHeads[i];
-            this.xRotOHeads[i] = this.xRotationHeads[i];
+            yRotOHeads[i] = yRotationHeads[i];
+            xRotOHeads[i] = xRotationHeads[i];
         }
 
         for (int j = 0; j < 2; ++j)
         {
-            int k = this.getWatchedTargetId(j + 1);
+            int k = getWatchedTargetId(j + 1);
             Entity entity1 = null;
 
             if (k > 0)
             {
-                entity1 = this.world.getEntityByID(k);
+                entity1 = world.getEntityByID(k);
             }
 
             if (entity1 != null)
             {
-                double d11 = this.getHeadX(j + 1);
-                double d12 = this.getHeadY(j + 1);
-                double d13 = this.getHeadZ(j + 1);
+                double d11 = getHeadX(j + 1);
+                double d12 = getHeadY(j + 1);
+                double d13 = getHeadZ(j + 1);
                 double d6 = entity1.posX - d11;
                 double d7 = entity1.posY + (double)entity1.getEyeHeight() - d12;
                 double d8 = entity1.posZ - d13;
                 double d9 = (double)MathHelper.sqrt(d6 * d6 + d8 * d8);
                 float f = (float)(MathHelper.atan2(d8, d6) * (180D / Math.PI)) - 90.0F;
                 float f1 = (float)(-(MathHelper.atan2(d7, d9) * (180D / Math.PI)));
-                this.xRotationHeads[j] = this.rotlerp(this.xRotationHeads[j], f1, 40.0F);
-                this.yRotationHeads[j] = this.rotlerp(this.yRotationHeads[j], f, 10.0F);
+                xRotationHeads[j] = rotlerp(xRotationHeads[j], f1, 40.0F);
+                yRotationHeads[j] = rotlerp(yRotationHeads[j], f, 10.0F);
             }
             else
             {
-                this.yRotationHeads[j] = this.rotlerp(this.yRotationHeads[j], this.renderYawOffset, 10.0F);
+                yRotationHeads[j] = rotlerp(yRotationHeads[j], renderYawOffset, 10.0F);
             }
         }
 
-        boolean flag = this.isArmored();
+        boolean flag = isArmored();
 
         for (int l = 0; l < 3; ++l)
         {
-            double d10 = this.getHeadX(l);
-            double d2 = this.getHeadY(l);
-            double d4 = this.getHeadZ(l);
-            this.world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d10 + this.rand.nextGaussian() * 0.30000001192092896D, d2 + this.rand.nextGaussian() * 0.30000001192092896D, d4 + this.rand.nextGaussian() * 0.30000001192092896D, 0.0D, 0.0D, 0.0D);
+            double d10 = getHeadX(l);
+            double d2 = getHeadY(l);
+            double d4 = getHeadZ(l);
+            world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d10 + rand.nextGaussian() * 0.30000001192092896D, d2 + rand.nextGaussian() * 0.30000001192092896D, d4 + rand.nextGaussian() * 0.30000001192092896D, 0.0D, 0.0D, 0.0D);
 
-            if (flag && this.world.rand.nextInt(4) == 0)
+            if (flag && world.rand.nextInt(4) == 0)
             {
-                this.world.spawnParticle(EnumParticleTypes.SPELL_MOB, d10 + this.rand.nextGaussian() * 0.30000001192092896D, d2 + this.rand.nextGaussian() * 0.30000001192092896D, d4 + this.rand.nextGaussian() * 0.30000001192092896D, 0.699999988079071D, 0.699999988079071D, 0.5D);
+                world.spawnParticle(EnumParticleTypes.SPELL_MOB, d10 + rand.nextGaussian() * 0.30000001192092896D, d2 + rand.nextGaussian() * 0.30000001192092896D, d4 + rand.nextGaussian() * 0.30000001192092896D, 0.699999988079071D, 0.699999988079071D, 0.5D);
             }
         }
 
-        if (this.getInvulTime() > 0)
+        if (getInvulTime() > 0)
         {
             for (int i1 = 0; i1 < 3; ++i1)
             {
-                this.world.spawnParticle(EnumParticleTypes.SPELL_MOB, this.posX + this.rand.nextGaussian(), this.posY + (double)(this.rand.nextFloat() * 3.3F), this.posZ + this.rand.nextGaussian(), 0.699999988079071D, 0.699999988079071D, 0.8999999761581421D);
+                world.spawnParticle(EnumParticleTypes.SPELL_MOB, posX + rand.nextGaussian(), posY + (double)(rand.nextFloat() * 3.3F), posZ + rand.nextGaussian(), 0.699999988079071D, 0.699999988079071D, 0.8999999761581421D);
             }
         }
     }
 
     protected void updateAITasks()
     {
-        if (this.getInvulTime() > 0)
+        if (getInvulTime() > 0)
         {
-            int j1 = this.getInvulTime() - 1;
+            int j1 = getInvulTime() - 1;
 
             if (j1 <= 0)
             {
-                this.world.newExplosion(this, this.posX, this.posY + (double)this.getEyeHeight(), this.posZ, 7.0F, false, this.world.getGameRules().getBoolean("mobGriefing"));
-                this.world.playBroadcastSound(1023, new BlockPos(this), 0);
+                world.newExplosion(this, posX, posY + (double) getEyeHeight(), posZ, 7.0F, false, world.getGameRules().getBoolean("mobGriefing"));
+                world.playBroadcastSound(1023, new BlockPos(this), 0);
             }
 
-            this.setInvulTime(j1);
+            setInvulTime(j1);
 
-            if (this.ticksExisted % 10 == 0)
+            if (ticksExisted % 10 == 0)
             {
-                this.heal(10.0F);
+                heal(10.0F);
             }
         }
         else
@@ -285,72 +285,72 @@ public class EntityWither extends EntityMob implements IRangedAttackMob
 
             for (int i = 1; i < 3; ++i)
             {
-                if (this.ticksExisted >= this.nextHeadUpdate[i - 1])
+                if (ticksExisted >= nextHeadUpdate[i - 1])
                 {
-                    this.nextHeadUpdate[i - 1] = this.ticksExisted + 10 + this.rand.nextInt(10);
+                    nextHeadUpdate[i - 1] = ticksExisted + 10 + rand.nextInt(10);
 
-                    if (this.world.getDifficulty() == EnumDifficulty.NORMAL || this.world.getDifficulty() == EnumDifficulty.HARD)
+                    if (world.getDifficulty() == EnumDifficulty.NORMAL || world.getDifficulty() == EnumDifficulty.HARD)
                     {
                         int j3 = i - 1;
-                        int k3 = this.idleHeadUpdates[i - 1];
-                        this.idleHeadUpdates[j3] = this.idleHeadUpdates[i - 1] + 1;
+                        int k3 = idleHeadUpdates[i - 1];
+                        idleHeadUpdates[j3] = idleHeadUpdates[i - 1] + 1;
 
                         if (k3 > 15)
                         {
                             float f = 10.0F;
                             float f1 = 5.0F;
-                            double d0 = MathHelper.nextDouble(this.rand, this.posX - 10.0D, this.posX + 10.0D);
-                            double d1 = MathHelper.nextDouble(this.rand, this.posY - 5.0D, this.posY + 5.0D);
-                            double d2 = MathHelper.nextDouble(this.rand, this.posZ - 10.0D, this.posZ + 10.0D);
-                            this.launchWitherSkullToCoords(i + 1, d0, d1, d2, true);
-                            this.idleHeadUpdates[i - 1] = 0;
+                            double d0 = MathHelper.nextDouble(rand, posX - 10.0D, posX + 10.0D);
+                            double d1 = MathHelper.nextDouble(rand, posY - 5.0D, posY + 5.0D);
+                            double d2 = MathHelper.nextDouble(rand, posZ - 10.0D, posZ + 10.0D);
+                            launchWitherSkullToCoords(i + 1, d0, d1, d2, true);
+                            idleHeadUpdates[i - 1] = 0;
                         }
                     }
 
-                    int k1 = this.getWatchedTargetId(i);
+                    int k1 = getWatchedTargetId(i);
 
                     if (k1 > 0)
                     {
-                        Entity entity = this.world.getEntityByID(k1);
+                        Entity entity = world.getEntityByID(k1);
 
-                        if (entity != null && entity.isEntityAlive() && this.getDistanceSq(entity) <= 900.0D && this.canEntityBeSeen(entity))
+                        if (entity != null && entity.isEntityAlive() && getDistanceSq(entity) <= 900.0D && canEntityBeSeen(entity))
                         {
                             if (entity instanceof EntityPlayer && ((EntityPlayer)entity).capabilities.disableDamage)
                             {
-                                this.updateWatchedTargetId(i, 0);
+                                updateWatchedTargetId(i, 0);
                             }
                             else
                             {
-                                this.launchWitherSkullToEntity(i + 1, (EntityLivingBase)entity);
-                                this.nextHeadUpdate[i - 1] = this.ticksExisted + 40 + this.rand.nextInt(20);
-                                this.idleHeadUpdates[i - 1] = 0;
+                                launchWitherSkullToEntity(i + 1, (EntityLivingBase)entity);
+                                nextHeadUpdate[i - 1] = ticksExisted + 40 + rand.nextInt(20);
+                                idleHeadUpdates[i - 1] = 0;
                             }
                         }
                         else
                         {
-                            this.updateWatchedTargetId(i, 0);
+                            updateWatchedTargetId(i, 0);
                         }
                     }
                     else
                     {
-                        List<EntityLivingBase> list = this.world.<EntityLivingBase>getEntitiesWithinAABB(EntityLivingBase.class, this.getEntityBoundingBox().grow(20.0D, 8.0D, 20.0D), Predicates.and(NOT_UNDEAD, EntitySelectors.NOT_SPECTATING));
+                        List<EntityLivingBase> list = world.<EntityLivingBase>getEntitiesWithinAABB(EntityLivingBase.class, getEntityBoundingBox().grow(20.0D, 8.0D, 20.0D), Predicates.and(NOT_UNDEAD, EntitySelectors.NOT_SPECTATING));
 
                         for (int j2 = 0; j2 < 10 && !list.isEmpty(); ++j2)
                         {
-                            EntityLivingBase entitylivingbase = list.get(this.rand.nextInt(list.size()));
+                            EntityLivingBase entitylivingbase = list.get(rand.nextInt(list.size()));
 
-                            if (entitylivingbase != this && entitylivingbase.isEntityAlive() && this.canEntityBeSeen(entitylivingbase))
+                            if (entitylivingbase != this && entitylivingbase.isEntityAlive() && canEntityBeSeen(entitylivingbase))
                             {
                                 if (entitylivingbase instanceof EntityPlayer)
                                 {
                                     if (!((EntityPlayer)entitylivingbase).capabilities.disableDamage)
                                     {
-                                        this.updateWatchedTargetId(i, entitylivingbase.getEntityId());
+                                        updateWatchedTargetId(i, entitylivingbase.getEntityId());
                                     }
                                 }
                                 else
                                 {
-                                    this.updateWatchedTargetId(i, entitylivingbase.getEntityId());
+                                    updateWatchedTargetId(i, entitylivingbase.getEntityId());
                                 }
 
                                 break;
@@ -362,24 +362,24 @@ public class EntityWither extends EntityMob implements IRangedAttackMob
                 }
             }
 
-            if (this.getAttackTarget() != null)
+            if (getAttackTarget() != null)
             {
-                this.updateWatchedTargetId(0, this.getAttackTarget().getEntityId());
+                updateWatchedTargetId(0, getAttackTarget().getEntityId());
             }
             else
             {
-                this.updateWatchedTargetId(0, 0);
+                updateWatchedTargetId(0, 0);
             }
 
-            if (this.blockBreakCounter > 0)
+            if (blockBreakCounter > 0)
             {
-                --this.blockBreakCounter;
+                --blockBreakCounter;
 
-                if (this.blockBreakCounter == 0 && this.world.getGameRules().getBoolean("mobGriefing"))
+                if (blockBreakCounter == 0 && world.getGameRules().getBoolean("mobGriefing"))
                 {
-                    int i1 = MathHelper.floor(this.posY);
-                    int l1 = MathHelper.floor(this.posX);
-                    int i2 = MathHelper.floor(this.posZ);
+                    int i1 = MathHelper.floor(posY);
+                    int l1 = MathHelper.floor(posX);
+                    int i2 = MathHelper.floor(posZ);
                     boolean flag = false;
 
                     for (int k2 = -1; k2 <= 1; ++k2)
@@ -392,12 +392,12 @@ public class EntityWither extends EntityMob implements IRangedAttackMob
                                 int k = i1 + j;
                                 int l = i2 + l2;
                                 BlockPos blockpos = new BlockPos(i3, k, l);
-                                IBlockState iblockstate = this.world.getBlockState(blockpos);
+                                IBlockState iblockstate = world.getBlockState(blockpos);
                                 Block block = iblockstate.getBlock();
 
                                 if (iblockstate.getMaterial() != Material.AIR && canDestroyBlock(block))
                                 {
-                                    flag = this.world.destroyBlock(blockpos, true) || flag;
+                                    flag = world.destroyBlock(blockpos, true) || flag;
                                 }
                             }
                         }
@@ -405,17 +405,17 @@ public class EntityWither extends EntityMob implements IRangedAttackMob
 
                     if (flag)
                     {
-                        this.world.playEvent((EntityPlayer)null, 1022, new BlockPos(this), 0);
+                        world.playEvent((EntityPlayer)null, 1022, new BlockPos(this), 0);
                     }
                 }
             }
 
-            if (this.ticksExisted % 20 == 0)
+            if (ticksExisted % 20 == 0)
             {
-                this.heal(1.0F);
+                heal(1.0F);
             }
 
-            this.bossInfo.setPercent(this.getHealth() / this.getMaxHealth());
+            bossInfo.setPercent(getHealth() / getMaxHealth());
         }
     }
 
@@ -429,8 +429,8 @@ public class EntityWither extends EntityMob implements IRangedAttackMob
      */
     public void ignite()
     {
-        this.setInvulTime(220);
-        this.setHealth(this.getMaxHealth() / 3.0F);
+        setInvulTime(220);
+        setHealth(getMaxHealth() / 3.0F);
     }
 
     /**
@@ -447,7 +447,7 @@ public class EntityWither extends EntityMob implements IRangedAttackMob
     public void addTrackingPlayer(EntityPlayerMP player)
     {
         super.addTrackingPlayer(player);
-        this.bossInfo.addPlayer(player);
+        bossInfo.addPlayer(player);
     }
 
     /**
@@ -457,39 +457,39 @@ public class EntityWither extends EntityMob implements IRangedAttackMob
     public void removeTrackingPlayer(EntityPlayerMP player)
     {
         super.removeTrackingPlayer(player);
-        this.bossInfo.removePlayer(player);
+        bossInfo.removePlayer(player);
     }
 
     private double getHeadX(int p_82214_1_)
     {
         if (p_82214_1_ <= 0)
         {
-            return this.posX;
+            return posX;
         }
         else
         {
-            float f = (this.renderYawOffset + (float)(180 * (p_82214_1_ - 1))) * 0.017453292F;
+            float f = (renderYawOffset + (float)(180 * (p_82214_1_ - 1))) * 0.017453292F;
             float f1 = MathHelper.cos(f);
-            return this.posX + (double)f1 * 1.3D;
+            return posX + (double)f1 * 1.3D;
         }
     }
 
     private double getHeadY(int p_82208_1_)
     {
-        return p_82208_1_ <= 0 ? this.posY + 3.0D : this.posY + 2.2D;
+        return p_82208_1_ <= 0 ? posY + 3.0D : posY + 2.2D;
     }
 
     private double getHeadZ(int p_82213_1_)
     {
         if (p_82213_1_ <= 0)
         {
-            return this.posZ;
+            return posZ;
         }
         else
         {
-            float f = (this.renderYawOffset + (float)(180 * (p_82213_1_ - 1))) * 0.017453292F;
+            float f = (renderYawOffset + (float)(180 * (p_82213_1_ - 1))) * 0.017453292F;
             float f1 = MathHelper.sin(f);
-            return this.posZ + (double)f1 * 1.3D;
+            return posZ + (double)f1 * 1.3D;
         }
     }
 
@@ -512,7 +512,7 @@ public class EntityWither extends EntityMob implements IRangedAttackMob
 
     private void launchWitherSkullToEntity(int p_82216_1_, EntityLivingBase p_82216_2_)
     {
-        this.launchWitherSkullToCoords(p_82216_1_, p_82216_2_.posX, p_82216_2_.posY + (double)p_82216_2_.getEyeHeight() * 0.5D, p_82216_2_.posZ, p_82216_1_ == 0 && this.rand.nextFloat() < 0.001F);
+        launchWitherSkullToCoords(p_82216_1_, p_82216_2_.posX, p_82216_2_.posY + (double)p_82216_2_.getEyeHeight() * 0.5D, p_82216_2_.posZ, p_82216_1_ == 0 && rand.nextFloat() < 0.001F);
     }
 
     /**
@@ -520,14 +520,14 @@ public class EntityWither extends EntityMob implements IRangedAttackMob
      */
     private void launchWitherSkullToCoords(int p_82209_1_, double x, double y, double z, boolean invulnerable)
     {
-        this.world.playEvent((EntityPlayer)null, 1024, new BlockPos(this), 0);
-        double d0 = this.getHeadX(p_82209_1_);
-        double d1 = this.getHeadY(p_82209_1_);
-        double d2 = this.getHeadZ(p_82209_1_);
+        world.playEvent((EntityPlayer)null, 1024, new BlockPos(this), 0);
+        double d0 = getHeadX(p_82209_1_);
+        double d1 = getHeadY(p_82209_1_);
+        double d2 = getHeadZ(p_82209_1_);
         double d3 = x - d0;
         double d4 = y - d1;
         double d5 = z - d2;
-        EntityWitherSkull entitywitherskull = new EntityWitherSkull(this.world, this, d3, d4, d5);
+        EntityWitherSkull entitywitherskull = new EntityWitherSkull(world, this, d3, d4, d5);
 
         if (invulnerable)
         {
@@ -537,7 +537,7 @@ public class EntityWither extends EntityMob implements IRangedAttackMob
         entitywitherskull.posY = d1;
         entitywitherskull.posX = d0;
         entitywitherskull.posZ = d2;
-        this.world.spawnEntity(entitywitherskull);
+        world.spawnEntity(entitywitherskull);
     }
 
     /**
@@ -545,7 +545,7 @@ public class EntityWither extends EntityMob implements IRangedAttackMob
      */
     public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor)
     {
-        this.launchWitherSkullToEntity(0, target);
+        launchWitherSkullToEntity(0, target);
     }
 
     /**
@@ -553,19 +553,19 @@ public class EntityWither extends EntityMob implements IRangedAttackMob
      */
     public boolean attackEntityFrom(DamageSource source, float amount)
     {
-        if (this.isEntityInvulnerable(source))
+        if (isEntityInvulnerable(source))
         {
             return false;
         }
         else if (source != DamageSource.DROWN && !(source.getTrueSource() instanceof EntityWither))
         {
-            if (this.getInvulTime() > 0 && source != DamageSource.OUT_OF_WORLD)
+            if (getInvulTime() > 0 && source != DamageSource.OUT_OF_WORLD)
             {
                 return false;
             }
             else
             {
-                if (this.isArmored())
+                if (isArmored())
                 {
                     Entity entity = source.getImmediateSource();
 
@@ -577,20 +577,20 @@ public class EntityWither extends EntityMob implements IRangedAttackMob
 
                 Entity entity1 = source.getTrueSource();
 
-                if (entity1 != null && !(entity1 instanceof EntityPlayer) && entity1 instanceof EntityLivingBase && ((EntityLivingBase)entity1).getCreatureAttribute() == this.getCreatureAttribute())
+                if (entity1 != null && !(entity1 instanceof EntityPlayer) && entity1 instanceof EntityLivingBase && ((EntityLivingBase)entity1).getCreatureAttribute() == getCreatureAttribute())
                 {
                     return false;
                 }
                 else
                 {
-                    if (this.blockBreakCounter <= 0)
+                    if (blockBreakCounter <= 0)
                     {
-                        this.blockBreakCounter = 20;
+                        blockBreakCounter = 20;
                     }
 
-                    for (int i = 0; i < this.idleHeadUpdates.length; ++i)
+                    for (int i = 0; i < idleHeadUpdates.length; ++i)
                     {
-                        this.idleHeadUpdates[i] += 3;
+                        idleHeadUpdates[i] += 3;
                     }
 
                     return super.attackEntityFrom(source, amount);
@@ -608,7 +608,7 @@ public class EntityWither extends EntityMob implements IRangedAttackMob
      */
     protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier)
     {
-        EntityItem entityitem = this.dropItem(Items.NETHER_STAR, 1);
+        EntityItem entityitem = dropItem(Items.NETHER_STAR, 1);
 
         if (entityitem != null)
         {
@@ -621,7 +621,7 @@ public class EntityWither extends EntityMob implements IRangedAttackMob
      */
     protected void despawnEntity()
     {
-        this.idleTime = 0;
+        idleTime = 0;
     }
 
     public int getBrightnessForRender()
@@ -643,30 +643,30 @@ public class EntityWither extends EntityMob implements IRangedAttackMob
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(300.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.6000000238418579D);
-        this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(40.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(4.0D);
+        getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(300.0D);
+        getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.6000000238418579D);
+        getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(40.0D);
+        getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(4.0D);
     }
 
     public float getHeadYRotation(int p_82207_1_)
     {
-        return this.yRotationHeads[p_82207_1_];
+        return yRotationHeads[p_82207_1_];
     }
 
     public float getHeadXRotation(int p_82210_1_)
     {
-        return this.xRotationHeads[p_82210_1_];
+        return xRotationHeads[p_82210_1_];
     }
 
     public int getInvulTime()
     {
-        return ((Integer)this.dataManager.get(INVULNERABILITY_TIME)).intValue();
+        return ((Integer) dataManager.get(INVULNERABILITY_TIME)).intValue();
     }
 
     public void setInvulTime(int time)
     {
-        this.dataManager.set(INVULNERABILITY_TIME, Integer.valueOf(time));
+        dataManager.set(INVULNERABILITY_TIME, Integer.valueOf(time));
     }
 
     /**
@@ -674,7 +674,7 @@ public class EntityWither extends EntityMob implements IRangedAttackMob
      */
     public int getWatchedTargetId(int head)
     {
-        return ((Integer)this.dataManager.get(HEAD_TARGETS[head])).intValue();
+        return ((Integer) dataManager.get(HEAD_TARGETS[head])).intValue();
     }
 
     /**
@@ -682,7 +682,7 @@ public class EntityWither extends EntityMob implements IRangedAttackMob
      */
     public void updateWatchedTargetId(int targetOffset, int newId)
     {
-        this.dataManager.set(HEAD_TARGETS[targetOffset], Integer.valueOf(newId));
+        dataManager.set(HEAD_TARGETS[targetOffset], Integer.valueOf(newId));
     }
 
     /**
@@ -691,7 +691,7 @@ public class EntityWither extends EntityMob implements IRangedAttackMob
      */
     public boolean isArmored()
     {
-        return this.getHealth() <= this.getMaxHealth() / 2.0F;
+        return getHealth() <= getMaxHealth() / 2.0F;
     }
 
     /**
@@ -723,12 +723,12 @@ public class EntityWither extends EntityMob implements IRangedAttackMob
     {
         public AIDoNothing()
         {
-            this.setMutexBits(7);
+            setMutexBits(7);
         }
 
         public boolean shouldExecute()
         {
-            return EntityWither.this.getInvulTime() > 0;
+            return getInvulTime() > 0;
         }
     }
 }

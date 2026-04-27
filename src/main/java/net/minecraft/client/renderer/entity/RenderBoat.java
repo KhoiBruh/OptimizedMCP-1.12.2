@@ -18,7 +18,7 @@ public class RenderBoat extends Render<EntityBoat>
     public RenderBoat(RenderManager renderManagerIn)
     {
         super(renderManagerIn);
-        this.shadowSize = 0.5F;
+        shadowSize = 0.5F;
     }
 
     /**
@@ -27,19 +27,19 @@ public class RenderBoat extends Render<EntityBoat>
     public void doRender(EntityBoat entity, double x, double y, double z, float entityYaw, float partialTicks)
     {
         GlStateManager.pushMatrix();
-        this.setupTranslation(x, y, z);
-        this.setupRotation(entity, entityYaw, partialTicks);
-        this.bindEntityTexture(entity);
+        setupTranslation(x, y, z);
+        setupRotation(entity, entityYaw, partialTicks);
+        bindEntityTexture(entity);
 
-        if (this.renderOutlines)
+        if (renderOutlines)
         {
             GlStateManager.enableColorMaterial();
-            GlStateManager.enableOutlineMode(this.getTeamColor(entity));
+            GlStateManager.enableOutlineMode(getTeamColor(entity));
         }
 
-        this.modelBoat.render(entity, partialTicks, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
+        modelBoat.render(entity, partialTicks, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
 
-        if (this.renderOutlines)
+        if (renderOutlines)
         {
             GlStateManager.disableOutlineMode();
             GlStateManager.disableColorMaterial();
@@ -89,10 +89,10 @@ public class RenderBoat extends Render<EntityBoat>
     public void renderMultipass(EntityBoat p_188300_1_, double p_188300_2_, double p_188300_4_, double p_188300_6_, float p_188300_8_, float p_188300_9_)
     {
         GlStateManager.pushMatrix();
-        this.setupTranslation(p_188300_2_, p_188300_4_, p_188300_6_);
-        this.setupRotation(p_188300_1_, p_188300_8_, p_188300_9_);
-        this.bindEntityTexture(p_188300_1_);
-        ((IMultipassModel)this.modelBoat).renderMultipass(p_188300_1_, p_188300_9_, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
+        setupTranslation(p_188300_2_, p_188300_4_, p_188300_6_);
+        setupRotation(p_188300_1_, p_188300_8_, p_188300_9_);
+        bindEntityTexture(p_188300_1_);
+        ((IMultipassModel) modelBoat).renderMultipass(p_188300_1_, p_188300_9_, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
         GlStateManager.popMatrix();
     }
 }

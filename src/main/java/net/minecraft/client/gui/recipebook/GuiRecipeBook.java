@@ -60,18 +60,18 @@ public class GuiRecipeBook extends Gui implements IRecipeUpdateListener
 
     public void func_194303_a(int p_194303_1_, int p_194303_2_, Minecraft p_194303_3_, boolean p_194303_4_, InventoryCrafting p_194303_5_)
     {
-        this.mc = p_194303_3_;
-        this.width = p_194303_1_;
-        this.height = p_194303_2_;
-        this.craftingSlots = p_194303_5_;
-        this.recipeBook = p_194303_3_.player.getRecipeBook();
-        this.timesInventoryChanged = p_194303_3_.player.inventory.getTimesChanged();
-        this.currentTab = this.recipeTabs.get(0);
-        this.currentTab.setStateTriggered(true);
+        mc = p_194303_3_;
+        width = p_194303_1_;
+        height = p_194303_2_;
+        craftingSlots = p_194303_5_;
+        recipeBook = p_194303_3_.player.getRecipeBook();
+        timesInventoryChanged = p_194303_3_.player.inventory.getTimesChanged();
+        currentTab = recipeTabs.get(0);
+        currentTab.setStateTriggered(true);
 
-        if (this.isVisible())
+        if (isVisible())
         {
-            this.initVisuals(p_194303_4_, p_194303_5_);
+            initVisuals(p_194303_4_, p_194303_5_);
         }
 
         Keyboard.enableRepeatEvents(true);
@@ -79,23 +79,23 @@ public class GuiRecipeBook extends Gui implements IRecipeUpdateListener
 
     public void initVisuals(boolean p_193014_1_, InventoryCrafting p_193014_2_)
     {
-        this.xOffset = p_193014_1_ ? 0 : 86;
-        int i = (this.width - 147) / 2 - this.xOffset;
-        int j = (this.height - 166) / 2;
-        this.stackedContents.clear();
-        this.mc.player.inventory.fillStackedContents(this.stackedContents, false);
-        p_193014_2_.fillStackedContents(this.stackedContents);
-        this.searchBar = new GuiTextField(0, this.mc.fontRenderer, i + 25, j + 14, 80, this.mc.fontRenderer.FONT_HEIGHT + 5);
-        this.searchBar.setMaxStringLength(50);
-        this.searchBar.setEnableBackgroundDrawing(false);
-        this.searchBar.setVisible(true);
-        this.searchBar.setTextColor(16777215);
-        this.recipeBookPage.init(this.mc, i, j);
-        this.recipeBookPage.addListener(this);
-        this.toggleRecipesBtn = new GuiButtonToggle(0, i + 110, j + 12, 26, 16, this.recipeBook.isFilteringCraftable());
-        this.toggleRecipesBtn.initTextureValues(152, 41, 28, 18, RECIPE_BOOK);
-        this.updateCollections(false);
-        this.updateTabs();
+        xOffset = p_193014_1_ ? 0 : 86;
+        int i = (width - 147) / 2 - xOffset;
+        int j = (height - 166) / 2;
+        stackedContents.clear();
+        mc.player.inventory.fillStackedContents(stackedContents, false);
+        p_193014_2_.fillStackedContents(stackedContents);
+        searchBar = new GuiTextField(0, mc.fontRenderer, i + 25, j + 14, 80, mc.fontRenderer.FONT_HEIGHT + 5);
+        searchBar.setMaxStringLength(50);
+        searchBar.setEnableBackgroundDrawing(false);
+        searchBar.setVisible(true);
+        searchBar.setTextColor(16777215);
+        recipeBookPage.init(mc, i, j);
+        recipeBookPage.addListener(this);
+        toggleRecipesBtn = new GuiButtonToggle(0, i + 110, j + 12, 26, 16, recipeBook.isFilteringCraftable());
+        toggleRecipesBtn.initTextureValues(152, 41, 28, 18, RECIPE_BOOK);
+        updateCollections(false);
+        updateTabs();
     }
 
     public void removed()
@@ -107,7 +107,7 @@ public class GuiRecipeBook extends Gui implements IRecipeUpdateListener
     {
         int i;
 
-        if (this.isVisible() && !p_193011_1_)
+        if (isVisible() && !p_193011_1_)
         {
             i = 177 + (p_193011_2_ - p_193011_3_ - 200) / 2;
         }
@@ -121,45 +121,45 @@ public class GuiRecipeBook extends Gui implements IRecipeUpdateListener
 
     public void toggleVisibility()
     {
-        this.setVisible(!this.isVisible());
+        setVisible(!isVisible());
     }
 
     public boolean isVisible()
     {
-        return this.recipeBook.isGuiOpen();
+        return recipeBook.isGuiOpen();
     }
 
     private void setVisible(boolean p_193006_1_)
     {
-        this.recipeBook.setGuiOpen(p_193006_1_);
+        recipeBook.setGuiOpen(p_193006_1_);
 
         if (!p_193006_1_)
         {
-            this.recipeBookPage.setInvisible();
+            recipeBookPage.setInvisible();
         }
 
-        this.sendUpdateSettings();
+        sendUpdateSettings();
     }
 
     public void slotClicked(@Nullable Slot slotIn)
     {
         if (slotIn != null && slotIn.slotNumber <= 9)
         {
-            this.ghostRecipe.clear();
+            ghostRecipe.clear();
 
-            if (this.isVisible())
+            if (isVisible())
             {
-                this.updateStackedContents();
+                updateStackedContents();
             }
         }
     }
 
     private void updateCollections(boolean p_193003_1_)
     {
-        List<RecipeList> list = (List)RecipeBookClient.RECIPES_BY_TAB.get(this.currentTab.getCategory());
+        List<RecipeList> list = (List)RecipeBookClient.RECIPES_BY_TAB.get(currentTab.getCategory());
         list.forEach((p_193944_1_) ->
         {
-            p_193944_1_.canCraft(this.stackedContents, this.craftingSlots.getWidth(), this.craftingSlots.getHeight(), this.recipeBook);
+            p_193944_1_.canCraft(stackedContents, craftingSlots.getWidth(), craftingSlots.getHeight(), recipeBook);
         });
         List<RecipeList> list1 = Lists.newArrayList(list);
         list1.removeIf((p_193952_0_) ->
@@ -170,18 +170,18 @@ public class GuiRecipeBook extends Gui implements IRecipeUpdateListener
         {
             return !p_193953_0_.containsValidRecipes();
         });
-        String s = this.searchBar.getText();
+        String s = searchBar.getText();
 
         if (!s.isEmpty())
         {
-            ObjectSet<RecipeList> objectset = new ObjectLinkedOpenHashSet<RecipeList>(this.mc.getSearchTree(SearchTreeManager.RECIPES).search(s.toLowerCase(Locale.ROOT)));
+            ObjectSet<RecipeList> objectset = new ObjectLinkedOpenHashSet<RecipeList>(mc.getSearchTree(SearchTreeManager.RECIPES).search(s.toLowerCase(Locale.ROOT)));
             list1.removeIf((p_193947_1_) ->
             {
                 return !objectset.contains(p_193947_1_);
             });
         }
 
-        if (this.recipeBook.isFilteringCraftable())
+        if (recipeBook.isFilteringCraftable())
         {
             list1.removeIf((p_193958_0_) ->
             {
@@ -189,17 +189,17 @@ public class GuiRecipeBook extends Gui implements IRecipeUpdateListener
             });
         }
 
-        this.recipeBookPage.updateLists(list1, p_193003_1_);
+        recipeBookPage.updateLists(list1, p_193003_1_);
     }
 
     private void updateTabs()
     {
-        int i = (this.width - 147) / 2 - this.xOffset - 30;
-        int j = (this.height - 166) / 2 + 3;
+        int i = (width - 147) / 2 - xOffset - 30;
+        int j = (height - 166) / 2 + 3;
         int k = 27;
         int l = 0;
 
-        for (GuiButtonRecipeTab guibuttonrecipetab : this.recipeTabs)
+        for (GuiButtonRecipeTab guibuttonrecipetab : recipeTabs)
         {
             CreativeTabs creativetabs = guibuttonrecipetab.getCategory();
 
@@ -211,75 +211,75 @@ public class GuiRecipeBook extends Gui implements IRecipeUpdateListener
             else if (guibuttonrecipetab.updateVisibility())
             {
                 guibuttonrecipetab.setPosition(i, j + 27 * l++);
-                guibuttonrecipetab.startAnimation(this.mc);
+                guibuttonrecipetab.startAnimation(mc);
             }
         }
     }
 
     public void tick()
     {
-        if (this.isVisible())
+        if (isVisible())
         {
-            if (this.timesInventoryChanged != this.mc.player.inventory.getTimesChanged())
+            if (timesInventoryChanged != mc.player.inventory.getTimesChanged())
             {
-                this.updateStackedContents();
-                this.timesInventoryChanged = this.mc.player.inventory.getTimesChanged();
+                updateStackedContents();
+                timesInventoryChanged = mc.player.inventory.getTimesChanged();
             }
         }
     }
 
     private void updateStackedContents()
     {
-        this.stackedContents.clear();
-        this.mc.player.inventory.fillStackedContents(this.stackedContents, false);
-        this.craftingSlots.fillStackedContents(this.stackedContents);
-        this.updateCollections(false);
+        stackedContents.clear();
+        mc.player.inventory.fillStackedContents(stackedContents, false);
+        craftingSlots.fillStackedContents(stackedContents);
+        updateCollections(false);
     }
 
     public void render(int mouseX, int mouseY, float partialTicks)
     {
-        if (this.isVisible())
+        if (isVisible())
         {
             RenderHelper.enableGUIStandardItemLighting();
             GlStateManager.disableLighting();
             GlStateManager.pushMatrix();
             GlStateManager.translate(0.0F, 0.0F, 100.0F);
-            this.mc.getTextureManager().bindTexture(RECIPE_BOOK);
+            mc.getTextureManager().bindTexture(RECIPE_BOOK);
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-            int i = (this.width - 147) / 2 - this.xOffset;
-            int j = (this.height - 166) / 2;
-            this.drawTexturedModalRect(i, j, 1, 1, 147, 166);
-            this.searchBar.drawTextBox();
+            int i = (width - 147) / 2 - xOffset;
+            int j = (height - 166) / 2;
+            drawTexturedModalRect(i, j, 1, 1, 147, 166);
+            searchBar.drawTextBox();
             RenderHelper.disableStandardItemLighting();
 
-            for (GuiButtonRecipeTab guibuttonrecipetab : this.recipeTabs)
+            for (GuiButtonRecipeTab guibuttonrecipetab : recipeTabs)
             {
-                guibuttonrecipetab.drawButton(this.mc, mouseX, mouseY, partialTicks);
+                guibuttonrecipetab.drawButton(mc, mouseX, mouseY, partialTicks);
             }
 
-            this.toggleRecipesBtn.drawButton(this.mc, mouseX, mouseY, partialTicks);
-            this.recipeBookPage.render(i, j, mouseX, mouseY, partialTicks);
+            toggleRecipesBtn.drawButton(mc, mouseX, mouseY, partialTicks);
+            recipeBookPage.render(i, j, mouseX, mouseY, partialTicks);
             GlStateManager.popMatrix();
         }
     }
 
     public void renderTooltip(int p_191876_1_, int p_191876_2_, int p_191876_3_, int p_191876_4_)
     {
-        if (this.isVisible())
+        if (isVisible())
         {
-            this.recipeBookPage.renderTooltip(p_191876_3_, p_191876_4_);
+            recipeBookPage.renderTooltip(p_191876_3_, p_191876_4_);
 
-            if (this.toggleRecipesBtn.isMouseOver())
+            if (toggleRecipesBtn.isMouseOver())
             {
-                String s1 = I18n.format(this.toggleRecipesBtn.isStateTriggered() ? "gui.recipebook.toggleRecipes.craftable" : "gui.recipebook.toggleRecipes.all");
+                String s1 = I18n.format(toggleRecipesBtn.isStateTriggered() ? "gui.recipebook.toggleRecipes.craftable" : "gui.recipebook.toggleRecipes.all");
 
-                if (this.mc.currentScreen != null)
+                if (mc.currentScreen != null)
                 {
-                    this.mc.currentScreen.drawHoveringText(s1, p_191876_3_, p_191876_4_);
+                    mc.currentScreen.drawHoveringText(s1, p_191876_3_, p_191876_4_);
                 }
             }
 
-            this.renderGhostRecipeTooltip(p_191876_1_, p_191876_2_, p_191876_3_, p_191876_4_);
+            renderGhostRecipeTooltip(p_191876_1_, p_191876_2_, p_191876_3_, p_191876_4_);
         }
     }
 
@@ -287,9 +287,9 @@ public class GuiRecipeBook extends Gui implements IRecipeUpdateListener
     {
         ItemStack itemstack = null;
 
-        for (int i = 0; i < this.ghostRecipe.size(); ++i)
+        for (int i = 0; i < ghostRecipe.size(); ++i)
         {
-            GhostRecipe.GhostIngredient ghostrecipe$ghostingredient = this.ghostRecipe.get(i);
+            GhostRecipe.GhostIngredient ghostrecipe$ghostingredient = ghostRecipe.get(i);
             int j = ghostrecipe$ghostingredient.getX() + p_193015_1_;
             int k = ghostrecipe$ghostingredient.getY() + p_193015_2_;
 
@@ -299,39 +299,39 @@ public class GuiRecipeBook extends Gui implements IRecipeUpdateListener
             }
         }
 
-        if (itemstack != null && this.mc.currentScreen != null)
+        if (itemstack != null && mc.currentScreen != null)
         {
-            this.mc.currentScreen.drawHoveringText(this.mc.currentScreen.getItemToolTip(itemstack), p_193015_3_, p_193015_4_);
+            mc.currentScreen.drawHoveringText(mc.currentScreen.getItemToolTip(itemstack), p_193015_3_, p_193015_4_);
         }
     }
 
     public void renderGhostRecipe(int p_191864_1_, int p_191864_2_, boolean p_191864_3_, float p_191864_4_)
     {
-        this.ghostRecipe.render(this.mc, p_191864_1_, p_191864_2_, p_191864_3_, p_191864_4_);
+        ghostRecipe.render(mc, p_191864_1_, p_191864_2_, p_191864_3_, p_191864_4_);
     }
 
     public boolean mouseClicked(int p_191862_1_, int p_191862_2_, int p_191862_3_)
     {
-        if (this.isVisible() && !this.mc.player.isSpectator())
+        if (isVisible() && !mc.player.isSpectator())
         {
-            if (this.recipeBookPage.mouseClicked(p_191862_1_, p_191862_2_, p_191862_3_, (this.width - 147) / 2 - this.xOffset, (this.height - 166) / 2, 147, 166))
+            if (recipeBookPage.mouseClicked(p_191862_1_, p_191862_2_, p_191862_3_, (width - 147) / 2 - xOffset, (height - 166) / 2, 147, 166))
             {
-                IRecipe irecipe = this.recipeBookPage.getLastClickedRecipe();
-                RecipeList recipelist = this.recipeBookPage.getLastClickedRecipeList();
+                IRecipe irecipe = recipeBookPage.getLastClickedRecipe();
+                RecipeList recipelist = recipeBookPage.getLastClickedRecipeList();
 
                 if (irecipe != null && recipelist != null)
                 {
-                    if (!recipelist.isCraftable(irecipe) && this.ghostRecipe.getRecipe() == irecipe)
+                    if (!recipelist.isCraftable(irecipe) && ghostRecipe.getRecipe() == irecipe)
                     {
                         return false;
                     }
 
-                    this.ghostRecipe.clear();
-                    this.mc.playerController.func_194338_a(this.mc.player.openContainer.windowId, irecipe, GuiScreen.isShiftKeyDown(), this.mc.player);
+                    ghostRecipe.clear();
+                    mc.playerController.func_194338_a(mc.player.openContainer.windowId, irecipe, GuiScreen.isShiftKeyDown(), mc.player);
 
-                    if (!this.isOffsetNextToMainGUI() && p_191862_3_ == 0)
+                    if (!isOffsetNextToMainGUI() && p_191862_3_ == 0)
                     {
-                        this.setVisible(false);
+                        setVisible(false);
                     }
                 }
 
@@ -341,33 +341,33 @@ public class GuiRecipeBook extends Gui implements IRecipeUpdateListener
             {
                 return false;
             }
-            else if (this.searchBar.mouseClicked(p_191862_1_, p_191862_2_, p_191862_3_))
+            else if (searchBar.mouseClicked(p_191862_1_, p_191862_2_, p_191862_3_))
             {
                 return true;
             }
-            else if (this.toggleRecipesBtn.mousePressed(this.mc, p_191862_1_, p_191862_2_))
+            else if (toggleRecipesBtn.mousePressed(mc, p_191862_1_, p_191862_2_))
             {
-                boolean flag = !this.recipeBook.isFilteringCraftable();
-                this.recipeBook.setFilteringCraftable(flag);
-                this.toggleRecipesBtn.setStateTriggered(flag);
-                this.toggleRecipesBtn.playPressSound(this.mc.getSoundHandler());
-                this.sendUpdateSettings();
-                this.updateCollections(false);
+                boolean flag = !recipeBook.isFilteringCraftable();
+                recipeBook.setFilteringCraftable(flag);
+                toggleRecipesBtn.setStateTriggered(flag);
+                toggleRecipesBtn.playPressSound(mc.getSoundHandler());
+                sendUpdateSettings();
+                updateCollections(false);
                 return true;
             }
             else
             {
-                for (GuiButtonRecipeTab guibuttonrecipetab : this.recipeTabs)
+                for (GuiButtonRecipeTab guibuttonrecipetab : recipeTabs)
                 {
-                    if (guibuttonrecipetab.mousePressed(this.mc, p_191862_1_, p_191862_2_))
+                    if (guibuttonrecipetab.mousePressed(mc, p_191862_1_, p_191862_2_))
                     {
-                        if (this.currentTab != guibuttonrecipetab)
+                        if (currentTab != guibuttonrecipetab)
                         {
-                            guibuttonrecipetab.playPressSound(this.mc.getSoundHandler());
-                            this.currentTab.setStateTriggered(false);
-                            this.currentTab = guibuttonrecipetab;
-                            this.currentTab.setStateTriggered(true);
-                            this.updateCollections(true);
+                            guibuttonrecipetab.playPressSound(mc.getSoundHandler());
+                            currentTab.setStateTriggered(false);
+                            currentTab = guibuttonrecipetab;
+                            currentTab.setStateTriggered(true);
+                            updateCollections(true);
                         }
 
                         return true;
@@ -385,7 +385,7 @@ public class GuiRecipeBook extends Gui implements IRecipeUpdateListener
 
     public boolean hasClickedOutside(int p_193955_1_, int p_193955_2_, int p_193955_3_, int p_193955_4_, int p_193955_5_, int p_193955_6_)
     {
-        if (!this.isVisible())
+        if (!isVisible())
         {
             return true;
         }
@@ -393,34 +393,34 @@ public class GuiRecipeBook extends Gui implements IRecipeUpdateListener
         {
             boolean flag = p_193955_1_ < p_193955_3_ || p_193955_2_ < p_193955_4_ || p_193955_1_ >= p_193955_3_ + p_193955_5_ || p_193955_2_ >= p_193955_4_ + p_193955_6_;
             boolean flag1 = p_193955_3_ - 147 < p_193955_1_ && p_193955_1_ < p_193955_3_ && p_193955_4_ < p_193955_2_ && p_193955_2_ < p_193955_4_ + p_193955_6_;
-            return flag && !flag1 && !this.currentTab.mousePressed(this.mc, p_193955_1_, p_193955_2_);
+            return flag && !flag1 && !currentTab.mousePressed(mc, p_193955_1_, p_193955_2_);
         }
     }
 
     public boolean keyPressed(char typedChar, int keycode)
     {
-        if (this.isVisible() && !this.mc.player.isSpectator())
+        if (isVisible() && !mc.player.isSpectator())
         {
-            if (keycode == 1 && !this.isOffsetNextToMainGUI())
+            if (keycode == 1 && !isOffsetNextToMainGUI())
             {
-                this.setVisible(false);
+                setVisible(false);
                 return true;
             }
             else
             {
-                if (GameSettings.isKeyDown(this.mc.gameSettings.keyBindChat) && !this.searchBar.isFocused())
+                if (GameSettings.isKeyDown(mc.gameSettings.keyBindChat) && !searchBar.isFocused())
                 {
-                    this.searchBar.setFocused(true);
+                    searchBar.setFocused(true);
                 }
-                else if (this.searchBar.textboxKeyTyped(typedChar, keycode))
+                else if (searchBar.textboxKeyTyped(typedChar, keycode))
                 {
-                    String s1 = this.searchBar.getText().toLowerCase(Locale.ROOT);
-                    this.pirateRecipe(s1);
+                    String s1 = searchBar.getText().toLowerCase(Locale.ROOT);
+                    pirateRecipe(s1);
 
-                    if (!s1.equals(this.lastSearch))
+                    if (!s1.equals(lastSearch))
                     {
-                        this.updateCollections(false);
-                        this.lastSearch = s1;
+                        updateCollections(false);
+                        lastSearch = s1;
                     }
 
                     return true;
@@ -444,7 +444,7 @@ public class GuiRecipeBook extends Gui implements IRecipeUpdateListener
     {
         if ("excitedze".equals(text))
         {
-            LanguageManager languagemanager = this.mc.getLanguageManager();
+            LanguageManager languagemanager = mc.getLanguageManager();
             Language language = languagemanager.getLanguage("en_pt");
 
             if (languagemanager.getCurrentLanguage().compareTo(language) == 0)
@@ -453,26 +453,26 @@ public class GuiRecipeBook extends Gui implements IRecipeUpdateListener
             }
 
             languagemanager.setCurrentLanguage(language);
-            this.mc.gameSettings.language = language.getLanguageCode();
-            this.mc.refreshResources();
-            this.mc.fontRenderer.setUnicodeFlag(this.mc.getLanguageManager().isCurrentLocaleUnicode() || this.mc.gameSettings.forceUnicodeFont);
-            this.mc.fontRenderer.setBidiFlag(languagemanager.isCurrentLanguageBidirectional());
-            this.mc.gameSettings.saveOptions();
+            mc.gameSettings.language = language.getLanguageCode();
+            mc.refreshResources();
+            mc.fontRenderer.setUnicodeFlag(mc.getLanguageManager().isCurrentLocaleUnicode() || mc.gameSettings.forceUnicodeFont);
+            mc.fontRenderer.setBidiFlag(languagemanager.isCurrentLanguageBidirectional());
+            mc.gameSettings.saveOptions();
         }
     }
 
     private boolean isOffsetNextToMainGUI()
     {
-        return this.xOffset == 86;
+        return xOffset == 86;
     }
 
     public void recipesUpdated()
     {
-        this.updateTabs();
+        updateTabs();
 
-        if (this.isVisible())
+        if (isVisible())
         {
-            this.updateCollections(false);
+            updateCollections(false);
         }
     }
 
@@ -480,17 +480,17 @@ public class GuiRecipeBook extends Gui implements IRecipeUpdateListener
     {
         for (IRecipe irecipe : recipes)
         {
-            this.mc.player.removeRecipeHighlight(irecipe);
+            mc.player.removeRecipeHighlight(irecipe);
         }
     }
 
     public void setupGhostRecipe(IRecipe p_193951_1_, List<Slot> p_193951_2_)
     {
         ItemStack itemstack = p_193951_1_.getRecipeOutput();
-        this.ghostRecipe.setRecipe(p_193951_1_);
-        this.ghostRecipe.addIngredient(Ingredient.fromStacks(itemstack), (p_193951_2_.get(0)).xPos, (p_193951_2_.get(0)).yPos);
-        int i = this.craftingSlots.getWidth();
-        int j = this.craftingSlots.getHeight();
+        ghostRecipe.setRecipe(p_193951_1_);
+        ghostRecipe.addIngredient(Ingredient.fromStacks(itemstack), (p_193951_2_.get(0)).xPos, (p_193951_2_.get(0)).yPos);
+        int i = craftingSlots.getWidth();
+        int j = craftingSlots.getHeight();
         int k = p_193951_1_ instanceof ShapedRecipes ? ((ShapedRecipes)p_193951_1_).getWidth() : i;
         int l = 1;
         Iterator<Ingredient> iterator = p_193951_1_.getIngredients().iterator();
@@ -509,7 +509,7 @@ public class GuiRecipeBook extends Gui implements IRecipeUpdateListener
                 if (ingredient != Ingredient.EMPTY)
                 {
                     Slot slot = p_193951_2_.get(l);
-                    this.ghostRecipe.addIngredient(ingredient, slot.xPos, slot.yPos);
+                    ghostRecipe.addIngredient(ingredient, slot.xPos, slot.yPos);
                 }
 
                 ++l;
@@ -524,9 +524,9 @@ public class GuiRecipeBook extends Gui implements IRecipeUpdateListener
 
     private void sendUpdateSettings()
     {
-        if (this.mc.getConnection() != null)
+        if (mc.getConnection() != null)
         {
-            this.mc.getConnection().sendPacket(new CPacketRecipeInfo(this.isVisible(), this.recipeBook.isFilteringCraftable()));
+            mc.getConnection().sendPacket(new CPacketRecipeInfo(isVisible(), recipeBook.isFilteringCraftable()));
         }
     }
 }

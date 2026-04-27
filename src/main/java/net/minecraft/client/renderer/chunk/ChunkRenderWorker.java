@@ -34,18 +34,18 @@ public class ChunkRenderWorker implements Runnable
 
     public ChunkRenderWorker(ChunkRenderDispatcher chunkRenderDispatcherIn, @Nullable RegionRenderCacheBuilder regionRenderCacheBuilderIn)
     {
-        this.shouldRun = true;
-        this.chunkRenderDispatcher = chunkRenderDispatcherIn;
-        this.regionRenderCacheBuilder = regionRenderCacheBuilderIn;
+        shouldRun = true;
+        chunkRenderDispatcher = chunkRenderDispatcherIn;
+        regionRenderCacheBuilder = regionRenderCacheBuilderIn;
     }
 
     public void run()
     {
-        while (this.shouldRun)
+        while (shouldRun)
         {
             try
             {
-                this.processTask(this.chunkRenderDispatcher.getNextChunkUpdate());
+                processTask(chunkRenderDispatcher.getNextChunkUpdate());
             }
             catch (InterruptedException var3)
             {
@@ -88,7 +88,7 @@ public class ChunkRenderWorker implements Runnable
                 World world = generator.getRenderChunk().getWorld();
                 BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos(blockpos1);
 
-                if (!this.isChunkExisting(blockpos$mutableblockpos.setPos(blockpos1).move(EnumFacing.WEST, 16), world) || !this.isChunkExisting(blockpos$mutableblockpos.setPos(blockpos1).move(EnumFacing.NORTH, 16), world) || !this.isChunkExisting(blockpos$mutableblockpos.setPos(blockpos1).move(EnumFacing.EAST, 16), world) || !this.isChunkExisting(blockpos$mutableblockpos.setPos(blockpos1).move(EnumFacing.SOUTH, 16), world))
+                if (!isChunkExisting(blockpos$mutableblockpos.setPos(blockpos1).move(EnumFacing.WEST, 16), world) || !isChunkExisting(blockpos$mutableblockpos.setPos(blockpos1).move(EnumFacing.NORTH, 16), world) || !isChunkExisting(blockpos$mutableblockpos.setPos(blockpos1).move(EnumFacing.EAST, 16), world) || !isChunkExisting(blockpos$mutableblockpos.setPos(blockpos1).move(EnumFacing.SOUTH, 16), world))
                 {
                     return;
                 }
@@ -109,7 +109,7 @@ public class ChunkRenderWorker implements Runnable
         }
         else
         {
-            generator.setRegionRenderCacheBuilder(this.getRegionRenderCacheBuilder());
+            generator.setRegionRenderCacheBuilder(getRegionRenderCacheBuilder());
             float f = (float)entity.posX;
             float f1 = (float)entity.posY + entity.getEyeHeight();
             float f2 = (float)entity.posZ;
@@ -135,7 +135,7 @@ public class ChunkRenderWorker implements Runnable
                         LOGGER.warn("Chunk render task was {} when I expected it to be compiling; aborting task", (Object)generator.getStatus());
                     }
 
-                    this.freeRenderBuilder(generator);
+                    freeRenderBuilder(generator);
                     return;
                 }
 
@@ -155,13 +155,13 @@ public class ChunkRenderWorker implements Runnable
                 {
                     if (compiledchunk.isLayerStarted(blockrenderlayer))
                     {
-                        arraylist.add(this.chunkRenderDispatcher.uploadChunk(blockrenderlayer, generator.getRegionRenderCacheBuilder().getWorldRendererByLayer(blockrenderlayer), generator.getRenderChunk(), compiledchunk, generator.getDistanceSq()));
+                        arraylist.add(chunkRenderDispatcher.uploadChunk(blockrenderlayer, generator.getRegionRenderCacheBuilder().getWorldRendererByLayer(blockrenderlayer), generator.getRenderChunk(), compiledchunk, generator.getDistanceSq()));
                     }
                 }
             }
             else if (chunkcompiletaskgenerator$type == ChunkCompileTaskGenerator.Type.RESORT_TRANSPARENCY)
             {
-                arraylist.add(this.chunkRenderDispatcher.uploadChunk(BlockRenderLayer.TRANSLUCENT, generator.getRegionRenderCacheBuilder().getWorldRendererByLayer(BlockRenderLayer.TRANSLUCENT), generator.getRenderChunk(), compiledchunk, generator.getDistanceSq()));
+                arraylist.add(chunkRenderDispatcher.uploadChunk(BlockRenderLayer.TRANSLUCENT, generator.getRegionRenderCacheBuilder().getWorldRendererByLayer(BlockRenderLayer.TRANSLUCENT), generator.getRenderChunk(), compiledchunk, generator.getDistanceSq()));
             }
 
             final ListenableFuture<List<Object>> listenablefuture = Futures.allAsList(arraylist);
@@ -176,7 +176,7 @@ public class ChunkRenderWorker implements Runnable
             {
                 public void onSuccess(@Nullable List<Object> p_onSuccess_1_)
                 {
-                    ChunkRenderWorker.this.freeRenderBuilder(generator);
+                    freeRenderBuilder(generator);
                     generator.getLock().lock();
                     label49:
                     {
@@ -204,7 +204,7 @@ public class ChunkRenderWorker implements Runnable
                 }
                 public void onFailure(Throwable p_onFailure_1_)
                 {
-                    ChunkRenderWorker.this.freeRenderBuilder(generator);
+                    freeRenderBuilder(generator);
 
                     if (!(p_onFailure_1_ instanceof CancellationException) && !(p_onFailure_1_ instanceof InterruptedException))
                     {
@@ -222,19 +222,19 @@ public class ChunkRenderWorker implements Runnable
 
     private RegionRenderCacheBuilder getRegionRenderCacheBuilder() throws InterruptedException
     {
-        return this.regionRenderCacheBuilder != null ? this.regionRenderCacheBuilder : this.chunkRenderDispatcher.allocateRenderBuilder();
+        return regionRenderCacheBuilder != null ? regionRenderCacheBuilder : chunkRenderDispatcher.allocateRenderBuilder();
     }
 
     private void freeRenderBuilder(ChunkCompileTaskGenerator taskGenerator)
     {
-        if (this.regionRenderCacheBuilder == null)
+        if (regionRenderCacheBuilder == null)
         {
-            this.chunkRenderDispatcher.freeRenderBuilder(taskGenerator.getRegionRenderCacheBuilder());
+            chunkRenderDispatcher.freeRenderBuilder(taskGenerator.getRegionRenderCacheBuilder());
         }
     }
 
     public void notifyToStop()
     {
-        this.shouldRun = false;
+        shouldRun = false;
     }
 }

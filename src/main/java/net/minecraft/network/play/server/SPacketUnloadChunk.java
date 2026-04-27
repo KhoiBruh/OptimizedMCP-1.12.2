@@ -16,8 +16,8 @@ public class SPacketUnloadChunk implements Packet<INetHandlerPlayClient>
 
     public SPacketUnloadChunk(int xIn, int zIn)
     {
-        this.x = xIn;
-        this.z = zIn;
+        x = xIn;
+        z = zIn;
     }
 
     /**
@@ -25,8 +25,8 @@ public class SPacketUnloadChunk implements Packet<INetHandlerPlayClient>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.x = buf.readInt();
-        this.z = buf.readInt();
+        x = buf.readInt();
+        z = buf.readInt();
     }
 
     /**
@@ -34,8 +34,8 @@ public class SPacketUnloadChunk implements Packet<INetHandlerPlayClient>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeInt(this.x);
-        buf.writeInt(this.z);
+        buf.writeInt(x);
+        buf.writeInt(z);
     }
 
     /**
@@ -48,11 +48,11 @@ public class SPacketUnloadChunk implements Packet<INetHandlerPlayClient>
 
     public int getX()
     {
-        return this.x;
+        return x;
     }
 
     public int getZ()
     {
-        return this.z;
+        return z;
     }
 }

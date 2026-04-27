@@ -11,13 +11,13 @@ public class SoundRegistry extends RegistrySimple<ResourceLocation, SoundEventAc
 
     protected Map<ResourceLocation, SoundEventAccessor> createUnderlyingMap()
     {
-        this.soundRegistry = Maps.<ResourceLocation, SoundEventAccessor>newHashMap();
-        return this.soundRegistry;
+        soundRegistry = Maps.<ResourceLocation, SoundEventAccessor>newHashMap();
+        return soundRegistry;
     }
 
     public void add(SoundEventAccessor accessor)
     {
-        this.putObject(accessor.getLocation(), accessor);
+        putObject(accessor.getLocation(), accessor);
     }
 
     /**
@@ -25,6 +25,6 @@ public class SoundRegistry extends RegistrySimple<ResourceLocation, SoundEventAc
      */
     public void clearMap()
     {
-        this.soundRegistry.clear();
+        soundRegistry.clear();
     }
 }

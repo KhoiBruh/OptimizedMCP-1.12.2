@@ -37,22 +37,22 @@ public class TileEntitySign extends TileEntity
 
         for (int i = 0; i < 4; ++i)
         {
-            String s = ITextComponent.Serializer.componentToJson(this.signText[i]);
+            String s = ITextComponent.Serializer.componentToJson(signText[i]);
             compound.setString("Text" + (i + 1), s);
         }
 
-        this.stats.writeStatsToNBT(compound);
+        stats.writeStatsToNBT(compound);
         return compound;
     }
 
     protected void setWorldCreate(World worldIn)
     {
-        this.setWorld(worldIn);
+        setWorld(worldIn);
     }
 
     public void readFromNBT(NBTTagCompound compound)
     {
-        this.isEditable = false;
+        isEditable = false;
         super.readFromNBT(compound);
         ICommandSender icommandsender = new ICommandSender()
         {
@@ -66,19 +66,19 @@ public class TileEntitySign extends TileEntity
             }
             public BlockPos getPosition()
             {
-                return TileEntitySign.this.pos;
+                return pos;
             }
             public Vec3d getPositionVector()
             {
-                return new Vec3d((double)TileEntitySign.this.pos.getX() + 0.5D, (double)TileEntitySign.this.pos.getY() + 0.5D, (double)TileEntitySign.this.pos.getZ() + 0.5D);
+                return new Vec3d((double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D);
             }
             public World getEntityWorld()
             {
-                return TileEntitySign.this.world;
+                return world;
             }
             public MinecraftServer getServer()
             {
-                return TileEntitySign.this.world.getMinecraftServer();
+                return world.getMinecraftServer();
             }
         };
 
@@ -89,26 +89,26 @@ public class TileEntitySign extends TileEntity
 
             try
             {
-                this.signText[i] = TextComponentUtils.processComponent(icommandsender, itextcomponent, (Entity)null);
+                signText[i] = TextComponentUtils.processComponent(icommandsender, itextcomponent, (Entity)null);
             }
             catch (CommandException var7)
             {
-                this.signText[i] = itextcomponent;
+                signText[i] = itextcomponent;
             }
         }
 
-        this.stats.readStatsFromNBT(compound);
+        stats.readStatsFromNBT(compound);
     }
 
     @Nullable
     public SPacketUpdateTileEntity getUpdatePacket()
     {
-        return new SPacketUpdateTileEntity(this.pos, 9, this.getUpdateTag());
+        return new SPacketUpdateTileEntity(pos, 9, getUpdateTag());
     }
 
     public NBTTagCompound getUpdateTag()
     {
-        return this.writeToNBT(new NBTTagCompound());
+        return writeToNBT(new NBTTagCompound());
     }
 
     public boolean onlyOpsCanSetNbt()
@@ -118,7 +118,7 @@ public class TileEntitySign extends TileEntity
 
     public boolean getIsEditable()
     {
-        return this.isEditable;
+        return isEditable;
     }
 
     /**
@@ -126,22 +126,22 @@ public class TileEntitySign extends TileEntity
      */
     public void setEditable(boolean isEditableIn)
     {
-        this.isEditable = isEditableIn;
+        isEditable = isEditableIn;
 
         if (!isEditableIn)
         {
-            this.player = null;
+            player = null;
         }
     }
 
     public void setPlayer(EntityPlayer playerIn)
     {
-        this.player = playerIn;
+        player = playerIn;
     }
 
     public EntityPlayer getPlayer()
     {
-        return this.player;
+        return player;
     }
 
     public boolean executeCommand(final EntityPlayer playerIn)
@@ -165,11 +165,11 @@ public class TileEntitySign extends TileEntity
             }
             public BlockPos getPosition()
             {
-                return TileEntitySign.this.pos;
+                return pos;
             }
             public Vec3d getPositionVector()
             {
-                return new Vec3d((double)TileEntitySign.this.pos.getX() + 0.5D, (double)TileEntitySign.this.pos.getY() + 0.5D, (double)TileEntitySign.this.pos.getZ() + 0.5D);
+                return new Vec3d((double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D);
             }
             public World getEntityWorld()
             {
@@ -185,9 +185,9 @@ public class TileEntitySign extends TileEntity
             }
             public void setCommandStat(CommandResultStats.Type type, int amount)
             {
-                if (TileEntitySign.this.world != null && !TileEntitySign.this.world.isRemote)
+                if (world != null && !world.isRemote)
                 {
-                    TileEntitySign.this.stats.setCommandStatForSender(TileEntitySign.this.world.getMinecraftServer(), this, type, amount);
+                    stats.setCommandStatForSender(world.getMinecraftServer(), this, type, amount);
                 }
             }
             public MinecraftServer getServer()
@@ -196,7 +196,7 @@ public class TileEntitySign extends TileEntity
             }
         };
 
-        for (ITextComponent itextcomponent : this.signText)
+        for (ITextComponent itextcomponent : signText)
         {
             Style style = itextcomponent == null ? null : itextcomponent.getStyle();
 
@@ -216,6 +216,6 @@ public class TileEntitySign extends TileEntity
 
     public CommandResultStats getStats()
     {
-        return this.stats;
+        return stats;
     }
 }

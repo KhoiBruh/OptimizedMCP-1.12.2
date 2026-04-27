@@ -66,7 +66,7 @@ public class CommandScoreboard extends CommandBase
      */
     public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException
     {
-        if (!this.handleUserWildcards(server, sender, args))
+        if (!handleUserWildcards(server, sender, args))
         {
             if (args.length < 1)
             {
@@ -83,7 +83,7 @@ public class CommandScoreboard extends CommandBase
 
                     if ("list".equalsIgnoreCase(args[1]))
                     {
-                        this.listObjectives(sender, server);
+                        listObjectives(sender, server);
                     }
                     else if ("add".equalsIgnoreCase(args[1]))
                     {
@@ -92,7 +92,7 @@ public class CommandScoreboard extends CommandBase
                             throw new WrongUsageException("commands.scoreboard.objectives.add.usage", new Object[0]);
                         }
 
-                        this.addObjective(sender, args, 2, server);
+                        addObjective(sender, args, 2, server);
                     }
                     else if ("remove".equalsIgnoreCase(args[1]))
                     {
@@ -101,7 +101,7 @@ public class CommandScoreboard extends CommandBase
                             throw new WrongUsageException("commands.scoreboard.objectives.remove.usage", new Object[0]);
                         }
 
-                        this.removeObjective(sender, args[2], server);
+                        removeObjective(sender, args[2], server);
                     }
                     else
                     {
@@ -115,7 +115,7 @@ public class CommandScoreboard extends CommandBase
                             throw new WrongUsageException("commands.scoreboard.objectives.setdisplay.usage", new Object[0]);
                         }
 
-                        this.setDisplayObjective(sender, args, 2, server);
+                        setDisplayObjective(sender, args, 2, server);
                     }
                 }
                 else if ("players".equalsIgnoreCase(args[0]))
@@ -132,7 +132,7 @@ public class CommandScoreboard extends CommandBase
                             throw new WrongUsageException("commands.scoreboard.players.list.usage", new Object[0]);
                         }
 
-                        this.listPlayers(sender, args, 2, server);
+                        listPlayers(sender, args, 2, server);
                     }
                     else if ("add".equalsIgnoreCase(args[1]))
                     {
@@ -141,7 +141,7 @@ public class CommandScoreboard extends CommandBase
                             throw new WrongUsageException("commands.scoreboard.players.add.usage", new Object[0]);
                         }
 
-                        this.addPlayerScore(sender, args, 2, server);
+                        addPlayerScore(sender, args, 2, server);
                     }
                     else if ("remove".equalsIgnoreCase(args[1]))
                     {
@@ -150,7 +150,7 @@ public class CommandScoreboard extends CommandBase
                             throw new WrongUsageException("commands.scoreboard.players.remove.usage", new Object[0]);
                         }
 
-                        this.addPlayerScore(sender, args, 2, server);
+                        addPlayerScore(sender, args, 2, server);
                     }
                     else if ("set".equalsIgnoreCase(args[1]))
                     {
@@ -159,7 +159,7 @@ public class CommandScoreboard extends CommandBase
                             throw new WrongUsageException("commands.scoreboard.players.set.usage", new Object[0]);
                         }
 
-                        this.addPlayerScore(sender, args, 2, server);
+                        addPlayerScore(sender, args, 2, server);
                     }
                     else if ("reset".equalsIgnoreCase(args[1]))
                     {
@@ -168,7 +168,7 @@ public class CommandScoreboard extends CommandBase
                             throw new WrongUsageException("commands.scoreboard.players.reset.usage", new Object[0]);
                         }
 
-                        this.resetPlayerScore(sender, args, 2, server);
+                        resetPlayerScore(sender, args, 2, server);
                     }
                     else if ("enable".equalsIgnoreCase(args[1]))
                     {
@@ -177,7 +177,7 @@ public class CommandScoreboard extends CommandBase
                             throw new WrongUsageException("commands.scoreboard.players.enable.usage", new Object[0]);
                         }
 
-                        this.enablePlayerTrigger(sender, args, 2, server);
+                        enablePlayerTrigger(sender, args, 2, server);
                     }
                     else if ("test".equalsIgnoreCase(args[1]))
                     {
@@ -186,7 +186,7 @@ public class CommandScoreboard extends CommandBase
                             throw new WrongUsageException("commands.scoreboard.players.test.usage", new Object[0]);
                         }
 
-                        this.testPlayerScore(sender, args, 2, server);
+                        testPlayerScore(sender, args, 2, server);
                     }
                     else if ("operation".equalsIgnoreCase(args[1]))
                     {
@@ -195,7 +195,7 @@ public class CommandScoreboard extends CommandBase
                             throw new WrongUsageException("commands.scoreboard.players.operation.usage", new Object[0]);
                         }
 
-                        this.applyPlayerOperation(sender, args, 2, server);
+                        applyPlayerOperation(sender, args, 2, server);
                     }
                     else
                     {
@@ -209,7 +209,7 @@ public class CommandScoreboard extends CommandBase
                             throw new WrongUsageException("commands.scoreboard.players.tag.usage", new Object[0]);
                         }
 
-                        this.applyPlayerTag(server, sender, args, 2);
+                        applyPlayerTag(server, sender, args, 2);
                     }
                 }
                 else
@@ -231,7 +231,7 @@ public class CommandScoreboard extends CommandBase
                             throw new WrongUsageException("commands.scoreboard.teams.list.usage", new Object[0]);
                         }
 
-                        this.listTeams(sender, args, 2, server);
+                        listTeams(sender, args, 2, server);
                     }
                     else if ("add".equalsIgnoreCase(args[1]))
                     {
@@ -240,7 +240,7 @@ public class CommandScoreboard extends CommandBase
                             throw new WrongUsageException("commands.scoreboard.teams.add.usage", new Object[0]);
                         }
 
-                        this.addTeam(sender, args, 2, server);
+                        addTeam(sender, args, 2, server);
                     }
                     else if ("remove".equalsIgnoreCase(args[1]))
                     {
@@ -249,7 +249,7 @@ public class CommandScoreboard extends CommandBase
                             throw new WrongUsageException("commands.scoreboard.teams.remove.usage", new Object[0]);
                         }
 
-                        this.removeTeam(sender, args, 2, server);
+                        removeTeam(sender, args, 2, server);
                     }
                     else if ("empty".equalsIgnoreCase(args[1]))
                     {
@@ -258,7 +258,7 @@ public class CommandScoreboard extends CommandBase
                             throw new WrongUsageException("commands.scoreboard.teams.empty.usage", new Object[0]);
                         }
 
-                        this.emptyTeam(sender, args, 2, server);
+                        emptyTeam(sender, args, 2, server);
                     }
                     else if ("join".equalsIgnoreCase(args[1]))
                     {
@@ -267,7 +267,7 @@ public class CommandScoreboard extends CommandBase
                             throw new WrongUsageException("commands.scoreboard.teams.join.usage", new Object[0]);
                         }
 
-                        this.joinTeam(sender, args, 2, server);
+                        joinTeam(sender, args, 2, server);
                     }
                     else if ("leave".equalsIgnoreCase(args[1]))
                     {
@@ -276,7 +276,7 @@ public class CommandScoreboard extends CommandBase
                             throw new WrongUsageException("commands.scoreboard.teams.leave.usage", new Object[0]);
                         }
 
-                        this.leaveTeam(sender, args, 2, server);
+                        leaveTeam(sender, args, 2, server);
                     }
                     else
                     {
@@ -290,7 +290,7 @@ public class CommandScoreboard extends CommandBase
                             throw new WrongUsageException("commands.scoreboard.teams.option.usage", new Object[0]);
                         }
 
-                        this.setTeamOption(sender, args, 2, server);
+                        setTeamOption(sender, args, 2, server);
                     }
                 }
             }
@@ -303,7 +303,7 @@ public class CommandScoreboard extends CommandBase
 
         for (int j = 0; j < args.length; ++j)
         {
-            if (this.isUsernameIndex(args, j) && "*".equals(args[j]))
+            if (isUsernameIndex(args, j) && "*".equals(args[j]))
             {
                 if (i >= 0)
                 {
@@ -320,7 +320,7 @@ public class CommandScoreboard extends CommandBase
         }
         else
         {
-            List<String> list1 = Lists.newArrayList(this.getScoreboard(server).getObjectiveNames());
+            List<String> list1 = Lists.newArrayList(getScoreboard(server).getObjectiveNames());
             String s = args[i];
             List<String> list = Lists.<String>newArrayList();
 
@@ -330,7 +330,7 @@ public class CommandScoreboard extends CommandBase
 
                 try
                 {
-                    this.execute(server, sender, args);
+                    execute(server, sender, args);
                     list.add(s1);
                 }
                 catch (CommandException commandexception)
@@ -362,7 +362,7 @@ public class CommandScoreboard extends CommandBase
 
     protected ScoreObjective convertToObjective(String name, boolean forWrite, MinecraftServer server) throws CommandException
     {
-        Scoreboard scoreboard = this.getScoreboard(server);
+        Scoreboard scoreboard = getScoreboard(server);
         ScoreObjective scoreobjective = scoreboard.getObjective(name);
 
         if (scoreobjective == null)
@@ -381,7 +381,7 @@ public class CommandScoreboard extends CommandBase
 
     protected ScorePlayerTeam convertToTeam(String name, MinecraftServer server) throws CommandException
     {
-        Scoreboard scoreboard = this.getScoreboard(server);
+        Scoreboard scoreboard = getScoreboard(server);
         ScorePlayerTeam scoreplayerteam = scoreboard.getTeam(name);
 
         if (scoreplayerteam == null)
@@ -398,7 +398,7 @@ public class CommandScoreboard extends CommandBase
     {
         String s = commandArgs[argStartIndex++];
         String s1 = commandArgs[argStartIndex++];
-        Scoreboard scoreboard = this.getScoreboard(server);
+        Scoreboard scoreboard = getScoreboard(server);
         IScoreCriteria iscorecriteria = IScoreCriteria.INSTANCES.get(s1);
 
         if (iscorecriteria == null)
@@ -449,7 +449,7 @@ public class CommandScoreboard extends CommandBase
     protected void addTeam(ICommandSender sender, String[] args, int startIndex, MinecraftServer server) throws CommandException
     {
         String s = args[startIndex++];
-        Scoreboard scoreboard = this.getScoreboard(server);
+        Scoreboard scoreboard = getScoreboard(server);
 
         if (scoreboard.getTeam(s) != null)
         {
@@ -494,7 +494,7 @@ public class CommandScoreboard extends CommandBase
 
     protected void setTeamOption(ICommandSender sender, String[] args, int startIndex, MinecraftServer server) throws CommandException
     {
-        ScorePlayerTeam scoreplayerteam = this.convertToTeam(args[startIndex++], server);
+        ScorePlayerTeam scoreplayerteam = convertToTeam(args[startIndex++], server);
 
         if (scoreplayerteam != null)
         {
@@ -609,8 +609,8 @@ public class CommandScoreboard extends CommandBase
 
     protected void removeTeam(ICommandSender sender, String[] args, int startIndex, MinecraftServer server) throws CommandException
     {
-        Scoreboard scoreboard = this.getScoreboard(server);
-        ScorePlayerTeam scoreplayerteam = this.convertToTeam(args[startIndex], server);
+        Scoreboard scoreboard = getScoreboard(server);
+        ScorePlayerTeam scoreplayerteam = convertToTeam(args[startIndex], server);
 
         if (scoreplayerteam != null)
         {
@@ -621,11 +621,11 @@ public class CommandScoreboard extends CommandBase
 
     protected void listTeams(ICommandSender sender, String[] args, int startIndex, MinecraftServer server) throws CommandException
     {
-        Scoreboard scoreboard = this.getScoreboard(server);
+        Scoreboard scoreboard = getScoreboard(server);
 
         if (args.length > startIndex)
         {
-            ScorePlayerTeam scoreplayerteam = this.convertToTeam(args[startIndex], server);
+            ScorePlayerTeam scoreplayerteam = convertToTeam(args[startIndex], server);
 
             if (scoreplayerteam == null)
             {
@@ -668,7 +668,7 @@ public class CommandScoreboard extends CommandBase
 
     protected void joinTeam(ICommandSender sender, String[] args, int startIndex, MinecraftServer server) throws CommandException
     {
-        Scoreboard scoreboard = this.getScoreboard(server);
+        Scoreboard scoreboard = getScoreboard(server);
         String s = args[startIndex++];
         Set<String> set = Sets.<String>newHashSet();
         Set<String> set1 = Sets.<String>newHashSet();
@@ -738,7 +738,7 @@ public class CommandScoreboard extends CommandBase
 
     protected void leaveTeam(ICommandSender sender, String[] args, int startIndex, MinecraftServer server) throws CommandException
     {
-        Scoreboard scoreboard = this.getScoreboard(server);
+        Scoreboard scoreboard = getScoreboard(server);
         Set<String> set = Sets.<String>newHashSet();
         Set<String> set1 = Sets.<String>newHashSet();
 
@@ -807,8 +807,8 @@ public class CommandScoreboard extends CommandBase
 
     protected void emptyTeam(ICommandSender sender, String[] args, int startIndex, MinecraftServer server) throws CommandException
     {
-        Scoreboard scoreboard = this.getScoreboard(server);
-        ScorePlayerTeam scoreplayerteam = this.convertToTeam(args[startIndex], server);
+        Scoreboard scoreboard = getScoreboard(server);
+        ScorePlayerTeam scoreplayerteam = convertToTeam(args[startIndex], server);
 
         if (scoreplayerteam != null)
         {
@@ -833,15 +833,15 @@ public class CommandScoreboard extends CommandBase
 
     protected void removeObjective(ICommandSender sender, String name, MinecraftServer server) throws CommandException
     {
-        Scoreboard scoreboard = this.getScoreboard(server);
-        ScoreObjective scoreobjective = this.convertToObjective(name, false, server);
+        Scoreboard scoreboard = getScoreboard(server);
+        ScoreObjective scoreobjective = convertToObjective(name, false, server);
         scoreboard.removeObjective(scoreobjective);
         notifyCommandListener(sender, this, "commands.scoreboard.objectives.remove.success", new Object[] {name});
     }
 
     protected void listObjectives(ICommandSender sender, MinecraftServer server) throws CommandException
     {
-        Scoreboard scoreboard = this.getScoreboard(server);
+        Scoreboard scoreboard = getScoreboard(server);
         Collection<ScoreObjective> collection = scoreboard.getScoreObjectives();
 
         if (collection.isEmpty())
@@ -863,14 +863,14 @@ public class CommandScoreboard extends CommandBase
 
     protected void setDisplayObjective(ICommandSender sender, String[] args, int startIndex, MinecraftServer server) throws CommandException
     {
-        Scoreboard scoreboard = this.getScoreboard(server);
+        Scoreboard scoreboard = getScoreboard(server);
         String s = args[startIndex++];
         int i = Scoreboard.getObjectiveDisplaySlotNumber(s);
         ScoreObjective scoreobjective = null;
 
         if (args.length == 4)
         {
-            scoreobjective = this.convertToObjective(args[startIndex], false, server);
+            scoreobjective = convertToObjective(args[startIndex], false, server);
         }
 
         if (i < 0)
@@ -894,7 +894,7 @@ public class CommandScoreboard extends CommandBase
 
     protected void listPlayers(ICommandSender sender, String[] args, int startIndex, MinecraftServer server) throws CommandException
     {
-        Scoreboard scoreboard = this.getScoreboard(server);
+        Scoreboard scoreboard = getScoreboard(server);
 
         if (args.length > startIndex)
         {
@@ -945,7 +945,7 @@ public class CommandScoreboard extends CommandBase
         }
         else
         {
-            ScoreObjective scoreobjective = this.convertToObjective(args[startIndex++], true, server);
+            ScoreObjective scoreobjective = convertToObjective(args[startIndex++], true, server);
             int j = "set".equalsIgnoreCase(s) ? parseInt(args[startIndex++]) : parseInt(args[startIndex++], 0);
 
             if (args.length > startIndex)
@@ -968,7 +968,7 @@ public class CommandScoreboard extends CommandBase
                 }
             }
 
-            Scoreboard scoreboard = this.getScoreboard(server);
+            Scoreboard scoreboard = getScoreboard(server);
             Score score = scoreboard.getOrCreateScore(s1, scoreobjective);
 
             if ("set".equalsIgnoreCase(s))
@@ -990,12 +990,12 @@ public class CommandScoreboard extends CommandBase
 
     protected void resetPlayerScore(ICommandSender sender, String[] args, int startIndex, MinecraftServer server) throws CommandException
     {
-        Scoreboard scoreboard = this.getScoreboard(server);
+        Scoreboard scoreboard = getScoreboard(server);
         String s = getEntityName(server, sender, args[startIndex++]);
 
         if (args.length > startIndex)
         {
-            ScoreObjective scoreobjective = this.convertToObjective(args[startIndex++], false, server);
+            ScoreObjective scoreobjective = convertToObjective(args[startIndex++], false, server);
             scoreboard.removeObjectiveFromEntity(s, scoreobjective);
             notifyCommandListener(sender, this, "commands.scoreboard.players.resetscore.success", new Object[] {scoreobjective.getName(), s});
         }
@@ -1008,7 +1008,7 @@ public class CommandScoreboard extends CommandBase
 
     protected void enablePlayerTrigger(ICommandSender sender, String[] args, int startIndex, MinecraftServer server) throws CommandException
     {
-        Scoreboard scoreboard = this.getScoreboard(server);
+        Scoreboard scoreboard = getScoreboard(server);
         String s = getPlayerName(server, sender, args[startIndex++]);
 
         if (s.length() > 40)
@@ -1017,7 +1017,7 @@ public class CommandScoreboard extends CommandBase
         }
         else
         {
-            ScoreObjective scoreobjective = this.convertToObjective(args[startIndex], false, server);
+            ScoreObjective scoreobjective = convertToObjective(args[startIndex], false, server);
 
             if (scoreobjective.getCriteria() != IScoreCriteria.TRIGGER)
             {
@@ -1034,7 +1034,7 @@ public class CommandScoreboard extends CommandBase
 
     protected void testPlayerScore(ICommandSender sender, String[] args, int startIndex, MinecraftServer server) throws CommandException
     {
-        Scoreboard scoreboard = this.getScoreboard(server);
+        Scoreboard scoreboard = getScoreboard(server);
         String s = getEntityName(server, sender, args[startIndex++]);
 
         if (s.length() > 40)
@@ -1043,7 +1043,7 @@ public class CommandScoreboard extends CommandBase
         }
         else
         {
-            ScoreObjective scoreobjective = this.convertToObjective(args[startIndex++], false, server);
+            ScoreObjective scoreobjective = convertToObjective(args[startIndex++], false, server);
 
             if (!scoreboard.entityHasObjective(s, scoreobjective))
             {
@@ -1070,12 +1070,12 @@ public class CommandScoreboard extends CommandBase
 
     protected void applyPlayerOperation(ICommandSender sender, String[] args, int startIndex, MinecraftServer server) throws CommandException
     {
-        Scoreboard scoreboard = this.getScoreboard(server);
+        Scoreboard scoreboard = getScoreboard(server);
         String s = getEntityName(server, sender, args[startIndex++]);
-        ScoreObjective scoreobjective = this.convertToObjective(args[startIndex++], true, server);
+        ScoreObjective scoreobjective = convertToObjective(args[startIndex++], true, server);
         String s1 = args[startIndex++];
         String s2 = getEntityName(server, sender, args[startIndex++]);
-        ScoreObjective scoreobjective1 = this.convertToObjective(args[startIndex], false, server);
+        ScoreObjective scoreobjective1 = convertToObjective(args[startIndex], false, server);
 
         if (s.length() > 40)
         {
@@ -1250,7 +1250,7 @@ public class CommandScoreboard extends CommandBase
                 {
                     if (args.length == 3)
                     {
-                        return getListOfStringsMatchingLastWord(args, this.getObjectiveNames(false, server));
+                        return getListOfStringsMatchingLastWord(args, getObjectiveNames(false, server));
                     }
                 }
                 else if ("setdisplay".equalsIgnoreCase(args[1]))
@@ -1262,7 +1262,7 @@ public class CommandScoreboard extends CommandBase
 
                     if (args.length == 4)
                     {
-                        return getListOfStringsMatchingLastWord(args, this.getObjectiveNames(false, server));
+                        return getListOfStringsMatchingLastWord(args, getObjectiveNames(false, server));
                     }
                 }
             }
@@ -1284,7 +1284,7 @@ public class CommandScoreboard extends CommandBase
 
                         if (args.length == 4)
                         {
-                            return getListOfStringsMatchingLastWord(args, this.getTriggerNames(server));
+                            return getListOfStringsMatchingLastWord(args, getTriggerNames(server));
                         }
                     }
                     else if (!"list".equalsIgnoreCase(args[1]) && !"test".equalsIgnoreCase(args[1]))
@@ -1293,12 +1293,12 @@ public class CommandScoreboard extends CommandBase
                         {
                             if (args.length == 3)
                             {
-                                return getListOfStringsMatchingLastWord(args, this.getScoreboard(server).getObjectiveNames());
+                                return getListOfStringsMatchingLastWord(args, getScoreboard(server).getObjectiveNames());
                             }
 
                             if (args.length == 4)
                             {
-                                return getListOfStringsMatchingLastWord(args, this.getObjectiveNames(true, server));
+                                return getListOfStringsMatchingLastWord(args, getObjectiveNames(true, server));
                             }
 
                             if (args.length == 5)
@@ -1313,14 +1313,14 @@ public class CommandScoreboard extends CommandBase
 
                             if (args.length == 7)
                             {
-                                return getListOfStringsMatchingLastWord(args, this.getObjectiveNames(false, server));
+                                return getListOfStringsMatchingLastWord(args, getObjectiveNames(false, server));
                             }
                         }
                         else if ("tag".equalsIgnoreCase(args[1]))
                         {
                             if (args.length == 3)
                             {
-                                return getListOfStringsMatchingLastWord(args, this.getScoreboard(server).getObjectiveNames());
+                                return getListOfStringsMatchingLastWord(args, getScoreboard(server).getObjectiveNames());
                             }
 
                             if (args.length == 4)
@@ -1333,12 +1333,12 @@ public class CommandScoreboard extends CommandBase
                     {
                         if (args.length == 3)
                         {
-                            return getListOfStringsMatchingLastWord(args, this.getScoreboard(server).getObjectiveNames());
+                            return getListOfStringsMatchingLastWord(args, getScoreboard(server).getObjectiveNames());
                         }
 
                         if (args.length == 4 && "test".equalsIgnoreCase(args[1]))
                         {
-                            return getListOfStringsMatchingLastWord(args, this.getObjectiveNames(false, server));
+                            return getListOfStringsMatchingLastWord(args, getObjectiveNames(false, server));
                         }
                     }
                 }
@@ -1351,7 +1351,7 @@ public class CommandScoreboard extends CommandBase
 
                     if (args.length == 4)
                     {
-                        return getListOfStringsMatchingLastWord(args, this.getObjectiveNames(true, server));
+                        return getListOfStringsMatchingLastWord(args, getObjectiveNames(true, server));
                     }
                 }
             }
@@ -1366,7 +1366,7 @@ public class CommandScoreboard extends CommandBase
                 {
                     if (args.length == 3)
                     {
-                        return getListOfStringsMatchingLastWord(args, this.getScoreboard(server).getTeamNames());
+                        return getListOfStringsMatchingLastWord(args, getScoreboard(server).getTeamNames());
                     }
 
                     if (args.length >= 4)
@@ -1387,7 +1387,7 @@ public class CommandScoreboard extends CommandBase
                         {
                             if (args.length == 3)
                             {
-                                return getListOfStringsMatchingLastWord(args, this.getScoreboard(server).getTeamNames());
+                                return getListOfStringsMatchingLastWord(args, getScoreboard(server).getTeamNames());
                             }
 
                             if (args.length == 4)
@@ -1421,7 +1421,7 @@ public class CommandScoreboard extends CommandBase
                     }
                     else if (args.length == 3)
                     {
-                        return getListOfStringsMatchingLastWord(args, this.getScoreboard(server).getTeamNames());
+                        return getListOfStringsMatchingLastWord(args, getScoreboard(server).getTeamNames());
                     }
                 }
             }
@@ -1432,7 +1432,7 @@ public class CommandScoreboard extends CommandBase
 
     protected List<String> getObjectiveNames(boolean writableOnly, MinecraftServer server)
     {
-        Collection<ScoreObjective> collection = this.getScoreboard(server).getScoreObjectives();
+        Collection<ScoreObjective> collection = getScoreboard(server).getScoreObjectives();
         List<String> list = Lists.<String>newArrayList();
 
         for (ScoreObjective scoreobjective : collection)
@@ -1448,7 +1448,7 @@ public class CommandScoreboard extends CommandBase
 
     protected List<String> getTriggerNames(MinecraftServer server)
     {
-        Collection<ScoreObjective> collection = this.getScoreboard(server).getScoreObjectives();
+        Collection<ScoreObjective> collection = getScoreboard(server).getScoreObjectives();
         List<String> list = Lists.<String>newArrayList();
 
         for (ScoreObjective scoreobjective : collection)

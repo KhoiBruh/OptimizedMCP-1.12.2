@@ -68,18 +68,18 @@ public class EntitySkeleton extends AbstractSkeleton
             if (entitycreeper.getPowered() && entitycreeper.ableToCauseSkullDrop())
             {
                 entitycreeper.incrementDroppedSkulls();
-                this.entityDropItem(new ItemStack(Items.SKULL, 1, 0), 0.0F);
+                entityDropItem(new ItemStack(Items.SKULL, 1, 0), 0.0F);
             }
         }
     }
 
     protected EntityArrow getArrow(float p_190726_1_)
     {
-        ItemStack itemstack = this.getItemStackFromSlot(EntityEquipmentSlot.OFFHAND);
+        ItemStack itemstack = getItemStackFromSlot(EntityEquipmentSlot.OFFHAND);
 
         if (itemstack.getItem() == Items.SPECTRAL_ARROW)
         {
-            EntitySpectralArrow entityspectralarrow = new EntitySpectralArrow(this.world, this);
+            EntitySpectralArrow entityspectralarrow = new EntitySpectralArrow(world, this);
             entityspectralarrow.setEnchantmentEffectsFromEntity(this, p_190726_1_);
             return entityspectralarrow;
         }

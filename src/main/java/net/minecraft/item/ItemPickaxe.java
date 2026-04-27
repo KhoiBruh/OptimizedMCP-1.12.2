@@ -25,7 +25,7 @@ public class ItemPickaxe extends ItemTool
 
         if (block == Blocks.OBSIDIAN)
         {
-            return this.toolMaterial.getHarvestLevel() == 3;
+            return toolMaterial.getHarvestLevel() == 3;
         }
         else if (block != Blocks.DIAMOND_BLOCK && block != Blocks.DIAMOND_ORE)
         {
@@ -56,38 +56,38 @@ public class ItemPickaxe extends ItemTool
                             }
                             else
                             {
-                                return this.toolMaterial.getHarvestLevel() >= 2;
+                                return toolMaterial.getHarvestLevel() >= 2;
                             }
                         }
                         else
                         {
-                            return this.toolMaterial.getHarvestLevel() >= 1;
+                            return toolMaterial.getHarvestLevel() >= 1;
                         }
                     }
                     else
                     {
-                        return this.toolMaterial.getHarvestLevel() >= 1;
+                        return toolMaterial.getHarvestLevel() >= 1;
                     }
                 }
                 else
                 {
-                    return this.toolMaterial.getHarvestLevel() >= 2;
+                    return toolMaterial.getHarvestLevel() >= 2;
                 }
             }
             else
             {
-                return this.toolMaterial.getHarvestLevel() >= 2;
+                return toolMaterial.getHarvestLevel() >= 2;
             }
         }
         else
         {
-            return this.toolMaterial.getHarvestLevel() >= 2;
+            return toolMaterial.getHarvestLevel() >= 2;
         }
     }
 
     public float getDestroySpeed(ItemStack stack, IBlockState state)
     {
         Material material = state.getMaterial();
-        return material != Material.IRON && material != Material.ANVIL && material != Material.ROCK ? super.getDestroySpeed(stack, state) : this.efficiency;
+        return material != Material.IRON && material != Material.ANVIL && material != Material.ROCK ? super.getDestroySpeed(stack, state) : efficiency;
     }
 }

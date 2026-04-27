@@ -17,9 +17,9 @@ public class SPacketUpdateHealth implements Packet<INetHandlerPlayClient>
 
     public SPacketUpdateHealth(float healthIn, int foodLevelIn, float saturationLevelIn)
     {
-        this.health = healthIn;
-        this.foodLevel = foodLevelIn;
-        this.saturationLevel = saturationLevelIn;
+        health = healthIn;
+        foodLevel = foodLevelIn;
+        saturationLevel = saturationLevelIn;
     }
 
     /**
@@ -27,9 +27,9 @@ public class SPacketUpdateHealth implements Packet<INetHandlerPlayClient>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.health = buf.readFloat();
-        this.foodLevel = buf.readVarInt();
-        this.saturationLevel = buf.readFloat();
+        health = buf.readFloat();
+        foodLevel = buf.readVarInt();
+        saturationLevel = buf.readFloat();
     }
 
     /**
@@ -37,9 +37,9 @@ public class SPacketUpdateHealth implements Packet<INetHandlerPlayClient>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeFloat(this.health);
-        buf.writeVarInt(this.foodLevel);
-        buf.writeFloat(this.saturationLevel);
+        buf.writeFloat(health);
+        buf.writeVarInt(foodLevel);
+        buf.writeFloat(saturationLevel);
     }
 
     /**
@@ -52,16 +52,16 @@ public class SPacketUpdateHealth implements Packet<INetHandlerPlayClient>
 
     public float getHealth()
     {
-        return this.health;
+        return health;
     }
 
     public int getFoodLevel()
     {
-        return this.foodLevel;
+        return foodLevel;
     }
 
     public float getSaturationLevel()
     {
-        return this.saturationLevel;
+        return saturationLevel;
     }
 }

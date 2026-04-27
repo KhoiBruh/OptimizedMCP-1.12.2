@@ -12,28 +12,28 @@ public class DifficultyInstance
     public DifficultyInstance(EnumDifficulty worldDifficulty, long worldTime, long chunkInhabitedTime, float moonPhaseFactor)
     {
         this.worldDifficulty = worldDifficulty;
-        this.additionalDifficulty = this.calculateAdditionalDifficulty(worldDifficulty, worldTime, chunkInhabitedTime, moonPhaseFactor);
+        additionalDifficulty = calculateAdditionalDifficulty(worldDifficulty, worldTime, chunkInhabitedTime, moonPhaseFactor);
     }
 
     public float getAdditionalDifficulty()
     {
-        return this.additionalDifficulty;
+        return additionalDifficulty;
     }
 
     public boolean isHarderThan(float p_193845_1_)
     {
-        return this.additionalDifficulty > p_193845_1_;
+        return additionalDifficulty > p_193845_1_;
     }
 
     public float getClampedAdditionalDifficulty()
     {
-        if (this.additionalDifficulty < 2.0F)
+        if (additionalDifficulty < 2.0F)
         {
             return 0.0F;
         }
         else
         {
-            return this.additionalDifficulty > 4.0F ? 1.0F : (this.additionalDifficulty - 2.0F) / 2.0F;
+            return additionalDifficulty > 4.0F ? 1.0F : (additionalDifficulty - 2.0F) / 2.0F;
         }
     }
 

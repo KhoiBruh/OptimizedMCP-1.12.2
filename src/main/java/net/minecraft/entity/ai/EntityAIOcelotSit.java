@@ -17,7 +17,7 @@ public class EntityAIOcelotSit extends EntityAIMoveToBlock
     public EntityAIOcelotSit(EntityOcelot ocelotIn, double p_i45315_2_)
     {
         super(ocelotIn, p_i45315_2_, 8);
-        this.ocelot = ocelotIn;
+        ocelot = ocelotIn;
     }
 
     /**
@@ -25,7 +25,7 @@ public class EntityAIOcelotSit extends EntityAIMoveToBlock
      */
     public boolean shouldExecute()
     {
-        return this.ocelot.isTamed() && !this.ocelot.isSitting() && super.shouldExecute();
+        return ocelot.isTamed() && !ocelot.isSitting() && super.shouldExecute();
     }
 
     /**
@@ -34,7 +34,7 @@ public class EntityAIOcelotSit extends EntityAIMoveToBlock
     public void startExecuting()
     {
         super.startExecuting();
-        this.ocelot.getAISit().setSitting(false);
+        ocelot.getAISit().setSitting(false);
     }
 
     /**
@@ -43,7 +43,7 @@ public class EntityAIOcelotSit extends EntityAIMoveToBlock
     public void resetTask()
     {
         super.resetTask();
-        this.ocelot.setSitting(false);
+        ocelot.setSitting(false);
     }
 
     /**
@@ -52,15 +52,15 @@ public class EntityAIOcelotSit extends EntityAIMoveToBlock
     public void updateTask()
     {
         super.updateTask();
-        this.ocelot.getAISit().setSitting(false);
+        ocelot.getAISit().setSitting(false);
 
-        if (!this.getIsAboveDestination())
+        if (!getIsAboveDestination())
         {
-            this.ocelot.setSitting(false);
+            ocelot.setSitting(false);
         }
-        else if (!this.ocelot.isSitting())
+        else if (!ocelot.isSitting())
         {
-            this.ocelot.setSitting(true);
+            ocelot.setSitting(true);
         }
     }
 

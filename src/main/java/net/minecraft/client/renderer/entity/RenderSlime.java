@@ -13,7 +13,7 @@ public class RenderSlime extends RenderLiving<EntitySlime>
     public RenderSlime(RenderManager p_i47193_1_)
     {
         super(p_i47193_1_, new ModelSlime(16), 0.25F);
-        this.addLayer(new LayerSlimeGel(this));
+        addLayer(new LayerSlimeGel(this));
     }
 
     /**
@@ -21,7 +21,7 @@ public class RenderSlime extends RenderLiving<EntitySlime>
      */
     public void doRender(EntitySlime entity, double x, double y, double z, float entityYaw, float partialTicks)
     {
-        this.shadowSize = 0.25F * (float)entity.getSlimeSize();
+        shadowSize = 0.25F * (float)entity.getSlimeSize();
         super.doRender(entity, x, y, z, entityYaw, partialTicks);
     }
 

@@ -36,8 +36,8 @@ public class BlockPistonMoving extends BlockContainer
     public BlockPistonMoving()
     {
         super(Material.PISTON);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(TYPE, BlockPistonExtension.EnumPistonType.DEFAULT));
-        this.setHardness(-1.0F);
+        setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(TYPE, BlockPistonExtension.EnumPistonType.DEFAULT));
+        setHardness(-1.0F);
     }
 
     @Nullable
@@ -146,7 +146,7 @@ public class BlockPistonMoving extends BlockContainer
     {
         if (!worldIn.isRemote)
         {
-            TileEntityPiston tileentitypiston = this.getTilePistonAt(worldIn, pos);
+            TileEntityPiston tileentitypiston = getTilePistonAt(worldIn, pos);
 
             if (tileentitypiston != null)
             {
@@ -182,13 +182,13 @@ public class BlockPistonMoving extends BlockContainer
     @Nullable
     public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos)
     {
-        TileEntityPiston tileentitypiston = this.getTilePistonAt(worldIn, pos);
+        TileEntityPiston tileentitypiston = getTilePistonAt(worldIn, pos);
         return tileentitypiston == null ? null : tileentitypiston.getAABB(worldIn, pos);
     }
 
     public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, @Nullable Entity entityIn, boolean isActualState)
     {
-        TileEntityPiston tileentitypiston = this.getTilePistonAt(worldIn, pos);
+        TileEntityPiston tileentitypiston = getTilePistonAt(worldIn, pos);
 
         if (tileentitypiston != null)
         {
@@ -198,7 +198,7 @@ public class BlockPistonMoving extends BlockContainer
 
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
     {
-        TileEntityPiston tileentitypiston = this.getTilePistonAt(source, pos);
+        TileEntityPiston tileentitypiston = getTilePistonAt(source, pos);
         return tileentitypiston != null ? tileentitypiston.getAABB(source, pos) : FULL_BLOCK_AABB;
     }
 
@@ -223,7 +223,7 @@ public class BlockPistonMoving extends BlockContainer
      */
     public IBlockState getStateFromMeta(int meta)
     {
-        return this.getDefaultState().withProperty(FACING, BlockPistonExtension.getFacing(meta)).withProperty(TYPE, (meta & 8) > 0 ? BlockPistonExtension.EnumPistonType.STICKY : BlockPistonExtension.EnumPistonType.DEFAULT);
+        return getDefaultState().withProperty(FACING, BlockPistonExtension.getFacing(meta)).withProperty(TYPE, (meta & 8) > 0 ? BlockPistonExtension.EnumPistonType.STICKY : BlockPistonExtension.EnumPistonType.DEFAULT);
     }
 
     /**

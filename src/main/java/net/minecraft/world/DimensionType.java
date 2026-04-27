@@ -16,32 +16,32 @@ public enum DimensionType
 
     private DimensionType(int idIn, String nameIn, String suffixIn, Class <? extends WorldProvider > clazzIn)
     {
-        this.id = idIn;
-        this.name = nameIn;
-        this.suffix = suffixIn;
-        this.clazz = clazzIn;
+        id = idIn;
+        name = nameIn;
+        suffix = suffixIn;
+        clazz = clazzIn;
     }
 
     public int getId()
     {
-        return this.id;
+        return id;
     }
 
     public String getName()
     {
-        return this.name;
+        return name;
     }
 
     public String getSuffix()
     {
-        return this.suffix;
+        return suffix;
     }
 
     public WorldProvider createDimension()
     {
         try
         {
-            Constructor <? extends WorldProvider > constructor = this.clazz.getConstructor();
+            Constructor <? extends WorldProvider > constructor = clazz.getConstructor();
             return constructor.newInstance();
         }
         catch (NoSuchMethodException nosuchmethodexception)

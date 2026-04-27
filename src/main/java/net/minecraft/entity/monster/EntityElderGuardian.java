@@ -24,21 +24,21 @@ public class EntityElderGuardian extends EntityGuardian
     public EntityElderGuardian(World worldIn)
     {
         super(worldIn);
-        this.setSize(this.width * 2.35F, this.height * 2.35F);
-        this.enablePersistence();
+        setSize(width * 2.35F, height * 2.35F);
+        enablePersistence();
 
-        if (this.wander != null)
+        if (wander != null)
         {
-            this.wander.setExecutionChance(400);
+            wander.setExecutionChance(400);
         }
     }
 
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.30000001192092896D);
-        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(8.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(80.0D);
+        getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.30000001192092896D);
+        getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(8.0D);
+        getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(80.0D);
     }
 
     public static void registerFixesElderGuardian(DataFixer fixer)
@@ -59,23 +59,23 @@ public class EntityElderGuardian extends EntityGuardian
 
     public void setGhost()
     {
-        this.clientSideSpikesAnimation = 1.0F;
-        this.clientSideSpikesAnimationO = this.clientSideSpikesAnimation;
+        clientSideSpikesAnimation = 1.0F;
+        clientSideSpikesAnimationO = clientSideSpikesAnimation;
     }
 
     protected SoundEvent getAmbientSound()
     {
-        return this.isInWater() ? SoundEvents.ENTITY_ELDER_GUARDIAN_AMBIENT : SoundEvents.ENTITY_ELDERGUARDIAN_AMBIENTLAND;
+        return isInWater() ? SoundEvents.ENTITY_ELDER_GUARDIAN_AMBIENT : SoundEvents.ENTITY_ELDERGUARDIAN_AMBIENTLAND;
     }
 
     protected SoundEvent getHurtSound(DamageSource damageSourceIn)
     {
-        return this.isInWater() ? SoundEvents.ENTITY_ELDER_GUARDIAN_HURT : SoundEvents.ENTITY_ELDER_GUARDIAN_HURT_LAND;
+        return isInWater() ? SoundEvents.ENTITY_ELDER_GUARDIAN_HURT : SoundEvents.ENTITY_ELDER_GUARDIAN_HURT_LAND;
     }
 
     protected SoundEvent getDeathSound()
     {
-        return this.isInWater() ? SoundEvents.ENTITY_ELDER_GUARDIAN_DEATH : SoundEvents.ENTITY_ELDER_GUARDIAN_DEATH_LAND;
+        return isInWater() ? SoundEvents.ENTITY_ELDER_GUARDIAN_DEATH : SoundEvents.ENTITY_ELDER_GUARDIAN_DEATH_LAND;
     }
 
     protected SoundEvent getFlopSound()
@@ -88,14 +88,14 @@ public class EntityElderGuardian extends EntityGuardian
         super.updateAITasks();
         int i = 1200;
 
-        if ((this.ticksExisted + this.getEntityId()) % 1200 == 0)
+        if ((ticksExisted + getEntityId()) % 1200 == 0)
         {
             Potion potion = MobEffects.MINING_FATIGUE;
-            List<EntityPlayerMP> list = this.world.<EntityPlayerMP>getPlayers(EntityPlayerMP.class, new Predicate<EntityPlayerMP>()
+            List<EntityPlayerMP> list = world.<EntityPlayerMP>getPlayers(EntityPlayerMP.class, new Predicate<EntityPlayerMP>()
             {
                 public boolean apply(@Nullable EntityPlayerMP p_apply_1_)
                 {
-                    return EntityElderGuardian.this.getDistanceSq(p_apply_1_) < 2500.0D && p_apply_1_.interactionManager.survivalOrAdventure();
+                    return getDistanceSq(p_apply_1_) < 2500.0D && p_apply_1_.interactionManager.survivalOrAdventure();
                 }
             });
             int j = 2;
@@ -112,9 +112,9 @@ public class EntityElderGuardian extends EntityGuardian
             }
         }
 
-        if (!this.hasHome())
+        if (!hasHome())
         {
-            this.setHomePosAndDistance(new BlockPos(this), 16);
+            setHomePosAndDistance(new BlockPos(this), 16);
         }
     }
 }

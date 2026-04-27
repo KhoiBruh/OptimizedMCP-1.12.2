@@ -24,19 +24,19 @@ public class EntityAIFindEntityNearest extends EntityAIBase
 
     public EntityAIFindEntityNearest(EntityLiving mobIn, Class <? extends EntityLivingBase > p_i45884_2_)
     {
-        this.mob = mobIn;
-        this.classToCheck = p_i45884_2_;
+        mob = mobIn;
+        classToCheck = p_i45884_2_;
 
         if (mobIn instanceof EntityCreature)
         {
             LOGGER.warn("Use NearestAttackableTargetGoal.class for PathfinerMob mobs!");
         }
 
-        this.predicate = new Predicate<EntityLivingBase>()
+        predicate = new Predicate<EntityLivingBase>()
         {
             public boolean apply(@Nullable EntityLivingBase p_apply_1_)
             {
-                double d0 = EntityAIFindEntityNearest.this.getFollowRange();
+                double d0 = getFollowRange();
 
                 if (p_apply_1_.isSneaking())
                 {
@@ -49,11 +49,11 @@ public class EntityAIFindEntityNearest extends EntityAIBase
                 }
                 else
                 {
-                    return (double)p_apply_1_.getDistance(EntityAIFindEntityNearest.this.mob) > d0 ? false : EntityAITarget.isSuitableTarget(EntityAIFindEntityNearest.this.mob, p_apply_1_, false, true);
+                    return (double)p_apply_1_.getDistance(mob) > d0 ? false : EntityAITarget.isSuitableTarget(mob, p_apply_1_, false, true);
                 }
             }
         };
-        this.sorter = new EntityAINearestAttackableTarget.Sorter(mobIn);
+        sorter = new EntityAINearestAttackableTarget.Sorter(mobIn);
     }
 
     /**
@@ -61,9 +61,9 @@ public class EntityAIFindEntityNearest extends EntityAIBase
      */
     public boolean shouldExecute()
     {
-        double d0 = this.getFollowRange();
-        List<EntityLivingBase> list = this.mob.world.<EntityLivingBase>getEntitiesWithinAABB(this.classToCheck, this.mob.getEntityBoundingBox().grow(d0, 4.0D, d0), this.predicate);
-        Collections.sort(list, this.sorter);
+        double d0 = getFollowRange();
+        List<EntityLivingBase> list = mob.world.<EntityLivingBase>getEntitiesWithinAABB(classToCheck, mob.getEntityBoundingBox().grow(d0, 4.0D, d0), predicate);
+        Collections.sort(list, sorter);
 
         if (list.isEmpty())
         {
@@ -71,7 +71,7 @@ public class EntityAIFindEntityNearest extends EntityAIBase
         }
         else
         {
-            this.target = list.get(0);
+            target = list.get(0);
             return true;
         }
     }
@@ -81,7 +81,7 @@ public class EntityAIFindEntityNearest extends EntityAIBase
      */
     public boolean shouldContinueExecuting()
     {
-        EntityLivingBase entitylivingbase = this.mob.getAttackTarget();
+        EntityLivingBase entitylivingbase = mob.getAttackTarget();
 
         if (entitylivingbase == null)
         {
@@ -93,9 +93,9 @@ public class EntityAIFindEntityNearest extends EntityAIBase
         }
         else
         {
-            double d0 = this.getFollowRange();
+            double d0 = getFollowRange();
 
-            if (this.mob.getDistanceSq(entitylivingbase) > d0 * d0)
+            if (mob.getDistanceSq(entitylivingbase) > d0 * d0)
             {
                 return false;
             }
@@ -111,7 +111,7 @@ public class EntityAIFindEntityNearest extends EntityAIBase
      */
     public void startExecuting()
     {
-        this.mob.setAttackTarget(this.target);
+        mob.setAttackTarget(target);
         super.startExecuting();
     }
 
@@ -120,13 +120,13 @@ public class EntityAIFindEntityNearest extends EntityAIBase
      */
     public void resetTask()
     {
-        this.mob.setAttackTarget((EntityLivingBase)null);
+        mob.setAttackTarget((EntityLivingBase)null);
         super.startExecuting();
     }
 
     protected double getFollowRange()
     {
-        IAttributeInstance iattributeinstance = this.mob.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE);
+        IAttributeInstance iattributeinstance = mob.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE);
         return iattributeinstance == null ? 16.0D : iattributeinstance.getAttributeValue();
     }
 }

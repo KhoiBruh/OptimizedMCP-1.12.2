@@ -13,8 +13,8 @@ public class BlockHay extends BlockRotatedPillar
     public BlockHay()
     {
         super(Material.GRASS, MapColor.YELLOW);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(AXIS, EnumFacing.Axis.Y));
-        this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
+        setDefaultState(blockState.getBaseState().withProperty(AXIS, EnumFacing.Axis.Y));
+        setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
     }
 
     /**

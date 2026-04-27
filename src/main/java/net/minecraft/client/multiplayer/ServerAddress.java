@@ -13,15 +13,15 @@ public class ServerAddress
 
     private ServerAddress(String address, int port)
     {
-        this.ipAddress = address;
-        this.serverPort = port;
+        ipAddress = address;
+        serverPort = port;
     }
 
     public String getIP()
     {
         try
         {
-            return IDN.toASCII(this.ipAddress);
+            return IDN.toASCII(ipAddress);
         }
         catch (IllegalArgumentException var2)
         {
@@ -31,7 +31,7 @@ public class ServerAddress
 
     public int getPort()
     {
-        return this.serverPort;
+        return serverPort;
     }
 
     public static ServerAddress fromString(String addrString)

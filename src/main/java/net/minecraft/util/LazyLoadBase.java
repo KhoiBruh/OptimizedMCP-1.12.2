@@ -7,13 +7,13 @@ public abstract class LazyLoadBase<T>
 
     public T getValue()
     {
-        if (!this.isLoaded)
+        if (!isLoaded)
         {
-            this.isLoaded = true;
-            this.value = (T)this.load();
+            isLoaded = true;
+            value = (T) load();
         }
 
-        return this.value;
+        return value;
     }
 
     protected abstract T load();

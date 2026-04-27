@@ -21,8 +21,8 @@ public class SPacketUseBed implements Packet<INetHandlerPlayClient>
 
     public SPacketUseBed(EntityPlayer player, BlockPos posIn)
     {
-        this.playerID = player.getEntityId();
-        this.bedPos = posIn;
+        playerID = player.getEntityId();
+        bedPos = posIn;
     }
 
     /**
@@ -30,8 +30,8 @@ public class SPacketUseBed implements Packet<INetHandlerPlayClient>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.playerID = buf.readVarInt();
-        this.bedPos = buf.readBlockPos();
+        playerID = buf.readVarInt();
+        bedPos = buf.readBlockPos();
     }
 
     /**
@@ -39,8 +39,8 @@ public class SPacketUseBed implements Packet<INetHandlerPlayClient>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeVarInt(this.playerID);
-        buf.writeBlockPos(this.bedPos);
+        buf.writeVarInt(playerID);
+        buf.writeBlockPos(bedPos);
     }
 
     /**
@@ -53,11 +53,11 @@ public class SPacketUseBed implements Packet<INetHandlerPlayClient>
 
     public EntityPlayer getPlayer(World worldIn)
     {
-        return (EntityPlayer)worldIn.getEntityByID(this.playerID);
+        return (EntityPlayer)worldIn.getEntityByID(playerID);
     }
 
     public BlockPos getBedPosition()
     {
-        return this.bedPos;
+        return bedPos;
     }
 }

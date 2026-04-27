@@ -26,12 +26,12 @@ public class UsedEnderEyeTrigger implements ICriterionTrigger<UsedEnderEyeTrigge
 
     public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<UsedEnderEyeTrigger.Instance> listener)
     {
-        UsedEnderEyeTrigger.Listeners usedendereyetrigger$listeners = this.listeners.get(playerAdvancementsIn);
+        UsedEnderEyeTrigger.Listeners usedendereyetrigger$listeners = listeners.get(playerAdvancementsIn);
 
         if (usedendereyetrigger$listeners == null)
         {
             usedendereyetrigger$listeners = new UsedEnderEyeTrigger.Listeners(playerAdvancementsIn);
-            this.listeners.put(playerAdvancementsIn, usedendereyetrigger$listeners);
+            listeners.put(playerAdvancementsIn, usedendereyetrigger$listeners);
         }
 
         usedendereyetrigger$listeners.add(listener);
@@ -39,7 +39,7 @@ public class UsedEnderEyeTrigger implements ICriterionTrigger<UsedEnderEyeTrigge
 
     public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<UsedEnderEyeTrigger.Instance> listener)
     {
-        UsedEnderEyeTrigger.Listeners usedendereyetrigger$listeners = this.listeners.get(playerAdvancementsIn);
+        UsedEnderEyeTrigger.Listeners usedendereyetrigger$listeners = listeners.get(playerAdvancementsIn);
 
         if (usedendereyetrigger$listeners != null)
         {
@@ -47,14 +47,14 @@ public class UsedEnderEyeTrigger implements ICriterionTrigger<UsedEnderEyeTrigge
 
             if (usedendereyetrigger$listeners.isEmpty())
             {
-                this.listeners.remove(playerAdvancementsIn);
+                listeners.remove(playerAdvancementsIn);
             }
         }
     }
 
     public void removeAllListeners(PlayerAdvancements playerAdvancementsIn)
     {
-        this.listeners.remove(playerAdvancementsIn);
+        listeners.remove(playerAdvancementsIn);
     }
 
     /**
@@ -68,7 +68,7 @@ public class UsedEnderEyeTrigger implements ICriterionTrigger<UsedEnderEyeTrigge
 
     public void trigger(EntityPlayerMP player, BlockPos pos)
     {
-        UsedEnderEyeTrigger.Listeners usedendereyetrigger$listeners = this.listeners.get(player.getAdvancements());
+        UsedEnderEyeTrigger.Listeners usedendereyetrigger$listeners = listeners.get(player.getAdvancements());
 
         if (usedendereyetrigger$listeners != null)
         {
@@ -90,7 +90,7 @@ public class UsedEnderEyeTrigger implements ICriterionTrigger<UsedEnderEyeTrigge
 
         public boolean test(double distanceSq)
         {
-            return this.distance.testSquare(distanceSq);
+            return distance.testSquare(distanceSq);
         }
     }
 
@@ -101,29 +101,29 @@ public class UsedEnderEyeTrigger implements ICriterionTrigger<UsedEnderEyeTrigge
 
         public Listeners(PlayerAdvancements playerAdvancementsIn)
         {
-            this.playerAdvancements = playerAdvancementsIn;
+            playerAdvancements = playerAdvancementsIn;
         }
 
         public boolean isEmpty()
         {
-            return this.listeners.isEmpty();
+            return listeners.isEmpty();
         }
 
         public void add(ICriterionTrigger.Listener<UsedEnderEyeTrigger.Instance> listener)
         {
-            this.listeners.add(listener);
+            listeners.add(listener);
         }
 
         public void remove(ICriterionTrigger.Listener<UsedEnderEyeTrigger.Instance> listener)
         {
-            this.listeners.remove(listener);
+            listeners.remove(listener);
         }
 
         public void trigger(double distanceSq)
         {
             List<ICriterionTrigger.Listener<UsedEnderEyeTrigger.Instance>> list = null;
 
-            for (ICriterionTrigger.Listener<UsedEnderEyeTrigger.Instance> listener : this.listeners)
+            for (ICriterionTrigger.Listener<UsedEnderEyeTrigger.Instance> listener : listeners)
             {
                 if (((UsedEnderEyeTrigger.Instance)listener.getCriterionInstance()).test(distanceSq))
                 {
@@ -140,7 +140,7 @@ public class UsedEnderEyeTrigger implements ICriterionTrigger<UsedEnderEyeTrigge
             {
                 for (ICriterionTrigger.Listener<UsedEnderEyeTrigger.Instance> listener1 : list)
                 {
-                    listener1.grantCriterion(this.playerAdvancements);
+                    listener1.grantCriterion(playerAdvancements);
                 }
             }
         }

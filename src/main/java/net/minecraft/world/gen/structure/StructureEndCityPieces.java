@@ -121,7 +121,7 @@ public class StructureEndCityPieces
         public boolean shipCreated;
         public void init()
         {
-            this.shipCreated = false;
+            shipCreated = false;
         }
         public boolean generate(TemplateManager p_191086_1_, int p_191086_2_, StructureEndCityPieces.CityTemplate p_191086_3_, BlockPos p_191086_4_, List<StructureComponent> p_191086_5_, Random p_191086_6_)
         {
@@ -153,10 +153,10 @@ public class StructureEndCityPieces
                 }
             }
 
-            if (!this.shipCreated && p_191086_6_.nextInt(10 - p_191086_2_) == 0)
+            if (!shipCreated && p_191086_6_.nextInt(10 - p_191086_2_) == 0)
             {
                 StructureEndCityPieces.addHelper(p_191086_5_, StructureEndCityPieces.addPiece(p_191086_1_, structureendcitypieces$citytemplate, new BlockPos(-8 + p_191086_6_.nextInt(8), j, -70 + p_191086_6_.nextInt(10)), "ship", rotation, true));
-                this.shipCreated = true;
+                shipCreated = true;
             }
             else if (!StructureEndCityPieces.recursiveChildren(p_191086_1_, StructureEndCityPieces.HOUSE_TOWER_GENERATOR, p_191086_2_ + 1, structureendcitypieces$citytemplate, new BlockPos(-3, j + 1, -11), p_191086_5_, p_191086_6_))
             {
@@ -282,35 +282,35 @@ public class StructureEndCityPieces
         public CityTemplate(TemplateManager p_i47214_1_, String p_i47214_2_, BlockPos p_i47214_3_, Rotation p_i47214_4_, boolean overwriteIn)
         {
             super(0);
-            this.pieceName = p_i47214_2_;
-            this.templatePosition = p_i47214_3_;
-            this.rotation = p_i47214_4_;
-            this.overwrite = overwriteIn;
-            this.loadTemplate(p_i47214_1_);
+            pieceName = p_i47214_2_;
+            templatePosition = p_i47214_3_;
+            rotation = p_i47214_4_;
+            overwrite = overwriteIn;
+            loadTemplate(p_i47214_1_);
         }
 
         private void loadTemplate(TemplateManager p_191085_1_)
         {
-            Template template = p_191085_1_.getTemplate((MinecraftServer)null, new ResourceLocation("endcity/" + this.pieceName));
-            PlacementSettings placementsettings = (this.overwrite ? StructureEndCityPieces.OVERWRITE : StructureEndCityPieces.INSERT).copy().setRotation(this.rotation);
-            this.setup(template, this.templatePosition, placementsettings);
+            Template template = p_191085_1_.getTemplate((MinecraftServer)null, new ResourceLocation("endcity/" + pieceName));
+            PlacementSettings placementsettings = (overwrite ? StructureEndCityPieces.OVERWRITE : StructureEndCityPieces.INSERT).copy().setRotation(rotation);
+            setup(template, templatePosition, placementsettings);
         }
 
         protected void writeStructureToNBT(NBTTagCompound tagCompound)
         {
             super.writeStructureToNBT(tagCompound);
-            tagCompound.setString("Template", this.pieceName);
-            tagCompound.setString("Rot", this.rotation.name());
-            tagCompound.setBoolean("OW", this.overwrite);
+            tagCompound.setString("Template", pieceName);
+            tagCompound.setString("Rot", rotation.name());
+            tagCompound.setBoolean("OW", overwrite);
         }
 
         protected void readStructureFromNBT(NBTTagCompound tagCompound, TemplateManager p_143011_2_)
         {
             super.readStructureFromNBT(tagCompound, p_143011_2_);
-            this.pieceName = tagCompound.getString("Template");
-            this.rotation = Rotation.valueOf(tagCompound.getString("Rot"));
-            this.overwrite = tagCompound.getBoolean("OW");
-            this.loadTemplate(p_143011_2_);
+            pieceName = tagCompound.getString("Template");
+            rotation = Rotation.valueOf(tagCompound.getString("Rot"));
+            overwrite = tagCompound.getBoolean("OW");
+            loadTemplate(p_143011_2_);
         }
 
         protected void handleDataMarker(String function, BlockPos pos, World worldIn, Random rand, StructureBoundingBox sbb)
@@ -338,7 +338,7 @@ public class StructureEndCityPieces
             }
             else if (function.startsWith("Elytra"))
             {
-                EntityItemFrame entityitemframe = new EntityItemFrame(worldIn, pos, this.rotation.rotate(EnumFacing.SOUTH));
+                EntityItemFrame entityitemframe = new EntityItemFrame(worldIn, pos, rotation.rotate(EnumFacing.SOUTH));
                 entityitemframe.setDisplayedItem(new ItemStack(Items.ELYTRA));
                 worldIn.spawnEntity(entityitemframe);
             }

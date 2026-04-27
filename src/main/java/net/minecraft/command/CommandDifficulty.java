@@ -45,7 +45,7 @@ public class CommandDifficulty extends CommandBase
         }
         else
         {
-            EnumDifficulty enumdifficulty = this.getDifficultyFromCommand(args[0]);
+            EnumDifficulty enumdifficulty = getDifficultyFromCommand(args[0]);
             server.setDifficultyForAllWorlds(enumdifficulty);
             notifyCommandListener(sender, this, "commands.difficulty.success", new Object[] {new TextComponentTranslation(enumdifficulty.getDifficultyResourceKey(), new Object[0])});
         }

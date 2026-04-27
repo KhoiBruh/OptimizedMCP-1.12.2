@@ -139,7 +139,7 @@ public class ItemColors
 
     public int colorMultiplier(ItemStack stack, int tintIndex)
     {
-        IItemColor iitemcolor = this.mapItemColors.getByValue(Item.REGISTRY.getIDForObject(stack.getItem()));
+        IItemColor iitemcolor = mapItemColors.getByValue(Item.REGISTRY.getIDForObject(stack.getItem()));
         return iitemcolor == null ? -1 : iitemcolor.colorMultiplier(stack, tintIndex);
     }
 
@@ -147,7 +147,7 @@ public class ItemColors
     {
         for (Block block : blocksIn)
         {
-            this.mapItemColors.put(itemColor, Item.getIdFromItem(Item.getItemFromBlock(block)));
+            mapItemColors.put(itemColor, Item.getIdFromItem(Item.getItemFromBlock(block)));
         }
     }
 
@@ -155,7 +155,7 @@ public class ItemColors
     {
         for (Item item : itemsIn)
         {
-            this.mapItemColors.put(itemColor, Item.getIdFromItem(item));
+            mapItemColors.put(itemColor, Item.getIdFromItem(item));
         }
     }
 }

@@ -33,8 +33,8 @@ public class EntityMinecartCommandBlock extends EntityMinecart
     {
         public void updateCommand()
         {
-            EntityMinecartCommandBlock.this.getDataManager().set(EntityMinecartCommandBlock.COMMAND, this.getCommand());
-            EntityMinecartCommandBlock.this.getDataManager().set(EntityMinecartCommandBlock.LAST_OUTPUT, this.getLastOutput());
+            getDataManager().set(EntityMinecartCommandBlock.COMMAND, getCommand());
+            getDataManager().set(EntityMinecartCommandBlock.LAST_OUTPUT, getLastOutput());
         }
         public int getCommandBlockType()
         {
@@ -42,19 +42,19 @@ public class EntityMinecartCommandBlock extends EntityMinecart
         }
         public void fillInInfo(ByteBuf buf)
         {
-            buf.writeInt(EntityMinecartCommandBlock.this.getEntityId());
+            buf.writeInt(getEntityId());
         }
         public BlockPos getPosition()
         {
-            return new BlockPos(EntityMinecartCommandBlock.this.posX, EntityMinecartCommandBlock.this.posY + 0.5D, EntityMinecartCommandBlock.this.posZ);
+            return new BlockPos(posX, posY + 0.5D, posZ);
         }
         public Vec3d getPositionVector()
         {
-            return new Vec3d(EntityMinecartCommandBlock.this.posX, EntityMinecartCommandBlock.this.posY, EntityMinecartCommandBlock.this.posZ);
+            return new Vec3d(posX, posY, posZ);
         }
         public World getEntityWorld()
         {
-            return EntityMinecartCommandBlock.this.world;
+            return world;
         }
         public Entity getCommandSenderEntity()
         {
@@ -62,7 +62,7 @@ public class EntityMinecartCommandBlock extends EntityMinecart
         }
         public MinecraftServer getServer()
         {
-            return EntityMinecartCommandBlock.this.world.getMinecraftServer();
+            return world.getMinecraftServer();
         }
     };
 
@@ -101,8 +101,8 @@ public class EntityMinecartCommandBlock extends EntityMinecart
     protected void entityInit()
     {
         super.entityInit();
-        this.getDataManager().register(COMMAND, "");
-        this.getDataManager().register(LAST_OUTPUT, new TextComponentString(""));
+        getDataManager().register(COMMAND, "");
+        getDataManager().register(LAST_OUTPUT, new TextComponentString(""));
     }
 
     /**
@@ -111,9 +111,9 @@ public class EntityMinecartCommandBlock extends EntityMinecart
     protected void readEntityFromNBT(NBTTagCompound compound)
     {
         super.readEntityFromNBT(compound);
-        this.commandBlockLogic.readDataFromNBT(compound);
-        this.getDataManager().set(COMMAND, this.getCommandBlockLogic().getCommand());
-        this.getDataManager().set(LAST_OUTPUT, this.getCommandBlockLogic().getLastOutput());
+        commandBlockLogic.readDataFromNBT(compound);
+        getDataManager().set(COMMAND, getCommandBlockLogic().getCommand());
+        getDataManager().set(LAST_OUTPUT, getCommandBlockLogic().getLastOutput());
     }
 
     /**
@@ -122,7 +122,7 @@ public class EntityMinecartCommandBlock extends EntityMinecart
     protected void writeEntityToNBT(NBTTagCompound compound)
     {
         super.writeEntityToNBT(compound);
-        this.commandBlockLogic.writeToNBT(compound);
+        commandBlockLogic.writeToNBT(compound);
     }
 
     public EntityMinecart.Type getType()
@@ -137,7 +137,7 @@ public class EntityMinecartCommandBlock extends EntityMinecart
 
     public CommandBlockBaseLogic getCommandBlockLogic()
     {
-        return this.commandBlockLogic;
+        return commandBlockLogic;
     }
 
     /**
@@ -145,16 +145,16 @@ public class EntityMinecartCommandBlock extends EntityMinecart
      */
     public void onActivatorRailPass(int x, int y, int z, boolean receivingPower)
     {
-        if (receivingPower && this.ticksExisted - this.activatorRailCooldown >= 4)
+        if (receivingPower && ticksExisted - activatorRailCooldown >= 4)
         {
-            this.getCommandBlockLogic().trigger(this.world);
-            this.activatorRailCooldown = this.ticksExisted;
+            getCommandBlockLogic().trigger(world);
+            activatorRailCooldown = ticksExisted;
         }
     }
 
     public boolean processInitialInteract(EntityPlayer player, EnumHand hand)
     {
-        this.commandBlockLogic.tryOpenEditCommandBlock(player);
+        commandBlockLogic.tryOpenEditCommandBlock(player);
         return false;
     }
 
@@ -166,7 +166,7 @@ public class EntityMinecartCommandBlock extends EntityMinecart
         {
             try
             {
-                this.commandBlockLogic.setLastOutput((ITextComponent)this.getDataManager().get(LAST_OUTPUT));
+                commandBlockLogic.setLastOutput((ITextComponent) getDataManager().get(LAST_OUTPUT));
             }
             catch (Throwable var3)
             {
@@ -175,7 +175,7 @@ public class EntityMinecartCommandBlock extends EntityMinecart
         }
         else if (COMMAND.equals(key))
         {
-            this.commandBlockLogic.setCommand((String)this.getDataManager().get(COMMAND));
+            commandBlockLogic.setCommand((String) getDataManager().get(COMMAND));
         }
     }
 

@@ -6,11 +6,11 @@ public class WorldSavedDataCallableSave implements Runnable
 
     public WorldSavedDataCallableSave(WorldSavedData dataIn)
     {
-        this.data = dataIn;
+        data = dataIn;
     }
 
     public void run()
     {
-        this.data.markDirty();
+        data.markDirty();
     }
 }

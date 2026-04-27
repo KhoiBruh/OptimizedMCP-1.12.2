@@ -15,19 +15,19 @@ public class GuiButtonLanguage extends GuiButton
      */
     public void drawButton(Minecraft mc, int mouseX, int mouseY, float partialTicks)
     {
-        if (this.visible)
+        if (visible)
         {
             mc.getTextureManager().bindTexture(GuiButton.BUTTON_TEXTURES);
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-            boolean flag = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width && mouseY < this.y + this.height;
+            boolean flag = mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
             int i = 106;
 
             if (flag)
             {
-                i += this.height;
+                i += height;
             }
 
-            this.drawTexturedModalRect(this.x, this.y, 0, i, this.width, this.height);
+            drawTexturedModalRect(x, y, 0, i, width, height);
         }
     }
 }

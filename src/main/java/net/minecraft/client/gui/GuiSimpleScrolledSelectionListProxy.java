@@ -15,12 +15,12 @@ public class GuiSimpleScrolledSelectionListProxy extends GuiSlot
     public GuiSimpleScrolledSelectionListProxy(RealmsSimpleScrolledSelectionList realmsScrolledSelectionListIn, int widthIn, int heightIn, int topIn, int bottomIn, int slotHeightIn)
     {
         super(Minecraft.getMinecraft(), widthIn, heightIn, topIn, bottomIn, slotHeightIn);
-        this.realmsScrolledSelectionList = realmsScrolledSelectionListIn;
+        realmsScrolledSelectionList = realmsScrolledSelectionListIn;
     }
 
     protected int getSize()
     {
-        return this.realmsScrolledSelectionList.getItemCount();
+        return realmsScrolledSelectionList.getItemCount();
     }
 
     /**
@@ -28,7 +28,7 @@ public class GuiSimpleScrolledSelectionListProxy extends GuiSlot
      */
     protected void elementClicked(int slotIndex, boolean isDoubleClick, int mouseX, int mouseY)
     {
-        this.realmsScrolledSelectionList.selectItem(slotIndex, isDoubleClick, mouseX, mouseY);
+        realmsScrolledSelectionList.selectItem(slotIndex, isDoubleClick, mouseX, mouseY);
     }
 
     /**
@@ -36,32 +36,32 @@ public class GuiSimpleScrolledSelectionListProxy extends GuiSlot
      */
     protected boolean isSelected(int slotIndex)
     {
-        return this.realmsScrolledSelectionList.isSelectedItem(slotIndex);
+        return realmsScrolledSelectionList.isSelectedItem(slotIndex);
     }
 
     protected void drawBackground()
     {
-        this.realmsScrolledSelectionList.renderBackground();
+        realmsScrolledSelectionList.renderBackground();
     }
 
     protected void drawSlot(int slotIndex, int xPos, int yPos, int heightIn, int mouseXIn, int mouseYIn, float partialTicks)
     {
-        this.realmsScrolledSelectionList.renderItem(slotIndex, xPos, yPos, heightIn, mouseXIn, mouseYIn);
+        realmsScrolledSelectionList.renderItem(slotIndex, xPos, yPos, heightIn, mouseXIn, mouseYIn);
     }
 
     public int getWidth()
     {
-        return this.width;
+        return width;
     }
 
     public int getMouseY()
     {
-        return this.mouseY;
+        return mouseY;
     }
 
     public int getMouseX()
     {
-        return this.mouseX;
+        return mouseX;
     }
 
     /**
@@ -69,12 +69,12 @@ public class GuiSimpleScrolledSelectionListProxy extends GuiSlot
      */
     protected int getContentHeight()
     {
-        return this.realmsScrolledSelectionList.getMaxPosition();
+        return realmsScrolledSelectionList.getMaxPosition();
     }
 
     protected int getScrollBarX()
     {
-        return this.realmsScrolledSelectionList.getScrollbarPosition();
+        return realmsScrolledSelectionList.getScrollbarPosition();
     }
 
     public void handleMouseInput()
@@ -84,53 +84,53 @@ public class GuiSimpleScrolledSelectionListProxy extends GuiSlot
 
     public void drawScreen(int mouseXIn, int mouseYIn, float partialTicks)
     {
-        if (this.visible)
+        if (visible)
         {
-            this.mouseX = mouseXIn;
-            this.mouseY = mouseYIn;
-            this.drawBackground();
-            int i = this.getScrollBarX();
+            mouseX = mouseXIn;
+            mouseY = mouseYIn;
+            drawBackground();
+            int i = getScrollBarX();
             int j = i + 6;
-            this.bindAmountScrolled();
+            bindAmountScrolled();
             GlStateManager.disableLighting();
             GlStateManager.disableFog();
             Tessellator tessellator = Tessellator.getInstance();
             BufferBuilder bufferbuilder = tessellator.getBuffer();
-            int k = this.left + this.width / 2 - this.getListWidth() / 2 + 2;
-            int l = this.top + 4 - (int)this.amountScrolled;
+            int k = left + width / 2 - getListWidth() / 2 + 2;
+            int l = top + 4 - (int) amountScrolled;
 
-            if (this.hasListHeader)
+            if (hasListHeader)
             {
-                this.drawListHeader(k, l, tessellator);
+                drawListHeader(k, l, tessellator);
             }
 
-            this.drawSelectionBox(k, l, mouseXIn, mouseYIn, partialTicks);
+            drawSelectionBox(k, l, mouseXIn, mouseYIn, partialTicks);
             GlStateManager.disableDepth();
-            this.overlayBackground(0, this.top, 255, 255);
-            this.overlayBackground(this.bottom, this.height, 255, 255);
+            overlayBackground(0, top, 255, 255);
+            overlayBackground(bottom, height, 255, 255);
             GlStateManager.enableBlend();
             GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ZERO, GlStateManager.DestFactor.ONE);
             GlStateManager.disableAlpha();
             GlStateManager.shadeModel(7425);
             GlStateManager.disableTexture2D();
-            int i1 = this.getMaxScroll();
+            int i1 = getMaxScroll();
 
             if (i1 > 0)
             {
-                int j1 = (this.bottom - this.top) * (this.bottom - this.top) / this.getContentHeight();
-                j1 = MathHelper.clamp(j1, 32, this.bottom - this.top - 8);
-                int k1 = (int)this.amountScrolled * (this.bottom - this.top - j1) / i1 + this.top;
+                int j1 = (bottom - top) * (bottom - top) / getContentHeight();
+                j1 = MathHelper.clamp(j1, 32, bottom - top - 8);
+                int k1 = (int) amountScrolled * (bottom - top - j1) / i1 + top;
 
-                if (k1 < this.top)
+                if (k1 < top)
                 {
-                    k1 = this.top;
+                    k1 = top;
                 }
 
                 bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-                bufferbuilder.pos((double)i, (double)this.bottom, 0.0D).tex(0.0D, 1.0D).color(0, 0, 0, 255).endVertex();
-                bufferbuilder.pos((double)j, (double)this.bottom, 0.0D).tex(1.0D, 1.0D).color(0, 0, 0, 255).endVertex();
-                bufferbuilder.pos((double)j, (double)this.top, 0.0D).tex(1.0D, 0.0D).color(0, 0, 0, 255).endVertex();
-                bufferbuilder.pos((double)i, (double)this.top, 0.0D).tex(0.0D, 0.0D).color(0, 0, 0, 255).endVertex();
+                bufferbuilder.pos((double)i, (double) bottom, 0.0D).tex(0.0D, 1.0D).color(0, 0, 0, 255).endVertex();
+                bufferbuilder.pos((double)j, (double) bottom, 0.0D).tex(1.0D, 1.0D).color(0, 0, 0, 255).endVertex();
+                bufferbuilder.pos((double)j, (double) top, 0.0D).tex(1.0D, 0.0D).color(0, 0, 0, 255).endVertex();
+                bufferbuilder.pos((double)i, (double) top, 0.0D).tex(0.0D, 0.0D).color(0, 0, 0, 255).endVertex();
                 tessellator.draw();
                 bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
                 bufferbuilder.pos((double)i, (double)(k1 + j1), 0.0D).tex(0.0D, 1.0D).color(128, 128, 128, 255).endVertex();
@@ -146,7 +146,7 @@ public class GuiSimpleScrolledSelectionListProxy extends GuiSlot
                 tessellator.draw();
             }
 
-            this.renderDecorations(mouseXIn, mouseYIn);
+            renderDecorations(mouseXIn, mouseYIn);
             GlStateManager.enableTexture2D();
             GlStateManager.shadeModel(7424);
             GlStateManager.enableAlpha();

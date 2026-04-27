@@ -35,19 +35,19 @@ public class Selector
         }
         else
         {
-            this.condition = conditionIn;
-            this.variantList = variantListIn;
+            condition = conditionIn;
+            variantList = variantListIn;
         }
     }
 
     public VariantList getVariantList()
     {
-        return this.variantList;
+        return variantList;
     }
 
     public Predicate<IBlockState> getPredicate(BlockStateContainer state)
     {
-        return this.condition.getPredicate(state);
+        return condition.getPredicate(state);
     }
 
     public boolean equals(Object p_equals_1_)
@@ -62,9 +62,9 @@ public class Selector
             {
                 Selector selector = (Selector)p_equals_1_;
 
-                if (this.condition.equals(selector.condition))
+                if (condition.equals(selector.condition))
                 {
-                    return this.variantList.equals(selector.variantList);
+                    return variantList.equals(selector.variantList);
                 }
             }
 
@@ -74,7 +74,7 @@ public class Selector
 
     public int hashCode()
     {
-        return 31 * this.condition.hashCode() + this.variantList.hashCode();
+        return 31 * condition.hashCode() + variantList.hashCode();
     }
 
     public static class Deserializer implements JsonDeserializer<Selector>
@@ -99,7 +99,7 @@ public class Selector
         public Selector deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException
         {
             JsonObject jsonobject = p_deserialize_1_.getAsJsonObject();
-            return new Selector(this.getWhenCondition(jsonobject), (VariantList)p_deserialize_3_.deserialize(jsonobject.get("apply"), VariantList.class));
+            return new Selector(getWhenCondition(jsonobject), (VariantList)p_deserialize_3_.deserialize(jsonobject.get("apply"), VariantList.class));
         }
 
         private ICondition getWhenCondition(JsonObject json)

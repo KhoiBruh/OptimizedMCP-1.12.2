@@ -38,10 +38,10 @@ public class VillageDoorInfo
 
     public VillageDoorInfo(BlockPos pos, EnumFacing facing, int timestamp)
     {
-        this.doorBlockPos = pos;
-        this.insideDirection = facing;
-        this.insideBlock = pos.offset(facing, 2);
-        this.lastActivityTimestamp = timestamp;
+        doorBlockPos = pos;
+        insideDirection = facing;
+        insideBlock = pos.offset(facing, 2);
+        lastActivityTimestamp = timestamp;
     }
 
     /**
@@ -49,83 +49,83 @@ public class VillageDoorInfo
      */
     public int getDistanceSquared(int x, int y, int z)
     {
-        return (int)this.doorBlockPos.distanceSq((double)x, (double)y, (double)z);
+        return (int) doorBlockPos.distanceSq((double)x, (double)y, (double)z);
     }
 
     public int getDistanceToDoorBlockSq(BlockPos pos)
     {
-        return (int)pos.distanceSq(this.getDoorBlockPos());
+        return (int)pos.distanceSq(getDoorBlockPos());
     }
 
     public int getDistanceToInsideBlockSq(BlockPos pos)
     {
-        return (int)this.insideBlock.distanceSq(pos);
+        return (int) insideBlock.distanceSq(pos);
     }
 
     public boolean isInsideSide(BlockPos pos)
     {
-        int i = pos.getX() - this.doorBlockPos.getX();
-        int j = pos.getZ() - this.doorBlockPos.getY();
-        return i * this.insideDirection.getFrontOffsetX() + j * this.insideDirection.getFrontOffsetZ() >= 0;
+        int i = pos.getX() - doorBlockPos.getX();
+        int j = pos.getZ() - doorBlockPos.getY();
+        return i * insideDirection.getFrontOffsetX() + j * insideDirection.getFrontOffsetZ() >= 0;
     }
 
     public void resetDoorOpeningRestrictionCounter()
     {
-        this.doorOpeningRestrictionCounter = 0;
+        doorOpeningRestrictionCounter = 0;
     }
 
     public void incrementDoorOpeningRestrictionCounter()
     {
-        ++this.doorOpeningRestrictionCounter;
+        ++doorOpeningRestrictionCounter;
     }
 
     public int getDoorOpeningRestrictionCounter()
     {
-        return this.doorOpeningRestrictionCounter;
+        return doorOpeningRestrictionCounter;
     }
 
     public BlockPos getDoorBlockPos()
     {
-        return this.doorBlockPos;
+        return doorBlockPos;
     }
 
     public BlockPos getInsideBlockPos()
     {
-        return this.insideBlock;
+        return insideBlock;
     }
 
     public int getInsideOffsetX()
     {
-        return this.insideDirection.getFrontOffsetX() * 2;
+        return insideDirection.getFrontOffsetX() * 2;
     }
 
     public int getInsideOffsetZ()
     {
-        return this.insideDirection.getFrontOffsetZ() * 2;
+        return insideDirection.getFrontOffsetZ() * 2;
     }
 
     public int getLastActivityTimestamp()
     {
-        return this.lastActivityTimestamp;
+        return lastActivityTimestamp;
     }
 
     public void setLastActivityTimestamp(int timestamp)
     {
-        this.lastActivityTimestamp = timestamp;
+        lastActivityTimestamp = timestamp;
     }
 
     public boolean getIsDetachedFromVillageFlag()
     {
-        return this.isDetachedFromVillageFlag;
+        return isDetachedFromVillageFlag;
     }
 
     public void setIsDetachedFromVillageFlag(boolean detached)
     {
-        this.isDetachedFromVillageFlag = detached;
+        isDetachedFromVillageFlag = detached;
     }
 
     public EnumFacing getInsideDirection()
     {
-        return this.insideDirection;
+        return insideDirection;
     }
 }

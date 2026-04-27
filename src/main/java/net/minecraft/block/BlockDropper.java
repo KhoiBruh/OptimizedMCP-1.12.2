@@ -18,7 +18,7 @@ public class BlockDropper extends BlockDispenser
 
     protected IBehaviorDispenseItem getBehavior(ItemStack stack)
     {
-        return this.dropBehavior;
+        return dropBehavior;
     }
 
     /**
@@ -55,7 +55,7 @@ public class BlockDropper extends BlockDispenser
 
                     if (iinventory == null)
                     {
-                        itemstack1 = this.dropBehavior.dispense(blocksourceimpl, itemstack);
+                        itemstack1 = dropBehavior.dispense(blocksourceimpl, itemstack);
                     }
                     else
                     {

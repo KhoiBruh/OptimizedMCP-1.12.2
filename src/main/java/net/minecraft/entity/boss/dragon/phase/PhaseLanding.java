@@ -22,18 +22,18 @@ public class PhaseLanding extends PhaseBase
      */
     public void doClientRenderEffects()
     {
-        Vec3d vec3d = this.dragon.getHeadLookVec(1.0F).normalize();
+        Vec3d vec3d = dragon.getHeadLookVec(1.0F).normalize();
         vec3d.rotateYaw(-((float)Math.PI / 4F));
-        double d0 = this.dragon.dragonPartHead.posX;
-        double d1 = this.dragon.dragonPartHead.posY + (double)(this.dragon.dragonPartHead.height / 2.0F);
-        double d2 = this.dragon.dragonPartHead.posZ;
+        double d0 = dragon.dragonPartHead.posX;
+        double d1 = dragon.dragonPartHead.posY + (double)(dragon.dragonPartHead.height / 2.0F);
+        double d2 = dragon.dragonPartHead.posZ;
 
         for (int i = 0; i < 8; ++i)
         {
-            double d3 = d0 + this.dragon.getRNG().nextGaussian() / 2.0D;
-            double d4 = d1 + this.dragon.getRNG().nextGaussian() / 2.0D;
-            double d5 = d2 + this.dragon.getRNG().nextGaussian() / 2.0D;
-            this.dragon.world.spawnParticle(EnumParticleTypes.DRAGON_BREATH, d3, d4, d5, -vec3d.x * 0.07999999821186066D + this.dragon.motionX, -vec3d.y * 0.30000001192092896D + this.dragon.motionY, -vec3d.z * 0.07999999821186066D + this.dragon.motionZ);
+            double d3 = d0 + dragon.getRNG().nextGaussian() / 2.0D;
+            double d4 = d1 + dragon.getRNG().nextGaussian() / 2.0D;
+            double d5 = d2 + dragon.getRNG().nextGaussian() / 2.0D;
+            dragon.world.spawnParticle(EnumParticleTypes.DRAGON_BREATH, d3, d4, d5, -vec3d.x * 0.07999999821186066D + dragon.motionX, -vec3d.y * 0.30000001192092896D + dragon.motionY, -vec3d.z * 0.07999999821186066D + dragon.motionZ);
             vec3d.rotateYaw(0.19634955F);
         }
     }
@@ -44,15 +44,15 @@ public class PhaseLanding extends PhaseBase
      */
     public void doLocalUpdate()
     {
-        if (this.targetLocation == null)
+        if (targetLocation == null)
         {
-            this.targetLocation = new Vec3d(this.dragon.world.getTopSolidOrLiquidBlock(WorldGenEndPodium.END_PODIUM_LOCATION));
+            targetLocation = new Vec3d(dragon.world.getTopSolidOrLiquidBlock(WorldGenEndPodium.END_PODIUM_LOCATION));
         }
 
-        if (this.targetLocation.squareDistanceTo(this.dragon.posX, this.dragon.posY, this.dragon.posZ) < 1.0D)
+        if (targetLocation.squareDistanceTo(dragon.posX, dragon.posY, dragon.posZ) < 1.0D)
         {
-            ((PhaseSittingFlaming)this.dragon.getPhaseManager().getPhase(PhaseList.SITTING_FLAMING)).resetFlameCount();
-            this.dragon.getPhaseManager().setPhase(PhaseList.SITTING_SCANNING);
+            ((PhaseSittingFlaming) dragon.getPhaseManager().getPhase(PhaseList.SITTING_FLAMING)).resetFlameCount();
+            dragon.getPhaseManager().setPhase(PhaseList.SITTING_SCANNING);
         }
     }
 
@@ -66,7 +66,7 @@ public class PhaseLanding extends PhaseBase
 
     public float getYawFactor()
     {
-        float f = MathHelper.sqrt(this.dragon.motionX * this.dragon.motionX + this.dragon.motionZ * this.dragon.motionZ) + 1.0F;
+        float f = MathHelper.sqrt(dragon.motionX * dragon.motionX + dragon.motionZ * dragon.motionZ) + 1.0F;
         float f1 = Math.min(f, 40.0F);
         return f1 / f;
     }
@@ -76,7 +76,7 @@ public class PhaseLanding extends PhaseBase
      */
     public void initPhase()
     {
-        this.targetLocation = null;
+        targetLocation = null;
     }
 
     @Nullable
@@ -86,7 +86,7 @@ public class PhaseLanding extends PhaseBase
      */
     public Vec3d getTargetLocation()
     {
-        return this.targetLocation;
+        return targetLocation;
     }
 
     public PhaseList<PhaseLanding> getType()

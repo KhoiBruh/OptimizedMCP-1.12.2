@@ -30,30 +30,30 @@ public abstract class GuiListExtended extends GuiSlot
 
     protected void drawSlot(int slotIndex, int xPos, int yPos, int heightIn, int mouseXIn, int mouseYIn, float partialTicks)
     {
-        this.getListEntry(slotIndex).drawEntry(slotIndex, xPos, yPos, this.getListWidth(), heightIn, mouseXIn, mouseYIn, this.isMouseYWithinSlotBounds(mouseYIn) && this.getSlotIndexFromScreenCoords(mouseXIn, mouseYIn) == slotIndex, partialTicks);
+        getListEntry(slotIndex).drawEntry(slotIndex, xPos, yPos, getListWidth(), heightIn, mouseXIn, mouseYIn, isMouseYWithinSlotBounds(mouseYIn) && getSlotIndexFromScreenCoords(mouseXIn, mouseYIn) == slotIndex, partialTicks);
     }
 
     protected void updateItemPos(int entryID, int insideLeft, int yPos, float partialTicks)
     {
-        this.getListEntry(entryID).updatePosition(entryID, insideLeft, yPos, partialTicks);
+        getListEntry(entryID).updatePosition(entryID, insideLeft, yPos, partialTicks);
     }
 
     public boolean mouseClicked(int mouseX, int mouseY, int mouseEvent)
     {
-        if (this.isMouseYWithinSlotBounds(mouseY))
+        if (isMouseYWithinSlotBounds(mouseY))
         {
-            int i = this.getSlotIndexFromScreenCoords(mouseX, mouseY);
+            int i = getSlotIndexFromScreenCoords(mouseX, mouseY);
 
             if (i >= 0)
             {
-                int j = this.left + this.width / 2 - this.getListWidth() / 2 + 2;
-                int k = this.top + 4 - this.getAmountScrolled() + i * this.slotHeight + this.headerPadding;
+                int j = left + width / 2 - getListWidth() / 2 + 2;
+                int k = top + 4 - getAmountScrolled() + i * slotHeight + headerPadding;
                 int l = mouseX - j;
                 int i1 = mouseY - k;
 
-                if (this.getListEntry(i).mousePressed(i, mouseX, mouseY, mouseEvent, l, i1))
+                if (getListEntry(i).mousePressed(i, mouseX, mouseY, mouseEvent, l, i1))
                 {
-                    this.setEnabled(false);
+                    setEnabled(false);
                     return true;
                 }
             }
@@ -64,16 +64,16 @@ public abstract class GuiListExtended extends GuiSlot
 
     public boolean mouseReleased(int x, int y, int mouseEvent)
     {
-        for (int i = 0; i < this.getSize(); ++i)
+        for (int i = 0; i < getSize(); ++i)
         {
-            int j = this.left + this.width / 2 - this.getListWidth() / 2 + 2;
-            int k = this.top + 4 - this.getAmountScrolled() + i * this.slotHeight + this.headerPadding;
+            int j = left + width / 2 - getListWidth() / 2 + 2;
+            int k = top + 4 - getAmountScrolled() + i * slotHeight + headerPadding;
             int l = x - j;
             int i1 = y - k;
-            this.getListEntry(i).mouseReleased(i, x, y, mouseEvent, l, i1);
+            getListEntry(i).mouseReleased(i, x, y, mouseEvent, l, i1);
         }
 
-        this.setEnabled(true);
+        setEnabled(true);
         return false;
     }
 

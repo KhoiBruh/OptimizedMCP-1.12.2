@@ -21,8 +21,8 @@ public class ItemSign extends Item
 {
     public ItemSign()
     {
-        this.maxStackSize = 16;
-        this.setCreativeTab(CreativeTabs.DECORATIONS);
+        maxStackSize = 16;
+        setCreativeTab(CreativeTabs.DECORATIONS);
     }
 
     /**

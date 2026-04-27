@@ -34,13 +34,13 @@ public abstract class BlockBasePressurePlate extends Block
     protected BlockBasePressurePlate(Material materialIn, MapColor mapColorIn)
     {
         super(materialIn, mapColorIn);
-        this.setCreativeTab(CreativeTabs.REDSTONE);
-        this.setTickRandomly(true);
+        setCreativeTab(CreativeTabs.REDSTONE);
+        setTickRandomly(true);
     }
 
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
     {
-        boolean flag = this.getRedstoneStrength(state) > 0;
+        boolean flag = getRedstoneStrength(state) > 0;
         return flag ? PRESSED_AABB : UNPRESSED_AABB;
     }
 
@@ -92,7 +92,7 @@ public abstract class BlockBasePressurePlate extends Block
      */
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
     {
-        return this.canBePlacedOn(worldIn, pos.down());
+        return canBePlacedOn(worldIn, pos.down());
     }
 
     /**
@@ -102,9 +102,9 @@ public abstract class BlockBasePressurePlate extends Block
      */
     public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos)
     {
-        if (!this.canBePlacedOn(worldIn, pos.down()))
+        if (!canBePlacedOn(worldIn, pos.down()))
         {
-            this.dropBlockAsItem(worldIn, pos, state, 0);
+            dropBlockAsItem(worldIn, pos, state, 0);
             worldIn.setBlockToAir(pos);
         }
     }
@@ -125,11 +125,11 @@ public abstract class BlockBasePressurePlate extends Block
     {
         if (!worldIn.isRemote)
         {
-            int i = this.getRedstoneStrength(state);
+            int i = getRedstoneStrength(state);
 
             if (i > 0)
             {
-                this.updateState(worldIn, pos, state, i);
+                updateState(worldIn, pos, state, i);
             }
         }
     }
@@ -141,11 +141,11 @@ public abstract class BlockBasePressurePlate extends Block
     {
         if (!worldIn.isRemote)
         {
-            int i = this.getRedstoneStrength(state);
+            int i = getRedstoneStrength(state);
 
             if (i == 0)
             {
-                this.updateState(worldIn, pos, state, i);
+                updateState(worldIn, pos, state, i);
             }
         }
     }
@@ -155,30 +155,30 @@ public abstract class BlockBasePressurePlate extends Block
      */
     protected void updateState(World worldIn, BlockPos pos, IBlockState state, int oldRedstoneStrength)
     {
-        int i = this.computeRedstoneStrength(worldIn, pos);
+        int i = computeRedstoneStrength(worldIn, pos);
         boolean flag = oldRedstoneStrength > 0;
         boolean flag1 = i > 0;
 
         if (oldRedstoneStrength != i)
         {
-            state = this.setRedstoneStrength(state, i);
+            state = setRedstoneStrength(state, i);
             worldIn.setBlockState(pos, state, 2);
-            this.updateNeighbors(worldIn, pos);
+            updateNeighbors(worldIn, pos);
             worldIn.markBlockRangeForRenderUpdate(pos, pos);
         }
 
         if (!flag1 && flag)
         {
-            this.playClickOffSound(worldIn, pos);
+            playClickOffSound(worldIn, pos);
         }
         else if (flag1 && !flag)
         {
-            this.playClickOnSound(worldIn, pos);
+            playClickOnSound(worldIn, pos);
         }
 
         if (flag1)
         {
-            worldIn.scheduleUpdate(new BlockPos(pos), this, this.tickRate(worldIn));
+            worldIn.scheduleUpdate(new BlockPos(pos), this, tickRate(worldIn));
         }
     }
 
@@ -191,9 +191,9 @@ public abstract class BlockBasePressurePlate extends Block
      */
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state)
     {
-        if (this.getRedstoneStrength(state) > 0)
+        if (getRedstoneStrength(state) > 0)
         {
-            this.updateNeighbors(worldIn, pos);
+            updateNeighbors(worldIn, pos);
         }
 
         super.breakBlock(worldIn, pos, state);
@@ -210,12 +210,12 @@ public abstract class BlockBasePressurePlate extends Block
 
     public int getWeakPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side)
     {
-        return this.getRedstoneStrength(blockState);
+        return getRedstoneStrength(blockState);
     }
 
     public int getStrongPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side)
     {
-        return side == EnumFacing.UP ? this.getRedstoneStrength(blockState) : 0;
+        return side == EnumFacing.UP ? getRedstoneStrength(blockState) : 0;
     }
 
     /**

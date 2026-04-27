@@ -15,7 +15,7 @@ public class CrashReportCategory
 
     public CrashReportCategory(CrashReport report, String name)
     {
-        this.crashReport = report;
+        crashReport = report;
         this.name = name;
     }
 
@@ -95,11 +95,11 @@ public class CrashReportCategory
     {
         try
         {
-            this.addCrashSection(nameIn, detail.call());
+            addCrashSection(nameIn, detail.call());
         }
         catch (Throwable throwable)
         {
-            this.addCrashSectionThrowable(nameIn, throwable);
+            addCrashSectionThrowable(nameIn, throwable);
         }
     }
 
@@ -108,7 +108,7 @@ public class CrashReportCategory
      */
     public void addCrashSection(String sectionName, Object value)
     {
-        this.children.add(new CrashReportCategory.Entry(sectionName, value));
+        children.add(new CrashReportCategory.Entry(sectionName, value));
     }
 
     /**
@@ -116,7 +116,7 @@ public class CrashReportCategory
      */
     public void addCrashSectionThrowable(String sectionName, Throwable throwable)
     {
-        this.addCrashSection(sectionName, throwable);
+        addCrashSection(sectionName, throwable);
     }
 
     /**
@@ -133,9 +133,9 @@ public class CrashReportCategory
         }
         else
         {
-            this.stackTrace = new StackTraceElement[astacktraceelement.length - 3 - size];
-            System.arraycopy(astacktraceelement, 3 + size, this.stackTrace, 0, this.stackTrace.length);
-            return this.stackTrace.length;
+            stackTrace = new StackTraceElement[astacktraceelement.length - 3 - size];
+            System.arraycopy(astacktraceelement, 3 + size, stackTrace, 0, stackTrace.length);
+            return stackTrace.length;
         }
     }
 
@@ -144,23 +144,23 @@ public class CrashReportCategory
      */
     public boolean firstTwoElementsOfStackTraceMatch(StackTraceElement s1, StackTraceElement s2)
     {
-        if (this.stackTrace.length != 0 && s1 != null)
+        if (stackTrace.length != 0 && s1 != null)
         {
-            StackTraceElement stacktraceelement = this.stackTrace[0];
+            StackTraceElement stacktraceelement = stackTrace[0];
 
             if (stacktraceelement.isNativeMethod() == s1.isNativeMethod() && stacktraceelement.getClassName().equals(s1.getClassName()) && stacktraceelement.getFileName().equals(s1.getFileName()) && stacktraceelement.getMethodName().equals(s1.getMethodName()))
             {
-                if (s2 != null != this.stackTrace.length > 1)
+                if (s2 != null != stackTrace.length > 1)
                 {
                     return false;
                 }
-                else if (s2 != null && !this.stackTrace[1].equals(s2))
+                else if (s2 != null && !stackTrace[1].equals(s2))
                 {
                     return false;
                 }
                 else
                 {
-                    this.stackTrace[0] = s1;
+                    stackTrace[0] = s1;
                     return true;
                 }
             }
@@ -180,17 +180,17 @@ public class CrashReportCategory
      */
     public void trimStackTraceEntriesFromBottom(int amount)
     {
-        StackTraceElement[] astacktraceelement = new StackTraceElement[this.stackTrace.length - amount];
-        System.arraycopy(this.stackTrace, 0, astacktraceelement, 0, astacktraceelement.length);
-        this.stackTrace = astacktraceelement;
+        StackTraceElement[] astacktraceelement = new StackTraceElement[stackTrace.length - amount];
+        System.arraycopy(stackTrace, 0, astacktraceelement, 0, astacktraceelement.length);
+        stackTrace = astacktraceelement;
     }
 
     public void appendToStringBuilder(StringBuilder builder)
     {
-        builder.append("-- ").append(this.name).append(" --\n");
+        builder.append("-- ").append(name).append(" --\n");
         builder.append("Details:");
 
-        for (CrashReportCategory.Entry crashreportcategory$entry : this.children)
+        for (CrashReportCategory.Entry crashreportcategory$entry : children)
         {
             builder.append("\n\t");
             builder.append(crashreportcategory$entry.getKey());
@@ -198,11 +198,11 @@ public class CrashReportCategory
             builder.append(crashreportcategory$entry.getValue());
         }
 
-        if (this.stackTrace != null && this.stackTrace.length > 0)
+        if (stackTrace != null && stackTrace.length > 0)
         {
             builder.append("\nStacktrace:");
 
-            for (StackTraceElement stacktraceelement : this.stackTrace)
+            for (StackTraceElement stacktraceelement : stackTrace)
             {
                 builder.append("\n\tat ");
                 builder.append((Object)stacktraceelement);
@@ -212,7 +212,7 @@ public class CrashReportCategory
 
     public StackTraceElement[] getStackTrace()
     {
-        return this.stackTrace;
+        return stackTrace;
     }
 
     public static void addBlockInfo(CrashReportCategory category, final BlockPos pos, final Block blockIn, final int blockData)
@@ -300,12 +300,12 @@ public class CrashReportCategory
 
         public String getKey()
         {
-            return this.key;
+            return key;
         }
 
         public String getValue()
         {
-            return this.value;
+            return value;
         }
     }
 }

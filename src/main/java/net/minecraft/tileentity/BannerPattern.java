@@ -55,54 +55,54 @@ public enum BannerPattern
 
     private BannerPattern(String p_i47245_3_, String p_i47245_4_)
     {
-        this.patterns = new String[3];
-        this.patternItem = ItemStack.EMPTY;
-        this.fileName = p_i47245_3_;
-        this.hashname = p_i47245_4_;
+        patterns = new String[3];
+        patternItem = ItemStack.EMPTY;
+        fileName = p_i47245_3_;
+        hashname = p_i47245_4_;
     }
 
     private BannerPattern(String p_i47246_3_, String p_i47246_4_, ItemStack p_i47246_5_)
     {
         this(p_i47246_3_, p_i47246_4_);
-        this.patternItem = p_i47246_5_;
+        patternItem = p_i47246_5_;
     }
 
     private BannerPattern(String p_i47247_3_, String p_i47247_4_, String p_i47247_5_, String p_i47247_6_, String p_i47247_7_)
     {
         this(p_i47247_3_, p_i47247_4_);
-        this.patterns[0] = p_i47247_5_;
-        this.patterns[1] = p_i47247_6_;
-        this.patterns[2] = p_i47247_7_;
+        patterns[0] = p_i47247_5_;
+        patterns[1] = p_i47247_6_;
+        patterns[2] = p_i47247_7_;
     }
 
     public String getFileName()
     {
-        return this.fileName;
+        return fileName;
     }
 
     public String getHashname()
     {
-        return this.hashname;
+        return hashname;
     }
 
     public String[] getPatterns()
     {
-        return this.patterns;
+        return patterns;
     }
 
     public boolean hasPattern()
     {
-        return !this.patternItem.isEmpty() || this.patterns[0] != null;
+        return !patternItem.isEmpty() || patterns[0] != null;
     }
 
     public boolean hasPatternItem()
     {
-        return !this.patternItem.isEmpty();
+        return !patternItem.isEmpty();
     }
 
     public ItemStack getPatternItem()
     {
-        return this.patternItem;
+        return patternItem;
     }
 
     @Nullable

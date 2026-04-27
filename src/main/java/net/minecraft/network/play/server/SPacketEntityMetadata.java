@@ -18,16 +18,16 @@ public class SPacketEntityMetadata implements Packet<INetHandlerPlayClient>
 
     public SPacketEntityMetadata(int entityIdIn, EntityDataManager dataManagerIn, boolean sendAll)
     {
-        this.entityId = entityIdIn;
+        entityId = entityIdIn;
 
         if (sendAll)
         {
-            this.dataManagerEntries = dataManagerIn.getAll();
+            dataManagerEntries = dataManagerIn.getAll();
             dataManagerIn.setClean();
         }
         else
         {
-            this.dataManagerEntries = dataManagerIn.getDirty();
+            dataManagerEntries = dataManagerIn.getDirty();
         }
     }
 
@@ -36,8 +36,8 @@ public class SPacketEntityMetadata implements Packet<INetHandlerPlayClient>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.entityId = buf.readVarInt();
-        this.dataManagerEntries = EntityDataManager.readEntries(buf);
+        entityId = buf.readVarInt();
+        dataManagerEntries = EntityDataManager.readEntries(buf);
     }
 
     /**
@@ -45,8 +45,8 @@ public class SPacketEntityMetadata implements Packet<INetHandlerPlayClient>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeVarInt(this.entityId);
-        EntityDataManager.writeEntries(this.dataManagerEntries, buf);
+        buf.writeVarInt(entityId);
+        EntityDataManager.writeEntries(dataManagerEntries, buf);
     }
 
     /**
@@ -59,11 +59,11 @@ public class SPacketEntityMetadata implements Packet<INetHandlerPlayClient>
 
     public List < EntityDataManager.DataEntry<? >> getDataManagerEntries()
     {
-        return this.dataManagerEntries;
+        return dataManagerEntries;
     }
 
     public int getEntityId()
     {
-        return this.entityId;
+        return entityId;
     }
 }

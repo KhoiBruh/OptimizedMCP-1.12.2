@@ -92,41 +92,41 @@ public class WoodlandMansionPieces
 
         public Grid(Random randomIn)
         {
-            this.random = randomIn;
+            random = randomIn;
             int i = 11;
-            this.entranceX = 7;
-            this.entranceY = 4;
-            this.baseGrid = new WoodlandMansionPieces.SimpleGrid(11, 11, 5);
-            this.baseGrid.set(this.entranceX, this.entranceY, this.entranceX + 1, this.entranceY + 1, 3);
-            this.baseGrid.set(this.entranceX - 1, this.entranceY, this.entranceX - 1, this.entranceY + 1, 2);
-            this.baseGrid.set(this.entranceX + 2, this.entranceY - 2, this.entranceX + 3, this.entranceY + 3, 5);
-            this.baseGrid.set(this.entranceX + 1, this.entranceY - 2, this.entranceX + 1, this.entranceY - 1, 1);
-            this.baseGrid.set(this.entranceX + 1, this.entranceY + 2, this.entranceX + 1, this.entranceY + 3, 1);
-            this.baseGrid.set(this.entranceX - 1, this.entranceY - 1, 1);
-            this.baseGrid.set(this.entranceX - 1, this.entranceY + 2, 1);
-            this.baseGrid.set(0, 0, 11, 1, 5);
-            this.baseGrid.set(0, 9, 11, 11, 5);
-            this.recursiveCorridor(this.baseGrid, this.entranceX, this.entranceY - 2, EnumFacing.WEST, 6);
-            this.recursiveCorridor(this.baseGrid, this.entranceX, this.entranceY + 3, EnumFacing.WEST, 6);
-            this.recursiveCorridor(this.baseGrid, this.entranceX - 2, this.entranceY - 1, EnumFacing.WEST, 3);
-            this.recursiveCorridor(this.baseGrid, this.entranceX - 2, this.entranceY + 2, EnumFacing.WEST, 3);
+            entranceX = 7;
+            entranceY = 4;
+            baseGrid = new WoodlandMansionPieces.SimpleGrid(11, 11, 5);
+            baseGrid.set(entranceX, entranceY, entranceX + 1, entranceY + 1, 3);
+            baseGrid.set(entranceX - 1, entranceY, entranceX - 1, entranceY + 1, 2);
+            baseGrid.set(entranceX + 2, entranceY - 2, entranceX + 3, entranceY + 3, 5);
+            baseGrid.set(entranceX + 1, entranceY - 2, entranceX + 1, entranceY - 1, 1);
+            baseGrid.set(entranceX + 1, entranceY + 2, entranceX + 1, entranceY + 3, 1);
+            baseGrid.set(entranceX - 1, entranceY - 1, 1);
+            baseGrid.set(entranceX - 1, entranceY + 2, 1);
+            baseGrid.set(0, 0, 11, 1, 5);
+            baseGrid.set(0, 9, 11, 11, 5);
+            recursiveCorridor(baseGrid, entranceX, entranceY - 2, EnumFacing.WEST, 6);
+            recursiveCorridor(baseGrid, entranceX, entranceY + 3, EnumFacing.WEST, 6);
+            recursiveCorridor(baseGrid, entranceX - 2, entranceY - 1, EnumFacing.WEST, 3);
+            recursiveCorridor(baseGrid, entranceX - 2, entranceY + 2, EnumFacing.WEST, 3);
 
-            while (this.cleanEdges(this.baseGrid))
+            while (cleanEdges(baseGrid))
             {
                 ;
             }
 
-            this.floorRooms = new WoodlandMansionPieces.SimpleGrid[3];
-            this.floorRooms[0] = new WoodlandMansionPieces.SimpleGrid(11, 11, 5);
-            this.floorRooms[1] = new WoodlandMansionPieces.SimpleGrid(11, 11, 5);
-            this.floorRooms[2] = new WoodlandMansionPieces.SimpleGrid(11, 11, 5);
-            this.identifyRooms(this.baseGrid, this.floorRooms[0]);
-            this.identifyRooms(this.baseGrid, this.floorRooms[1]);
-            this.floorRooms[0].set(this.entranceX + 1, this.entranceY, this.entranceX + 1, this.entranceY + 1, 8388608);
-            this.floorRooms[1].set(this.entranceX + 1, this.entranceY, this.entranceX + 1, this.entranceY + 1, 8388608);
-            this.thirdFloorGrid = new WoodlandMansionPieces.SimpleGrid(this.baseGrid.width, this.baseGrid.height, 5);
-            this.setupThirdFloor();
-            this.identifyRooms(this.thirdFloorGrid, this.floorRooms[2]);
+            floorRooms = new WoodlandMansionPieces.SimpleGrid[3];
+            floorRooms[0] = new WoodlandMansionPieces.SimpleGrid(11, 11, 5);
+            floorRooms[1] = new WoodlandMansionPieces.SimpleGrid(11, 11, 5);
+            floorRooms[2] = new WoodlandMansionPieces.SimpleGrid(11, 11, 5);
+            identifyRooms(baseGrid, floorRooms[0]);
+            identifyRooms(baseGrid, floorRooms[1]);
+            floorRooms[0].set(entranceX + 1, entranceY, entranceX + 1, entranceY + 1, 8388608);
+            floorRooms[1].set(entranceX + 1, entranceY, entranceX + 1, entranceY + 1, 8388608);
+            thirdFloorGrid = new WoodlandMansionPieces.SimpleGrid(baseGrid.width, baseGrid.height, 5);
+            setupThirdFloor();
+            identifyRooms(thirdFloorGrid, floorRooms[2]);
         }
 
         public static boolean isHouse(WoodlandMansionPieces.SimpleGrid p_191109_0_, int p_191109_1_, int p_191109_2_)
@@ -137,7 +137,7 @@ public class WoodlandMansionPieces
 
         public boolean isRoomId(WoodlandMansionPieces.SimpleGrid p_191114_1_, int p_191114_2_, int p_191114_3_, int p_191114_4_, int p_191114_5_)
         {
-            return (this.floorRooms[p_191114_4_].get(p_191114_2_, p_191114_3_) & 65535) == p_191114_5_;
+            return (floorRooms[p_191114_4_].get(p_191114_2_, p_191114_3_) & 65535) == p_191114_5_;
         }
 
         @Nullable
@@ -145,7 +145,7 @@ public class WoodlandMansionPieces
         {
             for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL.facings())
             {
-                if (this.isRoomId(p_191113_1_, p_191113_2_ + enumfacing.getFrontOffsetX(), p_191113_3_ + enumfacing.getFrontOffsetZ(), p_191113_4_, p_191113_5_))
+                if (isRoomId(p_191113_1_, p_191113_2_ + enumfacing.getFrontOffsetX(), p_191113_3_ + enumfacing.getFrontOffsetZ(), p_191113_4_, p_191113_5_))
                 {
                     return enumfacing;
                 }
@@ -163,16 +163,16 @@ public class WoodlandMansionPieces
 
                 for (int i = 0; i < 8; ++i)
                 {
-                    EnumFacing enumfacing = EnumFacing.getHorizontal(this.random.nextInt(4));
+                    EnumFacing enumfacing = EnumFacing.getHorizontal(random.nextInt(4));
 
-                    if (enumfacing != p_191110_4_.getOpposite() && (enumfacing != EnumFacing.EAST || !this.random.nextBoolean()))
+                    if (enumfacing != p_191110_4_.getOpposite() && (enumfacing != EnumFacing.EAST || !random.nextBoolean()))
                     {
                         int j = p_191110_2_ + p_191110_4_.getFrontOffsetX();
                         int k = p_191110_3_ + p_191110_4_.getFrontOffsetZ();
 
                         if (p_191110_1_.get(j + enumfacing.getFrontOffsetX(), k + enumfacing.getFrontOffsetZ()) == 0 && p_191110_1_.get(j + enumfacing.getFrontOffsetX() * 2, k + enumfacing.getFrontOffsetZ() * 2) == 0)
                         {
-                            this.recursiveCorridor(p_191110_1_, p_191110_2_ + p_191110_4_.getFrontOffsetX() + enumfacing.getFrontOffsetX(), p_191110_3_ + p_191110_4_.getFrontOffsetZ() + enumfacing.getFrontOffsetZ(), enumfacing, p_191110_5_ - 1);
+                            recursiveCorridor(p_191110_1_, p_191110_2_ + p_191110_4_.getFrontOffsetX() + enumfacing.getFrontOffsetX(), p_191110_3_ + p_191110_4_.getFrontOffsetZ() + enumfacing.getFrontOffsetZ(), enumfacing, p_191110_5_ - 1);
                             break;
                         }
                     }
@@ -235,11 +235,11 @@ public class WoodlandMansionPieces
         private void setupThirdFloor()
         {
             List<Tuple<Integer, Integer>> list = Lists.<Tuple<Integer, Integer>>newArrayList();
-            WoodlandMansionPieces.SimpleGrid woodlandmansionpieces$simplegrid = this.floorRooms[1];
+            WoodlandMansionPieces.SimpleGrid woodlandmansionpieces$simplegrid = floorRooms[1];
 
-            for (int i = 0; i < this.thirdFloorGrid.height; ++i)
+            for (int i = 0; i < thirdFloorGrid.height; ++i)
             {
-                for (int j = 0; j < this.thirdFloorGrid.width; ++j)
+                for (int j = 0; j < thirdFloorGrid.width; ++j)
                 {
                     int k = woodlandmansionpieces$simplegrid.get(j, i);
                     int l = k & 983040;
@@ -253,33 +253,33 @@ public class WoodlandMansionPieces
 
             if (list.isEmpty())
             {
-                this.thirdFloorGrid.set(0, 0, this.thirdFloorGrid.width, this.thirdFloorGrid.height, 5);
+                thirdFloorGrid.set(0, 0, thirdFloorGrid.width, thirdFloorGrid.height, 5);
             }
             else
             {
-                Tuple<Integer, Integer> tuple = (Tuple)list.get(this.random.nextInt(list.size()));
+                Tuple<Integer, Integer> tuple = (Tuple)list.get(random.nextInt(list.size()));
                 int l1 = woodlandmansionpieces$simplegrid.get(((Integer)tuple.getFirst()).intValue(), ((Integer)tuple.getSecond()).intValue());
                 woodlandmansionpieces$simplegrid.set(((Integer)tuple.getFirst()).intValue(), ((Integer)tuple.getSecond()).intValue(), l1 | 4194304);
-                EnumFacing enumfacing1 = this.get1x2RoomDirection(this.baseGrid, ((Integer)tuple.getFirst()).intValue(), ((Integer)tuple.getSecond()).intValue(), 1, l1 & 65535);
+                EnumFacing enumfacing1 = get1x2RoomDirection(baseGrid, ((Integer)tuple.getFirst()).intValue(), ((Integer)tuple.getSecond()).intValue(), 1, l1 & 65535);
                 int i2 = ((Integer)tuple.getFirst()).intValue() + enumfacing1.getFrontOffsetX();
                 int i1 = ((Integer)tuple.getSecond()).intValue() + enumfacing1.getFrontOffsetZ();
 
-                for (int j1 = 0; j1 < this.thirdFloorGrid.height; ++j1)
+                for (int j1 = 0; j1 < thirdFloorGrid.height; ++j1)
                 {
-                    for (int k1 = 0; k1 < this.thirdFloorGrid.width; ++k1)
+                    for (int k1 = 0; k1 < thirdFloorGrid.width; ++k1)
                     {
-                        if (!isHouse(this.baseGrid, k1, j1))
+                        if (!isHouse(baseGrid, k1, j1))
                         {
-                            this.thirdFloorGrid.set(k1, j1, 5);
+                            thirdFloorGrid.set(k1, j1, 5);
                         }
                         else if (k1 == ((Integer)tuple.getFirst()).intValue() && j1 == ((Integer)tuple.getSecond()).intValue())
                         {
-                            this.thirdFloorGrid.set(k1, j1, 3);
+                            thirdFloorGrid.set(k1, j1, 3);
                         }
                         else if (k1 == i2 && j1 == i1)
                         {
-                            this.thirdFloorGrid.set(k1, j1, 3);
-                            this.floorRooms[2].set(k1, j1, 8388608);
+                            thirdFloorGrid.set(k1, j1, 3);
+                            floorRooms[2].set(k1, j1, 8388608);
                         }
                     }
                 }
@@ -288,7 +288,7 @@ public class WoodlandMansionPieces
 
                 for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL.facings())
                 {
-                    if (this.thirdFloorGrid.get(i2 + enumfacing.getFrontOffsetX(), i1 + enumfacing.getFrontOffsetZ()) == 0)
+                    if (thirdFloorGrid.get(i2 + enumfacing.getFrontOffsetX(), i1 + enumfacing.getFrontOffsetZ()) == 0)
                     {
                         list1.add(enumfacing);
                     }
@@ -296,15 +296,15 @@ public class WoodlandMansionPieces
 
                 if (list1.isEmpty())
                 {
-                    this.thirdFloorGrid.set(0, 0, this.thirdFloorGrid.width, this.thirdFloorGrid.height, 5);
+                    thirdFloorGrid.set(0, 0, thirdFloorGrid.width, thirdFloorGrid.height, 5);
                     woodlandmansionpieces$simplegrid.set(((Integer)tuple.getFirst()).intValue(), ((Integer)tuple.getSecond()).intValue(), l1);
                 }
                 else
                 {
-                    EnumFacing enumfacing2 = list1.get(this.random.nextInt(list1.size()));
-                    this.recursiveCorridor(this.thirdFloorGrid, i2 + enumfacing2.getFrontOffsetX(), i1 + enumfacing2.getFrontOffsetZ(), enumfacing2, 4);
+                    EnumFacing enumfacing2 = list1.get(random.nextInt(list1.size()));
+                    recursiveCorridor(thirdFloorGrid, i2 + enumfacing2.getFrontOffsetX(), i1 + enumfacing2.getFrontOffsetZ(), enumfacing2, 4);
 
-                    while (this.cleanEdges(this.thirdFloorGrid))
+                    while (cleanEdges(thirdFloorGrid))
                     {
                         ;
                     }
@@ -327,7 +327,7 @@ public class WoodlandMansionPieces
                 }
             }
 
-            Collections.shuffle(list, this.random);
+            Collections.shuffle(list, random);
             int k3 = 10;
 
             for (Tuple<Integer, Integer> tuple : list)
@@ -382,8 +382,8 @@ public class WoodlandMansionPieces
                         i2 = 131072;
                     }
 
-                    int j2 = this.random.nextBoolean() ? i1 : j1;
-                    int k2 = this.random.nextBoolean() ? k1 : l1;
+                    int j2 = random.nextBoolean() ? i1 : j1;
+                    int k2 = random.nextBoolean() ? k1 : l1;
                     int l2 = 2097152;
 
                     if (!p_191116_1_.edgesTo(j2, k2, 1))
@@ -449,42 +449,42 @@ public class WoodlandMansionPieces
         public MansionTemplate(TemplateManager p_i47356_1_, String p_i47356_2_, BlockPos p_i47356_3_, Rotation p_i47356_4_, Mirror p_i47356_5_)
         {
             super(0);
-            this.templateName = p_i47356_2_;
-            this.templatePosition = p_i47356_3_;
-            this.rotation = p_i47356_4_;
-            this.mirror = p_i47356_5_;
-            this.loadTemplate(p_i47356_1_);
+            templateName = p_i47356_2_;
+            templatePosition = p_i47356_3_;
+            rotation = p_i47356_4_;
+            mirror = p_i47356_5_;
+            loadTemplate(p_i47356_1_);
         }
 
         private void loadTemplate(TemplateManager p_191081_1_)
         {
-            Template template = p_191081_1_.getTemplate((MinecraftServer)null, new ResourceLocation("mansion/" + this.templateName));
-            PlacementSettings placementsettings = (new PlacementSettings()).setIgnoreEntities(true).setRotation(this.rotation).setMirror(this.mirror);
-            this.setup(template, this.templatePosition, placementsettings);
+            Template template = p_191081_1_.getTemplate((MinecraftServer)null, new ResourceLocation("mansion/" + templateName));
+            PlacementSettings placementsettings = (new PlacementSettings()).setIgnoreEntities(true).setRotation(rotation).setMirror(mirror);
+            setup(template, templatePosition, placementsettings);
         }
 
         protected void writeStructureToNBT(NBTTagCompound tagCompound)
         {
             super.writeStructureToNBT(tagCompound);
-            tagCompound.setString("Template", this.templateName);
-            tagCompound.setString("Rot", this.placeSettings.getRotation().name());
-            tagCompound.setString("Mi", this.placeSettings.getMirror().name());
+            tagCompound.setString("Template", templateName);
+            tagCompound.setString("Rot", placeSettings.getRotation().name());
+            tagCompound.setString("Mi", placeSettings.getMirror().name());
         }
 
         protected void readStructureFromNBT(NBTTagCompound tagCompound, TemplateManager p_143011_2_)
         {
             super.readStructureFromNBT(tagCompound, p_143011_2_);
-            this.templateName = tagCompound.getString("Template");
-            this.rotation = Rotation.valueOf(tagCompound.getString("Rot"));
-            this.mirror = Mirror.valueOf(tagCompound.getString("Mi"));
-            this.loadTemplate(p_143011_2_);
+            templateName = tagCompound.getString("Template");
+            rotation = Rotation.valueOf(tagCompound.getString("Rot"));
+            mirror = Mirror.valueOf(tagCompound.getString("Mi"));
+            loadTemplate(p_143011_2_);
         }
 
         protected void handleDataMarker(String function, BlockPos pos, World worldIn, Random rand, StructureBoundingBox sbb)
         {
             if (function.startsWith("Chest"))
             {
-                Rotation rotation = this.placeSettings.getRotation();
+                Rotation rotation = placeSettings.getRotation();
                 IBlockState iblockstate = Blocks.CHEST.getDefaultState();
 
                 if ("ChestWest".equals(function))
@@ -504,7 +504,7 @@ public class WoodlandMansionPieces
                     iblockstate = iblockstate.withProperty(BlockChest.FACING, rotation.rotate(EnumFacing.NORTH));
                 }
 
-                this.generateChest(worldIn, sbb, rand, pos, LootTableList.CHESTS_WOODLAND_MANSION, iblockstate);
+                generateChest(worldIn, sbb, rand, pos, LootTableList.CHESTS_WOODLAND_MANSION, iblockstate);
             }
             else if ("Mage".equals(function))
             {
@@ -546,8 +546,8 @@ public class WoodlandMansionPieces
 
         public Placer(TemplateManager p_i47361_1_, Random p_i47361_2_)
         {
-            this.templateManager = p_i47361_1_;
-            this.random = p_i47361_2_;
+            templateManager = p_i47361_1_;
+            random = p_i47361_2_;
         }
 
         public void createMansion(BlockPos p_191125_1_, Rotation p_191125_2_, List<WoodlandMansionPieces.MansionTemplate> p_191125_3_, WoodlandMansionPieces.Grid p_191125_4_)
@@ -557,7 +557,7 @@ public class WoodlandMansionPieces
             woodlandmansionpieces$placementdata.rotation = p_191125_2_;
             woodlandmansionpieces$placementdata.wallType = "wall_flat";
             WoodlandMansionPieces.PlacementData woodlandmansionpieces$placementdata1 = new WoodlandMansionPieces.PlacementData();
-            this.entrance(p_191125_3_, woodlandmansionpieces$placementdata);
+            entrance(p_191125_3_, woodlandmansionpieces$placementdata);
             woodlandmansionpieces$placementdata1.position = woodlandmansionpieces$placementdata.position.up(8);
             woodlandmansionpieces$placementdata1.rotation = woodlandmansionpieces$placementdata.rotation;
             woodlandmansionpieces$placementdata1.wallType = "wall_window";
@@ -569,12 +569,12 @@ public class WoodlandMansionPieces
 
             WoodlandMansionPieces.SimpleGrid woodlandmansionpieces$simplegrid = p_191125_4_.baseGrid;
             WoodlandMansionPieces.SimpleGrid woodlandmansionpieces$simplegrid1 = p_191125_4_.thirdFloorGrid;
-            this.startX = p_191125_4_.entranceX + 1;
-            this.startY = p_191125_4_.entranceY + 1;
+            startX = p_191125_4_.entranceX + 1;
+            startY = p_191125_4_.entranceY + 1;
             int i = p_191125_4_.entranceX + 1;
             int j = p_191125_4_.entranceY;
-            this.traverseOuterWalls(p_191125_3_, woodlandmansionpieces$placementdata, woodlandmansionpieces$simplegrid, EnumFacing.SOUTH, this.startX, this.startY, i, j);
-            this.traverseOuterWalls(p_191125_3_, woodlandmansionpieces$placementdata1, woodlandmansionpieces$simplegrid, EnumFacing.SOUTH, this.startX, this.startY, i, j);
+            traverseOuterWalls(p_191125_3_, woodlandmansionpieces$placementdata, woodlandmansionpieces$simplegrid, EnumFacing.SOUTH, startX, startY, i, j);
+            traverseOuterWalls(p_191125_3_, woodlandmansionpieces$placementdata1, woodlandmansionpieces$simplegrid, EnumFacing.SOUTH, startX, startY, i, j);
             WoodlandMansionPieces.PlacementData woodlandmansionpieces$placementdata2 = new WoodlandMansionPieces.PlacementData();
             woodlandmansionpieces$placementdata2.position = woodlandmansionpieces$placementdata.position.up(19);
             woodlandmansionpieces$placementdata2.rotation = woodlandmansionpieces$placementdata.rotation;
@@ -587,17 +587,17 @@ public class WoodlandMansionPieces
                 {
                     if (WoodlandMansionPieces.Grid.isHouse(woodlandmansionpieces$simplegrid1, l, k))
                     {
-                        woodlandmansionpieces$placementdata2.position = woodlandmansionpieces$placementdata2.position.offset(p_191125_2_.rotate(EnumFacing.SOUTH), 8 + (k - this.startY) * 8);
-                        woodlandmansionpieces$placementdata2.position = woodlandmansionpieces$placementdata2.position.offset(p_191125_2_.rotate(EnumFacing.EAST), (l - this.startX) * 8);
-                        this.traverseWallPiece(p_191125_3_, woodlandmansionpieces$placementdata2);
-                        this.traverseOuterWalls(p_191125_3_, woodlandmansionpieces$placementdata2, woodlandmansionpieces$simplegrid1, EnumFacing.SOUTH, l, k, l, k);
+                        woodlandmansionpieces$placementdata2.position = woodlandmansionpieces$placementdata2.position.offset(p_191125_2_.rotate(EnumFacing.SOUTH), 8 + (k - startY) * 8);
+                        woodlandmansionpieces$placementdata2.position = woodlandmansionpieces$placementdata2.position.offset(p_191125_2_.rotate(EnumFacing.EAST), (l - startX) * 8);
+                        traverseWallPiece(p_191125_3_, woodlandmansionpieces$placementdata2);
+                        traverseOuterWalls(p_191125_3_, woodlandmansionpieces$placementdata2, woodlandmansionpieces$simplegrid1, EnumFacing.SOUTH, l, k, l, k);
                         flag = true;
                     }
                 }
             }
 
-            this.createRoof(p_191125_3_, p_191125_1_.up(16), p_191125_2_, woodlandmansionpieces$simplegrid, woodlandmansionpieces$simplegrid1);
-            this.createRoof(p_191125_3_, p_191125_1_.up(27), p_191125_2_, woodlandmansionpieces$simplegrid1, (WoodlandMansionPieces.SimpleGrid)null);
+            createRoof(p_191125_3_, p_191125_1_.up(16), p_191125_2_, woodlandmansionpieces$simplegrid, woodlandmansionpieces$simplegrid1);
+            createRoof(p_191125_3_, p_191125_1_.up(27), p_191125_2_, woodlandmansionpieces$simplegrid1, (WoodlandMansionPieces.SimpleGrid)null);
 
             if (!p_191125_3_.isEmpty())
             {
@@ -623,28 +623,28 @@ public class WoodlandMansionPieces
                     {
                         if (woodlandmansionpieces$simplegrid3.get(j1, i1) == 1)
                         {
-                            BlockPos blockpos1 = blockpos.offset(p_191125_2_.rotate(EnumFacing.SOUTH), 8 + (i1 - this.startY) * 8);
-                            blockpos1 = blockpos1.offset(p_191125_2_.rotate(EnumFacing.EAST), (j1 - this.startX) * 8);
-                            p_191125_3_.add(new WoodlandMansionPieces.MansionTemplate(this.templateManager, "corridor_floor", blockpos1, p_191125_2_));
+                            BlockPos blockpos1 = blockpos.offset(p_191125_2_.rotate(EnumFacing.SOUTH), 8 + (i1 - startY) * 8);
+                            blockpos1 = blockpos1.offset(p_191125_2_.rotate(EnumFacing.EAST), (j1 - startX) * 8);
+                            p_191125_3_.add(new WoodlandMansionPieces.MansionTemplate(templateManager, "corridor_floor", blockpos1, p_191125_2_));
 
                             if (woodlandmansionpieces$simplegrid3.get(j1, i1 - 1) == 1 || (woodlandmansionpieces$simplegrid2.get(j1, i1 - 1) & 8388608) == 8388608)
                             {
-                                p_191125_3_.add(new WoodlandMansionPieces.MansionTemplate(this.templateManager, "carpet_north", blockpos1.offset(p_191125_2_.rotate(EnumFacing.EAST), 1).up(), p_191125_2_));
+                                p_191125_3_.add(new WoodlandMansionPieces.MansionTemplate(templateManager, "carpet_north", blockpos1.offset(p_191125_2_.rotate(EnumFacing.EAST), 1).up(), p_191125_2_));
                             }
 
                             if (woodlandmansionpieces$simplegrid3.get(j1 + 1, i1) == 1 || (woodlandmansionpieces$simplegrid2.get(j1 + 1, i1) & 8388608) == 8388608)
                             {
-                                p_191125_3_.add(new WoodlandMansionPieces.MansionTemplate(this.templateManager, "carpet_east", blockpos1.offset(p_191125_2_.rotate(EnumFacing.SOUTH), 1).offset(p_191125_2_.rotate(EnumFacing.EAST), 5).up(), p_191125_2_));
+                                p_191125_3_.add(new WoodlandMansionPieces.MansionTemplate(templateManager, "carpet_east", blockpos1.offset(p_191125_2_.rotate(EnumFacing.SOUTH), 1).offset(p_191125_2_.rotate(EnumFacing.EAST), 5).up(), p_191125_2_));
                             }
 
                             if (woodlandmansionpieces$simplegrid3.get(j1, i1 + 1) == 1 || (woodlandmansionpieces$simplegrid2.get(j1, i1 + 1) & 8388608) == 8388608)
                             {
-                                p_191125_3_.add(new WoodlandMansionPieces.MansionTemplate(this.templateManager, s, blockpos1.offset(p_191125_2_.rotate(EnumFacing.SOUTH), 5).offset(p_191125_2_.rotate(EnumFacing.WEST), 1), p_191125_2_));
+                                p_191125_3_.add(new WoodlandMansionPieces.MansionTemplate(templateManager, s, blockpos1.offset(p_191125_2_.rotate(EnumFacing.SOUTH), 5).offset(p_191125_2_.rotate(EnumFacing.WEST), 1), p_191125_2_));
                             }
 
                             if (woodlandmansionpieces$simplegrid3.get(j1 - 1, i1) == 1 || (woodlandmansionpieces$simplegrid2.get(j1 - 1, i1) & 8388608) == 8388608)
                             {
-                                p_191125_3_.add(new WoodlandMansionPieces.MansionTemplate(this.templateManager, s1, blockpos1.offset(p_191125_2_.rotate(EnumFacing.WEST), 1).offset(p_191125_2_.rotate(EnumFacing.NORTH), 1), p_191125_2_));
+                                p_191125_3_.add(new WoodlandMansionPieces.MansionTemplate(templateManager, s1, blockpos1.offset(p_191125_2_.rotate(EnumFacing.WEST), 1).offset(p_191125_2_.rotate(EnumFacing.NORTH), 1), p_191125_2_));
                             }
                         }
                     }
@@ -683,50 +683,50 @@ public class WoodlandMansionPieces
 
                             if (!list.isEmpty())
                             {
-                                enumfacing1 = list.get(this.random.nextInt(list.size()));
+                                enumfacing1 = list.get(random.nextInt(list.size()));
                             }
                             else if ((i2 & 1048576) == 1048576)
                             {
                                 enumfacing1 = EnumFacing.UP;
                             }
 
-                            BlockPos blockpos2 = blockpos.offset(p_191125_2_.rotate(EnumFacing.SOUTH), 8 + (k1 - this.startY) * 8);
-                            blockpos2 = blockpos2.offset(p_191125_2_.rotate(EnumFacing.EAST), -1 + (l1 - this.startX) * 8);
+                            BlockPos blockpos2 = blockpos.offset(p_191125_2_.rotate(EnumFacing.SOUTH), 8 + (k1 - startY) * 8);
+                            blockpos2 = blockpos2.offset(p_191125_2_.rotate(EnumFacing.EAST), -1 + (l1 - startX) * 8);
 
                             if (WoodlandMansionPieces.Grid.isHouse(woodlandmansionpieces$simplegrid3, l1 - 1, k1) && !p_191125_4_.isRoomId(woodlandmansionpieces$simplegrid3, l1 - 1, k1, l2, k2))
                             {
-                                p_191125_3_.add(new WoodlandMansionPieces.MansionTemplate(this.templateManager, enumfacing1 == EnumFacing.WEST ? s3 : s2, blockpos2, p_191125_2_));
+                                p_191125_3_.add(new WoodlandMansionPieces.MansionTemplate(templateManager, enumfacing1 == EnumFacing.WEST ? s3 : s2, blockpos2, p_191125_2_));
                             }
 
                             if (woodlandmansionpieces$simplegrid3.get(l1 + 1, k1) == 1 && !flag1)
                             {
                                 BlockPos blockpos3 = blockpos2.offset(p_191125_2_.rotate(EnumFacing.EAST), 8);
-                                p_191125_3_.add(new WoodlandMansionPieces.MansionTemplate(this.templateManager, enumfacing1 == EnumFacing.EAST ? s3 : s2, blockpos3, p_191125_2_));
+                                p_191125_3_.add(new WoodlandMansionPieces.MansionTemplate(templateManager, enumfacing1 == EnumFacing.EAST ? s3 : s2, blockpos3, p_191125_2_));
                             }
 
                             if (WoodlandMansionPieces.Grid.isHouse(woodlandmansionpieces$simplegrid3, l1, k1 + 1) && !p_191125_4_.isRoomId(woodlandmansionpieces$simplegrid3, l1, k1 + 1, l2, k2))
                             {
                                 BlockPos blockpos4 = blockpos2.offset(p_191125_2_.rotate(EnumFacing.SOUTH), 7);
                                 blockpos4 = blockpos4.offset(p_191125_2_.rotate(EnumFacing.EAST), 7);
-                                p_191125_3_.add(new WoodlandMansionPieces.MansionTemplate(this.templateManager, enumfacing1 == EnumFacing.SOUTH ? s3 : s2, blockpos4, p_191125_2_.add(Rotation.CLOCKWISE_90)));
+                                p_191125_3_.add(new WoodlandMansionPieces.MansionTemplate(templateManager, enumfacing1 == EnumFacing.SOUTH ? s3 : s2, blockpos4, p_191125_2_.add(Rotation.CLOCKWISE_90)));
                             }
 
                             if (woodlandmansionpieces$simplegrid3.get(l1, k1 - 1) == 1 && !flag1)
                             {
                                 BlockPos blockpos5 = blockpos2.offset(p_191125_2_.rotate(EnumFacing.NORTH), 1);
                                 blockpos5 = blockpos5.offset(p_191125_2_.rotate(EnumFacing.EAST), 7);
-                                p_191125_3_.add(new WoodlandMansionPieces.MansionTemplate(this.templateManager, enumfacing1 == EnumFacing.NORTH ? s3 : s2, blockpos5, p_191125_2_.add(Rotation.CLOCKWISE_90)));
+                                p_191125_3_.add(new WoodlandMansionPieces.MansionTemplate(templateManager, enumfacing1 == EnumFacing.NORTH ? s3 : s2, blockpos5, p_191125_2_.add(Rotation.CLOCKWISE_90)));
                             }
 
                             if (j2 == 65536)
                             {
-                                this.addRoom1x1(p_191125_3_, blockpos2, p_191125_2_, enumfacing1, awoodlandmansionpieces$roomcollection[l2]);
+                                addRoom1x1(p_191125_3_, blockpos2, p_191125_2_, enumfacing1, awoodlandmansionpieces$roomcollection[l2]);
                             }
                             else if (j2 == 131072 && enumfacing1 != null)
                             {
                                 EnumFacing enumfacing3 = p_191125_4_.get1x2RoomDirection(woodlandmansionpieces$simplegrid3, l1, k1, l2, k2);
                                 boolean flag2 = (i2 & 4194304) == 4194304;
-                                this.addRoom1x2(p_191125_3_, blockpos2, p_191125_2_, enumfacing3, enumfacing1, awoodlandmansionpieces$roomcollection[l2], flag2);
+                                addRoom1x2(p_191125_3_, blockpos2, p_191125_2_, enumfacing3, enumfacing1, awoodlandmansionpieces$roomcollection[l2], flag2);
                             }
                             else if (j2 == 262144 && enumfacing1 != null && enumfacing1 != EnumFacing.UP)
                             {
@@ -737,11 +737,11 @@ public class WoodlandMansionPieces
                                     enumfacing2 = enumfacing2.getOpposite();
                                 }
 
-                                this.addRoom2x2(p_191125_3_, blockpos2, p_191125_2_, enumfacing2, enumfacing1, awoodlandmansionpieces$roomcollection[l2]);
+                                addRoom2x2(p_191125_3_, blockpos2, p_191125_2_, enumfacing2, enumfacing1, awoodlandmansionpieces$roomcollection[l2]);
                             }
                             else if (j2 == 262144 && enumfacing1 == EnumFacing.UP)
                             {
-                                this.addRoom2x2Secret(p_191125_3_, blockpos2, p_191125_2_, awoodlandmansionpieces$roomcollection[l2]);
+                                addRoom2x2Secret(p_191125_3_, blockpos2, p_191125_2_, awoodlandmansionpieces$roomcollection[l2]);
                             }
                         }
                     }
@@ -759,17 +759,17 @@ public class WoodlandMansionPieces
             {
                 if (!WoodlandMansionPieces.Grid.isHouse(p_191130_3_, i + p_191130_4_.getFrontOffsetX(), j + p_191130_4_.getFrontOffsetZ()))
                 {
-                    this.traverseTurn(p_191130_1_, p_191130_2_);
+                    traverseTurn(p_191130_1_, p_191130_2_);
                     p_191130_4_ = p_191130_4_.rotateY();
 
                     if (i != p_191130_7_ || j != p_191130_8_ || enumfacing != p_191130_4_)
                     {
-                        this.traverseWallPiece(p_191130_1_, p_191130_2_);
+                        traverseWallPiece(p_191130_1_, p_191130_2_);
                     }
                 }
                 else if (WoodlandMansionPieces.Grid.isHouse(p_191130_3_, i + p_191130_4_.getFrontOffsetX(), j + p_191130_4_.getFrontOffsetZ()) && WoodlandMansionPieces.Grid.isHouse(p_191130_3_, i + p_191130_4_.getFrontOffsetX() + p_191130_4_.rotateYCCW().getFrontOffsetX(), j + p_191130_4_.getFrontOffsetZ() + p_191130_4_.rotateYCCW().getFrontOffsetZ()))
                 {
-                    this.traverseInnerTurn(p_191130_1_, p_191130_2_);
+                    traverseInnerTurn(p_191130_1_, p_191130_2_);
                     i += p_191130_4_.getFrontOffsetX();
                     j += p_191130_4_.getFrontOffsetZ();
                     p_191130_4_ = p_191130_4_.rotateYCCW();
@@ -781,7 +781,7 @@ public class WoodlandMansionPieces
 
                     if (i != p_191130_7_ || j != p_191130_8_ || enumfacing != p_191130_4_)
                     {
-                        this.traverseWallPiece(p_191130_1_, p_191130_2_);
+                        traverseWallPiece(p_191130_1_, p_191130_2_);
                     }
                 }
 
@@ -798,38 +798,38 @@ public class WoodlandMansionPieces
             {
                 for (int j = 0; j < p_191123_4_.width; ++j)
                 {
-                    BlockPos lvt_8_3_ = p_191123_2_.offset(p_191123_3_.rotate(EnumFacing.SOUTH), 8 + (i - this.startY) * 8);
-                    lvt_8_3_ = lvt_8_3_.offset(p_191123_3_.rotate(EnumFacing.EAST), (j - this.startX) * 8);
+                    BlockPos lvt_8_3_ = p_191123_2_.offset(p_191123_3_.rotate(EnumFacing.SOUTH), 8 + (i - startY) * 8);
+                    lvt_8_3_ = lvt_8_3_.offset(p_191123_3_.rotate(EnumFacing.EAST), (j - startX) * 8);
                     boolean flag = p_191123_5_ != null && WoodlandMansionPieces.Grid.isHouse(p_191123_5_, j, i);
 
                     if (WoodlandMansionPieces.Grid.isHouse(p_191123_4_, j, i) && !flag)
                     {
-                        p_191123_1_.add(new WoodlandMansionPieces.MansionTemplate(this.templateManager, "roof", lvt_8_3_.up(3), p_191123_3_));
+                        p_191123_1_.add(new WoodlandMansionPieces.MansionTemplate(templateManager, "roof", lvt_8_3_.up(3), p_191123_3_));
 
                         if (!WoodlandMansionPieces.Grid.isHouse(p_191123_4_, j + 1, i))
                         {
                             BlockPos blockpos1 = lvt_8_3_.offset(p_191123_3_.rotate(EnumFacing.EAST), 6);
-                            p_191123_1_.add(new WoodlandMansionPieces.MansionTemplate(this.templateManager, "roof_front", blockpos1, p_191123_3_));
+                            p_191123_1_.add(new WoodlandMansionPieces.MansionTemplate(templateManager, "roof_front", blockpos1, p_191123_3_));
                         }
 
                         if (!WoodlandMansionPieces.Grid.isHouse(p_191123_4_, j - 1, i))
                         {
                             BlockPos blockpos5 = lvt_8_3_.offset(p_191123_3_.rotate(EnumFacing.EAST), 0);
                             blockpos5 = blockpos5.offset(p_191123_3_.rotate(EnumFacing.SOUTH), 7);
-                            p_191123_1_.add(new WoodlandMansionPieces.MansionTemplate(this.templateManager, "roof_front", blockpos5, p_191123_3_.add(Rotation.CLOCKWISE_180)));
+                            p_191123_1_.add(new WoodlandMansionPieces.MansionTemplate(templateManager, "roof_front", blockpos5, p_191123_3_.add(Rotation.CLOCKWISE_180)));
                         }
 
                         if (!WoodlandMansionPieces.Grid.isHouse(p_191123_4_, j, i - 1))
                         {
                             BlockPos blockpos6 = lvt_8_3_.offset(p_191123_3_.rotate(EnumFacing.WEST), 1);
-                            p_191123_1_.add(new WoodlandMansionPieces.MansionTemplate(this.templateManager, "roof_front", blockpos6, p_191123_3_.add(Rotation.COUNTERCLOCKWISE_90)));
+                            p_191123_1_.add(new WoodlandMansionPieces.MansionTemplate(templateManager, "roof_front", blockpos6, p_191123_3_.add(Rotation.COUNTERCLOCKWISE_90)));
                         }
 
                         if (!WoodlandMansionPieces.Grid.isHouse(p_191123_4_, j, i + 1))
                         {
                             BlockPos blockpos7 = lvt_8_3_.offset(p_191123_3_.rotate(EnumFacing.EAST), 6);
                             blockpos7 = blockpos7.offset(p_191123_3_.rotate(EnumFacing.SOUTH), 6);
-                            p_191123_1_.add(new WoodlandMansionPieces.MansionTemplate(this.templateManager, "roof_front", blockpos7, p_191123_3_.add(Rotation.CLOCKWISE_90)));
+                            p_191123_1_.add(new WoodlandMansionPieces.MansionTemplate(templateManager, "roof_front", blockpos7, p_191123_3_.add(Rotation.CLOCKWISE_90)));
                         }
                     }
                 }
@@ -841,8 +841,8 @@ public class WoodlandMansionPieces
                 {
                     for (int i1 = 0; i1 < p_191123_4_.width; ++i1)
                     {
-                        BlockPos blockpos3 = p_191123_2_.offset(p_191123_3_.rotate(EnumFacing.SOUTH), 8 + (k - this.startY) * 8);
-                        blockpos3 = blockpos3.offset(p_191123_3_.rotate(EnumFacing.EAST), (i1 - this.startX) * 8);
+                        BlockPos blockpos3 = p_191123_2_.offset(p_191123_3_.rotate(EnumFacing.SOUTH), 8 + (k - startY) * 8);
+                        blockpos3 = blockpos3.offset(p_191123_3_.rotate(EnumFacing.EAST), (i1 - startX) * 8);
                         boolean flag1 = WoodlandMansionPieces.Grid.isHouse(p_191123_5_, i1, k);
 
                         if (WoodlandMansionPieces.Grid.isHouse(p_191123_4_, i1, k) && flag1)
@@ -850,28 +850,28 @@ public class WoodlandMansionPieces
                             if (!WoodlandMansionPieces.Grid.isHouse(p_191123_4_, i1 + 1, k))
                             {
                                 BlockPos blockpos8 = blockpos3.offset(p_191123_3_.rotate(EnumFacing.EAST), 7);
-                                p_191123_1_.add(new WoodlandMansionPieces.MansionTemplate(this.templateManager, "small_wall", blockpos8, p_191123_3_));
+                                p_191123_1_.add(new WoodlandMansionPieces.MansionTemplate(templateManager, "small_wall", blockpos8, p_191123_3_));
                             }
 
                             if (!WoodlandMansionPieces.Grid.isHouse(p_191123_4_, i1 - 1, k))
                             {
                                 BlockPos blockpos9 = blockpos3.offset(p_191123_3_.rotate(EnumFacing.WEST), 1);
                                 blockpos9 = blockpos9.offset(p_191123_3_.rotate(EnumFacing.SOUTH), 6);
-                                p_191123_1_.add(new WoodlandMansionPieces.MansionTemplate(this.templateManager, "small_wall", blockpos9, p_191123_3_.add(Rotation.CLOCKWISE_180)));
+                                p_191123_1_.add(new WoodlandMansionPieces.MansionTemplate(templateManager, "small_wall", blockpos9, p_191123_3_.add(Rotation.CLOCKWISE_180)));
                             }
 
                             if (!WoodlandMansionPieces.Grid.isHouse(p_191123_4_, i1, k - 1))
                             {
                                 BlockPos blockpos10 = blockpos3.offset(p_191123_3_.rotate(EnumFacing.WEST), 0);
                                 blockpos10 = blockpos10.offset(p_191123_3_.rotate(EnumFacing.NORTH), 1);
-                                p_191123_1_.add(new WoodlandMansionPieces.MansionTemplate(this.templateManager, "small_wall", blockpos10, p_191123_3_.add(Rotation.COUNTERCLOCKWISE_90)));
+                                p_191123_1_.add(new WoodlandMansionPieces.MansionTemplate(templateManager, "small_wall", blockpos10, p_191123_3_.add(Rotation.COUNTERCLOCKWISE_90)));
                             }
 
                             if (!WoodlandMansionPieces.Grid.isHouse(p_191123_4_, i1, k + 1))
                             {
                                 BlockPos blockpos11 = blockpos3.offset(p_191123_3_.rotate(EnumFacing.EAST), 6);
                                 blockpos11 = blockpos11.offset(p_191123_3_.rotate(EnumFacing.SOUTH), 7);
-                                p_191123_1_.add(new WoodlandMansionPieces.MansionTemplate(this.templateManager, "small_wall", blockpos11, p_191123_3_.add(Rotation.CLOCKWISE_90)));
+                                p_191123_1_.add(new WoodlandMansionPieces.MansionTemplate(templateManager, "small_wall", blockpos11, p_191123_3_.add(Rotation.CLOCKWISE_90)));
                             }
 
                             if (!WoodlandMansionPieces.Grid.isHouse(p_191123_4_, i1 + 1, k))
@@ -880,14 +880,14 @@ public class WoodlandMansionPieces
                                 {
                                     BlockPos blockpos12 = blockpos3.offset(p_191123_3_.rotate(EnumFacing.EAST), 7);
                                     blockpos12 = blockpos12.offset(p_191123_3_.rotate(EnumFacing.NORTH), 2);
-                                    p_191123_1_.add(new WoodlandMansionPieces.MansionTemplate(this.templateManager, "small_wall_corner", blockpos12, p_191123_3_));
+                                    p_191123_1_.add(new WoodlandMansionPieces.MansionTemplate(templateManager, "small_wall_corner", blockpos12, p_191123_3_));
                                 }
 
                                 if (!WoodlandMansionPieces.Grid.isHouse(p_191123_4_, i1, k + 1))
                                 {
                                     BlockPos blockpos13 = blockpos3.offset(p_191123_3_.rotate(EnumFacing.EAST), 8);
                                     blockpos13 = blockpos13.offset(p_191123_3_.rotate(EnumFacing.SOUTH), 7);
-                                    p_191123_1_.add(new WoodlandMansionPieces.MansionTemplate(this.templateManager, "small_wall_corner", blockpos13, p_191123_3_.add(Rotation.CLOCKWISE_90)));
+                                    p_191123_1_.add(new WoodlandMansionPieces.MansionTemplate(templateManager, "small_wall_corner", blockpos13, p_191123_3_.add(Rotation.CLOCKWISE_90)));
                                 }
                             }
 
@@ -897,14 +897,14 @@ public class WoodlandMansionPieces
                                 {
                                     BlockPos blockpos14 = blockpos3.offset(p_191123_3_.rotate(EnumFacing.WEST), 2);
                                     blockpos14 = blockpos14.offset(p_191123_3_.rotate(EnumFacing.NORTH), 1);
-                                    p_191123_1_.add(new WoodlandMansionPieces.MansionTemplate(this.templateManager, "small_wall_corner", blockpos14, p_191123_3_.add(Rotation.COUNTERCLOCKWISE_90)));
+                                    p_191123_1_.add(new WoodlandMansionPieces.MansionTemplate(templateManager, "small_wall_corner", blockpos14, p_191123_3_.add(Rotation.COUNTERCLOCKWISE_90)));
                                 }
 
                                 if (!WoodlandMansionPieces.Grid.isHouse(p_191123_4_, i1, k + 1))
                                 {
                                     BlockPos blockpos15 = blockpos3.offset(p_191123_3_.rotate(EnumFacing.WEST), 1);
                                     blockpos15 = blockpos15.offset(p_191123_3_.rotate(EnumFacing.SOUTH), 8);
-                                    p_191123_1_.add(new WoodlandMansionPieces.MansionTemplate(this.templateManager, "small_wall_corner", blockpos15, p_191123_3_.add(Rotation.CLOCKWISE_180)));
+                                    p_191123_1_.add(new WoodlandMansionPieces.MansionTemplate(templateManager, "small_wall_corner", blockpos15, p_191123_3_.add(Rotation.CLOCKWISE_180)));
                                 }
                             }
                         }
@@ -916,8 +916,8 @@ public class WoodlandMansionPieces
             {
                 for (int j1 = 0; j1 < p_191123_4_.width; ++j1)
                 {
-                    BlockPos blockpos4 = p_191123_2_.offset(p_191123_3_.rotate(EnumFacing.SOUTH), 8 + (l - this.startY) * 8);
-                    blockpos4 = blockpos4.offset(p_191123_3_.rotate(EnumFacing.EAST), (j1 - this.startX) * 8);
+                    BlockPos blockpos4 = p_191123_2_.offset(p_191123_3_.rotate(EnumFacing.SOUTH), 8 + (l - startY) * 8);
+                    blockpos4 = blockpos4.offset(p_191123_3_.rotate(EnumFacing.EAST), (j1 - startX) * 8);
                     boolean flag2 = p_191123_5_ != null && WoodlandMansionPieces.Grid.isHouse(p_191123_5_, j1, l);
 
                     if (WoodlandMansionPieces.Grid.isHouse(p_191123_4_, j1, l) && !flag2)
@@ -929,23 +929,23 @@ public class WoodlandMansionPieces
                             if (!WoodlandMansionPieces.Grid.isHouse(p_191123_4_, j1, l + 1))
                             {
                                 BlockPos blockpos2 = blockpos16.offset(p_191123_3_.rotate(EnumFacing.SOUTH), 6);
-                                p_191123_1_.add(new WoodlandMansionPieces.MansionTemplate(this.templateManager, "roof_corner", blockpos2, p_191123_3_));
+                                p_191123_1_.add(new WoodlandMansionPieces.MansionTemplate(templateManager, "roof_corner", blockpos2, p_191123_3_));
                             }
                             else if (WoodlandMansionPieces.Grid.isHouse(p_191123_4_, j1 + 1, l + 1))
                             {
                                 BlockPos blockpos18 = blockpos16.offset(p_191123_3_.rotate(EnumFacing.SOUTH), 5);
-                                p_191123_1_.add(new WoodlandMansionPieces.MansionTemplate(this.templateManager, "roof_inner_corner", blockpos18, p_191123_3_));
+                                p_191123_1_.add(new WoodlandMansionPieces.MansionTemplate(templateManager, "roof_inner_corner", blockpos18, p_191123_3_));
                             }
 
                             if (!WoodlandMansionPieces.Grid.isHouse(p_191123_4_, j1, l - 1))
                             {
-                                p_191123_1_.add(new WoodlandMansionPieces.MansionTemplate(this.templateManager, "roof_corner", blockpos16, p_191123_3_.add(Rotation.COUNTERCLOCKWISE_90)));
+                                p_191123_1_.add(new WoodlandMansionPieces.MansionTemplate(templateManager, "roof_corner", blockpos16, p_191123_3_.add(Rotation.COUNTERCLOCKWISE_90)));
                             }
                             else if (WoodlandMansionPieces.Grid.isHouse(p_191123_4_, j1 + 1, l - 1))
                             {
                                 BlockPos blockpos19 = blockpos4.offset(p_191123_3_.rotate(EnumFacing.EAST), 9);
                                 blockpos19 = blockpos19.offset(p_191123_3_.rotate(EnumFacing.NORTH), 2);
-                                p_191123_1_.add(new WoodlandMansionPieces.MansionTemplate(this.templateManager, "roof_inner_corner", blockpos19, p_191123_3_.add(Rotation.CLOCKWISE_90)));
+                                p_191123_1_.add(new WoodlandMansionPieces.MansionTemplate(templateManager, "roof_inner_corner", blockpos19, p_191123_3_.add(Rotation.CLOCKWISE_90)));
                             }
                         }
 
@@ -957,23 +957,23 @@ public class WoodlandMansionPieces
                             if (!WoodlandMansionPieces.Grid.isHouse(p_191123_4_, j1, l + 1))
                             {
                                 BlockPos blockpos20 = blockpos17.offset(p_191123_3_.rotate(EnumFacing.SOUTH), 6);
-                                p_191123_1_.add(new WoodlandMansionPieces.MansionTemplate(this.templateManager, "roof_corner", blockpos20, p_191123_3_.add(Rotation.CLOCKWISE_90)));
+                                p_191123_1_.add(new WoodlandMansionPieces.MansionTemplate(templateManager, "roof_corner", blockpos20, p_191123_3_.add(Rotation.CLOCKWISE_90)));
                             }
                             else if (WoodlandMansionPieces.Grid.isHouse(p_191123_4_, j1 - 1, l + 1))
                             {
                                 BlockPos blockpos21 = blockpos17.offset(p_191123_3_.rotate(EnumFacing.SOUTH), 8);
                                 blockpos21 = blockpos21.offset(p_191123_3_.rotate(EnumFacing.WEST), 3);
-                                p_191123_1_.add(new WoodlandMansionPieces.MansionTemplate(this.templateManager, "roof_inner_corner", blockpos21, p_191123_3_.add(Rotation.COUNTERCLOCKWISE_90)));
+                                p_191123_1_.add(new WoodlandMansionPieces.MansionTemplate(templateManager, "roof_inner_corner", blockpos21, p_191123_3_.add(Rotation.COUNTERCLOCKWISE_90)));
                             }
 
                             if (!WoodlandMansionPieces.Grid.isHouse(p_191123_4_, j1, l - 1))
                             {
-                                p_191123_1_.add(new WoodlandMansionPieces.MansionTemplate(this.templateManager, "roof_corner", blockpos17, p_191123_3_.add(Rotation.CLOCKWISE_180)));
+                                p_191123_1_.add(new WoodlandMansionPieces.MansionTemplate(templateManager, "roof_corner", blockpos17, p_191123_3_.add(Rotation.CLOCKWISE_180)));
                             }
                             else if (WoodlandMansionPieces.Grid.isHouse(p_191123_4_, j1 - 1, l - 1))
                             {
                                 BlockPos blockpos22 = blockpos17.offset(p_191123_3_.rotate(EnumFacing.SOUTH), 1);
-                                p_191123_1_.add(new WoodlandMansionPieces.MansionTemplate(this.templateManager, "roof_inner_corner", blockpos22, p_191123_3_.add(Rotation.CLOCKWISE_180)));
+                                p_191123_1_.add(new WoodlandMansionPieces.MansionTemplate(templateManager, "roof_inner_corner", blockpos22, p_191123_3_.add(Rotation.CLOCKWISE_180)));
                             }
                         }
                     }
@@ -984,20 +984,20 @@ public class WoodlandMansionPieces
         private void entrance(List<WoodlandMansionPieces.MansionTemplate> p_191133_1_, WoodlandMansionPieces.PlacementData p_191133_2_)
         {
             EnumFacing enumfacing = p_191133_2_.rotation.rotate(EnumFacing.WEST);
-            p_191133_1_.add(new WoodlandMansionPieces.MansionTemplate(this.templateManager, "entrance", p_191133_2_.position.offset(enumfacing, 9), p_191133_2_.rotation));
+            p_191133_1_.add(new WoodlandMansionPieces.MansionTemplate(templateManager, "entrance", p_191133_2_.position.offset(enumfacing, 9), p_191133_2_.rotation));
             p_191133_2_.position = p_191133_2_.position.offset(p_191133_2_.rotation.rotate(EnumFacing.SOUTH), 16);
         }
 
         private void traverseWallPiece(List<WoodlandMansionPieces.MansionTemplate> p_191131_1_, WoodlandMansionPieces.PlacementData p_191131_2_)
         {
-            p_191131_1_.add(new WoodlandMansionPieces.MansionTemplate(this.templateManager, p_191131_2_.wallType, p_191131_2_.position.offset(p_191131_2_.rotation.rotate(EnumFacing.EAST), 7), p_191131_2_.rotation));
+            p_191131_1_.add(new WoodlandMansionPieces.MansionTemplate(templateManager, p_191131_2_.wallType, p_191131_2_.position.offset(p_191131_2_.rotation.rotate(EnumFacing.EAST), 7), p_191131_2_.rotation));
             p_191131_2_.position = p_191131_2_.position.offset(p_191131_2_.rotation.rotate(EnumFacing.SOUTH), 8);
         }
 
         private void traverseTurn(List<WoodlandMansionPieces.MansionTemplate> p_191124_1_, WoodlandMansionPieces.PlacementData p_191124_2_)
         {
             p_191124_2_.position = p_191124_2_.position.offset(p_191124_2_.rotation.rotate(EnumFacing.SOUTH), -1);
-            p_191124_1_.add(new WoodlandMansionPieces.MansionTemplate(this.templateManager, "wall_corner", p_191124_2_.position, p_191124_2_.rotation));
+            p_191124_1_.add(new WoodlandMansionPieces.MansionTemplate(templateManager, "wall_corner", p_191124_2_.position, p_191124_2_.rotation));
             p_191124_2_.position = p_191124_2_.position.offset(p_191124_2_.rotation.rotate(EnumFacing.SOUTH), -7);
             p_191124_2_.position = p_191124_2_.position.offset(p_191124_2_.rotation.rotate(EnumFacing.WEST), -6);
             p_191124_2_.rotation = p_191124_2_.rotation.add(Rotation.CLOCKWISE_90);
@@ -1013,7 +1013,7 @@ public class WoodlandMansionPieces
         private void addRoom1x1(List<WoodlandMansionPieces.MansionTemplate> p_191129_1_, BlockPos p_191129_2_, Rotation p_191129_3_, EnumFacing p_191129_4_, WoodlandMansionPieces.RoomCollection p_191129_5_)
         {
             Rotation rotation = Rotation.NONE;
-            String s = p_191129_5_.get1x1(this.random);
+            String s = p_191129_5_.get1x1(random);
 
             if (p_191129_4_ != EnumFacing.EAST)
             {
@@ -1031,7 +1031,7 @@ public class WoodlandMansionPieces
                 }
                 else
                 {
-                    s = p_191129_5_.get1x1Secret(this.random);
+                    s = p_191129_5_.get1x1Secret(random);
                 }
             }
 
@@ -1039,7 +1039,7 @@ public class WoodlandMansionPieces
             rotation = rotation.add(p_191129_3_);
             blockpos = blockpos.rotate(p_191129_3_);
             BlockPos blockpos1 = p_191129_2_.add(blockpos.getX(), 0, blockpos.getZ());
-            p_191129_1_.add(new WoodlandMansionPieces.MansionTemplate(this.templateManager, s, blockpos1, rotation));
+            p_191129_1_.add(new WoodlandMansionPieces.MansionTemplate(templateManager, s, blockpos1, rotation));
         }
 
         private void addRoom1x2(List<WoodlandMansionPieces.MansionTemplate> p_191132_1_, BlockPos p_191132_2_, Rotation p_191132_3_, EnumFacing p_191132_4_, EnumFacing p_191132_5_, WoodlandMansionPieces.RoomCollection p_191132_6_, boolean p_191132_7_)
@@ -1047,80 +1047,80 @@ public class WoodlandMansionPieces
             if (p_191132_5_ == EnumFacing.EAST && p_191132_4_ == EnumFacing.SOUTH)
             {
                 BlockPos blockpos13 = p_191132_2_.offset(p_191132_3_.rotate(EnumFacing.EAST), 1);
-                p_191132_1_.add(new WoodlandMansionPieces.MansionTemplate(this.templateManager, p_191132_6_.get1x2SideEntrance(this.random, p_191132_7_), blockpos13, p_191132_3_));
+                p_191132_1_.add(new WoodlandMansionPieces.MansionTemplate(templateManager, p_191132_6_.get1x2SideEntrance(random, p_191132_7_), blockpos13, p_191132_3_));
             }
             else if (p_191132_5_ == EnumFacing.EAST && p_191132_4_ == EnumFacing.NORTH)
             {
                 BlockPos blockpos12 = p_191132_2_.offset(p_191132_3_.rotate(EnumFacing.EAST), 1);
                 blockpos12 = blockpos12.offset(p_191132_3_.rotate(EnumFacing.SOUTH), 6);
-                p_191132_1_.add(new WoodlandMansionPieces.MansionTemplate(this.templateManager, p_191132_6_.get1x2SideEntrance(this.random, p_191132_7_), blockpos12, p_191132_3_, Mirror.LEFT_RIGHT));
+                p_191132_1_.add(new WoodlandMansionPieces.MansionTemplate(templateManager, p_191132_6_.get1x2SideEntrance(random, p_191132_7_), blockpos12, p_191132_3_, Mirror.LEFT_RIGHT));
             }
             else if (p_191132_5_ == EnumFacing.WEST && p_191132_4_ == EnumFacing.NORTH)
             {
                 BlockPos blockpos11 = p_191132_2_.offset(p_191132_3_.rotate(EnumFacing.EAST), 7);
                 blockpos11 = blockpos11.offset(p_191132_3_.rotate(EnumFacing.SOUTH), 6);
-                p_191132_1_.add(new WoodlandMansionPieces.MansionTemplate(this.templateManager, p_191132_6_.get1x2SideEntrance(this.random, p_191132_7_), blockpos11, p_191132_3_.add(Rotation.CLOCKWISE_180)));
+                p_191132_1_.add(new WoodlandMansionPieces.MansionTemplate(templateManager, p_191132_6_.get1x2SideEntrance(random, p_191132_7_), blockpos11, p_191132_3_.add(Rotation.CLOCKWISE_180)));
             }
             else if (p_191132_5_ == EnumFacing.WEST && p_191132_4_ == EnumFacing.SOUTH)
             {
                 BlockPos blockpos10 = p_191132_2_.offset(p_191132_3_.rotate(EnumFacing.EAST), 7);
-                p_191132_1_.add(new WoodlandMansionPieces.MansionTemplate(this.templateManager, p_191132_6_.get1x2SideEntrance(this.random, p_191132_7_), blockpos10, p_191132_3_, Mirror.FRONT_BACK));
+                p_191132_1_.add(new WoodlandMansionPieces.MansionTemplate(templateManager, p_191132_6_.get1x2SideEntrance(random, p_191132_7_), blockpos10, p_191132_3_, Mirror.FRONT_BACK));
             }
             else if (p_191132_5_ == EnumFacing.SOUTH && p_191132_4_ == EnumFacing.EAST)
             {
                 BlockPos blockpos9 = p_191132_2_.offset(p_191132_3_.rotate(EnumFacing.EAST), 1);
-                p_191132_1_.add(new WoodlandMansionPieces.MansionTemplate(this.templateManager, p_191132_6_.get1x2SideEntrance(this.random, p_191132_7_), blockpos9, p_191132_3_.add(Rotation.CLOCKWISE_90), Mirror.LEFT_RIGHT));
+                p_191132_1_.add(new WoodlandMansionPieces.MansionTemplate(templateManager, p_191132_6_.get1x2SideEntrance(random, p_191132_7_), blockpos9, p_191132_3_.add(Rotation.CLOCKWISE_90), Mirror.LEFT_RIGHT));
             }
             else if (p_191132_5_ == EnumFacing.SOUTH && p_191132_4_ == EnumFacing.WEST)
             {
                 BlockPos blockpos8 = p_191132_2_.offset(p_191132_3_.rotate(EnumFacing.EAST), 7);
-                p_191132_1_.add(new WoodlandMansionPieces.MansionTemplate(this.templateManager, p_191132_6_.get1x2SideEntrance(this.random, p_191132_7_), blockpos8, p_191132_3_.add(Rotation.CLOCKWISE_90)));
+                p_191132_1_.add(new WoodlandMansionPieces.MansionTemplate(templateManager, p_191132_6_.get1x2SideEntrance(random, p_191132_7_), blockpos8, p_191132_3_.add(Rotation.CLOCKWISE_90)));
             }
             else if (p_191132_5_ == EnumFacing.NORTH && p_191132_4_ == EnumFacing.WEST)
             {
                 BlockPos blockpos7 = p_191132_2_.offset(p_191132_3_.rotate(EnumFacing.EAST), 7);
                 blockpos7 = blockpos7.offset(p_191132_3_.rotate(EnumFacing.SOUTH), 6);
-                p_191132_1_.add(new WoodlandMansionPieces.MansionTemplate(this.templateManager, p_191132_6_.get1x2SideEntrance(this.random, p_191132_7_), blockpos7, p_191132_3_.add(Rotation.CLOCKWISE_90), Mirror.FRONT_BACK));
+                p_191132_1_.add(new WoodlandMansionPieces.MansionTemplate(templateManager, p_191132_6_.get1x2SideEntrance(random, p_191132_7_), blockpos7, p_191132_3_.add(Rotation.CLOCKWISE_90), Mirror.FRONT_BACK));
             }
             else if (p_191132_5_ == EnumFacing.NORTH && p_191132_4_ == EnumFacing.EAST)
             {
                 BlockPos blockpos6 = p_191132_2_.offset(p_191132_3_.rotate(EnumFacing.EAST), 1);
                 blockpos6 = blockpos6.offset(p_191132_3_.rotate(EnumFacing.SOUTH), 6);
-                p_191132_1_.add(new WoodlandMansionPieces.MansionTemplate(this.templateManager, p_191132_6_.get1x2SideEntrance(this.random, p_191132_7_), blockpos6, p_191132_3_.add(Rotation.COUNTERCLOCKWISE_90)));
+                p_191132_1_.add(new WoodlandMansionPieces.MansionTemplate(templateManager, p_191132_6_.get1x2SideEntrance(random, p_191132_7_), blockpos6, p_191132_3_.add(Rotation.COUNTERCLOCKWISE_90)));
             }
             else if (p_191132_5_ == EnumFacing.SOUTH && p_191132_4_ == EnumFacing.NORTH)
             {
                 BlockPos blockpos5 = p_191132_2_.offset(p_191132_3_.rotate(EnumFacing.EAST), 1);
                 blockpos5 = blockpos5.offset(p_191132_3_.rotate(EnumFacing.NORTH), 8);
-                p_191132_1_.add(new WoodlandMansionPieces.MansionTemplate(this.templateManager, p_191132_6_.get1x2FrontEntrance(this.random, p_191132_7_), blockpos5, p_191132_3_));
+                p_191132_1_.add(new WoodlandMansionPieces.MansionTemplate(templateManager, p_191132_6_.get1x2FrontEntrance(random, p_191132_7_), blockpos5, p_191132_3_));
             }
             else if (p_191132_5_ == EnumFacing.NORTH && p_191132_4_ == EnumFacing.SOUTH)
             {
                 BlockPos blockpos4 = p_191132_2_.offset(p_191132_3_.rotate(EnumFacing.EAST), 7);
                 blockpos4 = blockpos4.offset(p_191132_3_.rotate(EnumFacing.SOUTH), 14);
-                p_191132_1_.add(new WoodlandMansionPieces.MansionTemplate(this.templateManager, p_191132_6_.get1x2FrontEntrance(this.random, p_191132_7_), blockpos4, p_191132_3_.add(Rotation.CLOCKWISE_180)));
+                p_191132_1_.add(new WoodlandMansionPieces.MansionTemplate(templateManager, p_191132_6_.get1x2FrontEntrance(random, p_191132_7_), blockpos4, p_191132_3_.add(Rotation.CLOCKWISE_180)));
             }
             else if (p_191132_5_ == EnumFacing.WEST && p_191132_4_ == EnumFacing.EAST)
             {
                 BlockPos blockpos3 = p_191132_2_.offset(p_191132_3_.rotate(EnumFacing.EAST), 15);
-                p_191132_1_.add(new WoodlandMansionPieces.MansionTemplate(this.templateManager, p_191132_6_.get1x2FrontEntrance(this.random, p_191132_7_), blockpos3, p_191132_3_.add(Rotation.CLOCKWISE_90)));
+                p_191132_1_.add(new WoodlandMansionPieces.MansionTemplate(templateManager, p_191132_6_.get1x2FrontEntrance(random, p_191132_7_), blockpos3, p_191132_3_.add(Rotation.CLOCKWISE_90)));
             }
             else if (p_191132_5_ == EnumFacing.EAST && p_191132_4_ == EnumFacing.WEST)
             {
                 BlockPos blockpos2 = p_191132_2_.offset(p_191132_3_.rotate(EnumFacing.WEST), 7);
                 blockpos2 = blockpos2.offset(p_191132_3_.rotate(EnumFacing.SOUTH), 6);
-                p_191132_1_.add(new WoodlandMansionPieces.MansionTemplate(this.templateManager, p_191132_6_.get1x2FrontEntrance(this.random, p_191132_7_), blockpos2, p_191132_3_.add(Rotation.COUNTERCLOCKWISE_90)));
+                p_191132_1_.add(new WoodlandMansionPieces.MansionTemplate(templateManager, p_191132_6_.get1x2FrontEntrance(random, p_191132_7_), blockpos2, p_191132_3_.add(Rotation.COUNTERCLOCKWISE_90)));
             }
             else if (p_191132_5_ == EnumFacing.UP && p_191132_4_ == EnumFacing.EAST)
             {
                 BlockPos blockpos1 = p_191132_2_.offset(p_191132_3_.rotate(EnumFacing.EAST), 15);
-                p_191132_1_.add(new WoodlandMansionPieces.MansionTemplate(this.templateManager, p_191132_6_.get1x2Secret(this.random), blockpos1, p_191132_3_.add(Rotation.CLOCKWISE_90)));
+                p_191132_1_.add(new WoodlandMansionPieces.MansionTemplate(templateManager, p_191132_6_.get1x2Secret(random), blockpos1, p_191132_3_.add(Rotation.CLOCKWISE_90)));
             }
             else if (p_191132_5_ == EnumFacing.UP && p_191132_4_ == EnumFacing.SOUTH)
             {
                 BlockPos blockpos = p_191132_2_.offset(p_191132_3_.rotate(EnumFacing.EAST), 1);
                 blockpos = blockpos.offset(p_191132_3_.rotate(EnumFacing.NORTH), 0);
-                p_191132_1_.add(new WoodlandMansionPieces.MansionTemplate(this.templateManager, p_191132_6_.get1x2Secret(this.random), blockpos, p_191132_3_));
+                p_191132_1_.add(new WoodlandMansionPieces.MansionTemplate(templateManager, p_191132_6_.get1x2Secret(random), blockpos, p_191132_3_));
             }
         }
 
@@ -1181,13 +1181,13 @@ public class WoodlandMansionPieces
 
             BlockPos blockpos = p_191127_2_.offset(p_191127_3_.rotate(EnumFacing.EAST), i);
             blockpos = blockpos.offset(p_191127_3_.rotate(EnumFacing.SOUTH), j);
-            p_191127_1_.add(new WoodlandMansionPieces.MansionTemplate(this.templateManager, p_191127_6_.get2x2(this.random), blockpos, rotation, mirror));
+            p_191127_1_.add(new WoodlandMansionPieces.MansionTemplate(templateManager, p_191127_6_.get2x2(random), blockpos, rotation, mirror));
         }
 
         private void addRoom2x2Secret(List<WoodlandMansionPieces.MansionTemplate> p_191128_1_, BlockPos p_191128_2_, Rotation p_191128_3_, WoodlandMansionPieces.RoomCollection p_191128_4_)
         {
             BlockPos blockpos = p_191128_2_.offset(p_191128_3_.rotate(EnumFacing.EAST), 1);
-            p_191128_1_.add(new WoodlandMansionPieces.MansionTemplate(this.templateManager, p_191128_4_.get2x2Secret(this.random), blockpos, p_191128_3_, Mirror.NONE));
+            p_191128_1_.add(new WoodlandMansionPieces.MansionTemplate(templateManager, p_191128_4_.get2x2Secret(random), blockpos, p_191128_3_, Mirror.NONE));
         }
     }
 
@@ -1263,17 +1263,17 @@ public class WoodlandMansionPieces
 
         public SimpleGrid(int p_i47358_1_, int p_i47358_2_, int p_i47358_3_)
         {
-            this.width = p_i47358_1_;
-            this.height = p_i47358_2_;
-            this.valueIfOutside = p_i47358_3_;
-            this.grid = new int[p_i47358_1_][p_i47358_2_];
+            width = p_i47358_1_;
+            height = p_i47358_2_;
+            valueIfOutside = p_i47358_3_;
+            grid = new int[p_i47358_1_][p_i47358_2_];
         }
 
         public void set(int p_191144_1_, int p_191144_2_, int p_191144_3_)
         {
-            if (p_191144_1_ >= 0 && p_191144_1_ < this.width && p_191144_2_ >= 0 && p_191144_2_ < this.height)
+            if (p_191144_1_ >= 0 && p_191144_1_ < width && p_191144_2_ >= 0 && p_191144_2_ < height)
             {
-                this.grid[p_191144_1_][p_191144_2_] = p_191144_3_;
+                grid[p_191144_1_][p_191144_2_] = p_191144_3_;
             }
         }
 
@@ -1283,27 +1283,27 @@ public class WoodlandMansionPieces
             {
                 for (int j = p_191142_1_; j <= p_191142_3_; ++j)
                 {
-                    this.set(j, i, p_191142_5_);
+                    set(j, i, p_191142_5_);
                 }
             }
         }
 
         public int get(int p_191145_1_, int p_191145_2_)
         {
-            return p_191145_1_ >= 0 && p_191145_1_ < this.width && p_191145_2_ >= 0 && p_191145_2_ < this.height ? this.grid[p_191145_1_][p_191145_2_] : this.valueIfOutside;
+            return p_191145_1_ >= 0 && p_191145_1_ < width && p_191145_2_ >= 0 && p_191145_2_ < height ? grid[p_191145_1_][p_191145_2_] : valueIfOutside;
         }
 
         public void setIf(int p_191141_1_, int p_191141_2_, int p_191141_3_, int p_191141_4_)
         {
-            if (this.get(p_191141_1_, p_191141_2_) == p_191141_3_)
+            if (get(p_191141_1_, p_191141_2_) == p_191141_3_)
             {
-                this.set(p_191141_1_, p_191141_2_, p_191141_4_);
+                set(p_191141_1_, p_191141_2_, p_191141_4_);
             }
         }
 
         public boolean edgesTo(int p_191147_1_, int p_191147_2_, int p_191147_3_)
         {
-            return this.get(p_191147_1_ - 1, p_191147_2_) == p_191147_3_ || this.get(p_191147_1_ + 1, p_191147_2_) == p_191147_3_ || this.get(p_191147_1_, p_191147_2_ + 1) == p_191147_3_ || this.get(p_191147_1_, p_191147_2_ - 1) == p_191147_3_;
+            return get(p_191147_1_ - 1, p_191147_2_) == p_191147_3_ || get(p_191147_1_ + 1, p_191147_2_) == p_191147_3_ || get(p_191147_1_, p_191147_2_ + 1) == p_191147_3_ || get(p_191147_1_, p_191147_2_ - 1) == p_191147_3_;
         }
     }
 

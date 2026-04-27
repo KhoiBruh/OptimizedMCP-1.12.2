@@ -12,17 +12,17 @@ public class ParticleLava extends Particle
     protected ParticleLava(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn)
     {
         super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0.0D, 0.0D, 0.0D);
-        this.motionX *= 0.800000011920929D;
-        this.motionY *= 0.800000011920929D;
-        this.motionZ *= 0.800000011920929D;
-        this.motionY = (double)(this.rand.nextFloat() * 0.4F + 0.05F);
-        this.particleRed = 1.0F;
-        this.particleGreen = 1.0F;
-        this.particleBlue = 1.0F;
-        this.particleScale *= this.rand.nextFloat() * 2.0F + 0.2F;
-        this.lavaParticleScale = this.particleScale;
-        this.particleMaxAge = (int)(16.0D / (Math.random() * 0.8D + 0.2D));
-        this.setParticleTextureIndex(49);
+        motionX *= 0.800000011920929D;
+        motionY *= 0.800000011920929D;
+        motionZ *= 0.800000011920929D;
+        motionY = (double)(rand.nextFloat() * 0.4F + 0.05F);
+        particleRed = 1.0F;
+        particleGreen = 1.0F;
+        particleBlue = 1.0F;
+        particleScale *= rand.nextFloat() * 2.0F + 0.2F;
+        lavaParticleScale = particleScale;
+        particleMaxAge = (int)(16.0D / (Math.random() * 0.8D + 0.2D));
+        setParticleTextureIndex(49);
     }
 
     public int getBrightnessForRender(float p_189214_1_)
@@ -38,39 +38,39 @@ public class ParticleLava extends Particle
      */
     public void renderParticle(BufferBuilder buffer, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ)
     {
-        float f = ((float)this.particleAge + partialTicks) / (float)this.particleMaxAge;
-        this.particleScale = this.lavaParticleScale * (1.0F - f * f);
+        float f = ((float) particleAge + partialTicks) / (float) particleMaxAge;
+        particleScale = lavaParticleScale * (1.0F - f * f);
         super.renderParticle(buffer, entityIn, partialTicks, rotationX, rotationZ, rotationYZ, rotationXY, rotationXZ);
     }
 
     public void onUpdate()
     {
-        this.prevPosX = this.posX;
-        this.prevPosY = this.posY;
-        this.prevPosZ = this.posZ;
+        prevPosX = posX;
+        prevPosY = posY;
+        prevPosZ = posZ;
 
-        if (this.particleAge++ >= this.particleMaxAge)
+        if (particleAge++ >= particleMaxAge)
         {
-            this.setExpired();
+            setExpired();
         }
 
-        float f = (float)this.particleAge / (float)this.particleMaxAge;
+        float f = (float) particleAge / (float) particleMaxAge;
 
-        if (this.rand.nextFloat() > f)
+        if (rand.nextFloat() > f)
         {
-            this.world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, this.posX, this.posY, this.posZ, this.motionX, this.motionY, this.motionZ);
+            world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, posX, posY, posZ, motionX, motionY, motionZ);
         }
 
-        this.motionY -= 0.03D;
-        this.move(this.motionX, this.motionY, this.motionZ);
-        this.motionX *= 0.9990000128746033D;
-        this.motionY *= 0.9990000128746033D;
-        this.motionZ *= 0.9990000128746033D;
+        motionY -= 0.03D;
+        move(motionX, motionY, motionZ);
+        motionX *= 0.9990000128746033D;
+        motionY *= 0.9990000128746033D;
+        motionZ *= 0.9990000128746033D;
 
-        if (this.onGround)
+        if (onGround)
         {
-            this.motionX *= 0.699999988079071D;
-            this.motionZ *= 0.699999988079071D;
+            motionX *= 0.699999988079071D;
+            motionZ *= 0.699999988079071D;
         }
     }
 

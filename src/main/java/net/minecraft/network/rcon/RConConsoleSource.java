@@ -13,7 +13,7 @@ public class RConConsoleSource implements ICommandSender
 
     public RConConsoleSource(MinecraftServer serverIn)
     {
-        this.server = serverIn;
+        server = serverIn;
     }
 
     /**
@@ -29,7 +29,7 @@ public class RConConsoleSource implements ICommandSender
      */
     public void sendMessage(ITextComponent component)
     {
-        this.buffer.append(component.getUnformattedText());
+        buffer.append(component.getUnformattedText());
     }
 
     /**
@@ -46,7 +46,7 @@ public class RConConsoleSource implements ICommandSender
      */
     public World getEntityWorld()
     {
-        return this.server.getEntityWorld();
+        return server.getEntityWorld();
     }
 
     /**
@@ -62,6 +62,6 @@ public class RConConsoleSource implements ICommandSender
      */
     public MinecraftServer getServer()
     {
-        return this.server;
+        return server;
     }
 }

@@ -45,13 +45,13 @@ public class PositionedSoundRecord extends PositionedSound
     public PositionedSoundRecord(ResourceLocation soundId, SoundCategory categoryIn, float volumeIn, float pitchIn, boolean repeatIn, int repeatDelayIn, ISound.AttenuationType attenuationTypeIn, float xIn, float yIn, float zIn)
     {
         super(soundId, categoryIn);
-        this.volume = volumeIn;
-        this.pitch = pitchIn;
-        this.xPosF = xIn;
-        this.yPosF = yIn;
-        this.zPosF = zIn;
-        this.repeat = repeatIn;
-        this.repeatDelay = repeatDelayIn;
-        this.attenuationType = attenuationTypeIn;
+        volume = volumeIn;
+        pitch = pitchIn;
+        xPosF = xIn;
+        yPosF = yIn;
+        zPosF = zIn;
+        repeat = repeatIn;
+        repeatDelay = repeatDelayIn;
+        attenuationType = attenuationTypeIn;
     }
 }

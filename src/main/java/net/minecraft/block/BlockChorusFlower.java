@@ -29,9 +29,9 @@ public class BlockChorusFlower extends Block
     protected BlockChorusFlower()
     {
         super(Material.PLANTS, MapColor.PURPLE);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(AGE, Integer.valueOf(0)));
-        this.setCreativeTab(CreativeTabs.DECORATIONS);
-        this.setTickRandomly(true);
+        setDefaultState(blockState.getBaseState().withProperty(AGE, Integer.valueOf(0)));
+        setCreativeTab(CreativeTabs.DECORATIONS);
+        setTickRandomly(true);
     }
 
     /**
@@ -44,7 +44,7 @@ public class BlockChorusFlower extends Block
 
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
     {
-        if (!this.canSurvive(worldIn, pos))
+        if (!canSurvive(worldIn, pos))
         {
             worldIn.destroyBlock(pos, true);
         }
@@ -108,7 +108,7 @@ public class BlockChorusFlower extends Block
                     if (flag && areAllNeighborsEmpty(worldIn, blockpos, (EnumFacing)null) && worldIn.isAirBlock(pos.up(2)))
                     {
                         worldIn.setBlockState(pos, Blocks.CHORUS_PLANT.getDefaultState(), 2);
-                        this.placeGrownFlower(worldIn, blockpos, i);
+                        placeGrownFlower(worldIn, blockpos, i);
                     }
                     else if (i < 4)
                     {
@@ -127,7 +127,7 @@ public class BlockChorusFlower extends Block
 
                             if (worldIn.isAirBlock(blockpos1) && worldIn.isAirBlock(blockpos1.down()) && areAllNeighborsEmpty(worldIn, blockpos1, enumfacing.getOpposite()))
                             {
-                                this.placeGrownFlower(worldIn, blockpos1, i + 1);
+                                placeGrownFlower(worldIn, blockpos1, i + 1);
                                 flag2 = true;
                             }
                         }
@@ -138,12 +138,12 @@ public class BlockChorusFlower extends Block
                         }
                         else
                         {
-                            this.placeDeadFlower(worldIn, pos);
+                            placeDeadFlower(worldIn, pos);
                         }
                     }
                     else if (i == 4)
                     {
-                        this.placeDeadFlower(worldIn, pos);
+                        placeDeadFlower(worldIn, pos);
                     }
                 }
             }
@@ -152,13 +152,13 @@ public class BlockChorusFlower extends Block
 
     private void placeGrownFlower(World worldIn, BlockPos pos, int age)
     {
-        worldIn.setBlockState(pos, this.getDefaultState().withProperty(AGE, Integer.valueOf(age)), 2);
+        worldIn.setBlockState(pos, getDefaultState().withProperty(AGE, Integer.valueOf(age)), 2);
         worldIn.playEvent(1033, pos, 0);
     }
 
     private void placeDeadFlower(World worldIn, BlockPos pos)
     {
-        worldIn.setBlockState(pos, this.getDefaultState().withProperty(AGE, Integer.valueOf(5)), 2);
+        worldIn.setBlockState(pos, getDefaultState().withProperty(AGE, Integer.valueOf(5)), 2);
         worldIn.playEvent(1034, pos, 0);
     }
 
@@ -193,7 +193,7 @@ public class BlockChorusFlower extends Block
      */
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
     {
-        return super.canPlaceBlockAt(worldIn, pos) && this.canSurvive(worldIn, pos);
+        return super.canPlaceBlockAt(worldIn, pos) && canSurvive(worldIn, pos);
     }
 
     /**
@@ -203,7 +203,7 @@ public class BlockChorusFlower extends Block
      */
     public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos)
     {
-        if (!this.canSurvive(worldIn, pos))
+        if (!canSurvive(worldIn, pos))
         {
             worldIn.scheduleUpdate(pos, this, 1);
         }
@@ -277,7 +277,7 @@ public class BlockChorusFlower extends Block
      */
     public IBlockState getStateFromMeta(int meta)
     {
-        return this.getDefaultState().withProperty(AGE, Integer.valueOf(meta));
+        return getDefaultState().withProperty(AGE, Integer.valueOf(meta));
     }
 
     /**

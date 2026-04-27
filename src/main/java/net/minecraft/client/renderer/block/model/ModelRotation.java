@@ -39,36 +39,36 @@ public enum ModelRotation
 
     private ModelRotation(int x, int y)
     {
-        this.combinedXY = combineXY(x, y);
-        this.matrix4d = new Matrix4f();
+        combinedXY = combineXY(x, y);
+        matrix4d = new Matrix4f();
         Matrix4f matrix4f = new Matrix4f();
         matrix4f.setIdentity();
         Matrix4f.rotate((float)(-x) * 0.017453292F, new Vector3f(1.0F, 0.0F, 0.0F), matrix4f, matrix4f);
-        this.quartersX = MathHelper.abs(x / 90);
+        quartersX = MathHelper.abs(x / 90);
         Matrix4f matrix4f1 = new Matrix4f();
         matrix4f1.setIdentity();
         Matrix4f.rotate((float)(-y) * 0.017453292F, new Vector3f(0.0F, 1.0F, 0.0F), matrix4f1, matrix4f1);
-        this.quartersY = MathHelper.abs(y / 90);
-        Matrix4f.mul(matrix4f1, matrix4f, this.matrix4d);
+        quartersY = MathHelper.abs(y / 90);
+        Matrix4f.mul(matrix4f1, matrix4f, matrix4d);
     }
 
     public Matrix4f getMatrix4d()
     {
-        return this.matrix4d;
+        return matrix4d;
     }
 
     public EnumFacing rotateFace(EnumFacing facing)
     {
         EnumFacing enumfacing = facing;
 
-        for (int i = 0; i < this.quartersX; ++i)
+        for (int i = 0; i < quartersX; ++i)
         {
             enumfacing = enumfacing.rotateAround(EnumFacing.Axis.X);
         }
 
         if (enumfacing.getAxis() != EnumFacing.Axis.Y)
         {
-            for (int j = 0; j < this.quartersY; ++j)
+            for (int j = 0; j < quartersY; ++j)
             {
                 enumfacing = enumfacing.rotateAround(EnumFacing.Axis.Y);
             }
@@ -83,19 +83,19 @@ public enum ModelRotation
 
         if (facing.getAxis() == EnumFacing.Axis.X)
         {
-            i = (vertexIndex + this.quartersX) % 4;
+            i = (vertexIndex + quartersX) % 4;
         }
 
         EnumFacing enumfacing = facing;
 
-        for (int j = 0; j < this.quartersX; ++j)
+        for (int j = 0; j < quartersX; ++j)
         {
             enumfacing = enumfacing.rotateAround(EnumFacing.Axis.X);
         }
 
         if (enumfacing.getAxis() == EnumFacing.Axis.Y)
         {
-            i = (i + this.quartersY) % 4;
+            i = (i + quartersY) % 4;
         }
 
         return i;

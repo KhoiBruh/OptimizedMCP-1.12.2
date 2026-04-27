@@ -14,7 +14,7 @@ public class LayerSnowmanHead implements LayerRenderer<EntitySnowman>
 
     public LayerSnowmanHead(RenderSnowMan snowManRendererIn)
     {
-        this.snowManRenderer = snowManRendererIn;
+        snowManRenderer = snowManRendererIn;
     }
 
     public void doRenderLayer(EntitySnowman entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale)
@@ -22,7 +22,7 @@ public class LayerSnowmanHead implements LayerRenderer<EntitySnowman>
         if (!entitylivingbaseIn.isInvisible() && entitylivingbaseIn.isPumpkinEquipped())
         {
             GlStateManager.pushMatrix();
-            this.snowManRenderer.getMainModel().head.postRender(0.0625F);
+            snowManRenderer.getMainModel().head.postRender(0.0625F);
             float f = 0.625F;
             GlStateManager.translate(0.0F, -0.34375F, 0.0F);
             GlStateManager.rotate(180.0F, 0.0F, 1.0F, 0.0F);

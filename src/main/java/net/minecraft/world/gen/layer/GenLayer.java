@@ -95,13 +95,13 @@ public abstract class GenLayer
 
     public GenLayer(long p_i2125_1_)
     {
-        this.baseSeed = p_i2125_1_;
-        this.baseSeed *= this.baseSeed * 6364136223846793005L + 1442695040888963407L;
-        this.baseSeed += p_i2125_1_;
-        this.baseSeed *= this.baseSeed * 6364136223846793005L + 1442695040888963407L;
-        this.baseSeed += p_i2125_1_;
-        this.baseSeed *= this.baseSeed * 6364136223846793005L + 1442695040888963407L;
-        this.baseSeed += p_i2125_1_;
+        baseSeed = p_i2125_1_;
+        baseSeed *= baseSeed * 6364136223846793005L + 1442695040888963407L;
+        baseSeed += p_i2125_1_;
+        baseSeed *= baseSeed * 6364136223846793005L + 1442695040888963407L;
+        baseSeed += p_i2125_1_;
+        baseSeed *= baseSeed * 6364136223846793005L + 1442695040888963407L;
+        baseSeed += p_i2125_1_;
     }
 
     /**
@@ -110,19 +110,19 @@ public abstract class GenLayer
      */
     public void initWorldGenSeed(long seed)
     {
-        this.worldGenSeed = seed;
+        worldGenSeed = seed;
 
-        if (this.parent != null)
+        if (parent != null)
         {
-            this.parent.initWorldGenSeed(seed);
+            parent.initWorldGenSeed(seed);
         }
 
-        this.worldGenSeed *= this.worldGenSeed * 6364136223846793005L + 1442695040888963407L;
-        this.worldGenSeed += this.baseSeed;
-        this.worldGenSeed *= this.worldGenSeed * 6364136223846793005L + 1442695040888963407L;
-        this.worldGenSeed += this.baseSeed;
-        this.worldGenSeed *= this.worldGenSeed * 6364136223846793005L + 1442695040888963407L;
-        this.worldGenSeed += this.baseSeed;
+        worldGenSeed *= worldGenSeed * 6364136223846793005L + 1442695040888963407L;
+        worldGenSeed += baseSeed;
+        worldGenSeed *= worldGenSeed * 6364136223846793005L + 1442695040888963407L;
+        worldGenSeed += baseSeed;
+        worldGenSeed *= worldGenSeed * 6364136223846793005L + 1442695040888963407L;
+        worldGenSeed += baseSeed;
     }
 
     /**
@@ -130,15 +130,15 @@ public abstract class GenLayer
      */
     public void initChunkSeed(long p_75903_1_, long p_75903_3_)
     {
-        this.chunkSeed = this.worldGenSeed;
-        this.chunkSeed *= this.chunkSeed * 6364136223846793005L + 1442695040888963407L;
-        this.chunkSeed += p_75903_1_;
-        this.chunkSeed *= this.chunkSeed * 6364136223846793005L + 1442695040888963407L;
-        this.chunkSeed += p_75903_3_;
-        this.chunkSeed *= this.chunkSeed * 6364136223846793005L + 1442695040888963407L;
-        this.chunkSeed += p_75903_1_;
-        this.chunkSeed *= this.chunkSeed * 6364136223846793005L + 1442695040888963407L;
-        this.chunkSeed += p_75903_3_;
+        chunkSeed = worldGenSeed;
+        chunkSeed *= chunkSeed * 6364136223846793005L + 1442695040888963407L;
+        chunkSeed += p_75903_1_;
+        chunkSeed *= chunkSeed * 6364136223846793005L + 1442695040888963407L;
+        chunkSeed += p_75903_3_;
+        chunkSeed *= chunkSeed * 6364136223846793005L + 1442695040888963407L;
+        chunkSeed += p_75903_1_;
+        chunkSeed *= chunkSeed * 6364136223846793005L + 1442695040888963407L;
+        chunkSeed += p_75903_3_;
     }
 
     /**
@@ -146,15 +146,15 @@ public abstract class GenLayer
      */
     protected int nextInt(int p_75902_1_)
     {
-        int i = (int)((this.chunkSeed >> 24) % (long)p_75902_1_);
+        int i = (int)((chunkSeed >> 24) % (long)p_75902_1_);
 
         if (i < 0)
         {
             i += p_75902_1_;
         }
 
-        this.chunkSeed *= this.chunkSeed * 6364136223846793005L + 1442695040888963407L;
-        this.chunkSeed += this.worldGenSeed;
+        chunkSeed *= chunkSeed * 6364136223846793005L + 1442695040888963407L;
+        chunkSeed += worldGenSeed;
         return i;
     }
 
@@ -207,7 +207,7 @@ public abstract class GenLayer
      */
     protected int selectRandom(int... p_151619_1_)
     {
-        return p_151619_1_[this.nextInt(p_151619_1_.length)];
+        return p_151619_1_[nextInt(p_151619_1_.length)];
     }
 
     /**
@@ -253,7 +253,7 @@ public abstract class GenLayer
         }
         else
         {
-            return p_151617_3_ == p_151617_4_ && p_151617_1_ != p_151617_2_ ? p_151617_3_ : this.selectRandom(p_151617_1_, p_151617_2_, p_151617_3_, p_151617_4_);
+            return p_151617_3_ == p_151617_4_ && p_151617_1_ != p_151617_2_ ? p_151617_3_ : selectRandom(p_151617_1_, p_151617_2_, p_151617_3_, p_151617_4_);
         }
     }
 }

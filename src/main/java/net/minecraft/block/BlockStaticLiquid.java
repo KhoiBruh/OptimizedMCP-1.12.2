@@ -13,11 +13,11 @@ public class BlockStaticLiquid extends BlockLiquid
     protected BlockStaticLiquid(Material materialIn)
     {
         super(materialIn);
-        this.setTickRandomly(false);
+        setTickRandomly(false);
 
         if (materialIn == Material.LAVA)
         {
-            this.setTickRandomly(true);
+            setTickRandomly(true);
         }
     }
 
@@ -28,22 +28,22 @@ public class BlockStaticLiquid extends BlockLiquid
      */
     public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos)
     {
-        if (!this.checkForMixing(worldIn, pos, state))
+        if (!checkForMixing(worldIn, pos, state))
         {
-            this.updateLiquid(worldIn, pos, state);
+            updateLiquid(worldIn, pos, state);
         }
     }
 
     private void updateLiquid(World worldIn, BlockPos pos, IBlockState state)
     {
-        BlockDynamicLiquid blockdynamicliquid = getFlowingBlock(this.blockMaterial);
+        BlockDynamicLiquid blockdynamicliquid = getFlowingBlock(blockMaterial);
         worldIn.setBlockState(pos, blockdynamicliquid.getDefaultState().withProperty(LEVEL, state.getValue(LEVEL)), 2);
-        worldIn.scheduleUpdate(pos, blockdynamicliquid, this.tickRate(worldIn));
+        worldIn.scheduleUpdate(pos, blockdynamicliquid, tickRate(worldIn));
     }
 
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
     {
-        if (this.blockMaterial == Material.LAVA)
+        if (blockMaterial == Material.LAVA)
         {
             if (worldIn.getGameRules().getBoolean("doFireTick"))
             {
@@ -66,7 +66,7 @@ public class BlockStaticLiquid extends BlockLiquid
 
                         if (block.blockMaterial == Material.AIR)
                         {
-                            if (this.isSurroundingBlockFlammable(worldIn, blockpos))
+                            if (isSurroundingBlockFlammable(worldIn, blockpos))
                             {
                                 worldIn.setBlockState(blockpos, Blocks.FIRE.getDefaultState());
                                 return;
@@ -89,7 +89,7 @@ public class BlockStaticLiquid extends BlockLiquid
                             return;
                         }
 
-                        if (worldIn.isAirBlock(blockpos1.up()) && this.getCanBlockBurn(worldIn, blockpos1))
+                        if (worldIn.isAirBlock(blockpos1.up()) && getCanBlockBurn(worldIn, blockpos1))
                         {
                             worldIn.setBlockState(blockpos1.up(), Blocks.FIRE.getDefaultState());
                         }
@@ -103,7 +103,7 @@ public class BlockStaticLiquid extends BlockLiquid
     {
         for (EnumFacing enumfacing : EnumFacing.values())
         {
-            if (this.getCanBlockBurn(worldIn, pos.offset(enumfacing)))
+            if (getCanBlockBurn(worldIn, pos.offset(enumfacing)))
             {
                 return true;
             }

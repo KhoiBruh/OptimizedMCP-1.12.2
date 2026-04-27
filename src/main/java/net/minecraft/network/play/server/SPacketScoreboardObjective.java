@@ -20,10 +20,10 @@ public class SPacketScoreboardObjective implements Packet<INetHandlerPlayClient>
 
     public SPacketScoreboardObjective(ScoreObjective objective, int actionIn)
     {
-        this.objectiveName = objective.getName();
-        this.objectiveValue = objective.getDisplayName();
-        this.type = objective.getCriteria().getRenderType();
-        this.action = actionIn;
+        objectiveName = objective.getName();
+        objectiveValue = objective.getDisplayName();
+        type = objective.getCriteria().getRenderType();
+        action = actionIn;
     }
 
     /**
@@ -31,13 +31,13 @@ public class SPacketScoreboardObjective implements Packet<INetHandlerPlayClient>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.objectiveName = buf.readString(16);
-        this.action = buf.readByte();
+        objectiveName = buf.readString(16);
+        action = buf.readByte();
 
-        if (this.action == 0 || this.action == 2)
+        if (action == 0 || action == 2)
         {
-            this.objectiveValue = buf.readString(32);
-            this.type = IScoreCriteria.EnumRenderType.getByName(buf.readString(16));
+            objectiveValue = buf.readString(32);
+            type = IScoreCriteria.EnumRenderType.getByName(buf.readString(16));
         }
     }
 
@@ -46,13 +46,13 @@ public class SPacketScoreboardObjective implements Packet<INetHandlerPlayClient>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeString(this.objectiveName);
-        buf.writeByte(this.action);
+        buf.writeString(objectiveName);
+        buf.writeByte(action);
 
-        if (this.action == 0 || this.action == 2)
+        if (action == 0 || action == 2)
         {
-            buf.writeString(this.objectiveValue);
-            buf.writeString(this.type.getRenderType());
+            buf.writeString(objectiveValue);
+            buf.writeString(type.getRenderType());
         }
     }
 
@@ -66,21 +66,21 @@ public class SPacketScoreboardObjective implements Packet<INetHandlerPlayClient>
 
     public String getObjectiveName()
     {
-        return this.objectiveName;
+        return objectiveName;
     }
 
     public String getObjectiveValue()
     {
-        return this.objectiveValue;
+        return objectiveValue;
     }
 
     public int getAction()
     {
-        return this.action;
+        return action;
     }
 
     public IScoreCriteria.EnumRenderType getRenderType()
     {
-        return this.type;
+        return type;
     }
 }

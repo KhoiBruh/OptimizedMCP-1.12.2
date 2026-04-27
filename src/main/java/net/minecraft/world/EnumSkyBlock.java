@@ -9,6 +9,6 @@ public enum EnumSkyBlock
 
     private EnumSkyBlock(int defaultLightValueIn)
     {
-        this.defaultLightValue = defaultLightValueIn;
+        defaultLightValue = defaultLightValueIn;
     }
 }

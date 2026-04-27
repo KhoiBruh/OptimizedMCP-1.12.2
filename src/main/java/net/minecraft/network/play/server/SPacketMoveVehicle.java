@@ -20,11 +20,11 @@ public class SPacketMoveVehicle implements Packet<INetHandlerPlayClient>
 
     public SPacketMoveVehicle(Entity entityIn)
     {
-        this.x = entityIn.posX;
-        this.y = entityIn.posY;
-        this.z = entityIn.posZ;
-        this.yaw = entityIn.rotationYaw;
-        this.pitch = entityIn.rotationPitch;
+        x = entityIn.posX;
+        y = entityIn.posY;
+        z = entityIn.posZ;
+        yaw = entityIn.rotationYaw;
+        pitch = entityIn.rotationPitch;
     }
 
     /**
@@ -32,11 +32,11 @@ public class SPacketMoveVehicle implements Packet<INetHandlerPlayClient>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.x = buf.readDouble();
-        this.y = buf.readDouble();
-        this.z = buf.readDouble();
-        this.yaw = buf.readFloat();
-        this.pitch = buf.readFloat();
+        x = buf.readDouble();
+        y = buf.readDouble();
+        z = buf.readDouble();
+        yaw = buf.readFloat();
+        pitch = buf.readFloat();
     }
 
     /**
@@ -44,11 +44,11 @@ public class SPacketMoveVehicle implements Packet<INetHandlerPlayClient>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeDouble(this.x);
-        buf.writeDouble(this.y);
-        buf.writeDouble(this.z);
-        buf.writeFloat(this.yaw);
-        buf.writeFloat(this.pitch);
+        buf.writeDouble(x);
+        buf.writeDouble(y);
+        buf.writeDouble(z);
+        buf.writeFloat(yaw);
+        buf.writeFloat(pitch);
     }
 
     /**
@@ -61,26 +61,26 @@ public class SPacketMoveVehicle implements Packet<INetHandlerPlayClient>
 
     public double getX()
     {
-        return this.x;
+        return x;
     }
 
     public double getY()
     {
-        return this.y;
+        return y;
     }
 
     public double getZ()
     {
-        return this.z;
+        return z;
     }
 
     public float getYaw()
     {
-        return this.yaw;
+        return yaw;
     }
 
     public float getPitch()
     {
-        return this.pitch;
+        return pitch;
     }
 }

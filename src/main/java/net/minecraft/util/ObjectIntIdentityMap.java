@@ -20,41 +20,41 @@ public class ObjectIntIdentityMap<T> implements IObjectIntIterable<T>
 
     public ObjectIntIdentityMap(int expectedSize)
     {
-        this.objectList = Lists.<T>newArrayListWithExpectedSize(expectedSize);
-        this.identityMap = new IdentityHashMap<T, Integer>(expectedSize);
+        objectList = Lists.<T>newArrayListWithExpectedSize(expectedSize);
+        identityMap = new IdentityHashMap<T, Integer>(expectedSize);
     }
 
     public void put(T key, int value)
     {
-        this.identityMap.put(key, Integer.valueOf(value));
+        identityMap.put(key, Integer.valueOf(value));
 
-        while (this.objectList.size() <= value)
+        while (objectList.size() <= value)
         {
-            this.objectList.add(null);
+            objectList.add(null);
         }
 
-        this.objectList.set(value, key);
+        objectList.set(value, key);
     }
 
     public int get(T key)
     {
-        Integer integer = this.identityMap.get(key);
+        Integer integer = identityMap.get(key);
         return integer == null ? -1 : integer.intValue();
     }
 
     @Nullable
     public final T getByValue(int value)
     {
-        return (T)(value >= 0 && value < this.objectList.size() ? this.objectList.get(value) : null);
+        return (T)(value >= 0 && value < objectList.size() ? objectList.get(value) : null);
     }
 
     public Iterator<T> iterator()
     {
-        return Iterators.filter(this.objectList.iterator(), Predicates.notNull());
+        return Iterators.filter(objectList.iterator(), Predicates.notNull());
     }
 
     public int size()
     {
-        return this.identityMap.size();
+        return identityMap.size();
     }
 }

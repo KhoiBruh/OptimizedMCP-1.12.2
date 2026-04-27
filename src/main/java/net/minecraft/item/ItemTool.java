@@ -28,15 +28,15 @@ public class ItemTool extends Item
 
     protected ItemTool(float attackDamageIn, float attackSpeedIn, Item.ToolMaterial materialIn, Set<Block> effectiveBlocksIn)
     {
-        this.efficiency = 4.0F;
-        this.toolMaterial = materialIn;
-        this.effectiveBlocks = effectiveBlocksIn;
-        this.maxStackSize = 1;
-        this.setMaxDamage(materialIn.getMaxUses());
-        this.efficiency = materialIn.getEfficiency();
-        this.attackDamage = attackDamageIn + materialIn.getAttackDamage();
-        this.attackSpeed = attackSpeedIn;
-        this.setCreativeTab(CreativeTabs.TOOLS);
+        efficiency = 4.0F;
+        toolMaterial = materialIn;
+        effectiveBlocks = effectiveBlocksIn;
+        maxStackSize = 1;
+        setMaxDamage(materialIn.getMaxUses());
+        efficiency = materialIn.getEfficiency();
+        attackDamage = attackDamageIn + materialIn.getAttackDamage();
+        attackSpeed = attackSpeedIn;
+        setCreativeTab(CreativeTabs.TOOLS);
     }
 
     protected ItemTool(Item.ToolMaterial materialIn, Set<Block> effectiveBlocksIn)
@@ -46,7 +46,7 @@ public class ItemTool extends Item
 
     public float getDestroySpeed(ItemStack stack, IBlockState state)
     {
-        return this.effectiveBlocks.contains(state.getBlock()) ? this.efficiency : 1.0F;
+        return effectiveBlocks.contains(state.getBlock()) ? efficiency : 1.0F;
     }
 
     /**
@@ -85,7 +85,7 @@ public class ItemTool extends Item
      */
     public int getItemEnchantability()
     {
-        return this.toolMaterial.getEnchantability();
+        return toolMaterial.getEnchantability();
     }
 
     /**
@@ -93,7 +93,7 @@ public class ItemTool extends Item
      */
     public String getToolMaterialName()
     {
-        return this.toolMaterial.toString();
+        return toolMaterial.toString();
     }
 
     /**
@@ -104,7 +104,7 @@ public class ItemTool extends Item
      */
     public boolean getIsRepairable(ItemStack toRepair, ItemStack repair)
     {
-        return this.toolMaterial.getRepairItem() == repair.getItem() ? true : super.getIsRepairable(toRepair, repair);
+        return toolMaterial.getRepairItem() == repair.getItem() ? true : super.getIsRepairable(toRepair, repair);
     }
 
     public Multimap<String, AttributeModifier> getItemAttributeModifiers(EntityEquipmentSlot equipmentSlot)
@@ -113,8 +113,8 @@ public class ItemTool extends Item
 
         if (equipmentSlot == EntityEquipmentSlot.MAINHAND)
         {
-            multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Tool modifier", (double)this.attackDamage, 0));
-            multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Tool modifier", (double)this.attackSpeed, 0));
+            multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Tool modifier", (double) attackDamage, 0));
+            multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Tool modifier", (double) attackSpeed, 0));
         }
 
         return multimap;

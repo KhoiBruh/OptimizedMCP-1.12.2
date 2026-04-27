@@ -53,18 +53,18 @@ public class EntityZombieVillager extends EntityZombie
     protected void entityInit()
     {
         super.entityInit();
-        this.dataManager.register(CONVERTING, Boolean.valueOf(false));
-        this.dataManager.register(PROFESSION, Integer.valueOf(0));
+        dataManager.register(CONVERTING, Boolean.valueOf(false));
+        dataManager.register(PROFESSION, Integer.valueOf(0));
     }
 
     public void setProfession(int profession)
     {
-        this.dataManager.set(PROFESSION, Integer.valueOf(profession));
+        dataManager.set(PROFESSION, Integer.valueOf(profession));
     }
 
     public int getProfession()
     {
-        return Math.max(((Integer)this.dataManager.get(PROFESSION)).intValue() % 6, 0);
+        return Math.max(((Integer) dataManager.get(PROFESSION)).intValue() % 6, 0);
     }
 
     public static void registerFixesZombieVillager(DataFixer fixer)
@@ -78,12 +78,12 @@ public class EntityZombieVillager extends EntityZombie
     public void writeEntityToNBT(NBTTagCompound compound)
     {
         super.writeEntityToNBT(compound);
-        compound.setInteger("Profession", this.getProfession());
-        compound.setInteger("ConversionTime", this.isConverting() ? this.conversionTime : -1);
+        compound.setInteger("Profession", getProfession());
+        compound.setInteger("ConversionTime", isConverting() ? conversionTime : -1);
 
-        if (this.converstionStarter != null)
+        if (converstionStarter != null)
         {
-            compound.setUniqueId("ConversionPlayer", this.converstionStarter);
+            compound.setUniqueId("ConversionPlayer", converstionStarter);
         }
     }
 
@@ -93,11 +93,11 @@ public class EntityZombieVillager extends EntityZombie
     public void readEntityFromNBT(NBTTagCompound compound)
     {
         super.readEntityFromNBT(compound);
-        this.setProfession(compound.getInteger("Profession"));
+        setProfession(compound.getInteger("Profession"));
 
         if (compound.hasKey("ConversionTime", 99) && compound.getInteger("ConversionTime") > -1)
         {
-            this.startConverting(compound.hasUniqueId("ConversionPlayer") ? compound.getUniqueId("ConversionPlayer") : null, compound.getInteger("ConversionTime"));
+            startConverting(compound.hasUniqueId("ConversionPlayer") ? compound.getUniqueId("ConversionPlayer") : null, compound.getInteger("ConversionTime"));
         }
     }
 
@@ -119,7 +119,7 @@ public class EntityZombieVillager extends EntityZombie
      */
     public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata)
     {
-        this.setProfession(this.world.rand.nextInt(6));
+        setProfession(world.rand.nextInt(6));
         return super.onInitialSpawn(difficulty, livingdata);
     }
 
@@ -128,14 +128,14 @@ public class EntityZombieVillager extends EntityZombie
      */
     public void onUpdate()
     {
-        if (!this.world.isRemote && this.isConverting())
+        if (!world.isRemote && isConverting())
         {
-            int i = this.getConversionProgress();
-            this.conversionTime -= i;
+            int i = getConversionProgress();
+            conversionTime -= i;
 
-            if (this.conversionTime <= 0)
+            if (conversionTime <= 0)
             {
-                this.finishConversion();
+                finishConversion();
             }
         }
 
@@ -146,16 +146,16 @@ public class EntityZombieVillager extends EntityZombie
     {
         ItemStack itemstack = player.getHeldItem(hand);
 
-        if (itemstack.getItem() == Items.GOLDEN_APPLE && itemstack.getMetadata() == 0 && this.isPotionActive(MobEffects.WEAKNESS))
+        if (itemstack.getItem() == Items.GOLDEN_APPLE && itemstack.getMetadata() == 0 && isPotionActive(MobEffects.WEAKNESS))
         {
             if (!player.capabilities.isCreativeMode)
             {
                 itemstack.shrink(1);
             }
 
-            if (!this.world.isRemote)
+            if (!world.isRemote)
             {
-                this.startConverting(player.getUniqueID(), this.rand.nextInt(2401) + 3600);
+                startConverting(player.getUniqueID(), rand.nextInt(2401) + 3600);
             }
 
             return true;
@@ -171,7 +171,7 @@ public class EntityZombieVillager extends EntityZombie
      */
     protected boolean canDespawn()
     {
-        return !this.isConverting();
+        return !isConverting();
     }
 
     /**
@@ -179,7 +179,7 @@ public class EntityZombieVillager extends EntityZombie
      */
     public boolean isConverting()
     {
-        return ((Boolean)this.getDataManager().get(CONVERTING)).booleanValue();
+        return ((Boolean) getDataManager().get(CONVERTING)).booleanValue();
     }
 
     /**
@@ -190,12 +190,12 @@ public class EntityZombieVillager extends EntityZombie
      */
     protected void startConverting(@Nullable UUID conversionStarterIn, int conversionTimeIn)
     {
-        this.converstionStarter = conversionStarterIn;
-        this.conversionTime = conversionTimeIn;
-        this.getDataManager().set(CONVERTING, Boolean.valueOf(true));
-        this.removePotionEffect(MobEffects.WEAKNESS);
-        this.addPotionEffect(new PotionEffect(MobEffects.STRENGTH, conversionTimeIn, Math.min(this.world.getDifficulty().getDifficultyId() - 1, 0)));
-        this.world.setEntityState(this, (byte)16);
+        converstionStarter = conversionStarterIn;
+        conversionTime = conversionTimeIn;
+        getDataManager().set(CONVERTING, Boolean.valueOf(true));
+        removePotionEffect(MobEffects.WEAKNESS);
+        addPotionEffect(new PotionEffect(MobEffects.STRENGTH, conversionTimeIn, Math.min(world.getDifficulty().getDifficultyId() - 1, 0)));
+        world.setEntityState(this, (byte)16);
     }
 
     /**
@@ -205,9 +205,9 @@ public class EntityZombieVillager extends EntityZombie
     {
         if (id == 16)
         {
-            if (!this.isSilent())
+            if (!isSilent())
             {
-                this.world.playSound(this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, SoundEvents.ENTITY_ZOMBIE_VILLAGER_CURE, this.getSoundCategory(), 1.0F + this.rand.nextFloat(), this.rand.nextFloat() * 0.7F + 0.3F, false);
+                world.playSound(posX + 0.5D, posY + 0.5D, posZ + 0.5D, SoundEvents.ENTITY_ZOMBIE_VILLAGER_CURE, getSoundCategory(), 1.0F + rand.nextFloat(), rand.nextFloat() * 0.7F + 0.3F, false);
             }
         }
         else
@@ -218,31 +218,31 @@ public class EntityZombieVillager extends EntityZombie
 
     protected void finishConversion()
     {
-        EntityVillager entityvillager = new EntityVillager(this.world);
+        EntityVillager entityvillager = new EntityVillager(world);
         entityvillager.copyLocationAndAnglesFrom(this);
-        entityvillager.setProfession(this.getProfession());
-        entityvillager.finalizeMobSpawn(this.world.getDifficultyForLocation(new BlockPos(entityvillager)), (IEntityLivingData)null, false);
+        entityvillager.setProfession(getProfession());
+        entityvillager.finalizeMobSpawn(world.getDifficultyForLocation(new BlockPos(entityvillager)), (IEntityLivingData)null, false);
         entityvillager.setLookingForHome();
 
-        if (this.isChild())
+        if (isChild())
         {
             entityvillager.setGrowingAge(-24000);
         }
 
-        this.world.removeEntity(this);
-        entityvillager.setNoAI(this.isAIDisabled());
+        world.removeEntity(this);
+        entityvillager.setNoAI(isAIDisabled());
 
-        if (this.hasCustomName())
+        if (hasCustomName())
         {
-            entityvillager.setCustomNameTag(this.getCustomNameTag());
-            entityvillager.setAlwaysRenderNameTag(this.getAlwaysRenderNameTag());
+            entityvillager.setCustomNameTag(getCustomNameTag());
+            entityvillager.setAlwaysRenderNameTag(getAlwaysRenderNameTag());
         }
 
-        this.world.spawnEntity(entityvillager);
+        world.spawnEntity(entityvillager);
 
-        if (this.converstionStarter != null)
+        if (converstionStarter != null)
         {
-            EntityPlayer entityplayer = this.world.getPlayerEntityByUUID(this.converstionStarter);
+            EntityPlayer entityplayer = world.getPlayerEntityByUUID(converstionStarter);
 
             if (entityplayer instanceof EntityPlayerMP)
             {
@@ -251,29 +251,29 @@ public class EntityZombieVillager extends EntityZombie
         }
 
         entityvillager.addPotionEffect(new PotionEffect(MobEffects.NAUSEA, 200, 0));
-        this.world.playEvent((EntityPlayer)null, 1027, new BlockPos((int)this.posX, (int)this.posY, (int)this.posZ), 0);
+        world.playEvent((EntityPlayer)null, 1027, new BlockPos((int) posX, (int) posY, (int) posZ), 0);
     }
 
     protected int getConversionProgress()
     {
         int i = 1;
 
-        if (this.rand.nextFloat() < 0.01F)
+        if (rand.nextFloat() < 0.01F)
         {
             int j = 0;
             BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
 
-            for (int k = (int)this.posX - 4; k < (int)this.posX + 4 && j < 14; ++k)
+            for (int k = (int) posX - 4; k < (int) posX + 4 && j < 14; ++k)
             {
-                for (int l = (int)this.posY - 4; l < (int)this.posY + 4 && j < 14; ++l)
+                for (int l = (int) posY - 4; l < (int) posY + 4 && j < 14; ++l)
                 {
-                    for (int i1 = (int)this.posZ - 4; i1 < (int)this.posZ + 4 && j < 14; ++i1)
+                    for (int i1 = (int) posZ - 4; i1 < (int) posZ + 4 && j < 14; ++i1)
                     {
-                        Block block = this.world.getBlockState(blockpos$mutableblockpos.setPos(k, l, i1)).getBlock();
+                        Block block = world.getBlockState(blockpos$mutableblockpos.setPos(k, l, i1)).getBlock();
 
                         if (block == Blocks.IRON_BARS || block == Blocks.BED)
                         {
-                            if (this.rand.nextFloat() < 0.3F)
+                            if (rand.nextFloat() < 0.3F)
                             {
                                 ++i;
                             }
@@ -293,7 +293,7 @@ public class EntityZombieVillager extends EntityZombie
      */
     protected float getSoundPitch()
     {
-        return this.isChild() ? (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 2.0F : (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F;
+        return isChild() ? (rand.nextFloat() - rand.nextFloat()) * 0.2F + 2.0F : (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F;
     }
 
     public SoundEvent getAmbientSound()

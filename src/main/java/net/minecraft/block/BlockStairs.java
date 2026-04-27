@@ -149,21 +149,21 @@ public class BlockStairs extends Block
     protected BlockStairs(IBlockState modelState)
     {
         super(modelState.getBlock().blockMaterial);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(HALF, BlockStairs.EnumHalf.BOTTOM).withProperty(SHAPE, BlockStairs.EnumShape.STRAIGHT));
-        this.modelBlock = modelState.getBlock();
+        setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(HALF, BlockStairs.EnumHalf.BOTTOM).withProperty(SHAPE, BlockStairs.EnumShape.STRAIGHT));
+        modelBlock = modelState.getBlock();
         this.modelState = modelState;
-        this.setHardness(this.modelBlock.blockHardness);
-        this.setResistance(this.modelBlock.blockResistance / 3.0F);
-        this.setSoundType(this.modelBlock.blockSoundType);
-        this.setLightOpacity(255);
-        this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
+        setHardness(modelBlock.blockHardness);
+        setResistance(modelBlock.blockResistance / 3.0F);
+        setSoundType(modelBlock.blockSoundType);
+        setLightOpacity(255);
+        setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
     }
 
     public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, @Nullable Entity entityIn, boolean isActualState)
     {
         if (!isActualState)
         {
-            state = this.getActualState(state, worldIn, pos);
+            state = getActualState(state, worldIn, pos);
         }
 
         for (AxisAlignedBB axisalignedbb : getCollisionBoxList(state))
@@ -276,7 +276,7 @@ public class BlockStairs extends Block
      */
     public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face)
     {
-        state = this.getActualState(state, worldIn, pos);
+        state = getActualState(state, worldIn, pos);
 
         if (face.getAxis() == EnumFacing.Axis.Y)
         {
@@ -327,12 +327,12 @@ public class BlockStairs extends Block
 
     public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand)
     {
-        this.modelBlock.randomDisplayTick(stateIn, worldIn, pos, rand);
+        modelBlock.randomDisplayTick(stateIn, worldIn, pos, rand);
     }
 
     public void onBlockClicked(World worldIn, BlockPos pos, EntityPlayer playerIn)
     {
-        this.modelBlock.onBlockClicked(worldIn, pos, playerIn);
+        modelBlock.onBlockClicked(worldIn, pos, playerIn);
     }
 
     /**
@@ -340,12 +340,12 @@ public class BlockStairs extends Block
      */
     public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state)
     {
-        this.modelBlock.onBlockDestroyedByPlayer(worldIn, pos, state);
+        modelBlock.onBlockDestroyedByPlayer(worldIn, pos, state);
     }
 
     public int getPackedLightmapCoords(IBlockState state, IBlockAccess source, BlockPos pos)
     {
-        return this.modelState.getPackedLightmapCoords(source, pos);
+        return modelState.getPackedLightmapCoords(source, pos);
     }
 
     /**
@@ -353,7 +353,7 @@ public class BlockStairs extends Block
      */
     public float getExplosionResistance(Entity exploder)
     {
-        return this.modelBlock.getExplosionResistance(exploder);
+        return modelBlock.getExplosionResistance(exploder);
     }
 
     /**
@@ -362,7 +362,7 @@ public class BlockStairs extends Block
      */
     public BlockRenderLayer getBlockLayer()
     {
-        return this.modelBlock.getBlockLayer();
+        return modelBlock.getBlockLayer();
     }
 
     /**
@@ -370,7 +370,7 @@ public class BlockStairs extends Block
      */
     public int tickRate(World worldIn)
     {
-        return this.modelBlock.tickRate(worldIn);
+        return modelBlock.tickRate(worldIn);
     }
 
     /**
@@ -378,12 +378,12 @@ public class BlockStairs extends Block
      */
     public AxisAlignedBB getSelectedBoundingBox(IBlockState state, World worldIn, BlockPos pos)
     {
-        return this.modelState.getSelectedBoundingBox(worldIn, pos);
+        return modelState.getSelectedBoundingBox(worldIn, pos);
     }
 
     public Vec3d modifyAcceleration(World worldIn, BlockPos pos, Entity entityIn, Vec3d motion)
     {
-        return this.modelBlock.modifyAcceleration(worldIn, pos, entityIn, motion);
+        return modelBlock.modifyAcceleration(worldIn, pos, entityIn, motion);
     }
 
     /**
@@ -392,12 +392,12 @@ public class BlockStairs extends Block
      */
     public boolean isCollidable()
     {
-        return this.modelBlock.isCollidable();
+        return modelBlock.isCollidable();
     }
 
     public boolean canCollideCheck(IBlockState state, boolean hitIfLiquid)
     {
-        return this.modelBlock.canCollideCheck(state, hitIfLiquid);
+        return modelBlock.canCollideCheck(state, hitIfLiquid);
     }
 
     /**
@@ -405,7 +405,7 @@ public class BlockStairs extends Block
      */
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
     {
-        return this.modelBlock.canPlaceBlockAt(worldIn, pos);
+        return modelBlock.canPlaceBlockAt(worldIn, pos);
     }
 
     /**
@@ -413,8 +413,8 @@ public class BlockStairs extends Block
      */
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state)
     {
-        this.modelState.neighborChanged(worldIn, pos, Blocks.AIR, pos);
-        this.modelBlock.onBlockAdded(worldIn, pos, this.modelState);
+        modelState.neighborChanged(worldIn, pos, Blocks.AIR, pos);
+        modelBlock.onBlockAdded(worldIn, pos, modelState);
     }
 
     /**
@@ -422,7 +422,7 @@ public class BlockStairs extends Block
      */
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state)
     {
-        this.modelBlock.breakBlock(worldIn, pos, this.modelState);
+        modelBlock.breakBlock(worldIn, pos, modelState);
     }
 
     /**
@@ -430,12 +430,12 @@ public class BlockStairs extends Block
      */
     public void onEntityWalk(World worldIn, BlockPos pos, Entity entityIn)
     {
-        this.modelBlock.onEntityWalk(worldIn, pos, entityIn);
+        modelBlock.onEntityWalk(worldIn, pos, entityIn);
     }
 
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
     {
-        this.modelBlock.updateTick(worldIn, pos, state, rand);
+        modelBlock.updateTick(worldIn, pos, state, rand);
     }
 
     /**
@@ -443,7 +443,7 @@ public class BlockStairs extends Block
      */
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
     {
-        return this.modelBlock.onBlockActivated(worldIn, pos, this.modelState, playerIn, hand, EnumFacing.DOWN, 0.0F, 0.0F, 0.0F);
+        return modelBlock.onBlockActivated(worldIn, pos, modelState, playerIn, hand, EnumFacing.DOWN, 0.0F, 0.0F, 0.0F);
     }
 
     /**
@@ -451,7 +451,7 @@ public class BlockStairs extends Block
      */
     public void onBlockDestroyedByExplosion(World worldIn, BlockPos pos, Explosion explosionIn)
     {
-        this.modelBlock.onBlockDestroyedByExplosion(worldIn, pos, explosionIn);
+        modelBlock.onBlockDestroyedByExplosion(worldIn, pos, explosionIn);
     }
 
     /**
@@ -467,7 +467,7 @@ public class BlockStairs extends Block
      */
     public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos)
     {
-        return this.modelBlock.getMapColor(this.modelState, worldIn, pos);
+        return modelBlock.getMapColor(modelState, worldIn, pos);
     }
 
     /**
@@ -490,9 +490,9 @@ public class BlockStairs extends Block
     {
         List<RayTraceResult> list = Lists.<RayTraceResult>newArrayList();
 
-        for (AxisAlignedBB axisalignedbb : getCollisionBoxList(this.getActualState(blockState, worldIn, pos)))
+        for (AxisAlignedBB axisalignedbb : getCollisionBoxList(getActualState(blockState, worldIn, pos)))
         {
-            list.add(this.rayTrace(pos, start, end, axisalignedbb));
+            list.add(rayTrace(pos, start, end, axisalignedbb));
         }
 
         RayTraceResult raytraceresult1 = null;
@@ -520,7 +520,7 @@ public class BlockStairs extends Block
      */
     public IBlockState getStateFromMeta(int meta)
     {
-        IBlockState iblockstate = this.getDefaultState().withProperty(HALF, (meta & 4) > 0 ? BlockStairs.EnumHalf.TOP : BlockStairs.EnumHalf.BOTTOM);
+        IBlockState iblockstate = getDefaultState().withProperty(HALF, (meta & 4) > 0 ? BlockStairs.EnumHalf.TOP : BlockStairs.EnumHalf.BOTTOM);
         iblockstate = iblockstate.withProperty(FACING, EnumFacing.getFront(5 - (meta & 3)));
         return iblockstate;
     }
@@ -692,12 +692,12 @@ public class BlockStairs extends Block
 
         public String toString()
         {
-            return this.name;
+            return name;
         }
 
         public String getName()
         {
-            return this.name;
+            return name;
         }
     }
 
@@ -718,12 +718,12 @@ public class BlockStairs extends Block
 
         public String toString()
         {
-            return this.name;
+            return name;
         }
 
         public String getName()
         {
-            return this.name;
+            return name;
         }
     }
 }

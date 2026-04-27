@@ -27,14 +27,14 @@ public class MapGenMineshaft extends MapGenStructure
         {
             if (((String)entry.getKey()).equals("chance"))
             {
-                this.chance = MathHelper.getDouble(entry.getValue(), this.chance);
+                chance = MathHelper.getDouble(entry.getValue(), chance);
             }
         }
     }
 
     protected boolean canSpawnStructureAtCoords(int chunkX, int chunkZ)
     {
-        return this.rand.nextDouble() < this.chance && this.rand.nextInt(80) < Math.max(Math.abs(chunkX), Math.abs(chunkZ));
+        return rand.nextDouble() < chance && rand.nextInt(80) < Math.max(Math.abs(chunkX), Math.abs(chunkZ));
     }
 
     public BlockPos getNearestStructurePos(World worldIn, BlockPos pos, boolean findUnexplored)
@@ -57,10 +57,10 @@ public class MapGenMineshaft extends MapGenStructure
                     {
                         int k1 = j + i1;
                         int l1 = k + j1;
-                        this.rand.setSeed((long)(k1 ^ l1) ^ worldIn.getSeed());
-                        this.rand.nextInt();
+                        rand.setSeed((long)(k1 ^ l1) ^ worldIn.getSeed());
+                        rand.nextInt();
 
-                        if (this.canSpawnStructureAtCoords(k1, l1) && (!findUnexplored || !worldIn.isChunkGeneratedAt(k1, l1)))
+                        if (canSpawnStructureAtCoords(k1, l1) && (!findUnexplored || !worldIn.isChunkGeneratedAt(k1, l1)))
                         {
                             return new BlockPos((k1 << 4) + 8, 64, (l1 << 4) + 8);
                         }
@@ -74,9 +74,9 @@ public class MapGenMineshaft extends MapGenStructure
 
     protected StructureStart getStructureStart(int chunkX, int chunkZ)
     {
-        Biome biome = this.world.getBiome(new BlockPos((chunkX << 4) + 8, 64, (chunkZ << 4) + 8));
+        Biome biome = world.getBiome(new BlockPos((chunkX << 4) + 8, 64, (chunkZ << 4) + 8));
         MapGenMineshaft.Type mapgenmineshaft$type = biome instanceof BiomeMesa ? MapGenMineshaft.Type.MESA : MapGenMineshaft.Type.NORMAL;
-        return new StructureMineshaftStart(this.world, this.rand, chunkX, chunkZ, mapgenmineshaft$type);
+        return new StructureMineshaftStart(world, rand, chunkX, chunkZ, mapgenmineshaft$type);
     }
 
     public static enum Type

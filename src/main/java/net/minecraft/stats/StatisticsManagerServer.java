@@ -32,26 +32,26 @@ public class StatisticsManagerServer extends StatisticsManager
 
     public StatisticsManagerServer(MinecraftServer serverIn, File statsFileIn)
     {
-        this.mcServer = serverIn;
-        this.statsFile = statsFileIn;
+        mcServer = serverIn;
+        statsFile = statsFileIn;
     }
 
     public void readStatFile()
     {
-        if (this.statsFile.isFile())
+        if (statsFile.isFile())
         {
             try
             {
-                this.statsData.clear();
-                this.statsData.putAll(this.parseJson(FileUtils.readFileToString(this.statsFile)));
+                statsData.clear();
+                statsData.putAll(parseJson(FileUtils.readFileToString(statsFile)));
             }
             catch (IOException ioexception)
             {
-                LOGGER.error("Couldn't read statistics file {}", this.statsFile, ioexception);
+                LOGGER.error("Couldn't read statistics file {}", statsFile, ioexception);
             }
             catch (JsonParseException jsonparseexception)
             {
-                LOGGER.error("Couldn't parse statistics file {}", this.statsFile, jsonparseexception);
+                LOGGER.error("Couldn't parse statistics file {}", statsFile, jsonparseexception);
             }
         }
     }
@@ -60,7 +60,7 @@ public class StatisticsManagerServer extends StatisticsManager
     {
         try
         {
-            FileUtils.writeStringToFile(this.statsFile, dumpJson(this.statsData));
+            FileUtils.writeStringToFile(statsFile, dumpJson(statsData));
         }
         catch (IOException ioexception)
         {
@@ -74,13 +74,13 @@ public class StatisticsManagerServer extends StatisticsManager
     public void unlockAchievement(EntityPlayer playerIn, StatBase statIn, int p_150873_3_)
     {
         super.unlockAchievement(playerIn, statIn, p_150873_3_);
-        this.dirty.add(statIn);
+        dirty.add(statIn);
     }
 
     private Set<StatBase> getDirty()
     {
-        Set<StatBase> set = Sets.newHashSet(this.dirty);
-        this.dirty.clear();
+        Set<StatBase> set = Sets.newHashSet(dirty);
+        dirty.clear();
         return set;
     }
 
@@ -129,7 +129,7 @@ public class StatisticsManagerServer extends StatisticsManager
                             }
                             catch (Throwable throwable)
                             {
-                                LOGGER.warn("Invalid statistic progress in {}", this.statsFile, throwable);
+                                LOGGER.warn("Invalid statistic progress in {}", statsFile, throwable);
                             }
                         }
                     }
@@ -138,7 +138,7 @@ public class StatisticsManagerServer extends StatisticsManager
                 }
                 else
                 {
-                    LOGGER.warn("Invalid statistic in {}: Don't know what {} is", this.statsFile, entry.getKey());
+                    LOGGER.warn("Invalid statistic in {}: Don't know what {} is", statsFile, entry.getKey());
                 }
             }
 
@@ -179,21 +179,21 @@ public class StatisticsManagerServer extends StatisticsManager
 
     public void markAllDirty()
     {
-        this.dirty.addAll(this.statsData.keySet());
+        dirty.addAll(statsData.keySet());
     }
 
     public void sendStats(EntityPlayerMP player)
     {
-        int i = this.mcServer.getTickCounter();
+        int i = mcServer.getTickCounter();
         Map<StatBase, Integer> map = Maps.<StatBase, Integer>newHashMap();
 
-        if (i - this.lastStatRequest > 300)
+        if (i - lastStatRequest > 300)
         {
-            this.lastStatRequest = i;
+            lastStatRequest = i;
 
-            for (StatBase statbase : this.getDirty())
+            for (StatBase statbase : getDirty())
             {
-                map.put(statbase, Integer.valueOf(this.readStat(statbase)));
+                map.put(statbase, Integer.valueOf(readStat(statbase)));
             }
         }
 

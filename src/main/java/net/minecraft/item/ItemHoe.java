@@ -27,11 +27,11 @@ public class ItemHoe extends Item
 
     public ItemHoe(Item.ToolMaterial material)
     {
-        this.toolMaterial = material;
-        this.maxStackSize = 1;
-        this.setMaxDamage(material.getMaxUses());
-        this.setCreativeTab(CreativeTabs.TOOLS);
-        this.speed = material.getAttackDamage() + 1.0F;
+        toolMaterial = material;
+        maxStackSize = 1;
+        setMaxDamage(material.getMaxUses());
+        setCreativeTab(CreativeTabs.TOOLS);
+        speed = material.getAttackDamage() + 1.0F;
     }
 
     @SuppressWarnings("incomplete-switch")
@@ -56,7 +56,7 @@ public class ItemHoe extends Item
             {
                 if (block == Blocks.GRASS || block == Blocks.GRASS_PATH)
                 {
-                    this.setBlock(itemstack, player, worldIn, pos, Blocks.FARMLAND.getDefaultState());
+                    setBlock(itemstack, player, worldIn, pos, Blocks.FARMLAND.getDefaultState());
                     return EnumActionResult.SUCCESS;
                 }
 
@@ -65,11 +65,11 @@ public class ItemHoe extends Item
                     switch ((BlockDirt.DirtType)iblockstate.getValue(BlockDirt.VARIANT))
                     {
                         case DIRT:
-                            this.setBlock(itemstack, player, worldIn, pos, Blocks.FARMLAND.getDefaultState());
+                            setBlock(itemstack, player, worldIn, pos, Blocks.FARMLAND.getDefaultState());
                             return EnumActionResult.SUCCESS;
 
                         case COARSE_DIRT:
-                            this.setBlock(itemstack, player, worldIn, pos, Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.DIRT));
+                            setBlock(itemstack, player, worldIn, pos, Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.DIRT));
                             return EnumActionResult.SUCCESS;
                     }
                 }
@@ -114,7 +114,7 @@ public class ItemHoe extends Item
      */
     public String getMaterialName()
     {
-        return this.toolMaterial.toString();
+        return toolMaterial.toString();
     }
 
     public Multimap<String, AttributeModifier> getItemAttributeModifiers(EntityEquipmentSlot equipmentSlot)
@@ -124,7 +124,7 @@ public class ItemHoe extends Item
         if (equipmentSlot == EntityEquipmentSlot.MAINHAND)
         {
             multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", 0.0D, 0));
-            multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", (double)(this.speed - 4.0F), 0));
+            multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", (double)(speed - 4.0F), 0));
         }
 
         return multimap;

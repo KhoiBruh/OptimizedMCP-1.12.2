@@ -19,17 +19,17 @@ public class BiomeSwamp extends Biome
     protected BiomeSwamp(Biome.BiomeProperties properties)
     {
         super(properties);
-        this.decorator.treesPerChunk = 2;
-        this.decorator.flowersPerChunk = 1;
-        this.decorator.deadBushPerChunk = 1;
-        this.decorator.mushroomsPerChunk = 8;
-        this.decorator.reedsPerChunk = 10;
-        this.decorator.clayPerChunk = 1;
-        this.decorator.waterlilyPerChunk = 4;
-        this.decorator.sandPatchesPerChunk = 0;
-        this.decorator.gravelPatchesPerChunk = 0;
-        this.decorator.grassPerChunk = 5;
-        this.spawnableMonsterList.add(new Biome.SpawnListEntry(EntitySlime.class, 1, 1, 1));
+        decorator.treesPerChunk = 2;
+        decorator.flowersPerChunk = 1;
+        decorator.deadBushPerChunk = 1;
+        decorator.mushroomsPerChunk = 8;
+        decorator.reedsPerChunk = 10;
+        decorator.clayPerChunk = 1;
+        decorator.waterlilyPerChunk = 4;
+        decorator.sandPatchesPerChunk = 0;
+        decorator.gravelPatchesPerChunk = 0;
+        decorator.grassPerChunk = 5;
+        spawnableMonsterList.add(new Biome.SpawnListEntry(EntitySlime.class, 1, 1, 1));
     }
 
     public WorldGenAbstractTree getRandomTreeFeature(Random rand)
@@ -81,7 +81,7 @@ public class BiomeSwamp extends Biome
             }
         }
 
-        this.generateBiomeTerrain(worldIn, rand, chunkPrimerIn, x, z, noiseVal);
+        generateBiomeTerrain(worldIn, rand, chunkPrimerIn, x, z, noiseVal);
     }
 
     public void decorate(World worldIn, Random rand, BlockPos pos)

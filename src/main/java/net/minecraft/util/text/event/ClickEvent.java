@@ -10,8 +10,8 @@ public class ClickEvent
 
     public ClickEvent(ClickEvent.Action theAction, String theValue)
     {
-        this.action = theAction;
-        this.value = theValue;
+        action = theAction;
+        value = theValue;
     }
 
     /**
@@ -19,7 +19,7 @@ public class ClickEvent
      */
     public ClickEvent.Action getAction()
     {
-        return this.action;
+        return action;
     }
 
     /**
@@ -28,7 +28,7 @@ public class ClickEvent
      */
     public String getValue()
     {
-        return this.value;
+        return value;
     }
 
     public boolean equals(Object p_equals_1_)
@@ -37,19 +37,19 @@ public class ClickEvent
         {
             return true;
         }
-        else if (p_equals_1_ != null && this.getClass() == p_equals_1_.getClass())
+        else if (p_equals_1_ != null && getClass() == p_equals_1_.getClass())
         {
             ClickEvent clickevent = (ClickEvent)p_equals_1_;
 
-            if (this.action != clickevent.action)
+            if (action != clickevent.action)
             {
                 return false;
             }
             else
             {
-                if (this.value != null)
+                if (value != null)
                 {
-                    if (!this.value.equals(clickevent.value))
+                    if (!value.equals(clickevent.value))
                     {
                         return false;
                     }
@@ -70,13 +70,13 @@ public class ClickEvent
 
     public String toString()
     {
-        return "ClickEvent{action=" + this.action + ", value='" + this.value + '\'' + '}';
+        return "ClickEvent{action=" + action + ", value='" + value + '\'' + '}';
     }
 
     public int hashCode()
     {
-        int i = this.action.hashCode();
-        i = 31 * i + (this.value != null ? this.value.hashCode() : 0);
+        int i = action.hashCode();
+        i = 31 * i + (value != null ? value.hashCode() : 0);
         return i;
     }
 
@@ -94,18 +94,18 @@ public class ClickEvent
 
         private Action(String canonicalNameIn, boolean allowedInChatIn)
         {
-            this.canonicalName = canonicalNameIn;
-            this.allowedInChat = allowedInChatIn;
+            canonicalName = canonicalNameIn;
+            allowedInChat = allowedInChatIn;
         }
 
         public boolean shouldAllowInChat()
         {
-            return this.allowedInChat;
+            return allowedInChat;
         }
 
         public String getCanonicalName()
         {
-            return this.canonicalName;
+            return canonicalName;
         }
 
         public static ClickEvent.Action getValueByCanonicalName(String canonicalNameIn)

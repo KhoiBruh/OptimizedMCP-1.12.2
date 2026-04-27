@@ -39,78 +39,78 @@ public class ServerCommandManager extends CommandHandler implements ICommandList
 
     public ServerCommandManager(MinecraftServer serverIn)
     {
-        this.server = serverIn;
-        this.registerCommand(new CommandTime());
-        this.registerCommand(new CommandGameMode());
-        this.registerCommand(new CommandDifficulty());
-        this.registerCommand(new CommandDefaultGameMode());
-        this.registerCommand(new CommandKill());
-        this.registerCommand(new CommandToggleDownfall());
-        this.registerCommand(new CommandWeather());
-        this.registerCommand(new CommandXP());
-        this.registerCommand(new CommandTP());
-        this.registerCommand(new CommandTeleport());
-        this.registerCommand(new CommandGive());
-        this.registerCommand(new CommandReplaceItem());
-        this.registerCommand(new CommandStats());
-        this.registerCommand(new CommandEffect());
-        this.registerCommand(new CommandEnchant());
-        this.registerCommand(new CommandParticle());
-        this.registerCommand(new CommandEmote());
-        this.registerCommand(new CommandShowSeed());
-        this.registerCommand(new CommandHelp());
-        this.registerCommand(new CommandDebug());
-        this.registerCommand(new CommandMessage());
-        this.registerCommand(new CommandBroadcast());
-        this.registerCommand(new CommandSetSpawnpoint());
-        this.registerCommand(new CommandSetDefaultSpawnpoint());
-        this.registerCommand(new CommandGameRule());
-        this.registerCommand(new CommandClearInventory());
-        this.registerCommand(new CommandTestFor());
-        this.registerCommand(new CommandSpreadPlayers());
-        this.registerCommand(new CommandPlaySound());
-        this.registerCommand(new CommandScoreboard());
-        this.registerCommand(new CommandExecuteAt());
-        this.registerCommand(new CommandTrigger());
-        this.registerCommand(new AdvancementCommand());
-        this.registerCommand(new RecipeCommand());
-        this.registerCommand(new CommandSummon());
-        this.registerCommand(new CommandSetBlock());
-        this.registerCommand(new CommandFill());
-        this.registerCommand(new CommandClone());
-        this.registerCommand(new CommandCompare());
-        this.registerCommand(new CommandBlockData());
-        this.registerCommand(new CommandTestForBlock());
-        this.registerCommand(new CommandMessageRaw());
-        this.registerCommand(new CommandWorldBorder());
-        this.registerCommand(new CommandTitle());
-        this.registerCommand(new CommandEntityData());
-        this.registerCommand(new CommandStopSound());
-        this.registerCommand(new CommandLocate());
-        this.registerCommand(new CommandReload());
-        this.registerCommand(new CommandFunction());
+        server = serverIn;
+        registerCommand(new CommandTime());
+        registerCommand(new CommandGameMode());
+        registerCommand(new CommandDifficulty());
+        registerCommand(new CommandDefaultGameMode());
+        registerCommand(new CommandKill());
+        registerCommand(new CommandToggleDownfall());
+        registerCommand(new CommandWeather());
+        registerCommand(new CommandXP());
+        registerCommand(new CommandTP());
+        registerCommand(new CommandTeleport());
+        registerCommand(new CommandGive());
+        registerCommand(new CommandReplaceItem());
+        registerCommand(new CommandStats());
+        registerCommand(new CommandEffect());
+        registerCommand(new CommandEnchant());
+        registerCommand(new CommandParticle());
+        registerCommand(new CommandEmote());
+        registerCommand(new CommandShowSeed());
+        registerCommand(new CommandHelp());
+        registerCommand(new CommandDebug());
+        registerCommand(new CommandMessage());
+        registerCommand(new CommandBroadcast());
+        registerCommand(new CommandSetSpawnpoint());
+        registerCommand(new CommandSetDefaultSpawnpoint());
+        registerCommand(new CommandGameRule());
+        registerCommand(new CommandClearInventory());
+        registerCommand(new CommandTestFor());
+        registerCommand(new CommandSpreadPlayers());
+        registerCommand(new CommandPlaySound());
+        registerCommand(new CommandScoreboard());
+        registerCommand(new CommandExecuteAt());
+        registerCommand(new CommandTrigger());
+        registerCommand(new AdvancementCommand());
+        registerCommand(new RecipeCommand());
+        registerCommand(new CommandSummon());
+        registerCommand(new CommandSetBlock());
+        registerCommand(new CommandFill());
+        registerCommand(new CommandClone());
+        registerCommand(new CommandCompare());
+        registerCommand(new CommandBlockData());
+        registerCommand(new CommandTestForBlock());
+        registerCommand(new CommandMessageRaw());
+        registerCommand(new CommandWorldBorder());
+        registerCommand(new CommandTitle());
+        registerCommand(new CommandEntityData());
+        registerCommand(new CommandStopSound());
+        registerCommand(new CommandLocate());
+        registerCommand(new CommandReload());
+        registerCommand(new CommandFunction());
 
         if (serverIn.isDedicatedServer())
         {
-            this.registerCommand(new CommandOp());
-            this.registerCommand(new CommandDeOp());
-            this.registerCommand(new CommandStop());
-            this.registerCommand(new CommandSaveAll());
-            this.registerCommand(new CommandSaveOff());
-            this.registerCommand(new CommandSaveOn());
-            this.registerCommand(new CommandBanIp());
-            this.registerCommand(new CommandPardonIp());
-            this.registerCommand(new CommandBanPlayer());
-            this.registerCommand(new CommandListBans());
-            this.registerCommand(new CommandPardonPlayer());
-            this.registerCommand(new CommandServerKick());
-            this.registerCommand(new CommandListPlayers());
-            this.registerCommand(new CommandWhitelist());
-            this.registerCommand(new CommandSetPlayerTimeout());
+            registerCommand(new CommandOp());
+            registerCommand(new CommandDeOp());
+            registerCommand(new CommandStop());
+            registerCommand(new CommandSaveAll());
+            registerCommand(new CommandSaveOff());
+            registerCommand(new CommandSaveOn());
+            registerCommand(new CommandBanIp());
+            registerCommand(new CommandPardonIp());
+            registerCommand(new CommandBanPlayer());
+            registerCommand(new CommandListBans());
+            registerCommand(new CommandPardonPlayer());
+            registerCommand(new CommandServerKick());
+            registerCommand(new CommandListPlayers());
+            registerCommand(new CommandWhitelist());
+            registerCommand(new CommandSetPlayerTimeout());
         }
         else
         {
-            this.registerCommand(new CommandPublishLocalServer());
+            registerCommand(new CommandPublishLocalServer());
         }
 
         CommandBase.setCommandListener(this);
@@ -122,7 +122,7 @@ public class ServerCommandManager extends CommandHandler implements ICommandList
     public void notifyListener(ICommandSender sender, ICommand command, int flags, String translationKey, Object... translationArgs)
     {
         boolean flag = true;
-        MinecraftServer minecraftserver = this.server;
+        MinecraftServer minecraftserver = server;
 
         if (!sender.sendCommandFeedback())
         {
@@ -137,10 +137,10 @@ public class ServerCommandManager extends CommandHandler implements ICommandList
         {
             for (EntityPlayer entityplayer : minecraftserver.getPlayerList().getPlayers())
             {
-                if (entityplayer != sender && minecraftserver.getPlayerList().canSendCommands(entityplayer.getGameProfile()) && command.checkPermission(this.server, sender))
+                if (entityplayer != sender && minecraftserver.getPlayerList().canSendCommands(entityplayer.getGameProfile()) && command.checkPermission(server, sender))
                 {
-                    boolean flag1 = sender instanceof MinecraftServer && this.server.shouldBroadcastConsoleToOps();
-                    boolean flag2 = sender instanceof RConConsoleSource && this.server.shouldBroadcastRconToOps();
+                    boolean flag1 = sender instanceof MinecraftServer && server.shouldBroadcastConsoleToOps();
+                    boolean flag2 = sender instanceof RConConsoleSource && server.shouldBroadcastRconToOps();
 
                     if (flag1 || flag2 || !(sender instanceof RConConsoleSource) && !(sender instanceof MinecraftServer))
                     {
@@ -170,6 +170,6 @@ public class ServerCommandManager extends CommandHandler implements ICommandList
 
     protected MinecraftServer getServer()
     {
-        return this.server;
+        return server;
     }
 }

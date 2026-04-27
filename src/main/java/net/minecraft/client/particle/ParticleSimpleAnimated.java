@@ -36,9 +36,9 @@ public class ParticleSimpleAnimated extends Particle
     public ParticleSimpleAnimated(World worldIn, double x, double y, double z, int textureIdxIn, int numFrames, float yAccelIn)
     {
         super(worldIn, x, y, z);
-        this.textureIdx = textureIdxIn;
-        this.numAgingFrames = numFrames;
-        this.yAccel = yAccelIn;
+        textureIdx = textureIdxIn;
+        numAgingFrames = numFrames;
+        yAccel = yAccelIn;
     }
 
     public void setColor(int p_187146_1_)
@@ -47,7 +47,7 @@ public class ParticleSimpleAnimated extends Particle
         float f1 = (float)((p_187146_1_ & 65280) >> 8) / 255.0F;
         float f2 = (float)((p_187146_1_ & 255) >> 0) / 255.0F;
         float f3 = 1.0F;
-        this.setRBGColorF(f * 1.0F, f1 * 1.0F, f2 * 1.0F);
+        setRBGColorF(f * 1.0F, f1 * 1.0F, f2 * 1.0F);
     }
 
     /**
@@ -55,10 +55,10 @@ public class ParticleSimpleAnimated extends Particle
      */
     public void setColorFade(int rgb)
     {
-        this.fadeTargetRed = (float)((rgb & 16711680) >> 16) / 255.0F;
-        this.fadeTargetGreen = (float)((rgb & 65280) >> 8) / 255.0F;
-        this.fadeTargetBlue = (float)((rgb & 255) >> 0) / 255.0F;
-        this.fadingColor = true;
+        fadeTargetRed = (float)((rgb & 16711680) >> 16) / 255.0F;
+        fadeTargetGreen = (float)((rgb & 65280) >> 8) / 255.0F;
+        fadeTargetBlue = (float)((rgb & 255) >> 0) / 255.0F;
+        fadingColor = true;
     }
 
     public boolean shouldDisableDepth()
@@ -68,38 +68,38 @@ public class ParticleSimpleAnimated extends Particle
 
     public void onUpdate()
     {
-        this.prevPosX = this.posX;
-        this.prevPosY = this.posY;
-        this.prevPosZ = this.posZ;
+        prevPosX = posX;
+        prevPosY = posY;
+        prevPosZ = posZ;
 
-        if (this.particleAge++ >= this.particleMaxAge)
+        if (particleAge++ >= particleMaxAge)
         {
-            this.setExpired();
+            setExpired();
         }
 
-        if (this.particleAge > this.particleMaxAge / 2)
+        if (particleAge > particleMaxAge / 2)
         {
-            this.setAlphaF(1.0F - ((float)this.particleAge - (float)(this.particleMaxAge / 2)) / (float)this.particleMaxAge);
+            setAlphaF(1.0F - ((float) particleAge - (float)(particleMaxAge / 2)) / (float) particleMaxAge);
 
-            if (this.fadingColor)
+            if (fadingColor)
             {
-                this.particleRed += (this.fadeTargetRed - this.particleRed) * 0.2F;
-                this.particleGreen += (this.fadeTargetGreen - this.particleGreen) * 0.2F;
-                this.particleBlue += (this.fadeTargetBlue - this.particleBlue) * 0.2F;
+                particleRed += (fadeTargetRed - particleRed) * 0.2F;
+                particleGreen += (fadeTargetGreen - particleGreen) * 0.2F;
+                particleBlue += (fadeTargetBlue - particleBlue) * 0.2F;
             }
         }
 
-        this.setParticleTextureIndex(this.textureIdx + (this.numAgingFrames - 1 - this.particleAge * this.numAgingFrames / this.particleMaxAge));
-        this.motionY += (double)this.yAccel;
-        this.move(this.motionX, this.motionY, this.motionZ);
-        this.motionX *= (double)this.baseAirFriction;
-        this.motionY *= (double)this.baseAirFriction;
-        this.motionZ *= (double)this.baseAirFriction;
+        setParticleTextureIndex(textureIdx + (numAgingFrames - 1 - particleAge * numAgingFrames / particleMaxAge));
+        motionY += (double) yAccel;
+        move(motionX, motionY, motionZ);
+        motionX *= (double) baseAirFriction;
+        motionY *= (double) baseAirFriction;
+        motionZ *= (double) baseAirFriction;
 
-        if (this.onGround)
+        if (onGround)
         {
-            this.motionX *= 0.699999988079071D;
-            this.motionZ *= 0.699999988079071D;
+            motionX *= 0.699999988079071D;
+            motionZ *= 0.699999988079071D;
         }
     }
 
@@ -110,6 +110,6 @@ public class ParticleSimpleAnimated extends Particle
 
     protected void setBaseAirFriction(float p_191238_1_)
     {
-        this.baseAirFriction = p_191238_1_;
+        baseAirFriction = p_191238_1_;
     }
 }

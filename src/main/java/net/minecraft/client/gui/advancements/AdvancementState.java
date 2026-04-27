@@ -14,6 +14,6 @@ public enum AdvancementState
 
     public int getId()
     {
-        return this.id;
+        return id;
     }
 }

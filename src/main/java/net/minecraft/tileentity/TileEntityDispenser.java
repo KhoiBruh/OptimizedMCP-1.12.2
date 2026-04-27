@@ -28,7 +28,7 @@ public class TileEntityDispenser extends TileEntityLockableLoot
 
     public boolean isEmpty()
     {
-        for (ItemStack itemstack : this.stacks)
+        for (ItemStack itemstack : stacks)
         {
             if (!itemstack.isEmpty())
             {
@@ -41,13 +41,13 @@ public class TileEntityDispenser extends TileEntityLockableLoot
 
     public int getDispenseSlot()
     {
-        this.fillWithLoot((EntityPlayer)null);
+        fillWithLoot((EntityPlayer)null);
         int i = -1;
         int j = 1;
 
-        for (int k = 0; k < this.stacks.size(); ++k)
+        for (int k = 0; k < stacks.size(); ++k)
         {
-            if (!((ItemStack)this.stacks.get(k)).isEmpty() && RNG.nextInt(j++) == 0)
+            if (!((ItemStack) stacks.get(k)).isEmpty() && RNG.nextInt(j++) == 0)
             {
                 i = k;
             }
@@ -62,11 +62,11 @@ public class TileEntityDispenser extends TileEntityLockableLoot
      */
     public int addItemStack(ItemStack stack)
     {
-        for (int i = 0; i < this.stacks.size(); ++i)
+        for (int i = 0; i < stacks.size(); ++i)
         {
-            if (((ItemStack)this.stacks.get(i)).isEmpty())
+            if (((ItemStack) stacks.get(i)).isEmpty())
             {
-                this.setInventorySlotContents(i, stack);
+                setInventorySlotContents(i, stack);
                 return i;
             }
         }
@@ -79,7 +79,7 @@ public class TileEntityDispenser extends TileEntityLockableLoot
      */
     public String getName()
     {
-        return this.hasCustomName() ? this.customName : "container.dispenser";
+        return hasCustomName() ? customName : "container.dispenser";
     }
 
     public static void registerFixes(DataFixer fixer)
@@ -90,16 +90,16 @@ public class TileEntityDispenser extends TileEntityLockableLoot
     public void readFromNBT(NBTTagCompound compound)
     {
         super.readFromNBT(compound);
-        this.stacks = NonNullList.<ItemStack>withSize(this.getSizeInventory(), ItemStack.EMPTY);
+        stacks = NonNullList.<ItemStack>withSize(getSizeInventory(), ItemStack.EMPTY);
 
-        if (!this.checkLootAndRead(compound))
+        if (!checkLootAndRead(compound))
         {
-            ItemStackHelper.loadAllItems(compound, this.stacks);
+            ItemStackHelper.loadAllItems(compound, stacks);
         }
 
         if (compound.hasKey("CustomName", 8))
         {
-            this.customName = compound.getString("CustomName");
+            customName = compound.getString("CustomName");
         }
     }
 
@@ -107,14 +107,14 @@ public class TileEntityDispenser extends TileEntityLockableLoot
     {
         super.writeToNBT(compound);
 
-        if (!this.checkLootAndWrite(compound))
+        if (!checkLootAndWrite(compound))
         {
-            ItemStackHelper.saveAllItems(compound, this.stacks);
+            ItemStackHelper.saveAllItems(compound, stacks);
         }
 
-        if (this.hasCustomName())
+        if (hasCustomName())
         {
-            compound.setString("CustomName", this.customName);
+            compound.setString("CustomName", customName);
         }
 
         return compound;
@@ -135,12 +135,12 @@ public class TileEntityDispenser extends TileEntityLockableLoot
 
     public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn)
     {
-        this.fillWithLoot(playerIn);
+        fillWithLoot(playerIn);
         return new ContainerDispenser(playerInventory, this);
     }
 
     protected NonNullList<ItemStack> getItems()
     {
-        return this.stacks;
+        return stacks;
     }
 }

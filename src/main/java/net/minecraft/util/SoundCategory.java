@@ -22,12 +22,12 @@ public enum SoundCategory
 
     private SoundCategory(String nameIn)
     {
-        this.name = nameIn;
+        name = nameIn;
     }
 
     public String getName()
     {
-        return this.name;
+        return name;
     }
 
     public static SoundCategory getByName(String categoryName)

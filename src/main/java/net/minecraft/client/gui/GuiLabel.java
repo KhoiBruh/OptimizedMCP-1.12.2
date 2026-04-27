@@ -26,25 +26,25 @@ public class GuiLabel extends Gui
 
     public GuiLabel(FontRenderer fontRendererObj, int p_i45540_2_, int p_i45540_3_, int p_i45540_4_, int p_i45540_5_, int p_i45540_6_, int p_i45540_7_)
     {
-        this.fontRenderer = fontRendererObj;
-        this.id = p_i45540_2_;
-        this.x = p_i45540_3_;
-        this.y = p_i45540_4_;
-        this.width = p_i45540_5_;
-        this.height = p_i45540_6_;
-        this.labels = Lists.<String>newArrayList();
-        this.centered = false;
-        this.labelBgEnabled = false;
-        this.textColor = p_i45540_7_;
-        this.backColor = -1;
-        this.ulColor = -1;
-        this.brColor = -1;
-        this.border = 0;
+        fontRenderer = fontRendererObj;
+        id = p_i45540_2_;
+        x = p_i45540_3_;
+        y = p_i45540_4_;
+        width = p_i45540_5_;
+        height = p_i45540_6_;
+        labels = Lists.<String>newArrayList();
+        centered = false;
+        labelBgEnabled = false;
+        textColor = p_i45540_7_;
+        backColor = -1;
+        ulColor = -1;
+        brColor = -1;
+        border = 0;
     }
 
     public void addLine(String p_175202_1_)
     {
-        this.labels.add(I18n.format(p_175202_1_));
+        labels.add(I18n.format(p_175202_1_));
     }
 
     /**
@@ -52,29 +52,29 @@ public class GuiLabel extends Gui
      */
     public GuiLabel setCentered()
     {
-        this.centered = true;
+        centered = true;
         return this;
     }
 
     public void drawLabel(Minecraft mc, int mouseX, int mouseY)
     {
-        if (this.visible)
+        if (visible)
         {
             GlStateManager.enableBlend();
             GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-            this.drawLabelBackground(mc, mouseX, mouseY);
-            int i = this.y + this.height / 2 + this.border / 2;
-            int j = i - this.labels.size() * 10 / 2;
+            drawLabelBackground(mc, mouseX, mouseY);
+            int i = y + height / 2 + border / 2;
+            int j = i - labels.size() * 10 / 2;
 
-            for (int k = 0; k < this.labels.size(); ++k)
+            for (int k = 0; k < labels.size(); ++k)
             {
-                if (this.centered)
+                if (centered)
                 {
-                    this.drawCenteredString(this.fontRenderer, this.labels.get(k), this.x + this.width / 2, j + k * 10, this.textColor);
+                    drawCenteredString(fontRenderer, labels.get(k), x + width / 2, j + k * 10, textColor);
                 }
                 else
                 {
-                    this.drawString(this.fontRenderer, this.labels.get(k), this.x, j + k * 10, this.textColor);
+                    drawString(fontRenderer, labels.get(k), x, j + k * 10, textColor);
                 }
             }
         }
@@ -82,17 +82,17 @@ public class GuiLabel extends Gui
 
     protected void drawLabelBackground(Minecraft mcIn, int mouseX, int mouseY)
     {
-        if (this.labelBgEnabled)
+        if (labelBgEnabled)
         {
-            int i = this.width + this.border * 2;
-            int j = this.height + this.border * 2;
-            int k = this.x - this.border;
-            int l = this.y - this.border;
-            drawRect(k, l, k + i, l + j, this.backColor);
-            this.drawHorizontalLine(k, k + i, l, this.ulColor);
-            this.drawHorizontalLine(k, k + i, l + j, this.brColor);
-            this.drawVerticalLine(k, l, l + j, this.ulColor);
-            this.drawVerticalLine(k + i, l, l + j, this.brColor);
+            int i = width + border * 2;
+            int j = height + border * 2;
+            int k = x - border;
+            int l = y - border;
+            drawRect(k, l, k + i, l + j, backColor);
+            drawHorizontalLine(k, k + i, l, ulColor);
+            drawHorizontalLine(k, k + i, l + j, brColor);
+            drawVerticalLine(k, l, l + j, ulColor);
+            drawVerticalLine(k + i, l, l + j, brColor);
         }
     }
 }

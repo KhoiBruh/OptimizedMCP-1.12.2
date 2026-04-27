@@ -26,7 +26,7 @@ public class ChunkProviderClient implements IChunkProvider
     {
         protected void rehash(int p_rehash_1_)
         {
-            if (p_rehash_1_ > this.key.length)
+            if (p_rehash_1_ > key.length)
             {
                 super.rehash(p_rehash_1_);
             }
@@ -38,8 +38,8 @@ public class ChunkProviderClient implements IChunkProvider
 
     public ChunkProviderClient(World worldIn)
     {
-        this.blankChunk = new EmptyChunk(worldIn, 0, 0);
-        this.world = worldIn;
+        blankChunk = new EmptyChunk(worldIn, 0, 0);
+        world = worldIn;
     }
 
     /**
@@ -48,20 +48,20 @@ public class ChunkProviderClient implements IChunkProvider
      */
     public void unloadChunk(int x, int z)
     {
-        Chunk chunk = this.provideChunk(x, z);
+        Chunk chunk = provideChunk(x, z);
 
         if (!chunk.isEmpty())
         {
             chunk.onUnload();
         }
 
-        this.chunkMapping.remove(ChunkPos.asLong(x, z));
+        chunkMapping.remove(ChunkPos.asLong(x, z));
     }
 
     @Nullable
     public Chunk getLoadedChunk(int x, int z)
     {
-        return (Chunk)this.chunkMapping.get(ChunkPos.asLong(x, z));
+        return (Chunk) chunkMapping.get(ChunkPos.asLong(x, z));
     }
 
     /**
@@ -69,15 +69,15 @@ public class ChunkProviderClient implements IChunkProvider
      */
     public Chunk loadChunk(int chunkX, int chunkZ)
     {
-        Chunk chunk = new Chunk(this.world, chunkX, chunkZ);
-        this.chunkMapping.put(ChunkPos.asLong(chunkX, chunkZ), chunk);
+        Chunk chunk = new Chunk(world, chunkX, chunkZ);
+        chunkMapping.put(ChunkPos.asLong(chunkX, chunkZ), chunk);
         chunk.markLoaded(true);
         return chunk;
     }
 
     public Chunk provideChunk(int x, int z)
     {
-        return (Chunk)MoreObjects.firstNonNull(this.getLoadedChunk(x, z), this.blankChunk);
+        return (Chunk)MoreObjects.firstNonNull(getLoadedChunk(x, z), blankChunk);
     }
 
     /**
@@ -86,7 +86,7 @@ public class ChunkProviderClient implements IChunkProvider
     public boolean tick()
     {
         long i = System.currentTimeMillis();
-        ObjectIterator objectiterator = this.chunkMapping.values().iterator();
+        ObjectIterator objectiterator = chunkMapping.values().iterator();
 
         while (objectiterator.hasNext())
         {
@@ -107,11 +107,11 @@ public class ChunkProviderClient implements IChunkProvider
      */
     public String makeString()
     {
-        return "MultiplayerChunkCache: " + this.chunkMapping.size() + ", " + this.chunkMapping.size();
+        return "MultiplayerChunkCache: " + chunkMapping.size() + ", " + chunkMapping.size();
     }
 
     public boolean isChunkGeneratedAt(int x, int z)
     {
-        return this.chunkMapping.containsKey(ChunkPos.asLong(x, z));
+        return chunkMapping.containsKey(ChunkPos.asLong(x, z));
     }
 }

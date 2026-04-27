@@ -34,9 +34,9 @@ public class EntityMinecartChest extends EntityMinecartContainer
     {
         super.killMinecart(source);
 
-        if (this.world.getGameRules().getBoolean("doEntityDrops"))
+        if (world.getGameRules().getBoolean("doEntityDrops"))
         {
-            this.dropItemWithOffset(Item.getItemFromBlock(Blocks.CHEST), 1, 0.0F);
+            dropItemWithOffset(Item.getItemFromBlock(Blocks.CHEST), 1, 0.0F);
         }
     }
 
@@ -70,7 +70,7 @@ public class EntityMinecartChest extends EntityMinecartContainer
 
     public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn)
     {
-        this.addLoot(playerIn);
+        addLoot(playerIn);
         return new ContainerChest(playerInventory, this, playerIn);
     }
 }

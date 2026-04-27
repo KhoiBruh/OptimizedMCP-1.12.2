@@ -9,11 +9,11 @@ public class LanguageMetadataSection implements IMetadataSection
 
     public LanguageMetadataSection(Collection<Language> languagesIn)
     {
-        this.languages = languagesIn;
+        languages = languagesIn;
     }
 
     public Collection<Language> getLanguages()
     {
-        return this.languages;
+        return languages;
     }
 }

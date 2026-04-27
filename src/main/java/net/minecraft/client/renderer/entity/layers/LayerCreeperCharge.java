@@ -15,7 +15,7 @@ public class LayerCreeperCharge implements LayerRenderer<EntityCreeper>
 
     public LayerCreeperCharge(RenderCreeper creeperRendererIn)
     {
-        this.creeperRenderer = creeperRendererIn;
+        creeperRenderer = creeperRendererIn;
     }
 
     public void doRenderLayer(EntityCreeper entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale)
@@ -24,7 +24,7 @@ public class LayerCreeperCharge implements LayerRenderer<EntityCreeper>
         {
             boolean flag = entitylivingbaseIn.isInvisible();
             GlStateManager.depthMask(!flag);
-            this.creeperRenderer.bindTexture(LIGHTNING_TEXTURE);
+            creeperRenderer.bindTexture(LIGHTNING_TEXTURE);
             GlStateManager.matrixMode(5890);
             GlStateManager.loadIdentity();
             float f = (float)entitylivingbaseIn.ticksExisted + partialTicks;
@@ -35,9 +35,9 @@ public class LayerCreeperCharge implements LayerRenderer<EntityCreeper>
             GlStateManager.color(0.5F, 0.5F, 0.5F, 1.0F);
             GlStateManager.disableLighting();
             GlStateManager.blendFunc(GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ONE);
-            this.creeperModel.setModelAttributes(this.creeperRenderer.getMainModel());
+            creeperModel.setModelAttributes(creeperRenderer.getMainModel());
             Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
-            this.creeperModel.render(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+            creeperModel.render(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
             Minecraft.getMinecraft().entityRenderer.setupFogColor(false);
             GlStateManager.matrixMode(5890);
             GlStateManager.loadIdentity();

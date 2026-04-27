@@ -26,12 +26,12 @@ public class ItemDurabilityTrigger implements ICriterionTrigger<ItemDurabilityTr
 
     public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<ItemDurabilityTrigger.Instance> listener)
     {
-        ItemDurabilityTrigger.Listeners itemdurabilitytrigger$listeners = this.listeners.get(playerAdvancementsIn);
+        ItemDurabilityTrigger.Listeners itemdurabilitytrigger$listeners = listeners.get(playerAdvancementsIn);
 
         if (itemdurabilitytrigger$listeners == null)
         {
             itemdurabilitytrigger$listeners = new ItemDurabilityTrigger.Listeners(playerAdvancementsIn);
-            this.listeners.put(playerAdvancementsIn, itemdurabilitytrigger$listeners);
+            listeners.put(playerAdvancementsIn, itemdurabilitytrigger$listeners);
         }
 
         itemdurabilitytrigger$listeners.add(listener);
@@ -39,7 +39,7 @@ public class ItemDurabilityTrigger implements ICriterionTrigger<ItemDurabilityTr
 
     public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<ItemDurabilityTrigger.Instance> listener)
     {
-        ItemDurabilityTrigger.Listeners itemdurabilitytrigger$listeners = this.listeners.get(playerAdvancementsIn);
+        ItemDurabilityTrigger.Listeners itemdurabilitytrigger$listeners = listeners.get(playerAdvancementsIn);
 
         if (itemdurabilitytrigger$listeners != null)
         {
@@ -47,14 +47,14 @@ public class ItemDurabilityTrigger implements ICriterionTrigger<ItemDurabilityTr
 
             if (itemdurabilitytrigger$listeners.isEmpty())
             {
-                this.listeners.remove(playerAdvancementsIn);
+                listeners.remove(playerAdvancementsIn);
             }
         }
     }
 
     public void removeAllListeners(PlayerAdvancements playerAdvancementsIn)
     {
-        this.listeners.remove(playerAdvancementsIn);
+        listeners.remove(playerAdvancementsIn);
     }
 
     /**
@@ -70,7 +70,7 @@ public class ItemDurabilityTrigger implements ICriterionTrigger<ItemDurabilityTr
 
     public void trigger(EntityPlayerMP player, ItemStack itemIn, int newDurability)
     {
-        ItemDurabilityTrigger.Listeners itemdurabilitytrigger$listeners = this.listeners.get(player.getAdvancements());
+        ItemDurabilityTrigger.Listeners itemdurabilitytrigger$listeners = listeners.get(player.getAdvancements());
 
         if (itemdurabilitytrigger$listeners != null)
         {
@@ -98,13 +98,13 @@ public class ItemDurabilityTrigger implements ICriterionTrigger<ItemDurabilityTr
             {
                 return false;
             }
-            else if (!this.durability.test((float)(item.getMaxDamage() - p_193197_2_)))
+            else if (!durability.test((float)(item.getMaxDamage() - p_193197_2_)))
             {
                 return false;
             }
             else
             {
-                return this.delta.test((float)(item.getItemDamage() - p_193197_2_));
+                return delta.test((float)(item.getItemDamage() - p_193197_2_));
             }
         }
     }
@@ -116,29 +116,29 @@ public class ItemDurabilityTrigger implements ICriterionTrigger<ItemDurabilityTr
 
         public Listeners(PlayerAdvancements playerAdvancementsIn)
         {
-            this.playerAdvancements = playerAdvancementsIn;
+            playerAdvancements = playerAdvancementsIn;
         }
 
         public boolean isEmpty()
         {
-            return this.listeners.isEmpty();
+            return listeners.isEmpty();
         }
 
         public void add(ICriterionTrigger.Listener<ItemDurabilityTrigger.Instance> listener)
         {
-            this.listeners.add(listener);
+            listeners.add(listener);
         }
 
         public void remove(ICriterionTrigger.Listener<ItemDurabilityTrigger.Instance> listener)
         {
-            this.listeners.remove(listener);
+            listeners.remove(listener);
         }
 
         public void trigger(ItemStack item, int newDurability)
         {
             List<ICriterionTrigger.Listener<ItemDurabilityTrigger.Instance>> list = null;
 
-            for (ICriterionTrigger.Listener<ItemDurabilityTrigger.Instance> listener : this.listeners)
+            for (ICriterionTrigger.Listener<ItemDurabilityTrigger.Instance> listener : listeners)
             {
                 if (((ItemDurabilityTrigger.Instance)listener.getCriterionInstance()).test(item, newDurability))
                 {
@@ -155,7 +155,7 @@ public class ItemDurabilityTrigger implements ICriterionTrigger<ItemDurabilityTr
             {
                 for (ICriterionTrigger.Listener<ItemDurabilityTrigger.Instance> listener1 : list)
                 {
-                    listener1.grantCriterion(this.playerAdvancements);
+                    listener1.grantCriterion(playerAdvancements);
                 }
             }
         }

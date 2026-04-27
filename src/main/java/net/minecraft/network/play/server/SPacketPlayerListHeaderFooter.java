@@ -16,8 +16,8 @@ public class SPacketPlayerListHeaderFooter implements Packet<INetHandlerPlayClie
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.header = buf.readTextComponent();
-        this.footer = buf.readTextComponent();
+        header = buf.readTextComponent();
+        footer = buf.readTextComponent();
     }
 
     /**
@@ -25,8 +25,8 @@ public class SPacketPlayerListHeaderFooter implements Packet<INetHandlerPlayClie
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeTextComponent(this.header);
-        buf.writeTextComponent(this.footer);
+        buf.writeTextComponent(header);
+        buf.writeTextComponent(footer);
     }
 
     /**
@@ -39,11 +39,11 @@ public class SPacketPlayerListHeaderFooter implements Packet<INetHandlerPlayClie
 
     public ITextComponent getHeader()
     {
-        return this.header;
+        return header;
     }
 
     public ITextComponent getFooter()
     {
-        return this.footer;
+        return footer;
     }
 }

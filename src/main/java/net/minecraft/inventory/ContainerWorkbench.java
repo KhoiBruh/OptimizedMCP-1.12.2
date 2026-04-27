@@ -20,16 +20,16 @@ public class ContainerWorkbench extends Container
 
     public ContainerWorkbench(InventoryPlayer playerInventory, World worldIn, BlockPos posIn)
     {
-        this.world = worldIn;
-        this.pos = posIn;
-        this.player = playerInventory.player;
-        this.addSlotToContainer(new SlotCrafting(playerInventory.player, this.craftMatrix, this.craftResult, 0, 124, 35));
+        world = worldIn;
+        pos = posIn;
+        player = playerInventory.player;
+        addSlotToContainer(new SlotCrafting(playerInventory.player, craftMatrix, craftResult, 0, 124, 35));
 
         for (int i = 0; i < 3; ++i)
         {
             for (int j = 0; j < 3; ++j)
             {
-                this.addSlotToContainer(new Slot(this.craftMatrix, j + i * 3, 30 + j * 18, 17 + i * 18));
+                addSlotToContainer(new Slot(craftMatrix, j + i * 3, 30 + j * 18, 17 + i * 18));
             }
         }
 
@@ -37,13 +37,13 @@ public class ContainerWorkbench extends Container
         {
             for (int i1 = 0; i1 < 9; ++i1)
             {
-                this.addSlotToContainer(new Slot(playerInventory, i1 + k * 9 + 9, 8 + i1 * 18, 84 + k * 18));
+                addSlotToContainer(new Slot(playerInventory, i1 + k * 9 + 9, 8 + i1 * 18, 84 + k * 18));
             }
         }
 
         for (int l = 0; l < 9; ++l)
         {
-            this.addSlotToContainer(new Slot(playerInventory, l, 8 + l * 18, 142));
+            addSlotToContainer(new Slot(playerInventory, l, 8 + l * 18, 142));
         }
     }
 
@@ -52,7 +52,7 @@ public class ContainerWorkbench extends Container
      */
     public void onCraftMatrixChanged(IInventory inventoryIn)
     {
-        this.slotChangedCraftingGrid(this.world, this.player, this.craftMatrix, this.craftResult);
+        slotChangedCraftingGrid(world, player, craftMatrix, craftResult);
     }
 
     /**
@@ -62,9 +62,9 @@ public class ContainerWorkbench extends Container
     {
         super.onContainerClosed(playerIn);
 
-        if (!this.world.isRemote)
+        if (!world.isRemote)
         {
-            this.clearContainer(playerIn, this.world, this.craftMatrix);
+            clearContainer(playerIn, world, craftMatrix);
         }
     }
 
@@ -73,13 +73,13 @@ public class ContainerWorkbench extends Container
      */
     public boolean canInteractWith(EntityPlayer playerIn)
     {
-        if (this.world.getBlockState(this.pos).getBlock() != Blocks.CRAFTING_TABLE)
+        if (world.getBlockState(pos).getBlock() != Blocks.CRAFTING_TABLE)
         {
             return false;
         }
         else
         {
-            return playerIn.getDistanceSq((double)this.pos.getX() + 0.5D, (double)this.pos.getY() + 0.5D, (double)this.pos.getZ() + 0.5D) <= 64.0D;
+            return playerIn.getDistanceSq((double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D) <= 64.0D;
         }
     }
 
@@ -90,7 +90,7 @@ public class ContainerWorkbench extends Container
     public ItemStack transferStackInSlot(EntityPlayer playerIn, int index)
     {
         ItemStack itemstack = ItemStack.EMPTY;
-        Slot slot = this.inventorySlots.get(index);
+        Slot slot = inventorySlots.get(index);
 
         if (slot != null && slot.getHasStack())
         {
@@ -99,9 +99,9 @@ public class ContainerWorkbench extends Container
 
             if (index == 0)
             {
-                itemstack1.getItem().onCreated(itemstack1, this.world, playerIn);
+                itemstack1.getItem().onCreated(itemstack1, world, playerIn);
 
-                if (!this.mergeItemStack(itemstack1, 10, 46, true))
+                if (!mergeItemStack(itemstack1, 10, 46, true))
                 {
                     return ItemStack.EMPTY;
                 }
@@ -110,19 +110,19 @@ public class ContainerWorkbench extends Container
             }
             else if (index >= 10 && index < 37)
             {
-                if (!this.mergeItemStack(itemstack1, 37, 46, false))
+                if (!mergeItemStack(itemstack1, 37, 46, false))
                 {
                     return ItemStack.EMPTY;
                 }
             }
             else if (index >= 37 && index < 46)
             {
-                if (!this.mergeItemStack(itemstack1, 10, 37, false))
+                if (!mergeItemStack(itemstack1, 10, 37, false))
                 {
                     return ItemStack.EMPTY;
                 }
             }
-            else if (!this.mergeItemStack(itemstack1, 10, 46, false))
+            else if (!mergeItemStack(itemstack1, 10, 46, false))
             {
                 return ItemStack.EMPTY;
             }
@@ -158,6 +158,6 @@ public class ContainerWorkbench extends Container
      */
     public boolean canMergeSlot(ItemStack stack, Slot slotIn)
     {
-        return slotIn.inventory != this.craftResult && super.canMergeSlot(stack, slotIn);
+        return slotIn.inventory != craftResult && super.canMergeSlot(stack, slotIn);
     }
 }

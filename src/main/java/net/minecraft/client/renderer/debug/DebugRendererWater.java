@@ -21,17 +21,17 @@ public class DebugRendererWater implements DebugRenderer.IDebugRenderer
 
     public DebugRendererWater(Minecraft minecraftIn)
     {
-        this.minecraft = minecraftIn;
+        minecraft = minecraftIn;
     }
 
     public void render(float partialTicks, long finishTimeNano)
     {
-        this.player = this.minecraft.player;
-        this.xo = this.player.lastTickPosX + (this.player.posX - this.player.lastTickPosX) * (double)partialTicks;
-        this.yo = this.player.lastTickPosY + (this.player.posY - this.player.lastTickPosY) * (double)partialTicks;
-        this.zo = this.player.lastTickPosZ + (this.player.posZ - this.player.lastTickPosZ) * (double)partialTicks;
-        BlockPos blockpos = this.minecraft.player.getPosition();
-        World world = this.minecraft.player.world;
+        player = minecraft.player;
+        xo = player.lastTickPosX + (player.posX - player.lastTickPosX) * (double)partialTicks;
+        yo = player.lastTickPosY + (player.posY - player.lastTickPosY) * (double)partialTicks;
+        zo = player.lastTickPosZ + (player.posZ - player.lastTickPosZ) * (double)partialTicks;
+        BlockPos blockpos = minecraft.player.getPosition();
+        World world = minecraft.player.world;
         GlStateManager.enableBlend();
         GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
         GlStateManager.color(0.0F, 1.0F, 0.0F, 0.75F);
@@ -45,7 +45,7 @@ public class DebugRendererWater implements DebugRenderer.IDebugRenderer
             if (iblockstate.getBlock() == Blocks.WATER || iblockstate.getBlock() == Blocks.FLOWING_WATER)
             {
                 double d0 = (double)BlockLiquid.getLiquidHeight(iblockstate, world, blockpos1);
-                RenderGlobal.renderFilledBox((new AxisAlignedBB((double)((float)blockpos1.getX() + 0.01F), (double)((float)blockpos1.getY() + 0.01F), (double)((float)blockpos1.getZ() + 0.01F), (double)((float)blockpos1.getX() + 0.99F), d0, (double)((float)blockpos1.getZ() + 0.99F))).offset(-this.xo, -this.yo, -this.zo), 1.0F, 1.0F, 1.0F, 0.2F);
+                RenderGlobal.renderFilledBox((new AxisAlignedBB((double)((float)blockpos1.getX() + 0.01F), (double)((float)blockpos1.getY() + 0.01F), (double)((float)blockpos1.getZ() + 0.01F), (double)((float)blockpos1.getX() + 0.99F), d0, (double)((float)blockpos1.getZ() + 0.99F))).offset(-xo, -yo, -zo), 1.0F, 1.0F, 1.0F, 0.2F);
             }
         }
 

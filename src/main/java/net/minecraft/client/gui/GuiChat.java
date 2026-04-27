@@ -41,7 +41,7 @@ public class GuiChat extends GuiScreen implements ITabCompleter
 
     public GuiChat(String defaultText)
     {
-        this.defaultInputFieldText = defaultText;
+        defaultInputFieldText = defaultText;
     }
 
     /**
@@ -51,14 +51,14 @@ public class GuiChat extends GuiScreen implements ITabCompleter
     public void initGui()
     {
         Keyboard.enableRepeatEvents(true);
-        this.sentHistoryCursor = this.mc.ingameGUI.getChatGUI().getSentMessages().size();
-        this.inputField = new GuiTextField(0, this.fontRenderer, 4, this.height - 12, this.width - 4, 12);
-        this.inputField.setMaxStringLength(256);
-        this.inputField.setEnableBackgroundDrawing(false);
-        this.inputField.setFocused(true);
-        this.inputField.setText(this.defaultInputFieldText);
-        this.inputField.setCanLoseFocus(false);
-        this.tabCompleter = new GuiChat.ChatTabCompleter(this.inputField);
+        sentHistoryCursor = mc.ingameGUI.getChatGUI().getSentMessages().size();
+        inputField = new GuiTextField(0, fontRenderer, 4, height - 12, width - 4, 12);
+        inputField.setMaxStringLength(256);
+        inputField.setEnableBackgroundDrawing(false);
+        inputField.setFocused(true);
+        inputField.setText(defaultInputFieldText);
+        inputField.setCanLoseFocus(false);
+        tabCompleter = new GuiChat.ChatTabCompleter(inputField);
     }
 
     /**
@@ -67,7 +67,7 @@ public class GuiChat extends GuiScreen implements ITabCompleter
     public void onGuiClosed()
     {
         Keyboard.enableRepeatEvents(false);
-        this.mc.ingameGUI.getChatGUI().resetScroll();
+        mc.ingameGUI.getChatGUI().resetScroll();
     }
 
     /**
@@ -75,7 +75,7 @@ public class GuiChat extends GuiScreen implements ITabCompleter
      */
     public void updateScreen()
     {
-        this.inputField.updateCursorCounter();
+        inputField.updateCursorCounter();
     }
 
     /**
@@ -84,54 +84,54 @@ public class GuiChat extends GuiScreen implements ITabCompleter
      */
     protected void keyTyped(char typedChar, int keyCode) throws IOException
     {
-        this.tabCompleter.resetRequested();
+        tabCompleter.resetRequested();
 
         if (keyCode == 15)
         {
-            this.tabCompleter.complete();
+            tabCompleter.complete();
         }
         else
         {
-            this.tabCompleter.resetDidComplete();
+            tabCompleter.resetDidComplete();
         }
 
         if (keyCode == 1)
         {
-            this.mc.displayGuiScreen((GuiScreen)null);
+            mc.displayGuiScreen((GuiScreen)null);
         }
         else if (keyCode != 28 && keyCode != 156)
         {
             if (keyCode == 200)
             {
-                this.getSentHistory(-1);
+                getSentHistory(-1);
             }
             else if (keyCode == 208)
             {
-                this.getSentHistory(1);
+                getSentHistory(1);
             }
             else if (keyCode == 201)
             {
-                this.mc.ingameGUI.getChatGUI().scroll(this.mc.ingameGUI.getChatGUI().getLineCount() - 1);
+                mc.ingameGUI.getChatGUI().scroll(mc.ingameGUI.getChatGUI().getLineCount() - 1);
             }
             else if (keyCode == 209)
             {
-                this.mc.ingameGUI.getChatGUI().scroll(-this.mc.ingameGUI.getChatGUI().getLineCount() + 1);
+                mc.ingameGUI.getChatGUI().scroll(-mc.ingameGUI.getChatGUI().getLineCount() + 1);
             }
             else
             {
-                this.inputField.textboxKeyTyped(typedChar, keyCode);
+                inputField.textboxKeyTyped(typedChar, keyCode);
             }
         }
         else
         {
-            String s = this.inputField.getText().trim();
+            String s = inputField.getText().trim();
 
             if (!s.isEmpty())
             {
-                this.sendChatMessage(s);
+                sendChatMessage(s);
             }
 
-            this.mc.displayGuiScreen((GuiScreen)null);
+            mc.displayGuiScreen((GuiScreen)null);
         }
     }
 
@@ -160,7 +160,7 @@ public class GuiChat extends GuiScreen implements ITabCompleter
                 i *= 7;
             }
 
-            this.mc.ingameGUI.getChatGUI().scroll(i);
+            mc.ingameGUI.getChatGUI().scroll(i);
         }
     }
 
@@ -171,15 +171,15 @@ public class GuiChat extends GuiScreen implements ITabCompleter
     {
         if (mouseButton == 0)
         {
-            ITextComponent itextcomponent = this.mc.ingameGUI.getChatGUI().getChatComponent(Mouse.getX(), Mouse.getY());
+            ITextComponent itextcomponent = mc.ingameGUI.getChatGUI().getChatComponent(Mouse.getX(), Mouse.getY());
 
-            if (itextcomponent != null && this.handleComponentClick(itextcomponent))
+            if (itextcomponent != null && handleComponentClick(itextcomponent))
             {
                 return;
             }
         }
 
-        this.inputField.mouseClicked(mouseX, mouseY, mouseButton);
+        inputField.mouseClicked(mouseX, mouseY, mouseButton);
         super.mouseClicked(mouseX, mouseY, mouseButton);
     }
 
@@ -190,11 +190,11 @@ public class GuiChat extends GuiScreen implements ITabCompleter
     {
         if (shouldOverwrite)
         {
-            this.inputField.setText(newChatText);
+            inputField.setText(newChatText);
         }
         else
         {
-            this.inputField.writeText(newChatText);
+            inputField.writeText(newChatText);
         }
     }
 
@@ -204,26 +204,26 @@ public class GuiChat extends GuiScreen implements ITabCompleter
      */
     public void getSentHistory(int msgPos)
     {
-        int i = this.sentHistoryCursor + msgPos;
-        int j = this.mc.ingameGUI.getChatGUI().getSentMessages().size();
+        int i = sentHistoryCursor + msgPos;
+        int j = mc.ingameGUI.getChatGUI().getSentMessages().size();
         i = MathHelper.clamp(i, 0, j);
 
-        if (i != this.sentHistoryCursor)
+        if (i != sentHistoryCursor)
         {
             if (i == j)
             {
-                this.sentHistoryCursor = j;
-                this.inputField.setText(this.historyBuffer);
+                sentHistoryCursor = j;
+                inputField.setText(historyBuffer);
             }
             else
             {
-                if (this.sentHistoryCursor == j)
+                if (sentHistoryCursor == j)
                 {
-                    this.historyBuffer = this.inputField.getText();
+                    historyBuffer = inputField.getText();
                 }
 
-                this.inputField.setText((String)this.mc.ingameGUI.getChatGUI().getSentMessages().get(i));
-                this.sentHistoryCursor = i;
+                inputField.setText((String) mc.ingameGUI.getChatGUI().getSentMessages().get(i));
+                sentHistoryCursor = i;
             }
         }
     }
@@ -233,13 +233,13 @@ public class GuiChat extends GuiScreen implements ITabCompleter
      */
     public void drawScreen(int mouseX, int mouseY, float partialTicks)
     {
-        drawRect(2, this.height - 14, this.width - 2, this.height - 2, Integer.MIN_VALUE);
-        this.inputField.drawTextBox();
-        ITextComponent itextcomponent = this.mc.ingameGUI.getChatGUI().getChatComponent(Mouse.getX(), Mouse.getY());
+        drawRect(2, height - 14, width - 2, height - 2, Integer.MIN_VALUE);
+        inputField.drawTextBox();
+        ITextComponent itextcomponent = mc.ingameGUI.getChatGUI().getChatComponent(Mouse.getX(), Mouse.getY());
 
         if (itextcomponent != null && itextcomponent.getStyle().getHoverEvent() != null)
         {
-            this.handleComponentHover(itextcomponent, mouseX, mouseY);
+            handleComponentHover(itextcomponent, mouseX, mouseY);
         }
 
         super.drawScreen(mouseX, mouseY, partialTicks);
@@ -258,7 +258,7 @@ public class GuiChat extends GuiScreen implements ITabCompleter
      */
     public void setCompletions(String... newCompletions)
     {
-        this.tabCompleter.setCompletions(newCompletions);
+        tabCompleter.setCompletions(newCompletions);
     }
 
     public static class ChatTabCompleter extends TabCompleter
@@ -274,11 +274,11 @@ public class GuiChat extends GuiScreen implements ITabCompleter
         {
             super.complete();
 
-            if (this.completions.size() > 1)
+            if (completions.size() > 1)
             {
                 StringBuilder stringbuilder = new StringBuilder();
 
-                for (String s : this.completions)
+                for (String s : completions)
                 {
                     if (stringbuilder.length() > 0)
                     {
@@ -288,7 +288,7 @@ public class GuiChat extends GuiScreen implements ITabCompleter
                     stringbuilder.append(s);
                 }
 
-                this.client.ingameGUI.getChatGUI().printChatMessageWithOptionalDeletion(new TextComponentString(stringbuilder.toString()), 1);
+                client.ingameGUI.getChatGUI().printChatMessageWithOptionalDeletion(new TextComponentString(stringbuilder.toString()), 1);
             }
         }
 
@@ -297,9 +297,9 @@ public class GuiChat extends GuiScreen implements ITabCompleter
         {
             BlockPos blockpos = null;
 
-            if (this.client.objectMouseOver != null && this.client.objectMouseOver.typeOfHit == RayTraceResult.Type.BLOCK)
+            if (client.objectMouseOver != null && client.objectMouseOver.typeOfHit == RayTraceResult.Type.BLOCK)
             {
-                blockpos = this.client.objectMouseOver.getBlockPos();
+                blockpos = client.objectMouseOver.getBlockPos();
             }
 
             return blockpos;

@@ -17,9 +17,9 @@ public class SPacketSetExperience implements Packet<INetHandlerPlayClient>
 
     public SPacketSetExperience(float experienceBarIn, int totalExperienceIn, int levelIn)
     {
-        this.experienceBar = experienceBarIn;
-        this.totalExperience = totalExperienceIn;
-        this.level = levelIn;
+        experienceBar = experienceBarIn;
+        totalExperience = totalExperienceIn;
+        level = levelIn;
     }
 
     /**
@@ -27,9 +27,9 @@ public class SPacketSetExperience implements Packet<INetHandlerPlayClient>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.experienceBar = buf.readFloat();
-        this.level = buf.readVarInt();
-        this.totalExperience = buf.readVarInt();
+        experienceBar = buf.readFloat();
+        level = buf.readVarInt();
+        totalExperience = buf.readVarInt();
     }
 
     /**
@@ -37,9 +37,9 @@ public class SPacketSetExperience implements Packet<INetHandlerPlayClient>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeFloat(this.experienceBar);
-        buf.writeVarInt(this.level);
-        buf.writeVarInt(this.totalExperience);
+        buf.writeFloat(experienceBar);
+        buf.writeVarInt(level);
+        buf.writeVarInt(totalExperience);
     }
 
     /**
@@ -52,16 +52,16 @@ public class SPacketSetExperience implements Packet<INetHandlerPlayClient>
 
     public float getExperienceBar()
     {
-        return this.experienceBar;
+        return experienceBar;
     }
 
     public int getTotalExperience()
     {
-        return this.totalExperience;
+        return totalExperience;
     }
 
     public int getLevel()
     {
-        return this.level;
+        return level;
     }
 }

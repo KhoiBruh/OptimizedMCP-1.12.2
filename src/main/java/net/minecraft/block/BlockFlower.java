@@ -24,7 +24,7 @@ public abstract class BlockFlower extends BlockBush
 
     protected BlockFlower()
     {
-        this.setDefaultState(this.blockState.getBaseState().withProperty(this.getTypeProperty(), this.getBlockType() == BlockFlower.EnumFlowerColor.RED ? BlockFlower.EnumFlowerType.POPPY : BlockFlower.EnumFlowerType.DANDELION));
+        setDefaultState(blockState.getBaseState().withProperty(getTypeProperty(), getBlockType() == BlockFlower.EnumFlowerColor.RED ? BlockFlower.EnumFlowerType.POPPY : BlockFlower.EnumFlowerType.DANDELION));
     }
 
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
@@ -38,7 +38,7 @@ public abstract class BlockFlower extends BlockBush
      */
     public int damageDropped(IBlockState state)
     {
-        return ((BlockFlower.EnumFlowerType)state.getValue(this.getTypeProperty())).getMeta();
+        return ((BlockFlower.EnumFlowerType)state.getValue(getTypeProperty())).getMeta();
     }
 
     /**
@@ -46,7 +46,7 @@ public abstract class BlockFlower extends BlockBush
      */
     public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items)
     {
-        for (BlockFlower.EnumFlowerType blockflower$enumflowertype : BlockFlower.EnumFlowerType.getTypes(this.getBlockType()))
+        for (BlockFlower.EnumFlowerType blockflower$enumflowertype : BlockFlower.EnumFlowerType.getTypes(getBlockType()))
         {
             items.add(new ItemStack(this, 1, blockflower$enumflowertype.getMeta()));
         }
@@ -57,7 +57,7 @@ public abstract class BlockFlower extends BlockBush
      */
     public IBlockState getStateFromMeta(int meta)
     {
-        return this.getDefaultState().withProperty(this.getTypeProperty(), BlockFlower.EnumFlowerType.getType(this.getBlockType(), meta));
+        return getDefaultState().withProperty(getTypeProperty(), BlockFlower.EnumFlowerType.getType(getBlockType(), meta));
     }
 
     /**
@@ -67,18 +67,18 @@ public abstract class BlockFlower extends BlockBush
 
     public IProperty<BlockFlower.EnumFlowerType> getTypeProperty()
     {
-        if (this.type == null)
+        if (type == null)
         {
-            this.type = PropertyEnum.<BlockFlower.EnumFlowerType>create("type", BlockFlower.EnumFlowerType.class, new Predicate<BlockFlower.EnumFlowerType>()
+            type = PropertyEnum.<BlockFlower.EnumFlowerType>create("type", BlockFlower.EnumFlowerType.class, new Predicate<BlockFlower.EnumFlowerType>()
             {
                 public boolean apply(@Nullable BlockFlower.EnumFlowerType p_apply_1_)
                 {
-                    return p_apply_1_.getBlockType() == BlockFlower.this.getBlockType();
+                    return p_apply_1_.getBlockType() == getBlockType();
                 }
             });
         }
 
-        return this.type;
+        return type;
     }
 
     /**
@@ -86,12 +86,12 @@ public abstract class BlockFlower extends BlockBush
      */
     public int getMetaFromState(IBlockState state)
     {
-        return ((BlockFlower.EnumFlowerType)state.getValue(this.getTypeProperty())).getMeta();
+        return ((BlockFlower.EnumFlowerType)state.getValue(getTypeProperty())).getMeta();
     }
 
     protected BlockStateContainer createBlockState()
     {
-        return new BlockStateContainer(this, new IProperty[] {this.getTypeProperty()});
+        return new BlockStateContainer(this, new IProperty[] {getTypeProperty()});
     }
 
     /**
@@ -147,12 +147,12 @@ public abstract class BlockFlower extends BlockBush
 
         public BlockFlower.EnumFlowerColor getBlockType()
         {
-            return this.blockType;
+            return blockType;
         }
 
         public int getMeta()
         {
-            return this.meta;
+            return meta;
         }
 
         public static BlockFlower.EnumFlowerType getType(BlockFlower.EnumFlowerColor blockType, int meta)
@@ -174,17 +174,17 @@ public abstract class BlockFlower extends BlockBush
 
         public String toString()
         {
-            return this.name;
+            return name;
         }
 
         public String getName()
         {
-            return this.name;
+            return name;
         }
 
         public String getUnlocalizedName()
         {
-            return this.unlocalizedName;
+            return unlocalizedName;
         }
 
         static {

@@ -52,7 +52,7 @@ public class EntityPotion extends EntityThrowable
     public EntityPotion(World worldIn, EntityLivingBase throwerIn, ItemStack potionDamageIn)
     {
         super(worldIn, throwerIn);
-        this.setItem(potionDamageIn);
+        setItem(potionDamageIn);
     }
 
     public EntityPotion(World worldIn, double x, double y, double z, ItemStack potionDamageIn)
@@ -61,24 +61,24 @@ public class EntityPotion extends EntityThrowable
 
         if (!potionDamageIn.isEmpty())
         {
-            this.setItem(potionDamageIn);
+            setItem(potionDamageIn);
         }
     }
 
     protected void entityInit()
     {
-        this.getDataManager().register(ITEM, ItemStack.EMPTY);
+        getDataManager().register(ITEM, ItemStack.EMPTY);
     }
 
     public ItemStack getPotion()
     {
-        ItemStack itemstack = (ItemStack)this.getDataManager().get(ITEM);
+        ItemStack itemstack = (ItemStack) getDataManager().get(ITEM);
 
         if (itemstack.getItem() != Items.SPLASH_POTION && itemstack.getItem() != Items.LINGERING_POTION)
         {
-            if (this.world != null)
+            if (world != null)
             {
-                LOGGER.error("ThrownPotion entity {} has no item?!", (int)this.getEntityId());
+                LOGGER.error("ThrownPotion entity {} has no item?!", (int) getEntityId());
             }
 
             return new ItemStack(Items.SPLASH_POTION);
@@ -91,8 +91,8 @@ public class EntityPotion extends EntityThrowable
 
     public void setItem(ItemStack stack)
     {
-        this.getDataManager().set(ITEM, stack);
-        this.getDataManager().setDirty(ITEM);
+        getDataManager().set(ITEM, stack);
+        getDataManager().setDirty(ITEM);
     }
 
     /**
@@ -108,9 +108,9 @@ public class EntityPotion extends EntityThrowable
      */
     protected void onImpact(RayTraceResult result)
     {
-        if (!this.world.isRemote)
+        if (!world.isRemote)
         {
-            ItemStack itemstack = this.getPotion();
+            ItemStack itemstack = getPotion();
             PotionType potiontype = PotionUtils.getPotionFromItem(itemstack);
             List<PotionEffect> list = PotionUtils.getEffectsFromStack(itemstack);
             boolean flag = potiontype == PotionTypes.WATER && list.isEmpty();
@@ -118,46 +118,46 @@ public class EntityPotion extends EntityThrowable
             if (result.typeOfHit == RayTraceResult.Type.BLOCK && flag)
             {
                 BlockPos blockpos = result.getBlockPos().offset(result.sideHit);
-                this.extinguishFires(blockpos, result.sideHit);
+                extinguishFires(blockpos, result.sideHit);
 
                 for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL)
                 {
-                    this.extinguishFires(blockpos.offset(enumfacing), enumfacing);
+                    extinguishFires(blockpos.offset(enumfacing), enumfacing);
                 }
             }
 
             if (flag)
             {
-                this.applyWater();
+                applyWater();
             }
             else if (!list.isEmpty())
             {
-                if (this.isLingering())
+                if (isLingering())
                 {
-                    this.makeAreaOfEffectCloud(itemstack, potiontype);
+                    makeAreaOfEffectCloud(itemstack, potiontype);
                 }
                 else
                 {
-                    this.applySplash(result, list);
+                    applySplash(result, list);
                 }
             }
 
             int i = potiontype.hasInstantEffect() ? 2007 : 2002;
-            this.world.playEvent(i, new BlockPos(this), PotionUtils.getColor(itemstack));
-            this.setDead();
+            world.playEvent(i, new BlockPos(this), PotionUtils.getColor(itemstack));
+            setDead();
         }
     }
 
     private void applyWater()
     {
-        AxisAlignedBB axisalignedbb = this.getEntityBoundingBox().grow(4.0D, 2.0D, 4.0D);
-        List<EntityLivingBase> list = this.world.<EntityLivingBase>getEntitiesWithinAABB(EntityLivingBase.class, axisalignedbb, WATER_SENSITIVE);
+        AxisAlignedBB axisalignedbb = getEntityBoundingBox().grow(4.0D, 2.0D, 4.0D);
+        List<EntityLivingBase> list = world.<EntityLivingBase>getEntitiesWithinAABB(EntityLivingBase.class, axisalignedbb, WATER_SENSITIVE);
 
         if (!list.isEmpty())
         {
             for (EntityLivingBase entitylivingbase : list)
             {
-                double d0 = this.getDistanceSq(entitylivingbase);
+                double d0 = getDistanceSq(entitylivingbase);
 
                 if (d0 < 16.0D && isWaterSensitiveEntity(entitylivingbase))
                 {
@@ -169,8 +169,8 @@ public class EntityPotion extends EntityThrowable
 
     private void applySplash(RayTraceResult p_190543_1_, List<PotionEffect> p_190543_2_)
     {
-        AxisAlignedBB axisalignedbb = this.getEntityBoundingBox().grow(4.0D, 2.0D, 4.0D);
-        List<EntityLivingBase> list = this.world.<EntityLivingBase>getEntitiesWithinAABB(EntityLivingBase.class, axisalignedbb);
+        AxisAlignedBB axisalignedbb = getEntityBoundingBox().grow(4.0D, 2.0D, 4.0D);
+        List<EntityLivingBase> list = world.<EntityLivingBase>getEntitiesWithinAABB(EntityLivingBase.class, axisalignedbb);
 
         if (!list.isEmpty())
         {
@@ -178,7 +178,7 @@ public class EntityPotion extends EntityThrowable
             {
                 if (entitylivingbase.canBeHitWithPotion())
                 {
-                    double d0 = this.getDistanceSq(entitylivingbase);
+                    double d0 = getDistanceSq(entitylivingbase);
 
                     if (d0 < 16.0D)
                     {
@@ -195,7 +195,7 @@ public class EntityPotion extends EntityThrowable
 
                             if (potion.isInstant())
                             {
-                                potion.affectEntity(this, this.getThrower(), entitylivingbase, potioneffect.getAmplifier(), d1);
+                                potion.affectEntity(this, getThrower(), entitylivingbase, potioneffect.getAmplifier(), d1);
                             }
                             else
                             {
@@ -215,8 +215,8 @@ public class EntityPotion extends EntityThrowable
 
     private void makeAreaOfEffectCloud(ItemStack p_190542_1_, PotionType p_190542_2_)
     {
-        EntityAreaEffectCloud entityareaeffectcloud = new EntityAreaEffectCloud(this.world, this.posX, this.posY, this.posZ);
-        entityareaeffectcloud.setOwner(this.getThrower());
+        EntityAreaEffectCloud entityareaeffectcloud = new EntityAreaEffectCloud(world, posX, posY, posZ);
+        entityareaeffectcloud.setOwner(getThrower());
         entityareaeffectcloud.setRadius(3.0F);
         entityareaeffectcloud.setRadiusOnUse(-0.5F);
         entityareaeffectcloud.setWaitTime(10);
@@ -235,19 +235,19 @@ public class EntityPotion extends EntityThrowable
             entityareaeffectcloud.setColor(nbttagcompound.getInteger("CustomPotionColor"));
         }
 
-        this.world.spawnEntity(entityareaeffectcloud);
+        world.spawnEntity(entityareaeffectcloud);
     }
 
     private boolean isLingering()
     {
-        return this.getPotion().getItem() == Items.LINGERING_POTION;
+        return getPotion().getItem() == Items.LINGERING_POTION;
     }
 
     private void extinguishFires(BlockPos pos, EnumFacing p_184542_2_)
     {
-        if (this.world.getBlockState(pos).getBlock() == Blocks.FIRE)
+        if (world.getBlockState(pos).getBlock() == Blocks.FIRE)
         {
-            this.world.extinguishFire((EntityPlayer)null, pos.offset(p_184542_2_), p_184542_2_.getOpposite());
+            world.extinguishFire((EntityPlayer)null, pos.offset(p_184542_2_), p_184542_2_.getOpposite());
         }
     }
 
@@ -267,11 +267,11 @@ public class EntityPotion extends EntityThrowable
 
         if (itemstack.isEmpty())
         {
-            this.setDead();
+            setDead();
         }
         else
         {
-            this.setItem(itemstack);
+            setItem(itemstack);
         }
     }
 
@@ -281,7 +281,7 @@ public class EntityPotion extends EntityThrowable
     public void writeEntityToNBT(NBTTagCompound compound)
     {
         super.writeEntityToNBT(compound);
-        ItemStack itemstack = this.getPotion();
+        ItemStack itemstack = getPotion();
 
         if (!itemstack.isEmpty())
         {

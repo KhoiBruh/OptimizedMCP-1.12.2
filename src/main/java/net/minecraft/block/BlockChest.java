@@ -47,9 +47,9 @@ public class BlockChest extends BlockContainer
     protected BlockChest(BlockChest.Type chestTypeIn)
     {
         super(Material.WOOD);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
-        this.chestType = chestTypeIn;
-        this.setCreativeTab(chestTypeIn == BlockChest.Type.TRAP ? CreativeTabs.REDSTONE : CreativeTabs.DECORATIONS);
+        setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
+        chestType = chestTypeIn;
+        setCreativeTab(chestTypeIn == BlockChest.Type.TRAP ? CreativeTabs.REDSTONE : CreativeTabs.DECORATIONS);
     }
 
     /**
@@ -104,7 +104,7 @@ public class BlockChest extends BlockContainer
      */
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state)
     {
-        this.checkForSurroundingChests(worldIn, pos, state);
+        checkForSurroundingChests(worldIn, pos, state);
 
         for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL)
         {
@@ -113,7 +113,7 @@ public class BlockChest extends BlockContainer
 
             if (iblockstate.getBlock() == this)
             {
-                this.checkForSurroundingChests(worldIn, blockpos, iblockstate);
+                checkForSurroundingChests(worldIn, blockpos, iblockstate);
             }
         }
     }
@@ -124,7 +124,7 @@ public class BlockChest extends BlockContainer
      */
     public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
     {
-        return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing());
+        return getDefaultState().withProperty(FACING, placer.getHorizontalFacing());
     }
 
     /**
@@ -344,7 +344,7 @@ public class BlockChest extends BlockContainer
 
         if (worldIn.getBlockState(blockpos).getBlock() == this)
         {
-            if (this.isDoubleChest(worldIn, blockpos))
+            if (isDoubleChest(worldIn, blockpos))
             {
                 return false;
             }
@@ -354,7 +354,7 @@ public class BlockChest extends BlockContainer
 
         if (worldIn.getBlockState(blockpos1).getBlock() == this)
         {
-            if (this.isDoubleChest(worldIn, blockpos1))
+            if (isDoubleChest(worldIn, blockpos1))
             {
                 return false;
             }
@@ -364,7 +364,7 @@ public class BlockChest extends BlockContainer
 
         if (worldIn.getBlockState(blockpos2).getBlock() == this)
         {
-            if (this.isDoubleChest(worldIn, blockpos2))
+            if (isDoubleChest(worldIn, blockpos2))
             {
                 return false;
             }
@@ -374,7 +374,7 @@ public class BlockChest extends BlockContainer
 
         if (worldIn.getBlockState(blockpos3).getBlock() == this)
         {
-            if (this.isDoubleChest(worldIn, blockpos3))
+            if (isDoubleChest(worldIn, blockpos3))
             {
                 return false;
             }
@@ -448,17 +448,17 @@ public class BlockChest extends BlockContainer
         }
         else
         {
-            ILockableContainer ilockablecontainer = this.getLockableContainer(worldIn, pos);
+            ILockableContainer ilockablecontainer = getLockableContainer(worldIn, pos);
 
             if (ilockablecontainer != null)
             {
                 playerIn.displayGUIChest(ilockablecontainer);
 
-                if (this.chestType == BlockChest.Type.BASIC)
+                if (chestType == BlockChest.Type.BASIC)
                 {
                     playerIn.addStat(StatList.CHEST_OPENED);
                 }
-                else if (this.chestType == BlockChest.Type.TRAP)
+                else if (chestType == BlockChest.Type.TRAP)
                 {
                     playerIn.addStat(StatList.TRAPPED_CHEST_TRIGGERED);
                 }
@@ -471,7 +471,7 @@ public class BlockChest extends BlockContainer
     @Nullable
     public ILockableContainer getLockableContainer(World worldIn, BlockPos pos)
     {
-        return this.getContainer(worldIn, pos, false);
+        return getContainer(worldIn, pos, false);
     }
 
     @Nullable
@@ -487,7 +487,7 @@ public class BlockChest extends BlockContainer
         {
             ILockableContainer ilockablecontainer = (TileEntityChest)tileentity;
 
-            if (!allowBlocking && this.isBlocked(worldIn, pos))
+            if (!allowBlocking && isBlocked(worldIn, pos))
             {
                 return null;
             }
@@ -500,7 +500,7 @@ public class BlockChest extends BlockContainer
 
                     if (block == this)
                     {
-                        if (this.isBlocked(worldIn, blockpos))
+                        if (isBlocked(worldIn, blockpos))
                         {
                             return null;
                         }
@@ -539,7 +539,7 @@ public class BlockChest extends BlockContainer
      */
     public boolean canProvidePower(IBlockState state)
     {
-        return this.chestType == BlockChest.Type.TRAP;
+        return chestType == BlockChest.Type.TRAP;
     }
 
     public int getWeakPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side)
@@ -569,7 +569,7 @@ public class BlockChest extends BlockContainer
 
     private boolean isBlocked(World worldIn, BlockPos pos)
     {
-        return this.isBelowSolidBlock(worldIn, pos) || this.isOcelotSittingOnChest(worldIn, pos);
+        return isBelowSolidBlock(worldIn, pos) || isOcelotSittingOnChest(worldIn, pos);
     }
 
     private boolean isBelowSolidBlock(World worldIn, BlockPos pos)
@@ -599,7 +599,7 @@ public class BlockChest extends BlockContainer
 
     public int getComparatorInputOverride(IBlockState blockState, World worldIn, BlockPos pos)
     {
-        return Container.calcRedstoneFromInventory(this.getLockableContainer(worldIn, pos));
+        return Container.calcRedstoneFromInventory(getLockableContainer(worldIn, pos));
     }
 
     /**
@@ -614,7 +614,7 @@ public class BlockChest extends BlockContainer
             enumfacing = EnumFacing.NORTH;
         }
 
-        return this.getDefaultState().withProperty(FACING, enumfacing);
+        return getDefaultState().withProperty(FACING, enumfacing);
     }
 
     /**

@@ -88,14 +88,14 @@ public class ItemArmor extends Item
 
     public ItemArmor(ItemArmor.ArmorMaterial materialIn, int renderIndexIn, EntityEquipmentSlot equipmentSlotIn)
     {
-        this.material = materialIn;
-        this.armorType = equipmentSlotIn;
-        this.renderIndex = renderIndexIn;
-        this.damageReduceAmount = materialIn.getDamageReductionAmount(equipmentSlotIn);
-        this.setMaxDamage(materialIn.getDurability(equipmentSlotIn));
-        this.toughness = materialIn.getToughness();
-        this.maxStackSize = 1;
-        this.setCreativeTab(CreativeTabs.COMBAT);
+        material = materialIn;
+        armorType = equipmentSlotIn;
+        renderIndex = renderIndexIn;
+        damageReduceAmount = materialIn.getDamageReductionAmount(equipmentSlotIn);
+        setMaxDamage(materialIn.getDurability(equipmentSlotIn));
+        toughness = materialIn.getToughness();
+        maxStackSize = 1;
+        setCreativeTab(CreativeTabs.COMBAT);
         BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(this, DISPENSER_BEHAVIOR);
     }
 
@@ -104,7 +104,7 @@ public class ItemArmor extends Item
      */
     public EntityEquipmentSlot getEquipmentSlot()
     {
-        return this.armorType;
+        return armorType;
     }
 
     /**
@@ -112,7 +112,7 @@ public class ItemArmor extends Item
      */
     public int getItemEnchantability()
     {
-        return this.material.getEnchantability();
+        return material.getEnchantability();
     }
 
     /**
@@ -120,7 +120,7 @@ public class ItemArmor extends Item
      */
     public ItemArmor.ArmorMaterial getArmorMaterial()
     {
-        return this.material;
+        return material;
     }
 
     /**
@@ -128,7 +128,7 @@ public class ItemArmor extends Item
      */
     public boolean hasColor(ItemStack stack)
     {
-        if (this.material != ItemArmor.ArmorMaterial.LEATHER)
+        if (material != ItemArmor.ArmorMaterial.LEATHER)
         {
             return false;
         }
@@ -144,7 +144,7 @@ public class ItemArmor extends Item
      */
     public int getColor(ItemStack stack)
     {
-        if (this.material != ItemArmor.ArmorMaterial.LEATHER)
+        if (material != ItemArmor.ArmorMaterial.LEATHER)
         {
             return 16777215;
         }
@@ -171,7 +171,7 @@ public class ItemArmor extends Item
      */
     public void removeColor(ItemStack stack)
     {
-        if (this.material == ItemArmor.ArmorMaterial.LEATHER)
+        if (material == ItemArmor.ArmorMaterial.LEATHER)
         {
             NBTTagCompound nbttagcompound = stack.getTagCompound();
 
@@ -192,7 +192,7 @@ public class ItemArmor extends Item
      */
     public void setColor(ItemStack stack, int color)
     {
-        if (this.material != ItemArmor.ArmorMaterial.LEATHER)
+        if (material != ItemArmor.ArmorMaterial.LEATHER)
         {
             throw new UnsupportedOperationException("Can't dye non-leather!");
         }
@@ -225,7 +225,7 @@ public class ItemArmor extends Item
      */
     public boolean getIsRepairable(ItemStack toRepair, ItemStack repair)
     {
-        return this.material.getRepairItem() == repair.getItem() ? true : super.getIsRepairable(toRepair, repair);
+        return material.getRepairItem() == repair.getItem() ? true : super.getIsRepairable(toRepair, repair);
     }
 
     public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn)
@@ -250,10 +250,10 @@ public class ItemArmor extends Item
     {
         Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers(equipmentSlot);
 
-        if (equipmentSlot == this.armorType)
+        if (equipmentSlot == armorType)
         {
-            multimap.put(SharedMonsterAttributes.ARMOR.getName(), new AttributeModifier(ARMOR_MODIFIERS[equipmentSlot.getIndex()], "Armor modifier", (double)this.damageReduceAmount, 0));
-            multimap.put(SharedMonsterAttributes.ARMOR_TOUGHNESS.getName(), new AttributeModifier(ARMOR_MODIFIERS[equipmentSlot.getIndex()], "Armor toughness", (double)this.toughness, 0));
+            multimap.put(SharedMonsterAttributes.ARMOR.getName(), new AttributeModifier(ARMOR_MODIFIERS[equipmentSlot.getIndex()], "Armor modifier", (double) damageReduceAmount, 0));
+            multimap.put(SharedMonsterAttributes.ARMOR_TOUGHNESS.getName(), new AttributeModifier(ARMOR_MODIFIERS[equipmentSlot.getIndex()], "Armor toughness", (double) toughness, 0));
         }
 
         return multimap;
@@ -276,32 +276,32 @@ public class ItemArmor extends Item
 
         private ArmorMaterial(String nameIn, int maxDamageFactorIn, int[] damageReductionAmountArrayIn, int enchantabilityIn, SoundEvent soundEventIn, float toughnessIn)
         {
-            this.name = nameIn;
-            this.maxDamageFactor = maxDamageFactorIn;
-            this.damageReductionAmountArray = damageReductionAmountArrayIn;
-            this.enchantability = enchantabilityIn;
-            this.soundEvent = soundEventIn;
-            this.toughness = toughnessIn;
+            name = nameIn;
+            maxDamageFactor = maxDamageFactorIn;
+            damageReductionAmountArray = damageReductionAmountArrayIn;
+            enchantability = enchantabilityIn;
+            soundEvent = soundEventIn;
+            toughness = toughnessIn;
         }
 
         public int getDurability(EntityEquipmentSlot armorType)
         {
-            return ItemArmor.MAX_DAMAGE_ARRAY[armorType.getIndex()] * this.maxDamageFactor;
+            return ItemArmor.MAX_DAMAGE_ARRAY[armorType.getIndex()] * maxDamageFactor;
         }
 
         public int getDamageReductionAmount(EntityEquipmentSlot armorType)
         {
-            return this.damageReductionAmountArray[armorType.getIndex()];
+            return damageReductionAmountArray[armorType.getIndex()];
         }
 
         public int getEnchantability()
         {
-            return this.enchantability;
+            return enchantability;
         }
 
         public SoundEvent getSoundEvent()
         {
-            return this.soundEvent;
+            return soundEvent;
         }
 
         public Item getRepairItem()
@@ -330,12 +330,12 @@ public class ItemArmor extends Item
 
         public String getName()
         {
-            return this.name;
+            return name;
         }
 
         public float getToughness()
         {
-            return this.toughness;
+            return toughness;
         }
     }
 }

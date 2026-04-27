@@ -28,13 +28,13 @@ public class EntityAIFollowOwner extends EntityAIBase
 
     public EntityAIFollowOwner(EntityTameable tameableIn, double followSpeedIn, float minDistIn, float maxDistIn)
     {
-        this.tameable = tameableIn;
-        this.world = tameableIn.world;
-        this.followSpeed = followSpeedIn;
-        this.petPathfinder = tameableIn.getNavigator();
-        this.minDist = minDistIn;
-        this.maxDist = maxDistIn;
-        this.setMutexBits(3);
+        tameable = tameableIn;
+        world = tameableIn.world;
+        followSpeed = followSpeedIn;
+        petPathfinder = tameableIn.getNavigator();
+        minDist = minDistIn;
+        maxDist = maxDistIn;
+        setMutexBits(3);
 
         if (!(tameableIn.getNavigator() instanceof PathNavigateGround) && !(tameableIn.getNavigator() instanceof PathNavigateFlying))
         {
@@ -47,7 +47,7 @@ public class EntityAIFollowOwner extends EntityAIBase
      */
     public boolean shouldExecute()
     {
-        EntityLivingBase entitylivingbase = this.tameable.getOwner();
+        EntityLivingBase entitylivingbase = tameable.getOwner();
 
         if (entitylivingbase == null)
         {
@@ -57,17 +57,17 @@ public class EntityAIFollowOwner extends EntityAIBase
         {
             return false;
         }
-        else if (this.tameable.isSitting())
+        else if (tameable.isSitting())
         {
             return false;
         }
-        else if (this.tameable.getDistanceSq(entitylivingbase) < (double)(this.minDist * this.minDist))
+        else if (tameable.getDistanceSq(entitylivingbase) < (double)(minDist * minDist))
         {
             return false;
         }
         else
         {
-            this.owner = entitylivingbase;
+            owner = entitylivingbase;
             return true;
         }
     }
@@ -77,7 +77,7 @@ public class EntityAIFollowOwner extends EntityAIBase
      */
     public boolean shouldContinueExecuting()
     {
-        return !this.petPathfinder.noPath() && this.tameable.getDistanceSq(this.owner) > (double)(this.maxDist * this.maxDist) && !this.tameable.isSitting();
+        return !petPathfinder.noPath() && tameable.getDistanceSq(owner) > (double)(maxDist * maxDist) && !tameable.isSitting();
     }
 
     /**
@@ -85,9 +85,9 @@ public class EntityAIFollowOwner extends EntityAIBase
      */
     public void startExecuting()
     {
-        this.timeToRecalcPath = 0;
-        this.oldWaterCost = this.tameable.getPathPriority(PathNodeType.WATER);
-        this.tameable.setPathPriority(PathNodeType.WATER, 0.0F);
+        timeToRecalcPath = 0;
+        oldWaterCost = tameable.getPathPriority(PathNodeType.WATER);
+        tameable.setPathPriority(PathNodeType.WATER, 0.0F);
     }
 
     /**
@@ -95,9 +95,9 @@ public class EntityAIFollowOwner extends EntityAIBase
      */
     public void resetTask()
     {
-        this.owner = null;
-        this.petPathfinder.clearPath();
-        this.tameable.setPathPriority(PathNodeType.WATER, this.oldWaterCost);
+        owner = null;
+        petPathfinder.clearPath();
+        tameable.setPathPriority(PathNodeType.WATER, oldWaterCost);
     }
 
     /**
@@ -105,32 +105,32 @@ public class EntityAIFollowOwner extends EntityAIBase
      */
     public void updateTask()
     {
-        this.tameable.getLookHelper().setLookPositionWithEntity(this.owner, 10.0F, (float)this.tameable.getVerticalFaceSpeed());
+        tameable.getLookHelper().setLookPositionWithEntity(owner, 10.0F, (float) tameable.getVerticalFaceSpeed());
 
-        if (!this.tameable.isSitting())
+        if (!tameable.isSitting())
         {
-            if (--this.timeToRecalcPath <= 0)
+            if (--timeToRecalcPath <= 0)
             {
-                this.timeToRecalcPath = 10;
+                timeToRecalcPath = 10;
 
-                if (!this.petPathfinder.tryMoveToEntityLiving(this.owner, this.followSpeed))
+                if (!petPathfinder.tryMoveToEntityLiving(owner, followSpeed))
                 {
-                    if (!this.tameable.getLeashed() && !this.tameable.isRiding())
+                    if (!tameable.getLeashed() && !tameable.isRiding())
                     {
-                        if (this.tameable.getDistanceSq(this.owner) >= 144.0D)
+                        if (tameable.getDistanceSq(owner) >= 144.0D)
                         {
-                            int i = MathHelper.floor(this.owner.posX) - 2;
-                            int j = MathHelper.floor(this.owner.posZ) - 2;
-                            int k = MathHelper.floor(this.owner.getEntityBoundingBox().minY);
+                            int i = MathHelper.floor(owner.posX) - 2;
+                            int j = MathHelper.floor(owner.posZ) - 2;
+                            int k = MathHelper.floor(owner.getEntityBoundingBox().minY);
 
                             for (int l = 0; l <= 4; ++l)
                             {
                                 for (int i1 = 0; i1 <= 4; ++i1)
                                 {
-                                    if ((l < 1 || i1 < 1 || l > 3 || i1 > 3) && this.isTeleportFriendlyBlock(i, j, k, l, i1))
+                                    if ((l < 1 || i1 < 1 || l > 3 || i1 > 3) && isTeleportFriendlyBlock(i, j, k, l, i1))
                                     {
-                                        this.tameable.setLocationAndAngles((double)((float)(i + l) + 0.5F), (double)k, (double)((float)(j + i1) + 0.5F), this.tameable.rotationYaw, this.tameable.rotationPitch);
-                                        this.petPathfinder.clearPath();
+                                        tameable.setLocationAndAngles((double)((float)(i + l) + 0.5F), (double)k, (double)((float)(j + i1) + 0.5F), tameable.rotationYaw, tameable.rotationPitch);
+                                        petPathfinder.clearPath();
                                         return;
                                     }
                                 }
@@ -145,7 +145,7 @@ public class EntityAIFollowOwner extends EntityAIBase
     protected boolean isTeleportFriendlyBlock(int x, int z, int y, int xOffset, int zOffset)
     {
         BlockPos blockpos = new BlockPos(x + xOffset, y - 1, z + zOffset);
-        IBlockState iblockstate = this.world.getBlockState(blockpos);
-        return iblockstate.getBlockFaceShape(this.world, blockpos, EnumFacing.DOWN) == BlockFaceShape.SOLID && iblockstate.canEntitySpawn(this.tameable) && this.world.isAirBlock(blockpos.up()) && this.world.isAirBlock(blockpos.up(2));
+        IBlockState iblockstate = world.getBlockState(blockpos);
+        return iblockstate.getBlockFaceShape(world, blockpos, EnumFacing.DOWN) == BlockFaceShape.SOLID && iblockstate.canEntitySpawn(tameable) && world.isAirBlock(blockpos.up()) && world.isAirBlock(blockpos.up(2));
     }
 }

@@ -9,11 +9,11 @@ public class PotionAttackDamage extends Potion
     protected PotionAttackDamage(boolean isBadEffectIn, int liquidColorIn, double bonusPerLevelIn)
     {
         super(isBadEffectIn, liquidColorIn);
-        this.bonusPerLevel = bonusPerLevelIn;
+        bonusPerLevel = bonusPerLevelIn;
     }
 
     public double getAttributeModifierAmount(int amplifier, AttributeModifier modifier)
     {
-        return this.bonusPerLevel * (double)(amplifier + 1);
+        return bonusPerLevel * (double)(amplifier + 1);
     }
 }

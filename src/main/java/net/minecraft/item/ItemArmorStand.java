@@ -21,7 +21,7 @@ public class ItemArmorStand extends Item
 {
     public ItemArmorStand()
     {
-        this.setCreativeTab(CreativeTabs.DECORATIONS);
+        setCreativeTab(CreativeTabs.DECORATIONS);
     }
 
     /**
@@ -73,7 +73,7 @@ public class ItemArmorStand extends Item
                             EntityArmorStand entityarmorstand = new EntityArmorStand(worldIn, d0 + 0.5D, d1, d2 + 0.5D);
                             float f = (float)MathHelper.floor((MathHelper.wrapDegrees(player.rotationYaw - 180.0F) + 22.5F) / 45.0F) * 45.0F;
                             entityarmorstand.setLocationAndAngles(d0 + 0.5D, d1, d2 + 0.5D, f, 0.0F);
-                            this.applyRandomRotations(entityarmorstand, worldIn.rand);
+                            applyRandomRotations(entityarmorstand, worldIn.rand);
                             ItemMonsterPlacer.applyItemEntityDataToEntity(worldIn, player, itemstack, entityarmorstand);
                             worldIn.spawnEntity(entityarmorstand);
                             worldIn.playSound((EntityPlayer)null, entityarmorstand.posX, entityarmorstand.posY, entityarmorstand.posZ, SoundEvents.ENTITY_ARMORSTAND_PLACE, SoundCategory.BLOCKS, 0.75F, 0.8F);

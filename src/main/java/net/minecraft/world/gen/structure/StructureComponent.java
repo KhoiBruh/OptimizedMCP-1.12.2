@@ -40,7 +40,7 @@ public abstract class StructureComponent
 
     protected StructureComponent(int type)
     {
-        this.componentType = type;
+        componentType = type;
     }
 
     /**
@@ -53,11 +53,11 @@ public abstract class StructureComponent
     {
         NBTTagCompound nbttagcompound = new NBTTagCompound();
         nbttagcompound.setString("id", MapGenStructureIO.getStructureComponentName(this));
-        nbttagcompound.setTag("BB", this.boundingBox.toNBTTagIntArray());
-        EnumFacing enumfacing = this.getCoordBaseMode();
+        nbttagcompound.setTag("BB", boundingBox.toNBTTagIntArray());
+        EnumFacing enumfacing = getCoordBaseMode();
         nbttagcompound.setInteger("O", enumfacing == null ? -1 : enumfacing.getHorizontalIndex());
-        nbttagcompound.setInteger("GD", this.componentType);
-        this.writeStructureToNBT(nbttagcompound);
+        nbttagcompound.setInteger("GD", componentType);
+        writeStructureToNBT(nbttagcompound);
         return nbttagcompound;
     }
 
@@ -75,13 +75,13 @@ public abstract class StructureComponent
     {
         if (tagCompound.hasKey("BB"))
         {
-            this.boundingBox = new StructureBoundingBox(tagCompound.getIntArray("BB"));
+            boundingBox = new StructureBoundingBox(tagCompound.getIntArray("BB"));
         }
 
         int i = tagCompound.getInteger("O");
-        this.setCoordBaseMode(i == -1 ? null : EnumFacing.getHorizontal(i));
-        this.componentType = tagCompound.getInteger("GD");
-        this.readStructureFromNBT(tagCompound, worldIn.getSaveHandler().getStructureTemplateManager());
+        setCoordBaseMode(i == -1 ? null : EnumFacing.getHorizontal(i));
+        componentType = tagCompound.getInteger("GD");
+        readStructureFromNBT(tagCompound, worldIn.getSaveHandler().getStructureTemplateManager());
     }
 
     /**
@@ -104,7 +104,7 @@ public abstract class StructureComponent
 
     public StructureBoundingBox getBoundingBox()
     {
-        return this.boundingBox;
+        return boundingBox;
     }
 
     /**
@@ -112,7 +112,7 @@ public abstract class StructureComponent
      */
     public int getComponentType()
     {
-        return this.componentType;
+        return componentType;
     }
 
     /**
@@ -136,12 +136,12 @@ public abstract class StructureComponent
      */
     protected boolean isLiquidInStructureBoundingBox(World worldIn, StructureBoundingBox boundingboxIn)
     {
-        int i = Math.max(this.boundingBox.minX - 1, boundingboxIn.minX);
-        int j = Math.max(this.boundingBox.minY - 1, boundingboxIn.minY);
-        int k = Math.max(this.boundingBox.minZ - 1, boundingboxIn.minZ);
-        int l = Math.min(this.boundingBox.maxX + 1, boundingboxIn.maxX);
-        int i1 = Math.min(this.boundingBox.maxY + 1, boundingboxIn.maxY);
-        int j1 = Math.min(this.boundingBox.maxZ + 1, boundingboxIn.maxZ);
+        int i = Math.max(boundingBox.minX - 1, boundingboxIn.minX);
+        int j = Math.max(boundingBox.minY - 1, boundingboxIn.minY);
+        int k = Math.max(boundingBox.minZ - 1, boundingboxIn.minZ);
+        int l = Math.min(boundingBox.maxX + 1, boundingboxIn.maxX);
+        int i1 = Math.min(boundingBox.maxY + 1, boundingboxIn.maxY);
+        int j1 = Math.min(boundingBox.maxZ + 1, boundingboxIn.maxZ);
         BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
 
         for (int k1 = i; k1 <= l; ++k1)
@@ -197,7 +197,7 @@ public abstract class StructureComponent
 
     protected int getXWithOffset(int x, int z)
     {
-        EnumFacing enumfacing = this.getCoordBaseMode();
+        EnumFacing enumfacing = getCoordBaseMode();
 
         if (enumfacing == null)
         {
@@ -209,13 +209,13 @@ public abstract class StructureComponent
             {
                 case NORTH:
                 case SOUTH:
-                    return this.boundingBox.minX + x;
+                    return boundingBox.minX + x;
 
                 case WEST:
-                    return this.boundingBox.maxX - z;
+                    return boundingBox.maxX - z;
 
                 case EAST:
-                    return this.boundingBox.minX + z;
+                    return boundingBox.minX + z;
 
                 default:
                     return x;
@@ -225,12 +225,12 @@ public abstract class StructureComponent
 
     protected int getYWithOffset(int y)
     {
-        return this.getCoordBaseMode() == null ? y : y + this.boundingBox.minY;
+        return getCoordBaseMode() == null ? y : y + boundingBox.minY;
     }
 
     protected int getZWithOffset(int x, int z)
     {
-        EnumFacing enumfacing = this.getCoordBaseMode();
+        EnumFacing enumfacing = getCoordBaseMode();
 
         if (enumfacing == null)
         {
@@ -241,14 +241,14 @@ public abstract class StructureComponent
             switch (enumfacing)
             {
                 case NORTH:
-                    return this.boundingBox.maxZ - z;
+                    return boundingBox.maxZ - z;
 
                 case SOUTH:
-                    return this.boundingBox.minZ + z;
+                    return boundingBox.minZ + z;
 
                 case WEST:
                 case EAST:
-                    return this.boundingBox.minZ + x;
+                    return boundingBox.minZ + x;
 
                 default:
                     return z;
@@ -258,18 +258,18 @@ public abstract class StructureComponent
 
     protected void setBlockState(World worldIn, IBlockState blockstateIn, int x, int y, int z, StructureBoundingBox boundingboxIn)
     {
-        BlockPos blockpos = new BlockPos(this.getXWithOffset(x, z), this.getYWithOffset(y), this.getZWithOffset(x, z));
+        BlockPos blockpos = new BlockPos(getXWithOffset(x, z), getYWithOffset(y), getZWithOffset(x, z));
 
         if (boundingboxIn.isVecInside(blockpos))
         {
-            if (this.mirror != Mirror.NONE)
+            if (mirror != Mirror.NONE)
             {
-                blockstateIn = blockstateIn.withMirror(this.mirror);
+                blockstateIn = blockstateIn.withMirror(mirror);
             }
 
-            if (this.rotation != Rotation.NONE)
+            if (rotation != Rotation.NONE)
             {
-                blockstateIn = blockstateIn.withRotation(this.rotation);
+                blockstateIn = blockstateIn.withRotation(rotation);
             }
 
             worldIn.setBlockState(blockpos, blockstateIn, 2);
@@ -278,18 +278,18 @@ public abstract class StructureComponent
 
     protected IBlockState getBlockStateFromPos(World worldIn, int x, int y, int z, StructureBoundingBox boundingboxIn)
     {
-        int i = this.getXWithOffset(x, z);
-        int j = this.getYWithOffset(y);
-        int k = this.getZWithOffset(x, z);
+        int i = getXWithOffset(x, z);
+        int j = getYWithOffset(y);
+        int k = getZWithOffset(x, z);
         BlockPos blockpos = new BlockPos(i, j, k);
         return !boundingboxIn.isVecInside(blockpos) ? Blocks.AIR.getDefaultState() : worldIn.getBlockState(blockpos);
     }
 
     protected int getSkyBrightness(World worldIn, int x, int y, int z, StructureBoundingBox boundingboxIn)
     {
-        int i = this.getXWithOffset(x, z);
-        int j = this.getYWithOffset(y + 1);
-        int k = this.getZWithOffset(x, z);
+        int i = getXWithOffset(x, z);
+        int j = getYWithOffset(y + 1);
+        int k = getZWithOffset(x, z);
         BlockPos blockpos = new BlockPos(i, j, k);
         return !boundingboxIn.isVecInside(blockpos) ? EnumSkyBlock.SKY.defaultLightValue : worldIn.getLightFor(EnumSkyBlock.SKY, blockpos);
     }
@@ -306,7 +306,7 @@ public abstract class StructureComponent
             {
                 for (int k = minZ; k <= maxZ; ++k)
                 {
-                    this.setBlockState(worldIn, Blocks.AIR.getDefaultState(), j, i, k, structurebb);
+                    setBlockState(worldIn, Blocks.AIR.getDefaultState(), j, i, k, structurebb);
                 }
             }
         }
@@ -323,15 +323,15 @@ public abstract class StructureComponent
             {
                 for (int k = zMin; k <= zMax; ++k)
                 {
-                    if (!existingOnly || this.getBlockStateFromPos(worldIn, j, i, k, boundingboxIn).getMaterial() != Material.AIR)
+                    if (!existingOnly || getBlockStateFromPos(worldIn, j, i, k, boundingboxIn).getMaterial() != Material.AIR)
                     {
                         if (i != yMin && i != yMax && j != xMin && j != xMax && k != zMin && k != zMax)
                         {
-                            this.setBlockState(worldIn, insideBlockState, j, i, k, boundingboxIn);
+                            setBlockState(worldIn, insideBlockState, j, i, k, boundingboxIn);
                         }
                         else
                         {
-                            this.setBlockState(worldIn, boundaryBlockState, j, i, k, boundingboxIn);
+                            setBlockState(worldIn, boundaryBlockState, j, i, k, boundingboxIn);
                         }
                     }
                 }
@@ -351,10 +351,10 @@ public abstract class StructureComponent
             {
                 for (int k = minZ; k <= maxZ; ++k)
                 {
-                    if (!alwaysReplace || this.getBlockStateFromPos(worldIn, j, i, k, boundingboxIn).getMaterial() != Material.AIR)
+                    if (!alwaysReplace || getBlockStateFromPos(worldIn, j, i, k, boundingboxIn).getMaterial() != Material.AIR)
                     {
                         blockselector.selectBlocks(rand, j, i, k, i == minY || i == maxY || j == minX || j == maxX || k == minZ || k == maxZ);
-                        this.setBlockState(worldIn, blockselector.getBlockState(), j, i, k, boundingboxIn);
+                        setBlockState(worldIn, blockselector.getBlockState(), j, i, k, boundingboxIn);
                     }
                 }
             }
@@ -369,15 +369,15 @@ public abstract class StructureComponent
             {
                 for (int k = z1; k <= z2; ++k)
                 {
-                    if (rand.nextFloat() <= chance && (!requireNonAir || this.getBlockStateFromPos(worldIn, j, i, k, sbb).getMaterial() != Material.AIR) && (requiredSkylight <= 0 || this.getSkyBrightness(worldIn, j, i, k, sbb) < requiredSkylight))
+                    if (rand.nextFloat() <= chance && (!requireNonAir || getBlockStateFromPos(worldIn, j, i, k, sbb).getMaterial() != Material.AIR) && (requiredSkylight <= 0 || getSkyBrightness(worldIn, j, i, k, sbb) < requiredSkylight))
                     {
                         if (i != y1 && i != y2 && j != x1 && j != x2 && k != z1 && k != z2)
                         {
-                            this.setBlockState(worldIn, state, j, i, k, sbb);
+                            setBlockState(worldIn, state, j, i, k, sbb);
                         }
                         else
                         {
-                            this.setBlockState(worldIn, edgeState, j, i, k, sbb);
+                            setBlockState(worldIn, edgeState, j, i, k, sbb);
                         }
                     }
                 }
@@ -389,7 +389,7 @@ public abstract class StructureComponent
     {
         if (rand.nextFloat() < chance)
         {
-            this.setBlockState(worldIn, blockstateIn, x, y, z, boundingboxIn);
+            setBlockState(worldIn, blockstateIn, x, y, z, boundingboxIn);
         }
     }
 
@@ -413,13 +413,13 @@ public abstract class StructureComponent
                 {
                     float f7 = ((float)k - f4) / (f2 * 0.5F);
 
-                    if (!excludeAir || this.getBlockStateFromPos(worldIn, j, i, k, boundingboxIn).getMaterial() != Material.AIR)
+                    if (!excludeAir || getBlockStateFromPos(worldIn, j, i, k, boundingboxIn).getMaterial() != Material.AIR)
                     {
                         float f8 = f6 * f6 + f5 * f5 + f7 * f7;
 
                         if (f8 <= 1.05F)
                         {
-                            this.setBlockState(worldIn, blockstateIn, j, i, k, boundingboxIn);
+                            setBlockState(worldIn, blockstateIn, j, i, k, boundingboxIn);
                         }
                     }
                 }
@@ -432,7 +432,7 @@ public abstract class StructureComponent
      */
     protected void clearCurrentPositionBlocksUpwards(World worldIn, int x, int y, int z, StructureBoundingBox structurebb)
     {
-        BlockPos blockpos = new BlockPos(this.getXWithOffset(x, z), this.getYWithOffset(y), this.getZWithOffset(x, z));
+        BlockPos blockpos = new BlockPos(getXWithOffset(x, z), getYWithOffset(y), getZWithOffset(x, z));
 
         if (structurebb.isVecInside(blockpos))
         {
@@ -449,9 +449,9 @@ public abstract class StructureComponent
      */
     protected void replaceAirAndLiquidDownwards(World worldIn, IBlockState blockstateIn, int x, int y, int z, StructureBoundingBox boundingboxIn)
     {
-        int i = this.getXWithOffset(x, z);
-        int j = this.getYWithOffset(y);
-        int k = this.getZWithOffset(x, z);
+        int i = getXWithOffset(x, z);
+        int j = getYWithOffset(y);
+        int k = getZWithOffset(x, z);
 
         if (boundingboxIn.isVecInside(new BlockPos(i, j, k)))
         {
@@ -468,8 +468,8 @@ public abstract class StructureComponent
      */
     protected boolean generateChest(World worldIn, StructureBoundingBox structurebb, Random randomIn, int x, int y, int z, ResourceLocation loot)
     {
-        BlockPos blockpos = new BlockPos(this.getXWithOffset(x, z), this.getYWithOffset(y), this.getZWithOffset(x, z));
-        return this.generateChest(worldIn, structurebb, randomIn, blockpos, loot, (IBlockState)null);
+        BlockPos blockpos = new BlockPos(getXWithOffset(x, z), getYWithOffset(y), getZWithOffset(x, z));
+        return generateChest(worldIn, structurebb, randomIn, blockpos, loot, (IBlockState)null);
     }
 
     protected boolean generateChest(World p_191080_1_, StructureBoundingBox p_191080_2_, Random p_191080_3_, BlockPos p_191080_4_, ResourceLocation p_191080_5_, @Nullable IBlockState p_191080_6_)
@@ -499,11 +499,11 @@ public abstract class StructureComponent
 
     protected boolean createDispenser(World worldIn, StructureBoundingBox sbb, Random rand, int x, int y, int z, EnumFacing facing, ResourceLocation lootTableIn)
     {
-        BlockPos blockpos = new BlockPos(this.getXWithOffset(x, z), this.getYWithOffset(y), this.getZWithOffset(x, z));
+        BlockPos blockpos = new BlockPos(getXWithOffset(x, z), getYWithOffset(y), getZWithOffset(x, z));
 
         if (sbb.isVecInside(blockpos) && worldIn.getBlockState(blockpos).getBlock() != Blocks.DISPENSER)
         {
-            this.setBlockState(worldIn, Blocks.DISPENSER.getDefaultState().withProperty(BlockDispenser.FACING, facing), x, y, z, sbb);
+            setBlockState(worldIn, Blocks.DISPENSER.getDefaultState().withProperty(BlockDispenser.FACING, facing), x, y, z, sbb);
             TileEntity tileentity = worldIn.getTileEntity(blockpos);
 
             if (tileentity instanceof TileEntityDispenser)
@@ -521,52 +521,52 @@ public abstract class StructureComponent
 
     protected void generateDoor(World worldIn, StructureBoundingBox sbb, Random rand, int x, int y, int z, EnumFacing facing, BlockDoor door)
     {
-        this.setBlockState(worldIn, door.getDefaultState().withProperty(BlockDoor.FACING, facing), x, y, z, sbb);
-        this.setBlockState(worldIn, door.getDefaultState().withProperty(BlockDoor.FACING, facing).withProperty(BlockDoor.HALF, BlockDoor.EnumDoorHalf.UPPER), x, y + 1, z, sbb);
+        setBlockState(worldIn, door.getDefaultState().withProperty(BlockDoor.FACING, facing), x, y, z, sbb);
+        setBlockState(worldIn, door.getDefaultState().withProperty(BlockDoor.FACING, facing).withProperty(BlockDoor.HALF, BlockDoor.EnumDoorHalf.UPPER), x, y + 1, z, sbb);
     }
 
     public void offset(int x, int y, int z)
     {
-        this.boundingBox.offset(x, y, z);
+        boundingBox.offset(x, y, z);
     }
 
     @Nullable
     public EnumFacing getCoordBaseMode()
     {
-        return this.coordBaseMode;
+        return coordBaseMode;
     }
 
     public void setCoordBaseMode(@Nullable EnumFacing facing)
     {
-        this.coordBaseMode = facing;
+        coordBaseMode = facing;
 
         if (facing == null)
         {
-            this.rotation = Rotation.NONE;
-            this.mirror = Mirror.NONE;
+            rotation = Rotation.NONE;
+            mirror = Mirror.NONE;
         }
         else
         {
             switch (facing)
             {
                 case SOUTH:
-                    this.mirror = Mirror.LEFT_RIGHT;
-                    this.rotation = Rotation.NONE;
+                    mirror = Mirror.LEFT_RIGHT;
+                    rotation = Rotation.NONE;
                     break;
 
                 case WEST:
-                    this.mirror = Mirror.LEFT_RIGHT;
-                    this.rotation = Rotation.CLOCKWISE_90;
+                    mirror = Mirror.LEFT_RIGHT;
+                    rotation = Rotation.CLOCKWISE_90;
                     break;
 
                 case EAST:
-                    this.mirror = Mirror.NONE;
-                    this.rotation = Rotation.CLOCKWISE_90;
+                    mirror = Mirror.NONE;
+                    rotation = Rotation.CLOCKWISE_90;
                     break;
 
                 default:
-                    this.mirror = Mirror.NONE;
-                    this.rotation = Rotation.NONE;
+                    mirror = Mirror.NONE;
+                    rotation = Rotation.NONE;
             }
         }
     }
@@ -579,7 +579,7 @@ public abstract class StructureComponent
 
         public IBlockState getBlockState()
         {
-            return this.blockstate;
+            return blockstate;
         }
     }
 }

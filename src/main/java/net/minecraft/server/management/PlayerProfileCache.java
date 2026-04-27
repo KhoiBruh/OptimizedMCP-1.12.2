@@ -69,12 +69,12 @@ public class PlayerProfileCache
 
     public PlayerProfileCache(GameProfileRepository profileRepoIn, File usercacheFileIn)
     {
-        this.profileRepo = profileRepoIn;
-        this.usercacheFile = usercacheFileIn;
+        profileRepo = profileRepoIn;
+        usercacheFile = usercacheFileIn;
         GsonBuilder gsonbuilder = new GsonBuilder();
         gsonbuilder.registerTypeHierarchyAdapter(PlayerProfileCache.ProfileEntry.class, new PlayerProfileCache.Serializer());
-        this.gson = gsonbuilder.create();
-        this.load();
+        gson = gsonbuilder.create();
+        load();
     }
 
     private static GameProfile lookupProfile(GameProfileRepository profileRepoIn, String name)
@@ -118,7 +118,7 @@ public class PlayerProfileCache
      */
     public void addEntry(GameProfile gameProfile)
     {
-        this.addEntry(gameProfile, (Date)null);
+        addEntry(gameProfile, (Date)null);
     }
 
     /**
@@ -139,17 +139,17 @@ public class PlayerProfileCache
         String s = gameProfile.getName().toLowerCase(Locale.ROOT);
         PlayerProfileCache.ProfileEntry playerprofilecache$profileentry = new PlayerProfileCache.ProfileEntry(gameProfile, expirationDate);
 
-        if (this.uuidToProfileEntryMap.containsKey(uuid))
+        if (uuidToProfileEntryMap.containsKey(uuid))
         {
-            PlayerProfileCache.ProfileEntry playerprofilecache$profileentry1 = this.uuidToProfileEntryMap.get(uuid);
-            this.usernameToProfileEntryMap.remove(playerprofilecache$profileentry1.getGameProfile().getName().toLowerCase(Locale.ROOT));
-            this.gameProfiles.remove(gameProfile);
+            PlayerProfileCache.ProfileEntry playerprofilecache$profileentry1 = uuidToProfileEntryMap.get(uuid);
+            usernameToProfileEntryMap.remove(playerprofilecache$profileentry1.getGameProfile().getName().toLowerCase(Locale.ROOT));
+            gameProfiles.remove(gameProfile);
         }
 
-        this.usernameToProfileEntryMap.put(gameProfile.getName().toLowerCase(Locale.ROOT), playerprofilecache$profileentry);
-        this.uuidToProfileEntryMap.put(uuid, playerprofilecache$profileentry);
-        this.gameProfiles.addFirst(gameProfile);
-        this.save();
+        usernameToProfileEntryMap.put(gameProfile.getName().toLowerCase(Locale.ROOT), playerprofilecache$profileentry);
+        uuidToProfileEntryMap.put(uuid, playerprofilecache$profileentry);
+        gameProfiles.addFirst(gameProfile);
+        save();
     }
 
     @Nullable
@@ -161,34 +161,34 @@ public class PlayerProfileCache
     public GameProfile getGameProfileForUsername(String username)
     {
         String s = username.toLowerCase(Locale.ROOT);
-        PlayerProfileCache.ProfileEntry playerprofilecache$profileentry = this.usernameToProfileEntryMap.get(s);
+        PlayerProfileCache.ProfileEntry playerprofilecache$profileentry = usernameToProfileEntryMap.get(s);
 
         if (playerprofilecache$profileentry != null && (new Date()).getTime() >= playerprofilecache$profileentry.expirationDate.getTime())
         {
-            this.uuidToProfileEntryMap.remove(playerprofilecache$profileentry.getGameProfile().getId());
-            this.usernameToProfileEntryMap.remove(playerprofilecache$profileentry.getGameProfile().getName().toLowerCase(Locale.ROOT));
-            this.gameProfiles.remove(playerprofilecache$profileentry.getGameProfile());
+            uuidToProfileEntryMap.remove(playerprofilecache$profileentry.getGameProfile().getId());
+            usernameToProfileEntryMap.remove(playerprofilecache$profileentry.getGameProfile().getName().toLowerCase(Locale.ROOT));
+            gameProfiles.remove(playerprofilecache$profileentry.getGameProfile());
             playerprofilecache$profileentry = null;
         }
 
         if (playerprofilecache$profileentry != null)
         {
             GameProfile gameprofile = playerprofilecache$profileentry.getGameProfile();
-            this.gameProfiles.remove(gameprofile);
-            this.gameProfiles.addFirst(gameprofile);
+            gameProfiles.remove(gameprofile);
+            gameProfiles.addFirst(gameprofile);
         }
         else
         {
-            GameProfile gameprofile1 = lookupProfile(this.profileRepo, s);
+            GameProfile gameprofile1 = lookupProfile(profileRepo, s);
 
             if (gameprofile1 != null)
             {
-                this.addEntry(gameprofile1);
-                playerprofilecache$profileentry = this.usernameToProfileEntryMap.get(s);
+                addEntry(gameprofile1);
+                playerprofilecache$profileentry = usernameToProfileEntryMap.get(s);
             }
         }
 
-        this.save();
+        save();
         return playerprofilecache$profileentry == null ? null : playerprofilecache$profileentry.getGameProfile();
     }
 
@@ -197,7 +197,7 @@ public class PlayerProfileCache
      */
     public String[] getUsernames()
     {
-        List<String> list = Lists.newArrayList(this.usernameToProfileEntryMap.keySet());
+        List<String> list = Lists.newArrayList(usernameToProfileEntryMap.keySet());
         return (String[])list.toArray(new String[list.size()]);
     }
 
@@ -208,7 +208,7 @@ public class PlayerProfileCache
      */
     public GameProfile getProfileByUUID(UUID uuid)
     {
-        PlayerProfileCache.ProfileEntry playerprofilecache$profileentry = this.uuidToProfileEntryMap.get(uuid);
+        PlayerProfileCache.ProfileEntry playerprofilecache$profileentry = uuidToProfileEntryMap.get(uuid);
         return playerprofilecache$profileentry == null ? null : playerprofilecache$profileentry.getGameProfile();
     }
 
@@ -217,13 +217,13 @@ public class PlayerProfileCache
      */
     private PlayerProfileCache.ProfileEntry getByUUID(UUID uuid)
     {
-        PlayerProfileCache.ProfileEntry playerprofilecache$profileentry = this.uuidToProfileEntryMap.get(uuid);
+        PlayerProfileCache.ProfileEntry playerprofilecache$profileentry = uuidToProfileEntryMap.get(uuid);
 
         if (playerprofilecache$profileentry != null)
         {
             GameProfile gameprofile = playerprofilecache$profileentry.getGameProfile();
-            this.gameProfiles.remove(gameprofile);
-            this.gameProfiles.addFirst(gameprofile);
+            gameProfiles.remove(gameprofile);
+            gameProfiles.addFirst(gameprofile);
         }
 
         return playerprofilecache$profileentry;
@@ -238,11 +238,11 @@ public class PlayerProfileCache
 
         try
         {
-            bufferedreader = Files.newReader(this.usercacheFile, StandardCharsets.UTF_8);
-            List<PlayerProfileCache.ProfileEntry> list = (List)JsonUtils.fromJson(this.gson, bufferedreader, TYPE);
-            this.usernameToProfileEntryMap.clear();
-            this.uuidToProfileEntryMap.clear();
-            this.gameProfiles.clear();
+            bufferedreader = Files.newReader(usercacheFile, StandardCharsets.UTF_8);
+            List<PlayerProfileCache.ProfileEntry> list = (List)JsonUtils.fromJson(gson, bufferedreader, TYPE);
+            usernameToProfileEntryMap.clear();
+            uuidToProfileEntryMap.clear();
+            gameProfiles.clear();
 
             if (list != null)
             {
@@ -250,7 +250,7 @@ public class PlayerProfileCache
                 {
                     if (playerprofilecache$profileentry != null)
                     {
-                        this.addEntry(playerprofilecache$profileentry.getGameProfile(), playerprofilecache$profileentry.getExpirationDate());
+                        addEntry(playerprofilecache$profileentry.getGameProfile(), playerprofilecache$profileentry.getExpirationDate());
                     }
                 }
             }
@@ -274,12 +274,12 @@ public class PlayerProfileCache
      */
     public void save()
     {
-        String s = this.gson.toJson(this.getEntriesWithLimit(1000));
+        String s = gson.toJson(getEntriesWithLimit(1000));
         BufferedWriter bufferedwriter = null;
 
         try
         {
-            bufferedwriter = Files.newWriter(this.usercacheFile, StandardCharsets.UTF_8);
+            bufferedwriter = Files.newWriter(usercacheFile, StandardCharsets.UTF_8);
             bufferedwriter.write(s);
             return;
         }
@@ -301,9 +301,9 @@ public class PlayerProfileCache
     {
         List<PlayerProfileCache.ProfileEntry> list = Lists.<PlayerProfileCache.ProfileEntry>newArrayList();
 
-        for (GameProfile gameprofile : Lists.newArrayList(Iterators.limit(this.gameProfiles.iterator(), limitSize)))
+        for (GameProfile gameprofile : Lists.newArrayList(Iterators.limit(gameProfiles.iterator(), limitSize)))
         {
-            PlayerProfileCache.ProfileEntry playerprofilecache$profileentry = this.getByUUID(gameprofile.getId());
+            PlayerProfileCache.ProfileEntry playerprofilecache$profileentry = getByUUID(gameprofile.getId());
 
             if (playerprofilecache$profileentry != null)
             {
@@ -321,18 +321,18 @@ public class PlayerProfileCache
 
         private ProfileEntry(GameProfile gameProfileIn, Date expirationDateIn)
         {
-            this.gameProfile = gameProfileIn;
-            this.expirationDate = expirationDateIn;
+            gameProfile = gameProfileIn;
+            expirationDate = expirationDateIn;
         }
 
         public GameProfile getGameProfile()
         {
-            return this.gameProfile;
+            return gameProfile;
         }
 
         public Date getExpirationDate()
         {
-            return this.expirationDate;
+            return expirationDate;
         }
     }
 

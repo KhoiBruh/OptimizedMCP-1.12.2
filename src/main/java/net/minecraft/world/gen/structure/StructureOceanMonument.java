@@ -29,8 +29,8 @@ public class StructureOceanMonument extends MapGenStructure
 
     public StructureOceanMonument()
     {
-        this.spacing = 32;
-        this.separation = 5;
+        spacing = 32;
+        separation = 5;
     }
 
     public StructureOceanMonument(Map<String, String> p_i45608_1_)
@@ -41,11 +41,11 @@ public class StructureOceanMonument extends MapGenStructure
         {
             if (((String)entry.getKey()).equals("spacing"))
             {
-                this.spacing = MathHelper.getInt(entry.getValue(), this.spacing, 1);
+                spacing = MathHelper.getInt(entry.getValue(), spacing, 1);
             }
             else if (((String)entry.getKey()).equals("separation"))
             {
-                this.separation = MathHelper.getInt(entry.getValue(), this.separation, 1);
+                separation = MathHelper.getInt(entry.getValue(), separation, 1);
             }
         }
     }
@@ -62,30 +62,30 @@ public class StructureOceanMonument extends MapGenStructure
 
         if (chunkX < 0)
         {
-            chunkX -= this.spacing - 1;
+            chunkX -= spacing - 1;
         }
 
         if (chunkZ < 0)
         {
-            chunkZ -= this.spacing - 1;
+            chunkZ -= spacing - 1;
         }
 
-        int k = chunkX / this.spacing;
-        int l = chunkZ / this.spacing;
-        Random random = this.world.setRandomSeed(k, l, 10387313);
-        k = k * this.spacing;
-        l = l * this.spacing;
-        k = k + (random.nextInt(this.spacing - this.separation) + random.nextInt(this.spacing - this.separation)) / 2;
-        l = l + (random.nextInt(this.spacing - this.separation) + random.nextInt(this.spacing - this.separation)) / 2;
+        int k = chunkX / spacing;
+        int l = chunkZ / spacing;
+        Random random = world.setRandomSeed(k, l, 10387313);
+        k = k * spacing;
+        l = l * spacing;
+        k = k + (random.nextInt(spacing - separation) + random.nextInt(spacing - separation)) / 2;
+        l = l + (random.nextInt(spacing - separation) + random.nextInt(spacing - separation)) / 2;
 
         if (i == k && j == l)
         {
-            if (!this.world.getBiomeProvider().areBiomesViable(i * 16 + 8, j * 16 + 8, 16, SPAWN_BIOMES))
+            if (!world.getBiomeProvider().areBiomesViable(i * 16 + 8, j * 16 + 8, 16, SPAWN_BIOMES))
             {
                 return false;
             }
 
-            boolean flag = this.world.getBiomeProvider().areBiomesViable(i * 16 + 8, j * 16 + 8, 29, WATER_BIOMES);
+            boolean flag = world.getBiomeProvider().areBiomesViable(i * 16 + 8, j * 16 + 8, 29, WATER_BIOMES);
 
             if (flag)
             {
@@ -98,13 +98,13 @@ public class StructureOceanMonument extends MapGenStructure
 
     public BlockPos getNearestStructurePos(World worldIn, BlockPos pos, boolean findUnexplored)
     {
-        this.world = worldIn;
-        return findNearestStructurePosBySpacing(worldIn, this, pos, this.spacing, this.separation, 10387313, true, 100, findUnexplored);
+        world = worldIn;
+        return findNearestStructurePosBySpacing(worldIn, this, pos, spacing, separation, 10387313, true, 100, findUnexplored);
     }
 
     protected StructureStart getStructureStart(int chunkX, int chunkZ)
     {
-        return new StructureOceanMonument.StartMonument(this.world, this.rand, chunkX, chunkZ);
+        return new StructureOceanMonument.StartMonument(world, rand, chunkX, chunkZ);
     }
 
     public List<Biome.SpawnListEntry> getMonsters()
@@ -129,7 +129,7 @@ public class StructureOceanMonument extends MapGenStructure
         public StartMonument(World worldIn, Random random, int chunkX, int chunkZ)
         {
             super(chunkX, chunkZ);
-            this.create(worldIn, random, chunkX, chunkZ);
+            create(worldIn, random, chunkX, chunkZ);
         }
 
         private void create(World worldIn, Random random, int chunkX, int chunkZ)
@@ -143,17 +143,17 @@ public class StructureOceanMonument extends MapGenStructure
             int i1 = chunkX * 16 + 8 - 29;
             int j1 = chunkZ * 16 + 8 - 29;
             EnumFacing enumfacing = EnumFacing.Plane.HORIZONTAL.random(random);
-            this.components.add(new StructureOceanMonumentPieces.MonumentBuilding(random, i1, j1, enumfacing));
-            this.updateBoundingBox();
-            this.wasCreated = true;
+            components.add(new StructureOceanMonumentPieces.MonumentBuilding(random, i1, j1, enumfacing));
+            updateBoundingBox();
+            wasCreated = true;
         }
 
         public void generateStructure(World worldIn, Random rand, StructureBoundingBox structurebb)
         {
-            if (!this.wasCreated)
+            if (!wasCreated)
             {
-                this.components.clear();
-                this.create(worldIn, rand, this.getChunkPosX(), this.getChunkPosZ());
+                components.clear();
+                create(worldIn, rand, getChunkPosX(), getChunkPosZ());
             }
 
             super.generateStructure(worldIn, rand, structurebb);
@@ -161,13 +161,13 @@ public class StructureOceanMonument extends MapGenStructure
 
         public boolean isValidForPostProcess(ChunkPos pair)
         {
-            return this.processed.contains(pair) ? false : super.isValidForPostProcess(pair);
+            return processed.contains(pair) ? false : super.isValidForPostProcess(pair);
         }
 
         public void notifyPostProcessAt(ChunkPos pair)
         {
             super.notifyPostProcessAt(pair);
-            this.processed.add(pair);
+            processed.add(pair);
         }
 
         public void writeToNBT(NBTTagCompound tagCompound)
@@ -175,7 +175,7 @@ public class StructureOceanMonument extends MapGenStructure
             super.writeToNBT(tagCompound);
             NBTTagList nbttaglist = new NBTTagList();
 
-            for (ChunkPos chunkpos : this.processed)
+            for (ChunkPos chunkpos : processed)
             {
                 NBTTagCompound nbttagcompound = new NBTTagCompound();
                 nbttagcompound.setInteger("X", chunkpos.x);
@@ -197,7 +197,7 @@ public class StructureOceanMonument extends MapGenStructure
                 for (int i = 0; i < nbttaglist.tagCount(); ++i)
                 {
                     NBTTagCompound nbttagcompound = nbttaglist.getCompoundTagAt(i);
-                    this.processed.add(new ChunkPos(nbttagcompound.getInteger("X"), nbttagcompound.getInteger("Z")));
+                    processed.add(new ChunkPos(nbttagcompound.getInteger("X"), nbttagcompound.getInteger("Z")));
                 }
             }
         }

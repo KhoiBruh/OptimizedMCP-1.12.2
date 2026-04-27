@@ -15,14 +15,14 @@ public abstract class LootFunction
 
     protected LootFunction(LootCondition[] conditionsIn)
     {
-        this.conditions = conditionsIn;
+        conditions = conditionsIn;
     }
 
     public abstract ItemStack apply(ItemStack stack, Random rand, LootContext context);
 
     public LootCondition[] getConditions()
     {
-        return this.conditions;
+        return conditions;
     }
 
     public abstract static class Serializer<T extends LootFunction>
@@ -32,18 +32,18 @@ public abstract class LootFunction
 
         protected Serializer(ResourceLocation location, Class<T> clazz)
         {
-            this.lootTableLocation = location;
-            this.functionClass = clazz;
+            lootTableLocation = location;
+            functionClass = clazz;
         }
 
         public ResourceLocation getFunctionName()
         {
-            return this.lootTableLocation;
+            return lootTableLocation;
         }
 
         public Class<T> getFunctionClass()
         {
-            return this.functionClass;
+            return functionClass;
         }
 
         public abstract void serialize(JsonObject object, T functionClazz, JsonSerializationContext serializationContext);

@@ -14,16 +14,16 @@ public abstract class TileEntityLockable extends TileEntity implements ILockable
     public void readFromNBT(NBTTagCompound compound)
     {
         super.readFromNBT(compound);
-        this.code = LockCode.fromNBT(compound);
+        code = LockCode.fromNBT(compound);
     }
 
     public NBTTagCompound writeToNBT(NBTTagCompound compound)
     {
         super.writeToNBT(compound);
 
-        if (this.code != null)
+        if (code != null)
         {
-            this.code.toNBT(compound);
+            code.toNBT(compound);
         }
 
         return compound;
@@ -31,12 +31,12 @@ public abstract class TileEntityLockable extends TileEntity implements ILockable
 
     public boolean isLocked()
     {
-        return this.code != null && !this.code.isEmpty();
+        return code != null && !code.isEmpty();
     }
 
     public LockCode getLockCode()
     {
-        return this.code;
+        return code;
     }
 
     public void setLockCode(LockCode code)
@@ -49,6 +49,6 @@ public abstract class TileEntityLockable extends TileEntity implements ILockable
      */
     public ITextComponent getDisplayName()
     {
-        return (ITextComponent)(this.hasCustomName() ? new TextComponentString(this.getName()) : new TextComponentTranslation(this.getName(), new Object[0]));
+        return (ITextComponent)(hasCustomName() ? new TextComponentString(getName()) : new TextComponentTranslation(getName(), new Object[0]));
     }
 }

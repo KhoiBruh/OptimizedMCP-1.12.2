@@ -25,7 +25,7 @@ public class ChunkGeneratorDebug implements IChunkGenerator
 
     public ChunkGeneratorDebug(World worldIn)
     {
-        this.world = worldIn;
+        world = worldIn;
     }
 
     /**
@@ -51,9 +51,9 @@ public class ChunkGeneratorDebug implements IChunkGenerator
             }
         }
 
-        Chunk chunk = new Chunk(this.world, chunkprimer, x, z);
+        Chunk chunk = new Chunk(world, chunkprimer, x, z);
         chunk.generateSkylightMap();
-        Biome[] abiome = this.world.getBiomeProvider().getBiomes((Biome[])null, x * 16, z * 16, 16, 16);
+        Biome[] abiome = world.getBiomeProvider().getBiomes((Biome[])null, x * 16, z * 16, 16, 16);
         byte[] abyte = chunk.getBiomeArray();
 
         for (int i1 = 0; i1 < abyte.length; ++i1)
@@ -108,7 +108,7 @@ public class ChunkGeneratorDebug implements IChunkGenerator
 
     public List<Biome.SpawnListEntry> getPossibleCreatures(EnumCreatureType creatureType, BlockPos pos)
     {
-        Biome biome = this.world.getBiome(pos);
+        Biome biome = world.getBiome(pos);
         return biome.getSpawnableList(creatureType);
     }
 

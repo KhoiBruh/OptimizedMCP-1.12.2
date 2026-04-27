@@ -24,7 +24,7 @@ public class SlotCrafting extends Slot
     {
         super(inventoryIn, slotIndex, xPosition, yPosition);
         this.player = player;
-        this.craftMatrix = craftingInventory;
+        craftMatrix = craftingInventory;
     }
 
     /**
@@ -41,9 +41,9 @@ public class SlotCrafting extends Slot
      */
     public ItemStack decrStackSize(int amount)
     {
-        if (this.getHasStack())
+        if (getHasStack())
         {
-            this.amountCrafted += Math.min(amount, this.getStack().getCount());
+            amountCrafted += Math.min(amount, getStack().getCount());
         }
 
         return super.decrStackSize(amount);
@@ -55,13 +55,13 @@ public class SlotCrafting extends Slot
      */
     protected void onCrafting(ItemStack stack, int amount)
     {
-        this.amountCrafted += amount;
-        this.onCrafting(stack);
+        amountCrafted += amount;
+        onCrafting(stack);
     }
 
     protected void onSwapCraft(int p_190900_1_)
     {
-        this.amountCrafted += p_190900_1_;
+        amountCrafted += p_190900_1_;
     }
 
     /**
@@ -69,52 +69,52 @@ public class SlotCrafting extends Slot
      */
     protected void onCrafting(ItemStack stack)
     {
-        if (this.amountCrafted > 0)
+        if (amountCrafted > 0)
         {
-            stack.onCrafting(this.player.world, this.player, this.amountCrafted);
+            stack.onCrafting(player.world, player, amountCrafted);
         }
 
-        this.amountCrafted = 0;
-        InventoryCraftResult inventorycraftresult = (InventoryCraftResult)this.inventory;
+        amountCrafted = 0;
+        InventoryCraftResult inventorycraftresult = (InventoryCraftResult) inventory;
         IRecipe irecipe = inventorycraftresult.getRecipeUsed();
 
         if (irecipe != null && !irecipe.isDynamic())
         {
-            this.player.unlockRecipes(Lists.newArrayList(irecipe));
+            player.unlockRecipes(Lists.newArrayList(irecipe));
             inventorycraftresult.setRecipeUsed((IRecipe)null);
         }
     }
 
     public ItemStack onTake(EntityPlayer thePlayer, ItemStack stack)
     {
-        this.onCrafting(stack);
-        NonNullList<ItemStack> nonnulllist = CraftingManager.getRemainingItems(this.craftMatrix, thePlayer.world);
+        onCrafting(stack);
+        NonNullList<ItemStack> nonnulllist = CraftingManager.getRemainingItems(craftMatrix, thePlayer.world);
 
         for (int i = 0; i < nonnulllist.size(); ++i)
         {
-            ItemStack itemstack = this.craftMatrix.getStackInSlot(i);
+            ItemStack itemstack = craftMatrix.getStackInSlot(i);
             ItemStack itemstack1 = nonnulllist.get(i);
 
             if (!itemstack.isEmpty())
             {
-                this.craftMatrix.decrStackSize(i, 1);
-                itemstack = this.craftMatrix.getStackInSlot(i);
+                craftMatrix.decrStackSize(i, 1);
+                itemstack = craftMatrix.getStackInSlot(i);
             }
 
             if (!itemstack1.isEmpty())
             {
                 if (itemstack.isEmpty())
                 {
-                    this.craftMatrix.setInventorySlotContents(i, itemstack1);
+                    craftMatrix.setInventorySlotContents(i, itemstack1);
                 }
                 else if (ItemStack.areItemsEqual(itemstack, itemstack1) && ItemStack.areItemStackTagsEqual(itemstack, itemstack1))
                 {
                     itemstack1.grow(itemstack.getCount());
-                    this.craftMatrix.setInventorySlotContents(i, itemstack1);
+                    craftMatrix.setInventorySlotContents(i, itemstack1);
                 }
-                else if (!this.player.inventory.addItemStackToInventory(itemstack1))
+                else if (!player.inventory.addItemStackToInventory(itemstack1))
                 {
-                    this.player.dropItem(itemstack1, false);
+                    player.dropItem(itemstack1, false);
                 }
             }
         }

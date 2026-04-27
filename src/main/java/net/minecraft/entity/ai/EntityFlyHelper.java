@@ -13,46 +13,46 @@ public class EntityFlyHelper extends EntityMoveHelper
 
     public void onUpdateMoveHelper()
     {
-        if (this.action == EntityMoveHelper.Action.MOVE_TO)
+        if (action == EntityMoveHelper.Action.MOVE_TO)
         {
-            this.action = EntityMoveHelper.Action.WAIT;
-            this.entity.setNoGravity(true);
-            double d0 = this.posX - this.entity.posX;
-            double d1 = this.posY - this.entity.posY;
-            double d2 = this.posZ - this.entity.posZ;
+            action = EntityMoveHelper.Action.WAIT;
+            entity.setNoGravity(true);
+            double d0 = posX - entity.posX;
+            double d1 = posY - entity.posY;
+            double d2 = posZ - entity.posZ;
             double d3 = d0 * d0 + d1 * d1 + d2 * d2;
 
             if (d3 < 2.500000277905201E-7D)
             {
-                this.entity.setMoveVertical(0.0F);
-                this.entity.setMoveForward(0.0F);
+                entity.setMoveVertical(0.0F);
+                entity.setMoveForward(0.0F);
                 return;
             }
 
             float f = (float)(MathHelper.atan2(d2, d0) * (180D / Math.PI)) - 90.0F;
-            this.entity.rotationYaw = this.limitAngle(this.entity.rotationYaw, f, 10.0F);
+            entity.rotationYaw = limitAngle(entity.rotationYaw, f, 10.0F);
             float f1;
 
-            if (this.entity.onGround)
+            if (entity.onGround)
             {
-                f1 = (float)(this.speed * this.entity.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue());
+                f1 = (float)(speed * entity.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue());
             }
             else
             {
-                f1 = (float)(this.speed * this.entity.getEntityAttribute(SharedMonsterAttributes.FLYING_SPEED).getAttributeValue());
+                f1 = (float)(speed * entity.getEntityAttribute(SharedMonsterAttributes.FLYING_SPEED).getAttributeValue());
             }
 
-            this.entity.setAIMoveSpeed(f1);
+            entity.setAIMoveSpeed(f1);
             double d4 = (double)MathHelper.sqrt(d0 * d0 + d2 * d2);
             float f2 = (float)(-(MathHelper.atan2(d1, d4) * (180D / Math.PI)));
-            this.entity.rotationPitch = this.limitAngle(this.entity.rotationPitch, f2, 10.0F);
-            this.entity.setMoveVertical(d1 > 0.0D ? f1 : -f1);
+            entity.rotationPitch = limitAngle(entity.rotationPitch, f2, 10.0F);
+            entity.setMoveVertical(d1 > 0.0D ? f1 : -f1);
         }
         else
         {
-            this.entity.setNoGravity(false);
-            this.entity.setMoveVertical(0.0F);
-            this.entity.setMoveForward(0.0F);
+            entity.setNoGravity(false);
+            entity.setMoveVertical(0.0F);
+            entity.setMoveForward(0.0F);
         }
     }
 }

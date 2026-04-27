@@ -17,8 +17,8 @@ public class GuiVideoSettings extends GuiScreen
 
     public GuiVideoSettings(GuiScreen parentScreenIn, GameSettings gameSettingsIn)
     {
-        this.parentGuiScreen = parentScreenIn;
-        this.guiGameSettings = gameSettingsIn;
+        parentGuiScreen = parentScreenIn;
+        guiGameSettings = gameSettingsIn;
     }
 
     /**
@@ -27,13 +27,13 @@ public class GuiVideoSettings extends GuiScreen
      */
     public void initGui()
     {
-        this.screenTitle = I18n.format("options.videoTitle");
-        this.buttonList.clear();
-        this.buttonList.add(new GuiButton(200, this.width / 2 - 100, this.height - 27, I18n.format("gui.done")));
+        screenTitle = I18n.format("options.videoTitle");
+        buttonList.clear();
+        buttonList.add(new GuiButton(200, width / 2 - 100, height - 27, I18n.format("gui.done")));
 
         if (OpenGlHelper.vboSupported)
         {
-            this.optionsRowList = new GuiOptionsRowList(this.mc, this.width, this.height, 32, this.height - 32, 25, VIDEO_OPTIONS);
+            optionsRowList = new GuiOptionsRowList(mc, width, height, 32, height - 32, 25, VIDEO_OPTIONS);
         }
         else
         {
@@ -51,7 +51,7 @@ public class GuiVideoSettings extends GuiScreen
                 ++i;
             }
 
-            this.optionsRowList = new GuiOptionsRowList(this.mc, this.width, this.height, 32, this.height - 32, 25, agamesettings$options);
+            optionsRowList = new GuiOptionsRowList(mc, width, height, 32, height - 32, 25, agamesettings$options);
         }
     }
 
@@ -61,7 +61,7 @@ public class GuiVideoSettings extends GuiScreen
     public void handleMouseInput() throws IOException
     {
         super.handleMouseInput();
-        this.optionsRowList.handleMouseInput();
+        optionsRowList.handleMouseInput();
     }
 
     /**
@@ -72,7 +72,7 @@ public class GuiVideoSettings extends GuiScreen
     {
         if (keyCode == 1)
         {
-            this.mc.gameSettings.saveOptions();
+            mc.gameSettings.saveOptions();
         }
 
         super.keyTyped(typedChar, keyCode);
@@ -87,8 +87,8 @@ public class GuiVideoSettings extends GuiScreen
         {
             if (button.id == 200)
             {
-                this.mc.gameSettings.saveOptions();
-                this.mc.displayGuiScreen(this.parentGuiScreen);
+                mc.gameSettings.saveOptions();
+                mc.displayGuiScreen(parentGuiScreen);
             }
         }
     }
@@ -98,16 +98,16 @@ public class GuiVideoSettings extends GuiScreen
      */
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException
     {
-        int i = this.guiGameSettings.guiScale;
+        int i = guiGameSettings.guiScale;
         super.mouseClicked(mouseX, mouseY, mouseButton);
-        this.optionsRowList.mouseClicked(mouseX, mouseY, mouseButton);
+        optionsRowList.mouseClicked(mouseX, mouseY, mouseButton);
 
-        if (this.guiGameSettings.guiScale != i)
+        if (guiGameSettings.guiScale != i)
         {
-            ScaledResolution scaledresolution = new ScaledResolution(this.mc);
+            ScaledResolution scaledresolution = new ScaledResolution(mc);
             int j = scaledresolution.getScaledWidth();
             int k = scaledresolution.getScaledHeight();
-            this.setWorldAndResolution(this.mc, j, k);
+            setWorldAndResolution(mc, j, k);
         }
     }
 
@@ -116,16 +116,16 @@ public class GuiVideoSettings extends GuiScreen
      */
     protected void mouseReleased(int mouseX, int mouseY, int state)
     {
-        int i = this.guiGameSettings.guiScale;
+        int i = guiGameSettings.guiScale;
         super.mouseReleased(mouseX, mouseY, state);
-        this.optionsRowList.mouseReleased(mouseX, mouseY, state);
+        optionsRowList.mouseReleased(mouseX, mouseY, state);
 
-        if (this.guiGameSettings.guiScale != i)
+        if (guiGameSettings.guiScale != i)
         {
-            ScaledResolution scaledresolution = new ScaledResolution(this.mc);
+            ScaledResolution scaledresolution = new ScaledResolution(mc);
             int j = scaledresolution.getScaledWidth();
             int k = scaledresolution.getScaledHeight();
-            this.setWorldAndResolution(this.mc, j, k);
+            setWorldAndResolution(mc, j, k);
         }
     }
 
@@ -134,9 +134,9 @@ public class GuiVideoSettings extends GuiScreen
      */
     public void drawScreen(int mouseX, int mouseY, float partialTicks)
     {
-        this.drawDefaultBackground();
-        this.optionsRowList.drawScreen(mouseX, mouseY, partialTicks);
-        this.drawCenteredString(this.fontRenderer, this.screenTitle, this.width / 2, 5, 16777215);
+        drawDefaultBackground();
+        optionsRowList.drawScreen(mouseX, mouseY, partialTicks);
+        drawCenteredString(fontRenderer, screenTitle, width / 2, 5, 16777215);
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
 }

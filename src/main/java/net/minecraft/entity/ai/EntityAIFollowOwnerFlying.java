@@ -14,7 +14,7 @@ public class EntityAIFollowOwnerFlying extends EntityAIFollowOwner
 
     protected boolean isTeleportFriendlyBlock(int x, int z, int y, int xOffset, int zOffset)
     {
-        IBlockState iblockstate = this.world.getBlockState(new BlockPos(x + xOffset, y - 1, z + zOffset));
-        return (iblockstate.isTopSolid() || iblockstate.getMaterial() == Material.LEAVES) && this.world.isAirBlock(new BlockPos(x + xOffset, y, z + zOffset)) && this.world.isAirBlock(new BlockPos(x + xOffset, y + 1, z + zOffset));
+        IBlockState iblockstate = world.getBlockState(new BlockPos(x + xOffset, y - 1, z + zOffset));
+        return (iblockstate.isTopSolid() || iblockstate.getMaterial() == Material.LEAVES) && world.isAirBlock(new BlockPos(x + xOffset, y, z + zOffset)) && world.isAirBlock(new BlockPos(x + xOffset, y + 1, z + zOffset));
     }
 }

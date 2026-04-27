@@ -25,12 +25,12 @@ public class EffectsChangedTrigger implements ICriterionTrigger<EffectsChangedTr
 
     public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<EffectsChangedTrigger.Instance> listener)
     {
-        EffectsChangedTrigger.Listeners effectschangedtrigger$listeners = this.listeners.get(playerAdvancementsIn);
+        EffectsChangedTrigger.Listeners effectschangedtrigger$listeners = listeners.get(playerAdvancementsIn);
 
         if (effectschangedtrigger$listeners == null)
         {
             effectschangedtrigger$listeners = new EffectsChangedTrigger.Listeners(playerAdvancementsIn);
-            this.listeners.put(playerAdvancementsIn, effectschangedtrigger$listeners);
+            listeners.put(playerAdvancementsIn, effectschangedtrigger$listeners);
         }
 
         effectschangedtrigger$listeners.add(listener);
@@ -38,7 +38,7 @@ public class EffectsChangedTrigger implements ICriterionTrigger<EffectsChangedTr
 
     public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<EffectsChangedTrigger.Instance> listener)
     {
-        EffectsChangedTrigger.Listeners effectschangedtrigger$listeners = this.listeners.get(playerAdvancementsIn);
+        EffectsChangedTrigger.Listeners effectschangedtrigger$listeners = listeners.get(playerAdvancementsIn);
 
         if (effectschangedtrigger$listeners != null)
         {
@@ -46,14 +46,14 @@ public class EffectsChangedTrigger implements ICriterionTrigger<EffectsChangedTr
 
             if (effectschangedtrigger$listeners.isEmpty())
             {
-                this.listeners.remove(playerAdvancementsIn);
+                listeners.remove(playerAdvancementsIn);
             }
         }
     }
 
     public void removeAllListeners(PlayerAdvancements playerAdvancementsIn)
     {
-        this.listeners.remove(playerAdvancementsIn);
+        listeners.remove(playerAdvancementsIn);
     }
 
     /**
@@ -67,7 +67,7 @@ public class EffectsChangedTrigger implements ICriterionTrigger<EffectsChangedTr
 
     public void trigger(EntityPlayerMP player)
     {
-        EffectsChangedTrigger.Listeners effectschangedtrigger$listeners = this.listeners.get(player.getAdvancements());
+        EffectsChangedTrigger.Listeners effectschangedtrigger$listeners = listeners.get(player.getAdvancements());
 
         if (effectschangedtrigger$listeners != null)
         {
@@ -87,7 +87,7 @@ public class EffectsChangedTrigger implements ICriterionTrigger<EffectsChangedTr
 
         public boolean test(EntityPlayerMP player)
         {
-            return this.effects.test(player);
+            return effects.test(player);
         }
     }
 
@@ -98,29 +98,29 @@ public class EffectsChangedTrigger implements ICriterionTrigger<EffectsChangedTr
 
         public Listeners(PlayerAdvancements playerAdvancementsIn)
         {
-            this.playerAdvancements = playerAdvancementsIn;
+            playerAdvancements = playerAdvancementsIn;
         }
 
         public boolean isEmpty()
         {
-            return this.listeners.isEmpty();
+            return listeners.isEmpty();
         }
 
         public void add(ICriterionTrigger.Listener<EffectsChangedTrigger.Instance> listener)
         {
-            this.listeners.add(listener);
+            listeners.add(listener);
         }
 
         public void remove(ICriterionTrigger.Listener<EffectsChangedTrigger.Instance> listener)
         {
-            this.listeners.remove(listener);
+            listeners.remove(listener);
         }
 
         public void trigger(EntityPlayerMP player)
         {
             List<ICriterionTrigger.Listener<EffectsChangedTrigger.Instance>> list = null;
 
-            for (ICriterionTrigger.Listener<EffectsChangedTrigger.Instance> listener : this.listeners)
+            for (ICriterionTrigger.Listener<EffectsChangedTrigger.Instance> listener : listeners)
             {
                 if (((EffectsChangedTrigger.Instance)listener.getCriterionInstance()).test(player))
                 {
@@ -137,7 +137,7 @@ public class EffectsChangedTrigger implements ICriterionTrigger<EffectsChangedTr
             {
                 for (ICriterionTrigger.Listener<EffectsChangedTrigger.Instance> listener1 : list)
                 {
-                    listener1.grantCriterion(this.playerAdvancements);
+                    listener1.grantCriterion(playerAdvancements);
                 }
             }
         }

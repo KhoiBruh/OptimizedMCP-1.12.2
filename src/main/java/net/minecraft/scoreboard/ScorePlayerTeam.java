@@ -23,9 +23,9 @@ public class ScorePlayerTeam extends Team
 
     public ScorePlayerTeam(Scoreboard scoreboardIn, String name)
     {
-        this.scoreboard = scoreboardIn;
+        scoreboard = scoreboardIn;
         this.name = name;
-        this.displayName = name;
+        displayName = name;
     }
 
     /**
@@ -33,7 +33,7 @@ public class ScorePlayerTeam extends Team
      */
     public String getName()
     {
-        return this.name;
+        return name;
     }
 
     /**
@@ -41,7 +41,7 @@ public class ScorePlayerTeam extends Team
      */
     public String getDisplayName()
     {
-        return this.displayName;
+        return displayName;
     }
 
     /**
@@ -55,14 +55,14 @@ public class ScorePlayerTeam extends Team
         }
         else
         {
-            this.displayName = name;
-            this.scoreboard.broadcastTeamInfoUpdate(this);
+            displayName = name;
+            scoreboard.broadcastTeamInfoUpdate(this);
         }
     }
 
     public Collection<String> getMembershipCollection()
     {
-        return this.membershipSet;
+        return membershipSet;
     }
 
     /**
@@ -74,7 +74,7 @@ public class ScorePlayerTeam extends Team
      */
     public String getPrefix()
     {
-        return this.prefix;
+        return prefix;
     }
 
     /**
@@ -89,7 +89,7 @@ public class ScorePlayerTeam extends Team
         else
         {
             this.prefix = prefix;
-            this.scoreboard.broadcastTeamInfoUpdate(this);
+            scoreboard.broadcastTeamInfoUpdate(this);
         }
     }
 
@@ -99,7 +99,7 @@ public class ScorePlayerTeam extends Team
      */
     public String getSuffix()
     {
-        return this.suffix;
+        return suffix;
     }
 
     /**
@@ -108,7 +108,7 @@ public class ScorePlayerTeam extends Team
     public void setSuffix(String suffix)
     {
         this.suffix = suffix;
-        this.scoreboard.broadcastTeamInfoUpdate(this);
+        scoreboard.broadcastTeamInfoUpdate(this);
     }
 
     /**
@@ -116,7 +116,7 @@ public class ScorePlayerTeam extends Team
      */
     public String formatString(String input)
     {
-        return this.getPrefix() + input + this.getSuffix();
+        return getPrefix() + input + getSuffix();
     }
 
     /**
@@ -132,7 +132,7 @@ public class ScorePlayerTeam extends Team
      */
     public boolean getAllowFriendlyFire()
     {
-        return this.allowFriendlyFire;
+        return allowFriendlyFire;
     }
 
     /**
@@ -140,8 +140,8 @@ public class ScorePlayerTeam extends Team
      */
     public void setAllowFriendlyFire(boolean friendlyFire)
     {
-        this.allowFriendlyFire = friendlyFire;
-        this.scoreboard.broadcastTeamInfoUpdate(this);
+        allowFriendlyFire = friendlyFire;
+        scoreboard.broadcastTeamInfoUpdate(this);
     }
 
     /**
@@ -149,7 +149,7 @@ public class ScorePlayerTeam extends Team
      */
     public boolean getSeeFriendlyInvisiblesEnabled()
     {
-        return this.canSeeFriendlyInvisibles;
+        return canSeeFriendlyInvisibles;
     }
 
     /**
@@ -157,8 +157,8 @@ public class ScorePlayerTeam extends Team
      */
     public void setSeeFriendlyInvisiblesEnabled(boolean friendlyInvisibles)
     {
-        this.canSeeFriendlyInvisibles = friendlyInvisibles;
-        this.scoreboard.broadcastTeamInfoUpdate(this);
+        canSeeFriendlyInvisibles = friendlyInvisibles;
+        scoreboard.broadcastTeamInfoUpdate(this);
     }
 
     /**
@@ -166,7 +166,7 @@ public class ScorePlayerTeam extends Team
      */
     public Team.EnumVisible getNameTagVisibility()
     {
-        return this.nameTagVisibility;
+        return nameTagVisibility;
     }
 
     /**
@@ -174,7 +174,7 @@ public class ScorePlayerTeam extends Team
      */
     public Team.EnumVisible getDeathMessageVisibility()
     {
-        return this.deathMessageVisibility;
+        return deathMessageVisibility;
     }
 
     /**
@@ -182,8 +182,8 @@ public class ScorePlayerTeam extends Team
      */
     public void setNameTagVisibility(Team.EnumVisible visibility)
     {
-        this.nameTagVisibility = visibility;
-        this.scoreboard.broadcastTeamInfoUpdate(this);
+        nameTagVisibility = visibility;
+        scoreboard.broadcastTeamInfoUpdate(this);
     }
 
     /**
@@ -191,8 +191,8 @@ public class ScorePlayerTeam extends Team
      */
     public void setDeathMessageVisibility(Team.EnumVisible visibility)
     {
-        this.deathMessageVisibility = visibility;
-        this.scoreboard.broadcastTeamInfoUpdate(this);
+        deathMessageVisibility = visibility;
+        scoreboard.broadcastTeamInfoUpdate(this);
     }
 
     /**
@@ -200,7 +200,7 @@ public class ScorePlayerTeam extends Team
      */
     public Team.CollisionRule getCollisionRule()
     {
-        return this.collisionRule;
+        return collisionRule;
     }
 
     /**
@@ -208,8 +208,8 @@ public class ScorePlayerTeam extends Team
      */
     public void setCollisionRule(Team.CollisionRule rule)
     {
-        this.collisionRule = rule;
-        this.scoreboard.broadcastTeamInfoUpdate(this);
+        collisionRule = rule;
+        scoreboard.broadcastTeamInfoUpdate(this);
     }
 
     /**
@@ -219,12 +219,12 @@ public class ScorePlayerTeam extends Team
     {
         int i = 0;
 
-        if (this.getAllowFriendlyFire())
+        if (getAllowFriendlyFire())
         {
             i |= 1;
         }
 
-        if (this.getSeeFriendlyInvisiblesEnabled())
+        if (getSeeFriendlyInvisiblesEnabled())
         {
             i |= 2;
         }
@@ -237,8 +237,8 @@ public class ScorePlayerTeam extends Team
      */
     public void setFriendlyFlags(int flags)
     {
-        this.setAllowFriendlyFire((flags & 1) > 0);
-        this.setSeeFriendlyInvisiblesEnabled((flags & 2) > 0);
+        setAllowFriendlyFire((flags & 1) > 0);
+        setSeeFriendlyInvisiblesEnabled((flags & 2) > 0);
     }
 
     /**
@@ -256,6 +256,6 @@ public class ScorePlayerTeam extends Team
      */
     public TextFormatting getColor()
     {
-        return this.color;
+        return color;
     }
 }

@@ -13,10 +13,10 @@ public class ElytraSound extends MovingSound
     public ElytraSound(EntityPlayerSP p_i47113_1_)
     {
         super(SoundEvents.ITEM_ELYTRA_FLYING, SoundCategory.PLAYERS);
-        this.player = p_i47113_1_;
-        this.repeat = true;
-        this.repeatDelay = 0;
-        this.volume = 0.1F;
+        player = p_i47113_1_;
+        repeat = true;
+        repeatDelay = 0;
+        volume = 0.1F;
     }
 
     /**
@@ -24,48 +24,48 @@ public class ElytraSound extends MovingSound
      */
     public void update()
     {
-        ++this.time;
+        ++time;
 
-        if (!this.player.isDead && (this.time <= 20 || this.player.isElytraFlying()))
+        if (!player.isDead && (time <= 20 || player.isElytraFlying()))
         {
-            this.xPosF = (float)this.player.posX;
-            this.yPosF = (float)this.player.posY;
-            this.zPosF = (float)this.player.posZ;
-            float f = MathHelper.sqrt(this.player.motionX * this.player.motionX + this.player.motionZ * this.player.motionZ + this.player.motionY * this.player.motionY);
+            xPosF = (float) player.posX;
+            yPosF = (float) player.posY;
+            zPosF = (float) player.posZ;
+            float f = MathHelper.sqrt(player.motionX * player.motionX + player.motionZ * player.motionZ + player.motionY * player.motionY);
             float f1 = f / 2.0F;
 
             if ((double)f >= 0.01D)
             {
-                this.volume = MathHelper.clamp(f1 * f1, 0.0F, 1.0F);
+                volume = MathHelper.clamp(f1 * f1, 0.0F, 1.0F);
             }
             else
             {
-                this.volume = 0.0F;
+                volume = 0.0F;
             }
 
-            if (this.time < 20)
+            if (time < 20)
             {
-                this.volume = 0.0F;
+                volume = 0.0F;
             }
-            else if (this.time < 40)
+            else if (time < 40)
             {
-                this.volume = (float)((double)this.volume * ((double)(this.time - 20) / 20.0D));
+                volume = (float)((double) volume * ((double)(time - 20) / 20.0D));
             }
 
             float f2 = 0.8F;
 
-            if (this.volume > 0.8F)
+            if (volume > 0.8F)
             {
-                this.pitch = 1.0F + (this.volume - 0.8F);
+                pitch = 1.0F + (volume - 0.8F);
             }
             else
             {
-                this.pitch = 1.0F;
+                pitch = 1.0F;
             }
         }
         else
         {
-            this.donePlaying = true;
+            donePlaying = true;
         }
     }
 }

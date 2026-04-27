@@ -37,8 +37,8 @@ public class BlockLever extends Block
     protected BlockLever()
     {
         super(Material.CIRCUITS);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, BlockLever.EnumOrientation.NORTH).withProperty(POWERED, Boolean.valueOf(false)));
-        this.setCreativeTab(CreativeTabs.REDSTONE);
+        setDefaultState(blockState.getBaseState().withProperty(FACING, BlockLever.EnumOrientation.NORTH).withProperty(POWERED, Boolean.valueOf(false)));
+        setCreativeTab(CreativeTabs.REDSTONE);
     }
 
     @Nullable
@@ -95,7 +95,7 @@ public class BlockLever extends Block
      */
     public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
     {
-        IBlockState iblockstate = this.getDefaultState().withProperty(POWERED, Boolean.valueOf(false));
+        IBlockState iblockstate = getDefaultState().withProperty(POWERED, Boolean.valueOf(false));
 
         if (canAttachTo(worldIn, pos, facing))
         {
@@ -129,22 +129,22 @@ public class BlockLever extends Block
      */
     public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos)
     {
-        if (this.checkCanSurvive(worldIn, pos, state) && !canAttachTo(worldIn, pos, ((BlockLever.EnumOrientation)state.getValue(FACING)).getFacing()))
+        if (checkCanSurvive(worldIn, pos, state) && !canAttachTo(worldIn, pos, ((BlockLever.EnumOrientation)state.getValue(FACING)).getFacing()))
         {
-            this.dropBlockAsItem(worldIn, pos, state, 0);
+            dropBlockAsItem(worldIn, pos, state, 0);
             worldIn.setBlockToAir(pos);
         }
     }
 
     private boolean checkCanSurvive(World worldIn, BlockPos pos, IBlockState state)
     {
-        if (this.canPlaceBlockAt(worldIn, pos))
+        if (canPlaceBlockAt(worldIn, pos))
         {
             return true;
         }
         else
         {
-            this.dropBlockAsItem(worldIn, pos, state, 0);
+            dropBlockAsItem(worldIn, pos, state, 0);
             worldIn.setBlockToAir(pos);
             return false;
         }
@@ -244,7 +244,7 @@ public class BlockLever extends Block
      */
     public IBlockState getStateFromMeta(int meta)
     {
-        return this.getDefaultState().withProperty(FACING, BlockLever.EnumOrientation.byMetadata(meta & 7)).withProperty(POWERED, Boolean.valueOf((meta & 8) > 0));
+        return getDefaultState().withProperty(FACING, BlockLever.EnumOrientation.byMetadata(meta & 7)).withProperty(POWERED, Boolean.valueOf((meta & 8) > 0));
     }
 
     /**
@@ -404,17 +404,17 @@ public class BlockLever extends Block
 
         public int getMetadata()
         {
-            return this.meta;
+            return meta;
         }
 
         public EnumFacing getFacing()
         {
-            return this.facing;
+            return facing;
         }
 
         public String toString()
         {
-            return this.name;
+            return name;
         }
 
         public static BlockLever.EnumOrientation byMetadata(int meta)
@@ -476,7 +476,7 @@ public class BlockLever extends Block
 
         public String getName()
         {
-            return this.name;
+            return name;
         }
 
         static {

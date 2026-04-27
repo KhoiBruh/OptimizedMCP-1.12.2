@@ -22,7 +22,7 @@ public class LayerElytra implements LayerRenderer<EntityLivingBase>
 
     public LayerElytra(RenderLivingBase<?> p_i47185_1_)
     {
-        this.renderPlayer = p_i47185_1_;
+        renderPlayer = p_i47185_1_;
     }
 
     public void doRenderLayer(EntityLivingBase entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale)
@@ -41,30 +41,30 @@ public class LayerElytra implements LayerRenderer<EntityLivingBase>
 
                 if (abstractclientplayer.isPlayerInfoSet() && abstractclientplayer.getLocationElytra() != null)
                 {
-                    this.renderPlayer.bindTexture(abstractclientplayer.getLocationElytra());
+                    renderPlayer.bindTexture(abstractclientplayer.getLocationElytra());
                 }
                 else if (abstractclientplayer.hasPlayerInfo() && abstractclientplayer.getLocationCape() != null && abstractclientplayer.isWearing(EnumPlayerModelParts.CAPE))
                 {
-                    this.renderPlayer.bindTexture(abstractclientplayer.getLocationCape());
+                    renderPlayer.bindTexture(abstractclientplayer.getLocationCape());
                 }
                 else
                 {
-                    this.renderPlayer.bindTexture(TEXTURE_ELYTRA);
+                    renderPlayer.bindTexture(TEXTURE_ELYTRA);
                 }
             }
             else
             {
-                this.renderPlayer.bindTexture(TEXTURE_ELYTRA);
+                renderPlayer.bindTexture(TEXTURE_ELYTRA);
             }
 
             GlStateManager.pushMatrix();
             GlStateManager.translate(0.0F, 0.0F, 0.125F);
-            this.modelElytra.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entitylivingbaseIn);
-            this.modelElytra.render(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+            modelElytra.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entitylivingbaseIn);
+            modelElytra.render(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
 
             if (itemstack.isItemEnchanted())
             {
-                LayerArmorBase.renderEnchantedGlint(this.renderPlayer, entitylivingbaseIn, this.modelElytra, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch, scale);
+                LayerArmorBase.renderEnchantedGlint(renderPlayer, entitylivingbaseIn, modelElytra, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch, scale);
             }
 
             GlStateManager.disableBlend();

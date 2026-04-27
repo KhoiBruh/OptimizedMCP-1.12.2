@@ -142,7 +142,7 @@ public class WorldGenDungeons extends WorldGenerator
 
             if (tileentity instanceof TileEntityMobSpawner)
             {
-                ((TileEntityMobSpawner)tileentity).getSpawnerBaseLogic().setEntityId(this.pickMobSpawner(rand));
+                ((TileEntityMobSpawner)tileentity).getSpawnerBaseLogic().setEntityId(pickMobSpawner(rand));
             }
             else
             {

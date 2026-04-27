@@ -23,28 +23,28 @@ public class LanguageManager implements IResourceManagerReloadListener
 
     public LanguageManager(MetadataSerializer theMetadataSerializerIn, String currentLanguageIn)
     {
-        this.metadataSerializer = theMetadataSerializerIn;
-        this.currentLanguage = currentLanguageIn;
+        metadataSerializer = theMetadataSerializerIn;
+        currentLanguage = currentLanguageIn;
         I18n.setLocale(CURRENT_LOCALE);
     }
 
     public void parseLanguageMetadata(List<IResourcePack> resourcesPacks)
     {
-        this.languageMap.clear();
+        languageMap.clear();
 
         for (IResourcePack iresourcepack : resourcesPacks)
         {
             try
             {
-                LanguageMetadataSection languagemetadatasection = (LanguageMetadataSection)iresourcepack.getPackMetadata(this.metadataSerializer, "language");
+                LanguageMetadataSection languagemetadatasection = (LanguageMetadataSection)iresourcepack.getPackMetadata(metadataSerializer, "language");
 
                 if (languagemetadatasection != null)
                 {
                     for (Language language : languagemetadatasection.getLanguages())
                     {
-                        if (!this.languageMap.containsKey(language.getLanguageCode()))
+                        if (!languageMap.containsKey(language.getLanguageCode()))
                         {
-                            this.languageMap.put(language.getLanguageCode(), language);
+                            languageMap.put(language.getLanguageCode(), language);
                         }
                     }
                 }
@@ -64,9 +64,9 @@ public class LanguageManager implements IResourceManagerReloadListener
     {
         List<String> list = Lists.newArrayList("en_us");
 
-        if (!"en_us".equals(this.currentLanguage))
+        if (!"en_us".equals(currentLanguage))
         {
-            list.add(this.currentLanguage);
+            list.add(currentLanguage);
         }
 
         CURRENT_LOCALE.loadLocaleDataFiles(resourceManager, list);
@@ -80,27 +80,27 @@ public class LanguageManager implements IResourceManagerReloadListener
 
     public boolean isCurrentLanguageBidirectional()
     {
-        return this.getCurrentLanguage() != null && this.getCurrentLanguage().isBidirectional();
+        return getCurrentLanguage() != null && getCurrentLanguage().isBidirectional();
     }
 
     public void setCurrentLanguage(Language currentLanguageIn)
     {
-        this.currentLanguage = currentLanguageIn.getLanguageCode();
+        currentLanguage = currentLanguageIn.getLanguageCode();
     }
 
     public Language getCurrentLanguage()
     {
-        String s = this.languageMap.containsKey(this.currentLanguage) ? this.currentLanguage : "en_us";
-        return this.languageMap.get(s);
+        String s = languageMap.containsKey(currentLanguage) ? currentLanguage : "en_us";
+        return languageMap.get(s);
     }
 
     public SortedSet<Language> getLanguages()
     {
-        return Sets.newTreeSet(this.languageMap.values());
+        return Sets.newTreeSet(languageMap.values());
     }
 
     public Language getLanguage(String p_191960_1_)
     {
-        return this.languageMap.get(p_191960_1_);
+        return languageMap.get(p_191960_1_);
     }
 }

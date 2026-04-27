@@ -11,7 +11,7 @@ public class BlockMaterialMatcher implements Predicate<IBlockState>
 
     private BlockMaterialMatcher(Material materialIn)
     {
-        this.material = materialIn;
+        material = materialIn;
     }
 
     public static BlockMaterialMatcher forMaterial(Material materialIn)
@@ -21,6 +21,6 @@ public class BlockMaterialMatcher implements Predicate<IBlockState>
 
     public boolean apply(@Nullable IBlockState p_apply_1_)
     {
-        return p_apply_1_ != null && p_apply_1_.getMaterial() == this.material;
+        return p_apply_1_ != null && p_apply_1_.getMaterial() == material;
     }
 }

@@ -30,7 +30,7 @@ public class GuiCrafting extends GuiContainer implements IRecipeShownListener
     public GuiCrafting(InventoryPlayer playerInv, World worldIn, BlockPos blockPosition)
     {
         super(new ContainerWorkbench(playerInv, worldIn, blockPosition));
-        this.recipeBookGui = new GuiRecipeBook();
+        recipeBookGui = new GuiRecipeBook();
     }
 
     /**
@@ -40,11 +40,11 @@ public class GuiCrafting extends GuiContainer implements IRecipeShownListener
     public void initGui()
     {
         super.initGui();
-        this.widthTooNarrow = this.width < 379;
-        this.recipeBookGui.func_194303_a(this.width, this.height, this.mc, this.widthTooNarrow, ((ContainerWorkbench)this.inventorySlots).craftMatrix);
-        this.guiLeft = this.recipeBookGui.updateScreenPosition(this.widthTooNarrow, this.width, this.xSize);
-        this.recipeButton = new GuiButtonImage(10, this.guiLeft + 5, this.height / 2 - 49, 20, 18, 0, 168, 19, CRAFTING_TABLE_GUI_TEXTURES);
-        this.buttonList.add(this.recipeButton);
+        widthTooNarrow = width < 379;
+        recipeBookGui.func_194303_a(width, height, mc, widthTooNarrow, ((ContainerWorkbench) inventorySlots).craftMatrix);
+        guiLeft = recipeBookGui.updateScreenPosition(widthTooNarrow, width, xSize);
+        recipeButton = new GuiButtonImage(10, guiLeft + 5, height / 2 - 49, 20, 18, 0, 168, 19, CRAFTING_TABLE_GUI_TEXTURES);
+        buttonList.add(recipeButton);
     }
 
     /**
@@ -53,7 +53,7 @@ public class GuiCrafting extends GuiContainer implements IRecipeShownListener
     public void updateScreen()
     {
         super.updateScreen();
-        this.recipeBookGui.tick();
+        recipeBookGui.tick();
     }
 
     /**
@@ -61,22 +61,22 @@ public class GuiCrafting extends GuiContainer implements IRecipeShownListener
      */
     public void drawScreen(int mouseX, int mouseY, float partialTicks)
     {
-        this.drawDefaultBackground();
+        drawDefaultBackground();
 
-        if (this.recipeBookGui.isVisible() && this.widthTooNarrow)
+        if (recipeBookGui.isVisible() && widthTooNarrow)
         {
-            this.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
-            this.recipeBookGui.render(mouseX, mouseY, partialTicks);
+            drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
+            recipeBookGui.render(mouseX, mouseY, partialTicks);
         }
         else
         {
-            this.recipeBookGui.render(mouseX, mouseY, partialTicks);
+            recipeBookGui.render(mouseX, mouseY, partialTicks);
             super.drawScreen(mouseX, mouseY, partialTicks);
-            this.recipeBookGui.renderGhostRecipe(this.guiLeft, this.guiTop, true, partialTicks);
+            recipeBookGui.renderGhostRecipe(guiLeft, guiTop, true, partialTicks);
         }
 
-        this.renderHoveredToolTip(mouseX, mouseY);
-        this.recipeBookGui.renderTooltip(this.guiLeft, this.guiTop, mouseX, mouseY);
+        renderHoveredToolTip(mouseX, mouseY);
+        recipeBookGui.renderTooltip(guiLeft, guiTop, mouseX, mouseY);
     }
 
     /**
@@ -84,8 +84,8 @@ public class GuiCrafting extends GuiContainer implements IRecipeShownListener
      */
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
     {
-        this.fontRenderer.drawString(I18n.format("container.crafting"), 28, 6, 4210752);
-        this.fontRenderer.drawString(I18n.format("container.inventory"), 8, this.ySize - 96 + 2, 4210752);
+        fontRenderer.drawString(I18n.format("container.crafting"), 28, 6, 4210752);
+        fontRenderer.drawString(I18n.format("container.inventory"), 8, ySize - 96 + 2, 4210752);
     }
 
     /**
@@ -94,10 +94,10 @@ public class GuiCrafting extends GuiContainer implements IRecipeShownListener
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY)
     {
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        this.mc.getTextureManager().bindTexture(CRAFTING_TABLE_GUI_TEXTURES);
-        int i = this.guiLeft;
-        int j = (this.height - this.ySize) / 2;
-        this.drawTexturedModalRect(i, j, 0, 0, this.xSize, this.ySize);
+        mc.getTextureManager().bindTexture(CRAFTING_TABLE_GUI_TEXTURES);
+        int i = guiLeft;
+        int j = (height - ySize) / 2;
+        drawTexturedModalRect(i, j, 0, 0, xSize, ySize);
     }
 
     /**
@@ -106,7 +106,7 @@ public class GuiCrafting extends GuiContainer implements IRecipeShownListener
      */
     protected boolean isPointInRegion(int rectX, int rectY, int rectWidth, int rectHeight, int pointX, int pointY)
     {
-        return (!this.widthTooNarrow || !this.recipeBookGui.isVisible()) && super.isPointInRegion(rectX, rectY, rectWidth, rectHeight, pointX, pointY);
+        return (!widthTooNarrow || !recipeBookGui.isVisible()) && super.isPointInRegion(rectX, rectY, rectWidth, rectHeight, pointX, pointY);
     }
 
     /**
@@ -114,9 +114,9 @@ public class GuiCrafting extends GuiContainer implements IRecipeShownListener
      */
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException
     {
-        if (!this.recipeBookGui.mouseClicked(mouseX, mouseY, mouseButton))
+        if (!recipeBookGui.mouseClicked(mouseX, mouseY, mouseButton))
         {
-            if (!this.widthTooNarrow || !this.recipeBookGui.isVisible())
+            if (!widthTooNarrow || !recipeBookGui.isVisible())
             {
                 super.mouseClicked(mouseX, mouseY, mouseButton);
             }
@@ -125,8 +125,8 @@ public class GuiCrafting extends GuiContainer implements IRecipeShownListener
 
     protected boolean hasClickedOutside(int p_193983_1_, int p_193983_2_, int p_193983_3_, int p_193983_4_)
     {
-        boolean flag = p_193983_1_ < p_193983_3_ || p_193983_2_ < p_193983_4_ || p_193983_1_ >= p_193983_3_ + this.xSize || p_193983_2_ >= p_193983_4_ + this.ySize;
-        return this.recipeBookGui.hasClickedOutside(p_193983_1_, p_193983_2_, this.guiLeft, this.guiTop, this.xSize, this.ySize) && flag;
+        boolean flag = p_193983_1_ < p_193983_3_ || p_193983_2_ < p_193983_4_ || p_193983_1_ >= p_193983_3_ + xSize || p_193983_2_ >= p_193983_4_ + ySize;
+        return recipeBookGui.hasClickedOutside(p_193983_1_, p_193983_2_, guiLeft, guiTop, xSize, ySize) && flag;
     }
 
     /**
@@ -136,10 +136,10 @@ public class GuiCrafting extends GuiContainer implements IRecipeShownListener
     {
         if (button.id == 10)
         {
-            this.recipeBookGui.initVisuals(this.widthTooNarrow, ((ContainerWorkbench)this.inventorySlots).craftMatrix);
-            this.recipeBookGui.toggleVisibility();
-            this.guiLeft = this.recipeBookGui.updateScreenPosition(this.widthTooNarrow, this.width, this.xSize);
-            this.recipeButton.setPosition(this.guiLeft + 5, this.height / 2 - 49);
+            recipeBookGui.initVisuals(widthTooNarrow, ((ContainerWorkbench) inventorySlots).craftMatrix);
+            recipeBookGui.toggleVisibility();
+            guiLeft = recipeBookGui.updateScreenPosition(widthTooNarrow, width, xSize);
+            recipeButton.setPosition(guiLeft + 5, height / 2 - 49);
         }
     }
 
@@ -149,7 +149,7 @@ public class GuiCrafting extends GuiContainer implements IRecipeShownListener
      */
     protected void keyTyped(char typedChar, int keyCode) throws IOException
     {
-        if (!this.recipeBookGui.keyPressed(typedChar, keyCode))
+        if (!recipeBookGui.keyPressed(typedChar, keyCode))
         {
             super.keyTyped(typedChar, keyCode);
         }
@@ -161,12 +161,12 @@ public class GuiCrafting extends GuiContainer implements IRecipeShownListener
     protected void handleMouseClick(Slot slotIn, int slotId, int mouseButton, ClickType type)
     {
         super.handleMouseClick(slotIn, slotId, mouseButton, type);
-        this.recipeBookGui.slotClicked(slotIn);
+        recipeBookGui.slotClicked(slotIn);
     }
 
     public void recipesUpdated()
     {
-        this.recipeBookGui.recipesUpdated();
+        recipeBookGui.recipesUpdated();
     }
 
     /**
@@ -174,12 +174,12 @@ public class GuiCrafting extends GuiContainer implements IRecipeShownListener
      */
     public void onGuiClosed()
     {
-        this.recipeBookGui.removed();
+        recipeBookGui.removed();
         super.onGuiClosed();
     }
 
     public GuiRecipeBook func_194310_f()
     {
-        return this.recipeBookGui;
+        return recipeBookGui;
     }
 }

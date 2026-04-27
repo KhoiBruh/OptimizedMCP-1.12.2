@@ -15,7 +15,7 @@ public class CPacketKeepAlive implements Packet<INetHandlerPlayServer>
 
     public CPacketKeepAlive(long idIn)
     {
-        this.key = idIn;
+        key = idIn;
     }
 
     /**
@@ -31,7 +31,7 @@ public class CPacketKeepAlive implements Packet<INetHandlerPlayServer>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.key = buf.readLong();
+        key = buf.readLong();
     }
 
     /**
@@ -39,11 +39,11 @@ public class CPacketKeepAlive implements Packet<INetHandlerPlayServer>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeLong(this.key);
+        buf.writeLong(key);
     }
 
     public long getKey()
     {
-        return this.key;
+        return key;
     }
 }

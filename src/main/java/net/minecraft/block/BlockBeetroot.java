@@ -41,7 +41,7 @@ public class BlockBeetroot extends BlockCrops
     {
         if (rand.nextInt(3) == 0)
         {
-            this.checkAndDropBlock(worldIn, pos, state);
+            checkAndDropBlock(worldIn, pos, state);
         }
         else
         {
@@ -61,6 +61,6 @@ public class BlockBeetroot extends BlockCrops
 
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
     {
-        return BEETROOT_AABB[((Integer)state.getValue(this.getAgeProperty())).intValue()];
+        return BEETROOT_AABB[((Integer)state.getValue(getAgeProperty())).intValue()];
     }
 }

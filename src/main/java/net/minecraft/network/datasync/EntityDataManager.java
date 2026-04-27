@@ -33,7 +33,7 @@ public class EntityDataManager
 
     public EntityDataManager(Entity entityIn)
     {
-        this.entity = entityIn;
+        entity = entityIn;
     }
 
     public static <T> DataParameter<T> createKey(Class <? extends Entity > clazz, DataSerializer<T> serializer)
@@ -99,7 +99,7 @@ public class EntityDataManager
         {
             throw new IllegalArgumentException("Data value id is too big with " + i + "! (Max is " + 254 + ")");
         }
-        else if (this.entries.containsKey(Integer.valueOf(i)))
+        else if (entries.containsKey(Integer.valueOf(i)))
         {
             throw new IllegalArgumentException("Duplicate id value for " + i + "!");
         }
@@ -109,27 +109,27 @@ public class EntityDataManager
         }
         else
         {
-            this.setEntry(key, value);
+            setEntry(key, value);
         }
     }
 
     private <T> void setEntry(DataParameter<T> key, T value)
     {
         EntityDataManager.DataEntry<T> dataentry = new EntityDataManager.DataEntry<T>(key, value);
-        this.lock.writeLock().lock();
-        this.entries.put(Integer.valueOf(key.getId()), dataentry);
-        this.empty = false;
-        this.lock.writeLock().unlock();
+        lock.writeLock().lock();
+        entries.put(Integer.valueOf(key.getId()), dataentry);
+        empty = false;
+        lock.writeLock().unlock();
     }
 
     private <T> EntityDataManager.DataEntry<T> getEntry(DataParameter<T> key)
     {
-        this.lock.readLock().lock();
+        lock.readLock().lock();
         EntityDataManager.DataEntry<T> dataentry;
 
         try
         {
-            dataentry = (EntityDataManager.DataEntry)this.entries.get(Integer.valueOf(key.getId()));
+            dataentry = (EntityDataManager.DataEntry) entries.get(Integer.valueOf(key.getId()));
         }
         catch (Throwable throwable)
         {
@@ -139,13 +139,13 @@ public class EntityDataManager
             throw new ReportedException(crashreport);
         }
 
-        this.lock.readLock().unlock();
+        lock.readLock().unlock();
         return dataentry;
     }
 
     public <T> T get(DataParameter<T> key)
     {
-        return (T)this.getEntry(key).getValue();
+        return (T) getEntry(key).getValue();
     }
 
     public <T> void set(DataParameter<T> key, T value)
@@ -155,21 +155,21 @@ public class EntityDataManager
         if (ObjectUtils.notEqual(value, dataentry.getValue()))
         {
             dataentry.setValue(value);
-            this.entity.notifyDataManagerChange(key);
+            entity.notifyDataManagerChange(key);
             dataentry.setDirty(true);
-            this.dirty = true;
+            dirty = true;
         }
     }
 
     public <T> void setDirty(DataParameter<T> key)
     {
-        this.getEntry(key).dirty = true;
-        this.dirty = true;
+        getEntry(key).dirty = true;
+        dirty = true;
     }
 
     public boolean isDirty()
     {
-        return this.dirty;
+        return dirty;
     }
 
     public static void writeEntries(List < EntityDataManager.DataEntry<? >> entriesIn, PacketBuffer buf) throws IOException
@@ -193,11 +193,11 @@ public class EntityDataManager
     {
         List < EntityDataManager.DataEntry<? >> list = null;
 
-        if (this.dirty)
+        if (dirty)
         {
-            this.lock.readLock().lock();
+            lock.readLock().lock();
 
-            for (EntityDataManager.DataEntry<?> dataentry : this.entries.values())
+            for (EntityDataManager.DataEntry<?> dataentry : entries.values())
             {
                 if (dataentry.isDirty())
                 {
@@ -212,23 +212,23 @@ public class EntityDataManager
                 }
             }
 
-            this.lock.readLock().unlock();
+            lock.readLock().unlock();
         }
 
-        this.dirty = false;
+        dirty = false;
         return list;
     }
 
     public void writeEntries(PacketBuffer buf) throws IOException
     {
-        this.lock.readLock().lock();
+        lock.readLock().lock();
 
-        for (EntityDataManager.DataEntry<?> dataentry : this.entries.values())
+        for (EntityDataManager.DataEntry<?> dataentry : entries.values())
         {
             writeEntry(buf, dataentry);
         }
 
-        this.lock.readLock().unlock();
+        lock.readLock().unlock();
         buf.writeByte(255);
     }
 
@@ -236,9 +236,9 @@ public class EntityDataManager
     public List < EntityDataManager.DataEntry<? >> getAll()
     {
         List < EntityDataManager.DataEntry<? >> list = null;
-        this.lock.readLock().lock();
+        lock.readLock().lock();
 
-        for (EntityDataManager.DataEntry<?> dataentry : this.entries.values())
+        for (EntityDataManager.DataEntry<?> dataentry : entries.values())
         {
             if (list == null)
             {
@@ -248,7 +248,7 @@ public class EntityDataManager
             list.add(dataentry.copy());
         }
 
-        this.lock.readLock().unlock();
+        lock.readLock().unlock();
         return list;
     }
 
@@ -298,21 +298,21 @@ public class EntityDataManager
 
     public void setEntryValues(List < EntityDataManager.DataEntry<? >> entriesIn)
     {
-        this.lock.writeLock().lock();
+        lock.writeLock().lock();
 
         for (EntityDataManager.DataEntry<?> dataentry : entriesIn)
         {
-            EntityDataManager.DataEntry<?> dataentry1 = (EntityDataManager.DataEntry)this.entries.get(Integer.valueOf(dataentry.getKey().getId()));
+            EntityDataManager.DataEntry<?> dataentry1 = (EntityDataManager.DataEntry) entries.get(Integer.valueOf(dataentry.getKey().getId()));
 
             if (dataentry1 != null)
             {
-                this.setEntryValue(dataentry1, dataentry);
-                this.entity.notifyDataManagerChange(dataentry.getKey());
+                setEntryValue(dataentry1, dataentry);
+                entity.notifyDataManagerChange(dataentry.getKey());
             }
         }
 
-        this.lock.writeLock().unlock();
-        this.dirty = true;
+        lock.writeLock().unlock();
+        dirty = true;
     }
 
     protected <T> void setEntryValue(EntityDataManager.DataEntry<T> target, EntityDataManager.DataEntry<?> source)
@@ -322,20 +322,20 @@ public class EntityDataManager
 
     public boolean isEmpty()
     {
-        return this.empty;
+        return empty;
     }
 
     public void setClean()
     {
-        this.dirty = false;
-        this.lock.readLock().lock();
+        dirty = false;
+        lock.readLock().lock();
 
-        for (EntityDataManager.DataEntry<?> dataentry : this.entries.values())
+        for (EntityDataManager.DataEntry<?> dataentry : entries.values())
         {
             dataentry.setDirty(false);
         }
 
-        this.lock.readLock().unlock();
+        lock.readLock().unlock();
     }
 
     public static class DataEntry<T>
@@ -346,39 +346,39 @@ public class EntityDataManager
 
         public DataEntry(DataParameter<T> keyIn, T valueIn)
         {
-            this.key = keyIn;
-            this.value = valueIn;
-            this.dirty = true;
+            key = keyIn;
+            value = valueIn;
+            dirty = true;
         }
 
         public DataParameter<T> getKey()
         {
-            return this.key;
+            return key;
         }
 
         public void setValue(T valueIn)
         {
-            this.value = valueIn;
+            value = valueIn;
         }
 
         public T getValue()
         {
-            return this.value;
+            return value;
         }
 
         public boolean isDirty()
         {
-            return this.dirty;
+            return dirty;
         }
 
         public void setDirty(boolean dirtyIn)
         {
-            this.dirty = dirtyIn;
+            dirty = dirtyIn;
         }
 
         public EntityDataManager.DataEntry<T> copy()
         {
-            return new EntityDataManager.DataEntry<T>(this.key, this.key.getSerializer().copyValue(this.value));
+            return new EntityDataManager.DataEntry<T>(key, key.getSerializer().copyValue(value));
         }
     }
 }

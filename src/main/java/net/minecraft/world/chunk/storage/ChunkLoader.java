@@ -148,8 +148,8 @@ public class ChunkLoader
 
         public AnvilConverterData(int xIn, int zIn)
         {
-            this.x = xIn;
-            this.z = zIn;
+            x = xIn;
+            z = zIn;
         }
     }
 }

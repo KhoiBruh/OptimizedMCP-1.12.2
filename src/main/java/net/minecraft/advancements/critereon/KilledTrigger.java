@@ -27,17 +27,17 @@ public class KilledTrigger implements ICriterionTrigger<KilledTrigger.Instance>
 
     public ResourceLocation getId()
     {
-        return this.id;
+        return id;
     }
 
     public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<KilledTrigger.Instance> listener)
     {
-        KilledTrigger.Listeners killedtrigger$listeners = this.listeners.get(playerAdvancementsIn);
+        KilledTrigger.Listeners killedtrigger$listeners = listeners.get(playerAdvancementsIn);
 
         if (killedtrigger$listeners == null)
         {
             killedtrigger$listeners = new KilledTrigger.Listeners(playerAdvancementsIn);
-            this.listeners.put(playerAdvancementsIn, killedtrigger$listeners);
+            listeners.put(playerAdvancementsIn, killedtrigger$listeners);
         }
 
         killedtrigger$listeners.add(listener);
@@ -45,7 +45,7 @@ public class KilledTrigger implements ICriterionTrigger<KilledTrigger.Instance>
 
     public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<KilledTrigger.Instance> listener)
     {
-        KilledTrigger.Listeners killedtrigger$listeners = this.listeners.get(playerAdvancementsIn);
+        KilledTrigger.Listeners killedtrigger$listeners = listeners.get(playerAdvancementsIn);
 
         if (killedtrigger$listeners != null)
         {
@@ -53,14 +53,14 @@ public class KilledTrigger implements ICriterionTrigger<KilledTrigger.Instance>
 
             if (killedtrigger$listeners.isEmpty())
             {
-                this.listeners.remove(playerAdvancementsIn);
+                listeners.remove(playerAdvancementsIn);
             }
         }
     }
 
     public void removeAllListeners(PlayerAdvancements playerAdvancementsIn)
     {
-        this.listeners.remove(playerAdvancementsIn);
+        listeners.remove(playerAdvancementsIn);
     }
 
     /**
@@ -68,12 +68,12 @@ public class KilledTrigger implements ICriterionTrigger<KilledTrigger.Instance>
      */
     public KilledTrigger.Instance deserializeInstance(JsonObject json, JsonDeserializationContext context)
     {
-        return new KilledTrigger.Instance(this.id, EntityPredicate.deserialize(json.get("entity")), DamageSourcePredicate.deserialize(json.get("killing_blow")));
+        return new KilledTrigger.Instance(id, EntityPredicate.deserialize(json.get("entity")), DamageSourcePredicate.deserialize(json.get("killing_blow")));
     }
 
     public void trigger(EntityPlayerMP player, Entity entity, DamageSource source)
     {
-        KilledTrigger.Listeners killedtrigger$listeners = this.listeners.get(player.getAdvancements());
+        KilledTrigger.Listeners killedtrigger$listeners = listeners.get(player.getAdvancements());
 
         if (killedtrigger$listeners != null)
         {
@@ -95,7 +95,7 @@ public class KilledTrigger implements ICriterionTrigger<KilledTrigger.Instance>
 
         public boolean test(EntityPlayerMP player, Entity entity, DamageSource source)
         {
-            return !this.killingBlow.test(player, source) ? false : this.entity.test(player, entity);
+            return !killingBlow.test(player, source) ? false : this.entity.test(player, entity);
         }
     }
 
@@ -106,29 +106,29 @@ public class KilledTrigger implements ICriterionTrigger<KilledTrigger.Instance>
 
         public Listeners(PlayerAdvancements playerAdvancementsIn)
         {
-            this.playerAdvancements = playerAdvancementsIn;
+            playerAdvancements = playerAdvancementsIn;
         }
 
         public boolean isEmpty()
         {
-            return this.listeners.isEmpty();
+            return listeners.isEmpty();
         }
 
         public void add(ICriterionTrigger.Listener<KilledTrigger.Instance> listener)
         {
-            this.listeners.add(listener);
+            listeners.add(listener);
         }
 
         public void remove(ICriterionTrigger.Listener<KilledTrigger.Instance> listener)
         {
-            this.listeners.remove(listener);
+            listeners.remove(listener);
         }
 
         public void trigger(EntityPlayerMP player, Entity entity, DamageSource source)
         {
             List<ICriterionTrigger.Listener<KilledTrigger.Instance>> list = null;
 
-            for (ICriterionTrigger.Listener<KilledTrigger.Instance> listener : this.listeners)
+            for (ICriterionTrigger.Listener<KilledTrigger.Instance> listener : listeners)
             {
                 if (((KilledTrigger.Instance)listener.getCriterionInstance()).test(player, entity, source))
                 {
@@ -145,7 +145,7 @@ public class KilledTrigger implements ICriterionTrigger<KilledTrigger.Instance>
             {
                 for (ICriterionTrigger.Listener<KilledTrigger.Instance> listener1 : list)
                 {
-                    listener1.grantCriterion(this.playerAdvancements);
+                    listener1.grantCriterion(playerAdvancements);
                 }
             }
         }

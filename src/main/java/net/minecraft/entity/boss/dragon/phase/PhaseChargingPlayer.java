@@ -23,22 +23,22 @@ public class PhaseChargingPlayer extends PhaseBase
      */
     public void doLocalUpdate()
     {
-        if (this.targetLocation == null)
+        if (targetLocation == null)
         {
             LOGGER.warn("Aborting charge player as no target was set.");
-            this.dragon.getPhaseManager().setPhase(PhaseList.HOLDING_PATTERN);
+            dragon.getPhaseManager().setPhase(PhaseList.HOLDING_PATTERN);
         }
-        else if (this.timeSinceCharge > 0 && this.timeSinceCharge++ >= 10)
+        else if (timeSinceCharge > 0 && timeSinceCharge++ >= 10)
         {
-            this.dragon.getPhaseManager().setPhase(PhaseList.HOLDING_PATTERN);
+            dragon.getPhaseManager().setPhase(PhaseList.HOLDING_PATTERN);
         }
         else
         {
-            double d0 = this.targetLocation.squareDistanceTo(this.dragon.posX, this.dragon.posY, this.dragon.posZ);
+            double d0 = targetLocation.squareDistanceTo(dragon.posX, dragon.posY, dragon.posZ);
 
-            if (d0 < 100.0D || d0 > 22500.0D || this.dragon.collidedHorizontally || this.dragon.collidedVertically)
+            if (d0 < 100.0D || d0 > 22500.0D || dragon.collidedHorizontally || dragon.collidedVertically)
             {
-                ++this.timeSinceCharge;
+                ++timeSinceCharge;
             }
         }
     }
@@ -48,13 +48,13 @@ public class PhaseChargingPlayer extends PhaseBase
      */
     public void initPhase()
     {
-        this.targetLocation = null;
-        this.timeSinceCharge = 0;
+        targetLocation = null;
+        timeSinceCharge = 0;
     }
 
     public void setTarget(Vec3d p_188668_1_)
     {
-        this.targetLocation = p_188668_1_;
+        targetLocation = p_188668_1_;
     }
 
     /**
@@ -72,7 +72,7 @@ public class PhaseChargingPlayer extends PhaseBase
      */
     public Vec3d getTargetLocation()
     {
-        return this.targetLocation;
+        return targetLocation;
     }
 
     public PhaseList<PhaseChargingPlayer> getType()

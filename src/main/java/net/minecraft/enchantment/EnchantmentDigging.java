@@ -9,7 +9,7 @@ public class EnchantmentDigging extends Enchantment
     protected EnchantmentDigging(Enchantment.Rarity rarityIn, EntityEquipmentSlot... slots)
     {
         super(rarityIn, EnumEnchantmentType.DIGGER, slots);
-        this.setName("digging");
+        setName("digging");
     }
 
     /**

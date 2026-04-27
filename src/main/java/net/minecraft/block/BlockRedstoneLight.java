@@ -20,7 +20,7 @@ public class BlockRedstoneLight extends Block
 
         if (isOn)
         {
-            this.setLightLevel(1.0F);
+            setLightLevel(1.0F);
         }
     }
 
@@ -31,11 +31,11 @@ public class BlockRedstoneLight extends Block
     {
         if (!worldIn.isRemote)
         {
-            if (this.isOn && !worldIn.isBlockPowered(pos))
+            if (isOn && !worldIn.isBlockPowered(pos))
             {
                 worldIn.setBlockState(pos, Blocks.REDSTONE_LAMP.getDefaultState(), 2);
             }
-            else if (!this.isOn && worldIn.isBlockPowered(pos))
+            else if (!isOn && worldIn.isBlockPowered(pos))
             {
                 worldIn.setBlockState(pos, Blocks.LIT_REDSTONE_LAMP.getDefaultState(), 2);
             }
@@ -51,11 +51,11 @@ public class BlockRedstoneLight extends Block
     {
         if (!worldIn.isRemote)
         {
-            if (this.isOn && !worldIn.isBlockPowered(pos))
+            if (isOn && !worldIn.isBlockPowered(pos))
             {
                 worldIn.scheduleUpdate(pos, this, 4);
             }
-            else if (!this.isOn && worldIn.isBlockPowered(pos))
+            else if (!isOn && worldIn.isBlockPowered(pos))
             {
                 worldIn.setBlockState(pos, Blocks.LIT_REDSTONE_LAMP.getDefaultState(), 2);
             }
@@ -66,7 +66,7 @@ public class BlockRedstoneLight extends Block
     {
         if (!worldIn.isRemote)
         {
-            if (this.isOn && !worldIn.isBlockPowered(pos))
+            if (isOn && !worldIn.isBlockPowered(pos))
             {
                 worldIn.setBlockState(pos, Blocks.REDSTONE_LAMP.getDefaultState(), 2);
             }

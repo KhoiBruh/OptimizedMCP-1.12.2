@@ -18,15 +18,15 @@ public class WorldGenMegaJungle extends WorldGenHugeTrees
 
     public boolean generate(World worldIn, Random rand, BlockPos position)
     {
-        int i = this.getHeight(rand);
+        int i = getHeight(rand);
 
-        if (!this.ensureGrowable(worldIn, rand, position, i))
+        if (!ensureGrowable(worldIn, rand, position, i))
         {
             return false;
         }
         else
         {
-            this.createCrown(worldIn, position.up(i), 2);
+            createCrown(worldIn, position.up(i), 2);
 
             for (int j = position.getY() + i - 2 - rand.nextInt(4); j > position.getY() + i / 2; j -= 2 + rand.nextInt(4))
             {
@@ -38,7 +38,7 @@ public class WorldGenMegaJungle extends WorldGenHugeTrees
                 {
                     k = position.getX() + (int)(1.5F + MathHelper.cos(f) * (float)i1);
                     l = position.getZ() + (int)(1.5F + MathHelper.sin(f) * (float)i1);
-                    this.setBlockAndNotifyAdequately(worldIn, new BlockPos(k, j - 3 + i1 / 2, l), this.woodMetadata);
+                    setBlockAndNotifyAdequately(worldIn, new BlockPos(k, j - 3 + i1 / 2, l), woodMetadata);
                 }
 
                 int j2 = 1 + rand.nextInt(2);
@@ -47,7 +47,7 @@ public class WorldGenMegaJungle extends WorldGenHugeTrees
                 for (int k1 = j - j2; k1 <= j1; ++k1)
                 {
                     int l1 = k1 - j1;
-                    this.growLeavesLayer(worldIn, new BlockPos(k, k1, l), 1 - l1);
+                    growLeavesLayer(worldIn, new BlockPos(k, k1, l), 1 - l1);
                 }
             }
 
@@ -55,14 +55,14 @@ public class WorldGenMegaJungle extends WorldGenHugeTrees
             {
                 BlockPos blockpos = position.up(i2);
 
-                if (this.canGrowInto(worldIn.getBlockState(blockpos).getBlock()))
+                if (canGrowInto(worldIn.getBlockState(blockpos).getBlock()))
                 {
-                    this.setBlockAndNotifyAdequately(worldIn, blockpos, this.woodMetadata);
+                    setBlockAndNotifyAdequately(worldIn, blockpos, woodMetadata);
 
                     if (i2 > 0)
                     {
-                        this.placeVine(worldIn, rand, blockpos.west(), BlockVine.EAST);
-                        this.placeVine(worldIn, rand, blockpos.north(), BlockVine.SOUTH);
+                        placeVine(worldIn, rand, blockpos.west(), BlockVine.EAST);
+                        placeVine(worldIn, rand, blockpos.north(), BlockVine.SOUTH);
                     }
                 }
 
@@ -70,40 +70,40 @@ public class WorldGenMegaJungle extends WorldGenHugeTrees
                 {
                     BlockPos blockpos1 = blockpos.east();
 
-                    if (this.canGrowInto(worldIn.getBlockState(blockpos1).getBlock()))
+                    if (canGrowInto(worldIn.getBlockState(blockpos1).getBlock()))
                     {
-                        this.setBlockAndNotifyAdequately(worldIn, blockpos1, this.woodMetadata);
+                        setBlockAndNotifyAdequately(worldIn, blockpos1, woodMetadata);
 
                         if (i2 > 0)
                         {
-                            this.placeVine(worldIn, rand, blockpos1.east(), BlockVine.WEST);
-                            this.placeVine(worldIn, rand, blockpos1.north(), BlockVine.SOUTH);
+                            placeVine(worldIn, rand, blockpos1.east(), BlockVine.WEST);
+                            placeVine(worldIn, rand, blockpos1.north(), BlockVine.SOUTH);
                         }
                     }
 
                     BlockPos blockpos2 = blockpos.south().east();
 
-                    if (this.canGrowInto(worldIn.getBlockState(blockpos2).getBlock()))
+                    if (canGrowInto(worldIn.getBlockState(blockpos2).getBlock()))
                     {
-                        this.setBlockAndNotifyAdequately(worldIn, blockpos2, this.woodMetadata);
+                        setBlockAndNotifyAdequately(worldIn, blockpos2, woodMetadata);
 
                         if (i2 > 0)
                         {
-                            this.placeVine(worldIn, rand, blockpos2.east(), BlockVine.WEST);
-                            this.placeVine(worldIn, rand, blockpos2.south(), BlockVine.NORTH);
+                            placeVine(worldIn, rand, blockpos2.east(), BlockVine.WEST);
+                            placeVine(worldIn, rand, blockpos2.south(), BlockVine.NORTH);
                         }
                     }
 
                     BlockPos blockpos3 = blockpos.south();
 
-                    if (this.canGrowInto(worldIn.getBlockState(blockpos3).getBlock()))
+                    if (canGrowInto(worldIn.getBlockState(blockpos3).getBlock()))
                     {
-                        this.setBlockAndNotifyAdequately(worldIn, blockpos3, this.woodMetadata);
+                        setBlockAndNotifyAdequately(worldIn, blockpos3, woodMetadata);
 
                         if (i2 > 0)
                         {
-                            this.placeVine(worldIn, rand, blockpos3.west(), BlockVine.EAST);
-                            this.placeVine(worldIn, rand, blockpos3.south(), BlockVine.NORTH);
+                            placeVine(worldIn, rand, blockpos3.west(), BlockVine.EAST);
+                            placeVine(worldIn, rand, blockpos3.south(), BlockVine.NORTH);
                         }
                     }
                 }
@@ -117,7 +117,7 @@ public class WorldGenMegaJungle extends WorldGenHugeTrees
     {
         if (p_181632_2_.nextInt(3) > 0 && p_181632_1_.isAirBlock(p_181632_3_))
         {
-            this.setBlockAndNotifyAdequately(p_181632_1_, p_181632_3_, Blocks.VINE.getDefaultState().withProperty(p_181632_4_, Boolean.valueOf(true)));
+            setBlockAndNotifyAdequately(p_181632_1_, p_181632_3_, Blocks.VINE.getDefaultState().withProperty(p_181632_4_, Boolean.valueOf(true)));
         }
     }
 
@@ -127,7 +127,7 @@ public class WorldGenMegaJungle extends WorldGenHugeTrees
 
         for (int j = -2; j <= 0; ++j)
         {
-            this.growLeavesLayerStrict(worldIn, p_175930_2_.up(j), p_175930_3_ + 1 - j);
+            growLeavesLayerStrict(worldIn, p_175930_2_.up(j), p_175930_3_ + 1 - j);
         }
     }
 }

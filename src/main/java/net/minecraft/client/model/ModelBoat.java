@@ -22,41 +22,41 @@ public class ModelBoat extends ModelBase implements IMultipassModel
 
     public ModelBoat()
     {
-        this.boatSides[0] = (new ModelRenderer(this, 0, 0)).setTextureSize(128, 64);
-        this.boatSides[1] = (new ModelRenderer(this, 0, 19)).setTextureSize(128, 64);
-        this.boatSides[2] = (new ModelRenderer(this, 0, 27)).setTextureSize(128, 64);
-        this.boatSides[3] = (new ModelRenderer(this, 0, 35)).setTextureSize(128, 64);
-        this.boatSides[4] = (new ModelRenderer(this, 0, 43)).setTextureSize(128, 64);
+        boatSides[0] = (new ModelRenderer(this, 0, 0)).setTextureSize(128, 64);
+        boatSides[1] = (new ModelRenderer(this, 0, 19)).setTextureSize(128, 64);
+        boatSides[2] = (new ModelRenderer(this, 0, 27)).setTextureSize(128, 64);
+        boatSides[3] = (new ModelRenderer(this, 0, 35)).setTextureSize(128, 64);
+        boatSides[4] = (new ModelRenderer(this, 0, 43)).setTextureSize(128, 64);
         int i = 32;
         int j = 6;
         int k = 20;
         int l = 4;
         int i1 = 28;
-        this.boatSides[0].addBox(-14.0F, -9.0F, -3.0F, 28, 16, 3, 0.0F);
-        this.boatSides[0].setRotationPoint(0.0F, 3.0F, 1.0F);
-        this.boatSides[1].addBox(-13.0F, -7.0F, -1.0F, 18, 6, 2, 0.0F);
-        this.boatSides[1].setRotationPoint(-15.0F, 4.0F, 4.0F);
-        this.boatSides[2].addBox(-8.0F, -7.0F, -1.0F, 16, 6, 2, 0.0F);
-        this.boatSides[2].setRotationPoint(15.0F, 4.0F, 0.0F);
-        this.boatSides[3].addBox(-14.0F, -7.0F, -1.0F, 28, 6, 2, 0.0F);
-        this.boatSides[3].setRotationPoint(0.0F, 4.0F, -9.0F);
-        this.boatSides[4].addBox(-14.0F, -7.0F, -1.0F, 28, 6, 2, 0.0F);
-        this.boatSides[4].setRotationPoint(0.0F, 4.0F, 9.0F);
-        this.boatSides[0].rotateAngleX = ((float)Math.PI / 2F);
-        this.boatSides[1].rotateAngleY = ((float)Math.PI * 3F / 2F);
-        this.boatSides[2].rotateAngleY = ((float)Math.PI / 2F);
-        this.boatSides[3].rotateAngleY = (float)Math.PI;
-        this.paddles[0] = this.makePaddle(true);
-        this.paddles[0].setRotationPoint(3.0F, -5.0F, 9.0F);
-        this.paddles[1] = this.makePaddle(false);
-        this.paddles[1].setRotationPoint(3.0F, -5.0F, -9.0F);
-        this.paddles[1].rotateAngleY = (float)Math.PI;
-        this.paddles[0].rotateAngleZ = 0.19634955F;
-        this.paddles[1].rotateAngleZ = 0.19634955F;
-        this.noWater = (new ModelRenderer(this, 0, 0)).setTextureSize(128, 64);
-        this.noWater.addBox(-14.0F, -9.0F, -3.0F, 28, 16, 3, 0.0F);
-        this.noWater.setRotationPoint(0.0F, -3.0F, 1.0F);
-        this.noWater.rotateAngleX = ((float)Math.PI / 2F);
+        boatSides[0].addBox(-14.0F, -9.0F, -3.0F, 28, 16, 3, 0.0F);
+        boatSides[0].setRotationPoint(0.0F, 3.0F, 1.0F);
+        boatSides[1].addBox(-13.0F, -7.0F, -1.0F, 18, 6, 2, 0.0F);
+        boatSides[1].setRotationPoint(-15.0F, 4.0F, 4.0F);
+        boatSides[2].addBox(-8.0F, -7.0F, -1.0F, 16, 6, 2, 0.0F);
+        boatSides[2].setRotationPoint(15.0F, 4.0F, 0.0F);
+        boatSides[3].addBox(-14.0F, -7.0F, -1.0F, 28, 6, 2, 0.0F);
+        boatSides[3].setRotationPoint(0.0F, 4.0F, -9.0F);
+        boatSides[4].addBox(-14.0F, -7.0F, -1.0F, 28, 6, 2, 0.0F);
+        boatSides[4].setRotationPoint(0.0F, 4.0F, 9.0F);
+        boatSides[0].rotateAngleX = ((float)Math.PI / 2F);
+        boatSides[1].rotateAngleY = ((float)Math.PI * 3F / 2F);
+        boatSides[2].rotateAngleY = ((float)Math.PI / 2F);
+        boatSides[3].rotateAngleY = (float)Math.PI;
+        paddles[0] = makePaddle(true);
+        paddles[0].setRotationPoint(3.0F, -5.0F, 9.0F);
+        paddles[1] = makePaddle(false);
+        paddles[1].setRotationPoint(3.0F, -5.0F, -9.0F);
+        paddles[1].rotateAngleY = (float)Math.PI;
+        paddles[0].rotateAngleZ = 0.19634955F;
+        paddles[1].rotateAngleZ = 0.19634955F;
+        noWater = (new ModelRenderer(this, 0, 0)).setTextureSize(128, 64);
+        noWater.addBox(-14.0F, -9.0F, -3.0F, 28, 16, 3, 0.0F);
+        noWater.setRotationPoint(0.0F, -3.0F, 1.0F);
+        noWater.rotateAngleX = ((float)Math.PI / 2F);
     }
 
     /**
@@ -66,22 +66,22 @@ public class ModelBoat extends ModelBase implements IMultipassModel
     {
         GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
         EntityBoat entityboat = (EntityBoat)entityIn;
-        this.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
+        setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
 
         for (int i = 0; i < 5; ++i)
         {
-            this.boatSides[i].render(scale);
+            boatSides[i].render(scale);
         }
 
-        this.renderPaddle(entityboat, 0, scale, limbSwing);
-        this.renderPaddle(entityboat, 1, scale, limbSwing);
+        renderPaddle(entityboat, 0, scale, limbSwing);
+        renderPaddle(entityboat, 1, scale, limbSwing);
     }
 
     public void renderMultipass(Entity p_187054_1_, float p_187054_2_, float p_187054_3_, float p_187054_4_, float p_187054_5_, float p_187054_6_, float scale)
     {
         GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
         GlStateManager.colorMask(false, false, false, false);
-        this.noWater.render(scale);
+        noWater.render(scale);
         GlStateManager.colorMask(true, true, true, true);
     }
 
@@ -100,7 +100,7 @@ public class ModelBoat extends ModelBase implements IMultipassModel
     protected void renderPaddle(EntityBoat boat, int paddle, float scale, float limbSwing)
     {
         float f = boat.getRowingTime(paddle, limbSwing);
-        ModelRenderer modelrenderer = this.paddles[paddle];
+        ModelRenderer modelrenderer = paddles[paddle];
         modelrenderer.rotateAngleX = (float)MathHelper.clampedLerp(-1.0471975803375244D, -0.2617993950843811D, (double)((MathHelper.sin(-f) + 1.0F) / 2.0F));
         modelrenderer.rotateAngleY = (float)MathHelper.clampedLerp(-(Math.PI / 4D), (Math.PI / 4D), (double)((MathHelper.sin(-f + 1.0F) + 1.0F) / 2.0F));
 

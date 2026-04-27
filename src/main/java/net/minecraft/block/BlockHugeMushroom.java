@@ -26,8 +26,8 @@ public class BlockHugeMushroom extends Block
     public BlockHugeMushroom(Material materialIn, MapColor color, Block smallBlockIn)
     {
         super(materialIn, color);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(VARIANT, BlockHugeMushroom.EnumType.ALL_OUTSIDE));
-        this.smallBlock = smallBlockIn;
+        setDefaultState(blockState.getBaseState().withProperty(VARIANT, BlockHugeMushroom.EnumType.ALL_OUTSIDE));
+        smallBlock = smallBlockIn;
     }
 
     /**
@@ -64,12 +64,12 @@ public class BlockHugeMushroom extends Block
      */
     public Item getItemDropped(IBlockState state, Random rand, int fortune)
     {
-        return Item.getItemFromBlock(this.smallBlock);
+        return Item.getItemFromBlock(smallBlock);
     }
 
     public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state)
     {
-        return new ItemStack(this.smallBlock);
+        return new ItemStack(smallBlock);
     }
 
     /**
@@ -78,7 +78,7 @@ public class BlockHugeMushroom extends Block
      */
     public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
     {
-        return this.getDefaultState();
+        return getDefaultState();
     }
 
     /**
@@ -86,7 +86,7 @@ public class BlockHugeMushroom extends Block
      */
     public IBlockState getStateFromMeta(int meta)
     {
-        return this.getDefaultState().withProperty(VARIANT, BlockHugeMushroom.EnumType.byMetadata(meta));
+        return getDefaultState().withProperty(VARIANT, BlockHugeMushroom.EnumType.byMetadata(meta));
     }
 
     /**
@@ -315,12 +315,12 @@ public class BlockHugeMushroom extends Block
 
         public int getMetadata()
         {
-            return this.meta;
+            return meta;
         }
 
         public String toString()
         {
-            return this.name;
+            return name;
         }
 
         public static BlockHugeMushroom.EnumType byMetadata(int meta)
@@ -336,7 +336,7 @@ public class BlockHugeMushroom extends Block
 
         public String getName()
         {
-            return this.name;
+            return name;
         }
 
         static {

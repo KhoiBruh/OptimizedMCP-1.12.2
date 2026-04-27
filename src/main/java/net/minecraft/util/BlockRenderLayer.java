@@ -11,11 +11,11 @@ public enum BlockRenderLayer
 
     private BlockRenderLayer(String layerNameIn)
     {
-        this.layerName = layerNameIn;
+        layerName = layerNameIn;
     }
 
     public String toString()
     {
-        return this.layerName;
+        return layerName;
     }
 }

@@ -49,9 +49,9 @@ public class BlockPistonExtension extends BlockDirectional
     public BlockPistonExtension()
     {
         super(Material.PISTON);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(TYPE, BlockPistonExtension.EnumPistonType.DEFAULT).withProperty(SHORT, Boolean.valueOf(false)));
-        this.setSoundType(SoundType.STONE);
-        this.setHardness(0.5F);
+        setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(TYPE, BlockPistonExtension.EnumPistonType.DEFAULT).withProperty(SHORT, Boolean.valueOf(false)));
+        setSoundType(SoundType.STONE);
+        setHardness(0.5F);
     }
 
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
@@ -82,7 +82,7 @@ public class BlockPistonExtension extends BlockDirectional
     public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, @Nullable Entity entityIn, boolean isActualState)
     {
         addCollisionBoxToList(pos, entityBox, collidingBoxes, state.getBoundingBox(worldIn, pos));
-        addCollisionBoxToList(pos, entityBox, collidingBoxes, this.getArmShape(state));
+        addCollisionBoxToList(pos, entityBox, collidingBoxes, getArmShape(state));
     }
 
     private AxisAlignedBB getArmShape(IBlockState state)
@@ -237,7 +237,7 @@ public class BlockPistonExtension extends BlockDirectional
      */
     public IBlockState getStateFromMeta(int meta)
     {
-        return this.getDefaultState().withProperty(FACING, getFacing(meta)).withProperty(TYPE, (meta & 8) > 0 ? BlockPistonExtension.EnumPistonType.STICKY : BlockPistonExtension.EnumPistonType.DEFAULT);
+        return getDefaultState().withProperty(FACING, getFacing(meta)).withProperty(TYPE, (meta & 8) > 0 ? BlockPistonExtension.EnumPistonType.STICKY : BlockPistonExtension.EnumPistonType.DEFAULT);
     }
 
     /**
@@ -302,17 +302,17 @@ public class BlockPistonExtension extends BlockDirectional
 
         private EnumPistonType(String name)
         {
-            this.VARIANT = name;
+            VARIANT = name;
         }
 
         public String toString()
         {
-            return this.VARIANT;
+            return VARIANT;
         }
 
         public String getName()
         {
-            return this.VARIANT;
+            return VARIANT;
         }
     }
 }

@@ -24,16 +24,16 @@ public class BiomeHills extends Biome
 
         if (p_i46710_1_ == BiomeHills.Type.EXTRA_TREES)
         {
-            this.decorator.treesPerChunk = 3;
+            decorator.treesPerChunk = 3;
         }
 
-        this.spawnableCreatureList.add(new Biome.SpawnListEntry(EntityLlama.class, 5, 4, 6));
-        this.type = p_i46710_1_;
+        spawnableCreatureList.add(new Biome.SpawnListEntry(EntityLlama.class, 5, 4, 6));
+        type = p_i46710_1_;
     }
 
     public WorldGenAbstractTree getRandomTreeFeature(Random rand)
     {
-        return (WorldGenAbstractTree)(rand.nextInt(3) > 0 ? this.spruceGenerator : super.getRandomTreeFeature(rand));
+        return (WorldGenAbstractTree)(rand.nextInt(3) > 0 ? spruceGenerator : super.getRandomTreeFeature(rand));
     }
 
     public void decorate(World worldIn, Random rand, BlockPos pos)
@@ -59,27 +59,27 @@ public class BiomeHills extends Biome
             int k1 = rand.nextInt(16);
             int l1 = rand.nextInt(64);
             int i2 = rand.nextInt(16);
-            this.silverfishSpawner.generate(worldIn, rand, pos.add(k1, l1, i2));
+            silverfishSpawner.generate(worldIn, rand, pos.add(k1, l1, i2));
         }
     }
 
     public void genTerrainBlocks(World worldIn, Random rand, ChunkPrimer chunkPrimerIn, int x, int z, double noiseVal)
     {
-        this.topBlock = Blocks.GRASS.getDefaultState();
-        this.fillerBlock = Blocks.DIRT.getDefaultState();
+        topBlock = Blocks.GRASS.getDefaultState();
+        fillerBlock = Blocks.DIRT.getDefaultState();
 
-        if ((noiseVal < -1.0D || noiseVal > 2.0D) && this.type == BiomeHills.Type.MUTATED)
+        if ((noiseVal < -1.0D || noiseVal > 2.0D) && type == BiomeHills.Type.MUTATED)
         {
-            this.topBlock = Blocks.GRAVEL.getDefaultState();
-            this.fillerBlock = Blocks.GRAVEL.getDefaultState();
+            topBlock = Blocks.GRAVEL.getDefaultState();
+            fillerBlock = Blocks.GRAVEL.getDefaultState();
         }
-        else if (noiseVal > 1.0D && this.type != BiomeHills.Type.EXTRA_TREES)
+        else if (noiseVal > 1.0D && type != BiomeHills.Type.EXTRA_TREES)
         {
-            this.topBlock = Blocks.STONE.getDefaultState();
-            this.fillerBlock = Blocks.STONE.getDefaultState();
+            topBlock = Blocks.STONE.getDefaultState();
+            fillerBlock = Blocks.STONE.getDefaultState();
         }
 
-        this.generateBiomeTerrain(worldIn, rand, chunkPrimerIn, x, z, noiseVal);
+        generateBiomeTerrain(worldIn, rand, chunkPrimerIn, x, z, noiseVal);
     }
 
     public static enum Type

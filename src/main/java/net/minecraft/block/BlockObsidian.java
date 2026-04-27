@@ -15,7 +15,7 @@ public class BlockObsidian extends Block
     public BlockObsidian()
     {
         super(Material.ROCK);
-        this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
+        setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
     }
 
     /**

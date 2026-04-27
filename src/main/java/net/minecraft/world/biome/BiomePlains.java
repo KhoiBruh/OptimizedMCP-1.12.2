@@ -16,13 +16,13 @@ public class BiomePlains extends Biome
     protected BiomePlains(boolean p_i46699_1_, Biome.BiomeProperties properties)
     {
         super(properties);
-        this.sunflowers = p_i46699_1_;
-        this.spawnableCreatureList.add(new Biome.SpawnListEntry(EntityHorse.class, 5, 2, 6));
-        this.spawnableCreatureList.add(new Biome.SpawnListEntry(EntityDonkey.class, 1, 1, 3));
-        this.decorator.treesPerChunk = 0;
-        this.decorator.extraTreeChance = 0.05F;
-        this.decorator.flowersPerChunk = 4;
-        this.decorator.grassPerChunk = 10;
+        sunflowers = p_i46699_1_;
+        spawnableCreatureList.add(new Biome.SpawnListEntry(EntityHorse.class, 5, 2, 6));
+        spawnableCreatureList.add(new Biome.SpawnListEntry(EntityDonkey.class, 1, 1, 3));
+        decorator.treesPerChunk = 0;
+        decorator.extraTreeChance = 0.05F;
+        decorator.flowersPerChunk = 4;
+        decorator.grassPerChunk = 10;
     }
 
     public BlockFlower.EnumFlowerType pickRandomFlower(Random rand, BlockPos pos)
@@ -74,13 +74,13 @@ public class BiomePlains extends Biome
 
         if (d0 < -0.8D)
         {
-            this.decorator.flowersPerChunk = 15;
-            this.decorator.grassPerChunk = 5;
+            decorator.flowersPerChunk = 15;
+            decorator.grassPerChunk = 5;
         }
         else
         {
-            this.decorator.flowersPerChunk = 4;
-            this.decorator.grassPerChunk = 10;
+            decorator.flowersPerChunk = 4;
+            decorator.grassPerChunk = 10;
             DOUBLE_PLANT_GENERATOR.setPlantType(BlockDoublePlant.EnumPlantType.GRASS);
 
             for (int i = 0; i < 7; ++i)
@@ -92,7 +92,7 @@ public class BiomePlains extends Biome
             }
         }
 
-        if (this.sunflowers)
+        if (sunflowers)
         {
             DOUBLE_PLANT_GENERATOR.setPlantType(BlockDoublePlant.EnumPlantType.SUNFLOWER);
 

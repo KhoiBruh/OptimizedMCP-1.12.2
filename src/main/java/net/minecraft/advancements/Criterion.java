@@ -18,12 +18,12 @@ public class Criterion
 
     public Criterion(ICriterionInstance p_i47470_1_)
     {
-        this.criterionInstance = p_i47470_1_;
+        criterionInstance = p_i47470_1_;
     }
 
     public Criterion()
     {
-        this.criterionInstance = null;
+        criterionInstance = null;
     }
 
     public void serializeToNetwork(PacketBuffer p_192140_1_)
@@ -111,6 +111,6 @@ public class Criterion
     @Nullable
     public ICriterionInstance getCriterionInstance()
     {
-        return this.criterionInstance;
+        return criterionInstance;
     }
 }

@@ -31,13 +31,13 @@ public class TeleportToTeam implements ISpectatorMenuView, ISpectatorMenuObject
 
         for (ScorePlayerTeam scoreplayerteam : minecraft.world.getScoreboard().getTeams())
         {
-            this.items.add(new TeleportToTeam.TeamSelectionObject(scoreplayerteam));
+            items.add(new TeleportToTeam.TeamSelectionObject(scoreplayerteam));
         }
     }
 
     public List<ISpectatorMenuObject> getItems()
     {
-        return this.items;
+        return items;
     }
 
     public ITextComponent getPrompt()
@@ -63,7 +63,7 @@ public class TeleportToTeam implements ISpectatorMenuView, ISpectatorMenuObject
 
     public boolean isEnabled()
     {
-        for (ISpectatorMenuObject ispectatormenuobject : this.items)
+        for (ISpectatorMenuObject ispectatormenuobject : items)
         {
             if (ispectatormenuobject.isEnabled())
             {
@@ -82,8 +82,8 @@ public class TeleportToTeam implements ISpectatorMenuView, ISpectatorMenuObject
 
         public TeamSelectionObject(ScorePlayerTeam teamIn)
         {
-            this.team = teamIn;
-            this.players = Lists.<NetworkPlayerInfo>newArrayList();
+            team = teamIn;
+            players = Lists.<NetworkPlayerInfo>newArrayList();
 
             for (String s : teamIn.getMembershipCollection())
             {
@@ -91,36 +91,36 @@ public class TeleportToTeam implements ISpectatorMenuView, ISpectatorMenuObject
 
                 if (networkplayerinfo != null)
                 {
-                    this.players.add(networkplayerinfo);
+                    players.add(networkplayerinfo);
                 }
             }
 
-            if (this.players.isEmpty())
+            if (players.isEmpty())
             {
-                this.location = DefaultPlayerSkin.getDefaultSkinLegacy();
+                location = DefaultPlayerSkin.getDefaultSkinLegacy();
             }
             else
             {
-                String s1 = ((NetworkPlayerInfo)this.players.get((new Random()).nextInt(this.players.size()))).getGameProfile().getName();
-                this.location = AbstractClientPlayer.getLocationSkin(s1);
-                AbstractClientPlayer.getDownloadImageSkin(this.location, s1);
+                String s1 = ((NetworkPlayerInfo) players.get((new Random()).nextInt(players.size()))).getGameProfile().getName();
+                location = AbstractClientPlayer.getLocationSkin(s1);
+                AbstractClientPlayer.getDownloadImageSkin(location, s1);
             }
         }
 
         public void selectItem(SpectatorMenu menu)
         {
-            menu.selectCategory(new TeleportToPlayer(this.players));
+            menu.selectCategory(new TeleportToPlayer(players));
         }
 
         public ITextComponent getSpectatorName()
         {
-            return new TextComponentString(this.team.getDisplayName());
+            return new TextComponentString(team.getDisplayName());
         }
 
         public void renderIcon(float brightness, int alpha)
         {
             int i = -1;
-            String s = FontRenderer.getFormatFromString(this.team.getPrefix());
+            String s = FontRenderer.getFormatFromString(team.getPrefix());
 
             if (s.length() >= 2)
             {
@@ -135,7 +135,7 @@ public class TeleportToTeam implements ISpectatorMenuView, ISpectatorMenuObject
                 Gui.drawRect(1, 1, 15, 15, MathHelper.rgb(f * brightness, f1 * brightness, f2 * brightness) | alpha << 24);
             }
 
-            Minecraft.getMinecraft().getTextureManager().bindTexture(this.location);
+            Minecraft.getMinecraft().getTextureManager().bindTexture(location);
             GlStateManager.color(brightness, brightness, brightness, (float)alpha / 255.0F);
             Gui.drawScaledCustomSizeModalRect(2, 2, 8.0F, 8.0F, 8, 8, 12, 12, 64.0F, 64.0F);
             Gui.drawScaledCustomSizeModalRect(2, 2, 40.0F, 8.0F, 8, 8, 12, 12, 64.0F, 64.0F);
@@ -143,7 +143,7 @@ public class TeleportToTeam implements ISpectatorMenuView, ISpectatorMenuObject
 
         public boolean isEnabled()
         {
-            return !this.players.isEmpty();
+            return !players.isEmpty();
         }
     }
 }

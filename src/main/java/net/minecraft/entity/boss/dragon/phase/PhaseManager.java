@@ -13,45 +13,45 @@ public class PhaseManager
 
     public PhaseManager(EntityDragon dragonIn)
     {
-        this.dragon = dragonIn;
-        this.setPhase(PhaseList.HOVER);
+        dragon = dragonIn;
+        setPhase(PhaseList.HOVER);
     }
 
     public void setPhase(PhaseList<?> phaseIn)
     {
-        if (this.phase == null || phaseIn != this.phase.getType())
+        if (phase == null || phaseIn != phase.getType())
         {
-            if (this.phase != null)
+            if (phase != null)
             {
-                this.phase.removeAreaEffect();
+                phase.removeAreaEffect();
             }
 
-            this.phase = this.getPhase(phaseIn);
+            phase = getPhase(phaseIn);
 
-            if (!this.dragon.world.isRemote)
+            if (!dragon.world.isRemote)
             {
-                this.dragon.getDataManager().set(EntityDragon.PHASE, Integer.valueOf(phaseIn.getId()));
+                dragon.getDataManager().set(EntityDragon.PHASE, Integer.valueOf(phaseIn.getId()));
             }
 
-            LOGGER.debug("Dragon is now in phase {} on the {}", phaseIn, this.dragon.world.isRemote ? "client" : "server");
-            this.phase.initPhase();
+            LOGGER.debug("Dragon is now in phase {} on the {}", phaseIn, dragon.world.isRemote ? "client" : "server");
+            phase.initPhase();
         }
     }
 
     public IPhase getCurrentPhase()
     {
-        return this.phase;
+        return phase;
     }
 
     public <T extends IPhase> T getPhase(PhaseList<T> phaseIn)
     {
         int i = phaseIn.getId();
 
-        if (this.phases[i] == null)
+        if (phases[i] == null)
         {
-            this.phases[i] = phaseIn.createPhase(this.dragon);
+            phases[i] = phaseIn.createPhase(dragon);
         }
 
-        return (T)this.phases[i];
+        return (T) phases[i];
     }
 }

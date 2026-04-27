@@ -16,7 +16,7 @@ public class LayerWitherAura implements LayerRenderer<EntityWither>
 
     public LayerWitherAura(RenderWither witherRendererIn)
     {
-        this.witherRenderer = witherRendererIn;
+        witherRenderer = witherRendererIn;
     }
 
     public void doRenderLayer(EntityWither entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale)
@@ -24,7 +24,7 @@ public class LayerWitherAura implements LayerRenderer<EntityWither>
         if (entitylivingbaseIn.isArmored())
         {
             GlStateManager.depthMask(!entitylivingbaseIn.isInvisible());
-            this.witherRenderer.bindTexture(WITHER_ARMOR);
+            witherRenderer.bindTexture(WITHER_ARMOR);
             GlStateManager.matrixMode(5890);
             GlStateManager.loadIdentity();
             float f = (float)entitylivingbaseIn.ticksExisted + partialTicks;
@@ -37,10 +37,10 @@ public class LayerWitherAura implements LayerRenderer<EntityWither>
             GlStateManager.color(0.5F, 0.5F, 0.5F, 1.0F);
             GlStateManager.disableLighting();
             GlStateManager.blendFunc(GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ONE);
-            this.witherModel.setLivingAnimations(entitylivingbaseIn, limbSwing, limbSwingAmount, partialTicks);
-            this.witherModel.setModelAttributes(this.witherRenderer.getMainModel());
+            witherModel.setLivingAnimations(entitylivingbaseIn, limbSwing, limbSwingAmount, partialTicks);
+            witherModel.setModelAttributes(witherRenderer.getMainModel());
             Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
-            this.witherModel.render(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+            witherModel.render(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
             Minecraft.getMinecraft().entityRenderer.setupFogColor(false);
             GlStateManager.matrixMode(5890);
             GlStateManager.loadIdentity();

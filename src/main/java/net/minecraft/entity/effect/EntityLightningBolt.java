@@ -34,11 +34,11 @@ public class EntityLightningBolt extends EntityWeatherEffect
     public EntityLightningBolt(World worldIn, double x, double y, double z, boolean effectOnlyIn)
     {
         super(worldIn);
-        this.setLocationAndAngles(x, y, z, 0.0F, 0.0F);
-        this.lightningState = 2;
-        this.boltVertex = this.rand.nextLong();
-        this.boltLivingTime = this.rand.nextInt(3) + 1;
-        this.effectOnly = effectOnlyIn;
+        setLocationAndAngles(x, y, z, 0.0F, 0.0F);
+        lightningState = 2;
+        boltVertex = rand.nextLong();
+        boltLivingTime = rand.nextInt(3) + 1;
+        effectOnly = effectOnlyIn;
         BlockPos blockpos = new BlockPos(this);
 
         if (!effectOnlyIn && !worldIn.isRemote && worldIn.getGameRules().getBoolean("doFireTick") && (worldIn.getDifficulty() == EnumDifficulty.NORMAL || worldIn.getDifficulty() == EnumDifficulty.HARD) && worldIn.isAreaLoaded(blockpos, 10))
@@ -50,7 +50,7 @@ public class EntityLightningBolt extends EntityWeatherEffect
 
             for (int i = 0; i < 4; ++i)
             {
-                BlockPos blockpos1 = blockpos.add(this.rand.nextInt(3) - 1, this.rand.nextInt(3) - 1, this.rand.nextInt(3) - 1);
+                BlockPos blockpos1 = blockpos.add(rand.nextInt(3) - 1, rand.nextInt(3) - 1, rand.nextInt(3) - 1);
 
                 if (worldIn.getBlockState(blockpos1).getMaterial() == Material.AIR && Blocks.FIRE.canPlaceBlockAt(worldIn, blockpos1))
                 {
@@ -72,48 +72,48 @@ public class EntityLightningBolt extends EntityWeatherEffect
     {
         super.onUpdate();
 
-        if (this.lightningState == 2)
+        if (lightningState == 2)
         {
-            this.world.playSound((EntityPlayer)null, this.posX, this.posY, this.posZ, SoundEvents.ENTITY_LIGHTNING_THUNDER, SoundCategory.WEATHER, 10000.0F, 0.8F + this.rand.nextFloat() * 0.2F);
-            this.world.playSound((EntityPlayer)null, this.posX, this.posY, this.posZ, SoundEvents.ENTITY_LIGHTNING_IMPACT, SoundCategory.WEATHER, 2.0F, 0.5F + this.rand.nextFloat() * 0.2F);
+            world.playSound((EntityPlayer)null, posX, posY, posZ, SoundEvents.ENTITY_LIGHTNING_THUNDER, SoundCategory.WEATHER, 10000.0F, 0.8F + rand.nextFloat() * 0.2F);
+            world.playSound((EntityPlayer)null, posX, posY, posZ, SoundEvents.ENTITY_LIGHTNING_IMPACT, SoundCategory.WEATHER, 2.0F, 0.5F + rand.nextFloat() * 0.2F);
         }
 
-        --this.lightningState;
+        --lightningState;
 
-        if (this.lightningState < 0)
+        if (lightningState < 0)
         {
-            if (this.boltLivingTime == 0)
+            if (boltLivingTime == 0)
             {
-                this.setDead();
+                setDead();
             }
-            else if (this.lightningState < -this.rand.nextInt(10))
+            else if (lightningState < -rand.nextInt(10))
             {
-                --this.boltLivingTime;
-                this.lightningState = 1;
+                --boltLivingTime;
+                lightningState = 1;
 
-                if (!this.effectOnly && !this.world.isRemote)
+                if (!effectOnly && !world.isRemote)
                 {
-                    this.boltVertex = this.rand.nextLong();
+                    boltVertex = rand.nextLong();
                     BlockPos blockpos = new BlockPos(this);
 
-                    if (this.world.getGameRules().getBoolean("doFireTick") && this.world.isAreaLoaded(blockpos, 10) && this.world.getBlockState(blockpos).getMaterial() == Material.AIR && Blocks.FIRE.canPlaceBlockAt(this.world, blockpos))
+                    if (world.getGameRules().getBoolean("doFireTick") && world.isAreaLoaded(blockpos, 10) && world.getBlockState(blockpos).getMaterial() == Material.AIR && Blocks.FIRE.canPlaceBlockAt(world, blockpos))
                     {
-                        this.world.setBlockState(blockpos, Blocks.FIRE.getDefaultState());
+                        world.setBlockState(blockpos, Blocks.FIRE.getDefaultState());
                     }
                 }
             }
         }
 
-        if (this.lightningState >= 0)
+        if (lightningState >= 0)
         {
-            if (this.world.isRemote)
+            if (world.isRemote)
             {
-                this.world.setLastLightningBolt(2);
+                world.setLastLightningBolt(2);
             }
-            else if (!this.effectOnly)
+            else if (!effectOnly)
             {
                 double d0 = 3.0D;
-                List<Entity> list = this.world.getEntitiesWithinAABBExcludingEntity(this, new AxisAlignedBB(this.posX - 3.0D, this.posY - 3.0D, this.posZ - 3.0D, this.posX + 3.0D, this.posY + 6.0D + 3.0D, this.posZ + 3.0D));
+                List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(this, new AxisAlignedBB(posX - 3.0D, posY - 3.0D, posZ - 3.0D, posX + 3.0D, posY + 6.0D + 3.0D, posZ + 3.0D));
 
                 for (int i = 0; i < list.size(); ++i)
                 {

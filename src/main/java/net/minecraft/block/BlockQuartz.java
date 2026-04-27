@@ -25,8 +25,8 @@ public class BlockQuartz extends Block
     public BlockQuartz()
     {
         super(Material.ROCK);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(VARIANT, BlockQuartz.EnumType.DEFAULT));
-        this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
+        setDefaultState(blockState.getBaseState().withProperty(VARIANT, BlockQuartz.EnumType.DEFAULT));
+        setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
     }
 
     /**
@@ -40,17 +40,17 @@ public class BlockQuartz extends Block
             switch (facing.getAxis())
             {
                 case Z:
-                    return this.getDefaultState().withProperty(VARIANT, BlockQuartz.EnumType.LINES_Z);
+                    return getDefaultState().withProperty(VARIANT, BlockQuartz.EnumType.LINES_Z);
 
                 case X:
-                    return this.getDefaultState().withProperty(VARIANT, BlockQuartz.EnumType.LINES_X);
+                    return getDefaultState().withProperty(VARIANT, BlockQuartz.EnumType.LINES_X);
 
                 case Y:
-                    return this.getDefaultState().withProperty(VARIANT, BlockQuartz.EnumType.LINES_Y);
+                    return getDefaultState().withProperty(VARIANT, BlockQuartz.EnumType.LINES_Y);
             }
         }
 
-        return meta == BlockQuartz.EnumType.CHISELED.getMetadata() ? this.getDefaultState().withProperty(VARIANT, BlockQuartz.EnumType.CHISELED) : this.getDefaultState().withProperty(VARIANT, BlockQuartz.EnumType.DEFAULT);
+        return meta == BlockQuartz.EnumType.CHISELED.getMetadata() ? getDefaultState().withProperty(VARIANT, BlockQuartz.EnumType.CHISELED) : getDefaultState().withProperty(VARIANT, BlockQuartz.EnumType.DEFAULT);
     }
 
     /**
@@ -92,7 +92,7 @@ public class BlockQuartz extends Block
      */
     public IBlockState getStateFromMeta(int meta)
     {
-        return this.getDefaultState().withProperty(VARIANT, BlockQuartz.EnumType.byMetadata(meta));
+        return getDefaultState().withProperty(VARIANT, BlockQuartz.EnumType.byMetadata(meta));
     }
 
     /**
@@ -151,18 +151,18 @@ public class BlockQuartz extends Block
         private EnumType(int meta, String name, String unlocalizedName)
         {
             this.meta = meta;
-            this.serializedName = name;
+            serializedName = name;
             this.unlocalizedName = unlocalizedName;
         }
 
         public int getMetadata()
         {
-            return this.meta;
+            return meta;
         }
 
         public String toString()
         {
-            return this.unlocalizedName;
+            return unlocalizedName;
         }
 
         public static BlockQuartz.EnumType byMetadata(int meta)
@@ -177,7 +177,7 @@ public class BlockQuartz extends Block
 
         public String getName()
         {
-            return this.serializedName;
+            return serializedName;
         }
 
         static {

@@ -14,7 +14,7 @@ public class EnchantmentThorns extends Enchantment
     public EnchantmentThorns(Enchantment.Rarity rarityIn, EntityEquipmentSlot... slots)
     {
         super(rarityIn, EnumEnchantmentType.ARMOR_CHEST, slots);
-        this.setName("thorns");
+        setName("thorns");
     }
 
     /**

@@ -19,10 +19,10 @@ public class ItemFishingRod extends Item
 {
     public ItemFishingRod()
     {
-        this.setMaxDamage(64);
-        this.setMaxStackSize(1);
-        this.setCreativeTab(CreativeTabs.TOOLS);
-        this.addPropertyOverride(new ResourceLocation("cast"), new IItemPropertyGetter()
+        setMaxDamage(64);
+        setMaxStackSize(1);
+        setCreativeTab(CreativeTabs.TOOLS);
+        addPropertyOverride(new ResourceLocation("cast"), new IItemPropertyGetter()
         {
             public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn)
             {

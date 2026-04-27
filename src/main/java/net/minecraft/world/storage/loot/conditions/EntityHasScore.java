@@ -25,13 +25,13 @@ public class EntityHasScore implements LootCondition
 
     public EntityHasScore(Map<String, RandomValueRange> scoreIn, LootContext.EntityTarget targetIn)
     {
-        this.scores = scoreIn;
-        this.target = targetIn;
+        scores = scoreIn;
+        target = targetIn;
     }
 
     public boolean testCondition(Random rand, LootContext context)
     {
-        Entity entity = context.getEntity(this.target);
+        Entity entity = context.getEntity(target);
 
         if (entity == null)
         {
@@ -41,9 +41,9 @@ public class EntityHasScore implements LootCondition
         {
             Scoreboard scoreboard = entity.world.getScoreboard();
 
-            for (Entry<String, RandomValueRange> entry : this.scores.entrySet())
+            for (Entry<String, RandomValueRange> entry : scores.entrySet())
             {
-                if (!this.entityScoreMatch(entity, scoreboard, entry.getKey(), entry.getValue()))
+                if (!entityScoreMatch(entity, scoreboard, entry.getKey(), entry.getValue()))
                 {
                     return false;
                 }

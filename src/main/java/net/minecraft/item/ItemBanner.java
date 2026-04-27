@@ -31,10 +31,10 @@ public class ItemBanner extends ItemBlock
     public ItemBanner()
     {
         super(Blocks.STANDING_BANNER);
-        this.maxStackSize = 16;
-        this.setCreativeTab(CreativeTabs.DECORATIONS);
-        this.setHasSubtypes(true);
-        this.setMaxDamage(0);
+        maxStackSize = 16;
+        setCreativeTab(CreativeTabs.DECORATIONS);
+        setHasSubtypes(true);
+        setMaxDamage(0);
     }
 
     /**
@@ -140,7 +140,7 @@ public class ItemBanner extends ItemBlock
      */
     public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items)
     {
-        if (this.isInCreativeTab(tab))
+        if (isInCreativeTab(tab))
         {
             for (EnumDyeColor enumdyecolor : EnumDyeColor.values())
             {

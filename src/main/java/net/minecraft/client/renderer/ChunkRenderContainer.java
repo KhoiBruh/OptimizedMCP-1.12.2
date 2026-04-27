@@ -16,22 +16,22 @@ public abstract class ChunkRenderContainer
 
     public void initialize(double viewEntityXIn, double viewEntityYIn, double viewEntityZIn)
     {
-        this.initialized = true;
-        this.renderChunks.clear();
-        this.viewEntityX = viewEntityXIn;
-        this.viewEntityY = viewEntityYIn;
-        this.viewEntityZ = viewEntityZIn;
+        initialized = true;
+        renderChunks.clear();
+        viewEntityX = viewEntityXIn;
+        viewEntityY = viewEntityYIn;
+        viewEntityZ = viewEntityZIn;
     }
 
     public void preRenderChunk(RenderChunk renderChunkIn)
     {
         BlockPos blockpos = renderChunkIn.getPosition();
-        GlStateManager.translate((float)((double)blockpos.getX() - this.viewEntityX), (float)((double)blockpos.getY() - this.viewEntityY), (float)((double)blockpos.getZ() - this.viewEntityZ));
+        GlStateManager.translate((float)((double)blockpos.getX() - viewEntityX), (float)((double)blockpos.getY() - viewEntityY), (float)((double)blockpos.getZ() - viewEntityZ));
     }
 
     public void addRenderChunk(RenderChunk renderChunkIn, BlockRenderLayer layer)
     {
-        this.renderChunks.add(renderChunkIn);
+        renderChunks.add(renderChunkIn);
     }
 
     public abstract void renderChunkLayer(BlockRenderLayer layer);

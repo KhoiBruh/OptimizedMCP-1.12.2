@@ -14,7 +14,7 @@ public class WorldGenLiquids extends WorldGenerator
 
     public WorldGenLiquids(Block blockIn)
     {
-        this.block = blockIn;
+        block = blockIn;
     }
 
     public boolean generate(World worldIn, Random rand, BlockPos position)
@@ -83,7 +83,7 @@ public class WorldGenLiquids extends WorldGenerator
 
                 if (i == 3 && j == 1)
                 {
-                    IBlockState iblockstate1 = this.block.getDefaultState();
+                    IBlockState iblockstate1 = block.getDefaultState();
                     worldIn.setBlockState(position, iblockstate1, 2);
                     worldIn.immediateBlockTick(position, iblockstate1, rand);
                 }

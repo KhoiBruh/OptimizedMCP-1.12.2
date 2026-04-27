@@ -33,8 +33,8 @@ public class PotionType
 
     public PotionType(@Nullable String p_i46740_1_, PotionEffect... p_i46740_2_)
     {
-        this.baseName = p_i46740_1_;
-        this.effects = ImmutableList.copyOf(p_i46740_2_);
+        baseName = p_i46740_1_;
+        effects = ImmutableList.copyOf(p_i46740_2_);
     }
 
     /**
@@ -42,12 +42,12 @@ public class PotionType
      */
     public String getNamePrefixed(String p_185174_1_)
     {
-        return this.baseName == null ? p_185174_1_ + ((ResourceLocation)REGISTRY.getNameForObject(this)).getResourcePath() : p_185174_1_ + this.baseName;
+        return baseName == null ? p_185174_1_ + ((ResourceLocation)REGISTRY.getNameForObject(this)).getResourcePath() : p_185174_1_ + baseName;
     }
 
     public List<PotionEffect> getEffects()
     {
-        return this.effects;
+        return effects;
     }
 
     public static void registerPotionTypes()
@@ -99,9 +99,9 @@ public class PotionType
 
     public boolean hasInstantEffect()
     {
-        if (!this.effects.isEmpty())
+        if (!effects.isEmpty())
         {
-            UnmodifiableIterator unmodifiableiterator = this.effects.iterator();
+            UnmodifiableIterator unmodifiableiterator = effects.iterator();
 
             while (unmodifiableiterator.hasNext())
             {

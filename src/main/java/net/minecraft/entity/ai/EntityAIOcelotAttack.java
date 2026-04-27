@@ -13,9 +13,9 @@ public class EntityAIOcelotAttack extends EntityAIBase
 
     public EntityAIOcelotAttack(EntityLiving theEntityIn)
     {
-        this.entity = theEntityIn;
-        this.world = theEntityIn.world;
-        this.setMutexBits(3);
+        entity = theEntityIn;
+        world = theEntityIn.world;
+        setMutexBits(3);
     }
 
     /**
@@ -23,7 +23,7 @@ public class EntityAIOcelotAttack extends EntityAIBase
      */
     public boolean shouldExecute()
     {
-        EntityLivingBase entitylivingbase = this.entity.getAttackTarget();
+        EntityLivingBase entitylivingbase = entity.getAttackTarget();
 
         if (entitylivingbase == null)
         {
@@ -31,7 +31,7 @@ public class EntityAIOcelotAttack extends EntityAIBase
         }
         else
         {
-            this.target = entitylivingbase;
+            target = entitylivingbase;
             return true;
         }
     }
@@ -41,17 +41,17 @@ public class EntityAIOcelotAttack extends EntityAIBase
      */
     public boolean shouldContinueExecuting()
     {
-        if (!this.target.isEntityAlive())
+        if (!target.isEntityAlive())
         {
             return false;
         }
-        else if (this.entity.getDistanceSq(this.target) > 225.0D)
+        else if (entity.getDistanceSq(target) > 225.0D)
         {
             return false;
         }
         else
         {
-            return !this.entity.getNavigator().noPath() || this.shouldExecute();
+            return !entity.getNavigator().noPath() || shouldExecute();
         }
     }
 
@@ -60,8 +60,8 @@ public class EntityAIOcelotAttack extends EntityAIBase
      */
     public void resetTask()
     {
-        this.target = null;
-        this.entity.getNavigator().clearPath();
+        target = null;
+        entity.getNavigator().clearPath();
     }
 
     /**
@@ -69,9 +69,9 @@ public class EntityAIOcelotAttack extends EntityAIBase
      */
     public void updateTask()
     {
-        this.entity.getLookHelper().setLookPositionWithEntity(this.target, 30.0F, 30.0F);
-        double d0 = (double)(this.entity.width * 2.0F * this.entity.width * 2.0F);
-        double d1 = this.entity.getDistanceSq(this.target.posX, this.target.getEntityBoundingBox().minY, this.target.posZ);
+        entity.getLookHelper().setLookPositionWithEntity(target, 30.0F, 30.0F);
+        double d0 = (double)(entity.width * 2.0F * entity.width * 2.0F);
+        double d1 = entity.getDistanceSq(target.posX, target.getEntityBoundingBox().minY, target.posZ);
         double d2 = 0.8D;
 
         if (d1 > d0 && d1 < 16.0D)
@@ -83,15 +83,15 @@ public class EntityAIOcelotAttack extends EntityAIBase
             d2 = 0.6D;
         }
 
-        this.entity.getNavigator().tryMoveToEntityLiving(this.target, d2);
-        this.attackCountdown = Math.max(this.attackCountdown - 1, 0);
+        entity.getNavigator().tryMoveToEntityLiving(target, d2);
+        attackCountdown = Math.max(attackCountdown - 1, 0);
 
         if (d1 <= d0)
         {
-            if (this.attackCountdown <= 0)
+            if (attackCountdown <= 0)
             {
-                this.attackCountdown = 20;
-                this.entity.attackEntityAsMob(this.target);
+                attackCountdown = 20;
+                entity.attackEntityAsMob(target);
             }
         }
     }

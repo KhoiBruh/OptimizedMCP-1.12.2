@@ -14,19 +14,19 @@ public class EntitySmallFireball extends EntityFireball
     public EntitySmallFireball(World worldIn)
     {
         super(worldIn);
-        this.setSize(0.3125F, 0.3125F);
+        setSize(0.3125F, 0.3125F);
     }
 
     public EntitySmallFireball(World worldIn, EntityLivingBase shooter, double accelX, double accelY, double accelZ)
     {
         super(worldIn, shooter, accelX, accelY, accelZ);
-        this.setSize(0.3125F, 0.3125F);
+        setSize(0.3125F, 0.3125F);
     }
 
     public EntitySmallFireball(World worldIn, double x, double y, double z, double accelX, double accelY, double accelZ)
     {
         super(worldIn, x, y, z, accelX, accelY, accelZ);
-        this.setSize(0.3125F, 0.3125F);
+        setSize(0.3125F, 0.3125F);
     }
 
     public static void registerFixesSmallFireball(DataFixer fixer)
@@ -39,17 +39,17 @@ public class EntitySmallFireball extends EntityFireball
      */
     protected void onImpact(RayTraceResult result)
     {
-        if (!this.world.isRemote)
+        if (!world.isRemote)
         {
             if (result.entityHit != null)
             {
                 if (!result.entityHit.isImmuneToFire())
                 {
-                    boolean flag = result.entityHit.attackEntityFrom(DamageSource.causeFireballDamage(this, this.shootingEntity), 5.0F);
+                    boolean flag = result.entityHit.attackEntityFrom(DamageSource.causeFireballDamage(this, shootingEntity), 5.0F);
 
                     if (flag)
                     {
-                        this.applyEnchantments(this.shootingEntity, result.entityHit);
+                        applyEnchantments(shootingEntity, result.entityHit);
                         result.entityHit.setFire(5);
                     }
                 }
@@ -58,23 +58,23 @@ public class EntitySmallFireball extends EntityFireball
             {
                 boolean flag1 = true;
 
-                if (this.shootingEntity != null && this.shootingEntity instanceof EntityLiving)
+                if (shootingEntity != null && shootingEntity instanceof EntityLiving)
                 {
-                    flag1 = this.world.getGameRules().getBoolean("mobGriefing");
+                    flag1 = world.getGameRules().getBoolean("mobGriefing");
                 }
 
                 if (flag1)
                 {
                     BlockPos blockpos = result.getBlockPos().offset(result.sideHit);
 
-                    if (this.world.isAirBlock(blockpos))
+                    if (world.isAirBlock(blockpos))
                     {
-                        this.world.setBlockState(blockpos, Blocks.FIRE.getDefaultState());
+                        world.setBlockState(blockpos, Blocks.FIRE.getDefaultState());
                     }
                 }
             }
 
-            this.setDead();
+            setDead();
         }
     }
 

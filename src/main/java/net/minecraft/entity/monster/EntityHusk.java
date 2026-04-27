@@ -33,7 +33,7 @@ public class EntityHusk extends EntityZombie
      */
     public boolean getCanSpawnHere()
     {
-        return super.getCanSpawnHere() && this.world.canSeeSky(new BlockPos(this));
+        return super.getCanSpawnHere() && world.canSeeSky(new BlockPos(this));
     }
 
     protected boolean shouldBurnInDay()
@@ -71,9 +71,9 @@ public class EntityHusk extends EntityZombie
     {
         boolean flag = super.attackEntityAsMob(entityIn);
 
-        if (flag && this.getHeldItemMainhand().isEmpty() && entityIn instanceof EntityLivingBase)
+        if (flag && getHeldItemMainhand().isEmpty() && entityIn instanceof EntityLivingBase)
         {
-            float f = this.world.getDifficultyForLocation(new BlockPos(this)).getAdditionalDifficulty();
+            float f = world.getDifficultyForLocation(new BlockPos(this)).getAdditionalDifficulty();
             ((EntityLivingBase)entityIn).addPotionEffect(new PotionEffect(MobEffects.HUNGER, 140 * (int)f));
         }
 

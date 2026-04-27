@@ -22,7 +22,7 @@ public class BlockWorkbench extends Block
     protected BlockWorkbench()
     {
         super(Material.WOOD);
-        this.setCreativeTab(CreativeTabs.DECORATIONS);
+        setCreativeTab(CreativeTabs.DECORATIONS);
     }
 
     /**
@@ -49,8 +49,8 @@ public class BlockWorkbench extends Block
 
         public InterfaceCraftingTable(World worldIn, BlockPos pos)
         {
-            this.world = worldIn;
-            this.position = pos;
+            world = worldIn;
+            position = pos;
         }
 
         public String getName()
@@ -70,7 +70,7 @@ public class BlockWorkbench extends Block
 
         public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn)
         {
-            return new ContainerWorkbench(playerInventory, this.world, this.position);
+            return new ContainerWorkbench(playerInventory, world, position);
         }
 
         public String getGuiID()

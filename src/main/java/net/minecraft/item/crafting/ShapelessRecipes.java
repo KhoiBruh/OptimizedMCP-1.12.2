@@ -21,23 +21,23 @@ public class ShapelessRecipes implements IRecipe
     public ShapelessRecipes(String group, ItemStack output, NonNullList<Ingredient> ingredients)
     {
         this.group = group;
-        this.recipeOutput = output;
-        this.recipeItems = ingredients;
+        recipeOutput = output;
+        recipeItems = ingredients;
     }
 
     public String getGroup()
     {
-        return this.group;
+        return group;
     }
 
     public ItemStack getRecipeOutput()
     {
-        return this.recipeOutput;
+        return recipeOutput;
     }
 
     public NonNullList<Ingredient> getIngredients()
     {
-        return this.recipeItems;
+        return recipeItems;
     }
 
     public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv)
@@ -62,7 +62,7 @@ public class ShapelessRecipes implements IRecipe
      */
     public boolean matches(InventoryCrafting inv, World worldIn)
     {
-        List<Ingredient> list = Lists.newArrayList(this.recipeItems);
+        List<Ingredient> list = Lists.newArrayList(recipeItems);
 
         for (int i = 0; i < inv.getHeight(); ++i)
         {
@@ -100,7 +100,7 @@ public class ShapelessRecipes implements IRecipe
      */
     public ItemStack getCraftingResult(InventoryCrafting inv)
     {
-        return this.recipeOutput.copy();
+        return recipeOutput.copy();
     }
 
     public static ShapelessRecipes deserialize(JsonObject json)
@@ -145,6 +145,6 @@ public class ShapelessRecipes implements IRecipe
      */
     public boolean canFit(int width, int height)
     {
-        return width * height >= this.recipeItems.size();
+        return width * height >= recipeItems.size();
     }
 }

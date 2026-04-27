@@ -15,7 +15,7 @@ public class SPacketCloseWindow implements Packet<INetHandlerPlayClient>
 
     public SPacketCloseWindow(int windowIdIn)
     {
-        this.windowId = windowIdIn;
+        windowId = windowIdIn;
     }
 
     /**
@@ -31,7 +31,7 @@ public class SPacketCloseWindow implements Packet<INetHandlerPlayClient>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.windowId = buf.readUnsignedByte();
+        windowId = buf.readUnsignedByte();
     }
 
     /**
@@ -39,6 +39,6 @@ public class SPacketCloseWindow implements Packet<INetHandlerPlayClient>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeByte(this.windowId);
+        buf.writeByte(windowId);
     }
 }

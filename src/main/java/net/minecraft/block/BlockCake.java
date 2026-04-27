@@ -28,8 +28,8 @@ public class BlockCake extends Block
     protected BlockCake()
     {
         super(Material.CAKE);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(BITES, Integer.valueOf(0)));
-        this.setTickRandomly(true);
+        setDefaultState(blockState.getBaseState().withProperty(BITES, Integer.valueOf(0)));
+        setTickRandomly(true);
     }
 
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
@@ -57,12 +57,12 @@ public class BlockCake extends Block
     {
         if (!worldIn.isRemote)
         {
-            return this.eatCake(worldIn, pos, state, playerIn);
+            return eatCake(worldIn, pos, state, playerIn);
         }
         else
         {
             ItemStack itemstack = playerIn.getHeldItem(hand);
-            return this.eatCake(worldIn, pos, state, playerIn) || itemstack.isEmpty();
+            return eatCake(worldIn, pos, state, playerIn) || itemstack.isEmpty();
         }
     }
 
@@ -96,7 +96,7 @@ public class BlockCake extends Block
      */
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
     {
-        return super.canPlaceBlockAt(worldIn, pos) ? this.canBlockStay(worldIn, pos) : false;
+        return super.canPlaceBlockAt(worldIn, pos) ? canBlockStay(worldIn, pos) : false;
     }
 
     /**
@@ -106,7 +106,7 @@ public class BlockCake extends Block
      */
     public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos)
     {
-        if (!this.canBlockStay(worldIn, pos))
+        if (!canBlockStay(worldIn, pos))
         {
             worldIn.setBlockToAir(pos);
         }
@@ -152,7 +152,7 @@ public class BlockCake extends Block
      */
     public IBlockState getStateFromMeta(int meta)
     {
-        return this.getDefaultState().withProperty(BITES, Integer.valueOf(meta));
+        return getDefaultState().withProperty(BITES, Integer.valueOf(meta));
     }
 
     /**

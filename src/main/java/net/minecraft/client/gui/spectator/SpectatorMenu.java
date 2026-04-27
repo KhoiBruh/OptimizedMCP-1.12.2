@@ -42,20 +42,20 @@ public class SpectatorMenu
 
     public SpectatorMenu(ISpectatorMenuRecipient menu)
     {
-        this.listener = menu;
+        listener = menu;
     }
 
     public ISpectatorMenuObject getItem(int index)
     {
-        int i = index + this.page * 6;
+        int i = index + page * 6;
 
-        if (this.page > 0 && index == 0)
+        if (page > 0 && index == 0)
         {
             return SCROLL_LEFT;
         }
         else if (index == 7)
         {
-            return i < this.category.getItems().size() ? SCROLL_RIGHT_ENABLED : SCROLL_RIGHT_DISABLED;
+            return i < category.getItems().size() ? SCROLL_RIGHT_ENABLED : SCROLL_RIGHT_DISABLED;
         }
         else if (index == 8)
         {
@@ -63,7 +63,7 @@ public class SpectatorMenu
         }
         else
         {
-            return i >= 0 && i < this.category.getItems().size() ? (ISpectatorMenuObject)MoreObjects.firstNonNull(this.category.getItems().get(i), EMPTY_SLOT) : EMPTY_SLOT;
+            return i >= 0 && i < category.getItems().size() ? (ISpectatorMenuObject)MoreObjects.firstNonNull(category.getItems().get(i), EMPTY_SLOT) : EMPTY_SLOT;
         }
     }
 
@@ -73,7 +73,7 @@ public class SpectatorMenu
 
         for (int i = 0; i <= 8; ++i)
         {
-            list.add(this.getItem(i));
+            list.add(getItem(i));
         }
 
         return list;
@@ -81,52 +81,52 @@ public class SpectatorMenu
 
     public ISpectatorMenuObject getSelectedItem()
     {
-        return this.getItem(this.selectedSlot);
+        return getItem(selectedSlot);
     }
 
     public ISpectatorMenuView getSelectedCategory()
     {
-        return this.category;
+        return category;
     }
 
     public void selectSlot(int slotIn)
     {
-        ISpectatorMenuObject ispectatormenuobject = this.getItem(slotIn);
+        ISpectatorMenuObject ispectatormenuobject = getItem(slotIn);
 
         if (ispectatormenuobject != EMPTY_SLOT)
         {
-            if (this.selectedSlot == slotIn && ispectatormenuobject.isEnabled())
+            if (selectedSlot == slotIn && ispectatormenuobject.isEnabled())
             {
                 ispectatormenuobject.selectItem(this);
             }
             else
             {
-                this.selectedSlot = slotIn;
+                selectedSlot = slotIn;
             }
         }
     }
 
     public void exit()
     {
-        this.listener.onSpectatorMenuClosed(this);
+        listener.onSpectatorMenuClosed(this);
     }
 
     public int getSelectedSlot()
     {
-        return this.selectedSlot;
+        return selectedSlot;
     }
 
     public void selectCategory(ISpectatorMenuView menuView)
     {
-        this.previousCategories.add(this.getCurrentPage());
-        this.category = menuView;
-        this.selectedSlot = -1;
-        this.page = 0;
+        previousCategories.add(getCurrentPage());
+        category = menuView;
+        selectedSlot = -1;
+        page = 0;
     }
 
     public SpectatorDetails getCurrentPage()
     {
-        return new SpectatorDetails(this.category, this.getItems(), this.selectedSlot);
+        return new SpectatorDetails(category, getItems(), selectedSlot);
     }
 
     static class EndSpectatorObject implements ISpectatorMenuObject
@@ -164,25 +164,25 @@ public class SpectatorMenu
 
         public MoveMenuObject(int p_i45495_1_, boolean p_i45495_2_)
         {
-            this.direction = p_i45495_1_;
-            this.enabled = p_i45495_2_;
+            direction = p_i45495_1_;
+            enabled = p_i45495_2_;
         }
 
         public void selectItem(SpectatorMenu menu)
         {
-            menu.page = menu.page + this.direction;
+            menu.page = menu.page + direction;
         }
 
         public ITextComponent getSpectatorName()
         {
-            return this.direction < 0 ? new TextComponentTranslation("spectatorMenu.previous_page", new Object[0]) : new TextComponentTranslation("spectatorMenu.next_page", new Object[0]);
+            return direction < 0 ? new TextComponentTranslation("spectatorMenu.previous_page", new Object[0]) : new TextComponentTranslation("spectatorMenu.next_page", new Object[0]);
         }
 
         public void renderIcon(float brightness, int alpha)
         {
             Minecraft.getMinecraft().getTextureManager().bindTexture(GuiSpectator.SPECTATOR_WIDGETS);
 
-            if (this.direction < 0)
+            if (direction < 0)
             {
                 Gui.drawModalRectWithCustomSizedTexture(0, 0, 144.0F, 0.0F, 16, 16, 256.0F, 256.0F);
             }
@@ -194,7 +194,7 @@ public class SpectatorMenu
 
         public boolean isEnabled()
         {
-            return this.enabled;
+            return enabled;
         }
     }
 }

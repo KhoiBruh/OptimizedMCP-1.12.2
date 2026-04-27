@@ -24,7 +24,7 @@ public class SPacketEntityVelocity implements Packet<INetHandlerPlayClient>
 
     public SPacketEntityVelocity(int entityIdIn, double motionXIn, double motionYIn, double motionZIn)
     {
-        this.entityID = entityIdIn;
+        entityID = entityIdIn;
         double d0 = 3.9D;
 
         if (motionXIn < -3.9D)
@@ -57,9 +57,9 @@ public class SPacketEntityVelocity implements Packet<INetHandlerPlayClient>
             motionZIn = 3.9D;
         }
 
-        this.motionX = (int)(motionXIn * 8000.0D);
-        this.motionY = (int)(motionYIn * 8000.0D);
-        this.motionZ = (int)(motionZIn * 8000.0D);
+        motionX = (int)(motionXIn * 8000.0D);
+        motionY = (int)(motionYIn * 8000.0D);
+        motionZ = (int)(motionZIn * 8000.0D);
     }
 
     /**
@@ -67,10 +67,10 @@ public class SPacketEntityVelocity implements Packet<INetHandlerPlayClient>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.entityID = buf.readVarInt();
-        this.motionX = buf.readShort();
-        this.motionY = buf.readShort();
-        this.motionZ = buf.readShort();
+        entityID = buf.readVarInt();
+        motionX = buf.readShort();
+        motionY = buf.readShort();
+        motionZ = buf.readShort();
     }
 
     /**
@@ -78,10 +78,10 @@ public class SPacketEntityVelocity implements Packet<INetHandlerPlayClient>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeVarInt(this.entityID);
-        buf.writeShort(this.motionX);
-        buf.writeShort(this.motionY);
-        buf.writeShort(this.motionZ);
+        buf.writeVarInt(entityID);
+        buf.writeShort(motionX);
+        buf.writeShort(motionY);
+        buf.writeShort(motionZ);
     }
 
     /**
@@ -94,21 +94,21 @@ public class SPacketEntityVelocity implements Packet<INetHandlerPlayClient>
 
     public int getEntityID()
     {
-        return this.entityID;
+        return entityID;
     }
 
     public int getMotionX()
     {
-        return this.motionX;
+        return motionX;
     }
 
     public int getMotionY()
     {
-        return this.motionY;
+        return motionY;
     }
 
     public int getMotionZ()
     {
-        return this.motionZ;
+        return motionZ;
     }
 }

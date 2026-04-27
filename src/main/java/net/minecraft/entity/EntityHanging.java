@@ -38,13 +38,13 @@ public abstract class EntityHanging extends Entity
     public EntityHanging(World worldIn)
     {
         super(worldIn);
-        this.setSize(0.5F, 0.5F);
+        setSize(0.5F, 0.5F);
     }
 
     public EntityHanging(World worldIn, BlockPos hangingPositionIn)
     {
         this(worldIn);
-        this.hangingPosition = hangingPositionIn;
+        hangingPosition = hangingPositionIn;
     }
 
     protected void entityInit()
@@ -58,10 +58,10 @@ public abstract class EntityHanging extends Entity
     {
         Validate.notNull(facingDirectionIn);
         Validate.isTrue(facingDirectionIn.getAxis().isHorizontal());
-        this.facingDirection = facingDirectionIn;
-        this.rotationYaw = (float)(this.facingDirection.getHorizontalIndex() * 90);
-        this.prevRotationYaw = this.rotationYaw;
-        this.updateBoundingBox();
+        facingDirection = facingDirectionIn;
+        rotationYaw = (float)(facingDirection.getHorizontalIndex() * 90);
+        prevRotationYaw = rotationYaw;
+        updateBoundingBox();
     }
 
     /**
@@ -69,28 +69,28 @@ public abstract class EntityHanging extends Entity
      */
     protected void updateBoundingBox()
     {
-        if (this.facingDirection != null)
+        if (facingDirection != null)
         {
-            double d0 = (double)this.hangingPosition.getX() + 0.5D;
-            double d1 = (double)this.hangingPosition.getY() + 0.5D;
-            double d2 = (double)this.hangingPosition.getZ() + 0.5D;
+            double d0 = (double) hangingPosition.getX() + 0.5D;
+            double d1 = (double) hangingPosition.getY() + 0.5D;
+            double d2 = (double) hangingPosition.getZ() + 0.5D;
             double d3 = 0.46875D;
-            double d4 = this.offs(this.getWidthPixels());
-            double d5 = this.offs(this.getHeightPixels());
-            d0 = d0 - (double)this.facingDirection.getFrontOffsetX() * 0.46875D;
-            d2 = d2 - (double)this.facingDirection.getFrontOffsetZ() * 0.46875D;
+            double d4 = offs(getWidthPixels());
+            double d5 = offs(getHeightPixels());
+            d0 = d0 - (double) facingDirection.getFrontOffsetX() * 0.46875D;
+            d2 = d2 - (double) facingDirection.getFrontOffsetZ() * 0.46875D;
             d1 = d1 + d5;
-            EnumFacing enumfacing = this.facingDirection.rotateYCCW();
+            EnumFacing enumfacing = facingDirection.rotateYCCW();
             d0 = d0 + d4 * (double)enumfacing.getFrontOffsetX();
             d2 = d2 + d4 * (double)enumfacing.getFrontOffsetZ();
-            this.posX = d0;
-            this.posY = d1;
-            this.posZ = d2;
-            double d6 = (double)this.getWidthPixels();
-            double d7 = (double)this.getHeightPixels();
-            double d8 = (double)this.getWidthPixels();
+            posX = d0;
+            posY = d1;
+            posZ = d2;
+            double d6 = (double) getWidthPixels();
+            double d7 = (double) getHeightPixels();
+            double d8 = (double) getWidthPixels();
 
-            if (this.facingDirection.getAxis() == EnumFacing.Axis.Z)
+            if (facingDirection.getAxis() == EnumFacing.Axis.Z)
             {
                 d8 = 1.0D;
             }
@@ -102,7 +102,7 @@ public abstract class EntityHanging extends Entity
             d6 = d6 / 32.0D;
             d7 = d7 / 32.0D;
             d8 = d8 / 32.0D;
-            this.setEntityBoundingBox(new AxisAlignedBB(d0 - d6, d1 - d7, d2 - d8, d0 + d6, d1 + d7, d2 + d8));
+            setEntityBoundingBox(new AxisAlignedBB(d0 - d6, d1 - d7, d2 - d8, d0 + d6, d1 + d7, d2 + d8));
         }
     }
 
@@ -116,18 +116,18 @@ public abstract class EntityHanging extends Entity
      */
     public void onUpdate()
     {
-        this.prevPosX = this.posX;
-        this.prevPosY = this.posY;
-        this.prevPosZ = this.posZ;
+        prevPosX = posX;
+        prevPosY = posY;
+        prevPosZ = posZ;
 
-        if (this.tickCounter1++ == 100 && !this.world.isRemote)
+        if (tickCounter1++ == 100 && !world.isRemote)
         {
-            this.tickCounter1 = 0;
+            tickCounter1 = 0;
 
-            if (!this.isDead && !this.onValidSurface())
+            if (!isDead && !onValidSurface())
             {
-                this.setDead();
-                this.onBroken((Entity)null);
+                setDead();
+                onBroken((Entity)null);
             }
         }
     }
@@ -137,16 +137,16 @@ public abstract class EntityHanging extends Entity
      */
     public boolean onValidSurface()
     {
-        if (!this.world.getCollisionBoxes(this, this.getEntityBoundingBox()).isEmpty())
+        if (!world.getCollisionBoxes(this, getEntityBoundingBox()).isEmpty())
         {
             return false;
         }
         else
         {
-            int i = Math.max(1, this.getWidthPixels() / 16);
-            int j = Math.max(1, this.getHeightPixels() / 16);
-            BlockPos blockpos = this.hangingPosition.offset(this.facingDirection.getOpposite());
-            EnumFacing enumfacing = this.facingDirection.rotateYCCW();
+            int i = Math.max(1, getWidthPixels() / 16);
+            int j = Math.max(1, getHeightPixels() / 16);
+            BlockPos blockpos = hangingPosition.offset(facingDirection.getOpposite());
+            EnumFacing enumfacing = facingDirection.rotateYCCW();
             BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
 
             for (int k = 0; k < i; ++k)
@@ -156,7 +156,7 @@ public abstract class EntityHanging extends Entity
                     int i1 = (i - 1) / -2;
                     int j1 = (j - 1) / -2;
                     blockpos$mutableblockpos.setPos(blockpos).move(enumfacing, k + i1).move(EnumFacing.UP, l + j1);
-                    IBlockState iblockstate = this.world.getBlockState(blockpos$mutableblockpos);
+                    IBlockState iblockstate = world.getBlockState(blockpos$mutableblockpos);
 
                     if (!iblockstate.getMaterial().isSolid() && !BlockRedstoneDiode.isDiode(iblockstate))
                     {
@@ -165,7 +165,7 @@ public abstract class EntityHanging extends Entity
                 }
             }
 
-            return this.world.getEntitiesInAABBexcluding(this, this.getEntityBoundingBox(), IS_HANGING_ENTITY).isEmpty();
+            return world.getEntitiesInAABBexcluding(this, getEntityBoundingBox(), IS_HANGING_ENTITY).isEmpty();
         }
     }
 
@@ -182,7 +182,7 @@ public abstract class EntityHanging extends Entity
      */
     public boolean hitByEntity(Entity entityIn)
     {
-        return entityIn instanceof EntityPlayer ? this.attackEntityFrom(DamageSource.causePlayerDamage((EntityPlayer)entityIn), 0.0F) : false;
+        return entityIn instanceof EntityPlayer ? attackEntityFrom(DamageSource.causePlayerDamage((EntityPlayer)entityIn), 0.0F) : false;
     }
 
     /**
@@ -190,7 +190,7 @@ public abstract class EntityHanging extends Entity
      */
     public EnumFacing getHorizontalFacing()
     {
-        return this.facingDirection;
+        return facingDirection;
     }
 
     /**
@@ -198,17 +198,17 @@ public abstract class EntityHanging extends Entity
      */
     public boolean attackEntityFrom(DamageSource source, float amount)
     {
-        if (this.isEntityInvulnerable(source))
+        if (isEntityInvulnerable(source))
         {
             return false;
         }
         else
         {
-            if (!this.isDead && !this.world.isRemote)
+            if (!isDead && !world.isRemote)
             {
-                this.setDead();
-                this.markVelocityChanged();
-                this.onBroken(source.getTrueSource());
+                setDead();
+                markVelocityChanged();
+                onBroken(source.getTrueSource());
             }
 
             return true;
@@ -220,10 +220,10 @@ public abstract class EntityHanging extends Entity
      */
     public void move(MoverType type, double x, double y, double z)
     {
-        if (!this.world.isRemote && !this.isDead && x * x + y * y + z * z > 0.0D)
+        if (!world.isRemote && !isDead && x * x + y * y + z * z > 0.0D)
         {
-            this.setDead();
-            this.onBroken((Entity)null);
+            setDead();
+            onBroken((Entity)null);
         }
     }
 
@@ -232,10 +232,10 @@ public abstract class EntityHanging extends Entity
      */
     public void addVelocity(double x, double y, double z)
     {
-        if (!this.world.isRemote && !this.isDead && x * x + y * y + z * z > 0.0D)
+        if (!world.isRemote && !isDead && x * x + y * y + z * z > 0.0D)
         {
-            this.setDead();
-            this.onBroken((Entity)null);
+            setDead();
+            onBroken((Entity)null);
         }
     }
 
@@ -244,8 +244,8 @@ public abstract class EntityHanging extends Entity
      */
     public void writeEntityToNBT(NBTTagCompound compound)
     {
-        compound.setByte("Facing", (byte)this.facingDirection.getHorizontalIndex());
-        BlockPos blockpos = this.getHangingPosition();
+        compound.setByte("Facing", (byte) facingDirection.getHorizontalIndex());
+        BlockPos blockpos = getHangingPosition();
         compound.setInteger("TileX", blockpos.getX());
         compound.setInteger("TileY", blockpos.getY());
         compound.setInteger("TileZ", blockpos.getZ());
@@ -256,8 +256,8 @@ public abstract class EntityHanging extends Entity
      */
     public void readEntityFromNBT(NBTTagCompound compound)
     {
-        this.hangingPosition = new BlockPos(compound.getInteger("TileX"), compound.getInteger("TileY"), compound.getInteger("TileZ"));
-        this.updateFacingWithBoundingBox(EnumFacing.getHorizontal(compound.getByte("Facing")));
+        hangingPosition = new BlockPos(compound.getInteger("TileX"), compound.getInteger("TileY"), compound.getInteger("TileZ"));
+        updateFacingWithBoundingBox(EnumFacing.getHorizontal(compound.getByte("Facing")));
     }
 
     public abstract int getWidthPixels();
@@ -276,9 +276,9 @@ public abstract class EntityHanging extends Entity
      */
     public EntityItem entityDropItem(ItemStack stack, float offsetY)
     {
-        EntityItem entityitem = new EntityItem(this.world, this.posX + (double)((float)this.facingDirection.getFrontOffsetX() * 0.15F), this.posY + (double)offsetY, this.posZ + (double)((float)this.facingDirection.getFrontOffsetZ() * 0.15F), stack);
+        EntityItem entityitem = new EntityItem(world, posX + (double)((float) facingDirection.getFrontOffsetX() * 0.15F), posY + (double)offsetY, posZ + (double)((float) facingDirection.getFrontOffsetZ() * 0.15F), stack);
         entityitem.setDefaultPickupDelay();
-        this.world.spawnEntity(entityitem);
+        world.spawnEntity(entityitem);
         return entityitem;
     }
 
@@ -292,14 +292,14 @@ public abstract class EntityHanging extends Entity
      */
     public void setPosition(double x, double y, double z)
     {
-        this.hangingPosition = new BlockPos(x, y, z);
-        this.updateBoundingBox();
-        this.isAirBorne = true;
+        hangingPosition = new BlockPos(x, y, z);
+        updateBoundingBox();
+        isAirBorne = true;
     }
 
     public BlockPos getHangingPosition()
     {
-        return this.hangingPosition;
+        return hangingPosition;
     }
 
     @SuppressWarnings("incomplete-switch")
@@ -309,24 +309,24 @@ public abstract class EntityHanging extends Entity
      */
     public float getRotatedYaw(Rotation transformRotation)
     {
-        if (this.facingDirection != null && this.facingDirection.getAxis() != EnumFacing.Axis.Y)
+        if (facingDirection != null && facingDirection.getAxis() != EnumFacing.Axis.Y)
         {
             switch (transformRotation)
             {
                 case CLOCKWISE_180:
-                    this.facingDirection = this.facingDirection.getOpposite();
+                    facingDirection = facingDirection.getOpposite();
                     break;
 
                 case COUNTERCLOCKWISE_90:
-                    this.facingDirection = this.facingDirection.rotateYCCW();
+                    facingDirection = facingDirection.rotateYCCW();
                     break;
 
                 case CLOCKWISE_90:
-                    this.facingDirection = this.facingDirection.rotateY();
+                    facingDirection = facingDirection.rotateY();
             }
         }
 
-        float f = MathHelper.wrapDegrees(this.rotationYaw);
+        float f = MathHelper.wrapDegrees(rotationYaw);
 
         switch (transformRotation)
         {
@@ -349,7 +349,7 @@ public abstract class EntityHanging extends Entity
      */
     public float getMirroredYaw(Mirror transformMirror)
     {
-        return this.getRotatedYaw(transformMirror.toRotation(this.facingDirection));
+        return getRotatedYaw(transformMirror.toRotation(facingDirection));
     }
 
     /**

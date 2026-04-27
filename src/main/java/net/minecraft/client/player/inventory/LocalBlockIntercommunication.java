@@ -13,8 +13,8 @@ public class LocalBlockIntercommunication implements IInteractionObject
 
     public LocalBlockIntercommunication(String guiIdIn, ITextComponent displayNameIn)
     {
-        this.guiID = guiIdIn;
-        this.displayName = displayNameIn;
+        guiID = guiIdIn;
+        displayName = displayNameIn;
     }
 
     public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn)
@@ -27,7 +27,7 @@ public class LocalBlockIntercommunication implements IInteractionObject
      */
     public String getName()
     {
-        return this.displayName.getUnformattedText();
+        return displayName.getUnformattedText();
     }
 
     /**
@@ -40,7 +40,7 @@ public class LocalBlockIntercommunication implements IInteractionObject
 
     public String getGuiID()
     {
-        return this.guiID;
+        return guiID;
     }
 
     /**
@@ -48,6 +48,6 @@ public class LocalBlockIntercommunication implements IInteractionObject
      */
     public ITextComponent getDisplayName()
     {
-        return this.displayName;
+        return displayName;
     }
 }

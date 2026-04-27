@@ -25,8 +25,8 @@ public class ItemOverride
 
     public ItemOverride(ResourceLocation locationIn, Map<ResourceLocation, Float> propertyValues)
     {
-        this.location = locationIn;
-        this.mapResourceValues = propertyValues;
+        location = locationIn;
+        mapResourceValues = propertyValues;
     }
 
     /**
@@ -34,14 +34,14 @@ public class ItemOverride
      */
     public ResourceLocation getLocation()
     {
-        return this.location;
+        return location;
     }
 
     boolean matchesItemStack(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase livingEntity)
     {
         Item item = stack.getItem();
 
-        for (Entry<ResourceLocation, Float> entry : this.mapResourceValues.entrySet())
+        for (Entry<ResourceLocation, Float> entry : mapResourceValues.entrySet())
         {
             IItemPropertyGetter iitempropertygetter = item.getPropertyGetter(entry.getKey());
 
@@ -60,7 +60,7 @@ public class ItemOverride
         {
             JsonObject jsonobject = p_deserialize_1_.getAsJsonObject();
             ResourceLocation resourcelocation = new ResourceLocation(JsonUtils.getString(jsonobject, "model"));
-            Map<ResourceLocation, Float> map = this.makeMapResourceValues(jsonobject);
+            Map<ResourceLocation, Float> map = makeMapResourceValues(jsonobject);
             return new ItemOverride(resourcelocation, map);
         }
 

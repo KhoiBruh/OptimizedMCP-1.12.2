@@ -61,8 +61,8 @@ public class BlockRedstoneTorch extends BlockTorch
     protected BlockRedstoneTorch(boolean isOn)
     {
         this.isOn = isOn;
-        this.setTickRandomly(true);
-        this.setCreativeTab((CreativeTabs)null);
+        setTickRandomly(true);
+        setCreativeTab((CreativeTabs)null);
     }
 
     /**
@@ -78,7 +78,7 @@ public class BlockRedstoneTorch extends BlockTorch
      */
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state)
     {
-        if (this.isOn)
+        if (isOn)
         {
             for (EnumFacing enumfacing : EnumFacing.values())
             {
@@ -92,7 +92,7 @@ public class BlockRedstoneTorch extends BlockTorch
      */
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state)
     {
-        if (this.isOn)
+        if (isOn)
         {
             for (EnumFacing enumfacing : EnumFacing.values())
             {
@@ -103,7 +103,7 @@ public class BlockRedstoneTorch extends BlockTorch
 
     public int getWeakPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side)
     {
-        return this.isOn && blockState.getValue(FACING) != side ? 15 : 0;
+        return isOn && blockState.getValue(FACING) != side ? 15 : 0;
     }
 
     private boolean shouldBeOff(World worldIn, BlockPos pos, IBlockState state)
@@ -121,7 +121,7 @@ public class BlockRedstoneTorch extends BlockTorch
 
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
     {
-        boolean flag = this.shouldBeOff(worldIn, pos, state);
+        boolean flag = shouldBeOff(worldIn, pos, state);
         List<BlockRedstoneTorch.Toggle> list = (List)toggles.get(worldIn);
 
         while (list != null && !list.isEmpty() && worldIn.getTotalWorldTime() - (list.get(0)).time > 60L)
@@ -129,13 +129,13 @@ public class BlockRedstoneTorch extends BlockTorch
             list.remove(0);
         }
 
-        if (this.isOn)
+        if (isOn)
         {
             if (flag)
             {
                 worldIn.setBlockState(pos, Blocks.UNLIT_REDSTONE_TORCH.getDefaultState().withProperty(FACING, state.getValue(FACING)), 3);
 
-                if (this.isBurnedOut(worldIn, pos, true))
+                if (isBurnedOut(worldIn, pos, true))
                 {
                     worldIn.playSound((EntityPlayer)null, pos, SoundEvents.BLOCK_REDSTONE_TORCH_BURNOUT, SoundCategory.BLOCKS, 0.5F, 2.6F + (worldIn.rand.nextFloat() - worldIn.rand.nextFloat()) * 0.8F);
 
@@ -151,7 +151,7 @@ public class BlockRedstoneTorch extends BlockTorch
                 }
             }
         }
-        else if (!flag && !this.isBurnedOut(worldIn, pos, false))
+        else if (!flag && !isBurnedOut(worldIn, pos, false))
         {
             worldIn.setBlockState(pos, Blocks.REDSTONE_TORCH.getDefaultState().withProperty(FACING, state.getValue(FACING)), 3);
         }
@@ -164,11 +164,11 @@ public class BlockRedstoneTorch extends BlockTorch
      */
     public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos)
     {
-        if (!this.onNeighborChangeInternal(worldIn, pos, state))
+        if (!onNeighborChangeInternal(worldIn, pos, state))
         {
-            if (this.isOn == this.shouldBeOff(worldIn, pos, state))
+            if (isOn == shouldBeOff(worldIn, pos, state))
             {
-                worldIn.scheduleUpdate(pos, this, this.tickRate(worldIn));
+                worldIn.scheduleUpdate(pos, this, tickRate(worldIn));
             }
         }
     }
@@ -196,7 +196,7 @@ public class BlockRedstoneTorch extends BlockTorch
 
     public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand)
     {
-        if (this.isOn)
+        if (isOn)
         {
             double d0 = (double)pos.getX() + 0.5D + (rand.nextDouble() - 0.5D) * 0.2D;
             double d1 = (double)pos.getY() + 0.7D + (rand.nextDouble() - 0.5D) * 0.2D;

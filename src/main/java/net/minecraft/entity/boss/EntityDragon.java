@@ -121,36 +121,36 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
     public EntityDragon(World worldIn)
     {
         super(worldIn);
-        this.dragonPartArray = new MultiPartEntityPart[] {this.dragonPartHead, this.dragonPartNeck, this.dragonPartBody, this.dragonPartTail1, this.dragonPartTail2, this.dragonPartTail3, this.dragonPartWing1, this.dragonPartWing2};
-        this.setHealth(this.getMaxHealth());
-        this.setSize(16.0F, 8.0F);
-        this.noClip = true;
-        this.isImmuneToFire = true;
-        this.growlTime = 100;
-        this.ignoreFrustumCheck = true;
+        dragonPartArray = new MultiPartEntityPart[] {dragonPartHead, dragonPartNeck, dragonPartBody, dragonPartTail1, dragonPartTail2, dragonPartTail3, dragonPartWing1, dragonPartWing2};
+        setHealth(getMaxHealth());
+        setSize(16.0F, 8.0F);
+        noClip = true;
+        isImmuneToFire = true;
+        growlTime = 100;
+        ignoreFrustumCheck = true;
 
         if (!worldIn.isRemote && worldIn.provider instanceof WorldProviderEnd)
         {
-            this.fightManager = ((WorldProviderEnd)worldIn.provider).getDragonFightManager();
+            fightManager = ((WorldProviderEnd)worldIn.provider).getDragonFightManager();
         }
         else
         {
-            this.fightManager = null;
+            fightManager = null;
         }
 
-        this.phaseManager = new PhaseManager(this);
+        phaseManager = new PhaseManager(this);
     }
 
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(200.0D);
+        getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(200.0D);
     }
 
     protected void entityInit()
     {
         super.entityInit();
-        this.getDataManager().register(PHASE, Integer.valueOf(PhaseList.HOVER.getId()));
+        getDataManager().register(PHASE, Integer.valueOf(PhaseList.HOVER.getId()));
     }
 
     /**
@@ -159,22 +159,22 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
      */
     public double[] getMovementOffsets(int p_70974_1_, float p_70974_2_)
     {
-        if (this.getHealth() <= 0.0F)
+        if (getHealth() <= 0.0F)
         {
             p_70974_2_ = 0.0F;
         }
 
         p_70974_2_ = 1.0F - p_70974_2_;
-        int i = this.ringBufferIndex - p_70974_1_ & 63;
-        int j = this.ringBufferIndex - p_70974_1_ - 1 & 63;
+        int i = ringBufferIndex - p_70974_1_ & 63;
+        int j = ringBufferIndex - p_70974_1_ - 1 & 63;
         double[] adouble = new double[3];
-        double d0 = this.ringBuffer[i][0];
-        double d1 = MathHelper.wrapDegrees(this.ringBuffer[j][0] - d0);
+        double d0 = ringBuffer[i][0];
+        double d1 = MathHelper.wrapDegrees(ringBuffer[j][0] - d0);
         adouble[0] = d0 + d1 * (double)p_70974_2_;
-        d0 = this.ringBuffer[i][1];
-        d1 = this.ringBuffer[j][1] - d0;
+        d0 = ringBuffer[i][1];
+        d1 = ringBuffer[j][1] - d0;
         adouble[1] = d0 + d1 * (double)p_70974_2_;
-        adouble[2] = this.ringBuffer[i][2] + (this.ringBuffer[j][2] - this.ringBuffer[i][2]) * (double)p_70974_2_;
+        adouble[2] = ringBuffer[i][2] + (ringBuffer[j][2] - ringBuffer[i][2]) * (double)p_70974_2_;
         return adouble;
     }
 
@@ -184,106 +184,106 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
      */
     public void onLivingUpdate()
     {
-        if (this.world.isRemote)
+        if (world.isRemote)
         {
-            this.setHealth(this.getHealth());
+            setHealth(getHealth());
 
-            if (!this.isSilent())
+            if (!isSilent())
             {
-                float f = MathHelper.cos(this.animTime * ((float)Math.PI * 2F));
-                float f1 = MathHelper.cos(this.prevAnimTime * ((float)Math.PI * 2F));
+                float f = MathHelper.cos(animTime * ((float)Math.PI * 2F));
+                float f1 = MathHelper.cos(prevAnimTime * ((float)Math.PI * 2F));
 
                 if (f1 <= -0.3F && f >= -0.3F)
                 {
-                    this.world.playSound(this.posX, this.posY, this.posZ, SoundEvents.ENTITY_ENDERDRAGON_FLAP, this.getSoundCategory(), 5.0F, 0.8F + this.rand.nextFloat() * 0.3F, false);
+                    world.playSound(posX, posY, posZ, SoundEvents.ENTITY_ENDERDRAGON_FLAP, getSoundCategory(), 5.0F, 0.8F + rand.nextFloat() * 0.3F, false);
                 }
 
-                if (!this.phaseManager.getCurrentPhase().getIsStationary() && --this.growlTime < 0)
+                if (!phaseManager.getCurrentPhase().getIsStationary() && --growlTime < 0)
                 {
-                    this.world.playSound(this.posX, this.posY, this.posZ, SoundEvents.ENTITY_ENDERDRAGON_GROWL, this.getSoundCategory(), 2.5F, 0.8F + this.rand.nextFloat() * 0.3F, false);
-                    this.growlTime = 200 + this.rand.nextInt(200);
+                    world.playSound(posX, posY, posZ, SoundEvents.ENTITY_ENDERDRAGON_GROWL, getSoundCategory(), 2.5F, 0.8F + rand.nextFloat() * 0.3F, false);
+                    growlTime = 200 + rand.nextInt(200);
                 }
             }
         }
 
-        this.prevAnimTime = this.animTime;
+        prevAnimTime = animTime;
 
-        if (this.getHealth() <= 0.0F)
+        if (getHealth() <= 0.0F)
         {
-            float f12 = (this.rand.nextFloat() - 0.5F) * 8.0F;
-            float f13 = (this.rand.nextFloat() - 0.5F) * 4.0F;
-            float f15 = (this.rand.nextFloat() - 0.5F) * 8.0F;
-            this.world.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, this.posX + (double)f12, this.posY + 2.0D + (double)f13, this.posZ + (double)f15, 0.0D, 0.0D, 0.0D);
+            float f12 = (rand.nextFloat() - 0.5F) * 8.0F;
+            float f13 = (rand.nextFloat() - 0.5F) * 4.0F;
+            float f15 = (rand.nextFloat() - 0.5F) * 8.0F;
+            world.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, posX + (double)f12, posY + 2.0D + (double)f13, posZ + (double)f15, 0.0D, 0.0D, 0.0D);
         }
         else
         {
-            this.updateDragonEnderCrystal();
-            float f11 = 0.2F / (MathHelper.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ) * 10.0F + 1.0F);
-            f11 = f11 * (float)Math.pow(2.0D, this.motionY);
+            updateDragonEnderCrystal();
+            float f11 = 0.2F / (MathHelper.sqrt(motionX * motionX + motionZ * motionZ) * 10.0F + 1.0F);
+            f11 = f11 * (float)Math.pow(2.0D, motionY);
 
-            if (this.phaseManager.getCurrentPhase().getIsStationary())
+            if (phaseManager.getCurrentPhase().getIsStationary())
             {
-                this.animTime += 0.1F;
+                animTime += 0.1F;
             }
-            else if (this.slowed)
+            else if (slowed)
             {
-                this.animTime += f11 * 0.5F;
-            }
-            else
-            {
-                this.animTime += f11;
-            }
-
-            this.rotationYaw = MathHelper.wrapDegrees(this.rotationYaw);
-
-            if (this.isAIDisabled())
-            {
-                this.animTime = 0.5F;
+                animTime += f11 * 0.5F;
             }
             else
             {
-                if (this.ringBufferIndex < 0)
+                animTime += f11;
+            }
+
+            rotationYaw = MathHelper.wrapDegrees(rotationYaw);
+
+            if (isAIDisabled())
+            {
+                animTime = 0.5F;
+            }
+            else
+            {
+                if (ringBufferIndex < 0)
                 {
-                    for (int i = 0; i < this.ringBuffer.length; ++i)
+                    for (int i = 0; i < ringBuffer.length; ++i)
                     {
-                        this.ringBuffer[i][0] = (double)this.rotationYaw;
-                        this.ringBuffer[i][1] = this.posY;
+                        ringBuffer[i][0] = (double) rotationYaw;
+                        ringBuffer[i][1] = posY;
                     }
                 }
 
-                if (++this.ringBufferIndex == this.ringBuffer.length)
+                if (++ringBufferIndex == ringBuffer.length)
                 {
-                    this.ringBufferIndex = 0;
+                    ringBufferIndex = 0;
                 }
 
-                this.ringBuffer[this.ringBufferIndex][0] = (double)this.rotationYaw;
-                this.ringBuffer[this.ringBufferIndex][1] = this.posY;
+                ringBuffer[ringBufferIndex][0] = (double) rotationYaw;
+                ringBuffer[ringBufferIndex][1] = posY;
 
-                if (this.world.isRemote)
+                if (world.isRemote)
                 {
-                    if (this.newPosRotationIncrements > 0)
+                    if (newPosRotationIncrements > 0)
                     {
-                        double d5 = this.posX + (this.interpTargetX - this.posX) / (double)this.newPosRotationIncrements;
-                        double d0 = this.posY + (this.interpTargetY - this.posY) / (double)this.newPosRotationIncrements;
-                        double d1 = this.posZ + (this.interpTargetZ - this.posZ) / (double)this.newPosRotationIncrements;
-                        double d2 = MathHelper.wrapDegrees(this.interpTargetYaw - (double)this.rotationYaw);
-                        this.rotationYaw = (float)((double)this.rotationYaw + d2 / (double)this.newPosRotationIncrements);
-                        this.rotationPitch = (float)((double)this.rotationPitch + (this.interpTargetPitch - (double)this.rotationPitch) / (double)this.newPosRotationIncrements);
-                        --this.newPosRotationIncrements;
-                        this.setPosition(d5, d0, d1);
-                        this.setRotation(this.rotationYaw, this.rotationPitch);
+                        double d5 = posX + (interpTargetX - posX) / (double) newPosRotationIncrements;
+                        double d0 = posY + (interpTargetY - posY) / (double) newPosRotationIncrements;
+                        double d1 = posZ + (interpTargetZ - posZ) / (double) newPosRotationIncrements;
+                        double d2 = MathHelper.wrapDegrees(interpTargetYaw - (double) rotationYaw);
+                        rotationYaw = (float)((double) rotationYaw + d2 / (double) newPosRotationIncrements);
+                        rotationPitch = (float)((double) rotationPitch + (interpTargetPitch - (double) rotationPitch) / (double) newPosRotationIncrements);
+                        --newPosRotationIncrements;
+                        setPosition(d5, d0, d1);
+                        setRotation(rotationYaw, rotationPitch);
                     }
 
-                    this.phaseManager.getCurrentPhase().doClientRenderEffects();
+                    phaseManager.getCurrentPhase().doClientRenderEffects();
                 }
                 else
                 {
-                    IPhase iphase = this.phaseManager.getCurrentPhase();
+                    IPhase iphase = phaseManager.getCurrentPhase();
                     iphase.doLocalUpdate();
 
-                    if (this.phaseManager.getCurrentPhase() != iphase)
+                    if (phaseManager.getCurrentPhase() != iphase)
                     {
-                        iphase = this.phaseManager.getCurrentPhase();
+                        iphase = phaseManager.getCurrentPhase();
                         iphase.doLocalUpdate();
                     }
 
@@ -291,96 +291,96 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 
                     if (vec3d != null)
                     {
-                        double d6 = vec3d.x - this.posX;
-                        double d7 = vec3d.y - this.posY;
-                        double d8 = vec3d.z - this.posZ;
+                        double d6 = vec3d.x - posX;
+                        double d7 = vec3d.y - posY;
+                        double d8 = vec3d.z - posZ;
                         double d3 = d6 * d6 + d7 * d7 + d8 * d8;
                         float f5 = iphase.getMaxRiseOrFall();
                         d7 = MathHelper.clamp(d7 / (double)MathHelper.sqrt(d6 * d6 + d8 * d8), (double)(-f5), (double)f5);
-                        this.motionY += d7 * 0.10000000149011612D;
-                        this.rotationYaw = MathHelper.wrapDegrees(this.rotationYaw);
-                        double d4 = MathHelper.clamp(MathHelper.wrapDegrees(180.0D - MathHelper.atan2(d6, d8) * (180D / Math.PI) - (double)this.rotationYaw), -50.0D, 50.0D);
-                        Vec3d vec3d1 = (new Vec3d(vec3d.x - this.posX, vec3d.y - this.posY, vec3d.z - this.posZ)).normalize();
-                        Vec3d vec3d2 = (new Vec3d((double)MathHelper.sin(this.rotationYaw * 0.017453292F), this.motionY, (double)(-MathHelper.cos(this.rotationYaw * 0.017453292F)))).normalize();
+                        motionY += d7 * 0.10000000149011612D;
+                        rotationYaw = MathHelper.wrapDegrees(rotationYaw);
+                        double d4 = MathHelper.clamp(MathHelper.wrapDegrees(180.0D - MathHelper.atan2(d6, d8) * (180D / Math.PI) - (double) rotationYaw), -50.0D, 50.0D);
+                        Vec3d vec3d1 = (new Vec3d(vec3d.x - posX, vec3d.y - posY, vec3d.z - posZ)).normalize();
+                        Vec3d vec3d2 = (new Vec3d((double)MathHelper.sin(rotationYaw * 0.017453292F), motionY, (double)(-MathHelper.cos(rotationYaw * 0.017453292F)))).normalize();
                         float f7 = Math.max(((float)vec3d2.dotProduct(vec3d1) + 0.5F) / 1.5F, 0.0F);
-                        this.randomYawVelocity *= 0.8F;
-                        this.randomYawVelocity = (float)((double)this.randomYawVelocity + d4 * (double)iphase.getYawFactor());
-                        this.rotationYaw += this.randomYawVelocity * 0.1F;
+                        randomYawVelocity *= 0.8F;
+                        randomYawVelocity = (float)((double) randomYawVelocity + d4 * (double)iphase.getYawFactor());
+                        rotationYaw += randomYawVelocity * 0.1F;
                         float f8 = (float)(2.0D / (d3 + 1.0D));
                         float f9 = 0.06F;
-                        this.moveRelative(0.0F, 0.0F, -1.0F, 0.06F * (f7 * f8 + (1.0F - f8)));
+                        moveRelative(0.0F, 0.0F, -1.0F, 0.06F * (f7 * f8 + (1.0F - f8)));
 
-                        if (this.slowed)
+                        if (slowed)
                         {
-                            this.move(MoverType.SELF, this.motionX * 0.800000011920929D, this.motionY * 0.800000011920929D, this.motionZ * 0.800000011920929D);
+                            move(MoverType.SELF, motionX * 0.800000011920929D, motionY * 0.800000011920929D, motionZ * 0.800000011920929D);
                         }
                         else
                         {
-                            this.move(MoverType.SELF, this.motionX, this.motionY, this.motionZ);
+                            move(MoverType.SELF, motionX, motionY, motionZ);
                         }
 
-                        Vec3d vec3d3 = (new Vec3d(this.motionX, this.motionY, this.motionZ)).normalize();
+                        Vec3d vec3d3 = (new Vec3d(motionX, motionY, motionZ)).normalize();
                         float f10 = ((float)vec3d3.dotProduct(vec3d2) + 1.0F) / 2.0F;
                         f10 = 0.8F + 0.15F * f10;
-                        this.motionX *= (double)f10;
-                        this.motionZ *= (double)f10;
-                        this.motionY *= 0.9100000262260437D;
+                        motionX *= (double)f10;
+                        motionZ *= (double)f10;
+                        motionY *= 0.9100000262260437D;
                     }
                 }
 
-                this.renderYawOffset = this.rotationYaw;
-                this.dragonPartHead.width = 1.0F;
-                this.dragonPartHead.height = 1.0F;
-                this.dragonPartNeck.width = 3.0F;
-                this.dragonPartNeck.height = 3.0F;
-                this.dragonPartTail1.width = 2.0F;
-                this.dragonPartTail1.height = 2.0F;
-                this.dragonPartTail2.width = 2.0F;
-                this.dragonPartTail2.height = 2.0F;
-                this.dragonPartTail3.width = 2.0F;
-                this.dragonPartTail3.height = 2.0F;
-                this.dragonPartBody.height = 3.0F;
-                this.dragonPartBody.width = 5.0F;
-                this.dragonPartWing1.height = 2.0F;
-                this.dragonPartWing1.width = 4.0F;
-                this.dragonPartWing2.height = 3.0F;
-                this.dragonPartWing2.width = 4.0F;
-                Vec3d[] avec3d = new Vec3d[this.dragonPartArray.length];
+                renderYawOffset = rotationYaw;
+                dragonPartHead.width = 1.0F;
+                dragonPartHead.height = 1.0F;
+                dragonPartNeck.width = 3.0F;
+                dragonPartNeck.height = 3.0F;
+                dragonPartTail1.width = 2.0F;
+                dragonPartTail1.height = 2.0F;
+                dragonPartTail2.width = 2.0F;
+                dragonPartTail2.height = 2.0F;
+                dragonPartTail3.width = 2.0F;
+                dragonPartTail3.height = 2.0F;
+                dragonPartBody.height = 3.0F;
+                dragonPartBody.width = 5.0F;
+                dragonPartWing1.height = 2.0F;
+                dragonPartWing1.width = 4.0F;
+                dragonPartWing2.height = 3.0F;
+                dragonPartWing2.width = 4.0F;
+                Vec3d[] avec3d = new Vec3d[dragonPartArray.length];
 
-                for (int j = 0; j < this.dragonPartArray.length; ++j)
+                for (int j = 0; j < dragonPartArray.length; ++j)
                 {
-                    avec3d[j] = new Vec3d(this.dragonPartArray[j].posX, this.dragonPartArray[j].posY, this.dragonPartArray[j].posZ);
+                    avec3d[j] = new Vec3d(dragonPartArray[j].posX, dragonPartArray[j].posY, dragonPartArray[j].posZ);
                 }
 
-                float f14 = (float)(this.getMovementOffsets(5, 1.0F)[1] - this.getMovementOffsets(10, 1.0F)[1]) * 10.0F * 0.017453292F;
+                float f14 = (float)(getMovementOffsets(5, 1.0F)[1] - getMovementOffsets(10, 1.0F)[1]) * 10.0F * 0.017453292F;
                 float f16 = MathHelper.cos(f14);
                 float f2 = MathHelper.sin(f14);
-                float f17 = this.rotationYaw * 0.017453292F;
+                float f17 = rotationYaw * 0.017453292F;
                 float f3 = MathHelper.sin(f17);
                 float f18 = MathHelper.cos(f17);
-                this.dragonPartBody.onUpdate();
-                this.dragonPartBody.setLocationAndAngles(this.posX + (double)(f3 * 0.5F), this.posY, this.posZ - (double)(f18 * 0.5F), 0.0F, 0.0F);
-                this.dragonPartWing1.onUpdate();
-                this.dragonPartWing1.setLocationAndAngles(this.posX + (double)(f18 * 4.5F), this.posY + 2.0D, this.posZ + (double)(f3 * 4.5F), 0.0F, 0.0F);
-                this.dragonPartWing2.onUpdate();
-                this.dragonPartWing2.setLocationAndAngles(this.posX - (double)(f18 * 4.5F), this.posY + 2.0D, this.posZ - (double)(f3 * 4.5F), 0.0F, 0.0F);
+                dragonPartBody.onUpdate();
+                dragonPartBody.setLocationAndAngles(posX + (double)(f3 * 0.5F), posY, posZ - (double)(f18 * 0.5F), 0.0F, 0.0F);
+                dragonPartWing1.onUpdate();
+                dragonPartWing1.setLocationAndAngles(posX + (double)(f18 * 4.5F), posY + 2.0D, posZ + (double)(f3 * 4.5F), 0.0F, 0.0F);
+                dragonPartWing2.onUpdate();
+                dragonPartWing2.setLocationAndAngles(posX - (double)(f18 * 4.5F), posY + 2.0D, posZ - (double)(f3 * 4.5F), 0.0F, 0.0F);
 
-                if (!this.world.isRemote && this.hurtTime == 0)
+                if (!world.isRemote && hurtTime == 0)
                 {
-                    this.collideWithEntities(this.world.getEntitiesWithinAABBExcludingEntity(this, this.dragonPartWing1.getEntityBoundingBox().grow(4.0D, 2.0D, 4.0D).offset(0.0D, -2.0D, 0.0D)));
-                    this.collideWithEntities(this.world.getEntitiesWithinAABBExcludingEntity(this, this.dragonPartWing2.getEntityBoundingBox().grow(4.0D, 2.0D, 4.0D).offset(0.0D, -2.0D, 0.0D)));
-                    this.attackEntitiesInList(this.world.getEntitiesWithinAABBExcludingEntity(this, this.dragonPartHead.getEntityBoundingBox().grow(1.0D)));
-                    this.attackEntitiesInList(this.world.getEntitiesWithinAABBExcludingEntity(this, this.dragonPartNeck.getEntityBoundingBox().grow(1.0D)));
+                    collideWithEntities(world.getEntitiesWithinAABBExcludingEntity(this, dragonPartWing1.getEntityBoundingBox().grow(4.0D, 2.0D, 4.0D).offset(0.0D, -2.0D, 0.0D)));
+                    collideWithEntities(world.getEntitiesWithinAABBExcludingEntity(this, dragonPartWing2.getEntityBoundingBox().grow(4.0D, 2.0D, 4.0D).offset(0.0D, -2.0D, 0.0D)));
+                    attackEntitiesInList(world.getEntitiesWithinAABBExcludingEntity(this, dragonPartHead.getEntityBoundingBox().grow(1.0D)));
+                    attackEntitiesInList(world.getEntitiesWithinAABBExcludingEntity(this, dragonPartNeck.getEntityBoundingBox().grow(1.0D)));
                 }
 
-                double[] adouble = this.getMovementOffsets(5, 1.0F);
-                float f19 = MathHelper.sin(this.rotationYaw * 0.017453292F - this.randomYawVelocity * 0.01F);
-                float f4 = MathHelper.cos(this.rotationYaw * 0.017453292F - this.randomYawVelocity * 0.01F);
-                this.dragonPartHead.onUpdate();
-                this.dragonPartNeck.onUpdate();
-                float f20 = this.getHeadYOffset(1.0F);
-                this.dragonPartHead.setLocationAndAngles(this.posX + (double)(f19 * 6.5F * f16), this.posY + (double)f20 + (double)(f2 * 6.5F), this.posZ - (double)(f4 * 6.5F * f16), 0.0F, 0.0F);
-                this.dragonPartNeck.setLocationAndAngles(this.posX + (double)(f19 * 5.5F * f16), this.posY + (double)f20 + (double)(f2 * 5.5F), this.posZ - (double)(f4 * 5.5F * f16), 0.0F, 0.0F);
+                double[] adouble = getMovementOffsets(5, 1.0F);
+                float f19 = MathHelper.sin(rotationYaw * 0.017453292F - randomYawVelocity * 0.01F);
+                float f4 = MathHelper.cos(rotationYaw * 0.017453292F - randomYawVelocity * 0.01F);
+                dragonPartHead.onUpdate();
+                dragonPartNeck.onUpdate();
+                float f20 = getHeadYOffset(1.0F);
+                dragonPartHead.setLocationAndAngles(posX + (double)(f19 * 6.5F * f16), posY + (double)f20 + (double)(f2 * 6.5F), posZ - (double)(f4 * 6.5F * f16), 0.0F, 0.0F);
+                dragonPartNeck.setLocationAndAngles(posX + (double)(f19 * 5.5F * f16), posY + (double)f20 + (double)(f2 * 5.5F), posZ - (double)(f4 * 5.5F * f16), 0.0F, 0.0F);
 
                 for (int k = 0; k < 3; ++k)
                 {
@@ -388,44 +388,44 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 
                     if (k == 0)
                     {
-                        multipartentitypart = this.dragonPartTail1;
+                        multipartentitypart = dragonPartTail1;
                     }
 
                     if (k == 1)
                     {
-                        multipartentitypart = this.dragonPartTail2;
+                        multipartentitypart = dragonPartTail2;
                     }
 
                     if (k == 2)
                     {
-                        multipartentitypart = this.dragonPartTail3;
+                        multipartentitypart = dragonPartTail3;
                     }
 
-                    double[] adouble1 = this.getMovementOffsets(12 + k * 2, 1.0F);
-                    float f21 = this.rotationYaw * 0.017453292F + this.simplifyAngle(adouble1[0] - adouble[0]) * 0.017453292F;
+                    double[] adouble1 = getMovementOffsets(12 + k * 2, 1.0F);
+                    float f21 = rotationYaw * 0.017453292F + simplifyAngle(adouble1[0] - adouble[0]) * 0.017453292F;
                     float f6 = MathHelper.sin(f21);
                     float f22 = MathHelper.cos(f21);
                     float f23 = 1.5F;
                     float f24 = (float)(k + 1) * 2.0F;
                     multipartentitypart.onUpdate();
-                    multipartentitypart.setLocationAndAngles(this.posX - (double)((f3 * 1.5F + f6 * f24) * f16), this.posY + (adouble1[1] - adouble[1]) - (double)((f24 + 1.5F) * f2) + 1.5D, this.posZ + (double)((f18 * 1.5F + f22 * f24) * f16), 0.0F, 0.0F);
+                    multipartentitypart.setLocationAndAngles(posX - (double)((f3 * 1.5F + f6 * f24) * f16), posY + (adouble1[1] - adouble[1]) - (double)((f24 + 1.5F) * f2) + 1.5D, posZ + (double)((f18 * 1.5F + f22 * f24) * f16), 0.0F, 0.0F);
                 }
 
-                if (!this.world.isRemote)
+                if (!world.isRemote)
                 {
-                    this.slowed = this.destroyBlocksInAABB(this.dragonPartHead.getEntityBoundingBox()) | this.destroyBlocksInAABB(this.dragonPartNeck.getEntityBoundingBox()) | this.destroyBlocksInAABB(this.dragonPartBody.getEntityBoundingBox());
+                    slowed = destroyBlocksInAABB(dragonPartHead.getEntityBoundingBox()) | destroyBlocksInAABB(dragonPartNeck.getEntityBoundingBox()) | destroyBlocksInAABB(dragonPartBody.getEntityBoundingBox());
 
-                    if (this.fightManager != null)
+                    if (fightManager != null)
                     {
-                        this.fightManager.dragonUpdate(this);
+                        fightManager.dragonUpdate(this);
                     }
                 }
 
-                for (int l = 0; l < this.dragonPartArray.length; ++l)
+                for (int l = 0; l < dragonPartArray.length; ++l)
                 {
-                    this.dragonPartArray[l].prevPosX = avec3d[l].x;
-                    this.dragonPartArray[l].prevPosY = avec3d[l].y;
-                    this.dragonPartArray[l].prevPosZ = avec3d[l].z;
+                    dragonPartArray[l].prevPosX = avec3d[l].x;
+                    dragonPartArray[l].prevPosY = avec3d[l].y;
+                    dragonPartArray[l].prevPosZ = avec3d[l].z;
                 }
             }
         }
@@ -435,14 +435,14 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
     {
         double d0;
 
-        if (this.phaseManager.getCurrentPhase().getIsStationary())
+        if (phaseManager.getCurrentPhase().getIsStationary())
         {
             d0 = -1.0D;
         }
         else
         {
-            double[] adouble = this.getMovementOffsets(5, 1.0F);
-            double[] adouble1 = this.getMovementOffsets(0, 1.0F);
+            double[] adouble = getMovementOffsets(5, 1.0F);
+            double[] adouble1 = getMovementOffsets(0, 1.0F);
             d0 = adouble[1] - adouble1[1];
         }
 
@@ -454,21 +454,21 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
      */
     private void updateDragonEnderCrystal()
     {
-        if (this.healingEnderCrystal != null)
+        if (healingEnderCrystal != null)
         {
-            if (this.healingEnderCrystal.isDead)
+            if (healingEnderCrystal.isDead)
             {
-                this.healingEnderCrystal = null;
+                healingEnderCrystal = null;
             }
-            else if (this.ticksExisted % 10 == 0 && this.getHealth() < this.getMaxHealth())
+            else if (ticksExisted % 10 == 0 && getHealth() < getMaxHealth())
             {
-                this.setHealth(this.getHealth() + 1.0F);
+                setHealth(getHealth() + 1.0F);
             }
         }
 
-        if (this.rand.nextInt(10) == 0)
+        if (rand.nextInt(10) == 0)
         {
-            List<EntityEnderCrystal> list = this.world.<EntityEnderCrystal>getEntitiesWithinAABB(EntityEnderCrystal.class, this.getEntityBoundingBox().grow(32.0D));
+            List<EntityEnderCrystal> list = world.<EntityEnderCrystal>getEntitiesWithinAABB(EntityEnderCrystal.class, getEntityBoundingBox().grow(32.0D));
             EntityEnderCrystal entityendercrystal = null;
             double d0 = Double.MAX_VALUE;
 
@@ -483,7 +483,7 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
                 }
             }
 
-            this.healingEnderCrystal = entityendercrystal;
+            healingEnderCrystal = entityendercrystal;
         }
     }
 
@@ -492,8 +492,8 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
      */
     private void collideWithEntities(List<Entity> p_70970_1_)
     {
-        double d0 = (this.dragonPartBody.getEntityBoundingBox().minX + this.dragonPartBody.getEntityBoundingBox().maxX) / 2.0D;
-        double d1 = (this.dragonPartBody.getEntityBoundingBox().minZ + this.dragonPartBody.getEntityBoundingBox().maxZ) / 2.0D;
+        double d0 = (dragonPartBody.getEntityBoundingBox().minX + dragonPartBody.getEntityBoundingBox().maxX) / 2.0D;
+        double d1 = (dragonPartBody.getEntityBoundingBox().minZ + dragonPartBody.getEntityBoundingBox().maxZ) / 2.0D;
 
         for (Entity entity : p_70970_1_)
         {
@@ -504,10 +504,10 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
                 double d4 = d2 * d2 + d3 * d3;
                 entity.addVelocity(d2 / d4 * 4.0D, 0.20000000298023224D, d3 / d4 * 4.0D);
 
-                if (!this.phaseManager.getCurrentPhase().getIsStationary() && ((EntityLivingBase)entity).getRevengeTimer() < entity.ticksExisted - 2)
+                if (!phaseManager.getCurrentPhase().getIsStationary() && ((EntityLivingBase)entity).getRevengeTimer() < entity.ticksExisted - 2)
                 {
                     entity.attackEntityFrom(DamageSource.causeMobDamage(this), 5.0F);
-                    this.applyEnchantments(this, entity);
+                    applyEnchantments(this, entity);
                 }
             }
         }
@@ -525,7 +525,7 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
             if (entity instanceof EntityLivingBase)
             {
                 entity.attackEntityFrom(DamageSource.causeMobDamage(this), 10.0F);
-                this.applyEnchantments(this, entity);
+                applyEnchantments(this, entity);
             }
         }
     }
@@ -559,12 +559,12 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
                 for (int i2 = k; i2 <= j1; ++i2)
                 {
                     BlockPos blockpos = new BlockPos(k1, l1, i2);
-                    IBlockState iblockstate = this.world.getBlockState(blockpos);
+                    IBlockState iblockstate = world.getBlockState(blockpos);
                     Block block = iblockstate.getBlock();
 
                     if (iblockstate.getMaterial() != Material.AIR && iblockstate.getMaterial() != Material.FIRE)
                     {
-                        if (!this.world.getGameRules().getBoolean("mobGriefing"))
+                        if (!world.getGameRules().getBoolean("mobGriefing"))
                         {
                             flag = true;
                         }
@@ -572,7 +572,7 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
                         {
                             if (block != Blocks.COMMAND_BLOCK && block != Blocks.REPEATING_COMMAND_BLOCK && block != Blocks.CHAIN_COMMAND_BLOCK && block != Blocks.IRON_BARS && block != Blocks.END_GATEWAY)
                             {
-                                flag1 = this.world.setBlockToAir(blockpos) || flag1;
+                                flag1 = world.setBlockToAir(blockpos) || flag1;
                             }
                             else
                             {
@@ -590,10 +590,10 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 
         if (flag1)
         {
-            double d0 = p_70972_1_.minX + (p_70972_1_.maxX - p_70972_1_.minX) * (double)this.rand.nextFloat();
-            double d1 = p_70972_1_.minY + (p_70972_1_.maxY - p_70972_1_.minY) * (double)this.rand.nextFloat();
-            double d2 = p_70972_1_.minZ + (p_70972_1_.maxZ - p_70972_1_.minZ) * (double)this.rand.nextFloat();
-            this.world.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, d0, d1, d2, 0.0D, 0.0D, 0.0D);
+            double d0 = p_70972_1_.minX + (p_70972_1_.maxX - p_70972_1_.minX) * (double) rand.nextFloat();
+            double d1 = p_70972_1_.minY + (p_70972_1_.maxY - p_70972_1_.minY) * (double) rand.nextFloat();
+            double d2 = p_70972_1_.minZ + (p_70972_1_.maxZ - p_70972_1_.minZ) * (double) rand.nextFloat();
+            world.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, d0, d1, d2, 0.0D, 0.0D, 0.0D);
         }
 
         return flag;
@@ -601,9 +601,9 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 
     public boolean attackEntityFromPart(MultiPartEntityPart dragonPart, DamageSource source, float damage)
     {
-        damage = this.phaseManager.getCurrentPhase().getAdjustedDamage(dragonPart, source, damage);
+        damage = phaseManager.getCurrentPhase().getAdjustedDamage(dragonPart, source, damage);
 
-        if (dragonPart != this.dragonPartHead)
+        if (dragonPart != dragonPartHead)
         {
             damage = damage / 4.0F + Math.min(damage, 1.0F);
         }
@@ -616,23 +616,23 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
         {
             if (source.getTrueSource() instanceof EntityPlayer || source.isExplosion())
             {
-                float f = this.getHealth();
-                this.attackDragonFrom(source, damage);
+                float f = getHealth();
+                attackDragonFrom(source, damage);
 
-                if (this.getHealth() <= 0.0F && !this.phaseManager.getCurrentPhase().getIsStationary())
+                if (getHealth() <= 0.0F && !phaseManager.getCurrentPhase().getIsStationary())
                 {
-                    this.setHealth(1.0F);
-                    this.phaseManager.setPhase(PhaseList.DYING);
+                    setHealth(1.0F);
+                    phaseManager.setPhase(PhaseList.DYING);
                 }
 
-                if (this.phaseManager.getCurrentPhase().getIsStationary())
+                if (phaseManager.getCurrentPhase().getIsStationary())
                 {
-                    this.sittingDamageReceived = (int)((float)this.sittingDamageReceived + (f - this.getHealth()));
+                    sittingDamageReceived = (int)((float) sittingDamageReceived + (f - getHealth()));
 
-                    if ((float)this.sittingDamageReceived > 0.25F * this.getMaxHealth())
+                    if ((float) sittingDamageReceived > 0.25F * getMaxHealth())
                     {
-                        this.sittingDamageReceived = 0;
-                        this.phaseManager.setPhase(PhaseList.TAKEOFF);
+                        sittingDamageReceived = 0;
+                        phaseManager.setPhase(PhaseList.TAKEOFF);
                     }
                 }
             }
@@ -648,7 +648,7 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
     {
         if (source instanceof EntityDamageSource && ((EntityDamageSource)source).getIsThornsDamage())
         {
-            this.attackEntityFromPart(this.dragonPartBody, source, amount);
+            attackEntityFromPart(dragonPartBody, source, amount);
         }
 
         return false;
@@ -667,12 +667,12 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
      */
     public void onKillCommand()
     {
-        this.setDead();
+        setDead();
 
-        if (this.fightManager != null)
+        if (fightManager != null)
         {
-            this.fightManager.dragonUpdate(this);
-            this.fightManager.processDragonDeath(this);
+            fightManager.dragonUpdate(this);
+            fightManager.processDragonDeath(this);
         }
     }
 
@@ -681,59 +681,59 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
      */
     protected void onDeathUpdate()
     {
-        if (this.fightManager != null)
+        if (fightManager != null)
         {
-            this.fightManager.dragonUpdate(this);
+            fightManager.dragonUpdate(this);
         }
 
-        ++this.deathTicks;
+        ++deathTicks;
 
-        if (this.deathTicks >= 180 && this.deathTicks <= 200)
+        if (deathTicks >= 180 && deathTicks <= 200)
         {
-            float f = (this.rand.nextFloat() - 0.5F) * 8.0F;
-            float f1 = (this.rand.nextFloat() - 0.5F) * 4.0F;
-            float f2 = (this.rand.nextFloat() - 0.5F) * 8.0F;
-            this.world.spawnParticle(EnumParticleTypes.EXPLOSION_HUGE, this.posX + (double)f, this.posY + 2.0D + (double)f1, this.posZ + (double)f2, 0.0D, 0.0D, 0.0D);
+            float f = (rand.nextFloat() - 0.5F) * 8.0F;
+            float f1 = (rand.nextFloat() - 0.5F) * 4.0F;
+            float f2 = (rand.nextFloat() - 0.5F) * 8.0F;
+            world.spawnParticle(EnumParticleTypes.EXPLOSION_HUGE, posX + (double)f, posY + 2.0D + (double)f1, posZ + (double)f2, 0.0D, 0.0D, 0.0D);
         }
 
-        boolean flag = this.world.getGameRules().getBoolean("doMobLoot");
+        boolean flag = world.getGameRules().getBoolean("doMobLoot");
         int i = 500;
 
-        if (this.fightManager != null && !this.fightManager.hasPreviouslyKilledDragon())
+        if (fightManager != null && !fightManager.hasPreviouslyKilledDragon())
         {
             i = 12000;
         }
 
-        if (!this.world.isRemote)
+        if (!world.isRemote)
         {
-            if (this.deathTicks > 150 && this.deathTicks % 5 == 0 && flag)
+            if (deathTicks > 150 && deathTicks % 5 == 0 && flag)
             {
-                this.dropExperience(MathHelper.floor((float)i * 0.08F));
+                dropExperience(MathHelper.floor((float)i * 0.08F));
             }
 
-            if (this.deathTicks == 1)
+            if (deathTicks == 1)
             {
-                this.world.playBroadcastSound(1028, new BlockPos(this), 0);
+                world.playBroadcastSound(1028, new BlockPos(this), 0);
             }
         }
 
-        this.move(MoverType.SELF, 0.0D, 0.10000000149011612D, 0.0D);
-        this.rotationYaw += 20.0F;
-        this.renderYawOffset = this.rotationYaw;
+        move(MoverType.SELF, 0.0D, 0.10000000149011612D, 0.0D);
+        rotationYaw += 20.0F;
+        renderYawOffset = rotationYaw;
 
-        if (this.deathTicks == 200 && !this.world.isRemote)
+        if (deathTicks == 200 && !world.isRemote)
         {
             if (flag)
             {
-                this.dropExperience(MathHelper.floor((float)i * 0.2F));
+                dropExperience(MathHelper.floor((float)i * 0.2F));
             }
 
-            if (this.fightManager != null)
+            if (fightManager != null)
             {
-                this.fightManager.processDragonDeath(this);
+                fightManager.processDragonDeath(this);
             }
 
-            this.setDead();
+            setDead();
         }
     }
 
@@ -743,7 +743,7 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
         {
             int i = EntityXPOrb.getXPSplit(p_184668_1_);
             p_184668_1_ -= i;
-            this.world.spawnEntity(new EntityXPOrb(this.world, this.posX, this.posY, this.posZ, i));
+            world.spawnEntity(new EntityXPOrb(world, posX, posY, posZ, i));
         }
     }
 
@@ -753,7 +753,7 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
      */
     public int initPathPoints()
     {
-        if (this.pathPoints[0] == null)
+        if (pathPoints[0] == null)
         {
             for (int i = 0; i < 24; ++i)
             {
@@ -780,37 +780,37 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
                     i1 = (int)(20.0F * MathHelper.sin(2.0F * (-(float)Math.PI + ((float)Math.PI / 4F) * (float)k1)));
                 }
 
-                int j1 = Math.max(this.world.getSeaLevel() + 10, this.world.getTopSolidOrLiquidBlock(new BlockPos(l, 0, i1)).getY() + j);
-                this.pathPoints[i] = new PathPoint(l, j1, i1);
+                int j1 = Math.max(world.getSeaLevel() + 10, world.getTopSolidOrLiquidBlock(new BlockPos(l, 0, i1)).getY() + j);
+                pathPoints[i] = new PathPoint(l, j1, i1);
             }
 
-            this.neighbors[0] = 6146;
-            this.neighbors[1] = 8197;
-            this.neighbors[2] = 8202;
-            this.neighbors[3] = 16404;
-            this.neighbors[4] = 32808;
-            this.neighbors[5] = 32848;
-            this.neighbors[6] = 65696;
-            this.neighbors[7] = 131392;
-            this.neighbors[8] = 131712;
-            this.neighbors[9] = 263424;
-            this.neighbors[10] = 526848;
-            this.neighbors[11] = 525313;
-            this.neighbors[12] = 1581057;
-            this.neighbors[13] = 3166214;
-            this.neighbors[14] = 2138120;
-            this.neighbors[15] = 6373424;
-            this.neighbors[16] = 4358208;
-            this.neighbors[17] = 12910976;
-            this.neighbors[18] = 9044480;
-            this.neighbors[19] = 9706496;
-            this.neighbors[20] = 15216640;
-            this.neighbors[21] = 13688832;
-            this.neighbors[22] = 11763712;
-            this.neighbors[23] = 8257536;
+            neighbors[0] = 6146;
+            neighbors[1] = 8197;
+            neighbors[2] = 8202;
+            neighbors[3] = 16404;
+            neighbors[4] = 32808;
+            neighbors[5] = 32848;
+            neighbors[6] = 65696;
+            neighbors[7] = 131392;
+            neighbors[8] = 131712;
+            neighbors[9] = 263424;
+            neighbors[10] = 526848;
+            neighbors[11] = 525313;
+            neighbors[12] = 1581057;
+            neighbors[13] = 3166214;
+            neighbors[14] = 2138120;
+            neighbors[15] = 6373424;
+            neighbors[16] = 4358208;
+            neighbors[17] = 12910976;
+            neighbors[18] = 9044480;
+            neighbors[19] = 9706496;
+            neighbors[20] = 15216640;
+            neighbors[21] = 13688832;
+            neighbors[22] = 11763712;
+            neighbors[23] = 8257536;
         }
 
-        return this.getNearestPpIdx(this.posX, this.posY, this.posZ);
+        return getNearestPpIdx(posX, posY, posZ);
     }
 
     /**
@@ -823,16 +823,16 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
         PathPoint pathpoint = new PathPoint(MathHelper.floor(x), MathHelper.floor(y), MathHelper.floor(z));
         int j = 0;
 
-        if (this.fightManager == null || this.fightManager.getNumAliveCrystals() == 0)
+        if (fightManager == null || fightManager.getNumAliveCrystals() == 0)
         {
             j = 12;
         }
 
         for (int k = j; k < 24; ++k)
         {
-            if (this.pathPoints[k] != null)
+            if (pathPoints[k] != null)
             {
-                float f1 = this.pathPoints[k].distanceToSquared(pathpoint);
+                float f1 = pathPoints[k].distanceToSquared(pathpoint);
 
                 if (f1 < f)
                 {
@@ -858,7 +858,7 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
     {
         for (int i = 0; i < 24; ++i)
         {
-            PathPoint pathpoint = this.pathPoints[i];
+            PathPoint pathpoint = pathPoints[i];
             pathpoint.visited = false;
             pathpoint.distanceToTarget = 0.0F;
             pathpoint.totalPathDistance = 0.0F;
@@ -867,24 +867,24 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
             pathpoint.index = -1;
         }
 
-        PathPoint pathpoint4 = this.pathPoints[startIdx];
-        PathPoint pathpoint5 = this.pathPoints[finishIdx];
+        PathPoint pathpoint4 = pathPoints[startIdx];
+        PathPoint pathpoint5 = pathPoints[finishIdx];
         pathpoint4.totalPathDistance = 0.0F;
         pathpoint4.distanceToNext = pathpoint4.distanceTo(pathpoint5);
         pathpoint4.distanceToTarget = pathpoint4.distanceToNext;
-        this.pathFindQueue.clearPath();
-        this.pathFindQueue.addPoint(pathpoint4);
+        pathFindQueue.clearPath();
+        pathFindQueue.addPoint(pathpoint4);
         PathPoint pathpoint1 = pathpoint4;
         int j = 0;
 
-        if (this.fightManager == null || this.fightManager.getNumAliveCrystals() == 0)
+        if (fightManager == null || fightManager.getNumAliveCrystals() == 0)
         {
             j = 12;
         }
 
-        while (!this.pathFindQueue.isPathEmpty())
+        while (!pathFindQueue.isPathEmpty())
         {
-            PathPoint pathpoint2 = this.pathFindQueue.dequeue();
+            PathPoint pathpoint2 = pathFindQueue.dequeue();
 
             if (pathpoint2.equals(pathpoint5))
             {
@@ -894,7 +894,7 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
                     pathpoint5 = andThen;
                 }
 
-                return this.makePath(pathpoint4, pathpoint5);
+                return makePath(pathpoint4, pathpoint5);
             }
 
             if (pathpoint2.distanceTo(pathpoint5) < pathpoint1.distanceTo(pathpoint5))
@@ -907,7 +907,7 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 
             for (int l = 0; l < 24; ++l)
             {
-                if (this.pathPoints[l] == pathpoint2)
+                if (pathPoints[l] == pathpoint2)
                 {
                     k = l;
                     break;
@@ -916,9 +916,9 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 
             for (int i1 = j; i1 < 24; ++i1)
             {
-                if ((this.neighbors[k] & 1 << i1) > 0)
+                if ((neighbors[k] & 1 << i1) > 0)
                 {
-                    PathPoint pathpoint3 = this.pathPoints[i1];
+                    PathPoint pathpoint3 = pathPoints[i1];
 
                     if (!pathpoint3.visited)
                     {
@@ -932,12 +932,12 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 
                             if (pathpoint3.isAssigned())
                             {
-                                this.pathFindQueue.changeDistance(pathpoint3, pathpoint3.totalPathDistance + pathpoint3.distanceToNext);
+                                pathFindQueue.changeDistance(pathpoint3, pathpoint3.totalPathDistance + pathpoint3.distanceToNext);
                             }
                             else
                             {
                                 pathpoint3.distanceToTarget = pathpoint3.totalPathDistance + pathpoint3.distanceToNext;
-                                this.pathFindQueue.addPoint(pathpoint3);
+                                pathFindQueue.addPoint(pathpoint3);
                             }
                         }
                     }
@@ -959,7 +959,7 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
                 pathpoint1 = andThen;
             }
 
-            return this.makePath(pathpoint4, pathpoint1);
+            return makePath(pathpoint4, pathpoint1);
         }
     }
 
@@ -1000,7 +1000,7 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
     public void writeEntityToNBT(NBTTagCompound compound)
     {
         super.writeEntityToNBT(compound);
-        compound.setInteger("DragonPhase", this.phaseManager.getCurrentPhase().getType().getId());
+        compound.setInteger("DragonPhase", phaseManager.getCurrentPhase().getType().getId());
     }
 
     /**
@@ -1012,7 +1012,7 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 
         if (compound.hasKey("DragonPhase"))
         {
-            this.phaseManager.setPhase(PhaseList.getById(compound.getInteger("DragonPhase")));
+            phaseManager.setPhase(PhaseList.getById(compound.getInteger("DragonPhase")));
         }
     }
 
@@ -1028,7 +1028,7 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
      */
     public Entity[] getParts()
     {
-        return this.dragonPartArray;
+        return dragonPartArray;
     }
 
     /**
@@ -1041,7 +1041,7 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 
     public World getWorld()
     {
-        return this.world;
+        return world;
     }
 
     public SoundCategory getSoundCategory()
@@ -1075,7 +1075,7 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 
     public float getHeadPartYOffset(int p_184667_1_, double[] p_184667_2_, double[] p_184667_3_)
     {
-        IPhase iphase = this.phaseManager.getCurrentPhase();
+        IPhase iphase = phaseManager.getCurrentPhase();
         PhaseList <? extends IPhase > phaselist = iphase.getType();
         double d0;
 
@@ -1096,8 +1096,8 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
         }
         else
         {
-            BlockPos blockpos = this.world.getTopSolidOrLiquidBlock(WorldGenEndPodium.END_PODIUM_LOCATION);
-            float f = Math.max(MathHelper.sqrt(this.getDistanceSqToCenter(blockpos)) / 4.0F, 1.0F);
+            BlockPos blockpos = world.getTopSolidOrLiquidBlock(WorldGenEndPodium.END_PODIUM_LOCATION);
+            float f = Math.max(MathHelper.sqrt(getDistanceSqToCenter(blockpos)) / 4.0F, 1.0F);
             d0 = (double)((float)p_184667_1_ / f);
         }
 
@@ -1106,7 +1106,7 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 
     public Vec3d getHeadLookVec(float p_184665_1_)
     {
-        IPhase iphase = this.phaseManager.getCurrentPhase();
+        IPhase iphase = phaseManager.getCurrentPhase();
         PhaseList <? extends IPhase > phaselist = iphase.getType();
         Vec3d vec3d;
 
@@ -1114,27 +1114,27 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
         {
             if (iphase.getIsStationary())
             {
-                float f4 = this.rotationPitch;
+                float f4 = rotationPitch;
                 float f5 = 1.5F;
-                this.rotationPitch = -45.0F;
-                vec3d = this.getLook(p_184665_1_);
-                this.rotationPitch = f4;
+                rotationPitch = -45.0F;
+                vec3d = getLook(p_184665_1_);
+                rotationPitch = f4;
             }
             else
             {
-                vec3d = this.getLook(p_184665_1_);
+                vec3d = getLook(p_184665_1_);
             }
         }
         else
         {
-            BlockPos blockpos = this.world.getTopSolidOrLiquidBlock(WorldGenEndPodium.END_PODIUM_LOCATION);
-            float f = Math.max(MathHelper.sqrt(this.getDistanceSqToCenter(blockpos)) / 4.0F, 1.0F);
+            BlockPos blockpos = world.getTopSolidOrLiquidBlock(WorldGenEndPodium.END_PODIUM_LOCATION);
+            float f = Math.max(MathHelper.sqrt(getDistanceSqToCenter(blockpos)) / 4.0F, 1.0F);
             float f1 = 6.0F / f;
-            float f2 = this.rotationPitch;
+            float f2 = rotationPitch;
             float f3 = 1.5F;
-            this.rotationPitch = -f1 * 1.5F * 5.0F;
-            vec3d = this.getLook(p_184665_1_);
-            this.rotationPitch = f2;
+            rotationPitch = -f1 * 1.5F * 5.0F;
+            vec3d = getLook(p_184665_1_);
+            rotationPitch = f2;
         }
 
         return vec3d;
@@ -1150,22 +1150,22 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
         }
         else
         {
-            entityplayer = this.world.getNearestAttackablePlayer(pos, 64.0D, 64.0D);
+            entityplayer = world.getNearestAttackablePlayer(pos, 64.0D, 64.0D);
         }
 
-        if (crystal == this.healingEnderCrystal)
+        if (crystal == healingEnderCrystal)
         {
-            this.attackEntityFromPart(this.dragonPartHead, DamageSource.causeExplosionDamage(entityplayer), 10.0F);
+            attackEntityFromPart(dragonPartHead, DamageSource.causeExplosionDamage(entityplayer), 10.0F);
         }
 
-        this.phaseManager.getCurrentPhase().onCrystalDestroyed(crystal, pos, dmgSrc, entityplayer);
+        phaseManager.getCurrentPhase().onCrystalDestroyed(crystal, pos, dmgSrc, entityplayer);
     }
 
     public void notifyDataManagerChange(DataParameter<?> key)
     {
-        if (PHASE.equals(key) && this.world.isRemote)
+        if (PHASE.equals(key) && world.isRemote)
         {
-            this.phaseManager.setPhase(PhaseList.getById(((Integer)this.getDataManager().get(PHASE)).intValue()));
+            phaseManager.setPhase(PhaseList.getById(((Integer) getDataManager().get(PHASE)).intValue()));
         }
 
         super.notifyDataManagerChange(key);
@@ -1173,13 +1173,13 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 
     public PhaseManager getPhaseManager()
     {
-        return this.phaseManager;
+        return phaseManager;
     }
 
     @Nullable
     public DragonFightManager getFightManager()
     {
-        return this.fightManager;
+        return fightManager;
     }
 
     /**

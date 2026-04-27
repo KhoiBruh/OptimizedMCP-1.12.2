@@ -32,7 +32,7 @@ public class AdvancementProgress implements Comparable<AdvancementProgress>
     public void update(Map<String, Criterion> criteriaIn, String[][] requirements)
     {
         Set<String> set = criteriaIn.keySet();
-        Iterator<Entry<String, CriterionProgress>> iterator = this.criteria.entrySet().iterator();
+        Iterator<Entry<String, CriterionProgress>> iterator = criteria.entrySet().iterator();
 
         while (iterator.hasNext())
         {
@@ -46,9 +46,9 @@ public class AdvancementProgress implements Comparable<AdvancementProgress>
 
         for (String s : set)
         {
-            if (!this.criteria.containsKey(s))
+            if (!criteria.containsKey(s))
             {
-                this.criteria.put(s, new CriterionProgress(this));
+                criteria.put(s, new CriterionProgress(this));
             }
         }
 
@@ -57,19 +57,19 @@ public class AdvancementProgress implements Comparable<AdvancementProgress>
 
     public boolean isDone()
     {
-        if (this.requirements.length == 0)
+        if (requirements.length == 0)
         {
             return false;
         }
         else
         {
-            for (String[] astring : this.requirements)
+            for (String[] astring : requirements)
             {
                 boolean flag = false;
 
                 for (String s : astring)
                 {
-                    CriterionProgress criterionprogress = this.getCriterionProgress(s);
+                    CriterionProgress criterionprogress = getCriterionProgress(s);
 
                     if (criterionprogress != null && criterionprogress.isObtained())
                     {
@@ -90,7 +90,7 @@ public class AdvancementProgress implements Comparable<AdvancementProgress>
 
     public boolean hasProgress()
     {
-        for (CriterionProgress criterionprogress : this.criteria.values())
+        for (CriterionProgress criterionprogress : criteria.values())
         {
             if (criterionprogress.isObtained())
             {
@@ -103,7 +103,7 @@ public class AdvancementProgress implements Comparable<AdvancementProgress>
 
     public boolean grantCriterion(String criterionIn)
     {
-        CriterionProgress criterionprogress = this.criteria.get(criterionIn);
+        CriterionProgress criterionprogress = criteria.get(criterionIn);
 
         if (criterionprogress != null && !criterionprogress.isObtained())
         {
@@ -118,7 +118,7 @@ public class AdvancementProgress implements Comparable<AdvancementProgress>
 
     public boolean revokeCriterion(String criterionIn)
     {
-        CriterionProgress criterionprogress = this.criteria.get(criterionIn);
+        CriterionProgress criterionprogress = criteria.get(criterionIn);
 
         if (criterionprogress != null && criterionprogress.isObtained())
         {
@@ -133,14 +133,14 @@ public class AdvancementProgress implements Comparable<AdvancementProgress>
 
     public String toString()
     {
-        return "AdvancementProgress{criteria=" + this.criteria + ", requirements=" + Arrays.deepToString(this.requirements) + '}';
+        return "AdvancementProgress{criteria=" + criteria + ", requirements=" + Arrays.deepToString(requirements) + '}';
     }
 
     public void serializeToNetwork(PacketBuffer p_192104_1_)
     {
-        p_192104_1_.writeVarInt(this.criteria.size());
+        p_192104_1_.writeVarInt(criteria.size());
 
-        for (Entry<String, CriterionProgress> entry : this.criteria.entrySet())
+        for (Entry<String, CriterionProgress> entry : criteria.entrySet())
         {
             p_192104_1_.writeString(entry.getKey());
             ((CriterionProgress)entry.getValue()).write(p_192104_1_);
@@ -163,19 +163,19 @@ public class AdvancementProgress implements Comparable<AdvancementProgress>
     @Nullable
     public CriterionProgress getCriterionProgress(String criterionIn)
     {
-        return this.criteria.get(criterionIn);
+        return criteria.get(criterionIn);
     }
 
     public float getPercent()
     {
-        if (this.criteria.isEmpty())
+        if (criteria.isEmpty())
         {
             return 0.0F;
         }
         else
         {
-            float f = (float)this.requirements.length;
-            float f1 = (float)this.countCompletedRequirements();
+            float f = (float) requirements.length;
+            float f1 = (float) countCompletedRequirements();
             return f1 / f;
         }
     }
@@ -183,13 +183,13 @@ public class AdvancementProgress implements Comparable<AdvancementProgress>
     @Nullable
     public String getProgressText()
     {
-        if (this.criteria.isEmpty())
+        if (criteria.isEmpty())
         {
             return null;
         }
         else
         {
-            int i = this.requirements.length;
+            int i = requirements.length;
 
             if (i <= 1)
             {
@@ -197,7 +197,7 @@ public class AdvancementProgress implements Comparable<AdvancementProgress>
             }
             else
             {
-                int j = this.countCompletedRequirements();
+                int j = countCompletedRequirements();
                 return j + "/" + i;
             }
         }
@@ -207,13 +207,13 @@ public class AdvancementProgress implements Comparable<AdvancementProgress>
     {
         int i = 0;
 
-        for (String[] astring : this.requirements)
+        for (String[] astring : requirements)
         {
             boolean flag = false;
 
             for (String s : astring)
             {
-                CriterionProgress criterionprogress = this.getCriterionProgress(s);
+                CriterionProgress criterionprogress = getCriterionProgress(s);
 
                 if (criterionprogress != null && criterionprogress.isObtained())
                 {
@@ -235,7 +235,7 @@ public class AdvancementProgress implements Comparable<AdvancementProgress>
     {
         List<String> list = Lists.<String>newArrayList();
 
-        for (Entry<String, CriterionProgress> entry : this.criteria.entrySet())
+        for (Entry<String, CriterionProgress> entry : criteria.entrySet())
         {
             if (!((CriterionProgress)entry.getValue()).isObtained())
             {
@@ -250,7 +250,7 @@ public class AdvancementProgress implements Comparable<AdvancementProgress>
     {
         List<String> list = Lists.<String>newArrayList();
 
-        for (Entry<String, CriterionProgress> entry : this.criteria.entrySet())
+        for (Entry<String, CriterionProgress> entry : criteria.entrySet())
         {
             if (((CriterionProgress)entry.getValue()).isObtained())
             {
@@ -266,7 +266,7 @@ public class AdvancementProgress implements Comparable<AdvancementProgress>
     {
         Date date = null;
 
-        for (CriterionProgress criterionprogress : this.criteria.values())
+        for (CriterionProgress criterionprogress : criteria.values())
         {
             if (criterionprogress.isObtained() && (date == null || criterionprogress.getObtained().before(date)))
             {
@@ -279,7 +279,7 @@ public class AdvancementProgress implements Comparable<AdvancementProgress>
 
     public int compareTo(AdvancementProgress p_compareTo_1_)
     {
-        Date date = this.getFirstProgressDate();
+        Date date = getFirstProgressDate();
         Date date1 = p_compareTo_1_.getFirstProgressDate();
 
         if (date == null && date1 != null)

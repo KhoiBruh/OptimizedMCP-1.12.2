@@ -20,42 +20,42 @@ public class BlockPattern
 
     public BlockPattern(Predicate<BlockWorldState>[][][] predicatesIn)
     {
-        this.blockMatches = predicatesIn;
-        this.fingerLength = predicatesIn.length;
+        blockMatches = predicatesIn;
+        fingerLength = predicatesIn.length;
 
-        if (this.fingerLength > 0)
+        if (fingerLength > 0)
         {
-            this.thumbLength = predicatesIn[0].length;
+            thumbLength = predicatesIn[0].length;
 
-            if (this.thumbLength > 0)
+            if (thumbLength > 0)
             {
-                this.palmLength = predicatesIn[0][0].length;
+                palmLength = predicatesIn[0][0].length;
             }
             else
             {
-                this.palmLength = 0;
+                palmLength = 0;
             }
         }
         else
         {
-            this.thumbLength = 0;
-            this.palmLength = 0;
+            thumbLength = 0;
+            palmLength = 0;
         }
     }
 
     public int getFingerLength()
     {
-        return this.fingerLength;
+        return fingerLength;
     }
 
     public int getThumbLength()
     {
-        return this.thumbLength;
+        return thumbLength;
     }
 
     public int getPalmLength()
     {
-        return this.palmLength;
+        return palmLength;
     }
 
     @Nullable
@@ -65,13 +65,13 @@ public class BlockPattern
      */
     private BlockPattern.PatternHelper checkPatternAt(BlockPos pos, EnumFacing finger, EnumFacing thumb, LoadingCache<BlockPos, BlockWorldState> lcache)
     {
-        for (int i = 0; i < this.palmLength; ++i)
+        for (int i = 0; i < palmLength; ++i)
         {
-            for (int j = 0; j < this.thumbLength; ++j)
+            for (int j = 0; j < thumbLength; ++j)
             {
-                for (int k = 0; k < this.fingerLength; ++k)
+                for (int k = 0; k < fingerLength; ++k)
                 {
-                    if (!this.blockMatches[k][j][i].apply(lcache.getUnchecked(translateOffset(pos, finger, thumb, i, j, k))))
+                    if (!blockMatches[k][j][i].apply(lcache.getUnchecked(translateOffset(pos, finger, thumb, i, j, k))))
                     {
                         return null;
                     }
@@ -79,7 +79,7 @@ public class BlockPattern
             }
         }
 
-        return new BlockPattern.PatternHelper(pos, finger, thumb, lcache, this.palmLength, this.thumbLength, this.fingerLength);
+        return new BlockPattern.PatternHelper(pos, finger, thumb, lcache, palmLength, thumbLength, fingerLength);
     }
 
     @Nullable
@@ -91,7 +91,7 @@ public class BlockPattern
     public BlockPattern.PatternHelper match(World worldIn, BlockPos pos)
     {
         LoadingCache<BlockPos, BlockWorldState> loadingcache = createLoadingCache(worldIn, false);
-        int i = Math.max(Math.max(this.palmLength, this.thumbLength), this.fingerLength);
+        int i = Math.max(Math.max(palmLength, thumbLength), fingerLength);
 
         for (BlockPos blockpos : BlockPos.getAllInBox(pos, pos.add(i - 1, i - 1, i - 1)))
         {
@@ -101,7 +101,7 @@ public class BlockPattern
                 {
                     if (enumfacing1 != enumfacing && enumfacing1 != enumfacing.getOpposite())
                     {
-                        BlockPattern.PatternHelper blockpattern$patternhelper = this.checkPatternAt(blockpos, enumfacing, enumfacing1, loadingcache);
+                        BlockPattern.PatternHelper blockpattern$patternhelper = checkPatternAt(blockpos, enumfacing, enumfacing1, loadingcache);
 
                         if (blockpattern$patternhelper != null)
                         {
@@ -146,13 +146,13 @@ public class BlockPattern
 
         public CacheLoader(World worldIn, boolean forceLoadIn)
         {
-            this.world = worldIn;
-            this.forceLoad = forceLoadIn;
+            world = worldIn;
+            forceLoad = forceLoadIn;
         }
 
         public BlockWorldState load(BlockPos p_load_1_) throws Exception
         {
-            return new BlockWorldState(this.world, p_load_1_, this.forceLoad);
+            return new BlockWorldState(world, p_load_1_, forceLoad);
         }
     }
 
@@ -168,48 +168,48 @@ public class BlockPattern
 
         public PatternHelper(BlockPos posIn, EnumFacing fingerIn, EnumFacing thumbIn, LoadingCache<BlockPos, BlockWorldState> lcacheIn, int widthIn, int heightIn, int depthIn)
         {
-            this.frontTopLeft = posIn;
-            this.forwards = fingerIn;
-            this.up = thumbIn;
-            this.lcache = lcacheIn;
-            this.width = widthIn;
-            this.height = heightIn;
-            this.depth = depthIn;
+            frontTopLeft = posIn;
+            forwards = fingerIn;
+            up = thumbIn;
+            lcache = lcacheIn;
+            width = widthIn;
+            height = heightIn;
+            depth = depthIn;
         }
 
         public BlockPos getFrontTopLeft()
         {
-            return this.frontTopLeft;
+            return frontTopLeft;
         }
 
         public EnumFacing getForwards()
         {
-            return this.forwards;
+            return forwards;
         }
 
         public EnumFacing getUp()
         {
-            return this.up;
+            return up;
         }
 
         public int getWidth()
         {
-            return this.width;
+            return width;
         }
 
         public int getHeight()
         {
-            return this.height;
+            return height;
         }
 
         public BlockWorldState translateOffset(int palmOffset, int thumbOffset, int fingerOffset)
         {
-            return this.lcache.getUnchecked(BlockPattern.translateOffset(this.frontTopLeft, this.getForwards(), this.getUp(), palmOffset, thumbOffset, fingerOffset));
+            return lcache.getUnchecked(BlockPattern.translateOffset(frontTopLeft, getForwards(), getUp(), palmOffset, thumbOffset, fingerOffset));
         }
 
         public String toString()
         {
-            return MoreObjects.toStringHelper(this).add("up", this.up).add("forwards", this.forwards).add("frontTopLeft", this.frontTopLeft).toString();
+            return MoreObjects.toStringHelper(this).add("up", up).add("forwards", forwards).add("frontTopLeft", frontTopLeft).toString();
         }
     }
 }

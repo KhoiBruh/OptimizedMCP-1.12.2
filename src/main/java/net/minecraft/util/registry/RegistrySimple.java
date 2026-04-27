@@ -15,7 +15,7 @@ import org.apache.logging.log4j.Logger;
 public class RegistrySimple<K, V> implements IRegistry<K, V>
 {
     private static final Logger LOGGER = LogManager.getLogger();
-    protected final Map<K, V> registryObjects = this.createUnderlyingMap();
+    protected final Map<K, V> registryObjects = createUnderlyingMap();
     private Object[] values;
 
     protected Map<K, V> createUnderlyingMap()
@@ -26,7 +26,7 @@ public class RegistrySimple<K, V> implements IRegistry<K, V>
     @Nullable
     public V getObject(@Nullable K name)
     {
-        return this.registryObjects.get(name);
+        return registryObjects.get(name);
     }
 
     /**
@@ -36,37 +36,37 @@ public class RegistrySimple<K, V> implements IRegistry<K, V>
     {
         Validate.notNull(key);
         Validate.notNull(value);
-        this.values = null;
+        values = null;
 
-        if (this.registryObjects.containsKey(key))
+        if (registryObjects.containsKey(key))
         {
             LOGGER.debug("Adding duplicate key '{}' to registry", key);
         }
 
-        this.registryObjects.put(key, value);
+        registryObjects.put(key, value);
     }
 
     public Set<K> getKeys()
     {
-        return Collections.<K>unmodifiableSet(this.registryObjects.keySet());
+        return Collections.<K>unmodifiableSet(registryObjects.keySet());
     }
 
     @Nullable
     public V getRandomObject(Random random)
     {
-        if (this.values == null)
+        if (values == null)
         {
-            Collection<?> collection = this.registryObjects.values();
+            Collection<?> collection = registryObjects.values();
 
             if (collection.isEmpty())
             {
                 return (V)null;
             }
 
-            this.values = collection.toArray(new Object[collection.size()]);
+            values = collection.toArray(new Object[collection.size()]);
         }
 
-        return (V)this.values[random.nextInt(this.values.length)];
+        return (V) values[random.nextInt(values.length)];
     }
 
     /**
@@ -74,11 +74,11 @@ public class RegistrySimple<K, V> implements IRegistry<K, V>
      */
     public boolean containsKey(K key)
     {
-        return this.registryObjects.containsKey(key);
+        return registryObjects.containsKey(key);
     }
 
     public Iterator<V> iterator()
     {
-        return this.registryObjects.values().iterator();
+        return registryObjects.values().iterator();
     }
 }

@@ -22,17 +22,17 @@ public class DebugRendererNeighborsUpdate implements DebugRenderer.IDebugRendere
 
     DebugRendererNeighborsUpdate(Minecraft minecraftIn)
     {
-        this.minecraft = minecraftIn;
+        minecraft = minecraftIn;
     }
 
     public void addUpdate(long worldTime, BlockPos pos)
     {
-        Map<BlockPos, Integer> map = (Map)this.lastUpdate.get(Long.valueOf(worldTime));
+        Map<BlockPos, Integer> map = (Map) lastUpdate.get(Long.valueOf(worldTime));
 
         if (map == null)
         {
             map = Maps.<BlockPos, Integer>newHashMap();
-            this.lastUpdate.put(Long.valueOf(worldTime), map);
+            lastUpdate.put(Long.valueOf(worldTime), map);
         }
 
         Integer integer = map.get(pos);
@@ -47,12 +47,12 @@ public class DebugRendererNeighborsUpdate implements DebugRenderer.IDebugRendere
 
     public void render(float partialTicks, long finishTimeNano)
     {
-        long i = this.minecraft.world.getTotalWorldTime();
-        EntityPlayer entityplayer = this.minecraft.player;
+        long i = minecraft.world.getTotalWorldTime();
+        EntityPlayer entityplayer = minecraft.player;
         double d0 = entityplayer.lastTickPosX + (entityplayer.posX - entityplayer.lastTickPosX) * (double)partialTicks;
         double d1 = entityplayer.lastTickPosY + (entityplayer.posY - entityplayer.lastTickPosY) * (double)partialTicks;
         double d2 = entityplayer.lastTickPosZ + (entityplayer.posZ - entityplayer.lastTickPosZ) * (double)partialTicks;
-        World world = this.minecraft.player.world;
+        World world = minecraft.player.world;
         GlStateManager.enableBlend();
         GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
         GlStateManager.glLineWidth(2.0F);
@@ -62,7 +62,7 @@ public class DebugRendererNeighborsUpdate implements DebugRenderer.IDebugRendere
         double d3 = 0.0025D;
         Set<BlockPos> set = Sets.<BlockPos>newHashSet();
         Map<BlockPos, Integer> map = Maps.<BlockPos, Integer>newHashMap();
-        Iterator<Entry<Long, Map<BlockPos, Integer>>> iterator = this.lastUpdate.entrySet().iterator();
+        Iterator<Entry<Long, Map<BlockPos, Integer>>> iterator = lastUpdate.entrySet().iterator();
 
         while (iterator.hasNext())
         {

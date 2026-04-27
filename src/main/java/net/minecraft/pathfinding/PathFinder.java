@@ -20,30 +20,30 @@ public class PathFinder
 
     public PathFinder(NodeProcessor processor)
     {
-        this.nodeProcessor = processor;
+        nodeProcessor = processor;
     }
 
     @Nullable
     public Path findPath(IBlockAccess worldIn, EntityLiving entitylivingIn, Entity targetEntity, float maxDistance)
     {
-        return this.findPath(worldIn, entitylivingIn, targetEntity.posX, targetEntity.getEntityBoundingBox().minY, targetEntity.posZ, maxDistance);
+        return findPath(worldIn, entitylivingIn, targetEntity.posX, targetEntity.getEntityBoundingBox().minY, targetEntity.posZ, maxDistance);
     }
 
     @Nullable
     public Path findPath(IBlockAccess worldIn, EntityLiving entitylivingIn, BlockPos targetPos, float maxDistance)
     {
-        return this.findPath(worldIn, entitylivingIn, (double)((float)targetPos.getX() + 0.5F), (double)((float)targetPos.getY() + 0.5F), (double)((float)targetPos.getZ() + 0.5F), maxDistance);
+        return findPath(worldIn, entitylivingIn, (double)((float)targetPos.getX() + 0.5F), (double)((float)targetPos.getY() + 0.5F), (double)((float)targetPos.getZ() + 0.5F), maxDistance);
     }
 
     @Nullable
     private Path findPath(IBlockAccess worldIn, EntityLiving entitylivingIn, double x, double y, double z, float maxDistance)
     {
-        this.path.clearPath();
-        this.nodeProcessor.init(worldIn, entitylivingIn);
-        PathPoint pathpoint = this.nodeProcessor.getStart();
-        PathPoint pathpoint1 = this.nodeProcessor.getPathPointToCoords(x, y, z);
-        Path path = this.findPath(pathpoint, pathpoint1, maxDistance);
-        this.nodeProcessor.postProcess();
+        path.clearPath();
+        nodeProcessor.init(worldIn, entitylivingIn);
+        PathPoint pathpoint = nodeProcessor.getStart();
+        PathPoint pathpoint1 = nodeProcessor.getPathPointToCoords(x, y, z);
+        Path path = findPath(pathpoint, pathpoint1, maxDistance);
+        nodeProcessor.postProcess();
         return path;
     }
 
@@ -53,13 +53,13 @@ public class PathFinder
         pathFrom.totalPathDistance = 0.0F;
         pathFrom.distanceToNext = pathFrom.distanceManhattan(pathTo);
         pathFrom.distanceToTarget = pathFrom.distanceToNext;
-        this.path.clearPath();
-        this.closedSet.clear();
-        this.path.addPoint(pathFrom);
+        path.clearPath();
+        closedSet.clear();
+        path.addPoint(pathFrom);
         PathPoint pathpoint = pathFrom;
         int i = 0;
 
-        while (!this.path.isPathEmpty())
+        while (!path.isPathEmpty())
         {
             ++i;
 
@@ -68,7 +68,7 @@ public class PathFinder
                 break;
             }
 
-            PathPoint pathpoint1 = this.path.dequeue();
+            PathPoint pathpoint1 = path.dequeue();
 
             if (pathpoint1.equals(pathTo))
             {
@@ -82,11 +82,11 @@ public class PathFinder
             }
 
             pathpoint1.visited = true;
-            int j = this.nodeProcessor.findPathOptions(this.pathOptions, pathpoint1, pathTo, maxDistance);
+            int j = nodeProcessor.findPathOptions(pathOptions, pathpoint1, pathTo, maxDistance);
 
             for (int k = 0; k < j; ++k)
             {
-                PathPoint pathpoint2 = this.pathOptions[k];
+                PathPoint pathpoint2 = pathOptions[k];
                 float f = pathpoint1.distanceManhattan(pathpoint2);
                 pathpoint2.distanceFromOrigin = pathpoint1.distanceFromOrigin + f;
                 pathpoint2.cost = f + pathpoint2.costMalus;
@@ -100,12 +100,12 @@ public class PathFinder
 
                     if (pathpoint2.isAssigned())
                     {
-                        this.path.changeDistance(pathpoint2, pathpoint2.totalPathDistance + pathpoint2.distanceToNext);
+                        path.changeDistance(pathpoint2, pathpoint2.totalPathDistance + pathpoint2.distanceToNext);
                     }
                     else
                     {
                         pathpoint2.distanceToTarget = pathpoint2.totalPathDistance + pathpoint2.distanceToNext;
-                        this.path.addPoint(pathpoint2);
+                        path.addPoint(pathpoint2);
                     }
                 }
             }
@@ -117,7 +117,7 @@ public class PathFinder
         }
         else
         {
-            Path path = this.createPath(pathFrom, pathpoint);
+            Path path = createPath(pathFrom, pathpoint);
             return path;
         }
     }

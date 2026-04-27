@@ -36,8 +36,8 @@ public class ModelBlockDefinition
 
     public ModelBlockDefinition(Map<String, VariantList> variants, Multipart multipartIn)
     {
-        this.multipart = multipartIn;
-        this.mapVariants.putAll(variants);
+        multipart = multipartIn;
+        mapVariants.putAll(variants);
     }
 
     public ModelBlockDefinition(List<ModelBlockDefinition> p_i46222_1_)
@@ -48,27 +48,27 @@ public class ModelBlockDefinition
         {
             if (modelblockdefinition1.hasMultipartData())
             {
-                this.mapVariants.clear();
+                mapVariants.clear();
                 modelblockdefinition = modelblockdefinition1;
             }
 
-            this.mapVariants.putAll(modelblockdefinition1.mapVariants);
+            mapVariants.putAll(modelblockdefinition1.mapVariants);
         }
 
         if (modelblockdefinition != null)
         {
-            this.multipart = modelblockdefinition.multipart;
+            multipart = modelblockdefinition.multipart;
         }
     }
 
     public boolean hasVariant(String p_188000_1_)
     {
-        return this.mapVariants.get(p_188000_1_) != null;
+        return mapVariants.get(p_188000_1_) != null;
     }
 
     public VariantList getVariant(String p_188004_1_)
     {
-        VariantList variantlist = this.mapVariants.get(p_188004_1_);
+        VariantList variantlist = mapVariants.get(p_188004_1_);
 
         if (variantlist == null)
         {
@@ -92,9 +92,9 @@ public class ModelBlockDefinition
             {
                 ModelBlockDefinition modelblockdefinition = (ModelBlockDefinition)p_equals_1_;
 
-                if (this.mapVariants.equals(modelblockdefinition.mapVariants))
+                if (mapVariants.equals(modelblockdefinition.mapVariants))
                 {
-                    return this.hasMultipartData() ? this.multipart.equals(modelblockdefinition.multipart) : !modelblockdefinition.hasMultipartData();
+                    return hasMultipartData() ? multipart.equals(modelblockdefinition.multipart) : !modelblockdefinition.hasMultipartData();
                 }
             }
 
@@ -104,16 +104,16 @@ public class ModelBlockDefinition
 
     public int hashCode()
     {
-        return 31 * this.mapVariants.hashCode() + (this.hasMultipartData() ? this.multipart.hashCode() : 0);
+        return 31 * mapVariants.hashCode() + (hasMultipartData() ? multipart.hashCode() : 0);
     }
 
     public Set<VariantList> getMultipartVariants()
     {
-        Set<VariantList> set = Sets.newHashSet(this.mapVariants.values());
+        Set<VariantList> set = Sets.newHashSet(mapVariants.values());
 
-        if (this.hasMultipartData())
+        if (hasMultipartData())
         {
-            set.addAll(this.multipart.getVariants());
+            set.addAll(multipart.getVariants());
         }
 
         return set;
@@ -121,12 +121,12 @@ public class ModelBlockDefinition
 
     public boolean hasMultipartData()
     {
-        return this.multipart != null;
+        return multipart != null;
     }
 
     public Multipart getMultipartData()
     {
-        return this.multipart;
+        return multipart;
     }
 
     public static class Deserializer implements JsonDeserializer<ModelBlockDefinition>
@@ -134,8 +134,8 @@ public class ModelBlockDefinition
         public ModelBlockDefinition deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException
         {
             JsonObject jsonobject = p_deserialize_1_.getAsJsonObject();
-            Map<String, VariantList> map = this.parseMapVariants(p_deserialize_3_, jsonobject);
-            Multipart multipart = this.parseMultipart(p_deserialize_3_, jsonobject);
+            Map<String, VariantList> map = parseMapVariants(p_deserialize_3_, jsonobject);
+            Multipart multipart = parseMultipart(p_deserialize_3_, jsonobject);
 
             if (!map.isEmpty() || multipart != null && !multipart.getVariants().isEmpty())
             {

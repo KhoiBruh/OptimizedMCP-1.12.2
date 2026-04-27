@@ -20,7 +20,7 @@ public class ItemDoor extends Item
     public ItemDoor(Block block)
     {
         this.block = block;
-        this.setCreativeTab(CreativeTabs.REDSTONE);
+        setCreativeTab(CreativeTabs.REDSTONE);
     }
 
     /**

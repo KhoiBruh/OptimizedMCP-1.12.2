@@ -21,8 +21,8 @@ public class Path
 
     public Path(PathPoint[] pathpoints)
     {
-        this.points = pathpoints;
-        this.pathLength = pathpoints.length;
+        points = pathpoints;
+        pathLength = pathpoints.length;
     }
 
     /**
@@ -30,7 +30,7 @@ public class Path
      */
     public void incrementPathIndex()
     {
-        ++this.currentPathIndex;
+        ++currentPathIndex;
     }
 
     /**
@@ -38,7 +38,7 @@ public class Path
      */
     public boolean isFinished()
     {
-        return this.currentPathIndex >= this.pathLength;
+        return currentPathIndex >= pathLength;
     }
 
     @Nullable
@@ -48,7 +48,7 @@ public class Path
      */
     public PathPoint getFinalPathPoint()
     {
-        return this.pathLength > 0 ? this.points[this.pathLength - 1] : null;
+        return pathLength > 0 ? points[pathLength - 1] : null;
     }
 
     /**
@@ -56,32 +56,32 @@ public class Path
      */
     public PathPoint getPathPointFromIndex(int index)
     {
-        return this.points[index];
+        return points[index];
     }
 
     public void setPoint(int index, PathPoint point)
     {
-        this.points[index] = point;
+        points[index] = point;
     }
 
     public int getCurrentPathLength()
     {
-        return this.pathLength;
+        return pathLength;
     }
 
     public void setCurrentPathLength(int length)
     {
-        this.pathLength = length;
+        pathLength = length;
     }
 
     public int getCurrentPathIndex()
     {
-        return this.currentPathIndex;
+        return currentPathIndex;
     }
 
     public void setCurrentPathIndex(int currentPathIndexIn)
     {
-        this.currentPathIndex = currentPathIndexIn;
+        currentPathIndex = currentPathIndexIn;
     }
 
     /**
@@ -89,9 +89,9 @@ public class Path
      */
     public Vec3d getVectorFromIndex(Entity entityIn, int index)
     {
-        double d0 = (double)this.points[index].x + (double)((int)(entityIn.width + 1.0F)) * 0.5D;
-        double d1 = (double)this.points[index].y;
-        double d2 = (double)this.points[index].z + (double)((int)(entityIn.width + 1.0F)) * 0.5D;
+        double d0 = (double) points[index].x + (double)((int)(entityIn.width + 1.0F)) * 0.5D;
+        double d1 = (double) points[index].y;
+        double d2 = (double) points[index].z + (double)((int)(entityIn.width + 1.0F)) * 0.5D;
         return new Vec3d(d0, d1, d2);
     }
 
@@ -100,12 +100,12 @@ public class Path
      */
     public Vec3d getPosition(Entity entityIn)
     {
-        return this.getVectorFromIndex(entityIn, this.currentPathIndex);
+        return getVectorFromIndex(entityIn, currentPathIndex);
     }
 
     public Vec3d getCurrentPos()
     {
-        PathPoint pathpoint = this.points[this.currentPathIndex];
+        PathPoint pathpoint = points[currentPathIndex];
         return new Vec3d((double)pathpoint.x, (double)pathpoint.y, (double)pathpoint.z);
     }
 
@@ -118,15 +118,15 @@ public class Path
         {
             return false;
         }
-        else if (pathentityIn.points.length != this.points.length)
+        else if (pathentityIn.points.length != points.length)
         {
             return false;
         }
         else
         {
-            for (int i = 0; i < this.points.length; ++i)
+            for (int i = 0; i < points.length; ++i)
             {
-                if (this.points[i].x != pathentityIn.points[i].x || this.points[i].y != pathentityIn.points[i].y || this.points[i].z != pathentityIn.points[i].z)
+                if (points[i].x != pathentityIn.points[i].x || points[i].y != pathentityIn.points[i].y || points[i].z != pathentityIn.points[i].z)
                 {
                     return false;
                 }
@@ -138,17 +138,17 @@ public class Path
 
     public PathPoint[] getOpenSet()
     {
-        return this.openSet;
+        return openSet;
     }
 
     public PathPoint[] getClosedSet()
     {
-        return this.closedSet;
+        return closedSet;
     }
 
     public PathPoint getTarget()
     {
-        return this.target;
+        return target;
     }
 
     public static Path read(PacketBuffer buf)

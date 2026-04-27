@@ -22,9 +22,9 @@ public class ImageBufferDownload implements IImageBuffer
         }
         else
         {
-            this.imageWidth = 64;
-            this.imageHeight = 64;
-            BufferedImage bufferedimage = new BufferedImage(this.imageWidth, this.imageHeight, 2);
+            imageWidth = 64;
+            imageHeight = 64;
+            BufferedImage bufferedimage = new BufferedImage(imageWidth, imageHeight, 2);
             Graphics graphics = bufferedimage.getGraphics();
             graphics.drawImage(image, 0, 0, (ImageObserver)null);
             boolean flag = image.getHeight() == 32;
@@ -48,16 +48,16 @@ public class ImageBufferDownload implements IImageBuffer
             }
 
             graphics.dispose();
-            this.imageData = ((DataBufferInt)bufferedimage.getRaster().getDataBuffer()).getData();
-            this.setAreaOpaque(0, 0, 32, 16);
+            imageData = ((DataBufferInt)bufferedimage.getRaster().getDataBuffer()).getData();
+            setAreaOpaque(0, 0, 32, 16);
 
             if (flag)
             {
-                this.setAreaTransparent(32, 0, 64, 32);
+                setAreaTransparent(32, 0, 64, 32);
             }
 
-            this.setAreaOpaque(0, 16, 64, 32);
-            this.setAreaOpaque(16, 48, 48, 64);
+            setAreaOpaque(0, 16, 64, 32);
+            setAreaOpaque(16, 48, 48, 64);
             return bufferedimage;
         }
     }
@@ -72,7 +72,7 @@ public class ImageBufferDownload implements IImageBuffer
         {
             for (int j = y; j < height; ++j)
             {
-                int k = this.imageData[i + j * this.imageWidth];
+                int k = imageData[i + j * imageWidth];
 
                 if ((k >> 24 & 255) < 128)
                 {
@@ -85,7 +85,7 @@ public class ImageBufferDownload implements IImageBuffer
         {
             for (int i1 = y; i1 < height; ++i1)
             {
-                this.imageData[l + i1 * this.imageWidth] &= 16777215;
+                imageData[l + i1 * imageWidth] &= 16777215;
             }
         }
     }
@@ -99,7 +99,7 @@ public class ImageBufferDownload implements IImageBuffer
         {
             for (int j = y; j < height; ++j)
             {
-                this.imageData[i + j * this.imageWidth] |= -16777216;
+                imageData[i + j * imageWidth] |= -16777216;
             }
         }
     }

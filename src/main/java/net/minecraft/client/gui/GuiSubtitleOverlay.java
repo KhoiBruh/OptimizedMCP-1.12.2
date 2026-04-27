@@ -19,34 +19,34 @@ public class GuiSubtitleOverlay extends Gui implements ISoundEventListener
 
     public GuiSubtitleOverlay(Minecraft clientIn)
     {
-        this.client = clientIn;
+        client = clientIn;
     }
 
     public void renderSubtitles(ScaledResolution resolution)
     {
-        if (!this.enabled && this.client.gameSettings.showSubtitles)
+        if (!enabled && client.gameSettings.showSubtitles)
         {
-            this.client.getSoundHandler().addListener(this);
-            this.enabled = true;
+            client.getSoundHandler().addListener(this);
+            enabled = true;
         }
-        else if (this.enabled && !this.client.gameSettings.showSubtitles)
+        else if (enabled && !client.gameSettings.showSubtitles)
         {
-            this.client.getSoundHandler().removeListener(this);
-            this.enabled = false;
+            client.getSoundHandler().removeListener(this);
+            enabled = false;
         }
 
-        if (this.enabled && !this.subtitles.isEmpty())
+        if (enabled && !subtitles.isEmpty())
         {
             GlStateManager.pushMatrix();
             GlStateManager.enableBlend();
             GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-            Vec3d vec3d = new Vec3d(this.client.player.posX, this.client.player.posY + (double)this.client.player.getEyeHeight(), this.client.player.posZ);
-            Vec3d vec3d1 = (new Vec3d(0.0D, 0.0D, -1.0D)).rotatePitch(-this.client.player.rotationPitch * 0.017453292F).rotateYaw(-this.client.player.rotationYaw * 0.017453292F);
-            Vec3d vec3d2 = (new Vec3d(0.0D, 1.0D, 0.0D)).rotatePitch(-this.client.player.rotationPitch * 0.017453292F).rotateYaw(-this.client.player.rotationYaw * 0.017453292F);
+            Vec3d vec3d = new Vec3d(client.player.posX, client.player.posY + (double) client.player.getEyeHeight(), client.player.posZ);
+            Vec3d vec3d1 = (new Vec3d(0.0D, 0.0D, -1.0D)).rotatePitch(-client.player.rotationPitch * 0.017453292F).rotateYaw(-client.player.rotationYaw * 0.017453292F);
+            Vec3d vec3d2 = (new Vec3d(0.0D, 1.0D, 0.0D)).rotatePitch(-client.player.rotationPitch * 0.017453292F).rotateYaw(-client.player.rotationYaw * 0.017453292F);
             Vec3d vec3d3 = vec3d1.crossProduct(vec3d2);
             int i = 0;
             int j = 0;
-            Iterator<GuiSubtitleOverlay.Subtitle> iterator = this.subtitles.iterator();
+            Iterator<GuiSubtitleOverlay.Subtitle> iterator = subtitles.iterator();
 
             while (iterator.hasNext())
             {
@@ -58,13 +58,13 @@ public class GuiSubtitleOverlay extends Gui implements ISoundEventListener
                 }
                 else
                 {
-                    j = Math.max(j, this.client.fontRenderer.getStringWidth(guisubtitleoverlay$subtitle.getString()));
+                    j = Math.max(j, client.fontRenderer.getStringWidth(guisubtitleoverlay$subtitle.getString()));
                 }
             }
 
-            j = j + this.client.fontRenderer.getStringWidth("<") + this.client.fontRenderer.getStringWidth(" ") + this.client.fontRenderer.getStringWidth(">") + this.client.fontRenderer.getStringWidth(" ");
+            j = j + client.fontRenderer.getStringWidth("<") + client.fontRenderer.getStringWidth(" ") + client.fontRenderer.getStringWidth(">") + client.fontRenderer.getStringWidth(" ");
 
-            for (GuiSubtitleOverlay.Subtitle guisubtitleoverlay$subtitle1 : this.subtitles)
+            for (GuiSubtitleOverlay.Subtitle guisubtitleoverlay$subtitle1 : subtitles)
             {
                 int k = 255;
                 String s = guisubtitleoverlay$subtitle1.getString();
@@ -73,10 +73,10 @@ public class GuiSubtitleOverlay extends Gui implements ISoundEventListener
                 double d1 = -vec3d1.dotProduct(vec3d4);
                 boolean flag = d1 > 0.5D;
                 int l = j / 2;
-                int i1 = this.client.fontRenderer.FONT_HEIGHT;
+                int i1 = client.fontRenderer.FONT_HEIGHT;
                 int j1 = i1 / 2;
                 float f = 1.0F;
-                int k1 = this.client.fontRenderer.getStringWidth(s);
+                int k1 = client.fontRenderer.getStringWidth(s);
                 int l1 = MathHelper.floor(MathHelper.clampedLerp(255.0D, 75.0D, (double)((float)(Minecraft.getSystemTime() - guisubtitleoverlay$subtitle1.getStartTime()) / 3000.0F)));
                 int i2 = l1 << 16 | l1 << 8 | l1;
                 GlStateManager.pushMatrix();
@@ -89,15 +89,15 @@ public class GuiSubtitleOverlay extends Gui implements ISoundEventListener
                 {
                     if (d0 > 0.0D)
                     {
-                        this.client.fontRenderer.drawString(">", l - this.client.fontRenderer.getStringWidth(">"), -j1, i2 + -16777216);
+                        client.fontRenderer.drawString(">", l - client.fontRenderer.getStringWidth(">"), -j1, i2 + -16777216);
                     }
                     else if (d0 < 0.0D)
                     {
-                        this.client.fontRenderer.drawString("<", -l, -j1, i2 + -16777216);
+                        client.fontRenderer.drawString("<", -l, -j1, i2 + -16777216);
                     }
                 }
 
-                this.client.fontRenderer.drawString(s, -k1 / 2, -j1, i2 + -16777216);
+                client.fontRenderer.drawString(s, -k1 / 2, -j1, i2 + -16777216);
                 GlStateManager.popMatrix();
                 ++i;
             }
@@ -113,9 +113,9 @@ public class GuiSubtitleOverlay extends Gui implements ISoundEventListener
         {
             String s = accessor.getSubtitle().getFormattedText();
 
-            if (!this.subtitles.isEmpty())
+            if (!subtitles.isEmpty())
             {
-                for (GuiSubtitleOverlay.Subtitle guisubtitleoverlay$subtitle : this.subtitles)
+                for (GuiSubtitleOverlay.Subtitle guisubtitleoverlay$subtitle : subtitles)
                 {
                     if (guisubtitleoverlay$subtitle.getString().equals(s))
                     {
@@ -125,7 +125,7 @@ public class GuiSubtitleOverlay extends Gui implements ISoundEventListener
                 }
             }
 
-            this.subtitles.add(new GuiSubtitleOverlay.Subtitle(s, new Vec3d((double)soundIn.getXPosF(), (double)soundIn.getYPosF(), (double)soundIn.getZPosF())));
+            subtitles.add(new GuiSubtitleOverlay.Subtitle(s, new Vec3d((double)soundIn.getXPosF(), (double)soundIn.getYPosF(), (double)soundIn.getZPosF())));
         }
     }
 
@@ -137,30 +137,30 @@ public class GuiSubtitleOverlay extends Gui implements ISoundEventListener
 
         public Subtitle(String subtitleIn, Vec3d locationIn)
         {
-            this.subtitle = subtitleIn;
-            this.location = locationIn;
-            this.startTime = Minecraft.getSystemTime();
+            subtitle = subtitleIn;
+            location = locationIn;
+            startTime = Minecraft.getSystemTime();
         }
 
         public String getString()
         {
-            return this.subtitle;
+            return subtitle;
         }
 
         public long getStartTime()
         {
-            return this.startTime;
+            return startTime;
         }
 
         public Vec3d getLocation()
         {
-            return this.location;
+            return location;
         }
 
         public void refresh(Vec3d locationIn)
         {
-            this.location = locationIn;
-            this.startTime = Minecraft.getSystemTime();
+            location = locationIn;
+            startTime = Minecraft.getSystemTime();
         }
     }
 }

@@ -17,13 +17,13 @@ public class GuiSlider extends GuiButton
     public GuiSlider(GuiPageButtonList.GuiResponder guiResponder, int idIn, int x, int y, String nameIn, float minIn, float maxIn, float defaultValue, GuiSlider.FormatHelper formatter)
     {
         super(idIn, x, y, 150, 20, "");
-        this.name = nameIn;
-        this.min = minIn;
-        this.max = maxIn;
-        this.sliderPosition = (defaultValue - minIn) / (maxIn - minIn);
-        this.formatHelper = formatter;
-        this.responder = guiResponder;
-        this.displayString = this.getDisplayString();
+        name = nameIn;
+        min = minIn;
+        max = maxIn;
+        sliderPosition = (defaultValue - minIn) / (maxIn - minIn);
+        formatHelper = formatter;
+        responder = guiResponder;
+        displayString = getDisplayString();
     }
 
     /**
@@ -33,7 +33,7 @@ public class GuiSlider extends GuiButton
      */
     public float getSliderValue()
     {
-        return this.min + (this.max - this.min) * this.sliderPosition;
+        return min + (max - min) * sliderPosition;
     }
 
     /**
@@ -42,12 +42,12 @@ public class GuiSlider extends GuiButton
      */
     public void setSliderValue(float value, boolean notifyResponder)
     {
-        this.sliderPosition = (value - this.min) / (this.max - this.min);
-        this.displayString = this.getDisplayString();
+        sliderPosition = (value - min) / (max - min);
+        displayString = getDisplayString();
 
         if (notifyResponder)
         {
-            this.responder.setEntryValue(this.id, this.getSliderValue());
+            responder.setEntryValue(id, getSliderValue());
         }
     }
 
@@ -58,12 +58,12 @@ public class GuiSlider extends GuiButton
      */
     public float getSliderPosition()
     {
-        return this.sliderPosition;
+        return sliderPosition;
     }
 
     private String getDisplayString()
     {
-        return this.formatHelper == null ? I18n.format(this.name) + ": " + this.getSliderValue() : this.formatHelper.getText(this.id, I18n.format(this.name), this.getSliderValue());
+        return formatHelper == null ? I18n.format(name) + ": " + getSliderValue() : formatHelper.getText(id, I18n.format(name), getSliderValue());
     }
 
     /**
@@ -80,29 +80,29 @@ public class GuiSlider extends GuiButton
      */
     protected void mouseDragged(Minecraft mc, int mouseX, int mouseY)
     {
-        if (this.visible)
+        if (visible)
         {
-            if (this.isMouseDown)
+            if (isMouseDown)
             {
-                this.sliderPosition = (float)(mouseX - (this.x + 4)) / (float)(this.width - 8);
+                sliderPosition = (float)(mouseX - (x + 4)) / (float)(width - 8);
 
-                if (this.sliderPosition < 0.0F)
+                if (sliderPosition < 0.0F)
                 {
-                    this.sliderPosition = 0.0F;
+                    sliderPosition = 0.0F;
                 }
 
-                if (this.sliderPosition > 1.0F)
+                if (sliderPosition > 1.0F)
                 {
-                    this.sliderPosition = 1.0F;
+                    sliderPosition = 1.0F;
                 }
 
-                this.displayString = this.getDisplayString();
-                this.responder.setEntryValue(this.id, this.getSliderValue());
+                displayString = getDisplayString();
+                responder.setEntryValue(id, getSliderValue());
             }
 
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-            this.drawTexturedModalRect(this.x + (int)(this.sliderPosition * (float)(this.width - 8)), this.y, 0, 66, 4, 20);
-            this.drawTexturedModalRect(this.x + (int)(this.sliderPosition * (float)(this.width - 8)) + 4, this.y, 196, 66, 4, 20);
+            drawTexturedModalRect(x + (int)(sliderPosition * (float)(width - 8)), y, 0, 66, 4, 20);
+            drawTexturedModalRect(x + (int)(sliderPosition * (float)(width - 8)) + 4, y, 196, 66, 4, 20);
         }
     }
 
@@ -112,9 +112,9 @@ public class GuiSlider extends GuiButton
      */
     public void setSliderPosition(float position)
     {
-        this.sliderPosition = position;
-        this.displayString = this.getDisplayString();
-        this.responder.setEntryValue(this.id, this.getSliderValue());
+        sliderPosition = position;
+        displayString = getDisplayString();
+        responder.setEntryValue(id, getSliderValue());
     }
 
     /**
@@ -125,21 +125,21 @@ public class GuiSlider extends GuiButton
     {
         if (super.mousePressed(mc, mouseX, mouseY))
         {
-            this.sliderPosition = (float)(mouseX - (this.x + 4)) / (float)(this.width - 8);
+            sliderPosition = (float)(mouseX - (x + 4)) / (float)(width - 8);
 
-            if (this.sliderPosition < 0.0F)
+            if (sliderPosition < 0.0F)
             {
-                this.sliderPosition = 0.0F;
+                sliderPosition = 0.0F;
             }
 
-            if (this.sliderPosition > 1.0F)
+            if (sliderPosition > 1.0F)
             {
-                this.sliderPosition = 1.0F;
+                sliderPosition = 1.0F;
             }
 
-            this.displayString = this.getDisplayString();
-            this.responder.setEntryValue(this.id, this.getSliderValue());
-            this.isMouseDown = true;
+            displayString = getDisplayString();
+            responder.setEntryValue(id, getSliderValue());
+            isMouseDown = true;
             return true;
         }
         else
@@ -153,7 +153,7 @@ public class GuiSlider extends GuiButton
      */
     public void mouseReleased(int mouseX, int mouseY)
     {
-        this.isMouseDown = false;
+        isMouseDown = false;
     }
 
     public interface FormatHelper

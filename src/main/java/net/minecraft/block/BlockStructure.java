@@ -25,7 +25,7 @@ public class BlockStructure extends BlockContainer
     public BlockStructure()
     {
         super(Material.IRON, MapColor.SILVER);
-        this.setDefaultState(this.blockState.getBaseState());
+        setDefaultState(blockState.getBaseState());
     }
 
     /**
@@ -85,7 +85,7 @@ public class BlockStructure extends BlockContainer
      */
     public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
     {
-        return this.getDefaultState().withProperty(MODE, TileEntityStructure.Mode.DATA);
+        return getDefaultState().withProperty(MODE, TileEntityStructure.Mode.DATA);
     }
 
     /**
@@ -93,7 +93,7 @@ public class BlockStructure extends BlockContainer
      */
     public IBlockState getStateFromMeta(int meta)
     {
-        return this.getDefaultState().withProperty(MODE, TileEntityStructure.Mode.getById(meta));
+        return getDefaultState().withProperty(MODE, TileEntityStructure.Mode.getById(meta));
     }
 
     /**
@@ -129,7 +129,7 @@ public class BlockStructure extends BlockContainer
                 if (flag && !flag1)
                 {
                     tileentitystructure.setPowered(true);
-                    this.trigger(tileentitystructure);
+                    trigger(tileentitystructure);
                 }
                 else if (!flag && flag1)
                 {

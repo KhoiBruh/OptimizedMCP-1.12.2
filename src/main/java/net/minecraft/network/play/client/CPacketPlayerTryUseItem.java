@@ -16,7 +16,7 @@ public class CPacketPlayerTryUseItem implements Packet<INetHandlerPlayServer>
 
     public CPacketPlayerTryUseItem(EnumHand handIn)
     {
-        this.hand = handIn;
+        hand = handIn;
     }
 
     /**
@@ -24,7 +24,7 @@ public class CPacketPlayerTryUseItem implements Packet<INetHandlerPlayServer>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.hand = (EnumHand)buf.readEnumValue(EnumHand.class);
+        hand = (EnumHand)buf.readEnumValue(EnumHand.class);
     }
 
     /**
@@ -32,7 +32,7 @@ public class CPacketPlayerTryUseItem implements Packet<INetHandlerPlayServer>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeEnumValue(this.hand);
+        buf.writeEnumValue(hand);
     }
 
     /**
@@ -45,6 +45,6 @@ public class CPacketPlayerTryUseItem implements Packet<INetHandlerPlayServer>
 
     public EnumHand getHand()
     {
-        return this.hand;
+        return hand;
     }
 }

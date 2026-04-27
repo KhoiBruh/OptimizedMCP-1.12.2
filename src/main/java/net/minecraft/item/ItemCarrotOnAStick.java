@@ -14,9 +14,9 @@ public class ItemCarrotOnAStick extends Item
 {
     public ItemCarrotOnAStick()
     {
-        this.setCreativeTab(CreativeTabs.TRANSPORTATION);
-        this.setMaxStackSize(1);
-        this.setMaxDamage(25);
+        setCreativeTab(CreativeTabs.TRANSPORTATION);
+        setMaxStackSize(1);
+        setMaxDamage(25);
     }
 
     /**

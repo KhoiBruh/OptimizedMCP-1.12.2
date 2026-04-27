@@ -39,9 +39,9 @@ public class BlockTripWireHook extends Block
     public BlockTripWireHook()
     {
         super(Material.CIRCUITS);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(POWERED, Boolean.valueOf(false)).withProperty(ATTACHED, Boolean.valueOf(false)));
-        this.setCreativeTab(CreativeTabs.REDSTONE);
-        this.setTickRandomly(true);
+        setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(POWERED, Boolean.valueOf(false)).withProperty(ATTACHED, Boolean.valueOf(false)));
+        setCreativeTab(CreativeTabs.REDSTONE);
+        setTickRandomly(true);
     }
 
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
@@ -101,7 +101,7 @@ public class BlockTripWireHook extends Block
     {
         for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL)
         {
-            if (this.canPlaceBlockOnSide(worldIn, pos, enumfacing))
+            if (canPlaceBlockOnSide(worldIn, pos, enumfacing))
             {
                 return true;
             }
@@ -116,7 +116,7 @@ public class BlockTripWireHook extends Block
      */
     public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
     {
-        IBlockState iblockstate = this.getDefaultState().withProperty(POWERED, Boolean.valueOf(false)).withProperty(ATTACHED, Boolean.valueOf(false));
+        IBlockState iblockstate = getDefaultState().withProperty(POWERED, Boolean.valueOf(false)).withProperty(ATTACHED, Boolean.valueOf(false));
 
         if (facing.getAxis().isHorizontal())
         {
@@ -131,7 +131,7 @@ public class BlockTripWireHook extends Block
      */
     public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack)
     {
-        this.calculateState(worldIn, pos, state, false, false, -1, (IBlockState)null);
+        calculateState(worldIn, pos, state, false, false, -1, (IBlockState)null);
     }
 
     /**
@@ -143,13 +143,13 @@ public class BlockTripWireHook extends Block
     {
         if (blockIn != this)
         {
-            if (this.checkForDrop(worldIn, pos, state))
+            if (checkForDrop(worldIn, pos, state))
             {
                 EnumFacing enumfacing = (EnumFacing)state.getValue(FACING);
 
-                if (!this.canPlaceBlockOnSide(worldIn, pos, enumfacing))
+                if (!canPlaceBlockOnSide(worldIn, pos, enumfacing))
                 {
-                    this.dropBlockAsItem(worldIn, pos, state, 0);
+                    dropBlockAsItem(worldIn, pos, state, 0);
                     worldIn.setBlockToAir(pos);
                 }
             }
@@ -200,7 +200,7 @@ public class BlockTripWireHook extends Block
 
                 if (j == p_176260_6_)
                 {
-                    worldIn.scheduleUpdate(pos, this, this.tickRate(worldIn));
+                    worldIn.scheduleUpdate(pos, this, tickRate(worldIn));
                     flag2 &= flag4;
                 }
             }
@@ -208,18 +208,18 @@ public class BlockTripWireHook extends Block
 
         flag2 = flag2 & i > 1;
         flag3 = flag3 & flag2;
-        IBlockState iblockstate1 = this.getDefaultState().withProperty(ATTACHED, Boolean.valueOf(flag2)).withProperty(POWERED, Boolean.valueOf(flag3));
+        IBlockState iblockstate1 = getDefaultState().withProperty(ATTACHED, Boolean.valueOf(flag2)).withProperty(POWERED, Boolean.valueOf(flag3));
 
         if (i > 0)
         {
             BlockPos blockpos1 = pos.offset(enumfacing, i);
             EnumFacing enumfacing1 = enumfacing.getOpposite();
             worldIn.setBlockState(blockpos1, iblockstate1.withProperty(FACING, enumfacing1), 3);
-            this.notifyNeighbors(worldIn, blockpos1, enumfacing1);
-            this.playSound(worldIn, blockpos1, flag2, flag3, flag, flag1);
+            notifyNeighbors(worldIn, blockpos1, enumfacing1);
+            playSound(worldIn, blockpos1, flag2, flag3, flag, flag1);
         }
 
-        this.playSound(worldIn, pos, flag2, flag3, flag, flag1);
+        playSound(worldIn, pos, flag2, flag3, flag, flag1);
 
         if (!p_176260_4_)
         {
@@ -227,7 +227,7 @@ public class BlockTripWireHook extends Block
 
             if (p_176260_5_)
             {
-                this.notifyNeighbors(worldIn, pos, enumfacing);
+                notifyNeighbors(worldIn, pos, enumfacing);
             }
         }
 
@@ -255,7 +255,7 @@ public class BlockTripWireHook extends Block
 
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
     {
-        this.calculateState(worldIn, pos, state, false, true, -1, (IBlockState)null);
+        calculateState(worldIn, pos, state, false, true, -1, (IBlockState)null);
     }
 
     private void playSound(World worldIn, BlockPos pos, boolean p_180694_3_, boolean p_180694_4_, boolean p_180694_5_, boolean p_180694_6_)
@@ -286,9 +286,9 @@ public class BlockTripWireHook extends Block
 
     private boolean checkForDrop(World worldIn, BlockPos pos, IBlockState state)
     {
-        if (!this.canPlaceBlockAt(worldIn, pos))
+        if (!canPlaceBlockAt(worldIn, pos))
         {
-            this.dropBlockAsItem(worldIn, pos, state, 0);
+            dropBlockAsItem(worldIn, pos, state, 0);
             worldIn.setBlockToAir(pos);
             return false;
         }
@@ -308,7 +308,7 @@ public class BlockTripWireHook extends Block
 
         if (flag || flag1)
         {
-            this.calculateState(worldIn, pos, state, true, false, -1, (IBlockState)null);
+            calculateState(worldIn, pos, state, true, false, -1, (IBlockState)null);
         }
 
         if (flag1)
@@ -359,7 +359,7 @@ public class BlockTripWireHook extends Block
      */
     public IBlockState getStateFromMeta(int meta)
     {
-        return this.getDefaultState().withProperty(FACING, EnumFacing.getHorizontal(meta & 3)).withProperty(POWERED, Boolean.valueOf((meta & 8) > 0)).withProperty(ATTACHED, Boolean.valueOf((meta & 4) > 0));
+        return getDefaultState().withProperty(FACING, EnumFacing.getHorizontal(meta & 3)).withProperty(POWERED, Boolean.valueOf((meta & 8) > 0)).withProperty(ATTACHED, Boolean.valueOf((meta & 4) > 0));
     }
 
     /**

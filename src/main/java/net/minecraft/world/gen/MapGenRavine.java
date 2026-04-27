@@ -24,7 +24,7 @@ public class MapGenRavine extends MapGenBase
 
         if (p_180707_16_ <= 0)
         {
-            int i = this.range * 16 - 16;
+            int i = range * 16 - 16;
             p_180707_16_ = i - random.nextInt(i / 4);
         }
 
@@ -45,7 +45,7 @@ public class MapGenRavine extends MapGenBase
                 f2 = 1.0F + random.nextFloat() * random.nextFloat();
             }
 
-            this.rs[j] = f2 * f2;
+            rs[j] = f2 * f2;
         }
 
         for (; p_180707_15_ < p_180707_16_; ++p_180707_15_)
@@ -163,7 +163,7 @@ public class MapGenRavine extends MapGenBase
                                     {
                                         double d8 = ((double)(j2 - 1) + 0.5D - p_180707_8_) / d2;
 
-                                        if ((d10 * d10 + d7 * d7) * (double)this.rs[j2 - 1] + d8 * d8 / 6.0D < 1.0D)
+                                        if ((d10 * d10 + d7 * d7) * (double) rs[j2 - 1] + d8 * d8 / 6.0D < 1.0D)
                                         {
                                             IBlockState iblockstate1 = p_180707_5_.getBlockState(j3, j2, i2);
 
@@ -185,7 +185,7 @@ public class MapGenRavine extends MapGenBase
                                                     if (flag && p_180707_5_.getBlockState(j3, j2 - 1, i2).getBlock() == Blocks.DIRT)
                                                     {
                                                         blockpos$mutableblockpos.setPos(j3 + p_180707_3_ * 16, 0, i2 + p_180707_4_ * 16);
-                                                        p_180707_5_.setBlockState(j3, j2 - 1, i2, this.world.getBiome(blockpos$mutableblockpos).topBlock);
+                                                        p_180707_5_.setBlockState(j3, j2 - 1, i2, world.getBiome(blockpos$mutableblockpos).topBlock);
                                                     }
                                                 }
                                             }
@@ -210,19 +210,19 @@ public class MapGenRavine extends MapGenBase
      */
     protected void recursiveGenerate(World worldIn, int chunkX, int chunkZ, int originalX, int originalZ, ChunkPrimer chunkPrimerIn)
     {
-        if (this.rand.nextInt(50) == 0)
+        if (rand.nextInt(50) == 0)
         {
-            double d0 = (double)(chunkX * 16 + this.rand.nextInt(16));
-            double d1 = (double)(this.rand.nextInt(this.rand.nextInt(40) + 8) + 20);
-            double d2 = (double)(chunkZ * 16 + this.rand.nextInt(16));
+            double d0 = (double)(chunkX * 16 + rand.nextInt(16));
+            double d1 = (double)(rand.nextInt(rand.nextInt(40) + 8) + 20);
+            double d2 = (double)(chunkZ * 16 + rand.nextInt(16));
             int i = 1;
 
             for (int j = 0; j < 1; ++j)
             {
-                float f = this.rand.nextFloat() * ((float)Math.PI * 2F);
-                float f1 = (this.rand.nextFloat() - 0.5F) * 2.0F / 8.0F;
-                float f2 = (this.rand.nextFloat() * 2.0F + this.rand.nextFloat()) * 2.0F;
-                this.addTunnel(this.rand.nextLong(), originalX, originalZ, chunkPrimerIn, d0, d1, d2, f2, f, f1, 0, 0, 3.0D);
+                float f = rand.nextFloat() * ((float)Math.PI * 2F);
+                float f1 = (rand.nextFloat() - 0.5F) * 2.0F / 8.0F;
+                float f2 = (rand.nextFloat() * 2.0F + rand.nextFloat()) * 2.0F;
+                addTunnel(rand.nextLong(), originalX, originalZ, chunkPrimerIn, d0, d1, d2, f2, f, f1, 0, 0, 3.0D);
             }
         }
     }

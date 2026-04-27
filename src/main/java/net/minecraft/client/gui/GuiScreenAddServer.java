@@ -50,8 +50,8 @@ public class GuiScreenAddServer extends GuiScreen
 
     public GuiScreenAddServer(GuiScreen parentScreenIn, ServerData serverDataIn)
     {
-        this.parentScreen = parentScreenIn;
-        this.serverData = serverDataIn;
+        parentScreen = parentScreenIn;
+        serverData = serverDataIn;
     }
 
     /**
@@ -59,8 +59,8 @@ public class GuiScreenAddServer extends GuiScreen
      */
     public void updateScreen()
     {
-        this.serverNameField.updateCursorCounter();
-        this.serverIPField.updateCursorCounter();
+        serverNameField.updateCursorCounter();
+        serverIPField.updateCursorCounter();
     }
 
     /**
@@ -70,18 +70,18 @@ public class GuiScreenAddServer extends GuiScreen
     public void initGui()
     {
         Keyboard.enableRepeatEvents(true);
-        this.buttonList.clear();
-        this.buttonList.add(new GuiButton(0, this.width / 2 - 100, this.height / 4 + 96 + 18, I18n.format("addServer.add")));
-        this.buttonList.add(new GuiButton(1, this.width / 2 - 100, this.height / 4 + 120 + 18, I18n.format("gui.cancel")));
-        this.serverResourcePacks = this.addButton(new GuiButton(2, this.width / 2 - 100, this.height / 4 + 72, I18n.format("addServer.resourcePack") + ": " + this.serverData.getResourceMode().getMotd().getFormattedText()));
-        this.serverNameField = new GuiTextField(0, this.fontRenderer, this.width / 2 - 100, 66, 200, 20);
-        this.serverNameField.setFocused(true);
-        this.serverNameField.setText(this.serverData.serverName);
-        this.serverIPField = new GuiTextField(1, this.fontRenderer, this.width / 2 - 100, 106, 200, 20);
-        this.serverIPField.setMaxStringLength(128);
-        this.serverIPField.setText(this.serverData.serverIP);
-        this.serverIPField.setValidator(this.addressFilter);
-        (this.buttonList.get(0)).enabled = !this.serverIPField.getText().isEmpty() && this.serverIPField.getText().split(":").length > 0 && !this.serverNameField.getText().isEmpty();
+        buttonList.clear();
+        buttonList.add(new GuiButton(0, width / 2 - 100, height / 4 + 96 + 18, I18n.format("addServer.add")));
+        buttonList.add(new GuiButton(1, width / 2 - 100, height / 4 + 120 + 18, I18n.format("gui.cancel")));
+        serverResourcePacks = addButton(new GuiButton(2, width / 2 - 100, height / 4 + 72, I18n.format("addServer.resourcePack") + ": " + serverData.getResourceMode().getMotd().getFormattedText()));
+        serverNameField = new GuiTextField(0, fontRenderer, width / 2 - 100, 66, 200, 20);
+        serverNameField.setFocused(true);
+        serverNameField.setText(serverData.serverName);
+        serverIPField = new GuiTextField(1, fontRenderer, width / 2 - 100, 106, 200, 20);
+        serverIPField.setMaxStringLength(128);
+        serverIPField.setText(serverData.serverIP);
+        serverIPField.setValidator(addressFilter);
+        (buttonList.get(0)).enabled = !serverIPField.getText().isEmpty() && serverIPField.getText().split(":").length > 0 && !serverNameField.getText().isEmpty();
     }
 
     /**
@@ -101,18 +101,18 @@ public class GuiScreenAddServer extends GuiScreen
         {
             if (button.id == 2)
             {
-                this.serverData.setResourceMode(ServerData.ServerResourceMode.values()[(this.serverData.getResourceMode().ordinal() + 1) % ServerData.ServerResourceMode.values().length]);
-                this.serverResourcePacks.displayString = I18n.format("addServer.resourcePack") + ": " + this.serverData.getResourceMode().getMotd().getFormattedText();
+                serverData.setResourceMode(ServerData.ServerResourceMode.values()[(serverData.getResourceMode().ordinal() + 1) % ServerData.ServerResourceMode.values().length]);
+                serverResourcePacks.displayString = I18n.format("addServer.resourcePack") + ": " + serverData.getResourceMode().getMotd().getFormattedText();
             }
             else if (button.id == 1)
             {
-                this.parentScreen.confirmClicked(false, 0);
+                parentScreen.confirmClicked(false, 0);
             }
             else if (button.id == 0)
             {
-                this.serverData.serverName = this.serverNameField.getText();
-                this.serverData.serverIP = this.serverIPField.getText();
-                this.parentScreen.confirmClicked(true, 0);
+                serverData.serverName = serverNameField.getText();
+                serverData.serverIP = serverIPField.getText();
+                parentScreen.confirmClicked(true, 0);
             }
         }
     }
@@ -123,21 +123,21 @@ public class GuiScreenAddServer extends GuiScreen
      */
     protected void keyTyped(char typedChar, int keyCode) throws IOException
     {
-        this.serverNameField.textboxKeyTyped(typedChar, keyCode);
-        this.serverIPField.textboxKeyTyped(typedChar, keyCode);
+        serverNameField.textboxKeyTyped(typedChar, keyCode);
+        serverIPField.textboxKeyTyped(typedChar, keyCode);
 
         if (keyCode == 15)
         {
-            this.serverNameField.setFocused(!this.serverNameField.isFocused());
-            this.serverIPField.setFocused(!this.serverIPField.isFocused());
+            serverNameField.setFocused(!serverNameField.isFocused());
+            serverIPField.setFocused(!serverIPField.isFocused());
         }
 
         if (keyCode == 28 || keyCode == 156)
         {
-            this.actionPerformed(this.buttonList.get(0));
+            actionPerformed(buttonList.get(0));
         }
 
-        (this.buttonList.get(0)).enabled = !this.serverIPField.getText().isEmpty() && this.serverIPField.getText().split(":").length > 0 && !this.serverNameField.getText().isEmpty();
+        (buttonList.get(0)).enabled = !serverIPField.getText().isEmpty() && serverIPField.getText().split(":").length > 0 && !serverNameField.getText().isEmpty();
     }
 
     /**
@@ -146,8 +146,8 @@ public class GuiScreenAddServer extends GuiScreen
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException
     {
         super.mouseClicked(mouseX, mouseY, mouseButton);
-        this.serverIPField.mouseClicked(mouseX, mouseY, mouseButton);
-        this.serverNameField.mouseClicked(mouseX, mouseY, mouseButton);
+        serverIPField.mouseClicked(mouseX, mouseY, mouseButton);
+        serverNameField.mouseClicked(mouseX, mouseY, mouseButton);
     }
 
     /**
@@ -155,12 +155,12 @@ public class GuiScreenAddServer extends GuiScreen
      */
     public void drawScreen(int mouseX, int mouseY, float partialTicks)
     {
-        this.drawDefaultBackground();
-        this.drawCenteredString(this.fontRenderer, I18n.format("addServer.title"), this.width / 2, 17, 16777215);
-        this.drawString(this.fontRenderer, I18n.format("addServer.enterName"), this.width / 2 - 100, 53, 10526880);
-        this.drawString(this.fontRenderer, I18n.format("addServer.enterIp"), this.width / 2 - 100, 94, 10526880);
-        this.serverNameField.drawTextBox();
-        this.serverIPField.drawTextBox();
+        drawDefaultBackground();
+        drawCenteredString(fontRenderer, I18n.format("addServer.title"), width / 2, 17, 16777215);
+        drawString(fontRenderer, I18n.format("addServer.enterName"), width / 2 - 100, 53, 10526880);
+        drawString(fontRenderer, I18n.format("addServer.enterIp"), width / 2 - 100, 94, 10526880);
+        serverNameField.drawTextBox();
+        serverIPField.drawTextBox();
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
 }

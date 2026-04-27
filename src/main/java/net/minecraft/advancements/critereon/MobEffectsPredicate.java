@@ -34,13 +34,13 @@ public class MobEffectsPredicate
         }
         else
         {
-            return entityIn instanceof EntityLivingBase ? this.test(((EntityLivingBase)entityIn).getActivePotionMap()) : false;
+            return entityIn instanceof EntityLivingBase ? test(((EntityLivingBase)entityIn).getActivePotionMap()) : false;
         }
     }
 
     public boolean test(EntityLivingBase entityIn)
     {
-        return this == ANY ? true : this.test(entityIn.getActivePotionMap());
+        return this == ANY ? true : test(entityIn.getActivePotionMap());
     }
 
     public boolean test(Map<Potion, PotionEffect> potions)
@@ -51,7 +51,7 @@ public class MobEffectsPredicate
         }
         else
         {
-            for (Entry<Potion, MobEffectsPredicate.InstancePredicate> entry : this.effects.entrySet())
+            for (Entry<Potion, MobEffectsPredicate.InstancePredicate> entry : effects.entrySet())
             {
                 PotionEffect potioneffect = potions.get(entry.getKey());
 
@@ -117,21 +117,21 @@ public class MobEffectsPredicate
             {
                 return false;
             }
-            else if (!this.amplifier.test((float)effect.getAmplifier()))
+            else if (!amplifier.test((float)effect.getAmplifier()))
             {
                 return false;
             }
-            else if (!this.duration.test((float)effect.getDuration()))
+            else if (!duration.test((float)effect.getDuration()))
             {
                 return false;
             }
-            else if (this.ambient != null && this.ambient.booleanValue() != effect.getIsAmbient())
+            else if (ambient != null && ambient.booleanValue() != effect.getIsAmbient())
             {
                 return false;
             }
             else
             {
-                return this.visible == null || this.visible.booleanValue() == effect.doesShowParticles();
+                return visible == null || visible.booleanValue() == effect.doesShowParticles();
             }
         }
 

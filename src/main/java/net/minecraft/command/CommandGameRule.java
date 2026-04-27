@@ -41,7 +41,7 @@ public class CommandGameRule extends CommandBase
      */
     public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException
     {
-        GameRules gamerules = this.getOverWorldGameRules(server);
+        GameRules gamerules = getOverWorldGameRules(server);
         String s = args.length > 0 ? args[0] : "";
         String s1 = args.length > 1 ? buildString(args, 1) : "";
 
@@ -91,13 +91,13 @@ public class CommandGameRule extends CommandBase
     {
         if (args.length == 1)
         {
-            return getListOfStringsMatchingLastWord(args, this.getOverWorldGameRules(server).getRules());
+            return getListOfStringsMatchingLastWord(args, getOverWorldGameRules(server).getRules());
         }
         else
         {
             if (args.length == 2)
             {
-                GameRules gamerules = this.getOverWorldGameRules(server);
+                GameRules gamerules = getOverWorldGameRules(server);
 
                 if (gamerules.areSameType(args[0], GameRules.ValueType.BOOLEAN_VALUE))
                 {

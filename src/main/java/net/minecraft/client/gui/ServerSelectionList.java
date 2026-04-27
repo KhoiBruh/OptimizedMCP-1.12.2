@@ -17,7 +17,7 @@ public class ServerSelectionList extends GuiListExtended
     public ServerSelectionList(GuiMultiplayer ownerIn, Minecraft mcIn, int widthIn, int heightIn, int topIn, int bottomIn, int slotHeightIn)
     {
         super(mcIn, widthIn, heightIn, topIn, bottomIn, slotHeightIn);
-        this.owner = ownerIn;
+        owner = ownerIn;
     }
 
     /**
@@ -25,34 +25,34 @@ public class ServerSelectionList extends GuiListExtended
      */
     public GuiListExtended.IGuiListEntry getListEntry(int index)
     {
-        if (index < this.serverListInternet.size())
+        if (index < serverListInternet.size())
         {
-            return this.serverListInternet.get(index);
+            return serverListInternet.get(index);
         }
         else
         {
-            index = index - this.serverListInternet.size();
+            index = index - serverListInternet.size();
 
             if (index == 0)
             {
-                return this.lanScanEntry;
+                return lanScanEntry;
             }
             else
             {
                 --index;
-                return this.serverListLan.get(index);
+                return serverListLan.get(index);
             }
         }
     }
 
     protected int getSize()
     {
-        return this.serverListInternet.size() + 1 + this.serverListLan.size();
+        return serverListInternet.size() + 1 + serverListLan.size();
     }
 
     public void setSelectedSlotIndex(int selectedSlotIndexIn)
     {
-        this.selectedSlotIndex = selectedSlotIndexIn;
+        selectedSlotIndex = selectedSlotIndexIn;
     }
 
     /**
@@ -60,31 +60,31 @@ public class ServerSelectionList extends GuiListExtended
      */
     protected boolean isSelected(int slotIndex)
     {
-        return slotIndex == this.selectedSlotIndex;
+        return slotIndex == selectedSlotIndex;
     }
 
     public int getSelected()
     {
-        return this.selectedSlotIndex;
+        return selectedSlotIndex;
     }
 
     public void updateOnlineServers(ServerList p_148195_1_)
     {
-        this.serverListInternet.clear();
+        serverListInternet.clear();
 
         for (int i = 0; i < p_148195_1_.countServers(); ++i)
         {
-            this.serverListInternet.add(new ServerListEntryNormal(this.owner, p_148195_1_.getServerData(i)));
+            serverListInternet.add(new ServerListEntryNormal(owner, p_148195_1_.getServerData(i)));
         }
     }
 
     public void updateNetworkServers(List<LanServerInfo> p_148194_1_)
     {
-        this.serverListLan.clear();
+        serverListLan.clear();
 
         for (LanServerInfo lanserverinfo : p_148194_1_)
         {
-            this.serverListLan.add(new ServerListEntryLanDetected(this.owner, lanserverinfo));
+            serverListLan.add(new ServerListEntryLanDetected(owner, lanserverinfo));
         }
     }
 

@@ -11,8 +11,8 @@ public class HoverEvent
 
     public HoverEvent(HoverEvent.Action actionIn, ITextComponent valueIn)
     {
-        this.action = actionIn;
-        this.value = valueIn;
+        action = actionIn;
+        value = valueIn;
     }
 
     /**
@@ -20,7 +20,7 @@ public class HoverEvent
      */
     public HoverEvent.Action getAction()
     {
-        return this.action;
+        return action;
     }
 
     /**
@@ -29,7 +29,7 @@ public class HoverEvent
      */
     public ITextComponent getValue()
     {
-        return this.value;
+        return value;
     }
 
     public boolean equals(Object p_equals_1_)
@@ -38,19 +38,19 @@ public class HoverEvent
         {
             return true;
         }
-        else if (p_equals_1_ != null && this.getClass() == p_equals_1_.getClass())
+        else if (p_equals_1_ != null && getClass() == p_equals_1_.getClass())
         {
             HoverEvent hoverevent = (HoverEvent)p_equals_1_;
 
-            if (this.action != hoverevent.action)
+            if (action != hoverevent.action)
             {
                 return false;
             }
             else
             {
-                if (this.value != null)
+                if (value != null)
                 {
-                    if (!this.value.equals(hoverevent.value))
+                    if (!value.equals(hoverevent.value))
                     {
                         return false;
                     }
@@ -71,13 +71,13 @@ public class HoverEvent
 
     public String toString()
     {
-        return "HoverEvent{action=" + this.action + ", value='" + this.value + '\'' + '}';
+        return "HoverEvent{action=" + action + ", value='" + value + '\'' + '}';
     }
 
     public int hashCode()
     {
-        int i = this.action.hashCode();
-        i = 31 * i + (this.value != null ? this.value.hashCode() : 0);
+        int i = action.hashCode();
+        i = 31 * i + (value != null ? value.hashCode() : 0);
         return i;
     }
 
@@ -93,18 +93,18 @@ public class HoverEvent
 
         private Action(String canonicalNameIn, boolean allowedInChatIn)
         {
-            this.canonicalName = canonicalNameIn;
-            this.allowedInChat = allowedInChatIn;
+            canonicalName = canonicalNameIn;
+            allowedInChat = allowedInChatIn;
         }
 
         public boolean shouldAllowInChat()
         {
-            return this.allowedInChat;
+            return allowedInChat;
         }
 
         public String getCanonicalName()
         {
-            return this.canonicalName;
+            return canonicalName;
         }
 
         public static HoverEvent.Action getValueByCanonicalName(String canonicalNameIn)

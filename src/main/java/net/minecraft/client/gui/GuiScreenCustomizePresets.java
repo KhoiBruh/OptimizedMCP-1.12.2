@@ -25,7 +25,7 @@ public class GuiScreenCustomizePresets extends GuiScreen
 
     public GuiScreenCustomizePresets(GuiCustomizeWorldScreen parentIn)
     {
-        this.parent = parentIn;
+        parent = parentIn;
     }
 
     /**
@@ -34,18 +34,18 @@ public class GuiScreenCustomizePresets extends GuiScreen
      */
     public void initGui()
     {
-        this.buttonList.clear();
+        buttonList.clear();
         Keyboard.enableRepeatEvents(true);
-        this.title = I18n.format("createWorld.customize.custom.presets.title");
-        this.shareText = I18n.format("createWorld.customize.presets.share");
-        this.listText = I18n.format("createWorld.customize.presets.list");
-        this.export = new GuiTextField(2, this.fontRenderer, 50, 40, this.width - 100, 20);
-        this.list = new GuiScreenCustomizePresets.ListPreset();
-        this.export.setMaxStringLength(2000);
-        this.export.setText(this.parent.saveValues());
-        this.select = this.addButton(new GuiButton(0, this.width / 2 - 102, this.height - 27, 100, 20, I18n.format("createWorld.customize.presets.select")));
-        this.buttonList.add(new GuiButton(1, this.width / 2 + 3, this.height - 27, 100, 20, I18n.format("gui.cancel")));
-        this.updateButtonValidity();
+        title = I18n.format("createWorld.customize.custom.presets.title");
+        shareText = I18n.format("createWorld.customize.presets.share");
+        listText = I18n.format("createWorld.customize.presets.list");
+        export = new GuiTextField(2, fontRenderer, 50, 40, width - 100, 20);
+        list = new GuiScreenCustomizePresets.ListPreset();
+        export.setMaxStringLength(2000);
+        export.setText(parent.saveValues());
+        select = addButton(new GuiButton(0, width / 2 - 102, height - 27, 100, 20, I18n.format("createWorld.customize.presets.select")));
+        buttonList.add(new GuiButton(1, width / 2 + 3, height - 27, 100, 20, I18n.format("gui.cancel")));
+        updateButtonValidity();
     }
 
     /**
@@ -54,7 +54,7 @@ public class GuiScreenCustomizePresets extends GuiScreen
     public void handleMouseInput() throws IOException
     {
         super.handleMouseInput();
-        this.list.handleMouseInput();
+        list.handleMouseInput();
     }
 
     /**
@@ -70,7 +70,7 @@ public class GuiScreenCustomizePresets extends GuiScreen
      */
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException
     {
-        this.export.mouseClicked(mouseX, mouseY, mouseButton);
+        export.mouseClicked(mouseX, mouseY, mouseButton);
         super.mouseClicked(mouseX, mouseY, mouseButton);
     }
 
@@ -80,7 +80,7 @@ public class GuiScreenCustomizePresets extends GuiScreen
      */
     protected void keyTyped(char typedChar, int keyCode) throws IOException
     {
-        if (!this.export.textboxKeyTyped(typedChar, keyCode))
+        if (!export.textboxKeyTyped(typedChar, keyCode))
         {
             super.keyTyped(typedChar, keyCode);
         }
@@ -94,12 +94,12 @@ public class GuiScreenCustomizePresets extends GuiScreen
         switch (button.id)
         {
             case 0:
-                this.parent.loadValues(this.export.getText());
-                this.mc.displayGuiScreen(this.parent);
+                parent.loadValues(export.getText());
+                mc.displayGuiScreen(parent);
                 break;
 
             case 1:
-                this.mc.displayGuiScreen(this.parent);
+                mc.displayGuiScreen(parent);
         }
     }
 
@@ -108,12 +108,12 @@ public class GuiScreenCustomizePresets extends GuiScreen
      */
     public void drawScreen(int mouseX, int mouseY, float partialTicks)
     {
-        this.drawDefaultBackground();
-        this.list.drawScreen(mouseX, mouseY, partialTicks);
-        this.drawCenteredString(this.fontRenderer, this.title, this.width / 2, 8, 16777215);
-        this.drawString(this.fontRenderer, this.shareText, 50, 30, 10526880);
-        this.drawString(this.fontRenderer, this.listText, 50, 70, 10526880);
-        this.export.drawTextBox();
+        drawDefaultBackground();
+        list.drawScreen(mouseX, mouseY, partialTicks);
+        drawCenteredString(fontRenderer, title, width / 2, 8, 16777215);
+        drawString(fontRenderer, shareText, 50, 30, 10526880);
+        drawString(fontRenderer, listText, 50, 70, 10526880);
+        export.drawTextBox();
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
 
@@ -122,18 +122,18 @@ public class GuiScreenCustomizePresets extends GuiScreen
      */
     public void updateScreen()
     {
-        this.export.updateCursorCounter();
+        export.updateCursorCounter();
         super.updateScreen();
     }
 
     public void updateButtonValidity()
     {
-        this.select.enabled = this.hasValidSelection();
+        select.enabled = hasValidSelection();
     }
 
     private boolean hasValidSelection()
     {
-        return this.list.selected > -1 && this.list.selected < PRESETS.size() || this.export.getText().length() > 1;
+        return list.selected > -1 && list.selected < PRESETS.size() || export.getText().length() > 1;
     }
 
     static
@@ -169,9 +169,9 @@ public class GuiScreenCustomizePresets extends GuiScreen
 
         public Info(String nameIn, ResourceLocation textureIn, ChunkGeneratorSettings.Factory settingsIn)
         {
-            this.name = nameIn;
-            this.texture = textureIn;
-            this.settings = settingsIn;
+            name = nameIn;
+            texture = textureIn;
+            settings = settingsIn;
         }
     }
 
@@ -191,14 +191,14 @@ public class GuiScreenCustomizePresets extends GuiScreen
 
         protected void elementClicked(int slotIndex, boolean isDoubleClick, int mouseX, int mouseY)
         {
-            this.selected = slotIndex;
-            GuiScreenCustomizePresets.this.updateButtonValidity();
-            GuiScreenCustomizePresets.this.export.setText((GuiScreenCustomizePresets.PRESETS.get(GuiScreenCustomizePresets.this.list.selected)).settings.toString());
+            selected = slotIndex;
+            updateButtonValidity();
+            export.setText((GuiScreenCustomizePresets.PRESETS.get(list.selected)).settings.toString());
         }
 
         protected boolean isSelected(int slotIndex)
         {
-            return slotIndex == this.selected;
+            return slotIndex == selected;
         }
 
         protected void drawBackground()
@@ -208,12 +208,12 @@ public class GuiScreenCustomizePresets extends GuiScreen
         private void blitIcon(int p_178051_1_, int p_178051_2_, ResourceLocation texture)
         {
             int i = p_178051_1_ + 5;
-            GuiScreenCustomizePresets.this.drawHorizontalLine(i - 1, i + 32, p_178051_2_ - 1, -2039584);
-            GuiScreenCustomizePresets.this.drawHorizontalLine(i - 1, i + 32, p_178051_2_ + 32, -6250336);
-            GuiScreenCustomizePresets.this.drawVerticalLine(i - 1, p_178051_2_ - 1, p_178051_2_ + 32, -2039584);
-            GuiScreenCustomizePresets.this.drawVerticalLine(i + 32, p_178051_2_ - 1, p_178051_2_ + 32, -6250336);
+            drawHorizontalLine(i - 1, i + 32, p_178051_2_ - 1, -2039584);
+            drawHorizontalLine(i - 1, i + 32, p_178051_2_ + 32, -6250336);
+            drawVerticalLine(i - 1, p_178051_2_ - 1, p_178051_2_ + 32, -2039584);
+            drawVerticalLine(i + 32, p_178051_2_ - 1, p_178051_2_ + 32, -6250336);
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-            this.mc.getTextureManager().bindTexture(texture);
+            mc.getTextureManager().bindTexture(texture);
             int j = 32;
             int k = 32;
             Tessellator tessellator = Tessellator.getInstance();
@@ -229,8 +229,8 @@ public class GuiScreenCustomizePresets extends GuiScreen
         protected void drawSlot(int slotIndex, int xPos, int yPos, int heightIn, int mouseXIn, int mouseYIn, float partialTicks)
         {
             GuiScreenCustomizePresets.Info guiscreencustomizepresets$info = GuiScreenCustomizePresets.PRESETS.get(slotIndex);
-            this.blitIcon(xPos, yPos, guiscreencustomizepresets$info.texture);
-            GuiScreenCustomizePresets.this.fontRenderer.drawString(guiscreencustomizepresets$info.name, xPos + 32 + 10, yPos + 14, 16777215);
+            blitIcon(xPos, yPos, guiscreencustomizepresets$info.texture);
+            fontRenderer.drawString(guiscreencustomizepresets$info.name, xPos + 32 + 10, yPos + 14, 16777215);
         }
     }
 }

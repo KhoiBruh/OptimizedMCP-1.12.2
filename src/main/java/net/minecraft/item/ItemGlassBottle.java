@@ -25,7 +25,7 @@ public class ItemGlassBottle extends Item
 {
     public ItemGlassBottle()
     {
-        this.setCreativeTab(CreativeTabs.BREWING);
+        setCreativeTab(CreativeTabs.BREWING);
     }
 
     public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn)
@@ -44,11 +44,11 @@ public class ItemGlassBottle extends Item
             EntityAreaEffectCloud entityareaeffectcloud = list.get(0);
             entityareaeffectcloud.setRadius(entityareaeffectcloud.getRadius() - 0.5F);
             worldIn.playSound((EntityPlayer)null, playerIn.posX, playerIn.posY, playerIn.posZ, SoundEvents.ITEM_BOTTLE_FILL_DRAGONBREATH, SoundCategory.NEUTRAL, 1.0F, 1.0F);
-            return new ActionResult(EnumActionResult.SUCCESS, this.turnBottleIntoItem(itemstack, playerIn, new ItemStack(Items.DRAGON_BREATH)));
+            return new ActionResult(EnumActionResult.SUCCESS, turnBottleIntoItem(itemstack, playerIn, new ItemStack(Items.DRAGON_BREATH)));
         }
         else
         {
-            RayTraceResult raytraceresult = this.rayTrace(worldIn, playerIn, true);
+            RayTraceResult raytraceresult = rayTrace(worldIn, playerIn, true);
 
             if (raytraceresult == null)
             {
@@ -68,7 +68,7 @@ public class ItemGlassBottle extends Item
                     if (worldIn.getBlockState(blockpos).getMaterial() == Material.WATER)
                     {
                         worldIn.playSound(playerIn, playerIn.posX, playerIn.posY, playerIn.posZ, SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.NEUTRAL, 1.0F, 1.0F);
-                        return new ActionResult(EnumActionResult.SUCCESS, this.turnBottleIntoItem(itemstack, playerIn, PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), PotionTypes.WATER)));
+                        return new ActionResult(EnumActionResult.SUCCESS, turnBottleIntoItem(itemstack, playerIn, PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), PotionTypes.WATER)));
                     }
                 }
 

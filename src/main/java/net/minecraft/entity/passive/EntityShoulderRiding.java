@@ -16,12 +16,12 @@ public abstract class EntityShoulderRiding extends EntityTameable
     public boolean setEntityOnShoulder(EntityPlayer p_191994_1_)
     {
         NBTTagCompound nbttagcompound = new NBTTagCompound();
-        nbttagcompound.setString("id", this.getEntityString());
-        this.writeToNBT(nbttagcompound);
+        nbttagcompound.setString("id", getEntityString());
+        writeToNBT(nbttagcompound);
 
         if (p_191994_1_.addShoulderEntity(nbttagcompound))
         {
-            this.world.removeEntity(this);
+            world.removeEntity(this);
             return true;
         }
         else
@@ -35,12 +35,12 @@ public abstract class EntityShoulderRiding extends EntityTameable
      */
     public void onUpdate()
     {
-        ++this.rideCooldownCounter;
+        ++rideCooldownCounter;
         super.onUpdate();
     }
 
     public boolean canSitOnShoulder()
     {
-        return this.rideCooldownCounter > 100;
+        return rideCooldownCounter > 100;
     }
 }

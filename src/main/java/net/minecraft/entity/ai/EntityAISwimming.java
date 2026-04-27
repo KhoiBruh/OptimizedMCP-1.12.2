@@ -10,8 +10,8 @@ public class EntityAISwimming extends EntityAIBase
 
     public EntityAISwimming(EntityLiving entityIn)
     {
-        this.entity = entityIn;
-        this.setMutexBits(4);
+        entity = entityIn;
+        setMutexBits(4);
 
         if (entityIn.getNavigator() instanceof PathNavigateGround)
         {
@@ -28,7 +28,7 @@ public class EntityAISwimming extends EntityAIBase
      */
     public boolean shouldExecute()
     {
-        return this.entity.isInWater() || this.entity.isInLava();
+        return entity.isInWater() || entity.isInLava();
     }
 
     /**
@@ -36,9 +36,9 @@ public class EntityAISwimming extends EntityAIBase
      */
     public void updateTask()
     {
-        if (this.entity.getRNG().nextFloat() < 0.8F)
+        if (entity.getRNG().nextFloat() < 0.8F)
         {
-            this.entity.getJumpHelper().setJumping();
+            entity.getJumpHelper().setJumping();
         }
     }
 }

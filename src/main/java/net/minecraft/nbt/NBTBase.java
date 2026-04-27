@@ -139,16 +139,16 @@ public abstract class NBTBase
 
     public boolean equals(Object p_equals_1_)
     {
-        return p_equals_1_ instanceof NBTBase && this.getId() == ((NBTBase)p_equals_1_).getId();
+        return p_equals_1_ instanceof NBTBase && getId() == ((NBTBase)p_equals_1_).getId();
     }
 
     public int hashCode()
     {
-        return this.getId();
+        return getId();
     }
 
     protected String getString()
     {
-        return this.toString();
+        return toString();
     }
 }

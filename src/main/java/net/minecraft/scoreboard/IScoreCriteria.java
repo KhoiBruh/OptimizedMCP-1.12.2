@@ -37,12 +37,12 @@ public interface IScoreCriteria
 
         private EnumRenderType(String renderTypeIn)
         {
-            this.renderType = renderTypeIn;
+            renderType = renderTypeIn;
         }
 
         public String getRenderType()
         {
-            return this.renderType;
+            return renderType;
         }
 
         public static IScoreCriteria.EnumRenderType getByName(String name)

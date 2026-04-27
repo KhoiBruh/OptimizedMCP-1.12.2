@@ -63,12 +63,12 @@ public class RecipeCommand extends CommandBase
                     {
                         if (flag)
                         {
-                            entityplayermp.unlockRecipes(this.getRecipes());
+                            entityplayermp.unlockRecipes(getRecipes());
                             notifyCommandListener(sender, this, "commands.recipe.give.success.all", new Object[] {entityplayermp.getName()});
                         }
                         else
                         {
-                            entityplayermp.resetRecipes(this.getRecipes());
+                            entityplayermp.resetRecipes(getRecipes());
                             notifyCommandListener(sender, this, "commands.recipe.take.success.all", new Object[] {entityplayermp.getName()});
                         }
                     }

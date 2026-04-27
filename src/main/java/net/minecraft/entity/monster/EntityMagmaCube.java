@@ -18,7 +18,7 @@ public class EntityMagmaCube extends EntitySlime
     public EntityMagmaCube(World worldIn)
     {
         super(worldIn);
-        this.isImmuneToFire = true;
+        isImmuneToFire = true;
     }
 
     public static void registerFixesMagmaCube(DataFixer fixer)
@@ -29,7 +29,7 @@ public class EntityMagmaCube extends EntitySlime
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.20000000298023224D);
+        getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.20000000298023224D);
     }
 
     /**
@@ -37,7 +37,7 @@ public class EntityMagmaCube extends EntitySlime
      */
     public boolean getCanSpawnHere()
     {
-        return this.world.getDifficulty() != EnumDifficulty.PEACEFUL;
+        return world.getDifficulty() != EnumDifficulty.PEACEFUL;
     }
 
     /**
@@ -45,13 +45,13 @@ public class EntityMagmaCube extends EntitySlime
      */
     public boolean isNotColliding()
     {
-        return this.world.checkNoEntityCollision(this.getEntityBoundingBox(), this) && this.world.getCollisionBoxes(this, this.getEntityBoundingBox()).isEmpty() && !this.world.containsAnyLiquid(this.getEntityBoundingBox());
+        return world.checkNoEntityCollision(getEntityBoundingBox(), this) && world.getCollisionBoxes(this, getEntityBoundingBox()).isEmpty() && !world.containsAnyLiquid(getEntityBoundingBox());
     }
 
     protected void setSlimeSize(int size, boolean resetHealth)
     {
         super.setSlimeSize(size, resetHealth);
-        this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue((double)(size * 3));
+        getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue((double)(size * 3));
     }
 
     public int getBrightnessForRender()
@@ -74,13 +74,13 @@ public class EntityMagmaCube extends EntitySlime
 
     protected EntitySlime createInstance()
     {
-        return new EntityMagmaCube(this.world);
+        return new EntityMagmaCube(world);
     }
 
     @Nullable
     protected ResourceLocation getLootTable()
     {
-        return this.isSmallSlime() ? LootTableList.EMPTY : LootTableList.ENTITIES_MAGMA_CUBE;
+        return isSmallSlime() ? LootTableList.EMPTY : LootTableList.ENTITIES_MAGMA_CUBE;
     }
 
     /**
@@ -101,7 +101,7 @@ public class EntityMagmaCube extends EntitySlime
 
     protected void alterSquishAmount()
     {
-        this.squishAmount *= 0.9F;
+        squishAmount *= 0.9F;
     }
 
     /**
@@ -109,14 +109,14 @@ public class EntityMagmaCube extends EntitySlime
      */
     protected void jump()
     {
-        this.motionY = (double)(0.42F + (float)this.getSlimeSize() * 0.1F);
-        this.isAirBorne = true;
+        motionY = (double)(0.42F + (float) getSlimeSize() * 0.1F);
+        isAirBorne = true;
     }
 
     protected void handleJumpLava()
     {
-        this.motionY = (double)(0.22F + (float)this.getSlimeSize() * 0.05F);
-        this.isAirBorne = true;
+        motionY = (double)(0.22F + (float) getSlimeSize() * 0.05F);
+        isAirBorne = true;
     }
 
     public void fall(float distance, float damageMultiplier)
@@ -141,17 +141,17 @@ public class EntityMagmaCube extends EntitySlime
 
     protected SoundEvent getHurtSound(DamageSource damageSourceIn)
     {
-        return this.isSmallSlime() ? SoundEvents.ENTITY_SMALL_MAGMACUBE_HURT : SoundEvents.ENTITY_MAGMACUBE_HURT;
+        return isSmallSlime() ? SoundEvents.ENTITY_SMALL_MAGMACUBE_HURT : SoundEvents.ENTITY_MAGMACUBE_HURT;
     }
 
     protected SoundEvent getDeathSound()
     {
-        return this.isSmallSlime() ? SoundEvents.ENTITY_SMALL_MAGMACUBE_DEATH : SoundEvents.ENTITY_MAGMACUBE_DEATH;
+        return isSmallSlime() ? SoundEvents.ENTITY_SMALL_MAGMACUBE_DEATH : SoundEvents.ENTITY_MAGMACUBE_DEATH;
     }
 
     protected SoundEvent getSquishSound()
     {
-        return this.isSmallSlime() ? SoundEvents.ENTITY_SMALL_MAGMACUBE_SQUISH : SoundEvents.ENTITY_MAGMACUBE_SQUISH;
+        return isSmallSlime() ? SoundEvents.ENTITY_SMALL_MAGMACUBE_SQUISH : SoundEvents.ENTITY_MAGMACUBE_SQUISH;
     }
 
     protected SoundEvent getJumpSound()

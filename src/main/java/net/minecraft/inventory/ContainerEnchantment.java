@@ -43,7 +43,7 @@ public class ContainerEnchantment extends Container
 
     public ContainerEnchantment(InventoryPlayer playerInv, World worldIn, BlockPos pos)
     {
-        this.tableInventory = new InventoryBasic("Enchant", true, 2)
+        tableInventory = new InventoryBasic("Enchant", true, 2)
         {
             public int getInventoryStackLimit()
             {
@@ -52,17 +52,17 @@ public class ContainerEnchantment extends Container
             public void markDirty()
             {
                 super.markDirty();
-                ContainerEnchantment.this.onCraftMatrixChanged(this);
+                onCraftMatrixChanged(this);
             }
         };
-        this.rand = new Random();
-        this.enchantLevels = new int[3];
-        this.enchantClue = new int[] { -1, -1, -1};
-        this.worldClue = new int[] { -1, -1, -1};
-        this.worldPointer = worldIn;
-        this.position = pos;
-        this.xpSeed = playerInv.player.getXPSeed();
-        this.addSlotToContainer(new Slot(this.tableInventory, 0, 15, 47)
+        rand = new Random();
+        enchantLevels = new int[3];
+        enchantClue = new int[] { -1, -1, -1};
+        worldClue = new int[] { -1, -1, -1};
+        worldPointer = worldIn;
+        position = pos;
+        xpSeed = playerInv.player.getXPSeed();
+        addSlotToContainer(new Slot(tableInventory, 0, 15, 47)
         {
             public boolean isItemValid(ItemStack stack)
             {
@@ -73,7 +73,7 @@ public class ContainerEnchantment extends Container
                 return 1;
             }
         });
-        this.addSlotToContainer(new Slot(this.tableInventory, 1, 35, 47)
+        addSlotToContainer(new Slot(tableInventory, 1, 35, 47)
         {
             public boolean isItemValid(ItemStack stack)
             {
@@ -85,34 +85,34 @@ public class ContainerEnchantment extends Container
         {
             for (int j = 0; j < 9; ++j)
             {
-                this.addSlotToContainer(new Slot(playerInv, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
+                addSlotToContainer(new Slot(playerInv, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
             }
         }
 
         for (int k = 0; k < 9; ++k)
         {
-            this.addSlotToContainer(new Slot(playerInv, k, 8 + k * 18, 142));
+            addSlotToContainer(new Slot(playerInv, k, 8 + k * 18, 142));
         }
     }
 
     protected void broadcastData(IContainerListener crafting)
     {
-        crafting.sendWindowProperty(this, 0, this.enchantLevels[0]);
-        crafting.sendWindowProperty(this, 1, this.enchantLevels[1]);
-        crafting.sendWindowProperty(this, 2, this.enchantLevels[2]);
-        crafting.sendWindowProperty(this, 3, this.xpSeed & -16);
-        crafting.sendWindowProperty(this, 4, this.enchantClue[0]);
-        crafting.sendWindowProperty(this, 5, this.enchantClue[1]);
-        crafting.sendWindowProperty(this, 6, this.enchantClue[2]);
-        crafting.sendWindowProperty(this, 7, this.worldClue[0]);
-        crafting.sendWindowProperty(this, 8, this.worldClue[1]);
-        crafting.sendWindowProperty(this, 9, this.worldClue[2]);
+        crafting.sendWindowProperty(this, 0, enchantLevels[0]);
+        crafting.sendWindowProperty(this, 1, enchantLevels[1]);
+        crafting.sendWindowProperty(this, 2, enchantLevels[2]);
+        crafting.sendWindowProperty(this, 3, xpSeed & -16);
+        crafting.sendWindowProperty(this, 4, enchantClue[0]);
+        crafting.sendWindowProperty(this, 5, enchantClue[1]);
+        crafting.sendWindowProperty(this, 6, enchantClue[2]);
+        crafting.sendWindowProperty(this, 7, worldClue[0]);
+        crafting.sendWindowProperty(this, 8, worldClue[1]);
+        crafting.sendWindowProperty(this, 9, worldClue[2]);
     }
 
     public void addListener(IContainerListener listener)
     {
         super.addListener(listener);
-        this.broadcastData(listener);
+        broadcastData(listener);
     }
 
     /**
@@ -122,10 +122,10 @@ public class ContainerEnchantment extends Container
     {
         super.detectAndSendChanges();
 
-        for (int i = 0; i < this.listeners.size(); ++i)
+        for (int i = 0; i < listeners.size(); ++i)
         {
-            IContainerListener icontainerlistener = this.listeners.get(i);
-            this.broadcastData(icontainerlistener);
+            IContainerListener icontainerlistener = listeners.get(i);
+            broadcastData(icontainerlistener);
         }
     }
 
@@ -133,19 +133,19 @@ public class ContainerEnchantment extends Container
     {
         if (id >= 0 && id <= 2)
         {
-            this.enchantLevels[id] = data;
+            enchantLevels[id] = data;
         }
         else if (id == 3)
         {
-            this.xpSeed = data;
+            xpSeed = data;
         }
         else if (id >= 4 && id <= 6)
         {
-            this.enchantClue[id - 4] = data;
+            enchantClue[id - 4] = data;
         }
         else if (id >= 7 && id <= 9)
         {
-            this.worldClue[id - 7] = data;
+            worldClue[id - 7] = data;
         }
         else
         {
@@ -158,13 +158,13 @@ public class ContainerEnchantment extends Container
      */
     public void onCraftMatrixChanged(IInventory inventoryIn)
     {
-        if (inventoryIn == this.tableInventory)
+        if (inventoryIn == tableInventory)
         {
             ItemStack itemstack = inventoryIn.getStackInSlot(0);
 
             if (!itemstack.isEmpty() && itemstack.isItemEnchantable())
             {
-                if (!this.worldPointer.isRemote)
+                if (!worldPointer.isRemote)
                 {
                     int l = 0;
 
@@ -172,36 +172,36 @@ public class ContainerEnchantment extends Container
                     {
                         for (int k = -1; k <= 1; ++k)
                         {
-                            if ((j != 0 || k != 0) && this.worldPointer.isAirBlock(this.position.add(k, 0, j)) && this.worldPointer.isAirBlock(this.position.add(k, 1, j)))
+                            if ((j != 0 || k != 0) && worldPointer.isAirBlock(position.add(k, 0, j)) && worldPointer.isAirBlock(position.add(k, 1, j)))
                             {
-                                if (this.worldPointer.getBlockState(this.position.add(k * 2, 0, j * 2)).getBlock() == Blocks.BOOKSHELF)
+                                if (worldPointer.getBlockState(position.add(k * 2, 0, j * 2)).getBlock() == Blocks.BOOKSHELF)
                                 {
                                     ++l;
                                 }
 
-                                if (this.worldPointer.getBlockState(this.position.add(k * 2, 1, j * 2)).getBlock() == Blocks.BOOKSHELF)
+                                if (worldPointer.getBlockState(position.add(k * 2, 1, j * 2)).getBlock() == Blocks.BOOKSHELF)
                                 {
                                     ++l;
                                 }
 
                                 if (k != 0 && j != 0)
                                 {
-                                    if (this.worldPointer.getBlockState(this.position.add(k * 2, 0, j)).getBlock() == Blocks.BOOKSHELF)
+                                    if (worldPointer.getBlockState(position.add(k * 2, 0, j)).getBlock() == Blocks.BOOKSHELF)
                                     {
                                         ++l;
                                     }
 
-                                    if (this.worldPointer.getBlockState(this.position.add(k * 2, 1, j)).getBlock() == Blocks.BOOKSHELF)
+                                    if (worldPointer.getBlockState(position.add(k * 2, 1, j)).getBlock() == Blocks.BOOKSHELF)
                                     {
                                         ++l;
                                     }
 
-                                    if (this.worldPointer.getBlockState(this.position.add(k, 0, j * 2)).getBlock() == Blocks.BOOKSHELF)
+                                    if (worldPointer.getBlockState(position.add(k, 0, j * 2)).getBlock() == Blocks.BOOKSHELF)
                                     {
                                         ++l;
                                     }
 
-                                    if (this.worldPointer.getBlockState(this.position.add(k, 1, j * 2)).getBlock() == Blocks.BOOKSHELF)
+                                    if (worldPointer.getBlockState(position.add(k, 1, j * 2)).getBlock() == Blocks.BOOKSHELF)
                                     {
                                         ++l;
                                     }
@@ -210,45 +210,45 @@ public class ContainerEnchantment extends Container
                         }
                     }
 
-                    this.rand.setSeed((long)this.xpSeed);
+                    rand.setSeed((long) xpSeed);
 
                     for (int i1 = 0; i1 < 3; ++i1)
                     {
-                        this.enchantLevels[i1] = EnchantmentHelper.calcItemStackEnchantability(this.rand, i1, l, itemstack);
-                        this.enchantClue[i1] = -1;
-                        this.worldClue[i1] = -1;
+                        enchantLevels[i1] = EnchantmentHelper.calcItemStackEnchantability(rand, i1, l, itemstack);
+                        enchantClue[i1] = -1;
+                        worldClue[i1] = -1;
 
-                        if (this.enchantLevels[i1] < i1 + 1)
+                        if (enchantLevels[i1] < i1 + 1)
                         {
-                            this.enchantLevels[i1] = 0;
+                            enchantLevels[i1] = 0;
                         }
                     }
 
                     for (int j1 = 0; j1 < 3; ++j1)
                     {
-                        if (this.enchantLevels[j1] > 0)
+                        if (enchantLevels[j1] > 0)
                         {
-                            List<EnchantmentData> list = this.getEnchantmentList(itemstack, j1, this.enchantLevels[j1]);
+                            List<EnchantmentData> list = getEnchantmentList(itemstack, j1, enchantLevels[j1]);
 
                             if (list != null && !list.isEmpty())
                             {
-                                EnchantmentData enchantmentdata = list.get(this.rand.nextInt(list.size()));
-                                this.enchantClue[j1] = Enchantment.getEnchantmentID(enchantmentdata.enchantment);
-                                this.worldClue[j1] = enchantmentdata.enchantmentLevel;
+                                EnchantmentData enchantmentdata = list.get(rand.nextInt(list.size()));
+                                enchantClue[j1] = Enchantment.getEnchantmentID(enchantmentdata.enchantment);
+                                worldClue[j1] = enchantmentdata.enchantmentLevel;
                             }
                         }
                     }
 
-                    this.detectAndSendChanges();
+                    detectAndSendChanges();
                 }
             }
             else
             {
                 for (int i = 0; i < 3; ++i)
                 {
-                    this.enchantLevels[i] = 0;
-                    this.enchantClue[i] = -1;
-                    this.worldClue[i] = -1;
+                    enchantLevels[i] = 0;
+                    enchantClue[i] = -1;
+                    worldClue[i] = -1;
                 }
             }
         }
@@ -259,19 +259,19 @@ public class ContainerEnchantment extends Container
      */
     public boolean enchantItem(EntityPlayer playerIn, int id)
     {
-        ItemStack itemstack = this.tableInventory.getStackInSlot(0);
-        ItemStack itemstack1 = this.tableInventory.getStackInSlot(1);
+        ItemStack itemstack = tableInventory.getStackInSlot(0);
+        ItemStack itemstack1 = tableInventory.getStackInSlot(1);
         int i = id + 1;
 
         if ((itemstack1.isEmpty() || itemstack1.getCount() < i) && !playerIn.capabilities.isCreativeMode)
         {
             return false;
         }
-        else if (this.enchantLevels[id] > 0 && !itemstack.isEmpty() && (playerIn.experienceLevel >= i && playerIn.experienceLevel >= this.enchantLevels[id] || playerIn.capabilities.isCreativeMode))
+        else if (enchantLevels[id] > 0 && !itemstack.isEmpty() && (playerIn.experienceLevel >= i && playerIn.experienceLevel >= enchantLevels[id] || playerIn.capabilities.isCreativeMode))
         {
-            if (!this.worldPointer.isRemote)
+            if (!worldPointer.isRemote)
             {
-                List<EnchantmentData> list = this.getEnchantmentList(itemstack, id, this.enchantLevels[id]);
+                List<EnchantmentData> list = getEnchantmentList(itemstack, id, enchantLevels[id]);
 
                 if (!list.isEmpty())
                 {
@@ -281,7 +281,7 @@ public class ContainerEnchantment extends Container
                     if (flag)
                     {
                         itemstack = new ItemStack(Items.ENCHANTED_BOOK);
-                        this.tableInventory.setInventorySlotContents(0, itemstack);
+                        tableInventory.setInventorySlotContents(0, itemstack);
                     }
 
                     for (int j = 0; j < list.size(); ++j)
@@ -304,7 +304,7 @@ public class ContainerEnchantment extends Container
 
                         if (itemstack1.isEmpty())
                         {
-                            this.tableInventory.setInventorySlotContents(1, ItemStack.EMPTY);
+                            tableInventory.setInventorySlotContents(1, ItemStack.EMPTY);
                         }
                     }
 
@@ -315,10 +315,10 @@ public class ContainerEnchantment extends Container
                         CriteriaTriggers.ENCHANTED_ITEM.trigger((EntityPlayerMP)playerIn, itemstack, i);
                     }
 
-                    this.tableInventory.markDirty();
-                    this.xpSeed = playerIn.getXPSeed();
-                    this.onCraftMatrixChanged(this.tableInventory);
-                    this.worldPointer.playSound((EntityPlayer)null, this.position, SoundEvents.BLOCK_ENCHANTMENT_TABLE_USE, SoundCategory.BLOCKS, 1.0F, this.worldPointer.rand.nextFloat() * 0.1F + 0.9F);
+                    tableInventory.markDirty();
+                    xpSeed = playerIn.getXPSeed();
+                    onCraftMatrixChanged(tableInventory);
+                    worldPointer.playSound((EntityPlayer)null, position, SoundEvents.BLOCK_ENCHANTMENT_TABLE_USE, SoundCategory.BLOCKS, 1.0F, worldPointer.rand.nextFloat() * 0.1F + 0.9F);
                 }
             }
 
@@ -332,12 +332,12 @@ public class ContainerEnchantment extends Container
 
     private List<EnchantmentData> getEnchantmentList(ItemStack stack, int enchantSlot, int level)
     {
-        this.rand.setSeed((long)(this.xpSeed + enchantSlot));
-        List<EnchantmentData> list = EnchantmentHelper.buildEnchantmentList(this.rand, stack, level, false);
+        rand.setSeed((long)(xpSeed + enchantSlot));
+        List<EnchantmentData> list = EnchantmentHelper.buildEnchantmentList(rand, stack, level, false);
 
         if (stack.getItem() == Items.BOOK && list.size() > 1)
         {
-            list.remove(this.rand.nextInt(list.size()));
+            list.remove(rand.nextInt(list.size()));
         }
 
         return list;
@@ -345,7 +345,7 @@ public class ContainerEnchantment extends Container
 
     public int getLapisAmount()
     {
-        ItemStack itemstack = this.tableInventory.getStackInSlot(1);
+        ItemStack itemstack = tableInventory.getStackInSlot(1);
         return itemstack.isEmpty() ? 0 : itemstack.getCount();
     }
 
@@ -356,9 +356,9 @@ public class ContainerEnchantment extends Container
     {
         super.onContainerClosed(playerIn);
 
-        if (!this.worldPointer.isRemote)
+        if (!worldPointer.isRemote)
         {
-            this.clearContainer(playerIn, playerIn.world, this.tableInventory);
+            clearContainer(playerIn, playerIn.world, tableInventory);
         }
     }
 
@@ -367,13 +367,13 @@ public class ContainerEnchantment extends Container
      */
     public boolean canInteractWith(EntityPlayer playerIn)
     {
-        if (this.worldPointer.getBlockState(this.position).getBlock() != Blocks.ENCHANTING_TABLE)
+        if (worldPointer.getBlockState(position).getBlock() != Blocks.ENCHANTING_TABLE)
         {
             return false;
         }
         else
         {
-            return playerIn.getDistanceSq((double)this.position.getX() + 0.5D, (double)this.position.getY() + 0.5D, (double)this.position.getZ() + 0.5D) <= 64.0D;
+            return playerIn.getDistanceSq((double) position.getX() + 0.5D, (double) position.getY() + 0.5D, (double) position.getZ() + 0.5D) <= 64.0D;
         }
     }
 
@@ -384,7 +384,7 @@ public class ContainerEnchantment extends Container
     public ItemStack transferStackInSlot(EntityPlayer playerIn, int index)
     {
         ItemStack itemstack = ItemStack.EMPTY;
-        Slot slot = this.inventorySlots.get(index);
+        Slot slot = inventorySlots.get(index);
 
         if (slot != null && slot.getHasStack())
         {
@@ -393,40 +393,40 @@ public class ContainerEnchantment extends Container
 
             if (index == 0)
             {
-                if (!this.mergeItemStack(itemstack1, 2, 38, true))
+                if (!mergeItemStack(itemstack1, 2, 38, true))
                 {
                     return ItemStack.EMPTY;
                 }
             }
             else if (index == 1)
             {
-                if (!this.mergeItemStack(itemstack1, 2, 38, true))
+                if (!mergeItemStack(itemstack1, 2, 38, true))
                 {
                     return ItemStack.EMPTY;
                 }
             }
             else if (itemstack1.getItem() == Items.DYE && EnumDyeColor.byDyeDamage(itemstack1.getMetadata()) == EnumDyeColor.BLUE)
             {
-                if (!this.mergeItemStack(itemstack1, 1, 2, true))
+                if (!mergeItemStack(itemstack1, 1, 2, true))
                 {
                     return ItemStack.EMPTY;
                 }
             }
             else
             {
-                if (((Slot)this.inventorySlots.get(0)).getHasStack() || !((Slot)this.inventorySlots.get(0)).isItemValid(itemstack1))
+                if (((Slot) inventorySlots.get(0)).getHasStack() || !((Slot) inventorySlots.get(0)).isItemValid(itemstack1))
                 {
                     return ItemStack.EMPTY;
                 }
 
                 if (itemstack1.hasTagCompound() && itemstack1.getCount() == 1)
                 {
-                    ((Slot)this.inventorySlots.get(0)).putStack(itemstack1.copy());
+                    ((Slot) inventorySlots.get(0)).putStack(itemstack1.copy());
                     itemstack1.setCount(0);
                 }
                 else if (!itemstack1.isEmpty())
                 {
-                    ((Slot)this.inventorySlots.get(0)).putStack(new ItemStack(itemstack1.getItem(), 1, itemstack1.getMetadata()));
+                    ((Slot) inventorySlots.get(0)).putStack(new ItemStack(itemstack1.getItem(), 1, itemstack1.getMetadata()));
                     itemstack1.shrink(1);
                 }
             }

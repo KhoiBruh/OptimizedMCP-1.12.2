@@ -35,11 +35,11 @@ public class BlockDaylightDetector extends BlockContainer
     {
         super(Material.WOOD);
         this.inverted = inverted;
-        this.setDefaultState(this.blockState.getBaseState().withProperty(POWER, Integer.valueOf(0)));
-        this.setCreativeTab(CreativeTabs.REDSTONE);
-        this.setHardness(0.2F);
-        this.setSoundType(SoundType.WOOD);
-        this.setUnlocalizedName("daylightDetector");
+        setDefaultState(blockState.getBaseState().withProperty(POWER, Integer.valueOf(0)));
+        setCreativeTab(CreativeTabs.REDSTONE);
+        setHardness(0.2F);
+        setSoundType(SoundType.WOOD);
+        setUnlocalizedName("daylightDetector");
     }
 
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
@@ -60,12 +60,12 @@ public class BlockDaylightDetector extends BlockContainer
             int i = worldIn.getLightFor(EnumSkyBlock.SKY, pos) - worldIn.getSkylightSubtracted();
             float f = worldIn.getCelestialAngleRadians(1.0F);
 
-            if (this.inverted)
+            if (inverted)
             {
                 i = 15 - i;
             }
 
-            if (i > 0 && !this.inverted)
+            if (i > 0 && !inverted)
             {
                 float f1 = f < (float)Math.PI ? 0.0F : ((float)Math.PI * 2F);
                 f = f + (f1 - f) * 0.2F;
@@ -94,7 +94,7 @@ public class BlockDaylightDetector extends BlockContainer
             }
             else
             {
-                if (this.inverted)
+                if (inverted)
                 {
                     worldIn.setBlockState(pos, Blocks.DAYLIGHT_DETECTOR.getDefaultState().withProperty(POWER, state.getValue(POWER)), 4);
                     Blocks.DAYLIGHT_DETECTOR.updatePower(worldIn, pos);
@@ -170,7 +170,7 @@ public class BlockDaylightDetector extends BlockContainer
      */
     public IBlockState getStateFromMeta(int meta)
     {
-        return this.getDefaultState().withProperty(POWER, Integer.valueOf(meta));
+        return getDefaultState().withProperty(POWER, Integer.valueOf(meta));
     }
 
     /**
@@ -191,7 +191,7 @@ public class BlockDaylightDetector extends BlockContainer
      */
     public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items)
     {
-        if (!this.inverted)
+        if (!inverted)
         {
             super.getSubBlocks(itemIn, items);
         }

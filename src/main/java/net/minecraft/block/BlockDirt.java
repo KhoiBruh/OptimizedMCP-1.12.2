@@ -24,8 +24,8 @@ public class BlockDirt extends Block
     protected BlockDirt()
     {
         super(Material.GROUND);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(VARIANT, BlockDirt.DirtType.DIRT).withProperty(SNOWY, Boolean.valueOf(false)));
-        this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
+        setDefaultState(blockState.getBaseState().withProperty(VARIANT, BlockDirt.DirtType.DIRT).withProperty(SNOWY, Boolean.valueOf(false)));
+        setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
     }
 
     /**
@@ -71,7 +71,7 @@ public class BlockDirt extends Block
      */
     public IBlockState getStateFromMeta(int meta)
     {
-        return this.getDefaultState().withProperty(VARIANT, BlockDirt.DirtType.byMetadata(meta));
+        return getDefaultState().withProperty(VARIANT, BlockDirt.DirtType.byMetadata(meta));
     }
 
     /**
@@ -122,30 +122,30 @@ public class BlockDirt extends Block
 
         private DirtType(int metadataIn, String nameIn, String unlocalizedNameIn, MapColor color)
         {
-            this.metadata = metadataIn;
-            this.name = nameIn;
-            this.unlocalizedName = unlocalizedNameIn;
+            metadata = metadataIn;
+            name = nameIn;
+            unlocalizedName = unlocalizedNameIn;
             this.color = color;
         }
 
         public int getMetadata()
         {
-            return this.metadata;
+            return metadata;
         }
 
         public String getUnlocalizedName()
         {
-            return this.unlocalizedName;
+            return unlocalizedName;
         }
 
         public MapColor getColor()
         {
-            return this.color;
+            return color;
         }
 
         public String toString()
         {
-            return this.name;
+            return name;
         }
 
         public static BlockDirt.DirtType byMetadata(int metadata)
@@ -160,7 +160,7 @@ public class BlockDirt extends Block
 
         public String getName()
         {
-            return this.name;
+            return name;
         }
 
         static {

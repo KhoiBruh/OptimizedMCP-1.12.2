@@ -8,13 +8,13 @@ public class ScoreCriteriaColored implements IScoreCriteria
 
     public ScoreCriteriaColored(String name, TextFormatting format)
     {
-        this.goalName = name + format.getFriendlyName();
-        IScoreCriteria.INSTANCES.put(this.goalName, this);
+        goalName = name + format.getFriendlyName();
+        IScoreCriteria.INSTANCES.put(goalName, this);
     }
 
     public String getName()
     {
-        return this.goalName;
+        return goalName;
     }
 
     public boolean isReadOnly()

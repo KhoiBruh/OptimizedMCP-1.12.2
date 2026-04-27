@@ -29,7 +29,7 @@ public class EntityEnderPearl extends EntityThrowable
     public EntityEnderPearl(World worldIn, EntityLivingBase throwerIn)
     {
         super(worldIn, throwerIn);
-        this.perlThrower = throwerIn;
+        perlThrower = throwerIn;
     }
 
     public EntityEnderPearl(World worldIn, double x, double y, double z)
@@ -47,11 +47,11 @@ public class EntityEnderPearl extends EntityThrowable
      */
     protected void onImpact(RayTraceResult result)
     {
-        EntityLivingBase entitylivingbase = this.getThrower();
+        EntityLivingBase entitylivingbase = getThrower();
 
         if (result.entityHit != null)
         {
-            if (result.entityHit == this.perlThrower)
+            if (result.entityHit == perlThrower)
             {
                 return;
             }
@@ -62,7 +62,7 @@ public class EntityEnderPearl extends EntityThrowable
         if (result.typeOfHit == RayTraceResult.Type.BLOCK)
         {
             BlockPos blockpos = result.getBlockPos();
-            TileEntity tileentity = this.world.getTileEntity(blockpos);
+            TileEntity tileentity = world.getTileEntity(blockpos);
 
             if (tileentity instanceof TileEntityEndGateway)
             {
@@ -72,11 +72,11 @@ public class EntityEnderPearl extends EntityThrowable
                 {
                     if (entitylivingbase instanceof EntityPlayerMP)
                     {
-                        CriteriaTriggers.ENTER_BLOCK.trigger((EntityPlayerMP)entitylivingbase, this.world.getBlockState(blockpos));
+                        CriteriaTriggers.ENTER_BLOCK.trigger((EntityPlayerMP)entitylivingbase, world.getBlockState(blockpos));
                     }
 
                     tileentityendgateway.teleportEntity(entitylivingbase);
-                    this.setDead();
+                    setDead();
                     return;
                 }
 
@@ -87,23 +87,23 @@ public class EntityEnderPearl extends EntityThrowable
 
         for (int i = 0; i < 32; ++i)
         {
-            this.world.spawnParticle(EnumParticleTypes.PORTAL, this.posX, this.posY + this.rand.nextDouble() * 2.0D, this.posZ, this.rand.nextGaussian(), 0.0D, this.rand.nextGaussian());
+            world.spawnParticle(EnumParticleTypes.PORTAL, posX, posY + rand.nextDouble() * 2.0D, posZ, rand.nextGaussian(), 0.0D, rand.nextGaussian());
         }
 
-        if (!this.world.isRemote)
+        if (!world.isRemote)
         {
             if (entitylivingbase instanceof EntityPlayerMP)
             {
                 EntityPlayerMP entityplayermp = (EntityPlayerMP)entitylivingbase;
 
-                if (entityplayermp.connection.getNetworkManager().isChannelOpen() && entityplayermp.world == this.world && !entityplayermp.isPlayerSleeping())
+                if (entityplayermp.connection.getNetworkManager().isChannelOpen() && entityplayermp.world == world && !entityplayermp.isPlayerSleeping())
                 {
-                    if (this.rand.nextFloat() < 0.05F && this.world.getGameRules().getBoolean("doMobSpawning"))
+                    if (rand.nextFloat() < 0.05F && world.getGameRules().getBoolean("doMobSpawning"))
                     {
-                        EntityEndermite entityendermite = new EntityEndermite(this.world);
+                        EntityEndermite entityendermite = new EntityEndermite(world);
                         entityendermite.setSpawnedByPlayer(true);
                         entityendermite.setLocationAndAngles(entitylivingbase.posX, entitylivingbase.posY, entitylivingbase.posZ, entitylivingbase.rotationYaw, entitylivingbase.rotationPitch);
-                        this.world.spawnEntity(entityendermite);
+                        world.spawnEntity(entityendermite);
                     }
 
                     if (entitylivingbase.isRiding())
@@ -111,18 +111,18 @@ public class EntityEnderPearl extends EntityThrowable
                         entitylivingbase.dismountRidingEntity();
                     }
 
-                    entitylivingbase.setPositionAndUpdate(this.posX, this.posY, this.posZ);
+                    entitylivingbase.setPositionAndUpdate(posX, posY, posZ);
                     entitylivingbase.fallDistance = 0.0F;
                     entitylivingbase.attackEntityFrom(DamageSource.FALL, 5.0F);
                 }
             }
             else if (entitylivingbase != null)
             {
-                entitylivingbase.setPositionAndUpdate(this.posX, this.posY, this.posZ);
+                entitylivingbase.setPositionAndUpdate(posX, posY, posZ);
                 entitylivingbase.fallDistance = 0.0F;
             }
 
-            this.setDead();
+            setDead();
         }
     }
 
@@ -131,11 +131,11 @@ public class EntityEnderPearl extends EntityThrowable
      */
     public void onUpdate()
     {
-        EntityLivingBase entitylivingbase = this.getThrower();
+        EntityLivingBase entitylivingbase = getThrower();
 
         if (entitylivingbase != null && entitylivingbase instanceof EntityPlayer && !entitylivingbase.isEntityAlive())
         {
-            this.setDead();
+            setDead();
         }
         else
         {
@@ -146,9 +146,9 @@ public class EntityEnderPearl extends EntityThrowable
     @Nullable
     public Entity changeDimension(int dimensionIn)
     {
-        if (this.thrower.dimension != dimensionIn)
+        if (thrower.dimension != dimensionIn)
         {
-            this.thrower = null;
+            thrower = null;
         }
 
         return super.changeDimension(dimensionIn);

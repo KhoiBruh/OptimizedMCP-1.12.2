@@ -29,12 +29,12 @@ public class BrewedPotionTrigger implements ICriterionTrigger<BrewedPotionTrigge
 
     public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<BrewedPotionTrigger.Instance> listener)
     {
-        BrewedPotionTrigger.Listeners brewedpotiontrigger$listeners = this.listeners.get(playerAdvancementsIn);
+        BrewedPotionTrigger.Listeners brewedpotiontrigger$listeners = listeners.get(playerAdvancementsIn);
 
         if (brewedpotiontrigger$listeners == null)
         {
             brewedpotiontrigger$listeners = new BrewedPotionTrigger.Listeners(playerAdvancementsIn);
-            this.listeners.put(playerAdvancementsIn, brewedpotiontrigger$listeners);
+            listeners.put(playerAdvancementsIn, brewedpotiontrigger$listeners);
         }
 
         brewedpotiontrigger$listeners.addListener(listener);
@@ -42,7 +42,7 @@ public class BrewedPotionTrigger implements ICriterionTrigger<BrewedPotionTrigge
 
     public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<BrewedPotionTrigger.Instance> listener)
     {
-        BrewedPotionTrigger.Listeners brewedpotiontrigger$listeners = this.listeners.get(playerAdvancementsIn);
+        BrewedPotionTrigger.Listeners brewedpotiontrigger$listeners = listeners.get(playerAdvancementsIn);
 
         if (brewedpotiontrigger$listeners != null)
         {
@@ -50,14 +50,14 @@ public class BrewedPotionTrigger implements ICriterionTrigger<BrewedPotionTrigge
 
             if (brewedpotiontrigger$listeners.isEmpty())
             {
-                this.listeners.remove(playerAdvancementsIn);
+                listeners.remove(playerAdvancementsIn);
             }
         }
     }
 
     public void removeAllListeners(PlayerAdvancements playerAdvancementsIn)
     {
-        this.listeners.remove(playerAdvancementsIn);
+        listeners.remove(playerAdvancementsIn);
     }
 
     /**
@@ -84,7 +84,7 @@ public class BrewedPotionTrigger implements ICriterionTrigger<BrewedPotionTrigge
 
     public void trigger(EntityPlayerMP player, PotionType potionIn)
     {
-        BrewedPotionTrigger.Listeners brewedpotiontrigger$listeners = this.listeners.get(player.getAdvancements());
+        BrewedPotionTrigger.Listeners brewedpotiontrigger$listeners = listeners.get(player.getAdvancements());
 
         if (brewedpotiontrigger$listeners != null)
         {
@@ -115,29 +115,29 @@ public class BrewedPotionTrigger implements ICriterionTrigger<BrewedPotionTrigge
 
         public Listeners(PlayerAdvancements playerAdvancementsIn)
         {
-            this.playerAdvancements = playerAdvancementsIn;
+            playerAdvancements = playerAdvancementsIn;
         }
 
         public boolean isEmpty()
         {
-            return this.listeners.isEmpty();
+            return listeners.isEmpty();
         }
 
         public void addListener(ICriterionTrigger.Listener<BrewedPotionTrigger.Instance> listener)
         {
-            this.listeners.add(listener);
+            listeners.add(listener);
         }
 
         public void removeListener(ICriterionTrigger.Listener<BrewedPotionTrigger.Instance> listener)
         {
-            this.listeners.remove(listener);
+            listeners.remove(listener);
         }
 
         public void trigger(PotionType potion)
         {
             List<ICriterionTrigger.Listener<BrewedPotionTrigger.Instance>> list = null;
 
-            for (ICriterionTrigger.Listener<BrewedPotionTrigger.Instance> listener : this.listeners)
+            for (ICriterionTrigger.Listener<BrewedPotionTrigger.Instance> listener : listeners)
             {
                 if (((BrewedPotionTrigger.Instance)listener.getCriterionInstance()).test(potion))
                 {
@@ -154,7 +154,7 @@ public class BrewedPotionTrigger implements ICriterionTrigger<BrewedPotionTrigge
             {
                 for (ICriterionTrigger.Listener<BrewedPotionTrigger.Instance> listener1 : list)
                 {
-                    listener1.grantCriterion(this.playerAdvancements);
+                    listener1.grantCriterion(playerAdvancements);
                 }
             }
         }

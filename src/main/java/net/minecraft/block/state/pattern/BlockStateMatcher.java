@@ -24,7 +24,7 @@ public class BlockStateMatcher implements Predicate<IBlockState>
 
     private BlockStateMatcher(BlockStateContainer blockStateIn)
     {
-        this.blockstate = blockStateIn;
+        blockstate = blockStateIn;
     }
 
     public static BlockStateMatcher forBlock(Block blockIn)
@@ -34,17 +34,17 @@ public class BlockStateMatcher implements Predicate<IBlockState>
 
     public boolean apply(@Nullable IBlockState p_apply_1_)
     {
-        if (p_apply_1_ != null && p_apply_1_.getBlock().equals(this.blockstate.getBlock()))
+        if (p_apply_1_ != null && p_apply_1_.getBlock().equals(blockstate.getBlock()))
         {
-            if (this.propertyPredicates.isEmpty())
+            if (propertyPredicates.isEmpty())
             {
                 return true;
             }
             else
             {
-                for (Entry < IProperty<?>, Predicate<? >> entry : this.propertyPredicates.entrySet())
+                for (Entry < IProperty<?>, Predicate<? >> entry : propertyPredicates.entrySet())
                 {
-                    if (!this.matches(p_apply_1_, (IProperty)entry.getKey(), (Predicate)entry.getValue()))
+                    if (!matches(p_apply_1_, (IProperty)entry.getKey(), (Predicate)entry.getValue()))
                     {
                         return false;
                     }
@@ -66,13 +66,13 @@ public class BlockStateMatcher implements Predicate<IBlockState>
 
     public <V extends Comparable<V>> BlockStateMatcher where(IProperty<V> property, Predicate <? extends V > is)
     {
-        if (!this.blockstate.getProperties().contains(property))
+        if (!blockstate.getProperties().contains(property))
         {
-            throw new IllegalArgumentException(this.blockstate + " cannot support property " + property);
+            throw new IllegalArgumentException(blockstate + " cannot support property " + property);
         }
         else
         {
-            this.propertyPredicates.put(property, is);
+            propertyPredicates.put(property, is);
             return this;
         }
     }

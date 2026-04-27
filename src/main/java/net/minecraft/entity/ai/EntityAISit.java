@@ -12,8 +12,8 @@ public class EntityAISit extends EntityAIBase
 
     public EntityAISit(EntityTameable entityIn)
     {
-        this.tameable = entityIn;
-        this.setMutexBits(5);
+        tameable = entityIn;
+        setMutexBits(5);
     }
 
     /**
@@ -21,21 +21,21 @@ public class EntityAISit extends EntityAIBase
      */
     public boolean shouldExecute()
     {
-        if (!this.tameable.isTamed())
+        if (!tameable.isTamed())
         {
             return false;
         }
-        else if (this.tameable.isInWater())
+        else if (tameable.isInWater())
         {
             return false;
         }
-        else if (!this.tameable.onGround)
+        else if (!tameable.onGround)
         {
             return false;
         }
         else
         {
-            EntityLivingBase entitylivingbase = this.tameable.getOwner();
+            EntityLivingBase entitylivingbase = tameable.getOwner();
 
             if (entitylivingbase == null)
             {
@@ -43,7 +43,7 @@ public class EntityAISit extends EntityAIBase
             }
             else
             {
-                return this.tameable.getDistanceSq(entitylivingbase) < 144.0D && entitylivingbase.getRevengeTarget() != null ? false : this.isSitting;
+                return tameable.getDistanceSq(entitylivingbase) < 144.0D && entitylivingbase.getRevengeTarget() != null ? false : isSitting;
             }
         }
     }
@@ -53,8 +53,8 @@ public class EntityAISit extends EntityAIBase
      */
     public void startExecuting()
     {
-        this.tameable.getNavigator().clearPath();
-        this.tameable.setSitting(true);
+        tameable.getNavigator().clearPath();
+        tameable.setSitting(true);
     }
 
     /**
@@ -62,7 +62,7 @@ public class EntityAISit extends EntityAIBase
      */
     public void resetTask()
     {
-        this.tameable.setSitting(false);
+        tameable.setSitting(false);
     }
 
     /**
@@ -70,6 +70,6 @@ public class EntityAISit extends EntityAIBase
      */
     public void setSitting(boolean sitting)
     {
-        this.isSitting = sitting;
+        isSitting = sitting;
     }
 }

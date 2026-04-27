@@ -16,7 +16,7 @@ public class DerivedWorldInfo extends WorldInfo
 
     public DerivedWorldInfo(WorldInfo worldInfoIn)
     {
-        this.delegate = worldInfoIn;
+        delegate = worldInfoIn;
     }
 
     /**
@@ -24,7 +24,7 @@ public class DerivedWorldInfo extends WorldInfo
      */
     public NBTTagCompound cloneNBTCompound(@Nullable NBTTagCompound nbt)
     {
-        return this.delegate.cloneNBTCompound(nbt);
+        return delegate.cloneNBTCompound(nbt);
     }
 
     /**
@@ -32,7 +32,7 @@ public class DerivedWorldInfo extends WorldInfo
      */
     public long getSeed()
     {
-        return this.delegate.getSeed();
+        return delegate.getSeed();
     }
 
     /**
@@ -40,7 +40,7 @@ public class DerivedWorldInfo extends WorldInfo
      */
     public int getSpawnX()
     {
-        return this.delegate.getSpawnX();
+        return delegate.getSpawnX();
     }
 
     /**
@@ -48,7 +48,7 @@ public class DerivedWorldInfo extends WorldInfo
      */
     public int getSpawnY()
     {
-        return this.delegate.getSpawnY();
+        return delegate.getSpawnY();
     }
 
     /**
@@ -56,12 +56,12 @@ public class DerivedWorldInfo extends WorldInfo
      */
     public int getSpawnZ()
     {
-        return this.delegate.getSpawnZ();
+        return delegate.getSpawnZ();
     }
 
     public long getWorldTotalTime()
     {
-        return this.delegate.getWorldTotalTime();
+        return delegate.getWorldTotalTime();
     }
 
     /**
@@ -69,12 +69,12 @@ public class DerivedWorldInfo extends WorldInfo
      */
     public long getWorldTime()
     {
-        return this.delegate.getWorldTime();
+        return delegate.getWorldTime();
     }
 
     public long getSizeOnDisk()
     {
-        return this.delegate.getSizeOnDisk();
+        return delegate.getSizeOnDisk();
     }
 
     /**
@@ -82,7 +82,7 @@ public class DerivedWorldInfo extends WorldInfo
      */
     public NBTTagCompound getPlayerNBTTagCompound()
     {
-        return this.delegate.getPlayerNBTTagCompound();
+        return delegate.getPlayerNBTTagCompound();
     }
 
     /**
@@ -90,7 +90,7 @@ public class DerivedWorldInfo extends WorldInfo
      */
     public String getWorldName()
     {
-        return this.delegate.getWorldName();
+        return delegate.getWorldName();
     }
 
     /**
@@ -98,7 +98,7 @@ public class DerivedWorldInfo extends WorldInfo
      */
     public int getSaveVersion()
     {
-        return this.delegate.getSaveVersion();
+        return delegate.getSaveVersion();
     }
 
     /**
@@ -106,7 +106,7 @@ public class DerivedWorldInfo extends WorldInfo
      */
     public long getLastTimePlayed()
     {
-        return this.delegate.getLastTimePlayed();
+        return delegate.getLastTimePlayed();
     }
 
     /**
@@ -114,7 +114,7 @@ public class DerivedWorldInfo extends WorldInfo
      */
     public boolean isThundering()
     {
-        return this.delegate.isThundering();
+        return delegate.isThundering();
     }
 
     /**
@@ -122,7 +122,7 @@ public class DerivedWorldInfo extends WorldInfo
      */
     public int getThunderTime()
     {
-        return this.delegate.getThunderTime();
+        return delegate.getThunderTime();
     }
 
     /**
@@ -130,7 +130,7 @@ public class DerivedWorldInfo extends WorldInfo
      */
     public boolean isRaining()
     {
-        return this.delegate.isRaining();
+        return delegate.isRaining();
     }
 
     /**
@@ -138,7 +138,7 @@ public class DerivedWorldInfo extends WorldInfo
      */
     public int getRainTime()
     {
-        return this.delegate.getRainTime();
+        return delegate.getRainTime();
     }
 
     /**
@@ -146,7 +146,7 @@ public class DerivedWorldInfo extends WorldInfo
      */
     public GameType getGameType()
     {
-        return this.delegate.getGameType();
+        return delegate.getGameType();
     }
 
     /**
@@ -229,7 +229,7 @@ public class DerivedWorldInfo extends WorldInfo
      */
     public boolean isMapFeaturesEnabled()
     {
-        return this.delegate.isMapFeaturesEnabled();
+        return delegate.isMapFeaturesEnabled();
     }
 
     /**
@@ -237,12 +237,12 @@ public class DerivedWorldInfo extends WorldInfo
      */
     public boolean isHardcoreModeEnabled()
     {
-        return this.delegate.isHardcoreModeEnabled();
+        return delegate.isHardcoreModeEnabled();
     }
 
     public WorldType getTerrainType()
     {
-        return this.delegate.getTerrainType();
+        return delegate.getTerrainType();
     }
 
     public void setTerrainType(WorldType type)
@@ -254,7 +254,7 @@ public class DerivedWorldInfo extends WorldInfo
      */
     public boolean areCommandsAllowed()
     {
-        return this.delegate.areCommandsAllowed();
+        return delegate.areCommandsAllowed();
     }
 
     public void setAllowCommands(boolean allow)
@@ -266,7 +266,7 @@ public class DerivedWorldInfo extends WorldInfo
      */
     public boolean isInitialized()
     {
-        return this.delegate.isInitialized();
+        return delegate.isInitialized();
     }
 
     /**
@@ -281,12 +281,12 @@ public class DerivedWorldInfo extends WorldInfo
      */
     public GameRules getGameRulesInstance()
     {
-        return this.delegate.getGameRulesInstance();
+        return delegate.getGameRulesInstance();
     }
 
     public EnumDifficulty getDifficulty()
     {
-        return this.delegate.getDifficulty();
+        return delegate.getDifficulty();
     }
 
     public void setDifficulty(EnumDifficulty newDifficulty)
@@ -295,7 +295,7 @@ public class DerivedWorldInfo extends WorldInfo
 
     public boolean isDifficultyLocked()
     {
-        return this.delegate.isDifficultyLocked();
+        return delegate.isDifficultyLocked();
     }
 
     public void setDifficultyLocked(boolean locked)
@@ -304,11 +304,11 @@ public class DerivedWorldInfo extends WorldInfo
 
     public void setDimensionData(DimensionType dimensionIn, NBTTagCompound compound)
     {
-        this.delegate.setDimensionData(dimensionIn, compound);
+        delegate.setDimensionData(dimensionIn, compound);
     }
 
     public NBTTagCompound getDimensionData(DimensionType dimensionIn)
     {
-        return this.delegate.getDimensionData(dimensionIn);
+        return delegate.getDimensionData(dimensionIn);
     }
 }

@@ -27,12 +27,12 @@ public class CuredZombieVillagerTrigger implements ICriterionTrigger<CuredZombie
 
     public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<CuredZombieVillagerTrigger.Instance> listener)
     {
-        CuredZombieVillagerTrigger.Listeners curedzombievillagertrigger$listeners = this.listeners.get(playerAdvancementsIn);
+        CuredZombieVillagerTrigger.Listeners curedzombievillagertrigger$listeners = listeners.get(playerAdvancementsIn);
 
         if (curedzombievillagertrigger$listeners == null)
         {
             curedzombievillagertrigger$listeners = new CuredZombieVillagerTrigger.Listeners(playerAdvancementsIn);
-            this.listeners.put(playerAdvancementsIn, curedzombievillagertrigger$listeners);
+            listeners.put(playerAdvancementsIn, curedzombievillagertrigger$listeners);
         }
 
         curedzombievillagertrigger$listeners.add(listener);
@@ -40,7 +40,7 @@ public class CuredZombieVillagerTrigger implements ICriterionTrigger<CuredZombie
 
     public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<CuredZombieVillagerTrigger.Instance> listener)
     {
-        CuredZombieVillagerTrigger.Listeners curedzombievillagertrigger$listeners = this.listeners.get(playerAdvancementsIn);
+        CuredZombieVillagerTrigger.Listeners curedzombievillagertrigger$listeners = listeners.get(playerAdvancementsIn);
 
         if (curedzombievillagertrigger$listeners != null)
         {
@@ -48,14 +48,14 @@ public class CuredZombieVillagerTrigger implements ICriterionTrigger<CuredZombie
 
             if (curedzombievillagertrigger$listeners.isEmpty())
             {
-                this.listeners.remove(playerAdvancementsIn);
+                listeners.remove(playerAdvancementsIn);
             }
         }
     }
 
     public void removeAllListeners(PlayerAdvancements playerAdvancementsIn)
     {
-        this.listeners.remove(playerAdvancementsIn);
+        listeners.remove(playerAdvancementsIn);
     }
 
     /**
@@ -70,7 +70,7 @@ public class CuredZombieVillagerTrigger implements ICriterionTrigger<CuredZombie
 
     public void trigger(EntityPlayerMP player, EntityZombie zombie, EntityVillager villager)
     {
-        CuredZombieVillagerTrigger.Listeners curedzombievillagertrigger$listeners = this.listeners.get(player.getAdvancements());
+        CuredZombieVillagerTrigger.Listeners curedzombievillagertrigger$listeners = listeners.get(player.getAdvancements());
 
         if (curedzombievillagertrigger$listeners != null)
         {
@@ -110,29 +110,29 @@ public class CuredZombieVillagerTrigger implements ICriterionTrigger<CuredZombie
 
         public Listeners(PlayerAdvancements playerAdvancementsIn)
         {
-            this.playerAdvancements = playerAdvancementsIn;
+            playerAdvancements = playerAdvancementsIn;
         }
 
         public boolean isEmpty()
         {
-            return this.listeners.isEmpty();
+            return listeners.isEmpty();
         }
 
         public void add(ICriterionTrigger.Listener<CuredZombieVillagerTrigger.Instance> listener)
         {
-            this.listeners.add(listener);
+            listeners.add(listener);
         }
 
         public void remove(ICriterionTrigger.Listener<CuredZombieVillagerTrigger.Instance> listener)
         {
-            this.listeners.remove(listener);
+            listeners.remove(listener);
         }
 
         public void trigger(EntityPlayerMP player, EntityZombie zombie, EntityVillager villager)
         {
             List<ICriterionTrigger.Listener<CuredZombieVillagerTrigger.Instance>> list = null;
 
-            for (ICriterionTrigger.Listener<CuredZombieVillagerTrigger.Instance> listener : this.listeners)
+            for (ICriterionTrigger.Listener<CuredZombieVillagerTrigger.Instance> listener : listeners)
             {
                 if (((CuredZombieVillagerTrigger.Instance)listener.getCriterionInstance()).test(player, zombie, villager))
                 {
@@ -149,7 +149,7 @@ public class CuredZombieVillagerTrigger implements ICriterionTrigger<CuredZombie
             {
                 for (ICriterionTrigger.Listener<CuredZombieVillagerTrigger.Instance> listener1 : list)
                 {
-                    listener1.grantCriterion(this.playerAdvancements);
+                    listener1.grantCriterion(playerAdvancements);
                 }
             }
         }

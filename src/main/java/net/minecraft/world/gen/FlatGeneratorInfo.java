@@ -23,7 +23,7 @@ public class FlatGeneratorInfo
      */
     public int getBiome()
     {
-        return this.biomeToUse;
+        return biomeToUse;
     }
 
     /**
@@ -31,24 +31,24 @@ public class FlatGeneratorInfo
      */
     public void setBiome(int biome)
     {
-        this.biomeToUse = biome;
+        biomeToUse = biome;
     }
 
     public Map<String, Map<String, String>> getWorldFeatures()
     {
-        return this.worldFeatures;
+        return worldFeatures;
     }
 
     public List<FlatLayerInfo> getFlatLayers()
     {
-        return this.flatLayers;
+        return flatLayers;
     }
 
     public void updateLayers()
     {
         int i = 0;
 
-        for (FlatLayerInfo flatlayerinfo : this.flatLayers)
+        for (FlatLayerInfo flatlayerinfo : flatLayers)
         {
             flatlayerinfo.setMinY(i);
             i += flatlayerinfo.getLayerCount();
@@ -61,20 +61,20 @@ public class FlatGeneratorInfo
         stringbuilder.append((int)3);
         stringbuilder.append(";");
 
-        for (int i = 0; i < this.flatLayers.size(); ++i)
+        for (int i = 0; i < flatLayers.size(); ++i)
         {
             if (i > 0)
             {
                 stringbuilder.append(",");
             }
 
-            stringbuilder.append(this.flatLayers.get(i));
+            stringbuilder.append(flatLayers.get(i));
         }
 
         stringbuilder.append(";");
-        stringbuilder.append(this.biomeToUse);
+        stringbuilder.append(biomeToUse);
 
-        if (this.worldFeatures.isEmpty())
+        if (worldFeatures.isEmpty())
         {
             stringbuilder.append(";");
         }
@@ -83,7 +83,7 @@ public class FlatGeneratorInfo
             stringbuilder.append(";");
             int k = 0;
 
-            for (Entry<String, Map<String, String>> entry : this.worldFeatures.entrySet())
+            for (Entry<String, Map<String, String>> entry : worldFeatures.entrySet())
             {
                 if (k++ > 0)
                 {

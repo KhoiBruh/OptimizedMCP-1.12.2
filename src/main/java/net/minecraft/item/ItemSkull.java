@@ -30,9 +30,9 @@ public class ItemSkull extends Item
 
     public ItemSkull()
     {
-        this.setCreativeTab(CreativeTabs.DECORATIONS);
-        this.setMaxDamage(0);
-        this.setHasSubtypes(true);
+        setCreativeTab(CreativeTabs.DECORATIONS);
+        setMaxDamage(0);
+        setHasSubtypes(true);
     }
 
     /**
@@ -134,7 +134,7 @@ public class ItemSkull extends Item
      */
     public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items)
     {
-        if (this.isInCreativeTab(tab))
+        if (isInCreativeTab(tab))
         {
             for (int i = 0; i < SKULL_TYPES.length; ++i)
             {

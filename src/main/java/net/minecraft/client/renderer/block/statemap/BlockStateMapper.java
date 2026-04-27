@@ -18,12 +18,12 @@ public class BlockStateMapper
 
     public void registerBlockStateMapper(Block blockIn, IStateMapper stateMapper)
     {
-        this.blockStateMap.put(blockIn, stateMapper);
+        blockStateMap.put(blockIn, stateMapper);
     }
 
     public void registerBuiltInBlocks(Block... blockIn)
     {
-        Collections.addAll(this.setBuiltInBlocks, blockIn);
+        Collections.addAll(setBuiltInBlocks, blockIn);
     }
 
     public Map<IBlockState, ModelResourceLocation> putAllStateModelLocations()
@@ -32,7 +32,7 @@ public class BlockStateMapper
 
         for (Block block : Block.REGISTRY)
         {
-            map.putAll(this.getVariants(block));
+            map.putAll(getVariants(block));
         }
 
         return map;
@@ -40,13 +40,13 @@ public class BlockStateMapper
 
     public Set<ResourceLocation> getBlockstateLocations(Block blockIn)
     {
-        if (this.setBuiltInBlocks.contains(blockIn))
+        if (setBuiltInBlocks.contains(blockIn))
         {
             return Collections.<ResourceLocation>emptySet();
         }
         else
         {
-            IStateMapper istatemapper = this.blockStateMap.get(blockIn);
+            IStateMapper istatemapper = blockStateMap.get(blockIn);
 
             if (istatemapper == null)
             {
@@ -68,6 +68,6 @@ public class BlockStateMapper
 
     public Map<IBlockState, ModelResourceLocation> getVariants(Block blockIn)
     {
-        return this.setBuiltInBlocks.contains(blockIn) ? Collections.emptyMap() : ((IStateMapper)MoreObjects.firstNonNull(this.blockStateMap.get(blockIn), new DefaultStateMapper())).putStateModelLocations(blockIn);
+        return setBuiltInBlocks.contains(blockIn) ? Collections.emptyMap() : ((IStateMapper)MoreObjects.firstNonNull(blockStateMap.get(blockIn), new DefaultStateMapper())).putStateModelLocations(blockIn);
     }
 }

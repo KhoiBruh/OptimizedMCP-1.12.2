@@ -32,15 +32,15 @@ public class BlockCocoa extends BlockHorizontal implements IGrowable
     public BlockCocoa()
     {
         super(Material.PLANTS);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(AGE, Integer.valueOf(0)));
-        this.setTickRandomly(true);
+        setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(AGE, Integer.valueOf(0)));
+        setTickRandomly(true);
     }
 
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
     {
-        if (!this.canBlockStay(worldIn, pos, state))
+        if (!canBlockStay(worldIn, pos, state))
         {
-            this.dropBlock(worldIn, pos, state);
+            dropBlock(worldIn, pos, state);
         }
         else if (worldIn.rand.nextInt(5) == 0)
         {
@@ -132,7 +132,7 @@ public class BlockCocoa extends BlockHorizontal implements IGrowable
             facing = EnumFacing.NORTH;
         }
 
-        return this.getDefaultState().withProperty(FACING, facing.getOpposite()).withProperty(AGE, Integer.valueOf(0));
+        return getDefaultState().withProperty(FACING, facing.getOpposite()).withProperty(AGE, Integer.valueOf(0));
     }
 
     /**
@@ -142,16 +142,16 @@ public class BlockCocoa extends BlockHorizontal implements IGrowable
      */
     public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos)
     {
-        if (!this.canBlockStay(worldIn, pos, state))
+        if (!canBlockStay(worldIn, pos, state))
         {
-            this.dropBlock(worldIn, pos, state);
+            dropBlock(worldIn, pos, state);
         }
     }
 
     private void dropBlock(World worldIn, BlockPos pos, IBlockState state)
     {
         worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 3);
-        this.dropBlockAsItem(worldIn, pos, state, 0);
+        dropBlockAsItem(worldIn, pos, state, 0);
     }
 
     /**
@@ -210,7 +210,7 @@ public class BlockCocoa extends BlockHorizontal implements IGrowable
      */
     public IBlockState getStateFromMeta(int meta)
     {
-        return this.getDefaultState().withProperty(FACING, EnumFacing.getHorizontal(meta)).withProperty(AGE, Integer.valueOf((meta & 15) >> 2));
+        return getDefaultState().withProperty(FACING, EnumFacing.getHorizontal(meta)).withProperty(AGE, Integer.valueOf((meta & 15) >> 2));
     }
 
     /**

@@ -20,7 +20,7 @@ public class ResourcePackListEntryServer extends ResourcePackListEntry
     public ResourcePackListEntryServer(GuiScreenResourcePacks resourcePacksGUIIn, IResourcePack resourcePackIn)
     {
         super(resourcePacksGUIIn);
-        this.resourcePack = resourcePackIn;
+        resourcePack = resourcePackIn;
         DynamicTexture dynamictexture;
 
         try
@@ -32,7 +32,7 @@ public class ResourcePackListEntryServer extends ResourcePackListEntry
             dynamictexture = TextureUtil.MISSING_TEXTURE;
         }
 
-        this.resourcePackIcon = this.mc.getTextureManager().getDynamicTextureLocation("texturepackicon", dynamictexture);
+        resourcePackIcon = mc.getTextureManager().getDynamicTextureLocation("texturepackicon", dynamictexture);
     }
 
     protected int getResourcePackFormat()
@@ -44,7 +44,7 @@ public class ResourcePackListEntryServer extends ResourcePackListEntry
     {
         try
         {
-            PackMetadataSection packmetadatasection = (PackMetadataSection)this.resourcePack.getPackMetadata(this.mc.getResourcePackRepository().rprMetadataSerializer, "pack");
+            PackMetadataSection packmetadatasection = (PackMetadataSection) resourcePack.getPackMetadata(mc.getResourcePackRepository().rprMetadataSerializer, "pack");
 
             if (packmetadatasection != null)
             {
@@ -90,7 +90,7 @@ public class ResourcePackListEntryServer extends ResourcePackListEntry
 
     protected void bindResourcePackIcon()
     {
-        this.mc.getTextureManager().bindTexture(this.resourcePackIcon);
+        mc.getTextureManager().bindTexture(resourcePackIcon);
     }
 
     protected boolean showHoverOverlay()

@@ -22,8 +22,8 @@ public class BlockObserver extends BlockDirectional
     public BlockObserver()
     {
         super(Material.ROCK);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.SOUTH).withProperty(POWERED, Boolean.valueOf(false)));
-        this.setCreativeTab(CreativeTabs.REDSTONE);
+        setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.SOUTH).withProperty(POWERED, Boolean.valueOf(false)));
+        setCreativeTab(CreativeTabs.REDSTONE);
     }
 
     protected BlockStateContainer createBlockState()
@@ -61,7 +61,7 @@ public class BlockObserver extends BlockDirectional
             worldIn.scheduleUpdate(pos, this, 2);
         }
 
-        this.updateNeighborsInFront(worldIn, pos, state);
+        updateNeighborsInFront(worldIn, pos, state);
     }
 
     /**
@@ -77,7 +77,7 @@ public class BlockObserver extends BlockDirectional
     {
         if (!worldIn.isRemote && pos.offset((EnumFacing)state.getValue(FACING)).equals(fromPos))
         {
-            this.startSignal(state, worldIn, pos);
+            startSignal(state, worldIn, pos);
         }
     }
 
@@ -127,10 +127,10 @@ public class BlockObserver extends BlockDirectional
         {
             if (((Boolean)state.getValue(POWERED)).booleanValue())
             {
-                this.updateTick(worldIn, pos, state, worldIn.rand);
+                updateTick(worldIn, pos, state, worldIn.rand);
             }
 
-            this.startSignal(state, worldIn, pos);
+            startSignal(state, worldIn, pos);
         }
     }
 
@@ -141,7 +141,7 @@ public class BlockObserver extends BlockDirectional
     {
         if (((Boolean)state.getValue(POWERED)).booleanValue() && worldIn.isUpdateScheduled(pos, this))
         {
-            this.updateNeighborsInFront(worldIn, pos, state.withProperty(POWERED, Boolean.valueOf(false)));
+            updateNeighborsInFront(worldIn, pos, state.withProperty(POWERED, Boolean.valueOf(false)));
         }
     }
 
@@ -151,7 +151,7 @@ public class BlockObserver extends BlockDirectional
      */
     public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
     {
-        return this.getDefaultState().withProperty(FACING, EnumFacing.getDirectionFromEntityLiving(pos, placer).getOpposite());
+        return getDefaultState().withProperty(FACING, EnumFacing.getDirectionFromEntityLiving(pos, placer).getOpposite());
     }
 
     /**
@@ -175,6 +175,6 @@ public class BlockObserver extends BlockDirectional
      */
     public IBlockState getStateFromMeta(int meta)
     {
-        return this.getDefaultState().withProperty(FACING, EnumFacing.getFront(meta & 7));
+        return getDefaultState().withProperty(FACING, EnumFacing.getFront(meta & 7));
     }
 }

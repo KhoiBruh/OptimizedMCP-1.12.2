@@ -14,7 +14,7 @@ public class TileEntityShulkerBoxRenderer extends TileEntitySpecialRenderer<Tile
 
     public TileEntityShulkerBoxRenderer(ModelShulker modelIn)
     {
-        this.model = modelIn;
+        model = modelIn;
     }
 
     public void render(TileEntityShulkerBox te, double x, double y, double z, float partialTicks, int destroyStage, float alpha)
@@ -23,7 +23,7 @@ public class TileEntityShulkerBoxRenderer extends TileEntitySpecialRenderer<Tile
 
         if (te.hasWorld())
         {
-            IBlockState iblockstate = this.getWorld().getBlockState(te.getPos());
+            IBlockState iblockstate = getWorld().getBlockState(te.getPos());
 
             if (iblockstate.getBlock() instanceof BlockShulkerBox)
             {
@@ -38,7 +38,7 @@ public class TileEntityShulkerBoxRenderer extends TileEntitySpecialRenderer<Tile
 
         if (destroyStage >= 0)
         {
-            this.bindTexture(DESTROY_STAGES[destroyStage]);
+            bindTexture(DESTROY_STAGES[destroyStage]);
             GlStateManager.matrixMode(5890);
             GlStateManager.pushMatrix();
             GlStateManager.scale(4.0F, 4.0F, 1.0F);
@@ -47,7 +47,7 @@ public class TileEntityShulkerBoxRenderer extends TileEntitySpecialRenderer<Tile
         }
         else
         {
-            this.bindTexture(RenderShulker.SHULKER_ENDERGOLEM_TEXTURE[te.getColor().getMetadata()]);
+            bindTexture(RenderShulker.SHULKER_ENDERGOLEM_TEXTURE[te.getColor().getMetadata()]);
         }
 
         GlStateManager.pushMatrix();
@@ -98,10 +98,10 @@ public class TileEntityShulkerBoxRenderer extends TileEntitySpecialRenderer<Tile
                 GlStateManager.rotate(90.0F, 0.0F, 0.0F, 1.0F);
         }
 
-        this.model.base.render(0.0625F);
+        model.base.render(0.0625F);
         GlStateManager.translate(0.0F, -te.getProgress(partialTicks) * 0.5F, 0.0F);
         GlStateManager.rotate(270.0F * te.getProgress(partialTicks), 0.0F, 1.0F, 0.0F);
-        this.model.lid.render(0.0625F);
+        model.lid.render(0.0625F);
         GlStateManager.enableCull();
         GlStateManager.disableRescaleNormal();
         GlStateManager.popMatrix();

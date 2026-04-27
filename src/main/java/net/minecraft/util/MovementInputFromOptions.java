@@ -8,61 +8,61 @@ public class MovementInputFromOptions extends MovementInput
 
     public MovementInputFromOptions(GameSettings gameSettingsIn)
     {
-        this.gameSettings = gameSettingsIn;
+        gameSettings = gameSettingsIn;
     }
 
     public void updatePlayerMoveState()
     {
-        this.moveStrafe = 0.0F;
-        this.moveForward = 0.0F;
+        moveStrafe = 0.0F;
+        moveForward = 0.0F;
 
-        if (this.gameSettings.keyBindForward.isKeyDown())
+        if (gameSettings.keyBindForward.isKeyDown())
         {
-            ++this.moveForward;
-            this.forwardKeyDown = true;
+            ++moveForward;
+            forwardKeyDown = true;
         }
         else
         {
-            this.forwardKeyDown = false;
+            forwardKeyDown = false;
         }
 
-        if (this.gameSettings.keyBindBack.isKeyDown())
+        if (gameSettings.keyBindBack.isKeyDown())
         {
-            --this.moveForward;
-            this.backKeyDown = true;
+            --moveForward;
+            backKeyDown = true;
         }
         else
         {
-            this.backKeyDown = false;
+            backKeyDown = false;
         }
 
-        if (this.gameSettings.keyBindLeft.isKeyDown())
+        if (gameSettings.keyBindLeft.isKeyDown())
         {
-            ++this.moveStrafe;
-            this.leftKeyDown = true;
+            ++moveStrafe;
+            leftKeyDown = true;
         }
         else
         {
-            this.leftKeyDown = false;
+            leftKeyDown = false;
         }
 
-        if (this.gameSettings.keyBindRight.isKeyDown())
+        if (gameSettings.keyBindRight.isKeyDown())
         {
-            --this.moveStrafe;
-            this.rightKeyDown = true;
+            --moveStrafe;
+            rightKeyDown = true;
         }
         else
         {
-            this.rightKeyDown = false;
+            rightKeyDown = false;
         }
 
-        this.jump = this.gameSettings.keyBindJump.isKeyDown();
-        this.sneak = this.gameSettings.keyBindSneak.isKeyDown();
+        jump = gameSettings.keyBindJump.isKeyDown();
+        sneak = gameSettings.keyBindSneak.isKeyDown();
 
-        if (this.sneak)
+        if (sneak)
         {
-            this.moveStrafe = (float)((double)this.moveStrafe * 0.3D);
-            this.moveForward = (float)((double)this.moveForward * 0.3D);
+            moveStrafe = (float)((double) moveStrafe * 0.3D);
+            moveForward = (float)((double) moveForward * 0.3D);
         }
     }
 }

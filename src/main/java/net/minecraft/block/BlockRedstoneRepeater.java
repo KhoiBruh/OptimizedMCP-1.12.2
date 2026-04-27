@@ -29,7 +29,7 @@ public class BlockRedstoneRepeater extends BlockRedstoneDiode
     protected BlockRedstoneRepeater(boolean powered)
     {
         super(powered);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(DELAY, Integer.valueOf(1)).withProperty(LOCKED, Boolean.valueOf(false)));
+        setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(DELAY, Integer.valueOf(1)).withProperty(LOCKED, Boolean.valueOf(false)));
     }
 
     /**
@@ -46,7 +46,7 @@ public class BlockRedstoneRepeater extends BlockRedstoneDiode
      */
     public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos)
     {
-        return state.withProperty(LOCKED, Boolean.valueOf(this.isLocked(worldIn, pos, state)));
+        return state.withProperty(LOCKED, Boolean.valueOf(isLocked(worldIn, pos, state)));
     }
 
     /**
@@ -119,7 +119,7 @@ public class BlockRedstoneRepeater extends BlockRedstoneDiode
 
     public boolean isLocked(IBlockAccess worldIn, BlockPos pos, IBlockState state)
     {
-        return this.getPowerOnSides(worldIn, pos, state) > 0;
+        return getPowerOnSides(worldIn, pos, state) > 0;
     }
 
     protected boolean isAlternateInput(IBlockState state)
@@ -129,7 +129,7 @@ public class BlockRedstoneRepeater extends BlockRedstoneDiode
 
     public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand)
     {
-        if (this.isRepeaterPowered)
+        if (isRepeaterPowered)
         {
             EnumFacing enumfacing = (EnumFacing)stateIn.getValue(FACING);
             double d0 = (double)((float)pos.getX() + 0.5F) + (double)(rand.nextFloat() - 0.5F) * 0.2D;
@@ -155,7 +155,7 @@ public class BlockRedstoneRepeater extends BlockRedstoneDiode
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state)
     {
         super.breakBlock(worldIn, pos, state);
-        this.notifyNeighbors(worldIn, pos, state);
+        notifyNeighbors(worldIn, pos, state);
     }
 
     /**
@@ -163,7 +163,7 @@ public class BlockRedstoneRepeater extends BlockRedstoneDiode
      */
     public IBlockState getStateFromMeta(int meta)
     {
-        return this.getDefaultState().withProperty(FACING, EnumFacing.getHorizontal(meta)).withProperty(LOCKED, Boolean.valueOf(false)).withProperty(DELAY, Integer.valueOf(1 + (meta >> 2)));
+        return getDefaultState().withProperty(FACING, EnumFacing.getHorizontal(meta)).withProperty(LOCKED, Boolean.valueOf(false)).withProperty(DELAY, Integer.valueOf(1 + (meta >> 2)));
     }
 
     /**

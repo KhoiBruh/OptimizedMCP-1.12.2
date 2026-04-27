@@ -49,16 +49,16 @@ public class WorldGenDesertWells extends WorldGenerator
                 {
                     for (int k = -2; k <= 2; ++k)
                     {
-                        worldIn.setBlockState(position.add(l1, l, k), this.sandstone, 2);
+                        worldIn.setBlockState(position.add(l1, l, k), sandstone, 2);
                     }
                 }
             }
 
-            worldIn.setBlockState(position, this.water, 2);
+            worldIn.setBlockState(position, water, 2);
 
             for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL)
             {
-                worldIn.setBlockState(position.offset(enumfacing), this.water, 2);
+                worldIn.setBlockState(position.offset(enumfacing), water, 2);
             }
 
             for (int i1 = -2; i1 <= 2; ++i1)
@@ -67,15 +67,15 @@ public class WorldGenDesertWells extends WorldGenerator
                 {
                     if (i1 == -2 || i1 == 2 || i2 == -2 || i2 == 2)
                     {
-                        worldIn.setBlockState(position.add(i1, 1, i2), this.sandstone, 2);
+                        worldIn.setBlockState(position.add(i1, 1, i2), sandstone, 2);
                     }
                 }
             }
 
-            worldIn.setBlockState(position.add(2, 1, 0), this.sandSlab, 2);
-            worldIn.setBlockState(position.add(-2, 1, 0), this.sandSlab, 2);
-            worldIn.setBlockState(position.add(0, 1, 2), this.sandSlab, 2);
-            worldIn.setBlockState(position.add(0, 1, -2), this.sandSlab, 2);
+            worldIn.setBlockState(position.add(2, 1, 0), sandSlab, 2);
+            worldIn.setBlockState(position.add(-2, 1, 0), sandSlab, 2);
+            worldIn.setBlockState(position.add(0, 1, 2), sandSlab, 2);
+            worldIn.setBlockState(position.add(0, 1, -2), sandSlab, 2);
 
             for (int j1 = -1; j1 <= 1; ++j1)
             {
@@ -83,21 +83,21 @@ public class WorldGenDesertWells extends WorldGenerator
                 {
                     if (j1 == 0 && j2 == 0)
                     {
-                        worldIn.setBlockState(position.add(j1, 4, j2), this.sandstone, 2);
+                        worldIn.setBlockState(position.add(j1, 4, j2), sandstone, 2);
                     }
                     else
                     {
-                        worldIn.setBlockState(position.add(j1, 4, j2), this.sandSlab, 2);
+                        worldIn.setBlockState(position.add(j1, 4, j2), sandSlab, 2);
                     }
                 }
             }
 
             for (int k1 = 1; k1 <= 3; ++k1)
             {
-                worldIn.setBlockState(position.add(-1, k1, -1), this.sandstone, 2);
-                worldIn.setBlockState(position.add(-1, k1, 1), this.sandstone, 2);
-                worldIn.setBlockState(position.add(1, k1, -1), this.sandstone, 2);
-                worldIn.setBlockState(position.add(1, k1, 1), this.sandstone, 2);
+                worldIn.setBlockState(position.add(-1, k1, -1), sandstone, 2);
+                worldIn.setBlockState(position.add(-1, k1, 1), sandstone, 2);
+                worldIn.setBlockState(position.add(1, k1, -1), sandstone, 2);
+                worldIn.setBlockState(position.add(1, k1, 1), sandstone, 2);
             }
 
             return true;

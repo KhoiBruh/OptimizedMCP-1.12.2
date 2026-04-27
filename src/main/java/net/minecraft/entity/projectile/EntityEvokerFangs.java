@@ -23,17 +23,17 @@ public class EntityEvokerFangs extends Entity
     public EntityEvokerFangs(World worldIn)
     {
         super(worldIn);
-        this.lifeTicks = 22;
-        this.setSize(0.5F, 0.8F);
+        lifeTicks = 22;
+        setSize(0.5F, 0.8F);
     }
 
     public EntityEvokerFangs(World worldIn, double x, double y, double z, float p_i47276_8_, int p_i47276_9_, EntityLivingBase casterIn)
     {
         this(worldIn);
-        this.warmupDelayTicks = p_i47276_9_;
-        this.setCaster(casterIn);
-        this.rotationYaw = p_i47276_8_ * (180F / (float)Math.PI);
-        this.setPosition(x, y, z);
+        warmupDelayTicks = p_i47276_9_;
+        setCaster(casterIn);
+        rotationYaw = p_i47276_8_ * (180F / (float)Math.PI);
+        setPosition(x, y, z);
     }
 
     protected void entityInit()
@@ -42,24 +42,24 @@ public class EntityEvokerFangs extends Entity
 
     public void setCaster(@Nullable EntityLivingBase p_190549_1_)
     {
-        this.caster = p_190549_1_;
-        this.casterUuid = p_190549_1_ == null ? null : p_190549_1_.getUniqueID();
+        caster = p_190549_1_;
+        casterUuid = p_190549_1_ == null ? null : p_190549_1_.getUniqueID();
     }
 
     @Nullable
     public EntityLivingBase getCaster()
     {
-        if (this.caster == null && this.casterUuid != null && this.world instanceof WorldServer)
+        if (caster == null && casterUuid != null && world instanceof WorldServer)
         {
-            Entity entity = ((WorldServer)this.world).getEntityFromUuid(this.casterUuid);
+            Entity entity = ((WorldServer) world).getEntityFromUuid(casterUuid);
 
             if (entity instanceof EntityLivingBase)
             {
-                this.caster = (EntityLivingBase)entity;
+                caster = (EntityLivingBase)entity;
             }
         }
 
-        return this.caster;
+        return caster;
     }
 
     /**
@@ -67,8 +67,8 @@ public class EntityEvokerFangs extends Entity
      */
     protected void readEntityFromNBT(NBTTagCompound compound)
     {
-        this.warmupDelayTicks = compound.getInteger("Warmup");
-        this.casterUuid = compound.getUniqueId("OwnerUUID");
+        warmupDelayTicks = compound.getInteger("Warmup");
+        casterUuid = compound.getUniqueId("OwnerUUID");
     }
 
     /**
@@ -76,11 +76,11 @@ public class EntityEvokerFangs extends Entity
      */
     protected void writeEntityToNBT(NBTTagCompound compound)
     {
-        compound.setInteger("Warmup", this.warmupDelayTicks);
+        compound.setInteger("Warmup", warmupDelayTicks);
 
-        if (this.casterUuid != null)
+        if (casterUuid != null)
         {
-            compound.setUniqueId("OwnerUUID", this.casterUuid);
+            compound.setUniqueId("OwnerUUID", casterUuid);
         }
     }
 
@@ -91,53 +91,53 @@ public class EntityEvokerFangs extends Entity
     {
         super.onUpdate();
 
-        if (this.world.isRemote)
+        if (world.isRemote)
         {
-            if (this.clientSideAttackStarted)
+            if (clientSideAttackStarted)
             {
-                --this.lifeTicks;
+                --lifeTicks;
 
-                if (this.lifeTicks == 14)
+                if (lifeTicks == 14)
                 {
                     for (int i = 0; i < 12; ++i)
                     {
-                        double d0 = this.posX + (this.rand.nextDouble() * 2.0D - 1.0D) * (double)this.width * 0.5D;
-                        double d1 = this.posY + 0.05D + this.rand.nextDouble() * 1.0D;
-                        double d2 = this.posZ + (this.rand.nextDouble() * 2.0D - 1.0D) * (double)this.width * 0.5D;
-                        double d3 = (this.rand.nextDouble() * 2.0D - 1.0D) * 0.3D;
-                        double d4 = 0.3D + this.rand.nextDouble() * 0.3D;
-                        double d5 = (this.rand.nextDouble() * 2.0D - 1.0D) * 0.3D;
-                        this.world.spawnParticle(EnumParticleTypes.CRIT, d0, d1 + 1.0D, d2, d3, d4, d5);
+                        double d0 = posX + (rand.nextDouble() * 2.0D - 1.0D) * (double) width * 0.5D;
+                        double d1 = posY + 0.05D + rand.nextDouble() * 1.0D;
+                        double d2 = posZ + (rand.nextDouble() * 2.0D - 1.0D) * (double) width * 0.5D;
+                        double d3 = (rand.nextDouble() * 2.0D - 1.0D) * 0.3D;
+                        double d4 = 0.3D + rand.nextDouble() * 0.3D;
+                        double d5 = (rand.nextDouble() * 2.0D - 1.0D) * 0.3D;
+                        world.spawnParticle(EnumParticleTypes.CRIT, d0, d1 + 1.0D, d2, d3, d4, d5);
                     }
                 }
             }
         }
-        else if (--this.warmupDelayTicks < 0)
+        else if (--warmupDelayTicks < 0)
         {
-            if (this.warmupDelayTicks == -8)
+            if (warmupDelayTicks == -8)
             {
-                for (EntityLivingBase entitylivingbase : this.world.getEntitiesWithinAABB(EntityLivingBase.class, this.getEntityBoundingBox().grow(0.2D, 0.0D, 0.2D)))
+                for (EntityLivingBase entitylivingbase : world.getEntitiesWithinAABB(EntityLivingBase.class, getEntityBoundingBox().grow(0.2D, 0.0D, 0.2D)))
                 {
-                    this.damage(entitylivingbase);
+                    damage(entitylivingbase);
                 }
             }
 
-            if (!this.sentSpikeEvent)
+            if (!sentSpikeEvent)
             {
-                this.world.setEntityState(this, (byte)4);
-                this.sentSpikeEvent = true;
+                world.setEntityState(this, (byte)4);
+                sentSpikeEvent = true;
             }
 
-            if (--this.lifeTicks < 0)
+            if (--lifeTicks < 0)
             {
-                this.setDead();
+                setDead();
             }
         }
     }
 
     private void damage(EntityLivingBase p_190551_1_)
     {
-        EntityLivingBase entitylivingbase = this.getCaster();
+        EntityLivingBase entitylivingbase = getCaster();
 
         if (p_190551_1_.isEntityAlive() && !p_190551_1_.getIsInvulnerable() && p_190551_1_ != entitylivingbase)
         {
@@ -166,24 +166,24 @@ public class EntityEvokerFangs extends Entity
 
         if (id == 4)
         {
-            this.clientSideAttackStarted = true;
+            clientSideAttackStarted = true;
 
-            if (!this.isSilent())
+            if (!isSilent())
             {
-                this.world.playSound(this.posX, this.posY, this.posZ, SoundEvents.EVOCATION_FANGS_ATTACK, this.getSoundCategory(), 1.0F, this.rand.nextFloat() * 0.2F + 0.85F, false);
+                world.playSound(posX, posY, posZ, SoundEvents.EVOCATION_FANGS_ATTACK, getSoundCategory(), 1.0F, rand.nextFloat() * 0.2F + 0.85F, false);
             }
         }
     }
 
     public float getAnimationProgress(float partialTicks)
     {
-        if (!this.clientSideAttackStarted)
+        if (!clientSideAttackStarted)
         {
             return 0.0F;
         }
         else
         {
-            int i = this.lifeTicks - 2;
+            int i = lifeTicks - 2;
             return i <= 0 ? 1.0F : 1.0F - ((float)i - partialTicks) / 20.0F;
         }
     }

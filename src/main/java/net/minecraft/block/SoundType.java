@@ -37,47 +37,47 @@ public class SoundType
 
     public SoundType(float volumeIn, float pitchIn, SoundEvent breakSoundIn, SoundEvent stepSoundIn, SoundEvent placeSoundIn, SoundEvent hitSoundIn, SoundEvent fallSoundIn)
     {
-        this.volume = volumeIn;
-        this.pitch = pitchIn;
-        this.breakSound = breakSoundIn;
-        this.stepSound = stepSoundIn;
-        this.placeSound = placeSoundIn;
-        this.hitSound = hitSoundIn;
-        this.fallSound = fallSoundIn;
+        volume = volumeIn;
+        pitch = pitchIn;
+        breakSound = breakSoundIn;
+        stepSound = stepSoundIn;
+        placeSound = placeSoundIn;
+        hitSound = hitSoundIn;
+        fallSound = fallSoundIn;
     }
 
     public float getVolume()
     {
-        return this.volume;
+        return volume;
     }
 
     public float getPitch()
     {
-        return this.pitch;
+        return pitch;
     }
 
     public SoundEvent getBreakSound()
     {
-        return this.breakSound;
+        return breakSound;
     }
 
     public SoundEvent getStepSound()
     {
-        return this.stepSound;
+        return stepSound;
     }
 
     public SoundEvent getPlaceSound()
     {
-        return this.placeSound;
+        return placeSound;
     }
 
     public SoundEvent getHitSound()
     {
-        return this.hitSound;
+        return hitSound;
     }
 
     public SoundEvent getFallSound()
     {
-        return this.fallSound;
+        return fallSound;
     }
 }

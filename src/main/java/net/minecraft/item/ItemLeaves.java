@@ -9,9 +9,9 @@ public class ItemLeaves extends ItemBlock
     public ItemLeaves(BlockLeaves block)
     {
         super(block);
-        this.leaves = block;
-        this.setMaxDamage(0);
-        this.setHasSubtypes(true);
+        leaves = block;
+        setMaxDamage(0);
+        setHasSubtypes(true);
     }
 
     /**
@@ -29,6 +29,6 @@ public class ItemLeaves extends ItemBlock
      */
     public String getUnlocalizedName(ItemStack stack)
     {
-        return super.getUnlocalizedName() + "." + this.leaves.getWoodType(stack.getMetadata()).getUnlocalizedName();
+        return super.getUnlocalizedName() + "." + leaves.getWoodType(stack.getMetadata()).getUnlocalizedName();
     }
 }

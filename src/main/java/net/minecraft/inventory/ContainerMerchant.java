@@ -18,29 +18,29 @@ public class ContainerMerchant extends Container
     public ContainerMerchant(InventoryPlayer playerInventory, IMerchant merchant, World worldIn)
     {
         this.merchant = merchant;
-        this.world = worldIn;
-        this.merchantInventory = new InventoryMerchant(playerInventory.player, merchant);
-        this.addSlotToContainer(new Slot(this.merchantInventory, 0, 36, 53));
-        this.addSlotToContainer(new Slot(this.merchantInventory, 1, 62, 53));
-        this.addSlotToContainer(new SlotMerchantResult(playerInventory.player, merchant, this.merchantInventory, 2, 120, 53));
+        world = worldIn;
+        merchantInventory = new InventoryMerchant(playerInventory.player, merchant);
+        addSlotToContainer(new Slot(merchantInventory, 0, 36, 53));
+        addSlotToContainer(new Slot(merchantInventory, 1, 62, 53));
+        addSlotToContainer(new SlotMerchantResult(playerInventory.player, merchant, merchantInventory, 2, 120, 53));
 
         for (int i = 0; i < 3; ++i)
         {
             for (int j = 0; j < 9; ++j)
             {
-                this.addSlotToContainer(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
+                addSlotToContainer(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
             }
         }
 
         for (int k = 0; k < 9; ++k)
         {
-            this.addSlotToContainer(new Slot(playerInventory, k, 8 + k * 18, 142));
+            addSlotToContainer(new Slot(playerInventory, k, 8 + k * 18, 142));
         }
     }
 
     public InventoryMerchant getMerchantInventory()
     {
-        return this.merchantInventory;
+        return merchantInventory;
     }
 
     /**
@@ -48,13 +48,13 @@ public class ContainerMerchant extends Container
      */
     public void onCraftMatrixChanged(IInventory inventoryIn)
     {
-        this.merchantInventory.resetRecipeAndSlots();
+        merchantInventory.resetRecipeAndSlots();
         super.onCraftMatrixChanged(inventoryIn);
     }
 
     public void setCurrentRecipeIndex(int currentRecipeIndex)
     {
-        this.merchantInventory.setCurrentRecipeIndex(currentRecipeIndex);
+        merchantInventory.setCurrentRecipeIndex(currentRecipeIndex);
     }
 
     /**
@@ -62,7 +62,7 @@ public class ContainerMerchant extends Container
      */
     public boolean canInteractWith(EntityPlayer playerIn)
     {
-        return this.merchant.getCustomer() == playerIn;
+        return merchant.getCustomer() == playerIn;
     }
 
     /**
@@ -72,7 +72,7 @@ public class ContainerMerchant extends Container
     public ItemStack transferStackInSlot(EntityPlayer playerIn, int index)
     {
         ItemStack itemstack = ItemStack.EMPTY;
-        Slot slot = this.inventorySlots.get(index);
+        Slot slot = inventorySlots.get(index);
 
         if (slot != null && slot.getHasStack())
         {
@@ -81,7 +81,7 @@ public class ContainerMerchant extends Container
 
             if (index == 2)
             {
-                if (!this.mergeItemStack(itemstack1, 3, 39, true))
+                if (!mergeItemStack(itemstack1, 3, 39, true))
                 {
                     return ItemStack.EMPTY;
                 }
@@ -92,17 +92,17 @@ public class ContainerMerchant extends Container
             {
                 if (index >= 3 && index < 30)
                 {
-                    if (!this.mergeItemStack(itemstack1, 30, 39, false))
+                    if (!mergeItemStack(itemstack1, 30, 39, false))
                     {
                         return ItemStack.EMPTY;
                     }
                 }
-                else if (index >= 30 && index < 39 && !this.mergeItemStack(itemstack1, 3, 30, false))
+                else if (index >= 30 && index < 39 && !mergeItemStack(itemstack1, 3, 30, false))
                 {
                     return ItemStack.EMPTY;
                 }
             }
-            else if (!this.mergeItemStack(itemstack1, 3, 39, false))
+            else if (!mergeItemStack(itemstack1, 3, 39, false))
             {
                 return ItemStack.EMPTY;
             }
@@ -133,19 +133,19 @@ public class ContainerMerchant extends Container
     public void onContainerClosed(EntityPlayer playerIn)
     {
         super.onContainerClosed(playerIn);
-        this.merchant.setCustomer((EntityPlayer)null);
+        merchant.setCustomer((EntityPlayer)null);
         super.onContainerClosed(playerIn);
 
-        if (!this.world.isRemote)
+        if (!world.isRemote)
         {
-            ItemStack itemstack = this.merchantInventory.removeStackFromSlot(0);
+            ItemStack itemstack = merchantInventory.removeStackFromSlot(0);
 
             if (!itemstack.isEmpty())
             {
                 playerIn.dropItem(itemstack, false);
             }
 
-            itemstack = this.merchantInventory.removeStackFromSlot(1);
+            itemstack = merchantInventory.removeStackFromSlot(1);
 
             if (!itemstack.isEmpty())
             {

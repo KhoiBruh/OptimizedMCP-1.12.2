@@ -19,7 +19,7 @@ public class TileEntityEndGatewayRenderer extends TileEntityEndPortalRenderer
         if (tileentityendgateway.isSpawning() || tileentityendgateway.isCoolingDown())
         {
             GlStateManager.alphaFunc(516, 0.1F);
-            this.bindTexture(END_GATEWAY_BEAM_TEXTURE);
+            bindTexture(END_GATEWAY_BEAM_TEXTURE);
             float f = tileentityendgateway.isSpawning() ? tileentityendgateway.getSpawnPercent(partialTicks) : tileentityendgateway.getCooldownPercent(partialTicks);
             double d0 = tileentityendgateway.isSpawning() ? 256.0D - y : 50.0D;
             f = MathHelper.sin(f * (float)Math.PI);

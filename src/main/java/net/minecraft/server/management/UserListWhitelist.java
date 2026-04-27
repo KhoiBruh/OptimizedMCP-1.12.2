@@ -18,10 +18,10 @@ public class UserListWhitelist extends UserList<GameProfile, UserListWhitelistEn
 
     public String[] getKeys()
     {
-        String[] astring = new String[this.getValues().size()];
+        String[] astring = new String[getValues().size()];
         int i = 0;
 
-        for (UserListWhitelistEntry userlistwhitelistentry : this.getValues().values())
+        for (UserListWhitelistEntry userlistwhitelistentry : getValues().values())
         {
             astring[i++] = ((GameProfile)userlistwhitelistentry.getValue()).getName();
         }
@@ -42,7 +42,7 @@ public class UserListWhitelist extends UserList<GameProfile, UserListWhitelistEn
      */
     public GameProfile getByName(String profileName)
     {
-        for (UserListWhitelistEntry userlistwhitelistentry : this.getValues().values())
+        for (UserListWhitelistEntry userlistwhitelistentry : getValues().values())
         {
             if (profileName.equalsIgnoreCase(((GameProfile)userlistwhitelistentry.getValue()).getName()))
             {

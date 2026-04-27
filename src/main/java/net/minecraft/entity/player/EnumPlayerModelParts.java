@@ -20,29 +20,29 @@ public enum EnumPlayerModelParts
 
     private EnumPlayerModelParts(int partIdIn, String partNameIn)
     {
-        this.partId = partIdIn;
-        this.partMask = 1 << partIdIn;
-        this.partName = partNameIn;
-        this.name = new TextComponentTranslation("options.modelPart." + partNameIn, new Object[0]);
+        partId = partIdIn;
+        partMask = 1 << partIdIn;
+        partName = partNameIn;
+        name = new TextComponentTranslation("options.modelPart." + partNameIn, new Object[0]);
     }
 
     public int getPartMask()
     {
-        return this.partMask;
+        return partMask;
     }
 
     public int getPartId()
     {
-        return this.partId;
+        return partId;
     }
 
     public String getPartName()
     {
-        return this.partName;
+        return partName;
     }
 
     public ITextComponent getName()
     {
-        return this.name;
+        return name;
     }
 }

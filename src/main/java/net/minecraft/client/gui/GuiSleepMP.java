@@ -14,7 +14,7 @@ public class GuiSleepMP extends GuiChat
     public void initGui()
     {
         super.initGui();
-        this.buttonList.add(new GuiButton(1, this.width / 2 - 100, this.height - 40, I18n.format("multiplayer.stopSleeping")));
+        buttonList.add(new GuiButton(1, width / 2 - 100, height - 40, I18n.format("multiplayer.stopSleeping")));
     }
 
     /**
@@ -25,7 +25,7 @@ public class GuiSleepMP extends GuiChat
     {
         if (keyCode == 1)
         {
-            this.wakeFromSleep();
+            wakeFromSleep();
         }
         else if (keyCode != 28 && keyCode != 156)
         {
@@ -33,15 +33,15 @@ public class GuiSleepMP extends GuiChat
         }
         else
         {
-            String s = this.inputField.getText().trim();
+            String s = inputField.getText().trim();
 
             if (!s.isEmpty())
             {
-                this.mc.player.sendChatMessage(s);
+                mc.player.sendChatMessage(s);
             }
 
-            this.inputField.setText("");
-            this.mc.ingameGUI.getChatGUI().resetScroll();
+            inputField.setText("");
+            mc.ingameGUI.getChatGUI().resetScroll();
         }
     }
 
@@ -52,7 +52,7 @@ public class GuiSleepMP extends GuiChat
     {
         if (button.id == 1)
         {
-            this.wakeFromSleep();
+            wakeFromSleep();
         }
         else
         {
@@ -62,7 +62,7 @@ public class GuiSleepMP extends GuiChat
 
     private void wakeFromSleep()
     {
-        NetHandlerPlayClient nethandlerplayclient = this.mc.player.connection;
-        nethandlerplayclient.sendPacket(new CPacketEntityAction(this.mc.player, CPacketEntityAction.Action.STOP_SLEEPING));
+        NetHandlerPlayClient nethandlerplayclient = mc.player.connection;
+        nethandlerplayclient.sendPacket(new CPacketEntityAction(mc.player, CPacketEntityAction.Action.STOP_SLEEPING));
     }
 }

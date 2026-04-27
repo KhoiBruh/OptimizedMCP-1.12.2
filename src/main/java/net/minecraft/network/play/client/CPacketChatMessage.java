@@ -20,7 +20,7 @@ public class CPacketChatMessage implements Packet<INetHandlerPlayServer>
             messageIn = messageIn.substring(0, 256);
         }
 
-        this.message = messageIn;
+        message = messageIn;
     }
 
     /**
@@ -28,7 +28,7 @@ public class CPacketChatMessage implements Packet<INetHandlerPlayServer>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.message = buf.readString(256);
+        message = buf.readString(256);
     }
 
     /**
@@ -36,7 +36,7 @@ public class CPacketChatMessage implements Packet<INetHandlerPlayServer>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeString(this.message);
+        buf.writeString(message);
     }
 
     /**
@@ -49,6 +49,6 @@ public class CPacketChatMessage implements Packet<INetHandlerPlayServer>
 
     public String getMessage()
     {
-        return this.message;
+        return message;
     }
 }

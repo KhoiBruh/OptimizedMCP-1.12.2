@@ -44,20 +44,20 @@ public class PotionEffect implements Comparable<PotionEffect>
 
     public PotionEffect(Potion potionIn, int durationIn, int amplifierIn, boolean ambientIn, boolean showParticlesIn)
     {
-        this.potion = potionIn;
-        this.duration = durationIn;
-        this.amplifier = amplifierIn;
-        this.isAmbient = ambientIn;
-        this.showParticles = showParticlesIn;
+        potion = potionIn;
+        duration = durationIn;
+        amplifier = amplifierIn;
+        isAmbient = ambientIn;
+        showParticles = showParticlesIn;
     }
 
     public PotionEffect(PotionEffect other)
     {
-        this.potion = other.potion;
-        this.duration = other.duration;
-        this.amplifier = other.amplifier;
-        this.isAmbient = other.isAmbient;
-        this.showParticles = other.showParticles;
+        potion = other.potion;
+        duration = other.duration;
+        amplifier = other.amplifier;
+        isAmbient = other.isAmbient;
+        showParticles = other.showParticles;
     }
 
     /**
@@ -66,41 +66,41 @@ public class PotionEffect implements Comparable<PotionEffect>
      */
     public void combine(PotionEffect other)
     {
-        if (this.potion != other.potion)
+        if (potion != other.potion)
         {
             LOGGER.warn("This method should only be called for matching effects!");
         }
 
-        if (other.amplifier > this.amplifier)
+        if (other.amplifier > amplifier)
         {
-            this.amplifier = other.amplifier;
-            this.duration = other.duration;
+            amplifier = other.amplifier;
+            duration = other.duration;
         }
-        else if (other.amplifier == this.amplifier && this.duration < other.duration)
+        else if (other.amplifier == amplifier && duration < other.duration)
         {
-            this.duration = other.duration;
+            duration = other.duration;
         }
-        else if (!other.isAmbient && this.isAmbient)
+        else if (!other.isAmbient && isAmbient)
         {
-            this.isAmbient = other.isAmbient;
+            isAmbient = other.isAmbient;
         }
 
-        this.showParticles = other.showParticles;
+        showParticles = other.showParticles;
     }
 
     public Potion getPotion()
     {
-        return this.potion;
+        return potion;
     }
 
     public int getDuration()
     {
-        return this.duration;
+        return duration;
     }
 
     public int getAmplifier()
     {
-        return this.amplifier;
+        return amplifier;
     }
 
     /**
@@ -108,7 +108,7 @@ public class PotionEffect implements Comparable<PotionEffect>
      */
     public boolean getIsAmbient()
     {
-        return this.isAmbient;
+        return isAmbient;
     }
 
     /**
@@ -116,61 +116,61 @@ public class PotionEffect implements Comparable<PotionEffect>
      */
     public boolean doesShowParticles()
     {
-        return this.showParticles;
+        return showParticles;
     }
 
     public boolean onUpdate(EntityLivingBase entityIn)
     {
-        if (this.duration > 0)
+        if (duration > 0)
         {
-            if (this.potion.isReady(this.duration, this.amplifier))
+            if (potion.isReady(duration, amplifier))
             {
-                this.performEffect(entityIn);
+                performEffect(entityIn);
             }
 
-            this.deincrementDuration();
+            deincrementDuration();
         }
 
-        return this.duration > 0;
+        return duration > 0;
     }
 
     private int deincrementDuration()
     {
-        return --this.duration;
+        return --duration;
     }
 
     public void performEffect(EntityLivingBase entityIn)
     {
-        if (this.duration > 0)
+        if (duration > 0)
         {
-            this.potion.performEffect(entityIn, this.amplifier);
+            potion.performEffect(entityIn, amplifier);
         }
     }
 
     public String getEffectName()
     {
-        return this.potion.getName();
+        return potion.getName();
     }
 
     public String toString()
     {
         String s;
 
-        if (this.amplifier > 0)
+        if (amplifier > 0)
         {
-            s = this.getEffectName() + " x " + (this.amplifier + 1) + ", Duration: " + this.duration;
+            s = getEffectName() + " x " + (amplifier + 1) + ", Duration: " + duration;
         }
         else
         {
-            s = this.getEffectName() + ", Duration: " + this.duration;
+            s = getEffectName() + ", Duration: " + duration;
         }
 
-        if (this.isSplashPotion)
+        if (isSplashPotion)
         {
             s = s + ", Splash: true";
         }
 
-        if (!this.showParticles)
+        if (!showParticles)
         {
             s = s + ", Particles: false";
         }
@@ -191,17 +191,17 @@ public class PotionEffect implements Comparable<PotionEffect>
         else
         {
             PotionEffect potioneffect = (PotionEffect)p_equals_1_;
-            return this.duration == potioneffect.duration && this.amplifier == potioneffect.amplifier && this.isSplashPotion == potioneffect.isSplashPotion && this.isAmbient == potioneffect.isAmbient && this.potion.equals(potioneffect.potion);
+            return duration == potioneffect.duration && amplifier == potioneffect.amplifier && isSplashPotion == potioneffect.isSplashPotion && isAmbient == potioneffect.isAmbient && potion.equals(potioneffect.potion);
         }
     }
 
     public int hashCode()
     {
-        int i = this.potion.hashCode();
-        i = 31 * i + this.duration;
-        i = 31 * i + this.amplifier;
-        i = 31 * i + (this.isSplashPotion ? 1 : 0);
-        i = 31 * i + (this.isAmbient ? 1 : 0);
+        int i = potion.hashCode();
+        i = 31 * i + duration;
+        i = 31 * i + amplifier;
+        i = 31 * i + (isSplashPotion ? 1 : 0);
+        i = 31 * i + (isAmbient ? 1 : 0);
         return i;
     }
 
@@ -210,11 +210,11 @@ public class PotionEffect implements Comparable<PotionEffect>
      */
     public NBTTagCompound writeCustomPotionEffectToNBT(NBTTagCompound nbt)
     {
-        nbt.setByte("Id", (byte)Potion.getIdFromPotion(this.getPotion()));
-        nbt.setByte("Amplifier", (byte)this.getAmplifier());
-        nbt.setInteger("Duration", this.getDuration());
-        nbt.setBoolean("Ambient", this.getIsAmbient());
-        nbt.setBoolean("ShowParticles", this.doesShowParticles());
+        nbt.setByte("Id", (byte)Potion.getIdFromPotion(getPotion()));
+        nbt.setByte("Amplifier", (byte) getAmplifier());
+        nbt.setInteger("Duration", getDuration());
+        nbt.setBoolean("Ambient", getIsAmbient());
+        nbt.setBoolean("ShowParticles", doesShowParticles());
         return nbt;
     }
 
@@ -251,7 +251,7 @@ public class PotionEffect implements Comparable<PotionEffect>
      */
     public void setPotionDurationMax(boolean maxDuration)
     {
-        this.isPotionDurationMax = maxDuration;
+        isPotionDurationMax = maxDuration;
     }
 
     /**
@@ -259,12 +259,12 @@ public class PotionEffect implements Comparable<PotionEffect>
      */
     public boolean getIsPotionDurationMax()
     {
-        return this.isPotionDurationMax;
+        return isPotionDurationMax;
     }
 
     public int compareTo(PotionEffect p_compareTo_1_)
     {
         int i = 32147;
-        return (this.getDuration() <= 32147 || p_compareTo_1_.getDuration() <= 32147) && (!this.getIsAmbient() || !p_compareTo_1_.getIsAmbient()) ? ComparisonChain.start().compare(Boolean.valueOf(this.getIsAmbient()), Boolean.valueOf(p_compareTo_1_.getIsAmbient())).compare(this.getDuration(), p_compareTo_1_.getDuration()).compare(this.getPotion().getLiquidColor(), p_compareTo_1_.getPotion().getLiquidColor()).result() : ComparisonChain.start().compare(Boolean.valueOf(this.getIsAmbient()), Boolean.valueOf(p_compareTo_1_.getIsAmbient())).compare(this.getPotion().getLiquidColor(), p_compareTo_1_.getPotion().getLiquidColor()).result();
+        return (getDuration() <= 32147 || p_compareTo_1_.getDuration() <= 32147) && (!getIsAmbient() || !p_compareTo_1_.getIsAmbient()) ? ComparisonChain.start().compare(Boolean.valueOf(getIsAmbient()), Boolean.valueOf(p_compareTo_1_.getIsAmbient())).compare(getDuration(), p_compareTo_1_.getDuration()).compare(getPotion().getLiquidColor(), p_compareTo_1_.getPotion().getLiquidColor()).result() : ComparisonChain.start().compare(Boolean.valueOf(getIsAmbient()), Boolean.valueOf(p_compareTo_1_.getIsAmbient())).compare(getPotion().getLiquidColor(), p_compareTo_1_.getPotion().getLiquidColor()).result();
     }
 }

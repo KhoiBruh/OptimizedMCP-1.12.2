@@ -16,30 +16,30 @@ public class RecipeBook
 
     public void copyFrom(RecipeBook that)
     {
-        this.recipes.clear();
-        this.newRecipes.clear();
-        this.recipes.or(that.recipes);
-        this.newRecipes.or(that.newRecipes);
+        recipes.clear();
+        newRecipes.clear();
+        recipes.or(that.recipes);
+        newRecipes.or(that.newRecipes);
     }
 
     public void unlock(IRecipe recipe)
     {
         if (!recipe.isDynamic())
         {
-            this.recipes.set(getRecipeId(recipe));
+            recipes.set(getRecipeId(recipe));
         }
     }
 
     public boolean isUnlocked(@Nullable IRecipe recipe)
     {
-        return this.recipes.get(getRecipeId(recipe));
+        return recipes.get(getRecipeId(recipe));
     }
 
     public void lock(IRecipe recipe)
     {
         int i = getRecipeId(recipe);
-        this.recipes.clear(i);
-        this.newRecipes.clear(i);
+        recipes.clear(i);
+        newRecipes.clear(i);
     }
 
     protected static int getRecipeId(@Nullable IRecipe recipe)
@@ -49,36 +49,36 @@ public class RecipeBook
 
     public boolean isNew(IRecipe recipe)
     {
-        return this.newRecipes.get(getRecipeId(recipe));
+        return newRecipes.get(getRecipeId(recipe));
     }
 
     public void markSeen(IRecipe recipe)
     {
-        this.newRecipes.clear(getRecipeId(recipe));
+        newRecipes.clear(getRecipeId(recipe));
     }
 
     public void markNew(IRecipe recipe)
     {
-        this.newRecipes.set(getRecipeId(recipe));
+        newRecipes.set(getRecipeId(recipe));
     }
 
     public boolean isGuiOpen()
     {
-        return this.isGuiOpen;
+        return isGuiOpen;
     }
 
     public void setGuiOpen(boolean open)
     {
-        this.isGuiOpen = open;
+        isGuiOpen = open;
     }
 
     public boolean isFilteringCraftable()
     {
-        return this.isFilteringCraftable;
+        return isFilteringCraftable;
     }
 
     public void setFilteringCraftable(boolean shouldFilter)
     {
-        this.isFilteringCraftable = shouldFilter;
+        isFilteringCraftable = shouldFilter;
     }
 }

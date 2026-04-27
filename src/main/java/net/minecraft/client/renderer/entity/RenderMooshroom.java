@@ -12,7 +12,7 @@ public class RenderMooshroom extends RenderLiving<EntityMooshroom>
     public RenderMooshroom(RenderManager p_i47200_1_)
     {
         super(p_i47200_1_, new ModelCow(), 0.7F);
-        this.addLayer(new LayerMooshroomMushroom(this));
+        addLayer(new LayerMooshroomMushroom(this));
     }
 
     public ModelCow getMainModel()

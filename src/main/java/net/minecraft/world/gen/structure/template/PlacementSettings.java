@@ -38,98 +38,98 @@ public class PlacementSettings
     public PlacementSettings copy()
     {
         PlacementSettings placementsettings = new PlacementSettings();
-        placementsettings.mirror = this.mirror;
-        placementsettings.rotation = this.rotation;
-        placementsettings.ignoreEntities = this.ignoreEntities;
-        placementsettings.replacedBlock = this.replacedBlock;
-        placementsettings.chunk = this.chunk;
-        placementsettings.boundingBox = this.boundingBox;
-        placementsettings.ignoreStructureBlock = this.ignoreStructureBlock;
-        placementsettings.integrity = this.integrity;
-        placementsettings.random = this.random;
-        placementsettings.setSeed = this.setSeed;
+        placementsettings.mirror = mirror;
+        placementsettings.rotation = rotation;
+        placementsettings.ignoreEntities = ignoreEntities;
+        placementsettings.replacedBlock = replacedBlock;
+        placementsettings.chunk = chunk;
+        placementsettings.boundingBox = boundingBox;
+        placementsettings.ignoreStructureBlock = ignoreStructureBlock;
+        placementsettings.integrity = integrity;
+        placementsettings.random = random;
+        placementsettings.setSeed = setSeed;
         return placementsettings;
     }
 
     public PlacementSettings setMirror(Mirror mirrorIn)
     {
-        this.mirror = mirrorIn;
+        mirror = mirrorIn;
         return this;
     }
 
     public PlacementSettings setRotation(Rotation rotationIn)
     {
-        this.rotation = rotationIn;
+        rotation = rotationIn;
         return this;
     }
 
     public PlacementSettings setIgnoreEntities(boolean ignoreEntitiesIn)
     {
-        this.ignoreEntities = ignoreEntitiesIn;
+        ignoreEntities = ignoreEntitiesIn;
         return this;
     }
 
     public PlacementSettings setReplacedBlock(Block replacedBlockIn)
     {
-        this.replacedBlock = replacedBlockIn;
+        replacedBlock = replacedBlockIn;
         return this;
     }
 
     public PlacementSettings setChunk(ChunkPos chunkPosIn)
     {
-        this.chunk = chunkPosIn;
+        chunk = chunkPosIn;
         return this;
     }
 
     public PlacementSettings setBoundingBox(StructureBoundingBox boundingBoxIn)
     {
-        this.boundingBox = boundingBoxIn;
+        boundingBox = boundingBoxIn;
         return this;
     }
 
     public PlacementSettings setSeed(@Nullable Long seedIn)
     {
-        this.setSeed = seedIn;
+        setSeed = seedIn;
         return this;
     }
 
     public PlacementSettings setRandom(@Nullable Random randomIn)
     {
-        this.random = randomIn;
+        random = randomIn;
         return this;
     }
 
     public PlacementSettings setIntegrity(float integrityIn)
     {
-        this.integrity = integrityIn;
+        integrity = integrityIn;
         return this;
     }
 
     public Mirror getMirror()
     {
-        return this.mirror;
+        return mirror;
     }
 
     public PlacementSettings setIgnoreStructureBlock(boolean ignoreStructureBlockIn)
     {
-        this.ignoreStructureBlock = ignoreStructureBlockIn;
+        ignoreStructureBlock = ignoreStructureBlockIn;
         return this;
     }
 
     public Rotation getRotation()
     {
-        return this.rotation;
+        return rotation;
     }
 
     public Random getRandom(@Nullable BlockPos seed)
     {
-        if (this.random != null)
+        if (random != null)
         {
-            return this.random;
+            return random;
         }
-        else if (this.setSeed != null)
+        else if (setSeed != null)
         {
-            return this.setSeed.longValue() == 0L ? new Random(System.currentTimeMillis()) : new Random(this.setSeed.longValue());
+            return setSeed.longValue() == 0L ? new Random(System.currentTimeMillis()) : new Random(setSeed.longValue());
         }
         else if (seed == null)
         {
@@ -145,39 +145,39 @@ public class PlacementSettings
 
     public float getIntegrity()
     {
-        return this.integrity;
+        return integrity;
     }
 
     public boolean getIgnoreEntities()
     {
-        return this.ignoreEntities;
+        return ignoreEntities;
     }
 
     @Nullable
     public Block getReplacedBlock()
     {
-        return this.replacedBlock;
+        return replacedBlock;
     }
 
     @Nullable
     public StructureBoundingBox getBoundingBox()
     {
-        if (this.boundingBox == null && this.chunk != null)
+        if (boundingBox == null && chunk != null)
         {
-            this.setBoundingBoxFromChunk();
+            setBoundingBoxFromChunk();
         }
 
-        return this.boundingBox;
+        return boundingBox;
     }
 
     public boolean getIgnoreStructureBlock()
     {
-        return this.ignoreStructureBlock;
+        return ignoreStructureBlock;
     }
 
     void setBoundingBoxFromChunk()
     {
-        this.boundingBox = this.getBoundingBoxFromChunk(this.chunk);
+        boundingBox = getBoundingBoxFromChunk(chunk);
     }
 
     @Nullable

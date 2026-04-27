@@ -52,97 +52,97 @@ public class TileEntityStructure extends TileEntity
     public NBTTagCompound writeToNBT(NBTTagCompound compound)
     {
         super.writeToNBT(compound);
-        compound.setString("name", this.name);
-        compound.setString("author", this.author);
-        compound.setString("metadata", this.metadata);
-        compound.setInteger("posX", this.position.getX());
-        compound.setInteger("posY", this.position.getY());
-        compound.setInteger("posZ", this.position.getZ());
-        compound.setInteger("sizeX", this.size.getX());
-        compound.setInteger("sizeY", this.size.getY());
-        compound.setInteger("sizeZ", this.size.getZ());
-        compound.setString("rotation", this.rotation.toString());
-        compound.setString("mirror", this.mirror.toString());
-        compound.setString("mode", this.mode.toString());
-        compound.setBoolean("ignoreEntities", this.ignoreEntities);
-        compound.setBoolean("powered", this.powered);
-        compound.setBoolean("showair", this.showAir);
-        compound.setBoolean("showboundingbox", this.showBoundingBox);
-        compound.setFloat("integrity", this.integrity);
-        compound.setLong("seed", this.seed);
+        compound.setString("name", name);
+        compound.setString("author", author);
+        compound.setString("metadata", metadata);
+        compound.setInteger("posX", position.getX());
+        compound.setInteger("posY", position.getY());
+        compound.setInteger("posZ", position.getZ());
+        compound.setInteger("sizeX", size.getX());
+        compound.setInteger("sizeY", size.getY());
+        compound.setInteger("sizeZ", size.getZ());
+        compound.setString("rotation", rotation.toString());
+        compound.setString("mirror", mirror.toString());
+        compound.setString("mode", mode.toString());
+        compound.setBoolean("ignoreEntities", ignoreEntities);
+        compound.setBoolean("powered", powered);
+        compound.setBoolean("showair", showAir);
+        compound.setBoolean("showboundingbox", showBoundingBox);
+        compound.setFloat("integrity", integrity);
+        compound.setLong("seed", seed);
         return compound;
     }
 
     public void readFromNBT(NBTTagCompound compound)
     {
         super.readFromNBT(compound);
-        this.setName(compound.getString("name"));
-        this.author = compound.getString("author");
-        this.metadata = compound.getString("metadata");
+        setName(compound.getString("name"));
+        author = compound.getString("author");
+        metadata = compound.getString("metadata");
         int i = MathHelper.clamp(compound.getInteger("posX"), -32, 32);
         int j = MathHelper.clamp(compound.getInteger("posY"), -32, 32);
         int k = MathHelper.clamp(compound.getInteger("posZ"), -32, 32);
-        this.position = new BlockPos(i, j, k);
+        position = new BlockPos(i, j, k);
         int l = MathHelper.clamp(compound.getInteger("sizeX"), 0, 32);
         int i1 = MathHelper.clamp(compound.getInteger("sizeY"), 0, 32);
         int j1 = MathHelper.clamp(compound.getInteger("sizeZ"), 0, 32);
-        this.size = new BlockPos(l, i1, j1);
+        size = new BlockPos(l, i1, j1);
 
         try
         {
-            this.rotation = Rotation.valueOf(compound.getString("rotation"));
+            rotation = Rotation.valueOf(compound.getString("rotation"));
         }
         catch (IllegalArgumentException var11)
         {
-            this.rotation = Rotation.NONE;
+            rotation = Rotation.NONE;
         }
 
         try
         {
-            this.mirror = Mirror.valueOf(compound.getString("mirror"));
+            mirror = Mirror.valueOf(compound.getString("mirror"));
         }
         catch (IllegalArgumentException var10)
         {
-            this.mirror = Mirror.NONE;
+            mirror = Mirror.NONE;
         }
 
         try
         {
-            this.mode = TileEntityStructure.Mode.valueOf(compound.getString("mode"));
+            mode = TileEntityStructure.Mode.valueOf(compound.getString("mode"));
         }
         catch (IllegalArgumentException var9)
         {
-            this.mode = TileEntityStructure.Mode.DATA;
+            mode = TileEntityStructure.Mode.DATA;
         }
 
-        this.ignoreEntities = compound.getBoolean("ignoreEntities");
-        this.powered = compound.getBoolean("powered");
-        this.showAir = compound.getBoolean("showair");
-        this.showBoundingBox = compound.getBoolean("showboundingbox");
+        ignoreEntities = compound.getBoolean("ignoreEntities");
+        powered = compound.getBoolean("powered");
+        showAir = compound.getBoolean("showair");
+        showBoundingBox = compound.getBoolean("showboundingbox");
 
         if (compound.hasKey("integrity"))
         {
-            this.integrity = compound.getFloat("integrity");
+            integrity = compound.getFloat("integrity");
         }
         else
         {
-            this.integrity = 1.0F;
+            integrity = 1.0F;
         }
 
-        this.seed = compound.getLong("seed");
-        this.updateBlockState();
+        seed = compound.getLong("seed");
+        updateBlockState();
     }
 
     private void updateBlockState()
     {
-        if (this.world != null)
+        if (world != null)
         {
-            BlockPos blockpos = this.getPos();
-            IBlockState iblockstate = this.world.getBlockState(blockpos);
+            BlockPos blockpos = getPos();
+            IBlockState iblockstate = world.getBlockState(blockpos);
 
             if (iblockstate.getBlock() == Blocks.STRUCTURE_BLOCK)
             {
-                this.world.setBlockState(blockpos, iblockstate.withProperty(BlockStructure.MODE, this.mode), 2);
+                world.setBlockState(blockpos, iblockstate.withProperty(BlockStructure.MODE, mode), 2);
             }
         }
     }
@@ -150,12 +150,12 @@ public class TileEntityStructure extends TileEntity
     @Nullable
     public SPacketUpdateTileEntity getUpdatePacket()
     {
-        return new SPacketUpdateTileEntity(this.pos, 7, this.getUpdateTag());
+        return new SPacketUpdateTileEntity(pos, 7, getUpdateTag());
     }
 
     public NBTTagCompound getUpdateTag()
     {
-        return this.writeToNBT(new NBTTagCompound());
+        return writeToNBT(new NBTTagCompound());
     }
 
     public boolean usedBy(EntityPlayer player)
@@ -177,7 +177,7 @@ public class TileEntityStructure extends TileEntity
 
     public String getName()
     {
-        return this.name;
+        return name;
     }
 
     public void setName(String nameIn)
@@ -189,148 +189,148 @@ public class TileEntityStructure extends TileEntity
             s = s.replace(c0, '_');
         }
 
-        this.name = s;
+        name = s;
     }
 
     public void createdBy(EntityLivingBase p_189720_1_)
     {
         if (!StringUtils.isNullOrEmpty(p_189720_1_.getName()))
         {
-            this.author = p_189720_1_.getName();
+            author = p_189720_1_.getName();
         }
     }
 
     public BlockPos getPosition()
     {
-        return this.position;
+        return position;
     }
 
     public void setPosition(BlockPos posIn)
     {
-        this.position = posIn;
+        position = posIn;
     }
 
     public BlockPos getStructureSize()
     {
-        return this.size;
+        return size;
     }
 
     public void setSize(BlockPos sizeIn)
     {
-        this.size = sizeIn;
+        size = sizeIn;
     }
 
     public Mirror getMirror()
     {
-        return this.mirror;
+        return mirror;
     }
 
     public void setMirror(Mirror mirrorIn)
     {
-        this.mirror = mirrorIn;
+        mirror = mirrorIn;
     }
 
     public Rotation getRotation()
     {
-        return this.rotation;
+        return rotation;
     }
 
     public void setRotation(Rotation rotationIn)
     {
-        this.rotation = rotationIn;
+        rotation = rotationIn;
     }
 
     public String getMetadata()
     {
-        return this.metadata;
+        return metadata;
     }
 
     public void setMetadata(String metadataIn)
     {
-        this.metadata = metadataIn;
+        metadata = metadataIn;
     }
 
     public TileEntityStructure.Mode getMode()
     {
-        return this.mode;
+        return mode;
     }
 
     public void setMode(TileEntityStructure.Mode modeIn)
     {
-        this.mode = modeIn;
-        IBlockState iblockstate = this.world.getBlockState(this.getPos());
+        mode = modeIn;
+        IBlockState iblockstate = world.getBlockState(getPos());
 
         if (iblockstate.getBlock() == Blocks.STRUCTURE_BLOCK)
         {
-            this.world.setBlockState(this.getPos(), iblockstate.withProperty(BlockStructure.MODE, modeIn), 2);
+            world.setBlockState(getPos(), iblockstate.withProperty(BlockStructure.MODE, modeIn), 2);
         }
     }
 
     public void nextMode()
     {
-        switch (this.getMode())
+        switch (getMode())
         {
             case SAVE:
-                this.setMode(TileEntityStructure.Mode.LOAD);
+                setMode(TileEntityStructure.Mode.LOAD);
                 break;
 
             case LOAD:
-                this.setMode(TileEntityStructure.Mode.CORNER);
+                setMode(TileEntityStructure.Mode.CORNER);
                 break;
 
             case CORNER:
-                this.setMode(TileEntityStructure.Mode.DATA);
+                setMode(TileEntityStructure.Mode.DATA);
                 break;
 
             case DATA:
-                this.setMode(TileEntityStructure.Mode.SAVE);
+                setMode(TileEntityStructure.Mode.SAVE);
         }
     }
 
     public boolean ignoresEntities()
     {
-        return this.ignoreEntities;
+        return ignoreEntities;
     }
 
     public void setIgnoresEntities(boolean ignoreEntitiesIn)
     {
-        this.ignoreEntities = ignoreEntitiesIn;
+        ignoreEntities = ignoreEntitiesIn;
     }
 
     public float getIntegrity()
     {
-        return this.integrity;
+        return integrity;
     }
 
     public void setIntegrity(float integrityIn)
     {
-        this.integrity = integrityIn;
+        integrity = integrityIn;
     }
 
     public long getSeed()
     {
-        return this.seed;
+        return seed;
     }
 
     public void setSeed(long seedIn)
     {
-        this.seed = seedIn;
+        seed = seedIn;
     }
 
     public boolean detectSize()
     {
-        if (this.mode != TileEntityStructure.Mode.SAVE)
+        if (mode != TileEntityStructure.Mode.SAVE)
         {
             return false;
         }
         else
         {
-            BlockPos blockpos = this.getPos();
+            BlockPos blockpos = getPos();
             int i = 80;
             BlockPos blockpos1 = new BlockPos(blockpos.getX() - 80, 0, blockpos.getZ() - 80);
             BlockPos blockpos2 = new BlockPos(blockpos.getX() + 80, 255, blockpos.getZ() + 80);
-            List<TileEntityStructure> list = this.getNearbyCornerBlocks(blockpos1, blockpos2);
-            List<TileEntityStructure> list1 = this.filterRelatedCornerBlocks(list);
+            List<TileEntityStructure> list = getNearbyCornerBlocks(blockpos1, blockpos2);
+            List<TileEntityStructure> list1 = filterRelatedCornerBlocks(list);
 
             if (list1.size() < 1)
             {
@@ -338,15 +338,15 @@ public class TileEntityStructure extends TileEntity
             }
             else
             {
-                StructureBoundingBox structureboundingbox = this.calculateEnclosingBoundingBox(blockpos, list1);
+                StructureBoundingBox structureboundingbox = calculateEnclosingBoundingBox(blockpos, list1);
 
                 if (structureboundingbox.maxX - structureboundingbox.minX > 1 && structureboundingbox.maxY - structureboundingbox.minY > 1 && structureboundingbox.maxZ - structureboundingbox.minZ > 1)
                 {
-                    this.position = new BlockPos(structureboundingbox.minX - blockpos.getX() + 1, structureboundingbox.minY - blockpos.getY() + 1, structureboundingbox.minZ - blockpos.getZ() + 1);
-                    this.size = new BlockPos(structureboundingbox.maxX - structureboundingbox.minX - 1, structureboundingbox.maxY - structureboundingbox.minY - 1, structureboundingbox.maxZ - structureboundingbox.minZ - 1);
-                    this.markDirty();
-                    IBlockState iblockstate = this.world.getBlockState(blockpos);
-                    this.world.notifyBlockUpdate(blockpos, iblockstate, iblockstate, 3);
+                    position = new BlockPos(structureboundingbox.minX - blockpos.getX() + 1, structureboundingbox.minY - blockpos.getY() + 1, structureboundingbox.minZ - blockpos.getZ() + 1);
+                    size = new BlockPos(structureboundingbox.maxX - structureboundingbox.minX - 1, structureboundingbox.maxY - structureboundingbox.minY - 1, structureboundingbox.maxZ - structureboundingbox.minZ - 1);
+                    markDirty();
+                    IBlockState iblockstate = world.getBlockState(blockpos);
+                    world.notifyBlockUpdate(blockpos, iblockstate, iblockstate, 3);
                     return true;
                 }
                 else
@@ -363,7 +363,7 @@ public class TileEntityStructure extends TileEntity
         {
             public boolean apply(@Nullable TileEntityStructure p_apply_1_)
             {
-                return p_apply_1_.mode == TileEntityStructure.Mode.CORNER && TileEntityStructure.this.name.equals(p_apply_1_.name);
+                return p_apply_1_.mode == TileEntityStructure.Mode.CORNER && name.equals(p_apply_1_.name);
             }
         });
         return Lists.newArrayList(iterable);
@@ -375,11 +375,11 @@ public class TileEntityStructure extends TileEntity
 
         for (BlockPos.MutableBlockPos blockpos$mutableblockpos : BlockPos.getAllInBoxMutable(p_184418_1_, p_184418_2_))
         {
-            IBlockState iblockstate = this.world.getBlockState(blockpos$mutableblockpos);
+            IBlockState iblockstate = world.getBlockState(blockpos$mutableblockpos);
 
             if (iblockstate.getBlock() == Blocks.STRUCTURE_BLOCK)
             {
-                TileEntity tileentity = this.world.getTileEntity(blockpos$mutableblockpos);
+                TileEntity tileentity = world.getTileEntity(blockpos$mutableblockpos);
 
                 if (tileentity != null && tileentity instanceof TileEntityStructure)
                 {
@@ -442,9 +442,9 @@ public class TileEntityStructure extends TileEntity
 
     public void writeCoordinates(ByteBuf buf)
     {
-        buf.writeInt(this.pos.getX());
-        buf.writeInt(this.pos.getY());
-        buf.writeInt(this.pos.getZ());
+        buf.writeInt(pos.getX());
+        buf.writeInt(pos.getY());
+        buf.writeInt(pos.getZ());
     }
 
     /**
@@ -454,7 +454,7 @@ public class TileEntityStructure extends TileEntity
      */
     public boolean save()
     {
-        return this.save(true);
+        return save(true);
     }
 
     /**
@@ -468,16 +468,16 @@ public class TileEntityStructure extends TileEntity
      */
     public boolean save(boolean writeToDisk)
     {
-        if (this.mode == TileEntityStructure.Mode.SAVE && !this.world.isRemote && !StringUtils.isNullOrEmpty(this.name))
+        if (mode == TileEntityStructure.Mode.SAVE && !world.isRemote && !StringUtils.isNullOrEmpty(name))
         {
-            BlockPos blockpos = this.getPos().add(this.position);
-            WorldServer worldserver = (WorldServer)this.world;
-            MinecraftServer minecraftserver = this.world.getMinecraftServer();
+            BlockPos blockpos = getPos().add(position);
+            WorldServer worldserver = (WorldServer) world;
+            MinecraftServer minecraftserver = world.getMinecraftServer();
             TemplateManager templatemanager = worldserver.getStructureTemplateManager();
-            Template template = templatemanager.getTemplate(minecraftserver, new ResourceLocation(this.name));
-            template.takeBlocksFromWorld(this.world, blockpos, this.size, !this.ignoreEntities, Blocks.STRUCTURE_VOID);
-            template.setAuthor(this.author);
-            return !writeToDisk || templatemanager.writeTemplate(minecraftserver, new ResourceLocation(this.name));
+            Template template = templatemanager.getTemplate(minecraftserver, new ResourceLocation(name));
+            template.takeBlocksFromWorld(world, blockpos, size, !ignoreEntities, Blocks.STRUCTURE_VOID);
+            template.setAuthor(author);
+            return !writeToDisk || templatemanager.writeTemplate(minecraftserver, new ResourceLocation(name));
         }
         else
         {
@@ -493,7 +493,7 @@ public class TileEntityStructure extends TileEntity
      */
     public boolean load()
     {
-        return this.load(true);
+        return load(true);
     }
 
     /**
@@ -507,14 +507,14 @@ public class TileEntityStructure extends TileEntity
      */
     public boolean load(boolean requireMatchingSize)
     {
-        if (this.mode == TileEntityStructure.Mode.LOAD && !this.world.isRemote && !StringUtils.isNullOrEmpty(this.name))
+        if (mode == TileEntityStructure.Mode.LOAD && !world.isRemote && !StringUtils.isNullOrEmpty(name))
         {
-            BlockPos blockpos = this.getPos();
-            BlockPos blockpos1 = blockpos.add(this.position);
-            WorldServer worldserver = (WorldServer)this.world;
-            MinecraftServer minecraftserver = this.world.getMinecraftServer();
+            BlockPos blockpos = getPos();
+            BlockPos blockpos1 = blockpos.add(position);
+            WorldServer worldserver = (WorldServer) world;
+            MinecraftServer minecraftserver = world.getMinecraftServer();
             TemplateManager templatemanager = worldserver.getStructureTemplateManager();
-            Template template = templatemanager.get(minecraftserver, new ResourceLocation(this.name));
+            Template template = templatemanager.get(minecraftserver, new ResourceLocation(name));
 
             if (template == null)
             {
@@ -524,18 +524,18 @@ public class TileEntityStructure extends TileEntity
             {
                 if (!StringUtils.isNullOrEmpty(template.getAuthor()))
                 {
-                    this.author = template.getAuthor();
+                    author = template.getAuthor();
                 }
 
                 BlockPos blockpos2 = template.getSize();
-                boolean flag = this.size.equals(blockpos2);
+                boolean flag = size.equals(blockpos2);
 
                 if (!flag)
                 {
-                    this.size = blockpos2;
-                    this.markDirty();
-                    IBlockState iblockstate = this.world.getBlockState(blockpos);
-                    this.world.notifyBlockUpdate(blockpos, iblockstate, iblockstate, 3);
+                    size = blockpos2;
+                    markDirty();
+                    IBlockState iblockstate = world.getBlockState(blockpos);
+                    world.notifyBlockUpdate(blockpos, iblockstate, iblockstate, 3);
                 }
 
                 if (requireMatchingSize && !flag)
@@ -544,14 +544,14 @@ public class TileEntityStructure extends TileEntity
                 }
                 else
                 {
-                    PlacementSettings placementsettings = (new PlacementSettings()).setMirror(this.mirror).setRotation(this.rotation).setIgnoreEntities(this.ignoreEntities).setChunk((ChunkPos)null).setReplacedBlock((Block)null).setIgnoreStructureBlock(false);
+                    PlacementSettings placementsettings = (new PlacementSettings()).setMirror(mirror).setRotation(rotation).setIgnoreEntities(ignoreEntities).setChunk((ChunkPos)null).setReplacedBlock((Block)null).setIgnoreStructureBlock(false);
 
-                    if (this.integrity < 1.0F)
+                    if (integrity < 1.0F)
                     {
-                        placementsettings.setIntegrity(MathHelper.clamp(this.integrity, 0.0F, 1.0F)).setSeed(Long.valueOf(this.seed));
+                        placementsettings.setIntegrity(MathHelper.clamp(integrity, 0.0F, 1.0F)).setSeed(Long.valueOf(seed));
                     }
 
-                    template.addBlocksToWorldChunk(this.world, blockpos1, placementsettings);
+                    template.addBlocksToWorldChunk(world, blockpos1, placementsettings);
                     return true;
                 }
             }
@@ -564,19 +564,19 @@ public class TileEntityStructure extends TileEntity
 
     public void unloadStructure()
     {
-        WorldServer worldserver = (WorldServer)this.world;
+        WorldServer worldserver = (WorldServer) world;
         TemplateManager templatemanager = worldserver.getStructureTemplateManager();
-        templatemanager.remove(new ResourceLocation(this.name));
+        templatemanager.remove(new ResourceLocation(name));
     }
 
     public boolean isStructureLoadable()
     {
-        if (this.mode == TileEntityStructure.Mode.LOAD && !this.world.isRemote)
+        if (mode == TileEntityStructure.Mode.LOAD && !world.isRemote)
         {
-            WorldServer worldserver = (WorldServer)this.world;
-            MinecraftServer minecraftserver = this.world.getMinecraftServer();
+            WorldServer worldserver = (WorldServer) world;
+            MinecraftServer minecraftserver = world.getMinecraftServer();
             TemplateManager templatemanager = worldserver.getStructureTemplateManager();
-            return templatemanager.get(minecraftserver, new ResourceLocation(this.name)) != null;
+            return templatemanager.get(minecraftserver, new ResourceLocation(name)) != null;
         }
         else
         {
@@ -586,32 +586,32 @@ public class TileEntityStructure extends TileEntity
 
     public boolean isPowered()
     {
-        return this.powered;
+        return powered;
     }
 
     public void setPowered(boolean poweredIn)
     {
-        this.powered = poweredIn;
+        powered = poweredIn;
     }
 
     public boolean showsAir()
     {
-        return this.showAir;
+        return showAir;
     }
 
     public void setShowAir(boolean showAirIn)
     {
-        this.showAir = showAirIn;
+        showAir = showAirIn;
     }
 
     public boolean showsBoundingBox()
     {
-        return this.showBoundingBox;
+        return showBoundingBox;
     }
 
     public void setShowBoundingBox(boolean showBoundingBoxIn)
     {
-        this.showBoundingBox = showBoundingBoxIn;
+        showBoundingBox = showBoundingBoxIn;
     }
 
     @Nullable
@@ -621,7 +621,7 @@ public class TileEntityStructure extends TileEntity
      */
     public ITextComponent getDisplayName()
     {
-        return new TextComponentTranslation("structure_block.hover." + this.mode.modeName, new Object[] {this.mode == TileEntityStructure.Mode.DATA ? this.metadata : this.name});
+        return new TextComponentTranslation("structure_block.hover." + mode.modeName, new Object[] {mode == TileEntityStructure.Mode.DATA ? metadata : name});
     }
 
     public static enum Mode implements IStringSerializable
@@ -637,18 +637,18 @@ public class TileEntityStructure extends TileEntity
 
         private Mode(String modeNameIn, int modeIdIn)
         {
-            this.modeName = modeNameIn;
-            this.modeId = modeIdIn;
+            modeName = modeNameIn;
+            modeId = modeIdIn;
         }
 
         public String getName()
         {
-            return this.modeName;
+            return modeName;
         }
 
         public int getModeId()
         {
-            return this.modeId;
+            return modeId;
         }
 
         public static TileEntityStructure.Mode getById(int id)

@@ -29,15 +29,15 @@ public class EntityLlamaSpit extends Entity implements IProjectile
     public EntityLlamaSpit(World worldIn, EntityLlama p_i47273_2_)
     {
         super(worldIn);
-        this.owner = p_i47273_2_;
-        this.setPosition(p_i47273_2_.posX - (double)(p_i47273_2_.width + 1.0F) * 0.5D * (double)MathHelper.sin(p_i47273_2_.renderYawOffset * 0.017453292F), p_i47273_2_.posY + (double)p_i47273_2_.getEyeHeight() - 0.10000000149011612D, p_i47273_2_.posZ + (double)(p_i47273_2_.width + 1.0F) * 0.5D * (double)MathHelper.cos(p_i47273_2_.renderYawOffset * 0.017453292F));
-        this.setSize(0.25F, 0.25F);
+        owner = p_i47273_2_;
+        setPosition(p_i47273_2_.posX - (double)(p_i47273_2_.width + 1.0F) * 0.5D * (double)MathHelper.sin(p_i47273_2_.renderYawOffset * 0.017453292F), p_i47273_2_.posY + (double)p_i47273_2_.getEyeHeight() - 0.10000000149011612D, p_i47273_2_.posZ + (double)(p_i47273_2_.width + 1.0F) * 0.5D * (double)MathHelper.cos(p_i47273_2_.renderYawOffset * 0.017453292F));
+        setSize(0.25F, 0.25F);
     }
 
     public EntityLlamaSpit(World worldIn, double x, double y, double z, double p_i47274_8_, double p_i47274_10_, double p_i47274_12_)
     {
         super(worldIn);
-        this.setPosition(x, y, z);
+        setPosition(x, y, z);
 
         for (int i = 0; i < 7; ++i)
         {
@@ -45,9 +45,9 @@ public class EntityLlamaSpit extends Entity implements IProjectile
             worldIn.spawnParticle(EnumParticleTypes.SPIT, x, y, z, p_i47274_8_ * d0, p_i47274_10_, p_i47274_12_ * d0);
         }
 
-        this.motionX = p_i47274_8_;
-        this.motionY = p_i47274_10_;
-        this.motionZ = p_i47274_12_;
+        motionX = p_i47274_8_;
+        motionY = p_i47274_10_;
+        motionZ = p_i47274_12_;
     }
 
     /**
@@ -57,23 +57,23 @@ public class EntityLlamaSpit extends Entity implements IProjectile
     {
         super.onUpdate();
 
-        if (this.ownerNbt != null)
+        if (ownerNbt != null)
         {
-            this.restoreOwnerFromSave();
+            restoreOwnerFromSave();
         }
 
-        Vec3d vec3d = new Vec3d(this.posX, this.posY, this.posZ);
-        Vec3d vec3d1 = new Vec3d(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
-        RayTraceResult raytraceresult = this.world.rayTraceBlocks(vec3d, vec3d1);
-        vec3d = new Vec3d(this.posX, this.posY, this.posZ);
-        vec3d1 = new Vec3d(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
+        Vec3d vec3d = new Vec3d(posX, posY, posZ);
+        Vec3d vec3d1 = new Vec3d(posX + motionX, posY + motionY, posZ + motionZ);
+        RayTraceResult raytraceresult = world.rayTraceBlocks(vec3d, vec3d1);
+        vec3d = new Vec3d(posX, posY, posZ);
+        vec3d1 = new Vec3d(posX + motionX, posY + motionY, posZ + motionZ);
 
         if (raytraceresult != null)
         {
             vec3d1 = new Vec3d(raytraceresult.hitVec.x, raytraceresult.hitVec.y, raytraceresult.hitVec.z);
         }
 
-        Entity entity = this.getHitEntity(vec3d, vec3d1);
+        Entity entity = getHitEntity(vec3d, vec3d1);
 
         if (entity != null)
         {
@@ -82,60 +82,60 @@ public class EntityLlamaSpit extends Entity implements IProjectile
 
         if (raytraceresult != null)
         {
-            this.onHit(raytraceresult);
+            onHit(raytraceresult);
         }
 
-        this.posX += this.motionX;
-        this.posY += this.motionY;
-        this.posZ += this.motionZ;
-        float f = MathHelper.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);
-        this.rotationYaw = (float)(MathHelper.atan2(this.motionX, this.motionZ) * (180D / Math.PI));
+        posX += motionX;
+        posY += motionY;
+        posZ += motionZ;
+        float f = MathHelper.sqrt(motionX * motionX + motionZ * motionZ);
+        rotationYaw = (float)(MathHelper.atan2(motionX, motionZ) * (180D / Math.PI));
 
-        for (this.rotationPitch = (float)(MathHelper.atan2(this.motionY, (double)f) * (180D / Math.PI)); this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F)
+        for (rotationPitch = (float)(MathHelper.atan2(motionY, (double)f) * (180D / Math.PI)); rotationPitch - prevRotationPitch < -180.0F; prevRotationPitch -= 360.0F)
         {
             ;
         }
 
-        while (this.rotationPitch - this.prevRotationPitch >= 180.0F)
+        while (rotationPitch - prevRotationPitch >= 180.0F)
         {
-            this.prevRotationPitch += 360.0F;
+            prevRotationPitch += 360.0F;
         }
 
-        while (this.rotationYaw - this.prevRotationYaw < -180.0F)
+        while (rotationYaw - prevRotationYaw < -180.0F)
         {
-            this.prevRotationYaw -= 360.0F;
+            prevRotationYaw -= 360.0F;
         }
 
-        while (this.rotationYaw - this.prevRotationYaw >= 180.0F)
+        while (rotationYaw - prevRotationYaw >= 180.0F)
         {
-            this.prevRotationYaw += 360.0F;
+            prevRotationYaw += 360.0F;
         }
 
-        this.rotationPitch = this.prevRotationPitch + (this.rotationPitch - this.prevRotationPitch) * 0.2F;
-        this.rotationYaw = this.prevRotationYaw + (this.rotationYaw - this.prevRotationYaw) * 0.2F;
+        rotationPitch = prevRotationPitch + (rotationPitch - prevRotationPitch) * 0.2F;
+        rotationYaw = prevRotationYaw + (rotationYaw - prevRotationYaw) * 0.2F;
         float f1 = 0.99F;
         float f2 = 0.06F;
 
-        if (!this.world.isMaterialInBB(this.getEntityBoundingBox(), Material.AIR))
+        if (!world.isMaterialInBB(getEntityBoundingBox(), Material.AIR))
         {
-            this.setDead();
+            setDead();
         }
-        else if (this.isInWater())
+        else if (isInWater())
         {
-            this.setDead();
+            setDead();
         }
         else
         {
-            this.motionX *= 0.9900000095367432D;
-            this.motionY *= 0.9900000095367432D;
-            this.motionZ *= 0.9900000095367432D;
+            motionX *= 0.9900000095367432D;
+            motionY *= 0.9900000095367432D;
+            motionZ *= 0.9900000095367432D;
 
-            if (!this.hasNoGravity())
+            if (!hasNoGravity())
             {
-                this.motionY -= 0.05999999865889549D;
+                motionY -= 0.05999999865889549D;
             }
 
-            this.setPosition(this.posX, this.posY, this.posZ);
+            setPosition(posX, posY, posZ);
         }
     }
 
@@ -144,18 +144,18 @@ public class EntityLlamaSpit extends Entity implements IProjectile
      */
     public void setVelocity(double x, double y, double z)
     {
-        this.motionX = x;
-        this.motionY = y;
-        this.motionZ = z;
+        motionX = x;
+        motionY = y;
+        motionZ = z;
 
-        if (this.prevRotationPitch == 0.0F && this.prevRotationYaw == 0.0F)
+        if (prevRotationPitch == 0.0F && prevRotationYaw == 0.0F)
         {
             float f = MathHelper.sqrt(x * x + z * z);
-            this.rotationPitch = (float)(MathHelper.atan2(y, (double)f) * (180D / Math.PI));
-            this.rotationYaw = (float)(MathHelper.atan2(x, z) * (180D / Math.PI));
-            this.prevRotationPitch = this.rotationPitch;
-            this.prevRotationYaw = this.rotationYaw;
-            this.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, this.rotationPitch);
+            rotationPitch = (float)(MathHelper.atan2(y, (double)f) * (180D / Math.PI));
+            rotationYaw = (float)(MathHelper.atan2(x, z) * (180D / Math.PI));
+            prevRotationPitch = rotationPitch;
+            prevRotationYaw = rotationYaw;
+            setLocationAndAngles(posX, posY, posZ, rotationYaw, rotationPitch);
         }
     }
 
@@ -163,12 +163,12 @@ public class EntityLlamaSpit extends Entity implements IProjectile
     private Entity getHitEntity(Vec3d p_190538_1_, Vec3d p_190538_2_)
     {
         Entity entity = null;
-        List<Entity> list = this.world.getEntitiesWithinAABBExcludingEntity(this, this.getEntityBoundingBox().expand(this.motionX, this.motionY, this.motionZ).grow(1.0D));
+        List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().expand(motionX, motionY, motionZ).grow(1.0D));
         double d0 = 0.0D;
 
         for (Entity entity1 : list)
         {
-            if (entity1 != this.owner)
+            if (entity1 != owner)
             {
                 AxisAlignedBB axisalignedbb = entity1.getEntityBoundingBox().grow(0.30000001192092896D);
                 RayTraceResult raytraceresult = axisalignedbb.calculateIntercept(p_190538_1_, p_190538_2_);
@@ -198,32 +198,32 @@ public class EntityLlamaSpit extends Entity implements IProjectile
         x = x / (double)f;
         y = y / (double)f;
         z = z / (double)f;
-        x = x + this.rand.nextGaussian() * 0.007499999832361937D * (double)inaccuracy;
-        y = y + this.rand.nextGaussian() * 0.007499999832361937D * (double)inaccuracy;
-        z = z + this.rand.nextGaussian() * 0.007499999832361937D * (double)inaccuracy;
+        x = x + rand.nextGaussian() * 0.007499999832361937D * (double)inaccuracy;
+        y = y + rand.nextGaussian() * 0.007499999832361937D * (double)inaccuracy;
+        z = z + rand.nextGaussian() * 0.007499999832361937D * (double)inaccuracy;
         x = x * (double)velocity;
         y = y * (double)velocity;
         z = z * (double)velocity;
-        this.motionX = x;
-        this.motionY = y;
-        this.motionZ = z;
+        motionX = x;
+        motionY = y;
+        motionZ = z;
         float f1 = MathHelper.sqrt(x * x + z * z);
-        this.rotationYaw = (float)(MathHelper.atan2(x, z) * (180D / Math.PI));
-        this.rotationPitch = (float)(MathHelper.atan2(y, (double)f1) * (180D / Math.PI));
-        this.prevRotationYaw = this.rotationYaw;
-        this.prevRotationPitch = this.rotationPitch;
+        rotationYaw = (float)(MathHelper.atan2(x, z) * (180D / Math.PI));
+        rotationPitch = (float)(MathHelper.atan2(y, (double)f1) * (180D / Math.PI));
+        prevRotationYaw = rotationYaw;
+        prevRotationPitch = rotationPitch;
     }
 
     public void onHit(RayTraceResult p_190536_1_)
     {
-        if (p_190536_1_.entityHit != null && this.owner != null)
+        if (p_190536_1_.entityHit != null && owner != null)
         {
-            p_190536_1_.entityHit.attackEntityFrom(DamageSource.causeIndirectDamage(this, this.owner).setProjectile(), 1.0F);
+            p_190536_1_.entityHit.attackEntityFrom(DamageSource.causeIndirectDamage(this, owner).setProjectile(), 1.0F);
         }
 
-        if (!this.world.isRemote)
+        if (!world.isRemote)
         {
-            this.setDead();
+            setDead();
         }
     }
 
@@ -238,7 +238,7 @@ public class EntityLlamaSpit extends Entity implements IProjectile
     {
         if (compound.hasKey("Owner", 10))
         {
-            this.ownerNbt = compound.getCompoundTag("Owner");
+            ownerNbt = compound.getCompoundTag("Owner");
         }
     }
 
@@ -247,10 +247,10 @@ public class EntityLlamaSpit extends Entity implements IProjectile
      */
     protected void writeEntityToNBT(NBTTagCompound compound)
     {
-        if (this.owner != null)
+        if (owner != null)
         {
             NBTTagCompound nbttagcompound = new NBTTagCompound();
-            UUID uuid = this.owner.getUniqueID();
+            UUID uuid = owner.getUniqueID();
             nbttagcompound.setUniqueId("OwnerUUID", uuid);
             compound.setTag("Owner", nbttagcompound);
         }
@@ -258,20 +258,20 @@ public class EntityLlamaSpit extends Entity implements IProjectile
 
     private void restoreOwnerFromSave()
     {
-        if (this.ownerNbt != null && this.ownerNbt.hasUniqueId("OwnerUUID"))
+        if (ownerNbt != null && ownerNbt.hasUniqueId("OwnerUUID"))
         {
-            UUID uuid = this.ownerNbt.getUniqueId("OwnerUUID");
+            UUID uuid = ownerNbt.getUniqueId("OwnerUUID");
 
-            for (EntityLlama entityllama : this.world.getEntitiesWithinAABB(EntityLlama.class, this.getEntityBoundingBox().grow(15.0D)))
+            for (EntityLlama entityllama : world.getEntitiesWithinAABB(EntityLlama.class, getEntityBoundingBox().grow(15.0D)))
             {
                 if (entityllama.getUniqueID().equals(uuid))
                 {
-                    this.owner = entityllama;
+                    owner = entityllama;
                     break;
                 }
             }
         }
 
-        this.ownerNbt = null;
+        ownerNbt = null;
     }
 }

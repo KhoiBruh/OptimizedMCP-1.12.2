@@ -7,7 +7,7 @@ public class EnchantmentMending extends Enchantment
     public EnchantmentMending(Enchantment.Rarity rarityIn, EntityEquipmentSlot... slots)
     {
         super(rarityIn, EnumEnchantmentType.BREAKABLE, slots);
-        this.setName("mending");
+        setName("mending");
     }
 
     /**
@@ -23,7 +23,7 @@ public class EnchantmentMending extends Enchantment
      */
     public int getMaxEnchantability(int enchantmentLevel)
     {
-        return this.getMinEnchantability(enchantmentLevel) + 50;
+        return getMinEnchantability(enchantmentLevel) + 50;
     }
 
     public boolean isTreasureEnchantment()

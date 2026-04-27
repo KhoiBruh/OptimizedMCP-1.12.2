@@ -12,7 +12,7 @@ public class BlockBookshelf extends Block
     public BlockBookshelf()
     {
         super(Material.WOOD);
-        this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
+        setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
     }
 
     /**

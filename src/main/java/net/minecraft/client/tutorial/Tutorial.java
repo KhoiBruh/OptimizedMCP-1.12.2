@@ -26,33 +26,33 @@ public class Tutorial
 
     public void handleMovement(MovementInput p_193293_1_)
     {
-        if (this.tutorialStep != null)
+        if (tutorialStep != null)
         {
-            this.tutorialStep.handleMovement(p_193293_1_);
+            tutorialStep.handleMovement(p_193293_1_);
         }
     }
 
     public void handleMouse(MouseHelper p_193299_1_)
     {
-        if (this.tutorialStep != null)
+        if (tutorialStep != null)
         {
-            this.tutorialStep.handleMouse(p_193299_1_);
+            tutorialStep.handleMouse(p_193299_1_);
         }
     }
 
     public void onMouseHover(@Nullable WorldClient worldIn, @Nullable RayTraceResult result)
     {
-        if (this.tutorialStep != null && result != null && worldIn != null)
+        if (tutorialStep != null && result != null && worldIn != null)
         {
-            this.tutorialStep.onMouseHover(worldIn, result);
+            tutorialStep.onMouseHover(worldIn, result);
         }
     }
 
     public void onHitBlock(WorldClient worldIn, BlockPos pos, IBlockState state, float diggingStage)
     {
-        if (this.tutorialStep != null)
+        if (tutorialStep != null)
         {
-            this.tutorialStep.onHitBlock(worldIn, pos, state, diggingStage);
+            tutorialStep.onHitBlock(worldIn, pos, state, diggingStage);
         }
     }
 
@@ -61,9 +61,9 @@ public class Tutorial
      */
     public void openInventory()
     {
-        if (this.tutorialStep != null)
+        if (tutorialStep != null)
         {
-            this.tutorialStep.openInventory();
+            tutorialStep.openInventory();
         }
     }
 
@@ -74,18 +74,18 @@ public class Tutorial
      */
     public void handleSetSlot(ItemStack stack)
     {
-        if (this.tutorialStep != null)
+        if (tutorialStep != null)
         {
-            this.tutorialStep.handleSetSlot(stack);
+            tutorialStep.handleSetSlot(stack);
         }
     }
 
     public void stop()
     {
-        if (this.tutorialStep != null)
+        if (tutorialStep != null)
         {
-            this.tutorialStep.onStop();
-            this.tutorialStep = null;
+            tutorialStep.onStop();
+            tutorialStep = null;
         }
     }
 
@@ -94,30 +94,30 @@ public class Tutorial
      */
     public void reload()
     {
-        if (this.tutorialStep != null)
+        if (tutorialStep != null)
         {
-            this.stop();
+            stop();
         }
 
-        this.tutorialStep = this.minecraft.gameSettings.tutorialStep.create(this);
+        tutorialStep = minecraft.gameSettings.tutorialStep.create(this);
     }
 
     public void update()
     {
-        if (this.tutorialStep != null)
+        if (tutorialStep != null)
         {
-            if (this.minecraft.world != null)
+            if (minecraft.world != null)
             {
-                this.tutorialStep.update();
+                tutorialStep.update();
             }
             else
             {
-                this.stop();
+                stop();
             }
         }
-        else if (this.minecraft.world != null)
+        else if (minecraft.world != null)
         {
-            this.reload();
+            reload();
         }
     }
 
@@ -126,24 +126,24 @@ public class Tutorial
      */
     public void setStep(TutorialSteps step)
     {
-        this.minecraft.gameSettings.tutorialStep = step;
-        this.minecraft.gameSettings.saveOptions();
+        minecraft.gameSettings.tutorialStep = step;
+        minecraft.gameSettings.saveOptions();
 
-        if (this.tutorialStep != null)
+        if (tutorialStep != null)
         {
-            this.tutorialStep.onStop();
-            this.tutorialStep = step.create(this);
+            tutorialStep.onStop();
+            tutorialStep = step.create(this);
         }
     }
 
     public Minecraft getMinecraft()
     {
-        return this.minecraft;
+        return minecraft;
     }
 
     public GameType getGameType()
     {
-        return this.minecraft.playerController == null ? GameType.NOT_SET : this.minecraft.playerController.getCurrentGameType();
+        return minecraft.playerController == null ? GameType.NOT_SET : minecraft.playerController.getCurrentGameType();
     }
 
     public static ITextComponent createKeybindComponent(String keybind)

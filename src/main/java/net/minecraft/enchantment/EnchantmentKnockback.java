@@ -7,7 +7,7 @@ public class EnchantmentKnockback extends Enchantment
     protected EnchantmentKnockback(Enchantment.Rarity rarityIn, EntityEquipmentSlot... slots)
     {
         super(rarityIn, EnumEnchantmentType.WEAPON, slots);
-        this.setName("knockback");
+        setName("knockback");
     }
 
     /**

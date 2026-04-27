@@ -9,31 +9,31 @@ public class ResourcePackListEntryFound extends ResourcePackListEntry
     public ResourcePackListEntryFound(GuiScreenResourcePacks resourcePacksGUIIn, ResourcePackRepository.Entry entry)
     {
         super(resourcePacksGUIIn);
-        this.resourcePackEntry = entry;
+        resourcePackEntry = entry;
     }
 
     protected void bindResourcePackIcon()
     {
-        this.resourcePackEntry.bindTexturePackIcon(this.mc.getTextureManager());
+        resourcePackEntry.bindTexturePackIcon(mc.getTextureManager());
     }
 
     protected int getResourcePackFormat()
     {
-        return this.resourcePackEntry.getPackFormat();
+        return resourcePackEntry.getPackFormat();
     }
 
     protected String getResourcePackDescription()
     {
-        return this.resourcePackEntry.getTexturePackDescription();
+        return resourcePackEntry.getTexturePackDescription();
     }
 
     protected String getResourcePackName()
     {
-        return this.resourcePackEntry.getResourcePackName();
+        return resourcePackEntry.getResourcePackName();
     }
 
     public ResourcePackRepository.Entry getResourcePackEntry()
     {
-        return this.resourcePackEntry;
+        return resourcePackEntry;
     }
 }

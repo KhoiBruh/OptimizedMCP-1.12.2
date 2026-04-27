@@ -7,7 +7,7 @@ public class EnchantmentArrowKnockback extends Enchantment
     public EnchantmentArrowKnockback(Enchantment.Rarity rarityIn, EntityEquipmentSlot... slots)
     {
         super(rarityIn, EnumEnchantmentType.BOW, slots);
-        this.setName("arrowKnockback");
+        setName("arrowKnockback");
     }
 
     /**
@@ -23,7 +23,7 @@ public class EnchantmentArrowKnockback extends Enchantment
      */
     public int getMaxEnchantability(int enchantmentLevel)
     {
-        return this.getMinEnchantability(enchantmentLevel) + 25;
+        return getMinEnchantability(enchantmentLevel) + 25;
     }
 
     /**

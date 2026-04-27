@@ -23,28 +23,28 @@ public class SimpleBakedModel implements IBakedModel
 
     public SimpleBakedModel(List<BakedQuad> generalQuadsIn, Map<EnumFacing, List<BakedQuad>> faceQuadsIn, boolean ambientOcclusionIn, boolean gui3dIn, TextureAtlasSprite textureIn, ItemCameraTransforms cameraTransformsIn, ItemOverrideList itemOverrideListIn)
     {
-        this.generalQuads = generalQuadsIn;
-        this.faceQuads = faceQuadsIn;
-        this.ambientOcclusion = ambientOcclusionIn;
-        this.gui3d = gui3dIn;
-        this.texture = textureIn;
-        this.cameraTransforms = cameraTransformsIn;
-        this.itemOverrideList = itemOverrideListIn;
+        generalQuads = generalQuadsIn;
+        faceQuads = faceQuadsIn;
+        ambientOcclusion = ambientOcclusionIn;
+        gui3d = gui3dIn;
+        texture = textureIn;
+        cameraTransforms = cameraTransformsIn;
+        itemOverrideList = itemOverrideListIn;
     }
 
     public List<BakedQuad> getQuads(@Nullable IBlockState state, @Nullable EnumFacing side, long rand)
     {
-        return side == null ? this.generalQuads : (List)this.faceQuads.get(side);
+        return side == null ? generalQuads : (List) faceQuads.get(side);
     }
 
     public boolean isAmbientOcclusion()
     {
-        return this.ambientOcclusion;
+        return ambientOcclusion;
     }
 
     public boolean isGui3d()
     {
-        return this.gui3d;
+        return gui3d;
     }
 
     public boolean isBuiltInRenderer()
@@ -54,17 +54,17 @@ public class SimpleBakedModel implements IBakedModel
 
     public TextureAtlasSprite getParticleTexture()
     {
-        return this.texture;
+        return texture;
     }
 
     public ItemCameraTransforms getItemCameraTransforms()
     {
-        return this.cameraTransforms;
+        return cameraTransforms;
     }
 
     public ItemOverrideList getOverrides()
     {
-        return this.itemOverrideList;
+        return itemOverrideList;
     }
 
     public static class Builder
@@ -85,38 +85,38 @@ public class SimpleBakedModel implements IBakedModel
         public Builder(IBlockState state, IBakedModel model, TextureAtlasSprite texture, BlockPos pos)
         {
             this(model.isAmbientOcclusion(), model.isGui3d(), model.getItemCameraTransforms(), model.getOverrides());
-            this.builderTexture = model.getParticleTexture();
+            builderTexture = model.getParticleTexture();
             long i = MathHelper.getPositionRandom(pos);
 
             for (EnumFacing enumfacing : EnumFacing.values())
             {
-                this.addFaceQuads(state, model, texture, enumfacing, i);
+                addFaceQuads(state, model, texture, enumfacing, i);
             }
 
-            this.addGeneralQuads(state, model, texture, i);
+            addGeneralQuads(state, model, texture, i);
         }
 
         private Builder(boolean ambientOcclusion, boolean gui3d, ItemCameraTransforms transforms, ItemOverrideList overrides)
         {
-            this.builderGeneralQuads = Lists.<BakedQuad>newArrayList();
-            this.builderFaceQuads = Maps.newEnumMap(EnumFacing.class);
+            builderGeneralQuads = Lists.<BakedQuad>newArrayList();
+            builderFaceQuads = Maps.newEnumMap(EnumFacing.class);
 
             for (EnumFacing enumfacing : EnumFacing.values())
             {
-                this.builderFaceQuads.put(enumfacing, Lists.newArrayList());
+                builderFaceQuads.put(enumfacing, Lists.newArrayList());
             }
 
-            this.builderItemOverrideList = overrides;
-            this.builderAmbientOcclusion = ambientOcclusion;
-            this.builderGui3d = gui3d;
-            this.builderCameraTransforms = transforms;
+            builderItemOverrideList = overrides;
+            builderAmbientOcclusion = ambientOcclusion;
+            builderGui3d = gui3d;
+            builderCameraTransforms = transforms;
         }
 
         private void addFaceQuads(IBlockState p_188644_1_, IBakedModel p_188644_2_, TextureAtlasSprite p_188644_3_, EnumFacing p_188644_4_, long p_188644_5_)
         {
             for (BakedQuad bakedquad : p_188644_2_.getQuads(p_188644_1_, p_188644_4_, p_188644_5_))
             {
-                this.addFaceQuad(p_188644_4_, new BakedQuadRetextured(bakedquad, p_188644_3_));
+                addFaceQuad(p_188644_4_, new BakedQuadRetextured(bakedquad, p_188644_3_));
             }
         }
 
@@ -124,37 +124,37 @@ public class SimpleBakedModel implements IBakedModel
         {
             for (BakedQuad bakedquad : p_188645_2_.getQuads(p_188645_1_, (EnumFacing)null, p_188645_4_))
             {
-                this.addGeneralQuad(new BakedQuadRetextured(bakedquad, p_188645_3_));
+                addGeneralQuad(new BakedQuadRetextured(bakedquad, p_188645_3_));
             }
         }
 
         public SimpleBakedModel.Builder addFaceQuad(EnumFacing facing, BakedQuad quad)
         {
-            (this.builderFaceQuads.get(facing)).add(quad);
+            (builderFaceQuads.get(facing)).add(quad);
             return this;
         }
 
         public SimpleBakedModel.Builder addGeneralQuad(BakedQuad quad)
         {
-            this.builderGeneralQuads.add(quad);
+            builderGeneralQuads.add(quad);
             return this;
         }
 
         public SimpleBakedModel.Builder setTexture(TextureAtlasSprite texture)
         {
-            this.builderTexture = texture;
+            builderTexture = texture;
             return this;
         }
 
         public IBakedModel makeBakedModel()
         {
-            if (this.builderTexture == null)
+            if (builderTexture == null)
             {
                 throw new RuntimeException("Missing particle!");
             }
             else
             {
-                return new SimpleBakedModel(this.builderGeneralQuads, this.builderFaceQuads, this.builderAmbientOcclusion, this.builderGui3d, this.builderTexture, this.builderCameraTransforms, this.builderItemOverrideList);
+                return new SimpleBakedModel(builderGeneralQuads, builderFaceQuads, builderAmbientOcclusion, builderGui3d, builderTexture, builderCameraTransforms, builderItemOverrideList);
             }
         }
     }

@@ -19,9 +19,9 @@ public class ClippingHelper
     {
         for (int i = 0; i < 6; ++i)
         {
-            float[] afloat = this.frustum[i];
+            float[] afloat = frustum[i];
 
-            if (this.dot(afloat, p_78553_1_, p_78553_3_, p_78553_5_) <= 0.0D && this.dot(afloat, p_78553_7_, p_78553_3_, p_78553_5_) <= 0.0D && this.dot(afloat, p_78553_1_, p_78553_9_, p_78553_5_) <= 0.0D && this.dot(afloat, p_78553_7_, p_78553_9_, p_78553_5_) <= 0.0D && this.dot(afloat, p_78553_1_, p_78553_3_, p_78553_11_) <= 0.0D && this.dot(afloat, p_78553_7_, p_78553_3_, p_78553_11_) <= 0.0D && this.dot(afloat, p_78553_1_, p_78553_9_, p_78553_11_) <= 0.0D && this.dot(afloat, p_78553_7_, p_78553_9_, p_78553_11_) <= 0.0D)
+            if (dot(afloat, p_78553_1_, p_78553_3_, p_78553_5_) <= 0.0D && dot(afloat, p_78553_7_, p_78553_3_, p_78553_5_) <= 0.0D && dot(afloat, p_78553_1_, p_78553_9_, p_78553_5_) <= 0.0D && dot(afloat, p_78553_7_, p_78553_9_, p_78553_5_) <= 0.0D && dot(afloat, p_78553_1_, p_78553_3_, p_78553_11_) <= 0.0D && dot(afloat, p_78553_7_, p_78553_3_, p_78553_11_) <= 0.0D && dot(afloat, p_78553_1_, p_78553_9_, p_78553_11_) <= 0.0D && dot(afloat, p_78553_7_, p_78553_9_, p_78553_11_) <= 0.0D)
             {
                 return false;
             }

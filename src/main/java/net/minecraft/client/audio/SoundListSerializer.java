@@ -19,7 +19,7 @@ public class SoundListSerializer implements JsonDeserializer<SoundList>
         JsonObject jsonobject = JsonUtils.getJsonObject(p_deserialize_1_, "entry");
         boolean flag = JsonUtils.getBoolean(jsonobject, "replace", false);
         String s = JsonUtils.getString(jsonobject, "subtitle", (String)null);
-        List<Sound> list = this.deserializeSounds(jsonobject);
+        List<Sound> list = deserializeSounds(jsonobject);
         return new SoundList(list, flag, s);
     }
 
@@ -42,7 +42,7 @@ public class SoundListSerializer implements JsonDeserializer<SoundList>
                 }
                 else
                 {
-                    list.add(this.deserializeSound(JsonUtils.getJsonObject(jsonelement, "sound")));
+                    list.add(deserializeSound(JsonUtils.getJsonObject(jsonelement, "sound")));
                 }
             }
         }
@@ -53,7 +53,7 @@ public class SoundListSerializer implements JsonDeserializer<SoundList>
     private Sound deserializeSound(JsonObject object)
     {
         String s = JsonUtils.getString(object, "name");
-        Sound.Type sound$type = this.deserializeType(object, Sound.Type.FILE);
+        Sound.Type sound$type = deserializeType(object, Sound.Type.FILE);
         float f = JsonUtils.getFloat(object, "volume", 1.0F);
         Validate.isTrue(f > 0.0F, "Invalid volume");
         float f1 = JsonUtils.getFloat(object, "pitch", 1.0F);

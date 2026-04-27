@@ -27,9 +27,9 @@ public class UserListIPBansEntry extends UserListEntryBan<String>
 
     protected void onSerialization(JsonObject data)
     {
-        if (this.getValue() != null)
+        if (getValue() != null)
         {
-            data.addProperty("ip", (String)this.getValue());
+            data.addProperty("ip", (String) getValue());
             super.onSerialization(data);
         }
     }

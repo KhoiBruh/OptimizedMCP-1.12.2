@@ -10,7 +10,7 @@ public class GenLayerShore extends GenLayer
     public GenLayerShore(long p_i2130_1_, GenLayer p_i2130_3_)
     {
         super(p_i2130_1_);
-        this.parent = p_i2130_3_;
+        parent = p_i2130_3_;
     }
 
     /**
@@ -19,14 +19,14 @@ public class GenLayerShore extends GenLayer
      */
     public int[] getInts(int areaX, int areaY, int areaWidth, int areaHeight)
     {
-        int[] aint = this.parent.getInts(areaX - 1, areaY - 1, areaWidth + 2, areaHeight + 2);
+        int[] aint = parent.getInts(areaX - 1, areaY - 1, areaWidth + 2, areaHeight + 2);
         int[] aint1 = IntCache.getIntCache(areaWidth * areaHeight);
 
         for (int i = 0; i < areaHeight; ++i)
         {
             for (int j = 0; j < areaWidth; ++j)
             {
-                this.initChunkSeed((long)(j + areaX), (long)(i + areaY));
+                initChunkSeed((long)(j + areaX), (long)(i + areaY));
                 int k = aint[j + 1 + (i + 1) * (areaWidth + 2)];
                 Biome biome = Biome.getBiome(k);
 
@@ -53,7 +53,7 @@ public class GenLayerShore extends GenLayer
                     int k3 = aint[j + 1 - 1 + (i + 1) * (areaWidth + 2)];
                     int j4 = aint[j + 1 + (i + 1 + 1) * (areaWidth + 2)];
 
-                    if (this.isJungleCompatible(i2) && this.isJungleCompatible(l2) && this.isJungleCompatible(k3) && this.isJungleCompatible(j4))
+                    if (isJungleCompatible(i2) && isJungleCompatible(l2) && isJungleCompatible(k3) && isJungleCompatible(j4))
                     {
                         if (!isBiomeOceanic(i2) && !isBiomeOceanic(l2) && !isBiomeOceanic(k3) && !isBiomeOceanic(j4))
                         {
@@ -73,7 +73,7 @@ public class GenLayerShore extends GenLayer
                 {
                     if (biome != null && biome.isSnowyBiome())
                     {
-                        this.replaceIfNeighborOcean(aint, aint1, j, i, areaWidth, k, Biome.getIdForBiome(Biomes.COLD_BEACH));
+                        replaceIfNeighborOcean(aint, aint1, j, i, areaWidth, k, Biome.getIdForBiome(Biomes.COLD_BEACH));
                     }
                     else if (k != Biome.getIdForBiome(Biomes.MESA) && k != Biome.getIdForBiome(Biomes.MESA_ROCK))
                     {
@@ -107,7 +107,7 @@ public class GenLayerShore extends GenLayer
 
                         if (!isBiomeOceanic(l) && !isBiomeOceanic(i1) && !isBiomeOceanic(j1) && !isBiomeOceanic(k1))
                         {
-                            if (this.isMesa(l) && this.isMesa(i1) && this.isMesa(j1) && this.isMesa(k1))
+                            if (isMesa(l) && isMesa(i1) && isMesa(j1) && isMesa(k1))
                             {
                                 aint1[j + i * areaWidth] = k;
                             }
@@ -124,7 +124,7 @@ public class GenLayerShore extends GenLayer
                 }
                 else
                 {
-                    this.replaceIfNeighborOcean(aint, aint1, j, i, areaWidth, k, Biome.getIdForBiome(Biomes.STONE_BEACH));
+                    replaceIfNeighborOcean(aint, aint1, j, i, areaWidth, k, Biome.getIdForBiome(Biomes.STONE_BEACH));
                 }
             }
         }

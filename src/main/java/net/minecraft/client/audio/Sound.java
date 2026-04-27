@@ -13,37 +13,37 @@ public class Sound implements ISoundEventAccessor<Sound>
 
     public Sound(String nameIn, float volumeIn, float pitchIn, int weightIn, Sound.Type typeIn, boolean p_i46526_6_)
     {
-        this.name = new ResourceLocation(nameIn);
-        this.volume = volumeIn;
-        this.pitch = pitchIn;
-        this.weight = weightIn;
-        this.type = typeIn;
-        this.streaming = p_i46526_6_;
+        name = new ResourceLocation(nameIn);
+        volume = volumeIn;
+        pitch = pitchIn;
+        weight = weightIn;
+        type = typeIn;
+        streaming = p_i46526_6_;
     }
 
     public ResourceLocation getSoundLocation()
     {
-        return this.name;
+        return name;
     }
 
     public ResourceLocation getSoundAsOggLocation()
     {
-        return new ResourceLocation(this.name.getResourceDomain(), "sounds/" + this.name.getResourcePath() + ".ogg");
+        return new ResourceLocation(name.getResourceDomain(), "sounds/" + name.getResourcePath() + ".ogg");
     }
 
     public float getVolume()
     {
-        return this.volume;
+        return volume;
     }
 
     public float getPitch()
     {
-        return this.pitch;
+        return pitch;
     }
 
     public int getWeight()
     {
-        return this.weight;
+        return weight;
     }
 
     public Sound cloneEntry()
@@ -53,12 +53,12 @@ public class Sound implements ISoundEventAccessor<Sound>
 
     public Sound.Type getType()
     {
-        return this.type;
+        return type;
     }
 
     public boolean isStreaming()
     {
-        return this.streaming;
+        return streaming;
     }
 
     public static enum Type
@@ -70,7 +70,7 @@ public class Sound implements ISoundEventAccessor<Sound>
 
         private Type(String nameIn)
         {
-            this.name = nameIn;
+            name = nameIn;
         }
 
         public static Sound.Type getByName(String nameIn)

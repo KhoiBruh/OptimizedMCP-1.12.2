@@ -21,8 +21,8 @@ public class EntityMooshroom extends EntityCow
     public EntityMooshroom(World worldIn)
     {
         super(worldIn);
-        this.setSize(0.9F, 1.4F);
-        this.spawnableBlock = Blocks.MYCELIUM;
+        setSize(0.9F, 1.4F);
+        spawnableBlock = Blocks.MYCELIUM;
     }
 
     public static void registerFixesMooshroom(DataFixer fixer)
@@ -34,7 +34,7 @@ public class EntityMooshroom extends EntityCow
     {
         ItemStack itemstack = player.getHeldItem(hand);
 
-        if (itemstack.getItem() == Items.BOWL && this.getGrowingAge() >= 0 && !player.capabilities.isCreativeMode)
+        if (itemstack.getItem() == Items.BOWL && getGrowingAge() >= 0 && !player.capabilities.isCreativeMode)
         {
             itemstack.shrink(1);
 
@@ -49,32 +49,32 @@ public class EntityMooshroom extends EntityCow
 
             return true;
         }
-        else if (itemstack.getItem() == Items.SHEARS && this.getGrowingAge() >= 0)
+        else if (itemstack.getItem() == Items.SHEARS && getGrowingAge() >= 0)
         {
-            this.setDead();
-            this.world.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, this.posX, this.posY + (double)(this.height / 2.0F), this.posZ, 0.0D, 0.0D, 0.0D);
+            setDead();
+            world.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, posX, posY + (double)(height / 2.0F), posZ, 0.0D, 0.0D, 0.0D);
 
-            if (!this.world.isRemote)
+            if (!world.isRemote)
             {
-                EntityCow entitycow = new EntityCow(this.world);
-                entitycow.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, this.rotationPitch);
-                entitycow.setHealth(this.getHealth());
-                entitycow.renderYawOffset = this.renderYawOffset;
+                EntityCow entitycow = new EntityCow(world);
+                entitycow.setLocationAndAngles(posX, posY, posZ, rotationYaw, rotationPitch);
+                entitycow.setHealth(getHealth());
+                entitycow.renderYawOffset = renderYawOffset;
 
-                if (this.hasCustomName())
+                if (hasCustomName())
                 {
-                    entitycow.setCustomNameTag(this.getCustomNameTag());
+                    entitycow.setCustomNameTag(getCustomNameTag());
                 }
 
-                this.world.spawnEntity(entitycow);
+                world.spawnEntity(entitycow);
 
                 for (int i = 0; i < 5; ++i)
                 {
-                    this.world.spawnEntity(new EntityItem(this.world, this.posX, this.posY + (double)this.height, this.posZ, new ItemStack(Blocks.RED_MUSHROOM)));
+                    world.spawnEntity(new EntityItem(world, posX, posY + (double) height, posZ, new ItemStack(Blocks.RED_MUSHROOM)));
                 }
 
                 itemstack.damageItem(1, player);
-                this.playSound(SoundEvents.ENTITY_MOOSHROOM_SHEAR, 1.0F, 1.0F);
+                playSound(SoundEvents.ENTITY_MOOSHROOM_SHEAR, 1.0F, 1.0F);
             }
 
             return true;
@@ -87,7 +87,7 @@ public class EntityMooshroom extends EntityCow
 
     public EntityMooshroom createChild(EntityAgeable ageable)
     {
-        return new EntityMooshroom(this.world);
+        return new EntityMooshroom(world);
     }
 
     @Nullable

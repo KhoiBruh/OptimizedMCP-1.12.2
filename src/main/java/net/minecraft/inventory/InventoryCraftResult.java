@@ -24,7 +24,7 @@ public class InventoryCraftResult implements IInventory
 
     public boolean isEmpty()
     {
-        for (ItemStack itemstack : this.stackResult)
+        for (ItemStack itemstack : stackResult)
         {
             if (!itemstack.isEmpty())
             {
@@ -40,7 +40,7 @@ public class InventoryCraftResult implements IInventory
      */
     public ItemStack getStackInSlot(int index)
     {
-        return this.stackResult.get(0);
+        return stackResult.get(0);
     }
 
     /**
@@ -64,7 +64,7 @@ public class InventoryCraftResult implements IInventory
      */
     public ITextComponent getDisplayName()
     {
-        return (ITextComponent)(this.hasCustomName() ? new TextComponentString(this.getName()) : new TextComponentTranslation(this.getName(), new Object[0]));
+        return (ITextComponent)(hasCustomName() ? new TextComponentString(getName()) : new TextComponentTranslation(getName(), new Object[0]));
     }
 
     /**
@@ -72,7 +72,7 @@ public class InventoryCraftResult implements IInventory
      */
     public ItemStack decrStackSize(int index, int count)
     {
-        return ItemStackHelper.getAndRemove(this.stackResult, 0);
+        return ItemStackHelper.getAndRemove(stackResult, 0);
     }
 
     /**
@@ -80,7 +80,7 @@ public class InventoryCraftResult implements IInventory
      */
     public ItemStack removeStackFromSlot(int index)
     {
-        return ItemStackHelper.getAndRemove(this.stackResult, 0);
+        return ItemStackHelper.getAndRemove(stackResult, 0);
     }
 
     /**
@@ -88,7 +88,7 @@ public class InventoryCraftResult implements IInventory
      */
     public void setInventorySlotContents(int index, ItemStack stack)
     {
-        this.stackResult.set(0, stack);
+        stackResult.set(0, stack);
     }
 
     /**
@@ -148,17 +148,17 @@ public class InventoryCraftResult implements IInventory
 
     public void clear()
     {
-        this.stackResult.clear();
+        stackResult.clear();
     }
 
     public void setRecipeUsed(@Nullable IRecipe p_193056_1_)
     {
-        this.recipeUsed = p_193056_1_;
+        recipeUsed = p_193056_1_;
     }
 
     @Nullable
     public IRecipe getRecipeUsed()
     {
-        return this.recipeUsed;
+        return recipeUsed;
     }
 }

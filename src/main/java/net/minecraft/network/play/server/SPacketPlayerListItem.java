@@ -25,21 +25,21 @@ public class SPacketPlayerListItem implements Packet<INetHandlerPlayClient>
 
     public SPacketPlayerListItem(SPacketPlayerListItem.Action actionIn, EntityPlayerMP... playersIn)
     {
-        this.action = actionIn;
+        action = actionIn;
 
         for (EntityPlayerMP entityplayermp : playersIn)
         {
-            this.players.add(new SPacketPlayerListItem.AddPlayerData(entityplayermp.getGameProfile(), entityplayermp.ping, entityplayermp.interactionManager.getGameType(), entityplayermp.getTabListDisplayName()));
+            players.add(new SPacketPlayerListItem.AddPlayerData(entityplayermp.getGameProfile(), entityplayermp.ping, entityplayermp.interactionManager.getGameType(), entityplayermp.getTabListDisplayName()));
         }
     }
 
     public SPacketPlayerListItem(SPacketPlayerListItem.Action actionIn, Iterable<EntityPlayerMP> playersIn)
     {
-        this.action = actionIn;
+        action = actionIn;
 
         for (EntityPlayerMP entityplayermp : playersIn)
         {
-            this.players.add(new SPacketPlayerListItem.AddPlayerData(entityplayermp.getGameProfile(), entityplayermp.ping, entityplayermp.interactionManager.getGameType(), entityplayermp.getTabListDisplayName()));
+            players.add(new SPacketPlayerListItem.AddPlayerData(entityplayermp.getGameProfile(), entityplayermp.ping, entityplayermp.interactionManager.getGameType(), entityplayermp.getTabListDisplayName()));
         }
     }
 
@@ -48,7 +48,7 @@ public class SPacketPlayerListItem implements Packet<INetHandlerPlayClient>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.action = (SPacketPlayerListItem.Action)buf.readEnumValue(SPacketPlayerListItem.Action.class);
+        action = (SPacketPlayerListItem.Action)buf.readEnumValue(SPacketPlayerListItem.Action.class);
         int i = buf.readVarInt();
 
         for (int j = 0; j < i; ++j)
@@ -58,7 +58,7 @@ public class SPacketPlayerListItem implements Packet<INetHandlerPlayClient>
             GameType gametype = null;
             ITextComponent itextcomponent = null;
 
-            switch (this.action)
+            switch (action)
             {
                 case ADD_PLAYER:
                     gameprofile = new GameProfile(buf.readUniqueId(), buf.readString(16));
@@ -114,7 +114,7 @@ public class SPacketPlayerListItem implements Packet<INetHandlerPlayClient>
                     gameprofile = new GameProfile(buf.readUniqueId(), (String)null);
             }
 
-            this.players.add(new SPacketPlayerListItem.AddPlayerData(gameprofile, k, gametype, itextcomponent));
+            players.add(new SPacketPlayerListItem.AddPlayerData(gameprofile, k, gametype, itextcomponent));
         }
     }
 
@@ -123,12 +123,12 @@ public class SPacketPlayerListItem implements Packet<INetHandlerPlayClient>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeEnumValue(this.action);
-        buf.writeVarInt(this.players.size());
+        buf.writeEnumValue(action);
+        buf.writeVarInt(players.size());
 
-        for (SPacketPlayerListItem.AddPlayerData spacketplayerlistitem$addplayerdata : this.players)
+        for (SPacketPlayerListItem.AddPlayerData spacketplayerlistitem$addplayerdata : players)
         {
-            switch (this.action)
+            switch (action)
             {
                 case ADD_PLAYER:
                     buf.writeUniqueId(spacketplayerlistitem$addplayerdata.getProfile().getId());
@@ -207,17 +207,17 @@ public class SPacketPlayerListItem implements Packet<INetHandlerPlayClient>
 
     public List<SPacketPlayerListItem.AddPlayerData> getEntries()
     {
-        return this.players;
+        return players;
     }
 
     public SPacketPlayerListItem.Action getAction()
     {
-        return this.action;
+        return action;
     }
 
     public String toString()
     {
-        return MoreObjects.toStringHelper(this).add("action", this.action).add("entries", this.players).toString();
+        return MoreObjects.toStringHelper(this).add("action", action).add("entries", players).toString();
     }
 
     public static enum Action
@@ -238,36 +238,36 @@ public class SPacketPlayerListItem implements Packet<INetHandlerPlayClient>
 
         public AddPlayerData(GameProfile profileIn, int latencyIn, GameType gameModeIn, @Nullable ITextComponent displayNameIn)
         {
-            this.profile = profileIn;
-            this.ping = latencyIn;
-            this.gamemode = gameModeIn;
-            this.displayName = displayNameIn;
+            profile = profileIn;
+            ping = latencyIn;
+            gamemode = gameModeIn;
+            displayName = displayNameIn;
         }
 
         public GameProfile getProfile()
         {
-            return this.profile;
+            return profile;
         }
 
         public int getPing()
         {
-            return this.ping;
+            return ping;
         }
 
         public GameType getGameMode()
         {
-            return this.gamemode;
+            return gamemode;
         }
 
         @Nullable
         public ITextComponent getDisplayName()
         {
-            return this.displayName;
+            return displayName;
         }
 
         public String toString()
         {
-            return MoreObjects.toStringHelper(this).add("latency", this.ping).add("gameMode", this.gamemode).add("profile", this.profile).add("displayName", this.displayName == null ? null : ITextComponent.Serializer.componentToJson(this.displayName)).toString();
+            return MoreObjects.toStringHelper(this).add("latency", ping).add("gameMode", gamemode).add("profile", profile).add("displayName", displayName == null ? null : ITextComponent.Serializer.componentToJson(displayName)).toString();
         }
     }
 }

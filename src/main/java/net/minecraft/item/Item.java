@@ -160,18 +160,18 @@ public class Item
      */
     public final void addPropertyOverride(ResourceLocation key, IItemPropertyGetter getter)
     {
-        this.properties.putObject(key, getter);
+        properties.putObject(key, getter);
     }
 
     @Nullable
     public IItemPropertyGetter getPropertyGetter(ResourceLocation key)
     {
-        return this.properties.getObject(key);
+        return properties.getObject(key);
     }
 
     public boolean hasCustomProperties()
     {
-        return !this.properties.getKeys().isEmpty();
+        return !properties.getKeys().isEmpty();
     }
 
     /**
@@ -184,8 +184,8 @@ public class Item
 
     public Item()
     {
-        this.addPropertyOverride(new ResourceLocation("lefthanded"), LEFTHANDED_GETTER);
-        this.addPropertyOverride(new ResourceLocation("cooldown"), COOLDOWN_GETTER);
+        addPropertyOverride(new ResourceLocation("lefthanded"), LEFTHANDED_GETTER);
+        addPropertyOverride(new ResourceLocation("cooldown"), COOLDOWN_GETTER);
     }
 
     public Item setMaxStackSize(int maxStackSize)
@@ -226,7 +226,7 @@ public class Item
      */
     public int getItemStackLimit()
     {
-        return this.maxStackSize;
+        return maxStackSize;
     }
 
     /**
@@ -240,7 +240,7 @@ public class Item
 
     public boolean getHasSubtypes()
     {
-        return this.hasSubtypes;
+        return hasSubtypes;
     }
 
     protected Item setHasSubtypes(boolean hasSubtypes)
@@ -254,7 +254,7 @@ public class Item
      */
     public int getMaxDamage()
     {
-        return this.maxDamage;
+        return maxDamage;
     }
 
     /**
@@ -262,12 +262,12 @@ public class Item
      */
     protected Item setMaxDamage(int maxDamageIn)
     {
-        this.maxDamage = maxDamageIn;
+        maxDamage = maxDamageIn;
 
         if (maxDamageIn > 0)
         {
-            this.addPropertyOverride(new ResourceLocation("damaged"), DAMAGED_GETTER);
-            this.addPropertyOverride(new ResourceLocation("damage"), DAMAGE_GETTER);
+            addPropertyOverride(new ResourceLocation("damaged"), DAMAGED_GETTER);
+            addPropertyOverride(new ResourceLocation("damage"), DAMAGE_GETTER);
         }
 
         return this;
@@ -275,7 +275,7 @@ public class Item
 
     public boolean isDamageable()
     {
-        return this.maxDamage > 0 && (!this.hasSubtypes || this.maxStackSize == 1);
+        return maxDamage > 0 && (!hasSubtypes || maxStackSize == 1);
     }
 
     /**
@@ -316,7 +316,7 @@ public class Item
      */
     public Item setFull3D()
     {
-        this.bFull3D = true;
+        bFull3D = true;
         return this;
     }
 
@@ -325,7 +325,7 @@ public class Item
      */
     public boolean isFull3D()
     {
-        return this.bFull3D;
+        return bFull3D;
     }
 
     /**
@@ -352,7 +352,7 @@ public class Item
      */
     public String getUnlocalizedNameInefficiently(ItemStack stack)
     {
-        return I18n.translateToLocal(this.getUnlocalizedName(stack));
+        return I18n.translateToLocal(getUnlocalizedName(stack));
     }
 
     /**
@@ -360,7 +360,7 @@ public class Item
      */
     public String getUnlocalizedName()
     {
-        return "item." + this.unlocalizedName;
+        return "item." + unlocalizedName;
     }
 
     /**
@@ -369,7 +369,7 @@ public class Item
      */
     public String getUnlocalizedName(ItemStack stack)
     {
-        return "item." + this.unlocalizedName;
+        return "item." + unlocalizedName;
     }
 
     public Item setContainerItem(Item containerItem)
@@ -389,7 +389,7 @@ public class Item
     @Nullable
     public Item getContainerItem()
     {
-        return this.containerItem;
+        return containerItem;
     }
 
     /**
@@ -397,7 +397,7 @@ public class Item
      */
     public boolean hasContainerItem()
     {
-        return this.containerItem != null;
+        return containerItem != null;
     }
 
     /**
@@ -455,7 +455,7 @@ public class Item
 
     public String getItemStackDisplayName(ItemStack stack)
     {
-        return I18n.translateToLocal(this.getUnlocalizedNameInefficiently(stack) + ".name").trim();
+        return I18n.translateToLocal(getUnlocalizedNameInefficiently(stack) + ".name").trim();
     }
 
     /**
@@ -484,7 +484,7 @@ public class Item
      */
     public boolean isEnchantable(ItemStack stack)
     {
-        return this.getItemStackLimit() == 1 && this.isDamageable();
+        return getItemStackLimit() == 1 && isDamageable();
     }
 
     protected RayTraceResult rayTrace(World worldIn, EntityPlayer playerIn, boolean useLiquids)
@@ -519,7 +519,7 @@ public class Item
      */
     public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items)
     {
-        if (this.isInCreativeTab(tab))
+        if (isInCreativeTab(tab))
         {
             items.add(new ItemStack(this));
         }
@@ -527,7 +527,7 @@ public class Item
 
     protected boolean isInCreativeTab(CreativeTabs targetTab)
     {
-        CreativeTabs creativetabs = this.getCreativeTab();
+        CreativeTabs creativetabs = getCreativeTab();
         return creativetabs != null && (targetTab == CreativeTabs.SEARCH || targetTab == creativetabs);
     }
 
@@ -538,7 +538,7 @@ public class Item
      */
     public CreativeTabs getCreativeTab()
     {
-        return this.tabToDisplayOn;
+        return tabToDisplayOn;
     }
 
     /**
@@ -546,7 +546,7 @@ public class Item
      */
     public Item setCreativeTab(CreativeTabs tab)
     {
-        this.tabToDisplayOn = tab;
+        tabToDisplayOn = tab;
         return this;
     }
 
@@ -1148,33 +1148,33 @@ public class Item
             this.harvestLevel = harvestLevel;
             this.maxUses = maxUses;
             this.efficiency = efficiency;
-            this.attackDamage = damageVsEntity;
+            attackDamage = damageVsEntity;
             this.enchantability = enchantability;
         }
 
         public int getMaxUses()
         {
-            return this.maxUses;
+            return maxUses;
         }
 
         public float getEfficiency()
         {
-            return this.efficiency;
+            return efficiency;
         }
 
         public float getAttackDamage()
         {
-            return this.attackDamage;
+            return attackDamage;
         }
 
         public int getHarvestLevel()
         {
-            return this.harvestLevel;
+            return harvestLevel;
         }
 
         public int getEnchantability()
         {
-            return this.enchantability;
+            return enchantability;
         }
 
         public Item getRepairItem()

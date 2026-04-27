@@ -23,7 +23,7 @@ public class WoodlandMansion extends MapGenStructure
 
     public WoodlandMansion(ChunkGeneratorOverworld providerIn)
     {
-        this.provider = providerIn;
+        provider = providerIn;
     }
 
     public String getStructureName()
@@ -48,7 +48,7 @@ public class WoodlandMansion extends MapGenStructure
 
         int k = i / 80;
         int l = j / 80;
-        Random random = this.world.setRandomSeed(k, l, 10387319);
+        Random random = world.setRandomSeed(k, l, 10387319);
         k = k * 80;
         l = l * 80;
         k = k + (random.nextInt(60) + random.nextInt(60)) / 2;
@@ -56,7 +56,7 @@ public class WoodlandMansion extends MapGenStructure
 
         if (chunkX == k && chunkZ == l)
         {
-            boolean flag = this.world.getBiomeProvider().areBiomesViable(chunkX * 16 + 8, chunkZ * 16 + 8, 32, ALLOWED_BIOMES);
+            boolean flag = world.getBiomeProvider().areBiomesViable(chunkX * 16 + 8, chunkZ * 16 + 8, 32, ALLOWED_BIOMES);
 
             if (flag)
             {
@@ -69,14 +69,14 @@ public class WoodlandMansion extends MapGenStructure
 
     public BlockPos getNearestStructurePos(World worldIn, BlockPos pos, boolean findUnexplored)
     {
-        this.world = worldIn;
+        world = worldIn;
         BiomeProvider biomeprovider = worldIn.getBiomeProvider();
         return biomeprovider.isFixedBiome() && biomeprovider.getFixedBiome() != Biomes.ROOFED_FOREST ? null : findNearestStructurePosBySpacing(worldIn, this, pos, 80, 20, 10387319, true, 100, findUnexplored);
     }
 
     protected StructureStart getStructureStart(int chunkX, int chunkZ)
     {
-        return new WoodlandMansion.Start(this.world, this.provider, this.rand, chunkX, chunkZ);
+        return new WoodlandMansion.Start(world, provider, rand, chunkX, chunkZ);
     }
 
     public static class Start extends StructureStart
@@ -90,7 +90,7 @@ public class WoodlandMansion extends MapGenStructure
         public Start(World p_i47235_1_, ChunkGeneratorOverworld p_i47235_2_, Random p_i47235_3_, int p_i47235_4_, int p_i47235_5_)
         {
             super(p_i47235_4_, p_i47235_5_);
-            this.create(p_i47235_1_, p_i47235_2_, p_i47235_3_, p_i47235_4_, p_i47235_5_);
+            create(p_i47235_1_, p_i47235_2_, p_i47235_3_, p_i47235_4_, p_i47235_5_);
         }
 
         private void create(World p_191092_1_, ChunkGeneratorOverworld p_191092_2_, Random p_191092_3_, int p_191092_4_, int p_191092_5_)
@@ -123,23 +123,23 @@ public class WoodlandMansion extends MapGenStructure
 
             if (k1 < 60)
             {
-                this.isValid = false;
+                isValid = false;
             }
             else
             {
                 BlockPos blockpos = new BlockPos(p_191092_4_ * 16 + 8, k1 + 1, p_191092_5_ * 16 + 8);
                 List<WoodlandMansionPieces.MansionTemplate> list = Lists.<WoodlandMansionPieces.MansionTemplate>newLinkedList();
                 WoodlandMansionPieces.generateMansion(p_191092_1_.getSaveHandler().getStructureTemplateManager(), blockpos, rotation, list, p_191092_3_);
-                this.components.addAll(list);
-                this.updateBoundingBox();
-                this.isValid = true;
+                components.addAll(list);
+                updateBoundingBox();
+                isValid = true;
             }
         }
 
         public void generateStructure(World worldIn, Random rand, StructureBoundingBox structurebb)
         {
             super.generateStructure(worldIn, rand, structurebb);
-            int i = this.boundingBox.minY;
+            int i = boundingBox.minY;
 
             for (int j = structurebb.minX; j <= structurebb.maxX; ++j)
             {
@@ -147,11 +147,11 @@ public class WoodlandMansion extends MapGenStructure
                 {
                     BlockPos blockpos = new BlockPos(j, i, k);
 
-                    if (!worldIn.isAirBlock(blockpos) && this.boundingBox.isVecInside(blockpos))
+                    if (!worldIn.isAirBlock(blockpos) && boundingBox.isVecInside(blockpos))
                     {
                         boolean flag = false;
 
-                        for (StructureComponent structurecomponent : this.components)
+                        for (StructureComponent structurecomponent : components)
                         {
                             if (structurecomponent.boundingBox.isVecInside(blockpos))
                             {
@@ -181,7 +181,7 @@ public class WoodlandMansion extends MapGenStructure
 
         public boolean isSizeableStructure()
         {
-            return this.isValid;
+            return isValid;
         }
     }
 }

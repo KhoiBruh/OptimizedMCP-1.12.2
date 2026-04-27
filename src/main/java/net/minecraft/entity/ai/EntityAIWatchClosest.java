@@ -21,20 +21,20 @@ public class EntityAIWatchClosest extends EntityAIBase
 
     public EntityAIWatchClosest(EntityLiving entityIn, Class <? extends Entity > watchTargetClass, float maxDistance)
     {
-        this.entity = entityIn;
-        this.watchedClass = watchTargetClass;
-        this.maxDistanceForPlayer = maxDistance;
-        this.chance = 0.02F;
-        this.setMutexBits(2);
+        entity = entityIn;
+        watchedClass = watchTargetClass;
+        maxDistanceForPlayer = maxDistance;
+        chance = 0.02F;
+        setMutexBits(2);
     }
 
     public EntityAIWatchClosest(EntityLiving entityIn, Class <? extends Entity > watchTargetClass, float maxDistance, float chanceIn)
     {
-        this.entity = entityIn;
-        this.watchedClass = watchTargetClass;
-        this.maxDistanceForPlayer = maxDistance;
-        this.chance = chanceIn;
-        this.setMutexBits(2);
+        entity = entityIn;
+        watchedClass = watchTargetClass;
+        maxDistanceForPlayer = maxDistance;
+        chance = chanceIn;
+        setMutexBits(2);
     }
 
     /**
@@ -42,27 +42,27 @@ public class EntityAIWatchClosest extends EntityAIBase
      */
     public boolean shouldExecute()
     {
-        if (this.entity.getRNG().nextFloat() >= this.chance)
+        if (entity.getRNG().nextFloat() >= chance)
         {
             return false;
         }
         else
         {
-            if (this.entity.getAttackTarget() != null)
+            if (entity.getAttackTarget() != null)
             {
-                this.closestEntity = this.entity.getAttackTarget();
+                closestEntity = entity.getAttackTarget();
             }
 
-            if (this.watchedClass == EntityPlayer.class)
+            if (watchedClass == EntityPlayer.class)
             {
-                this.closestEntity = this.entity.world.getClosestPlayer(this.entity.posX, this.entity.posY, this.entity.posZ, (double)this.maxDistanceForPlayer, Predicates.and(EntitySelectors.NOT_SPECTATING, EntitySelectors.notRiding(this.entity)));
+                closestEntity = entity.world.getClosestPlayer(entity.posX, entity.posY, entity.posZ, (double) maxDistanceForPlayer, Predicates.and(EntitySelectors.NOT_SPECTATING, EntitySelectors.notRiding(entity)));
             }
             else
             {
-                this.closestEntity = this.entity.world.findNearestEntityWithinAABB(this.watchedClass, this.entity.getEntityBoundingBox().grow((double)this.maxDistanceForPlayer, 3.0D, (double)this.maxDistanceForPlayer), this.entity);
+                closestEntity = entity.world.findNearestEntityWithinAABB(watchedClass, entity.getEntityBoundingBox().grow((double) maxDistanceForPlayer, 3.0D, (double) maxDistanceForPlayer), entity);
             }
 
-            return this.closestEntity != null;
+            return closestEntity != null;
         }
     }
 
@@ -71,17 +71,17 @@ public class EntityAIWatchClosest extends EntityAIBase
      */
     public boolean shouldContinueExecuting()
     {
-        if (!this.closestEntity.isEntityAlive())
+        if (!closestEntity.isEntityAlive())
         {
             return false;
         }
-        else if (this.entity.getDistanceSq(this.closestEntity) > (double)(this.maxDistanceForPlayer * this.maxDistanceForPlayer))
+        else if (entity.getDistanceSq(closestEntity) > (double)(maxDistanceForPlayer * maxDistanceForPlayer))
         {
             return false;
         }
         else
         {
-            return this.lookTime > 0;
+            return lookTime > 0;
         }
     }
 
@@ -90,7 +90,7 @@ public class EntityAIWatchClosest extends EntityAIBase
      */
     public void startExecuting()
     {
-        this.lookTime = 40 + this.entity.getRNG().nextInt(40);
+        lookTime = 40 + entity.getRNG().nextInt(40);
     }
 
     /**
@@ -98,7 +98,7 @@ public class EntityAIWatchClosest extends EntityAIBase
      */
     public void resetTask()
     {
-        this.closestEntity = null;
+        closestEntity = null;
     }
 
     /**
@@ -106,7 +106,7 @@ public class EntityAIWatchClosest extends EntityAIBase
      */
     public void updateTask()
     {
-        this.entity.getLookHelper().setLookPosition(this.closestEntity.posX, this.closestEntity.posY + (double)this.closestEntity.getEyeHeight(), this.closestEntity.posZ, (float)this.entity.getHorizontalFaceSpeed(), (float)this.entity.getVerticalFaceSpeed());
-        --this.lookTime;
+        entity.getLookHelper().setLookPosition(closestEntity.posX, closestEntity.posY + (double) closestEntity.getEyeHeight(), closestEntity.posZ, (float) entity.getHorizontalFaceSpeed(), (float) entity.getVerticalFaceSpeed());
+        --lookTime;
     }
 }

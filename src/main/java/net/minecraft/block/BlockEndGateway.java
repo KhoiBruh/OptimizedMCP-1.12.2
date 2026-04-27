@@ -22,7 +22,7 @@ public class BlockEndGateway extends BlockContainer
     protected BlockEndGateway(Material p_i46687_1_)
     {
         super(p_i46687_1_);
-        this.setLightLevel(1.0F);
+        setLightLevel(1.0F);
     }
 
     /**

@@ -15,7 +15,7 @@ public class Tessellator
 
     public Tessellator(int bufferSize)
     {
-        this.buffer = new BufferBuilder(bufferSize);
+        buffer = new BufferBuilder(bufferSize);
     }
 
     /**
@@ -23,12 +23,12 @@ public class Tessellator
      */
     public void draw()
     {
-        this.buffer.finishDrawing();
-        this.vboUploader.draw(this.buffer);
+        buffer.finishDrawing();
+        vboUploader.draw(buffer);
     }
 
     public BufferBuilder getBuffer()
     {
-        return this.buffer;
+        return buffer;
     }
 }

@@ -12,7 +12,7 @@ public class RenderSheep extends RenderLiving<EntitySheep>
     public RenderSheep(RenderManager p_i47195_1_)
     {
         super(p_i47195_1_, new ModelSheep2(), 0.7F);
-        this.addLayer(new LayerSheepWool(this));
+        addLayer(new LayerSheepWool(this));
     }
 
     /**

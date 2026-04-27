@@ -23,11 +23,11 @@ public class SPacketRecipeBook implements Packet<INetHandlerPlayClient>
 
     public SPacketRecipeBook(SPacketRecipeBook.State stateIn, List<IRecipe> recipesIn, List<IRecipe> displayedRecipesIn, boolean isGuiOpen, boolean p_i47597_5_)
     {
-        this.state = stateIn;
-        this.recipes = recipesIn;
-        this.displayedRecipes = displayedRecipesIn;
-        this.guiOpen = isGuiOpen;
-        this.filteringCraftable = p_i47597_5_;
+        state = stateIn;
+        recipes = recipesIn;
+        displayedRecipes = displayedRecipesIn;
+        guiOpen = isGuiOpen;
+        filteringCraftable = p_i47597_5_;
     }
 
     /**
@@ -43,25 +43,25 @@ public class SPacketRecipeBook implements Packet<INetHandlerPlayClient>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.state = (SPacketRecipeBook.State)buf.readEnumValue(SPacketRecipeBook.State.class);
-        this.guiOpen = buf.readBoolean();
-        this.filteringCraftable = buf.readBoolean();
+        state = (SPacketRecipeBook.State)buf.readEnumValue(SPacketRecipeBook.State.class);
+        guiOpen = buf.readBoolean();
+        filteringCraftable = buf.readBoolean();
         int i = buf.readVarInt();
-        this.recipes = Lists.<IRecipe>newArrayList();
+        recipes = Lists.<IRecipe>newArrayList();
 
         for (int j = 0; j < i; ++j)
         {
-            this.recipes.add(CraftingManager.getRecipeById(buf.readVarInt()));
+            recipes.add(CraftingManager.getRecipeById(buf.readVarInt()));
         }
 
-        if (this.state == SPacketRecipeBook.State.INIT)
+        if (state == SPacketRecipeBook.State.INIT)
         {
             i = buf.readVarInt();
-            this.displayedRecipes = Lists.<IRecipe>newArrayList();
+            displayedRecipes = Lists.<IRecipe>newArrayList();
 
             for (int k = 0; k < i; ++k)
             {
-                this.displayedRecipes.add(CraftingManager.getRecipeById(buf.readVarInt()));
+                displayedRecipes.add(CraftingManager.getRecipeById(buf.readVarInt()));
             }
         }
     }
@@ -71,21 +71,21 @@ public class SPacketRecipeBook implements Packet<INetHandlerPlayClient>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeEnumValue(this.state);
-        buf.writeBoolean(this.guiOpen);
-        buf.writeBoolean(this.filteringCraftable);
-        buf.writeVarInt(this.recipes.size());
+        buf.writeEnumValue(state);
+        buf.writeBoolean(guiOpen);
+        buf.writeBoolean(filteringCraftable);
+        buf.writeVarInt(recipes.size());
 
-        for (IRecipe irecipe : this.recipes)
+        for (IRecipe irecipe : recipes)
         {
             buf.writeVarInt(CraftingManager.getIDForRecipe(irecipe));
         }
 
-        if (this.state == SPacketRecipeBook.State.INIT)
+        if (state == SPacketRecipeBook.State.INIT)
         {
-            buf.writeVarInt(this.displayedRecipes.size());
+            buf.writeVarInt(displayedRecipes.size());
 
-            for (IRecipe irecipe1 : this.displayedRecipes)
+            for (IRecipe irecipe1 : displayedRecipes)
             {
                 buf.writeVarInt(CraftingManager.getIDForRecipe(irecipe1));
             }
@@ -94,27 +94,27 @@ public class SPacketRecipeBook implements Packet<INetHandlerPlayClient>
 
     public List<IRecipe> getRecipes()
     {
-        return this.recipes;
+        return recipes;
     }
 
     public List<IRecipe> getDisplayedRecipes()
     {
-        return this.displayedRecipes;
+        return displayedRecipes;
     }
 
     public boolean isGuiOpen()
     {
-        return this.guiOpen;
+        return guiOpen;
     }
 
     public boolean isFilteringCraftable()
     {
-        return this.filteringCraftable;
+        return filteringCraftable;
     }
 
     public SPacketRecipeBook.State getState()
     {
-        return this.state;
+        return state;
     }
 
     public static enum State

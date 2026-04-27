@@ -24,9 +24,9 @@ public abstract class LootEntry
 
     protected LootEntry(int weightIn, int qualityIn, LootCondition[] conditionsIn)
     {
-        this.weight = weightIn;
-        this.quality = qualityIn;
-        this.conditions = conditionsIn;
+        weight = weightIn;
+        quality = qualityIn;
+        conditions = conditionsIn;
     }
 
     /**
@@ -34,7 +34,7 @@ public abstract class LootEntry
      */
     public int getEffectiveWeight(float luck)
     {
-        return Math.max(MathHelper.floor((float)this.weight + (float)this.quality * luck), 0);
+        return Math.max(MathHelper.floor((float) weight + (float) quality * luck), 0);
     }
 
     public abstract void addLoot(Collection<ItemStack> stacks, Random rand, LootContext context);

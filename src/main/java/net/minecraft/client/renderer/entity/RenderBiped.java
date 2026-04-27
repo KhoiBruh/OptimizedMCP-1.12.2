@@ -15,9 +15,9 @@ public class RenderBiped<T extends EntityLiving> extends RenderLiving<T>
     public RenderBiped(RenderManager renderManagerIn, ModelBiped modelBipedIn, float shadowSize)
     {
         super(renderManagerIn, modelBipedIn, shadowSize);
-        this.addLayer(new LayerCustomHead(modelBipedIn.bipedHead));
-        this.addLayer(new LayerElytra(this));
-        this.addLayer(new LayerHeldItem(this));
+        addLayer(new LayerCustomHead(modelBipedIn.bipedHead));
+        addLayer(new LayerElytra(this));
+        addLayer(new LayerHeldItem(this));
     }
 
     /**

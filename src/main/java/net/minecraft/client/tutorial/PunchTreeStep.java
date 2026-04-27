@@ -32,17 +32,17 @@ public class PunchTreeStep implements ITutorialStep
 
     public void update()
     {
-        ++this.timeWaiting;
+        ++timeWaiting;
 
-        if (this.tutorial.getGameType() != GameType.SURVIVAL)
+        if (tutorial.getGameType() != GameType.SURVIVAL)
         {
-            this.tutorial.setStep(TutorialSteps.NONE);
+            tutorial.setStep(TutorialSteps.NONE);
         }
         else
         {
-            if (this.timeWaiting == 1)
+            if (timeWaiting == 1)
             {
-                EntityPlayerSP entityplayersp = this.tutorial.getMinecraft().player;
+                EntityPlayerSP entityplayersp = tutorial.getMinecraft().player;
 
                 if (entityplayersp != null)
                 {
@@ -50,33 +50,33 @@ public class PunchTreeStep implements ITutorialStep
                     {
                         if (entityplayersp.inventory.hasItemStack(new ItemStack(block)))
                         {
-                            this.tutorial.setStep(TutorialSteps.CRAFT_PLANKS);
+                            tutorial.setStep(TutorialSteps.CRAFT_PLANKS);
                             return;
                         }
                     }
 
                     if (FindTreeStep.hasPunchedTreesPreviously(entityplayersp))
                     {
-                        this.tutorial.setStep(TutorialSteps.CRAFT_PLANKS);
+                        tutorial.setStep(TutorialSteps.CRAFT_PLANKS);
                         return;
                     }
                 }
             }
 
-            if ((this.timeWaiting >= 600 || this.resetCount > 3) && this.toast == null)
+            if ((timeWaiting >= 600 || resetCount > 3) && toast == null)
             {
-                this.toast = new TutorialToast(TutorialToast.Icons.TREE, TITLE, DESCRIPTION, true);
-                this.tutorial.getMinecraft().getToastGui().add(this.toast);
+                toast = new TutorialToast(TutorialToast.Icons.TREE, TITLE, DESCRIPTION, true);
+                tutorial.getMinecraft().getToastGui().add(toast);
             }
         }
     }
 
     public void onStop()
     {
-        if (this.toast != null)
+        if (toast != null)
         {
-            this.toast.hide();
-            this.toast = null;
+            toast.hide();
+            toast = null;
         }
     }
 
@@ -94,23 +94,23 @@ public class PunchTreeStep implements ITutorialStep
 
         if (flag && diggingStage > 0.0F)
         {
-            if (this.toast != null)
+            if (toast != null)
             {
-                this.toast.setProgress(diggingStage);
+                toast.setProgress(diggingStage);
             }
 
             if (diggingStage >= 1.0F)
             {
-                this.tutorial.setStep(TutorialSteps.OPEN_INVENTORY);
+                tutorial.setStep(TutorialSteps.OPEN_INVENTORY);
             }
         }
-        else if (this.toast != null)
+        else if (toast != null)
         {
-            this.toast.setProgress(0.0F);
+            toast.setProgress(0.0F);
         }
         else if (flag)
         {
-            ++this.resetCount;
+            ++resetCount;
         }
     }
 
@@ -125,7 +125,7 @@ public class PunchTreeStep implements ITutorialStep
         {
             if (stack.getItem() == Item.getItemFromBlock(block))
             {
-                this.tutorial.setStep(TutorialSteps.CRAFT_PLANKS);
+                tutorial.setStep(TutorialSteps.CRAFT_PLANKS);
                 return;
             }
         }

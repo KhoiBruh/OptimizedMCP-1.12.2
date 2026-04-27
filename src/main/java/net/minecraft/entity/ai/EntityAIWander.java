@@ -21,10 +21,10 @@ public class EntityAIWander extends EntityAIBase
 
     public EntityAIWander(EntityCreature creatureIn, double speedIn, int chance)
     {
-        this.entity = creatureIn;
-        this.speed = speedIn;
-        this.executionChance = chance;
-        this.setMutexBits(1);
+        entity = creatureIn;
+        speed = speedIn;
+        executionChance = chance;
+        setMutexBits(1);
     }
 
     /**
@@ -32,20 +32,20 @@ public class EntityAIWander extends EntityAIBase
      */
     public boolean shouldExecute()
     {
-        if (!this.mustUpdate)
+        if (!mustUpdate)
         {
-            if (this.entity.getIdleTime() >= 100)
+            if (entity.getIdleTime() >= 100)
             {
                 return false;
             }
 
-            if (this.entity.getRNG().nextInt(this.executionChance) != 0)
+            if (entity.getRNG().nextInt(executionChance) != 0)
             {
                 return false;
             }
         }
 
-        Vec3d vec3d = this.getPosition();
+        Vec3d vec3d = getPosition();
 
         if (vec3d == null)
         {
@@ -53,10 +53,10 @@ public class EntityAIWander extends EntityAIBase
         }
         else
         {
-            this.x = vec3d.x;
-            this.y = vec3d.y;
-            this.z = vec3d.z;
-            this.mustUpdate = false;
+            x = vec3d.x;
+            y = vec3d.y;
+            z = vec3d.z;
+            mustUpdate = false;
             return true;
         }
     }
@@ -64,7 +64,7 @@ public class EntityAIWander extends EntityAIBase
     @Nullable
     protected Vec3d getPosition()
     {
-        return RandomPositionGenerator.findRandomTarget(this.entity, 10, 7);
+        return RandomPositionGenerator.findRandomTarget(entity, 10, 7);
     }
 
     /**
@@ -72,7 +72,7 @@ public class EntityAIWander extends EntityAIBase
      */
     public boolean shouldContinueExecuting()
     {
-        return !this.entity.getNavigator().noPath();
+        return !entity.getNavigator().noPath();
     }
 
     /**
@@ -80,7 +80,7 @@ public class EntityAIWander extends EntityAIBase
      */
     public void startExecuting()
     {
-        this.entity.getNavigator().tryMoveToXYZ(this.x, this.y, this.z, this.speed);
+        entity.getNavigator().tryMoveToXYZ(x, y, z, speed);
     }
 
     /**
@@ -88,7 +88,7 @@ public class EntityAIWander extends EntityAIBase
      */
     public void makeUpdate()
     {
-        this.mustUpdate = true;
+        mustUpdate = true;
     }
 
     /**
@@ -96,6 +96,6 @@ public class EntityAIWander extends EntityAIBase
      */
     public void setExecutionChance(int newchance)
     {
-        this.executionChance = newchance;
+        executionChance = newchance;
     }
 }

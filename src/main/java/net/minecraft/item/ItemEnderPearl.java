@@ -15,8 +15,8 @@ public class ItemEnderPearl extends Item
 {
     public ItemEnderPearl()
     {
-        this.maxStackSize = 16;
-        this.setCreativeTab(CreativeTabs.MISC);
+        maxStackSize = 16;
+        setCreativeTab(CreativeTabs.MISC);
     }
 
     public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn)

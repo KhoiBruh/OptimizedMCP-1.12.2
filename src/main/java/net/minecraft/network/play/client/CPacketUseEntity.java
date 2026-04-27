@@ -23,23 +23,23 @@ public class CPacketUseEntity implements Packet<INetHandlerPlayServer>
 
     public CPacketUseEntity(Entity entityIn)
     {
-        this.entityId = entityIn.getEntityId();
-        this.action = CPacketUseEntity.Action.ATTACK;
+        entityId = entityIn.getEntityId();
+        action = CPacketUseEntity.Action.ATTACK;
     }
 
     public CPacketUseEntity(Entity entityIn, EnumHand handIn)
     {
-        this.entityId = entityIn.getEntityId();
-        this.action = CPacketUseEntity.Action.INTERACT;
-        this.hand = handIn;
+        entityId = entityIn.getEntityId();
+        action = CPacketUseEntity.Action.INTERACT;
+        hand = handIn;
     }
 
     public CPacketUseEntity(Entity entityIn, EnumHand handIn, Vec3d hitVecIn)
     {
-        this.entityId = entityIn.getEntityId();
-        this.action = CPacketUseEntity.Action.INTERACT_AT;
-        this.hand = handIn;
-        this.hitVec = hitVecIn;
+        entityId = entityIn.getEntityId();
+        action = CPacketUseEntity.Action.INTERACT_AT;
+        hand = handIn;
+        hitVec = hitVecIn;
     }
 
     /**
@@ -47,17 +47,17 @@ public class CPacketUseEntity implements Packet<INetHandlerPlayServer>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.entityId = buf.readVarInt();
-        this.action = (CPacketUseEntity.Action)buf.readEnumValue(CPacketUseEntity.Action.class);
+        entityId = buf.readVarInt();
+        action = (CPacketUseEntity.Action)buf.readEnumValue(CPacketUseEntity.Action.class);
 
-        if (this.action == CPacketUseEntity.Action.INTERACT_AT)
+        if (action == CPacketUseEntity.Action.INTERACT_AT)
         {
-            this.hitVec = new Vec3d((double)buf.readFloat(), (double)buf.readFloat(), (double)buf.readFloat());
+            hitVec = new Vec3d((double)buf.readFloat(), (double)buf.readFloat(), (double)buf.readFloat());
         }
 
-        if (this.action == CPacketUseEntity.Action.INTERACT || this.action == CPacketUseEntity.Action.INTERACT_AT)
+        if (action == CPacketUseEntity.Action.INTERACT || action == CPacketUseEntity.Action.INTERACT_AT)
         {
-            this.hand = (EnumHand)buf.readEnumValue(EnumHand.class);
+            hand = (EnumHand)buf.readEnumValue(EnumHand.class);
         }
     }
 
@@ -66,19 +66,19 @@ public class CPacketUseEntity implements Packet<INetHandlerPlayServer>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeVarInt(this.entityId);
-        buf.writeEnumValue(this.action);
+        buf.writeVarInt(entityId);
+        buf.writeEnumValue(action);
 
-        if (this.action == CPacketUseEntity.Action.INTERACT_AT)
+        if (action == CPacketUseEntity.Action.INTERACT_AT)
         {
-            buf.writeFloat((float)this.hitVec.x);
-            buf.writeFloat((float)this.hitVec.y);
-            buf.writeFloat((float)this.hitVec.z);
+            buf.writeFloat((float) hitVec.x);
+            buf.writeFloat((float) hitVec.y);
+            buf.writeFloat((float) hitVec.z);
         }
 
-        if (this.action == CPacketUseEntity.Action.INTERACT || this.action == CPacketUseEntity.Action.INTERACT_AT)
+        if (action == CPacketUseEntity.Action.INTERACT || action == CPacketUseEntity.Action.INTERACT_AT)
         {
-            buf.writeEnumValue(this.hand);
+            buf.writeEnumValue(hand);
         }
     }
 
@@ -93,22 +93,22 @@ public class CPacketUseEntity implements Packet<INetHandlerPlayServer>
     @Nullable
     public Entity getEntityFromWorld(World worldIn)
     {
-        return worldIn.getEntityByID(this.entityId);
+        return worldIn.getEntityByID(entityId);
     }
 
     public CPacketUseEntity.Action getAction()
     {
-        return this.action;
+        return action;
     }
 
     public EnumHand getHand()
     {
-        return this.hand;
+        return hand;
     }
 
     public Vec3d getHitVec()
     {
-        return this.hitVec;
+        return hitVec;
     }
 
     public static enum Action

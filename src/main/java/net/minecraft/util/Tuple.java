@@ -7,8 +7,8 @@ public class Tuple<A, B>
 
     public Tuple(A aIn, B bIn)
     {
-        this.a = aIn;
-        this.b = bIn;
+        a = aIn;
+        b = bIn;
     }
 
     /**
@@ -16,7 +16,7 @@ public class Tuple<A, B>
      */
     public A getFirst()
     {
-        return this.a;
+        return a;
     }
 
     /**
@@ -24,6 +24,6 @@ public class Tuple<A, B>
      */
     public B getSecond()
     {
-        return this.b;
+        return b;
     }
 }

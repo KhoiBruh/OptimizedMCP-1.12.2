@@ -30,8 +30,8 @@ public class PngSizeInfo
         }
         else
         {
-            this.pngWidth = datainputstream.readInt();
-            this.pngHeight = datainputstream.readInt();
+            pngWidth = datainputstream.readInt();
+            pngHeight = datainputstream.readInt();
             IOUtils.closeQuietly((InputStream)datainputstream);
         }
     }

@@ -32,7 +32,7 @@ public class BlockPotato extends BlockCrops
 
         if (!worldIn.isRemote)
         {
-            if (this.isMaxAge(state) && worldIn.rand.nextInt(50) == 0)
+            if (isMaxAge(state) && worldIn.rand.nextInt(50) == 0)
             {
                 spawnAsEntity(worldIn, pos, new ItemStack(Items.POISONOUS_POTATO));
             }
@@ -41,6 +41,6 @@ public class BlockPotato extends BlockCrops
 
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
     {
-        return POTATO_AABB[((Integer)state.getValue(this.getAgeProperty())).intValue()];
+        return POTATO_AABB[((Integer)state.getValue(getAgeProperty())).intValue()];
     }
 }

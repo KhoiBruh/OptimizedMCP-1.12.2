@@ -22,13 +22,13 @@ public class MultipartBakedModel implements IBakedModel
 
     public MultipartBakedModel(Map<Predicate<IBlockState>, IBakedModel> selectorsIn)
     {
-        this.selectors = selectorsIn;
+        selectors = selectorsIn;
         IBakedModel ibakedmodel = selectorsIn.values().iterator().next();
-        this.ambientOcclusion = ibakedmodel.isAmbientOcclusion();
-        this.gui3D = ibakedmodel.isGui3d();
-        this.particleTexture = ibakedmodel.getParticleTexture();
-        this.cameraTransforms = ibakedmodel.getItemCameraTransforms();
-        this.overrides = ibakedmodel.getOverrides();
+        ambientOcclusion = ibakedmodel.isAmbientOcclusion();
+        gui3D = ibakedmodel.isGui3d();
+        particleTexture = ibakedmodel.getParticleTexture();
+        cameraTransforms = ibakedmodel.getItemCameraTransforms();
+        overrides = ibakedmodel.getOverrides();
     }
 
     public List<BakedQuad> getQuads(@Nullable IBlockState state, @Nullable EnumFacing side, long rand)
@@ -37,7 +37,7 @@ public class MultipartBakedModel implements IBakedModel
 
         if (state != null)
         {
-            for (Entry<Predicate<IBlockState>, IBakedModel> entry : this.selectors.entrySet())
+            for (Entry<Predicate<IBlockState>, IBakedModel> entry : selectors.entrySet())
             {
                 if (((Predicate)entry.getKey()).apply(state))
                 {
@@ -51,12 +51,12 @@ public class MultipartBakedModel implements IBakedModel
 
     public boolean isAmbientOcclusion()
     {
-        return this.ambientOcclusion;
+        return ambientOcclusion;
     }
 
     public boolean isGui3d()
     {
-        return this.gui3D;
+        return gui3D;
     }
 
     public boolean isBuiltInRenderer()
@@ -66,17 +66,17 @@ public class MultipartBakedModel implements IBakedModel
 
     public TextureAtlasSprite getParticleTexture()
     {
-        return this.particleTexture;
+        return particleTexture;
     }
 
     public ItemCameraTransforms getItemCameraTransforms()
     {
-        return this.cameraTransforms;
+        return cameraTransforms;
     }
 
     public ItemOverrideList getOverrides()
     {
-        return this.overrides;
+        return overrides;
     }
 
     public static class Builder
@@ -85,12 +85,12 @@ public class MultipartBakedModel implements IBakedModel
 
         public void putModel(Predicate<IBlockState> predicate, IBakedModel model)
         {
-            this.builderSelectors.put(predicate, model);
+            builderSelectors.put(predicate, model);
         }
 
         public IBakedModel makeMultipartModel()
         {
-            return new MultipartBakedModel(this.builderSelectors);
+            return new MultipartBakedModel(builderSelectors);
         }
     }
 }

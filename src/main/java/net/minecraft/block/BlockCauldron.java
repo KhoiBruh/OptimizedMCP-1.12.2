@@ -44,7 +44,7 @@ public class BlockCauldron extends Block
     public BlockCauldron()
     {
         super(Material.IRON, MapColor.STONE);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(LEVEL, Integer.valueOf(0)));
+        setDefaultState(blockState.getBaseState().withProperty(LEVEL, Integer.valueOf(0)));
     }
 
     public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, @Nullable Entity entityIn, boolean isActualState)
@@ -85,7 +85,7 @@ public class BlockCauldron extends Block
         if (!worldIn.isRemote && entityIn.isBurning() && i > 0 && entityIn.getEntityBoundingBox().minY <= (double)f)
         {
             entityIn.extinguish();
-            this.setWaterLevel(worldIn, pos, state, i - 1);
+            setWaterLevel(worldIn, pos, state, i - 1);
         }
     }
 
@@ -115,7 +115,7 @@ public class BlockCauldron extends Block
                     }
 
                     playerIn.addStat(StatList.CAULDRON_FILLED);
-                    this.setWaterLevel(worldIn, pos, state, 3);
+                    setWaterLevel(worldIn, pos, state, 3);
                     worldIn.playSound((EntityPlayer)null, pos, SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.BLOCKS, 1.0F, 1.0F);
                 }
 
@@ -140,7 +140,7 @@ public class BlockCauldron extends Block
                     }
 
                     playerIn.addStat(StatList.CAULDRON_USED);
-                    this.setWaterLevel(worldIn, pos, state, 0);
+                    setWaterLevel(worldIn, pos, state, 0);
                     worldIn.playSound((EntityPlayer)null, pos, SoundEvents.ITEM_BUCKET_FILL, SoundCategory.BLOCKS, 1.0F, 1.0F);
                 }
 
@@ -171,7 +171,7 @@ public class BlockCauldron extends Block
                     }
 
                     worldIn.playSound((EntityPlayer)null, pos, SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.BLOCKS, 1.0F, 1.0F);
-                    this.setWaterLevel(worldIn, pos, state, i - 1);
+                    setWaterLevel(worldIn, pos, state, i - 1);
                 }
 
                 return true;
@@ -193,7 +193,7 @@ public class BlockCauldron extends Block
                     }
 
                     worldIn.playSound((EntityPlayer)null, pos, SoundEvents.ITEM_BOTTLE_EMPTY, SoundCategory.BLOCKS, 1.0F, 1.0F);
-                    this.setWaterLevel(worldIn, pos, state, i + 1);
+                    setWaterLevel(worldIn, pos, state, i + 1);
                 }
 
                 return true;
@@ -207,7 +207,7 @@ public class BlockCauldron extends Block
                     if (itemarmor.getArmorMaterial() == ItemArmor.ArmorMaterial.LEATHER && itemarmor.hasColor(itemstack) && !worldIn.isRemote)
                     {
                         itemarmor.removeColor(itemstack);
-                        this.setWaterLevel(worldIn, pos, state, i - 1);
+                        setWaterLevel(worldIn, pos, state, i - 1);
                         playerIn.addStat(StatList.ARMOR_CLEANED);
                         return true;
                     }
@@ -225,7 +225,7 @@ public class BlockCauldron extends Block
                         if (!playerIn.capabilities.isCreativeMode)
                         {
                             itemstack.shrink(1);
-                            this.setWaterLevel(worldIn, pos, state, i - 1);
+                            setWaterLevel(worldIn, pos, state, i - 1);
                         }
 
                         if (itemstack.isEmpty())
@@ -307,7 +307,7 @@ public class BlockCauldron extends Block
      */
     public IBlockState getStateFromMeta(int meta)
     {
-        return this.getDefaultState().withProperty(LEVEL, Integer.valueOf(meta));
+        return getDefaultState().withProperty(LEVEL, Integer.valueOf(meta));
     }
 
     /**

@@ -32,20 +32,20 @@ public class TileEntityBanner extends TileEntity implements IWorldNameable
 
     public void setItemValues(ItemStack stack, boolean p_175112_2_)
     {
-        this.patterns = null;
+        patterns = null;
         NBTTagCompound nbttagcompound = stack.getSubCompound("BlockEntityTag");
 
         if (nbttagcompound != null && nbttagcompound.hasKey("Patterns", 9))
         {
-            this.patterns = nbttagcompound.getTagList("Patterns", 10).copy();
+            patterns = nbttagcompound.getTagList("Patterns", 10).copy();
         }
 
-        this.baseColor = p_175112_2_ ? getColor(stack) : ItemBanner.getBaseColor(stack);
-        this.patternList = null;
-        this.colorList = null;
-        this.patternResourceLocation = "";
-        this.patternDataSet = true;
-        this.name = stack.hasDisplayName() ? stack.getDisplayName() : null;
+        baseColor = p_175112_2_ ? getColor(stack) : ItemBanner.getBaseColor(stack);
+        patternList = null;
+        colorList = null;
+        patternResourceLocation = "";
+        patternDataSet = true;
+        name = stack.hasDisplayName() ? stack.getDisplayName() : null;
     }
 
     /**
@@ -53,7 +53,7 @@ public class TileEntityBanner extends TileEntity implements IWorldNameable
      */
     public String getName()
     {
-        return this.hasCustomName() ? this.name : "banner";
+        return hasCustomName() ? name : "banner";
     }
 
     /**
@@ -61,7 +61,7 @@ public class TileEntityBanner extends TileEntity implements IWorldNameable
      */
     public boolean hasCustomName()
     {
-        return this.name != null && !this.name.isEmpty();
+        return name != null && !name.isEmpty();
     }
 
     /**
@@ -69,22 +69,22 @@ public class TileEntityBanner extends TileEntity implements IWorldNameable
      */
     public ITextComponent getDisplayName()
     {
-        return (ITextComponent)(this.hasCustomName() ? new TextComponentString(this.getName()) : new TextComponentTranslation(this.getName(), new Object[0]));
+        return (ITextComponent)(hasCustomName() ? new TextComponentString(getName()) : new TextComponentTranslation(getName(), new Object[0]));
     }
 
     public NBTTagCompound writeToNBT(NBTTagCompound compound)
     {
         super.writeToNBT(compound);
-        compound.setInteger("Base", this.baseColor.getDyeDamage());
+        compound.setInteger("Base", baseColor.getDyeDamage());
 
-        if (this.patterns != null)
+        if (patterns != null)
         {
-            compound.setTag("Patterns", this.patterns);
+            compound.setTag("Patterns", patterns);
         }
 
-        if (this.hasCustomName())
+        if (hasCustomName())
         {
-            compound.setString("CustomName", this.name);
+            compound.setString("CustomName", name);
         }
 
         return compound;
@@ -96,26 +96,26 @@ public class TileEntityBanner extends TileEntity implements IWorldNameable
 
         if (compound.hasKey("CustomName", 8))
         {
-            this.name = compound.getString("CustomName");
+            name = compound.getString("CustomName");
         }
 
-        this.baseColor = EnumDyeColor.byDyeDamage(compound.getInteger("Base"));
-        this.patterns = compound.getTagList("Patterns", 10);
-        this.patternList = null;
-        this.colorList = null;
-        this.patternResourceLocation = null;
-        this.patternDataSet = true;
+        baseColor = EnumDyeColor.byDyeDamage(compound.getInteger("Base"));
+        patterns = compound.getTagList("Patterns", 10);
+        patternList = null;
+        colorList = null;
+        patternResourceLocation = null;
+        patternDataSet = true;
     }
 
     @Nullable
     public SPacketUpdateTileEntity getUpdatePacket()
     {
-        return new SPacketUpdateTileEntity(this.pos, 6, this.getUpdateTag());
+        return new SPacketUpdateTileEntity(pos, 6, getUpdateTag());
     }
 
     public NBTTagCompound getUpdateTag()
     {
-        return this.writeToNBT(new NBTTagCompound());
+        return writeToNBT(new NBTTagCompound());
     }
 
     /**
@@ -129,20 +129,20 @@ public class TileEntityBanner extends TileEntity implements IWorldNameable
 
     public List<BannerPattern> getPatternList()
     {
-        this.initializeBannerData();
-        return this.patternList;
+        initializeBannerData();
+        return patternList;
     }
 
     public List<EnumDyeColor> getColorList()
     {
-        this.initializeBannerData();
-        return this.colorList;
+        initializeBannerData();
+        return colorList;
     }
 
     public String getPatternResourceLocation()
     {
-        this.initializeBannerData();
-        return this.patternResourceLocation;
+        initializeBannerData();
+        return patternResourceLocation;
     }
 
     /**
@@ -151,33 +151,33 @@ public class TileEntityBanner extends TileEntity implements IWorldNameable
      */
     private void initializeBannerData()
     {
-        if (this.patternList == null || this.colorList == null || this.patternResourceLocation == null)
+        if (patternList == null || colorList == null || patternResourceLocation == null)
         {
-            if (!this.patternDataSet)
+            if (!patternDataSet)
             {
-                this.patternResourceLocation = "";
+                patternResourceLocation = "";
             }
             else
             {
-                this.patternList = Lists.<BannerPattern>newArrayList();
-                this.colorList = Lists.<EnumDyeColor>newArrayList();
-                this.patternList.add(BannerPattern.BASE);
-                this.colorList.add(this.baseColor);
-                this.patternResourceLocation = "b" + this.baseColor.getDyeDamage();
+                patternList = Lists.<BannerPattern>newArrayList();
+                colorList = Lists.<EnumDyeColor>newArrayList();
+                patternList.add(BannerPattern.BASE);
+                colorList.add(baseColor);
+                patternResourceLocation = "b" + baseColor.getDyeDamage();
 
-                if (this.patterns != null)
+                if (patterns != null)
                 {
-                    for (int i = 0; i < this.patterns.tagCount(); ++i)
+                    for (int i = 0; i < patterns.tagCount(); ++i)
                     {
-                        NBTTagCompound nbttagcompound = this.patterns.getCompoundTagAt(i);
+                        NBTTagCompound nbttagcompound = patterns.getCompoundTagAt(i);
                         BannerPattern bannerpattern = BannerPattern.byHash(nbttagcompound.getString("Pattern"));
 
                         if (bannerpattern != null)
                         {
-                            this.patternList.add(bannerpattern);
+                            patternList.add(bannerpattern);
                             int j = nbttagcompound.getInteger("Color");
-                            this.colorList.add(EnumDyeColor.byDyeDamage(j));
-                            this.patternResourceLocation = this.patternResourceLocation + bannerpattern.getHashname() + j;
+                            colorList.add(EnumDyeColor.byDyeDamage(j));
+                            patternResourceLocation = patternResourceLocation + bannerpattern.getHashname() + j;
                         }
                     }
                 }
@@ -215,11 +215,11 @@ public class TileEntityBanner extends TileEntity implements IWorldNameable
 
     public ItemStack getItem()
     {
-        ItemStack itemstack = ItemBanner.makeBanner(this.baseColor, this.patterns);
+        ItemStack itemstack = ItemBanner.makeBanner(baseColor, patterns);
 
-        if (this.hasCustomName())
+        if (hasCustomName())
         {
-            itemstack.setStackDisplayName(this.getName());
+            itemstack.setStackDisplayName(getName());
         }
 
         return itemstack;

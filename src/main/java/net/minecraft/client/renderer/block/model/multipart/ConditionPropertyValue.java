@@ -21,21 +21,21 @@ public class ConditionPropertyValue implements ICondition
 
     public ConditionPropertyValue(String keyIn, String valueIn)
     {
-        this.key = keyIn;
-        this.value = valueIn;
+        key = keyIn;
+        value = valueIn;
     }
 
     public Predicate<IBlockState> getPredicate(BlockStateContainer blockState)
     {
-        final IProperty<?> iproperty = blockState.getProperty(this.key);
+        final IProperty<?> iproperty = blockState.getProperty(key);
 
         if (iproperty == null)
         {
-            throw new RuntimeException(this.toString() + ": Definition: " + blockState + " has no property: " + this.key);
+            throw new RuntimeException(toString() + ": Definition: " + blockState + " has no property: " + key);
         }
         else
         {
-            String s = this.value;
+            String s = value;
             boolean flag = !s.isEmpty() && s.charAt(0) == '!';
 
             if (flag)
@@ -47,7 +47,7 @@ public class ConditionPropertyValue implements ICondition
 
             if (list.isEmpty())
             {
-                throw new RuntimeException(this.toString() + ": has an empty value: " + this.value);
+                throw new RuntimeException(toString() + ": has an empty value: " + value);
             }
             else
             {
@@ -55,7 +55,7 @@ public class ConditionPropertyValue implements ICondition
 
                 if (list.size() == 1)
                 {
-                    predicate = this.makePredicate(iproperty, s);
+                    predicate = makePredicate(iproperty, s);
                 }
                 else
                 {
@@ -64,7 +64,7 @@ public class ConditionPropertyValue implements ICondition
                         @Nullable
                         public Predicate<IBlockState> apply(@Nullable String p_apply_1_)
                         {
-                            return ConditionPropertyValue.this.makePredicate(iproperty, p_apply_1_);
+                            return makePredicate(iproperty, p_apply_1_);
                         }
                     }));
                 }
@@ -80,7 +80,7 @@ public class ConditionPropertyValue implements ICondition
 
         if (!optional.isPresent())
         {
-            throw new RuntimeException(this.toString() + ": has an unknown value: " + this.value);
+            throw new RuntimeException(toString() + ": has an unknown value: " + value);
         }
         else
         {
@@ -96,6 +96,6 @@ public class ConditionPropertyValue implements ICondition
 
     public String toString()
     {
-        return MoreObjects.toStringHelper(this).add("key", this.key).add("value", this.value).toString();
+        return MoreObjects.toStringHelper(this).add("key", key).add("value", value).toString();
     }
 }

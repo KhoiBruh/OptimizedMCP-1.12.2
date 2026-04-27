@@ -8,7 +8,7 @@ public class EnchantmentUntouching extends Enchantment
     protected EnchantmentUntouching(Enchantment.Rarity rarityIn, EntityEquipmentSlot... slots)
     {
         super(rarityIn, EnumEnchantmentType.DIGGER, slots);
-        this.setName("untouching");
+        setName("untouching");
     }
 
     /**

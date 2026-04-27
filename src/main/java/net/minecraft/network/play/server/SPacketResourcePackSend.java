@@ -16,8 +16,8 @@ public class SPacketResourcePackSend implements Packet<INetHandlerPlayClient>
 
     public SPacketResourcePackSend(String urlIn, String hashIn)
     {
-        this.url = urlIn;
-        this.hash = hashIn;
+        url = urlIn;
+        hash = hashIn;
 
         if (hashIn.length() > 40)
         {
@@ -30,8 +30,8 @@ public class SPacketResourcePackSend implements Packet<INetHandlerPlayClient>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.url = buf.readString(32767);
-        this.hash = buf.readString(40);
+        url = buf.readString(32767);
+        hash = buf.readString(40);
     }
 
     /**
@@ -39,8 +39,8 @@ public class SPacketResourcePackSend implements Packet<INetHandlerPlayClient>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeString(this.url);
-        buf.writeString(this.hash);
+        buf.writeString(url);
+        buf.writeString(hash);
     }
 
     /**
@@ -53,11 +53,11 @@ public class SPacketResourcePackSend implements Packet<INetHandlerPlayClient>
 
     public String getURL()
     {
-        return this.url;
+        return url;
     }
 
     public String getHash()
     {
-        return this.hash;
+        return hash;
     }
 }

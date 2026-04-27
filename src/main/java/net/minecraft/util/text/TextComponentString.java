@@ -6,7 +6,7 @@ public class TextComponentString extends TextComponentBase
 
     public TextComponentString(String msg)
     {
-        this.text = msg;
+        text = msg;
     }
 
     /**
@@ -16,7 +16,7 @@ public class TextComponentString extends TextComponentBase
      */
     public String getText()
     {
-        return this.text;
+        return text;
     }
 
     /**
@@ -26,7 +26,7 @@ public class TextComponentString extends TextComponentBase
      */
     public String getUnformattedComponentText()
     {
-        return this.text;
+        return text;
     }
 
     /**
@@ -34,10 +34,10 @@ public class TextComponentString extends TextComponentBase
      */
     public TextComponentString createCopy()
     {
-        TextComponentString textcomponentstring = new TextComponentString(this.text);
-        textcomponentstring.setStyle(this.getStyle().createShallowCopy());
+        TextComponentString textcomponentstring = new TextComponentString(text);
+        textcomponentstring.setStyle(getStyle().createShallowCopy());
 
-        for (ITextComponent itextcomponent : this.getSiblings())
+        for (ITextComponent itextcomponent : getSiblings())
         {
             textcomponentstring.appendSibling(itextcomponent.createCopy());
         }
@@ -58,12 +58,12 @@ public class TextComponentString extends TextComponentBase
         else
         {
             TextComponentString textcomponentstring = (TextComponentString)p_equals_1_;
-            return this.text.equals(textcomponentstring.getText()) && super.equals(p_equals_1_);
+            return text.equals(textcomponentstring.getText()) && super.equals(p_equals_1_);
         }
     }
 
     public String toString()
     {
-        return "TextComponent{text='" + this.text + '\'' + ", siblings=" + this.siblings + ", style=" + this.getStyle() + '}';
+        return "TextComponent{text='" + text + '\'' + ", siblings=" + siblings + ", style=" + getStyle() + '}';
     }
 }

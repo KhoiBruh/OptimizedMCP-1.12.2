@@ -26,12 +26,12 @@ public class UsedTotemTrigger implements ICriterionTrigger<UsedTotemTrigger.Inst
 
     public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<UsedTotemTrigger.Instance> listener)
     {
-        UsedTotemTrigger.Listeners usedtotemtrigger$listeners = this.listeners.get(playerAdvancementsIn);
+        UsedTotemTrigger.Listeners usedtotemtrigger$listeners = listeners.get(playerAdvancementsIn);
 
         if (usedtotemtrigger$listeners == null)
         {
             usedtotemtrigger$listeners = new UsedTotemTrigger.Listeners(playerAdvancementsIn);
-            this.listeners.put(playerAdvancementsIn, usedtotemtrigger$listeners);
+            listeners.put(playerAdvancementsIn, usedtotemtrigger$listeners);
         }
 
         usedtotemtrigger$listeners.add(listener);
@@ -39,7 +39,7 @@ public class UsedTotemTrigger implements ICriterionTrigger<UsedTotemTrigger.Inst
 
     public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<UsedTotemTrigger.Instance> listener)
     {
-        UsedTotemTrigger.Listeners usedtotemtrigger$listeners = this.listeners.get(playerAdvancementsIn);
+        UsedTotemTrigger.Listeners usedtotemtrigger$listeners = listeners.get(playerAdvancementsIn);
 
         if (usedtotemtrigger$listeners != null)
         {
@@ -47,14 +47,14 @@ public class UsedTotemTrigger implements ICriterionTrigger<UsedTotemTrigger.Inst
 
             if (usedtotemtrigger$listeners.isEmpty())
             {
-                this.listeners.remove(playerAdvancementsIn);
+                listeners.remove(playerAdvancementsIn);
             }
         }
     }
 
     public void removeAllListeners(PlayerAdvancements playerAdvancementsIn)
     {
-        this.listeners.remove(playerAdvancementsIn);
+        listeners.remove(playerAdvancementsIn);
     }
 
     /**
@@ -68,7 +68,7 @@ public class UsedTotemTrigger implements ICriterionTrigger<UsedTotemTrigger.Inst
 
     public void trigger(EntityPlayerMP player, ItemStack item)
     {
-        UsedTotemTrigger.Listeners usedtotemtrigger$listeners = this.listeners.get(player.getAdvancements());
+        UsedTotemTrigger.Listeners usedtotemtrigger$listeners = listeners.get(player.getAdvancements());
 
         if (usedtotemtrigger$listeners != null)
         {
@@ -99,29 +99,29 @@ public class UsedTotemTrigger implements ICriterionTrigger<UsedTotemTrigger.Inst
 
         public Listeners(PlayerAdvancements playerAdvancementsIn)
         {
-            this.playerAdvancements = playerAdvancementsIn;
+            playerAdvancements = playerAdvancementsIn;
         }
 
         public boolean isEmpty()
         {
-            return this.listeners.isEmpty();
+            return listeners.isEmpty();
         }
 
         public void add(ICriterionTrigger.Listener<UsedTotemTrigger.Instance> listener)
         {
-            this.listeners.add(listener);
+            listeners.add(listener);
         }
 
         public void remove(ICriterionTrigger.Listener<UsedTotemTrigger.Instance> listener)
         {
-            this.listeners.remove(listener);
+            listeners.remove(listener);
         }
 
         public void trigger(ItemStack item)
         {
             List<ICriterionTrigger.Listener<UsedTotemTrigger.Instance>> list = null;
 
-            for (ICriterionTrigger.Listener<UsedTotemTrigger.Instance> listener : this.listeners)
+            for (ICriterionTrigger.Listener<UsedTotemTrigger.Instance> listener : listeners)
             {
                 if (((UsedTotemTrigger.Instance)listener.getCriterionInstance()).test(item))
                 {
@@ -138,7 +138,7 @@ public class UsedTotemTrigger implements ICriterionTrigger<UsedTotemTrigger.Inst
             {
                 for (ICriterionTrigger.Listener<UsedTotemTrigger.Instance> listener1 : list)
                 {
-                    listener1.grantCriterion(this.playerAdvancements);
+                    listener1.grantCriterion(playerAdvancements);
                 }
             }
         }

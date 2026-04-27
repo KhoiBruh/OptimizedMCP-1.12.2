@@ -18,9 +18,9 @@ public class ResourceLocation implements Comparable<ResourceLocation>
 
     protected ResourceLocation(int unused, String... resourceName)
     {
-        this.resourceDomain = org.apache.commons.lang3.StringUtils.isEmpty(resourceName[0]) ? "minecraft" : resourceName[0].toLowerCase(Locale.ROOT);
-        this.resourcePath = resourceName[1].toLowerCase(Locale.ROOT);
-        Validate.notNull(this.resourcePath);
+        resourceDomain = org.apache.commons.lang3.StringUtils.isEmpty(resourceName[0]) ? "minecraft" : resourceName[0].toLowerCase(Locale.ROOT);
+        resourcePath = resourceName[1].toLowerCase(Locale.ROOT);
+        Validate.notNull(resourcePath);
     }
 
     public ResourceLocation(String resourceName)
@@ -57,17 +57,17 @@ public class ResourceLocation implements Comparable<ResourceLocation>
 
     public String getResourcePath()
     {
-        return this.resourcePath;
+        return resourcePath;
     }
 
     public String getResourceDomain()
     {
-        return this.resourceDomain;
+        return resourceDomain;
     }
 
     public String toString()
     {
-        return this.resourceDomain + ':' + this.resourcePath;
+        return resourceDomain + ':' + resourcePath;
     }
 
     public boolean equals(Object p_equals_1_)
@@ -83,22 +83,22 @@ public class ResourceLocation implements Comparable<ResourceLocation>
         else
         {
             ResourceLocation resourcelocation = (ResourceLocation)p_equals_1_;
-            return this.resourceDomain.equals(resourcelocation.resourceDomain) && this.resourcePath.equals(resourcelocation.resourcePath);
+            return resourceDomain.equals(resourcelocation.resourceDomain) && resourcePath.equals(resourcelocation.resourcePath);
         }
     }
 
     public int hashCode()
     {
-        return 31 * this.resourceDomain.hashCode() + this.resourcePath.hashCode();
+        return 31 * resourceDomain.hashCode() + resourcePath.hashCode();
     }
 
     public int compareTo(ResourceLocation p_compareTo_1_)
     {
-        int i = this.resourceDomain.compareTo(p_compareTo_1_.resourceDomain);
+        int i = resourceDomain.compareTo(p_compareTo_1_.resourceDomain);
 
         if (i == 0)
         {
-            i = this.resourcePath.compareTo(p_compareTo_1_.resourcePath);
+            i = resourcePath.compareTo(p_compareTo_1_.resourcePath);
         }
 
         return i;

@@ -23,10 +23,10 @@ public class ItemBoat extends Item
 
     public ItemBoat(EntityBoat.Type typeIn)
     {
-        this.type = typeIn;
-        this.maxStackSize = 1;
-        this.setCreativeTab(CreativeTabs.TRANSPORTATION);
-        this.setUnlocalizedName("boat." + typeIn.getName());
+        type = typeIn;
+        maxStackSize = 1;
+        setCreativeTab(CreativeTabs.TRANSPORTATION);
+        setUnlocalizedName("boat." + typeIn.getName());
     }
 
     public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn)
@@ -87,7 +87,7 @@ public class ItemBoat extends Item
                 Block block = worldIn.getBlockState(raytraceresult.getBlockPos()).getBlock();
                 boolean flag1 = block == Blocks.WATER || block == Blocks.FLOWING_WATER;
                 EntityBoat entityboat = new EntityBoat(worldIn, raytraceresult.hitVec.x, flag1 ? raytraceresult.hitVec.y - 0.12D : raytraceresult.hitVec.y, raytraceresult.hitVec.z);
-                entityboat.setBoatType(this.type);
+                entityboat.setBoatType(type);
                 entityboat.rotationYaw = playerIn.rotationYaw;
 
                 if (!worldIn.getCollisionBoxes(entityboat, entityboat.getEntityBoundingBox().grow(-0.1D)).isEmpty())

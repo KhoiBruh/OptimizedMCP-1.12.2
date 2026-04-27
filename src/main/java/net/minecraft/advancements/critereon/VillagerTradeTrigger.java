@@ -27,12 +27,12 @@ public class VillagerTradeTrigger implements ICriterionTrigger<VillagerTradeTrig
 
     public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<VillagerTradeTrigger.Instance> listener)
     {
-        VillagerTradeTrigger.Listeners villagertradetrigger$listeners = this.listeners.get(playerAdvancementsIn);
+        VillagerTradeTrigger.Listeners villagertradetrigger$listeners = listeners.get(playerAdvancementsIn);
 
         if (villagertradetrigger$listeners == null)
         {
             villagertradetrigger$listeners = new VillagerTradeTrigger.Listeners(playerAdvancementsIn);
-            this.listeners.put(playerAdvancementsIn, villagertradetrigger$listeners);
+            listeners.put(playerAdvancementsIn, villagertradetrigger$listeners);
         }
 
         villagertradetrigger$listeners.add(listener);
@@ -40,7 +40,7 @@ public class VillagerTradeTrigger implements ICriterionTrigger<VillagerTradeTrig
 
     public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<VillagerTradeTrigger.Instance> listener)
     {
-        VillagerTradeTrigger.Listeners villagertradetrigger$listeners = this.listeners.get(playerAdvancementsIn);
+        VillagerTradeTrigger.Listeners villagertradetrigger$listeners = listeners.get(playerAdvancementsIn);
 
         if (villagertradetrigger$listeners != null)
         {
@@ -48,14 +48,14 @@ public class VillagerTradeTrigger implements ICriterionTrigger<VillagerTradeTrig
 
             if (villagertradetrigger$listeners.isEmpty())
             {
-                this.listeners.remove(playerAdvancementsIn);
+                listeners.remove(playerAdvancementsIn);
             }
         }
     }
 
     public void removeAllListeners(PlayerAdvancements playerAdvancementsIn)
     {
-        this.listeners.remove(playerAdvancementsIn);
+        listeners.remove(playerAdvancementsIn);
     }
 
     /**
@@ -70,7 +70,7 @@ public class VillagerTradeTrigger implements ICriterionTrigger<VillagerTradeTrig
 
     public void trigger(EntityPlayerMP player, EntityVillager villager, ItemStack item)
     {
-        VillagerTradeTrigger.Listeners villagertradetrigger$listeners = this.listeners.get(player.getAdvancements());
+        VillagerTradeTrigger.Listeners villagertradetrigger$listeners = listeners.get(player.getAdvancements());
 
         if (villagertradetrigger$listeners != null)
         {
@@ -110,29 +110,29 @@ public class VillagerTradeTrigger implements ICriterionTrigger<VillagerTradeTrig
 
         public Listeners(PlayerAdvancements playerAdvancementsIn)
         {
-            this.playerAdvancements = playerAdvancementsIn;
+            playerAdvancements = playerAdvancementsIn;
         }
 
         public boolean isEmpty()
         {
-            return this.listeners.isEmpty();
+            return listeners.isEmpty();
         }
 
         public void add(ICriterionTrigger.Listener<VillagerTradeTrigger.Instance> listener)
         {
-            this.listeners.add(listener);
+            listeners.add(listener);
         }
 
         public void remove(ICriterionTrigger.Listener<VillagerTradeTrigger.Instance> listener)
         {
-            this.listeners.remove(listener);
+            listeners.remove(listener);
         }
 
         public void trigger(EntityPlayerMP player, EntityVillager villager, ItemStack item)
         {
             List<ICriterionTrigger.Listener<VillagerTradeTrigger.Instance>> list = null;
 
-            for (ICriterionTrigger.Listener<VillagerTradeTrigger.Instance> listener : this.listeners)
+            for (ICriterionTrigger.Listener<VillagerTradeTrigger.Instance> listener : listeners)
             {
                 if (((VillagerTradeTrigger.Instance)listener.getCriterionInstance()).test(player, villager, item))
                 {
@@ -149,7 +149,7 @@ public class VillagerTradeTrigger implements ICriterionTrigger<VillagerTradeTrig
             {
                 for (ICriterionTrigger.Listener<VillagerTradeTrigger.Instance> listener1 : list)
                 {
-                    listener1.grantCriterion(this.playerAdvancements);
+                    listener1.grantCriterion(playerAdvancements);
                 }
             }
         }

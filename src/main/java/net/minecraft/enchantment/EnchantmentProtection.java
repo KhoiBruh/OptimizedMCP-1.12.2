@@ -17,11 +17,11 @@ public class EnchantmentProtection extends Enchantment
     public EnchantmentProtection(Enchantment.Rarity rarityIn, EnchantmentProtection.Type protectionTypeIn, EntityEquipmentSlot... slots)
     {
         super(rarityIn, EnumEnchantmentType.ARMOR, slots);
-        this.protectionType = protectionTypeIn;
+        protectionType = protectionTypeIn;
 
         if (protectionTypeIn == EnchantmentProtection.Type.FALL)
         {
-            this.type = EnumEnchantmentType.ARMOR_FEET;
+            type = EnumEnchantmentType.ARMOR_FEET;
         }
     }
 
@@ -30,7 +30,7 @@ public class EnchantmentProtection extends Enchantment
      */
     public int getMinEnchantability(int enchantmentLevel)
     {
-        return this.protectionType.getMinimalEnchantability() + (enchantmentLevel - 1) * this.protectionType.getEnchantIncreasePerLevel();
+        return protectionType.getMinimalEnchantability() + (enchantmentLevel - 1) * protectionType.getEnchantIncreasePerLevel();
     }
 
     /**
@@ -38,7 +38,7 @@ public class EnchantmentProtection extends Enchantment
      */
     public int getMaxEnchantability(int enchantmentLevel)
     {
-        return this.getMinEnchantability(enchantmentLevel) + this.protectionType.getEnchantIncreasePerLevel();
+        return getMinEnchantability(enchantmentLevel) + protectionType.getEnchantIncreasePerLevel();
     }
 
     /**
@@ -58,25 +58,25 @@ public class EnchantmentProtection extends Enchantment
         {
             return 0;
         }
-        else if (this.protectionType == EnchantmentProtection.Type.ALL)
+        else if (protectionType == EnchantmentProtection.Type.ALL)
         {
             return level;
         }
-        else if (this.protectionType == EnchantmentProtection.Type.FIRE && source.isFireDamage())
+        else if (protectionType == EnchantmentProtection.Type.FIRE && source.isFireDamage())
         {
             return level * 2;
         }
-        else if (this.protectionType == EnchantmentProtection.Type.FALL && source == DamageSource.FALL)
+        else if (protectionType == EnchantmentProtection.Type.FALL && source == DamageSource.FALL)
         {
             return level * 3;
         }
-        else if (this.protectionType == EnchantmentProtection.Type.EXPLOSION && source.isExplosion())
+        else if (protectionType == EnchantmentProtection.Type.EXPLOSION && source.isExplosion())
         {
             return level * 2;
         }
         else
         {
-            return this.protectionType == EnchantmentProtection.Type.PROJECTILE && source.isProjectile() ? level * 2 : 0;
+            return protectionType == EnchantmentProtection.Type.PROJECTILE && source.isProjectile() ? level * 2 : 0;
         }
     }
 
@@ -85,7 +85,7 @@ public class EnchantmentProtection extends Enchantment
      */
     public String getName()
     {
-        return "enchantment.protect." + this.protectionType.getTypeName();
+        return "enchantment.protect." + protectionType.getTypeName();
     }
 
     /**
@@ -97,13 +97,13 @@ public class EnchantmentProtection extends Enchantment
         {
             EnchantmentProtection enchantmentprotection = (EnchantmentProtection)ench;
 
-            if (this.protectionType == enchantmentprotection.protectionType)
+            if (protectionType == enchantmentprotection.protectionType)
             {
                 return false;
             }
             else
             {
-                return this.protectionType == EnchantmentProtection.Type.FALL || enchantmentprotection.protectionType == EnchantmentProtection.Type.FALL;
+                return protectionType == EnchantmentProtection.Type.FALL || enchantmentprotection.protectionType == EnchantmentProtection.Type.FALL;
             }
         }
         else
@@ -154,25 +154,25 @@ public class EnchantmentProtection extends Enchantment
 
         private Type(String name, int minimal, int perLevelEnchantability, int p_i47051_6_)
         {
-            this.typeName = name;
-            this.minEnchantability = minimal;
-            this.levelCost = perLevelEnchantability;
-            this.levelCostSpan = p_i47051_6_;
+            typeName = name;
+            minEnchantability = minimal;
+            levelCost = perLevelEnchantability;
+            levelCostSpan = p_i47051_6_;
         }
 
         public String getTypeName()
         {
-            return this.typeName;
+            return typeName;
         }
 
         public int getMinimalEnchantability()
         {
-            return this.minEnchantability;
+            return minEnchantability;
         }
 
         public int getEnchantIncreasePerLevel()
         {
-            return this.levelCost;
+            return levelCost;
         }
     }
 }

@@ -40,9 +40,9 @@ public class BlockTorch extends Block
     protected BlockTorch()
     {
         super(Material.CIRCUITS);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.UP));
-        this.setTickRandomly(true);
-        this.setCreativeTab(CreativeTabs.DECORATIONS);
+        setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.UP));
+        setTickRandomly(true);
+        setCreativeTab(CreativeTabs.DECORATIONS);
     }
 
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
@@ -108,7 +108,7 @@ public class BlockTorch extends Block
     {
         for (EnumFacing enumfacing : FACING.getAllowedValues())
         {
-            if (this.canPlaceAt(worldIn, pos, enumfacing))
+            if (canPlaceAt(worldIn, pos, enumfacing))
             {
                 return true;
             }
@@ -124,7 +124,7 @@ public class BlockTorch extends Block
         Block block = iblockstate.getBlock();
         BlockFaceShape blockfaceshape = iblockstate.getBlockFaceShape(worldIn, blockpos, facing);
 
-        if (facing.equals(EnumFacing.UP) && this.canPlaceOn(worldIn, blockpos))
+        if (facing.equals(EnumFacing.UP) && canPlaceOn(worldIn, blockpos))
         {
             return true;
         }
@@ -144,21 +144,21 @@ public class BlockTorch extends Block
      */
     public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
     {
-        if (this.canPlaceAt(worldIn, pos, facing))
+        if (canPlaceAt(worldIn, pos, facing))
         {
-            return this.getDefaultState().withProperty(FACING, facing);
+            return getDefaultState().withProperty(FACING, facing);
         }
         else
         {
             for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL)
             {
-                if (this.canPlaceAt(worldIn, pos, enumfacing))
+                if (canPlaceAt(worldIn, pos, enumfacing))
                 {
-                    return this.getDefaultState().withProperty(FACING, enumfacing);
+                    return getDefaultState().withProperty(FACING, enumfacing);
                 }
             }
 
-            return this.getDefaultState();
+            return getDefaultState();
         }
     }
 
@@ -167,7 +167,7 @@ public class BlockTorch extends Block
      */
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state)
     {
-        this.checkForDrop(worldIn, pos, state);
+        checkForDrop(worldIn, pos, state);
     }
 
     /**
@@ -177,12 +177,12 @@ public class BlockTorch extends Block
      */
     public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos)
     {
-        this.onNeighborChangeInternal(worldIn, pos, state);
+        onNeighborChangeInternal(worldIn, pos, state);
     }
 
     protected boolean onNeighborChangeInternal(World worldIn, BlockPos pos, IBlockState state)
     {
-        if (!this.checkForDrop(worldIn, pos, state))
+        if (!checkForDrop(worldIn, pos, state))
         {
             return true;
         }
@@ -198,14 +198,14 @@ public class BlockTorch extends Block
             {
                 flag = true;
             }
-            else if (enumfacing$axis.isVertical() && !this.canPlaceOn(worldIn, blockpos))
+            else if (enumfacing$axis.isVertical() && !canPlaceOn(worldIn, blockpos))
             {
                 flag = true;
             }
 
             if (flag)
             {
-                this.dropBlockAsItem(worldIn, pos, state, 0);
+                dropBlockAsItem(worldIn, pos, state, 0);
                 worldIn.setBlockToAir(pos);
                 return true;
             }
@@ -218,7 +218,7 @@ public class BlockTorch extends Block
 
     protected boolean checkForDrop(World worldIn, BlockPos pos, IBlockState state)
     {
-        if (state.getBlock() == this && this.canPlaceAt(worldIn, pos, (EnumFacing)state.getValue(FACING)))
+        if (state.getBlock() == this && canPlaceAt(worldIn, pos, (EnumFacing)state.getValue(FACING)))
         {
             return true;
         }
@@ -226,7 +226,7 @@ public class BlockTorch extends Block
         {
             if (worldIn.getBlockState(pos).getBlock() == this)
             {
-                this.dropBlockAsItem(worldIn, pos, state, 0);
+                dropBlockAsItem(worldIn, pos, state, 0);
                 worldIn.setBlockToAir(pos);
             }
 
@@ -270,7 +270,7 @@ public class BlockTorch extends Block
      */
     public IBlockState getStateFromMeta(int meta)
     {
-        IBlockState iblockstate = this.getDefaultState();
+        IBlockState iblockstate = getDefaultState();
 
         switch (meta)
         {

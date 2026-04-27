@@ -21,14 +21,14 @@ public class SPacketSpawnGlobalEntity implements Packet<INetHandlerPlayClient>
 
     public SPacketSpawnGlobalEntity(Entity entityIn)
     {
-        this.entityId = entityIn.getEntityId();
-        this.x = entityIn.posX;
-        this.y = entityIn.posY;
-        this.z = entityIn.posZ;
+        entityId = entityIn.getEntityId();
+        x = entityIn.posX;
+        y = entityIn.posY;
+        z = entityIn.posZ;
 
         if (entityIn instanceof EntityLightningBolt)
         {
-            this.type = 1;
+            type = 1;
         }
     }
 
@@ -37,11 +37,11 @@ public class SPacketSpawnGlobalEntity implements Packet<INetHandlerPlayClient>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.entityId = buf.readVarInt();
-        this.type = buf.readByte();
-        this.x = buf.readDouble();
-        this.y = buf.readDouble();
-        this.z = buf.readDouble();
+        entityId = buf.readVarInt();
+        type = buf.readByte();
+        x = buf.readDouble();
+        y = buf.readDouble();
+        z = buf.readDouble();
     }
 
     /**
@@ -49,11 +49,11 @@ public class SPacketSpawnGlobalEntity implements Packet<INetHandlerPlayClient>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeVarInt(this.entityId);
-        buf.writeByte(this.type);
-        buf.writeDouble(this.x);
-        buf.writeDouble(this.y);
-        buf.writeDouble(this.z);
+        buf.writeVarInt(entityId);
+        buf.writeByte(type);
+        buf.writeDouble(x);
+        buf.writeDouble(y);
+        buf.writeDouble(z);
     }
 
     /**
@@ -66,26 +66,26 @@ public class SPacketSpawnGlobalEntity implements Packet<INetHandlerPlayClient>
 
     public int getEntityId()
     {
-        return this.entityId;
+        return entityId;
     }
 
     public double getX()
     {
-        return this.x;
+        return x;
     }
 
     public double getY()
     {
-        return this.y;
+        return y;
     }
 
     public double getZ()
     {
-        return this.z;
+        return z;
     }
 
     public int getType()
     {
-        return this.type;
+        return type;
     }
 }

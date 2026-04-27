@@ -46,10 +46,10 @@ public class EntityVex extends EntityMob
     public EntityVex(World worldIn)
     {
         super(worldIn);
-        this.isImmuneToFire = true;
-        this.moveHelper = new EntityVex.AIMoveControl(this);
-        this.setSize(0.4F, 0.8F);
-        this.experienceValue = 3;
+        isImmuneToFire = true;
+        moveHelper = new EntityVex.AIMoveControl(this);
+        setSize(0.4F, 0.8F);
+        experienceValue = 3;
     }
 
     /**
@@ -58,7 +58,7 @@ public class EntityVex extends EntityMob
     public void move(MoverType type, double x, double y, double z)
     {
         super.move(type, x, y, z);
-        this.doBlockCollisions();
+        doBlockCollisions();
     }
 
     /**
@@ -66,42 +66,42 @@ public class EntityVex extends EntityMob
      */
     public void onUpdate()
     {
-        this.noClip = true;
+        noClip = true;
         super.onUpdate();
-        this.noClip = false;
-        this.setNoGravity(true);
+        noClip = false;
+        setNoGravity(true);
 
-        if (this.limitedLifespan && --this.limitedLifeTicks <= 0)
+        if (limitedLifespan && --limitedLifeTicks <= 0)
         {
-            this.limitedLifeTicks = 20;
-            this.attackEntityFrom(DamageSource.STARVE, 1.0F);
+            limitedLifeTicks = 20;
+            attackEntityFrom(DamageSource.STARVE, 1.0F);
         }
     }
 
     protected void initEntityAI()
     {
         super.initEntityAI();
-        this.tasks.addTask(0, new EntityAISwimming(this));
-        this.tasks.addTask(4, new EntityVex.AIChargeAttack());
-        this.tasks.addTask(8, new EntityVex.AIMoveRandom());
-        this.tasks.addTask(9, new EntityAIWatchClosest(this, EntityPlayer.class, 3.0F, 1.0F));
-        this.tasks.addTask(10, new EntityAIWatchClosest(this, EntityLiving.class, 8.0F));
-        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, new Class[] {EntityVex.class}));
-        this.targetTasks.addTask(2, new EntityVex.AICopyOwnerTarget(this));
-        this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
+        tasks.addTask(0, new EntityAISwimming(this));
+        tasks.addTask(4, new EntityVex.AIChargeAttack());
+        tasks.addTask(8, new EntityVex.AIMoveRandom());
+        tasks.addTask(9, new EntityAIWatchClosest(this, EntityPlayer.class, 3.0F, 1.0F));
+        tasks.addTask(10, new EntityAIWatchClosest(this, EntityLiving.class, 8.0F));
+        targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, new Class[] {EntityVex.class}));
+        targetTasks.addTask(2, new EntityVex.AICopyOwnerTarget(this));
+        targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
     }
 
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(14.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4.0D);
+        getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(14.0D);
+        getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4.0D);
     }
 
     protected void entityInit()
     {
         super.entityInit();
-        this.dataManager.register(VEX_FLAGS, Byte.valueOf((byte)0));
+        dataManager.register(VEX_FLAGS, Byte.valueOf((byte)0));
     }
 
     public static void registerFixesVex(DataFixer fixer)
@@ -118,12 +118,12 @@ public class EntityVex extends EntityMob
 
         if (compound.hasKey("BoundX"))
         {
-            this.boundOrigin = new BlockPos(compound.getInteger("BoundX"), compound.getInteger("BoundY"), compound.getInteger("BoundZ"));
+            boundOrigin = new BlockPos(compound.getInteger("BoundX"), compound.getInteger("BoundY"), compound.getInteger("BoundZ"));
         }
 
         if (compound.hasKey("LifeTicks"))
         {
-            this.setLimitedLife(compound.getInteger("LifeTicks"));
+            setLimitedLife(compound.getInteger("LifeTicks"));
         }
     }
 
@@ -134,44 +134,44 @@ public class EntityVex extends EntityMob
     {
         super.writeEntityToNBT(compound);
 
-        if (this.boundOrigin != null)
+        if (boundOrigin != null)
         {
-            compound.setInteger("BoundX", this.boundOrigin.getX());
-            compound.setInteger("BoundY", this.boundOrigin.getY());
-            compound.setInteger("BoundZ", this.boundOrigin.getZ());
+            compound.setInteger("BoundX", boundOrigin.getX());
+            compound.setInteger("BoundY", boundOrigin.getY());
+            compound.setInteger("BoundZ", boundOrigin.getZ());
         }
 
-        if (this.limitedLifespan)
+        if (limitedLifespan)
         {
-            compound.setInteger("LifeTicks", this.limitedLifeTicks);
+            compound.setInteger("LifeTicks", limitedLifeTicks);
         }
     }
 
     public EntityLiving getOwner()
     {
-        return this.owner;
+        return owner;
     }
 
     @Nullable
     public BlockPos getBoundOrigin()
     {
-        return this.boundOrigin;
+        return boundOrigin;
     }
 
     public void setBoundOrigin(@Nullable BlockPos boundOriginIn)
     {
-        this.boundOrigin = boundOriginIn;
+        boundOrigin = boundOriginIn;
     }
 
     private boolean getVexFlag(int mask)
     {
-        int i = ((Byte)this.dataManager.get(VEX_FLAGS)).byteValue();
+        int i = ((Byte) dataManager.get(VEX_FLAGS)).byteValue();
         return (i & mask) != 0;
     }
 
     private void setVexFlag(int mask, boolean value)
     {
-        int i = ((Byte)this.dataManager.get(VEX_FLAGS)).byteValue();
+        int i = ((Byte) dataManager.get(VEX_FLAGS)).byteValue();
 
         if (value)
         {
@@ -182,28 +182,28 @@ public class EntityVex extends EntityMob
             i = i & ~mask;
         }
 
-        this.dataManager.set(VEX_FLAGS, Byte.valueOf((byte)(i & 255)));
+        dataManager.set(VEX_FLAGS, Byte.valueOf((byte)(i & 255)));
     }
 
     public boolean isCharging()
     {
-        return this.getVexFlag(1);
+        return getVexFlag(1);
     }
 
     public void setCharging(boolean charging)
     {
-        this.setVexFlag(1, charging);
+        setVexFlag(1, charging);
     }
 
     public void setOwner(EntityLiving ownerIn)
     {
-        this.owner = ownerIn;
+        owner = ownerIn;
     }
 
     public void setLimitedLife(int limitedLifeTicksIn)
     {
-        this.limitedLifespan = true;
-        this.limitedLifeTicks = limitedLifeTicksIn;
+        limitedLifespan = true;
+        limitedLifeTicks = limitedLifeTicksIn;
     }
 
     protected SoundEvent getAmbientSound()
@@ -258,8 +258,8 @@ public class EntityVex extends EntityMob
      */
     public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata)
     {
-        this.setEquipmentBasedOnDifficulty(difficulty);
-        this.setEnchantmentBasedOnDifficulty(difficulty);
+        setEquipmentBasedOnDifficulty(difficulty);
+        setEnchantmentBasedOnDifficulty(difficulty);
         return super.onInitialSpawn(difficulty, livingdata);
     }
 
@@ -268,22 +268,22 @@ public class EntityVex extends EntityMob
      */
     protected void setEquipmentBasedOnDifficulty(DifficultyInstance difficulty)
     {
-        this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SWORD));
-        this.setDropChance(EntityEquipmentSlot.MAINHAND, 0.0F);
+        setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SWORD));
+        setDropChance(EntityEquipmentSlot.MAINHAND, 0.0F);
     }
 
     class AIChargeAttack extends EntityAIBase
     {
         public AIChargeAttack()
         {
-            this.setMutexBits(1);
+            setMutexBits(1);
         }
 
         public boolean shouldExecute()
         {
-            if (EntityVex.this.getAttackTarget() != null && !EntityVex.this.getMoveHelper().isUpdating() && EntityVex.this.rand.nextInt(7) == 0)
+            if (getAttackTarget() != null && !getMoveHelper().isUpdating() && rand.nextInt(7) == 0)
             {
-                return EntityVex.this.getDistanceSq(EntityVex.this.getAttackTarget()) > 4.0D;
+                return getDistanceSq(getAttackTarget()) > 4.0D;
             }
             else
             {
@@ -293,40 +293,40 @@ public class EntityVex extends EntityMob
 
         public boolean shouldContinueExecuting()
         {
-            return EntityVex.this.getMoveHelper().isUpdating() && EntityVex.this.isCharging() && EntityVex.this.getAttackTarget() != null && EntityVex.this.getAttackTarget().isEntityAlive();
+            return getMoveHelper().isUpdating() && isCharging() && getAttackTarget() != null && getAttackTarget().isEntityAlive();
         }
 
         public void startExecuting()
         {
-            EntityLivingBase entitylivingbase = EntityVex.this.getAttackTarget();
+            EntityLivingBase entitylivingbase = getAttackTarget();
             Vec3d vec3d = entitylivingbase.getPositionEyes(1.0F);
-            EntityVex.this.moveHelper.setMoveTo(vec3d.x, vec3d.y, vec3d.z, 1.0D);
-            EntityVex.this.setCharging(true);
-            EntityVex.this.playSound(SoundEvents.ENTITY_VEX_CHARGE, 1.0F, 1.0F);
+            moveHelper.setMoveTo(vec3d.x, vec3d.y, vec3d.z, 1.0D);
+            setCharging(true);
+            playSound(SoundEvents.ENTITY_VEX_CHARGE, 1.0F, 1.0F);
         }
 
         public void resetTask()
         {
-            EntityVex.this.setCharging(false);
+            setCharging(false);
         }
 
         public void updateTask()
         {
-            EntityLivingBase entitylivingbase = EntityVex.this.getAttackTarget();
+            EntityLivingBase entitylivingbase = getAttackTarget();
 
-            if (EntityVex.this.getEntityBoundingBox().intersects(entitylivingbase.getEntityBoundingBox()))
+            if (getEntityBoundingBox().intersects(entitylivingbase.getEntityBoundingBox()))
             {
-                EntityVex.this.attackEntityAsMob(entitylivingbase);
-                EntityVex.this.setCharging(false);
+                attackEntityAsMob(entitylivingbase);
+                setCharging(false);
             }
             else
             {
-                double d0 = EntityVex.this.getDistanceSq(entitylivingbase);
+                double d0 = getDistanceSq(entitylivingbase);
 
                 if (d0 < 9.0D)
                 {
                     Vec3d vec3d = entitylivingbase.getPositionEyes(1.0F);
-                    EntityVex.this.moveHelper.setMoveTo(vec3d.x, vec3d.y, vec3d.z, 1.0D);
+                    moveHelper.setMoveTo(vec3d.x, vec3d.y, vec3d.z, 1.0D);
                 }
             }
         }
@@ -341,12 +341,12 @@ public class EntityVex extends EntityMob
 
         public boolean shouldExecute()
         {
-            return EntityVex.this.owner != null && EntityVex.this.owner.getAttackTarget() != null && this.isSuitableTarget(EntityVex.this.owner.getAttackTarget(), false);
+            return owner != null && owner.getAttackTarget() != null && isSuitableTarget(owner.getAttackTarget(), false);
         }
 
         public void startExecuting()
         {
-            EntityVex.this.setAttackTarget(EntityVex.this.owner.getAttackTarget());
+            setAttackTarget(owner.getAttackTarget());
             super.startExecuting();
         }
     }
@@ -360,38 +360,38 @@ public class EntityVex extends EntityMob
 
         public void onUpdateMoveHelper()
         {
-            if (this.action == EntityMoveHelper.Action.MOVE_TO)
+            if (action == EntityMoveHelper.Action.MOVE_TO)
             {
-                double d0 = this.posX - EntityVex.this.posX;
-                double d1 = this.posY - EntityVex.this.posY;
-                double d2 = this.posZ - EntityVex.this.posZ;
+                double d0 = posX - EntityVex.this.posX;
+                double d1 = posY - EntityVex.this.posY;
+                double d2 = posZ - EntityVex.this.posZ;
                 double d3 = d0 * d0 + d1 * d1 + d2 * d2;
                 d3 = (double)MathHelper.sqrt(d3);
 
-                if (d3 < EntityVex.this.getEntityBoundingBox().getAverageEdgeLength())
+                if (d3 < getEntityBoundingBox().getAverageEdgeLength())
                 {
-                    this.action = EntityMoveHelper.Action.WAIT;
-                    EntityVex.this.motionX *= 0.5D;
-                    EntityVex.this.motionY *= 0.5D;
-                    EntityVex.this.motionZ *= 0.5D;
+                    action = EntityMoveHelper.Action.WAIT;
+                    motionX *= 0.5D;
+                    motionY *= 0.5D;
+                    motionZ *= 0.5D;
                 }
                 else
                 {
-                    EntityVex.this.motionX += d0 / d3 * 0.05D * this.speed;
-                    EntityVex.this.motionY += d1 / d3 * 0.05D * this.speed;
-                    EntityVex.this.motionZ += d2 / d3 * 0.05D * this.speed;
+                    motionX += d0 / d3 * 0.05D * speed;
+                    motionY += d1 / d3 * 0.05D * speed;
+                    motionZ += d2 / d3 * 0.05D * speed;
 
-                    if (EntityVex.this.getAttackTarget() == null)
+                    if (getAttackTarget() == null)
                     {
-                        EntityVex.this.rotationYaw = -((float)MathHelper.atan2(EntityVex.this.motionX, EntityVex.this.motionZ)) * (180F / (float)Math.PI);
-                        EntityVex.this.renderYawOffset = EntityVex.this.rotationYaw;
+                        rotationYaw = -((float)MathHelper.atan2(motionX, motionZ)) * (180F / (float)Math.PI);
+                        renderYawOffset = rotationYaw;
                     }
                     else
                     {
-                        double d4 = EntityVex.this.getAttackTarget().posX - EntityVex.this.posX;
-                        double d5 = EntityVex.this.getAttackTarget().posZ - EntityVex.this.posZ;
-                        EntityVex.this.rotationYaw = -((float)MathHelper.atan2(d4, d5)) * (180F / (float)Math.PI);
-                        EntityVex.this.renderYawOffset = EntityVex.this.rotationYaw;
+                        double d4 = getAttackTarget().posX - EntityVex.this.posX;
+                        double d5 = getAttackTarget().posZ - EntityVex.this.posZ;
+                        rotationYaw = -((float)MathHelper.atan2(d4, d5)) * (180F / (float)Math.PI);
+                        renderYawOffset = rotationYaw;
                     }
                 }
             }
@@ -402,12 +402,12 @@ public class EntityVex extends EntityMob
     {
         public AIMoveRandom()
         {
-            this.setMutexBits(1);
+            setMutexBits(1);
         }
 
         public boolean shouldExecute()
         {
-            return !EntityVex.this.getMoveHelper().isUpdating() && EntityVex.this.rand.nextInt(7) == 0;
+            return !getMoveHelper().isUpdating() && rand.nextInt(7) == 0;
         }
 
         public boolean shouldContinueExecuting()
@@ -417,7 +417,7 @@ public class EntityVex extends EntityMob
 
         public void updateTask()
         {
-            BlockPos blockpos = EntityVex.this.getBoundOrigin();
+            BlockPos blockpos = getBoundOrigin();
 
             if (blockpos == null)
             {
@@ -426,15 +426,15 @@ public class EntityVex extends EntityMob
 
             for (int i = 0; i < 3; ++i)
             {
-                BlockPos blockpos1 = blockpos.add(EntityVex.this.rand.nextInt(15) - 7, EntityVex.this.rand.nextInt(11) - 5, EntityVex.this.rand.nextInt(15) - 7);
+                BlockPos blockpos1 = blockpos.add(rand.nextInt(15) - 7, rand.nextInt(11) - 5, rand.nextInt(15) - 7);
 
-                if (EntityVex.this.world.isAirBlock(blockpos1))
+                if (world.isAirBlock(blockpos1))
                 {
-                    EntityVex.this.moveHelper.setMoveTo((double)blockpos1.getX() + 0.5D, (double)blockpos1.getY() + 0.5D, (double)blockpos1.getZ() + 0.5D, 0.25D);
+                    moveHelper.setMoveTo((double)blockpos1.getX() + 0.5D, (double)blockpos1.getY() + 0.5D, (double)blockpos1.getZ() + 0.5D, 0.25D);
 
-                    if (EntityVex.this.getAttackTarget() == null)
+                    if (getAttackTarget() == null)
                     {
-                        EntityVex.this.getLookHelper().setLookPosition((double)blockpos1.getX() + 0.5D, (double)blockpos1.getY() + 0.5D, (double)blockpos1.getZ() + 0.5D, 180.0F, 20.0F);
+                        getLookHelper().setLookPosition((double)blockpos1.getX() + 0.5D, (double)blockpos1.getY() + 0.5D, (double)blockpos1.getZ() + 0.5D, 180.0F, 20.0F);
                     }
 
                     break;
