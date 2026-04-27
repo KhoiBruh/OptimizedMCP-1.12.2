@@ -1960,7 +1960,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
 
 		if (!world.getGameRules().getBoolean("keepInventory") && !isSpectator()) {
 			int i = experienceLevel * 7;
-			return i > 100 ? 100 : i;
+			return Math.min(i, 100);
 		} else {
 			return 0;
 		}

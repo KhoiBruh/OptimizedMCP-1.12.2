@@ -43,7 +43,7 @@ public class VisGraph {
 
 	private static int getIndex(int x, int y, int z) {
 
-		return x << 0 | y << 8 | z << 4;
+		return x | y << 8 | z << 4;
 	}
 
 	public void setOpaqueCube(BlockPos pos) {
@@ -102,7 +102,7 @@ public class VisGraph {
 
 	private void addEdges(int pos, Set<EnumFacing> p_178610_2_) {
 
-		int i = pos >> 0 & 15;
+		int i = pos & 15;
 
 		if (i == 0) {
 			p_178610_2_.add(EnumFacing.WEST);
@@ -159,14 +159,14 @@ public class VisGraph {
 				return pos + DZ;
 
 			case WEST:
-				if ((pos >> 0 & 15) == 0) {
+				if ((pos & 15) == 0) {
 					return -1;
 				}
 
 				return pos - DX;
 
 			case EAST:
-				if ((pos >> 0 & 15) == 15) {
+				if ((pos & 15) == 15) {
 					return -1;
 				}
 

@@ -1985,7 +1985,7 @@ public abstract class Entity implements ICommandSender {
 			BlockPos.PooledMutableBlockPos blockpos$pooledmutableblockpos = BlockPos.PooledMutableBlockPos.retain();
 
 			for (int i = 0; i < 8; ++i) {
-				int j = MathHelper.floor(posY + (double) (((float) ((i >> 0) % 2) - 0.5F) * 0.1F) + (double) getEyeHeight());
+				int j = MathHelper.floor(posY + (double) (((float) ((i) % 2) - 0.5F) * 0.1F) + (double) getEyeHeight());
 				int k = MathHelper.floor(posX + (double) (((float) ((i >> 1) % 2) - 0.5F) * width * 0.8F));
 				int l = MathHelper.floor(posZ + (double) (((float) ((i >> 2) % 2) - 0.5F) * width * 0.8F));
 

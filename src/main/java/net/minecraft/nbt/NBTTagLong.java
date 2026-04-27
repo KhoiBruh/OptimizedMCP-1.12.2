@@ -72,7 +72,7 @@ public class NBTTagLong extends NBTPrimitive {
 
 	public int getInt() {
 
-		return (int) (data & -1L);
+		return (int) (data);
 	}
 
 	public short getShort() {

@@ -177,7 +177,7 @@ public class CrashReport {
 	 */
 	public void getSectionsInStringBuilder(StringBuilder builder) {
 
-		if ((stacktrace == null || stacktrace.length <= 0) && !crashReportSections.isEmpty()) {
+		if ((stacktrace == null || stacktrace.length == 0) && !crashReportSections.isEmpty()) {
 			stacktrace = ArrayUtils.subarray(crashReportSections.get(0).getStackTrace(), 0, 1);
 		}
 

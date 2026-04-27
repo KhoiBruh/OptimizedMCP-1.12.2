@@ -477,7 +477,7 @@ public class EntityZombie extends EntityMob {
 		if (getItemStackFromSlot(EntityEquipmentSlot.HEAD).isEmpty()) {
 			Calendar calendar = world.getCurrentDate();
 
-			if (calendar.get(2) + 1 == 10 && calendar.get(5) == 31 && rand.nextFloat() < 0.25F) {
+			if (calendar.get(Calendar.MONTH) + 1 == 10 && calendar.get(Calendar.DATE) == 31 && rand.nextFloat() < 0.25F) {
 				setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(rand.nextFloat() < 0.1F ? Blocks.LIT_PUMPKIN : Blocks.PUMPKIN));
 				inventoryArmorDropChances[EntityEquipmentSlot.HEAD.getIndex()] = 0.0F;
 			}

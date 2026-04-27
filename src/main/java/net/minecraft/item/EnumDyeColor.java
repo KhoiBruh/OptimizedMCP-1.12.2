@@ -56,7 +56,7 @@ public enum EnumDyeColor implements IStringSerializable {
 		chatColor = chatColorIn;
 		int i = (colorValueIn & 16711680) >> 16;
 		int j = (colorValueIn & 65280) >> 8;
-		int k = (colorValueIn & 255) >> 0;
+		int k = (colorValueIn & 255);
 		colorComponentValues = new float[]{(float) i / 255.0F, (float) j / 255.0F, (float) k / 255.0F};
 	}
 

@@ -43,7 +43,7 @@ public class CommandGameMode extends CommandBase {
 	 */
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
 
-		if (args.length <= 0) {
+		if (args.length == 0) {
 			throw new WrongUsageException("commands.gamemode.usage");
 		} else {
 			GameType gametype = getGameModeFromCommand(sender, args[0]);

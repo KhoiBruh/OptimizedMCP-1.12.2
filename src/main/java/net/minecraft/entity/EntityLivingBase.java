@@ -694,7 +694,7 @@ public abstract class EntityLivingBase extends Entity {
 			if (flag && i > 0) {
 				double d0 = (double) (i >> 16 & 255) / 255.0D;
 				double d1 = (double) (i >> 8 & 255) / 255.0D;
-				double d2 = (double) (i >> 0 & 255) / 255.0D;
+				double d2 = (double) (i & 255) / 255.0D;
 				world.spawnParticle(flag1 ? EnumParticleTypes.SPELL_MOB_AMBIENT : EnumParticleTypes.SPELL_MOB, posX + (rand.nextDouble() - 0.5D) * (double) width, posY + rand.nextDouble() * (double) height, posZ + (rand.nextDouble() - 0.5D) * (double) width, d0, d1, d2);
 			}
 		}

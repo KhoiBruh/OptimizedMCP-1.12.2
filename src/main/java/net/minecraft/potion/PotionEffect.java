@@ -90,7 +90,7 @@ public class PotionEffect implements Comparable<PotionEffect> {
 				flag1 = nbt.getBoolean("ShowParticles");
 			}
 
-			return new PotionEffect(potion, k, j < 0 ? 0 : j, flag, flag1);
+			return new PotionEffect(potion, k, Math.max(j, 0), flag, flag1);
 		}
 	}
 

@@ -303,11 +303,7 @@ public class InventoryPlayer implements IInventory {
 			setInventorySlotContents(p_191973_1_, itemstack);
 		}
 
-		int j = i;
-
-		if (i > itemstack.getMaxStackSize() - itemstack.getCount()) {
-			j = itemstack.getMaxStackSize() - itemstack.getCount();
-		}
+		int j = Math.min(i, itemstack.getMaxStackSize() - itemstack.getCount());
 
 		if (j > getInventoryStackLimit() - itemstack.getCount()) {
 			j = getInventoryStackLimit() - itemstack.getCount();

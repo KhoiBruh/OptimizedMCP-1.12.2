@@ -2242,7 +2242,7 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 
 				float f5 = (float) (data >> 16 & 255) / 255.0F;
 				float f = (float) (data >> 8 & 255) / 255.0F;
-				float f1 = (float) (data >> 0 & 255) / 255.0F;
+				float f1 = (float) (data & 255) / 255.0F;
 				EnumParticleTypes enumparticletypes = type == 2007 ? EnumParticleTypes.SPELL_INSTANT : EnumParticleTypes.SPELL;
 
 				for (int j3 = 0; j3 < 100; ++j3) {

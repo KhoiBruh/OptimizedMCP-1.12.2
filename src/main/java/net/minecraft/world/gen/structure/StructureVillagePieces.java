@@ -990,7 +990,7 @@ public class StructureVillagePieces {
 				for (int j = 0; j <= 8; ++j) {
 					setBlockState(worldIn, iblockstate7, j, 4 + i, i, structureBoundingBoxIn);
 
-					if ((i > -1 || j <= 1) && (i > 0 || j <= 3) && (i > 1 || j <= 4 || j >= 6)) {
+					if ((i > -1 || j <= 1) && (i > 0 || j <= 3) && (i > 1 || j != 5)) {
 						setBlockState(worldIn, iblockstate8, j, 4 + i, 5 - i, structureBoundingBoxIn);
 					}
 				}

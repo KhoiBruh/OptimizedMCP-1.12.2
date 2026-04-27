@@ -279,9 +279,9 @@ public class EntitySpider extends EntityMob {
 
 			if (i <= 1) {
 				effect = MobEffects.SPEED;
-			} else if (i <= 2) {
+			} else if (i == 2) {
 				effect = MobEffects.STRENGTH;
-			} else if (i <= 3) {
+			} else if (i == 3) {
 				effect = MobEffects.REGENERATION;
 			} else if (i <= 4) {
 				effect = MobEffects.INVISIBILITY;

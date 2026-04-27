@@ -380,11 +380,8 @@ public class Chunk {
 	private void relightBlock(int x, int y, int z) {
 
 		int i = heightMap[z << 4 | x] & 255;
-		int j = i;
 
-		if (y > i) {
-			j = y;
-		}
+		int j = Math.max(y, i);
 
 		while (j > 0 && getBlockLightOpacity(x, j - 1, z) == 0) {
 			--j;

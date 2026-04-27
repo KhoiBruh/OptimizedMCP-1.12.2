@@ -164,7 +164,7 @@ public class CrashReportCategory {
 
 		StackTraceElement[] astacktraceelement = Thread.currentThread().getStackTrace();
 
-		if (astacktraceelement.length <= 0) {
+		if (astacktraceelement.length == 0) {
 			return 0;
 		} else {
 			stackTrace = new StackTraceElement[astacktraceelement.length - 3 - size];

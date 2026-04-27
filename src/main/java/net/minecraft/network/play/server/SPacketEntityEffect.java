@@ -26,11 +26,7 @@ public class SPacketEntityEffect implements Packet<INetHandlerPlayClient> {
 		effectId = (byte) (Potion.getIdFromPotion(effect.getPotion()) & 255);
 		amplifier = (byte) (effect.getAmplifier() & 255);
 
-		if (effect.getDuration() > 32767) {
-			duration = 32767;
-		} else {
-			duration = effect.getDuration();
-		}
+		duration = Math.min(effect.getDuration(), 32767);
 
 		flags = 0;
 

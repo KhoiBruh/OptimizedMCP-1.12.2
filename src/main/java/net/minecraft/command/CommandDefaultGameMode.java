@@ -28,7 +28,7 @@ public class CommandDefaultGameMode extends CommandGameMode {
 	 */
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
 
-		if (args.length <= 0) {
+		if (args.length == 0) {
 			throw new WrongUsageException("commands.defaultgamemode.usage");
 		} else {
 			GameType gametype = getGameModeFromCommand(sender, args[0]);

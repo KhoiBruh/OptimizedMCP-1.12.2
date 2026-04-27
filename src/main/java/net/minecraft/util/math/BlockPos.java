@@ -326,7 +326,7 @@ public class BlockPos extends Vec3i {
 	 */
 	public long toLong() {
 
-		return ((long) getX() & X_MASK) << X_SHIFT | ((long) getY() & Y_MASK) << Y_SHIFT | ((long) getZ() & Z_MASK) << 0;
+		return ((long) getX() & X_MASK) << X_SHIFT | ((long) getY() & Y_MASK) << Y_SHIFT | ((long) getZ() & Z_MASK);
 	}
 
 	/**

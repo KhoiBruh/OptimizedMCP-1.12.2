@@ -346,7 +346,7 @@ public class BlockRedstoneWire extends Block {
 			return strength;
 		} else {
 			int i = worldIn.getBlockState(pos).getValue(POWER).intValue();
-			return i > strength ? i : strength;
+			return Math.max(i, strength);
 		}
 	}
 

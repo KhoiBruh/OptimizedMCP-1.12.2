@@ -174,7 +174,7 @@ public class WorldGenBigTree extends WorldGenAbstractTree {
 		if (k > i && k > j) {
 			return k;
 		} else {
-			return j > i ? j : i;
+			return Math.max(j, i);
 		}
 	}
 
