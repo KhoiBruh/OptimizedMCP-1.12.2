@@ -1,15 +1,10 @@
 plugins {
     id "com.gradleup.shadow" version "9.4.1"
-    id "application"
     id "java"
 }
 
-group ""
-version ""
-
-application {
-    mainClass = "net.minecraft.client.main.Main"
-}
+group "net.minecraft"
+version "1.12.2"
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 
@@ -21,8 +16,6 @@ repositories {
 }
 
 dependencies {
-    implementation "net.minecraft:minecraft:1.12.2"
-    implementation "com.mojang:patchy:1.1"
     implementation "oshi-project:oshi-core:1.1"
     implementation "net.java.dev.jna:jna:5.18.1"
     implementation "net.java.dev.jna:platform:3.5.2"
@@ -33,7 +26,7 @@ dependencies {
     implementation "com.paulscode:libraryjavasound:20101123"
     implementation "com.paulscode:librarylwjglopenal:20100824"
     implementation "com.paulscode:soundsystem:20120107"
-    implementation "io.netty:netty-all:4.1.132.Final"
+    implementation "io.netty:netty-all:4.2.10.Final"
     implementation "com.google.guava:guava:33.6.0-jre"
     implementation "org.apache.commons:commons-lang3:3.20.0"
     implementation "commons-io:commons-io:2.22.0"
@@ -54,10 +47,4 @@ dependencies {
     implementation "com.google.code.findbugs:jsr305:3.0.2"
     implementation "com.mojang:realms:1.10.18"
     implementation "com.mojang:authlib:1.5.25"
-}
-
-shadowJar {
-    dependencies {
-        exclude(dependency("net.minecraft:minecraft:1.12.2"))
-    }
 }
