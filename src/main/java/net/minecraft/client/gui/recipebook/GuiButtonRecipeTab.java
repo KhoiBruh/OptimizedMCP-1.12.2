@@ -32,7 +32,7 @@ public class GuiButtonRecipeTab extends GuiButtonToggle {
 		label21:
 
 		for (RecipeList recipelist : RecipeBookClient.RECIPES_BY_TAB.get(category)) {
-			Iterator iterator = recipelist.getRecipes(recipebook.isFilteringCraftable()).iterator();
+			Iterator<IRecipe> iterator = recipelist.getRecipes(recipebook.isFilteringCraftable()).iterator();
 
 			while (true) {
 				if (!iterator.hasNext()) {

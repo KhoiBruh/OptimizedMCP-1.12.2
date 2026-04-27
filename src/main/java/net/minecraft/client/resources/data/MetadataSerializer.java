@@ -28,7 +28,7 @@ public class MetadataSerializer {
 
 	public <T extends IMetadataSection> void registerMetadataSectionType(IMetadataSectionSerializer<T> metadataSectionSerializer, Class<T> clazz) {
 
-		metadataSectionSerializerRegistry.putObject(metadataSectionSerializer.getSectionName(), new MetadataSerializer.Registration(metadataSectionSerializer, clazz));
+		metadataSectionSerializerRegistry.putObject(metadataSectionSerializer.getSectionName(), new MetadataSerializer.Registration<>(metadataSectionSerializer, clazz));
 		gsonBuilder.registerTypeAdapter(clazz, metadataSectionSerializer);
 		gson = null;
 	}

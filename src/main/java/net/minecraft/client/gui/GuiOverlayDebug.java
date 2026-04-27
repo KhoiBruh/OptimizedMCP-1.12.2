@@ -180,15 +180,15 @@ public class GuiOverlayDebug extends Gui {
 				IProperty<T> iproperty;
 				String s;
 
-				for (UnmodifiableIterator unmodifiableiterator = iblockstate.getProperties().entrySet().iterator(); unmodifiableiterator.hasNext(); list.add(iproperty.getName() + ": " + s)) {
-					Entry<IProperty<?>, Comparable<?>> entry = (Entry) unmodifiableiterator.next();
+				for (var unmodifiableiterator = iblockstate.getProperties().entrySet().iterator(); unmodifiableiterator.hasNext(); list.add(iproperty.getName() + ": " + s)) {
+					var entry = unmodifiableiterator.next();
 					iproperty = (IProperty) entry.getKey();
 					T t = (T) entry.getValue();
 					s = iproperty.getName(t);
 
-					if (true.equals(t)) {
+					if (t.equals(true)) {
 						s = TextFormatting.GREEN + s;
-					} else if (false.equals(t)) {
+					} else {
 						s = TextFormatting.RED + s;
 					}
 				}

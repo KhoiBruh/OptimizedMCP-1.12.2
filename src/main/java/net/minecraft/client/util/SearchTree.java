@@ -77,7 +77,7 @@ public class SearchTree<T> implements ISearchTree<T> {
 			return list;
 		} else {
 			List<T> list1 = byName.search(searchText);
-			return (List<T>) (list1.isEmpty() ? list : Lists.newArrayList(new SearchTree.MergingIterator(list.iterator(), list1.iterator(), numericContents)));
+			return (List<T>) (list1.isEmpty() ? list : Lists.newArrayList(new SearchTree.MergingIterator<>(list.iterator(), list1.iterator(), numericContents)));
 		}
 	}
 

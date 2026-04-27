@@ -73,7 +73,7 @@ public class EntityWolf extends EntityTameable {
 		aiSit = new EntityAISit(this);
 		tasks.addTask(1, new EntityAISwimming(this));
 		tasks.addTask(2, aiSit);
-		tasks.addTask(3, new EntityWolf.AIAvoidEntity(this, EntityLlama.class, 24.0F, 1.5D, 1.5D));
+		tasks.addTask(3, new EntityWolf.AIAvoidEntity<>(this, EntityLlama.class, 24.0F, 1.5D, 1.5D));
 		tasks.addTask(4, new EntityAILeapAtTarget(this, 0.4F));
 		tasks.addTask(5, new EntityAIAttackMelee(this, 1.0D, true));
 		tasks.addTask(6, new EntityAIFollowOwner(this, 1.0D, 10.0F, 2.0F));
@@ -85,8 +85,8 @@ public class EntityWolf extends EntityTameable {
 		targetTasks.addTask(1, new EntityAIOwnerHurtByTarget(this));
 		targetTasks.addTask(2, new EntityAIOwnerHurtTarget(this));
 		targetTasks.addTask(3, new EntityAIHurtByTarget(this, true));
-		targetTasks.addTask(4, new EntityAITargetNonTamed(this, EntityAnimal.class, false, (Predicate<Entity>) p_apply_1_ -> p_apply_1_ instanceof EntitySheep || p_apply_1_ instanceof EntityRabbit));
-		targetTasks.addTask(5, new EntityAINearestAttackableTarget(this, AbstractSkeleton.class, false));
+		targetTasks.addTask(4, new EntityAITargetNonTamed<>(this, EntityAnimal.class, false, (Predicate<Entity>) p_apply_1_ -> p_apply_1_ instanceof EntitySheep || p_apply_1_ instanceof EntityRabbit));
+		targetTasks.addTask(5, new EntityAINearestAttackableTarget<>(this, AbstractSkeleton.class, false));
 	}
 
 	protected void applyEntityAttributes() {

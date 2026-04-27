@@ -62,9 +62,9 @@ public class EntityRabbit extends EntityAnimal {
 		tasks.addTask(3, new EntityAITempt(this, 1.0D, Items.CARROT, false));
 		tasks.addTask(3, new EntityAITempt(this, 1.0D, Items.GOLDEN_CARROT, false));
 		tasks.addTask(3, new EntityAITempt(this, 1.0D, Item.getItemFromBlock(Blocks.YELLOW_FLOWER), false));
-		tasks.addTask(4, new EntityRabbit.AIAvoidEntity(this, EntityPlayer.class, 8.0F, 2.2D, 2.2D));
-		tasks.addTask(4, new EntityRabbit.AIAvoidEntity(this, EntityWolf.class, 10.0F, 2.2D, 2.2D));
-		tasks.addTask(4, new EntityRabbit.AIAvoidEntity(this, EntityMob.class, 4.0F, 2.2D, 2.2D));
+		tasks.addTask(4, new EntityRabbit.AIAvoidEntity<>(this, EntityPlayer.class, 8.0F, 2.2D, 2.2D));
+		tasks.addTask(4, new EntityRabbit.AIAvoidEntity<>(this, EntityWolf.class, 10.0F, 2.2D, 2.2D));
+		tasks.addTask(4, new EntityRabbit.AIAvoidEntity<>(this, EntityMob.class, 4.0F, 2.2D, 2.2D));
 		tasks.addTask(5, new EntityRabbit.AIRaidFarm(this));
 		tasks.addTask(6, new EntityAIWanderAvoidWater(this, 0.6D));
 		tasks.addTask(11, new EntityAIWatchClosest(this, EntityPlayer.class, 10.0F));
@@ -368,8 +368,8 @@ public class EntityRabbit extends EntityAnimal {
 			getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(8.0D);
 			tasks.addTask(4, new EntityRabbit.AIEvilAttack(this));
 			targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
-			targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
-			targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityWolf.class, true));
+			targetTasks.addTask(2, new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, true));
+			targetTasks.addTask(2, new EntityAINearestAttackableTarget<>(this, EntityWolf.class, true));
 
 			if (!hasCustomName()) {
 				setCustomNameTag(I18n.translateToLocal("entity.KillerBunny.name"));

@@ -52,14 +52,14 @@ public class EntityIllusionIllager extends EntitySpellcasterIllager implements I
 		tasks.addTask(1, new EntitySpellcasterIllager.AICastingApell());
 		tasks.addTask(4, new EntityIllusionIllager.AIMirriorSpell());
 		tasks.addTask(5, new EntityIllusionIllager.AIBlindnessSpell());
-		tasks.addTask(6, new EntityAIAttackRangedBow(this, 0.5D, 20, 15.0F));
+		tasks.addTask(6, new EntityAIAttackRangedBow<>(this, 0.5D, 20, 15.0F));
 		tasks.addTask(8, new EntityAIWander(this, 0.6D));
 		tasks.addTask(9, new EntityAIWatchClosest(this, EntityPlayer.class, 3.0F, 1.0F));
 		tasks.addTask(10, new EntityAIWatchClosest(this, EntityLiving.class, 8.0F));
 		targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, EntityIllusionIllager.class));
-		targetTasks.addTask(2, (new EntityAINearestAttackableTarget(this, EntityPlayer.class, true)).setUnseenMemoryTicks(300));
-		targetTasks.addTask(3, (new EntityAINearestAttackableTarget(this, EntityVillager.class, false)).setUnseenMemoryTicks(300));
-		targetTasks.addTask(3, (new EntityAINearestAttackableTarget(this, EntityIronGolem.class, false)).setUnseenMemoryTicks(300));
+		targetTasks.addTask(2, new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, true).setUnseenMemoryTicks(300));
+		targetTasks.addTask(3, new EntityAINearestAttackableTarget<>(this, EntityVillager.class, false).setUnseenMemoryTicks(300));
+		targetTasks.addTask(3, new EntityAINearestAttackableTarget<>(this, EntityIronGolem.class, false).setUnseenMemoryTicks(300));
 	}
 
 	protected void applyEntityAttributes() {

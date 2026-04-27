@@ -122,14 +122,14 @@ public class Chunk {
 		tileEntities = Maps.newHashMap();
 		queuedLightChecks = 4096;
 		tileEntityPosQueue = Queues.newConcurrentLinkedQueue();
-		entityLists = (ClassInheritanceMultiMap[]) (new ClassInheritanceMultiMap[16]);
+		entityLists = new ClassInheritanceMultiMap[16];
 		world = worldIn;
 		this.x = x;
 		this.z = z;
 		heightMap = new int[256];
 
 		for (int i = 0; i < entityLists.length; ++i) {
-			entityLists[i] = new ClassInheritanceMultiMap(Entity.class);
+			entityLists[i] = new ClassInheritanceMultiMap<>(Entity.class);
 		}
 
 		Arrays.fill(precipitationHeightMap, -999);

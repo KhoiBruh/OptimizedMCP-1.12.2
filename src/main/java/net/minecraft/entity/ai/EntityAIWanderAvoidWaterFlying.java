@@ -42,7 +42,7 @@ public class EntityAIWanderAvoidWaterFlying extends EntityAIWanderAvoidWater {
 		BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
 		BlockPos.MutableBlockPos blockpos$mutableblockpos1 = new BlockPos.MutableBlockPos();
 		Iterable<BlockPos.MutableBlockPos> iterable = BlockPos.MutableBlockPos.getAllInBoxMutable(MathHelper.floor(entity.posX - 3.0D), MathHelper.floor(entity.posY - 6.0D), MathHelper.floor(entity.posZ - 3.0D), MathHelper.floor(entity.posX + 3.0D), MathHelper.floor(entity.posY + 6.0D), MathHelper.floor(entity.posZ + 3.0D));
-		Iterator iterator = iterable.iterator();
+		Iterator<BlockPos.MutableBlockPos> iterator = iterable.iterator();
 		BlockPos blockpos1;
 
 		while (true) {

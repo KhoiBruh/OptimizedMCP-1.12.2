@@ -659,7 +659,7 @@ public class StructureOceanMonumentPieces {
 
 			for (StructureOceanMonumentPieces.RoomDefinition structureoceanmonumentpieces$roomdefinition : list) {
 				if (!structureoceanmonumentpieces$roomdefinition.claimed && !structureoceanmonumentpieces$roomdefinition.isSpecial()) {
-					Iterator lvt_10_1_ = list1.iterator();
+					Iterator<MonumentRoomFitHelper> lvt_10_1_ = list1.iterator();
 					StructureOceanMonumentPieces.MonumentRoomFitHelper structureoceanmonumentpieces$monumentroomfithelper;
 
 					while (true) {

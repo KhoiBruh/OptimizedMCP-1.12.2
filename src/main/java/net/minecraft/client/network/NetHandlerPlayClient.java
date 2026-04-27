@@ -1216,7 +1216,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 
 		switch (spacketrecipebook$state) {
 			case REMOVE:
-				Iterator iterator = packetIn.getRecipes().iterator();
+				Iterator<IRecipe> iterator = packetIn.getRecipes().iterator();
 
 				while (true) {
 					if (!iterator.hasNext()) {

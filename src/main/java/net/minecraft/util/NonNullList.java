@@ -13,7 +13,7 @@ public class NonNullList<E> extends AbstractList<E> {
 
 	protected NonNullList() {
 
-		this(new ArrayList(), null);
+		this(new ArrayList<>(), null);
 	}
 
 	protected NonNullList(List<E> delegateIn, @Nullable E listType) {

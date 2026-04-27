@@ -39,7 +39,7 @@ public class CriteriaTriggers {
 	public static final UsedTotemTrigger USED_TOTEM = register(new UsedTotemTrigger());
 	public static final NetherTravelTrigger NETHER_TRAVEL = register(new NetherTravelTrigger());
 
-	private static <T extends ICriterionTrigger> T register(T criterion) {
+	private static <T extends ICriterionTrigger<?>> T register(T criterion) {
 
 		if (REGISTRY.containsKey(criterion.getId())) {
 			throw new IllegalArgumentException("Duplicate criterion id " + criterion.getId());
@@ -52,7 +52,7 @@ public class CriteriaTriggers {
 	@Nullable
 	public static <T extends ICriterionInstance> ICriterionTrigger<T> get(ResourceLocation id) {
 
-		return (ICriterionTrigger) REGISTRY.get(id);
+		return (ICriterionTrigger<T>) REGISTRY.get(id);
 	}
 
 	public static Iterable<? extends ICriterionTrigger<?>> getAll() {

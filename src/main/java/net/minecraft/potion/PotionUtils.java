@@ -191,7 +191,7 @@ public class PotionUtils {
 					for (Entry<IAttribute, AttributeModifier> entry : map.entrySet()) {
 						AttributeModifier attributemodifier = entry.getValue();
 						AttributeModifier attributemodifier1 = new AttributeModifier(attributemodifier.getName(), potion.getAttributeModifierAmount(potioneffect.getAmplifier(), attributemodifier), attributemodifier.getOperation());
-						list1.add(new Tuple(entry.getKey().getName(), attributemodifier1));
+						list1.add(new Tuple<>(entry.getKey().getName(), attributemodifier1));
 					}
 				}
 

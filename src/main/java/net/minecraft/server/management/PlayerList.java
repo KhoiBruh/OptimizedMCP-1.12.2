@@ -995,7 +995,7 @@ public abstract class PlayerList {
 	 */
 	public void removeAllPlayers() {
 
-		for (EntityPlayerMP entityPlayerMP : playerEntityList) {
+		for (EntityPlayerMP entityPlayerMP : Lists.newArrayList(playerEntityList)) {
 			entityPlayerMP.connection.disconnect(new TextComponentTranslation("multiplayer.disconnect.server_shutdown"));
 		}
 	}

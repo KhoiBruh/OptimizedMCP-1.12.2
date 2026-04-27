@@ -228,7 +228,7 @@ public class PlayerAdvancements {
 						ICriterionTrigger<ICriterionInstance> icriteriontrigger = CriteriaTriggers.get(icriterioninstance.getId());
 
 						if (icriteriontrigger != null) {
-							icriteriontrigger.addListener(this, new ICriterionTrigger.Listener(icriterioninstance, p_193764_1_, entry.getKey()));
+							icriteriontrigger.addListener(this, new ICriterionTrigger.Listener<>(icriterioninstance, p_193764_1_, entry.getKey()));
 						}
 					}
 				}
@@ -250,7 +250,7 @@ public class PlayerAdvancements {
 					ICriterionTrigger<ICriterionInstance> icriteriontrigger = CriteriaTriggers.get(icriterioninstance.getId());
 
 					if (icriteriontrigger != null) {
-						icriteriontrigger.removeListener(this, new ICriterionTrigger.Listener(icriterioninstance, p_193765_1_, entry.getKey()));
+						icriteriontrigger.removeListener(this, new ICriterionTrigger.Listener<>(icriterioninstance, p_193765_1_, entry.getKey()));
 					}
 				}
 			}

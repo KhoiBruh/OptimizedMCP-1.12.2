@@ -85,7 +85,7 @@ public class VillageSiege {
 	private boolean trySetupSiege() {
 
 		List<EntityPlayer> list = world.playerEntities;
-		Iterator iterator = list.iterator();
+		Iterator<EntityPlayer> iterator = list.iterator();
 
 		while (true) {
 			if (!iterator.hasNext()) {

@@ -130,7 +130,7 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 	@Nullable
 	public UUID getOwnerUniqueId() {
 
-		return (UUID) ((Optional) dataManager.get(OWNER_UNIQUE_ID)).orNull();
+		return dataManager.get(OWNER_UNIQUE_ID).orNull();
 	}
 
 	public void setOwnerUniqueId(@Nullable UUID uniqueId) {

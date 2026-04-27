@@ -81,7 +81,7 @@ public class ItemBucket extends Item {
 					}
 
 					playerIn.addStat(StatList.getObjectUseStats(this));
-					return !playerIn.capabilities.isCreativeMode ? new ActionResult(EnumActionResult.SUCCESS, new ItemStack(Items.BUCKET)) : new ActionResult(EnumActionResult.SUCCESS, itemstack);
+					return !playerIn.capabilities.isCreativeMode ? new ActionResult<>(EnumActionResult.SUCCESS, new ItemStack(Items.BUCKET)) : new ActionResult<>(EnumActionResult.SUCCESS, itemstack);
 				} else {
 					return new ActionResult<>(EnumActionResult.FAIL, itemstack);
 				}

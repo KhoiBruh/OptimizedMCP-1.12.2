@@ -149,7 +149,7 @@ public abstract class MapGenStructure extends MapGenBase {
 	@Nullable
 	protected StructureStart getStructureAt(BlockPos pos) {
 
-		ObjectIterator objectiterator = structureMap.values().iterator();
+		ObjectIterator<StructureStart> objectiterator = structureMap.values().iterator();
 		label31:
 
 		while (objectiterator.hasNext()) {

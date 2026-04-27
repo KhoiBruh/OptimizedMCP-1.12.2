@@ -62,7 +62,7 @@ public class EntityOcelot extends EntityTameable {
 		tasks.addTask(9, new EntityAIMate(this, 0.8D));
 		tasks.addTask(10, new EntityAIWanderAvoidWater(this, 0.8D, 1.0000001E-5F));
 		tasks.addTask(11, new EntityAIWatchClosest(this, EntityPlayer.class, 10.0F));
-		targetTasks.addTask(1, new EntityAITargetNonTamed(this, EntityChicken.class, false, null));
+		targetTasks.addTask(1, new EntityAITargetNonTamed<>(this, EntityChicken.class, false, null));
 	}
 
 	protected void entityInit() {

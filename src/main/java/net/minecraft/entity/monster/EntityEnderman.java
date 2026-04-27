@@ -90,7 +90,7 @@ public class EntityEnderman extends EntityMob {
 		tasks.addTask(11, new EntityEnderman.AITakeBlock(this));
 		targetTasks.addTask(1, new EntityEnderman.AIFindPlayer(this));
 		targetTasks.addTask(2, new EntityAIHurtByTarget(this, false));
-		targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityEndermite.class, 10, true, false, (Predicate<EntityEndermite>) p_apply_1_ -> p_apply_1_.isSpawnedByPlayer()));
+		targetTasks.addTask(3, new EntityAINearestAttackableTarget<>(this, EntityEndermite.class, 10, true, false, (Predicate<EntityEndermite>) p_apply_1_ -> p_apply_1_.isSpawnedByPlayer()));
 	}
 
 	protected void applyEntityAttributes() {
@@ -327,7 +327,7 @@ public class EntityEnderman extends EntityMob {
 	 */
 	public IBlockState getHeldBlockState() {
 
-		return (IBlockState) ((Optional) dataManager.get(CARRIED_BLOCK)).orNull();
+		return dataManager.get(CARRIED_BLOCK).orNull();
 	}
 
 	/**

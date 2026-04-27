@@ -525,7 +525,7 @@ public abstract class CommandBase implements ICommand {
 			return p_190795_0_.getDefaultState().getProperties();
 		} else {
 			BlockStateContainer blockstatecontainer = p_190795_0_.getBlockState();
-			Iterator iterator = COMMA_SPLITTER.split(p_190795_1_).iterator();
+			Iterator<String> iterator = COMMA_SPLITTER.split(p_190795_1_).iterator();
 
 			while (true) {
 				if (!iterator.hasNext()) {

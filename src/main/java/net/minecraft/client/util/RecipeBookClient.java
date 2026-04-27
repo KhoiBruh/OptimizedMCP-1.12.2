@@ -50,9 +50,9 @@ public class RecipeBookClient extends RecipeBook {
 		RecipeList recipelist = new RecipeList();
 		ALL_RECIPES.add(recipelist);
 		(RECIPES_BY_TAB.computeIfAbsent(p_194082_0_, (p_194085_0_) ->
-				new ArrayList())).add(recipelist);
+				new ArrayList<>())).add(recipelist);
 		(RECIPES_BY_TAB.computeIfAbsent(CreativeTabs.SEARCH, (p_194083_0_) ->
-				new ArrayList())).add(recipelist);
+				new ArrayList<>())).add(recipelist);
 		return recipelist;
 	}
 

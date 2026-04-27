@@ -45,7 +45,7 @@ public class EntityEvoker extends EntitySpellcasterIllager {
 		super.initEntityAI();
 		tasks.addTask(0, new EntityAISwimming(this));
 		tasks.addTask(1, new EntityEvoker.AICastingSpell());
-		tasks.addTask(2, new EntityAIAvoidEntity(this, EntityPlayer.class, 8.0F, 0.6D, 1.0D));
+		tasks.addTask(2, new EntityAIAvoidEntity<>(this, EntityPlayer.class, 8.0F, 0.6D, 1.0D));
 		tasks.addTask(4, new EntityEvoker.AISummonSpell());
 		tasks.addTask(5, new EntityEvoker.AIAttackSpell());
 		tasks.addTask(6, new EntityEvoker.AIWololoSpell());
@@ -53,9 +53,9 @@ public class EntityEvoker extends EntitySpellcasterIllager {
 		tasks.addTask(9, new EntityAIWatchClosest(this, EntityPlayer.class, 3.0F, 1.0F));
 		tasks.addTask(10, new EntityAIWatchClosest(this, EntityLiving.class, 8.0F));
 		targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, EntityEvoker.class));
-		targetTasks.addTask(2, (new EntityAINearestAttackableTarget(this, EntityPlayer.class, true)).setUnseenMemoryTicks(300));
-		targetTasks.addTask(3, (new EntityAINearestAttackableTarget(this, EntityVillager.class, false)).setUnseenMemoryTicks(300));
-		targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityIronGolem.class, false));
+		targetTasks.addTask(2, new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, true).setUnseenMemoryTicks(300));
+		targetTasks.addTask(3, new EntityAINearestAttackableTarget<>(this, EntityVillager.class, false).setUnseenMemoryTicks(300));
+		targetTasks.addTask(3, new EntityAINearestAttackableTarget<>(this, EntityIronGolem.class, false));
 	}
 
 	protected void applyEntityAttributes() {

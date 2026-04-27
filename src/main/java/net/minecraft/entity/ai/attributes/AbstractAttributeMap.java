@@ -13,7 +13,7 @@ import java.util.Map.Entry;
 public abstract class AbstractAttributeMap {
 
 	protected final Map<IAttribute, IAttributeInstance> attributes = Maps.newHashMap();
-	protected final Map<String, IAttributeInstance> attributesByName = new LowerStringMap();
+	protected final Map<String, IAttributeInstance> attributesByName = new LowerStringMap<>();
 	protected final Multimap<IAttribute, IAttribute> descendantsByParent = HashMultimap.create();
 
 	public IAttributeInstance getAttributeInstance(IAttribute attribute) {

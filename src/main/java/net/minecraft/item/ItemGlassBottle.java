@@ -36,27 +36,27 @@ public class ItemGlassBottle extends Item {
 			EntityAreaEffectCloud entityareaeffectcloud = list.getFirst();
 			entityareaeffectcloud.setRadius(entityareaeffectcloud.getRadius() - 0.5F);
 			worldIn.playSound(null, playerIn.posX, playerIn.posY, playerIn.posZ, SoundEvents.ITEM_BOTTLE_FILL_DRAGONBREATH, SoundCategory.NEUTRAL, 1.0F, 1.0F);
-			return new ActionResult(EnumActionResult.SUCCESS, turnBottleIntoItem(itemstack, playerIn, new ItemStack(Items.DRAGON_BREATH)));
+			return new ActionResult<>(EnumActionResult.SUCCESS, turnBottleIntoItem(itemstack, playerIn, new ItemStack(Items.DRAGON_BREATH)));
 		} else {
 			RayTraceResult raytraceresult = rayTrace(worldIn, playerIn, true);
 
 			if (raytraceresult == null) {
-				return new ActionResult(EnumActionResult.PASS, itemstack);
+				return new ActionResult<>(EnumActionResult.PASS, itemstack);
 			} else {
 				if (raytraceresult.typeOfHit == RayTraceResult.Type.BLOCK) {
 					BlockPos blockpos = raytraceresult.getBlockPos();
 
 					if (!worldIn.isBlockModifiable(playerIn, blockpos) || !playerIn.canPlayerEdit(blockpos.offset(raytraceresult.sideHit), raytraceresult.sideHit, itemstack)) {
-						return new ActionResult(EnumActionResult.PASS, itemstack);
+						return new ActionResult<>(EnumActionResult.PASS, itemstack);
 					}
 
 					if (worldIn.getBlockState(blockpos).getMaterial() == Material.WATER) {
 						worldIn.playSound(playerIn, playerIn.posX, playerIn.posY, playerIn.posZ, SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.NEUTRAL, 1.0F, 1.0F);
-						return new ActionResult(EnumActionResult.SUCCESS, turnBottleIntoItem(itemstack, playerIn, PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), PotionTypes.WATER)));
+						return new ActionResult<>(EnumActionResult.SUCCESS, turnBottleIntoItem(itemstack, playerIn, PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), PotionTypes.WATER)));
 					}
 				}
 
-				return new ActionResult(EnumActionResult.PASS, itemstack);
+				return new ActionResult<>(EnumActionResult.PASS, itemstack);
 			}
 		}
 	}

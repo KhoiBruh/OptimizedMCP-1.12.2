@@ -102,7 +102,7 @@ public class SoundHandler implements IResourceManagerReloadListener, ITickable {
 	@Nullable
 	protected Map<String, SoundList> getSoundMap(InputStream stream) {
 
-		Map map;
+		Map<String, SoundList> map;
 
 		try {
 			map = JsonUtils.fromJson(GSON, new InputStreamReader(stream, StandardCharsets.UTF_8), TYPE);

@@ -203,7 +203,7 @@ public class EntityShulker extends EntityGolem implements IMob {
 	public void onUpdate() {
 
 		super.onUpdate();
-		BlockPos blockpos = (BlockPos) ((Optional) dataManager.get(ATTACHED_BLOCK_POS)).orNull();
+		BlockPos blockpos = dataManager.get(ATTACHED_BLOCK_POS).orNull();
 
 		if (blockpos == null && !world.isRemote) {
 			blockpos = new BlockPos(this);
@@ -519,7 +519,7 @@ public class EntityShulker extends EntityGolem implements IMob {
 	@Nullable
 	public BlockPos getAttachmentPos() {
 
-		return (BlockPos) ((Optional) dataManager.get(ATTACHED_BLOCK_POS)).orNull();
+		return dataManager.get(ATTACHED_BLOCK_POS).orNull();
 	}
 
 	public void setAttachmentPos(@Nullable BlockPos pos) {

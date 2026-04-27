@@ -189,7 +189,7 @@ public class PotionHelper {
 
 	private static void addContainerRecipe(ItemPotion p_193355_0_, Item p_193355_1_, ItemPotion p_193355_2_) {
 
-		POTION_ITEM_CONVERSIONS.add(new PotionHelper.MixPredicate(p_193355_0_, Ingredient.fromItems(p_193355_1_), p_193355_2_));
+		POTION_ITEM_CONVERSIONS.add(new PotionHelper.MixPredicate<>(p_193355_0_, Ingredient.fromItems(p_193355_1_), p_193355_2_));
 	}
 
 	private static void addContainer(ItemPotion p_193354_0_) {
@@ -204,7 +204,7 @@ public class PotionHelper {
 
 	private static void addMix(PotionType p_193356_0_, Ingredient p_193356_1_, PotionType p_193356_2_) {
 
-		POTION_TYPE_CONVERSIONS.add(new PotionHelper.MixPredicate(p_193356_0_, p_193356_1_, p_193356_2_));
+		POTION_TYPE_CONVERSIONS.add(new PotionHelper.MixPredicate<>(p_193356_0_, p_193356_1_, p_193356_2_));
 	}
 
 	record MixPredicate<T>(T input, Ingredient reagent, T output) {

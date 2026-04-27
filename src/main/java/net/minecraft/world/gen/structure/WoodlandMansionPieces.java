@@ -224,7 +224,7 @@ public class WoodlandMansionPieces {
 					int l = k & 983040;
 
 					if (l == 131072 && (k & 2097152) == 2097152) {
-						list.add(new Tuple(j, i));
+						list.add(new Tuple<>(j, i));
 					}
 				}
 			}
@@ -280,7 +280,7 @@ public class WoodlandMansionPieces {
 			for (int i = 0; i < p_191116_1_.height; ++i) {
 				for (int j = 0; j < p_191116_1_.width; ++j) {
 					if (p_191116_1_.get(j, i) == 2) {
-						list.add(new Tuple(j, i));
+						list.add(new Tuple<>(j, i));
 					}
 				}
 			}

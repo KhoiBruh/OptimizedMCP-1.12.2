@@ -777,7 +777,7 @@ public class InventoryPlayer implements IInventory {
 		label23:
 
 		for (List<ItemStack> list : allInventories) {
-			Iterator iterator = list.iterator();
+			Iterator<ItemStack> iterator = list.iterator();
 
 			while (true) {
 				if (!iterator.hasNext()) {

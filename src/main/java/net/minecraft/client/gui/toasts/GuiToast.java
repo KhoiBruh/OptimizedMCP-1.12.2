@@ -36,7 +36,7 @@ public class GuiToast extends Gui {
 				}
 
 				if (visible[i] == null && !toastsQueue.isEmpty()) {
-					visible[i] = new GuiToast.ToastInstance(toastsQueue.removeFirst());
+					visible[i] = new GuiToast.ToastInstance<>(toastsQueue.removeFirst());
 				}
 			}
 		}

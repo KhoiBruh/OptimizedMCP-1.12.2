@@ -161,7 +161,7 @@ public class ItemBow extends Item {
 		boolean flag = !findAmmo(playerIn).isEmpty();
 
 		if (!playerIn.capabilities.isCreativeMode && !flag) {
-			return flag ? new ActionResult(EnumActionResult.PASS, itemstack) : new ActionResult(EnumActionResult.FAIL, itemstack);
+			return flag ? new ActionResult<>(EnumActionResult.PASS, itemstack) : new ActionResult<>(EnumActionResult.FAIL, itemstack);
 		} else {
 			playerIn.setActiveHand(handIn);
 			return new ActionResult<>(EnumActionResult.SUCCESS, itemstack);

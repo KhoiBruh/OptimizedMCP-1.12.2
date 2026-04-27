@@ -83,7 +83,7 @@ public class EntityVex extends EntityMob {
 		tasks.addTask(10, new EntityAIWatchClosest(this, EntityLiving.class, 8.0F));
 		targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, EntityVex.class));
 		targetTasks.addTask(2, new EntityVex.AICopyOwnerTarget(this));
-		targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
+		targetTasks.addTask(3, new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, true));
 	}
 
 	protected void applyEntityAttributes() {

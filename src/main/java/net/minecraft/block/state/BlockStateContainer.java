@@ -95,8 +95,7 @@ public class BlockStateContainer {
 		ImmutableCollection<IProperty<?>> immutablecollection = properties.values();
 
 		for (IProperty<?> iProperty : immutablecollection) {
-			IProperty<?> iproperty = iProperty;
-			list.add(((IProperty) iproperty).getAllowedValues());
+			list.add(((IProperty) iProperty).getAllowedValues());
 		}
 
 		return list;
