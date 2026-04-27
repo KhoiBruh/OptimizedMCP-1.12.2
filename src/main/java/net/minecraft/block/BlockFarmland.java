@@ -27,7 +27,7 @@ public class BlockFarmland extends Block {
 	protected BlockFarmland() {
 
 		super(Material.GROUND);
-		setDefaultState(blockState.getBaseState().withProperty(MOISTURE, Integer.valueOf(0)));
+		setDefaultState(blockState.getBaseState().withProperty(MOISTURE, 0));
 		setTickRandomly(true);
 		setLightOpacity(255);
 	}
@@ -63,16 +63,16 @@ public class BlockFarmland extends Block {
 
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
 
-		int i = state.getValue(MOISTURE).intValue();
+		int i = state.getValue(MOISTURE);
 
 		if (!hasWater(worldIn, pos) && !worldIn.isRainingAt(pos.up())) {
 			if (i > 0) {
-				worldIn.setBlockState(pos, state.withProperty(MOISTURE, Integer.valueOf(i - 1)), 2);
+				worldIn.setBlockState(pos, state.withProperty(MOISTURE, i - 1), 2);
 			} else if (!hasCrops(worldIn, pos)) {
 				turnToDirt(worldIn, pos);
 			}
 		} else if (i < 7) {
-			worldIn.setBlockState(pos, state.withProperty(MOISTURE, Integer.valueOf(7)), 2);
+			worldIn.setBlockState(pos, state.withProperty(MOISTURE, 7), 2);
 		}
 	}
 
@@ -163,7 +163,7 @@ public class BlockFarmland extends Block {
 	 */
 	public IBlockState getStateFromMeta(int meta) {
 
-		return getDefaultState().withProperty(MOISTURE, Integer.valueOf(meta & 7));
+		return getDefaultState().withProperty(MOISTURE, meta & 7);
 	}
 
 	/**
@@ -171,7 +171,7 @@ public class BlockFarmland extends Block {
 	 */
 	public int getMetaFromState(IBlockState state) {
 
-		return state.getValue(MOISTURE).intValue();
+		return state.getValue(MOISTURE);
 	}
 
 	protected BlockStateContainer createBlockState() {

@@ -36,7 +36,7 @@ public class SPacketPlaceGhostRecipe implements Packet<INetHandlerPlayClient> {
 	/**
 	 * Reads the raw packet data from the data stream.
 	 */
-	public void readPacketData(PacketBuffer buf) throws IOException {
+	public void readPacketData(PacketBuffer buf) {
 
 		field_194314_a = buf.readByte();
 		field_194315_b = CraftingManager.getRecipeById(buf.readVarInt());
@@ -45,7 +45,7 @@ public class SPacketPlaceGhostRecipe implements Packet<INetHandlerPlayClient> {
 	/**
 	 * Writes the raw packet data to the data stream.
 	 */
-	public void writePacketData(PacketBuffer buf) throws IOException {
+	public void writePacketData(PacketBuffer buf) {
 
 		buf.writeByte(field_194314_a);
 		buf.writeVarInt(CraftingManager.getIDForRecipe(field_194315_b));

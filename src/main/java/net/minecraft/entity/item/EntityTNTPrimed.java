@@ -50,7 +50,7 @@ public class EntityTNTPrimed extends Entity {
 
 	protected void entityInit() {
 
-		dataManager.register(FUSE, Integer.valueOf(80));
+		dataManager.register(FUSE, 80);
 	}
 
 	/**
@@ -157,7 +157,7 @@ public class EntityTNTPrimed extends Entity {
 	 */
 	public int getFuseDataManager() {
 
-		return dataManager.get(FUSE).intValue();
+		return dataManager.get(FUSE);
 	}
 
 	public int getFuse() {
@@ -167,7 +167,7 @@ public class EntityTNTPrimed extends Entity {
 
 	public void setFuse(int fuseIn) {
 
-		dataManager.set(FUSE, Integer.valueOf(fuseIn));
+		dataManager.set(FUSE, fuseIn);
 		fuse = fuseIn;
 	}
 

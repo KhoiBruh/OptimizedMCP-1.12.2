@@ -35,10 +35,8 @@ public class Util {
 		try {
 			task.run();
 			return task.get();
-		} catch (ExecutionException executionexception) {
+		} catch (ExecutionException | InterruptedException executionexception) {
 			logger.fatal("Error executing task", executionexception);
-		} catch (InterruptedException interruptedexception) {
-			logger.fatal("Error executing task", interruptedexception);
 		}
 
 		return null;
@@ -46,7 +44,7 @@ public class Util {
 
 	public static <T> T getLastElement(List<T> list) {
 
-		return list.get(list.size() - 1);
+		return list.getLast();
 	}
 
 	public enum EnumOS {

@@ -30,7 +30,7 @@ import java.util.Calendar;
 public abstract class AbstractSkeleton extends EntityMob implements IRangedAttackMob {
 
 	private static final DataParameter<Boolean> SWINGING_ARMS = EntityDataManager.createKey(AbstractSkeleton.class, DataSerializers.BOOLEAN);
-	private final EntityAIAttackRangedBow<AbstractSkeleton> aiArrowAttack = new EntityAIAttackRangedBow<AbstractSkeleton>(this, 1.0D, 20, 15.0F);
+	private final EntityAIAttackRangedBow<AbstractSkeleton> aiArrowAttack = new EntityAIAttackRangedBow<>(this, 1.0D, 20, 15.0F);
 	private final EntityAIAttackMelee aiAttackOnCollide = new EntityAIAttackMelee(this, 1.2D, false) {
 		public void resetTask() {
 
@@ -75,7 +75,7 @@ public abstract class AbstractSkeleton extends EntityMob implements IRangedAttac
 	protected void entityInit() {
 
 		super.entityInit();
-		dataManager.register(SWINGING_ARMS, Boolean.valueOf(false));
+		dataManager.register(SWINGING_ARMS, Boolean.FALSE);
 	}
 
 	protected void playStepSound(BlockPos pos, Block blockIn) {
@@ -266,12 +266,12 @@ public abstract class AbstractSkeleton extends EntityMob implements IRangedAttac
 
 	public boolean isSwingingArms() {
 
-		return dataManager.get(SWINGING_ARMS).booleanValue();
+		return dataManager.get(SWINGING_ARMS);
 	}
 
 	public void setSwingingArms(boolean swingingArms) {
 
-		dataManager.set(SWINGING_ARMS, Boolean.valueOf(swingingArms));
+		dataManager.set(SWINGING_ARMS, swingingArms);
 	}
 
 }

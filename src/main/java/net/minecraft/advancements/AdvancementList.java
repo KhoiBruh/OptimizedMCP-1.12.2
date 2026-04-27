@@ -28,7 +28,7 @@ public class AdvancementList {
 			remove(advancement);
 		}
 
-		LOGGER.info("Forgot about advancement " + advancementIn.getId());
+		LOGGER.info("Forgot about advancement {}", advancementIn.getId());
 		advancements.remove(advancementIn.getId());
 
 		if (advancementIn.getParent() == null) {
@@ -52,7 +52,7 @@ public class AdvancementList {
 			Advancement advancement = advancements.get(resourcelocation);
 
 			if (advancement == null) {
-				LOGGER.warn("Told to remove advancement " + resourcelocation + " but I don't know what that is");
+				LOGGER.warn("Told to remove advancement {} but I don't know what that is", resourcelocation);
 			} else {
 				remove(advancement);
 			}
@@ -104,12 +104,12 @@ public class AdvancementList {
 					}
 
 					Entry<ResourceLocation, Advancement.Builder> entry1 = iterator.next();
-					LOGGER.error("Couldn't load advancement " + entry1.getKey() + ": " + entry1.getValue());
+					LOGGER.error("Couldn't load advancement {}: {}", entry1.getKey(), entry1.getValue());
 				}
 			}
 		}
 
-		LOGGER.info("Loaded " + advancements.size() + " advancements");
+		LOGGER.info("Loaded {} advancements", advancements.size());
 	}
 
 	public void clear() {

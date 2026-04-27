@@ -58,7 +58,7 @@ public class ModelBakery {
 	private final BlockModelShapes blockModelShapes;
 	private final FaceBakery faceBakery = new FaceBakery();
 	private final ItemModelGenerator itemModelGenerator = new ItemModelGenerator();
-	private final RegistrySimple<ModelResourceLocation, IBakedModel> bakedRegistry = new RegistrySimple<ModelResourceLocation, IBakedModel>();
+	private final RegistrySimple<ModelResourceLocation, IBakedModel> bakedRegistry = new RegistrySimple<>();
 	private final Map<String, ResourceLocation> itemLocations = Maps.newLinkedHashMap();
 	private final Map<ResourceLocation, ModelBlockDefinition> blockDefinitions = Maps.newHashMap();
 	private final Map<Item, List<String>> variantNames = Maps.newIdentityHashMap();
@@ -95,19 +95,9 @@ public class ModelBakery {
 					if (modelblockdefinition.hasMultipartData()) {
 						Collection<ModelResourceLocation> collection = Sets.newHashSet(map.values());
 						modelblockdefinition.getMultipartData().setStateContainer(block.getBlockState());
-						Collection<ModelResourceLocation> collection1 = multipartVariantMap.get(modelblockdefinition);
+						Collection<ModelResourceLocation> collection1 = multipartVariantMap.computeIfAbsent(modelblockdefinition, k -> Lists.newArrayList());
 
-						if (collection1 == null) {
-							collection1 = Lists.newArrayList();
-							multipartVariantMap.put(modelblockdefinition, collection1);
-						}
-
-						collection1.addAll(Lists.newArrayList(Iterables.filter(collection, new Predicate<ModelResourceLocation>() {
-							public boolean apply(@Nullable ModelResourceLocation p_apply_1_) {
-
-								return resourcelocation.equals(p_apply_1_);
-							}
-						})));
+						collection1.addAll(Lists.newArrayList(Iterables.filter(collection, p_apply_1_ -> resourcelocation.equals(p_apply_1_))));
 					}
 
 					for (Entry<IBlockState, ModelResourceLocation> entry : map.entrySet()) {
@@ -272,8 +262,7 @@ public class ModelBakery {
 
 				lvt_5_2_ = ModelBlock.deserialize(reader);
 				lvt_5_2_.name = location.toString();
-				ModelBlock modelblock1 = lvt_5_2_;
-				return modelblock1;
+				return lvt_5_2_;
 			}
 
 			lvt_5_2_ = MODEL_GENERATED;
@@ -500,12 +489,7 @@ public class ModelBakery {
 
 		Set<ResourceLocation> set = Sets.newHashSet();
 		List<ModelResourceLocation> list = Lists.newArrayList(variants.keySet());
-		Collections.sort(list, new Comparator<ModelResourceLocation>() {
-			public int compare(ModelResourceLocation p_compare_1_, ModelResourceLocation p_compare_2_) {
-
-				return p_compare_1_.toString().compareTo(p_compare_2_.toString());
-			}
-		});
+		list.sort((p_compare_1_, p_compare_2_) -> p_compare_1_.toString().compareTo(p_compare_2_.toString()));
 
 		for (ModelResourceLocation modelresourcelocation : list) {
 			VariantList variantlist = variants.get(modelresourcelocation);
@@ -625,7 +609,7 @@ public class ModelBakery {
 		ResourceLocation resourcelocation = p_177573_1_;
 
 		while ((resourcelocation = getParentLocation(resourcelocation)) != null) {
-			list.add(0, resourcelocation);
+			list.addFirst(resourcelocation);
 		}
 
 		return list;
@@ -665,13 +649,11 @@ public class ModelBakery {
 		final Set<ResourceLocation> set = getVariantsTextureLocations();
 		set.addAll(getItemsTextureLocations());
 		set.remove(TextureMap.LOCATION_MISSING_TEXTURE);
-		ITextureMapPopulator itexturemappopulator = new ITextureMapPopulator() {
-			public void registerSprites(TextureMap textureMapIn) {
+		ITextureMapPopulator itexturemappopulator = textureMapIn -> {
 
-				for (ResourceLocation resourcelocation : set) {
-					TextureAtlasSprite textureatlassprite = textureMapIn.registerSprite(resourcelocation);
-					sprites.put(resourcelocation, textureatlassprite);
-				}
+			for (ResourceLocation resourcelocation : set) {
+				TextureAtlasSprite textureatlassprite = textureMapIn.registerSprite(resourcelocation);
+				sprites.put(resourcelocation, textureatlassprite);
 			}
 		};
 		textureMap.loadSprites(resourceManager, itexturemappopulator);

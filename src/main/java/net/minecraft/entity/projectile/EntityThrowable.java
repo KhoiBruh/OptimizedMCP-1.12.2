@@ -191,9 +191,7 @@ public abstract class EntityThrowable extends Entity implements IProjectile {
 		double d0 = 0.0D;
 		boolean flag = false;
 
-		for (int i = 0; i < list.size(); ++i) {
-			Entity entity1 = list.get(i);
-
+		for (Entity entity1 : list) {
 			if (entity1.canBeCollidedWith()) {
 				if (entity1 == ignoreEntity) {
 					flag = true;

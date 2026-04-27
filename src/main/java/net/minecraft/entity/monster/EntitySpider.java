@@ -73,7 +73,7 @@ public class EntitySpider extends EntityMob {
 	protected void entityInit() {
 
 		super.entityInit();
-		dataManager.register(CLIMBING, Byte.valueOf((byte) 0));
+		dataManager.register(CLIMBING, (byte) 0);
 	}
 
 	/**
@@ -156,7 +156,7 @@ public class EntitySpider extends EntityMob {
 	 */
 	public boolean isBesideClimbableBlock() {
 
-		return (dataManager.get(CLIMBING).byteValue() & 1) != 0;
+		return (dataManager.get(CLIMBING) & 1) != 0;
 	}
 
 	/**
@@ -165,7 +165,7 @@ public class EntitySpider extends EntityMob {
 	 */
 	public void setBesideClimbableBlock(boolean climbing) {
 
-		byte b0 = dataManager.get(CLIMBING).byteValue();
+		byte b0 = dataManager.get(CLIMBING);
 
 		if (climbing) {
 			b0 = (byte) (b0 | 1);
@@ -173,7 +173,7 @@ public class EntitySpider extends EntityMob {
 			b0 = (byte) (b0 & -2);
 		}
 
-		dataManager.set(CLIMBING, Byte.valueOf(b0));
+		dataManager.set(CLIMBING, b0);
 	}
 
 	@Nullable

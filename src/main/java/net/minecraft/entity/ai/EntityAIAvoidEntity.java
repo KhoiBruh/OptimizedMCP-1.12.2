@@ -41,12 +41,7 @@ public class EntityAIAvoidEntity<T extends Entity> extends EntityAIBase {
 
 	public EntityAIAvoidEntity(EntityCreature entityIn, Class<T> classToAvoidIn, Predicate<? super T> avoidTargetSelectorIn, float avoidDistanceIn, double farSpeedIn, double nearSpeedIn) {
 
-		canBeSeenSelector = new Predicate<Entity>() {
-			public boolean apply(@Nullable Entity p_apply_1_) {
-
-				return p_apply_1_.isEntityAlive() && entity.getEntitySenses().canSee(p_apply_1_) && !entity.isOnSameTeam(p_apply_1_);
-			}
-		};
+		canBeSeenSelector = p_apply_1_ -> p_apply_1_.isEntityAlive() && entity.getEntitySenses().canSee(p_apply_1_) && !entity.isOnSameTeam(p_apply_1_);
 		entity = entityIn;
 		classToAvoid = classToAvoidIn;
 		avoidTargetSelector = avoidTargetSelectorIn;
@@ -67,7 +62,7 @@ public class EntityAIAvoidEntity<T extends Entity> extends EntityAIBase {
 		if (list.isEmpty()) {
 			return false;
 		} else {
-			closestLivingEntity = list.get(0);
+			closestLivingEntity = list.getFirst();
 			Vec3d vec3d = RandomPositionGenerator.findRandomTargetBlockAwayFrom(entity, 16, 7, new Vec3d(closestLivingEntity.posX, closestLivingEntity.posY, closestLivingEntity.posZ));
 
 			if (vec3d == null) {

@@ -142,9 +142,7 @@ public class TileEntityShulkerBox extends TileEntityLockableLoot implements ITic
 			List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(null, axisalignedbb);
 
 			if (!list.isEmpty()) {
-				for (int i = 0; i < list.size(); ++i) {
-					Entity entity = list.get(i);
-
+				for (Entity entity : list) {
 					if (entity.getPushReaction() != EnumPushReaction.IGNORE) {
 						double d0 = 0.0D;
 						double d1 = 0.0D;

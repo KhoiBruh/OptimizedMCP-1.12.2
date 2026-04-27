@@ -62,7 +62,7 @@ public class CommandClone extends CommandBase {
 			int i = structureboundingbox.getXSize() * structureboundingbox.getYSize() * structureboundingbox.getZSize();
 
 			if (i > 32768) {
-				throw new CommandException("commands.clone.tooManyBlocks", i, Integer.valueOf(32768));
+				throw new CommandException("commands.clone.tooManyBlocks", i, 32768);
 			} else {
 				boolean flag = false;
 				Block block = null;

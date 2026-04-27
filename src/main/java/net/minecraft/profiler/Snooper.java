@@ -69,7 +69,7 @@ public class Snooper {
 								map.putAll(snooperStats);
 							}
 
-							map.put("snooper_count", Integer.valueOf(selfCounter++));
+							map.put("snooper_count", selfCounter++);
 							map.put("snooper_token", uniqueID);
 						}
 
@@ -109,15 +109,15 @@ public class Snooper {
 			}
 		}
 
-		addClientStat("jvm_args", Integer.valueOf(i));
+		addClientStat("jvm_args", i);
 	}
 
 	public void addMemoryStatsToSnooper() {
 
-		addStatToSnooper("memory_total", Long.valueOf(Runtime.getRuntime().totalMemory()));
-		addStatToSnooper("memory_max", Long.valueOf(Runtime.getRuntime().maxMemory()));
-		addStatToSnooper("memory_free", Long.valueOf(Runtime.getRuntime().freeMemory()));
-		addStatToSnooper("cpu_cores", Integer.valueOf(Runtime.getRuntime().availableProcessors()));
+		addStatToSnooper("memory_total", Runtime.getRuntime().totalMemory());
+		addStatToSnooper("memory_max", Runtime.getRuntime().maxMemory());
+		addStatToSnooper("memory_free", Runtime.getRuntime().freeMemory());
+		addStatToSnooper("cpu_cores", Runtime.getRuntime().availableProcessors());
 		playerStatsCollector.addServerStatsToSnooper(this);
 	}
 

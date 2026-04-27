@@ -234,13 +234,13 @@ public class EntityFallingBlock extends Entity {
 				}
 
 				if (flag && (double) rand.nextFloat() < 0.05000000074505806D + (double) i * 0.05D) {
-					int j = fallTile.getValue(BlockAnvil.DAMAGE).intValue();
+					int j = fallTile.getValue(BlockAnvil.DAMAGE);
 					++j;
 
 					if (j > 2) {
 						dontSetBlock = true;
 					} else {
-						fallTile = fallTile.withProperty(BlockAnvil.DAMAGE, Integer.valueOf(j));
+						fallTile = fallTile.withProperty(BlockAnvil.DAMAGE, j);
 					}
 				}
 			}
@@ -330,8 +330,8 @@ public class EntityFallingBlock extends Entity {
 
 		if (fallTile != null) {
 			Block block = fallTile.getBlock();
-			category.addCrashSection("Immitating block ID", Integer.valueOf(Block.getIdFromBlock(block)));
-			category.addCrashSection("Immitating block data", Integer.valueOf(block.getMetaFromState(fallTile)));
+			category.addCrashSection("Immitating block ID", Block.getIdFromBlock(block));
+			category.addCrashSection("Immitating block data", block.getMetaFromState(fallTile));
 		}
 	}
 

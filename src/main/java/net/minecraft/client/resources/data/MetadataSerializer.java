@@ -11,7 +11,7 @@ import net.minecraft.util.text.Style;
 
 public class MetadataSerializer {
 
-	private final IRegistry<String, MetadataSerializer.Registration<? extends IMetadataSection>> metadataSectionSerializerRegistry = new RegistrySimple<String, MetadataSerializer.Registration<? extends IMetadataSection>>();
+	private final IRegistry<String, MetadataSerializer.Registration<? extends IMetadataSection>> metadataSectionSerializerRegistry = new RegistrySimple<>();
 	private final GsonBuilder gsonBuilder = new GsonBuilder();
 
 	/**

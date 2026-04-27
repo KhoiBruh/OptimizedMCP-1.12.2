@@ -28,13 +28,13 @@ public class BlockCake extends Block {
 	protected BlockCake() {
 
 		super(Material.CAKE);
-		setDefaultState(blockState.getBaseState().withProperty(BITES, Integer.valueOf(0)));
+		setDefaultState(blockState.getBaseState().withProperty(BITES, 0));
 		setTickRandomly(true);
 	}
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
 
-		return CAKE_AABB[state.getValue(BITES).intValue()];
+		return CAKE_AABB[state.getValue(BITES)];
 	}
 
 	public boolean isFullCube(IBlockState state) {
@@ -70,10 +70,10 @@ public class BlockCake extends Block {
 		} else {
 			player.addStat(StatList.CAKE_SLICES_EATEN);
 			player.getFoodStats().addStats(2, 0.1F);
-			int i = state.getValue(BITES).intValue();
+			int i = state.getValue(BITES);
 
 			if (i < 6) {
-				worldIn.setBlockState(pos, state.withProperty(BITES, Integer.valueOf(i + 1)), 3);
+				worldIn.setBlockState(pos, state.withProperty(BITES, i + 1), 3);
 			} else {
 				worldIn.setBlockToAir(pos);
 			}
@@ -142,7 +142,7 @@ public class BlockCake extends Block {
 	 */
 	public IBlockState getStateFromMeta(int meta) {
 
-		return getDefaultState().withProperty(BITES, Integer.valueOf(meta));
+		return getDefaultState().withProperty(BITES, meta);
 	}
 
 	/**
@@ -150,7 +150,7 @@ public class BlockCake extends Block {
 	 */
 	public int getMetaFromState(IBlockState state) {
 
-		return state.getValue(BITES).intValue();
+		return state.getValue(BITES);
 	}
 
 	protected BlockStateContainer createBlockState() {
@@ -160,7 +160,7 @@ public class BlockCake extends Block {
 
 	public int getComparatorInputOverride(IBlockState blockState, World worldIn, BlockPos pos) {
 
-		return (7 - blockState.getValue(BITES).intValue()) * 2;
+		return (7 - blockState.getValue(BITES)) * 2;
 	}
 
 	public boolean hasComparatorInputOverride(IBlockState state) {

@@ -21,22 +21,15 @@ public class ItemBow extends Item {
 		maxStackSize = 1;
 		setMaxDamage(384);
 		setCreativeTab(CreativeTabs.COMBAT);
-		addPropertyOverride(new ResourceLocation("pull"), new IItemPropertyGetter() {
-			public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
+		addPropertyOverride(new ResourceLocation("pull"), (stack, worldIn, entityIn) -> {
 
-				if (entityIn == null) {
-					return 0.0F;
-				} else {
-					return entityIn.getActiveItemStack().getItem() != Items.BOW ? 0.0F : (float) (stack.getMaxItemUseDuration() - entityIn.getItemInUseCount()) / 20.0F;
-				}
+			if (entityIn == null) {
+				return 0.0F;
+			} else {
+				return entityIn.getActiveItemStack().getItem() != Items.BOW ? 0.0F : (float) (stack.getMaxItemUseDuration() - entityIn.getItemInUseCount()) / 20.0F;
 			}
 		});
-		addPropertyOverride(new ResourceLocation("pulling"), new IItemPropertyGetter() {
-			public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
-
-				return entityIn != null && entityIn.isHandActive() && entityIn.getActiveItemStack() == stack ? 1.0F : 0.0F;
-			}
-		});
+		addPropertyOverride(new ResourceLocation("pulling"), (stack, worldIn, entityIn) -> entityIn != null && entityIn.isHandActive() && entityIn.getActiveItemStack() == stack ? 1.0F : 0.0F);
 	}
 
 	/**
@@ -173,7 +166,7 @@ public class ItemBow extends Item {
 			return flag ? new ActionResult(EnumActionResult.PASS, itemstack) : new ActionResult(EnumActionResult.FAIL, itemstack);
 		} else {
 			playerIn.setActiveHand(handIn);
-			return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemstack);
+			return new ActionResult<>(EnumActionResult.SUCCESS, itemstack);
 		}
 	}
 

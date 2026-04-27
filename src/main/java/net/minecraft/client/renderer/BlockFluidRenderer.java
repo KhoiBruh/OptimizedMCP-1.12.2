@@ -111,19 +111,16 @@ public class BlockFluidRenderer {
 				int k2 = blockStateIn.getPackedLightmapCoords(blockAccess, blockPosIn);
 				int l2 = k2 >> 16 & 65535;
 				int i3 = k2 & 65535;
-				float f24 = f;
-				float f25 = f1;
-				float f26 = f2;
-				bufferBuilderIn.pos(d0 + 0.0D, d1 + (double) f7, d2 + 0.0D).color(f24, f25, f26, 1.0F).tex(f13, f17).lightmap(l2, i3).endVertex();
-				bufferBuilderIn.pos(d0 + 0.0D, d1 + (double) f8, d2 + 1.0D).color(f24, f25, f26, 1.0F).tex(f14, f18).lightmap(l2, i3).endVertex();
-				bufferBuilderIn.pos(d0 + 1.0D, d1 + (double) f9, d2 + 1.0D).color(f24, f25, f26, 1.0F).tex(f15, f19).lightmap(l2, i3).endVertex();
-				bufferBuilderIn.pos(d0 + 1.0D, d1 + (double) f10, d2 + 0.0D).color(f24, f25, f26, 1.0F).tex(f16, f20).lightmap(l2, i3).endVertex();
+				bufferBuilderIn.pos(d0 + 0.0D, d1 + (double) f7, d2 + 0.0D).color(f, f1, f2, 1.0F).tex(f13, f17).lightmap(l2, i3).endVertex();
+				bufferBuilderIn.pos(d0 + 0.0D, d1 + (double) f8, d2 + 1.0D).color(f, f1, f2, 1.0F).tex(f14, f18).lightmap(l2, i3).endVertex();
+				bufferBuilderIn.pos(d0 + 1.0D, d1 + (double) f9, d2 + 1.0D).color(f, f1, f2, 1.0F).tex(f15, f19).lightmap(l2, i3).endVertex();
+				bufferBuilderIn.pos(d0 + 1.0D, d1 + (double) f10, d2 + 0.0D).color(f, f1, f2, 1.0F).tex(f16, f20).lightmap(l2, i3).endVertex();
 
 				if (blockliquid.shouldRenderSides(blockAccess, blockPosIn.up())) {
-					bufferBuilderIn.pos(d0 + 0.0D, d1 + (double) f7, d2 + 0.0D).color(f24, f25, f26, 1.0F).tex(f13, f17).lightmap(l2, i3).endVertex();
-					bufferBuilderIn.pos(d0 + 1.0D, d1 + (double) f10, d2 + 0.0D).color(f24, f25, f26, 1.0F).tex(f16, f20).lightmap(l2, i3).endVertex();
-					bufferBuilderIn.pos(d0 + 1.0D, d1 + (double) f9, d2 + 1.0D).color(f24, f25, f26, 1.0F).tex(f15, f19).lightmap(l2, i3).endVertex();
-					bufferBuilderIn.pos(d0 + 0.0D, d1 + (double) f8, d2 + 1.0D).color(f24, f25, f26, 1.0F).tex(f14, f18).lightmap(l2, i3).endVertex();
+					bufferBuilderIn.pos(d0 + 0.0D, d1 + (double) f7, d2 + 0.0D).color(f, f1, f2, 1.0F).tex(f13, f17).lightmap(l2, i3).endVertex();
+					bufferBuilderIn.pos(d0 + 1.0D, d1 + (double) f10, d2 + 0.0D).color(f, f1, f2, 1.0F).tex(f16, f20).lightmap(l2, i3).endVertex();
+					bufferBuilderIn.pos(d0 + 1.0D, d1 + (double) f9, d2 + 1.0D).color(f, f1, f2, 1.0F).tex(f15, f19).lightmap(l2, i3).endVertex();
+					bufferBuilderIn.pos(d0 + 0.0D, d1 + (double) f8, d2 + 1.0D).color(f, f1, f2, 1.0F).tex(f14, f18).lightmap(l2, i3).endVertex();
 				}
 			}
 
@@ -263,7 +260,7 @@ public class BlockFluidRenderer {
 					++i;
 				}
 			} else {
-				int k = iblockstate.getValue(BlockLiquid.LEVEL).intValue();
+				int k = iblockstate.getValue(BlockLiquid.LEVEL);
 
 				if (k >= 8 || k == 0) {
 					f += BlockLiquid.getLiquidHeightPercent(k) * 10.0F;

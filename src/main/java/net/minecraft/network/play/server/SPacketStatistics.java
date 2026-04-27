@@ -35,7 +35,7 @@ public class SPacketStatistics implements Packet<INetHandlerPlayClient> {
 	/**
 	 * Reads the raw packet data from the data stream.
 	 */
-	public void readPacketData(PacketBuffer buf) throws IOException {
+	public void readPacketData(PacketBuffer buf) {
 
 		int i = buf.readVarInt();
 		statisticMap = Maps.newHashMap();
@@ -45,7 +45,7 @@ public class SPacketStatistics implements Packet<INetHandlerPlayClient> {
 			int k = buf.readVarInt();
 
 			if (statbase != null) {
-				statisticMap.put(statbase, Integer.valueOf(k));
+				statisticMap.put(statbase, k);
 			}
 		}
 	}
@@ -53,13 +53,13 @@ public class SPacketStatistics implements Packet<INetHandlerPlayClient> {
 	/**
 	 * Writes the raw packet data to the data stream.
 	 */
-	public void writePacketData(PacketBuffer buf) throws IOException {
+	public void writePacketData(PacketBuffer buf) {
 
 		buf.writeVarInt(statisticMap.size());
 
 		for (Entry<StatBase, Integer> entry : statisticMap.entrySet()) {
 			buf.writeString((entry.getKey()).statId);
-			buf.writeVarInt(entry.getValue().intValue());
+			buf.writeVarInt(entry.getValue());
 		}
 	}
 

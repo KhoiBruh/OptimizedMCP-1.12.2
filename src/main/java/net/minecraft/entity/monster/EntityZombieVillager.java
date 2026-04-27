@@ -59,18 +59,18 @@ public class EntityZombieVillager extends EntityZombie {
 	protected void entityInit() {
 
 		super.entityInit();
-		dataManager.register(CONVERTING, Boolean.valueOf(false));
-		dataManager.register(PROFESSION, Integer.valueOf(0));
+		dataManager.register(CONVERTING, Boolean.FALSE);
+		dataManager.register(PROFESSION, 0);
 	}
 
 	public int getProfession() {
 
-		return Math.max(dataManager.get(PROFESSION).intValue() % 6, 0);
+		return Math.max(dataManager.get(PROFESSION) % 6, 0);
 	}
 
 	public void setProfession(int profession) {
 
-		dataManager.set(PROFESSION, Integer.valueOf(profession));
+		dataManager.set(PROFESSION, profession);
 	}
 
 	/**
@@ -171,7 +171,7 @@ public class EntityZombieVillager extends EntityZombie {
 	 */
 	public boolean isConverting() {
 
-		return getDataManager().get(CONVERTING).booleanValue();
+		return getDataManager().get(CONVERTING);
 	}
 
 	/**
@@ -184,7 +184,7 @@ public class EntityZombieVillager extends EntityZombie {
 
 		converstionStarter = conversionStarterIn;
 		conversionTime = conversionTimeIn;
-		getDataManager().set(CONVERTING, Boolean.valueOf(true));
+		getDataManager().set(CONVERTING, Boolean.TRUE);
 		removePotionEffect(MobEffects.WEAKNESS);
 		addPotionEffect(new PotionEffect(MobEffects.STRENGTH, conversionTimeIn, Math.min(world.getDifficulty().getDifficultyId() - 1, 0)));
 		world.setEntityState(this, (byte) 16);

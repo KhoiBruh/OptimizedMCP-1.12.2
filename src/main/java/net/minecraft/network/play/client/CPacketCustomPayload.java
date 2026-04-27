@@ -43,7 +43,7 @@ public class CPacketCustomPayload implements Packet<INetHandlerPlayServer> {
 	/**
 	 * Writes the raw packet data to the data stream.
 	 */
-	public void writePacketData(PacketBuffer buf) throws IOException {
+	public void writePacketData(PacketBuffer buf) {
 
 		buf.writeString(channel);
 		buf.writeBytes(data);

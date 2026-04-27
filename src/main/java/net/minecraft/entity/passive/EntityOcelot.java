@@ -68,7 +68,7 @@ public class EntityOcelot extends EntityTameable {
 	protected void entityInit() {
 
 		super.entityInit();
-		dataManager.register(OCELOT_VARIANT, Integer.valueOf(0));
+		dataManager.register(OCELOT_VARIANT, 0);
 	}
 
 	public void updateAITasks() {
@@ -265,12 +265,12 @@ public class EntityOcelot extends EntityTameable {
 
 	public int getTameSkin() {
 
-		return dataManager.get(OCELOT_VARIANT).intValue();
+		return dataManager.get(OCELOT_VARIANT);
 	}
 
 	public void setTameSkin(int skinId) {
 
-		dataManager.set(OCELOT_VARIANT, Integer.valueOf(skinId));
+		dataManager.set(OCELOT_VARIANT, skinId);
 	}
 
 	/**
@@ -317,7 +317,7 @@ public class EntityOcelot extends EntityTameable {
 	protected void setupTamedAI() {
 
 		if (avoidEntity == null) {
-			avoidEntity = new EntityAIAvoidEntity<EntityPlayer>(this, EntityPlayer.class, 16.0F, 0.8D, 1.33D);
+			avoidEntity = new EntityAIAvoidEntity<>(this, EntityPlayer.class, 16.0F, 0.8D, 1.33D);
 		}
 
 		tasks.removeTask(avoidEntity);

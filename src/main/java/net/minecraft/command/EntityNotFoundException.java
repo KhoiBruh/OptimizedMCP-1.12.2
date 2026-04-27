@@ -12,9 +12,4 @@ public class EntityNotFoundException extends CommandException {
 		super(message, args);
 	}
 
-	public synchronized Throwable fillInStackTrace() {
-
-		return this;
-	}
-
 }

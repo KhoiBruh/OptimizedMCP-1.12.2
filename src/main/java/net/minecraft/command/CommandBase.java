@@ -462,9 +462,9 @@ public abstract class CommandBase implements ICommand {
 			int i = Integer.parseInt(p_190794_1_);
 
 			if (i < 0) {
-				throw new NumberInvalidException("commands.generic.num.tooSmall", i, Integer.valueOf(0));
+				throw new NumberInvalidException("commands.generic.num.tooSmall", i, 0);
 			} else if (i > 15) {
-				throw new NumberInvalidException("commands.generic.num.tooBig", i, Integer.valueOf(15));
+				throw new NumberInvalidException("commands.generic.num.tooBig", i, 15);
 			} else {
 				return p_190794_0_.getStateFromMeta(Integer.parseInt(p_190794_1_));
 			}
@@ -494,28 +494,21 @@ public abstract class CommandBase implements ICommand {
 		if (!"*".equals(p_190791_1_) && !"-1".equals(p_190791_1_)) {
 			try {
 				final int i = Integer.parseInt(p_190791_1_);
-				return new Predicate<IBlockState>() {
-					public boolean apply(@Nullable IBlockState p_apply_1_) {
-
-						return i == p_apply_1_.getBlock().getMetaFromState(p_apply_1_);
-					}
-				};
+				return p_apply_1_ -> i == p_apply_1_.getBlock().getMetaFromState(p_apply_1_);
 			} catch (RuntimeException var3) {
 				final Map<IProperty<?>, Comparable<?>> map = getBlockStatePropertyValueMap(p_190791_0_, p_190791_1_);
-				return new Predicate<IBlockState>() {
-					public boolean apply(@Nullable IBlockState p_apply_1_) {
+				return p_apply_1_ -> {
 
-						if (p_apply_1_ != null && p_190791_0_ == p_apply_1_.getBlock()) {
-							for (Entry<IProperty<?>, Comparable<?>> entry : map.entrySet()) {
-								if (!p_apply_1_.getValue(entry.getKey()).equals(entry.getValue())) {
-									return false;
-								}
+					if (p_apply_1_ != null && p_190791_0_ == p_apply_1_.getBlock()) {
+						for (Entry<IProperty<?>, Comparable<?>> entry : map.entrySet()) {
+							if (!p_apply_1_.getValue(entry.getKey()).equals(entry.getValue())) {
+								return false;
 							}
-
-							return true;
-						} else {
-							return false;
 						}
+
+						return true;
+					} else {
+						return false;
 					}
 				};
 			}

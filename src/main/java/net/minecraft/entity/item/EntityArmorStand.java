@@ -47,12 +47,7 @@ public class EntityArmorStand extends EntityLivingBase {
 	private static final Rotations DEFAULT_RIGHTARM_ROTATION = new Rotations(-15.0F, 0.0F, 10.0F);
 	private static final Rotations DEFAULT_LEFTLEG_ROTATION = new Rotations(-1.0F, 0.0F, -1.0F);
 	private static final Rotations DEFAULT_RIGHTLEG_ROTATION = new Rotations(1.0F, 0.0F, 1.0F);
-	private static final Predicate<Entity> IS_RIDEABLE_MINECART = new Predicate<Entity>() {
-		public boolean apply(@Nullable Entity p_apply_1_) {
-
-			return p_apply_1_ instanceof EntityMinecart && ((EntityMinecart) p_apply_1_).getType() == EntityMinecart.Type.RIDEABLE;
-		}
-	};
+	private static final Predicate<Entity> IS_RIDEABLE_MINECART = p_apply_1_ -> p_apply_1_ instanceof EntityMinecart && ((EntityMinecart) p_apply_1_).getType() == EntityMinecart.Type.RIDEABLE;
 	private final NonNullList<ItemStack> handItems;
 	private final NonNullList<ItemStack> armorItems;
 	/**
@@ -119,7 +114,7 @@ public class EntityArmorStand extends EntityLivingBase {
 	protected void entityInit() {
 
 		super.entityInit();
-		dataManager.register(STATUS, Byte.valueOf((byte) 0));
+		dataManager.register(STATUS, (byte) 0);
 		dataManager.register(HEAD_ROTATION, DEFAULT_HEAD_ROTATION);
 		dataManager.register(BODY_ROTATION, DEFAULT_BODY_ROTATION);
 		dataManager.register(LEFT_ARM_ROTATION, DEFAULT_LEFTARM_ROTATION);
@@ -140,16 +135,11 @@ public class EntityArmorStand extends EntityLivingBase {
 
 	public ItemStack getItemStackFromSlot(EntityEquipmentSlot slotIn) {
 
-		switch (slotIn.getSlotType()) {
-			case HAND:
-				return handItems.get(slotIn.getIndex());
-
-			case ARMOR:
-				return armorItems.get(slotIn.getIndex());
-
-			default:
-				return ItemStack.EMPTY;
-		}
+		return switch (slotIn.getSlotType()) {
+			case HAND -> handItems.get(slotIn.getIndex());
+			case ARMOR -> armorItems.get(slotIn.getIndex());
+			default -> ItemStack.EMPTY;
+		};
 	}
 
 	public void setItemStackToSlot(EntityEquipmentSlot slotIn, ItemStack stack) {
@@ -342,9 +332,7 @@ public class EntityArmorStand extends EntityLivingBase {
 
 		List<Entity> list = world.getEntitiesInAABBexcluding(this, getEntityBoundingBox(), IS_RIDEABLE_MINECART);
 
-		for (int i = 0; i < list.size(); ++i) {
-			Entity entity = list.get(i);
-
+		for (Entity entity : list) {
 			if (getDistanceSq(entity) <= 0.2D) {
 				entity.applyEntityCollision(this);
 			}
@@ -739,33 +727,33 @@ public class EntityArmorStand extends EntityLivingBase {
 
 	public boolean isSmall() {
 
-		return (dataManager.get(STATUS).byteValue() & 1) != 0;
+		return (dataManager.get(STATUS) & 1) != 0;
 	}
 
 	private void setSmall(boolean small) {
 
-		dataManager.set(STATUS, Byte.valueOf(setBit(dataManager.get(STATUS).byteValue(), 1, small)));
+		dataManager.set(STATUS, setBit(dataManager.get(STATUS), 1, small));
 		setSize(0.5F, 1.975F);
 	}
 
 	public boolean getShowArms() {
 
-		return (dataManager.get(STATUS).byteValue() & 4) != 0;
+		return (dataManager.get(STATUS) & 4) != 0;
 	}
 
 	private void setShowArms(boolean showArms) {
 
-		dataManager.set(STATUS, Byte.valueOf(setBit(dataManager.get(STATUS).byteValue(), 4, showArms)));
+		dataManager.set(STATUS, setBit(dataManager.get(STATUS), 4, showArms));
 	}
 
 	private void setNoBasePlate(boolean noBasePlate) {
 
-		dataManager.set(STATUS, Byte.valueOf(setBit(dataManager.get(STATUS).byteValue(), 8, noBasePlate)));
+		dataManager.set(STATUS, setBit(dataManager.get(STATUS), 8, noBasePlate));
 	}
 
 	public boolean hasNoBasePlate() {
 
-		return (dataManager.get(STATUS).byteValue() & 8) != 0;
+		return (dataManager.get(STATUS) & 8) != 0;
 	}
 
 	/**
@@ -773,7 +761,7 @@ public class EntityArmorStand extends EntityLivingBase {
 	 */
 	private void setMarker(boolean marker) {
 
-		dataManager.set(STATUS, Byte.valueOf(setBit(dataManager.get(STATUS).byteValue(), 16, marker)));
+		dataManager.set(STATUS, setBit(dataManager.get(STATUS), 16, marker));
 		setSize(0.5F, 1.975F);
 	}
 
@@ -783,7 +771,7 @@ public class EntityArmorStand extends EntityLivingBase {
 	 */
 	public boolean hasMarker() {
 
-		return (dataManager.get(STATUS).byteValue() & 16) != 0;
+		return (dataManager.get(STATUS) & 16) != 0;
 	}
 
 	private byte setBit(byte p_184797_1_, int p_184797_2_, boolean p_184797_3_) {

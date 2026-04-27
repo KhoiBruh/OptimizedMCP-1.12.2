@@ -24,14 +24,14 @@ public class BlockNetherWart extends BlockBush {
 	protected BlockNetherWart() {
 
 		super(Material.PLANTS, MapColor.RED);
-		setDefaultState(blockState.getBaseState().withProperty(AGE, Integer.valueOf(0)));
+		setDefaultState(blockState.getBaseState().withProperty(AGE, 0));
 		setTickRandomly(true);
 		setCreativeTab(null);
 	}
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
 
-		return NETHER_WART_AABB[state.getValue(AGE).intValue()];
+		return NETHER_WART_AABB[state.getValue(AGE)];
 	}
 
 	/**
@@ -49,10 +49,10 @@ public class BlockNetherWart extends BlockBush {
 
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
 
-		int i = state.getValue(AGE).intValue();
+		int i = state.getValue(AGE);
 
 		if (i < 3 && rand.nextInt(10) == 0) {
-			state = state.withProperty(AGE, Integer.valueOf(i + 1));
+			state = state.withProperty(AGE, i + 1);
 			worldIn.setBlockState(pos, state, 2);
 		}
 
@@ -67,7 +67,7 @@ public class BlockNetherWart extends BlockBush {
 		if (!worldIn.isRemote) {
 			int i = 1;
 
-			if (state.getValue(AGE).intValue() >= 3) {
+			if (state.getValue(AGE) >= 3) {
 				i = 2 + worldIn.rand.nextInt(3);
 
 				if (fortune > 0) {
@@ -107,7 +107,7 @@ public class BlockNetherWart extends BlockBush {
 	 */
 	public IBlockState getStateFromMeta(int meta) {
 
-		return getDefaultState().withProperty(AGE, Integer.valueOf(meta));
+		return getDefaultState().withProperty(AGE, meta);
 	}
 
 	/**
@@ -115,7 +115,7 @@ public class BlockNetherWart extends BlockBush {
 	 */
 	public int getMetaFromState(IBlockState state) {
 
-		return state.getValue(AGE).intValue();
+		return state.getValue(AGE);
 	}
 
 	protected BlockStateContainer createBlockState() {

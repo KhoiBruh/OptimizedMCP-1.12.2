@@ -39,8 +39,8 @@ public class Shader {
 
 		listAuxNames.add(listAuxNames.size(), auxName);
 		listAuxFramebuffers.add(listAuxFramebuffers.size(), auxFramebufferIn);
-		listAuxWidths.add(listAuxWidths.size(), Integer.valueOf(width));
-		listAuxHeights.add(listAuxHeights.size(), Integer.valueOf(height));
+		listAuxWidths.add(listAuxWidths.size(), width);
+		listAuxHeights.add(listAuxHeights.size(), height);
 	}
 
 	private void preRender() {
@@ -72,7 +72,7 @@ public class Shader {
 
 		for (int i = 0; i < listAuxFramebuffers.size(); ++i) {
 			manager.addSamplerTexture(listAuxNames.get(i), listAuxFramebuffers.get(i));
-			manager.getShaderUniformOrDefault("AuxSize" + i).set((float) listAuxWidths.get(i).intValue(), (float) listAuxHeights.get(i).intValue());
+			manager.getShaderUniformOrDefault("AuxSize" + i).set((float) listAuxWidths.get(i), (float) listAuxHeights.get(i));
 		}
 
 		manager.getShaderUniformOrDefault("ProjMat").set(projectionMatrix);

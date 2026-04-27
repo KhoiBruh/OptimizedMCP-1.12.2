@@ -13,99 +13,43 @@ public abstract class NBTBase {
 	 */
 	protected static NBTBase createNewByType(byte id) {
 
-		switch (id) {
-			case 0:
-				return new NBTTagEnd();
-
-			case 1:
-				return new NBTTagByte();
-
-			case 2:
-				return new NBTTagShort();
-
-			case 3:
-				return new NBTTagInt();
-
-			case 4:
-				return new NBTTagLong();
-
-			case 5:
-				return new NBTTagFloat();
-
-			case 6:
-				return new NBTTagDouble();
-
-			case 7:
-				return new NBTTagByteArray();
-
-			case 8:
-				return new NBTTagString();
-
-			case 9:
-				return new NBTTagList();
-
-			case 10:
-				return new NBTTagCompound();
-
-			case 11:
-				return new NBTTagIntArray();
-
-			case 12:
-				return new NBTTagLongArray();
-
-			default:
-				return null;
-		}
+		return switch (id) {
+			case 0 -> new NBTTagEnd();
+			case 1 -> new NBTTagByte();
+			case 2 -> new NBTTagShort();
+			case 3 -> new NBTTagInt();
+			case 4 -> new NBTTagLong();
+			case 5 -> new NBTTagFloat();
+			case 6 -> new NBTTagDouble();
+			case 7 -> new NBTTagByteArray();
+			case 8 -> new NBTTagString();
+			case 9 -> new NBTTagList();
+			case 10 -> new NBTTagCompound();
+			case 11 -> new NBTTagIntArray();
+			case 12 -> new NBTTagLongArray();
+			default -> null;
+		};
 	}
 
 	public static String getTagTypeName(int p_193581_0_) {
 
-		switch (p_193581_0_) {
-			case 0:
-				return "TAG_End";
-
-			case 1:
-				return "TAG_Byte";
-
-			case 2:
-				return "TAG_Short";
-
-			case 3:
-				return "TAG_Int";
-
-			case 4:
-				return "TAG_Long";
-
-			case 5:
-				return "TAG_Float";
-
-			case 6:
-				return "TAG_Double";
-
-			case 7:
-				return "TAG_Byte_Array";
-
-			case 8:
-				return "TAG_String";
-
-			case 9:
-				return "TAG_List";
-
-			case 10:
-				return "TAG_Compound";
-
-			case 11:
-				return "TAG_Int_Array";
-
-			case 12:
-				return "TAG_Long_Array";
-
-			case 99:
-				return "Any Numeric Tag";
-
-			default:
-				return "UNKNOWN";
-		}
+		return switch (p_193581_0_) {
+			case 0 -> "TAG_End";
+			case 1 -> "TAG_Byte";
+			case 2 -> "TAG_Short";
+			case 3 -> "TAG_Int";
+			case 4 -> "TAG_Long";
+			case 5 -> "TAG_Float";
+			case 6 -> "TAG_Double";
+			case 7 -> "TAG_Byte_Array";
+			case 8 -> "TAG_String";
+			case 9 -> "TAG_List";
+			case 10 -> "TAG_Compound";
+			case 11 -> "TAG_Int_Array";
+			case 12 -> "TAG_Long_Array";
+			case 99 -> "Any Numeric Tag";
+			default -> "UNKNOWN";
+		};
 	}
 
 	/**

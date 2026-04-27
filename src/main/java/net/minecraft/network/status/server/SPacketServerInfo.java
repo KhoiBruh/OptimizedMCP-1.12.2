@@ -30,7 +30,7 @@ public class SPacketServerInfo implements Packet<INetHandlerStatusClient> {
 	/**
 	 * Reads the raw packet data from the data stream.
 	 */
-	public void readPacketData(PacketBuffer buf) throws IOException {
+	public void readPacketData(PacketBuffer buf) {
 
 		response = JsonUtils.gsonDeserialize(GSON, buf.readString(32767), ServerStatusResponse.class);
 	}
@@ -38,7 +38,7 @@ public class SPacketServerInfo implements Packet<INetHandlerStatusClient> {
 	/**
 	 * Writes the raw packet data to the data stream.
 	 */
-	public void writePacketData(PacketBuffer buf) throws IOException {
+	public void writePacketData(PacketBuffer buf) {
 
 		buf.writeString(GSON.toJson(response));
 	}

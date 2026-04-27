@@ -112,7 +112,7 @@ public class ParticleManager {
 
 	public void registerParticle(int id, IParticleFactory particleFactory) {
 
-		particleTypes.put(Integer.valueOf(id), particleFactory);
+		particleTypes.put(id, particleFactory);
 	}
 
 	public void emitParticleAtEntity(Entity entityIn, EnumParticleTypes particleTypes) {
@@ -132,7 +132,7 @@ public class ParticleManager {
 	 */
 	public Particle spawnEffectParticle(int particleId, double xCoord, double yCoord, double zCoord, double xSpeed, double ySpeed, double zSpeed, int... parameters) {
 
-		IParticleFactory iparticlefactory = particleTypes.get(Integer.valueOf(particleId));
+		IParticleFactory iparticlefactory = particleTypes.get(particleId);
 
 		if (iparticlefactory != null) {
 			Particle particle = iparticlefactory.createParticle(particleId, world, xCoord, yCoord, zCoord, xSpeed, ySpeed, zSpeed, parameters);
@@ -222,22 +222,15 @@ public class ParticleManager {
 			CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Ticking Particle");
 			CrashReportCategory crashreportcategory = crashreport.makeCategory("Particle being ticked");
 			final int i = particle.getFXLayer();
-			crashreportcategory.addDetail("Particle", new ICrashReportDetail<String>() {
-				public String call() throws Exception {
+			crashreportcategory.addDetail("Particle", () -> particle.toString());
+			crashreportcategory.addDetail("Particle Type", () -> {
 
-					return particle.toString();
-				}
-			});
-			crashreportcategory.addDetail("Particle Type", new ICrashReportDetail<String>() {
-				public String call() throws Exception {
-
-					if (i == 0) {
-						return "MISC_TEXTURE";
-					} else if (i == 1) {
-						return "TERRAIN_TEXTURE";
-					} else {
-						return i == 3 ? "ENTITY_PARTICLE_TEXTURE" : "Unknown - " + i;
-					}
+				if (i == 0) {
+					return "MISC_TEXTURE";
+				} else if (i == 1) {
+					return "TERRAIN_TEXTURE";
+				} else {
+					return i == 3 ? "ENTITY_PARTICLE_TEXTURE" : "Unknown - " + i;
 				}
 			});
 			throw new ReportedException(crashreport);
@@ -297,22 +290,15 @@ public class ParticleManager {
 						} catch (Throwable throwable) {
 							CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Rendering Particle");
 							CrashReportCategory crashreportcategory = crashreport.makeCategory("Particle being rendered");
-							crashreportcategory.addDetail("Particle", new ICrashReportDetail<String>() {
-								public String call() throws Exception {
+							crashreportcategory.addDetail("Particle", () -> particle.toString());
+							crashreportcategory.addDetail("Particle Type", () -> {
 
-									return particle.toString();
-								}
-							});
-							crashreportcategory.addDetail("Particle Type", new ICrashReportDetail<String>() {
-								public String call() throws Exception {
-
-									if (i == 0) {
-										return "MISC_TEXTURE";
-									} else if (i == 1) {
-										return "TERRAIN_TEXTURE";
-									} else {
-										return i == 3 ? "ENTITY_PARTICLE_TEXTURE" : "Unknown - " + i;
-									}
+								if (i == 0) {
+									return "MISC_TEXTURE";
+								} else if (i == 1) {
+									return "TERRAIN_TEXTURE";
+								} else {
+									return i == 3 ? "ENTITY_PARTICLE_TEXTURE" : "Unknown - " + i;
 								}
 							});
 							throw new ReportedException(crashreport);

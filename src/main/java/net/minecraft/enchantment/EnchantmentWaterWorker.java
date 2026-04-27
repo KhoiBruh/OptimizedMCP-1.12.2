@@ -26,12 +26,4 @@ public class EnchantmentWaterWorker extends Enchantment {
 		return getMinEnchantability(enchantmentLevel) + 40;
 	}
 
-	/**
-	 * Returns the maximum level that the enchantment can have.
-	 */
-	public int getMaxLevel() {
-
-		return 1;
-	}
-
 }

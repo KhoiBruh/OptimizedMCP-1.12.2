@@ -120,10 +120,9 @@ public class ServerRecipeBookHelper {
 
 		if (field_194331_b.canCraft(field_194333_d, intlist, i1)) {
 			int j1 = i1;
-			IntListIterator intlistiterator = intlist.iterator();
 
-			while (intlistiterator.hasNext()) {
-				int k = intlistiterator.next().intValue();
+			for (Integer integer : intlist) {
+				int k = integer;
 				int l = RecipeItemHelper.unpack(k).getMaxStackSize();
 
 				if (l < j1) {
@@ -184,7 +183,7 @@ public class ServerRecipeBookHelper {
 				}
 
 				Slot slot = field_194337_h.get(j1);
-				ItemStack itemstack = RecipeItemHelper.unpack(iterator.next().intValue());
+				ItemStack itemstack = RecipeItemHelper.unpack(iterator.next());
 
 				if (itemstack.isEmpty()) {
 					++j1;

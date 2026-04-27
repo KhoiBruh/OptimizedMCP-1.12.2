@@ -28,7 +28,7 @@ public record VariantList(List<Variant> variantList) {
 			if (p_deserialize_1_.isJsonArray()) {
 				JsonArray jsonarray = p_deserialize_1_.getAsJsonArray();
 
-				if (jsonarray.size() == 0) {
+				if (jsonarray.isEmpty()) {
 					throw new JsonParseException("Empty variant array");
 				}
 

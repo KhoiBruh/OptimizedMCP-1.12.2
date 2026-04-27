@@ -27,7 +27,7 @@ public class SPacketBlockBreakAnim implements Packet<INetHandlerPlayClient> {
 	/**
 	 * Reads the raw packet data from the data stream.
 	 */
-	public void readPacketData(PacketBuffer buf) throws IOException {
+	public void readPacketData(PacketBuffer buf) {
 
 		breakerId = buf.readVarInt();
 		position = buf.readBlockPos();
@@ -37,7 +37,7 @@ public class SPacketBlockBreakAnim implements Packet<INetHandlerPlayClient> {
 	/**
 	 * Writes the raw packet data to the data stream.
 	 */
-	public void writePacketData(PacketBuffer buf) throws IOException {
+	public void writePacketData(PacketBuffer buf) {
 
 		buf.writeVarInt(breakerId);
 		buf.writeBlockPos(position);

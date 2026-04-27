@@ -4,7 +4,7 @@ import net.minecraft.util.registry.RegistryNamespaced;
 
 public record SoundEvent(ResourceLocation soundName) {
 
-	public static final RegistryNamespaced<ResourceLocation, SoundEvent> REGISTRY = new RegistryNamespaced<ResourceLocation, SoundEvent>();
+	public static final RegistryNamespaced<ResourceLocation, SoundEvent> REGISTRY = new RegistryNamespaced<>();
 	private static int soundEventId;
 
 	public static void registerSounds() {

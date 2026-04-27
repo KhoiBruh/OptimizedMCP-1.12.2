@@ -43,7 +43,7 @@ public class CommandDeOp extends CommandBase {
 	 */
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
 
-		if (args.length == 1 && args[0].length() > 0) {
+		if (args.length == 1 && !args[0].isEmpty()) {
 			GameProfile gameprofile = server.getPlayerList().getOppedPlayers().getGameProfileFromName(args[0]);
 
 			if (gameprofile == null) {

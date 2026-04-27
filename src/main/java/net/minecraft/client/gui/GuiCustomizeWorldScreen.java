@@ -19,12 +19,10 @@ import java.util.Random;
 public class GuiCustomizeWorldScreen extends GuiScreen implements GuiSlider.FormatHelper, GuiPageButtonList.GuiResponder {
 
 	private final GuiCreateWorld parent;
-	private final Predicate<String> numberFilter = new Predicate<String>() {
-		public boolean apply(@Nullable String p_apply_1_) {
+	private final Predicate<String> numberFilter = p_apply_1_ -> {
 
-			Float f = Floats.tryParse(p_apply_1_);
-			return p_apply_1_.isEmpty() || f != null && Floats.isFinite(f.floatValue()) && f.floatValue() >= 0.0F;
-		}
+		Float f = Floats.tryParse(p_apply_1_);
+		return p_apply_1_.isEmpty() || f != null && Floats.isFinite(f) && f >= 0.0F;
 	};
 	private final ChunkGeneratorSettings.Factory defaultSettings = new ChunkGeneratorSettings.Factory();
 	/**
@@ -146,88 +144,73 @@ public class GuiCustomizeWorldScreen extends GuiScreen implements GuiSlider.Form
 		} catch (NumberFormatException var5) {
 		}
 
-		float f1 = 0.0F;
-
-		switch (id) {
-			case 132:
+		float f1 = switch (id) {
+			case 132 -> {
 				settings.mainNoiseScaleX = MathHelper.clamp(f, 1.0F, 5000.0F);
-				f1 = settings.mainNoiseScaleX;
-				break;
-
-			case 133:
+				yield settings.mainNoiseScaleX;
+			}
+			case 133 -> {
 				settings.mainNoiseScaleY = MathHelper.clamp(f, 1.0F, 5000.0F);
-				f1 = settings.mainNoiseScaleY;
-				break;
-
-			case 134:
+				yield settings.mainNoiseScaleY;
+			}
+			case 134 -> {
 				settings.mainNoiseScaleZ = MathHelper.clamp(f, 1.0F, 5000.0F);
-				f1 = settings.mainNoiseScaleZ;
-				break;
-
-			case 135:
+				yield settings.mainNoiseScaleZ;
+			}
+			case 135 -> {
 				settings.depthNoiseScaleX = MathHelper.clamp(f, 1.0F, 2000.0F);
-				f1 = settings.depthNoiseScaleX;
-				break;
-
-			case 136:
+				yield settings.depthNoiseScaleX;
+			}
+			case 136 -> {
 				settings.depthNoiseScaleZ = MathHelper.clamp(f, 1.0F, 2000.0F);
-				f1 = settings.depthNoiseScaleZ;
-				break;
-
-			case 137:
+				yield settings.depthNoiseScaleZ;
+			}
+			case 137 -> {
 				settings.depthNoiseScaleExponent = MathHelper.clamp(f, 0.01F, 20.0F);
-				f1 = settings.depthNoiseScaleExponent;
-				break;
-
-			case 138:
+				yield settings.depthNoiseScaleExponent;
+			}
+			case 138 -> {
 				settings.baseSize = MathHelper.clamp(f, 1.0F, 25.0F);
-				f1 = settings.baseSize;
-				break;
-
-			case 139:
+				yield settings.baseSize;
+			}
+			case 139 -> {
 				settings.coordinateScale = MathHelper.clamp(f, 1.0F, 6000.0F);
-				f1 = settings.coordinateScale;
-				break;
-
-			case 140:
+				yield settings.coordinateScale;
+			}
+			case 140 -> {
 				settings.heightScale = MathHelper.clamp(f, 1.0F, 6000.0F);
-				f1 = settings.heightScale;
-				break;
-
-			case 141:
+				yield settings.heightScale;
+			}
+			case 141 -> {
 				settings.stretchY = MathHelper.clamp(f, 0.01F, 50.0F);
-				f1 = settings.stretchY;
-				break;
-
-			case 142:
+				yield settings.stretchY;
+			}
+			case 142 -> {
 				settings.upperLimitScale = MathHelper.clamp(f, 1.0F, 5000.0F);
-				f1 = settings.upperLimitScale;
-				break;
-
-			case 143:
+				yield settings.upperLimitScale;
+			}
+			case 143 -> {
 				settings.lowerLimitScale = MathHelper.clamp(f, 1.0F, 5000.0F);
-				f1 = settings.lowerLimitScale;
-				break;
-
-			case 144:
+				yield settings.lowerLimitScale;
+			}
+			case 144 -> {
 				settings.biomeDepthWeight = MathHelper.clamp(f, 1.0F, 20.0F);
-				f1 = settings.biomeDepthWeight;
-				break;
-
-			case 145:
+				yield settings.biomeDepthWeight;
+			}
+			case 145 -> {
 				settings.biomeDepthOffset = MathHelper.clamp(f, 0.0F, 20.0F);
-				f1 = settings.biomeDepthOffset;
-				break;
-
-			case 146:
+				yield settings.biomeDepthOffset;
+			}
+			case 146 -> {
 				settings.biomeScaleWeight = MathHelper.clamp(f, 1.0F, 20.0F);
-				f1 = settings.biomeScaleWeight;
-				break;
-
-			case 147:
+				yield settings.biomeScaleWeight;
+			}
+			case 147 -> {
 				settings.biomeScaleOffset = MathHelper.clamp(f, 0.0F, 20.0F);
-				f1 = settings.biomeScaleOffset;
-		}
+				yield settings.biomeScaleOffset;
+			}
+			default -> 0.0F;
+		};
 
 		if (f1 != f && f != 0.0F) {
 			((GuiTextField) list.getComponent(id)).setText(getFormattedValue(id, f1));
@@ -894,9 +877,9 @@ public class GuiCustomizeWorldScreen extends GuiScreen implements GuiSlider.Form
 			Float f1 = Floats.tryParse(guitextfield.getText());
 
 			if (f1 != null) {
-				f1 = f1.floatValue() + f;
+				f1 = f1 + f;
 				int i = guitextfield.getId();
-				String s = getFormattedValue(guitextfield.getId(), f1.floatValue());
+				String s = getFormattedValue(guitextfield.getId(), f1);
 				guitextfield.setText(s);
 				setEntryValue(i, s);
 			}

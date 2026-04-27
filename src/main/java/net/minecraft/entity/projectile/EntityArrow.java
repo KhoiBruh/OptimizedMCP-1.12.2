@@ -31,15 +31,11 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Objects;
 
 public abstract class EntityArrow extends Entity implements IProjectile {
 
-	private static final Predicate<Entity> ARROW_TARGETS = Predicates.and(EntitySelectors.NOT_SPECTATING, EntitySelectors.IS_ALIVE, new Predicate<Entity>() {
-		public boolean apply(@Nullable Entity p_apply_1_) {
-
-			return p_apply_1_.canBeCollidedWith();
-		}
-	});
+	private static final Predicate<Entity> ARROW_TARGETS = Predicates.and(EntitySelectors.NOT_SPECTATING, EntitySelectors.IS_ALIVE, p_apply_1_ -> p_apply_1_.canBeCollidedWith());
 	private static final DataParameter<Byte> CRITICAL = EntityDataManager.createKey(EntityArrow.class, DataSerializers.BYTE);
 	/**
 	 * 1 if the player can pick up the arrow
@@ -122,7 +118,7 @@ public abstract class EntityArrow extends Entity implements IProjectile {
 
 	protected void entityInit() {
 
-		dataManager.register(CRITICAL, Byte.valueOf((byte) 0));
+		dataManager.register(CRITICAL, (byte) 0);
 	}
 
 	public void shoot(Entity shooter, float pitch, float yaw, float p_184547_4_, float velocity, float inaccuracy) {
@@ -163,15 +159,6 @@ public abstract class EntityArrow extends Entity implements IProjectile {
 		prevRotationYaw = rotationYaw;
 		prevRotationPitch = rotationPitch;
 		ticksInGround = 0;
-	}
-
-	/**
-	 * Set the position and rotation values directly without any clamping.
-	 */
-	public void setPositionAndRotationDirect(double x, double y, double z, float yaw, float pitch, int posRotationIncrements, boolean teleport) {
-
-		setPosition(x, y, z);
-		setRotation(yaw, pitch);
 	}
 
 	/**
@@ -349,11 +336,7 @@ public abstract class EntityArrow extends Entity implements IProjectile {
 
 			DamageSource damagesource;
 
-			if (shootingEntity == null) {
-				damagesource = DamageSource.causeArrowDamage(this, this);
-			} else {
-				damagesource = DamageSource.causeArrowDamage(this, shootingEntity);
-			}
+			damagesource = DamageSource.causeArrowDamage(this, Objects.requireNonNullElse(shootingEntity, this));
 
 			if (isBurning() && !(entity instanceof EntityEnderman)) {
 				entity.setFire(5);
@@ -458,9 +441,7 @@ public abstract class EntityArrow extends Entity implements IProjectile {
 		List<Entity> list = world.getEntitiesInAABBexcluding(this, getEntityBoundingBox().expand(motionX, motionY, motionZ).grow(1.0D), ARROW_TARGETS);
 		double d0 = 0.0D;
 
-		for (int i = 0; i < list.size(); ++i) {
-			Entity entity1 = list.get(i);
-
+		for (Entity entity1 : list) {
 			if (entity1 != shootingEntity || ticksInAir >= 5) {
 				AxisAlignedBB axisalignedbb = entity1.getEntityBoundingBox().grow(0.30000001192092896D);
 				RayTraceResult raytraceresult = axisalignedbb.calculateIntercept(start, end);
@@ -597,7 +578,7 @@ public abstract class EntityArrow extends Entity implements IProjectile {
 	 */
 	public boolean getIsCritical() {
 
-		byte b0 = dataManager.get(CRITICAL).byteValue();
+		byte b0 = dataManager.get(CRITICAL);
 		return (b0 & 1) != 0;
 	}
 
@@ -606,12 +587,12 @@ public abstract class EntityArrow extends Entity implements IProjectile {
 	 */
 	public void setIsCritical(boolean critical) {
 
-		byte b0 = dataManager.get(CRITICAL).byteValue();
+		byte b0 = dataManager.get(CRITICAL);
 
 		if (critical) {
-			dataManager.set(CRITICAL, Byte.valueOf((byte) (b0 | 1)));
+			dataManager.set(CRITICAL, (byte) (b0 | 1));
 		} else {
-			dataManager.set(CRITICAL, Byte.valueOf((byte) (b0 & -2)));
+			dataManager.set(CRITICAL, (byte) (b0 & -2));
 		}
 	}
 

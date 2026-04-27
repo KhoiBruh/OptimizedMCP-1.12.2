@@ -27,15 +27,8 @@ public class BiomeDesert extends Biome {
 		decorator.cactiPerChunk = 10;
 		spawnableCreatureList.clear();
 		spawnableCreatureList.add(new Biome.SpawnListEntry(EntityRabbit.class, 4, 2, 3));
-		Iterator<Biome.SpawnListEntry> iterator = spawnableMonsterList.iterator();
 
-		while (iterator.hasNext()) {
-			Biome.SpawnListEntry biome$spawnlistentry = iterator.next();
-
-			if (biome$spawnlistentry.entityClass == EntityZombie.class || biome$spawnlistentry.entityClass == EntityZombieVillager.class) {
-				iterator.remove();
-			}
-		}
+		spawnableMonsterList.removeIf(biome$spawnlistentry -> biome$spawnlistentry.entityClass == EntityZombie.class || biome$spawnlistentry.entityClass == EntityZombieVillager.class);
 
 		spawnableMonsterList.add(new Biome.SpawnListEntry(EntityZombie.class, 19, 4, 4));
 		spawnableMonsterList.add(new Biome.SpawnListEntry(EntityZombieVillager.class, 1, 1, 1));

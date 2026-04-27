@@ -22,12 +22,12 @@ public class ObjectIntIdentityMap<T> implements IObjectIntIterable<T> {
 	public ObjectIntIdentityMap(int expectedSize) {
 
 		objectList = Lists.newArrayListWithExpectedSize(expectedSize);
-		identityMap = new IdentityHashMap<T, Integer>(expectedSize);
+		identityMap = new IdentityHashMap<>(expectedSize);
 	}
 
 	public void put(T key, int value) {
 
-		identityMap.put(key, Integer.valueOf(value));
+		identityMap.put(key, value);
 
 		while (objectList.size() <= value) {
 			objectList.add(null);
@@ -39,7 +39,7 @@ public class ObjectIntIdentityMap<T> implements IObjectIntIterable<T> {
 	public int get(T key) {
 
 		Integer integer = identityMap.get(key);
-		return integer == null ? -1 : integer.intValue();
+		return integer == null ? -1 : integer;
 	}
 
 	@Nullable

@@ -49,17 +49,11 @@ public class BlockPortal extends BlockBreakable {
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
 
-		switch (state.getValue(AXIS)) {
-			case X:
-				return X_AABB;
-
-			case Y:
-			default:
-				return Y_AABB;
-
-			case Z:
-				return Z_AABB;
-		}
+		return switch (state.getValue(AXIS)) {
+			case X -> X_AABB;
+			default -> Y_AABB;
+			case Z -> Z_AABB;
+		};
 	}
 
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
@@ -260,16 +254,11 @@ public class BlockPortal extends BlockBreakable {
 		switch (rot) {
 			case COUNTERCLOCKWISE_90:
 			case CLOCKWISE_90:
-				switch (state.getValue(AXIS)) {
-					case X:
-						return state.withProperty(AXIS, EnumFacing.Axis.Z);
-
-					case Z:
-						return state.withProperty(AXIS, EnumFacing.Axis.X);
-
-					default:
-						return state;
-				}
+				return switch (state.getValue(AXIS)) {
+					case X -> state.withProperty(AXIS, EnumFacing.Axis.Z);
+					case Z -> state.withProperty(AXIS, EnumFacing.Axis.X);
+					default -> state;
+				};
 
 			default:
 				return state;

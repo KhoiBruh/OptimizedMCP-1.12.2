@@ -64,7 +64,7 @@ public class GuiRecipeBook extends Gui implements IRecipeUpdateListener {
 		craftingSlots = p_194303_5_;
 		recipeBook = p_194303_3_.player.getRecipeBook();
 		timesInventoryChanged = p_194303_3_.player.inventory.getTimesChanged();
-		currentTab = recipeTabs.get(0);
+		currentTab = recipeTabs.getFirst();
 		currentTab.setStateTriggered(true);
 
 		if (isVisible()) {
@@ -149,33 +149,23 @@ public class GuiRecipeBook extends Gui implements IRecipeUpdateListener {
 
 		List<RecipeList> list = RecipeBookClient.RECIPES_BY_TAB.get(currentTab.getCategory());
 		list.forEach((p_193944_1_) ->
-		{
-			p_193944_1_.canCraft(stackedContents, craftingSlots.getWidth(), craftingSlots.getHeight(), recipeBook);
-		});
+				p_193944_1_.canCraft(stackedContents, craftingSlots.getWidth(), craftingSlots.getHeight(), recipeBook));
 		List<RecipeList> list1 = Lists.newArrayList(list);
 		list1.removeIf((p_193952_0_) ->
-		{
-			return !p_193952_0_.isNotEmpty();
-		});
+				!p_193952_0_.isNotEmpty());
 		list1.removeIf((p_193953_0_) ->
-		{
-			return !p_193953_0_.containsValidRecipes();
-		});
+				!p_193953_0_.containsValidRecipes());
 		String s = searchBar.getText();
 
 		if (!s.isEmpty()) {
-			ObjectSet<RecipeList> objectset = new ObjectLinkedOpenHashSet<RecipeList>(mc.getSearchTree(SearchTreeManager.RECIPES).search(s.toLowerCase(Locale.ROOT)));
+			ObjectSet<RecipeList> objectset = new ObjectLinkedOpenHashSet<>(mc.getSearchTree(SearchTreeManager.RECIPES).search(s.toLowerCase(Locale.ROOT)));
 			list1.removeIf((p_193947_1_) ->
-			{
-				return !objectset.contains(p_193947_1_);
-			});
+					!objectset.contains(p_193947_1_));
 		}
 
 		if (recipeBook.isFilteringCraftable()) {
 			list1.removeIf((p_193958_0_) ->
-			{
-				return !p_193958_0_.containsCraftableRecipes();
-			});
+					!p_193958_0_.containsCraftableRecipes());
 		}
 
 		recipeBookPage.updateLists(list1, p_193003_1_);
@@ -428,7 +418,7 @@ public class GuiRecipeBook extends Gui implements IRecipeUpdateListener {
 
 		ItemStack itemstack = p_193951_1_.getRecipeOutput();
 		ghostRecipe.setRecipe(p_193951_1_);
-		ghostRecipe.addIngredient(Ingredient.fromStacks(itemstack), (p_193951_2_.get(0)).xPos, (p_193951_2_.get(0)).yPos);
+		ghostRecipe.addIngredient(Ingredient.fromStacks(itemstack), (p_193951_2_.getFirst()).xPos, (p_193951_2_.getFirst()).yPos);
 		int i = craftingSlots.getWidth();
 		int j = craftingSlots.getHeight();
 		int k = p_193951_1_ instanceof ShapedRecipes ? ((ShapedRecipes) p_193951_1_).getWidth() : i;

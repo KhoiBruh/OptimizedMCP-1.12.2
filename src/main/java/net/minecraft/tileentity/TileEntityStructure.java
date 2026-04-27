@@ -301,7 +301,7 @@ public class TileEntityStructure extends TileEntity {
 			List<TileEntityStructure> list = getNearbyCornerBlocks(blockpos1, blockpos2);
 			List<TileEntityStructure> list1 = filterRelatedCornerBlocks(list);
 
-			if (list1.size() < 1) {
+			if (list1.isEmpty()) {
 				return false;
 			} else {
 				StructureBoundingBox structureboundingbox = calculateEnclosingBoundingBox(blockpos, list1);
@@ -322,12 +322,7 @@ public class TileEntityStructure extends TileEntity {
 
 	private List<TileEntityStructure> filterRelatedCornerBlocks(List<TileEntityStructure> p_184415_1_) {
 
-		Iterable<TileEntityStructure> iterable = Iterables.filter(p_184415_1_, new Predicate<TileEntityStructure>() {
-			public boolean apply(@Nullable TileEntityStructure p_apply_1_) {
-
-				return p_apply_1_.mode == TileEntityStructure.Mode.CORNER && name.equals(p_apply_1_.name);
-			}
-		});
+		Iterable<TileEntityStructure> iterable = Iterables.filter(p_184415_1_, p_apply_1_ -> p_apply_1_.mode == Mode.CORNER && name.equals(p_apply_1_.name));
 		return Lists.newArrayList(iterable);
 	}
 
@@ -341,7 +336,7 @@ public class TileEntityStructure extends TileEntity {
 			if (iblockstate.getBlock() == Blocks.STRUCTURE_BLOCK) {
 				TileEntity tileentity = world.getTileEntity(blockpos$mutableblockpos);
 
-				if (tileentity != null && tileentity instanceof TileEntityStructure) {
+				if (tileentity instanceof TileEntityStructure) {
 					list.add((TileEntityStructure) tileentity);
 				}
 			}
@@ -355,7 +350,7 @@ public class TileEntityStructure extends TileEntity {
 		StructureBoundingBox structureboundingbox;
 
 		if (p_184416_2_.size() > 1) {
-			BlockPos blockpos = p_184416_2_.get(0).getPos();
+			BlockPos blockpos = p_184416_2_.getFirst().getPos();
 			structureboundingbox = new StructureBoundingBox(blockpos, blockpos);
 		} else {
 			structureboundingbox = new StructureBoundingBox(p_184416_1_, p_184416_1_);
@@ -479,7 +474,7 @@ public class TileEntityStructure extends TileEntity {
 					PlacementSettings placementsettings = (new PlacementSettings()).setMirror(mirror).setRotation(rotation).setIgnoreEntities(ignoreEntities).setChunk(null).setReplacedBlock(null).setIgnoreStructureBlock(false);
 
 					if (integrity < 1.0F) {
-						placementsettings.setIntegrity(MathHelper.clamp(integrity, 0.0F, 1.0F)).setSeed(Long.valueOf(seed));
+						placementsettings.setIntegrity(MathHelper.clamp(integrity, 0.0F, 1.0F)).setSeed(seed);
 					}
 
 					template.addBlocksToWorldChunk(world, blockpos1, placementsettings);

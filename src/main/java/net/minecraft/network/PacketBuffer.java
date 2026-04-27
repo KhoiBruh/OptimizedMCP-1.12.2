@@ -167,7 +167,7 @@ public class PacketBuffer extends ByteBuf {
 		return this;
 	}
 
-	public ITextComponent readTextComponent() throws IOException {
+	public ITextComponent readTextComponent() {
 
 		return ITextComponent.Serializer.jsonToComponent(readString(32767));
 	}
@@ -296,7 +296,7 @@ public class PacketBuffer extends ByteBuf {
 	/**
 	 * Reads a compressed NBTTagCompound from this buffer
 	 */
-	public NBTTagCompound readCompoundTag() throws IOException {
+	public NBTTagCompound readCompoundTag() {
 
 		int i = readerIndex();
 		byte b0 = readByte();

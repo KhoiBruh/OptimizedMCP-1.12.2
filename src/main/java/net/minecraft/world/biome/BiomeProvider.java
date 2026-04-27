@@ -102,11 +102,11 @@ public class BiomeProvider {
 		} catch (Throwable throwable) {
 			CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Invalid Biome id");
 			CrashReportCategory crashreportcategory = crashreport.makeCategory("RawBiomeBlock");
-			crashreportcategory.addCrashSection("biomes[] size", Integer.valueOf(biomes.length));
-			crashreportcategory.addCrashSection("x", Integer.valueOf(x));
-			crashreportcategory.addCrashSection("z", Integer.valueOf(z));
-			crashreportcategory.addCrashSection("w", Integer.valueOf(width));
-			crashreportcategory.addCrashSection("h", Integer.valueOf(height));
+			crashreportcategory.addCrashSection("biomes[] size", biomes.length);
+			crashreportcategory.addCrashSection("x", x);
+			crashreportcategory.addCrashSection("z", z);
+			crashreportcategory.addCrashSection("w", width);
+			crashreportcategory.addCrashSection("h", height);
 			throw new ReportedException(crashreport);
 		}
 	}
@@ -174,9 +174,9 @@ public class BiomeProvider {
 			CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Invalid Biome id");
 			CrashReportCategory crashreportcategory = crashreport.makeCategory("Layer");
 			crashreportcategory.addCrashSection("Layer", genBiomes.toString());
-			crashreportcategory.addCrashSection("x", Integer.valueOf(x));
-			crashreportcategory.addCrashSection("z", Integer.valueOf(z));
-			crashreportcategory.addCrashSection("radius", Integer.valueOf(radius));
+			crashreportcategory.addCrashSection("x", x);
+			crashreportcategory.addCrashSection("z", z);
+			crashreportcategory.addCrashSection("radius", radius);
 			crashreportcategory.addCrashSection("allowed", allowed);
 			throw new ReportedException(crashreport);
 		}

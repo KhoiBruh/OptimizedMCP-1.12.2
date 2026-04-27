@@ -33,8 +33,8 @@ import java.util.Random;
 
 public abstract class Biome {
 
-	public static final ObjectIntIdentityMap<Biome> MUTATION_TO_BASE_ID_MAP = new ObjectIntIdentityMap<Biome>();
-	public static final RegistryNamespaced<ResourceLocation, Biome> REGISTRY = new RegistryNamespaced<ResourceLocation, Biome>();
+	public static final ObjectIntIdentityMap<Biome> MUTATION_TO_BASE_ID_MAP = new ObjectIntIdentityMap<>();
+	public static final RegistryNamespaced<ResourceLocation, Biome> REGISTRY = new RegistryNamespaced<>();
 	protected static final IBlockState STONE = Blocks.STONE.getDefaultState();
 	protected static final IBlockState AIR = Blocks.AIR.getDefaultState();
 	protected static final IBlockState BEDROCK = Blocks.BEDROCK.getDefaultState();
@@ -308,22 +308,13 @@ public abstract class Biome {
 
 	public List<Biome.SpawnListEntry> getSpawnableList(EnumCreatureType creatureType) {
 
-		switch (creatureType) {
-			case MONSTER:
-				return spawnableMonsterList;
-
-			case CREATURE:
-				return spawnableCreatureList;
-
-			case WATER_CREATURE:
-				return spawnableWaterCreatureList;
-
-			case AMBIENT:
-				return spawnableCaveCreatureList;
-
-			default:
-				return Collections.emptyList();
-		}
+		return switch (creatureType) {
+			case MONSTER -> spawnableMonsterList;
+			case CREATURE -> spawnableCreatureList;
+			case WATER_CREATURE -> spawnableWaterCreatureList;
+			case AMBIENT -> spawnableCaveCreatureList;
+			default -> Collections.emptyList();
+		};
 	}
 
 	/**

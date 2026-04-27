@@ -98,13 +98,13 @@ public class EntityBoat extends Entity {
 
 	protected void entityInit() {
 
-		dataManager.register(TIME_SINCE_HIT, Integer.valueOf(0));
-		dataManager.register(FORWARD_DIRECTION, Integer.valueOf(1));
-		dataManager.register(DAMAGE_TAKEN, Float.valueOf(0.0F));
-		dataManager.register(BOAT_TYPE, Integer.valueOf(EntityBoat.Type.OAK.ordinal()));
+		dataManager.register(TIME_SINCE_HIT, 0);
+		dataManager.register(FORWARD_DIRECTION, 1);
+		dataManager.register(DAMAGE_TAKEN, 0.0F);
+		dataManager.register(BOAT_TYPE, Type.OAK.ordinal());
 
 		for (DataParameter<Boolean> dataparameter : DATA_ID_PADDLE) {
-			dataManager.register(dataparameter, Boolean.valueOf(false));
+			dataManager.register(dataparameter, Boolean.FALSE);
 		}
 	}
 
@@ -198,26 +198,14 @@ public class EntityBoat extends Entity {
 
 	public Item getItemBoat() {
 
-		switch (getBoatType()) {
-			case OAK:
-			default:
-				return Items.BOAT;
-
-			case SPRUCE:
-				return Items.SPRUCE_BOAT;
-
-			case BIRCH:
-				return Items.BIRCH_BOAT;
-
-			case JUNGLE:
-				return Items.JUNGLE_BOAT;
-
-			case ACACIA:
-				return Items.ACACIA_BOAT;
-
-			case DARK_OAK:
-				return Items.DARK_OAK_BOAT;
-		}
+		return switch (getBoatType()) {
+			default -> Items.BOAT;
+			case SPRUCE -> Items.SPRUCE_BOAT;
+			case BIRCH -> Items.BIRCH_BOAT;
+			case JUNGLE -> Items.JUNGLE_BOAT;
+			case ACACIA -> Items.ACACIA_BOAT;
+			case DARK_OAK -> Items.DARK_OAK_BOAT;
+		};
 	}
 
 	/**
@@ -293,7 +281,7 @@ public class EntityBoat extends Entity {
 		tickLerp();
 
 		if (canPassengerSteer()) {
-			if (getPassengers().isEmpty() || !(getPassengers().get(0) instanceof EntityPlayer)) {
+			if (getPassengers().isEmpty() || !(getPassengers().getFirst() instanceof EntityPlayer)) {
 				setPaddleState(false, false);
 			}
 
@@ -336,9 +324,7 @@ public class EntityBoat extends Entity {
 		if (!list.isEmpty()) {
 			boolean flag = !world.isRemote && !(getControllingPassenger() instanceof EntityPlayer);
 
-			for (int j = 0; j < list.size(); ++j) {
-				Entity entity = list.get(j);
-
+			for (Entity entity : list) {
 				if (!entity.isPassenger(this)) {
 					if (flag && getPassengers().size() < 2 && !entity.isRiding() && entity.width < width && entity instanceof EntityLivingBase && !(entity instanceof EntityWaterMob) && !(entity instanceof EntityPlayer)) {
 						entity.startRiding(this);
@@ -353,19 +339,11 @@ public class EntityBoat extends Entity {
 	@Nullable
 	protected SoundEvent getPaddleSound() {
 
-		switch (getBoatStatus()) {
-			case IN_WATER:
-			case UNDER_WATER:
-			case UNDER_FLOWING_WATER:
-				return SoundEvents.ENTITY_BOAT_PADDLE_WATER;
-
-			case ON_LAND:
-				return SoundEvents.ENTITY_BOAT_PADDLE_LAND;
-
-			case IN_AIR:
-			default:
-				return null;
-		}
+		return switch (getBoatStatus()) {
+			case IN_WATER, UNDER_WATER, UNDER_FLOWING_WATER -> SoundEvents.ENTITY_BOAT_PADDLE_WATER;
+			case ON_LAND -> SoundEvents.ENTITY_BOAT_PADDLE_LAND;
+			default -> null;
+		};
 	}
 
 	private void tickLerp() {
@@ -385,8 +363,8 @@ public class EntityBoat extends Entity {
 
 	public void setPaddleState(boolean left, boolean right) {
 
-		dataManager.set(DATA_ID_PADDLE[0], Boolean.valueOf(left));
-		dataManager.set(DATA_ID_PADDLE[1], Boolean.valueOf(right));
+		dataManager.set(DATA_ID_PADDLE[0], left);
+		dataManager.set(DATA_ID_PADDLE[1], right);
 	}
 
 	public float getRowingTime(int side, float limbSwing) {
@@ -439,8 +417,7 @@ public class EntityBoat extends Entity {
 				while (true) {
 					if (l1 >= j) {
 						if (f < 1.0F) {
-							float f2 = (float) blockpos$pooledmutableblockpos.getY() + f;
-							return f2;
+							return (float) blockpos$pooledmutableblockpos.getY() + f;
 						}
 
 						break;
@@ -463,8 +440,7 @@ public class EntityBoat extends Entity {
 				}
 			}
 
-			float f1 = (float) (l + 1);
-			return f1;
+			return (float) (l + 1);
 		} finally {
 			blockpos$pooledmutableblockpos.release();
 		}
@@ -579,9 +555,8 @@ public class EntityBoat extends Entity {
 						IBlockState iblockstate = world.getBlockState(blockpos$pooledmutableblockpos);
 
 						if (iblockstate.getMaterial() == Material.WATER && d0 < (double) BlockLiquid.getLiquidHeight(iblockstate, world, blockpos$pooledmutableblockpos)) {
-							if (iblockstate.getValue(BlockLiquid.LEVEL).intValue() != 0) {
-								EntityBoat.Status entityboat$status = EntityBoat.Status.UNDER_FLOWING_WATER;
-								return entityboat$status;
+							if (iblockstate.getValue(BlockLiquid.LEVEL) != 0) {
+								return Status.UNDER_FLOWING_WATER;
 							}
 
 							flag = true;
@@ -652,7 +627,7 @@ public class EntityBoat extends Entity {
 			float f = 0.0F;
 
 			if (leftInputDown) {
-				deltaRotation += -1.0F;
+				deltaRotation -= 1.0F;
 			}
 
 			if (rightInputDown) {
@@ -803,7 +778,7 @@ public class EntityBoat extends Entity {
 
 	public boolean getPaddleState(int side) {
 
-		return dataManager.get(DATA_ID_PADDLE[side]).booleanValue() && getControllingPassenger() != null;
+		return dataManager.get(DATA_ID_PADDLE[side]) && getControllingPassenger() != null;
 	}
 
 	/**
@@ -811,7 +786,7 @@ public class EntityBoat extends Entity {
 	 */
 	public float getDamageTaken() {
 
-		return dataManager.get(DAMAGE_TAKEN).floatValue();
+		return dataManager.get(DAMAGE_TAKEN);
 	}
 
 	/**
@@ -819,7 +794,7 @@ public class EntityBoat extends Entity {
 	 */
 	public void setDamageTaken(float damageTaken) {
 
-		dataManager.set(DAMAGE_TAKEN, Float.valueOf(damageTaken));
+		dataManager.set(DAMAGE_TAKEN, damageTaken);
 	}
 
 	/**
@@ -827,7 +802,7 @@ public class EntityBoat extends Entity {
 	 */
 	public int getTimeSinceHit() {
 
-		return dataManager.get(TIME_SINCE_HIT).intValue();
+		return dataManager.get(TIME_SINCE_HIT);
 	}
 
 	/**
@@ -835,7 +810,7 @@ public class EntityBoat extends Entity {
 	 */
 	public void setTimeSinceHit(int timeSinceHit) {
 
-		dataManager.set(TIME_SINCE_HIT, Integer.valueOf(timeSinceHit));
+		dataManager.set(TIME_SINCE_HIT, timeSinceHit);
 	}
 
 	/**
@@ -843,7 +818,7 @@ public class EntityBoat extends Entity {
 	 */
 	public int getForwardDirection() {
 
-		return dataManager.get(FORWARD_DIRECTION).intValue();
+		return dataManager.get(FORWARD_DIRECTION);
 	}
 
 	/**
@@ -851,17 +826,17 @@ public class EntityBoat extends Entity {
 	 */
 	public void setForwardDirection(int forwardDirection) {
 
-		dataManager.set(FORWARD_DIRECTION, Integer.valueOf(forwardDirection));
+		dataManager.set(FORWARD_DIRECTION, forwardDirection);
 	}
 
 	public EntityBoat.Type getBoatType() {
 
-		return EntityBoat.Type.byId(dataManager.get(BOAT_TYPE).intValue());
+		return EntityBoat.Type.byId(dataManager.get(BOAT_TYPE));
 	}
 
 	public void setBoatType(EntityBoat.Type boatType) {
 
-		dataManager.set(BOAT_TYPE, Integer.valueOf(boatType.ordinal()));
+		dataManager.set(BOAT_TYPE, boatType.ordinal());
 	}
 
 	protected boolean canFitPassenger(Entity passenger) {
@@ -878,7 +853,7 @@ public class EntityBoat extends Entity {
 	public Entity getControllingPassenger() {
 
 		List<Entity> list = getPassengers();
-		return list.isEmpty() ? null : list.get(0);
+		return list.isEmpty() ? null : list.getFirst();
 	}
 
 	public void updateInputs(boolean p_184442_1_, boolean p_184442_2_, boolean p_184442_3_, boolean p_184442_4_) {

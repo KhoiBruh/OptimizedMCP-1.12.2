@@ -26,7 +26,7 @@ public class CPacketUpdateSign implements Packet<INetHandlerPlayServer> {
 	/**
 	 * Reads the raw packet data from the data stream.
 	 */
-	public void readPacketData(PacketBuffer buf) throws IOException {
+	public void readPacketData(PacketBuffer buf) {
 
 		pos = buf.readBlockPos();
 		lines = new String[4];
@@ -39,7 +39,7 @@ public class CPacketUpdateSign implements Packet<INetHandlerPlayServer> {
 	/**
 	 * Writes the raw packet data to the data stream.
 	 */
-	public void writePacketData(PacketBuffer buf) throws IOException {
+	public void writePacketData(PacketBuffer buf) {
 
 		buf.writeBlockPos(pos);
 

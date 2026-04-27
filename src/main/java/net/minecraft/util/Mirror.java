@@ -31,16 +31,11 @@ public enum Mirror {
 		int i = rotationCount / 2;
 		int j = rotationIn > i ? rotationIn - rotationCount : rotationIn;
 
-		switch (this) {
-			case FRONT_BACK:
-				return (rotationCount - j) % rotationCount;
-
-			case LEFT_RIGHT:
-				return (i - j + rotationCount) % rotationCount;
-
-			default:
-				return rotationIn;
-		}
+		return switch (this) {
+			case FRONT_BACK -> (rotationCount - j) % rotationCount;
+			case LEFT_RIGHT -> (i - j + rotationCount) % rotationCount;
+			default -> rotationIn;
+		};
 	}
 
 	/**

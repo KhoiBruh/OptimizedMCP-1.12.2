@@ -229,24 +229,12 @@ public class FaceBakery {
 
 	private float getFaceBrightness(EnumFacing facing) {
 
-		switch (facing) {
-			case DOWN:
-				return 0.5F;
-
-			case UP:
-				return 1.0F;
-
-			case NORTH:
-			case SOUTH:
-				return 0.8F;
-
-			case WEST:
-			case EAST:
-				return 0.6F;
-
-			default:
-				return 1.0F;
-		}
+		return switch (facing) {
+			case DOWN -> 0.5F;
+			case NORTH, SOUTH -> 0.8F;
+			case WEST, EAST -> 0.6F;
+			default -> 1.0F;
+		};
 	}
 
 	private float[] getPositionsDiv16(Vector3f pos1, Vector3f pos2) {

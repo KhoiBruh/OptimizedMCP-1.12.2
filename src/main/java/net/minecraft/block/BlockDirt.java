@@ -23,7 +23,7 @@ public class BlockDirt extends Block {
 	protected BlockDirt() {
 
 		super(Material.GROUND);
-		setDefaultState(blockState.getBaseState().withProperty(VARIANT, BlockDirt.DirtType.DIRT).withProperty(SNOWY, Boolean.valueOf(false)));
+		setDefaultState(blockState.getBaseState().withProperty(VARIANT, BlockDirt.DirtType.DIRT).withProperty(SNOWY, Boolean.FALSE));
 		setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
 	}
 
@@ -43,7 +43,7 @@ public class BlockDirt extends Block {
 
 		if (state.getValue(VARIANT) == BlockDirt.DirtType.PODZOL) {
 			Block block = worldIn.getBlockState(pos.up()).getBlock();
-			state = state.withProperty(SNOWY, Boolean.valueOf(block == Blocks.SNOW || block == Blocks.SNOW_LAYER));
+			state = state.withProperty(SNOWY, block == Blocks.SNOW || block == Blocks.SNOW_LAYER);
 		}
 
 		return state;

@@ -44,7 +44,7 @@ public class StatisticsManagerServer extends StatisticsManager {
 		for (Entry<StatBase, TupleIntJsonSerializable> entry : p_150880_0_.entrySet()) {
 			if (entry.getValue().getJsonSerializableValue() != null) {
 				JsonObject jsonobject1 = new JsonObject();
-				jsonobject1.addProperty("value", Integer.valueOf(entry.getValue().getIntegerValue()));
+				jsonobject1.addProperty("value", entry.getValue().getIntegerValue());
 
 				try {
 					jsonobject1.add("progress", entry.getValue().getJsonSerializableValue().getSerializableElement());
@@ -54,7 +54,7 @@ public class StatisticsManagerServer extends StatisticsManager {
 
 				jsonobject.add((entry.getKey()).statId, jsonobject1);
 			} else {
-				jsonobject.addProperty((entry.getKey()).statId, Integer.valueOf(entry.getValue().getIntegerValue()));
+				jsonobject.addProperty((entry.getKey()).statId, entry.getValue().getIntegerValue());
 			}
 		}
 
@@ -161,7 +161,7 @@ public class StatisticsManagerServer extends StatisticsManager {
 			lastStatRequest = i;
 
 			for (StatBase statbase : getDirty()) {
-				map.put(statbase, Integer.valueOf(readStat(statbase)));
+				map.put(statbase, readStat(statbase));
 			}
 		}
 

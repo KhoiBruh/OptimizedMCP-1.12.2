@@ -14,7 +14,7 @@ import java.util.Random;
 public class WorldGenTrees extends WorldGenAbstractTree {
 
 	private static final IBlockState DEFAULT_TRUNK = Blocks.LOG.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.OAK);
-	private static final IBlockState DEFAULT_LEAF = Blocks.LEAVES.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.EnumType.OAK).withProperty(BlockLeaves.CHECK_DECAY, Boolean.valueOf(false));
+	private static final IBlockState DEFAULT_LEAF = Blocks.LEAVES.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.EnumType.OAK).withProperty(BlockLeaves.CHECK_DECAY, Boolean.FALSE);
 
 	/**
 	 * The minimum height of a generated tree.
@@ -200,12 +200,12 @@ public class WorldGenTrees extends WorldGenAbstractTree {
 
 	private void placeCocoa(World worldIn, int p_181652_2_, BlockPos pos, EnumFacing side) {
 
-		setBlockAndNotifyAdequately(worldIn, pos, Blocks.COCOA.getDefaultState().withProperty(BlockCocoa.AGE, Integer.valueOf(p_181652_2_)).withProperty(BlockCocoa.FACING, side));
+		setBlockAndNotifyAdequately(worldIn, pos, Blocks.COCOA.getDefaultState().withProperty(BlockCocoa.AGE, p_181652_2_).withProperty(BlockCocoa.FACING, side));
 	}
 
 	private void addVine(World worldIn, BlockPos pos, PropertyBool prop) {
 
-		setBlockAndNotifyAdequately(worldIn, pos, Blocks.VINE.getDefaultState().withProperty(prop, Boolean.valueOf(true)));
+		setBlockAndNotifyAdequately(worldIn, pos, Blocks.VINE.getDefaultState().withProperty(prop, Boolean.TRUE));
 	}
 
 	private void addHangingVine(World worldIn, BlockPos pos, PropertyBool prop) {

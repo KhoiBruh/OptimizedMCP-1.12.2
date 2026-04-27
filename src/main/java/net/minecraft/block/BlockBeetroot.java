@@ -58,7 +58,7 @@ public class BlockBeetroot extends BlockCrops {
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
 
-		return BEETROOT_AABB[state.getValue(getAgeProperty()).intValue()];
+		return BEETROOT_AABB[state.getValue(getAgeProperty())];
 	}
 
 }

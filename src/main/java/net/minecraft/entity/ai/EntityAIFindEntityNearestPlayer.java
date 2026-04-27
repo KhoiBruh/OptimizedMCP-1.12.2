@@ -41,32 +41,30 @@ public class EntityAIFindEntityNearestPlayer extends EntityAIBase {
 			LOGGER.warn("Use NearestAttackableTargetGoal.class for PathfinerMob mobs!");
 		}
 
-		predicate = new Predicate<Entity>() {
-			public boolean apply(@Nullable Entity p_apply_1_) {
+		predicate = p_apply_1_ -> {
 
-				if (!(p_apply_1_ instanceof EntityPlayer)) {
-					return false;
-				} else if (((EntityPlayer) p_apply_1_).capabilities.disableDamage) {
-					return false;
-				} else {
-					double d0 = maxTargetRange();
+			if (!(p_apply_1_ instanceof EntityPlayer)) {
+				return false;
+			} else if (((EntityPlayer) p_apply_1_).capabilities.disableDamage) {
+				return false;
+			} else {
+				double d0 = maxTargetRange();
 
-					if (p_apply_1_.isSneaking()) {
-						d0 *= 0.800000011920929D;
-					}
-
-					if (p_apply_1_.isInvisible()) {
-						float f = ((EntityPlayer) p_apply_1_).getArmorVisibility();
-
-						if (f < 0.1F) {
-							f = 0.1F;
-						}
-
-						d0 *= 0.7F * f;
-					}
-
-					return !((double) p_apply_1_.getDistance(entityLiving) > d0) && EntityAITarget.isSuitableTarget(entityLiving, (EntityLivingBase) p_apply_1_, false, true);
+				if (p_apply_1_.isSneaking()) {
+					d0 *= 0.800000011920929D;
 				}
+
+				if (p_apply_1_.isInvisible()) {
+					float f = ((EntityPlayer) p_apply_1_).getArmorVisibility();
+
+					if (f < 0.1F) {
+						f = 0.1F;
+					}
+
+					d0 *= 0.7F * f;
+				}
+
+				return !((double) p_apply_1_.getDistance(entityLiving) > d0) && EntityAITarget.isSuitableTarget(entityLiving, (EntityLivingBase) p_apply_1_, false, true);
 			}
 		};
 		sorter = new EntityAINearestAttackableTarget.Sorter(entityLivingIn);
@@ -79,12 +77,12 @@ public class EntityAIFindEntityNearestPlayer extends EntityAIBase {
 
 		double d0 = maxTargetRange();
 		List<EntityPlayer> list = entityLiving.world.getEntitiesWithinAABB(EntityPlayer.class, entityLiving.getEntityBoundingBox().grow(d0, 4.0D, d0), predicate);
-		Collections.sort(list, sorter);
+		list.sort(sorter);
 
 		if (list.isEmpty()) {
 			return false;
 		} else {
-			entityTarget = list.get(0);
+			entityTarget = list.getFirst();
 			return true;
 		}
 	}

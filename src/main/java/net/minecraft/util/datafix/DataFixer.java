@@ -43,9 +43,7 @@ public class DataFixer implements IDataFixer {
 		List<IFixableData> list = fixMap.get(type);
 
 		if (list != null) {
-			for (int i = 0; i < list.size(); ++i) {
-				IFixableData ifixabledata = list.get(i);
-
+			for (IFixableData ifixabledata : list) {
 				if (ifixabledata.getFixVersion() > versionIn) {
 					compound = ifixabledata.fixTagCompound(compound);
 				}
@@ -60,8 +58,8 @@ public class DataFixer implements IDataFixer {
 		List<IDataWalker> list = walkerMap.get(type);
 
 		if (list != null) {
-			for (int i = 0; i < list.size(); ++i) {
-				compound = list.get(i).process(this, compound, versionIn);
+			for (IDataWalker iDataWalker : list) {
+				compound = iDataWalker.process(this, compound, versionIn);
 			}
 		}
 
@@ -87,7 +85,7 @@ public class DataFixer implements IDataFixer {
 		int i = fixable.getFixVersion();
 
 		if (i > version) {
-			LOGGER.warn("Ignored fix registered for version: {} as the DataVersion of the game is: {}", Integer.valueOf(i), Integer.valueOf(version));
+			LOGGER.warn("Ignored fix registered for version: {} as the DataVersion of the game is: {}", i, version);
 		} else {
 			if (!list.isEmpty() && Util.getLastElement(list).getFixVersion() > i) {
 				for (int j = 0; j < list.size(); ++j) {
@@ -104,12 +102,7 @@ public class DataFixer implements IDataFixer {
 
 	private <V> List<V> getTypeList(Map<IFixType, List<V>> map, IFixType type) {
 
-		List<V> list = map.get(type);
-
-		if (list == null) {
-			list = Lists.newArrayList();
-			map.put(type, list);
-		}
+		List<V> list = map.computeIfAbsent(type, k -> Lists.newArrayList());
 
 		return list;
 	}

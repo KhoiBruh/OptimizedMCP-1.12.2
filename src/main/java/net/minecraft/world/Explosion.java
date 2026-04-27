@@ -131,9 +131,7 @@ public class Explosion {
 		List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(exploder, new AxisAlignedBB(k1, i2, j2, l1, i1, j1));
 		Vec3d vec3d = new Vec3d(x, y, z);
 
-		for (int k2 = 0; k2 < list.size(); ++k2) {
-			Entity entity = list.get(k2);
-
+		for (Entity entity : list) {
 			if (!entity.isImmuneToExplosions()) {
 				double d12 = entity.getDistance(x, y, z) / (double) f3;
 

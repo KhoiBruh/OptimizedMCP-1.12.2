@@ -46,12 +46,7 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 
 	protected static final IAttribute JUMP_STRENGTH = (new RangedAttribute(null, "horse.jumpStrength", 0.7D, 0.0D, 2.0D)).setDescription("Jump Strength").setShouldWatch(true);
 	private static final DataParameter<Byte> STATUS = EntityDataManager.createKey(AbstractHorse.class, DataSerializers.BYTE);
-	private static final Predicate<Entity> IS_HORSE_BREEDING = new Predicate<Entity>() {
-		public boolean apply(@Nullable Entity p_apply_1_) {
-
-			return p_apply_1_ instanceof AbstractHorse && ((AbstractHorse) p_apply_1_).isBreeding();
-		}
-	};
+	private static final Predicate<Entity> IS_HORSE_BREEDING = p_apply_1_ -> p_apply_1_ instanceof AbstractHorse && ((AbstractHorse) p_apply_1_).isBreeding();
 	private static final DataParameter<Optional<UUID>> OWNER_UNIQUE_ID = EntityDataManager.createKey(AbstractHorse.class, DataSerializers.OPTIONAL_UNIQUE_ID);
 	public int tailCounter;
 	public int sprintCounter;
@@ -107,23 +102,23 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 	protected void entityInit() {
 
 		super.entityInit();
-		dataManager.register(STATUS, Byte.valueOf((byte) 0));
+		dataManager.register(STATUS, (byte) 0);
 		dataManager.register(OWNER_UNIQUE_ID, Optional.absent());
 	}
 
 	protected boolean getHorseWatchableBoolean(int p_110233_1_) {
 
-		return (dataManager.get(STATUS).byteValue() & p_110233_1_) != 0;
+		return (dataManager.get(STATUS) & p_110233_1_) != 0;
 	}
 
 	protected void setHorseWatchableBoolean(int p_110208_1_, boolean p_110208_2_) {
 
-		byte b0 = dataManager.get(STATUS).byteValue();
+		byte b0 = dataManager.get(STATUS);
 
 		if (p_110208_2_) {
-			dataManager.set(STATUS, Byte.valueOf((byte) (b0 | p_110208_1_)));
+			dataManager.set(STATUS, (byte) (b0 | p_110208_1_));
 		} else {
-			dataManager.set(STATUS, Byte.valueOf((byte) (b0 & ~p_110208_1_)));
+			dataManager.set(STATUS, (byte) (b0 & ~p_110208_1_));
 		}
 	}
 
@@ -1141,7 +1136,7 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 	 */
 	public Entity getControllingPassenger() {
 
-		return getPassengers().isEmpty() ? null : getPassengers().get(0);
+		return getPassengers().isEmpty() ? null : getPassengers().getFirst();
 	}
 
 	@Nullable

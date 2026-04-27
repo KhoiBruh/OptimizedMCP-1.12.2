@@ -778,18 +778,18 @@ public class StructureStrongholdPieces {
 				flag &= aboolean[l];
 			}
 
-			setBlockState(worldIn, iblockstate4.withProperty(BlockEndPortalFrame.EYE, Boolean.valueOf(aboolean[0])), 4, 3, 8, structureBoundingBoxIn);
-			setBlockState(worldIn, iblockstate4.withProperty(BlockEndPortalFrame.EYE, Boolean.valueOf(aboolean[1])), 5, 3, 8, structureBoundingBoxIn);
-			setBlockState(worldIn, iblockstate4.withProperty(BlockEndPortalFrame.EYE, Boolean.valueOf(aboolean[2])), 6, 3, 8, structureBoundingBoxIn);
-			setBlockState(worldIn, iblockstate.withProperty(BlockEndPortalFrame.EYE, Boolean.valueOf(aboolean[3])), 4, 3, 12, structureBoundingBoxIn);
-			setBlockState(worldIn, iblockstate.withProperty(BlockEndPortalFrame.EYE, Boolean.valueOf(aboolean[4])), 5, 3, 12, structureBoundingBoxIn);
-			setBlockState(worldIn, iblockstate.withProperty(BlockEndPortalFrame.EYE, Boolean.valueOf(aboolean[5])), 6, 3, 12, structureBoundingBoxIn);
-			setBlockState(worldIn, iblockstate1.withProperty(BlockEndPortalFrame.EYE, Boolean.valueOf(aboolean[6])), 3, 3, 9, structureBoundingBoxIn);
-			setBlockState(worldIn, iblockstate1.withProperty(BlockEndPortalFrame.EYE, Boolean.valueOf(aboolean[7])), 3, 3, 10, structureBoundingBoxIn);
-			setBlockState(worldIn, iblockstate1.withProperty(BlockEndPortalFrame.EYE, Boolean.valueOf(aboolean[8])), 3, 3, 11, structureBoundingBoxIn);
-			setBlockState(worldIn, iblockstate2.withProperty(BlockEndPortalFrame.EYE, Boolean.valueOf(aboolean[9])), 7, 3, 9, structureBoundingBoxIn);
-			setBlockState(worldIn, iblockstate2.withProperty(BlockEndPortalFrame.EYE, Boolean.valueOf(aboolean[10])), 7, 3, 10, structureBoundingBoxIn);
-			setBlockState(worldIn, iblockstate2.withProperty(BlockEndPortalFrame.EYE, Boolean.valueOf(aboolean[11])), 7, 3, 11, structureBoundingBoxIn);
+			setBlockState(worldIn, iblockstate4.withProperty(BlockEndPortalFrame.EYE, aboolean[0]), 4, 3, 8, structureBoundingBoxIn);
+			setBlockState(worldIn, iblockstate4.withProperty(BlockEndPortalFrame.EYE, aboolean[1]), 5, 3, 8, structureBoundingBoxIn);
+			setBlockState(worldIn, iblockstate4.withProperty(BlockEndPortalFrame.EYE, aboolean[2]), 6, 3, 8, structureBoundingBoxIn);
+			setBlockState(worldIn, iblockstate.withProperty(BlockEndPortalFrame.EYE, aboolean[3]), 4, 3, 12, structureBoundingBoxIn);
+			setBlockState(worldIn, iblockstate.withProperty(BlockEndPortalFrame.EYE, aboolean[4]), 5, 3, 12, structureBoundingBoxIn);
+			setBlockState(worldIn, iblockstate.withProperty(BlockEndPortalFrame.EYE, aboolean[5]), 6, 3, 12, structureBoundingBoxIn);
+			setBlockState(worldIn, iblockstate1.withProperty(BlockEndPortalFrame.EYE, aboolean[6]), 3, 3, 9, structureBoundingBoxIn);
+			setBlockState(worldIn, iblockstate1.withProperty(BlockEndPortalFrame.EYE, aboolean[7]), 3, 3, 10, structureBoundingBoxIn);
+			setBlockState(worldIn, iblockstate1.withProperty(BlockEndPortalFrame.EYE, aboolean[8]), 3, 3, 11, structureBoundingBoxIn);
+			setBlockState(worldIn, iblockstate2.withProperty(BlockEndPortalFrame.EYE, aboolean[9]), 7, 3, 9, structureBoundingBoxIn);
+			setBlockState(worldIn, iblockstate2.withProperty(BlockEndPortalFrame.EYE, aboolean[10]), 7, 3, 10, structureBoundingBoxIn);
+			setBlockState(worldIn, iblockstate2.withProperty(BlockEndPortalFrame.EYE, aboolean[11]), 7, 3, 11, structureBoundingBoxIn);
 
 			if (flag) {
 				IBlockState iblockstate5 = Blocks.END_PORTAL.getDefaultState();
@@ -1398,21 +1398,12 @@ public class StructureStrongholdPieces {
 
 			int i = p_74988_1_.nextInt(5);
 
-			switch (i) {
-				case 0:
-				case 1:
-				default:
-					return StructureStrongholdPieces.Stronghold.Door.OPENING;
-
-				case 2:
-					return StructureStrongholdPieces.Stronghold.Door.WOOD_DOOR;
-
-				case 3:
-					return StructureStrongholdPieces.Stronghold.Door.GRATES;
-
-				case 4:
-					return StructureStrongholdPieces.Stronghold.Door.IRON_DOOR;
-			}
+			return switch (i) {
+				default -> Door.OPENING;
+				case 2 -> Door.WOOD_DOOR;
+				case 3 -> Door.GRATES;
+				case 4 -> Door.IRON_DOOR;
+			};
 		}
 
 		@Nullable
@@ -1446,16 +1437,10 @@ public class StructureStrongholdPieces {
 
 			if (enumfacing != null) {
 				switch (enumfacing) {
-					case NORTH:
+					case NORTH, SOUTH:
 						return StructureStrongholdPieces.generateAndAddPiece(p_74989_1_, p_74989_2_, p_74989_3_, boundingBox.minX - 1, boundingBox.minY + p_74989_4_, boundingBox.minZ + p_74989_5_, EnumFacing.WEST, getComponentType());
 
-					case SOUTH:
-						return StructureStrongholdPieces.generateAndAddPiece(p_74989_1_, p_74989_2_, p_74989_3_, boundingBox.minX - 1, boundingBox.minY + p_74989_4_, boundingBox.minZ + p_74989_5_, EnumFacing.WEST, getComponentType());
-
-					case WEST:
-						return StructureStrongholdPieces.generateAndAddPiece(p_74989_1_, p_74989_2_, p_74989_3_, boundingBox.minX + p_74989_5_, boundingBox.minY + p_74989_4_, boundingBox.minZ - 1, EnumFacing.NORTH, getComponentType());
-
-					case EAST:
+					case WEST, EAST:
 						return StructureStrongholdPieces.generateAndAddPiece(p_74989_1_, p_74989_2_, p_74989_3_, boundingBox.minX + p_74989_5_, boundingBox.minY + p_74989_4_, boundingBox.minZ - 1, EnumFacing.NORTH, getComponentType());
 				}
 			}
@@ -1470,16 +1455,10 @@ public class StructureStrongholdPieces {
 
 			if (enumfacing != null) {
 				switch (enumfacing) {
-					case NORTH:
+					case NORTH, SOUTH:
 						return StructureStrongholdPieces.generateAndAddPiece(p_74987_1_, p_74987_2_, p_74987_3_, boundingBox.maxX + 1, boundingBox.minY + p_74987_4_, boundingBox.minZ + p_74987_5_, EnumFacing.EAST, getComponentType());
 
-					case SOUTH:
-						return StructureStrongholdPieces.generateAndAddPiece(p_74987_1_, p_74987_2_, p_74987_3_, boundingBox.maxX + 1, boundingBox.minY + p_74987_4_, boundingBox.minZ + p_74987_5_, EnumFacing.EAST, getComponentType());
-
-					case WEST:
-						return StructureStrongholdPieces.generateAndAddPiece(p_74987_1_, p_74987_2_, p_74987_3_, boundingBox.minX + p_74987_5_, boundingBox.minY + p_74987_4_, boundingBox.maxZ + 1, EnumFacing.SOUTH, getComponentType());
-
-					case EAST:
+					case WEST, EAST:
 						return StructureStrongholdPieces.generateAndAddPiece(p_74987_1_, p_74987_2_, p_74987_3_, boundingBox.minX + p_74987_5_, boundingBox.minY + p_74987_4_, boundingBox.maxZ + 1, EnumFacing.SOUTH, getComponentType());
 				}
 			}

@@ -49,7 +49,7 @@ public class BlockPistonExtension extends BlockDirectional {
 	public BlockPistonExtension() {
 
 		super(Material.PISTON);
-		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(TYPE, BlockPistonExtension.EnumPistonType.DEFAULT).withProperty(SHORT, Boolean.valueOf(false)));
+		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(TYPE, BlockPistonExtension.EnumPistonType.DEFAULT).withProperty(SHORT, Boolean.FALSE));
 		setSoundType(SoundType.STONE);
 		setHardness(0.5F);
 	}
@@ -63,26 +63,14 @@ public class BlockPistonExtension extends BlockDirectional {
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
 
-		switch (state.getValue(FACING)) {
-			case DOWN:
-			default:
-				return PISTON_EXTENSION_DOWN_AABB;
-
-			case UP:
-				return PISTON_EXTENSION_UP_AABB;
-
-			case NORTH:
-				return PISTON_EXTENSION_NORTH_AABB;
-
-			case SOUTH:
-				return PISTON_EXTENSION_SOUTH_AABB;
-
-			case WEST:
-				return PISTON_EXTENSION_WEST_AABB;
-
-			case EAST:
-				return PISTON_EXTENSION_EAST_AABB;
-		}
+		return switch (state.getValue(FACING)) {
+			default -> PISTON_EXTENSION_DOWN_AABB;
+			case UP -> PISTON_EXTENSION_UP_AABB;
+			case NORTH -> PISTON_EXTENSION_NORTH_AABB;
+			case SOUTH -> PISTON_EXTENSION_SOUTH_AABB;
+			case WEST -> PISTON_EXTENSION_WEST_AABB;
+			case EAST -> PISTON_EXTENSION_EAST_AABB;
+		};
 	}
 
 	public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, @Nullable Entity entityIn, boolean isActualState) {
@@ -93,28 +81,16 @@ public class BlockPistonExtension extends BlockDirectional {
 
 	private AxisAlignedBB getArmShape(IBlockState state) {
 
-		boolean flag = state.getValue(SHORT).booleanValue();
+		boolean flag = state.getValue(SHORT);
 
-		switch (state.getValue(FACING)) {
-			case DOWN:
-			default:
-				return flag ? SHORT_DOWN_ARM_AABB : DOWN_ARM_AABB;
-
-			case UP:
-				return flag ? SHORT_UP_ARM_AABB : UP_ARM_AABB;
-
-			case NORTH:
-				return flag ? SHORT_NORTH_ARM_AABB : NORTH_ARM_AABB;
-
-			case SOUTH:
-				return flag ? SHORT_SOUTH_ARM_AABB : SOUTH_ARM_AABB;
-
-			case WEST:
-				return flag ? SHORT_WEST_ARM_AABB : WEST_ARM_AABB;
-
-			case EAST:
-				return flag ? SHORT_EAST_ARM_AABB : EAST_ARM_AABB;
-		}
+		return switch (state.getValue(FACING)) {
+			default -> flag ? SHORT_DOWN_ARM_AABB : DOWN_ARM_AABB;
+			case UP -> flag ? SHORT_UP_ARM_AABB : UP_ARM_AABB;
+			case NORTH -> flag ? SHORT_NORTH_ARM_AABB : NORTH_ARM_AABB;
+			case SOUTH -> flag ? SHORT_SOUTH_ARM_AABB : SOUTH_ARM_AABB;
+			case WEST -> flag ? SHORT_WEST_ARM_AABB : WEST_ARM_AABB;
+			case EAST -> flag ? SHORT_EAST_ARM_AABB : EAST_ARM_AABB;
+		};
 	}
 
 	/**
@@ -153,7 +129,7 @@ public class BlockPistonExtension extends BlockDirectional {
 		pos = pos.offset(enumfacing);
 		IBlockState iblockstate = worldIn.getBlockState(pos);
 
-		if ((iblockstate.getBlock() == Blocks.PISTON || iblockstate.getBlock() == Blocks.STICKY_PISTON) && iblockstate.getValue(BlockPistonBase.EXTENDED).booleanValue()) {
+		if ((iblockstate.getBlock() == Blocks.PISTON || iblockstate.getBlock() == Blocks.STICKY_PISTON) && iblockstate.getValue(BlockPistonBase.EXTENDED)) {
 			iblockstate.getBlock().dropBlockAsItem(worldIn, pos, iblockstate, 0);
 			worldIn.setBlockToAir(pos);
 		}

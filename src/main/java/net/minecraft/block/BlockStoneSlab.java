@@ -30,7 +30,7 @@ public abstract class BlockStoneSlab extends BlockSlab {
 		IBlockState iblockstate = blockState.getBaseState();
 
 		if (isDouble()) {
-			iblockstate = iblockstate.withProperty(SEAMLESS, Boolean.valueOf(false));
+			iblockstate = iblockstate.withProperty(SEAMLESS, Boolean.FALSE);
 		} else {
 			iblockstate = iblockstate.withProperty(HALF, BlockSlab.EnumBlockHalf.BOTTOM);
 		}
@@ -90,7 +90,7 @@ public abstract class BlockStoneSlab extends BlockSlab {
 		IBlockState iblockstate = getDefaultState().withProperty(VARIANT, BlockStoneSlab.EnumType.byMetadata(meta & 7));
 
 		if (isDouble()) {
-			iblockstate = iblockstate.withProperty(SEAMLESS, Boolean.valueOf((meta & 8) != 0));
+			iblockstate = iblockstate.withProperty(SEAMLESS, (meta & 8) != 0);
 		} else {
 			iblockstate = iblockstate.withProperty(HALF, (meta & 8) == 0 ? BlockSlab.EnumBlockHalf.BOTTOM : BlockSlab.EnumBlockHalf.TOP);
 		}
@@ -107,7 +107,7 @@ public abstract class BlockStoneSlab extends BlockSlab {
 		i = i | state.getValue(VARIANT).getMetadata();
 
 		if (isDouble()) {
-			if (state.getValue(SEAMLESS).booleanValue()) {
+			if (state.getValue(SEAMLESS)) {
 				i |= 8;
 			}
 		} else if (state.getValue(HALF) == BlockSlab.EnumBlockHalf.TOP) {

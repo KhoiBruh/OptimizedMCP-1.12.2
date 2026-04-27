@@ -487,7 +487,7 @@ public class GuiTextField extends Gui {
 			}
 
 			if (!s.isEmpty() && flag && j < s.length()) {
-				j1 = fontRenderer.drawStringWithShadow(s.substring(j), (float) j1, (float) i1, i);
+				fontRenderer.drawStringWithShadow(s.substring(j), (float) j1, (float) i1, i);
 			}
 
 			if (flag1) {

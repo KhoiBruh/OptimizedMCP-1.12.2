@@ -42,15 +42,7 @@ public abstract class StructureStart {
 	 */
 	public void generateStructure(World worldIn, Random rand, StructureBoundingBox structurebb) {
 
-		Iterator<StructureComponent> iterator = components.iterator();
-
-		while (iterator.hasNext()) {
-			StructureComponent structurecomponent = iterator.next();
-
-			if (structurecomponent.getBoundingBox().intersectsWith(structurebb) && !structurecomponent.addComponentParts(worldIn, rand, structurebb)) {
-				iterator.remove();
-			}
-		}
+		components.removeIf(structurecomponent -> structurecomponent.getBoundingBox().intersectsWith(structurebb) && !structurecomponent.addComponentParts(worldIn, rand, structurebb));
 	}
 
 	/**

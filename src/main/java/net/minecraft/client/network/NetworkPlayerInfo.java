@@ -129,27 +129,25 @@ public class NetworkPlayerInfo {
 		synchronized (this) {
 			if (!playerTexturesLoaded) {
 				playerTexturesLoaded = true;
-				Minecraft.getMinecraft().getSkinManager().loadProfileTextures(gameProfile, new SkinManager.SkinAvailableCallback() {
-					public void skinAvailable(Type typeIn, ResourceLocation location, MinecraftProfileTexture profileTexture) {
+				Minecraft.getMinecraft().getSkinManager().loadProfileTextures(gameProfile, (typeIn, location, profileTexture) -> {
 
-						switch (typeIn) {
-							case SKIN:
-								playerTextures.put(Type.SKIN, location);
-								skinType = profileTexture.getMetadata("model");
+					switch (typeIn) {
+						case SKIN:
+							playerTextures.put(Type.SKIN, location);
+							skinType = profileTexture.getMetadata("model");
 
-								if (skinType == null) {
-									skinType = "default";
-								}
+							if (skinType == null) {
+								skinType = "default";
+							}
 
-								break;
+							break;
 
-							case CAPE:
-								playerTextures.put(Type.CAPE, location);
-								break;
+						case CAPE:
+							playerTextures.put(Type.CAPE, location);
+							break;
 
-							case ELYTRA:
-								playerTextures.put(Type.ELYTRA, location);
-						}
+						case ELYTRA:
+							playerTextures.put(Type.ELYTRA, location);
 					}
 				}, true);
 			}

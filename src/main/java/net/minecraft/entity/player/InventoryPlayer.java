@@ -411,14 +411,9 @@ public class InventoryPlayer implements IInventory {
 			} catch (Throwable throwable) {
 				CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Adding item to inventory");
 				CrashReportCategory crashreportcategory = crashreport.makeCategory("Item being added");
-				crashreportcategory.addCrashSection("Item ID", Integer.valueOf(Item.getIdFromItem(p_191971_2_.getItem())));
-				crashreportcategory.addCrashSection("Item data", Integer.valueOf(p_191971_2_.getMetadata()));
-				crashreportcategory.addDetail("Item name", new ICrashReportDetail<String>() {
-					public String call() throws Exception {
-
-						return p_191971_2_.getDisplayName();
-					}
-				});
+				crashreportcategory.addCrashSection("Item ID", Item.getIdFromItem(p_191971_2_.getItem()));
+				crashreportcategory.addCrashSection("Item data", p_191971_2_.getMetadata());
+				crashreportcategory.addDetail("Item name", () -> p_191971_2_.getDisplayName());
 				throw new ReportedException(crashreport);
 			}
 		}
@@ -709,9 +704,7 @@ public class InventoryPlayer implements IInventory {
 			damage = 1.0F;
 		}
 
-		for (int i = 0; i < armorInventory.size(); ++i) {
-			ItemStack itemstack = armorInventory.get(i);
-
+		for (ItemStack itemstack : armorInventory) {
 			if (itemstack.getItem() instanceof ItemArmor) {
 				itemstack.damageItem((int) damage, player);
 			}
@@ -862,7 +855,7 @@ public class InventoryPlayer implements IInventory {
 		}
 
 		if (p_194016_2_) {
-			helper.accountStack(offHandInventory.get(0));
+			helper.accountStack(offHandInventory.getFirst());
 		}
 	}
 

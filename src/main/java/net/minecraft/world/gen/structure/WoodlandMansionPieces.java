@@ -233,17 +233,17 @@ public class WoodlandMansionPieces {
 				thirdFloorGrid.set(0, 0, thirdFloorGrid.width, thirdFloorGrid.height, 5);
 			} else {
 				Tuple<Integer, Integer> tuple = list.get(random.nextInt(list.size()));
-				int l1 = woodlandmansionpieces$simplegrid.get(tuple.getFirst().intValue(), tuple.getSecond().intValue());
-				woodlandmansionpieces$simplegrid.set(tuple.getFirst().intValue(), tuple.getSecond().intValue(), l1 | 4194304);
-				EnumFacing enumfacing1 = get1x2RoomDirection(baseGrid, tuple.getFirst().intValue(), tuple.getSecond().intValue(), 1, l1 & 65535);
-				int i2 = tuple.getFirst().intValue() + enumfacing1.getFrontOffsetX();
-				int i1 = tuple.getSecond().intValue() + enumfacing1.getFrontOffsetZ();
+				int l1 = woodlandmansionpieces$simplegrid.get(tuple.getFirst(), tuple.getSecond());
+				woodlandmansionpieces$simplegrid.set(tuple.getFirst(), tuple.getSecond(), l1 | 4194304);
+				EnumFacing enumfacing1 = get1x2RoomDirection(baseGrid, tuple.getFirst(), tuple.getSecond(), 1, l1 & 65535);
+				int i2 = tuple.getFirst() + enumfacing1.getFrontOffsetX();
+				int i1 = tuple.getSecond() + enumfacing1.getFrontOffsetZ();
 
 				for (int j1 = 0; j1 < thirdFloorGrid.height; ++j1) {
 					for (int k1 = 0; k1 < thirdFloorGrid.width; ++k1) {
 						if (!isHouse(baseGrid, k1, j1)) {
 							thirdFloorGrid.set(k1, j1, 5);
-						} else if (k1 == tuple.getFirst().intValue() && j1 == tuple.getSecond().intValue()) {
+						} else if (k1 == tuple.getFirst() && j1 == tuple.getSecond()) {
 							thirdFloorGrid.set(k1, j1, 3);
 						} else if (k1 == i2 && j1 == i1) {
 							thirdFloorGrid.set(k1, j1, 3);
@@ -262,7 +262,7 @@ public class WoodlandMansionPieces {
 
 				if (list1.isEmpty()) {
 					thirdFloorGrid.set(0, 0, thirdFloorGrid.width, thirdFloorGrid.height, 5);
-					woodlandmansionpieces$simplegrid.set(tuple.getFirst().intValue(), tuple.getSecond().intValue(), l1);
+					woodlandmansionpieces$simplegrid.set(tuple.getFirst(), tuple.getSecond(), l1);
 				} else {
 					EnumFacing enumfacing2 = list1.get(random.nextInt(list1.size()));
 					recursiveCorridor(thirdFloorGrid, i2 + enumfacing2.getFrontOffsetX(), i1 + enumfacing2.getFrontOffsetZ(), enumfacing2, 4);
@@ -289,8 +289,8 @@ public class WoodlandMansionPieces {
 			int k3 = 10;
 
 			for (Tuple<Integer, Integer> tuple : list) {
-				int k = tuple.getFirst().intValue();
-				int l = tuple.getSecond().intValue();
+				int k = tuple.getFirst();
+				int l = tuple.getSecond();
 
 				if (p_191116_2_.get(k, l) == 0) {
 					int i1 = k;
@@ -421,15 +421,13 @@ public class WoodlandMansionPieces {
 				Rotation rotation = placeSettings.getRotation();
 				IBlockState iblockstate = Blocks.CHEST.getDefaultState();
 
-				if ("ChestWest".equals(function)) {
-					iblockstate = iblockstate.withProperty(BlockChest.FACING, rotation.rotate(EnumFacing.WEST));
-				} else if ("ChestEast".equals(function)) {
-					iblockstate = iblockstate.withProperty(BlockChest.FACING, rotation.rotate(EnumFacing.EAST));
-				} else if ("ChestSouth".equals(function)) {
-					iblockstate = iblockstate.withProperty(BlockChest.FACING, rotation.rotate(EnumFacing.SOUTH));
-				} else if ("ChestNorth".equals(function)) {
-					iblockstate = iblockstate.withProperty(BlockChest.FACING, rotation.rotate(EnumFacing.NORTH));
-				}
+				iblockstate = switch (function) {
+					case "ChestWest" -> iblockstate.withProperty(BlockChest.FACING, rotation.rotate(EnumFacing.WEST));
+					case "ChestEast" -> iblockstate.withProperty(BlockChest.FACING, rotation.rotate(EnumFacing.EAST));
+					case "ChestSouth" -> iblockstate.withProperty(BlockChest.FACING, rotation.rotate(EnumFacing.SOUTH));
+					case "ChestNorth" -> iblockstate.withProperty(BlockChest.FACING, rotation.rotate(EnumFacing.NORTH));
+					default -> iblockstate;
+				};
 
 				generateChest(worldIn, sbb, rand, pos, LootTableList.CHESTS_WOODLAND_MANSION, iblockstate);
 			} else if ("Mage".equals(function)) {

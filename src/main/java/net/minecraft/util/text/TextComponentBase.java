@@ -15,19 +15,12 @@ public abstract class TextComponentBase implements ITextComponent {
 
 	public static Iterator<ITextComponent> createDeepCopyIterator(Iterable<ITextComponent> components) {
 
-		Iterator<ITextComponent> iterator = Iterators.concat(Iterators.transform(components.iterator(), new Function<ITextComponent, Iterator<ITextComponent>>() {
-			public Iterator<ITextComponent> apply(@Nullable ITextComponent p_apply_1_) {
+		Iterator<ITextComponent> iterator = Iterators.concat(Iterators.transform(components.iterator(), p_apply_1_ -> p_apply_1_.iterator()));
+		iterator = Iterators.transform(iterator, p_apply_1_ -> {
 
-				return p_apply_1_.iterator();
-			}
-		}));
-		iterator = Iterators.transform(iterator, new Function<ITextComponent, ITextComponent>() {
-			public ITextComponent apply(@Nullable ITextComponent p_apply_1_) {
-
-				ITextComponent itextcomponent = p_apply_1_.createCopy();
-				itextcomponent.setStyle(itextcomponent.getStyle().createDeepCopy());
-				return itextcomponent;
-			}
+			ITextComponent itextcomponent = p_apply_1_.createCopy();
+			itextcomponent.setStyle(itextcomponent.getStyle().createDeepCopy());
+			return itextcomponent;
 		});
 		return iterator;
 	}

@@ -79,9 +79,7 @@ public class StructureOceanMonument extends MapGenStructure {
 				return false;
 			}
 
-			boolean flag = world.getBiomeProvider().areBiomesViable(i * 16 + 8, j * 16 + 8, 29, WATER_BIOMES);
-
-			return flag;
+			return world.getBiomeProvider().areBiomesViable(i * 16 + 8, j * 16 + 8, 29, WATER_BIOMES);
 		}
 
 		return false;

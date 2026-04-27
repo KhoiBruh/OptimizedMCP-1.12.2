@@ -32,7 +32,7 @@ public class ItemSplashPotion extends ItemPotion {
 		}
 
 		playerIn.addStat(StatList.getObjectUseStats(this));
-		return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemstack);
+		return new ActionResult<>(EnumActionResult.SUCCESS, itemstack);
 	}
 
 }

@@ -251,7 +251,7 @@ public class PotionEffect implements Comparable<PotionEffect> {
 	public int compareTo(PotionEffect p_compareTo_1_) {
 
 		int i = 32147;
-		return (getDuration() <= 32147 || p_compareTo_1_.getDuration() <= 32147) && (!getIsAmbient() || !p_compareTo_1_.getIsAmbient()) ? ComparisonChain.start().compare(Boolean.valueOf(getIsAmbient()), Boolean.valueOf(p_compareTo_1_.getIsAmbient())).compare(getDuration(), p_compareTo_1_.getDuration()).compare(getPotion().getLiquidColor(), p_compareTo_1_.getPotion().getLiquidColor()).result() : ComparisonChain.start().compare(Boolean.valueOf(getIsAmbient()), Boolean.valueOf(p_compareTo_1_.getIsAmbient())).compare(getPotion().getLiquidColor(), p_compareTo_1_.getPotion().getLiquidColor()).result();
+		return (getDuration() <= 32147 || p_compareTo_1_.getDuration() <= 32147) && (!getIsAmbient() || !p_compareTo_1_.getIsAmbient()) ? ComparisonChain.start().compare(getIsAmbient(), p_compareTo_1_.getIsAmbient()).compare(getDuration(), p_compareTo_1_.getDuration()).compare(getPotion().getLiquidColor(), p_compareTo_1_.getPotion().getLiquidColor()).result() : ComparisonChain.start().compare(getIsAmbient(), p_compareTo_1_.getIsAmbient()).compare(getPotion().getLiquidColor(), p_compareTo_1_.getPotion().getLiquidColor()).result();
 	}
 
 }

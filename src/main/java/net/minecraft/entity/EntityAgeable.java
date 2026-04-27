@@ -80,7 +80,7 @@ public abstract class EntityAgeable extends EntityCreature {
 	protected void entityInit() {
 
 		super.entityInit();
-		dataManager.register(BABY, Boolean.valueOf(false));
+		dataManager.register(BABY, Boolean.FALSE);
 	}
 
 	/**
@@ -91,7 +91,7 @@ public abstract class EntityAgeable extends EntityCreature {
 	public int getGrowingAge() {
 
 		if (world.isRemote) {
-			return dataManager.get(BABY).booleanValue() ? -1 : 1;
+			return dataManager.get(BABY) ? -1 : 1;
 		} else {
 			return growingAge;
 		}
@@ -103,7 +103,7 @@ public abstract class EntityAgeable extends EntityCreature {
 	 */
 	public void setGrowingAge(int age) {
 
-		dataManager.set(BABY, Boolean.valueOf(age < 0));
+		dataManager.set(BABY, age < 0);
 		growingAge = age;
 		setScaleForAge(isChild());
 	}

@@ -85,10 +85,6 @@ public class AdvancementRewards {
 					return player.getDisplayName();
 				}
 
-				public void sendMessage(ITextComponent component) {
-
-				}
-
 				public boolean canUseCommand(int permLevel, String commandName) {
 
 					return permLevel <= 2;

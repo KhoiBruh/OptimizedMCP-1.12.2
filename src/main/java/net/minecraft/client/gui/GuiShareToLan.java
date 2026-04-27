@@ -50,19 +50,16 @@ public class GuiShareToLan extends GuiScreen {
 	/**
 	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
 	 */
-	protected void actionPerformed(GuiButton button) throws IOException {
+	protected void actionPerformed(GuiButton button) {
 
 		if (button.id == 102) {
 			mc.displayGuiScreen(lastScreen);
 		} else if (button.id == 104) {
-			if ("spectator".equals(gameMode)) {
-				gameMode = "creative";
-			} else if ("creative".equals(gameMode)) {
-				gameMode = "adventure";
-			} else if ("adventure".equals(gameMode)) {
-				gameMode = "survival";
-			} else {
-				gameMode = "spectator";
+			switch (gameMode) {
+				case "spectator" -> gameMode = "creative";
+				case "creative" -> gameMode = "adventure";
+				case "adventure" -> gameMode = "survival";
+				case null, default -> gameMode = "spectator";
 			}
 
 			updateDisplayNames();

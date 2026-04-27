@@ -33,68 +33,41 @@ public class BlockTrapDoor extends Block {
 	protected BlockTrapDoor(Material materialIn) {
 
 		super(materialIn);
-		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(OPEN, Boolean.valueOf(false)).withProperty(HALF, BlockTrapDoor.DoorHalf.BOTTOM));
+		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(OPEN, Boolean.FALSE).withProperty(HALF, BlockTrapDoor.DoorHalf.BOTTOM));
 		setCreativeTab(CreativeTabs.REDSTONE);
 	}
 
 	protected static EnumFacing getFacing(int meta) {
 
-		switch (meta & 3) {
-			case 0:
-				return EnumFacing.NORTH;
-
-			case 1:
-				return EnumFacing.SOUTH;
-
-			case 2:
-				return EnumFacing.WEST;
-
-			case 3:
-			default:
-				return EnumFacing.EAST;
-		}
+		return switch (meta & 3) {
+			case 0 -> EnumFacing.NORTH;
+			case 1 -> EnumFacing.SOUTH;
+			case 2 -> EnumFacing.WEST;
+			default -> EnumFacing.EAST;
+		};
 	}
 
 	protected static int getMetaForFacing(EnumFacing facing) {
 
-		switch (facing) {
-			case NORTH:
-				return 0;
-
-			case SOUTH:
-				return 1;
-
-			case WEST:
-				return 2;
-
-			case EAST:
-			default:
-				return 3;
-		}
+		return switch (facing) {
+			case NORTH -> 0;
+			case SOUTH -> 1;
+			case WEST -> 2;
+			default -> 3;
+		};
 	}
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
 
 		AxisAlignedBB axisalignedbb;
 
-		if (state.getValue(OPEN).booleanValue()) {
-			switch (state.getValue(FACING)) {
-				case NORTH:
-				default:
-					axisalignedbb = NORTH_OPEN_AABB;
-					break;
-
-				case SOUTH:
-					axisalignedbb = SOUTH_OPEN_AABB;
-					break;
-
-				case WEST:
-					axisalignedbb = WEST_OPEN_AABB;
-					break;
-
-				case EAST:
-					axisalignedbb = EAST_OPEN_AABB;
-			}
+		if (state.getValue(OPEN)) {
+			axisalignedbb = switch (state.getValue(FACING)) {
+				default -> NORTH_OPEN_AABB;
+				case SOUTH -> SOUTH_OPEN_AABB;
+				case WEST -> WEST_OPEN_AABB;
+				case EAST -> EAST_OPEN_AABB;
+			};
 		} else if (state.getValue(HALF) == BlockTrapDoor.DoorHalf.TOP) {
 			axisalignedbb = TOP_AABB;
 		} else {
@@ -122,7 +95,7 @@ public class BlockTrapDoor extends Block {
 	 */
 	public boolean isPassable(IBlockAccess worldIn, BlockPos pos) {
 
-		return !worldIn.getBlockState(pos).getValue(OPEN).booleanValue();
+		return !worldIn.getBlockState(pos).getValue(OPEN);
 	}
 
 	/**
@@ -135,7 +108,7 @@ public class BlockTrapDoor extends Block {
 		} else {
 			state = state.cycleProperty(OPEN);
 			worldIn.setBlockState(pos, state, 2);
-			playSound(playerIn, worldIn, pos, state.getValue(OPEN).booleanValue());
+			playSound(playerIn, worldIn, pos, state.getValue(OPEN));
 			return true;
 		}
 	}
@@ -162,10 +135,10 @@ public class BlockTrapDoor extends Block {
 			boolean flag = worldIn.isBlockPowered(pos);
 
 			if (flag || blockIn.getDefaultState().canProvidePower()) {
-				boolean flag1 = state.getValue(OPEN).booleanValue();
+				boolean flag1 = state.getValue(OPEN);
 
 				if (flag1 != flag) {
-					worldIn.setBlockState(pos, state.withProperty(OPEN, Boolean.valueOf(flag)), 2);
+					worldIn.setBlockState(pos, state.withProperty(OPEN, flag), 2);
 					playSound(null, worldIn, pos, flag);
 				}
 			}
@@ -181,15 +154,15 @@ public class BlockTrapDoor extends Block {
 		IBlockState iblockstate = getDefaultState();
 
 		if (facing.getAxis().isHorizontal()) {
-			iblockstate = iblockstate.withProperty(FACING, facing).withProperty(OPEN, Boolean.valueOf(false));
+			iblockstate = iblockstate.withProperty(FACING, facing).withProperty(OPEN, Boolean.FALSE);
 			iblockstate = iblockstate.withProperty(HALF, hitY > 0.5F ? BlockTrapDoor.DoorHalf.TOP : BlockTrapDoor.DoorHalf.BOTTOM);
 		} else {
-			iblockstate = iblockstate.withProperty(FACING, placer.getHorizontalFacing().getOpposite()).withProperty(OPEN, Boolean.valueOf(false));
+			iblockstate = iblockstate.withProperty(FACING, placer.getHorizontalFacing().getOpposite()).withProperty(OPEN, Boolean.FALSE);
 			iblockstate = iblockstate.withProperty(HALF, facing == EnumFacing.UP ? BlockTrapDoor.DoorHalf.BOTTOM : BlockTrapDoor.DoorHalf.TOP);
 		}
 
 		if (worldIn.isBlockPowered(pos)) {
-			iblockstate = iblockstate.withProperty(OPEN, Boolean.valueOf(true));
+			iblockstate = iblockstate.withProperty(OPEN, Boolean.TRUE);
 		}
 
 		return iblockstate;
@@ -217,7 +190,7 @@ public class BlockTrapDoor extends Block {
 	 */
 	public IBlockState getStateFromMeta(int meta) {
 
-		return getDefaultState().withProperty(FACING, getFacing(meta)).withProperty(OPEN, Boolean.valueOf((meta & 4) != 0)).withProperty(HALF, (meta & 8) == 0 ? BlockTrapDoor.DoorHalf.BOTTOM : BlockTrapDoor.DoorHalf.TOP);
+		return getDefaultState().withProperty(FACING, getFacing(meta)).withProperty(OPEN, (meta & 4) != 0).withProperty(HALF, (meta & 8) == 0 ? BlockTrapDoor.DoorHalf.BOTTOM : BlockTrapDoor.DoorHalf.TOP);
 	}
 
 	/**
@@ -228,7 +201,7 @@ public class BlockTrapDoor extends Block {
 		int i = 0;
 		i = i | getMetaForFacing(state.getValue(FACING));
 
-		if (state.getValue(OPEN).booleanValue()) {
+		if (state.getValue(OPEN)) {
 			i |= 4;
 		}
 
@@ -273,7 +246,7 @@ public class BlockTrapDoor extends Block {
 	 */
 	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
 
-		return (face == EnumFacing.UP && state.getValue(HALF) == BlockTrapDoor.DoorHalf.TOP || face == EnumFacing.DOWN && state.getValue(HALF) == BlockTrapDoor.DoorHalf.BOTTOM) && !state.getValue(OPEN).booleanValue() ? BlockFaceShape.SOLID : BlockFaceShape.UNDEFINED;
+		return (face == EnumFacing.UP && state.getValue(HALF) == BlockTrapDoor.DoorHalf.TOP || face == EnumFacing.DOWN && state.getValue(HALF) == BlockTrapDoor.DoorHalf.BOTTOM) && !state.getValue(OPEN) ? BlockFaceShape.SOLID : BlockFaceShape.UNDEFINED;
 	}
 
 	public enum DoorHalf implements IStringSerializable {

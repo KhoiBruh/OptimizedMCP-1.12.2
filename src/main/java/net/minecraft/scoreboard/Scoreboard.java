@@ -30,27 +30,22 @@ public class Scoreboard {
 	 */
 	public static String getObjectiveDisplaySlot(int id) {
 
-		switch (id) {
-			case 0:
-				return "list";
-
-			case 1:
-				return "sidebar";
-
-			case 2:
-				return "belowName";
-
-			default:
+		return switch (id) {
+			case 0 -> "list";
+			case 1 -> "sidebar";
+			case 2 -> "belowName";
+			default -> {
 				if (id >= 3 && id <= 18) {
 					TextFormatting textformatting = TextFormatting.fromColorIndex(id - 3);
 
 					if (textformatting != null && textformatting != TextFormatting.RESET) {
-						return "sidebar.team." + textformatting.getFriendlyName();
+						yield "sidebar.team." + textformatting.getFriendlyName();
 					}
 				}
 
-				return null;
-		}
+				yield null;
+			}
+		};
 	}
 
 	/**
@@ -115,12 +110,7 @@ public class Scoreboard {
 				throw new IllegalArgumentException("An objective with the name '" + name + "' already exists!");
 			} else {
 				scoreobjective = new ScoreObjective(this, name, criteria);
-				List<ScoreObjective> list = scoreObjectiveCriterias.get(criteria);
-
-				if (list == null) {
-					list = Lists.newArrayList();
-					scoreObjectiveCriterias.put(criteria, list);
-				}
+				List<ScoreObjective> list = scoreObjectiveCriterias.computeIfAbsent(criteria, k -> Lists.newArrayList());
 
 				list.add(scoreobjective);
 				scoreObjectives.put(name, scoreobjective);
@@ -159,19 +149,9 @@ public class Scoreboard {
 		if (username.length() > 40) {
 			throw new IllegalArgumentException("The player name '" + username + "' is too long!");
 		} else {
-			Map<ScoreObjective, Score> map = entitiesScoreObjectives.get(username);
+			Map<ScoreObjective, Score> map = entitiesScoreObjectives.computeIfAbsent(username, k -> Maps.newHashMap());
 
-			if (map == null) {
-				map = Maps.newHashMap();
-				entitiesScoreObjectives.put(username, map);
-			}
-
-			Score score = map.get(objective);
-
-			if (score == null) {
-				score = new Score(this, objective, username);
-				map.put(objective, score);
-			}
+			Score score = map.computeIfAbsent(objective, o -> new Score(this, o, username));
 
 			return score;
 		}
@@ -189,7 +169,7 @@ public class Scoreboard {
 			}
 		}
 
-		Collections.sort(list, Score.SCORE_COMPARATOR);
+		list.sort(Score.SCORE_COMPARATOR);
 		return list;
 	}
 
@@ -220,7 +200,7 @@ public class Scoreboard {
 			if (map2 != null) {
 				Score score = map2.remove(objective);
 
-				if (map2.size() < 1) {
+				if (map2.isEmpty()) {
 					Map<ScoreObjective, Score> map1 = entitiesScoreObjectives.remove(name);
 
 					if (map1 != null) {

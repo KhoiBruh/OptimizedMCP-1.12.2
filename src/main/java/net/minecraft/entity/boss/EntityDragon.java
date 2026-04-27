@@ -106,7 +106,7 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 	 * The current endercrystal that is healing this dragon
 	 */
 	public EntityEnderCrystal healingEnderCrystal;
-	private int growlTime = 200;
+	private int growlTime;
 	private int sittingDamageReceived;
 
 	public EntityDragon(World worldIn) {
@@ -143,7 +143,7 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 	protected void entityInit() {
 
 		super.entityInit();
-		getDataManager().register(PHASE, Integer.valueOf(PhaseList.HOVER.getId()));
+		getDataManager().register(PHASE, PhaseList.HOVER.getId());
 	}
 
 	/**
@@ -461,9 +461,7 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 	 */
 	private void attackEntitiesInList(List<Entity> p_70971_1_) {
 
-		for (int i = 0; i < p_70971_1_.size(); ++i) {
-			Entity entity = p_70971_1_.get(i);
-
+		for (Entity entity : p_70971_1_) {
 			if (entity instanceof EntityLivingBase) {
 				entity.attackEntityFrom(DamageSource.causeMobDamage(this), 10.0F);
 				applyEnchantments(this, entity);
@@ -830,7 +828,7 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 		if (pathpoint1 == pathpoint4) {
 			return null;
 		} else {
-			LOGGER.debug("Failed to find path from {} to {}", Integer.valueOf(startIdx), Integer.valueOf(finishIdx));
+			LOGGER.debug("Failed to find path from {} to {}", startIdx, finishIdx);
 
 			if (andThen != null) {
 				andThen.previous = pathpoint1;
@@ -1016,7 +1014,7 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 	public void notifyDataManagerChange(DataParameter<?> key) {
 
 		if (PHASE.equals(key) && world.isRemote) {
-			phaseManager.setPhase(PhaseList.getById(getDataManager().get(PHASE).intValue()));
+			phaseManager.setPhase(PhaseList.getById(getDataManager().get(PHASE)));
 		}
 
 		super.notifyDataManagerChange(key);

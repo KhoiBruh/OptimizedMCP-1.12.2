@@ -33,9 +33,9 @@ public class DebugRendererPathfinding implements DebugRenderer.IDebugRenderer {
 
 	public void addPath(int eid, Path pathIn, float distance) {
 
-		pathMap.put(Integer.valueOf(eid), pathIn);
-		creationMap.put(Integer.valueOf(eid), Long.valueOf(System.currentTimeMillis()));
-		pathMaxDistance.put(Integer.valueOf(eid), Float.valueOf(distance));
+		pathMap.put(eid, pathIn);
+		creationMap.put(eid, System.currentTimeMillis());
+		pathMaxDistance.put(eid, distance);
 	}
 
 	public void render(float partialTicks, long finishTimeNano) {
@@ -55,7 +55,7 @@ public class DebugRendererPathfinding implements DebugRenderer.IDebugRenderer {
 
 			for (Integer integer : pathMap.keySet()) {
 				Path path = pathMap.get(integer);
-				float f = pathMaxDistance.get(integer).floatValue();
+				float f = pathMaxDistance.get(integer);
 				renderPathLine(partialTicks, path);
 				PathPoint pathpoint = path.getTarget();
 
@@ -102,7 +102,7 @@ public class DebugRendererPathfinding implements DebugRenderer.IDebugRenderer {
 			}
 
 			for (Integer integer2 : creationMap.keySet().toArray(new Integer[0])) {
-				if (i - creationMap.get(integer2).longValue() > 20000L) {
+				if (i - creationMap.get(integer2) > 20000L) {
 					pathMap.remove(integer2);
 					creationMap.remove(integer2);
 				}

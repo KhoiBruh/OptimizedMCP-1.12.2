@@ -55,7 +55,7 @@ public class EntityDataManager {
 		int j;
 
 		if (NEXT_ID_MAP.containsKey(clazz)) {
-			j = NEXT_ID_MAP.get(clazz).intValue() + 1;
+			j = NEXT_ID_MAP.get(clazz) + 1;
 		} else {
 			int i = 0;
 			Class<?> oclass1 = clazz;
@@ -64,7 +64,7 @@ public class EntityDataManager {
 				oclass1 = oclass1.getSuperclass();
 
 				if (NEXT_ID_MAP.containsKey(oclass1)) {
-					i = NEXT_ID_MAP.get(oclass1).intValue() + 1;
+					i = NEXT_ID_MAP.get(oclass1) + 1;
 					break;
 				}
 			}
@@ -75,7 +75,7 @@ public class EntityDataManager {
 		if (j > 254) {
 			throw new IllegalArgumentException("Data value id is too big with " + j + "! (Max is " + 254 + ")");
 		} else {
-			NEXT_ID_MAP.put(clazz, Integer.valueOf(j));
+			NEXT_ID_MAP.put(clazz, j);
 			return serializer.createKey(j);
 		}
 	}
@@ -94,7 +94,7 @@ public class EntityDataManager {
 		buf.writeByte(255);
 	}
 
-	private static <T> void writeEntry(PacketBuffer buf, EntityDataManager.DataEntry<T> entry) throws IOException {
+	private static <T> void writeEntry(PacketBuffer buf, EntityDataManager.DataEntry<T> entry) {
 
 		DataParameter<T> dataparameter = entry.getKey();
 		int i = DataSerializers.getSerializerId(dataparameter.serializer());
@@ -138,7 +138,7 @@ public class EntityDataManager {
 
 		if (i > 254) {
 			throw new IllegalArgumentException("Data value id is too big with " + i + "! (Max is " + 254 + ")");
-		} else if (entries.containsKey(Integer.valueOf(i))) {
+		} else if (entries.containsKey(i)) {
 			throw new IllegalArgumentException("Duplicate id value for " + i + "!");
 		} else if (DataSerializers.getSerializerId(key.serializer()) < 0) {
 			throw new IllegalArgumentException("Unregistered serializer " + key.serializer() + " for " + i + "!");
@@ -149,9 +149,9 @@ public class EntityDataManager {
 
 	private <T> void setEntry(DataParameter<T> key, T value) {
 
-		EntityDataManager.DataEntry<T> dataentry = new EntityDataManager.DataEntry<T>(key, value);
+		EntityDataManager.DataEntry<T> dataentry = new EntityDataManager.DataEntry<>(key, value);
 		lock.writeLock().lock();
-		entries.put(Integer.valueOf(key.id()), dataentry);
+		entries.put(key.id(), dataentry);
 		empty = false;
 		lock.writeLock().unlock();
 	}
@@ -162,7 +162,7 @@ public class EntityDataManager {
 		EntityDataManager.DataEntry<T> dataentry;
 
 		try {
-			dataentry = (EntityDataManager.DataEntry) entries.get(Integer.valueOf(key.id()));
+			dataentry = (EntityDataManager.DataEntry) entries.get(key.id());
 		} catch (Throwable throwable) {
 			CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Getting synched entity data");
 			CrashReportCategory crashreportcategory = crashreport.makeCategory("Synched entity data");
@@ -264,7 +264,7 @@ public class EntityDataManager {
 		lock.writeLock().lock();
 
 		for (EntityDataManager.DataEntry<?> dataentry : entriesIn) {
-			EntityDataManager.DataEntry<?> dataentry1 = entries.get(Integer.valueOf(dataentry.getKey().id()));
+			EntityDataManager.DataEntry<?> dataentry1 = entries.get(dataentry.getKey().id());
 
 			if (dataentry1 != null) {
 				setEntryValue(dataentry1, dataentry);
@@ -338,7 +338,7 @@ public class EntityDataManager {
 
 		public EntityDataManager.DataEntry<T> copy() {
 
-			return new EntityDataManager.DataEntry<T>(key, key.serializer().copyValue(value));
+			return new EntityDataManager.DataEntry<>(key, key.serializer().copyValue(value));
 		}
 
 	}

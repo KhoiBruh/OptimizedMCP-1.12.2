@@ -51,9 +51,9 @@ public class ItemFirework extends Item {
 				}
 			}
 
-			return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, playerIn.getHeldItem(handIn));
+			return new ActionResult<>(EnumActionResult.SUCCESS, playerIn.getHeldItem(handIn));
 		} else {
-			return new ActionResult<ItemStack>(EnumActionResult.PASS, playerIn.getHeldItem(handIn));
+			return new ActionResult<>(EnumActionResult.PASS, playerIn.getHeldItem(handIn));
 		}
 	}
 

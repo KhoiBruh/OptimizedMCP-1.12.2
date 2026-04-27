@@ -300,15 +300,13 @@ public class WorldInfo {
 
 	public static void registerFixes(DataFixer fixer) {
 
-		fixer.registerWalker(FixTypes.LEVEL, new IDataWalker() {
-			public NBTTagCompound process(IDataFixer fixer, NBTTagCompound compound, int versionIn) {
+		fixer.registerWalker(FixTypes.LEVEL, (fixer1, compound, versionIn) -> {
 
-				if (compound.hasKey("Player", 10)) {
-					compound.setTag("Player", fixer.process(FixTypes.PLAYER, compound.getCompoundTag("Player"), versionIn));
-				}
-
-				return compound;
+			if (compound.hasKey("Player", 10)) {
+				compound.setTag("Player", fixer1.process(FixTypes.PLAYER, compound.getCompoundTag("Player"), versionIn));
 			}
+
+			return compound;
 		});
 	}
 
@@ -870,74 +868,32 @@ public class WorldInfo {
 	 */
 	public void addToCrashReport(CrashReportCategory category) {
 
-		category.addDetail("Level seed", new ICrashReportDetail<String>() {
-			public String call() throws Exception {
+		category.addDetail("Level seed", () -> String.valueOf(getSeed()));
+		category.addDetail("Level generator", () -> String.format("ID %02d - %s, ver %d. Features enabled: %b", terrainType.getId(), terrainType.getName(), terrainType.getVersion(), mapFeaturesEnabled));
+		category.addDetail("Level generator options", () -> generatorOptions);
+		category.addDetail("Level spawn location", () -> CrashReportCategory.getCoordinateInfo(spawnX, spawnY, spawnZ));
+		category.addDetail("Level time", () -> String.format("%d game time, %d day time", totalTime, worldTime));
+		category.addDetail("Level dimension", () -> String.valueOf(dimension));
+		category.addDetail("Level storage version", () -> {
 
-				return String.valueOf(getSeed());
-			}
-		});
-		category.addDetail("Level generator", new ICrashReportDetail<String>() {
-			public String call() throws Exception {
+			String s = "Unknown?";
 
-				return String.format("ID %02d - %s, ver %d. Features enabled: %b", terrainType.getId(), terrainType.getName(), terrainType.getVersion(), mapFeaturesEnabled);
-			}
-		});
-		category.addDetail("Level generator options", new ICrashReportDetail<String>() {
-			public String call() throws Exception {
+			try {
+				switch (saveVersion) {
+					case 19132:
+						s = "McRegion";
+						break;
 
-				return generatorOptions;
-			}
-		});
-		category.addDetail("Level spawn location", new ICrashReportDetail<String>() {
-			public String call() throws Exception {
-
-				return CrashReportCategory.getCoordinateInfo(spawnX, spawnY, spawnZ);
-			}
-		});
-		category.addDetail("Level time", new ICrashReportDetail<String>() {
-			public String call() throws Exception {
-
-				return String.format("%d game time, %d day time", totalTime, worldTime);
-			}
-		});
-		category.addDetail("Level dimension", new ICrashReportDetail<String>() {
-			public String call() throws Exception {
-
-				return String.valueOf(dimension);
-			}
-		});
-		category.addDetail("Level storage version", new ICrashReportDetail<String>() {
-			public String call() throws Exception {
-
-				String s = "Unknown?";
-
-				try {
-					switch (saveVersion) {
-						case 19132:
-							s = "McRegion";
-							break;
-
-						case 19133:
-							s = "Anvil";
-					}
-				} catch (Throwable var3) {
+					case 19133:
+						s = "Anvil";
 				}
-
-				return String.format("0x%05X - %s", saveVersion, s);
+			} catch (Throwable var3) {
 			}
-		});
-		category.addDetail("Level weather", new ICrashReportDetail<String>() {
-			public String call() throws Exception {
 
-				return String.format("Rain time: %d (now: %b), thunder time: %d (now: %b)", rainTime, raining, thunderTime, thundering);
-			}
+			return String.format("0x%05X - %s", saveVersion, s);
 		});
-		category.addDetail("Level game mode", new ICrashReportDetail<String>() {
-			public String call() throws Exception {
-
-				return String.format("Game mode: %s (ID %d). Hardcore: %b. Cheats: %b", gameType.getName(), gameType.getID(), hardcore, allowCommands);
-			}
-		});
+		category.addDetail("Level weather", () -> String.format("Rain time: %d (now: %b), thunder time: %d (now: %b)", rainTime, raining, thunderTime, thundering));
+		category.addDetail("Level game mode", () -> String.format("Game mode: %s (ID %d). Hardcore: %b. Cheats: %b", gameType.getName(), gameType.getID(), hardcore, allowCommands));
 	}
 
 	public NBTTagCompound getDimensionData(DimensionType dimensionIn) {

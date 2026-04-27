@@ -38,11 +38,11 @@ public class ItemFireworkCharge extends Item {
 
 		if (aint.length > 0) {
 			boolean flag = true;
-			String s = "";
+			StringBuilder s = new StringBuilder();
 
 			for (int i : aint) {
 				if (!flag) {
-					s = s + ", ";
+					s.append(", ");
 				}
 
 				flag = false;
@@ -51,28 +51,28 @@ public class ItemFireworkCharge extends Item {
 				for (int j = 0; j < ItemDye.DYE_COLORS.length; ++j) {
 					if (i == ItemDye.DYE_COLORS[j]) {
 						flag1 = true;
-						s = s + I18n.translateToLocal("item.fireworksCharge." + EnumDyeColor.byDyeDamage(j).getUnlocalizedName());
+						s.append(I18n.translateToLocal("item.fireworksCharge." + EnumDyeColor.byDyeDamage(j).getUnlocalizedName()));
 						break;
 					}
 				}
 
 				if (!flag1) {
-					s = s + I18n.translateToLocal("item.fireworksCharge.customColor");
+					s.append(I18n.translateToLocal("item.fireworksCharge.customColor"));
 				}
 			}
 
-			tooltip.add(s);
+			tooltip.add(s.toString());
 		}
 
 		int[] aint1 = nbt.getIntArray("FadeColors");
 
 		if (aint1.length > 0) {
 			boolean flag2 = true;
-			String s1 = I18n.translateToLocal("item.fireworksCharge.fadeTo") + " ";
+			StringBuilder s1 = new StringBuilder(I18n.translateToLocal("item.fireworksCharge.fadeTo") + " ");
 
 			for (int l : aint1) {
 				if (!flag2) {
-					s1 = s1 + ", ";
+					s1.append(", ");
 				}
 
 				flag2 = false;
@@ -81,17 +81,17 @@ public class ItemFireworkCharge extends Item {
 				for (int k = 0; k < 16; ++k) {
 					if (l == ItemDye.DYE_COLORS[k]) {
 						flag5 = true;
-						s1 = s1 + I18n.translateToLocal("item.fireworksCharge." + EnumDyeColor.byDyeDamage(k).getUnlocalizedName());
+						s1.append(I18n.translateToLocal("item.fireworksCharge." + EnumDyeColor.byDyeDamage(k).getUnlocalizedName()));
 						break;
 					}
 				}
 
 				if (!flag5) {
-					s1 = s1 + I18n.translateToLocal("item.fireworksCharge.customColor");
+					s1.append(I18n.translateToLocal("item.fireworksCharge.customColor"));
 				}
 			}
 
-			tooltip.add(s1);
+			tooltip.add(s1.toString());
 		}
 
 		boolean flag3 = nbt.getBoolean("Trail");

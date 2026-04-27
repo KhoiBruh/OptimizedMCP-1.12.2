@@ -155,10 +155,6 @@ public class TileEntitySign extends TileEntity {
 				return playerIn.getDisplayName();
 			}
 
-			public void sendMessage(ITextComponent component) {
-
-			}
-
 			public boolean canUseCommand(int permLevel, String commandName) {
 
 				return permLevel <= 2;
@@ -182,11 +178,6 @@ public class TileEntitySign extends TileEntity {
 			public Entity getCommandSenderEntity() {
 
 				return playerIn;
-			}
-
-			public boolean sendCommandFeedback() {
-
-				return false;
 			}
 
 			public void setCommandStat(CommandResultStats.Type type, int amount) {

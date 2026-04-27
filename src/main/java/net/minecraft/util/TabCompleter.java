@@ -60,7 +60,7 @@ public abstract class TabCompleter {
 
 	private void requestCompletions(String prefix) {
 
-		if (prefix.length() >= 1) {
+		if (!prefix.isEmpty()) {
 			Minecraft.getMinecraft().player.connection.sendPacket(new CPacketTabComplete(prefix, getTargetBlockPos(), hasTargetBlock));
 			requestedCompletions = true;
 		}

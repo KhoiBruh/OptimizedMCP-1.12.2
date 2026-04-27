@@ -40,7 +40,7 @@ public class GuiScreenServerList extends GuiScreen {
 		ipEdit.setMaxStringLength(128);
 		ipEdit.setFocused(true);
 		ipEdit.setText(mc.gameSettings.lastServer);
-		(buttonList.get(0)).enabled = !ipEdit.getText().isEmpty() && ipEdit.getText().split(":").length > 0;
+		(buttonList.getFirst()).enabled = !ipEdit.getText().isEmpty() && ipEdit.getText().split(":").length > 0;
 	}
 
 	/**
@@ -56,7 +56,7 @@ public class GuiScreenServerList extends GuiScreen {
 	/**
 	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
 	 */
-	protected void actionPerformed(GuiButton button) throws IOException {
+	protected void actionPerformed(GuiButton button) {
 
 		if (button.enabled) {
 			if (button.id == 1) {
@@ -75,9 +75,9 @@ public class GuiScreenServerList extends GuiScreen {
 	protected void keyTyped(char typedChar, int keyCode) throws IOException {
 
 		if (ipEdit.textboxKeyTyped(typedChar, keyCode)) {
-			(buttonList.get(0)).enabled = !ipEdit.getText().isEmpty() && ipEdit.getText().split(":").length > 0;
+			(buttonList.getFirst()).enabled = !ipEdit.getText().isEmpty() && ipEdit.getText().split(":").length > 0;
 		} else if (keyCode == 28 || keyCode == 156) {
-			actionPerformed(buttonList.get(0));
+			actionPerformed(buttonList.getFirst());
 		}
 	}
 

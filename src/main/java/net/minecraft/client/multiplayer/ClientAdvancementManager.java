@@ -61,7 +61,7 @@ public class ClientAdvancementManager {
 					mc.getToastGui().add(new AdvancementToast(advancement));
 				}
 			} else {
-				LOGGER.warn("Server informed client about progress for unknown advancement " + entry.getKey());
+				LOGGER.warn("Server informed client about progress for unknown advancement {}", entry.getKey());
 			}
 		}
 	}

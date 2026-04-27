@@ -28,7 +28,7 @@ public class CPacketPlaceRecipe implements Packet<INetHandlerPlayServer> {
 	/**
 	 * Reads the raw packet data from the data stream.
 	 */
-	public void readPacketData(PacketBuffer buf) throws IOException {
+	public void readPacketData(PacketBuffer buf) {
 
 		field_194320_a = buf.readByte();
 		field_194321_b = CraftingManager.getRecipeById(buf.readVarInt());
@@ -38,7 +38,7 @@ public class CPacketPlaceRecipe implements Packet<INetHandlerPlayServer> {
 	/**
 	 * Writes the raw packet data to the data stream.
 	 */
-	public void writePacketData(PacketBuffer buf) throws IOException {
+	public void writePacketData(PacketBuffer buf) {
 
 		buf.writeByte(field_194320_a);
 		buf.writeVarInt(CraftingManager.getIDForRecipe(field_194321_b));

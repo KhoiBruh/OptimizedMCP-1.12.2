@@ -258,11 +258,11 @@ public abstract class EntityLivingBase extends Entity {
 
 	protected void entityInit() {
 
-		dataManager.register(HAND_STATES, Byte.valueOf((byte) 0));
-		dataManager.register(POTION_EFFECTS, Integer.valueOf(0));
-		dataManager.register(HIDE_PARTICLES, Boolean.valueOf(false));
-		dataManager.register(ARROW_COUNT_IN_ENTITY, Integer.valueOf(0));
-		dataManager.register(HEALTH, Float.valueOf(1.0F));
+		dataManager.register(HAND_STATES, (byte) 0);
+		dataManager.register(POTION_EFFECTS, 0);
+		dataManager.register(HIDE_PARTICLES, Boolean.FALSE);
+		dataManager.register(ARROW_COUNT_IN_ENTITY, 0);
+		dataManager.register(HEALTH, 1.0F);
 	}
 
 	protected void applyEntityAttributes() {
@@ -637,7 +637,7 @@ public abstract class EntityLivingBase extends Entity {
 			boolean flag = world.getScoreboard().addPlayerToTeam(getCachedUniqueIdString(), s);
 
 			if (!flag) {
-				LOGGER.warn("Unable to add mob to team \"" + s + "\" (that team probably doesn't exist)");
+				LOGGER.warn("Unable to add mob to team \"{}\" (that team probably doesn't exist)", s);
 			}
 		}
 
@@ -675,8 +675,8 @@ public abstract class EntityLivingBase extends Entity {
 			potionsNeedUpdate = false;
 		}
 
-		int i = dataManager.get(POTION_EFFECTS).intValue();
-		boolean flag1 = dataManager.get(HIDE_PARTICLES).booleanValue();
+		int i = dataManager.get(POTION_EFFECTS);
+		boolean flag1 = dataManager.get(HIDE_PARTICLES);
 
 		if (i > 0) {
 			boolean flag;
@@ -711,8 +711,8 @@ public abstract class EntityLivingBase extends Entity {
 			setInvisible(false);
 		} else {
 			Collection<PotionEffect> collection = activePotionsMap.values();
-			dataManager.set(HIDE_PARTICLES, Boolean.valueOf(areAllPotionsAmbient(collection)));
-			dataManager.set(POTION_EFFECTS, Integer.valueOf(PotionUtils.getPotionColorFromEffectList(collection)));
+			dataManager.set(HIDE_PARTICLES, areAllPotionsAmbient(collection));
+			dataManager.set(POTION_EFFECTS, PotionUtils.getPotionColorFromEffectList(collection));
 			setInvisible(isPotionActive(MobEffects.INVISIBILITY));
 		}
 	}
@@ -722,8 +722,8 @@ public abstract class EntityLivingBase extends Entity {
 	 */
 	protected void resetPotionEffectMetadata() {
 
-		dataManager.set(HIDE_PARTICLES, Boolean.valueOf(false));
-		dataManager.set(POTION_EFFECTS, Integer.valueOf(0));
+		dataManager.set(HIDE_PARTICLES, Boolean.FALSE);
+		dataManager.set(POTION_EFFECTS, 0);
 	}
 
 	public void clearActivePotions() {
@@ -866,12 +866,12 @@ public abstract class EntityLivingBase extends Entity {
 
 	public final float getHealth() {
 
-		return dataManager.get(HEALTH).floatValue();
+		return dataManager.get(HEALTH);
 	}
 
 	public void setHealth(float health) {
 
-		dataManager.set(HEALTH, Float.valueOf(MathHelper.clamp(health, 0.0F, getMaxHealth())));
+		dataManager.set(HEALTH, MathHelper.clamp(health, 0.0F, getMaxHealth()));
 	}
 
 	/**
@@ -1257,7 +1257,7 @@ public abstract class EntityLivingBase extends Entity {
 
 	private boolean canGoThroughtTrapDoorOnLadder(BlockPos pos, IBlockState state) {
 
-		if (state.getValue(BlockTrapDoor.OPEN).booleanValue()) {
+		if (state.getValue(BlockTrapDoor.OPEN)) {
 			IBlockState iblockstate = world.getBlockState(pos.down());
 
 			return iblockstate.getBlock() == Blocks.LADDER && iblockstate.getValue(BlockLadder.FACING) == state.getValue(BlockTrapDoor.FACING);
@@ -1420,7 +1420,7 @@ public abstract class EntityLivingBase extends Entity {
 	 */
 	public final int getArrowCountInEntity() {
 
-		return dataManager.get(ARROW_COUNT_IN_ENTITY).intValue();
+		return dataManager.get(ARROW_COUNT_IN_ENTITY);
 	}
 
 	/**
@@ -1428,7 +1428,7 @@ public abstract class EntityLivingBase extends Entity {
 	 */
 	public final void setArrowCountInEntity(int count) {
 
-		dataManager.set(ARROW_COUNT_IN_ENTITY, Integer.valueOf(count));
+		dataManager.set(ARROW_COUNT_IN_ENTITY, count);
 	}
 
 	/**
@@ -1728,11 +1728,6 @@ public abstract class EntityLivingBase extends Entity {
 				}
 			}
 		}
-	}
-
-	public boolean getAlwaysRenderNameTagForRender() {
-
-		return getAlwaysRenderNameTag();
 	}
 
 	protected float getJumpUpwardsMotion() {
@@ -2302,8 +2297,8 @@ public abstract class EntityLivingBase extends Entity {
 			if (i > 0 && list.size() > i - 1 && rand.nextInt(4) == 0) {
 				int j = 0;
 
-				for (int k = 0; k < list.size(); ++k) {
-					if (!list.get(k).isRiding()) {
+				for (Entity entity : list) {
+					if (!entity.isRiding()) {
 						++j;
 					}
 				}
@@ -2313,8 +2308,7 @@ public abstract class EntityLivingBase extends Entity {
 				}
 			}
 
-			for (int l = 0; l < list.size(); ++l) {
-				Entity entity = list.get(l);
+			for (Entity entity : list) {
 				collideWithEntity(entity);
 			}
 		}
@@ -2510,12 +2504,12 @@ public abstract class EntityLivingBase extends Entity {
 
 	public boolean isHandActive() {
 
-		return (dataManager.get(HAND_STATES).byteValue() & 1) > 0;
+		return (dataManager.get(HAND_STATES) & 1) > 0;
 	}
 
 	public EnumHand getActiveHand() {
 
-		return (dataManager.get(HAND_STATES).byteValue() & 2) > 0 ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND;
+		return (dataManager.get(HAND_STATES) & 2) > 0 ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND;
 	}
 
 	public void setActiveHand(EnumHand hand) {
@@ -2533,7 +2527,7 @@ public abstract class EntityLivingBase extends Entity {
 					i |= 2;
 				}
 
-				dataManager.set(HAND_STATES, Byte.valueOf((byte) i));
+				dataManager.set(HAND_STATES, (byte) i);
 			}
 		}
 	}
@@ -2647,7 +2641,7 @@ public abstract class EntityLivingBase extends Entity {
 	public void resetActiveHand() {
 
 		if (!world.isRemote) {
-			dataManager.set(HAND_STATES, Byte.valueOf((byte) 0));
+			dataManager.set(HAND_STATES, (byte) 0);
 		}
 
 		activeItemStack = ItemStack.EMPTY;

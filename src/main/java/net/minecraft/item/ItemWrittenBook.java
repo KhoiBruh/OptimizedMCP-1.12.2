@@ -91,7 +91,7 @@ public class ItemWrittenBook extends Item {
 
 		playerIn.openBook(itemstack, handIn);
 		playerIn.addStat(StatList.getObjectUseStats(this));
-		return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemstack);
+		return new ActionResult<>(EnumActionResult.SUCCESS, itemstack);
 	}
 
 	private void resolveContents(ItemStack stack, EntityPlayer player) {

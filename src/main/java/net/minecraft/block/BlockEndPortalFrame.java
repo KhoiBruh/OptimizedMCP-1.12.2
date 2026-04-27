@@ -40,13 +40,13 @@ public class BlockEndPortalFrame extends Block {
 	public BlockEndPortalFrame() {
 
 		super(Material.ROCK, MapColor.GREEN);
-		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(EYE, Boolean.valueOf(false)));
+		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(EYE, Boolean.FALSE));
 	}
 
 	public static BlockPattern getOrCreatePortalShape() {
 
 		if (portalShape == null) {
-			portalShape = FactoryBlockPattern.start().aisle("?vvv?", ">???<", ">???<", ">???<", "?^^^?").where('?', BlockWorldState.hasState(BlockStateMatcher.ANY)).where('^', BlockWorldState.hasState(BlockStateMatcher.forBlock(Blocks.END_PORTAL_FRAME).where(EYE, Predicates.equalTo(Boolean.valueOf(true))).where(FACING, Predicates.equalTo(EnumFacing.SOUTH)))).where('>', BlockWorldState.hasState(BlockStateMatcher.forBlock(Blocks.END_PORTAL_FRAME).where(EYE, Predicates.equalTo(Boolean.valueOf(true))).where(FACING, Predicates.equalTo(EnumFacing.WEST)))).where('v', BlockWorldState.hasState(BlockStateMatcher.forBlock(Blocks.END_PORTAL_FRAME).where(EYE, Predicates.equalTo(Boolean.valueOf(true))).where(FACING, Predicates.equalTo(EnumFacing.NORTH)))).where('<', BlockWorldState.hasState(BlockStateMatcher.forBlock(Blocks.END_PORTAL_FRAME).where(EYE, Predicates.equalTo(Boolean.valueOf(true))).where(FACING, Predicates.equalTo(EnumFacing.EAST)))).build();
+			portalShape = FactoryBlockPattern.start().aisle("?vvv?", ">???<", ">???<", ">???<", "?^^^?").where('?', BlockWorldState.hasState(BlockStateMatcher.ANY)).where('^', BlockWorldState.hasState(BlockStateMatcher.forBlock(Blocks.END_PORTAL_FRAME).where(EYE, Predicates.equalTo(Boolean.TRUE)).where(FACING, Predicates.equalTo(EnumFacing.SOUTH)))).where('>', BlockWorldState.hasState(BlockStateMatcher.forBlock(Blocks.END_PORTAL_FRAME).where(EYE, Predicates.equalTo(Boolean.TRUE)).where(FACING, Predicates.equalTo(EnumFacing.WEST)))).where('v', BlockWorldState.hasState(BlockStateMatcher.forBlock(Blocks.END_PORTAL_FRAME).where(EYE, Predicates.equalTo(Boolean.TRUE)).where(FACING, Predicates.equalTo(EnumFacing.NORTH)))).where('<', BlockWorldState.hasState(BlockStateMatcher.forBlock(Blocks.END_PORTAL_FRAME).where(EYE, Predicates.equalTo(Boolean.TRUE)).where(FACING, Predicates.equalTo(EnumFacing.EAST)))).build();
 		}
 
 		return portalShape;
@@ -69,7 +69,7 @@ public class BlockEndPortalFrame extends Block {
 
 		addCollisionBoxToList(pos, entityBox, collidingBoxes, AABB_BLOCK);
 
-		if (worldIn.getBlockState(pos).getValue(EYE).booleanValue()) {
+		if (worldIn.getBlockState(pos).getValue(EYE)) {
 			addCollisionBoxToList(pos, entityBox, collidingBoxes, AABB_EYE);
 		}
 	}
@@ -88,7 +88,7 @@ public class BlockEndPortalFrame extends Block {
 	 */
 	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
 
-		return getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite()).withProperty(EYE, Boolean.valueOf(false));
+		return getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite()).withProperty(EYE, Boolean.FALSE);
 	}
 
 	public boolean hasComparatorInputOverride(IBlockState state) {
@@ -98,7 +98,7 @@ public class BlockEndPortalFrame extends Block {
 
 	public int getComparatorInputOverride(IBlockState blockState, World worldIn, BlockPos pos) {
 
-		return blockState.getValue(EYE).booleanValue() ? 15 : 0;
+		return blockState.getValue(EYE) ? 15 : 0;
 	}
 
 	/**
@@ -106,7 +106,7 @@ public class BlockEndPortalFrame extends Block {
 	 */
 	public IBlockState getStateFromMeta(int meta) {
 
-		return getDefaultState().withProperty(EYE, Boolean.valueOf((meta & 4) != 0)).withProperty(FACING, EnumFacing.getHorizontal(meta & 3));
+		return getDefaultState().withProperty(EYE, (meta & 4) != 0).withProperty(FACING, EnumFacing.getHorizontal(meta & 3));
 	}
 
 	/**
@@ -117,7 +117,7 @@ public class BlockEndPortalFrame extends Block {
 		int i = 0;
 		i = i | state.getValue(FACING).getHorizontalIndex();
 
-		if (state.getValue(EYE).booleanValue()) {
+		if (state.getValue(EYE)) {
 			i |= 4;
 		}
 

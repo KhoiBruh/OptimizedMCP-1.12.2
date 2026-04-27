@@ -162,12 +162,12 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 	 */
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 
-		for (int i = 0; i < buttonList.size(); ++i) {
-			buttonList.get(i).drawButton(mc, mouseX, mouseY, partialTicks);
+		for (GuiButton guiButton : buttonList) {
+			guiButton.drawButton(mc, mouseX, mouseY, partialTicks);
 		}
 
-		for (int j = 0; j < labelList.size(); ++j) {
-			labelList.get(j).drawLabel(mc, mouseX, mouseY);
+		for (GuiLabel guiLabel : labelList) {
+			guiLabel.drawLabel(mc, mouseX, mouseY);
 		}
 	}
 
@@ -313,10 +313,10 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 				ItemStack itemstack = ItemStack.EMPTY;
 
 				try {
-					NBTBase nbtbase = JsonToNBT.getTagFromJson(hoverevent.value().getUnformattedText());
+					NBTTagCompound nbtbase = JsonToNBT.getTagFromJson(hoverevent.value().getUnformattedText());
 
 					if (nbtbase instanceof NBTTagCompound) {
-						itemstack = new ItemStack((NBTTagCompound) nbtbase);
+						itemstack = new ItemStack(nbtbase);
 					}
 				} catch (NBTException var9) {
 				}
@@ -441,9 +441,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
 
 		if (mouseButton == 0) {
-			for (int i = 0; i < buttonList.size(); ++i) {
-				GuiButton guibutton = buttonList.get(i);
-
+			for (GuiButton guibutton : buttonList) {
 				if (guibutton.mousePressed(mc, mouseX, mouseY)) {
 					selectedButton = guibutton;
 					guibutton.playPressSound(mc.getSoundHandler());

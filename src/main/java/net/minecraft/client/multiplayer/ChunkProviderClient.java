@@ -23,7 +23,7 @@ public class ChunkProviderClient implements IChunkProvider {
 	 * coordinates.
 	 */
 	private final Chunk blankChunk;
-	private final Long2ObjectMap<Chunk> chunkMapping = new Long2ObjectOpenHashMap<Chunk>(8192) {
+	private final Long2ObjectMap<Chunk> chunkMapping = new Long2ObjectOpenHashMap<>(8192) {
 		protected void rehash(int p_rehash_1_) {
 
 			if (p_rehash_1_ > key.length) {
@@ -86,10 +86,8 @@ public class ChunkProviderClient implements IChunkProvider {
 	public boolean tick() {
 
 		long i = System.currentTimeMillis();
-		ObjectIterator objectiterator = chunkMapping.values().iterator();
 
-		while (objectiterator.hasNext()) {
-			Chunk chunk = (Chunk) objectiterator.next();
+		for (Chunk chunk : chunkMapping.values()) {
 			chunk.onTick(System.currentTimeMillis() - i > 5L);
 		}
 

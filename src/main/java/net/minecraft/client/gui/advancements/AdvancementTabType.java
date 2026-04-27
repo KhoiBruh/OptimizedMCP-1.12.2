@@ -89,42 +89,22 @@ enum AdvancementTabType {
 
 	public int getX(int p_192648_1_) {
 
-		switch (this) {
-			case ABOVE:
-				return (width + 4) * p_192648_1_;
-
-			case BELOW:
-				return (width + 4) * p_192648_1_;
-
-			case LEFT:
-				return -width + 4;
-
-			case RIGHT:
-				return 248;
-
-			default:
-				throw new UnsupportedOperationException("Don't know what this tab type is!" + this);
-		}
+		return switch (this) {
+			case ABOVE, BELOW -> (width + 4) * p_192648_1_;
+			case LEFT -> -width + 4;
+			case RIGHT -> 248;
+			default -> throw new UnsupportedOperationException("Don't know what this tab type is!" + this);
+		};
 	}
 
 	public int getY(int p_192653_1_) {
 
-		switch (this) {
-			case ABOVE:
-				return -height + 4;
-
-			case BELOW:
-				return 136;
-
-			case LEFT:
-				return height * p_192653_1_;
-
-			case RIGHT:
-				return height * p_192653_1_;
-
-			default:
-				throw new UnsupportedOperationException("Don't know what this tab type is!" + this);
-		}
+		return switch (this) {
+			case ABOVE -> -height + 4;
+			case BELOW -> 136;
+			case LEFT, RIGHT -> height * p_192653_1_;
+			default -> throw new UnsupportedOperationException("Don't know what this tab type is!" + this);
+		};
 	}
 
 	public boolean isMouseOver(int p_192654_1_, int p_192654_2_, int p_192654_3_, int p_192654_4_, int p_192654_5_) {

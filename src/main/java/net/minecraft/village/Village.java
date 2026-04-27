@@ -296,8 +296,7 @@ public class Village {
 		double d0 = Double.MAX_VALUE;
 		Village.VillageAggressor village$villageaggressor = null;
 
-		for (int i = 0; i < villageAgressors.size(); ++i) {
-			Village.VillageAggressor village$villageaggressor1 = villageAgressors.get(i);
+		for (VillageAggressor village$villageaggressor1 : villageAgressors) {
 			double d1 = village$villageaggressor1.agressor.getDistanceSq(entitylivingbaseIn);
 
 			if (d1 <= d0) {
@@ -334,15 +333,7 @@ public class Village {
 
 	private void removeDeadAndOldAgressors() {
 
-		Iterator<Village.VillageAggressor> iterator = villageAgressors.iterator();
-
-		while (iterator.hasNext()) {
-			Village.VillageAggressor village$villageaggressor = iterator.next();
-
-			if (!village$villageaggressor.agressor.isEntityAlive() || Math.abs(tickCounter - village$villageaggressor.agressionTime) > 300) {
-				iterator.remove();
-			}
-		}
+		villageAgressors.removeIf(village$villageaggressor -> !village$villageaggressor.agressor.isEntityAlive() || Math.abs(tickCounter - village$villageaggressor.agressionTime) > 300);
 	}
 
 	private void removeDeadAndOutOfRangeDoors() {
@@ -408,7 +399,7 @@ public class Village {
 	public int getPlayerReputation(String playerName) {
 
 		Integer integer = playerReputation.get(playerName);
-		return integer == null ? 0 : integer.intValue();
+		return integer == null ? 0 : integer;
 	}
 
 	/**
@@ -419,7 +410,7 @@ public class Village {
 
 		int i = getPlayerReputation(playerName);
 		int j = MathHelper.clamp(i + reputation, -30, 10);
-		playerReputation.put(playerName, Integer.valueOf(j));
+		playerReputation.put(playerName, j);
 		return j;
 	}
 
@@ -462,10 +453,10 @@ public class Village {
 				GameProfile gameprofile = playerprofilecache.getProfileByUUID(UUID.fromString(nbttagcompound1.getString("UUID")));
 
 				if (gameprofile != null) {
-					playerReputation.put(gameprofile.getName(), Integer.valueOf(nbttagcompound1.getInteger("S")));
+					playerReputation.put(gameprofile.getName(), nbttagcompound1.getInteger("S"));
 				}
 			} else {
-				playerReputation.put(nbttagcompound1.getString("Name"), Integer.valueOf(nbttagcompound1.getInteger("S")));
+				playerReputation.put(nbttagcompound1.getString("Name"), nbttagcompound1.getInteger("S"));
 			}
 		}
 	}
@@ -512,7 +503,7 @@ public class Village {
 
 				if (gameprofile != null) {
 					nbttagcompound1.setString("UUID", gameprofile.getId().toString());
-					nbttagcompound1.setInteger("S", playerReputation.get(s).intValue());
+					nbttagcompound1.setInteger("S", playerReputation.get(s));
 					nbttaglist1.appendTag(nbttagcompound1);
 				}
 			} catch (RuntimeException var9) {

@@ -32,7 +32,7 @@ public class BlockCommandBlock extends BlockContainer {
 	public BlockCommandBlock(MapColor color) {
 
 		super(Material.IRON, color);
-		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(CONDITIONAL, Boolean.valueOf(false)));
+		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(CONDITIONAL, Boolean.FALSE));
 	}
 
 	private static void executeChain(World p_193386_0_, BlockPos p_193386_1_, EnumFacing p_193386_2_) {
@@ -78,7 +78,7 @@ public class BlockCommandBlock extends BlockContainer {
 
 		if (i <= 0) {
 			int j = Math.max(gamerules.getInt("maxCommandChainLength"), 0);
-			LOGGER.warn("Commandblock chain tried to execure more than " + j + " steps!");
+			LOGGER.warn("Commandblock chain tried to execure more than {} steps!", j);
 		}
 	}
 
@@ -250,7 +250,7 @@ public class BlockCommandBlock extends BlockContainer {
 	 */
 	public IBlockState getStateFromMeta(int meta) {
 
-		return getDefaultState().withProperty(FACING, EnumFacing.getFront(meta & 7)).withProperty(CONDITIONAL, Boolean.valueOf((meta & 8) != 0));
+		return getDefaultState().withProperty(FACING, EnumFacing.getFront(meta & 7)).withProperty(CONDITIONAL, (meta & 8) != 0);
 	}
 
 	/**
@@ -258,7 +258,7 @@ public class BlockCommandBlock extends BlockContainer {
 	 */
 	public int getMetaFromState(IBlockState state) {
 
-		return state.getValue(FACING).getIndex() | (state.getValue(CONDITIONAL).booleanValue() ? 8 : 0);
+		return state.getValue(FACING).getIndex() | (state.getValue(CONDITIONAL) ? 8 : 0);
 	}
 
 	/**
@@ -290,7 +290,7 @@ public class BlockCommandBlock extends BlockContainer {
 	 */
 	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
 
-		return getDefaultState().withProperty(FACING, EnumFacing.getDirectionFromEntityLiving(pos, placer)).withProperty(CONDITIONAL, Boolean.valueOf(false));
+		return getDefaultState().withProperty(FACING, EnumFacing.getDirectionFromEntityLiving(pos, placer)).withProperty(CONDITIONAL, Boolean.FALSE);
 	}
 
 }

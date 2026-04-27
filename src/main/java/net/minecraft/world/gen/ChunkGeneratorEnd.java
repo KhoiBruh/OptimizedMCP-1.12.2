@@ -147,7 +147,6 @@ public class ChunkGeneratorEnd implements IChunkGenerator {
 			for (int j = 0; j < 16; ++j) {
 				int k = 1;
 				int l = -1;
-				IBlockState iblockstate = END_STONE;
 				IBlockState iblockstate1 = END_STONE;
 
 				for (int i1 = 127; i1 >= 0; --i1) {
@@ -160,7 +159,7 @@ public class ChunkGeneratorEnd implements IChunkGenerator {
 							l = 1;
 
 							if (i1 >= 0) {
-								primer.setBlockState(i, i1, j, iblockstate);
+								primer.setBlockState(i, i1, j, END_STONE);
 							} else {
 								primer.setBlockState(i, i1, j, iblockstate1);
 							}

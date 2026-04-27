@@ -25,7 +25,7 @@ public class GuiDisconnected extends GuiScreen {
 	 * Fired when a key is typed (except F11 which toggles full screen). This is the equivalent of
 	 * KeyListener.keyTyped(KeyEvent e). Args : character (character on the key), keyCode (lwjgl Keyboard key code)
 	 */
-	protected void keyTyped(char typedChar, int keyCode) throws IOException {
+	protected void keyTyped(char typedChar, int keyCode) {
 
 	}
 
@@ -44,7 +44,7 @@ public class GuiDisconnected extends GuiScreen {
 	/**
 	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
 	 */
-	protected void actionPerformed(GuiButton button) throws IOException {
+	protected void actionPerformed(GuiButton button) {
 
 		if (button.id == 0) {
 			mc.displayGuiScreen(parentScreen);

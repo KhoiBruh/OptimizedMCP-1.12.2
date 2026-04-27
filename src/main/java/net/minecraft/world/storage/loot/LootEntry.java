@@ -51,22 +51,19 @@ public abstract class LootEntry {
 				alootcondition = new LootCondition[0];
 			}
 
-			if ("item".equals(s)) {
-				return LootEntryItem.deserialize(jsonobject, p_deserialize_3_, i, j, alootcondition);
-			} else if ("loot_table".equals(s)) {
-				return LootEntryTable.deserialize(jsonobject, p_deserialize_3_, i, j, alootcondition);
-			} else if ("empty".equals(s)) {
-				return LootEntryEmpty.deserialize(jsonobject, p_deserialize_3_, i, j, alootcondition);
-			} else {
-				throw new JsonSyntaxException("Unknown loot entry type '" + s + "'");
-			}
+			return switch (s) {
+				case "item" -> LootEntryItem.deserialize(jsonobject, p_deserialize_3_, i, j, alootcondition);
+				case "loot_table" -> LootEntryTable.deserialize(jsonobject, p_deserialize_3_, i, j, alootcondition);
+				case "empty" -> LootEntryEmpty.deserialize(jsonobject, p_deserialize_3_, i, j, alootcondition);
+				case null, default -> throw new JsonSyntaxException("Unknown loot entry type '" + s + "'");
+			};
 		}
 
 		public JsonElement serialize(LootEntry p_serialize_1_, Type p_serialize_2_, JsonSerializationContext p_serialize_3_) {
 
 			JsonObject jsonobject = new JsonObject();
-			jsonobject.addProperty("weight", Integer.valueOf(p_serialize_1_.weight));
-			jsonobject.addProperty("quality", Integer.valueOf(p_serialize_1_.quality));
+			jsonobject.addProperty("weight", p_serialize_1_.weight);
+			jsonobject.addProperty("quality", p_serialize_1_.quality);
 
 			if (p_serialize_1_.conditions.length > 0) {
 				jsonobject.add("conditions", p_serialize_3_.serialize(p_serialize_1_.conditions));

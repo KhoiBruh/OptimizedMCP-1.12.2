@@ -101,15 +101,15 @@ public class Stitcher {
 		TextureAtlasSprite textureatlassprite = p_94310_1_.getAtlasSprite();
 		boolean flag = textureatlassprite.getIconWidth() != textureatlassprite.getIconHeight();
 
-		for (int i = 0; i < stitchSlots.size(); ++i) {
-			if (stitchSlots.get(i).addSlot(p_94310_1_)) {
+		for (Slot stitchSlot : stitchSlots) {
+			if (stitchSlot.addSlot(p_94310_1_)) {
 				return true;
 			}
 
 			if (flag) {
 				p_94310_1_.rotate();
 
-				if (stitchSlots.get(i).addSlot(p_94310_1_)) {
+				if (stitchSlot.addSlot(p_94310_1_)) {
 					return true;
 				}
 

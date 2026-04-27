@@ -26,7 +26,7 @@ public class CPacketChatMessage implements Packet<INetHandlerPlayServer> {
 	/**
 	 * Reads the raw packet data from the data stream.
 	 */
-	public void readPacketData(PacketBuffer buf) throws IOException {
+	public void readPacketData(PacketBuffer buf) {
 
 		message = buf.readString(256);
 	}
@@ -34,7 +34,7 @@ public class CPacketChatMessage implements Packet<INetHandlerPlayServer> {
 	/**
 	 * Writes the raw packet data to the data stream.
 	 */
-	public void writePacketData(PacketBuffer buf) throws IOException {
+	public void writePacketData(PacketBuffer buf) {
 
 		buf.writeString(message);
 	}

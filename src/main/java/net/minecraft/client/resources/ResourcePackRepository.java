@@ -33,13 +33,11 @@ import java.util.regex.Pattern;
 public class ResourcePackRepository {
 
 	private static final Logger LOGGER = LogManager.getLogger();
-	private static final FileFilter RESOURCE_PACK_FILTER = new FileFilter() {
-		public boolean accept(File p_accept_1_) {
+	private static final FileFilter RESOURCE_PACK_FILTER = p_accept_1_ -> {
 
-			boolean flag = p_accept_1_.isFile() && p_accept_1_.getName().endsWith(".zip");
-			boolean flag1 = p_accept_1_.isDirectory() && (new File(p_accept_1_, "pack.mcmeta")).isFile();
-			return flag || flag1;
-		}
+		boolean flag = p_accept_1_.isFile() && p_accept_1_.getName().endsWith(".zip");
+		boolean flag1 = p_accept_1_.isDirectory() && (new File(p_accept_1_, "pack.mcmeta")).isFile();
+		return flag || flag1;
 	};
 	private static final Pattern SHA1 = Pattern.compile("^[a-fA-F0-9]{40}$");
 	private static final ResourceLocation UNKNOWN_PACK_TEXTURE = new ResourceLocation("textures/misc/unknown_pack.png");
@@ -208,8 +206,7 @@ public class ResourcePackRepository {
 
 			if (file1.exists()) {
 				if (checkHash(s1, file1)) {
-					ListenableFuture listenablefuture1 = setServerResourcePack(file1);
-					return listenablefuture1;
+					return setServerResourcePack(file1);
 				}
 
 				LOGGER.warn("Deleting file {}", file1);
@@ -220,15 +217,10 @@ public class ResourcePackRepository {
 			final GuiScreenWorking guiscreenworking = new GuiScreenWorking();
 			Map<String, String> map = getDownloadHeaders();
 			final Minecraft minecraft = Minecraft.getMinecraft();
-			Futures.getUnchecked(minecraft.addScheduledTask(new Runnable() {
-				public void run() {
-
-					minecraft.displayGuiScreen(guiscreenworking);
-				}
-			}));
+			Futures.getUnchecked(minecraft.addScheduledTask(() -> minecraft.displayGuiScreen(guiscreenworking)));
 			final SettableFuture<Object> settablefuture = SettableFuture.create();
 			downloadingPacks = HttpUtil.downloadResourcePack(file1, url, map, 52428800, guiscreenworking, minecraft.getProxy());
-			Futures.addCallback(downloadingPacks, new FutureCallback<Object>() {
+			Futures.addCallback(downloadingPacks, new FutureCallback<>() {
 				public void onSuccess(@Nullable Object p_onSuccess_1_) {
 
 					if (checkHash(s1, file1)) {
@@ -246,8 +238,7 @@ public class ResourcePackRepository {
 					settablefuture.setException(p_onFailure_1_);
 				}
 			}, MoreExecutors.directExecutor());
-			ListenableFuture listenablefuture = downloadingPacks;
-			return listenablefuture;
+			return downloadingPacks;
 		} finally {
 			lock.unlock();
 		}
@@ -296,7 +287,7 @@ public class ResourcePackRepository {
 
 		try {
 			List<File> list = Lists.newArrayList(FileUtils.listFiles(dirServerResourcepacks, TrueFileFilter.TRUE, null));
-			Collections.sort(list, LastModifiedFileComparator.LASTMODIFIED_REVERSE);
+			list.sort(LastModifiedFileComparator.LASTMODIFIED_REVERSE);
 			int i = 0;
 
 			for (File file1 : list) {

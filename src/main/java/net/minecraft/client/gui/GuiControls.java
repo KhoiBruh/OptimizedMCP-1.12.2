@@ -69,7 +69,7 @@ public class GuiControls extends GuiScreen {
 	/**
 	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
 	 */
-	protected void actionPerformed(GuiButton button) throws IOException {
+	protected void actionPerformed(GuiButton button) {
 
 		if (button.id == 200) {
 			mc.displayGuiScreen(parentScreen);

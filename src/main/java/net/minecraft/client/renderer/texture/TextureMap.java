@@ -60,7 +60,7 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
 		missingImage.setFramesTextureData(Lists.<int[][]>newArrayList(aint1));
 	}
 
-	public void loadTexture(IResourceManager resourceManager) throws IOException {
+	public void loadTexture(IResourceManager resourceManager) {
 
 		if (iconCreator != null) {
 			loadSprites(resourceManager, iconCreator);
@@ -109,7 +109,7 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
 			int j1 = Math.min(Integer.lowestOneBit(textureatlassprite.getIconWidth()), Integer.lowestOneBit(textureatlassprite.getIconHeight()));
 
 			if (j1 < k) {
-				LOGGER.warn("Texture {} with size {}x{} limits mip level from {} to {}", resourcelocation, Integer.valueOf(textureatlassprite.getIconWidth()), Integer.valueOf(textureatlassprite.getIconHeight()), Integer.valueOf(MathHelper.log2(k)), Integer.valueOf(MathHelper.log2(j1)));
+				LOGGER.warn("Texture {} with size {}x{} limits mip level from {} to {}", resourcelocation, textureatlassprite.getIconWidth(), textureatlassprite.getIconHeight(), MathHelper.log2(k), MathHelper.log2(j1));
 				k = j1;
 			}
 
@@ -120,7 +120,7 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
 		int i1 = MathHelper.log2(l);
 
 		if (i1 < mipmapLevels) {
-			LOGGER.warn("{}: dropping miplevel from {} to {}, because of minimum power of two: {}", basePath, Integer.valueOf(mipmapLevels), Integer.valueOf(i1), Integer.valueOf(l));
+			LOGGER.warn("{}: dropping miplevel from {} to {}, because of minimum power of two: {}", basePath, mipmapLevels, i1, l);
 			mipmapLevels = i1;
 		}
 
@@ -133,7 +133,7 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
 			throw stitcherexception;
 		}
 
-		LOGGER.info("Created: {}x{} {}-atlas", Integer.valueOf(stitcher.getCurrentWidth()), Integer.valueOf(stitcher.getCurrentHeight()), basePath);
+		LOGGER.info("Created: {}x{} {}-atlas", stitcher.getCurrentWidth(), stitcher.getCurrentHeight(), basePath);
 		TextureUtil.allocateTextureImpl(getGlTextureId(), mipmapLevels, stitcher.getCurrentWidth(), stitcher.getCurrentHeight());
 		Map<String, TextureAtlasSprite> map = Maps.newHashMap(mapRegisteredSprites);
 
@@ -196,25 +196,10 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
 		} catch (Throwable throwable) {
 			CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Applying mipmap");
 			CrashReportCategory crashreportcategory = crashreport.makeCategory("Sprite being mipmapped");
-			crashreportcategory.addDetail("Sprite name", new ICrashReportDetail<String>() {
-				public String call() throws Exception {
-
-					return texture.getIconName();
-				}
-			});
-			crashreportcategory.addDetail("Sprite size", new ICrashReportDetail<String>() {
-				public String call() throws Exception {
-
-					return texture.getIconWidth() + " x " + texture.getIconHeight();
-				}
-			});
-			crashreportcategory.addDetail("Sprite frames", new ICrashReportDetail<String>() {
-				public String call() throws Exception {
-
-					return texture.getFrameCount() + " frames";
-				}
-			});
-			crashreportcategory.addCrashSection("Mipmap levels", Integer.valueOf(mipmapLevels));
+			crashreportcategory.addDetail("Sprite name", () -> texture.getIconName());
+			crashreportcategory.addDetail("Sprite size", () -> texture.getIconWidth() + " x " + texture.getIconHeight());
+			crashreportcategory.addDetail("Sprite frames", () -> texture.getFrameCount() + " frames");
+			crashreportcategory.addCrashSection("Mipmap levels", mipmapLevels);
 			throw new ReportedException(crashreport);
 		}
 	}

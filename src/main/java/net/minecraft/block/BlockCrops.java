@@ -22,7 +22,7 @@ public class BlockCrops extends BlockBush implements IGrowable {
 
 	protected BlockCrops() {
 
-		setDefaultState(blockState.getBaseState().withProperty(getAgeProperty(), Integer.valueOf(0)));
+		setDefaultState(blockState.getBaseState().withProperty(getAgeProperty(), 0));
 		setTickRandomly(true);
 		setCreativeTab(null);
 		setHardness(0.0F);
@@ -43,7 +43,7 @@ public class BlockCrops extends BlockBush implements IGrowable {
 				if (iblockstate.getBlock() == Blocks.FARMLAND) {
 					f1 = 1.0F;
 
-					if (iblockstate.getValue(BlockFarmland.MOISTURE).intValue() > 0) {
+					if (iblockstate.getValue(BlockFarmland.MOISTURE) > 0) {
 						f1 = 3.0F;
 					}
 				}
@@ -78,7 +78,7 @@ public class BlockCrops extends BlockBush implements IGrowable {
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
 
-		return CROPS_AABB[state.getValue(getAgeProperty()).intValue()];
+		return CROPS_AABB[state.getValue(getAgeProperty())];
 	}
 
 	/**
@@ -101,17 +101,17 @@ public class BlockCrops extends BlockBush implements IGrowable {
 
 	protected int getAge(IBlockState state) {
 
-		return state.getValue(getAgeProperty()).intValue();
+		return state.getValue(getAgeProperty());
 	}
 
 	public IBlockState withAge(int age) {
 
-		return getDefaultState().withProperty(getAgeProperty(), Integer.valueOf(age));
+		return getDefaultState().withProperty(getAgeProperty(), age);
 	}
 
 	public boolean isMaxAge(IBlockState state) {
 
-		return state.getValue(getAgeProperty()).intValue() >= getMaxAge();
+		return state.getValue(getAgeProperty()) >= getMaxAge();
 	}
 
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {

@@ -72,13 +72,13 @@ public class GuiCreateWorld extends GuiScreen {
 	 */
 	public static String getUncollidingSaveDirName(ISaveFormat saveLoader, String name) {
 
-		name = name.replaceAll("[\\./\"]", "_");
-
+		StringBuilder nameBuilder = new StringBuilder(name.replaceAll("[\\./\"]", "_"));
 		for (String s : DISALLOWED_FILENAMES) {
-			if (name.equalsIgnoreCase(s)) {
-				name = "_" + name + "_";
+			if (nameBuilder.toString().equalsIgnoreCase(s)) {
+				nameBuilder = new StringBuilder("_" + nameBuilder + "_");
 			}
 		}
+		name = nameBuilder.toString();
 
 		while (saveLoader.getWorldInfo(name) != null) {
 			name = name + "-";
@@ -191,7 +191,7 @@ public class GuiCreateWorld extends GuiScreen {
 	/**
 	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
 	 */
-	protected void actionPerformed(GuiButton button) throws IOException {
+	protected void actionPerformed(GuiButton button) {
 
 		if (button.enabled) {
 			if (button.id == 1) {
@@ -393,10 +393,10 @@ public class GuiCreateWorld extends GuiScreen {
 		}
 
 		if (keyCode == 28 || keyCode == 156) {
-			actionPerformed(buttonList.get(0));
+			actionPerformed(buttonList.getFirst());
 		}
 
-		(buttonList.get(0)).enabled = !worldNameField.getText().isEmpty();
+		(buttonList.getFirst()).enabled = !worldNameField.getText().isEmpty();
 		calcSaveDirName();
 	}
 

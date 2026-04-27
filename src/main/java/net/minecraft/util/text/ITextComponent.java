@@ -218,38 +218,41 @@ public interface ITextComponent extends Iterable<ITextComponent> {
 				jsonobject.add("extra", jsonarray);
 			}
 
-			if (p_serialize_1_ instanceof TextComponentString) {
-				jsonobject.addProperty("text", ((TextComponentString) p_serialize_1_).getText());
-			} else if (p_serialize_1_ instanceof TextComponentTranslation textcomponenttranslation) {
-				jsonobject.addProperty("translate", textcomponenttranslation.getKey());
+			switch (p_serialize_1_) {
+				case TextComponentString iTextComponents -> jsonobject.addProperty("text", iTextComponents.getText());
+				case TextComponentTranslation textcomponenttranslation -> {
+					jsonobject.addProperty("translate", textcomponenttranslation.getKey());
 
-				if (textcomponenttranslation.getFormatArgs() != null && textcomponenttranslation.getFormatArgs().length > 0) {
-					JsonArray jsonarray1 = new JsonArray();
+					if (textcomponenttranslation.getFormatArgs() != null && textcomponenttranslation.getFormatArgs().length > 0) {
+						JsonArray jsonarray1 = new JsonArray();
 
-					for (Object object : textcomponenttranslation.getFormatArgs()) {
-						if (object instanceof ITextComponent) {
-							jsonarray1.add(serialize((ITextComponent) object, object.getClass(), p_serialize_3_));
-						} else {
-							jsonarray1.add(new JsonPrimitive(String.valueOf(object)));
+						for (Object object : textcomponenttranslation.getFormatArgs()) {
+							if (object instanceof ITextComponent) {
+								jsonarray1.add(serialize((ITextComponent) object, object.getClass(), p_serialize_3_));
+							} else {
+								jsonarray1.add(new JsonPrimitive(String.valueOf(object)));
+							}
 						}
+
+						jsonobject.add("with", jsonarray1);
+					}
+				}
+				case TextComponentScore textcomponentscore -> {
+					JsonObject jsonobject1 = new JsonObject();
+					jsonobject1.addProperty("name", textcomponentscore.getName());
+					jsonobject1.addProperty("objective", textcomponentscore.getObjective());
+					jsonobject1.addProperty("value", textcomponentscore.getUnformattedComponentText());
+					jsonobject.add("score", jsonobject1);
+				}
+				case TextComponentSelector textcomponentselector ->
+						jsonobject.addProperty("selector", textcomponentselector.getSelector());
+				default -> {
+					if (!(p_serialize_1_ instanceof TextComponentKeybind textcomponentkeybind)) {
+						throw new IllegalArgumentException("Don't know how to serialize " + p_serialize_1_ + " as a Component");
 					}
 
-					jsonobject.add("with", jsonarray1);
+					jsonobject.addProperty("keybind", textcomponentkeybind.getKeybind());
 				}
-			} else if (p_serialize_1_ instanceof TextComponentScore textcomponentscore) {
-				JsonObject jsonobject1 = new JsonObject();
-				jsonobject1.addProperty("name", textcomponentscore.getName());
-				jsonobject1.addProperty("objective", textcomponentscore.getObjective());
-				jsonobject1.addProperty("value", textcomponentscore.getUnformattedComponentText());
-				jsonobject.add("score", jsonobject1);
-			} else if (p_serialize_1_ instanceof TextComponentSelector textcomponentselector) {
-				jsonobject.addProperty("selector", textcomponentselector.getSelector());
-			} else {
-				if (!(p_serialize_1_ instanceof TextComponentKeybind textcomponentkeybind)) {
-					throw new IllegalArgumentException("Don't know how to serialize " + p_serialize_1_ + " as a Component");
-				}
-
-				jsonobject.addProperty("keybind", textcomponentkeybind.getKeybind());
 			}
 
 			return jsonobject;

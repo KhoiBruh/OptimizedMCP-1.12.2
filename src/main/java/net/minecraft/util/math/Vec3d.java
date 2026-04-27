@@ -234,12 +234,9 @@ public record Vec3d(double x, double y, double z) {
 
 	public int hashCode() {
 
-		long j = Double.doubleToLongBits(x);
-		int i = (int) (j ^ j >>> 32);
-		j = Double.doubleToLongBits(y);
-		i = 31 * i + (int) (j ^ j >>> 32);
-		j = Double.doubleToLongBits(z);
-		i = 31 * i + (int) (j ^ j >>> 32);
+		int i = Double.hashCode(x);
+		i = 31 * i + Double.hashCode(y);
+		i = 31 * i + Double.hashCode(z);
 		return i;
 	}
 
@@ -252,10 +249,9 @@ public record Vec3d(double x, double y, double z) {
 
 		float f = MathHelper.cos(pitch);
 		float f1 = MathHelper.sin(pitch);
-		double d0 = x;
 		double d1 = y * (double) f + z * (double) f1;
 		double d2 = z * (double) f - y * (double) f1;
-		return new Vec3d(d0, d1, d2);
+		return new Vec3d(x, d1, d2);
 	}
 
 	public Vec3d rotateYaw(float yaw) {
@@ -263,9 +259,8 @@ public record Vec3d(double x, double y, double z) {
 		float f = MathHelper.cos(yaw);
 		float f1 = MathHelper.sin(yaw);
 		double d0 = x * (double) f + z * (double) f1;
-		double d1 = y;
 		double d2 = z * (double) f - x * (double) f1;
-		return new Vec3d(d0, d1, d2);
+		return new Vec3d(d0, y, d2);
 	}
 
 }

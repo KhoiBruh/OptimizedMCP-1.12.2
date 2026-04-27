@@ -80,7 +80,7 @@ public class EntityPig extends EntityAnimal {
 	 */
 	public Entity getControllingPassenger() {
 
-		return getPassengers().isEmpty() ? null : getPassengers().get(0);
+		return getPassengers().isEmpty() ? null : getPassengers().getFirst();
 	}
 
 	/**
@@ -103,7 +103,7 @@ public class EntityPig extends EntityAnimal {
 		if (BOOST_TIME.equals(key) && world.isRemote) {
 			boosting = true;
 			boostTime = 0;
-			totalBoostTime = dataManager.get(BOOST_TIME).intValue();
+			totalBoostTime = dataManager.get(BOOST_TIME);
 		}
 
 		super.notifyDataManagerChange(key);
@@ -112,8 +112,8 @@ public class EntityPig extends EntityAnimal {
 	protected void entityInit() {
 
 		super.entityInit();
-		dataManager.register(SADDLED, Boolean.valueOf(false));
-		dataManager.register(BOOST_TIME, Integer.valueOf(0));
+		dataManager.register(SADDLED, Boolean.FALSE);
+		dataManager.register(BOOST_TIME, 0);
 	}
 
 	/**
@@ -204,7 +204,7 @@ public class EntityPig extends EntityAnimal {
 	 */
 	public boolean getSaddled() {
 
-		return dataManager.get(SADDLED).booleanValue();
+		return dataManager.get(SADDLED);
 	}
 
 	/**
@@ -213,9 +213,9 @@ public class EntityPig extends EntityAnimal {
 	public void setSaddled(boolean saddled) {
 
 		if (saddled) {
-			dataManager.set(SADDLED, Boolean.valueOf(true));
+			dataManager.set(SADDLED, Boolean.TRUE);
 		} else {
-			dataManager.set(SADDLED, Boolean.valueOf(false));
+			dataManager.set(SADDLED, Boolean.FALSE);
 		}
 	}
 
@@ -242,7 +242,7 @@ public class EntityPig extends EntityAnimal {
 
 	public void travel(float strafe, float vertical, float forward) {
 
-		Entity entity = getPassengers().isEmpty() ? null : getPassengers().get(0);
+		Entity entity = getPassengers().isEmpty() ? null : getPassengers().getFirst();
 
 		if (isBeingRidden() && canBeSteered()) {
 			rotationYaw = entity.rotationYaw;
@@ -299,7 +299,7 @@ public class EntityPig extends EntityAnimal {
 			boosting = true;
 			boostTime = 0;
 			totalBoostTime = getRNG().nextInt(841) + 140;
-			getDataManager().set(BOOST_TIME, Integer.valueOf(totalBoostTime));
+			getDataManager().set(BOOST_TIME, totalBoostTime);
 			return true;
 		}
 	}

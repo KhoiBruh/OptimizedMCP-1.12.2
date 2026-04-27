@@ -29,7 +29,7 @@ public class BlockJukebox extends BlockContainer {
 	protected BlockJukebox() {
 
 		super(Material.WOOD, MapColor.DIRT);
-		setDefaultState(blockState.getBaseState().withProperty(HAS_RECORD, Boolean.valueOf(false)));
+		setDefaultState(blockState.getBaseState().withProperty(HAS_RECORD, Boolean.FALSE));
 		setCreativeTab(CreativeTabs.DECORATIONS);
 	}
 
@@ -43,9 +43,9 @@ public class BlockJukebox extends BlockContainer {
 	 */
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 
-		if (state.getValue(HAS_RECORD).booleanValue()) {
+		if (state.getValue(HAS_RECORD)) {
 			dropRecord(worldIn, pos, state);
-			state = state.withProperty(HAS_RECORD, Boolean.valueOf(false));
+			state = state.withProperty(HAS_RECORD, Boolean.FALSE);
 			worldIn.setBlockState(pos, state, 2);
 			return true;
 		} else {
@@ -59,7 +59,7 @@ public class BlockJukebox extends BlockContainer {
 
 		if (tileentity instanceof BlockJukebox.TileEntityJukebox) {
 			((BlockJukebox.TileEntityJukebox) tileentity).setRecord(recordStack.copy());
-			worldIn.setBlockState(pos, state.withProperty(HAS_RECORD, Boolean.valueOf(true)), 2);
+			worldIn.setBlockState(pos, state.withProperty(HAS_RECORD, Boolean.TRUE), 2);
 		}
 	}
 
@@ -149,7 +149,7 @@ public class BlockJukebox extends BlockContainer {
 	 */
 	public IBlockState getStateFromMeta(int meta) {
 
-		return getDefaultState().withProperty(HAS_RECORD, Boolean.valueOf(meta > 0));
+		return getDefaultState().withProperty(HAS_RECORD, meta > 0);
 	}
 
 	/**
@@ -157,7 +157,7 @@ public class BlockJukebox extends BlockContainer {
 	 */
 	public int getMetaFromState(IBlockState state) {
 
-		return state.getValue(HAS_RECORD).booleanValue() ? 1 : 0;
+		return state.getValue(HAS_RECORD) ? 1 : 0;
 	}
 
 	protected BlockStateContainer createBlockState() {

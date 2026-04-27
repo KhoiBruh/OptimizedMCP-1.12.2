@@ -118,7 +118,7 @@ public abstract class CommandHandler implements ICommandManager {
 			TextComponentTranslation textcomponenttranslation = new TextComponentTranslation("commands.generic.exception");
 			textcomponenttranslation.getStyle().setColor(TextFormatting.RED);
 			sender.sendMessage(textcomponenttranslation);
-			LOGGER.warn("Couldn't process command: " + input, throwable);
+			LOGGER.warn("Couldn't process command: {}", input, throwable);
 		}
 
 		return false;

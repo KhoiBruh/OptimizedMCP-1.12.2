@@ -56,31 +56,29 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO {
 
 	public static void registerFixes(DataFixer fixer) {
 
-		fixer.registerWalker(FixTypes.CHUNK, new IDataWalker() {
-			public NBTTagCompound process(IDataFixer fixer, NBTTagCompound compound, int versionIn) {
+		fixer.registerWalker(FixTypes.CHUNK, (fixer1, compound, versionIn) -> {
 
-				if (compound.hasKey("Level", 10)) {
-					NBTTagCompound nbttagcompound = compound.getCompoundTag("Level");
+			if (compound.hasKey("Level", 10)) {
+				NBTTagCompound nbttagcompound = compound.getCompoundTag("Level");
 
-					if (nbttagcompound.hasKey("Entities", 9)) {
-						NBTTagList nbttaglist = nbttagcompound.getTagList("Entities", 10);
+				if (nbttagcompound.hasKey("Entities", 9)) {
+					NBTTagList nbttaglist = nbttagcompound.getTagList("Entities", 10);
 
-						for (int i = 0; i < nbttaglist.tagCount(); ++i) {
-							nbttaglist.set(i, fixer.process(FixTypes.ENTITY, (NBTTagCompound) nbttaglist.get(i), versionIn));
-						}
-					}
-
-					if (nbttagcompound.hasKey("TileEntities", 9)) {
-						NBTTagList nbttaglist1 = nbttagcompound.getTagList("TileEntities", 10);
-
-						for (int j = 0; j < nbttaglist1.tagCount(); ++j) {
-							nbttaglist1.set(j, fixer.process(FixTypes.BLOCK_ENTITY, (NBTTagCompound) nbttaglist1.get(j), versionIn));
-						}
+					for (int i = 0; i < nbttaglist.tagCount(); ++i) {
+						nbttaglist.set(i, fixer1.process(FixTypes.ENTITY, (NBTTagCompound) nbttaglist.get(i), versionIn));
 					}
 				}
 
-				return compound;
+				if (nbttagcompound.hasKey("TileEntities", 9)) {
+					NBTTagList nbttaglist1 = nbttagcompound.getTagList("TileEntities", 10);
+
+					for (int j = 0; j < nbttaglist1.tagCount(); ++j) {
+						nbttaglist1.set(j, fixer1.process(FixTypes.BLOCK_ENTITY, (NBTTagCompound) nbttaglist1.get(j), versionIn));
+					}
+				}
 			}
+
+			return compound;
 		});
 	}
 
@@ -223,19 +221,19 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO {
 	protected Chunk checkedReadChunkFromNBT(World worldIn, int x, int z, NBTTagCompound compound) {
 
 		if (!compound.hasKey("Level", 10)) {
-			LOGGER.error("Chunk file at {},{} is missing level data, skipping", Integer.valueOf(x), Integer.valueOf(z));
+			LOGGER.error("Chunk file at {},{} is missing level data, skipping", x, z);
 			return null;
 		} else {
 			NBTTagCompound nbttagcompound = compound.getCompoundTag("Level");
 
 			if (!nbttagcompound.hasKey("Sections", 9)) {
-				LOGGER.error("Chunk file at {},{} is missing block data, skipping", Integer.valueOf(x), Integer.valueOf(z));
+				LOGGER.error("Chunk file at {},{} is missing block data, skipping", x, z);
 				return null;
 			} else {
 				Chunk chunk = readChunkFromNBT(worldIn, nbttagcompound);
 
 				if (!chunk.isAtLocation(x, z)) {
-					LOGGER.error("Chunk file at {},{} is in the wrong location; relocating. (Expected {}, {}, got {}, {})", Integer.valueOf(x), Integer.valueOf(z), Integer.valueOf(x), Integer.valueOf(z), Integer.valueOf(chunk.x), Integer.valueOf(chunk.z));
+					LOGGER.error("Chunk file at {},{} is in the wrong location; relocating. (Expected {}, {}, got {}, {})", x, z, x, z, chunk.x, chunk.z);
 					nbttagcompound.setInteger("xPos", x);
 					nbttagcompound.setInteger("zPos", z);
 					chunk = readChunkFromNBT(worldIn, nbttagcompound);
@@ -246,7 +244,7 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO {
 		}
 	}
 
-	public void saveChunk(World worldIn, Chunk chunkIn) throws MinecraftException, IOException {
+	public void saveChunk(World worldIn, Chunk chunkIn) throws MinecraftException {
 
 		worldIn.checkSessionLock();
 
@@ -321,7 +319,7 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO {
 	 * Save extra data associated with this Chunk not normally saved during autosave, only during chunk unload.
 	 * Currently unused.
 	 */
-	public void saveExtraChunkData(World worldIn, Chunk chunkIn) throws IOException {
+	public void saveExtraChunkData(World worldIn, Chunk chunkIn) {
 
 	}
 

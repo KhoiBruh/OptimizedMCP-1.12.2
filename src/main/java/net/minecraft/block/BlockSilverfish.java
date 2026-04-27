@@ -43,25 +43,16 @@ public class BlockSilverfish extends Block {
 
 	protected ItemStack getSilkTouchDrop(IBlockState state) {
 
-		switch (state.getValue(VARIANT)) {
-			case COBBLESTONE:
-				return new ItemStack(Blocks.COBBLESTONE);
-
-			case STONEBRICK:
-				return new ItemStack(Blocks.STONEBRICK);
-
-			case MOSSY_STONEBRICK:
-				return new ItemStack(Blocks.STONEBRICK, 1, BlockStoneBrick.EnumType.MOSSY.getMetadata());
-
-			case CRACKED_STONEBRICK:
-				return new ItemStack(Blocks.STONEBRICK, 1, BlockStoneBrick.EnumType.CRACKED.getMetadata());
-
-			case CHISELED_STONEBRICK:
-				return new ItemStack(Blocks.STONEBRICK, 1, BlockStoneBrick.EnumType.CHISELED.getMetadata());
-
-			default:
-				return new ItemStack(Blocks.STONE);
-		}
+		return switch (state.getValue(VARIANT)) {
+			case COBBLESTONE -> new ItemStack(Blocks.COBBLESTONE);
+			case STONEBRICK -> new ItemStack(Blocks.STONEBRICK);
+			case MOSSY_STONEBRICK -> new ItemStack(Blocks.STONEBRICK, 1, BlockStoneBrick.EnumType.MOSSY.getMetadata());
+			case CRACKED_STONEBRICK ->
+					new ItemStack(Blocks.STONEBRICK, 1, BlockStoneBrick.EnumType.CRACKED.getMetadata());
+			case CHISELED_STONEBRICK ->
+					new ItemStack(Blocks.STONEBRICK, 1, BlockStoneBrick.EnumType.CHISELED.getMetadata());
+			default -> new ItemStack(Blocks.STONE);
+		};
 	}
 
 	/**

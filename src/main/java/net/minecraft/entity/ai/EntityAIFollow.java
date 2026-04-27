@@ -25,12 +25,7 @@ public class EntityAIFollow extends EntityAIBase {
 	public EntityAIFollow(final EntityLiving p_i47417_1_, double p_i47417_2_, float p_i47417_4_, float p_i47417_5_) {
 
 		entity = p_i47417_1_;
-		followPredicate = new Predicate<EntityLiving>() {
-			public boolean apply(@Nullable EntityLiving p_apply_1_) {
-
-				return p_apply_1_ != null && p_i47417_1_.getClass() != p_apply_1_.getClass();
-			}
-		};
+		followPredicate = p_apply_1_ -> p_apply_1_ != null && p_i47417_1_.getClass() != p_apply_1_.getClass();
 		speedModifier = p_i47417_2_;
 		navigation = p_i47417_1_.getNavigator();
 		stopDistance = p_i47417_4_;

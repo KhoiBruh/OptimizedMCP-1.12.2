@@ -26,7 +26,7 @@ public class CommandStop extends CommandBase {
 	/**
 	 * Callback for when the command is executed
 	 */
-	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
+	public void execute(MinecraftServer server, ICommandSender sender, String[] args) {
 
 		if (server.worlds != null) {
 			notifyCommandListener(sender, this, "commands.stop.start");

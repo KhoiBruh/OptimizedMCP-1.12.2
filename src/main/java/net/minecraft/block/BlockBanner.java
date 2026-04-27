@@ -180,20 +180,12 @@ public class BlockBanner extends BlockContainer {
 
 		public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
 
-			switch (state.getValue(FACING)) {
-				case NORTH:
-				default:
-					return NORTH_AABB;
-
-				case SOUTH:
-					return SOUTH_AABB;
-
-				case WEST:
-					return WEST_AABB;
-
-				case EAST:
-					return EAST_AABB;
-			}
+			return switch (state.getValue(FACING)) {
+				default -> NORTH_AABB;
+				case SOUTH -> SOUTH_AABB;
+				case WEST -> WEST_AABB;
+				case EAST -> EAST_AABB;
+			};
 		}
 
 		public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
@@ -235,7 +227,7 @@ public class BlockBanner extends BlockContainer {
 
 		public BlockBannerStanding() {
 
-			setDefaultState(blockState.getBaseState().withProperty(ROTATION, Integer.valueOf(0)));
+			setDefaultState(blockState.getBaseState().withProperty(ROTATION, 0));
 		}
 
 		public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
@@ -245,12 +237,12 @@ public class BlockBanner extends BlockContainer {
 
 		public IBlockState withRotation(IBlockState state, Rotation rot) {
 
-			return state.withProperty(ROTATION, Integer.valueOf(rot.rotate(state.getValue(ROTATION).intValue(), 16)));
+			return state.withProperty(ROTATION, rot.rotate(state.getValue(ROTATION), 16));
 		}
 
 		public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
 
-			return state.withProperty(ROTATION, Integer.valueOf(mirrorIn.mirrorRotation(state.getValue(ROTATION).intValue(), 16)));
+			return state.withProperty(ROTATION, mirrorIn.mirrorRotation(state.getValue(ROTATION), 16));
 		}
 
 		public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
@@ -265,12 +257,12 @@ public class BlockBanner extends BlockContainer {
 
 		public IBlockState getStateFromMeta(int meta) {
 
-			return getDefaultState().withProperty(ROTATION, Integer.valueOf(meta));
+			return getDefaultState().withProperty(ROTATION, meta);
 		}
 
 		public int getMetaFromState(IBlockState state) {
 
-			return state.getValue(ROTATION).intValue();
+			return state.getValue(ROTATION);
 		}
 
 		protected BlockStateContainer createBlockState() {

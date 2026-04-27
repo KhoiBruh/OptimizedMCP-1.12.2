@@ -29,12 +29,7 @@ import java.util.List;
 
 public class BlockHopper extends BlockContainer {
 
-	public static final PropertyDirection FACING = PropertyDirection.create("facing", new Predicate<EnumFacing>() {
-		public boolean apply(@Nullable EnumFacing p_apply_1_) {
-
-			return p_apply_1_ != EnumFacing.UP;
-		}
-	});
+	public static final PropertyDirection FACING = PropertyDirection.create("facing", p_apply_1_ -> p_apply_1_ != EnumFacing.UP);
 	public static final PropertyBool ENABLED = PropertyBool.create("enabled");
 	protected static final AxisAlignedBB BASE_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.625D, 1.0D);
 	protected static final AxisAlignedBB SOUTH_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 0.125D);
@@ -45,7 +40,7 @@ public class BlockHopper extends BlockContainer {
 	public BlockHopper() {
 
 		super(Material.IRON, MapColor.STONE);
-		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.DOWN).withProperty(ENABLED, Boolean.valueOf(true)));
+		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.DOWN).withProperty(ENABLED, Boolean.TRUE));
 		setCreativeTab(CreativeTabs.REDSTONE);
 	}
 
@@ -89,7 +84,7 @@ public class BlockHopper extends BlockContainer {
 			enumfacing = EnumFacing.DOWN;
 		}
 
-		return getDefaultState().withProperty(FACING, enumfacing).withProperty(ENABLED, Boolean.valueOf(true));
+		return getDefaultState().withProperty(FACING, enumfacing).withProperty(ENABLED, Boolean.TRUE);
 	}
 
 	/**
@@ -165,8 +160,8 @@ public class BlockHopper extends BlockContainer {
 
 		boolean flag = !worldIn.isBlockPowered(pos);
 
-		if (flag != state.getValue(ENABLED).booleanValue()) {
-			worldIn.setBlockState(pos, state.withProperty(ENABLED, Boolean.valueOf(flag)), 4);
+		if (flag != state.getValue(ENABLED)) {
+			worldIn.setBlockState(pos, state.withProperty(ENABLED, flag), 4);
 		}
 	}
 
@@ -236,7 +231,7 @@ public class BlockHopper extends BlockContainer {
 	 */
 	public IBlockState getStateFromMeta(int meta) {
 
-		return getDefaultState().withProperty(FACING, getFacing(meta)).withProperty(ENABLED, Boolean.valueOf(isEnabled(meta)));
+		return getDefaultState().withProperty(FACING, getFacing(meta)).withProperty(ENABLED, isEnabled(meta));
 	}
 
 	/**
@@ -247,7 +242,7 @@ public class BlockHopper extends BlockContainer {
 		int i = 0;
 		i = i | state.getValue(FACING).getIndex();
 
-		if (!state.getValue(ENABLED).booleanValue()) {
+		if (!state.getValue(ENABLED)) {
 			i |= 8;
 		}
 

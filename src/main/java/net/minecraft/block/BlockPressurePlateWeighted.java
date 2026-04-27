@@ -25,7 +25,7 @@ public class BlockPressurePlateWeighted extends BlockBasePressurePlate {
 	protected BlockPressurePlateWeighted(Material materialIn, int p_i46380_2_, MapColor color) {
 
 		super(materialIn, color);
-		setDefaultState(blockState.getBaseState().withProperty(POWER, Integer.valueOf(0)));
+		setDefaultState(blockState.getBaseState().withProperty(POWER, 0));
 		maxWeight = p_i46380_2_;
 	}
 
@@ -53,12 +53,12 @@ public class BlockPressurePlateWeighted extends BlockBasePressurePlate {
 
 	protected int getRedstoneStrength(IBlockState state) {
 
-		return state.getValue(POWER).intValue();
+		return state.getValue(POWER);
 	}
 
 	protected IBlockState setRedstoneStrength(IBlockState state, int strength) {
 
-		return state.withProperty(POWER, Integer.valueOf(strength));
+		return state.withProperty(POWER, strength);
 	}
 
 	/**
@@ -74,7 +74,7 @@ public class BlockPressurePlateWeighted extends BlockBasePressurePlate {
 	 */
 	public IBlockState getStateFromMeta(int meta) {
 
-		return getDefaultState().withProperty(POWER, Integer.valueOf(meta));
+		return getDefaultState().withProperty(POWER, meta);
 	}
 
 	/**
@@ -82,7 +82,7 @@ public class BlockPressurePlateWeighted extends BlockBasePressurePlate {
 	 */
 	public int getMetaFromState(IBlockState state) {
 
-		return state.getValue(POWER).intValue();
+		return state.getValue(POWER);
 	}
 
 	protected BlockStateContainer createBlockState() {

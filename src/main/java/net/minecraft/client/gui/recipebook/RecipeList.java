@@ -93,7 +93,7 @@ public class RecipeList {
 		recipes.add(recipe);
 
 		if (singleResultItem) {
-			ItemStack itemstack = recipes.get(0).getRecipeOutput();
+			ItemStack itemstack = recipes.getFirst().getRecipeOutput();
 			ItemStack itemstack1 = recipe.getRecipeOutput();
 			singleResultItem = ItemStack.areItemsEqual(itemstack, itemstack1) && ItemStack.areItemStackTagsEqual(itemstack, itemstack1);
 		}

@@ -46,7 +46,7 @@ public class PlayerChunkMapEntry {
 	public void addPlayer(EntityPlayerMP player) {
 
 		if (players.contains(player)) {
-			LOGGER.debug("Failed to add player. {} already is in chunk {}, {}", player, Integer.valueOf(pos.x), Integer.valueOf(pos.z));
+			LOGGER.debug("Failed to add player. {} already is in chunk {}, {}", player, pos.x, pos.z);
 		} else {
 			if (players.isEmpty()) {
 				lastUpdateInhabitedTime = playerChunkMap.getWorldServer().getTotalWorldTime();
@@ -166,8 +166,8 @@ public class PlayerChunkMapEntry {
 	public void sendPacket(Packet<?> packetIn) {
 
 		if (sentToPlayers) {
-			for (int i = 0; i < players.size(); ++i) {
-				(players.get(i)).connection.sendPacket(packetIn);
+			for (EntityPlayerMP player : players) {
+				player.connection.sendPacket(packetIn);
 			}
 		}
 	}

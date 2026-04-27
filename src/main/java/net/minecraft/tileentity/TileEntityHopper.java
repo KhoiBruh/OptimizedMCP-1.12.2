@@ -227,7 +227,7 @@ public class TileEntityHopper extends TileEntityLockableLoot implements IHopper,
 					if (!tileentityhopper1.mayTransfer()) {
 						int k = 0;
 
-						if (source != null && source instanceof TileEntityHopper tileentityhopper) {
+						if (source instanceof TileEntityHopper tileentityhopper) {
 
 							if (tileentityhopper1.tickedGameTime >= tileentityhopper.tickedGameTime) {
 								k = 1;
@@ -353,8 +353,7 @@ public class TileEntityHopper extends TileEntityLockableLoot implements IHopper,
 	public ItemStack decrStackSize(int index, int count) {
 
 		fillWithLoot(null);
-		ItemStack itemstack = ItemStackHelper.getAndSplit(getItems(), index, count);
-		return itemstack;
+		return ItemStackHelper.getAndSplit(getItems(), index, count);
 	}
 
 	/**

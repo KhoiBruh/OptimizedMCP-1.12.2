@@ -45,7 +45,7 @@ public class EntityBat extends EntityAmbientCreature {
 	protected void entityInit() {
 
 		super.entityInit();
-		dataManager.register(HANGING, Byte.valueOf((byte) 0));
+		dataManager.register(HANGING, (byte) 0);
 	}
 
 	/**
@@ -104,17 +104,17 @@ public class EntityBat extends EntityAmbientCreature {
 
 	public boolean getIsBatHanging() {
 
-		return (dataManager.get(HANGING).byteValue() & 1) != 0;
+		return (dataManager.get(HANGING) & 1) != 0;
 	}
 
 	public void setIsBatHanging(boolean isHanging) {
 
-		byte b0 = dataManager.get(HANGING).byteValue();
+		byte b0 = dataManager.get(HANGING);
 
 		if (isHanging) {
-			dataManager.set(HANGING, Byte.valueOf((byte) (b0 | 1)));
+			dataManager.set(HANGING, (byte) (b0 | 1));
 		} else {
-			dataManager.set(HANGING, Byte.valueOf((byte) (b0 & -2)));
+			dataManager.set(HANGING, (byte) (b0 & -2));
 		}
 	}
 
@@ -228,7 +228,7 @@ public class EntityBat extends EntityAmbientCreature {
 	public void readEntityFromNBT(NBTTagCompound compound) {
 
 		super.readEntityFromNBT(compound);
-		dataManager.set(HANGING, Byte.valueOf(compound.getByte("BatFlags")));
+		dataManager.set(HANGING, compound.getByte("BatFlags"));
 	}
 
 	/**
@@ -237,7 +237,7 @@ public class EntityBat extends EntityAmbientCreature {
 	public void writeEntityToNBT(NBTTagCompound compound) {
 
 		super.writeEntityToNBT(compound);
-		compound.setByte("BatFlags", dataManager.get(HANGING).byteValue());
+		compound.setByte("BatFlags", dataManager.get(HANGING));
 	}
 
 	/**

@@ -73,19 +73,12 @@ public class Template {
 				flag = false;
 		}
 
-		switch (rotationIn) {
-			case COUNTERCLOCKWISE_90:
-				return new BlockPos(k, j, -i);
-
-			case CLOCKWISE_90:
-				return new BlockPos(-k, j, i);
-
-			case CLOCKWISE_180:
-				return new BlockPos(-i, j, -k);
-
-			default:
-				return flag ? new BlockPos(i, j, k) : pos;
-		}
+		return switch (rotationIn) {
+			case COUNTERCLOCKWISE_90 -> new BlockPos(k, j, -i);
+			case CLOCKWISE_90 -> new BlockPos(-k, j, i);
+			case CLOCKWISE_180 -> new BlockPos(-i, j, -k);
+			default -> flag ? new BlockPos(i, j, k) : pos;
+		};
 	}
 
 	private static Vec3d transformedVec3d(Vec3d vec, Mirror mirrorIn, Rotation rotationIn) {
@@ -108,19 +101,12 @@ public class Template {
 				flag = false;
 		}
 
-		switch (rotationIn) {
-			case COUNTERCLOCKWISE_90:
-				return new Vec3d(d2, d1, 1.0D - d0);
-
-			case CLOCKWISE_90:
-				return new Vec3d(1.0D - d2, d1, d0);
-
-			case CLOCKWISE_180:
-				return new Vec3d(1.0D - d0, d1, 1.0D - d2);
-
-			default:
-				return flag ? new Vec3d(d0, d1, d2) : vec;
-		}
+		return switch (rotationIn) {
+			case COUNTERCLOCKWISE_90 -> new Vec3d(d2, d1, 1.0D - d0);
+			case CLOCKWISE_90 -> new Vec3d(1.0D - d2, d1, d0);
+			case CLOCKWISE_180 -> new Vec3d(1.0D - d0, d1, 1.0D - d2);
+			default -> flag ? new Vec3d(d0, d1, d2) : vec;
+		};
 	}
 
 	public static BlockPos getZeroPositionWithTransform(BlockPos p_191157_0_, Mirror p_191157_1_, Rotation p_191157_2_, int p_191157_3_, int p_191157_4_) {
@@ -129,59 +115,45 @@ public class Template {
 		--p_191157_4_;
 		int i = p_191157_1_ == Mirror.FRONT_BACK ? p_191157_3_ : 0;
 		int j = p_191157_1_ == Mirror.LEFT_RIGHT ? p_191157_4_ : 0;
-		BlockPos blockpos = p_191157_0_;
-
-		switch (p_191157_2_) {
-			case COUNTERCLOCKWISE_90:
-				blockpos = p_191157_0_.add(j, 0, p_191157_3_ - i);
-				break;
-
-			case CLOCKWISE_90:
-				blockpos = p_191157_0_.add(p_191157_4_ - j, 0, i);
-				break;
-
-			case CLOCKWISE_180:
-				blockpos = p_191157_0_.add(p_191157_3_ - i, 0, p_191157_4_ - j);
-				break;
-
-			case NONE:
-				blockpos = p_191157_0_.add(i, 0, j);
-		}
+		BlockPos blockpos = switch (p_191157_2_) {
+			case COUNTERCLOCKWISE_90 -> p_191157_0_.add(j, 0, p_191157_3_ - i);
+			case CLOCKWISE_90 -> p_191157_0_.add(p_191157_4_ - j, 0, i);
+			case CLOCKWISE_180 -> p_191157_0_.add(p_191157_3_ - i, 0, p_191157_4_ - j);
+			case NONE -> p_191157_0_.add(i, 0, j);
+		};
 
 		return blockpos;
 	}
 
 	public static void registerFixes(DataFixer fixer) {
 
-		fixer.registerWalker(FixTypes.STRUCTURE, new IDataWalker() {
-			public NBTTagCompound process(IDataFixer fixer, NBTTagCompound compound, int versionIn) {
+		fixer.registerWalker(FixTypes.STRUCTURE, (fixer1, compound, versionIn) -> {
 
-				if (compound.hasKey("entities", 9)) {
-					NBTTagList nbttaglist = compound.getTagList("entities", 10);
+			if (compound.hasKey("entities", 9)) {
+				NBTTagList nbttaglist = compound.getTagList("entities", 10);
 
-					for (int i = 0; i < nbttaglist.tagCount(); ++i) {
-						NBTTagCompound nbttagcompound = (NBTTagCompound) nbttaglist.get(i);
+				for (int i = 0; i < nbttaglist.tagCount(); ++i) {
+					NBTTagCompound nbttagcompound = (NBTTagCompound) nbttaglist.get(i);
 
-						if (nbttagcompound.hasKey("nbt", 10)) {
-							nbttagcompound.setTag("nbt", fixer.process(FixTypes.ENTITY, nbttagcompound.getCompoundTag("nbt"), versionIn));
-						}
+					if (nbttagcompound.hasKey("nbt", 10)) {
+						nbttagcompound.setTag("nbt", fixer1.process(FixTypes.ENTITY, nbttagcompound.getCompoundTag("nbt"), versionIn));
 					}
 				}
-
-				if (compound.hasKey("blocks", 9)) {
-					NBTTagList nbttaglist1 = compound.getTagList("blocks", 10);
-
-					for (int j = 0; j < nbttaglist1.tagCount(); ++j) {
-						NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist1.get(j);
-
-						if (nbttagcompound1.hasKey("nbt", 10)) {
-							nbttagcompound1.setTag("nbt", fixer.process(FixTypes.BLOCK_ENTITY, nbttagcompound1.getCompoundTag("nbt"), versionIn));
-						}
-					}
-				}
-
-				return compound;
 			}
+
+			if (compound.hasKey("blocks", 9)) {
+				NBTTagList nbttaglist1 = compound.getTagList("blocks", 10);
+
+				for (int j = 0; j < nbttaglist1.tagCount(); ++j) {
+					NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist1.get(j);
+
+					if (nbttagcompound1.hasKey("nbt", 10)) {
+						nbttagcompound1.setTag("nbt", fixer1.process(FixTypes.BLOCK_ENTITY, nbttagcompound1.getCompoundTag("nbt"), versionIn));
+					}
+				}
+			}
+
+			return compound;
 		});
 	}
 
@@ -253,12 +225,7 @@ public class Template {
 	 */
 	private void takeEntitiesFromWorld(World worldIn, BlockPos startPos, BlockPos endPos) {
 
-		List<Entity> list = worldIn.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(startPos, endPos), new Predicate<Entity>() {
-			public boolean apply(@Nullable Entity p_apply_1_) {
-
-				return !(p_apply_1_ instanceof EntityPlayer);
-			}
-		});
+		List<Entity> list = worldIn.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(startPos, endPos), p_apply_1_ -> !(p_apply_1_ instanceof EntityPlayer));
 		entities.clear();
 
 		for (Entity entity : list) {
@@ -460,14 +427,10 @@ public class Template {
 
 	public BlockPos transformedSize(Rotation rotationIn) {
 
-		switch (rotationIn) {
-			case COUNTERCLOCKWISE_90:
-			case CLOCKWISE_90:
-				return new BlockPos(size.getZ(), size.getY(), size.getX());
-
-			default:
-				return size;
-		}
+		return switch (rotationIn) {
+			case COUNTERCLOCKWISE_90, CLOCKWISE_90 -> new BlockPos(size.getZ(), size.getY(), size.getX());
+			default -> size;
+		};
 	}
 
 	public BlockPos getZeroPositionWithTransform(BlockPos p_189961_1_, Mirror p_189961_2_, Rotation p_189961_3_) {
@@ -599,7 +562,7 @@ public class Template {
 
 		private BasicPalette() {
 
-			ids = new ObjectIntIdentityMap<IBlockState>(16);
+			ids = new ObjectIntIdentityMap<>(16);
 		}
 
 		public int idFor(IBlockState state) {

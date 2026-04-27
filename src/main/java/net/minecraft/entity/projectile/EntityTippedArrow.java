@@ -75,26 +75,26 @@ public class EntityTippedArrow extends EntityArrow {
 		} else if (stack.getItem() == Items.ARROW) {
 			potion = PotionTypes.EMPTY;
 			customPotionEffects.clear();
-			dataManager.set(COLOR, Integer.valueOf(-1));
+			dataManager.set(COLOR, -1);
 		}
 	}
 
 	private void refreshColor() {
 
 		fixedColor = false;
-		dataManager.set(COLOR, Integer.valueOf(PotionUtils.getPotionColorFromEffectList(PotionUtils.mergeEffects(potion, customPotionEffects))));
+		dataManager.set(COLOR, PotionUtils.getPotionColorFromEffectList(PotionUtils.mergeEffects(potion, customPotionEffects)));
 	}
 
 	public void addEffect(PotionEffect effect) {
 
 		customPotionEffects.add(effect);
-		getDataManager().set(COLOR, Integer.valueOf(PotionUtils.getPotionColorFromEffectList(PotionUtils.mergeEffects(potion, customPotionEffects))));
+		getDataManager().set(COLOR, PotionUtils.getPotionColorFromEffectList(PotionUtils.mergeEffects(potion, customPotionEffects)));
 	}
 
 	protected void entityInit() {
 
 		super.entityInit();
-		dataManager.register(COLOR, Integer.valueOf(-1));
+		dataManager.register(COLOR, -1);
 	}
 
 	/**
@@ -116,7 +116,7 @@ public class EntityTippedArrow extends EntityArrow {
 			world.setEntityState(this, (byte) 0);
 			potion = PotionTypes.EMPTY;
 			customPotionEffects.clear();
-			dataManager.set(COLOR, Integer.valueOf(-1));
+			dataManager.set(COLOR, -1);
 		}
 	}
 
@@ -137,13 +137,13 @@ public class EntityTippedArrow extends EntityArrow {
 
 	public int getColor() {
 
-		return dataManager.get(COLOR).intValue();
+		return dataManager.get(COLOR);
 	}
 
 	private void setFixedColor(int p_191507_1_) {
 
 		fixedColor = true;
-		dataManager.set(COLOR, Integer.valueOf(p_191507_1_));
+		dataManager.set(COLOR, p_191507_1_);
 	}
 
 	/**

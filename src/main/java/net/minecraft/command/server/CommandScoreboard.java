@@ -297,7 +297,7 @@ public class CommandScoreboard extends CommandBase {
 		} else if (scoreboard.getObjective(s) != null) {
 			throw new CommandException("commands.scoreboard.objectives.add.alreadyExists", s);
 		} else if (s.length() > 16) {
-			throw new SyntaxErrorException("commands.scoreboard.objectives.add.tooLong", s, Integer.valueOf(16));
+			throw new SyntaxErrorException("commands.scoreboard.objectives.add.tooLong", s, 16);
 		} else if (s.isEmpty()) {
 			throw new WrongUsageException("commands.scoreboard.objectives.add.usage");
 		} else {
@@ -305,7 +305,7 @@ public class CommandScoreboard extends CommandBase {
 				String s2 = getChatComponentFromNthArg(sender, commandArgs, argStartIndex).getUnformattedText();
 
 				if (s2.length() > 32) {
-					throw new SyntaxErrorException("commands.scoreboard.objectives.add.displayTooLong", s2, Integer.valueOf(32));
+					throw new SyntaxErrorException("commands.scoreboard.objectives.add.displayTooLong", s2, 32);
 				}
 
 				if (s2.isEmpty()) {
@@ -329,7 +329,7 @@ public class CommandScoreboard extends CommandBase {
 		if (scoreboard.getTeam(s) != null) {
 			throw new CommandException("commands.scoreboard.teams.add.alreadyExists", s);
 		} else if (s.length() > 16) {
-			throw new SyntaxErrorException("commands.scoreboard.teams.add.tooLong", s, Integer.valueOf(16));
+			throw new SyntaxErrorException("commands.scoreboard.teams.add.tooLong", s, 16);
 		} else if (s.isEmpty()) {
 			throw new WrongUsageException("commands.scoreboard.teams.add.usage");
 		} else {
@@ -337,7 +337,7 @@ public class CommandScoreboard extends CommandBase {
 				String s1 = getChatComponentFromNthArg(sender, args, startIndex).getUnformattedText();
 
 				if (s1.length() > 32) {
-					throw new SyntaxErrorException("commands.scoreboard.teams.add.displayTooLong", s1, Integer.valueOf(32));
+					throw new SyntaxErrorException("commands.scoreboard.teams.add.displayTooLong", s1, 32);
 				}
 
 				if (s1.isEmpty()) {
@@ -699,7 +699,7 @@ public class CommandScoreboard extends CommandBase {
 		String s1 = getEntityName(server, sender, args[startIndex++]);
 
 		if (s1.length() > 40) {
-			throw new SyntaxErrorException("commands.scoreboard.players.name.tooLong", s1, Integer.valueOf(40));
+			throw new SyntaxErrorException("commands.scoreboard.players.name.tooLong", s1, 40);
 		} else {
 			ScoreObjective scoreobjective = convertToObjective(args[startIndex++], true, server);
 			int j = "set".equalsIgnoreCase(s) ? parseInt(args[startIndex++]) : parseInt(args[startIndex++], 0);
@@ -755,7 +755,7 @@ public class CommandScoreboard extends CommandBase {
 		String s = getPlayerName(server, sender, args[startIndex++]);
 
 		if (s.length() > 40) {
-			throw new SyntaxErrorException("commands.scoreboard.players.name.tooLong", s, Integer.valueOf(40));
+			throw new SyntaxErrorException("commands.scoreboard.players.name.tooLong", s, 40);
 		} else {
 			ScoreObjective scoreobjective = convertToObjective(args[startIndex], false, server);
 
@@ -775,7 +775,7 @@ public class CommandScoreboard extends CommandBase {
 		String s = getEntityName(server, sender, args[startIndex++]);
 
 		if (s.length() > 40) {
-			throw new SyntaxErrorException("commands.scoreboard.players.name.tooLong", s, Integer.valueOf(40));
+			throw new SyntaxErrorException("commands.scoreboard.players.name.tooLong", s, 40);
 		} else {
 			ScoreObjective scoreobjective = convertToObjective(args[startIndex++], false, server);
 
@@ -806,9 +806,9 @@ public class CommandScoreboard extends CommandBase {
 		ScoreObjective scoreobjective1 = convertToObjective(args[startIndex], false, server);
 
 		if (s.length() > 40) {
-			throw new SyntaxErrorException("commands.scoreboard.players.name.tooLong", s, Integer.valueOf(40));
+			throw new SyntaxErrorException("commands.scoreboard.players.name.tooLong", s, 40);
 		} else if (s2.length() > 40) {
-			throw new SyntaxErrorException("commands.scoreboard.players.name.tooLong", s2, Integer.valueOf(40));
+			throw new SyntaxErrorException("commands.scoreboard.players.name.tooLong", s2, 40);
 		} else {
 			Score score = scoreboard.getOrCreateScore(s, scoreobjective);
 
@@ -817,34 +817,32 @@ public class CommandScoreboard extends CommandBase {
 			} else {
 				Score score1 = scoreboard.getOrCreateScore(s2, scoreobjective1);
 
-				if ("+=".equals(s1)) {
-					score.setScorePoints(score.getScorePoints() + score1.getScorePoints());
-				} else if ("-=".equals(s1)) {
-					score.setScorePoints(score.getScorePoints() - score1.getScorePoints());
-				} else if ("*=".equals(s1)) {
-					score.setScorePoints(score.getScorePoints() * score1.getScorePoints());
-				} else if ("/=".equals(s1)) {
-					if (score1.getScorePoints() != 0) {
-						score.setScorePoints(score.getScorePoints() / score1.getScorePoints());
+				switch (s1) {
+					case "+=" -> score.setScorePoints(score.getScorePoints() + score1.getScorePoints());
+					case "-=" -> score.setScorePoints(score.getScorePoints() - score1.getScorePoints());
+					case "*=" -> score.setScorePoints(score.getScorePoints() * score1.getScorePoints());
+					case "/=" -> {
+						if (score1.getScorePoints() != 0) {
+							score.setScorePoints(score.getScorePoints() / score1.getScorePoints());
+						}
 					}
-				} else if ("%=".equals(s1)) {
-					if (score1.getScorePoints() != 0) {
-						score.setScorePoints(score.getScorePoints() % score1.getScorePoints());
+					case "%=" -> {
+						if (score1.getScorePoints() != 0) {
+							score.setScorePoints(score.getScorePoints() % score1.getScorePoints());
+						}
 					}
-				} else if ("=".equals(s1)) {
-					score.setScorePoints(score1.getScorePoints());
-				} else if ("<".equals(s1)) {
-					score.setScorePoints(Math.min(score.getScorePoints(), score1.getScorePoints()));
-				} else if (">".equals(s1)) {
-					score.setScorePoints(Math.max(score.getScorePoints(), score1.getScorePoints()));
-				} else {
-					if (!"><".equals(s1)) {
-						throw new CommandException("commands.scoreboard.players.operation.invalidOperation", s1);
-					}
+					case "=" -> score.setScorePoints(score1.getScorePoints());
+					case "<" -> score.setScorePoints(Math.min(score.getScorePoints(), score1.getScorePoints()));
+					case ">" -> score.setScorePoints(Math.max(score.getScorePoints(), score1.getScorePoints()));
+					case null, default -> {
+						if (!"><".equals(s1)) {
+							throw new CommandException("commands.scoreboard.players.operation.invalidOperation", s1);
+						}
 
-					int i = score.getScorePoints();
-					score.setScorePoints(score1.getScorePoints());
-					score1.setScorePoints(i);
+						int i = score.getScorePoints();
+						score.setScorePoints(score1.getScorePoints());
+						score1.setScorePoints(i);
+					}
 				}
 
 				notifyCommandListener(sender, this, "commands.scoreboard.players.operation.success");
@@ -888,7 +886,7 @@ public class CommandScoreboard extends CommandBase {
 
 			if ("add".equals(s1)) {
 				if (!entity.addTag(s2)) {
-					throw new CommandException("commands.scoreboard.players.tag.tooMany", Integer.valueOf(1024));
+					throw new CommandException("commands.scoreboard.players.tag.tooMany", 1024);
 				}
 
 				notifyCommandListener(sender, this, "commands.scoreboard.players.tag.success.add", s2);

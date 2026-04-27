@@ -33,20 +33,12 @@ public class BlockLadder extends Block {
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
 
-		switch (state.getValue(FACING)) {
-			case NORTH:
-				return LADDER_NORTH_AABB;
-
-			case SOUTH:
-				return LADDER_SOUTH_AABB;
-
-			case WEST:
-				return LADDER_WEST_AABB;
-
-			case EAST:
-			default:
-				return LADDER_EAST_AABB;
-		}
+		return switch (state.getValue(FACING)) {
+			case NORTH -> LADDER_NORTH_AABB;
+			case SOUTH -> LADDER_SOUTH_AABB;
+			case WEST -> LADDER_WEST_AABB;
+			default -> LADDER_EAST_AABB;
+		};
 	}
 
 	/**

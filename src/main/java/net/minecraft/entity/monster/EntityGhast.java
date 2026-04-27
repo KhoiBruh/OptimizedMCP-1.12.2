@@ -63,12 +63,12 @@ public class EntityGhast extends EntityFlying implements IMob {
 
 	public boolean isAttacking() {
 
-		return dataManager.get(ATTACKING).booleanValue();
+		return dataManager.get(ATTACKING);
 	}
 
 	public void setAttacking(boolean attacking) {
 
-		dataManager.set(ATTACKING, Boolean.valueOf(attacking));
+		dataManager.set(ATTACKING, attacking);
 	}
 
 	public int getFireballStrength() {
@@ -106,7 +106,7 @@ public class EntityGhast extends EntityFlying implements IMob {
 	protected void entityInit() {
 
 		super.entityInit();
-		dataManager.register(ATTACKING, Boolean.valueOf(false));
+		dataManager.register(ATTACKING, Boolean.FALSE);
 	}
 
 	protected void applyEntityAttributes() {

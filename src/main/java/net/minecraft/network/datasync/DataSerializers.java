@@ -18,20 +18,20 @@ import java.util.UUID;
 
 public class DataSerializers {
 
-	public static final DataSerializer<Byte> BYTE = new DataSerializer<Byte>() {
+	public static final DataSerializer<Byte> BYTE = new DataSerializer<>() {
 		public void write(PacketBuffer buf, Byte value) {
 
-			buf.writeByte(value.byteValue());
+			buf.writeByte(value);
 		}
 
-		public Byte read(PacketBuffer buf) throws IOException {
+		public Byte read(PacketBuffer buf) {
 
 			return buf.readByte();
 		}
 
 		public DataParameter<Byte> createKey(int id) {
 
-			return new DataParameter<Byte>(id, this);
+			return new DataParameter<>(id, this);
 		}
 
 		public Byte copyValue(Byte value) {
@@ -39,20 +39,20 @@ public class DataSerializers {
 			return value;
 		}
 	};
-	public static final DataSerializer<Integer> VARINT = new DataSerializer<Integer>() {
+	public static final DataSerializer<Integer> VARINT = new DataSerializer<>() {
 		public void write(PacketBuffer buf, Integer value) {
 
-			buf.writeVarInt(value.intValue());
+			buf.writeVarInt(value);
 		}
 
-		public Integer read(PacketBuffer buf) throws IOException {
+		public Integer read(PacketBuffer buf) {
 
 			return buf.readVarInt();
 		}
 
 		public DataParameter<Integer> createKey(int id) {
 
-			return new DataParameter<Integer>(id, this);
+			return new DataParameter<>(id, this);
 		}
 
 		public Integer copyValue(Integer value) {
@@ -60,20 +60,20 @@ public class DataSerializers {
 			return value;
 		}
 	};
-	public static final DataSerializer<Float> FLOAT = new DataSerializer<Float>() {
+	public static final DataSerializer<Float> FLOAT = new DataSerializer<>() {
 		public void write(PacketBuffer buf, Float value) {
 
-			buf.writeFloat(value.floatValue());
+			buf.writeFloat(value);
 		}
 
-		public Float read(PacketBuffer buf) throws IOException {
+		public Float read(PacketBuffer buf) {
 
 			return buf.readFloat();
 		}
 
 		public DataParameter<Float> createKey(int id) {
 
-			return new DataParameter<Float>(id, this);
+			return new DataParameter<>(id, this);
 		}
 
 		public Float copyValue(Float value) {
@@ -81,20 +81,20 @@ public class DataSerializers {
 			return value;
 		}
 	};
-	public static final DataSerializer<String> STRING = new DataSerializer<String>() {
+	public static final DataSerializer<String> STRING = new DataSerializer<>() {
 		public void write(PacketBuffer buf, String value) {
 
 			buf.writeString(value);
 		}
 
-		public String read(PacketBuffer buf) throws IOException {
+		public String read(PacketBuffer buf) {
 
 			return buf.readString(32767);
 		}
 
 		public DataParameter<String> createKey(int id) {
 
-			return new DataParameter<String>(id, this);
+			return new DataParameter<>(id, this);
 		}
 
 		public String copyValue(String value) {
@@ -102,7 +102,7 @@ public class DataSerializers {
 			return value;
 		}
 	};
-	public static final DataSerializer<ITextComponent> TEXT_COMPONENT = new DataSerializer<ITextComponent>() {
+	public static final DataSerializer<ITextComponent> TEXT_COMPONENT = new DataSerializer<>() {
 		public void write(PacketBuffer buf, ITextComponent value) {
 
 			buf.writeTextComponent(value);
@@ -115,7 +115,7 @@ public class DataSerializers {
 
 		public DataParameter<ITextComponent> createKey(int id) {
 
-			return new DataParameter<ITextComponent>(id, this);
+			return new DataParameter<>(id, this);
 		}
 
 		public ITextComponent copyValue(ITextComponent value) {
@@ -123,7 +123,7 @@ public class DataSerializers {
 			return value.createCopy();
 		}
 	};
-	public static final DataSerializer<ItemStack> ITEM_STACK = new DataSerializer<ItemStack>() {
+	public static final DataSerializer<ItemStack> ITEM_STACK = new DataSerializer<>() {
 		public void write(PacketBuffer buf, ItemStack value) {
 
 			buf.writeItemStack(value);
@@ -136,7 +136,7 @@ public class DataSerializers {
 
 		public DataParameter<ItemStack> createKey(int id) {
 
-			return new DataParameter<ItemStack>(id, this);
+			return new DataParameter<>(id, this);
 		}
 
 		public ItemStack copyValue(ItemStack value) {
@@ -144,7 +144,7 @@ public class DataSerializers {
 			return value.copy();
 		}
 	};
-	public static final DataSerializer<Optional<IBlockState>> OPTIONAL_BLOCK_STATE = new DataSerializer<Optional<IBlockState>>() {
+	public static final DataSerializer<Optional<IBlockState>> OPTIONAL_BLOCK_STATE = new DataSerializer<>() {
 		public void write(PacketBuffer buf, Optional<IBlockState> value) {
 
 			if (value.isPresent()) {
@@ -154,7 +154,7 @@ public class DataSerializers {
 			}
 		}
 
-		public Optional<IBlockState> read(PacketBuffer buf) throws IOException {
+		public Optional<IBlockState> read(PacketBuffer buf) {
 
 			int i = buf.readVarInt();
 			return i == 0 ? Optional.absent() : Optional.of(Block.getStateById(i));
@@ -162,7 +162,7 @@ public class DataSerializers {
 
 		public DataParameter<Optional<IBlockState>> createKey(int id) {
 
-			return new DataParameter<Optional<IBlockState>>(id, this);
+			return new DataParameter<>(id, this);
 		}
 
 		public Optional<IBlockState> copyValue(Optional<IBlockState> value) {
@@ -170,20 +170,20 @@ public class DataSerializers {
 			return value;
 		}
 	};
-	public static final DataSerializer<Boolean> BOOLEAN = new DataSerializer<Boolean>() {
+	public static final DataSerializer<Boolean> BOOLEAN = new DataSerializer<>() {
 		public void write(PacketBuffer buf, Boolean value) {
 
-			buf.writeBoolean(value.booleanValue());
+			buf.writeBoolean(value);
 		}
 
-		public Boolean read(PacketBuffer buf) throws IOException {
+		public Boolean read(PacketBuffer buf) {
 
 			return buf.readBoolean();
 		}
 
 		public DataParameter<Boolean> createKey(int id) {
 
-			return new DataParameter<Boolean>(id, this);
+			return new DataParameter<>(id, this);
 		}
 
 		public Boolean copyValue(Boolean value) {
@@ -191,7 +191,7 @@ public class DataSerializers {
 			return value;
 		}
 	};
-	public static final DataSerializer<Rotations> ROTATIONS = new DataSerializer<Rotations>() {
+	public static final DataSerializer<Rotations> ROTATIONS = new DataSerializer<>() {
 		public void write(PacketBuffer buf, Rotations value) {
 
 			buf.writeFloat(value.x());
@@ -199,14 +199,14 @@ public class DataSerializers {
 			buf.writeFloat(value.z());
 		}
 
-		public Rotations read(PacketBuffer buf) throws IOException {
+		public Rotations read(PacketBuffer buf) {
 
 			return new Rotations(buf.readFloat(), buf.readFloat(), buf.readFloat());
 		}
 
 		public DataParameter<Rotations> createKey(int id) {
 
-			return new DataParameter<Rotations>(id, this);
+			return new DataParameter<>(id, this);
 		}
 
 		public Rotations copyValue(Rotations value) {
@@ -214,20 +214,20 @@ public class DataSerializers {
 			return value;
 		}
 	};
-	public static final DataSerializer<BlockPos> BLOCK_POS = new DataSerializer<BlockPos>() {
+	public static final DataSerializer<BlockPos> BLOCK_POS = new DataSerializer<>() {
 		public void write(PacketBuffer buf, BlockPos value) {
 
 			buf.writeBlockPos(value);
 		}
 
-		public BlockPos read(PacketBuffer buf) throws IOException {
+		public BlockPos read(PacketBuffer buf) {
 
 			return buf.readBlockPos();
 		}
 
 		public DataParameter<BlockPos> createKey(int id) {
 
-			return new DataParameter<BlockPos>(id, this);
+			return new DataParameter<>(id, this);
 		}
 
 		public BlockPos copyValue(BlockPos value) {
@@ -235,7 +235,7 @@ public class DataSerializers {
 			return value;
 		}
 	};
-	public static final DataSerializer<Optional<BlockPos>> OPTIONAL_BLOCK_POS = new DataSerializer<Optional<BlockPos>>() {
+	public static final DataSerializer<Optional<BlockPos>> OPTIONAL_BLOCK_POS = new DataSerializer<>() {
 		public void write(PacketBuffer buf, Optional<BlockPos> value) {
 
 			buf.writeBoolean(value.isPresent());
@@ -245,14 +245,14 @@ public class DataSerializers {
 			}
 		}
 
-		public Optional<BlockPos> read(PacketBuffer buf) throws IOException {
+		public Optional<BlockPos> read(PacketBuffer buf) {
 
 			return !buf.readBoolean() ? Optional.absent() : Optional.of(buf.readBlockPos());
 		}
 
 		public DataParameter<Optional<BlockPos>> createKey(int id) {
 
-			return new DataParameter<Optional<BlockPos>>(id, this);
+			return new DataParameter<>(id, this);
 		}
 
 		public Optional<BlockPos> copyValue(Optional<BlockPos> value) {
@@ -260,20 +260,20 @@ public class DataSerializers {
 			return value;
 		}
 	};
-	public static final DataSerializer<EnumFacing> FACING = new DataSerializer<EnumFacing>() {
+	public static final DataSerializer<EnumFacing> FACING = new DataSerializer<>() {
 		public void write(PacketBuffer buf, EnumFacing value) {
 
 			buf.writeEnumValue(value);
 		}
 
-		public EnumFacing read(PacketBuffer buf) throws IOException {
+		public EnumFacing read(PacketBuffer buf) {
 
 			return buf.readEnumValue(EnumFacing.class);
 		}
 
 		public DataParameter<EnumFacing> createKey(int id) {
 
-			return new DataParameter<EnumFacing>(id, this);
+			return new DataParameter<>(id, this);
 		}
 
 		public EnumFacing copyValue(EnumFacing value) {
@@ -281,7 +281,7 @@ public class DataSerializers {
 			return value;
 		}
 	};
-	public static final DataSerializer<Optional<UUID>> OPTIONAL_UNIQUE_ID = new DataSerializer<Optional<UUID>>() {
+	public static final DataSerializer<Optional<UUID>> OPTIONAL_UNIQUE_ID = new DataSerializer<>() {
 		public void write(PacketBuffer buf, Optional<UUID> value) {
 
 			buf.writeBoolean(value.isPresent());
@@ -291,14 +291,14 @@ public class DataSerializers {
 			}
 		}
 
-		public Optional<UUID> read(PacketBuffer buf) throws IOException {
+		public Optional<UUID> read(PacketBuffer buf) {
 
 			return !buf.readBoolean() ? Optional.absent() : Optional.of(buf.readUniqueId());
 		}
 
 		public DataParameter<Optional<UUID>> createKey(int id) {
 
-			return new DataParameter<Optional<UUID>>(id, this);
+			return new DataParameter<>(id, this);
 		}
 
 		public Optional<UUID> copyValue(Optional<UUID> value) {
@@ -306,7 +306,7 @@ public class DataSerializers {
 			return value;
 		}
 	};
-	public static final DataSerializer<NBTTagCompound> COMPOUND_TAG = new DataSerializer<NBTTagCompound>() {
+	public static final DataSerializer<NBTTagCompound> COMPOUND_TAG = new DataSerializer<>() {
 		public void write(PacketBuffer buf, NBTTagCompound value) {
 
 			buf.writeCompoundTag(value);
@@ -319,7 +319,7 @@ public class DataSerializers {
 
 		public DataParameter<NBTTagCompound> createKey(int id) {
 
-			return new DataParameter<NBTTagCompound>(id, this);
+			return new DataParameter<>(id, this);
 		}
 
 		public NBTTagCompound copyValue(NBTTagCompound value) {
@@ -327,7 +327,7 @@ public class DataSerializers {
 			return value.copy();
 		}
 	};
-	private static final IntIdentityHashBiMap<DataSerializer<?>> REGISTRY = new IntIdentityHashBiMap<DataSerializer<?>>(16);
+	private static final IntIdentityHashBiMap<DataSerializer<?>> REGISTRY = new IntIdentityHashBiMap<>(16);
 
 	static {
 		registerSerializer(BYTE);

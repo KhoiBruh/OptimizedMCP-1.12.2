@@ -132,7 +132,7 @@ public class EntityWitherSkull extends EntityFireball {
 
 	protected void entityInit() {
 
-		dataManager.register(INVULNERABLE, Boolean.valueOf(false));
+		dataManager.register(INVULNERABLE, Boolean.FALSE);
 	}
 
 	/**
@@ -140,7 +140,7 @@ public class EntityWitherSkull extends EntityFireball {
 	 */
 	public boolean isInvulnerable() {
 
-		return dataManager.get(INVULNERABLE).booleanValue();
+		return dataManager.get(INVULNERABLE);
 	}
 
 	/**
@@ -148,7 +148,7 @@ public class EntityWitherSkull extends EntityFireball {
 	 */
 	public void setInvulnerable(boolean invulnerable) {
 
-		dataManager.set(INVULNERABLE, Boolean.valueOf(invulnerable));
+		dataManager.set(INVULNERABLE, invulnerable);
 	}
 
 	protected boolean isFireballFiery() {

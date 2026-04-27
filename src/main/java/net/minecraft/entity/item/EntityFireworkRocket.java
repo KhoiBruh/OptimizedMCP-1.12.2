@@ -67,7 +67,7 @@ public class EntityFireworkRocket extends Entity {
 	public EntityFireworkRocket(World p_i47367_1_, ItemStack p_i47367_2_, EntityLivingBase p_i47367_3_) {
 
 		this(p_i47367_1_, p_i47367_3_.posX, p_i47367_3_.posY, p_i47367_3_.posZ, p_i47367_2_);
-		dataManager.set(BOOSTED_ENTITY_ID, Integer.valueOf(p_i47367_3_.getEntityId()));
+		dataManager.set(BOOSTED_ENTITY_ID, p_i47367_3_.getEntityId());
 		boostedEntity = p_i47367_3_;
 	}
 
@@ -79,7 +79,7 @@ public class EntityFireworkRocket extends Entity {
 	protected void entityInit() {
 
 		dataManager.register(FIREWORK_ITEM, ItemStack.EMPTY);
-		dataManager.register(BOOSTED_ENTITY_ID, Integer.valueOf(0));
+		dataManager.register(BOOSTED_ENTITY_ID, 0);
 	}
 
 	/**
@@ -125,7 +125,7 @@ public class EntityFireworkRocket extends Entity {
 
 		if (isAttachedToEntity()) {
 			if (boostedEntity == null) {
-				Entity entity = world.getEntityByID(dataManager.get(BOOSTED_ENTITY_ID).intValue());
+				Entity entity = world.getEntityByID(dataManager.get(BOOSTED_ENTITY_ID));
 
 				if (entity instanceof EntityLivingBase) {
 					boostedEntity = (EntityLivingBase) entity;
@@ -235,7 +235,7 @@ public class EntityFireworkRocket extends Entity {
 
 	public boolean isAttachedToEntity() {
 
-		return dataManager.get(BOOSTED_ENTITY_ID).intValue() > 0;
+		return dataManager.get(BOOSTED_ENTITY_ID) > 0;
 	}
 
 	/**

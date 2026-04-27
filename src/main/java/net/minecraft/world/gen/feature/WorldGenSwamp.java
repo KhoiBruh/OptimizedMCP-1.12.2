@@ -13,7 +13,7 @@ import java.util.Random;
 public class WorldGenSwamp extends WorldGenAbstractTree {
 
 	private static final IBlockState TRUNK = Blocks.LOG.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.OAK);
-	private static final IBlockState LEAF = Blocks.LEAVES.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.EnumType.OAK).withProperty(BlockOldLeaf.CHECK_DECAY, Boolean.valueOf(false));
+	private static final IBlockState LEAF = Blocks.LEAVES.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.EnumType.OAK).withProperty(BlockOldLeaf.CHECK_DECAY, Boolean.FALSE);
 
 	public WorldGenSwamp() {
 
@@ -148,7 +148,7 @@ public class WorldGenSwamp extends WorldGenAbstractTree {
 
 	private void addVine(World worldIn, BlockPos pos, PropertyBool prop) {
 
-		IBlockState iblockstate = Blocks.VINE.getDefaultState().withProperty(prop, Boolean.valueOf(true));
+		IBlockState iblockstate = Blocks.VINE.getDefaultState().withProperty(prop, Boolean.TRUE);
 		setBlockAndNotifyAdequately(worldIn, pos, iblockstate);
 		int i = 4;
 

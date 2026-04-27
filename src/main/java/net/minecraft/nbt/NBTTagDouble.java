@@ -64,8 +64,7 @@ public class NBTTagDouble extends NBTPrimitive {
 
 	public int hashCode() {
 
-		long i = Double.doubleToLongBits(data);
-		return super.hashCode() ^ (int) (i ^ i >>> 32);
+		return super.hashCode() ^ Double.hashCode(data);
 	}
 
 	public long getLong() {

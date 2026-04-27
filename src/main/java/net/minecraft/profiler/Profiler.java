@@ -47,7 +47,7 @@ public class Profiler {
 
 			profilingSection = profilingSection + name;
 			sectionList.add(profilingSection);
-			timestampList.add(Long.valueOf(System.nanoTime()));
+			timestampList.add(System.nanoTime());
 		}
 	}
 
@@ -65,21 +65,21 @@ public class Profiler {
 
 		if (profilingEnabled) {
 			long i = System.nanoTime();
-			long j = timestampList.remove(timestampList.size() - 1).longValue();
-			sectionList.remove(sectionList.size() - 1);
+			long j = timestampList.removeLast();
+			sectionList.removeLast();
 			long k = i - j;
 
 			if (profilingMap.containsKey(profilingSection)) {
-				profilingMap.put(profilingSection, Long.valueOf(profilingMap.get(profilingSection).longValue() + k));
+				profilingMap.put(profilingSection, profilingMap.get(profilingSection) + k);
 			} else {
-				profilingMap.put(profilingSection, Long.valueOf(k));
+				profilingMap.put(profilingSection, k);
 			}
 
 			if (k > 100000000L) {
-				LOGGER.warn("Something's taking too long! '{}' took aprox {} ms", profilingSection, Double.valueOf((double) k / 1000000.0D));
+				LOGGER.warn("Something's taking too long! '{}' took aprox {} ms", profilingSection, (double) k / 1000000.0D);
 			}
 
-			profilingSection = sectionList.isEmpty() ? "" : sectionList.get(sectionList.size() - 1);
+			profilingSection = sectionList.isEmpty() ? "" : sectionList.getLast();
 		}
 	}
 
@@ -88,8 +88,8 @@ public class Profiler {
 		if (!profilingEnabled) {
 			return Collections.emptyList();
 		} else {
-			long i = profilingMap.containsKey("root") ? profilingMap.get("root").longValue() : 0L;
-			long j = profilingMap.containsKey(profilerName) ? profilingMap.get(profilerName).longValue() : -1L;
+			long i = profilingMap.containsKey("root") ? profilingMap.get("root") : 0L;
+			long j = profilingMap.containsKey(profilerName) ? profilingMap.get(profilerName) : -1L;
 			List<Profiler.Result> list = Lists.newArrayList();
 
 			if (!profilerName.isEmpty()) {
@@ -100,7 +100,7 @@ public class Profiler {
 
 			for (String s : profilingMap.keySet()) {
 				if (s.length() > profilerName.length() && s.startsWith(profilerName) && s.indexOf(".", profilerName.length() + 1) < 0) {
-					k += profilingMap.get(s).longValue();
+					k += profilingMap.get(s);
 				}
 			}
 
@@ -116,7 +116,7 @@ public class Profiler {
 
 			for (String s1 : profilingMap.keySet()) {
 				if (s1.length() > profilerName.length() && s1.startsWith(profilerName) && s1.indexOf(".", profilerName.length() + 1) < 0) {
-					long l = profilingMap.get(s1).longValue();
+					long l = profilingMap.get(s1);
 					double d0 = (double) l * 100.0D / (double) k;
 					double d1 = (double) l * 100.0D / (double) i;
 					String s2 = s1.substring(profilerName.length());
@@ -125,7 +125,7 @@ public class Profiler {
 			}
 
 			for (String s3 : profilingMap.keySet()) {
-				profilingMap.put(s3, Long.valueOf(profilingMap.get(s3).longValue() * 999L / 1000L));
+				profilingMap.put(s3, profilingMap.get(s3) * 999L / 1000L);
 			}
 
 			if ((float) k > f) {
@@ -133,7 +133,7 @@ public class Profiler {
 			}
 
 			Collections.sort(list);
-			list.add(0, new Profiler.Result(profilerName, 100.0D, (double) k * 100.0D / (double) i));
+			list.addFirst(new Profiler.Result(profilerName, 100.0D, (double) k * 100.0D / (double) i));
 			return list;
 		}
 	}
@@ -155,7 +155,7 @@ public class Profiler {
 
 	public String getNameOfLastSection() {
 
-		return sectionList.isEmpty() ? "[UNKNOWN]" : sectionList.get(sectionList.size() - 1);
+		return sectionList.isEmpty() ? "[UNKNOWN]" : sectionList.getLast();
 	}
 
 	public static final class Result implements Comparable<Profiler.Result> {

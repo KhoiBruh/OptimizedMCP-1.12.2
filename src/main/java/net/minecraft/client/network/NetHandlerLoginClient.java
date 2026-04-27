@@ -76,12 +76,7 @@ public class NetHandlerLoginClient implements INetHandlerLoginClient {
 			}
 		}
 
-		networkManager.sendPacket(new CPacketEncryptionResponse(secretkey, publickey, packetIn.getVerifyToken()), new GenericFutureListener<Future<? super Void>>() {
-			public void operationComplete(Future<? super Void> p_operationComplete_1_) throws Exception {
-
-				networkManager.enableEncryption(secretkey);
-			}
-		});
+		networkManager.sendPacket(new CPacketEncryptionResponse(secretkey, publickey, packetIn.getVerifyToken()), p_operationComplete_1_ -> networkManager.enableEncryption(secretkey));
 	}
 
 	private MinecraftSessionService getSessionService() {

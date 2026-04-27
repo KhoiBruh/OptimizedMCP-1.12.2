@@ -28,7 +28,7 @@ import java.util.Set;
 public class EntityList {
 
 	public static final ResourceLocation LIGHTNING_BOLT = new ResourceLocation("lightning_bolt");
-	public static final RegistryNamespaced<ResourceLocation, Class<? extends Entity>> REGISTRY = new RegistryNamespaced<ResourceLocation, Class<? extends Entity>>();
+	public static final RegistryNamespaced<ResourceLocation, Class<? extends Entity>> REGISTRY = new RegistryNamespaced<>();
 	public static final Map<ResourceLocation, EntityList.EntityEggInfo> ENTITY_EGGS = Maps.newLinkedHashMap();
 	public static final Set<ResourceLocation> KNOWN_TYPES = Sets.newHashSet();
 	private static final ResourceLocation PLAYER = new ResourceLocation("player");

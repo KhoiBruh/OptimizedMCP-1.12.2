@@ -221,7 +221,7 @@ public class ItemMonsterPlacer extends Item {
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
 
 		if (worldIn.isRemote) {
-			return new ActionResult<ItemStack>(EnumActionResult.PASS, itemstack);
+			return new ActionResult<>(EnumActionResult.PASS, itemstack);
 		} else {
 			RayTraceResult raytraceresult = rayTrace(worldIn, playerIn, true);
 
@@ -229,12 +229,12 @@ public class ItemMonsterPlacer extends Item {
 				BlockPos blockpos = raytraceresult.getBlockPos();
 
 				if (!(worldIn.getBlockState(blockpos).getBlock() instanceof BlockLiquid)) {
-					return new ActionResult<ItemStack>(EnumActionResult.PASS, itemstack);
+					return new ActionResult<>(EnumActionResult.PASS, itemstack);
 				} else if (worldIn.isBlockModifiable(playerIn, blockpos) && playerIn.canPlayerEdit(blockpos, raytraceresult.sideHit, itemstack)) {
 					Entity entity = spawnCreature(worldIn, getNamedIdFrom(itemstack), (double) blockpos.getX() + 0.5D, (double) blockpos.getY() + 0.5D, (double) blockpos.getZ() + 0.5D);
 
 					if (entity == null) {
-						return new ActionResult<ItemStack>(EnumActionResult.PASS, itemstack);
+						return new ActionResult<>(EnumActionResult.PASS, itemstack);
 					} else {
 						if (entity instanceof EntityLivingBase && itemstack.hasDisplayName()) {
 							entity.setCustomNameTag(itemstack.getDisplayName());
@@ -247,13 +247,13 @@ public class ItemMonsterPlacer extends Item {
 						}
 
 						playerIn.addStat(StatList.getObjectUseStats(this));
-						return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemstack);
+						return new ActionResult<>(EnumActionResult.SUCCESS, itemstack);
 					}
 				} else {
-					return new ActionResult<ItemStack>(EnumActionResult.FAIL, itemstack);
+					return new ActionResult<>(EnumActionResult.FAIL, itemstack);
 				}
 			} else {
-				return new ActionResult<ItemStack>(EnumActionResult.PASS, itemstack);
+				return new ActionResult<>(EnumActionResult.PASS, itemstack);
 			}
 		}
 	}

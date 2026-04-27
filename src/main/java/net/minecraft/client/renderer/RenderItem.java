@@ -322,30 +322,10 @@ public class RenderItem implements IResourceManagerReloadListener {
 			} catch (Throwable throwable) {
 				CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Rendering item");
 				CrashReportCategory crashreportcategory = crashreport.makeCategory("Item being rendered");
-				crashreportcategory.addDetail("Item Type", new ICrashReportDetail<String>() {
-					public String call() throws Exception {
-
-						return String.valueOf(p_184391_2_.getItem());
-					}
-				});
-				crashreportcategory.addDetail("Item Aux", new ICrashReportDetail<String>() {
-					public String call() throws Exception {
-
-						return String.valueOf(p_184391_2_.getMetadata());
-					}
-				});
-				crashreportcategory.addDetail("Item NBT", new ICrashReportDetail<String>() {
-					public String call() throws Exception {
-
-						return String.valueOf(p_184391_2_.getTagCompound());
-					}
-				});
-				crashreportcategory.addDetail("Item Foil", new ICrashReportDetail<String>() {
-					public String call() throws Exception {
-
-						return String.valueOf(p_184391_2_.hasEffect());
-					}
-				});
+				crashreportcategory.addDetail("Item Type", () -> String.valueOf(p_184391_2_.getItem()));
+				crashreportcategory.addDetail("Item Aux", () -> String.valueOf(p_184391_2_.getMetadata()));
+				crashreportcategory.addDetail("Item NBT", () -> String.valueOf(p_184391_2_.getTagCompound()));
+				crashreportcategory.addDetail("Item Foil", () -> String.valueOf(p_184391_2_.hasEffect()));
 				throw new ReportedException(crashreport);
 			}
 
@@ -947,12 +927,7 @@ public class RenderItem implements IResourceManagerReloadListener {
 		registerItem(Items.CAULDRON, "cauldron");
 		registerItem(Items.ENDER_EYE, "ender_eye");
 		registerItem(Items.SPECKLED_MELON, "speckled_melon");
-		itemModelMesher.register(Items.SPAWN_EGG, new ItemMeshDefinition() {
-			public ModelResourceLocation getModelLocation(ItemStack stack) {
-
-				return new ModelResourceLocation("spawn_egg", "inventory");
-			}
-		});
+		itemModelMesher.register(Items.SPAWN_EGG, stack -> new ModelResourceLocation("spawn_egg", "inventory"));
 		registerItem(Items.EXPERIENCE_BOTTLE, "experience_bottle");
 		registerItem(Items.FIRE_CHARGE, "fire_charge");
 		registerItem(Items.WRITABLE_BOOK, "writable_book");
@@ -987,24 +962,9 @@ public class RenderItem implements IResourceManagerReloadListener {
 		registerItem(Items.DIAMOND_HORSE_ARMOR, "diamond_horse_armor");
 		registerItem(Items.LEAD, "lead");
 		registerItem(Items.NAME_TAG, "name_tag");
-		itemModelMesher.register(Items.BANNER, new ItemMeshDefinition() {
-			public ModelResourceLocation getModelLocation(ItemStack stack) {
-
-				return new ModelResourceLocation("banner", "inventory");
-			}
-		});
-		itemModelMesher.register(Items.BED, new ItemMeshDefinition() {
-			public ModelResourceLocation getModelLocation(ItemStack stack) {
-
-				return new ModelResourceLocation("bed", "inventory");
-			}
-		});
-		itemModelMesher.register(Items.SHIELD, new ItemMeshDefinition() {
-			public ModelResourceLocation getModelLocation(ItemStack stack) {
-
-				return new ModelResourceLocation("shield", "inventory");
-			}
-		});
+		itemModelMesher.register(Items.BANNER, stack -> new ModelResourceLocation("banner", "inventory"));
+		itemModelMesher.register(Items.BED, stack -> new ModelResourceLocation("bed", "inventory"));
+		itemModelMesher.register(Items.SHIELD, stack -> new ModelResourceLocation("shield", "inventory"));
 		registerItem(Items.ELYTRA, "elytra");
 		registerItem(Items.CHORUS_FRUIT, "chorus_fruit");
 		registerItem(Items.CHORUS_FRUIT_POPPED, "chorus_fruit_popped");
@@ -1025,18 +985,8 @@ public class RenderItem implements IResourceManagerReloadListener {
 		registerItem(Items.PRISMARINE_SHARD, "prismarine_shard");
 		registerItem(Items.PRISMARINE_CRYSTALS, "prismarine_crystals");
 		registerItem(Items.KNOWLEDGE_BOOK, "knowledge_book");
-		itemModelMesher.register(Items.ENCHANTED_BOOK, new ItemMeshDefinition() {
-			public ModelResourceLocation getModelLocation(ItemStack stack) {
-
-				return new ModelResourceLocation("enchanted_book", "inventory");
-			}
-		});
-		itemModelMesher.register(Items.FILLED_MAP, new ItemMeshDefinition() {
-			public ModelResourceLocation getModelLocation(ItemStack stack) {
-
-				return new ModelResourceLocation("filled_map", "inventory");
-			}
-		});
+		itemModelMesher.register(Items.ENCHANTED_BOOK, stack -> new ModelResourceLocation("enchanted_book", "inventory"));
+		itemModelMesher.register(Items.FILLED_MAP, stack -> new ModelResourceLocation("filled_map", "inventory"));
 		registerBlock(Blocks.COMMAND_BLOCK, "command_block");
 		registerItem(Items.FIREWORKS, "fireworks");
 		registerItem(Items.COMMAND_BLOCK_MINECART, "command_block_minecart");

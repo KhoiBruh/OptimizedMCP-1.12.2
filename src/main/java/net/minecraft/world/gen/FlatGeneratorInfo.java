@@ -91,7 +91,7 @@ public class FlatGeneratorInfo {
 
 	private static List<FlatLayerInfo> getLayersFromString(int p_180716_0_, String p_180716_1_) {
 
-		if (p_180716_1_ != null && p_180716_1_.length() >= 1) {
+		if (p_180716_1_ != null && !p_180716_1_.isEmpty()) {
 			List<FlatLayerInfo> list = Lists.newArrayList();
 			String[] astring = p_180716_1_.split(",");
 			int i = 0;

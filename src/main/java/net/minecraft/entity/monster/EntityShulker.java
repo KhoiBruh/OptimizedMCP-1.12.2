@@ -145,8 +145,8 @@ public class EntityShulker extends EntityGolem implements IMob {
 		super.entityInit();
 		dataManager.register(ATTACHED_FACE, EnumFacing.DOWN);
 		dataManager.register(ATTACHED_BLOCK_POS, Optional.absent());
-		dataManager.register(PEEK_TICK, Byte.valueOf((byte) 0));
-		dataManager.register(COLOR, Byte.valueOf((byte) DEFAULT_COLOR.getMetadata()));
+		dataManager.register(PEEK_TICK, (byte) 0);
+		dataManager.register(COLOR, (byte) DEFAULT_COLOR.getMetadata());
 	}
 
 	protected void applyEntityAttributes() {
@@ -167,8 +167,8 @@ public class EntityShulker extends EntityGolem implements IMob {
 
 		super.readEntityFromNBT(compound);
 		dataManager.set(ATTACHED_FACE, EnumFacing.getFront(compound.getByte("AttachFace")));
-		dataManager.set(PEEK_TICK, Byte.valueOf(compound.getByte("Peek")));
-		dataManager.set(COLOR, Byte.valueOf(compound.getByte("Color")));
+		dataManager.set(PEEK_TICK, compound.getByte("Peek"));
+		dataManager.set(COLOR, compound.getByte("Color"));
 
 		if (compound.hasKey("APX")) {
 			int i = compound.getInteger("APX");
@@ -187,8 +187,8 @@ public class EntityShulker extends EntityGolem implements IMob {
 
 		super.writeEntityToNBT(compound);
 		compound.setByte("AttachFace", (byte) dataManager.get(ATTACHED_FACE).getIndex());
-		compound.setByte("Peek", dataManager.get(PEEK_TICK).byteValue());
-		compound.setByte("Color", dataManager.get(COLOR).byteValue());
+		compound.setByte("Peek", dataManager.get(PEEK_TICK));
+		compound.setByte("Color", dataManager.get(COLOR));
 		BlockPos blockpos = getAttachmentPos();
 
 		if (blockpos != null) {
@@ -377,7 +377,7 @@ public class EntityShulker extends EntityGolem implements IMob {
 
 			if (!optional1.equals(optional)) {
 				dataManager.set(ATTACHED_BLOCK_POS, optional1);
-				dataManager.set(PEEK_TICK, Byte.valueOf((byte) 0));
+				dataManager.set(PEEK_TICK, (byte) 0);
 				isAirBorne = true;
 			}
 		}
@@ -405,7 +405,7 @@ public class EntityShulker extends EntityGolem implements IMob {
 					if (flag) {
 						playSound(SoundEvents.ENTITY_SHULKER_TELEPORT, 1.0F, 1.0F);
 						dataManager.set(ATTACHED_BLOCK_POS, Optional.of(blockpos1));
-						dataManager.set(PEEK_TICK, Byte.valueOf((byte) 0));
+						dataManager.set(PEEK_TICK, (byte) 0);
 						setAttackTarget(null);
 						return true;
 					}
@@ -530,7 +530,7 @@ public class EntityShulker extends EntityGolem implements IMob {
 
 	public int getPeekTick() {
 
-		return dataManager.get(PEEK_TICK).byteValue();
+		return dataManager.get(PEEK_TICK);
 	}
 
 	/**
@@ -549,7 +549,7 @@ public class EntityShulker extends EntityGolem implements IMob {
 			}
 		}
 
-		dataManager.set(PEEK_TICK, Byte.valueOf((byte) p_184691_1_));
+		dataManager.set(PEEK_TICK, (byte) p_184691_1_);
 	}
 
 	public float getClientPeekAmount(float p_184688_1_) {
@@ -593,11 +593,6 @@ public class EntityShulker extends EntityGolem implements IMob {
 
 	}
 
-	public float getCollisionBorderSize() {
-
-		return 0.0F;
-	}
-
 	public boolean isAttachedToBlock() {
 
 		return currentAttachmentPosition != null && getAttachmentPos() != null;
@@ -611,19 +606,14 @@ public class EntityShulker extends EntityGolem implements IMob {
 
 	public EnumDyeColor getColor() {
 
-		return EnumDyeColor.byMetadata(dataManager.get(COLOR).byteValue());
+		return EnumDyeColor.byMetadata(dataManager.get(COLOR));
 	}
 
 	static class AIDefenseAttack extends EntityAINearestAttackableTarget<EntityLivingBase> {
 
 		public AIDefenseAttack(EntityShulker shulker) {
 
-			super(shulker, EntityLivingBase.class, 10, true, false, new Predicate<EntityLivingBase>() {
-				public boolean apply(@Nullable EntityLivingBase p_apply_1_) {
-
-					return p_apply_1_ instanceof IMob;
-				}
-			});
+			super(shulker, EntityLivingBase.class, 10, true, false, p_apply_1_ -> p_apply_1_ instanceof IMob);
 		}
 
 		public boolean shouldExecute() {

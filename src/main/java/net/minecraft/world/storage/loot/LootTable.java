@@ -56,9 +56,9 @@ public class LootTable {
 			}
 
 			if (itemstack.isEmpty()) {
-				inventory.setInventorySlotContents(list1.remove(list1.size() - 1).intValue(), ItemStack.EMPTY);
+				inventory.setInventorySlotContents(list1.removeLast(), ItemStack.EMPTY);
 			} else {
-				inventory.setInventorySlotContents(list1.remove(list1.size() - 1).intValue(), itemstack);
+				inventory.setInventorySlotContents(list1.removeLast(), itemstack);
 			}
 		}
 	}
@@ -112,7 +112,7 @@ public class LootTable {
 
 		for (int i = 0; i < inventory.getSizeInventory(); ++i) {
 			if (inventory.getStackInSlot(i).isEmpty()) {
-				list.add(Integer.valueOf(i));
+				list.add(i);
 			}
 		}
 

@@ -39,8 +39,8 @@ public class SkinManager {
 		textureManager = textureManagerInstance;
 		skinCacheDir = skinCacheDirectory;
 		this.sessionService = sessionService;
-		skinCacheLoader = CacheBuilder.newBuilder().expireAfterAccess(15L, TimeUnit.SECONDS).build(new CacheLoader<GameProfile, Map<Type, MinecraftProfileTexture>>() {
-			public Map<Type, MinecraftProfileTexture> load(GameProfile p_load_1_) throws Exception {
+		skinCacheLoader = CacheBuilder.newBuilder().expireAfterAccess(15L, TimeUnit.SECONDS).build(new CacheLoader<>() {
+			public Map<Type, MinecraftProfileTexture> load(GameProfile p_load_1_) {
 
 				try {
 					return Minecraft.getMinecraft().getSessionService().getTextures(p_load_1_, false);
@@ -104,35 +104,31 @@ public class SkinManager {
 
 	public void loadProfileTextures(final GameProfile profile, final SkinManager.SkinAvailableCallback skinAvailableCallback, final boolean requireSecure) {
 
-		THREAD_POOL.submit(new Runnable() {
-			public void run() {
+		THREAD_POOL.submit(() -> {
 
-				final Map<Type, MinecraftProfileTexture> map = Maps.newHashMap();
+			final Map<Type, MinecraftProfileTexture> map = Maps.newHashMap();
 
-				try {
-					map.putAll(sessionService.getTextures(profile, requireSecure));
-				} catch (InsecureTextureException var3) {
-				}
-
-				if (map.isEmpty() && profile.getId().equals(Minecraft.getMinecraft().getSession().getProfile().getId())) {
-					profile.getProperties().clear();
-					profile.getProperties().putAll(Minecraft.getMinecraft().getProfileProperties());
-					map.putAll(sessionService.getTextures(profile, false));
-				}
-
-				Minecraft.getMinecraft().addScheduledTask(new Runnable() {
-					public void run() {
-
-						if (map.containsKey(Type.SKIN)) {
-							loadSkin(map.get(Type.SKIN), Type.SKIN, skinAvailableCallback);
-						}
-
-						if (map.containsKey(Type.CAPE)) {
-							loadSkin(map.get(Type.CAPE), Type.CAPE, skinAvailableCallback);
-						}
-					}
-				});
+			try {
+				map.putAll(sessionService.getTextures(profile, requireSecure));
+			} catch (InsecureTextureException var3) {
 			}
+
+			if (map.isEmpty() && profile.getId().equals(Minecraft.getMinecraft().getSession().getProfile().getId())) {
+				profile.getProperties().clear();
+				profile.getProperties().putAll(Minecraft.getMinecraft().getProfileProperties());
+				map.putAll(sessionService.getTextures(profile, false));
+			}
+
+			Minecraft.getMinecraft().addScheduledTask(() -> {
+
+				if (map.containsKey(Type.SKIN)) {
+					loadSkin(map.get(Type.SKIN), Type.SKIN, skinAvailableCallback);
+				}
+
+				if (map.containsKey(Type.CAPE)) {
+					loadSkin(map.get(Type.CAPE), Type.CAPE, skinAvailableCallback);
+				}
+			});
 		});
 	}
 

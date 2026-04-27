@@ -199,7 +199,7 @@ public class ShapedRecipes implements IRecipe {
 			} else {
 				JsonArray jsonarray = p_193361_0_.getAsJsonArray();
 
-				if (jsonarray.size() == 0) {
+				if (jsonarray.isEmpty()) {
 					throw new JsonSyntaxException("Item array cannot be empty, at least one item must be defined");
 				} else {
 					ItemStack[] aitemstack = new ItemStack[jsonarray.size()];

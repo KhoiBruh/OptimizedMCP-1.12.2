@@ -53,7 +53,7 @@ public class EntityEnderCrystal extends Entity {
 	protected void entityInit() {
 
 		getDataManager().register(BEAM_TARGET, Optional.absent());
-		getDataManager().register(SHOW_BOTTOM, Boolean.valueOf(true));
+		getDataManager().register(SHOW_BOTTOM, Boolean.TRUE);
 	}
 
 	/**
@@ -168,12 +168,12 @@ public class EntityEnderCrystal extends Entity {
 
 	public void setShowBottom(boolean showBottom) {
 
-		getDataManager().set(SHOW_BOTTOM, Boolean.valueOf(showBottom));
+		getDataManager().set(SHOW_BOTTOM, showBottom);
 	}
 
 	public boolean shouldShowBottom() {
 
-		return getDataManager().get(SHOW_BOTTOM).booleanValue();
+		return getDataManager().get(SHOW_BOTTOM);
 	}
 
 	/**

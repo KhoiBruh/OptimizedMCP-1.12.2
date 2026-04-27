@@ -192,7 +192,7 @@ public class TileEntityCommandBlock extends TileEntity {
 	public boolean isConditional() {
 
 		IBlockState iblockstate = world.getBlockState(getPos());
-		return iblockstate.getBlock() instanceof BlockCommandBlock && iblockstate.getValue(BlockCommandBlock.CONDITIONAL).booleanValue();
+		return iblockstate.getBlock() instanceof BlockCommandBlock && iblockstate.getValue(BlockCommandBlock.CONDITIONAL);
 	}
 
 	/**

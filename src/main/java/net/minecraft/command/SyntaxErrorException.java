@@ -12,9 +12,4 @@ public class SyntaxErrorException extends CommandException {
 		super(message, replacements);
 	}
 
-	public synchronized Throwable fillInStackTrace() {
-
-		return this;
-	}
-
 }

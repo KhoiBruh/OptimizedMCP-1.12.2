@@ -245,7 +245,7 @@ public class GuiChat extends GuiScreen implements ITabCompleter {
 				StringBuilder stringbuilder = new StringBuilder();
 
 				for (String s : completions) {
-					if (stringbuilder.length() > 0) {
+					if (!stringbuilder.isEmpty()) {
 						stringbuilder.append(", ");
 					}
 

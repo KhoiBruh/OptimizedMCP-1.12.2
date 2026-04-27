@@ -42,7 +42,7 @@ public class CommandShowSeed extends CommandBase {
 	/**
 	 * Callback for when the command is executed
 	 */
-	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
+	public void execute(MinecraftServer server, ICommandSender sender, String[] args) {
 
 		World world = sender instanceof EntityPlayer ? ((EntityPlayer) sender).world : server.getWorld(0);
 		sender.sendMessage(new TextComponentTranslation("commands.seed.success", world.getSeed()));

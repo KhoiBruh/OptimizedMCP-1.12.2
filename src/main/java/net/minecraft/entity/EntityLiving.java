@@ -227,12 +227,12 @@ public abstract class EntityLiving extends EntityLivingBase {
 	public float getPathPriority(PathNodeType nodeType) {
 
 		Float f = mapPathPriority.get(nodeType);
-		return f == null ? nodeType.getPriority() : f.floatValue();
+		return f == null ? nodeType.getPriority() : f;
 	}
 
 	public void setPathPriority(PathNodeType nodeType, float priority) {
 
-		mapPathPriority.put(nodeType, Float.valueOf(priority));
+		mapPathPriority.put(nodeType, priority);
 	}
 
 	protected EntityBodyHelper createBodyHelper() {
@@ -305,7 +305,7 @@ public abstract class EntityLiving extends EntityLivingBase {
 	protected void entityInit() {
 
 		super.entityInit();
-		dataManager.register(AI_FLAGS, Byte.valueOf((byte) 0));
+		dataManager.register(AI_FLAGS, (byte) 0);
 	}
 
 	/**
@@ -733,20 +733,11 @@ public abstract class EntityLiving extends EntityLivingBase {
 		}
 
 		if (flag && canEquipItem(itemstack)) {
-			double d0;
-
-			switch (entityequipmentslot.getSlotType()) {
-				case HAND:
-					d0 = inventoryHandsDropChances[entityequipmentslot.getIndex()];
-					break;
-
-				case ARMOR:
-					d0 = inventoryArmorDropChances[entityequipmentslot.getIndex()];
-					break;
-
-				default:
-					d0 = 0.0D;
-			}
+			double d0 = switch (entityequipmentslot.getSlotType()) {
+				case HAND -> inventoryHandsDropChances[entityequipmentslot.getIndex()];
+				case ARMOR -> inventoryArmorDropChances[entityequipmentslot.getIndex()];
+				default -> 0.0D;
+			};
 
 			if (!itemstack1.isEmpty() && (double) (rand.nextFloat() - 0.1F) < d0) {
 				entityDropItem(itemstack1, 0.0F);
@@ -971,16 +962,11 @@ public abstract class EntityLiving extends EntityLivingBase {
 
 	public ItemStack getItemStackFromSlot(EntityEquipmentSlot slotIn) {
 
-		switch (slotIn.getSlotType()) {
-			case HAND:
-				return inventoryHands.get(slotIn.getIndex());
-
-			case ARMOR:
-				return inventoryArmor.get(slotIn.getIndex());
-
-			default:
-				return ItemStack.EMPTY;
-		}
+		return switch (slotIn.getSlotType()) {
+			case HAND -> inventoryHands.get(slotIn.getIndex());
+			case ARMOR -> inventoryArmor.get(slotIn.getIndex());
+			default -> ItemStack.EMPTY;
+		};
 	}
 
 	public void setItemStackToSlot(EntityEquipmentSlot slotIn, ItemStack stack) {
@@ -1002,20 +988,11 @@ public abstract class EntityLiving extends EntityLivingBase {
 
 		for (EntityEquipmentSlot entityequipmentslot : EntityEquipmentSlot.values()) {
 			ItemStack itemstack = getItemStackFromSlot(entityequipmentslot);
-			double d0;
-
-			switch (entityequipmentslot.getSlotType()) {
-				case HAND:
-					d0 = inventoryHandsDropChances[entityequipmentslot.getIndex()];
-					break;
-
-				case ARMOR:
-					d0 = inventoryArmorDropChances[entityequipmentslot.getIndex()];
-					break;
-
-				default:
-					d0 = 0.0D;
-			}
+			double d0 = switch (entityequipmentslot.getSlotType()) {
+				case HAND -> inventoryHandsDropChances[entityequipmentslot.getIndex()];
+				case ARMOR -> inventoryArmorDropChances[entityequipmentslot.getIndex()];
+				default -> 0.0D;
+			};
 
 			boolean flag = d0 > 1.0D;
 
@@ -1350,8 +1327,8 @@ public abstract class EntityLiving extends EntityLivingBase {
 	 */
 	public void setNoAI(boolean disable) {
 
-		byte b0 = dataManager.get(AI_FLAGS).byteValue();
-		dataManager.set(AI_FLAGS, Byte.valueOf(disable ? (byte) (b0 | 1) : (byte) (b0 & -2)));
+		byte b0 = dataManager.get(AI_FLAGS);
+		dataManager.set(AI_FLAGS, disable ? (byte) (b0 | 1) : (byte) (b0 & -2));
 	}
 
 	/**
@@ -1359,18 +1336,18 @@ public abstract class EntityLiving extends EntityLivingBase {
 	 */
 	public boolean isAIDisabled() {
 
-		return (dataManager.get(AI_FLAGS).byteValue() & 1) != 0;
+		return (dataManager.get(AI_FLAGS) & 1) != 0;
 	}
 
 	public boolean isLeftHanded() {
 
-		return (dataManager.get(AI_FLAGS).byteValue() & 2) != 0;
+		return (dataManager.get(AI_FLAGS) & 2) != 0;
 	}
 
 	public void setLeftHanded(boolean leftHanded) {
 
-		byte b0 = dataManager.get(AI_FLAGS).byteValue();
-		dataManager.set(AI_FLAGS, Byte.valueOf(leftHanded ? (byte) (b0 | 2) : (byte) (b0 & -3)));
+		byte b0 = dataManager.get(AI_FLAGS);
+		dataManager.set(AI_FLAGS, leftHanded ? (byte) (b0 | 2) : (byte) (b0 & -3));
 	}
 
 	public EnumHandSide getPrimaryHand() {

@@ -22,7 +22,6 @@ public class FlatLayerInfo {
 
 	public FlatLayerInfo(int p_i45627_1_, int height, Block layerMaterialIn) {
 
-		layerCount = 1;
 		version = p_i45627_1_;
 		layerCount = height;
 		layerMaterial = layerMaterialIn.getDefaultState();

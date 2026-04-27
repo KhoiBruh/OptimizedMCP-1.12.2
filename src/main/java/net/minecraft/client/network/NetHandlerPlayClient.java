@@ -1099,9 +1099,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 				gameController.displayGuiScreen(new GuiDownloadTerrain());
 			} else if (j == 1) {
 				gameController.displayGuiScreen(new GuiWinGame(true, () ->
-				{
-					gameController.player.connection.sendPacket(new CPacketClientStatus(CPacketClientStatus.State.PERFORM_RESPAWN));
-				}));
+						gameController.player.connection.sendPacket(new CPacketClientStatus(CPacketClientStatus.State.PERFORM_RESPAWN))));
 			}
 		} else if (i == 5) {
 			GameSettings gamesettings = gameController.gameSettings;
@@ -1195,7 +1193,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 
 		for (Entry<StatBase, Integer> entry : packetIn.getStatisticMap().entrySet()) {
 			StatBase statbase = entry.getKey();
-			int k = entry.getValue().intValue();
+			int k = entry.getValue();
 			gameController.player.getStatFileWriter().unlockAchievement(gameController.player, statbase, k);
 		}
 
@@ -1244,9 +1242,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 		}
 
 		RecipeBookClient.ALL_RECIPES.forEach((p_194023_1_) ->
-		{
-			p_194023_1_.updateKnownRecipes(recipebook);
-		});
+				p_194023_1_.updateKnownRecipes(recipebook));
 
 		if (gameController.currentScreen instanceof IRecipeShownListener) {
 			((IRecipeShownListener) gameController.currentScreen).recipesUpdated();
@@ -1461,36 +1457,29 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 				} else if (serverdata != null && serverdata.getResourceMode() != ServerData.ServerResourceMode.PROMPT) {
 					netManager.sendPacket(new CPacketResourcePackStatus(CPacketResourcePackStatus.Action.DECLINED));
 				} else {
-					gameController.addScheduledTask(new Runnable() {
-						public void run() {
+					gameController.addScheduledTask(() -> gameController.displayGuiScreen(new GuiYesNo((result, id) -> {
 
-							gameController.displayGuiScreen(new GuiYesNo(new GuiYesNoCallback() {
-								public void confirmClicked(boolean result, int id) {
+						gameController = Minecraft.getMinecraft();
+						ServerData serverdata1 = gameController.getCurrentServerData();
 
-									gameController = Minecraft.getMinecraft();
-									ServerData serverdata1 = gameController.getCurrentServerData();
+						if (result) {
+							if (serverdata1 != null) {
+								serverdata1.setResourceMode(ServerData.ServerResourceMode.ENABLED);
+							}
 
-									if (result) {
-										if (serverdata1 != null) {
-											serverdata1.setResourceMode(ServerData.ServerResourceMode.ENABLED);
-										}
+							netManager.sendPacket(new CPacketResourcePackStatus(CPacketResourcePackStatus.Action.ACCEPTED));
+							Futures.addCallback(gameController.getResourcePackRepository().downloadResourcePack(s, s1), createDownloadCallback(), MoreExecutors.directExecutor());
+						} else {
+							if (serverdata1 != null) {
+								serverdata1.setResourceMode(ServerData.ServerResourceMode.DISABLED);
+							}
 
-										netManager.sendPacket(new CPacketResourcePackStatus(CPacketResourcePackStatus.Action.ACCEPTED));
-										Futures.addCallback(gameController.getResourcePackRepository().downloadResourcePack(s, s1), createDownloadCallback(), MoreExecutors.directExecutor());
-									} else {
-										if (serverdata1 != null) {
-											serverdata1.setResourceMode(ServerData.ServerResourceMode.DISABLED);
-										}
-
-										netManager.sendPacket(new CPacketResourcePackStatus(CPacketResourcePackStatus.Action.DECLINED));
-									}
-
-									ServerList.saveSingleServer(serverdata1);
-									gameController.displayGuiScreen(null);
-								}
-							}, I18n.format("multiplayer.texturePrompt.line1"), I18n.format("multiplayer.texturePrompt.line2"), 0));
+							netManager.sendPacket(new CPacketResourcePackStatus(CPacketResourcePackStatus.Action.DECLINED));
 						}
-					});
+
+						ServerList.saveSingleServer(serverdata1);
+						gameController.displayGuiScreen(null);
+					}, I18n.format("multiplayer.texturePrompt.line1"), I18n.format("multiplayer.texturePrompt.line2"), 0)));
 				}
 			}
 		}
@@ -1518,7 +1507,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 
 	private FutureCallback<Object> createDownloadCallback() {
 
-		return new FutureCallback<Object>() {
+		return new FutureCallback<>() {
 			public void onSuccess(@Nullable Object p_onSuccess_1_) {
 
 				netManager.sendPacket(new CPacketResourcePackStatus(CPacketResourcePackStatus.Action.SUCCESSFULLY_LOADED));
@@ -1576,7 +1565,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 				int k = packetbuffer.readInt();
 				GuiScreen guiscreen = gameController.currentScreen;
 
-				if (guiscreen != null && guiscreen instanceof GuiMerchant && k == gameController.player.openContainer.windowId) {
+				if (guiscreen instanceof GuiMerchant && k == gameController.player.openContainer.windowId) {
 					IMerchant imerchant = ((GuiMerchant) guiscreen).getMerchant();
 					MerchantRecipeList merchantrecipelist = MerchantRecipeList.readFromBuf(packetbuffer);
 					imerchant.setRecipes(merchantrecipelist);

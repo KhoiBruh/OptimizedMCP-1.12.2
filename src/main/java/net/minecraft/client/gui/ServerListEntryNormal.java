@@ -54,18 +54,16 @@ public class ServerListEntryNormal implements GuiListExtended.IGuiListEntry {
 			server.pingToServer = -2L;
 			server.serverMOTD = "";
 			server.populationInfo = "";
-			EXECUTOR.submit(new Runnable() {
-				public void run() {
+			EXECUTOR.submit(() -> {
 
-					try {
-						owner.getOldServerPinger().ping(server);
-					} catch (UnknownHostException var2) {
-						server.pingToServer = -1L;
-						server.serverMOTD = TextFormatting.DARK_RED + I18n.format("multiplayer.status.cannot_resolve");
-					} catch (Exception var3) {
-						server.pingToServer = -1L;
-						server.serverMOTD = TextFormatting.DARK_RED + I18n.format("multiplayer.status.cannot_connect");
-					}
+				try {
+					owner.getOldServerPinger().ping(server);
+				} catch (UnknownHostException var2) {
+					server.pingToServer = -1L;
+					server.serverMOTD = TextFormatting.DARK_RED + I18n.format("multiplayer.status.cannot_resolve");
+				} catch (Exception var3) {
+					server.pingToServer = -1L;
+					server.serverMOTD = TextFormatting.DARK_RED + I18n.format("multiplayer.status.cannot_connect");
 				}
 			});
 		}

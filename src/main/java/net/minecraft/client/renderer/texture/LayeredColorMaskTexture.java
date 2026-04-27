@@ -35,7 +35,7 @@ public class LayeredColorMaskTexture extends AbstractTexture {
 		listDyeColors = p_i46101_3_;
 	}
 
-	public void loadTexture(IResourceManager resourceManager) throws IOException {
+	public void loadTexture(IResourceManager resourceManager) {
 
 		deleteGlTexture();
 		IResource iresource = null;

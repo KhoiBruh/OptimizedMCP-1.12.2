@@ -56,7 +56,7 @@ public class ContainerHorseInventory extends Container {
 
 		for (int i1 = 0; i1 < 3; ++i1) {
 			for (int k1 = 0; k1 < 9; ++k1) {
-				addSlotToContainer(new Slot(playerInventory, k1 + i1 * 9 + 9, 8 + k1 * 18, 102 + i1 * 18 + -18));
+				addSlotToContainer(new Slot(playerInventory, k1 + i1 * 9 + 9, 8 + k1 * 18, 102 + i1 * 18 - 18));
 			}
 		}
 

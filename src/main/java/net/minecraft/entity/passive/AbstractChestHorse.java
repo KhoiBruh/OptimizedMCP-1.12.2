@@ -39,7 +39,7 @@ public abstract class AbstractChestHorse extends AbstractHorse {
 	protected void entityInit() {
 
 		super.entityInit();
-		dataManager.register(DATA_ID_CHEST, Boolean.valueOf(false));
+		dataManager.register(DATA_ID_CHEST, Boolean.FALSE);
 	}
 
 	protected void applyEntityAttributes() {
@@ -52,12 +52,12 @@ public abstract class AbstractChestHorse extends AbstractHorse {
 
 	public boolean hasChest() {
 
-		return dataManager.get(DATA_ID_CHEST).booleanValue();
+		return dataManager.get(DATA_ID_CHEST);
 	}
 
 	public void setChested(boolean chested) {
 
-		dataManager.set(DATA_ID_CHEST, Boolean.valueOf(chested));
+		dataManager.set(DATA_ID_CHEST, chested);
 	}
 
 	protected int getInventorySize() {

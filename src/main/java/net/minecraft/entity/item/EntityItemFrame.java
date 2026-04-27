@@ -53,12 +53,7 @@ public class EntityItemFrame extends EntityHanging {
 	protected void entityInit() {
 
 		getDataManager().register(ITEM, ItemStack.EMPTY);
-		getDataManager().register(ROTATION, Integer.valueOf(0));
-	}
-
-	public float getCollisionBorderSize() {
-
-		return 0.0F;
+		getDataManager().register(ROTATION, 0);
 	}
 
 	/**
@@ -201,7 +196,7 @@ public class EntityItemFrame extends EntityHanging {
 	 */
 	public int getRotation() {
 
-		return getDataManager().get(ROTATION).intValue();
+		return getDataManager().get(ROTATION);
 	}
 
 	public void setItemRotation(int rotationIn) {
@@ -211,7 +206,7 @@ public class EntityItemFrame extends EntityHanging {
 
 	private void setRotation(int rotationIn, boolean p_174865_2_) {
 
-		getDataManager().set(ROTATION, Integer.valueOf(rotationIn % 8));
+		getDataManager().set(ROTATION, rotationIn % 8);
 
 		if (p_174865_2_ && hangingPosition != null) {
 			world.updateComparatorOutputLevel(hangingPosition, Blocks.AIR);

@@ -28,33 +28,29 @@ public class BlockBeacon extends BlockContainer {
 
 	public static void updateColorAsync(final World worldIn, final BlockPos glassPos) {
 
-		HttpUtil.DOWNLOADER_EXECUTOR.submit(new Runnable() {
-			public void run() {
+		HttpUtil.DOWNLOADER_EXECUTOR.submit(() -> {
 
-				Chunk chunk = worldIn.getChunkFromBlockCoords(glassPos);
+			Chunk chunk = worldIn.getChunkFromBlockCoords(glassPos);
 
-				for (int i = glassPos.getY() - 1; i >= 0; --i) {
-					final BlockPos blockpos = new BlockPos(glassPos.getX(), i, glassPos.getZ());
+			for (int i = glassPos.getY() - 1; i >= 0; --i) {
+				final BlockPos blockpos = new BlockPos(glassPos.getX(), i, glassPos.getZ());
 
-					if (!chunk.canSeeSky(blockpos)) {
-						break;
-					}
+				if (!chunk.canSeeSky(blockpos)) {
+					break;
+				}
 
-					IBlockState iblockstate = worldIn.getBlockState(blockpos);
+				IBlockState iblockstate = worldIn.getBlockState(blockpos);
 
-					if (iblockstate.getBlock() == Blocks.BEACON) {
-						((WorldServer) worldIn).addScheduledTask(new Runnable() {
-							public void run() {
+				if (iblockstate.getBlock() == Blocks.BEACON) {
+					((WorldServer) worldIn).addScheduledTask(() -> {
 
-								TileEntity tileentity = worldIn.getTileEntity(blockpos);
+						TileEntity tileentity = worldIn.getTileEntity(blockpos);
 
-								if (tileentity instanceof TileEntityBeacon) {
-									((TileEntityBeacon) tileentity).updateBeacon();
-									worldIn.addBlockEvent(blockpos, Blocks.BEACON, 1, 0);
-								}
-							}
-						});
-					}
+						if (tileentity instanceof TileEntityBeacon) {
+							((TileEntityBeacon) tileentity).updateBeacon();
+							worldIn.addBlockEvent(blockpos, Blocks.BEACON, 1, 0);
+						}
+					});
 				}
 			}
 		});

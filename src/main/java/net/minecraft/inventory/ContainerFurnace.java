@@ -45,9 +45,7 @@ public class ContainerFurnace extends Container {
 
 		super.detectAndSendChanges();
 
-		for (int i = 0; i < listeners.size(); ++i) {
-			IContainerListener icontainerlistener = listeners.get(i);
-
+		for (IContainerListener icontainerlistener : listeners) {
 			if (cookTime != tileFurnace.getField(2)) {
 				icontainerlistener.sendWindowProperty(this, 2, tileFurnace.getField(2));
 			}

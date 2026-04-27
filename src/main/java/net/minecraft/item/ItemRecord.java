@@ -48,7 +48,7 @@ public class ItemRecord extends Item {
 
 		IBlockState iblockstate = worldIn.getBlockState(pos);
 
-		if (iblockstate.getBlock() == Blocks.JUKEBOX && !iblockstate.getValue(BlockJukebox.HAS_RECORD).booleanValue()) {
+		if (iblockstate.getBlock() == Blocks.JUKEBOX && !iblockstate.getValue(BlockJukebox.HAS_RECORD)) {
 			if (!worldIn.isRemote) {
 				ItemStack itemstack = player.getHeldItem(hand);
 				((BlockJukebox) Blocks.JUKEBOX).insertRecord(worldIn, pos, iblockstate, itemstack);

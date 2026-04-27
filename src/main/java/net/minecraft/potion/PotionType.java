@@ -12,7 +12,7 @@ import java.util.List;
 public class PotionType {
 
 	private static final ResourceLocation EMPTY = new ResourceLocation("empty");
-	public static final RegistryNamespacedDefaultedByKey<ResourceLocation, PotionType> REGISTRY = new RegistryNamespacedDefaultedByKey<ResourceLocation, PotionType>(EMPTY);
+	public static final RegistryNamespacedDefaultedByKey<ResourceLocation, PotionType> REGISTRY = new RegistryNamespacedDefaultedByKey<>(EMPTY);
 	private static int nextPotionTypeId;
 
 	/**
@@ -101,11 +101,8 @@ public class PotionType {
 	public boolean hasInstantEffect() {
 
 		if (!effects.isEmpty()) {
-			UnmodifiableIterator unmodifiableiterator = effects.iterator();
 
-			while (unmodifiableiterator.hasNext()) {
-				PotionEffect potioneffect = (PotionEffect) unmodifiableiterator.next();
-
+			for (PotionEffect potioneffect : effects) {
 				if (potioneffect.getPotion().isInstant()) {
 					return true;
 				}

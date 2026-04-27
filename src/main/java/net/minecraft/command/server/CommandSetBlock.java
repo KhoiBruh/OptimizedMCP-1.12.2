@@ -96,7 +96,7 @@ public class CommandSetBlock extends CommandBase {
 
 				TileEntity tileentity1 = world.getTileEntity(blockpos);
 
-				if (tileentity1 != null && tileentity1 instanceof IInventory) {
+				if (tileentity1 instanceof IInventory) {
 					((IInventory) tileentity1).clear();
 				}
 

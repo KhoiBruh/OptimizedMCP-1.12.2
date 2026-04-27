@@ -249,7 +249,6 @@ public class StructureNetherBridgePieces {
 			for (int i = 0; i <= 9; ++i) {
 				int j = Math.max(1, 7 - i);
 				int k = Math.min(Math.max(j + 5, 14 - i), 13);
-				int l = i;
 				fillWithBlocks(worldIn, structureBoundingBoxIn, 0, 0, i, 4, j, i, Blocks.NETHER_BRICK.getDefaultState(), Blocks.NETHER_BRICK.getDefaultState(), false);
 				fillWithBlocks(worldIn, structureBoundingBoxIn, 1, j + 1, i, 3, k - 1, i, Blocks.AIR.getDefaultState(), Blocks.AIR.getDefaultState(), false);
 
@@ -269,7 +268,7 @@ public class StructureNetherBridgePieces {
 				}
 
 				for (int i1 = 0; i1 <= 4; ++i1) {
-					replaceAirAndLiquidDownwards(worldIn, Blocks.NETHER_BRICK.getDefaultState(), i1, -1, l, structureBoundingBoxIn);
+					replaceAirAndLiquidDownwards(worldIn, Blocks.NETHER_BRICK.getDefaultState(), i1, -1, i, structureBoundingBoxIn);
 				}
 			}
 
@@ -1011,16 +1010,10 @@ public class StructureNetherBridgePieces {
 
 			if (enumfacing != null) {
 				switch (enumfacing) {
-					case NORTH:
+					case NORTH, SOUTH:
 						return generateAndAddPiece(p_74961_1_, p_74961_2_, p_74961_3_, boundingBox.minX - 1, boundingBox.minY + p_74961_4_, boundingBox.minZ + p_74961_5_, EnumFacing.WEST, getComponentType(), p_74961_6_);
 
-					case SOUTH:
-						return generateAndAddPiece(p_74961_1_, p_74961_2_, p_74961_3_, boundingBox.minX - 1, boundingBox.minY + p_74961_4_, boundingBox.minZ + p_74961_5_, EnumFacing.WEST, getComponentType(), p_74961_6_);
-
-					case WEST:
-						return generateAndAddPiece(p_74961_1_, p_74961_2_, p_74961_3_, boundingBox.minX + p_74961_5_, boundingBox.minY + p_74961_4_, boundingBox.minZ - 1, EnumFacing.NORTH, getComponentType(), p_74961_6_);
-
-					case EAST:
+					case WEST, EAST:
 						return generateAndAddPiece(p_74961_1_, p_74961_2_, p_74961_3_, boundingBox.minX + p_74961_5_, boundingBox.minY + p_74961_4_, boundingBox.minZ - 1, EnumFacing.NORTH, getComponentType(), p_74961_6_);
 				}
 			}
@@ -1035,16 +1028,10 @@ public class StructureNetherBridgePieces {
 
 			if (enumfacing != null) {
 				switch (enumfacing) {
-					case NORTH:
+					case NORTH, SOUTH:
 						return generateAndAddPiece(p_74965_1_, p_74965_2_, p_74965_3_, boundingBox.maxX + 1, boundingBox.minY + p_74965_4_, boundingBox.minZ + p_74965_5_, EnumFacing.EAST, getComponentType(), p_74965_6_);
 
-					case SOUTH:
-						return generateAndAddPiece(p_74965_1_, p_74965_2_, p_74965_3_, boundingBox.maxX + 1, boundingBox.minY + p_74965_4_, boundingBox.minZ + p_74965_5_, EnumFacing.EAST, getComponentType(), p_74965_6_);
-
-					case WEST:
-						return generateAndAddPiece(p_74965_1_, p_74965_2_, p_74965_3_, boundingBox.minX + p_74965_5_, boundingBox.minY + p_74965_4_, boundingBox.maxZ + 1, EnumFacing.SOUTH, getComponentType(), p_74965_6_);
-
-					case EAST:
+					case WEST, EAST:
 						return generateAndAddPiece(p_74965_1_, p_74965_2_, p_74965_3_, boundingBox.minX + p_74965_5_, boundingBox.minY + p_74965_4_, boundingBox.maxZ + 1, EnumFacing.SOUTH, getComponentType(), p_74965_6_);
 				}
 			}

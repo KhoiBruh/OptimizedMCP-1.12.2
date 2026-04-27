@@ -42,10 +42,10 @@ public class ItemSnow extends ItemBlock {
 			}
 
 			if (block == this.block) {
-				int i = iblockstate.getValue(BlockSnow.LAYERS).intValue();
+				int i = iblockstate.getValue(BlockSnow.LAYERS);
 
 				if (i < 8) {
-					IBlockState iblockstate1 = iblockstate.withProperty(BlockSnow.LAYERS, Integer.valueOf(i + 1));
+					IBlockState iblockstate1 = iblockstate.withProperty(BlockSnow.LAYERS, i + 1);
 					AxisAlignedBB axisalignedbb = iblockstate1.getCollisionBoundingBox(worldIn, blockpos);
 
 					if (axisalignedbb != Block.NULL_AABB && worldIn.checkNoEntityCollision(axisalignedbb.offset(blockpos)) && worldIn.setBlockState(blockpos, iblockstate1, 10)) {

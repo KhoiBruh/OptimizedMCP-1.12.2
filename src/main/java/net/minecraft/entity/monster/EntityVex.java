@@ -96,7 +96,7 @@ public class EntityVex extends EntityMob {
 	protected void entityInit() {
 
 		super.entityInit();
-		dataManager.register(VEX_FLAGS, Byte.valueOf((byte) 0));
+		dataManager.register(VEX_FLAGS, (byte) 0);
 	}
 
 	/**
@@ -156,13 +156,13 @@ public class EntityVex extends EntityMob {
 
 	private boolean getVexFlag(int mask) {
 
-		int i = dataManager.get(VEX_FLAGS).byteValue();
+		int i = dataManager.get(VEX_FLAGS);
 		return (i & mask) != 0;
 	}
 
 	private void setVexFlag(int mask, boolean value) {
 
-		int i = dataManager.get(VEX_FLAGS).byteValue();
+		int i = dataManager.get(VEX_FLAGS);
 
 		if (value) {
 			i = i | mask;
@@ -170,7 +170,7 @@ public class EntityVex extends EntityMob {
 			i = i & ~mask;
 		}
 
-		dataManager.set(VEX_FLAGS, Byte.valueOf((byte) (i & 255)));
+		dataManager.set(VEX_FLAGS, (byte) (i & 255));
 	}
 
 	public boolean isCharging() {

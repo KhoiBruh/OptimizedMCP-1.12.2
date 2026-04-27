@@ -25,7 +25,7 @@ public class RecipeRepairItem implements IRecipe {
 				list.add(itemstack);
 
 				if (list.size() > 1) {
-					ItemStack itemstack1 = list.get(0);
+					ItemStack itemstack1 = list.getFirst();
 
 					if (itemstack.getItem() != itemstack1.getItem() || itemstack1.getCount() != 1 || itemstack.getCount() != 1 || !itemstack1.getItem().isDamageable()) {
 						return false;
@@ -51,7 +51,7 @@ public class RecipeRepairItem implements IRecipe {
 				list.add(itemstack);
 
 				if (list.size() > 1) {
-					ItemStack itemstack1 = list.get(0);
+					ItemStack itemstack1 = list.getFirst();
 
 					if (itemstack.getItem() != itemstack1.getItem() || itemstack1.getCount() != 1 || itemstack.getCount() != 1 || !itemstack1.getItem().isDamageable()) {
 						return ItemStack.EMPTY;

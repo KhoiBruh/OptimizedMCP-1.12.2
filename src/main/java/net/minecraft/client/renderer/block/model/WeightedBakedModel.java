@@ -21,7 +21,7 @@ public class WeightedBakedModel implements IBakedModel {
 
 		models = modelsIn;
 		totalWeight = WeightedRandom.getTotalWeight(modelsIn);
-		baseModel = (modelsIn.get(0)).model;
+		baseModel = (modelsIn.getFirst()).model;
 	}
 
 	private IBakedModel getRandomModel(long p_188627_1_) {
@@ -82,7 +82,7 @@ public class WeightedBakedModel implements IBakedModel {
 
 		public IBakedModel first() {
 
-			return (listItems.get(0)).model;
+			return (listItems.getFirst()).model;
 		}
 
 	}

@@ -35,7 +35,7 @@ public class BlockDaylightDetector extends BlockContainer {
 
 		super(Material.WOOD);
 		this.inverted = inverted;
-		setDefaultState(blockState.getBaseState().withProperty(POWER, Integer.valueOf(0)));
+		setDefaultState(blockState.getBaseState().withProperty(POWER, 0));
 		setCreativeTab(CreativeTabs.REDSTONE);
 		setHardness(0.2F);
 		setSoundType(SoundType.WOOD);
@@ -49,7 +49,7 @@ public class BlockDaylightDetector extends BlockContainer {
 
 	public int getWeakPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
 
-		return blockState.getValue(POWER).intValue();
+		return blockState.getValue(POWER);
 	}
 
 	public void updatePower(World worldIn, BlockPos pos) {
@@ -71,8 +71,8 @@ public class BlockDaylightDetector extends BlockContainer {
 
 			i = MathHelper.clamp(i, 0, 15);
 
-			if (iblockstate.getValue(POWER).intValue() != i) {
-				worldIn.setBlockState(pos, iblockstate.withProperty(POWER, Integer.valueOf(i)), 3);
+			if (iblockstate.getValue(POWER) != i) {
+				worldIn.setBlockState(pos, iblockstate.withProperty(POWER, i), 3);
 			}
 		}
 	}
@@ -157,7 +157,7 @@ public class BlockDaylightDetector extends BlockContainer {
 	 */
 	public IBlockState getStateFromMeta(int meta) {
 
-		return getDefaultState().withProperty(POWER, Integer.valueOf(meta));
+		return getDefaultState().withProperty(POWER, meta);
 	}
 
 	/**
@@ -165,7 +165,7 @@ public class BlockDaylightDetector extends BlockContainer {
 	 */
 	public int getMetaFromState(IBlockState state) {
 
-		return state.getValue(POWER).intValue();
+		return state.getValue(POWER);
 	}
 
 	protected BlockStateContainer createBlockState() {

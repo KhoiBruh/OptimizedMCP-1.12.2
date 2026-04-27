@@ -70,14 +70,12 @@ public class DefaultResourcePack implements IResourcePack {
 	}
 
 	@Nullable
-	public <T extends IMetadataSection> T getPackMetadata(MetadataSerializer metadataSerializer, String metadataSectionName) throws IOException {
+	public <T extends IMetadataSection> T getPackMetadata(MetadataSerializer metadataSerializer, String metadataSectionName) {
 
 		try {
 			InputStream inputstream = new FileInputStream(resourceIndex.getPackMcmeta());
 			return AbstractResourcePack.readMetadata(metadataSerializer, inputstream, metadataSectionName);
-		} catch (RuntimeException var4) {
-			return null;
-		} catch (FileNotFoundException var5) {
+		} catch (RuntimeException | FileNotFoundException var4) {
 			return null;
 		}
 	}

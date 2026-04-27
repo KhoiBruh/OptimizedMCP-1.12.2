@@ -140,7 +140,7 @@ public class EntityRabbit extends EntityAnimal {
 	protected void entityInit() {
 
 		super.entityInit();
-		dataManager.register(RABBIT_TYPE, Integer.valueOf(0));
+		dataManager.register(RABBIT_TYPE, 0);
 	}
 
 	public void updateAITasks() {
@@ -359,7 +359,7 @@ public class EntityRabbit extends EntityAnimal {
 
 	public int getRabbitType() {
 
-		return dataManager.get(RABBIT_TYPE).intValue();
+		return dataManager.get(RABBIT_TYPE);
 	}
 
 	public void setRabbitType(int rabbitTypeId) {
@@ -376,7 +376,7 @@ public class EntityRabbit extends EntityAnimal {
 			}
 		}
 
-		dataManager.set(RABBIT_TYPE, Integer.valueOf(rabbitTypeId));
+		dataManager.set(RABBIT_TYPE, rabbitTypeId);
 	}
 
 	@Nullable
@@ -530,7 +530,6 @@ public class EntityRabbit extends EntityAnimal {
 				}
 
 				canRaid = false;
-				wantsToRaid = rabbit.isCarrotEaten();
 				wantsToRaid = true;
 			}
 
@@ -556,11 +555,11 @@ public class EntityRabbit extends EntityAnimal {
 				if (canRaid && block instanceof BlockCarrot) {
 					Integer integer = iblockstate.getValue(BlockCarrot.AGE);
 
-					if (integer.intValue() == 0) {
+					if (integer == 0) {
 						world.setBlockState(blockpos, Blocks.AIR.getDefaultState(), 2);
 						world.destroyBlock(blockpos, true);
 					} else {
-						world.setBlockState(blockpos, iblockstate.withProperty(BlockCarrot.AGE, Integer.valueOf(integer.intValue() - 1)), 2);
+						world.setBlockState(blockpos, iblockstate.withProperty(BlockCarrot.AGE, integer - 1), 2);
 						world.playEvent(2001, blockpos, Block.getStateId(iblockstate));
 					}
 

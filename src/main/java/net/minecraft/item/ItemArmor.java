@@ -82,7 +82,7 @@ public class ItemArmor extends Item {
 		if (list.isEmpty()) {
 			return ItemStack.EMPTY;
 		} else {
-			EntityLivingBase entitylivingbase = list.get(0);
+			EntityLivingBase entitylivingbase = list.getFirst();
 			EntityEquipmentSlot entityequipmentslot = EntityLiving.getSlotForItemStack(stack);
 			ItemStack itemstack = stack.splitStack(1);
 			entitylivingbase.setItemStackToSlot(entityequipmentslot, itemstack);
@@ -217,9 +217,9 @@ public class ItemArmor extends Item {
 		if (itemstack1.isEmpty()) {
 			playerIn.setItemStackToSlot(entityequipmentslot, itemstack.copy());
 			itemstack.setCount(0);
-			return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemstack);
+			return new ActionResult<>(EnumActionResult.SUCCESS, itemstack);
 		} else {
-			return new ActionResult<ItemStack>(EnumActionResult.FAIL, itemstack);
+			return new ActionResult<>(EnumActionResult.FAIL, itemstack);
 		}
 	}
 

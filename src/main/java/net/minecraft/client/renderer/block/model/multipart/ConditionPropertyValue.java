@@ -66,12 +66,7 @@ public class ConditionPropertyValue implements ICondition {
 		if (!optional.isPresent()) {
 			throw new RuntimeException(this + ": has an unknown value: " + value);
 		} else {
-			return new Predicate<IBlockState>() {
-				public boolean apply(@Nullable IBlockState p_apply_1_) {
-
-					return p_apply_1_ != null && p_apply_1_.getValue(property).equals(optional.get());
-				}
-			};
+			return p_apply_1_ -> p_apply_1_ != null && p_apply_1_.getValue(property).equals(optional.get());
 		}
 	}
 

@@ -35,7 +35,7 @@ public class CommandSaveAll extends CommandBase {
 	/**
 	 * Callback for when the command is executed
 	 */
-	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
+	public void execute(MinecraftServer server, ICommandSender sender, String[] args) {
 
 		sender.sendMessage(new TextComponentTranslation("commands.save.start"));
 

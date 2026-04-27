@@ -26,7 +26,7 @@ public abstract class EntitySpellcasterIllager extends AbstractIllager {
 	protected void entityInit() {
 
 		super.entityInit();
-		dataManager.register(SPELL, Byte.valueOf((byte) 0));
+		dataManager.register(SPELL, (byte) 0);
 	}
 
 	/**
@@ -55,7 +55,7 @@ public abstract class EntitySpellcasterIllager extends AbstractIllager {
 	public boolean isSpellcasting() {
 
 		if (world.isRemote) {
-			return dataManager.get(SPELL).byteValue() > 0;
+			return dataManager.get(SPELL) > 0;
 		} else {
 			return spellTicks > 0;
 		}
@@ -63,13 +63,13 @@ public abstract class EntitySpellcasterIllager extends AbstractIllager {
 
 	protected EntitySpellcasterIllager.SpellType getSpellType() {
 
-		return !world.isRemote ? activeSpell : EntitySpellcasterIllager.SpellType.getFromId(dataManager.get(SPELL).byteValue());
+		return !world.isRemote ? activeSpell : EntitySpellcasterIllager.SpellType.getFromId(dataManager.get(SPELL));
 	}
 
 	public void setSpellType(EntitySpellcasterIllager.SpellType spellType) {
 
 		activeSpell = spellType;
-		dataManager.set(SPELL, Byte.valueOf((byte) spellType.id));
+		dataManager.set(SPELL, (byte) spellType.id);
 	}
 
 	protected void updateAITasks() {

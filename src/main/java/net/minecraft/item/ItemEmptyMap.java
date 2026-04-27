@@ -22,14 +22,14 @@ public class ItemEmptyMap extends ItemMapBase {
 		itemstack1.shrink(1);
 
 		if (itemstack1.isEmpty()) {
-			return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemstack);
+			return new ActionResult<>(EnumActionResult.SUCCESS, itemstack);
 		} else {
 			if (!playerIn.inventory.addItemStackToInventory(itemstack.copy())) {
 				playerIn.dropItem(itemstack, false);
 			}
 
 			playerIn.addStat(StatList.getObjectUseStats(this));
-			return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemstack1);
+			return new ActionResult<>(EnumActionResult.SUCCESS, itemstack1);
 		}
 	}
 

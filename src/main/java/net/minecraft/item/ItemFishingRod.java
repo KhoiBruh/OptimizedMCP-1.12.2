@@ -19,21 +19,19 @@ public class ItemFishingRod extends Item {
 		setMaxDamage(64);
 		setMaxStackSize(1);
 		setCreativeTab(CreativeTabs.TOOLS);
-		addPropertyOverride(new ResourceLocation("cast"), new IItemPropertyGetter() {
-			public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
+		addPropertyOverride(new ResourceLocation("cast"), (stack, worldIn, entityIn) -> {
 
-				if (entityIn == null) {
-					return 0.0F;
-				} else {
-					boolean flag = entityIn.getHeldItemMainhand() == stack;
-					boolean flag1 = entityIn.getHeldItemOffhand() == stack;
+			if (entityIn == null) {
+				return 0.0F;
+			} else {
+				boolean flag = entityIn.getHeldItemMainhand() == stack;
+				boolean flag1 = entityIn.getHeldItemOffhand() == stack;
 
-					if (entityIn.getHeldItemMainhand().getItem() instanceof ItemFishingRod) {
-						flag1 = false;
-					}
-
-					return (flag || flag1) && entityIn instanceof EntityPlayer && ((EntityPlayer) entityIn).fishEntity != null ? 1.0F : 0.0F;
+				if (entityIn.getHeldItemMainhand().getItem() instanceof ItemFishingRod) {
+					flag1 = false;
 				}
+
+				return (flag || flag1) && entityIn instanceof EntityPlayer && ((EntityPlayer) entityIn).fishEntity != null ? 1.0F : 0.0F;
 			}
 		});
 	}
@@ -88,7 +86,7 @@ public class ItemFishingRod extends Item {
 			playerIn.addStat(StatList.getObjectUseStats(this));
 		}
 
-		return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemstack);
+		return new ActionResult<>(EnumActionResult.SUCCESS, itemstack);
 	}
 
 	/**

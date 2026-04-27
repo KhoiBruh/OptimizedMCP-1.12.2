@@ -164,7 +164,7 @@ public abstract class BlockRedstoneDiode extends BlockHorizontal {
 			return i;
 		} else {
 			IBlockState iblockstate = worldIn.getBlockState(blockpos);
-			return Math.max(i, iblockstate.getBlock() == Blocks.REDSTONE_WIRE ? iblockstate.getValue(BlockRedstoneWire.POWER).intValue() : 0);
+			return Math.max(i, iblockstate.getBlock() == Blocks.REDSTONE_WIRE ? iblockstate.getValue(BlockRedstoneWire.POWER) : 0);
 		}
 	}
 
@@ -185,7 +185,7 @@ public abstract class BlockRedstoneDiode extends BlockHorizontal {
 			if (block == Blocks.REDSTONE_BLOCK) {
 				return 15;
 			} else {
-				return block == Blocks.REDSTONE_WIRE ? iblockstate.getValue(BlockRedstoneWire.POWER).intValue() : worldIn.getStrongPower(pos, side);
+				return block == Blocks.REDSTONE_WIRE ? iblockstate.getValue(BlockRedstoneWire.POWER) : worldIn.getStrongPower(pos, side);
 			}
 		} else {
 			return 0;

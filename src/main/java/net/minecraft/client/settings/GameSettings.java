@@ -225,19 +225,12 @@ public class GameSettings {
 	public static String getKeyDisplayString(int key) {
 
 		if (key < 0) {
-			switch (key) {
-				case -100:
-					return I18n.format("key.mouse.left");
-
-				case -99:
-					return I18n.format("key.mouse.right");
-
-				case -98:
-					return I18n.format("key.mouse.middle");
-
-				default:
-					return I18n.format("key.mouseButton", key + 101);
-			}
+			return switch (key) {
+				case -100 -> I18n.format("key.mouse.left");
+				case -99 -> I18n.format("key.mouse.right");
+				case -98 -> I18n.format("key.mouse.middle");
+				default -> I18n.format("key.mouseButton", key + 101);
+			};
 		} else {
 			return key < 256 ? Keyboard.getKeyName(key) : String.format("%c", (char) (key - 256)).toUpperCase();
 		}
@@ -510,67 +503,28 @@ public class GameSettings {
 
 	public boolean getOptionOrdinalValue(GameSettings.Options settingOption) {
 
-		switch (settingOption) {
-			case INVERT_MOUSE:
-				return invertMouse;
-
-			case VIEW_BOBBING:
-				return viewBobbing;
-
-			case ANAGLYPH:
-				return anaglyph;
-
-			case FBO_ENABLE:
-				return fboEnable;
-
-			case CHAT_COLOR:
-				return chatColours;
-
-			case CHAT_LINKS:
-				return chatLinks;
-
-			case CHAT_LINKS_PROMPT:
-				return chatLinksPrompt;
-
-			case SNOOPER_ENABLED:
-				return snooperEnabled;
-
-			case USE_FULLSCREEN:
-				return fullScreen;
-
-			case ENABLE_VSYNC:
-				return enableVsync;
-
-			case USE_VBO:
-				return useVbo;
-
-			case TOUCHSCREEN:
-				return touchscreen;
-
-			case FORCE_UNICODE_FONT:
-				return forceUnicodeFont;
-
-			case REDUCED_DEBUG_INFO:
-				return reducedDebugInfo;
-
-			case ENTITY_SHADOWS:
-				return entityShadows;
-
-			case SHOW_SUBTITLES:
-				return showSubtitles;
-
-			case REALMS_NOTIFICATIONS:
-				return realmsNotifications;
-
-			case ENABLE_WEAK_ATTACKS:
-				return enableWeakAttacks;
-
-			case AUTO_JUMP:
-				return autoJump;
-
-			default:
-				return false;
-		}
+		return switch (settingOption) {
+			case INVERT_MOUSE -> invertMouse;
+			case VIEW_BOBBING -> viewBobbing;
+			case ANAGLYPH -> anaglyph;
+			case FBO_ENABLE -> fboEnable;
+			case CHAT_COLOR -> chatColours;
+			case CHAT_LINKS -> chatLinks;
+			case CHAT_LINKS_PROMPT -> chatLinksPrompt;
+			case SNOOPER_ENABLED -> snooperEnabled;
+			case USE_FULLSCREEN -> fullScreen;
+			case ENABLE_VSYNC -> enableVsync;
+			case USE_VBO -> useVbo;
+			case TOUCHSCREEN -> touchscreen;
+			case FORCE_UNICODE_FONT -> forceUnicodeFont;
+			case REDUCED_DEBUG_INFO -> reducedDebugInfo;
+			case ENTITY_SHADOWS -> entityShadows;
+			case SHOW_SUBTITLES -> showSubtitles;
+			case REALMS_NOTIFICATIONS -> realmsNotifications;
+			case ENABLE_WEAK_ATTACKS -> enableWeakAttacks;
+			case AUTO_JUMP -> autoJump;
+			default -> false;
+		};
 	}
 
 	/**
@@ -929,7 +883,7 @@ public class GameSettings {
 
 					for (SoundCategory soundcategory : SoundCategory.values()) {
 						if (s1.equals("soundCategory_" + soundcategory.getName())) {
-							soundLevels.put(soundcategory, Float.valueOf(parseFloat(s2)));
+							soundLevels.put(soundcategory, parseFloat(s2));
 						}
 					}
 
@@ -1072,13 +1026,13 @@ public class GameSettings {
 
 	public float getSoundLevel(SoundCategory category) {
 
-		return soundLevels.containsKey(category) ? soundLevels.get(category).floatValue() : 1.0F;
+		return soundLevels.containsKey(category) ? soundLevels.get(category) : 1.0F;
 	}
 
 	public void setSoundLevel(SoundCategory category, float volume) {
 
 		mc.getSoundHandler().setSoundLevel(category, volume);
-		soundLevels.put(category, Float.valueOf(volume));
+		soundLevels.put(category, volume);
 	}
 
 	/**

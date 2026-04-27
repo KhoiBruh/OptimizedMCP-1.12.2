@@ -45,13 +45,8 @@ public class EntityParrot extends EntityShoulderRiding implements EntityFlying {
 	private static final DataParameter<Integer> VARIANT = EntityDataManager.createKey(EntityParrot.class, DataSerializers.VARINT);
 	private static final Item DEADLY_ITEM = Items.COOKIE;
 	private static final Set<Item> TAME_ITEMS = Sets.newHashSet(Items.WHEAT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS, Items.BEETROOT_SEEDS);
-	private static final Int2ObjectMap<SoundEvent> IMITATION_SOUND_EVENTS = new Int2ObjectOpenHashMap<SoundEvent>(32);
-	private static final Predicate<EntityLiving> CAN_MIMIC = new Predicate<EntityLiving>() {
-		public boolean apply(@Nullable EntityLiving p_apply_1_) {
-
-			return p_apply_1_ != null && EntityParrot.IMITATION_SOUND_EVENTS.containsKey(EntityList.REGISTRY.getIDForObject(p_apply_1_.getClass()));
-		}
-	};
+	private static final Int2ObjectMap<SoundEvent> IMITATION_SOUND_EVENTS = new Int2ObjectOpenHashMap<>(32);
+	private static final Predicate<EntityLiving> CAN_MIMIC = p_apply_1_ -> p_apply_1_ != null && EntityParrot.IMITATION_SOUND_EVENTS.containsKey(EntityList.REGISTRY.getIDForObject(p_apply_1_.getClass()));
 
 	static {
 		IMITATION_SOUND_EVENTS.put(EntityList.REGISTRY.getIDForObject(EntityBlaze.class), SoundEvents.E_PARROT_IM_BLAZE);
@@ -130,8 +125,8 @@ public class EntityParrot extends EntityShoulderRiding implements EntityFlying {
 	private static SoundEvent getAmbientSound(Random random) {
 
 		if (random.nextInt(1000) == 0) {
-			List<Integer> list = new ArrayList<Integer>(IMITATION_SOUND_EVENTS.keySet());
-			return getImitatedSound(list.get(random.nextInt(list.size())).intValue());
+			List<Integer> list = new ArrayList<>(IMITATION_SOUND_EVENTS.keySet());
+			return getImitatedSound(list.get(random.nextInt(list.size())));
 		} else {
 			return SoundEvents.ENTITY_PARROT_AMBIENT;
 		}
@@ -391,11 +386,6 @@ public class EntityParrot extends EntityShoulderRiding implements EntityFlying {
 		return getPitch(rand);
 	}
 
-	public SoundCategory getSoundCategory() {
-
-		return SoundCategory.NEUTRAL;
-	}
-
 	/**
 	 * Returns true if this entity should push and be pushed by other entities when colliding.
 	 */
@@ -429,18 +419,18 @@ public class EntityParrot extends EntityShoulderRiding implements EntityFlying {
 
 	public int getVariant() {
 
-		return MathHelper.clamp(dataManager.get(VARIANT).intValue(), 0, 4);
+		return MathHelper.clamp(dataManager.get(VARIANT), 0, 4);
 	}
 
 	public void setVariant(int p_191997_1_) {
 
-		dataManager.set(VARIANT, Integer.valueOf(p_191997_1_));
+		dataManager.set(VARIANT, p_191997_1_);
 	}
 
 	protected void entityInit() {
 
 		super.entityInit();
-		dataManager.register(VARIANT, Integer.valueOf(0));
+		dataManager.register(VARIANT, 0);
 	}
 
 	/**

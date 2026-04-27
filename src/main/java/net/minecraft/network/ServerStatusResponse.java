@@ -97,7 +97,7 @@ public class ServerStatusResponse {
 				if (JsonUtils.isJsonArray(jsonobject, "sample")) {
 					JsonArray jsonarray = JsonUtils.getJsonArray(jsonobject, "sample");
 
-					if (jsonarray.size() > 0) {
+					if (!jsonarray.isEmpty()) {
 						GameProfile[] agameprofile = new GameProfile[jsonarray.size()];
 
 						for (int i = 0; i < agameprofile.length; ++i) {
@@ -116,8 +116,8 @@ public class ServerStatusResponse {
 			public JsonElement serialize(ServerStatusResponse.Players p_serialize_1_, Type p_serialize_2_, JsonSerializationContext p_serialize_3_) {
 
 				JsonObject jsonobject = new JsonObject();
-				jsonobject.addProperty("max", Integer.valueOf(p_serialize_1_.getMaxPlayers()));
-				jsonobject.addProperty("online", Integer.valueOf(p_serialize_1_.getOnlinePlayerCount()));
+				jsonobject.addProperty("max", p_serialize_1_.getMaxPlayers());
+				jsonobject.addProperty("online", p_serialize_1_.getOnlinePlayerCount());
 
 				if (p_serialize_1_.getPlayers() != null && p_serialize_1_.getPlayers().length > 0) {
 					JsonArray jsonarray = new JsonArray();
@@ -205,7 +205,7 @@ public class ServerStatusResponse {
 
 				JsonObject jsonobject = new JsonObject();
 				jsonobject.addProperty("name", p_serialize_1_.name());
-				jsonobject.addProperty("protocol", Integer.valueOf(p_serialize_1_.protocol()));
+				jsonobject.addProperty("protocol", p_serialize_1_.protocol());
 				return jsonobject;
 			}
 

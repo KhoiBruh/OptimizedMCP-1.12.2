@@ -309,12 +309,8 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 			shaderGroup = new ShaderGroup(mc.getTextureManager(), resourceManager, mc.getFramebuffer(), resourceLocationIn);
 			shaderGroup.createBindFramebuffers(mc.displayWidth, mc.displayHeight);
 			useShader = true;
-		} catch (IOException ioexception) {
+		} catch (IOException | JsonSyntaxException ioexception) {
 			LOGGER.warn("Failed to load shader: {}", resourceLocationIn, ioexception);
-			shaderIndex = SHADER_COUNT;
-			useShader = false;
-		} catch (JsonSyntaxException jsonsyntaxexception) {
-			LOGGER.warn("Failed to load shader: {}", resourceLocationIn, jsonsyntaxexception);
 			shaderIndex = SHADER_COUNT;
 			useShader = false;
 		}
@@ -448,16 +444,10 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 				pointedEntity = null;
 				Vec3d vec3d3 = null;
 				float f = 1.0F;
-				List<Entity> list = mc.world.getEntitiesInAABBexcluding(entity, entity.getEntityBoundingBox().expand(vec3d1.x() * d0, vec3d1.y() * d0, vec3d1.z() * d0).grow(1.0D, 1.0D, 1.0D), Predicates.and(EntitySelectors.NOT_SPECTATING, new Predicate<Entity>() {
-					public boolean apply(@Nullable Entity p_apply_1_) {
-
-						return p_apply_1_ != null && p_apply_1_.canBeCollidedWith();
-					}
-				}));
+				List<Entity> list = mc.world.getEntitiesInAABBexcluding(entity, entity.getEntityBoundingBox().expand(vec3d1.x() * d0, vec3d1.y() * d0, vec3d1.z() * d0).grow(1.0D, 1.0D, 1.0D), Predicates.and(EntitySelectors.NOT_SPECTATING, p_apply_1_ -> p_apply_1_ != null && p_apply_1_.canBeCollidedWith()));
 				double d2 = d1;
 
-				for (int j = 0; j < list.size(); ++j) {
-					Entity entity1 = list.get(j);
+				for (Entity entity1 : list) {
 					AxisAlignedBB axisalignedbb = entity1.getEntityBoundingBox().grow(entity1.getCollisionBorderSize());
 					RayTraceResult raytraceresult = axisalignedbb.calculateIntercept(vec3d, vec3d2);
 
@@ -1100,24 +1090,9 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 				} catch (Throwable throwable) {
 					CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Rendering screen");
 					CrashReportCategory crashreportcategory = crashreport.makeCategory("Screen render details");
-					crashreportcategory.addDetail("Screen name", new ICrashReportDetail<String>() {
-						public String call() throws Exception {
-
-							return mc.currentScreen.getClass().getCanonicalName();
-						}
-					});
-					crashreportcategory.addDetail("Mouse location", new ICrashReportDetail<String>() {
-						public String call() throws Exception {
-
-							return String.format("Scaled: (%d, %d). Absolute: (%d, %d)", k1, l1, Mouse.getX(), Mouse.getY());
-						}
-					});
-					crashreportcategory.addDetail("Screen size", new ICrashReportDetail<String>() {
-						public String call() throws Exception {
-
-							return String.format("Scaled: (%d, %d). Absolute: (%d, %d). Scale factor of %d", scaledresolution.getScaledWidth(), scaledresolution.getScaledHeight(), mc.displayWidth, mc.displayHeight, scaledresolution.getScaleFactor());
-						}
-					});
+					crashreportcategory.addDetail("Screen name", () -> mc.currentScreen.getClass().getCanonicalName());
+					crashreportcategory.addDetail("Mouse location", () -> String.format("Scaled: (%d, %d). Absolute: (%d, %d)", k1, l1, Mouse.getX(), Mouse.getY()));
+					crashreportcategory.addDetail("Screen size", () -> String.format("Scaled: (%d, %d). Absolute: (%d, %d). Scale factor of %d", scaledresolution.getScaledWidth(), scaledresolution.getScaledHeight(), mc.displayWidth, mc.displayHeight, scaledresolution.getScaleFactor()));
 					throw new ReportedException(crashreport);
 				}
 			}

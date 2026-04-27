@@ -108,32 +108,23 @@ public class SetAttributes extends LootFunction {
 
 		private static String getOperationFromStr(int operationIn) {
 
-			switch (operationIn) {
-				case 0:
-					return "addition";
-
-				case 1:
-					return "multiply_base";
-
-				case 2:
-					return "multiply_total";
-
-				default:
-					throw new IllegalArgumentException("Unknown operation " + operationIn);
-			}
+			return switch (operationIn) {
+				case 0 -> "addition";
+				case 1 -> "multiply_base";
+				case 2 -> "multiply_total";
+				default -> throw new IllegalArgumentException("Unknown operation " + operationIn);
+			};
 		}
 
 		private static int getOperationFromInt(String operationIn) {
 
-			if ("addition".equals(operationIn)) {
-				return 0;
-			} else if ("multiply_base".equals(operationIn)) {
-				return 1;
-			} else if ("multiply_total".equals(operationIn)) {
-				return 2;
-			} else {
-				throw new JsonSyntaxException("Unknown attribute modifier operation " + operationIn);
-			}
+			return switch (operationIn) {
+				case "addition" -> 0;
+				case "multiply_base" -> 1;
+				case "multiply_total" -> 2;
+				case null, default ->
+						throw new JsonSyntaxException("Unknown attribute modifier operation " + operationIn);
+			};
 		}
 
 		public JsonObject serialize(JsonSerializationContext context) {

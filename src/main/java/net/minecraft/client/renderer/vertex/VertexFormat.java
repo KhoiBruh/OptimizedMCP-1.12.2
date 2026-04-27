@@ -57,7 +57,7 @@ public class VertexFormat {
 			return this;
 		} else {
 			elements.add(element);
-			offsets.add(Integer.valueOf(nextOffset));
+			offsets.add(nextOffset);
 
 			switch (element.getUsage()) {
 				case NORMAL:
@@ -69,7 +69,7 @@ public class VertexFormat {
 					break;
 
 				case UV:
-					uvOffsetsById.add(element.getIndex(), Integer.valueOf(nextOffset));
+					uvOffsetsById.add(element.getIndex(), nextOffset);
 			}
 
 			nextOffset += element.getSize();
@@ -104,22 +104,22 @@ public class VertexFormat {
 
 	public int getUvOffsetById(int id) {
 
-		return uvOffsetsById.get(id).intValue();
+		return uvOffsetsById.get(id);
 	}
 
 	public String toString() {
 
-		String s = "format: " + elements.size() + " elements: ";
+		StringBuilder s = new StringBuilder("format: " + elements.size() + " elements: ");
 
 		for (int i = 0; i < elements.size(); ++i) {
-			s = s + elements.get(i).toString();
+			s.append(elements.get(i).toString());
 
 			if (i != elements.size() - 1) {
-				s = s + " ";
+				s.append(" ");
 			}
 		}
 
-		return s;
+		return s.toString();
 	}
 
 	private boolean hasPosition() {
@@ -164,7 +164,7 @@ public class VertexFormat {
 
 	public int getOffset(int index) {
 
-		return offsets.get(index).intValue();
+		return offsets.get(index);
 	}
 
 	public boolean equals(Object p_equals_1_) {

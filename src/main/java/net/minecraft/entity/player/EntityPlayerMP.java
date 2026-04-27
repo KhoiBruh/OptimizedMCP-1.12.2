@@ -192,19 +192,17 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 
 	public static void registerFixesPlayerMP(DataFixer p_191522_0_) {
 
-		p_191522_0_.registerWalker(FixTypes.PLAYER, new IDataWalker() {
-			public NBTTagCompound process(IDataFixer fixer, NBTTagCompound compound, int versionIn) {
+		p_191522_0_.registerWalker(FixTypes.PLAYER, (fixer, compound, versionIn) -> {
 
-				if (compound.hasKey("RootVehicle", 10)) {
-					NBTTagCompound nbttagcompound = compound.getCompoundTag("RootVehicle");
+			if (compound.hasKey("RootVehicle", 10)) {
+				NBTTagCompound nbttagcompound = compound.getCompoundTag("RootVehicle");
 
-					if (nbttagcompound.hasKey("Entity", 10)) {
-						nbttagcompound.setTag("Entity", fixer.process(FixTypes.ENTITY, nbttagcompound.getCompoundTag("Entity"), versionIn));
-					}
+				if (nbttagcompound.hasKey("Entity", 10)) {
+					nbttagcompound.setTag("Entity", fixer.process(FixTypes.ENTITY, nbttagcompound.getCompoundTag("Entity"), versionIn));
 				}
-
-				return compound;
 			}
+
+			return compound;
 		});
 	}
 
@@ -341,7 +339,7 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 			int j = 0;
 
 			while (iterator.hasNext() && j < i) {
-				aint[j++] = iterator.next().intValue();
+				aint[j++] = iterator.next();
 				iterator.remove();
 			}
 
@@ -1247,8 +1245,8 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 		language = packetIn.getLang();
 		chatVisibility = packetIn.getChatVisibility();
 		chatColours = packetIn.isColorsEnabled();
-		getDataManager().set(PLAYER_MODEL_FLAG, Byte.valueOf((byte) packetIn.getModelPartFlags()));
-		getDataManager().set(MAIN_HAND, Byte.valueOf((byte) (packetIn.getMainHand() == EnumHandSide.LEFT ? 0 : 1)));
+		getDataManager().set(PLAYER_MODEL_FLAG, (byte) packetIn.getModelPartFlags());
+		getDataManager().set(MAIN_HAND, (byte) (packetIn.getMainHand() == EnumHandSide.LEFT ? 0 : 1));
 	}
 
 	public EntityPlayer.EnumChatVisibility getChatVisibility() {
@@ -1259,15 +1257,6 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	public void loadResourcePack(String url, String hash) {
 
 		connection.sendPacket(new SPacketResourcePackSend(url, hash));
-	}
-
-	/**
-	 * Get the position in the world. <b>{@code null} is not allowed!</b> If you are not an entity in the world, return
-	 * the coordinates 0, 0, 0
-	 */
-	public BlockPos getPosition() {
-
-		return new BlockPos(posX, posY + 0.5D, posZ);
 	}
 
 	public void markPlayerActive() {
@@ -1296,7 +1285,7 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 		if (entityIn instanceof EntityPlayer) {
 			connection.sendPacket(new SPacketDestroyEntities(entityIn.getEntityId()));
 		} else {
-			entityRemoveQueue.add(Integer.valueOf(entityIn.getEntityId()));
+			entityRemoveQueue.add(entityIn.getEntityId());
 		}
 	}
 

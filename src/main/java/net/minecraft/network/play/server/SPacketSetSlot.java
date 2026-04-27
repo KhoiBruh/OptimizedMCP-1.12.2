@@ -45,7 +45,7 @@ public class SPacketSetSlot implements Packet<INetHandlerPlayClient> {
 	/**
 	 * Writes the raw packet data to the data stream.
 	 */
-	public void writePacketData(PacketBuffer buf) throws IOException {
+	public void writePacketData(PacketBuffer buf) {
 
 		buf.writeByte(windowId);
 		buf.writeShort(slot);

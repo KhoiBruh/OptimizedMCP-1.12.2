@@ -120,10 +120,10 @@ public class MobEffectsPredicate {
 				return false;
 			} else if (!duration.test((float) effect.getDuration())) {
 				return false;
-			} else if (ambient != null && ambient.booleanValue() != effect.getIsAmbient()) {
+			} else if (ambient != null && ambient != effect.getIsAmbient()) {
 				return false;
 			} else {
-				return visible == null || visible.booleanValue() == effect.doesShowParticles();
+				return visible == null || visible == effect.doesShowParticles();
 			}
 		}
 

@@ -97,18 +97,12 @@ public class AxisAlignedBB {
 
 	public int hashCode() {
 
-		long i = Double.doubleToLongBits(minX);
-		int j = (int) (i ^ i >>> 32);
-		i = Double.doubleToLongBits(minY);
-		j = 31 * j + (int) (i ^ i >>> 32);
-		i = Double.doubleToLongBits(minZ);
-		j = 31 * j + (int) (i ^ i >>> 32);
-		i = Double.doubleToLongBits(maxX);
-		j = 31 * j + (int) (i ^ i >>> 32);
-		i = Double.doubleToLongBits(maxY);
-		j = 31 * j + (int) (i ^ i >>> 32);
-		i = Double.doubleToLongBits(maxZ);
-		j = 31 * j + (int) (i ^ i >>> 32);
+		int j = Double.hashCode(minX);
+		j = 31 * j + Double.hashCode(minY);
+		j = 31 * j + Double.hashCode(minZ);
+		j = 31 * j + Double.hashCode(maxX);
+		j = 31 * j + Double.hashCode(maxY);
+		j = 31 * j + Double.hashCode(maxZ);
 		return j;
 	}
 

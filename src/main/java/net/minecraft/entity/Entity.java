@@ -285,30 +285,28 @@ public abstract class Entity implements ICommandSender {
 		}
 
 		dataManager = new EntityDataManager(this);
-		dataManager.register(FLAGS, Byte.valueOf((byte) 0));
-		dataManager.register(AIR, Integer.valueOf(300));
-		dataManager.register(CUSTOM_NAME_VISIBLE, Boolean.valueOf(false));
+		dataManager.register(FLAGS, (byte) 0);
+		dataManager.register(AIR, 300);
+		dataManager.register(CUSTOM_NAME_VISIBLE, Boolean.FALSE);
 		dataManager.register(CUSTOM_NAME, "");
-		dataManager.register(SILENT, Boolean.valueOf(false));
-		dataManager.register(NO_GRAVITY, Boolean.valueOf(false));
+		dataManager.register(SILENT, Boolean.FALSE);
+		dataManager.register(NO_GRAVITY, Boolean.FALSE);
 		entityInit();
 	}
 
 	public static void registerFixes(DataFixer fixer) {
 
-		fixer.registerWalker(FixTypes.ENTITY, new IDataWalker() {
-			public NBTTagCompound process(IDataFixer fixer, NBTTagCompound compound, int versionIn) {
+		fixer.registerWalker(FixTypes.ENTITY, (fixer1, compound, versionIn) -> {
 
-				if (compound.hasKey("Passengers", 9)) {
-					NBTTagList nbttaglist = compound.getTagList("Passengers", 10);
+			if (compound.hasKey("Passengers", 9)) {
+				NBTTagList nbttaglist = compound.getTagList("Passengers", 10);
 
-					for (int i = 0; i < nbttaglist.tagCount(); ++i) {
-						nbttaglist.set(i, fixer.process(FixTypes.ENTITY, nbttaglist.getCompoundTagAt(i), versionIn));
-					}
+				for (int i = 0; i < nbttaglist.tagCount(); ++i) {
+					nbttaglist.set(i, fixer1.process(FixTypes.ENTITY, nbttaglist.getCompoundTagAt(i), versionIn));
 				}
-
-				return compound;
 			}
+
+			return compound;
 		});
 	}
 
@@ -1121,7 +1119,7 @@ public abstract class Entity implements ICommandSender {
 	 */
 	public boolean isSilent() {
 
-		return dataManager.get(SILENT).booleanValue();
+		return dataManager.get(SILENT);
 	}
 
 	/**
@@ -1129,17 +1127,17 @@ public abstract class Entity implements ICommandSender {
 	 */
 	public void setSilent(boolean isSilent) {
 
-		dataManager.set(SILENT, Boolean.valueOf(isSilent));
+		dataManager.set(SILENT, isSilent);
 	}
 
 	public boolean hasNoGravity() {
 
-		return dataManager.get(NO_GRAVITY).booleanValue();
+		return dataManager.get(NO_GRAVITY);
 	}
 
 	public void setNoGravity(boolean noGravity) {
 
-		dataManager.set(NO_GRAVITY, Boolean.valueOf(noGravity));
+		dataManager.set(NO_GRAVITY, noGravity);
 	}
 
 	/**
@@ -1328,7 +1326,7 @@ public abstract class Entity implements ICommandSender {
 				float f = BlockLiquid.getLiquidHeightPercent(iblockstate.getBlock().getMetaFromState(iblockstate)) - 0.11111111F;
 				float f1 = (float) (blockpos.getY() + 1) - f;
 				boolean flag = d0 < (double) f1;
-				return (flag || !(this instanceof EntityPlayer)) && flag;
+				return flag;
 			} else {
 				return false;
 			}
@@ -2130,7 +2128,7 @@ public abstract class Entity implements ICommandSender {
 			throw new IllegalStateException("Use x.startRiding(y), not y.addPassenger(x)");
 		} else {
 			if (!world.isRemote && passenger instanceof EntityPlayer && !(getControllingPassenger() instanceof EntityPlayer)) {
-				riddenByEntities.add(0, passenger);
+				riddenByEntities.addFirst(passenger);
 			} else {
 				riddenByEntities.add(passenger);
 			}
@@ -2149,7 +2147,7 @@ public abstract class Entity implements ICommandSender {
 
 	protected boolean canFitPassenger(Entity passenger) {
 
-		return getPassengers().size() < 1;
+		return getPassengers().isEmpty();
 	}
 
 	/**
@@ -2383,7 +2381,7 @@ public abstract class Entity implements ICommandSender {
 	 */
 	protected boolean getFlag(int flag) {
 
-		return (dataManager.get(FLAGS).byteValue() & 1 << flag) != 0;
+		return (dataManager.get(FLAGS) & 1 << flag) != 0;
 	}
 
 	/**
@@ -2391,23 +2389,23 @@ public abstract class Entity implements ICommandSender {
 	 */
 	protected void setFlag(int flag, boolean set) {
 
-		byte b0 = dataManager.get(FLAGS).byteValue();
+		byte b0 = dataManager.get(FLAGS);
 
 		if (set) {
-			dataManager.set(FLAGS, Byte.valueOf((byte) (b0 | 1 << flag)));
+			dataManager.set(FLAGS, (byte) (b0 | 1 << flag));
 		} else {
-			dataManager.set(FLAGS, Byte.valueOf((byte) (b0 & ~(1 << flag))));
+			dataManager.set(FLAGS, (byte) (b0 & ~(1 << flag)));
 		}
 	}
 
 	public int getAir() {
 
-		return dataManager.get(AIR).intValue();
+		return dataManager.get(AIR);
 	}
 
 	public void setAir(int air) {
 
-		dataManager.set(AIR, Integer.valueOf(air));
+		dataManager.set(AIR, air);
 	}
 
 	/**
@@ -2464,7 +2462,6 @@ public abstract class Entity implements ICommandSender {
 			}
 
 			if (!world.isBlockFullCube(blockpos.up()) && 1.0D - d1 < d3) {
-				d3 = 1.0D - d1;
 				enumfacing = EnumFacing.UP;
 			}
 
@@ -2743,34 +2740,14 @@ public abstract class Entity implements ICommandSender {
 
 	public void addEntityCrashInfo(CrashReportCategory category) {
 
-		category.addDetail("Entity Type", new ICrashReportDetail<String>() {
-			public String call() throws Exception {
-
-				return EntityList.getKey(Entity.this) + " (" + Entity.this.getClass().getCanonicalName() + ")";
-			}
-		});
-		category.addCrashSection("Entity ID", Integer.valueOf(entityId));
-		category.addDetail("Entity Name", new ICrashReportDetail<String>() {
-			public String call() throws Exception {
-
-				return getName();
-			}
-		});
+		category.addDetail("Entity Type", () -> EntityList.getKey(Entity.this) + " (" + Entity.this.getClass().getCanonicalName() + ")");
+		category.addCrashSection("Entity ID", entityId);
+		category.addDetail("Entity Name", () -> getName());
 		category.addCrashSection("Entity's Exact location", String.format("%.2f, %.2f, %.2f", posX, posY, posZ));
 		category.addCrashSection("Entity's Block location", CrashReportCategory.getCoordinateInfo(MathHelper.floor(posX), MathHelper.floor(posY), MathHelper.floor(posZ)));
 		category.addCrashSection("Entity's Momentum", String.format("%.2f, %.2f, %.2f", motionX, motionY, motionZ));
-		category.addDetail("Entity's Passengers", new ICrashReportDetail<String>() {
-			public String call() throws Exception {
-
-				return getPassengers().toString();
-			}
-		});
-		category.addDetail("Entity's Vehicle", new ICrashReportDetail<String>() {
-			public String call() throws Exception {
-
-				return getRidingEntity().toString();
-			}
-		});
+		category.addDetail("Entity's Passengers", () -> getPassengers().toString());
+		category.addDetail("Entity's Vehicle", () -> getRidingEntity().toString());
 	}
 
 	/**
@@ -2839,12 +2816,12 @@ public abstract class Entity implements ICommandSender {
 
 	public boolean getAlwaysRenderNameTag() {
 
-		return dataManager.get(CUSTOM_NAME_VISIBLE).booleanValue();
+		return dataManager.get(CUSTOM_NAME_VISIBLE);
 	}
 
 	public void setAlwaysRenderNameTag(boolean alwaysRenderNameTag) {
 
-		dataManager.set(CUSTOM_NAME_VISIBLE, Boolean.valueOf(alwaysRenderNameTag));
+		dataManager.set(CUSTOM_NAME_VISIBLE, alwaysRenderNameTag);
 	}
 
 	/**
@@ -3074,19 +3051,12 @@ public abstract class Entity implements ICommandSender {
 
 		float f = MathHelper.wrapDegrees(rotationYaw);
 
-		switch (transformRotation) {
-			case CLOCKWISE_180:
-				return f + 180.0F;
-
-			case COUNTERCLOCKWISE_90:
-				return f + 270.0F;
-
-			case CLOCKWISE_90:
-				return f + 90.0F;
-
-			default:
-				return f;
-		}
+		return switch (transformRotation) {
+			case CLOCKWISE_180 -> f + 180.0F;
+			case COUNTERCLOCKWISE_90 -> f + 270.0F;
+			case CLOCKWISE_90 -> f + 90.0F;
+			default -> f;
+		};
 	}
 
 	/**
@@ -3096,16 +3066,11 @@ public abstract class Entity implements ICommandSender {
 
 		float f = MathHelper.wrapDegrees(rotationYaw);
 
-		switch (transformMirror) {
-			case LEFT_RIGHT:
-				return -f;
-
-			case FRONT_BACK:
-				return 180.0F - f;
-
-			default:
-				return f;
-		}
+		return switch (transformMirror) {
+			case LEFT_RIGHT -> -f;
+			case FRONT_BACK -> 180.0F - f;
+			default -> f;
+		};
 	}
 
 	public boolean ignoreItemEntityData() {

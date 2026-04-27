@@ -113,7 +113,7 @@ public class IntegratedServer extends MinecraftServer {
 	/**
 	 * Initialises the server and starts it.
 	 */
-	public boolean init() throws IOException {
+	public boolean init() {
 
 		LOGGER.info("Starting integrated minecraft server version 1.12.2");
 		setOnlineMode(true);
@@ -152,7 +152,7 @@ public class IntegratedServer extends MinecraftServer {
 			super.tick();
 
 			if (mc.gameSettings.renderDistanceChunks != getPlayerList().getViewDistance()) {
-				LOGGER.info("Changing view distance to {}, from {}", Integer.valueOf(mc.gameSettings.renderDistanceChunks), Integer.valueOf(getPlayerList().getViewDistance()));
+				LOGGER.info("Changing view distance to {}, from {}", mc.gameSettings.renderDistanceChunks, getPlayerList().getViewDistance());
 				getPlayerList().setViewDistance(mc.gameSettings.renderDistanceChunks);
 			}
 
@@ -268,27 +268,20 @@ public class IntegratedServer extends MinecraftServer {
 	public CrashReport addServerInfoToCrashReport(CrashReport report) {
 
 		report = super.addServerInfoToCrashReport(report);
-		report.getCategory().addDetail("Type", new ICrashReportDetail<String>() {
-			public String call() throws Exception {
+		report.getCategory().addDetail("Type", () -> "Integrated Server (map_client.txt)");
+		report.getCategory().addDetail("Is Modded", () -> {
 
-				return "Integrated Server (map_client.txt)";
-			}
-		});
-		report.getCategory().addDetail("Is Modded", new ICrashReportDetail<String>() {
-			public String call() throws Exception {
+			String s = ClientBrandRetriever.getClientModName();
 
-				String s = ClientBrandRetriever.getClientModName();
+			if (!s.equals("vanilla")) {
+				return "Definitely; Client brand changed to '" + s + "'";
+			} else {
+				s = getServerModName();
 
-				if (!s.equals("vanilla")) {
-					return "Definitely; Client brand changed to '" + s + "'";
+				if (!"vanilla".equals(s)) {
+					return "Definitely; Server brand changed to '" + s + "'";
 				} else {
-					s = getServerModName();
-
-					if (!"vanilla".equals(s)) {
-						return "Definitely; Server brand changed to '" + s + "'";
-					} else {
-						return Minecraft.class.getSigners() == null ? "Very likely; Jar signature invalidated" : "Probably not. Jar signature remains and both client + server brands are untouched.";
-					}
+					return Minecraft.class.getSigners() == null ? "Very likely; Jar signature invalidated" : "Probably not. Jar signature remains and both client + server brands are untouched.";
 				}
 			}
 		});
@@ -367,13 +360,11 @@ public class IntegratedServer extends MinecraftServer {
 	 */
 	public void initiateShutdown() {
 
-		Futures.getUnchecked(addScheduledTask(new Runnable() {
-			public void run() {
+		Futures.getUnchecked(addScheduledTask(() -> {
 
-				for (EntityPlayerMP entityplayermp : Lists.newArrayList(getPlayerList().getPlayers())) {
-					if (!entityplayermp.getUniqueID().equals(mc.player.getUniqueID())) {
-						getPlayerList().playerLoggedOut(entityplayermp);
-					}
+			for (EntityPlayerMP entityplayermp : Lists.newArrayList(getPlayerList().getPlayers())) {
+				if (!entityplayermp.getUniqueID().equals(mc.player.getUniqueID())) {
+					getPlayerList().playerLoggedOut(entityplayermp);
 				}
 			}
 		}));

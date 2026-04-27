@@ -76,7 +76,7 @@ public class NetworkSystem {
 	/**
 	 * Adds a channel that listens on publicly accessible network ports
 	 */
-	public void addLanEndpoint(InetAddress address, int port) throws IOException {
+	public void addLanEndpoint(InetAddress address, int port) {
 
 		synchronized (endpoints) {
 			Class<? extends ServerSocketChannel> oclass;

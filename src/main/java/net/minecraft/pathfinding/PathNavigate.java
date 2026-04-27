@@ -276,10 +276,9 @@ public abstract class PathNavigate {
 
 		int k = MathHelper.ceil(entity.width);
 		int l = MathHelper.ceil(entity.height);
-		int i1 = k;
 
 		for (int j1 = i - 1; j1 >= currentPath.getCurrentPathIndex(); --j1) {
-			if (isDirectPathBetweenPoints(vec3d, currentPath.getVectorFromIndex(entity, j1), k, l, i1)) {
+			if (isDirectPathBetweenPoints(vec3d, currentPath.getVectorFromIndex(entity, j1), k, l, k)) {
 				currentPath.setCurrentPathIndex(j1);
 				break;
 			}

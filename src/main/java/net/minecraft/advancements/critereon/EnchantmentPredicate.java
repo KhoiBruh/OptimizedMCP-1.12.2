@@ -77,12 +77,12 @@ public class EnchantmentPredicate {
 				return false;
 			}
 
-			int i = enchantmentsIn.get(enchantment).intValue();
+			int i = enchantmentsIn.get(enchantment);
 
 			return levels == null || levels.test((float) i);
 		} else if (levels != null) {
 			for (Integer integer : enchantmentsIn.values()) {
-				if (levels.test((float) integer.intValue())) {
+				if (levels.test((float) integer)) {
 					return true;
 				}
 			}

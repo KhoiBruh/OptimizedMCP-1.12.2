@@ -31,16 +31,11 @@ public class ItemGlassBottle extends Item {
 
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
 
-		List<EntityAreaEffectCloud> list = worldIn.getEntitiesWithinAABB(EntityAreaEffectCloud.class, playerIn.getEntityBoundingBox().grow(2.0D), new Predicate<EntityAreaEffectCloud>() {
-			public boolean apply(@Nullable EntityAreaEffectCloud p_apply_1_) {
-
-				return p_apply_1_ != null && p_apply_1_.isEntityAlive() && p_apply_1_.getOwner() instanceof EntityDragon;
-			}
-		});
+		List<EntityAreaEffectCloud> list = worldIn.getEntitiesWithinAABB(EntityAreaEffectCloud.class, playerIn.getEntityBoundingBox().grow(2.0D), p_apply_1_ -> p_apply_1_ != null && p_apply_1_.isEntityAlive() && p_apply_1_.getOwner() instanceof EntityDragon);
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
 
 		if (!list.isEmpty()) {
-			EntityAreaEffectCloud entityareaeffectcloud = list.get(0);
+			EntityAreaEffectCloud entityareaeffectcloud = list.getFirst();
 			entityareaeffectcloud.setRadius(entityareaeffectcloud.getRadius() - 0.5F);
 			worldIn.playSound(null, playerIn.posX, playerIn.posY, playerIn.posZ, SoundEvents.ITEM_BOTTLE_FILL_DRAGONBREATH, SoundCategory.NEUTRAL, 1.0F, 1.0F);
 			return new ActionResult(EnumActionResult.SUCCESS, turnBottleIntoItem(itemstack, playerIn, new ItemStack(Items.DRAGON_BREATH)));

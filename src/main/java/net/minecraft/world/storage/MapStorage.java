@@ -86,9 +86,7 @@ public class MapStorage {
 	 */
 	public void saveAllData() {
 
-		for (int i = 0; i < loadedDataList.size(); ++i) {
-			WorldSavedData worldsaveddata = loadedDataList.get(i);
-
+		for (WorldSavedData worldsaveddata : loadedDataList) {
 			if (worldsaveddata.isDirty()) {
 				saveData(worldsaveddata);
 				worldsaveddata.setDirty(false);
@@ -142,7 +140,7 @@ public class MapStorage {
 
 					if (nbtbase instanceof NBTTagShort nbttagshort) {
 						short short1 = nbttagshort.getShort();
-						idCounts.put(s, Short.valueOf(short1));
+						idCounts.put(s, short1);
 					}
 				}
 			}
@@ -161,13 +159,13 @@ public class MapStorage {
 		if (oshort == null) {
 			oshort = 0;
 		} else {
-			oshort = (short) (oshort.shortValue() + 1);
+			oshort = (short) (oshort + 1);
 		}
 
 		idCounts.put(key, oshort);
 
 		if (saveHandler == null) {
-			return oshort.shortValue();
+			return oshort;
 		} else {
 			try {
 				File file1 = saveHandler.getMapFileFromName("idcounts");
@@ -176,7 +174,7 @@ public class MapStorage {
 					NBTTagCompound nbttagcompound = new NBTTagCompound();
 
 					for (String s : idCounts.keySet()) {
-						nbttagcompound.setShort(s, idCounts.get(s).shortValue());
+						nbttagcompound.setShort(s, idCounts.get(s));
 					}
 
 					DataOutputStream dataoutputstream = new DataOutputStream(new FileOutputStream(file1));
@@ -187,7 +185,7 @@ public class MapStorage {
 				exception.printStackTrace();
 			}
 
-			return oshort.shortValue();
+			return oshort;
 		}
 	}
 

@@ -43,19 +43,11 @@ public class BlockHugeMushroom extends Block {
 	 */
 	public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
 
-		switch (state.getValue(VARIANT)) {
-			case ALL_STEM:
-				return MapColor.CLOTH;
-
-			case ALL_INSIDE:
-				return MapColor.SAND;
-
-			case STEM:
-				return MapColor.SAND;
-
-			default:
-				return super.getMapColor(state, worldIn, pos);
-		}
+		return switch (state.getValue(VARIANT)) {
+			case ALL_STEM -> MapColor.CLOTH;
+			case ALL_INSIDE, STEM -> MapColor.SAND;
+			default -> super.getMapColor(state, worldIn, pos);
+		};
 	}
 
 	/**
@@ -219,30 +211,15 @@ public class BlockHugeMushroom extends Block {
 
 		switch (mirrorIn) {
 			case LEFT_RIGHT:
-				switch (blockhugemushroom$enumtype) {
-					case NORTH_WEST:
-						return state.withProperty(VARIANT, BlockHugeMushroom.EnumType.SOUTH_WEST);
-
-					case NORTH:
-						return state.withProperty(VARIANT, BlockHugeMushroom.EnumType.SOUTH);
-
-					case NORTH_EAST:
-						return state.withProperty(VARIANT, BlockHugeMushroom.EnumType.SOUTH_EAST);
-
-					case WEST:
-					case EAST:
-					default:
-						return super.withMirror(state, mirrorIn);
-
-					case SOUTH_WEST:
-						return state.withProperty(VARIANT, BlockHugeMushroom.EnumType.NORTH_WEST);
-
-					case SOUTH:
-						return state.withProperty(VARIANT, BlockHugeMushroom.EnumType.NORTH);
-
-					case SOUTH_EAST:
-						return state.withProperty(VARIANT, BlockHugeMushroom.EnumType.NORTH_EAST);
-				}
+				return switch (blockhugemushroom$enumtype) {
+					case NORTH_WEST -> state.withProperty(VARIANT, EnumType.SOUTH_WEST);
+					case NORTH -> state.withProperty(VARIANT, EnumType.SOUTH);
+					case NORTH_EAST -> state.withProperty(VARIANT, EnumType.SOUTH_EAST);
+					default -> super.withMirror(state, mirrorIn);
+					case SOUTH_WEST -> state.withProperty(VARIANT, EnumType.NORTH_WEST);
+					case SOUTH -> state.withProperty(VARIANT, EnumType.NORTH);
+					case SOUTH_EAST -> state.withProperty(VARIANT, EnumType.NORTH_EAST);
+				};
 
 			case FRONT_BACK:
 				switch (blockhugemushroom$enumtype) {

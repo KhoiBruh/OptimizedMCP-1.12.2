@@ -22,17 +22,17 @@ public class EnchantmentNameParts {
 	public String generateNewRandomName(FontRenderer fontRendererIn, int length) {
 
 		int i = rand.nextInt(2) + 3;
-		String s = "";
+		StringBuilder s = new StringBuilder();
 
 		for (int j = 0; j < i; ++j) {
 			if (j > 0) {
-				s = s + " ";
+				s.append(" ");
 			}
 
-			s = s + namePartsArray[rand.nextInt(namePartsArray.length)];
+			s.append(namePartsArray[rand.nextInt(namePartsArray.length)]);
 		}
 
-		List<String> list = fontRendererIn.listFormattedStringToWidth(s, length);
+		List<String> list = fontRendererIn.listFormattedStringToWidth(s.toString(), length);
 		return org.apache.commons.lang3.StringUtils.join(list.size() >= 2 ? list.subList(0, 2) : list, " ");
 	}
 

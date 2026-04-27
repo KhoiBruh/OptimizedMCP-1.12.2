@@ -93,7 +93,7 @@ public class BlockPistonMoving extends BlockContainer {
 		BlockPos blockpos = pos.offset(state.getValue(FACING).getOpposite());
 		IBlockState iblockstate = worldIn.getBlockState(blockpos);
 
-		if (iblockstate.getBlock() instanceof BlockPistonBase && iblockstate.getValue(BlockPistonBase.EXTENDED).booleanValue()) {
+		if (iblockstate.getBlock() instanceof BlockPistonBase && iblockstate.getValue(BlockPistonBase.EXTENDED)) {
 			worldIn.setBlockToAir(blockpos);
 		}
 	}

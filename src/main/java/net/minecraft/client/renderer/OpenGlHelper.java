@@ -610,19 +610,12 @@ public class OpenGlHelper {
 		if (!framebufferSupported) {
 			return -1;
 		} else {
-			switch (framebufferType) {
-				case BASE:
-					return GL30.glGenFramebuffers();
-
-				case ARB:
-					return ARBFramebufferObject.glGenFramebuffers();
-
-				case EXT:
-					return EXTFramebufferObject.glGenFramebuffersEXT();
-
-				default:
-					return -1;
-			}
+			return switch (framebufferType) {
+				case BASE -> GL30.glGenFramebuffers();
+				case ARB -> ARBFramebufferObject.glGenFramebuffers();
+				case EXT -> EXTFramebufferObject.glGenFramebuffersEXT();
+				default -> -1;
+			};
 		}
 	}
 
@@ -631,19 +624,12 @@ public class OpenGlHelper {
 		if (!framebufferSupported) {
 			return -1;
 		} else {
-			switch (framebufferType) {
-				case BASE:
-					return GL30.glGenRenderbuffers();
-
-				case ARB:
-					return ARBFramebufferObject.glGenRenderbuffers();
-
-				case EXT:
-					return EXTFramebufferObject.glGenRenderbuffersEXT();
-
-				default:
-					return -1;
-			}
+			return switch (framebufferType) {
+				case BASE -> GL30.glGenRenderbuffers();
+				case ARB -> ARBFramebufferObject.glGenRenderbuffers();
+				case EXT -> EXTFramebufferObject.glGenRenderbuffersEXT();
+				default -> -1;
+			};
 		}
 	}
 
@@ -688,19 +674,12 @@ public class OpenGlHelper {
 		if (!framebufferSupported) {
 			return -1;
 		} else {
-			switch (framebufferType) {
-				case BASE:
-					return GL30.glCheckFramebufferStatus(target);
-
-				case ARB:
-					return ARBFramebufferObject.glCheckFramebufferStatus(target);
-
-				case EXT:
-					return EXTFramebufferObject.glCheckFramebufferStatusEXT(target);
-
-				default:
-					return -1;
-			}
+			return switch (framebufferType) {
+				case BASE -> GL30.glCheckFramebufferStatus(target);
+				case ARB -> ARBFramebufferObject.glCheckFramebufferStatus(target);
+				case EXT -> EXTFramebufferObject.glCheckFramebufferStatusEXT(target);
+				default -> -1;
+			};
 		}
 	}
 

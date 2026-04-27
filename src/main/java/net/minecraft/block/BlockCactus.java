@@ -27,7 +27,7 @@ public class BlockCactus extends Block {
 	protected BlockCactus() {
 
 		super(Material.CACTUS);
-		setDefaultState(blockState.getBaseState().withProperty(AGE, Integer.valueOf(0)));
+		setDefaultState(blockState.getBaseState().withProperty(AGE, 0));
 		setTickRandomly(true);
 		setCreativeTab(CreativeTabs.DECORATIONS);
 	}
@@ -43,15 +43,15 @@ public class BlockCactus extends Block {
 			}
 
 			if (i < 3) {
-				int j = state.getValue(AGE).intValue();
+				int j = state.getValue(AGE);
 
 				if (j == 15) {
 					worldIn.setBlockState(blockpos, getDefaultState());
-					IBlockState iblockstate = state.withProperty(AGE, Integer.valueOf(0));
+					IBlockState iblockstate = state.withProperty(AGE, 0);
 					worldIn.setBlockState(pos, iblockstate, 4);
 					iblockstate.neighborChanged(worldIn, blockpos, this, pos);
 				} else {
-					worldIn.setBlockState(pos, state.withProperty(AGE, Integer.valueOf(j + 1)), 4);
+					worldIn.setBlockState(pos, state.withProperty(AGE, j + 1), 4);
 				}
 			}
 		}
@@ -139,7 +139,7 @@ public class BlockCactus extends Block {
 	 */
 	public IBlockState getStateFromMeta(int meta) {
 
-		return getDefaultState().withProperty(AGE, Integer.valueOf(meta));
+		return getDefaultState().withProperty(AGE, meta);
 	}
 
 	/**
@@ -147,7 +147,7 @@ public class BlockCactus extends Block {
 	 */
 	public int getMetaFromState(IBlockState state) {
 
-		return state.getValue(AGE).intValue();
+		return state.getValue(AGE);
 	}
 
 	protected BlockStateContainer createBlockState() {

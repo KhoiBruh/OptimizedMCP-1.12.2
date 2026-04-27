@@ -116,14 +116,6 @@ public class WorldProviderEnd extends WorldProvider {
 		return 50;
 	}
 
-	/**
-	 * Returns true if the given X,Z coordinate should show environmental fog.
-	 */
-	public boolean doesXZShowFog(int x, int z) {
-
-		return false;
-	}
-
 	public DimensionType getDimensionType() {
 
 		return DimensionType.THE_END;

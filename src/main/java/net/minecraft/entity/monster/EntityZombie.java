@@ -105,19 +105,19 @@ public class EntityZombie extends EntityMob {
 	protected void entityInit() {
 
 		super.entityInit();
-		getDataManager().register(IS_CHILD, Boolean.valueOf(false));
-		getDataManager().register(VILLAGER_TYPE, Integer.valueOf(0));
-		getDataManager().register(ARMS_RAISED, Boolean.valueOf(false));
+		getDataManager().register(IS_CHILD, Boolean.FALSE);
+		getDataManager().register(VILLAGER_TYPE, 0);
+		getDataManager().register(ARMS_RAISED, Boolean.FALSE);
 	}
 
 	public boolean isArmsRaised() {
 
-		return getDataManager().get(ARMS_RAISED).booleanValue();
+		return getDataManager().get(ARMS_RAISED);
 	}
 
 	public void setArmsRaised(boolean armsRaised) {
 
-		getDataManager().set(ARMS_RAISED, Boolean.valueOf(armsRaised));
+		getDataManager().set(ARMS_RAISED, armsRaised);
 	}
 
 	public boolean isBreakDoorsTaskSet() {
@@ -147,7 +147,7 @@ public class EntityZombie extends EntityMob {
 	 */
 	public boolean isChild() {
 
-		return getDataManager().get(IS_CHILD).booleanValue();
+		return getDataManager().get(IS_CHILD);
 	}
 
 	/**
@@ -155,7 +155,7 @@ public class EntityZombie extends EntityMob {
 	 */
 	public void setChild(boolean childZombie) {
 
-		getDataManager().set(IS_CHILD, Boolean.valueOf(childZombie));
+		getDataManager().set(IS_CHILD, childZombie);
 
 		if (world != null && !world.isRemote) {
 			IAttributeInstance iattributeinstance = getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED);
@@ -455,7 +455,7 @@ public class EntityZombie extends EntityMob {
 					List<EntityChicken> list = world.getEntitiesWithinAABB(EntityChicken.class, getEntityBoundingBox().grow(5.0D, 3.0D, 5.0D), EntitySelectors.IS_STANDALONE);
 
 					if (!list.isEmpty()) {
-						EntityChicken entitychicken = list.get(0);
+						EntityChicken entitychicken = list.getFirst();
 						entitychicken.setChickenJockey(true);
 						startRiding(entitychicken);
 					}

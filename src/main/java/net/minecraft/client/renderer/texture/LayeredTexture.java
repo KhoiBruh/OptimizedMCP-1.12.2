@@ -22,7 +22,7 @@ public class LayeredTexture extends AbstractTexture {
 		layeredTextureNames = Lists.newArrayList(textureNames);
 	}
 
-	public void loadTexture(IResourceManager resourceManager) throws IOException {
+	public void loadTexture(IResourceManager resourceManager) {
 
 		deleteGlTexture();
 		BufferedImage bufferedimage = null;

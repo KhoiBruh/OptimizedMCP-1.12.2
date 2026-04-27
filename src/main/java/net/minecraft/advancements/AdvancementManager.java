@@ -31,12 +31,10 @@ import java.util.Map;
 public class AdvancementManager {
 
 	private static final Logger LOGGER = LogManager.getLogger();
-	private static final Gson GSON = (new GsonBuilder()).registerTypeHierarchyAdapter(Advancement.Builder.class, new JsonDeserializer<Advancement.Builder>() {
-		public Advancement.Builder deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException {
+	private static final Gson GSON = (new GsonBuilder()).registerTypeHierarchyAdapter(Advancement.Builder.class, (JsonDeserializer<Advancement.Builder>) (p_deserialize_1_, p_deserialize_2_, p_deserialize_3_) -> {
 
-			JsonObject jsonobject = JsonUtils.getJsonObject(p_deserialize_1_, "advancement");
-			return Advancement.Builder.deserialize(jsonobject, p_deserialize_3_);
-		}
+		JsonObject jsonobject = JsonUtils.getJsonObject(p_deserialize_1_, "advancement");
+		return Advancement.Builder.deserialize(jsonobject, p_deserialize_3_);
 	}).registerTypeAdapter(AdvancementRewards.class, new AdvancementRewards.Deserializer()).registerTypeHierarchyAdapter(ITextComponent.class, new ITextComponent.Serializer()).registerTypeHierarchyAdapter(Style.class, new Style.Serializer()).registerTypeAdapterFactory(new EnumTypeAdapterFactory()).create();
 	private static final AdvancementList ADVANCEMENT_LIST = new AdvancementList();
 
@@ -91,15 +89,15 @@ public class AdvancementManager {
 						Advancement.Builder advancement$builder = JsonUtils.gsonDeserialize(GSON, FileUtils.readFileToString(file1, StandardCharsets.UTF_8), Advancement.Builder.class);
 
 						if (advancement$builder == null) {
-							LOGGER.error("Couldn't load custom advancement " + resourcelocation + " from " + file1 + " as it's empty or null");
+							LOGGER.error("Couldn't load custom advancement {} from {} as it's empty or null", resourcelocation, file1);
 						} else {
 							map.put(resourcelocation, advancement$builder);
 						}
 					} catch (IllegalArgumentException | JsonParseException jsonparseexception) {
-						LOGGER.error("Parsing error loading custom advancement " + resourcelocation, jsonparseexception);
+						LOGGER.error("Parsing error loading custom advancement {}", resourcelocation, jsonparseexception);
 						hasErrored = true;
 					} catch (IOException ioexception) {
-						LOGGER.error("Couldn't read custom advancement " + resourcelocation + " from " + file1, ioexception);
+						LOGGER.error("Couldn't read custom advancement {} from {}", resourcelocation, file1, ioexception);
 						hasErrored = true;
 					}
 				}
@@ -123,7 +121,7 @@ public class AdvancementManager {
 					path = Paths.get(CraftingManager.class.getResource("/assets/minecraft/advancements").toURI());
 				} else {
 					if (!"jar".equals(uri.getScheme())) {
-						LOGGER.error("Unsupported scheme " + uri + " trying to list all built-in advancements (NYI?)");
+						LOGGER.error("Unsupported scheme {} trying to list all built-in advancements (NYI?)", uri);
 						hasErrored = true;
 						return;
 					}
@@ -150,10 +148,10 @@ public class AdvancementManager {
 								Advancement.Builder advancement$builder = JsonUtils.fromJson(GSON, bufferedreader, Advancement.Builder.class);
 								map.put(resourcelocation, advancement$builder);
 							} catch (JsonParseException jsonparseexception) {
-								LOGGER.error("Parsing error loading built-in advancement " + resourcelocation, jsonparseexception);
+								LOGGER.error("Parsing error loading built-in advancement {}", resourcelocation, jsonparseexception);
 								hasErrored = true;
 							} catch (IOException ioexception) {
-								LOGGER.error("Couldn't read advancement " + resourcelocation + " from " + path1, ioexception);
+								LOGGER.error("Couldn't read advancement {} from {}", resourcelocation, path1, ioexception);
 								hasErrored = true;
 							} finally {
 								IOUtils.closeQuietly(bufferedreader);

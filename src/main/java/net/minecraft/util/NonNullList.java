@@ -27,7 +27,7 @@ public class NonNullList<E> extends AbstractList<E> {
 
 	public static <E> NonNullList<E> create() {
 
-		return new NonNullList<E>();
+		return new NonNullList<>();
 	}
 
 	public static <E> NonNullList<E> withSize(int size, E fill) {
@@ -35,12 +35,13 @@ public class NonNullList<E> extends AbstractList<E> {
 		Validate.notNull(fill);
 		Object[] aobject = new Object[size];
 		Arrays.fill(aobject, fill);
-		return new NonNullList<E>(Arrays.asList((E[]) aobject), fill);
+		return new NonNullList<>(Arrays.asList((E[]) aobject), fill);
 	}
 
+	@SafeVarargs
 	public static <E> NonNullList<E> from(E defaultElementIn, E... elements) {
 
-		return new NonNullList<E>(Arrays.asList(elements), defaultElementIn);
+		return new NonNullList<>(Arrays.asList(elements), defaultElementIn);
 	}
 
 	@Nonnull
@@ -76,9 +77,7 @@ public class NonNullList<E> extends AbstractList<E> {
 		if (defaultElement == null) {
 			super.clear();
 		} else {
-			for (int i = 0; i < size(); ++i) {
-				set(i, defaultElement);
-			}
+			this.replaceAll(ignored -> defaultElement);
 		}
 	}
 

@@ -60,7 +60,7 @@ public class DamagePredicate {
 			return false;
 		} else if (!sourceEntity.test(player, source.getTrueSource())) {
 			return false;
-		} else if (this.blocked != null && this.blocked.booleanValue() != blocked) {
+		} else if (this.blocked != null && this.blocked != blocked) {
 			return false;
 		} else {
 			return type.test(player, source);

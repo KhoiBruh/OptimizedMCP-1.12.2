@@ -13,18 +13,18 @@ import java.util.function.Supplier;
 public class KeyBinding implements Comparable<KeyBinding> {
 
 	private static final Map<String, KeyBinding> KEYBIND_ARRAY = Maps.newHashMap();
-	private static final IntHashMap<KeyBinding> HASH = new IntHashMap<KeyBinding>();
+	private static final IntHashMap<KeyBinding> HASH = new IntHashMap<>();
 	private static final Set<String> KEYBIND_SET = Sets.newHashSet();
 	private static final Map<String, Integer> CATEGORY_ORDER = Maps.newHashMap();
 
 	static {
-		CATEGORY_ORDER.put("key.categories.movement", Integer.valueOf(1));
-		CATEGORY_ORDER.put("key.categories.gameplay", Integer.valueOf(2));
-		CATEGORY_ORDER.put("key.categories.inventory", Integer.valueOf(3));
-		CATEGORY_ORDER.put("key.categories.creative", Integer.valueOf(4));
-		CATEGORY_ORDER.put("key.categories.multiplayer", Integer.valueOf(5));
-		CATEGORY_ORDER.put("key.categories.ui", Integer.valueOf(6));
-		CATEGORY_ORDER.put("key.categories.misc", Integer.valueOf(7));
+		CATEGORY_ORDER.put("key.categories.movement", 1);
+		CATEGORY_ORDER.put("key.categories.gameplay", 2);
+		CATEGORY_ORDER.put("key.categories.inventory", 3);
+		CATEGORY_ORDER.put("key.categories.creative", 4);
+		CATEGORY_ORDER.put("key.categories.multiplayer", 5);
+		CATEGORY_ORDER.put("key.categories.ui", 6);
+		CATEGORY_ORDER.put("key.categories.misc", 7);
 	}
 
 	private final String keyDescription;
@@ -108,12 +108,8 @@ public class KeyBinding implements Comparable<KeyBinding> {
 
 		KeyBinding keybinding = KEYBIND_ARRAY.get(key);
 		return keybinding == null ? () ->
-		{
-			return key;
-		} : () ->
-		{
-			return GameSettings.getKeyDisplayString(keybinding.getKeyCode());
-		};
+				key : () ->
+				GameSettings.getKeyDisplayString(keybinding.getKeyCode());
 	}
 
 	/**

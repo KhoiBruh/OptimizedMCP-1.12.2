@@ -560,26 +560,19 @@ public class StructureMineshaftPieces {
 
 		protected IBlockState getPlanksBlock() {
 
-			switch (mineShaftType) {
-				case NORMAL:
-				default:
-					return Blocks.PLANKS.getDefaultState();
-
-				case MESA:
-					return Blocks.PLANKS.getDefaultState().withProperty(BlockPlanks.VARIANT, BlockPlanks.EnumType.DARK_OAK);
-			}
+			return switch (mineShaftType) {
+				default -> Blocks.PLANKS.getDefaultState();
+				case MESA ->
+						Blocks.PLANKS.getDefaultState().withProperty(BlockPlanks.VARIANT, BlockPlanks.EnumType.DARK_OAK);
+			};
 		}
 
 		protected IBlockState getFenceBlock() {
 
-			switch (mineShaftType) {
-				case NORMAL:
-				default:
-					return Blocks.OAK_FENCE.getDefaultState();
-
-				case MESA:
-					return Blocks.DARK_OAK_FENCE.getDefaultState();
-			}
+			return switch (mineShaftType) {
+				default -> Blocks.OAK_FENCE.getDefaultState();
+				case MESA -> Blocks.DARK_OAK_FENCE.getDefaultState();
+			};
 		}
 
 		protected boolean isSupportingBox(World p_189918_1_, StructureBoundingBox p_189918_2_, int p_189918_3_, int p_189918_4_, int p_189918_5_, int p_189918_6_) {

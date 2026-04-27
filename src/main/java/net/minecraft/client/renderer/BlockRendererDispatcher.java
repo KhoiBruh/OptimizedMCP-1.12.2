@@ -59,19 +59,12 @@ public class BlockRendererDispatcher implements IResourceManagerReloadListener {
 					}
 				}
 
-				switch (enumblockrendertype) {
-					case MODEL:
-						return blockModelRenderer.renderModel(blockAccess, getModelForState(state), state, pos, bufferBuilderIn, true);
-
-					case ENTITYBLOCK_ANIMATED:
-						return false;
-
-					case LIQUID:
-						return fluidRenderer.renderFluid(blockAccess, state, pos, bufferBuilderIn);
-
-					default:
-						return false;
-				}
+				return switch (enumblockrendertype) {
+					case MODEL ->
+							blockModelRenderer.renderModel(blockAccess, getModelForState(state), state, pos, bufferBuilderIn, true);
+					case LIQUID -> fluidRenderer.renderFluid(blockAccess, state, pos, bufferBuilderIn);
+					default -> false;
+				};
 			}
 		} catch (Throwable throwable) {
 			CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Tesselating block in world");

@@ -63,9 +63,7 @@ public class ContainerBrewingStand extends Container {
 
 		super.detectAndSendChanges();
 
-		for (int i = 0; i < listeners.size(); ++i) {
-			IContainerListener icontainerlistener = listeners.get(i);
-
+		for (IContainerListener icontainerlistener : listeners) {
 			if (prevBrewTime != tileBrewingStand.getField(0)) {
 				icontainerlistener.sendWindowProperty(this, 0, tileBrewingStand.getField(0));
 			}

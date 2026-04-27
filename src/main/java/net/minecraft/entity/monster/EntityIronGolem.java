@@ -64,18 +64,13 @@ public class EntityIronGolem extends EntityGolem {
 		tasks.addTask(8, new EntityAILookIdle(this));
 		targetTasks.addTask(1, new EntityAIDefendVillage(this));
 		targetTasks.addTask(2, new EntityAIHurtByTarget(this, false));
-		targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityLiving.class, 10, false, true, new Predicate<EntityLiving>() {
-			public boolean apply(@Nullable EntityLiving p_apply_1_) {
-
-				return p_apply_1_ != null && IMob.VISIBLE_MOB_SELECTOR.apply(p_apply_1_) && !(p_apply_1_ instanceof EntityCreeper);
-			}
-		}));
+		targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityLiving.class, 10, false, true, (Predicate<EntityLiving>) p_apply_1_ -> p_apply_1_ != null && IMob.VISIBLE_MOB_SELECTOR.apply(p_apply_1_) && !(p_apply_1_ instanceof EntityCreeper)));
 	}
 
 	protected void entityInit() {
 
 		super.entityInit();
-		dataManager.register(PLAYER_CREATED, Byte.valueOf((byte) 0));
+		dataManager.register(PLAYER_CREATED, (byte) 0);
 	}
 
 	protected void updateAITasks() {
@@ -259,17 +254,17 @@ public class EntityIronGolem extends EntityGolem {
 
 	public boolean isPlayerCreated() {
 
-		return (dataManager.get(PLAYER_CREATED).byteValue() & 1) != 0;
+		return (dataManager.get(PLAYER_CREATED) & 1) != 0;
 	}
 
 	public void setPlayerCreated(boolean playerCreated) {
 
-		byte b0 = dataManager.get(PLAYER_CREATED).byteValue();
+		byte b0 = dataManager.get(PLAYER_CREATED);
 
 		if (playerCreated) {
-			dataManager.set(PLAYER_CREATED, Byte.valueOf((byte) (b0 | 1)));
+			dataManager.set(PLAYER_CREATED, (byte) (b0 | 1));
 		} else {
-			dataManager.set(PLAYER_CREATED, Byte.valueOf((byte) (b0 & -2)));
+			dataManager.set(PLAYER_CREATED, (byte) (b0 & -2));
 		}
 	}
 

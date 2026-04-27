@@ -49,16 +49,14 @@ public class EntityAINearestAttackableTarget<T extends EntityLivingBase> extends
 		targetChance = chance;
 		sorter = new EntityAINearestAttackableTarget.Sorter(creature);
 		setMutexBits(1);
-		targetEntitySelector = new Predicate<T>() {
-			public boolean apply(@Nullable T p_apply_1_) {
+		targetEntitySelector = (Predicate<T>) p_apply_1_ -> {
 
-				if (p_apply_1_ == null) {
-					return false;
-				} else if (targetSelector != null && !targetSelector.apply(p_apply_1_)) {
-					return false;
-				} else {
-					return EntitySelectors.NOT_SPECTATING.apply(p_apply_1_) && isSuitableTarget(p_apply_1_, false);
-				}
+			if (p_apply_1_ == null) {
+				return false;
+			} else if (targetSelector != null && !targetSelector.apply(p_apply_1_)) {
+				return false;
+			} else {
+				return EntitySelectors.NOT_SPECTATING.apply(p_apply_1_) && isSuitableTarget(p_apply_1_, false);
 			}
 		};
 	}
@@ -76,12 +74,12 @@ public class EntityAINearestAttackableTarget<T extends EntityLivingBase> extends
 			if (list.isEmpty()) {
 				return false;
 			} else {
-				Collections.sort(list, sorter);
-				targetEntity = list.get(0);
+				list.sort(sorter);
+				targetEntity = list.getFirst();
 				return true;
 			}
 		} else {
-			targetEntity = (T) taskOwner.world.getNearestAttackablePlayer(taskOwner.posX, taskOwner.posY + (double) taskOwner.getEyeHeight(), taskOwner.posZ, getTargetDistance(), getTargetDistance(), new Function<EntityPlayer, Double>() {
+			targetEntity = (T) taskOwner.world.getNearestAttackablePlayer(taskOwner.posX, taskOwner.posY + (double) taskOwner.getEyeHeight(), taskOwner.posZ, getTargetDistance(), getTargetDistance(), new Function<>() {
 				@Nullable
 				public Double apply(@Nullable EntityPlayer p_apply_1_) {
 

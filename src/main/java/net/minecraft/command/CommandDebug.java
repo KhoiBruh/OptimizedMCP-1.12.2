@@ -152,9 +152,7 @@ public class CommandDebug extends CommandBase {
 				Profiler.Result profiler$result = list.get(i);
 				builder.append(String.format("[%02d] ", depth));
 
-				for (int j = 0; j < depth; ++j) {
-					builder.append("|   ");
-				}
+				builder.append("|   ".repeat(Math.max(0, depth)));
 
 				builder.append(profiler$result.profilerName).append(" - ").append(String.format("%.2f", profiler$result.usePercentage)).append("%/").append(String.format("%.2f", profiler$result.totalUsePercentage)).append("%\n");
 

@@ -38,7 +38,7 @@ public class SPacketSoundEffect implements Packet<INetHandlerPlayClient> {
 	/**
 	 * Reads the raw packet data from the data stream.
 	 */
-	public void readPacketData(PacketBuffer buf) throws IOException {
+	public void readPacketData(PacketBuffer buf) {
 
 		sound = SoundEvent.REGISTRY.getObjectById(buf.readVarInt());
 		category = buf.readEnumValue(SoundCategory.class);
@@ -52,7 +52,7 @@ public class SPacketSoundEffect implements Packet<INetHandlerPlayClient> {
 	/**
 	 * Writes the raw packet data to the data stream.
 	 */
-	public void writePacketData(PacketBuffer buf) throws IOException {
+	public void writePacketData(PacketBuffer buf) {
 
 		buf.writeVarInt(SoundEvent.REGISTRY.getIDForObject(sound));
 		buf.writeEnumValue(category);

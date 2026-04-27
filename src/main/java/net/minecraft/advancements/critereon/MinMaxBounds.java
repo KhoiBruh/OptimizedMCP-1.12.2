@@ -37,19 +37,19 @@ public class MinMaxBounds {
 
 	public boolean test(float value) {
 
-		if (min != null && min.floatValue() > value) {
+		if (min != null && min > value) {
 			return false;
 		} else {
-			return max == null || max.floatValue() >= value;
+			return max == null || max >= value;
 		}
 	}
 
 	public boolean testSquare(double value) {
 
-		if (min != null && (double) (min.floatValue() * min.floatValue()) > value) {
+		if (min != null && (double) (min * min) > value) {
 			return false;
 		} else {
-			return max == null || (double) (max.floatValue() * max.floatValue()) >= value;
+			return max == null || (double) (max * max) >= value;
 		}
 	}
 

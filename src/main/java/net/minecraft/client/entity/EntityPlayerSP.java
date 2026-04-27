@@ -493,7 +493,6 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 				}
 
 				if (isOpenBlockSpace(blockpos.south()) && 1.0D - d1 < d2) {
-					d2 = 1.0D - d1;
 					i = 5;
 				}
 
@@ -629,8 +628,8 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 		super.notifyDataManagerChange(key);
 
 		if (HAND_STATES.equals(key)) {
-			boolean flag = (dataManager.get(HAND_STATES).byteValue() & 1) > 0;
-			EnumHand enumhand = (dataManager.get(HAND_STATES).byteValue() & 2) > 0 ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND;
+			boolean flag = (dataManager.get(HAND_STATES) & 1) > 0;
+			EnumHand enumhand = (dataManager.get(HAND_STATES) & 2) > 0 ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND;
 
 			if (flag && !handActive) {
 				setActiveHand(enumhand);

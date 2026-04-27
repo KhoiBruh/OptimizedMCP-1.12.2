@@ -103,7 +103,7 @@ public class ServerCommandManager extends CommandHandler implements ICommandList
 
 		ITextComponent itextcomponent = new TextComponentTranslation("chat.type.admin", sender.getName(), new TextComponentTranslation(translationKey, translationArgs));
 		itextcomponent.getStyle().setColor(TextFormatting.GRAY);
-		itextcomponent.getStyle().setItalic(Boolean.valueOf(true));
+		itextcomponent.getStyle().setItalic(Boolean.TRUE);
 
 		if (flag) {
 			for (EntityPlayer entityplayer : minecraftserver.getPlayerList().getPlayers()) {

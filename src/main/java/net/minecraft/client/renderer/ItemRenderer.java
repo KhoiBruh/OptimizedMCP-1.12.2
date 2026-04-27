@@ -229,7 +229,7 @@ public class ItemRenderer {
 		float f2 = -0.3F * MathHelper.sin(f1 * (float) Math.PI);
 		float f3 = 0.4F * MathHelper.sin(f1 * ((float) Math.PI * 2F));
 		float f4 = -0.4F * MathHelper.sin(p_187456_2_ * (float) Math.PI);
-		GlStateManager.translate(f * (f2 + 0.64000005F), f3 + -0.6F + p_187456_1_ * -0.6F, f4 + -0.71999997F);
+		GlStateManager.translate(f * (f2 + 0.64000005F), f3 - 0.6F + p_187456_1_ * -0.6F, f4 - 0.71999997F);
 		GlStateManager.rotate(f * 45.0F, 0.0F, 1.0F, 0.0F);
 		float f5 = MathHelper.sin(p_187456_2_ * p_187456_2_ * (float) Math.PI);
 		float f6 = MathHelper.sin(f1 * (float) Math.PI);
@@ -356,17 +356,13 @@ public class ItemRenderer {
 				int j = flag1 ? 1 : -1;
 
 				switch (stack.getItemUseAction()) {
-					case NONE:
+					case NONE, BLOCK:
 						transformSideFirstPerson(enumhandside, p_187457_7_);
 						break;
 
 					case EAT:
 					case DRINK:
 						transformEatFirstPerson(p_187457_2_, enumhandside, stack);
-						transformSideFirstPerson(enumhandside, p_187457_7_);
-						break;
-
-					case BLOCK:
 						transformSideFirstPerson(enumhandside, p_187457_7_);
 						break;
 

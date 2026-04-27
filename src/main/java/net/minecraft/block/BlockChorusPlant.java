@@ -35,7 +35,7 @@ public class BlockChorusPlant extends Block {
 
 		super(Material.PLANTS, MapColor.PURPLE);
 		setCreativeTab(CreativeTabs.DECORATIONS);
-		setDefaultState(blockState.getBaseState().withProperty(NORTH, Boolean.valueOf(false)).withProperty(EAST, Boolean.valueOf(false)).withProperty(SOUTH, Boolean.valueOf(false)).withProperty(WEST, Boolean.valueOf(false)).withProperty(UP, Boolean.valueOf(false)).withProperty(DOWN, Boolean.valueOf(false)));
+		setDefaultState(blockState.getBaseState().withProperty(NORTH, Boolean.FALSE).withProperty(EAST, Boolean.FALSE).withProperty(SOUTH, Boolean.FALSE).withProperty(WEST, Boolean.FALSE).withProperty(UP, Boolean.FALSE).withProperty(DOWN, Boolean.FALSE));
 	}
 
 	/**
@@ -50,19 +50,19 @@ public class BlockChorusPlant extends Block {
 		Block block3 = worldIn.getBlockState(pos.east()).getBlock();
 		Block block4 = worldIn.getBlockState(pos.south()).getBlock();
 		Block block5 = worldIn.getBlockState(pos.west()).getBlock();
-		return state.withProperty(DOWN, Boolean.valueOf(block == this || block == Blocks.CHORUS_FLOWER || block == Blocks.END_STONE)).withProperty(UP, Boolean.valueOf(block1 == this || block1 == Blocks.CHORUS_FLOWER)).withProperty(NORTH, Boolean.valueOf(block2 == this || block2 == Blocks.CHORUS_FLOWER)).withProperty(EAST, Boolean.valueOf(block3 == this || block3 == Blocks.CHORUS_FLOWER)).withProperty(SOUTH, Boolean.valueOf(block4 == this || block4 == Blocks.CHORUS_FLOWER)).withProperty(WEST, Boolean.valueOf(block5 == this || block5 == Blocks.CHORUS_FLOWER));
+		return state.withProperty(DOWN, block == this || block == Blocks.CHORUS_FLOWER || block == Blocks.END_STONE).withProperty(UP, block1 == this || block1 == Blocks.CHORUS_FLOWER).withProperty(NORTH, block2 == this || block2 == Blocks.CHORUS_FLOWER).withProperty(EAST, block3 == this || block3 == Blocks.CHORUS_FLOWER).withProperty(SOUTH, block4 == this || block4 == Blocks.CHORUS_FLOWER).withProperty(WEST, block5 == this || block5 == Blocks.CHORUS_FLOWER);
 	}
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
 
 		state = state.getActualState(source, pos);
 		float f = 0.1875F;
-		float f1 = state.getValue(WEST).booleanValue() ? 0.0F : 0.1875F;
-		float f2 = state.getValue(DOWN).booleanValue() ? 0.0F : 0.1875F;
-		float f3 = state.getValue(NORTH).booleanValue() ? 0.0F : 0.1875F;
-		float f4 = state.getValue(EAST).booleanValue() ? 1.0F : 0.8125F;
-		float f5 = state.getValue(UP).booleanValue() ? 1.0F : 0.8125F;
-		float f6 = state.getValue(SOUTH).booleanValue() ? 1.0F : 0.8125F;
+		float f1 = state.getValue(WEST) ? 0.0F : 0.1875F;
+		float f2 = state.getValue(DOWN) ? 0.0F : 0.1875F;
+		float f3 = state.getValue(NORTH) ? 0.0F : 0.1875F;
+		float f4 = state.getValue(EAST) ? 1.0F : 0.8125F;
+		float f5 = state.getValue(UP) ? 1.0F : 0.8125F;
+		float f6 = state.getValue(SOUTH) ? 1.0F : 0.8125F;
 		return new AxisAlignedBB(f1, f2, f3, f4, f5, f6);
 	}
 
@@ -76,27 +76,27 @@ public class BlockChorusPlant extends Block {
 		float f1 = 0.8125F;
 		addCollisionBoxToList(pos, entityBox, collidingBoxes, new AxisAlignedBB(0.1875D, 0.1875D, 0.1875D, 0.8125D, 0.8125D, 0.8125D));
 
-		if (state.getValue(WEST).booleanValue()) {
+		if (state.getValue(WEST)) {
 			addCollisionBoxToList(pos, entityBox, collidingBoxes, new AxisAlignedBB(0.0D, 0.1875D, 0.1875D, 0.1875D, 0.8125D, 0.8125D));
 		}
 
-		if (state.getValue(EAST).booleanValue()) {
+		if (state.getValue(EAST)) {
 			addCollisionBoxToList(pos, entityBox, collidingBoxes, new AxisAlignedBB(0.8125D, 0.1875D, 0.1875D, 1.0D, 0.8125D, 0.8125D));
 		}
 
-		if (state.getValue(UP).booleanValue()) {
+		if (state.getValue(UP)) {
 			addCollisionBoxToList(pos, entityBox, collidingBoxes, new AxisAlignedBB(0.1875D, 0.8125D, 0.1875D, 0.8125D, 1.0D, 0.8125D));
 		}
 
-		if (state.getValue(DOWN).booleanValue()) {
+		if (state.getValue(DOWN)) {
 			addCollisionBoxToList(pos, entityBox, collidingBoxes, new AxisAlignedBB(0.1875D, 0.0D, 0.1875D, 0.8125D, 0.1875D, 0.8125D));
 		}
 
-		if (state.getValue(NORTH).booleanValue()) {
+		if (state.getValue(NORTH)) {
 			addCollisionBoxToList(pos, entityBox, collidingBoxes, new AxisAlignedBB(0.1875D, 0.1875D, 0.0D, 0.8125D, 0.8125D, 0.1875D));
 		}
 
-		if (state.getValue(SOUTH).booleanValue()) {
+		if (state.getValue(SOUTH)) {
 			addCollisionBoxToList(pos, entityBox, collidingBoxes, new AxisAlignedBB(0.1875D, 0.1875D, 0.8125D, 0.8125D, 0.8125D, 1.0D));
 		}
 	}

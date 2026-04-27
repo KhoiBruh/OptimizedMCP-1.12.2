@@ -125,7 +125,7 @@ public class FurnaceRecipes {
 	public void addSmeltingRecipe(ItemStack input, ItemStack stack, float experience) {
 
 		smeltingList.put(input, stack);
-		experienceList.put(stack, Float.valueOf(experience));
+		experienceList.put(stack, experience);
 	}
 
 	/**
@@ -159,7 +159,7 @@ public class FurnaceRecipes {
 
 		for (Entry<ItemStack, Float> entry : experienceList.entrySet()) {
 			if (compareItemStacks(stack, entry.getKey())) {
-				return entry.getValue().floatValue();
+				return entry.getValue();
 			}
 		}
 

@@ -23,7 +23,7 @@ import java.util.UUID;
 
 public class Potion {
 
-	public static final RegistryNamespaced<ResourceLocation, Potion> REGISTRY = new RegistryNamespaced<ResourceLocation, Potion>();
+	public static final RegistryNamespaced<ResourceLocation, Potion> REGISTRY = new RegistryNamespaced<>();
 	private final Map<IAttribute, AttributeModifier> attributeModifierMap = Maps.newHashMap();
 
 	/**

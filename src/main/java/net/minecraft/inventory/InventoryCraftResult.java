@@ -39,7 +39,7 @@ public class InventoryCraftResult implements IInventory {
 	 */
 	public ItemStack getStackInSlot(int index) {
 
-		return stackResult.get(0);
+		return stackResult.getFirst();
 	}
 
 	/**

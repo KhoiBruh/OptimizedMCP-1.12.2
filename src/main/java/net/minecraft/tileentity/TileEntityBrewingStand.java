@@ -142,7 +142,7 @@ public class TileEntityBrewingStand extends TileEntityLockable implements ITicka
 				}
 
 				for (int i = 0; i < BlockBrewingStand.HAS_BOTTLE.length; ++i) {
-					iblockstate = iblockstate.withProperty(BlockBrewingStand.HAS_BOTTLE[i], Boolean.valueOf(aboolean[i]));
+					iblockstate = iblockstate.withProperty(BlockBrewingStand.HAS_BOTTLE[i], aboolean[i]);
 				}
 
 				world.setBlockState(pos, iblockstate, 2);
@@ -363,16 +363,11 @@ public class TileEntityBrewingStand extends TileEntityLockable implements ITicka
 
 	public int getField(int id) {
 
-		switch (id) {
-			case 0:
-				return brewTime;
-
-			case 1:
-				return fuel;
-
-			default:
-				return 0;
-		}
+		return switch (id) {
+			case 0 -> brewTime;
+			case 1 -> fuel;
+			default -> 0;
+		};
 	}
 
 	public void setField(int id, int value) {

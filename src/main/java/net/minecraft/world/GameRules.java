@@ -7,7 +7,7 @@ import java.util.TreeMap;
 
 public class GameRules {
 
-	private final TreeMap<String, GameRules.Value> rules = new TreeMap<String, GameRules.Value>();
+	private final TreeMap<String, GameRules.Value> rules = new TreeMap<>();
 
 	public GameRules() {
 

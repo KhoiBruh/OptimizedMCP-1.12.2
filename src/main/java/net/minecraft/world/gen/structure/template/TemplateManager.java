@@ -55,7 +55,7 @@ public class TemplateManager {
 				readTemplate(templatePath);
 			}
 
-			return templates.containsKey(s) ? templates.get(s) : null;
+			return templates.getOrDefault(s, null);
 		}
 	}
 

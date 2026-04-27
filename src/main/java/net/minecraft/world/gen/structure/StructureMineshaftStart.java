@@ -23,7 +23,7 @@ public class StructureMineshaftStart extends StructureStart {
 
 		if (p_i47149_5_ == MapGenMineshaft.Type.MESA) {
 			int i = -5;
-			int j = p_i47149_1_.getSeaLevel() - boundingBox.maxY + boundingBox.getYSize() / 2 - -5;
+			int j = p_i47149_1_.getSeaLevel() - boundingBox.maxY + boundingBox.getYSize() / 2 + 5;
 			boundingBox.offset(0, j, 0);
 
 			for (StructureComponent structurecomponent : components) {

@@ -130,7 +130,7 @@ public class ShaderManager {
 			if (attributes != null) {
 				for (String s2 : attributes) {
 					int l = OpenGlHelper.glGetAttribLocation(program, s2);
-					attribLocations.add(Integer.valueOf(l));
+					attribLocations.add(l);
 				}
 			}
 		} catch (Exception exception3) {
@@ -193,7 +193,7 @@ public class ShaderManager {
 				} else if (object instanceof ITextureObject) {
 					j = ((ITextureObject) object).getGlTextureId();
 				} else if (object instanceof Integer) {
-					j = ((Integer) object).intValue();
+					j = (Integer) object;
 				}
 
 				if (j != -1) {
@@ -249,7 +249,7 @@ public class ShaderManager {
 				samplerNames.remove(j);
 				--j;
 			} else {
-				shaderSamplerLocations.add(Integer.valueOf(k));
+				shaderSamplerLocations.add(k);
 			}
 
 			++i;
@@ -262,14 +262,14 @@ public class ShaderManager {
 			if (l == -1) {
 				LOGGER.warn("Could not find uniform named {} in the specified shader program.", s1);
 			} else {
-				shaderUniformLocations.add(Integer.valueOf(l));
+				shaderUniformLocations.add(l);
 				shaderuniform.setUniformLocation(l);
 				mappedShaderUniforms.put(s1, shaderuniform);
 			}
 		}
 	}
 
-	private void parseSampler(JsonElement element) throws JsonException {
+	private void parseSampler(JsonElement element) {
 
 		JsonObject jsonobject = JsonUtils.getJsonObject(element, "sampler");
 		String s = JsonUtils.getString(jsonobject, "name");

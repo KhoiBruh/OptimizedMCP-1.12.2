@@ -28,14 +28,14 @@ public class NBTTagList extends NBTBase {
 		if (tagList.isEmpty()) {
 			tagType = 0;
 		} else {
-			tagType = tagList.get(0).getId();
+			tagType = tagList.getFirst().getId();
 		}
 
 		output.writeByte(tagType);
 		output.writeInt(tagList.size());
 
-		for (int i = 0; i < tagList.size(); ++i) {
-			tagList.get(i).write(output);
+		for (NBTBase nbtBase : tagList) {
+			nbtBase.write(output);
 		}
 	}
 

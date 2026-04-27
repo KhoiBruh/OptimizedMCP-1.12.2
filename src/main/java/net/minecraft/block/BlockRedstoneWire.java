@@ -39,7 +39,7 @@ public class BlockRedstoneWire extends Block {
 	public BlockRedstoneWire() {
 
 		super(Material.CIRCUITS);
-		setDefaultState(blockState.getBaseState().withProperty(NORTH, BlockRedstoneWire.EnumAttachPosition.NONE).withProperty(EAST, BlockRedstoneWire.EnumAttachPosition.NONE).withProperty(SOUTH, BlockRedstoneWire.EnumAttachPosition.NONE).withProperty(WEST, BlockRedstoneWire.EnumAttachPosition.NONE).withProperty(POWER, Integer.valueOf(0)));
+		setDefaultState(blockState.getBaseState().withProperty(NORTH, BlockRedstoneWire.EnumAttachPosition.NONE).withProperty(EAST, BlockRedstoneWire.EnumAttachPosition.NONE).withProperty(SOUTH, BlockRedstoneWire.EnumAttachPosition.NONE).withProperty(WEST, BlockRedstoneWire.EnumAttachPosition.NONE).withProperty(POWER, 0));
 	}
 
 	private static int getAABBIndex(IBlockState state) {
@@ -208,7 +208,7 @@ public class BlockRedstoneWire extends Block {
 	private IBlockState calculateCurrentChanges(World worldIn, BlockPos pos1, BlockPos pos2, IBlockState state) {
 
 		IBlockState iblockstate = state;
-		int i = state.getValue(POWER).intValue();
+		int i = state.getValue(POWER);
 		int j = 0;
 		j = getMaxCurrentStrength(worldIn, pos2, j);
 		canProvidePower = false;
@@ -251,7 +251,7 @@ public class BlockRedstoneWire extends Block {
 		}
 
 		if (i != j) {
-			state = state.withProperty(POWER, Integer.valueOf(j));
+			state = state.withProperty(POWER, j);
 
 			if (worldIn.getBlockState(pos1) == iblockstate) {
 				worldIn.setBlockState(pos1, state, 2);
@@ -345,7 +345,7 @@ public class BlockRedstoneWire extends Block {
 		if (worldIn.getBlockState(pos).getBlock() != this) {
 			return strength;
 		} else {
-			int i = worldIn.getBlockState(pos).getValue(POWER).intValue();
+			int i = worldIn.getBlockState(pos).getValue(POWER);
 			return Math.max(i, strength);
 		}
 	}
@@ -385,7 +385,7 @@ public class BlockRedstoneWire extends Block {
 		if (!canProvidePower) {
 			return 0;
 		} else {
-			int i = blockState.getValue(POWER).intValue();
+			int i = blockState.getValue(POWER);
 
 			if (i == 0) {
 				return 0;
@@ -439,7 +439,7 @@ public class BlockRedstoneWire extends Block {
 
 	public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
 
-		int i = stateIn.getValue(POWER).intValue();
+		int i = stateIn.getValue(POWER);
 
 		if (i != 0) {
 			double d0 = (double) pos.getX() + 0.5D + ((double) rand.nextFloat() - 0.5D) * 0.2D;
@@ -472,7 +472,7 @@ public class BlockRedstoneWire extends Block {
 	 */
 	public IBlockState getStateFromMeta(int meta) {
 
-		return getDefaultState().withProperty(POWER, Integer.valueOf(meta));
+		return getDefaultState().withProperty(POWER, meta);
 	}
 
 	/**
@@ -480,7 +480,7 @@ public class BlockRedstoneWire extends Block {
 	 */
 	public int getMetaFromState(IBlockState state) {
 
-		return state.getValue(POWER).intValue();
+		return state.getValue(POWER);
 	}
 
 	/**
@@ -489,19 +489,15 @@ public class BlockRedstoneWire extends Block {
 	 */
 	public IBlockState withRotation(IBlockState state, Rotation rot) {
 
-		switch (rot) {
-			case CLOCKWISE_180:
-				return state.withProperty(NORTH, state.getValue(SOUTH)).withProperty(EAST, state.getValue(WEST)).withProperty(SOUTH, state.getValue(NORTH)).withProperty(WEST, state.getValue(EAST));
-
-			case COUNTERCLOCKWISE_90:
-				return state.withProperty(NORTH, state.getValue(EAST)).withProperty(EAST, state.getValue(SOUTH)).withProperty(SOUTH, state.getValue(WEST)).withProperty(WEST, state.getValue(NORTH));
-
-			case CLOCKWISE_90:
-				return state.withProperty(NORTH, state.getValue(WEST)).withProperty(EAST, state.getValue(NORTH)).withProperty(SOUTH, state.getValue(EAST)).withProperty(WEST, state.getValue(SOUTH));
-
-			default:
-				return state;
-		}
+		return switch (rot) {
+			case CLOCKWISE_180 ->
+					state.withProperty(NORTH, state.getValue(SOUTH)).withProperty(EAST, state.getValue(WEST)).withProperty(SOUTH, state.getValue(NORTH)).withProperty(WEST, state.getValue(EAST));
+			case COUNTERCLOCKWISE_90 ->
+					state.withProperty(NORTH, state.getValue(EAST)).withProperty(EAST, state.getValue(SOUTH)).withProperty(SOUTH, state.getValue(WEST)).withProperty(WEST, state.getValue(NORTH));
+			case CLOCKWISE_90 ->
+					state.withProperty(NORTH, state.getValue(WEST)).withProperty(EAST, state.getValue(NORTH)).withProperty(SOUTH, state.getValue(EAST)).withProperty(WEST, state.getValue(SOUTH));
+			default -> state;
+		};
 	}
 
 	/**
@@ -510,16 +506,12 @@ public class BlockRedstoneWire extends Block {
 	 */
 	public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
 
-		switch (mirrorIn) {
-			case LEFT_RIGHT:
-				return state.withProperty(NORTH, state.getValue(SOUTH)).withProperty(SOUTH, state.getValue(NORTH));
-
-			case FRONT_BACK:
-				return state.withProperty(EAST, state.getValue(WEST)).withProperty(WEST, state.getValue(EAST));
-
-			default:
-				return super.withMirror(state, mirrorIn);
-		}
+		return switch (mirrorIn) {
+			case LEFT_RIGHT ->
+					state.withProperty(NORTH, state.getValue(SOUTH)).withProperty(SOUTH, state.getValue(NORTH));
+			case FRONT_BACK -> state.withProperty(EAST, state.getValue(WEST)).withProperty(WEST, state.getValue(EAST));
+			default -> super.withMirror(state, mirrorIn);
+		};
 	}
 
 	protected BlockStateContainer createBlockState() {

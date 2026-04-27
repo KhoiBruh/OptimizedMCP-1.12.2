@@ -114,27 +114,25 @@ public class EntityVillager extends EntityAgeable implements INpc, IMerchant {
 
 		EntityLiving.registerFixesMob(fixer, EntityVillager.class);
 		fixer.registerWalker(FixTypes.ENTITY, new ItemStackDataLists(EntityVillager.class, "Inventory"));
-		fixer.registerWalker(FixTypes.ENTITY, new IDataWalker() {
-			public NBTTagCompound process(IDataFixer fixer, NBTTagCompound compound, int versionIn) {
+		fixer.registerWalker(FixTypes.ENTITY, (fixer1, compound, versionIn) -> {
 
-				if (EntityList.getKey(EntityVillager.class).equals(new ResourceLocation(compound.getString("id"))) && compound.hasKey("Offers", 10)) {
-					NBTTagCompound nbttagcompound = compound.getCompoundTag("Offers");
+			if (EntityList.getKey(EntityVillager.class).equals(new ResourceLocation(compound.getString("id"))) && compound.hasKey("Offers", 10)) {
+				NBTTagCompound nbttagcompound = compound.getCompoundTag("Offers");
 
-					if (nbttagcompound.hasKey("Recipes", 9)) {
-						NBTTagList nbttaglist = nbttagcompound.getTagList("Recipes", 10);
+				if (nbttagcompound.hasKey("Recipes", 9)) {
+					NBTTagList nbttaglist = nbttagcompound.getTagList("Recipes", 10);
 
-						for (int i = 0; i < nbttaglist.tagCount(); ++i) {
-							NBTTagCompound nbttagcompound1 = nbttaglist.getCompoundTagAt(i);
-							DataFixesManager.processItemStack(fixer, nbttagcompound1, versionIn, "buy");
-							DataFixesManager.processItemStack(fixer, nbttagcompound1, versionIn, "buyB");
-							DataFixesManager.processItemStack(fixer, nbttagcompound1, versionIn, "sell");
-							nbttaglist.set(i, nbttagcompound1);
-						}
+					for (int i = 0; i < nbttaglist.tagCount(); ++i) {
+						NBTTagCompound nbttagcompound1 = nbttaglist.getCompoundTagAt(i);
+						DataFixesManager.processItemStack(fixer1, nbttagcompound1, versionIn, "buy");
+						DataFixesManager.processItemStack(fixer1, nbttagcompound1, versionIn, "buyB");
+						DataFixesManager.processItemStack(fixer1, nbttagcompound1, versionIn, "sell");
+						nbttaglist.set(i, nbttagcompound1);
 					}
 				}
-
-				return compound;
 			}
+
+			return compound;
 		});
 	}
 
@@ -272,7 +270,7 @@ public class EntityVillager extends EntityAgeable implements INpc, IMerchant {
 	protected void entityInit() {
 
 		super.entityInit();
-		dataManager.register(PROFESSION, Integer.valueOf(0));
+		dataManager.register(PROFESSION, 0);
 	}
 
 	/**
@@ -366,12 +364,12 @@ public class EntityVillager extends EntityAgeable implements INpc, IMerchant {
 
 	public int getProfession() {
 
-		return Math.max(dataManager.get(PROFESSION).intValue() % 6, 0);
+		return Math.max(dataManager.get(PROFESSION) % 6, 0);
 	}
 
 	public void setProfession(int professionId) {
 
-		dataManager.set(PROFESSION, Integer.valueOf(professionId));
+		dataManager.set(PROFESSION, professionId);
 	}
 
 	public boolean isMating() {
@@ -1049,16 +1047,16 @@ public class EntityVillager extends EntityAgeable implements INpc, IMerchant {
 
 		public PriceInfo(int p_i45810_1_, int p_i45810_2_) {
 
-			super(Integer.valueOf(p_i45810_1_), Integer.valueOf(p_i45810_2_));
+			super(p_i45810_1_, p_i45810_2_);
 
 			if (p_i45810_2_ < p_i45810_1_) {
-				EntityVillager.LOGGER.warn("PriceRange({}, {}) invalid, {} smaller than {}", Integer.valueOf(p_i45810_1_), Integer.valueOf(p_i45810_2_), Integer.valueOf(p_i45810_2_), Integer.valueOf(p_i45810_1_));
+				EntityVillager.LOGGER.warn("PriceRange({}, {}) invalid, {} smaller than {}", p_i45810_1_, p_i45810_2_, p_i45810_2_, p_i45810_1_);
 			}
 		}
 
 		public int getPrice(Random rand) {
 
-			return getFirst().intValue() >= getSecond().intValue() ? getFirst().intValue() : getFirst().intValue() + rand.nextInt(getSecond().intValue() - getFirst().intValue() + 1);
+			return getFirst() >= getSecond() ? getFirst() : getFirst() + rand.nextInt(getSecond() - getFirst() + 1);
 		}
 
 	}

@@ -33,9 +33,7 @@ public final class ProjectileHelper {
 			List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(projectile, projectile.getEntityBoundingBox().expand(d3, d4, d5).grow(1.0D));
 			double d6 = 0.0D;
 
-			for (int i = 0; i < list.size(); ++i) {
-				Entity entity1 = list.get(i);
-
+			for (Entity entity1 : list) {
 				if (entity1.canBeCollidedWith() && (ignoreExcludedEntity || !entity1.isEntityEqual(excludedEntity)) && !entity1.noClip) {
 					AxisAlignedBB axisalignedbb = entity1.getEntityBoundingBox().grow(0.30000001192092896D);
 					RayTraceResult raytraceresult1 = axisalignedbb.calculateIntercept(vec3d, vec3d1);

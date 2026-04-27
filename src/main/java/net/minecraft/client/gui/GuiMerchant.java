@@ -101,7 +101,7 @@ public class GuiMerchant extends GuiContainer {
 	/**
 	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
 	 */
-	protected void actionPerformed(GuiButton button) throws IOException {
+	protected void actionPerformed(GuiButton button) {
 
 		boolean flag = false;
 

@@ -416,8 +416,8 @@ public class EntityTrackerEntry {
 
 	public void updatePlayerEntities(List<EntityPlayer> players) {
 
-		for (int i = 0; i < players.size(); ++i) {
-			updatePlayerEntity((EntityPlayerMP) players.get(i));
+		for (EntityPlayer player : players) {
+			updatePlayerEntity((EntityPlayerMP) player);
 		}
 	}
 
@@ -427,92 +427,120 @@ public class EntityTrackerEntry {
 			LOGGER.warn("Fetching addPacket for removed entity");
 		}
 
-		if (trackedEntity instanceof EntityPlayerMP) {
-			return new SPacketSpawnPlayer((EntityPlayer) trackedEntity);
-		} else if (trackedEntity instanceof IAnimals) {
-			lastHeadMotion = MathHelper.floor(trackedEntity.getRotationYawHead() * 256.0F / 360.0F);
-			return new SPacketSpawnMob((EntityLivingBase) trackedEntity);
-		} else if (trackedEntity instanceof EntityPainting) {
-			return new SPacketSpawnPainting((EntityPainting) trackedEntity);
-		} else if (trackedEntity instanceof EntityItem) {
-			return new SPacketSpawnObject(trackedEntity, 2, 1);
-		} else if (trackedEntity instanceof EntityMinecart entityminecart) {
-			return new SPacketSpawnObject(trackedEntity, 10, entityminecart.getType().getId());
-		} else if (trackedEntity instanceof EntityBoat) {
-			return new SPacketSpawnObject(trackedEntity, 1);
-		} else if (trackedEntity instanceof EntityXPOrb) {
-			return new SPacketSpawnExperienceOrb((EntityXPOrb) trackedEntity);
-		} else if (trackedEntity instanceof EntityFishHook) {
-			Entity entity2 = ((EntityFishHook) trackedEntity).getAngler();
-			return new SPacketSpawnObject(trackedEntity, 90, entity2 == null ? trackedEntity.getEntityId() : entity2.getEntityId());
-		} else if (trackedEntity instanceof EntitySpectralArrow) {
-			Entity entity1 = ((EntitySpectralArrow) trackedEntity).shootingEntity;
-			return new SPacketSpawnObject(trackedEntity, 91, 1 + (entity1 == null ? trackedEntity.getEntityId() : entity1.getEntityId()));
-		} else if (trackedEntity instanceof EntityTippedArrow) {
-			Entity entity = ((EntityArrow) trackedEntity).shootingEntity;
-			return new SPacketSpawnObject(trackedEntity, 60, 1 + (entity == null ? trackedEntity.getEntityId() : entity.getEntityId()));
-		} else if (trackedEntity instanceof EntitySnowball) {
-			return new SPacketSpawnObject(trackedEntity, 61);
-		} else if (trackedEntity instanceof EntityLlamaSpit) {
-			return new SPacketSpawnObject(trackedEntity, 68);
-		} else if (trackedEntity instanceof EntityPotion) {
-			return new SPacketSpawnObject(trackedEntity, 73);
-		} else if (trackedEntity instanceof EntityExpBottle) {
-			return new SPacketSpawnObject(trackedEntity, 75);
-		} else if (trackedEntity instanceof EntityEnderPearl) {
-			return new SPacketSpawnObject(trackedEntity, 65);
-		} else if (trackedEntity instanceof EntityEnderEye) {
-			return new SPacketSpawnObject(trackedEntity, 72);
-		} else if (trackedEntity instanceof EntityFireworkRocket) {
-			return new SPacketSpawnObject(trackedEntity, 76);
-		} else if (trackedEntity instanceof EntityFireball entityfireball) {
-			SPacketSpawnObject spacketspawnobject = null;
-			int i = 63;
-
-			if (trackedEntity instanceof EntitySmallFireball) {
-				i = 64;
-			} else if (trackedEntity instanceof EntityDragonFireball) {
-				i = 93;
-			} else if (trackedEntity instanceof EntityWitherSkull) {
-				i = 66;
+		switch (trackedEntity) {
+			case EntityPlayerMP entityPlayerMP -> {
+				return new SPacketSpawnPlayer((EntityPlayer) trackedEntity);
 			}
-
-			if (entityfireball.shootingEntity != null) {
-				spacketspawnobject = new SPacketSpawnObject(trackedEntity, i, entityfireball.shootingEntity.getEntityId());
-			} else {
-				spacketspawnobject = new SPacketSpawnObject(trackedEntity, i, 0);
+			case IAnimals iAnimals -> {
+				lastHeadMotion = MathHelper.floor(trackedEntity.getRotationYawHead() * 256.0F / 360.0F);
+				return new SPacketSpawnMob((EntityLivingBase) trackedEntity);
 			}
+			case EntityPainting entityPainting -> {
+				return new SPacketSpawnPainting(entityPainting);
+			}
+			case EntityItem entityItem -> {
+				return new SPacketSpawnObject(trackedEntity, 2, 1);
+			}
+			case EntityMinecart entityminecart -> {
+				return new SPacketSpawnObject(trackedEntity, 10, entityminecart.getType().getId());
+			}
+			case EntityBoat entityBoat -> {
+				return new SPacketSpawnObject(trackedEntity, 1);
+			}
+			case EntityXPOrb entityXPOrb -> {
+				return new SPacketSpawnExperienceOrb(entityXPOrb);
+			}
+			case EntityFishHook entityFishHook -> {
+				Entity entity2 = entityFishHook.getAngler();
+				return new SPacketSpawnObject(trackedEntity, 90, entity2 == null ? trackedEntity.getEntityId() : entity2.getEntityId());
+			}
+			case EntitySpectralArrow entitySpectralArrow -> {
+				Entity entity1 = entitySpectralArrow.shootingEntity;
+				return new SPacketSpawnObject(trackedEntity, 91, 1 + (entity1 == null ? trackedEntity.getEntityId() : entity1.getEntityId()));
+			}
+			case EntityTippedArrow entityTippedArrow -> {
+				Entity entity = ((EntityArrow) trackedEntity).shootingEntity;
+				return new SPacketSpawnObject(trackedEntity, 60, 1 + (entity == null ? trackedEntity.getEntityId() : entity.getEntityId()));
+			}
+			case EntitySnowball entitySnowball -> {
+				return new SPacketSpawnObject(trackedEntity, 61);
+			}
+			case EntityLlamaSpit entityLlamaSpit -> {
+				return new SPacketSpawnObject(trackedEntity, 68);
+			}
+			case EntityPotion entityPotion -> {
+				return new SPacketSpawnObject(trackedEntity, 73);
+			}
+			case EntityExpBottle entityExpBottle -> {
+				return new SPacketSpawnObject(trackedEntity, 75);
+			}
+			case EntityEnderPearl entityEnderPearl -> {
+				return new SPacketSpawnObject(trackedEntity, 65);
+			}
+			case EntityEnderEye entityEnderEye -> {
+				return new SPacketSpawnObject(trackedEntity, 72);
+			}
+			case EntityFireworkRocket entityFireworkRocket -> {
+				return new SPacketSpawnObject(trackedEntity, 76);
+			}
+			case EntityFireball entityfireball -> {
+				SPacketSpawnObject spacketspawnobject;
+				int i = 63;
 
-			spacketspawnobject.setSpeedX((int) (entityfireball.accelerationX * 8000.0D));
-			spacketspawnobject.setSpeedY((int) (entityfireball.accelerationY * 8000.0D));
-			spacketspawnobject.setSpeedZ((int) (entityfireball.accelerationZ * 8000.0D));
-			return spacketspawnobject;
-		} else if (trackedEntity instanceof EntityShulkerBullet) {
-			SPacketSpawnObject spacketspawnobject1 = new SPacketSpawnObject(trackedEntity, 67, 0);
-			spacketspawnobject1.setSpeedX((int) (trackedEntity.motionX * 8000.0D));
-			spacketspawnobject1.setSpeedY((int) (trackedEntity.motionY * 8000.0D));
-			spacketspawnobject1.setSpeedZ((int) (trackedEntity.motionZ * 8000.0D));
-			return spacketspawnobject1;
-		} else if (trackedEntity instanceof EntityEgg) {
-			return new SPacketSpawnObject(trackedEntity, 62);
-		} else if (trackedEntity instanceof EntityEvokerFangs) {
-			return new SPacketSpawnObject(trackedEntity, 79);
-		} else if (trackedEntity instanceof EntityTNTPrimed) {
-			return new SPacketSpawnObject(trackedEntity, 50);
-		} else if (trackedEntity instanceof EntityEnderCrystal) {
-			return new SPacketSpawnObject(trackedEntity, 51);
-		} else if (trackedEntity instanceof EntityFallingBlock entityfallingblock) {
-			return new SPacketSpawnObject(trackedEntity, 70, Block.getStateId(entityfallingblock.getBlock()));
-		} else if (trackedEntity instanceof EntityArmorStand) {
-			return new SPacketSpawnObject(trackedEntity, 78);
-		} else if (trackedEntity instanceof EntityItemFrame entityitemframe) {
-			return new SPacketSpawnObject(trackedEntity, 71, entityitemframe.facingDirection.getHorizontalIndex(), entityitemframe.getHangingPosition());
-		} else if (trackedEntity instanceof EntityLeashKnot entityleashknot) {
-			return new SPacketSpawnObject(trackedEntity, 77, 0, entityleashknot.getHangingPosition());
-		} else if (trackedEntity instanceof EntityAreaEffectCloud) {
-			return new SPacketSpawnObject(trackedEntity, 3);
-		} else {
-			throw new IllegalArgumentException("Don't know how to add " + trackedEntity.getClass() + "!");
+				switch (trackedEntity) {
+					case EntitySmallFireball entitySmallFireball -> i = 64;
+					case EntityDragonFireball entityDragonFireball -> i = 93;
+					case EntityWitherSkull entityWitherSkull -> i = 66;
+					default -> {
+					}
+				}
+
+				if (entityfireball.shootingEntity != null) {
+					spacketspawnobject = new SPacketSpawnObject(trackedEntity, i, entityfireball.shootingEntity.getEntityId());
+				} else {
+					spacketspawnobject = new SPacketSpawnObject(trackedEntity, i, 0);
+				}
+
+				spacketspawnobject.setSpeedX((int) (entityfireball.accelerationX * 8000.0D));
+				spacketspawnobject.setSpeedY((int) (entityfireball.accelerationY * 8000.0D));
+				spacketspawnobject.setSpeedZ((int) (entityfireball.accelerationZ * 8000.0D));
+				return spacketspawnobject;
+			}
+			case EntityShulkerBullet entityShulkerBullet -> {
+				SPacketSpawnObject spacketspawnobject1 = new SPacketSpawnObject(trackedEntity, 67, 0);
+				spacketspawnobject1.setSpeedX((int) (trackedEntity.motionX * 8000.0D));
+				spacketspawnobject1.setSpeedY((int) (trackedEntity.motionY * 8000.0D));
+				spacketspawnobject1.setSpeedZ((int) (trackedEntity.motionZ * 8000.0D));
+				return spacketspawnobject1;
+			}
+			case EntityEgg entityEgg -> {
+				return new SPacketSpawnObject(trackedEntity, 62);
+			}
+			case EntityEvokerFangs entityEvokerFangs -> {
+				return new SPacketSpawnObject(trackedEntity, 79);
+			}
+			case EntityTNTPrimed entityTNTPrimed -> {
+				return new SPacketSpawnObject(trackedEntity, 50);
+			}
+			case EntityEnderCrystal entityEnderCrystal -> {
+				return new SPacketSpawnObject(trackedEntity, 51);
+			}
+			case EntityFallingBlock entityfallingblock -> {
+				return new SPacketSpawnObject(trackedEntity, 70, Block.getStateId(entityfallingblock.getBlock()));
+			}
+			case EntityArmorStand entityArmorStand -> {
+				return new SPacketSpawnObject(trackedEntity, 78);
+			}
+			case EntityItemFrame entityitemframe -> {
+				return new SPacketSpawnObject(trackedEntity, 71, entityitemframe.facingDirection.getHorizontalIndex(), entityitemframe.getHangingPosition());
+			}
+			case EntityLeashKnot entityleashknot -> {
+				return new SPacketSpawnObject(trackedEntity, 77, 0, entityleashknot.getHangingPosition());
+			}
+			case EntityAreaEffectCloud entityAreaEffectCloud -> {
+				return new SPacketSpawnObject(trackedEntity, 3);
+			}
+			default -> throw new IllegalArgumentException("Don't know how to add " + trackedEntity.getClass() + "!");
 		}
 	}
 

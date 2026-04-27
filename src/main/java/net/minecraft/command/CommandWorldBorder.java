@@ -46,114 +46,121 @@ public class CommandWorldBorder extends CommandBase {
 		} else {
 			WorldBorder worldborder = getWorldBorder(server);
 
-			if ("set".equals(args[0])) {
-				if (args.length != 2 && args.length != 3) {
-					throw new WrongUsageException("commands.worldborder.set.usage");
-				}
+			switch (args[0]) {
+				case "set" -> {
+					if (args.length != 2 && args.length != 3) {
+						throw new WrongUsageException("commands.worldborder.set.usage");
+					}
 
-				double d0 = worldborder.getTargetSize();
-				double d2 = parseDouble(args[1], 1.0D, 6.0E7D);
-				long i = args.length > 2 ? parseLong(args[2], 0L, 9223372036854775L) * 1000L : 0L;
+					double d0 = worldborder.getTargetSize();
+					double d2 = parseDouble(args[1], 1.0D, 6.0E7D);
+					long i = args.length > 2 ? parseLong(args[2], 0L, 9223372036854775L) * 1000L : 0L;
 
-				if (i > 0L) {
-					worldborder.setTransition(d0, d2, i);
+					if (i > 0L) {
+						worldborder.setTransition(d0, d2, i);
 
-					if (d0 > d2) {
-						notifyCommandListener(sender, this, "commands.worldborder.setSlowly.shrink.success", String.format("%.1f", d2), String.format("%.1f", d0), Long.toString(i / 1000L));
+						if (d0 > d2) {
+							notifyCommandListener(sender, this, "commands.worldborder.setSlowly.shrink.success", String.format("%.1f", d2), String.format("%.1f", d0), Long.toString(i / 1000L));
+						} else {
+							notifyCommandListener(sender, this, "commands.worldborder.setSlowly.grow.success", String.format("%.1f", d2), String.format("%.1f", d0), Long.toString(i / 1000L));
+						}
 					} else {
-						notifyCommandListener(sender, this, "commands.worldborder.setSlowly.grow.success", String.format("%.1f", d2), String.format("%.1f", d0), Long.toString(i / 1000L));
+						worldborder.setTransition(d2);
+						notifyCommandListener(sender, this, "commands.worldborder.set.success", String.format("%.1f", d2), String.format("%.1f", d0));
 					}
-				} else {
-					worldborder.setTransition(d2);
-					notifyCommandListener(sender, this, "commands.worldborder.set.success", String.format("%.1f", d2), String.format("%.1f", d0));
 				}
-			} else if ("add".equals(args[0])) {
-				if (args.length != 2 && args.length != 3) {
-					throw new WrongUsageException("commands.worldborder.add.usage");
-				}
+				case "add" -> {
+					if (args.length != 2 && args.length != 3) {
+						throw new WrongUsageException("commands.worldborder.add.usage");
+					}
 
-				double d4 = worldborder.getDiameter();
-				double d8 = d4 + parseDouble(args[1], -d4, 6.0E7D - d4);
-				long j1 = worldborder.getTimeUntilTarget() + (args.length > 2 ? parseLong(args[2], 0L, 9223372036854775L) * 1000L : 0L);
+					double d4 = worldborder.getDiameter();
+					double d8 = d4 + parseDouble(args[1], -d4, 6.0E7D - d4);
+					long j1 = worldborder.getTimeUntilTarget() + (args.length > 2 ? parseLong(args[2], 0L, 9223372036854775L) * 1000L : 0L);
 
-				if (j1 > 0L) {
-					worldborder.setTransition(d4, d8, j1);
+					if (j1 > 0L) {
+						worldborder.setTransition(d4, d8, j1);
 
-					if (d4 > d8) {
-						notifyCommandListener(sender, this, "commands.worldborder.setSlowly.shrink.success", String.format("%.1f", d8), String.format("%.1f", d4), Long.toString(j1 / 1000L));
+						if (d4 > d8) {
+							notifyCommandListener(sender, this, "commands.worldborder.setSlowly.shrink.success", String.format("%.1f", d8), String.format("%.1f", d4), Long.toString(j1 / 1000L));
+						} else {
+							notifyCommandListener(sender, this, "commands.worldborder.setSlowly.grow.success", String.format("%.1f", d8), String.format("%.1f", d4), Long.toString(j1 / 1000L));
+						}
 					} else {
-						notifyCommandListener(sender, this, "commands.worldborder.setSlowly.grow.success", String.format("%.1f", d8), String.format("%.1f", d4), Long.toString(j1 / 1000L));
+						worldborder.setTransition(d8);
+						notifyCommandListener(sender, this, "commands.worldborder.set.success", String.format("%.1f", d8), String.format("%.1f", d4));
 					}
-				} else {
-					worldborder.setTransition(d8);
-					notifyCommandListener(sender, this, "commands.worldborder.set.success", String.format("%.1f", d8), String.format("%.1f", d4));
 				}
-			} else if ("center".equals(args[0])) {
-				if (args.length != 3) {
-					throw new WrongUsageException("commands.worldborder.center.usage");
-				}
-
-				BlockPos blockpos = sender.getPosition();
-				double d1 = parseDouble((double) blockpos.getX() + 0.5D, args[1], true);
-				double d3 = parseDouble((double) blockpos.getZ() + 0.5D, args[2], true);
-				worldborder.setCenter(d1, d3);
-				notifyCommandListener(sender, this, "commands.worldborder.center.success", d1, d3);
-			} else if ("damage".equals(args[0])) {
-				if (args.length < 2) {
-					throw new WrongUsageException("commands.worldborder.damage.usage");
-				}
-
-				if ("buffer".equals(args[1])) {
+				case "center" -> {
 					if (args.length != 3) {
-						throw new WrongUsageException("commands.worldborder.damage.buffer.usage");
+						throw new WrongUsageException("commands.worldborder.center.usage");
 					}
 
-					double d5 = parseDouble(args[2], 0.0D);
-					double d9 = worldborder.getDamageBuffer();
-					worldborder.setDamageBuffer(d5);
-					notifyCommandListener(sender, this, "commands.worldborder.damage.buffer.success", String.format("%.1f", d5), String.format("%.1f", d9));
-				} else if ("amount".equals(args[1])) {
-					if (args.length != 3) {
-						throw new WrongUsageException("commands.worldborder.damage.amount.usage");
+					BlockPos blockpos = sender.getPosition();
+					double d1 = parseDouble((double) blockpos.getX() + 0.5D, args[1], true);
+					double d3 = parseDouble((double) blockpos.getZ() + 0.5D, args[2], true);
+					worldborder.setCenter(d1, d3);
+					notifyCommandListener(sender, this, "commands.worldborder.center.success", d1, d3);
+				}
+				case "damage" -> {
+					if (args.length < 2) {
+						throw new WrongUsageException("commands.worldborder.damage.usage");
 					}
 
-					double d6 = parseDouble(args[2], 0.0D);
-					double d10 = worldborder.getDamageAmount();
-					worldborder.setDamageAmount(d6);
-					notifyCommandListener(sender, this, "commands.worldborder.damage.amount.success", String.format("%.2f", d6), String.format("%.2f", d10));
-				}
-			} else if ("warning".equals(args[0])) {
-				if (args.length < 2) {
-					throw new WrongUsageException("commands.worldborder.warning.usage");
-				}
+					if ("buffer".equals(args[1])) {
+						if (args.length != 3) {
+							throw new WrongUsageException("commands.worldborder.damage.buffer.usage");
+						}
 
-				if ("time".equals(args[1])) {
-					if (args.length != 3) {
-						throw new WrongUsageException("commands.worldborder.warning.time.usage");
+						double d5 = parseDouble(args[2], 0.0D);
+						double d9 = worldborder.getDamageBuffer();
+						worldborder.setDamageBuffer(d5);
+						notifyCommandListener(sender, this, "commands.worldborder.damage.buffer.success", String.format("%.1f", d5), String.format("%.1f", d9));
+					} else if ("amount".equals(args[1])) {
+						if (args.length != 3) {
+							throw new WrongUsageException("commands.worldborder.damage.amount.usage");
+						}
+
+						double d6 = parseDouble(args[2], 0.0D);
+						double d10 = worldborder.getDamageAmount();
+						worldborder.setDamageAmount(d6);
+						notifyCommandListener(sender, this, "commands.worldborder.damage.amount.success", String.format("%.2f", d6), String.format("%.2f", d10));
+					}
+				}
+				case "warning" -> {
+					if (args.length < 2) {
+						throw new WrongUsageException("commands.worldborder.warning.usage");
 					}
 
-					int j = parseInt(args[2], 0);
-					int l = worldborder.getWarningTime();
-					worldborder.setWarningTime(j);
-					notifyCommandListener(sender, this, "commands.worldborder.warning.time.success", j, l);
-				} else if ("distance".equals(args[1])) {
-					if (args.length != 3) {
-						throw new WrongUsageException("commands.worldborder.warning.distance.usage");
+					if ("time".equals(args[1])) {
+						if (args.length != 3) {
+							throw new WrongUsageException("commands.worldborder.warning.time.usage");
+						}
+
+						int j = parseInt(args[2], 0);
+						int l = worldborder.getWarningTime();
+						worldborder.setWarningTime(j);
+						notifyCommandListener(sender, this, "commands.worldborder.warning.time.success", j, l);
+					} else if ("distance".equals(args[1])) {
+						if (args.length != 3) {
+							throw new WrongUsageException("commands.worldborder.warning.distance.usage");
+						}
+
+						int k = parseInt(args[2], 0);
+						int i1 = worldborder.getWarningDistance();
+						worldborder.setWarningDistance(k);
+						notifyCommandListener(sender, this, "commands.worldborder.warning.distance.success", k, i1);
+					}
+				}
+				case null, default -> {
+					if (!"get".equals(args[0])) {
+						throw new WrongUsageException("commands.worldborder.usage");
 					}
 
-					int k = parseInt(args[2], 0);
-					int i1 = worldborder.getWarningDistance();
-					worldborder.setWarningDistance(k);
-					notifyCommandListener(sender, this, "commands.worldborder.warning.distance.success", k, i1);
+					double d7 = worldborder.getDiameter();
+					sender.setCommandStat(CommandResultStats.Type.QUERY_RESULT, MathHelper.floor(d7 + 0.5D));
+					sender.sendMessage(new TextComponentTranslation("commands.worldborder.get.success", String.format("%.0f", d7)));
 				}
-			} else {
-				if (!"get".equals(args[0])) {
-					throw new WrongUsageException("commands.worldborder.usage");
-				}
-
-				double d7 = worldborder.getDiameter();
-				sender.setCommandStat(CommandResultStats.Type.QUERY_RESULT, MathHelper.floor(d7 + 0.5D));
-				sender.sendMessage(new TextComponentTranslation("commands.worldborder.get.success", String.format("%.0f", d7)));
 			}
 		}
 	}

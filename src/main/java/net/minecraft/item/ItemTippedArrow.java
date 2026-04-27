@@ -22,13 +22,6 @@ public class ItemTippedArrow extends ItemArrow {
 		return PotionUtils.addPotionToItemStack(super.getDefaultInstance(), PotionTypes.POISON);
 	}
 
-	public EntityArrow createArrow(World worldIn, ItemStack stack, EntityLivingBase shooter) {
-
-		EntityTippedArrow entitytippedarrow = new EntityTippedArrow(worldIn, shooter);
-		entitytippedarrow.setPotionEffect(stack);
-		return entitytippedarrow;
-	}
-
 	/**
 	 * returns a list of items with the same ID, but different meta (eg: dye returns 16 items)
 	 */

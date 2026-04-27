@@ -98,8 +98,7 @@ public class EntityLightningBolt extends EntityWeatherEffect {
 				double d0 = 3.0D;
 				List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(this, new AxisAlignedBB(posX - 3.0D, posY - 3.0D, posZ - 3.0D, posX + 3.0D, posY + 6.0D + 3.0D, posZ + 3.0D));
 
-				for (int i = 0; i < list.size(); ++i) {
-					Entity entity = list.get(i);
+				for (Entity entity : list) {
 					entity.onStruckByLightning(this);
 				}
 			}

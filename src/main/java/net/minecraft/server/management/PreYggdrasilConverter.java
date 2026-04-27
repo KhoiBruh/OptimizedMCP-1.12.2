@@ -28,12 +28,7 @@ public class PreYggdrasilConverter {
 
 	private static void lookupNames(MinecraftServer server, Collection<String> names, ProfileLookupCallback callback) {
 
-		String[] astring = Iterators.toArray(Iterators.filter(names.iterator(), new Predicate<String>() {
-			public boolean apply(@Nullable String p_apply_1_) {
-
-				return !StringUtils.isNullOrEmpty(p_apply_1_);
-			}
-		}), String.class);
+		String[] astring = Iterators.toArray(Iterators.filter(names.iterator(), p_apply_1_ -> !StringUtils.isNullOrEmpty(p_apply_1_)), String.class);
 
 		if (server.isServerInOnlineMode()) {
 			server.getGameProfileRepository().findProfilesByNames(astring, Agent.MINECRAFT, callback);
@@ -68,7 +63,7 @@ public class PreYggdrasilConverter {
 					}
 				};
 				lookupNames(server, Lists.newArrayList(username), profilelookupcallback);
-				return !list.isEmpty() && list.get(0).getId() != null ? list.get(0).getId().toString() : "";
+				return !list.isEmpty() && list.getFirst().getId() != null ? list.getFirst().getId().toString() : "";
 			} else {
 				return EntityPlayer.getUUID(new GameProfile(null, username)).toString();
 			}

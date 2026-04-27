@@ -22,12 +22,7 @@ public class ItemElytra extends Item {
 		maxStackSize = 1;
 		setMaxDamage(432);
 		setCreativeTab(CreativeTabs.TRANSPORTATION);
-		addPropertyOverride(new ResourceLocation("broken"), new IItemPropertyGetter() {
-			public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
-
-				return ItemElytra.isUsable(stack) ? 0.0F : 1.0F;
-			}
-		});
+		addPropertyOverride(new ResourceLocation("broken"), (stack, worldIn, entityIn) -> ItemElytra.isUsable(stack) ? 0.0F : 1.0F);
 		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(this, ItemArmor.DISPENSER_BEHAVIOR);
 	}
 
@@ -56,9 +51,9 @@ public class ItemElytra extends Item {
 		if (itemstack1.isEmpty()) {
 			playerIn.setItemStackToSlot(entityequipmentslot, itemstack.copy());
 			itemstack.setCount(0);
-			return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemstack);
+			return new ActionResult<>(EnumActionResult.SUCCESS, itemstack);
 		} else {
-			return new ActionResult<ItemStack>(EnumActionResult.FAIL, itemstack);
+			return new ActionResult<>(EnumActionResult.FAIL, itemstack);
 		}
 	}
 

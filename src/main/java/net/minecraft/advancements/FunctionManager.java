@@ -26,7 +26,7 @@ public class FunctionManager implements ITickable {
 	private final File functionDir;
 	private final MinecraftServer server;
 	private final Map<ResourceLocation, FunctionObject> functions = Maps.newHashMap();
-	private final ArrayDeque<FunctionManager.QueuedCommand> commandQueue = new ArrayDeque<FunctionManager.QueuedCommand>();
+	private final ArrayDeque<FunctionManager.QueuedCommand> commandQueue = new ArrayDeque<>();
 	private String currentGameLoopFunctionId = "-";
 	private final ICommandSender gameLoopFunctionSender = new ICommandSender() {
 		public String getName() {
@@ -166,13 +166,13 @@ public class FunctionManager implements ITickable {
 					try {
 						functions.put(resourcelocation, FunctionObject.create(this, Files.readLines(file1, StandardCharsets.UTF_8)));
 					} catch (Throwable throwable) {
-						LOGGER.error("Couldn't read custom function " + resourcelocation + " from " + file1, throwable);
+						LOGGER.error("Couldn't read custom function {} from {}", resourcelocation, file1, throwable);
 					}
 				}
 			}
 
 			if (!functions.isEmpty()) {
-				LOGGER.info("Loaded " + functions.size() + " custom command functions");
+				LOGGER.info("Loaded {} custom command functions", functions.size());
 			}
 		}
 	}

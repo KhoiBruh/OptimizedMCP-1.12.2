@@ -133,7 +133,7 @@ public class BlockPattern {
 			forceLoad = forceLoadIn;
 		}
 
-		public BlockWorldState load(BlockPos p_load_1_) throws Exception {
+		public BlockWorldState load(BlockPos p_load_1_) {
 
 			return new BlockWorldState(world, p_load_1_, forceLoad);
 		}

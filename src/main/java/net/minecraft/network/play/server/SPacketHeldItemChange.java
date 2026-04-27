@@ -22,7 +22,7 @@ public class SPacketHeldItemChange implements Packet<INetHandlerPlayClient> {
 	/**
 	 * Reads the raw packet data from the data stream.
 	 */
-	public void readPacketData(PacketBuffer buf) throws IOException {
+	public void readPacketData(PacketBuffer buf) {
 
 		heldItemHotbarIndex = buf.readByte();
 	}
@@ -30,7 +30,7 @@ public class SPacketHeldItemChange implements Packet<INetHandlerPlayClient> {
 	/**
 	 * Writes the raw packet data to the data stream.
 	 */
-	public void writePacketData(PacketBuffer buf) throws IOException {
+	public void writePacketData(PacketBuffer buf) {
 
 		buf.writeByte(heldItemHotbarIndex);
 	}

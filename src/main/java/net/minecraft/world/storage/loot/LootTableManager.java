@@ -56,7 +56,7 @@ public class LootTableManager {
 
 		}
 
-		public LootTable load(ResourceLocation p_load_1_) throws Exception {
+		public LootTable load(ResourceLocation p_load_1_) {
 
 			if (p_load_1_.getResourcePath().contains(".")) {
 				LootTableManager.LOGGER.debug("Invalid loot table name '{}' (can't contain periods)", p_load_1_);

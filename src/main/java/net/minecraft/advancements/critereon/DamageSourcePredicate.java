@@ -76,19 +76,19 @@ public class DamageSourcePredicate {
 
 		if (this == ANY) {
 			return true;
-		} else if (isProjectile != null && isProjectile.booleanValue() != source.isProjectile()) {
+		} else if (isProjectile != null && isProjectile != source.isProjectile()) {
 			return false;
-		} else if (isExplosion != null && isExplosion.booleanValue() != source.isExplosion()) {
+		} else if (isExplosion != null && isExplosion != source.isExplosion()) {
 			return false;
-		} else if (bypassesArmor != null && bypassesArmor.booleanValue() != source.isUnblockable()) {
+		} else if (bypassesArmor != null && bypassesArmor != source.isUnblockable()) {
 			return false;
-		} else if (bypassesInvulnerability != null && bypassesInvulnerability.booleanValue() != source.canHarmInCreative()) {
+		} else if (bypassesInvulnerability != null && bypassesInvulnerability != source.canHarmInCreative()) {
 			return false;
-		} else if (bypassesMagic != null && bypassesMagic.booleanValue() != source.isDamageAbsolute()) {
+		} else if (bypassesMagic != null && bypassesMagic != source.isDamageAbsolute()) {
 			return false;
-		} else if (isFire != null && isFire.booleanValue() != source.isFireDamage()) {
+		} else if (isFire != null && isFire != source.isFireDamage()) {
 			return false;
-		} else if (isMagic != null && isMagic.booleanValue() != source.isMagicDamage()) {
+		} else if (isMagic != null && isMagic != source.isMagicDamage()) {
 			return false;
 		} else if (!directEntity.test(player, source.getImmediateSource())) {
 			return false;

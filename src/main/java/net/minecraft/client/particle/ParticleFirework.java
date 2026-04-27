@@ -88,11 +88,6 @@ public class ParticleFirework {
 			twinkle = twinkleIn;
 		}
 
-		public boolean shouldDisableDepth() {
-
-			return true;
-		}
-
 		public void renderParticle(BufferBuilder buffer, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
 
 			if (!twinkle || particleAge < particleMaxAge / 3 || (particleAge + particleMaxAge) / 3 % 2 == 0) {
@@ -332,11 +327,6 @@ public class ParticleFirework {
 				double d4 = motionY * 0.5D + rand.nextDouble() * 0.5D;
 				createParticle(posX, posY, posZ, d2, d4, d3, colours, fadeColours, trail, twinkleIn);
 			}
-		}
-
-		public int getFXLayer() {
-
-			return 0;
 		}
 
 	}

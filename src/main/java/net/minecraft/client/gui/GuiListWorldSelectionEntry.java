@@ -137,7 +137,7 @@ public class GuiListWorldSelectionEntry implements GuiListExtended.IGuiListEntry
 
 		containingListSel.selectWorld(slotIndex);
 
-		if (relativeX <= 32 && relativeX < 32) {
+		if (relativeX < 32) {
 			joinWorld();
 			return true;
 		} else if (Minecraft.getSystemTime() - lastClickTime < 250L) {
@@ -152,14 +152,12 @@ public class GuiListWorldSelectionEntry implements GuiListExtended.IGuiListEntry
 	public void joinWorld() {
 
 		if (worldSummary.askToOpenWorld()) {
-			client.displayGuiScreen(new GuiYesNo(new GuiYesNoCallback() {
-				public void confirmClicked(boolean result, int id) {
+			client.displayGuiScreen(new GuiYesNo((result, id) -> {
 
-					if (result) {
-						loadWorld();
-					} else {
-						client.displayGuiScreen(worldSelScreen);
-					}
+				if (result) {
+					loadWorld();
+				} else {
+					client.displayGuiScreen(worldSelScreen);
 				}
 			}, I18n.format("selectWorld.versionQuestion"), I18n.format("selectWorld.versionWarning", worldSummary.getVersionName()), I18n.format("selectWorld.versionJoinButton"), I18n.format("gui.cancel"), 0));
 		} else {
@@ -169,19 +167,17 @@ public class GuiListWorldSelectionEntry implements GuiListExtended.IGuiListEntry
 
 	public void deleteWorld() {
 
-		client.displayGuiScreen(new GuiYesNo(new GuiYesNoCallback() {
-			public void confirmClicked(boolean result, int id) {
+		client.displayGuiScreen(new GuiYesNo((result, id) -> {
 
-				if (result) {
-					client.displayGuiScreen(new GuiScreenWorking());
-					ISaveFormat isaveformat = client.getSaveLoader();
-					isaveformat.flushCache();
-					isaveformat.deleteWorldDirectory(worldSummary.getFileName());
-					containingListSel.refreshList();
-				}
-
-				client.displayGuiScreen(worldSelScreen);
+			if (result) {
+				client.displayGuiScreen(new GuiScreenWorking());
+				ISaveFormat isaveformat = client.getSaveLoader();
+				isaveformat.flushCache();
+				isaveformat.deleteWorldDirectory(worldSummary.getFileName());
+				containingListSel.refreshList();
 			}
+
+			client.displayGuiScreen(worldSelScreen);
 		}, I18n.format("selectWorld.deleteQuestion"), "'" + worldSummary.getDisplayName() + "' " + I18n.format("selectWorld.deleteWarning"), I18n.format("selectWorld.deleteButton"), I18n.format("gui.cancel"), 0));
 	}
 

@@ -197,22 +197,20 @@ public abstract class EntityPlayer extends EntityLivingBase {
 
 	public static void registerFixesPlayer(DataFixer fixer) {
 
-		fixer.registerWalker(FixTypes.PLAYER, new IDataWalker() {
-			public NBTTagCompound process(IDataFixer fixer, NBTTagCompound compound, int versionIn) {
+		fixer.registerWalker(FixTypes.PLAYER, (fixer1, compound, versionIn) -> {
 
-				DataFixesManager.processInventory(fixer, compound, versionIn, "Inventory");
-				DataFixesManager.processInventory(fixer, compound, versionIn, "EnderItems");
+			DataFixesManager.processInventory(fixer1, compound, versionIn, "Inventory");
+			DataFixesManager.processInventory(fixer1, compound, versionIn, "EnderItems");
 
-				if (compound.hasKey("ShoulderEntityLeft", 10)) {
-					compound.setTag("ShoulderEntityLeft", fixer.process(FixTypes.ENTITY, compound.getCompoundTag("ShoulderEntityLeft"), versionIn));
-				}
-
-				if (compound.hasKey("ShoulderEntityRight", 10)) {
-					compound.setTag("ShoulderEntityRight", fixer.process(FixTypes.ENTITY, compound.getCompoundTag("ShoulderEntityRight"), versionIn));
-				}
-
-				return compound;
+			if (compound.hasKey("ShoulderEntityLeft", 10)) {
+				compound.setTag("ShoulderEntityLeft", fixer1.process(FixTypes.ENTITY, compound.getCompoundTag("ShoulderEntityLeft"), versionIn));
 			}
+
+			if (compound.hasKey("ShoulderEntityRight", 10)) {
+				compound.setTag("ShoulderEntityRight", fixer1.process(FixTypes.ENTITY, compound.getCompoundTag("ShoulderEntityRight"), versionIn));
+			}
+
+			return compound;
 		});
 	}
 
@@ -274,10 +272,10 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	protected void entityInit() {
 
 		super.entityInit();
-		dataManager.register(ABSORPTION, Float.valueOf(0.0F));
-		dataManager.register(PLAYER_SCORE, Integer.valueOf(0));
-		dataManager.register(PLAYER_MODEL_FLAG, Byte.valueOf((byte) 0));
-		dataManager.register(MAIN_HAND, Byte.valueOf((byte) 1));
+		dataManager.register(ABSORPTION, 0.0F);
+		dataManager.register(PLAYER_SCORE, 0);
+		dataManager.register(PLAYER_MODEL_FLAG, (byte) 0);
+		dataManager.register(MAIN_HAND, (byte) 1);
 		dataManager.register(LEFT_SHOULDER_ENTITY, new NBTTagCompound());
 		dataManager.register(RIGHT_SHOULDER_ENTITY, new NBTTagCompound());
 	}
@@ -626,9 +624,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
 
 			List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(this, axisalignedbb);
 
-			for (int i = 0; i < list.size(); ++i) {
-				Entity entity = list.get(i);
-
+			for (Entity entity : list) {
 				if (!entity.isDead) {
 					collideWithPlayer(entity);
 				}
@@ -661,7 +657,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
 
 	public int getScore() {
 
-		return dataManager.get(PLAYER_SCORE).intValue();
+		return dataManager.get(PLAYER_SCORE);
 	}
 
 	/**
@@ -669,7 +665,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	 */
 	public void setScore(int scoreIn) {
 
-		dataManager.set(PLAYER_SCORE, Integer.valueOf(scoreIn));
+		dataManager.set(PLAYER_SCORE, scoreIn);
 	}
 
 	/**
@@ -678,7 +674,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	public void addScore(int scoreIn) {
 
 		int i = getScore();
-		dataManager.set(PLAYER_SCORE, Integer.valueOf(i + scoreIn));
+		dataManager.set(PLAYER_SCORE, i + scoreIn);
 	}
 
 	/**
@@ -830,25 +826,12 @@ public abstract class EntityPlayer extends EntityLivingBase {
 		}
 
 		if (isPotionActive(MobEffects.MINING_FATIGUE)) {
-			float f1;
-
-			switch (getActivePotionEffect(MobEffects.MINING_FATIGUE).getAmplifier()) {
-				case 0:
-					f1 = 0.3F;
-					break;
-
-				case 1:
-					f1 = 0.09F;
-					break;
-
-				case 2:
-					f1 = 0.0027F;
-					break;
-
-				case 3:
-				default:
-					f1 = 8.1E-4F;
-			}
+			float f1 = switch (getActivePotionEffect(MobEffects.MINING_FATIGUE).getAmplifier()) {
+				case 0 -> 0.3F;
+				case 1 -> 0.09F;
+				case 2 -> 0.0027F;
+				default -> 8.1E-4F;
+			};
 
 			f *= f1;
 		}
@@ -1518,7 +1501,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
 		IBlockState iblockstate = world.getBlockState(bedLocation);
 
 		if (bedLocation != null && iblockstate.getBlock() == Blocks.BED) {
-			world.setBlockState(bedLocation, iblockstate.withProperty(BlockBed.OCCUPIED, Boolean.valueOf(false)), 4);
+			world.setBlockState(bedLocation, iblockstate.withProperty(BlockBed.OCCUPIED, Boolean.FALSE), 4);
 			BlockPos blockpos = BlockBed.getSafeExitLocation(world, bedLocation, 0);
 
 			if (blockpos == null) {
@@ -2023,7 +2006,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
 		if (slotIn == EntityEquipmentSlot.MAINHAND) {
 			return inventory.getCurrentItem();
 		} else if (slotIn == EntityEquipmentSlot.OFFHAND) {
-			return inventory.offHandInventory.get(0);
+			return inventory.offHandInventory.getFirst();
 		} else {
 			return slotIn.getSlotType() == EntityEquipmentSlot.Type.ARMOR ? inventory.armorInventory.get(slotIn.getIndex()) : ItemStack.EMPTY;
 		}
@@ -2171,7 +2154,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	 */
 	public float getAbsorptionAmount() {
 
-		return getDataManager().get(ABSORPTION).floatValue();
+		return getDataManager().get(ABSORPTION);
 	}
 
 	public void setAbsorptionAmount(float amount) {
@@ -2180,7 +2163,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
 			amount = 0.0F;
 		}
 
-		getDataManager().set(ABSORPTION, Float.valueOf(amount));
+		getDataManager().set(ABSORPTION, amount);
 	}
 
 	/**
@@ -2198,7 +2181,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
 
 	public boolean isWearing(EnumPlayerModelParts part) {
 
-		return (getDataManager().get(PLAYER_MODEL_FLAG).byteValue() & part.getPartMask()) == part.getPartMask();
+		return (getDataManager().get(PLAYER_MODEL_FLAG) & part.getPartMask()) == part.getPartMask();
 	}
 
 	/**
@@ -2276,12 +2259,12 @@ public abstract class EntityPlayer extends EntityLivingBase {
 
 	public EnumHandSide getPrimaryHand() {
 
-		return dataManager.get(MAIN_HAND).byteValue() == 0 ? EnumHandSide.LEFT : EnumHandSide.RIGHT;
+		return dataManager.get(MAIN_HAND) == 0 ? EnumHandSide.LEFT : EnumHandSide.RIGHT;
 	}
 
 	public void setPrimaryHand(EnumHandSide hand) {
 
-		dataManager.set(MAIN_HAND, Byte.valueOf((byte) (hand == EnumHandSide.LEFT ? 0 : 1)));
+		dataManager.set(MAIN_HAND, (byte) (hand == EnumHandSide.LEFT ? 0 : 1));
 	}
 
 	public NBTTagCompound getLeftShoulderEntity() {

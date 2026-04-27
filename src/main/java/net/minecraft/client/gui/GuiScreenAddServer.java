@@ -14,23 +14,21 @@ public class GuiScreenAddServer extends GuiScreen {
 
 	private final GuiScreen parentScreen;
 	private final ServerData serverData;
-	private final Predicate<String> addressFilter = new Predicate<String>() {
-		public boolean apply(@Nullable String p_apply_1_) {
+	private final Predicate<String> addressFilter = p_apply_1_ -> {
 
-			if (StringUtils.isNullOrEmpty(p_apply_1_)) {
+		if (StringUtils.isNullOrEmpty(p_apply_1_)) {
+			return true;
+		} else {
+			String[] astring = p_apply_1_.split(":");
+
+			if (astring.length == 0) {
 				return true;
 			} else {
-				String[] astring = p_apply_1_.split(":");
-
-				if (astring.length == 0) {
+				try {
+					String s = IDN.toASCII(astring[0]);
 					return true;
-				} else {
-					try {
-						String s = IDN.toASCII(astring[0]);
-						return true;
-					} catch (IllegalArgumentException var4) {
-						return false;
-					}
+				} catch (IllegalArgumentException var4) {
+					return false;
 				}
 			}
 		}
@@ -72,7 +70,7 @@ public class GuiScreenAddServer extends GuiScreen {
 		serverIPField.setMaxStringLength(128);
 		serverIPField.setText(serverData.serverIP);
 		serverIPField.setValidator(addressFilter);
-		(buttonList.get(0)).enabled = !serverIPField.getText().isEmpty() && serverIPField.getText().split(":").length > 0 && !serverNameField.getText().isEmpty();
+		(buttonList.getFirst()).enabled = !serverIPField.getText().isEmpty() && serverIPField.getText().split(":").length > 0 && !serverNameField.getText().isEmpty();
 	}
 
 	/**
@@ -86,7 +84,7 @@ public class GuiScreenAddServer extends GuiScreen {
 	/**
 	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
 	 */
-	protected void actionPerformed(GuiButton button) throws IOException {
+	protected void actionPerformed(GuiButton button) {
 
 		if (button.enabled) {
 			if (button.id == 2) {
@@ -117,10 +115,10 @@ public class GuiScreenAddServer extends GuiScreen {
 		}
 
 		if (keyCode == 28 || keyCode == 156) {
-			actionPerformed(buttonList.get(0));
+			actionPerformed(buttonList.getFirst());
 		}
 
-		(buttonList.get(0)).enabled = !serverIPField.getText().isEmpty() && serverIPField.getText().split(":").length > 0 && !serverNameField.getText().isEmpty();
+		(buttonList.getFirst()).enabled = !serverIPField.getText().isEmpty() && serverIPField.getText().split(":").length > 0 && !serverNameField.getText().isEmpty();
 	}
 
 	/**

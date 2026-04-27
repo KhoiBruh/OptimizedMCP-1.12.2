@@ -23,7 +23,7 @@ import javax.annotation.Nullable;
 public abstract class TileEntity {
 
 	private static final Logger LOGGER = LogManager.getLogger();
-	private static final RegistryNamespaced<ResourceLocation, Class<? extends TileEntity>> REGISTRY = new RegistryNamespaced<ResourceLocation, Class<? extends TileEntity>>();
+	private static final RegistryNamespaced<ResourceLocation, Class<? extends TileEntity>> REGISTRY = new RegistryNamespaced<>();
 
 	static {
 		register("furnace", TileEntityFurnace.class);
@@ -270,39 +270,30 @@ public abstract class TileEntity {
 
 	public void addInfoToCrashReport(CrashReportCategory reportCategory) {
 
-		reportCategory.addDetail("Name", new ICrashReportDetail<String>() {
-			public String call() throws Exception {
-
-				return TileEntity.REGISTRY.getNameForObject(TileEntity.this.getClass()) + " // " + TileEntity.this.getClass().getCanonicalName();
-			}
-		});
+		reportCategory.addDetail("Name", () -> TileEntity.REGISTRY.getNameForObject(TileEntity.this.getClass()) + " // " + TileEntity.this.getClass().getCanonicalName());
 
 		if (world != null) {
 			CrashReportCategory.addBlockInfo(reportCategory, pos, getBlockType(), getBlockMetadata());
-			reportCategory.addDetail("Actual block type", new ICrashReportDetail<String>() {
-				public String call() throws Exception {
+			reportCategory.addDetail("Actual block type", () -> {
 
-					int i = Block.getIdFromBlock(world.getBlockState(pos).getBlock());
+				int i = Block.getIdFromBlock(world.getBlockState(pos).getBlock());
 
-					try {
-						return String.format("ID #%d (%s // %s)", i, Block.getBlockById(i).getUnlocalizedName(), Block.getBlockById(i).getClass().getCanonicalName());
-					} catch (Throwable var3) {
-						return "ID #" + i;
-					}
+				try {
+					return String.format("ID #%d (%s // %s)", i, Block.getBlockById(i).getUnlocalizedName(), Block.getBlockById(i).getClass().getCanonicalName());
+				} catch (Throwable var3) {
+					return "ID #" + i;
 				}
 			});
-			reportCategory.addDetail("Actual block data value", new ICrashReportDetail<String>() {
-				public String call() throws Exception {
+			reportCategory.addDetail("Actual block data value", () -> {
 
-					IBlockState iblockstate = world.getBlockState(pos);
-					int i = iblockstate.getBlock().getMetaFromState(iblockstate);
+				IBlockState iblockstate = world.getBlockState(pos);
+				int i = iblockstate.getBlock().getMetaFromState(iblockstate);
 
-					if (i < 0) {
-						return "Unknown? (Got " + i + ")";
-					} else {
-						String s = String.format("%4s", Integer.toBinaryString(i)).replace(" ", "0");
-						return String.format("%1$d / 0x%1$X / 0b%2$s", i, s);
-					}
+				if (i < 0) {
+					return "Unknown? (Got " + i + ")";
+				} else {
+					String s = String.format("%4s", Integer.toBinaryString(i)).replace(" ", "0");
+					return String.format("%1$d / 0x%1$X / 0b%2$s", i, s);
 				}
 			});
 		}

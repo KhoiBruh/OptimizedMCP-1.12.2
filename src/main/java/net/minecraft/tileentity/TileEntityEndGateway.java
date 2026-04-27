@@ -133,7 +133,7 @@ public class TileEntityEndGateway extends TileEntityEndPortal implements ITickab
 			List<Entity> list = world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(getPos()));
 
 			if (!list.isEmpty()) {
-				teleportEntity(list.get(0));
+				teleportEntity(list.getFirst());
 			}
 
 			if (age % 2400L == 0L) {

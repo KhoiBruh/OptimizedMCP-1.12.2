@@ -42,7 +42,7 @@ public class NBTTagCompound extends NBTBase {
 		return input.readUTF();
 	}
 
-	static NBTBase readNBT(byte id, String key, DataInput input, int depth, NBTSizeTracker sizeTracker) throws IOException {
+	static NBTBase readNBT(byte id, String key, DataInput input, int depth, NBTSizeTracker sizeTracker) {
 
 		NBTBase nbtbase = NBTBase.createNewByType(id);
 
@@ -53,7 +53,7 @@ public class NBTTagCompound extends NBTBase {
 			CrashReport crashreport = CrashReport.makeCrashReport(ioexception, "Loading NBT data");
 			CrashReportCategory crashreportcategory = crashreport.makeCategory("NBT Tag");
 			crashreportcategory.addCrashSection("Tag name", key);
-			crashreportcategory.addCrashSection("Tag type", Byte.valueOf(id));
+			crashreportcategory.addCrashSection("Tag type", id);
 			throw new ReportedException(crashreport);
 		}
 	}
@@ -494,18 +494,8 @@ public class NBTTagCompound extends NBTBase {
 
 		CrashReport crashreport = CrashReport.makeCrashReport(ex, "Reading NBT data");
 		CrashReportCategory crashreportcategory = crashreport.makeCategoryDepth("Corrupt NBT tag", 1);
-		crashreportcategory.addDetail("Tag type found", new ICrashReportDetail<String>() {
-			public String call() throws Exception {
-
-				return NBTBase.NBT_TYPES[tagMap.get(key).getId()];
-			}
-		});
-		crashreportcategory.addDetail("Tag type expected", new ICrashReportDetail<String>() {
-			public String call() throws Exception {
-
-				return NBTBase.NBT_TYPES[expectedType];
-			}
-		});
+		crashreportcategory.addDetail("Tag type found", () -> NBTBase.NBT_TYPES[tagMap.get(key).getId()]);
+		crashreportcategory.addDetail("Tag type expected", () -> NBTBase.NBT_TYPES[expectedType]);
 		crashreportcategory.addCrashSection("Tag name", key);
 		return crashreport;
 	}

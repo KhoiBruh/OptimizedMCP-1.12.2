@@ -62,7 +62,7 @@ public class NBTTagLong extends NBTPrimitive {
 
 	public int hashCode() {
 
-		return super.hashCode() ^ (int) (data ^ data >>> 32);
+		return super.hashCode() ^ Long.hashCode(data);
 	}
 
 	public long getLong() {

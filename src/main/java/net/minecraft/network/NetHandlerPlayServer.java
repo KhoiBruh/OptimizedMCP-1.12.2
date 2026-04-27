@@ -64,7 +64,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 	private static final Logger LOGGER = LogManager.getLogger();
 	public final NetworkManager netManager;
 	private final MinecraftServer serverController;
-	private final IntHashMap<Short> pendingTransactions = new IntHashMap<Short>();
+	private final IntHashMap<Short> pendingTransactions = new IntHashMap<>();
 	private final ServerRecipeBookHelper field_194309_H = new ServerRecipeBookHelper();
 	public EntityPlayerMP player;
 	private int networkTickCount;
@@ -227,19 +227,9 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 	 */
 	public void disconnect(final ITextComponent textComponent) {
 
-		netManager.sendPacket(new SPacketDisconnect(textComponent), new GenericFutureListener<Future<? super Void>>() {
-			public void operationComplete(Future<? super Void> p_operationComplete_1_) throws Exception {
-
-				netManager.closeChannel(textComponent);
-			}
-		});
+		netManager.sendPacket(new SPacketDisconnect(textComponent), p_operationComplete_1_ -> netManager.closeChannel(textComponent));
 		netManager.disableAutoRead();
-		Futures.getUnchecked(serverController.addScheduledTask(new Runnable() {
-			public void run() {
-
-				netManager.checkDisconnected();
-			}
-		}));
+		Futures.getUnchecked(serverController.addScheduledTask(() -> netManager.checkDisconnected()));
 	}
 
 	/**
@@ -278,7 +268,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 				double d10 = d6 * d6 + d7 * d7 + d8 * d8;
 
 				if (d10 - d9 > 100.0D && (!serverController.isSinglePlayer() || !serverController.getServerOwner().equals(entity.getName()))) {
-					LOGGER.warn("{} (vehicle of {}) moved too quickly! {},{},{}", entity.getName(), player.getName(), Double.valueOf(d6), Double.valueOf(d7), Double.valueOf(d8));
+					LOGGER.warn("{} (vehicle of {}) moved too quickly! {},{},{}", entity.getName(), player.getName(), d6, d7, d8);
 					netManager.sendPacket(new SPacketMoveVehicle(entity));
 					return;
 				}
@@ -421,7 +411,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 							int i = movePacketCounter - lastMovePacketCounter;
 
 							if (i > 5) {
-								LOGGER.debug("{} is sending move packets too frequently ({} packets since last tick)", player.getName(), Integer.valueOf(i));
+								LOGGER.debug("{} is sending move packets too frequently ({} packets since last tick)", player.getName(), i);
 								i = 1;
 							}
 
@@ -429,7 +419,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 								float f2 = player.isElytraFlying() ? 300.0F : 100.0F;
 
 								if (d11 - d10 > (double) (f2 * (float) i) && (!serverController.isSinglePlayer() || !serverController.getServerOwner().equals(player.getName()))) {
-									LOGGER.warn("{} moved too quickly! {},{},{}", player.getName(), Double.valueOf(d7), Double.valueOf(d8), Double.valueOf(d9));
+									LOGGER.warn("{} moved too quickly! {},{},{}", player.getName(), d7, d8, d9);
 									setPlayerLocation(player.posX, player.posY, player.posZ, player.rotationYaw, player.rotationPitch);
 									return;
 								}
@@ -744,12 +734,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 		} catch (Throwable throwable) {
 			CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Sending packet");
 			CrashReportCategory crashreportcategory = crashreport.makeCategory("Packet being sent");
-			crashreportcategory.addDetail("Packet class", new ICrashReportDetail<String>() {
-				public String call() throws Exception {
-
-					return packetIn.getClass().getCanonicalName();
-				}
-			});
+			crashreportcategory.addDetail("Packet class", () -> packetIn.getClass().getCanonicalName());
 			throw new ReportedException(crashreport);
 		}
 	}
@@ -1011,7 +996,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 					player.updateHeldItem();
 					player.isChangingQuantityOnly = false;
 				} else {
-					pendingTransactions.addKey(player.openContainer.windowId, Short.valueOf(packetIn.getActionNumber()));
+					pendingTransactions.addKey(player.openContainer.windowId, packetIn.getActionNumber());
 					player.connection.sendPacket(new SPacketConfirmTransaction(packetIn.getWindowId(), packetIn.getActionNumber(), false));
 					player.openContainer.setCanCraft(player, false);
 					NonNullList<ItemStack> nonnulllist1 = NonNullList.create();
@@ -1113,7 +1098,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 		PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, player.getServerWorld());
 		Short oshort = pendingTransactions.lookup(player.openContainer.windowId);
 
-		if (oshort != null && packetIn.getUid() == oshort.shortValue() && player.openContainer.windowId == packetIn.getWindowId() && !player.openContainer.getCanCraft(player) && !player.isSpectator()) {
+		if (oshort != null && packetIn.getUid() == oshort && player.openContainer.windowId == packetIn.getWindowId() && !player.openContainer.getCanCraft(player) && !player.isSpectator()) {
 			player.openContainer.setCanCraft(player, true);
 		}
 	}
@@ -1185,9 +1170,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 		PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, player.getServerWorld());
 		List<String> list = Lists.newArrayList();
 
-		for (String s : serverController.getTabCompletions(player, packetIn.getMessage(), packetIn.getTargetBlock(), packetIn.hasTargetBlock())) {
-			list.add(s);
-		}
+		list.addAll(serverController.getTabCompletions(player, packetIn.getMessage(), packetIn.getTargetBlock(), packetIn.hasTargetBlock()));
 
 		player.connection.sendPacket(new SPacketTabComplete(list.toArray(new String[list.size()])));
 	}
@@ -1370,17 +1353,17 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 					switch (tileentitycommandblock$mode) {
 						case SEQUENCE:
 							IBlockState iblockstate3 = Blocks.CHAIN_COMMAND_BLOCK.getDefaultState();
-							player.world.setBlockState(blockpos1, iblockstate3.withProperty(BlockCommandBlock.FACING, enumfacing).withProperty(BlockCommandBlock.CONDITIONAL, Boolean.valueOf(flag)), 2);
+							player.world.setBlockState(blockpos1, iblockstate3.withProperty(BlockCommandBlock.FACING, enumfacing).withProperty(BlockCommandBlock.CONDITIONAL, flag), 2);
 							break;
 
 						case AUTO:
 							IBlockState iblockstate2 = Blocks.REPEATING_COMMAND_BLOCK.getDefaultState();
-							player.world.setBlockState(blockpos1, iblockstate2.withProperty(BlockCommandBlock.FACING, enumfacing).withProperty(BlockCommandBlock.CONDITIONAL, Boolean.valueOf(flag)), 2);
+							player.world.setBlockState(blockpos1, iblockstate2.withProperty(BlockCommandBlock.FACING, enumfacing).withProperty(BlockCommandBlock.CONDITIONAL, flag), 2);
 							break;
 
 						case REDSTONE:
 							IBlockState iblockstate = Blocks.COMMAND_BLOCK.getDefaultState();
-							player.world.setBlockState(blockpos1, iblockstate.withProperty(BlockCommandBlock.FACING, enumfacing).withProperty(BlockCommandBlock.CONDITIONAL, Boolean.valueOf(flag)), 2);
+							player.world.setBlockState(blockpos1, iblockstate.withProperty(BlockCommandBlock.FACING, enumfacing).withProperty(BlockCommandBlock.CONDITIONAL, flag), 2);
 					}
 
 					tileentity2.validate();

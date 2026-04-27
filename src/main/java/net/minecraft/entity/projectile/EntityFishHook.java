@@ -107,13 +107,13 @@ public class EntityFishHook extends Entity {
 
 	protected void entityInit() {
 
-		getDataManager().register(DATA_HOOKED_ENTITY, Integer.valueOf(0));
+		getDataManager().register(DATA_HOOKED_ENTITY, 0);
 	}
 
 	public void notifyDataManagerChange(DataParameter<?> key) {
 
 		if (DATA_HOOKED_ENTITY.equals(key)) {
-			int i = getDataManager().get(DATA_HOOKED_ENTITY).intValue();
+			int i = getDataManager().get(DATA_HOOKED_ENTITY);
 			caughtEntity = i > 0 ? world.getEntityByID(i - 1) : null;
 		}
 
@@ -328,7 +328,7 @@ public class EntityFishHook extends Entity {
 
 	private void setHookedEntity() {
 
-		getDataManager().set(DATA_HOOKED_ENTITY, Integer.valueOf(caughtEntity.getEntityId() + 1));
+		getDataManager().set(DATA_HOOKED_ENTITY, caughtEntity.getEntityId() + 1);
 	}
 
 	private void catchingFish(BlockPos p_190621_1_) {

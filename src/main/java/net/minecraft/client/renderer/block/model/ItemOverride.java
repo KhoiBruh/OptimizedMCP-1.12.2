@@ -41,7 +41,7 @@ public class ItemOverride {
 		for (Entry<ResourceLocation, Float> entry : mapResourceValues.entrySet()) {
 			IItemPropertyGetter iitempropertygetter = item.getPropertyGetter(entry.getKey());
 
-			if (iitempropertygetter == null || iitempropertygetter.apply(stack, worldIn, livingEntity) < entry.getValue().floatValue()) {
+			if (iitempropertygetter == null || iitempropertygetter.apply(stack, worldIn, livingEntity) < entry.getValue()) {
 				return false;
 			}
 		}
@@ -65,7 +65,7 @@ public class ItemOverride {
 			JsonObject jsonobject = JsonUtils.getJsonObject(p_188025_1_, "predicate");
 
 			for (Entry<String, JsonElement> entry : jsonobject.entrySet()) {
-				map.put(new ResourceLocation(entry.getKey()), Float.valueOf(JsonUtils.getFloat(entry.getValue(), entry.getKey())));
+				map.put(new ResourceLocation(entry.getKey()), JsonUtils.getFloat(entry.getValue(), entry.getKey()));
 			}
 
 			return map;

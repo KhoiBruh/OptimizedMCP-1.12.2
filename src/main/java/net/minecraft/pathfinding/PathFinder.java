@@ -110,8 +110,7 @@ public class PathFinder {
 		if (pathpoint == pathFrom) {
 			return null;
 		} else {
-			Path path = createPath(pathFrom, pathpoint);
-			return path;
+			return createPath(pathFrom, pathpoint);
 		}
 	}
 

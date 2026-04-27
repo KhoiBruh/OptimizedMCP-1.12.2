@@ -34,27 +34,19 @@ public class BlockTripWireHook extends Block {
 	public BlockTripWireHook() {
 
 		super(Material.CIRCUITS);
-		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(POWERED, Boolean.valueOf(false)).withProperty(ATTACHED, Boolean.valueOf(false)));
+		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(POWERED, Boolean.FALSE).withProperty(ATTACHED, Boolean.FALSE));
 		setCreativeTab(CreativeTabs.REDSTONE);
 		setTickRandomly(true);
 	}
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
 
-		switch (state.getValue(FACING)) {
-			case EAST:
-			default:
-				return HOOK_EAST_AABB;
-
-			case WEST:
-				return HOOK_WEST_AABB;
-
-			case SOUTH:
-				return HOOK_SOUTH_AABB;
-
-			case NORTH:
-				return HOOK_NORTH_AABB;
-		}
+		return switch (state.getValue(FACING)) {
+			default -> HOOK_EAST_AABB;
+			case WEST -> HOOK_WEST_AABB;
+			case SOUTH -> HOOK_SOUTH_AABB;
+			case NORTH -> HOOK_NORTH_AABB;
+		};
 	}
 
 	@Nullable
@@ -108,7 +100,7 @@ public class BlockTripWireHook extends Block {
 	 */
 	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
 
-		IBlockState iblockstate = getDefaultState().withProperty(POWERED, Boolean.valueOf(false)).withProperty(ATTACHED, Boolean.valueOf(false));
+		IBlockState iblockstate = getDefaultState().withProperty(POWERED, Boolean.FALSE).withProperty(ATTACHED, Boolean.FALSE);
 
 		if (facing.getAxis().isHorizontal()) {
 			iblockstate = iblockstate.withProperty(FACING, facing);
@@ -147,8 +139,8 @@ public class BlockTripWireHook extends Block {
 	public void calculateState(World worldIn, BlockPos pos, IBlockState hookState, boolean p_176260_4_, boolean p_176260_5_, int p_176260_6_, @Nullable IBlockState p_176260_7_) {
 
 		EnumFacing enumfacing = hookState.getValue(FACING);
-		boolean flag = hookState.getValue(ATTACHED).booleanValue();
-		boolean flag1 = hookState.getValue(POWERED).booleanValue();
+		boolean flag = hookState.getValue(ATTACHED);
+		boolean flag1 = hookState.getValue(POWERED);
 		boolean flag2 = !p_176260_4_;
 		boolean flag3 = false;
 		int i = 0;
@@ -174,8 +166,8 @@ public class BlockTripWireHook extends Block {
 					iblockstate = MoreObjects.firstNonNull(p_176260_7_, iblockstate);
 				}
 
-				boolean flag4 = !iblockstate.getValue(BlockTripWire.DISARMED).booleanValue();
-				boolean flag5 = iblockstate.getValue(BlockTripWire.POWERED).booleanValue();
+				boolean flag4 = !iblockstate.getValue(BlockTripWire.DISARMED);
+				boolean flag5 = iblockstate.getValue(BlockTripWire.POWERED);
 				flag3 |= flag4 && flag5;
 				aiblockstate[j] = iblockstate;
 
@@ -188,7 +180,7 @@ public class BlockTripWireHook extends Block {
 
 		flag2 = flag2 & i > 1;
 		flag3 = flag3 & flag2;
-		IBlockState iblockstate1 = getDefaultState().withProperty(ATTACHED, Boolean.valueOf(flag2)).withProperty(POWERED, Boolean.valueOf(flag3));
+		IBlockState iblockstate1 = getDefaultState().withProperty(ATTACHED, flag2).withProperty(POWERED, flag3);
 
 		if (i > 0) {
 			BlockPos blockpos1 = pos.offset(enumfacing, i);
@@ -214,7 +206,7 @@ public class BlockTripWireHook extends Block {
 				IBlockState iblockstate2 = aiblockstate[k];
 
 				if (iblockstate2 != null && worldIn.getBlockState(blockpos2).getMaterial() != Material.AIR) {
-					worldIn.setBlockState(blockpos2, iblockstate2.withProperty(ATTACHED, Boolean.valueOf(flag2)), 3);
+					worldIn.setBlockState(blockpos2, iblockstate2.withProperty(ATTACHED, flag2), 3);
 				}
 			}
 		}
@@ -267,8 +259,8 @@ public class BlockTripWireHook extends Block {
 	 */
 	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
 
-		boolean flag = state.getValue(ATTACHED).booleanValue();
-		boolean flag1 = state.getValue(POWERED).booleanValue();
+		boolean flag = state.getValue(ATTACHED);
+		boolean flag1 = state.getValue(POWERED);
 
 		if (flag || flag1) {
 			calculateState(worldIn, pos, state, true, false, -1, null);
@@ -284,12 +276,12 @@ public class BlockTripWireHook extends Block {
 
 	public int getWeakPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
 
-		return blockState.getValue(POWERED).booleanValue() ? 15 : 0;
+		return blockState.getValue(POWERED) ? 15 : 0;
 	}
 
 	public int getStrongPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
 
-		if (!blockState.getValue(POWERED).booleanValue()) {
+		if (!blockState.getValue(POWERED)) {
 			return 0;
 		} else {
 			return blockState.getValue(FACING) == side ? 15 : 0;
@@ -318,7 +310,7 @@ public class BlockTripWireHook extends Block {
 	 */
 	public IBlockState getStateFromMeta(int meta) {
 
-		return getDefaultState().withProperty(FACING, EnumFacing.getHorizontal(meta & 3)).withProperty(POWERED, Boolean.valueOf((meta & 8) > 0)).withProperty(ATTACHED, Boolean.valueOf((meta & 4) > 0));
+		return getDefaultState().withProperty(FACING, EnumFacing.getHorizontal(meta & 3)).withProperty(POWERED, (meta & 8) > 0).withProperty(ATTACHED, (meta & 4) > 0);
 	}
 
 	/**
@@ -329,11 +321,11 @@ public class BlockTripWireHook extends Block {
 		int i = 0;
 		i = i | state.getValue(FACING).getHorizontalIndex();
 
-		if (state.getValue(POWERED).booleanValue()) {
+		if (state.getValue(POWERED)) {
 			i |= 8;
 		}
 
-		if (state.getValue(ATTACHED).booleanValue()) {
+		if (state.getValue(ATTACHED)) {
 			i |= 4;
 		}
 

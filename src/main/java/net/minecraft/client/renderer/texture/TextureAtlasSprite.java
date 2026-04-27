@@ -270,7 +270,7 @@ public class TextureAtlasSprite {
 		return framesTextureData.size();
 	}
 
-	public void loadSprite(PngSizeInfo sizeInfo, boolean p_188538_2_) throws IOException {
+	public void loadSprite(PngSizeInfo sizeInfo, boolean p_188538_2_) {
 
 		resetSprite();
 		width = sizeInfo.pngWidth;
@@ -297,10 +297,9 @@ public class TextureAtlasSprite {
 			int i = bufferedimage.getHeight() / width;
 
 			if (animationmetadatasection.getFrameCount() > 0) {
-				Iterator lvt_7_1_ = animationmetadatasection.getFrameIndexSet().iterator();
 
-				while (lvt_7_1_.hasNext()) {
-					int j = ((Integer) lvt_7_1_.next()).intValue();
+				for (Integer integer : animationmetadatasection.getFrameIndexSet()) {
+					int j = integer;
 
 					if (j >= i) {
 						throw new RuntimeException("invalid frameindex " + j);
@@ -337,22 +336,20 @@ public class TextureAtlasSprite {
 				} catch (Throwable throwable) {
 					CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Generating mipmaps for frame");
 					CrashReportCategory crashreportcategory = crashreport.makeCategory("Frame being iterated");
-					crashreportcategory.addCrashSection("Frame index", Integer.valueOf(i));
-					crashreportcategory.addDetail("Frame sizes", new ICrashReportDetail<String>() {
-						public String call() throws Exception {
+					crashreportcategory.addCrashSection("Frame index", i);
+					crashreportcategory.addDetail("Frame sizes", () -> {
 
-							StringBuilder stringbuilder = new StringBuilder();
+						StringBuilder stringbuilder = new StringBuilder();
 
-							for (int[] aint1 : aint) {
-								if (stringbuilder.length() > 0) {
-									stringbuilder.append(", ");
-								}
-
-								stringbuilder.append(aint1 == null ? "null" : aint1.length);
+						for (int[] aint1 : aint) {
+							if (!stringbuilder.isEmpty()) {
+								stringbuilder.append(", ");
 							}
 
-							return stringbuilder.toString();
+							stringbuilder.append(aint1 == null ? "null" : aint1.length);
 						}
+
+						return stringbuilder.toString();
 					});
 					throw new ReportedException(crashreport);
 				}

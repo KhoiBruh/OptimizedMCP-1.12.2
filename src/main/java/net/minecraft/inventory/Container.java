@@ -168,8 +168,8 @@ public abstract class Container {
 
 		NonNullList<ItemStack> nonnulllist = NonNullList.create();
 
-		for (int i = 0; i < inventorySlots.size(); ++i) {
-			nonnulllist.add(inventorySlots.get(i).getStack());
+		for (Slot inventorySlot : inventorySlots) {
+			nonnulllist.add(inventorySlot.getStack());
 		}
 
 		return nonnulllist;
@@ -188,8 +188,8 @@ public abstract class Container {
 				itemstack1 = itemstack.isEmpty() ? ItemStack.EMPTY : itemstack.copy();
 				inventoryItemStacks.set(i, itemstack1);
 
-				for (int j = 0; j < listeners.size(); ++j) {
-					listeners.get(j).sendSlotContents(this, i, itemstack1);
+				for (IContainerListener listener : listeners) {
+					listener.sendSlotContents(this, i, itemstack1);
 				}
 			}
 		}
@@ -206,9 +206,7 @@ public abstract class Container {
 	@Nullable
 	public Slot getSlotFromInventory(IInventory inv, int slotIn) {
 
-		for (int i = 0; i < inventorySlots.size(); ++i) {
-			Slot slot = inventorySlots.get(i);
-
+		for (Slot slot : inventorySlots) {
 			if (slot.isHere(inv, slotIn)) {
 				return slot;
 			}

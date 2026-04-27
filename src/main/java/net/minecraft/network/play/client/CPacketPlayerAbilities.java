@@ -33,7 +33,7 @@ public class CPacketPlayerAbilities implements Packet<INetHandlerPlayServer> {
 	/**
 	 * Reads the raw packet data from the data stream.
 	 */
-	public void readPacketData(PacketBuffer buf) throws IOException {
+	public void readPacketData(PacketBuffer buf) {
 
 		byte b0 = buf.readByte();
 		setInvulnerable((b0 & 1) > 0);
@@ -47,7 +47,7 @@ public class CPacketPlayerAbilities implements Packet<INetHandlerPlayServer> {
 	/**
 	 * Writes the raw packet data to the data stream.
 	 */
-	public void writePacketData(PacketBuffer buf) throws IOException {
+	public void writePacketData(PacketBuffer buf) {
 
 		byte b0 = 0;
 

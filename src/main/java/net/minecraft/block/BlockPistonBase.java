@@ -46,7 +46,7 @@ public class BlockPistonBase extends BlockDirectional {
 	public BlockPistonBase(boolean isSticky) {
 
 		super(Material.PISTON);
-		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(EXTENDED, Boolean.valueOf(false)));
+		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(EXTENDED, Boolean.FALSE));
 		this.isSticky = isSticky;
 		setSoundType(SoundType.STONE);
 		setHardness(0.5F);
@@ -88,7 +88,7 @@ public class BlockPistonBase extends BlockDirectional {
 						case PUSH_ONLY:
 							return facing == p_185646_5_;
 					}
-				} else if (blockStateIn.getValue(EXTENDED).booleanValue()) {
+				} else if (blockStateIn.getValue(EXTENDED)) {
 					return false;
 				}
 
@@ -103,32 +103,20 @@ public class BlockPistonBase extends BlockDirectional {
 
 	public boolean causesSuffocation(IBlockState state) {
 
-		return !state.getValue(EXTENDED).booleanValue();
+		return !state.getValue(EXTENDED);
 	}
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
 
-		if (state.getValue(EXTENDED).booleanValue()) {
-			switch (state.getValue(FACING)) {
-				case DOWN:
-					return PISTON_BASE_DOWN_AABB;
-
-				case UP:
-				default:
-					return PISTON_BASE_UP_AABB;
-
-				case NORTH:
-					return PISTON_BASE_NORTH_AABB;
-
-				case SOUTH:
-					return PISTON_BASE_SOUTH_AABB;
-
-				case WEST:
-					return PISTON_BASE_WEST_AABB;
-
-				case EAST:
-					return PISTON_BASE_EAST_AABB;
-			}
+		if (state.getValue(EXTENDED)) {
+			return switch (state.getValue(FACING)) {
+				case DOWN -> PISTON_BASE_DOWN_AABB;
+				default -> PISTON_BASE_UP_AABB;
+				case NORTH -> PISTON_BASE_NORTH_AABB;
+				case SOUTH -> PISTON_BASE_SOUTH_AABB;
+				case WEST -> PISTON_BASE_WEST_AABB;
+				case EAST -> PISTON_BASE_EAST_AABB;
+			};
 		} else {
 			return FULL_BLOCK_AABB;
 		}
@@ -139,7 +127,7 @@ public class BlockPistonBase extends BlockDirectional {
 	 */
 	public boolean isTopSolid(IBlockState state) {
 
-		return !state.getValue(EXTENDED).booleanValue() || state.getValue(FACING) == EnumFacing.DOWN;
+		return !state.getValue(EXTENDED) || state.getValue(FACING) == EnumFacing.DOWN;
 	}
 
 	public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, @Nullable Entity entityIn, boolean isActualState) {
@@ -195,7 +183,7 @@ public class BlockPistonBase extends BlockDirectional {
 	 */
 	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
 
-		return getDefaultState().withProperty(FACING, EnumFacing.getDirectionFromEntityLiving(pos, placer)).withProperty(EXTENDED, Boolean.valueOf(false));
+		return getDefaultState().withProperty(FACING, EnumFacing.getDirectionFromEntityLiving(pos, placer)).withProperty(EXTENDED, Boolean.FALSE);
 	}
 
 	private void checkForMove(World worldIn, BlockPos pos, IBlockState state) {
@@ -203,11 +191,11 @@ public class BlockPistonBase extends BlockDirectional {
 		EnumFacing enumfacing = state.getValue(FACING);
 		boolean flag = shouldBeExtended(worldIn, pos, enumfacing);
 
-		if (flag && !state.getValue(EXTENDED).booleanValue()) {
+		if (flag && !state.getValue(EXTENDED)) {
 			if ((new BlockPistonStructureHelper(worldIn, pos, enumfacing, true)).canMove()) {
 				worldIn.addBlockEvent(pos, this, 0, enumfacing.getIndex());
 			}
-		} else if (!flag && state.getValue(EXTENDED).booleanValue()) {
+		} else if (!flag && state.getValue(EXTENDED)) {
 			worldIn.addBlockEvent(pos, this, 1, enumfacing.getIndex());
 		}
 	}
@@ -248,7 +236,7 @@ public class BlockPistonBase extends BlockDirectional {
 			boolean flag = shouldBeExtended(worldIn, pos, enumfacing);
 
 			if (flag && id == 1) {
-				worldIn.setBlockState(pos, state.withProperty(EXTENDED, Boolean.valueOf(true)), 2);
+				worldIn.setBlockState(pos, state.withProperty(EXTENDED, Boolean.TRUE), 2);
 				return false;
 			}
 
@@ -262,7 +250,7 @@ public class BlockPistonBase extends BlockDirectional {
 				return false;
 			}
 
-			worldIn.setBlockState(pos, state.withProperty(EXTENDED, Boolean.valueOf(true)), 3);
+			worldIn.setBlockState(pos, state.withProperty(EXTENDED, Boolean.TRUE), 3);
 			worldIn.playSound(null, pos, SoundEvents.BLOCK_PISTON_EXTEND, SoundCategory.BLOCKS, 0.5F, worldIn.rand.nextFloat() * 0.25F + 0.6F);
 		} else if (id == 1) {
 			TileEntity tileentity1 = worldIn.getTileEntity(pos.offset(enumfacing));
@@ -324,8 +312,7 @@ public class BlockPistonBase extends BlockDirectional {
 			List<BlockPos> list = blockpistonstructurehelper.getBlocksToMove();
 			List<IBlockState> list1 = Lists.newArrayList();
 
-			for (int i = 0; i < list.size(); ++i) {
-				BlockPos blockpos = list.get(i);
+			for (BlockPos blockpos : list) {
 				list1.add(worldIn.getBlockState(blockpos).getActualState(worldIn, blockpos));
 			}
 
@@ -385,7 +372,7 @@ public class BlockPistonBase extends BlockDirectional {
 	 */
 	public IBlockState getStateFromMeta(int meta) {
 
-		return getDefaultState().withProperty(FACING, getFacing(meta)).withProperty(EXTENDED, Boolean.valueOf((meta & 8) > 0));
+		return getDefaultState().withProperty(FACING, getFacing(meta)).withProperty(EXTENDED, (meta & 8) > 0);
 	}
 
 	/**
@@ -396,7 +383,7 @@ public class BlockPistonBase extends BlockDirectional {
 		int i = 0;
 		i = i | state.getValue(FACING).getIndex();
 
-		if (state.getValue(EXTENDED).booleanValue()) {
+		if (state.getValue(EXTENDED)) {
 			i |= 8;
 		}
 
@@ -438,7 +425,7 @@ public class BlockPistonBase extends BlockDirectional {
 	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
 
 		state = getActualState(state, worldIn, pos);
-		return state.getValue(FACING) != face.getOpposite() && state.getValue(EXTENDED).booleanValue() ? BlockFaceShape.UNDEFINED : BlockFaceShape.SOLID;
+		return state.getValue(FACING) != face.getOpposite() && state.getValue(EXTENDED) ? BlockFaceShape.UNDEFINED : BlockFaceShape.SOLID;
 	}
 
 }

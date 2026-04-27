@@ -79,13 +79,13 @@ public class GuiSubtitleOverlay extends Gui implements ISoundEventListener {
 
 				if (!flag) {
 					if (d0 > 0.0D) {
-						client.fontRenderer.drawString(">", l - client.fontRenderer.getStringWidth(">"), -j1, i2 + -16777216);
+						client.fontRenderer.drawString(">", l - client.fontRenderer.getStringWidth(">"), -j1, i2 - 16777216);
 					} else if (d0 < 0.0D) {
-						client.fontRenderer.drawString("<", -l, -j1, i2 + -16777216);
+						client.fontRenderer.drawString("<", -l, -j1, i2 - 16777216);
 					}
 				}
 
-				client.fontRenderer.drawString(s, -k1 / 2, -j1, i2 + -16777216);
+				client.fontRenderer.drawString(s, -k1 / 2, -j1, i2 - 16777216);
 				GlStateManager.popMatrix();
 				++i;
 			}

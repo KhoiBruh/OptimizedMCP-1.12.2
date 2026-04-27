@@ -13,7 +13,7 @@ import java.util.List;
 public class GuiPageButtonList extends GuiListExtended {
 
 	private final List<GuiPageButtonList.GuiEntry> entries = Lists.newArrayList();
-	private final IntHashMap<Gui> componentMap = new IntHashMap<Gui>();
+	private final IntHashMap<Gui> componentMap = new IntHashMap<>();
 	private final List<GuiTextField> editBoxes = Lists.newArrayList();
 	private final GuiPageButtonList.GuiListEntry[][] pages;
 	private final GuiPageButtonList.GuiResponder responder;
@@ -148,15 +148,13 @@ public class GuiPageButtonList extends GuiListExtended {
 	@Nullable
 	private Gui createEntry(@Nullable GuiPageButtonList.GuiListEntry p_178058_1_, int p_178058_2_, boolean p_178058_3_) {
 
-		if (p_178058_1_ instanceof GuiPageButtonList.GuiSlideEntry) {
-			return createSlider(width / 2 - 155 + p_178058_2_, 0, (GuiPageButtonList.GuiSlideEntry) p_178058_1_);
-		} else if (p_178058_1_ instanceof GuiPageButtonList.GuiButtonEntry) {
-			return createButton(width / 2 - 155 + p_178058_2_, 0, (GuiPageButtonList.GuiButtonEntry) p_178058_1_);
-		} else if (p_178058_1_ instanceof GuiPageButtonList.EditBoxEntry) {
-			return createTextField(width / 2 - 155 + p_178058_2_, 0, (GuiPageButtonList.EditBoxEntry) p_178058_1_);
-		} else {
-			return p_178058_1_ instanceof GuiPageButtonList.GuiLabelEntry ? createLabel(width / 2 - 155 + p_178058_2_, 0, (GuiPageButtonList.GuiLabelEntry) p_178058_1_, p_178058_3_) : null;
-		}
+		return switch (p_178058_1_) {
+			case GuiSlideEntry guiSlideEntry -> createSlider(width / 2 - 155 + p_178058_2_, 0, guiSlideEntry);
+			case GuiButtonEntry guiButtonEntry -> createButton(width / 2 - 155 + p_178058_2_, 0, guiButtonEntry);
+			case EditBoxEntry editBoxEntry -> createTextField(width / 2 - 155 + p_178058_2_, 0, editBoxEntry);
+			default ->
+					p_178058_1_ instanceof GuiLabelEntry ? createLabel(width / 2 - 155 + p_178058_2_, 0, (GuiLabelEntry) p_178058_1_, p_178058_3_) : null;
+		};
 	}
 
 	public void setActive(boolean p_181155_1_) {
@@ -392,12 +390,13 @@ public class GuiPageButtonList extends GuiListExtended {
 		private void renderComponent(Gui p_192636_1_, int p_192636_2_, int p_192636_3_, int p_192636_4_, boolean p_192636_5_, float p_192636_6_) {
 
 			if (p_192636_1_ != null) {
-				if (p_192636_1_ instanceof GuiButton) {
-					renderButton((GuiButton) p_192636_1_, p_192636_2_, p_192636_3_, p_192636_4_, p_192636_5_, p_192636_6_);
-				} else if (p_192636_1_ instanceof GuiTextField) {
-					renderTextField((GuiTextField) p_192636_1_, p_192636_2_, p_192636_5_);
-				} else if (p_192636_1_ instanceof GuiLabel) {
-					renderLabel((GuiLabel) p_192636_1_, p_192636_2_, p_192636_3_, p_192636_4_, p_192636_5_);
+				switch (p_192636_1_) {
+					case GuiButton guiButton ->
+							renderButton(guiButton, p_192636_2_, p_192636_3_, p_192636_4_, p_192636_5_, p_192636_6_);
+					case GuiTextField guiTextField -> renderTextField(guiTextField, p_192636_2_, p_192636_5_);
+					case GuiLabel guiLabel -> renderLabel(guiLabel, p_192636_2_, p_192636_3_, p_192636_4_, p_192636_5_);
+					default -> {
+					}
 				}
 			}
 		}

@@ -35,14 +35,13 @@ public class GuiButtonImage extends GuiButton {
 			hovered = mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
 			mc.getTextureManager().bindTexture(resourceLocation);
 			GlStateManager.disableDepth();
-			int i = xTexStart;
 			int j = yTexStart;
 
 			if (hovered) {
 				j += yDiffText;
 			}
 
-			drawTexturedModalRect(x, y, i, j, width, height);
+			drawTexturedModalRect(x, y, xTexStart, j, width, height);
 			GlStateManager.enableDepth();
 		}
 	}

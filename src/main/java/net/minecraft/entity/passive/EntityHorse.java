@@ -54,8 +54,8 @@ public class EntityHorse extends AbstractHorse {
 	protected void entityInit() {
 
 		super.entityInit();
-		dataManager.register(HORSE_VARIANT, Integer.valueOf(0));
-		dataManager.register(HORSE_ARMOR, Integer.valueOf(HorseArmorType.NONE.getOrdinal()));
+		dataManager.register(HORSE_VARIANT, 0);
+		dataManager.register(HORSE_ARMOR, HorseArmorType.NONE.getOrdinal());
 	}
 
 	/**
@@ -92,12 +92,12 @@ public class EntityHorse extends AbstractHorse {
 
 	public int getHorseVariant() {
 
-		return dataManager.get(HORSE_VARIANT).intValue();
+		return dataManager.get(HORSE_VARIANT);
 	}
 
 	public void setHorseVariant(int variant) {
 
-		dataManager.set(HORSE_VARIANT, Integer.valueOf(variant));
+		dataManager.set(HORSE_VARIANT, variant);
 		resetTexturePrefix();
 	}
 
@@ -151,7 +151,7 @@ public class EntityHorse extends AbstractHorse {
 	public void setHorseArmorStack(ItemStack itemStackIn) {
 
 		HorseArmorType horsearmortype = HorseArmorType.getByItemStack(itemStackIn);
-		dataManager.set(HORSE_ARMOR, Integer.valueOf(horsearmortype.getOrdinal()));
+		dataManager.set(HORSE_ARMOR, horsearmortype.getOrdinal());
 		resetTexturePrefix();
 
 		if (!world.isRemote) {
@@ -166,7 +166,7 @@ public class EntityHorse extends AbstractHorse {
 
 	public HorseArmorType getHorseArmorType() {
 
-		return HorseArmorType.getByOrdinal(dataManager.get(HORSE_ARMOR).intValue());
+		return HorseArmorType.getByOrdinal(dataManager.get(HORSE_ARMOR));
 	}
 
 	/**

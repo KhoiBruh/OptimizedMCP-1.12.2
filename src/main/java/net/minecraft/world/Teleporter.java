@@ -24,7 +24,7 @@ public class Teleporter {
 	 * A private Random() function in Teleporter
 	 */
 	private final Random random;
-	private final Long2ObjectMap<Teleporter.PortalPosition> destinationCoordinateCache = new Long2ObjectOpenHashMap<Teleporter.PortalPosition>(4096);
+	private final Long2ObjectMap<Teleporter.PortalPosition> destinationCoordinateCache = new Long2ObjectOpenHashMap<>(4096);
 
 	public Teleporter(WorldServer worldIn) {
 
@@ -348,15 +348,8 @@ public class Teleporter {
 
 		if (worldTime % 100L == 0L) {
 			long i = worldTime - 300L;
-			ObjectIterator<Teleporter.PortalPosition> objectiterator = destinationCoordinateCache.values().iterator();
 
-			while (objectiterator.hasNext()) {
-				Teleporter.PortalPosition teleporter$portalposition = objectiterator.next();
-
-				if (teleporter$portalposition == null || teleporter$portalposition.lastUpdateTime < i) {
-					objectiterator.remove();
-				}
-			}
+			destinationCoordinateCache.values().removeIf(teleporter$portalposition -> teleporter$portalposition == null || teleporter$portalposition.lastUpdateTime < i);
 		}
 	}
 

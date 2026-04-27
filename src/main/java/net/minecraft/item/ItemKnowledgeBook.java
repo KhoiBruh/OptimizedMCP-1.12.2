@@ -45,8 +45,8 @@ public class ItemKnowledgeBook extends Item {
 					IRecipe irecipe = CraftingManager.getRecipe(new ResourceLocation(s));
 
 					if (irecipe == null) {
-						LOGGER.error("Invalid recipe: " + s);
-						return new ActionResult<ItemStack>(EnumActionResult.FAIL, itemstack);
+						LOGGER.error("Invalid recipe: {}", s);
+						return new ActionResult<>(EnumActionResult.FAIL, itemstack);
 					}
 
 					list.add(irecipe);
@@ -56,10 +56,10 @@ public class ItemKnowledgeBook extends Item {
 				playerIn.addStat(StatList.getObjectUseStats(this));
 			}
 
-			return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemstack);
+			return new ActionResult<>(EnumActionResult.SUCCESS, itemstack);
 		} else {
-			LOGGER.error("Tag not valid: " + nbttagcompound);
-			return new ActionResult<ItemStack>(EnumActionResult.FAIL, itemstack);
+			LOGGER.error("Tag not valid: {}", nbttagcompound);
+			return new ActionResult<>(EnumActionResult.FAIL, itemstack);
 		}
 	}
 

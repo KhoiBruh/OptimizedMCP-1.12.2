@@ -24,12 +24,7 @@ public class ItemShield extends Item {
 		maxStackSize = 1;
 		setCreativeTab(CreativeTabs.COMBAT);
 		setMaxDamage(336);
-		addPropertyOverride(new ResourceLocation("blocking"), new IItemPropertyGetter() {
-			public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
-
-				return entityIn != null && entityIn.isHandActive() && entityIn.getActiveItemStack() == stack ? 1.0F : 0.0F;
-			}
-		});
+		addPropertyOverride(new ResourceLocation("blocking"), (stack, worldIn, entityIn) -> entityIn != null && entityIn.isHandActive() && entityIn.getActiveItemStack() == stack ? 1.0F : 0.0F);
 		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(this, ItemArmor.DISPENSER_BEHAVIOR);
 	}
 
@@ -71,7 +66,7 @@ public class ItemShield extends Item {
 
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
 		playerIn.setActiveHand(handIn);
-		return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemstack);
+		return new ActionResult<>(EnumActionResult.SUCCESS, itemstack);
 	}
 
 	/**

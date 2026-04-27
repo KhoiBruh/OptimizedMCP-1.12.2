@@ -103,9 +103,9 @@ public class EntityCreeper extends EntityMob {
 	protected void entityInit() {
 
 		super.entityInit();
-		dataManager.register(STATE, Integer.valueOf(-1));
-		dataManager.register(POWERED, Boolean.valueOf(false));
-		dataManager.register(IGNITED, Boolean.valueOf(false));
+		dataManager.register(STATE, -1);
+		dataManager.register(POWERED, Boolean.FALSE);
+		dataManager.register(IGNITED, Boolean.FALSE);
 	}
 
 	/**
@@ -115,7 +115,7 @@ public class EntityCreeper extends EntityMob {
 
 		super.writeEntityToNBT(compound);
 
-		if (dataManager.get(POWERED).booleanValue()) {
+		if (dataManager.get(POWERED)) {
 			compound.setBoolean("powered", true);
 		}
 
@@ -130,7 +130,7 @@ public class EntityCreeper extends EntityMob {
 	public void readEntityFromNBT(NBTTagCompound compound) {
 
 		super.readEntityFromNBT(compound);
-		dataManager.set(POWERED, Boolean.valueOf(compound.getBoolean("powered")));
+		dataManager.set(POWERED, compound.getBoolean("powered"));
 
 		if (compound.hasKey("Fuse", 99)) {
 			fuseTime = compound.getShort("Fuse");
@@ -218,7 +218,7 @@ public class EntityCreeper extends EntityMob {
 	 */
 	public boolean getPowered() {
 
-		return dataManager.get(POWERED).booleanValue();
+		return dataManager.get(POWERED);
 	}
 
 	/**
@@ -240,7 +240,7 @@ public class EntityCreeper extends EntityMob {
 	 */
 	public int getCreeperState() {
 
-		return dataManager.get(STATE).intValue();
+		return dataManager.get(STATE);
 	}
 
 	/**
@@ -248,7 +248,7 @@ public class EntityCreeper extends EntityMob {
 	 */
 	public void setCreeperState(int state) {
 
-		dataManager.set(STATE, Integer.valueOf(state));
+		dataManager.set(STATE, state);
 	}
 
 	/**
@@ -257,7 +257,7 @@ public class EntityCreeper extends EntityMob {
 	public void onStruckByLightning(EntityLightningBolt lightningBolt) {
 
 		super.onStruckByLightning(lightningBolt);
-		dataManager.set(POWERED, Boolean.valueOf(true));
+		dataManager.set(POWERED, Boolean.TRUE);
 	}
 
 	protected boolean processInteract(EntityPlayer player, EnumHand hand) {
@@ -315,12 +315,12 @@ public class EntityCreeper extends EntityMob {
 
 	public boolean hasIgnited() {
 
-		return dataManager.get(IGNITED).booleanValue();
+		return dataManager.get(IGNITED);
 	}
 
 	public void ignite() {
 
-		dataManager.set(IGNITED, Boolean.valueOf(true));
+		dataManager.set(IGNITED, Boolean.TRUE);
 	}
 
 	/**

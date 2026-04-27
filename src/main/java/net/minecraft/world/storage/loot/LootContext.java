@@ -80,19 +80,12 @@ public class LootContext {
 	@Nullable
 	public Entity getEntity(LootContext.EntityTarget target) {
 
-		switch (target) {
-			case THIS:
-				return getLootedEntity();
-
-			case KILLER:
-				return getKiller();
-
-			case KILLER_PLAYER:
-				return getKillerPlayer();
-
-			default:
-				return null;
-		}
+		return switch (target) {
+			case THIS -> getLootedEntity();
+			case KILLER -> getKiller();
+			case KILLER_PLAYER -> getKillerPlayer();
+			default -> null;
+		};
 	}
 
 	public enum EntityTarget {

@@ -34,7 +34,7 @@ public class EnchantmentFrostWalker extends Enchantment {
 					if (iblockstate.getMaterial() == Material.AIR) {
 						IBlockState iblockstate1 = worldIn.getBlockState(blockpos$mutableblockpos1);
 
-						if (iblockstate1.getMaterial() == Material.WATER && iblockstate1.getValue(BlockLiquid.LEVEL).intValue() == 0 && worldIn.mayPlace(Blocks.FROSTED_ICE, blockpos$mutableblockpos1, false, EnumFacing.DOWN, null)) {
+						if (iblockstate1.getMaterial() == Material.WATER && iblockstate1.getValue(BlockLiquid.LEVEL) == 0 && worldIn.mayPlace(Blocks.FROSTED_ICE, blockpos$mutableblockpos1, false, EnumFacing.DOWN, null)) {
 							worldIn.setBlockState(blockpos$mutableblockpos1, Blocks.FROSTED_ICE.getDefaultState());
 							worldIn.scheduleUpdate(blockpos$mutableblockpos1.toImmutable(), Blocks.FROSTED_ICE, MathHelper.getInt(living.getRNG(), 60, 120));
 						}

@@ -32,7 +32,7 @@ public class EntityTracker {
 	private static final Logger LOGGER = LogManager.getLogger();
 	private final WorldServer world;
 	private final Set<EntityTrackerEntry> entries = Sets.newHashSet();
-	private final IntHashMap<EntityTrackerEntry> trackedEntityHashTable = new IntHashMap<EntityTrackerEntry>();
+	private final IntHashMap<EntityTrackerEntry> trackedEntityHashTable = new IntHashMap<>();
 	private int maxTrackingDistanceThreshold;
 
 	public EntityTracker(WorldServer theWorldIn) {
@@ -147,17 +147,15 @@ public class EntityTracker {
 			CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Adding entity to track");
 			CrashReportCategory crashreportcategory = crashreport.makeCategory("Entity To Track");
 			crashreportcategory.addCrashSection("Tracking range", trackingRange + " blocks");
-			crashreportcategory.addDetail("Update interval", new ICrashReportDetail<String>() {
-				public String call() throws Exception {
+			crashreportcategory.addDetail("Update interval", () -> {
 
-					String s = "Once per " + updateFrequency + " ticks";
+				String s = "Once per " + updateFrequency + " ticks";
 
-					if (updateFrequency == Integer.MAX_VALUE) {
-						s = "Maximum (" + s + ")";
-					}
-
-					return s;
+				if (updateFrequency == Integer.MAX_VALUE) {
+					s = "Maximum (" + s + ")";
 				}
+
+				return s;
 			});
 			entityIn.addEntityCrashInfo(crashreportcategory);
 			trackedEntityHashTable.lookup(entityIn.getEntityId()).getTrackedEntity().addEntityCrashInfo(crashreport.makeCategory("Entity That Is Already Tracked"));
@@ -203,9 +201,7 @@ public class EntityTracker {
 			}
 		}
 
-		for (int i = 0; i < list.size(); ++i) {
-			EntityPlayerMP entityplayermp = list.get(i);
-
+		for (EntityPlayerMP entityplayermp : list) {
 			for (EntityTrackerEntry entitytrackerentry1 : entries) {
 				if (entitytrackerentry1.getTrackedEntity() != entityplayermp) {
 					entitytrackerentry1.updatePlayerEntity(entityplayermp);

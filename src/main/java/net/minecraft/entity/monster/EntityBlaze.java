@@ -74,7 +74,7 @@ public class EntityBlaze extends EntityMob {
 	protected void entityInit() {
 
 		super.entityInit();
-		dataManager.register(ON_FIRE, Byte.valueOf((byte) 0));
+		dataManager.register(ON_FIRE, (byte) 0);
 	}
 
 	protected SoundEvent getAmbientSound() {
@@ -171,12 +171,12 @@ public class EntityBlaze extends EntityMob {
 
 	public boolean isCharged() {
 
-		return (dataManager.get(ON_FIRE).byteValue() & 1) != 0;
+		return (dataManager.get(ON_FIRE) & 1) != 0;
 	}
 
 	public void setOnFire(boolean onFire) {
 
-		byte b0 = dataManager.get(ON_FIRE).byteValue();
+		byte b0 = dataManager.get(ON_FIRE);
 
 		if (onFire) {
 			b0 = (byte) (b0 | 1);
@@ -184,7 +184,7 @@ public class EntityBlaze extends EntityMob {
 			b0 = (byte) (b0 & -2);
 		}
 
-		dataManager.set(ON_FIRE, Byte.valueOf(b0));
+		dataManager.set(ON_FIRE, b0);
 	}
 
 	/**

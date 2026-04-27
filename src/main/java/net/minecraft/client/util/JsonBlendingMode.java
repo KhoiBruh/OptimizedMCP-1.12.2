@@ -115,19 +115,14 @@ public class JsonBlendingMode {
 
 		String s = funcName.trim().toLowerCase(Locale.ROOT);
 
-		if ("add".equals(s)) {
-			return 32774;
-		} else if ("subtract".equals(s)) {
-			return 32778;
-		} else if ("reversesubtract".equals(s)) {
-			return 32779;
-		} else if ("reverse_subtract".equals(s)) {
-			return 32779;
-		} else if ("min".equals(s)) {
-			return 32775;
-		} else {
-			return "max".equals(s) ? 32776 : 32774;
-		}
+		return switch (s) {
+			case "add" -> 32774;
+			case "subtract" -> 32778;
+			case "reversesubtract" -> 32779;
+			case "reverse_subtract" -> 32779;
+			case "min" -> 32775;
+			default -> "max".equals(s) ? 32776 : 32774;
+		};
 	}
 
 	private static int stringToBlendFactor(String factorName) {
@@ -138,27 +133,18 @@ public class JsonBlendingMode {
 		s = s.replaceAll("zero", "0");
 		s = s.replaceAll("minus", "-");
 
-		if ("0".equals(s)) {
-			return 0;
-		} else if ("1".equals(s)) {
-			return 1;
-		} else if ("srccolor".equals(s)) {
-			return 768;
-		} else if ("1-srccolor".equals(s)) {
-			return 769;
-		} else if ("dstcolor".equals(s)) {
-			return 774;
-		} else if ("1-dstcolor".equals(s)) {
-			return 775;
-		} else if ("srcalpha".equals(s)) {
-			return 770;
-		} else if ("1-srcalpha".equals(s)) {
-			return 771;
-		} else if ("dstalpha".equals(s)) {
-			return 772;
-		} else {
-			return "1-dstalpha".equals(s) ? 773 : -1;
-		}
+		return switch (s) {
+			case "0" -> 0;
+			case "1" -> 1;
+			case "srccolor" -> 768;
+			case "1-srccolor" -> 769;
+			case "dstcolor" -> 774;
+			case "1-dstcolor" -> 775;
+			case "srcalpha" -> 770;
+			case "1-srcalpha" -> 771;
+			case "dstalpha" -> 772;
+			default -> "1-dstalpha".equals(s) ? 773 : -1;
+		};
 	}
 
 	public void apply() {

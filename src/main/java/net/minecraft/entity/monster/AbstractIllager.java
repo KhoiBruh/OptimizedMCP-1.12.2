@@ -18,18 +18,18 @@ public abstract class AbstractIllager extends EntityMob {
 	protected void entityInit() {
 
 		super.entityInit();
-		dataManager.register(AGGRESSIVE, Byte.valueOf((byte) 0));
+		dataManager.register(AGGRESSIVE, (byte) 0);
 	}
 
 	protected boolean isAggressive(int mask) {
 
-		int i = dataManager.get(AGGRESSIVE).byteValue();
+		int i = dataManager.get(AGGRESSIVE);
 		return (i & mask) != 0;
 	}
 
 	protected void setAggressive(int mask, boolean value) {
 
-		int i = dataManager.get(AGGRESSIVE).byteValue();
+		int i = dataManager.get(AGGRESSIVE);
 
 		if (value) {
 			i = i | mask;
@@ -37,7 +37,7 @@ public abstract class AbstractIllager extends EntityMob {
 			i = i & ~mask;
 		}
 
-		dataManager.set(AGGRESSIVE, Byte.valueOf((byte) (i & 255)));
+		dataManager.set(AGGRESSIVE, (byte) (i & 255));
 	}
 
 	/**

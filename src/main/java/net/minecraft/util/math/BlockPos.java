@@ -72,41 +72,36 @@ public class BlockPos extends Vec3i {
 
 	public static Iterable<BlockPos> getAllInBox(final int x1, final int y1, final int z1, final int x2, final int y2, final int z2) {
 
-		return new Iterable<BlockPos>() {
-			public Iterator<BlockPos> iterator() {
+		return () -> new AbstractIterator<>() {
+			private boolean first = true;
+			private int lastPosX;
+			private int lastPosY;
+			private int lastPosZ;
 
-				return new AbstractIterator<BlockPos>() {
-					private boolean first = true;
-					private int lastPosX;
-					private int lastPosY;
-					private int lastPosZ;
+			protected BlockPos computeNext() {
 
-					protected BlockPos computeNext() {
-
-						if (first) {
-							first = false;
-							lastPosX = x1;
-							lastPosY = y1;
-							lastPosZ = z1;
-							return new BlockPos(x1, y1, z1);
-						} else if (lastPosX == x2 && lastPosY == y2 && lastPosZ == z2) {
-							return endOfData();
-						} else {
-							if (lastPosX < x2) {
-								++lastPosX;
-							} else if (lastPosY < y2) {
-								lastPosX = x1;
-								++lastPosY;
-							} else if (lastPosZ < z2) {
-								lastPosX = x1;
-								lastPosY = y1;
-								++lastPosZ;
-							}
-
-							return new BlockPos(lastPosX, lastPosY, lastPosZ);
-						}
+				if (first) {
+					first = false;
+					lastPosX = x1;
+					lastPosY = y1;
+					lastPosZ = z1;
+					return new BlockPos(x1, y1, z1);
+				} else if (lastPosX == x2 && lastPosY == y2 && lastPosZ == z2) {
+					return endOfData();
+				} else {
+					if (lastPosX < x2) {
+						++lastPosX;
+					} else if (lastPosY < y2) {
+						lastPosX = x1;
+						++lastPosY;
+					} else if (lastPosZ < z2) {
+						lastPosX = x1;
+						lastPosY = y1;
+						++lastPosZ;
 					}
-				};
+
+					return new BlockPos(lastPosX, lastPosY, lastPosZ);
+				}
 			}
 		};
 	}
@@ -118,35 +113,30 @@ public class BlockPos extends Vec3i {
 
 	public static Iterable<BlockPos.MutableBlockPos> getAllInBoxMutable(final int x1, final int y1, final int z1, final int x2, final int y2, final int z2) {
 
-		return new Iterable<BlockPos.MutableBlockPos>() {
-			public Iterator<BlockPos.MutableBlockPos> iterator() {
+		return () -> new AbstractIterator<>() {
+			private MutableBlockPos pos;
 
-				return new AbstractIterator<BlockPos.MutableBlockPos>() {
-					private BlockPos.MutableBlockPos pos;
+			protected MutableBlockPos computeNext() {
 
-					protected BlockPos.MutableBlockPos computeNext() {
-
-						if (pos == null) {
-							pos = new BlockPos.MutableBlockPos(x1, y1, z1);
-							return pos;
-						} else if (pos.x == x2 && pos.y == y2 && pos.z == z2) {
-							return endOfData();
-						} else {
-							if (pos.x < x2) {
-								++pos.x;
-							} else if (pos.y < y2) {
-								pos.x = x1;
-								++pos.y;
-							} else if (pos.z < z2) {
-								pos.x = x1;
-								pos.y = y1;
-								++pos.z;
-							}
-
-							return pos;
-						}
+				if (pos == null) {
+					pos = new MutableBlockPos(x1, y1, z1);
+					return pos;
+				} else if (pos.x == x2 && pos.y == y2 && pos.z == z2) {
+					return endOfData();
+				} else {
+					if (pos.x < x2) {
+						++pos.x;
+					} else if (pos.y < y2) {
+						pos.x = x1;
+						++pos.y;
+					} else if (pos.z < z2) {
+						pos.x = x1;
+						pos.y = y1;
+						++pos.z;
 					}
-				};
+
+					return pos;
+				}
 			}
 		};
 	}
@@ -297,20 +287,12 @@ public class BlockPos extends Vec3i {
 
 	public BlockPos rotate(Rotation rotationIn) {
 
-		switch (rotationIn) {
-			case NONE:
-			default:
-				return this;
-
-			case CLOCKWISE_90:
-				return new BlockPos(-getZ(), getY(), getX());
-
-			case CLOCKWISE_180:
-				return new BlockPos(-getX(), getY(), -getZ());
-
-			case COUNTERCLOCKWISE_90:
-				return new BlockPos(getZ(), getY(), -getX());
-		}
+		return switch (rotationIn) {
+			default -> this;
+			case CLOCKWISE_90 -> new BlockPos(-getZ(), getY(), getX());
+			case CLOCKWISE_180 -> new BlockPos(-getX(), getY(), -getZ());
+			case COUNTERCLOCKWISE_90 -> new BlockPos(getZ(), getY(), -getX());
+		};
 	}
 
 	/**
@@ -473,7 +455,7 @@ public class BlockPos extends Vec3i {
 
 			synchronized (POOL) {
 				if (!POOL.isEmpty()) {
-					BlockPos.PooledMutableBlockPos blockpos$pooledmutableblockpos = POOL.remove(POOL.size() - 1);
+					BlockPos.PooledMutableBlockPos blockpos$pooledmutableblockpos = POOL.removeLast();
 
 					if (blockpos$pooledmutableblockpos != null && blockpos$pooledmutableblockpos.released) {
 						blockpos$pooledmutableblockpos.released = false;

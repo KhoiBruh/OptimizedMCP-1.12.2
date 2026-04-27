@@ -44,12 +44,7 @@ public class EntityWither extends EntityMob implements IRangedAttackMob {
 	private static final DataParameter<Integer> THIRD_HEAD_TARGET = EntityDataManager.createKey(EntityWither.class, DataSerializers.VARINT);
 	private static final DataParameter<Integer>[] HEAD_TARGETS = new DataParameter[]{FIRST_HEAD_TARGET, SECOND_HEAD_TARGET, THIRD_HEAD_TARGET};
 	private static final DataParameter<Integer> INVULNERABILITY_TIME = EntityDataManager.createKey(EntityWither.class, DataSerializers.VARINT);
-	private static final Predicate<Entity> NOT_UNDEAD = new Predicate<Entity>() {
-		public boolean apply(@Nullable Entity p_apply_1_) {
-
-			return p_apply_1_ instanceof EntityLivingBase && ((EntityLivingBase) p_apply_1_).getCreatureAttribute() != EnumCreatureAttribute.UNDEAD && ((EntityLivingBase) p_apply_1_).attackable();
-		}
-	};
+	private static final Predicate<Entity> NOT_UNDEAD = p_apply_1_ -> p_apply_1_ instanceof EntityLivingBase && ((EntityLivingBase) p_apply_1_).getCreatureAttribute() != EnumCreatureAttribute.UNDEAD && ((EntityLivingBase) p_apply_1_).attackable();
 	private final float[] xRotationHeads = new float[2];
 	private final float[] yRotationHeads = new float[2];
 	private final float[] xRotOHeads = new float[2];
@@ -97,10 +92,10 @@ public class EntityWither extends EntityMob implements IRangedAttackMob {
 	protected void entityInit() {
 
 		super.entityInit();
-		dataManager.register(FIRST_HEAD_TARGET, Integer.valueOf(0));
-		dataManager.register(SECOND_HEAD_TARGET, Integer.valueOf(0));
-		dataManager.register(THIRD_HEAD_TARGET, Integer.valueOf(0));
-		dataManager.register(INVULNERABILITY_TIME, Integer.valueOf(0));
+		dataManager.register(FIRST_HEAD_TARGET, 0);
+		dataManager.register(SECOND_HEAD_TARGET, 0);
+		dataManager.register(THIRD_HEAD_TARGET, 0);
+		dataManager.register(INVULNERABILITY_TIME, 0);
 	}
 
 	/**
@@ -497,7 +492,7 @@ public class EntityWither extends EntityMob implements IRangedAttackMob {
 
 				Entity entity1 = source.getTrueSource();
 
-				if (entity1 != null && !(entity1 instanceof EntityPlayer) && entity1 instanceof EntityLivingBase && ((EntityLivingBase) entity1).getCreatureAttribute() == getCreatureAttribute()) {
+				if (!(entity1 instanceof EntityPlayer) && entity1 instanceof EntityLivingBase && ((EntityLivingBase) entity1).getCreatureAttribute() == getCreatureAttribute()) {
 					return false;
 				} else {
 					if (blockBreakCounter <= 0) {
@@ -573,12 +568,12 @@ public class EntityWither extends EntityMob implements IRangedAttackMob {
 
 	public int getInvulTime() {
 
-		return dataManager.get(INVULNERABILITY_TIME).intValue();
+		return dataManager.get(INVULNERABILITY_TIME);
 	}
 
 	public void setInvulTime(int time) {
 
-		dataManager.set(INVULNERABILITY_TIME, Integer.valueOf(time));
+		dataManager.set(INVULNERABILITY_TIME, time);
 	}
 
 	/**
@@ -586,7 +581,7 @@ public class EntityWither extends EntityMob implements IRangedAttackMob {
 	 */
 	public int getWatchedTargetId(int head) {
 
-		return dataManager.get(HEAD_TARGETS[head]).intValue();
+		return dataManager.get(HEAD_TARGETS[head]);
 	}
 
 	/**
@@ -594,7 +589,7 @@ public class EntityWither extends EntityMob implements IRangedAttackMob {
 	 */
 	public void updateWatchedTargetId(int targetOffset, int newId) {
 
-		dataManager.set(HEAD_TARGETS[targetOffset], Integer.valueOf(newId));
+		dataManager.set(HEAD_TARGETS[targetOffset], newId);
 	}
 
 	/**

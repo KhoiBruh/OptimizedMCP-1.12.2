@@ -109,7 +109,7 @@ public class EntityPolarBear extends EntityAnimal {
 	protected void entityInit() {
 
 		super.entityInit();
-		dataManager.register(IS_STANDING, Boolean.valueOf(false));
+		dataManager.register(IS_STANDING, Boolean.FALSE);
 	}
 
 	/**
@@ -147,12 +147,12 @@ public class EntityPolarBear extends EntityAnimal {
 
 	public boolean isStanding() {
 
-		return dataManager.get(IS_STANDING).booleanValue();
+		return dataManager.get(IS_STANDING);
 	}
 
 	public void setStanding(boolean standing) {
 
-		dataManager.set(IS_STANDING, Boolean.valueOf(standing));
+		dataManager.set(IS_STANDING, standing);
 	}
 
 	public float getStandingAnimationScale(float p_189795_1_) {

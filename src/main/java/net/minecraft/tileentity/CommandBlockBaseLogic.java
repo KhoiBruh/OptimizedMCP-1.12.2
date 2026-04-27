@@ -173,18 +173,8 @@ public abstract class CommandBlockBaseLogic implements ICommandSender {
 					} catch (Throwable throwable) {
 						CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Executing command block");
 						CrashReportCategory crashreportcategory = crashreport.makeCategory("Command to be executed");
-						crashreportcategory.addDetail("Command", new ICrashReportDetail<String>() {
-							public String call() throws Exception {
-
-								return getCommand();
-							}
-						});
-						crashreportcategory.addDetail("Name", new ICrashReportDetail<String>() {
-							public String call() throws Exception {
-
-								return getName();
-							}
-						});
+						crashreportcategory.addDetail("Command", () -> getCommand());
+						crashreportcategory.addDetail("Name", () -> getName());
 						throw new ReportedException(crashreport);
 					}
 				} else {

@@ -90,70 +90,41 @@ public class CrashReport {
 	 */
 	private void populateEnvironment() {
 
-		systemDetailsCategory.addDetail("Minecraft Version", new ICrashReportDetail<String>() {
-			public String call() {
+		systemDetailsCategory.addDetail("Minecraft Version", () -> "1.12.2");
+		systemDetailsCategory.addDetail("Operating System", () -> System.getProperty("os.name") + " (" + System.getProperty("os.arch") + ") version " + System.getProperty("os.version"));
+		systemDetailsCategory.addDetail("Java Version", () -> System.getProperty("java.version") + ", " + System.getProperty("java.vendor"));
+		systemDetailsCategory.addDetail("Java VM Version", () -> System.getProperty("java.vm.name") + " (" + System.getProperty("java.vm.info") + "), " + System.getProperty("java.vm.vendor"));
+		systemDetailsCategory.addDetail("Memory", () -> {
 
-				return "1.12.2";
-			}
+			Runtime runtime = Runtime.getRuntime();
+			long i = runtime.maxMemory();
+			long j = runtime.totalMemory();
+			long k = runtime.freeMemory();
+			long l = i / 1024L / 1024L;
+			long i1 = j / 1024L / 1024L;
+			long j1 = k / 1024L / 1024L;
+			return k + " bytes (" + j1 + " MB) / " + j + " bytes (" + i1 + " MB) up to " + i + " bytes (" + l + " MB)";
 		});
-		systemDetailsCategory.addDetail("Operating System", new ICrashReportDetail<String>() {
-			public String call() {
+		systemDetailsCategory.addDetail("JVM Flags", () -> {
 
-				return System.getProperty("os.name") + " (" + System.getProperty("os.arch") + ") version " + System.getProperty("os.version");
-			}
-		});
-		systemDetailsCategory.addDetail("Java Version", new ICrashReportDetail<String>() {
-			public String call() {
+			RuntimeMXBean runtimemxbean = ManagementFactory.getRuntimeMXBean();
+			List<String> list = runtimemxbean.getInputArguments();
+			int i = 0;
+			StringBuilder stringbuilder = new StringBuilder();
 
-				return System.getProperty("java.version") + ", " + System.getProperty("java.vendor");
-			}
-		});
-		systemDetailsCategory.addDetail("Java VM Version", new ICrashReportDetail<String>() {
-			public String call() {
-
-				return System.getProperty("java.vm.name") + " (" + System.getProperty("java.vm.info") + "), " + System.getProperty("java.vm.vendor");
-			}
-		});
-		systemDetailsCategory.addDetail("Memory", new ICrashReportDetail<String>() {
-			public String call() {
-
-				Runtime runtime = Runtime.getRuntime();
-				long i = runtime.maxMemory();
-				long j = runtime.totalMemory();
-				long k = runtime.freeMemory();
-				long l = i / 1024L / 1024L;
-				long i1 = j / 1024L / 1024L;
-				long j1 = k / 1024L / 1024L;
-				return k + " bytes (" + j1 + " MB) / " + j + " bytes (" + i1 + " MB) up to " + i + " bytes (" + l + " MB)";
-			}
-		});
-		systemDetailsCategory.addDetail("JVM Flags", new ICrashReportDetail<String>() {
-			public String call() {
-
-				RuntimeMXBean runtimemxbean = ManagementFactory.getRuntimeMXBean();
-				List<String> list = runtimemxbean.getInputArguments();
-				int i = 0;
-				StringBuilder stringbuilder = new StringBuilder();
-
-				for (String s : list) {
-					if (s.startsWith("-X")) {
-						if (i++ > 0) {
-							stringbuilder.append(" ");
-						}
-
-						stringbuilder.append(s);
+			for (String s : list) {
+				if (s.startsWith("-X")) {
+					if (i++ > 0) {
+						stringbuilder.append(" ");
 					}
+
+					stringbuilder.append(s);
 				}
-
-				return String.format("%d total; %s", i, stringbuilder);
 			}
-		});
-		systemDetailsCategory.addDetail("IntCache", new ICrashReportDetail<String>() {
-			public String call() throws Exception {
 
-				return IntCache.getCacheSizes();
-			}
+			return String.format("%d total; %s", i, stringbuilder);
 		});
+		systemDetailsCategory.addDetail("IntCache", () -> IntCache.getCacheSizes());
 	}
 
 	/**
@@ -178,7 +149,7 @@ public class CrashReport {
 	public void getSectionsInStringBuilder(StringBuilder builder) {
 
 		if ((stacktrace == null || stacktrace.length == 0) && !crashReportSections.isEmpty()) {
-			stacktrace = ArrayUtils.subarray(crashReportSections.get(0).getStackTrace(), 0, 1);
+			stacktrace = ArrayUtils.subarray(crashReportSections.getFirst().getStackTrace(), 0, 1);
 		}
 
 		if (stacktrace != null && stacktrace.length > 0) {
@@ -212,18 +183,19 @@ public class CrashReport {
 		Throwable throwable = cause;
 
 		if (throwable.getMessage() == null) {
-			if (throwable instanceof NullPointerException) {
-				throwable = new NullPointerException(description);
-			} else if (throwable instanceof StackOverflowError) {
-				throwable = new StackOverflowError(description);
-			} else if (throwable instanceof OutOfMemoryError) {
-				throwable = new OutOfMemoryError(description);
+			switch (throwable) {
+				case NullPointerException nullPointerException -> throwable = new NullPointerException(description);
+				case StackOverflowError stackOverflowError -> throwable = new StackOverflowError(description);
+				case OutOfMemoryError outOfMemoryError -> throwable = new OutOfMemoryError(description);
+				default -> {
+				}
 			}
 
 			throwable.setStackTrace(cause.getStackTrace());
 		}
 
-		String s = throwable.toString();
+		throwable.toString();
+		String s;
 
 		try {
 			stringwriter = new StringWriter();
@@ -257,9 +229,7 @@ public class CrashReport {
 		stringbuilder.append(getCauseStackTraceOrString());
 		stringbuilder.append("\n\nA detailed walkthrough of the error, its code path and all known details is as follows:\n");
 
-		for (int i = 0; i < 87; ++i) {
-			stringbuilder.append("-");
-		}
+		stringbuilder.append("-".repeat(87));
 
 		stringbuilder.append("\n\n");
 		getSectionsInStringBuilder(stringbuilder);
@@ -293,8 +263,7 @@ public class CrashReport {
 				writer = new OutputStreamWriter(new FileOutputStream(toFile), StandardCharsets.UTF_8);
 				writer.write(getCompleteReport());
 				crashReportFile = toFile;
-				boolean lvt_3_1_ = true;
-				return lvt_3_1_;
+				return true;
 			} catch (Throwable throwable) {
 				LOGGER.error("Could not save crash report to {}", toFile, throwable);
 				flag1 = false;
@@ -348,7 +317,7 @@ public class CrashReport {
 			firstCategoryInCrashReport = crashreportcategory.firstTwoElementsOfStackTraceMatch(stacktraceelement, stacktraceelement1);
 
 			if (i > 0 && !crashReportSections.isEmpty()) {
-				CrashReportCategory crashreportcategory1 = crashReportSections.get(crashReportSections.size() - 1);
+				CrashReportCategory crashreportcategory1 = crashReportSections.getLast();
 				crashreportcategory1.trimStackTraceEntriesFromBottom(i);
 			} else if (astacktraceelement != null && astacktraceelement.length >= i && 0 <= j && j < astacktraceelement.length) {
 				stacktrace = new StackTraceElement[j];

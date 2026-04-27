@@ -1,6 +1,7 @@
 package net.minecraft.util;
 
 import javax.annotation.Nullable;
+import java.util.Arrays;
 import java.util.Objects;
 
 public class IntHashMap<V> {
@@ -189,9 +190,7 @@ public class IntHashMap<V> {
 
 		IntHashMap.Entry<V>[] entry = slots;
 
-		for (int i = 0; i < entry.length; ++i) {
-			entry[i] = null;
-		}
+		Arrays.fill(entry, null);
 
 		count = 0;
 	}

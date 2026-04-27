@@ -46,7 +46,7 @@ public class SPacketUpdateScore implements Packet<INetHandlerPlayClient> {
 	/**
 	 * Reads the raw packet data from the data stream.
 	 */
-	public void readPacketData(PacketBuffer buf) throws IOException {
+	public void readPacketData(PacketBuffer buf) {
 
 		name = buf.readString(40);
 		action = buf.readEnumValue(Action.class);
@@ -60,7 +60,7 @@ public class SPacketUpdateScore implements Packet<INetHandlerPlayClient> {
 	/**
 	 * Writes the raw packet data to the data stream.
 	 */
-	public void writePacketData(PacketBuffer buf) throws IOException {
+	public void writePacketData(PacketBuffer buf) {
 
 		buf.writeString(name);
 		buf.writeEnumValue(action);

@@ -44,7 +44,7 @@ public abstract class BlockButton extends BlockDirectional {
 	protected BlockButton(boolean wooden) {
 
 		super(Material.CIRCUITS);
-		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(POWERED, Boolean.valueOf(false)));
+		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(POWERED, Boolean.FALSE));
 		setTickRandomly(true);
 		setCreativeTab(CreativeTabs.REDSTONE);
 		this.wooden = wooden;
@@ -122,7 +122,7 @@ public abstract class BlockButton extends BlockDirectional {
 	 */
 	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
 
-		return canPlaceBlock(worldIn, pos, facing) ? getDefaultState().withProperty(FACING, facing).withProperty(POWERED, Boolean.valueOf(false)) : getDefaultState().withProperty(FACING, EnumFacing.DOWN).withProperty(POWERED, Boolean.valueOf(false));
+		return canPlaceBlock(worldIn, pos, facing) ? getDefaultState().withProperty(FACING, facing).withProperty(POWERED, Boolean.FALSE) : getDefaultState().withProperty(FACING, EnumFacing.DOWN).withProperty(POWERED, Boolean.FALSE);
 	}
 
 	/**
@@ -152,28 +152,16 @@ public abstract class BlockButton extends BlockDirectional {
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
 
 		EnumFacing enumfacing = state.getValue(FACING);
-		boolean flag = state.getValue(POWERED).booleanValue();
+		boolean flag = state.getValue(POWERED);
 
-		switch (enumfacing) {
-			case EAST:
-				return flag ? AABB_EAST_ON : AABB_EAST_OFF;
-
-			case WEST:
-				return flag ? AABB_WEST_ON : AABB_WEST_OFF;
-
-			case SOUTH:
-				return flag ? AABB_SOUTH_ON : AABB_SOUTH_OFF;
-
-			case NORTH:
-			default:
-				return flag ? AABB_NORTH_ON : AABB_NORTH_OFF;
-
-			case UP:
-				return flag ? AABB_UP_ON : AABB_UP_OFF;
-
-			case DOWN:
-				return flag ? AABB_DOWN_ON : AABB_DOWN_OFF;
-		}
+		return switch (enumfacing) {
+			case EAST -> flag ? AABB_EAST_ON : AABB_EAST_OFF;
+			case WEST -> flag ? AABB_WEST_ON : AABB_WEST_OFF;
+			case SOUTH -> flag ? AABB_SOUTH_ON : AABB_SOUTH_OFF;
+			default -> flag ? AABB_NORTH_ON : AABB_NORTH_OFF;
+			case UP -> flag ? AABB_UP_ON : AABB_UP_OFF;
+			case DOWN -> flag ? AABB_DOWN_ON : AABB_DOWN_OFF;
+		};
 	}
 
 	/**
@@ -181,10 +169,10 @@ public abstract class BlockButton extends BlockDirectional {
 	 */
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 
-		if (state.getValue(POWERED).booleanValue()) {
+		if (state.getValue(POWERED)) {
 			return true;
 		} else {
-			worldIn.setBlockState(pos, state.withProperty(POWERED, Boolean.valueOf(true)), 3);
+			worldIn.setBlockState(pos, state.withProperty(POWERED, Boolean.TRUE), 3);
 			worldIn.markBlockRangeForRenderUpdate(pos, pos);
 			playClickSound(playerIn, worldIn, pos);
 			notifyNeighbors(worldIn, pos, state.getValue(FACING));
@@ -202,7 +190,7 @@ public abstract class BlockButton extends BlockDirectional {
 	 */
 	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
 
-		if (state.getValue(POWERED).booleanValue()) {
+		if (state.getValue(POWERED)) {
 			notifyNeighbors(worldIn, pos, state.getValue(FACING));
 		}
 
@@ -211,12 +199,12 @@ public abstract class BlockButton extends BlockDirectional {
 
 	public int getWeakPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
 
-		return blockState.getValue(POWERED).booleanValue() ? 15 : 0;
+		return blockState.getValue(POWERED) ? 15 : 0;
 	}
 
 	public int getStrongPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
 
-		if (!blockState.getValue(POWERED).booleanValue()) {
+		if (!blockState.getValue(POWERED)) {
 			return 0;
 		} else {
 			return blockState.getValue(FACING) == side ? 15 : 0;
@@ -241,11 +229,11 @@ public abstract class BlockButton extends BlockDirectional {
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
 
 		if (!worldIn.isRemote) {
-			if (state.getValue(POWERED).booleanValue()) {
+			if (state.getValue(POWERED)) {
 				if (wooden) {
 					checkPressed(state, worldIn, pos);
 				} else {
-					worldIn.setBlockState(pos, state.withProperty(POWERED, Boolean.valueOf(false)));
+					worldIn.setBlockState(pos, state.withProperty(POWERED, Boolean.FALSE));
 					notifyNeighbors(worldIn, pos, state.getValue(FACING));
 					playReleaseSound(worldIn, pos);
 					worldIn.markBlockRangeForRenderUpdate(pos, pos);
@@ -261,7 +249,7 @@ public abstract class BlockButton extends BlockDirectional {
 
 		if (!worldIn.isRemote) {
 			if (wooden) {
-				if (!state.getValue(POWERED).booleanValue()) {
+				if (!state.getValue(POWERED)) {
 					checkPressed(state, worldIn, pos);
 				}
 			}
@@ -272,17 +260,17 @@ public abstract class BlockButton extends BlockDirectional {
 
 		List<? extends Entity> list = worldIn.<Entity>getEntitiesWithinAABB(EntityArrow.class, state.getBoundingBox(worldIn, pos).offset(pos));
 		boolean flag = !list.isEmpty();
-		boolean flag1 = state.getValue(POWERED).booleanValue();
+		boolean flag1 = state.getValue(POWERED);
 
 		if (flag && !flag1) {
-			worldIn.setBlockState(pos, state.withProperty(POWERED, Boolean.valueOf(true)));
+			worldIn.setBlockState(pos, state.withProperty(POWERED, Boolean.TRUE));
 			notifyNeighbors(worldIn, pos, state.getValue(FACING));
 			worldIn.markBlockRangeForRenderUpdate(pos, pos);
 			playClickSound(null, worldIn, pos);
 		}
 
 		if (!flag && flag1) {
-			worldIn.setBlockState(pos, state.withProperty(POWERED, Boolean.valueOf(false)));
+			worldIn.setBlockState(pos, state.withProperty(POWERED, Boolean.FALSE));
 			notifyNeighbors(worldIn, pos, state.getValue(FACING));
 			worldIn.markBlockRangeForRenderUpdate(pos, pos);
 			playReleaseSound(worldIn, pos);
@@ -304,35 +292,16 @@ public abstract class BlockButton extends BlockDirectional {
 	 */
 	public IBlockState getStateFromMeta(int meta) {
 
-		EnumFacing enumfacing;
+		EnumFacing enumfacing = switch (meta & 7) {
+			case 0 -> EnumFacing.DOWN;
+			case 1 -> EnumFacing.EAST;
+			case 2 -> EnumFacing.WEST;
+			case 3 -> EnumFacing.SOUTH;
+			case 4 -> EnumFacing.NORTH;
+			default -> EnumFacing.UP;
+		};
 
-		switch (meta & 7) {
-			case 0:
-				enumfacing = EnumFacing.DOWN;
-				break;
-
-			case 1:
-				enumfacing = EnumFacing.EAST;
-				break;
-
-			case 2:
-				enumfacing = EnumFacing.WEST;
-				break;
-
-			case 3:
-				enumfacing = EnumFacing.SOUTH;
-				break;
-
-			case 4:
-				enumfacing = EnumFacing.NORTH;
-				break;
-
-			case 5:
-			default:
-				enumfacing = EnumFacing.UP;
-		}
-
-		return getDefaultState().withProperty(FACING, enumfacing).withProperty(POWERED, Boolean.valueOf((meta & 8) > 0));
+		return getDefaultState().withProperty(FACING, enumfacing).withProperty(POWERED, (meta & 8) > 0);
 	}
 
 	/**
@@ -340,35 +309,16 @@ public abstract class BlockButton extends BlockDirectional {
 	 */
 	public int getMetaFromState(IBlockState state) {
 
-		int i;
+		int i = switch (state.getValue(FACING)) {
+			case EAST -> 1;
+			case WEST -> 2;
+			case SOUTH -> 3;
+			case NORTH -> 4;
+			default -> 5;
+			case DOWN -> 0;
+		};
 
-		switch (state.getValue(FACING)) {
-			case EAST:
-				i = 1;
-				break;
-
-			case WEST:
-				i = 2;
-				break;
-
-			case SOUTH:
-				i = 3;
-				break;
-
-			case NORTH:
-				i = 4;
-				break;
-
-			case UP:
-			default:
-				i = 5;
-				break;
-
-			case DOWN:
-				i = 0;
-		}
-
-		if (state.getValue(POWERED).booleanValue()) {
+		if (state.getValue(POWERED)) {
 			i |= 8;
 		}
 

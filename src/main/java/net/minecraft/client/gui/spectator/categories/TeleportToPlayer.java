@@ -21,12 +21,7 @@ import java.util.List;
 
 public class TeleportToPlayer implements ISpectatorMenuView, ISpectatorMenuObject {
 
-	private static final Ordering<NetworkPlayerInfo> PROFILE_ORDER = Ordering.from(new Comparator<NetworkPlayerInfo>() {
-		public int compare(NetworkPlayerInfo p_compare_1_, NetworkPlayerInfo p_compare_2_) {
-
-			return ComparisonChain.start().compare(p_compare_1_.getGameProfile().getId(), p_compare_2_.getGameProfile().getId()).result();
-		}
-	});
+	private static final Ordering<NetworkPlayerInfo> PROFILE_ORDER = Ordering.from((p_compare_1_, p_compare_2_) -> ComparisonChain.start().compare(p_compare_1_.getGameProfile().getId(), p_compare_2_.getGameProfile().getId()).result());
 	private final List<ISpectatorMenuObject> items;
 
 	public TeleportToPlayer() {

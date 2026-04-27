@@ -103,14 +103,14 @@ public class ContainerRepair extends Container {
 				IBlockState iblockstate = worldIn.getBlockState(blockPosIn);
 
 				if (!thePlayer.capabilities.isCreativeMode && !worldIn.isRemote && iblockstate.getBlock() == Blocks.ANVIL && thePlayer.getRNG().nextFloat() < 0.12F) {
-					int l = iblockstate.getValue(BlockAnvil.DAMAGE).intValue();
+					int l = iblockstate.getValue(BlockAnvil.DAMAGE);
 					++l;
 
 					if (l > 2) {
 						worldIn.setBlockToAir(blockPosIn);
 						worldIn.playEvent(1029, blockPosIn, 0);
 					} else {
-						worldIn.setBlockState(blockPosIn, iblockstate.withProperty(BlockAnvil.DAMAGE, Integer.valueOf(l)), 2);
+						worldIn.setBlockState(blockPosIn, iblockstate.withProperty(BlockAnvil.DAMAGE, l), 2);
 						worldIn.playEvent(1030, blockPosIn, 0);
 					}
 				} else if (!worldIn.isRemote) {
@@ -217,8 +217,8 @@ public class ContainerRepair extends Container {
 
 					for (Enchantment enchantment1 : map1.keySet()) {
 						if (enchantment1 != null) {
-							int i2 = map.containsKey(enchantment1) ? map.get(enchantment1).intValue() : 0;
-							int j2 = map1.get(enchantment1).intValue();
+							int i2 = map.containsKey(enchantment1) ? map.get(enchantment1) : 0;
+							int j2 = map1.get(enchantment1);
 							j2 = i2 == j2 ? j2 + 1 : Math.max(j2, i2);
 							boolean flag1 = enchantment1.canApply(itemstack);
 
@@ -242,25 +242,13 @@ public class ContainerRepair extends Container {
 									j2 = enchantment1.getMaxLevel();
 								}
 
-								map.put(enchantment1, Integer.valueOf(j2));
-								int k3 = 0;
-
-								switch (enchantment1.getRarity()) {
-									case COMMON:
-										k3 = 1;
-										break;
-
-									case UNCOMMON:
-										k3 = 2;
-										break;
-
-									case RARE:
-										k3 = 4;
-										break;
-
-									case VERY_RARE:
-										k3 = 8;
-								}
+								map.put(enchantment1, j2);
+								int k3 = switch (enchantment1.getRarity()) {
+									case COMMON -> 1;
+									case UNCOMMON -> 2;
+									case RARE -> 4;
+									case VERY_RARE -> 8;
+								};
 
 								if (flag) {
 									k3 = Math.max(1, k3 / 2);

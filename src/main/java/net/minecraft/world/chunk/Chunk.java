@@ -506,12 +506,7 @@ public class Chunk {
 			} catch (Throwable throwable) {
 				CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Getting block state");
 				CrashReportCategory crashreportcategory = crashreport.makeCategory("Block being got");
-				crashreportcategory.addDetail("Location", new ICrashReportDetail<String>() {
-					public String call() throws Exception {
-
-						return CrashReportCategory.getCoordinateInfo(x, y, z);
-					}
-				});
+				crashreportcategory.addDetail("Location", () -> CrashReportCategory.getCoordinateInfo(x, y, z));
 				throw new ReportedException(crashreport);
 			}
 		}
@@ -685,7 +680,7 @@ public class Chunk {
 		int j = MathHelper.floor(entityIn.posZ / 16.0D);
 
 		if (i != x || j != z) {
-			LOGGER.warn("Wrong location! ({}, {}) should be ({}, {}), {}", Integer.valueOf(i), Integer.valueOf(j), Integer.valueOf(x), Integer.valueOf(z), entityIn);
+			LOGGER.warn("Wrong location! ({}, {}) should be ({}, {}), {}", i, j, x, z, entityIn);
 			entityIn.setDead();
 		}
 
@@ -1052,7 +1047,7 @@ public class Chunk {
 	public void setStorageArrays(ExtendedBlockStorage[] newStorageArrays) {
 
 		if (storageArrays.length != newStorageArrays.length) {
-			LOGGER.warn("Could not set level chunk sections, array length is {} instead of {}", Integer.valueOf(newStorageArrays.length), Integer.valueOf(storageArrays.length));
+			LOGGER.warn("Could not set level chunk sections, array length is {} instead of {}", newStorageArrays.length, storageArrays.length);
 		} else {
 			System.arraycopy(newStorageArrays, 0, storageArrays, 0, storageArrays.length);
 		}
@@ -1139,7 +1134,7 @@ public class Chunk {
 	public void setBiomeArray(byte[] biomeArray) {
 
 		if (blockBiomeArray.length != biomeArray.length) {
-			LOGGER.warn("Could not set level chunk biomes, array length is {} instead of {}", Integer.valueOf(biomeArray.length), Integer.valueOf(blockBiomeArray.length));
+			LOGGER.warn("Could not set level chunk biomes, array length is {} instead of {}", biomeArray.length, blockBiomeArray.length);
 		} else {
 			System.arraycopy(biomeArray, 0, blockBiomeArray, 0, blockBiomeArray.length);
 		}
@@ -1228,9 +1223,7 @@ public class Chunk {
 
 	private void setSkylightUpdated() {
 
-		for (int i = 0; i < updateSkylightColumns.length; ++i) {
-			updateSkylightColumns[i] = true;
-		}
+		Arrays.fill(updateSkylightColumns, true);
 
 		recheckGaps(false);
 	}
@@ -1314,7 +1307,7 @@ public class Chunk {
 	public void setHeightMap(int[] newHeightMap) {
 
 		if (heightMap.length != newHeightMap.length) {
-			LOGGER.warn("Could not set level chunk heightmap, array length is {} instead of {}", Integer.valueOf(newHeightMap.length), Integer.valueOf(heightMap.length));
+			LOGGER.warn("Could not set level chunk heightmap, array length is {} instead of {}", newHeightMap.length, heightMap.length);
 		} else {
 			System.arraycopy(newHeightMap, 0, heightMap, 0, heightMap.length);
 		}

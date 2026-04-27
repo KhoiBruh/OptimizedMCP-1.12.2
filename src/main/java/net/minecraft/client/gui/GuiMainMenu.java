@@ -202,7 +202,7 @@ public class GuiMainMenu extends GuiScreen {
 	 * Fired when a key is typed (except F11 which toggles full screen). This is the equivalent of
 	 * KeyListener.keyTyped(KeyEvent e). Args : character (character on the key), keyCode (lwjgl Keyboard key code)
 	 */
-	protected void keyTyped(char typedChar, int keyCode) throws IOException {
+	protected void keyTyped(char typedChar, int keyCode) {
 
 	}
 
@@ -245,7 +245,7 @@ public class GuiMainMenu extends GuiScreen {
 			openGLWarning2Width = fontRenderer.getStringWidth(openGLWarning2);
 			int k = Math.max(openGLWarning1Width, openGLWarning2Width);
 			openGLWarningX1 = (width - k) / 2;
-			openGLWarningY1 = (buttonList.get(0)).y - 24;
+			openGLWarningY1 = (buttonList.getFirst()).y - 24;
 			openGLWarningX2 = openGLWarningX1 + k;
 			openGLWarningY2 = openGLWarningY1 + 24;
 		}
@@ -292,7 +292,7 @@ public class GuiMainMenu extends GuiScreen {
 	/**
 	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
 	 */
-	protected void actionPerformed(GuiButton button) throws IOException {
+	protected void actionPerformed(GuiButton button) {
 
 		if (button.id == 0) {
 			mc.displayGuiScreen(new GuiOptions(this, mc.gameSettings));
@@ -567,7 +567,7 @@ public class GuiMainMenu extends GuiScreen {
 		if (openGLWarning1 != null && !openGLWarning1.isEmpty()) {
 			drawRect(openGLWarningX1 - 2, openGLWarningY1 - 2, openGLWarningX2 + 2, openGLWarningY2 - 1, 1428160512);
 			drawString(fontRenderer, openGLWarning1, openGLWarningX1, openGLWarningY1, -1);
-			drawString(fontRenderer, openGLWarning2, (width - openGLWarning2Width) / 2, (buttonList.get(0)).y - 12, -1);
+			drawString(fontRenderer, openGLWarning2, (width - openGLWarning2Width) / 2, (buttonList.getFirst()).y - 12, -1);
 		}
 
 		super.drawScreen(mouseX, mouseY, partialTicks);

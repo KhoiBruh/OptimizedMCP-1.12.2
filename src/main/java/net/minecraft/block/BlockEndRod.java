@@ -49,17 +49,11 @@ public class BlockEndRod extends BlockDirectional {
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
 
-		switch (state.getValue(FACING).getAxis()) {
-			case X:
-			default:
-				return END_ROD_EW_AABB;
-
-			case Z:
-				return END_ROD_NS_AABB;
-
-			case Y:
-				return END_ROD_VERTICAL_AABB;
-		}
+		return switch (state.getValue(FACING).getAxis()) {
+			default -> END_ROD_EW_AABB;
+			case Z -> END_ROD_NS_AABB;
+			case Y -> END_ROD_VERTICAL_AABB;
+		};
 	}
 
 	/**

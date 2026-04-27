@@ -135,7 +135,7 @@ public abstract class PlayerList {
 			s1 = netManager.getRemoteAddress().toString();
 		}
 
-		LOGGER.info("{}[{}] logged in with entity id {} at ({}, {}, {})", playerIn.getName(), s1, Integer.valueOf(playerIn.getEntityId()), Double.valueOf(playerIn.posX), Double.valueOf(playerIn.posY), Double.valueOf(playerIn.posZ));
+		LOGGER.info("{}[{}] logged in with entity id {} at ({}, {}, {})", playerIn.getName(), s1, playerIn.getEntityId(), playerIn.posX, playerIn.posY, playerIn.posZ);
 		WorldServer worldserver = mcServer.getWorld(playerIn.dimension);
 		WorldInfo worldinfo = worldserver.getWorldInfo();
 		setPlayerGameTypeBasedOnOther(playerIn, null, worldserver);
@@ -342,8 +342,8 @@ public abstract class PlayerList {
 		sendPacketToAllPlayers(new SPacketPlayerListItem(SPacketPlayerListItem.Action.ADD_PLAYER, playerIn));
 		WorldServer worldserver = mcServer.getWorld(playerIn.dimension);
 
-		for (int i = 0; i < playerEntityList.size(); ++i) {
-			playerIn.connection.sendPacket(new SPacketPlayerListItem(SPacketPlayerListItem.Action.ADD_PLAYER, playerEntityList.get(i)));
+		for (EntityPlayerMP entityPlayerMP : playerEntityList) {
+			playerIn.connection.sendPacket(new SPacketPlayerListItem(SPacketPlayerListItem.Action.ADD_PLAYER, entityPlayerMP));
 		}
 
 		worldserver.spawnEntity(playerIn);
@@ -437,9 +437,7 @@ public abstract class PlayerList {
 		UUID uuid = EntityPlayer.getUUID(profile);
 		List<EntityPlayerMP> list = Lists.newArrayList();
 
-		for (int i = 0; i < playerEntityList.size(); ++i) {
-			EntityPlayerMP entityplayermp = playerEntityList.get(i);
-
+		for (EntityPlayerMP entityplayermp : playerEntityList) {
 			if (entityplayermp.getUniqueID().equals(uuid)) {
 				list.add(entityplayermp);
 			}
@@ -646,16 +644,14 @@ public abstract class PlayerList {
 
 	public void sendPacketToAllPlayers(Packet<?> packetIn) {
 
-		for (int i = 0; i < playerEntityList.size(); ++i) {
-			(playerEntityList.get(i)).connection.sendPacket(packetIn);
+		for (EntityPlayerMP entityPlayerMP : playerEntityList) {
+			entityPlayerMP.connection.sendPacket(packetIn);
 		}
 	}
 
 	public void sendPacketToAllPlayersInDimension(Packet<?> packetIn, int dimension) {
 
-		for (int i = 0; i < playerEntityList.size(); ++i) {
-			EntityPlayerMP entityplayermp = playerEntityList.get(i);
-
+		for (EntityPlayerMP entityplayermp : playerEntityList) {
 			if (entityplayermp.dimension == dimension) {
 				entityplayermp.connection.sendPacket(packetIn);
 			}
@@ -684,9 +680,7 @@ public abstract class PlayerList {
 		if (team == null) {
 			sendMessage(message);
 		} else {
-			for (int i = 0; i < playerEntityList.size(); ++i) {
-				EntityPlayerMP entityplayermp = playerEntityList.get(i);
-
+			for (EntityPlayerMP entityplayermp : playerEntityList) {
 				if (entityplayermp.getTeam() != team) {
 					entityplayermp.sendMessage(message);
 				}
@@ -699,22 +693,22 @@ public abstract class PlayerList {
 	 */
 	public String getFormattedListOfPlayers(boolean includeUUIDs) {
 
-		String s = "";
+		StringBuilder s = new StringBuilder();
 		List<EntityPlayerMP> list = Lists.newArrayList(playerEntityList);
 
 		for (int i = 0; i < list.size(); ++i) {
 			if (i > 0) {
-				s = s + ", ";
+				s.append(", ");
 			}
 
-			s = s + list.get(i).getName();
+			s.append(list.get(i).getName());
 
 			if (includeUUIDs) {
-				s = s + " (" + list.get(i).getCachedUniqueIdString() + ")";
+				s.append(" (").append(list.get(i).getCachedUniqueIdString()).append(")");
 			}
 		}
 
-		return s;
+		return s.toString();
 	}
 
 	/**
@@ -810,9 +804,7 @@ public abstract class PlayerList {
 	 */
 	public void sendToAllNearExcept(@Nullable EntityPlayer except, double x, double y, double z, double radius, int dimension, Packet<?> packetIn) {
 
-		for (int i = 0; i < playerEntityList.size(); ++i) {
-			EntityPlayerMP entityplayermp = playerEntityList.get(i);
-
+		for (EntityPlayerMP entityplayermp : playerEntityList) {
 			if (entityplayermp != except && entityplayermp.dimension == dimension) {
 				double d0 = x - entityplayermp.posX;
 				double d1 = y - entityplayermp.posY;
@@ -830,8 +822,8 @@ public abstract class PlayerList {
 	 */
 	public void saveAllPlayerData() {
 
-		for (int i = 0; i < playerEntityList.size(); ++i) {
-			writePlayerData(playerEntityList.get(i));
+		for (EntityPlayerMP entityPlayerMP : playerEntityList) {
+			writePlayerData(entityPlayerMP);
 		}
 	}
 
@@ -1003,8 +995,8 @@ public abstract class PlayerList {
 	 */
 	public void removeAllPlayers() {
 
-		for (int i = 0; i < playerEntityList.size(); ++i) {
-			(playerEntityList.get(i)).connection.disconnect(new TextComponentTranslation("multiplayer.disconnect.server_shutdown"));
+		for (EntityPlayerMP entityPlayerMP : playerEntityList) {
+			entityPlayerMP.connection.disconnect(new TextComponentTranslation("multiplayer.disconnect.server_shutdown"));
 		}
 	}
 

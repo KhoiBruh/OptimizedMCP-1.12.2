@@ -57,7 +57,7 @@ public class CommandHelp extends CommandBase {
 			List<ICommand> list = getSortedPossibleCommands(sender, server);
 			int i = 7;
 			int j = (list.size() - 1) / 7;
-			int k = 0;
+			int k;
 
 			try {
 				k = args.length == 0 ? 0 : parseInt(args[0], 1, j + 1) - 1;

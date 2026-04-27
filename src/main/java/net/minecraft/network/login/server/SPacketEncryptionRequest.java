@@ -28,7 +28,7 @@ public class SPacketEncryptionRequest implements Packet<INetHandlerLoginClient> 
 	/**
 	 * Reads the raw packet data from the data stream.
 	 */
-	public void readPacketData(PacketBuffer buf) throws IOException {
+	public void readPacketData(PacketBuffer buf) {
 
 		hashedServerId = buf.readString(20);
 		publicKey = CryptManager.decodePublicKey(buf.readByteArray());
@@ -38,7 +38,7 @@ public class SPacketEncryptionRequest implements Packet<INetHandlerLoginClient> 
 	/**
 	 * Writes the raw packet data to the data stream.
 	 */
-	public void writePacketData(PacketBuffer buf) throws IOException {
+	public void writePacketData(PacketBuffer buf) {
 
 		buf.writeString(hashedServerId);
 		buf.writeByteArray(publicKey.getEncoded());

@@ -77,7 +77,7 @@ public class CombatTracker {
 			return new TextComponentTranslation("death.attack.generic", fighter.getDisplayName());
 		} else {
 			CombatEntry combatentry = getBestCombatEntry();
-			CombatEntry combatentry1 = combatEntries.get(combatEntries.size() - 1);
+			CombatEntry combatentry1 = combatEntries.getLast();
 			ITextComponent itextcomponent1 = combatentry1.getDamageSrcDisplayName();
 			Entity entity = combatentry1.getDamageSrc().getTrueSource();
 			ITextComponent itextcomponent;

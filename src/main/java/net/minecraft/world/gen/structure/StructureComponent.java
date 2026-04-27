@@ -190,20 +190,12 @@ public abstract class StructureComponent {
 		if (enumfacing == null) {
 			return x;
 		} else {
-			switch (enumfacing) {
-				case NORTH:
-				case SOUTH:
-					return boundingBox.minX + x;
-
-				case WEST:
-					return boundingBox.maxX - z;
-
-				case EAST:
-					return boundingBox.minX + z;
-
-				default:
-					return x;
-			}
+			return switch (enumfacing) {
+				case NORTH, SOUTH -> boundingBox.minX + x;
+				case WEST -> boundingBox.maxX - z;
+				case EAST -> boundingBox.minX + z;
+				default -> x;
+			};
 		}
 	}
 
@@ -219,20 +211,12 @@ public abstract class StructureComponent {
 		if (enumfacing == null) {
 			return z;
 		} else {
-			switch (enumfacing) {
-				case NORTH:
-					return boundingBox.maxZ - z;
-
-				case SOUTH:
-					return boundingBox.minZ + z;
-
-				case WEST:
-				case EAST:
-					return boundingBox.minZ + x;
-
-				default:
-					return z;
-			}
+			return switch (enumfacing) {
+				case NORTH -> boundingBox.maxZ - z;
+				case SOUTH -> boundingBox.minZ + z;
+				case WEST, EAST -> boundingBox.minZ + x;
+				default -> z;
+			};
 		}
 	}
 

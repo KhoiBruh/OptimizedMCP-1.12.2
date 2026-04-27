@@ -17,17 +17,15 @@ public class PotionHelper {
 	private static final List<PotionHelper.MixPredicate<PotionType>> POTION_TYPE_CONVERSIONS = Lists.newArrayList();
 	private static final List<PotionHelper.MixPredicate<Item>> POTION_ITEM_CONVERSIONS = Lists.newArrayList();
 	private static final List<Ingredient> POTION_ITEMS = Lists.newArrayList();
-	private static final Predicate<ItemStack> IS_POTION_ITEM = new Predicate<ItemStack>() {
-		public boolean apply(ItemStack p_apply_1_) {
+	private static final Predicate<ItemStack> IS_POTION_ITEM = p_apply_1_ -> {
 
-			for (Ingredient ingredient : PotionHelper.POTION_ITEMS) {
-				if (ingredient.apply(p_apply_1_)) {
-					return true;
-				}
+		for (Ingredient ingredient : PotionHelper.POTION_ITEMS) {
+			if (ingredient.apply(p_apply_1_)) {
+				return true;
 			}
-
-			return false;
 		}
+
+		return false;
 	};
 
 	public static boolean isReagent(ItemStack stack) {

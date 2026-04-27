@@ -35,7 +35,7 @@ public class CPacketPlayerTryUseItemOnBlock implements Packet<INetHandlerPlaySer
 	/**
 	 * Reads the raw packet data from the data stream.
 	 */
-	public void readPacketData(PacketBuffer buf) throws IOException {
+	public void readPacketData(PacketBuffer buf) {
 
 		position = buf.readBlockPos();
 		placedBlockDirection = buf.readEnumValue(EnumFacing.class);
@@ -48,7 +48,7 @@ public class CPacketPlayerTryUseItemOnBlock implements Packet<INetHandlerPlaySer
 	/**
 	 * Writes the raw packet data to the data stream.
 	 */
-	public void writePacketData(PacketBuffer buf) throws IOException {
+	public void writePacketData(PacketBuffer buf) {
 
 		buf.writeBlockPos(position);
 		buf.writeEnumValue(placedBlockDirection);

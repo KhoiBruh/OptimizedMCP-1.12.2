@@ -27,7 +27,7 @@ public class PhaseManager {
 			phase = getPhase(phaseIn);
 
 			if (!dragon.world.isRemote) {
-				dragon.getDataManager().set(EntityDragon.PHASE, Integer.valueOf(phaseIn.getId()));
+				dragon.getDataManager().set(EntityDragon.PHASE, phaseIn.getId());
 			}
 
 			LOGGER.debug("Dragon is now in phase {} on the {}", phaseIn, dragon.world.isRemote ? "client" : "server");

@@ -66,15 +66,6 @@ public class EntityMinecartHopper extends EntityMinecartContainer implements IHo
 		return 5;
 	}
 
-	public boolean processInitialInteract(EntityPlayer player, EnumHand hand) {
-
-		if (!world.isRemote) {
-			player.displayGUIChest(this);
-		}
-
-		return true;
-	}
-
 	/**
 	 * Called every tick the minecart is on an activator rail.
 	 */
@@ -170,7 +161,7 @@ public class EntityMinecartHopper extends EntityMinecartContainer implements IHo
 			List<EntityItem> list = world.getEntitiesWithinAABB(EntityItem.class, getEntityBoundingBox().grow(0.25D, 0.0D, 0.25D), EntitySelectors.IS_ALIVE);
 
 			if (!list.isEmpty()) {
-				TileEntityHopper.putDropInInventoryAllSlots(null, this, list.get(0));
+				TileEntityHopper.putDropInInventoryAllSlots(null, this, list.getFirst());
 			}
 
 			return false;

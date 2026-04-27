@@ -35,7 +35,7 @@ public class BlockPane extends Block {
 	protected BlockPane(Material materialIn, boolean canDrop) {
 
 		super(materialIn);
-		setDefaultState(blockState.getBaseState().withProperty(NORTH, Boolean.valueOf(false)).withProperty(EAST, Boolean.valueOf(false)).withProperty(SOUTH, Boolean.valueOf(false)).withProperty(WEST, Boolean.valueOf(false)));
+		setDefaultState(blockState.getBaseState().withProperty(NORTH, Boolean.FALSE).withProperty(EAST, Boolean.FALSE).withProperty(SOUTH, Boolean.FALSE).withProperty(WEST, Boolean.FALSE));
 		this.canDrop = canDrop;
 		setCreativeTab(CreativeTabs.DECORATIONS);
 	}
@@ -49,19 +49,19 @@ public class BlockPane extends Block {
 
 		int i = 0;
 
-		if (state.getValue(NORTH).booleanValue()) {
+		if (state.getValue(NORTH)) {
 			i |= getBoundingBoxIndex(EnumFacing.NORTH);
 		}
 
-		if (state.getValue(EAST).booleanValue()) {
+		if (state.getValue(EAST)) {
 			i |= getBoundingBoxIndex(EnumFacing.EAST);
 		}
 
-		if (state.getValue(SOUTH).booleanValue()) {
+		if (state.getValue(SOUTH)) {
 			i |= getBoundingBoxIndex(EnumFacing.SOUTH);
 		}
 
-		if (state.getValue(WEST).booleanValue()) {
+		if (state.getValue(WEST)) {
 			i |= getBoundingBoxIndex(EnumFacing.WEST);
 		}
 
@@ -81,19 +81,19 @@ public class BlockPane extends Block {
 
 		addCollisionBoxToList(pos, entityBox, collidingBoxes, AABB_BY_INDEX[0]);
 
-		if (state.getValue(NORTH).booleanValue()) {
+		if (state.getValue(NORTH)) {
 			addCollisionBoxToList(pos, entityBox, collidingBoxes, AABB_BY_INDEX[getBoundingBoxIndex(EnumFacing.NORTH)]);
 		}
 
-		if (state.getValue(SOUTH).booleanValue()) {
+		if (state.getValue(SOUTH)) {
 			addCollisionBoxToList(pos, entityBox, collidingBoxes, AABB_BY_INDEX[getBoundingBoxIndex(EnumFacing.SOUTH)]);
 		}
 
-		if (state.getValue(EAST).booleanValue()) {
+		if (state.getValue(EAST)) {
 			addCollisionBoxToList(pos, entityBox, collidingBoxes, AABB_BY_INDEX[getBoundingBoxIndex(EnumFacing.EAST)]);
 		}
 
-		if (state.getValue(WEST).booleanValue()) {
+		if (state.getValue(WEST)) {
 			addCollisionBoxToList(pos, entityBox, collidingBoxes, AABB_BY_INDEX[getBoundingBoxIndex(EnumFacing.WEST)]);
 		}
 	}
@@ -110,7 +110,7 @@ public class BlockPane extends Block {
 	 */
 	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
 
-		return state.withProperty(NORTH, Boolean.valueOf(attachesTo(worldIn, worldIn.getBlockState(pos.north()), pos.north(), EnumFacing.SOUTH))).withProperty(SOUTH, Boolean.valueOf(attachesTo(worldIn, worldIn.getBlockState(pos.south()), pos.south(), EnumFacing.NORTH))).withProperty(WEST, Boolean.valueOf(attachesTo(worldIn, worldIn.getBlockState(pos.west()), pos.west(), EnumFacing.EAST))).withProperty(EAST, Boolean.valueOf(attachesTo(worldIn, worldIn.getBlockState(pos.east()), pos.east(), EnumFacing.WEST)));
+		return state.withProperty(NORTH, attachesTo(worldIn, worldIn.getBlockState(pos.north()), pos.north(), EnumFacing.SOUTH)).withProperty(SOUTH, attachesTo(worldIn, worldIn.getBlockState(pos.south()), pos.south(), EnumFacing.NORTH)).withProperty(WEST, attachesTo(worldIn, worldIn.getBlockState(pos.west()), pos.west(), EnumFacing.EAST)).withProperty(EAST, attachesTo(worldIn, worldIn.getBlockState(pos.east()), pos.east(), EnumFacing.WEST));
 	}
 
 	/**
@@ -174,19 +174,15 @@ public class BlockPane extends Block {
 	 */
 	public IBlockState withRotation(IBlockState state, Rotation rot) {
 
-		switch (rot) {
-			case CLOCKWISE_180:
-				return state.withProperty(NORTH, state.getValue(SOUTH)).withProperty(EAST, state.getValue(WEST)).withProperty(SOUTH, state.getValue(NORTH)).withProperty(WEST, state.getValue(EAST));
-
-			case COUNTERCLOCKWISE_90:
-				return state.withProperty(NORTH, state.getValue(EAST)).withProperty(EAST, state.getValue(SOUTH)).withProperty(SOUTH, state.getValue(WEST)).withProperty(WEST, state.getValue(NORTH));
-
-			case CLOCKWISE_90:
-				return state.withProperty(NORTH, state.getValue(WEST)).withProperty(EAST, state.getValue(NORTH)).withProperty(SOUTH, state.getValue(EAST)).withProperty(WEST, state.getValue(SOUTH));
-
-			default:
-				return state;
-		}
+		return switch (rot) {
+			case CLOCKWISE_180 ->
+					state.withProperty(NORTH, state.getValue(SOUTH)).withProperty(EAST, state.getValue(WEST)).withProperty(SOUTH, state.getValue(NORTH)).withProperty(WEST, state.getValue(EAST));
+			case COUNTERCLOCKWISE_90 ->
+					state.withProperty(NORTH, state.getValue(EAST)).withProperty(EAST, state.getValue(SOUTH)).withProperty(SOUTH, state.getValue(WEST)).withProperty(WEST, state.getValue(NORTH));
+			case CLOCKWISE_90 ->
+					state.withProperty(NORTH, state.getValue(WEST)).withProperty(EAST, state.getValue(NORTH)).withProperty(SOUTH, state.getValue(EAST)).withProperty(WEST, state.getValue(SOUTH));
+			default -> state;
+		};
 	}
 
 	/**
@@ -195,16 +191,12 @@ public class BlockPane extends Block {
 	 */
 	public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
 
-		switch (mirrorIn) {
-			case LEFT_RIGHT:
-				return state.withProperty(NORTH, state.getValue(SOUTH)).withProperty(SOUTH, state.getValue(NORTH));
-
-			case FRONT_BACK:
-				return state.withProperty(EAST, state.getValue(WEST)).withProperty(WEST, state.getValue(EAST));
-
-			default:
-				return super.withMirror(state, mirrorIn);
-		}
+		return switch (mirrorIn) {
+			case LEFT_RIGHT ->
+					state.withProperty(NORTH, state.getValue(SOUTH)).withProperty(SOUTH, state.getValue(NORTH));
+			case FRONT_BACK -> state.withProperty(EAST, state.getValue(WEST)).withProperty(WEST, state.getValue(EAST));
+			default -> super.withMirror(state, mirrorIn);
+		};
 	}
 
 	protected BlockStateContainer createBlockState() {

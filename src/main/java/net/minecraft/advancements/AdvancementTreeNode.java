@@ -89,7 +89,7 @@ public class AdvancementTreeNode {
 			}
 
 			executeShifts();
-			float f = ((children.get(0)).y + (children.get(children.size() - 1)).y) / 2.0F;
+			float f = ((children.getFirst()).y + (children.getLast()).y) / 2.0F;
 
 			if (sibling != null) {
 				y = sibling.y + 1.0F;
@@ -145,7 +145,7 @@ public class AdvancementTreeNode {
 		if (thread != null) {
 			return thread;
 		} else {
-			return !children.isEmpty() ? children.get(0) : null;
+			return !children.isEmpty() ? children.getFirst() : null;
 		}
 	}
 
@@ -155,7 +155,7 @@ public class AdvancementTreeNode {
 		if (thread != null) {
 			return thread;
 		} else {
-			return !children.isEmpty() ? children.get(children.size() - 1) : null;
+			return !children.isEmpty() ? children.getLast() : null;
 		}
 	}
 
@@ -167,7 +167,7 @@ public class AdvancementTreeNode {
 			AdvancementTreeNode advancementtreenode = this;
 			AdvancementTreeNode advancementtreenode1 = this;
 			AdvancementTreeNode advancementtreenode2 = sibling;
-			AdvancementTreeNode advancementtreenode3 = parent.children.get(0);
+			AdvancementTreeNode advancementtreenode3 = parent.children.getFirst();
 			float f = mod;
 			float f1 = mod;
 			float f2 = advancementtreenode2.mod;

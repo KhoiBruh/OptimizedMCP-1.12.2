@@ -659,12 +659,7 @@ public class GuiIngame extends Gui {
 
 		Scoreboard scoreboard = objective.getScoreboard();
 		Collection<Score> collection = scoreboard.getSortedScores(objective);
-		List<Score> list = Lists.newArrayList(Iterables.filter(collection, new Predicate<Score>() {
-			public boolean apply(@Nullable Score p_apply_1_) {
-
-				return p_apply_1_.getPlayerName() != null && !p_apply_1_.getPlayerName().startsWith("#");
-			}
-		}));
+		List<Score> list = Lists.newArrayList(Iterables.filter(collection, p_apply_1_ -> p_apply_1_.getPlayerName() != null && !p_apply_1_.getPlayerName().startsWith("#")));
 
 		if (list.size() > 15) {
 			collection = Lists.newArrayList(Iterables.skip(list, collection.size() - 15));
@@ -837,7 +832,7 @@ public class GuiIngame extends Gui {
 
 			Entity entity = entityplayer.getRidingEntity();
 
-			if (entity == null || !(entity instanceof EntityLivingBase)) {
+			if (!(entity instanceof EntityLivingBase)) {
 				mc.mcProfiler.endStartSection("food");
 
 				for (int l5 = 0; l5 < 10; ++l5) {

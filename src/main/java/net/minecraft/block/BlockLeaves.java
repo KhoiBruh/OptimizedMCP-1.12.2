@@ -51,8 +51,8 @@ public abstract class BlockLeaves extends Block {
 						BlockPos blockpos = pos.add(j1, k1, l1);
 						IBlockState iblockstate = worldIn.getBlockState(blockpos);
 
-						if (iblockstate.getMaterial() == Material.LEAVES && !iblockstate.getValue(CHECK_DECAY).booleanValue()) {
-							worldIn.setBlockState(blockpos, iblockstate.withProperty(CHECK_DECAY, Boolean.valueOf(true)), 4);
+						if (iblockstate.getMaterial() == Material.LEAVES && !iblockstate.getValue(CHECK_DECAY)) {
+							worldIn.setBlockState(blockpos, iblockstate.withProperty(CHECK_DECAY, Boolean.TRUE), 4);
 						}
 					}
 				}
@@ -63,7 +63,7 @@ public abstract class BlockLeaves extends Block {
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
 
 		if (!worldIn.isRemote) {
-			if (state.getValue(CHECK_DECAY).booleanValue() && state.getValue(DECAYABLE).booleanValue()) {
+			if (state.getValue(CHECK_DECAY) && state.getValue(DECAYABLE)) {
 				int i = 4;
 				int j = 5;
 				int k = pos.getX();
@@ -137,7 +137,7 @@ public abstract class BlockLeaves extends Block {
 				int l2 = surroundings[16912];
 
 				if (l2 >= 0) {
-					worldIn.setBlockState(pos, state.withProperty(CHECK_DECAY, Boolean.valueOf(false)), 4);
+					worldIn.setBlockState(pos, state.withProperty(CHECK_DECAY, Boolean.FALSE), 4);
 				} else {
 					destroy(worldIn, pos);
 				}

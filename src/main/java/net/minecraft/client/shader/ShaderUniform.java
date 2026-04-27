@@ -164,7 +164,7 @@ public class ShaderUniform {
 	public void set(float[] p_148097_1_) {
 
 		if (p_148097_1_.length < uniformCount) {
-			LOGGER.warn("Uniform.set called with a too-small value array (expected {}, got {}). Ignoring.", Integer.valueOf(uniformCount), Integer.valueOf(p_148097_1_.length));
+			LOGGER.warn("Uniform.set called with a too-small value array (expected {}, got {}). Ignoring.", uniformCount, p_148097_1_.length);
 		} else {
 			uniformFloatBuffer.position(0);
 			uniformFloatBuffer.put(p_148097_1_);

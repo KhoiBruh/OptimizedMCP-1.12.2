@@ -144,8 +144,8 @@ public class ModelRenderer {
 						GlStateManager.callList(displayList);
 
 						if (childModels != null) {
-							for (int k = 0; k < childModels.size(); ++k) {
-								childModels.get(k).render(scale);
+							for (ModelRenderer childModel : childModels) {
+								childModel.render(scale);
 							}
 						}
 					} else {
@@ -153,8 +153,8 @@ public class ModelRenderer {
 						GlStateManager.callList(displayList);
 
 						if (childModels != null) {
-							for (int j = 0; j < childModels.size(); ++j) {
-								childModels.get(j).render(scale);
+							for (ModelRenderer childModel : childModels) {
+								childModel.render(scale);
 							}
 						}
 
@@ -179,8 +179,8 @@ public class ModelRenderer {
 					GlStateManager.callList(displayList);
 
 					if (childModels != null) {
-						for (int i = 0; i < childModels.size(); ++i) {
-							childModels.get(i).render(scale);
+						for (ModelRenderer childModel : childModels) {
+							childModel.render(scale);
 						}
 					}
 
@@ -264,8 +264,8 @@ public class ModelRenderer {
 		GlStateManager.glNewList(displayList, 4864);
 		BufferBuilder bufferbuilder = Tessellator.getInstance().getBuffer();
 
-		for (int i = 0; i < cubeList.size(); ++i) {
-			cubeList.get(i).render(bufferbuilder, scale);
+		for (ModelBox modelBox : cubeList) {
+			modelBox.render(bufferbuilder, scale);
 		}
 
 		GlStateManager.glEndList();

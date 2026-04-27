@@ -21,8 +21,8 @@ public class GuiLabel extends Gui {
 	public int y;
 	public int id;
 	public boolean visible = true;
-	protected int width = 200;
-	protected int height = 20;
+	protected int width;
+	protected int height;
 	private boolean centered;
 
 	public GuiLabel(FontRenderer fontRendererObj, int p_i45540_2_, int p_i45540_3_, int p_i45540_4_, int p_i45540_5_, int p_i45540_6_, int p_i45540_7_) {

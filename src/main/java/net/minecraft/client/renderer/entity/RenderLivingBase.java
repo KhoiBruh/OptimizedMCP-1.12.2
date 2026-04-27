@@ -472,22 +472,14 @@ public abstract class RenderLivingBase<T extends EntityLivingBase> extends Rende
 			if (team != null) {
 				Team.EnumVisible team$enumvisible = team.getNameTagVisibility();
 
-				switch (team$enumvisible) {
-					case ALWAYS:
-						return flag;
-
-					case NEVER:
-						return false;
-
-					case HIDE_FOR_OTHER_TEAMS:
-						return team1 == null ? flag : team.isSameTeam(team1) && (team.getSeeFriendlyInvisiblesEnabled() || flag);
-
-					case HIDE_FOR_OWN_TEAM:
-						return team1 == null ? flag : !team.isSameTeam(team1) && flag;
-
-					default:
-						return true;
-				}
+				return switch (team$enumvisible) {
+					case ALWAYS -> flag;
+					case NEVER -> false;
+					case HIDE_FOR_OTHER_TEAMS ->
+							team1 == null ? flag : team.isSameTeam(team1) && (team.getSeeFriendlyInvisiblesEnabled() || flag);
+					case HIDE_FOR_OWN_TEAM -> team1 == null ? flag : !team.isSameTeam(team1) && flag;
+					default -> true;
+				};
 			}
 		}
 

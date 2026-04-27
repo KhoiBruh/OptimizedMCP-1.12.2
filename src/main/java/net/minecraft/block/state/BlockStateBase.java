@@ -14,7 +14,7 @@ import java.util.Map.Entry;
 public abstract class BlockStateBase implements IBlockState {
 
 	private static final Joiner COMMA_JOINER = Joiner.on(',');
-	private static final Function<Entry<IProperty<?>, Comparable<?>>, String> MAP_ENTRY_TO_STRING = new Function<Entry<IProperty<?>, Comparable<?>>, String>() {
+	private static final Function<Entry<IProperty<?>, Comparable<?>>, String> MAP_ENTRY_TO_STRING = new Function<>() {
 		@Nullable
 		public String apply(@Nullable Entry<IProperty<?>, Comparable<?>> p_apply_1_) {
 

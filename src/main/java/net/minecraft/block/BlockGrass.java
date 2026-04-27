@@ -21,7 +21,7 @@ public class BlockGrass extends Block implements IGrowable {
 	protected BlockGrass() {
 
 		super(Material.GRASS);
-		setDefaultState(blockState.getBaseState().withProperty(SNOWY, Boolean.valueOf(false)));
+		setDefaultState(blockState.getBaseState().withProperty(SNOWY, Boolean.FALSE));
 		setTickRandomly(true);
 		setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
 	}
@@ -33,7 +33,7 @@ public class BlockGrass extends Block implements IGrowable {
 	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
 
 		Block block = worldIn.getBlockState(pos.up()).getBlock();
-		return state.withProperty(SNOWY, Boolean.valueOf(block == Blocks.SNOW || block == Blocks.SNOW_LAYER));
+		return state.withProperty(SNOWY, block == Blocks.SNOW || block == Blocks.SNOW_LAYER);
 	}
 
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {

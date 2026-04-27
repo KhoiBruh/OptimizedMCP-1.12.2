@@ -85,12 +85,7 @@ public class EntityWolf extends EntityTameable {
 		targetTasks.addTask(1, new EntityAIOwnerHurtByTarget(this));
 		targetTasks.addTask(2, new EntityAIOwnerHurtTarget(this));
 		targetTasks.addTask(3, new EntityAIHurtByTarget(this, true));
-		targetTasks.addTask(4, new EntityAITargetNonTamed(this, EntityAnimal.class, false, new Predicate<Entity>() {
-			public boolean apply(@Nullable Entity p_apply_1_) {
-
-				return p_apply_1_ instanceof EntitySheep || p_apply_1_ instanceof EntityRabbit;
-			}
-		}));
+		targetTasks.addTask(4, new EntityAITargetNonTamed(this, EntityAnimal.class, false, (Predicate<Entity>) p_apply_1_ -> p_apply_1_ instanceof EntitySheep || p_apply_1_ instanceof EntityRabbit));
 		targetTasks.addTask(5, new EntityAINearestAttackableTarget(this, AbstractSkeleton.class, false));
 	}
 
@@ -124,15 +119,15 @@ public class EntityWolf extends EntityTameable {
 
 	protected void updateAITasks() {
 
-		dataManager.set(DATA_HEALTH_ID, Float.valueOf(getHealth()));
+		dataManager.set(DATA_HEALTH_ID, getHealth());
 	}
 
 	protected void entityInit() {
 
 		super.entityInit();
-		dataManager.register(DATA_HEALTH_ID, Float.valueOf(getHealth()));
-		dataManager.register(BEGGING, Boolean.valueOf(false));
-		dataManager.register(COLLAR_COLOR, Integer.valueOf(EnumDyeColor.RED.getDyeDamage()));
+		dataManager.register(DATA_HEALTH_ID, getHealth());
+		dataManager.register(BEGGING, Boolean.FALSE);
+		dataManager.register(COLLAR_COLOR, EnumDyeColor.RED.getDyeDamage());
 	}
 
 	protected void playStepSound(BlockPos pos, Block blockIn) {
@@ -168,7 +163,7 @@ public class EntityWolf extends EntityTameable {
 		if (isAngry()) {
 			return SoundEvents.ENTITY_WOLF_GROWL;
 		} else if (rand.nextInt(3) == 0) {
-			return isTamed() && dataManager.get(DATA_HEALTH_ID).floatValue() < 10.0F ? SoundEvents.ENTITY_WOLF_WHINE : SoundEvents.ENTITY_WOLF_PANT;
+			return isTamed() && dataManager.get(DATA_HEALTH_ID) < 10.0F ? SoundEvents.ENTITY_WOLF_WHINE : SoundEvents.ENTITY_WOLF_PANT;
 		} else {
 			return SoundEvents.ENTITY_WOLF_AMBIENT;
 		}
@@ -367,7 +362,7 @@ public class EntityWolf extends EntityTameable {
 			if (!itemstack.isEmpty()) {
 				if (itemstack.getItem() instanceof ItemFood itemfood) {
 
-					if (itemfood.isWolfsFavoriteMeat() && dataManager.get(DATA_HEALTH_ID).floatValue() < 20.0F) {
+					if (itemfood.isWolfsFavoriteMeat() && dataManager.get(DATA_HEALTH_ID) < 20.0F) {
 						if (!player.capabilities.isCreativeMode) {
 							itemstack.shrink(1);
 						}
@@ -441,7 +436,7 @@ public class EntityWolf extends EntityTameable {
 		if (isAngry()) {
 			return 1.5393804F;
 		} else {
-			return isTamed() ? (0.55F - (getMaxHealth() - dataManager.get(DATA_HEALTH_ID).floatValue()) * 0.02F) * (float) Math.PI : ((float) Math.PI / 5F);
+			return isTamed() ? (0.55F - (getMaxHealth() - dataManager.get(DATA_HEALTH_ID)) * 0.02F) * (float) Math.PI : ((float) Math.PI / 5F);
 		}
 	}
 
@@ -467,7 +462,7 @@ public class EntityWolf extends EntityTameable {
 	 */
 	public boolean isAngry() {
 
-		return (dataManager.get(TAMED).byteValue() & 2) != 0;
+		return (dataManager.get(TAMED) & 2) != 0;
 	}
 
 	/**
@@ -475,23 +470,23 @@ public class EntityWolf extends EntityTameable {
 	 */
 	public void setAngry(boolean angry) {
 
-		byte b0 = dataManager.get(TAMED).byteValue();
+		byte b0 = dataManager.get(TAMED);
 
 		if (angry) {
-			dataManager.set(TAMED, Byte.valueOf((byte) (b0 | 2)));
+			dataManager.set(TAMED, (byte) (b0 | 2));
 		} else {
-			dataManager.set(TAMED, Byte.valueOf((byte) (b0 & -3)));
+			dataManager.set(TAMED, (byte) (b0 & -3));
 		}
 	}
 
 	public EnumDyeColor getCollarColor() {
 
-		return EnumDyeColor.byDyeDamage(dataManager.get(COLLAR_COLOR).intValue() & 15);
+		return EnumDyeColor.byDyeDamage(dataManager.get(COLLAR_COLOR) & 15);
 	}
 
 	public void setCollarColor(EnumDyeColor collarcolor) {
 
-		dataManager.set(COLLAR_COLOR, Integer.valueOf(collarcolor.getDyeDamage()));
+		dataManager.set(COLLAR_COLOR, collarcolor.getDyeDamage());
 	}
 
 	public EntityWolf createChild(EntityAgeable ageable) {
@@ -532,12 +527,12 @@ public class EntityWolf extends EntityTameable {
 
 	public boolean isBegging() {
 
-		return dataManager.get(BEGGING).booleanValue();
+		return dataManager.get(BEGGING);
 	}
 
 	public void setBegging(boolean beg) {
 
-		dataManager.set(BEGGING, Boolean.valueOf(beg));
+		dataManager.set(BEGGING, beg);
 	}
 
 	public boolean shouldAttackEntity(EntityLivingBase target, EntityLivingBase owner) {

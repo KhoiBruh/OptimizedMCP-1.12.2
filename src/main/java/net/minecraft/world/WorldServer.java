@@ -71,7 +71,7 @@ public class WorldServer extends World implements IThreadListener {
 	 */
 	private final PlayerChunkMap playerChunkMap;
 	private final Set<NextTickListEntry> pendingTickListEntriesHashSet = Sets.newHashSet();
-	private final TreeSet<NextTickListEntry> pendingTickListEntriesTreeSet = new TreeSet<NextTickListEntry>();
+	private final TreeSet<NextTickListEntry> pendingTickListEntriesTreeSet = new TreeSet<>();
 	private final Map<UUID, Entity> entitiesByUuid = Maps.newHashMap();
 	/**
 	 * the teleporter to use when the entity is being transferred into the dimension
@@ -244,7 +244,7 @@ public class WorldServer extends World implements IThreadListener {
 
 		allPlayersSleeping = false;
 
-		for (EntityPlayer entityplayer : playerEntities.stream().filter(EntityPlayer::isPlayerSleeping).collect(Collectors.toList())) {
+		for (EntityPlayer entityplayer : playerEntities.stream().filter(EntityPlayer::isPlayerSleeping).toList()) {
 			entityplayer.wakeUpPlayer(false, false, true);
 		}
 
@@ -433,12 +433,7 @@ public class WorldServer extends World implements IThreadListener {
 
 		BlockPos blockpos = getPrecipitationHeight(pos);
 		AxisAlignedBB axisalignedbb = (new AxisAlignedBB(blockpos, new BlockPos(blockpos.getX(), getHeight(), blockpos.getZ()))).grow(3.0D);
-		List<EntityLivingBase> list = getEntitiesWithinAABB(EntityLivingBase.class, axisalignedbb, new com.google.common.base.Predicate<EntityLivingBase>() {
-			public boolean apply(@Nullable EntityLivingBase p_apply_1_) {
-
-				return p_apply_1_ != null && p_apply_1_.isEntityAlive() && canSeeSky(p_apply_1_.getPosition());
-			}
-		});
+		List<EntityLivingBase> list = getEntitiesWithinAABB(EntityLivingBase.class, axisalignedbb, p_apply_1_ -> p_apply_1_ != null && p_apply_1_.isEntityAlive() && canSeeSky(p_apply_1_.getPosition()));
 
 		if (!list.isEmpty()) {
 			return list.get(rand.nextInt(list.size())).getPosition();
@@ -547,8 +542,7 @@ public class WorldServer extends World implements IThreadListener {
 		super.tickPlayers();
 		profiler.endStartSection("players");
 
-		for (int i = 0; i < playerEntities.size(); ++i) {
-			Entity entity = playerEntities.get(i);
+		for (Entity entity : playerEntities) {
 			Entity entity1 = entity.getRidingEntity();
 
 			if (entity1 != null) {
@@ -1180,8 +1174,8 @@ public class WorldServer extends World implements IThreadListener {
 
 		SPacketParticles spacketparticles = new SPacketParticles(particleType, longDistance, (float) xCoord, (float) yCoord, (float) zCoord, (float) xOffset, (float) yOffset, (float) zOffset, (float) particleSpeed, numberOfParticles, particleArguments);
 
-		for (int i = 0; i < playerEntities.size(); ++i) {
-			EntityPlayerMP entityplayermp = (EntityPlayerMP) playerEntities.get(i);
+		for (EntityPlayer playerEntity : playerEntities) {
+			EntityPlayerMP entityplayermp = (EntityPlayerMP) playerEntity;
 			sendPacketWithinDistance(entityplayermp, longDistance, xCoord, yCoord, zCoord, spacketparticles);
 		}
 	}

@@ -72,7 +72,7 @@ public class EntityWitch extends EntityMob implements IRangedAttackMob {
 	protected void entityInit() {
 
 		super.entityInit();
-		getDataManager().register(IS_DRINKING, Boolean.valueOf(false));
+		getDataManager().register(IS_DRINKING, Boolean.FALSE);
 	}
 
 	protected SoundEvent getAmbientSound() {
@@ -92,7 +92,7 @@ public class EntityWitch extends EntityMob implements IRangedAttackMob {
 
 	public boolean isDrinkingPotion() {
 
-		return getDataManager().get(IS_DRINKING).booleanValue();
+		return getDataManager().get(IS_DRINKING);
 	}
 
 	/**
@@ -100,7 +100,7 @@ public class EntityWitch extends EntityMob implements IRangedAttackMob {
 	 */
 	public void setDrinkingPotion(boolean drinkingPotion) {
 
-		getDataManager().set(IS_DRINKING, Boolean.valueOf(drinkingPotion));
+		getDataManager().set(IS_DRINKING, drinkingPotion);
 	}
 
 	protected void applyEntityAttributes() {

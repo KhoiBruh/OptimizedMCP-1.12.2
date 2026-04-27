@@ -199,7 +199,7 @@ public class TileEntityBanner extends TileEntity implements IWorldNameable {
 							patternList.add(bannerpattern);
 							int j = nbttagcompound.getInteger("Color");
 							colorList.add(EnumDyeColor.byDyeDamage(j));
-							patternResourceLocation = patternResourceLocation + bannerpattern.getHashname() + j;
+							patternResourceLocation += bannerpattern.getHashname() + j;
 						}
 					}
 				}

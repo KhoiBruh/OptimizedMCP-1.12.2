@@ -82,28 +82,15 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 
 	public static EntityMinecart create(World worldIn, double x, double y, double z, EntityMinecart.Type typeIn) {
 
-		switch (typeIn) {
-			case CHEST:
-				return new EntityMinecartChest(worldIn, x, y, z);
-
-			case FURNACE:
-				return new EntityMinecartFurnace(worldIn, x, y, z);
-
-			case TNT:
-				return new EntityMinecartTNT(worldIn, x, y, z);
-
-			case SPAWNER:
-				return new EntityMinecartMobSpawner(worldIn, x, y, z);
-
-			case HOPPER:
-				return new EntityMinecartHopper(worldIn, x, y, z);
-
-			case COMMAND_BLOCK:
-				return new EntityMinecartCommandBlock(worldIn, x, y, z);
-
-			default:
-				return new EntityMinecartEmpty(worldIn, x, y, z);
-		}
+		return switch (typeIn) {
+			case CHEST -> new EntityMinecartChest(worldIn, x, y, z);
+			case FURNACE -> new EntityMinecartFurnace(worldIn, x, y, z);
+			case TNT -> new EntityMinecartTNT(worldIn, x, y, z);
+			case SPAWNER -> new EntityMinecartMobSpawner(worldIn, x, y, z);
+			case HOPPER -> new EntityMinecartHopper(worldIn, x, y, z);
+			case COMMAND_BLOCK -> new EntityMinecartCommandBlock(worldIn, x, y, z);
+			default -> new EntityMinecartEmpty(worldIn, x, y, z);
+		};
 	}
 
 	public static void registerFixesMinecart(DataFixer fixer, Class<?> name) {
@@ -121,12 +108,12 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 
 	protected void entityInit() {
 
-		dataManager.register(ROLLING_AMPLITUDE, Integer.valueOf(0));
-		dataManager.register(ROLLING_DIRECTION, Integer.valueOf(1));
-		dataManager.register(DAMAGE, Float.valueOf(0.0F));
-		dataManager.register(DISPLAY_TILE, Integer.valueOf(0));
-		dataManager.register(DISPLAY_TILE_OFFSET, Integer.valueOf(6));
-		dataManager.register(SHOW_BLOCK, Boolean.valueOf(false));
+		dataManager.register(ROLLING_AMPLITUDE, 0);
+		dataManager.register(ROLLING_DIRECTION, 1);
+		dataManager.register(DAMAGE, 0.0F);
+		dataManager.register(DISPLAY_TILE, 0);
+		dataManager.register(DISPLAY_TILE_OFFSET, 6);
+		dataManager.register(SHOW_BLOCK, Boolean.FALSE);
 	}
 
 	@Nullable
@@ -138,21 +125,6 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 	public AxisAlignedBB getCollisionBox(Entity entityIn) {
 
 		return entityIn.canBePushed() ? entityIn.getEntityBoundingBox() : null;
-	}
-
-	@Nullable
-
-	/**
-	 * Returns the <b>solid</b> collision bounding box for this entity. Used to make (e.g.) boats solid. Return null if
-	 * this entity is not solid.
-	 *
-	 * For general purposes, use {@link #width} and {@link #height}.
-	 *
-	 * @see getEntityBoundingBox
-	 */
-	public AxisAlignedBB getCollisionBoundingBox() {
-
-		return null;
 	}
 
 	/**
@@ -341,7 +313,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 				moveAlongTrack(blockpos, iblockstate);
 
 				if (iblockstate.getBlock() == Blocks.ACTIVATOR_RAIL) {
-					onActivatorRailPass(k, l, i1, iblockstate.getValue(BlockRailPowered.POWERED).booleanValue());
+					onActivatorRailPass(k, l, i1, iblockstate.getValue(BlockRailPowered.POWERED));
 				}
 			} else {
 				moveDerailedMinecart();
@@ -373,9 +345,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 				List<Entity> list = world.getEntitiesInAABBexcluding(this, getEntityBoundingBox().grow(0.20000000298023224D, 0.0D, 0.20000000298023224D), EntitySelectors.getTeamCollisionPredicate(this));
 
 				if (!list.isEmpty()) {
-					for (int j1 = 0; j1 < list.size(); ++j1) {
-						Entity entity1 = list.get(j1);
-
+					for (Entity entity1 : list) {
 						if (!(entity1 instanceof EntityPlayer) && !(entity1 instanceof EntityIronGolem) && !(entity1 instanceof EntityMinecart) && !isBeingRidden() && !entity1.isRiding()) {
 							entity1.startRiding(this);
 						} else {
@@ -445,7 +415,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 		BlockRailBase blockrailbase = (BlockRailBase) state.getBlock();
 
 		if (blockrailbase == Blocks.GOLDEN_RAIL) {
-			flag = state.getValue(BlockRailPowered.POWERED).booleanValue();
+			flag = state.getValue(BlockRailPowered.POWERED);
 			flag1 = !flag;
 		}
 
@@ -492,7 +462,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 
 		motionX = d5 * d1 / d3;
 		motionZ = d5 * d2 / d3;
-		Entity entity = getPassengers().isEmpty() ? null : getPassengers().get(0);
+		Entity entity = getPassengers().isEmpty() ? null : getPassengers().getFirst();
 
 		if (entity instanceof EntityLivingBase) {
 			double d6 = ((EntityLivingBase) entity).moveForward;
@@ -624,19 +594,6 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 			motionY *= 0.0D;
 			motionZ *= 0.9599999785423279D;
 		}
-	}
-
-	/**
-	 * Sets the x,y,z of the entity from the given parameters. Also seems to set up a bounding box.
-	 */
-	public void setPosition(double x, double y, double z) {
-
-		posX = x;
-		posY = y;
-		posZ = z;
-		float f = width / 2.0F;
-		float f1 = height;
-		setEntityBoundingBox(new AxisAlignedBB(x - (double) f, y, z - (double) f, x + (double) f, y + (double) f1, z + (double) f));
 	}
 
 	@Nullable
@@ -893,7 +850,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 	 */
 	public float getDamage() {
 
-		return dataManager.get(DAMAGE).floatValue();
+		return dataManager.get(DAMAGE);
 	}
 
 	/**
@@ -902,7 +859,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 	 */
 	public void setDamage(float damage) {
 
-		dataManager.set(DAMAGE, Float.valueOf(damage));
+		dataManager.set(DAMAGE, damage);
 	}
 
 	/**
@@ -910,7 +867,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 	 */
 	public int getRollingAmplitude() {
 
-		return dataManager.get(ROLLING_AMPLITUDE).intValue();
+		return dataManager.get(ROLLING_AMPLITUDE);
 	}
 
 	/**
@@ -918,7 +875,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 	 */
 	public void setRollingAmplitude(int rollingAmplitude) {
 
-		dataManager.set(ROLLING_AMPLITUDE, Integer.valueOf(rollingAmplitude));
+		dataManager.set(ROLLING_AMPLITUDE, rollingAmplitude);
 	}
 
 	/**
@@ -926,7 +883,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 	 */
 	public int getRollingDirection() {
 
-		return dataManager.get(ROLLING_DIRECTION).intValue();
+		return dataManager.get(ROLLING_DIRECTION);
 	}
 
 	/**
@@ -934,19 +891,19 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 	 */
 	public void setRollingDirection(int rollingDirection) {
 
-		dataManager.set(ROLLING_DIRECTION, Integer.valueOf(rollingDirection));
+		dataManager.set(ROLLING_DIRECTION, rollingDirection);
 	}
 
 	public abstract EntityMinecart.Type getType();
 
 	public IBlockState getDisplayTile() {
 
-		return !hasDisplayTile() ? getDefaultDisplayTile() : Block.getStateById(getDataManager().get(DISPLAY_TILE).intValue());
+		return !hasDisplayTile() ? getDefaultDisplayTile() : Block.getStateById(getDataManager().get(DISPLAY_TILE));
 	}
 
 	public void setDisplayTile(IBlockState displayTile) {
 
-		getDataManager().set(DISPLAY_TILE, Integer.valueOf(Block.getStateId(displayTile)));
+		getDataManager().set(DISPLAY_TILE, Block.getStateId(displayTile));
 		setHasDisplayTile(true);
 	}
 
@@ -957,12 +914,12 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 
 	public int getDisplayTileOffset() {
 
-		return !hasDisplayTile() ? getDefaultDisplayTileOffset() : getDataManager().get(DISPLAY_TILE_OFFSET).intValue();
+		return !hasDisplayTile() ? getDefaultDisplayTileOffset() : getDataManager().get(DISPLAY_TILE_OFFSET);
 	}
 
 	public void setDisplayTileOffset(int displayTileOffset) {
 
-		getDataManager().set(DISPLAY_TILE_OFFSET, Integer.valueOf(displayTileOffset));
+		getDataManager().set(DISPLAY_TILE_OFFSET, displayTileOffset);
 		setHasDisplayTile(true);
 	}
 
@@ -973,12 +930,12 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 
 	public boolean hasDisplayTile() {
 
-		return getDataManager().get(SHOW_BLOCK).booleanValue();
+		return getDataManager().get(SHOW_BLOCK);
 	}
 
 	public void setHasDisplayTile(boolean showBlock) {
 
-		getDataManager().set(SHOW_BLOCK, Boolean.valueOf(showBlock));
+		getDataManager().set(SHOW_BLOCK, showBlock);
 	}
 
 	public enum Type {
@@ -994,7 +951,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 
 		static {
 			for (EntityMinecart.Type entityminecart$type : values()) {
-				BY_ID.put(Integer.valueOf(entityminecart$type.getId()), entityminecart$type);
+				BY_ID.put(entityminecart$type.getId(), entityminecart$type);
 			}
 		}
 
@@ -1009,7 +966,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 
 		public static EntityMinecart.Type getById(int idIn) {
 
-			EntityMinecart.Type entityminecart$type = BY_ID.get(Integer.valueOf(idIn));
+			EntityMinecart.Type entityminecart$type = BY_ID.get(idIn);
 			return entityminecart$type == null ? RIDEABLE : entityminecart$type;
 		}
 

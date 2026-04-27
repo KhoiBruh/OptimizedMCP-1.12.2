@@ -65,13 +65,13 @@ public class Selector {
 
 	public static class Deserializer implements JsonDeserializer<Selector> {
 
-		private static final Function<Entry<String, JsonElement>, ICondition> FUNCTION_PROPERTY_VALUE = new Function<Entry<String, JsonElement>, ICondition>() {
+		private static final Function<Entry<String, JsonElement>, ICondition> FUNCTION_PROPERTY_VALUE = new Function<>() {
 			@Nullable
 			public ICondition apply(@Nullable Entry<String, JsonElement> p_apply_1_) {
 
 				return p_apply_1_ == null ? null : Selector.Deserializer.makePropertyValue(p_apply_1_);
 			}
-		};		private static final Function<JsonElement, ICondition> FUNCTION_OR_AND = new Function<JsonElement, ICondition>() {
+		};		private static final Function<JsonElement, ICondition> FUNCTION_OR_AND = new Function<>() {
 			@Nullable
 			public ICondition apply(@Nullable JsonElement p_apply_1_) {
 

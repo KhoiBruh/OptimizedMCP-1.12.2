@@ -1403,7 +1403,7 @@ public class StructureOceanMonumentPieces {
 			}
 		}
 
-		protected static final int getRoomIndex(int p_175820_0_, int p_175820_1_, int p_175820_2_) {
+		protected static int getRoomIndex(int p_175820_0_, int p_175820_1_, int p_175820_2_) {
 
 			return p_175820_1_ * 25 + p_175820_2_ * 5 + p_175820_0_;
 		}

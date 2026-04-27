@@ -35,8 +35,8 @@ public abstract class BlockLog extends BlockRotatedPillar {
 			for (BlockPos blockpos : BlockPos.getAllInBox(pos.add(-4, -4, -4), pos.add(4, 4, 4))) {
 				IBlockState iblockstate = worldIn.getBlockState(blockpos);
 
-				if (iblockstate.getMaterial() == Material.LEAVES && !iblockstate.getValue(BlockLeaves.CHECK_DECAY).booleanValue()) {
-					worldIn.setBlockState(blockpos, iblockstate.withProperty(BlockLeaves.CHECK_DECAY, Boolean.valueOf(true)), 4);
+				if (iblockstate.getMaterial() == Material.LEAVES && !iblockstate.getValue(BlockLeaves.CHECK_DECAY)) {
+					worldIn.setBlockState(blockpos, iblockstate.withProperty(BlockLeaves.CHECK_DECAY, Boolean.TRUE), 4);
 				}
 			}
 		}
@@ -60,16 +60,11 @@ public abstract class BlockLog extends BlockRotatedPillar {
 		switch (rot) {
 			case COUNTERCLOCKWISE_90:
 			case CLOCKWISE_90:
-				switch (state.getValue(LOG_AXIS)) {
-					case X:
-						return state.withProperty(LOG_AXIS, BlockLog.EnumAxis.Z);
-
-					case Z:
-						return state.withProperty(LOG_AXIS, BlockLog.EnumAxis.X);
-
-					default:
-						return state;
-				}
+				return switch (state.getValue(LOG_AXIS)) {
+					case X -> state.withProperty(LOG_AXIS, EnumAxis.Z);
+					case Z -> state.withProperty(LOG_AXIS, EnumAxis.X);
+					default -> state;
+				};
 
 			default:
 				return state;
@@ -91,19 +86,12 @@ public abstract class BlockLog extends BlockRotatedPillar {
 
 		public static BlockLog.EnumAxis fromFacingAxis(EnumFacing.Axis axis) {
 
-			switch (axis) {
-				case X:
-					return X;
-
-				case Y:
-					return Y;
-
-				case Z:
-					return Z;
-
-				default:
-					return NONE;
-			}
+			return switch (axis) {
+				case X -> X;
+				case Y -> Y;
+				case Z -> Z;
+				default -> NONE;
+			};
 		}
 
 		public String toString() {

@@ -14,6 +14,7 @@ import net.minecraft.util.math.MathHelper;
 
 import javax.annotation.Nullable;
 import java.util.Map;
+import java.util.Objects;
 
 public class GuiAdvancementTab extends Gui {
 
@@ -101,11 +102,7 @@ public class GuiAdvancementTab extends Gui {
 		GlStateManager.depthFunc(515);
 		ResourceLocation resourcelocation = display.getBackground();
 
-		if (resourcelocation != null) {
-			minecraft.getTextureManager().bindTexture(resourcelocation);
-		} else {
-			minecraft.getTextureManager().bindTexture(TextureManager.RESOURCE_LOCATION_EMPTY);
-		}
+		minecraft.getTextureManager().bindTexture(Objects.requireNonNullElse(resourcelocation, TextureManager.RESOURCE_LOCATION_EMPTY));
 
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 		int i = scrollX % 16;

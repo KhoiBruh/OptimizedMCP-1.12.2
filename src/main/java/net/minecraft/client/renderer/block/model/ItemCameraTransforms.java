@@ -97,34 +97,17 @@ public class ItemCameraTransforms {
 
 	public ItemTransformVec3f getTransform(ItemCameraTransforms.TransformType type) {
 
-		switch (type) {
-			case THIRD_PERSON_LEFT_HAND:
-				return thirdperson_left;
-
-			case THIRD_PERSON_RIGHT_HAND:
-				return thirdperson_right;
-
-			case FIRST_PERSON_LEFT_HAND:
-				return firstperson_left;
-
-			case FIRST_PERSON_RIGHT_HAND:
-				return firstperson_right;
-
-			case HEAD:
-				return head;
-
-			case GUI:
-				return gui;
-
-			case GROUND:
-				return ground;
-
-			case FIXED:
-				return fixed;
-
-			default:
-				return ItemTransformVec3f.DEFAULT;
-		}
+		return switch (type) {
+			case THIRD_PERSON_LEFT_HAND -> thirdperson_left;
+			case THIRD_PERSON_RIGHT_HAND -> thirdperson_right;
+			case FIRST_PERSON_LEFT_HAND -> firstperson_left;
+			case FIRST_PERSON_RIGHT_HAND -> firstperson_right;
+			case HEAD -> head;
+			case GUI -> gui;
+			case GROUND -> ground;
+			case FIXED -> fixed;
+			default -> ItemTransformVec3f.DEFAULT;
+		};
 	}
 
 	public boolean hasCustomTransform(ItemCameraTransforms.TransformType type) {

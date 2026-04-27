@@ -35,7 +35,7 @@ public class BlockWall extends Block {
 	public BlockWall(Block modelBlock) {
 
 		super(modelBlock.blockMaterial);
-		setDefaultState(blockState.getBaseState().withProperty(UP, Boolean.valueOf(false)).withProperty(NORTH, Boolean.valueOf(false)).withProperty(EAST, Boolean.valueOf(false)).withProperty(SOUTH, Boolean.valueOf(false)).withProperty(WEST, Boolean.valueOf(false)).withProperty(VARIANT, BlockWall.EnumType.NORMAL));
+		setDefaultState(blockState.getBaseState().withProperty(UP, Boolean.FALSE).withProperty(NORTH, Boolean.FALSE).withProperty(EAST, Boolean.FALSE).withProperty(SOUTH, Boolean.FALSE).withProperty(WEST, Boolean.FALSE).withProperty(VARIANT, BlockWall.EnumType.NORMAL));
 		setHardness(modelBlock.blockHardness);
 		setResistance(modelBlock.blockResistance / 3.0F);
 		setSoundType(modelBlock.blockSoundType);
@@ -46,19 +46,19 @@ public class BlockWall extends Block {
 
 		int i = 0;
 
-		if (state.getValue(NORTH).booleanValue()) {
+		if (state.getValue(NORTH)) {
 			i |= 1 << EnumFacing.NORTH.getHorizontalIndex();
 		}
 
-		if (state.getValue(EAST).booleanValue()) {
+		if (state.getValue(EAST)) {
 			i |= 1 << EnumFacing.EAST.getHorizontalIndex();
 		}
 
-		if (state.getValue(SOUTH).booleanValue()) {
+		if (state.getValue(SOUTH)) {
 			i |= 1 << EnumFacing.SOUTH.getHorizontalIndex();
 		}
 
-		if (state.getValue(WEST).booleanValue()) {
+		if (state.getValue(WEST)) {
 			i |= 1 << EnumFacing.WEST.getHorizontalIndex();
 		}
 
@@ -181,7 +181,7 @@ public class BlockWall extends Block {
 		boolean flag2 = canConnectTo(worldIn, pos.south(), EnumFacing.NORTH);
 		boolean flag3 = canConnectTo(worldIn, pos.west(), EnumFacing.EAST);
 		boolean flag4 = flag && !flag1 && flag2 && !flag3 || !flag && flag1 && !flag2 && flag3;
-		return state.withProperty(UP, Boolean.valueOf(!flag4 || !worldIn.isAirBlock(pos.up()))).withProperty(NORTH, Boolean.valueOf(flag)).withProperty(EAST, Boolean.valueOf(flag1)).withProperty(SOUTH, Boolean.valueOf(flag2)).withProperty(WEST, Boolean.valueOf(flag3));
+		return state.withProperty(UP, !flag4 || !worldIn.isAirBlock(pos.up())).withProperty(NORTH, flag).withProperty(EAST, flag1).withProperty(SOUTH, flag2).withProperty(WEST, flag3);
 	}
 
 	protected BlockStateContainer createBlockState() {

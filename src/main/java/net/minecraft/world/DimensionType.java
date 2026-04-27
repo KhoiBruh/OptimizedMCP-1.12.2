@@ -63,14 +63,9 @@ public enum DimensionType {
 		try {
 			Constructor<? extends WorldProvider> constructor = clazz.getConstructor();
 			return constructor.newInstance();
-		} catch (NoSuchMethodException nosuchmethodexception) {
+		} catch (NoSuchMethodException | IllegalAccessException | InstantiationException |
+		         InvocationTargetException nosuchmethodexception) {
 			throw new Error("Could not create new dimension", nosuchmethodexception);
-		} catch (InvocationTargetException invocationtargetexception) {
-			throw new Error("Could not create new dimension", invocationtargetexception);
-		} catch (InstantiationException instantiationexception) {
-			throw new Error("Could not create new dimension", instantiationexception);
-		} catch (IllegalAccessException illegalaccessexception) {
-			throw new Error("Could not create new dimension", illegalaccessexception);
 		}
 	}
 }

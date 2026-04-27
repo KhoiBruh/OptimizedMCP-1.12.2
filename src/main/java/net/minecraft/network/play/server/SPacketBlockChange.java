@@ -28,7 +28,7 @@ public class SPacketBlockChange implements Packet<INetHandlerPlayClient> {
 	/**
 	 * Reads the raw packet data from the data stream.
 	 */
-	public void readPacketData(PacketBuffer buf) throws IOException {
+	public void readPacketData(PacketBuffer buf) {
 
 		blockPosition = buf.readBlockPos();
 		blockState = Block.BLOCK_STATE_IDS.getByValue(buf.readVarInt());
@@ -37,7 +37,7 @@ public class SPacketBlockChange implements Packet<INetHandlerPlayClient> {
 	/**
 	 * Writes the raw packet data to the data stream.
 	 */
-	public void writePacketData(PacketBuffer buf) throws IOException {
+	public void writePacketData(PacketBuffer buf) {
 
 		buf.writeBlockPos(blockPosition);
 		buf.writeVarInt(Block.BLOCK_STATE_IDS.get(blockState));

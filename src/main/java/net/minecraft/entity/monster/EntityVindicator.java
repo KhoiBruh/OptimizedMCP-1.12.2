@@ -22,12 +22,7 @@ import javax.annotation.Nullable;
 
 public class EntityVindicator extends AbstractIllager {
 
-	private static final Predicate<Entity> JOHNNY_SELECTOR = new Predicate<Entity>() {
-		public boolean apply(@Nullable Entity p_apply_1_) {
-
-			return p_apply_1_ instanceof EntityLivingBase && ((EntityLivingBase) p_apply_1_).attackable();
-		}
-	};
+	private static final Predicate<Entity> JOHNNY_SELECTOR = p_apply_1_ -> p_apply_1_ instanceof EntityLivingBase && ((EntityLivingBase) p_apply_1_).attackable();
 	private boolean johnny;
 
 	public EntityVindicator(World worldIn) {

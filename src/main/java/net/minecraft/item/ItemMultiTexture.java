@@ -18,17 +18,15 @@ public class ItemMultiTexture extends ItemBlock {
 
 	public ItemMultiTexture(Block block, Block block2, final String[] namesByMeta) {
 
-		this(block, block2, new ItemMultiTexture.Mapper() {
-			public String apply(ItemStack p_apply_1_) {
+		this(block, block2, p_apply_1_ -> {
 
-				int i = p_apply_1_.getMetadata();
+			int i = p_apply_1_.getMetadata();
 
-				if (i < 0 || i >= namesByMeta.length) {
-					i = 0;
-				}
-
-				return namesByMeta[i];
+			if (i < 0 || i >= namesByMeta.length) {
+				i = 0;
 			}
+
+			return namesByMeta[i];
 		});
 	}
 

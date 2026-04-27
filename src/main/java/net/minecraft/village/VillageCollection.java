@@ -123,14 +123,13 @@ public class VillageCollection extends WorldSavedData {
 	private void dropOldestVillagerPosition() {
 
 		if (!villagerPositionsList.isEmpty()) {
-			addDoorsAround(villagerPositionsList.remove(0));
+			addDoorsAround(villagerPositionsList.removeFirst());
 		}
 	}
 
 	private void addNewDoorsToVillageOrCreateVillage() {
 
-		for (int i = 0; i < newDoors.size(); ++i) {
-			VillageDoorInfo villagedoorinfo = newDoors.get(i);
+		for (VillageDoorInfo villagedoorinfo : newDoors) {
 			Village village = getNearestVillage(villagedoorinfo.getDoorBlockPos(), 32);
 
 			if (village == null) {

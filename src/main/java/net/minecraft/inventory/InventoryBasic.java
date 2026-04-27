@@ -205,8 +205,8 @@ public class InventoryBasic implements IInventory {
 	public void markDirty() {
 
 		if (changeListeners != null) {
-			for (int i = 0; i < changeListeners.size(); ++i) {
-				changeListeners.get(i).onInventoryChanged(this);
+			for (IInventoryChangedListener changeListener : changeListeners) {
+				changeListener.onInventoryChanged(this);
 			}
 		}
 	}

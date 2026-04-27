@@ -166,7 +166,7 @@ public class Style {
 	 */
 	public boolean getBold() {
 
-		return bold == null ? getParent().getBold() : bold.booleanValue();
+		return bold == null ? getParent().getBold() : bold;
 	}
 
 	/**
@@ -184,7 +184,7 @@ public class Style {
 	 */
 	public boolean getItalic() {
 
-		return italic == null ? getParent().getItalic() : italic.booleanValue();
+		return italic == null ? getParent().getItalic() : italic;
 	}
 
 	/**
@@ -202,7 +202,7 @@ public class Style {
 	 */
 	public boolean getStrikethrough() {
 
-		return strikethrough == null ? getParent().getStrikethrough() : strikethrough.booleanValue();
+		return strikethrough == null ? getParent().getStrikethrough() : strikethrough;
 	}
 
 	/**
@@ -220,7 +220,7 @@ public class Style {
 	 */
 	public boolean getUnderlined() {
 
-		return underlined == null ? getParent().getUnderlined() : underlined.booleanValue();
+		return underlined == null ? getParent().getUnderlined() : underlined;
 	}
 
 	/**
@@ -238,7 +238,7 @@ public class Style {
 	 */
 	public boolean getObfuscated() {
 
-		return obfuscated == null ? getParent().getObfuscated() : obfuscated.booleanValue();
+		return obfuscated == null ? getParent().getObfuscated() : obfuscated;
 	}
 
 	/**
@@ -469,11 +469,11 @@ public class Style {
 	public Style createDeepCopy() {
 
 		Style style = new Style();
-		style.setBold(Boolean.valueOf(getBold()));
-		style.setItalic(Boolean.valueOf(getItalic()));
-		style.setStrikethrough(Boolean.valueOf(getStrikethrough()));
-		style.setUnderlined(Boolean.valueOf(getUnderlined()));
-		style.setObfuscated(Boolean.valueOf(getObfuscated()));
+		style.setBold(getBold());
+		style.setItalic(getItalic());
+		style.setStrikethrough(getStrikethrough());
+		style.setUnderlined(getUnderlined());
+		style.setObfuscated(getObfuscated());
 		style.setColor(getColor());
 		style.setClickEvent(getClickEvent());
 		style.setHoverEvent(getHoverEvent());

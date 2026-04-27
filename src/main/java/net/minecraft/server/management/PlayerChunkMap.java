@@ -20,21 +20,11 @@ import java.util.*;
 
 public class PlayerChunkMap {
 
-	private static final Predicate<EntityPlayerMP> NOT_SPECTATOR = new Predicate<EntityPlayerMP>() {
-		public boolean apply(@Nullable EntityPlayerMP p_apply_1_) {
-
-			return p_apply_1_ != null && !p_apply_1_.isSpectator();
-		}
-	};
-	private static final Predicate<EntityPlayerMP> CAN_GENERATE_CHUNKS = new Predicate<EntityPlayerMP>() {
-		public boolean apply(@Nullable EntityPlayerMP p_apply_1_) {
-
-			return p_apply_1_ != null && (!p_apply_1_.isSpectator() || p_apply_1_.getServerWorld().getGameRules().getBoolean("spectatorsGenerateChunks"));
-		}
-	};
+	private static final Predicate<EntityPlayerMP> NOT_SPECTATOR = p_apply_1_ -> p_apply_1_ != null && !p_apply_1_.isSpectator();
+	private static final Predicate<EntityPlayerMP> CAN_GENERATE_CHUNKS = p_apply_1_ -> p_apply_1_ != null && (!p_apply_1_.isSpectator() || p_apply_1_.getServerWorld().getGameRules().getBoolean("spectatorsGenerateChunks"));
 	private final WorldServer world;
 	private final List<EntityPlayerMP> players = Lists.newArrayList();
-	private final Long2ObjectMap<PlayerChunkMapEntry> entryMap = new Long2ObjectOpenHashMap<PlayerChunkMapEntry>(4096);
+	private final Long2ObjectMap<PlayerChunkMapEntry> entryMap = new Long2ObjectOpenHashMap<>(4096);
 	private final Set<PlayerChunkMapEntry> dirtyEntries = Sets.newHashSet();
 	private final List<PlayerChunkMapEntry> pendingSendToPlayers = Lists.newLinkedList();
 	private final List<PlayerChunkMapEntry> entriesWithoutChunks = Lists.newLinkedList();
@@ -82,7 +72,7 @@ public class PlayerChunkMap {
 	public Iterator<Chunk> getChunkIterator() {
 
 		final Iterator<PlayerChunkMapEntry> iterator = entries.iterator();
-		return new AbstractIterator<Chunk>() {
+		return new AbstractIterator<>() {
 			protected Chunk computeNext() {
 
 				while (true) {
@@ -125,8 +115,7 @@ public class PlayerChunkMap {
 		if (i - previousTotalWorldTime > 8000L) {
 			previousTotalWorldTime = i;
 
-			for (int j = 0; j < entries.size(); ++j) {
-				PlayerChunkMapEntry playerchunkmapentry = entries.get(j);
+			for (PlayerChunkMapEntry playerchunkmapentry : entries) {
 				playerchunkmapentry.update();
 				playerchunkmapentry.updateChunkInhabitedTime();
 			}
@@ -142,22 +131,12 @@ public class PlayerChunkMap {
 
 		if (sortMissingChunks && i % 4L == 0L) {
 			sortMissingChunks = false;
-			Collections.sort(entriesWithoutChunks, new Comparator<PlayerChunkMapEntry>() {
-				public int compare(PlayerChunkMapEntry p_compare_1_, PlayerChunkMapEntry p_compare_2_) {
-
-					return ComparisonChain.start().compare(p_compare_1_.getClosestPlayerDistance(), p_compare_2_.getClosestPlayerDistance()).result();
-				}
-			});
+			entriesWithoutChunks.sort((p_compare_1_, p_compare_2_) -> ComparisonChain.start().compare(p_compare_1_.getClosestPlayerDistance(), p_compare_2_.getClosestPlayerDistance()).result());
 		}
 
 		if (sortSendToPlayers && i % 4L == 2L) {
 			sortSendToPlayers = false;
-			Collections.sort(pendingSendToPlayers, new Comparator<PlayerChunkMapEntry>() {
-				public int compare(PlayerChunkMapEntry p_compare_1_, PlayerChunkMapEntry p_compare_2_) {
-
-					return ComparisonChain.start().compare(p_compare_1_.getClosestPlayerDistance(), p_compare_2_.getClosestPlayerDistance()).result();
-				}
-			});
+			pendingSendToPlayers.sort((p_compare_1_, p_compare_2_) -> ComparisonChain.start().compare(p_compare_1_.getClosestPlayerDistance(), p_compare_2_.getClosestPlayerDistance()).result());
 		}
 
 		if (!entriesWithoutChunks.isEmpty()) {

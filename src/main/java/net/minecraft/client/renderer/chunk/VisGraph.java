@@ -84,7 +84,7 @@ public class VisGraph {
 		bitSet.set(pos, true);
 
 		while (!queue.isEmpty()) {
-			int i = queue.poll().intValue();
+			int i = queue.poll();
 			addEdges(i, set);
 
 			for (EnumFacing enumfacing : EnumFacing.values()) {
@@ -129,51 +129,50 @@ public class VisGraph {
 
 	private int getNeighborIndexAtFace(int pos, EnumFacing facing) {
 
-		switch (facing) {
-			case DOWN:
+		return switch (facing) {
+			case DOWN -> {
 				if ((pos >> 8 & 15) == 0) {
-					return -1;
+					yield -1;
 				}
 
-				return pos - DY;
-
-			case UP:
+				yield pos - DY;
+			}
+			case UP -> {
 				if ((pos >> 8 & 15) == 15) {
-					return -1;
+					yield -1;
 				}
 
-				return pos + DY;
-
-			case NORTH:
+				yield pos + DY;
+			}
+			case NORTH -> {
 				if ((pos >> 4 & 15) == 0) {
-					return -1;
+					yield -1;
 				}
 
-				return pos - DZ;
-
-			case SOUTH:
+				yield pos - DZ;
+			}
+			case SOUTH -> {
 				if ((pos >> 4 & 15) == 15) {
-					return -1;
+					yield -1;
 				}
 
-				return pos + DZ;
-
-			case WEST:
+				yield pos + DZ;
+			}
+			case WEST -> {
 				if ((pos & 15) == 0) {
-					return -1;
+					yield -1;
 				}
 
-				return pos - DX;
-
-			case EAST:
+				yield pos - DX;
+			}
+			case EAST -> {
 				if ((pos & 15) == 15) {
-					return -1;
+					yield -1;
 				}
 
-				return pos + DX;
-
-			default:
-				return -1;
-		}
+				yield pos + DX;
+			}
+			default -> -1;
+		};
 	}
 }

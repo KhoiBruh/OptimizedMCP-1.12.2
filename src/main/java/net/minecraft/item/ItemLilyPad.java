@@ -31,19 +31,19 @@ public class ItemLilyPad extends ItemColored {
 		RayTraceResult raytraceresult = rayTrace(worldIn, playerIn, true);
 
 		if (raytraceresult == null) {
-			return new ActionResult<ItemStack>(EnumActionResult.PASS, itemstack);
+			return new ActionResult<>(EnumActionResult.PASS, itemstack);
 		} else {
 			if (raytraceresult.typeOfHit == RayTraceResult.Type.BLOCK) {
 				BlockPos blockpos = raytraceresult.getBlockPos();
 
 				if (!worldIn.isBlockModifiable(playerIn, blockpos) || !playerIn.canPlayerEdit(blockpos.offset(raytraceresult.sideHit), raytraceresult.sideHit, itemstack)) {
-					return new ActionResult<ItemStack>(EnumActionResult.FAIL, itemstack);
+					return new ActionResult<>(EnumActionResult.FAIL, itemstack);
 				}
 
 				BlockPos blockpos1 = blockpos.up();
 				IBlockState iblockstate = worldIn.getBlockState(blockpos);
 
-				if (iblockstate.getMaterial() == Material.WATER && iblockstate.getValue(BlockLiquid.LEVEL).intValue() == 0 && worldIn.isAirBlock(blockpos1)) {
+				if (iblockstate.getMaterial() == Material.WATER && iblockstate.getValue(BlockLiquid.LEVEL) == 0 && worldIn.isAirBlock(blockpos1)) {
 					worldIn.setBlockState(blockpos1, Blocks.WATERLILY.getDefaultState(), 11);
 
 					if (playerIn instanceof EntityPlayerMP) {
@@ -56,11 +56,11 @@ public class ItemLilyPad extends ItemColored {
 
 					playerIn.addStat(StatList.getObjectUseStats(this));
 					worldIn.playSound(playerIn, blockpos, SoundEvents.BLOCK_WATERLILY_PLACE, SoundCategory.BLOCKS, 1.0F, 1.0F);
-					return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemstack);
+					return new ActionResult<>(EnumActionResult.SUCCESS, itemstack);
 				}
 			}
 
-			return new ActionResult<ItemStack>(EnumActionResult.FAIL, itemstack);
+			return new ActionResult<>(EnumActionResult.FAIL, itemstack);
 		}
 	}
 

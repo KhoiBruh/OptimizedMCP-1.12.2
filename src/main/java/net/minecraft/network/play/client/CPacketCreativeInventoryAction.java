@@ -42,7 +42,7 @@ public class CPacketCreativeInventoryAction implements Packet<INetHandlerPlaySer
 	/**
 	 * Writes the raw packet data to the data stream.
 	 */
-	public void writePacketData(PacketBuffer buf) throws IOException {
+	public void writePacketData(PacketBuffer buf) {
 
 		buf.writeShort(slotId);
 		buf.writeItemStack(stack);

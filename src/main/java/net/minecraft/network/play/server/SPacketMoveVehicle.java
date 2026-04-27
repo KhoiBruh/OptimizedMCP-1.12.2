@@ -31,7 +31,7 @@ public class SPacketMoveVehicle implements Packet<INetHandlerPlayClient> {
 	/**
 	 * Reads the raw packet data from the data stream.
 	 */
-	public void readPacketData(PacketBuffer buf) throws IOException {
+	public void readPacketData(PacketBuffer buf) {
 
 		x = buf.readDouble();
 		y = buf.readDouble();
@@ -43,7 +43,7 @@ public class SPacketMoveVehicle implements Packet<INetHandlerPlayClient> {
 	/**
 	 * Writes the raw packet data to the data stream.
 	 */
-	public void writePacketData(PacketBuffer buf) throws IOException {
+	public void writePacketData(PacketBuffer buf) {
 
 		buf.writeDouble(x);
 		buf.writeDouble(y);

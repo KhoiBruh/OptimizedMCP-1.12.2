@@ -15,7 +15,7 @@ public class DebugLoggingPrintStream extends LoggingPrintStream {
 
 		StackTraceElement[] astacktraceelement = Thread.currentThread().getStackTrace();
 		StackTraceElement stacktraceelement = astacktraceelement[Math.min(3, astacktraceelement.length)];
-		LOGGER.info("[{}]@.({}:{}): {}", domain, stacktraceelement.getFileName(), Integer.valueOf(stacktraceelement.getLineNumber()), string);
+		LOGGER.info("[{}]@.({}:{}): {}", domain, stacktraceelement.getFileName(), stacktraceelement.getLineNumber(), string);
 	}
 
 }

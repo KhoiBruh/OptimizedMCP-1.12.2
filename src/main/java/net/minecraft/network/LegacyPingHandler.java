@@ -22,7 +22,7 @@ public class LegacyPingHandler extends ChannelInboundHandlerAdapter {
 		networkSystem = networkSystemIn;
 	}
 
-	public void channelRead(ChannelHandlerContext p_channelRead_1_, Object p_channelRead_2_) throws Exception {
+	public void channelRead(ChannelHandlerContext p_channelRead_1_, Object p_channelRead_2_) {
 
 		ByteBuf bytebuf = (ByteBuf) p_channelRead_2_;
 		bytebuf.markReaderIndex();
@@ -36,7 +36,7 @@ public class LegacyPingHandler extends ChannelInboundHandlerAdapter {
 
 				switch (i) {
 					case 0:
-						LOGGER.debug("Ping: (<1.3.x) from {}:{}", inetsocketaddress.getAddress(), Integer.valueOf(inetsocketaddress.getPort()));
+						LOGGER.debug("Ping: (<1.3.x) from {}:{}", inetsocketaddress.getAddress(), inetsocketaddress.getPort());
 						String s2 = String.format("%s\u00a7%d\u00a7%d", minecraftserver.getMOTD(), minecraftserver.getCurrentPlayerCount(), minecraftserver.getMaxPlayers());
 						writeAndFlush(p_channelRead_1_, getStringBuffer(s2));
 						break;
@@ -46,8 +46,8 @@ public class LegacyPingHandler extends ChannelInboundHandlerAdapter {
 							return;
 						}
 
-						LOGGER.debug("Ping: (1.4-1.5.x) from {}:{}", inetsocketaddress.getAddress(), Integer.valueOf(inetsocketaddress.getPort()));
-						String s = String.format("\u00a71\u0000%d\u0000%s\u0000%s\u0000%d\u0000%d", Integer.valueOf(127), minecraftserver.getMinecraftVersion(), minecraftserver.getMOTD(), minecraftserver.getCurrentPlayerCount(), minecraftserver.getMaxPlayers());
+						LOGGER.debug("Ping: (1.4-1.5.x) from {}:{}", inetsocketaddress.getAddress(), inetsocketaddress.getPort());
+						String s = String.format("\u00a71\u0000%d\u0000%s\u0000%s\u0000%d\u0000%d", 127, minecraftserver.getMinecraftVersion(), minecraftserver.getMOTD(), minecraftserver.getCurrentPlayerCount(), minecraftserver.getMaxPlayers());
 						writeAndFlush(p_channelRead_1_, getStringBuffer(s));
 						break;
 
@@ -65,8 +65,8 @@ public class LegacyPingHandler extends ChannelInboundHandlerAdapter {
 							return;
 						}
 
-						LOGGER.debug("Ping: (1.6) from {}:{}", inetsocketaddress.getAddress(), Integer.valueOf(inetsocketaddress.getPort()));
-						String s1 = String.format("\u00a71\u0000%d\u0000%s\u0000%s\u0000%d\u0000%d", Integer.valueOf(127), minecraftserver.getMinecraftVersion(), minecraftserver.getMOTD(), minecraftserver.getCurrentPlayerCount(), minecraftserver.getMaxPlayers());
+						LOGGER.debug("Ping: (1.6) from {}:{}", inetsocketaddress.getAddress(), inetsocketaddress.getPort());
+						String s1 = String.format("\u00a71\u0000%d\u0000%s\u0000%s\u0000%d\u0000%d", 127, minecraftserver.getMinecraftVersion(), minecraftserver.getMOTD(), minecraftserver.getCurrentPlayerCount(), minecraftserver.getMaxPlayers());
 						ByteBuf bytebuf1 = getStringBuffer(s1);
 
 						try {

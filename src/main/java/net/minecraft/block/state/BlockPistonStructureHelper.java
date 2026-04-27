@@ -51,9 +51,7 @@ public class BlockPistonStructureHelper {
 		} else if (!addBlockLine(blockToMove, moveDirection)) {
 			return false;
 		} else {
-			for (int i = 0; i < toMove.size(); ++i) {
-				BlockPos blockpos = toMove.get(i);
-
+			for (BlockPos blockpos : toMove) {
 				if (world.getBlockState(blockpos).getBlock() == Blocks.SLIME_BLOCK && !addBranchingBlocks(blockpos)) {
 					return false;
 				}

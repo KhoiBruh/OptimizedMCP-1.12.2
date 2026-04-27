@@ -46,10 +46,8 @@ public class ResourcePackListEntryServer extends ResourcePackListEntry {
 			if (packmetadatasection != null) {
 				return packmetadatasection.packDescription().getFormattedText();
 			}
-		} catch (JsonParseException jsonparseexception) {
+		} catch (JsonParseException | IOException jsonparseexception) {
 			LOGGER.error("Couldn't load metadata info", jsonparseexception);
-		} catch (IOException ioexception) {
-			LOGGER.error("Couldn't load metadata info", ioexception);
 		}
 
 		return TextFormatting.RED + "Missing " + "pack.mcmeta" + " :(";

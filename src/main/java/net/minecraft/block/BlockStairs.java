@@ -180,20 +180,12 @@ public class BlockStairs extends Block {
 
 		boolean flag = bstate.getValue(HALF) == BlockStairs.EnumHalf.TOP;
 
-		switch (bstate.getValue(FACING)) {
-			case NORTH:
-			default:
-				return flag ? AABB_QTR_BOT_NORTH : AABB_QTR_TOP_NORTH;
-
-			case SOUTH:
-				return flag ? AABB_QTR_BOT_SOUTH : AABB_QTR_TOP_SOUTH;
-
-			case WEST:
-				return flag ? AABB_QTR_BOT_WEST : AABB_QTR_TOP_WEST;
-
-			case EAST:
-				return flag ? AABB_QTR_BOT_EAST : AABB_QTR_TOP_EAST;
-		}
+		return switch (bstate.getValue(FACING)) {
+			default -> flag ? AABB_QTR_BOT_NORTH : AABB_QTR_TOP_NORTH;
+			case SOUTH -> flag ? AABB_QTR_BOT_SOUTH : AABB_QTR_TOP_SOUTH;
+			case WEST -> flag ? AABB_QTR_BOT_WEST : AABB_QTR_TOP_WEST;
+			case EAST -> flag ? AABB_QTR_BOT_EAST : AABB_QTR_TOP_EAST;
+		};
 	}
 
 	/**
@@ -204,42 +196,21 @@ public class BlockStairs extends Block {
 	private static AxisAlignedBB getCollEighthBlock(IBlockState bstate) {
 
 		EnumFacing enumfacing = bstate.getValue(FACING);
-		EnumFacing enumfacing1;
-
-		switch (bstate.getValue(SHAPE)) {
-			case OUTER_LEFT:
-			default:
-				enumfacing1 = enumfacing;
-				break;
-
-			case OUTER_RIGHT:
-				enumfacing1 = enumfacing.rotateY();
-				break;
-
-			case INNER_RIGHT:
-				enumfacing1 = enumfacing.getOpposite();
-				break;
-
-			case INNER_LEFT:
-				enumfacing1 = enumfacing.rotateYCCW();
-		}
+		EnumFacing enumfacing1 = switch (bstate.getValue(SHAPE)) {
+			default -> enumfacing;
+			case OUTER_RIGHT -> enumfacing.rotateY();
+			case INNER_RIGHT -> enumfacing.getOpposite();
+			case INNER_LEFT -> enumfacing.rotateYCCW();
+		};
 
 		boolean flag = bstate.getValue(HALF) == BlockStairs.EnumHalf.TOP;
 
-		switch (enumfacing1) {
-			case NORTH:
-			default:
-				return flag ? AABB_OCT_BOT_NW : AABB_OCT_TOP_NW;
-
-			case SOUTH:
-				return flag ? AABB_OCT_BOT_SE : AABB_OCT_TOP_SE;
-
-			case WEST:
-				return flag ? AABB_OCT_BOT_SW : AABB_OCT_TOP_SW;
-
-			case EAST:
-				return flag ? AABB_OCT_BOT_NE : AABB_OCT_TOP_NE;
-		}
+		return switch (enumfacing1) {
+			default -> flag ? AABB_OCT_BOT_NW : AABB_OCT_TOP_NW;
+			case SOUTH -> flag ? AABB_OCT_BOT_SE : AABB_OCT_TOP_SE;
+			case WEST -> flag ? AABB_OCT_BOT_SW : AABB_OCT_TOP_SW;
+			case EAST -> flag ? AABB_OCT_BOT_NE : AABB_OCT_TOP_NE;
+		};
 	}
 
 	private static BlockStairs.EnumShape getStairsShape(IBlockState p_185706_0_, IBlockAccess p_185706_1_, BlockPos p_185706_2_) {
@@ -319,19 +290,14 @@ public class BlockStairs extends Block {
 			if (blockstairs$enumshape != BlockStairs.EnumShape.OUTER_LEFT && blockstairs$enumshape != BlockStairs.EnumShape.OUTER_RIGHT) {
 				EnumFacing enumfacing = state.getValue(FACING);
 
-				switch (blockstairs$enumshape) {
-					case INNER_RIGHT:
-						return enumfacing != face && enumfacing != face.rotateYCCW() ? BlockFaceShape.UNDEFINED : BlockFaceShape.SOLID;
-
-					case INNER_LEFT:
-						return enumfacing != face && enumfacing != face.rotateY() ? BlockFaceShape.UNDEFINED : BlockFaceShape.SOLID;
-
-					case STRAIGHT:
-						return enumfacing == face ? BlockFaceShape.SOLID : BlockFaceShape.UNDEFINED;
-
-					default:
-						return BlockFaceShape.UNDEFINED;
-				}
+				return switch (blockstairs$enumshape) {
+					case INNER_RIGHT ->
+							enumfacing != face && enumfacing != face.rotateYCCW() ? BlockFaceShape.UNDEFINED : BlockFaceShape.SOLID;
+					case INNER_LEFT ->
+							enumfacing != face && enumfacing != face.rotateY() ? BlockFaceShape.UNDEFINED : BlockFaceShape.SOLID;
+					case STRAIGHT -> enumfacing == face ? BlockFaceShape.SOLID : BlockFaceShape.UNDEFINED;
+					default -> BlockFaceShape.UNDEFINED;
+				};
 			} else {
 				return BlockFaceShape.UNDEFINED;
 			}
@@ -594,44 +560,34 @@ public class BlockStairs extends Block {
 		switch (mirrorIn) {
 			case LEFT_RIGHT:
 				if (enumfacing.getAxis() == EnumFacing.Axis.Z) {
-					switch (blockstairs$enumshape) {
-						case OUTER_LEFT:
-							return state.withRotation(Rotation.CLOCKWISE_180).withProperty(SHAPE, BlockStairs.EnumShape.OUTER_RIGHT);
-
-						case OUTER_RIGHT:
-							return state.withRotation(Rotation.CLOCKWISE_180).withProperty(SHAPE, BlockStairs.EnumShape.OUTER_LEFT);
-
-						case INNER_RIGHT:
-							return state.withRotation(Rotation.CLOCKWISE_180).withProperty(SHAPE, BlockStairs.EnumShape.INNER_LEFT);
-
-						case INNER_LEFT:
-							return state.withRotation(Rotation.CLOCKWISE_180).withProperty(SHAPE, BlockStairs.EnumShape.INNER_RIGHT);
-
-						default:
-							return state.withRotation(Rotation.CLOCKWISE_180);
-					}
+					return switch (blockstairs$enumshape) {
+						case OUTER_LEFT ->
+								state.withRotation(Rotation.CLOCKWISE_180).withProperty(SHAPE, EnumShape.OUTER_RIGHT);
+						case OUTER_RIGHT ->
+								state.withRotation(Rotation.CLOCKWISE_180).withProperty(SHAPE, EnumShape.OUTER_LEFT);
+						case INNER_RIGHT ->
+								state.withRotation(Rotation.CLOCKWISE_180).withProperty(SHAPE, EnumShape.INNER_LEFT);
+						case INNER_LEFT ->
+								state.withRotation(Rotation.CLOCKWISE_180).withProperty(SHAPE, EnumShape.INNER_RIGHT);
+						default -> state.withRotation(Rotation.CLOCKWISE_180);
+					};
 				}
 
 				break;
 
 			case FRONT_BACK:
 				if (enumfacing.getAxis() == EnumFacing.Axis.X) {
-					switch (blockstairs$enumshape) {
-						case OUTER_LEFT:
-							return state.withRotation(Rotation.CLOCKWISE_180).withProperty(SHAPE, BlockStairs.EnumShape.OUTER_RIGHT);
-
-						case OUTER_RIGHT:
-							return state.withRotation(Rotation.CLOCKWISE_180).withProperty(SHAPE, BlockStairs.EnumShape.OUTER_LEFT);
-
-						case INNER_RIGHT:
-							return state.withRotation(Rotation.CLOCKWISE_180).withProperty(SHAPE, BlockStairs.EnumShape.INNER_RIGHT);
-
-						case INNER_LEFT:
-							return state.withRotation(Rotation.CLOCKWISE_180).withProperty(SHAPE, BlockStairs.EnumShape.INNER_LEFT);
-
-						case STRAIGHT:
-							return state.withRotation(Rotation.CLOCKWISE_180);
-					}
+					return switch (blockstairs$enumshape) {
+						case OUTER_LEFT ->
+								state.withRotation(Rotation.CLOCKWISE_180).withProperty(SHAPE, EnumShape.OUTER_RIGHT);
+						case OUTER_RIGHT ->
+								state.withRotation(Rotation.CLOCKWISE_180).withProperty(SHAPE, EnumShape.OUTER_LEFT);
+						case INNER_RIGHT ->
+								state.withRotation(Rotation.CLOCKWISE_180).withProperty(SHAPE, EnumShape.INNER_RIGHT);
+						case INNER_LEFT ->
+								state.withRotation(Rotation.CLOCKWISE_180).withProperty(SHAPE, EnumShape.INNER_LEFT);
+						case STRAIGHT -> state.withRotation(Rotation.CLOCKWISE_180);
+					};
 				}
 		}
 

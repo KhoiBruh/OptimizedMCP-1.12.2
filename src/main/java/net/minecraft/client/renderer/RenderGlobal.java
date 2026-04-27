@@ -297,12 +297,8 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 				entityOutlineShader = new ShaderGroup(mc.getTextureManager(), mc.getResourceManager(), mc.getFramebuffer(), resourcelocation);
 				entityOutlineShader.createBindFramebuffers(mc.displayWidth, mc.displayHeight);
 				entityOutlineFramebuffer = entityOutlineShader.getFramebufferRaw("final");
-			} catch (IOException ioexception) {
+			} catch (IOException | JsonSyntaxException ioexception) {
 				LOGGER.warn("Failed to load shader: {}", resourcelocation, ioexception);
-				entityOutlineShader = null;
-				entityOutlineFramebuffer = null;
-			} catch (JsonSyntaxException jsonsyntaxexception) {
-				LOGGER.warn("Failed to load shader: {}", resourcelocation, jsonsyntaxexception);
 				entityOutlineShader = null;
 				entityOutlineFramebuffer = null;
 			}
@@ -684,8 +680,8 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 					RenderHelper.disableStandardItemLighting();
 					renderManager.setRenderOutlines(true);
 
-					for (int j = 0; j < list1.size(); ++j) {
-						renderManager.renderEntityStatic(list1.get(j), partialTicks, false);
+					for (Entity value : list1) {
+						renderManager.renderEntityStatic(value, partialTicks, false);
 					}
 
 					renderManager.setRenderOutlines(false);
@@ -1082,9 +1078,7 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 		}
 
 		mc.mcProfiler.func_194339_b(() ->
-		{
-			return "render_" + blockLayerIn;
-		});
+				"render_" + blockLayerIn);
 		renderBlockLayer(blockLayerIn);
 		mc.mcProfiler.endSection();
 		return l;
@@ -1921,18 +1915,13 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 		} catch (Throwable throwable) {
 			CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Exception while adding particle");
 			CrashReportCategory crashreportcategory = crashreport.makeCategory("Particle being added");
-			crashreportcategory.addCrashSection("ID", Integer.valueOf(id));
+			crashreportcategory.addCrashSection("ID", id);
 
 			if (parameters != null) {
 				crashreportcategory.addCrashSection("Parameters", parameters);
 			}
 
-			crashreportcategory.addDetail("Position", new ICrashReportDetail<String>() {
-				public String call() throws Exception {
-
-					return CrashReportCategory.getCoordinateInfo(x, y, z);
-				}
-			});
+			crashreportcategory.addDetail("Position", () -> CrashReportCategory.getCoordinateInfo(x, y, z));
 			throw new ReportedException(crashreport);
 		}
 	}
@@ -2324,17 +2313,17 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 	public void sendBlockBreakProgress(int breakerId, BlockPos pos, int progress) {
 
 		if (progress >= 0 && progress < 10) {
-			DestroyBlockProgress destroyblockprogress = damagedBlocks.get(Integer.valueOf(breakerId));
+			DestroyBlockProgress destroyblockprogress = damagedBlocks.get(breakerId);
 
 			if (destroyblockprogress == null || destroyblockprogress.getPosition().getX() != pos.getX() || destroyblockprogress.getPosition().getY() != pos.getY() || destroyblockprogress.getPosition().getZ() != pos.getZ()) {
 				destroyblockprogress = new DestroyBlockProgress(breakerId, pos);
-				damagedBlocks.put(Integer.valueOf(breakerId), destroyblockprogress);
+				damagedBlocks.put(breakerId, destroyblockprogress);
 			}
 
 			destroyblockprogress.setPartialBlockDamage(progress);
 			destroyblockprogress.setCloudUpdateTick(cloudTickCounter);
 		} else {
-			damagedBlocks.remove(Integer.valueOf(breakerId));
+			damagedBlocks.remove(breakerId);
 		}
 	}
 

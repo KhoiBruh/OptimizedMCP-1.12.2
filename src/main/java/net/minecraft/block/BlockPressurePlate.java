@@ -22,18 +22,18 @@ public class BlockPressurePlate extends BlockBasePressurePlate {
 	protected BlockPressurePlate(Material materialIn, BlockPressurePlate.Sensitivity sensitivityIn) {
 
 		super(materialIn);
-		setDefaultState(blockState.getBaseState().withProperty(POWERED, Boolean.valueOf(false)));
+		setDefaultState(blockState.getBaseState().withProperty(POWERED, Boolean.FALSE));
 		sensitivity = sensitivityIn;
 	}
 
 	protected int getRedstoneStrength(IBlockState state) {
 
-		return state.getValue(POWERED).booleanValue() ? 15 : 0;
+		return state.getValue(POWERED) ? 15 : 0;
 	}
 
 	protected IBlockState setRedstoneStrength(IBlockState state, int strength) {
 
-		return state.withProperty(POWERED, Boolean.valueOf(strength > 0));
+		return state.withProperty(POWERED, strength > 0);
 	}
 
 	protected void playClickOnSound(World worldIn, BlockPos color) {
@@ -88,7 +88,7 @@ public class BlockPressurePlate extends BlockBasePressurePlate {
 	 */
 	public IBlockState getStateFromMeta(int meta) {
 
-		return getDefaultState().withProperty(POWERED, Boolean.valueOf(meta == 1));
+		return getDefaultState().withProperty(POWERED, meta == 1);
 	}
 
 	/**
@@ -96,7 +96,7 @@ public class BlockPressurePlate extends BlockBasePressurePlate {
 	 */
 	public int getMetaFromState(IBlockState state) {
 
-		return state.getValue(POWERED).booleanValue() ? 1 : 0;
+		return state.getValue(POWERED) ? 1 : 0;
 	}
 
 	protected BlockStateContainer createBlockState() {

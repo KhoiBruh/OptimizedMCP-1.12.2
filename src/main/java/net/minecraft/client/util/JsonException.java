@@ -42,18 +42,18 @@ public class JsonException extends IOException {
 
 	public void prependJsonKey(String key) {
 
-		entries.get(0).addJsonKey(key);
+		entries.getFirst().addJsonKey(key);
 	}
 
 	public void setFilenameAndFlush(String filenameIn) {
 
-		(entries.get(0)).filename = filenameIn;
-		entries.add(0, new JsonException.Entry());
+		(entries.getFirst()).filename = filenameIn;
+		entries.addFirst(new JsonException.Entry());
 	}
 
 	public String getMessage() {
 
-		return "Invalid " + entries.get(entries.size() - 1) + ": " + message;
+		return "Invalid " + entries.getLast() + ": " + message;
 	}
 
 	public static class Entry {
@@ -68,7 +68,7 @@ public class JsonException extends IOException {
 
 		private void addJsonKey(String key) {
 
-			jsonKeys.add(0, key);
+			jsonKeys.addFirst(key);
 		}
 
 		public String getJsonKeys() {

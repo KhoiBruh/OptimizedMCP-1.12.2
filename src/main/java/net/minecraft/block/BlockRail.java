@@ -84,70 +84,32 @@ public class BlockRail extends BlockRailBase {
 				}
 
 			case COUNTERCLOCKWISE_90:
-				switch (state.getValue(SHAPE)) {
-					case ASCENDING_EAST:
-						return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.ASCENDING_NORTH);
-
-					case ASCENDING_WEST:
-						return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.ASCENDING_SOUTH);
-
-					case ASCENDING_NORTH:
-						return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.ASCENDING_WEST);
-
-					case ASCENDING_SOUTH:
-						return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.ASCENDING_EAST);
-
-					case SOUTH_EAST:
-						return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.NORTH_EAST);
-
-					case SOUTH_WEST:
-						return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.SOUTH_EAST);
-
-					case NORTH_WEST:
-						return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.SOUTH_WEST);
-
-					case NORTH_EAST:
-						return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.NORTH_WEST);
-
-					case NORTH_SOUTH:
-						return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.EAST_WEST);
-
-					case EAST_WEST:
-						return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.NORTH_SOUTH);
-				}
+				return switch (state.getValue(SHAPE)) {
+					case ASCENDING_EAST -> state.withProperty(SHAPE, EnumRailDirection.ASCENDING_NORTH);
+					case ASCENDING_WEST -> state.withProperty(SHAPE, EnumRailDirection.ASCENDING_SOUTH);
+					case ASCENDING_NORTH -> state.withProperty(SHAPE, EnumRailDirection.ASCENDING_WEST);
+					case ASCENDING_SOUTH -> state.withProperty(SHAPE, EnumRailDirection.ASCENDING_EAST);
+					case SOUTH_EAST -> state.withProperty(SHAPE, EnumRailDirection.NORTH_EAST);
+					case SOUTH_WEST -> state.withProperty(SHAPE, EnumRailDirection.SOUTH_EAST);
+					case NORTH_WEST -> state.withProperty(SHAPE, EnumRailDirection.SOUTH_WEST);
+					case NORTH_EAST -> state.withProperty(SHAPE, EnumRailDirection.NORTH_WEST);
+					case NORTH_SOUTH -> state.withProperty(SHAPE, EnumRailDirection.EAST_WEST);
+					case EAST_WEST -> state.withProperty(SHAPE, EnumRailDirection.NORTH_SOUTH);
+				};
 
 			case CLOCKWISE_90:
-				switch (state.getValue(SHAPE)) {
-					case ASCENDING_EAST:
-						return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.ASCENDING_SOUTH);
-
-					case ASCENDING_WEST:
-						return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.ASCENDING_NORTH);
-
-					case ASCENDING_NORTH:
-						return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.ASCENDING_EAST);
-
-					case ASCENDING_SOUTH:
-						return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.ASCENDING_WEST);
-
-					case SOUTH_EAST:
-						return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.SOUTH_WEST);
-
-					case SOUTH_WEST:
-						return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.NORTH_WEST);
-
-					case NORTH_WEST:
-						return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.NORTH_EAST);
-
-					case NORTH_EAST:
-						return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.SOUTH_EAST);
-
-					case NORTH_SOUTH:
-						return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.EAST_WEST);
-
-					case EAST_WEST:
-						return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.NORTH_SOUTH);
-				}
+				return switch (state.getValue(SHAPE)) {
+					case ASCENDING_EAST -> state.withProperty(SHAPE, EnumRailDirection.ASCENDING_SOUTH);
+					case ASCENDING_WEST -> state.withProperty(SHAPE, EnumRailDirection.ASCENDING_NORTH);
+					case ASCENDING_NORTH -> state.withProperty(SHAPE, EnumRailDirection.ASCENDING_EAST);
+					case ASCENDING_SOUTH -> state.withProperty(SHAPE, EnumRailDirection.ASCENDING_WEST);
+					case SOUTH_EAST -> state.withProperty(SHAPE, EnumRailDirection.SOUTH_WEST);
+					case SOUTH_WEST -> state.withProperty(SHAPE, EnumRailDirection.NORTH_WEST);
+					case NORTH_WEST -> state.withProperty(SHAPE, EnumRailDirection.NORTH_EAST);
+					case NORTH_EAST -> state.withProperty(SHAPE, EnumRailDirection.SOUTH_EAST);
+					case NORTH_SOUTH -> state.withProperty(SHAPE, EnumRailDirection.EAST_WEST);
+					case EAST_WEST -> state.withProperty(SHAPE, EnumRailDirection.NORTH_SOUTH);
+				};
 
 			default:
 				return state;
@@ -166,28 +128,15 @@ public class BlockRail extends BlockRailBase {
 
 		switch (mirrorIn) {
 			case LEFT_RIGHT:
-				switch (blockrailbase$enumraildirection) {
-					case ASCENDING_NORTH:
-						return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.ASCENDING_SOUTH);
-
-					case ASCENDING_SOUTH:
-						return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.ASCENDING_NORTH);
-
-					case SOUTH_EAST:
-						return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.NORTH_EAST);
-
-					case SOUTH_WEST:
-						return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.NORTH_WEST);
-
-					case NORTH_WEST:
-						return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.SOUTH_WEST);
-
-					case NORTH_EAST:
-						return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.SOUTH_EAST);
-
-					default:
-						return super.withMirror(state, mirrorIn);
-				}
+				return switch (blockrailbase$enumraildirection) {
+					case ASCENDING_NORTH -> state.withProperty(SHAPE, EnumRailDirection.ASCENDING_SOUTH);
+					case ASCENDING_SOUTH -> state.withProperty(SHAPE, EnumRailDirection.ASCENDING_NORTH);
+					case SOUTH_EAST -> state.withProperty(SHAPE, EnumRailDirection.NORTH_EAST);
+					case SOUTH_WEST -> state.withProperty(SHAPE, EnumRailDirection.NORTH_WEST);
+					case NORTH_WEST -> state.withProperty(SHAPE, EnumRailDirection.SOUTH_WEST);
+					case NORTH_EAST -> state.withProperty(SHAPE, EnumRailDirection.SOUTH_EAST);
+					default -> super.withMirror(state, mirrorIn);
+				};
 
 			case FRONT_BACK:
 				switch (blockrailbase$enumraildirection) {

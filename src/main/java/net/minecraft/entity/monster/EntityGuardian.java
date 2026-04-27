@@ -90,18 +90,18 @@ public class EntityGuardian extends EntityMob {
 	protected void entityInit() {
 
 		super.entityInit();
-		dataManager.register(MOVING, Boolean.valueOf(false));
-		dataManager.register(TARGET_ENTITY, Integer.valueOf(0));
+		dataManager.register(MOVING, Boolean.FALSE);
+		dataManager.register(TARGET_ENTITY, 0);
 	}
 
 	public boolean isMoving() {
 
-		return dataManager.get(MOVING).booleanValue();
+		return dataManager.get(MOVING);
 	}
 
 	private void setMoving(boolean moving) {
 
-		dataManager.set(MOVING, Boolean.valueOf(moving));
+		dataManager.set(MOVING, moving);
 	}
 
 	public int getAttackDuration() {
@@ -111,7 +111,7 @@ public class EntityGuardian extends EntityMob {
 
 	public boolean hasTargetedEntity() {
 
-		return dataManager.get(TARGET_ENTITY).intValue() != 0;
+		return dataManager.get(TARGET_ENTITY) != 0;
 	}
 
 	@Nullable
@@ -123,7 +123,7 @@ public class EntityGuardian extends EntityMob {
 			if (targetedEntity != null) {
 				return targetedEntity;
 			} else {
-				Entity entity = world.getEntityByID(dataManager.get(TARGET_ENTITY).intValue());
+				Entity entity = world.getEntityByID(dataManager.get(TARGET_ENTITY));
 
 				if (entity instanceof EntityLivingBase) {
 					targetedEntity = (EntityLivingBase) entity;
@@ -139,7 +139,7 @@ public class EntityGuardian extends EntityMob {
 
 	private void setTargetedEntity(int entityId) {
 
-		dataManager.set(TARGET_ENTITY, Integer.valueOf(entityId));
+		dataManager.set(TARGET_ENTITY, entityId);
 	}
 
 	public void notifyDataManagerChange(DataParameter<?> key) {

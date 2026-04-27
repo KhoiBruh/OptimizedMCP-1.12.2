@@ -28,7 +28,7 @@ public abstract class BlockLiquid extends Block {
 	protected BlockLiquid(Material materialIn) {
 
 		super(materialIn);
-		setDefaultState(blockState.getBaseState().withProperty(LEVEL, Integer.valueOf(0)));
+		setDefaultState(blockState.getBaseState().withProperty(LEVEL, 0));
 		setTickRandomly(true);
 	}
 
@@ -74,7 +74,7 @@ public abstract class BlockLiquid extends Block {
 
 	public static float getBlockLiquidHeight(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
 
-		int i = state.getValue(LEVEL).intValue();
+		int i = state.getValue(LEVEL);
 		return (i & 7) == 0 && worldIn.getBlockState(pos.up()).getMaterial() == Material.WATER ? 1.0F : 1.0F - getLiquidHeightPercent(i);
 	}
 
@@ -104,7 +104,7 @@ public abstract class BlockLiquid extends Block {
 
 	protected int getDepth(IBlockState state) {
 
-		return state.getMaterial() == blockMaterial ? state.getValue(LEVEL).intValue() : -1;
+		return state.getMaterial() == blockMaterial ? state.getValue(LEVEL) : -1;
 	}
 
 	protected int getRenderedDepth(IBlockState state) {
@@ -128,7 +128,7 @@ public abstract class BlockLiquid extends Block {
 
 	public boolean canCollideCheck(IBlockState state, boolean hitIfLiquid) {
 
-		return hitIfLiquid && state.getValue(LEVEL).intValue() == 0;
+		return hitIfLiquid && state.getValue(LEVEL) == 0;
 	}
 
 	/**
@@ -235,7 +235,7 @@ public abstract class BlockLiquid extends Block {
 
 		Vec3d vec3d = new Vec3d(d0, d1, d2);
 
-		if (state.getValue(LEVEL).intValue() >= 8) {
+		if (state.getValue(LEVEL) >= 8) {
 			for (EnumFacing enumfacing1 : EnumFacing.Plane.HORIZONTAL) {
 				blockpos$pooledmutableblockpos.setPos(pos).move(enumfacing1);
 
@@ -296,7 +296,7 @@ public abstract class BlockLiquid extends Block {
 		double d2 = pos.getZ();
 
 		if (blockMaterial == Material.WATER) {
-			int i = stateIn.getValue(LEVEL).intValue();
+			int i = stateIn.getValue(LEVEL);
 
 			if (i > 0 && i < 8) {
 				if (rand.nextInt(64) == 0) {
@@ -371,13 +371,13 @@ public abstract class BlockLiquid extends Block {
 			if (flag) {
 				Integer integer = state.getValue(LEVEL);
 
-				if (integer.intValue() == 0) {
+				if (integer == 0) {
 					worldIn.setBlockState(pos, Blocks.OBSIDIAN.getDefaultState());
 					triggerMixEffects(worldIn, pos);
 					return true;
 				}
 
-				if (integer.intValue() <= 4) {
+				if (integer <= 4) {
 					worldIn.setBlockState(pos, Blocks.COBBLESTONE.getDefaultState());
 					triggerMixEffects(worldIn, pos);
 					return true;
@@ -405,7 +405,7 @@ public abstract class BlockLiquid extends Block {
 	 */
 	public IBlockState getStateFromMeta(int meta) {
 
-		return getDefaultState().withProperty(LEVEL, Integer.valueOf(meta));
+		return getDefaultState().withProperty(LEVEL, meta);
 	}
 
 	/**
@@ -413,7 +413,7 @@ public abstract class BlockLiquid extends Block {
 	 */
 	public int getMetaFromState(IBlockState state) {
 
-		return state.getValue(LEVEL).intValue();
+		return state.getValue(LEVEL);
 	}
 
 	protected BlockStateContainer createBlockState() {

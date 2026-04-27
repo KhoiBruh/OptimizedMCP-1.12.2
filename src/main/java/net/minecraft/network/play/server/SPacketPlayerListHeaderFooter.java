@@ -24,7 +24,7 @@ public class SPacketPlayerListHeaderFooter implements Packet<INetHandlerPlayClie
 	/**
 	 * Writes the raw packet data to the data stream.
 	 */
-	public void writePacketData(PacketBuffer buf) throws IOException {
+	public void writePacketData(PacketBuffer buf) {
 
 		buf.writeTextComponent(header);
 		buf.writeTextComponent(footer);

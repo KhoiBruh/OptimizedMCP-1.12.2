@@ -62,7 +62,7 @@ public class ItemModelMesher {
 	@Nullable
 	protected IBakedModel getItemModel(Item item, int meta) {
 
-		return simpleShapesCache.get(Integer.valueOf(getIndex(item, meta)));
+		return simpleShapesCache.get(getIndex(item, meta));
 	}
 
 	private int getIndex(Item item, int meta) {
@@ -72,8 +72,8 @@ public class ItemModelMesher {
 
 	public void register(Item item, int meta, ModelResourceLocation location) {
 
-		simpleShapes.put(Integer.valueOf(getIndex(item, meta)), location);
-		simpleShapesCache.put(Integer.valueOf(getIndex(item, meta)), modelManager.getModel(location));
+		simpleShapes.put(getIndex(item, meta), location);
+		simpleShapesCache.put(getIndex(item, meta), modelManager.getModel(location));
 	}
 
 	public void register(Item item, ItemMeshDefinition definition) {

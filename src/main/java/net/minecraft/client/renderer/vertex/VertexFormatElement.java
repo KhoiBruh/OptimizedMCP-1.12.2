@@ -25,7 +25,7 @@ public class VertexFormatElement {
 		elementCount = count;
 	}
 
-	private final boolean isFirstOrUV(int p_177372_1_, VertexFormatElement.EnumUsage p_177372_2_) {
+	private boolean isFirstOrUV(int p_177372_1_, VertexFormatElement.EnumUsage p_177372_2_) {
 
 		return p_177372_1_ == 0 || p_177372_2_ == VertexFormatElement.EnumUsage.UV;
 	}

@@ -17,7 +17,7 @@ import java.util.List;
 
 public abstract class Enchantment {
 
-	public static final RegistryNamespaced<ResourceLocation, Enchantment> REGISTRY = new RegistryNamespaced<ResourceLocation, Enchantment>();
+	public static final RegistryNamespaced<ResourceLocation, Enchantment> REGISTRY = new RegistryNamespaced<>();
 
 	/**
 	 * Where this enchantment has an effect, e.g. offhand, pants

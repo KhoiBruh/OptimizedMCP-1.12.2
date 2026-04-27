@@ -17,7 +17,7 @@ public class BlockFrostedIce extends BlockIce {
 
 	public BlockFrostedIce() {
 
-		setDefaultState(blockState.getBaseState().withProperty(AGE, Integer.valueOf(0)));
+		setDefaultState(blockState.getBaseState().withProperty(AGE, 0));
 	}
 
 	/**
@@ -25,7 +25,7 @@ public class BlockFrostedIce extends BlockIce {
 	 */
 	public int getMetaFromState(IBlockState state) {
 
-		return state.getValue(AGE).intValue();
+		return state.getValue(AGE);
 	}
 
 	/**
@@ -33,12 +33,12 @@ public class BlockFrostedIce extends BlockIce {
 	 */
 	public IBlockState getStateFromMeta(int meta) {
 
-		return getDefaultState().withProperty(AGE, Integer.valueOf(MathHelper.clamp(meta, 0, 3)));
+		return getDefaultState().withProperty(AGE, MathHelper.clamp(meta, 0, 3));
 	}
 
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
 
-		if ((rand.nextInt(3) == 0 || countNeighbors(worldIn, pos) < 4) && worldIn.getLightFromNeighbors(pos) > 11 - state.getValue(AGE).intValue() - state.getLightOpacity()) {
+		if ((rand.nextInt(3) == 0 || countNeighbors(worldIn, pos) < 4) && worldIn.getLightFromNeighbors(pos) > 11 - state.getValue(AGE) - state.getLightOpacity()) {
 			slightlyMelt(worldIn, pos, state, rand, true);
 		} else {
 			worldIn.scheduleUpdate(pos, this, MathHelper.getInt(rand, 20, 40));
@@ -80,10 +80,10 @@ public class BlockFrostedIce extends BlockIce {
 
 	protected void slightlyMelt(World worldIn, BlockPos pos, IBlockState state, Random rand, boolean meltNeighbors) {
 
-		int i = state.getValue(AGE).intValue();
+		int i = state.getValue(AGE);
 
 		if (i < 3) {
-			worldIn.setBlockState(pos, state.withProperty(AGE, Integer.valueOf(i + 1)), 2);
+			worldIn.setBlockState(pos, state.withProperty(AGE, i + 1), 2);
 			worldIn.scheduleUpdate(pos, this, MathHelper.getInt(rand, 20, 40));
 		} else {
 			turnIntoWater(worldIn, pos);

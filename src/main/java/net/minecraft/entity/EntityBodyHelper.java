@@ -34,7 +34,7 @@ public class EntityBodyHelper {
 			prevRenderYawHead = living.rotationYawHead;
 			rotationTickCounter = 0;
 		} else {
-			if (living.getPassengers().isEmpty() || !(living.getPassengers().get(0) instanceof EntityLiving)) {
+			if (living.getPassengers().isEmpty() || !(living.getPassengers().getFirst() instanceof EntityLiving)) {
 				float f = 75.0F;
 
 				if (Math.abs(living.rotationYawHead - prevRenderYawHead) > 15.0F) {

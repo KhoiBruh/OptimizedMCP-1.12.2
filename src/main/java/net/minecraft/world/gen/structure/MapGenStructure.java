@@ -21,7 +21,7 @@ import java.util.Random;
 
 public abstract class MapGenStructure extends MapGenBase {
 
-	protected Long2ObjectMap<StructureStart> structureMap = new Long2ObjectOpenHashMap<StructureStart>(1024);
+	protected Long2ObjectMap<StructureStart> structureMap = new Long2ObjectOpenHashMap<>(1024);
 	private MapGenStructureData structureData;
 
 	protected static BlockPos findNearestStructurePosBySpacing(World worldIn, MapGenStructure p_191069_1_, BlockPos p_191069_2_, int p_191069_3_, int p_191069_4_, int p_191069_5_, boolean p_191069_6_, int p_191069_7_, boolean findUnexplored) {
@@ -109,25 +109,10 @@ public abstract class MapGenStructure extends MapGenBase {
 			} catch (Throwable throwable) {
 				CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Exception preparing structure feature");
 				CrashReportCategory crashreportcategory = crashreport.makeCategory("Feature being prepared");
-				crashreportcategory.addDetail("Is feature chunk", new ICrashReportDetail<String>() {
-					public String call() throws Exception {
-
-						return canSpawnStructureAtCoords(chunkX, chunkZ) ? "True" : "False";
-					}
-				});
+				crashreportcategory.addDetail("Is feature chunk", () -> canSpawnStructureAtCoords(chunkX, chunkZ) ? "True" : "False");
 				crashreportcategory.addCrashSection("Chunk location", String.format("%d,%d", chunkX, chunkZ));
-				crashreportcategory.addDetail("Chunk pos hash", new ICrashReportDetail<String>() {
-					public String call() throws Exception {
-
-						return String.valueOf(ChunkPos.asLong(chunkX, chunkZ));
-					}
-				});
-				crashreportcategory.addDetail("Structure type", new ICrashReportDetail<String>() {
-					public String call() throws Exception {
-
-						return MapGenStructure.this.getClass().getCanonicalName();
-					}
-				});
+				crashreportcategory.addDetail("Chunk pos hash", () -> String.valueOf(ChunkPos.asLong(chunkX, chunkZ)));
+				crashreportcategory.addDetail("Structure type", () -> MapGenStructure.this.getClass().getCanonicalName());
 				throw new ReportedException(crashreport);
 			}
 		}
@@ -139,11 +124,8 @@ public abstract class MapGenStructure extends MapGenBase {
 		int i = (chunkCoord.x << 4) + 8;
 		int j = (chunkCoord.z << 4) + 8;
 		boolean flag = false;
-		ObjectIterator objectiterator = structureMap.values().iterator();
 
-		while (objectiterator.hasNext()) {
-			StructureStart structurestart = (StructureStart) objectiterator.next();
-
+		for (StructureStart structurestart : structureMap.values()) {
 			if (structurestart.isSizeableStructure() && structurestart.isValidForPostProcess(chunkCoord) && structurestart.getBoundingBox().intersectsWith(i, j, i + 15, j + 15)) {
 				structurestart.generateStructure(worldIn, randomIn, new StructureBoundingBox(i, j, i + 15, j + 15));
 				structurestart.notifyPostProcessAt(chunkCoord);
@@ -199,11 +181,8 @@ public abstract class MapGenStructure extends MapGenBase {
 	public boolean isPositionInStructure(World worldIn, BlockPos pos) {
 
 		initializeStructureData(worldIn);
-		ObjectIterator objectiterator = structureMap.values().iterator();
 
-		while (objectiterator.hasNext()) {
-			StructureStart structurestart = (StructureStart) objectiterator.next();
-
+		for (StructureStart structurestart : structureMap.values()) {
 			if (structurestart.isSizeableStructure() && structurestart.getBoundingBox().isVecInside(pos)) {
 				return true;
 			}

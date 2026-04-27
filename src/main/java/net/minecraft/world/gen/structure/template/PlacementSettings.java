@@ -102,7 +102,7 @@ public class PlacementSettings {
 		if (random != null) {
 			return random;
 		} else if (setSeed != null) {
-			return setSeed.longValue() == 0L ? new Random(System.currentTimeMillis()) : new Random(setSeed.longValue());
+			return setSeed == 0L ? new Random(System.currentTimeMillis()) : new Random(setSeed);
 		} else if (seed == null) {
 			return new Random(System.currentTimeMillis());
 		} else {

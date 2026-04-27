@@ -143,7 +143,7 @@ public class WorldGenBigTree extends WorldGenAbstractTree {
 	void generateLeafNode(BlockPos pos) {
 
 		for (int i = 0; i < leafDistanceLimit; ++i) {
-			crosSection(pos.up(i), leafSize(i), Blocks.LEAVES.getDefaultState().withProperty(BlockLeaves.CHECK_DECAY, Boolean.valueOf(false)));
+			crosSection(pos.up(i), leafSize(i), Blocks.LEAVES.getDefaultState().withProperty(BlockLeaves.CHECK_DECAY, Boolean.FALSE));
 		}
 	}
 

@@ -51,12 +51,12 @@ public class CommandSenderWrapper implements ICommandSender {
 
 	public CommandSenderWrapper withPermissionLevel(int level) {
 
-		return permissionLevel != null && permissionLevel.intValue() <= level ? this : new CommandSenderWrapper(delegate, positionVector, position, level, entity, sendCommandFeedback);
+		return permissionLevel != null && permissionLevel <= level ? this : new CommandSenderWrapper(delegate, positionVector, position, level, entity, sendCommandFeedback);
 	}
 
 	public CommandSenderWrapper withSendCommandFeedback(boolean sendCommandFeedbackIn) {
 
-		return sendCommandFeedback == null || sendCommandFeedback.booleanValue() && !sendCommandFeedbackIn ? new CommandSenderWrapper(delegate, positionVector, position, permissionLevel, entity, sendCommandFeedbackIn) : this;
+		return sendCommandFeedback == null || sendCommandFeedback && !sendCommandFeedbackIn ? new CommandSenderWrapper(delegate, positionVector, position, permissionLevel, entity, sendCommandFeedbackIn) : this;
 	}
 
 	public CommandSenderWrapper computePositionVector() {
@@ -85,7 +85,7 @@ public class CommandSenderWrapper implements ICommandSender {
 	 */
 	public void sendMessage(ITextComponent component) {
 
-		if (sendCommandFeedback == null || sendCommandFeedback.booleanValue()) {
+		if (sendCommandFeedback == null || sendCommandFeedback) {
 			delegate.sendMessage(component);
 		}
 	}
@@ -95,7 +95,7 @@ public class CommandSenderWrapper implements ICommandSender {
 	 */
 	public boolean canUseCommand(int permLevel, String commandName) {
 
-		return (permissionLevel == null || permissionLevel.intValue() >= permLevel) && delegate.canUseCommand(permLevel, commandName);
+		return (permissionLevel == null || permissionLevel >= permLevel) && delegate.canUseCommand(permLevel, commandName);
 	}
 
 	/**
@@ -148,7 +148,7 @@ public class CommandSenderWrapper implements ICommandSender {
 	 */
 	public boolean sendCommandFeedback() {
 
-		return sendCommandFeedback != null ? sendCommandFeedback.booleanValue() : delegate.sendCommandFeedback();
+		return sendCommandFeedback != null ? sendCommandFeedback : delegate.sendCommandFeedback();
 	}
 
 	public void setCommandStat(CommandResultStats.Type type, int amount) {

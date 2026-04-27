@@ -23,14 +23,14 @@ public class GuiScreenDemo extends GuiScreen {
 
 		buttonList.clear();
 		int i = -16;
-		buttonList.add(new GuiButton(1, width / 2 - 116, height / 2 + 62 + -16, 114, 20, I18n.format("demo.help.buy")));
-		buttonList.add(new GuiButton(2, width / 2 + 2, height / 2 + 62 + -16, 114, 20, I18n.format("demo.help.later")));
+		buttonList.add(new GuiButton(1, width / 2 - 116, height / 2 + 62 - 16, 114, 20, I18n.format("demo.help.buy")));
+		buttonList.add(new GuiButton(2, width / 2 + 2, height / 2 + 62 - 16, 114, 20, I18n.format("demo.help.later")));
 	}
 
 	/**
 	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
 	 */
-	protected void actionPerformed(GuiButton button) throws IOException {
+	protected void actionPerformed(GuiButton button) {
 
 		switch (button.id) {
 			case 1:

@@ -25,26 +25,14 @@ public class RenderZombieVillager extends RenderBiped<EntityZombieVillager> {
 	 */
 	protected ResourceLocation getEntityTexture(EntityZombieVillager entity) {
 
-		switch (entity.getProfession()) {
-			case 0:
-				return ZOMBIE_VILLAGER_FARMER_LOCATION;
-
-			case 1:
-				return ZOMBIE_VILLAGER_LIBRARIAN_LOC;
-
-			case 2:
-				return ZOMBIE_VILLAGER_PRIEST_LOCATION;
-
-			case 3:
-				return ZOMBIE_VILLAGER_SMITH_LOCATION;
-
-			case 4:
-				return ZOMBIE_VILLAGER_BUTCHER_LOCATION;
-
-			case 5:
-			default:
-				return ZOMBIE_VILLAGER_TEXTURES;
-		}
+		return switch (entity.getProfession()) {
+			case 0 -> ZOMBIE_VILLAGER_FARMER_LOCATION;
+			case 1 -> ZOMBIE_VILLAGER_LIBRARIAN_LOC;
+			case 2 -> ZOMBIE_VILLAGER_PRIEST_LOCATION;
+			case 3 -> ZOMBIE_VILLAGER_SMITH_LOCATION;
+			case 4 -> ZOMBIE_VILLAGER_BUTCHER_LOCATION;
+			default -> ZOMBIE_VILLAGER_TEXTURES;
+		};
 	}
 
 	protected void applyRotations(EntityZombieVillager entityLiving, float p_77043_2_, float rotationYaw, float partialTicks) {

@@ -68,7 +68,7 @@ public class CommandFill extends CommandBase {
 			int i = (blockpos3.getX() - blockpos2.getX() + 1) * (blockpos3.getY() - blockpos2.getY() + 1) * (blockpos3.getZ() - blockpos2.getZ() + 1);
 
 			if (i > 32768) {
-				throw new CommandException("commands.fill.tooManyBlocks", i, Integer.valueOf(32768));
+				throw new CommandException("commands.fill.tooManyBlocks", i, 32768);
 			} else if (blockpos2.getY() >= 0 && blockpos3.getY() < 256) {
 				World world = sender.getEntityWorld();
 
@@ -129,7 +129,7 @@ public class CommandFill extends CommandBase {
 
 							TileEntity tileentity1 = world.getTileEntity(blockpos4);
 
-							if (tileentity1 != null && tileentity1 instanceof IInventory) {
+							if (tileentity1 instanceof IInventory) {
 								((IInventory) tileentity1).clear();
 							}
 

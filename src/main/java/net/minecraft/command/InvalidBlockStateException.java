@@ -12,9 +12,4 @@ public class InvalidBlockStateException extends CommandException {
 		super(message, objects);
 	}
 
-	public synchronized Throwable fillInStackTrace() {
-
-		return this;
-	}
-
 }

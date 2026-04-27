@@ -12,7 +12,7 @@ import java.util.Random;
 public class WorldGenTaiga1 extends WorldGenAbstractTree {
 
 	private static final IBlockState TRUNK = Blocks.LOG.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.SPRUCE);
-	private static final IBlockState LEAF = Blocks.LEAVES.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.EnumType.SPRUCE).withProperty(BlockLeaves.CHECK_DECAY, Boolean.valueOf(false));
+	private static final IBlockState LEAF = Blocks.LEAVES.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.EnumType.SPRUCE).withProperty(BlockLeaves.CHECK_DECAY, Boolean.FALSE);
 
 	public WorldGenTaiga1() {
 
@@ -30,7 +30,7 @@ public class WorldGenTaiga1 extends WorldGenAbstractTree {
 			boolean flag = true;
 
 			for (int i1 = position.getY(); i1 <= position.getY() + 1 + i && flag; ++i1) {
-				int j1 = 1;
+				int j1;
 
 				if (i1 - position.getY() < j) {
 					j1 = 0;

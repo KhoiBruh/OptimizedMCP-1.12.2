@@ -42,14 +42,6 @@ public abstract class EntityWaterMob extends EntityLiving implements IAnimals {
 	}
 
 	/**
-	 * Determines if an entity can be despawned, used on idle far away entities
-	 */
-	protected boolean canDespawn() {
-
-		return true;
-	}
-
-	/**
 	 * Get the experience points the entity currently has.
 	 */
 	protected int getExperiencePoints(EntityPlayer player) {

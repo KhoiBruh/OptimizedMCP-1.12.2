@@ -141,7 +141,7 @@ public class SoundHandler implements IResourceManagerReloadListener, ITickable {
 					break;
 
 				case SOUND_EVENT:
-					isoundeventaccessor = new ISoundEventAccessor<Sound>() {
+					isoundeventaccessor = new ISoundEventAccessor<>() {
 						public int getWeight() {
 
 							SoundEventAccessor soundeventaccessor1 = soundRegistry.getObject(resourcelocation);

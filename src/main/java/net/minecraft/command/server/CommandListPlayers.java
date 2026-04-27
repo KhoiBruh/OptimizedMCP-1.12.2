@@ -37,7 +37,7 @@ public class CommandListPlayers extends CommandBase {
 	/**
 	 * Callback for when the command is executed
 	 */
-	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
+	public void execute(MinecraftServer server, ICommandSender sender, String[] args) {
 
 		int i = server.getCurrentPlayerCount();
 		sender.sendMessage(new TextComponentTranslation("commands.players.list", i, server.getMaxPlayers()));

@@ -34,7 +34,7 @@ public class ChunkProviderServer implements IChunkProvider {
 	private final Set<Long> droppedChunksSet = Sets.newHashSet();
 	private final IChunkGenerator chunkGenerator;
 	private final IChunkLoader chunkLoader;
-	private final Long2ObjectMap<Chunk> id2ChunkMap = new Long2ObjectOpenHashMap<Chunk>(8192);
+	private final Long2ObjectMap<Chunk> id2ChunkMap = new Long2ObjectOpenHashMap<>(8192);
 	private final WorldServer world;
 
 	public ChunkProviderServer(WorldServer worldObjIn, IChunkLoader chunkLoaderIn, IChunkGenerator chunkGeneratorIn) {
@@ -58,7 +58,7 @@ public class ChunkProviderServer implements IChunkProvider {
 	public void queueUnload(Chunk chunkIn) {
 
 		if (world.provider.canDropChunk(chunkIn.x, chunkIn.z)) {
-			droppedChunksSet.add(Long.valueOf(ChunkPos.asLong(chunkIn.x, chunkIn.z)));
+			droppedChunksSet.add(ChunkPos.asLong(chunkIn.x, chunkIn.z));
 			chunkIn.unloadQueued = true;
 		}
 	}
@@ -70,10 +70,7 @@ public class ChunkProviderServer implements IChunkProvider {
 	 */
 	public void queueUnloadAll() {
 
-		ObjectIterator objectiterator = id2ChunkMap.values().iterator();
-
-		while (objectiterator.hasNext()) {
-			Chunk chunk = (Chunk) objectiterator.next();
+		for (Chunk chunk : id2ChunkMap.values()) {
 			queueUnload(chunk);
 		}
 	}
@@ -122,7 +119,7 @@ public class ChunkProviderServer implements IChunkProvider {
 				CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Exception generating new chunk");
 				CrashReportCategory crashreportcategory = crashreport.makeCategory("Chunk to be generated");
 				crashreportcategory.addCrashSection("Location", String.format("%d,%d", x, z));
-				crashreportcategory.addCrashSection("Position hash", Long.valueOf(i));
+				crashreportcategory.addCrashSection("Position hash", i);
 				crashreportcategory.addCrashSection("Generator", chunkGenerator);
 				throw new ReportedException(crashreport);
 			}
@@ -167,8 +164,6 @@ public class ChunkProviderServer implements IChunkProvider {
 		try {
 			chunkIn.setLastSaveTime(world.getTotalWorldTime());
 			chunkLoader.saveChunk(world, chunkIn);
-		} catch (IOException ioexception) {
-			LOGGER.error("Couldn't save chunk", ioexception);
 		} catch (MinecraftException minecraftexception) {
 			LOGGER.error("Couldn't save chunk; already in use by another instance of Minecraft?", minecraftexception);
 		}
@@ -179,9 +174,7 @@ public class ChunkProviderServer implements IChunkProvider {
 		int i = 0;
 		List<Chunk> list = Lists.newArrayList(id2ChunkMap.values());
 
-		for (int j = 0; j < list.size(); ++j) {
-			Chunk chunk = list.get(j);
-
+		for (Chunk chunk : list) {
 			if (all) {
 				saveChunkExtraData(chunk);
 			}

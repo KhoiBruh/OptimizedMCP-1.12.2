@@ -26,14 +26,6 @@ public class EnchantmentBindingCurse extends Enchantment {
 		return 50;
 	}
 
-	/**
-	 * Returns the maximum level that the enchantment can have.
-	 */
-	public int getMaxLevel() {
-
-		return 1;
-	}
-
 	public boolean isTreasureEnchantment() {
 
 		return true;

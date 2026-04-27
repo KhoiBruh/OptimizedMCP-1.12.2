@@ -29,7 +29,7 @@ public class BlockChorusFlower extends Block {
 	protected BlockChorusFlower() {
 
 		super(Material.PLANTS, MapColor.PURPLE);
-		setDefaultState(blockState.getBaseState().withProperty(AGE, Integer.valueOf(0)));
+		setDefaultState(blockState.getBaseState().withProperty(AGE, 0));
 		setCreativeTab(CreativeTabs.DECORATIONS);
 		setTickRandomly(true);
 	}
@@ -91,7 +91,7 @@ public class BlockChorusFlower extends Block {
 		}
 
 		if (!flag) {
-			worldIn.setBlockState(p_185601_1_.up(i), Blocks.CHORUS_FLOWER.getDefaultState().withProperty(AGE, Integer.valueOf(5)), 2);
+			worldIn.setBlockState(p_185601_1_.up(i), Blocks.CHORUS_FLOWER.getDefaultState().withProperty(AGE, 5), 2);
 		}
 	}
 
@@ -111,7 +111,7 @@ public class BlockChorusFlower extends Block {
 			BlockPos blockpos = pos.up();
 
 			if (worldIn.isAirBlock(blockpos) && blockpos.getY() < 256) {
-				int i = state.getValue(AGE).intValue();
+				int i = state.getValue(AGE);
 
 				if (i < 5 && rand.nextInt(1) == 0) {
 					boolean flag = false;
@@ -187,13 +187,13 @@ public class BlockChorusFlower extends Block {
 
 	private void placeGrownFlower(World worldIn, BlockPos pos, int age) {
 
-		worldIn.setBlockState(pos, getDefaultState().withProperty(AGE, Integer.valueOf(age)), 2);
+		worldIn.setBlockState(pos, getDefaultState().withProperty(AGE, age), 2);
 		worldIn.playEvent(1033, pos, 0);
 	}
 
 	private void placeDeadFlower(World worldIn, BlockPos pos) {
 
-		worldIn.setBlockState(pos, getDefaultState().withProperty(AGE, Integer.valueOf(5)), 2);
+		worldIn.setBlockState(pos, getDefaultState().withProperty(AGE, 5), 2);
 		worldIn.playEvent(1034, pos, 0);
 	}
 
@@ -288,7 +288,7 @@ public class BlockChorusFlower extends Block {
 	 */
 	public IBlockState getStateFromMeta(int meta) {
 
-		return getDefaultState().withProperty(AGE, Integer.valueOf(meta));
+		return getDefaultState().withProperty(AGE, meta);
 	}
 
 	/**
@@ -296,7 +296,7 @@ public class BlockChorusFlower extends Block {
 	 */
 	public int getMetaFromState(IBlockState state) {
 
-		return state.getValue(AGE).intValue();
+		return state.getValue(AGE);
 	}
 
 	protected BlockStateContainer createBlockState() {

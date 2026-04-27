@@ -169,7 +169,7 @@ public class ShaderGroup {
 								GlStateManager.glTexParameteri(3553, 10240, 9728);
 							}
 
-							shader.addAuxFramebuffer(s4, Integer.valueOf(lvt_20_2_.getGlTextureId()), lvt_21_1_, lvt_22_1_);
+							shader.addAuxFramebuffer(s4, lvt_20_2_.getGlTextureId(), lvt_21_1_, lvt_22_1_);
 						} else {
 							shader.addAuxFramebuffer(s4, framebuffer2, framebuffer2.framebufferTextureWidth, framebuffer2.framebufferTextureHeight);
 						}
@@ -207,7 +207,7 @@ public class ShaderGroup {
 
 		JsonObject jsonobject = JsonUtils.getJsonObject(json, "uniform");
 		String s = JsonUtils.getString(jsonobject, "name");
-		ShaderUniform shaderuniform = listShaders.get(listShaders.size() - 1).getShaderManager().getShaderUniform(s);
+		ShaderUniform shaderuniform = listShaders.getLast().getShaderManager().getShaderUniform(s);
 
 		if (shaderuniform == null) {
 			throw new JsonException("Uniform '" + s + "' does not exist");

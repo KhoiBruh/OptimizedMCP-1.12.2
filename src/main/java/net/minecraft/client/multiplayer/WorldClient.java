@@ -362,8 +362,7 @@ public class WorldClient extends World {
 
 		loadedEntityList.removeAll(unloadedEntityList);
 
-		for (int i = 0; i < unloadedEntityList.size(); ++i) {
-			Entity entity = unloadedEntityList.get(i);
+		for (Entity entity : unloadedEntityList) {
 			int j = entity.chunkCoordX;
 			int k = entity.chunkCoordZ;
 
@@ -372,8 +371,8 @@ public class WorldClient extends World {
 			}
 		}
 
-		for (int i1 = 0; i1 < unloadedEntityList.size(); ++i1) {
-			onEntityRemoved(unloadedEntityList.get(i1));
+		for (Entity entity : unloadedEntityList) {
+			onEntityRemoved(entity);
 		}
 
 		unloadedEntityList.clear();
@@ -410,30 +409,10 @@ public class WorldClient extends World {
 	public CrashReportCategory addWorldInfoToCrashReport(CrashReport report) {
 
 		CrashReportCategory crashreportcategory = super.addWorldInfoToCrashReport(report);
-		crashreportcategory.addDetail("Forced entities", new ICrashReportDetail<String>() {
-			public String call() {
-
-				return entityList.size() + " total; " + entityList;
-			}
-		});
-		crashreportcategory.addDetail("Retry entities", new ICrashReportDetail<String>() {
-			public String call() {
-
-				return entitySpawnQueue.size() + " total; " + entitySpawnQueue;
-			}
-		});
-		crashreportcategory.addDetail("Server brand", new ICrashReportDetail<String>() {
-			public String call() throws Exception {
-
-				return mc.player.getServerBrand();
-			}
-		});
-		crashreportcategory.addDetail("Server type", new ICrashReportDetail<String>() {
-			public String call() throws Exception {
-
-				return mc.getIntegratedServer() == null ? "Non-integrated multiplayer server" : "Integrated singleplayer server";
-			}
-		});
+		crashreportcategory.addDetail("Forced entities", () -> entityList.size() + " total; " + entityList);
+		crashreportcategory.addDetail("Retry entities", () -> entitySpawnQueue.size() + " total; " + entitySpawnQueue);
+		crashreportcategory.addDetail("Server brand", () -> mc.player.getServerBrand());
+		crashreportcategory.addDetail("Server type", () -> mc.getIntegratedServer() == null ? "Non-integrated multiplayer server" : "Integrated singleplayer server");
 		return crashreportcategory;
 	}
 

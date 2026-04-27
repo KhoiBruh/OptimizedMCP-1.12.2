@@ -23,7 +23,7 @@ public class BlockStainedGlassPane extends BlockPane {
 	public BlockStainedGlassPane() {
 
 		super(Material.GLASS, false);
-		setDefaultState(blockState.getBaseState().withProperty(NORTH, Boolean.valueOf(false)).withProperty(EAST, Boolean.valueOf(false)).withProperty(SOUTH, Boolean.valueOf(false)).withProperty(WEST, Boolean.valueOf(false)).withProperty(COLOR, EnumDyeColor.WHITE));
+		setDefaultState(blockState.getBaseState().withProperty(NORTH, Boolean.FALSE).withProperty(EAST, Boolean.FALSE).withProperty(SOUTH, Boolean.FALSE).withProperty(WEST, Boolean.FALSE).withProperty(COLOR, EnumDyeColor.WHITE));
 		setCreativeTab(CreativeTabs.DECORATIONS);
 	}
 
@@ -80,42 +80,17 @@ public class BlockStainedGlassPane extends BlockPane {
 	}
 
 	/**
-	 * Returns the blockstate with the given rotation from the passed blockstate. If inapplicable, returns the passed
-	 * blockstate.
-	 */
-	public IBlockState withRotation(IBlockState state, Rotation rot) {
-
-		switch (rot) {
-			case CLOCKWISE_180:
-				return state.withProperty(NORTH, state.getValue(SOUTH)).withProperty(EAST, state.getValue(WEST)).withProperty(SOUTH, state.getValue(NORTH)).withProperty(WEST, state.getValue(EAST));
-
-			case COUNTERCLOCKWISE_90:
-				return state.withProperty(NORTH, state.getValue(EAST)).withProperty(EAST, state.getValue(SOUTH)).withProperty(SOUTH, state.getValue(WEST)).withProperty(WEST, state.getValue(NORTH));
-
-			case CLOCKWISE_90:
-				return state.withProperty(NORTH, state.getValue(WEST)).withProperty(EAST, state.getValue(NORTH)).withProperty(SOUTH, state.getValue(EAST)).withProperty(WEST, state.getValue(SOUTH));
-
-			default:
-				return state;
-		}
-	}
-
-	/**
 	 * Returns the blockstate with the given mirror of the passed blockstate. If inapplicable, returns the passed
 	 * blockstate.
 	 */
 	public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
 
-		switch (mirrorIn) {
-			case LEFT_RIGHT:
-				return state.withProperty(NORTH, state.getValue(SOUTH)).withProperty(SOUTH, state.getValue(NORTH));
-
-			case FRONT_BACK:
-				return state.withProperty(EAST, state.getValue(WEST)).withProperty(WEST, state.getValue(EAST));
-
-			default:
-				return super.withMirror(state, mirrorIn);
-		}
+		return switch (mirrorIn) {
+			case LEFT_RIGHT ->
+					state.withProperty(NORTH, state.getValue(SOUTH)).withProperty(SOUTH, state.getValue(NORTH));
+			case FRONT_BACK -> state.withProperty(EAST, state.getValue(WEST)).withProperty(WEST, state.getValue(EAST));
+			default -> super.withMirror(state, mirrorIn);
+		};
 	}
 
 	protected BlockStateContainer createBlockState() {

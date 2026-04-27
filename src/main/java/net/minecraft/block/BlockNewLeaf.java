@@ -19,16 +19,11 @@ import javax.annotation.Nullable;
 
 public class BlockNewLeaf extends BlockLeaves {
 
-	public static final PropertyEnum<BlockPlanks.EnumType> VARIANT = PropertyEnum.create("variant", BlockPlanks.EnumType.class, new Predicate<BlockPlanks.EnumType>() {
-		public boolean apply(@Nullable BlockPlanks.EnumType p_apply_1_) {
-
-			return p_apply_1_.getMetadata() >= 4;
-		}
-	});
+	public static final PropertyEnum<BlockPlanks.EnumType> VARIANT = PropertyEnum.create("variant", BlockPlanks.EnumType.class, p_apply_1_ -> p_apply_1_.getMetadata() >= 4);
 
 	public BlockNewLeaf() {
 
-		setDefaultState(blockState.getBaseState().withProperty(VARIANT, BlockPlanks.EnumType.ACACIA).withProperty(CHECK_DECAY, Boolean.valueOf(true)).withProperty(DECAYABLE, Boolean.valueOf(true)));
+		setDefaultState(blockState.getBaseState().withProperty(VARIANT, BlockPlanks.EnumType.ACACIA).withProperty(CHECK_DECAY, Boolean.TRUE).withProperty(DECAYABLE, Boolean.TRUE));
 	}
 
 	protected void dropApple(World worldIn, BlockPos pos, IBlockState state, int chance) {
@@ -71,7 +66,7 @@ public class BlockNewLeaf extends BlockLeaves {
 	 */
 	public IBlockState getStateFromMeta(int meta) {
 
-		return getDefaultState().withProperty(VARIANT, getWoodType(meta)).withProperty(DECAYABLE, Boolean.valueOf((meta & 4) == 0)).withProperty(CHECK_DECAY, Boolean.valueOf((meta & 8) > 0));
+		return getDefaultState().withProperty(VARIANT, getWoodType(meta)).withProperty(DECAYABLE, (meta & 4) == 0).withProperty(CHECK_DECAY, (meta & 8) > 0);
 	}
 
 	/**
@@ -82,11 +77,11 @@ public class BlockNewLeaf extends BlockLeaves {
 		int i = 0;
 		i = i | state.getValue(VARIANT).getMetadata() - 4;
 
-		if (!state.getValue(DECAYABLE).booleanValue()) {
+		if (!state.getValue(DECAYABLE)) {
 			i |= 4;
 		}
 
-		if (state.getValue(CHECK_DECAY).booleanValue()) {
+		if (state.getValue(CHECK_DECAY)) {
 			i |= 8;
 		}
 

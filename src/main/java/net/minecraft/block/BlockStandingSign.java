@@ -14,7 +14,7 @@ public class BlockStandingSign extends BlockSign {
 
 	public BlockStandingSign() {
 
-		setDefaultState(blockState.getBaseState().withProperty(ROTATION, Integer.valueOf(0)));
+		setDefaultState(blockState.getBaseState().withProperty(ROTATION, 0));
 	}
 
 	/**
@@ -37,7 +37,7 @@ public class BlockStandingSign extends BlockSign {
 	 */
 	public IBlockState getStateFromMeta(int meta) {
 
-		return getDefaultState().withProperty(ROTATION, Integer.valueOf(meta));
+		return getDefaultState().withProperty(ROTATION, meta);
 	}
 
 	/**
@@ -45,7 +45,7 @@ public class BlockStandingSign extends BlockSign {
 	 */
 	public int getMetaFromState(IBlockState state) {
 
-		return state.getValue(ROTATION).intValue();
+		return state.getValue(ROTATION);
 	}
 
 	/**
@@ -54,7 +54,7 @@ public class BlockStandingSign extends BlockSign {
 	 */
 	public IBlockState withRotation(IBlockState state, Rotation rot) {
 
-		return state.withProperty(ROTATION, Integer.valueOf(rot.rotate(state.getValue(ROTATION).intValue(), 16)));
+		return state.withProperty(ROTATION, rot.rotate(state.getValue(ROTATION), 16));
 	}
 
 	/**
@@ -63,7 +63,7 @@ public class BlockStandingSign extends BlockSign {
 	 */
 	public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
 
-		return state.withProperty(ROTATION, Integer.valueOf(mirrorIn.mirrorRotation(state.getValue(ROTATION).intValue(), 16)));
+		return state.withProperty(ROTATION, mirrorIn.mirrorRotation(state.getValue(ROTATION), 16));
 	}
 
 	protected BlockStateContainer createBlockState() {

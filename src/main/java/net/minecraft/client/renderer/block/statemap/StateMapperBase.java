@@ -19,7 +19,7 @@ public abstract class StateMapperBase implements IStateMapper {
 		StringBuilder stringbuilder = new StringBuilder();
 
 		for (Entry<IProperty<?>, Comparable<?>> entry : values.entrySet()) {
-			if (stringbuilder.length() != 0) {
+			if (!stringbuilder.isEmpty()) {
 				stringbuilder.append(",");
 			}
 
@@ -29,7 +29,7 @@ public abstract class StateMapperBase implements IStateMapper {
 			stringbuilder.append(getPropertyName(iproperty, entry.getValue()));
 		}
 
-		if (stringbuilder.length() == 0) {
+		if (stringbuilder.isEmpty()) {
 			stringbuilder.append("normal");
 		}
 
@@ -43,10 +43,7 @@ public abstract class StateMapperBase implements IStateMapper {
 
 	public Map<IBlockState, ModelResourceLocation> putStateModelLocations(Block blockIn) {
 
-		UnmodifiableIterator unmodifiableiterator = blockIn.getBlockState().getValidStates().iterator();
-
-		while (unmodifiableiterator.hasNext()) {
-			IBlockState iblockstate = (IBlockState) unmodifiableiterator.next();
+		for (IBlockState iblockstate : blockIn.getBlockState().getValidStates()) {
 			mapStateModelLocations.put(iblockstate, getModelResourceLocation(iblockstate));
 		}
 

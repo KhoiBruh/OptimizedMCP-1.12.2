@@ -34,7 +34,7 @@ public class PlayerAdvancements {
 
 	private static final Logger LOGGER = LogManager.getLogger();
 	private static final Gson GSON = (new GsonBuilder()).registerTypeAdapter(AdvancementProgress.class, new AdvancementProgress.Serializer()).registerTypeAdapter(ResourceLocation.class, new ResourceLocation.Serializer()).setPrettyPrinting().create();
-	private static final TypeToken<Map<ResourceLocation, AdvancementProgress>> MAP_TOKEN = new TypeToken<Map<ResourceLocation, AdvancementProgress>>() {
+	private static final TypeToken<Map<ResourceLocation, AdvancementProgress>> MAP_TOKEN = new TypeToken<>() {
 	};
 	private final MinecraftServer server;
 	private final File progressFile;
@@ -124,21 +124,21 @@ public class PlayerAdvancements {
 					throw new JsonParseException("Found null for advancements");
 				}
 
-				Stream<Entry<ResourceLocation, AdvancementProgress>> stream = map.entrySet().stream().sorted(Comparator.comparing(Entry::getValue));
+				Stream<Entry<ResourceLocation, AdvancementProgress>> stream = map.entrySet().stream().sorted(Entry.comparingByValue());
 
-				for (Entry<ResourceLocation, AdvancementProgress> entry : stream.collect(Collectors.toList())) {
+				for (Entry<ResourceLocation, AdvancementProgress> entry : stream.toList()) {
 					Advancement advancement = server.getAdvancementManager().getAdvancement(entry.getKey());
 
 					if (advancement == null) {
-						LOGGER.warn("Ignored advancement '" + entry.getKey() + "' in progress file " + progressFile + " - it doesn't exist anymore?");
+						LOGGER.warn("Ignored advancement '{}' in progress file {} - it doesn't exist anymore?", entry.getKey(), progressFile);
 					} else {
 						startProgress(advancement, entry.getValue());
 					}
 				}
 			} catch (JsonParseException jsonparseexception) {
-				LOGGER.error("Couldn't parse player advancements in " + progressFile, jsonparseexception);
+				LOGGER.error("Couldn't parse player advancements in {}", progressFile, jsonparseexception);
 			} catch (IOException ioexception) {
-				LOGGER.error("Couldn't access player advancements in " + progressFile, ioexception);
+				LOGGER.error("Couldn't access player advancements in {}", progressFile, ioexception);
 			}
 		}
 
@@ -166,7 +166,7 @@ public class PlayerAdvancements {
 		try {
 			Files.write(GSON.toJson(map), progressFile, StandardCharsets.UTF_8);
 		} catch (IOException ioexception) {
-			LOGGER.error("Couldn't save player advancements to " + progressFile, ioexception);
+			LOGGER.error("Couldn't save player advancements to {}", progressFile, ioexception);
 		}
 	}
 

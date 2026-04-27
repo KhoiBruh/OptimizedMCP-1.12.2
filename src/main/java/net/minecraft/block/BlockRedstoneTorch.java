@@ -44,9 +44,7 @@ public class BlockRedstoneTorch extends BlockTorch {
 
 		int i = 0;
 
-		for (int j = 0; j < list.size(); ++j) {
-			BlockRedstoneTorch.Toggle blockredstonetorch$toggle = list.get(j);
-
+		for (Toggle blockredstonetorch$toggle : list) {
 			if (blockredstonetorch$toggle.pos.equals(pos)) {
 				++i;
 
@@ -114,8 +112,8 @@ public class BlockRedstoneTorch extends BlockTorch {
 		boolean flag = shouldBeOff(worldIn, pos, state);
 		List<BlockRedstoneTorch.Toggle> list = toggles.get(worldIn);
 
-		while (list != null && !list.isEmpty() && worldIn.getTotalWorldTime() - (list.get(0)).time > 60L) {
-			list.remove(0);
+		while (list != null && !list.isEmpty() && worldIn.getTotalWorldTime() - (list.getFirst()).time > 60L) {
+			list.removeFirst();
 		}
 
 		if (isOn) {

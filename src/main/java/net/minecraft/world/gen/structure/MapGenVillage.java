@@ -69,9 +69,8 @@ public class MapGenVillage extends MapGenStructure {
 		l = l + random.nextInt(distance - 8);
 
 		if (i == k && j == l) {
-			boolean flag = world.getBiomeProvider().areBiomesViable(i * 16 + 8, j * 16 + 8, 0, VILLAGE_SPAWN_BIOMES);
 
-			return flag;
+			return world.getBiomeProvider().areBiomesViable(i * 16 + 8, j * 16 + 8, 0, VILLAGE_SPAWN_BIOMES);
 		}
 
 		return false;

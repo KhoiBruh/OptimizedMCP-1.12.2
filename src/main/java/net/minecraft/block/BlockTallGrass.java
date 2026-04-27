@@ -38,11 +38,6 @@ public class BlockTallGrass extends BlockBush implements IGrowable {
 		return TALL_GRASS_AABB;
 	}
 
-	public boolean canBlockStay(World worldIn, BlockPos pos, IBlockState state) {
-
-		return canSustainBush(worldIn.getBlockState(pos.down()));
-	}
-
 	/**
 	 * Whether this Block can be replaced directly by other blocks (true for e.g. tall grass)
 	 */

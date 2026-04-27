@@ -173,7 +173,7 @@ public enum EnumConnectionState {
 				throw new Error("Invalid protocol ID " + i);
 			}
 
-			STATES_BY_ID[i - -1] = enumconnectionstate;
+			STATES_BY_ID[i + 1] = enumconnectionstate;
 
 			for (EnumPacketDirection enumpacketdirection : enumconnectionstate.directionMaps.keySet()) {
 				for (Class<? extends Packet<?>> oclass : (enumconnectionstate.directionMaps.get(enumpacketdirection)).values()) {
@@ -204,7 +204,7 @@ public enum EnumConnectionState {
 
 	public static EnumConnectionState getById(int stateId) {
 
-		return stateId >= -1 && stateId <= 2 ? STATES_BY_ID[stateId - -1] : null;
+		return stateId >= -1 && stateId <= 2 ? STATES_BY_ID[stateId + 1] : null;
 	}
 
 	public static EnumConnectionState getFromPacket(Packet<?> packetIn) {
@@ -214,24 +214,19 @@ public enum EnumConnectionState {
 
 	protected EnumConnectionState registerPacket(EnumPacketDirection direction, Class<? extends Packet<?>> packetClass) {
 
-		BiMap<Integer, Class<? extends Packet<?>>> bimap = directionMaps.get(direction);
-
-		if (bimap == null) {
-			bimap = HashBiMap.create();
-			directionMaps.put(direction, bimap);
-		}
+		BiMap<Integer, Class<? extends Packet<?>>> bimap = directionMaps.computeIfAbsent(direction, k -> HashBiMap.create());
 
 		if (bimap.containsValue(packetClass)) {
 			String s = direction + " packet " + packetClass + " is already known to ID " + bimap.inverse().get(packetClass);
 			LogManager.getLogger().fatal(s);
 			throw new IllegalArgumentException(s);
 		} else {
-			bimap.put(Integer.valueOf(bimap.size()), packetClass);
+			bimap.put(bimap.size(), packetClass);
 			return this;
 		}
 	}
 
-	public Integer getPacketId(EnumPacketDirection direction, Packet<?> packetIn) throws Exception {
+	public Integer getPacketId(EnumPacketDirection direction, Packet<?> packetIn) {
 
 		return (Integer) ((BiMap) directionMaps.get(direction)).inverse().get(packetIn.getClass());
 	}
@@ -239,7 +234,7 @@ public enum EnumConnectionState {
 	@Nullable
 	public Packet<?> getPacket(EnumPacketDirection direction, int packetId) throws InstantiationException, IllegalAccessException {
 
-		Class<? extends Packet<?>> oclass = (Class) ((BiMap) directionMaps.get(direction)).get(Integer.valueOf(packetId));
+		Class<? extends Packet<?>> oclass = (Class) ((BiMap) directionMaps.get(direction)).get(packetId);
 		return oclass == null ? null : oclass.newInstance();
 	}
 

@@ -147,7 +147,7 @@ public abstract class ResourcePackListEntry implements GuiListExtended.IGuiListE
 		if (showHoverOverlay() && relativeX <= 32) {
 			if (canMoveRight()) {
 				resourcePacksGUI.markChanged();
-				final int j = resourcePacksGUI.getSelectedResourcePacks().get(0).isServerPack() ? 1 : 0;
+				final int j = resourcePacksGUI.getSelectedResourcePacks().getFirst().isServerPack() ? 1 : 0;
 				int l = getResourcePackFormat();
 
 				if (l == 3) {
@@ -156,16 +156,14 @@ public abstract class ResourcePackListEntry implements GuiListExtended.IGuiListE
 				} else {
 					String s = I18n.format("resourcePack.incompatible.confirm.title");
 					String s1 = I18n.format("resourcePack.incompatible.confirm." + (l > 3 ? "new" : "old"));
-					mc.displayGuiScreen(new GuiYesNo(new GuiYesNoCallback() {
-						public void confirmClicked(boolean result, int id) {
+					mc.displayGuiScreen(new GuiYesNo((result, id) -> {
 
-							List<ResourcePackListEntry> list2 = resourcePacksGUI.getListContaining(ResourcePackListEntry.this);
-							mc.displayGuiScreen(resourcePacksGUI);
+						List<ResourcePackListEntry> list2 = resourcePacksGUI.getListContaining(ResourcePackListEntry.this);
+						mc.displayGuiScreen(resourcePacksGUI);
 
-							if (result) {
-								list2.remove(ResourcePackListEntry.this);
-								resourcePacksGUI.getSelectedResourcePacks().add(j, ResourcePackListEntry.this);
-							}
+						if (result) {
+							list2.remove(ResourcePackListEntry.this);
+							resourcePacksGUI.getSelectedResourcePacks().add(j, ResourcePackListEntry.this);
 						}
 					}, s, s1, 0));
 				}
@@ -175,7 +173,7 @@ public abstract class ResourcePackListEntry implements GuiListExtended.IGuiListE
 
 			if (relativeX < 16 && canMoveLeft()) {
 				resourcePacksGUI.getListContaining(this).remove(this);
-				resourcePacksGUI.getAvailableResourcePacks().add(0, this);
+				resourcePacksGUI.getAvailableResourcePacks().addFirst(this);
 				resourcePacksGUI.markChanged();
 				return true;
 			}

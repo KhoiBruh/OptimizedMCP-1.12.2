@@ -193,7 +193,7 @@ public class GuiEditStructure extends GuiScreen {
 	/**
 	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
 	 */
-	protected void actionPerformed(GuiButton button) throws IOException {
+	protected void actionPerformed(GuiButton button) {
 
 		if (button.enabled) {
 			if (button.id == 1) {
@@ -458,7 +458,7 @@ public class GuiEditStructure extends GuiScreen {
 	private long parseSeed(String p_189821_1_) {
 
 		try {
-			return Long.valueOf(p_189821_1_).longValue();
+			return Long.valueOf(p_189821_1_);
 		} catch (NumberFormatException var3) {
 			return 0L;
 		}
@@ -467,7 +467,7 @@ public class GuiEditStructure extends GuiScreen {
 	private float parseIntegrity(String p_189819_1_) {
 
 		try {
-			return Float.valueOf(p_189819_1_).floatValue();
+			return Float.valueOf(p_189819_1_);
 		} catch (NumberFormatException var3) {
 			return 1.0F;
 		}

@@ -90,12 +90,7 @@ public class EntityEnderman extends EntityMob {
 		tasks.addTask(11, new EntityEnderman.AITakeBlock(this));
 		targetTasks.addTask(1, new EntityEnderman.AIFindPlayer(this));
 		targetTasks.addTask(2, new EntityAIHurtByTarget(this, false));
-		targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityEndermite.class, 10, true, false, new Predicate<EntityEndermite>() {
-			public boolean apply(@Nullable EntityEndermite p_apply_1_) {
-
-				return p_apply_1_.isSpawnedByPlayer();
-			}
-		}));
+		targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityEndermite.class, 10, true, false, (Predicate<EntityEndermite>) p_apply_1_ -> p_apply_1_.isSpawnedByPlayer()));
 	}
 
 	protected void applyEntityAttributes() {
@@ -117,11 +112,11 @@ public class EntityEnderman extends EntityMob {
 
 		if (entitylivingbaseIn == null) {
 			targetChangeTime = 0;
-			dataManager.set(SCREAMING, Boolean.valueOf(false));
+			dataManager.set(SCREAMING, Boolean.FALSE);
 			iattributeinstance.removeModifier(ATTACKING_SPEED_BOOST);
 		} else {
 			targetChangeTime = ticksExisted;
-			dataManager.set(SCREAMING, Boolean.valueOf(true));
+			dataManager.set(SCREAMING, Boolean.TRUE);
 
 			if (!iattributeinstance.hasModifier(ATTACKING_SPEED_BOOST)) {
 				iattributeinstance.applyModifier(ATTACKING_SPEED_BOOST);
@@ -133,7 +128,7 @@ public class EntityEnderman extends EntityMob {
 
 		super.entityInit();
 		dataManager.register(CARRIED_BLOCK, Optional.absent());
-		dataManager.register(SCREAMING, Boolean.valueOf(false));
+		dataManager.register(SCREAMING, Boolean.FALSE);
 	}
 
 	public void playEndermanSound() {
@@ -371,7 +366,7 @@ public class EntityEnderman extends EntityMob {
 
 	public boolean isScreaming() {
 
-		return dataManager.get(SCREAMING).booleanValue();
+		return dataManager.get(SCREAMING);
 	}
 
 	static class AIFindPlayer extends EntityAINearestAttackableTarget<EntityPlayer> {
@@ -390,12 +385,7 @@ public class EntityEnderman extends EntityMob {
 		public boolean shouldExecute() {
 
 			double d0 = getTargetDistance();
-			player = enderman.world.getNearestAttackablePlayer(enderman.posX, enderman.posY, enderman.posZ, d0, d0, null, new Predicate<EntityPlayer>() {
-				public boolean apply(@Nullable EntityPlayer p_apply_1_) {
-
-					return p_apply_1_ != null && enderman.shouldAttackPlayer(p_apply_1_);
-				}
-			});
+			player = enderman.world.getNearestAttackablePlayer(enderman.posX, enderman.posY, enderman.posZ, d0, d0, null, p_apply_1_ -> p_apply_1_ != null && enderman.shouldAttackPlayer(p_apply_1_));
 			return player != null;
 		}
 

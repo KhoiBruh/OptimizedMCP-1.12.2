@@ -111,7 +111,7 @@ public class GuiStats extends GuiScreen implements IProgressMeter {
 	/**
 	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
 	 */
-	protected void actionPerformed(GuiButton button) throws IOException {
+	protected void actionPerformed(GuiButton button) {
 
 		if (button.enabled) {
 			if (button.id == 0) {
@@ -420,7 +420,7 @@ public class GuiStats extends GuiScreen implements IProgressMeter {
 				sortOrder = 0;
 			}
 
-			Collections.sort(statsHolder, statSorter);
+			statsHolder.sort(statSorter);
 		}
 
 	}
@@ -453,50 +453,48 @@ public class GuiStats extends GuiScreen implements IProgressMeter {
 				}
 			}
 
-			statSorter = new Comparator<StatCrafting>() {
-				public int compare(StatCrafting p_compare_1_, StatCrafting p_compare_2_) {
+			statSorter = (p_compare_1_, p_compare_2_) -> {
 
-					Item item1 = p_compare_1_.getItem();
-					Item item2 = p_compare_2_.getItem();
-					StatBase statbase = null;
-					StatBase statbase1 = null;
+				Item item1 = p_compare_1_.getItem();
+				Item item2 = p_compare_2_.getItem();
+				StatBase statbase = null;
+				StatBase statbase1 = null;
 
-					if (sortColumn == 2) {
-						statbase = StatList.getBlockStats(Block.getBlockFromItem(item1));
-						statbase1 = StatList.getBlockStats(Block.getBlockFromItem(item2));
-					} else if (sortColumn == 0) {
-						statbase = StatList.getCraftStats(item1);
-						statbase1 = StatList.getCraftStats(item2);
-					} else if (sortColumn == 1) {
-						statbase = StatList.getObjectUseStats(item1);
-						statbase1 = StatList.getObjectUseStats(item2);
-					} else if (sortColumn == 3) {
-						statbase = StatList.getObjectsPickedUpStats(item1);
-						statbase1 = StatList.getObjectsPickedUpStats(item2);
-					} else if (sortColumn == 4) {
-						statbase = StatList.getDroppedObjectStats(item1);
-						statbase1 = StatList.getDroppedObjectStats(item2);
-					}
-
-					if (statbase != null || statbase1 != null) {
-						if (statbase == null) {
-							return 1;
-						}
-
-						if (statbase1 == null) {
-							return -1;
-						}
-
-						int i = stats.readStat(statbase);
-						int j = stats.readStat(statbase1);
-
-						if (i != j) {
-							return (i - j) * sortOrder;
-						}
-					}
-
-					return Item.getIdFromItem(item1) - Item.getIdFromItem(item2);
+				if (sortColumn == 2) {
+					statbase = StatList.getBlockStats(Block.getBlockFromItem(item1));
+					statbase1 = StatList.getBlockStats(Block.getBlockFromItem(item2));
+				} else if (sortColumn == 0) {
+					statbase = StatList.getCraftStats(item1);
+					statbase1 = StatList.getCraftStats(item2);
+				} else if (sortColumn == 1) {
+					statbase = StatList.getObjectUseStats(item1);
+					statbase1 = StatList.getObjectUseStats(item2);
+				} else if (sortColumn == 3) {
+					statbase = StatList.getObjectsPickedUpStats(item1);
+					statbase1 = StatList.getObjectsPickedUpStats(item2);
+				} else if (sortColumn == 4) {
+					statbase = StatList.getDroppedObjectStats(item1);
+					statbase1 = StatList.getDroppedObjectStats(item2);
 				}
+
+				if (statbase != null || statbase1 != null) {
+					if (statbase == null) {
+						return 1;
+					}
+
+					if (statbase1 == null) {
+						return -1;
+					}
+
+					int i = stats.readStat(statbase);
+					int j = stats.readStat(statbase1);
+
+					if (i != j) {
+						return (i - j) * sortOrder;
+					}
+				}
+
+				return Item.getIdFromItem(item1) - Item.getIdFromItem(item2);
 			};
 		}
 
@@ -632,52 +630,50 @@ public class GuiStats extends GuiScreen implements IProgressMeter {
 				}
 			}
 
-			statSorter = new Comparator<StatCrafting>() {
-				public int compare(StatCrafting p_compare_1_, StatCrafting p_compare_2_) {
+			statSorter = (p_compare_1_, p_compare_2_) -> {
 
-					Item item1 = p_compare_1_.getItem();
-					Item item2 = p_compare_2_.getItem();
-					int i = Item.getIdFromItem(item1);
-					int j = Item.getIdFromItem(item2);
-					StatBase statbase = null;
-					StatBase statbase1 = null;
+				Item item1 = p_compare_1_.getItem();
+				Item item2 = p_compare_2_.getItem();
+				int i = Item.getIdFromItem(item1);
+				int j = Item.getIdFromItem(item2);
+				StatBase statbase = null;
+				StatBase statbase1 = null;
 
-					if (sortColumn == 0) {
-						statbase = StatList.getObjectBreakStats(item1);
-						statbase1 = StatList.getObjectBreakStats(item2);
-					} else if (sortColumn == 1) {
-						statbase = StatList.getCraftStats(item1);
-						statbase1 = StatList.getCraftStats(item2);
-					} else if (sortColumn == 2) {
-						statbase = StatList.getObjectUseStats(item1);
-						statbase1 = StatList.getObjectUseStats(item2);
-					} else if (sortColumn == 3) {
-						statbase = StatList.getObjectsPickedUpStats(item1);
-						statbase1 = StatList.getObjectsPickedUpStats(item2);
-					} else if (sortColumn == 4) {
-						statbase = StatList.getDroppedObjectStats(item1);
-						statbase1 = StatList.getDroppedObjectStats(item2);
-					}
-
-					if (statbase != null || statbase1 != null) {
-						if (statbase == null) {
-							return 1;
-						}
-
-						if (statbase1 == null) {
-							return -1;
-						}
-
-						int k = stats.readStat(statbase);
-						int l = stats.readStat(statbase1);
-
-						if (k != l) {
-							return (k - l) * sortOrder;
-						}
-					}
-
-					return i - j;
+				if (sortColumn == 0) {
+					statbase = StatList.getObjectBreakStats(item1);
+					statbase1 = StatList.getObjectBreakStats(item2);
+				} else if (sortColumn == 1) {
+					statbase = StatList.getCraftStats(item1);
+					statbase1 = StatList.getCraftStats(item2);
+				} else if (sortColumn == 2) {
+					statbase = StatList.getObjectUseStats(item1);
+					statbase1 = StatList.getObjectUseStats(item2);
+				} else if (sortColumn == 3) {
+					statbase = StatList.getObjectsPickedUpStats(item1);
+					statbase1 = StatList.getObjectsPickedUpStats(item2);
+				} else if (sortColumn == 4) {
+					statbase = StatList.getDroppedObjectStats(item1);
+					statbase1 = StatList.getDroppedObjectStats(item2);
 				}
+
+				if (statbase != null || statbase1 != null) {
+					if (statbase == null) {
+						return 1;
+					}
+
+					if (statbase1 == null) {
+						return -1;
+					}
+
+					int k = stats.readStat(statbase);
+					int l = stats.readStat(statbase1);
+
+					if (k != l) {
+						return (k - l) * sortOrder;
+					}
+				}
+
+				return i - j;
 			};
 		}
 

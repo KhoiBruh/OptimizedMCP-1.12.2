@@ -22,12 +22,7 @@ import javax.annotation.Nullable;
 
 public abstract class EntityHanging extends Entity {
 
-	private static final Predicate<Entity> IS_HANGING_ENTITY = new Predicate<Entity>() {
-		public boolean apply(@Nullable Entity p_apply_1_) {
-
-			return p_apply_1_ instanceof EntityHanging;
-		}
-	};
+	private static final Predicate<Entity> IS_HANGING_ENTITY = p_apply_1_ -> p_apply_1_ instanceof EntityHanging;
 
 	@Nullable
 
@@ -309,19 +304,12 @@ public abstract class EntityHanging extends Entity {
 
 		float f = MathHelper.wrapDegrees(rotationYaw);
 
-		switch (transformRotation) {
-			case CLOCKWISE_180:
-				return f + 180.0F;
-
-			case COUNTERCLOCKWISE_90:
-				return f + 90.0F;
-
-			case CLOCKWISE_90:
-				return f + 270.0F;
-
-			default:
-				return f;
-		}
+		return switch (transformRotation) {
+			case CLOCKWISE_180 -> f + 180.0F;
+			case COUNTERCLOCKWISE_90 -> f + 90.0F;
+			case CLOCKWISE_90 -> f + 270.0F;
+			default -> f;
+		};
 	}
 
 	/**

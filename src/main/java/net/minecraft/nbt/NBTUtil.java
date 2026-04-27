@@ -257,10 +257,9 @@ public final class NBTUtil {
 
 		if (!state.getProperties().isEmpty()) {
 			NBTTagCompound nbttagcompound = new NBTTagCompound();
-			UnmodifiableIterator unmodifiableiterator = state.getProperties().entrySet().iterator();
 
-			while (unmodifiableiterator.hasNext()) {
-				Entry<IProperty<?>, Comparable<?>> entry = (Entry) unmodifiableiterator.next();
+			for (Entry<IProperty<?>, Comparable<?>> iPropertyComparableEntry : state.getProperties().entrySet()) {
+				Entry<IProperty<?>, Comparable<?>> entry = (Entry) iPropertyComparableEntry;
 				IProperty<?> iproperty = entry.getKey();
 				nbttagcompound.setString(iproperty.getName(), getName(iproperty, entry.getValue()));
 			}

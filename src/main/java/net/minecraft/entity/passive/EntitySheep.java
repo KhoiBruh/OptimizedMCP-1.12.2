@@ -155,7 +155,7 @@ public class EntitySheep extends EntityAnimal {
 	protected void entityInit() {
 
 		super.entityInit();
-		dataManager.register(DYE_COLOR, Byte.valueOf((byte) 0));
+		dataManager.register(DYE_COLOR, (byte) 0);
 	}
 
 	@Nullable
@@ -164,56 +164,24 @@ public class EntitySheep extends EntityAnimal {
 		if (getSheared()) {
 			return LootTableList.ENTITIES_SHEEP;
 		} else {
-			switch (getFleeceColor()) {
-				case WHITE:
-				default:
-					return LootTableList.ENTITIES_SHEEP_WHITE;
-
-				case ORANGE:
-					return LootTableList.ENTITIES_SHEEP_ORANGE;
-
-				case MAGENTA:
-					return LootTableList.ENTITIES_SHEEP_MAGENTA;
-
-				case LIGHT_BLUE:
-					return LootTableList.ENTITIES_SHEEP_LIGHT_BLUE;
-
-				case YELLOW:
-					return LootTableList.ENTITIES_SHEEP_YELLOW;
-
-				case LIME:
-					return LootTableList.ENTITIES_SHEEP_LIME;
-
-				case PINK:
-					return LootTableList.ENTITIES_SHEEP_PINK;
-
-				case GRAY:
-					return LootTableList.ENTITIES_SHEEP_GRAY;
-
-				case SILVER:
-					return LootTableList.ENTITIES_SHEEP_SILVER;
-
-				case CYAN:
-					return LootTableList.ENTITIES_SHEEP_CYAN;
-
-				case PURPLE:
-					return LootTableList.ENTITIES_SHEEP_PURPLE;
-
-				case BLUE:
-					return LootTableList.ENTITIES_SHEEP_BLUE;
-
-				case BROWN:
-					return LootTableList.ENTITIES_SHEEP_BROWN;
-
-				case GREEN:
-					return LootTableList.ENTITIES_SHEEP_GREEN;
-
-				case RED:
-					return LootTableList.ENTITIES_SHEEP_RED;
-
-				case BLACK:
-					return LootTableList.ENTITIES_SHEEP_BLACK;
-			}
+			return switch (getFleeceColor()) {
+				default -> LootTableList.ENTITIES_SHEEP_WHITE;
+				case ORANGE -> LootTableList.ENTITIES_SHEEP_ORANGE;
+				case MAGENTA -> LootTableList.ENTITIES_SHEEP_MAGENTA;
+				case LIGHT_BLUE -> LootTableList.ENTITIES_SHEEP_LIGHT_BLUE;
+				case YELLOW -> LootTableList.ENTITIES_SHEEP_YELLOW;
+				case LIME -> LootTableList.ENTITIES_SHEEP_LIME;
+				case PINK -> LootTableList.ENTITIES_SHEEP_PINK;
+				case GRAY -> LootTableList.ENTITIES_SHEEP_GRAY;
+				case SILVER -> LootTableList.ENTITIES_SHEEP_SILVER;
+				case CYAN -> LootTableList.ENTITIES_SHEEP_CYAN;
+				case PURPLE -> LootTableList.ENTITIES_SHEEP_PURPLE;
+				case BLUE -> LootTableList.ENTITIES_SHEEP_BLUE;
+				case BROWN -> LootTableList.ENTITIES_SHEEP_BROWN;
+				case GREEN -> LootTableList.ENTITIES_SHEEP_GREEN;
+				case RED -> LootTableList.ENTITIES_SHEEP_RED;
+				case BLACK -> LootTableList.ENTITIES_SHEEP_BLACK;
+			};
 		}
 	}
 
@@ -319,7 +287,7 @@ public class EntitySheep extends EntityAnimal {
 	 */
 	public EnumDyeColor getFleeceColor() {
 
-		return EnumDyeColor.byMetadata(dataManager.get(DYE_COLOR).byteValue() & 15);
+		return EnumDyeColor.byMetadata(dataManager.get(DYE_COLOR) & 15);
 	}
 
 	/**
@@ -327,8 +295,8 @@ public class EntitySheep extends EntityAnimal {
 	 */
 	public void setFleeceColor(EnumDyeColor color) {
 
-		byte b0 = dataManager.get(DYE_COLOR).byteValue();
-		dataManager.set(DYE_COLOR, Byte.valueOf((byte) (b0 & 240 | color.getMetadata() & 15)));
+		byte b0 = dataManager.get(DYE_COLOR);
+		dataManager.set(DYE_COLOR, (byte) (b0 & 240 | color.getMetadata() & 15));
 	}
 
 	/**
@@ -336,7 +304,7 @@ public class EntitySheep extends EntityAnimal {
 	 */
 	public boolean getSheared() {
 
-		return (dataManager.get(DYE_COLOR).byteValue() & 16) != 0;
+		return (dataManager.get(DYE_COLOR) & 16) != 0;
 	}
 
 	/**
@@ -344,12 +312,12 @@ public class EntitySheep extends EntityAnimal {
 	 */
 	public void setSheared(boolean sheared) {
 
-		byte b0 = dataManager.get(DYE_COLOR).byteValue();
+		byte b0 = dataManager.get(DYE_COLOR);
 
 		if (sheared) {
-			dataManager.set(DYE_COLOR, Byte.valueOf((byte) (b0 | 16)));
+			dataManager.set(DYE_COLOR, (byte) (b0 | 16));
 		} else {
-			dataManager.set(DYE_COLOR, Byte.valueOf((byte) (b0 & -17)));
+			dataManager.set(DYE_COLOR, (byte) (b0 & -17));
 		}
 	}
 

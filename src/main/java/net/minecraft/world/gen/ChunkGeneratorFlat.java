@@ -26,7 +26,7 @@ public class ChunkGeneratorFlat implements IChunkGenerator {
 	private final Random random;
 	private final IBlockState[] cachedBlockIDs = new IBlockState[256];
 	private final FlatGeneratorInfo flatWorldGenInfo;
-	private final Map<String, MapGenStructure> structureGenerators = new HashMap<String, MapGenStructure>();
+	private final Map<String, MapGenStructure> structureGenerators = new HashMap<>();
 	private final boolean hasDecoration;
 	private final boolean hasDungeons;
 	private WorldGenLakes waterLakeGenerator;

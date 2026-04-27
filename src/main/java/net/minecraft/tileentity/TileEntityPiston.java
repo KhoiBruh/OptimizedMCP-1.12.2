@@ -23,12 +23,7 @@ import java.util.List;
 
 public class TileEntityPiston extends TileEntity implements ITickable {
 
-	private static final ThreadLocal<EnumFacing> MOVING_ENTITY = new ThreadLocal<EnumFacing>() {
-		protected EnumFacing initialValue() {
-
-			return null;
-		}
-	};
+	private static final ThreadLocal<EnumFacing> MOVING_ENTITY = ThreadLocal.withInitial(() -> null);
 	private IBlockState pistonState;
 	private EnumFacing pistonFacing;
 	/**
@@ -171,9 +166,7 @@ public class TileEntityPiston extends TileEntity implements ITickable {
 			if (!list1.isEmpty()) {
 				boolean flag = pistonState.getBlock() == Blocks.SLIME_BLOCK;
 
-				for (int i = 0; i < list1.size(); ++i) {
-					Entity entity = list1.get(i);
-
+				for (Entity entity : list1) {
 					if (entity.getPushReaction() != EnumPushReaction.IGNORE) {
 						if (flag) {
 							switch (enumfacing.getAxis()) {
@@ -192,8 +185,8 @@ public class TileEntityPiston extends TileEntity implements ITickable {
 
 						double d1 = 0.0D;
 
-						for (int j = 0; j < list.size(); ++j) {
-							AxisAlignedBB axisalignedbb1 = getMovementArea(moveByPositionAndProgress(list.get(j)), enumfacing, d0);
+						for (AxisAlignedBB axisAlignedBB : list) {
+							AxisAlignedBB axisalignedbb1 = getMovementArea(moveByPositionAndProgress(axisAlignedBB), enumfacing, d0);
 							AxisAlignedBB axisalignedbb2 = entity.getEntityBoundingBox();
 
 							if (axisalignedbb1.intersects(axisalignedbb2)) {
@@ -244,17 +237,11 @@ public class TileEntityPiston extends TileEntity implements ITickable {
 
 	private double getMovement(AxisAlignedBB p_190612_1_, EnumFacing facing, AxisAlignedBB p_190612_3_) {
 
-		switch (facing.getAxis()) {
-			case X:
-				return getDeltaX(p_190612_1_, facing, p_190612_3_);
-
-			case Y:
-			default:
-				return getDeltaY(p_190612_1_, facing, p_190612_3_);
-
-			case Z:
-				return getDeltaZ(p_190612_1_, facing, p_190612_3_);
-		}
+		return switch (facing.getAxis()) {
+			case X -> getDeltaX(p_190612_1_, facing, p_190612_3_);
+			default -> getDeltaY(p_190612_1_, facing, p_190612_3_);
+			case Z -> getDeltaZ(p_190612_1_, facing, p_190612_3_);
+		};
 	}
 
 	private AxisAlignedBB moveByPositionAndProgress(AxisAlignedBB p_190607_1_) {
@@ -269,26 +256,20 @@ public class TileEntityPiston extends TileEntity implements ITickable {
 		double d1 = Math.min(d0, 0.0D);
 		double d2 = Math.max(d0, 0.0D);
 
-		switch (p_190610_2_) {
-			case WEST:
-				return new AxisAlignedBB(p_190610_1_.minX + d1, p_190610_1_.minY, p_190610_1_.minZ, p_190610_1_.minX + d2, p_190610_1_.maxY, p_190610_1_.maxZ);
-
-			case EAST:
-				return new AxisAlignedBB(p_190610_1_.maxX + d1, p_190610_1_.minY, p_190610_1_.minZ, p_190610_1_.maxX + d2, p_190610_1_.maxY, p_190610_1_.maxZ);
-
-			case DOWN:
-				return new AxisAlignedBB(p_190610_1_.minX, p_190610_1_.minY + d1, p_190610_1_.minZ, p_190610_1_.maxX, p_190610_1_.minY + d2, p_190610_1_.maxZ);
-
-			case UP:
-			default:
-				return new AxisAlignedBB(p_190610_1_.minX, p_190610_1_.maxY + d1, p_190610_1_.minZ, p_190610_1_.maxX, p_190610_1_.maxY + d2, p_190610_1_.maxZ);
-
-			case NORTH:
-				return new AxisAlignedBB(p_190610_1_.minX, p_190610_1_.minY, p_190610_1_.minZ + d1, p_190610_1_.maxX, p_190610_1_.maxY, p_190610_1_.minZ + d2);
-
-			case SOUTH:
-				return new AxisAlignedBB(p_190610_1_.minX, p_190610_1_.minY, p_190610_1_.maxZ + d1, p_190610_1_.maxX, p_190610_1_.maxY, p_190610_1_.maxZ + d2);
-		}
+		return switch (p_190610_2_) {
+			case WEST ->
+					new AxisAlignedBB(p_190610_1_.minX + d1, p_190610_1_.minY, p_190610_1_.minZ, p_190610_1_.minX + d2, p_190610_1_.maxY, p_190610_1_.maxZ);
+			case EAST ->
+					new AxisAlignedBB(p_190610_1_.maxX + d1, p_190610_1_.minY, p_190610_1_.minZ, p_190610_1_.maxX + d2, p_190610_1_.maxY, p_190610_1_.maxZ);
+			case DOWN ->
+					new AxisAlignedBB(p_190610_1_.minX, p_190610_1_.minY + d1, p_190610_1_.minZ, p_190610_1_.maxX, p_190610_1_.minY + d2, p_190610_1_.maxZ);
+			default ->
+					new AxisAlignedBB(p_190610_1_.minX, p_190610_1_.maxY + d1, p_190610_1_.minZ, p_190610_1_.maxX, p_190610_1_.maxY + d2, p_190610_1_.maxZ);
+			case NORTH ->
+					new AxisAlignedBB(p_190610_1_.minX, p_190610_1_.minY, p_190610_1_.minZ + d1, p_190610_1_.maxX, p_190610_1_.maxY, p_190610_1_.minZ + d2);
+			case SOUTH ->
+					new AxisAlignedBB(p_190610_1_.minX, p_190610_1_.minY, p_190610_1_.maxZ + d1, p_190610_1_.maxX, p_190610_1_.maxY, p_190610_1_.maxZ + d2);
+		};
 	}
 
 	private void fixEntityWithinPistonBase(Entity p_190605_1_, EnumFacing p_190605_2_, double p_190605_3_) {
@@ -380,7 +361,7 @@ public class TileEntityPiston extends TileEntity implements ITickable {
 	public void addCollissionAABBs(World p_190609_1_, BlockPos p_190609_2_, AxisAlignedBB p_190609_3_, List<AxisAlignedBB> p_190609_4_, @Nullable Entity p_190609_5_) {
 
 		if (!extending && shouldHeadBeRendered) {
-			pistonState.withProperty(BlockPistonBase.EXTENDED, Boolean.valueOf(true)).addCollisionBoxToList(p_190609_1_, p_190609_2_, p_190609_3_, p_190609_4_, p_190609_5_, false);
+			pistonState.withProperty(BlockPistonBase.EXTENDED, Boolean.TRUE).addCollisionBoxToList(p_190609_1_, p_190609_2_, p_190609_3_, p_190609_4_, p_190609_5_, false);
 		}
 
 		EnumFacing enumfacing = MOVING_ENTITY.get();
@@ -390,7 +371,7 @@ public class TileEntityPiston extends TileEntity implements ITickable {
 			IBlockState iblockstate;
 
 			if (shouldPistonHeadBeRendered()) {
-				iblockstate = Blocks.PISTON_HEAD.getDefaultState().withProperty(BlockPistonExtension.FACING, pistonFacing).withProperty(BlockPistonExtension.SHORT, Boolean.valueOf(extending != 1.0F - progress < 0.25F));
+				iblockstate = Blocks.PISTON_HEAD.getDefaultState().withProperty(BlockPistonExtension.FACING, pistonFacing).withProperty(BlockPistonExtension.SHORT, extending != 1.0F - progress < 0.25F);
 			} else {
 				iblockstate = pistonState;
 			}

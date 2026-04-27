@@ -56,7 +56,7 @@ public class ParticleRain extends Particle {
 			double d0;
 
 			if (iblockstate.getBlock() instanceof BlockLiquid) {
-				d0 = 1.0F - BlockLiquid.getLiquidHeightPercent(iblockstate.getValue(BlockLiquid.LEVEL).intValue());
+				d0 = 1.0F - BlockLiquid.getLiquidHeightPercent(iblockstate.getValue(BlockLiquid.LEVEL));
 			} else {
 				d0 = iblockstate.getBoundingBox(world, blockpos).maxY;
 			}

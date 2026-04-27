@@ -50,10 +50,6 @@ public class ContainerEnchantment extends Container {
 	public ContainerEnchantment(InventoryPlayer playerInv, World worldIn, BlockPos pos) {
 
 		tableInventory = new InventoryBasic("Enchant", true, 2) {
-			public int getInventoryStackLimit() {
-
-				return 64;
-			}
 
 			public void markDirty() {
 
@@ -69,10 +65,6 @@ public class ContainerEnchantment extends Container {
 		position = pos;
 		xpSeed = playerInv.player.getXPSeed();
 		addSlotToContainer(new Slot(tableInventory, 0, 15, 47) {
-			public boolean isItemValid(ItemStack stack) {
-
-				return true;
-			}
 
 			public int getSlotStackLimit() {
 
@@ -124,8 +116,7 @@ public class ContainerEnchantment extends Container {
 
 		super.detectAndSendChanges();
 
-		for (int i = 0; i < listeners.size(); ++i) {
-			IContainerListener icontainerlistener = listeners.get(i);
+		for (IContainerListener icontainerlistener : listeners) {
 			broadcastData(icontainerlistener);
 		}
 	}
@@ -249,9 +240,7 @@ public class ContainerEnchantment extends Container {
 						tableInventory.setInventorySlotContents(0, itemstack);
 					}
 
-					for (int j = 0; j < list.size(); ++j) {
-						EnchantmentData enchantmentdata = list.get(j);
-
+					for (EnchantmentData enchantmentdata : list) {
 						if (flag) {
 							ItemEnchantedBook.addEnchantment(itemstack, enchantmentdata);
 						} else {
@@ -354,15 +343,15 @@ public class ContainerEnchantment extends Container {
 					return ItemStack.EMPTY;
 				}
 			} else {
-				if (inventorySlots.get(0).getHasStack() || !inventorySlots.get(0).isItemValid(itemstack1)) {
+				if (inventorySlots.getFirst().getHasStack() || !inventorySlots.getFirst().isItemValid(itemstack1)) {
 					return ItemStack.EMPTY;
 				}
 
 				if (itemstack1.hasTagCompound() && itemstack1.getCount() == 1) {
-					inventorySlots.get(0).putStack(itemstack1.copy());
+					inventorySlots.getFirst().putStack(itemstack1.copy());
 					itemstack1.setCount(0);
 				} else if (!itemstack1.isEmpty()) {
-					inventorySlots.get(0).putStack(new ItemStack(itemstack1.getItem(), 1, itemstack1.getMetadata()));
+					inventorySlots.getFirst().putStack(new ItemStack(itemstack1.getItem(), 1, itemstack1.getMetadata()));
 					itemstack1.shrink(1);
 				}
 			}

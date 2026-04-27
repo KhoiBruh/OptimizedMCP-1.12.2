@@ -20,12 +20,6 @@ public abstract class EntityGolem extends EntityCreature implements IAnimals {
 	}
 
 	@Nullable
-	protected SoundEvent getAmbientSound() {
-
-		return null;
-	}
-
-	@Nullable
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
 
 		return null;

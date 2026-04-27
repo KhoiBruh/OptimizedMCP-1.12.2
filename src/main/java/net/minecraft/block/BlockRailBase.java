@@ -362,9 +362,7 @@ public abstract class BlockRailBase extends Block {
 
 		private boolean isConnectedTo(BlockPos posIn) {
 
-			for (int i = 0; i < connectedRails.size(); ++i) {
-				BlockPos blockpos = connectedRails.get(i);
-
+			for (BlockPos blockpos : connectedRails) {
 				if (blockpos.getX() == posIn.getX() && blockpos.getZ() == posIn.getZ()) {
 					return true;
 				}
@@ -584,8 +582,8 @@ public abstract class BlockRailBase extends Block {
 			if (initialPlacement || world.getBlockState(pos) != state) {
 				world.setBlockState(pos, state, 3);
 
-				for (int i = 0; i < connectedRails.size(); ++i) {
-					BlockRailBase.Rail blockrailbase$rail = findRailAt(connectedRails.get(i));
+				for (BlockPos connectedRail : connectedRails) {
+					Rail blockrailbase$rail = findRailAt(connectedRail);
 
 					if (blockrailbase$rail != null) {
 						blockrailbase$rail.removeSoftConnections();

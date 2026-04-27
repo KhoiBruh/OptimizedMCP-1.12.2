@@ -129,7 +129,7 @@ public class SuffixArray<T> {
 	private void printArray() {
 
 		for (int i2 = 0; i2 < suffixToT.size(); ++i2) {
-			LOGGER.debug("{} {}", Integer.valueOf(i2), getString(i2));
+			LOGGER.debug("{} {}", i2, getString(i2));
 		}
 
 		LOGGER.debug("");
@@ -146,7 +146,7 @@ public class SuffixArray<T> {
 				stringbuilder.append('^');
 			}
 
-			int l2 = chars.get(j2 + k2).intValue();
+			int l2 = chars.get(j2 + k2);
 
 			if (l2 == -1) {
 				break;
@@ -196,7 +196,7 @@ public class SuffixArray<T> {
 			int i3 = compare(p_194055_1_, l2);
 
 			if (DEBUG_PRINT_COMPARISONS) {
-				LOGGER.debug("comparing lower \"{}\" with {} \"{}\": {}", p_194055_1_, Integer.valueOf(l2), getString(l2), Integer.valueOf(i3));
+				LOGGER.debug("comparing lower \"{}\" with {} \"{}\": {}", p_194055_1_, l2, getString(l2), i3);
 			}
 
 			if (i3 > 0) {
@@ -215,7 +215,7 @@ public class SuffixArray<T> {
 				int j3 = compare(p_194055_1_, j4);
 
 				if (DEBUG_PRINT_COMPARISONS) {
-					LOGGER.debug("comparing upper \"{}\" with {} \"{}\": {}", p_194055_1_, Integer.valueOf(j4), getString(j4), Integer.valueOf(j3));
+					LOGGER.debug("comparing upper \"{}\" with {} \"{}\": {}", p_194055_1_, j4, getString(j4), j3);
 				}
 
 				if (j3 >= 0) {

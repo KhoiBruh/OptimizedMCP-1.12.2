@@ -90,17 +90,15 @@ public class EntityMinecartCommandBlock extends EntityMinecart {
 	public static void registerFixesMinecartCommand(DataFixer fixer) {
 
 		EntityMinecart.registerFixesMinecart(fixer, EntityMinecartCommandBlock.class);
-		fixer.registerWalker(FixTypes.ENTITY, new IDataWalker() {
-			public NBTTagCompound process(IDataFixer fixer, NBTTagCompound compound, int versionIn) {
+		fixer.registerWalker(FixTypes.ENTITY, (fixer1, compound, versionIn) -> {
 
-				if (TileEntity.getKey(TileEntityCommandBlock.class).equals(new ResourceLocation(compound.getString("id")))) {
-					compound.setString("id", "Control");
-					fixer.process(FixTypes.BLOCK_ENTITY, compound, versionIn);
-					compound.setString("id", "MinecartCommandBlock");
-				}
-
-				return compound;
+			if (TileEntity.getKey(TileEntityCommandBlock.class).equals(new ResourceLocation(compound.getString("id")))) {
+				compound.setString("id", "Control");
+				fixer1.process(FixTypes.BLOCK_ENTITY, compound, versionIn);
+				compound.setString("id", "MinecartCommandBlock");
 			}
+
+			return compound;
 		});
 	}
 

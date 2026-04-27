@@ -20,12 +20,7 @@ public class StatisticsManager {
 	 */
 	public void unlockAchievement(EntityPlayer playerIn, StatBase statIn, int p_150873_3_) {
 
-		TupleIntJsonSerializable tupleintjsonserializable = statsData.get(statIn);
-
-		if (tupleintjsonserializable == null) {
-			tupleintjsonserializable = new TupleIntJsonSerializable();
-			statsData.put(statIn, tupleintjsonserializable);
-		}
+		TupleIntJsonSerializable tupleintjsonserializable = statsData.computeIfAbsent(statIn, k -> new TupleIntJsonSerializable());
 
 		tupleintjsonserializable.setIntegerValue(p_150873_3_);
 	}

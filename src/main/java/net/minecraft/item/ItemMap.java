@@ -275,7 +275,7 @@ public class ItemMap extends ItemMapBase {
 									for (int i4 = 0; i4 < i; ++i4) {
 										for (int j4 = 0; j4 < i; ++j4) {
 											int k4 = chunk.getHeightValue(i4 + i3, j4 + j3) + 1;
-											IBlockState iblockstate = Blocks.AIR.getDefaultState();
+											IBlockState iblockstate;
 
 											if (k4 <= 1) {
 												iblockstate = Blocks.BEDROCK.getDefaultState();
@@ -413,7 +413,7 @@ public class ItemMap extends ItemMapBase {
 
 			if (mapdata != null) {
 				tooltip.add(I18n.translateToLocalFormatted("filled_map.scale", 1 << mapdata.scale));
-				tooltip.add(I18n.translateToLocalFormatted("filled_map.level", mapdata.scale, Integer.valueOf(4)));
+				tooltip.add(I18n.translateToLocalFormatted("filled_map.level", mapdata.scale, 4));
 			} else {
 				tooltip.add(I18n.translateToLocal("filled_map.unknown"));
 			}

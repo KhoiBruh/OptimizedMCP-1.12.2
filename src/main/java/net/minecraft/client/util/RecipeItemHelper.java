@@ -101,9 +101,7 @@ public class RecipeItemHelper {
 			recipe = p_i47608_2_;
 			ingredients.addAll(p_i47608_2_.getIngredients());
 			ingredients.removeIf((p_194103_0_) ->
-			{
-				return p_194103_0_ == Ingredient.EMPTY;
-			});
+					p_194103_0_ == Ingredient.EMPTY);
 			ingredientCount = ingredients.size();
 			possessedIngredientStacks = getUniqueAvailIngredientItems();
 			possessedIngredientStackCount = possessedIngredientStacks.length;
@@ -133,7 +131,7 @@ public class RecipeItemHelper {
 					setSatisfied(path.getInt(l));
 
 					for (int i1 = 0; i1 < l; ++i1) {
-						toggleResidual((i1 & 1) == 0, path.get(i1).intValue(), path.get(i1 + 1).intValue());
+						toggleResidual((i1 & 1) == 0, path.get(i1), path.get(i1 + 1));
 					}
 
 					path.clear();
@@ -151,8 +149,8 @@ public class RecipeItemHelper {
 				int j1 = 0;
 				List<Ingredient> list = recipe.getIngredients();
 
-				for (int k1 = 0; k1 < list.size(); ++k1) {
-					if (flag1 && list.get(k1) == Ingredient.EMPTY) {
+				for (Ingredient ingredient : list) {
+					if (flag1 && ingredient == Ingredient.EMPTY) {
 						listIn.add(0);
 					} else {
 						for (int l1 = 0; l1 < possessedIngredientStackCount; ++l1) {
@@ -320,7 +318,7 @@ public class RecipeItemHelper {
 				int i1;
 
 				for (IntListIterator intlistiterator = ingredient.getValidItemStacksPacked().iterator(); intlistiterator.hasNext(); l = Math.max(l, itemToCount.get(i1))) {
-					i1 = intlistiterator.next().intValue();
+					i1 = intlistiterator.next();
 				}
 
 				if (k > 0) {

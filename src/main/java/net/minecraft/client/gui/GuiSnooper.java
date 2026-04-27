@@ -39,9 +39,7 @@ public class GuiSnooper extends GuiScreen {
 		String s = I18n.format("options.snooper.desc");
 		java.util.List<String> list = Lists.newArrayList();
 
-		for (String s1 : fontRenderer.listFormattedStringToWidth(s, width - 30)) {
-			list.add(s1);
-		}
+		list.addAll(fontRenderer.listFormattedStringToWidth(s, width - 30));
 
 		desc = list.toArray(new String[list.size()]);
 		keys.clear();
@@ -50,13 +48,13 @@ public class GuiSnooper extends GuiScreen {
 		buttonList.add(new GuiButton(2, width / 2 + 2, height - 30, 150, 20, I18n.format("gui.done")));
 		boolean flag = mc.getIntegratedServer() != null && mc.getIntegratedServer().getPlayerUsageSnooper() != null;
 
-		for (Entry<String, String> entry : (new TreeMap<String, String>(mc.getPlayerUsageSnooper().getCurrentStats())).entrySet()) {
+		for (Entry<String, String> entry : (new TreeMap<>(mc.getPlayerUsageSnooper().getCurrentStats())).entrySet()) {
 			keys.add((flag ? "C " : "") + entry.getKey());
 			values.add(fontRenderer.trimStringToWidth(entry.getValue(), width - 220));
 		}
 
 		if (flag) {
-			for (Entry<String, String> entry1 : (new TreeMap<String, String>(mc.getIntegratedServer().getPlayerUsageSnooper().getCurrentStats())).entrySet()) {
+			for (Entry<String, String> entry1 : (new TreeMap<>(mc.getIntegratedServer().getPlayerUsageSnooper().getCurrentStats())).entrySet()) {
 				keys.add("S " + entry1.getKey());
 				values.add(fontRenderer.trimStringToWidth(entry1.getValue(), width - 220));
 			}
@@ -77,7 +75,7 @@ public class GuiSnooper extends GuiScreen {
 	/**
 	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
 	 */
-	protected void actionPerformed(GuiButton button) throws IOException {
+	protected void actionPerformed(GuiButton button) {
 
 		if (button.enabled) {
 			if (button.id == 2) {

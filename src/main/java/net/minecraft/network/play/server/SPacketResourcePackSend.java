@@ -28,7 +28,7 @@ public class SPacketResourcePackSend implements Packet<INetHandlerPlayClient> {
 	/**
 	 * Reads the raw packet data from the data stream.
 	 */
-	public void readPacketData(PacketBuffer buf) throws IOException {
+	public void readPacketData(PacketBuffer buf) {
 
 		url = buf.readString(32767);
 		hash = buf.readString(40);
@@ -37,7 +37,7 @@ public class SPacketResourcePackSend implements Packet<INetHandlerPlayClient> {
 	/**
 	 * Writes the raw packet data to the data stream.
 	 */
-	public void writePacketData(PacketBuffer buf) throws IOException {
+	public void writePacketData(PacketBuffer buf) {
 
 		buf.writeString(url);
 		buf.writeString(hash);

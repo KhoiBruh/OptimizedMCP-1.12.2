@@ -107,7 +107,7 @@ public class ItemPredicate {
 
 		if (this.item != null && item.getItem() != this.item) {
 			return false;
-		} else if (data != null && item.getMetadata() != data.intValue()) {
+		} else if (data != null && item.getMetadata() != data) {
 			return false;
 		} else if (!count.test((float) item.getCount())) {
 			return false;
@@ -120,8 +120,8 @@ public class ItemPredicate {
 		} else {
 			Map<Enchantment, Integer> map = EnchantmentHelper.getEnchantments(item);
 
-			for (int i = 0; i < enchantments.length; ++i) {
-				if (!enchantments[i].test(map)) {
+			for (EnchantmentPredicate enchantment : enchantments) {
+				if (!enchantment.test(map)) {
 					return false;
 				}
 			}

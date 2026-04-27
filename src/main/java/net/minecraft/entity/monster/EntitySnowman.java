@@ -62,7 +62,7 @@ public class EntitySnowman extends EntityGolem implements IRangedAttackMob {
 	protected void entityInit() {
 
 		super.entityInit();
-		dataManager.register(PUMPKIN_EQUIPPED, Byte.valueOf((byte) 16));
+		dataManager.register(PUMPKIN_EQUIPPED, (byte) 16);
 	}
 
 	/**
@@ -165,17 +165,17 @@ public class EntitySnowman extends EntityGolem implements IRangedAttackMob {
 
 	public boolean isPumpkinEquipped() {
 
-		return (dataManager.get(PUMPKIN_EQUIPPED).byteValue() & 16) != 0;
+		return (dataManager.get(PUMPKIN_EQUIPPED) & 16) != 0;
 	}
 
 	public void setPumpkinEquipped(boolean pumpkinEquipped) {
 
-		byte b0 = dataManager.get(PUMPKIN_EQUIPPED).byteValue();
+		byte b0 = dataManager.get(PUMPKIN_EQUIPPED);
 
 		if (pumpkinEquipped) {
-			dataManager.set(PUMPKIN_EQUIPPED, Byte.valueOf((byte) (b0 | 16)));
+			dataManager.set(PUMPKIN_EQUIPPED, (byte) (b0 | 16));
 		} else {
-			dataManager.set(PUMPKIN_EQUIPPED, Byte.valueOf((byte) (b0 & -17)));
+			dataManager.set(PUMPKIN_EQUIPPED, (byte) (b0 & -17));
 		}
 	}
 

@@ -108,12 +108,7 @@ public class ChunkRenderDispatcher {
 
 		try {
 			final ChunkCompileTaskGenerator chunkcompiletaskgenerator = chunkRenderer.makeCompileTaskChunk();
-			chunkcompiletaskgenerator.addFinishRunnable(new Runnable() {
-				public void run() {
-
-					queueChunkUpdates.remove(chunkcompiletaskgenerator);
-				}
-			});
+			chunkcompiletaskgenerator.addFinishRunnable(() -> queueChunkUpdates.remove(chunkcompiletaskgenerator));
 			boolean flag = queueChunkUpdates.offer(chunkcompiletaskgenerator);
 
 			if (!flag) {
@@ -194,12 +189,7 @@ public class ChunkRenderDispatcher {
 				return flag;
 			}
 
-			chunkcompiletaskgenerator.addFinishRunnable(new Runnable() {
-				public void run() {
-
-					queueChunkUpdates.remove(chunkcompiletaskgenerator);
-				}
-			});
+			chunkcompiletaskgenerator.addFinishRunnable(() -> queueChunkUpdates.remove(chunkcompiletaskgenerator));
 			flag = queueChunkUpdates.offer(chunkcompiletaskgenerator);
 		} finally {
 			chunkRenderer.getLockCompileTask().unlock();
@@ -220,12 +210,7 @@ public class ChunkRenderDispatcher {
 			p_188245_2_.setTranslation(0.0D, 0.0D, 0.0D);
 			return Futures.immediateFuture(null);
 		} else {
-			ListenableFutureTask<Object> listenablefuturetask = ListenableFutureTask.create(new Runnable() {
-				public void run() {
-
-					uploadChunk(p_188245_1_, p_188245_2_, p_188245_3_, p_188245_4_, p_188245_5_);
-				}
-			}, null);
+			ListenableFutureTask<Object> listenablefuturetask = ListenableFutureTask.create(() -> uploadChunk(p_188245_1_, p_188245_2_, p_188245_3_, p_188245_4_, p_188245_5_), null);
 
 			synchronized (queueChunkUploads) {
 				queueChunkUploads.add(new ChunkRenderDispatcher.PendingUpload(listenablefuturetask, p_188245_5_));

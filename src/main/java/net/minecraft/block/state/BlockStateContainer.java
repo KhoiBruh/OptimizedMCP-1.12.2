@@ -26,7 +26,7 @@ import java.util.regex.Pattern;
 public class BlockStateContainer {
 
 	private static final Pattern NAME_PATTERN = Pattern.compile("^[a-z0-9_]+$");
-	private static final Function<IProperty<?>, String> GET_NAME_FUNC = new Function<IProperty<?>, String>() {
+	private static final Function<IProperty<?>, String> GET_NAME_FUNC = new Function<>() {
 		@Nullable
 		public String apply(@Nullable IProperty<?> p_apply_1_) {
 
@@ -93,10 +93,9 @@ public class BlockStateContainer {
 
 		List<Iterable<Comparable<?>>> list = Lists.newArrayList();
 		ImmutableCollection<IProperty<?>> immutablecollection = properties.values();
-		UnmodifiableIterator unmodifiableiterator = immutablecollection.iterator();
 
-		while (unmodifiableiterator.hasNext()) {
-			IProperty<?> iproperty = (IProperty) unmodifiableiterator.next();
+		for (IProperty<?> iProperty : immutablecollection) {
+			IProperty<?> iproperty = (IProperty) iProperty;
 			list.add(((IProperty) iproperty).getAllowedValues());
 		}
 
@@ -105,7 +104,7 @@ public class BlockStateContainer {
 
 	public IBlockState getBaseState() {
 
-		return validStates.get(0);
+		return validStates.getFirst();
 	}
 
 	public Block getBlock() {
@@ -186,11 +185,6 @@ public class BlockStateContainer {
 			return block;
 		}
 
-		public boolean equals(Object p_equals_1_) {
-
-			return this == p_equals_1_;
-		}
-
 		public int hashCode() {
 
 			return properties.hashCode();
@@ -202,10 +196,9 @@ public class BlockStateContainer {
 				throw new IllegalStateException();
 			} else {
 				Table<IProperty<?>, Comparable<?>, IBlockState> table = HashBasedTable.create();
-				UnmodifiableIterator unmodifiableiterator = properties.entrySet().iterator();
 
-				while (unmodifiableiterator.hasNext()) {
-					Entry<IProperty<?>, Comparable<?>> entry = (Entry) unmodifiableiterator.next();
+				for (Entry<IProperty<?>, Comparable<?>> iPropertyComparableEntry : properties.entrySet()) {
+					Entry<IProperty<?>, Comparable<?>> entry = (Entry) iPropertyComparableEntry;
 					IProperty<?> iproperty = entry.getKey();
 
 					for (Comparable<?> comparable : iproperty.getAllowedValues()) {

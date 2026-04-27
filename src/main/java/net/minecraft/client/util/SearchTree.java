@@ -16,9 +16,9 @@ public class SearchTree<T> implements ISearchTree<T> {
 	private final Function<T, Iterable<String>> nameFunc;
 	private final Function<T, Iterable<ResourceLocation>> idFunc;
 	private final List<T> contents = Lists.newArrayList();
-	private final Object2IntMap<T> numericContents = new Object2IntOpenHashMap<T>();
-	protected SuffixArray<T> byId = new SuffixArray<T>();
-	protected SuffixArray<T> byName = new SuffixArray<T>();
+	private final Object2IntMap<T> numericContents = new Object2IntOpenHashMap<>();
+	protected SuffixArray<T> byId = new SuffixArray<>();
+	protected SuffixArray<T> byName = new SuffixArray<>();
 
 	public SearchTree(Function<T, Iterable<String>> nameFuncIn, Function<T, Iterable<ResourceLocation>> idFuncIn) {
 
@@ -32,8 +32,8 @@ public class SearchTree<T> implements ISearchTree<T> {
 	 */
 	public void recalculate() {
 
-		byId = new SuffixArray<T>();
-		byName = new SuffixArray<T>();
+		byId = new SuffixArray<>();
+		byName = new SuffixArray<>();
 
 		for (T t : contents) {
 			index(t);
@@ -64,13 +64,9 @@ public class SearchTree<T> implements ISearchTree<T> {
 	private void index(T element) {
 
 		(idFunc.apply(element)).forEach((p_194039_2_) ->
-		{
-			byName.add(element, p_194039_2_.toString().toLowerCase(Locale.ROOT));
-		});
+				byName.add(element, p_194039_2_.toString().toLowerCase(Locale.ROOT)));
 		(nameFunc.apply(element)).forEach((p_194041_2_) ->
-		{
-			byId.add(element, p_194041_2_.toLowerCase(Locale.ROOT));
-		});
+				byId.add(element, p_194041_2_.toLowerCase(Locale.ROOT)));
 	}
 
 	public List<T> search(String searchText) {

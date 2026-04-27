@@ -58,12 +58,12 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob 
 
 	public int getStrength() {
 
-		return dataManager.get(DATA_STRENGTH_ID).intValue();
+		return dataManager.get(DATA_STRENGTH_ID);
 	}
 
 	private void setStrength(int strengthIn) {
 
-		dataManager.set(DATA_STRENGTH_ID, Integer.valueOf(Math.max(1, Math.min(5, strengthIn))));
+		dataManager.set(DATA_STRENGTH_ID, Math.max(1, Math.min(5, strengthIn)));
 	}
 
 	/**
@@ -121,19 +121,19 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob 
 	protected void entityInit() {
 
 		super.entityInit();
-		dataManager.register(DATA_STRENGTH_ID, Integer.valueOf(0));
-		dataManager.register(DATA_COLOR_ID, Integer.valueOf(-1));
-		dataManager.register(DATA_VARIANT_ID, Integer.valueOf(0));
+		dataManager.register(DATA_STRENGTH_ID, 0);
+		dataManager.register(DATA_COLOR_ID, -1);
+		dataManager.register(DATA_VARIANT_ID, 0);
 	}
 
 	public int getVariant() {
 
-		return MathHelper.clamp(dataManager.get(DATA_VARIANT_ID).intValue(), 0, 3);
+		return MathHelper.clamp(dataManager.get(DATA_VARIANT_ID), 0, 3);
 	}
 
 	public void setVariant(int variantIn) {
 
-		dataManager.set(DATA_VARIANT_ID, Integer.valueOf(variantIn));
+		dataManager.set(DATA_VARIANT_ID, variantIn);
 	}
 
 	protected int getInventorySize() {
@@ -369,13 +369,13 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob 
 	@Nullable
 	public EnumDyeColor getColor() {
 
-		int i = dataManager.get(DATA_COLOR_ID).intValue();
+		int i = dataManager.get(DATA_COLOR_ID);
 		return i == -1 ? null : EnumDyeColor.byMetadata(i);
 	}
 
 	private void setColor(@Nullable EnumDyeColor color) {
 
-		dataManager.set(DATA_COLOR_ID, Integer.valueOf(color == null ? -1 : color.getMetadata()));
+		dataManager.set(DATA_COLOR_ID, color == null ? -1 : color.getMetadata());
 	}
 
 	public int getMaxTemper() {

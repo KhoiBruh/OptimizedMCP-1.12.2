@@ -37,7 +37,7 @@ public class BlockBed extends BlockHorizontal implements ITileEntityProvider {
 	public BlockBed() {
 
 		super(Material.CLOTH);
-		setDefaultState(blockState.getBaseState().withProperty(PART, BlockBed.EnumPartType.FOOT).withProperty(OCCUPIED, Boolean.valueOf(false)));
+		setDefaultState(blockState.getBaseState().withProperty(PART, BlockBed.EnumPartType.FOOT).withProperty(OCCUPIED, Boolean.FALSE));
 		hasTileEntity = true;
 	}
 
@@ -122,7 +122,7 @@ public class BlockBed extends BlockHorizontal implements ITileEntityProvider {
 			}
 
 			if (worldIn.provider.canRespawnHere() && worldIn.getBiome(pos) != Biomes.HELL) {
-				if (state.getValue(OCCUPIED).booleanValue()) {
+				if (state.getValue(OCCUPIED)) {
 					EntityPlayer entityplayer = getPlayerInBed(worldIn, pos);
 
 					if (entityplayer != null) {
@@ -130,14 +130,14 @@ public class BlockBed extends BlockHorizontal implements ITileEntityProvider {
 						return true;
 					}
 
-					state = state.withProperty(OCCUPIED, Boolean.valueOf(false));
+					state = state.withProperty(OCCUPIED, Boolean.FALSE);
 					worldIn.setBlockState(pos, state, 4);
 				}
 
 				EntityPlayer.SleepResult entityplayer$sleepresult = playerIn.trySleep(pos);
 
 				if (entityplayer$sleepresult == EntityPlayer.SleepResult.OK) {
-					state = state.withProperty(OCCUPIED, Boolean.valueOf(true));
+					state = state.withProperty(OCCUPIED, Boolean.TRUE);
 					worldIn.setBlockState(pos, state, 4);
 					return true;
 				} else {
@@ -347,7 +347,7 @@ public class BlockBed extends BlockHorizontal implements ITileEntityProvider {
 	public IBlockState getStateFromMeta(int meta) {
 
 		EnumFacing enumfacing = EnumFacing.getHorizontal(meta);
-		return (meta & 8) > 0 ? getDefaultState().withProperty(PART, BlockBed.EnumPartType.HEAD).withProperty(FACING, enumfacing).withProperty(OCCUPIED, Boolean.valueOf((meta & 4) > 0)) : getDefaultState().withProperty(PART, BlockBed.EnumPartType.FOOT).withProperty(FACING, enumfacing);
+		return (meta & 8) > 0 ? getDefaultState().withProperty(PART, BlockBed.EnumPartType.HEAD).withProperty(FACING, enumfacing).withProperty(OCCUPIED, (meta & 4) > 0) : getDefaultState().withProperty(PART, BlockBed.EnumPartType.FOOT).withProperty(FACING, enumfacing);
 	}
 
 	/**
@@ -396,7 +396,7 @@ public class BlockBed extends BlockHorizontal implements ITileEntityProvider {
 		if (state.getValue(PART) == BlockBed.EnumPartType.HEAD) {
 			i |= 8;
 
-			if (state.getValue(OCCUPIED).booleanValue()) {
+			if (state.getValue(OCCUPIED)) {
 				i |= 4;
 			}
 		}

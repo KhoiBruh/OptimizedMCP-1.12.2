@@ -192,8 +192,7 @@ public class EntityEvoker extends EntitySpellcasterIllager {
 			} else {
 				for (int l = 0; l < 16; ++l) {
 					double d2 = 1.25D * (double) (l + 1);
-					int j = l;
-					spawnFangs(posX + (double) MathHelper.cos(f) * d2, posZ + (double) MathHelper.sin(f) * d2, d0, d1, f, j);
+					spawnFangs(posX + (double) MathHelper.cos(f) * d2, posZ + (double) MathHelper.sin(f) * d2, d0, d1, f, l);
 				}
 			}
 		}
@@ -315,12 +314,7 @@ public class EntityEvoker extends EntitySpellcasterIllager {
 
 	public class AIWololoSpell extends EntitySpellcasterIllager.AIUseSpell {
 
-		final Predicate<EntitySheep> wololoSelector = new Predicate<EntitySheep>() {
-			public boolean apply(EntitySheep p_apply_1_) {
-
-				return p_apply_1_.getFleeceColor() == EnumDyeColor.BLUE;
-			}
-		};
+		final Predicate<EntitySheep> wololoSelector = p_apply_1_ -> p_apply_1_.getFleeceColor() == EnumDyeColor.BLUE;
 
 		public AIWololoSpell() {
 

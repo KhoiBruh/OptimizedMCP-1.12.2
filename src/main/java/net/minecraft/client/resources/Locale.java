@@ -52,7 +52,6 @@ public class Locale {
 
 	private void checkUnicode() {
 
-		unicode = false;
 		int i = 0;
 		int j = 0;
 
@@ -87,7 +86,7 @@ public class Locale {
 		}
 	}
 
-	private void loadLocaleData(InputStream inputStreamIn) throws IOException {
+	private void loadLocaleData(InputStream inputStreamIn) {
 
 		for (String s : IOUtils.readLines(inputStreamIn, StandardCharsets.UTF_8)) {
 			if (!s.isEmpty() && s.charAt(0) != '#') {

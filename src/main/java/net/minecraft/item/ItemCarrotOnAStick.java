@@ -41,7 +41,7 @@ public class ItemCarrotOnAStick extends Item {
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
 
 		if (worldIn.isRemote) {
-			return new ActionResult<ItemStack>(EnumActionResult.PASS, itemstack);
+			return new ActionResult<>(EnumActionResult.PASS, itemstack);
 		} else {
 			if (playerIn.isRiding() && playerIn.getRidingEntity() instanceof EntityPig entitypig) {
 
@@ -51,15 +51,15 @@ public class ItemCarrotOnAStick extends Item {
 					if (itemstack.isEmpty()) {
 						ItemStack itemstack1 = new ItemStack(Items.FISHING_ROD);
 						itemstack1.setTagCompound(itemstack.getTagCompound());
-						return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemstack1);
+						return new ActionResult<>(EnumActionResult.SUCCESS, itemstack1);
 					}
 
-					return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemstack);
+					return new ActionResult<>(EnumActionResult.SUCCESS, itemstack);
 				}
 			}
 
 			playerIn.addStat(StatList.getObjectUseStats(this));
-			return new ActionResult<ItemStack>(EnumActionResult.PASS, itemstack);
+			return new ActionResult<>(EnumActionResult.PASS, itemstack);
 		}
 	}
 

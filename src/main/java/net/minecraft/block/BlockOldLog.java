@@ -16,12 +16,7 @@ import javax.annotation.Nullable;
 
 public class BlockOldLog extends BlockLog {
 
-	public static final PropertyEnum<BlockPlanks.EnumType> VARIANT = PropertyEnum.create("variant", BlockPlanks.EnumType.class, new Predicate<BlockPlanks.EnumType>() {
-		public boolean apply(@Nullable BlockPlanks.EnumType p_apply_1_) {
-
-			return p_apply_1_.getMetadata() < 4;
-		}
-	});
+	public static final PropertyEnum<BlockPlanks.EnumType> VARIANT = PropertyEnum.create("variant", BlockPlanks.EnumType.class, p_apply_1_ -> p_apply_1_.getMetadata() < 4);
 
 	public BlockOldLog() {
 
@@ -40,20 +35,11 @@ public class BlockOldLog extends BlockLog {
 			case Z:
 			case NONE:
 			default:
-				switch (blockplanks$enumtype) {
-					case OAK:
-					default:
-						return BlockPlanks.EnumType.SPRUCE.getMapColor();
-
-					case SPRUCE:
-						return BlockPlanks.EnumType.DARK_OAK.getMapColor();
-
-					case BIRCH:
-						return MapColor.QUARTZ;
-
-					case JUNGLE:
-						return BlockPlanks.EnumType.SPRUCE.getMapColor();
-				}
+				return switch (blockplanks$enumtype) {
+					default -> BlockPlanks.EnumType.SPRUCE.getMapColor();
+					case SPRUCE -> BlockPlanks.EnumType.DARK_OAK.getMapColor();
+					case BIRCH -> MapColor.QUARTZ;
+				};
 
 			case Y:
 				return blockplanks$enumtype.getMapColor();
@@ -78,22 +64,12 @@ public class BlockOldLog extends BlockLog {
 
 		IBlockState iblockstate = getDefaultState().withProperty(VARIANT, BlockPlanks.EnumType.byMetadata((meta & 3) % 4));
 
-		switch (meta & 12) {
-			case 0:
-				iblockstate = iblockstate.withProperty(LOG_AXIS, BlockLog.EnumAxis.Y);
-				break;
-
-			case 4:
-				iblockstate = iblockstate.withProperty(LOG_AXIS, BlockLog.EnumAxis.X);
-				break;
-
-			case 8:
-				iblockstate = iblockstate.withProperty(LOG_AXIS, BlockLog.EnumAxis.Z);
-				break;
-
-			default:
-				iblockstate = iblockstate.withProperty(LOG_AXIS, BlockLog.EnumAxis.NONE);
-		}
+		iblockstate = switch (meta & 12) {
+			case 0 -> iblockstate.withProperty(LOG_AXIS, EnumAxis.Y);
+			case 4 -> iblockstate.withProperty(LOG_AXIS, EnumAxis.X);
+			case 8 -> iblockstate.withProperty(LOG_AXIS, EnumAxis.Z);
+			default -> iblockstate.withProperty(LOG_AXIS, EnumAxis.NONE);
+		};
 
 		return iblockstate;
 	}

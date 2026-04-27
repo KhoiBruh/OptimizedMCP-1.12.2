@@ -35,7 +35,7 @@ public class SPacketEntityTeleport implements Packet<INetHandlerPlayClient> {
 	/**
 	 * Reads the raw packet data from the data stream.
 	 */
-	public void readPacketData(PacketBuffer buf) throws IOException {
+	public void readPacketData(PacketBuffer buf) {
 
 		entityId = buf.readVarInt();
 		posX = buf.readDouble();
@@ -49,7 +49,7 @@ public class SPacketEntityTeleport implements Packet<INetHandlerPlayClient> {
 	/**
 	 * Writes the raw packet data to the data stream.
 	 */
-	public void writePacketData(PacketBuffer buf) throws IOException {
+	public void writePacketData(PacketBuffer buf) {
 
 		buf.writeVarInt(entityId);
 		buf.writeDouble(posX);

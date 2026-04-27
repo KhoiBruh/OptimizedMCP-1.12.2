@@ -20,12 +20,7 @@ import java.util.Random;
 
 public class BlockTorch extends Block {
 
-	public static final PropertyDirection FACING = PropertyDirection.create("facing", new Predicate<EnumFacing>() {
-		public boolean apply(@Nullable EnumFacing p_apply_1_) {
-
-			return p_apply_1_ != EnumFacing.DOWN;
-		}
-	});
+	public static final PropertyDirection FACING = PropertyDirection.create("facing", p_apply_1_ -> p_apply_1_ != EnumFacing.DOWN);
 	protected static final AxisAlignedBB STANDING_AABB = new AxisAlignedBB(0.4000000059604645D, 0.0D, 0.4000000059604645D, 0.6000000238418579D, 0.6000000238418579D, 0.6000000238418579D);
 	protected static final AxisAlignedBB TORCH_NORTH_AABB = new AxisAlignedBB(0.3499999940395355D, 0.20000000298023224D, 0.699999988079071D, 0.6499999761581421D, 0.800000011920929D, 1.0D);
 	protected static final AxisAlignedBB TORCH_SOUTH_AABB = new AxisAlignedBB(0.3499999940395355D, 0.20000000298023224D, 0.0D, 0.6499999761581421D, 0.800000011920929D, 0.30000001192092896D);
@@ -42,22 +37,13 @@ public class BlockTorch extends Block {
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
 
-		switch (state.getValue(FACING)) {
-			case EAST:
-				return TORCH_EAST_AABB;
-
-			case WEST:
-				return TORCH_WEST_AABB;
-
-			case SOUTH:
-				return TORCH_SOUTH_AABB;
-
-			case NORTH:
-				return TORCH_NORTH_AABB;
-
-			default:
-				return STANDING_AABB;
-		}
+		return switch (state.getValue(FACING)) {
+			case EAST -> TORCH_EAST_AABB;
+			case WEST -> TORCH_WEST_AABB;
+			case SOUTH -> TORCH_SOUTH_AABB;
+			case NORTH -> TORCH_NORTH_AABB;
+			default -> STANDING_AABB;
+		};
 	}
 
 	@Nullable
@@ -235,27 +221,13 @@ public class BlockTorch extends Block {
 
 		IBlockState iblockstate = getDefaultState();
 
-		switch (meta) {
-			case 1:
-				iblockstate = iblockstate.withProperty(FACING, EnumFacing.EAST);
-				break;
-
-			case 2:
-				iblockstate = iblockstate.withProperty(FACING, EnumFacing.WEST);
-				break;
-
-			case 3:
-				iblockstate = iblockstate.withProperty(FACING, EnumFacing.SOUTH);
-				break;
-
-			case 4:
-				iblockstate = iblockstate.withProperty(FACING, EnumFacing.NORTH);
-				break;
-
-			case 5:
-			default:
-				iblockstate = iblockstate.withProperty(FACING, EnumFacing.UP);
-		}
+		iblockstate = switch (meta) {
+			case 1 -> iblockstate.withProperty(FACING, EnumFacing.EAST);
+			case 2 -> iblockstate.withProperty(FACING, EnumFacing.WEST);
+			case 3 -> iblockstate.withProperty(FACING, EnumFacing.SOUTH);
+			case 4 -> iblockstate.withProperty(FACING, EnumFacing.NORTH);
+			default -> iblockstate.withProperty(FACING, EnumFacing.UP);
+		};
 
 		return iblockstate;
 	}
@@ -267,28 +239,13 @@ public class BlockTorch extends Block {
 
 		int i = 0;
 
-		switch (state.getValue(FACING)) {
-			case EAST:
-				i = i | 1;
-				break;
-
-			case WEST:
-				i = i | 2;
-				break;
-
-			case SOUTH:
-				i = i | 3;
-				break;
-
-			case NORTH:
-				i = i | 4;
-				break;
-
-			case DOWN:
-			case UP:
-			default:
-				i = i | 5;
-		}
+		i = switch (state.getValue(FACING)) {
+			case EAST -> i | 1;
+			case WEST -> i | 2;
+			case SOUTH -> i | 3;
+			case NORTH -> i | 4;
+			default -> i | 5;
+		};
 
 		return i;
 	}

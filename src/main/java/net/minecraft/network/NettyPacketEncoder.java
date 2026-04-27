@@ -38,7 +38,7 @@ public class NettyPacketEncoder extends MessageToByteEncoder<Packet<?>> {
 				throw new IOException("Can't serialize unregistered packet");
 			} else {
 				PacketBuffer packetbuffer = new PacketBuffer(p_encode_3_);
-				packetbuffer.writeVarInt(integer.intValue());
+				packetbuffer.writeVarInt(integer);
 
 				try {
 					p_encode_2_.writePacketData(packetbuffer);

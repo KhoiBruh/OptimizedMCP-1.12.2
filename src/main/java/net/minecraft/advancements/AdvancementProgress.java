@@ -34,15 +34,8 @@ public class AdvancementProgress implements Comparable<AdvancementProgress> {
 	public void update(Map<String, Criterion> criteriaIn, String[][] requirements) {
 
 		Set<String> set = criteriaIn.keySet();
-		Iterator<Entry<String, CriterionProgress>> iterator = criteria.entrySet().iterator();
 
-		while (iterator.hasNext()) {
-			Entry<String, CriterionProgress> entry = iterator.next();
-
-			if (!set.contains(entry.getKey())) {
-				iterator.remove();
-			}
-		}
+		criteria.entrySet().removeIf(entry -> !set.contains(entry.getKey()));
 
 		for (String s : set) {
 			if (!criteria.containsKey(s)) {
@@ -260,7 +253,7 @@ public class AdvancementProgress implements Comparable<AdvancementProgress> {
 				jsonobject.add("criteria", jsonobject1);
 			}
 
-			jsonobject.addProperty("done", Boolean.valueOf(p_serialize_1_.isDone()));
+			jsonobject.addProperty("done", p_serialize_1_.isDone());
 			return jsonobject;
 		}
 

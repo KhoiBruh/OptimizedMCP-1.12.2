@@ -35,7 +35,7 @@ public class ModifiableAttributeInstance implements IAttributeInstance {
 		baseValue = genericAttributeIn.getDefaultValue();
 
 		for (int i = 0; i < 3; ++i) {
-			mapByOperation.put(Integer.valueOf(i), Sets.newHashSet());
+			mapByOperation.put(i, Sets.newHashSet());
 		}
 	}
 
@@ -62,7 +62,7 @@ public class ModifiableAttributeInstance implements IAttributeInstance {
 
 	public Collection<AttributeModifier> getModifiersByOperation(int operation) {
 
-		return mapByOperation.get(Integer.valueOf(operation));
+		return mapByOperation.get(operation);
 	}
 
 	public Collection<AttributeModifier> getModifiers() {
@@ -96,14 +96,9 @@ public class ModifiableAttributeInstance implements IAttributeInstance {
 		if (getModifier(modifier.getID()) != null) {
 			throw new IllegalArgumentException("Modifier is already applied on this attribute!");
 		} else {
-			Set<AttributeModifier> set = mapByName.get(modifier.getName());
+			Set<AttributeModifier> set = mapByName.computeIfAbsent(modifier.getName(), k -> Sets.newHashSet());
 
-			if (set == null) {
-				set = Sets.newHashSet();
-				mapByName.put(modifier.getName(), set);
-			}
-
-			(mapByOperation.get(Integer.valueOf(modifier.getOperation()))).add(modifier);
+			(mapByOperation.get(modifier.getOperation())).add(modifier);
 			set.add(modifier);
 			mapByUUID.put(modifier.getID(), modifier);
 			flagForUpdate();
@@ -119,7 +114,7 @@ public class ModifiableAttributeInstance implements IAttributeInstance {
 	public void removeModifier(AttributeModifier modifier) {
 
 		for (int i = 0; i < 3; ++i) {
-			Set<AttributeModifier> set = mapByOperation.get(Integer.valueOf(i));
+			Set<AttributeModifier> set = mapByOperation.get(i);
 			set.remove(modifier);
 		}
 

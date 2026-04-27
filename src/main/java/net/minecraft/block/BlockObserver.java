@@ -22,7 +22,7 @@ public class BlockObserver extends BlockDirectional {
 	public BlockObserver() {
 
 		super(Material.ROCK);
-		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.SOUTH).withProperty(POWERED, Boolean.valueOf(false)));
+		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.SOUTH).withProperty(POWERED, Boolean.FALSE));
 		setCreativeTab(CreativeTabs.REDSTONE);
 	}
 
@@ -51,10 +51,10 @@ public class BlockObserver extends BlockDirectional {
 
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
 
-		if (state.getValue(POWERED).booleanValue()) {
-			worldIn.setBlockState(pos, state.withProperty(POWERED, Boolean.valueOf(false)), 2);
+		if (state.getValue(POWERED)) {
+			worldIn.setBlockState(pos, state.withProperty(POWERED, Boolean.FALSE), 2);
 		} else {
-			worldIn.setBlockState(pos, state.withProperty(POWERED, Boolean.valueOf(true)), 2);
+			worldIn.setBlockState(pos, state.withProperty(POWERED, Boolean.TRUE), 2);
 			worldIn.scheduleUpdate(pos, this, 2);
 		}
 
@@ -79,7 +79,7 @@ public class BlockObserver extends BlockDirectional {
 
 	private void startSignal(IBlockState p_190960_1_, World p_190960_2_, BlockPos pos) {
 
-		if (!p_190960_1_.getValue(POWERED).booleanValue()) {
+		if (!p_190960_1_.getValue(POWERED)) {
 			if (!p_190960_2_.isUpdateScheduled(pos, this)) {
 				p_190960_2_.scheduleUpdate(pos, this, 2);
 			}
@@ -109,7 +109,7 @@ public class BlockObserver extends BlockDirectional {
 
 	public int getWeakPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
 
-		return blockState.getValue(POWERED).booleanValue() && blockState.getValue(FACING) == side ? 15 : 0;
+		return blockState.getValue(POWERED) && blockState.getValue(FACING) == side ? 15 : 0;
 	}
 
 	/**
@@ -118,7 +118,7 @@ public class BlockObserver extends BlockDirectional {
 	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
 
 		if (!worldIn.isRemote) {
-			if (state.getValue(POWERED).booleanValue()) {
+			if (state.getValue(POWERED)) {
 				updateTick(worldIn, pos, state, worldIn.rand);
 			}
 
@@ -131,8 +131,8 @@ public class BlockObserver extends BlockDirectional {
 	 */
 	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
 
-		if (state.getValue(POWERED).booleanValue() && worldIn.isUpdateScheduled(pos, this)) {
-			updateNeighborsInFront(worldIn, pos, state.withProperty(POWERED, Boolean.valueOf(false)));
+		if (state.getValue(POWERED) && worldIn.isUpdateScheduled(pos, this)) {
+			updateNeighborsInFront(worldIn, pos, state.withProperty(POWERED, Boolean.FALSE));
 		}
 	}
 
@@ -153,7 +153,7 @@ public class BlockObserver extends BlockDirectional {
 		int i = 0;
 		i = i | state.getValue(FACING).getIndex();
 
-		if (state.getValue(POWERED).booleanValue()) {
+		if (state.getValue(POWERED)) {
 			i |= 8;
 		}
 

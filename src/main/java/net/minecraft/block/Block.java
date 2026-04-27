@@ -40,7 +40,7 @@ import java.util.Set;
 
 public class Block {
 
-	public static final ObjectIntIdentityMap<IBlockState> BLOCK_STATE_IDS = new ObjectIntIdentityMap<IBlockState>();
+	public static final ObjectIntIdentityMap<IBlockState> BLOCK_STATE_IDS = new ObjectIntIdentityMap<>();
 	public static final AxisAlignedBB FULL_BLOCK_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D);
 
 	@Nullable
@@ -49,7 +49,7 @@ public class Block {
 	 * ResourceLocation for the Air block
 	 */
 	private static final ResourceLocation AIR_ID = new ResourceLocation("air");
-	public static final RegistryNamespacedDefaultedByKey<ResourceLocation, Block> REGISTRY = new RegistryNamespacedDefaultedByKey<ResourceLocation, Block>(AIR_ID);
+	public static final RegistryNamespacedDefaultedByKey<ResourceLocation, Block> REGISTRY = new RegistryNamespacedDefaultedByKey<>(AIR_ID);
 	protected final Material blockMaterial;
 	/**
 	 * The Block's MapColor
@@ -518,10 +518,8 @@ public class Block {
 					BLOCK_STATE_IDS.put(block16.getStateFromMeta(i), j);
 				}
 			} else {
-				UnmodifiableIterator unmodifiableiterator = block16.getBlockState().getValidStates().iterator();
 
-				while (unmodifiableiterator.hasNext()) {
-					IBlockState iblockstate = (IBlockState) unmodifiableiterator.next();
+				for (IBlockState iblockstate : block16.getBlockState().getValidStates()) {
 					int k = REGISTRY.getIDForObject(block16) << 4 | block16.getMetaFromState(iblockstate);
 					BLOCK_STATE_IDS.put(iblockstate, k);
 				}

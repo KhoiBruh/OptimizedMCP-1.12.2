@@ -25,7 +25,7 @@ import java.util.Iterator;
 
 public class CraftingManager {
 
-	public static final RegistryNamespaced<ResourceLocation, IRecipe> REGISTRY = new RegistryNamespaced<ResourceLocation, IRecipe>();
+	public static final RegistryNamespaced<ResourceLocation, IRecipe> REGISTRY = new RegistryNamespaced<>();
 	private static final Logger LOGGER = LogManager.getLogger();
 	private static int nextAvailableId;
 
@@ -66,9 +66,8 @@ public class CraftingManager {
 					path = Paths.get(CraftingManager.class.getResource("/assets/minecraft/recipes").toURI());
 				} else {
 					if (!"jar".equals(uri.getScheme())) {
-						LOGGER.error("Unsupported scheme " + uri + " trying to list all recipes");
-						boolean flag2 = false;
-						return flag2;
+						LOGGER.error("Unsupported scheme {} trying to list all recipes", uri);
+						return false;
 					}
 
 					filesystem = FileSystems.newFileSystem(uri, Collections.emptyMap());
@@ -93,11 +92,11 @@ public class CraftingManager {
 								bufferedreader = Files.newBufferedReader(path1);
 								register(s, parseRecipeJson(JsonUtils.fromJson(gson, bufferedreader, JsonObject.class)));
 							} catch (JsonParseException jsonparseexception) {
-								LOGGER.error("Parsing error loading recipe " + resourcelocation, jsonparseexception);
+								LOGGER.error("Parsing error loading recipe {}", resourcelocation, jsonparseexception);
 								flag = false;
 								return flag;
 							} catch (IOException ioexception) {
-								LOGGER.error("Couldn't read recipe " + resourcelocation + " from " + path1, ioexception);
+								LOGGER.error("Couldn't read recipe {} from {}", resourcelocation, path1, ioexception);
 								flag = false;
 								return flag;
 							}

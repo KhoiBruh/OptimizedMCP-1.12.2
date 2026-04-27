@@ -40,7 +40,7 @@ public class BlockAnvil extends BlockFalling {
 	protected BlockAnvil() {
 
 		super(Material.ANVIL);
-		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(DAMAGE, Integer.valueOf(0)));
+		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(DAMAGE, 0));
 		setLightOpacity(0);
 		setCreativeTab(CreativeTabs.DECORATIONS);
 	}
@@ -81,17 +81,17 @@ public class BlockAnvil extends BlockFalling {
 		EnumFacing enumfacing = placer.getHorizontalFacing().rotateY();
 
 		try {
-			return super.getStateForPlacement(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer).withProperty(FACING, enumfacing).withProperty(DAMAGE, Integer.valueOf(meta >> 2));
+			return super.getStateForPlacement(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer).withProperty(FACING, enumfacing).withProperty(DAMAGE, meta >> 2);
 		} catch (IllegalArgumentException var11) {
 			if (!worldIn.isRemote) {
-				LOGGER.warn(String.format("Invalid damage property for anvil at %s. Found %d, must be in [0, 1, 2]", pos, meta >> 2));
+				LOGGER.warn("Invalid damage property for anvil at {}. Found {}, must be in [0, 1, 2]", pos, meta >> 2);
 
 				if (placer instanceof EntityPlayer) {
 					placer.sendMessage(new TextComponentTranslation("Invalid damage property. Please pick in [0, 1, 2]"));
 				}
 			}
 
-			return super.getStateForPlacement(worldIn, pos, facing, hitX, hitY, hitZ, 0, placer).withProperty(FACING, enumfacing).withProperty(DAMAGE, Integer.valueOf(0));
+			return super.getStateForPlacement(worldIn, pos, facing, hitX, hitY, hitZ, 0, placer).withProperty(FACING, enumfacing).withProperty(DAMAGE, 0);
 		}
 	}
 
@@ -113,7 +113,7 @@ public class BlockAnvil extends BlockFalling {
 	 */
 	public int damageDropped(IBlockState state) {
 
-		return state.getValue(DAMAGE).intValue();
+		return state.getValue(DAMAGE);
 	}
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
@@ -157,7 +157,7 @@ public class BlockAnvil extends BlockFalling {
 	 */
 	public IBlockState getStateFromMeta(int meta) {
 
-		return getDefaultState().withProperty(FACING, EnumFacing.getHorizontal(meta & 3)).withProperty(DAMAGE, Integer.valueOf((meta & 15) >> 2));
+		return getDefaultState().withProperty(FACING, EnumFacing.getHorizontal(meta & 3)).withProperty(DAMAGE, (meta & 15) >> 2);
 	}
 
 	/**
@@ -167,7 +167,7 @@ public class BlockAnvil extends BlockFalling {
 
 		int i = 0;
 		i = i | state.getValue(FACING).getHorizontalIndex();
-		i = i | state.getValue(DAMAGE).intValue() << 2;
+		i = i | state.getValue(DAMAGE) << 2;
 		return i;
 	}
 

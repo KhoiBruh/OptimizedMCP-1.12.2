@@ -21,7 +21,7 @@ public class SaveHandlerMP implements ISaveHandler {
 	/**
 	 * Checks the session lock to prevent save collisions
 	 */
-	public void checkSessionLock() throws MinecraftException {
+	public void checkSessionLock() {
 
 	}
 

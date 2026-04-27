@@ -36,16 +36,11 @@ public class BlockRotatedPillar extends Block {
 		switch (rot) {
 			case COUNTERCLOCKWISE_90:
 			case CLOCKWISE_90:
-				switch (state.getValue(AXIS)) {
-					case X:
-						return state.withProperty(AXIS, EnumFacing.Axis.Z);
-
-					case Z:
-						return state.withProperty(AXIS, EnumFacing.Axis.X);
-
-					default:
-						return state;
-				}
+				return switch (state.getValue(AXIS)) {
+					case X -> state.withProperty(AXIS, EnumFacing.Axis.Z);
+					case Z -> state.withProperty(AXIS, EnumFacing.Axis.X);
+					default -> state;
+				};
 
 			default:
 				return state;

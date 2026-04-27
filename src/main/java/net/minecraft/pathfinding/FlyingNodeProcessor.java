@@ -69,14 +69,6 @@ public class FlyingNodeProcessor extends WalkNodeProcessor {
 		return super.openPoint(blockpos1.getX(), i, blockpos1.getZ());
 	}
 
-	/**
-	 * Returns PathPoint for given coordinates
-	 */
-	public PathPoint getPathPointToCoords(double x, double y, double z) {
-
-		return super.openPoint(MathHelper.floor(x), MathHelper.floor(y), MathHelper.floor(z));
-	}
-
 	public int findPathOptions(PathPoint[] pathOptions, PathPoint currentPoint, PathPoint targetPoint, float maxDistance) {
 
 		int i = 0;

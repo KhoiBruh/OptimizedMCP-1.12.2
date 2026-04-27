@@ -29,23 +29,20 @@ public class TileEntityStructureRenderer extends TileEntitySpecialRenderer<TileE
 					double d6 = y + (double) blockpos.getY() - 0.01D;
 					double d9 = d6 + (double) blockpos1.getY() + 0.02D;
 					double d3;
-					double d4;
-
-					switch (te.getMirror()) {
-						case LEFT_RIGHT:
+					double d4 = switch (te.getMirror()) {
+						case LEFT_RIGHT -> {
 							d3 = (double) blockpos1.getX() + 0.02D;
-							d4 = -((double) blockpos1.getZ() + 0.02D);
-							break;
-
-						case FRONT_BACK:
+							yield -((double) blockpos1.getZ() + 0.02D);
+						}
+						case FRONT_BACK -> {
 							d3 = -((double) blockpos1.getX() + 0.02D);
-							d4 = (double) blockpos1.getZ() + 0.02D;
-							break;
-
-						default:
+							yield (double) blockpos1.getZ() + 0.02D;
+						}
+						default -> {
 							d3 = (double) blockpos1.getX() + 0.02D;
-							d4 = (double) blockpos1.getZ() + 0.02D;
-					}
+							yield (double) blockpos1.getZ() + 0.02D;
+						}
+					};
 
 					double d5;
 					double d7;

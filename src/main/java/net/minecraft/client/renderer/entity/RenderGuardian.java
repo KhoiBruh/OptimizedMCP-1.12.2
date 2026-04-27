@@ -85,7 +85,7 @@ public class RenderGuardian extends RenderLiving<EntityGuardian> {
 			vec3d2 = vec3d2.normalize();
 			float f5 = (float) Math.acos(vec3d2.y());
 			float f6 = (float) Math.atan2(vec3d2.z(), vec3d2.x());
-			GlStateManager.rotate((((float) Math.PI / 2F) + -f6) * (180F / (float) Math.PI), 0.0F, 1.0F, 0.0F);
+			GlStateManager.rotate((((float) Math.PI / 2F) - f6) * (180F / (float) Math.PI), 0.0F, 1.0F, 0.0F);
 			GlStateManager.rotate(f5 * (180F / (float) Math.PI), 1.0F, 0.0F, 0.0F);
 			int i = 1;
 			double d1 = (double) f2 * 0.05D * -1.5D;

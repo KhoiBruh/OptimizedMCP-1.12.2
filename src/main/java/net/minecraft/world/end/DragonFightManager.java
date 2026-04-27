@@ -89,10 +89,10 @@ public class DragonFightManager {
 			NBTTagList nbttaglist = compound.getTagList("Gateways", 3);
 
 			for (int i = 0; i < nbttaglist.tagCount(); ++i) {
-				gateways.add(Integer.valueOf(nbttaglist.getIntAt(i)));
+				gateways.add(nbttaglist.getIntAt(i));
 			}
 		} else {
-			gateways.addAll(ContiguousSet.create(Range.closedOpen(Integer.valueOf(0), Integer.valueOf(20)), DiscreteDomain.integers()));
+			gateways.addAll(ContiguousSet.create(Range.closedOpen(0, 20), DiscreteDomain.integers()));
 			Collections.shuffle(gateways, new Random(worldIn.getSeed()));
 		}
 
@@ -115,10 +115,9 @@ public class DragonFightManager {
 		}
 
 		NBTTagList nbttaglist = new NBTTagList();
-		Iterator iterator = gateways.iterator();
 
-		while (iterator.hasNext()) {
-			int i = ((Integer) iterator.next()).intValue();
+		for (Integer gateway : gateways) {
+			int i = gateway;
 			nbttaglist.appendTag(new NBTTagInt(i));
 		}
 
@@ -156,7 +155,7 @@ public class DragonFightManager {
 				if (list.isEmpty()) {
 					dragonKilled = true;
 				} else {
-					EntityDragon entitydragon = list.get(0);
+					EntityDragon entitydragon = list.getFirst();
 					dragonUniqueId = entitydragon.getUniqueID();
 					LOGGER.info("Found that there's a dragon still alive ({})", entitydragon);
 					dragonKilled = false;
@@ -192,7 +191,7 @@ public class DragonFightManager {
 						createNewDragon();
 					} else {
 						LOGGER.debug("Haven't seen our dragon, but found another one to use.");
-						dragonUniqueId = list1.get(0).getUniqueID();
+						dragonUniqueId = list1.getFirst().getUniqueID();
 					}
 
 					ticksSinceDragonSeen = 0;
@@ -344,7 +343,7 @@ public class DragonFightManager {
 	private void spawnNewGateway() {
 
 		if (!gateways.isEmpty()) {
-			int i = gateways.remove(gateways.size() - 1).intValue();
+			int i = gateways.removeLast();
 			int j = (int) (96.0D * Math.cos(2.0D * (-Math.PI + 0.15707963267948966D * (double) i)));
 			int k = (int) (96.0D * Math.sin(2.0D * (-Math.PI + 0.15707963267948966D * (double) i)));
 			generateGateway(new BlockPos(j, 75, k));

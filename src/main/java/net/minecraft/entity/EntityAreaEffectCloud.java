@@ -67,17 +67,17 @@ public class EntityAreaEffectCloud extends Entity {
 
 	protected void entityInit() {
 
-		getDataManager().register(COLOR, Integer.valueOf(0));
-		getDataManager().register(RADIUS, Float.valueOf(0.5F));
-		getDataManager().register(IGNORE_RADIUS, Boolean.valueOf(false));
-		getDataManager().register(PARTICLE, Integer.valueOf(EnumParticleTypes.SPELL_MOB.getParticleID()));
-		getDataManager().register(PARTICLE_PARAM_1, Integer.valueOf(0));
-		getDataManager().register(PARTICLE_PARAM_2, Integer.valueOf(0));
+		getDataManager().register(COLOR, 0);
+		getDataManager().register(RADIUS, 0.5F);
+		getDataManager().register(IGNORE_RADIUS, Boolean.FALSE);
+		getDataManager().register(PARTICLE, EnumParticleTypes.SPELL_MOB.getParticleID());
+		getDataManager().register(PARTICLE_PARAM_1, 0);
+		getDataManager().register(PARTICLE_PARAM_2, 0);
 	}
 
 	public float getRadius() {
 
-		return getDataManager().get(RADIUS).floatValue();
+		return getDataManager().get(RADIUS);
 	}
 
 	public void setRadius(float radiusIn) {
@@ -89,7 +89,7 @@ public class EntityAreaEffectCloud extends Entity {
 		setPosition(d0, d1, d2);
 
 		if (!world.isRemote) {
-			getDataManager().set(RADIUS, Float.valueOf(radiusIn));
+			getDataManager().set(RADIUS, radiusIn);
 		}
 	}
 
@@ -105,9 +105,9 @@ public class EntityAreaEffectCloud extends Entity {
 	private void updateFixedColor() {
 
 		if (potion == PotionTypes.EMPTY && effects.isEmpty()) {
-			getDataManager().set(COLOR, Integer.valueOf(0));
+			getDataManager().set(COLOR, 0);
 		} else {
-			getDataManager().set(COLOR, Integer.valueOf(PotionUtils.getPotionColorFromEffectList(PotionUtils.mergeEffects(potion, effects))));
+			getDataManager().set(COLOR, PotionUtils.getPotionColorFromEffectList(PotionUtils.mergeEffects(potion, effects)));
 		}
 	}
 
@@ -122,43 +122,43 @@ public class EntityAreaEffectCloud extends Entity {
 
 	public int getColor() {
 
-		return getDataManager().get(COLOR).intValue();
+		return getDataManager().get(COLOR);
 	}
 
 	public void setColor(int colorIn) {
 
 		colorSet = true;
-		getDataManager().set(COLOR, Integer.valueOf(colorIn));
+		getDataManager().set(COLOR, colorIn);
 	}
 
 	public EnumParticleTypes getParticle() {
 
-		return EnumParticleTypes.getParticleFromId(getDataManager().get(PARTICLE).intValue());
+		return EnumParticleTypes.getParticleFromId(getDataManager().get(PARTICLE));
 	}
 
 	public void setParticle(EnumParticleTypes particleIn) {
 
-		getDataManager().set(PARTICLE, Integer.valueOf(particleIn.getParticleID()));
+		getDataManager().set(PARTICLE, particleIn.getParticleID());
 	}
 
 	public int getParticleParam1() {
 
-		return getDataManager().get(PARTICLE_PARAM_1).intValue();
+		return getDataManager().get(PARTICLE_PARAM_1);
 	}
 
 	public void setParticleParam1(int particleParam) {
 
-		getDataManager().set(PARTICLE_PARAM_1, Integer.valueOf(particleParam));
+		getDataManager().set(PARTICLE_PARAM_1, particleParam);
 	}
 
 	public int getParticleParam2() {
 
-		return getDataManager().get(PARTICLE_PARAM_2).intValue();
+		return getDataManager().get(PARTICLE_PARAM_2);
 	}
 
 	public void setParticleParam2(int particleParam) {
 
-		getDataManager().set(PARTICLE_PARAM_2, Integer.valueOf(particleParam));
+		getDataManager().set(PARTICLE_PARAM_2, particleParam);
 	}
 
 	/**
@@ -166,7 +166,7 @@ public class EntityAreaEffectCloud extends Entity {
 	 */
 	protected void setIgnoreRadius(boolean ignoreRadius) {
 
-		getDataManager().set(IGNORE_RADIUS, Boolean.valueOf(ignoreRadius));
+		getDataManager().set(IGNORE_RADIUS, ignoreRadius);
 	}
 
 	/**
@@ -174,7 +174,7 @@ public class EntityAreaEffectCloud extends Entity {
 	 */
 	public boolean shouldIgnoreRadius() {
 
-		return getDataManager().get(IGNORE_RADIUS).booleanValue();
+		return getDataManager().get(IGNORE_RADIUS);
 	}
 
 	public int getDuration() {
@@ -275,15 +275,8 @@ public class EntityAreaEffectCloud extends Entity {
 			}
 
 			if (ticksExisted % 5 == 0) {
-				Iterator<Entry<Entity, Integer>> iterator = reapplicationDelayMap.entrySet().iterator();
 
-				while (iterator.hasNext()) {
-					Entry<Entity, Integer> entry = iterator.next();
-
-					if (ticksExisted >= entry.getValue().intValue()) {
-						iterator.remove();
-					}
-				}
+				reapplicationDelayMap.entrySet().removeIf(entry -> ticksExisted >= entry.getValue());
 
 				List<PotionEffect> lstPotions = Lists.newArrayList();
 
@@ -306,7 +299,7 @@ public class EntityAreaEffectCloud extends Entity {
 								double d2 = d0 * d0 + d1 * d1;
 
 								if (d2 <= (double) (f * f)) {
-									reapplicationDelayMap.put(entitylivingbase, Integer.valueOf(ticksExisted + reapplicationDelay));
+									reapplicationDelayMap.put(entitylivingbase, ticksExisted + reapplicationDelay);
 
 									for (PotionEffect potioneffect : lstPotions) {
 										if (potioneffect.getPotion().isInstant()) {

@@ -32,20 +32,18 @@ public class EntityAIFindEntityNearest extends EntityAIBase {
 			LOGGER.warn("Use NearestAttackableTargetGoal.class for PathfinerMob mobs!");
 		}
 
-		predicate = new Predicate<EntityLivingBase>() {
-			public boolean apply(@Nullable EntityLivingBase p_apply_1_) {
+		predicate = p_apply_1_ -> {
 
-				double d0 = getFollowRange();
+			double d0 = getFollowRange();
 
-				if (p_apply_1_.isSneaking()) {
-					d0 *= 0.800000011920929D;
-				}
+			if (p_apply_1_.isSneaking()) {
+				d0 *= 0.800000011920929D;
+			}
 
-				if (p_apply_1_.isInvisible()) {
-					return false;
-				} else {
-					return !((double) p_apply_1_.getDistance(mob) > d0) && EntityAITarget.isSuitableTarget(mob, p_apply_1_, false, true);
-				}
+			if (p_apply_1_.isInvisible()) {
+				return false;
+			} else {
+				return !((double) p_apply_1_.getDistance(mob) > d0) && EntityAITarget.isSuitableTarget(mob, p_apply_1_, false, true);
 			}
 		};
 		sorter = new EntityAINearestAttackableTarget.Sorter(mobIn);
@@ -58,12 +56,12 @@ public class EntityAIFindEntityNearest extends EntityAIBase {
 
 		double d0 = getFollowRange();
 		List<EntityLivingBase> list = mob.world.getEntitiesWithinAABB(classToCheck, mob.getEntityBoundingBox().grow(d0, 4.0D, d0), predicate);
-		Collections.sort(list, sorter);
+		list.sort(sorter);
 
 		if (list.isEmpty()) {
 			return false;
 		} else {
-			target = list.get(0);
+			target = list.getFirst();
 			return true;
 		}
 	}
