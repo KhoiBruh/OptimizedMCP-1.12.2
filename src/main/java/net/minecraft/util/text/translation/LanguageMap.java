@@ -3,7 +3,6 @@ package net.minecraft.util.text.translation;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Maps;
-import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.IllegalFormatException;
@@ -55,7 +54,7 @@ public class LanguageMap
 
             this.lastUpdateTimeInMilliseconds = System.currentTimeMillis();
         }
-        catch (IOException var7)
+        catch (Exception var7)
         {
             ;
         }

@@ -3,6 +3,7 @@ package net.minecraft.client.network;
 import com.google.common.collect.Maps;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
+import com.google.common.util.concurrent.MoreExecutors;
 import com.mojang.authlib.GameProfile;
 import io.netty.buffer.Unpooled;
 import java.io.File;
@@ -1854,7 +1855,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
                     if (file2.isFile())
                     {
                         this.netManager.sendPacket(new CPacketResourcePackStatus(CPacketResourcePackStatus.Action.ACCEPTED));
-                        Futures.addCallback(this.gameController.getResourcePackRepository().setServerResourcePack(file2), this.createDownloadCallback());
+                        Futures.addCallback(this.gameController.getResourcePackRepository().setServerResourcePack(file2), this.createDownloadCallback(), MoreExecutors.directExecutor());
                         return;
                     }
                 }
@@ -1872,7 +1873,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
                 if (serverdata != null && serverdata.getResourceMode() == ServerData.ServerResourceMode.ENABLED)
                 {
                     this.netManager.sendPacket(new CPacketResourcePackStatus(CPacketResourcePackStatus.Action.ACCEPTED));
-                    Futures.addCallback(this.gameController.getResourcePackRepository().downloadResourcePack(s, s1), this.createDownloadCallback());
+                    Futures.addCallback(this.gameController.getResourcePackRepository().downloadResourcePack(s, s1), this.createDownloadCallback(), MoreExecutors.directExecutor());
                 }
                 else if (serverdata != null && serverdata.getResourceMode() != ServerData.ServerResourceMode.PROMPT)
                 {
@@ -1899,7 +1900,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
                                         }
 
                                         NetHandlerPlayClient.this.netManager.sendPacket(new CPacketResourcePackStatus(CPacketResourcePackStatus.Action.ACCEPTED));
-                                        Futures.addCallback(NetHandlerPlayClient.this.gameController.getResourcePackRepository().downloadResourcePack(s, s1), NetHandlerPlayClient.this.createDownloadCallback());
+                                        Futures.addCallback(NetHandlerPlayClient.this.gameController.getResourcePackRepository().downloadResourcePack(s, s1), NetHandlerPlayClient.this.createDownloadCallback(), MoreExecutors.directExecutor());
                                     }
                                     else
                                     {

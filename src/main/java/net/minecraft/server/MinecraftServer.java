@@ -1486,7 +1486,7 @@ public abstract class MinecraftServer implements ICommandSender, Runnable, IThre
             }
             catch (Exception exception)
             {
-                return Futures.immediateFailedCheckedFuture(exception);
+                return Futures.immediateFailedFuture(exception);
             }
         }
     }

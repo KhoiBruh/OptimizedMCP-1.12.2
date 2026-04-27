@@ -6,6 +6,7 @@ import com.google.common.collect.Maps;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
+import com.google.common.util.concurrent.MoreExecutors;
 import com.google.common.util.concurrent.SettableFuture;
 import java.awt.image.BufferedImage;
 import java.io.Closeable;
@@ -295,7 +296,7 @@ public class ResourcePackRepository
                     FileUtils.deleteQuietly(file1);
                     settablefuture.setException(p_onFailure_1_);
                 }
-            });
+            }, MoreExecutors.directExecutor());
             ListenableFuture listenablefuture = this.downloadingPacks;
             return listenablefuture;
         }

@@ -3465,7 +3465,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo
             }
             catch (Exception exception)
             {
-                return Futures.immediateFailedCheckedFuture(exception);
+                return Futures.immediateFailedFuture(exception);
             }
         }
         else
