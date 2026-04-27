@@ -7,7 +7,6 @@ import net.minecraft.network.play.INetHandlerPlayClient;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 
-import java.io.IOException;
 import java.util.UUID;
 
 public class SPacketSpawnPainting implements Packet<INetHandlerPlayClient> {

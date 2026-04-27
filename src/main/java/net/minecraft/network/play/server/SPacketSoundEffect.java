@@ -7,8 +7,6 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import org.apache.commons.lang3.Validate;
 
-import java.io.IOException;
-
 public class SPacketSoundEffect implements Packet<INetHandlerPlayClient> {
 
 	private SoundEvent sound;

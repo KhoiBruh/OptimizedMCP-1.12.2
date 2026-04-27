@@ -6,7 +6,6 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 
 import javax.annotation.Nullable;
-import java.io.IOException;
 
 public class GuiGameOver extends GuiScreen {
 

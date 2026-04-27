@@ -26,7 +26,7 @@ public class TextComponentUtils {
 						throw new EntityNotFoundException("commands.generic.selector.notFound", s);
 					}
 
-					Entity entity = list.get(0);
+					Entity entity = list.getFirst();
 
 					if (entity instanceof EntityPlayer) {
 						s = entity.getName();

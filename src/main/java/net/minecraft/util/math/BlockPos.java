@@ -9,7 +9,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.annotation.concurrent.Immutable;
-import java.util.Iterator;
 import java.util.List;
 
 @Immutable

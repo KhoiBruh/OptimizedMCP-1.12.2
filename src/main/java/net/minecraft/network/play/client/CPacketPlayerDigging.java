@@ -6,8 +6,6 @@ import net.minecraft.network.play.INetHandlerPlayServer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 
-import java.io.IOException;
-
 public class CPacketPlayerDigging implements Packet<INetHandlerPlayServer> {
 
 	private BlockPos position;

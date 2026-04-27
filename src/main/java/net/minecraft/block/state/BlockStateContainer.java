@@ -95,7 +95,7 @@ public class BlockStateContainer {
 		ImmutableCollection<IProperty<?>> immutablecollection = properties.values();
 
 		for (IProperty<?> iProperty : immutablecollection) {
-			IProperty<?> iproperty = (IProperty) iProperty;
+			IProperty<?> iproperty = iProperty;
 			list.add(((IProperty) iproperty).getAllowedValues());
 		}
 
@@ -198,7 +198,7 @@ public class BlockStateContainer {
 				Table<IProperty<?>, Comparable<?>, IBlockState> table = HashBasedTable.create();
 
 				for (Entry<IProperty<?>, Comparable<?>> iPropertyComparableEntry : properties.entrySet()) {
-					Entry<IProperty<?>, Comparable<?>> entry = (Entry) iPropertyComparableEntry;
+					Entry<IProperty<?>, Comparable<?>> entry = iPropertyComparableEntry;
 					IProperty<?> iproperty = entry.getKey();
 
 					for (Comparable<?> comparable : iproperty.getAllowedValues()) {

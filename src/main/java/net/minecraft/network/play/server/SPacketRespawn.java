@@ -7,8 +7,6 @@ import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.GameType;
 import net.minecraft.world.WorldType;
 
-import java.io.IOException;
-
 public class SPacketRespawn implements Packet<INetHandlerPlayClient> {
 
 	private int dimensionID;

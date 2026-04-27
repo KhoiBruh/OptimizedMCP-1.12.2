@@ -2,9 +2,6 @@ package net.minecraft.item;
 
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.projectile.EntityArrow;
-import net.minecraft.entity.projectile.EntityTippedArrow;
 import net.minecraft.init.PotionTypes;
 import net.minecraft.potion.PotionType;
 import net.minecraft.potion.PotionUtils;

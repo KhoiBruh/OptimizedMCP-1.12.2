@@ -6,8 +6,6 @@ import net.minecraft.network.play.INetHandlerPlayServer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 
-import java.io.IOException;
-
 public class CPacketUpdateSign implements Packet<INetHandlerPlayServer> {
 
 	private BlockPos pos;

@@ -8,7 +8,6 @@ import net.minecraft.client.resources.IResource;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
-import net.minecraft.crash.ICrashReportDetail;
 import net.minecraft.util.ReportedException;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
@@ -196,7 +195,7 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
 		} catch (Throwable throwable) {
 			CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Applying mipmap");
 			CrashReportCategory crashreportcategory = crashreport.makeCategory("Sprite being mipmapped");
-			crashreportcategory.addDetail("Sprite name", () -> texture.getIconName());
+			crashreportcategory.addDetail("Sprite name", texture::getIconName);
 			crashreportcategory.addDetail("Sprite size", () -> texture.getIconWidth() + " x " + texture.getIconHeight());
 			crashreportcategory.addDetail("Sprite frames", () -> texture.getFrameCount() + " frames");
 			crashreportcategory.addCrashSection("Mipmap levels", mipmapLevels);

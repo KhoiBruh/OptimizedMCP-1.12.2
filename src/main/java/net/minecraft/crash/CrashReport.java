@@ -124,7 +124,7 @@ public class CrashReport {
 
 			return String.format("%d total; %s", i, stringbuilder);
 		});
-		systemDetailsCategory.addDetail("IntCache", () -> IntCache.getCacheSizes());
+		systemDetailsCategory.addDetail("IntCache", IntCache::getCacheSizes);
 	}
 
 	/**

@@ -93,7 +93,6 @@ enum AdvancementTabType {
 			case ABOVE, BELOW -> (width + 4) * p_192648_1_;
 			case LEFT -> -width + 4;
 			case RIGHT -> 248;
-			default -> throw new UnsupportedOperationException("Don't know what this tab type is!" + this);
 		};
 	}
 
@@ -103,7 +102,6 @@ enum AdvancementTabType {
 			case ABOVE -> -height + 4;
 			case BELOW -> 136;
 			case LEFT, RIGHT -> height * p_192653_1_;
-			default -> throw new UnsupportedOperationException("Don't know what this tab type is!" + this);
 		};
 	}
 

@@ -9,7 +9,6 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
-import java.io.IOException;
 
 public class CPacketUseEntity implements Packet<INetHandlerPlayServer> {
 

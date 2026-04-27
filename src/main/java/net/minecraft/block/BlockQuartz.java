@@ -101,18 +101,14 @@ public class BlockQuartz extends Block {
 	 */
 	public IBlockState withRotation(IBlockState state, Rotation rot) {
 
-		switch (rot) {
-			case COUNTERCLOCKWISE_90:
-			case CLOCKWISE_90:
-				return switch (state.getValue(VARIANT)) {
-					case LINES_X -> state.withProperty(VARIANT, EnumType.LINES_Z);
-					case LINES_Z -> state.withProperty(VARIANT, EnumType.LINES_X);
-					default -> state;
-				};
-
-			default:
-				return state;
-		}
+		return switch (rot) {
+			case COUNTERCLOCKWISE_90, CLOCKWISE_90 -> switch (state.getValue(VARIANT)) {
+				case LINES_X -> state.withProperty(VARIANT, EnumType.LINES_Z);
+				case LINES_Z -> state.withProperty(VARIANT, EnumType.LINES_X);
+				default -> state;
+			};
+			default -> state;
+		};
 	}
 
 	protected BlockStateContainer createBlockState() {

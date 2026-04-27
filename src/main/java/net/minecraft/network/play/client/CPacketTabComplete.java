@@ -7,7 +7,6 @@ import net.minecraft.util.math.BlockPos;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.annotation.Nullable;
-import java.io.IOException;
 
 public class CPacketTabComplete implements Packet<INetHandlerPlayServer> {
 

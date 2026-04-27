@@ -24,8 +24,6 @@ import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
-
 public class BlockPumpkin extends BlockHorizontal {
 
 	private static final Predicate<IBlockState> IS_PUMPKIN = p_apply_1_ -> p_apply_1_ != null && (p_apply_1_.getBlock() == Blocks.PUMPKIN || p_apply_1_.getBlock() == Blocks.LIT_PUMPKIN);

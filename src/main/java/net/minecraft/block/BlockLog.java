@@ -57,18 +57,14 @@ public abstract class BlockLog extends BlockRotatedPillar {
 	 */
 	public IBlockState withRotation(IBlockState state, Rotation rot) {
 
-		switch (rot) {
-			case COUNTERCLOCKWISE_90:
-			case CLOCKWISE_90:
-				return switch (state.getValue(LOG_AXIS)) {
-					case X -> state.withProperty(LOG_AXIS, EnumAxis.Z);
-					case Z -> state.withProperty(LOG_AXIS, EnumAxis.X);
-					default -> state;
-				};
-
-			default:
-				return state;
-		}
+		return switch (rot) {
+			case COUNTERCLOCKWISE_90, CLOCKWISE_90 -> switch (state.getValue(LOG_AXIS)) {
+				case X -> state.withProperty(LOG_AXIS, EnumAxis.Z);
+				case Z -> state.withProperty(LOG_AXIS, EnumAxis.X);
+				default -> state;
+			};
+			default -> state;
+		};
 	}
 
 	public enum EnumAxis implements IStringSerializable {
@@ -90,7 +86,6 @@ public abstract class BlockLog extends BlockRotatedPillar {
 				case X -> X;
 				case Y -> Y;
 				case Z -> Z;
-				default -> NONE;
 			};
 		}
 

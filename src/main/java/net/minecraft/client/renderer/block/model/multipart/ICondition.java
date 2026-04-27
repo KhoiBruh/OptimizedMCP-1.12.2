@@ -4,8 +4,6 @@ import com.google.common.base.Predicate;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 
-import javax.annotation.Nullable;
-
 public interface ICondition {
 
 	ICondition TRUE = blockState -> p_apply_1_ -> true;

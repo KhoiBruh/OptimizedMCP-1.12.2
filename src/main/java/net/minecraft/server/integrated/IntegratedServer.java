@@ -10,7 +10,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ThreadLanServerPing;
 import net.minecraft.command.ServerCommandManager;
 import net.minecraft.crash.CrashReport;
-import net.minecraft.crash.ICrashReportDetail;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.profiler.Snooper;
 import net.minecraft.server.MinecraftServer;
@@ -328,7 +327,7 @@ public class IntegratedServer extends MinecraftServer {
 				i = 25564;
 			}
 
-			getNetworkSystem().addLanEndpoint((InetAddress) null, i);
+			getNetworkSystem().addLanEndpoint(null, i);
 			LOGGER.info("Started on {}", i);
 			isPublic = true;
 			lanServerPing = new ThreadLanServerPing(getMOTD(), i + "");

@@ -1,7 +1,6 @@
 package net.minecraft.block;
 
 import com.google.common.collect.Sets;
-import com.google.common.collect.UnmodifiableIterator;
 import net.minecraft.block.material.EnumPushReaction;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;

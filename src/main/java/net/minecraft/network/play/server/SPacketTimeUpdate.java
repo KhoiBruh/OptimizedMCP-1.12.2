@@ -4,8 +4,6 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayClient;
 
-import java.io.IOException;
-
 public class SPacketTimeUpdate implements Packet<INetHandlerPlayClient> {
 
 	private long totalWorldTime;

@@ -7,7 +7,6 @@ import net.minecraft.network.play.INetHandlerPlayServer;
 import net.minecraft.world.WorldServer;
 
 import javax.annotation.Nullable;
-import java.io.IOException;
 import java.util.UUID;
 
 public class CPacketSpectate implements Packet<INetHandlerPlayServer> {

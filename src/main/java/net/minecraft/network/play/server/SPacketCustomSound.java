@@ -6,8 +6,6 @@ import net.minecraft.network.play.INetHandlerPlayClient;
 import net.minecraft.util.SoundCategory;
 import org.apache.commons.lang3.Validate;
 
-import java.io.IOException;
-
 public class SPacketCustomSound implements Packet<INetHandlerPlayClient> {
 
 	private String soundName;

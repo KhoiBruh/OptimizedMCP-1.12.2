@@ -25,34 +25,27 @@ public enum Rotation {
 
 	public Rotation add(Rotation rotation) {
 
-		switch (rotation) {
-			case CLOCKWISE_180:
-				return switch (this) {
-					case NONE -> CLOCKWISE_180;
-					case CLOCKWISE_90 -> COUNTERCLOCKWISE_90;
-					case CLOCKWISE_180 -> NONE;
-					case COUNTERCLOCKWISE_90 -> CLOCKWISE_90;
-				};
-
-			case COUNTERCLOCKWISE_90:
-				return switch (this) {
-					case NONE -> COUNTERCLOCKWISE_90;
-					case CLOCKWISE_90 -> NONE;
-					case CLOCKWISE_180 -> CLOCKWISE_90;
-					case COUNTERCLOCKWISE_90 -> CLOCKWISE_180;
-				};
-
-			case CLOCKWISE_90:
-				return switch (this) {
-					case NONE -> CLOCKWISE_90;
-					case CLOCKWISE_90 -> CLOCKWISE_180;
-					case CLOCKWISE_180 -> COUNTERCLOCKWISE_90;
-					case COUNTERCLOCKWISE_90 -> NONE;
-				};
-
-			default:
-				return this;
-		}
+		return switch (rotation) {
+			case CLOCKWISE_180 -> switch (this) {
+				case NONE -> CLOCKWISE_180;
+				case CLOCKWISE_90 -> COUNTERCLOCKWISE_90;
+				case CLOCKWISE_180 -> NONE;
+				case COUNTERCLOCKWISE_90 -> CLOCKWISE_90;
+			};
+			case COUNTERCLOCKWISE_90 -> switch (this) {
+				case NONE -> COUNTERCLOCKWISE_90;
+				case CLOCKWISE_90 -> NONE;
+				case CLOCKWISE_180 -> CLOCKWISE_90;
+				case COUNTERCLOCKWISE_90 -> CLOCKWISE_180;
+			};
+			case CLOCKWISE_90 -> switch (this) {
+				case NONE -> CLOCKWISE_90;
+				case CLOCKWISE_90 -> CLOCKWISE_180;
+				case CLOCKWISE_180 -> COUNTERCLOCKWISE_90;
+				case COUNTERCLOCKWISE_90 -> NONE;
+			};
+			default -> this;
+		};
 	}
 
 	public EnumFacing rotate(EnumFacing facing) {

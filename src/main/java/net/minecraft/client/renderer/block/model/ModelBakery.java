@@ -1,7 +1,6 @@
 package net.minecraft.client.renderer.block.model;
 
 import com.google.common.base.Joiner;
-import com.google.common.base.Predicate;
 import com.google.common.collect.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -97,7 +96,7 @@ public class ModelBakery {
 						modelblockdefinition.getMultipartData().setStateContainer(block.getBlockState());
 						Collection<ModelResourceLocation> collection1 = multipartVariantMap.computeIfAbsent(modelblockdefinition, k -> Lists.newArrayList());
 
-						collection1.addAll(Lists.newArrayList(Iterables.filter(collection, p_apply_1_ -> resourcelocation.equals(p_apply_1_))));
+						collection1.addAll(Lists.newArrayList(Iterables.filter(collection, resourcelocation::equals)));
 					}
 
 					for (Entry<IBlockState, ModelResourceLocation> entry : map.entrySet()) {
@@ -489,7 +488,7 @@ public class ModelBakery {
 
 		Set<ResourceLocation> set = Sets.newHashSet();
 		List<ModelResourceLocation> list = Lists.newArrayList(variants.keySet());
-		list.sort((p_compare_1_, p_compare_2_) -> p_compare_1_.toString().compareTo(p_compare_2_.toString()));
+		list.sort(Comparator.comparing(ModelResourceLocation::toString));
 
 		for (ModelResourceLocation modelresourcelocation : list) {
 			VariantList variantlist = variants.get(modelresourcelocation);

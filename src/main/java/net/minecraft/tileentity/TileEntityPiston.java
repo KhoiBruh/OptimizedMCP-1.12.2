@@ -202,7 +202,7 @@ public class TileEntityPiston extends TileEntity implements ITickable {
 							d1 = Math.min(d1, d0) + 0.01D;
 							MOVING_ENTITY.set(enumfacing);
 							entity.move(MoverType.PISTON, d1 * (double) enumfacing.getFrontOffsetX(), d1 * (double) enumfacing.getFrontOffsetY(), d1 * (double) enumfacing.getFrontOffsetZ());
-							MOVING_ENTITY.set(null);
+							MOVING_ENTITY.remove();
 
 							if (!extending && shouldHeadBeRendered) {
 								fixEntityWithinPistonBase(entity, enumfacing, d0);
@@ -286,7 +286,7 @@ public class TileEntityPiston extends TileEntity implements ITickable {
 				d0 = Math.min(d0, p_190605_3_) + 0.01D;
 				MOVING_ENTITY.set(p_190605_2_);
 				p_190605_1_.move(MoverType.PISTON, d0 * (double) enumfacing.getFrontOffsetX(), d0 * (double) enumfacing.getFrontOffsetY(), d0 * (double) enumfacing.getFrontOffsetZ());
-				MOVING_ENTITY.set(null);
+				MOVING_ENTITY.remove();
 			}
 		}
 	}

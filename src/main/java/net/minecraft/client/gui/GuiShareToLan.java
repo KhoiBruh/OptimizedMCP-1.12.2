@@ -6,8 +6,6 @@ import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.GameType;
 
-import java.io.IOException;
-
 public class GuiShareToLan extends GuiScreen {
 
 	private final GuiScreen lastScreen;

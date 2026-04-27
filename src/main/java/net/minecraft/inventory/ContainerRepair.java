@@ -217,7 +217,7 @@ public class ContainerRepair extends Container {
 
 					for (Enchantment enchantment1 : map1.keySet()) {
 						if (enchantment1 != null) {
-							int i2 = map.containsKey(enchantment1) ? map.get(enchantment1) : 0;
+							int i2 = map.getOrDefault(enchantment1, 0);
 							int j2 = map1.get(enchantment1);
 							j2 = i2 == j2 ? j2 + 1 : Math.max(j2, i2);
 							boolean flag1 = enchantment1.canApply(itemstack);

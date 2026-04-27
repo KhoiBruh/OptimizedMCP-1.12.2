@@ -7,7 +7,6 @@ import net.minecraft.network.play.INetHandlerPlayClient;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
-import java.io.IOException;
 
 public class SPacketCamera implements Packet<INetHandlerPlayClient> {
 

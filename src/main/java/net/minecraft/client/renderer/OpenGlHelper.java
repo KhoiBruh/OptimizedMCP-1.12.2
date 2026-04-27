@@ -614,7 +614,6 @@ public class OpenGlHelper {
 				case BASE -> GL30.glGenFramebuffers();
 				case ARB -> ARBFramebufferObject.glGenFramebuffers();
 				case EXT -> EXTFramebufferObject.glGenFramebuffersEXT();
-				default -> -1;
 			};
 		}
 	}
@@ -628,7 +627,6 @@ public class OpenGlHelper {
 				case BASE -> GL30.glGenRenderbuffers();
 				case ARB -> ARBFramebufferObject.glGenRenderbuffers();
 				case EXT -> EXTFramebufferObject.glGenRenderbuffersEXT();
-				default -> -1;
 			};
 		}
 	}
@@ -678,7 +676,6 @@ public class OpenGlHelper {
 				case BASE -> GL30.glCheckFramebufferStatus(target);
 				case ARB -> ARBFramebufferObject.glCheckFramebufferStatus(target);
 				case EXT -> EXTFramebufferObject.glCheckFramebufferStatusEXT(target);
-				default -> -1;
 			};
 		}
 	}

@@ -89,7 +89,7 @@ public abstract class Team {
 
 		public static String[] getNames() {
 
-			return nameMap.keySet().toArray(new String[nameMap.size()]);
+			return nameMap.keySet().toArray(new String[0]);
 		}
 
 		@Nullable
@@ -124,7 +124,7 @@ public abstract class Team {
 
 		public static String[] getNames() {
 
-			return nameMap.keySet().toArray(new String[nameMap.size()]);
+			return nameMap.keySet().toArray(new String[0]);
 		}
 
 		@Nullable

@@ -6,8 +6,6 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayServer;
 import net.minecraft.util.EnumHandSide;
 
-import java.io.IOException;
-
 public class CPacketClientSettings implements Packet<INetHandlerPlayServer> {
 
 	private String lang;

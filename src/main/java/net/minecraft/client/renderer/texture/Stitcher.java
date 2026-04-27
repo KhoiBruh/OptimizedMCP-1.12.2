@@ -59,7 +59,7 @@ public class Stitcher {
 
 	public void doStitch() {
 
-		Stitcher.Holder[] astitcher$holder = setStitchHolders.toArray(new Holder[setStitchHolders.size()]);
+		Stitcher.Holder[] astitcher$holder = setStitchHolders.toArray(new Holder[0]);
 		Arrays.sort(astitcher$holder);
 
 		for (Stitcher.Holder stitcher$holder : astitcher$holder) {

@@ -4,8 +4,6 @@ import com.google.common.collect.Lists;
 import com.google.common.primitives.Doubles;
 import com.google.common.primitives.Floats;
 import com.google.common.util.concurrent.Futures;
-import io.netty.util.concurrent.Future;
-import io.netty.util.concurrent.GenericFutureListener;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.block.BlockCommandBlock;
@@ -13,7 +11,6 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
-import net.minecraft.crash.ICrashReportDetail;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.IJumpingMount;
 import net.minecraft.entity.MoverType;
@@ -229,7 +226,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 
 		netManager.sendPacket(new SPacketDisconnect(textComponent), p_operationComplete_1_ -> netManager.closeChannel(textComponent));
 		netManager.disableAutoRead();
-		Futures.getUnchecked(serverController.addScheduledTask(() -> netManager.checkDisconnected()));
+		Futures.getUnchecked(serverController.addScheduledTask(netManager::checkDisconnected));
 	}
 
 	/**
@@ -1172,7 +1169,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 
 		list.addAll(serverController.getTabCompletions(player, packetIn.getMessage(), packetIn.getTargetBlock(), packetIn.hasTargetBlock()));
 
-		player.connection.sendPacket(new SPacketTabComplete(list.toArray(new String[list.size()])));
+		player.connection.sendPacket(new SPacketTabComplete(list.toArray(new String[0])));
 	}
 
 	/**

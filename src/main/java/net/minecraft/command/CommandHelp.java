@@ -112,7 +112,7 @@ public class CommandHelp extends CommandBase {
 
 		if (args.length == 1) {
 			Set<String> set = getCommandMap(server).keySet();
-			return getListOfStringsMatchingLastWord(args, set.toArray(new String[set.size()]));
+			return getListOfStringsMatchingLastWord(args, set.toArray(new String[0]));
 		} else {
 			return Collections.emptyList();
 		}

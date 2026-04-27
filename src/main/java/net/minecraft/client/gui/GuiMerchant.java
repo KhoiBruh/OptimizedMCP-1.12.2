@@ -20,8 +20,6 @@ import net.minecraft.world.World;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.IOException;
-
 public class GuiMerchant extends GuiContainer {
 
 	private static final Logger LOGGER = LogManager.getLogger();

@@ -26,7 +26,6 @@ import net.minecraft.stats.StatisticsManager;
 import org.lwjgl.input.Mouse;
 
 import java.io.IOException;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 

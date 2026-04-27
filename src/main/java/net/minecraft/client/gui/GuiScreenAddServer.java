@@ -6,7 +6,6 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.util.StringUtils;
 import org.lwjgl.input.Keyboard;
 
-import javax.annotation.Nullable;
 import java.io.IOException;
 import java.net.IDN;
 

@@ -84,7 +84,6 @@ public class LootContext {
 			case THIS -> getLootedEntity();
 			case KILLER -> getKiller();
 			case KILLER_PLAYER -> getKillerPlayer();
-			default -> null;
 		};
 	}
 

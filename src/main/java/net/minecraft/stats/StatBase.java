@@ -14,7 +14,7 @@ public class StatBase {
 
 	private static final NumberFormat numberFormat = NumberFormat.getIntegerInstance(Locale.US);
 	private static final DecimalFormat decimalFormat = new DecimalFormat("########0.00");
-	public static IStatType simpleStatType = number -> StatBase.numberFormat.format(number);
+	public static IStatType simpleStatType = StatBase.numberFormat::format;
 	public static IStatType timeStatType = number -> {
 
 		double d0 = (double) number / 20.0D;

@@ -8,7 +8,6 @@ import net.minecraft.potion.Potion;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
-import java.io.IOException;
 
 public class SPacketRemoveEntityEffect implements Packet<INetHandlerPlayClient> {
 

@@ -5,8 +5,6 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.login.INetHandlerLoginClient;
 import net.minecraft.util.text.ITextComponent;
 
-import java.io.IOException;
-
 public class SPacketDisconnect implements Packet<INetHandlerLoginClient> {
 
 	private ITextComponent reason;

@@ -103,7 +103,7 @@ public class CrashReportCategory {
 
 	public static void addBlockInfo(CrashReportCategory category, final BlockPos pos, final IBlockState state) {
 
-		category.addDetail("Block", () -> state.toString());
+		category.addDetail("Block", state::toString);
 		category.addDetail("Block location", () -> CrashReportCategory.getCoordinateInfo(pos));
 	}
 

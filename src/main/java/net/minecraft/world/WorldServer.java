@@ -55,7 +55,6 @@ import org.apache.logging.log4j.Logger;
 import javax.annotation.Nullable;
 import java.io.File;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class WorldServer extends World implements IThreadListener {
 

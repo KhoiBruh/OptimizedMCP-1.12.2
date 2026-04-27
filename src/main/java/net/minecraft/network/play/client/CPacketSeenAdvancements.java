@@ -7,7 +7,6 @@ import net.minecraft.network.play.INetHandlerPlayServer;
 import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nullable;
-import java.io.IOException;
 
 public class CPacketSeenAdvancements implements Packet<INetHandlerPlayServer> {
 

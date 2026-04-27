@@ -5,8 +5,6 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayClient;
 import net.minecraft.world.EnumDifficulty;
 
-import java.io.IOException;
-
 public class SPacketServerDifficulty implements Packet<INetHandlerPlayClient> {
 
 	private EnumDifficulty difficulty;

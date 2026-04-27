@@ -251,18 +251,14 @@ public class BlockPortal extends BlockBreakable {
 	 */
 	public IBlockState withRotation(IBlockState state, Rotation rot) {
 
-		switch (rot) {
-			case COUNTERCLOCKWISE_90:
-			case CLOCKWISE_90:
-				return switch (state.getValue(AXIS)) {
-					case X -> state.withProperty(AXIS, EnumFacing.Axis.Z);
-					case Z -> state.withProperty(AXIS, EnumFacing.Axis.X);
-					default -> state;
-				};
-
-			default:
-				return state;
-		}
+		return switch (rot) {
+			case COUNTERCLOCKWISE_90, CLOCKWISE_90 -> switch (state.getValue(AXIS)) {
+				case X -> state.withProperty(AXIS, EnumFacing.Axis.Z);
+				case Z -> state.withProperty(AXIS, EnumFacing.Axis.X);
+				default -> state;
+			};
+			default -> state;
+		};
 	}
 
 	protected BlockStateContainer createBlockState() {

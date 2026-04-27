@@ -10,7 +10,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenDesertWells;
 import net.minecraft.world.gen.feature.WorldGenFossils;
 
-import java.util.Iterator;
 import java.util.Random;
 
 public class BiomeDesert extends Biome {
@@ -25,7 +24,6 @@ public class BiomeDesert extends Biome {
 		decorator.deadBushPerChunk = 2;
 		decorator.reedsPerChunk = 50;
 		decorator.cactiPerChunk = 10;
-		spawnableCreatureList.clear();
 		spawnableCreatureList.add(new Biome.SpawnListEntry(EntityRabbit.class, 4, 2, 3));
 
 		spawnableMonsterList.removeIf(biome$spawnlistentry -> biome$spawnlistentry.entityClass == EntityZombie.class || biome$spawnlistentry.entityClass == EntityZombieVillager.class);

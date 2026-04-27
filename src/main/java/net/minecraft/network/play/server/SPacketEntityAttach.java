@@ -6,7 +6,6 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayClient;
 
 import javax.annotation.Nullable;
-import java.io.IOException;
 
 public class SPacketEntityAttach implements Packet<INetHandlerPlayClient> {
 

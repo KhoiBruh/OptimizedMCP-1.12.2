@@ -13,7 +13,6 @@ import net.minecraft.command.CommandResultStats;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
-import net.minecraft.crash.ICrashReportDetail;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.EnchantmentProtection;
 import net.minecraft.entity.effect.EntityLightningBolt;
@@ -36,8 +35,6 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.*;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.datafix.FixTypes;
-import net.minecraft.util.datafix.IDataFixer;
-import net.minecraft.util.datafix.IDataWalker;
 import net.minecraft.util.math.*;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
@@ -2740,9 +2737,9 @@ public abstract class Entity implements ICommandSender {
 
 	public void addEntityCrashInfo(CrashReportCategory category) {
 
-		category.addDetail("Entity Type", () -> EntityList.getKey(Entity.this) + " (" + Entity.this.getClass().getCanonicalName() + ")");
+		category.addDetail("Entity Type", () -> EntityList.getKey(this) + " (" + getClass().getCanonicalName() + ")");
 		category.addCrashSection("Entity ID", entityId);
-		category.addDetail("Entity Name", () -> getName());
+		category.addDetail("Entity Name", this::getName);
 		category.addCrashSection("Entity's Exact location", String.format("%.2f, %.2f, %.2f", posX, posY, posZ));
 		category.addCrashSection("Entity's Block location", CrashReportCategory.getCoordinateInfo(MathHelper.floor(posX), MathHelper.floor(posY), MathHelper.floor(posZ)));
 		category.addCrashSection("Entity's Momentum", String.format("%.2f, %.2f, %.2f", motionX, motionY, motionZ));

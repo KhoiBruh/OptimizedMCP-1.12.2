@@ -29,12 +29,11 @@ import net.minecraft.world.World;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.annotation.Nullable;
 import java.util.List;
 
 public class EntityPotion extends EntityThrowable {
 
-	public static final Predicate<EntityLivingBase> WATER_SENSITIVE = p_apply_1_ -> EntityPotion.isWaterSensitiveEntity(p_apply_1_);
+	public static final Predicate<EntityLivingBase> WATER_SENSITIVE = EntityPotion::isWaterSensitiveEntity;
 	private static final DataParameter<ItemStack> ITEM = EntityDataManager.createKey(EntityPotion.class, DataSerializers.ITEM_STACK);
 	private static final Logger LOGGER = LogManager.getLogger();
 

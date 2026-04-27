@@ -5,7 +5,6 @@ import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectIterator;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
-import net.minecraft.crash.ICrashReportDetail;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ReportedException;
@@ -112,7 +111,7 @@ public abstract class MapGenStructure extends MapGenBase {
 				crashreportcategory.addDetail("Is feature chunk", () -> canSpawnStructureAtCoords(chunkX, chunkZ) ? "True" : "False");
 				crashreportcategory.addCrashSection("Chunk location", String.format("%d,%d", chunkX, chunkZ));
 				crashreportcategory.addDetail("Chunk pos hash", () -> String.valueOf(ChunkPos.asLong(chunkX, chunkZ)));
-				crashreportcategory.addDetail("Structure type", () -> MapGenStructure.this.getClass().getCanonicalName());
+				crashreportcategory.addDetail("Structure type", () -> getClass().getCanonicalName());
 				throw new ReportedException(crashreport);
 			}
 		}

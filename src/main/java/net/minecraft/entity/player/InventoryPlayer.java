@@ -4,7 +4,6 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.util.RecipeItemHelper;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
-import net.minecraft.crash.ICrashReportDetail;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.Item;
@@ -413,7 +412,7 @@ public class InventoryPlayer implements IInventory {
 				CrashReportCategory crashreportcategory = crashreport.makeCategory("Item being added");
 				crashreportcategory.addCrashSection("Item ID", Item.getIdFromItem(p_191971_2_.getItem()));
 				crashreportcategory.addCrashSection("Item data", p_191971_2_.getMetadata());
-				crashreportcategory.addDetail("Item name", () -> p_191971_2_.getDisplayName());
+				crashreportcategory.addDetail("Item name", p_191971_2_::getDisplayName);
 				throw new ReportedException(crashreport);
 			}
 		}

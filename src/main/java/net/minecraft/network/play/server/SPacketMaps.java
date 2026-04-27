@@ -6,7 +6,6 @@ import net.minecraft.network.play.INetHandlerPlayClient;
 import net.minecraft.world.storage.MapData;
 import net.minecraft.world.storage.MapDecoration;
 
-import java.io.IOException;
 import java.util.Collection;
 
 public class SPacketMaps implements Packet<INetHandlerPlayClient> {
@@ -30,7 +29,7 @@ public class SPacketMaps implements Packet<INetHandlerPlayClient> {
 		mapId = mapIdIn;
 		mapScale = mapScaleIn;
 		trackingPosition = trackingPositionIn;
-		icons = iconsIn.toArray(new MapDecoration[iconsIn.size()]);
+		icons = iconsIn.toArray(new MapDecoration[0]);
 		minX = minXIn;
 		minZ = minZIn;
 		columns = columnsIn;

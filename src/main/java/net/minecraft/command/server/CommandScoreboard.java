@@ -528,11 +528,11 @@ public class CommandScoreboard extends CommandBase {
 
 		if (!set.isEmpty()) {
 			sender.setCommandStat(CommandResultStats.Type.AFFECTED_ENTITIES, set.size());
-			notifyCommandListener(sender, this, "commands.scoreboard.teams.join.success", set.size(), s, joinNiceString(set.toArray(new String[set.size()])));
+			notifyCommandListener(sender, this, "commands.scoreboard.teams.join.success", set.size(), s, joinNiceString(set.toArray(new String[0])));
 		}
 
 		if (!set1.isEmpty()) {
-			throw new CommandException("commands.scoreboard.teams.join.failure", set1.size(), s, joinNiceString(set1.toArray(new String[set1.size()])));
+			throw new CommandException("commands.scoreboard.teams.join.failure", set1.size(), s, joinNiceString(set1.toArray(new String[0])));
 		}
 	}
 
@@ -578,11 +578,11 @@ public class CommandScoreboard extends CommandBase {
 
 		if (!set.isEmpty()) {
 			sender.setCommandStat(CommandResultStats.Type.AFFECTED_ENTITIES, set.size());
-			notifyCommandListener(sender, this, "commands.scoreboard.teams.leave.success", set.size(), joinNiceString(set.toArray(new String[set.size()])));
+			notifyCommandListener(sender, this, "commands.scoreboard.teams.leave.success", set.size(), joinNiceString(set.toArray(new String[0])));
 		}
 
 		if (!set1.isEmpty()) {
-			throw new CommandException("commands.scoreboard.teams.leave.failure", set1.size(), joinNiceString(set1.toArray(new String[set1.size()])));
+			throw new CommandException("commands.scoreboard.teams.leave.failure", set1.size(), joinNiceString(set1.toArray(new String[0])));
 		}
 	}
 

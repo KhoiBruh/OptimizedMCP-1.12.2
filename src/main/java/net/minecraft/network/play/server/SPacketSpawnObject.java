@@ -7,7 +7,6 @@ import net.minecraft.network.play.INetHandlerPlayClient;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 
-import java.io.IOException;
 import java.util.UUID;
 
 public class SPacketSpawnObject implements Packet<INetHandlerPlayClient> {

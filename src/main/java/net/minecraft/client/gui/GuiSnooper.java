@@ -41,7 +41,7 @@ public class GuiSnooper extends GuiScreen {
 
 		list.addAll(fontRenderer.listFormattedStringToWidth(s, width - 30));
 
-		desc = list.toArray(new String[list.size()]);
+		desc = list.toArray(new String[0]);
 		keys.clear();
 		values.clear();
 		toggleButton = addButton(new GuiButton(1, width / 2 - 152, height - 30, 150, 20, game_settings_2.getKeyBinding(GameSettings.Options.SNOOPER_ENABLED)));

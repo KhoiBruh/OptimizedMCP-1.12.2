@@ -736,7 +736,6 @@ public abstract class EntityLiving extends EntityLivingBase {
 			double d0 = switch (entityequipmentslot.getSlotType()) {
 				case HAND -> inventoryHandsDropChances[entityequipmentslot.getIndex()];
 				case ARMOR -> inventoryArmorDropChances[entityequipmentslot.getIndex()];
-				default -> 0.0D;
 			};
 
 			if (!itemstack1.isEmpty() && (double) (rand.nextFloat() - 0.1F) < d0) {
@@ -965,7 +964,6 @@ public abstract class EntityLiving extends EntityLivingBase {
 		return switch (slotIn.getSlotType()) {
 			case HAND -> inventoryHands.get(slotIn.getIndex());
 			case ARMOR -> inventoryArmor.get(slotIn.getIndex());
-			default -> ItemStack.EMPTY;
 		};
 	}
 
@@ -991,7 +989,6 @@ public abstract class EntityLiving extends EntityLivingBase {
 			double d0 = switch (entityequipmentslot.getSlotType()) {
 				case HAND -> inventoryHandsDropChances[entityequipmentslot.getIndex()];
 				case ARMOR -> inventoryArmorDropChances[entityequipmentslot.getIndex()];
-				default -> 0.0D;
 			};
 
 			boolean flag = d0 > 1.0D;

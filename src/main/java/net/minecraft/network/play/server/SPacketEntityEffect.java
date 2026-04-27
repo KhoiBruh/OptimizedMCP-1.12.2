@@ -6,8 +6,6 @@ import net.minecraft.network.play.INetHandlerPlayClient;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 
-import java.io.IOException;
-
 public class SPacketEntityEffect implements Packet<INetHandlerPlayClient> {
 
 	private int entityId;

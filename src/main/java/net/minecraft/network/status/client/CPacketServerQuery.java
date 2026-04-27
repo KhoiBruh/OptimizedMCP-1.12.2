@@ -4,8 +4,6 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.status.INetHandlerStatusServer;
 
-import java.io.IOException;
-
 public class CPacketServerQuery implements Packet<INetHandlerStatusServer> {
 
 	/**

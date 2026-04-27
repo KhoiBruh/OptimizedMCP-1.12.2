@@ -12,8 +12,6 @@ import net.minecraft.stats.StatList;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
-
 public class ItemBow extends Item {
 
 	public ItemBow() {

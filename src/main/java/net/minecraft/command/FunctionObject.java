@@ -40,7 +40,7 @@ public record FunctionObject(Entry[] entries) {
 			}
 		}
 
-		return new FunctionObject(list.toArray(new Entry[list.size()]));
+		return new FunctionObject(list.toArray(new Entry[0]));
 	}
 
 	public interface Entry {

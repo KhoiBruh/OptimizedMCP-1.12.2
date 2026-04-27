@@ -5,8 +5,6 @@ import net.minecraft.client.gui.advancements.GuiScreenAdvancements;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.realms.RealmsBridge;
 
-import java.io.IOException;
-
 public class GuiIngameMenu extends GuiScreen {
 
 	private int saveStep;

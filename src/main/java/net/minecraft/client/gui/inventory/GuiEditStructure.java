@@ -458,7 +458,7 @@ public class GuiEditStructure extends GuiScreen {
 	private long parseSeed(String p_189821_1_) {
 
 		try {
-			return Long.valueOf(p_189821_1_);
+			return Long.parseLong(p_189821_1_);
 		} catch (NumberFormatException var3) {
 			return 0L;
 		}
@@ -467,7 +467,7 @@ public class GuiEditStructure extends GuiScreen {
 	private float parseIntegrity(String p_189819_1_) {
 
 		try {
-			return Float.valueOf(p_189819_1_);
+			return Float.parseFloat(p_189819_1_);
 		} catch (NumberFormatException var3) {
 			return 1.0F;
 		}

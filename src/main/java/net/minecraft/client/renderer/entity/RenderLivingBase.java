@@ -478,7 +478,6 @@ public abstract class RenderLivingBase<T extends EntityLivingBase> extends Rende
 					case HIDE_FOR_OTHER_TEAMS ->
 							team1 == null ? flag : team.isSameTeam(team1) && (team.getSeeFriendlyInvisiblesEnabled() || flag);
 					case HIDE_FOR_OWN_TEAM -> team1 == null ? flag : !team.isSameTeam(team1) && flag;
-					default -> true;
 				};
 			}
 		}

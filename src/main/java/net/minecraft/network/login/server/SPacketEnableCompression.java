@@ -4,8 +4,6 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.login.INetHandlerLoginClient;
 
-import java.io.IOException;
-
 public class SPacketEnableCompression implements Packet<INetHandlerLoginClient> {
 
 	private int compressionThreshold;

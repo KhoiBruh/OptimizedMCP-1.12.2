@@ -172,7 +172,6 @@ public class VisGraph {
 
 				yield pos + DX;
 			}
-			default -> -1;
 		};
 	}
 }

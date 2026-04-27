@@ -5,8 +5,6 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayClient;
 import net.minecraft.util.math.BlockPos;
 
-import java.io.IOException;
-
 public class SPacketSignEditorOpen implements Packet<INetHandlerPlayClient> {
 
 	private BlockPos signPosition;

@@ -14,7 +14,6 @@ import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
-import net.minecraft.crash.ICrashReportDetail;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -222,7 +221,7 @@ public class ParticleManager {
 			CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Ticking Particle");
 			CrashReportCategory crashreportcategory = crashreport.makeCategory("Particle being ticked");
 			final int i = particle.getFXLayer();
-			crashreportcategory.addDetail("Particle", () -> particle.toString());
+			crashreportcategory.addDetail("Particle", particle::toString);
 			crashreportcategory.addDetail("Particle Type", () -> {
 
 				if (i == 0) {

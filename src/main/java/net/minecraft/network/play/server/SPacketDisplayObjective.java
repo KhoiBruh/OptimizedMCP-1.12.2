@@ -5,8 +5,6 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayClient;
 import net.minecraft.scoreboard.ScoreObjective;
 
-import java.io.IOException;
-
 public class SPacketDisplayObjective implements Packet<INetHandlerPlayClient> {
 
 	private int position;

@@ -4,7 +4,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockJukebox;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.crash.CrashReportCategory;
-import net.minecraft.crash.ICrashReportDetail;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
@@ -270,7 +269,7 @@ public abstract class TileEntity {
 
 	public void addInfoToCrashReport(CrashReportCategory reportCategory) {
 
-		reportCategory.addDetail("Name", () -> TileEntity.REGISTRY.getNameForObject(TileEntity.this.getClass()) + " // " + TileEntity.this.getClass().getCanonicalName());
+		reportCategory.addDetail("Name", () -> TileEntity.REGISTRY.getNameForObject(getClass()) + " // " + getClass().getCanonicalName());
 
 		if (world != null) {
 			CrashReportCategory.addBlockInfo(reportCategory, pos, getBlockType(), getBlockMetadata());

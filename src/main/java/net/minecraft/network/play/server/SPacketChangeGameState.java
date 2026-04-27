@@ -4,8 +4,6 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayClient;
 
-import java.io.IOException;
-
 public class SPacketChangeGameState implements Packet<INetHandlerPlayClient> {
 
 	public static final String[] MESSAGE_NAMES = new String[]{"tile.bed.notValid"};

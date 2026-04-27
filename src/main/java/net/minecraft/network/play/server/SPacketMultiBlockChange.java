@@ -9,8 +9,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.chunk.Chunk;
 
-import java.io.IOException;
-
 public class SPacketMultiBlockChange implements Packet<INetHandlerPlayClient> {
 
 	private ChunkPos chunkPos;

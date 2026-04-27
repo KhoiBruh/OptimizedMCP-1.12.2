@@ -5,7 +5,6 @@ import net.minecraft.command.CommandResultStats;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
-import net.minecraft.crash.ICrashReportDetail;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.MinecraftServer;
@@ -173,8 +172,8 @@ public abstract class CommandBlockBaseLogic implements ICommandSender {
 					} catch (Throwable throwable) {
 						CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Executing command block");
 						CrashReportCategory crashreportcategory = crashreport.makeCategory("Command to be executed");
-						crashreportcategory.addDetail("Command", () -> getCommand());
-						crashreportcategory.addDetail("Name", () -> getName());
+						crashreportcategory.addDetail("Command", this::getCommand);
+						crashreportcategory.addDetail("Name", this::getName);
 						throw new ReportedException(crashreport);
 					}
 				} else {

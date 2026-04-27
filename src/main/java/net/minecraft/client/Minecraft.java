@@ -56,7 +56,6 @@ import net.minecraft.client.tutorial.Tutorial;
 import net.minecraft.client.util.*;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
-import net.minecraft.crash.ICrashReportDetail;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLeashKnot;
@@ -2339,32 +2338,14 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 						}
 					}
 					case EntityMinecart entityminecart -> {
-						Item item1;
-
-						switch (entityminecart.getType()) {
-							case FURNACE:
-								item1 = Items.FURNACE_MINECART;
-								break;
-
-							case CHEST:
-								item1 = Items.CHEST_MINECART;
-								break;
-
-							case TNT:
-								item1 = Items.TNT_MINECART;
-								break;
-
-							case HOPPER:
-								item1 = Items.HOPPER_MINECART;
-								break;
-
-							case COMMAND_BLOCK:
-								item1 = Items.COMMAND_BLOCK_MINECART;
-								break;
-
-							default:
-								item1 = Items.MINECART;
-						}
+						Item item1 = switch (entityminecart.getType()) {
+							case FURNACE -> Items.FURNACE_MINECART;
+							case CHEST -> Items.CHEST_MINECART;
+							case TNT -> Items.TNT_MINECART;
+							case HOPPER -> Items.HOPPER_MINECART;
+							case COMMAND_BLOCK -> Items.COMMAND_BLOCK_MINECART;
+							default -> Items.MINECART;
+						};
 
 						itemstack = new ItemStack(item1);
 					}
@@ -2444,9 +2425,9 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 	public CrashReport addGraphicsAndWorldToCrashReport(CrashReport theCrash) {
 
 		theCrash.getCategory().addDetail("Launched Version", () -> launchedVersion);
-		theCrash.getCategory().addDetail("LWJGL", () -> Sys.getVersion());
+		theCrash.getCategory().addDetail("LWJGL", Sys::getVersion);
 		theCrash.getCategory().addDetail("OpenGL", () -> GlStateManager.glGetString(7937) + " GL version " + GlStateManager.glGetString(7938) + ", " + GlStateManager.glGetString(7936));
-		theCrash.getCategory().addDetail("GL Caps", () -> OpenGlHelper.getLogText());
+		theCrash.getCategory().addDetail("GL Caps", OpenGlHelper::getLogText);
 		theCrash.getCategory().addDetail("Using VBOs", () -> gameSettings.useVbo ? "Yes" : "No");
 		theCrash.getCategory().addDetail("Is Modded", () -> {
 
@@ -2479,7 +2460,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 		});
 		theCrash.getCategory().addDetail("Current Language", () -> mcLanguageManager.getCurrentLanguage().toString());
 		theCrash.getCategory().addDetail("Profiler Position", () -> mcProfiler.profilingEnabled ? mcProfiler.getNameOfLastSection() : "N/A (disabled)");
-		theCrash.getCategory().addDetail("CPU", () -> OpenGlHelper.getCpu());
+		theCrash.getCategory().addDetail("CPU", OpenGlHelper::getCpu);
 
 		if (world != null) {
 			world.addWorldInfoToCrashReport(theCrash);
@@ -2490,7 +2471,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 
 	public ListenableFuture<Object> scheduleResourcesRefresh() {
 
-		return addScheduledTask(() -> refreshResources());
+		return addScheduledTask(this::refreshResources);
 	}
 
 	public void addServerStatsToSnooper(Snooper playerSnooper) {

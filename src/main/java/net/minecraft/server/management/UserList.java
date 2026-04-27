@@ -93,7 +93,7 @@ public class UserList<K, V extends UserListEntry<K>> {
 
 	public String[] getKeys() {
 
-		return values.keySet().toArray(new String[values.size()]);
+		return values.keySet().toArray(new String[0]);
 	}
 
 	/**

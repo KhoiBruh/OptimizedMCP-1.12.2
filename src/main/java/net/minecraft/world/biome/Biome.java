@@ -313,7 +313,6 @@ public abstract class Biome {
 			case CREATURE -> spawnableCreatureList;
 			case WATER_CREATURE -> spawnableWaterCreatureList;
 			case AMBIENT -> spawnableCaveCreatureList;
-			default -> Collections.emptyList();
 		};
 	}
 

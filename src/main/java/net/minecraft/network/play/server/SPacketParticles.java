@@ -5,8 +5,6 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayClient;
 import net.minecraft.util.EnumParticleTypes;
 
-import java.io.IOException;
-
 public class SPacketParticles implements Packet<INetHandlerPlayClient> {
 
 	private EnumParticleTypes particleType;

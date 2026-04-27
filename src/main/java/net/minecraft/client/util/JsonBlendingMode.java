@@ -118,8 +118,7 @@ public class JsonBlendingMode {
 		return switch (s) {
 			case "add" -> 32774;
 			case "subtract" -> 32778;
-			case "reversesubtract" -> 32779;
-			case "reverse_subtract" -> 32779;
+			case "reversesubtract", "reverse_subtract" -> 32779;
 			case "min" -> 32775;
 			default -> "max".equals(s) ? 32776 : 32774;
 		};

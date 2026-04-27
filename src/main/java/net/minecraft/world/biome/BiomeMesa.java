@@ -45,7 +45,6 @@ public class BiomeMesa extends Biome {
 		decorator.reedsPerChunk = 3;
 		decorator.cactiPerChunk = 5;
 		decorator.flowersPerChunk = 0;
-		spawnableCreatureList.clear();
 
 		if (p_i46704_2_) {
 			decorator.treesPerChunk = 5;

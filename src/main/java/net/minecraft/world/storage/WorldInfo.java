@@ -2,13 +2,10 @@ package net.minecraft.world.storage;
 
 import com.google.common.collect.Maps;
 import net.minecraft.crash.CrashReportCategory;
-import net.minecraft.crash.ICrashReportDetail;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.datafix.FixTypes;
-import net.minecraft.util.datafix.IDataFixer;
-import net.minecraft.util.datafix.IDataWalker;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.*;
 
@@ -879,14 +876,11 @@ public class WorldInfo {
 			String s = "Unknown?";
 
 			try {
-				switch (saveVersion) {
-					case 19132:
-						s = "McRegion";
-						break;
-
-					case 19133:
-						s = "Anvil";
-				}
+				s = switch (saveVersion) {
+					case 19132 -> "McRegion";
+					case 19133 -> "Anvil";
+					default -> s;
+				};
 			} catch (Throwable var3) {
 			}
 

@@ -615,7 +615,7 @@ public abstract class CommandBase implements ICommand {
 	 */
 	public static String joinNiceStringFromCollection(Collection<String> strings) {
 
-		return joinNiceString(strings.toArray(new String[strings.size()]));
+		return joinNiceString(strings.toArray(new String[0]));
 	}
 
 	public static List<String> getTabCompletionCoordinate(String[] inputArgs, int index, @Nullable BlockPos pos) {

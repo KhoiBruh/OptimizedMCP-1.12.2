@@ -138,7 +138,6 @@ public class EntityArmorStand extends EntityLivingBase {
 		return switch (slotIn.getSlotType()) {
 			case HAND -> handItems.get(slotIn.getIndex());
 			case ARMOR -> armorItems.get(slotIn.getIndex());
-			default -> ItemStack.EMPTY;
 		};
 	}
 

@@ -317,7 +317,6 @@ public class BlockFlowerPot extends BlockContainer {
 						case JUNGLE -> EnumFlowerType.JUNGLE_SAPLING;
 						case ACACIA -> EnumFlowerType.ACACIA_SAPLING;
 						case DARK_OAK -> EnumFlowerType.DARK_OAK_SAPLING;
-						default -> EnumFlowerType.EMPTY;
 					};
 				} else if (block == Blocks.TALLGRASS) {
 					blockflowerpot$enumflowertype = switch (i) {

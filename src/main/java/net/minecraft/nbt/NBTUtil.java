@@ -2,7 +2,6 @@ package net.minecraft.nbt;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Optional;
-import com.google.common.collect.UnmodifiableIterator;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import net.minecraft.block.Block;
@@ -259,7 +258,7 @@ public final class NBTUtil {
 			NBTTagCompound nbttagcompound = new NBTTagCompound();
 
 			for (Entry<IProperty<?>, Comparable<?>> iPropertyComparableEntry : state.getProperties().entrySet()) {
-				Entry<IProperty<?>, Comparable<?>> entry = (Entry) iPropertyComparableEntry;
+				Entry<IProperty<?>, Comparable<?>> entry = iPropertyComparableEntry;
 				IProperty<?> iproperty = entry.getKey();
 				nbttagcompound.setString(iproperty.getName(), getName(iproperty, entry.getValue()));
 			}
