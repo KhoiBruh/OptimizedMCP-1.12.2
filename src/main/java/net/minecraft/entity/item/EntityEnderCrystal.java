@@ -53,7 +53,7 @@ public class EntityEnderCrystal extends Entity {
 	protected void entityInit() {
 
 		getDataManager().register(BEAM_TARGET, Optional.absent());
-		getDataManager().register(SHOW_BOTTOM, Boolean.TRUE);
+		getDataManager().register(SHOW_BOTTOM, true);
 	}
 
 	/**

@@ -59,8 +59,8 @@ public class CommandMessage extends CommandBase {
 				ITextComponent itextcomponent = getChatComponentFromNthArg(sender, args, 1, !(sender instanceof EntityPlayer));
 				TextComponentTranslation textcomponenttranslation = new TextComponentTranslation("commands.message.display.incoming", sender.getDisplayName(), itextcomponent.createCopy());
 				TextComponentTranslation textcomponenttranslation1 = new TextComponentTranslation("commands.message.display.outgoing", entityplayer.getDisplayName(), itextcomponent.createCopy());
-				textcomponenttranslation.getStyle().setColor(TextFormatting.GRAY).setItalic(Boolean.TRUE);
-				textcomponenttranslation1.getStyle().setColor(TextFormatting.GRAY).setItalic(Boolean.TRUE);
+				textcomponenttranslation.getStyle().setColor(TextFormatting.GRAY).setItalic(true);
+				textcomponenttranslation1.getStyle().setColor(TextFormatting.GRAY).setItalic(true);
 				entityplayer.sendMessage(textcomponenttranslation);
 				sender.sendMessage(textcomponenttranslation1);
 			}

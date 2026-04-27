@@ -28,7 +28,7 @@ public class BlockTNT extends Block {
 	public BlockTNT() {
 
 		super(Material.TNT);
-		setDefaultState(blockState.getBaseState().withProperty(EXPLODE, Boolean.FALSE));
+		setDefaultState(blockState.getBaseState().withProperty(EXPLODE, false));
 		setCreativeTab(CreativeTabs.REDSTONE);
 	}
 
@@ -40,7 +40,7 @@ public class BlockTNT extends Block {
 		super.onBlockAdded(worldIn, pos, state);
 
 		if (worldIn.isBlockPowered(pos)) {
-			onBlockDestroyedByPlayer(worldIn, pos, state.withProperty(EXPLODE, Boolean.TRUE));
+			onBlockDestroyedByPlayer(worldIn, pos, state.withProperty(EXPLODE, true));
 			worldIn.setBlockToAir(pos);
 		}
 	}
@@ -53,7 +53,7 @@ public class BlockTNT extends Block {
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
 
 		if (worldIn.isBlockPowered(pos)) {
-			onBlockDestroyedByPlayer(worldIn, pos, state.withProperty(EXPLODE, Boolean.TRUE));
+			onBlockDestroyedByPlayer(worldIn, pos, state.withProperty(EXPLODE, true));
 			worldIn.setBlockToAir(pos);
 		}
 	}
@@ -97,7 +97,7 @@ public class BlockTNT extends Block {
 		ItemStack itemstack = playerIn.getHeldItem(hand);
 
 		if (!itemstack.isEmpty() && (itemstack.getItem() == Items.FLINT_AND_STEEL || itemstack.getItem() == Items.FIRE_CHARGE)) {
-			explode(worldIn, pos, state.withProperty(EXPLODE, Boolean.TRUE), playerIn);
+			explode(worldIn, pos, state.withProperty(EXPLODE, true), playerIn);
 			worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 11);
 
 			if (itemstack.getItem() == Items.FLINT_AND_STEEL) {
@@ -120,7 +120,7 @@ public class BlockTNT extends Block {
 		if (!worldIn.isRemote && entityIn instanceof EntityArrow entityarrow) {
 
 			if (entityarrow.isBurning()) {
-				explode(worldIn, pos, worldIn.getBlockState(pos).withProperty(EXPLODE, Boolean.TRUE), entityarrow.shootingEntity instanceof EntityLivingBase ? (EntityLivingBase) entityarrow.shootingEntity : null);
+				explode(worldIn, pos, worldIn.getBlockState(pos).withProperty(EXPLODE, true), entityarrow.shootingEntity instanceof EntityLivingBase ? (EntityLivingBase) entityarrow.shootingEntity : null);
 				worldIn.setBlockToAir(pos);
 			}
 		}

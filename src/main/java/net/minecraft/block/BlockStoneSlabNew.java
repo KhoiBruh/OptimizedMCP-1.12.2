@@ -31,7 +31,7 @@ public abstract class BlockStoneSlabNew extends BlockSlab {
 		IBlockState iblockstate = blockState.getBaseState();
 
 		if (isDouble()) {
-			iblockstate = iblockstate.withProperty(SEAMLESS, Boolean.FALSE);
+			iblockstate = iblockstate.withProperty(SEAMLESS, false);
 		} else {
 			iblockstate = iblockstate.withProperty(HALF, BlockSlab.EnumBlockHalf.BOTTOM);
 		}

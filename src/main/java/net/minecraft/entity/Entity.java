@@ -287,10 +287,10 @@ public abstract class Entity implements ICommandSender {
 		dataManager = new EntityDataManager(this);
 		dataManager.register(FLAGS, (byte) 0);
 		dataManager.register(AIR, 300);
-		dataManager.register(CUSTOM_NAME_VISIBLE, Boolean.FALSE);
+		dataManager.register(CUSTOM_NAME_VISIBLE, false);
 		dataManager.register(CUSTOM_NAME, "");
-		dataManager.register(SILENT, Boolean.FALSE);
-		dataManager.register(NO_GRAVITY, Boolean.FALSE);
+		dataManager.register(SILENT, false);
+		dataManager.register(NO_GRAVITY, false);
 		entityInit();
 	}
 

@@ -39,7 +39,7 @@ public class BlockTripWire extends Block {
 	public BlockTripWire() {
 
 		super(Material.CIRCUITS);
-		setDefaultState(blockState.getBaseState().withProperty(POWERED, Boolean.FALSE).withProperty(ATTACHED, Boolean.FALSE).withProperty(DISARMED, Boolean.FALSE).withProperty(NORTH, Boolean.FALSE).withProperty(EAST, Boolean.FALSE).withProperty(SOUTH, Boolean.FALSE).withProperty(WEST, Boolean.FALSE));
+		setDefaultState(blockState.getBaseState().withProperty(POWERED, false).withProperty(ATTACHED, false).withProperty(DISARMED, false).withProperty(NORTH, false).withProperty(EAST, false).withProperty(SOUTH, false).withProperty(WEST, false));
 		setTickRandomly(true);
 	}
 
@@ -126,7 +126,7 @@ public class BlockTripWire extends Block {
 	 */
 	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
 
-		notifyHook(worldIn, pos, state.withProperty(POWERED, Boolean.TRUE));
+		notifyHook(worldIn, pos, state.withProperty(POWERED, true));
 	}
 
 	/**
@@ -137,7 +137,7 @@ public class BlockTripWire extends Block {
 
 		if (!worldIn.isRemote) {
 			if (!player.getHeldItemMainhand().isEmpty() && player.getHeldItemMainhand().getItem() == Items.SHEARS) {
-				worldIn.setBlockState(pos, state.withProperty(DISARMED, Boolean.TRUE), 4);
+				worldIn.setBlockState(pos, state.withProperty(DISARMED, true), 4);
 			}
 		}
 	}

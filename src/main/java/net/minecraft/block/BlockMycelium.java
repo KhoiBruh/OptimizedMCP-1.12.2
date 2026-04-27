@@ -22,7 +22,7 @@ public class BlockMycelium extends Block {
 	protected BlockMycelium() {
 
 		super(Material.GRASS, MapColor.PURPLE);
-		setDefaultState(blockState.getBaseState().withProperty(SNOWY, Boolean.FALSE));
+		setDefaultState(blockState.getBaseState().withProperty(SNOWY, false));
 		setTickRandomly(true);
 		setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
 	}

@@ -35,7 +35,7 @@ public class BlockFenceGate extends BlockHorizontal {
 	public BlockFenceGate(BlockPlanks.EnumType p_i46394_1_) {
 
 		super(Material.WOOD, p_i46394_1_.getMapColor());
-		setDefaultState(blockState.getBaseState().withProperty(OPEN, Boolean.FALSE).withProperty(POWERED, Boolean.FALSE).withProperty(IN_WALL, Boolean.FALSE));
+		setDefaultState(blockState.getBaseState().withProperty(OPEN, false).withProperty(POWERED, false).withProperty(IN_WALL, false));
 		setCreativeTab(CreativeTabs.REDSTONE);
 	}
 
@@ -59,7 +59,7 @@ public class BlockFenceGate extends BlockHorizontal {
 		EnumFacing.Axis enumfacing$axis = state.getValue(FACING).getAxis();
 
 		if (enumfacing$axis == EnumFacing.Axis.Z && (worldIn.getBlockState(pos.west()).getBlock() == Blocks.COBBLESTONE_WALL || worldIn.getBlockState(pos.east()).getBlock() == Blocks.COBBLESTONE_WALL) || enumfacing$axis == EnumFacing.Axis.X && (worldIn.getBlockState(pos.north()).getBlock() == Blocks.COBBLESTONE_WALL || worldIn.getBlockState(pos.south()).getBlock() == Blocks.COBBLESTONE_WALL)) {
-			state = state.withProperty(IN_WALL, Boolean.TRUE);
+			state = state.withProperty(IN_WALL, true);
 		}
 
 		return state;
@@ -129,7 +129,7 @@ public class BlockFenceGate extends BlockHorizontal {
 	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
 
 		boolean flag = worldIn.isBlockPowered(pos);
-		return getDefaultState().withProperty(FACING, placer.getHorizontalFacing()).withProperty(OPEN, flag).withProperty(POWERED, flag).withProperty(IN_WALL, Boolean.FALSE);
+		return getDefaultState().withProperty(FACING, placer.getHorizontalFacing()).withProperty(OPEN, flag).withProperty(POWERED, flag).withProperty(IN_WALL, false);
 	}
 
 	/**
@@ -138,7 +138,7 @@ public class BlockFenceGate extends BlockHorizontal {
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 
 		if (state.getValue(OPEN)) {
-			state = state.withProperty(OPEN, Boolean.FALSE);
+			state = state.withProperty(OPEN, false);
 			worldIn.setBlockState(pos, state, 10);
 		} else {
 			EnumFacing enumfacing = EnumFacing.fromAngle(playerIn.rotationYaw);
@@ -147,7 +147,7 @@ public class BlockFenceGate extends BlockHorizontal {
 				state = state.withProperty(FACING, enumfacing);
 			}
 
-			state = state.withProperty(OPEN, Boolean.TRUE);
+			state = state.withProperty(OPEN, true);
 			worldIn.setBlockState(pos, state, 10);
 		}
 

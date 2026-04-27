@@ -113,7 +113,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 		dataManager.register(DAMAGE, 0.0F);
 		dataManager.register(DISPLAY_TILE, 0);
 		dataManager.register(DISPLAY_TILE_OFFSET, 6);
-		dataManager.register(SHOW_BLOCK, Boolean.FALSE);
+		dataManager.register(SHOW_BLOCK, false);
 	}
 
 	@Nullable

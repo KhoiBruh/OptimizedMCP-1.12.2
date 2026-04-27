@@ -23,7 +23,7 @@ public class BlockOldLeaf extends BlockLeaves {
 
 	public BlockOldLeaf() {
 
-		setDefaultState(blockState.getBaseState().withProperty(VARIANT, BlockPlanks.EnumType.OAK).withProperty(CHECK_DECAY, Boolean.TRUE).withProperty(DECAYABLE, Boolean.TRUE));
+		setDefaultState(blockState.getBaseState().withProperty(VARIANT, BlockPlanks.EnumType.OAK).withProperty(CHECK_DECAY, true).withProperty(DECAYABLE, true));
 	}
 
 	protected void dropApple(World worldIn, BlockPos pos, IBlockState state, int chance) {

@@ -104,8 +104,8 @@ public class EntityCreeper extends EntityMob {
 
 		super.entityInit();
 		dataManager.register(STATE, -1);
-		dataManager.register(POWERED, Boolean.FALSE);
-		dataManager.register(IGNITED, Boolean.FALSE);
+		dataManager.register(POWERED, false);
+		dataManager.register(IGNITED, false);
 	}
 
 	/**
@@ -257,7 +257,7 @@ public class EntityCreeper extends EntityMob {
 	public void onStruckByLightning(EntityLightningBolt lightningBolt) {
 
 		super.onStruckByLightning(lightningBolt);
-		dataManager.set(POWERED, Boolean.TRUE);
+		dataManager.set(POWERED, true);
 	}
 
 	protected boolean processInteract(EntityPlayer player, EnumHand hand) {
@@ -320,7 +320,7 @@ public class EntityCreeper extends EntityMob {
 
 	public void ignite() {
 
-		dataManager.set(IGNITED, Boolean.TRUE);
+		dataManager.set(IGNITED, true);
 	}
 
 	/**

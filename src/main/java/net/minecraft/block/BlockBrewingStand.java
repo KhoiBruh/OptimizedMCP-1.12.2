@@ -36,7 +36,7 @@ public class BlockBrewingStand extends BlockContainer {
 	public BlockBrewingStand() {
 
 		super(Material.IRON);
-		setDefaultState(blockState.getBaseState().withProperty(HAS_BOTTLE[0], Boolean.FALSE).withProperty(HAS_BOTTLE[1], Boolean.FALSE).withProperty(HAS_BOTTLE[2], Boolean.FALSE));
+		setDefaultState(blockState.getBaseState().withProperty(HAS_BOTTLE[0], false).withProperty(HAS_BOTTLE[1], false).withProperty(HAS_BOTTLE[2], false));
 	}
 
 	/**

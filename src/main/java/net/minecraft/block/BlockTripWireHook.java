@@ -34,7 +34,7 @@ public class BlockTripWireHook extends Block {
 	public BlockTripWireHook() {
 
 		super(Material.CIRCUITS);
-		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(POWERED, Boolean.FALSE).withProperty(ATTACHED, Boolean.FALSE));
+		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(POWERED, false).withProperty(ATTACHED, false));
 		setCreativeTab(CreativeTabs.REDSTONE);
 		setTickRandomly(true);
 	}
@@ -100,7 +100,7 @@ public class BlockTripWireHook extends Block {
 	 */
 	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
 
-		IBlockState iblockstate = getDefaultState().withProperty(POWERED, Boolean.FALSE).withProperty(ATTACHED, Boolean.FALSE);
+		IBlockState iblockstate = getDefaultState().withProperty(POWERED, false).withProperty(ATTACHED, false);
 
 		if (facing.getAxis().isHorizontal()) {
 			iblockstate = iblockstate.withProperty(FACING, facing);

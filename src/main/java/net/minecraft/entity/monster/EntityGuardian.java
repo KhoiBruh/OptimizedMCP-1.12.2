@@ -90,7 +90,7 @@ public class EntityGuardian extends EntityMob {
 	protected void entityInit() {
 
 		super.entityInit();
-		dataManager.register(MOVING, Boolean.FALSE);
+		dataManager.register(MOVING, false);
 		dataManager.register(TARGET_ENTITY, 0);
 	}
 

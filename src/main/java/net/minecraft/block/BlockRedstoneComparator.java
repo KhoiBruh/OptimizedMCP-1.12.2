@@ -36,7 +36,7 @@ public class BlockRedstoneComparator extends BlockRedstoneDiode implements ITile
 	public BlockRedstoneComparator(boolean powered) {
 
 		super(powered);
-		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(POWERED, Boolean.FALSE).withProperty(MODE, BlockRedstoneComparator.Mode.COMPARE));
+		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(POWERED, false).withProperty(MODE, BlockRedstoneComparator.Mode.COMPARE));
 		hasTileEntity = true;
 	}
 
@@ -201,9 +201,9 @@ public class BlockRedstoneComparator extends BlockRedstoneDiode implements ITile
 			boolean flag = isPowered(state);
 
 			if (flag && !flag1) {
-				worldIn.setBlockState(pos, state.withProperty(POWERED, Boolean.FALSE), 2);
+				worldIn.setBlockState(pos, state.withProperty(POWERED, false), 2);
 			} else if (!flag && flag1) {
-				worldIn.setBlockState(pos, state.withProperty(POWERED, Boolean.TRUE), 2);
+				worldIn.setBlockState(pos, state.withProperty(POWERED, true), 2);
 			}
 
 			notifyNeighbors(worldIn, pos, state);
@@ -213,7 +213,7 @@ public class BlockRedstoneComparator extends BlockRedstoneDiode implements ITile
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
 
 		if (isRepeaterPowered) {
-			worldIn.setBlockState(pos, getUnpoweredState(state).withProperty(POWERED, Boolean.TRUE), 4);
+			worldIn.setBlockState(pos, getUnpoweredState(state).withProperty(POWERED, true), 4);
 		}
 
 		onStateChange(worldIn, pos, state);
@@ -314,7 +314,7 @@ public class BlockRedstoneComparator extends BlockRedstoneDiode implements ITile
 	 */
 	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
 
-		return getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite()).withProperty(POWERED, Boolean.FALSE).withProperty(MODE, BlockRedstoneComparator.Mode.COMPARE);
+		return getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite()).withProperty(POWERED, false).withProperty(MODE, BlockRedstoneComparator.Mode.COMPARE);
 	}
 
 	public enum Mode implements IStringSerializable {

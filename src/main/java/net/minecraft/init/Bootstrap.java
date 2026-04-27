@@ -282,7 +282,7 @@ public class Bootstrap {
 						stack.setCount(0);
 					}
 				} else if (world.getBlockState(blockpos).getBlock() == Blocks.TNT) {
-					Blocks.TNT.onBlockDestroyedByPlayer(world, blockpos, Blocks.TNT.getDefaultState().withProperty(BlockTNT.EXPLODE, Boolean.TRUE));
+					Blocks.TNT.onBlockDestroyedByPlayer(world, blockpos, Blocks.TNT.getDefaultState().withProperty(BlockTNT.EXPLODE, true));
 					world.setBlockToAir(blockpos);
 				} else {
 					successful = false;

@@ -186,9 +186,9 @@ public class GuiOverlayDebug extends Gui {
 					T t = (T) entry.getValue();
 					s = iproperty.getName(t);
 
-					if (Boolean.TRUE.equals(t)) {
+					if (true.equals(t)) {
 						s = TextFormatting.GREEN + s;
-					} else if (Boolean.FALSE.equals(t)) {
+					} else if (false.equals(t)) {
 						s = TextFormatting.RED + s;
 					}
 				}

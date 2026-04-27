@@ -112,7 +112,7 @@ public class EntityPig extends EntityAnimal {
 	protected void entityInit() {
 
 		super.entityInit();
-		dataManager.register(SADDLED, Boolean.FALSE);
+		dataManager.register(SADDLED, false);
 		dataManager.register(BOOST_TIME, 0);
 	}
 
@@ -213,9 +213,9 @@ public class EntityPig extends EntityAnimal {
 	public void setSaddled(boolean saddled) {
 
 		if (saddled) {
-			dataManager.set(SADDLED, Boolean.TRUE);
+			dataManager.set(SADDLED, true);
 		} else {
-			dataManager.set(SADDLED, Boolean.FALSE);
+			dataManager.set(SADDLED, false);
 		}
 	}
 

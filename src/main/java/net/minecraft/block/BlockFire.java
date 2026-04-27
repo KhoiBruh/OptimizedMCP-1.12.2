@@ -38,7 +38,7 @@ public class BlockFire extends Block {
 	protected BlockFire() {
 
 		super(Material.FIRE);
-		setDefaultState(blockState.getBaseState().withProperty(AGE, 0).withProperty(NORTH, Boolean.FALSE).withProperty(EAST, Boolean.FALSE).withProperty(SOUTH, Boolean.FALSE).withProperty(WEST, Boolean.FALSE).withProperty(UPPER, Boolean.FALSE));
+		setDefaultState(blockState.getBaseState().withProperty(AGE, 0).withProperty(NORTH, false).withProperty(EAST, false).withProperty(SOUTH, false).withProperty(WEST, false).withProperty(UPPER, false));
 		setTickRandomly(true);
 	}
 
@@ -268,7 +268,7 @@ public class BlockFire extends Block {
 			}
 
 			if (iblockstate.getBlock() == Blocks.TNT) {
-				Blocks.TNT.onBlockDestroyedByPlayer(worldIn, pos, iblockstate.withProperty(BlockTNT.EXPLODE, Boolean.TRUE));
+				Blocks.TNT.onBlockDestroyedByPlayer(worldIn, pos, iblockstate.withProperty(BlockTNT.EXPLODE, true));
 			}
 		}
 	}

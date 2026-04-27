@@ -32,7 +32,7 @@ public class BlockLever extends Block {
 	protected BlockLever() {
 
 		super(Material.CIRCUITS);
-		setDefaultState(blockState.getBaseState().withProperty(FACING, BlockLever.EnumOrientation.NORTH).withProperty(POWERED, Boolean.FALSE));
+		setDefaultState(blockState.getBaseState().withProperty(FACING, BlockLever.EnumOrientation.NORTH).withProperty(POWERED, false));
 		setCreativeTab(CreativeTabs.REDSTONE);
 	}
 
@@ -88,7 +88,7 @@ public class BlockLever extends Block {
 	 */
 	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
 
-		IBlockState iblockstate = getDefaultState().withProperty(POWERED, Boolean.FALSE);
+		IBlockState iblockstate = getDefaultState().withProperty(POWERED, false);
 
 		if (canAttachTo(worldIn, pos, facing)) {
 			return iblockstate.withProperty(FACING, BlockLever.EnumOrientation.forFacings(facing, placer.getHorizontalFacing()));

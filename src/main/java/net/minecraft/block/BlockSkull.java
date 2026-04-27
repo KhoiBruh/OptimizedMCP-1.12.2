@@ -55,7 +55,7 @@ public class BlockSkull extends BlockContainer {
 	protected BlockSkull() {
 
 		super(Material.CIRCUITS);
-		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(NODROP, Boolean.FALSE));
+		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(NODROP, false));
 	}
 
 	/**
@@ -101,7 +101,7 @@ public class BlockSkull extends BlockContainer {
 	 */
 	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
 
-		return getDefaultState().withProperty(FACING, placer.getHorizontalFacing()).withProperty(NODROP, Boolean.FALSE);
+		return getDefaultState().withProperty(FACING, placer.getHorizontalFacing()).withProperty(NODROP, false);
 	}
 
 	/**
@@ -138,7 +138,7 @@ public class BlockSkull extends BlockContainer {
 	public void onBlockHarvested(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player) {
 
 		if (player.capabilities.isCreativeMode) {
-			state = state.withProperty(NODROP, Boolean.TRUE);
+			state = state.withProperty(NODROP, true);
 			worldIn.setBlockState(pos, state, 4);
 		}
 
@@ -198,7 +198,7 @@ public class BlockSkull extends BlockContainer {
 			if (blockpattern$patternhelper != null) {
 				for (int i = 0; i < 3; ++i) {
 					BlockWorldState blockworldstate = blockpattern$patternhelper.translateOffset(i, 0, 0);
-					worldIn.setBlockState(blockworldstate.getPos(), blockworldstate.getBlockState().withProperty(NODROP, Boolean.TRUE), 2);
+					worldIn.setBlockState(blockworldstate.getPos(), blockworldstate.getBlockState().withProperty(NODROP, true), 2);
 				}
 
 				for (int j = 0; j < blockpattern.getPalmLength(); ++j) {

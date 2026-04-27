@@ -72,7 +72,7 @@ public class EntityWitch extends EntityMob implements IRangedAttackMob {
 	protected void entityInit() {
 
 		super.entityInit();
-		getDataManager().register(IS_DRINKING, Boolean.FALSE);
+		getDataManager().register(IS_DRINKING, false);
 	}
 
 	protected SoundEvent getAmbientSound() {

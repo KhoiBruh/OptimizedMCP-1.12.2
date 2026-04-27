@@ -49,7 +49,7 @@ public class BlockPistonExtension extends BlockDirectional {
 	public BlockPistonExtension() {
 
 		super(Material.PISTON);
-		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(TYPE, BlockPistonExtension.EnumPistonType.DEFAULT).withProperty(SHORT, Boolean.FALSE));
+		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(TYPE, BlockPistonExtension.EnumPistonType.DEFAULT).withProperty(SHORT, false));
 		setSoundType(SoundType.STONE);
 		setHardness(0.5F);
 	}

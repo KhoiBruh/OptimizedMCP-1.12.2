@@ -35,7 +35,7 @@ public class BlockPane extends Block {
 	protected BlockPane(Material materialIn, boolean canDrop) {
 
 		super(materialIn);
-		setDefaultState(blockState.getBaseState().withProperty(NORTH, Boolean.FALSE).withProperty(EAST, Boolean.FALSE).withProperty(SOUTH, Boolean.FALSE).withProperty(WEST, Boolean.FALSE));
+		setDefaultState(blockState.getBaseState().withProperty(NORTH, false).withProperty(EAST, false).withProperty(SOUTH, false).withProperty(WEST, false));
 		this.canDrop = canDrop;
 		setCreativeTab(CreativeTabs.DECORATIONS);
 	}

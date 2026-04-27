@@ -69,7 +69,7 @@ public class EntityAreaEffectCloud extends Entity {
 
 		getDataManager().register(COLOR, 0);
 		getDataManager().register(RADIUS, 0.5F);
-		getDataManager().register(IGNORE_RADIUS, Boolean.FALSE);
+		getDataManager().register(IGNORE_RADIUS, false);
 		getDataManager().register(PARTICLE, EnumParticleTypes.SPELL_MOB.getParticleID());
 		getDataManager().register(PARTICLE_PARAM_1, 0);
 		getDataManager().register(PARTICLE_PARAM_2, 0);

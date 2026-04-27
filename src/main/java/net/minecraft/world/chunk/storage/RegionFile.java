@@ -53,11 +53,11 @@ public class RegionFile {
 			sectorFree = Lists.newArrayListWithCapacity(i1);
 
 			for (int j = 0; j < i1; ++j) {
-				sectorFree.add(Boolean.TRUE);
+				sectorFree.add(true);
 			}
 
-			sectorFree.set(0, Boolean.FALSE);
-			sectorFree.set(1, Boolean.FALSE);
+			sectorFree.set(0, false);
+			sectorFree.set(1, false);
 			dataFile.seek(0L);
 
 			for (int j1 = 0; j1 < 1024; ++j1) {
@@ -66,7 +66,7 @@ public class RegionFile {
 
 				if (k != 0 && (k >> 8) + (k & 255) <= sectorFree.size()) {
 					for (int l = 0; l < (k & 255); ++l) {
-						sectorFree.set((k >> 8) + l, Boolean.FALSE);
+						sectorFree.set((k >> 8) + l, false);
 					}
 				}
 			}
@@ -161,10 +161,10 @@ public class RegionFile {
 				write(j, data, length);
 			} else {
 				for (int i1 = 0; i1 < k; ++i1) {
-					sectorFree.set(j + i1, Boolean.TRUE);
+					sectorFree.set(j + i1, true);
 				}
 
-				int l1 = sectorFree.indexOf(Boolean.TRUE);
+				int l1 = sectorFree.indexOf(true);
 				int j1 = 0;
 
 				if (l1 != -1) {
@@ -191,7 +191,7 @@ public class RegionFile {
 					setOffset(x, z, l1 << 8 | l);
 
 					for (int j2 = 0; j2 < l; ++j2) {
-						sectorFree.set(j + j2, Boolean.FALSE);
+						sectorFree.set(j + j2, false);
 					}
 
 					write(j, data, length);
@@ -201,7 +201,7 @@ public class RegionFile {
 
 					for (int i2 = 0; i2 < l; ++i2) {
 						dataFile.write(EMPTY_SECTOR);
-						sectorFree.add(Boolean.FALSE);
+						sectorFree.add(false);
 					}
 
 					sizeDelta += 4096 * l;

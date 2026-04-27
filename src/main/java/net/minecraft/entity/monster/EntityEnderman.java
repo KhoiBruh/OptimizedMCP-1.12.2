@@ -112,11 +112,11 @@ public class EntityEnderman extends EntityMob {
 
 		if (entitylivingbaseIn == null) {
 			targetChangeTime = 0;
-			dataManager.set(SCREAMING, Boolean.FALSE);
+			dataManager.set(SCREAMING, false);
 			iattributeinstance.removeModifier(ATTACKING_SPEED_BOOST);
 		} else {
 			targetChangeTime = ticksExisted;
-			dataManager.set(SCREAMING, Boolean.TRUE);
+			dataManager.set(SCREAMING, true);
 
 			if (!iattributeinstance.hasModifier(ATTACKING_SPEED_BOOST)) {
 				iattributeinstance.applyModifier(ATTACKING_SPEED_BOOST);
@@ -128,7 +128,7 @@ public class EntityEnderman extends EntityMob {
 
 		super.entityInit();
 		dataManager.register(CARRIED_BLOCK, Optional.absent());
-		dataManager.register(SCREAMING, Boolean.FALSE);
+		dataManager.register(SCREAMING, false);
 	}
 
 	public void playEndermanSound() {

@@ -44,7 +44,7 @@ public class TileEntityPistonRenderer extends TileEntitySpecialRenderer<TileEnti
 			World world = getWorld();
 
 			if (block == Blocks.PISTON_HEAD && te.getProgress(partialTicks) <= 0.25F) {
-				iblockstate = iblockstate.withProperty(BlockPistonExtension.SHORT, Boolean.TRUE);
+				iblockstate = iblockstate.withProperty(BlockPistonExtension.SHORT, true);
 				renderStateModel(blockpos, iblockstate, bufferbuilder, world, true);
 			} else if (te.shouldPistonHeadBeRendered() && !te.isExtending()) {
 				BlockPistonExtension.EnumPistonType blockpistonextension$enumpistontype = block == Blocks.STICKY_PISTON ? BlockPistonExtension.EnumPistonType.STICKY : BlockPistonExtension.EnumPistonType.DEFAULT;
@@ -52,7 +52,7 @@ public class TileEntityPistonRenderer extends TileEntitySpecialRenderer<TileEnti
 				iblockstate1 = iblockstate1.withProperty(BlockPistonExtension.SHORT, te.getProgress(partialTicks) >= 0.5F);
 				renderStateModel(blockpos, iblockstate1, bufferbuilder, world, true);
 				bufferbuilder.setTranslation(x - (double) blockpos.getX(), y - (double) blockpos.getY(), z - (double) blockpos.getZ());
-				iblockstate = iblockstate.withProperty(BlockPistonBase.EXTENDED, Boolean.TRUE);
+				iblockstate = iblockstate.withProperty(BlockPistonBase.EXTENDED, true);
 				renderStateModel(blockpos, iblockstate, bufferbuilder, world, true);
 			} else {
 				renderStateModel(blockpos, iblockstate, bufferbuilder, world, false);

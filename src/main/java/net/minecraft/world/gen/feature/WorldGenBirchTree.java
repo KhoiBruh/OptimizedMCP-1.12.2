@@ -15,7 +15,7 @@ import java.util.Random;
 public class WorldGenBirchTree extends WorldGenAbstractTree {
 
 	private static final IBlockState LOG = Blocks.LOG.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.BIRCH);
-	private static final IBlockState LEAF = Blocks.LEAVES.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.EnumType.BIRCH).withProperty(BlockOldLeaf.CHECK_DECAY, Boolean.FALSE);
+	private static final IBlockState LEAF = Blocks.LEAVES.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.EnumType.BIRCH).withProperty(BlockOldLeaf.CHECK_DECAY, false);
 	private final boolean useExtraRandomHeight;
 
 	public WorldGenBirchTree(boolean notify, boolean useExtraRandomHeightIn) {

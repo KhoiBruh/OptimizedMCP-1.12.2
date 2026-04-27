@@ -1501,7 +1501,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
 		IBlockState iblockstate = world.getBlockState(bedLocation);
 
 		if (bedLocation != null && iblockstate.getBlock() == Blocks.BED) {
-			world.setBlockState(bedLocation, iblockstate.withProperty(BlockBed.OCCUPIED, Boolean.FALSE), 4);
+			world.setBlockState(bedLocation, iblockstate.withProperty(BlockBed.OCCUPIED, false), 4);
 			BlockPos blockpos = BlockBed.getSafeExitLocation(world, bedLocation, 0);
 
 			if (blockpos == null) {

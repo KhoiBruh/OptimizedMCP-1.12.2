@@ -40,7 +40,7 @@ public class BlockHopper extends BlockContainer {
 	public BlockHopper() {
 
 		super(Material.IRON, MapColor.STONE);
-		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.DOWN).withProperty(ENABLED, Boolean.TRUE));
+		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.DOWN).withProperty(ENABLED, true));
 		setCreativeTab(CreativeTabs.REDSTONE);
 	}
 
@@ -84,7 +84,7 @@ public class BlockHopper extends BlockContainer {
 			enumfacing = EnumFacing.DOWN;
 		}
 
-		return getDefaultState().withProperty(FACING, enumfacing).withProperty(ENABLED, Boolean.TRUE);
+		return getDefaultState().withProperty(FACING, enumfacing).withProperty(ENABLED, true);
 	}
 
 	/**

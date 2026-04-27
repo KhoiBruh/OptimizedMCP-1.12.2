@@ -105,9 +105,9 @@ public class EntityZombie extends EntityMob {
 	protected void entityInit() {
 
 		super.entityInit();
-		getDataManager().register(IS_CHILD, Boolean.FALSE);
+		getDataManager().register(IS_CHILD, false);
 		getDataManager().register(VILLAGER_TYPE, 0);
-		getDataManager().register(ARMS_RAISED, Boolean.FALSE);
+		getDataManager().register(ARMS_RAISED, false);
 	}
 
 	public boolean isArmsRaised() {

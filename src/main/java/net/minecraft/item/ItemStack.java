@@ -1012,7 +1012,7 @@ public final class ItemStack {
 		TextComponentString textcomponentstring = new TextComponentString(getDisplayName());
 
 		if (hasDisplayName()) {
-			textcomponentstring.getStyle().setItalic(Boolean.TRUE);
+			textcomponentstring.getStyle().setItalic(true);
 		}
 
 		ITextComponent itextcomponent = (new TextComponentString("[")).appendSibling(textcomponentstring).appendText("]");

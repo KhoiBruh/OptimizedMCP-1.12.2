@@ -46,7 +46,7 @@ public class BlockPistonBase extends BlockDirectional {
 	public BlockPistonBase(boolean isSticky) {
 
 		super(Material.PISTON);
-		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(EXTENDED, Boolean.FALSE));
+		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(EXTENDED, false));
 		this.isSticky = isSticky;
 		setSoundType(SoundType.STONE);
 		setHardness(0.5F);
@@ -183,7 +183,7 @@ public class BlockPistonBase extends BlockDirectional {
 	 */
 	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
 
-		return getDefaultState().withProperty(FACING, EnumFacing.getDirectionFromEntityLiving(pos, placer)).withProperty(EXTENDED, Boolean.FALSE);
+		return getDefaultState().withProperty(FACING, EnumFacing.getDirectionFromEntityLiving(pos, placer)).withProperty(EXTENDED, false);
 	}
 
 	private void checkForMove(World worldIn, BlockPos pos, IBlockState state) {
@@ -236,7 +236,7 @@ public class BlockPistonBase extends BlockDirectional {
 			boolean flag = shouldBeExtended(worldIn, pos, enumfacing);
 
 			if (flag && id == 1) {
-				worldIn.setBlockState(pos, state.withProperty(EXTENDED, Boolean.TRUE), 2);
+				worldIn.setBlockState(pos, state.withProperty(EXTENDED, true), 2);
 				return false;
 			}
 
@@ -250,7 +250,7 @@ public class BlockPistonBase extends BlockDirectional {
 				return false;
 			}
 
-			worldIn.setBlockState(pos, state.withProperty(EXTENDED, Boolean.TRUE), 3);
+			worldIn.setBlockState(pos, state.withProperty(EXTENDED, true), 3);
 			worldIn.playSound(null, pos, SoundEvents.BLOCK_PISTON_EXTEND, SoundCategory.BLOCKS, 0.5F, worldIn.rand.nextFloat() * 0.25F + 0.6F);
 		} else if (id == 1) {
 			TileEntity tileentity1 = worldIn.getTileEntity(pos.offset(enumfacing));

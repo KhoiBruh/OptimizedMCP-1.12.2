@@ -52,7 +52,7 @@ public abstract class BlockLeaves extends Block {
 						IBlockState iblockstate = worldIn.getBlockState(blockpos);
 
 						if (iblockstate.getMaterial() == Material.LEAVES && !iblockstate.getValue(CHECK_DECAY)) {
-							worldIn.setBlockState(blockpos, iblockstate.withProperty(CHECK_DECAY, Boolean.TRUE), 4);
+							worldIn.setBlockState(blockpos, iblockstate.withProperty(CHECK_DECAY, true), 4);
 						}
 					}
 				}
@@ -137,7 +137,7 @@ public abstract class BlockLeaves extends Block {
 				int l2 = surroundings[16912];
 
 				if (l2 >= 0) {
-					worldIn.setBlockState(pos, state.withProperty(CHECK_DECAY, Boolean.FALSE), 4);
+					worldIn.setBlockState(pos, state.withProperty(CHECK_DECAY, false), 4);
 				} else {
 					destroy(worldIn, pos);
 				}

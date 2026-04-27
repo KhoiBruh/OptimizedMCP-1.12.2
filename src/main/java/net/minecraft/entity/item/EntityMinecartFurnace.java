@@ -49,7 +49,7 @@ public class EntityMinecartFurnace extends EntityMinecart {
 	protected void entityInit() {
 
 		super.entityInit();
-		dataManager.register(POWERED, Boolean.FALSE);
+		dataManager.register(POWERED, false);
 	}
 
 	/**

@@ -33,7 +33,7 @@ public class BlockTrapDoor extends Block {
 	protected BlockTrapDoor(Material materialIn) {
 
 		super(materialIn);
-		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(OPEN, Boolean.FALSE).withProperty(HALF, BlockTrapDoor.DoorHalf.BOTTOM));
+		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(OPEN, false).withProperty(HALF, BlockTrapDoor.DoorHalf.BOTTOM));
 		setCreativeTab(CreativeTabs.REDSTONE);
 	}
 
@@ -154,15 +154,15 @@ public class BlockTrapDoor extends Block {
 		IBlockState iblockstate = getDefaultState();
 
 		if (facing.getAxis().isHorizontal()) {
-			iblockstate = iblockstate.withProperty(FACING, facing).withProperty(OPEN, Boolean.FALSE);
+			iblockstate = iblockstate.withProperty(FACING, facing).withProperty(OPEN, false);
 			iblockstate = iblockstate.withProperty(HALF, hitY > 0.5F ? BlockTrapDoor.DoorHalf.TOP : BlockTrapDoor.DoorHalf.BOTTOM);
 		} else {
-			iblockstate = iblockstate.withProperty(FACING, placer.getHorizontalFacing().getOpposite()).withProperty(OPEN, Boolean.FALSE);
+			iblockstate = iblockstate.withProperty(FACING, placer.getHorizontalFacing().getOpposite()).withProperty(OPEN, false);
 			iblockstate = iblockstate.withProperty(HALF, facing == EnumFacing.UP ? BlockTrapDoor.DoorHalf.BOTTOM : BlockTrapDoor.DoorHalf.TOP);
 		}
 
 		if (worldIn.isBlockPowered(pos)) {
-			iblockstate = iblockstate.withProperty(OPEN, Boolean.TRUE);
+			iblockstate = iblockstate.withProperty(OPEN, true);
 		}
 
 		return iblockstate;

@@ -32,7 +32,7 @@ public class BlockCommandBlock extends BlockContainer {
 	public BlockCommandBlock(MapColor color) {
 
 		super(Material.IRON, color);
-		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(CONDITIONAL, Boolean.FALSE));
+		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(CONDITIONAL, false));
 	}
 
 	private static void executeChain(World p_193386_0_, BlockPos p_193386_1_, EnumFacing p_193386_2_) {
@@ -290,7 +290,7 @@ public class BlockCommandBlock extends BlockContainer {
 	 */
 	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
 
-		return getDefaultState().withProperty(FACING, EnumFacing.getDirectionFromEntityLiving(pos, placer)).withProperty(CONDITIONAL, Boolean.FALSE);
+		return getDefaultState().withProperty(FACING, EnumFacing.getDirectionFromEntityLiving(pos, placer)).withProperty(CONDITIONAL, false);
 	}
 
 }

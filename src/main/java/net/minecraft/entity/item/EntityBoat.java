@@ -104,7 +104,7 @@ public class EntityBoat extends Entity {
 		dataManager.register(BOAT_TYPE, Type.OAK.ordinal());
 
 		for (DataParameter<Boolean> dataparameter : DATA_ID_PADDLE) {
-			dataManager.register(dataparameter, Boolean.FALSE);
+			dataManager.register(dataparameter, false);
 		}
 	}
 

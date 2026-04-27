@@ -29,7 +29,7 @@ public class BlockJukebox extends BlockContainer {
 	protected BlockJukebox() {
 
 		super(Material.WOOD, MapColor.DIRT);
-		setDefaultState(blockState.getBaseState().withProperty(HAS_RECORD, Boolean.FALSE));
+		setDefaultState(blockState.getBaseState().withProperty(HAS_RECORD, false));
 		setCreativeTab(CreativeTabs.DECORATIONS);
 	}
 
@@ -45,7 +45,7 @@ public class BlockJukebox extends BlockContainer {
 
 		if (state.getValue(HAS_RECORD)) {
 			dropRecord(worldIn, pos, state);
-			state = state.withProperty(HAS_RECORD, Boolean.FALSE);
+			state = state.withProperty(HAS_RECORD, false);
 			worldIn.setBlockState(pos, state, 2);
 			return true;
 		} else {
@@ -59,7 +59,7 @@ public class BlockJukebox extends BlockContainer {
 
 		if (tileentity instanceof BlockJukebox.TileEntityJukebox) {
 			((BlockJukebox.TileEntityJukebox) tileentity).setRecord(recordStack.copy());
-			worldIn.setBlockState(pos, state.withProperty(HAS_RECORD, Boolean.TRUE), 2);
+			worldIn.setBlockState(pos, state.withProperty(HAS_RECORD, true), 2);
 		}
 	}
 

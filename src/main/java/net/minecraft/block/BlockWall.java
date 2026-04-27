@@ -35,7 +35,7 @@ public class BlockWall extends Block {
 	public BlockWall(Block modelBlock) {
 
 		super(modelBlock.blockMaterial);
-		setDefaultState(blockState.getBaseState().withProperty(UP, Boolean.FALSE).withProperty(NORTH, Boolean.FALSE).withProperty(EAST, Boolean.FALSE).withProperty(SOUTH, Boolean.FALSE).withProperty(WEST, Boolean.FALSE).withProperty(VARIANT, BlockWall.EnumType.NORMAL));
+		setDefaultState(blockState.getBaseState().withProperty(UP, false).withProperty(NORTH, false).withProperty(EAST, false).withProperty(SOUTH, false).withProperty(WEST, false).withProperty(VARIANT, BlockWall.EnumType.NORMAL));
 		setHardness(modelBlock.blockHardness);
 		setResistance(modelBlock.blockResistance / 3.0F);
 		setSoundType(modelBlock.blockSoundType);

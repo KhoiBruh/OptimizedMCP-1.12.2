@@ -32,7 +32,7 @@ public class BlockRailDetector extends BlockRailBase {
 	public BlockRailDetector() {
 
 		super(true);
-		setDefaultState(blockState.getBaseState().withProperty(POWERED, Boolean.FALSE).withProperty(SHAPE, BlockRailBase.EnumRailDirection.NORTH_SOUTH));
+		setDefaultState(blockState.getBaseState().withProperty(POWERED, false).withProperty(SHAPE, BlockRailBase.EnumRailDirection.NORTH_SOUTH));
 		setTickRandomly(true);
 	}
 
@@ -103,7 +103,7 @@ public class BlockRailDetector extends BlockRailBase {
 		}
 
 		if (flag1 && !flag) {
-			worldIn.setBlockState(pos, state.withProperty(POWERED, Boolean.TRUE), 3);
+			worldIn.setBlockState(pos, state.withProperty(POWERED, true), 3);
 			updateConnectedRails(worldIn, pos, state, true);
 			worldIn.notifyNeighborsOfStateChange(pos, this, false);
 			worldIn.notifyNeighborsOfStateChange(pos.down(), this, false);
@@ -111,7 +111,7 @@ public class BlockRailDetector extends BlockRailBase {
 		}
 
 		if (!flag1 && flag) {
-			worldIn.setBlockState(pos, state.withProperty(POWERED, Boolean.FALSE), 3);
+			worldIn.setBlockState(pos, state.withProperty(POWERED, false), 3);
 			updateConnectedRails(worldIn, pos, state, false);
 			worldIn.notifyNeighborsOfStateChange(pos, this, false);
 			worldIn.notifyNeighborsOfStateChange(pos.down(), this, false);

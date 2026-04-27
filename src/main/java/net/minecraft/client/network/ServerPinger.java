@@ -159,7 +159,7 @@ public class ServerPinger {
 			protected void initChannel(Channel p_initChannel_1_) {
 
 				try {
-					p_initChannel_1_.config().setOption(ChannelOption.TCP_NODELAY, Boolean.TRUE);
+					p_initChannel_1_.config().setOption(ChannelOption.TCP_NODELAY, true);
 				} catch (ChannelException var3) {
 				}
 

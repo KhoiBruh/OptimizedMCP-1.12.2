@@ -23,7 +23,7 @@ public class BlockStainedGlassPane extends BlockPane {
 	public BlockStainedGlassPane() {
 
 		super(Material.GLASS, false);
-		setDefaultState(blockState.getBaseState().withProperty(NORTH, Boolean.FALSE).withProperty(EAST, Boolean.FALSE).withProperty(SOUTH, Boolean.FALSE).withProperty(WEST, Boolean.FALSE).withProperty(COLOR, EnumDyeColor.WHITE));
+		setDefaultState(blockState.getBaseState().withProperty(NORTH, false).withProperty(EAST, false).withProperty(SOUTH, false).withProperty(WEST, false).withProperty(COLOR, EnumDyeColor.WHITE));
 		setCreativeTab(CreativeTabs.DECORATIONS);
 	}
 

@@ -44,7 +44,7 @@ public abstract class BlockButton extends BlockDirectional {
 	protected BlockButton(boolean wooden) {
 
 		super(Material.CIRCUITS);
-		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(POWERED, Boolean.FALSE));
+		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(POWERED, false));
 		setTickRandomly(true);
 		setCreativeTab(CreativeTabs.REDSTONE);
 		this.wooden = wooden;
@@ -122,7 +122,7 @@ public abstract class BlockButton extends BlockDirectional {
 	 */
 	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
 
-		return canPlaceBlock(worldIn, pos, facing) ? getDefaultState().withProperty(FACING, facing).withProperty(POWERED, Boolean.FALSE) : getDefaultState().withProperty(FACING, EnumFacing.DOWN).withProperty(POWERED, Boolean.FALSE);
+		return canPlaceBlock(worldIn, pos, facing) ? getDefaultState().withProperty(FACING, facing).withProperty(POWERED, false) : getDefaultState().withProperty(FACING, EnumFacing.DOWN).withProperty(POWERED, false);
 	}
 
 	/**
@@ -172,7 +172,7 @@ public abstract class BlockButton extends BlockDirectional {
 		if (state.getValue(POWERED)) {
 			return true;
 		} else {
-			worldIn.setBlockState(pos, state.withProperty(POWERED, Boolean.TRUE), 3);
+			worldIn.setBlockState(pos, state.withProperty(POWERED, true), 3);
 			worldIn.markBlockRangeForRenderUpdate(pos, pos);
 			playClickSound(playerIn, worldIn, pos);
 			notifyNeighbors(worldIn, pos, state.getValue(FACING));
@@ -233,7 +233,7 @@ public abstract class BlockButton extends BlockDirectional {
 				if (wooden) {
 					checkPressed(state, worldIn, pos);
 				} else {
-					worldIn.setBlockState(pos, state.withProperty(POWERED, Boolean.FALSE));
+					worldIn.setBlockState(pos, state.withProperty(POWERED, false));
 					notifyNeighbors(worldIn, pos, state.getValue(FACING));
 					playReleaseSound(worldIn, pos);
 					worldIn.markBlockRangeForRenderUpdate(pos, pos);
@@ -263,14 +263,14 @@ public abstract class BlockButton extends BlockDirectional {
 		boolean flag1 = state.getValue(POWERED);
 
 		if (flag && !flag1) {
-			worldIn.setBlockState(pos, state.withProperty(POWERED, Boolean.TRUE));
+			worldIn.setBlockState(pos, state.withProperty(POWERED, true));
 			notifyNeighbors(worldIn, pos, state.getValue(FACING));
 			worldIn.markBlockRangeForRenderUpdate(pos, pos);
 			playClickSound(null, worldIn, pos);
 		}
 
 		if (!flag && flag1) {
-			worldIn.setBlockState(pos, state.withProperty(POWERED, Boolean.FALSE));
+			worldIn.setBlockState(pos, state.withProperty(POWERED, false));
 			notifyNeighbors(worldIn, pos, state.getValue(FACING));
 			worldIn.markBlockRangeForRenderUpdate(pos, pos);
 			playReleaseSound(worldIn, pos);

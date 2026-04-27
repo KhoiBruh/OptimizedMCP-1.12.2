@@ -109,7 +109,7 @@ public class EntityPolarBear extends EntityAnimal {
 	protected void entityInit() {
 
 		super.entityInit();
-		dataManager.register(IS_STANDING, Boolean.FALSE);
+		dataManager.register(IS_STANDING, false);
 	}
 
 	/**

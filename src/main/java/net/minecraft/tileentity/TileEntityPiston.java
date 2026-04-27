@@ -361,7 +361,7 @@ public class TileEntityPiston extends TileEntity implements ITickable {
 	public void addCollissionAABBs(World p_190609_1_, BlockPos p_190609_2_, AxisAlignedBB p_190609_3_, List<AxisAlignedBB> p_190609_4_, @Nullable Entity p_190609_5_) {
 
 		if (!extending && shouldHeadBeRendered) {
-			pistonState.withProperty(BlockPistonBase.EXTENDED, Boolean.TRUE).addCollisionBoxToList(p_190609_1_, p_190609_2_, p_190609_3_, p_190609_4_, p_190609_5_, false);
+			pistonState.withProperty(BlockPistonBase.EXTENDED, true).addCollisionBoxToList(p_190609_1_, p_190609_2_, p_190609_3_, p_190609_4_, p_190609_5_, false);
 		}
 
 		EnumFacing enumfacing = MOVING_ENTITY.get();

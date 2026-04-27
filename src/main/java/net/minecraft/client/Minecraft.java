@@ -2091,7 +2091,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 
 	private void debugFeedbackTranslated(String untranslatedTemplate, Object... objs) {
 
-		ingameGUI.getChatGUI().printChatMessage((new TextComponentString("")).appendSibling((new TextComponentTranslation("debug.prefix")).setStyle((new Style()).setColor(TextFormatting.YELLOW).setBold(Boolean.TRUE))).appendText(" ").appendSibling(new TextComponentTranslation(untranslatedTemplate, objs)));
+		ingameGUI.getChatGUI().printChatMessage((new TextComponentString("")).appendSibling((new TextComponentTranslation("debug.prefix")).setStyle((new Style()).setColor(TextFormatting.YELLOW).setBold(true))).appendText(" ").appendSibling(new TextComponentTranslation(untranslatedTemplate, objs)));
 	}
 
 	/**

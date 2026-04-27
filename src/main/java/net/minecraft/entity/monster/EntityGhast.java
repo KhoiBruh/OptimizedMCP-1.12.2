@@ -106,7 +106,7 @@ public class EntityGhast extends EntityFlying implements IMob {
 	protected void entityInit() {
 
 		super.entityInit();
-		dataManager.register(ATTACKING, Boolean.FALSE);
+		dataManager.register(ATTACKING, false);
 	}
 
 	protected void applyEntityAttributes() {

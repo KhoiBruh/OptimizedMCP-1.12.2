@@ -22,7 +22,7 @@ public class BlockObserver extends BlockDirectional {
 	public BlockObserver() {
 
 		super(Material.ROCK);
-		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.SOUTH).withProperty(POWERED, Boolean.FALSE));
+		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.SOUTH).withProperty(POWERED, false));
 		setCreativeTab(CreativeTabs.REDSTONE);
 	}
 
@@ -52,9 +52,9 @@ public class BlockObserver extends BlockDirectional {
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
 
 		if (state.getValue(POWERED)) {
-			worldIn.setBlockState(pos, state.withProperty(POWERED, Boolean.FALSE), 2);
+			worldIn.setBlockState(pos, state.withProperty(POWERED, false), 2);
 		} else {
-			worldIn.setBlockState(pos, state.withProperty(POWERED, Boolean.TRUE), 2);
+			worldIn.setBlockState(pos, state.withProperty(POWERED, true), 2);
 			worldIn.scheduleUpdate(pos, this, 2);
 		}
 
@@ -132,7 +132,7 @@ public class BlockObserver extends BlockDirectional {
 	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
 
 		if (state.getValue(POWERED) && worldIn.isUpdateScheduled(pos, this)) {
-			updateNeighborsInFront(worldIn, pos, state.withProperty(POWERED, Boolean.FALSE));
+			updateNeighborsInFront(worldIn, pos, state.withProperty(POWERED, false));
 		}
 	}
 

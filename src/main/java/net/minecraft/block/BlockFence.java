@@ -56,7 +56,7 @@ public class BlockFence extends Block {
 	public BlockFence(Material materialIn, MapColor mapColorIn) {
 
 		super(materialIn, mapColorIn);
-		setDefaultState(blockState.getBaseState().withProperty(NORTH, Boolean.FALSE).withProperty(EAST, Boolean.FALSE).withProperty(SOUTH, Boolean.FALSE).withProperty(WEST, Boolean.FALSE));
+		setDefaultState(blockState.getBaseState().withProperty(NORTH, false).withProperty(EAST, false).withProperty(SOUTH, false).withProperty(WEST, false));
 		setCreativeTab(CreativeTabs.DECORATIONS);
 	}
 

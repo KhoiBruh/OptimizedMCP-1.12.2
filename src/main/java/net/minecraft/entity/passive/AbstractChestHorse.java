@@ -39,7 +39,7 @@ public abstract class AbstractChestHorse extends AbstractHorse {
 	protected void entityInit() {
 
 		super.entityInit();
-		dataManager.register(DATA_ID_CHEST, Boolean.FALSE);
+		dataManager.register(DATA_ID_CHEST, false);
 	}
 
 	protected void applyEntityAttributes() {

@@ -22,7 +22,7 @@ public class BlockPressurePlate extends BlockBasePressurePlate {
 	protected BlockPressurePlate(Material materialIn, BlockPressurePlate.Sensitivity sensitivityIn) {
 
 		super(materialIn);
-		setDefaultState(blockState.getBaseState().withProperty(POWERED, Boolean.FALSE));
+		setDefaultState(blockState.getBaseState().withProperty(POWERED, false));
 		sensitivity = sensitivityIn;
 	}
 

@@ -80,7 +80,7 @@ public abstract class EntityAgeable extends EntityCreature {
 	protected void entityInit() {
 
 		super.entityInit();
-		dataManager.register(BABY, Boolean.FALSE);
+		dataManager.register(BABY, false);
 	}
 
 	/**

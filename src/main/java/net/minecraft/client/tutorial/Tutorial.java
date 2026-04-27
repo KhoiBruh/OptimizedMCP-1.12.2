@@ -29,7 +29,7 @@ public class Tutorial {
 	public static ITextComponent createKeybindComponent(String keybind) {
 
 		TextComponentKeybind textcomponentkeybind = new TextComponentKeybind("key." + keybind);
-		textcomponentkeybind.getStyle().setBold(Boolean.TRUE);
+		textcomponentkeybind.getStyle().setBold(true);
 		return textcomponentkeybind;
 	}
 

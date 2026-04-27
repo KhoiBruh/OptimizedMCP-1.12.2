@@ -21,7 +21,7 @@ public class BlockRailPowered extends BlockRailBase {
 	protected BlockRailPowered() {
 
 		super(true);
-		setDefaultState(blockState.getBaseState().withProperty(SHAPE, BlockRailBase.EnumRailDirection.NORTH_SOUTH).withProperty(POWERED, Boolean.FALSE));
+		setDefaultState(blockState.getBaseState().withProperty(SHAPE, BlockRailBase.EnumRailDirection.NORTH_SOUTH).withProperty(POWERED, false));
 	}
 
 	@SuppressWarnings("incomplete-switch")

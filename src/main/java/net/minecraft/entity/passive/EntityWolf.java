@@ -126,7 +126,7 @@ public class EntityWolf extends EntityTameable {
 
 		super.entityInit();
 		dataManager.register(DATA_HEALTH_ID, getHealth());
-		dataManager.register(BEGGING, Boolean.FALSE);
+		dataManager.register(BEGGING, false);
 		dataManager.register(COLLAR_COLOR, EnumDyeColor.RED.getDyeDamage());
 	}
 

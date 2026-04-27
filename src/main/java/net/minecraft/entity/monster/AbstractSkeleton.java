@@ -75,7 +75,7 @@ public abstract class AbstractSkeleton extends EntityMob implements IRangedAttac
 	protected void entityInit() {
 
 		super.entityInit();
-		dataManager.register(SWINGING_ARMS, Boolean.FALSE);
+		dataManager.register(SWINGING_ARMS, false);
 	}
 
 	protected void playStepSound(BlockPos pos, Block blockIn) {

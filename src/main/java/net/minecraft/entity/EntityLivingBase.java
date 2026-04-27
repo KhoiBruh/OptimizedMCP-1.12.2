@@ -260,7 +260,7 @@ public abstract class EntityLivingBase extends Entity {
 
 		dataManager.register(HAND_STATES, (byte) 0);
 		dataManager.register(POTION_EFFECTS, 0);
-		dataManager.register(HIDE_PARTICLES, Boolean.FALSE);
+		dataManager.register(HIDE_PARTICLES, false);
 		dataManager.register(ARROW_COUNT_IN_ENTITY, 0);
 		dataManager.register(HEALTH, 1.0F);
 	}
@@ -722,7 +722,7 @@ public abstract class EntityLivingBase extends Entity {
 	 */
 	protected void resetPotionEffectMetadata() {
 
-		dataManager.set(HIDE_PARTICLES, Boolean.FALSE);
+		dataManager.set(HIDE_PARTICLES, false);
 		dataManager.set(POTION_EFFECTS, 0);
 	}
 

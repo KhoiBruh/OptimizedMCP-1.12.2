@@ -27,7 +27,7 @@ public class BlockSponge extends Block {
 	protected BlockSponge() {
 
 		super(Material.SPONGE);
-		setDefaultState(blockState.getBaseState().withProperty(WET, Boolean.FALSE));
+		setDefaultState(blockState.getBaseState().withProperty(WET, false));
 		setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
 	}
 
@@ -70,7 +70,7 @@ public class BlockSponge extends Block {
 	protected void tryAbsorb(World worldIn, BlockPos pos, IBlockState state) {
 
 		if (!state.getValue(WET) && absorb(worldIn, pos)) {
-			worldIn.setBlockState(pos, state.withProperty(WET, Boolean.TRUE), 2);
+			worldIn.setBlockState(pos, state.withProperty(WET, true), 2);
 			worldIn.playEvent(2001, pos, Block.getIdFromBlock(Blocks.WATER));
 		}
 	}

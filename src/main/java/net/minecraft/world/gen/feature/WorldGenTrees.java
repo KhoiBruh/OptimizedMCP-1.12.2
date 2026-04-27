@@ -14,7 +14,7 @@ import java.util.Random;
 public class WorldGenTrees extends WorldGenAbstractTree {
 
 	private static final IBlockState DEFAULT_TRUNK = Blocks.LOG.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.OAK);
-	private static final IBlockState DEFAULT_LEAF = Blocks.LEAVES.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.EnumType.OAK).withProperty(BlockLeaves.CHECK_DECAY, Boolean.FALSE);
+	private static final IBlockState DEFAULT_LEAF = Blocks.LEAVES.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.EnumType.OAK).withProperty(BlockLeaves.CHECK_DECAY, false);
 
 	/**
 	 * The minimum height of a generated tree.
@@ -205,7 +205,7 @@ public class WorldGenTrees extends WorldGenAbstractTree {
 
 	private void addVine(World worldIn, BlockPos pos, PropertyBool prop) {
 
-		setBlockAndNotifyAdequately(worldIn, pos, Blocks.VINE.getDefaultState().withProperty(prop, Boolean.TRUE));
+		setBlockAndNotifyAdequately(worldIn, pos, Blocks.VINE.getDefaultState().withProperty(prop, true));
 	}
 
 	private void addHangingVine(World worldIn, BlockPos pos, PropertyBool prop) {

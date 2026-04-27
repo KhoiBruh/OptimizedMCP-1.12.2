@@ -37,7 +37,7 @@ public class BlockBed extends BlockHorizontal implements ITileEntityProvider {
 	public BlockBed() {
 
 		super(Material.CLOTH);
-		setDefaultState(blockState.getBaseState().withProperty(PART, BlockBed.EnumPartType.FOOT).withProperty(OCCUPIED, Boolean.FALSE));
+		setDefaultState(blockState.getBaseState().withProperty(PART, BlockBed.EnumPartType.FOOT).withProperty(OCCUPIED, false));
 		hasTileEntity = true;
 	}
 
@@ -130,14 +130,14 @@ public class BlockBed extends BlockHorizontal implements ITileEntityProvider {
 						return true;
 					}
 
-					state = state.withProperty(OCCUPIED, Boolean.FALSE);
+					state = state.withProperty(OCCUPIED, false);
 					worldIn.setBlockState(pos, state, 4);
 				}
 
 				EntityPlayer.SleepResult entityplayer$sleepresult = playerIn.trySleep(pos);
 
 				if (entityplayer$sleepresult == EntityPlayer.SleepResult.OK) {
-					state = state.withProperty(OCCUPIED, Boolean.TRUE);
+					state = state.withProperty(OCCUPIED, true);
 					worldIn.setBlockState(pos, state, 4);
 					return true;
 				} else {

@@ -34,7 +34,7 @@ public class BlockDispenser extends BlockContainer {
 	protected BlockDispenser() {
 
 		super(Material.ROCK);
-		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(TRIGGERED, Boolean.FALSE));
+		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(TRIGGERED, false));
 		setCreativeTab(CreativeTabs.REDSTONE);
 	}
 
@@ -89,7 +89,7 @@ public class BlockDispenser extends BlockContainer {
 				}
 			}
 
-			worldIn.setBlockState(pos, state.withProperty(FACING, enumfacing).withProperty(TRIGGERED, Boolean.FALSE), 2);
+			worldIn.setBlockState(pos, state.withProperty(FACING, enumfacing).withProperty(TRIGGERED, false), 2);
 		}
 	}
 
@@ -155,9 +155,9 @@ public class BlockDispenser extends BlockContainer {
 
 		if (flag && !flag1) {
 			worldIn.scheduleUpdate(pos, this, tickRate(worldIn));
-			worldIn.setBlockState(pos, state.withProperty(TRIGGERED, Boolean.TRUE), 4);
+			worldIn.setBlockState(pos, state.withProperty(TRIGGERED, true), 4);
 		} else if (!flag && flag1) {
-			worldIn.setBlockState(pos, state.withProperty(TRIGGERED, Boolean.FALSE), 4);
+			worldIn.setBlockState(pos, state.withProperty(TRIGGERED, false), 4);
 		}
 	}
 
@@ -182,7 +182,7 @@ public class BlockDispenser extends BlockContainer {
 	 */
 	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
 
-		return getDefaultState().withProperty(FACING, EnumFacing.getDirectionFromEntityLiving(pos, placer)).withProperty(TRIGGERED, Boolean.FALSE);
+		return getDefaultState().withProperty(FACING, EnumFacing.getDirectionFromEntityLiving(pos, placer)).withProperty(TRIGGERED, false);
 	}
 
 	/**

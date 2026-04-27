@@ -132,7 +132,7 @@ public class EntityWitherSkull extends EntityFireball {
 
 	protected void entityInit() {
 
-		dataManager.register(INVULNERABLE, Boolean.FALSE);
+		dataManager.register(INVULNERABLE, false);
 	}
 
 	/**

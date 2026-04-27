@@ -25,7 +25,7 @@ public class BlockRedstoneRepeater extends BlockRedstoneDiode {
 	protected BlockRedstoneRepeater(boolean powered) {
 
 		super(powered);
-		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(DELAY, 1).withProperty(LOCKED, Boolean.FALSE));
+		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(DELAY, 1).withProperty(LOCKED, false));
 	}
 
 	/**
@@ -154,7 +154,7 @@ public class BlockRedstoneRepeater extends BlockRedstoneDiode {
 	 */
 	public IBlockState getStateFromMeta(int meta) {
 
-		return getDefaultState().withProperty(FACING, EnumFacing.getHorizontal(meta)).withProperty(LOCKED, Boolean.FALSE).withProperty(DELAY, 1 + (meta >> 2));
+		return getDefaultState().withProperty(FACING, EnumFacing.getHorizontal(meta)).withProperty(LOCKED, false).withProperty(DELAY, 1 + (meta >> 2));
 	}
 
 	/**
