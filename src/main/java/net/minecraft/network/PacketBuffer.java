@@ -340,7 +340,7 @@ public class PacketBuffer extends ByteBuf {
 	/**
 	 * Reads an ItemStack from this buffer
 	 */
-	public ItemStack readItemStack() throws IOException {
+	public ItemStack readItemStack() {
 
 		int i = readShort();
 

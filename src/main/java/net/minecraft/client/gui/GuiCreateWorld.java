@@ -382,7 +382,7 @@ public class GuiCreateWorld extends GuiScreen {
 	 * Fired when a key is typed (except F11 which toggles full screen). This is the equivalent of
 	 * KeyListener.keyTyped(KeyEvent e). Args : character (character on the key), keyCode (lwjgl Keyboard key code)
 	 */
-	protected void keyTyped(char typedChar, int keyCode) throws IOException {
+	protected void keyTyped(char typedChar, int keyCode) {
 
 		if (worldNameField.isFocused() && !inMoreWorldOptionsDisplay) {
 			worldNameField.textboxKeyTyped(typedChar, keyCode);

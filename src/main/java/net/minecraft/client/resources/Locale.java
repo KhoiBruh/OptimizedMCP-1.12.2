@@ -37,7 +37,7 @@ public class Locale {
 			for (String s2 : resourceManager.getResourceDomains()) {
 				try {
 					loadLocaleData(resourceManager.getAllResources(new ResourceLocation(s2, s1)));
-				} catch (IOException var9) {
+				} catch (IOException ignored) {
 				}
 			}
 		}
@@ -73,7 +73,7 @@ public class Locale {
 	/**
 	 * Loads the locale data for the list of resources.
 	 */
-	private void loadLocaleData(List<IResource> resourcesList) throws IOException {
+	private void loadLocaleData(List<IResource> resourcesList) {
 
 		for (IResource iresource : resourcesList) {
 			InputStream inputstream = iresource.getInputStream();

@@ -48,7 +48,7 @@ public class EntityDataManager {
 				if (!oclass.equals(clazz)) {
 					LOGGER.debug("defineId called for: {} from {}", clazz, oclass, new RuntimeException());
 				}
-			} catch (ClassNotFoundException var5) {
+			} catch (ClassNotFoundException ignored) {
 			}
 		}
 
@@ -80,7 +80,7 @@ public class EntityDataManager {
 		}
 	}
 
-	public static void writeEntries(List<EntityDataManager.DataEntry<?>> entriesIn, PacketBuffer buf) throws IOException {
+	public static void writeEntries(List<EntityDataManager.DataEntry<?>> entriesIn, PacketBuffer buf) {
 
 		if (entriesIn != null) {
 			int i = 0;
@@ -229,7 +229,7 @@ public class EntityDataManager {
 		dirty = true;
 	}
 
-	public void writeEntries(PacketBuffer buf) throws IOException {
+	public void writeEntries(PacketBuffer buf) {
 
 		lock.readLock().lock();
 

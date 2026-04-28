@@ -31,7 +31,7 @@ public class SPacketChat implements Packet<INetHandlerPlayClient> {
 	/**
 	 * Reads the raw packet data from the data stream.
 	 */
-	public void readPacketData(PacketBuffer buf) throws IOException {
+	public void readPacketData(PacketBuffer buf) {
 
 		chatComponent = buf.readTextComponent();
 		type = ChatType.byId(buf.readByte());

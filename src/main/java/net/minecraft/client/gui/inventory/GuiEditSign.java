@@ -95,7 +95,7 @@ public class GuiEditSign extends GuiScreen {
 	 * Fired when a key is typed (except F11 which toggles full screen). This is the equivalent of
 	 * KeyListener.keyTyped(KeyEvent e). Args : character (character on the key), keyCode (lwjgl Keyboard key code)
 	 */
-	protected void keyTyped(char typedChar, int keyCode) throws IOException {
+	protected void keyTyped(char typedChar, int keyCode) {
 
 		if (keyCode == 200) {
 			editLine = editLine - 1 & 3;

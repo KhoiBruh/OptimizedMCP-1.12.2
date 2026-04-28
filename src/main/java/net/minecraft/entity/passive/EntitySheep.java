@@ -165,7 +165,6 @@ public class EntitySheep extends EntityAnimal {
 			return LootTableList.ENTITIES_SHEEP;
 		} else {
 			return switch (getFleeceColor()) {
-				default -> LootTableList.ENTITIES_SHEEP_WHITE;
 				case ORANGE -> LootTableList.ENTITIES_SHEEP_ORANGE;
 				case MAGENTA -> LootTableList.ENTITIES_SHEEP_MAGENTA;
 				case LIGHT_BLUE -> LootTableList.ENTITIES_SHEEP_LIGHT_BLUE;
@@ -181,6 +180,7 @@ public class EntitySheep extends EntityAnimal {
 				case GREEN -> LootTableList.ENTITIES_SHEEP_GREEN;
 				case RED -> LootTableList.ENTITIES_SHEEP_RED;
 				case BLACK -> LootTableList.ENTITIES_SHEEP_BLACK;
+				default -> LootTableList.ENTITIES_SHEEP_WHITE;
 			};
 		}
 	}

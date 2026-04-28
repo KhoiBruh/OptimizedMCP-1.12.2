@@ -74,7 +74,7 @@ public class SoundHandler implements IResourceManagerReloadListener, ITickable {
 						LOGGER.warn("Invalid sounds.json", runtimeexception);
 					}
 				}
-			} catch (IOException var11) {
+			} catch (IOException ignored) {
 			}
 		}
 

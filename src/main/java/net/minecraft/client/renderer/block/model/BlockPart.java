@@ -39,12 +39,12 @@ public record BlockPart(Vector3f positionFrom, Vector3f positionTo, Map<EnumFaci
 		return switch (facing) {
 			case DOWN -> new float[]{positionFrom.x, 16.0F - positionTo.z, positionTo.x, 16.0F - positionFrom.z};
 			case UP -> new float[]{positionFrom.x, positionFrom.z, positionTo.x, positionTo.z};
-			default ->
-					new float[]{16.0F - positionTo.x, 16.0F - positionTo.y, 16.0F - positionFrom.x, 16.0F - positionFrom.y};
 			case SOUTH -> new float[]{positionFrom.x, 16.0F - positionTo.y, positionTo.x, 16.0F - positionFrom.y};
 			case WEST -> new float[]{positionFrom.z, 16.0F - positionTo.y, positionTo.z, 16.0F - positionFrom.y};
 			case EAST ->
 					new float[]{16.0F - positionTo.z, 16.0F - positionTo.y, 16.0F - positionFrom.z, 16.0F - positionFrom.y};
+			default ->
+					new float[]{16.0F - positionTo.x, 16.0F - positionTo.y, 16.0F - positionFrom.x, 16.0F - positionFrom.y};
 		};
 	}
 

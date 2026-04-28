@@ -199,12 +199,12 @@ public class EntityBoat extends Entity {
 	public Item getItemBoat() {
 
 		return switch (getBoatType()) {
-			default -> Items.BOAT;
 			case SPRUCE -> Items.SPRUCE_BOAT;
 			case BIRCH -> Items.BIRCH_BOAT;
 			case JUNGLE -> Items.JUNGLE_BOAT;
 			case ACACIA -> Items.ACACIA_BOAT;
 			case DARK_OAK -> Items.DARK_OAK_BOAT;
+			default -> Items.BOAT;
 		};
 	}
 

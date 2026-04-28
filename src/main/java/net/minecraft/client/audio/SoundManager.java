@@ -282,7 +282,7 @@ public class SoundManager {
 
 					try {
 						categorySounds.remove(isound.getCategory(), s1);
-					} catch (RuntimeException var8) {
+					} catch (RuntimeException ignored) {
 					}
 
 					if (isound instanceof ITickableSound) {

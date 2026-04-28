@@ -181,10 +181,10 @@ public class BlockBanner extends BlockContainer {
 		public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
 
 			return switch (state.getValue(FACING)) {
-				default -> NORTH_AABB;
 				case SOUTH -> SOUTH_AABB;
 				case WEST -> WEST_AABB;
 				case EAST -> EAST_AABB;
+				default -> NORTH_AABB;
 			};
 		}
 

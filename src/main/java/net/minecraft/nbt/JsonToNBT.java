@@ -114,7 +114,7 @@ public class JsonToNBT {
 			if ("false".equalsIgnoreCase(stringIn)) {
 				return new NBTTagByte((byte) 0);
 			}
-		} catch (NumberFormatException var3) {
+		} catch (NumberFormatException ignored) {
 		}
 
 		return new NBTTagString(stringIn);

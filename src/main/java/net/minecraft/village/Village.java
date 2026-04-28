@@ -506,7 +506,7 @@ public class Village {
 					nbttagcompound1.setInteger("S", playerReputation.get(s));
 					nbttaglist1.appendTag(nbttagcompound1);
 				}
-			} catch (RuntimeException var9) {
+			} catch (RuntimeException ignored) {
 			}
 		}
 

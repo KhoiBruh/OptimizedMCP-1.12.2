@@ -28,11 +28,11 @@ public class BlockNewLog extends BlockLog {
 		BlockPlanks.EnumType blockplanks$enumtype = state.getValue(VARIANT);
 
 		return switch (state.getValue(LOG_AXIS)) {
-			default -> switch (blockplanks$enumtype) {
-				default -> MapColor.STONE;
-				case DARK_OAK -> BlockPlanks.EnumType.DARK_OAK.getMapColor();
-			};
 			case Y -> blockplanks$enumtype.getMapColor();
+			default -> switch (blockplanks$enumtype) {
+				case DARK_OAK -> BlockPlanks.EnumType.DARK_OAK.getMapColor();
+				default -> MapColor.STONE;
+			};
 		};
 	}
 

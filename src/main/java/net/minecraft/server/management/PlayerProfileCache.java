@@ -223,7 +223,7 @@ public class PlayerProfileCache {
 					}
 				}
 			}
-		} catch (FileNotFoundException | JsonParseException var9) {
+		} catch (FileNotFoundException | JsonParseException ignored) {
 		} finally {
 			IOUtils.closeQuietly(bufferedreader);
 		}
@@ -240,7 +240,7 @@ public class PlayerProfileCache {
 		try {
 			bufferedwriter = Files.newWriter(usercacheFile, StandardCharsets.UTF_8);
 			bufferedwriter.write(s);
-		} catch (IOException var9) {
+		} catch (IOException ignored) {
 		} finally {
 			IOUtils.closeQuietly(bufferedwriter);
 		}

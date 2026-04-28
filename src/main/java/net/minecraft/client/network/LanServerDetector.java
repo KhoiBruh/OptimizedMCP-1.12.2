@@ -106,7 +106,7 @@ public class LanServerDetector {
 
 			try {
 				socket.leaveGroup(broadcastAddress);
-			} catch (IOException var4) {
+			} catch (IOException ignored) {
 			}
 
 			socket.close();

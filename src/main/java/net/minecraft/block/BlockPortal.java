@@ -51,8 +51,8 @@ public class BlockPortal extends BlockBreakable {
 
 		return switch (state.getValue(AXIS)) {
 			case X -> X_AABB;
-			default -> Y_AABB;
 			case Z -> Z_AABB;
+			default -> Y_AABB;
 		};
 	}
 

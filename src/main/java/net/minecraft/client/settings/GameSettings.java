@@ -909,7 +909,7 @@ public class GameSettings {
 
 		try {
 			i = Integer.parseInt(p_189988_1_.getString("version"));
-		} catch (RuntimeException var4) {
+		} catch (RuntimeException ignored) {
 		}
 
 		return mc.getDataFixer().process(FixTypes.OPTIONS, p_189988_1_, i);

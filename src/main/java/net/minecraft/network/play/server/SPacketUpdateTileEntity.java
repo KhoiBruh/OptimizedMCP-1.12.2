@@ -32,7 +32,7 @@ public class SPacketUpdateTileEntity implements Packet<INetHandlerPlayClient> {
 	/**
 	 * Reads the raw packet data from the data stream.
 	 */
-	public void readPacketData(PacketBuffer buf) throws IOException {
+	public void readPacketData(PacketBuffer buf) {
 
 		blockPos = buf.readBlockPos();
 		tileEntityType = buf.readUnsignedByte();

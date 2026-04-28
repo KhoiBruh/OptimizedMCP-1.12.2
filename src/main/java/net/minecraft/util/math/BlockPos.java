@@ -287,10 +287,10 @@ public class BlockPos extends Vec3i {
 	public BlockPos rotate(Rotation rotationIn) {
 
 		return switch (rotationIn) {
-			default -> this;
 			case CLOCKWISE_90 -> new BlockPos(-getZ(), getY(), getX());
 			case CLOCKWISE_180 -> new BlockPos(-getX(), getY(), -getZ());
 			case COUNTERCLOCKWISE_90 -> new BlockPos(getZ(), getY(), -getX());
+			default -> this;
 		};
 	}
 

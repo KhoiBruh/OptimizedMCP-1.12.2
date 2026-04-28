@@ -52,7 +52,7 @@ public class LanguageMap {
 			}
 
 			lastUpdateTimeInMilliseconds = System.currentTimeMillis();
-		} catch (Exception var7) {
+		} catch (Exception ignored) {
 		}
 	}
 

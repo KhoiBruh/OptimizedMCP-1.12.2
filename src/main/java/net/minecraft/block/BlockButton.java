@@ -158,9 +158,9 @@ public abstract class BlockButton extends BlockDirectional {
 			case EAST -> flag ? AABB_EAST_ON : AABB_EAST_OFF;
 			case WEST -> flag ? AABB_WEST_ON : AABB_WEST_OFF;
 			case SOUTH -> flag ? AABB_SOUTH_ON : AABB_SOUTH_OFF;
-			default -> flag ? AABB_NORTH_ON : AABB_NORTH_OFF;
 			case UP -> flag ? AABB_UP_ON : AABB_UP_OFF;
 			case DOWN -> flag ? AABB_DOWN_ON : AABB_DOWN_OFF;
+			default -> flag ? AABB_NORTH_ON : AABB_NORTH_OFF;
 		};
 	}
 
@@ -314,8 +314,8 @@ public abstract class BlockButton extends BlockDirectional {
 			case WEST -> 2;
 			case SOUTH -> 3;
 			case NORTH -> 4;
-			default -> 5;
 			case DOWN -> 0;
+			default -> 5;
 		};
 
 		if (state.getValue(POWERED)) {

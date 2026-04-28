@@ -18,18 +18,18 @@ public record MapDecoration(Type type, byte x, byte y, byte rotation) {
 
 		if (this == p_equals_1_) {
 			return true;
-		} else if (!(p_equals_1_ instanceof MapDecoration mapdecoration)) {
+		} else if (!(p_equals_1_ instanceof MapDecoration(Type type1, byte x1, byte y1, byte rotation1))) {
 			return false;
 		} else {
 
-			if (type != mapdecoration.type) {
+			if (type != type1) {
 				return false;
-			} else if (rotation != mapdecoration.rotation) {
+			} else if (rotation != rotation1) {
 				return false;
-			} else if (x != mapdecoration.x) {
+			} else if (x != x1) {
 				return false;
 			} else {
-				return y == mapdecoration.y;
+				return y == y1;
 			}
 		}
 	}

@@ -258,9 +258,8 @@ public final class NBTUtil {
 			NBTTagCompound nbttagcompound = new NBTTagCompound();
 
 			for (Entry<IProperty<?>, Comparable<?>> iPropertyComparableEntry : state.getProperties().entrySet()) {
-				Entry<IProperty<?>, Comparable<?>> entry = iPropertyComparableEntry;
-				IProperty<?> iproperty = entry.getKey();
-				nbttagcompound.setString(iproperty.getName(), getName(iproperty, entry.getValue()));
+				IProperty<?> iproperty = iPropertyComparableEntry.getKey();
+				nbttagcompound.setString(iproperty.getName(), getName(iproperty, iPropertyComparableEntry.getValue()));
 			}
 
 			tag.setTag("Properties", nbttagcompound);

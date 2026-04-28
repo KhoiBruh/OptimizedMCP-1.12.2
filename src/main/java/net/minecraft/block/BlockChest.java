@@ -486,9 +486,8 @@ public class BlockChest extends BlockContainer {
 	private boolean isOcelotSittingOnChest(World worldIn, BlockPos pos) {
 
 		for (EntityOcelot entity : worldIn.getEntitiesWithinAABB(EntityOcelot.class, new AxisAlignedBB(pos.getX(), pos.getY() + 1, pos.getZ(), pos.getX() + 1, pos.getY() + 2, pos.getZ() + 1))) {
-			EntityOcelot entityocelot = entity;
 
-			if (entityocelot.isSitting()) {
+			if (entity.isSitting()) {
 				return true;
 			}
 		}

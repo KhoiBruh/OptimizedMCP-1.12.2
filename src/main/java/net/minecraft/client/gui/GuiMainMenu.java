@@ -157,7 +157,7 @@ public class GuiMainMenu extends GuiScreen {
 					}
 				}
 			}
-		} catch (IOException var8) {
+		} catch (IOException ignored) {
 		} finally {
 			IOUtils.closeQuietly(iresource);
 		}

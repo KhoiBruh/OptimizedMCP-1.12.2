@@ -62,7 +62,7 @@ public class Main {
 		if (s != null) {
 			try {
 				proxy = new Proxy(Type.SOCKS, new InetSocketAddress(s, optionset.valueOf(optionspec6)));
-			} catch (Exception var48) {
+			} catch (Exception ignored) {
 			}
 		}
 

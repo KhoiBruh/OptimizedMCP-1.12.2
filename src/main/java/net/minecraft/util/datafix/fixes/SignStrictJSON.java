@@ -68,20 +68,20 @@ public class SignStrictJSON implements IFixableData {
 					if (itextcomponent == null) {
 						itextcomponent = new TextComponentString("");
 					}
-				} catch (JsonParseException var8) {
+				} catch (JsonParseException ignored) {
 				}
 
 				if (itextcomponent == null) {
 					try {
 						itextcomponent = ITextComponent.Serializer.jsonToComponent(s);
-					} catch (JsonParseException var7) {
+					} catch (JsonParseException ignored) {
 					}
 				}
 
 				if (itextcomponent == null) {
 					try {
 						itextcomponent = ITextComponent.Serializer.fromJsonLenient(s);
-					} catch (JsonParseException var6) {
+					} catch (JsonParseException ignored) {
 					}
 				}
 

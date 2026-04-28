@@ -320,7 +320,7 @@ public class IntegratedServer extends MinecraftServer {
 
 			try {
 				i = HttpUtil.getSuitableLanPort();
-			} catch (IOException var5) {
+			} catch (IOException ignored) {
 			}
 
 			if (i <= 0) {

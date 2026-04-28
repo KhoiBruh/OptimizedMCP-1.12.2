@@ -561,17 +561,17 @@ public class StructureMineshaftPieces {
 		protected IBlockState getPlanksBlock() {
 
 			return switch (mineShaftType) {
-				default -> Blocks.PLANKS.getDefaultState();
 				case MESA ->
 						Blocks.PLANKS.getDefaultState().withProperty(BlockPlanks.VARIANT, BlockPlanks.EnumType.DARK_OAK);
+				default -> Blocks.PLANKS.getDefaultState();
 			};
 		}
 
 		protected IBlockState getFenceBlock() {
 
 			return switch (mineShaftType) {
-				default -> Blocks.OAK_FENCE.getDefaultState();
 				case MESA -> Blocks.DARK_OAK_FENCE.getDefaultState();
+				default -> Blocks.OAK_FENCE.getDefaultState();
 			};
 		}
 

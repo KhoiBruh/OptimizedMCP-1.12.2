@@ -112,14 +112,13 @@ public class Template {
 		--p_191157_4_;
 		int i = p_191157_1_ == Mirror.FRONT_BACK ? p_191157_3_ : 0;
 		int j = p_191157_1_ == Mirror.LEFT_RIGHT ? p_191157_4_ : 0;
-		BlockPos blockpos = switch (p_191157_2_) {
+
+		return switch (p_191157_2_) {
 			case COUNTERCLOCKWISE_90 -> p_191157_0_.add(j, 0, p_191157_3_ - i);
 			case CLOCKWISE_90 -> p_191157_0_.add(p_191157_4_ - j, 0, i);
 			case CLOCKWISE_180 -> p_191157_0_.add(p_191157_3_ - i, 0, p_191157_4_ - j);
 			case NONE -> p_191157_0_.add(i, 0, j);
 		};
-
-		return blockpos;
 	}
 
 	public static void registerFixes(DataFixer fixer) {

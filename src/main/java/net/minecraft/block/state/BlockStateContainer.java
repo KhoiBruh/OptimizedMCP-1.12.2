@@ -197,11 +197,10 @@ public class BlockStateContainer {
 				Table<IProperty<?>, Comparable<?>, IBlockState> table = HashBasedTable.create();
 
 				for (Entry<IProperty<?>, Comparable<?>> iPropertyComparableEntry : properties.entrySet()) {
-					Entry<IProperty<?>, Comparable<?>> entry = iPropertyComparableEntry;
-					IProperty<?> iproperty = entry.getKey();
+					IProperty<?> iproperty = iPropertyComparableEntry.getKey();
 
 					for (Comparable<?> comparable : iproperty.getAllowedValues()) {
-						if (comparable != entry.getValue()) {
+						if (comparable != iPropertyComparableEntry.getValue()) {
 							table.put(iproperty, comparable, map.get(getPropertiesWithValue(iproperty, comparable)));
 						}
 					}

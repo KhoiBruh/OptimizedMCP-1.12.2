@@ -95,10 +95,10 @@ public class BlockDoor extends Block {
 		boolean flag1 = state.getValue(HINGE) == BlockDoor.EnumHingePosition.RIGHT;
 
 		return switch (enumfacing) {
-			default -> flag ? EAST_AABB : (flag1 ? NORTH_AABB : SOUTH_AABB);
 			case SOUTH -> flag ? SOUTH_AABB : (flag1 ? EAST_AABB : WEST_AABB);
 			case WEST -> flag ? WEST_AABB : (flag1 ? SOUTH_AABB : NORTH_AABB);
 			case NORTH -> flag ? NORTH_AABB : (flag1 ? WEST_AABB : EAST_AABB);
+			default -> flag ? EAST_AABB : (flag1 ? NORTH_AABB : SOUTH_AABB);
 		};
 	}
 

@@ -70,12 +70,12 @@ public class BlockShulkerBox extends BlockContainer {
 			case GRAY -> Blocks.GRAY_SHULKER_BOX;
 			case SILVER -> Blocks.SILVER_SHULKER_BOX;
 			case CYAN -> Blocks.CYAN_SHULKER_BOX;
-			default -> Blocks.PURPLE_SHULKER_BOX;
 			case BLUE -> Blocks.BLUE_SHULKER_BOX;
 			case BROWN -> Blocks.BROWN_SHULKER_BOX;
 			case GREEN -> Blocks.GREEN_SHULKER_BOX;
 			case RED -> Blocks.RED_SHULKER_BOX;
 			case BLACK -> Blocks.BLACK_SHULKER_BOX;
+			default -> Blocks.PURPLE_SHULKER_BOX;
 		};
 	}
 

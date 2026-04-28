@@ -108,7 +108,7 @@ public class DataSerializers {
 			buf.writeTextComponent(value);
 		}
 
-		public ITextComponent read(PacketBuffer buf) throws IOException {
+		public ITextComponent read(PacketBuffer buf) {
 
 			return buf.readTextComponent();
 		}
@@ -312,7 +312,7 @@ public class DataSerializers {
 			buf.writeCompoundTag(value);
 		}
 
-		public NBTTagCompound read(PacketBuffer buf) throws IOException {
+		public NBTTagCompound read(PacketBuffer buf) {
 
 			return buf.readCompoundTag();
 		}

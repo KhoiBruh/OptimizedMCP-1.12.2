@@ -55,7 +55,7 @@ public class FolderResourcePack extends AbstractResourcePack {
 			if (file1.isFile() && validatePath(file1, p_191385_1_)) {
 				return file1;
 			}
-		} catch (IOException var3) {
+		} catch (IOException ignored) {
 		}
 
 		return null;

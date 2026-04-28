@@ -676,7 +676,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 
 			try {
 				Thread.sleep(1000L);
-			} catch (InterruptedException var3) {
+			} catch (InterruptedException ignored) {
 			}
 
 			if (fullscreen) {
@@ -754,7 +754,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 				while (running) {
 					try {
 						Thread.sleep(2147483647L);
-					} catch (InterruptedException var2) {
+					} catch (InterruptedException ignored) {
 					}
 				}
 			}
@@ -1042,7 +1042,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 
 			try {
 				loadWorld(null);
-			} catch (Throwable var5) {
+			} catch (Throwable ignored) {
 			}
 
 			mcSoundHandler.unloadSounds();
@@ -1221,13 +1221,13 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 		try {
 			memoryReserve = new byte[0];
 			renderGlobal.deleteAllDisplayLists();
-		} catch (Throwable var3) {
+		} catch (Throwable ignored) {
 		}
 
 		try {
 			System.gc();
 			loadWorld(null);
-		} catch (Throwable var2) {
+		} catch (Throwable ignored) {
 		}
 
 		System.gc();
@@ -2144,7 +2144,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 
 			try {
 				Thread.sleep(200L);
-			} catch (InterruptedException var10) {
+			} catch (InterruptedException ignored) {
 			}
 		}
 

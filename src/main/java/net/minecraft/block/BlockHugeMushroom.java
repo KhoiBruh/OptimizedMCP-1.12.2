@@ -215,10 +215,10 @@ public class BlockHugeMushroom extends Block {
 					case NORTH_WEST -> state.withProperty(VARIANT, EnumType.SOUTH_WEST);
 					case NORTH -> state.withProperty(VARIANT, EnumType.SOUTH);
 					case NORTH_EAST -> state.withProperty(VARIANT, EnumType.SOUTH_EAST);
-					default -> super.withMirror(state, mirrorIn);
 					case SOUTH_WEST -> state.withProperty(VARIANT, EnumType.NORTH_WEST);
 					case SOUTH -> state.withProperty(VARIANT, EnumType.NORTH);
 					case SOUTH_EAST -> state.withProperty(VARIANT, EnumType.NORTH_EAST);
+					default -> super.withMirror(state, mirrorIn);
 				};
 
 			case FRONT_BACK:

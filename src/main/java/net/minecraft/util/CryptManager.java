@@ -87,7 +87,7 @@ public class CryptManager {
 			EncodedKeySpec encodedkeyspec = new X509EncodedKeySpec(encodedKey);
 			KeyFactory keyfactory = KeyFactory.getInstance("RSA");
 			return keyfactory.generatePublic(encodedkeyspec);
-		} catch (NoSuchAlgorithmException | InvalidKeySpecException var3) {
+		} catch (NoSuchAlgorithmException | InvalidKeySpecException ignored) {
 		}
 
 		LOGGER.error("Public key reconstitute failed!");

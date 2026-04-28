@@ -199,7 +199,7 @@ public abstract class CommandBase implements ICommand {
 		if (p_193512_1_ == null) {
 			try {
 				p_193512_1_ = p_193512_0_.getPlayerList().getPlayerByUUID(UUID.fromString(p_193512_2_));
-			} catch (IllegalArgumentException var4) {
+			} catch (IllegalArgumentException ignored) {
 			}
 		}
 

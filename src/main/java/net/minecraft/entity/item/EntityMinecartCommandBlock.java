@@ -166,7 +166,7 @@ public class EntityMinecartCommandBlock extends EntityMinecart {
 		if (LAST_OUTPUT.equals(key)) {
 			try {
 				commandBlockLogic.setLastOutput(getDataManager().get(LAST_OUTPUT));
-			} catch (Throwable var3) {
+			} catch (Throwable ignored) {
 			}
 		} else if (COMMAND.equals(key)) {
 			commandBlockLogic.setCommand(getDataManager().get(COMMAND));

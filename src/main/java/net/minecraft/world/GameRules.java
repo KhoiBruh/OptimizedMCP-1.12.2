@@ -154,12 +154,12 @@ public class GameRules {
 
 			try {
 				valueInteger = Integer.parseInt(value);
-			} catch (NumberFormatException var4) {
+			} catch (NumberFormatException ignored) {
 			}
 
 			try {
 				valueDouble = Double.parseDouble(value);
-			} catch (NumberFormatException var3) {
+			} catch (NumberFormatException ignored) {
 			}
 		}
 

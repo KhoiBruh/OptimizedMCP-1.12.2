@@ -881,7 +881,7 @@ public class WorldInfo {
 					case 19133 -> "Anvil";
 					default -> s;
 				};
-			} catch (Throwable var3) {
+			} catch (Throwable ignored) {
 			}
 
 			return String.format("0x%05X - %s", saveVersion, s);

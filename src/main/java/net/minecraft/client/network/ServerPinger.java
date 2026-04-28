@@ -160,7 +160,7 @@ public class ServerPinger {
 
 				try {
 					p_initChannel_1_.config().setOption(ChannelOption.TCP_NODELAY, true);
-				} catch (ChannelException var3) {
+				} catch (ChannelException ignored) {
 				}
 
 				p_initChannel_1_.pipeline().addLast(new SimpleChannelInboundHandler<ByteBuf>() {
@@ -204,7 +204,7 @@ public class ServerPinger {
 							String s = new String(p_channelRead0_2_.readBytes(p_channelRead0_2_.readShort() * 2).array(), StandardCharsets.UTF_16BE);
 							String[] astring = Iterables.toArray(ServerPinger.PING_RESPONSE_SPLITTER.split(s), String.class);
 
-							if ("\u00a71".equals(astring[0])) {
+							if ("§1".equals(astring[0])) {
 								int i = MathHelper.getInt(astring[1], 0);
 								String s1 = astring[2];
 								String s2 = astring[3];

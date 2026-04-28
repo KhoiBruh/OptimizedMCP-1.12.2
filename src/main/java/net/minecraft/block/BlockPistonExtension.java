@@ -64,12 +64,12 @@ public class BlockPistonExtension extends BlockDirectional {
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
 
 		return switch (state.getValue(FACING)) {
-			default -> PISTON_EXTENSION_DOWN_AABB;
 			case UP -> PISTON_EXTENSION_UP_AABB;
 			case NORTH -> PISTON_EXTENSION_NORTH_AABB;
 			case SOUTH -> PISTON_EXTENSION_SOUTH_AABB;
 			case WEST -> PISTON_EXTENSION_WEST_AABB;
 			case EAST -> PISTON_EXTENSION_EAST_AABB;
+			default -> PISTON_EXTENSION_DOWN_AABB;
 		};
 	}
 
@@ -84,12 +84,12 @@ public class BlockPistonExtension extends BlockDirectional {
 		boolean flag = state.getValue(SHORT);
 
 		return switch (state.getValue(FACING)) {
-			default -> flag ? SHORT_DOWN_ARM_AABB : DOWN_ARM_AABB;
 			case UP -> flag ? SHORT_UP_ARM_AABB : UP_ARM_AABB;
 			case NORTH -> flag ? SHORT_NORTH_ARM_AABB : NORTH_ARM_AABB;
 			case SOUTH -> flag ? SHORT_SOUTH_ARM_AABB : SOUTH_ARM_AABB;
 			case WEST -> flag ? SHORT_WEST_ARM_AABB : WEST_ARM_AABB;
 			case EAST -> flag ? SHORT_EAST_ARM_AABB : EAST_ARM_AABB;
+			default -> flag ? SHORT_DOWN_ARM_AABB : DOWN_ARM_AABB;
 		};
 	}
 

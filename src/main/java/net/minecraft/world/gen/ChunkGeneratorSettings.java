@@ -721,7 +721,7 @@ public class ChunkGeneratorSettings {
 				chunkgeneratorsettings$factory.lapisCount = JsonUtils.getInt(jsonobject, "lapisCount", chunkgeneratorsettings$factory.lapisCount);
 				chunkgeneratorsettings$factory.lapisCenterHeight = JsonUtils.getInt(jsonobject, "lapisCenterHeight", chunkgeneratorsettings$factory.lapisCenterHeight);
 				chunkgeneratorsettings$factory.lapisSpread = JsonUtils.getInt(jsonobject, "lapisSpread", chunkgeneratorsettings$factory.lapisSpread);
-			} catch (Exception var7) {
+			} catch (Exception ignored) {
 			}
 
 			return chunkgeneratorsettings$factory;

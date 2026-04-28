@@ -239,8 +239,8 @@ public class TileEntityPiston extends TileEntity implements ITickable {
 
 		return switch (facing.getAxis()) {
 			case X -> getDeltaX(p_190612_1_, facing, p_190612_3_);
-			default -> getDeltaY(p_190612_1_, facing, p_190612_3_);
 			case Z -> getDeltaZ(p_190612_1_, facing, p_190612_3_);
+			default -> getDeltaY(p_190612_1_, facing, p_190612_3_);
 		};
 	}
 
@@ -263,12 +263,12 @@ public class TileEntityPiston extends TileEntity implements ITickable {
 					new AxisAlignedBB(p_190610_1_.maxX + d1, p_190610_1_.minY, p_190610_1_.minZ, p_190610_1_.maxX + d2, p_190610_1_.maxY, p_190610_1_.maxZ);
 			case DOWN ->
 					new AxisAlignedBB(p_190610_1_.minX, p_190610_1_.minY + d1, p_190610_1_.minZ, p_190610_1_.maxX, p_190610_1_.minY + d2, p_190610_1_.maxZ);
-			default ->
-					new AxisAlignedBB(p_190610_1_.minX, p_190610_1_.maxY + d1, p_190610_1_.minZ, p_190610_1_.maxX, p_190610_1_.maxY + d2, p_190610_1_.maxZ);
 			case NORTH ->
 					new AxisAlignedBB(p_190610_1_.minX, p_190610_1_.minY, p_190610_1_.minZ + d1, p_190610_1_.maxX, p_190610_1_.maxY, p_190610_1_.minZ + d2);
 			case SOUTH ->
 					new AxisAlignedBB(p_190610_1_.minX, p_190610_1_.minY, p_190610_1_.maxZ + d1, p_190610_1_.maxX, p_190610_1_.maxY, p_190610_1_.maxZ + d2);
+			default ->
+					new AxisAlignedBB(p_190610_1_.minX, p_190610_1_.maxY + d1, p_190610_1_.minZ, p_190610_1_.maxX, p_190610_1_.maxY + d2, p_190610_1_.maxZ);
 		};
 	}
 

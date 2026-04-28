@@ -133,7 +133,7 @@ public class ChunkRenderDispatcher {
 
 			try {
 				renderWorker.processTask(chunkcompiletaskgenerator);
-			} catch (InterruptedException var7) {
+			} catch (InterruptedException ignored) {
 			}
 
 			flag = true;
@@ -154,7 +154,7 @@ public class ChunkRenderDispatcher {
 
 			try {
 				list.add(allocateRenderBuilder());
-			} catch (InterruptedException var3) {
+			} catch (InterruptedException ignored) {
 			}
 		}
 

@@ -119,7 +119,7 @@ public class ResourcePackRepository {
 			if (packmetadatasection != null && packmetadatasection.packFormat() == 2) {
 				return new LegacyV2Adapter(iresourcepack);
 			}
-		} catch (Exception var4) {
+		} catch (Exception ignored) {
 		}
 
 		return iresourcepack;
@@ -166,7 +166,7 @@ public class ResourcePackRepository {
 			try {
 				resourcepackrepository$entry.updateResourcePack();
 				return resourcepackrepository$entry;
-			} catch (IOException var3) {
+			} catch (IOException ignored) {
 			}
 		}
 
@@ -369,7 +369,7 @@ public class ResourcePackRepository {
 
 			try {
 				bufferedimage = reResourcePack.getPackImage();
-			} catch (IOException var5) {
+			} catch (IOException ignored) {
 			}
 
 			if (bufferedimage == null) {

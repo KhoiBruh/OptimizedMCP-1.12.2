@@ -37,7 +37,7 @@ public class LegacyPingHandler extends ChannelInboundHandlerAdapter {
 				switch (i) {
 					case 0:
 						LOGGER.debug("Ping: (<1.3.x) from {}:{}", inetsocketaddress.getAddress(), inetsocketaddress.getPort());
-						String s2 = String.format("%s\u00a7%d\u00a7%d", minecraftserver.getMOTD(), minecraftserver.getCurrentPlayerCount(), minecraftserver.getMaxPlayers());
+						String s2 = String.format("%s§%d§%d", minecraftserver.getMOTD(), minecraftserver.getCurrentPlayerCount(), minecraftserver.getMaxPlayers());
 						writeAndFlush(p_channelRead_1_, getStringBuffer(s2));
 						break;
 
@@ -47,7 +47,7 @@ public class LegacyPingHandler extends ChannelInboundHandlerAdapter {
 						}
 
 						LOGGER.debug("Ping: (1.4-1.5.x) from {}:{}", inetsocketaddress.getAddress(), inetsocketaddress.getPort());
-						String s = String.format("\u00a71\u0000%d\u0000%s\u0000%s\u0000%d\u0000%d", 127, minecraftserver.getMinecraftVersion(), minecraftserver.getMOTD(), minecraftserver.getCurrentPlayerCount(), minecraftserver.getMaxPlayers());
+						String s = String.format("§1\u0000%d\u0000%s\u0000%s\u0000%d\u0000%d", 127, minecraftserver.getMinecraftVersion(), minecraftserver.getMOTD(), minecraftserver.getCurrentPlayerCount(), minecraftserver.getMaxPlayers());
 						writeAndFlush(p_channelRead_1_, getStringBuffer(s));
 						break;
 
@@ -66,7 +66,7 @@ public class LegacyPingHandler extends ChannelInboundHandlerAdapter {
 						}
 
 						LOGGER.debug("Ping: (1.6) from {}:{}", inetsocketaddress.getAddress(), inetsocketaddress.getPort());
-						String s1 = String.format("\u00a71\u0000%d\u0000%s\u0000%s\u0000%d\u0000%d", 127, minecraftserver.getMinecraftVersion(), minecraftserver.getMOTD(), minecraftserver.getCurrentPlayerCount(), minecraftserver.getMaxPlayers());
+						String s1 = String.format("§1\u0000%d\u0000%s\u0000%s\u0000%d\u0000%d", 127, minecraftserver.getMinecraftVersion(), minecraftserver.getMOTD(), minecraftserver.getCurrentPlayerCount(), minecraftserver.getMaxPlayers());
 						ByteBuf bytebuf1 = getStringBuffer(s1);
 
 						try {
@@ -79,7 +79,7 @@ public class LegacyPingHandler extends ChannelInboundHandlerAdapter {
 				bytebuf.release();
 				flag = false;
 			}
-		} catch (RuntimeException var21) {
+		} catch (RuntimeException ignored) {
 		} finally {
 			if (flag) {
 				bytebuf.resetReaderIndex();

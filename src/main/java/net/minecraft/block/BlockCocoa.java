@@ -75,9 +75,9 @@ public class BlockCocoa extends BlockHorizontal implements IGrowable {
 
 		return switch (state.getValue(FACING)) {
 			case SOUTH -> COCOA_SOUTH_AABB[i];
-			default -> COCOA_NORTH_AABB[i];
 			case WEST -> COCOA_WEST_AABB[i];
 			case EAST -> COCOA_EAST_AABB[i];
+			default -> COCOA_NORTH_AABB[i];
 		};
 	}
 

@@ -192,7 +192,7 @@ public class GuiScreenBook extends GuiScreen {
 	/**
 	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
 	 */
-	protected void actionPerformed(GuiButton button) throws IOException {
+	protected void actionPerformed(GuiButton button) {
 
 		if (button.enabled) {
 			if (button.id == 0) {
@@ -285,7 +285,7 @@ public class GuiScreenBook extends GuiScreen {
 	/**
 	 * Processes keystrokes when editing the title of a book
 	 */
-	private void keyTypedInTitle(char typedChar, int keyCode) throws IOException {
+	private void keyTypedInTitle(char typedChar, int keyCode) {
 
 		switch (keyCode) {
 			case 14:
@@ -471,7 +471,7 @@ public class GuiScreenBook extends GuiScreen {
 					updateButtons();
 					return true;
 				}
-			} catch (Throwable var5) {
+			} catch (Throwable ignored) {
 			}
 
 			return false;

@@ -102,9 +102,7 @@ public class DataFixer implements IDataFixer {
 
 	private <V> List<V> getTypeList(Map<IFixType, List<V>> map, IFixType type) {
 
-		List<V> list = map.computeIfAbsent(type, k -> Lists.newArrayList());
-
-		return list;
+		return map.computeIfAbsent(type, k -> Lists.newArrayList());
 	}
 
 }

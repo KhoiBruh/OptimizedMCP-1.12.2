@@ -140,7 +140,7 @@ public class GuiCustomizeWorldScreen extends GuiScreen implements GuiSlider.Form
 
 		try {
 			f = Float.parseFloat(value);
-		} catch (NumberFormatException var5) {
+		} catch (NumberFormatException ignored) {
 		}
 
 		float f1 = switch (id) {

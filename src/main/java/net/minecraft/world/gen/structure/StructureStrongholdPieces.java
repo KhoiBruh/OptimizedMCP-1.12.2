@@ -1399,10 +1399,10 @@ public class StructureStrongholdPieces {
 			int i = p_74988_1_.nextInt(5);
 
 			return switch (i) {
-				default -> Door.OPENING;
 				case 2 -> Door.WOOD_DOOR;
 				case 3 -> Door.GRATES;
 				case 4 -> Door.IRON_DOOR;
+				default -> Door.OPENING;
 			};
 		}
 

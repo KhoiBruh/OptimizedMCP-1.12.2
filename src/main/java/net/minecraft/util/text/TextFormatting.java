@@ -40,7 +40,7 @@ public enum TextFormatting {
 	 * Matches formatting codes that indicate that the client should treat the following text as bold, recolored,
 	 * obfuscated, etc.
 	 */
-	private static final Pattern FORMATTING_CODE_PATTERN = Pattern.compile("(?i)\u00a7[0-9A-FK-OR]");
+	private static final Pattern FORMATTING_CODE_PATTERN = Pattern.compile("(?i)§[0-9A-FK-OR]");
 
 	static {
 		for (TextFormatting textformatting : values()) {
@@ -83,7 +83,7 @@ public enum TextFormatting {
 		formattingCode = formattingCodeIn;
 		fancyStyling = fancyStylingIn;
 		this.colorIndex = colorIndex;
-		controlString = "\u00a7" + formattingCodeIn;
+		controlString = "§" + formattingCodeIn;
 	}
 
 	private static String lowercaseAlpha(String p_175745_0_) {

@@ -42,10 +42,10 @@ public class BlockTripWireHook extends Block {
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
 
 		return switch (state.getValue(FACING)) {
-			default -> HOOK_EAST_AABB;
 			case WEST -> HOOK_WEST_AABB;
 			case SOUTH -> HOOK_SOUTH_AABB;
 			case NORTH -> HOOK_NORTH_AABB;
+			default -> HOOK_EAST_AABB;
 		};
 	}
 

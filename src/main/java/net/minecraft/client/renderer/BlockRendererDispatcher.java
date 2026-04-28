@@ -55,7 +55,7 @@ public class BlockRendererDispatcher implements IResourceManagerReloadListener {
 				if (blockAccess.getWorldType() != WorldType.DEBUG_ALL_BLOCK_STATES) {
 					try {
 						state = state.getActualState(blockAccess, pos);
-					} catch (Exception var8) {
+					} catch (Exception ignored) {
 					}
 				}
 

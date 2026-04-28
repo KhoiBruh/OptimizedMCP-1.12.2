@@ -23,7 +23,7 @@ public class ZombieProfToType implements IFixableData {
 				if (compound.hasKey("VillagerProfession", 99)) {
 					try {
 						i = getVillagerProfession(compound.getInteger("VillagerProfession"));
-					} catch (RuntimeException var4) {
+					} catch (RuntimeException ignored) {
 					}
 				}
 

@@ -72,7 +72,7 @@ public class GuiScreenServerList extends GuiScreen {
 	 * Fired when a key is typed (except F11 which toggles full screen). This is the equivalent of
 	 * KeyListener.keyTyped(KeyEvent e). Args : character (character on the key), keyCode (lwjgl Keyboard key code)
 	 */
-	protected void keyTyped(char typedChar, int keyCode) throws IOException {
+	protected void keyTyped(char typedChar, int keyCode) {
 
 		if (ipEdit.textboxKeyTyped(typedChar, keyCode)) {
 			(buttonList.getFirst()).enabled = !ipEdit.getText().isEmpty() && ipEdit.getText().split(":").length > 0;

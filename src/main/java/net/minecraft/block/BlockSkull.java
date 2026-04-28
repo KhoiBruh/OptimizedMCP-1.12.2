@@ -86,11 +86,11 @@ public class BlockSkull extends BlockContainer {
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
 
 		return switch (state.getValue(FACING)) {
-			default -> DEFAULT_AABB;
 			case NORTH -> NORTH_AABB;
 			case SOUTH -> SOUTH_AABB;
 			case WEST -> WEST_AABB;
 			case EAST -> EAST_AABB;
+			default -> DEFAULT_AABB;
 		};
 	}
 

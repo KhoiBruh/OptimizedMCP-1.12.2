@@ -1508,10 +1508,10 @@ public class StructureVillagePieces {
 
 			if (enumfacing != null) {
 				return switch (enumfacing) {
-					default ->
-							StructureVillagePieces.generateAndAddComponent(start, structureComponents, rand, boundingBox.minX - 1, boundingBox.minY + p_74891_4_, boundingBox.minZ + p_74891_5_, EnumFacing.WEST, getComponentType());
 					case WEST, EAST ->
 							StructureVillagePieces.generateAndAddComponent(start, structureComponents, rand, boundingBox.minX + p_74891_5_, boundingBox.minY + p_74891_4_, boundingBox.minZ - 1, EnumFacing.NORTH, getComponentType());
+					default ->
+							StructureVillagePieces.generateAndAddComponent(start, structureComponents, rand, boundingBox.minX - 1, boundingBox.minY + p_74891_4_, boundingBox.minZ + p_74891_5_, EnumFacing.WEST, getComponentType());
 				};
 			} else {
 				return null;
@@ -1525,10 +1525,10 @@ public class StructureVillagePieces {
 
 			if (enumfacing != null) {
 				return switch (enumfacing) {
-					default ->
-							StructureVillagePieces.generateAndAddComponent(start, structureComponents, rand, boundingBox.maxX + 1, boundingBox.minY + p_74894_4_, boundingBox.minZ + p_74894_5_, EnumFacing.EAST, getComponentType());
 					case WEST, EAST ->
 							StructureVillagePieces.generateAndAddComponent(start, structureComponents, rand, boundingBox.minX + p_74894_5_, boundingBox.minY + p_74894_4_, boundingBox.maxZ + 1, EnumFacing.SOUTH, getComponentType());
+					default ->
+							StructureVillagePieces.generateAndAddComponent(start, structureComponents, rand, boundingBox.maxX + 1, boundingBox.minY + p_74894_4_, boundingBox.minZ + p_74894_5_, EnumFacing.EAST, getComponentType());
 				};
 			} else {
 				return null;

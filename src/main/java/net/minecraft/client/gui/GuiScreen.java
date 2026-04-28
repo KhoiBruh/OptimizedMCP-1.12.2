@@ -88,7 +88,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 			if (transferable != null && transferable.isDataFlavorSupported(DataFlavor.stringFlavor)) {
 				return (String) transferable.getTransferData(DataFlavor.stringFlavor);
 			}
-		} catch (Exception var1) {
+		} catch (Exception ignored) {
 		}
 
 		return "";
@@ -103,7 +103,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 			try {
 				StringSelection stringselection = new StringSelection(copyText);
 				Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringselection, null);
-			} catch (Exception var2) {
+			} catch (Exception ignored) {
 			}
 		}
 	}
@@ -317,7 +317,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 					if (nbtbase instanceof NBTTagCompound) {
 						itemstack = new ItemStack(nbtbase);
 					}
-				} catch (NBTException var9) {
+				} catch (NBTException ignored) {
 				}
 
 				if (itemstack.isEmpty()) {
@@ -440,11 +440,12 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
 
 		if (mouseButton == 0) {
-			for (GuiButton guibutton : buttonList) {
+			for (GuiButton guibutton : Lists.newArrayList(buttonList)) {
 				if (guibutton.mousePressed(mc, mouseX, mouseY)) {
 					selectedButton = guibutton;
 					guibutton.playPressSound(mc.getSoundHandler());
 					actionPerformed(guibutton);
+					return;
 				}
 			}
 		}

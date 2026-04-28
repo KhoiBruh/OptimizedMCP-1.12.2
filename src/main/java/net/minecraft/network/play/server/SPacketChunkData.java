@@ -54,7 +54,7 @@ public class SPacketChunkData implements Packet<INetHandlerPlayClient> {
 	/**
 	 * Reads the raw packet data from the data stream.
 	 */
-	public void readPacketData(PacketBuffer buf) throws IOException {
+	public void readPacketData(PacketBuffer buf) {
 
 		chunkX = buf.readInt();
 		chunkZ = buf.readInt();

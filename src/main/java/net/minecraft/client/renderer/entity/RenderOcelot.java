@@ -23,10 +23,10 @@ public class RenderOcelot extends RenderLiving<EntityOcelot> {
 	protected ResourceLocation getEntityTexture(EntityOcelot entity) {
 
 		return switch (entity.getTameSkin()) {
-			default -> OCELOT_TEXTURES;
 			case 1 -> BLACK_OCELOT_TEXTURES;
 			case 2 -> RED_OCELOT_TEXTURES;
 			case 3 -> SIAMESE_OCELOT_TEXTURES;
+			default -> OCELOT_TEXTURES;
 		};
 	}
 

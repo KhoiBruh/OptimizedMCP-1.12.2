@@ -272,7 +272,7 @@ public class NBTTagCompound extends NBTBase {
 			if (hasKey(key, 99)) {
 				return ((NBTPrimitive) tagMap.get(key)).getByte();
 			}
-		} catch (ClassCastException var3) {
+		} catch (ClassCastException ignored) {
 		}
 
 		return 0;
@@ -287,7 +287,7 @@ public class NBTTagCompound extends NBTBase {
 			if (hasKey(key, 99)) {
 				return ((NBTPrimitive) tagMap.get(key)).getShort();
 			}
-		} catch (ClassCastException var3) {
+		} catch (ClassCastException ignored) {
 		}
 
 		return 0;
@@ -302,7 +302,7 @@ public class NBTTagCompound extends NBTBase {
 			if (hasKey(key, 99)) {
 				return ((NBTPrimitive) tagMap.get(key)).getInt();
 			}
-		} catch (ClassCastException var3) {
+		} catch (ClassCastException ignored) {
 		}
 
 		return 0;
@@ -317,7 +317,7 @@ public class NBTTagCompound extends NBTBase {
 			if (hasKey(key, 99)) {
 				return ((NBTPrimitive) tagMap.get(key)).getLong();
 			}
-		} catch (ClassCastException var3) {
+		} catch (ClassCastException ignored) {
 		}
 
 		return 0L;
@@ -332,7 +332,7 @@ public class NBTTagCompound extends NBTBase {
 			if (hasKey(key, 99)) {
 				return ((NBTPrimitive) tagMap.get(key)).getFloat();
 			}
-		} catch (ClassCastException var3) {
+		} catch (ClassCastException ignored) {
 		}
 
 		return 0.0F;
@@ -347,7 +347,7 @@ public class NBTTagCompound extends NBTBase {
 			if (hasKey(key, 99)) {
 				return ((NBTPrimitive) tagMap.get(key)).getDouble();
 			}
-		} catch (ClassCastException var3) {
+		} catch (ClassCastException ignored) {
 		}
 
 		return 0.0D;
@@ -362,7 +362,7 @@ public class NBTTagCompound extends NBTBase {
 			if (hasKey(key, 8)) {
 				return tagMap.get(key).getString();
 			}
-		} catch (ClassCastException var3) {
+		} catch (ClassCastException ignored) {
 		}
 
 		return "";

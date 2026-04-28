@@ -134,12 +134,12 @@ public class BlockLever extends Block {
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
 
 		return switch (state.getValue(FACING)) {
-			default -> LEVER_EAST_AABB;
 			case WEST -> LEVER_WEST_AABB;
 			case SOUTH -> LEVER_SOUTH_AABB;
 			case NORTH -> LEVER_NORTH_AABB;
 			case UP_Z, UP_X -> LEVER_UP_AABB;
 			case DOWN_X, DOWN_Z -> LEVER_DOWN_AABB;
+			default -> LEVER_EAST_AABB;
 		};
 	}
 

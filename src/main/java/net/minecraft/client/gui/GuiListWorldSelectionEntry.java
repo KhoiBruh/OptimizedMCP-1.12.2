@@ -233,7 +233,7 @@ public class GuiListWorldSelectionEntry implements GuiListExtended.IGuiListEntry
 
 			bufferedimage.getRGB(0, 0, bufferedimage.getWidth(), bufferedimage.getHeight(), icon.getTextureData(), 0, bufferedimage.getWidth());
 			icon.updateDynamicTexture();
-		} else if (!flag) {
+		} else {
 			client.getTextureManager().deleteTexture(iconLocation);
 			icon = null;
 		}

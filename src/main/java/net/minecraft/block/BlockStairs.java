@@ -181,10 +181,10 @@ public class BlockStairs extends Block {
 		boolean flag = bstate.getValue(HALF) == BlockStairs.EnumHalf.TOP;
 
 		return switch (bstate.getValue(FACING)) {
-			default -> flag ? AABB_QTR_BOT_NORTH : AABB_QTR_TOP_NORTH;
 			case SOUTH -> flag ? AABB_QTR_BOT_SOUTH : AABB_QTR_TOP_SOUTH;
 			case WEST -> flag ? AABB_QTR_BOT_WEST : AABB_QTR_TOP_WEST;
 			case EAST -> flag ? AABB_QTR_BOT_EAST : AABB_QTR_TOP_EAST;
+			default -> flag ? AABB_QTR_BOT_NORTH : AABB_QTR_TOP_NORTH;
 		};
 	}
 
@@ -197,19 +197,19 @@ public class BlockStairs extends Block {
 
 		EnumFacing enumfacing = bstate.getValue(FACING);
 		EnumFacing enumfacing1 = switch (bstate.getValue(SHAPE)) {
-			default -> enumfacing;
 			case OUTER_RIGHT -> enumfacing.rotateY();
 			case INNER_RIGHT -> enumfacing.getOpposite();
 			case INNER_LEFT -> enumfacing.rotateYCCW();
+			default -> enumfacing;
 		};
 
 		boolean flag = bstate.getValue(HALF) == BlockStairs.EnumHalf.TOP;
 
 		return switch (enumfacing1) {
-			default -> flag ? AABB_OCT_BOT_NW : AABB_OCT_TOP_NW;
 			case SOUTH -> flag ? AABB_OCT_BOT_SE : AABB_OCT_TOP_SE;
 			case WEST -> flag ? AABB_OCT_BOT_SW : AABB_OCT_TOP_SW;
 			case EAST -> flag ? AABB_OCT_BOT_NE : AABB_OCT_TOP_NE;
+			default -> flag ? AABB_OCT_BOT_NW : AABB_OCT_TOP_NW;
 		};
 	}
 

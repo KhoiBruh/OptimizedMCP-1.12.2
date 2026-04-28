@@ -27,10 +27,10 @@ public class BlockWallSign extends BlockSign {
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
 
 		return switch (state.getValue(FACING)) {
-			default -> SIGN_NORTH_AABB;
 			case SOUTH -> SIGN_SOUTH_AABB;
 			case WEST -> SIGN_WEST_AABB;
 			case EAST -> SIGN_EAST_AABB;
+			default -> SIGN_NORTH_AABB;
 		};
 	}
 

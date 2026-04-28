@@ -126,11 +126,7 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
 		missingImage.generateMipmaps(mipmapLevels);
 		stitcher.addSprite(missingImage);
 
-		try {
-			stitcher.doStitch();
-		} catch (StitcherException stitcherexception) {
-			throw stitcherexception;
-		}
+		stitcher.doStitch();
 
 		LOGGER.info("Created: {}x{} {}-atlas", stitcher.getCurrentWidth(), stitcher.getCurrentHeight(), basePath);
 		TextureUtil.allocateTextureImpl(getGlTextureId(), mipmapLevels, stitcher.getCurrentWidth(), stitcher.getCurrentHeight());

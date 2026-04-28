@@ -239,7 +239,7 @@ public class HttpUtil {
 				if (serversocket != null) {
 					serversocket.close();
 				}
-			} catch (IOException var8) {
+			} catch (IOException ignored) {
 			}
 		}
 

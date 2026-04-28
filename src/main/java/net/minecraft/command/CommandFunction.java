@@ -66,7 +66,7 @@ public class CommandFunction extends CommandBase {
 
 					try {
 						flag1 = !getEntityList(server, sender, args[2]).isEmpty();
-					} catch (EntityNotFoundException var10) {
+					} catch (EntityNotFoundException ignored) {
 					}
 
 					if (flag != flag1) {
