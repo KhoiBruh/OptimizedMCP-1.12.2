@@ -6,7 +6,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.pathfinding.Path;
 import net.minecraft.pathfinding.PathNavigate;
-import net.minecraft.util.EntitySelectors;
+import net.minecraft.util.entity.EntitySelectors;
 import net.minecraft.util.math.Vec3d;
 
 import java.util.List;

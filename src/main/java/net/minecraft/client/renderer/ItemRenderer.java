@@ -22,6 +22,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.BlockRenderLayer;
+import net.minecraft.util.BlockRenderType;
+import net.minecraft.util.Hand;
+import net.minecraft.util.HandSide;
 import net.minecraft.world.storage.MapData;
 
 import java.util.Objects;

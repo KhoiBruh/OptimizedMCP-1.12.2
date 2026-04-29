@@ -1,4 +1,4 @@
-package net.minecraft.util;
+package net.minecraft.util.entity;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;

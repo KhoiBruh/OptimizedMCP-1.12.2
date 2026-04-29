@@ -10,6 +10,9 @@ import net.minecraft.nbt.NBTUtil;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.server.management.PlayerProfileCache;
 import net.minecraft.util.*;
+import net.minecraft.util.Facing;
+import net.minecraft.util.Mirror;
+import net.minecraft.util.Rotation;
 
 public class TileEntitySkull extends TileEntity implements ITickable {
 

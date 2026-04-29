@@ -13,12 +13,12 @@ import java.util.Map;
 import java.util.Random;
 
 public enum Facing implements IStringSerializable {
-	DOWN(0, 1, -1, "down", Facing.AxisDirection.NEGATIVE, Facing.Axis.Y, new Vec3i(0, -1, 0)),
-	UP(1, 0, -1, "up", Facing.AxisDirection.POSITIVE, Facing.Axis.Y, new Vec3i(0, 1, 0)),
-	NORTH(2, 3, 2, "north", Facing.AxisDirection.NEGATIVE, Facing.Axis.Z, new Vec3i(0, 0, -1)),
-	SOUTH(3, 2, 0, "south", Facing.AxisDirection.POSITIVE, Facing.Axis.Z, new Vec3i(0, 0, 1)),
-	WEST(4, 5, 1, "west", Facing.AxisDirection.NEGATIVE, Facing.Axis.X, new Vec3i(-1, 0, 0)),
-	EAST(5, 4, 3, "east", Facing.AxisDirection.POSITIVE, Facing.Axis.X, new Vec3i(1, 0, 0));
+	DOWN(0, 1, -1, "down", AxisDirection.NEGATIVE, Axis.Y, new Vec3i(0, -1, 0)),
+	UP(1, 0, -1, "up", AxisDirection.POSITIVE, Axis.Y, new Vec3i(0, 1, 0)),
+	NORTH(2, 3, 2, "north", AxisDirection.NEGATIVE, Axis.Z, new Vec3i(0, 0, -1)),
+	SOUTH(3, 2, 0, "south", AxisDirection.POSITIVE, Axis.Z, new Vec3i(0, 0, 1)),
+	WEST(4, 5, 1, "west", AxisDirection.NEGATIVE, Axis.X, new Vec3i(-1, 0, 0)),
+	EAST(5, 4, 3, "east", AxisDirection.POSITIVE, Axis.X, new Vec3i(1, 0, 0));
 
 	/**
 	 * All facings in D-U-N-S-W-E order
@@ -31,14 +31,14 @@ public enum Facing implements IStringSerializable {
 	private static final Map<String, Facing> NAME_LOOKUP = Maps.newHashMap();
 
 	static {
-		for (Facing enumfacing : values()) {
-			VALUES[enumfacing.index] = enumfacing;
+		for (Facing facing : values()) {
+			VALUES[facing.index] = facing;
 
-			if (enumfacing.getAxis().isHorizontal()) {
-				HORIZONTALS[enumfacing.horizontalIndex] = enumfacing;
+			if (facing.getAxis().isHorizontal()) {
+				HORIZONTALS[facing.horizontalIndex] = facing;
 			}
 
-			NAME_LOOKUP.put(enumfacing.getName2().toLowerCase(Locale.ROOT), enumfacing);
+			NAME_LOOKUP.put(facing.getName2().toLowerCase(Locale.ROOT), facing);
 		}
 	}
 

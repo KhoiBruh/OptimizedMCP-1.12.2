@@ -1,4 +1,4 @@
-package net.minecraft.util;
+package net.minecraft.util.entity;
 
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
