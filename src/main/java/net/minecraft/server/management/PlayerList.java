@@ -453,13 +453,7 @@ public abstract class PlayerList {
 			entityplayermp1.connection.disconnect(new TextComponentTranslation("multiplayer.disconnect.duplicate_login"));
 		}
 
-		PlayerInteractionManager playerinteractionmanager;
-
-		if (mcServer.isDemo()) {
-			playerinteractionmanager = new DemoPlayerInteractionManager(mcServer.getWorld(0));
-		} else {
-			playerinteractionmanager = new PlayerInteractionManager(mcServer.getWorld(0));
-		}
+		PlayerInteractionManager playerinteractionmanager = new PlayerInteractionManager(mcServer.getWorld(0));
 
 		return new EntityPlayerMP(mcServer, mcServer.getWorld(0), profile, playerinteractionmanager);
 	}
@@ -478,13 +472,7 @@ public abstract class PlayerList {
 		BlockPos blockpos = playerIn.getBedLocation();
 		boolean flag = playerIn.isSpawnForced();
 		playerIn.dimension = dimension;
-		PlayerInteractionManager playerinteractionmanager;
-
-		if (mcServer.isDemo()) {
-			playerinteractionmanager = new DemoPlayerInteractionManager(mcServer.getWorld(playerIn.dimension));
-		} else {
-			playerinteractionmanager = new PlayerInteractionManager(mcServer.getWorld(playerIn.dimension));
-		}
+		PlayerInteractionManager playerinteractionmanager = new PlayerInteractionManager(mcServer.getWorld(playerIn.dimension));
 
 		EntityPlayerMP entityplayermp = new EntityPlayerMP(mcServer, mcServer.getWorld(playerIn.dimension), playerIn.getGameProfile(), playerinteractionmanager);
 		entityplayermp.connection = playerIn.connection;

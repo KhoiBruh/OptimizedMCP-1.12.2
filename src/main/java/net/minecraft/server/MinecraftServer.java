@@ -156,7 +156,6 @@ public abstract class MinecraftServer implements ICommandSender, Runnable, IThre
 	private String serverOwner;
 	private String folderName;
 	private String worldName;
-	private boolean isDemo;
 	private boolean enableBonusChest;
 	/**
 	 * The texture pack for the server
@@ -267,16 +266,10 @@ public abstract class MinecraftServer implements ICommandSender, Runnable, IThre
 		WorldSettings worldsettings;
 
 		if (worldinfo == null) {
-			if (isDemo()) {
-				worldsettings = WorldServerDemo.DEMO_WORLD_SETTINGS;
-			} else {
-				worldsettings = new WorldSettings(seed, getGameType(), canStructuresSpawn(), isHardcore(), type);
-				worldsettings.setGeneratorOptions(generatorOptions);
+			worldsettings = new WorldSettings(seed, getGameType(), canStructuresSpawn(), isHardcore(), type);
+			worldsettings.setGeneratorOptions(generatorOptions);
 
-				if (enableBonusChest) {
-					worldsettings.enableBonusChest();
-				}
-			}
+			if (enableBonusChest) worldsettings.enableBonusChest();
 
 			worldinfo = new WorldInfo(worldsettings, worldNameIn);
 		} else {
@@ -296,12 +289,7 @@ public abstract class MinecraftServer implements ICommandSender, Runnable, IThre
 			}
 
 			if (i == 0) {
-				if (isDemo()) {
-					worlds[i] = (WorldServer) (new WorldServerDemo(this, isavehandler, worldinfo, j, profiler)).init();
-				} else {
-					worlds[i] = (WorldServer) (new WorldServer(this, isavehandler, worldinfo, j, profiler)).init();
-				}
-
+				worlds[i] = (WorldServer) (new WorldServer(this, isavehandler, worldinfo, j, profiler)).init();
 				worlds[i].initialize(worldsettings);
 			} else {
 				worlds[i] = (WorldServer) (new WorldServerMulti(this, isavehandler, j, worlds[0], profiler)).init();
@@ -987,22 +975,6 @@ public abstract class MinecraftServer implements ICommandSender, Runnable, IThre
 	public boolean allowSpawnMonsters() {
 
 		return true;
-	}
-
-	/**
-	 * Gets whether this is a demo or not.
-	 */
-	public boolean isDemo() {
-
-		return isDemo;
-	}
-
-	/**
-	 * Sets whether this is a demo or not.
-	 */
-	public void setDemo(boolean demo) {
-
-		isDemo = demo;
 	}
 
 	public void canCreateBonusChest(boolean enable) {

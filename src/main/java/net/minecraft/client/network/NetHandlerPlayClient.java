@@ -1101,18 +1101,6 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 				gameController.displayGuiScreen(new GuiWinGame(true, () ->
 						gameController.player.connection.sendPacket(new CPacketClientStatus(CPacketClientStatus.State.PERFORM_RESPAWN))));
 			}
-		} else if (i == 5) {
-			GameSettings gamesettings = gameController.gameSettings;
-
-			if (f == 0.0F) {
-				gameController.displayGuiScreen(new GuiScreenDemo());
-			} else if (f == 101.0F) {
-				gameController.ingameGUI.getChatGUI().printChatMessage(new TextComponentTranslation("demo.help.movement", GameSettings.getKeyDisplayString(gamesettings.keyBindForward.getKeyCode()), GameSettings.getKeyDisplayString(gamesettings.keyBindLeft.getKeyCode()), GameSettings.getKeyDisplayString(gamesettings.keyBindBack.getKeyCode()), GameSettings.getKeyDisplayString(gamesettings.keyBindRight.getKeyCode())));
-			} else if (f == 102.0F) {
-				gameController.ingameGUI.getChatGUI().printChatMessage(new TextComponentTranslation("demo.help.jump", GameSettings.getKeyDisplayString(gamesettings.keyBindJump.getKeyCode())));
-			} else if (f == 103.0F) {
-				gameController.ingameGUI.getChatGUI().printChatMessage(new TextComponentTranslation("demo.help.inventory", GameSettings.getKeyDisplayString(gamesettings.keyBindInventory.getKeyCode())));
-			}
 		} else if (i == 6) {
 			clientWorldController.playSound(entityplayer, entityplayer.posX, entityplayer.posY + (double) entityplayer.getEyeHeight(), entityplayer.posZ, SoundEvents.ENTITY_ARROW_HIT_PLAYER, SoundCategory.PLAYERS, 0.18F, 0.45F);
 		} else if (i == 7) {

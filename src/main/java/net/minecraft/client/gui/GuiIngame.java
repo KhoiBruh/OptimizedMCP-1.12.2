@@ -249,10 +249,6 @@ public class GuiIngame extends Gui {
 			spectatorGui.renderSelectedItem(scaledresolution);
 		}
 
-		if (mc.isDemo()) {
-			renderDemo(scaledresolution);
-		}
-
 		renderPotionEffects(scaledresolution);
 
 		if (mc.gameSettings.showDebugInfo) {
@@ -444,10 +440,6 @@ public class GuiIngame extends Gui {
 					int k = resolution.getScaledWidth();
 					int l = 1;
 
-					if (mc.isDemo()) {
-						l += 15;
-					}
-
 					int i1 = potion.getStatusIconIndex();
 
 					if (potion.isBeneficial()) {
@@ -634,22 +626,6 @@ public class GuiIngame extends Gui {
 			}
 		}
 
-		mc.mcProfiler.endSection();
-	}
-
-	public void renderDemo(ScaledResolution scaledRes) {
-
-		mc.mcProfiler.startSection("demo");
-		String s;
-
-		if (mc.world.getTotalWorldTime() >= 120500L) {
-			s = I18n.format("demo.demoExpired");
-		} else {
-			s = I18n.format("demo.remainingTime", StringUtils.ticksToElapsedTime((int) (120500L - mc.world.getTotalWorldTime())));
-		}
-
-		int i = getFontRenderer().getStringWidth(s);
-		getFontRenderer().drawStringWithShadow(s, (float) (scaledRes.getScaledWidth() - i - 10), 5.0F, 16777215);
 		mc.mcProfiler.endSection();
 	}
 

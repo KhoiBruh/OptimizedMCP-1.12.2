@@ -25,7 +25,6 @@ public class Main {
 
 		OptionParser optionparser = new OptionParser();
 		optionparser.allowsUnrecognizedOptions();
-		optionparser.accepts("demo");
 		optionparser.accepts("fullscreen");
 		optionparser.accepts("checkGlErrors");
 		OptionSpec<String> optionspec = optionparser.accepts("server").withRequiredArg();
@@ -81,8 +80,6 @@ public class Main {
 		int i = optionset.valueOf(optionspec13);
 		int j = optionset.valueOf(optionspec14);
 		boolean flag = optionset.has("fullscreen");
-		boolean flag1 = optionset.has("checkGlErrors");
-		boolean flag2 = optionset.has("demo");
 		String s3 = optionset.valueOf(optionspec12);
 		Gson gson = (new GsonBuilder()).registerTypeAdapter(PropertyMap.class, new Serializer()).create();
 		PropertyMap propertymap = JsonUtils.gsonDeserialize(gson, optionset.valueOf(optionspec15), PropertyMap.class);
@@ -96,22 +93,29 @@ public class Main {
 		String s7 = optionset.valueOf(optionspec);
 		Integer integer = optionset.valueOf(optionspec1);
 		Session session = new Session(optionspec9.value(optionset), s5, optionspec11.value(optionset), optionspec18.value(optionset));
-		GameConfiguration gameconfiguration = new GameConfiguration(new GameConfiguration.UserInformation(session, propertymap, propertymap1, proxy), new GameConfiguration.DisplayInformation(i, j, flag, flag1), new GameConfiguration.FolderInformation(file1, file3, file2, s6), new GameConfiguration.GameInformation(flag2, s3, s4), new GameConfiguration.ServerInformation(s7, integer));
+
+		GameConfiguration configuration = new GameConfiguration(
+				new GameConfiguration.UserInformation(session, propertymap, propertymap1, proxy),
+				new GameConfiguration.DisplayInformation(i, j, flag),
+				new GameConfiguration.FolderInformation(file1, file3, file2, s6),
+				new GameConfiguration.GameInformation(s3, s4),
+				new GameConfiguration.ServerInformation(s7, integer)
+		);
+
 		Runtime.getRuntime().addShutdownHook(new Thread("Client Shutdown Thread") {
 			public void run() {
-
 				Minecraft.stopIntegratedServer();
 			}
 		});
+
 		Thread.currentThread().setName("Client thread");
-		(new Minecraft(gameconfiguration)).run();
+		new Minecraft(configuration).run();
 	}
 
 	/**
 	 * Returns whether a string is either null or empty.
 	 */
 	private static boolean isNullOrEmpty(String str) {
-
 		return str != null && !str.isEmpty();
 	}
 

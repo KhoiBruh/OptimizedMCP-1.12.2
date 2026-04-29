@@ -2,7 +2,6 @@ package net.minecraft.client.gui;
 
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
-import com.google.common.collect.UnmodifiableIterator;
 import net.minecraft.block.Block;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
@@ -23,19 +22,38 @@ import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.chunk.Chunk;
 import org.lwjgl.opengl.Display;
+import org.lwjgl.opengl.GL11;
 
 import java.util.List;
 import java.util.Map.Entry;
 
 public class GuiOverlayDebug extends Gui {
 
+	private static final int DEBUG_MARGIN = 2;
+	private static final int DEBUG_BACKGROUND_COLOR = -1873784752;
+	private static final int DEBUG_TEXT_COLOR = 14737632;
+	private static final int LAGOMETER_WIDTH = 240;
+	private static final int LAGOMETER_HEIGHT = 60;
+	private static final int LAGOMETER_MID_HEIGHT = 30;
+	private static final int LAGOMETER_BORDER_COLOR = -1;
+	private static final int LAGOMETER_LIMIT_COLOR = -16711681;
+	private static final int FRAME_COLOR_FAST = -16711936;
+	private static final int FRAME_COLOR_MEDIUM = -256;
+	private static final int FRAME_COLOR_SLOW = -65536;
+
 	private final Minecraft mc;
 	private final FontRenderer fontRenderer;
+	private final String vendor;
+	private final String renderer;
+	private final String version;
 
 	public GuiOverlayDebug(Minecraft mc) {
 
 		this.mc = mc;
 		fontRenderer = mc.fontRenderer;
+		vendor = GlStateManager.glGetString(GL11.GL_VENDOR);
+		renderer = GlStateManager.glGetString(GL11.GL_RENDERER);
+		version = GlStateManager.glGetString(GL11.GL_VERSION);
 	}
 
 	private static long bytesToMb(long bytes) {
@@ -43,19 +61,76 @@ public class GuiOverlayDebug extends Gui {
 		return bytes / 1024L / 1024L;
 	}
 
+	private static String getFacingDescription(EnumFacing facing) {
+
+		return switch (facing) {
+			case NORTH -> "Towards negative Z";
+			case SOUTH -> "Towards positive Z";
+			case WEST -> "Towards negative X";
+			case EAST -> "Towards positive X";
+			default -> "Invalid";
+		};
+	}
+
+	private static String formatProperty(IProperty<?> property, Comparable<?> value) {
+
+		String valueName = getPropertyValueName(property, value);
+
+		if (Boolean.TRUE.equals(value)) {
+			valueName = TextFormatting.GREEN + valueName;
+		} else if (Boolean.FALSE.equals(value)) {
+			valueName = TextFormatting.RED + valueName;
+		}
+
+		return property.getName() + ": " + valueName;
+	}
+
+	@SuppressWarnings({"unchecked", "rawtypes"})
+	private static String getPropertyValueName(IProperty property, Comparable value) {
+
+		return property.getName(value);
+	}
+
+	private static int getFrameColor(int value, int warningValue, int maxValue) {
+
+		return value < warningValue ? blendColors(FRAME_COLOR_FAST, FRAME_COLOR_MEDIUM, (float) value / (float) warningValue) : blendColors(FRAME_COLOR_MEDIUM, FRAME_COLOR_SLOW, (float) (value - warningValue) / (float) (maxValue - warningValue));
+	}
+
+	private static int blendColors(int firstColor, int secondColor, float ratio) {
+
+		int firstAlpha = firstColor >> 24 & 255;
+		int firstRed = firstColor >> 16 & 255;
+		int firstGreen = firstColor >> 8 & 255;
+		int firstBlue = firstColor & 255;
+		int secondAlpha = secondColor >> 24 & 255;
+		int secondRed = secondColor >> 16 & 255;
+		int secondGreen = secondColor >> 8 & 255;
+		int secondBlue = secondColor & 255;
+		int alpha = MathHelper.clamp((int) ((float) firstAlpha + (float) (secondAlpha - firstAlpha) * ratio), 0, 255);
+		int red = MathHelper.clamp((int) ((float) firstRed + (float) (secondRed - firstRed) * ratio), 0, 255);
+		int green = MathHelper.clamp((int) ((float) firstGreen + (float) (secondGreen - firstGreen) * ratio), 0, 255);
+		int blue = MathHelper.clamp((int) ((float) firstBlue + (float) (secondBlue - firstBlue) * ratio), 0, 255);
+		return alpha << 24 | red << 16 | green << 8 | blue;
+	}
+
 	public void renderDebugInfo(ScaledResolution scaledResolutionIn) {
 
 		mc.mcProfiler.startSection("debug");
-		GlStateManager.pushMatrix();
-		renderDebugInfoLeft();
-		renderDebugInfoRight(scaledResolutionIn);
-		GlStateManager.popMatrix();
+		try {
+			GlStateManager.pushMatrix();
+			try {
+				renderDebugInfoLeft();
+				renderDebugInfoRight(scaledResolutionIn);
+			} finally {
+				GlStateManager.popMatrix();
+			}
 
-		if (mc.gameSettings.showLagometer) {
-			renderLagometer();
+			if (mc.gameSettings.showLagometer) {
+				renderLagometer();
+			}
+		} finally {
+			mc.mcProfiler.endSection();
 		}
-
-		mc.mcProfiler.endSection();
 	}
 
 	protected void renderDebugInfoLeft() {
@@ -64,58 +139,53 @@ public class GuiOverlayDebug extends Gui {
 		list.add("");
 		list.add("Debug: Pie [shift]: " + (mc.gameSettings.showDebugProfilerChart ? "visible" : "hidden") + " FPS [alt]: " + (mc.gameSettings.showLagometer ? "visible" : "hidden"));
 		list.add("For help: press F3 + Q");
-
-		for (int i = 0; i < list.size(); ++i) {
-			String s = list.get(i);
-
-			if (!Strings.isNullOrEmpty(s)) {
-				int j = fontRenderer.FONT_HEIGHT;
-				int k = fontRenderer.getStringWidth(s);
-				int l = 2;
-				int i1 = 2 + j * i;
-				drawRect(1, i1 - 1, 2 + k + 1, i1 + j - 1, -1873784752);
-				fontRenderer.drawString(s, 2, i1, 14737632);
-			}
-		}
+		drawDebugText(list, DEBUG_MARGIN, false);
 	}
 
 	protected void renderDebugInfoRight(ScaledResolution scaledRes) {
 
-		List<String> list = getDebugInfoRight();
+		drawDebugText(getDebugInfoRight(), scaledRes.getScaledWidth() - DEBUG_MARGIN, true);
+	}
 
-		for (int i = 0; i < list.size(); ++i) {
-			String s = list.get(i);
+	private void drawDebugText(List<String> lines, int xAnchor, boolean alignRight) {
 
-			if (!Strings.isNullOrEmpty(s)) {
-				int j = fontRenderer.FONT_HEIGHT;
-				int k = fontRenderer.getStringWidth(s);
-				int l = scaledRes.getScaledWidth() - 2 - k;
-				int i1 = 2 + j * i;
-				drawRect(l - 1, i1 - 1, l + k + 1, i1 + j - 1, -1873784752);
-				fontRenderer.drawString(s, l, i1, 14737632);
+		for (int i = 0; i < lines.size(); ++i) {
+			String line = lines.get(i);
+
+			if (!Strings.isNullOrEmpty(line)) {
+				int lineHeight = fontRenderer.FONT_HEIGHT;
+				int width = fontRenderer.getStringWidth(line);
+				int x = alignRight ? xAnchor - width : xAnchor;
+				int y = DEBUG_MARGIN + lineHeight * i;
+				drawRect(x - 1, y - 1, x + width + 1, y + lineHeight - 1, DEBUG_BACKGROUND_COLOR);
+				fontRenderer.drawString(line, x, y, DEBUG_TEXT_COLOR);
 			}
 		}
 	}
 
-	@SuppressWarnings("incomplete-switch")
 	protected List<String> call() {
 
-		BlockPos blockpos = new BlockPos(mc.getRenderViewEntity().posX, mc.getRenderViewEntity().getEntityBoundingBox().minY, mc.getRenderViewEntity().posZ);
+		return getDebugInfoLeft();
+	}
+
+	protected List<String> getDebugInfoLeft() {
+
+		Entity entity = mc.getRenderViewEntity();
+		BlockPos blockpos = new BlockPos(entity.posX, entity.getEntityBoundingBox().minY, entity.posZ);
 
 		if (mc.isReducedDebug()) {
-			return Lists.newArrayList("Minecraft 1.12.2 (" + mc.getVersion() + "/" + ClientBrandRetriever.getClientModName() + ")", mc.debug, mc.renderGlobal.getDebugInfoRenders(), mc.renderGlobal.getDebugInfoEntities(), "P: " + mc.effectRenderer.getStatistics() + ". T: " + mc.world.getDebugLoadedEntities(), mc.world.getProviderName(), "", String.format("Chunk-relative: %d %d %d", blockpos.getX() & 15, blockpos.getY() & 15, blockpos.getZ() & 15));
+			List<String> list = getDebugInfoHeader(false);
+			list.add("");
+			list.add(String.format("Chunk-relative: %d %d %d", blockpos.getX() & 15, blockpos.getY() & 15, blockpos.getZ() & 15));
+			return list;
 		} else {
-			Entity entity = mc.getRenderViewEntity();
 			EnumFacing enumfacing = entity.getHorizontalFacing();
-			String s = switch (enumfacing) {
-				case NORTH -> "Towards negative Z";
-				case SOUTH -> "Towards positive Z";
-				case WEST -> "Towards negative X";
-				case EAST -> "Towards positive X";
-				default -> "Invalid";
-			};
-
-			List<String> list = Lists.newArrayList("Minecraft 1.12.2 (" + mc.getVersion() + "/" + ClientBrandRetriever.getClientModName() + ("release".equalsIgnoreCase(mc.getVersionType()) ? "" : "/" + mc.getVersionType()) + ")", mc.debug, mc.renderGlobal.getDebugInfoRenders(), mc.renderGlobal.getDebugInfoEntities(), "P: " + mc.effectRenderer.getStatistics() + ". T: " + mc.world.getDebugLoadedEntities(), mc.world.getProviderName(), "", String.format("XYZ: %.3f / %.5f / %.3f", mc.getRenderViewEntity().posX, mc.getRenderViewEntity().getEntityBoundingBox().minY, mc.getRenderViewEntity().posZ), String.format("Block: %d %d %d", blockpos.getX(), blockpos.getY(), blockpos.getZ()), String.format("Chunk: %d %d %d in %d %d %d", blockpos.getX() & 15, blockpos.getY() & 15, blockpos.getZ() & 15, blockpos.getX() >> 4, blockpos.getY() >> 4, blockpos.getZ() >> 4), String.format("Facing: %s (%s) (%.1f / %.1f)", enumfacing, s, MathHelper.wrapDegrees(entity.rotationYaw), MathHelper.wrapDegrees(entity.rotationPitch)));
+			List<String> list = getDebugInfoHeader(true);
+			list.add("");
+			list.add(String.format("XYZ: %.3f / %.5f / %.3f", entity.posX, entity.getEntityBoundingBox().minY, entity.posZ));
+			list.add(String.format("Block: %d %d %d", blockpos.getX(), blockpos.getY(), blockpos.getZ()));
+			list.add(String.format("Chunk: %d %d %d in %d %d %d", blockpos.getX() & 15, blockpos.getY() & 15, blockpos.getZ() & 15, blockpos.getX() >> 4, blockpos.getY() >> 4, blockpos.getZ() >> 4));
+			list.add(String.format("Facing: %s (%s) (%.1f / %.1f)", enumfacing, getFacingDescription(enumfacing), MathHelper.wrapDegrees(entity.rotationYaw), MathHelper.wrapDegrees(entity.rotationPitch)));
 
 			if (mc.world != null) {
 				Chunk chunk = mc.world.getChunkFromBlockCoords(blockpos);
@@ -127,7 +197,9 @@ public class GuiOverlayDebug extends Gui {
 						DifficultyInstance difficultyinstance = mc.world.getDifficultyForLocation(blockpos);
 
 						if (mc.isIntegratedServerRunning() && mc.getIntegratedServer() != null) {
-							EntityPlayerMP entityplayermp = mc.getIntegratedServer().getPlayerList().getPlayerByUUID(mc.player.getUniqueID());
+							EntityPlayerMP entityplayermp = mc.getIntegratedServer()
+							                                  .getPlayerList()
+							                                  .getPlayerByUUID(mc.player.getUniqueID());
 
 							if (entityplayermp != null) {
 								difficultyinstance = entityplayermp.world.getDifficultyForLocation(new BlockPos(entityplayermp));
@@ -156,45 +228,62 @@ public class GuiOverlayDebug extends Gui {
 		}
 	}
 
-	protected <T extends Comparable<T>> List<String> getDebugInfoRight() {
+	private List<String> getDebugInfoHeader(boolean includeVersionType) {
 
-		long i = Runtime.getRuntime().maxMemory();
-		long j = Runtime.getRuntime().totalMemory();
-		long k = Runtime.getRuntime().freeMemory();
-		long l = j - k;
-		List<String> list = Lists.newArrayList(String.format("Java: %s %dbit", System.getProperty("java.version"), mc.isJava64bit() ? 64 : 32), String.format("Mem: % 2d%% %03d/%03dMB", l * 100L / i, bytesToMb(l), bytesToMb(i)), String.format("Allocated: % 2d%% %03dMB", j * 100L / i, bytesToMb(j)), "", String.format("CPU: %s", OpenGlHelper.getCpu()), "", String.format("Display: %dx%d (%s)", Display.getWidth(), Display.getHeight(), GlStateManager.glGetString(7936)), GlStateManager.glGetString(7937), GlStateManager.glGetString(7938));
+		return Lists.newArrayList(
+				getVersionLine(includeVersionType),
+				mc.debug,
+				mc.renderGlobal.getDebugInfoRenders(),
+				mc.renderGlobal.getDebugInfoEntities(),
+				"P: " + mc.effectRenderer.getStatistics() + ". T: " + mc.world.getDebugLoadedEntities(),
+				mc.world.getProviderName()
+		);
+	}
 
-		if (mc.isReducedDebug()) {
-			return list;
-		} else {
+	private String getVersionLine(boolean includeVersionType) {
+
+		String versionType = includeVersionType && !"release".equalsIgnoreCase(mc.getVersionType()) ? "/" + mc.getVersionType() : "";
+		return "Minecraft 1.12.2 (" + mc.getVersion() + "/" + ClientBrandRetriever.getClientModName() + versionType + ")";
+	}
+
+	protected List<String> getDebugInfoRight() {
+
+		Runtime runtime = Runtime.getRuntime();
+		long maxMemory = runtime.maxMemory();
+		long totalMemory = runtime.totalMemory();
+		long freeMemory = runtime.freeMemory();
+		long usedMemory = totalMemory - freeMemory;
+		List<String> list = Lists.newArrayList(
+				String.format("Java: %s %dbit", System.getProperty("java.version"), mc.isJava64bit() ? 64 : 32),
+				String.format("Mem: % 2d%% %03d/%03dMB", usedMemory * 100L / maxMemory, bytesToMb(usedMemory), bytesToMb(maxMemory)),
+				String.format("Allocated: % 2d%% %03dMB", totalMemory * 100L / maxMemory, bytesToMb(totalMemory)), "",
+				String.format("CPU: %s", OpenGlHelper.getCpu()), "",
+				String.format("Display: %dx%d (%s)", Display.getWidth(), Display.getHeight(), vendor),
+				renderer, version
+		);
+
+		if (!mc.isReducedDebug()) {
 			if (mc.objectMouseOver != null && mc.objectMouseOver.typeOfHit == RayTraceResult.Type.BLOCK && mc.objectMouseOver.getBlockPos() != null) {
-				BlockPos blockpos = mc.objectMouseOver.getBlockPos();
-				IBlockState iblockstate = mc.world.getBlockState(blockpos);
-
-				if (mc.world.getWorldType() != WorldType.DEBUG_ALL_BLOCK_STATES) {
-					iblockstate = iblockstate.getActualState(mc.world, blockpos);
-				}
-
-				list.add("");
-				list.add(String.valueOf(Block.REGISTRY.getNameForObject(iblockstate.getBlock())));
-				IProperty<T> iproperty;
-				String s;
-
-				for (var unmodifiableiterator = iblockstate.getProperties().entrySet().iterator(); unmodifiableiterator.hasNext(); list.add(iproperty.getName() + ": " + s)) {
-					var entry = unmodifiableiterator.next();
-					iproperty = (IProperty) entry.getKey();
-					T t = (T) entry.getValue();
-					s = iproperty.getName(t);
-
-					if (t.equals(true)) {
-						s = TextFormatting.GREEN + s;
-					} else {
-						s = TextFormatting.RED + s;
-					}
-				}
+				addBlockStateDebugInfo(list, mc.objectMouseOver.getBlockPos());
 			}
+		}
 
-			return list;
+		return list;
+	}
+
+	private void addBlockStateDebugInfo(List<String> list, BlockPos blockpos) {
+
+		IBlockState iblockstate = mc.world.getBlockState(blockpos);
+
+		if (mc.world.getWorldType() != WorldType.DEBUG_ALL_BLOCK_STATES) {
+			iblockstate = iblockstate.getActualState(mc.world, blockpos);
+		}
+
+		list.add("");
+		list.add(String.valueOf(Block.REGISTRY.getNameForObject(iblockstate.getBlock())));
+
+		for (Entry<IProperty<?>, Comparable<?>> entry : iblockstate.getProperties().entrySet()) {
+			list.add(formatProperty(entry.getKey(), entry.getValue()));
 		}
 	}
 
@@ -206,55 +295,39 @@ public class GuiOverlayDebug extends Gui {
 		int j = frametimer.getIndex();
 		long[] along = frametimer.getFrames();
 		ScaledResolution scaledresolution = new ScaledResolution(mc);
+		int scaledHeight = scaledresolution.getScaledHeight();
+		int top = scaledHeight - LAGOMETER_HEIGHT;
+		int right = LAGOMETER_WIDTH - 1;
 		int k = i;
 		int l = 0;
-		drawRect(0, scaledresolution.getScaledHeight() - 60, 240, scaledresolution.getScaledHeight(), -1873784752);
+		drawRect(0, top, LAGOMETER_WIDTH, scaledHeight, DEBUG_BACKGROUND_COLOR);
 
 		while (k != j) {
 			int i1 = frametimer.getLagometerValue(along[k], 30);
-			int j1 = getFrameColor(MathHelper.clamp(i1, 0, 60), 0, 30, 60);
-			drawVerticalLine(l, scaledresolution.getScaledHeight(), scaledresolution.getScaledHeight() - i1, j1);
+			int j1 = getFrameColor(MathHelper.clamp(i1, 0, LAGOMETER_HEIGHT), LAGOMETER_MID_HEIGHT, LAGOMETER_HEIGHT);
+			drawVerticalLine(l, scaledHeight, scaledHeight - i1, j1);
 			++l;
 			k = frametimer.parseIndex(k + 1);
 		}
 
-		drawRect(1, scaledresolution.getScaledHeight() - 30 + 1, 14, scaledresolution.getScaledHeight() - 30 + 10, -1873784752);
-		fontRenderer.drawString("60", 2, scaledresolution.getScaledHeight() - 30 + 2, 14737632);
-		drawHorizontalLine(0, 239, scaledresolution.getScaledHeight() - 30, -1);
-		drawRect(1, scaledresolution.getScaledHeight() - 60 + 1, 14, scaledresolution.getScaledHeight() - 60 + 10, -1873784752);
-		fontRenderer.drawString("30", 2, scaledresolution.getScaledHeight() - 60 + 2, 14737632);
-		drawHorizontalLine(0, 239, scaledresolution.getScaledHeight() - 60, -1);
-		drawHorizontalLine(0, 239, scaledresolution.getScaledHeight() - 1, -1);
-		drawVerticalLine(0, scaledresolution.getScaledHeight() - 60, scaledresolution.getScaledHeight(), -1);
-		drawVerticalLine(239, scaledresolution.getScaledHeight() - 60, scaledresolution.getScaledHeight(), -1);
+		drawLagometerLabel("60", scaledHeight - LAGOMETER_MID_HEIGHT);
+		drawLagometerLabel("30", top);
+		drawHorizontalLine(0, right, scaledHeight - 1, LAGOMETER_BORDER_COLOR);
+		drawVerticalLine(0, top, scaledHeight, LAGOMETER_BORDER_COLOR);
+		drawVerticalLine(right, top, scaledHeight, LAGOMETER_BORDER_COLOR);
 
 		if (mc.gameSettings.limitFramerate <= 120) {
-			drawHorizontalLine(0, 239, scaledresolution.getScaledHeight() - 60 + mc.gameSettings.limitFramerate / 2, -16711681);
+			drawHorizontalLine(0, right, top + mc.gameSettings.limitFramerate / 2, LAGOMETER_LIMIT_COLOR);
 		}
 
 		GlStateManager.enableDepth();
 	}
 
-	private int getFrameColor(int p_181552_1_, int p_181552_2_, int p_181552_3_, int p_181552_4_) {
+	private void drawLagometerLabel(String text, int y) {
 
-		return p_181552_1_ < p_181552_3_ ? blendColors(-16711936, -256, (float) p_181552_1_ / (float) p_181552_3_) : blendColors(-256, -65536, (float) (p_181552_1_ - p_181552_3_) / (float) (p_181552_4_ - p_181552_3_));
-	}
-
-	private int blendColors(int p_181553_1_, int p_181553_2_, float p_181553_3_) {
-
-		int i = p_181553_1_ >> 24 & 255;
-		int j = p_181553_1_ >> 16 & 255;
-		int k = p_181553_1_ >> 8 & 255;
-		int l = p_181553_1_ & 255;
-		int i1 = p_181553_2_ >> 24 & 255;
-		int j1 = p_181553_2_ >> 16 & 255;
-		int k1 = p_181553_2_ >> 8 & 255;
-		int l1 = p_181553_2_ & 255;
-		int i2 = MathHelper.clamp((int) ((float) i + (float) (i1 - i) * p_181553_3_), 0, 255);
-		int j2 = MathHelper.clamp((int) ((float) j + (float) (j1 - j) * p_181553_3_), 0, 255);
-		int k2 = MathHelper.clamp((int) ((float) k + (float) (k1 - k) * p_181553_3_), 0, 255);
-		int l2 = MathHelper.clamp((int) ((float) l + (float) (l1 - l) * p_181553_3_), 0, 255);
-		return i2 << 24 | j2 << 16 | k2 << 8 | l2;
+		drawRect(1, y + 1, 14, y + 10, DEBUG_BACKGROUND_COLOR);
+		fontRenderer.drawString(text, 2, y + 2, DEBUG_TEXT_COLOR);
+		drawHorizontalLine(0, LAGOMETER_WIDTH - 1, y, LAGOMETER_BORDER_COLOR);
 	}
 
 }

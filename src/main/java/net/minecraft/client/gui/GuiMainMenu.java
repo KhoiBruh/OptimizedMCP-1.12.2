@@ -17,7 +17,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StringUtils;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.world.WorldServerDemo;
 import net.minecraft.world.storage.ISaveFormat;
 import net.minecraft.world.storage.WorldInfo;
 import org.apache.commons.io.IOUtils;
@@ -27,6 +26,7 @@ import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GLContext;
 import org.lwjgl.util.glu.Project;
 
+import java.awt.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -63,7 +63,6 @@ public class GuiMainMenu extends GuiScreen {
 	 * The splash message.
 	 */
 	private String splashText;
-	private GuiButton buttonResetDemo;
 	/**
 	 * Timer used to rotate the panorama, increases every tick.
 	 */
@@ -227,14 +226,9 @@ public class GuiMainMenu extends GuiScreen {
 			splashText = "OOoooOOOoooo! Spooky!";
 		}
 
-		int i = 24;
 		int j = height / 4 + 48;
 
-		if (mc.isDemo()) {
-			addDemoButtons(j, 24);
-		} else {
-			addSingleplayerMultiplayerButtons(j, 24);
-		}
+		addSingleplayerMultiplayerButtons(j, 24);
 
 		buttonList.add(new GuiButton(0, width / 2 - 100, j + 72 + 12, 98, 20, I18n.format("menu.options")));
 		buttonList.add(new GuiButton(4, width / 2 + 2, j + 72 + 12, 98, 20, I18n.format("menu.quit")));
@@ -275,21 +269,6 @@ public class GuiMainMenu extends GuiScreen {
 	}
 
 	/**
-	 * Adds Demo buttons on Main Menu for players who are playing Demo.
-	 */
-	private void addDemoButtons(int p_73972_1_, int p_73972_2_) {
-
-		buttonList.add(new GuiButton(11, width / 2 - 100, p_73972_1_, I18n.format("menu.playdemo")));
-		buttonResetDemo = addButton(new GuiButton(12, width / 2 - 100, p_73972_1_ + p_73972_2_, I18n.format("menu.resetdemo")));
-		ISaveFormat isaveformat = mc.getSaveLoader();
-		WorldInfo worldinfo = isaveformat.getWorldInfo("Demo_World");
-
-		if (worldinfo == null) {
-			buttonResetDemo.enabled = false;
-		}
-	}
-
-	/**
 	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
 	 */
 	protected void actionPerformed(GuiButton button) {
@@ -317,19 +296,6 @@ public class GuiMainMenu extends GuiScreen {
 		if (button.id == 4) {
 			mc.shutdown();
 		}
-
-		if (button.id == 11) {
-			mc.launchIntegratedServer("Demo_World", "Demo_World", WorldServerDemo.DEMO_WORLD_SETTINGS);
-		}
-
-		if (button.id == 12) {
-			ISaveFormat isaveformat = mc.getSaveLoader();
-			WorldInfo worldinfo = isaveformat.getWorldInfo("Demo_World");
-
-			if (worldinfo != null) {
-				mc.displayGuiScreen(new GuiYesNo(this, I18n.format("selectWorld.deleteQuestion"), "'" + worldinfo.getWorldName() + "' " + I18n.format("selectWorld.deleteWarning"), I18n.format("selectWorld.deleteButton"), I18n.format("gui.cancel"), 12));
-			}
-		}
 	}
 
 	private void switchToRealms() {
@@ -340,19 +306,12 @@ public class GuiMainMenu extends GuiScreen {
 
 	public void confirmClicked(boolean result, int id) {
 
-		if (result && id == 12) {
-			ISaveFormat isaveformat = mc.getSaveLoader();
-			isaveformat.flushCache();
-			isaveformat.deleteWorldDirectory("Demo_World");
-			mc.displayGuiScreen(this);
-		} else if (id == 12) {
+		if (id == 12) {
 			mc.displayGuiScreen(this);
 		} else if (id == 13) {
 			if (result) {
 				try {
-					Class<?> oclass = Class.forName("java.awt.Desktop");
-					Object object = oclass.getMethod("getDesktop").invoke(null);
-					oclass.getMethod("browse", URI.class).invoke(object, new URI(openGLWarningLink));
+					Desktop.getDesktop().browse(new URI(openGLWarningLink));
 				} catch (Throwable throwable) {
 					LOGGER.error("Couldn't open link", throwable);
 				}
@@ -551,11 +510,7 @@ public class GuiMainMenu extends GuiScreen {
 		GlStateManager.popMatrix();
 		String s = "Minecraft 1.12.2";
 
-		if (mc.isDemo()) {
-			s = s + " Demo";
-		} else {
-			s = s + ("release".equalsIgnoreCase(mc.getVersionType()) ? "" : "/" + mc.getVersionType());
-		}
+		s = s + ("release".equalsIgnoreCase(mc.getVersionType()) ? "" : "/" + mc.getVersionType());
 
 		drawString(fontRenderer, s, 2, height - 10, -1);
 		drawString(fontRenderer, "Copyright Mojang AB. Do not distribute!", widthCopyrightRest, height - 10, -1);

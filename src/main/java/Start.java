@@ -1,5 +1,3 @@
-package net;
-
 import net.minecraft.client.main.Main;
 
 import java.io.File;
@@ -15,7 +13,7 @@ public class Start {
 
 		File workingDirectory;
 		String userHome = System.getProperty("user.home", ".");
-		switch (Start.getPlatform()) {
+		switch (getPlatform()) {
 			case LINUX: {
 				workingDirectory = new File(userHome, ".minecraft/");
 				break;
@@ -34,11 +32,18 @@ public class Start {
 				workingDirectory = new File(userHome, "minecraft/");
 			}
 		}
-		try {
-			Main.main(new String[]{"--version", "Complex", "--accessToken", "0", "--assetIndex", "1.12", "--userProperties", "{}", "--gameDir", new File(workingDirectory, ".").getAbsolutePath(), "--assetsDir", new File(workingDirectory, "assets/").getAbsolutePath()});
-		} catch (Exception applicationData) {
-			// empty catch block
-		}
+
+		Main.main(
+				new String[]{
+						"--version", "Complex",
+						"--accessToken", "0",
+						"--assetIndex", "1.12",
+						"--userProperties", "{}",
+						"--gameDir", new File(workingDirectory, ".").getAbsolutePath(),
+						"--assetsDir", new File(workingDirectory, "assets/").getAbsolutePath()
+				}
+		);
+
 	}
 
 	public static OS getPlatform() {

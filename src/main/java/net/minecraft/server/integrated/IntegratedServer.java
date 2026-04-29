@@ -46,12 +46,11 @@ public class IntegratedServer extends MinecraftServer {
 		setServerOwner(clientIn.getSession().getUsername());
 		setFolderName(folderNameIn);
 		setWorldName(worldNameIn);
-		setDemo(clientIn.isDemo());
 		canCreateBonusChest(worldSettingsIn.isBonusChestEnabled());
 		setBuildLimit(256);
 		setPlayerList(new IntegratedPlayerList(this));
 		mc = clientIn;
-		worldSettings = isDemo() ? WorldServerDemo.DEMO_WORLD_SETTINGS : worldSettingsIn;
+		worldSettings = worldSettingsIn;
 	}
 
 	public ServerCommandManager createCommandManager() {
@@ -86,12 +85,7 @@ public class IntegratedServer extends MinecraftServer {
 			}
 
 			if (i == 0) {
-				if (isDemo()) {
-					worlds[i] = (WorldServer) (new WorldServerDemo(this, isavehandler, worldinfo, j, profiler)).init();
-				} else {
-					worlds[i] = (WorldServer) (new WorldServer(this, isavehandler, worldinfo, j, profiler)).init();
-				}
-
+				worlds[i] = (WorldServer) (new WorldServer(this, isavehandler, worldinfo, j, profiler)).init();
 				worlds[i].initialize(worldSettings);
 			} else {
 				worlds[i] = (WorldServer) (new WorldServerMulti(this, isavehandler, j, worlds[0], profiler)).init();

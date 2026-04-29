@@ -9,7 +9,7 @@ import org.apache.logging.log4j.Logger;
 import org.lwjgl.Sys;
 import org.lwjgl.opengl.*;
 import oshi.SystemInfo;
-import oshi.hardware.Processor;
+import oshi.hardware.CentralProcessor;
 
 import java.io.File;
 import java.io.IOException;
@@ -262,11 +262,8 @@ public class OpenGlHelper {
 			}
 		}
 
-		try {
-			Processor[] aprocessor = (new SystemInfo()).getHardware().getProcessors();
-			cpu = String.format("%dx %s", aprocessor.length, aprocessor[0]).replaceAll("\\s+", " ");
-		} catch (Throwable ignored) {
-		}
+		CentralProcessor processor = new SystemInfo().getHardware().getProcessor();
+		cpu = String.format("%dx %s", processor.getLogicalProcessorCount(), processor.getProcessorIdentifier().getName());
 	}
 
 	public static boolean areShadersSupported() {

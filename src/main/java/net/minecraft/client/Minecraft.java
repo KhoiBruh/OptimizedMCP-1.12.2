@@ -166,13 +166,11 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 	 */
 	public final Profiler mcProfiler = new Profiler();
 	private final File fileResourcepacks;
-	private final PropertyMap twitchDetails;
 	/**
 	 * The player's GameProfile properties
 	 */
 	private final PropertyMap profileProperties;
 	private final DataFixer dataFixer;
-	private final boolean enableGLErrorChecking = true;
 	private final Timer timer = new Timer(20.0F);
 	/**
 	 * Instance of PlayerUsageSnooper.
@@ -196,7 +194,6 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 	private final String versionType;
 	private final Proxy proxy;
 	private final boolean jvm64bit;
-	private final boolean isDemo;
 	private final MetadataSerializer metadataSerializer_ = new MetadataSerializer();
 	private final List<IResourcePack> defaultResourcePacks = Lists.newArrayList();
 	private final DefaultResourcePack mcDefaultResourcePack;
@@ -356,7 +353,6 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 		fileResourcepacks = gameConfig.folderInfo().resourcePacksDir();
 		launchedVersion = gameConfig.gameInfo().version();
 		versionType = gameConfig.gameInfo().versionType();
-		twitchDetails = gameConfig.userInfo().userProperties();
 		profileProperties = gameConfig.userInfo().profileProperties();
 		mcDefaultResourcePack = new DefaultResourcePack(gameConfig.folderInfo().getAssetsIndex());
 		proxy = gameConfig.userInfo().proxy() == null ? Proxy.NO_PROXY : gameConfig.userInfo().proxy();
@@ -364,7 +360,6 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 		session = gameConfig.userInfo().session();
 		LOGGER.info("Setting user: {}", session.getUsername());
 		LOGGER.debug("(Session ID is {})", session.getSessionID());
-		isDemo = gameConfig.gameInfo().isDemo();
 		displayWidth = gameConfig.displayInfo().width() > 0 ? gameConfig.displayInfo().width() : 1;
 		displayHeight = gameConfig.displayInfo().height() > 0 ? gameConfig.displayInfo().height() : 1;
 		tempDisplayWidth = gameConfig.displayInfo().width();
@@ -2276,14 +2271,6 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 		if (currentScreen instanceof GuiGameOver) {
 			displayGuiScreen(null);
 		}
-	}
-
-	/**
-	 * Gets whether this is a demo or not.
-	 */
-	public final boolean isDemo() {
-
-		return isDemo;
 	}
 
 	@Nullable

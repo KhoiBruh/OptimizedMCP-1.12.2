@@ -9,10 +9,15 @@ import javax.annotation.Nullable;
 import java.io.File;
 import java.net.Proxy;
 
-public record GameConfiguration(UserInformation userInfo, DisplayInformation displayInfo, FolderInformation folderInfo,
-                                GameInformation gameInfo, ServerInformation serverInfo) {
+public record GameConfiguration(
+		UserInformation userInfo,
+		DisplayInformation displayInfo,
+		FolderInformation folderInfo,
+		GameInformation gameInfo,
+		ServerInformation serverInfo
+) {
 
-	public record DisplayInformation(int width, int height, boolean fullscreen, boolean checkGlErrors) {
+	public record DisplayInformation(int width, int height, boolean fullscreen) {
 
 	}
 
@@ -33,7 +38,7 @@ public record GameConfiguration(UserInformation userInfo, DisplayInformation dis
 
 	}
 
-	public record GameInformation(boolean isDemo, String version, String versionType) {
+	public record GameInformation(String version, String versionType) {
 
 	}
 
