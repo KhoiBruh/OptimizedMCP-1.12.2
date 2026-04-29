@@ -26,7 +26,6 @@ public class OpenGlHelper {
 	 */
 	private static final Logger LOGGER = LogManager.getLogger();
 	public static boolean nvidia;
-	public static boolean ati;
 	public static int GL_FRAMEBUFFER;
 	public static int GL_RENDERBUFFER;
 	public static int GL_COLOR_ATTACHMENT0;
@@ -243,23 +242,12 @@ public class OpenGlHelper {
 		if (vboSupported) {
 			if (arbVbo) {
 				logText = logText + "ARB_vertex_buffer_object is supported.\n";
-				GL_STATIC_DRAW = 35044;
-				GL_ARRAY_BUFFER = 34962;
 			} else {
 				logText = logText + "OpenGL 1.5 is supported.\n";
-				GL_STATIC_DRAW = 35044;
-				GL_ARRAY_BUFFER = 34962;
 			}
-		}
-
-		ati = s.contains("ati");
-
-		if (ati) {
-			if (vboSupported) {
-				vboSupportedAti = true;
-			} else {
-				GameSettings.Options.RENDER_DISTANCE.setValueMax(16F);
-			}
+			
+			GL_STATIC_DRAW = 35044;
+			GL_ARRAY_BUFFER = 34962;
 		}
 
 		CentralProcessor processor = new SystemInfo().getHardware().getProcessor();
