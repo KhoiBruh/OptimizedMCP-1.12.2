@@ -5,7 +5,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.util.concurrent.*;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiScreenWorking;
+import net.minecraft.client.gui.loading.GuiScreenWorking;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.renderer.texture.TextureUtil;

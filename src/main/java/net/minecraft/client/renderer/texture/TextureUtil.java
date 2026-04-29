@@ -316,16 +316,9 @@ public class TextureUtil {
 	}
 
 	public static BufferedImage readBufferedImage(InputStream imageStream) throws IOException {
-
-		BufferedImage bufferedimage;
-
-		try {
-			bufferedimage = ImageIO.read(imageStream);
-		} finally {
-			IOUtils.closeQuietly(imageStream);
+		try(imageStream) {
+			return ImageIO.read(imageStream);
 		}
-
-		return bufferedimage;
 	}
 
 	public static int[] updateAnaglyph(int[] p_110985_0_) {

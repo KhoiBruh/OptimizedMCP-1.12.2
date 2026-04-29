@@ -1,7 +1,7 @@
 package net.minecraft.client.resources;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiScreenResourcePacks;
+import net.minecraft.client.gui.menu.GuiScreenResourcePacks;
 
 public class ResourcePackListEntryDefault extends ResourcePackListEntryServer {
 

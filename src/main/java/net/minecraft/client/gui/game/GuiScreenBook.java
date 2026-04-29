@@ -1,0 +1,563 @@
+package net.minecraft.client.gui.game;
+
+import com.google.common.collect.Lists;
+import com.google.gson.JsonParseException;
+import io.netty.buffer.Unpooled;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.GuiUtilRenderComponents;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.resources.I18n;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemWrittenBook;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.NBTTagString;
+import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.play.client.CPacketCustomPayload;
+import net.minecraft.util.ChatAllowedCharacters;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.event.ClickEvent;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.lwjgl.input.Keyboard;
+import java.io.IOException;
+import java.util.List;
+
+public class GuiScreenBook extends GuiScreen {
+
+	private static final Logger LOGGER = LogManager.getLogger();
+	private static final ResourceLocation BOOK_GUI_TEXTURES = new ResourceLocation("textures/gui/book.png");
+
+	/**
+	 * The player editing the book
+	 */
+	private final EntityPlayer editingPlayer;
+	private final ItemStack book;
+
+	/**
+	 * Whether the book is signed or can still be edited
+	 */
+	private final boolean bookIsUnsigned;
+	private final int bookImageWidth = 192;
+	private final int bookImageHeight = 192;
+	/**
+	 * Whether the book's title or contents has been modified since being opened
+	 */
+	private boolean bookIsModified;
+	/**
+	 * Determines if the signing screen is open
+	 */
+	private boolean bookGettingSigned;
+	/**
+	 * Update ticks since the gui was opened
+	 */
+	private int updateCount;
+	private int bookTotalPages = 1;
+	private int currPage;
+	private NBTTagList bookPages;
+	private String bookTitle = "";
+	private List<ITextComponent> cachedComponents;
+	private int cachedPage = -1;
+	private GuiScreenBook.NextPageButton buttonNextPage;
+	private GuiScreenBook.NextPageButton buttonPreviousPage;
+	private GuiButton buttonDone;
+
+	/**
+	 * The GuiButton to sign this book.
+	 */
+	private GuiButton buttonSign;
+	private GuiButton buttonFinalize;
+	private GuiButton buttonCancel;
+
+	public GuiScreenBook(EntityPlayer player, ItemStack book, boolean isUnsigned) {
+
+		editingPlayer = player;
+		this.book = book;
+		bookIsUnsigned = isUnsigned;
+
+		if (book.hasTagCompound()) {
+			NBTTagCompound nbttagcompound = book.getTagCompound();
+			bookPages = nbttagcompound.getTagList("pages", 8).copy();
+			bookTotalPages = bookPages.tagCount();
+
+			if (bookTotalPages < 1) {
+				bookTotalPages = 1;
+			}
+		}
+
+		if (bookPages == null && isUnsigned) {
+			bookPages = new NBTTagList();
+			bookPages.appendTag(new NBTTagString(""));
+			bookTotalPages = 1;
+		}
+	}
+
+	/**
+	 * Called from the main game loop to update the screen.
+	 */
+	public void updateScreen() {
+
+		super.updateScreen();
+		++updateCount;
+	}
+
+	/**
+	 * Adds the buttons (and other controls) to the screen in question. Called when the GUI is displayed and when the
+	 * window resizes, the buttonList is cleared beforehand.
+	 */
+	public void initGui() {
+
+		buttonList.clear();
+		Keyboard.enableRepeatEvents(true);
+
+		if (bookIsUnsigned) {
+			buttonSign = addButton(new GuiButton(3, width / 2 - 100, 196, 98, 20, I18n.format("book.signButton")));
+			buttonDone = addButton(new GuiButton(0, width / 2 + 2, 196, 98, 20, I18n.format("gui.done")));
+			buttonFinalize = addButton(new GuiButton(5, width / 2 - 100, 196, 98, 20, I18n.format("book.finalizeButton")));
+			buttonCancel = addButton(new GuiButton(4, width / 2 + 2, 196, 98, 20, I18n.format("gui.cancel")));
+		} else {
+			buttonDone = addButton(new GuiButton(0, width / 2 - 100, 196, 200, 20, I18n.format("gui.done")));
+		}
+
+		int i = (width - 192) / 2;
+		int j = 2;
+		buttonNextPage = addButton(new NextPageButton(1, i + 120, 156, true));
+		buttonPreviousPage = addButton(new NextPageButton(2, i + 38, 156, false));
+		updateButtons();
+	}
+
+	/**
+	 * Called when the screen is unloaded. Used to disable keyboard repeat events
+	 */
+	public void onGuiClosed() {
+
+		Keyboard.enableRepeatEvents(false);
+	}
+
+	private void updateButtons() {
+
+		buttonNextPage.visible = !bookGettingSigned && (currPage < bookTotalPages - 1 || bookIsUnsigned);
+		buttonPreviousPage.visible = !bookGettingSigned && currPage > 0;
+		buttonDone.visible = !bookIsUnsigned || !bookGettingSigned;
+
+		if (bookIsUnsigned) {
+			buttonSign.visible = !bookGettingSigned;
+			buttonCancel.visible = bookGettingSigned;
+			buttonFinalize.visible = bookGettingSigned;
+			buttonFinalize.enabled = !bookTitle.trim().isEmpty();
+		}
+	}
+
+	private void sendBookToServer(boolean publish) {
+
+		if (bookIsUnsigned && bookIsModified) {
+			if (bookPages != null) {
+				while (bookPages.tagCount() > 1) {
+					String s = bookPages.getStringTagAt(bookPages.tagCount() - 1);
+
+					if (!s.isEmpty()) {
+						break;
+					}
+
+					bookPages.removeTag(bookPages.tagCount() - 1);
+				}
+
+				if (book.hasTagCompound()) {
+					NBTTagCompound nbttagcompound = book.getTagCompound();
+					nbttagcompound.setTag("pages", bookPages);
+				} else {
+					book.setTagInfo("pages", bookPages);
+				}
+
+				String s1 = "MC|BEdit";
+
+				if (publish) {
+					s1 = "MC|BSign";
+					book.setTagInfo("author", new NBTTagString(editingPlayer.getName()));
+					book.setTagInfo("title", new NBTTagString(bookTitle.trim()));
+				}
+
+				PacketBuffer packetbuffer = new PacketBuffer(Unpooled.buffer());
+				packetbuffer.writeItemStack(book);
+				mc.getConnection().sendPacket(new CPacketCustomPayload(s1, packetbuffer));
+			}
+		}
+	}
+
+	/**
+	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
+	 */
+	protected void actionPerformed(GuiButton button) {
+
+		if (button.enabled) {
+			if (button.id == 0) {
+				mc.displayGuiScreen(null);
+				sendBookToServer(false);
+			} else if (button.id == 3 && bookIsUnsigned) {
+				bookGettingSigned = true;
+			} else if (button.id == 1) {
+				if (currPage < bookTotalPages - 1) {
+					++currPage;
+				} else if (bookIsUnsigned) {
+					addNewPage();
+
+					if (currPage < bookTotalPages - 1) {
+						++currPage;
+					}
+				}
+			} else if (button.id == 2) {
+				if (currPage > 0) {
+					--currPage;
+				}
+			} else if (button.id == 5 && bookGettingSigned) {
+				sendBookToServer(true);
+				mc.displayGuiScreen(null);
+			} else if (button.id == 4 && bookGettingSigned) {
+				bookGettingSigned = false;
+			}
+
+			updateButtons();
+		}
+	}
+
+	private void addNewPage() {
+
+		if (bookPages != null && bookPages.tagCount() < 50) {
+			bookPages.appendTag(new NBTTagString(""));
+			++bookTotalPages;
+			bookIsModified = true;
+		}
+	}
+
+	/**
+	 * Fired when a key is typed (except F11 which toggles full screen). This is the equivalent of
+	 * KeyListener.keyTyped(KeyEvent e). Args : character (character on the key), keyCode (lwjgl Keyboard key code)
+	 */
+	protected void keyTyped(char typedChar, int keyCode) throws IOException {
+
+		super.keyTyped(typedChar, keyCode);
+
+		if (bookIsUnsigned) {
+			if (bookGettingSigned) {
+				keyTypedInTitle(typedChar, keyCode);
+			} else {
+				keyTypedInBook(typedChar, keyCode);
+			}
+		}
+	}
+
+	/**
+	 * Processes keystrokes when editing the text of a book
+	 */
+	private void keyTypedInBook(char typedChar, int keyCode) {
+
+		if (GuiScreen.isKeyComboCtrlV(keyCode)) {
+			pageInsertIntoCurrent(GuiScreen.getClipboardString());
+		} else {
+			switch (keyCode) {
+				case 14:
+					String s = pageGetCurrent();
+
+					if (!s.isEmpty()) {
+						pageSetCurrent(s.substring(0, s.length() - 1));
+					}
+
+					return;
+
+				case 28:
+				case 156:
+					pageInsertIntoCurrent("\n");
+					return;
+
+				default:
+					if (ChatAllowedCharacters.isAllowedCharacter(typedChar)) {
+						pageInsertIntoCurrent(Character.toString(typedChar));
+					}
+			}
+		}
+	}
+
+	/**
+	 * Processes keystrokes when editing the title of a book
+	 */
+	private void keyTypedInTitle(char typedChar, int keyCode) {
+
+		switch (keyCode) {
+			case 14:
+				if (!bookTitle.isEmpty()) {
+					bookTitle = bookTitle.substring(0, bookTitle.length() - 1);
+					updateButtons();
+				}
+
+				return;
+
+			case 28:
+			case 156:
+				if (!bookTitle.isEmpty()) {
+					sendBookToServer(true);
+					mc.displayGuiScreen(null);
+				}
+
+				return;
+
+			default:
+				if (bookTitle.length() < 16 && ChatAllowedCharacters.isAllowedCharacter(typedChar)) {
+					bookTitle = bookTitle + typedChar;
+					updateButtons();
+					bookIsModified = true;
+				}
+		}
+	}
+
+	/**
+	 * Returns the entire text of the current page as determined by currPage
+	 */
+	private String pageGetCurrent() {
+
+		return bookPages != null && currPage >= 0 && currPage < bookPages.tagCount() ? bookPages.getStringTagAt(currPage) : "";
+	}
+
+	/**
+	 * Sets the text of the current page as determined by currPage
+	 */
+	private void pageSetCurrent(String p_146457_1_) {
+
+		if (bookPages != null && currPage >= 0 && currPage < bookPages.tagCount()) {
+			bookPages.set(currPage, new NBTTagString(p_146457_1_));
+			bookIsModified = true;
+		}
+	}
+
+	/**
+	 * Processes any text getting inserted into the current page, enforcing the page size limit
+	 */
+	private void pageInsertIntoCurrent(String p_146459_1_) {
+
+		String s = pageGetCurrent();
+		String s1 = s + p_146459_1_;
+		int i = fontRenderer.getWordWrappedHeight(s1 + TextFormatting.BLACK + "_", 118);
+
+		if (i <= 128 && s1.length() < 256) {
+			pageSetCurrent(s1);
+		}
+	}
+
+	/**
+	 * Draws the screen and all the components in it.
+	 */
+	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+
+		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+		mc.getTextureManager().bindTexture(BOOK_GUI_TEXTURES);
+		int i = (width - 192) / 2;
+		int j = 2;
+		drawTexturedModalRect(i, 2, 0, 0, 192, 192);
+
+		if (bookGettingSigned) {
+			String s = bookTitle;
+
+			if (bookIsUnsigned) {
+				if (updateCount / 6 % 2 == 0) {
+					s = s + TextFormatting.BLACK + "_";
+				} else {
+					s = s + TextFormatting.GRAY + "_";
+				}
+			}
+
+			String s1 = I18n.format("book.editTitle");
+			int k = fontRenderer.getStringWidth(s1);
+			fontRenderer.drawString(s1, i + 36 + (116 - k) / 2, 34, 0);
+			int l = fontRenderer.getStringWidth(s);
+			fontRenderer.drawString(s, i + 36 + (116 - l) / 2, 50, 0);
+			String s2 = I18n.format("book.byAuthor", editingPlayer.getName());
+			int i1 = fontRenderer.getStringWidth(s2);
+			fontRenderer.drawString(TextFormatting.DARK_GRAY + s2, i + 36 + (116 - i1) / 2, 60, 0);
+			String s3 = I18n.format("book.finalizeWarning");
+			fontRenderer.drawSplitString(s3, i + 36, 82, 116, 0);
+		} else {
+			String s4 = I18n.format("book.pageIndicator", currPage + 1, bookTotalPages);
+			String s5 = "";
+
+			if (bookPages != null && currPage >= 0 && currPage < bookPages.tagCount()) {
+				s5 = bookPages.getStringTagAt(currPage);
+			}
+
+			if (bookIsUnsigned) {
+				if (fontRenderer.getBidiFlag()) {
+					s5 = s5 + "_";
+				} else if (updateCount / 6 % 2 == 0) {
+					s5 = s5 + TextFormatting.BLACK + "_";
+				} else {
+					s5 = s5 + TextFormatting.GRAY + "_";
+				}
+			} else if (cachedPage != currPage) {
+				if (ItemWrittenBook.validBookTagContents(book.getTagCompound())) {
+					try {
+						ITextComponent itextcomponent = ITextComponent.Serializer.jsonToComponent(s5);
+						cachedComponents = itextcomponent != null ? GuiUtilRenderComponents.splitText(itextcomponent, 116, fontRenderer, true, true) : null;
+					} catch (JsonParseException var13) {
+						cachedComponents = null;
+					}
+				} else {
+					TextComponentString textcomponentstring = new TextComponentString(TextFormatting.DARK_RED + "* Invalid book tag *");
+					cachedComponents = Lists.newArrayList(textcomponentstring);
+				}
+
+				cachedPage = currPage;
+			}
+
+			int j1 = fontRenderer.getStringWidth(s4);
+			fontRenderer.drawString(s4, i - j1 + 192 - 44, 18, 0);
+
+			if (cachedComponents == null) {
+				fontRenderer.drawSplitString(s5, i + 36, 34, 116, 0);
+			} else {
+				int k1 = Math.min(128 / fontRenderer.FONT_HEIGHT, cachedComponents.size());
+
+				for (int l1 = 0; l1 < k1; ++l1) {
+					ITextComponent itextcomponent2 = cachedComponents.get(l1);
+					fontRenderer.drawString(itextcomponent2.getUnformattedText(), i + 36, 34 + l1 * fontRenderer.FONT_HEIGHT, 0);
+				}
+
+				ITextComponent itextcomponent1 = getClickedComponentAt(mouseX, mouseY);
+
+				if (itextcomponent1 != null) {
+					handleComponentHover(itextcomponent1, mouseX, mouseY);
+				}
+			}
+		}
+
+		super.drawScreen(mouseX, mouseY, partialTicks);
+	}
+
+	/**
+	 * Called when the mouse is clicked. Args : mouseX, mouseY, clickedButton
+	 */
+	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
+
+		if (mouseButton == 0) {
+			ITextComponent itextcomponent = getClickedComponentAt(mouseX, mouseY);
+
+			if (itextcomponent != null && handleComponentClick(itextcomponent)) {
+				return;
+			}
+		}
+
+		super.mouseClicked(mouseX, mouseY, mouseButton);
+	}
+
+	/**
+	 * Executes the click event specified by the given chat component
+	 */
+	public boolean handleComponentClick(ITextComponent component) {
+
+		ClickEvent clickevent = component.getStyle().getClickEvent();
+
+		if (clickevent == null) {
+			return false;
+		} else if (clickevent.action() == ClickEvent.Action.CHANGE_PAGE) {
+			String s = clickevent.value();
+
+			try {
+				int i = Integer.parseInt(s) - 1;
+
+				if (i >= 0 && i < bookTotalPages && i != currPage) {
+					currPage = i;
+					updateButtons();
+					return true;
+				}
+			} catch (Throwable ignored) {
+			}
+
+			return false;
+		} else {
+			boolean flag = super.handleComponentClick(component);
+
+			if (flag && clickevent.action() == ClickEvent.Action.RUN_COMMAND) {
+				mc.displayGuiScreen(null);
+			}
+
+			return flag;
+		}
+	}
+
+	
+	public ITextComponent getClickedComponentAt(int p_175385_1_, int p_175385_2_) {
+
+		if (cachedComponents == null) {
+			return null;
+		} else {
+			int i = p_175385_1_ - (width - 192) / 2 - 36;
+			int j = p_175385_2_ - 2 - 16 - 16;
+
+			if (i >= 0 && j >= 0) {
+				int k = Math.min(128 / fontRenderer.FONT_HEIGHT, cachedComponents.size());
+
+				if (i <= 116 && j < mc.fontRenderer.FONT_HEIGHT * k + k) {
+					int l = j / mc.fontRenderer.FONT_HEIGHT;
+
+					if (l >= 0 && l < cachedComponents.size()) {
+						ITextComponent itextcomponent = cachedComponents.get(l);
+						int i1 = 0;
+
+						for (ITextComponent itextcomponent1 : itextcomponent) {
+							if (itextcomponent1 instanceof TextComponentString) {
+								i1 += mc.fontRenderer.getStringWidth(((TextComponentString) itextcomponent1).getText());
+
+								if (i1 > i) {
+									return itextcomponent1;
+								}
+							}
+						}
+					}
+
+					return null;
+				} else {
+					return null;
+				}
+			} else {
+				return null;
+			}
+		}
+	}
+
+	static class NextPageButton extends GuiButton {
+
+		private final boolean isForward;
+
+		public NextPageButton(int buttonId, int x, int y, boolean isForwardIn) {
+
+			super(buttonId, x, y, 23, 13, "");
+			isForward = isForwardIn;
+		}
+
+		public void drawButton(Minecraft mc, int mouseX, int mouseY, float partialTicks) {
+
+			if (visible) {
+				boolean flag = mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
+				GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+				mc.getTextureManager().bindTexture(GuiScreenBook.BOOK_GUI_TEXTURES);
+				int i = 0;
+				int j = 192;
+
+				if (flag) {
+					i += 23;
+				}
+
+				if (!isForward) {
+					j += 13;
+				}
+
+				drawTexturedModalRect(x, y, i, j, 23, 13);
+			}
+		}
+
+	}
+
+}

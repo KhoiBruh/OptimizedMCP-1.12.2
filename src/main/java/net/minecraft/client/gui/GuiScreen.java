@@ -4,6 +4,8 @@ import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.menu.GuiConfirmOpenLink;
+import net.minecraft.client.gui.menu.GuiPanoramaBackground;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.util.ITooltipFlag;
@@ -590,7 +592,15 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 	 */
 	public void drawDefaultBackground() {
 
-		drawWorldBackground(0);
+		if (mc.world != null) {
+			drawWorldBackground(0);
+		} else {
+			GlStateManager.disableAlpha();
+			GuiPanoramaBackground.render(mc, width, height);
+			GlStateManager.enableAlpha();
+			drawGradientRect(0, 0, width, height, -2130706433, 16777215);
+			drawGradientRect(0, 0, width, height, 0, Integer.MIN_VALUE);
+		}
 	}
 
 	public void drawWorldBackground(int tint) {
@@ -613,7 +623,6 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 		BufferBuilder bufferbuilder = tessellator.getBuffer();
 		mc.getTextureManager().bindTexture(OPTIONS_BACKGROUND);
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-		float f = 32.0F;
 		bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
 		bufferbuilder.pos(0.0D, height, 0.0D).tex(0.0D, (float) height / 32.0F + (float) tint).color(64, 64, 64, 255).endVertex();
 		bufferbuilder.pos(width, height, 0.0D).tex((float) width / 32.0F, (float) height / 32.0F + (float) tint).color(64, 64, 64, 255).endVertex();

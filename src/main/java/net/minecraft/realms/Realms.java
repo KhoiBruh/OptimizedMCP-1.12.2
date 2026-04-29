@@ -4,7 +4,7 @@ import com.google.common.util.concurrent.ListenableFuture;
 import com.mojang.authlib.GameProfile;
 import com.mojang.util.UUIDTypeAdapter;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiMainMenu;
+import net.minecraft.client.gui.menu.GuiMainMenu;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTTagCompound;

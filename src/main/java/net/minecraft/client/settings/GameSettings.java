@@ -7,7 +7,7 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.gson.Gson;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiNewChat;
+import net.minecraft.client.gui.chat.GuiNewChat;
 import net.minecraft.client.gui.chat.NarratorChatListener;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.resources.I18n;
