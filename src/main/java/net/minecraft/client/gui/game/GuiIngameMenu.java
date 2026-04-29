@@ -1,6 +1,6 @@
 package net.minecraft.client.gui.game;
 
-import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.component.GuiButton;
 import net.minecraft.client.gui.option.GuiOptions;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.option.GuiShareToLan;
@@ -9,7 +9,6 @@ import net.minecraft.client.gui.advancements.GuiScreenAdvancements;
 import net.minecraft.client.gui.menu.GuiMainMenu;
 import net.minecraft.client.gui.menu.GuiMultiplayer;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.realms.RealmsBridge;
 
 public class GuiIngameMenu extends GuiScreen {
 
@@ -52,16 +51,12 @@ public class GuiIngameMenu extends GuiScreen {
 
 			case 1:
 				boolean flag = mc.isIntegratedServerRunning();
-				boolean flag1 = mc.isConnectedToRealms();
 				button.enabled = false;
 				mc.world.sendQuittingDisconnectingPacket();
 				mc.loadWorld(null);
 
 				if (flag) {
 					mc.displayGuiScreen(new GuiMainMenu());
-				} else if (flag1) {
-					RealmsBridge realmsbridge = new RealmsBridge();
-					realmsbridge.switchToRealms(new GuiMainMenu());
 				} else {
 					mc.displayGuiScreen(new GuiMultiplayer(new GuiMainMenu()));
 				}

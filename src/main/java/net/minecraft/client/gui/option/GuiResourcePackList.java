@@ -1,7 +1,7 @@
 package net.minecraft.client.gui.option;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiListExtended;
+import net.minecraft.client.gui.component.GuiListExtended;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.resources.ResourcePackListEntry;
 import net.minecraft.util.text.TextFormatting;

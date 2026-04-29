@@ -2,6 +2,8 @@ package net.minecraft.client.gui.menu;
 
 import com.google.common.collect.Lists;
 import net.minecraft.client.gui.*;
+import net.minecraft.client.gui.component.GuiButton;
+import net.minecraft.client.gui.component.GuiOptionButton;
 import net.minecraft.client.gui.option.GuiResourcePackAvailable;
 import net.minecraft.client.gui.option.GuiResourcePackSelected;
 import net.minecraft.client.renderer.OpenGlHelper;

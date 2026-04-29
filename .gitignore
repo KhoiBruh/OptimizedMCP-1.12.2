@@ -1,15 +1,5 @@
 .gradle
 build
-workspace/assets/log_configs
-workspace/assets/objects
-workspace/assets/skins
-workspace/assets/viaversion
-workspace/logs
-workspace/resourcepacks
-workspace/saves
-workspace/options.txt
-workspace/server.properties
-workspace/servers.dat
-workspace/usercache.json
+workspace
 README.md
 /out/

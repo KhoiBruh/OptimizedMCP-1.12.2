@@ -1,6 +1,10 @@
-package net.minecraft.client.gui;
+package net.minecraft.client.gui.menu;
 
 import com.google.common.collect.Lists;
+import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.GuiYesNoCallback;
+import net.minecraft.client.gui.component.GuiButton;
+import net.minecraft.client.gui.component.GuiOptionButton;
 import net.minecraft.client.resources.I18n;
 
 import java.util.List;

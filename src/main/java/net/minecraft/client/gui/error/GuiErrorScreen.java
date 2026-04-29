@@ -1,5 +1,7 @@
-package net.minecraft.client.gui;
+package net.minecraft.client.gui.error;
 
+import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.component.GuiButton;
 import net.minecraft.client.resources.I18n;
 
 public class GuiErrorScreen extends GuiScreen {

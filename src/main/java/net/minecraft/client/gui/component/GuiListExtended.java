@@ -1,4 +1,4 @@
-package net.minecraft.client.gui;
+package net.minecraft.client.gui.component;
 
 import net.minecraft.client.Minecraft;
 

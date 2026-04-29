@@ -1,6 +1,6 @@
 package net.minecraft.client.gui.option;
 
-import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.component.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.text.ITextComponent;

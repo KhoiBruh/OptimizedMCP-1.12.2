@@ -42,6 +42,5 @@ dependencies {
     implementation "org.lwjgl:lwjgl:2.9.4-nightly-20150209"
     implementation "org.lwjgl:lwjgl_util:2.9.4-nightly-20150209"
     implementation "com.mojang:text2speech:1.10.3"
-    implementation "com.mojang:realms:1.10.18"
     implementation "com.mojang:authlib:1.5.25"
 }

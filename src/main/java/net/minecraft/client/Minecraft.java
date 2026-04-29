@@ -23,6 +23,7 @@ import net.minecraft.client.gui.advancements.GuiScreenAdvancements;
 import net.minecraft.client.gui.chat.GuiChat;
 import net.minecraft.client.gui.chat.GuiNewChat;
 import net.minecraft.client.gui.chat.NarratorChatListener;
+import net.minecraft.client.gui.error.GuiMemoryErrorScreen;
 import net.minecraft.client.gui.game.*;
 import net.minecraft.client.gui.inventory.GuiContainerCreative;
 import net.minecraft.client.gui.inventory.GuiInventory;
@@ -189,7 +190,6 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 	private boolean actionKeyF3;
 	private BlockColors blockColors;
 	private BlockRendererDispatcher blockRenderDispatcher;
-	private boolean connectedToRealms;
 	private CrashReport crashReporter;
 	private ServerData currentServerData;
 	private final DataFixer dataFixer;
@@ -2733,22 +2733,6 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 	public FrameTimer getFrameTimer() {
 		
 		return frameTimer;
-	}
-	
-	/**
-	 * Return true if the player is connected to a realms server
-	 */
-	public boolean isConnectedToRealms() {
-		
-		return connectedToRealms;
-	}
-	
-	/**
-	 * Set if the player is connected to a realms server
-	 */
-	public void setConnectedToRealms(boolean isConnected) {
-		
-		connectedToRealms = isConnected;
 	}
 	
 	public DataFixer getDataFixer() {

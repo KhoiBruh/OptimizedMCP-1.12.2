@@ -3,6 +3,7 @@ package net.minecraft.client.gui.menu;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.*;
+import net.minecraft.client.gui.component.GuiListExtended;
 import net.minecraft.client.gui.loading.GuiScreenWorking;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.texture.DynamicTexture;

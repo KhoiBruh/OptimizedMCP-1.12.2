@@ -123,7 +123,6 @@ public class GameSettings {
 	public int attackIndicator = 1;
 	public boolean enableWeakAttacks;
 	public boolean showSubtitles;
-	public boolean realmsNotifications = true;
 	public boolean autoJump = true;
 	public TutorialSteps tutorialStep = TutorialSteps.MOVEMENT;
 	public KeyBinding keyBindForward = new KeyBinding("key.forward", 17, "key.categories.movement");
@@ -444,10 +443,6 @@ public class GameSettings {
 			showSubtitles = !showSubtitles;
 		}
 
-		if (settingsOption == GameSettings.Options.REALMS_NOTIFICATIONS) {
-			realmsNotifications = !realmsNotifications;
-		}
-
 		if (settingsOption == GameSettings.Options.AUTO_JUMP) {
 			autoJump = !autoJump;
 		}
@@ -513,7 +508,6 @@ public class GameSettings {
 			case REDUCED_DEBUG_INFO -> reducedDebugInfo;
 			case ENTITY_SHADOWS -> entityShadows;
 			case SHOW_SUBTITLES -> showSubtitles;
-			case REALMS_NOTIFICATIONS -> realmsNotifications;
 			case ENABLE_WEAK_ATTACKS -> enableWeakAttacks;
 			case AUTO_JUMP -> autoJump;
 			default -> false;
@@ -852,10 +846,6 @@ public class GameSettings {
 						showSubtitles = "true".equals(s2);
 					}
 
-					if ("realmsNotifications".equals(s1)) {
-						realmsNotifications = "true".equals(s2);
-					}
-
 					if ("enableWeakAttacks".equals(s1)) {
 						enableWeakAttacks = "true".equals(s2);
 					}
@@ -991,7 +981,6 @@ public class GameSettings {
 			printwriter.println("mainHand:" + (mainHand == EnumHandSide.LEFT ? "left" : "right"));
 			printwriter.println("attackIndicator:" + attackIndicator);
 			printwriter.println("showSubtitles:" + showSubtitles);
-			printwriter.println("realmsNotifications:" + realmsNotifications);
 			printwriter.println("enableWeakAttacks:" + enableWeakAttacks);
 			printwriter.println("autoJump:" + autoJump);
 			printwriter.println("narrator:" + narrator);
@@ -1125,7 +1114,6 @@ public class GameSettings {
 		ATTACK_INDICATOR("options.attackIndicator", false, false),
 		ENABLE_WEAK_ATTACKS("options.enableWeakAttacks", false, true),
 		SHOW_SUBTITLES("options.showSubtitles", false, true),
-		REALMS_NOTIFICATIONS("options.realmsNotifications", false, true),
 		AUTO_JUMP("options.autoJump", false, true),
 		NARRATOR("options.narrator", false, false);
 

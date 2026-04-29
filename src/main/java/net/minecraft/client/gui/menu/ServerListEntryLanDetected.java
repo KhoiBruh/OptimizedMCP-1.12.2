@@ -1,7 +1,7 @@
 package net.minecraft.client.gui.menu;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiListExtended;
+import net.minecraft.client.gui.component.GuiListExtended;
 import net.minecraft.client.network.LanServerInfo;
 import net.minecraft.client.resources.I18n;
 

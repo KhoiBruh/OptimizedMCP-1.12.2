@@ -1,7 +1,12 @@
 package net.minecraft.client.gui.option;
 
 import net.minecraft.client.gui.*;
+import net.minecraft.client.gui.component.GuiButton;
+import net.minecraft.client.gui.component.GuiLockIconButton;
+import net.minecraft.client.gui.component.GuiOptionButton;
+import net.minecraft.client.gui.component.GuiOptionSlider;
 import net.minecraft.client.gui.menu.GuiScreenResourcePacks;
+import net.minecraft.client.gui.menu.GuiYesNo;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.util.text.ITextComponent;
@@ -65,8 +70,6 @@ public class GuiOptions extends GuiScreen {
 			} else {
 				difficultyButton.enabled = false;
 			}
-		} else {
-			buttonList.add(new GuiOptionButton(GameSettings.Options.REALMS_NOTIFICATIONS.getOrdinal(), width / 2 - 155 + i % 2 * 160, height / 6 - 12 + 24 * (i >> 1), GameSettings.Options.REALMS_NOTIFICATIONS, settings.getKeyBinding(GameSettings.Options.REALMS_NOTIFICATIONS)));
 		}
 
 		buttonList.add(new GuiButton(110, width / 2 - 155, height / 6 + 48 - 6, 150, 20, I18n.format("options.skinCustomisation")));

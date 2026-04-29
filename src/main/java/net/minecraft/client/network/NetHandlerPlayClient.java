@@ -21,6 +21,7 @@ import net.minecraft.client.gui.inventory.GuiContainerCreative;
 import net.minecraft.client.gui.loading.GuiDownloadTerrain;
 import net.minecraft.client.gui.menu.GuiMainMenu;
 import net.minecraft.client.gui.menu.GuiMultiplayer;
+import net.minecraft.client.gui.menu.GuiYesNo;
 import net.minecraft.client.gui.recipebook.GuiRecipeBook;
 import net.minecraft.client.gui.recipebook.IRecipeShownListener;
 import net.minecraft.client.gui.toasts.RecipeToast;
@@ -67,7 +68,6 @@ import net.minecraft.network.play.server.*;
 import net.minecraft.pathfinding.Path;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.realms.DisconnectedRealmsScreen;
 import net.minecraft.scoreboard.*;
 import net.minecraft.stats.RecipeBook;
 import net.minecraft.stats.StatBase;
@@ -614,16 +614,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 	public void onDisconnect(ITextComponent reason) {
 
 		gameController.loadWorld(null);
-
-		if (guiScreenServer != null) {
-			if (guiScreenServer instanceof GuiScreenRealmsProxy) {
-				gameController.displayGuiScreen((new DisconnectedRealmsScreen(((GuiScreenRealmsProxy) guiScreenServer).getProxy(), "disconnect.lost", reason)).getProxy());
-			} else {
-				gameController.displayGuiScreen(new GuiDisconnected(guiScreenServer, "disconnect.lost", reason));
-			}
-		} else {
-			gameController.displayGuiScreen(new GuiDisconnected(new GuiMultiplayer(new GuiMainMenu()), "disconnect.lost", reason));
-		}
+		if (guiScreenServer == null) gameController.displayGuiScreen(new GuiDisconnected(new GuiMultiplayer(new GuiMainMenu()), "disconnect.lost", reason));
 	}
 
 	public void sendPacket(Packet<?> packetIn) {

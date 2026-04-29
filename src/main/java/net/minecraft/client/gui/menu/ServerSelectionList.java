@@ -2,7 +2,7 @@ package net.minecraft.client.gui.menu;
 
 import com.google.common.collect.Lists;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiListExtended;
+import net.minecraft.client.gui.component.GuiListExtended;
 import net.minecraft.client.multiplayer.ServerList;
 import net.minecraft.client.network.LanServerInfo;
 

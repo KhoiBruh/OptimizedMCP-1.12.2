@@ -3,6 +3,7 @@ package net.minecraft.client.gui.menu;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 import net.minecraft.client.gui.*;
+import net.minecraft.client.gui.component.GuiButton;
 import net.minecraft.client.resources.I18n;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

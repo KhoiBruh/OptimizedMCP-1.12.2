@@ -1,7 +1,7 @@
 package net.minecraft.client.gui.inventory;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.component.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.client.renderer.GlStateManager;
@@ -13,8 +13,6 @@ import net.minecraft.tileentity.TileEntitySign;
 import net.minecraft.util.ChatAllowedCharacters;
 import net.minecraft.util.text.TextComponentString;
 import org.lwjgl.input.Keyboard;
-
-import java.io.IOException;
 
 public class GuiEditSign extends GuiScreen {
 

@@ -1,10 +1,11 @@
-package net.minecraft.client.gui;
+package net.minecraft.client.gui.component;
 
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.google.common.collect.Lists;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.*;
 import net.minecraft.util.IntHashMap;
 import java.util.List;
 

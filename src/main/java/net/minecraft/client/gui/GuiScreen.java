@@ -4,6 +4,8 @@ import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.component.GuiButton;
+import net.minecraft.client.gui.component.GuiLabel;
 import net.minecraft.client.gui.menu.GuiConfirmOpenLink;
 import net.minecraft.client.gui.menu.GuiPanoramaBackground;
 import net.minecraft.client.renderer.*;

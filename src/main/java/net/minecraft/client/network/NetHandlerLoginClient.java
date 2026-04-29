@@ -8,7 +8,6 @@ import com.mojang.authlib.minecraft.MinecraftSessionService;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.game.GuiDisconnected;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.gui.GuiScreenRealmsProxy;
 import net.minecraft.network.EnumConnectionState;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.login.INetHandlerLoginClient;
@@ -17,7 +16,6 @@ import net.minecraft.network.login.server.SPacketDisconnect;
 import net.minecraft.network.login.server.SPacketEnableCompression;
 import net.minecraft.network.login.server.SPacketEncryptionRequest;
 import net.minecraft.network.login.server.SPacketLoginSuccess;
-import net.minecraft.realms.DisconnectedRealmsScreen;
 import net.minecraft.util.CryptManager;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
@@ -92,12 +90,7 @@ public class NetHandlerLoginClient implements INetHandlerLoginClient {
 	 * Invoked when disconnecting, the parameter is a ChatComponent describing the reason for termination
 	 */
 	public void onDisconnect(ITextComponent reason) {
-
-		if (previousGuiScreen != null && previousGuiScreen instanceof GuiScreenRealmsProxy) {
-			mc.displayGuiScreen((new DisconnectedRealmsScreen(((GuiScreenRealmsProxy) previousGuiScreen).getProxy(), "connect.failed", reason)).getProxy());
-		} else {
-			mc.displayGuiScreen(new GuiDisconnected(previousGuiScreen, "connect.failed", reason));
-		}
+		if (previousGuiScreen == null) mc.displayGuiScreen(new GuiDisconnected(null, "connect.failed", reason));
 	}
 
 	public void handleDisconnect(SPacketDisconnect packetIn) {

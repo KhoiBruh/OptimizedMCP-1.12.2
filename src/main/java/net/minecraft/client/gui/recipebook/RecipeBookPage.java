@@ -2,7 +2,7 @@ package net.minecraft.client.gui.recipebook;
 
 import com.google.common.collect.Lists;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiButtonToggle;
+import net.minecraft.client.gui.component.GuiButtonToggle;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.stats.RecipeBook;

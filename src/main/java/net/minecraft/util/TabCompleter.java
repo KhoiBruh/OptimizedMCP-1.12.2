@@ -2,7 +2,7 @@ package net.minecraft.util;
 
 import com.google.common.collect.Lists;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiTextField;
+import net.minecraft.client.gui.component.GuiTextField;
 import net.minecraft.network.play.client.CPacketTabComplete;
 import net.minecraft.util.math.BlockPos;
 import java.util.List;

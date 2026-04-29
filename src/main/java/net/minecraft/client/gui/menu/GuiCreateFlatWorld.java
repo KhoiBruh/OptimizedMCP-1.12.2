@@ -3,6 +3,8 @@ package net.minecraft.client.gui.menu;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.*;
+import net.minecraft.client.gui.component.GuiButton;
+import net.minecraft.client.gui.component.GuiSlot;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;

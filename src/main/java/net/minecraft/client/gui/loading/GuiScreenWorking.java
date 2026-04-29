@@ -56,9 +56,7 @@ public class GuiScreenWorking extends GuiScreen implements IProgressUpdate {
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 
 		if (doneWorking) {
-			if (!mc.isConnectedToRealms()) {
-				mc.displayGuiScreen(null);
-			}
+			mc.displayGuiScreen(null);
 		} else {
 			drawDefaultBackground();
 			drawCenteredString(fontRenderer, title, width / 2, 70, 16777215);

@@ -1,7 +1,7 @@
 package net.minecraft.client.gui.inventory;
 
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiButtonImage;
+import net.minecraft.client.gui.component.GuiButton;
+import net.minecraft.client.gui.component.GuiButtonImage;
 import net.minecraft.client.gui.recipebook.GuiRecipeBook;
 import net.minecraft.client.gui.recipebook.IRecipeShownListener;
 import net.minecraft.client.renderer.GlStateManager;

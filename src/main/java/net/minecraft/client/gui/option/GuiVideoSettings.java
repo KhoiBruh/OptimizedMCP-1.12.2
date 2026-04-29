@@ -1,6 +1,9 @@
 package net.minecraft.client.gui.option;
 
 import net.minecraft.client.gui.*;
+import net.minecraft.client.gui.component.GuiButton;
+import net.minecraft.client.gui.component.GuiListExtended;
+import net.minecraft.client.gui.component.GuiOptionsRowList;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.settings.GameSettings;

@@ -1,9 +1,9 @@
 package net.minecraft.client.gui.game;
 
-import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.component.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiUtilRenderComponents;
-import net.minecraft.client.gui.GuiYesNo;
+import net.minecraft.client.gui.menu.GuiYesNo;
 import net.minecraft.client.gui.menu.GuiMainMenu;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;

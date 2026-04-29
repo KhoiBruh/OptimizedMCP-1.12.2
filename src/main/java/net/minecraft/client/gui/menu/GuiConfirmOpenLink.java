@@ -1,7 +1,6 @@
 package net.minecraft.client.gui.menu;
 
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiYesNo;
+import net.minecraft.client.gui.component.GuiButton;
 import net.minecraft.client.gui.GuiYesNoCallback;
 import net.minecraft.client.resources.I18n;
 

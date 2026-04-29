@@ -1,10 +1,10 @@
 package net.minecraft.client.gui.menu;
 
 import com.google.common.collect.Lists;
-import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.component.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.gui.GuiSlot;
-import net.minecraft.client.gui.GuiTextField;
+import net.minecraft.client.gui.component.GuiSlot;
+import net.minecraft.client.gui.component.GuiTextField;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;

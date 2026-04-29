@@ -2,7 +2,9 @@ package net.minecraft.client.resources;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.*;
+import net.minecraft.client.gui.component.GuiListExtended;
 import net.minecraft.client.gui.menu.GuiScreenResourcePacks;
+import net.minecraft.client.gui.menu.GuiYesNo;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;

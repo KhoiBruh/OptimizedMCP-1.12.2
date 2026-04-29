@@ -1,5 +1,8 @@
-package net.minecraft.client.gui;
+package net.minecraft.client.gui.error;
 
+import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.component.GuiButton;
+import net.minecraft.client.gui.component.GuiOptionButton;
 import net.minecraft.client.gui.menu.GuiMainMenu;
 import net.minecraft.client.resources.I18n;
 

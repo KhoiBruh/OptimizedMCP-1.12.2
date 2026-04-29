@@ -1,6 +1,8 @@
 package net.minecraft.client.gui.menu;
 
 import net.minecraft.client.gui.*;
+import net.minecraft.client.gui.component.GuiButton;
+import net.minecraft.client.gui.component.GuiTextField;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ChatAllowedCharacters;
 import net.minecraft.world.GameType;
