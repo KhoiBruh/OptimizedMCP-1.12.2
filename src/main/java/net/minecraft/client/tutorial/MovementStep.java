@@ -71,11 +71,11 @@ public class MovementStep implements ITutorialStep {
 		}
 
 		if (moveToast != null) {
-			moveToast.setProgress((float) timeMoved / 40.0F);
+			moveToast.setProgress((float) timeMoved / 40F);
 		}
 
 		if (lookToast != null) {
-			lookToast.setProgress((float) timeLooked / 40.0F);
+			lookToast.setProgress((float) timeLooked / 40F);
 		}
 
 		if (timeWaiting >= 100) {

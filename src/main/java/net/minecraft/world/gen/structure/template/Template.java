@@ -85,11 +85,11 @@ public class Template {
 
 		switch (mirrorIn) {
 			case LEFT_RIGHT:
-				d2 = 1.0D - d2;
+				d2 = 1D - d2;
 				break;
 
 			case FRONT_BACK:
-				d0 = 1.0D - d0;
+				d0 = 1D - d0;
 				break;
 
 			default:
@@ -97,9 +97,9 @@ public class Template {
 		}
 
 		return switch (rotationIn) {
-			case COUNTERCLOCKWISE_90 -> new Vec3d(d2, d1, 1.0D - d0);
-			case CLOCKWISE_90 -> new Vec3d(1.0D - d2, d1, d0);
-			case CLOCKWISE_180 -> new Vec3d(1.0D - d0, d1, 1.0D - d2);
+			case COUNTERCLOCKWISE_90 -> new Vec3d(d2, d1, 1D - d0);
+			case CLOCKWISE_90 -> new Vec3d(1D - d2, d1, d0);
+			case CLOCKWISE_180 -> new Vec3d(1D - d0, d1, 1D - d2);
 			default -> flag ? new Vec3d(d0, d1, d2) : vec;
 		};
 	}

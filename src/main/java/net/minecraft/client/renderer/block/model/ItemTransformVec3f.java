@@ -9,7 +9,7 @@ import java.lang.reflect.Type;
 
 public record ItemTransformVec3f(Vector3f rotation, Vector3f translation, Vector3f scale) {
 
-	public static final ItemTransformVec3f DEFAULT = new ItemTransformVec3f(new Vector3f(), new Vector3f(), new Vector3f(1.0F, 1.0F, 1.0F));
+	public static final ItemTransformVec3f DEFAULT = new ItemTransformVec3f(new Vector3f(), new Vector3f(), new Vector3f(1F, 1F, 1F));
 
 	public ItemTransformVec3f(Vector3f rotation, Vector3f translation, Vector3f scale) {
 
@@ -32,9 +32,9 @@ public record ItemTransformVec3f(Vector3f rotation, Vector3f translation, Vector
 
 	static class Deserializer implements JsonDeserializer<ItemTransformVec3f> {
 
-		private static final Vector3f ROTATION_DEFAULT = new Vector3f(0.0F, 0.0F, 0.0F);
-		private static final Vector3f TRANSLATION_DEFAULT = new Vector3f(0.0F, 0.0F, 0.0F);
-		private static final Vector3f SCALE_DEFAULT = new Vector3f(1.0F, 1.0F, 1.0F);
+		private static final Vector3f ROTATION_DEFAULT = new Vector3f(0F, 0F, 0F);
+		private static final Vector3f TRANSLATION_DEFAULT = new Vector3f(0F, 0F, 0F);
+		private static final Vector3f SCALE_DEFAULT = new Vector3f(1F, 1F, 1F);
 
 		public ItemTransformVec3f deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException {
 
@@ -42,13 +42,13 @@ public record ItemTransformVec3f(Vector3f rotation, Vector3f translation, Vector
 			Vector3f vector3f = parseVector3f(jsonobject, "rotation", ROTATION_DEFAULT);
 			Vector3f vector3f1 = parseVector3f(jsonobject, "translation", TRANSLATION_DEFAULT);
 			vector3f1.scale(0.0625F);
-			vector3f1.x = MathHelper.clamp(vector3f1.x, -5.0F, 5.0F);
-			vector3f1.y = MathHelper.clamp(vector3f1.y, -5.0F, 5.0F);
-			vector3f1.z = MathHelper.clamp(vector3f1.z, -5.0F, 5.0F);
+			vector3f1.x = MathHelper.clamp(vector3f1.x, -5F, 5F);
+			vector3f1.y = MathHelper.clamp(vector3f1.y, -5F, 5F);
+			vector3f1.z = MathHelper.clamp(vector3f1.z, -5F, 5F);
 			Vector3f vector3f2 = parseVector3f(jsonobject, "scale", SCALE_DEFAULT);
-			vector3f2.x = MathHelper.clamp(vector3f2.x, -4.0F, 4.0F);
-			vector3f2.y = MathHelper.clamp(vector3f2.y, -4.0F, 4.0F);
-			vector3f2.z = MathHelper.clamp(vector3f2.z, -4.0F, 4.0F);
+			vector3f2.x = MathHelper.clamp(vector3f2.x, -4F, 4F);
+			vector3f2.y = MathHelper.clamp(vector3f2.y, -4F, 4F);
+			vector3f2.z = MathHelper.clamp(vector3f2.z, -4F, 4F);
 			return new ItemTransformVec3f(vector3f, vector3f1, vector3f2);
 		}
 

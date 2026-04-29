@@ -197,7 +197,7 @@ public abstract class TileEntity {
 
 	public double getMaxRenderDistanceSquared() {
 
-		return 4096.0D;
+		return 4096D;
 	}
 
 	public BlockPos getPos() {

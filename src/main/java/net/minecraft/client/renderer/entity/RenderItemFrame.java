@@ -42,7 +42,7 @@ public class RenderItemFrame extends Render<EntityItemFrame> {
 		double d1 = (double) blockpos.getY() - entity.posY + y;
 		double d2 = (double) blockpos.getZ() - entity.posZ + z;
 		GlStateManager.translate(d0 + 0.5D, d1 + 0.5D, d2 + 0.5D);
-		GlStateManager.rotate(180.0F - entity.rotationYaw, 0.0F, 1.0F, 0.0F);
+		GlStateManager.rotate(180F - entity.rotationYaw, 0F, 1F, 0F);
 		renderManager.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 		BlockRendererDispatcher blockrendererdispatcher = mc.getBlockRendererDispatcher();
 		ModelManager modelmanager = blockrendererdispatcher.getBlockModelShapes().getModelManager();
@@ -62,7 +62,7 @@ public class RenderItemFrame extends Render<EntityItemFrame> {
 			GlStateManager.enableOutlineMode(getTeamColor(entity));
 		}
 
-		blockrendererdispatcher.getBlockModelRenderer().renderModelBrightnessColor(ibakedmodel, 1.0F, 1.0F, 1.0F, 1.0F);
+		blockrendererdispatcher.getBlockModelRenderer().renderModelBrightnessColor(ibakedmodel, 1F, 1F, 1F, 1F);
 
 		if (renderOutlines) {
 			GlStateManager.disableOutlineMode();
@@ -70,7 +70,7 @@ public class RenderItemFrame extends Render<EntityItemFrame> {
 		}
 
 		GlStateManager.popMatrix();
-		GlStateManager.translate(0.0F, 0.0F, 0.4375F);
+		GlStateManager.translate(0F, 0F, 0.4375F);
 		renderItem(entity);
 		GlStateManager.popMatrix();
 		renderName(entity, x + (double) ((float) entity.facingDirection.getFrontOffsetX() * 0.3F), y - 0.25D, z + (double) ((float) entity.facingDirection.getFrontOffsetZ() * 0.3F));
@@ -95,16 +95,16 @@ public class RenderItemFrame extends Render<EntityItemFrame> {
 			GlStateManager.disableLighting();
 			boolean flag = itemstack.getItem() == Items.FILLED_MAP;
 			int i = flag ? itemFrame.getRotation() % 4 * 2 : itemFrame.getRotation();
-			GlStateManager.rotate((float) i * 360.0F / 8.0F, 0.0F, 0.0F, 1.0F);
+			GlStateManager.rotate((float) i * 360F / 8F, 0F, 0F, 1F);
 
 			if (flag) {
 				renderManager.renderEngine.bindTexture(MAP_BACKGROUND_TEXTURES);
-				GlStateManager.rotate(180.0F, 0.0F, 0.0F, 1.0F);
+				GlStateManager.rotate(180F, 0F, 0F, 1F);
 				float f = 0.0078125F;
 				GlStateManager.scale(0.0078125F, 0.0078125F, 0.0078125F);
-				GlStateManager.translate(-64.0F, -64.0F, 0.0F);
+				GlStateManager.translate(-64F, -64F, 0F);
 				MapData mapdata = Items.FILLED_MAP.getMapData(itemstack, itemFrame.world);
-				GlStateManager.translate(0.0F, 0.0F, -1.0F);
+				GlStateManager.translate(0F, 0F, -1F);
 
 				if (mapdata != null) {
 					mc.entityRenderer.getMapItemRenderer().renderMap(mapdata, true);
@@ -127,7 +127,7 @@ public class RenderItemFrame extends Render<EntityItemFrame> {
 
 		if (Minecraft.isGuiEnabled() && !entity.getDisplayedItem().isEmpty() && entity.getDisplayedItem().hasDisplayName() && renderManager.pointedEntity == entity) {
 			double d0 = entity.getDistanceSq(renderManager.renderViewEntity);
-			float f = entity.isSneaking() ? 32.0F : 64.0F;
+			float f = entity.isSneaking() ? 32F : 64F;
 
 			if (d0 < (double) (f * f)) {
 				String s = entity.getDisplayedItem().getDisplayName();

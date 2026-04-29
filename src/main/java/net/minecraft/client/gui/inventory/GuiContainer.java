@@ -118,14 +118,14 @@ public abstract class GuiContainer extends GuiScreen {
 		super.drawScreen(mouseX, mouseY, partialTicks);
 		RenderHelper.enableGUIStandardItemLighting();
 		GlStateManager.pushMatrix();
-		GlStateManager.translate((float) i, (float) j, 0.0F);
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+		GlStateManager.translate((float) i, (float) j, 0F);
+		GlStateManager.color(1F, 1F, 1F, 1F);
 		GlStateManager.enableRescaleNormal();
 		hoveredSlot = null;
 		int k = 240;
 		int l = 240;
-		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240.0F, 240.0F);
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240F, 240F);
+		GlStateManager.color(1F, 1F, 1F, 1F);
 
 		for (int i1 = 0; i1 < inventorySlots.inventorySlots.size(); ++i1) {
 			Slot slot = inventorySlots.inventorySlots.get(i1);
@@ -161,7 +161,7 @@ public abstract class GuiContainer extends GuiScreen {
 
 			if (!draggedStack.isEmpty() && isRightMouseClick) {
 				itemstack = itemstack.copy();
-				itemstack.setCount(MathHelper.ceil((float) itemstack.getCount() / 2.0F));
+				itemstack.setCount(MathHelper.ceil((float) itemstack.getCount() / 2F));
 			} else if (dragSplitting && dragSplittingSlots.size() > 1) {
 				itemstack = itemstack.copy();
 				itemstack.setCount(dragSplittingRemnant);
@@ -175,10 +175,10 @@ public abstract class GuiContainer extends GuiScreen {
 		}
 
 		if (!returningStack.isEmpty()) {
-			float f = (float) (Minecraft.getSystemTime() - returningStackTime) / 100.0F;
+			float f = (float) (Minecraft.getSystemTime() - returningStackTime) / 100F;
 
-			if (f >= 1.0F) {
-				f = 1.0F;
+			if (f >= 1F) {
+				f = 1F;
 				returningStack = ItemStack.EMPTY;
 			}
 
@@ -209,13 +209,13 @@ public abstract class GuiContainer extends GuiScreen {
 	 */
 	private void drawItemStack(ItemStack stack, int x, int y, String altText) {
 
-		GlStateManager.translate(0.0F, 0.0F, 32.0F);
-		zLevel = 200.0F;
-		itemRender.zLevel = 200.0F;
+		GlStateManager.translate(0F, 0F, 32F);
+		zLevel = 200F;
+		itemRender.zLevel = 200F;
 		itemRender.renderItemAndEffectIntoGUI(stack, x, y);
 		itemRender.renderItemOverlayIntoGUI(fontRenderer, stack, x, y - (draggedStack.isEmpty() ? 0 : 8), altText);
-		zLevel = 0.0F;
-		itemRender.zLevel = 0.0F;
+		zLevel = 0F;
+		itemRender.zLevel = 0F;
 	}
 
 	/**
@@ -267,8 +267,8 @@ public abstract class GuiContainer extends GuiScreen {
 			}
 		}
 
-		zLevel = 100.0F;
-		itemRender.zLevel = 100.0F;
+		zLevel = 100F;
+		itemRender.zLevel = 100F;
 
 		if (itemstack.isEmpty() && slotIn.isEnabled()) {
 			String s1 = slotIn.getSlotTexture();
@@ -293,8 +293,8 @@ public abstract class GuiContainer extends GuiScreen {
 			itemRender.renderItemOverlayIntoGUI(fontRenderer, itemstack, i, j, s);
 		}
 
-		itemRender.zLevel = 0.0F;
-		zLevel = 0.0F;
+		itemRender.zLevel = 0F;
+		zLevel = 0F;
 	}
 
 	private void updateDragSplitting() {

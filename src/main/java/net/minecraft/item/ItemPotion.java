@@ -52,7 +52,7 @@ public class ItemPotion extends Item {
 		if (!worldIn.isRemote) {
 			for (PotionEffect potioneffect : PotionUtils.getEffectsFromStack(stack)) {
 				if (potioneffect.getPotion().isInstant()) {
-					potioneffect.getPotion().affectEntity(entityplayer, entityplayer, entityLiving, potioneffect.getAmplifier(), 1.0D);
+					potioneffect.getPotion().affectEntity(entityplayer, entityplayer, entityLiving, potioneffect.getAmplifier(), 1D);
 				} else {
 					entityLiving.addPotionEffect(new PotionEffect(potioneffect));
 				}
@@ -108,7 +108,7 @@ public class ItemPotion extends Item {
 	 */
 	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 
-		PotionUtils.addPotionTooltip(stack, tooltip, 1.0F);
+		PotionUtils.addPotionTooltip(stack, tooltip, 1F);
 	}
 
 	/**

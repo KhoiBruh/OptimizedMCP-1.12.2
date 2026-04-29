@@ -6,17 +6,17 @@ public class ParticleWaterWake extends Particle {
 
 	protected ParticleWaterWake(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double p_i45073_8_, double p_i45073_10_, double p_i45073_12_) {
 
-		super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0.0D, 0.0D, 0.0D);
+		super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0D, 0D, 0D);
 		motionX *= 0.30000001192092896D;
 		motionY = Math.random() * 0.20000000298023224D + 0.10000000149011612D;
 		motionZ *= 0.30000001192092896D;
-		particleRed = 1.0F;
-		particleGreen = 1.0F;
-		particleBlue = 1.0F;
+		particleRed = 1F;
+		particleGreen = 1F;
+		particleBlue = 1F;
 		setParticleTextureIndex(19);
 		setSize(0.01F, 0.01F);
-		particleMaxAge = (int) (8.0D / (Math.random() * 0.8D + 0.2D));
-		particleGravity = 0.0F;
+		particleMaxAge = (int) (8D / (Math.random() * 0.8D + 0.2D));
+		particleGravity = 0F;
 		motionX = p_i45073_8_;
 		motionY = p_i45073_10_;
 		motionZ = p_i45073_12_;

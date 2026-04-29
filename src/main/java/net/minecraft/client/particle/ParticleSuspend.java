@@ -15,10 +15,10 @@ public class ParticleSuspend extends Particle {
 		setParticleTextureIndex(0);
 		setSize(0.01F, 0.01F);
 		particleScale *= rand.nextFloat() * 0.6F + 0.2F;
-		motionX = xSpeedIn * 0.0D;
-		motionY = ySpeedIn * 0.0D;
-		motionZ = zSpeedIn * 0.0D;
-		particleMaxAge = (int) (16.0D / (Math.random() * 0.8D + 0.2D));
+		motionX = xSpeedIn * 0D;
+		motionY = ySpeedIn * 0D;
+		motionZ = zSpeedIn * 0D;
+		particleMaxAge = (int) (16D / (Math.random() * 0.8D + 0.2D));
 	}
 
 	public void onUpdate() {

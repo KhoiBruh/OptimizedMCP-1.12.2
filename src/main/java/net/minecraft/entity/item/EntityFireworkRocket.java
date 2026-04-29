@@ -87,7 +87,7 @@ public class EntityFireworkRocket extends Entity {
 	 */
 	public boolean isInRangeToRenderDist(double distance) {
 
-		return distance < 4096.0D && !isAttachedToEntity();
+		return distance < 4096D && !isAttachedToEntity();
 	}
 
 	public boolean isInRangeToRender3d(double x, double y, double z) {
@@ -104,7 +104,7 @@ public class EntityFireworkRocket extends Entity {
 		motionY = y;
 		motionZ = z;
 
-		if (prevRotationPitch == 0.0F && prevRotationYaw == 0.0F) {
+		if (prevRotationPitch == 0F && prevRotationYaw == 0F) {
 			float f = MathHelper.sqrt(x * x + z * z);
 			rotationYaw = (float) (MathHelper.atan2(x, z) * (180D / Math.PI));
 			rotationPitch = (float) (MathHelper.atan2(y, f) * (180D / Math.PI));
@@ -157,26 +157,26 @@ public class EntityFireworkRocket extends Entity {
 		float f = MathHelper.sqrt(motionX * motionX + motionZ * motionZ);
 		rotationYaw = (float) (MathHelper.atan2(motionX, motionZ) * (180D / Math.PI));
 
-		for (rotationPitch = (float) (MathHelper.atan2(motionY, f) * (180D / Math.PI)); rotationPitch - prevRotationPitch < -180.0F; prevRotationPitch -= 360.0F) {
+		for (rotationPitch = (float) (MathHelper.atan2(motionY, f) * (180D / Math.PI)); rotationPitch - prevRotationPitch < -180F; prevRotationPitch -= 360F) {
 		}
 
-		while (rotationPitch - prevRotationPitch >= 180.0F) {
-			prevRotationPitch += 360.0F;
+		while (rotationPitch - prevRotationPitch >= 180F) {
+			prevRotationPitch += 360F;
 		}
 
-		while (rotationYaw - prevRotationYaw < -180.0F) {
-			prevRotationYaw -= 360.0F;
+		while (rotationYaw - prevRotationYaw < -180F) {
+			prevRotationYaw -= 360F;
 		}
 
-		while (rotationYaw - prevRotationYaw >= 180.0F) {
-			prevRotationYaw += 360.0F;
+		while (rotationYaw - prevRotationYaw >= 180F) {
+			prevRotationYaw += 360F;
 		}
 
 		rotationPitch = prevRotationPitch + (rotationPitch - prevRotationPitch) * 0.2F;
 		rotationYaw = prevRotationYaw + (rotationYaw - prevRotationYaw) * 0.2F;
 
 		if (fireworkAge == 0 && !isSilent()) {
-			world.playSound(null, posX, posY, posZ, SoundEvents.ENTITY_FIREWORK_LAUNCH, SoundCategory.AMBIENT, 3.0F, 1.0F);
+			world.playSound(null, posX, posY, posZ, SoundEvents.ENTITY_FIREWORK_LAUNCH, SoundCategory.AMBIENT, 3F, 1F);
 		}
 
 		++fireworkAge;
@@ -194,7 +194,7 @@ public class EntityFireworkRocket extends Entity {
 
 	private void dealExplosionDamage() {
 
-		float f = 0.0F;
+		float f = 0F;
 		ItemStack itemstack = dataManager.get(FIREWORK_ITEM);
 		NBTTagCompound nbttagcompound = itemstack.isEmpty() ? null : itemstack.getSubCompound("Fireworks");
 		NBTTagList nbttaglist = nbttagcompound != null ? nbttagcompound.getTagList("Explosions", 10) : null;
@@ -203,16 +203,16 @@ public class EntityFireworkRocket extends Entity {
 			f = (float) (5 + nbttaglist.tagCount() * 2);
 		}
 
-		if (f > 0.0F) {
+		if (f > 0F) {
 			if (boostedEntity != null) {
 				boostedEntity.attackEntityFrom(DamageSource.FIREWORKS, (float) (5 + nbttaglist.tagCount() * 2));
 			}
 
-			double d0 = 5.0D;
+			double d0 = 5D;
 			Vec3d vec3d = new Vec3d(posX, posY, posZ);
 
-			for (EntityLivingBase entitylivingbase : world.getEntitiesWithinAABB(EntityLivingBase.class, getEntityBoundingBox().grow(5.0D))) {
-				if (entitylivingbase != boostedEntity && getDistanceSq(entitylivingbase) <= 25.0D) {
+			for (EntityLivingBase entitylivingbase : world.getEntitiesWithinAABB(EntityLivingBase.class, getEntityBoundingBox().grow(5D))) {
+				if (entitylivingbase != boostedEntity && getDistanceSq(entitylivingbase) <= 25D) {
 					boolean flag = false;
 
 					for (int i = 0; i < 2; ++i) {
@@ -225,7 +225,7 @@ public class EntityFireworkRocket extends Entity {
 					}
 
 					if (flag) {
-						float f1 = f * (float) Math.sqrt((5.0D - (double) getDistance(entitylivingbase)) / 5.0D);
+						float f1 = f * (float) Math.sqrt((5D - (double) getDistance(entitylivingbase)) / 5D);
 						entitylivingbase.attackEntityFrom(DamageSource.FIREWORKS, f1);
 					}
 				}

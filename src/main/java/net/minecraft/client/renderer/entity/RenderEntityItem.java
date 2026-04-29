@@ -38,16 +38,16 @@ public class RenderEntityItem extends Render<EntityItem> {
 			boolean flag = p_177077_9_.isGui3d();
 			int i = getModelCount(itemstack);
 			float f = 0.25F;
-			float f1 = MathHelper.sin(((float) itemIn.getAge() + p_177077_8_) / 10.0F + itemIn.hoverStart) * 0.1F + 0.1F;
+			float f1 = MathHelper.sin(((float) itemIn.getAge() + p_177077_8_) / 10F + itemIn.hoverStart) * 0.1F + 0.1F;
 			float f2 = p_177077_9_.getItemCameraTransforms().getTransform(ItemCameraTransforms.TransformType.GROUND).scale().y;
 			GlStateManager.translate((float) p_177077_2_, (float) p_177077_4_ + f1 + 0.25F * f2, (float) p_177077_6_);
 
 			if (flag || renderManager.options != null) {
-				float f3 = (((float) itemIn.getAge() + p_177077_8_) / 20.0F + itemIn.hoverStart) * (180F / (float) Math.PI);
-				GlStateManager.rotate(f3, 0.0F, 1.0F, 0.0F);
+				float f3 = (((float) itemIn.getAge() + p_177077_8_) / 20F + itemIn.hoverStart) * (180F / (float) Math.PI);
+				GlStateManager.rotate(f3, 0F, 1F, 0F);
 			}
 
-			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+			GlStateManager.color(1F, 1F, 1F, 1F);
 			return i;
 		}
 	}
@@ -98,8 +98,8 @@ public class RenderEntityItem extends Render<EntityItem> {
 		boolean flag1 = ibakedmodel.isGui3d();
 
 		if (!flag1) {
-			float f3 = -0.0F * (float) (j - 1) * 0.5F * f;
-			float f4 = -0.0F * (float) (j - 1) * 0.5F * f1;
+			float f3 = -0F * (float) (j - 1) * 0.5F * f;
+			float f4 = -0F * (float) (j - 1) * 0.5F * f1;
 			float f5 = -0.09375F * (float) (j - 1) * 0.5F * f2;
 			GlStateManager.translate(f3, f4, f5);
 		}
@@ -114,9 +114,9 @@ public class RenderEntityItem extends Render<EntityItem> {
 				GlStateManager.pushMatrix();
 
 				if (k > 0) {
-					float f7 = (random.nextFloat() * 2.0F - 1.0F) * 0.15F;
-					float f9 = (random.nextFloat() * 2.0F - 1.0F) * 0.15F;
-					float f6 = (random.nextFloat() * 2.0F - 1.0F) * 0.15F;
+					float f7 = (random.nextFloat() * 2F - 1F) * 0.15F;
+					float f9 = (random.nextFloat() * 2F - 1F) * 0.15F;
+					float f6 = (random.nextFloat() * 2F - 1F) * 0.15F;
 					GlStateManager.translate(f7, f9, f6);
 				}
 
@@ -127,15 +127,15 @@ public class RenderEntityItem extends Render<EntityItem> {
 				GlStateManager.pushMatrix();
 
 				if (k > 0) {
-					float f8 = (random.nextFloat() * 2.0F - 1.0F) * 0.15F * 0.5F;
-					float f10 = (random.nextFloat() * 2.0F - 1.0F) * 0.15F * 0.5F;
-					GlStateManager.translate(f8, f10, 0.0F);
+					float f8 = (random.nextFloat() * 2F - 1F) * 0.15F * 0.5F;
+					float f10 = (random.nextFloat() * 2F - 1F) * 0.15F * 0.5F;
+					GlStateManager.translate(f8, f10, 0F);
 				}
 
 				ibakedmodel.getItemCameraTransforms().applyTransform(ItemCameraTransforms.TransformType.GROUND);
 				itemRenderer.renderItem(itemstack, ibakedmodel);
 				GlStateManager.popMatrix();
-				GlStateManager.translate(0.0F * f, 0.0F * f1, 0.09375F * f2);
+				GlStateManager.translate(0F * f, 0F * f1, 0.09375F * f2);
 			}
 		}
 

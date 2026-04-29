@@ -25,7 +25,7 @@ public class TileEntitySkullRenderer extends TileEntitySpecialRenderer<TileEntit
 	private static final ResourceLocation CREEPER_TEXTURES = new ResourceLocation("textures/entity/creeper/creeper.png");
 	private static final ResourceLocation DRAGON_TEXTURES = new ResourceLocation("textures/entity/enderdragon/dragon.png");
 	public static TileEntitySkullRenderer instance;
-	private final ModelDragonHead dragonHead = new ModelDragonHead(0.0F);
+	private final ModelDragonHead dragonHead = new ModelDragonHead(0F);
 	private final ModelSkeletonHead skeletonHead = new ModelSkeletonHead(0, 0, 64, 32);
 	private final ModelSkeletonHead humanoidHead = new ModelHumanoidHead();
 
@@ -33,7 +33,7 @@ public class TileEntitySkullRenderer extends TileEntitySpecialRenderer<TileEntit
 
 		EnumFacing enumfacing = EnumFacing.getFront(te.getBlockMetadata() & 7);
 		float f = te.getAnimationProgress(partialTicks);
-		renderSkull((float) x, (float) y, (float) z, enumfacing, (float) (te.getSkullRotation() * 360) / 16.0F, te.getSkullType(), te.getPlayerProfile(), destroyStage, f);
+		renderSkull((float) x, (float) y, (float) z, enumfacing, (float) (te.getSkullRotation() * 360) / 16F, te.getSkullType(), te.getPlayerProfile(), destroyStage, f);
 	}
 
 	public void setRendererDispatcher(TileEntityRendererDispatcher rendererDispatcherIn) {
@@ -50,7 +50,7 @@ public class TileEntitySkullRenderer extends TileEntitySpecialRenderer<TileEntit
 			bindTexture(DESTROY_STAGES[destroyStage]);
 			GlStateManager.matrixMode(5890);
 			GlStateManager.pushMatrix();
-			GlStateManager.scale(4.0F, 2.0F, 1.0F);
+			GlStateManager.scale(4F, 2F, 1F);
 			GlStateManager.translate(0.0625F, 0.0625F, 0.0625F);
 			GlStateManager.matrixMode(5888);
 		} else {
@@ -111,31 +111,31 @@ public class TileEntitySkullRenderer extends TileEntitySpecialRenderer<TileEntit
 
 				case SOUTH:
 					GlStateManager.translate(x + 0.5F, y + 0.25F, z + 0.26F);
-					rotationIn = 180.0F;
+					rotationIn = 180F;
 					break;
 
 				case WEST:
 					GlStateManager.translate(x + 0.74F, y + 0.25F, z + 0.5F);
-					rotationIn = 270.0F;
+					rotationIn = 270F;
 					break;
 
 				case EAST:
 				default:
 					GlStateManager.translate(x + 0.26F, y + 0.25F, z + 0.5F);
-					rotationIn = 90.0F;
+					rotationIn = 90F;
 			}
 		}
 
 		float f = 0.0625F;
 		GlStateManager.enableRescaleNormal();
-		GlStateManager.scale(-1.0F, -1.0F, 1.0F);
+		GlStateManager.scale(-1F, -1F, 1F);
 		GlStateManager.enableAlpha();
 
 		if (skullType == 3) {
 			GlStateManager.enableBlendProfile(GlStateManager.Profile.PLAYER_SKIN);
 		}
 
-		modelbase.render(null, animateTicks, 0.0F, 0.0F, rotationIn, 0.0F, 0.0625F);
+		modelbase.render(null, animateTicks, 0F, 0F, rotationIn, 0F, 0.0625F);
 		GlStateManager.popMatrix();
 
 		if (destroyStage >= 0) {

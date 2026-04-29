@@ -41,7 +41,7 @@ import java.util.*;
 public class DragonFightManager {
 
 	private static final Logger LOGGER = LogManager.getLogger();
-	private static final Predicate<EntityPlayerMP> VALID_PLAYER = Predicates.and(EntitySelectors.IS_ALIVE, EntitySelectors.withinRange(0.0D, 128.0D, 0.0D, 192.0D));
+	private static final Predicate<EntityPlayerMP> VALID_PLAYER = Predicates.and(EntitySelectors.IS_ALIVE, EntitySelectors.withinRange(0D, 128D, 0D, 192D));
 	private final BossInfoServer bossInfo = (BossInfoServer) (new BossInfoServer(new TextComponentTranslation("entity.EnderDragon.name"), BossInfo.Color.PINK, BossInfo.Overlay.PROGRESS)).setPlayEndBossMusic(true).setCreateFog(true);
 	private final WorldServer world;
 	private final List<Integer> gateways = Lists.newArrayList();
@@ -324,7 +324,7 @@ public class DragonFightManager {
 	public void processDragonDeath(EntityDragon dragon) {
 
 		if (dragon.getUniqueID().equals(dragonUniqueId)) {
-			bossInfo.setPercent(0.0F);
+			bossInfo.setPercent(0F);
 			bossInfo.setVisible(false);
 			generatePortal(true);
 			spawnNewGateway();
@@ -342,8 +342,8 @@ public class DragonFightManager {
 
 		if (!gateways.isEmpty()) {
 			int i = gateways.removeLast();
-			int j = (int) (96.0D * Math.cos(2.0D * (-Math.PI + 0.15707963267948966D * (double) i)));
-			int k = (int) (96.0D * Math.sin(2.0D * (-Math.PI + 0.15707963267948966D * (double) i)));
+			int j = (int) (96D * Math.cos(2D * (-Math.PI + 0.15707963267948966D * (double) i)));
+			int k = (int) (96D * Math.sin(2D * (-Math.PI + 0.15707963267948966D * (double) i)));
 			generateGateway(new BlockPos(j, 75, k));
 		}
 	}
@@ -371,7 +371,7 @@ public class DragonFightManager {
 		world.getChunkFromBlockCoords(new BlockPos(0, 128, 0));
 		EntityDragon entitydragon = new EntityDragon(world);
 		entitydragon.getPhaseManager().setPhase(PhaseList.HOLDING_PATTERN);
-		entitydragon.setLocationAndAngles(0.0D, 128.0D, 0.0D, world.rand.nextFloat() * 360.0F, 0.0F);
+		entitydragon.setLocationAndAngles(0D, 128D, 0D, world.rand.nextFloat() * 360F, 0F);
 		world.spawnEntity(entitydragon);
 		dragonUniqueId = entitydragon.getUniqueID();
 		return entitydragon;

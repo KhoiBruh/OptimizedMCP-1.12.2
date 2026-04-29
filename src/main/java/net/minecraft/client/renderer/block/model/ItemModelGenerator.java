@@ -42,10 +42,10 @@ public class ItemModelGenerator {
 	private List<BlockPart> getBlockParts(int tintIndex, String name, TextureAtlasSprite atlasSprite) {
 
 		Map<EnumFacing, BlockPartFace> map = Maps.newHashMap();
-		map.put(EnumFacing.SOUTH, new BlockPartFace(null, tintIndex, name, new BlockFaceUV(new float[]{0.0F, 0.0F, 16.0F, 16.0F}, 0)));
-		map.put(EnumFacing.NORTH, new BlockPartFace(null, tintIndex, name, new BlockFaceUV(new float[]{16.0F, 0.0F, 0.0F, 16.0F}, 0)));
+		map.put(EnumFacing.SOUTH, new BlockPartFace(null, tintIndex, name, new BlockFaceUV(new float[]{0F, 0F, 16F, 16F}, 0)));
+		map.put(EnumFacing.NORTH, new BlockPartFace(null, tintIndex, name, new BlockFaceUV(new float[]{16F, 0F, 0F, 16F}, 0)));
 		List<BlockPart> list = Lists.newArrayList();
-		list.add(new BlockPart(new Vector3f(0.0F, 0.0F, 7.5F), new Vector3f(16.0F, 16.0F, 8.5F), map, null, true));
+		list.add(new BlockPart(new Vector3f(0F, 0F, 7.5F), new Vector3f(16F, 16F, 8.5F), map, null, true));
 		list.addAll(getBlockParts(atlasSprite, name, tintIndex));
 
 		return list;

@@ -765,15 +765,15 @@ public final class ItemStack {
 					if (attributemodifier.getOperation() != 1 && attributemodifier.getOperation() != 2) {
 						d1 = d0;
 					} else {
-						d1 = d0 * 100.0D;
+						d1 = d0 * 100D;
 					}
 
 					if (flag) {
 						list.add(" " + I18n.translateToLocalFormatted("attribute.modifier.equals." + attributemodifier.getOperation(), DECIMALFORMAT.format(d1), I18n.translateToLocal("attribute.name." + entry.getKey())));
-					} else if (d0 > 0.0D) {
+					} else if (d0 > 0D) {
 						list.add(TextFormatting.BLUE + " " + I18n.translateToLocalFormatted("attribute.modifier.plus." + attributemodifier.getOperation(), DECIMALFORMAT.format(d1), I18n.translateToLocal("attribute.name." + entry.getKey())));
-					} else if (d0 < 0.0D) {
-						d1 = d1 * -1.0D;
+					} else if (d0 < 0D) {
+						d1 = d1 * -1D;
 						list.add(TextFormatting.RED + " " + I18n.translateToLocalFormatted("attribute.modifier.take." + attributemodifier.getOperation(), DECIMALFORMAT.format(d1), I18n.translateToLocal("attribute.name." + entry.getKey())));
 					}
 				}

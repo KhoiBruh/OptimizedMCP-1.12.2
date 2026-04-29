@@ -17,7 +17,7 @@ public class RenderIllusionIllager extends RenderLiving<EntityMob> {
 
 	public RenderIllusionIllager(RenderManager p_i47477_1_) {
 
-		super(p_i47477_1_, new ModelIllager(0.0F, 0.0F, 64, 64), 0.5F);
+		super(p_i47477_1_, new ModelIllager(0F, 0F, 64, 64), 0.5F);
 		addLayer(new LayerHeldItem(this) {
 			public void doRenderLayer(EntityLivingBase entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 

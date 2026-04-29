@@ -30,7 +30,7 @@ public class WorldGenIceSpike extends WorldGenerator {
 			}
 
 			for (int k = 0; k < i; ++k) {
-				float f = (1.0F - (float) k / (float) i) * (float) j;
+				float f = (1F - (float) k / (float) i) * (float) j;
 				int l = MathHelper.ceil(f);
 
 				for (int i1 = -l; i1 <= l; ++i1) {

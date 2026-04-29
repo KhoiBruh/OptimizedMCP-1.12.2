@@ -73,7 +73,7 @@ public class RandomPositionGenerator {
 		boolean flag;
 
 		if (p_191379_0_.hasHome()) {
-			double d0 = p_191379_0_.getHomePosition().distanceSq(MathHelper.floor(p_191379_0_.posX), MathHelper.floor(p_191379_0_.posY), MathHelper.floor(p_191379_0_.posZ)) + 4.0D;
+			double d0 = p_191379_0_.getHomePosition().distanceSq(MathHelper.floor(p_191379_0_.posX), MathHelper.floor(p_191379_0_.posY), MathHelper.floor(p_191379_0_.posZ)) + 4D;
 			double d1 = p_191379_0_.getMaximumHomeDistance() + (float) p_191379_1_;
 			flag = d0 < d1 * d1;
 		} else {
@@ -81,7 +81,7 @@ public class RandomPositionGenerator {
 		}
 
 		boolean flag1 = false;
-		float f = -99999.0F;
+		float f = -99999F;
 		int k1 = 0;
 		int i = 0;
 		int j = 0;
@@ -91,7 +91,7 @@ public class RandomPositionGenerator {
 			int i1 = random.nextInt(2 * p_191379_2_ + 1) - p_191379_2_;
 			int j1 = random.nextInt(2 * p_191379_1_ + 1) - p_191379_1_;
 
-			if (p_191379_3_ == null || (double) l * p_191379_3_.x() + (double) j1 * p_191379_3_.z() >= 0.0D) {
+			if (p_191379_3_ == null || (double) l * p_191379_3_.x() + (double) j1 * p_191379_3_.z() >= 0D) {
 				if (p_191379_0_.hasHome() && p_191379_1_ > 1) {
 					BlockPos blockpos = p_191379_0_.getHomePosition();
 

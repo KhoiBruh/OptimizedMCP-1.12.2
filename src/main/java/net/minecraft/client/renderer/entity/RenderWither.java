@@ -13,7 +13,7 @@ public class RenderWither extends RenderLiving<EntityWither> {
 
 	public RenderWither(RenderManager renderManagerIn) {
 
-		super(renderManagerIn, new ModelWither(0.0F), 1.0F);
+		super(renderManagerIn, new ModelWither(0F), 1F);
 		addLayer(new LayerWitherAura(this));
 	}
 
@@ -31,11 +31,11 @@ public class RenderWither extends RenderLiving<EntityWither> {
 	 */
 	protected void preRenderCallback(EntityWither entitylivingbaseIn, float partialTickTime) {
 
-		float f = 2.0F;
+		float f = 2F;
 		int i = entitylivingbaseIn.getInvulTime();
 
 		if (i > 0) {
-			f -= ((float) i - partialTickTime) / 220.0F * 0.5F;
+			f -= ((float) i - partialTickTime) / 220F * 0.5F;
 		}
 
 		GlStateManager.scale(f, f, f);

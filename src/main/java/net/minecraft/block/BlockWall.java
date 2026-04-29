@@ -27,7 +27,7 @@ public class BlockWall extends Block {
 	public static final PropertyBool SOUTH = PropertyBool.create("south");
 	public static final PropertyBool WEST = PropertyBool.create("west");
 	public static final PropertyEnum<BlockWall.EnumType> VARIANT = PropertyEnum.create("variant", BlockWall.EnumType.class);
-	protected static final AxisAlignedBB[] AABB_BY_INDEX = new AxisAlignedBB[]{new AxisAlignedBB(0.25D, 0.0D, 0.25D, 0.75D, 1.0D, 0.75D), new AxisAlignedBB(0.25D, 0.0D, 0.25D, 0.75D, 1.0D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.25D, 0.75D, 1.0D, 0.75D), new AxisAlignedBB(0.0D, 0.0D, 0.25D, 0.75D, 1.0D, 1.0D), new AxisAlignedBB(0.25D, 0.0D, 0.0D, 0.75D, 1.0D, 0.75D), new AxisAlignedBB(0.3125D, 0.0D, 0.0D, 0.6875D, 0.875D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 0.75D, 1.0D, 0.75D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 0.75D, 1.0D, 1.0D), new AxisAlignedBB(0.25D, 0.0D, 0.25D, 1.0D, 1.0D, 0.75D), new AxisAlignedBB(0.25D, 0.0D, 0.25D, 1.0D, 1.0D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.3125D, 1.0D, 0.875D, 0.6875D), new AxisAlignedBB(0.0D, 0.0D, 0.25D, 1.0D, 1.0D, 1.0D), new AxisAlignedBB(0.25D, 0.0D, 0.0D, 1.0D, 1.0D, 0.75D), new AxisAlignedBB(0.25D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 0.75D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D)};
+	protected static final AxisAlignedBB[] AABB_BY_INDEX = new AxisAlignedBB[]{new AxisAlignedBB(0.25D, 0D, 0.25D, 0.75D, 1D, 0.75D), new AxisAlignedBB(0.25D, 0D, 0.25D, 0.75D, 1D, 1D), new AxisAlignedBB(0D, 0D, 0.25D, 0.75D, 1D, 0.75D), new AxisAlignedBB(0D, 0D, 0.25D, 0.75D, 1D, 1D), new AxisAlignedBB(0.25D, 0D, 0D, 0.75D, 1D, 0.75D), new AxisAlignedBB(0.3125D, 0D, 0D, 0.6875D, 0.875D, 1D), new AxisAlignedBB(0D, 0D, 0D, 0.75D, 1D, 0.75D), new AxisAlignedBB(0D, 0D, 0D, 0.75D, 1D, 1D), new AxisAlignedBB(0.25D, 0D, 0.25D, 1D, 1D, 0.75D), new AxisAlignedBB(0.25D, 0D, 0.25D, 1D, 1D, 1D), new AxisAlignedBB(0D, 0D, 0.3125D, 1D, 0.875D, 0.6875D), new AxisAlignedBB(0D, 0D, 0.25D, 1D, 1D, 1D), new AxisAlignedBB(0.25D, 0D, 0D, 1D, 1D, 0.75D), new AxisAlignedBB(0.25D, 0D, 0D, 1D, 1D, 1D), new AxisAlignedBB(0D, 0D, 0D, 1D, 1D, 0.75D), new AxisAlignedBB(0D, 0D, 0D, 1D, 1D, 1D)};
 	protected static final AxisAlignedBB[] CLIP_AABB_BY_INDEX = new AxisAlignedBB[]{AABB_BY_INDEX[0].setMaxY(1.5D), AABB_BY_INDEX[1].setMaxY(1.5D), AABB_BY_INDEX[2].setMaxY(1.5D), AABB_BY_INDEX[3].setMaxY(1.5D), AABB_BY_INDEX[4].setMaxY(1.5D), AABB_BY_INDEX[5].setMaxY(1.5D), AABB_BY_INDEX[6].setMaxY(1.5D), AABB_BY_INDEX[7].setMaxY(1.5D), AABB_BY_INDEX[8].setMaxY(1.5D), AABB_BY_INDEX[9].setMaxY(1.5D), AABB_BY_INDEX[10].setMaxY(1.5D), AABB_BY_INDEX[11].setMaxY(1.5D), AABB_BY_INDEX[12].setMaxY(1.5D), AABB_BY_INDEX[13].setMaxY(1.5D), AABB_BY_INDEX[14].setMaxY(1.5D), AABB_BY_INDEX[15].setMaxY(1.5D)};
 
 	public BlockWall(Block modelBlock) {
@@ -35,7 +35,7 @@ public class BlockWall extends Block {
 		super(modelBlock.blockMaterial);
 		setDefaultState(blockState.getBaseState().withProperty(UP, false).withProperty(NORTH, false).withProperty(EAST, false).withProperty(SOUTH, false).withProperty(WEST, false).withProperty(VARIANT, BlockWall.EnumType.NORMAL));
 		setHardness(modelBlock.blockHardness);
-		setResistance(modelBlock.blockResistance / 3.0F);
+		setResistance(modelBlock.blockResistance / 3F);
 		setSoundType(modelBlock.blockSoundType);
 		setCreativeTab(CreativeTabs.DECORATIONS);
 	}

@@ -32,8 +32,8 @@ public class SPacketSpawnPlayer implements Packet<INetHandlerPlayClient> {
 		x = player.posX;
 		y = player.posY;
 		z = player.posZ;
-		yaw = (byte) ((int) (player.rotationYaw * 256.0F / 360.0F));
-		pitch = (byte) ((int) (player.rotationPitch * 256.0F / 360.0F));
+		yaw = (byte) ((int) (player.rotationYaw * 256F / 360F));
+		pitch = (byte) ((int) (player.rotationPitch * 256F / 360F));
 		watcher = player.getDataManager();
 	}
 

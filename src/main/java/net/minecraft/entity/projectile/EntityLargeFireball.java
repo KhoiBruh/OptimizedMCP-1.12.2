@@ -38,7 +38,7 @@ public class EntityLargeFireball extends EntityFireball {
 
 		if (!world.isRemote) {
 			if (result.entityHit != null) {
-				result.entityHit.attackEntityFrom(DamageSource.causeFireballDamage(this, shootingEntity), 6.0F);
+				result.entityHit.attackEntityFrom(DamageSource.causeFireballDamage(this, shootingEntity), 6F);
 				applyEnchantments(shootingEntity, result.entityHit);
 			}
 

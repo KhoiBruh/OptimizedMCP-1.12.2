@@ -183,7 +183,7 @@ public class AnvilSaveConverter extends SaveFormatOld {
 		for (File file1 : regionFiles) {
 			convertChunks(baseFolder, file1, p_75813_3_, p_75813_4_, p_75813_5_, progress);
 			++p_75813_4_;
-			int i = (int) Math.round(100.0D * (double) p_75813_4_ / (double) p_75813_5_);
+			int i = (int) Math.round(100D * (double) p_75813_4_ / (double) p_75813_5_);
 			progress.setLoadingProgress(i);
 		}
 	}
@@ -221,8 +221,8 @@ public class AnvilSaveConverter extends SaveFormatOld {
 					}
 				}
 
-				int k = (int) Math.round(100.0D * (double) (p_75811_4_ * 1024) / (double) (p_75811_5_ * 1024));
-				int l = (int) Math.round(100.0D * (double) ((i + 1) * 32 + p_75811_4_ * 1024) / (double) (p_75811_5_ * 1024));
+				int k = (int) Math.round(100D * (double) (p_75811_4_ * 1024) / (double) (p_75811_5_ * 1024));
+				int l = (int) Math.round(100D * (double) ((i + 1) * 32 + p_75811_4_ * 1024) / (double) (p_75811_5_ * 1024));
 
 				if (l > k) {
 					progressCallback.setLoadingProgress(l);

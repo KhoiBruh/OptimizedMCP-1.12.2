@@ -178,7 +178,7 @@ public abstract class GuiSlot {
 	 */
 	protected void bindAmountScrolled() {
 
-		amountScrolled = MathHelper.clamp(amountScrolled, 0.0F, (float) getMaxScroll());
+		amountScrolled = MathHelper.clamp(amountScrolled, 0F, (float) getMaxScroll());
 	}
 
 	public int getMaxScroll() {
@@ -350,7 +350,7 @@ public abstract class GuiSlot {
 						int j1 = i3 + 6;
 
 						if (mouseX >= i3 && mouseX <= j1) {
-							scrollMultiplier = -1.0F;
+							scrollMultiplier = -1F;
 							int k1 = getMaxScroll();
 
 							if (k1 < 1) {
@@ -361,7 +361,7 @@ public abstract class GuiSlot {
 							l1 = MathHelper.clamp(l1, 32, bottom - top - 8);
 							scrollMultiplier /= (float) (bottom - top - l1) / (float) k1;
 						} else {
-							scrollMultiplier = 1.0F;
+							scrollMultiplier = 1F;
 						}
 
 						if (flag1) {
@@ -432,17 +432,17 @@ public abstract class GuiSlot {
 			if (showSelectionBox && isSelected(j)) {
 				int i1 = left + (width / 2 - getListWidth() / 2);
 				int j1 = left + width / 2 + getListWidth() / 2;
-				GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+				GlStateManager.color(1F, 1F, 1F, 1F);
 				GlStateManager.disableTexture2D();
 				bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-				bufferbuilder.pos(i1, k + l + 2, 0.0D).tex(0.0D, 1.0D).color(128, 128, 128, 255).endVertex();
-				bufferbuilder.pos(j1, k + l + 2, 0.0D).tex(1.0D, 1.0D).color(128, 128, 128, 255).endVertex();
-				bufferbuilder.pos(j1, k - 2, 0.0D).tex(1.0D, 0.0D).color(128, 128, 128, 255).endVertex();
-				bufferbuilder.pos(i1, k - 2, 0.0D).tex(0.0D, 0.0D).color(128, 128, 128, 255).endVertex();
-				bufferbuilder.pos(i1 + 1, k + l + 1, 0.0D).tex(0.0D, 1.0D).color(0, 0, 0, 255).endVertex();
-				bufferbuilder.pos(j1 - 1, k + l + 1, 0.0D).tex(1.0D, 1.0D).color(0, 0, 0, 255).endVertex();
-				bufferbuilder.pos(j1 - 1, k - 1, 0.0D).tex(1.0D, 0.0D).color(0, 0, 0, 255).endVertex();
-				bufferbuilder.pos(i1 + 1, k - 1, 0.0D).tex(0.0D, 0.0D).color(0, 0, 0, 255).endVertex();
+				bufferbuilder.pos(i1, k + l + 2, 0D).tex(0D, 1D).color(128, 128, 128, 255).endVertex();
+				bufferbuilder.pos(j1, k + l + 2, 0D).tex(1D, 1D).color(128, 128, 128, 255).endVertex();
+				bufferbuilder.pos(j1, k - 2, 0D).tex(1D, 0D).color(128, 128, 128, 255).endVertex();
+				bufferbuilder.pos(i1, k - 2, 0D).tex(0D, 0D).color(128, 128, 128, 255).endVertex();
+				bufferbuilder.pos(i1 + 1, k + l + 1, 0D).tex(0D, 1D).color(0, 0, 0, 255).endVertex();
+				bufferbuilder.pos(j1 - 1, k + l + 1, 0D).tex(1D, 1D).color(0, 0, 0, 255).endVertex();
+				bufferbuilder.pos(j1 - 1, k - 1, 0D).tex(1D, 0D).color(0, 0, 0, 255).endVertex();
+				bufferbuilder.pos(i1 + 1, k - 1, 0D).tex(0D, 0D).color(0, 0, 0, 255).endVertex();
 				tessellator.draw();
 				GlStateManager.enableTexture2D();
 			}

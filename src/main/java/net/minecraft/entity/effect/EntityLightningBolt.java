@@ -32,7 +32,7 @@ public class EntityLightningBolt extends EntityWeatherEffect {
 	public EntityLightningBolt(World worldIn, double x, double y, double z, boolean effectOnlyIn) {
 
 		super(worldIn);
-		setLocationAndAngles(x, y, z, 0.0F, 0.0F);
+		setLocationAndAngles(x, y, z, 0F, 0F);
 		lightningState = 2;
 		boltVertex = rand.nextLong();
 		boltLivingTime = rand.nextInt(3) + 1;
@@ -67,8 +67,8 @@ public class EntityLightningBolt extends EntityWeatherEffect {
 		super.onUpdate();
 
 		if (lightningState == 2) {
-			world.playSound(null, posX, posY, posZ, SoundEvents.ENTITY_LIGHTNING_THUNDER, SoundCategory.WEATHER, 10000.0F, 0.8F + rand.nextFloat() * 0.2F);
-			world.playSound(null, posX, posY, posZ, SoundEvents.ENTITY_LIGHTNING_IMPACT, SoundCategory.WEATHER, 2.0F, 0.5F + rand.nextFloat() * 0.2F);
+			world.playSound(null, posX, posY, posZ, SoundEvents.ENTITY_LIGHTNING_THUNDER, SoundCategory.WEATHER, 10000F, 0.8F + rand.nextFloat() * 0.2F);
+			world.playSound(null, posX, posY, posZ, SoundEvents.ENTITY_LIGHTNING_IMPACT, SoundCategory.WEATHER, 2F, 0.5F + rand.nextFloat() * 0.2F);
 		}
 
 		--lightningState;
@@ -95,8 +95,8 @@ public class EntityLightningBolt extends EntityWeatherEffect {
 			if (world.isRemote) {
 				world.setLastLightningBolt(2);
 			} else if (!effectOnly) {
-				double d0 = 3.0D;
-				List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(this, new AxisAlignedBB(posX - 3.0D, posY - 3.0D, posZ - 3.0D, posX + 3.0D, posY + 6.0D + 3.0D, posZ + 3.0D));
+				double d0 = 3D;
+				List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(this, new AxisAlignedBB(posX - 3D, posY - 3D, posZ - 3D, posX + 3D, posY + 6D + 3D, posZ + 3D));
 
 				for (Entity entity : list) {
 					entity.onStruckByLightning(this);

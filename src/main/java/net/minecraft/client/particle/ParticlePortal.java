@@ -29,8 +29,8 @@ public class ParticlePortal extends Particle {
 		particleRed = f * 0.9F;
 		particleGreen = f * 0.3F;
 		particleBlue = f;
-		particleMaxAge = (int) (Math.random() * 10.0D) + 40;
-		setParticleTextureIndex((int) (Math.random() * 8.0D));
+		particleMaxAge = (int) (Math.random() * 10D) + 40;
+		setParticleTextureIndex((int) (Math.random() * 8D));
 	}
 
 	public void move(double x, double y, double z) {
@@ -45,9 +45,9 @@ public class ParticlePortal extends Particle {
 	public void renderParticle(BufferBuilder buffer, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
 
 		float f = ((float) particleAge + partialTicks) / (float) particleMaxAge;
-		f = 1.0F - f;
+		f = 1F - f;
 		f = f * f;
-		f = 1.0F - f;
+		f = 1F - f;
 		particleScale = portalParticleScale * f;
 		super.renderParticle(buffer, entityIn, partialTicks, rotationX, rotationZ, rotationYZ, rotationXY, rotationXZ);
 	}
@@ -60,7 +60,7 @@ public class ParticlePortal extends Particle {
 		f = f * f;
 		int j = i & 255;
 		int k = i >> 16 & 255;
-		k = k + (int) (f * 15.0F * 16.0F);
+		k = k + (int) (f * 15F * 16F);
 
 		if (k > 240) {
 			k = 240;
@@ -75,10 +75,10 @@ public class ParticlePortal extends Particle {
 		prevPosY = posY;
 		prevPosZ = posZ;
 		float f = (float) particleAge / (float) particleMaxAge;
-		float f1 = -f + f * f * 2.0F;
-		float f2 = 1.0F - f1;
+		float f1 = -f + f * f * 2F;
+		float f2 = 1F - f1;
 		posX = portalPosX + motionX * (double) f2;
-		posY = portalPosY + motionY * (double) f2 + (double) (1.0F - f);
+		posY = portalPosY + motionY * (double) f2 + (double) (1F - f);
 		posZ = portalPosZ + motionZ * (double) f2;
 
 		if (particleAge++ >= particleMaxAge) {

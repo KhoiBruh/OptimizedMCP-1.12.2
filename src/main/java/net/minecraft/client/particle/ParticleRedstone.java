@@ -11,18 +11,18 @@ public class ParticleRedstone extends Particle {
 
 	protected ParticleRedstone(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, float p_i46349_8_, float p_i46349_9_, float p_i46349_10_) {
 
-		this(worldIn, xCoordIn, yCoordIn, zCoordIn, 1.0F, p_i46349_8_, p_i46349_9_, p_i46349_10_);
+		this(worldIn, xCoordIn, yCoordIn, zCoordIn, 1F, p_i46349_8_, p_i46349_9_, p_i46349_10_);
 	}
 
 	protected ParticleRedstone(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, float scale, float red, float green, float blue) {
 
-		super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0.0D, 0.0D, 0.0D);
+		super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0D, 0D, 0D);
 		motionX *= 0.10000000149011612D;
 		motionY *= 0.10000000149011612D;
 		motionZ *= 0.10000000149011612D;
 
-		if (red == 0.0F) {
-			red = 1.0F;
+		if (red == 0F) {
+			red = 1F;
 		}
 
 		float f = (float) Math.random() * 0.4F + 0.6F;
@@ -32,7 +32,7 @@ public class ParticleRedstone extends Particle {
 		particleScale *= 0.75F;
 		particleScale *= scale;
 		reddustParticleScale = particleScale;
-		particleMaxAge = (int) (8.0D / (Math.random() * 0.8D + 0.2D));
+		particleMaxAge = (int) (8D / (Math.random() * 0.8D + 0.2D));
 		particleMaxAge = (int) ((float) particleMaxAge * scale);
 	}
 
@@ -41,8 +41,8 @@ public class ParticleRedstone extends Particle {
 	 */
 	public void renderParticle(BufferBuilder buffer, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
 
-		float f = ((float) particleAge + partialTicks) / (float) particleMaxAge * 32.0F;
-		f = MathHelper.clamp(f, 0.0F, 1.0F);
+		float f = ((float) particleAge + partialTicks) / (float) particleMaxAge * 32F;
+		f = MathHelper.clamp(f, 0F, 1F);
 		particleScale = reddustParticleScale * f;
 		super.renderParticle(buffer, entityIn, partialTicks, rotationX, rotationZ, rotationYZ, rotationXY, rotationXZ);
 	}

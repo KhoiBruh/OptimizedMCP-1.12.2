@@ -20,8 +20,8 @@ public class WorldGenBigTree extends WorldGenAbstractTree {
 	int height;
 	double heightAttenuation = 0.618D;
 	double branchSlope = 0.381D;
-	double scaleWidth = 1.0D;
-	double leafDensity = 1.0D;
+	double scaleWidth = 1D;
+	double leafDensity = 1D;
 	int trunkSize = 1;
 	int heightLimitLimit = 12;
 	/**
@@ -49,7 +49,7 @@ public class WorldGenBigTree extends WorldGenAbstractTree {
 			height = heightLimit - 1;
 		}
 
-		int i = (int) (1.382D + Math.pow(leafDensity * (double) heightLimit / 13.0D, 2.0D));
+		int i = (int) (1.382D + Math.pow(leafDensity * (double) heightLimit / 13D, 2D));
 
 		if (i < 1) {
 			i = 1;
@@ -63,10 +63,10 @@ public class WorldGenBigTree extends WorldGenAbstractTree {
 		for (; k >= 0; --k) {
 			float f = layerSize(k);
 
-			if (f >= 0.0F) {
+			if (f >= 0F) {
 				for (int l = 0; l < i; ++l) {
 					double d0 = scaleWidth * (double) f * ((double) rand.nextFloat() + 0.328D);
-					double d1 = (double) (rand.nextFloat() * 2.0F) * Math.PI;
+					double d1 = (double) (rand.nextFloat() * 2F) * Math.PI;
 					double d2 = d0 * Math.sin(d1) + 0.5D;
 					double d3 = d0 * Math.cos(d1) + 0.5D;
 					BlockPos blockpos = basePos.add(d2, k - 1, d3);
@@ -94,7 +94,7 @@ public class WorldGenBigTree extends WorldGenAbstractTree {
 
 		for (int j = -i; j <= i; ++j) {
 			for (int k = -i; k <= i; ++k) {
-				if (Math.pow((double) Math.abs(j) + 0.5D, 2.0D) + Math.pow((double) Math.abs(k) + 0.5D, 2.0D) <= (double) (p_181631_2_ * p_181631_2_)) {
+				if (Math.pow((double) Math.abs(j) + 0.5D, 2D) + Math.pow((double) Math.abs(k) + 0.5D, 2D) <= (double) (p_181631_2_ * p_181631_2_)) {
 					BlockPos blockpos = pos.add(j, 0, k);
 					Material material = world.getBlockState(blockpos).getMaterial();
 
@@ -112,16 +112,16 @@ public class WorldGenBigTree extends WorldGenAbstractTree {
 	float layerSize(int y) {
 
 		if ((float) y < (float) heightLimit * 0.3F) {
-			return -1.0F;
+			return -1F;
 		} else {
-			float f = (float) heightLimit / 2.0F;
+			float f = (float) heightLimit / 2F;
 			float f1 = f - (float) y;
 			float f2 = MathHelper.sqrt(f * f - f1 * f1);
 
-			if (f1 == 0.0F) {
+			if (f1 == 0F) {
 				f2 = f;
 			} else if (Math.abs(f1) >= f) {
-				return 0.0F;
+				return 0F;
 			}
 
 			return f2 * 0.5F;
@@ -131,9 +131,9 @@ public class WorldGenBigTree extends WorldGenAbstractTree {
 	float leafSize(int y) {
 
 		if (y >= 0 && y < leafDistanceLimit) {
-			return y != 0 && y != leafDistanceLimit - 1 ? 3.0F : 2.0F;
+			return y != 0 && y != leafDistanceLimit - 1 ? 3F : 2F;
 		} else {
-			return -1.0F;
+			return -1F;
 		}
 	}
 

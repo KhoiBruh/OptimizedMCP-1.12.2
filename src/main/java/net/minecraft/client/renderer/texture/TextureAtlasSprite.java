@@ -147,7 +147,7 @@ public class TextureAtlasSprite {
 	public float getInterpolatedU(double u) {
 
 		float f = maxU - minU;
-		return minU + f * (float) u / 16.0F;
+		return minU + f * (float) u / 16F;
 	}
 
 	/**
@@ -156,7 +156,7 @@ public class TextureAtlasSprite {
 	public float getUnInterpolatedU(float u) {
 
 		float f = maxU - minU;
-		return (u - minU) / f * 16.0F;
+		return (u - minU) / f * 16F;
 	}
 
 	/**
@@ -181,7 +181,7 @@ public class TextureAtlasSprite {
 	public float getInterpolatedV(double v) {
 
 		float f = maxV - minV;
-		return minV + f * (float) v / 16.0F;
+		return minV + f * (float) v / 16F;
 	}
 
 	/**
@@ -190,7 +190,7 @@ public class TextureAtlasSprite {
 	public float getUnInterpolatedV(float p_188536_1_) {
 
 		float f = maxV - minV;
-		return (p_188536_1_ - minV) / f * 16.0F;
+		return (p_188536_1_ - minV) / f * 16F;
 	}
 
 	public String getIconName() {
@@ -219,7 +219,7 @@ public class TextureAtlasSprite {
 
 	private void updateAnimationInterpolated() {
 
-		double d0 = 1.0D - (double) tickCounter / (double) animationMetadata.getFrameTimeSingle(frameCounter);
+		double d0 = 1D - (double) tickCounter / (double) animationMetadata.getFrameTimeSingle(frameCounter);
 		int i = animationMetadata.getFrameIndex(frameCounter);
 		int j = animationMetadata.getFrameCount() == 0 ? framesTextureData.size() : animationMetadata.getFrameCount();
 		int k = animationMetadata.getFrameIndex((frameCounter + 1) % j);
@@ -255,7 +255,7 @@ public class TextureAtlasSprite {
 
 	private int interpolateColor(double p_188535_1_, int p_188535_3_, int p_188535_4_) {
 
-		return (int) (p_188535_1_ * (double) p_188535_3_ + (1.0D - p_188535_1_) * (double) p_188535_4_);
+		return (int) (p_188535_1_ * (double) p_188535_3_ + (1D - p_188535_1_) * (double) p_188535_4_);
 	}
 
 	public int[][] getFrameTextureData(int index) {

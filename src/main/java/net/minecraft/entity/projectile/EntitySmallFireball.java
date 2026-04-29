@@ -42,7 +42,7 @@ public class EntitySmallFireball extends EntityFireball {
 		if (!world.isRemote) {
 			if (result.entityHit != null) {
 				if (!result.entityHit.isImmuneToFire()) {
-					boolean flag = result.entityHit.attackEntityFrom(DamageSource.causeFireballDamage(this, shootingEntity), 5.0F);
+					boolean flag = result.entityHit.attackEntityFrom(DamageSource.causeFireballDamage(this, shootingEntity), 5F);
 
 					if (flag) {
 						applyEnchantments(shootingEntity, result.entityHit);

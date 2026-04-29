@@ -24,7 +24,7 @@ public class TileEntityPistonRenderer extends TileEntitySpecialRenderer<TileEnti
 		IBlockState iblockstate = te.getPistonState();
 		Block block = iblockstate.getBlock();
 
-		if (iblockstate.getMaterial() != Material.AIR && te.getProgress(partialTicks) < 1.0F) {
+		if (iblockstate.getMaterial() != Material.AIR && te.getProgress(partialTicks) < 1F) {
 			Tessellator tessellator = Tessellator.getInstance();
 			BufferBuilder bufferbuilder = tessellator.getBuffer();
 			bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
@@ -58,7 +58,7 @@ public class TileEntityPistonRenderer extends TileEntitySpecialRenderer<TileEnti
 				renderStateModel(blockpos, iblockstate, bufferbuilder, world, false);
 			}
 
-			bufferbuilder.setTranslation(0.0D, 0.0D, 0.0D);
+			bufferbuilder.setTranslation(0D, 0D, 0D);
 			tessellator.draw();
 			RenderHelper.enableStandardItemLighting();
 		}

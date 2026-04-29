@@ -40,7 +40,7 @@ public class EntityArmorAndHeld implements IFixableData {
 			if (!compound.hasKey("HandDropChances", 10)) {
 				NBTTagList nbttaglist2 = new NBTTagList();
 				nbttaglist2.appendTag(new NBTTagFloat(nbttaglist4.getFloatAt(0)));
-				nbttaglist2.appendTag(new NBTTagFloat(0.0F));
+				nbttaglist2.appendTag(new NBTTagFloat(0F));
 				compound.setTag("HandDropChances", nbttaglist2);
 			}
 

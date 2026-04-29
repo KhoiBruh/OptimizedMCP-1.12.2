@@ -10,16 +10,16 @@ import java.util.UUID;
 
 public class SharedMonsterAttributes {
 
-	public static final IAttribute MAX_HEALTH = (new RangedAttribute(null, "generic.maxHealth", 20.0D, 0.0D, 1024.0D)).setDescription("Max Health").setShouldWatch(true);
-	public static final IAttribute FOLLOW_RANGE = (new RangedAttribute(null, "generic.followRange", 32.0D, 0.0D, 2048.0D)).setDescription("Follow Range");
-	public static final IAttribute KNOCKBACK_RESISTANCE = (new RangedAttribute(null, "generic.knockbackResistance", 0.0D, 0.0D, 1.0D)).setDescription("Knockback Resistance");
-	public static final IAttribute MOVEMENT_SPEED = (new RangedAttribute(null, "generic.movementSpeed", 0.699999988079071D, 0.0D, 1024.0D)).setDescription("Movement Speed").setShouldWatch(true);
-	public static final IAttribute FLYING_SPEED = (new RangedAttribute(null, "generic.flyingSpeed", 0.4000000059604645D, 0.0D, 1024.0D)).setDescription("Flying Speed").setShouldWatch(true);
-	public static final IAttribute ATTACK_DAMAGE = new RangedAttribute(null, "generic.attackDamage", 2.0D, 0.0D, 2048.0D);
-	public static final IAttribute ATTACK_SPEED = (new RangedAttribute(null, "generic.attackSpeed", 4.0D, 0.0D, 1024.0D)).setShouldWatch(true);
-	public static final IAttribute ARMOR = (new RangedAttribute(null, "generic.armor", 0.0D, 0.0D, 30.0D)).setShouldWatch(true);
-	public static final IAttribute ARMOR_TOUGHNESS = (new RangedAttribute(null, "generic.armorToughness", 0.0D, 0.0D, 20.0D)).setShouldWatch(true);
-	public static final IAttribute LUCK = (new RangedAttribute(null, "generic.luck", 0.0D, -1024.0D, 1024.0D)).setShouldWatch(true);
+	public static final IAttribute MAX_HEALTH = (new RangedAttribute(null, "generic.maxHealth", 20D, 0D, 1024D)).setDescription("Max Health").setShouldWatch(true);
+	public static final IAttribute FOLLOW_RANGE = (new RangedAttribute(null, "generic.followRange", 32D, 0D, 2048D)).setDescription("Follow Range");
+	public static final IAttribute KNOCKBACK_RESISTANCE = (new RangedAttribute(null, "generic.knockbackResistance", 0D, 0D, 1D)).setDescription("Knockback Resistance");
+	public static final IAttribute MOVEMENT_SPEED = (new RangedAttribute(null, "generic.movementSpeed", 0.699999988079071D, 0D, 1024D)).setDescription("Movement Speed").setShouldWatch(true);
+	public static final IAttribute FLYING_SPEED = (new RangedAttribute(null, "generic.flyingSpeed", 0.4000000059604645D, 0D, 1024D)).setDescription("Flying Speed").setShouldWatch(true);
+	public static final IAttribute ATTACK_DAMAGE = new RangedAttribute(null, "generic.attackDamage", 2D, 0D, 2048D);
+	public static final IAttribute ATTACK_SPEED = (new RangedAttribute(null, "generic.attackSpeed", 4D, 0D, 1024D)).setShouldWatch(true);
+	public static final IAttribute ARMOR = (new RangedAttribute(null, "generic.armor", 0D, 0D, 30D)).setShouldWatch(true);
+	public static final IAttribute ARMOR_TOUGHNESS = (new RangedAttribute(null, "generic.armorToughness", 0D, 0D, 20D)).setShouldWatch(true);
+	public static final IAttribute LUCK = (new RangedAttribute(null, "generic.luck", 0D, -1024D, 1024D)).setShouldWatch(true);
 	private static final Logger LOGGER = LogManager.getLogger();
 
 	/**

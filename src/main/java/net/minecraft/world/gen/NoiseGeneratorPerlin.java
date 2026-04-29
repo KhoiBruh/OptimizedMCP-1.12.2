@@ -20,12 +20,12 @@ public class NoiseGeneratorPerlin extends NoiseGenerator {
 
 	public double getValue(double p_151601_1_, double p_151601_3_) {
 
-		double d0 = 0.0D;
-		double d1 = 1.0D;
+		double d0 = 0D;
+		double d1 = 1D;
 
 		for (int i = 0; i < levels; ++i) {
 			d0 += noiseLevels[i].getValue(p_151601_1_ * d1, p_151601_3_ * d1) / d1;
-			d1 /= 2.0D;
+			d1 /= 2D;
 		}
 
 		return d0;
@@ -39,13 +39,13 @@ public class NoiseGeneratorPerlin extends NoiseGenerator {
 	public double[] getRegion(double[] p_151600_1_, double p_151600_2_, double p_151600_4_, int p_151600_6_, int p_151600_7_, double p_151600_8_, double p_151600_10_, double p_151600_12_, double p_151600_14_) {
 
 		if (p_151600_1_ != null && p_151600_1_.length >= p_151600_6_ * p_151600_7_) {
-			Arrays.fill(p_151600_1_, 0.0D);
+			Arrays.fill(p_151600_1_, 0D);
 		} else {
 			p_151600_1_ = new double[p_151600_6_ * p_151600_7_];
 		}
 
-		double d1 = 1.0D;
-		double d0 = 1.0D;
+		double d1 = 1D;
+		double d0 = 1D;
 
 		for (int j = 0; j < levels; ++j) {
 			noiseLevels[j].add(p_151600_1_, p_151600_2_, p_151600_4_, p_151600_6_, p_151600_7_, p_151600_8_ * d0 * d1, p_151600_10_ * d0 * d1, 0.55D / d1);

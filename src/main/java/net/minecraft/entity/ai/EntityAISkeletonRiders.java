@@ -25,7 +25,7 @@ public class EntityAISkeletonRiders extends EntityAIBase {
 	 */
 	public boolean shouldExecute() {
 
-		return horse.world.isAnyPlayerWithinRangeAt(horse.posX, horse.posY, horse.posZ, 10.0D);
+		return horse.world.isAnyPlayerWithinRangeAt(horse.posX, horse.posY, horse.posZ, 10D);
 	}
 
 	/**
@@ -45,7 +45,7 @@ public class EntityAISkeletonRiders extends EntityAIBase {
 			AbstractHorse abstracthorse = createHorse(difficultyinstance);
 			EntitySkeleton entityskeleton1 = createSkeleton(difficultyinstance, abstracthorse);
 			entityskeleton1.startRiding(abstracthorse);
-			abstracthorse.addVelocity(horse.getRNG().nextGaussian() * 0.5D, 0.0D, horse.getRNG().nextGaussian() * 0.5D);
+			abstracthorse.addVelocity(horse.getRNG().nextGaussian() * 0.5D, 0D, horse.getRNG().nextGaussian() * 0.5D);
 		}
 	}
 
@@ -74,8 +74,8 @@ public class EntityAISkeletonRiders extends EntityAIBase {
 			entityskeleton.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.IRON_HELMET));
 		}
 
-		entityskeleton.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, EnchantmentHelper.addRandomEnchantment(entityskeleton.getRNG(), entityskeleton.getHeldItemMainhand(), (int) (5.0F + p_188514_1_.getClampedAdditionalDifficulty() * (float) entityskeleton.getRNG().nextInt(18)), false));
-		entityskeleton.setItemStackToSlot(EntityEquipmentSlot.HEAD, EnchantmentHelper.addRandomEnchantment(entityskeleton.getRNG(), entityskeleton.getItemStackFromSlot(EntityEquipmentSlot.HEAD), (int) (5.0F + p_188514_1_.getClampedAdditionalDifficulty() * (float) entityskeleton.getRNG().nextInt(18)), false));
+		entityskeleton.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, EnchantmentHelper.addRandomEnchantment(entityskeleton.getRNG(), entityskeleton.getHeldItemMainhand(), (int) (5F + p_188514_1_.getClampedAdditionalDifficulty() * (float) entityskeleton.getRNG().nextInt(18)), false));
+		entityskeleton.setItemStackToSlot(EntityEquipmentSlot.HEAD, EnchantmentHelper.addRandomEnchantment(entityskeleton.getRNG(), entityskeleton.getItemStackFromSlot(EntityEquipmentSlot.HEAD), (int) (5F + p_188514_1_.getClampedAdditionalDifficulty() * (float) entityskeleton.getRNG().nextInt(18)), false));
 		entityskeleton.world.spawnEntity(entityskeleton);
 		return entityskeleton;
 	}

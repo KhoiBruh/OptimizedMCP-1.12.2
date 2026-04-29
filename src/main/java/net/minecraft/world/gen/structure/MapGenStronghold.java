@@ -27,12 +27,12 @@ public class MapGenStronghold extends MapGenStructure {
 	public MapGenStronghold() {
 
 		structureCoords = new ChunkPos[128];
-		distance = 32.0D;
+		distance = 32D;
 		spread = 3;
 		allowedBiomes = Lists.newArrayList();
 
 		for (Biome biome : Biome.REGISTRY) {
-			if (biome != null && biome.getBaseHeight() > 0.0F) {
+			if (biome != null && biome.getBaseHeight() > 0F) {
 				allowedBiomes.add(biome);
 			}
 		}
@@ -44,7 +44,7 @@ public class MapGenStronghold extends MapGenStructure {
 
 		for (Entry<String, String> entry : p_i2068_1_.entrySet()) {
 			switch (entry.getKey()) {
-				case "distance" -> distance = MathHelper.getDouble(entry.getValue(), distance, 1.0D);
+				case "distance" -> distance = MathHelper.getDouble(entry.getValue(), distance, 1D);
 				case "count" ->
 						structureCoords = new ChunkPos[MathHelper.getInt(entry.getValue(), structureCoords.length, 1)];
 				case "spread" -> spread = MathHelper.getInt(entry.getValue(), spread, 1);
@@ -113,14 +113,14 @@ public class MapGenStronghold extends MapGenStructure {
 
 		Random random = new Random();
 		random.setSeed(world.getSeed());
-		double d1 = random.nextDouble() * Math.PI * 2.0D;
+		double d1 = random.nextDouble() * Math.PI * 2D;
 		int j = 0;
 		int k = 0;
 		int l = structureMap.size();
 
 		if (l < structureCoords.length) {
 			for (int i1 = 0; i1 < structureCoords.length; ++i1) {
-				double d0 = 4.0D * distance + distance * (double) j * 6.0D + (random.nextDouble() - 0.5D) * distance * 2.5D;
+				double d0 = 4D * distance + distance * (double) j * 6D + (random.nextDouble() - 0.5D) * distance * 2.5D;
 				int j1 = (int) Math.round(Math.cos(d1) * d0);
 				int k1 = (int) Math.round(Math.sin(d1) * d0);
 				BlockPos blockpos = world.getBiomeProvider().findBiomePosition((j1 << 4) + 8, (k1 << 4) + 8, 112, allowedBiomes, random);
@@ -142,7 +142,7 @@ public class MapGenStronghold extends MapGenStructure {
 					k = 0;
 					spread += 2 * spread / (j + 1);
 					spread = Math.min(spread, structureCoords.length - i1);
-					d1 += random.nextDouble() * Math.PI * 2.0D;
+					d1 += random.nextDouble() * Math.PI * 2D;
 				}
 			}
 		}

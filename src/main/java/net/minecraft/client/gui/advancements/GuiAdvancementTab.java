@@ -102,13 +102,13 @@ public class GuiAdvancementTab extends Gui {
 
 		minecraft.getTextureManager().bindTexture(Objects.requireNonNullElse(resourcelocation, TextureManager.RESOURCE_LOCATION_EMPTY));
 
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+		GlStateManager.color(1F, 1F, 1F, 1F);
 		int i = scrollX % 16;
 		int j = scrollY % 16;
 
 		for (int k = -1; k <= 15; ++k) {
 			for (int l = -1; l <= 8; ++l) {
-				drawModalRectWithCustomSizedTexture(i + 16 * k, j + 16 * l, 0.0F, 0.0F, 16, 16, 16.0F, 16.0F);
+				drawModalRectWithCustomSizedTexture(i + 16 * k, j + 16 * l, 0F, 0F, 16, 16, 16F, 16F);
 			}
 		}
 
@@ -120,8 +120,8 @@ public class GuiAdvancementTab extends Gui {
 	public void drawToolTips(int p_192991_1_, int p_192991_2_, int p_192991_3_, int p_192991_4_) {
 
 		GlStateManager.pushMatrix();
-		GlStateManager.translate(0.0F, 0.0F, 200.0F);
-		drawRect(0, 0, 234, 113, MathHelper.floor(fade * 255.0F) << 24);
+		GlStateManager.translate(0F, 0F, 200F);
+		drawRect(0, 0, 234, 113, MathHelper.floor(fade * 255F) << 24);
 		boolean flag = false;
 
 		if (p_192991_1_ > 0 && p_192991_1_ < 234 && p_192991_2_ > 0 && p_192991_2_ < 113) {
@@ -137,9 +137,9 @@ public class GuiAdvancementTab extends Gui {
 		GlStateManager.popMatrix();
 
 		if (flag) {
-			fade = MathHelper.clamp(fade + 0.02F, 0.0F, 0.3F);
+			fade = MathHelper.clamp(fade + 0.02F, 0F, 0.3F);
 		} else {
-			fade = MathHelper.clamp(fade - 0.04F, 0.0F, 1.0F);
+			fade = MathHelper.clamp(fade - 0.04F, 0F, 1F);
 		}
 	}
 

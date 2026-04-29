@@ -80,16 +80,16 @@ public class TileEntityShulkerBox extends TileEntityLockableLoot implements ITic
 
 		switch (animationStatus) {
 			case CLOSED:
-				progress = 0.0F;
+				progress = 0F;
 				break;
 
 			case OPENING:
 				progress += 0.1F;
 
-				if (progress >= 1.0F) {
+				if (progress >= 1F) {
 					moveCollidedEntities();
 					animationStatus = TileEntityShulkerBox.AnimationStatus.OPENED;
-					progress = 1.0F;
+					progress = 1F;
 				}
 
 				break;
@@ -97,15 +97,15 @@ public class TileEntityShulkerBox extends TileEntityLockableLoot implements ITic
 			case CLOSING:
 				progress -= 0.1F;
 
-				if (progress <= 0.0F) {
+				if (progress <= 0F) {
 					animationStatus = TileEntityShulkerBox.AnimationStatus.CLOSED;
-					progress = 0.0F;
+					progress = 0F;
 				}
 
 				break;
 
 			case OPENED:
-				progress = 1.0F;
+				progress = 1F;
 		}
 	}
 
@@ -121,7 +121,7 @@ public class TileEntityShulkerBox extends TileEntityLockableLoot implements ITic
 
 	public AxisAlignedBB getBoundingBox(EnumFacing p_190587_1_) {
 
-		return Block.FULL_BLOCK_AABB.expand(0.5F * getProgress(1.0F) * (float) p_190587_1_.getFrontOffsetX(), 0.5F * getProgress(1.0F) * (float) p_190587_1_.getFrontOffsetY(), 0.5F * getProgress(1.0F) * (float) p_190587_1_.getFrontOffsetZ());
+		return Block.FULL_BLOCK_AABB.expand(0.5F * getProgress(1F) * (float) p_190587_1_.getFrontOffsetX(), 0.5F * getProgress(1F) * (float) p_190587_1_.getFrontOffsetY(), 0.5F * getProgress(1F) * (float) p_190587_1_.getFrontOffsetZ());
 	}
 
 	private AxisAlignedBB getTopBoundingBox(EnumFacing p_190588_1_) {
@@ -142,9 +142,9 @@ public class TileEntityShulkerBox extends TileEntityLockableLoot implements ITic
 			if (!list.isEmpty()) {
 				for (Entity entity : list) {
 					if (entity.getPushReaction() != EnumPushReaction.IGNORE) {
-						double d0 = 0.0D;
-						double d1 = 0.0D;
-						double d2 = 0.0D;
+						double d0 = 0D;
+						double d1 = 0D;
+						double d2 = 0D;
 						AxisAlignedBB axisalignedbb1 = entity.getEntityBoundingBox();
 
 						switch (enumfacing.getAxis()) {

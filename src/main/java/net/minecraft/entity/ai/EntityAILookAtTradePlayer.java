@@ -9,7 +9,7 @@ public class EntityAILookAtTradePlayer extends EntityAIWatchClosest {
 
 	public EntityAILookAtTradePlayer(EntityVillager villagerIn) {
 
-		super(villagerIn, EntityPlayer.class, 8.0F);
+		super(villagerIn, EntityPlayer.class, 8F);
 		villager = villagerIn;
 	}
 

@@ -62,7 +62,7 @@ public class TeleportToPlayer implements ISpectatorMenuView, ISpectatorMenuObjec
 	public void renderIcon(float brightness, int alpha) {
 
 		Minecraft.getMinecraft().getTextureManager().bindTexture(GuiSpectator.SPECTATOR_WIDGETS);
-		Gui.drawModalRectWithCustomSizedTexture(0, 0, 0.0F, 0.0F, 16, 16, 256.0F, 256.0F);
+		Gui.drawModalRectWithCustomSizedTexture(0, 0, 0F, 0F, 16, 16, 256F, 256F);
 	}
 
 	public boolean isEnabled() {

@@ -108,10 +108,10 @@ public class GuiRecipeOverlay extends Gui {
 			time += p_191842_3_;
 			RenderHelper.enableGUIStandardItemLighting();
 			GlStateManager.enableBlend();
-			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+			GlStateManager.color(1F, 1F, 1F, 1F);
 			mc.getTextureManager().bindTexture(RECIPE_BOOK_TEXTURE);
 			GlStateManager.pushMatrix();
-			GlStateManager.translate(0.0F, 0.0F, 170.0F);
+			GlStateManager.translate(0F, 0F, 170F);
 			int i = buttonList.size() <= 16 ? 4 : 5;
 			int j = Math.min(buttonList.size(), i);
 			int k = MathHelper.ceil((float) buttonList.size() / (float) i);
@@ -228,11 +228,11 @@ public class GuiRecipeOverlay extends Gui {
 							int l1 = 3 + k1 * 7;
 							GlStateManager.pushMatrix();
 							float f = 0.42F;
-							int i2 = (int) ((float) (x + l1) / 0.42F - 3.0F);
-							int j2 = (int) ((float) (y + j1) / 0.42F - 3.0F);
-							GlStateManager.scale(0.42F, 0.42F, 1.0F);
+							int i2 = (int) ((float) (x + l1) / 0.42F - 3F);
+							int j2 = (int) ((float) (y + j1) / 0.42F - 3F);
+							GlStateManager.scale(0.42F, 0.42F, 1F);
 							GlStateManager.enableLighting();
-							mc.getRenderItem().renderItemAndEffectIntoGUI(aitemstack[MathHelper.floor(time / 30.0F) % aitemstack.length], i2, j2);
+							mc.getRenderItem().renderItemAndEffectIntoGUI(aitemstack[MathHelper.floor(time / 30F) % aitemstack.length], i2, j2);
 							GlStateManager.disableLighting();
 							GlStateManager.popMatrix();
 						}

@@ -22,8 +22,8 @@ public class RenderLlamaSpit extends Render<EntityLlamaSpit> {
 
 		GlStateManager.pushMatrix();
 		GlStateManager.translate((float) x, (float) y + 0.15F, (float) z);
-		GlStateManager.rotate(entity.prevRotationYaw + (entity.rotationYaw - entity.prevRotationYaw) * partialTicks - 90.0F, 0.0F, 1.0F, 0.0F);
-		GlStateManager.rotate(entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * partialTicks, 0.0F, 0.0F, 1.0F);
+		GlStateManager.rotate(entity.prevRotationYaw + (entity.rotationYaw - entity.prevRotationYaw) * partialTicks - 90F, 0F, 1F, 0F);
+		GlStateManager.rotate(entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * partialTicks, 0F, 0F, 1F);
 		bindEntityTexture(entity);
 
 		if (renderOutlines) {
@@ -31,7 +31,7 @@ public class RenderLlamaSpit extends Render<EntityLlamaSpit> {
 			GlStateManager.enableOutlineMode(getTeamColor(entity));
 		}
 
-		model.render(entity, partialTicks, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
+		model.render(entity, partialTicks, 0F, -0.1F, 0F, 0F, 0.0625F);
 
 		if (renderOutlines) {
 			GlStateManager.disableOutlineMode();

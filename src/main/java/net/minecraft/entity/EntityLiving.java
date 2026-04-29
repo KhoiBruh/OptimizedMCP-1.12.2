@@ -211,7 +211,7 @@ public abstract class EntityLiving extends EntityLivingBase {
 	protected void applyEntityAttributes() {
 
 		super.applyEntityAttributes();
-		getAttributeMap().registerAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(16.0D);
+		getAttributeMap().registerAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(16D);
 	}
 
 	/**
@@ -362,13 +362,13 @@ public abstract class EntityLiving extends EntityLivingBase {
 			int i = experienceValue;
 
 			for (int j = 0; j < inventoryArmor.size(); ++j) {
-				if (!inventoryArmor.get(j).isEmpty() && inventoryArmorDropChances[j] <= 1.0F) {
+				if (!inventoryArmor.get(j).isEmpty() && inventoryArmorDropChances[j] <= 1F) {
 					i += 1 + rand.nextInt(3);
 				}
 			}
 
 			for (int k = 0; k < inventoryHands.size(); ++k) {
-				if (!inventoryHands.get(k).isEmpty() && inventoryHandsDropChances[k] <= 1.0F) {
+				if (!inventoryHands.get(k).isEmpty() && inventoryHandsDropChances[k] <= 1F) {
 					i += 1 + rand.nextInt(3);
 				}
 			}
@@ -389,8 +389,8 @@ public abstract class EntityLiving extends EntityLivingBase {
 				double d0 = rand.nextGaussian() * 0.02D;
 				double d1 = rand.nextGaussian() * 0.02D;
 				double d2 = rand.nextGaussian() * 0.02D;
-				double d3 = 10.0D;
-				world.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, posX + (double) (rand.nextFloat() * width * 2.0F) - (double) width - d0 * 10.0D, posY + (double) (rand.nextFloat() * height) - d1 * 10.0D, posZ + (double) (rand.nextFloat() * width * 2.0F) - (double) width - d2 * 10.0D, d0, d1, d2);
+				double d3 = 10D;
+				world.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, posX + (double) (rand.nextFloat() * width * 2F) - (double) width - d0 * 10D, posY + (double) (rand.nextFloat() * height) - d1 * 10D, posZ + (double) (rand.nextFloat() * width * 2F) - (double) width - d2 * 10D, d0, d1, d2);
 			}
 		} else {
 			world.setEntityState(this, (byte) 20);
@@ -636,7 +636,7 @@ public abstract class EntityLiving extends EntityLivingBase {
 			}
 
 			for (ItemStack itemstack : loottable.generateLootForPools(deathLootTableSeed == 0L ? rand : new Random(deathLootTableSeed), lootcontext$builder.build())) {
-				entityDropItem(itemstack, 0.0F);
+				entityDropItem(itemstack, 0F);
 			}
 
 			dropEquipment(wasRecentlyHit, lootingModifier);
@@ -679,7 +679,7 @@ public abstract class EntityLiving extends EntityLivingBase {
 		world.profiler.startSection("looting");
 
 		if (!world.isRemote && canPickUpLoot() && !dead && world.getGameRules().getBoolean("mobGriefing")) {
-			for (EntityItem entityitem : world.getEntitiesWithinAABB(EntityItem.class, getEntityBoundingBox().grow(1.0D, 0.0D, 1.0D))) {
+			for (EntityItem entityitem : world.getEntitiesWithinAABB(EntityItem.class, getEntityBoundingBox().grow(1D, 0D, 1D))) {
 				if (!entityitem.isDead && !entityitem.getItem().isEmpty() && !entityitem.cannotPickup()) {
 					updateEquipmentIfNeeded(entityitem);
 				}
@@ -737,18 +737,18 @@ public abstract class EntityLiving extends EntityLivingBase {
 			};
 
 			if (!itemstack1.isEmpty() && (double) (rand.nextFloat() - 0.1F) < d0) {
-				entityDropItem(itemstack1, 0.0F);
+				entityDropItem(itemstack1, 0F);
 			}
 
 			setItemStackToSlot(entityequipmentslot, itemstack);
 
 			switch (entityequipmentslot.getSlotType()) {
 				case HAND:
-					inventoryHandsDropChances[entityequipmentslot.getIndex()] = 2.0F;
+					inventoryHandsDropChances[entityequipmentslot.getIndex()] = 2F;
 					break;
 
 				case ARMOR:
-					inventoryArmorDropChances[entityequipmentslot.getIndex()] = 2.0F;
+					inventoryArmorDropChances[entityequipmentslot.getIndex()] = 2F;
 			}
 
 			persistenceRequired = true;
@@ -778,7 +778,7 @@ public abstract class EntityLiving extends EntityLivingBase {
 		if (persistenceRequired) {
 			idleTime = 0;
 		} else {
-			Entity entity = world.getClosestPlayerToEntity(this, -1.0D);
+			Entity entity = world.getClosestPlayerToEntity(this, -1D);
 
 			if (entity != null) {
 				double d0 = entity.posX - posX;
@@ -786,13 +786,13 @@ public abstract class EntityLiving extends EntityLivingBase {
 				double d2 = entity.posZ - posZ;
 				double d3 = d0 * d0 + d1 * d1 + d2 * d2;
 
-				if (canDespawn() && d3 > 16384.0D) {
+				if (canDespawn() && d3 > 16384D) {
 					setDead();
 				}
 
-				if (idleTime > 600 && rand.nextInt(800) == 0 && d3 > 1024.0D && canDespawn()) {
+				if (idleTime > 600 && rand.nextInt(800) == 0 && d3 > 1024D && canDespawn()) {
 					setDead();
-				} else if (d3 < 1024.0D) {
+				} else if (d3 < 1024D) {
 					idleTime = 0;
 				}
 			}
@@ -867,11 +867,11 @@ public abstract class EntityLiving extends EntityLivingBase {
 		if (entityIn instanceof EntityLivingBase entitylivingbase) {
 			d1 = entitylivingbase.posY + (double) entitylivingbase.getEyeHeight() - (posY + (double) getEyeHeight());
 		} else {
-			d1 = (entityIn.getEntityBoundingBox().minY + entityIn.getEntityBoundingBox().maxY) / 2.0D - (posY + (double) getEyeHeight());
+			d1 = (entityIn.getEntityBoundingBox().minY + entityIn.getEntityBoundingBox().maxY) / 2D - (posY + (double) getEyeHeight());
 		}
 
 		double d3 = MathHelper.sqrt(d0 * d0 + d2 * d2);
-		float f = (float) (MathHelper.atan2(d2, d0) * (180D / Math.PI)) - 90.0F;
+		float f = (float) (MathHelper.atan2(d2, d0) * (180D / Math.PI)) - 90F;
 		float f1 = (float) (-(MathHelper.atan2(d1, d3) * (180D / Math.PI)));
 		rotationPitch = updateRotation(rotationPitch, f1, maxPitchIncrease);
 		rotationYaw = updateRotation(rotationYaw, f, maxYawIncrease);
@@ -917,7 +917,7 @@ public abstract class EntityLiving extends EntityLivingBase {
 	 */
 	public float getRenderSizeModifier() {
 
-		return 1.0F;
+		return 1F;
 	}
 
 	/**
@@ -989,14 +989,14 @@ public abstract class EntityLiving extends EntityLivingBase {
 				case ARMOR -> inventoryArmorDropChances[entityequipmentslot.getIndex()];
 			};
 
-			boolean flag = d0 > 1.0D;
+			boolean flag = d0 > 1D;
 
 			if (!itemstack.isEmpty() && !EnchantmentHelper.hasVanishingCurse(itemstack) && (wasRecentlyHit || flag) && (double) (rand.nextFloat() - (float) lootingModifier * 0.01F) < d0) {
 				if (!flag && itemstack.isItemStackDamageable()) {
 					itemstack.setItemDamage(itemstack.getMaxDamage() - rand.nextInt(1 + rand.nextInt(Math.max(itemstack.getMaxDamage() - 3, 1))));
 				}
 
-				entityDropItem(itemstack, 0.0F);
+				entityDropItem(itemstack, 0F);
 			}
 		}
 	}
@@ -1054,7 +1054,7 @@ public abstract class EntityLiving extends EntityLivingBase {
 		float f = difficulty.getClampedAdditionalDifficulty();
 
 		if (!getHeldItemMainhand().isEmpty() && rand.nextFloat() < 0.25F * f) {
-			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, EnchantmentHelper.addRandomEnchantment(rand, getHeldItemMainhand(), (int) (5.0F + f * (float) rand.nextInt(18)), false));
+			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, EnchantmentHelper.addRandomEnchantment(rand, getHeldItemMainhand(), (int) (5F + f * (float) rand.nextInt(18)), false));
 		}
 
 		for (EntityEquipmentSlot entityequipmentslot : EntityEquipmentSlot.values()) {
@@ -1062,7 +1062,7 @@ public abstract class EntityLiving extends EntityLivingBase {
 				ItemStack itemstack = getItemStackFromSlot(entityequipmentslot);
 
 				if (!itemstack.isEmpty() && rand.nextFloat() < 0.5F * f) {
-					setItemStackToSlot(entityequipmentslot, EnchantmentHelper.addRandomEnchantment(rand, itemstack, (int) (5.0F + f * (float) rand.nextInt(18)), false));
+					setItemStackToSlot(entityequipmentslot, EnchantmentHelper.addRandomEnchantment(rand, itemstack, (int) (5F + f * (float) rand.nextInt(18)), false));
 				}
 			}
 		}
@@ -1251,7 +1251,7 @@ public abstract class EntityLiving extends EntityLivingBase {
 			if (leashNBTTag.hasUniqueId("UUID")) {
 				UUID uuid = leashNBTTag.getUniqueId("UUID");
 
-				for (EntityLivingBase entitylivingbase : world.getEntitiesWithinAABB(EntityLivingBase.class, getEntityBoundingBox().grow(10.0D))) {
+				for (EntityLivingBase entitylivingbase : world.getEntitiesWithinAABB(EntityLivingBase.class, getEntityBoundingBox().grow(10D))) {
 					if (entitylivingbase.getUniqueID().equals(uuid)) {
 						setLeashHolder(entitylivingbase, true);
 						break;

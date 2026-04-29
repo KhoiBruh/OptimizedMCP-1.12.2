@@ -140,15 +140,15 @@ public class EntityPotion extends EntityThrowable {
 
 	private void applyWater() {
 
-		AxisAlignedBB axisalignedbb = getEntityBoundingBox().grow(4.0D, 2.0D, 4.0D);
+		AxisAlignedBB axisalignedbb = getEntityBoundingBox().grow(4D, 2D, 4D);
 		List<EntityLivingBase> list = world.getEntitiesWithinAABB(EntityLivingBase.class, axisalignedbb, WATER_SENSITIVE);
 
 		if (!list.isEmpty()) {
 			for (EntityLivingBase entitylivingbase : list) {
 				double d0 = getDistanceSq(entitylivingbase);
 
-				if (d0 < 16.0D && isWaterSensitiveEntity(entitylivingbase)) {
-					entitylivingbase.attackEntityFrom(DamageSource.DROWN, 1.0F);
+				if (d0 < 16D && isWaterSensitiveEntity(entitylivingbase)) {
+					entitylivingbase.attackEntityFrom(DamageSource.DROWN, 1F);
 				}
 			}
 		}
@@ -156,7 +156,7 @@ public class EntityPotion extends EntityThrowable {
 
 	private void applySplash(RayTraceResult p_190543_1_, List<PotionEffect> p_190543_2_) {
 
-		AxisAlignedBB axisalignedbb = getEntityBoundingBox().grow(4.0D, 2.0D, 4.0D);
+		AxisAlignedBB axisalignedbb = getEntityBoundingBox().grow(4D, 2D, 4D);
 		List<EntityLivingBase> list = world.getEntitiesWithinAABB(EntityLivingBase.class, axisalignedbb);
 
 		if (!list.isEmpty()) {
@@ -164,11 +164,11 @@ public class EntityPotion extends EntityThrowable {
 				if (entitylivingbase.canBeHitWithPotion()) {
 					double d0 = getDistanceSq(entitylivingbase);
 
-					if (d0 < 16.0D) {
-						double d1 = 1.0D - Math.sqrt(d0) / 4.0D;
+					if (d0 < 16D) {
+						double d1 = 1D - Math.sqrt(d0) / 4D;
 
 						if (entitylivingbase == p_190543_1_.entityHit) {
-							d1 = 1.0D;
+							d1 = 1D;
 						}
 
 						for (PotionEffect potioneffect : p_190543_2_) {
@@ -194,7 +194,7 @@ public class EntityPotion extends EntityThrowable {
 
 		EntityAreaEffectCloud entityareaeffectcloud = new EntityAreaEffectCloud(world, posX, posY, posZ);
 		entityareaeffectcloud.setOwner(getThrower());
-		entityareaeffectcloud.setRadius(3.0F);
+		entityareaeffectcloud.setRadius(3F);
 		entityareaeffectcloud.setRadiusOnUse(-0.5F);
 		entityareaeffectcloud.setWaitTime(10);
 		entityareaeffectcloud.setRadiusPerTick(-entityareaeffectcloud.getRadius() / (float) entityareaeffectcloud.getDuration());

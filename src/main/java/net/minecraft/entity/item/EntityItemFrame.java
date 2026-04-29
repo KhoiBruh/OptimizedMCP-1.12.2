@@ -30,7 +30,7 @@ public class EntityItemFrame extends EntityHanging {
 	/**
 	 * Chance for this item frame's item to drop from the frame.
 	 */
-	private float itemDropChance = 1.0F;
+	private float itemDropChance = 1F;
 
 	public EntityItemFrame(World worldIn) {
 
@@ -64,7 +64,7 @@ public class EntityItemFrame extends EntityHanging {
 		} else if (!source.isExplosion() && !getDisplayedItem().isEmpty()) {
 			if (!world.isRemote) {
 				dropItemOrSelf(source.getTrueSource(), false);
-				playSound(SoundEvents.ENTITY_ITEMFRAME_REMOVE_ITEM, 1.0F, 1.0F);
+				playSound(SoundEvents.ENTITY_ITEMFRAME_REMOVE_ITEM, 1F, 1F);
 				setDisplayedItem(ItemStack.EMPTY);
 			}
 
@@ -89,8 +89,8 @@ public class EntityItemFrame extends EntityHanging {
 	 */
 	public boolean isInRangeToRenderDist(double distance) {
 
-		double d0 = 16.0D;
-		d0 = d0 * 64.0D * getRenderDistanceWeight();
+		double d0 = 16D;
+		d0 = d0 * 64D * getRenderDistanceWeight();
 		return distance < d0 * d0;
 	}
 
@@ -99,13 +99,13 @@ public class EntityItemFrame extends EntityHanging {
 	 */
 	public void onBroken(Entity brokenEntity) {
 
-		playSound(SoundEvents.ENTITY_ITEMFRAME_BREAK, 1.0F, 1.0F);
+		playSound(SoundEvents.ENTITY_ITEMFRAME_BREAK, 1F, 1F);
 		dropItemOrSelf(brokenEntity, true);
 	}
 
 	public void playPlaceSound() {
 
-		playSound(SoundEvents.ENTITY_ITEMFRAME_PLACE, 1.0F, 1.0F);
+		playSound(SoundEvents.ENTITY_ITEMFRAME_PLACE, 1F, 1F);
 	}
 
 	public void dropItemOrSelf(Entity entityIn, boolean p_146065_2_) {
@@ -122,13 +122,13 @@ public class EntityItemFrame extends EntityHanging {
 			}
 
 			if (p_146065_2_) {
-				entityDropItem(new ItemStack(Items.ITEM_FRAME), 0.0F);
+				entityDropItem(new ItemStack(Items.ITEM_FRAME), 0F);
 			}
 
 			if (!itemstack.isEmpty() && rand.nextFloat() < itemDropChance) {
 				itemstack = itemstack.copy();
 				removeFrameFromMap(itemstack);
-				entityDropItem(itemstack, 0.0F);
+				entityDropItem(itemstack, 0F);
 			}
 		}
 	}
@@ -170,7 +170,7 @@ public class EntityItemFrame extends EntityHanging {
 		getDataManager().setDirty(ITEM);
 
 		if (!stack.isEmpty()) {
-			playSound(SoundEvents.ENTITY_ITEMFRAME_ADD_ITEM, 1.0F, 1.0F);
+			playSound(SoundEvents.ENTITY_ITEMFRAME_ADD_ITEM, 1F, 1F);
 		}
 
 		if (p_174864_2_ && hangingPosition != null) {
@@ -258,7 +258,7 @@ public class EntityItemFrame extends EntityHanging {
 					}
 				}
 			} else {
-				playSound(SoundEvents.ENTITY_ITEMFRAME_ROTATE_ITEM, 1.0F, 1.0F);
+				playSound(SoundEvents.ENTITY_ITEMFRAME_ROTATE_ITEM, 1F, 1F);
 				setItemRotation(getRotation() + 1);
 			}
 		}

@@ -21,8 +21,8 @@ import java.util.Random;
 public abstract class BlockSlab extends Block {
 
 	public static final PropertyEnum<BlockSlab.EnumBlockHalf> HALF = PropertyEnum.create("half", BlockSlab.EnumBlockHalf.class);
-	protected static final AxisAlignedBB AABB_BOTTOM_HALF = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.5D, 1.0D);
-	protected static final AxisAlignedBB AABB_TOP_HALF = new AxisAlignedBB(0.0D, 0.5D, 0.0D, 1.0D, 1.0D, 1.0D);
+	protected static final AxisAlignedBB AABB_BOTTOM_HALF = new AxisAlignedBB(0D, 0D, 0D, 1D, 0.5D, 1D);
+	protected static final AxisAlignedBB AABB_TOP_HALF = new AxisAlignedBB(0D, 0.5D, 0D, 1D, 1D, 1D);
 
 	public BlockSlab(Material materialIn) {
 

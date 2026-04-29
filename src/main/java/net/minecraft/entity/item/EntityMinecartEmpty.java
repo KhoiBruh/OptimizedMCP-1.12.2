@@ -50,7 +50,7 @@ public class EntityMinecartEmpty extends EntityMinecart {
 			if (getRollingAmplitude() == 0) {
 				setRollingDirection(-getRollingDirection());
 				setRollingAmplitude(10);
-				setDamage(50.0F);
+				setDamage(50F);
 				markVelocityChanged();
 			}
 		}

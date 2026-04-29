@@ -17,7 +17,7 @@ public class ParticleSuspendedTown extends Particle {
 		motionX *= 0.019999999552965164D;
 		motionY *= 0.019999999552965164D;
 		motionZ *= 0.019999999552965164D;
-		particleMaxAge = (int) (20.0D / (Math.random() * 0.8D + 0.2D));
+		particleMaxAge = (int) (20D / (Math.random() * 0.8D + 0.2D));
 	}
 
 	public void move(double x, double y, double z) {
@@ -56,7 +56,7 @@ public class ParticleSuspendedTown extends Particle {
 
 			Particle particle = new ParticleSuspendedTown(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
 			particle.setParticleTextureIndex(82);
-			particle.setRBGColorF(1.0F, 1.0F, 1.0F);
+			particle.setRBGColorF(1F, 1F, 1F);
 			return particle;
 		}
 

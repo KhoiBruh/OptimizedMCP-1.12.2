@@ -178,7 +178,7 @@ public class Stitcher {
 		private final int height;
 		private final int mipmapLevelHolder;
 		private boolean rotated;
-		private float scaleFactor = 1.0F;
+		private float scaleFactor = 1F;
 
 		public Holder(TextureAtlasSprite theTextureIn, int mipmapLevelHolderIn) {
 

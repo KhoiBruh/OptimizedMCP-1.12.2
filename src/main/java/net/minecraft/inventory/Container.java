@@ -116,7 +116,7 @@ public abstract class Container {
 			return 0;
 		} else {
 			int i = 0;
-			float f = 0.0F;
+			float f = 0F;
 
 			for (int j = 0; j < inv.getSizeInventory(); ++j) {
 				ItemStack itemstack = inv.getStackInSlot(j);
@@ -128,7 +128,7 @@ public abstract class Container {
 			}
 
 			f = f / (float) inv.getSizeInventory();
-			return MathHelper.floor(f * 14.0F) + (i > 0 ? 1 : 0);
+			return MathHelper.floor(f * 14F) + (i > 0 ? 1 : 0);
 		}
 	}
 

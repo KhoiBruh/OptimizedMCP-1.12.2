@@ -207,7 +207,7 @@ public class DamageSource {
 	protected DamageSource setDamageBypassesArmor() {
 
 		isUnblockable = true;
-		hungerDamage = 0.0F;
+		hungerDamage = 0F;
 		return this;
 	}
 
@@ -224,7 +224,7 @@ public class DamageSource {
 	protected DamageSource setDamageIsAbsolute() {
 
 		damageIsAbsolute = true;
-		hungerDamage = 0.0F;
+		hungerDamage = 0F;
 		return this;
 	}
 

@@ -11,12 +11,12 @@ public class ParticleSmokeNormal extends Particle {
 
 	private ParticleSmokeNormal(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double p_i46347_8_, double p_i46347_10_, double p_i46347_12_) {
 
-		this(worldIn, xCoordIn, yCoordIn, zCoordIn, p_i46347_8_, p_i46347_10_, p_i46347_12_, 1.0F);
+		this(worldIn, xCoordIn, yCoordIn, zCoordIn, p_i46347_8_, p_i46347_10_, p_i46347_12_, 1F);
 	}
 
 	protected ParticleSmokeNormal(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double p_i46348_8_, double p_i46348_10_, double p_i46348_12_, float p_i46348_14_) {
 
-		super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0.0D, 0.0D, 0.0D);
+		super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0D, 0D, 0D);
 		motionX *= 0.10000000149011612D;
 		motionY *= 0.10000000149011612D;
 		motionZ *= 0.10000000149011612D;
@@ -30,7 +30,7 @@ public class ParticleSmokeNormal extends Particle {
 		particleScale *= 0.75F;
 		particleScale *= p_i46348_14_;
 		smokeParticleScale = particleScale;
-		particleMaxAge = (int) (8.0D / (Math.random() * 0.8D + 0.2D));
+		particleMaxAge = (int) (8D / (Math.random() * 0.8D + 0.2D));
 		particleMaxAge = (int) ((float) particleMaxAge * p_i46348_14_);
 	}
 
@@ -39,8 +39,8 @@ public class ParticleSmokeNormal extends Particle {
 	 */
 	public void renderParticle(BufferBuilder buffer, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
 
-		float f = ((float) particleAge + partialTicks) / (float) particleMaxAge * 32.0F;
-		f = MathHelper.clamp(f, 0.0F, 1.0F);
+		float f = ((float) particleAge + partialTicks) / (float) particleMaxAge * 32F;
+		f = MathHelper.clamp(f, 0F, 1F);
 		particleScale = smokeParticleScale * f;
 		super.renderParticle(buffer, entityIn, partialTicks, rotationX, rotationZ, rotationYZ, rotationXY, rotationXZ);
 	}

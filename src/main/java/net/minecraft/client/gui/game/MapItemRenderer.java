@@ -115,16 +115,16 @@ public class MapItemRenderer {
 			int j = 0;
 			Tessellator tessellator = Tessellator.getInstance();
 			BufferBuilder bufferbuilder = tessellator.getBuffer();
-			float f = 0.0F;
+			float f = 0F;
 			textureManager.bindTexture(location);
 			GlStateManager.enableBlend();
 			GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ZERO, GlStateManager.DestFactor.ONE);
 			GlStateManager.disableAlpha();
 			bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
-			bufferbuilder.pos(0.0D, 128.0D, -0.009999999776482582D).tex(0.0D, 1.0D).endVertex();
-			bufferbuilder.pos(128.0D, 128.0D, -0.009999999776482582D).tex(1.0D, 1.0D).endVertex();
-			bufferbuilder.pos(128.0D, 0.0D, -0.009999999776482582D).tex(1.0D, 0.0D).endVertex();
-			bufferbuilder.pos(0.0D, 0.0D, -0.009999999776482582D).tex(0.0D, 0.0D).endVertex();
+			bufferbuilder.pos(0D, 128D, -0.009999999776482582D).tex(0D, 1D).endVertex();
+			bufferbuilder.pos(128D, 128D, -0.009999999776482582D).tex(1D, 1D).endVertex();
+			bufferbuilder.pos(128D, 0D, -0.009999999776482582D).tex(1D, 0D).endVertex();
+			bufferbuilder.pos(0D, 0D, -0.009999999776482582D).tex(0D, 0D).endVertex();
 			tessellator.draw();
 			GlStateManager.enableAlpha();
 			GlStateManager.disableBlend();
@@ -134,21 +134,21 @@ public class MapItemRenderer {
 			for (MapDecoration mapdecoration : mapData.mapDecorations.values()) {
 				if (!noOverlayRendering || mapdecoration.renderOnFrame()) {
 					GlStateManager.pushMatrix();
-					GlStateManager.translate(0.0F + (float) mapdecoration.x() / 2.0F + 64.0F, 0.0F + (float) mapdecoration.y() / 2.0F + 64.0F, -0.02F);
-					GlStateManager.rotate((float) (mapdecoration.rotation() * 360) / 16.0F, 0.0F, 0.0F, 1.0F);
-					GlStateManager.scale(4.0F, 4.0F, 3.0F);
-					GlStateManager.translate(-0.125F, 0.125F, 0.0F);
+					GlStateManager.translate(0F + (float) mapdecoration.x() / 2F + 64F, 0F + (float) mapdecoration.y() / 2F + 64F, -0.02F);
+					GlStateManager.rotate((float) (mapdecoration.rotation() * 360) / 16F, 0F, 0F, 1F);
+					GlStateManager.scale(4F, 4F, 3F);
+					GlStateManager.translate(-0.125F, 0.125F, 0F);
 					byte b0 = mapdecoration.getImage();
-					float f1 = (float) (b0 % 4) / 4.0F;
-					float f2 = (float) (b0 / 4) / 4.0F;
-					float f3 = (float) (b0 % 4 + 1) / 4.0F;
-					float f4 = (float) (b0 / 4 + 1) / 4.0F;
+					float f1 = (float) (b0 % 4) / 4F;
+					float f2 = (float) (b0 / 4) / 4F;
+					float f3 = (float) (b0 % 4 + 1) / 4F;
+					float f4 = (float) (b0 / 4 + 1) / 4F;
 					bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
 					float f5 = -0.001F;
-					bufferbuilder.pos(-1.0D, 1.0D, (float) k * -0.001F).tex(f1, f2).endVertex();
-					bufferbuilder.pos(1.0D, 1.0D, (float) k * -0.001F).tex(f3, f2).endVertex();
-					bufferbuilder.pos(1.0D, -1.0D, (float) k * -0.001F).tex(f3, f4).endVertex();
-					bufferbuilder.pos(-1.0D, -1.0D, (float) k * -0.001F).tex(f1, f4).endVertex();
+					bufferbuilder.pos(-1D, 1D, (float) k * -0.001F).tex(f1, f2).endVertex();
+					bufferbuilder.pos(1D, 1D, (float) k * -0.001F).tex(f3, f2).endVertex();
+					bufferbuilder.pos(1D, -1D, (float) k * -0.001F).tex(f3, f4).endVertex();
+					bufferbuilder.pos(-1D, -1D, (float) k * -0.001F).tex(f1, f4).endVertex();
 					tessellator.draw();
 					GlStateManager.popMatrix();
 					++k;
@@ -156,8 +156,8 @@ public class MapItemRenderer {
 			}
 
 			GlStateManager.pushMatrix();
-			GlStateManager.translate(0.0F, 0.0F, -0.04F);
-			GlStateManager.scale(1.0F, 1.0F, 1.0F);
+			GlStateManager.translate(0F, 0F, -0.04F);
+			GlStateManager.scale(1F, 1F, 1F);
 			GlStateManager.popMatrix();
 		}
 

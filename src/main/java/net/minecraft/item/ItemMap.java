@@ -78,43 +78,43 @@ public class ItemMap extends ItemMapBase {
 							int i2 = 8;
 
 							if (l > 0 && i1 > 0 && l < 127 && i1 < 127) {
-								if (abiome[(l - 1) * i + (i1 - 1) * i * 128 * i].getBaseHeight() >= 0.0F) {
+								if (abiome[(l - 1) * i + (i1 - 1) * i * 128 * i].getBaseHeight() >= 0F) {
 									--i2;
 								}
 
-								if (abiome[(l - 1) * i + (i1 + 1) * i * 128 * i].getBaseHeight() >= 0.0F) {
+								if (abiome[(l - 1) * i + (i1 + 1) * i * 128 * i].getBaseHeight() >= 0F) {
 									--i2;
 								}
 
-								if (abiome[(l - 1) * i + i1 * i * 128 * i].getBaseHeight() >= 0.0F) {
+								if (abiome[(l - 1) * i + i1 * i * 128 * i].getBaseHeight() >= 0F) {
 									--i2;
 								}
 
-								if (abiome[(l + 1) * i + (i1 - 1) * i * 128 * i].getBaseHeight() >= 0.0F) {
+								if (abiome[(l + 1) * i + (i1 - 1) * i * 128 * i].getBaseHeight() >= 0F) {
 									--i2;
 								}
 
-								if (abiome[(l + 1) * i + (i1 + 1) * i * 128 * i].getBaseHeight() >= 0.0F) {
+								if (abiome[(l + 1) * i + (i1 + 1) * i * 128 * i].getBaseHeight() >= 0F) {
 									--i2;
 								}
 
-								if (abiome[(l + 1) * i + i1 * i * 128 * i].getBaseHeight() >= 0.0F) {
+								if (abiome[(l + 1) * i + i1 * i * 128 * i].getBaseHeight() >= 0F) {
 									--i2;
 								}
 
-								if (abiome[l * i + (i1 - 1) * i * 128 * i].getBaseHeight() >= 0.0F) {
+								if (abiome[l * i + (i1 - 1) * i * 128 * i].getBaseHeight() >= 0F) {
 									--i2;
 								}
 
-								if (abiome[l * i + (i1 + 1) * i * 128 * i].getBaseHeight() >= 0.0F) {
+								if (abiome[l * i + (i1 + 1) * i * 128 * i].getBaseHeight() >= 0F) {
 									--i2;
 								}
 
-								if (biome.getBaseHeight() < 0.0F) {
+								if (biome.getBaseHeight() < 0F) {
 									mapcolor = MapColor.ADOBE;
 
 									if (i2 > 7 && i1 % 2 == 0) {
-										l1 = (l + (int) (MathHelper.sin((float) i1 + 0.0F) * 7.0F)) / 8 % 5;
+										l1 = (l + (int) (MathHelper.sin((float) i1 + 0F) * 7F)) / 8 % 5;
 
 										if (l1 == 3) {
 											l1 = 1;
@@ -238,7 +238,7 @@ public class ItemMap extends ItemMapBase {
 			for (int k1 = l - j1 + 1; k1 < l + j1; ++k1) {
 				if ((k1 & 15) == (mapdata$mapinfo.step & 15) || flag) {
 					flag = false;
-					double d0 = 0.0D;
+					double d0 = 0D;
 
 					for (int l1 = i1 - j1 - 1; l1 < i1 + j1; ++l1) {
 						if (k1 >= 0 && l1 >= -1 && k1 < 128 && l1 < 128) {
@@ -254,7 +254,7 @@ public class ItemMap extends ItemMapBase {
 								int i3 = k2 & 15;
 								int j3 = l2 & 15;
 								int k3 = 0;
-								double d1 = 0.0D;
+								double d1 = 0D;
 
 								if (worldIn.provider.isNether()) {
 									int l3 = k2 + l2 * 231871;
@@ -266,7 +266,7 @@ public class ItemMap extends ItemMapBase {
 										multiset.add(Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.STONE).getMapColor(worldIn, BlockPos.ORIGIN), 100);
 									}
 
-									d1 = 100.0D;
+									d1 = 100D;
 								} else {
 									BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
 
@@ -312,7 +312,7 @@ public class ItemMap extends ItemMapBase {
 								}
 
 								k3 = k3 / (i * i);
-								double d2 = (d1 - d0) * 4.0D / (double) (i + 4) + ((double) (k1 + l1 & 1) - 0.5D) * 0.4D;
+								double d2 = (d1 - d0) * 4D / (double) (i + 4) + ((double) (k1 + l1 & 1) - 0.5D) * 0.4D;
 								int i5 = 1;
 
 								if (d2 > 0.6D) {

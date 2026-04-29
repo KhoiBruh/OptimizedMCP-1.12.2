@@ -11,7 +11,7 @@ public class ParticleSnowShovel extends Particle {
 
 	protected ParticleSnowShovel(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn) {
 
-		this(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn, 1.0F);
+		this(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn, 1F);
 	}
 
 	protected ParticleSnowShovel(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, float p_i1228_14_) {
@@ -23,14 +23,14 @@ public class ParticleSnowShovel extends Particle {
 		motionX += xSpeedIn;
 		motionY += ySpeedIn;
 		motionZ += zSpeedIn;
-		float f = 1.0F - (float) (Math.random() * 0.30000001192092896D);
+		float f = 1F - (float) (Math.random() * 0.30000001192092896D);
 		particleRed = f;
 		particleGreen = f;
 		particleBlue = f;
 		particleScale *= 0.75F;
 		particleScale *= p_i1228_14_;
 		snowDigParticleScale = particleScale;
-		particleMaxAge = (int) (8.0D / (Math.random() * 0.8D + 0.2D));
+		particleMaxAge = (int) (8D / (Math.random() * 0.8D + 0.2D));
 		particleMaxAge = (int) ((float) particleMaxAge * p_i1228_14_);
 	}
 
@@ -39,8 +39,8 @@ public class ParticleSnowShovel extends Particle {
 	 */
 	public void renderParticle(BufferBuilder buffer, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
 
-		float f = ((float) particleAge + partialTicks) / (float) particleMaxAge * 32.0F;
-		f = MathHelper.clamp(f, 0.0F, 1.0F);
+		float f = ((float) particleAge + partialTicks) / (float) particleMaxAge * 32F;
+		f = MathHelper.clamp(f, 0F, 1F);
 		particleScale = snowDigParticleScale * f;
 		super.renderParticle(buffer, entityIn, partialTicks, rotationX, rotationZ, rotationYZ, rotationXY, rotationXZ);
 	}

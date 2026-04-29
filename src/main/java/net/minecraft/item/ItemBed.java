@@ -43,7 +43,7 @@ public class ItemBed extends Item {
 				pos = pos.up();
 			}
 
-			int i = MathHelper.floor((double) (player.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
+			int i = MathHelper.floor((double) (player.rotationYaw * 4F / 360F) + 0.5D) & 3;
 			EnumFacing enumfacing = EnumFacing.getHorizontal(i);
 			BlockPos blockpos = pos.offset(enumfacing);
 			ItemStack itemstack = player.getHeldItem(hand);
@@ -59,7 +59,7 @@ public class ItemBed extends Item {
 					worldIn.setBlockState(pos, iblockstate2, 10);
 					worldIn.setBlockState(blockpos, iblockstate2.withProperty(BlockBed.PART, BlockBed.EnumPartType.HEAD), 10);
 					SoundType soundtype = iblockstate2.getBlock().getSoundType();
-					worldIn.playSound(null, pos, soundtype.placeSound(), SoundCategory.BLOCKS, (soundtype.volume() + 1.0F) / 2.0F, soundtype.pitch() * 0.8F);
+					worldIn.playSound(null, pos, soundtype.placeSound(), SoundCategory.BLOCKS, (soundtype.volume() + 1F) / 2F, soundtype.pitch() * 0.8F);
 					TileEntity tileentity = worldIn.getTileEntity(blockpos);
 
 					if (tileentity instanceof TileEntityBed) {

@@ -28,7 +28,7 @@ public class EntityAIFollowGolem extends EntityAIBase {
 		} else if (!villager.world.isDaytime()) {
 			return false;
 		} else {
-			List<EntityIronGolem> list = villager.world.getEntitiesWithinAABB(EntityIronGolem.class, villager.getEntityBoundingBox().grow(6.0D, 2.0D, 6.0D));
+			List<EntityIronGolem> list = villager.world.getEntitiesWithinAABB(EntityIronGolem.class, villager.getEntityBoundingBox().grow(6D, 2D, 6D));
 
 			if (list.isEmpty()) {
 				return false;
@@ -77,14 +77,14 @@ public class EntityAIFollowGolem extends EntityAIBase {
 	 */
 	public void updateTask() {
 
-		villager.getLookHelper().setLookPositionWithEntity(ironGolem, 30.0F, 30.0F);
+		villager.getLookHelper().setLookPositionWithEntity(ironGolem, 30F, 30F);
 
 		if (ironGolem.getHoldRoseTick() == takeGolemRoseTick) {
 			villager.getNavigator().tryMoveToEntityLiving(ironGolem, 0.5D);
 			tookGolemRose = true;
 		}
 
-		if (tookGolemRose && villager.getDistanceSq(ironGolem) < 4.0D) {
+		if (tookGolemRose && villager.getDistanceSq(ironGolem) < 4D) {
 			ironGolem.setHoldingRose(false);
 			villager.getNavigator().clearPath();
 		}

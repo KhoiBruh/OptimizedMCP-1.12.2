@@ -83,16 +83,16 @@ public class PunchTreeStep implements ITutorialStep {
 
 		boolean flag = LOG_BLOCKS.contains(state.getBlock());
 
-		if (flag && diggingStage > 0.0F) {
+		if (flag && diggingStage > 0F) {
 			if (toast != null) {
 				toast.setProgress(diggingStage);
 			}
 
-			if (diggingStage >= 1.0F) {
+			if (diggingStage >= 1F) {
 				tutorial.setStep(TutorialSteps.OPEN_INVENTORY);
 			}
 		} else if (toast != null) {
-			toast.setProgress(0.0F);
+			toast.setProgress(0F);
 		} else if (flag) {
 			++resetCount;
 		}

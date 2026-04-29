@@ -20,11 +20,11 @@ public class RenderShulkerBullet extends Render<EntityShulkerBullet> {
 
 		float f;
 
-		for (f = p_188347_2_ - p_188347_1_; f < -180.0F; f += 360.0F) {
+		for (f = p_188347_2_ - p_188347_1_; f < -180F; f += 360F) {
 		}
 
-		while (f >= 180.0F) {
-			f -= 360.0F;
+		while (f >= 180F) {
+			f -= 360F;
 		}
 
 		return p_188347_1_ + p_188347_3_ * f;
@@ -40,18 +40,18 @@ public class RenderShulkerBullet extends Render<EntityShulkerBullet> {
 		float f1 = entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * partialTicks;
 		float f2 = (float) entity.ticksExisted + partialTicks;
 		GlStateManager.translate((float) x, (float) y + 0.15F, (float) z);
-		GlStateManager.rotate(MathHelper.sin(f2 * 0.1F) * 180.0F, 0.0F, 1.0F, 0.0F);
-		GlStateManager.rotate(MathHelper.cos(f2 * 0.1F) * 180.0F, 1.0F, 0.0F, 0.0F);
-		GlStateManager.rotate(MathHelper.sin(f2 * 0.15F) * 360.0F, 0.0F, 0.0F, 1.0F);
+		GlStateManager.rotate(MathHelper.sin(f2 * 0.1F) * 180F, 0F, 1F, 0F);
+		GlStateManager.rotate(MathHelper.cos(f2 * 0.1F) * 180F, 1F, 0F, 0F);
+		GlStateManager.rotate(MathHelper.sin(f2 * 0.15F) * 360F, 0F, 0F, 1F);
 		float f3 = 0.03125F;
 		GlStateManager.enableRescaleNormal();
-		GlStateManager.scale(-1.0F, -1.0F, 1.0F);
+		GlStateManager.scale(-1F, -1F, 1F);
 		bindEntityTexture(entity);
-		model.render(entity, 0.0F, 0.0F, 0.0F, f, f1, 0.03125F);
+		model.render(entity, 0F, 0F, 0F, f, f1, 0.03125F);
 		GlStateManager.enableBlend();
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 0.5F);
+		GlStateManager.color(1F, 1F, 1F, 0.5F);
 		GlStateManager.scale(1.5F, 1.5F, 1.5F);
-		model.render(entity, 0.0F, 0.0F, 0.0F, f, f1, 0.03125F);
+		model.render(entity, 0F, 0F, 0F, f, f1, 0.03125F);
 		GlStateManager.disableBlend();
 		GlStateManager.popMatrix();
 		super.doRender(entity, x, y, z, entityYaw, partialTicks);

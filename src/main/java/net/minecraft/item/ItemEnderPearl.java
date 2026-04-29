@@ -32,7 +32,7 @@ public class ItemEnderPearl extends Item {
 
 		if (!worldIn.isRemote) {
 			EntityEnderPearl entityenderpearl = new EntityEnderPearl(worldIn, playerIn);
-			entityenderpearl.shoot(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, 1.5F, 1.0F);
+			entityenderpearl.shoot(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0F, 1.5F, 1F);
 			worldIn.spawnEntity(entityenderpearl);
 		}
 

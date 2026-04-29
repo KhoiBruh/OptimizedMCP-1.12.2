@@ -86,35 +86,35 @@ public class PathNavigateFlying extends PathNavigate {
 		if (d3 < 1.0E-8D) {
 			return false;
 		} else {
-			double d4 = 1.0D / Math.sqrt(d3);
+			double d4 = 1D / Math.sqrt(d3);
 			d0 = d0 * d4;
 			d1 = d1 * d4;
 			d2 = d2 * d4;
-			double d5 = 1.0D / Math.abs(d0);
-			double d6 = 1.0D / Math.abs(d1);
-			double d7 = 1.0D / Math.abs(d2);
+			double d5 = 1D / Math.abs(d0);
+			double d6 = 1D / Math.abs(d1);
+			double d7 = 1D / Math.abs(d2);
 			double d8 = (double) i - posVec31.x();
 			double d9 = (double) j - posVec31.y();
 			double d10 = (double) k - posVec31.z();
 
-			if (d0 >= 0.0D) {
+			if (d0 >= 0D) {
 				++d8;
 			}
 
-			if (d1 >= 0.0D) {
+			if (d1 >= 0D) {
 				++d9;
 			}
 
-			if (d2 >= 0.0D) {
+			if (d2 >= 0D) {
 				++d10;
 			}
 
 			d8 = d8 / d0;
 			d9 = d9 / d1;
 			d10 = d10 / d2;
-			int l = d0 < 0.0D ? -1 : 1;
-			int i1 = d1 < 0.0D ? -1 : 1;
-			int j1 = d2 < 0.0D ? -1 : 1;
+			int l = d0 < 0D ? -1 : 1;
+			int i1 = d1 < 0D ? -1 : 1;
+			int j1 = d2 < 0D ? -1 : 1;
 			int k1 = MathHelper.floor(posVec32.x());
 			int l1 = MathHelper.floor(posVec32.y());
 			int i2 = MathHelper.floor(posVec32.z());

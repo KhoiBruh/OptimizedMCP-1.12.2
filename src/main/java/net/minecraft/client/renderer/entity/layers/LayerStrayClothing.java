@@ -21,7 +21,7 @@ public class LayerStrayClothing implements LayerRenderer<EntityStray> {
 
 		layerModel.setModelAttributes(renderer.getMainModel());
 		layerModel.setLivingAnimations(entitylivingbaseIn, limbSwing, limbSwingAmount, partialTicks);
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+		GlStateManager.color(1F, 1F, 1F, 1F);
 		renderer.bindTexture(STRAY_CLOTHES_TEXTURES);
 		layerModel.render(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
 	}

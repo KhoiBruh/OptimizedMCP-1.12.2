@@ -57,14 +57,14 @@ public class CommandPlaySound extends CommandBase {
 				double d0 = args.length > i ? parseDouble(vec3d.x(), args[i++], true) : vec3d.x();
 				double d1 = args.length > i ? parseDouble(vec3d.y(), args[i++], 0, 0, false) : vec3d.y();
 				double d2 = args.length > i ? parseDouble(vec3d.z(), args[i++], true) : vec3d.z();
-				double d3 = args.length > i ? parseDouble(args[i++], 0.0D, 3.4028234663852886E38D) : 1.0D;
-				double d4 = args.length > i ? parseDouble(args[i++], 0.0D, 2.0D) : 1.0D;
-				double d5 = args.length > i ? parseDouble(args[i], 0.0D, 1.0D) : 0.0D;
-				double d6 = d3 > 1.0D ? d3 * 16.0D : 16.0D;
+				double d3 = args.length > i ? parseDouble(args[i++], 0D, 3.4028234663852886E38D) : 1D;
+				double d4 = args.length > i ? parseDouble(args[i++], 0D, 2D) : 1D;
+				double d5 = args.length > i ? parseDouble(args[i], 0D, 1D) : 0D;
+				double d6 = d3 > 1D ? d3 * 16D : 16D;
 				double d7 = entityplayermp.getDistance(d0, d1, d2);
 
 				if (d7 > d6) {
-					if (d5 <= 0.0D) {
+					if (d5 <= 0D) {
 						throw new CommandException("commands.playsound.playerTooFar", entityplayermp.getName());
 					}
 
@@ -73,10 +73,10 @@ public class CommandPlaySound extends CommandBase {
 					double d10 = d2 - entityplayermp.posZ;
 					double d11 = Math.sqrt(d8 * d8 + d9 * d9 + d10 * d10);
 
-					if (d11 > 0.0D) {
-						d0 = entityplayermp.posX + d8 / d11 * 2.0D;
-						d1 = entityplayermp.posY + d9 / d11 * 2.0D;
-						d2 = entityplayermp.posZ + d10 / d11 * 2.0D;
+					if (d11 > 0D) {
+						d0 = entityplayermp.posX + d8 / d11 * 2D;
+						d1 = entityplayermp.posY + d9 / d11 * 2D;
+						d2 = entityplayermp.posZ + d10 / d11 * 2D;
 					}
 
 					d3 = d5;

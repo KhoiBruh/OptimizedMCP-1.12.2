@@ -24,7 +24,7 @@ public class BossInfoClient extends BossInfo {
 	public float getPercent() {
 
 		long i = Minecraft.getSystemTime() - percentSetTime;
-		float f = MathHelper.clamp((float) i / 100.0F, 0.0F, 1.0F);
+		float f = MathHelper.clamp((float) i / 100F, 0F, 1F);
 		return percent + (rawPercent - percent) * f;
 	}
 

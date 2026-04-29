@@ -8,8 +8,8 @@ public class ChestRenderer {
 
 	public void renderChestBrightness(Block blockIn, float color) {
 
-		GlStateManager.color(color, color, color, 1.0F);
-		GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
+		GlStateManager.color(color, color, color, 1F);
+		GlStateManager.rotate(90F, 0F, 1F, 0F);
 		TileEntityItemStackRenderer.instance.renderByItem(new ItemStack(blockIn));
 	}
 

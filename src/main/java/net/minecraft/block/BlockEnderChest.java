@@ -26,7 +26,7 @@ import java.util.Random;
 public class BlockEnderChest extends BlockContainer {
 
 	public static final PropertyDirection FACING = BlockHorizontal.FACING;
-	protected static final AxisAlignedBB ENDER_CHEST_AABB = new AxisAlignedBB(0.0625D, 0.0D, 0.0625D, 0.9375D, 0.875D, 0.9375D);
+	protected static final AxisAlignedBB ENDER_CHEST_AABB = new AxisAlignedBB(0.0625D, 0D, 0.0625D, 0.9375D, 0.875D, 0.9375D);
 
 	protected BlockEnderChest() {
 

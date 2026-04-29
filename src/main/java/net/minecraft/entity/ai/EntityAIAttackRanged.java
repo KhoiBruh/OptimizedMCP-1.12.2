@@ -108,7 +108,7 @@ public class EntityAIAttackRanged extends EntityAIBase {
 			entityHost.getNavigator().tryMoveToEntityLiving(attackTarget, entityMoveSpeed);
 		}
 
-		entityHost.getLookHelper().setLookPositionWithEntity(attackTarget, 30.0F, 30.0F);
+		entityHost.getLookHelper().setLookPositionWithEntity(attackTarget, 30F, 30F);
 
 		if (--rangedAttackTime == 0) {
 			if (!flag) {
@@ -116,7 +116,7 @@ public class EntityAIAttackRanged extends EntityAIBase {
 			}
 
 			float f = MathHelper.sqrt(d0) / attackRadius;
-			float lvt_5_1_ = MathHelper.clamp(f, 0.1F, 1.0F);
+			float lvt_5_1_ = MathHelper.clamp(f, 0.1F, 1F);
 			rangedAttackEntityHost.attackEntityWithRangedAttack(attackTarget, lvt_5_1_);
 			rangedAttackTime = MathHelper.floor(f * (float) (maxRangedAttackTime - attackIntervalMin) + (float) attackIntervalMin);
 		} else if (rangedAttackTime < 0) {

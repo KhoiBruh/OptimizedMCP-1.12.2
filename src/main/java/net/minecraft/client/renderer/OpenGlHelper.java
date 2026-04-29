@@ -258,7 +258,7 @@ public class OpenGlHelper {
 			if (vboSupported) {
 				vboSupportedAti = true;
 			} else {
-				GameSettings.Options.RENDER_DISTANCE.setValueMax(16.0F);
+				GameSettings.Options.RENDER_DISTANCE.setValueMax(16F);
 			}
 		}
 
@@ -760,25 +760,25 @@ public class OpenGlHelper {
 		GlStateManager.depthMask(false);
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder bufferbuilder = tessellator.getBuffer();
-		GL11.glLineWidth(4.0F);
+		GL11.glLineWidth(4F);
 		bufferbuilder.begin(1, DefaultVertexFormats.POSITION_COLOR);
-		bufferbuilder.pos(0.0D, 0.0D, 0.0D).color(0, 0, 0, 255).endVertex();
-		bufferbuilder.pos(p_188785_0_, 0.0D, 0.0D).color(0, 0, 0, 255).endVertex();
-		bufferbuilder.pos(0.0D, 0.0D, 0.0D).color(0, 0, 0, 255).endVertex();
-		bufferbuilder.pos(0.0D, p_188785_0_, 0.0D).color(0, 0, 0, 255).endVertex();
-		bufferbuilder.pos(0.0D, 0.0D, 0.0D).color(0, 0, 0, 255).endVertex();
-		bufferbuilder.pos(0.0D, 0.0D, p_188785_0_).color(0, 0, 0, 255).endVertex();
+		bufferbuilder.pos(0D, 0D, 0D).color(0, 0, 0, 255).endVertex();
+		bufferbuilder.pos(p_188785_0_, 0D, 0D).color(0, 0, 0, 255).endVertex();
+		bufferbuilder.pos(0D, 0D, 0D).color(0, 0, 0, 255).endVertex();
+		bufferbuilder.pos(0D, p_188785_0_, 0D).color(0, 0, 0, 255).endVertex();
+		bufferbuilder.pos(0D, 0D, 0D).color(0, 0, 0, 255).endVertex();
+		bufferbuilder.pos(0D, 0D, p_188785_0_).color(0, 0, 0, 255).endVertex();
 		tessellator.draw();
-		GL11.glLineWidth(2.0F);
+		GL11.glLineWidth(2F);
 		bufferbuilder.begin(1, DefaultVertexFormats.POSITION_COLOR);
-		bufferbuilder.pos(0.0D, 0.0D, 0.0D).color(255, 0, 0, 255).endVertex();
-		bufferbuilder.pos(p_188785_0_, 0.0D, 0.0D).color(255, 0, 0, 255).endVertex();
-		bufferbuilder.pos(0.0D, 0.0D, 0.0D).color(0, 255, 0, 255).endVertex();
-		bufferbuilder.pos(0.0D, p_188785_0_, 0.0D).color(0, 255, 0, 255).endVertex();
-		bufferbuilder.pos(0.0D, 0.0D, 0.0D).color(127, 127, 255, 255).endVertex();
-		bufferbuilder.pos(0.0D, 0.0D, p_188785_0_).color(127, 127, 255, 255).endVertex();
+		bufferbuilder.pos(0D, 0D, 0D).color(255, 0, 0, 255).endVertex();
+		bufferbuilder.pos(p_188785_0_, 0D, 0D).color(255, 0, 0, 255).endVertex();
+		bufferbuilder.pos(0D, 0D, 0D).color(0, 255, 0, 255).endVertex();
+		bufferbuilder.pos(0D, p_188785_0_, 0D).color(0, 255, 0, 255).endVertex();
+		bufferbuilder.pos(0D, 0D, 0D).color(127, 127, 255, 255).endVertex();
+		bufferbuilder.pos(0D, 0D, p_188785_0_).color(127, 127, 255, 255).endVertex();
 		tessellator.draw();
-		GL11.glLineWidth(1.0F);
+		GL11.glLineWidth(1F);
 		GlStateManager.depthMask(true);
 		GlStateManager.enableTexture2D();
 	}

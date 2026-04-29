@@ -97,7 +97,7 @@ public class EntityBat extends EntityAmbientCreature {
 	protected void applyEntityAttributes() {
 
 		super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(6.0D);
+		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(6D);
 	}
 
 	public boolean getIsBatHanging() {
@@ -124,10 +124,10 @@ public class EntityBat extends EntityAmbientCreature {
 		super.onUpdate();
 
 		if (getIsBatHanging()) {
-			motionX = 0.0D;
-			motionY = 0.0D;
-			motionZ = 0.0D;
-			posY = (double) MathHelper.floor(posY) + 1.0D - (double) height;
+			motionX = 0D;
+			motionY = 0D;
+			motionZ = 0D;
+			posY = (double) MathHelper.floor(posY) + 1D - (double) height;
 		} else {
 			motionY *= 0.6000000238418579D;
 		}
@@ -145,7 +145,7 @@ public class EntityBat extends EntityAmbientCreature {
 					rotationYawHead = (float) rand.nextInt(360);
 				}
 
-				if (world.getNearestPlayerNotCreative(this, 4.0D) != null) {
+				if (world.getNearestPlayerNotCreative(this, 4D) != null) {
 					setIsBatHanging(false);
 					world.playEvent(null, 1025, blockpos, 0);
 				}
@@ -158,7 +158,7 @@ public class EntityBat extends EntityAmbientCreature {
 				spawnPosition = null;
 			}
 
-			if (spawnPosition == null || rand.nextInt(30) == 0 || spawnPosition.distanceSq((int) posX, (int) posY, (int) posZ) < 4.0D) {
+			if (spawnPosition == null || rand.nextInt(30) == 0 || spawnPosition.distanceSq((int) posX, (int) posY, (int) posZ) < 4D) {
 				spawnPosition = new BlockPos((int) posX + rand.nextInt(7) - rand.nextInt(7), (int) posY + rand.nextInt(6) - 2, (int) posZ + rand.nextInt(7) - rand.nextInt(7));
 			}
 
@@ -168,7 +168,7 @@ public class EntityBat extends EntityAmbientCreature {
 			motionX += (Math.signum(d0) * 0.5D - motionX) * 0.10000000149011612D;
 			motionY += (Math.signum(d1) * 0.699999988079071D - motionY) * 0.10000000149011612D;
 			motionZ += (Math.signum(d2) * 0.5D - motionZ) * 0.10000000149011612D;
-			float f = (float) (MathHelper.atan2(motionZ, motionX) * (180D / Math.PI)) - 90.0F;
+			float f = (float) (MathHelper.atan2(motionZ, motionX) * (180D / Math.PI)) - 90F;
 			float f1 = MathHelper.wrapDegrees(f - rotationYaw);
 			moveForward = 0.5F;
 			rotationYaw += f1;
@@ -268,7 +268,7 @@ public class EntityBat extends EntityAmbientCreature {
 
 	public float getEyeHeight() {
 
-		return height / 2.0F;
+		return height / 2F;
 	}
 
 	

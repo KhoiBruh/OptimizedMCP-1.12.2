@@ -23,7 +23,7 @@ public class ParticleDigging extends Particle {
 		particleRed = 0.6F;
 		particleGreen = 0.6F;
 		particleBlue = 0.6F;
-		particleScale /= 2.0F;
+		particleScale /= 2F;
 	}
 
 	/**
@@ -57,9 +57,9 @@ public class ParticleDigging extends Particle {
 	protected void multiplyColor(BlockPos p_187154_1_) {
 
 		int i = Minecraft.getMinecraft().getBlockColors().colorMultiplier(sourceState, world, p_187154_1_, 0);
-		particleRed *= (float) (i >> 16 & 255) / 255.0F;
-		particleGreen *= (float) (i >> 8 & 255) / 255.0F;
-		particleBlue *= (float) (i & 255) / 255.0F;
+		particleRed *= (float) (i >> 16 & 255) / 255F;
+		particleGreen *= (float) (i >> 8 & 255) / 255F;
+		particleBlue *= (float) (i & 255) / 255F;
 	}
 
 	/**
@@ -76,17 +76,17 @@ public class ParticleDigging extends Particle {
 	 */
 	public void renderParticle(BufferBuilder buffer, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
 
-		float f = ((float) particleTextureIndexX + particleTextureJitterX / 4.0F) / 16.0F;
+		float f = ((float) particleTextureIndexX + particleTextureJitterX / 4F) / 16F;
 		float f1 = f + 0.015609375F;
-		float f2 = ((float) particleTextureIndexY + particleTextureJitterY / 4.0F) / 16.0F;
+		float f2 = ((float) particleTextureIndexY + particleTextureJitterY / 4F) / 16F;
 		float f3 = f2 + 0.015609375F;
 		float f4 = 0.1F * particleScale;
 
 		if (particleTexture != null) {
-			f = particleTexture.getInterpolatedU(particleTextureJitterX / 4.0F * 16.0F);
-			f1 = particleTexture.getInterpolatedU((particleTextureJitterX + 1.0F) / 4.0F * 16.0F);
-			f2 = particleTexture.getInterpolatedV(particleTextureJitterY / 4.0F * 16.0F);
-			f3 = particleTexture.getInterpolatedV((particleTextureJitterY + 1.0F) / 4.0F * 16.0F);
+			f = particleTexture.getInterpolatedU(particleTextureJitterX / 4F * 16F);
+			f1 = particleTexture.getInterpolatedU((particleTextureJitterX + 1F) / 4F * 16F);
+			f2 = particleTexture.getInterpolatedV(particleTextureJitterY / 4F * 16F);
+			f3 = particleTexture.getInterpolatedV((particleTextureJitterY + 1F) / 4F * 16F);
 		}
 
 		float f5 = (float) (prevPosX + (posX - prevPosX) * (double) partialTicks - interpPosX);
@@ -95,10 +95,10 @@ public class ParticleDigging extends Particle {
 		int i = getBrightnessForRender(partialTicks);
 		int j = i >> 16 & 65535;
 		int k = i & 65535;
-		buffer.pos(f5 - rotationX * f4 - rotationXY * f4, f6 - rotationZ * f4, f7 - rotationYZ * f4 - rotationXZ * f4).tex(f, f3).color(particleRed, particleGreen, particleBlue, 1.0F).lightmap(j, k).endVertex();
-		buffer.pos(f5 - rotationX * f4 + rotationXY * f4, f6 + rotationZ * f4, f7 - rotationYZ * f4 + rotationXZ * f4).tex(f, f2).color(particleRed, particleGreen, particleBlue, 1.0F).lightmap(j, k).endVertex();
-		buffer.pos(f5 + rotationX * f4 + rotationXY * f4, f6 + rotationZ * f4, f7 + rotationYZ * f4 + rotationXZ * f4).tex(f1, f2).color(particleRed, particleGreen, particleBlue, 1.0F).lightmap(j, k).endVertex();
-		buffer.pos(f5 + rotationX * f4 - rotationXY * f4, f6 - rotationZ * f4, f7 + rotationYZ * f4 - rotationXZ * f4).tex(f1, f3).color(particleRed, particleGreen, particleBlue, 1.0F).lightmap(j, k).endVertex();
+		buffer.pos(f5 - rotationX * f4 - rotationXY * f4, f6 - rotationZ * f4, f7 - rotationYZ * f4 - rotationXZ * f4).tex(f, f3).color(particleRed, particleGreen, particleBlue, 1F).lightmap(j, k).endVertex();
+		buffer.pos(f5 - rotationX * f4 + rotationXY * f4, f6 + rotationZ * f4, f7 - rotationYZ * f4 + rotationXZ * f4).tex(f, f2).color(particleRed, particleGreen, particleBlue, 1F).lightmap(j, k).endVertex();
+		buffer.pos(f5 + rotationX * f4 + rotationXY * f4, f6 + rotationZ * f4, f7 + rotationYZ * f4 + rotationXZ * f4).tex(f1, f2).color(particleRed, particleGreen, particleBlue, 1F).lightmap(j, k).endVertex();
+		buffer.pos(f5 + rotationX * f4 - rotationXY * f4, f6 - rotationZ * f4, f7 + rotationYZ * f4 - rotationXZ * f4).tex(f1, f3).color(particleRed, particleGreen, particleBlue, 1F).lightmap(j, k).endVertex();
 	}
 
 	public int getBrightnessForRender(float p_189214_1_) {

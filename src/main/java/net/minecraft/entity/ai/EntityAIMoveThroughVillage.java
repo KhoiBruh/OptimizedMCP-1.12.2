@@ -89,7 +89,7 @@ public class EntityAIMoveThroughVillage extends EntityAIBase {
 		if (entity.getNavigator().noPath()) {
 			return false;
 		} else {
-			float f = entity.width + 4.0F;
+			float f = entity.width + 4F;
 			return entity.getDistanceSq(doorInfo.getDoorBlockPos()) > (double) (f * f);
 		}
 	}
@@ -107,7 +107,7 @@ public class EntityAIMoveThroughVillage extends EntityAIBase {
 	 */
 	public void resetTask() {
 
-		if (entity.getNavigator().noPath() || entity.getDistanceSq(doorInfo.getDoorBlockPos()) < 16.0D) {
+		if (entity.getNavigator().noPath() || entity.getDistanceSq(doorInfo.getDoorBlockPos()) < 16D) {
 			doorList.add(doorInfo);
 		}
 	}

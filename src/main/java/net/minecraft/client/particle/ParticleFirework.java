@@ -39,8 +39,8 @@ public class ParticleFirework {
 			float f1 = 0.5F;
 			float f2 = 0.125F;
 			float f3 = 0.375F;
-			float f4 = 7.1F * MathHelper.sin(((float) particleAge + partialTicks - 1.0F) * 0.25F * (float) Math.PI);
-			setAlphaF(0.6F - ((float) particleAge + partialTicks - 1.0F) * 0.25F * 0.5F);
+			float f4 = 7.1F * MathHelper.sin(((float) particleAge + partialTicks - 1F) * 0.25F * (float) Math.PI);
+			setAlphaF(0.6F - ((float) particleAge + partialTicks - 1F) * 0.25F * 0.5F);
 			float f5 = (float) (prevPosX + (posX - prevPosX) * (double) partialTicks - interpPosX);
 			float f6 = (float) (prevPosY + (posY - prevPosY) * (double) partialTicks - interpPosY);
 			float f7 = (float) (prevPosZ + (posZ - prevPosZ) * (double) partialTicks - interpPosZ);
@@ -98,7 +98,7 @@ public class ParticleFirework {
 			super.onUpdate();
 
 			if (trail && particleAge < particleMaxAge / 2 && (particleAge + particleMaxAge) % 2 == 0) {
-				ParticleFirework.Spark particlefirework$spark = new ParticleFirework.Spark(world, posX, posY, posZ, 0.0D, 0.0D, 0.0D, effectRenderer);
+				ParticleFirework.Spark particlefirework$spark = new ParticleFirework.Spark(world, posX, posY, posZ, 0D, 0D, 0D, effectRenderer);
 				particlefirework$spark.setAlphaF(0.99F);
 				particlefirework$spark.setRBGColorF(particleRed, particleGreen, particleBlue);
 				particlefirework$spark.particleAge = particlefirework$spark.particleMaxAge / 2;
@@ -126,7 +126,7 @@ public class ParticleFirework {
 
 		public Starter(World p_i46464_1_, double p_i46464_2_, double p_i46464_4_, double p_i46464_6_, double p_i46464_8_, double p_i46464_10_, double p_i46464_12_, ParticleManager p_i46464_14_, NBTTagCompound p_i46464_15_) {
 
-			super(p_i46464_1_, p_i46464_2_, p_i46464_4_, p_i46464_6_, 0.0D, 0.0D, 0.0D);
+			super(p_i46464_1_, p_i46464_2_, p_i46464_4_, p_i46464_6_, 0D, 0D, 0D);
 			motionX = p_i46464_8_;
 			motionY = p_i46464_10_;
 			motionZ = p_i46464_12_;
@@ -185,7 +185,7 @@ public class ParticleFirework {
 					soundevent1 = flag ? SoundEvents.ENTITY_FIREWORK_BLAST_FAR : SoundEvents.ENTITY_FIREWORK_BLAST;
 				}
 
-				world.playSound(posX, posY, posZ, soundevent1, SoundCategory.AMBIENT, 20.0F, 0.95F + rand.nextFloat() * 0.1F, true);
+				world.playSound(posX, posY, posZ, soundevent1, SoundCategory.AMBIENT, 20F, 0.95F + rand.nextFloat() * 0.1F, true);
 			}
 
 			if (fireworkAge % 2 == 0 && fireworkExplosions != null && fireworkAge / 2 < fireworkExplosions.tagCount()) {
@@ -204,9 +204,9 @@ public class ParticleFirework {
 				if (l == 1) {
 					createBall(0.5D, 4, aint, aint1, flag4, flag2);
 				} else if (l == 2) {
-					createShaped(0.5D, new double[][]{{0.0D, 1.0D}, {0.3455D, 0.309D}, {0.9511D, 0.309D}, {0.3795918367346939D, -0.12653061224489795D}, {0.6122448979591837D, -0.8040816326530612D}, {0.0D, -0.35918367346938773D}}, aint, aint1, flag4, flag2, false);
+					createShaped(0.5D, new double[][]{{0D, 1D}, {0.3455D, 0.309D}, {0.9511D, 0.309D}, {0.3795918367346939D, -0.12653061224489795D}, {0.6122448979591837D, -0.8040816326530612D}, {0D, -0.35918367346938773D}}, aint, aint1, flag4, flag2, false);
 				} else if (l == 3) {
-					createShaped(0.5D, new double[][]{{0.0D, 0.2D}, {0.2D, 0.2D}, {0.2D, 0.6D}, {0.6D, 0.6D}, {0.6D, 0.2D}, {0.2D, 0.2D}, {0.2D, 0.0D}, {0.4D, 0.0D}, {0.4D, -0.6D}, {0.2D, -0.6D}, {0.2D, -0.4D}, {0.0D, -0.4D}}, aint, aint1, flag4, flag2, true);
+					createShaped(0.5D, new double[][]{{0D, 0.2D}, {0.2D, 0.2D}, {0.2D, 0.6D}, {0.6D, 0.6D}, {0.6D, 0.2D}, {0.2D, 0.2D}, {0.2D, 0D}, {0.4D, 0D}, {0.4D, -0.6D}, {0.2D, -0.6D}, {0.2D, -0.4D}, {0D, -0.4D}}, aint, aint1, flag4, flag2, true);
 				} else if (l == 4) {
 					createBurst(aint, aint1, flag4, flag2);
 				} else {
@@ -214,9 +214,9 @@ public class ParticleFirework {
 				}
 
 				int j = aint[0];
-				float f = (float) ((j & 16711680) >> 16) / 255.0F;
-				float f1 = (float) ((j & 65280) >> 8) / 255.0F;
-				float f2 = (float) ((j & 255)) / 255.0F;
+				float f = (float) ((j & 16711680) >> 16) / 255F;
+				float f1 = (float) ((j & 65280) >> 8) / 255F;
+				float f2 = (float) ((j & 255)) / 255F;
 				ParticleFirework.Overlay particlefirework$overlay = new ParticleFirework.Overlay(world, posX, posY, posZ);
 				particlefirework$overlay.setRBGColorF(f, f1, f2);
 				manager.addEffect(particlefirework$overlay);
@@ -228,7 +228,7 @@ public class ParticleFirework {
 				if (twinkle) {
 					boolean flag3 = isFarFromCamera();
 					SoundEvent soundevent = flag3 ? SoundEvents.ENTITY_FIREWORK_TWINKLE_FAR : SoundEvents.ENTITY_FIREWORK_TWINKLE;
-					world.playSound(posX, posY, posZ, soundevent, SoundCategory.AMBIENT, 20.0F, 0.9F + rand.nextFloat() * 0.15F, true);
+					world.playSound(posX, posY, posZ, soundevent, SoundCategory.AMBIENT, 20F, 0.9F + rand.nextFloat() * 0.15F, true);
 				}
 
 				setExpired();
@@ -238,7 +238,7 @@ public class ParticleFirework {
 		private boolean isFarFromCamera() {
 
 			Minecraft minecraft = Minecraft.getMinecraft();
-			return minecraft == null || minecraft.getRenderViewEntity() == null || minecraft.getRenderViewEntity().getDistanceSq(posX, posY, posZ) >= 256.0D;
+			return minecraft == null || minecraft.getRenderViewEntity() == null || minecraft.getRenderViewEntity().getDistanceSq(posX, posY, posZ) >= 256D;
 		}
 
 		private void createParticle(double p_92034_1_, double p_92034_3_, double p_92034_5_, double p_92034_7_, double p_92034_9_, double p_92034_11_, int[] p_92034_13_, int[] p_92034_14_, boolean p_92034_15_, boolean p_92034_16_) {
@@ -284,7 +284,7 @@ public class ParticleFirework {
 
 			double d0 = shape[0][0];
 			double d1 = shape[0][1];
-			createParticle(posX, posY, posZ, d0 * speed, d1 * speed, 0.0D, colours, fadeColours, trail, twinkleIn);
+			createParticle(posX, posY, posZ, d0 * speed, d1 * speed, 0D, colours, fadeColours, trail, twinkleIn);
 			float f = rand.nextFloat() * (float) Math.PI;
 			double d2 = p_92038_8_ ? 0.034D : 0.34D;
 
@@ -297,13 +297,13 @@ public class ParticleFirework {
 					double d6 = shape[j][0];
 					double d7 = shape[j][1];
 
-					for (double d8 = 0.25D; d8 <= 1.0D; d8 += 0.25D) {
+					for (double d8 = 0.25D; d8 <= 1D; d8 += 0.25D) {
 						double d9 = (d4 + (d6 - d4) * d8) * speed;
 						double d10 = (d5 + (d7 - d5) * d8) * speed;
 						double d11 = d9 * Math.sin(d3);
 						d9 = d9 * Math.cos(d3);
 
-						for (double d12 = -1.0D; d12 <= 1.0D; d12 += 2.0D) {
+						for (double d12 = -1D; d12 <= 1D; d12 += 2D) {
 							createParticle(posX, posY, posZ, d9 * d12, d10, d11 * d12, colours, fadeColours, trail, twinkleIn);
 						}
 					}

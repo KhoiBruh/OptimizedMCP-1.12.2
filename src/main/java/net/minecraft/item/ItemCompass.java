@@ -20,7 +20,7 @@ public class ItemCompass extends Item {
 			public float apply(ItemStack stack, World worldIn, EntityLivingBase entityIn) {
 
 				if (entityIn == null && !stack.isOnItemFrame()) {
-					return 0.0F;
+					return 0F;
 				} else {
 					boolean flag = entityIn != null;
 					Entity entity = flag ? entityIn : stack.getItemFrame();
@@ -33,7 +33,7 @@ public class ItemCompass extends Item {
 
 					if (worldIn.provider.isSurfaceWorld()) {
 						double d1 = flag ? (double) entity.rotationYaw : getFrameRotation((EntityItemFrame) entity);
-						d1 = MathHelper.positiveModulo(d1 / 360.0D, 1.0D);
+						d1 = MathHelper.positiveModulo(d1 / 360D, 1D);
 						double d2 = getSpawnToAngle(worldIn, entity) / (Math.PI * 2D);
 						d0 = 0.5D - (d1 - 0.25D - d2);
 					} else {
@@ -44,7 +44,7 @@ public class ItemCompass extends Item {
 						d0 = wobble(worldIn, d0);
 					}
 
-					return MathHelper.positiveModulo((float) d0, 1.0F);
+					return MathHelper.positiveModulo((float) d0, 1F);
 				}
 			}
 
@@ -53,10 +53,10 @@ public class ItemCompass extends Item {
 				if (worldIn.getTotalWorldTime() != lastUpdateTick) {
 					lastUpdateTick = worldIn.getTotalWorldTime();
 					double d0 = p_185093_2_ - rotation;
-					d0 = MathHelper.positiveModulo(d0 + 0.5D, 1.0D) - 0.5D;
+					d0 = MathHelper.positiveModulo(d0 + 0.5D, 1D) - 0.5D;
 					rota += d0 * 0.1D;
 					rota *= 0.8D;
-					rotation = MathHelper.positiveModulo(rotation + rota, 1.0D);
+					rotation = MathHelper.positiveModulo(rotation + rota, 1D);
 				}
 
 				return rotation;

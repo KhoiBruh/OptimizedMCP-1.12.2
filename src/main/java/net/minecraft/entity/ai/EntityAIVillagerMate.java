@@ -35,7 +35,7 @@ public class EntityAIVillagerMate extends EntityAIBase {
 			if (village == null) {
 				return false;
 			} else if (checkSufficientDoorsPresentForNewVillager() && villager.getIsWillingToMate(true)) {
-				EntityVillager entity = world.findNearestEntityWithinAABB(EntityVillager.class, villager.getEntityBoundingBox().grow(8.0D, 3.0D, 8.0D), villager);
+				EntityVillager entity = world.findNearestEntityWithinAABB(EntityVillager.class, villager.getEntityBoundingBox().grow(8D, 3D, 8D), villager);
 
 				if (entity == null) {
 					return false;
@@ -82,7 +82,7 @@ public class EntityAIVillagerMate extends EntityAIBase {
 	public void updateTask() {
 
 		--matingTimeout;
-		villager.getLookHelper().setLookPositionWithEntity(mate, 10.0F, 30.0F);
+		villager.getLookHelper().setLookPositionWithEntity(mate, 10F, 30F);
 
 		if (villager.getDistanceSq(mate) > 2.25D) {
 			villager.getNavigator().tryMoveToEntityLiving(mate, 0.25D);
@@ -113,7 +113,7 @@ public class EntityAIVillagerMate extends EntityAIBase {
 		mate.setIsWillingToMate(false);
 		villager.setIsWillingToMate(false);
 		entityvillager.setGrowingAge(-24000);
-		entityvillager.setLocationAndAngles(villager.posX, villager.posY, villager.posZ, 0.0F, 0.0F);
+		entityvillager.setLocationAndAngles(villager.posX, villager.posY, villager.posZ, 0F, 0F);
 		world.spawnEntity(entityvillager);
 		world.setEntityState(entityvillager, (byte) 12);
 	}

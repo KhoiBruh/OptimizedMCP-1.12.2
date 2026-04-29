@@ -24,22 +24,22 @@ public class Matrix4f extends org.lwjgl.util.vector.Matrix4f {
 
 	public Matrix4f() {
 
-		m00 = 0.0F;
-		m01 = 0.0F;
-		m02 = 0.0F;
-		m03 = 0.0F;
-		m10 = 0.0F;
-		m11 = 0.0F;
-		m12 = 0.0F;
-		m13 = 0.0F;
-		m20 = 0.0F;
-		m21 = 0.0F;
-		m22 = 0.0F;
-		m23 = 0.0F;
-		m30 = 0.0F;
-		m31 = 0.0F;
-		m32 = 0.0F;
-		m33 = 0.0F;
+		m00 = 0F;
+		m01 = 0F;
+		m02 = 0F;
+		m03 = 0F;
+		m10 = 0F;
+		m11 = 0F;
+		m12 = 0F;
+		m13 = 0F;
+		m20 = 0F;
+		m21 = 0F;
+		m22 = 0F;
+		m23 = 0F;
+		m30 = 0F;
+		m31 = 0F;
+		m32 = 0F;
+		m33 = 0F;
 	}
 
 }

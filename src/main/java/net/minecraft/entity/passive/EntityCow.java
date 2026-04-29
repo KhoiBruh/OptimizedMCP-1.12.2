@@ -34,19 +34,19 @@ public class EntityCow extends EntityAnimal {
 	protected void initEntityAI() {
 
 		tasks.addTask(0, new EntityAISwimming(this));
-		tasks.addTask(1, new EntityAIPanic(this, 2.0D));
-		tasks.addTask(2, new EntityAIMate(this, 1.0D));
+		tasks.addTask(1, new EntityAIPanic(this, 2D));
+		tasks.addTask(2, new EntityAIMate(this, 1D));
 		tasks.addTask(3, new EntityAITempt(this, 1.25D, Items.WHEAT, false));
 		tasks.addTask(4, new EntityAIFollowParent(this, 1.25D));
-		tasks.addTask(5, new EntityAIWanderAvoidWater(this, 1.0D));
-		tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
+		tasks.addTask(5, new EntityAIWanderAvoidWater(this, 1D));
+		tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 6F));
 		tasks.addTask(7, new EntityAILookIdle(this));
 	}
 
 	protected void applyEntityAttributes() {
 
 		super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(10.0D);
+		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(10D);
 		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.20000000298023224D);
 	}
 
@@ -67,7 +67,7 @@ public class EntityCow extends EntityAnimal {
 
 	protected void playStepSound(BlockPos pos, Block blockIn) {
 
-		playSound(SoundEvents.ENTITY_COW_STEP, 0.15F, 1.0F);
+		playSound(SoundEvents.ENTITY_COW_STEP, 0.15F, 1F);
 	}
 
 	/**
@@ -89,7 +89,7 @@ public class EntityCow extends EntityAnimal {
 		ItemStack itemstack = player.getHeldItem(hand);
 
 		if (itemstack.getItem() == Items.BUCKET && !player.capabilities.isCreativeMode && !isChild()) {
-			player.playSound(SoundEvents.ENTITY_COW_MILK, 1.0F, 1.0F);
+			player.playSound(SoundEvents.ENTITY_COW_MILK, 1F, 1F);
 			itemstack.shrink(1);
 
 			if (itemstack.isEmpty()) {

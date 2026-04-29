@@ -333,7 +333,7 @@ public class NBTTagCompound extends NBTBase {
 		} catch (ClassCastException ignored) {
 		}
 		
-		return 0.0F;
+		return 0F;
 	}
 	
 	/**
@@ -348,7 +348,7 @@ public class NBTTagCompound extends NBTBase {
 		} catch (ClassCastException ignored) {
 		}
 		
-		return 0.0D;
+		return 0D;
 	}
 	
 	/**

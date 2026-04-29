@@ -22,9 +22,9 @@ public abstract class NodeProcessor {
 		blockaccess = sourceIn;
 		entity = mob;
 		pointMap.clearMap();
-		entitySizeX = MathHelper.floor(mob.width + 1.0F);
-		entitySizeY = MathHelper.floor(mob.height + 1.0F);
-		entitySizeZ = MathHelper.floor(mob.width + 1.0F);
+		entitySizeX = MathHelper.floor(mob.width + 1F);
+		entitySizeY = MathHelper.floor(mob.height + 1F);
+		entitySizeZ = MathHelper.floor(mob.width + 1F);
 	}
 
 	/**

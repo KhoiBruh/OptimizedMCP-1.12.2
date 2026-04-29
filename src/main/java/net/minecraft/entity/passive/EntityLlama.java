@@ -99,12 +99,12 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob 
 		tasks.addTask(0, new EntityAISwimming(this));
 		tasks.addTask(1, new EntityAIRunAroundLikeCrazy(this, 1.2D));
 		tasks.addTask(2, new EntityAILlamaFollowCaravan(this, 2.0999999046325684D));
-		tasks.addTask(3, new EntityAIAttackRanged(this, 1.25D, 40, 20.0F));
+		tasks.addTask(3, new EntityAIAttackRanged(this, 1.25D, 40, 20F));
 		tasks.addTask(3, new EntityAIPanic(this, 1.2D));
-		tasks.addTask(4, new EntityAIMate(this, 1.0D));
-		tasks.addTask(5, new EntityAIFollowParent(this, 1.0D));
+		tasks.addTask(4, new EntityAIMate(this, 1D));
+		tasks.addTask(5, new EntityAIFollowParent(this, 1D));
 		tasks.addTask(6, new EntityAIWanderAvoidWater(this, 0.7D));
-		tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
+		tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 6F));
 		tasks.addTask(8, new EntityAILookIdle(this));
 		targetTasks.addTask(1, new EntityLlama.AIHurtByTarget(this));
 		targetTasks.addTask(2, new EntityLlama.AIDefendTarget(this));
@@ -113,7 +113,7 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob 
 	protected void applyEntityAttributes() {
 
 		super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(40.0D);
+		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(40D);
 	}
 
 	protected void entityInit() {
@@ -170,18 +170,18 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob 
 
 		int i = 0;
 		int j = 0;
-		float f = 0.0F;
+		float f = 0F;
 		boolean flag = false;
 		Item item = stack.getItem();
 
 		if (item == Items.WHEAT) {
 			i = 10;
 			j = 3;
-			f = 2.0F;
+			f = 2F;
 		} else if (item == Item.getItemFromBlock(Blocks.HAY_BLOCK)) {
 			i = 90;
 			j = 6;
-			f = 10.0F;
+			f = 10F;
 
 			if (isTame() && getGrowingAge() == 0) {
 				flag = true;
@@ -189,13 +189,13 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob 
 			}
 		}
 
-		if (getHealth() < getMaxHealth() && f > 0.0F) {
+		if (getHealth() < getMaxHealth() && f > 0F) {
 			heal(f);
 			flag = true;
 		}
 
 		if (isChild() && i > 0) {
-			world.spawnParticle(EnumParticleTypes.VILLAGER_HAPPY, posX + (double) (rand.nextFloat() * width * 2.0F) - (double) width, posY + 0.5D + (double) (rand.nextFloat() * height), posZ + (double) (rand.nextFloat() * width * 2.0F) - (double) width, 0.0D, 0.0D, 0.0D);
+			world.spawnParticle(EnumParticleTypes.VILLAGER_HAPPY, posX + (double) (rand.nextFloat() * width * 2F) - (double) width, posY + 0.5D + (double) (rand.nextFloat() * height), posZ + (double) (rand.nextFloat() * width * 2F) - (double) width, 0D, 0D, 0D);
 
 			if (!world.isRemote) {
 				addGrowth(i);
@@ -213,7 +213,7 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob 
 		}
 
 		if (flag && !isSilent()) {
-			world.playSound(null, posX, posY, posZ, SoundEvents.ENTITY_LLAMA_EAT, getSoundCategory(), 1.0F, 1.0F + (rand.nextFloat() - rand.nextFloat()) * 0.2F);
+			world.playSound(null, posX, posY, posZ, SoundEvents.ENTITY_LLAMA_EAT, getSoundCategory(), 1F, 1F + (rand.nextFloat() - rand.nextFloat()) * 0.2F);
 		}
 
 		return flag;
@@ -224,7 +224,7 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob 
 	 */
 	protected boolean isMovementBlocked() {
 
-		return getHealth() <= 0.0F || isEatingHaystack();
+		return getHealth() <= 0F || isEatingHaystack();
 	}
 
 	
@@ -287,12 +287,12 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob 
 
 	protected void playStepSound(BlockPos pos, Block blockIn) {
 
-		playSound(SoundEvents.ENTITY_LLAMA_STEP, 0.15F, 1.0F);
+		playSound(SoundEvents.ENTITY_LLAMA_STEP, 0.15F, 1F);
 	}
 
 	protected void playChestEquipSound() {
 
-		playSound(SoundEvents.ENTITY_LLAMA_CHEST, 1.0F, (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F);
+		playSound(SoundEvents.ENTITY_LLAMA_CHEST, 1F, (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1F);
 	}
 
 	public void makeMad() {
@@ -340,7 +340,7 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob 
 		EnumDyeColor enumdyecolor1 = getColor();
 
 		if (ticksExisted > 20 && enumdyecolor1 != null && enumdyecolor1 != enumdyecolor) {
-			playSound(SoundEvents.ENTITY_LLAMA_SWAG, 0.5F, 1.0F);
+			playSound(SoundEvents.ENTITY_LLAMA_SWAG, 0.5F, 1F);
 		}
 	}
 
@@ -409,11 +409,11 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob 
 
 		EntityLlamaSpit entityllamaspit = new EntityLlamaSpit(world, this);
 		double d0 = target.posX - posX;
-		double d1 = target.getEntityBoundingBox().minY + (double) (target.height / 3.0F) - entityllamaspit.posY;
+		double d1 = target.getEntityBoundingBox().minY + (double) (target.height / 3F) - entityllamaspit.posY;
 		double d2 = target.posZ - posZ;
 		float f = MathHelper.sqrt(d0 * d0 + d2 * d2) * 0.2F;
-		entityllamaspit.shoot(d0, d1 + (double) f, d2, 1.5F, 10.0F);
-		world.playSound(null, posX, posY, posZ, SoundEvents.ENTITY_LLAMA_SPIT, getSoundCategory(), 1.0F, 1.0F + (rand.nextFloat() - rand.nextFloat()) * 0.2F);
+		entityllamaspit.shoot(d0, d1 + (double) f, d2, 1.5F, 10F);
+		world.playSound(null, posX, posY, posZ, SoundEvents.ENTITY_LLAMA_SPIT, getSoundCategory(), 1F, 1F + (rand.nextFloat() - rand.nextFloat()) * 0.2F);
 		world.spawnEntity(entityllamaspit);
 		didSpit = true;
 	}
@@ -425,10 +425,10 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob 
 
 	public void fall(float distance, float damageMultiplier) {
 
-		int i = MathHelper.ceil((distance * 0.5F - 3.0F) * damageMultiplier);
+		int i = MathHelper.ceil((distance * 0.5F - 3F) * damageMultiplier);
 
 		if (i > 0) {
-			if (distance >= 6.0F) {
+			if (distance >= 6F) {
 				attackEntityFrom(DamageSource.FALL, (float) i);
 
 				if (isBeingRidden()) {
@@ -481,7 +481,7 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob 
 
 	protected double followLeashSpeed() {
 
-		return 2.0D;
+		return 2D;
 	}
 
 	protected void followMother() {

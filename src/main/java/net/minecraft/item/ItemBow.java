@@ -22,12 +22,12 @@ public class ItemBow extends Item {
 		addPropertyOverride(new ResourceLocation("pull"), (stack, worldIn, entityIn) -> {
 
 			if (entityIn == null) {
-				return 0.0F;
+				return 0F;
 			} else {
-				return entityIn.getActiveItemStack().getItem() != Items.BOW ? 0.0F : (float) (stack.getMaxItemUseDuration() - entityIn.getItemInUseCount()) / 20.0F;
+				return entityIn.getActiveItemStack().getItem() != Items.BOW ? 0F : (float) (stack.getMaxItemUseDuration() - entityIn.getItemInUseCount()) / 20F;
 			}
 		});
-		addPropertyOverride(new ResourceLocation("pulling"), (stack, worldIn, entityIn) -> entityIn != null && entityIn.isHandActive() && entityIn.getActiveItemStack() == stack ? 1.0F : 0.0F);
+		addPropertyOverride(new ResourceLocation("pulling"), (stack, worldIn, entityIn) -> entityIn != null && entityIn.isHandActive() && entityIn.getActiveItemStack() == stack ? 1F : 0F);
 	}
 
 	/**
@@ -35,11 +35,11 @@ public class ItemBow extends Item {
 	 */
 	public static float getArrowVelocity(int charge) {
 
-		float f = (float) charge / 20.0F;
-		f = (f * f + f * 2.0F) / 3.0F;
+		float f = (float) charge / 20F;
+		f = (f * f + f * 2F) / 3F;
 
-		if (f > 1.0F) {
-			f = 1.0F;
+		if (f > 1F) {
+			f = 1F;
 		}
 
 		return f;
@@ -92,9 +92,9 @@ public class ItemBow extends Item {
 					if (!worldIn.isRemote) {
 						ItemArrow itemarrow = (ItemArrow) (itemstack.getItem() instanceof ItemArrow ? itemstack.getItem() : Items.ARROW);
 						EntityArrow entityarrow = itemarrow.createArrow(worldIn, itemstack, entityplayer);
-						entityarrow.shoot(entityplayer, entityplayer.rotationPitch, entityplayer.rotationYaw, 0.0F, f * 3.0F, 1.0F);
+						entityarrow.shoot(entityplayer, entityplayer.rotationPitch, entityplayer.rotationYaw, 0F, f * 3F, 1F);
 
-						if (f == 1.0F) {
+						if (f == 1F) {
 							entityarrow.setIsCritical(true);
 						}
 
@@ -123,7 +123,7 @@ public class ItemBow extends Item {
 						worldIn.spawnEntity(entityarrow);
 					}
 
-					worldIn.playSound(null, entityplayer.posX, entityplayer.posY, entityplayer.posZ, SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 1.0F, 1.0F / (itemRand.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
+					worldIn.playSound(null, entityplayer.posX, entityplayer.posY, entityplayer.posZ, SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 1F, 1F / (itemRand.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
 
 					if (!flag1 && !entityplayer.capabilities.isCreativeMode) {
 						itemstack.shrink(1);

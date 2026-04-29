@@ -70,7 +70,7 @@ public class ItemSlab extends ItemBlock {
 
 					if (axisalignedbb != Block.NULL_AABB && worldIn.checkNoEntityCollision(axisalignedbb.offset(pos)) && worldIn.setBlockState(pos, iblockstate1, 11)) {
 						SoundType soundtype = doubleSlab.getSoundType();
-						worldIn.playSound(player, pos, soundtype.placeSound(), SoundCategory.BLOCKS, (soundtype.volume() + 1.0F) / 2.0F, soundtype.pitch() * 0.8F);
+						worldIn.playSound(player, pos, soundtype.placeSound(), SoundCategory.BLOCKS, (soundtype.volume() + 1F) / 2F, soundtype.pitch() * 0.8F);
 						itemstack.shrink(1);
 
 						if (player instanceof EntityPlayerMP) {
@@ -121,7 +121,7 @@ public class ItemSlab extends ItemBlock {
 
 				if (axisalignedbb != Block.NULL_AABB && worldIn.checkNoEntityCollision(axisalignedbb.offset(pos)) && worldIn.setBlockState(pos, iblockstate1, 11)) {
 					SoundType soundtype = doubleSlab.getSoundType();
-					worldIn.playSound(player, pos, soundtype.placeSound(), SoundCategory.BLOCKS, (soundtype.volume() + 1.0F) / 2.0F, soundtype.pitch() * 0.8F);
+					worldIn.playSound(player, pos, soundtype.placeSound(), SoundCategory.BLOCKS, (soundtype.volume() + 1F) / 2F, soundtype.pitch() * 0.8F);
 					stack.shrink(1);
 				}
 

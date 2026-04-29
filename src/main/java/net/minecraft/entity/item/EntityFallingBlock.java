@@ -39,7 +39,7 @@ public class EntityFallingBlock extends Entity {
 	private boolean dontSetBlock;
 	private boolean hurtEntities;
 	private int fallHurtMax = 40;
-	private float fallHurtAmount = 2.0F;
+	private float fallHurtAmount = 2F;
 
 	public EntityFallingBlock(World worldIn) {
 
@@ -52,10 +52,10 @@ public class EntityFallingBlock extends Entity {
 		fallTile = fallingBlockState;
 		preventEntitySpawning = true;
 		setSize(0.98F, 0.98F);
-		setPosition(x, y + (double) ((1.0F - height) / 2.0F), z);
-		motionX = 0.0D;
-		motionY = 0.0D;
-		motionZ = 0.0D;
+		setPosition(x, y + (double) ((1F - height) / 2F), z);
+		motionX = 0D;
+		motionY = 0D;
+		motionZ = 0D;
 		prevPosX = x;
 		prevPosY = y;
 		prevPosZ = z;
@@ -143,7 +143,7 @@ public class EntityFallingBlock extends Entity {
 				boolean flag1 = flag && world.getBlockState(blockpos1).getMaterial() == Material.WATER;
 				double d0 = motionX * motionX + motionY * motionY + motionZ * motionZ;
 
-				if (flag && d0 > 1.0D) {
+				if (flag && d0 > 1D) {
 					RayTraceResult raytraceresult = world.rayTraceBlocks(new Vec3d(prevPosX, prevPosY, prevPosZ), new Vec3d(posX, posY, posZ), true);
 
 					if (raytraceresult != null && world.getBlockState(raytraceresult.getBlockPos()).getMaterial() == Material.WATER) {
@@ -155,7 +155,7 @@ public class EntityFallingBlock extends Entity {
 				if (!onGround && !flag1) {
 					if (fallTime > 100 && !world.isRemote && (blockpos1.getY() < 1 || blockpos1.getY() > 256) || fallTime > 600) {
 						if (shouldDropItem && world.getGameRules().getBoolean("doEntityDrops")) {
-							entityDropItem(new ItemStack(block, 1, block.damageDropped(fallTile)), 0.0F);
+							entityDropItem(new ItemStack(block, 1, block.damageDropped(fallTile)), 0F);
 						}
 
 						setDead();
@@ -200,7 +200,7 @@ public class EntityFallingBlock extends Entity {
 									}
 								}
 							} else if (shouldDropItem && world.getGameRules().getBoolean("doEntityDrops")) {
-								entityDropItem(new ItemStack(block, 1, block.damageDropped(fallTile)), 0.0F);
+								entityDropItem(new ItemStack(block, 1, block.damageDropped(fallTile)), 0F);
 							}
 						} else if (block instanceof BlockFalling) {
 							((BlockFalling) block).onBroken(world, blockpos1);
@@ -220,7 +220,7 @@ public class EntityFallingBlock extends Entity {
 		Block block = fallTile.getBlock();
 
 		if (hurtEntities) {
-			int i = MathHelper.ceil(distance - 1.0F);
+			int i = MathHelper.ceil(distance - 1F);
 
 			if (i > 0) {
 				List<Entity> list = Lists.newArrayList(world.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox()));

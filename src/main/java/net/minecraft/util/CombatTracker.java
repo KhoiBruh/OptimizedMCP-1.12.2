@@ -120,8 +120,8 @@ public class CombatTracker {
 
 		EntityLivingBase entitylivingbase = null;
 		EntityPlayer entityplayer = null;
-		float f = 0.0F;
-		float f1 = 0.0F;
+		float f = 0F;
+		float f1 = 0F;
 
 		for (CombatEntry combatentry : combatEntries) {
 			if (combatentry.getDamageSrc().getTrueSource() instanceof EntityPlayer && (entityplayer == null || combatentry.getDamage() > f1)) {
@@ -135,7 +135,7 @@ public class CombatTracker {
 			}
 		}
 
-		if (entityplayer != null && f1 >= f / 3.0F) {
+		if (entityplayer != null && f1 >= f / 3F) {
 			return entityplayer;
 		} else {
 			return entitylivingbase;
@@ -147,14 +147,14 @@ public class CombatTracker {
 
 		CombatEntry combatentry = null;
 		CombatEntry combatentry1 = null;
-		float f = 0.0F;
-		float f1 = 0.0F;
+		float f = 0F;
+		float f1 = 0F;
 
 		for (int i = 0; i < combatEntries.size(); ++i) {
 			CombatEntry combatentry2 = combatEntries.get(i);
 			CombatEntry combatentry3 = i > 0 ? combatEntries.get(i - 1) : null;
 
-			if ((combatentry2.getDamageSrc() == DamageSource.FALL || combatentry2.getDamageSrc() == DamageSource.OUT_OF_WORLD) && combatentry2.getDamageAmount() > 0.0F && (combatentry == null || combatentry2.getDamageAmount() > f1)) {
+			if ((combatentry2.getDamageSrc() == DamageSource.FALL || combatentry2.getDamageSrc() == DamageSource.OUT_OF_WORLD) && combatentry2.getDamageAmount() > 0F && (combatentry == null || combatentry2.getDamageAmount() > f1)) {
 				if (i > 0) {
 					combatentry = combatentry3;
 				} else {
@@ -170,9 +170,9 @@ public class CombatTracker {
 			}
 		}
 
-		if (f1 > 5.0F && combatentry != null) {
+		if (f1 > 5F && combatentry != null) {
 			return combatentry;
-		} else if (f > 5.0F && combatentry1 != null) {
+		} else if (f > 5F && combatentry1 != null) {
 			return combatentry1;
 		} else {
 			return null;

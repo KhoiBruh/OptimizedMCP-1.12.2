@@ -67,7 +67,7 @@ public class EntityWitherSkeleton extends AbstractSkeleton {
 
 			if (entitycreeper.getPowered() && entitycreeper.ableToCauseSkullDrop()) {
 				entitycreeper.incrementDroppedSkulls();
-				entityDropItem(new ItemStack(Items.SKULL, 1, 1), 0.0F);
+				entityDropItem(new ItemStack(Items.SKULL, 1, 1), 0F);
 			}
 		}
 	}
@@ -106,7 +106,7 @@ public class EntityWitherSkeleton extends AbstractSkeleton {
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 
 		IEntityLivingData ientitylivingdata = super.onInitialSpawn(difficulty, livingdata);
-		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4.0D);
+		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4D);
 		setCombatTask();
 		return ientitylivingdata;
 	}

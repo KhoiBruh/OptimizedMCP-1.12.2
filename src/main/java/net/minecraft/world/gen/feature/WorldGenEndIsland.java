@@ -16,7 +16,7 @@ public class WorldGenEndIsland extends WorldGenerator {
 		for (int i = 0; f > 0.5F; --i) {
 			for (int j = MathHelper.floor(-f); j <= MathHelper.ceil(f); ++j) {
 				for (int k = MathHelper.floor(-f); k <= MathHelper.ceil(f); ++k) {
-					if ((float) (j * j + k * k) <= (f + 1.0F) * (f + 1.0F)) {
+					if ((float) (j * j + k * k) <= (f + 1F) * (f + 1F)) {
 						setBlockAndNotifyAdequately(worldIn, position.add(j, i, k), Blocks.END_STONE.getDefaultState());
 					}
 				}

@@ -176,7 +176,7 @@ public abstract class Enchantment {
 	 */
 	public float calcDamageByCreature(int level, EnumCreatureAttribute creatureType) {
 
-		return 0.0F;
+		return 0F;
 	}
 
 	public final boolean isCompatibleWith(Enchantment p_191560_1_) {

@@ -27,13 +27,13 @@ public class LayerWitherAura implements LayerRenderer<EntityWither> {
 			GlStateManager.matrixMode(5890);
 			GlStateManager.loadIdentity();
 			float f = (float) entitylivingbaseIn.ticksExisted + partialTicks;
-			float f1 = MathHelper.cos(f * 0.02F) * 3.0F;
+			float f1 = MathHelper.cos(f * 0.02F) * 3F;
 			float f2 = f * 0.01F;
-			GlStateManager.translate(f1, f2, 0.0F);
+			GlStateManager.translate(f1, f2, 0F);
 			GlStateManager.matrixMode(5888);
 			GlStateManager.enableBlend();
 			float f3 = 0.5F;
-			GlStateManager.color(0.5F, 0.5F, 0.5F, 1.0F);
+			GlStateManager.color(0.5F, 0.5F, 0.5F, 1F);
 			GlStateManager.disableLighting();
 			GlStateManager.blendFunc(GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ONE);
 			witherModel.setLivingAnimations(entitylivingbaseIn, limbSwing, limbSwingAmount, partialTicks);

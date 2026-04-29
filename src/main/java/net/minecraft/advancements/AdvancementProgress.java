@@ -129,7 +129,7 @@ public class AdvancementProgress implements Comparable<AdvancementProgress> {
 	public float getPercent() {
 
 		if (criteria.isEmpty()) {
-			return 0.0F;
+			return 0F;
 		} else {
 			float f = (float) requirements.length;
 			float f1 = (float) countCompletedRequirements();

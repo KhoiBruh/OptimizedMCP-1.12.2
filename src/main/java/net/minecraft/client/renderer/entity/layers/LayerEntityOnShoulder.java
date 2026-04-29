@@ -37,7 +37,7 @@ public class LayerEntityOnShoulder implements LayerRenderer<EntityPlayer> {
 
 		if (entitylivingbaseIn.getLeftShoulderEntity() != null || entitylivingbaseIn.getRightShoulderEntity() != null) {
 			GlStateManager.enableRescaleNormal();
-			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+			GlStateManager.color(1F, 1F, 1F, 1F);
 			NBTTagCompound nbttagcompound = entitylivingbaseIn.getLeftShoulderEntity();
 
 			if (!nbttagcompound.hasNoTags()) {
@@ -81,10 +81,10 @@ public class LayerEntityOnShoulder implements LayerRenderer<EntityPlayer> {
 		GlStateManager.pushMatrix();
 		float f = p_192864_1_.isSneaking() ? -1.3F : -1.5F;
 		float f1 = p_192864_15_ ? 0.4F : -0.4F;
-		GlStateManager.translate(f1, f, 0.0F);
+		GlStateManager.translate(f1, f, 0F);
 
 		if (p_192864_7_ == EntityParrot.class) {
-			p_192864_11_ = 0.0F;
+			p_192864_11_ = 0F;
 		}
 
 		p_192864_5_.setLivingAnimations(p_192864_1_, p_192864_8_, p_192864_9_, p_192864_10_);

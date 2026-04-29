@@ -22,7 +22,7 @@ public class BlockBeacon extends BlockContainer {
 	public BlockBeacon() {
 
 		super(Material.GLASS, MapColor.DIAMOND);
-		setHardness(3.0F);
+		setHardness(3F);
 		setCreativeTab(CreativeTabs.MISC);
 	}
 

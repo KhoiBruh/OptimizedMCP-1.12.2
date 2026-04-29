@@ -73,7 +73,7 @@ public class ChunkRenderWorker implements Runnable {
 			int j = 8;
 			int k = 24;
 
-			if (blockpos1.add(8, 8, 8).distanceSq(blockpos) > 576.0D) {
+			if (blockpos1.add(8, 8, 8).distanceSq(blockpos) > 576D) {
 				World world = generator.getRenderChunk().getWorld();
 				BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos(blockpos1);
 

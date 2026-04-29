@@ -35,7 +35,7 @@ public class BlockSlime extends BlockBreakable {
 		if (entityIn.isSneaking()) {
 			super.onFallenUpon(worldIn, pos, entityIn, fallDistance);
 		} else {
-			entityIn.fall(fallDistance, 0.0F);
+			entityIn.fall(fallDistance, 0F);
 		}
 	}
 
@@ -47,7 +47,7 @@ public class BlockSlime extends BlockBreakable {
 
 		if (entityIn.isSneaking()) {
 			super.onLanded(worldIn, entityIn);
-		} else if (entityIn.motionY < 0.0D) {
+		} else if (entityIn.motionY < 0D) {
 			entityIn.motionY = -entityIn.motionY;
 
 			if (!(entityIn instanceof EntityLivingBase)) {

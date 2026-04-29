@@ -30,7 +30,7 @@ public class BlockBed extends BlockHorizontal implements ITileEntityProvider {
 
 	public static final PropertyEnum<BlockBed.EnumPartType> PART = PropertyEnum.create("part", BlockBed.EnumPartType.class);
 	public static final PropertyBool OCCUPIED = PropertyBool.create("occupied");
-	protected static final AxisAlignedBB BED_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.5625D, 1.0D);
+	protected static final AxisAlignedBB BED_AABB = new AxisAlignedBB(0D, 0D, 0D, 1D, 0.5625D, 1D);
 
 	public BlockBed() {
 
@@ -157,7 +157,7 @@ public class BlockBed extends BlockHorizontal implements ITileEntityProvider {
 					worldIn.setBlockToAir(blockpos);
 				}
 
-				worldIn.newExplosion(null, (double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D, 5.0F, true, true);
+				worldIn.newExplosion(null, (double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D, 5F, true, true);
 				return true;
 			}
 		}
@@ -204,7 +204,7 @@ public class BlockBed extends BlockHorizontal implements ITileEntityProvider {
 
 		if (entityIn.isSneaking()) {
 			super.onLanded(worldIn, entityIn);
-		} else if (entityIn.motionY < 0.0D) {
+		} else if (entityIn.motionY < 0D) {
 			entityIn.motionY = -entityIn.motionY * 0.6600000262260437D;
 
 			if (!(entityIn instanceof EntityLivingBase)) {

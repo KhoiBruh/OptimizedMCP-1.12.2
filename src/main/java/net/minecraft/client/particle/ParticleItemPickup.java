@@ -46,7 +46,7 @@ public class ParticleItemPickup extends Particle {
 		int j = i % 65536;
 		int k = i / 65536;
 		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) j, (float) k);
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+		GlStateManager.color(1F, 1F, 1F, 1F);
 		d6 = d6 - interpPosX;
 		d7 = d7 - interpPosY;
 		d8 = d8 - interpPosZ;

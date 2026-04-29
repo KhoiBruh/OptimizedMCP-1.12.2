@@ -83,15 +83,15 @@ public class EntityWitherSkull extends EntityFireball {
 		if (!world.isRemote) {
 			if (result.entityHit != null) {
 				if (shootingEntity != null) {
-					if (result.entityHit.attackEntityFrom(DamageSource.causeMobDamage(shootingEntity), 8.0F)) {
+					if (result.entityHit.attackEntityFrom(DamageSource.causeMobDamage(shootingEntity), 8F)) {
 						if (result.entityHit.isEntityAlive()) {
 							applyEnchantments(shootingEntity, result.entityHit);
 						} else {
-							shootingEntity.heal(5.0F);
+							shootingEntity.heal(5F);
 						}
 					}
 				} else {
-					result.entityHit.attackEntityFrom(DamageSource.MAGIC, 5.0F);
+					result.entityHit.attackEntityFrom(DamageSource.MAGIC, 5F);
 				}
 
 				if (result.entityHit instanceof EntityLivingBase) {
@@ -109,7 +109,7 @@ public class EntityWitherSkull extends EntityFireball {
 				}
 			}
 
-			world.newExplosion(this, posX, posY, posZ, 1.0F, false, world.getGameRules().getBoolean("mobGriefing"));
+			world.newExplosion(this, posX, posY, posZ, 1F, false, world.getGameRules().getBoolean("mobGriefing"));
 			setDead();
 		}
 	}

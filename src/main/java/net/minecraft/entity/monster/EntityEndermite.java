@@ -37,9 +37,9 @@ public class EntityEndermite extends EntityMob {
 	protected void initEntityAI() {
 
 		tasks.addTask(1, new EntityAISwimming(this));
-		tasks.addTask(2, new EntityAIAttackMelee(this, 1.0D, false));
-		tasks.addTask(3, new EntityAIWanderAvoidWater(this, 1.0D));
-		tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
+		tasks.addTask(2, new EntityAIAttackMelee(this, 1D, false));
+		tasks.addTask(3, new EntityAIWanderAvoidWater(this, 1D));
+		tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 8F));
 		tasks.addTask(8, new EntityAILookIdle(this));
 		targetTasks.addTask(1, new EntityAIHurtByTarget(this, true));
 		targetTasks.addTask(2, new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, true));
@@ -53,9 +53,9 @@ public class EntityEndermite extends EntityMob {
 	protected void applyEntityAttributes() {
 
 		super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(8.0D);
+		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(8D);
 		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25D);
-		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(2.0D);
+		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(2D);
 	}
 
 	/**
@@ -84,7 +84,7 @@ public class EntityEndermite extends EntityMob {
 
 	protected void playStepSound(BlockPos pos, Block blockIn) {
 
-		playSound(SoundEvents.ENTITY_ENDERMITE_STEP, 0.15F, 1.0F);
+		playSound(SoundEvents.ENTITY_ENDERMITE_STEP, 0.15F, 1F);
 	}
 
 	
@@ -162,7 +162,7 @@ public class EntityEndermite extends EntityMob {
 
 		if (world.isRemote) {
 			for (int i = 0; i < 2; ++i) {
-				world.spawnParticle(EnumParticleTypes.PORTAL, posX + (rand.nextDouble() - 0.5D) * (double) width, posY + rand.nextDouble() * (double) height, posZ + (rand.nextDouble() - 0.5D) * (double) width, (rand.nextDouble() - 0.5D) * 2.0D, -rand.nextDouble(), (rand.nextDouble() - 0.5D) * 2.0D);
+				world.spawnParticle(EnumParticleTypes.PORTAL, posX + (rand.nextDouble() - 0.5D) * (double) width, posY + rand.nextDouble() * (double) height, posZ + (rand.nextDouble() - 0.5D) * (double) width, (rand.nextDouble() - 0.5D) * 2D, -rand.nextDouble(), (rand.nextDouble() - 0.5D) * 2D);
 			}
 		} else {
 			if (!isNoDespawnRequired()) {
@@ -189,7 +189,7 @@ public class EntityEndermite extends EntityMob {
 	public boolean getCanSpawnHere() {
 
 		if (super.getCanSpawnHere()) {
-			EntityPlayer entityplayer = world.getClosestPlayerToEntity(this, 5.0D);
+			EntityPlayer entityplayer = world.getClosestPlayerToEntity(this, 5D);
 			return entityplayer == null;
 		} else {
 			return false;

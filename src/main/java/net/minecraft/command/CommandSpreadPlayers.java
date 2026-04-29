@@ -52,8 +52,8 @@ public class CommandSpreadPlayers extends CommandBase {
 			BlockPos blockpos = sender.getPosition();
 			double d0 = parseDouble(blockpos.getX(), args[i++], true);
 			double d1 = parseDouble(blockpos.getZ(), args[i++], true);
-			double d2 = parseDouble(args[i++], 0.0D);
-			double d3 = parseDouble(args[i++], d2 + 1.0D);
+			double d2 = parseDouble(args[i++], 0D);
+			double d3 = parseDouble(args[i++], d2 + 1D);
 			boolean flag = parseBoolean(args[i++]);
 			List<Entity> list = Lists.newArrayList();
 
@@ -156,7 +156,7 @@ public class CommandSpreadPlayers extends CommandBase {
 					commandspreadplayers$position1.z /= k;
 					double d2 = commandspreadplayers$position1.getLength();
 
-					if (d2 > 0.0D) {
+					if (d2 > 0D) {
 						commandspreadplayers$position1.normalize();
 						commandspreadplayers$position.moveAway(commandspreadplayers$position1);
 					} else {
@@ -190,7 +190,7 @@ public class CommandSpreadPlayers extends CommandBase {
 
 	private double setPlayerPositions(List<Entity> p_110671_1_, World worldIn, CommandSpreadPlayers.Position[] p_110671_3_, boolean p_110671_4_) {
 
-		double d0 = 0.0D;
+		double d0 = 0D;
 		int i = 0;
 		Map<Team, CommandSpreadPlayers.Position> map = Maps.newHashMap();
 
@@ -309,7 +309,7 @@ public class CommandSpreadPlayers extends CommandBase {
 
 		public int getSpawnY(World worldIn) {
 
-			BlockPos blockpos = new BlockPos(x, 256.0D, z);
+			BlockPos blockpos = new BlockPos(x, 256D, z);
 
 			while (blockpos.getY() > 0) {
 				blockpos = blockpos.down();
@@ -324,7 +324,7 @@ public class CommandSpreadPlayers extends CommandBase {
 
 		public boolean isSafe(World worldIn) {
 
-			BlockPos blockpos = new BlockPos(x, 256.0D, z);
+			BlockPos blockpos = new BlockPos(x, 256D, z);
 
 			while (blockpos.getY() > 0) {
 				blockpos = blockpos.down();

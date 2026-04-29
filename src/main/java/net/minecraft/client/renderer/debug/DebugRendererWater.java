@@ -34,16 +34,16 @@ public class DebugRendererWater implements DebugRenderer.IDebugRenderer {
 		World world = minecraft.player.world;
 		GlStateManager.enableBlend();
 		GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-		GlStateManager.color(0.0F, 1.0F, 0.0F, 0.75F);
+		GlStateManager.color(0F, 1F, 0F, 0.75F);
 		GlStateManager.disableTexture2D();
-		GlStateManager.glLineWidth(6.0F);
+		GlStateManager.glLineWidth(6F);
 
 		for (BlockPos blockpos1 : BlockPos.getAllInBox(blockpos.add(-10, -10, -10), blockpos.add(10, 10, 10))) {
 			IBlockState iblockstate = world.getBlockState(blockpos1);
 
 			if (iblockstate.getBlock() == Blocks.WATER || iblockstate.getBlock() == Blocks.FLOWING_WATER) {
 				double d0 = BlockLiquid.getLiquidHeight(iblockstate, world, blockpos1);
-				RenderGlobal.renderFilledBox((new AxisAlignedBB((float) blockpos1.getX() + 0.01F, (float) blockpos1.getY() + 0.01F, (float) blockpos1.getZ() + 0.01F, (float) blockpos1.getX() + 0.99F, d0, (float) blockpos1.getZ() + 0.99F)).offset(-xo, -yo, -zo), 1.0F, 1.0F, 1.0F, 0.2F);
+				RenderGlobal.renderFilledBox((new AxisAlignedBB((float) blockpos1.getX() + 0.01F, (float) blockpos1.getY() + 0.01F, (float) blockpos1.getZ() + 0.01F, (float) blockpos1.getX() + 0.99F, d0, (float) blockpos1.getZ() + 0.99F)).offset(-xo, -yo, -zo), 1F, 1F, 1F, 0.2F);
 			}
 		}
 
@@ -52,7 +52,7 @@ public class DebugRendererWater implements DebugRenderer.IDebugRenderer {
 
 			if (iblockstate1.getBlock() == Blocks.WATER || iblockstate1.getBlock() == Blocks.FLOWING_WATER) {
 				Integer integer = iblockstate1.getValue(BlockLiquid.LEVEL);
-				double d1 = integer > 7 ? 0.9D : 1.0D - 0.11D * (double) integer;
+				double d1 = integer > 7 ? 0.9D : 1D - 0.11D * (double) integer;
 				String s = iblockstate1.getBlock() == Blocks.FLOWING_WATER ? "f" : "s";
 				DebugRenderer.renderDebugText(s + " " + integer, (double) blockpos2.getX() + 0.5D, (double) blockpos2.getY() + d1, (double) blockpos2.getZ() + 0.5D, partialTicks, -16777216);
 			}

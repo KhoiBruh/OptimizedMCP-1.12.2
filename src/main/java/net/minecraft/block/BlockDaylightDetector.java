@@ -28,7 +28,7 @@ import java.util.Random;
 public class BlockDaylightDetector extends BlockContainer {
 
 	public static final PropertyInteger POWER = PropertyInteger.create("power", 0, 15);
-	protected static final AxisAlignedBB DAYLIGHT_DETECTOR_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.375D, 1.0D);
+	protected static final AxisAlignedBB DAYLIGHT_DETECTOR_AABB = new AxisAlignedBB(0D, 0D, 0D, 1D, 0.375D, 1D);
 	private final boolean inverted;
 
 	public BlockDaylightDetector(boolean inverted) {
@@ -57,14 +57,14 @@ public class BlockDaylightDetector extends BlockContainer {
 		if (worldIn.provider.hasSkyLight()) {
 			IBlockState iblockstate = worldIn.getBlockState(pos);
 			int i = worldIn.getLightFor(EnumSkyBlock.SKY, pos) - worldIn.getSkylightSubtracted();
-			float f = worldIn.getCelestialAngleRadians(1.0F);
+			float f = worldIn.getCelestialAngleRadians(1F);
 
 			if (inverted) {
 				i = 15 - i;
 			}
 
 			if (i > 0 && !inverted) {
-				float f1 = f < (float) Math.PI ? 0.0F : ((float) Math.PI * 2F);
+				float f1 = f < (float) Math.PI ? 0F : ((float) Math.PI * 2F);
 				f = f + (f1 - f) * 0.2F;
 				i = Math.round((float) i * MathHelper.cos(f));
 			}

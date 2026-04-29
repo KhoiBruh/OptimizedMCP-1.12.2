@@ -60,13 +60,13 @@ public class CommandTP extends CommandBase {
 		} else {
 			float f2 = (float) MathHelper.wrapDegrees(argYaw.getResult());
 			float f3 = (float) MathHelper.wrapDegrees(argPitch.getResult());
-			f3 = MathHelper.clamp(f3, -90.0F, 90.0F);
+			f3 = MathHelper.clamp(f3, -90F, 90F);
 			teleportingEntity.setLocationAndAngles(argX.getResult(), argY.getResult(), argZ.getResult(), f2, f3);
 			teleportingEntity.setRotationYawHead(f2);
 		}
 
 		if (!(teleportingEntity instanceof EntityLivingBase) || !((EntityLivingBase) teleportingEntity).isElytraFlying()) {
-			teleportingEntity.motionY = 0.0D;
+			teleportingEntity.motionY = 0D;
 			teleportingEntity.onGround = true;
 		}
 	}

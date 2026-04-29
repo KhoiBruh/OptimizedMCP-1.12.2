@@ -69,7 +69,7 @@ public class EntityAIBeg extends EntityAIBase {
 	 */
 	public void updateTask() {
 
-		wolf.getLookHelper().setLookPosition(player.posX, player.posY + (double) player.getEyeHeight(), player.posZ, 10.0F, (float) wolf.getVerticalFaceSpeed());
+		wolf.getLookHelper().setLookPosition(player.posX, player.posY + (double) player.getEyeHeight(), player.posZ, 10F, (float) wolf.getVerticalFaceSpeed());
 		--timeoutCounter;
 	}
 

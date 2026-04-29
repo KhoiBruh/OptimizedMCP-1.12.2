@@ -19,10 +19,10 @@ import net.minecraft.world.World;
 public class BlockLadder extends Block {
 
 	public static final PropertyDirection FACING = BlockHorizontal.FACING;
-	protected static final AxisAlignedBB LADDER_EAST_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 0.1875D, 1.0D, 1.0D);
-	protected static final AxisAlignedBB LADDER_WEST_AABB = new AxisAlignedBB(0.8125D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D);
-	protected static final AxisAlignedBB LADDER_SOUTH_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 0.1875D);
-	protected static final AxisAlignedBB LADDER_NORTH_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.8125D, 1.0D, 1.0D, 1.0D);
+	protected static final AxisAlignedBB LADDER_EAST_AABB = new AxisAlignedBB(0D, 0D, 0D, 0.1875D, 1D, 1D);
+	protected static final AxisAlignedBB LADDER_WEST_AABB = new AxisAlignedBB(0.8125D, 0D, 0D, 1D, 1D, 1D);
+	protected static final AxisAlignedBB LADDER_SOUTH_AABB = new AxisAlignedBB(0D, 0D, 0D, 1D, 1D, 0.1875D);
+	protected static final AxisAlignedBB LADDER_NORTH_AABB = new AxisAlignedBB(0D, 0D, 0.8125D, 1D, 1D, 1D);
 
 	protected BlockLadder() {
 

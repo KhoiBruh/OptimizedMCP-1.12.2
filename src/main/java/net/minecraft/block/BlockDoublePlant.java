@@ -32,7 +32,7 @@ public class BlockDoublePlant extends BlockBush implements IGrowable {
 
 		super(Material.VINE);
 		setDefaultState(blockState.getBaseState().withProperty(VARIANT, BlockDoublePlant.EnumPlantType.SUNFLOWER).withProperty(HALF, BlockDoublePlant.EnumBlockHalf.LOWER).withProperty(FACING, EnumFacing.NORTH));
-		setHardness(0.0F);
+		setHardness(0F);
 		setSoundType(SoundType.PLANT);
 		setUnlocalizedName("doublePlant");
 	}

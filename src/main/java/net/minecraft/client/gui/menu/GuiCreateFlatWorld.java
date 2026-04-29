@@ -198,7 +198,7 @@ public class GuiCreateFlatWorld extends GuiScreen {
 
 		private void drawItemBackground(int x, int z, int textureX, int textureY) {
 
-			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+			GlStateManager.color(1F, 1F, 1F, 1F);
 			mc.getTextureManager().bindTexture(Gui.STAT_ICONS);
 			float f = 0.0078125F;
 			float f1 = 0.0078125F;

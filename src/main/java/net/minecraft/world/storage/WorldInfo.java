@@ -100,7 +100,7 @@ public class WorldInfo {
 	private double borderSize = 6.0E7D;
 	private long borderSizeLerpTime;
 	private double borderSizeLerpTarget;
-	private double borderSafeZone = 5.0D;
+	private double borderSafeZone = 5D;
 	private double borderDamagePerBlock = 0.2D;
 	private int borderWarningDistance = 5;
 	private int borderWarningTime = 15;

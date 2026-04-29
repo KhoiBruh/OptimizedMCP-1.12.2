@@ -96,9 +96,9 @@ public class GuiToast extends Gui {
 
 		private float getVisibility(long p_193686_1_) {
 
-			float f = MathHelper.clamp((float) (p_193686_1_ - animationTime) / 600.0F, 0.0F, 1.0F);
+			float f = MathHelper.clamp((float) (p_193686_1_ - animationTime) / 600F, 0F, 1F);
 			f = f * f;
-			return visibility == IToast.Visibility.HIDE ? 1.0F - f : f;
+			return visibility == IToast.Visibility.HIDE ? 1F - f : f;
 		}
 
 		public boolean render(int p_193684_1_, int p_193684_2_) {
@@ -115,12 +115,12 @@ public class GuiToast extends Gui {
 			}
 
 			GlStateManager.pushMatrix();
-			GlStateManager.translate((float) p_193684_1_ - 160.0F * getVisibility(i), (float) (p_193684_2_ * 32), (float) (500 + p_193684_2_));
+			GlStateManager.translate((float) p_193684_1_ - 160F * getVisibility(i), (float) (p_193684_2_ * 32), (float) (500 + p_193684_2_));
 			IToast.Visibility itoast$visibility = toast.draw(GuiToast.this, i - visibleTime);
 			GlStateManager.popMatrix();
 
 			if (itoast$visibility != visibility) {
-				animationTime = i - (long) ((int) ((1.0F - getVisibility(i)) * 600.0F));
+				animationTime = i - (long) ((int) ((1F - getVisibility(i)) * 600F));
 				visibility = itoast$visibility;
 				visibility.playSound(mc.getSoundHandler());
 			}

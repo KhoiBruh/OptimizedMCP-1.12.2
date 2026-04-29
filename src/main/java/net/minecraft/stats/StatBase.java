@@ -17,11 +17,11 @@ public class StatBase {
 	public static IStatType simpleStatType = StatBase.numberFormat::format;
 	public static IStatType timeStatType = number -> {
 
-		double d0 = (double) number / 20.0D;
-		double d1 = d0 / 60.0D;
-		double d2 = d1 / 60.0D;
-		double d3 = d2 / 24.0D;
-		double d4 = d3 / 365.0D;
+		double d0 = (double) number / 20D;
+		double d1 = d0 / 60D;
+		double d2 = d1 / 60D;
+		double d3 = d2 / 24D;
+		double d4 = d3 / 365D;
 
 		if (d4 > 0.5D) {
 			return StatBase.decimalFormat.format(d4) + " y";
@@ -35,8 +35,8 @@ public class StatBase {
 	};
 	public static IStatType distanceStatType = number -> {
 
-		double d0 = (double) number / 100.0D;
-		double d1 = d0 / 1000.0D;
+		double d0 = (double) number / 100D;
+		double d1 = d0 / 1000D;
 
 		if (d1 > 0.5D) {
 			return StatBase.decimalFormat.format(d1) + " km";

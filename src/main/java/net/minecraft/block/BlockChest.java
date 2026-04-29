@@ -28,11 +28,11 @@ import net.minecraft.world.World;
 public class BlockChest extends BlockContainer {
 
 	public static final PropertyDirection FACING = BlockHorizontal.FACING;
-	protected static final AxisAlignedBB NORTH_CHEST_AABB = new AxisAlignedBB(0.0625D, 0.0D, 0.0D, 0.9375D, 0.875D, 0.9375D);
-	protected static final AxisAlignedBB SOUTH_CHEST_AABB = new AxisAlignedBB(0.0625D, 0.0D, 0.0625D, 0.9375D, 0.875D, 1.0D);
-	protected static final AxisAlignedBB WEST_CHEST_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0625D, 0.9375D, 0.875D, 0.9375D);
-	protected static final AxisAlignedBB EAST_CHEST_AABB = new AxisAlignedBB(0.0625D, 0.0D, 0.0625D, 1.0D, 0.875D, 0.9375D);
-	protected static final AxisAlignedBB NOT_CONNECTED_AABB = new AxisAlignedBB(0.0625D, 0.0D, 0.0625D, 0.9375D, 0.875D, 0.9375D);
+	protected static final AxisAlignedBB NORTH_CHEST_AABB = new AxisAlignedBB(0.0625D, 0D, 0D, 0.9375D, 0.875D, 0.9375D);
+	protected static final AxisAlignedBB SOUTH_CHEST_AABB = new AxisAlignedBB(0.0625D, 0D, 0.0625D, 0.9375D, 0.875D, 1D);
+	protected static final AxisAlignedBB WEST_CHEST_AABB = new AxisAlignedBB(0D, 0D, 0.0625D, 0.9375D, 0.875D, 0.9375D);
+	protected static final AxisAlignedBB EAST_CHEST_AABB = new AxisAlignedBB(0.0625D, 0D, 0.0625D, 1D, 0.875D, 0.9375D);
+	protected static final AxisAlignedBB NOT_CONNECTED_AABB = new AxisAlignedBB(0.0625D, 0D, 0.0625D, 0.9375D, 0.875D, 0.9375D);
 
 	/**
 	 * 0 : Normal chest, 1 : Trapped chest
@@ -118,7 +118,7 @@ public class BlockChest extends BlockContainer {
 	 */
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
 
-		EnumFacing enumfacing = EnumFacing.getHorizontal(MathHelper.floor((double) (placer.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3).getOpposite();
+		EnumFacing enumfacing = EnumFacing.getHorizontal(MathHelper.floor((double) (placer.rotationYaw * 4F / 360F) + 0.5D) & 3).getOpposite();
 		state = state.withProperty(FACING, enumfacing);
 		BlockPos blockpos = pos.north();
 		BlockPos blockpos1 = pos.south();

@@ -93,7 +93,7 @@ public class ItemBlock extends Item {
 				}
 
 				SoundType soundtype = this.block.getSoundType();
-				worldIn.playSound(player, pos, soundtype.placeSound(), SoundCategory.BLOCKS, (soundtype.volume() + 1.0F) / 2.0F, soundtype.pitch() * 0.8F);
+				worldIn.playSound(player, pos, soundtype.placeSound(), SoundCategory.BLOCKS, (soundtype.volume() + 1F) / 2F, soundtype.pitch() * 0.8F);
 				itemstack.shrink(1);
 			}
 

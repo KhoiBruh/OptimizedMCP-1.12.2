@@ -229,7 +229,7 @@ public class GuiFlatPresets extends GuiScreen {
 
 		private void blitSlotIcon(int p_148171_1_, int p_148171_2_, int p_148171_3_, int p_148171_4_) {
 
-			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+			GlStateManager.color(1F, 1F, 1F, 1F);
 			mc.getTextureManager().bindTexture(Gui.STAT_ICONS);
 			float f = 0.0078125F;
 			float f1 = 0.0078125F;

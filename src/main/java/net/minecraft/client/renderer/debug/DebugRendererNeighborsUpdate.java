@@ -49,7 +49,7 @@ public class DebugRendererNeighborsUpdate implements DebugRenderer.IDebugRendere
 		World world = minecraft.player.world;
 		GlStateManager.enableBlend();
 		GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-		GlStateManager.glLineWidth(2.0F);
+		GlStateManager.glLineWidth(2F);
 		GlStateManager.disableTexture2D();
 		GlStateManager.depthMask(false);
 		int j = 200;
@@ -72,7 +72,7 @@ public class DebugRendererNeighborsUpdate implements DebugRenderer.IDebugRendere
 					Integer integer = entry1.getValue();
 
 					if (set.add(blockpos)) {
-						RenderGlobal.drawSelectionBoundingBox((new AxisAlignedBB(BlockPos.ORIGIN)).grow(0.002D).shrink(0.0025D * (double) k).offset(blockpos.getX(), blockpos.getY(), blockpos.getZ()).offset(-d0, -d1, -d2), 1.0F, 1.0F, 1.0F, 1.0F);
+						RenderGlobal.drawSelectionBoundingBox((new AxisAlignedBB(BlockPos.ORIGIN)).grow(0.002D).shrink(0.0025D * (double) k).offset(blockpos.getX(), blockpos.getY(), blockpos.getZ()).offset(-d0, -d1, -d2), 1F, 1F, 1F, 1F);
 						map.put(blockpos, integer);
 					}
 				}

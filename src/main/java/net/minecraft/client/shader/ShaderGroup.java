@@ -38,8 +38,8 @@ public class ShaderGroup {
 
 		resourceManager = resourceManagerIn;
 		mainFramebuffer = mainFramebufferIn;
-		time = 0.0F;
-		lastStamp = 0.0F;
+		time = 0F;
+		lastStamp = 0F;
 		mainFramebufferWidth = mainFramebufferIn.framebufferWidth;
 		mainFramebufferHeight = mainFramebufferIn.framebufferHeight;
 		shaderGroupName = p_i1050_4_.toString();
@@ -258,7 +258,7 @@ public class ShaderGroup {
 	public void addFramebuffer(String name, int width, int height) {
 
 		Framebuffer framebuffer = new Framebuffer(width, height, true);
-		framebuffer.setFramebufferColor(0.0F, 0.0F, 0.0F, 0.0F);
+		framebuffer.setFramebufferColor(0F, 0F, 0F, 0F);
 		mapFramebuffers.put(name, framebuffer);
 
 		if (width == mainFramebufferWidth && height == mainFramebufferHeight) {
@@ -290,12 +290,12 @@ public class ShaderGroup {
 
 		projectionMatrix = new Matrix4f();
 		projectionMatrix.setIdentity();
-		projectionMatrix.m00 = 2.0F / (float) mainFramebuffer.framebufferTextureWidth;
-		projectionMatrix.m11 = 2.0F / (float) (-mainFramebuffer.framebufferTextureHeight);
+		projectionMatrix.m00 = 2F / (float) mainFramebuffer.framebufferTextureWidth;
+		projectionMatrix.m11 = 2F / (float) (-mainFramebuffer.framebufferTextureHeight);
 		projectionMatrix.m22 = -0.0020001999F;
-		projectionMatrix.m33 = 1.0F;
-		projectionMatrix.m03 = -1.0F;
-		projectionMatrix.m13 = 1.0F;
+		projectionMatrix.m33 = 1F;
+		projectionMatrix.m03 = -1F;
+		projectionMatrix.m13 = 1F;
 		projectionMatrix.m23 = -1.0001999F;
 	}
 
@@ -317,17 +317,17 @@ public class ShaderGroup {
 	public void render(float partialTicks) {
 
 		if (partialTicks < lastStamp) {
-			time += 1.0F - lastStamp;
+			time += 1F - lastStamp;
 			time += partialTicks;
 		} else {
 			time += partialTicks - lastStamp;
 		}
 
-		for (lastStamp = partialTicks; time > 20.0F; time -= 20.0F) {
+		for (lastStamp = partialTicks; time > 20F; time -= 20F) {
 		}
 
 		for (Shader shader : listShaders) {
-			shader.render(time / 20.0F);
+			shader.render(time / 20F);
 		}
 	}
 

@@ -53,7 +53,7 @@ public class EntityAIHurtByTarget extends EntityAITarget {
 
 		double d0 = getTargetDistance();
 
-		for (EntityCreature entitycreature : taskOwner.world.getEntitiesWithinAABB(taskOwner.getClass(), (new AxisAlignedBB(taskOwner.posX, taskOwner.posY, taskOwner.posZ, taskOwner.posX + 1.0D, taskOwner.posY + 1.0D, taskOwner.posZ + 1.0D)).grow(d0, 10.0D, d0))) {
+		for (EntityCreature entitycreature : taskOwner.world.getEntitiesWithinAABB(taskOwner.getClass(), (new AxisAlignedBB(taskOwner.posX, taskOwner.posY, taskOwner.posZ, taskOwner.posX + 1D, taskOwner.posY + 1D, taskOwner.posZ + 1D)).grow(d0, 10D, d0))) {
 			if (taskOwner != entitycreature && entitycreature.getAttackTarget() == null && (!(taskOwner instanceof EntityTameable) || ((EntityTameable) taskOwner).getOwner() == ((EntityTameable) entitycreature).getOwner()) && !entitycreature.isOnSameTeam(taskOwner.getRevengeTarget())) {
 				boolean flag = false;
 

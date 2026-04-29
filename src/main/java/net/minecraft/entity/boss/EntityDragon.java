@@ -76,17 +76,17 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 	/**
 	 * The head bounding box of a dragon
 	 */
-	public MultiPartEntityPart dragonPartHead = new MultiPartEntityPart(this, "head", 6.0F, 6.0F);
-	public MultiPartEntityPart dragonPartNeck = new MultiPartEntityPart(this, "neck", 6.0F, 6.0F);
+	public MultiPartEntityPart dragonPartHead = new MultiPartEntityPart(this, "head", 6F, 6F);
+	public MultiPartEntityPart dragonPartNeck = new MultiPartEntityPart(this, "neck", 6F, 6F);
 	/**
 	 * The body bounding box of a dragon
 	 */
-	public MultiPartEntityPart dragonPartBody = new MultiPartEntityPart(this, "body", 8.0F, 8.0F);
-	public MultiPartEntityPart dragonPartTail1 = new MultiPartEntityPart(this, "tail", 4.0F, 4.0F);
-	public MultiPartEntityPart dragonPartTail2 = new MultiPartEntityPart(this, "tail", 4.0F, 4.0F);
-	public MultiPartEntityPart dragonPartTail3 = new MultiPartEntityPart(this, "tail", 4.0F, 4.0F);
-	public MultiPartEntityPart dragonPartWing1 = new MultiPartEntityPart(this, "wing", 4.0F, 4.0F);
-	public MultiPartEntityPart dragonPartWing2 = new MultiPartEntityPart(this, "wing", 4.0F, 4.0F);
+	public MultiPartEntityPart dragonPartBody = new MultiPartEntityPart(this, "body", 8F, 8F);
+	public MultiPartEntityPart dragonPartTail1 = new MultiPartEntityPart(this, "tail", 4F, 4F);
+	public MultiPartEntityPart dragonPartTail2 = new MultiPartEntityPart(this, "tail", 4F, 4F);
+	public MultiPartEntityPart dragonPartTail3 = new MultiPartEntityPart(this, "tail", 4F, 4F);
+	public MultiPartEntityPart dragonPartWing1 = new MultiPartEntityPart(this, "wing", 4F, 4F);
+	public MultiPartEntityPart dragonPartWing2 = new MultiPartEntityPart(this, "wing", 4F, 4F);
 	/**
 	 * Animation time at previous tick.
 	 */
@@ -112,7 +112,7 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 		super(worldIn);
 		dragonPartArray = new MultiPartEntityPart[]{dragonPartHead, dragonPartNeck, dragonPartBody, dragonPartTail1, dragonPartTail2, dragonPartTail3, dragonPartWing1, dragonPartWing2};
 		setHealth(getMaxHealth());
-		setSize(16.0F, 8.0F);
+		setSize(16F, 8F);
 		noClip = true;
 		isImmuneToFire = true;
 		growlTime = 100;
@@ -135,7 +135,7 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 	protected void applyEntityAttributes() {
 
 		super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(200.0D);
+		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(200D);
 	}
 
 	protected void entityInit() {
@@ -150,11 +150,11 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 	 */
 	public double[] getMovementOffsets(int p_70974_1_, float p_70974_2_) {
 
-		if (getHealth() <= 0.0F) {
-			p_70974_2_ = 0.0F;
+		if (getHealth() <= 0F) {
+			p_70974_2_ = 0F;
 		}
 
-		p_70974_2_ = 1.0F - p_70974_2_;
+		p_70974_2_ = 1F - p_70974_2_;
 		int i = ringBufferIndex - p_70974_1_ & 63;
 		int j = ringBufferIndex - p_70974_1_ - 1 & 63;
 		double[] adouble = new double[3];
@@ -182,7 +182,7 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 				float f1 = MathHelper.cos(prevAnimTime * ((float) Math.PI * 2F));
 
 				if (f1 <= -0.3F && f >= -0.3F) {
-					world.playSound(posX, posY, posZ, SoundEvents.ENTITY_ENDERDRAGON_FLAP, getSoundCategory(), 5.0F, 0.8F + rand.nextFloat() * 0.3F, false);
+					world.playSound(posX, posY, posZ, SoundEvents.ENTITY_ENDERDRAGON_FLAP, getSoundCategory(), 5F, 0.8F + rand.nextFloat() * 0.3F, false);
 				}
 
 				if (!phaseManager.getCurrentPhase().getIsStationary() && --growlTime < 0) {
@@ -194,15 +194,15 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 
 		prevAnimTime = animTime;
 
-		if (getHealth() <= 0.0F) {
-			float f12 = (rand.nextFloat() - 0.5F) * 8.0F;
-			float f13 = (rand.nextFloat() - 0.5F) * 4.0F;
-			float f15 = (rand.nextFloat() - 0.5F) * 8.0F;
-			world.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, posX + (double) f12, posY + 2.0D + (double) f13, posZ + (double) f15, 0.0D, 0.0D, 0.0D);
+		if (getHealth() <= 0F) {
+			float f12 = (rand.nextFloat() - 0.5F) * 8F;
+			float f13 = (rand.nextFloat() - 0.5F) * 4F;
+			float f15 = (rand.nextFloat() - 0.5F) * 8F;
+			world.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, posX + (double) f12, posY + 2D + (double) f13, posZ + (double) f15, 0D, 0D, 0D);
 		} else {
 			updateDragonEnderCrystal();
-			float f11 = 0.2F / (MathHelper.sqrt(motionX * motionX + motionZ * motionZ) * 10.0F + 1.0F);
-			f11 = f11 * (float) Math.pow(2.0D, motionY);
+			float f11 = 0.2F / (MathHelper.sqrt(motionX * motionX + motionZ * motionZ) * 10F + 1F);
+			f11 = f11 * (float) Math.pow(2D, motionY);
 
 			if (phaseManager.getCurrentPhase().getIsStationary()) {
 				animTime += 0.1F;
@@ -265,16 +265,16 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 						d7 = MathHelper.clamp(d7 / (double) MathHelper.sqrt(d6 * d6 + d8 * d8), -f5, f5);
 						motionY += d7 * 0.10000000149011612D;
 						rotationYaw = MathHelper.wrapDegrees(rotationYaw);
-						double d4 = MathHelper.clamp(MathHelper.wrapDegrees(180.0D - MathHelper.atan2(d6, d8) * (180D / Math.PI) - (double) rotationYaw), -50.0D, 50.0D);
+						double d4 = MathHelper.clamp(MathHelper.wrapDegrees(180D - MathHelper.atan2(d6, d8) * (180D / Math.PI) - (double) rotationYaw), -50D, 50D);
 						Vec3d vec3d1 = (new Vec3d(vec3d.x() - posX, vec3d.y() - posY, vec3d.z() - posZ)).normalize();
 						Vec3d vec3d2 = (new Vec3d(MathHelper.sin(rotationYaw * 0.017453292F), motionY, -MathHelper.cos(rotationYaw * 0.017453292F))).normalize();
-						float f7 = Math.max(((float) vec3d2.dotProduct(vec3d1) + 0.5F) / 1.5F, 0.0F);
+						float f7 = Math.max(((float) vec3d2.dotProduct(vec3d1) + 0.5F) / 1.5F, 0F);
 						randomYawVelocity *= 0.8F;
 						randomYawVelocity = (float) ((double) randomYawVelocity + d4 * (double) iphase.getYawFactor());
 						rotationYaw += randomYawVelocity * 0.1F;
-						float f8 = (float) (2.0D / (d3 + 1.0D));
+						float f8 = (float) (2D / (d3 + 1D));
 						float f9 = 0.06F;
-						moveRelative(0.0F, 0.0F, -1.0F, 0.06F * (f7 * f8 + (1.0F - f8)));
+						moveRelative(0F, 0F, -1F, 0.06F * (f7 * f8 + (1F - f8)));
 
 						if (slowed) {
 							move(MoverType.SELF, motionX * 0.800000011920929D, motionY * 0.800000011920929D, motionZ * 0.800000011920929D);
@@ -283,7 +283,7 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 						}
 
 						Vec3d vec3d3 = (new Vec3d(motionX, motionY, motionZ)).normalize();
-						float f10 = ((float) vec3d3.dotProduct(vec3d2) + 1.0F) / 2.0F;
+						float f10 = ((float) vec3d3.dotProduct(vec3d2) + 1F) / 2F;
 						f10 = 0.8F + 0.15F * f10;
 						motionX *= f10;
 						motionZ *= f10;
@@ -292,56 +292,56 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 				}
 
 				renderYawOffset = rotationYaw;
-				dragonPartHead.width = 1.0F;
-				dragonPartHead.height = 1.0F;
-				dragonPartNeck.width = 3.0F;
-				dragonPartNeck.height = 3.0F;
-				dragonPartTail1.width = 2.0F;
-				dragonPartTail1.height = 2.0F;
-				dragonPartTail2.width = 2.0F;
-				dragonPartTail2.height = 2.0F;
-				dragonPartTail3.width = 2.0F;
-				dragonPartTail3.height = 2.0F;
-				dragonPartBody.height = 3.0F;
-				dragonPartBody.width = 5.0F;
-				dragonPartWing1.height = 2.0F;
-				dragonPartWing1.width = 4.0F;
-				dragonPartWing2.height = 3.0F;
-				dragonPartWing2.width = 4.0F;
+				dragonPartHead.width = 1F;
+				dragonPartHead.height = 1F;
+				dragonPartNeck.width = 3F;
+				dragonPartNeck.height = 3F;
+				dragonPartTail1.width = 2F;
+				dragonPartTail1.height = 2F;
+				dragonPartTail2.width = 2F;
+				dragonPartTail2.height = 2F;
+				dragonPartTail3.width = 2F;
+				dragonPartTail3.height = 2F;
+				dragonPartBody.height = 3F;
+				dragonPartBody.width = 5F;
+				dragonPartWing1.height = 2F;
+				dragonPartWing1.width = 4F;
+				dragonPartWing2.height = 3F;
+				dragonPartWing2.width = 4F;
 				Vec3d[] avec3d = new Vec3d[dragonPartArray.length];
 
 				for (int j = 0; j < dragonPartArray.length; ++j) {
 					avec3d[j] = new Vec3d(dragonPartArray[j].posX, dragonPartArray[j].posY, dragonPartArray[j].posZ);
 				}
 
-				float f14 = (float) (getMovementOffsets(5, 1.0F)[1] - getMovementOffsets(10, 1.0F)[1]) * 10.0F * 0.017453292F;
+				float f14 = (float) (getMovementOffsets(5, 1F)[1] - getMovementOffsets(10, 1F)[1]) * 10F * 0.017453292F;
 				float f16 = MathHelper.cos(f14);
 				float f2 = MathHelper.sin(f14);
 				float f17 = rotationYaw * 0.017453292F;
 				float f3 = MathHelper.sin(f17);
 				float f18 = MathHelper.cos(f17);
 				dragonPartBody.onUpdate();
-				dragonPartBody.setLocationAndAngles(posX + (double) (f3 * 0.5F), posY, posZ - (double) (f18 * 0.5F), 0.0F, 0.0F);
+				dragonPartBody.setLocationAndAngles(posX + (double) (f3 * 0.5F), posY, posZ - (double) (f18 * 0.5F), 0F, 0F);
 				dragonPartWing1.onUpdate();
-				dragonPartWing1.setLocationAndAngles(posX + (double) (f18 * 4.5F), posY + 2.0D, posZ + (double) (f3 * 4.5F), 0.0F, 0.0F);
+				dragonPartWing1.setLocationAndAngles(posX + (double) (f18 * 4.5F), posY + 2D, posZ + (double) (f3 * 4.5F), 0F, 0F);
 				dragonPartWing2.onUpdate();
-				dragonPartWing2.setLocationAndAngles(posX - (double) (f18 * 4.5F), posY + 2.0D, posZ - (double) (f3 * 4.5F), 0.0F, 0.0F);
+				dragonPartWing2.setLocationAndAngles(posX - (double) (f18 * 4.5F), posY + 2D, posZ - (double) (f3 * 4.5F), 0F, 0F);
 
 				if (!world.isRemote && hurtTime == 0) {
-					collideWithEntities(world.getEntitiesWithinAABBExcludingEntity(this, dragonPartWing1.getEntityBoundingBox().grow(4.0D, 2.0D, 4.0D).offset(0.0D, -2.0D, 0.0D)));
-					collideWithEntities(world.getEntitiesWithinAABBExcludingEntity(this, dragonPartWing2.getEntityBoundingBox().grow(4.0D, 2.0D, 4.0D).offset(0.0D, -2.0D, 0.0D)));
-					attackEntitiesInList(world.getEntitiesWithinAABBExcludingEntity(this, dragonPartHead.getEntityBoundingBox().grow(1.0D)));
-					attackEntitiesInList(world.getEntitiesWithinAABBExcludingEntity(this, dragonPartNeck.getEntityBoundingBox().grow(1.0D)));
+					collideWithEntities(world.getEntitiesWithinAABBExcludingEntity(this, dragonPartWing1.getEntityBoundingBox().grow(4D, 2D, 4D).offset(0D, -2D, 0D)));
+					collideWithEntities(world.getEntitiesWithinAABBExcludingEntity(this, dragonPartWing2.getEntityBoundingBox().grow(4D, 2D, 4D).offset(0D, -2D, 0D)));
+					attackEntitiesInList(world.getEntitiesWithinAABBExcludingEntity(this, dragonPartHead.getEntityBoundingBox().grow(1D)));
+					attackEntitiesInList(world.getEntitiesWithinAABBExcludingEntity(this, dragonPartNeck.getEntityBoundingBox().grow(1D)));
 				}
 
-				double[] adouble = getMovementOffsets(5, 1.0F);
+				double[] adouble = getMovementOffsets(5, 1F);
 				float f19 = MathHelper.sin(rotationYaw * 0.017453292F - randomYawVelocity * 0.01F);
 				float f4 = MathHelper.cos(rotationYaw * 0.017453292F - randomYawVelocity * 0.01F);
 				dragonPartHead.onUpdate();
 				dragonPartNeck.onUpdate();
-				float f20 = getHeadYOffset(1.0F);
-				dragonPartHead.setLocationAndAngles(posX + (double) (f19 * 6.5F * f16), posY + (double) f20 + (double) (f2 * 6.5F), posZ - (double) (f4 * 6.5F * f16), 0.0F, 0.0F);
-				dragonPartNeck.setLocationAndAngles(posX + (double) (f19 * 5.5F * f16), posY + (double) f20 + (double) (f2 * 5.5F), posZ - (double) (f4 * 5.5F * f16), 0.0F, 0.0F);
+				float f20 = getHeadYOffset(1F);
+				dragonPartHead.setLocationAndAngles(posX + (double) (f19 * 6.5F * f16), posY + (double) f20 + (double) (f2 * 6.5F), posZ - (double) (f4 * 6.5F * f16), 0F, 0F);
+				dragonPartNeck.setLocationAndAngles(posX + (double) (f19 * 5.5F * f16), posY + (double) f20 + (double) (f2 * 5.5F), posZ - (double) (f4 * 5.5F * f16), 0F, 0F);
 
 				for (int k = 0; k < 3; ++k) {
 					MultiPartEntityPart multipartentitypart = null;
@@ -358,14 +358,14 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 						multipartentitypart = dragonPartTail3;
 					}
 
-					double[] adouble1 = getMovementOffsets(12 + k * 2, 1.0F);
+					double[] adouble1 = getMovementOffsets(12 + k * 2, 1F);
 					float f21 = rotationYaw * 0.017453292F + simplifyAngle(adouble1[0] - adouble[0]) * 0.017453292F;
 					float f6 = MathHelper.sin(f21);
 					float f22 = MathHelper.cos(f21);
 					float f23 = 1.5F;
-					float f24 = (float) (k + 1) * 2.0F;
+					float f24 = (float) (k + 1) * 2F;
 					multipartentitypart.onUpdate();
-					multipartentitypart.setLocationAndAngles(posX - (double) ((f3 * 1.5F + f6 * f24) * f16), posY + (adouble1[1] - adouble[1]) - (double) ((f24 + 1.5F) * f2) + 1.5D, posZ + (double) ((f18 * 1.5F + f22 * f24) * f16), 0.0F, 0.0F);
+					multipartentitypart.setLocationAndAngles(posX - (double) ((f3 * 1.5F + f6 * f24) * f16), posY + (adouble1[1] - adouble[1]) - (double) ((f24 + 1.5F) * f2) + 1.5D, posZ + (double) ((f18 * 1.5F + f22 * f24) * f16), 0F, 0F);
 				}
 
 				if (!world.isRemote) {
@@ -390,10 +390,10 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 		double d0;
 
 		if (phaseManager.getCurrentPhase().getIsStationary()) {
-			d0 = -1.0D;
+			d0 = -1D;
 		} else {
-			double[] adouble = getMovementOffsets(5, 1.0F);
-			double[] adouble1 = getMovementOffsets(0, 1.0F);
+			double[] adouble = getMovementOffsets(5, 1F);
+			double[] adouble1 = getMovementOffsets(0, 1F);
 			d0 = adouble[1] - adouble1[1];
 		}
 
@@ -409,12 +409,12 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 			if (healingEnderCrystal.isDead) {
 				healingEnderCrystal = null;
 			} else if (ticksExisted % 10 == 0 && getHealth() < getMaxHealth()) {
-				setHealth(getHealth() + 1.0F);
+				setHealth(getHealth() + 1F);
 			}
 		}
 
 		if (rand.nextInt(10) == 0) {
-			List<EntityEnderCrystal> list = world.getEntitiesWithinAABB(EntityEnderCrystal.class, getEntityBoundingBox().grow(32.0D));
+			List<EntityEnderCrystal> list = world.getEntitiesWithinAABB(EntityEnderCrystal.class, getEntityBoundingBox().grow(32D));
 			EntityEnderCrystal entityendercrystal = null;
 			double d0 = Double.MAX_VALUE;
 
@@ -436,18 +436,18 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 	 */
 	private void collideWithEntities(List<Entity> p_70970_1_) {
 
-		double d0 = (dragonPartBody.getEntityBoundingBox().minX + dragonPartBody.getEntityBoundingBox().maxX) / 2.0D;
-		double d1 = (dragonPartBody.getEntityBoundingBox().minZ + dragonPartBody.getEntityBoundingBox().maxZ) / 2.0D;
+		double d0 = (dragonPartBody.getEntityBoundingBox().minX + dragonPartBody.getEntityBoundingBox().maxX) / 2D;
+		double d1 = (dragonPartBody.getEntityBoundingBox().minZ + dragonPartBody.getEntityBoundingBox().maxZ) / 2D;
 
 		for (Entity entity : p_70970_1_) {
 			if (entity instanceof EntityLivingBase) {
 				double d2 = entity.posX - d0;
 				double d3 = entity.posZ - d1;
 				double d4 = d2 * d2 + d3 * d3;
-				entity.addVelocity(d2 / d4 * 4.0D, 0.20000000298023224D, d3 / d4 * 4.0D);
+				entity.addVelocity(d2 / d4 * 4D, 0.20000000298023224D, d3 / d4 * 4D);
 
 				if (!phaseManager.getCurrentPhase().getIsStationary() && ((EntityLivingBase) entity).getRevengeTimer() < entity.ticksExisted - 2) {
-					entity.attackEntityFrom(DamageSource.causeMobDamage(this), 5.0F);
+					entity.attackEntityFrom(DamageSource.causeMobDamage(this), 5F);
 					applyEnchantments(this, entity);
 				}
 			}
@@ -461,7 +461,7 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 
 		for (Entity entity : p_70971_1_) {
 			if (entity instanceof EntityLivingBase) {
-				entity.attackEntityFrom(DamageSource.causeMobDamage(this), 10.0F);
+				entity.attackEntityFrom(DamageSource.causeMobDamage(this), 10F);
 				applyEnchantments(this, entity);
 			}
 		}
@@ -517,7 +517,7 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 			double d0 = p_70972_1_.minX + (p_70972_1_.maxX - p_70972_1_.minX) * (double) rand.nextFloat();
 			double d1 = p_70972_1_.minY + (p_70972_1_.maxY - p_70972_1_.minY) * (double) rand.nextFloat();
 			double d2 = p_70972_1_.minZ + (p_70972_1_.maxZ - p_70972_1_.minZ) * (double) rand.nextFloat();
-			world.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, d0, d1, d2, 0.0D, 0.0D, 0.0D);
+			world.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, d0, d1, d2, 0D, 0D, 0D);
 		}
 
 		return flag;
@@ -528,7 +528,7 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 		damage = phaseManager.getCurrentPhase().getAdjustedDamage(dragonPart, source, damage);
 
 		if (dragonPart != dragonPartHead) {
-			damage = damage / 4.0F + Math.min(damage, 1.0F);
+			damage = damage / 4F + Math.min(damage, 1F);
 		}
 
 		if (damage < 0.01F) {
@@ -538,8 +538,8 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 				float f = getHealth();
 				attackDragonFrom(source, damage);
 
-				if (getHealth() <= 0.0F && !phaseManager.getCurrentPhase().getIsStationary()) {
-					setHealth(1.0F);
+				if (getHealth() <= 0F && !phaseManager.getCurrentPhase().getIsStationary()) {
+					setHealth(1F);
 					phaseManager.setPhase(PhaseList.DYING);
 				}
 
@@ -602,10 +602,10 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 		++deathTicks;
 
 		if (deathTicks >= 180 && deathTicks <= 200) {
-			float f = (rand.nextFloat() - 0.5F) * 8.0F;
-			float f1 = (rand.nextFloat() - 0.5F) * 4.0F;
-			float f2 = (rand.nextFloat() - 0.5F) * 8.0F;
-			world.spawnParticle(EnumParticleTypes.EXPLOSION_HUGE, posX + (double) f, posY + 2.0D + (double) f1, posZ + (double) f2, 0.0D, 0.0D, 0.0D);
+			float f = (rand.nextFloat() - 0.5F) * 8F;
+			float f1 = (rand.nextFloat() - 0.5F) * 4F;
+			float f2 = (rand.nextFloat() - 0.5F) * 8F;
+			world.spawnParticle(EnumParticleTypes.EXPLOSION_HUGE, posX + (double) f, posY + 2D + (double) f1, posZ + (double) f2, 0D, 0D, 0D);
 		}
 
 		boolean flag = world.getGameRules().getBoolean("doMobLoot");
@@ -625,8 +625,8 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 			}
 		}
 
-		move(MoverType.SELF, 0.0D, 0.10000000149011612D, 0.0D);
-		rotationYaw += 20.0F;
+		move(MoverType.SELF, 0D, 0.10000000149011612D, 0D);
+		rotationYaw += 20F;
 		renderYawOffset = rotationYaw;
 
 		if (deathTicks == 200 && !world.isRemote) {
@@ -664,17 +664,17 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 				int i1;
 
 				if (i < 12) {
-					l = (int) (60.0F * MathHelper.cos(2.0F * (-(float) Math.PI + 0.2617994F * (float) i)));
-					i1 = (int) (60.0F * MathHelper.sin(2.0F * (-(float) Math.PI + 0.2617994F * (float) i)));
+					l = (int) (60F * MathHelper.cos(2F * (-(float) Math.PI + 0.2617994F * (float) i)));
+					i1 = (int) (60F * MathHelper.sin(2F * (-(float) Math.PI + 0.2617994F * (float) i)));
 				} else if (i < 20) {
 					int lvt_3_1_ = i - 12;
-					l = (int) (40.0F * MathHelper.cos(2.0F * (-(float) Math.PI + 0.3926991F * (float) lvt_3_1_)));
-					i1 = (int) (40.0F * MathHelper.sin(2.0F * (-(float) Math.PI + 0.3926991F * (float) lvt_3_1_)));
+					l = (int) (40F * MathHelper.cos(2F * (-(float) Math.PI + 0.3926991F * (float) lvt_3_1_)));
+					i1 = (int) (40F * MathHelper.sin(2F * (-(float) Math.PI + 0.3926991F * (float) lvt_3_1_)));
 					j += 10;
 				} else {
 					int k1 = i - 20;
-					l = (int) (20.0F * MathHelper.cos(2.0F * (-(float) Math.PI + ((float) Math.PI / 4F) * (float) k1)));
-					i1 = (int) (20.0F * MathHelper.sin(2.0F * (-(float) Math.PI + ((float) Math.PI / 4F) * (float) k1)));
+					l = (int) (20F * MathHelper.cos(2F * (-(float) Math.PI + ((float) Math.PI / 4F) * (float) k1)));
+					i1 = (int) (20F * MathHelper.sin(2F * (-(float) Math.PI + ((float) Math.PI / 4F) * (float) k1)));
 				}
 
 				int j1 = Math.max(world.getSeaLevel() + 10, world.getTopSolidOrLiquidBlock(new BlockPos(l, 0, i1)).getY() + j);
@@ -715,7 +715,7 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 	 */
 	public int getNearestPpIdx(double x, double y, double z) {
 
-		float f = 10000.0F;
+		float f = 10000F;
 		int i = 0;
 		PathPoint pathpoint = new PathPoint(MathHelper.floor(x), MathHelper.floor(y), MathHelper.floor(z));
 		int j = 0;
@@ -752,16 +752,16 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 		for (int i = 0; i < 24; ++i) {
 			PathPoint pathpoint = pathPoints[i];
 			pathpoint.visited = false;
-			pathpoint.distanceToTarget = 0.0F;
-			pathpoint.totalPathDistance = 0.0F;
-			pathpoint.distanceToNext = 0.0F;
+			pathpoint.distanceToTarget = 0F;
+			pathpoint.totalPathDistance = 0F;
+			pathpoint.distanceToNext = 0F;
 			pathpoint.previous = null;
 			pathpoint.index = -1;
 		}
 
 		PathPoint pathpoint4 = pathPoints[startIdx];
 		PathPoint pathpoint5 = pathPoints[finishIdx];
-		pathpoint4.totalPathDistance = 0.0F;
+		pathpoint4.totalPathDistance = 0F;
 		pathpoint4.distanceToNext = pathpoint4.distanceTo(pathpoint5);
 		pathpoint4.distanceToTarget = pathpoint4.distanceToNext;
 		pathFindQueue.clearPath();
@@ -930,7 +930,7 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 	 */
 	protected float getSoundVolume() {
 
-		return 5.0F;
+		return 5F;
 	}
 
 	
@@ -949,13 +949,13 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 			if (iphase.getIsStationary()) {
 				d0 = p_184667_1_;
 			} else if (p_184667_1_ == 6) {
-				d0 = 0.0D;
+				d0 = 0D;
 			} else {
 				d0 = p_184667_3_[1] - p_184667_2_[1];
 			}
 		} else {
 			BlockPos blockpos = world.getTopSolidOrLiquidBlock(WorldGenEndPodium.END_PODIUM_LOCATION);
-			float f = Math.max(MathHelper.sqrt(getDistanceSqToCenter(blockpos)) / 4.0F, 1.0F);
+			float f = Math.max(MathHelper.sqrt(getDistanceSqToCenter(blockpos)) / 4F, 1F);
 			d0 = (float) p_184667_1_ / f;
 		}
 
@@ -972,7 +972,7 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 			if (iphase.getIsStationary()) {
 				float f4 = rotationPitch;
 				float f5 = 1.5F;
-				rotationPitch = -45.0F;
+				rotationPitch = -45F;
 				vec3d = getLook(p_184665_1_);
 				rotationPitch = f4;
 			} else {
@@ -980,11 +980,11 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 			}
 		} else {
 			BlockPos blockpos = world.getTopSolidOrLiquidBlock(WorldGenEndPodium.END_PODIUM_LOCATION);
-			float f = Math.max(MathHelper.sqrt(getDistanceSqToCenter(blockpos)) / 4.0F, 1.0F);
-			float f1 = 6.0F / f;
+			float f = Math.max(MathHelper.sqrt(getDistanceSqToCenter(blockpos)) / 4F, 1F);
+			float f1 = 6F / f;
 			float f2 = rotationPitch;
 			float f3 = 1.5F;
-			rotationPitch = -f1 * 1.5F * 5.0F;
+			rotationPitch = -f1 * 1.5F * 5F;
 			vec3d = getLook(p_184665_1_);
 			rotationPitch = f2;
 		}
@@ -999,11 +999,11 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 		if (dmgSrc.getTrueSource() instanceof EntityPlayer) {
 			entityplayer = (EntityPlayer) dmgSrc.getTrueSource();
 		} else {
-			entityplayer = world.getNearestAttackablePlayer(pos, 64.0D, 64.0D);
+			entityplayer = world.getNearestAttackablePlayer(pos, 64D, 64D);
 		}
 
 		if (crystal == healingEnderCrystal) {
-			attackEntityFromPart(dragonPartHead, DamageSource.causeExplosionDamage(entityplayer), 10.0F);
+			attackEntityFromPart(dragonPartHead, DamageSource.causeExplosionDamage(entityplayer), 10F);
 		}
 
 		phaseManager.getCurrentPhase().onCrystalDestroyed(crystal, pos, dmgSrc, entityplayer);

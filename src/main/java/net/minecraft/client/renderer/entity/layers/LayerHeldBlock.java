@@ -26,9 +26,9 @@ public class LayerHeldBlock implements LayerRenderer<EntityEnderman> {
 			BlockRendererDispatcher blockrendererdispatcher = Minecraft.getMinecraft().getBlockRendererDispatcher();
 			GlStateManager.enableRescaleNormal();
 			GlStateManager.pushMatrix();
-			GlStateManager.translate(0.0F, 0.6875F, -0.75F);
-			GlStateManager.rotate(20.0F, 1.0F, 0.0F, 0.0F);
-			GlStateManager.rotate(45.0F, 0.0F, 1.0F, 0.0F);
+			GlStateManager.translate(0F, 0.6875F, -0.75F);
+			GlStateManager.rotate(20F, 1F, 0F, 0F);
+			GlStateManager.rotate(45F, 0F, 1F, 0F);
 			GlStateManager.translate(0.25F, 0.1875F, 0.25F);
 			float f = 0.5F;
 			GlStateManager.scale(-0.5F, -0.5F, 0.5F);
@@ -36,9 +36,9 @@ public class LayerHeldBlock implements LayerRenderer<EntityEnderman> {
 			int j = i % 65536;
 			int k = i / 65536;
 			OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) j, (float) k);
-			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+			GlStateManager.color(1F, 1F, 1F, 1F);
 			endermanRenderer.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-			blockrendererdispatcher.renderBlockBrightness(iblockstate, 1.0F);
+			blockrendererdispatcher.renderBlockBrightness(iblockstate, 1F);
 			GlStateManager.popMatrix();
 			GlStateManager.disableRescaleNormal();
 		}

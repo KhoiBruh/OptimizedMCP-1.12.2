@@ -134,7 +134,7 @@ public class GuiScreenAdvancements extends GuiScreen implements ClientAdvancemen
 			fontRenderer.drawString(":(", p_191936_3_ + 9 + 117 - fontRenderer.getStringWidth(":(") / 2, p_191936_4_ + 18 + 113 - fontRenderer.FONT_HEIGHT, -1);
 		} else {
 			GlStateManager.pushMatrix();
-			GlStateManager.translate((float) (p_191936_3_ + 9), (float) (p_191936_4_ + 18), -400.0F);
+			GlStateManager.translate((float) (p_191936_3_ + 9), (float) (p_191936_4_ + 18), -400F);
 			GlStateManager.enableDepth();
 			guiadvancementtab.drawContents();
 			GlStateManager.popMatrix();
@@ -145,7 +145,7 @@ public class GuiScreenAdvancements extends GuiScreen implements ClientAdvancemen
 
 	public void renderWindow(int p_191934_1_, int p_191934_2_) {
 
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+		GlStateManager.color(1F, 1F, 1F, 1F);
 		GlStateManager.enableBlend();
 		RenderHelper.disableStandardItemLighting();
 		mc.getTextureManager().bindTexture(WINDOW);
@@ -174,12 +174,12 @@ public class GuiScreenAdvancements extends GuiScreen implements ClientAdvancemen
 
 	private void renderToolTips(int p_191937_1_, int p_191937_2_, int p_191937_3_, int p_191937_4_) {
 
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+		GlStateManager.color(1F, 1F, 1F, 1F);
 
 		if (selectedTab != null) {
 			GlStateManager.pushMatrix();
 			GlStateManager.enableDepth();
-			GlStateManager.translate((float) (p_191937_3_ + 9), (float) (p_191937_4_ + 18), 400.0F);
+			GlStateManager.translate((float) (p_191937_3_ + 9), (float) (p_191937_4_ + 18), 400F);
 			selectedTab.drawToolTips(p_191937_1_ - p_191937_3_ - 9, p_191937_2_ - p_191937_4_ - 18, p_191937_3_, p_191937_4_);
 			GlStateManager.disableDepth();
 			GlStateManager.popMatrix();

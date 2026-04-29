@@ -42,7 +42,7 @@ import java.util.UUID;
 
 public abstract class AbstractHorse extends EntityAnimal implements IInventoryChangedListener, IJumpingMount {
 
-	protected static final IAttribute JUMP_STRENGTH = (new RangedAttribute(null, "horse.jumpStrength", 0.7D, 0.0D, 2.0D)).setDescription("Jump Strength").setShouldWatch(true);
+	protected static final IAttribute JUMP_STRENGTH = (new RangedAttribute(null, "horse.jumpStrength", 0.7D, 0D, 2D)).setDescription("Jump Strength").setShouldWatch(true);
 	private static final DataParameter<Byte> STATUS = EntityDataManager.createKey(AbstractHorse.class, DataSerializers.BYTE);
 	private static final Predicate<Entity> IS_HORSE_BREEDING = p_apply_1_ -> p_apply_1_ instanceof AbstractHorse && ((AbstractHorse) p_apply_1_).isBreeding();
 	private static final DataParameter<Optional<UUID>> OWNER_UNIQUE_ID = EntityDataManager.createKey(AbstractHorse.class, DataSerializers.OPTIONAL_UNIQUE_ID);
@@ -75,7 +75,7 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 
 		super(worldIn);
 		setSize(1.3964844F, 1.6F);
-		stepHeight = 1.0F;
+		stepHeight = 1F;
 		initHorseChest();
 	}
 
@@ -90,10 +90,10 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 		tasks.addTask(0, new EntityAISwimming(this));
 		tasks.addTask(1, new EntityAIPanic(this, 1.2D));
 		tasks.addTask(1, new EntityAIRunAroundLikeCrazy(this, 1.2D));
-		tasks.addTask(2, new EntityAIMate(this, 1.0D, AbstractHorse.class));
-		tasks.addTask(4, new EntityAIFollowParent(this, 1.0D));
+		tasks.addTask(2, new EntityAIMate(this, 1D, AbstractHorse.class));
+		tasks.addTask(4, new EntityAIFollowParent(this, 1D));
 		tasks.addTask(6, new EntityAIWanderAvoidWater(this, 0.7D));
-		tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
+		tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 6F));
 		tasks.addTask(8, new EntityAILookIdle(this));
 	}
 
@@ -146,7 +146,7 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 	 */
 	public void setScaleForAge(boolean child) {
 
-		setScale(child ? getHorseSize() : 1.0F);
+		setScale(child ? getHorseSize() : 1F);
 	}
 
 	public boolean isHorseJumping() {
@@ -171,7 +171,7 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 
 	protected void onLeashDistance(float p_142017_1_) {
 
-		if (p_142017_1_ > 6.0F && isEatingHaystack()) {
+		if (p_142017_1_ > 6F && isEatingHaystack()) {
 			setEatingHaystack(false);
 		}
 	}
@@ -249,17 +249,17 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 		openHorseMouth();
 
 		if (!isSilent()) {
-			world.playSound(null, posX, posY, posZ, SoundEvents.ENTITY_HORSE_EAT, getSoundCategory(), 1.0F, 1.0F + (rand.nextFloat() - rand.nextFloat()) * 0.2F);
+			world.playSound(null, posX, posY, posZ, SoundEvents.ENTITY_HORSE_EAT, getSoundCategory(), 1F, 1F + (rand.nextFloat() - rand.nextFloat()) * 0.2F);
 		}
 	}
 
 	public void fall(float distance, float damageMultiplier) {
 
-		if (distance > 1.0F) {
-			playSound(SoundEvents.ENTITY_HORSE_LAND, 0.4F, 1.0F);
+		if (distance > 1F) {
+			playSound(SoundEvents.ENTITY_HORSE_LAND, 0.4F, 1F);
 		}
 
-		int i = MathHelper.ceil((distance * 0.5F - 3.0F) * damageMultiplier);
+		int i = MathHelper.ceil((distance * 0.5F - 3F) * damageMultiplier);
 
 		if (i > 0) {
 			attackEntityFrom(DamageSource.FALL, (float) i);
@@ -327,7 +327,7 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 		updateHorseSlots();
 
 		if (ticksExisted > 20 && !flag && isHorseSaddled()) {
-			playSound(SoundEvents.ENTITY_HORSE_SADDLE, 0.5F, 1.0F);
+			playSound(SoundEvents.ENTITY_HORSE_SADDLE, 0.5F, 1F);
 		}
 	}
 
@@ -442,7 +442,7 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 
 		super.applyEntityAttributes();
 		getAttributeMap().registerAttribute(JUMP_STRENGTH);
-		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(53.0D);
+		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(53D);
 		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.22499999403953552D);
 	}
 
@@ -486,28 +486,28 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 	protected boolean handleEating(EntityPlayer player, ItemStack stack) {
 
 		boolean flag = false;
-		float f = 0.0F;
+		float f = 0F;
 		int i = 0;
 		int j = 0;
 		Item item = stack.getItem();
 
 		if (item == Items.WHEAT) {
-			f = 2.0F;
+			f = 2F;
 			i = 20;
 			j = 3;
 		} else if (item == Items.SUGAR) {
-			f = 1.0F;
+			f = 1F;
 			i = 30;
 			j = 3;
 		} else if (item == Item.getItemFromBlock(Blocks.HAY_BLOCK)) {
-			f = 20.0F;
+			f = 20F;
 			i = 180;
 		} else if (item == Items.APPLE) {
-			f = 3.0F;
+			f = 3F;
 			i = 60;
 			j = 3;
 		} else if (item == Items.GOLDEN_CARROT) {
-			f = 4.0F;
+			f = 4F;
 			i = 60;
 			j = 5;
 
@@ -516,7 +516,7 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 				setInLove(player);
 			}
 		} else if (item == Items.GOLDEN_APPLE) {
-			f = 10.0F;
+			f = 10F;
 			i = 240;
 			j = 10;
 
@@ -526,13 +526,13 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 			}
 		}
 
-		if (getHealth() < getMaxHealth() && f > 0.0F) {
+		if (getHealth() < getMaxHealth() && f > 0F) {
 			heal(f);
 			flag = true;
 		}
 
 		if (isChild() && i > 0) {
-			world.spawnParticle(EnumParticleTypes.VILLAGER_HAPPY, posX + (double) (rand.nextFloat() * width * 2.0F) - (double) width, posY + 0.5D + (double) (rand.nextFloat() * height), posZ + (double) (rand.nextFloat() * width * 2.0F) - (double) width, 0.0D, 0.0D, 0.0D);
+			world.spawnParticle(EnumParticleTypes.VILLAGER_HAPPY, posX + (double) (rand.nextFloat() * width * 2F) - (double) width, posY + 0.5D + (double) (rand.nextFloat() * height), posZ + (double) (rand.nextFloat() * width * 2F) - (double) width, 0D, 0D, 0D);
 
 			if (!world.isRemote) {
 				addGrowth(i);
@@ -602,7 +602,7 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 				ItemStack itemstack = horseChest.getStackInSlot(i);
 
 				if (!itemstack.isEmpty()) {
-					entityDropItem(itemstack, 0.0F);
+					entityDropItem(itemstack, 0F);
 				}
 			}
 		}
@@ -622,7 +622,7 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 
 		if (!world.isRemote) {
 			if (rand.nextInt(900) == 0 && deathTime == 0) {
-				heal(1.0F);
+				heal(1F);
 			}
 
 			if (canEatGrass()) {
@@ -643,9 +643,9 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 	protected void followMother() {
 
 		if (isBreeding() && isChild() && !isEatingHaystack()) {
-			AbstractHorse abstracthorse = getClosestHorse(this, 16.0D);
+			AbstractHorse abstracthorse = getClosestHorse(this, 16D);
 
-			if (abstracthorse != null && getDistanceSq(abstracthorse) > 4.0D) {
+			if (abstracthorse != null && getDistanceSq(abstracthorse) > 4D) {
 				navigator.getPathToEntityLiving(abstracthorse);
 			}
 		}
@@ -688,51 +688,51 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 		prevHeadLean = headLean;
 
 		if (isEatingHaystack()) {
-			headLean += (1.0F - headLean) * 0.4F + 0.05F;
+			headLean += (1F - headLean) * 0.4F + 0.05F;
 
-			if (headLean > 1.0F) {
-				headLean = 1.0F;
+			if (headLean > 1F) {
+				headLean = 1F;
 			}
 		} else {
-			headLean += (0.0F - headLean) * 0.4F - 0.05F;
+			headLean += (0F - headLean) * 0.4F - 0.05F;
 
-			if (headLean < 0.0F) {
-				headLean = 0.0F;
+			if (headLean < 0F) {
+				headLean = 0F;
 			}
 		}
 
 		prevRearingAmount = rearingAmount;
 
 		if (isRearing()) {
-			headLean = 0.0F;
+			headLean = 0F;
 			prevHeadLean = headLean;
-			rearingAmount += (1.0F - rearingAmount) * 0.4F + 0.05F;
+			rearingAmount += (1F - rearingAmount) * 0.4F + 0.05F;
 
-			if (rearingAmount > 1.0F) {
-				rearingAmount = 1.0F;
+			if (rearingAmount > 1F) {
+				rearingAmount = 1F;
 			}
 		} else {
 			allowStandSliding = false;
 			rearingAmount += (0.8F * rearingAmount * rearingAmount * rearingAmount - rearingAmount) * 0.6F - 0.05F;
 
-			if (rearingAmount < 0.0F) {
-				rearingAmount = 0.0F;
+			if (rearingAmount < 0F) {
+				rearingAmount = 0F;
 			}
 		}
 
 		prevMouthOpenness = mouthOpenness;
 
 		if (getHorseWatchableBoolean(64)) {
-			mouthOpenness += (1.0F - mouthOpenness) * 0.7F + 0.05F;
+			mouthOpenness += (1F - mouthOpenness) * 0.7F + 0.05F;
 
-			if (mouthOpenness > 1.0F) {
-				mouthOpenness = 1.0F;
+			if (mouthOpenness > 1F) {
+				mouthOpenness = 1F;
 			}
 		} else {
-			mouthOpenness += (0.0F - mouthOpenness) * 0.7F - 0.05F;
+			mouthOpenness += (0F - mouthOpenness) * 0.7F - 0.05F;
 
-			if (mouthOpenness < 0.0F) {
-				mouthOpenness = 0.0F;
+			if (mouthOpenness < 0F) {
+				mouthOpenness = 0F;
 			}
 		}
 	}
@@ -789,17 +789,17 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 			strafe = entitylivingbase.moveStrafing * 0.5F;
 			forward = entitylivingbase.moveForward;
 
-			if (forward <= 0.0F) {
+			if (forward <= 0F) {
 				forward *= 0.25F;
 				gallopTime = 0;
 			}
 
-			if (onGround && jumpPower == 0.0F && isRearing() && !allowStandSliding) {
-				strafe = 0.0F;
-				forward = 0.0F;
+			if (onGround && jumpPower == 0F && isRearing() && !allowStandSliding) {
+				strafe = 0F;
+				forward = 0F;
 			}
 
-			if (jumpPower > 0.0F && !isHorseJumping() && onGround) {
+			if (jumpPower > 0F && !isHorseJumping() && onGround) {
 				motionY = getHorseJumpStrength() * (double) jumpPower;
 
 				if (isPotionActive(MobEffects.JUMP_BOOST)) {
@@ -809,15 +809,15 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 				setHorseJumping(true);
 				isAirBorne = true;
 
-				if (forward > 0.0F) {
+				if (forward > 0F) {
 					float f = MathHelper.sin(rotationYaw * 0.017453292F);
 					float f1 = MathHelper.cos(rotationYaw * 0.017453292F);
 					motionX += -0.4F * f * jumpPower;
 					motionZ += 0.4F * f1 * jumpPower;
-					playSound(SoundEvents.ENTITY_HORSE_JUMP, 0.4F, 1.0F);
+					playSound(SoundEvents.ENTITY_HORSE_JUMP, 0.4F, 1F);
 				}
 
-				jumpPower = 0.0F;
+				jumpPower = 0F;
 			}
 
 			jumpMovementFactor = getAIMoveSpeed() * 0.1F;
@@ -826,23 +826,23 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 				setAIMoveSpeed((float) getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue());
 				super.travel(strafe, vertical, forward);
 			} else if (entitylivingbase instanceof EntityPlayer) {
-				motionX = 0.0D;
-				motionY = 0.0D;
-				motionZ = 0.0D;
+				motionX = 0D;
+				motionY = 0D;
+				motionZ = 0D;
 			}
 
 			if (onGround) {
-				jumpPower = 0.0F;
+				jumpPower = 0F;
 				setHorseJumping(false);
 			}
 
 			prevLimbSwingAmount = limbSwingAmount;
 			double d1 = posX - prevPosX;
 			double d0 = posZ - prevPosZ;
-			float f2 = MathHelper.sqrt(d1 * d1 + d0 * d0) * 4.0F;
+			float f2 = MathHelper.sqrt(d1 * d1 + d0 * d0) * 4F;
 
-			if (f2 > 1.0F) {
-				f2 = 1.0F;
+			if (f2 > 1F) {
+				f2 = 1F;
 			}
 
 			limbSwingAmount += (f2 - limbSwingAmount) * 0.4F;
@@ -938,11 +938,11 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 	protected void setOffspringAttributes(EntityAgeable p_190681_1_, AbstractHorse p_190681_2_) {
 
 		double d0 = getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).getBaseValue() + p_190681_1_.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).getBaseValue() + (double) getModifiedMaxHealth();
-		p_190681_2_.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(d0 / 3.0D);
+		p_190681_2_.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(d0 / 3D);
 		double d1 = getEntityAttribute(JUMP_STRENGTH).getBaseValue() + p_190681_1_.getEntityAttribute(JUMP_STRENGTH).getBaseValue() + getModifiedJumpStrength();
-		p_190681_2_.getEntityAttribute(JUMP_STRENGTH).setBaseValue(d1 / 3.0D);
+		p_190681_2_.getEntityAttribute(JUMP_STRENGTH).setBaseValue(d1 / 3D);
 		double d2 = getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getBaseValue() + p_190681_1_.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getBaseValue() + getModifiedMovementSpeed();
-		p_190681_2_.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(d2 / 3.0D);
+		p_190681_2_.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(d2 / 3D);
 	}
 
 	/**
@@ -980,9 +980,9 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 			}
 
 			if (jumpPowerIn >= 90) {
-				jumpPower = 1.0F;
+				jumpPower = 1F;
 			} else {
-				jumpPower = 0.4F + 0.4F * (float) jumpPowerIn / 90.0F;
+				jumpPower = 0.4F + 0.4F * (float) jumpPowerIn / 90F;
 			}
 		}
 	}
@@ -1013,7 +1013,7 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 			double d0 = rand.nextGaussian() * 0.02D;
 			double d1 = rand.nextGaussian() * 0.02D;
 			double d2 = rand.nextGaussian() * 0.02D;
-			world.spawnParticle(enumparticletypes, posX + (double) (rand.nextFloat() * width * 2.0F) - (double) width, posY + 0.5D + (double) (rand.nextFloat() * height), posZ + (double) (rand.nextFloat() * width * 2.0F) - (double) width, d0, d1, d2);
+			world.spawnParticle(enumparticletypes, posX + (double) (rand.nextFloat() * width * 2F) - (double) width, posY + 0.5D + (double) (rand.nextFloat() * height), posZ + (double) (rand.nextFloat() * width * 2F) - (double) width, d0, d1, d2);
 		}
 	}
 
@@ -1039,7 +1039,7 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 			renderYawOffset = entityliving.renderYawOffset;
 		}
 
-		if (prevRearingAmount > 0.0F) {
+		if (prevRearingAmount > 0F) {
 			float f3 = MathHelper.sin(renderYawOffset * 0.017453292F);
 			float f = MathHelper.cos(renderYawOffset * 0.017453292F);
 			float f1 = 0.7F * prevRearingAmount;
@@ -1057,7 +1057,7 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 	 */
 	protected float getModifiedMaxHealth() {
 
-		return 15.0F + (float) rand.nextInt(8) + (float) rand.nextInt(9);
+		return 15F + (float) rand.nextInt(8) + (float) rand.nextInt(9);
 	}
 
 	/**

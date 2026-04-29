@@ -18,7 +18,7 @@ public class EntityAIVillagerInteract extends EntityAIWatchClosest2 {
 
 	public EntityAIVillagerInteract(EntityVillager villagerIn) {
 
-		super(villagerIn, EntityVillager.class, 3.0F, 0.02F);
+		super(villagerIn, EntityVillager.class, 3F, 0.02F);
 		villager = villagerIn;
 	}
 

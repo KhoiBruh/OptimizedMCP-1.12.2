@@ -127,16 +127,16 @@ public class BlockRedstoneRepeater extends BlockRedstoneDiode {
 			double d0 = (double) ((float) pos.getX() + 0.5F) + (double) (rand.nextFloat() - 0.5F) * 0.2D;
 			double d1 = (double) ((float) pos.getY() + 0.4F) + (double) (rand.nextFloat() - 0.5F) * 0.2D;
 			double d2 = (double) ((float) pos.getZ() + 0.5F) + (double) (rand.nextFloat() - 0.5F) * 0.2D;
-			float f = -5.0F;
+			float f = -5F;
 
 			if (rand.nextBoolean()) {
 				f = (float) (stateIn.getValue(DELAY) * 2 - 1);
 			}
 
-			f = f / 16.0F;
+			f = f / 16F;
 			double d3 = f * (float) enumfacing.getFrontOffsetX();
 			double d4 = f * (float) enumfacing.getFrontOffsetZ();
-			worldIn.spawnParticle(EnumParticleTypes.REDSTONE, d0 + d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D);
+			worldIn.spawnParticle(EnumParticleTypes.REDSTONE, d0 + d3, d1, d2 + d4, 0D, 0D, 0D);
 		}
 	}
 

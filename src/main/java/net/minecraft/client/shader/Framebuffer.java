@@ -27,10 +27,10 @@ public class Framebuffer {
 		framebufferTexture = -1;
 		depthBuffer = -1;
 		framebufferColor = new float[4];
-		framebufferColor[0] = 1.0F;
-		framebufferColor[1] = 1.0F;
-		framebufferColor[2] = 1.0F;
-		framebufferColor[3] = 0.0F;
+		framebufferColor[0] = 1F;
+		framebufferColor[1] = 1F;
+		framebufferColor[2] = 1F;
+		framebufferColor[3] = 0F;
 		createBindFramebuffer(width, height);
 	}
 
@@ -195,10 +195,10 @@ public class Framebuffer {
 			GlStateManager.depthMask(false);
 			GlStateManager.matrixMode(5889);
 			GlStateManager.loadIdentity();
-			GlStateManager.ortho(0.0D, width, height, 0.0D, 1000.0D, 3000.0D);
+			GlStateManager.ortho(0D, width, height, 0D, 1000D, 3000D);
 			GlStateManager.matrixMode(5888);
 			GlStateManager.loadIdentity();
-			GlStateManager.translate(0.0F, 0.0F, -2000.0F);
+			GlStateManager.translate(0F, 0F, -2000F);
 			GlStateManager.viewport(0, 0, width, height);
 			GlStateManager.enableTexture2D();
 			GlStateManager.disableLighting();
@@ -209,7 +209,7 @@ public class Framebuffer {
 				GlStateManager.enableColorMaterial();
 			}
 
-			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+			GlStateManager.color(1F, 1F, 1F, 1F);
 			bindFramebufferTexture();
 			float f = (float) width;
 			float f1 = (float) height;
@@ -218,10 +218,10 @@ public class Framebuffer {
 			Tessellator tessellator = Tessellator.getInstance();
 			BufferBuilder bufferbuilder = tessellator.getBuffer();
 			bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-			bufferbuilder.pos(0.0D, f1, 0.0D).tex(0.0D, 0.0D).color(255, 255, 255, 255).endVertex();
-			bufferbuilder.pos(f, f1, 0.0D).tex(f2, 0.0D).color(255, 255, 255, 255).endVertex();
-			bufferbuilder.pos(f, 0.0D, 0.0D).tex(f2, f3).color(255, 255, 255, 255).endVertex();
-			bufferbuilder.pos(0.0D, 0.0D, 0.0D).tex(0.0D, f3).color(255, 255, 255, 255).endVertex();
+			bufferbuilder.pos(0D, f1, 0D).tex(0D, 0D).color(255, 255, 255, 255).endVertex();
+			bufferbuilder.pos(f, f1, 0D).tex(f2, 0D).color(255, 255, 255, 255).endVertex();
+			bufferbuilder.pos(f, 0D, 0D).tex(f2, f3).color(255, 255, 255, 255).endVertex();
+			bufferbuilder.pos(0D, 0D, 0D).tex(0D, f3).color(255, 255, 255, 255).endVertex();
 			tessellator.draw();
 			unbindFramebufferTexture();
 			GlStateManager.depthMask(true);
@@ -236,7 +236,7 @@ public class Framebuffer {
 		int i = 16384;
 
 		if (useDepth) {
-			GlStateManager.clearDepth(1.0D);
+			GlStateManager.clearDepth(1D);
 			i |= 256;
 		}
 

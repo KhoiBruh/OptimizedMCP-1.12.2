@@ -248,7 +248,7 @@ public class TileEntityHopper extends TileEntityLockableLoot implements IHopper,
 	 */
 	public static IInventory getSourceInventory(IHopper hopper) {
 
-		return getInventoryAtPosition(hopper.getWorld(), hopper.getXPos(), hopper.getYPos() + 1.0D, hopper.getZPos());
+		return getInventoryAtPosition(hopper.getWorld(), hopper.getXPos(), hopper.getYPos() + 1D, hopper.getZPos());
 	}
 
 	public static List<EntityItem> getCaptureItems(World worldIn, double p_184292_1_, double p_184292_3_, double p_184292_5_) {

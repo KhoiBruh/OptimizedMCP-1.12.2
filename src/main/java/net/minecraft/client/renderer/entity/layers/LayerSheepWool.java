@@ -29,10 +29,10 @@ public class LayerSheepWool implements LayerRenderer<EntitySheep> {
 				int j = EnumDyeColor.values().length;
 				int k = i % j;
 				int l = (i + 1) % j;
-				float f = ((float) (entitylivingbaseIn.ticksExisted % 25) + partialTicks) / 25.0F;
+				float f = ((float) (entitylivingbaseIn.ticksExisted % 25) + partialTicks) / 25F;
 				float[] afloat1 = EntitySheep.getDyeRgb(EnumDyeColor.byMetadata(k));
 				float[] afloat2 = EntitySheep.getDyeRgb(EnumDyeColor.byMetadata(l));
-				GlStateManager.color(afloat1[0] * (1.0F - f) + afloat2[0] * f, afloat1[1] * (1.0F - f) + afloat2[1] * f, afloat1[2] * (1.0F - f) + afloat2[2] * f);
+				GlStateManager.color(afloat1[0] * (1F - f) + afloat2[0] * f, afloat1[1] * (1F - f) + afloat2[1] * f, afloat1[2] * (1F - f) + afloat2[2] * f);
 			} else {
 				float[] afloat = EntitySheep.getDyeRgb(entitylivingbaseIn.getFleeceColor());
 				GlStateManager.color(afloat[0], afloat[1], afloat[2]);

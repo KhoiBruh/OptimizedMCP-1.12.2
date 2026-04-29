@@ -31,7 +31,7 @@ public class PathWorldListener implements IWorldEventListener {
 
 					if (path != null && !path.isFinished() && path.getCurrentPathLength() != 0) {
 						PathPoint pathpoint = pathnavigate.currentPath.getFinalPathPoint();
-						double d0 = pos.distanceSq(((double) pathpoint.x + pathnavigate.entity.posX) / 2.0D, ((double) pathpoint.y + pathnavigate.entity.posY) / 2.0D, ((double) pathpoint.z + pathnavigate.entity.posZ) / 2.0D);
+						double d0 = pos.distanceSq(((double) pathpoint.x + pathnavigate.entity.posX) / 2D, ((double) pathpoint.y + pathnavigate.entity.posY) / 2D, ((double) pathpoint.z + pathnavigate.entity.posZ) / 2D);
 						int k = (path.getCurrentPathLength() - path.getCurrentPathIndex()) * (path.getCurrentPathLength() - path.getCurrentPathIndex());
 
 						if (d0 < (double) k) {

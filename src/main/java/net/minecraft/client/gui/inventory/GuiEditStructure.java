@@ -469,7 +469,7 @@ public class GuiEditStructure extends GuiScreen {
 		try {
 			return Float.parseFloat(p_189819_1_);
 		} catch (NumberFormatException var3) {
-			return 1.0F;
+			return 1F;
 		}
 	}
 

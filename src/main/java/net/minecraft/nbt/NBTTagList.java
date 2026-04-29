@@ -196,7 +196,7 @@ public class NBTTagList extends NBTBase {
 			}
 		}
 		
-		return 0.0D;
+		return 0D;
 	}
 	
 	public float getFloatAt(int i) {
@@ -209,7 +209,7 @@ public class NBTTagList extends NBTBase {
 			}
 		}
 		
-		return 0.0F;
+		return 0F;
 	}
 	
 	/**

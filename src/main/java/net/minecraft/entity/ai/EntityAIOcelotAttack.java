@@ -40,7 +40,7 @@ public class EntityAIOcelotAttack extends EntityAIBase {
 
 		if (!target.isEntityAlive()) {
 			return false;
-		} else if (entity.getDistanceSq(target) > 225.0D) {
+		} else if (entity.getDistanceSq(target) > 225D) {
 			return false;
 		} else {
 			return !entity.getNavigator().noPath() || shouldExecute();
@@ -61,14 +61,14 @@ public class EntityAIOcelotAttack extends EntityAIBase {
 	 */
 	public void updateTask() {
 
-		entity.getLookHelper().setLookPositionWithEntity(target, 30.0F, 30.0F);
-		double d0 = entity.width * 2.0F * entity.width * 2.0F;
+		entity.getLookHelper().setLookPositionWithEntity(target, 30F, 30F);
+		double d0 = entity.width * 2F * entity.width * 2F;
 		double d1 = entity.getDistanceSq(target.posX, target.getEntityBoundingBox().minY, target.posZ);
 		double d2 = 0.8D;
 
-		if (d1 > d0 && d1 < 16.0D) {
+		if (d1 > d0 && d1 < 16D) {
 			d2 = 1.33D;
-		} else if (d1 < 225.0D) {
+		} else if (d1 < 225D) {
 			d2 = 0.6D;
 		}
 

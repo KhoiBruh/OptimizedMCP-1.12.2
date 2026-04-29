@@ -53,8 +53,8 @@ public class EntityPolarBear extends EntityAnimal {
 		tasks.addTask(1, new EntityPolarBear.AIMeleeAttack());
 		tasks.addTask(1, new EntityPolarBear.AIPanic());
 		tasks.addTask(4, new EntityAIFollowParent(this, 1.25D));
-		tasks.addTask(5, new EntityAIWander(this, 1.0D));
-		tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
+		tasks.addTask(5, new EntityAIWander(this, 1D));
+		tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 6F));
 		tasks.addTask(7, new EntityAILookIdle(this));
 		targetTasks.addTask(1, new EntityPolarBear.AIHurtByTarget());
 		targetTasks.addTask(2, new EntityPolarBear.AIAttackPlayer());
@@ -63,11 +63,11 @@ public class EntityPolarBear extends EntityAnimal {
 	protected void applyEntityAttributes() {
 
 		super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(30.0D);
-		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(20.0D);
+		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(30D);
+		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(20D);
 		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25D);
 		getAttributeMap().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE);
-		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(6.0D);
+		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(6D);
 	}
 
 	protected SoundEvent getAmbientSound() {
@@ -87,13 +87,13 @@ public class EntityPolarBear extends EntityAnimal {
 
 	protected void playStepSound(BlockPos pos, Block blockIn) {
 
-		playSound(SoundEvents.ENTITY_POLAR_BEAR_STEP, 0.15F, 1.0F);
+		playSound(SoundEvents.ENTITY_POLAR_BEAR_STEP, 0.15F, 1F);
 	}
 
 	protected void playWarningSound() {
 
 		if (warningSoundTicks <= 0) {
-			playSound(SoundEvents.ENTITY_POLAR_BEAR_WARNING, 1.0F, 1.0F);
+			playSound(SoundEvents.ENTITY_POLAR_BEAR_WARNING, 1F, 1F);
 			warningSoundTicks = 40;
 		}
 	}
@@ -121,9 +121,9 @@ public class EntityPolarBear extends EntityAnimal {
 			clientSideStandAnimation0 = clientSideStandAnimation;
 
 			if (isStanding()) {
-				clientSideStandAnimation = MathHelper.clamp(clientSideStandAnimation + 1.0F, 0.0F, 6.0F);
+				clientSideStandAnimation = MathHelper.clamp(clientSideStandAnimation + 1F, 0F, 6F);
 			} else {
-				clientSideStandAnimation = MathHelper.clamp(clientSideStandAnimation - 1.0F, 0.0F, 6.0F);
+				clientSideStandAnimation = MathHelper.clamp(clientSideStandAnimation - 1F, 0F, 6F);
 			}
 		}
 
@@ -155,7 +155,7 @@ public class EntityPolarBear extends EntityAnimal {
 
 	public float getStandingAnimationScale(float p_189795_1_) {
 
-		return (clientSideStandAnimation0 + (clientSideStandAnimation - clientSideStandAnimation0) * p_189795_1_) / 6.0F;
+		return (clientSideStandAnimation0 + (clientSideStandAnimation - clientSideStandAnimation0) * p_189795_1_) / 6F;
 	}
 
 	protected float getWaterSlowDown() {
@@ -214,7 +214,7 @@ public class EntityPolarBear extends EntityAnimal {
 				return false;
 			} else {
 				if (super.shouldExecute()) {
-					for (EntityPolarBear entitypolarbear : world.getEntitiesWithinAABB(EntityPolarBear.class, getEntityBoundingBox().grow(8.0D, 4.0D, 8.0D))) {
+					for (EntityPolarBear entitypolarbear : world.getEntitiesWithinAABB(EntityPolarBear.class, getEntityBoundingBox().grow(8D, 4D, 8D))) {
 						if (entitypolarbear.isChild()) {
 							return true;
 						}
@@ -274,7 +274,7 @@ public class EntityPolarBear extends EntityAnimal {
 				attackTick = 20;
 				attacker.attackEntityAsMob(enemy);
 				setStanding(false);
-			} else if (distToEnemySqr <= d0 * 2.0D) {
+			} else if (distToEnemySqr <= d0 * 2D) {
 				if (attackTick <= 0) {
 					setStanding(false);
 					attackTick = 20;
@@ -298,7 +298,7 @@ public class EntityPolarBear extends EntityAnimal {
 
 		protected double getAttackReachSqr(EntityLivingBase attackTarget) {
 
-			return 4.0F + attackTarget.width;
+			return 4F + attackTarget.width;
 		}
 
 	}
@@ -307,7 +307,7 @@ public class EntityPolarBear extends EntityAnimal {
 
 		public AIPanic() {
 
-			super(EntityPolarBear.this, 2.0D);
+			super(EntityPolarBear.this, 2D);
 		}
 
 		public boolean shouldExecute() {

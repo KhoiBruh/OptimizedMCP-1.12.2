@@ -37,7 +37,7 @@ public class EntitySnowball extends EntityThrowable {
 
 		if (id == 3) {
 			for (int i = 0; i < 8; ++i) {
-				world.spawnParticle(EnumParticleTypes.SNOWBALL, posX, posY, posZ, 0.0D, 0.0D, 0.0D);
+				world.spawnParticle(EnumParticleTypes.SNOWBALL, posX, posY, posZ, 0D, 0D, 0D);
 			}
 		}
 	}

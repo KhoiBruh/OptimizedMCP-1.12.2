@@ -15,7 +15,7 @@ public class ParticleExplosionHuge extends Particle {
 
 	protected ParticleExplosionHuge(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double p_i1214_8_, double p_i1214_10_, double p_i1214_12_) {
 
-		super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0.0D, 0.0D, 0.0D);
+		super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0D, 0D, 0D);
 	}
 
 	/**
@@ -28,10 +28,10 @@ public class ParticleExplosionHuge extends Particle {
 	public void onUpdate() {
 
 		for (int i = 0; i < 6; ++i) {
-			double d0 = posX + (rand.nextDouble() - rand.nextDouble()) * 4.0D;
-			double d1 = posY + (rand.nextDouble() - rand.nextDouble()) * 4.0D;
-			double d2 = posZ + (rand.nextDouble() - rand.nextDouble()) * 4.0D;
-			world.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, d0, d1, d2, (float) timeSinceStart / (float) maximumTime, 0.0D, 0.0D);
+			double d0 = posX + (rand.nextDouble() - rand.nextDouble()) * 4D;
+			double d1 = posY + (rand.nextDouble() - rand.nextDouble()) * 4D;
+			double d2 = posZ + (rand.nextDouble() - rand.nextDouble()) * 4D;
+			world.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, d0, d1, d2, (float) timeSinceStart / (float) maximumTime, 0D, 0D);
 		}
 
 		++timeSinceStart;

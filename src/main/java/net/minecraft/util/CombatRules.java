@@ -6,15 +6,15 @@ public class CombatRules {
 
 	public static float getDamageAfterAbsorb(float damage, float totalArmor, float toughnessAttribute) {
 
-		float f = 2.0F + toughnessAttribute / 4.0F;
-		float f1 = MathHelper.clamp(totalArmor - damage / f, totalArmor * 0.2F, 20.0F);
-		return damage * (1.0F - f1 / 25.0F);
+		float f = 2F + toughnessAttribute / 4F;
+		float f1 = MathHelper.clamp(totalArmor - damage / f, totalArmor * 0.2F, 20F);
+		return damage * (1F - f1 / 25F);
 	}
 
 	public static float getDamageAfterMagicAbsorb(float damage, float enchantModifiers) {
 
-		float f = MathHelper.clamp(enchantModifiers, 0.0F, 20.0F);
-		return damage * (1.0F - f / 25.0F);
+		float f = MathHelper.clamp(enchantModifiers, 0F, 20F);
+		return damage * (1F - f / 25F);
 	}
 
 }

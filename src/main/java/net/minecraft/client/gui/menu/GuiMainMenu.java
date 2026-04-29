@@ -276,13 +276,13 @@ public class GuiMainMenu extends GuiScreen {
 		GlStateManager.matrixMode(5889);
 		GlStateManager.pushMatrix();
 		GlStateManager.loadIdentity();
-		Project.gluPerspective(120.0F, 1.0F, 0.05F, 10.0F);
+		Project.gluPerspective(120F, 1F, 0.05F, 10F);
 		GlStateManager.matrixMode(5888);
 		GlStateManager.pushMatrix();
 		GlStateManager.loadIdentity();
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-		GlStateManager.rotate(180.0F, 1.0F, 0.0F, 0.0F);
-		GlStateManager.rotate(90.0F, 0.0F, 0.0F, 1.0F);
+		GlStateManager.color(1F, 1F, 1F, 1F);
+		GlStateManager.rotate(180F, 1F, 0F, 0F);
+		GlStateManager.rotate(90F, 0F, 0F, 1F);
 		GlStateManager.enableBlend();
 		GlStateManager.disableAlpha();
 		GlStateManager.disableCull();
@@ -292,44 +292,44 @@ public class GuiMainMenu extends GuiScreen {
 
 		for (int j = 0; j < 64; ++j) {
 			GlStateManager.pushMatrix();
-			float f = ((float) (j % 8) / 8.0F - 0.5F) / 64.0F;
-			float f1 = ((float) (j / 8) / 8.0F - 0.5F) / 64.0F;
-			float f2 = 0.0F;
-			GlStateManager.translate(f, f1, 0.0F);
-			GlStateManager.rotate(MathHelper.sin(panoramaTimer / 400.0F) * 25.0F + 20.0F, 1.0F, 0.0F, 0.0F);
-			GlStateManager.rotate(-panoramaTimer * 0.1F, 0.0F, 1.0F, 0.0F);
+			float f = ((float) (j % 8) / 8F - 0.5F) / 64F;
+			float f1 = ((float) (j / 8) / 8F - 0.5F) / 64F;
+			float f2 = 0F;
+			GlStateManager.translate(f, f1, 0F);
+			GlStateManager.rotate(MathHelper.sin(panoramaTimer / 400F) * 25F + 20F, 1F, 0F, 0F);
+			GlStateManager.rotate(-panoramaTimer * 0.1F, 0F, 1F, 0F);
 
 			for (int k = 0; k < 6; ++k) {
 				GlStateManager.pushMatrix();
 
 				if (k == 1) {
-					GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
+					GlStateManager.rotate(90F, 0F, 1F, 0F);
 				}
 
 				if (k == 2) {
-					GlStateManager.rotate(180.0F, 0.0F, 1.0F, 0.0F);
+					GlStateManager.rotate(180F, 0F, 1F, 0F);
 				}
 
 				if (k == 3) {
-					GlStateManager.rotate(-90.0F, 0.0F, 1.0F, 0.0F);
+					GlStateManager.rotate(-90F, 0F, 1F, 0F);
 				}
 
 				if (k == 4) {
-					GlStateManager.rotate(90.0F, 1.0F, 0.0F, 0.0F);
+					GlStateManager.rotate(90F, 1F, 0F, 0F);
 				}
 
 				if (k == 5) {
-					GlStateManager.rotate(-90.0F, 1.0F, 0.0F, 0.0F);
+					GlStateManager.rotate(-90F, 1F, 0F, 0F);
 				}
 
 				mc.getTextureManager().bindTexture(TITLE_PANORAMA_PATHS[k]);
 				bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
 				int l = 255 / (j + 1);
-				float f3 = 0.0F;
-				bufferbuilder.pos(-1.0D, -1.0D, 1.0D).tex(0.0D, 0.0D).color(255, 255, 255, l).endVertex();
-				bufferbuilder.pos(1.0D, -1.0D, 1.0D).tex(1.0D, 0.0D).color(255, 255, 255, l).endVertex();
-				bufferbuilder.pos(1.0D, 1.0D, 1.0D).tex(1.0D, 1.0D).color(255, 255, 255, l).endVertex();
-				bufferbuilder.pos(-1.0D, 1.0D, 1.0D).tex(0.0D, 1.0D).color(255, 255, 255, l).endVertex();
+				float f3 = 0F;
+				bufferbuilder.pos(-1D, -1D, 1D).tex(0D, 0D).color(255, 255, 255, l).endVertex();
+				bufferbuilder.pos(1D, -1D, 1D).tex(1D, 0D).color(255, 255, 255, l).endVertex();
+				bufferbuilder.pos(1D, 1D, 1D).tex(1D, 1D).color(255, 255, 255, l).endVertex();
+				bufferbuilder.pos(-1D, 1D, 1D).tex(0D, 1D).color(255, 255, 255, l).endVertex();
 				tessellator.draw();
 				GlStateManager.popMatrix();
 			}
@@ -338,7 +338,7 @@ public class GuiMainMenu extends GuiScreen {
 			GlStateManager.colorMask(true, true, true, false);
 		}
 
-		bufferbuilder.setTranslation(0.0D, 0.0D, 0.0D);
+		bufferbuilder.setTranslation(0D, 0D, 0D);
 		GlStateManager.colorMask(true, true, true, true);
 		GlStateManager.matrixMode(5889);
 		GlStateManager.popMatrix();
@@ -368,14 +368,14 @@ public class GuiMainMenu extends GuiScreen {
 		int i = 3;
 
 		for (int j = 0; j < 3; ++j) {
-			float f = 1.0F / (float) (j + 1);
+			float f = 1F / (float) (j + 1);
 			int k = width;
 			int l = height;
-			float f1 = (float) (j - 1) / 256.0F;
-			bufferbuilder.pos(k, l, zLevel).tex(0.0F + f1, 1.0D).color(1.0F, 1.0F, 1.0F, f).endVertex();
-			bufferbuilder.pos(k, 0.0D, zLevel).tex(1.0F + f1, 1.0D).color(1.0F, 1.0F, 1.0F, f).endVertex();
-			bufferbuilder.pos(0.0D, 0.0D, zLevel).tex(1.0F + f1, 0.0D).color(1.0F, 1.0F, 1.0F, f).endVertex();
-			bufferbuilder.pos(0.0D, l, zLevel).tex(0.0F + f1, 0.0D).color(1.0F, 1.0F, 1.0F, f).endVertex();
+			float f1 = (float) (j - 1) / 256F;
+			bufferbuilder.pos(k, l, zLevel).tex(0F + f1, 1D).color(1F, 1F, 1F, f).endVertex();
+			bufferbuilder.pos(k, 0D, zLevel).tex(1F + f1, 1D).color(1F, 1F, 1F, f).endVertex();
+			bufferbuilder.pos(0D, 0D, zLevel).tex(1F + f1, 0D).color(1F, 1F, 1F, f).endVertex();
+			bufferbuilder.pos(0D, l, zLevel).tex(0F + f1, 0D).color(1F, 1F, 1F, f).endVertex();
 		}
 
 		tessellator.draw();
@@ -400,18 +400,18 @@ public class GuiMainMenu extends GuiScreen {
 		rotateAndBlurSkybox();
 		mc.getFramebuffer().bindFramebuffer(true);
 		GlStateManager.viewport(0, 0, mc.displayWidth, mc.displayHeight);
-		float f = 120.0F / (float) (Math.max(width, height));
-		float f1 = (float) height * f / 256.0F;
-		float f2 = (float) width * f / 256.0F;
+		float f = 120F / (float) (Math.max(width, height));
+		float f1 = (float) height * f / 256F;
+		float f2 = (float) width * f / 256F;
 		int i = width;
 		int j = height;
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder bufferbuilder = tessellator.getBuffer();
 		bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-		bufferbuilder.pos(0.0D, j, zLevel).tex(0.5F - f1, 0.5F + f2).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
-		bufferbuilder.pos(i, j, zLevel).tex(0.5F - f1, 0.5F - f2).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
-		bufferbuilder.pos(i, 0.0D, zLevel).tex(0.5F + f1, 0.5F - f2).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
-		bufferbuilder.pos(0.0D, 0.0D, zLevel).tex(0.5F + f1, 0.5F + f2).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
+		bufferbuilder.pos(0D, j, zLevel).tex(0.5F - f1, 0.5F + f2).color(1F, 1F, 1F, 1F).endVertex();
+		bufferbuilder.pos(i, j, zLevel).tex(0.5F - f1, 0.5F - f2).color(1F, 1F, 1F, 1F).endVertex();
+		bufferbuilder.pos(i, 0D, zLevel).tex(0.5F + f1, 0.5F - f2).color(1F, 1F, 1F, 1F).endVertex();
+		bufferbuilder.pos(0D, 0D, zLevel).tex(0.5F + f1, 0.5F + f2).color(1F, 1F, 1F, 1F).endVertex();
 		tessellator.draw();
 	}
 
@@ -425,7 +425,7 @@ public class GuiMainMenu extends GuiScreen {
 		int j = width / 2 - 137;
 		int k = 30;
 		mc.getTextureManager().bindTexture(MINECRAFT_TITLE_TEXTURES);
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+		GlStateManager.color(1F, 1F, 1F, 1F);
 
 		if ((double) minceraftRoll < 1.0E-4D) {
 			drawTexturedModalRect(j, 30, 0, 0, 99, 44);
@@ -439,12 +439,12 @@ public class GuiMainMenu extends GuiScreen {
 		}
 
 		mc.getTextureManager().bindTexture(field_194400_H);
-		drawModalRectWithCustomSizedTexture(j + 88, 67, 0.0F, 0.0F, 98, 14, 128.0F, 16.0F);
+		drawModalRectWithCustomSizedTexture(j + 88, 67, 0F, 0F, 98, 14, 128F, 16F);
 		GlStateManager.pushMatrix();
-		GlStateManager.translate((float) (width / 2 + 90), 70.0F, 0.0F);
-		GlStateManager.rotate(-20.0F, 0.0F, 0.0F, 1.0F);
-		float f = 1.8F - MathHelper.abs(MathHelper.sin((float) (Minecraft.getSystemTime() % 1000L) / 1000.0F * ((float) Math.PI * 2F)) * 0.1F);
-		f = f * 100.0F / (float) (fontRenderer.getStringWidth(splashText) + 32);
+		GlStateManager.translate((float) (width / 2 + 90), 70F, 0F);
+		GlStateManager.rotate(-20F, 0F, 0F, 1F);
+		float f = 1.8F - MathHelper.abs(MathHelper.sin((float) (Minecraft.getSystemTime() % 1000L) / 1000F * ((float) Math.PI * 2F)) * 0.1F);
+		f = f * 100F / (float) (fontRenderer.getStringWidth(splashText) + 32);
 		GlStateManager.scale(f, f, f);
 		drawCenteredString(fontRenderer, splashText, 0, -8, -256);
 		GlStateManager.popMatrix();

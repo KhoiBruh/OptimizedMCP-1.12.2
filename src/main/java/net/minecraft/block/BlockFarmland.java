@@ -21,8 +21,8 @@ import java.util.Random;
 public class BlockFarmland extends Block {
 
 	public static final PropertyInteger MOISTURE = PropertyInteger.create("moisture", 0, 7);
-	protected static final AxisAlignedBB FARMLAND_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.9375D, 1.0D);
-	protected static final AxisAlignedBB field_194405_c = new AxisAlignedBB(0.0D, 0.9375D, 0.0D, 1.0D, 1.0D, 1.0D);
+	protected static final AxisAlignedBB FARMLAND_AABB = new AxisAlignedBB(0D, 0D, 0D, 1D, 0.9375D, 1D);
+	protected static final AxisAlignedBB field_194405_c = new AxisAlignedBB(0D, 0.9375D, 0D, 1D, 1D, 1D);
 
 	protected BlockFarmland() {
 

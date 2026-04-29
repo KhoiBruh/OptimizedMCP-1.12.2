@@ -44,7 +44,7 @@ public class EntityRabbit extends EntityAnimal {
 		setSize(0.4F, 0.5F);
 		jumpHelper = new EntityRabbit.RabbitJumpHelper(this);
 		moveHelper = new EntityRabbit.RabbitMoveHelper(this);
-		setMovementSpeed(0.0D);
+		setMovementSpeed(0D);
 	}
 
 	public static void registerFixesRabbit(DataFixer fixer) {
@@ -57,15 +57,15 @@ public class EntityRabbit extends EntityAnimal {
 		tasks.addTask(1, new EntityAISwimming(this));
 		tasks.addTask(1, new EntityRabbit.AIPanic(this, 2.2D));
 		tasks.addTask(2, new EntityAIMate(this, 0.8D));
-		tasks.addTask(3, new EntityAITempt(this, 1.0D, Items.CARROT, false));
-		tasks.addTask(3, new EntityAITempt(this, 1.0D, Items.GOLDEN_CARROT, false));
-		tasks.addTask(3, new EntityAITempt(this, 1.0D, Item.getItemFromBlock(Blocks.YELLOW_FLOWER), false));
-		tasks.addTask(4, new EntityRabbit.AIAvoidEntity<>(this, EntityPlayer.class, 8.0F, 2.2D, 2.2D));
-		tasks.addTask(4, new EntityRabbit.AIAvoidEntity<>(this, EntityWolf.class, 10.0F, 2.2D, 2.2D));
-		tasks.addTask(4, new EntityRabbit.AIAvoidEntity<>(this, EntityMob.class, 4.0F, 2.2D, 2.2D));
+		tasks.addTask(3, new EntityAITempt(this, 1D, Items.CARROT, false));
+		tasks.addTask(3, new EntityAITempt(this, 1D, Items.GOLDEN_CARROT, false));
+		tasks.addTask(3, new EntityAITempt(this, 1D, Item.getItemFromBlock(Blocks.YELLOW_FLOWER), false));
+		tasks.addTask(4, new EntityRabbit.AIAvoidEntity<>(this, EntityPlayer.class, 8F, 2.2D, 2.2D));
+		tasks.addTask(4, new EntityRabbit.AIAvoidEntity<>(this, EntityWolf.class, 10F, 2.2D, 2.2D));
+		tasks.addTask(4, new EntityRabbit.AIAvoidEntity<>(this, EntityMob.class, 4F, 2.2D, 2.2D));
 		tasks.addTask(5, new EntityRabbit.AIRaidFarm(this));
 		tasks.addTask(6, new EntityAIWanderAvoidWater(this, 0.6D));
-		tasks.addTask(11, new EntityAIWatchClosest(this, EntityPlayer.class, 10.0F));
+		tasks.addTask(11, new EntityAIWatchClosest(this, EntityPlayer.class, 10F));
 	}
 
 	protected float getJumpUpwardsMotion() {
@@ -95,11 +95,11 @@ public class EntityRabbit extends EntityAnimal {
 		super.jump();
 		double d0 = moveHelper.getSpeed();
 
-		if (d0 > 0.0D) {
+		if (d0 > 0D) {
 			double d1 = motionX * motionX + motionZ * motionZ;
 
 			if (d1 < 0.010000000000000002D) {
-				moveRelative(0.0F, 0.0F, 1.0F, 0.1F);
+				moveRelative(0F, 0F, 1F, 0.1F);
 			}
 		}
 
@@ -110,7 +110,7 @@ public class EntityRabbit extends EntityAnimal {
 
 	public float getJumpCompletion(float p_175521_1_) {
 
-		return jumpDuration == 0 ? 0.0F : ((float) jumpTicks + p_175521_1_) / (float) jumpDuration;
+		return jumpDuration == 0 ? 0F : ((float) jumpTicks + p_175521_1_) / (float) jumpDuration;
 	}
 
 	public void setMovementSpeed(double newSpeed) {
@@ -124,7 +124,7 @@ public class EntityRabbit extends EntityAnimal {
 		super.setJumping(jumping);
 
 		if (jumping) {
-			playSound(getJumpSound(), getSoundVolume(), ((rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F) * 0.8F);
+			playSound(getJumpSound(), getSoundVolume(), ((rand.nextFloat() - rand.nextFloat()) * 0.2F + 1F) * 0.8F);
 		}
 	}
 
@@ -164,7 +164,7 @@ public class EntityRabbit extends EntityAnimal {
 			if (getRabbitType() == 99 && currentMoveTypeDuration == 0) {
 				EntityLivingBase entitylivingbase = getAttackTarget();
 
-				if (entitylivingbase != null && getDistanceSq(entitylivingbase) < 16.0D) {
+				if (entitylivingbase != null && getDistanceSq(entitylivingbase) < 16D) {
 					calculateRotationYaw(entitylivingbase.posX, entitylivingbase.posZ);
 					moveHelper.setMoveTo(entitylivingbase.posX, entitylivingbase.posY, entitylivingbase.posZ, moveHelper.getSpeed());
 					startJumping();
@@ -203,7 +203,7 @@ public class EntityRabbit extends EntityAnimal {
 
 	private void calculateRotationYaw(double x, double z) {
 
-		rotationYaw = (float) (MathHelper.atan2(z - posZ, x - posX) * (180D / Math.PI)) - 90.0F;
+		rotationYaw = (float) (MathHelper.atan2(z - posZ, x - posX) * (180D / Math.PI)) - 90F;
 	}
 
 	private void enableJumpControl() {
@@ -251,7 +251,7 @@ public class EntityRabbit extends EntityAnimal {
 	protected void applyEntityAttributes() {
 
 		super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(3.0D);
+		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(3D);
 		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.30000001192092896D);
 	}
 
@@ -298,10 +298,10 @@ public class EntityRabbit extends EntityAnimal {
 	public boolean attackEntityAsMob(Entity entityIn) {
 
 		if (getRabbitType() == 99) {
-			playSound(SoundEvents.ENTITY_RABBIT_ATTACK, 1.0F, (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F);
-			return entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), 8.0F);
+			playSound(SoundEvents.ENTITY_RABBIT_ATTACK, 1F, (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1F);
+			return entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), 8F);
 		} else {
-			return entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), 3.0F);
+			return entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), 3F);
 		}
 	}
 
@@ -363,7 +363,7 @@ public class EntityRabbit extends EntityAnimal {
 	public void setRabbitType(int rabbitTypeId) {
 
 		if (rabbitTypeId == 99) {
-			getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(8.0D);
+			getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(8D);
 			tasks.addTask(4, new EntityRabbit.AIEvilAttack(this));
 			targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
 			targetTasks.addTask(2, new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, true));
@@ -441,7 +441,7 @@ public class EntityRabbit extends EntityAnimal {
 
 		BlockCarrot blockcarrot = (BlockCarrot) Blocks.CARROTS;
 		IBlockState iblockstate = blockcarrot.withAge(blockcarrot.getMaxAge());
-		world.spawnParticle(EnumParticleTypes.BLOCK_DUST, posX + (double) (rand.nextFloat() * width * 2.0F) - (double) width, posY + 0.5D + (double) (rand.nextFloat() * height), posZ + (double) (rand.nextFloat() * width * 2.0F) - (double) width, 0.0D, 0.0D, 0.0D, Block.getStateId(iblockstate));
+		world.spawnParticle(EnumParticleTypes.BLOCK_DUST, posX + (double) (rand.nextFloat() * width * 2F) - (double) width, posY + 0.5D + (double) (rand.nextFloat() * height), posZ + (double) (rand.nextFloat() * width * 2F) - (double) width, 0D, 0D, 0D, Block.getStateId(iblockstate));
 		carrotTicks = 40;
 	}
 
@@ -485,7 +485,7 @@ public class EntityRabbit extends EntityAnimal {
 
 		protected double getAttackReachSqr(EntityLivingBase attackTarget) {
 
-			return 4.0F + attackTarget.width;
+			return 4F + attackTarget.width;
 		}
 
 	}
@@ -542,7 +542,7 @@ public class EntityRabbit extends EntityAnimal {
 		public void updateTask() {
 
 			super.updateTask();
-			rabbit.getLookHelper().setLookPosition((double) destinationBlock.getX() + 0.5D, destinationBlock.getY() + 1, (double) destinationBlock.getZ() + 0.5D, 10.0F, (float) rabbit.getVerticalFaceSpeed());
+			rabbit.getLookHelper().setLookPosition((double) destinationBlock.getX() + 0.5D, destinationBlock.getY() + 1, (double) destinationBlock.getZ() + 0.5D, 10F, (float) rabbit.getVerticalFaceSpeed());
 
 			if (getIsAboveDestination()) {
 				World world = rabbit.world;
@@ -603,7 +603,7 @@ public class EntityRabbit extends EntityAnimal {
 		public void onUpdateMoveHelper() {
 
 			if (rabbit.onGround && !rabbit.isJumping && !((EntityRabbit.RabbitJumpHelper) rabbit.jumpHelper).getIsJumping()) {
-				rabbit.setMovementSpeed(0.0D);
+				rabbit.setMovementSpeed(0D);
 			} else if (isUpdating()) {
 				rabbit.setMovementSpeed(nextJumpSpeed);
 			}
@@ -619,7 +619,7 @@ public class EntityRabbit extends EntityAnimal {
 
 			super.setMoveTo(x, y, z, speedIn);
 
-			if (speedIn > 0.0D) {
+			if (speedIn > 0D) {
 				nextJumpSpeed = speedIn;
 			}
 		}

@@ -105,7 +105,7 @@ public abstract class EntityTameable extends EntityAnimal implements IEntityOwna
 			double d0 = rand.nextGaussian() * 0.02D;
 			double d1 = rand.nextGaussian() * 0.02D;
 			double d2 = rand.nextGaussian() * 0.02D;
-			world.spawnParticle(enumparticletypes, posX + (double) (rand.nextFloat() * width * 2.0F) - (double) width, posY + 0.5D + (double) (rand.nextFloat() * height), posZ + (double) (rand.nextFloat() * width * 2.0F) - (double) width, d0, d1, d2);
+			world.spawnParticle(enumparticletypes, posX + (double) (rand.nextFloat() * width * 2F) - (double) width, posY + 0.5D + (double) (rand.nextFloat() * height), posZ + (double) (rand.nextFloat() * width * 2F) - (double) width, d0, d1, d2);
 		}
 	}
 

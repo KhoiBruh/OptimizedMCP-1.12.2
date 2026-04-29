@@ -55,7 +55,7 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimals {
 				double d0 = rand.nextGaussian() * 0.02D;
 				double d1 = rand.nextGaussian() * 0.02D;
 				double d2 = rand.nextGaussian() * 0.02D;
-				world.spawnParticle(EnumParticleTypes.HEART, posX + (double) (rand.nextFloat() * width * 2.0F) - (double) width, posY + 0.5D + (double) (rand.nextFloat() * height), posZ + (double) (rand.nextFloat() * width * 2.0F) - (double) width, d0, d1, d2);
+				world.spawnParticle(EnumParticleTypes.HEART, posX + (double) (rand.nextFloat() * width * 2F) - (double) width, posY + 0.5D + (double) (rand.nextFloat() * height), posZ + (double) (rand.nextFloat() * width * 2F) - (double) width, d0, d1, d2);
 			}
 		}
 	}
@@ -75,7 +75,7 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimals {
 
 	public float getBlockPathWeight(BlockPos pos) {
 
-		return world.getBlockState(pos.down()).getBlock() == spawnableBlock ? 10.0F : world.getLightBrightness(pos) - 0.5F;
+		return world.getBlockState(pos.down()).getBlock() == spawnableBlock ? 10F : world.getLightBrightness(pos) - 0.5F;
 	}
 
 	/**
@@ -244,7 +244,7 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimals {
 				double d0 = rand.nextGaussian() * 0.02D;
 				double d1 = rand.nextGaussian() * 0.02D;
 				double d2 = rand.nextGaussian() * 0.02D;
-				world.spawnParticle(EnumParticleTypes.HEART, posX + (double) (rand.nextFloat() * width * 2.0F) - (double) width, posY + 0.5D + (double) (rand.nextFloat() * height), posZ + (double) (rand.nextFloat() * width * 2.0F) - (double) width, d0, d1, d2);
+				world.spawnParticle(EnumParticleTypes.HEART, posX + (double) (rand.nextFloat() * width * 2F) - (double) width, posY + 0.5D + (double) (rand.nextFloat() * height), posZ + (double) (rand.nextFloat() * width * 2F) - (double) width, d0, d1, d2);
 			}
 		} else {
 			super.handleStatusUpdate(id);

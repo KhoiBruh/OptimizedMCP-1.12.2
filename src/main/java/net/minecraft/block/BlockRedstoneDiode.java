@@ -17,7 +17,7 @@ import java.util.Random;
 
 public abstract class BlockRedstoneDiode extends BlockHorizontal {
 
-	protected static final AxisAlignedBB REDSTONE_DIODE_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.125D, 1.0D);
+	protected static final AxisAlignedBB REDSTONE_DIODE_AABB = new AxisAlignedBB(0D, 0D, 0D, 1D, 0.125D, 1D);
 
 	/**
 	 * Tells whether the repeater is powered or not

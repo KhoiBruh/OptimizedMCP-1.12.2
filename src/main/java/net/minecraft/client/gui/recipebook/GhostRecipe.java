@@ -23,7 +23,7 @@ public class GhostRecipe {
 
 		recipe = null;
 		ingredients.clear();
-		time = 0.0F;
+		time = 0F;
 	}
 
 	public void addIngredient(Ingredient p_194187_1_, int p_194187_2_, int p_194187_3_) {
@@ -116,7 +116,7 @@ public class GhostRecipe {
 		public ItemStack getItem() {
 
 			ItemStack[] aitemstack = ingredient.getMatchingStacks();
-			return aitemstack[MathHelper.floor(time / 30.0F) % aitemstack.length];
+			return aitemstack[MathHelper.floor(time / 30F) % aitemstack.length];
 		}
 
 	}

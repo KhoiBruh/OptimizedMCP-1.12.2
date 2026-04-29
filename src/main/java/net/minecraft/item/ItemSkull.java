@@ -64,7 +64,7 @@ public class ItemSkull extends Item {
 					int i = 0;
 
 					if (facing == EnumFacing.UP) {
-						i = MathHelper.floor((double) (player.rotationYaw * 16.0F / 360.0F) + 0.5D) & 15;
+						i = MathHelper.floor((double) (player.rotationYaw * 16F / 360F) + 0.5D) & 15;
 					}
 
 					TileEntity tileentity = worldIn.getTileEntity(pos);

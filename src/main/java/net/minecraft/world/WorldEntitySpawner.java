@@ -25,7 +25,7 @@ import java.util.Set;
 
 public final class WorldEntitySpawner {
 
-	private static final int MOB_COUNT_DIV = (int) Math.pow(17.0D, 2.0D);
+	private static final int MOB_COUNT_DIV = (int) Math.pow(17D, 2D);
 	private final Set<ChunkPos> eligibleChunksForSpawning = Sets.newHashSet();
 
 	private static BlockPos getRandomChunkPosition(World worldIn, int x, int z) {
@@ -112,7 +112,7 @@ public final class WorldEntitySpawner {
 								continue;
 							}
 
-							entityliving.setLocationAndAngles((float) j + 0.5F, blockpos.getY(), (float) k + 0.5F, randomIn.nextFloat() * 360.0F, 0.0F);
+							entityliving.setLocationAndAngles((float) j + 0.5F, blockpos.getY(), (float) k + 0.5F, randomIn.nextFloat() * 360F, 0F);
 							worldIn.spawnEntity(entityliving);
 							ientitylivingdata = entityliving.onInitialSpawn(worldIn.getDifficultyForLocation(new BlockPos(entityliving)), ientitylivingdata);
 							flag = true;
@@ -143,8 +143,8 @@ public final class WorldEntitySpawner {
 
 			for (EntityPlayer entityplayer : worldServerIn.playerEntities) {
 				if (!entityplayer.isSpectator()) {
-					int j = MathHelper.floor(entityplayer.posX / 16.0D);
-					int k = MathHelper.floor(entityplayer.posZ / 16.0D);
+					int j = MathHelper.floor(entityplayer.posX / 16D);
+					int k = MathHelper.floor(entityplayer.posZ / 16D);
 					int l = 8;
 
 					for (int i1 = -8; i1 <= 8; ++i1) {
@@ -197,7 +197,7 @@ public final class WorldEntitySpawner {
 									int k3 = 6;
 									Biome.SpawnListEntry biome$spawnlistentry = null;
 									IEntityLivingData ientitylivingdata = null;
-									int l3 = MathHelper.ceil(Math.random() * 4.0D);
+									int l3 = MathHelper.ceil(Math.random() * 4D);
 
 									for (int i4 = 0; i4 < l3; ++i4) {
 										l2 += worldServerIn.rand.nextInt(6) - worldServerIn.rand.nextInt(6);
@@ -207,7 +207,7 @@ public final class WorldEntitySpawner {
 										float f = (float) l2 + 0.5F;
 										float f1 = (float) j3 + 0.5F;
 
-										if (!worldServerIn.isAnyPlayerWithinRangeAt(f, i3, f1, 24.0D) && blockpos1.distanceSq(f, i3, f1) >= 576.0D) {
+										if (!worldServerIn.isAnyPlayerWithinRangeAt(f, i3, f1, 24D) && blockpos1.distanceSq(f, i3, f1) >= 576D) {
 											if (biome$spawnlistentry == null) {
 												biome$spawnlistentry = worldServerIn.getSpawnListEntryForTypeAt(enumcreaturetype, blockpos$mutableblockpos);
 
@@ -226,7 +226,7 @@ public final class WorldEntitySpawner {
 													return j4;
 												}
 
-												entityliving.setLocationAndAngles(f, i3, f1, worldServerIn.rand.nextFloat() * 360.0F, 0.0F);
+												entityliving.setLocationAndAngles(f, i3, f1, worldServerIn.rand.nextFloat() * 360F, 0F);
 
 												if (entityliving.getCanSpawnHere() && entityliving.isNotColliding()) {
 													ientitylivingdata = entityliving.onInitialSpawn(worldServerIn.getDifficultyForLocation(new BlockPos(entityliving)), ientitylivingdata);

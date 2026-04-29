@@ -12,9 +12,9 @@ public record Rotations(float x, float y, float z) {
 
 	public Rotations(float x, float y, float z) {
 
-		this.x = !Float.isInfinite(x) && !Float.isNaN(x) ? x % 360.0F : 0.0F;
-		this.y = !Float.isInfinite(y) && !Float.isNaN(y) ? y % 360.0F : 0.0F;
-		this.z = !Float.isInfinite(z) && !Float.isNaN(z) ? z % 360.0F : 0.0F;
+		this.x = !Float.isInfinite(x) && !Float.isNaN(x) ? x % 360F : 0F;
+		this.y = !Float.isInfinite(y) && !Float.isNaN(y) ? y % 360F : 0F;
+		this.z = !Float.isInfinite(z) && !Float.isNaN(z) ? z % 360F : 0F;
 	}
 
 	public Rotations(NBTTagList nbt) {

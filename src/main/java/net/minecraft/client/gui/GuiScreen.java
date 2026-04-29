@@ -269,16 +269,13 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 				i2 = height - k - 6;
 			}
 
-			zLevel = 300.0F;
-			itemRender.zLevel = 300.0F;
-			int l = -267386864;
+			zLevel = 300F;
+			itemRender.zLevel = 300F;
 			drawGradientRect(l1 - 3, i2 - 4, l1 + i + 3, i2 - 3, -267386864, -267386864);
 			drawGradientRect(l1 - 3, i2 + k + 3, l1 + i + 3, i2 + k + 4, -267386864, -267386864);
 			drawGradientRect(l1 - 3, i2 - 3, l1 + i + 3, i2 + k + 3, -267386864, -267386864);
 			drawGradientRect(l1 - 4, i2 - 3, l1 - 3, i2 + k + 3, -267386864, -267386864);
 			drawGradientRect(l1 + i + 3, i2 - 3, l1 + i + 4, i2 + k + 3, -267386864, -267386864);
-			int i1 = 1347420415;
-			int j1 = 1344798847;
 			drawGradientRect(l1 - 3, i2 - 3 + 1, l1 - 3 + 1, i2 + k + 3 - 1, 1347420415, 1344798847);
 			drawGradientRect(l1 + i + 2, i2 - 3 + 1, l1 + i + 3, i2 + k + 3 - 1, 1347420415, 1344798847);
 			drawGradientRect(l1 - 3, i2 - 3, l1 + i + 3, i2 - 3 + 1, 1347420415, 1347420415);
@@ -295,8 +292,8 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 				i2 += 10;
 			}
 
-			zLevel = 0.0F;
-			itemRender.zLevel = 0.0F;
+			zLevel = 0F;
+			itemRender.zLevel = 0F;
 			GlStateManager.enableLighting();
 			GlStateManager.enableDepth();
 			RenderHelper.enableStandardItemLighting();
@@ -318,9 +315,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 				try {
 					NBTTagCompound nbtbase = JsonToNBT.getTagFromJson(hoverevent.value().getUnformattedText());
 
-					if (nbtbase instanceof NBTTagCompound) {
-						itemstack = new ItemStack(nbtbase);
-					}
+					if (nbtbase != null) itemstack = new ItemStack(nbtbase);
 				} catch (NBTException ignored) {
 				}
 
@@ -624,12 +619,12 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder bufferbuilder = tessellator.getBuffer();
 		mc.getTextureManager().bindTexture(OPTIONS_BACKGROUND);
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+		GlStateManager.color(1F, 1F, 1F, 1F);
 		bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-		bufferbuilder.pos(0.0D, height, 0.0D).tex(0.0D, (float) height / 32.0F + (float) tint).color(64, 64, 64, 255).endVertex();
-		bufferbuilder.pos(width, height, 0.0D).tex((float) width / 32.0F, (float) height / 32.0F + (float) tint).color(64, 64, 64, 255).endVertex();
-		bufferbuilder.pos(width, 0.0D, 0.0D).tex((float) width / 32.0F, tint).color(64, 64, 64, 255).endVertex();
-		bufferbuilder.pos(0.0D, 0.0D, 0.0D).tex(0.0D, tint).color(64, 64, 64, 255).endVertex();
+		bufferbuilder.pos(0D, height, 0D).tex(0D, (float) height / 32F + (float) tint).color(64, 64, 64, 255).endVertex();
+		bufferbuilder.pos(width, height, 0D).tex((float) width / 32F, (float) height / 32F + (float) tint).color(64, 64, 64, 255).endVertex();
+		bufferbuilder.pos(width, 0D, 0D).tex((float) width / 32F, tint).color(64, 64, 64, 255).endVertex();
+		bufferbuilder.pos(0D, 0D, 0D).tex(0D, tint).color(64, 64, 64, 255).endVertex();
 		tessellator.draw();
 	}
 
@@ -644,9 +639,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 	public void confirmClicked(boolean result, int id) {
 
 		if (id == 31102009) {
-			if (result) {
-				openWebLink(clickedLinkURI);
-			}
+			if (result) openWebLink(clickedLinkURI);
 
 			clickedLinkURI = null;
 			mc.displayGuiScreen(this);
@@ -656,9 +649,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 	private void openWebLink(URI url) {
 
 		try {
-			Class<?> oclass = Class.forName("java.awt.Desktop");
-			Object object = oclass.getMethod("getDesktop").invoke(null);
-			oclass.getMethod("browse", URI.class).invoke(object, url);
+			Desktop.getDesktop().browse(url);
 		} catch (Throwable throwable1) {
 			Throwable throwable = throwable1.getCause();
 			LOGGER.error("Couldn't open link: {}", throwable == null ? "<UNKNOWN>" : throwable.getMessage());

@@ -32,9 +32,9 @@ public class PhaseHoldingPattern extends PhaseBase {
 	 */
 	public void doLocalUpdate() {
 
-		double d0 = targetLocation == null ? 0.0D : targetLocation.squareDistanceTo(dragon.posX, dragon.posY, dragon.posZ);
+		double d0 = targetLocation == null ? 0D : targetLocation.squareDistanceTo(dragon.posX, dragon.posY, dragon.posZ);
 
-		if (d0 < 100.0D || d0 > 22500.0D || dragon.collidedHorizontally || dragon.collidedVertically) {
+		if (d0 < 100D || d0 > 22500D || dragon.collidedHorizontally || dragon.collidedVertically) {
 			findNewTarget();
 		}
 	}
@@ -69,11 +69,11 @@ public class PhaseHoldingPattern extends PhaseBase {
 				return;
 			}
 
-			double d0 = 64.0D;
+			double d0 = 64D;
 			EntityPlayer entityplayer = dragon.world.getNearestAttackablePlayer(blockpos, d0, d0);
 
 			if (entityplayer != null) {
-				d0 = entityplayer.getDistanceSqToCenter(blockpos) / 512.0D;
+				d0 = entityplayer.getDistanceSqToCenter(blockpos) / 512D;
 			}
 
 			if (entityplayer != null && (dragon.getRNG().nextInt(MathHelper.abs((int) d0) + 2) == 0 || dragon.getRNG().nextInt(i + 2) == 0)) {
@@ -135,7 +135,7 @@ public class PhaseHoldingPattern extends PhaseBase {
 			double d2;
 
 			while (true) {
-				d2 = vec3d.y() + (double) (dragon.getRNG().nextFloat() * 20.0F);
+				d2 = vec3d.y() + (double) (dragon.getRNG().nextFloat() * 20F);
 
 				if (d2 >= vec3d.y()) {
 					break;

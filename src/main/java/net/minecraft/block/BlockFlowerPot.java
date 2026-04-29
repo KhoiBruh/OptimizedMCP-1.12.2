@@ -29,7 +29,7 @@ public class BlockFlowerPot extends BlockContainer {
 
 	public static final PropertyInteger LEGACY_DATA = PropertyInteger.create("legacy_data", 0, 15);
 	public static final PropertyEnum<BlockFlowerPot.EnumFlowerType> CONTENTS = PropertyEnum.create("contents", BlockFlowerPot.EnumFlowerType.class);
-	protected static final AxisAlignedBB FLOWER_POT_AABB = new AxisAlignedBB(0.3125D, 0.0D, 0.3125D, 0.6875D, 0.375D, 0.6875D);
+	protected static final AxisAlignedBB FLOWER_POT_AABB = new AxisAlignedBB(0.3125D, 0D, 0.3125D, 0.6875D, 0.375D, 0.6875D);
 
 	public BlockFlowerPot() {
 

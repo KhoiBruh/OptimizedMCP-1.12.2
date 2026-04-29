@@ -31,7 +31,7 @@ public class ItemEgg extends Item {
 
 		if (!worldIn.isRemote) {
 			EntityEgg entityegg = new EntityEgg(worldIn, playerIn);
-			entityegg.shoot(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, 1.5F, 1.0F);
+			entityegg.shoot(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0F, 1.5F, 1F);
 			worldIn.spawnEntity(entityegg);
 		}
 

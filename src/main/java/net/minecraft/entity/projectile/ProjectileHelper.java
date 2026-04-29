@@ -30,8 +30,8 @@ public final class ProjectileHelper {
 			}
 
 			Entity entity = null;
-			List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(projectile, projectile.getEntityBoundingBox().expand(d3, d4, d5).grow(1.0D));
-			double d6 = 0.0D;
+			List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(projectile, projectile.getEntityBoundingBox().expand(d3, d4, d5).grow(1D));
+			double d6 = 0D;
 
 			for (Entity entity1 : list) {
 				if (entity1.canBeCollidedWith() && (ignoreExcludedEntity || !entity1.isEntityEqual(excludedEntity)) && !entity1.noClip) {
@@ -41,7 +41,7 @@ public final class ProjectileHelper {
 					if (raytraceresult1 != null) {
 						double d7 = vec3d.squareDistanceTo(raytraceresult1.hitVec);
 
-						if (d7 < d6 || d6 == 0.0D) {
+						if (d7 < d6 || d6 == 0D) {
 							entity = entity1;
 							d6 = d7;
 						}
@@ -63,21 +63,21 @@ public final class ProjectileHelper {
 		double d1 = projectile.motionY;
 		double d2 = projectile.motionZ;
 		float f = MathHelper.sqrt(d0 * d0 + d2 * d2);
-		projectile.rotationYaw = (float) (MathHelper.atan2(d2, d0) * (180D / Math.PI)) + 90.0F;
+		projectile.rotationYaw = (float) (MathHelper.atan2(d2, d0) * (180D / Math.PI)) + 90F;
 
-		for (projectile.rotationPitch = (float) (MathHelper.atan2(f, d1) * (180D / Math.PI)) - 90.0F; projectile.rotationPitch - projectile.prevRotationPitch < -180.0F; projectile.prevRotationPitch -= 360.0F) {
+		for (projectile.rotationPitch = (float) (MathHelper.atan2(f, d1) * (180D / Math.PI)) - 90F; projectile.rotationPitch - projectile.prevRotationPitch < -180F; projectile.prevRotationPitch -= 360F) {
 		}
 
-		while (projectile.rotationPitch - projectile.prevRotationPitch >= 180.0F) {
-			projectile.prevRotationPitch += 360.0F;
+		while (projectile.rotationPitch - projectile.prevRotationPitch >= 180F) {
+			projectile.prevRotationPitch += 360F;
 		}
 
-		while (projectile.rotationYaw - projectile.prevRotationYaw < -180.0F) {
-			projectile.prevRotationYaw -= 360.0F;
+		while (projectile.rotationYaw - projectile.prevRotationYaw < -180F) {
+			projectile.prevRotationYaw -= 360F;
 		}
 
-		while (projectile.rotationYaw - projectile.prevRotationYaw >= 180.0F) {
-			projectile.prevRotationYaw += 360.0F;
+		while (projectile.rotationYaw - projectile.prevRotationYaw >= 180F) {
+			projectile.prevRotationYaw += 360F;
 		}
 
 		projectile.rotationPitch = projectile.prevRotationPitch + (projectile.rotationPitch - projectile.prevRotationPitch) * rotationSpeed;

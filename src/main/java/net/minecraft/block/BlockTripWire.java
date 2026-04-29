@@ -31,8 +31,8 @@ public class BlockTripWire extends Block {
 	public static final PropertyBool EAST = PropertyBool.create("east");
 	public static final PropertyBool SOUTH = PropertyBool.create("south");
 	public static final PropertyBool WEST = PropertyBool.create("west");
-	protected static final AxisAlignedBB AABB = new AxisAlignedBB(0.0D, 0.0625D, 0.0D, 1.0D, 0.15625D, 1.0D);
-	protected static final AxisAlignedBB TRIP_WRITE_ATTACHED_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.5D, 1.0D);
+	protected static final AxisAlignedBB AABB = new AxisAlignedBB(0D, 0.0625D, 0D, 1D, 0.15625D, 1D);
+	protected static final AxisAlignedBB TRIP_WRITE_ATTACHED_AABB = new AxisAlignedBB(0D, 0D, 0D, 1D, 0.5D, 1D);
 
 	public BlockTripWire() {
 

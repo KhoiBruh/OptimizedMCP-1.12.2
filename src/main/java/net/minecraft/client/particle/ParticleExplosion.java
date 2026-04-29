@@ -7,15 +7,15 @@ public class ParticleExplosion extends Particle {
 	protected ParticleExplosion(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn) {
 
 		super(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
-		motionX = xSpeedIn + (Math.random() * 2.0D - 1.0D) * 0.05000000074505806D;
-		motionY = ySpeedIn + (Math.random() * 2.0D - 1.0D) * 0.05000000074505806D;
-		motionZ = zSpeedIn + (Math.random() * 2.0D - 1.0D) * 0.05000000074505806D;
+		motionX = xSpeedIn + (Math.random() * 2D - 1D) * 0.05000000074505806D;
+		motionY = ySpeedIn + (Math.random() * 2D - 1D) * 0.05000000074505806D;
+		motionZ = zSpeedIn + (Math.random() * 2D - 1D) * 0.05000000074505806D;
 		float f = rand.nextFloat() * 0.3F + 0.7F;
 		particleRed = f;
 		particleGreen = f;
 		particleBlue = f;
-		particleScale = rand.nextFloat() * rand.nextFloat() * 6.0F + 1.0F;
-		particleMaxAge = (int) (16.0D / ((double) rand.nextFloat() * 0.8D + 0.2D)) + 2;
+		particleScale = rand.nextFloat() * rand.nextFloat() * 6F + 1F;
+		particleMaxAge = (int) (16D / ((double) rand.nextFloat() * 0.8D + 0.2D)) + 2;
 	}
 
 	public void onUpdate() {

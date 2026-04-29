@@ -18,7 +18,7 @@ import java.util.Random;
 
 public class BlockDragonEgg extends Block {
 
-	protected static final AxisAlignedBB DRAGON_EGG_AABB = new AxisAlignedBB(0.0625D, 0.0D, 0.0625D, 0.9375D, 1.0D, 0.9375D);
+	protected static final AxisAlignedBB DRAGON_EGG_AABB = new AxisAlignedBB(0.0625D, 0D, 0.0625D, 0.9375D, 1D, 0.9375D);
 
 	public BlockDragonEgg() {
 

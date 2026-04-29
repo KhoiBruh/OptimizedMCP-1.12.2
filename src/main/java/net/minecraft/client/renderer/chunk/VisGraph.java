@@ -12,9 +12,9 @@ import java.util.Set;
 
 public class VisGraph {
 
-	private static final int DX = (int) Math.pow(16.0D, 0.0D);
-	private static final int DZ = (int) Math.pow(16.0D, 1.0D);
-	private static final int DY = (int) Math.pow(16.0D, 2.0D);
+	private static final int DX = (int) Math.pow(16D, 0D);
+	private static final int DZ = (int) Math.pow(16D, 1D);
+	private static final int DY = (int) Math.pow(16D, 2D);
 	private static final int[] INDEX_OF_EDGES = new int[1352];
 
 	static {

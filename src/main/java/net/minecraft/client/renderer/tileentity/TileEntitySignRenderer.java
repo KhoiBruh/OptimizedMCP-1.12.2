@@ -29,28 +29,28 @@ public class TileEntitySignRenderer extends TileEntitySpecialRenderer<TileEntity
 
 		if (block == Blocks.STANDING_SIGN) {
 			GlStateManager.translate((float) x + 0.5F, (float) y + 0.5F, (float) z + 0.5F);
-			float f1 = (float) (te.getBlockMetadata() * 360) / 16.0F;
-			GlStateManager.rotate(-f1, 0.0F, 1.0F, 0.0F);
+			float f1 = (float) (te.getBlockMetadata() * 360) / 16F;
+			GlStateManager.rotate(-f1, 0F, 1F, 0F);
 			model.signStick.showModel = true;
 		} else {
 			int k = te.getBlockMetadata();
-			float f2 = 0.0F;
+			float f2 = 0F;
 
 			if (k == 2) {
-				f2 = 180.0F;
+				f2 = 180F;
 			}
 
 			if (k == 4) {
-				f2 = 90.0F;
+				f2 = 90F;
 			}
 
 			if (k == 5) {
-				f2 = -90.0F;
+				f2 = -90F;
 			}
 
 			GlStateManager.translate((float) x + 0.5F, (float) y + 0.5F, (float) z + 0.5F);
-			GlStateManager.rotate(-f2, 0.0F, 1.0F, 0.0F);
-			GlStateManager.translate(0.0F, -0.3125F, -0.4375F);
+			GlStateManager.rotate(-f2, 0F, 1F, 0F);
+			GlStateManager.translate(0F, -0.3125F, -0.4375F);
 			model.signStick.showModel = false;
 		}
 
@@ -58,7 +58,7 @@ public class TileEntitySignRenderer extends TileEntitySpecialRenderer<TileEntity
 			bindTexture(DESTROY_STAGES[destroyStage]);
 			GlStateManager.matrixMode(5890);
 			GlStateManager.pushMatrix();
-			GlStateManager.scale(4.0F, 2.0F, 1.0F);
+			GlStateManager.scale(4F, 2F, 1F);
 			GlStateManager.translate(0.0625F, 0.0625F, 0.0625F);
 			GlStateManager.matrixMode(5888);
 		} else {
@@ -72,9 +72,9 @@ public class TileEntitySignRenderer extends TileEntitySpecialRenderer<TileEntity
 		GlStateManager.popMatrix();
 		FontRenderer fontrenderer = getFontRenderer();
 		float f3 = 0.010416667F;
-		GlStateManager.translate(0.0F, 0.33333334F, 0.046666667F);
+		GlStateManager.translate(0F, 0.33333334F, 0.046666667F);
 		GlStateManager.scale(0.010416667F, -0.010416667F, 0.010416667F);
-		GlStateManager.glNormal3f(0.0F, 0.0F, -0.010416667F);
+		GlStateManager.glNormal3f(0F, 0F, -0.010416667F);
 		GlStateManager.depthMask(false);
 		int i = 0;
 
@@ -96,7 +96,7 @@ public class TileEntitySignRenderer extends TileEntitySpecialRenderer<TileEntity
 		}
 
 		GlStateManager.depthMask(true);
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+		GlStateManager.color(1F, 1F, 1F, 1F);
 		GlStateManager.popMatrix();
 
 		if (destroyStage >= 0) {

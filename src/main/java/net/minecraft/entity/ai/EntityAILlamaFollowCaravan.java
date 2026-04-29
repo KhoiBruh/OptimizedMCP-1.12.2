@@ -24,7 +24,7 @@ public class EntityAILlamaFollowCaravan extends EntityAIBase {
 	public boolean shouldExecute() {
 
 		if (!llama.getLeashed() && !llama.inCaravan()) {
-			List<EntityLlama> list = llama.world.getEntitiesWithinAABB(llama.getClass(), llama.getEntityBoundingBox().grow(9.0D, 4.0D, 9.0D));
+			List<EntityLlama> list = llama.world.getEntitiesWithinAABB(llama.getClass(), llama.getEntityBoundingBox().grow(9D, 4D, 9D));
 			EntityLlama entityllama = null;
 			double d0 = Double.MAX_VALUE;
 
@@ -54,7 +54,7 @@ public class EntityAILlamaFollowCaravan extends EntityAIBase {
 
 			if (entityllama == null) {
 				return false;
-			} else if (d0 < 4.0D) {
+			} else if (d0 < 4D) {
 				return false;
 			} else if (!entityllama.getLeashed() && !firstIsLeashed(entityllama, 1)) {
 				return false;
@@ -75,8 +75,8 @@ public class EntityAILlamaFollowCaravan extends EntityAIBase {
 		if (llama.inCaravan() && llama.getCaravanHead().isEntityAlive() && firstIsLeashed(llama, 0)) {
 			double d0 = llama.getDistanceSq(llama.getCaravanHead());
 
-			if (d0 > 676.0D) {
-				if (speedModifier <= 3.0D) {
+			if (d0 > 676D) {
+				if (speedModifier <= 3D) {
 					speedModifier *= 1.2D;
 					distCheckCounter = 40;
 					return true;
@@ -114,8 +114,8 @@ public class EntityAILlamaFollowCaravan extends EntityAIBase {
 		if (llama.inCaravan()) {
 			EntityLlama entityllama = llama.getCaravanHead();
 			double d0 = llama.getDistance(entityllama);
-			float f = 2.0F;
-			Vec3d vec3d = (new Vec3d(entityllama.posX - llama.posX, entityllama.posY - llama.posY, entityllama.posZ - llama.posZ)).normalize().scale(Math.max(d0 - 2.0D, 0.0D));
+			float f = 2F;
+			Vec3d vec3d = (new Vec3d(entityllama.posX - llama.posX, entityllama.posY - llama.posY, entityllama.posZ - llama.posZ)).normalize().scale(Math.max(d0 - 2D, 0D));
 			llama.getNavigator().tryMoveToXYZ(llama.posX + vec3d.x(), llama.posY + vec3d.y(), llama.posZ + vec3d.z(), speedModifier);
 		}
 	}

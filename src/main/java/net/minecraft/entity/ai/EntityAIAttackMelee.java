@@ -115,19 +115,19 @@ public class EntityAIAttackMelee extends EntityAIBase {
 	public void updateTask() {
 
 		EntityLivingBase entitylivingbase = attacker.getAttackTarget();
-		attacker.getLookHelper().setLookPositionWithEntity(entitylivingbase, 30.0F, 30.0F);
+		attacker.getLookHelper().setLookPositionWithEntity(entitylivingbase, 30F, 30F);
 		double d0 = attacker.getDistanceSq(entitylivingbase.posX, entitylivingbase.getEntityBoundingBox().minY, entitylivingbase.posZ);
 		--delayCounter;
 
-		if ((longMemory || attacker.getEntitySenses().canSee(entitylivingbase)) && delayCounter <= 0 && (targetX == 0.0D && targetY == 0.0D && targetZ == 0.0D || entitylivingbase.getDistanceSq(targetX, targetY, targetZ) >= 1.0D || attacker.getRNG().nextFloat() < 0.05F)) {
+		if ((longMemory || attacker.getEntitySenses().canSee(entitylivingbase)) && delayCounter <= 0 && (targetX == 0D && targetY == 0D && targetZ == 0D || entitylivingbase.getDistanceSq(targetX, targetY, targetZ) >= 1D || attacker.getRNG().nextFloat() < 0.05F)) {
 			targetX = entitylivingbase.posX;
 			targetY = entitylivingbase.getEntityBoundingBox().minY;
 			targetZ = entitylivingbase.posZ;
 			delayCounter = 4 + attacker.getRNG().nextInt(7);
 
-			if (d0 > 1024.0D) {
+			if (d0 > 1024D) {
 				delayCounter += 10;
-			} else if (d0 > 256.0D) {
+			} else if (d0 > 256D) {
 				delayCounter += 5;
 			}
 
@@ -153,7 +153,7 @@ public class EntityAIAttackMelee extends EntityAIBase {
 
 	protected double getAttackReachSqr(EntityLivingBase attackTarget) {
 
-		return attacker.width * 2.0F * attacker.width * 2.0F + attackTarget.width;
+		return attacker.width * 2F * attacker.width * 2F + attackTarget.width;
 	}
 
 }

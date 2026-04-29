@@ -150,22 +150,22 @@ public class GuiWinGame extends GuiScreen {
 		float f2 = 0.015625F;
 		float f3 = time * 0.02F;
 		float f4 = (float) (totalScrollLength + height + height + 24) / scrollSpeed;
-		float f5 = (f4 - 20.0F - time) * 0.005F;
+		float f5 = (f4 - 20F - time) * 0.005F;
 
 		if (f5 < f3) {
 			f3 = f5;
 		}
 
-		if (f3 > 1.0F) {
-			f3 = 1.0F;
+		if (f3 > 1F) {
+			f3 = 1F;
 		}
 
 		f3 = f3 * f3;
-		f3 = f3 * 96.0F / 255.0F;
-		bufferbuilder.pos(0.0D, height, zLevel).tex(0.0D, f * 0.015625F).color(f3, f3, f3, 1.0F).endVertex();
-		bufferbuilder.pos(i, height, zLevel).tex((float) i * 0.015625F, f * 0.015625F).color(f3, f3, f3, 1.0F).endVertex();
-		bufferbuilder.pos(i, 0.0D, zLevel).tex((float) i * 0.015625F, f1 * 0.015625F).color(f3, f3, f3, 1.0F).endVertex();
-		bufferbuilder.pos(0.0D, 0.0D, zLevel).tex(0.0D, f1 * 0.015625F).color(f3, f3, f3, 1.0F).endVertex();
+		f3 = f3 * 96F / 255F;
+		bufferbuilder.pos(0D, height, zLevel).tex(0D, f * 0.015625F).color(f3, f3, f3, 1F).endVertex();
+		bufferbuilder.pos(i, height, zLevel).tex((float) i * 0.015625F, f * 0.015625F).color(f3, f3, f3, 1F).endVertex();
+		bufferbuilder.pos(i, 0D, zLevel).tex((float) i * 0.015625F, f1 * 0.015625F).color(f3, f3, f3, 1F).endVertex();
+		bufferbuilder.pos(0D, 0D, zLevel).tex(0D, f1 * 0.015625F).color(f3, f3, f3, 1F).endVertex();
 		tessellator.draw();
 	}
 
@@ -183,14 +183,14 @@ public class GuiWinGame extends GuiScreen {
 		time += partialTicks;
 		float f = -time * scrollSpeed;
 		GlStateManager.pushMatrix();
-		GlStateManager.translate(0.0F, f, 0.0F);
+		GlStateManager.translate(0F, f, 0F);
 		mc.getTextureManager().bindTexture(MINECRAFT_LOGO);
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+		GlStateManager.color(1F, 1F, 1F, 1F);
 		GlStateManager.enableAlpha();
 		drawTexturedModalRect(j, k, 0, 0, 155, 44);
 		drawTexturedModalRect(j + 155, k, 0, 45, 155, 44);
 		mc.getTextureManager().bindTexture(field_194401_g);
-		drawModalRectWithCustomSizedTexture(j + 88, k + 37, 0.0F, 0.0F, 98, 14, 128.0F, 16.0F);
+		drawModalRectWithCustomSizedTexture(j + 88, k + 37, 0F, 0F, 98, 14, 128F, 16F);
 		GlStateManager.disableAlpha();
 		int l = k + 100;
 
@@ -198,18 +198,18 @@ public class GuiWinGame extends GuiScreen {
 			if (i1 == lines.size() - 1) {
 				float f1 = (float) l + f - (float) (height / 2 - 6);
 
-				if (f1 < 0.0F) {
-					GlStateManager.translate(0.0F, -f1, 0.0F);
+				if (f1 < 0F) {
+					GlStateManager.translate(0F, -f1, 0F);
 				}
 			}
 
-			if ((float) l + f + 12.0F + 8.0F > 0.0F && (float) l + f < (float) height) {
+			if ((float) l + f + 12F + 8F > 0F && (float) l + f < (float) height) {
 				String s = lines.get(i1);
 
 				if (s.startsWith("[C]")) {
 					fontRenderer.drawStringWithShadow(s.substring(3), (float) (j + (274 - fontRenderer.getStringWidth(s.substring(3))) / 2), (float) l, 16777215);
 				} else {
-					fontRenderer.fontRandom.setSeed((long) ((float) ((long) i1 * 4238972211L) + time / 4.0F));
+					fontRenderer.fontRandom.setSeed((long) ((float) ((long) i1 * 4238972211L) + time / 4F));
 					fontRenderer.drawStringWithShadow(s, (float) j, (float) l, 16777215);
 				}
 			}
@@ -224,10 +224,10 @@ public class GuiWinGame extends GuiScreen {
 		int j1 = width;
 		int k1 = height;
 		bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-		bufferbuilder.pos(0.0D, k1, zLevel).tex(0.0D, 1.0D).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
-		bufferbuilder.pos(j1, k1, zLevel).tex(1.0D, 1.0D).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
-		bufferbuilder.pos(j1, 0.0D, zLevel).tex(1.0D, 0.0D).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
-		bufferbuilder.pos(0.0D, 0.0D, zLevel).tex(0.0D, 0.0D).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
+		bufferbuilder.pos(0D, k1, zLevel).tex(0D, 1D).color(1F, 1F, 1F, 1F).endVertex();
+		bufferbuilder.pos(j1, k1, zLevel).tex(1D, 1D).color(1F, 1F, 1F, 1F).endVertex();
+		bufferbuilder.pos(j1, 0D, zLevel).tex(1D, 0D).color(1F, 1F, 1F, 1F).endVertex();
+		bufferbuilder.pos(0D, 0D, zLevel).tex(0D, 0D).color(1F, 1F, 1F, 1F).endVertex();
 		tessellator.draw();
 		GlStateManager.disableBlend();
 		super.drawScreen(mouseX, mouseY, partialTicks);

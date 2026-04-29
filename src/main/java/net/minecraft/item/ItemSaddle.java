@@ -25,7 +25,7 @@ public class ItemSaddle extends Item {
 
 			if (!entitypig.getSaddled() && !entitypig.isChild()) {
 				entitypig.setSaddled(true);
-				entitypig.world.playSound(playerIn, entitypig.posX, entitypig.posY, entitypig.posZ, SoundEvents.ENTITY_PIG_SADDLE, SoundCategory.NEUTRAL, 0.5F, 1.0F);
+				entitypig.world.playSound(playerIn, entitypig.posX, entitypig.posY, entitypig.posZ, SoundEvents.ENTITY_PIG_SADDLE, SoundCategory.NEUTRAL, 0.5F, 1F);
 				stack.shrink(1);
 			}
 

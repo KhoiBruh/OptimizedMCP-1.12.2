@@ -115,8 +115,8 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 
 	private static boolean isMovePlayerPacketInvalid(CPacketPlayer packetIn) {
 
-		if (Doubles.isFinite(packetIn.getX(0.0D)) && Doubles.isFinite(packetIn.getY(0.0D)) && Doubles.isFinite(packetIn.getZ(0.0D)) && Floats.isFinite(packetIn.getPitch(0.0F)) && Floats.isFinite(packetIn.getYaw(0.0F))) {
-			return Math.abs(packetIn.getX(0.0D)) > 3.0E7D || Math.abs(packetIn.getY(0.0D)) > 3.0E7D || Math.abs(packetIn.getZ(0.0D)) > 3.0E7D;
+		if (Doubles.isFinite(packetIn.getX(0D)) && Doubles.isFinite(packetIn.getY(0D)) && Doubles.isFinite(packetIn.getZ(0D)) && Floats.isFinite(packetIn.getPitch(0F)) && Floats.isFinite(packetIn.getYaw(0F))) {
+			return Math.abs(packetIn.getX(0D)) > 3.0E7D || Math.abs(packetIn.getY(0D)) > 3.0E7D || Math.abs(packetIn.getZ(0D)) > 3.0E7D;
 		} else {
 			return true;
 		}
@@ -264,7 +264,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 				double d9 = entity.motionX * entity.motionX + entity.motionY * entity.motionY + entity.motionZ * entity.motionZ;
 				double d10 = d6 * d6 + d7 * d7 + d8 * d8;
 
-				if (d10 - d9 > 100.0D && (!serverController.isSinglePlayer() || !serverController.getServerOwner().equals(entity.getName()))) {
+				if (d10 - d9 > 100D && (!serverController.isSinglePlayer() || !serverController.getServerOwner().equals(entity.getName()))) {
 					LOGGER.warn("{} (vehicle of {}) moved too quickly! {},{},{}", entity.getName(), player.getName(), d6, d7, d8);
 					netManager.sendPacket(new SPacketMoveVehicle(entity));
 					return;
@@ -280,7 +280,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 				d7 = d4 - entity.posY;
 
 				if (d7 > -0.5D || d7 < 0.5D) {
-					d7 = 0.0D;
+					d7 = 0D;
 				}
 
 				d8 = d5 - entity.posZ;
@@ -303,7 +303,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 
 				serverController.getPlayerList().serverUpdateMovingPlayer(player);
 				player.addMovementStat(player.posX - d0, player.posY - d1, player.posZ - d2);
-				vehicleFloating = d11 >= -0.03125D && !serverController.isFlightAllowed() && !worldserver.checkBlockCollision(entity.getEntityBoundingBox().grow(0.0625D).expand(0.0D, -0.55D, 0.0D));
+				vehicleFloating = d11 >= -0.03125D && !serverController.isFlightAllowed() && !worldserver.checkBlockCollision(entity.getEntityBoundingBox().grow(0.0625D).expand(0D, -0.55D, 0D));
 				lowestRiddenX1 = entity.posX;
 				lowestRiddenY1 = entity.posY;
 				lowestRiddenZ1 = entity.posZ;
@@ -400,7 +400,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 						double d11 = d7 * d7 + d8 * d8 + d9 * d9;
 
 						if (player.isPlayerSleeping()) {
-							if (d11 > 1.0D) {
+							if (d11 > 1D) {
 								setPlayerLocation(player.posX, player.posY, player.posZ, packetIn.getYaw(player.rotationYaw), packetIn.getPitch(player.rotationPitch));
 							}
 						} else {
@@ -413,7 +413,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 							}
 
 							if (!player.isInvulnerableDimensionChange() && (!player.getServerWorld().getGameRules().getBoolean("disableElytraMovementCheck") || !player.isElytraFlying())) {
-								float f2 = player.isElytraFlying() ? 300.0F : 100.0F;
+								float f2 = player.isElytraFlying() ? 300F : 100F;
 
 								if (d11 - d10 > (double) (f2 * (float) i) && (!serverController.isSinglePlayer() || !serverController.getServerOwner().equals(player.getName()))) {
 									LOGGER.warn("{} moved too quickly! {},{},{}", player.getName(), d7, d8, d9);
@@ -427,7 +427,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 							d8 = d5 - lastGoodY;
 							d9 = d6 - lastGoodZ;
 
-							if (player.onGround && !packetIn.isOnGround() && d8 > 0.0D) {
+							if (player.onGround && !packetIn.isOnGround() && d8 > 0D) {
 								player.jump();
 							}
 
@@ -438,7 +438,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 							d8 = d5 - player.posY;
 
 							if (d8 > -0.5D || d8 < 0.5D) {
-								d8 = 0.0D;
+								d8 = 0D;
 							}
 
 							d9 = d6 - player.posZ;
@@ -464,7 +464,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 
 							floating = d12 >= -0.03125D;
 							floating &= !serverController.isFlightAllowed() && !player.capabilities.allowFlying;
-							floating &= !player.isPotionActive(MobEffects.LEVITATION) && !player.isElytraFlying() && !worldserver.checkBlockCollision(player.getEntityBoundingBox().grow(0.0625D).expand(0.0D, -0.55D, 0.0D));
+							floating &= !player.isPotionActive(MobEffects.LEVITATION) && !player.isElytraFlying() && !worldserver.checkBlockCollision(player.getEntityBoundingBox().grow(0.0625D).expand(0D, -0.55D, 0D));
 							player.onGround = packetIn.isOnGround();
 							serverController.getPlayerList().serverUpdateMovingPlayer(player);
 							player.handleFalling(player.posY - d3, packetIn.isOnGround());
@@ -488,9 +488,9 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 	 */
 	public void setPlayerLocation(double x, double y, double z, float yaw, float pitch, Set<SPacketPlayerPosLook.EnumFlags> relativeSet) {
 
-		double d0 = relativeSet.contains(SPacketPlayerPosLook.EnumFlags.X) ? player.posX : 0.0D;
-		double d1 = relativeSet.contains(SPacketPlayerPosLook.EnumFlags.Y) ? player.posY : 0.0D;
-		double d2 = relativeSet.contains(SPacketPlayerPosLook.EnumFlags.Z) ? player.posZ : 0.0D;
+		double d0 = relativeSet.contains(SPacketPlayerPosLook.EnumFlags.X) ? player.posX : 0D;
+		double d1 = relativeSet.contains(SPacketPlayerPosLook.EnumFlags.Y) ? player.posY : 0D;
+		double d2 = relativeSet.contains(SPacketPlayerPosLook.EnumFlags.Z) ? player.posZ : 0D;
 		targetPos = new Vec3d(x + d0, y + d1, z + d2);
 		float f = yaw;
 		float f1 = pitch;
@@ -558,7 +558,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 				double d2 = player.posZ - ((double) blockpos.getZ() + 0.5D);
 				double d3 = d0 * d0 + d1 * d1 + d2 * d2;
 
-				if (d3 > 36.0D) {
+				if (d3 > 36D) {
 					return;
 				} else if (blockpos.getY() >= serverController.getBuildLimit()) {
 					return;
@@ -600,7 +600,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 		player.markPlayerActive();
 
 		if (blockpos.getY() < serverController.getBuildLimit() - 1 || enumfacing != EnumFacing.UP && blockpos.getY() < serverController.getBuildLimit()) {
-			if (targetPos == null && player.getDistanceSq((double) blockpos.getX() + 0.5D, (double) blockpos.getY() + 0.5D, (double) blockpos.getZ() + 0.5D) < 64.0D && !serverController.isBlockProtected(worldserver, blockpos, player) && worldserver.getWorldBorder().contains(blockpos)) {
+			if (targetPos == null && player.getDistanceSq((double) blockpos.getX() + 0.5D, (double) blockpos.getY() + 0.5D, (double) blockpos.getZ() + 0.5D) < 64D && !serverController.isBlockProtected(worldserver, blockpos, player) && worldserver.getWorldBorder().contains(blockpos)) {
 				player.interactionManager.processRightClickBlock(player, worldserver, itemstack, enumhand, blockpos, enumfacing, packetIn.getFacingX(), packetIn.getFacingY(), packetIn.getFacingZ());
 			}
 		} else {
@@ -864,7 +864,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 				break;
 
 			case START_FALL_FLYING:
-				if (!player.onGround && player.motionY < 0.0D && !player.isElytraFlying() && !player.isInWater()) {
+				if (!player.onGround && player.motionY < 0D && !player.isElytraFlying() && !player.isInWater()) {
 					ItemStack itemstack = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
 
 					if (itemstack.getItem() == Items.ELYTRA && ItemElytra.isUsable(itemstack)) {
@@ -893,10 +893,10 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 
 		if (entity != null) {
 			boolean flag = player.canEntityBeSeen(entity);
-			double d0 = 36.0D;
+			double d0 = 36D;
 
 			if (!flag) {
-				d0 = 9.0D;
+				d0 = 9D;
 			}
 
 			if (player.getDistanceSq(entity) < d0) {
@@ -936,7 +936,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 					player = serverController.getPlayerList().recreatePlayerEntity(player, 0, true);
 					CriteriaTriggers.CHANGED_DIMENSION.trigger(player, DimensionType.THE_END, DimensionType.OVERWORLD);
 				} else {
-					if (player.getHealth() > 0.0F) {
+					if (player.getHealth() > 0F) {
 						return;
 					}
 
@@ -1447,7 +1447,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 					tileentitystructure.setIgnoresEntities(packetbuffer5.readBoolean());
 					tileentitystructure.setShowAir(packetbuffer5.readBoolean());
 					tileentitystructure.setShowBoundingBox(packetbuffer5.readBoolean());
-					tileentitystructure.setIntegrity(MathHelper.clamp(packetbuffer5.readFloat(), 0.0F, 1.0F));
+					tileentitystructure.setIntegrity(MathHelper.clamp(packetbuffer5.readFloat(), 0F, 1F));
 					tileentitystructure.setSeed(packetbuffer5.readVarLong());
 					String s4 = tileentitystructure.getName();
 

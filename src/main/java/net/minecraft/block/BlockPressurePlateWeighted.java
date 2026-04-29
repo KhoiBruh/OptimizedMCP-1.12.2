@@ -35,7 +35,7 @@ public class BlockPressurePlateWeighted extends BlockBasePressurePlate {
 
 		if (i > 0) {
 			float f = (float) Math.min(maxWeight, i) / (float) maxWeight;
-			return MathHelper.ceil(f * 15.0F);
+			return MathHelper.ceil(f * 15F);
 		} else {
 			return 0;
 		}

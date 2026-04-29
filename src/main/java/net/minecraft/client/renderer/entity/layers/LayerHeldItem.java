@@ -29,7 +29,7 @@ public class LayerHeldItem implements LayerRenderer<EntityLivingBase> {
 
 			if (livingEntityRenderer.getMainModel().isChild) {
 				float f = 0.5F;
-				GlStateManager.translate(0.0F, 0.75F, 0.0F);
+				GlStateManager.translate(0F, 0.75F, 0F);
 				GlStateManager.scale(0.5F, 0.5F, 0.5F);
 			}
 
@@ -46,13 +46,13 @@ public class LayerHeldItem implements LayerRenderer<EntityLivingBase> {
 			translateToHand(handSide);
 
 			if (p_188358_1_.isSneaking()) {
-				GlStateManager.translate(0.0F, 0.2F, 0.0F);
+				GlStateManager.translate(0F, 0.2F, 0F);
 			}
 
-			GlStateManager.rotate(-90.0F, 1.0F, 0.0F, 0.0F);
-			GlStateManager.rotate(180.0F, 0.0F, 1.0F, 0.0F);
+			GlStateManager.rotate(-90F, 1F, 0F, 0F);
+			GlStateManager.rotate(180F, 0F, 1F, 0F);
 			boolean flag = handSide == EnumHandSide.LEFT;
-			GlStateManager.translate((float) (flag ? -1 : 1) / 16.0F, 0.125F, -0.625F);
+			GlStateManager.translate((float) (flag ? -1 : 1) / 16F, 0.125F, -0.625F);
 			Minecraft.getMinecraft().getItemRenderer().renderItemSide(p_188358_1_, p_188358_2_, p_188358_3_, flag);
 			GlStateManager.popMatrix();
 		}

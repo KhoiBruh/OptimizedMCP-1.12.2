@@ -7,20 +7,20 @@ package net.minecraft.util.math;
  */
 public record Vec3d(double x, double y, double z) {
 
-	public static final Vec3d ZERO = new Vec3d(0.0D, 0.0D, 0.0D);
+	public static final Vec3d ZERO = new Vec3d(0D, 0D, 0D);
 
 	public Vec3d {
 
-		if (x == -0.0D) {
-			x = 0.0D;
+		if (x == -0D) {
+			x = 0D;
 		}
 
-		if (y == -0.0D) {
-			y = 0.0D;
+		if (y == -0D) {
+			y = 0D;
 		}
 
-		if (z == -0.0D) {
-			z = 0.0D;
+		if (z == -0D) {
+			z = 0D;
 		}
 
 	}
@@ -168,7 +168,7 @@ public record Vec3d(double x, double y, double z) {
 			return null;
 		} else {
 			double d3 = (x - this.x) / d0;
-			return d3 >= 0.0D && d3 <= 1.0D ? new Vec3d(this.x + d0 * d3, y + d1 * d3, z + d2 * d3) : null;
+			return d3 >= 0D && d3 <= 1D ? new Vec3d(this.x + d0 * d3, y + d1 * d3, z + d2 * d3) : null;
 		}
 	}
 
@@ -188,7 +188,7 @@ public record Vec3d(double x, double y, double z) {
 			return null;
 		} else {
 			double d3 = (y - this.y) / d1;
-			return d3 >= 0.0D && d3 <= 1.0D ? new Vec3d(x + d0 * d3, this.y + d1 * d3, z + d2 * d3) : null;
+			return d3 >= 0D && d3 <= 1D ? new Vec3d(x + d0 * d3, this.y + d1 * d3, z + d2 * d3) : null;
 		}
 	}
 
@@ -208,7 +208,7 @@ public record Vec3d(double x, double y, double z) {
 			return null;
 		} else {
 			double d3 = (z - this.z) / d2;
-			return d3 >= 0.0D && d3 <= 1.0D ? new Vec3d(x + d0 * d3, y + d1 * d3, this.z + d2 * d3) : null;
+			return d3 >= 0D && d3 <= 1D ? new Vec3d(x + d0 * d3, y + d1 * d3, this.z + d2 * d3) : null;
 		}
 	}
 

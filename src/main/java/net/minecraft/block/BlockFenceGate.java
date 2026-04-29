@@ -23,12 +23,12 @@ public class BlockFenceGate extends BlockHorizontal {
 	public static final PropertyBool OPEN = PropertyBool.create("open");
 	public static final PropertyBool POWERED = PropertyBool.create("powered");
 	public static final PropertyBool IN_WALL = PropertyBool.create("in_wall");
-	protected static final AxisAlignedBB AABB_HITBOX_ZAXIS = new AxisAlignedBB(0.0D, 0.0D, 0.375D, 1.0D, 1.0D, 0.625D);
-	protected static final AxisAlignedBB AABB_HITBOX_XAXIS = new AxisAlignedBB(0.375D, 0.0D, 0.0D, 0.625D, 1.0D, 1.0D);
-	protected static final AxisAlignedBB AABB_HITBOX_ZAXIS_INWALL = new AxisAlignedBB(0.0D, 0.0D, 0.375D, 1.0D, 0.8125D, 0.625D);
-	protected static final AxisAlignedBB AABB_HITBOX_XAXIS_INWALL = new AxisAlignedBB(0.375D, 0.0D, 0.0D, 0.625D, 0.8125D, 1.0D);
-	protected static final AxisAlignedBB AABB_COLLISION_BOX_ZAXIS = new AxisAlignedBB(0.0D, 0.0D, 0.375D, 1.0D, 1.5D, 0.625D);
-	protected static final AxisAlignedBB AABB_COLLISION_BOX_XAXIS = new AxisAlignedBB(0.375D, 0.0D, 0.0D, 0.625D, 1.5D, 1.0D);
+	protected static final AxisAlignedBB AABB_HITBOX_ZAXIS = new AxisAlignedBB(0D, 0D, 0.375D, 1D, 1D, 0.625D);
+	protected static final AxisAlignedBB AABB_HITBOX_XAXIS = new AxisAlignedBB(0.375D, 0D, 0D, 0.625D, 1D, 1D);
+	protected static final AxisAlignedBB AABB_HITBOX_ZAXIS_INWALL = new AxisAlignedBB(0D, 0D, 0.375D, 1D, 0.8125D, 0.625D);
+	protected static final AxisAlignedBB AABB_HITBOX_XAXIS_INWALL = new AxisAlignedBB(0.375D, 0D, 0D, 0.625D, 0.8125D, 1D);
+	protected static final AxisAlignedBB AABB_COLLISION_BOX_ZAXIS = new AxisAlignedBB(0D, 0D, 0.375D, 1D, 1.5D, 0.625D);
+	protected static final AxisAlignedBB AABB_COLLISION_BOX_XAXIS = new AxisAlignedBB(0.375D, 0D, 0D, 0.625D, 1.5D, 1D);
 
 	public BlockFenceGate(BlockPlanks.EnumType p_i46394_1_) {
 

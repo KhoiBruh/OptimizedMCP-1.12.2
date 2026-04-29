@@ -50,7 +50,7 @@ public class GuiBrewingStand extends GuiContainer {
 	 */
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
 
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+		GlStateManager.color(1F, 1F, 1F, 1F);
 		mc.getTextureManager().bindTexture(BREWING_STAND_GUI_TEXTURES);
 		int i = (width - xSize) / 2;
 		int j = (height - ySize) / 2;
@@ -65,7 +65,7 @@ public class GuiBrewingStand extends GuiContainer {
 		int i1 = tileBrewingStand.getField(0);
 
 		if (i1 > 0) {
-			int j1 = (int) (28.0F * (1.0F - (float) i1 / 400.0F));
+			int j1 = (int) (28F * (1F - (float) i1 / 400F));
 
 			if (j1 > 0) {
 				drawTexturedModalRect(i + 97, j + 16, 176, 0, 9, j1);

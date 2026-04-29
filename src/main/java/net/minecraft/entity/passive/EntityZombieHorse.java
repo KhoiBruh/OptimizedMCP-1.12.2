@@ -29,7 +29,7 @@ public class EntityZombieHorse extends AbstractHorse {
 	protected void applyEntityAttributes() {
 
 		super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(15.0D);
+		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(15D);
 		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.20000000298023224D);
 		getEntityAttribute(JUMP_STRENGTH).setBaseValue(getModifiedJumpStrength());
 	}

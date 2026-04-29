@@ -22,7 +22,7 @@ public class TileEntityEnderChestRenderer extends TileEntitySpecialRenderer<Tile
 			bindTexture(DESTROY_STAGES[destroyStage]);
 			GlStateManager.matrixMode(5890);
 			GlStateManager.pushMatrix();
-			GlStateManager.scale(4.0F, 4.0F, 1.0F);
+			GlStateManager.scale(4F, 4F, 1F);
 			GlStateManager.translate(0.0625F, 0.0625F, 0.0625F);
 			GlStateManager.matrixMode(5888);
 		} else {
@@ -31,9 +31,9 @@ public class TileEntityEnderChestRenderer extends TileEntitySpecialRenderer<Tile
 
 		GlStateManager.pushMatrix();
 		GlStateManager.enableRescaleNormal();
-		GlStateManager.color(1.0F, 1.0F, 1.0F, alpha);
-		GlStateManager.translate((float) x, (float) y + 1.0F, (float) z + 1.0F);
-		GlStateManager.scale(1.0F, -1.0F, -1.0F);
+		GlStateManager.color(1F, 1F, 1F, alpha);
+		GlStateManager.translate((float) x, (float) y + 1F, (float) z + 1F);
+		GlStateManager.scale(1F, -1F, -1F);
 		GlStateManager.translate(0.5F, 0.5F, 0.5F);
 		int j = 0;
 
@@ -53,16 +53,16 @@ public class TileEntityEnderChestRenderer extends TileEntitySpecialRenderer<Tile
 			j = -90;
 		}
 
-		GlStateManager.rotate((float) j, 0.0F, 1.0F, 0.0F);
+		GlStateManager.rotate((float) j, 0F, 1F, 0F);
 		GlStateManager.translate(-0.5F, -0.5F, -0.5F);
 		float f = te.prevLidAngle + (te.lidAngle - te.prevLidAngle) * partialTicks;
-		f = 1.0F - f;
-		f = 1.0F - f * f * f;
+		f = 1F - f;
+		f = 1F - f * f * f;
 		modelChest.chestLid.rotateAngleX = -(f * ((float) Math.PI / 2F));
 		modelChest.renderAll();
 		GlStateManager.disableRescaleNormal();
 		GlStateManager.popMatrix();
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+		GlStateManager.color(1F, 1F, 1F, 1F);
 
 		if (destroyStage >= 0) {
 			GlStateManager.matrixMode(5890);

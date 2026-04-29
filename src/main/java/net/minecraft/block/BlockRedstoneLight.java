@@ -20,7 +20,7 @@ public class BlockRedstoneLight extends Block {
 		this.isOn = isOn;
 
 		if (isOn) {
-			setLightLevel(1.0F);
+			setLightLevel(1F);
 		}
 	}
 

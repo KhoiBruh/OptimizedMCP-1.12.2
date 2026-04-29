@@ -142,21 +142,21 @@ public class AxisAlignedBB {
 		double d4 = maxY;
 		double d5 = maxZ;
 
-		if (x < 0.0D) {
+		if (x < 0D) {
 			d0 -= x;
-		} else if (x > 0.0D) {
+		} else if (x > 0D) {
 			d3 -= x;
 		}
 
-		if (y < 0.0D) {
+		if (y < 0D) {
 			d1 -= y;
-		} else if (y > 0.0D) {
+		} else if (y > 0D) {
 			d4 -= y;
 		}
 
-		if (z < 0.0D) {
+		if (z < 0D) {
 			d2 -= z;
-		} else if (z > 0.0D) {
+		} else if (z > 0D) {
 			d5 -= z;
 		}
 
@@ -196,21 +196,21 @@ public class AxisAlignedBB {
 		double d4 = maxY;
 		double d5 = maxZ;
 
-		if (x < 0.0D) {
+		if (x < 0D) {
 			d0 += x;
-		} else if (x > 0.0D) {
+		} else if (x > 0D) {
 			d3 += x;
 		}
 
-		if (y < 0.0D) {
+		if (y < 0D) {
 			d1 += y;
-		} else if (y > 0.0D) {
+		} else if (y > 0D) {
 			d4 += y;
 		}
 
-		if (z < 0.0D) {
+		if (z < 0D) {
 			d2 += z;
-		} else if (z > 0.0D) {
+		} else if (z > 0D) {
 			d5 += z;
 		}
 
@@ -324,13 +324,13 @@ public class AxisAlignedBB {
 	public double calculateXOffset(AxisAlignedBB other, double offsetX) {
 
 		if (other.maxY > minY && other.minY < maxY && other.maxZ > minZ && other.minZ < maxZ) {
-			if (offsetX > 0.0D && other.maxX <= minX) {
+			if (offsetX > 0D && other.maxX <= minX) {
 				double d1 = minX - other.maxX;
 
 				if (d1 < offsetX) {
 					offsetX = d1;
 				}
-			} else if (offsetX < 0.0D && other.minX >= maxX) {
+			} else if (offsetX < 0D && other.minX >= maxX) {
 				double d0 = maxX - other.minX;
 
 				if (d0 > offsetX) {
@@ -352,13 +352,13 @@ public class AxisAlignedBB {
 	public double calculateYOffset(AxisAlignedBB other, double offsetY) {
 
 		if (other.maxX > minX && other.minX < maxX && other.maxZ > minZ && other.minZ < maxZ) {
-			if (offsetY > 0.0D && other.maxY <= minY) {
+			if (offsetY > 0D && other.maxY <= minY) {
 				double d1 = minY - other.maxY;
 
 				if (d1 < offsetY) {
 					offsetY = d1;
 				}
-			} else if (offsetY < 0.0D && other.minY >= maxY) {
+			} else if (offsetY < 0D && other.minY >= maxY) {
 				double d0 = maxY - other.minY;
 
 				if (d0 > offsetY) {
@@ -380,13 +380,13 @@ public class AxisAlignedBB {
 	public double calculateZOffset(AxisAlignedBB other, double offsetZ) {
 
 		if (other.maxX > minX && other.minX < maxX && other.maxY > minY && other.minY < maxY) {
-			if (offsetZ > 0.0D && other.maxZ <= minZ) {
+			if (offsetZ > 0D && other.maxZ <= minZ) {
 				double d1 = minZ - other.maxZ;
 
 				if (d1 < offsetZ) {
 					offsetZ = d1;
 				}
-			} else if (offsetZ < 0.0D && other.minZ >= maxZ) {
+			} else if (offsetZ < 0D && other.minZ >= maxZ) {
 				double d0 = maxZ - other.minZ;
 
 				if (d0 > offsetZ) {
@@ -442,7 +442,7 @@ public class AxisAlignedBB {
 		double d0 = maxX - minX;
 		double d1 = maxY - minY;
 		double d2 = maxZ - minZ;
-		return (d0 + d1 + d2) / 3.0D;
+		return (d0 + d1 + d2) / 3D;
 	}
 
 	/**

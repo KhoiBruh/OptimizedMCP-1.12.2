@@ -38,7 +38,7 @@ public class RenderBoat extends Render<EntityBoat> {
 			GlStateManager.enableOutlineMode(getTeamColor(entity));
 		}
 
-		modelBoat.render(entity, partialTicks, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
+		modelBoat.render(entity, partialTicks, 0F, -0.1F, 0F, 0F, 0.0625F);
 
 		if (renderOutlines) {
 			GlStateManager.disableOutlineMode();
@@ -51,19 +51,19 @@ public class RenderBoat extends Render<EntityBoat> {
 
 	public void setupRotation(EntityBoat p_188311_1_, float p_188311_2_, float p_188311_3_) {
 
-		GlStateManager.rotate(180.0F - p_188311_2_, 0.0F, 1.0F, 0.0F);
+		GlStateManager.rotate(180F - p_188311_2_, 0F, 1F, 0F);
 		float f = (float) p_188311_1_.getTimeSinceHit() - p_188311_3_;
 		float f1 = p_188311_1_.getDamageTaken() - p_188311_3_;
 
-		if (f1 < 0.0F) {
-			f1 = 0.0F;
+		if (f1 < 0F) {
+			f1 = 0F;
 		}
 
-		if (f > 0.0F) {
-			GlStateManager.rotate(MathHelper.sin(f) * f * f1 / 10.0F * (float) p_188311_1_.getForwardDirection(), 1.0F, 0.0F, 0.0F);
+		if (f > 0F) {
+			GlStateManager.rotate(MathHelper.sin(f) * f * f1 / 10F * (float) p_188311_1_.getForwardDirection(), 1F, 0F, 0F);
 		}
 
-		GlStateManager.scale(-1.0F, -1.0F, 1.0F);
+		GlStateManager.scale(-1F, -1F, 1F);
 	}
 
 	public void setupTranslation(double p_188309_1_, double p_188309_3_, double p_188309_5_) {
@@ -90,7 +90,7 @@ public class RenderBoat extends Render<EntityBoat> {
 		setupTranslation(p_188300_2_, p_188300_4_, p_188300_6_);
 		setupRotation(p_188300_1_, p_188300_8_, p_188300_9_);
 		bindEntityTexture(p_188300_1_);
-		((IMultipassModel) modelBoat).renderMultipass(p_188300_1_, p_188300_9_, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
+		((IMultipassModel) modelBoat).renderMultipass(p_188300_1_, p_188300_9_, 0F, -0.1F, 0F, 0F, 0.0625F);
 		GlStateManager.popMatrix();
 	}
 

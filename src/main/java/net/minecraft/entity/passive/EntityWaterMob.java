@@ -63,7 +63,7 @@ public abstract class EntityWaterMob extends EntityLiving implements IAnimals {
 
 			if (getAir() == -20) {
 				setAir(0);
-				attackEntityFrom(DamageSource.DROWN, 2.0F);
+				attackEntityFrom(DamageSource.DROWN, 2F);
 			}
 		} else {
 			setAir(300);

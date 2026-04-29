@@ -25,25 +25,25 @@ public class DifficultyInstance {
 
 	public float getClampedAdditionalDifficulty() {
 
-		if (additionalDifficulty < 2.0F) {
-			return 0.0F;
+		if (additionalDifficulty < 2F) {
+			return 0F;
 		} else {
-			return additionalDifficulty > 4.0F ? 1.0F : (additionalDifficulty - 2.0F) / 2.0F;
+			return additionalDifficulty > 4F ? 1F : (additionalDifficulty - 2F) / 2F;
 		}
 	}
 
 	private float calculateAdditionalDifficulty(EnumDifficulty difficulty, long worldTime, long chunkInhabitedTime, float moonPhaseFactor) {
 
 		if (difficulty == EnumDifficulty.PEACEFUL) {
-			return 0.0F;
+			return 0F;
 		} else {
 			boolean flag = difficulty == EnumDifficulty.HARD;
 			float f = 0.75F;
-			float f1 = MathHelper.clamp(((float) worldTime - 72000.0F) / 1440000.0F, 0.0F, 1.0F) * 0.25F;
+			float f1 = MathHelper.clamp(((float) worldTime - 72000F) / 1440000F, 0F, 1F) * 0.25F;
 			f = f + f1;
-			float f2 = 0.0F;
-			f2 = f2 + MathHelper.clamp((float) chunkInhabitedTime / 3600000.0F, 0.0F, 1.0F) * (flag ? 1.0F : 0.75F);
-			f2 = f2 + MathHelper.clamp(moonPhaseFactor * 0.25F, 0.0F, f1);
+			float f2 = 0F;
+			f2 = f2 + MathHelper.clamp((float) chunkInhabitedTime / 3600000F, 0F, 1F) * (flag ? 1F : 0.75F);
+			f2 = f2 + MathHelper.clamp(moonPhaseFactor * 0.25F, 0F, f1);
 
 			if (difficulty == EnumDifficulty.EASY) {
 				f2 *= 0.5F;

@@ -33,109 +33,109 @@ public class BlockStairs extends Block {
 	 * B: .. T: xx
 	 * B: .. T: xx
 	 */
-	protected static final AxisAlignedBB AABB_SLAB_TOP = new AxisAlignedBB(0.0D, 0.5D, 0.0D, 1.0D, 1.0D, 1.0D);
+	protected static final AxisAlignedBB AABB_SLAB_TOP = new AxisAlignedBB(0D, 0.5D, 0D, 1D, 1D, 1D);
 
 	/**
 	 * B: .. T: x.
 	 * B: .. T: x.
 	 */
-	protected static final AxisAlignedBB AABB_QTR_TOP_WEST = new AxisAlignedBB(0.0D, 0.5D, 0.0D, 0.5D, 1.0D, 1.0D);
+	protected static final AxisAlignedBB AABB_QTR_TOP_WEST = new AxisAlignedBB(0D, 0.5D, 0D, 0.5D, 1D, 1D);
 
 	/**
 	 * B: .. T: .x
 	 * B: .. T: .x
 	 */
-	protected static final AxisAlignedBB AABB_QTR_TOP_EAST = new AxisAlignedBB(0.5D, 0.5D, 0.0D, 1.0D, 1.0D, 1.0D);
+	protected static final AxisAlignedBB AABB_QTR_TOP_EAST = new AxisAlignedBB(0.5D, 0.5D, 0D, 1D, 1D, 1D);
 
 	/**
 	 * B: .. T: xx
 	 * B: .. T: ..
 	 */
-	protected static final AxisAlignedBB AABB_QTR_TOP_NORTH = new AxisAlignedBB(0.0D, 0.5D, 0.0D, 1.0D, 1.0D, 0.5D);
+	protected static final AxisAlignedBB AABB_QTR_TOP_NORTH = new AxisAlignedBB(0D, 0.5D, 0D, 1D, 1D, 0.5D);
 
 	/**
 	 * B: .. T: ..
 	 * B: .. T: xx
 	 */
-	protected static final AxisAlignedBB AABB_QTR_TOP_SOUTH = new AxisAlignedBB(0.0D, 0.5D, 0.5D, 1.0D, 1.0D, 1.0D);
+	protected static final AxisAlignedBB AABB_QTR_TOP_SOUTH = new AxisAlignedBB(0D, 0.5D, 0.5D, 1D, 1D, 1D);
 
 	/**
 	 * B: .. T: x.
 	 * B: .. T: ..
 	 */
-	protected static final AxisAlignedBB AABB_OCT_TOP_NW = new AxisAlignedBB(0.0D, 0.5D, 0.0D, 0.5D, 1.0D, 0.5D);
+	protected static final AxisAlignedBB AABB_OCT_TOP_NW = new AxisAlignedBB(0D, 0.5D, 0D, 0.5D, 1D, 0.5D);
 
 	/**
 	 * B: .. T: .x
 	 * B: .. T: ..
 	 */
-	protected static final AxisAlignedBB AABB_OCT_TOP_NE = new AxisAlignedBB(0.5D, 0.5D, 0.0D, 1.0D, 1.0D, 0.5D);
+	protected static final AxisAlignedBB AABB_OCT_TOP_NE = new AxisAlignedBB(0.5D, 0.5D, 0D, 1D, 1D, 0.5D);
 
 	/**
 	 * B: .. T: ..
 	 * B: .. T: x.
 	 */
-	protected static final AxisAlignedBB AABB_OCT_TOP_SW = new AxisAlignedBB(0.0D, 0.5D, 0.5D, 0.5D, 1.0D, 1.0D);
+	protected static final AxisAlignedBB AABB_OCT_TOP_SW = new AxisAlignedBB(0D, 0.5D, 0.5D, 0.5D, 1D, 1D);
 
 	/**
 	 * B: .. T: ..
 	 * B: .. T: .x
 	 */
-	protected static final AxisAlignedBB AABB_OCT_TOP_SE = new AxisAlignedBB(0.5D, 0.5D, 0.5D, 1.0D, 1.0D, 1.0D);
+	protected static final AxisAlignedBB AABB_OCT_TOP_SE = new AxisAlignedBB(0.5D, 0.5D, 0.5D, 1D, 1D, 1D);
 
 	/**
 	 * B: xx T: ..
 	 * B: xx T: ..
 	 */
-	protected static final AxisAlignedBB AABB_SLAB_BOTTOM = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.5D, 1.0D);
+	protected static final AxisAlignedBB AABB_SLAB_BOTTOM = new AxisAlignedBB(0D, 0D, 0D, 1D, 0.5D, 1D);
 
 	/**
 	 * B: x. T: ..
 	 * B: x. T: ..
 	 */
-	protected static final AxisAlignedBB AABB_QTR_BOT_WEST = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 0.5D, 0.5D, 1.0D);
+	protected static final AxisAlignedBB AABB_QTR_BOT_WEST = new AxisAlignedBB(0D, 0D, 0D, 0.5D, 0.5D, 1D);
 
 	/**
 	 * B: .x T: ..
 	 * B: .x T: ..
 	 */
-	protected static final AxisAlignedBB AABB_QTR_BOT_EAST = new AxisAlignedBB(0.5D, 0.0D, 0.0D, 1.0D, 0.5D, 1.0D);
+	protected static final AxisAlignedBB AABB_QTR_BOT_EAST = new AxisAlignedBB(0.5D, 0D, 0D, 1D, 0.5D, 1D);
 
 	/**
 	 * B: xx T: ..
 	 * B: .. T: ..
 	 */
-	protected static final AxisAlignedBB AABB_QTR_BOT_NORTH = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.5D, 0.5D);
+	protected static final AxisAlignedBB AABB_QTR_BOT_NORTH = new AxisAlignedBB(0D, 0D, 0D, 1D, 0.5D, 0.5D);
 
 	/**
 	 * B: .. T: ..
 	 * B: xx T: ..
 	 */
-	protected static final AxisAlignedBB AABB_QTR_BOT_SOUTH = new AxisAlignedBB(0.0D, 0.0D, 0.5D, 1.0D, 0.5D, 1.0D);
+	protected static final AxisAlignedBB AABB_QTR_BOT_SOUTH = new AxisAlignedBB(0D, 0D, 0.5D, 1D, 0.5D, 1D);
 
 	/**
 	 * B: x. T: ..
 	 * B: .. T: ..
 	 */
-	protected static final AxisAlignedBB AABB_OCT_BOT_NW = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 0.5D, 0.5D, 0.5D);
+	protected static final AxisAlignedBB AABB_OCT_BOT_NW = new AxisAlignedBB(0D, 0D, 0D, 0.5D, 0.5D, 0.5D);
 
 	/**
 	 * B: .x T: ..
 	 * B: .. T: ..
 	 */
-	protected static final AxisAlignedBB AABB_OCT_BOT_NE = new AxisAlignedBB(0.5D, 0.0D, 0.0D, 1.0D, 0.5D, 0.5D);
+	protected static final AxisAlignedBB AABB_OCT_BOT_NE = new AxisAlignedBB(0.5D, 0D, 0D, 1D, 0.5D, 0.5D);
 
 	/**
 	 * B: .. T: ..
 	 * B: x. T: ..
 	 */
-	protected static final AxisAlignedBB AABB_OCT_BOT_SW = new AxisAlignedBB(0.0D, 0.0D, 0.5D, 0.5D, 0.5D, 1.0D);
+	protected static final AxisAlignedBB AABB_OCT_BOT_SW = new AxisAlignedBB(0D, 0D, 0.5D, 0.5D, 0.5D, 1D);
 
 	/**
 	 * B: .. T: ..
 	 * B: .x T: ..
 	 */
-	protected static final AxisAlignedBB AABB_OCT_BOT_SE = new AxisAlignedBB(0.5D, 0.0D, 0.5D, 1.0D, 0.5D, 1.0D);
+	protected static final AxisAlignedBB AABB_OCT_BOT_SE = new AxisAlignedBB(0.5D, 0D, 0.5D, 1D, 0.5D, 1D);
 	private final Block modelBlock;
 	private final IBlockState modelState;
 
@@ -146,7 +146,7 @@ public class BlockStairs extends Block {
 		modelBlock = modelState.getBlock();
 		this.modelState = modelState;
 		setHardness(modelBlock.blockHardness);
-		setResistance(modelBlock.blockResistance / 3.0F);
+		setResistance(modelBlock.blockResistance / 3F);
 		setSoundType(modelBlock.blockSoundType);
 		setLightOpacity(255);
 		setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
@@ -433,7 +433,7 @@ public class BlockStairs extends Block {
 	 */
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 
-		return modelBlock.onBlockActivated(worldIn, pos, modelState, playerIn, hand, EnumFacing.DOWN, 0.0F, 0.0F, 0.0F);
+		return modelBlock.onBlockActivated(worldIn, pos, modelState, playerIn, hand, EnumFacing.DOWN, 0F, 0F, 0F);
 	}
 
 	/**
@@ -485,7 +485,7 @@ public class BlockStairs extends Block {
 		}
 
 		RayTraceResult raytraceresult1 = null;
-		double d1 = 0.0D;
+		double d1 = 0D;
 
 		for (RayTraceResult raytraceresult : list) {
 			if (raytraceresult != null) {

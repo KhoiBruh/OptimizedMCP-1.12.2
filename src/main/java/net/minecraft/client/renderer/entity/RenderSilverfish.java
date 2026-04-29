@@ -15,7 +15,7 @@ public class RenderSilverfish extends RenderLiving<EntitySilverfish> {
 
 	protected float getDeathMaxRotation(EntitySilverfish entityLivingBaseIn) {
 
-		return 180.0F;
+		return 180F;
 	}
 
 	/**

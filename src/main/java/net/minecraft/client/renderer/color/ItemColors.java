@@ -24,7 +24,7 @@ public class ItemColors {
 		itemcolors.registerItemColorHandler((stack, tintIndex) -> {
 
 			BlockDoublePlant.EnumPlantType blockdoubleplant$enumplanttype = BlockDoublePlant.EnumPlantType.byMetadata(stack.getMetadata());
-			return blockdoubleplant$enumplanttype != BlockDoublePlant.EnumPlantType.GRASS && blockdoubleplant$enumplanttype != BlockDoublePlant.EnumPlantType.FERN ? -1 : ColorizerGrass.getGrassColor(0.5D, 1.0D);
+			return blockdoubleplant$enumplanttype != BlockDoublePlant.EnumPlantType.GRASS && blockdoubleplant$enumplanttype != BlockDoublePlant.EnumPlantType.FERN ? -1 : ColorizerGrass.getGrassColor(0.5D, 1D);
 		}, Blocks.DOUBLE_PLANT);
 		itemcolors.registerItemColorHandler((stack, tintIndex) -> {
 

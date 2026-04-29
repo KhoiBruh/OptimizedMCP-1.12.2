@@ -31,7 +31,7 @@ public class DebugRendererHeightMap implements DebugRenderer.IDebugRenderer {
 		GlStateManager.enableBlend();
 		GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 		GlStateManager.disableTexture2D();
-		BlockPos blockpos = new BlockPos(entityplayer.posX, 0.0D, entityplayer.posZ);
+		BlockPos blockpos = new BlockPos(entityplayer.posX, 0D, entityplayer.posZ);
 		Iterable<BlockPos> iterable = BlockPos.getAllInBox(blockpos.add(-40, 0, -40), blockpos.add(40, 0, 40));
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder bufferbuilder = tessellator.getBuffer();
@@ -41,9 +41,9 @@ public class DebugRendererHeightMap implements DebugRenderer.IDebugRenderer {
 			int i = world.getHeight(blockpos1.getX(), blockpos1.getZ());
 
 			if (world.getBlockState(blockpos1.add(0, i, 0).down()) == Blocks.AIR.getDefaultState()) {
-				RenderGlobal.addChainedFilledBoxVertices(bufferbuilder, (double) ((float) blockpos1.getX() + 0.25F) - d0, (double) i - d1, (double) ((float) blockpos1.getZ() + 0.25F) - d2, (double) ((float) blockpos1.getX() + 0.75F) - d0, (double) i + 0.09375D - d1, (double) ((float) blockpos1.getZ() + 0.75F) - d2, 0.0F, 0.0F, 1.0F, 0.5F);
+				RenderGlobal.addChainedFilledBoxVertices(bufferbuilder, (double) ((float) blockpos1.getX() + 0.25F) - d0, (double) i - d1, (double) ((float) blockpos1.getZ() + 0.25F) - d2, (double) ((float) blockpos1.getX() + 0.75F) - d0, (double) i + 0.09375D - d1, (double) ((float) blockpos1.getZ() + 0.75F) - d2, 0F, 0F, 1F, 0.5F);
 			} else {
-				RenderGlobal.addChainedFilledBoxVertices(bufferbuilder, (double) ((float) blockpos1.getX() + 0.25F) - d0, (double) i - d1, (double) ((float) blockpos1.getZ() + 0.25F) - d2, (double) ((float) blockpos1.getX() + 0.75F) - d0, (double) i + 0.09375D - d1, (double) ((float) blockpos1.getZ() + 0.75F) - d2, 0.0F, 1.0F, 0.0F, 0.5F);
+				RenderGlobal.addChainedFilledBoxVertices(bufferbuilder, (double) ((float) blockpos1.getX() + 0.25F) - d0, (double) i - d1, (double) ((float) blockpos1.getZ() + 0.25F) - d2, (double) ((float) blockpos1.getX() + 0.75F) - d0, (double) i + 0.09375D - d1, (double) ((float) blockpos1.getZ() + 0.75F) - d2, 0F, 1F, 0F, 0.5F);
 			}
 		}
 

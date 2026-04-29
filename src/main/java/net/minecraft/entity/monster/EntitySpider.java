@@ -45,7 +45,7 @@ public class EntitySpider extends EntityMob {
 		tasks.addTask(3, new EntityAILeapAtTarget(this, 0.4F));
 		tasks.addTask(4, new EntitySpider.AISpiderAttack(this));
 		tasks.addTask(5, new EntityAIWanderAvoidWater(this, 0.8D));
-		tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
+		tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 8F));
 		tasks.addTask(6, new EntityAILookIdle(this));
 		targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
 		targetTasks.addTask(2, new EntitySpider.AISpiderTarget<>(this, EntityPlayer.class));
@@ -89,7 +89,7 @@ public class EntitySpider extends EntityMob {
 	protected void applyEntityAttributes() {
 
 		super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(16.0D);
+		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(16D);
 		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.30000001192092896D);
 	}
 
@@ -110,7 +110,7 @@ public class EntitySpider extends EntityMob {
 
 	protected void playStepSound(BlockPos pos, Block blockIn) {
 
-		playSound(SoundEvents.ENTITY_SPIDER_STEP, 0.15F, 1.0F);
+		playSound(SoundEvents.ENTITY_SPIDER_STEP, 0.15F, 1F);
 	}
 
 	
@@ -196,7 +196,7 @@ public class EntitySpider extends EntityMob {
 
 		if (world.rand.nextInt(100) == 0) {
 			EntitySkeleton entityskeleton = new EntitySkeleton(world);
-			entityskeleton.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
+			entityskeleton.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0F);
 			entityskeleton.onInitialSpawn(difficulty, null);
 			world.spawnEntity(entityskeleton);
 			entityskeleton.startRiding(this);
@@ -230,7 +230,7 @@ public class EntitySpider extends EntityMob {
 
 		public AISpiderAttack(EntitySpider spider) {
 
-			super(spider, 1.0D, true);
+			super(spider, 1D, true);
 		}
 
 		public boolean shouldContinueExecuting() {
@@ -247,7 +247,7 @@ public class EntitySpider extends EntityMob {
 
 		protected double getAttackReachSqr(EntityLivingBase attackTarget) {
 
-			return 4.0F + attackTarget.width;
+			return 4F + attackTarget.width;
 		}
 
 	}

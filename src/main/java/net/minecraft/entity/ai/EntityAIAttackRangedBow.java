@@ -125,9 +125,9 @@ public class EntityAIAttackRangedBow<T extends EntityMob & IRangedAttackMob> ext
 				}
 
 				entity.getMoveHelper().strafe(strafingBackwards ? -0.5F : 0.5F, strafingClockwise ? 0.5F : -0.5F);
-				entity.faceEntity(entitylivingbase, 30.0F, 30.0F);
+				entity.faceEntity(entitylivingbase, 30F, 30F);
 			} else {
-				entity.getLookHelper().setLookPositionWithEntity(entitylivingbase, 30.0F, 30.0F);
+				entity.getLookHelper().setLookPositionWithEntity(entitylivingbase, 30F, 30F);
 			}
 
 			if (entity.isHandActive()) {

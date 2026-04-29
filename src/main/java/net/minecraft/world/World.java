@@ -865,37 +865,37 @@ public abstract class World implements IBlockAccess {
 					boolean flag2 = true;
 					boolean flag = true;
 					boolean flag1 = true;
-					double d0 = 999.0D;
-					double d1 = 999.0D;
-					double d2 = 999.0D;
+					double d0 = 999D;
+					double d1 = 999D;
+					double d2 = 999D;
 
 					if (i > l) {
-						d0 = (double) l + 1.0D;
+						d0 = (double) l + 1D;
 					} else if (i < l) {
-						d0 = (double) l + 0.0D;
+						d0 = (double) l + 0D;
 					} else {
 						flag2 = false;
 					}
 
 					if (j > i1) {
-						d1 = (double) i1 + 1.0D;
+						d1 = (double) i1 + 1D;
 					} else if (j < i1) {
-						d1 = (double) i1 + 0.0D;
+						d1 = (double) i1 + 0D;
 					} else {
 						flag = false;
 					}
 
 					if (k > j1) {
-						d2 = (double) j1 + 1.0D;
+						d2 = (double) j1 + 1D;
 					} else if (k < j1) {
-						d2 = (double) j1 + 0.0D;
+						d2 = (double) j1 + 0D;
 					} else {
 						flag1 = false;
 					}
 
-					double d3 = 999.0D;
-					double d4 = 999.0D;
-					double d5 = 999.0D;
+					double d3 = 999D;
+					double d4 = 999D;
+					double d5 = 999D;
 					double d6 = vec32.x() - vec31.x();
 					double d7 = vec32.y() - vec31.y();
 					double d8 = vec32.z() - vec31.z();
@@ -912,15 +912,15 @@ public abstract class World implements IBlockAccess {
 						d5 = (d2 - vec31.z()) / d8;
 					}
 
-					if (d3 == -0.0D) {
+					if (d3 == -0D) {
 						d3 = -1.0E-4D;
 					}
 
-					if (d4 == -0.0D) {
+					if (d4 == -0D) {
 						d4 = -1.0E-4D;
 					}
 
-					if (d5 == -0.0D) {
+					if (d5 == -0D) {
 						d5 = -1.0E-4D;
 					}
 
@@ -1034,8 +1034,8 @@ public abstract class World implements IBlockAccess {
 	 */
 	public boolean spawnEntity(Entity entityIn) {
 
-		int i = MathHelper.floor(entityIn.posX / 16.0D);
-		int j = MathHelper.floor(entityIn.posZ / 16.0D);
+		int i = MathHelper.floor(entityIn.posX / 16D);
+		int j = MathHelper.floor(entityIn.posZ / 16D);
 		boolean flag = entityIn.forceSpawn;
 
 		if (entityIn instanceof EntityPlayer) {
@@ -1264,13 +1264,13 @@ public abstract class World implements IBlockAccess {
 	public int calculateSkylightSubtracted(float partialTicks) {
 
 		float f = getCelestialAngle(partialTicks);
-		float f1 = 1.0F - (MathHelper.cos(f * ((float) Math.PI * 2F)) * 2.0F + 0.5F);
-		f1 = MathHelper.clamp(f1, 0.0F, 1.0F);
-		f1 = 1.0F - f1;
-		f1 = (float) ((double) f1 * (1.0D - (double) (getRainStrength(partialTicks) * 5.0F) / 16.0D));
-		f1 = (float) ((double) f1 * (1.0D - (double) (getThunderStrength(partialTicks) * 5.0F) / 16.0D));
-		f1 = 1.0F - f1;
-		return (int) (f1 * 11.0F);
+		float f1 = 1F - (MathHelper.cos(f * ((float) Math.PI * 2F)) * 2F + 0.5F);
+		f1 = MathHelper.clamp(f1, 0F, 1F);
+		f1 = 1F - f1;
+		f1 = (float) ((double) f1 * (1D - (double) (getRainStrength(partialTicks) * 5F) / 16D));
+		f1 = (float) ((double) f1 * (1D - (double) (getThunderStrength(partialTicks) * 5F) / 16D));
+		f1 = 1F - f1;
+		return (int) (f1 * 11F);
 	}
 
 	/**
@@ -1279,11 +1279,11 @@ public abstract class World implements IBlockAccess {
 	public float getSunBrightness(float partialTicks) {
 
 		float f = getCelestialAngle(partialTicks);
-		float f1 = 1.0F - (MathHelper.cos(f * ((float) Math.PI * 2F)) * 2.0F + 0.2F);
-		f1 = MathHelper.clamp(f1, 0.0F, 1.0F);
-		f1 = 1.0F - f1;
-		f1 = (float) ((double) f1 * (1.0D - (double) (getRainStrength(partialTicks) * 5.0F) / 16.0D));
-		f1 = (float) ((double) f1 * (1.0D - (double) (getThunderStrength(partialTicks) * 5.0F) / 16.0D));
+		float f1 = 1F - (MathHelper.cos(f * ((float) Math.PI * 2F)) * 2F + 0.2F);
+		f1 = MathHelper.clamp(f1, 0F, 1F);
+		f1 = 1F - f1;
+		f1 = (float) ((double) f1 * (1D - (double) (getRainStrength(partialTicks) * 5F) / 16D));
+		f1 = (float) ((double) f1 * (1D - (double) (getThunderStrength(partialTicks) * 5F) / 16D));
 		return f1 * 0.8F + 0.2F;
 	}
 
@@ -1293,8 +1293,8 @@ public abstract class World implements IBlockAccess {
 	public Vec3d getSkyColor(Entity entityIn, float partialTicks) {
 
 		float f = getCelestialAngle(partialTicks);
-		float f1 = MathHelper.cos(f * ((float) Math.PI * 2F)) * 2.0F + 0.5F;
-		f1 = MathHelper.clamp(f1, 0.0F, 1.0F);
+		float f1 = MathHelper.cos(f * ((float) Math.PI * 2F)) * 2F + 0.5F;
+		f1 = MathHelper.clamp(f1, 0F, 1F);
 		int i = MathHelper.floor(entityIn.posX);
 		int j = MathHelper.floor(entityIn.posY);
 		int k = MathHelper.floor(entityIn.posZ);
@@ -1302,43 +1302,43 @@ public abstract class World implements IBlockAccess {
 		Biome biome = getBiome(blockpos);
 		float f2 = biome.getTemperature(blockpos);
 		int l = biome.getSkyColorByTemp(f2);
-		float f3 = (float) (l >> 16 & 255) / 255.0F;
-		float f4 = (float) (l >> 8 & 255) / 255.0F;
-		float f5 = (float) (l & 255) / 255.0F;
+		float f3 = (float) (l >> 16 & 255) / 255F;
+		float f4 = (float) (l >> 8 & 255) / 255F;
+		float f5 = (float) (l & 255) / 255F;
 		f3 = f3 * f1;
 		f4 = f4 * f1;
 		f5 = f5 * f1;
 		float f6 = getRainStrength(partialTicks);
 
-		if (f6 > 0.0F) {
+		if (f6 > 0F) {
 			float f7 = (f3 * 0.3F + f4 * 0.59F + f5 * 0.11F) * 0.6F;
-			float f8 = 1.0F - f6 * 0.75F;
-			f3 = f3 * f8 + f7 * (1.0F - f8);
-			f4 = f4 * f8 + f7 * (1.0F - f8);
-			f5 = f5 * f8 + f7 * (1.0F - f8);
+			float f8 = 1F - f6 * 0.75F;
+			f3 = f3 * f8 + f7 * (1F - f8);
+			f4 = f4 * f8 + f7 * (1F - f8);
+			f5 = f5 * f8 + f7 * (1F - f8);
 		}
 
 		float f10 = getThunderStrength(partialTicks);
 
-		if (f10 > 0.0F) {
+		if (f10 > 0F) {
 			float f11 = (f3 * 0.3F + f4 * 0.59F + f5 * 0.11F) * 0.2F;
-			float f9 = 1.0F - f10 * 0.75F;
-			f3 = f3 * f9 + f11 * (1.0F - f9);
-			f4 = f4 * f9 + f11 * (1.0F - f9);
-			f5 = f5 * f9 + f11 * (1.0F - f9);
+			float f9 = 1F - f10 * 0.75F;
+			f3 = f3 * f9 + f11 * (1F - f9);
+			f4 = f4 * f9 + f11 * (1F - f9);
+			f5 = f5 * f9 + f11 * (1F - f9);
 		}
 
 		if (lastLightningBolt > 0) {
 			float f12 = (float) lastLightningBolt - partialTicks;
 
-			if (f12 > 1.0F) {
-				f12 = 1.0F;
+			if (f12 > 1F) {
+				f12 = 1F;
 			}
 
 			f12 = f12 * 0.45F;
-			f3 = f3 * (1.0F - f12) + 0.8F * f12;
-			f4 = f4 * (1.0F - f12) + 0.8F * f12;
-			f5 = f5 * (1.0F - f12) + f12;
+			f3 = f3 * (1F - f12) + 0.8F * f12;
+			f4 = f4 * (1F - f12) + 0.8F * f12;
+			f5 = f5 * (1F - f12) + f12;
 		}
 
 		return new Vec3d(f3, f4, f5);
@@ -1377,19 +1377,19 @@ public abstract class World implements IBlockAccess {
 	public Vec3d getCloudColour(float partialTicks) {
 
 		float f = getCelestialAngle(partialTicks);
-		float f1 = MathHelper.cos(f * ((float) Math.PI * 2F)) * 2.0F + 0.5F;
-		f1 = MathHelper.clamp(f1, 0.0F, 1.0F);
-		float f2 = 1.0F;
-		float f3 = 1.0F;
-		float f4 = 1.0F;
+		float f1 = MathHelper.cos(f * ((float) Math.PI * 2F)) * 2F + 0.5F;
+		f1 = MathHelper.clamp(f1, 0F, 1F);
+		float f2 = 1F;
+		float f3 = 1F;
+		float f4 = 1F;
 		float f5 = getRainStrength(partialTicks);
 
-		if (f5 > 0.0F) {
+		if (f5 > 0F) {
 			float f6 = (f2 * 0.3F + f3 * 0.59F + f4 * 0.11F) * 0.6F;
-			float f7 = 1.0F - f5 * 0.95F;
-			f2 = f2 * f7 + f6 * (1.0F - f7);
-			f3 = f3 * f7 + f6 * (1.0F - f7);
-			f4 = f4 * f7 + f6 * (1.0F - f7);
+			float f7 = 1F - f5 * 0.95F;
+			f2 = f2 * f7 + f6 * (1F - f7);
+			f3 = f3 * f7 + f6 * (1F - f7);
+			f4 = f4 * f7 + f6 * (1F - f7);
 		}
 
 		f2 = f2 * (f1 * 0.9F + 0.1F);
@@ -1397,12 +1397,12 @@ public abstract class World implements IBlockAccess {
 		f4 = f4 * (f1 * 0.85F + 0.15F);
 		float f9 = getThunderStrength(partialTicks);
 
-		if (f9 > 0.0F) {
+		if (f9 > 0F) {
 			float f10 = (f2 * 0.3F + f3 * 0.59F + f4 * 0.11F) * 0.2F;
-			float f8 = 1.0F - f9 * 0.95F;
-			f2 = f2 * f8 + f10 * (1.0F - f8);
-			f3 = f3 * f8 + f10 * (1.0F - f8);
-			f4 = f4 * f8 + f10 * (1.0F - f8);
+			float f8 = 1F - f9 * 0.95F;
+			f2 = f2 * f8 + f10 * (1F - f8);
+			f3 = f3 * f8 + f10 * (1F - f8);
+			f4 = f4 * f8 + f10 * (1F - f8);
 		}
 
 		return new Vec3d(f2, f3, f4);
@@ -1449,8 +1449,8 @@ public abstract class World implements IBlockAccess {
 	public float getStarBrightness(float partialTicks) {
 
 		float f = getCelestialAngle(partialTicks);
-		float f1 = 1.0F - (MathHelper.cos(f * ((float) Math.PI * 2F)) * 2.0F + 0.25F);
-		f1 = MathHelper.clamp(f1, 0.0F, 1.0F);
+		float f1 = 1F - (MathHelper.cos(f * ((float) Math.PI * 2F)) * 2F + 0.25F);
+		f1 = MathHelper.clamp(f1, 0F, 1F);
 		return f1 * f1 * 0.5F;
 	}
 
@@ -1733,9 +1733,9 @@ public abstract class World implements IBlockAccess {
 			entityIn.rotationYaw = entityIn.prevRotationYaw;
 		}
 
-		int i3 = MathHelper.floor(entityIn.posX / 16.0D);
-		int j3 = MathHelper.floor(entityIn.posY / 16.0D);
-		int k3 = MathHelper.floor(entityIn.posZ / 16.0D);
+		int i3 = MathHelper.floor(entityIn.posX / 16D);
+		int j3 = MathHelper.floor(entityIn.posY / 16D);
+		int k3 = MathHelper.floor(entityIn.posZ / 16D);
 
 		if (!entityIn.addedToChunk || entityIn.chunkCoordX != i3 || entityIn.chunkCoordY != j3 || entityIn.chunkCoordZ != k3) {
 			if (entityIn.addedToChunk && isChunkLoaded(entityIn.chunkCoordX, entityIn.chunkCoordZ, true)) {
@@ -1917,7 +1917,7 @@ public abstract class World implements IBlockAccess {
 
 			blockpos$pooledmutableblockpos.release();
 
-			if (vec3d.lengthVector() > 0.0D && entityIn.isPushedByWater()) {
+			if (vec3d.lengthVector() > 0D && entityIn.isPushedByWater()) {
 				vec3d = vec3d.normalize();
 				double d1 = 0.014D;
 				entityIn.motionX += vec3d.x() * 0.014D;
@@ -1981,19 +1981,19 @@ public abstract class World implements IBlockAccess {
 	 */
 	public float getBlockDensity(Vec3d vec, AxisAlignedBB bb) {
 
-		double d0 = 1.0D / ((bb.maxX - bb.minX) * 2.0D + 1.0D);
-		double d1 = 1.0D / ((bb.maxY - bb.minY) * 2.0D + 1.0D);
-		double d2 = 1.0D / ((bb.maxZ - bb.minZ) * 2.0D + 1.0D);
-		double d3 = (1.0D - Math.floor(1.0D / d0) * d0) / 2.0D;
-		double d4 = (1.0D - Math.floor(1.0D / d2) * d2) / 2.0D;
+		double d0 = 1D / ((bb.maxX - bb.minX) * 2D + 1D);
+		double d1 = 1D / ((bb.maxY - bb.minY) * 2D + 1D);
+		double d2 = 1D / ((bb.maxZ - bb.minZ) * 2D + 1D);
+		double d3 = (1D - Math.floor(1D / d0) * d0) / 2D;
+		double d4 = (1D - Math.floor(1D / d2) * d2) / 2D;
 
-		if (d0 >= 0.0D && d1 >= 0.0D && d2 >= 0.0D) {
+		if (d0 >= 0D && d1 >= 0D && d2 >= 0D) {
 			int j2 = 0;
 			int k2 = 0;
 
-			for (float f = 0.0F; f <= 1.0F; f = (float) ((double) f + d0)) {
-				for (float f1 = 0.0F; f1 <= 1.0F; f1 = (float) ((double) f1 + d1)) {
-					for (float f2 = 0.0F; f2 <= 1.0F; f2 = (float) ((double) f2 + d2)) {
+			for (float f = 0F; f <= 1F; f = (float) ((double) f + d0)) {
+				for (float f1 = 0F; f1 <= 1F; f1 = (float) ((double) f1 + d1)) {
+					for (float f2 = 0F; f2 <= 1F; f2 = (float) ((double) f2 + d2)) {
 						double d5 = bb.minX + (bb.maxX - bb.minX) * (double) f;
 						double d6 = bb.minY + (bb.maxY - bb.minY) * (double) f1;
 						double d7 = bb.minZ + (bb.maxZ - bb.minZ) * (double) f2;
@@ -2009,7 +2009,7 @@ public abstract class World implements IBlockAccess {
 
 			return (float) j2 / (float) k2;
 		} else {
-			return 0.0F;
+			return 0F;
 		}
 	}
 
@@ -2136,7 +2136,7 @@ public abstract class World implements IBlockAccess {
 	public boolean isBlockFullCube(BlockPos pos) {
 
 		AxisAlignedBB axisalignedbb = getBlockState(pos).getCollisionBoundingBox(this, pos);
-		return axisalignedbb != Block.NULL_AABB && axisalignedbb.getAverageEdgeLength() >= 1.0D;
+		return axisalignedbb != Block.NULL_AABB && axisalignedbb.getAverageEdgeLength() >= 1D;
 	}
 
 	/**
@@ -2163,7 +2163,7 @@ public abstract class World implements IBlockAccess {
 	 */
 	public void calculateInitialSkylight() {
 
-		int j2 = calculateSkylightSubtracted(1.0F);
+		int j2 = calculateSkylightSubtracted(1F);
 
 		if (j2 != skylightSubtracted) {
 			skylightSubtracted = j2;
@@ -2193,10 +2193,10 @@ public abstract class World implements IBlockAccess {
 	protected void calculateInitialWeather() {
 
 		if (worldInfo.isRaining()) {
-			rainingStrength = 1.0F;
+			rainingStrength = 1F;
 
 			if (worldInfo.isThundering()) {
-				thunderingStrength = 1.0F;
+				thunderingStrength = 1F;
 			}
 		}
 	}
@@ -2263,7 +2263,7 @@ public abstract class World implements IBlockAccess {
 					thunderingStrength = (float) ((double) thunderingStrength - 0.01D);
 				}
 
-				thunderingStrength = MathHelper.clamp(thunderingStrength, 0.0F, 1.0F);
+				thunderingStrength = MathHelper.clamp(thunderingStrength, 0F, 1F);
 				prevRainingStrength = rainingStrength;
 
 				if (worldInfo.isRaining()) {
@@ -2272,7 +2272,7 @@ public abstract class World implements IBlockAccess {
 					rainingStrength = (float) ((double) rainingStrength - 0.01D);
 				}
 
-				rainingStrength = MathHelper.clamp(rainingStrength, 0.0F, 1.0F);
+				rainingStrength = MathHelper.clamp(rainingStrength, 0F, 1F);
 			}
 		}
 	}
@@ -2566,10 +2566,10 @@ public abstract class World implements IBlockAccess {
 	public List<Entity> getEntitiesInAABBexcluding(Entity entityIn, AxisAlignedBB boundingBox, Predicate<? super Entity> predicate) {
 
 		List<Entity> list = Lists.newArrayList();
-		int j2 = MathHelper.floor((boundingBox.minX - 2.0D) / 16.0D);
-		int k2 = MathHelper.floor((boundingBox.maxX + 2.0D) / 16.0D);
-		int l2 = MathHelper.floor((boundingBox.minZ - 2.0D) / 16.0D);
-		int i3 = MathHelper.floor((boundingBox.maxZ + 2.0D) / 16.0D);
+		int j2 = MathHelper.floor((boundingBox.minX - 2D) / 16D);
+		int k2 = MathHelper.floor((boundingBox.maxX + 2D) / 16D);
+		int l2 = MathHelper.floor((boundingBox.minZ - 2D) / 16D);
+		int i3 = MathHelper.floor((boundingBox.maxZ + 2D) / 16D);
 
 		for (int j3 = j2; j3 <= k2; ++j3) {
 			for (int k3 = l2; k3 <= i3; ++k3) {
@@ -2615,10 +2615,10 @@ public abstract class World implements IBlockAccess {
 
 	public <T extends Entity> List<T> getEntitiesWithinAABB(Class<? extends T> clazz, AxisAlignedBB aabb, Predicate<? super T> filter) {
 
-		int j2 = MathHelper.floor((aabb.minX - 2.0D) / 16.0D);
-		int k2 = MathHelper.ceil((aabb.maxX + 2.0D) / 16.0D);
-		int l2 = MathHelper.floor((aabb.minZ - 2.0D) / 16.0D);
-		int i3 = MathHelper.ceil((aabb.maxZ + 2.0D) / 16.0D);
+		int j2 = MathHelper.floor((aabb.minX - 2D) / 16D);
+		int k2 = MathHelper.ceil((aabb.maxX + 2D) / 16D);
+		int l2 = MathHelper.floor((aabb.minZ - 2D) / 16D);
+		int i3 = MathHelper.ceil((aabb.maxZ + 2D) / 16D);
 		List<T> list = Lists.newArrayList();
 
 		for (int j3 = j2; j3 < k2; ++j3) {
@@ -2863,14 +2863,14 @@ public abstract class World implements IBlockAccess {
 	
 	public EntityPlayer getClosestPlayer(double x, double y, double z, double p_190525_7_, Predicate<Entity> p_190525_9_) {
 
-		double d0 = -1.0D;
+		double d0 = -1D;
 		EntityPlayer entityplayer = null;
 
 		for (EntityPlayer entityplayer1 : playerEntities) {
 			if (p_190525_9_.apply(entityplayer1)) {
 				double d1 = entityplayer1.getDistanceSq(x, y, z);
 
-				if ((p_190525_7_ < 0.0D || d1 < p_190525_7_ * p_190525_7_) && (d0 == -1.0D || d1 < d0)) {
+				if ((p_190525_7_ < 0D || d1 < p_190525_7_ * p_190525_7_) && (d0 == -1D || d1 < d0)) {
 					d0 = d1;
 					entityplayer = entityplayer1;
 				}
@@ -2886,7 +2886,7 @@ public abstract class World implements IBlockAccess {
 			if (EntitySelectors.NOT_SPECTATING.apply(entityplayer)) {
 				double d0 = entityplayer.getDistanceSq(x, y, z);
 
-				if (range < 0.0D || d0 < range * range) {
+				if (range < 0D || d0 < range * range) {
 					return true;
 				}
 			}
@@ -2910,7 +2910,7 @@ public abstract class World implements IBlockAccess {
 	
 	public EntityPlayer getNearestAttackablePlayer(double posX, double posY, double posZ, double maxXZDistance, double maxYDistance, Function<EntityPlayer, Double> playerToDouble, Predicate<EntityPlayer> p_184150_12_) {
 
-		double d0 = -1.0D;
+		double d0 = -1D;
 		EntityPlayer entityplayer = null;
 
 		for (EntityPlayer entityplayer1 : playerEntities) {
@@ -2933,10 +2933,10 @@ public abstract class World implements IBlockAccess {
 				}
 
 				if (playerToDouble != null) {
-					d2 *= MoreObjects.firstNonNull(playerToDouble.apply(entityplayer1), 1.0D);
+					d2 *= MoreObjects.firstNonNull(playerToDouble.apply(entityplayer1), 1D);
 				}
 
-				if ((maxYDistance < 0.0D || Math.abs(entityplayer1.posY - posY) < maxYDistance * maxYDistance) && (maxXZDistance < 0.0D || d1 < d2 * d2) && (d0 == -1.0D || d1 < d0)) {
+				if ((maxYDistance < 0D || Math.abs(entityplayer1.posY - posY) < maxYDistance * maxYDistance) && (maxXZDistance < 0D || d1 < d2 * d2) && (d0 == -1D || d1 < d0)) {
 					d0 = d1;
 					entityplayer = entityplayer1;
 				}
@@ -3028,7 +3028,7 @@ public abstract class World implements IBlockAccess {
 		BlockPos blockpos1 = new BlockPos(worldInfo.getSpawnX(), worldInfo.getSpawnY(), worldInfo.getSpawnZ());
 
 		if (!getWorldBorder().contains(blockpos1)) {
-			blockpos1 = getHeight(new BlockPos(getWorldBorder().getCenterX(), 0.0D, getWorldBorder().getCenterZ()));
+			blockpos1 = getHeight(new BlockPos(getWorldBorder().getCenterX(), 0D, getWorldBorder().getCenterZ()));
 		}
 
 		return blockpos1;
@@ -3044,8 +3044,8 @@ public abstract class World implements IBlockAccess {
 	 */
 	public void joinEntityInSurroundings(Entity entityIn) {
 
-		int j2 = MathHelper.floor(entityIn.posX / 16.0D);
-		int k2 = MathHelper.floor(entityIn.posZ / 16.0D);
+		int j2 = MathHelper.floor(entityIn.posX / 16D);
+		int k2 = MathHelper.floor(entityIn.posZ / 16D);
 		int l2 = 2;
 
 		for (int i3 = -2; i3 <= 2; ++i3) {
@@ -3151,7 +3151,7 @@ public abstract class World implements IBlockAccess {
 	 */
 	public boolean isThundering() {
 
-		return (double) getThunderStrength(1.0F) > 0.9D;
+		return (double) getThunderStrength(1F) > 0.9D;
 	}
 
 	/**
@@ -3159,7 +3159,7 @@ public abstract class World implements IBlockAccess {
 	 */
 	public boolean isRaining() {
 
-		return (double) getRainStrength(1.0F) > 0.2D;
+		return (double) getRainStrength(1F) > 0.2D;
 	}
 
 	/**
@@ -3285,7 +3285,7 @@ public abstract class World implements IBlockAccess {
 	 */
 	public double getHorizon() {
 
-		return worldInfo.getTerrainType() == WorldType.FLAT ? 0.0D : 63.0D;
+		return worldInfo.getTerrainType() == WorldType.FLAT ? 0D : 63D;
 	}
 
 	/**
@@ -3360,7 +3360,7 @@ public abstract class World implements IBlockAccess {
 	public DifficultyInstance getDifficultyForLocation(BlockPos pos) {
 
 		long j2 = 0L;
-		float f = 0.0F;
+		float f = 0F;
 
 		if (isBlockLoaded(pos)) {
 			f = getCurrentMoonPhaseFactor();

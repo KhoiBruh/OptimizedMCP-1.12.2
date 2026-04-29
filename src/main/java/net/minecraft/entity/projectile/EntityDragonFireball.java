@@ -18,19 +18,19 @@ public class EntityDragonFireball extends EntityFireball {
 	public EntityDragonFireball(World worldIn) {
 
 		super(worldIn);
-		setSize(1.0F, 1.0F);
+		setSize(1F, 1F);
 	}
 
 	public EntityDragonFireball(World worldIn, double x, double y, double z, double accelX, double accelY, double accelZ) {
 
 		super(worldIn, x, y, z, accelX, accelY, accelZ);
-		setSize(1.0F, 1.0F);
+		setSize(1F, 1F);
 	}
 
 	public EntityDragonFireball(World worldIn, EntityLivingBase shooter, double accelX, double accelY, double accelZ) {
 
 		super(worldIn, shooter, accelX, accelY, accelZ);
-		setSize(1.0F, 1.0F);
+		setSize(1F, 1F);
 	}
 
 	public static void registerFixesDragonFireball(DataFixer fixer) {
@@ -45,20 +45,20 @@ public class EntityDragonFireball extends EntityFireball {
 
 		if (result.entityHit == null || !result.entityHit.isEntityEqual(shootingEntity)) {
 			if (!world.isRemote) {
-				List<EntityLivingBase> list = world.getEntitiesWithinAABB(EntityLivingBase.class, getEntityBoundingBox().grow(4.0D, 2.0D, 4.0D));
+				List<EntityLivingBase> list = world.getEntitiesWithinAABB(EntityLivingBase.class, getEntityBoundingBox().grow(4D, 2D, 4D));
 				EntityAreaEffectCloud entityareaeffectcloud = new EntityAreaEffectCloud(world, posX, posY, posZ);
 				entityareaeffectcloud.setOwner(shootingEntity);
 				entityareaeffectcloud.setParticle(EnumParticleTypes.DRAGON_BREATH);
-				entityareaeffectcloud.setRadius(3.0F);
+				entityareaeffectcloud.setRadius(3F);
 				entityareaeffectcloud.setDuration(600);
-				entityareaeffectcloud.setRadiusPerTick((7.0F - entityareaeffectcloud.getRadius()) / (float) entityareaeffectcloud.getDuration());
+				entityareaeffectcloud.setRadiusPerTick((7F - entityareaeffectcloud.getRadius()) / (float) entityareaeffectcloud.getDuration());
 				entityareaeffectcloud.addEffect(new PotionEffect(MobEffects.INSTANT_DAMAGE, 1, 1));
 
 				if (!list.isEmpty()) {
 					for (EntityLivingBase entitylivingbase : list) {
 						double d0 = getDistanceSq(entitylivingbase);
 
-						if (d0 < 16.0D) {
+						if (d0 < 16D) {
 							entityareaeffectcloud.setPosition(entitylivingbase.posX, entitylivingbase.posY, entitylivingbase.posZ);
 							break;
 						}

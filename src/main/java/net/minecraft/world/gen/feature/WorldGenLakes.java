@@ -32,22 +32,22 @@ public class WorldGenLakes extends WorldGenerator {
 			int i = rand.nextInt(4) + 4;
 
 			for (int j = 0; j < i; ++j) {
-				double d0 = rand.nextDouble() * 6.0D + 3.0D;
-				double d1 = rand.nextDouble() * 4.0D + 2.0D;
-				double d2 = rand.nextDouble() * 6.0D + 3.0D;
-				double d3 = rand.nextDouble() * (16.0D - d0 - 2.0D) + 1.0D + d0 / 2.0D;
-				double d4 = rand.nextDouble() * (8.0D - d1 - 4.0D) + 2.0D + d1 / 2.0D;
-				double d5 = rand.nextDouble() * (16.0D - d2 - 2.0D) + 1.0D + d2 / 2.0D;
+				double d0 = rand.nextDouble() * 6D + 3D;
+				double d1 = rand.nextDouble() * 4D + 2D;
+				double d2 = rand.nextDouble() * 6D + 3D;
+				double d3 = rand.nextDouble() * (16D - d0 - 2D) + 1D + d0 / 2D;
+				double d4 = rand.nextDouble() * (8D - d1 - 4D) + 2D + d1 / 2D;
+				double d5 = rand.nextDouble() * (16D - d2 - 2D) + 1D + d2 / 2D;
 
 				for (int l = 1; l < 15; ++l) {
 					for (int i1 = 1; i1 < 15; ++i1) {
 						for (int j1 = 1; j1 < 7; ++j1) {
-							double d6 = ((double) l - d3) / (d0 / 2.0D);
-							double d7 = ((double) j1 - d4) / (d1 / 2.0D);
-							double d8 = ((double) i1 - d5) / (d2 / 2.0D);
+							double d6 = ((double) l - d3) / (d0 / 2D);
+							double d7 = ((double) j1 - d4) / (d1 / 2D);
+							double d8 = ((double) i1 - d5) / (d2 / 2D);
 							double d9 = d6 * d6 + d7 * d7 + d8 * d8;
 
-							if (d9 < 1.0D) {
+							if (d9 < 1D) {
 								aboolean[(l * 16 + i1) * 8 + j1] = true;
 							}
 						}

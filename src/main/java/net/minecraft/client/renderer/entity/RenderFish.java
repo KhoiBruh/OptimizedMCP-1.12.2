@@ -44,11 +44,11 @@ public class RenderFish extends Render<EntityFishHook> {
 			float f1 = 0.125F;
 			float f2 = 0.125F;
 			float f3 = 0.1875F;
-			float f4 = 1.0F;
+			float f4 = 1F;
 			float f5 = 0.5F;
 			float f6 = 0.5F;
-			GlStateManager.rotate(180.0F - renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
-			GlStateManager.rotate((float) (renderManager.options.thirdPersonView == 2 ? -1 : 1) * -renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
+			GlStateManager.rotate(180F - renderManager.playerViewY, 0F, 1F, 0F);
+			GlStateManager.rotate((float) (renderManager.options.thirdPersonView == 2 ? -1 : 1) * -renderManager.playerViewX, 1F, 0F, 0F);
 
 			if (renderOutlines) {
 				GlStateManager.enableColorMaterial();
@@ -56,10 +56,10 @@ public class RenderFish extends Render<EntityFishHook> {
 			}
 
 			bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_NORMAL);
-			bufferbuilder.pos(-0.5D, -0.5D, 0.0D).tex(0.0625D, 0.1875D).normal(0.0F, 1.0F, 0.0F).endVertex();
-			bufferbuilder.pos(0.5D, -0.5D, 0.0D).tex(0.125D, 0.1875D).normal(0.0F, 1.0F, 0.0F).endVertex();
-			bufferbuilder.pos(0.5D, 0.5D, 0.0D).tex(0.125D, 0.125D).normal(0.0F, 1.0F, 0.0F).endVertex();
-			bufferbuilder.pos(-0.5D, 0.5D, 0.0D).tex(0.0625D, 0.125D).normal(0.0F, 1.0F, 0.0F).endVertex();
+			bufferbuilder.pos(-0.5D, -0.5D, 0D).tex(0.0625D, 0.1875D).normal(0F, 1F, 0F).endVertex();
+			bufferbuilder.pos(0.5D, -0.5D, 0D).tex(0.125D, 0.1875D).normal(0F, 1F, 0F).endVertex();
+			bufferbuilder.pos(0.5D, 0.5D, 0D).tex(0.125D, 0.125D).normal(0F, 1F, 0F).endVertex();
+			bufferbuilder.pos(-0.5D, 0.5D, 0D).tex(0.0625D, 0.125D).normal(0F, 1F, 0F).endVertex();
 			tessellator.draw();
 
 			if (renderOutlines) {
@@ -90,7 +90,7 @@ public class RenderFish extends Render<EntityFishHook> {
 
 			if ((renderManager.options == null || renderManager.options.thirdPersonView <= 0) && entityplayer == Minecraft.getMinecraft().player) {
 				float f10 = renderManager.options.fovSetting;
-				f10 = f10 / 100.0F;
+				f10 = f10 / 100F;
 				Vec3d vec3d = new Vec3d((double) k * -0.36D * (double) f10, -0.045D * (double) f10, 0.4D);
 				vec3d = vec3d.rotatePitch(-(entityplayer.prevRotationPitch + (entityplayer.rotationPitch - entityplayer.prevRotationPitch) * partialTicks) * 0.017453292F);
 				vec3d = vec3d.rotateYaw(-(entityplayer.prevRotationYaw + (entityplayer.rotationYaw - entityplayer.prevRotationYaw) * partialTicks) * 0.017453292F);
@@ -104,7 +104,7 @@ public class RenderFish extends Render<EntityFishHook> {
 				d4 = entityplayer.prevPosX + (entityplayer.posX - entityplayer.prevPosX) * (double) partialTicks - d1 * d2 - d0 * 0.8D;
 				d5 = entityplayer.prevPosY + (double) entityplayer.getEyeHeight() + (entityplayer.posY - entityplayer.prevPosY) * (double) partialTicks - 0.45D;
 				d6 = entityplayer.prevPosZ + (entityplayer.posZ - entityplayer.prevPosZ) * (double) partialTicks - d0 * d2 + d1 * 0.8D;
-				d7 = entityplayer.isSneaking() ? -0.1875D : 0.0D;
+				d7 = entityplayer.isSneaking() ? -0.1875D : 0D;
 			}
 
 			double d13 = entity.prevPosX + (entity.posX - entity.prevPosX) * (double) partialTicks;
@@ -119,7 +119,7 @@ public class RenderFish extends Render<EntityFishHook> {
 			int l = 16;
 
 			for (int i1 = 0; i1 <= 16; ++i1) {
-				float f11 = (float) i1 / 16.0F;
+				float f11 = (float) i1 / 16F;
 				bufferbuilder.pos(x + d10 * (double) f11, y + d11 * (double) (f11 * f11 + f11) * 0.5D + 0.25D, z + d12 * (double) f11).color(0, 0, 0, 255).endVertex();
 			}
 

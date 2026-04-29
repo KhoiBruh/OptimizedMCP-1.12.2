@@ -17,14 +17,14 @@ public class ParticleMobAppearance extends Particle {
 
 	protected ParticleMobAppearance(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn) {
 
-		super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0.0D, 0.0D, 0.0D);
-		particleRed = 1.0F;
-		particleGreen = 1.0F;
-		particleBlue = 1.0F;
-		motionX = 0.0D;
-		motionY = 0.0D;
-		motionZ = 0.0D;
-		particleGravity = 0.0F;
+		super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0D, 0D, 0D);
+		particleRed = 1F;
+		particleGreen = 1F;
+		particleBlue = 1F;
+		motionX = 0D;
+		motionY = 0D;
+		motionZ = 0D;
+		particleGravity = 0F;
 		particleMaxAge = 30;
 	}
 
@@ -62,21 +62,21 @@ public class ParticleMobAppearance extends Particle {
 			GlStateManager.enableBlend();
 			GlStateManager.enableDepth();
 			GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
-			float f2 = 240.0F;
-			OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240.0F, 240.0F);
+			float f2 = 240F;
+			OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240F, 240F);
 			GlStateManager.pushMatrix();
 			float f3 = 0.05F + 0.5F * MathHelper.sin(f1 * (float) Math.PI);
-			GlStateManager.color(1.0F, 1.0F, 1.0F, f3);
-			GlStateManager.translate(0.0F, 1.8F, 0.0F);
-			GlStateManager.rotate(180.0F - entityIn.rotationYaw, 0.0F, 1.0F, 0.0F);
-			GlStateManager.rotate(60.0F - 150.0F * f1 - entityIn.rotationPitch, 1.0F, 0.0F, 0.0F);
-			GlStateManager.translate(0.0F, -0.4F, -1.5F);
+			GlStateManager.color(1F, 1F, 1F, f3);
+			GlStateManager.translate(0F, 1.8F, 0F);
+			GlStateManager.rotate(180F - entityIn.rotationYaw, 0F, 1F, 0F);
+			GlStateManager.rotate(60F - 150F * f1 - entityIn.rotationPitch, 1F, 0F, 0F);
+			GlStateManager.translate(0F, -0.4F, -1.5F);
 			GlStateManager.scale(0.42553192F, 0.42553192F, 0.42553192F);
-			entity.rotationYaw = 0.0F;
-			entity.rotationYawHead = 0.0F;
-			entity.prevRotationYaw = 0.0F;
-			entity.prevRotationYawHead = 0.0F;
-			rendermanager.renderEntity(entity, 0.0D, 0.0D, 0.0D, 0.0F, partialTicks, false);
+			entity.rotationYaw = 0F;
+			entity.rotationYawHead = 0F;
+			entity.prevRotationYaw = 0F;
+			entity.prevRotationYawHead = 0F;
+			rendermanager.renderEntity(entity, 0D, 0D, 0D, 0F, partialTicks, false);
 			GlStateManager.popMatrix();
 			GlStateManager.enableDepth();
 		}

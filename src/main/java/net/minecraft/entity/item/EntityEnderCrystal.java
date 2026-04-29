@@ -29,7 +29,7 @@ public class EntityEnderCrystal extends Entity {
 
 		super(worldIn);
 		preventEntitySpawning = true;
-		setSize(2.0F, 2.0F);
+		setSize(2F, 2F);
 		innerRotation = rand.nextInt(100000);
 	}
 
@@ -122,7 +122,7 @@ public class EntityEnderCrystal extends Entity {
 
 				if (!world.isRemote) {
 					if (!source.isExplosion()) {
-						world.createExplosion(null, posX, posY, posZ, 6.0F, true);
+						world.createExplosion(null, posX, posY, posZ, 6F, true);
 					}
 
 					onCrystalDestroyed(source);

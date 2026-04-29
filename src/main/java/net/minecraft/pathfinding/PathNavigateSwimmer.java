@@ -44,7 +44,7 @@ public class PathNavigateSwimmer extends PathNavigate {
 		for (int j = Math.min(currentPath.getCurrentPathIndex() + 6, currentPath.getCurrentPathLength() - 1); j > currentPath.getCurrentPathIndex(); --j) {
 			Vec3d vec3d1 = currentPath.getVectorFromIndex(entity, j);
 
-			if (vec3d1.squareDistanceTo(vec3d) <= 36.0D && isDirectPathBetweenPoints(vec3d, vec3d1, 0, 0, 0)) {
+			if (vec3d1.squareDistanceTo(vec3d) <= 36D && isDirectPathBetweenPoints(vec3d, vec3d1, 0, 0, 0)) {
 				currentPath.setCurrentPathIndex(j);
 				break;
 			}

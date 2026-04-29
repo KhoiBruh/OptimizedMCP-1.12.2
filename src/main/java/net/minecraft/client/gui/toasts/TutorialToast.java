@@ -27,7 +27,7 @@ public class TutorialToast implements IToast {
 	public IToast.Visibility draw(GuiToast toastGui, long delta) {
 
 		toastGui.getMinecraft().getTextureManager().bindTexture(TEXTURE_TOASTS);
-		GlStateManager.color(1.0F, 1.0F, 1.0F);
+		GlStateManager.color(1F, 1F, 1F);
 		toastGui.drawTexturedModalRect(0, 0, 0, 96, 160, 32);
 		icon.draw(toastGui, 6, 6);
 
@@ -40,7 +40,7 @@ public class TutorialToast implements IToast {
 
 		if (hasProgressBar) {
 			Gui.drawRect(3, 28, 157, 29, -1);
-			float f = (float) MathHelper.clampedLerp(displayedProgress, currentProgress, (float) (delta - lastDelta) / 100.0F);
+			float f = (float) MathHelper.clampedLerp(displayedProgress, currentProgress, (float) (delta - lastDelta) / 100F);
 			int i;
 
 			if (currentProgress >= displayedProgress) {
@@ -49,7 +49,7 @@ public class TutorialToast implements IToast {
 				i = -11206656;
 			}
 
-			Gui.drawRect(3, 28, (int) (3.0F + 154.0F * f), 29, i);
+			Gui.drawRect(3, 28, (int) (3F + 154F * f), 29, i);
 			displayedProgress = f;
 			lastDelta = delta;
 		}

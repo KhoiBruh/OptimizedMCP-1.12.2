@@ -277,7 +277,7 @@ public class ParticleManager {
 							renderer.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 					}
 
-					GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+					GlStateManager.color(1F, 1F, 1F, 1F);
 					Tessellator tessellator = Tessellator.getInstance();
 					BufferBuilder bufferbuilder = tessellator.getBuffer();
 					bufferbuilder.begin(7, DefaultVertexFormats.PARTICLE_POSITION_TEX_COLOR_LMAP);
@@ -358,9 +358,9 @@ public class ParticleManager {
 			for (int j = 0; j < 4; ++j) {
 				for (int k = 0; k < 4; ++k) {
 					for (int l = 0; l < 4; ++l) {
-						double d0 = ((double) j + 0.5D) / 4.0D;
-						double d1 = ((double) k + 0.5D) / 4.0D;
-						double d2 = ((double) l + 0.5D) / 4.0D;
+						double d0 = ((double) j + 0.5D) / 4D;
+						double d1 = ((double) k + 0.5D) / 4D;
+						double d2 = ((double) l + 0.5D) / 4D;
 						addEffect((new ParticleDigging(world, (double) pos.getX() + d0, (double) pos.getY() + d1, (double) pos.getZ() + d2, d0 - 0.5D, d1 - 0.5D, d2 - 0.5D, state)).setBlockPos(pos));
 					}
 				}
@@ -409,7 +409,7 @@ public class ParticleManager {
 				d0 = (double) i + axisalignedbb.maxX + 0.10000000149011612D;
 			}
 
-			addEffect((new ParticleDigging(world, d0, d1, d2, 0.0D, 0.0D, 0.0D, iblockstate)).setBlockPos(pos).multiplyVelocity(0.2F).multipleParticleScaleBy(0.6F));
+			addEffect((new ParticleDigging(world, d0, d1, d2, 0D, 0D, 0D, iblockstate)).setBlockPos(pos).multiplyVelocity(0.2F).multipleParticleScaleBy(0.6F));
 		}
 	}
 

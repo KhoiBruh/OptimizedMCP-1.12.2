@@ -66,15 +66,15 @@ public class BlockPumpkin extends BlockHorizontal {
 
 			EntitySnowman entitysnowman = new EntitySnowman(worldIn);
 			BlockPos blockpos1 = blockpattern$patternhelper.translateOffset(0, 2, 0).getPos();
-			entitysnowman.setLocationAndAngles((double) blockpos1.getX() + 0.5D, (double) blockpos1.getY() + 0.05D, (double) blockpos1.getZ() + 0.5D, 0.0F, 0.0F);
+			entitysnowman.setLocationAndAngles((double) blockpos1.getX() + 0.5D, (double) blockpos1.getY() + 0.05D, (double) blockpos1.getZ() + 0.5D, 0F, 0F);
 			worldIn.spawnEntity(entitysnowman);
 
-			for (EntityPlayerMP entityplayermp : worldIn.getEntitiesWithinAABB(EntityPlayerMP.class, entitysnowman.getEntityBoundingBox().grow(5.0D))) {
+			for (EntityPlayerMP entityplayermp : worldIn.getEntitiesWithinAABB(EntityPlayerMP.class, entitysnowman.getEntityBoundingBox().grow(5D))) {
 				CriteriaTriggers.SUMMONED_ENTITY.trigger(entityplayermp, entitysnowman);
 			}
 
 			for (int l = 0; l < 120; ++l) {
-				worldIn.spawnParticle(EnumParticleTypes.SNOW_SHOVEL, (double) blockpos1.getX() + worldIn.rand.nextDouble(), (double) blockpos1.getY() + worldIn.rand.nextDouble() * 2.5D, (double) blockpos1.getZ() + worldIn.rand.nextDouble(), 0.0D, 0.0D, 0.0D);
+				worldIn.spawnParticle(EnumParticleTypes.SNOW_SHOVEL, (double) blockpos1.getX() + worldIn.rand.nextDouble(), (double) blockpos1.getY() + worldIn.rand.nextDouble() * 2.5D, (double) blockpos1.getZ() + worldIn.rand.nextDouble(), 0D, 0D, 0D);
 			}
 
 			for (int i1 = 0; i1 < getSnowmanPattern().getThumbLength(); ++i1) {
@@ -94,15 +94,15 @@ public class BlockPumpkin extends BlockHorizontal {
 				BlockPos blockpos = blockpattern$patternhelper.translateOffset(1, 2, 0).getPos();
 				EntityIronGolem entityirongolem = new EntityIronGolem(worldIn);
 				entityirongolem.setPlayerCreated(true);
-				entityirongolem.setLocationAndAngles((double) blockpos.getX() + 0.5D, (double) blockpos.getY() + 0.05D, (double) blockpos.getZ() + 0.5D, 0.0F, 0.0F);
+				entityirongolem.setLocationAndAngles((double) blockpos.getX() + 0.5D, (double) blockpos.getY() + 0.05D, (double) blockpos.getZ() + 0.5D, 0F, 0F);
 				worldIn.spawnEntity(entityirongolem);
 
-				for (EntityPlayerMP entityplayermp1 : worldIn.getEntitiesWithinAABB(EntityPlayerMP.class, entityirongolem.getEntityBoundingBox().grow(5.0D))) {
+				for (EntityPlayerMP entityplayermp1 : worldIn.getEntitiesWithinAABB(EntityPlayerMP.class, entityirongolem.getEntityBoundingBox().grow(5D))) {
 					CriteriaTriggers.SUMMONED_ENTITY.trigger(entityplayermp1, entityirongolem);
 				}
 
 				for (int j1 = 0; j1 < 120; ++j1) {
-					worldIn.spawnParticle(EnumParticleTypes.SNOWBALL, (double) blockpos.getX() + worldIn.rand.nextDouble(), (double) blockpos.getY() + worldIn.rand.nextDouble() * 3.9D, (double) blockpos.getZ() + worldIn.rand.nextDouble(), 0.0D, 0.0D, 0.0D);
+					worldIn.spawnParticle(EnumParticleTypes.SNOWBALL, (double) blockpos.getX() + worldIn.rand.nextDouble(), (double) blockpos.getY() + worldIn.rand.nextDouble() * 3.9D, (double) blockpos.getZ() + worldIn.rand.nextDouble(), 0D, 0D, 0D);
 				}
 
 				for (int k1 = 0; k1 < getGolemPattern().getPalmLength(); ++k1) {

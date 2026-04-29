@@ -317,9 +317,9 @@ public class BufferBuilder {
 	public void putColorRGB_F(float red, float green, float blue, int vertexIndex) {
 
 		int i = getColorIndex(vertexIndex);
-		int j = MathHelper.clamp((int) (red * 255.0F), 0, 255);
-		int k = MathHelper.clamp((int) (green * 255.0F), 0, 255);
-		int l = MathHelper.clamp((int) (blue * 255.0F), 0, 255);
+		int j = MathHelper.clamp((int) (red * 255F), 0, 255);
+		int k = MathHelper.clamp((int) (green * 255F), 0, 255);
+		int l = MathHelper.clamp((int) (blue * 255F), 0, 255);
 		putColorRGBA(i, j, k, l);
 	}
 
@@ -346,7 +346,7 @@ public class BufferBuilder {
 
 	public BufferBuilder color(float red, float green, float blue, float alpha) {
 
-		return color((int) (red * 255.0F), (int) (green * 255.0F), (int) (blue * 255.0F), (int) (alpha * 255.0F));
+		return color((int) (red * 255F), (int) (green * 255F), (int) (blue * 255F), (int) (alpha * 255F));
 	}
 
 	public BufferBuilder color(int red, int green, int blue, int alpha) {
@@ -358,10 +358,10 @@ public class BufferBuilder {
 
 			switch (vertexFormatElement.getType()) {
 				case FLOAT:
-					byteBuffer.putFloat(i, (float) red / 255.0F);
-					byteBuffer.putFloat(i + 4, (float) green / 255.0F);
-					byteBuffer.putFloat(i + 8, (float) blue / 255.0F);
-					byteBuffer.putFloat(i + 12, (float) alpha / 255.0F);
+					byteBuffer.putFloat(i, (float) red / 255F);
+					byteBuffer.putFloat(i + 4, (float) green / 255F);
+					byteBuffer.putFloat(i + 8, (float) blue / 255F);
+					byteBuffer.putFloat(i + 12, (float) alpha / 255F);
 					break;
 
 				case UINT:
@@ -452,9 +452,9 @@ public class BufferBuilder {
 
 	public void putNormal(float x, float y, float z) {
 
-		int i = (byte) ((int) (x * 127.0F)) & 255;
-		int j = (byte) ((int) (y * 127.0F)) & 255;
-		int k = (byte) ((int) (z * 127.0F)) & 255;
+		int i = (byte) ((int) (x * 127F)) & 255;
+		int j = (byte) ((int) (y * 127F)) & 255;
+		int k = (byte) ((int) (z * 127F)) & 255;
 		int l = i | j << 8 | k << 16;
 		int i1 = vertexFormat.getNextOffset() >> 2;
 		int j1 = (vertexCount - 4) * i1 + vertexFormat.getNormalOffset() / 4;

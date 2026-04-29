@@ -21,16 +21,16 @@ public class PhaseLanding extends PhaseBase {
 	 */
 	public void doClientRenderEffects() {
 
-		Vec3d vec3d = dragon.getHeadLookVec(1.0F).normalize();
+		Vec3d vec3d = dragon.getHeadLookVec(1F).normalize();
 		vec3d.rotateYaw(-((float) Math.PI / 4F));
 		double d0 = dragon.dragonPartHead.posX;
-		double d1 = dragon.dragonPartHead.posY + (double) (dragon.dragonPartHead.height / 2.0F);
+		double d1 = dragon.dragonPartHead.posY + (double) (dragon.dragonPartHead.height / 2F);
 		double d2 = dragon.dragonPartHead.posZ;
 
 		for (int i = 0; i < 8; ++i) {
-			double d3 = d0 + dragon.getRNG().nextGaussian() / 2.0D;
-			double d4 = d1 + dragon.getRNG().nextGaussian() / 2.0D;
-			double d5 = d2 + dragon.getRNG().nextGaussian() / 2.0D;
+			double d3 = d0 + dragon.getRNG().nextGaussian() / 2D;
+			double d4 = d1 + dragon.getRNG().nextGaussian() / 2D;
+			double d5 = d2 + dragon.getRNG().nextGaussian() / 2D;
 			dragon.world.spawnParticle(EnumParticleTypes.DRAGON_BREATH, d3, d4, d5, -vec3d.x() * 0.07999999821186066D + dragon.motionX, -vec3d.y() * 0.30000001192092896D + dragon.motionY, -vec3d.z() * 0.07999999821186066D + dragon.motionZ);
 			vec3d.rotateYaw(0.19634955F);
 		}
@@ -46,7 +46,7 @@ public class PhaseLanding extends PhaseBase {
 			targetLocation = new Vec3d(dragon.world.getTopSolidOrLiquidBlock(WorldGenEndPodium.END_PODIUM_LOCATION));
 		}
 
-		if (targetLocation.squareDistanceTo(dragon.posX, dragon.posY, dragon.posZ) < 1.0D) {
+		if (targetLocation.squareDistanceTo(dragon.posX, dragon.posY, dragon.posZ) < 1D) {
 			dragon.getPhaseManager().getPhase(PhaseList.SITTING_FLAMING).resetFlameCount();
 			dragon.getPhaseManager().setPhase(PhaseList.SITTING_SCANNING);
 		}
@@ -62,8 +62,8 @@ public class PhaseLanding extends PhaseBase {
 
 	public float getYawFactor() {
 
-		float f = MathHelper.sqrt(dragon.motionX * dragon.motionX + dragon.motionZ * dragon.motionZ) + 1.0F;
-		float f1 = Math.min(f, 40.0F);
+		float f = MathHelper.sqrt(dragon.motionX * dragon.motionX + dragon.motionZ * dragon.motionZ) + 1F;
+		float f1 = Math.min(f, 40F);
 		return f1 / f;
 	}
 

@@ -19,7 +19,7 @@ public class ParticleEmitter extends Particle {
 
 	public ParticleEmitter(World p_i47219_1_, Entity p_i47219_2_, EnumParticleTypes p_i47219_3_, int p_i47219_4_) {
 
-		super(p_i47219_1_, p_i47219_2_.posX, p_i47219_2_.getEntityBoundingBox().minY + (double) (p_i47219_2_.height / 2.0F), p_i47219_2_.posZ, p_i47219_2_.motionX, p_i47219_2_.motionY, p_i47219_2_.motionZ);
+		super(p_i47219_1_, p_i47219_2_.posX, p_i47219_2_.getEntityBoundingBox().minY + (double) (p_i47219_2_.height / 2F), p_i47219_2_.posZ, p_i47219_2_.motionX, p_i47219_2_.motionY, p_i47219_2_.motionZ);
 		attachedEntity = p_i47219_2_;
 		lifetime = p_i47219_4_;
 		particleTypes = p_i47219_3_;
@@ -36,14 +36,14 @@ public class ParticleEmitter extends Particle {
 	public void onUpdate() {
 
 		for (int i = 0; i < 16; ++i) {
-			double d0 = rand.nextFloat() * 2.0F - 1.0F;
-			double d1 = rand.nextFloat() * 2.0F - 1.0F;
-			double d2 = rand.nextFloat() * 2.0F - 1.0F;
+			double d0 = rand.nextFloat() * 2F - 1F;
+			double d1 = rand.nextFloat() * 2F - 1F;
+			double d2 = rand.nextFloat() * 2F - 1F;
 
-			if (d0 * d0 + d1 * d1 + d2 * d2 <= 1.0D) {
-				double d3 = attachedEntity.posX + d0 * (double) attachedEntity.width / 4.0D;
-				double d4 = attachedEntity.getEntityBoundingBox().minY + (double) (attachedEntity.height / 2.0F) + d1 * (double) attachedEntity.height / 4.0D;
-				double d5 = attachedEntity.posZ + d2 * (double) attachedEntity.width / 4.0D;
+			if (d0 * d0 + d1 * d1 + d2 * d2 <= 1D) {
+				double d3 = attachedEntity.posX + d0 * (double) attachedEntity.width / 4D;
+				double d4 = attachedEntity.getEntityBoundingBox().minY + (double) (attachedEntity.height / 2F) + d1 * (double) attachedEntity.height / 4D;
+				double d5 = attachedEntity.posZ + d2 * (double) attachedEntity.width / 4D;
 				world.spawnParticle(particleTypes, false, d3, d4, d5, d0, d1 + 0.2D, d2);
 			}
 		}

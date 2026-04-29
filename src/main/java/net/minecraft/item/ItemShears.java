@@ -45,9 +45,9 @@ public class ItemShears extends Item {
 		Block block = state.getBlock();
 
 		if (block != Blocks.WEB && state.getMaterial() != Material.LEAVES) {
-			return block == Blocks.WOOL ? 5.0F : super.getDestroySpeed(stack, state);
+			return block == Blocks.WOOL ? 5F : super.getDestroySpeed(stack, state);
 		} else {
-			return 15.0F;
+			return 15F;
 		}
 	}
 

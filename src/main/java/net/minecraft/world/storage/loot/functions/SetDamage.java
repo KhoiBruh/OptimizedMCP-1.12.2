@@ -29,7 +29,7 @@ public class SetDamage extends LootFunction {
 	public ItemStack apply(ItemStack stack, Random rand, LootContext context) {
 
 		if (stack.isItemStackDamageable()) {
-			float f = 1.0F - damageRange.generateFloat(rand);
+			float f = 1F - damageRange.generateFloat(rand);
 			stack.setItemDamage(MathHelper.floor(f * (float) stack.getMaxDamage()));
 		} else {
 			LOGGER.warn("Couldn't set damage of loot item {}", stack);

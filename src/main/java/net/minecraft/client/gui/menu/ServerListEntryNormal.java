@@ -125,9 +125,9 @@ public class ServerListEntryNormal implements GuiListExtended.IGuiListEntry {
 			s1 = I18n.format("multiplayer.status.pinging");
 		}
 
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+		GlStateManager.color(1F, 1F, 1F, 1F);
 		mc.getTextureManager().bindTexture(Gui.ICONS);
-		Gui.drawModalRectWithCustomSizedTexture(x + listWidth - 15, y, (float) (k * 10), (float) (176 + l * 8), 10, 8, 256.0F, 256.0F);
+		Gui.drawModalRectWithCustomSizedTexture(x + listWidth - 15, y, (float) (k * 10), (float) (176 + l * 8), 10, 8, 256F, 256F);
 
 		if (server.getBase64EncodedIconData() != null && !server.getBase64EncodedIconData().equals(lastIconB64)) {
 			lastIconB64 = server.getBase64EncodedIconData();
@@ -153,31 +153,31 @@ public class ServerListEntryNormal implements GuiListExtended.IGuiListEntry {
 		if (mc.gameSettings.touchscreen || isSelected) {
 			mc.getTextureManager().bindTexture(SERVER_SELECTION_BUTTONS);
 			Gui.drawRect(x, y, x + 32, y + 32, -1601138544);
-			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+			GlStateManager.color(1F, 1F, 1F, 1F);
 			int k1 = mouseX - x;
 			int l1 = mouseY - y;
 
 			if (canJoin()) {
 				if (k1 < 32 && k1 > 16) {
-					Gui.drawModalRectWithCustomSizedTexture(x, y, 0.0F, 32.0F, 32, 32, 256.0F, 256.0F);
+					Gui.drawModalRectWithCustomSizedTexture(x, y, 0F, 32F, 32, 32, 256F, 256F);
 				} else {
-					Gui.drawModalRectWithCustomSizedTexture(x, y, 0.0F, 0.0F, 32, 32, 256.0F, 256.0F);
+					Gui.drawModalRectWithCustomSizedTexture(x, y, 0F, 0F, 32, 32, 256F, 256F);
 				}
 			}
 
 			if (owner.canMoveUp(this, slotIndex)) {
 				if (k1 < 16 && l1 < 16) {
-					Gui.drawModalRectWithCustomSizedTexture(x, y, 96.0F, 32.0F, 32, 32, 256.0F, 256.0F);
+					Gui.drawModalRectWithCustomSizedTexture(x, y, 96F, 32F, 32, 32, 256F, 256F);
 				} else {
-					Gui.drawModalRectWithCustomSizedTexture(x, y, 96.0F, 0.0F, 32, 32, 256.0F, 256.0F);
+					Gui.drawModalRectWithCustomSizedTexture(x, y, 96F, 0F, 32, 32, 256F, 256F);
 				}
 			}
 
 			if (owner.canMoveDown(this, slotIndex)) {
 				if (k1 < 16 && l1 > 16) {
-					Gui.drawModalRectWithCustomSizedTexture(x, y, 64.0F, 32.0F, 32, 32, 256.0F, 256.0F);
+					Gui.drawModalRectWithCustomSizedTexture(x, y, 64F, 32F, 32, 32, 256F, 256F);
 				} else {
-					Gui.drawModalRectWithCustomSizedTexture(x, y, 64.0F, 0.0F, 32, 32, 256.0F, 256.0F);
+					Gui.drawModalRectWithCustomSizedTexture(x, y, 64F, 0F, 32, 32, 256F, 256F);
 				}
 			}
 		}
@@ -187,7 +187,7 @@ public class ServerListEntryNormal implements GuiListExtended.IGuiListEntry {
 
 		mc.getTextureManager().bindTexture(p_178012_3_);
 		GlStateManager.enableBlend();
-		Gui.drawModalRectWithCustomSizedTexture(p_178012_1_, p_178012_2_, 0.0F, 0.0F, 32, 32, 32.0F, 32.0F);
+		Gui.drawModalRectWithCustomSizedTexture(p_178012_1_, p_178012_2_, 0F, 0F, 32, 32, 32F, 32F);
 		GlStateManager.disableBlend();
 	}
 

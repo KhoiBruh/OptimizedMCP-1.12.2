@@ -13,8 +13,8 @@ public class MovementInputFromOptions extends MovementInput {
 
 	public void updatePlayerMoveState() {
 
-		moveStrafe = 0.0F;
-		moveForward = 0.0F;
+		moveStrafe = 0F;
+		moveForward = 0F;
 
 		if (gameSettings.keyBindForward.isKeyDown()) {
 			++moveForward;

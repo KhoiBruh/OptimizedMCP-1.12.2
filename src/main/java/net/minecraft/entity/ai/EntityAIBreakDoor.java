@@ -50,7 +50,7 @@ public class EntityAIBreakDoor extends EntityAIDoorInteract {
 		if (breakingTime <= 240) {
 			BlockDoor blockdoor = doorBlock;
 
-			if (!BlockDoor.isOpen(entity.world, doorPosition) && d0 < 4.0D) {
+			if (!BlockDoor.isOpen(entity.world, doorPosition) && d0 < 4D) {
 				flag = true;
 				return flag;
 			}
@@ -81,7 +81,7 @@ public class EntityAIBreakDoor extends EntityAIDoorInteract {
 		}
 
 		++breakingTime;
-		int i = (int) ((float) breakingTime / 240.0F * 10.0F);
+		int i = (int) ((float) breakingTime / 240F * 10F);
 
 		if (i != previousBreakProgress) {
 			entity.world.sendBlockBreakProgress(entity.getEntityId(), doorPosition, i);

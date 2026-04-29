@@ -20,8 +20,8 @@ public class MapGenRavine extends MapGenBase {
 		Random random = new Random(p_180707_1_);
 		double d0 = p_180707_3_ * 16 + 8;
 		double d1 = p_180707_4_ * 16 + 8;
-		float f = 0.0F;
-		float f1 = 0.0F;
+		float f = 0F;
+		float f1 = 0F;
 
 		if (p_180707_16_ <= 0) {
 			int i = range * 16 - 16;
@@ -35,11 +35,11 @@ public class MapGenRavine extends MapGenBase {
 			flag1 = true;
 		}
 
-		float f2 = 1.0F;
+		float f2 = 1F;
 
 		for (int j = 0; j < 256; ++j) {
 			if (j == 0 || random.nextInt(3) == 0) {
-				f2 = 1.0F + random.nextFloat() * random.nextFloat();
+				f2 = 1F + random.nextFloat() * random.nextFloat();
 			}
 
 			rs[j] = f2 * f2;
@@ -60,20 +60,20 @@ public class MapGenRavine extends MapGenBase {
 			p_180707_13_ += f * 0.05F;
 			f1 = f1 * 0.8F;
 			f = f * 0.5F;
-			f1 = f1 + (random.nextFloat() - random.nextFloat()) * random.nextFloat() * 2.0F;
-			f = f + (random.nextFloat() - random.nextFloat()) * random.nextFloat() * 4.0F;
+			f1 = f1 + (random.nextFloat() - random.nextFloat()) * random.nextFloat() * 2F;
+			f = f + (random.nextFloat() - random.nextFloat()) * random.nextFloat() * 4F;
 
 			if (flag1 || random.nextInt(4) != 0) {
 				double d3 = p_180707_6_ - d0;
 				double d4 = p_180707_10_ - d1;
 				double d5 = p_180707_16_ - p_180707_15_;
-				double d6 = p_180707_12_ + 2.0F + 16.0F;
+				double d6 = p_180707_12_ + 2F + 16F;
 
 				if (d3 * d3 + d4 * d4 - d5 * d5 > d6 * d6) {
 					return;
 				}
 
-				if (p_180707_6_ >= d0 - 16.0D - d9 * 2.0D && p_180707_10_ >= d1 - 16.0D - d9 * 2.0D && p_180707_6_ <= d0 + 16.0D + d9 * 2.0D && p_180707_10_ <= d1 + 16.0D + d9 * 2.0D) {
+				if (p_180707_6_ >= d0 - 16D - d9 * 2D && p_180707_10_ >= d1 - 16D - d9 * 2D && p_180707_6_ <= d0 + 16D + d9 * 2D && p_180707_10_ <= d1 + 16D + d9 * 2D) {
 					int k2 = MathHelper.floor(p_180707_6_ - d9) - p_180707_3_ * 16 - 1;
 					int k = MathHelper.floor(p_180707_6_ + d9) - p_180707_3_ * 16 + 1;
 					int l2 = MathHelper.floor(p_180707_8_ - d2) - 1;
@@ -135,11 +135,11 @@ public class MapGenRavine extends MapGenBase {
 								double d7 = ((double) (i2 + p_180707_4_ * 16) + 0.5D - p_180707_10_) / d9;
 								boolean flag = false;
 
-								if (d10 * d10 + d7 * d7 < 1.0D) {
+								if (d10 * d10 + d7 * d7 < 1D) {
 									for (int j2 = l; j2 > l2; --j2) {
 										double d8 = ((double) (j2 - 1) + 0.5D - p_180707_8_) / d2;
 
-										if ((d10 * d10 + d7 * d7) * (double) rs[j2 - 1] + d8 * d8 / 6.0D < 1.0D) {
+										if ((d10 * d10 + d7 * d7) * (double) rs[j2 - 1] + d8 * d8 / 6D < 1D) {
 											IBlockState iblockstate1 = p_180707_5_.getBlockState(j3, j2, i2);
 
 											if (iblockstate1.getBlock() == Blocks.GRASS) {
@@ -186,9 +186,9 @@ public class MapGenRavine extends MapGenBase {
 
 			for (int j = 0; j < 1; ++j) {
 				float f = rand.nextFloat() * ((float) Math.PI * 2F);
-				float f1 = (rand.nextFloat() - 0.5F) * 2.0F / 8.0F;
-				float f2 = (rand.nextFloat() * 2.0F + rand.nextFloat()) * 2.0F;
-				addTunnel(rand.nextLong(), originalX, originalZ, chunkPrimerIn, d0, d1, d2, f2, f, f1, 0, 0, 3.0D);
+				float f1 = (rand.nextFloat() - 0.5F) * 2F / 8F;
+				float f2 = (rand.nextFloat() * 2F + rand.nextFloat()) * 2F;
+				addTunnel(rand.nextLong(), originalX, originalZ, chunkPrimerIn, d0, d1, d2, f2, f, f1, 0, 0, 3D);
 			}
 		}
 	}

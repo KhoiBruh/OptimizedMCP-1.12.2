@@ -78,9 +78,9 @@ public abstract class RenderLiving<T extends EntityLiving> extends RenderLivingB
 			double d4 = Math.sin(d1);
 
 			if (entity instanceof EntityHanging) {
-				d2 = 0.0D;
-				d3 = 0.0D;
-				d4 = -1.0D;
+				d2 = 0D;
+				d3 = 0D;
+				d4 = -1D;
 			}
 
 			double d5 = Math.cos(d1);
@@ -116,9 +116,9 @@ public abstract class RenderLiving<T extends EntityLiving> extends RenderLivingB
 					f2 *= 0.7F;
 				}
 
-				float f3 = (float) j / 24.0F;
-				bufferbuilder.pos(x + d13 * (double) f3 + 0.0D, y + d14 * (double) (f3 * f3 + f3) * 0.5D + (double) ((24.0F - (float) j) / 18.0F + 0.125F), z + d15 * (double) f3).color(f, f1, f2, 1.0F).endVertex();
-				bufferbuilder.pos(x + d13 * (double) f3 + 0.025D, y + d14 * (double) (f3 * f3 + f3) * 0.5D + (double) ((24.0F - (float) j) / 18.0F + 0.125F) + 0.025D, z + d15 * (double) f3).color(f, f1, f2, 1.0F).endVertex();
+				float f3 = (float) j / 24F;
+				bufferbuilder.pos(x + d13 * (double) f3 + 0D, y + d14 * (double) (f3 * f3 + f3) * 0.5D + (double) ((24F - (float) j) / 18F + 0.125F), z + d15 * (double) f3).color(f, f1, f2, 1F).endVertex();
+				bufferbuilder.pos(x + d13 * (double) f3 + 0.025D, y + d14 * (double) (f3 * f3 + f3) * 0.5D + (double) ((24F - (float) j) / 18F + 0.125F) + 0.025D, z + d15 * (double) f3).color(f, f1, f2, 1F).endVertex();
 			}
 
 			tessellator.draw();
@@ -135,9 +135,9 @@ public abstract class RenderLiving<T extends EntityLiving> extends RenderLivingB
 					f6 *= 0.7F;
 				}
 
-				float f7 = (float) k / 24.0F;
-				bufferbuilder.pos(x + d13 * (double) f7 + 0.0D, y + d14 * (double) (f7 * f7 + f7) * 0.5D + (double) ((24.0F - (float) k) / 18.0F + 0.125F) + 0.025D, z + d15 * (double) f7).color(f4, f5, f6, 1.0F).endVertex();
-				bufferbuilder.pos(x + d13 * (double) f7 + 0.025D, y + d14 * (double) (f7 * f7 + f7) * 0.5D + (double) ((24.0F - (float) k) / 18.0F + 0.125F), z + d15 * (double) f7 + 0.025D).color(f4, f5, f6, 1.0F).endVertex();
+				float f7 = (float) k / 24F;
+				bufferbuilder.pos(x + d13 * (double) f7 + 0D, y + d14 * (double) (f7 * f7 + f7) * 0.5D + (double) ((24F - (float) k) / 18F + 0.125F) + 0.025D, z + d15 * (double) f7).color(f4, f5, f6, 1F).endVertex();
+				bufferbuilder.pos(x + d13 * (double) f7 + 0.025D, y + d14 * (double) (f7 * f7 + f7) * 0.5D + (double) ((24F - (float) k) / 18F + 0.125F), z + d15 * (double) f7 + 0.025D).color(f4, f5, f6, 1F).endVertex();
 			}
 
 			tessellator.draw();

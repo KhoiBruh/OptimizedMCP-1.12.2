@@ -33,7 +33,7 @@ public class ItemBoat extends Item {
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
 
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
-		float f = 1.0F;
+		float f = 1F;
 		float f1 = playerIn.prevRotationPitch + (playerIn.rotationPitch - playerIn.prevRotationPitch);
 		float f2 = playerIn.prevRotationYaw + (playerIn.rotationYaw - playerIn.prevRotationYaw);
 		double d0 = playerIn.prevPosX + (playerIn.posX - playerIn.prevPosX);
@@ -46,16 +46,16 @@ public class ItemBoat extends Item {
 		float f6 = MathHelper.sin(-f1 * 0.017453292F);
 		float f7 = f4 * f5;
 		float f8 = f3 * f5;
-		double d3 = 5.0D;
-		Vec3d vec3d1 = vec3d.addVector((double) f7 * 5.0D, (double) f6 * 5.0D, (double) f8 * 5.0D);
+		double d3 = 5D;
+		Vec3d vec3d1 = vec3d.addVector((double) f7 * 5D, (double) f6 * 5D, (double) f8 * 5D);
 		RayTraceResult raytraceresult = worldIn.rayTraceBlocks(vec3d, vec3d1, true);
 
 		if (raytraceresult == null) {
 			return new ActionResult<>(EnumActionResult.PASS, itemstack);
 		} else {
-			Vec3d vec3d2 = playerIn.getLook(1.0F);
+			Vec3d vec3d2 = playerIn.getLook(1F);
 			boolean flag = false;
-			List<Entity> list = worldIn.getEntitiesWithinAABBExcludingEntity(playerIn, playerIn.getEntityBoundingBox().expand(vec3d2.x() * 5.0D, vec3d2.y() * 5.0D, vec3d2.z() * 5.0D).grow(1.0D));
+			List<Entity> list = worldIn.getEntitiesWithinAABBExcludingEntity(playerIn, playerIn.getEntityBoundingBox().expand(vec3d2.x() * 5D, vec3d2.y() * 5D, vec3d2.z() * 5D).grow(1D));
 
 			for (Entity entity : list) {
 				if (entity.canBeCollidedWith()) {

@@ -76,7 +76,7 @@ public class Profiler {
 			}
 
 			if (k > 100000000L) {
-				LOGGER.warn("Something's taking too long! '{}' took aprox {} ms", profilingSection, (double) k / 1000000.0D);
+				LOGGER.warn("Something's taking too long! '{}' took aprox {} ms", profilingSection, (double) k / 1000000D);
 			}
 
 			profilingSection = sectionList.isEmpty() ? "" : sectionList.getLast();
@@ -117,8 +117,8 @@ public class Profiler {
 			for (String s1 : profilingMap.keySet()) {
 				if (s1.length() > profilerName.length() && s1.startsWith(profilerName) && s1.indexOf(".", profilerName.length() + 1) < 0) {
 					long l = profilingMap.get(s1);
-					double d0 = (double) l * 100.0D / (double) k;
-					double d1 = (double) l * 100.0D / (double) i;
+					double d0 = (double) l * 100D / (double) k;
+					double d1 = (double) l * 100D / (double) i;
 					String s2 = s1.substring(profilerName.length());
 					list.add(new Profiler.Result(s2, d0, d1));
 				}
@@ -127,11 +127,11 @@ public class Profiler {
 			profilingMap.replaceAll((s, v) -> profilingMap.get(s) * 999L / 1000L);
 
 			if ((float) k > f) {
-				list.add(new Profiler.Result("unspecified", (double) ((float) k - f) * 100.0D / (double) k, (double) ((float) k - f) * 100.0D / (double) i));
+				list.add(new Profiler.Result("unspecified", (double) ((float) k - f) * 100D / (double) k, (double) ((float) k - f) * 100D / (double) i));
 			}
 
 			Collections.sort(list);
-			list.addFirst(new Profiler.Result(profilerName, 100.0D, (double) k * 100.0D / (double) i));
+			list.addFirst(new Profiler.Result(profilerName, 100D, (double) k * 100D / (double) i));
 			return list;
 		}
 	}

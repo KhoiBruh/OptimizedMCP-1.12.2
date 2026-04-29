@@ -13,7 +13,7 @@ public class EntityGiantZombie extends EntityMob {
 	public EntityGiantZombie(World worldIn) {
 
 		super(worldIn);
-		setSize(width * 6.0F, height * 6.0F);
+		setSize(width * 6F, height * 6F);
 	}
 
 	public static void registerFixesGiantZombie(DataFixer fixer) {
@@ -29,9 +29,9 @@ public class EntityGiantZombie extends EntityMob {
 	protected void applyEntityAttributes() {
 
 		super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(100.0D);
+		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(100D);
 		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.5D);
-		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(50.0D);
+		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(50D);
 	}
 
 	public float getBlockPathWeight(BlockPos pos) {

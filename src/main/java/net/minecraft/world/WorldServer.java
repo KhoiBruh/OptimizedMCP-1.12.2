@@ -174,7 +174,7 @@ public class WorldServer extends World implements IThreadListener {
 
 		profiler.endStartSection("chunkSource");
 		chunkProvider.tick();
-		int j = calculateSkylightSubtracted(1.0F);
+		int j = calculateSkylightSubtracted(1F);
 
 		if (j != getSkylightSubtracted()) {
 			setSkylightSubtracted(j);
@@ -429,7 +429,7 @@ public class WorldServer extends World implements IThreadListener {
 	protected BlockPos adjustPosToNearbyEntity(BlockPos pos) {
 
 		BlockPos blockpos = getPrecipitationHeight(pos);
-		AxisAlignedBB axisalignedbb = (new AxisAlignedBB(blockpos, new BlockPos(blockpos.getX(), getHeight(), blockpos.getZ()))).grow(3.0D);
+		AxisAlignedBB axisalignedbb = (new AxisAlignedBB(blockpos, new BlockPos(blockpos.getX(), getHeight(), blockpos.getZ()))).grow(3D);
 		List<EntityLivingBase> list = getEntitiesWithinAABB(EntityLivingBase.class, axisalignedbb, p_apply_1_ -> p_apply_1_ != null && p_apply_1_.isEntityAlive() && canSeeSky(p_apply_1_.getPosition()));
 
 		if (!list.isEmpty()) {
@@ -1008,7 +1008,7 @@ public class WorldServer extends World implements IThreadListener {
 	public boolean addWeatherEffect(Entity entityIn) {
 
 		if (super.addWeatherEffect(entityIn)) {
-			mcServer.getPlayerList().sendToAllNearExcept(null, entityIn.posX, entityIn.posY, entityIn.posZ, 512.0D, provider.getDimensionType().getId(), new SPacketSpawnGlobalEntity(entityIn));
+			mcServer.getPlayerList().sendToAllNearExcept(null, entityIn.posX, entityIn.posY, entityIn.posZ, 512D, provider.getDimensionType().getId(), new SPacketSpawnGlobalEntity(entityIn));
 			return true;
 		} else {
 			return false;
@@ -1045,7 +1045,7 @@ public class WorldServer extends World implements IThreadListener {
 		}
 
 		for (EntityPlayer entityplayer : playerEntities) {
-			if (entityplayer.getDistanceSq(x, y, z) < 4096.0D) {
+			if (entityplayer.getDistanceSq(x, y, z) < 4096D) {
 				((EntityPlayerMP) entityplayer).connection.sendPacket(new SPacketExplosion(x, y, z, strength, explosion.getAffectedBlockPositions(), explosion.getPlayerKnockbackMap().get(entityplayer)));
 			}
 		}
@@ -1074,7 +1074,7 @@ public class WorldServer extends World implements IThreadListener {
 
 			for (BlockEventData blockeventdata : blockEventQueue[i]) {
 				if (fireBlockEvent(blockeventdata)) {
-					mcServer.getPlayerList().sendToAllNearExcept(null, blockeventdata.getPosition().getX(), blockeventdata.getPosition().getY(), blockeventdata.getPosition().getZ(), 64.0D, provider.getDimensionType().getId(), new SPacketBlockAction(blockeventdata.getPosition(), blockeventdata.getBlock(), blockeventdata.getEventID(), blockeventdata.getEventParameter()));
+					mcServer.getPlayerList().sendToAllNearExcept(null, blockeventdata.getPosition().getX(), blockeventdata.getPosition().getY(), blockeventdata.getPosition().getZ(), 64D, provider.getDimensionType().getId(), new SPacketBlockAction(blockeventdata.getPosition(), blockeventdata.getBlock(), blockeventdata.getEventID(), blockeventdata.getEventParameter()));
 				}
 			}
 
@@ -1114,9 +1114,9 @@ public class WorldServer extends World implements IThreadListener {
 
 		if (flag != isRaining()) {
 			if (flag) {
-				mcServer.getPlayerList().sendPacketToAllPlayers(new SPacketChangeGameState(2, 0.0F));
+				mcServer.getPlayerList().sendPacketToAllPlayers(new SPacketChangeGameState(2, 0F));
 			} else {
-				mcServer.getPlayerList().sendPacketToAllPlayers(new SPacketChangeGameState(1, 0.0F));
+				mcServer.getPlayerList().sendPacketToAllPlayers(new SPacketChangeGameState(1, 0F));
 			}
 
 			mcServer.getPlayerList().sendPacketToAllPlayers(new SPacketChangeGameState(7, rainingStrength));
@@ -1188,7 +1188,7 @@ public class WorldServer extends World implements IThreadListener {
 		BlockPos blockpos = player.getPosition();
 		double d0 = blockpos.distanceSq(x, y, z);
 
-		if (d0 <= 1024.0D || longDistance && d0 <= 262144.0D) {
+		if (d0 <= 1024D || longDistance && d0 <= 262144D) {
 			player.connection.sendPacket(packetIn);
 		}
 	}

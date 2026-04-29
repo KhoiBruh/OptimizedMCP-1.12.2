@@ -17,7 +17,7 @@ public class RenderVillager extends RenderLiving<EntityVillager> {
 
 	public RenderVillager(RenderManager renderManagerIn) {
 
-		super(renderManagerIn, new ModelVillager(0.0F), 0.5F);
+		super(renderManagerIn, new ModelVillager(0F), 0.5F);
 		addLayer(new LayerCustomHead(getMainModel().villagerHead));
 	}
 

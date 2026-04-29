@@ -10,7 +10,7 @@ public class ParticleSplash extends ParticleRain {
 		particleGravity = 0.04F;
 		nextTextureIndexX();
 
-		if (ySpeedIn == 0.0D && (xSpeedIn != 0.0D || zSpeedIn != 0.0D)) {
+		if (ySpeedIn == 0D && (xSpeedIn != 0D || zSpeedIn != 0D)) {
 			motionX = xSpeedIn;
 			motionY = ySpeedIn + 0.1D;
 			motionZ = zSpeedIn;

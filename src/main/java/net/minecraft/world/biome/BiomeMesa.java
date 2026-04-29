@@ -87,24 +87,24 @@ public class BiomeMesa extends Biome {
 		}
 
 		worldSeed = worldIn.getSeed();
-		double d4 = 0.0D;
+		double d4 = 0D;
 
 		if (brycePillars) {
 			int i = (x & -16) + (z & 15);
 			int j = (z & -16) + (x & 15);
 			double d0 = Math.min(Math.abs(noiseVal), pillarNoise.getValue((double) i * 0.25D, (double) j * 0.25D));
 
-			if (d0 > 0.0D) {
+			if (d0 > 0D) {
 				double d1 = 0.001953125D;
 				double d2 = Math.abs(pillarRoofNoise.getValue((double) i * 0.001953125D, (double) j * 0.001953125D));
 				d4 = d0 * d0 * 2.5D;
-				double d3 = Math.ceil(d2 * 50.0D) + 14.0D;
+				double d3 = Math.ceil(d2 * 50D) + 14D;
 
 				if (d4 > d3) {
 					d4 = d3;
 				}
 
-				d4 = d4 + 64.0D;
+				d4 = d4 + 64D;
 			}
 		}
 
@@ -113,8 +113,8 @@ public class BiomeMesa extends Biome {
 		int i2 = worldIn.getSeaLevel();
 		IBlockState iblockstate = STAINED_HARDENED_CLAY;
 		IBlockState iblockstate3 = fillerBlock;
-		int k = (int) (noiseVal / 3.0D + 3.0D + rand.nextDouble() * 0.25D);
-		boolean flag = Math.cos(noiseVal / 3.0D * Math.PI) > 0.0D;
+		int k = (int) (noiseVal / 3D + 3D + rand.nextDouble() * 0.25D);
+		boolean flag = Math.cos(noiseVal / 3D * Math.PI) > 0D;
 		int l = -1;
 		boolean flag1 = false;
 		int i1 = 0;
@@ -268,7 +268,7 @@ public class BiomeMesa extends Biome {
 
 	private IBlockState getBand(int p_180629_1_, int p_180629_2_, int p_180629_3_) {
 
-		int i = (int) Math.round(clayBandsOffsetNoise.getValue((double) p_180629_1_ / 512.0D, (double) p_180629_1_ / 512.0D) * 2.0D);
+		int i = (int) Math.round(clayBandsOffsetNoise.getValue((double) p_180629_1_ / 512D, (double) p_180629_1_ / 512D) * 2D);
 		return clayBands[(p_180629_2_ + i + 64) % 64];
 	}
 

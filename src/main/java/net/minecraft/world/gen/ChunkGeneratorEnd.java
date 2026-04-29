@@ -114,7 +114,7 @@ public class ChunkGeneratorEnd implements IChunkGenerator {
 							for (int j2 = 0; j2 < 8; ++j2) {
 								IBlockState iblockstate = AIR;
 
-								if (d15 > 0.0D) {
+								if (d15 > 0D) {
 									iblockstate = END_STONE;
 								}
 
@@ -201,14 +201,14 @@ public class ChunkGeneratorEnd implements IChunkGenerator {
 
 		float f = (float) (p_185960_1_ * 2 + p_185960_3_);
 		float f1 = (float) (p_185960_2_ * 2 + p_185960_4_);
-		float f2 = 100.0F - MathHelper.sqrt(f * f + f1 * f1) * 8.0F;
+		float f2 = 100F - MathHelper.sqrt(f * f + f1 * f1) * 8F;
 
-		if (f2 > 80.0F) {
-			f2 = 80.0F;
+		if (f2 > 80F) {
+			f2 = 80F;
 		}
 
-		if (f2 < -100.0F) {
-			f2 = -100.0F;
+		if (f2 < -100F) {
+			f2 = -100F;
 		}
 
 		for (int i = -12; i <= 12; ++i) {
@@ -217,17 +217,17 @@ public class ChunkGeneratorEnd implements IChunkGenerator {
 				long l = p_185960_2_ + j;
 
 				if (k * k + l * l > 4096L && islandNoise.getValue((double) k, (double) l) < -0.8999999761581421D) {
-					float f3 = (MathHelper.abs((float) k) * 3439.0F + MathHelper.abs((float) l) * 147.0F) % 13.0F + 9.0F;
+					float f3 = (MathHelper.abs((float) k) * 3439F + MathHelper.abs((float) l) * 147F) % 13F + 9F;
 					f = (float) (p_185960_3_ - i * 2);
 					f1 = (float) (p_185960_4_ - j * 2);
-					float f4 = 100.0F - MathHelper.sqrt(f * f + f1 * f1) * f3;
+					float f4 = 100F - MathHelper.sqrt(f * f + f1 * f1) * f3;
 
-					if (f4 > 80.0F) {
-						f4 = 80.0F;
+					if (f4 > 80F) {
+						f4 = 80F;
 					}
 
-					if (f4 < -100.0F) {
-						f4 = -100.0F;
+					if (f4 < -100F) {
+						f4 = -100F;
 					}
 
 					if (f4 > f2) {
@@ -242,7 +242,7 @@ public class ChunkGeneratorEnd implements IChunkGenerator {
 
 	public boolean isIslandChunk(int p_185961_1_, int p_185961_2_) {
 
-		return (long) p_185961_1_ * (long) p_185961_1_ + (long) p_185961_2_ * (long) p_185961_2_ > 4096L && getIslandHeightValue(p_185961_1_, p_185961_2_, 1, 1) >= 0.0F;
+		return (long) p_185961_1_ * (long) p_185961_1_ + (long) p_185961_2_ * (long) p_185961_2_ > 4096L && getIslandHeightValue(p_185961_1_, p_185961_2_, 1, 1) >= 0F;
 	}
 
 	private double[] getHeights(double[] p_185963_1_, int p_185963_2_, int p_185963_3_, int p_185963_4_, int p_185963_5_, int p_185963_6_, int p_185963_7_) {
@@ -253,8 +253,8 @@ public class ChunkGeneratorEnd implements IChunkGenerator {
 
 		double d0 = 684.412D;
 		double d1 = 684.412D;
-		d0 = d0 * 2.0D;
-		pnr = perlinNoise1.generateNoiseOctaves(pnr, p_185963_2_, p_185963_3_, p_185963_4_, p_185963_5_, p_185963_6_, p_185963_7_, d0 / 80.0D, 4.277575000000001D, d0 / 80.0D);
+		d0 = d0 * 2D;
+		pnr = perlinNoise1.generateNoiseOctaves(pnr, p_185963_2_, p_185963_3_, p_185963_4_, p_185963_5_, p_185963_6_, p_185963_7_, d0 / 80D, 4.277575000000001D, d0 / 80D);
 		ar = lperlinNoise1.generateNoiseOctaves(ar, p_185963_2_, p_185963_3_, p_185963_4_, p_185963_5_, p_185963_6_, p_185963_7_, d0, 684.412D, d0);
 		br = lperlinNoise2.generateNoiseOctaves(br, p_185963_2_, p_185963_3_, p_185963_4_, p_185963_5_, p_185963_6_, p_185963_7_, d0, 684.412D, d0);
 		int i = p_185963_2_ / 2;
@@ -266,34 +266,34 @@ public class ChunkGeneratorEnd implements IChunkGenerator {
 				float f = getIslandHeightValue(i, j, l, i1);
 
 				for (int j1 = 0; j1 < p_185963_6_; ++j1) {
-					double d2 = ar[k] / 512.0D;
-					double d3 = br[k] / 512.0D;
-					double d5 = (pnr[k] / 10.0D + 1.0D) / 2.0D;
+					double d2 = ar[k] / 512D;
+					double d3 = br[k] / 512D;
+					double d5 = (pnr[k] / 10D + 1D) / 2D;
 					double d4;
 
-					if (d5 < 0.0D) {
+					if (d5 < 0D) {
 						d4 = d2;
-					} else if (d5 > 1.0D) {
+					} else if (d5 > 1D) {
 						d4 = d3;
 					} else {
 						d4 = d2 + (d3 - d2) * d5;
 					}
 
-					d4 = d4 - 8.0D;
+					d4 = d4 - 8D;
 					d4 = d4 + (double) f;
 					int k1 = 2;
 
 					if (j1 > p_185963_6_ / 2 - k1) {
-						double d6 = (float) (j1 - (p_185963_6_ / 2 - k1)) / 64.0F;
-						d6 = MathHelper.clamp(d6, 0.0D, 1.0D);
-						d4 = d4 * (1.0D - d6) + -3000.0D * d6;
+						double d6 = (float) (j1 - (p_185963_6_ / 2 - k1)) / 64F;
+						d6 = MathHelper.clamp(d6, 0D, 1D);
+						d4 = d4 * (1D - d6) + -3000D * d6;
 					}
 
 					k1 = 8;
 
 					if (j1 < k1) {
-						double d7 = (float) (k1 - j1) / ((float) k1 - 1.0F);
-						d4 = d4 * (1.0D - d7) + -30.0D * d7;
+						double d7 = (float) (k1 - j1) / ((float) k1 - 1F);
+						d4 = d4 * (1D - d7) + -30D * d7;
 					}
 
 					p_185963_1_[k] = d4;
@@ -326,7 +326,7 @@ public class ChunkGeneratorEnd implements IChunkGenerator {
 		if (i > 4096L) {
 			float f = getIslandHeightValue(x, z, 1, 1);
 
-			if (f < -20.0F && rand.nextInt(14) == 0) {
+			if (f < -20F && rand.nextInt(14) == 0) {
 				endIslands.generate(world, rand, blockpos.add(rand.nextInt(16) + 8, 55 + rand.nextInt(16), rand.nextInt(16) + 8));
 
 				if (rand.nextInt(4) == 0) {
@@ -334,7 +334,7 @@ public class ChunkGeneratorEnd implements IChunkGenerator {
 				}
 			}
 
-			if (getIslandHeightValue(x, z, 1, 1) > 40.0F) {
+			if (getIslandHeightValue(x, z, 1, 1) > 40F) {
 				int j = rand.nextInt(5);
 
 				for (int k = 0; k < j; ++k) {

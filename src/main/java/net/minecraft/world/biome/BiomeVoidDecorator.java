@@ -14,7 +14,7 @@ public class BiomeVoidDecorator extends BiomeDecorator {
 		int i = 16;
 		double d0 = blockpos.distanceSq(pos.add(8, blockpos.getY(), 8));
 
-		if (d0 <= 1024.0D) {
+		if (d0 <= 1024D) {
 			BlockPos blockpos1 = new BlockPos(blockpos.getX() - 16, blockpos.getY() - 1, blockpos.getZ() - 16);
 			BlockPos blockpos2 = new BlockPos(blockpos.getX() + 16, blockpos.getY() - 1, blockpos.getZ() + 16);
 			BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos(blockpos1);

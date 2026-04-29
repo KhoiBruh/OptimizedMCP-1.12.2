@@ -490,17 +490,17 @@ public abstract class PlayerList {
 			BlockPos blockpos1 = EntityPlayer.getBedSpawnLocation(mcServer.getWorld(playerIn.dimension), blockpos, flag);
 
 			if (blockpos1 != null) {
-				entityplayermp.setLocationAndAngles((float) blockpos1.getX() + 0.5F, (float) blockpos1.getY() + 0.1F, (float) blockpos1.getZ() + 0.5F, 0.0F, 0.0F);
+				entityplayermp.setLocationAndAngles((float) blockpos1.getX() + 0.5F, (float) blockpos1.getY() + 0.1F, (float) blockpos1.getZ() + 0.5F, 0F, 0F);
 				entityplayermp.setSpawnPoint(blockpos, flag);
 			} else {
-				entityplayermp.connection.sendPacket(new SPacketChangeGameState(0, 0.0F));
+				entityplayermp.connection.sendPacket(new SPacketChangeGameState(0, 0F));
 			}
 		}
 
 		worldserver.getChunkProvider().provideChunk((int) entityplayermp.posX >> 4, (int) entityplayermp.posZ >> 4);
 
-		while (!worldserver.getCollisionBoxes(entityplayermp, entityplayermp.getEntityBoundingBox()).isEmpty() && entityplayermp.posY < 256.0D) {
-			entityplayermp.setPosition(entityplayermp.posX, entityplayermp.posY + 1.0D, entityplayermp.posZ);
+		while (!worldserver.getCollisionBoxes(entityplayermp, entityplayermp.getEntityBoundingBox()).isEmpty() && entityplayermp.posY < 256D) {
+			entityplayermp.setPosition(entityplayermp.posX, entityplayermp.posY + 1D, entityplayermp.posZ);
 		}
 
 		entityplayermp.connection.sendPacket(new SPacketRespawn(entityplayermp.dimension, entityplayermp.world.getDifficulty(), entityplayermp.world.getWorldInfo().getTerrainType(), entityplayermp.interactionManager.getGameType()));
@@ -558,21 +558,21 @@ public abstract class PlayerList {
 
 		double d0 = entityIn.posX;
 		double d1 = entityIn.posZ;
-		double d2 = 8.0D;
+		double d2 = 8D;
 		float f = entityIn.rotationYaw;
 		oldWorldIn.profiler.startSection("moving");
 
 		if (entityIn.dimension == -1) {
-			d0 = MathHelper.clamp(d0 / 8.0D, toWorldIn.getWorldBorder().minX() + 16.0D, toWorldIn.getWorldBorder().maxX() - 16.0D);
-			d1 = MathHelper.clamp(d1 / 8.0D, toWorldIn.getWorldBorder().minZ() + 16.0D, toWorldIn.getWorldBorder().maxZ() - 16.0D);
+			d0 = MathHelper.clamp(d0 / 8D, toWorldIn.getWorldBorder().minX() + 16D, toWorldIn.getWorldBorder().maxX() - 16D);
+			d1 = MathHelper.clamp(d1 / 8D, toWorldIn.getWorldBorder().minZ() + 16D, toWorldIn.getWorldBorder().maxZ() - 16D);
 			entityIn.setLocationAndAngles(d0, entityIn.posY, d1, entityIn.rotationYaw, entityIn.rotationPitch);
 
 			if (entityIn.isEntityAlive()) {
 				oldWorldIn.updateEntityWithOptionalForce(entityIn, false);
 			}
 		} else if (entityIn.dimension == 0) {
-			d0 = MathHelper.clamp(d0 * 8.0D, toWorldIn.getWorldBorder().minX() + 16.0D, toWorldIn.getWorldBorder().maxX() - 16.0D);
-			d1 = MathHelper.clamp(d1 * 8.0D, toWorldIn.getWorldBorder().minZ() + 16.0D, toWorldIn.getWorldBorder().maxZ() - 16.0D);
+			d0 = MathHelper.clamp(d0 * 8D, toWorldIn.getWorldBorder().minX() + 16D, toWorldIn.getWorldBorder().maxX() - 16D);
+			d1 = MathHelper.clamp(d1 * 8D, toWorldIn.getWorldBorder().minZ() + 16D, toWorldIn.getWorldBorder().maxZ() - 16D);
 			entityIn.setLocationAndAngles(d0, entityIn.posY, d1, entityIn.rotationYaw, entityIn.rotationPitch);
 
 			if (entityIn.isEntityAlive()) {
@@ -590,7 +590,7 @@ public abstract class PlayerList {
 			d0 = blockpos.getX();
 			entityIn.posY = blockpos.getY();
 			d1 = blockpos.getZ();
-			entityIn.setLocationAndAngles(d0, entityIn.posY, d1, 90.0F, 0.0F);
+			entityIn.setLocationAndAngles(d0, entityIn.posY, d1, 90F, 0F);
 
 			if (entityIn.isEntityAlive()) {
 				oldWorldIn.updateEntityWithOptionalForce(entityIn, false);
@@ -859,9 +859,9 @@ public abstract class PlayerList {
 		playerIn.connection.sendPacket(new SPacketSpawnPosition(blockpos));
 
 		if (worldIn.isRaining()) {
-			playerIn.connection.sendPacket(new SPacketChangeGameState(1, 0.0F));
-			playerIn.connection.sendPacket(new SPacketChangeGameState(7, worldIn.getRainStrength(1.0F)));
-			playerIn.connection.sendPacket(new SPacketChangeGameState(8, worldIn.getThunderStrength(1.0F)));
+			playerIn.connection.sendPacket(new SPacketChangeGameState(1, 0F));
+			playerIn.connection.sendPacket(new SPacketChangeGameState(7, worldIn.getRainStrength(1F)));
+			playerIn.connection.sendPacket(new SPacketChangeGameState(8, worldIn.getThunderStrength(1F)));
 		}
 	}
 

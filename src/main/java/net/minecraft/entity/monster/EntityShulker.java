@@ -38,7 +38,7 @@ public class EntityShulker extends EntityGolem implements IMob {
 	protected static final DataParameter<Byte> PEEK_TICK = EntityDataManager.createKey(EntityShulker.class, DataSerializers.BYTE);
 	protected static final DataParameter<Byte> COLOR = EntityDataManager.createKey(EntityShulker.class, DataSerializers.BYTE);
 	private static final UUID COVERED_ARMOR_BONUS_ID = UUID.fromString("7E0292F2-9434-48D5-A29F-9583AF7DF27F");
-	private static final AttributeModifier COVERED_ARMOR_BONUS_MODIFIER = (new AttributeModifier(COVERED_ARMOR_BONUS_ID, "Covered armor bonus", 20.0D, 0)).setSaved(false);
+	private static final AttributeModifier COVERED_ARMOR_BONUS_MODIFIER = (new AttributeModifier(COVERED_ARMOR_BONUS_ID, "Covered armor bonus", 20D, 0)).setSaved(false);
 	private float prevPeekAmount;
 	private float peekAmount;
 	private BlockPos currentAttachmentPosition;
@@ -47,9 +47,9 @@ public class EntityShulker extends EntityGolem implements IMob {
 	public EntityShulker(World worldIn) {
 
 		super(worldIn);
-		setSize(1.0F, 1.0F);
-		prevRenderYawOffset = 180.0F;
-		renderYawOffset = 180.0F;
+		setSize(1F, 1F);
+		prevRenderYawOffset = 180F;
+		renderYawOffset = 180F;
 		isImmuneToFire = true;
 		currentAttachmentPosition = null;
 		experienceValue = 5;
@@ -78,18 +78,18 @@ public class EntityShulker extends EntityGolem implements IMob {
 	 */
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 
-		renderYawOffset = 180.0F;
-		prevRenderYawOffset = 180.0F;
-		rotationYaw = 180.0F;
-		prevRotationYaw = 180.0F;
-		rotationYawHead = 180.0F;
-		prevRotationYawHead = 180.0F;
+		renderYawOffset = 180F;
+		prevRenderYawOffset = 180F;
+		rotationYaw = 180F;
+		prevRotationYaw = 180F;
+		rotationYawHead = 180F;
+		prevRotationYawHead = 180F;
 		return super.onInitialSpawn(difficulty, livingdata);
 	}
 
 	protected void initEntityAI() {
 
-		tasks.addTask(1, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
+		tasks.addTask(1, new EntityAIWatchClosest(this, EntityPlayer.class, 8F));
 		tasks.addTask(4, new EntityShulker.AIAttack());
 		tasks.addTask(7, new EntityShulker.AIPeek());
 		tasks.addTask(8, new EntityAILookIdle(this));
@@ -149,7 +149,7 @@ public class EntityShulker extends EntityGolem implements IMob {
 	protected void applyEntityAttributes() {
 
 		super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(30.0D);
+		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(30D);
 	}
 
 	protected EntityBodyHelper createBodyHelper() {
@@ -273,9 +273,9 @@ public class EntityShulker extends EntityGolem implements IMob {
 		prevPeekAmount = peekAmount;
 
 		if (peekAmount > f1) {
-			peekAmount = MathHelper.clamp(peekAmount - 0.05F, f1, 1.0F);
+			peekAmount = MathHelper.clamp(peekAmount - 0.05F, f1, 1F);
 		} else if (peekAmount < f1) {
-			peekAmount = MathHelper.clamp(peekAmount + 0.05F, 0.0F, f1);
+			peekAmount = MathHelper.clamp(peekAmount + 0.05F, 0F, f1);
 		}
 
 		if (blockpos != null) {
@@ -299,43 +299,43 @@ public class EntityShulker extends EntityGolem implements IMob {
 			double d3 = 0.5D - (double) MathHelper.sin((0.5F + peekAmount) * (float) Math.PI) * 0.5D;
 			double d4 = 0.5D - (double) MathHelper.sin((0.5F + prevPeekAmount) * (float) Math.PI) * 0.5D;
 			double d5 = d3 - d4;
-			double d0 = 0.0D;
-			double d1 = 0.0D;
-			double d2 = 0.0D;
+			double d0 = 0D;
+			double d1 = 0D;
+			double d2 = 0D;
 			EnumFacing enumfacing2 = getAttachmentFacing();
 
 			switch (enumfacing2) {
 				case DOWN:
-					setEntityBoundingBox(new AxisAlignedBB(posX - 0.5D, posY, posZ - 0.5D, posX + 0.5D, posY + 1.0D + d3, posZ + 0.5D));
+					setEntityBoundingBox(new AxisAlignedBB(posX - 0.5D, posY, posZ - 0.5D, posX + 0.5D, posY + 1D + d3, posZ + 0.5D));
 					d1 = d5;
 					break;
 
 				case UP:
-					setEntityBoundingBox(new AxisAlignedBB(posX - 0.5D, posY - d3, posZ - 0.5D, posX + 0.5D, posY + 1.0D, posZ + 0.5D));
+					setEntityBoundingBox(new AxisAlignedBB(posX - 0.5D, posY - d3, posZ - 0.5D, posX + 0.5D, posY + 1D, posZ + 0.5D));
 					d1 = -d5;
 					break;
 
 				case NORTH:
-					setEntityBoundingBox(new AxisAlignedBB(posX - 0.5D, posY, posZ - 0.5D, posX + 0.5D, posY + 1.0D, posZ + 0.5D + d3));
+					setEntityBoundingBox(new AxisAlignedBB(posX - 0.5D, posY, posZ - 0.5D, posX + 0.5D, posY + 1D, posZ + 0.5D + d3));
 					d2 = d5;
 					break;
 
 				case SOUTH:
-					setEntityBoundingBox(new AxisAlignedBB(posX - 0.5D, posY, posZ - 0.5D - d3, posX + 0.5D, posY + 1.0D, posZ + 0.5D));
+					setEntityBoundingBox(new AxisAlignedBB(posX - 0.5D, posY, posZ - 0.5D - d3, posX + 0.5D, posY + 1D, posZ + 0.5D));
 					d2 = -d5;
 					break;
 
 				case WEST:
-					setEntityBoundingBox(new AxisAlignedBB(posX - 0.5D, posY, posZ - 0.5D, posX + 0.5D + d3, posY + 1.0D, posZ + 0.5D));
+					setEntityBoundingBox(new AxisAlignedBB(posX - 0.5D, posY, posZ - 0.5D, posX + 0.5D + d3, posY + 1D, posZ + 0.5D));
 					d0 = d5;
 					break;
 
 				case EAST:
-					setEntityBoundingBox(new AxisAlignedBB(posX - 0.5D - d3, posY, posZ - 0.5D, posX + 0.5D, posY + 1.0D, posZ + 0.5D));
+					setEntityBoundingBox(new AxisAlignedBB(posX - 0.5D - d3, posY, posZ - 0.5D, posX + 0.5D, posY + 1D, posZ + 0.5D));
 					d0 = -d5;
 			}
 
-			if (d5 > 0.0D) {
+			if (d5 > 0D) {
 				List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox());
 
 				if (!list.isEmpty()) {
@@ -400,7 +400,7 @@ public class EntityShulker extends EntityGolem implements IMob {
 					}
 
 					if (flag) {
-						playSound(SoundEvents.ENTITY_SHULKER_TELEPORT, 1.0F, 1.0F);
+						playSound(SoundEvents.ENTITY_SHULKER_TELEPORT, 1F, 1F);
 						dataManager.set(ATTACHED_BLOCK_POS, Optional.of(blockpos1));
 						dataManager.set(PEEK_TICK, (byte) 0);
 						setAttackTarget(null);
@@ -422,12 +422,12 @@ public class EntityShulker extends EntityGolem implements IMob {
 	public void onLivingUpdate() {
 
 		super.onLivingUpdate();
-		motionX = 0.0D;
-		motionY = 0.0D;
-		motionZ = 0.0D;
-		prevRenderYawOffset = 180.0F;
-		renderYawOffset = 180.0F;
-		rotationYaw = 180.0F;
+		motionX = 0D;
+		motionY = 0D;
+		motionZ = 0D;
+		prevRenderYawOffset = 180F;
+		renderYawOffset = 180F;
+		rotationYaw = 180F;
 	}
 
 	public void notifyDataManagerChange(DataParameter<?> key) {
@@ -540,9 +540,9 @@ public class EntityShulker extends EntityGolem implements IMob {
 
 			if (p_184691_1_ == 0) {
 				getEntityAttribute(SharedMonsterAttributes.ARMOR).applyModifier(COVERED_ARMOR_BONUS_MODIFIER);
-				playSound(SoundEvents.ENTITY_SHULKER_CLOSE, 1.0F, 1.0F);
+				playSound(SoundEvents.ENTITY_SHULKER_CLOSE, 1F, 1F);
 			} else {
-				playSound(SoundEvents.ENTITY_SHULKER_OPEN, 1.0F, 1.0F);
+				playSound(SoundEvents.ENTITY_SHULKER_OPEN, 1F, 1F);
 			}
 		}
 
@@ -623,9 +623,9 @@ public class EntityShulker extends EntityGolem implements IMob {
 			EnumFacing enumfacing = ((EntityShulker) taskOwner).getAttachmentFacing();
 
 			if (enumfacing.getAxis() == EnumFacing.Axis.X) {
-				return taskOwner.getEntityBoundingBox().grow(4.0D, targetDistance, targetDistance);
+				return taskOwner.getEntityBoundingBox().grow(4D, targetDistance, targetDistance);
 			} else {
-				return enumfacing.getAxis() == EnumFacing.Axis.Z ? taskOwner.getEntityBoundingBox().grow(targetDistance, targetDistance, 4.0D) : taskOwner.getEntityBoundingBox().grow(targetDistance, 4.0D, targetDistance);
+				return enumfacing.getAxis() == EnumFacing.Axis.Z ? taskOwner.getEntityBoundingBox().grow(targetDistance, targetDistance, 4D) : taskOwner.getEntityBoundingBox().grow(targetDistance, 4D, targetDistance);
 			}
 		}
 
@@ -667,15 +667,15 @@ public class EntityShulker extends EntityGolem implements IMob {
 			if (world.getDifficulty() != EnumDifficulty.PEACEFUL) {
 				--attackTime;
 				EntityLivingBase entitylivingbase = getAttackTarget();
-				getLookHelper().setLookPositionWithEntity(entitylivingbase, 180.0F, 180.0F);
+				getLookHelper().setLookPositionWithEntity(entitylivingbase, 180F, 180F);
 				double d0 = getDistanceSq(entitylivingbase);
 
-				if (d0 < 400.0D) {
+				if (d0 < 400D) {
 					if (attackTime <= 0) {
 						attackTime = 20 + rand.nextInt(10) * 20 / 2;
 						EntityShulkerBullet entityshulkerbullet = new EntityShulkerBullet(world, EntityShulker.this, entitylivingbase, getAttachmentFacing().getAxis());
 						world.spawnEntity(entityshulkerbullet);
-						playSound(SoundEvents.ENTITY_SHULKER_SHOOT, 2.0F, (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F);
+						playSound(SoundEvents.ENTITY_SHULKER_SHOOT, 2F, (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1F);
 					}
 				} else {
 					setAttackTarget(null);
@@ -704,9 +704,9 @@ public class EntityShulker extends EntityGolem implements IMob {
 			EnumFacing enumfacing = ((EntityShulker) taskOwner).getAttachmentFacing();
 
 			if (enumfacing.getAxis() == EnumFacing.Axis.X) {
-				return taskOwner.getEntityBoundingBox().grow(4.0D, targetDistance, targetDistance);
+				return taskOwner.getEntityBoundingBox().grow(4D, targetDistance, targetDistance);
 			} else {
-				return enumfacing.getAxis() == EnumFacing.Axis.Z ? taskOwner.getEntityBoundingBox().grow(targetDistance, targetDistance, 4.0D) : taskOwner.getEntityBoundingBox().grow(targetDistance, 4.0D, targetDistance);
+				return enumfacing.getAxis() == EnumFacing.Axis.Z ? taskOwner.getEntityBoundingBox().grow(targetDistance, targetDistance, 4D) : taskOwner.getEntityBoundingBox().grow(targetDistance, 4D, targetDistance);
 			}
 		}
 

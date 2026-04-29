@@ -20,15 +20,15 @@ public class MapGenCaves extends MapGenBase {
 
 	protected void addRoom(long p_180703_1_, int p_180703_3_, int p_180703_4_, ChunkPrimer p_180703_5_, double p_180703_6_, double p_180703_8_, double p_180703_10_) {
 
-		addTunnel(p_180703_1_, p_180703_3_, p_180703_4_, p_180703_5_, p_180703_6_, p_180703_8_, p_180703_10_, 1.0F + rand.nextFloat() * 6.0F, 0.0F, 0.0F, -1, -1, 0.5D);
+		addTunnel(p_180703_1_, p_180703_3_, p_180703_4_, p_180703_5_, p_180703_6_, p_180703_8_, p_180703_10_, 1F + rand.nextFloat() * 6F, 0F, 0F, -1, -1, 0.5D);
 	}
 
 	protected void addTunnel(long p_180702_1_, int p_180702_3_, int p_180702_4_, ChunkPrimer p_180702_5_, double p_180702_6_, double p_180702_8_, double p_180702_10_, float p_180702_12_, float p_180702_13_, float p_180702_14_, int p_180702_15_, int p_180702_16_, double p_180702_17_) {
 
 		double d0 = p_180702_3_ * 16 + 8;
 		double d1 = p_180702_4_ * 16 + 8;
-		float f = 0.0F;
-		float f1 = 0.0F;
+		float f = 0F;
+		float f1 = 0F;
 		Random random = new Random(p_180702_1_);
 
 		if (p_180702_16_ <= 0) {
@@ -64,12 +64,12 @@ public class MapGenCaves extends MapGenBase {
 			p_180702_13_ += f * 0.1F;
 			f1 = f1 * 0.9F;
 			f = f * 0.75F;
-			f1 = f1 + (random.nextFloat() - random.nextFloat()) * random.nextFloat() * 2.0F;
-			f = f + (random.nextFloat() - random.nextFloat()) * random.nextFloat() * 4.0F;
+			f1 = f1 + (random.nextFloat() - random.nextFloat()) * random.nextFloat() * 2F;
+			f = f + (random.nextFloat() - random.nextFloat()) * random.nextFloat() * 4F;
 
-			if (!flag2 && p_180702_15_ == j && p_180702_12_ > 1.0F && p_180702_16_ > 0) {
-				addTunnel(random.nextLong(), p_180702_3_, p_180702_4_, p_180702_5_, p_180702_6_, p_180702_8_, p_180702_10_, random.nextFloat() * 0.5F + 0.5F, p_180702_13_ - ((float) Math.PI / 2F), p_180702_14_ / 3.0F, p_180702_15_, p_180702_16_, 1.0D);
-				addTunnel(random.nextLong(), p_180702_3_, p_180702_4_, p_180702_5_, p_180702_6_, p_180702_8_, p_180702_10_, random.nextFloat() * 0.5F + 0.5F, p_180702_13_ + ((float) Math.PI / 2F), p_180702_14_ / 3.0F, p_180702_15_, p_180702_16_, 1.0D);
+			if (!flag2 && p_180702_15_ == j && p_180702_12_ > 1F && p_180702_16_ > 0) {
+				addTunnel(random.nextLong(), p_180702_3_, p_180702_4_, p_180702_5_, p_180702_6_, p_180702_8_, p_180702_10_, random.nextFloat() * 0.5F + 0.5F, p_180702_13_ - ((float) Math.PI / 2F), p_180702_14_ / 3F, p_180702_15_, p_180702_16_, 1D);
+				addTunnel(random.nextLong(), p_180702_3_, p_180702_4_, p_180702_5_, p_180702_6_, p_180702_8_, p_180702_10_, random.nextFloat() * 0.5F + 0.5F, p_180702_13_ + ((float) Math.PI / 2F), p_180702_14_ / 3F, p_180702_15_, p_180702_16_, 1D);
 				return;
 			}
 
@@ -77,13 +77,13 @@ public class MapGenCaves extends MapGenBase {
 				double d4 = p_180702_6_ - d0;
 				double d5 = p_180702_10_ - d1;
 				double d6 = p_180702_16_ - p_180702_15_;
-				double d7 = p_180702_12_ + 2.0F + 16.0F;
+				double d7 = p_180702_12_ + 2F + 16F;
 
 				if (d4 * d4 + d5 * d5 - d6 * d6 > d7 * d7) {
 					return;
 				}
 
-				if (p_180702_6_ >= d0 - 16.0D - d2 * 2.0D && p_180702_10_ >= d1 - 16.0D - d2 * 2.0D && p_180702_6_ <= d0 + 16.0D + d2 * 2.0D && p_180702_10_ <= d1 + 16.0D + d2 * 2.0D) {
+				if (p_180702_6_ >= d0 - 16D - d2 * 2D && p_180702_10_ >= d1 - 16D - d2 * 2D && p_180702_6_ <= d0 + 16D + d2 * 2D && p_180702_10_ <= d1 + 16D + d2 * 2D) {
 					int k2 = MathHelper.floor(p_180702_6_ - d2) - p_180702_3_ * 16 - 1;
 					int k = MathHelper.floor(p_180702_6_ + d2) - p_180702_3_ * 16 + 1;
 					int l2 = MathHelper.floor(p_180702_8_ - d3) - 1;
@@ -145,11 +145,11 @@ public class MapGenCaves extends MapGenBase {
 								double d8 = ((double) (i2 + p_180702_4_ * 16) + 0.5D - p_180702_10_) / d2;
 								boolean flag1 = false;
 
-								if (d10 * d10 + d8 * d8 < 1.0D) {
+								if (d10 * d10 + d8 * d8 < 1D) {
 									for (int j2 = l; j2 > l2; --j2) {
 										double d9 = ((double) (j2 - 1) + 0.5D - p_180702_8_) / d3;
 
-										if (d9 > -0.7D && d10 * d10 + d9 * d9 + d8 * d8 < 1.0D) {
+										if (d9 > -0.7D && d10 * d10 + d9 * d9 + d8 * d8 < 1D) {
 											IBlockState iblockstate1 = p_180702_5_.getBlockState(j3, j2, i2);
 											IBlockState iblockstate2 = MoreObjects.firstNonNull(p_180702_5_.getBlockState(j3, j2 + 1, i2), BLK_AIR);
 
@@ -233,14 +233,14 @@ public class MapGenCaves extends MapGenBase {
 
 			for (int l = 0; l < k; ++l) {
 				float f = rand.nextFloat() * ((float) Math.PI * 2F);
-				float f1 = (rand.nextFloat() - 0.5F) * 2.0F / 8.0F;
-				float f2 = rand.nextFloat() * 2.0F + rand.nextFloat();
+				float f1 = (rand.nextFloat() - 0.5F) * 2F / 8F;
+				float f2 = rand.nextFloat() * 2F + rand.nextFloat();
 
 				if (rand.nextInt(10) == 0) {
-					f2 *= rand.nextFloat() * rand.nextFloat() * 3.0F + 1.0F;
+					f2 *= rand.nextFloat() * rand.nextFloat() * 3F + 1F;
 				}
 
-				addTunnel(rand.nextLong(), originalX, originalZ, chunkPrimerIn, d0, d1, d2, f2, f, f1, 0, 0, 1.0D);
+				addTunnel(rand.nextLong(), originalX, originalZ, chunkPrimerIn, d0, d1, d2, f2, f, f1, 0, 0, 1D);
 			}
 		}
 	}

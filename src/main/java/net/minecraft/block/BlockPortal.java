@@ -25,9 +25,9 @@ import java.util.Random;
 public class BlockPortal extends BlockBreakable {
 
 	public static final PropertyEnum<EnumFacing.Axis> AXIS = PropertyEnum.create("axis", EnumFacing.Axis.class, EnumFacing.Axis.X, EnumFacing.Axis.Z);
-	protected static final AxisAlignedBB X_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.375D, 1.0D, 1.0D, 0.625D);
-	protected static final AxisAlignedBB Z_AABB = new AxisAlignedBB(0.375D, 0.0D, 0.0D, 0.625D, 1.0D, 1.0D);
-	protected static final AxisAlignedBB Y_AABB = new AxisAlignedBB(0.375D, 0.0D, 0.375D, 0.625D, 1.0D, 0.625D);
+	protected static final AxisAlignedBB X_AABB = new AxisAlignedBB(0D, 0D, 0.375D, 1D, 1D, 0.625D);
+	protected static final AxisAlignedBB Z_AABB = new AxisAlignedBB(0.375D, 0D, 0D, 0.625D, 1D, 1D);
+	protected static final AxisAlignedBB Y_AABB = new AxisAlignedBB(0.375D, 0D, 0.375D, 0.625D, 1D, 0.625D);
 
 	public BlockPortal() {
 
@@ -212,10 +212,10 @@ public class BlockPortal extends BlockBreakable {
 
 			if (worldIn.getBlockState(pos.west()).getBlock() != this && worldIn.getBlockState(pos.east()).getBlock() != this) {
 				d0 = (double) pos.getX() + 0.5D + 0.25D * (double) j;
-				d3 = rand.nextFloat() * 2.0F * (float) j;
+				d3 = rand.nextFloat() * 2F * (float) j;
 			} else {
 				d2 = (double) pos.getZ() + 0.5D + 0.25D * (double) j;
-				d5 = rand.nextFloat() * 2.0F * (float) j;
+				d5 = rand.nextFloat() * 2F * (float) j;
 			}
 
 			worldIn.spawnParticle(EnumParticleTypes.PORTAL, d0, d1, d2, d3, d4, d5);

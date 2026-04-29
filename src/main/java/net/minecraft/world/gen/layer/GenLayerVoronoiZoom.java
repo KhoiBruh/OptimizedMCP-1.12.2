@@ -32,17 +32,17 @@ public class GenLayerVoronoiZoom extends GenLayer {
 			for (int j2 = aint[l1 + (k1 + 1) * k]; l1 < k - 1; ++l1) {
 				double d0 = 3.6D;
 				initChunkSeed((long) l1 + i << 2, (long) k1 + j << 2);
-				double d1 = ((double) nextInt(1024) / 1024.0D - 0.5D) * 3.6D;
-				double d2 = ((double) nextInt(1024) / 1024.0D - 0.5D) * 3.6D;
+				double d1 = ((double) nextInt(1024) / 1024D - 0.5D) * 3.6D;
+				double d2 = ((double) nextInt(1024) / 1024D - 0.5D) * 3.6D;
 				initChunkSeed((long) l1 + i + 1 << 2, (long) k1 + j << 2);
-				double d3 = ((double) nextInt(1024) / 1024.0D - 0.5D) * 3.6D + 4.0D;
-				double d4 = ((double) nextInt(1024) / 1024.0D - 0.5D) * 3.6D;
+				double d3 = ((double) nextInt(1024) / 1024D - 0.5D) * 3.6D + 4D;
+				double d4 = ((double) nextInt(1024) / 1024D - 0.5D) * 3.6D;
 				initChunkSeed((long) l1 + i << 2, (long) k1 + j + 1 << 2);
-				double d5 = ((double) nextInt(1024) / 1024.0D - 0.5D) * 3.6D;
-				double d6 = ((double) nextInt(1024) / 1024.0D - 0.5D) * 3.6D + 4.0D;
+				double d5 = ((double) nextInt(1024) / 1024D - 0.5D) * 3.6D;
+				double d6 = ((double) nextInt(1024) / 1024D - 0.5D) * 3.6D + 4D;
 				initChunkSeed((long) l1 + i + 1 << 2, (long) k1 + j + 1 << 2);
-				double d7 = ((double) nextInt(1024) / 1024.0D - 0.5D) * 3.6D + 4.0D;
-				double d8 = ((double) nextInt(1024) / 1024.0D - 0.5D) * 3.6D + 4.0D;
+				double d7 = ((double) nextInt(1024) / 1024D - 0.5D) * 3.6D + 4D;
+				double d8 = ((double) nextInt(1024) / 1024D - 0.5D) * 3.6D + 4D;
 				int k2 = aint[l1 + 1 + (k1) * k] & 255;
 				int l2 = aint[l1 + 1 + (k1 + 1) * k] & 255;
 

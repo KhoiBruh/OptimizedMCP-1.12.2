@@ -38,10 +38,10 @@ public class EntityVindicator extends AbstractIllager {
 
 		super.initEntityAI();
 		tasks.addTask(0, new EntityAISwimming(this));
-		tasks.addTask(4, new EntityAIAttackMelee(this, 1.0D, false));
+		tasks.addTask(4, new EntityAIAttackMelee(this, 1D, false));
 		tasks.addTask(8, new EntityAIWander(this, 0.6D));
-		tasks.addTask(9, new EntityAIWatchClosest(this, EntityPlayer.class, 3.0F, 1.0F));
-		tasks.addTask(10, new EntityAIWatchClosest(this, EntityLiving.class, 8.0F));
+		tasks.addTask(9, new EntityAIWatchClosest(this, EntityPlayer.class, 3F, 1F));
+		tasks.addTask(10, new EntityAIWatchClosest(this, EntityLiving.class, 8F));
 		targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, EntityVindicator.class));
 		targetTasks.addTask(2, new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, true));
 		targetTasks.addTask(3, new EntityAINearestAttackableTarget<>(this, EntityVillager.class, true));
@@ -53,9 +53,9 @@ public class EntityVindicator extends AbstractIllager {
 
 		super.applyEntityAttributes();
 		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.3499999940395355D);
-		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(12.0D);
-		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(24.0D);
-		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(5.0D);
+		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(12D);
+		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(24D);
+		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(5D);
 	}
 
 	protected void entityInit() {

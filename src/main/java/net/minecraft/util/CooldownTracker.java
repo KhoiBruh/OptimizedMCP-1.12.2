@@ -15,7 +15,7 @@ public class CooldownTracker {
 
 	public boolean hasCooldown(Item itemIn) {
 
-		return getCooldown(itemIn, 0.0F) > 0.0F;
+		return getCooldown(itemIn, 0F) > 0F;
 	}
 
 	public float getCooldown(Item itemIn, float partialTicks) {
@@ -25,9 +25,9 @@ public class CooldownTracker {
 		if (cooldowntracker$cooldown != null) {
 			float f = (float) (cooldowntracker$cooldown.expireTicks - cooldowntracker$cooldown.createTicks);
 			float f1 = (float) cooldowntracker$cooldown.expireTicks - ((float) ticks + partialTicks);
-			return MathHelper.clamp(f1 / f, 0.0F, 1.0F);
+			return MathHelper.clamp(f1 / f, 0F, 1F);
 		} else {
-			return 0.0F;
+			return 0F;
 		}
 	}
 

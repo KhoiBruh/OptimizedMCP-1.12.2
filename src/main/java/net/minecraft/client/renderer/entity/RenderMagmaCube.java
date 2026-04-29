@@ -28,9 +28,9 @@ public class RenderMagmaCube extends RenderLiving<EntityMagmaCube> {
 	protected void preRenderCallback(EntityMagmaCube entitylivingbaseIn, float partialTickTime) {
 
 		int i = entitylivingbaseIn.getSlimeSize();
-		float f = (entitylivingbaseIn.prevSquishFactor + (entitylivingbaseIn.squishFactor - entitylivingbaseIn.prevSquishFactor) * partialTickTime) / ((float) i * 0.5F + 1.0F);
-		float f1 = 1.0F / (f + 1.0F);
-		GlStateManager.scale(f1 * (float) i, 1.0F / f1 * (float) i, f1 * (float) i);
+		float f = (entitylivingbaseIn.prevSquishFactor + (entitylivingbaseIn.squishFactor - entitylivingbaseIn.prevSquishFactor) * partialTickTime) / ((float) i * 0.5F + 1F);
+		float f1 = 1F / (f + 1F);
+		GlStateManager.scale(f1 * (float) i, 1F / f1 * (float) i, f1 * (float) i);
 	}
 
 }

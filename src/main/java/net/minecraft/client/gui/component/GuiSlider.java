@@ -96,19 +96,19 @@ public class GuiSlider extends GuiButton {
 			if (isMouseDown) {
 				sliderPosition = (float) (mouseX - (x + 4)) / (float) (width - 8);
 
-				if (sliderPosition < 0.0F) {
-					sliderPosition = 0.0F;
+				if (sliderPosition < 0F) {
+					sliderPosition = 0F;
 				}
 
-				if (sliderPosition > 1.0F) {
-					sliderPosition = 1.0F;
+				if (sliderPosition > 1F) {
+					sliderPosition = 1F;
 				}
 
 				displayString = getDisplayString();
 				responder.setEntryValue(id, getSliderValue());
 			}
 
-			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+			GlStateManager.color(1F, 1F, 1F, 1F);
 			drawTexturedModalRect(x + (int) (sliderPosition * (float) (width - 8)), y, 0, 66, 4, 20);
 			drawTexturedModalRect(x + (int) (sliderPosition * (float) (width - 8)) + 4, y, 196, 66, 4, 20);
 		}
@@ -123,12 +123,12 @@ public class GuiSlider extends GuiButton {
 		if (super.mousePressed(mc, mouseX, mouseY)) {
 			sliderPosition = (float) (mouseX - (x + 4)) / (float) (width - 8);
 
-			if (sliderPosition < 0.0F) {
-				sliderPosition = 0.0F;
+			if (sliderPosition < 0F) {
+				sliderPosition = 0F;
 			}
 
-			if (sliderPosition > 1.0F) {
-				sliderPosition = 1.0F;
+			if (sliderPosition > 1F) {
+				sliderPosition = 1F;
 			}
 
 			displayString = getDisplayString();

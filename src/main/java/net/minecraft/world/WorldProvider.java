@@ -14,7 +14,7 @@ import net.minecraft.world.gen.*;
 
 public abstract class WorldProvider {
 
-	public static final float[] MOON_PHASE_FACTORS = new float[]{1.0F, 0.75F, 0.5F, 0.25F, 0.0F, 0.25F, 0.5F, 0.75F};
+	public static final float[] MOON_PHASE_FACTORS = new float[]{1F, 0.75F, 0.5F, 0.25F, 0F, 0.25F, 0.5F, 0.75F};
 	/**
 	 * Light to brightness conversion table
 	 */
@@ -65,11 +65,11 @@ public abstract class WorldProvider {
 	 */
 	protected void generateLightBrightnessTable() {
 
-		float f = 0.0F;
+		float f = 0F;
 
 		for (int i = 0; i <= 15; ++i) {
-			float f1 = 1.0F - (float) i / 15.0F;
-			lightBrightnessTable[i] = (1.0F - f1) / (f1 * 3.0F + 1.0F) + 0.0F;
+			float f1 = 1F - (float) i / 15F;
+			lightBrightnessTable[i] = (1F - f1) / (f1 * 3F + 1F) + 0F;
 		}
 	}
 
@@ -125,18 +125,18 @@ public abstract class WorldProvider {
 	public float calculateCelestialAngle(long worldTime, float partialTicks) {
 
 		int i = (int) (worldTime % 24000L);
-		float f = ((float) i + partialTicks) / 24000.0F - 0.25F;
+		float f = ((float) i + partialTicks) / 24000F - 0.25F;
 
-		if (f < 0.0F) {
+		if (f < 0F) {
 			++f;
 		}
 
-		if (f > 1.0F) {
+		if (f > 1F) {
 			--f;
 		}
 
-		float f1 = 1.0F - (float) ((Math.cos((double) f * Math.PI) + 1.0D) / 2.0D);
-		f = f + (f1 - f) / 3.0F;
+		float f1 = 1F - (float) ((Math.cos((double) f * Math.PI) + 1D) / 2D);
+		f = f + (f1 - f) / 3F;
 		return f;
 	}
 
@@ -161,16 +161,16 @@ public abstract class WorldProvider {
 	public float[] calcSunriseSunsetColors(float celestialAngle, float partialTicks) {
 
 		float f = 0.4F;
-		float f1 = MathHelper.cos(celestialAngle * ((float) Math.PI * 2F)) - 0.0F;
-		float f2 = -0.0F;
+		float f1 = MathHelper.cos(celestialAngle * ((float) Math.PI * 2F)) - 0F;
+		float f2 = -0F;
 
 		if (f1 >= -0.4F && f1 <= 0.4F) {
-			float f3 = (f1 + 0.0F) / 0.4F * 0.5F + 0.5F;
-			float f4 = 1.0F - (1.0F - MathHelper.sin(f3 * (float) Math.PI)) * 0.99F;
+			float f3 = (f1 + 0F) / 0.4F * 0.5F + 0.5F;
+			float f4 = 1F - (1F - MathHelper.sin(f3 * (float) Math.PI)) * 0.99F;
 			f4 = f4 * f4;
 			colorsSunriseSunset[0] = f3 * 0.3F + 0.7F;
 			colorsSunriseSunset[1] = f3 * f3 * 0.7F + 0.2F;
-			colorsSunriseSunset[2] = f3 * f3 * 0.0F + 0.2F;
+			colorsSunriseSunset[2] = f3 * f3 * 0F + 0.2F;
 			colorsSunriseSunset[3] = f4;
 			return colorsSunriseSunset;
 		} else {
@@ -183,11 +183,11 @@ public abstract class WorldProvider {
 	 */
 	public Vec3d getFogColor(float p_76562_1_, float p_76562_2_) {
 
-		float f = MathHelper.cos(p_76562_1_ * ((float) Math.PI * 2F)) * 2.0F + 0.5F;
-		f = MathHelper.clamp(f, 0.0F, 1.0F);
+		float f = MathHelper.cos(p_76562_1_ * ((float) Math.PI * 2F)) * 2F + 0.5F;
+		f = MathHelper.clamp(f, 0F, 1F);
 		float f1 = 0.7529412F;
 		float f2 = 0.84705883F;
-		float f3 = 1.0F;
+		float f3 = 1F;
 		f1 = f1 * (f * 0.94F + 0.06F);
 		f2 = f2 * (f * 0.94F + 0.06F);
 		f3 = f3 * (f * 0.91F + 0.09F);
@@ -207,7 +207,7 @@ public abstract class WorldProvider {
 	 */
 	public float getCloudHeight() {
 
-		return 128.0F;
+		return 128F;
 	}
 
 	public boolean isSkyColored() {
@@ -233,7 +233,7 @@ public abstract class WorldProvider {
 	 */
 	public double getVoidFogYFactor() {
 
-		return terrainType == WorldType.FLAT ? 1.0D : 0.03125D;
+		return terrainType == WorldType.FLAT ? 1D : 0.03125D;
 	}
 
 	/**

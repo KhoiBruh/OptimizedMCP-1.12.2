@@ -19,7 +19,7 @@ public class ItemFishingRod extends Item {
 		addPropertyOverride(new ResourceLocation("cast"), (stack, worldIn, entityIn) -> {
 
 			if (entityIn == null) {
-				return 0.0F;
+				return 0F;
 			} else {
 				boolean flag = entityIn.getHeldItemMainhand() == stack;
 				boolean flag1 = entityIn.getHeldItemOffhand() == stack;
@@ -28,7 +28,7 @@ public class ItemFishingRod extends Item {
 					flag1 = false;
 				}
 
-				return (flag || flag1) && entityIn instanceof EntityPlayer && ((EntityPlayer) entityIn).fishEntity != null ? 1.0F : 0.0F;
+				return (flag || flag1) && entityIn instanceof EntityPlayer && ((EntityPlayer) entityIn).fishEntity != null ? 1F : 0F;
 			}
 		});
 	}
@@ -58,7 +58,7 @@ public class ItemFishingRod extends Item {
 			int i = playerIn.fishEntity.handleHookRetraction();
 			itemstack.damageItem(i, playerIn);
 			playerIn.swingArm(handIn);
-			worldIn.playSound(null, playerIn.posX, playerIn.posY, playerIn.posZ, SoundEvents.ENTITY_BOBBER_RETRIEVE, SoundCategory.NEUTRAL, 1.0F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
+			worldIn.playSound(null, playerIn.posX, playerIn.posY, playerIn.posZ, SoundEvents.ENTITY_BOBBER_RETRIEVE, SoundCategory.NEUTRAL, 1F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
 		} else {
 			worldIn.playSound(null, playerIn.posX, playerIn.posY, playerIn.posZ, SoundEvents.ENTITY_BOBBER_THROW, SoundCategory.NEUTRAL, 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
 

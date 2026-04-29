@@ -28,8 +28,8 @@ public class RenderLightningBolt extends Render<EntityLightningBolt> {
 		GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE);
 		double[] adouble = new double[8];
 		double[] adouble1 = new double[8];
-		double d0 = 0.0D;
-		double d1 = 0.0D;
+		double d0 = 0D;
+		double d1 = 0D;
 		Random random = new Random(entity.boltVertex);
 
 		for (int i = 7; i >= 0; --i) {
@@ -77,13 +77,13 @@ public class RenderLightningBolt extends Render<EntityLightningBolt> {
 					double d6 = 0.1D + (double) k1 * 0.2D;
 
 					if (j == 0) {
-						d6 *= (double) i1 * 0.1D + 1.0D;
+						d6 *= (double) i1 * 0.1D + 1D;
 					}
 
 					double d7 = 0.1D + (double) k1 * 0.2D;
 
 					if (j == 0) {
-						d7 *= (double) (i1 - 1) * 0.1D + 1.0D;
+						d7 *= (double) (i1 - 1) * 0.1D + 1D;
 					}
 
 					for (int j1 = 0; j1 < 5; ++j1) {
@@ -91,22 +91,22 @@ public class RenderLightningBolt extends Render<EntityLightningBolt> {
 						double d9 = z + 0.5D - d6;
 
 						if (j1 == 1 || j1 == 2) {
-							d8 += d6 * 2.0D;
+							d8 += d6 * 2D;
 						}
 
 						if (j1 == 2 || j1 == 3) {
-							d9 += d6 * 2.0D;
+							d9 += d6 * 2D;
 						}
 
 						double d10 = x + 0.5D - d7;
 						double d11 = z + 0.5D - d7;
 
 						if (j1 == 1 || j1 == 2) {
-							d10 += d7 * 2.0D;
+							d10 += d7 * 2D;
 						}
 
 						if (j1 == 2 || j1 == 3) {
-							d11 += d7 * 2.0D;
+							d11 += d7 * 2D;
 						}
 
 						bufferbuilder.pos(d10 + d2, y + (double) (i1 * 16), d11 + d3).color(0.45F, 0.45F, 0.5F, 0.3F).endVertex();

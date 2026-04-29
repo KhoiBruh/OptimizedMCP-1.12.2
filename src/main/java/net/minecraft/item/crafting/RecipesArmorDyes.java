@@ -72,13 +72,13 @@ public class RecipesArmorDyes implements IRecipe {
 
 					if (itemarmor.hasColor(itemstack1)) {
 						int l = itemarmor.getColor(itemstack);
-						float f = (float) (l >> 16 & 255) / 255.0F;
-						float f1 = (float) (l >> 8 & 255) / 255.0F;
-						float f2 = (float) (l & 255) / 255.0F;
-						i = (int) ((float) i + Math.max(f, Math.max(f1, f2)) * 255.0F);
-						aint[0] = (int) ((float) aint[0] + f * 255.0F);
-						aint[1] = (int) ((float) aint[1] + f1 * 255.0F);
-						aint[2] = (int) ((float) aint[2] + f2 * 255.0F);
+						float f = (float) (l >> 16 & 255) / 255F;
+						float f1 = (float) (l >> 8 & 255) / 255F;
+						float f2 = (float) (l & 255) / 255F;
+						i = (int) ((float) i + Math.max(f, Math.max(f1, f2)) * 255F);
+						aint[0] = (int) ((float) aint[0] + f * 255F);
+						aint[1] = (int) ((float) aint[1] + f1 * 255F);
+						aint[2] = (int) ((float) aint[2] + f2 * 255F);
 						++j;
 					}
 				} else {
@@ -87,9 +87,9 @@ public class RecipesArmorDyes implements IRecipe {
 					}
 
 					float[] afloat = EnumDyeColor.byDyeDamage(itemstack1.getMetadata()).getColorComponentValues();
-					int l1 = (int) (afloat[0] * 255.0F);
-					int i2 = (int) (afloat[1] * 255.0F);
-					int j2 = (int) (afloat[2] * 255.0F);
+					int l1 = (int) (afloat[0] * 255F);
+					int i2 = (int) (afloat[1] * 255F);
+					int j2 = (int) (afloat[2] * 255F);
 					i += Math.max(l1, Math.max(i2, j2));
 					aint[0] += l1;
 					aint[1] += i2;

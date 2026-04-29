@@ -39,12 +39,12 @@ public class EntityArmorStand extends EntityLivingBase {
 	public static final DataParameter<Rotations> RIGHT_ARM_ROTATION = EntityDataManager.createKey(EntityArmorStand.class, DataSerializers.ROTATIONS);
 	public static final DataParameter<Rotations> LEFT_LEG_ROTATION = EntityDataManager.createKey(EntityArmorStand.class, DataSerializers.ROTATIONS);
 	public static final DataParameter<Rotations> RIGHT_LEG_ROTATION = EntityDataManager.createKey(EntityArmorStand.class, DataSerializers.ROTATIONS);
-	private static final Rotations DEFAULT_HEAD_ROTATION = new Rotations(0.0F, 0.0F, 0.0F);
-	private static final Rotations DEFAULT_BODY_ROTATION = new Rotations(0.0F, 0.0F, 0.0F);
-	private static final Rotations DEFAULT_LEFTARM_ROTATION = new Rotations(-10.0F, 0.0F, -10.0F);
-	private static final Rotations DEFAULT_RIGHTARM_ROTATION = new Rotations(-15.0F, 0.0F, 10.0F);
-	private static final Rotations DEFAULT_LEFTLEG_ROTATION = new Rotations(-1.0F, 0.0F, -1.0F);
-	private static final Rotations DEFAULT_RIGHTLEG_ROTATION = new Rotations(1.0F, 0.0F, 1.0F);
+	private static final Rotations DEFAULT_HEAD_ROTATION = new Rotations(0F, 0F, 0F);
+	private static final Rotations DEFAULT_BODY_ROTATION = new Rotations(0F, 0F, 0F);
+	private static final Rotations DEFAULT_LEFTARM_ROTATION = new Rotations(-10F, 0F, -10F);
+	private static final Rotations DEFAULT_RIGHTARM_ROTATION = new Rotations(-15F, 0F, 10F);
+	private static final Rotations DEFAULT_LEFTLEG_ROTATION = new Rotations(-1F, 0F, -1F);
+	private static final Rotations DEFAULT_RIGHTLEG_ROTATION = new Rotations(1F, 0F, 1F);
 	private static final Predicate<Entity> IS_RIDEABLE_MINECART = p_apply_1_ -> p_apply_1_ instanceof EntityMinecart && ((EntityMinecart) p_apply_1_).getType() == EntityMinecart.Type.RIDEABLE;
 	private final NonNullList<ItemStack> handItems;
 	private final NonNullList<ItemStack> armorItems;
@@ -96,7 +96,7 @@ public class EntityArmorStand extends EntityLivingBase {
 		double d0 = posX;
 		double d1 = posY;
 		double d2 = posZ;
-		float f = hasMarker() ? 0.0F : (isChild() ? 0.5F : 1.0F);
+		float f = hasMarker() ? 0F : (isChild() ? 0.5F : 1F);
 		super.setSize(width * f, height * f);
 		setPosition(d0, d1, d2);
 	}
@@ -379,14 +379,14 @@ public class EntityArmorStand extends EntityLivingBase {
 
 		EntityEquipmentSlot entityequipmentslot = EntityEquipmentSlot.MAINHAND;
 		boolean flag = isSmall();
-		double d0 = flag ? p_190772_1_.y() * 2.0D : p_190772_1_.y();
+		double d0 = flag ? p_190772_1_.y() * 2D : p_190772_1_.y();
 		EntityEquipmentSlot entityequipmentslot1 = EntityEquipmentSlot.FEET;
 
 		if (d0 >= 0.1D && d0 < 0.1D + (flag ? 0.8D : 0.45D) && hasItemInSlot(entityequipmentslot1)) {
 			entityequipmentslot = EntityEquipmentSlot.FEET;
-		} else if (d0 >= 0.9D + (flag ? 0.3D : 0.0D) && d0 < 0.9D + (flag ? 1.0D : 0.7D) && hasItemInSlot(EntityEquipmentSlot.CHEST)) {
+		} else if (d0 >= 0.9D + (flag ? 0.3D : 0D) && d0 < 0.9D + (flag ? 1D : 0.7D) && hasItemInSlot(EntityEquipmentSlot.CHEST)) {
 			entityequipmentslot = EntityEquipmentSlot.CHEST;
-		} else if (d0 >= 0.4D && d0 < 0.4D + (flag ? 1.0D : 0.8D) && hasItemInSlot(EntityEquipmentSlot.LEGS)) {
+		} else if (d0 >= 0.4D && d0 < 0.4D + (flag ? 1D : 0.8D) && hasItemInSlot(EntityEquipmentSlot.LEGS)) {
 			entityequipmentslot = EntityEquipmentSlot.LEGS;
 		} else if (d0 >= 1.6D && hasItemInSlot(EntityEquipmentSlot.HEAD)) {
 			entityequipmentslot = EntityEquipmentSlot.HEAD;
@@ -448,7 +448,7 @@ public class EntityArmorStand extends EntityLivingBase {
 
 					return false;
 				} else if (DamageSource.ON_FIRE.equals(source) && getHealth() > 0.5F) {
-					damageArmorStand(4.0F);
+					damageArmorStand(4F);
 					return false;
 				} else {
 					boolean flag = "arrow".equals(source.getDamageType());
@@ -499,7 +499,7 @@ public class EntityArmorStand extends EntityLivingBase {
 
 		if (id == 32) {
 			if (world.isRemote) {
-				world.playSound(posX, posY, posZ, SoundEvents.ENTITY_ARMORSTAND_HIT, getSoundCategory(), 0.3F, 1.0F, false);
+				world.playSound(posX, posY, posZ, SoundEvents.ENTITY_ARMORSTAND_HIT, getSoundCategory(), 0.3F, 1F, false);
 				punchCooldown = world.getTotalWorldTime();
 			}
 		} else {
@@ -512,20 +512,20 @@ public class EntityArmorStand extends EntityLivingBase {
 	 */
 	public boolean isInRangeToRenderDist(double distance) {
 
-		double d0 = getEntityBoundingBox().getAverageEdgeLength() * 4.0D;
+		double d0 = getEntityBoundingBox().getAverageEdgeLength() * 4D;
 
-		if (Double.isNaN(d0) || d0 == 0.0D) {
-			d0 = 4.0D;
+		if (Double.isNaN(d0) || d0 == 0D) {
+			d0 = 4D;
 		}
 
-		d0 = d0 * 64.0D;
+		d0 = d0 * 64D;
 		return distance < d0 * d0;
 	}
 
 	private void playParticles() {
 
 		if (world instanceof WorldServer) {
-			((WorldServer) world).spawnParticle(EnumParticleTypes.BLOCK_DUST, posX, posY + (double) height / 1.5D, posZ, 10, width / 4.0F, height / 4.0F, width / 4.0F, 0.05D, Block.getStateId(Blocks.PLANKS.getDefaultState()));
+			((WorldServer) world).spawnParticle(EnumParticleTypes.BLOCK_DUST, posX, posY + (double) height / 1.5D, posZ, 10, width / 4F, height / 4F, width / 4F, 0.05D, Block.getStateId(Blocks.PLANKS.getDefaultState()));
 		}
 	}
 
@@ -573,14 +573,14 @@ public class EntityArmorStand extends EntityLivingBase {
 
 	private void playBrokenSound() {
 
-		world.playSound(null, posX, posY, posZ, SoundEvents.ENTITY_ARMORSTAND_BREAK, getSoundCategory(), 1.0F, 1.0F);
+		world.playSound(null, posX, posY, posZ, SoundEvents.ENTITY_ARMORSTAND_BREAK, getSoundCategory(), 1F, 1F);
 	}
 
 	protected float updateDistance(float p_110146_1_, float p_110146_2_) {
 
 		prevRenderYawOffset = prevRotationYaw;
 		renderYawOffset = rotationYaw;
-		return 0.0F;
+		return 0F;
 	}
 
 	public float getEyeHeight() {
@@ -593,7 +593,7 @@ public class EntityArmorStand extends EntityLivingBase {
 	 */
 	public double getYOffset() {
 
-		return hasMarker() ? 0.0D : 0.10000000149011612D;
+		return hasMarker() ? 0D : 0.10000000149011612D;
 	}
 
 	public void travel(float strafe, float vertical, float forward) {
@@ -675,7 +675,7 @@ public class EntityArmorStand extends EntityLivingBase {
 	private void updateBoundingBox(boolean p_181550_1_) {
 
 		if (p_181550_1_) {
-			setSize(0.0F, 0.0F);
+			setSize(0F, 0F);
 		} else {
 			setSize(0.5F, 1.975F);
 		}

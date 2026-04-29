@@ -28,7 +28,7 @@ public class EntityChicken extends EntityAnimal {
 	public float destPos;
 	public float oFlapSpeed;
 	public float oFlap;
-	public float wingRotDelta = 1.0F;
+	public float wingRotDelta = 1F;
 
 	/**
 	 * The time until the next egg is spawned.
@@ -41,7 +41,7 @@ public class EntityChicken extends EntityAnimal {
 		super(worldIn);
 		setSize(0.4F, 0.7F);
 		timeUntilNextEgg = rand.nextInt(6000) + 6000;
-		setPathPriority(PathNodeType.WATER, 0.0F);
+		setPathPriority(PathNodeType.WATER, 0F);
 	}
 
 	public static void registerFixesChicken(DataFixer fixer) {
@@ -53,11 +53,11 @@ public class EntityChicken extends EntityAnimal {
 
 		tasks.addTask(0, new EntityAISwimming(this));
 		tasks.addTask(1, new EntityAIPanic(this, 1.4D));
-		tasks.addTask(2, new EntityAIMate(this, 1.0D));
-		tasks.addTask(3, new EntityAITempt(this, 1.0D, false, TEMPTATION_ITEMS));
+		tasks.addTask(2, new EntityAIMate(this, 1D));
+		tasks.addTask(3, new EntityAITempt(this, 1D, false, TEMPTATION_ITEMS));
 		tasks.addTask(4, new EntityAIFollowParent(this, 1.1D));
-		tasks.addTask(5, new EntityAIWanderAvoidWater(this, 1.0D));
-		tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
+		tasks.addTask(5, new EntityAIWanderAvoidWater(this, 1D));
+		tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 6F));
 		tasks.addTask(7, new EntityAILookIdle(this));
 	}
 
@@ -69,7 +69,7 @@ public class EntityChicken extends EntityAnimal {
 	protected void applyEntityAttributes() {
 
 		super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(4.0D);
+		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(4D);
 		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25D);
 	}
 
@@ -83,22 +83,22 @@ public class EntityChicken extends EntityAnimal {
 		oFlap = wingRotation;
 		oFlapSpeed = destPos;
 		destPos = (float) ((double) destPos + (double) (onGround ? -1 : 4) * 0.3D);
-		destPos = MathHelper.clamp(destPos, 0.0F, 1.0F);
+		destPos = MathHelper.clamp(destPos, 0F, 1F);
 
-		if (!onGround && wingRotDelta < 1.0F) {
-			wingRotDelta = 1.0F;
+		if (!onGround && wingRotDelta < 1F) {
+			wingRotDelta = 1F;
 		}
 
 		wingRotDelta = (float) ((double) wingRotDelta * 0.9D);
 
-		if (!onGround && motionY < 0.0D) {
+		if (!onGround && motionY < 0D) {
 			motionY *= 0.6D;
 		}
 
-		wingRotation += wingRotDelta * 2.0F;
+		wingRotation += wingRotDelta * 2F;
 
 		if (!world.isRemote && !isChild() && !isChickenJockey() && --timeUntilNextEgg <= 0) {
-			playSound(SoundEvents.ENTITY_CHICKEN_EGG, 1.0F, (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F);
+			playSound(SoundEvents.ENTITY_CHICKEN_EGG, 1F, (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1F);
 			dropItem(Items.EGG, 1);
 			timeUntilNextEgg = rand.nextInt(6000) + 6000;
 		}
@@ -125,7 +125,7 @@ public class EntityChicken extends EntityAnimal {
 
 	protected void playStepSound(BlockPos pos, Block blockIn) {
 
-		playSound(SoundEvents.ENTITY_CHICKEN_STEP, 0.15F, 1.0F);
+		playSound(SoundEvents.ENTITY_CHICKEN_STEP, 0.15F, 1F);
 	}
 
 	
@@ -193,8 +193,8 @@ public class EntityChicken extends EntityAnimal {
 		float f = MathHelper.sin(renderYawOffset * 0.017453292F);
 		float f1 = MathHelper.cos(renderYawOffset * 0.017453292F);
 		float f2 = 0.1F;
-		float f3 = 0.0F;
-		passenger.setPosition(posX + (double) (0.1F * f), posY + (double) (height * 0.5F) + passenger.getYOffset() + 0.0D, posZ - (double) (0.1F * f1));
+		float f3 = 0F;
+		passenger.setPosition(posX + (double) (0.1F * f), posY + (double) (height * 0.5F) + passenger.getYOffset() + 0D, posZ - (double) (0.1F * f1));
 
 		if (passenger instanceof EntityLivingBase) {
 			((EntityLivingBase) passenger).renderYawOffset = renderYawOffset;

@@ -19,8 +19,8 @@ import java.util.List;
 
 public abstract class BlockRailBase extends Block {
 
-	protected static final AxisAlignedBB FLAT_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.125D, 1.0D);
-	protected static final AxisAlignedBB ASCENDING_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.5D, 1.0D);
+	protected static final AxisAlignedBB FLAT_AABB = new AxisAlignedBB(0D, 0D, 0D, 1D, 0.125D, 1D);
+	protected static final AxisAlignedBB ASCENDING_AABB = new AxisAlignedBB(0D, 0D, 0D, 1D, 0.5D, 1D);
 	protected final boolean isPowered;
 
 	protected BlockRailBase(boolean isPowered) {

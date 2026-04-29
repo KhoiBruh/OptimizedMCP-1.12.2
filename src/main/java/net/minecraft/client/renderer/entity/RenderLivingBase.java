@@ -67,11 +67,11 @@ public abstract class RenderLivingBase<T extends EntityLivingBase> extends Rende
 
 		float f;
 
-		for (f = yawOffset - prevYawOffset; f < -180.0F; f += 360.0F) {
+		for (f = yawOffset - prevYawOffset; f < -180F; f += 360F) {
 		}
 
-		while (f >= 180.0F) {
-			f -= 360.0F;
+		while (f >= 180F) {
+			f -= 360F;
 		}
 
 		return prevYawOffset + partialTicks * f;
@@ -102,17 +102,17 @@ public abstract class RenderLivingBase<T extends EntityLivingBase> extends Rende
 				f2 = f1 - f;
 				float f3 = MathHelper.wrapDegrees(f2);
 
-				if (f3 < -85.0F) {
-					f3 = -85.0F;
+				if (f3 < -85F) {
+					f3 = -85F;
 				}
 
-				if (f3 >= 85.0F) {
-					f3 = 85.0F;
+				if (f3 >= 85F) {
+					f3 = 85F;
 				}
 
 				f = f1 - f3;
 
-				if (f3 * f3 > 2500.0F) {
+				if (f3 * f3 > 2500F) {
 					f += f3 * 0.2F;
 				}
 
@@ -124,19 +124,19 @@ public abstract class RenderLivingBase<T extends EntityLivingBase> extends Rende
 			float f8 = handleRotationFloat(entity, partialTicks);
 			applyRotations(entity, f8, f, partialTicks);
 			float f4 = prepareScale(entity, partialTicks);
-			float f5 = 0.0F;
-			float f6 = 0.0F;
+			float f5 = 0F;
+			float f6 = 0F;
 
 			if (!entity.isRiding()) {
 				f5 = entity.prevLimbSwingAmount + (entity.limbSwingAmount - entity.prevLimbSwingAmount) * partialTicks;
-				f6 = entity.limbSwing - entity.limbSwingAmount * (1.0F - partialTicks);
+				f6 = entity.limbSwing - entity.limbSwingAmount * (1F - partialTicks);
 
 				if (entity.isChild()) {
-					f6 *= 3.0F;
+					f6 *= 3F;
 				}
 
-				if (f5 > 1.0F) {
-					f5 = 1.0F;
+				if (f5 > 1F) {
+					f5 = 1F;
 				}
 			}
 
@@ -194,10 +194,10 @@ public abstract class RenderLivingBase<T extends EntityLivingBase> extends Rende
 	public float prepareScale(T entitylivingbaseIn, float partialTicks) {
 
 		GlStateManager.enableRescaleNormal();
-		GlStateManager.scale(-1.0F, -1.0F, 1.0F);
+		GlStateManager.scale(-1F, -1F, 1F);
 		preRenderCallback(entitylivingbaseIn, partialTicks);
 		float f = 0.0625F;
-		GlStateManager.translate(0.0F, -1.501F, 0.0F);
+		GlStateManager.translate(0F, -1.501F, 0F);
 		return 0.0625F;
 	}
 
@@ -292,19 +292,19 @@ public abstract class RenderLivingBase<T extends EntityLivingBase> extends Rende
 			brightnessBuffer.position(0);
 
 			if (flag1) {
-				brightnessBuffer.put(1.0F);
-				brightnessBuffer.put(0.0F);
-				brightnessBuffer.put(0.0F);
+				brightnessBuffer.put(1F);
+				brightnessBuffer.put(0F);
+				brightnessBuffer.put(0F);
 				brightnessBuffer.put(0.3F);
 			} else {
-				float f1 = (float) (i >> 24 & 255) / 255.0F;
-				float f2 = (float) (i >> 16 & 255) / 255.0F;
-				float f3 = (float) (i >> 8 & 255) / 255.0F;
-				float f4 = (float) (i & 255) / 255.0F;
+				float f1 = (float) (i >> 24 & 255) / 255F;
+				float f2 = (float) (i >> 16 & 255) / 255F;
+				float f3 = (float) (i >> 8 & 255) / 255F;
+				float f4 = (float) (i & 255) / 255F;
 				brightnessBuffer.put(f2);
 				brightnessBuffer.put(f3);
 				brightnessBuffer.put(f4);
-				brightnessBuffer.put(1.0F - f1);
+				brightnessBuffer.put(1F - f1);
 			}
 
 			brightnessBuffer.flip();
@@ -351,7 +351,7 @@ public abstract class RenderLivingBase<T extends EntityLivingBase> extends Rende
 		GlStateManager.glTexEnvi(8960, OpenGlHelper.GL_COMBINE_ALPHA, 8448);
 		GlStateManager.glTexEnvi(8960, OpenGlHelper.GL_OPERAND0_ALPHA, 770);
 		GlStateManager.glTexEnvi(8960, OpenGlHelper.GL_SOURCE0_ALPHA, 5890);
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+		GlStateManager.color(1F, 1F, 1F, 1F);
 		GlStateManager.setActiveTexture(OpenGlHelper.GL_TEXTURE2);
 		GlStateManager.disableTexture2D();
 		GlStateManager.bindTexture(0);
@@ -377,23 +377,23 @@ public abstract class RenderLivingBase<T extends EntityLivingBase> extends Rende
 
 	protected void applyRotations(T entityLiving, float p_77043_2_, float rotationYaw, float partialTicks) {
 
-		GlStateManager.rotate(180.0F - rotationYaw, 0.0F, 1.0F, 0.0F);
+		GlStateManager.rotate(180F - rotationYaw, 0F, 1F, 0F);
 
 		if (entityLiving.deathTime > 0) {
-			float f = ((float) entityLiving.deathTime + partialTicks - 1.0F) / 20.0F * 1.6F;
+			float f = ((float) entityLiving.deathTime + partialTicks - 1F) / 20F * 1.6F;
 			f = MathHelper.sqrt(f);
 
-			if (f > 1.0F) {
-				f = 1.0F;
+			if (f > 1F) {
+				f = 1F;
 			}
 
-			GlStateManager.rotate(f * getDeathMaxRotation(entityLiving), 0.0F, 0.0F, 1.0F);
+			GlStateManager.rotate(f * getDeathMaxRotation(entityLiving), 0F, 0F, 1F);
 		} else {
 			String s = TextFormatting.getTextWithoutFormattingCodes(entityLiving.getName());
 
 			if (("Dinnerbone".equals(s) || "Grumm".equals(s)) && (!(entityLiving instanceof EntityPlayer) || ((EntityPlayer) entityLiving).isWearing(EnumPlayerModelParts.CAPE))) {
-				GlStateManager.translate(0.0F, entityLiving.height + 0.1F, 0.0F);
-				GlStateManager.rotate(180.0F, 0.0F, 0.0F, 1.0F);
+				GlStateManager.translate(0F, entityLiving.height + 0.1F, 0F);
+				GlStateManager.rotate(180F, 0F, 0F, 1F);
 			}
 		}
 	}
@@ -428,7 +428,7 @@ public abstract class RenderLivingBase<T extends EntityLivingBase> extends Rende
 
 	protected float getDeathMaxRotation(T entityLivingBaseIn) {
 
-		return 90.0F;
+		return 90F;
 	}
 
 	/**
@@ -450,7 +450,7 @@ public abstract class RenderLivingBase<T extends EntityLivingBase> extends Rende
 
 		if (canRenderName(entity)) {
 			double d0 = entity.getDistanceSq(renderManager.renderViewEntity);
-			float f = entity.isSneaking() ? 32.0F : 64.0F;
+			float f = entity.isSneaking() ? 32F : 64F;
 
 			if (d0 < (double) (f * f)) {
 				String s = entity.getDisplayName().getFormattedText();

@@ -201,7 +201,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 		} else if (packetIn.getType() == 61) {
 			entity = new EntitySnowball(clientWorldController, d0, d1, d2);
 		} else if (packetIn.getType() == 68) {
-			entity = new EntityLlamaSpit(clientWorldController, d0, d1, d2, (double) packetIn.getSpeedX() / 8000.0D, (double) packetIn.getSpeedY() / 8000.0D, (double) packetIn.getSpeedZ() / 8000.0D);
+			entity = new EntityLlamaSpit(clientWorldController, d0, d1, d2, (double) packetIn.getSpeedX() / 8000D, (double) packetIn.getSpeedY() / 8000D, (double) packetIn.getSpeedZ() / 8000D);
 		} else if (packetIn.getType() == 71) {
 			entity = new EntityItemFrame(clientWorldController, new BlockPos(d0, d1, d2), EnumFacing.getHorizontal(packetIn.getData()));
 			packetIn.setData(0);
@@ -215,24 +215,24 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 		} else if (packetIn.getType() == 76) {
 			entity = new EntityFireworkRocket(clientWorldController, d0, d1, d2, ItemStack.EMPTY);
 		} else if (packetIn.getType() == 63) {
-			entity = new EntityLargeFireball(clientWorldController, d0, d1, d2, (double) packetIn.getSpeedX() / 8000.0D, (double) packetIn.getSpeedY() / 8000.0D, (double) packetIn.getSpeedZ() / 8000.0D);
+			entity = new EntityLargeFireball(clientWorldController, d0, d1, d2, (double) packetIn.getSpeedX() / 8000D, (double) packetIn.getSpeedY() / 8000D, (double) packetIn.getSpeedZ() / 8000D);
 			packetIn.setData(0);
 		} else if (packetIn.getType() == 93) {
-			entity = new EntityDragonFireball(clientWorldController, d0, d1, d2, (double) packetIn.getSpeedX() / 8000.0D, (double) packetIn.getSpeedY() / 8000.0D, (double) packetIn.getSpeedZ() / 8000.0D);
+			entity = new EntityDragonFireball(clientWorldController, d0, d1, d2, (double) packetIn.getSpeedX() / 8000D, (double) packetIn.getSpeedY() / 8000D, (double) packetIn.getSpeedZ() / 8000D);
 			packetIn.setData(0);
 		} else if (packetIn.getType() == 64) {
-			entity = new EntitySmallFireball(clientWorldController, d0, d1, d2, (double) packetIn.getSpeedX() / 8000.0D, (double) packetIn.getSpeedY() / 8000.0D, (double) packetIn.getSpeedZ() / 8000.0D);
+			entity = new EntitySmallFireball(clientWorldController, d0, d1, d2, (double) packetIn.getSpeedX() / 8000D, (double) packetIn.getSpeedY() / 8000D, (double) packetIn.getSpeedZ() / 8000D);
 			packetIn.setData(0);
 		} else if (packetIn.getType() == 66) {
-			entity = new EntityWitherSkull(clientWorldController, d0, d1, d2, (double) packetIn.getSpeedX() / 8000.0D, (double) packetIn.getSpeedY() / 8000.0D, (double) packetIn.getSpeedZ() / 8000.0D);
+			entity = new EntityWitherSkull(clientWorldController, d0, d1, d2, (double) packetIn.getSpeedX() / 8000D, (double) packetIn.getSpeedY() / 8000D, (double) packetIn.getSpeedZ() / 8000D);
 			packetIn.setData(0);
 		} else if (packetIn.getType() == 67) {
-			entity = new EntityShulkerBullet(clientWorldController, d0, d1, d2, (double) packetIn.getSpeedX() / 8000.0D, (double) packetIn.getSpeedY() / 8000.0D, (double) packetIn.getSpeedZ() / 8000.0D);
+			entity = new EntityShulkerBullet(clientWorldController, d0, d1, d2, (double) packetIn.getSpeedX() / 8000D, (double) packetIn.getSpeedY() / 8000D, (double) packetIn.getSpeedZ() / 8000D);
 			packetIn.setData(0);
 		} else if (packetIn.getType() == 62) {
 			entity = new EntityEgg(clientWorldController, d0, d1, d2);
 		} else if (packetIn.getType() == 79) {
-			entity = new EntityEvokerFangs(clientWorldController, d0, d1, d2, 0.0F, 0, null);
+			entity = new EntityEvokerFangs(clientWorldController, d0, d1, d2, 0F, 0, null);
 		} else if (packetIn.getType() == 73) {
 			entity = new EntityPotion(clientWorldController, d0, d1, d2, ItemStack.EMPTY);
 			packetIn.setData(0);
@@ -258,8 +258,8 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 
 		if (entity != null) {
 			EntityTracker.updateServerPosition(entity, d0, d1, d2);
-			entity.rotationPitch = (float) (packetIn.getPitch() * 360) / 256.0F;
-			entity.rotationYaw = (float) (packetIn.getYaw() * 360) / 256.0F;
+			entity.rotationPitch = (float) (packetIn.getPitch() * 360) / 256F;
+			entity.rotationYaw = (float) (packetIn.getYaw() * 360) / 256F;
 			Entity[] aentity = entity.getParts();
 
 			if (aentity != null) {
@@ -283,7 +283,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 					}
 				}
 
-				entity.setVelocity((double) packetIn.getSpeedX() / 8000.0D, (double) packetIn.getSpeedY() / 8000.0D, (double) packetIn.getSpeedZ() / 8000.0D);
+				entity.setVelocity((double) packetIn.getSpeedX() / 8000D, (double) packetIn.getSpeedY() / 8000D, (double) packetIn.getSpeedZ() / 8000D);
 			}
 		}
 	}
@@ -299,8 +299,8 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 		double d2 = packetIn.getZ();
 		Entity entity = new EntityXPOrb(clientWorldController, d0, d1, d2, packetIn.getXPValue());
 		EntityTracker.updateServerPosition(entity, d0, d1, d2);
-		entity.rotationYaw = 0.0F;
-		entity.rotationPitch = 0.0F;
+		entity.rotationYaw = 0F;
+		entity.rotationPitch = 0F;
 		entity.setEntityId(packetIn.getEntityID());
 		clientWorldController.addEntityToWorld(packetIn.getEntityID(), entity);
 	}
@@ -322,8 +322,8 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 
 		if (entity != null) {
 			EntityTracker.updateServerPosition(entity, d0, d1, d2);
-			entity.rotationYaw = 0.0F;
-			entity.rotationPitch = 0.0F;
+			entity.rotationYaw = 0F;
+			entity.rotationPitch = 0F;
 			entity.setEntityId(packetIn.getEntityId());
 			clientWorldController.addWeatherEffect(entity);
 		}
@@ -349,7 +349,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 		Entity entity = clientWorldController.getEntityByID(packetIn.getEntityID());
 
 		if (entity != null) {
-			entity.setVelocity((double) packetIn.getMotionX() / 8000.0D, (double) packetIn.getMotionY() / 8000.0D, (double) packetIn.getMotionZ() / 8000.0D);
+			entity.setVelocity((double) packetIn.getMotionX() / 8000D, (double) packetIn.getMotionY() / 8000D, (double) packetIn.getMotionZ() / 8000D);
 		}
 	}
 
@@ -376,8 +376,8 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 		double d0 = packetIn.getX();
 		double d1 = packetIn.getY();
 		double d2 = packetIn.getZ();
-		float f = (float) (packetIn.getYaw() * 360) / 256.0F;
-		float f1 = (float) (packetIn.getPitch() * 360) / 256.0F;
+		float f = (float) (packetIn.getYaw() * 360) / 256F;
+		float f1 = (float) (packetIn.getPitch() * 360) / 256F;
 		EntityOtherPlayerMP entityotherplayermp = new EntityOtherPlayerMP(gameController.world, getPlayerInfo(packetIn.getUniqueId()).getGameProfile());
 		entityotherplayermp.prevPosX = d0;
 		entityotherplayermp.lastTickPosX = d0;
@@ -410,8 +410,8 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 			EntityTracker.updateServerPosition(entity, d0, d1, d2);
 
 			if (!entity.canPassengerSteer()) {
-				float f = (float) (packetIn.getYaw() * 360) / 256.0F;
-				float f1 = (float) (packetIn.getPitch() * 360) / 256.0F;
+				float f = (float) (packetIn.getYaw() * 360) / 256F;
+				float f1 = (float) (packetIn.getPitch() * 360) / 256F;
 
 				if (Math.abs(entity.posX - d0) < 0.03125D && Math.abs(entity.posY - d1) < 0.015625D && Math.abs(entity.posZ - d2) < 0.03125D) {
 					entity.setPositionAndRotationDirect(entity.posX, entity.posY, entity.posZ, f, f1, 0, true);
@@ -450,13 +450,13 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 			entity.serverPosX += packetIn.getX();
 			entity.serverPosY += packetIn.getY();
 			entity.serverPosZ += packetIn.getZ();
-			double d0 = (double) entity.serverPosX / 4096.0D;
-			double d1 = (double) entity.serverPosY / 4096.0D;
-			double d2 = (double) entity.serverPosZ / 4096.0D;
+			double d0 = (double) entity.serverPosX / 4096D;
+			double d1 = (double) entity.serverPosY / 4096D;
+			double d2 = (double) entity.serverPosZ / 4096D;
 
 			if (!entity.canPassengerSteer()) {
-				float f = packetIn.isRotating() ? (float) (packetIn.getYaw() * 360) / 256.0F : entity.rotationYaw;
-				float f1 = packetIn.isRotating() ? (float) (packetIn.getPitch() * 360) / 256.0F : entity.rotationPitch;
+				float f = packetIn.isRotating() ? (float) (packetIn.getYaw() * 360) / 256F : entity.rotationYaw;
+				float f1 = packetIn.isRotating() ? (float) (packetIn.getPitch() * 360) / 256F : entity.rotationPitch;
 				entity.setPositionAndRotationDirect(d0, d1, d2, f, f1, 3, false);
 				entity.onGround = packetIn.getOnGround();
 			}
@@ -473,7 +473,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 		Entity entity = packetIn.getEntity(clientWorldController);
 
 		if (entity != null) {
-			float f = (float) (packetIn.getYaw() * 360) / 256.0F;
+			float f = (float) (packetIn.getYaw() * 360) / 256F;
 			entity.setRotationYawHead(f);
 		}
 	}
@@ -505,19 +505,19 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 		if (packetIn.getFlags().contains(SPacketPlayerPosLook.EnumFlags.X)) {
 			d0 += entityplayer.posX;
 		} else {
-			entityplayer.motionX = 0.0D;
+			entityplayer.motionX = 0D;
 		}
 
 		if (packetIn.getFlags().contains(SPacketPlayerPosLook.EnumFlags.Y)) {
 			d1 += entityplayer.posY;
 		} else {
-			entityplayer.motionY = 0.0D;
+			entityplayer.motionY = 0D;
 		}
 
 		if (packetIn.getFlags().contains(SPacketPlayerPosLook.EnumFlags.Z)) {
 			d2 += entityplayer.posZ;
 		} else {
-			entityplayer.motionZ = 0.0D;
+			entityplayer.motionZ = 0D;
 		}
 
 		if (packetIn.getFlags().contains(SPacketPlayerPosLook.EnumFlags.X_ROT)) {
@@ -636,7 +636,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 			if (entity instanceof EntityXPOrb) {
 				clientWorldController.playSound(entity.posX, entity.posY, entity.posZ, SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.PLAYERS, 0.1F, (avRandomizer.nextFloat() - avRandomizer.nextFloat()) * 0.35F + 0.9F, false);
 			} else {
-				clientWorldController.playSound(entity.posX, entity.posY, entity.posZ, SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 0.2F, (avRandomizer.nextFloat() - avRandomizer.nextFloat()) * 1.4F + 2.0F, false);
+				clientWorldController.playSound(entity.posX, entity.posY, entity.posZ, SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 0.2F, (avRandomizer.nextFloat() - avRandomizer.nextFloat()) * 1.4F + 2F, false);
 			}
 
 			if (entity instanceof EntityItem) {
@@ -706,14 +706,14 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 		double d0 = packetIn.getX();
 		double d1 = packetIn.getY();
 		double d2 = packetIn.getZ();
-		float f = (float) (packetIn.getYaw() * 360) / 256.0F;
-		float f1 = (float) (packetIn.getPitch() * 360) / 256.0F;
+		float f = (float) (packetIn.getYaw() * 360) / 256F;
+		float f1 = (float) (packetIn.getPitch() * 360) / 256F;
 		EntityLivingBase entitylivingbase = (EntityLivingBase) EntityList.createEntityByID(packetIn.getEntityType(), gameController.world);
 
 		if (entitylivingbase != null) {
 			EntityTracker.updateServerPosition(entitylivingbase, d0, d1, d2);
-			entitylivingbase.renderYawOffset = (float) (packetIn.getHeadPitch() * 360) / 256.0F;
-			entitylivingbase.rotationYawHead = (float) (packetIn.getHeadPitch() * 360) / 256.0F;
+			entitylivingbase.renderYawOffset = (float) (packetIn.getHeadPitch() * 360) / 256F;
+			entitylivingbase.rotationYawHead = (float) (packetIn.getHeadPitch() * 360) / 256F;
 			Entity[] aentity = entitylivingbase.getParts();
 
 			if (aentity != null) {
@@ -727,9 +727,9 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 			entitylivingbase.setEntityId(packetIn.getEntityID());
 			entitylivingbase.setUniqueId(packetIn.getUniqueId());
 			entitylivingbase.setPositionAndRotation(d0, d1, d2, f, f1);
-			entitylivingbase.motionX = (float) packetIn.getVelocityX() / 8000.0F;
-			entitylivingbase.motionY = (float) packetIn.getVelocityY() / 8000.0F;
-			entitylivingbase.motionZ = (float) packetIn.getVelocityZ() / 8000.0F;
+			entitylivingbase.motionX = (float) packetIn.getVelocityX() / 8000F;
+			entitylivingbase.motionY = (float) packetIn.getVelocityY() / 8000F;
+			entitylivingbase.motionZ = (float) packetIn.getVelocityZ() / 8000F;
 			clientWorldController.addEntityToWorld(packetIn.getEntityID(), entitylivingbase);
 			List<EntityDataManager.DataEntry<?>> list = packetIn.getDataManagerEntries();
 
@@ -812,7 +812,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 			} else if (packetIn.getOpCode() == 35) {
 				int i = 40;
 				gameController.effectRenderer.emitParticleAtEntity(entity, EnumParticleTypes.TOTEM, 30);
-				clientWorldController.playSound(entity.posX, entity.posY, entity.posZ, SoundEvents.ITEM_TOTEM_USE, entity.getSoundCategory(), 1.0F, 1.0F, false);
+				clientWorldController.playSound(entity.posX, entity.posY, entity.posZ, SoundEvents.ITEM_TOTEM_USE, entity.getSoundCategory(), 1F, 1F, false);
 
 				if (entity == gameController.player) {
 					gameController.entityRenderer.displayItemActivation(new ItemStack(Items.TOTEM_OF_UNDYING));
@@ -1080,10 +1080,10 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 
 		if (i == 1) {
 			clientWorldController.getWorldInfo().setRaining(true);
-			clientWorldController.setRainStrength(0.0F);
+			clientWorldController.setRainStrength(0F);
 		} else if (i == 2) {
 			clientWorldController.getWorldInfo().setRaining(false);
-			clientWorldController.setRainStrength(1.0F);
+			clientWorldController.setRainStrength(1F);
 		} else if (i == 3) {
 			gameController.playerController.setGameType(GameType.getByID(j));
 		} else if (i == 4) {
@@ -1101,8 +1101,8 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 		} else if (i == 8) {
 			clientWorldController.setThunderStrength(f);
 		} else if (i == 10) {
-			clientWorldController.spawnParticle(EnumParticleTypes.MOB_APPEARANCE, entityplayer.posX, entityplayer.posY, entityplayer.posZ, 0.0D, 0.0D, 0.0D);
-			clientWorldController.playSound(entityplayer, entityplayer.posX, entityplayer.posY, entityplayer.posZ, SoundEvents.ENTITY_ELDER_GUARDIAN_CURSE, SoundCategory.HOSTILE, 1.0F, 1.0F);
+			clientWorldController.spawnParticle(EnumParticleTypes.MOB_APPEARANCE, entityplayer.posX, entityplayer.posY, entityplayer.posZ, 0D, 0D, 0D);
+			clientWorldController.playSound(entityplayer, entityplayer.posX, entityplayer.posY, entityplayer.posZ, SoundEvents.ENTITY_ELDER_GUARDIAN_CURSE, SoundCategory.HOSTILE, 1F, 1F);
 		}
 	}
 
@@ -1755,7 +1755,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 					IAttributeInstance iattributeinstance = abstractattributemap.getAttributeInstanceByName(spacketentityproperties$snapshot.getName());
 
 					if (iattributeinstance == null) {
-						iattributeinstance = abstractattributemap.registerAttribute(new RangedAttribute(null, spacketentityproperties$snapshot.getName(), 0.0D, 2.2250738585072014E-308D, Double.MAX_VALUE));
+						iattributeinstance = abstractattributemap.registerAttribute(new RangedAttribute(null, spacketentityproperties$snapshot.getName(), 0D, 2.2250738585072014E-308D, Double.MAX_VALUE));
 					}
 
 					iattributeinstance.setBaseValue(spacketentityproperties$snapshot.getBaseValue());

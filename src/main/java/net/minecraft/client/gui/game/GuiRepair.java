@@ -158,7 +158,7 @@ public class GuiRepair extends GuiContainer implements IContainerListener {
 	 */
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
 
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+		GlStateManager.color(1F, 1F, 1F, 1F);
 		mc.getTextureManager().bindTexture(ANVIL_RESOURCE);
 		int i = (width - xSize) / 2;
 		int j = (height - ySize) / 2;

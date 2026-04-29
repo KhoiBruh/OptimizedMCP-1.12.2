@@ -17,7 +17,7 @@ public class GuiButtonLanguage extends GuiButton {
 
 		if (visible) {
 			mc.getTextureManager().bindTexture(GuiButton.BUTTON_TEXTURES);
-			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+			GlStateManager.color(1F, 1F, 1F, 1F);
 			boolean flag = mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
 			int i = 106;
 

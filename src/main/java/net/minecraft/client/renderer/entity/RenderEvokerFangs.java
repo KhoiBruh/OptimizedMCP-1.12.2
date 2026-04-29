@@ -22,11 +22,11 @@ public class RenderEvokerFangs extends Render<EntityEvokerFangs> {
 
 		float f = entity.getAnimationProgress(partialTicks);
 
-		if (f != 0.0F) {
-			float f1 = 2.0F;
+		if (f != 0F) {
+			float f1 = 2F;
 
 			if (f > 0.9F) {
-				f1 = (float) ((double) f1 * ((1.0D - (double) f) / 0.10000000149011612D));
+				f1 = (float) ((double) f1 * ((1D - (double) f) / 0.10000000149011612D));
 			}
 
 			GlStateManager.pushMatrix();
@@ -34,11 +34,11 @@ public class RenderEvokerFangs extends Render<EntityEvokerFangs> {
 			GlStateManager.enableAlpha();
 			bindEntityTexture(entity);
 			GlStateManager.translate((float) x, (float) y, (float) z);
-			GlStateManager.rotate(90.0F - entity.rotationYaw, 0.0F, 1.0F, 0.0F);
+			GlStateManager.rotate(90F - entity.rotationYaw, 0F, 1F, 0F);
 			GlStateManager.scale(-f1, -f1, f1);
 			float f2 = 0.03125F;
-			GlStateManager.translate(0.0F, -0.626F, 0.0F);
-			model.render(entity, f, 0.0F, 0.0F, entity.rotationYaw, entity.rotationPitch, 0.03125F);
+			GlStateManager.translate(0F, -0.626F, 0F);
+			model.render(entity, f, 0F, 0F, entity.rotationYaw, entity.rotationPitch, 0.03125F);
 			GlStateManager.popMatrix();
 			GlStateManager.enableCull();
 			super.doRender(entity, x, y, z, entityYaw, partialTicks);

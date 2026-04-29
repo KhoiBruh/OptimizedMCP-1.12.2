@@ -31,8 +31,8 @@ public class BlockEndPortalFrame extends Block {
 
 	public static final PropertyDirection FACING = BlockHorizontal.FACING;
 	public static final PropertyBool EYE = PropertyBool.create("eye");
-	protected static final AxisAlignedBB AABB_BLOCK = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.8125D, 1.0D);
-	protected static final AxisAlignedBB AABB_EYE = new AxisAlignedBB(0.3125D, 0.8125D, 0.3125D, 0.6875D, 1.0D, 0.6875D);
+	protected static final AxisAlignedBB AABB_BLOCK = new AxisAlignedBB(0D, 0D, 0D, 1D, 0.8125D, 1D);
+	protected static final AxisAlignedBB AABB_EYE = new AxisAlignedBB(0.3125D, 0.8125D, 0.3125D, 0.6875D, 1D, 0.6875D);
 	private static BlockPattern portalShape;
 
 	public BlockEndPortalFrame() {

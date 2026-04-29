@@ -55,7 +55,7 @@ public class BlockStructureVoid extends Block {
 
 	public float getAmbientOcclusionLightValue(IBlockState state) {
 
-		return 1.0F;
+		return 1F;
 	}
 
 	/**

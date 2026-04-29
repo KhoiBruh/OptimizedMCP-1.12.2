@@ -90,7 +90,7 @@ public class ItemMinecart extends Item {
 
 			if (!worldIn.isRemote) {
 				BlockRailBase.EnumRailDirection blockrailbase$enumraildirection = iblockstate.getBlock() instanceof BlockRailBase ? iblockstate.getValue(((BlockRailBase) iblockstate.getBlock()).getShapeProperty()) : BlockRailBase.EnumRailDirection.NORTH_SOUTH;
-				double d0 = 0.0D;
+				double d0 = 0D;
 
 				if (blockrailbase$enumraildirection.isAscending()) {
 					d0 = 0.5D;

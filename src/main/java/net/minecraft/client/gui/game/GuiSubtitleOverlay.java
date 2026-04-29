@@ -40,8 +40,8 @@ public class GuiSubtitleOverlay extends Gui implements ISoundEventListener {
 			GlStateManager.enableBlend();
 			GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 			Vec3d vec3d = new Vec3d(client.player.posX, client.player.posY + (double) client.player.getEyeHeight(), client.player.posZ);
-			Vec3d vec3d1 = (new Vec3d(0.0D, 0.0D, -1.0D)).rotatePitch(-client.player.rotationPitch * 0.017453292F).rotateYaw(-client.player.rotationYaw * 0.017453292F);
-			Vec3d vec3d2 = (new Vec3d(0.0D, 1.0D, 0.0D)).rotatePitch(-client.player.rotationPitch * 0.017453292F).rotateYaw(-client.player.rotationYaw * 0.017453292F);
+			Vec3d vec3d1 = (new Vec3d(0D, 0D, -1D)).rotatePitch(-client.player.rotationPitch * 0.017453292F).rotateYaw(-client.player.rotationYaw * 0.017453292F);
+			Vec3d vec3d2 = (new Vec3d(0D, 1D, 0D)).rotatePitch(-client.player.rotationPitch * 0.017453292F).rotateYaw(-client.player.rotationYaw * 0.017453292F);
 			Vec3d vec3d3 = vec3d1.crossProduct(vec3d2);
 			int i = 0;
 			int j = 0;
@@ -69,20 +69,20 @@ public class GuiSubtitleOverlay extends Gui implements ISoundEventListener {
 				int l = j / 2;
 				int i1 = client.fontRenderer.FONT_HEIGHT;
 				int j1 = i1 / 2;
-				float f = 1.0F;
+				float f = 1F;
 				int k1 = client.fontRenderer.getStringWidth(s);
-				int l1 = MathHelper.floor(MathHelper.clampedLerp(255.0D, 75.0D, (float) (Minecraft.getSystemTime() - guisubtitleoverlay$subtitle1.getStartTime()) / 3000.0F));
+				int l1 = MathHelper.floor(MathHelper.clampedLerp(255D, 75D, (float) (Minecraft.getSystemTime() - guisubtitleoverlay$subtitle1.getStartTime()) / 3000F));
 				int i2 = l1 << 16 | l1 << 8 | l1;
 				GlStateManager.pushMatrix();
-				GlStateManager.translate((float) resolution.getScaledWidth() - (float) l - 2.0F, (float) (resolution.getScaledHeight() - 30) - (float) (i * (i1 + 1)), 0.0F);
-				GlStateManager.scale(1.0F, 1.0F, 1.0F);
+				GlStateManager.translate((float) resolution.getScaledWidth() - (float) l - 2F, (float) (resolution.getScaledHeight() - 30) - (float) (i * (i1 + 1)), 0F);
+				GlStateManager.scale(1F, 1F, 1F);
 				drawRect(-l - 1, -j1 - 1, l + 1, j1 + 1, -872415232);
 				GlStateManager.enableBlend();
 
 				if (!flag) {
-					if (d0 > 0.0D) {
+					if (d0 > 0D) {
 						client.fontRenderer.drawString(">", l - client.fontRenderer.getStringWidth(">"), -j1, i2 - 16777216);
-					} else if (d0 < 0.0D) {
+					} else if (d0 < 0D) {
 						client.fontRenderer.drawString("<", -l, -j1, i2 - 16777216);
 					}
 				}

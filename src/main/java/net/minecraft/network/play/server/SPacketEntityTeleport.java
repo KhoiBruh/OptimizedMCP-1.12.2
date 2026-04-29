@@ -25,8 +25,8 @@ public class SPacketEntityTeleport implements Packet<INetHandlerPlayClient> {
 		posX = entityIn.posX;
 		posY = entityIn.posY;
 		posZ = entityIn.posZ;
-		yaw = (byte) ((int) (entityIn.rotationYaw * 256.0F / 360.0F));
-		pitch = (byte) ((int) (entityIn.rotationPitch * 256.0F / 360.0F));
+		yaw = (byte) ((int) (entityIn.rotationYaw * 256F / 360F));
+		pitch = (byte) ((int) (entityIn.rotationPitch * 256F / 360F));
 		onGround = entityIn.onGround;
 	}
 

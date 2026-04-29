@@ -22,7 +22,7 @@ public class ItemSpade extends ItemTool {
 
 	public ItemSpade(Item.ToolMaterial material) {
 
-		super(1.5F, -3.0F, material, EFFECTIVE_ON);
+		super(1.5F, -3F, material, EFFECTIVE_ON);
 	}
 
 	/**
@@ -54,7 +54,7 @@ public class ItemSpade extends ItemTool {
 
 			if (facing != EnumFacing.DOWN && worldIn.getBlockState(pos.up()).getMaterial() == Material.AIR && block == Blocks.GRASS) {
 				IBlockState iblockstate1 = Blocks.GRASS_PATH.getDefaultState();
-				worldIn.playSound(player, pos, SoundEvents.ITEM_SHOVEL_FLATTEN, SoundCategory.BLOCKS, 1.0F, 1.0F);
+				worldIn.playSound(player, pos, SoundEvents.ITEM_SHOVEL_FLATTEN, SoundCategory.BLOCKS, 1F, 1F);
 
 				if (!worldIn.isRemote) {
 					worldIn.setBlockState(pos, iblockstate1, 11);

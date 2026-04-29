@@ -104,7 +104,7 @@ public enum EnumFacing implements IStringSerializable {
 	 */
 	public static EnumFacing fromAngle(double angle) {
 
-		return getHorizontal(MathHelper.floor(angle / 90.0D + 0.5D) & 3);
+		return getHorizontal(MathHelper.floor(angle / 90D + 0.5D) & 3);
 	}
 
 	/**
@@ -145,14 +145,14 @@ public enum EnumFacing implements IStringSerializable {
 
 	public static EnumFacing getDirectionFromEntityLiving(BlockPos pos, EntityLivingBase placer) {
 
-		if (Math.abs(placer.posX - (double) ((float) pos.getX() + 0.5F)) < 2.0D && Math.abs(placer.posZ - (double) ((float) pos.getZ() + 0.5F)) < 2.0D) {
+		if (Math.abs(placer.posX - (double) ((float) pos.getX() + 0.5F)) < 2D && Math.abs(placer.posZ - (double) ((float) pos.getZ() + 0.5F)) < 2D) {
 			double d0 = placer.posY + (double) placer.getEyeHeight();
 
-			if (d0 - (double) pos.getY() > 2.0D) {
+			if (d0 - (double) pos.getY() > 2D) {
 				return UP;
 			}
 
-			if ((double) pos.getY() - d0 > 0.0D) {
+			if ((double) pos.getY() - d0 > 0D) {
 				return DOWN;
 			}
 		}

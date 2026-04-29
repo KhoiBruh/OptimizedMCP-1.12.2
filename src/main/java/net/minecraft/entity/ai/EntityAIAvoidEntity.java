@@ -56,7 +56,7 @@ public class EntityAIAvoidEntity<T extends Entity> extends EntityAIBase {
 	 */
 	public boolean shouldExecute() {
 
-		List<T> list = entity.world.getEntitiesWithinAABB(classToAvoid, entity.getEntityBoundingBox().grow(avoidDistance, 3.0D, avoidDistance), Predicates.and(EntitySelectors.CAN_AI_TARGET, canBeSeenSelector, avoidTargetSelector));
+		List<T> list = entity.world.getEntitiesWithinAABB(classToAvoid, entity.getEntityBoundingBox().grow(avoidDistance, 3D, avoidDistance), Predicates.and(EntitySelectors.CAN_AI_TARGET, canBeSeenSelector, avoidTargetSelector));
 
 		if (list.isEmpty()) {
 			return false;
@@ -104,7 +104,7 @@ public class EntityAIAvoidEntity<T extends Entity> extends EntityAIBase {
 	 */
 	public void updateTask() {
 
-		if (entity.getDistanceSq(closestLivingEntity) < 49.0D) {
+		if (entity.getDistanceSq(closestLivingEntity) < 49D) {
 			entity.getNavigator().setSpeed(nearSpeed);
 		} else {
 			entity.getNavigator().setSpeed(farSpeed);

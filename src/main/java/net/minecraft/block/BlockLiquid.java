@@ -39,13 +39,13 @@ public abstract class BlockLiquid extends Block {
 			meta = 0;
 		}
 
-		return (float) (meta + 1) / 9.0F;
+		return (float) (meta + 1) / 9F;
 	}
 
 	public static float getSlopeAngle(IBlockAccess worldIn, BlockPos pos, Material materialIn, IBlockState state) {
 
 		Vec3d vec3d = getFlowingBlock(materialIn).getFlow(worldIn, pos, state);
-		return vec3d.x() == 0.0D && vec3d.z() == 0.0D ? -1000.0F : (float) MathHelper.atan2(vec3d.z(), vec3d.x()) - ((float) Math.PI / 2F);
+		return vec3d.x() == 0D && vec3d.z() == 0D ? -1000F : (float) MathHelper.atan2(vec3d.z(), vec3d.x()) - ((float) Math.PI / 2F);
 	}
 
 	public static BlockDynamicLiquid getFlowingBlock(Material materialIn) {
@@ -73,7 +73,7 @@ public abstract class BlockLiquid extends Block {
 	public static float getBlockLiquidHeight(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
 
 		int i = state.getValue(LEVEL);
-		return (i & 7) == 0 && worldIn.getBlockState(pos.up()).getMaterial() == Material.WATER ? 1.0F : 1.0F - getLiquidHeightPercent(i);
+		return (i & 7) == 0 && worldIn.getBlockState(pos.up()).getMaterial() == Material.WATER ? 1F : 1F - getLiquidHeightPercent(i);
 	}
 
 	public static float getLiquidHeight(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
@@ -202,9 +202,9 @@ public abstract class BlockLiquid extends Block {
 
 	protected Vec3d getFlow(IBlockAccess worldIn, BlockPos pos, IBlockState state) {
 
-		double d0 = 0.0D;
-		double d1 = 0.0D;
-		double d2 = 0.0D;
+		double d0 = 0D;
+		double d1 = 0D;
+		double d2 = 0D;
 		int i = getRenderedDepth(state);
 		BlockPos.PooledMutableBlockPos blockpos$pooledmutableblockpos = BlockPos.PooledMutableBlockPos.retain();
 
@@ -238,7 +238,7 @@ public abstract class BlockLiquid extends Block {
 				blockpos$pooledmutableblockpos.setPos(pos).move(enumfacing1);
 
 				if (causesDownwardCurrent(worldIn, blockpos$pooledmutableblockpos, enumfacing1) || causesDownwardCurrent(worldIn, blockpos$pooledmutableblockpos.up(), enumfacing1)) {
-					vec3d = vec3d.normalize().addVector(0.0D, -6.0D, 0.0D);
+					vec3d = vec3d.normalize().addVector(0D, -6D, 0D);
 					break;
 				}
 			}
@@ -301,7 +301,7 @@ public abstract class BlockLiquid extends Block {
 					worldIn.playSound(d0 + 0.5D, d1 + 0.5D, d2 + 0.5D, SoundEvents.BLOCK_WATER_AMBIENT, SoundCategory.BLOCKS, rand.nextFloat() * 0.25F + 0.75F, rand.nextFloat() + 0.5F, false);
 				}
 			} else if (rand.nextInt(10) == 0) {
-				worldIn.spawnParticle(EnumParticleTypes.SUSPENDED, d0 + (double) rand.nextFloat(), d1 + (double) rand.nextFloat(), d2 + (double) rand.nextFloat(), 0.0D, 0.0D, 0.0D);
+				worldIn.spawnParticle(EnumParticleTypes.SUSPENDED, d0 + (double) rand.nextFloat(), d1 + (double) rand.nextFloat(), d2 + (double) rand.nextFloat(), 0D, 0D, 0D);
 			}
 		}
 
@@ -310,7 +310,7 @@ public abstract class BlockLiquid extends Block {
 				double d8 = d0 + (double) rand.nextFloat();
 				double d4 = d1 + stateIn.getBoundingBox(worldIn, pos).maxY;
 				double d6 = d2 + (double) rand.nextFloat();
-				worldIn.spawnParticle(EnumParticleTypes.LAVA, d8, d4, d6, 0.0D, 0.0D, 0.0D);
+				worldIn.spawnParticle(EnumParticleTypes.LAVA, d8, d4, d6, 0D, 0D, 0D);
 				worldIn.playSound(d8, d4, d6, SoundEvents.BLOCK_LAVA_POP, SoundCategory.BLOCKS, 0.2F + rand.nextFloat() * 0.2F, 0.9F + rand.nextFloat() * 0.15F, false);
 			}
 
@@ -328,9 +328,9 @@ public abstract class BlockLiquid extends Block {
 				double d7 = d2 + (double) rand.nextFloat();
 
 				if (blockMaterial == Material.WATER) {
-					worldIn.spawnParticle(EnumParticleTypes.DRIP_WATER, d3, d5, d7, 0.0D, 0.0D, 0.0D);
+					worldIn.spawnParticle(EnumParticleTypes.DRIP_WATER, d3, d5, d7, 0D, 0D, 0D);
 				} else {
-					worldIn.spawnParticle(EnumParticleTypes.DRIP_LAVA, d3, d5, d7, 0.0D, 0.0D, 0.0D);
+					worldIn.spawnParticle(EnumParticleTypes.DRIP_LAVA, d3, d5, d7, 0D, 0D, 0D);
 				}
 			}
 		}
@@ -394,7 +394,7 @@ public abstract class BlockLiquid extends Block {
 		worldIn.playSound(null, pos, SoundEvents.BLOCK_LAVA_EXTINGUISH, SoundCategory.BLOCKS, 0.5F, 2.6F + (worldIn.rand.nextFloat() - worldIn.rand.nextFloat()) * 0.8F);
 
 		for (int i = 0; i < 8; ++i) {
-			worldIn.spawnParticle(EnumParticleTypes.SMOKE_LARGE, d0 + Math.random(), d1 + 1.2D, d2 + Math.random(), 0.0D, 0.0D, 0.0D);
+			worldIn.spawnParticle(EnumParticleTypes.SMOKE_LARGE, d0 + Math.random(), d1 + 1.2D, d2 + Math.random(), 0D, 0D, 0D);
 		}
 	}
 

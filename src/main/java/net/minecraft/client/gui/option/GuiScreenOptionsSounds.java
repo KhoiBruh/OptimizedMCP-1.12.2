@@ -101,7 +101,7 @@ public class GuiScreenOptionsSounds extends GuiScreen {
 	protected String getDisplayString(SoundCategory category) {
 
 		float f = game_settings_4.getSoundLevel(category);
-		return f == 0.0F ? offDisplayString : (int) (f * 100.0F) + "%";
+		return f == 0F ? offDisplayString : (int) (f * 100F) + "%";
 	}
 
 	class Button extends GuiButton {
@@ -130,13 +130,13 @@ public class GuiScreenOptionsSounds extends GuiScreen {
 			if (visible) {
 				if (pressed) {
 					volume = (float) (mouseX - (x + 4)) / (float) (width - 8);
-					volume = MathHelper.clamp(volume, 0.0F, 1.0F);
+					volume = MathHelper.clamp(volume, 0F, 1F);
 					mc.gameSettings.setSoundLevel(category, volume);
 					mc.gameSettings.saveOptions();
 					displayString = categoryName + ": " + getDisplayString(category);
 				}
 
-				GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+				GlStateManager.color(1F, 1F, 1F, 1F);
 				drawTexturedModalRect(x + (int) (volume * (float) (width - 8)), y, 0, 66, 4, 20);
 				drawTexturedModalRect(x + (int) (volume * (float) (width - 8)) + 4, y, 196, 66, 4, 20);
 			}
@@ -146,7 +146,7 @@ public class GuiScreenOptionsSounds extends GuiScreen {
 
 			if (super.mousePressed(mc, mouseX, mouseY)) {
 				volume = (float) (mouseX - (x + 4)) / (float) (width - 8);
-				volume = MathHelper.clamp(volume, 0.0F, 1.0F);
+				volume = MathHelper.clamp(volume, 0F, 1F);
 				mc.gameSettings.setSoundLevel(category, volume);
 				mc.gameSettings.saveOptions();
 				displayString = categoryName + ": " + getDisplayString(category);
@@ -164,7 +164,7 @@ public class GuiScreenOptionsSounds extends GuiScreen {
 		public void mouseReleased(int mouseX, int mouseY) {
 
 			if (pressed) {
-				mc.getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(SoundEvents.UI_BUTTON_CLICK, 1.0F));
+				mc.getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(SoundEvents.UI_BUTTON_CLICK, 1F));
 			}
 
 			pressed = false;

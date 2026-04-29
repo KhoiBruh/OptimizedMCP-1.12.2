@@ -87,7 +87,7 @@ public class LootPool {
 			LootEntry[] alootentry = JsonUtils.deserializeClass(jsonobject, "entries", p_deserialize_3_, LootEntry[].class);
 			LootCondition[] alootcondition = JsonUtils.deserializeClass(jsonobject, "conditions", new LootCondition[0], p_deserialize_3_, LootCondition[].class);
 			RandomValueRange randomvaluerange = JsonUtils.deserializeClass(jsonobject, "rolls", p_deserialize_3_, RandomValueRange.class);
-			RandomValueRange randomvaluerange1 = JsonUtils.deserializeClass(jsonobject, "bonus_rolls", new RandomValueRange(0.0F, 0.0F), p_deserialize_3_, RandomValueRange.class);
+			RandomValueRange randomvaluerange1 = JsonUtils.deserializeClass(jsonobject, "bonus_rolls", new RandomValueRange(0F, 0F), p_deserialize_3_, RandomValueRange.class);
 			return new LootPool(alootentry, alootcondition, randomvaluerange, randomvaluerange1);
 		}
 
@@ -97,7 +97,7 @@ public class LootPool {
 			jsonobject.add("entries", p_serialize_3_.serialize(p_serialize_1_.lootEntries));
 			jsonobject.add("rolls", p_serialize_3_.serialize(p_serialize_1_.rolls));
 
-			if (p_serialize_1_.bonusRolls.getMin() != 0.0F && p_serialize_1_.bonusRolls.getMax() != 0.0F) {
+			if (p_serialize_1_.bonusRolls.getMin() != 0F && p_serialize_1_.bonusRolls.getMax() != 0F) {
 				jsonobject.add("bonus_rolls", p_serialize_3_.serialize(p_serialize_1_.bonusRolls));
 			}
 

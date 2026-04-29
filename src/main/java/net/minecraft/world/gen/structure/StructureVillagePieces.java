@@ -1573,14 +1573,14 @@ public class StructureVillagePieces {
 
 					if (isZombieInfested) {
 						EntityZombieVillager entityzombievillager = new EntityZombieVillager(worldIn);
-						entityzombievillager.setLocationAndAngles((double) j + 0.5D, k, (double) l + 0.5D, 0.0F, 0.0F);
+						entityzombievillager.setLocationAndAngles((double) j + 0.5D, k, (double) l + 0.5D, 0F, 0F);
 						entityzombievillager.onInitialSpawn(worldIn.getDifficultyForLocation(new BlockPos(entityzombievillager)), null);
 						entityzombievillager.setProfession(chooseProfession(i, 0));
 						entityzombievillager.enablePersistence();
 						worldIn.spawnEntity(entityzombievillager);
 					} else {
 						EntityVillager entityvillager = new EntityVillager(worldIn);
-						entityvillager.setLocationAndAngles((double) j + 0.5D, k, (double) l + 0.5D, 0.0F, 0.0F);
+						entityvillager.setLocationAndAngles((double) j + 0.5D, k, (double) l + 0.5D, 0F, 0F);
 						entityvillager.setProfession(chooseProfession(i, worldIn.rand.nextInt(6)));
 						entityvillager.finalizeMobSpawn(worldIn.getDifficultyForLocation(new BlockPos(entityvillager)), null, false);
 						worldIn.spawnEntity(entityvillager);

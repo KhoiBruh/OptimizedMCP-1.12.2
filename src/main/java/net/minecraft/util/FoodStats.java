@@ -16,7 +16,7 @@ public class FoodStats {
 	/**
 	 * The player's food saturation.
 	 */
-	private float foodSaturationLevel = 5.0F;
+	private float foodSaturationLevel = 5F;
 
 	/**
 	 * The player's food exhaustion.
@@ -35,7 +35,7 @@ public class FoodStats {
 	public void addStats(int foodLevelIn, float foodSaturationModifier) {
 
 		foodLevel = Math.min(foodLevelIn + foodLevel, 20);
-		foodSaturationLevel = Math.min(foodSaturationLevel + (float) foodLevelIn * foodSaturationModifier * 2.0F, (float) foodLevel);
+		foodSaturationLevel = Math.min(foodSaturationLevel + (float) foodLevelIn * foodSaturationModifier * 2F, (float) foodLevel);
 	}
 
 	public void addStats(ItemFood foodItem, ItemStack stack) {
@@ -51,11 +51,11 @@ public class FoodStats {
 		EnumDifficulty enumdifficulty = player.world.getDifficulty();
 		prevFoodLevel = foodLevel;
 
-		if (foodExhaustionLevel > 4.0F) {
-			foodExhaustionLevel -= 4.0F;
+		if (foodExhaustionLevel > 4F) {
+			foodExhaustionLevel -= 4F;
 
-			if (foodSaturationLevel > 0.0F) {
-				foodSaturationLevel = Math.max(foodSaturationLevel - 1.0F, 0.0F);
+			if (foodSaturationLevel > 0F) {
+				foodSaturationLevel = Math.max(foodSaturationLevel - 1F, 0F);
 			} else if (enumdifficulty != EnumDifficulty.PEACEFUL) {
 				foodLevel = Math.max(foodLevel - 1, 0);
 			}
@@ -63,12 +63,12 @@ public class FoodStats {
 
 		boolean flag = player.world.getGameRules().getBoolean("naturalRegeneration");
 
-		if (flag && foodSaturationLevel > 0.0F && player.shouldHeal() && foodLevel >= 20) {
+		if (flag && foodSaturationLevel > 0F && player.shouldHeal() && foodLevel >= 20) {
 			++foodTimer;
 
 			if (foodTimer >= 10) {
-				float f = Math.min(foodSaturationLevel, 6.0F);
-				player.heal(f / 6.0F);
+				float f = Math.min(foodSaturationLevel, 6F);
+				player.heal(f / 6F);
 				addExhaustion(f);
 				foodTimer = 0;
 			}
@@ -76,16 +76,16 @@ public class FoodStats {
 			++foodTimer;
 
 			if (foodTimer >= 80) {
-				player.heal(1.0F);
-				addExhaustion(6.0F);
+				player.heal(1F);
+				addExhaustion(6F);
 				foodTimer = 0;
 			}
 		} else if (foodLevel <= 0) {
 			++foodTimer;
 
 			if (foodTimer >= 80) {
-				if (player.getHealth() > 10.0F || enumdifficulty == EnumDifficulty.HARD || player.getHealth() > 1.0F && enumdifficulty == EnumDifficulty.NORMAL) {
-					player.attackEntityFrom(DamageSource.STARVE, 1.0F);
+				if (player.getHealth() > 10F || enumdifficulty == EnumDifficulty.HARD || player.getHealth() > 1F && enumdifficulty == EnumDifficulty.NORMAL) {
+					player.attackEntityFrom(DamageSource.STARVE, 1F);
 				}
 
 				foodTimer = 0;
@@ -145,7 +145,7 @@ public class FoodStats {
 	 */
 	public void addExhaustion(float exhaustion) {
 
-		foodExhaustionLevel = Math.min(foodExhaustionLevel + exhaustion, 40.0F);
+		foodExhaustionLevel = Math.min(foodExhaustionLevel + exhaustion, 40F);
 	}
 
 	/**

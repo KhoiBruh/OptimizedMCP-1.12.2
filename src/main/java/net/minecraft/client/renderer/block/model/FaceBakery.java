@@ -11,8 +11,8 @@ import org.lwjgl.util.vector.Vector4f;
 
 public class FaceBakery {
 
-	private static final float SCALE_ROTATION_22_5 = 1.0F / (float) Math.cos(0.39269909262657166D) - 1.0F;
-	private static final float SCALE_ROTATION_GENERAL = 1.0F / (float) Math.cos((Math.PI / 4D)) - 1.0F;
+	private static final float SCALE_ROTATION_22_5 = 1F / (float) Math.cos(0.39269909262657166D) - 1F;
+	private static final float SCALE_ROTATION_GENERAL = 1F / (float) Math.cos((Math.PI / 4D)) - 1F;
 	private static final FaceBakery.Rotation[] UV_ROTATIONS = new FaceBakery.Rotation[ModelRotation.values().length * EnumFacing.values().length];
 	private static final FaceBakery.Rotation UV_ROTATION_0 = new FaceBakery.Rotation() {
 		BlockFaceUV makeRotatedUV(float p_188007_1_, float p_188007_2_, float p_188007_3_, float p_188007_4_) {
@@ -23,19 +23,19 @@ public class FaceBakery {
 	private static final FaceBakery.Rotation UV_ROTATION_270 = new FaceBakery.Rotation() {
 		BlockFaceUV makeRotatedUV(float p_188007_1_, float p_188007_2_, float p_188007_3_, float p_188007_4_) {
 
-			return new BlockFaceUV(new float[]{p_188007_4_, 16.0F - p_188007_1_, p_188007_2_, 16.0F - p_188007_3_}, 270);
+			return new BlockFaceUV(new float[]{p_188007_4_, 16F - p_188007_1_, p_188007_2_, 16F - p_188007_3_}, 270);
 		}
 	};
 	private static final FaceBakery.Rotation UV_ROTATION_INVERSE = new FaceBakery.Rotation() {
 		BlockFaceUV makeRotatedUV(float p_188007_1_, float p_188007_2_, float p_188007_3_, float p_188007_4_) {
 
-			return new BlockFaceUV(new float[]{16.0F - p_188007_1_, 16.0F - p_188007_2_, 16.0F - p_188007_3_, 16.0F - p_188007_4_}, 0);
+			return new BlockFaceUV(new float[]{16F - p_188007_1_, 16F - p_188007_2_, 16F - p_188007_3_, 16F - p_188007_4_}, 0);
 		}
 	};
 	private static final FaceBakery.Rotation UV_ROTATION_90 = new FaceBakery.Rotation() {
 		BlockFaceUV makeRotatedUV(float p_188007_1_, float p_188007_2_, float p_188007_3_, float p_188007_4_) {
 
-			return new BlockFaceUV(new float[]{16.0F - p_188007_2_, p_188007_3_, 16.0F - p_188007_4_, p_188007_1_}, 90);
+			return new BlockFaceUV(new float[]{16F - p_188007_2_, p_188007_3_, 16F - p_188007_4_, p_188007_1_}, 90);
 		}
 	};
 
@@ -154,14 +154,14 @@ public class FaceBakery {
 		vector3f5.y /= f;
 		vector3f5.z /= f;
 		EnumFacing enumfacing = null;
-		float f1 = 0.0F;
+		float f1 = 0F;
 
 		for (EnumFacing enumfacing1 : EnumFacing.values()) {
 			Vec3i vec3i = enumfacing1.getDirectionVec();
 			Vector3f vector3f6 = new Vector3f((float) vec3i.getX(), (float) vec3i.getY(), (float) vec3i.getZ());
 			float f2 = Vector3f.dot(vector3f5, vector3f6);
 
-			if (f2 >= 0.0F && f2 > f1) {
+			if (f2 >= 0F && f2 > f1) {
 				f1 = f2;
 				enumfacing = enumfacing1;
 			}
@@ -221,7 +221,7 @@ public class FaceBakery {
 	private int getFaceShadeColor(EnumFacing facing) {
 
 		float f = getFaceBrightness(facing);
-		int i = MathHelper.clamp((int) (f * 255.0F), 0, 255);
+		int i = MathHelper.clamp((int) (f * 255F), 0, 255);
 		return -16777216 | i << 16 | i << 8 | i;
 	}
 
@@ -231,19 +231,19 @@ public class FaceBakery {
 			case DOWN -> 0.5F;
 			case NORTH, SOUTH -> 0.8F;
 			case WEST, EAST -> 0.6F;
-			default -> 1.0F;
+			default -> 1F;
 		};
 	}
 
 	private float[] getPositionsDiv16(Vector3f pos1, Vector3f pos2) {
 
 		float[] afloat = new float[EnumFacing.values().length];
-		afloat[EnumFaceDirection.Constants.WEST_INDEX] = pos1.x / 16.0F;
-		afloat[EnumFaceDirection.Constants.DOWN_INDEX] = pos1.y / 16.0F;
-		afloat[EnumFaceDirection.Constants.NORTH_INDEX] = pos1.z / 16.0F;
-		afloat[EnumFaceDirection.Constants.EAST_INDEX] = pos2.x / 16.0F;
-		afloat[EnumFaceDirection.Constants.UP_INDEX] = pos2.y / 16.0F;
-		afloat[EnumFaceDirection.Constants.SOUTH_INDEX] = pos2.z / 16.0F;
+		afloat[EnumFaceDirection.Constants.WEST_INDEX] = pos1.x / 16F;
+		afloat[EnumFaceDirection.Constants.DOWN_INDEX] = pos1.y / 16F;
+		afloat[EnumFaceDirection.Constants.NORTH_INDEX] = pos1.z / 16F;
+		afloat[EnumFaceDirection.Constants.EAST_INDEX] = pos2.x / 16F;
+		afloat[EnumFaceDirection.Constants.UP_INDEX] = pos2.y / 16F;
+		afloat[EnumFaceDirection.Constants.SOUTH_INDEX] = pos2.z / 16F;
 		return afloat;
 	}
 
@@ -273,22 +273,22 @@ public class FaceBakery {
 
 		if (partRotation != null) {
 			Matrix4f matrix4f = getMatrixIdentity();
-			Vector3f vector3f = new Vector3f(0.0F, 0.0F, 0.0F);
+			Vector3f vector3f = new Vector3f(0F, 0F, 0F);
 
 			switch (partRotation.axis()) {
 				case X:
-					Matrix4f.rotate(partRotation.angle() * 0.017453292F, new Vector3f(1.0F, 0.0F, 0.0F), matrix4f, matrix4f);
-					vector3f.set(0.0F, 1.0F, 1.0F);
+					Matrix4f.rotate(partRotation.angle() * 0.017453292F, new Vector3f(1F, 0F, 0F), matrix4f, matrix4f);
+					vector3f.set(0F, 1F, 1F);
 					break;
 
 				case Y:
-					Matrix4f.rotate(partRotation.angle() * 0.017453292F, new Vector3f(0.0F, 1.0F, 0.0F), matrix4f, matrix4f);
-					vector3f.set(1.0F, 0.0F, 1.0F);
+					Matrix4f.rotate(partRotation.angle() * 0.017453292F, new Vector3f(0F, 1F, 0F), matrix4f, matrix4f);
+					vector3f.set(1F, 0F, 1F);
 					break;
 
 				case Z:
-					Matrix4f.rotate(partRotation.angle() * 0.017453292F, new Vector3f(0.0F, 0.0F, 1.0F), matrix4f, matrix4f);
-					vector3f.set(1.0F, 1.0F, 0.0F);
+					Matrix4f.rotate(partRotation.angle() * 0.017453292F, new Vector3f(0F, 0F, 1F), matrix4f, matrix4f);
+					vector3f.set(1F, 1F, 0F);
 			}
 
 			if (partRotation.rescale()) {
@@ -298,9 +298,9 @@ public class FaceBakery {
 					vector3f.scale(SCALE_ROTATION_GENERAL);
 				}
 
-				Vector3f.add(vector3f, new Vector3f(1.0F, 1.0F, 1.0F), vector3f);
+				Vector3f.add(vector3f, new Vector3f(1F, 1F, 1F), vector3f);
 			} else {
-				vector3f.set(1.0F, 1.0F, 1.0F);
+				vector3f.set(1F, 1F, 1F);
 			}
 
 			rotateScale(p_178407_1_, new Vector3f(partRotation.origin()), matrix4f, vector3f);
@@ -312,14 +312,14 @@ public class FaceBakery {
 		if (p_188011_4_ == ModelRotation.X0_Y0) {
 			return p_188011_3_;
 		} else {
-			rotateScale(p_188011_1_, new Vector3f(0.5F, 0.5F, 0.5F), p_188011_4_.getMatrix4d(), new Vector3f(1.0F, 1.0F, 1.0F));
+			rotateScale(p_188011_1_, new Vector3f(0.5F, 0.5F, 0.5F), p_188011_4_.getMatrix4d(), new Vector3f(1F, 1F, 1F));
 			return p_188011_4_.rotateVertex(p_188011_2_, p_188011_3_);
 		}
 	}
 
 	private void rotateScale(Vector3f position, Vector3f rotationOrigin, Matrix4f rotationMatrix, Vector3f scale) {
 
-		Vector4f vector4f = new Vector4f(position.x - rotationOrigin.x, position.y - rotationOrigin.y, position.z - rotationOrigin.z, 1.0F);
+		Vector4f vector4f = new Vector4f(position.x - rotationOrigin.x, position.y - rotationOrigin.y, position.z - rotationOrigin.z, 1F);
 		Matrix4f.transform(rotationMatrix, vector4f, vector4f);
 		vector4f.x *= scale.x;
 		vector4f.y *= scale.y;
@@ -339,12 +339,12 @@ public class FaceBakery {
 		int[] aint = new int[p_178408_1_.length];
 		System.arraycopy(p_178408_1_, 0, aint, 0, p_178408_1_.length);
 		float[] afloat = new float[EnumFacing.values().length];
-		afloat[EnumFaceDirection.Constants.WEST_INDEX] = 999.0F;
-		afloat[EnumFaceDirection.Constants.DOWN_INDEX] = 999.0F;
-		afloat[EnumFaceDirection.Constants.NORTH_INDEX] = 999.0F;
-		afloat[EnumFaceDirection.Constants.EAST_INDEX] = -999.0F;
-		afloat[EnumFaceDirection.Constants.UP_INDEX] = -999.0F;
-		afloat[EnumFaceDirection.Constants.SOUTH_INDEX] = -999.0F;
+		afloat[EnumFaceDirection.Constants.WEST_INDEX] = 999F;
+		afloat[EnumFaceDirection.Constants.DOWN_INDEX] = 999F;
+		afloat[EnumFaceDirection.Constants.NORTH_INDEX] = 999F;
+		afloat[EnumFaceDirection.Constants.EAST_INDEX] = -999F;
+		afloat[EnumFaceDirection.Constants.UP_INDEX] = -999F;
+		afloat[EnumFaceDirection.Constants.SOUTH_INDEX] = -999F;
 
 		for (int i = 0; i < 4; ++i) {
 			int j = 7 * i;

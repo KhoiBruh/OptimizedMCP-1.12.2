@@ -186,7 +186,7 @@ public class GuiStats extends GuiScreen implements IProgressMeter {
 	 */
 	private void drawSprite(int x, int y, int u, int v) {
 
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+		GlStateManager.color(1F, 1F, 1F, 1F);
 		mc.getTextureManager().bindTexture(STAT_ICONS);
 		float f = 0.0078125F;
 		float f1 = 0.0078125F;
@@ -317,7 +317,7 @@ public class GuiStats extends GuiScreen implements IProgressMeter {
 
 			if (headerPressed >= 0) {
 				sortByColumn(headerPressed);
-				mc.getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(SoundEvents.UI_BUTTON_CLICK, 1.0F));
+				mc.getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(SoundEvents.UI_BUTTON_CLICK, 1F));
 			}
 		}
 

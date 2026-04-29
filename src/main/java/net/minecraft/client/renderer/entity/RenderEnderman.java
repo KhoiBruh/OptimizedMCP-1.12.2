@@ -16,7 +16,7 @@ public class RenderEnderman extends RenderLiving<EntityEnderman> {
 
 	public RenderEnderman(RenderManager renderManagerIn) {
 
-		super(renderManagerIn, new ModelEnderman(0.0F), 0.5F);
+		super(renderManagerIn, new ModelEnderman(0F), 0.5F);
 		addLayer(new LayerEndermanEyes(this));
 		addLayer(new LayerHeldBlock(this));
 	}

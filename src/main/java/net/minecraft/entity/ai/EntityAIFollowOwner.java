@@ -77,7 +77,7 @@ public class EntityAIFollowOwner extends EntityAIBase {
 
 		timeToRecalcPath = 0;
 		oldWaterCost = tameable.getPathPriority(PathNodeType.WATER);
-		tameable.setPathPriority(PathNodeType.WATER, 0.0F);
+		tameable.setPathPriority(PathNodeType.WATER, 0F);
 	}
 
 	/**
@@ -95,7 +95,7 @@ public class EntityAIFollowOwner extends EntityAIBase {
 	 */
 	public void updateTask() {
 
-		tameable.getLookHelper().setLookPositionWithEntity(owner, 10.0F, (float) tameable.getVerticalFaceSpeed());
+		tameable.getLookHelper().setLookPositionWithEntity(owner, 10F, (float) tameable.getVerticalFaceSpeed());
 
 		if (!tameable.isSitting()) {
 			if (--timeToRecalcPath <= 0) {
@@ -103,7 +103,7 @@ public class EntityAIFollowOwner extends EntityAIBase {
 
 				if (!petPathfinder.tryMoveToEntityLiving(owner, followSpeed)) {
 					if (!tameable.getLeashed() && !tameable.isRiding()) {
-						if (tameable.getDistanceSq(owner) >= 144.0D) {
+						if (tameable.getDistanceSq(owner) >= 144D) {
 							int i = MathHelper.floor(owner.posX) - 2;
 							int j = MathHelper.floor(owner.posZ) - 2;
 							int k = MathHelper.floor(owner.getEntityBoundingBox().minY);

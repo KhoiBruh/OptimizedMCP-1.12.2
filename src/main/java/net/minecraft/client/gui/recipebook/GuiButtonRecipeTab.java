@@ -46,7 +46,7 @@ public class GuiButtonRecipeTab extends GuiButtonToggle {
 				}
 			}
 
-			animationTime = 15.0F;
+			animationTime = 15F;
 			return;
 		}
 	}
@@ -57,12 +57,12 @@ public class GuiButtonRecipeTab extends GuiButtonToggle {
 	public void drawButton(Minecraft mc, int mouseX, int mouseY, float partialTicks) {
 
 		if (visible) {
-			if (animationTime > 0.0F) {
-				float f = 1.0F + 0.1F * (float) Math.sin(animationTime / 15.0F * (float) Math.PI);
+			if (animationTime > 0F) {
+				float f = 1F + 0.1F * (float) Math.sin(animationTime / 15F * (float) Math.PI);
 				GlStateManager.pushMatrix();
-				GlStateManager.translate((float) (x + 8), (float) (y + 12), 0.0F);
-				GlStateManager.scale(1.0F, f, 1.0F);
-				GlStateManager.translate((float) (-(x + 8)), (float) (-(y + 12)), 0.0F);
+				GlStateManager.translate((float) (x + 8), (float) (y + 12), 0F);
+				GlStateManager.scale(1F, f, 1F);
+				GlStateManager.translate((float) (-(x + 8)), (float) (-(y + 12)), 0F);
 			}
 
 			hovered = mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
@@ -85,7 +85,7 @@ public class GuiButtonRecipeTab extends GuiButtonToggle {
 				j -= 2;
 			}
 
-			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+			GlStateManager.color(1F, 1F, 1F, 1F);
 			drawTexturedModalRect(j, y, k, i, width, height);
 			GlStateManager.enableDepth();
 			RenderHelper.enableGUIStandardItemLighting();
@@ -94,7 +94,7 @@ public class GuiButtonRecipeTab extends GuiButtonToggle {
 			GlStateManager.enableLighting();
 			RenderHelper.disableStandardItemLighting();
 
-			if (animationTime > 0.0F) {
+			if (animationTime > 0F) {
 				GlStateManager.popMatrix();
 				animationTime -= partialTicks;
 			}

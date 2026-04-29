@@ -39,28 +39,28 @@ public class LayerCustomHead implements LayerRenderer<EntityLivingBase> {
 			GlStateManager.pushMatrix();
 
 			if (entitylivingbaseIn.isSneaking()) {
-				GlStateManager.translate(0.0F, 0.2F, 0.0F);
+				GlStateManager.translate(0F, 0.2F, 0F);
 			}
 
 			boolean flag = entitylivingbaseIn instanceof EntityVillager || entitylivingbaseIn instanceof EntityZombieVillager;
 
 			if (entitylivingbaseIn.isChild() && !(entitylivingbaseIn instanceof EntityVillager)) {
-				float f = 2.0F;
+				float f = 2F;
 				float f1 = 1.4F;
-				GlStateManager.translate(0.0F, 0.5F * scale, 0.0F);
+				GlStateManager.translate(0F, 0.5F * scale, 0F);
 				GlStateManager.scale(0.7F, 0.7F, 0.7F);
-				GlStateManager.translate(0.0F, 16.0F * scale, 0.0F);
+				GlStateManager.translate(0F, 16F * scale, 0F);
 			}
 
 			modelRenderer.postRender(0.0625F);
-			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+			GlStateManager.color(1F, 1F, 1F, 1F);
 
 			if (item == Items.SKULL) {
 				float f2 = 1.1875F;
 				GlStateManager.scale(1.1875F, -1.1875F, -1.1875F);
 
 				if (flag) {
-					GlStateManager.translate(0.0F, 0.0625F, 0.0F);
+					GlStateManager.translate(0F, 0.0625F, 0F);
 				}
 
 				GameProfile gameprofile = null;
@@ -80,15 +80,15 @@ public class LayerCustomHead implements LayerRenderer<EntityLivingBase> {
 					}
 				}
 
-				TileEntitySkullRenderer.instance.renderSkull(-0.5F, 0.0F, -0.5F, EnumFacing.UP, 180.0F, itemstack.getMetadata(), gameprofile, -1, limbSwing);
+				TileEntitySkullRenderer.instance.renderSkull(-0.5F, 0F, -0.5F, EnumFacing.UP, 180F, itemstack.getMetadata(), gameprofile, -1, limbSwing);
 			} else if (!(item instanceof ItemArmor) || ((ItemArmor) item).getEquipmentSlot() != EntityEquipmentSlot.HEAD) {
 				float f3 = 0.625F;
-				GlStateManager.translate(0.0F, -0.25F, 0.0F);
-				GlStateManager.rotate(180.0F, 0.0F, 1.0F, 0.0F);
+				GlStateManager.translate(0F, -0.25F, 0F);
+				GlStateManager.rotate(180F, 0F, 1F, 0F);
 				GlStateManager.scale(0.625F, -0.625F, -0.625F);
 
 				if (flag) {
-					GlStateManager.translate(0.0F, 0.1875F, 0.0F);
+					GlStateManager.translate(0F, 0.1875F, 0F);
 				}
 
 				minecraft.getItemRenderer().renderItem(entitylivingbaseIn, itemstack, ItemCameraTransforms.TransformType.HEAD);

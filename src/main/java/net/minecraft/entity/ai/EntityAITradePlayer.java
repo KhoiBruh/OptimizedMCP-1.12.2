@@ -31,7 +31,7 @@ public class EntityAITradePlayer extends EntityAIBase {
 
 			if (entityplayer == null) {
 				return false;
-			} else if (villager.getDistanceSq(entityplayer) > 16.0D) {
+			} else if (villager.getDistanceSq(entityplayer) > 16D) {
 				return false;
 			} else {
 				return entityplayer.openContainer != null;

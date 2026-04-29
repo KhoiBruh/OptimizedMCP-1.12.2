@@ -34,14 +34,14 @@ public class GuiNewChat extends Gui {
 
 		int i = 320;
 		int j = 40;
-		return MathHelper.floor(scale * 280.0F + 40.0F);
+		return MathHelper.floor(scale * 280F + 40F);
 	}
 
 	public static int calculateChatboxHeight(float scale) {
 
 		int i = 180;
 		int j = 20;
-		return MathHelper.floor(scale * 160.0F + 20.0F);
+		return MathHelper.floor(scale * 160F + 20F);
 	}
 
 	public void drawChat(int updateCounter) {
@@ -57,8 +57,8 @@ public class GuiNewChat extends Gui {
 				float f1 = getChatScale();
 				int k = MathHelper.ceil((float) getChatWidth() / f1);
 				GlStateManager.pushMatrix();
-				GlStateManager.translate(2.0F, 8.0F, 0.0F);
-				GlStateManager.scale(f1, f1, 1.0F);
+				GlStateManager.translate(2F, 8F, 0F);
+				GlStateManager.scale(f1, f1, 1F);
 				int l = 0;
 
 				for (int i1 = 0; i1 + scrollPos < drawnChatLines.size() && i1 < i; ++i1) {
@@ -68,12 +68,12 @@ public class GuiNewChat extends Gui {
 						int j1 = updateCounter - chatline.getUpdatedCounter();
 
 						if (j1 < 200 || flag) {
-							double d0 = (double) j1 / 200.0D;
-							d0 = 1.0D - d0;
-							d0 = d0 * 10.0D;
-							d0 = MathHelper.clamp(d0, 0.0D, 1.0D);
+							double d0 = (double) j1 / 200D;
+							d0 = 1D - d0;
+							d0 = d0 * 10D;
+							d0 = MathHelper.clamp(d0, 0D, 1D);
 							d0 = d0 * d0;
-							int l1 = (int) (255.0D * d0);
+							int l1 = (int) (255D * d0);
 
 							if (flag) {
 								l1 = 255;
@@ -88,7 +88,7 @@ public class GuiNewChat extends Gui {
 								drawRect(-2, j2 - 9, k + 4, j2, l1 / 2 << 24);
 								String s = chatline.getChatComponent().getFormattedText();
 								GlStateManager.enableBlend();
-								mc.fontRenderer.drawStringWithShadow(s, 0.0F, (float) (j2 - 8), 16777215 + (l1 << 24));
+								mc.fontRenderer.drawStringWithShadow(s, 0F, (float) (j2 - 8), 16777215 + (l1 << 24));
 								GlStateManager.disableAlpha();
 								GlStateManager.disableBlend();
 							}
@@ -98,7 +98,7 @@ public class GuiNewChat extends Gui {
 
 				if (flag) {
 					int k2 = mc.fontRenderer.FONT_HEIGHT;
-					GlStateManager.translate(-3.0F, 0.0F, 0.0F);
+					GlStateManager.translate(-3F, 0F, 0F);
 					int l2 = j * k2 + j;
 					int i3 = l * k2 + l;
 					int j3 = scrollPos * i3 / j;

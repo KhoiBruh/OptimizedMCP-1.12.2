@@ -35,7 +35,7 @@ public class TileEntityEndPortalRenderer extends TileEntitySpecialRenderer<TileE
 
 		for (int j = 0; j < i; ++j) {
 			GlStateManager.pushMatrix();
-			float f1 = 2.0F / (float) (18 - j);
+			float f1 = 2F / (float) (18 - j);
 
 			if (j == 0) {
 				bindTexture(END_SKY_TEXTURE);
@@ -58,9 +58,9 @@ public class TileEntityEndPortalRenderer extends TileEntitySpecialRenderer<TileE
 			GlStateManager.texGen(GlStateManager.TexGen.S, 9216);
 			GlStateManager.texGen(GlStateManager.TexGen.T, 9216);
 			GlStateManager.texGen(GlStateManager.TexGen.R, 9216);
-			GlStateManager.texGen(GlStateManager.TexGen.S, 9474, getBuffer(1.0F, 0.0F, 0.0F, 0.0F));
-			GlStateManager.texGen(GlStateManager.TexGen.T, 9474, getBuffer(0.0F, 1.0F, 0.0F, 0.0F));
-			GlStateManager.texGen(GlStateManager.TexGen.R, 9474, getBuffer(0.0F, 0.0F, 1.0F, 0.0F));
+			GlStateManager.texGen(GlStateManager.TexGen.S, 9474, getBuffer(1F, 0F, 0F, 0F));
+			GlStateManager.texGen(GlStateManager.TexGen.T, 9474, getBuffer(0F, 1F, 0F, 0F));
+			GlStateManager.texGen(GlStateManager.TexGen.R, 9474, getBuffer(0F, 0F, 1F, 0F));
 			GlStateManager.enableTexGenCoord(GlStateManager.TexGen.S);
 			GlStateManager.enableTexGenCoord(GlStateManager.TexGen.T);
 			GlStateManager.enableTexGenCoord(GlStateManager.TexGen.R);
@@ -68,12 +68,12 @@ public class TileEntityEndPortalRenderer extends TileEntitySpecialRenderer<TileE
 			GlStateManager.matrixMode(5890);
 			GlStateManager.pushMatrix();
 			GlStateManager.loadIdentity();
-			GlStateManager.translate(0.5F, 0.5F, 0.0F);
-			GlStateManager.scale(0.5F, 0.5F, 1.0F);
+			GlStateManager.translate(0.5F, 0.5F, 0F);
+			GlStateManager.scale(0.5F, 0.5F, 1F);
 			float f2 = (float) (j + 1);
-			GlStateManager.translate(17.0F / f2, (2.0F + f2 / 1.5F) * ((float) Minecraft.getSystemTime() % 800000.0F / 800000.0F), 0.0F);
-			GlStateManager.rotate((f2 * f2 * 4321.0F + f2 * 9.0F) * 2.0F, 0.0F, 0.0F, 1.0F);
-			GlStateManager.scale(4.5F - f2 / 4.0F, 4.5F - f2 / 4.0F, 1.0F);
+			GlStateManager.translate(17F / f2, (2F + f2 / 1.5F) * ((float) Minecraft.getSystemTime() % 800000F / 800000F), 0F);
+			GlStateManager.rotate((f2 * f2 * 4321F + f2 * 9F) * 2F, 0F, 0F, 1F);
+			GlStateManager.scale(4.5F - f2 / 4F, 4.5F - f2 / 4F, 1F);
 			GlStateManager.multMatrix(PROJECTION);
 			GlStateManager.multMatrix(MODELVIEW);
 			Tessellator tessellator = Tessellator.getInstance();
@@ -84,45 +84,45 @@ public class TileEntityEndPortalRenderer extends TileEntitySpecialRenderer<TileE
 			float f5 = (RANDOM.nextFloat() * 0.5F + 0.5F) * f1;
 
 			if (te.shouldRenderFace(EnumFacing.SOUTH)) {
-				bufferbuilder.pos(x, y, z + 1.0D).color(f3, f4, f5, 1.0F).endVertex();
-				bufferbuilder.pos(x + 1.0D, y, z + 1.0D).color(f3, f4, f5, 1.0F).endVertex();
-				bufferbuilder.pos(x + 1.0D, y + 1.0D, z + 1.0D).color(f3, f4, f5, 1.0F).endVertex();
-				bufferbuilder.pos(x, y + 1.0D, z + 1.0D).color(f3, f4, f5, 1.0F).endVertex();
+				bufferbuilder.pos(x, y, z + 1D).color(f3, f4, f5, 1F).endVertex();
+				bufferbuilder.pos(x + 1D, y, z + 1D).color(f3, f4, f5, 1F).endVertex();
+				bufferbuilder.pos(x + 1D, y + 1D, z + 1D).color(f3, f4, f5, 1F).endVertex();
+				bufferbuilder.pos(x, y + 1D, z + 1D).color(f3, f4, f5, 1F).endVertex();
 			}
 
 			if (te.shouldRenderFace(EnumFacing.NORTH)) {
-				bufferbuilder.pos(x, y + 1.0D, z).color(f3, f4, f5, 1.0F).endVertex();
-				bufferbuilder.pos(x + 1.0D, y + 1.0D, z).color(f3, f4, f5, 1.0F).endVertex();
-				bufferbuilder.pos(x + 1.0D, y, z).color(f3, f4, f5, 1.0F).endVertex();
-				bufferbuilder.pos(x, y, z).color(f3, f4, f5, 1.0F).endVertex();
+				bufferbuilder.pos(x, y + 1D, z).color(f3, f4, f5, 1F).endVertex();
+				bufferbuilder.pos(x + 1D, y + 1D, z).color(f3, f4, f5, 1F).endVertex();
+				bufferbuilder.pos(x + 1D, y, z).color(f3, f4, f5, 1F).endVertex();
+				bufferbuilder.pos(x, y, z).color(f3, f4, f5, 1F).endVertex();
 			}
 
 			if (te.shouldRenderFace(EnumFacing.EAST)) {
-				bufferbuilder.pos(x + 1.0D, y + 1.0D, z).color(f3, f4, f5, 1.0F).endVertex();
-				bufferbuilder.pos(x + 1.0D, y + 1.0D, z + 1.0D).color(f3, f4, f5, 1.0F).endVertex();
-				bufferbuilder.pos(x + 1.0D, y, z + 1.0D).color(f3, f4, f5, 1.0F).endVertex();
-				bufferbuilder.pos(x + 1.0D, y, z).color(f3, f4, f5, 1.0F).endVertex();
+				bufferbuilder.pos(x + 1D, y + 1D, z).color(f3, f4, f5, 1F).endVertex();
+				bufferbuilder.pos(x + 1D, y + 1D, z + 1D).color(f3, f4, f5, 1F).endVertex();
+				bufferbuilder.pos(x + 1D, y, z + 1D).color(f3, f4, f5, 1F).endVertex();
+				bufferbuilder.pos(x + 1D, y, z).color(f3, f4, f5, 1F).endVertex();
 			}
 
 			if (te.shouldRenderFace(EnumFacing.WEST)) {
-				bufferbuilder.pos(x, y, z).color(f3, f4, f5, 1.0F).endVertex();
-				bufferbuilder.pos(x, y, z + 1.0D).color(f3, f4, f5, 1.0F).endVertex();
-				bufferbuilder.pos(x, y + 1.0D, z + 1.0D).color(f3, f4, f5, 1.0F).endVertex();
-				bufferbuilder.pos(x, y + 1.0D, z).color(f3, f4, f5, 1.0F).endVertex();
+				bufferbuilder.pos(x, y, z).color(f3, f4, f5, 1F).endVertex();
+				bufferbuilder.pos(x, y, z + 1D).color(f3, f4, f5, 1F).endVertex();
+				bufferbuilder.pos(x, y + 1D, z + 1D).color(f3, f4, f5, 1F).endVertex();
+				bufferbuilder.pos(x, y + 1D, z).color(f3, f4, f5, 1F).endVertex();
 			}
 
 			if (te.shouldRenderFace(EnumFacing.DOWN)) {
-				bufferbuilder.pos(x, y, z).color(f3, f4, f5, 1.0F).endVertex();
-				bufferbuilder.pos(x + 1.0D, y, z).color(f3, f4, f5, 1.0F).endVertex();
-				bufferbuilder.pos(x + 1.0D, y, z + 1.0D).color(f3, f4, f5, 1.0F).endVertex();
-				bufferbuilder.pos(x, y, z + 1.0D).color(f3, f4, f5, 1.0F).endVertex();
+				bufferbuilder.pos(x, y, z).color(f3, f4, f5, 1F).endVertex();
+				bufferbuilder.pos(x + 1D, y, z).color(f3, f4, f5, 1F).endVertex();
+				bufferbuilder.pos(x + 1D, y, z + 1D).color(f3, f4, f5, 1F).endVertex();
+				bufferbuilder.pos(x, y, z + 1D).color(f3, f4, f5, 1F).endVertex();
 			}
 
 			if (te.shouldRenderFace(EnumFacing.UP)) {
-				bufferbuilder.pos(x, y + (double) f, z + 1.0D).color(f3, f4, f5, 1.0F).endVertex();
-				bufferbuilder.pos(x + 1.0D, y + (double) f, z + 1.0D).color(f3, f4, f5, 1.0F).endVertex();
-				bufferbuilder.pos(x + 1.0D, y + (double) f, z).color(f3, f4, f5, 1.0F).endVertex();
-				bufferbuilder.pos(x, y + (double) f, z).color(f3, f4, f5, 1.0F).endVertex();
+				bufferbuilder.pos(x, y + (double) f, z + 1D).color(f3, f4, f5, 1F).endVertex();
+				bufferbuilder.pos(x + 1D, y + (double) f, z + 1D).color(f3, f4, f5, 1F).endVertex();
+				bufferbuilder.pos(x + 1D, y + (double) f, z).color(f3, f4, f5, 1F).endVertex();
+				bufferbuilder.pos(x, y + (double) f, z).color(f3, f4, f5, 1F).endVertex();
 			}
 
 			tessellator.draw();
@@ -146,21 +146,21 @@ public class TileEntityEndPortalRenderer extends TileEntitySpecialRenderer<TileE
 
 		int i;
 
-		if (p_191286_1_ > 36864.0D) {
+		if (p_191286_1_ > 36864D) {
 			i = 1;
-		} else if (p_191286_1_ > 25600.0D) {
+		} else if (p_191286_1_ > 25600D) {
 			i = 3;
-		} else if (p_191286_1_ > 16384.0D) {
+		} else if (p_191286_1_ > 16384D) {
 			i = 5;
-		} else if (p_191286_1_ > 9216.0D) {
+		} else if (p_191286_1_ > 9216D) {
 			i = 7;
-		} else if (p_191286_1_ > 4096.0D) {
+		} else if (p_191286_1_ > 4096D) {
 			i = 9;
-		} else if (p_191286_1_ > 1024.0D) {
+		} else if (p_191286_1_ > 1024D) {
 			i = 11;
-		} else if (p_191286_1_ > 576.0D) {
+		} else if (p_191286_1_ > 576D) {
 			i = 13;
-		} else if (p_191286_1_ > 256.0D) {
+		} else if (p_191286_1_ > 256D) {
 			i = 14;
 		} else {
 			i = 15;

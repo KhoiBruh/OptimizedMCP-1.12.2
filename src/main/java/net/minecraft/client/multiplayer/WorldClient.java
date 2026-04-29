@@ -126,8 +126,8 @@ public class WorldClient extends World {
 		visibleChunks.clear();
 		int i = mc.gameSettings.renderDistanceChunks;
 		profiler.startSection("buildList");
-		int j = MathHelper.floor(mc.player.posX / 16.0D);
-		int k = MathHelper.floor(mc.player.posZ / 16.0D);
+		int j = MathHelper.floor(mc.player.posX / 16D);
+		int k = MathHelper.floor(mc.player.posZ / 16D);
 
 		for (int l = -i; l <= i; ++l) {
 			for (int i1 = -i; i1 <= i; ++i1) {
@@ -316,7 +316,7 @@ public class WorldClient extends World {
 			if (iblockstate.getMaterial() == Material.AIR && getLight(blockpos) <= rand.nextInt(8) && getLightFor(EnumSkyBlock.SKY, blockpos) <= 0) {
 				double d0 = mc.player.getDistanceSq((double) j + 0.5D, (double) l + 0.5D, (double) k + 0.5D);
 
-				if (mc.player != null && d0 > 4.0D && d0 < 256.0D) {
+				if (mc.player != null && d0 > 4D && d0 < 256D) {
 					playSound((double) j + 0.5D, (double) l + 0.5D, (double) k + 0.5D, SoundEvents.AMBIENT_CAVE, SoundCategory.AMBIENT, 0.7F, 0.8F + rand.nextFloat() * 0.2F, false);
 					ambienceTicks = rand.nextInt(12000) + 6000;
 				}
@@ -348,7 +348,7 @@ public class WorldClient extends World {
 		iblockstate.getBlock().randomDisplayTick(iblockstate, this, pos, random);
 
 		if (holdingBarrier && iblockstate.getBlock() == Blocks.BARRIER) {
-			spawnParticle(EnumParticleTypes.BARRIER, (float) i + 0.5F, (float) j + 0.5F, (float) k + 0.5F, 0.0D, 0.0D, 0.0D);
+			spawnParticle(EnumParticleTypes.BARRIER, (float) i + 0.5F, (float) j + 0.5F, (float) k + 0.5F, 0D, 0D, 0D);
 		}
 	}
 
@@ -430,9 +430,9 @@ public class WorldClient extends World {
 		double d0 = mc.getRenderViewEntity().getDistanceSq(x, y, z);
 		PositionedSoundRecord positionedsoundrecord = new PositionedSoundRecord(soundIn, category, volume, pitch, (float) x, (float) y, (float) z);
 
-		if (distanceDelay && d0 > 100.0D) {
-			double d1 = Math.sqrt(d0) / 40.0D;
-			mc.getSoundHandler().playDelayedSound(positionedsoundrecord, (int) (d1 * 20.0D));
+		if (distanceDelay && d0 > 100D) {
+			double d1 = Math.sqrt(d0) / 40D;
+			mc.getSoundHandler().playDelayedSound(positionedsoundrecord, (int) (d1 * 20D));
 		} else {
 			mc.getSoundHandler().playSound(positionedsoundrecord);
 		}

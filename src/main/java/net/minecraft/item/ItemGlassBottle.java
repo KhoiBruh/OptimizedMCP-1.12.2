@@ -29,13 +29,13 @@ public class ItemGlassBottle extends Item {
 
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
 
-		List<EntityAreaEffectCloud> list = worldIn.getEntitiesWithinAABB(EntityAreaEffectCloud.class, playerIn.getEntityBoundingBox().grow(2.0D), p_apply_1_ -> p_apply_1_ != null && p_apply_1_.isEntityAlive() && p_apply_1_.getOwner() instanceof EntityDragon);
+		List<EntityAreaEffectCloud> list = worldIn.getEntitiesWithinAABB(EntityAreaEffectCloud.class, playerIn.getEntityBoundingBox().grow(2D), p_apply_1_ -> p_apply_1_ != null && p_apply_1_.isEntityAlive() && p_apply_1_.getOwner() instanceof EntityDragon);
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
 
 		if (!list.isEmpty()) {
 			EntityAreaEffectCloud entityareaeffectcloud = list.getFirst();
 			entityareaeffectcloud.setRadius(entityareaeffectcloud.getRadius() - 0.5F);
-			worldIn.playSound(null, playerIn.posX, playerIn.posY, playerIn.posZ, SoundEvents.ITEM_BOTTLE_FILL_DRAGONBREATH, SoundCategory.NEUTRAL, 1.0F, 1.0F);
+			worldIn.playSound(null, playerIn.posX, playerIn.posY, playerIn.posZ, SoundEvents.ITEM_BOTTLE_FILL_DRAGONBREATH, SoundCategory.NEUTRAL, 1F, 1F);
 			return new ActionResult<>(EnumActionResult.SUCCESS, turnBottleIntoItem(itemstack, playerIn, new ItemStack(Items.DRAGON_BREATH)));
 		} else {
 			RayTraceResult raytraceresult = rayTrace(worldIn, playerIn, true);
@@ -51,7 +51,7 @@ public class ItemGlassBottle extends Item {
 					}
 
 					if (worldIn.getBlockState(blockpos).getMaterial() == Material.WATER) {
-						worldIn.playSound(playerIn, playerIn.posX, playerIn.posY, playerIn.posZ, SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.NEUTRAL, 1.0F, 1.0F);
+						worldIn.playSound(playerIn, playerIn.posX, playerIn.posY, playerIn.posZ, SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.NEUTRAL, 1F, 1F);
 						return new ActionResult<>(EnumActionResult.SUCCESS, turnBottleIntoItem(itemstack, playerIn, PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), PotionTypes.WATER)));
 					}
 				}

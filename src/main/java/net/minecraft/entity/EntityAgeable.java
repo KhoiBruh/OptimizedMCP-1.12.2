@@ -18,7 +18,7 @@ public abstract class EntityAgeable extends EntityCreature {
 	protected int growingAge;
 	protected int forcedAge;
 	protected int forcedAgeTimer;
-	private float ageWidth = -1.0F;
+	private float ageWidth = -1F;
 	private float ageHeight;
 
 	public EntityAgeable(World worldIn) {
@@ -42,7 +42,7 @@ public abstract class EntityAgeable extends EntityCreature {
 
 					if (entityageable != null) {
 						entityageable.setGrowingAge(-24000);
-						entityageable.setLocationAndAngles(posX, posY, posZ, 0.0F, 0.0F);
+						entityageable.setLocationAndAngles(posX, posY, posZ, 0F, 0F);
 						world.spawnEntity(entityageable);
 
 						if (itemstack.hasDisplayName()) {
@@ -193,7 +193,7 @@ public abstract class EntityAgeable extends EntityCreature {
 		if (world.isRemote) {
 			if (forcedAgeTimer > 0) {
 				if (forcedAgeTimer % 4 == 0) {
-					world.spawnParticle(EnumParticleTypes.VILLAGER_HAPPY, posX + (double) (rand.nextFloat() * width * 2.0F) - (double) width, posY + 0.5D + (double) (rand.nextFloat() * height), posZ + (double) (rand.nextFloat() * width * 2.0F) - (double) width, 0.0D, 0.0D, 0.0D);
+					world.spawnParticle(EnumParticleTypes.VILLAGER_HAPPY, posX + (double) (rand.nextFloat() * width * 2F) - (double) width, posY + 0.5D + (double) (rand.nextFloat() * height), posZ + (double) (rand.nextFloat() * width * 2F) - (double) width, 0D, 0D, 0D);
 				}
 
 				--forcedAgeTimer;
@@ -236,7 +236,7 @@ public abstract class EntityAgeable extends EntityCreature {
 	 */
 	public void setScaleForAge(boolean child) {
 
-		setScale(child ? 0.5F : 1.0F);
+		setScale(child ? 0.5F : 1F);
 	}
 
 	/**
@@ -244,12 +244,12 @@ public abstract class EntityAgeable extends EntityCreature {
 	 */
 	protected final void setSize(float width, float height) {
 
-		boolean flag = ageWidth > 0.0F;
+		boolean flag = ageWidth > 0F;
 		ageWidth = width;
 		ageHeight = height;
 
 		if (!flag) {
-			setScale(1.0F);
+			setScale(1F);
 		}
 	}
 

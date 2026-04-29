@@ -13,7 +13,7 @@ public class ParticleCloud extends Particle {
 
 	protected ParticleCloud(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double p_i1221_8_, double p_i1221_10_, double p_i1221_12_) {
 
-		super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0.0D, 0.0D, 0.0D);
+		super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0D, 0D, 0D);
 		float f = 2.5F;
 		motionX *= 0.10000000149011612D;
 		motionY *= 0.10000000149011612D;
@@ -21,14 +21,14 @@ public class ParticleCloud extends Particle {
 		motionX += p_i1221_8_;
 		motionY += p_i1221_10_;
 		motionZ += p_i1221_12_;
-		float f1 = 1.0F - (float) (Math.random() * 0.30000001192092896D);
+		float f1 = 1F - (float) (Math.random() * 0.30000001192092896D);
 		particleRed = f1;
 		particleGreen = f1;
 		particleBlue = f1;
 		particleScale *= 0.75F;
 		particleScale *= 2.5F;
 		oSize = particleScale;
-		particleMaxAge = (int) (8.0D / (Math.random() * 0.8D + 0.3D));
+		particleMaxAge = (int) (8D / (Math.random() * 0.8D + 0.3D));
 		particleMaxAge = (int) ((float) particleMaxAge * 2.5F);
 	}
 
@@ -37,8 +37,8 @@ public class ParticleCloud extends Particle {
 	 */
 	public void renderParticle(BufferBuilder buffer, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
 
-		float f = ((float) particleAge + partialTicks) / (float) particleMaxAge * 32.0F;
-		f = MathHelper.clamp(f, 0.0F, 1.0F);
+		float f = ((float) particleAge + partialTicks) / (float) particleMaxAge * 32F;
+		f = MathHelper.clamp(f, 0F, 1F);
 		particleScale = oSize * f;
 		super.renderParticle(buffer, entityIn, partialTicks, rotationX, rotationZ, rotationYZ, rotationXY, rotationXZ);
 	}
@@ -58,7 +58,7 @@ public class ParticleCloud extends Particle {
 		motionX *= 0.9599999785423279D;
 		motionY *= 0.9599999785423279D;
 		motionZ *= 0.9599999785423279D;
-		EntityPlayer entityplayer = world.getClosestPlayer(posX, posY, posZ, 2.0D, false);
+		EntityPlayer entityplayer = world.getClosestPlayer(posX, posY, posZ, 2D, false);
 
 		if (entityplayer != null) {
 			AxisAlignedBB axisalignedbb = entityplayer.getEntityBoundingBox();

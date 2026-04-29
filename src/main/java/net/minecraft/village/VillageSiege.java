@@ -41,7 +41,7 @@ public class VillageSiege {
 			siegeState = 0;
 		} else if (siegeState != 2) {
 			if (siegeState == 0) {
-				float f = world.getCelestialAngle(0.0F);
+				float f = world.getCelestialAngle(0F);
 
 				if ((double) f < 0.5D || (double) f > 0.501D) {
 					return;
@@ -154,7 +154,7 @@ public class VillageSiege {
 				return false;
 			}
 
-			entityzombie.setLocationAndAngles(vec3d.x(), vec3d.y(), vec3d.z(), world.rand.nextFloat() * 360.0F, 0.0F);
+			entityzombie.setLocationAndAngles(vec3d.x(), vec3d.y(), vec3d.z(), world.rand.nextFloat() * 360F, 0F);
 			world.spawnEntity(entityzombie);
 			BlockPos blockpos = village.getCenter();
 			entityzombie.setHomePosAndDistance(blockpos, village.getVillageRadius());

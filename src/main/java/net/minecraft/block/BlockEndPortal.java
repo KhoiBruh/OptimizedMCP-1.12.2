@@ -19,12 +19,12 @@ import java.util.Random;
 
 public class BlockEndPortal extends BlockContainer {
 
-	protected static final AxisAlignedBB END_PORTAL_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.75D, 1.0D);
+	protected static final AxisAlignedBB END_PORTAL_AABB = new AxisAlignedBB(0D, 0D, 0D, 1D, 0.75D, 1D);
 
 	protected BlockEndPortal(Material materialIn) {
 
 		super(materialIn);
-		setLightLevel(1.0F);
+		setLightLevel(1F);
 	}
 
 	/**
@@ -85,10 +85,10 @@ public class BlockEndPortal extends BlockContainer {
 		double d0 = (float) pos.getX() + rand.nextFloat();
 		double d1 = (float) pos.getY() + 0.8F;
 		double d2 = (float) pos.getZ() + rand.nextFloat();
-		double d3 = 0.0D;
-		double d4 = 0.0D;
-		double d5 = 0.0D;
-		worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0, d1, d2, 0.0D, 0.0D, 0.0D);
+		double d3 = 0D;
+		double d4 = 0D;
+		double d5 = 0D;
+		worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0, d1, d2, 0D, 0D, 0D);
 	}
 
 	public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {

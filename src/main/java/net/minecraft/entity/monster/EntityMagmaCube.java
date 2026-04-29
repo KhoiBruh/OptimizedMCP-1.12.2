@@ -63,7 +63,7 @@ public class EntityMagmaCube extends EntitySlime {
 	 */
 	public float getBrightness() {
 
-		return 1.0F;
+		return 1F;
 	}
 
 	protected EnumParticleTypes getParticleType() {

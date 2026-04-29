@@ -127,43 +127,43 @@ public class GuiEditSign extends GuiScreen {
 
 		drawDefaultBackground();
 		drawCenteredString(fontRenderer, I18n.format("sign.edit"), width / 2, 40, 16777215);
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+		GlStateManager.color(1F, 1F, 1F, 1F);
 		GlStateManager.pushMatrix();
-		GlStateManager.translate((float) (width / 2), 0.0F, 50.0F);
+		GlStateManager.translate((float) (width / 2), 0F, 50F);
 		float f = 93.75F;
 		GlStateManager.scale(-93.75F, -93.75F, -93.75F);
-		GlStateManager.rotate(180.0F, 0.0F, 1.0F, 0.0F);
+		GlStateManager.rotate(180F, 0F, 1F, 0F);
 		Block block = tileSign.getBlockType();
 
 		if (block == Blocks.STANDING_SIGN) {
-			float f1 = (float) (tileSign.getBlockMetadata() * 360) / 16.0F;
-			GlStateManager.rotate(f1, 0.0F, 1.0F, 0.0F);
-			GlStateManager.translate(0.0F, -1.0625F, 0.0F);
+			float f1 = (float) (tileSign.getBlockMetadata() * 360) / 16F;
+			GlStateManager.rotate(f1, 0F, 1F, 0F);
+			GlStateManager.translate(0F, -1.0625F, 0F);
 		} else {
 			int i = tileSign.getBlockMetadata();
-			float f2 = 0.0F;
+			float f2 = 0F;
 
 			if (i == 2) {
-				f2 = 180.0F;
+				f2 = 180F;
 			}
 
 			if (i == 4) {
-				f2 = 90.0F;
+				f2 = 90F;
 			}
 
 			if (i == 5) {
-				f2 = -90.0F;
+				f2 = -90F;
 			}
 
-			GlStateManager.rotate(f2, 0.0F, 1.0F, 0.0F);
-			GlStateManager.translate(0.0F, -1.0625F, 0.0F);
+			GlStateManager.rotate(f2, 0F, 1F, 0F);
+			GlStateManager.translate(0F, -1.0625F, 0F);
 		}
 
 		if (updateCounter / 6 % 2 == 0) {
 			tileSign.lineBeingEdited = editLine;
 		}
 
-		TileEntityRendererDispatcher.instance.render(tileSign, -0.5D, -0.75D, -0.5D, 0.0F);
+		TileEntityRendererDispatcher.instance.render(tileSign, -0.5D, -0.75D, -0.5D, 0F);
 		tileSign.lineBeingEdited = -1;
 		GlStateManager.popMatrix();
 		super.drawScreen(mouseX, mouseY, partialTicks);

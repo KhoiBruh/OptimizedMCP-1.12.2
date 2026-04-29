@@ -68,8 +68,8 @@ public class EntityEnderman extends EntityMob {
 
 		super(worldIn);
 		setSize(0.6F, 2.9F);
-		stepHeight = 1.0F;
-		setPathPriority(PathNodeType.WATER, -1.0F);
+		stepHeight = 1F;
+		setPathPriority(PathNodeType.WATER, -1F);
 	}
 
 	public static void registerFixesEnderman(DataFixer fixer) {
@@ -80,9 +80,9 @@ public class EntityEnderman extends EntityMob {
 	protected void initEntityAI() {
 
 		tasks.addTask(0, new EntityAISwimming(this));
-		tasks.addTask(2, new EntityAIAttackMelee(this, 1.0D, false));
-		tasks.addTask(7, new EntityAIWanderAvoidWater(this, 1.0D, 0.0F));
-		tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
+		tasks.addTask(2, new EntityAIAttackMelee(this, 1D, false));
+		tasks.addTask(7, new EntityAIWanderAvoidWater(this, 1D, 0F));
+		tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 8F));
 		tasks.addTask(8, new EntityAILookIdle(this));
 		tasks.addTask(10, new EntityEnderman.AIPlaceBlock(this));
 		tasks.addTask(11, new EntityEnderman.AITakeBlock(this));
@@ -94,10 +94,10 @@ public class EntityEnderman extends EntityMob {
 	protected void applyEntityAttributes() {
 
 		super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(40.0D);
+		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(40D);
 		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.30000001192092896D);
-		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(7.0D);
-		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(64.0D);
+		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(7D);
+		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(64D);
 	}
 
 	/**
@@ -135,7 +135,7 @@ public class EntityEnderman extends EntityMob {
 			lastCreepySound = ticksExisted;
 
 			if (!isSilent()) {
-				world.playSound(posX, posY + (double) getEyeHeight(), posZ, SoundEvents.ENTITY_ENDERMEN_STARE, getSoundCategory(), 2.5F, 1.0F, false);
+				world.playSound(posX, posY + (double) getEyeHeight(), posZ, SoundEvents.ENTITY_ENDERMEN_STARE, getSoundCategory(), 2.5F, 1F, false);
 			}
 		}
 	}
@@ -194,12 +194,12 @@ public class EntityEnderman extends EntityMob {
 		if (itemstack.getItem() == Item.getItemFromBlock(Blocks.PUMPKIN)) {
 			return false;
 		} else {
-			Vec3d vec3d = player.getLook(1.0F).normalize();
+			Vec3d vec3d = player.getLook(1F).normalize();
 			Vec3d vec3d1 = new Vec3d(posX - player.posX, getEntityBoundingBox().minY + (double) getEyeHeight() - (player.posY + (double) player.getEyeHeight()), posZ - player.posZ);
 			double d0 = vec3d1.lengthVector();
 			vec3d1 = vec3d1.normalize();
 			double d1 = vec3d.dotProduct(vec3d1);
-			return d1 > 1.0D - 0.025D / d0 && player.canEntityBeSeen(this);
+			return d1 > 1D - 0.025D / d0 && player.canEntityBeSeen(this);
 		}
 	}
 
@@ -216,7 +216,7 @@ public class EntityEnderman extends EntityMob {
 
 		if (world.isRemote) {
 			for (int i = 0; i < 2; ++i) {
-				world.spawnParticle(EnumParticleTypes.PORTAL, posX + (rand.nextDouble() - 0.5D) * (double) width, posY + rand.nextDouble() * (double) height - 0.25D, posZ + (rand.nextDouble() - 0.5D) * (double) width, (rand.nextDouble() - 0.5D) * 2.0D, -rand.nextDouble(), (rand.nextDouble() - 0.5D) * 2.0D);
+				world.spawnParticle(EnumParticleTypes.PORTAL, posX + (rand.nextDouble() - 0.5D) * (double) width, posY + rand.nextDouble() * (double) height - 0.25D, posZ + (rand.nextDouble() - 0.5D) * (double) width, (rand.nextDouble() - 0.5D) * 2D, -rand.nextDouble(), (rand.nextDouble() - 0.5D) * 2D);
 			}
 		}
 
@@ -227,13 +227,13 @@ public class EntityEnderman extends EntityMob {
 	protected void updateAITasks() {
 
 		if (isWet()) {
-			attackEntityFrom(DamageSource.DROWN, 1.0F);
+			attackEntityFrom(DamageSource.DROWN, 1F);
 		}
 
 		if (world.isDaytime() && ticksExisted >= targetChangeTime + 600) {
 			float f = getBrightness();
 
-			if (f > 0.5F && world.canSeeSky(new BlockPos(this)) && rand.nextFloat() * 30.0F < (f - 0.4F) * 2.0F) {
+			if (f > 0.5F && world.canSeeSky(new BlockPos(this)) && rand.nextFloat() * 30F < (f - 0.4F) * 2F) {
 				setAttackTarget(null);
 				teleportRandomly();
 			}
@@ -247,9 +247,9 @@ public class EntityEnderman extends EntityMob {
 	 */
 	protected boolean teleportRandomly() {
 
-		double d0 = posX + (rand.nextDouble() - 0.5D) * 64.0D;
+		double d0 = posX + (rand.nextDouble() - 0.5D) * 64D;
 		double d1 = posY + (double) (rand.nextInt(64) - 32);
-		double d2 = posZ + (rand.nextDouble() - 0.5D) * 64.0D;
+		double d2 = posZ + (rand.nextDouble() - 0.5D) * 64D;
 		return teleportTo(d0, d1, d2);
 	}
 
@@ -258,12 +258,12 @@ public class EntityEnderman extends EntityMob {
 	 */
 	protected boolean teleportToEntity(Entity p_70816_1_) {
 
-		Vec3d vec3d = new Vec3d(posX - p_70816_1_.posX, getEntityBoundingBox().minY + (double) (height / 2.0F) - p_70816_1_.posY + (double) p_70816_1_.getEyeHeight(), posZ - p_70816_1_.posZ);
+		Vec3d vec3d = new Vec3d(posX - p_70816_1_.posX, getEntityBoundingBox().minY + (double) (height / 2F) - p_70816_1_.posY + (double) p_70816_1_.getEyeHeight(), posZ - p_70816_1_.posZ);
 		vec3d = vec3d.normalize();
-		double d0 = 16.0D;
-		double d1 = posX + (rand.nextDouble() - 0.5D) * 8.0D - vec3d.x() * 16.0D;
-		double d2 = posY + (double) (rand.nextInt(16) - 8) - vec3d.y() * 16.0D;
-		double d3 = posZ + (rand.nextDouble() - 0.5D) * 8.0D - vec3d.z() * 16.0D;
+		double d0 = 16D;
+		double d1 = posX + (rand.nextDouble() - 0.5D) * 8D - vec3d.x() * 16D;
+		double d2 = posY + (double) (rand.nextInt(16) - 8) - vec3d.y() * 16D;
+		double d3 = posZ + (rand.nextDouble() - 0.5D) * 8D - vec3d.z() * 16D;
 		return teleportTo(d1, d2, d3);
 	}
 
@@ -275,8 +275,8 @@ public class EntityEnderman extends EntityMob {
 		boolean flag = attemptTeleport(x, y, z);
 
 		if (flag) {
-			world.playSound(null, prevPosX, prevPosY, prevPosZ, SoundEvents.ENTITY_ENDERMEN_TELEPORT, getSoundCategory(), 1.0F, 1.0F);
-			playSound(SoundEvents.ENTITY_ENDERMEN_TELEPORT, 1.0F, 1.0F);
+			world.playSound(null, prevPosX, prevPosY, prevPosZ, SoundEvents.ENTITY_ENDERMEN_TELEPORT, getSoundCategory(), 1F, 1F);
+			playSound(SoundEvents.ENTITY_ENDERMEN_TELEPORT, 1F, 1F);
 		}
 
 		return flag;
@@ -308,7 +308,7 @@ public class EntityEnderman extends EntityMob {
 		if (iblockstate != null) {
 			Item item = Item.getItemFromBlock(iblockstate.getBlock());
 			int i = item.getHasSubtypes() ? iblockstate.getBlock().getMetaFromState(iblockstate) : 0;
-			entityDropItem(new ItemStack(item, 1, i), 0.0F);
+			entityDropItem(new ItemStack(item, 1, i), 0F);
 		}
 	}
 
@@ -405,7 +405,7 @@ public class EntityEnderman extends EntityMob {
 				if (!enderman.shouldAttackPlayer(player)) {
 					return false;
 				} else {
-					enderman.faceEntity(player, 10.0F, 10.0F);
+					enderman.faceEntity(player, 10F, 10F);
 					return true;
 				}
 			} else {
@@ -424,12 +424,12 @@ public class EntityEnderman extends EntityMob {
 			} else {
 				if (targetEntity != null) {
 					if (enderman.shouldAttackPlayer(targetEntity)) {
-						if (targetEntity.getDistanceSq(enderman) < 16.0D) {
+						if (targetEntity.getDistanceSq(enderman) < 16D) {
 							enderman.teleportRandomly();
 						}
 
 						teleportTime = 0;
-					} else if (targetEntity.getDistanceSq(enderman) > 256.0D && teleportTime++ >= 30 && enderman.teleportToEntity(targetEntity)) {
+					} else if (targetEntity.getDistanceSq(enderman) > 256D && teleportTime++ >= 30 && enderman.teleportToEntity(targetEntity)) {
 						teleportTime = 0;
 					}
 				}
@@ -464,9 +464,9 @@ public class EntityEnderman extends EntityMob {
 
 			Random random = enderman.getRNG();
 			World world = enderman.world;
-			int i = MathHelper.floor(enderman.posX - 1.0D + random.nextDouble() * 2.0D);
-			int j = MathHelper.floor(enderman.posY + random.nextDouble() * 2.0D);
-			int k = MathHelper.floor(enderman.posZ - 1.0D + random.nextDouble() * 2.0D);
+			int i = MathHelper.floor(enderman.posX - 1D + random.nextDouble() * 2D);
+			int j = MathHelper.floor(enderman.posY + random.nextDouble() * 2D);
+			int k = MathHelper.floor(enderman.posZ - 1D + random.nextDouble() * 2D);
 			BlockPos blockpos = new BlockPos(i, j, k);
 			IBlockState iblockstate = world.getBlockState(blockpos);
 			IBlockState iblockstate1 = world.getBlockState(blockpos.down());
@@ -517,9 +517,9 @@ public class EntityEnderman extends EntityMob {
 
 			Random random = enderman.getRNG();
 			World world = enderman.world;
-			int i = MathHelper.floor(enderman.posX - 2.0D + random.nextDouble() * 4.0D);
-			int j = MathHelper.floor(enderman.posY + random.nextDouble() * 3.0D);
-			int k = MathHelper.floor(enderman.posZ - 2.0D + random.nextDouble() * 4.0D);
+			int i = MathHelper.floor(enderman.posX - 2D + random.nextDouble() * 4D);
+			int j = MathHelper.floor(enderman.posY + random.nextDouble() * 3D);
+			int k = MathHelper.floor(enderman.posZ - 2D + random.nextDouble() * 4D);
 			BlockPos blockpos = new BlockPos(i, j, k);
 			IBlockState iblockstate = world.getBlockState(blockpos);
 			Block block = iblockstate.getBlock();

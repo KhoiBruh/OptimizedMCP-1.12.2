@@ -42,7 +42,7 @@ public class RecipeToast implements IToast {
 			return IToast.Visibility.HIDE;
 		} else {
 			toastGui.getMinecraft().getTextureManager().bindTexture(TEXTURE_TOASTS);
-			GlStateManager.color(1.0F, 1.0F, 1.0F);
+			GlStateManager.color(1F, 1F, 1F);
 			toastGui.drawTexturedModalRect(0, 0, 0, 32, 160, 32);
 			toastGui.getMinecraft().fontRenderer.drawString(I18n.format("recipe.toast.title"), 30, 7, -11534256);
 			toastGui.getMinecraft().fontRenderer.drawString(I18n.format("recipe.toast.description"), 30, 18, -16777216);

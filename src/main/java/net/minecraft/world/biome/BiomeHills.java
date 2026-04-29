@@ -65,10 +65,10 @@ public class BiomeHills extends Biome {
 		topBlock = Blocks.GRASS.getDefaultState();
 		fillerBlock = Blocks.DIRT.getDefaultState();
 
-		if ((noiseVal < -1.0D || noiseVal > 2.0D) && type == BiomeHills.Type.MUTATED) {
+		if ((noiseVal < -1D || noiseVal > 2D) && type == BiomeHills.Type.MUTATED) {
 			topBlock = Blocks.GRAVEL.getDefaultState();
 			fillerBlock = Blocks.GRAVEL.getDefaultState();
-		} else if (noiseVal > 1.0D && type != BiomeHills.Type.EXTRA_TREES) {
+		} else if (noiseVal > 1D && type != BiomeHills.Type.EXTRA_TREES) {
 			topBlock = Blocks.STONE.getDefaultState();
 			fillerBlock = Blocks.STONE.getDefaultState();
 		}

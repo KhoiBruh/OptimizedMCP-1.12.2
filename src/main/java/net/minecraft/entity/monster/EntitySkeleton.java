@@ -64,7 +64,7 @@ public class EntitySkeleton extends AbstractSkeleton {
 
 			if (entitycreeper.getPowered() && entitycreeper.ableToCauseSkullDrop()) {
 				entitycreeper.incrementDroppedSkulls();
-				entityDropItem(new ItemStack(Items.SKULL, 1, 0), 0.0F);
+				entityDropItem(new ItemStack(Items.SKULL, 1, 0), 0F);
 			}
 		}
 	}

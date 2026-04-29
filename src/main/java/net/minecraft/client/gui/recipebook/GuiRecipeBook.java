@@ -213,9 +213,9 @@ public class GuiRecipeBook extends Gui implements IRecipeUpdateListener {
 			RenderHelper.enableGUIStandardItemLighting();
 			GlStateManager.disableLighting();
 			GlStateManager.pushMatrix();
-			GlStateManager.translate(0.0F, 0.0F, 100.0F);
+			GlStateManager.translate(0F, 0F, 100F);
 			mc.getTextureManager().bindTexture(RECIPE_BOOK);
-			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+			GlStateManager.color(1F, 1F, 1F, 1F);
 			int i = (width - 147) / 2 - xOffset;
 			int j = (height - 166) / 2;
 			drawTexturedModalRect(i, j, 1, 1, 147, 166);

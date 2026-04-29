@@ -28,7 +28,7 @@ public class EntityAIFollowParent extends EntityAIBase {
 		if (childAnimal.getGrowingAge() >= 0) {
 			return false;
 		} else {
-			List<EntityAnimal> list = childAnimal.world.getEntitiesWithinAABB(childAnimal.getClass(), childAnimal.getEntityBoundingBox().grow(8.0D, 4.0D, 8.0D));
+			List<EntityAnimal> list = childAnimal.world.getEntitiesWithinAABB(childAnimal.getClass(), childAnimal.getEntityBoundingBox().grow(8D, 4D, 8D));
 			EntityAnimal entityanimal = null;
 			double d0 = Double.MAX_VALUE;
 
@@ -45,7 +45,7 @@ public class EntityAIFollowParent extends EntityAIBase {
 
 			if (entityanimal == null) {
 				return false;
-			} else if (d0 < 9.0D) {
+			} else if (d0 < 9D) {
 				return false;
 			} else {
 				parentAnimal = entityanimal;
@@ -65,7 +65,7 @@ public class EntityAIFollowParent extends EntityAIBase {
 			return false;
 		} else {
 			double d0 = childAnimal.getDistanceSq(parentAnimal);
-			return d0 >= 9.0D && d0 <= 256.0D;
+			return d0 >= 9D && d0 <= 256D;
 		}
 	}
 

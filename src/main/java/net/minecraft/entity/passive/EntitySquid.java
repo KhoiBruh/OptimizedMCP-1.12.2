@@ -56,7 +56,7 @@ public class EntitySquid extends EntityWaterMob {
 		super(worldIn);
 		setSize(0.8F, 0.8F);
 		rand.setSeed(1 + getEntityId());
-		rotationVelocity = 1.0F / (rand.nextFloat() + 1.0F) * 0.2F;
+		rotationVelocity = 1F / (rand.nextFloat() + 1F) * 0.2F;
 	}
 
 	public static void registerFixesSquid(DataFixer fixer) {
@@ -72,7 +72,7 @@ public class EntitySquid extends EntityWaterMob {
 	protected void applyEntityAttributes() {
 
 		super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(10.0D);
+		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(10D);
 	}
 
 	public float getEyeHeight() {
@@ -138,7 +138,7 @@ public class EntitySquid extends EntityWaterMob {
 				squidRotation = (float) ((double) squidRotation - (Math.PI * 2D));
 
 				if (rand.nextInt(10) == 0) {
-					rotationVelocity = 1.0F / (rand.nextFloat() + 1.0F) * 0.2F;
+					rotationVelocity = 1F / (rand.nextFloat() + 1F) * 0.2F;
 				}
 
 				world.setEntityState(this, (byte) 19);
@@ -151,13 +151,13 @@ public class EntitySquid extends EntityWaterMob {
 				tentacleAngle = MathHelper.sin(f * f * (float) Math.PI) * (float) Math.PI * 0.25F;
 
 				if ((double) f > 0.75D) {
-					randomMotionSpeed = 1.0F;
-					rotateSpeed = 1.0F;
+					randomMotionSpeed = 1F;
+					rotateSpeed = 1F;
 				} else {
 					rotateSpeed *= 0.8F;
 				}
 			} else {
-				tentacleAngle = 0.0F;
+				tentacleAngle = 0F;
 				randomMotionSpeed *= 0.9F;
 				rotateSpeed *= 0.99F;
 			}
@@ -177,8 +177,8 @@ public class EntitySquid extends EntityWaterMob {
 			tentacleAngle = MathHelper.abs(MathHelper.sin(squidRotation)) * (float) Math.PI * 0.25F;
 
 			if (!world.isRemote) {
-				motionX = 0.0D;
-				motionZ = 0.0D;
+				motionX = 0D;
+				motionZ = 0D;
 
 				if (isPotionActive(MobEffects.LEVITATION)) {
 					motionY += 0.05D * (double) (getActivePotionEffect(MobEffects.LEVITATION).getAmplifier() + 1) - motionY;
@@ -189,7 +189,7 @@ public class EntitySquid extends EntityWaterMob {
 				motionY *= 0.9800000190734863D;
 			}
 
-			squidPitch = (float) ((double) squidPitch + (double) (-90.0F - squidPitch) * 0.02D);
+			squidPitch = (float) ((double) squidPitch + (double) (-90F - squidPitch) * 0.02D);
 		}
 	}
 
@@ -203,7 +203,7 @@ public class EntitySquid extends EntityWaterMob {
 	 */
 	public boolean getCanSpawnHere() {
 
-		return posY > 45.0D && posY < (double) world.getSeaLevel() && super.getCanSpawnHere();
+		return posY > 45D && posY < (double) world.getSeaLevel() && super.getCanSpawnHere();
 	}
 
 	/**
@@ -212,7 +212,7 @@ public class EntitySquid extends EntityWaterMob {
 	public void handleStatusUpdate(byte id) {
 
 		if (id == 19) {
-			squidRotation = 0.0F;
+			squidRotation = 0F;
 		} else {
 			super.handleStatusUpdate(id);
 		}
@@ -227,7 +227,7 @@ public class EntitySquid extends EntityWaterMob {
 
 	public boolean hasMovementVector() {
 
-		return randomMotionVecX != 0.0F || randomMotionVecY != 0.0F || randomMotionVecZ != 0.0F;
+		return randomMotionVecX != 0F || randomMotionVecY != 0F || randomMotionVecZ != 0F;
 	}
 
 	static class AIMoveRandom extends EntityAIBase {
@@ -249,7 +249,7 @@ public class EntitySquid extends EntityWaterMob {
 			int i = squid.getIdleTime();
 
 			if (i > 100) {
-				squid.setMovementVector(0.0F, 0.0F, 0.0F);
+				squid.setMovementVector(0F, 0F, 0F);
 			} else if (squid.getRNG().nextInt(50) == 0 || !squid.inWater || !squid.hasMovementVector()) {
 				float f = squid.getRNG().nextFloat() * ((float) Math.PI * 2F);
 				float f1 = MathHelper.cos(f) * 0.2F;

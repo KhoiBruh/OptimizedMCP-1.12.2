@@ -143,7 +143,7 @@ public class BlockPos extends Vec3i {
 	 */
 	public BlockPos add(double x, double y, double z) {
 
-		return x == 0.0D && y == 0.0D && z == 0.0D ? this : new BlockPos((double) getX() + x, (double) getY() + y, (double) getZ() + z);
+		return x == 0D && y == 0D && z == 0D ? this : new BlockPos((double) getX() + x, (double) getY() + y, (double) getZ() + z);
 	}
 
 	/**

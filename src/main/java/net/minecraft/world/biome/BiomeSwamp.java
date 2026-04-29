@@ -58,7 +58,7 @@ public class BiomeSwamp extends Biome {
 
 		double d0 = GRASS_COLOR_NOISE.getValue((double) x * 0.25D, (double) z * 0.25D);
 
-		if (d0 > 0.0D) {
+		if (d0 > 0D) {
 			int i = x & 15;
 			int j = z & 15;
 

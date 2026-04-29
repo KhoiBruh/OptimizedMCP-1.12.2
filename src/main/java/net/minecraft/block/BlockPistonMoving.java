@@ -35,7 +35,7 @@ public class BlockPistonMoving extends BlockContainer {
 
 		super(Material.PISTON);
 		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(TYPE, BlockPistonExtension.EnumPistonType.DEFAULT));
-		setHardness(-1.0F);
+		setHardness(-1F);
 	}
 
 	public static TileEntity createTilePiston(IBlockState blockStateIn, EnumFacing facingIn, boolean extendingIn, boolean shouldHeadBeRenderedIn) {

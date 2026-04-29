@@ -19,7 +19,7 @@ public class TileEntityEnchantmentTableRenderer extends TileEntitySpecialRendere
 		GlStateManager.pushMatrix();
 		GlStateManager.translate((float) x + 0.5F, (float) y + 0.75F, (float) z + 0.5F);
 		float f = (float) te.tickCount + partialTicks;
-		GlStateManager.translate(0.0F, 0.1F + MathHelper.sin(f * 0.1F) * 0.01F, 0.0F);
+		GlStateManager.translate(0F, 0.1F + MathHelper.sin(f * 0.1F) * 0.01F, 0F);
 		float f1;
 
 		for (f1 = te.bookRotation - te.bookRotationPrev; f1 >= (float) Math.PI; f1 -= ((float) Math.PI * 2F)) {
@@ -30,33 +30,33 @@ public class TileEntityEnchantmentTableRenderer extends TileEntitySpecialRendere
 		}
 
 		float f2 = te.bookRotationPrev + f1 * partialTicks;
-		GlStateManager.rotate(-f2 * (180F / (float) Math.PI), 0.0F, 1.0F, 0.0F);
-		GlStateManager.rotate(80.0F, 0.0F, 0.0F, 1.0F);
+		GlStateManager.rotate(-f2 * (180F / (float) Math.PI), 0F, 1F, 0F);
+		GlStateManager.rotate(80F, 0F, 0F, 1F);
 		bindTexture(TEXTURE_BOOK);
 		float f3 = te.pageFlipPrev + (te.pageFlip - te.pageFlipPrev) * partialTicks + 0.25F;
 		float f4 = te.pageFlipPrev + (te.pageFlip - te.pageFlipPrev) * partialTicks + 0.75F;
 		f3 = (f3 - (float) MathHelper.fastFloor(f3)) * 1.6F - 0.3F;
 		f4 = (f4 - (float) MathHelper.fastFloor(f4)) * 1.6F - 0.3F;
 
-		if (f3 < 0.0F) {
-			f3 = 0.0F;
+		if (f3 < 0F) {
+			f3 = 0F;
 		}
 
-		if (f4 < 0.0F) {
-			f4 = 0.0F;
+		if (f4 < 0F) {
+			f4 = 0F;
 		}
 
-		if (f3 > 1.0F) {
-			f3 = 1.0F;
+		if (f3 > 1F) {
+			f3 = 1F;
 		}
 
-		if (f4 > 1.0F) {
-			f4 = 1.0F;
+		if (f4 > 1F) {
+			f4 = 1F;
 		}
 
 		float f5 = te.bookSpreadPrev + (te.bookSpread - te.bookSpreadPrev) * partialTicks;
 		GlStateManager.enableCull();
-		modelBook.render(null, f, f3, f4, f5, 0.0F, 0.0625F);
+		modelBook.render(null, f, f3, f4, f5, 0F, 0.0625F);
 		GlStateManager.popMatrix();
 	}
 

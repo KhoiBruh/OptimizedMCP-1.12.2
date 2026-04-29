@@ -45,7 +45,7 @@ public class EntityMooshroom extends EntityCow {
 			return true;
 		} else if (itemstack.getItem() == Items.SHEARS && getGrowingAge() >= 0) {
 			setDead();
-			world.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, posX, posY + (double) (height / 2.0F), posZ, 0.0D, 0.0D, 0.0D);
+			world.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, posX, posY + (double) (height / 2F), posZ, 0D, 0D, 0D);
 
 			if (!world.isRemote) {
 				EntityCow entitycow = new EntityCow(world);
@@ -64,7 +64,7 @@ public class EntityMooshroom extends EntityCow {
 				}
 
 				itemstack.damageItem(1, player);
-				playSound(SoundEvents.ENTITY_MOOSHROOM_SHEAR, 1.0F, 1.0F);
+				playSound(SoundEvents.ENTITY_MOOSHROOM_SHEAR, 1F, 1F);
 			}
 
 			return true;

@@ -233,9 +233,9 @@ public class TileEntityChest extends TileEntityLockableLoot implements ITickable
 
 		if (!world.isRemote && numPlayersUsing != 0 && (ticksSinceSync + i + j + k) % 200 == 0) {
 			numPlayersUsing = 0;
-			float f = 5.0F;
+			float f = 5F;
 
-			for (EntityPlayer entityplayer : world.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB((float) i - 5.0F, (float) j - 5.0F, (float) k - 5.0F, (float) (i + 1) + 5.0F, (float) (j + 1) + 5.0F, (float) (k + 1) + 5.0F))) {
+			for (EntityPlayer entityplayer : world.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB((float) i - 5F, (float) j - 5F, (float) k - 5F, (float) (i + 1) + 5F, (float) (j + 1) + 5F, (float) (k + 1) + 5F))) {
 				if (entityplayer.openContainer instanceof ContainerChest) {
 					IInventory iinventory = ((ContainerChest) entityplayer.openContainer).getLowerChestInventory();
 
@@ -249,7 +249,7 @@ public class TileEntityChest extends TileEntityLockableLoot implements ITickable
 		prevLidAngle = lidAngle;
 		float f1 = 0.1F;
 
-		if (numPlayersUsing > 0 && lidAngle == 0.0F && adjacentChestZNeg == null && adjacentChestXNeg == null) {
+		if (numPlayersUsing > 0 && lidAngle == 0F && adjacentChestZNeg == null && adjacentChestXNeg == null) {
 			double d1 = (double) i + 0.5D;
 			double d2 = (double) k + 0.5D;
 
@@ -264,7 +264,7 @@ public class TileEntityChest extends TileEntityLockableLoot implements ITickable
 			world.playSound(null, d1, (double) j + 0.5D, d2, SoundEvents.BLOCK_CHEST_OPEN, SoundCategory.BLOCKS, 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
 		}
 
-		if (numPlayersUsing == 0 && lidAngle > 0.0F || numPlayersUsing > 0 && lidAngle < 1.0F) {
+		if (numPlayersUsing == 0 && lidAngle > 0F || numPlayersUsing > 0 && lidAngle < 1F) {
 			float f2 = lidAngle;
 
 			if (numPlayersUsing > 0) {
@@ -273,8 +273,8 @@ public class TileEntityChest extends TileEntityLockableLoot implements ITickable
 				lidAngle -= 0.1F;
 			}
 
-			if (lidAngle > 1.0F) {
-				lidAngle = 1.0F;
+			if (lidAngle > 1F) {
+				lidAngle = 1F;
 			}
 
 			float f3 = 0.5F;
@@ -294,8 +294,8 @@ public class TileEntityChest extends TileEntityLockableLoot implements ITickable
 				world.playSound(null, d3, (double) j + 0.5D, d0, SoundEvents.BLOCK_CHEST_CLOSE, SoundCategory.BLOCKS, 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
 			}
 
-			if (lidAngle < 0.0F) {
-				lidAngle = 0.0F;
+			if (lidAngle < 0F) {
+				lidAngle = 0F;
 			}
 		}
 	}

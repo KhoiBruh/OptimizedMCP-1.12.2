@@ -39,9 +39,9 @@ public class SPacketSpawnMob implements Packet<INetHandlerPlayClient> {
 		x = entityIn.posX;
 		y = entityIn.posY;
 		z = entityIn.posZ;
-		yaw = (byte) ((int) (entityIn.rotationYaw * 256.0F / 360.0F));
-		pitch = (byte) ((int) (entityIn.rotationPitch * 256.0F / 360.0F));
-		headPitch = (byte) ((int) (entityIn.rotationYawHead * 256.0F / 360.0F));
+		yaw = (byte) ((int) (entityIn.rotationYaw * 256F / 360F));
+		pitch = (byte) ((int) (entityIn.rotationPitch * 256F / 360F));
+		headPitch = (byte) ((int) (entityIn.rotationYawHead * 256F / 360F));
 		double d0 = 3.9D;
 		double d1 = entityIn.motionX;
 		double d2 = entityIn.motionY;
@@ -71,9 +71,9 @@ public class SPacketSpawnMob implements Packet<INetHandlerPlayClient> {
 			d3 = 3.9D;
 		}
 
-		velocityX = (int) (d1 * 8000.0D);
-		velocityY = (int) (d2 * 8000.0D);
-		velocityZ = (int) (d3 * 8000.0D);
+		velocityX = (int) (d1 * 8000D);
+		velocityY = (int) (d2 * 8000D);
+		velocityZ = (int) (d3 * 8000D);
 		dataManager = entityIn.getDataManager();
 	}
 

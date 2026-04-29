@@ -368,7 +368,7 @@ public class TileEntityFurnace extends TileEntityLockable implements ITickable, 
 		if (world.getTileEntity(pos) != this) {
 			return false;
 		} else {
-			return player.getDistanceSq((double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D) <= 64.0D;
+			return player.getDistanceSq((double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D) <= 64D;
 		}
 	}
 

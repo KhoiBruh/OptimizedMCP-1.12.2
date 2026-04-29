@@ -112,7 +112,7 @@ public class BlockFalling extends Block {
 				double d0 = (float) pos.getX() + rand.nextFloat();
 				double d1 = (double) pos.getY() - 0.05D;
 				double d2 = (float) pos.getZ() + rand.nextFloat();
-				worldIn.spawnParticle(EnumParticleTypes.FALLING_DUST, d0, d1, d2, 0.0D, 0.0D, 0.0D, Block.getStateId(stateIn));
+				worldIn.spawnParticle(EnumParticleTypes.FALLING_DUST, d0, d1, d2, 0D, 0D, 0D, Block.getStateId(stateIn));
 			}
 		}
 	}

@@ -56,7 +56,7 @@ public class WorldGenSpikes extends WorldGenerator {
 			EntityEnderCrystal entityendercrystal = new EntityEnderCrystal(worldIn);
 			entityendercrystal.setBeamTarget(beamTarget);
 			entityendercrystal.setEntityInvulnerable(crystalInvulnerable);
-			entityendercrystal.setLocationAndAngles((float) position.getX() + 0.5F, spike.getHeight() + 1, (float) position.getZ() + 0.5F, rand.nextFloat() * 360.0F, 0.0F);
+			entityendercrystal.setLocationAndAngles((float) position.getX() + 0.5F, spike.getHeight() + 1, (float) position.getZ() + 0.5F, rand.nextFloat() * 360F, 0F);
 			worldIn.spawnEntity(entityendercrystal);
 			setBlockAndNotifyAdequately(worldIn, new BlockPos(position.getX(), spike.getHeight(), position.getZ()), Blocks.BEDROCK.getDefaultState());
 			return true;
@@ -88,7 +88,7 @@ public class WorldGenSpikes extends WorldGenerator {
 			radius = p_i47020_3_;
 			height = p_i47020_4_;
 			guarded = p_i47020_5_;
-			topBoundingBox = new AxisAlignedBB(p_i47020_1_ - p_i47020_3_, 0.0D, p_i47020_2_ - p_i47020_3_, p_i47020_1_ + p_i47020_3_, 256.0D, p_i47020_2_ + p_i47020_3_);
+			topBoundingBox = new AxisAlignedBB(p_i47020_1_ - p_i47020_3_, 0D, p_i47020_2_ - p_i47020_3_, p_i47020_1_ + p_i47020_3_, 256D, p_i47020_2_ + p_i47020_3_);
 		}
 
 		public boolean doesStartInChunk(BlockPos p_186154_1_) {

@@ -68,13 +68,13 @@ public abstract class EntityThrowable extends Entity implements IProjectile {
 	 */
 	public boolean isInRangeToRenderDist(double distance) {
 
-		double d0 = getEntityBoundingBox().getAverageEdgeLength() * 4.0D;
+		double d0 = getEntityBoundingBox().getAverageEdgeLength() * 4D;
 
 		if (Double.isNaN(d0)) {
-			d0 = 4.0D;
+			d0 = 4D;
 		}
 
-		d0 = d0 * 64.0D;
+		d0 = d0 * 64D;
 		return distance < d0 * d0;
 	}
 
@@ -130,7 +130,7 @@ public abstract class EntityThrowable extends Entity implements IProjectile {
 		motionY = y;
 		motionZ = z;
 
-		if (prevRotationPitch == 0.0F && prevRotationYaw == 0.0F) {
+		if (prevRotationPitch == 0F && prevRotationYaw == 0F) {
 			float f = MathHelper.sqrt(x * x + z * z);
 			rotationYaw = (float) (MathHelper.atan2(x, z) * (180D / Math.PI));
 			rotationPitch = (float) (MathHelper.atan2(y, f) * (180D / Math.PI));
@@ -185,8 +185,8 @@ public abstract class EntityThrowable extends Entity implements IProjectile {
 		}
 
 		Entity entity = null;
-		List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().expand(motionX, motionY, motionZ).grow(1.0D));
-		double d0 = 0.0D;
+		List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().expand(motionX, motionY, motionZ).grow(1D));
+		double d0 = 0D;
 		boolean flag = false;
 
 		for (Entity entity1 : list) {
@@ -204,7 +204,7 @@ public abstract class EntityThrowable extends Entity implements IProjectile {
 					if (raytraceresult1 != null) {
 						double d1 = vec3d.squareDistanceTo(raytraceresult1.hitVec);
 
-						if (d1 < d0 || d0 == 0.0D) {
+						if (d1 < d0 || d0 == 0D) {
 							entity = entity1;
 							d0 = d1;
 						}
@@ -239,19 +239,19 @@ public abstract class EntityThrowable extends Entity implements IProjectile {
 		float f = MathHelper.sqrt(motionX * motionX + motionZ * motionZ);
 		rotationYaw = (float) (MathHelper.atan2(motionX, motionZ) * (180D / Math.PI));
 
-		for (rotationPitch = (float) (MathHelper.atan2(motionY, f) * (180D / Math.PI)); rotationPitch - prevRotationPitch < -180.0F; prevRotationPitch -= 360.0F) {
+		for (rotationPitch = (float) (MathHelper.atan2(motionY, f) * (180D / Math.PI)); rotationPitch - prevRotationPitch < -180F; prevRotationPitch -= 360F) {
 		}
 
-		while (rotationPitch - prevRotationPitch >= 180.0F) {
-			prevRotationPitch += 360.0F;
+		while (rotationPitch - prevRotationPitch >= 180F) {
+			prevRotationPitch += 360F;
 		}
 
-		while (rotationYaw - prevRotationYaw < -180.0F) {
-			prevRotationYaw -= 360.0F;
+		while (rotationYaw - prevRotationYaw < -180F) {
+			prevRotationYaw -= 360F;
 		}
 
-		while (rotationYaw - prevRotationYaw >= 180.0F) {
-			prevRotationYaw += 360.0F;
+		while (rotationYaw - prevRotationYaw >= 180F) {
+			prevRotationYaw += 360F;
 		}
 
 		rotationPitch = prevRotationPitch + (rotationPitch - prevRotationPitch) * 0.2F;

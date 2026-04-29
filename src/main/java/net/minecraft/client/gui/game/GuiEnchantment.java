@@ -111,7 +111,7 @@ public class GuiEnchantment extends GuiContainer {
 	 */
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
 
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+		GlStateManager.color(1F, 1F, 1F, 1F);
 		mc.getTextureManager().bindTexture(ENCHANTMENT_TABLE_GUI_TEXTURE);
 		int i = (width - xSize) / 2;
 		int j = (height - ySize) / 2;
@@ -122,46 +122,46 @@ public class GuiEnchantment extends GuiContainer {
 		GlStateManager.loadIdentity();
 		ScaledResolution scaledresolution = mc.scaledResolution;
 		GlStateManager.viewport((scaledresolution.getScaledWidth() - 320) / 2 * scaledresolution.getScaleFactor(), (scaledresolution.getScaledHeight() - 240) / 2 * scaledresolution.getScaleFactor(), 320 * scaledresolution.getScaleFactor(), 240 * scaledresolution.getScaleFactor());
-		GlStateManager.translate(-0.34F, 0.23F, 0.0F);
-		Project.gluPerspective(90.0F, 1.3333334F, 9.0F, 80.0F);
-		float f = 1.0F;
+		GlStateManager.translate(-0.34F, 0.23F, 0F);
+		Project.gluPerspective(90F, 1.3333334F, 9F, 80F);
+		float f = 1F;
 		GlStateManager.matrixMode(5888);
 		GlStateManager.loadIdentity();
 		RenderHelper.enableStandardItemLighting();
-		GlStateManager.translate(0.0F, 3.3F, -16.0F);
-		GlStateManager.scale(1.0F, 1.0F, 1.0F);
-		float f1 = 5.0F;
-		GlStateManager.scale(5.0F, 5.0F, 5.0F);
-		GlStateManager.rotate(180.0F, 0.0F, 0.0F, 1.0F);
+		GlStateManager.translate(0F, 3.3F, -16F);
+		GlStateManager.scale(1F, 1F, 1F);
+		float f1 = 5F;
+		GlStateManager.scale(5F, 5F, 5F);
+		GlStateManager.rotate(180F, 0F, 0F, 1F);
 		mc.getTextureManager().bindTexture(ENCHANTMENT_TABLE_BOOK_TEXTURE);
-		GlStateManager.rotate(20.0F, 1.0F, 0.0F, 0.0F);
+		GlStateManager.rotate(20F, 1F, 0F, 0F);
 		float f2 = oOpen + (open - oOpen) * partialTicks;
-		GlStateManager.translate((1.0F - f2) * 0.2F, (1.0F - f2) * 0.1F, (1.0F - f2) * 0.25F);
-		GlStateManager.rotate(-(1.0F - f2) * 90.0F - 90.0F, 0.0F, 1.0F, 0.0F);
-		GlStateManager.rotate(180.0F, 1.0F, 0.0F, 0.0F);
+		GlStateManager.translate((1F - f2) * 0.2F, (1F - f2) * 0.1F, (1F - f2) * 0.25F);
+		GlStateManager.rotate(-(1F - f2) * 90F - 90F, 0F, 1F, 0F);
+		GlStateManager.rotate(180F, 1F, 0F, 0F);
 		float f3 = oFlip + (flip - oFlip) * partialTicks + 0.25F;
 		float f4 = oFlip + (flip - oFlip) * partialTicks + 0.75F;
 		f3 = (f3 - (float) MathHelper.fastFloor(f3)) * 1.6F - 0.3F;
 		f4 = (f4 - (float) MathHelper.fastFloor(f4)) * 1.6F - 0.3F;
 
-		if (f3 < 0.0F) {
-			f3 = 0.0F;
+		if (f3 < 0F) {
+			f3 = 0F;
 		}
 
-		if (f4 < 0.0F) {
-			f4 = 0.0F;
+		if (f4 < 0F) {
+			f4 = 0F;
 		}
 
-		if (f3 > 1.0F) {
-			f3 = 1.0F;
+		if (f3 > 1F) {
+			f3 = 1F;
 		}
 
-		if (f4 > 1.0F) {
-			f4 = 1.0F;
+		if (f4 > 1F) {
+			f4 = 1F;
 		}
 
 		GlStateManager.enableRescaleNormal();
-		MODEL_BOOK.render(null, 0.0F, f3, f4, f2, 0.0F, 0.0625F);
+		MODEL_BOOK.render(null, 0F, f3, f4, f2, 0F, 0.0625F);
 		GlStateManager.disableRescaleNormal();
 		RenderHelper.disableStandardItemLighting();
 		GlStateManager.matrixMode(5889);
@@ -170,17 +170,17 @@ public class GuiEnchantment extends GuiContainer {
 		GlStateManager.matrixMode(5888);
 		GlStateManager.popMatrix();
 		RenderHelper.disableStandardItemLighting();
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+		GlStateManager.color(1F, 1F, 1F, 1F);
 		EnchantmentNameParts.getInstance().reseedRandomGenerator(container.xpSeed);
 		int k = container.getLapisAmount();
 
 		for (int l = 0; l < 3; ++l) {
 			int i1 = i + 60;
 			int j1 = i1 + 20;
-			zLevel = 0.0F;
+			zLevel = 0F;
 			mc.getTextureManager().bindTexture(ENCHANTMENT_TABLE_GUI_TEXTURE);
 			int k1 = container.enchantLevels[l];
-			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+			GlStateManager.color(1F, 1F, 1F, 1F);
 
 			if (k1 == 0) {
 				drawTexturedModalRect(i1, j + 14 + 19 * l, 0, 185, 108, 19);
@@ -283,7 +283,7 @@ public class GuiEnchantment extends GuiContainer {
 			while (true) {
 				flipT += (float) (random.nextInt(4) - random.nextInt(4));
 
-				if (flip > flipT + 1.0F || flip < flipT - 1.0F) {
+				if (flip > flipT + 1F || flip < flipT - 1F) {
 					break;
 				}
 			}
@@ -307,7 +307,7 @@ public class GuiEnchantment extends GuiContainer {
 			open -= 0.2F;
 		}
 
-		open = MathHelper.clamp(open, 0.0F, 1.0F);
+		open = MathHelper.clamp(open, 0F, 1F);
 		float f1 = (flipT - flip) * 0.4F;
 		float f = 0.2F;
 		f1 = MathHelper.clamp(f1, -0.2F, 0.2F);

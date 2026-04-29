@@ -190,7 +190,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 	 */
 	public void onUpdate() {
 
-		if (world.isBlockLoaded(new BlockPos(posX, 0.0D, posZ))) {
+		if (world.isBlockLoaded(new BlockPos(posX, 0D, posZ))) {
 			super.onUpdate();
 
 			if (isRiding()) {
@@ -245,10 +245,10 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 			double d4 = rotationPitch - lastReportedPitch;
 			++positionUpdateTicks;
 			boolean flag2 = d0 * d0 + d1 * d1 + d2 * d2 > 9.0E-4D || positionUpdateTicks >= 20;
-			boolean flag3 = d3 != 0.0D || d4 != 0.0D;
+			boolean flag3 = d3 != 0D || d4 != 0D;
 
 			if (isRiding()) {
-				connection.sendPacket(new CPacketPlayer.PositionRotation(motionX, -999.0D, motionZ, rotationYaw, rotationPitch, onGround));
+				connection.sendPacket(new CPacketPlayer.PositionRotation(motionX, -999D, motionZ, rotationYaw, rotationPitch, onGround));
 				flag2 = false;
 			} else if (flag2 && flag3) {
 				connection.sendPacket(new CPacketPlayer.PositionRotation(posX, axisalignedbb.minY, posZ, rotationYaw, rotationPitch, onGround));
@@ -349,10 +349,10 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 		if (hasValidHealth) {
 			float f = getHealth() - health;
 
-			if (f <= 0.0F) {
+			if (f <= 0F) {
 				setHealth(health);
 
-				if (f < 0.0F) {
+				if (f < 0F) {
 					hurtResistantTime = maxHurtResistantTime / 2;
 				}
 			} else {
@@ -399,7 +399,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 
 	protected void sendHorseJump() {
 
-		connection.sendPacket(new CPacketEntityAction(this, CPacketEntityAction.Action.START_RIDING_JUMP, MathHelper.floor(getHorseJumpPower() * 100.0F)));
+		connection.sendPacket(new CPacketEntityAction(this, CPacketEntityAction.Action.START_RIDING_JUMP, MathHelper.floor(getHorseJumpPower() * 100F)));
 	}
 
 	public void sendHorseInventory() {
@@ -474,15 +474,15 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 
 			if (!isOpenBlockSpace(blockpos)) {
 				int i = -1;
-				double d2 = 9999.0D;
+				double d2 = 9999D;
 
 				if (isOpenBlockSpace(blockpos.west()) && d0 < d2) {
 					d2 = d0;
 					i = 0;
 				}
 
-				if (isOpenBlockSpace(blockpos.east()) && 1.0D - d0 < d2) {
-					d2 = 1.0D - d0;
+				if (isOpenBlockSpace(blockpos.east()) && 1D - d0 < d2) {
+					d2 = 1D - d0;
 					i = 1;
 				}
 
@@ -491,7 +491,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 					i = 4;
 				}
 
-				if (isOpenBlockSpace(blockpos.south()) && 1.0D - d1 < d2) {
+				if (isOpenBlockSpace(blockpos.south()) && 1D - d1 < d2) {
 					i = 5;
 				}
 
@@ -798,30 +798,30 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 				mc.displayGuiScreen(null);
 			}
 
-			if (timeInPortal == 0.0F) {
+			if (timeInPortal == 0F) {
 				mc.getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(SoundEvents.BLOCK_PORTAL_TRIGGER, rand.nextFloat() * 0.4F + 0.8F));
 			}
 
 			timeInPortal += 0.0125F;
 
-			if (timeInPortal >= 1.0F) {
-				timeInPortal = 1.0F;
+			if (timeInPortal >= 1F) {
+				timeInPortal = 1F;
 			}
 
 			inPortal = false;
 		} else if (isPotionActive(MobEffects.NAUSEA) && getActivePotionEffect(MobEffects.NAUSEA).getDuration() > 60) {
 			timeInPortal += 0.006666667F;
 
-			if (timeInPortal > 1.0F) {
-				timeInPortal = 1.0F;
+			if (timeInPortal > 1F) {
+				timeInPortal = 1F;
 			}
 		} else {
-			if (timeInPortal > 0.0F) {
+			if (timeInPortal > 0F) {
 				timeInPortal -= 0.05F;
 			}
 
-			if (timeInPortal < 0.0F) {
-				timeInPortal = 0.0F;
+			if (timeInPortal < 0F) {
+				timeInPortal = 0F;
 			}
 		}
 
@@ -855,7 +855,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 		pushOutOfBlocks(posX - (double) width * 0.35D, axisalignedbb.minY + 0.5D, posZ - (double) width * 0.35D);
 		pushOutOfBlocks(posX + (double) width * 0.35D, axisalignedbb.minY + 0.5D, posZ - (double) width * 0.35D);
 		pushOutOfBlocks(posX + (double) width * 0.35D, axisalignedbb.minY + 0.5D, posZ + (double) width * 0.35D);
-		boolean flag4 = (float) getFoodStats().getFoodLevel() > 6.0F || capabilities.allowFlying;
+		boolean flag4 = (float) getFoodStats().getFoodLevel() > 6F || capabilities.allowFlying;
 
 		if (onGround && !flag1 && !flag2 && movementInput.moveForward >= 0.8F && !isSprinting() && flag4 && !isHandActive() && !isPotionActive(MobEffects.BLINDNESS)) {
 			if (sprintToggleTimer <= 0 && !mc.gameSettings.keyBindSprint.isKeyDown()) {
@@ -890,7 +890,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 			}
 		}
 
-		if (movementInput.jump && !flag && !onGround && motionY < 0.0D && !isElytraFlying() && !capabilities.isFlying) {
+		if (movementInput.jump && !flag && !onGround && motionY < 0D && !isElytraFlying() && !capabilities.isFlying) {
 			ItemStack itemstack = getItemStackFromSlot(EntityEquipmentSlot.CHEST);
 
 			if (itemstack.getItem() == Items.ELYTRA && ItemElytra.isUsable(itemstack)) {
@@ -904,11 +904,11 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 			if (movementInput.sneak) {
 				movementInput.moveStrafe = (float) ((double) movementInput.moveStrafe / 0.3D);
 				movementInput.moveForward = (float) ((double) movementInput.moveForward / 0.3D);
-				motionY -= capabilities.getFlySpeed() * 3.0F;
+				motionY -= capabilities.getFlySpeed() * 3F;
 			}
 
 			if (movementInput.jump) {
-				motionY += capabilities.getFlySpeed() * 3.0F;
+				motionY += capabilities.getFlySpeed() * 3F;
 			}
 		}
 
@@ -919,28 +919,28 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 				++horseJumpPowerCounter;
 
 				if (horseJumpPowerCounter == 0) {
-					horseJumpPower = 0.0F;
+					horseJumpPower = 0F;
 				}
 			}
 
 			if (flag && !movementInput.jump) {
 				horseJumpPowerCounter = -10;
-				ijumpingmount.setJumpPower(MathHelper.floor(getHorseJumpPower() * 100.0F));
+				ijumpingmount.setJumpPower(MathHelper.floor(getHorseJumpPower() * 100F));
 				sendHorseJump();
 			} else if (!flag && movementInput.jump) {
 				horseJumpPowerCounter = 0;
-				horseJumpPower = 0.0F;
+				horseJumpPower = 0F;
 			} else if (flag) {
 				++horseJumpPowerCounter;
 
 				if (horseJumpPowerCounter < 10) {
 					horseJumpPower = (float) horseJumpPowerCounter * 0.1F;
 				} else {
-					horseJumpPower = 0.8F + 2.0F / (float) (horseJumpPowerCounter - 9) * 0.1F;
+					horseJumpPower = 0.8F + 2F / (float) (horseJumpPowerCounter - 9) * 0.1F;
 				}
 			}
 		} else {
-			horseJumpPower = 0.0F;
+			horseJumpPower = 0F;
 		}
 
 		super.onLivingUpdate();
@@ -979,8 +979,8 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 	public PotionEffect removeActivePotionEffect(Potion potioneffectin) {
 
 		if (potioneffectin == MobEffects.NAUSEA) {
-			prevTimeInPortal = 0.0F;
-			timeInPortal = 0.0F;
+			prevTimeInPortal = 0F;
+			timeInPortal = 0F;
 		}
 
 		return super.removeActivePotionEffect(potioneffectin);
@@ -1008,12 +1008,12 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 			if (autoJumpTime <= 0 && onGround && !isSneaking() && !isRiding()) {
 				Vec2f vec2f = movementInput.getMoveVector();
 
-				if (vec2f.x() != 0.0F || vec2f.y() != 0.0F) {
+				if (vec2f.x() != 0F || vec2f.y() != 0F) {
 					Vec3d vec3d = new Vec3d(posX, getEntityBoundingBox().minY, posZ);
 					double d0 = posX + (double) p_189810_1_;
 					double d1 = posZ + (double) p_189810_2_;
 					Vec3d vec3d1 = new Vec3d(d0, getEntityBoundingBox().minY, d1);
-					Vec3d vec3d2 = new Vec3d(p_189810_1_, 0.0D, p_189810_2_);
+					Vec3d vec3d2 = new Vec3d(p_189810_1_, 0D, p_189810_2_);
 					float f = getAIMoveSpeed();
 					float f1 = (float) vec3d2.lengthSquared();
 
@@ -1044,21 +1044,21 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 							IBlockState iblockstate1 = world.getBlockState(blockpos);
 
 							if (iblockstate1.getCollisionBoundingBox(world, blockpos) == null) {
-								float f6 = 7.0F;
+								float f6 = 7F;
 								float f7 = 1.2F;
 
 								if (isPotionActive(MobEffects.JUMP_BOOST)) {
 									f7 += (float) (getActivePotionEffect(MobEffects.JUMP_BOOST).getAmplifier() + 1) * 0.75F;
 								}
 
-								float f8 = Math.max(f * 7.0F, 1.0F / f12);
+								float f8 = Math.max(f * 7F, 1F / f12);
 								Vec3d vec3d4 = vec3d1.add(vec3d12.scale(f8));
 								float f9 = width;
 								float f10 = height;
-								AxisAlignedBB axisalignedbb = (new AxisAlignedBB(vec3d, vec3d4.addVector(0.0D, f10, 0.0D))).grow(f9, 0.0D, f9);
-								Vec3d lvt_19_1_ = vec3d.addVector(0.0D, 0.5099999904632568D, 0.0D);
-								vec3d4 = vec3d4.addVector(0.0D, 0.5099999904632568D, 0.0D);
-								Vec3d vec3d5 = vec3d12.crossProduct(new Vec3d(0.0D, 1.0D, 0.0D));
+								AxisAlignedBB axisalignedbb = (new AxisAlignedBB(vec3d, vec3d4.addVector(0D, f10, 0D))).grow(f9, 0D, f9);
+								Vec3d lvt_19_1_ = vec3d.addVector(0D, 0.5099999904632568D, 0D);
+								vec3d4 = vec3d4.addVector(0D, 0.5099999904632568D, 0D);
+								Vec3d vec3d5 = vec3d12.crossProduct(new Vec3d(0D, 1D, 0D));
 								Vec3d vec3d6 = vec3d5.scale(f9 * 0.5F);
 								Vec3d vec3d7 = lvt_19_1_.subtract(vec3d6);
 								Vec3d vec3d8 = vec3d4.subtract(vec3d6);

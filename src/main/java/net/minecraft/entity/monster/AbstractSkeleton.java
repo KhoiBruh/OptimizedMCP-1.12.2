@@ -28,7 +28,7 @@ import java.util.Calendar;
 public abstract class AbstractSkeleton extends EntityMob implements IRangedAttackMob {
 
 	private static final DataParameter<Boolean> SWINGING_ARMS = EntityDataManager.createKey(AbstractSkeleton.class, DataSerializers.BOOLEAN);
-	private final EntityAIAttackRangedBow<AbstractSkeleton> aiArrowAttack = new EntityAIAttackRangedBow<>(this, 1.0D, 20, 15.0F);
+	private final EntityAIAttackRangedBow<AbstractSkeleton> aiArrowAttack = new EntityAIAttackRangedBow<>(this, 1D, 20, 15F);
 	private final EntityAIAttackMelee aiAttackOnCollide = new EntityAIAttackMelee(this, 1.2D, false) {
 		public void resetTask() {
 
@@ -54,10 +54,10 @@ public abstract class AbstractSkeleton extends EntityMob implements IRangedAttac
 
 		tasks.addTask(1, new EntityAISwimming(this));
 		tasks.addTask(2, new EntityAIRestrictSun(this));
-		tasks.addTask(3, new EntityAIFleeSun(this, 1.0D));
-		tasks.addTask(3, new EntityAIAvoidEntity<>(this, EntityWolf.class, 6.0F, 1.0D, 1.2D));
-		tasks.addTask(5, new EntityAIWanderAvoidWater(this, 1.0D));
-		tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
+		tasks.addTask(3, new EntityAIFleeSun(this, 1D));
+		tasks.addTask(3, new EntityAIAvoidEntity<>(this, EntityWolf.class, 6F, 1D, 1.2D));
+		tasks.addTask(5, new EntityAIWanderAvoidWater(this, 1D));
+		tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 8F));
 		tasks.addTask(6, new EntityAILookIdle(this));
 		targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
 		targetTasks.addTask(2, new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, true));
@@ -78,7 +78,7 @@ public abstract class AbstractSkeleton extends EntityMob implements IRangedAttac
 
 	protected void playStepSound(BlockPos pos, Block blockIn) {
 
-		playSound(getStepSound(), 0.15F, 1.0F);
+		playSound(getStepSound(), 0.15F, 1F);
 	}
 
 	abstract SoundEvent getStepSound();
@@ -101,7 +101,7 @@ public abstract class AbstractSkeleton extends EntityMob implements IRangedAttac
 			float f = getBrightness();
 			BlockPos blockpos = getRidingEntity() instanceof EntityBoat ? (new BlockPos(posX, (double) Math.round(posY), posZ)).up() : new BlockPos(posX, (double) Math.round(posY), posZ);
 
-			if (f > 0.5F && rand.nextFloat() * 30.0F < (f - 0.4F) * 2.0F && world.canSeeSky(blockpos)) {
+			if (f > 0.5F && rand.nextFloat() * 30F < (f - 0.4F) * 2F && world.canSeeSky(blockpos)) {
 				boolean flag = true;
 				ItemStack itemstack = getItemStackFromSlot(EntityEquipmentSlot.HEAD);
 
@@ -177,7 +177,7 @@ public abstract class AbstractSkeleton extends EntityMob implements IRangedAttac
 
 			if (calendar.get(Calendar.MONTH) + 1 == 10 && calendar.get(Calendar.DATE) == 31 && rand.nextFloat() < 0.25F) {
 				setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(rand.nextFloat() < 0.1F ? Blocks.LIT_PUMPKIN : Blocks.PUMPKIN));
-				inventoryArmorDropChances[EntityEquipmentSlot.HEAD.getIndex()] = 0.0F;
+				inventoryArmorDropChances[EntityEquipmentSlot.HEAD.getIndex()] = 0F;
 			}
 		}
 
@@ -216,11 +216,11 @@ public abstract class AbstractSkeleton extends EntityMob implements IRangedAttac
 
 		EntityArrow entityarrow = getArrow(distanceFactor);
 		double d0 = target.posX - posX;
-		double d1 = target.getEntityBoundingBox().minY + (double) (target.height / 3.0F) - entityarrow.posY;
+		double d1 = target.getEntityBoundingBox().minY + (double) (target.height / 3F) - entityarrow.posY;
 		double d2 = target.posZ - posZ;
 		double d3 = MathHelper.sqrt(d0 * d0 + d2 * d2);
 		entityarrow.shoot(d0, d1 + d3 * 0.20000000298023224D, d2, 1.6F, (float) (14 - world.getDifficulty().getDifficultyId() * 4));
-		playSound(SoundEvents.ENTITY_SKELETON_SHOOT, 1.0F, 1.0F / (getRNG().nextFloat() * 0.4F + 0.8F));
+		playSound(SoundEvents.ENTITY_SKELETON_SHOOT, 1F, 1F / (getRNG().nextFloat() * 0.4F + 0.8F));
 		world.spawnEntity(entityarrow);
 	}
 

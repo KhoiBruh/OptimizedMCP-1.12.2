@@ -39,8 +39,8 @@ public class EntityElderGuardian extends EntityGuardian {
 
 		super.applyEntityAttributes();
 		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.30000001192092896D);
-		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(8.0D);
-		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(80.0D);
+		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(8D);
+		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(80D);
 	}
 
 	
@@ -56,7 +56,7 @@ public class EntityElderGuardian extends EntityGuardian {
 
 	public void setGhost() {
 
-		clientSideSpikesAnimation = 1.0F;
+		clientSideSpikesAnimation = 1F;
 		clientSideSpikesAnimationO = clientSideSpikesAnimation;
 	}
 
@@ -87,14 +87,14 @@ public class EntityElderGuardian extends EntityGuardian {
 
 		if ((ticksExisted + getEntityId()) % 1200 == 0) {
 			Potion potion = MobEffects.MINING_FATIGUE;
-			List<EntityPlayerMP> list = world.getPlayers(EntityPlayerMP.class, p_apply_1_ -> getDistanceSq(p_apply_1_) < 2500.0D && p_apply_1_.interactionManager.survivalOrAdventure());
+			List<EntityPlayerMP> list = world.getPlayers(EntityPlayerMP.class, p_apply_1_ -> getDistanceSq(p_apply_1_) < 2500D && p_apply_1_.interactionManager.survivalOrAdventure());
 			int j = 2;
 			int k = 6000;
 			int l = 1200;
 
 			for (EntityPlayerMP entityplayermp : list) {
 				if (!entityplayermp.isPotionActive(potion) || entityplayermp.getActivePotionEffect(potion).getAmplifier() < 2 || entityplayermp.getActivePotionEffect(potion).getDuration() < 1200) {
-					entityplayermp.connection.sendPacket(new SPacketChangeGameState(10, 0.0F));
+					entityplayermp.connection.sendPacket(new SPacketChangeGameState(10, 0F));
 					entityplayermp.addPotionEffect(new PotionEffect(potion, 6000, 2));
 				}
 			}

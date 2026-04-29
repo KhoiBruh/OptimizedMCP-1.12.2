@@ -29,9 +29,9 @@ public class RenderSnowball<T extends Entity> extends Render<T> {
 		GlStateManager.pushMatrix();
 		GlStateManager.translate((float) x, (float) y, (float) z);
 		GlStateManager.enableRescaleNormal();
-		GlStateManager.rotate(-renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
-		GlStateManager.rotate((float) (renderManager.options.thirdPersonView == 2 ? -1 : 1) * renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
-		GlStateManager.rotate(180.0F, 0.0F, 1.0F, 0.0F);
+		GlStateManager.rotate(-renderManager.playerViewY, 0F, 1F, 0F);
+		GlStateManager.rotate((float) (renderManager.options.thirdPersonView == 2 ? -1 : 1) * renderManager.playerViewX, 1F, 0F, 0F);
+		GlStateManager.rotate(180F, 0F, 1F, 0F);
 		bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 
 		if (renderOutlines) {

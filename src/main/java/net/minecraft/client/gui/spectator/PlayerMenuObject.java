@@ -35,9 +35,9 @@ public class PlayerMenuObject implements ISpectatorMenuObject {
 	public void renderIcon(float brightness, int alpha) {
 
 		Minecraft.getMinecraft().getTextureManager().bindTexture(resourceLocation);
-		GlStateManager.color(1.0F, 1.0F, 1.0F, (float) alpha / 255.0F);
-		Gui.drawScaledCustomSizeModalRect(2, 2, 8.0F, 8.0F, 8, 8, 12, 12, 64.0F, 64.0F);
-		Gui.drawScaledCustomSizeModalRect(2, 2, 40.0F, 8.0F, 8, 8, 12, 12, 64.0F, 64.0F);
+		GlStateManager.color(1F, 1F, 1F, (float) alpha / 255F);
+		Gui.drawScaledCustomSizeModalRect(2, 2, 8F, 8F, 8, 8, 12, 12, 64F, 64F);
+		Gui.drawScaledCustomSizeModalRect(2, 2, 40F, 8F, 8, 8, 12, 12, 64F, 64F);
 	}
 
 	public boolean isEnabled() {

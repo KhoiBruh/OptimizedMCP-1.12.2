@@ -15,13 +15,13 @@ public class GuiOptionSlider extends GuiButton {
 
 	public GuiOptionSlider(int buttonId, int x, int y, GameSettings.Options optionIn) {
 
-		this(buttonId, x, y, optionIn, 0.0F, 1.0F);
+		this(buttonId, x, y, optionIn, 0F, 1F);
 	}
 
 	public GuiOptionSlider(int buttonId, int x, int y, GameSettings.Options optionIn, float minValueIn, float maxValue) {
 
 		super(buttonId, x, y, 150, 20, "");
-		sliderValue = 1.0F;
+		sliderValue = 1F;
 		options = optionIn;
 		minValue = minValueIn;
 		this.maxValue = maxValue;
@@ -47,7 +47,7 @@ public class GuiOptionSlider extends GuiButton {
 		if (visible) {
 			if (dragging) {
 				sliderValue = (float) (mouseX - (x + 4)) / (float) (width - 8);
-				sliderValue = MathHelper.clamp(sliderValue, 0.0F, 1.0F);
+				sliderValue = MathHelper.clamp(sliderValue, 0F, 1F);
 				float f = options.denormalizeValue(sliderValue);
 				mc.gameSettings.setOptionFloatValue(options, f);
 				sliderValue = options.normalizeValue(f);
@@ -55,7 +55,7 @@ public class GuiOptionSlider extends GuiButton {
 			}
 
 			mc.getTextureManager().bindTexture(BUTTON_TEXTURES);
-			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+			GlStateManager.color(1F, 1F, 1F, 1F);
 			drawTexturedModalRect(x + (int) (sliderValue * (float) (width - 8)), y, 0, 66, 4, 20);
 			drawTexturedModalRect(x + (int) (sliderValue * (float) (width - 8)) + 4, y, 196, 66, 4, 20);
 		}
@@ -69,7 +69,7 @@ public class GuiOptionSlider extends GuiButton {
 
 		if (super.mousePressed(mc, mouseX, mouseY)) {
 			sliderValue = (float) (mouseX - (x + 4)) / (float) (width - 8);
-			sliderValue = MathHelper.clamp(sliderValue, 0.0F, 1.0F);
+			sliderValue = MathHelper.clamp(sliderValue, 0F, 1F);
 			mc.gameSettings.setOptionFloatValue(options, options.denormalizeValue(sliderValue));
 			displayString = mc.gameSettings.getKeyBinding(options);
 			dragging = true;

@@ -150,13 +150,13 @@ public class EntitySlime extends EntityLiving implements IMob {
 				EnumParticleTypes enumparticletypes = getParticleType();
 				double d0 = posX + (double) f2;
 				double d1 = posZ + (double) f3;
-				world.spawnParticle(enumparticletypes, d0, getEntityBoundingBox().minY, d1, 0.0D, 0.0D, 0.0D);
+				world.spawnParticle(enumparticletypes, d0, getEntityBoundingBox().minY, d1, 0D, 0D, 0D);
 			}
 
-			playSound(getSquishSound(), getSoundVolume(), ((rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F) / 0.8F);
+			playSound(getSquishSound(), getSoundVolume(), ((rand.nextFloat() - rand.nextFloat()) * 0.2F + 1F) / 0.8F);
 			squishAmount = -0.5F;
 		} else if (!onGround && wasOnGround) {
-			squishAmount = 1.0F;
+			squishAmount = 1F;
 		}
 
 		wasOnGround = onGround;
@@ -204,12 +204,12 @@ public class EntitySlime extends EntityLiving implements IMob {
 
 		int i = getSlimeSize();
 
-		if (!world.isRemote && i > 1 && getHealth() <= 0.0F) {
+		if (!world.isRemote && i > 1 && getHealth() <= 0F) {
 			int j = 2 + rand.nextInt(3);
 
 			for (int k = 0; k < j; ++k) {
-				float f = ((float) (k % 2) - 0.5F) * (float) i / 4.0F;
-				float f1 = ((float) (k / 2) - 0.5F) * (float) i / 4.0F;
+				float f = ((float) (k % 2) - 0.5F) * (float) i / 4F;
+				float f1 = ((float) (k / 2) - 0.5F) * (float) i / 4F;
 				EntitySlime entityslime = createInstance();
 
 				if (hasCustomName()) {
@@ -221,7 +221,7 @@ public class EntitySlime extends EntityLiving implements IMob {
 				}
 
 				entityslime.setSlimeSize(i / 2, true);
-				entityslime.setLocationAndAngles(posX + (double) f, posY + 0.5D, posZ + (double) f1, rand.nextFloat() * 360.0F, 0.0F);
+				entityslime.setLocationAndAngles(posX + (double) f, posY + 0.5D, posZ + (double) f1, rand.nextFloat() * 360F, 0F);
 				world.spawnEntity(entityslime);
 			}
 		}
@@ -256,7 +256,7 @@ public class EntitySlime extends EntityLiving implements IMob {
 		int i = getSlimeSize();
 
 		if (canEntityBeSeen(entityIn) && getDistanceSq(entityIn) < 0.6D * (double) i * 0.6D * (double) i && entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), (float) getAttackStrength())) {
-			playSound(SoundEvents.ENTITY_SLIME_ATTACK, 1.0F, (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F);
+			playSound(SoundEvents.ENTITY_SLIME_ATTACK, 1F, (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1F);
 			applyEnchantments(this, entityIn);
 		}
 	}
@@ -322,11 +322,11 @@ public class EntitySlime extends EntityLiving implements IMob {
 			if (world.getDifficulty() != EnumDifficulty.PEACEFUL) {
 				Biome biome = world.getBiome(blockpos);
 
-				if (biome == Biomes.SWAMPLAND && posY > 50.0D && posY < 70.0D && rand.nextFloat() < 0.5F && rand.nextFloat() < world.getCurrentMoonPhaseFactor() && world.getLightFromNeighbors(new BlockPos(this)) <= rand.nextInt(8)) {
+				if (biome == Biomes.SWAMPLAND && posY > 50D && posY < 70D && rand.nextFloat() < 0.5F && rand.nextFloat() < world.getCurrentMoonPhaseFactor() && world.getLightFromNeighbors(new BlockPos(this)) <= rand.nextInt(8)) {
 					return super.getCanSpawnHere();
 				}
 
-				if (rand.nextInt(10) == 0 && chunk.getRandomWithSeed(987234911L).nextInt(10) == 0 && posY < 40.0D) {
+				if (rand.nextInt(10) == 0 && chunk.getRandomWithSeed(987234911L).nextInt(10) == 0 && posY < 40D) {
 					return super.getCanSpawnHere();
 				}
 			}
@@ -450,7 +450,7 @@ public class EntitySlime extends EntityLiving implements IMob {
 
 		public void updateTask() {
 
-			slime.faceEntity(slime.getAttackTarget(), 10.0F, 10.0F);
+			slime.faceEntity(slime.getAttackTarget(), 10F, 10F);
 			((EntitySlime.SlimeMoveHelper) slime.getMoveHelper()).setDirection(slime.rotationYaw, slime.canDamagePlayer());
 		}
 
@@ -529,7 +529,7 @@ public class EntitySlime extends EntityLiving implements IMob {
 
 		public void updateTask() {
 
-			((EntitySlime.SlimeMoveHelper) slime.getMoveHelper()).setSpeed(1.0D);
+			((EntitySlime.SlimeMoveHelper) slime.getMoveHelper()).setSpeed(1D);
 		}
 
 	}
@@ -545,7 +545,7 @@ public class EntitySlime extends EntityLiving implements IMob {
 
 			super(slimeIn);
 			slime = slimeIn;
-			yRot = 180.0F * slimeIn.rotationYaw / (float) Math.PI;
+			yRot = 180F * slimeIn.rotationYaw / (float) Math.PI;
 		}
 
 		public void setDirection(float p_179920_1_, boolean p_179920_2_) {
@@ -562,12 +562,12 @@ public class EntitySlime extends EntityLiving implements IMob {
 
 		public void onUpdateMoveHelper() {
 
-			entity.rotationYaw = limitAngle(entity.rotationYaw, yRot, 90.0F);
+			entity.rotationYaw = limitAngle(entity.rotationYaw, yRot, 90F);
 			entity.rotationYawHead = entity.rotationYaw;
 			entity.renderYawOffset = entity.rotationYaw;
 
 			if (action != EntityMoveHelper.Action.MOVE_TO) {
-				entity.setMoveForward(0.0F);
+				entity.setMoveForward(0F);
 			} else {
 				action = EntityMoveHelper.Action.WAIT;
 
@@ -584,12 +584,12 @@ public class EntitySlime extends EntityLiving implements IMob {
 						slime.getJumpHelper().setJumping();
 
 						if (slime.makesSoundOnJump()) {
-							slime.playSound(slime.getJumpSound(), slime.getSoundVolume(), ((slime.getRNG().nextFloat() - slime.getRNG().nextFloat()) * 0.2F + 1.0F) * 0.8F);
+							slime.playSound(slime.getJumpSound(), slime.getSoundVolume(), ((slime.getRNG().nextFloat() - slime.getRNG().nextFloat()) * 0.2F + 1F) * 0.8F);
 						}
 					} else {
-						slime.moveStrafing = 0.0F;
-						slime.moveForward = 0.0F;
-						entity.setAIMoveSpeed(0.0F);
+						slime.moveStrafing = 0F;
+						slime.moveForward = 0F;
+						entity.setAIMoveSpeed(0F);
 					}
 				} else {
 					entity.setAIMoveSpeed((float) (speed * entity.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue()));

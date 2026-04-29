@@ -34,7 +34,7 @@ public class ActiveRenderInfo {
 	 * The computed view object coordinates
 	 */
 	private static final FloatBuffer OBJECTCOORDS = GLAllocation.createDirectFloatBuffer(3);
-	private static Vec3d position = new Vec3d(0.0D, 0.0D, 0.0D);
+	private static Vec3d position = new Vec3d(0D, 0D, 0D);
 
 	/**
 	 * The X component of the entity's yaw rotation
@@ -71,7 +71,7 @@ public class ActiveRenderInfo {
 		GlStateManager.glGetInteger(2978, VIEWPORT);
 		float f = (float) ((VIEWPORT.get(0) + VIEWPORT.get(2)) / 2);
 		float f1 = (float) ((VIEWPORT.get(1) + VIEWPORT.get(3)) / 2);
-		GLU.gluUnProject(f, f1, 0.0F, MODELVIEW, PROJECTION, VIEWPORT, OBJECTCOORDS);
+		GLU.gluUnProject(f, f1, 0F, MODELVIEW, PROJECTION, VIEWPORT, OBJECTCOORDS);
 		position = new Vec3d(OBJECTCOORDS.get(0), OBJECTCOORDS.get(1), OBJECTCOORDS.get(2));
 		int i = p_74583_1_ ? 1 : 0;
 		float f2 = entityplayerIn.rotationPitch;
@@ -101,7 +101,7 @@ public class ActiveRenderInfo {
 		IBlockState iblockstate = worldIn.getBlockState(blockpos);
 
 		if (iblockstate.getMaterial().isLiquid()) {
-			float f = 0.0F;
+			float f = 0F;
 
 			if (iblockstate.getBlock() instanceof BlockLiquid) {
 				f = BlockLiquid.getLiquidHeightPercent(iblockstate.getValue(BlockLiquid.LEVEL)) - 0.11111111F;

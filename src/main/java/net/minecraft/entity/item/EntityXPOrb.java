@@ -52,10 +52,10 @@ public class EntityXPOrb extends Entity {
 		super(worldIn);
 		setSize(0.5F, 0.5F);
 		setPosition(x, y, z);
-		rotationYaw = (float) (Math.random() * 360.0D);
-		motionX = (float) (Math.random() * 0.20000000298023224D - 0.10000000149011612D) * 2.0F;
-		motionY = (float) (Math.random() * 0.2D) * 2.0F;
-		motionZ = (float) (Math.random() * 0.20000000298023224D - 0.10000000149011612D) * 2.0F;
+		rotationYaw = (float) (Math.random() * 360D);
+		motionX = (float) (Math.random() * 0.20000000298023224D - 0.10000000149011612D) * 2F;
+		motionY = (float) (Math.random() * 0.2D) * 2F;
+		motionZ = (float) (Math.random() * 0.20000000298023224D - 0.10000000149011612D) * 2F;
 		xpValue = expValue;
 	}
 
@@ -109,11 +109,11 @@ public class EntityXPOrb extends Entity {
 	public int getBrightnessForRender() {
 
 		float f = 0.5F;
-		f = MathHelper.clamp(f, 0.0F, 1.0F);
+		f = MathHelper.clamp(f, 0F, 1F);
 		int i = super.getBrightnessForRender();
 		int j = i & 255;
 		int k = i >> 16 & 255;
-		j = j + (int) (f * 15.0F * 16.0F);
+		j = j + (int) (f * 15F * 16F);
 
 		if (j > 240) {
 			j = 240;
@@ -145,15 +145,15 @@ public class EntityXPOrb extends Entity {
 			motionY = 0.20000000298023224D;
 			motionX = (rand.nextFloat() - rand.nextFloat()) * 0.2F;
 			motionZ = (rand.nextFloat() - rand.nextFloat()) * 0.2F;
-			playSound(SoundEvents.ENTITY_GENERIC_BURN, 0.4F, 2.0F + rand.nextFloat() * 0.4F);
+			playSound(SoundEvents.ENTITY_GENERIC_BURN, 0.4F, 2F + rand.nextFloat() * 0.4F);
 		}
 
-		pushOutOfBlocks(posX, (getEntityBoundingBox().minY + getEntityBoundingBox().maxY) / 2.0D, posZ);
-		double d0 = 8.0D;
+		pushOutOfBlocks(posX, (getEntityBoundingBox().minY + getEntityBoundingBox().maxY) / 2D, posZ);
+		double d0 = 8D;
 
 		if (xpTargetColor < xpColor - 20 + getEntityId() % 100) {
-			if (closestPlayer == null || closestPlayer.getDistanceSq(this) > 64.0D) {
-				closestPlayer = world.getClosestPlayerToEntity(this, 8.0D);
+			if (closestPlayer == null || closestPlayer.getDistanceSq(this) > 64D) {
+				closestPlayer = world.getClosestPlayerToEntity(this, 8D);
 			}
 
 			xpTargetColor = xpColor;
@@ -164,13 +164,13 @@ public class EntityXPOrb extends Entity {
 		}
 
 		if (closestPlayer != null) {
-			double d1 = (closestPlayer.posX - posX) / 8.0D;
-			double d2 = (closestPlayer.posY + (double) closestPlayer.getEyeHeight() / 2.0D - posY) / 8.0D;
-			double d3 = (closestPlayer.posZ - posZ) / 8.0D;
+			double d1 = (closestPlayer.posX - posX) / 8D;
+			double d2 = (closestPlayer.posY + (double) closestPlayer.getEyeHeight() / 2D - posY) / 8D;
+			double d3 = (closestPlayer.posZ - posZ) / 8D;
 			double d4 = Math.sqrt(d1 * d1 + d2 * d2 + d3 * d3);
-			double d5 = 1.0D - d4;
+			double d5 = 1D - d4;
 
-			if (d5 > 0.0D) {
+			if (d5 > 0D) {
 				d5 = d5 * d5;
 				motionX += d1 / d4 * d5 * 0.1D;
 				motionY += d2 / d4 * d5 * 0.1D;

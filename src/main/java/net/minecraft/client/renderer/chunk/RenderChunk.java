@@ -270,9 +270,9 @@ public class RenderChunk {
 	protected double getDistanceSq() {
 
 		EntityPlayerSP entityplayersp = Minecraft.getMinecraft().player;
-		double d0 = boundingBox.minX + 8.0D - entityplayersp.posX;
-		double d1 = boundingBox.minY + 8.0D - entityplayersp.posY;
-		double d2 = boundingBox.minZ + 8.0D - entityplayersp.posZ;
+		double d0 = boundingBox.minX + 8D - entityplayersp.posX;
+		double d1 = boundingBox.minY + 8D - entityplayersp.posY;
+		double d2 = boundingBox.minZ + 8D - entityplayersp.posZ;
 		return d0 * d0 + d1 * d1 + d2 * d2;
 	}
 
@@ -297,9 +297,9 @@ public class RenderChunk {
 		GlStateManager.pushMatrix();
 		GlStateManager.loadIdentity();
 		float f = 1.000001F;
-		GlStateManager.translate(-8.0F, -8.0F, -8.0F);
+		GlStateManager.translate(-8F, -8F, -8F);
 		GlStateManager.scale(1.000001F, 1.000001F, 1.000001F);
-		GlStateManager.translate(8.0F, 8.0F, 8.0F);
+		GlStateManager.translate(8F, 8F, 8F);
 		GlStateManager.getFloat(2982, modelviewMatrix);
 		GlStateManager.popMatrix();
 	}

@@ -132,30 +132,30 @@ public abstract class AbstractClientPlayer extends EntityPlayer {
 
 	public float getFovModifier() {
 
-		float f = 1.0F;
+		float f = 1F;
 
 		if (capabilities.isFlying) {
 			f *= 1.1F;
 		}
 
 		IAttributeInstance iattributeinstance = getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED);
-		f = (float) ((double) f * ((iattributeinstance.getAttributeValue() / (double) capabilities.getWalkSpeed() + 1.0D) / 2.0D));
+		f = (float) ((double) f * ((iattributeinstance.getAttributeValue() / (double) capabilities.getWalkSpeed() + 1D) / 2D));
 
-		if (capabilities.getWalkSpeed() == 0.0F || Float.isNaN(f) || Float.isInfinite(f)) {
-			f = 1.0F;
+		if (capabilities.getWalkSpeed() == 0F || Float.isNaN(f) || Float.isInfinite(f)) {
+			f = 1F;
 		}
 
 		if (isHandActive() && getActiveItemStack().getItem() == Items.BOW) {
 			int i = getItemInUseMaxCount();
-			float f1 = (float) i / 20.0F;
+			float f1 = (float) i / 20F;
 
-			if (f1 > 1.0F) {
-				f1 = 1.0F;
+			if (f1 > 1F) {
+				f1 = 1F;
 			} else {
 				f1 = f1 * f1;
 			}
 
-			f *= 1.0F - f1 * 0.15F;
+			f *= 1F - f1 * 0.15F;
 		}
 
 		return f;

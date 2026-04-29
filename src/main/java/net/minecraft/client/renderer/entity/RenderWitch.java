@@ -12,7 +12,7 @@ public class RenderWitch extends RenderLiving<EntityWitch> {
 
 	public RenderWitch(RenderManager renderManagerIn) {
 
-		super(renderManagerIn, new ModelWitch(0.0F), 0.5F);
+		super(renderManagerIn, new ModelWitch(0F), 0.5F);
 		addLayer(new LayerHeldItemWitch(this));
 	}
 
@@ -40,7 +40,7 @@ public class RenderWitch extends RenderLiving<EntityWitch> {
 
 	public void transformHeldFull3DItemLayer() {
 
-		GlStateManager.translate(0.0F, 0.1875F, 0.0F);
+		GlStateManager.translate(0F, 0.1875F, 0F);
 	}
 
 	/**

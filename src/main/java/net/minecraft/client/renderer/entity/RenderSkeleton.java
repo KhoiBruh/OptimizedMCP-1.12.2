@@ -19,14 +19,14 @@ public class RenderSkeleton extends RenderBiped<AbstractSkeleton> {
 			protected void initArmor() {
 
 				modelLeggings = new ModelSkeleton(0.5F, true);
-				modelArmor = new ModelSkeleton(1.0F, true);
+				modelArmor = new ModelSkeleton(1F, true);
 			}
 		});
 	}
 
 	public void transformHeldFull3DItemLayer() {
 
-		GlStateManager.translate(0.09375F, 0.1875F, 0.0F);
+		GlStateManager.translate(0.09375F, 0.1875F, 0F);
 	}
 
 	/**

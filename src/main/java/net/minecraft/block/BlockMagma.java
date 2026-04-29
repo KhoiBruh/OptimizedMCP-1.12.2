@@ -43,7 +43,7 @@ public class BlockMagma extends Block {
 	public void onEntityWalk(World worldIn, BlockPos pos, Entity entityIn) {
 
 		if (!entityIn.isImmuneToFire() && entityIn instanceof EntityLivingBase && !EnchantmentHelper.hasFrostWalkerEnchantment((EntityLivingBase) entityIn)) {
-			entityIn.attackEntityFrom(DamageSource.HOT_FLOOR, 1.0F);
+			entityIn.attackEntityFrom(DamageSource.HOT_FLOOR, 1F);
 		}
 
 		super.onEntityWalk(worldIn, pos, entityIn);
@@ -64,7 +64,7 @@ public class BlockMagma extends Block {
 			worldIn.playSound(null, pos, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 0.5F, 2.6F + (worldIn.rand.nextFloat() - worldIn.rand.nextFloat()) * 0.8F);
 
 			if (worldIn instanceof WorldServer) {
-				((WorldServer) worldIn).spawnParticle(EnumParticleTypes.SMOKE_LARGE, (double) blockpos.getX() + 0.5D, (double) blockpos.getY() + 0.25D, (double) blockpos.getZ() + 0.5D, 8, 0.5D, 0.25D, 0.5D, 0.0D);
+				((WorldServer) worldIn).spawnParticle(EnumParticleTypes.SMOKE_LARGE, (double) blockpos.getX() + 0.5D, (double) blockpos.getY() + 0.25D, (double) blockpos.getZ() + 0.5D, 8, 0.5D, 0.25D, 0.5D, 0D);
 			}
 		}
 	}

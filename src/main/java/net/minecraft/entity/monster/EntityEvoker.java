@@ -43,13 +43,13 @@ public class EntityEvoker extends EntitySpellcasterIllager {
 		super.initEntityAI();
 		tasks.addTask(0, new EntityAISwimming(this));
 		tasks.addTask(1, new EntityEvoker.AICastingSpell());
-		tasks.addTask(2, new EntityAIAvoidEntity<>(this, EntityPlayer.class, 8.0F, 0.6D, 1.0D));
+		tasks.addTask(2, new EntityAIAvoidEntity<>(this, EntityPlayer.class, 8F, 0.6D, 1D));
 		tasks.addTask(4, new EntityEvoker.AISummonSpell());
 		tasks.addTask(5, new EntityEvoker.AIAttackSpell());
 		tasks.addTask(6, new EntityEvoker.AIWololoSpell());
 		tasks.addTask(8, new EntityAIWander(this, 0.6D));
-		tasks.addTask(9, new EntityAIWatchClosest(this, EntityPlayer.class, 3.0F, 1.0F));
-		tasks.addTask(10, new EntityAIWatchClosest(this, EntityLiving.class, 8.0F));
+		tasks.addTask(9, new EntityAIWatchClosest(this, EntityPlayer.class, 3F, 1F));
+		tasks.addTask(10, new EntityAIWatchClosest(this, EntityLiving.class, 8F));
 		targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, EntityEvoker.class));
 		targetTasks.addTask(2, new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, true).setUnseenMemoryTicks(300));
 		targetTasks.addTask(3, new EntityAINearestAttackableTarget<>(this, EntityVillager.class, false).setUnseenMemoryTicks(300));
@@ -60,8 +60,8 @@ public class EntityEvoker extends EntitySpellcasterIllager {
 
 		super.applyEntityAttributes();
 		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.5D);
-		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(12.0D);
-		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(24.0D);
+		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(12D);
+		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(24D);
 	}
 
 	protected void entityInit() {
@@ -174,17 +174,17 @@ public class EntityEvoker extends EntitySpellcasterIllager {
 
 			EntityLivingBase entitylivingbase = getAttackTarget();
 			double d0 = Math.min(entitylivingbase.posY, posY);
-			double d1 = Math.max(entitylivingbase.posY, posY) + 1.0D;
+			double d1 = Math.max(entitylivingbase.posY, posY) + 1D;
 			float f = (float) MathHelper.atan2(entitylivingbase.posZ - posZ, entitylivingbase.posX - posX);
 
-			if (getDistanceSq(entitylivingbase) < 9.0D) {
+			if (getDistanceSq(entitylivingbase) < 9D) {
 				for (int i = 0; i < 5; ++i) {
 					float f1 = f + (float) i * (float) Math.PI * 0.4F;
 					spawnFangs(posX + (double) MathHelper.cos(f1) * 1.5D, posZ + (double) MathHelper.sin(f1) * 1.5D, d0, d1, f1, 0);
 				}
 
 				for (int k = 0; k < 8; ++k) {
-					float f2 = f + (float) k * (float) Math.PI * 2.0F / 8.0F + ((float) Math.PI * 2F / 5F);
+					float f2 = f + (float) k * (float) Math.PI * 2F / 8F + ((float) Math.PI * 2F / 5F);
 					spawnFangs(posX + (double) MathHelper.cos(f2) * 2.5D, posZ + (double) MathHelper.sin(f2) * 2.5D, d0, d1, f2, 3);
 				}
 			} else {
@@ -199,7 +199,7 @@ public class EntityEvoker extends EntitySpellcasterIllager {
 
 			BlockPos blockpos = new BlockPos(p_190876_1_, p_190876_7_, p_190876_3_);
 			boolean flag = false;
-			double d0 = 0.0D;
+			double d0 = 0D;
 
 			while (true) {
 				if (!world.isBlockNormalCube(blockpos, true) && world.isBlockNormalCube(blockpos.down(), true)) {
@@ -269,7 +269,7 @@ public class EntityEvoker extends EntitySpellcasterIllager {
 			if (!super.shouldExecute()) {
 				return false;
 			} else {
-				int i = world.getEntitiesWithinAABB(EntityVex.class, getEntityBoundingBox().grow(16.0D)).size();
+				int i = world.getEntitiesWithinAABB(EntityVex.class, getEntityBoundingBox().grow(16D)).size();
 				return rand.nextInt(8) + 1 > i;
 			}
 		}
@@ -289,7 +289,7 @@ public class EntityEvoker extends EntitySpellcasterIllager {
 			for (int i = 0; i < 3; ++i) {
 				BlockPos blockpos = (new BlockPos(EntityEvoker.this)).add(-2 + rand.nextInt(5), 1, -2 + rand.nextInt(5));
 				EntityVex entityvex = new EntityVex(world);
-				entityvex.moveToBlockPosAndAngles(blockpos, 0.0F, 0.0F);
+				entityvex.moveToBlockPosAndAngles(blockpos, 0F, 0F);
 				entityvex.onInitialSpawn(world.getDifficultyForLocation(blockpos), null);
 				entityvex.setOwner(EntityEvoker.this);
 				entityvex.setBoundOrigin(blockpos);
@@ -329,7 +329,7 @@ public class EntityEvoker extends EntitySpellcasterIllager {
 			} else if (!world.getGameRules().getBoolean("mobGriefing")) {
 				return false;
 			} else {
-				List<EntitySheep> list = world.getEntitiesWithinAABB(EntitySheep.class, getEntityBoundingBox().grow(16.0D, 4.0D, 16.0D), wololoSelector);
+				List<EntitySheep> list = world.getEntitiesWithinAABB(EntitySheep.class, getEntityBoundingBox().grow(16D, 4D, 16D), wololoSelector);
 
 				if (list.isEmpty()) {
 					return false;

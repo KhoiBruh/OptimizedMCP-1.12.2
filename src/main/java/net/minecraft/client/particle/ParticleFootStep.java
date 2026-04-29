@@ -20,11 +20,11 @@ public class ParticleFootStep extends Particle {
 
 	protected ParticleFootStep(TextureManager currentFootStepsIn, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn) {
 
-		super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0.0D, 0.0D, 0.0D);
+		super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0D, 0D, 0D);
 		currentFootSteps = currentFootStepsIn;
-		motionX = 0.0D;
-		motionY = 0.0D;
-		motionZ = 0.0D;
+		motionX = 0D;
+		motionY = 0D;
+		motionZ = 0D;
 		footstepMaxAge = 200;
 	}
 
@@ -35,10 +35,10 @@ public class ParticleFootStep extends Particle {
 
 		float f = ((float) footstepAge + partialTicks) / (float) footstepMaxAge;
 		f = f * f;
-		float f1 = 2.0F - f * 2.0F;
+		float f1 = 2F - f * 2F;
 
-		if (f1 > 1.0F) {
-			f1 = 1.0F;
+		if (f1 > 1F) {
+			f1 = 1F;
 		}
 
 		f1 = f1 * 0.2F;
@@ -52,10 +52,10 @@ public class ParticleFootStep extends Particle {
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
 		buffer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-		buffer.pos(f3 - 0.125F, f4, f5 + 0.125F).tex(0.0D, 1.0D).color(f6, f6, f6, f1).endVertex();
-		buffer.pos(f3 + 0.125F, f4, f5 + 0.125F).tex(1.0D, 1.0D).color(f6, f6, f6, f1).endVertex();
-		buffer.pos(f3 + 0.125F, f4, f5 - 0.125F).tex(1.0D, 0.0D).color(f6, f6, f6, f1).endVertex();
-		buffer.pos(f3 - 0.125F, f4, f5 - 0.125F).tex(0.0D, 0.0D).color(f6, f6, f6, f1).endVertex();
+		buffer.pos(f3 - 0.125F, f4, f5 + 0.125F).tex(0D, 1D).color(f6, f6, f6, f1).endVertex();
+		buffer.pos(f3 + 0.125F, f4, f5 + 0.125F).tex(1D, 1D).color(f6, f6, f6, f1).endVertex();
+		buffer.pos(f3 + 0.125F, f4, f5 - 0.125F).tex(1D, 0D).color(f6, f6, f6, f1).endVertex();
+		buffer.pos(f3 - 0.125F, f4, f5 - 0.125F).tex(0D, 0D).color(f6, f6, f6, f1).endVertex();
 		Tessellator.getInstance().draw();
 		GlStateManager.disableBlend();
 		GlStateManager.enableLighting();

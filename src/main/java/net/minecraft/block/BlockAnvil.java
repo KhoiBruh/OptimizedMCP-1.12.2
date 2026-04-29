@@ -33,8 +33,8 @@ public class BlockAnvil extends BlockFalling {
 
 	public static final PropertyDirection FACING = BlockHorizontal.FACING;
 	public static final PropertyInteger DAMAGE = PropertyInteger.create("damage", 0, 2);
-	protected static final AxisAlignedBB X_AXIS_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.125D, 1.0D, 1.0D, 0.875D);
-	protected static final AxisAlignedBB Z_AXIS_AABB = new AxisAlignedBB(0.125D, 0.0D, 0.0D, 0.875D, 1.0D, 1.0D);
+	protected static final AxisAlignedBB X_AXIS_AABB = new AxisAlignedBB(0D, 0D, 0.125D, 1D, 1D, 0.875D);
+	protected static final AxisAlignedBB Z_AXIS_AABB = new AxisAlignedBB(0.125D, 0D, 0D, 0.875D, 1D, 1D);
 	protected static final Logger LOGGER = LogManager.getLogger();
 
 	protected BlockAnvil() {

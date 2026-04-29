@@ -23,10 +23,10 @@ public class PhaseDying extends PhaseBase {
 	public void doClientRenderEffects() {
 
 		if (time++ % 10 == 0) {
-			float f = (dragon.getRNG().nextFloat() - 0.5F) * 8.0F;
-			float f1 = (dragon.getRNG().nextFloat() - 0.5F) * 4.0F;
-			float f2 = (dragon.getRNG().nextFloat() - 0.5F) * 8.0F;
-			dragon.world.spawnParticle(EnumParticleTypes.EXPLOSION_HUGE, dragon.posX + (double) f, dragon.posY + 2.0D + (double) f1, dragon.posZ + (double) f2, 0.0D, 0.0D, 0.0D);
+			float f = (dragon.getRNG().nextFloat() - 0.5F) * 8F;
+			float f1 = (dragon.getRNG().nextFloat() - 0.5F) * 4F;
+			float f2 = (dragon.getRNG().nextFloat() - 0.5F) * 8F;
+			dragon.world.spawnParticle(EnumParticleTypes.EXPLOSION_HUGE, dragon.posX + (double) f, dragon.posY + 2D + (double) f1, dragon.posZ + (double) f2, 0D, 0D, 0D);
 		}
 	}
 
@@ -45,10 +45,10 @@ public class PhaseDying extends PhaseBase {
 
 		double d0 = targetLocation.squareDistanceTo(dragon.posX, dragon.posY, dragon.posZ);
 
-		if (d0 >= 100.0D && d0 <= 22500.0D && !dragon.collidedHorizontally && !dragon.collidedVertically) {
-			dragon.setHealth(1.0F);
+		if (d0 >= 100D && d0 <= 22500D && !dragon.collidedHorizontally && !dragon.collidedVertically) {
+			dragon.setHealth(1F);
 		} else {
-			dragon.setHealth(0.0F);
+			dragon.setHealth(0F);
 		}
 	}
 
@@ -66,7 +66,7 @@ public class PhaseDying extends PhaseBase {
 	 */
 	public float getMaxRiseOrFall() {
 
-		return 3.0F;
+		return 3F;
 	}
 
 	

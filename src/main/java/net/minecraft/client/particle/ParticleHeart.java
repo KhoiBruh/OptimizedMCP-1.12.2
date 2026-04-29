@@ -11,12 +11,12 @@ public class ParticleHeart extends Particle {
 
 	protected ParticleHeart(World worldIn, double p_i1211_2_, double p_i1211_4_, double p_i1211_6_, double p_i1211_8_, double p_i1211_10_, double p_i1211_12_) {
 
-		this(worldIn, p_i1211_2_, p_i1211_4_, p_i1211_6_, p_i1211_8_, p_i1211_10_, p_i1211_12_, 2.0F);
+		this(worldIn, p_i1211_2_, p_i1211_4_, p_i1211_6_, p_i1211_8_, p_i1211_10_, p_i1211_12_, 2F);
 	}
 
 	protected ParticleHeart(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double p_i46354_8_, double p_i46354_10_, double p_i46354_12_, float scale) {
 
-		super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0.0D, 0.0D, 0.0D);
+		super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0D, 0D, 0D);
 		motionX *= 0.009999999776482582D;
 		motionY *= 0.009999999776482582D;
 		motionZ *= 0.009999999776482582D;
@@ -33,8 +33,8 @@ public class ParticleHeart extends Particle {
 	 */
 	public void renderParticle(BufferBuilder buffer, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
 
-		float f = ((float) particleAge + partialTicks) / (float) particleMaxAge * 32.0F;
-		f = MathHelper.clamp(f, 0.0F, 1.0F);
+		float f = ((float) particleAge + partialTicks) / (float) particleMaxAge * 32F;
+		f = MathHelper.clamp(f, 0F, 1F);
 		particleScale = particleScaleOverTime * f;
 		super.renderParticle(buffer, entityIn, partialTicks, rotationX, rotationZ, rotationYZ, rotationXY, rotationXZ);
 	}
@@ -72,7 +72,7 @@ public class ParticleHeart extends Particle {
 
 			Particle particle = new ParticleHeart(worldIn, xCoordIn, yCoordIn + 0.5D, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
 			particle.setParticleTextureIndex(81);
-			particle.setRBGColorF(1.0F, 1.0F, 1.0F);
+			particle.setRBGColorF(1F, 1F, 1F);
 			return particle;
 		}
 

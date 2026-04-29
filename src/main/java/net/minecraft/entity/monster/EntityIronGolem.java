@@ -52,13 +52,13 @@ public class EntityIronGolem extends EntityGolem {
 
 	protected void initEntityAI() {
 
-		tasks.addTask(1, new EntityAIAttackMelee(this, 1.0D, true));
-		tasks.addTask(2, new EntityAIMoveTowardsTarget(this, 0.9D, 32.0F));
+		tasks.addTask(1, new EntityAIAttackMelee(this, 1D, true));
+		tasks.addTask(2, new EntityAIMoveTowardsTarget(this, 0.9D, 32F));
 		tasks.addTask(3, new EntityAIMoveThroughVillage(this, 0.6D, true));
-		tasks.addTask(4, new EntityAIMoveTowardsRestriction(this, 1.0D));
+		tasks.addTask(4, new EntityAIMoveTowardsRestriction(this, 1D));
 		tasks.addTask(5, new EntityAILookAtVillager(this));
 		tasks.addTask(6, new EntityAIWanderAvoidWater(this, 0.6D));
-		tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
+		tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 6F));
 		tasks.addTask(8, new EntityAILookIdle(this));
 		targetTasks.addTask(1, new EntityAIDefendVillage(this));
 		targetTasks.addTask(2, new EntityAIHurtByTarget(this, false));
@@ -91,9 +91,9 @@ public class EntityIronGolem extends EntityGolem {
 	protected void applyEntityAttributes() {
 
 		super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(100.0D);
+		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(100D);
 		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25D);
-		getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(1.0D);
+		getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(1D);
 	}
 
 	/**
@@ -136,7 +136,7 @@ public class EntityIronGolem extends EntityGolem {
 			IBlockState iblockstate = world.getBlockState(new BlockPos(i, j, k));
 
 			if (iblockstate.getMaterial() != Material.AIR) {
-				world.spawnParticle(EnumParticleTypes.BLOCK_CRACK, posX + ((double) rand.nextFloat() - 0.5D) * (double) width, getEntityBoundingBox().minY + 0.1D, posZ + ((double) rand.nextFloat() - 0.5D) * (double) width, 4.0D * ((double) rand.nextFloat() - 0.5D), 0.5D, ((double) rand.nextFloat() - 0.5D) * 4.0D, Block.getStateId(iblockstate));
+				world.spawnParticle(EnumParticleTypes.BLOCK_CRACK, posX + ((double) rand.nextFloat() - 0.5D) * (double) width, getEntityBoundingBox().minY + 0.1D, posZ + ((double) rand.nextFloat() - 0.5D) * (double) width, 4D * ((double) rand.nextFloat() - 0.5D), 0.5D, ((double) rand.nextFloat() - 0.5D) * 4D, Block.getStateId(iblockstate));
 			}
 		}
 	}
@@ -182,7 +182,7 @@ public class EntityIronGolem extends EntityGolem {
 			applyEnchantments(this, entityIn);
 		}
 
-		playSound(SoundEvents.ENTITY_IRONGOLEM_ATTACK, 1.0F, 1.0F);
+		playSound(SoundEvents.ENTITY_IRONGOLEM_ATTACK, 1F, 1F);
 		return flag;
 	}
 
@@ -193,7 +193,7 @@ public class EntityIronGolem extends EntityGolem {
 
 		if (id == 4) {
 			attackTimer = 10;
-			playSound(SoundEvents.ENTITY_IRONGOLEM_ATTACK, 1.0F, 1.0F);
+			playSound(SoundEvents.ENTITY_IRONGOLEM_ATTACK, 1F, 1F);
 		} else if (id == 11) {
 			holdRoseTick = 400;
 		} else if (id == 34) {
@@ -236,7 +236,7 @@ public class EntityIronGolem extends EntityGolem {
 
 	protected void playStepSound(BlockPos pos, Block blockIn) {
 
-		playSound(SoundEvents.ENTITY_IRONGOLEM_STEP, 1.0F, 1.0F);
+		playSound(SoundEvents.ENTITY_IRONGOLEM_STEP, 1F, 1F);
 	}
 
 	

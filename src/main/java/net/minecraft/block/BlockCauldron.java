@@ -33,11 +33,11 @@ import java.util.Random;
 public class BlockCauldron extends Block {
 
 	public static final PropertyInteger LEVEL = PropertyInteger.create("level", 0, 3);
-	protected static final AxisAlignedBB AABB_LEGS = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.3125D, 1.0D);
-	protected static final AxisAlignedBB AABB_WALL_NORTH = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 0.125D);
-	protected static final AxisAlignedBB AABB_WALL_SOUTH = new AxisAlignedBB(0.0D, 0.0D, 0.875D, 1.0D, 1.0D, 1.0D);
-	protected static final AxisAlignedBB AABB_WALL_EAST = new AxisAlignedBB(0.875D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D);
-	protected static final AxisAlignedBB AABB_WALL_WEST = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 0.125D, 1.0D, 1.0D);
+	protected static final AxisAlignedBB AABB_LEGS = new AxisAlignedBB(0D, 0D, 0D, 1D, 0.3125D, 1D);
+	protected static final AxisAlignedBB AABB_WALL_NORTH = new AxisAlignedBB(0D, 0D, 0D, 1D, 1D, 0.125D);
+	protected static final AxisAlignedBB AABB_WALL_SOUTH = new AxisAlignedBB(0D, 0D, 0.875D, 1D, 1D, 1D);
+	protected static final AxisAlignedBB AABB_WALL_EAST = new AxisAlignedBB(0.875D, 0D, 0D, 1D, 1D, 1D);
+	protected static final AxisAlignedBB AABB_WALL_WEST = new AxisAlignedBB(0D, 0D, 0D, 0.125D, 1D, 1D);
 
 	public BlockCauldron() {
 
@@ -78,7 +78,7 @@ public class BlockCauldron extends Block {
 	public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
 
 		int i = state.getValue(LEVEL);
-		float f = (float) pos.getY() + (6.0F + (float) (3 * i)) / 16.0F;
+		float f = (float) pos.getY() + (6F + (float) (3 * i)) / 16F;
 
 		if (!worldIn.isRemote && entityIn.isBurning() && i > 0 && entityIn.getEntityBoundingBox().minY <= (double) f) {
 			entityIn.extinguish();
@@ -107,7 +107,7 @@ public class BlockCauldron extends Block {
 
 					playerIn.addStat(StatList.CAULDRON_FILLED);
 					setWaterLevel(worldIn, pos, state, 3);
-					worldIn.playSound(null, pos, SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.BLOCKS, 1.0F, 1.0F);
+					worldIn.playSound(null, pos, SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.BLOCKS, 1F, 1F);
 				}
 
 				return true;
@@ -125,7 +125,7 @@ public class BlockCauldron extends Block {
 
 					playerIn.addStat(StatList.CAULDRON_USED);
 					setWaterLevel(worldIn, pos, state, 0);
-					worldIn.playSound(null, pos, SoundEvents.ITEM_BUCKET_FILL, SoundCategory.BLOCKS, 1.0F, 1.0F);
+					worldIn.playSound(null, pos, SoundEvents.ITEM_BUCKET_FILL, SoundCategory.BLOCKS, 1F, 1F);
 				}
 
 				return true;
@@ -145,7 +145,7 @@ public class BlockCauldron extends Block {
 						}
 					}
 
-					worldIn.playSound(null, pos, SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.BLOCKS, 1.0F, 1.0F);
+					worldIn.playSound(null, pos, SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.BLOCKS, 1F, 1F);
 					setWaterLevel(worldIn, pos, state, i - 1);
 				}
 
@@ -162,7 +162,7 @@ public class BlockCauldron extends Block {
 						}
 					}
 
-					worldIn.playSound(null, pos, SoundEvents.ITEM_BOTTLE_EMPTY, SoundCategory.BLOCKS, 1.0F, 1.0F);
+					worldIn.playSound(null, pos, SoundEvents.ITEM_BOTTLE_EMPTY, SoundCategory.BLOCKS, 1F, 1F);
 					setWaterLevel(worldIn, pos, state, i + 1);
 				}
 

@@ -90,7 +90,7 @@ public class PlayerChunkMap {
 							return chunk;
 						}
 
-						if (!playerchunkmapentry.hasPlayerMatchingInRange(128.0D, PlayerChunkMap.NOT_SPECTATOR)) {
+						if (!playerchunkmapentry.hasPlayerMatchingInRange(128D, PlayerChunkMap.NOT_SPECTATOR)) {
 							continue;
 						}
 
@@ -306,7 +306,7 @@ public class PlayerChunkMap {
 		double d1 = player.managedPosZ - player.posZ;
 		double d2 = d0 * d0 + d1 * d1;
 
-		if (d2 >= 64.0D) {
+		if (d2 >= 64D) {
 			int k = (int) player.managedPosX >> 4;
 			int l = (int) player.managedPosZ >> 4;
 			int i1 = playerViewRadius;

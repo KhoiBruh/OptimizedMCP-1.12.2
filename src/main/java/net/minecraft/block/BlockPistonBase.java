@@ -29,12 +29,12 @@ import java.util.List;
 public class BlockPistonBase extends BlockDirectional {
 
 	public static final PropertyBool EXTENDED = PropertyBool.create("extended");
-	protected static final AxisAlignedBB PISTON_BASE_EAST_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 0.75D, 1.0D, 1.0D);
-	protected static final AxisAlignedBB PISTON_BASE_WEST_AABB = new AxisAlignedBB(0.25D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D);
-	protected static final AxisAlignedBB PISTON_BASE_SOUTH_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 0.75D);
-	protected static final AxisAlignedBB PISTON_BASE_NORTH_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.25D, 1.0D, 1.0D, 1.0D);
-	protected static final AxisAlignedBB PISTON_BASE_UP_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.75D, 1.0D);
-	protected static final AxisAlignedBB PISTON_BASE_DOWN_AABB = new AxisAlignedBB(0.0D, 0.25D, 0.0D, 1.0D, 1.0D, 1.0D);
+	protected static final AxisAlignedBB PISTON_BASE_EAST_AABB = new AxisAlignedBB(0D, 0D, 0D, 0.75D, 1D, 1D);
+	protected static final AxisAlignedBB PISTON_BASE_WEST_AABB = new AxisAlignedBB(0.25D, 0D, 0D, 1D, 1D, 1D);
+	protected static final AxisAlignedBB PISTON_BASE_SOUTH_AABB = new AxisAlignedBB(0D, 0D, 0D, 1D, 1D, 0.75D);
+	protected static final AxisAlignedBB PISTON_BASE_NORTH_AABB = new AxisAlignedBB(0D, 0D, 0.25D, 1D, 1D, 1D);
+	protected static final AxisAlignedBB PISTON_BASE_UP_AABB = new AxisAlignedBB(0D, 0D, 0D, 1D, 0.75D, 1D);
+	protected static final AxisAlignedBB PISTON_BASE_DOWN_AABB = new AxisAlignedBB(0D, 0.25D, 0D, 1D, 1D, 1D);
 
 	/**
 	 * This piston is the sticky one?
@@ -72,7 +72,7 @@ public class BlockPistonBase extends BlockDirectional {
 		} else if (pos.getY() >= 0 && (facing != EnumFacing.DOWN || pos.getY() != 0)) {
 			if (pos.getY() <= worldIn.getHeight() - 1 && (facing != EnumFacing.UP || pos.getY() != worldIn.getHeight() - 1)) {
 				if (block != Blocks.PISTON && block != Blocks.STICKY_PISTON) {
-					if (blockStateIn.getBlockHardness(worldIn, pos) == -1.0F) {
+					if (blockStateIn.getBlockHardness(worldIn, pos) == -1F) {
 						return false;
 					}
 

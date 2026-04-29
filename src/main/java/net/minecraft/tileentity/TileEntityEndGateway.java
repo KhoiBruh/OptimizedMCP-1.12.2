@@ -55,7 +55,7 @@ public class TileEntityEndGateway extends TileEntityEndPortal implements ITickab
 
 	private static Chunk getChunk(World worldIn, Vec3d vec3) {
 
-		return worldIn.getChunkFromChunkCoords(MathHelper.floor(vec3.x() / 16.0D), MathHelper.floor(vec3.z() / 16.0D));
+		return worldIn.getChunkFromChunkCoords(MathHelper.floor(vec3.x() / 16D), MathHelper.floor(vec3.z() / 16D));
 	}
 
 	
@@ -65,13 +65,13 @@ public class TileEntityEndGateway extends TileEntityEndPortal implements ITickab
 		int i = chunkIn.getTopFilledSegment() + 16 - 1;
 		BlockPos blockpos1 = new BlockPos(chunkIn.x * 16 + 16 - 1, i, chunkIn.z * 16 + 16 - 1);
 		BlockPos blockpos2 = null;
-		double d0 = 0.0D;
+		double d0 = 0D;
 
 		for (BlockPos blockpos3 : BlockPos.getAllInBox(blockpos, blockpos1)) {
 			IBlockState iblockstate = chunkIn.getBlockState(blockpos3);
 
 			if (iblockstate.getBlock() == Blocks.END_STONE && !chunkIn.getBlockState(blockpos3.up(1)).isBlockNormalCube() && !chunkIn.getBlockState(blockpos3.up(2)).isBlockNormalCube()) {
-				double d1 = blockpos3.distanceSqToCenter(0.0D, 0.0D, 0.0D);
+				double d1 = blockpos3.distanceSqToCenter(0D, 0D, 0D);
 
 				if (blockpos2 == null || d1 < d0) {
 					blockpos2 = blockpos3;
@@ -113,7 +113,7 @@ public class TileEntityEndGateway extends TileEntityEndPortal implements ITickab
 
 	public double getMaxRenderDistanceSquared() {
 
-		return 65536.0D;
+		return 65536D;
 	}
 
 	/**
@@ -156,12 +156,12 @@ public class TileEntityEndGateway extends TileEntityEndPortal implements ITickab
 
 	public float getSpawnPercent(float p_184302_1_) {
 
-		return MathHelper.clamp(((float) age + p_184302_1_) / 200.0F, 0.0F, 1.0F);
+		return MathHelper.clamp(((float) age + p_184302_1_) / 200F, 0F, 1F);
 	}
 
 	public float getCooldownPercent(float p_184305_1_) {
 
-		return 1.0F - MathHelper.clamp(((float) teleportCooldown - p_184305_1_) / 40.0F, 0.0F, 1.0F);
+		return 1F - MathHelper.clamp(((float) teleportCooldown - p_184305_1_) / 40F, 0F, 1F);
 	}
 
 	
@@ -221,14 +221,14 @@ public class TileEntityEndGateway extends TileEntityEndPortal implements ITickab
 
 	private void findExitPortal() {
 
-		Vec3d vec3d = (new Vec3d(getPos().getX(), 0.0D, getPos().getZ())).normalize();
-		Vec3d vec3d1 = vec3d.scale(1024.0D);
+		Vec3d vec3d = (new Vec3d(getPos().getX(), 0D, getPos().getZ())).normalize();
+		Vec3d vec3d1 = vec3d.scale(1024D);
 
-		for (int i = 16; getChunk(world, vec3d1).getTopFilledSegment() > 0 && i-- > 0; vec3d1 = vec3d1.add(vec3d.scale(-16.0D))) {
+		for (int i = 16; getChunk(world, vec3d1).getTopFilledSegment() > 0 && i-- > 0; vec3d1 = vec3d1.add(vec3d.scale(-16D))) {
 			LOGGER.debug("Skipping backwards past nonempty chunk at {}", vec3d1);
 		}
 
-		for (int j = 16; getChunk(world, vec3d1).getTopFilledSegment() == 0 && j-- > 0; vec3d1 = vec3d1.add(vec3d.scale(16.0D))) {
+		for (int j = 16; getChunk(world, vec3d1).getTopFilledSegment() == 0 && j-- > 0; vec3d1 = vec3d1.add(vec3d.scale(16D))) {
 			LOGGER.debug("Skipping forward past empty chunk at {}", vec3d1);
 		}
 
@@ -237,7 +237,7 @@ public class TileEntityEndGateway extends TileEntityEndPortal implements ITickab
 		exitPortal = findSpawnpointInChunk(chunk);
 
 		if (exitPortal == null) {
-			exitPortal = new BlockPos(vec3d1.x() + 0.5D, 75.0D, vec3d1.z() + 0.5D);
+			exitPortal = new BlockPos(vec3d1.x() + 0.5D, 75D, vec3d1.z() + 0.5D);
 			LOGGER.debug("Failed to find suitable block, settling on {}", exitPortal);
 			(new WorldGenEndIsland()).generate(world, new Random(exitPortal.toLong()), exitPortal);
 		} else {

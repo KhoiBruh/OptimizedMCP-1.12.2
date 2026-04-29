@@ -25,7 +25,7 @@ public abstract class PhaseSittingBase extends PhaseBase {
 
 		if (src.getImmediateSource() instanceof EntityArrow) {
 			src.getImmediateSource().setFire(1);
-			return 0.0F;
+			return 0F;
 		} else {
 			return super.getAdjustedDamage(pt, src, damage);
 		}

@@ -14,7 +14,7 @@ import java.util.Random;
 
 public class Particle {
 
-	private static final AxisAlignedBB EMPTY_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 0.0D, 0.0D, 0.0D);
+	private static final AxisAlignedBB EMPTY_AABB = new AxisAlignedBB(0D, 0D, 0D, 0D, 0D, 0D);
 	public static double interpPosX;
 	public static double interpPosY;
 	public static double interpPosZ;
@@ -79,20 +79,20 @@ public class Particle {
 		width = 0.6F;
 		height = 1.8F;
 		rand = new Random();
-		particleAlpha = 1.0F;
+		particleAlpha = 1F;
 		world = worldIn;
 		setSize(0.2F, 0.2F);
 		setPosition(posXIn, posYIn, posZIn);
 		prevPosX = posXIn;
 		prevPosY = posYIn;
 		prevPosZ = posZIn;
-		particleRed = 1.0F;
-		particleGreen = 1.0F;
-		particleBlue = 1.0F;
-		particleTextureJitterX = rand.nextFloat() * 3.0F;
-		particleTextureJitterY = rand.nextFloat() * 3.0F;
-		particleScale = (rand.nextFloat() * 0.5F + 0.5F) * 2.0F;
-		particleMaxAge = (int) (4.0F / (rand.nextFloat() * 0.9F + 0.1F));
+		particleRed = 1F;
+		particleGreen = 1F;
+		particleBlue = 1F;
+		particleTextureJitterX = rand.nextFloat() * 3F;
+		particleTextureJitterY = rand.nextFloat() * 3F;
+		particleScale = (rand.nextFloat() * 0.5F + 0.5F) * 2F;
+		particleMaxAge = (int) (4F / (rand.nextFloat() * 0.9F + 0.1F));
 		particleAge = 0;
 		canCollide = true;
 	}
@@ -100,10 +100,10 @@ public class Particle {
 	public Particle(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn) {
 
 		this(worldIn, xCoordIn, yCoordIn, zCoordIn);
-		motionX = xSpeedIn + (Math.random() * 2.0D - 1.0D) * 0.4000000059604645D;
-		motionY = ySpeedIn + (Math.random() * 2.0D - 1.0D) * 0.4000000059604645D;
-		motionZ = zSpeedIn + (Math.random() * 2.0D - 1.0D) * 0.4000000059604645D;
-		float f = (float) (Math.random() + Math.random() + 1.0D) * 0.15F;
+		motionX = xSpeedIn + (Math.random() * 2D - 1D) * 0.4000000059604645D;
+		motionY = ySpeedIn + (Math.random() * 2D - 1D) * 0.4000000059604645D;
+		motionZ = zSpeedIn + (Math.random() * 2D - 1D) * 0.4000000059604645D;
+		float f = (float) (Math.random() + Math.random() + 1D) * 0.15F;
 		float f1 = MathHelper.sqrt(motionX * motionX + motionY * motionY + motionZ * motionZ);
 		motionX = motionX / (double) f1 * (double) f * 0.4000000059604645D;
 		motionY = motionY / (double) f1 * (double) f * 0.4000000059604645D + 0.10000000149011612D;
@@ -192,9 +192,9 @@ public class Particle {
 	 */
 	public void renderParticle(BufferBuilder buffer, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
 
-		float f = (float) particleTextureIndexX / 16.0F;
+		float f = (float) particleTextureIndexX / 16F;
 		float f1 = f + 0.0624375F;
-		float f2 = (float) particleTextureIndexY / 16.0F;
+		float f2 = (float) particleTextureIndexY / 16F;
 		float f3 = f2 + 0.0624375F;
 		float f4 = 0.1F * particleScale;
 
@@ -213,7 +213,7 @@ public class Particle {
 		int k = i & 65535;
 		Vec3d[] avec3d = new Vec3d[]{new Vec3d(-rotationX * f4 - rotationXY * f4, -rotationZ * f4, -rotationYZ * f4 - rotationXZ * f4), new Vec3d(-rotationX * f4 + rotationXY * f4, rotationZ * f4, -rotationYZ * f4 + rotationXZ * f4), new Vec3d(rotationX * f4 + rotationXY * f4, rotationZ * f4, rotationYZ * f4 + rotationXZ * f4), new Vec3d(rotationX * f4 - rotationXY * f4, -rotationZ * f4, rotationYZ * f4 - rotationXZ * f4)};
 
-		if (particleAngle != 0.0F) {
+		if (particleAngle != 0F) {
 			float f8 = particleAngle + (particleAngle - prevParticleAngle) * partialTicks;
 			float f9 = MathHelper.cos(f8 * 0.5F);
 			float f10 = MathHelper.sin(f8 * 0.5F) * (float) cameraViewDir.x();
@@ -222,7 +222,7 @@ public class Particle {
 			Vec3d vec3d = new Vec3d(f10, f11, f12);
 
 			for (int l = 0; l < 4; ++l) {
-				avec3d[l] = vec3d.scale(2.0D * avec3d[l].dotProduct(vec3d)).add(avec3d[l].scale((double) (f9 * f9) - vec3d.dotProduct(vec3d))).add(vec3d.crossProduct(avec3d[l]).scale(2.0F * f9));
+				avec3d[l] = vec3d.scale(2D * avec3d[l].dotProduct(vec3d)).add(avec3d[l].scale((double) (f9 * f9) - vec3d.dotProduct(vec3d))).add(vec3d.crossProduct(avec3d[l]).scale(2F * f9));
 			}
 		}
 
@@ -301,7 +301,7 @@ public class Particle {
 		posX = p_187109_1_;
 		posY = p_187109_3_;
 		posZ = p_187109_5_;
-		float f = width / 2.0F;
+		float f = width / 2F;
 		float f1 = height;
 		setBoundingBox(new AxisAlignedBB(p_187109_1_ - (double) f, p_187109_3_, p_187109_5_ - (double) f, p_187109_1_ + (double) f, p_187109_3_ + (double) f1, p_187109_5_ + (double) f));
 	}
@@ -317,41 +317,41 @@ public class Particle {
 				y = axisalignedbb.calculateYOffset(getBoundingBox(), y);
 			}
 
-			setBoundingBox(getBoundingBox().offset(0.0D, y, 0.0D));
+			setBoundingBox(getBoundingBox().offset(0D, y, 0D));
 
 			for (AxisAlignedBB axisalignedbb1 : list) {
 				x = axisalignedbb1.calculateXOffset(getBoundingBox(), x);
 			}
 
-			setBoundingBox(getBoundingBox().offset(x, 0.0D, 0.0D));
+			setBoundingBox(getBoundingBox().offset(x, 0D, 0D));
 
 			for (AxisAlignedBB axisalignedbb2 : list) {
 				z = axisalignedbb2.calculateZOffset(getBoundingBox(), z);
 			}
 
-			setBoundingBox(getBoundingBox().offset(0.0D, 0.0D, z));
+			setBoundingBox(getBoundingBox().offset(0D, 0D, z));
 		} else {
 			setBoundingBox(getBoundingBox().offset(x, y, z));
 		}
 
 		resetPositionToBB();
-		onGround = y != y && d0 < 0.0D;
+		onGround = y != y && d0 < 0D;
 
 		if (x != x) {
-			motionX = 0.0D;
+			motionX = 0D;
 		}
 
 		if (z != z) {
-			motionZ = 0.0D;
+			motionZ = 0D;
 		}
 	}
 
 	protected void resetPositionToBB() {
 
 		AxisAlignedBB axisalignedbb = getBoundingBox();
-		posX = (axisalignedbb.minX + axisalignedbb.maxX) / 2.0D;
+		posX = (axisalignedbb.minX + axisalignedbb.maxX) / 2D;
 		posY = axisalignedbb.minY;
-		posZ = (axisalignedbb.minZ + axisalignedbb.maxZ) / 2.0D;
+		posZ = (axisalignedbb.minZ + axisalignedbb.maxZ) / 2D;
 	}
 
 	public int getBrightnessForRender(float p_189214_1_) {

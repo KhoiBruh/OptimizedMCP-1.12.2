@@ -24,27 +24,27 @@ public class TileEntityBannerRenderer extends TileEntitySpecialRenderer<TileEnti
 
 		if (flag1) {
 			GlStateManager.translate((float) x + 0.5F, (float) y + 0.5F, (float) z + 0.5F);
-			float f1 = (float) (i * 360) / 16.0F;
-			GlStateManager.rotate(-f1, 0.0F, 1.0F, 0.0F);
+			float f1 = (float) (i * 360) / 16F;
+			GlStateManager.rotate(-f1, 0F, 1F, 0F);
 			bannerModel.bannerStand.showModel = true;
 		} else {
-			float f2 = 0.0F;
+			float f2 = 0F;
 
 			if (i == 2) {
-				f2 = 180.0F;
+				f2 = 180F;
 			}
 
 			if (i == 4) {
-				f2 = 90.0F;
+				f2 = 90F;
 			}
 
 			if (i == 5) {
-				f2 = -90.0F;
+				f2 = -90F;
 			}
 
 			GlStateManager.translate((float) x + 0.5F, (float) y - 0.16666667F, (float) z + 0.5F);
-			GlStateManager.rotate(-f2, 0.0F, 1.0F, 0.0F);
-			GlStateManager.translate(0.0F, -0.3125F, -0.4375F);
+			GlStateManager.rotate(-f2, 0F, 1F, 0F);
+			GlStateManager.translate(0F, -0.3125F, -0.4375F);
 			bannerModel.bannerStand.showModel = false;
 		}
 
@@ -62,7 +62,7 @@ public class TileEntityBannerRenderer extends TileEntitySpecialRenderer<TileEnti
 			GlStateManager.popMatrix();
 		}
 
-		GlStateManager.color(1.0F, 1.0F, 1.0F, alpha);
+		GlStateManager.color(1F, 1F, 1F, alpha);
 		GlStateManager.popMatrix();
 	}
 

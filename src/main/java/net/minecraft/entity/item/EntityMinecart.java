@@ -70,9 +70,9 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 
 		this(worldIn);
 		setPosition(x, y, z);
-		motionX = 0.0D;
-		motionY = 0.0D;
-		motionZ = 0.0D;
+		motionX = 0D;
+		motionY = 0D;
+		motionZ = 0D;
 		prevPosX = x;
 		prevPosY = y;
 		prevPosZ = z;
@@ -108,7 +108,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 
 		dataManager.register(ROLLING_AMPLITUDE, 0);
 		dataManager.register(ROLLING_DIRECTION, 1);
-		dataManager.register(DAMAGE, 0.0F);
+		dataManager.register(DAMAGE, 0F);
 		dataManager.register(DISPLAY_TILE, 0);
 		dataManager.register(DISPLAY_TILE_OFFSET, 6);
 		dataManager.register(SHOW_BLOCK, false);
@@ -138,7 +138,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 	 */
 	public double getMountedYOffset() {
 
-		return 0.0D;
+		return 0D;
 	}
 
 	/**
@@ -153,10 +153,10 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 				setRollingDirection(-getRollingDirection());
 				setRollingAmplitude(10);
 				markVelocityChanged();
-				setDamage(getDamage() + amount * 10.0F);
+				setDamage(getDamage() + amount * 10F);
 				boolean flag = source.getTrueSource() instanceof EntityPlayer && ((EntityPlayer) source.getTrueSource()).capabilities.isCreativeMode;
 
-				if (flag || getDamage() > 40.0F) {
+				if (flag || getDamage() > 40F) {
 					removePassengers();
 
 					if (flag && !hasCustomName()) {
@@ -184,7 +184,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 				itemstack.setStackDisplayName(getCustomNameTag());
 			}
 
-			entityDropItem(itemstack, 0.0F);
+			entityDropItem(itemstack, 0F);
 		}
 	}
 
@@ -195,7 +195,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 
 		setRollingDirection(-getRollingDirection());
 		setRollingAmplitude(10);
-		setDamage(getDamage() + getDamage() * 10.0F);
+		setDamage(getDamage() + getDamage() * 10F);
 	}
 
 	/**
@@ -224,11 +224,11 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 			setRollingAmplitude(getRollingAmplitude() - 1);
 		}
 
-		if (getDamage() > 0.0F) {
-			setDamage(getDamage() - 1.0F);
+		if (getDamage() > 0F) {
+			setDamage(getDamage() - 1F);
 		}
 
-		if (posY < -64.0D) {
+		if (posY < -64D) {
 			outOfWorld();
 		}
 
@@ -318,29 +318,29 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 			}
 
 			doBlockCollisions();
-			rotationPitch = 0.0F;
+			rotationPitch = 0F;
 			double d0 = prevPosX - posX;
 			double d2 = prevPosZ - posZ;
 
 			if (d0 * d0 + d2 * d2 > 0.001D) {
-				rotationYaw = (float) (MathHelper.atan2(d2, d0) * 180.0D / Math.PI);
+				rotationYaw = (float) (MathHelper.atan2(d2, d0) * 180D / Math.PI);
 
 				if (isInReverse) {
-					rotationYaw += 180.0F;
+					rotationYaw += 180F;
 				}
 			}
 
 			double d3 = MathHelper.wrapDegrees(rotationYaw - prevRotationYaw);
 
-			if (d3 < -170.0D || d3 >= 170.0D) {
-				rotationYaw += 180.0F;
+			if (d3 < -170D || d3 >= 170D) {
+				rotationYaw += 180F;
 				isInReverse = !isInReverse;
 			}
 
 			setRotation(rotationYaw, rotationPitch);
 
 			if (getType() == EntityMinecart.Type.RIDEABLE && motionX * motionX + motionZ * motionZ > 0.01D) {
-				List<Entity> list = world.getEntitiesInAABBexcluding(this, getEntityBoundingBox().grow(0.20000000298023224D, 0.0D, 0.20000000298023224D), EntitySelectors.getTeamCollisionPredicate(this));
+				List<Entity> list = world.getEntitiesInAABBexcluding(this, getEntityBoundingBox().grow(0.20000000298023224D, 0D, 0.20000000298023224D), EntitySelectors.getTeamCollisionPredicate(this));
 
 				if (!list.isEmpty()) {
 					for (Entity entity1 : list) {
@@ -352,7 +352,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 					}
 				}
 			} else {
-				for (Entity entity : world.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().grow(0.20000000298023224D, 0.0D, 0.20000000298023224D))) {
+				for (Entity entity : world.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().grow(0.20000000298023224D, 0D, 0.20000000298023224D))) {
 					if (!isPassenger(entity) && entity.canBePushed() && entity instanceof EntityMinecart) {
 						entity.applyEntityCollision(this);
 					}
@@ -405,7 +405,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 	@SuppressWarnings("incomplete-switch")
 	protected void moveAlongTrack(BlockPos pos, IBlockState state) {
 
-		fallDistance = 0.0F;
+		fallDistance = 0F;
 		Vec3d vec3d = getPos(posX, posY, posZ);
 		posY = pos.getY();
 		boolean flag = false;
@@ -447,15 +447,15 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 		double d3 = Math.sqrt(d1 * d1 + d2 * d2);
 		double d4 = motionX * d1 + motionZ * d2;
 
-		if (d4 < 0.0D) {
+		if (d4 < 0D) {
 			d1 = -d1;
 			d2 = -d2;
 		}
 
 		double d5 = Math.sqrt(motionX * motionX + motionZ * motionZ);
 
-		if (d5 > 2.0D) {
-			d5 = 2.0D;
+		if (d5 > 2D) {
+			d5 = 2D;
 		}
 
 		motionX = d5 * d1 / d3;
@@ -465,7 +465,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 		if (entity instanceof EntityLivingBase) {
 			double d6 = ((EntityLivingBase) entity).moveForward;
 
-			if (d6 > 0.0D) {
+			if (d6 > 0D) {
 				double d7 = -Math.sin(entity.rotationYaw * 0.017453292F);
 				double d8 = Math.cos(entity.rotationYaw * 0.017453292F);
 				double d9 = motionX * motionX + motionZ * motionZ;
@@ -482,12 +482,12 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 			double d17 = Math.sqrt(motionX * motionX + motionZ * motionZ);
 
 			if (d17 < 0.03D) {
-				motionX *= 0.0D;
-				motionY *= 0.0D;
-				motionZ *= 0.0D;
+				motionX *= 0D;
+				motionY *= 0D;
+				motionZ *= 0D;
 			} else {
 				motionX *= 0.5D;
-				motionY *= 0.0D;
+				motionY *= 0D;
 				motionZ *= 0.5D;
 			}
 		}
@@ -500,16 +500,16 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 		d2 = d21 - d19;
 		double d10;
 
-		if (d1 == 0.0D) {
+		if (d1 == 0D) {
 			posX = (double) pos.getX() + 0.5D;
 			d10 = posZ - (double) pos.getZ();
-		} else if (d2 == 0.0D) {
+		} else if (d2 == 0D) {
 			posZ = (double) pos.getZ() + 0.5D;
 			d10 = posX - (double) pos.getX();
 		} else {
 			double d11 = posX - d18;
 			double d12 = posZ - d19;
-			d10 = (d11 * d1 + d12 * d2) * 2.0D;
+			d10 = (d11 * d1 + d12 * d2) * 2D;
 		}
 
 		posX = d18 + d1 * d10;
@@ -526,7 +526,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 		double d13 = getMaximumSpeed();
 		d22 = MathHelper.clamp(d22, -d13, d13);
 		d23 = MathHelper.clamp(d23, -d13, d13);
-		move(MoverType.SELF, d22, 0.0D, d23);
+		move(MoverType.SELF, d22, 0D, d23);
 
 		if (aint[0][1] != 0 && MathHelper.floor(posX) - pos.getX() == aint[0][0] && MathHelper.floor(posZ) - pos.getZ() == aint[0][2]) {
 			setPosition(posX, posY + (double) aint[0][1], posZ);
@@ -541,7 +541,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 			double d14 = (vec3d.y() - vec3d1.y()) * 0.05D;
 			d5 = Math.sqrt(motionX * motionX + motionZ * motionZ);
 
-			if (d5 > 0.0D) {
+			if (d5 > 0D) {
 				motionX = motionX / d5 * (d5 + d14);
 				motionZ = motionZ / d5 * (d5 + d14);
 			}
@@ -585,11 +585,11 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 
 		if (isBeingRidden()) {
 			motionX *= 0.996999979019165D;
-			motionY *= 0.0D;
+			motionY *= 0D;
 			motionZ *= 0.996999979019165D;
 		} else {
 			motionX *= 0.9599999785423279D;
-			motionY *= 0.0D;
+			motionY *= 0D;
 			motionZ *= 0.9599999785423279D;
 		}
 	}
@@ -659,29 +659,29 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 			double d4 = (double) j + 0.0625D + (double) aint[1][1] * 0.5D;
 			double d5 = (double) k + 0.5D + (double) aint[1][2] * 0.5D;
 			double d6 = d3 - d0;
-			double d7 = (d4 - d1) * 2.0D;
+			double d7 = (d4 - d1) * 2D;
 			double d8 = d5 - d2;
 			double d9;
 
-			if (d6 == 0.0D) {
+			if (d6 == 0D) {
 				d9 = p_70489_5_ - (double) k;
-			} else if (d8 == 0.0D) {
+			} else if (d8 == 0D) {
 				d9 = p_70489_1_ - (double) i;
 			} else {
 				double d10 = p_70489_1_ - d0;
 				double d11 = p_70489_5_ - d2;
-				d9 = (d10 * d6 + d11 * d8) * 2.0D;
+				d9 = (d10 * d6 + d11 * d8) * 2D;
 			}
 
 			p_70489_1_ = d0 + d6 * d9;
 			p_70489_3_ = d1 + d7 * d9;
 			p_70489_5_ = d2 + d8 * d9;
 
-			if (d7 < 0.0D) {
+			if (d7 < 0D) {
 				++p_70489_3_;
 			}
 
-			if (d7 > 0.0D) {
+			if (d7 > 0D) {
 				p_70489_3_ += 0.5D;
 			}
 
@@ -698,7 +698,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 	public AxisAlignedBB getRenderBoundingBox() {
 
 		AxisAlignedBB axisalignedbb = getEntityBoundingBox();
-		return hasDisplayTile() ? axisalignedbb.grow((double) Math.abs(getDisplayTileOffset()) / 16.0D) : axisalignedbb;
+		return hasDisplayTile() ? axisalignedbb.grow((double) Math.abs(getDisplayTileOffset()) / 16D) : axisalignedbb;
 	}
 
 	/**
@@ -752,26 +752,26 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 						d2 = MathHelper.sqrt(d2);
 						d0 = d0 / d2;
 						d1 = d1 / d2;
-						double d3 = 1.0D / d2;
+						double d3 = 1D / d2;
 
-						if (d3 > 1.0D) {
-							d3 = 1.0D;
+						if (d3 > 1D) {
+							d3 = 1D;
 						}
 
 						d0 = d0 * d3;
 						d1 = d1 * d3;
 						d0 = d0 * 0.10000000149011612D;
 						d1 = d1 * 0.10000000149011612D;
-						d0 = d0 * (double) (1.0F - entityCollisionReduction);
-						d1 = d1 * (double) (1.0F - entityCollisionReduction);
+						d0 = d0 * (double) (1F - entityCollisionReduction);
+						d1 = d1 * (double) (1F - entityCollisionReduction);
 						d0 = d0 * 0.5D;
 						d1 = d1 * 0.5D;
 
 						if (entityIn instanceof EntityMinecart) {
 							double d4 = entityIn.posX - posX;
 							double d5 = entityIn.posZ - posZ;
-							Vec3d vec3d = (new Vec3d(d4, 0.0D, d5)).normalize();
-							Vec3d vec3d1 = (new Vec3d(MathHelper.cos(rotationYaw * 0.017453292F), 0.0D, MathHelper.sin(rotationYaw * 0.017453292F))).normalize();
+							Vec3d vec3d = (new Vec3d(d4, 0D, d5)).normalize();
+							Vec3d vec3d1 = (new Vec3d(MathHelper.cos(rotationYaw * 0.017453292F), 0D, MathHelper.sin(rotationYaw * 0.017453292F))).normalize();
 							double d6 = Math.abs(vec3d.dotProduct(vec3d1));
 
 							if (d6 < 0.800000011920929D) {
@@ -784,28 +784,28 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 							if (((EntityMinecart) entityIn).getType() == EntityMinecart.Type.FURNACE && getType() != EntityMinecart.Type.FURNACE) {
 								motionX *= 0.20000000298023224D;
 								motionZ *= 0.20000000298023224D;
-								addVelocity(entityIn.motionX - d0, 0.0D, entityIn.motionZ - d1);
+								addVelocity(entityIn.motionX - d0, 0D, entityIn.motionZ - d1);
 								entityIn.motionX *= 0.949999988079071D;
 								entityIn.motionZ *= 0.949999988079071D;
 							} else if (((EntityMinecart) entityIn).getType() != EntityMinecart.Type.FURNACE && getType() == EntityMinecart.Type.FURNACE) {
 								entityIn.motionX *= 0.20000000298023224D;
 								entityIn.motionZ *= 0.20000000298023224D;
-								entityIn.addVelocity(motionX + d0, 0.0D, motionZ + d1);
+								entityIn.addVelocity(motionX + d0, 0D, motionZ + d1);
 								motionX *= 0.949999988079071D;
 								motionZ *= 0.949999988079071D;
 							} else {
-								d7 = d7 / 2.0D;
-								d8 = d8 / 2.0D;
+								d7 = d7 / 2D;
+								d8 = d8 / 2D;
 								motionX *= 0.20000000298023224D;
 								motionZ *= 0.20000000298023224D;
-								addVelocity(d7 - d0, 0.0D, d8 - d1);
+								addVelocity(d7 - d0, 0D, d8 - d1);
 								entityIn.motionX *= 0.20000000298023224D;
 								entityIn.motionZ *= 0.20000000298023224D;
-								entityIn.addVelocity(d7 + d0, 0.0D, d8 + d1);
+								entityIn.addVelocity(d7 + d0, 0D, d8 + d1);
 							}
 						} else {
-							addVelocity(-d0, 0.0D, -d1);
-							entityIn.addVelocity(d0 / 4.0D, 0.0D, d1 / 4.0D);
+							addVelocity(-d0, 0D, -d1);
+							entityIn.addVelocity(d0 / 4D, 0D, d1 / 4D);
 						}
 					}
 				}

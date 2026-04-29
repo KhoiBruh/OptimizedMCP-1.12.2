@@ -137,10 +137,10 @@ public class EntityVillager extends EntityAgeable implements INpc, IMerchant {
 	protected void initEntityAI() {
 
 		tasks.addTask(0, new EntityAISwimming(this));
-		tasks.addTask(1, new EntityAIAvoidEntity<>(this, EntityZombie.class, 8.0F, 0.6D, 0.6D));
-		tasks.addTask(1, new EntityAIAvoidEntity<>(this, EntityEvoker.class, 12.0F, 0.8D, 0.8D));
-		tasks.addTask(1, new EntityAIAvoidEntity<>(this, EntityVindicator.class, 8.0F, 0.8D, 0.8D));
-		tasks.addTask(1, new EntityAIAvoidEntity<>(this, EntityVex.class, 8.0F, 0.6D, 0.6D));
+		tasks.addTask(1, new EntityAIAvoidEntity<>(this, EntityZombie.class, 8F, 0.6D, 0.6D));
+		tasks.addTask(1, new EntityAIAvoidEntity<>(this, EntityEvoker.class, 12F, 0.8D, 0.8D));
+		tasks.addTask(1, new EntityAIAvoidEntity<>(this, EntityVindicator.class, 8F, 0.8D, 0.8D));
+		tasks.addTask(1, new EntityAIAvoidEntity<>(this, EntityVex.class, 8F, 0.6D, 0.6D));
 		tasks.addTask(1, new EntityAITradePlayer(this));
 		tasks.addTask(1, new EntityAILookAtTradePlayer(this));
 		tasks.addTask(2, new EntityAIMoveIndoors(this));
@@ -149,10 +149,10 @@ public class EntityVillager extends EntityAgeable implements INpc, IMerchant {
 		tasks.addTask(5, new EntityAIMoveTowardsRestriction(this, 0.6D));
 		tasks.addTask(6, new EntityAIVillagerMate(this));
 		tasks.addTask(7, new EntityAIFollowGolem(this));
-		tasks.addTask(9, new EntityAIWatchClosest2(this, EntityPlayer.class, 3.0F, 1.0F));
+		tasks.addTask(9, new EntityAIWatchClosest2(this, EntityPlayer.class, 3F, 1F));
 		tasks.addTask(9, new EntityAIVillagerInteract(this));
 		tasks.addTask(9, new EntityAIWanderAvoidWater(this, 0.6D));
-		tasks.addTask(10, new EntityAIWatchClosest(this, EntityLiving.class, 8.0F));
+		tasks.addTask(10, new EntityAIWatchClosest(this, EntityLiving.class, 8F));
 	}
 
 	private void setAdditionalAItasks() {
@@ -432,7 +432,7 @@ public class EntityVillager extends EntityAgeable implements INpc, IMerchant {
 					village.endMatingSeason();
 				}
 			} else {
-				EntityPlayer entityplayer = world.getClosestPlayerToEntity(this, 16.0D);
+				EntityPlayer entityplayer = world.getClosestPlayerToEntity(this, 16D);
 
 				if (entityplayer != null) {
 					village.endMatingSeason();
@@ -711,7 +711,7 @@ public class EntityVillager extends EntityAgeable implements INpc, IMerchant {
 			double d0 = rand.nextGaussian() * 0.02D;
 			double d1 = rand.nextGaussian() * 0.02D;
 			double d2 = rand.nextGaussian() * 0.02D;
-			world.spawnParticle(particleType, posX + (double) (rand.nextFloat() * width * 2.0F) - (double) width, posY + 1.0D + (double) (rand.nextFloat() * height), posZ + (double) (rand.nextFloat() * width * 2.0F) - (double) width, d0, d1, d2);
+			world.spawnParticle(particleType, posX + (double) (rand.nextFloat() * width * 2F) - (double) width, posY + 1D + (double) (rand.nextFloat() * height), posZ + (double) (rand.nextFloat() * width * 2F) - (double) width, d0, d1, d2);
 		}
 	}
 

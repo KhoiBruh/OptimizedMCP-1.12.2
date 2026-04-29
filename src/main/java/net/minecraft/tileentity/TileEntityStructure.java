@@ -37,7 +37,7 @@ public class TileEntityStructure extends TileEntity {
 	private boolean powered;
 	private boolean showAir;
 	private boolean showBoundingBox = true;
-	private float integrity = 1.0F;
+	private float integrity = 1F;
 	private long seed;
 
 	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
@@ -105,7 +105,7 @@ public class TileEntityStructure extends TileEntity {
 		if (compound.hasKey("integrity")) {
 			integrity = compound.getFloat("integrity");
 		} else {
-			integrity = 1.0F;
+			integrity = 1F;
 		}
 
 		seed = compound.getLong("seed");
@@ -470,8 +470,8 @@ public class TileEntityStructure extends TileEntity {
 				} else {
 					PlacementSettings placementsettings = (new PlacementSettings()).setMirror(mirror).setRotation(rotation).setIgnoreEntities(ignoreEntities).setChunk(null).setReplacedBlock(null).setIgnoreStructureBlock(false);
 
-					if (integrity < 1.0F) {
-						placementsettings.setIntegrity(MathHelper.clamp(integrity, 0.0F, 1.0F)).setSeed(seed);
+					if (integrity < 1F) {
+						placementsettings.setIntegrity(MathHelper.clamp(integrity, 0F, 1F)).setSeed(seed);
 					}
 
 					template.addBlocksToWorldChunk(world, blockpos1, placementsettings);

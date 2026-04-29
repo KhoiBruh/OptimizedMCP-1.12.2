@@ -77,9 +77,9 @@ public class EntityBoat extends Entity {
 
 		this(worldIn);
 		setPosition(x, y, z);
-		motionX = 0.0D;
-		motionY = 0.0D;
-		motionZ = 0.0D;
+		motionX = 0D;
+		motionY = 0D;
+		motionZ = 0D;
 		prevPosX = x;
 		prevPosY = y;
 		prevPosZ = z;
@@ -98,7 +98,7 @@ public class EntityBoat extends Entity {
 
 		dataManager.register(TIME_SINCE_HIT, 0);
 		dataManager.register(FORWARD_DIRECTION, 1);
-		dataManager.register(DAMAGE_TAKEN, 0.0F);
+		dataManager.register(DAMAGE_TAKEN, 0F);
 		dataManager.register(BOAT_TYPE, Type.OAK.ordinal());
 
 		for (DataParameter<Boolean> dataparameter : DATA_ID_PADDLE) {
@@ -161,13 +161,13 @@ public class EntityBoat extends Entity {
 			} else {
 				setForwardDirection(-getForwardDirection());
 				setTimeSinceHit(10);
-				setDamageTaken(getDamageTaken() + amount * 10.0F);
+				setDamageTaken(getDamageTaken() + amount * 10F);
 				markVelocityChanged();
 				boolean flag = source.getTrueSource() instanceof EntityPlayer && ((EntityPlayer) source.getTrueSource()).capabilities.isCreativeMode;
 
-				if (flag || getDamageTaken() > 40.0F) {
+				if (flag || getDamageTaken() > 40F) {
 					if (!flag && world.getGameRules().getBoolean("doEntityDrops")) {
-						dropItemWithOffset(getItemBoat(), 1, 0.0F);
+						dropItemWithOffset(getItemBoat(), 1, 0F);
 					}
 
 					setDead();
@@ -213,7 +213,7 @@ public class EntityBoat extends Entity {
 
 		setForwardDirection(-getForwardDirection());
 		setTimeSinceHit(10);
-		setDamageTaken(getDamageTaken() * 11.0F);
+		setDamageTaken(getDamageTaken() * 11F);
 	}
 
 	/**
@@ -255,12 +255,12 @@ public class EntityBoat extends Entity {
 		status = getBoatStatus();
 
 		if (status != EntityBoat.Status.UNDER_WATER && status != EntityBoat.Status.UNDER_FLOWING_WATER) {
-			outOfControlTicks = 0.0F;
+			outOfControlTicks = 0F;
 		} else {
 			++outOfControlTicks;
 		}
 
-		if (!world.isRemote && outOfControlTicks >= 60.0F) {
+		if (!world.isRemote && outOfControlTicks >= 60F) {
 			removePassengers();
 		}
 
@@ -268,8 +268,8 @@ public class EntityBoat extends Entity {
 			setTimeSinceHit(getTimeSinceHit() - 1);
 		}
 
-		if (getDamageTaken() > 0.0F) {
-			setDamageTaken(getDamageTaken() - 1.0F);
+		if (getDamageTaken() > 0F) {
+			setDamageTaken(getDamageTaken() - 1F);
 		}
 
 		prevPosX = posX;
@@ -292,9 +292,9 @@ public class EntityBoat extends Entity {
 
 			move(MoverType.SELF, motionX, motionY, motionZ);
 		} else {
-			motionX = 0.0D;
-			motionY = 0.0D;
-			motionZ = 0.0D;
+			motionX = 0D;
+			motionY = 0D;
+			motionZ = 0D;
 		}
 
 		for (int i = 0; i <= 1; ++i) {
@@ -303,16 +303,16 @@ public class EntityBoat extends Entity {
 					SoundEvent soundevent = getPaddleSound();
 
 					if (soundevent != null) {
-						Vec3d vec3d = getLook(1.0F);
+						Vec3d vec3d = getLook(1F);
 						double d0 = i == 1 ? -vec3d.z() : vec3d.z();
 						double d1 = i == 1 ? vec3d.x() : -vec3d.x();
-						world.playSound(null, posX + d0, posY, posZ + d1, soundevent, getSoundCategory(), 1.0F, 0.8F + 0.4F * rand.nextFloat());
+						world.playSound(null, posX + d0, posY, posZ + d1, soundevent, getSoundCategory(), 1F, 0.8F + 0.4F * rand.nextFloat());
 					}
 				}
 
 				paddlePositions[i] = (float) ((double) paddlePositions[i] + 0.39269909262657166D);
 			} else {
-				paddlePositions[i] = 0.0F;
+				paddlePositions[i] = 0F;
 			}
 		}
 
@@ -367,7 +367,7 @@ public class EntityBoat extends Entity {
 
 	public float getRowingTime(int side, float limbSwing) {
 
-		return getPaddleState(side) ? (float) MathHelper.clampedLerp((double) paddlePositions[side] - 0.39269909262657166D, paddlePositions[side], limbSwing) : 0.0F;
+		return getPaddleState(side) ? (float) MathHelper.clampedLerp((double) paddlePositions[side] - 0.39269909262657166D, paddlePositions[side], limbSwing) : 0F;
 	}
 
 	/**
@@ -385,7 +385,7 @@ public class EntityBoat extends Entity {
 		} else {
 			float f = getBoatGlide();
 
-			if (f > 0.0F) {
+			if (f > 0F) {
 				boatGlide = f;
 				return EntityBoat.Status.ON_LAND;
 			} else {
@@ -409,12 +409,12 @@ public class EntityBoat extends Entity {
 			label108:
 
 			for (int k1 = k; k1 < l; ++k1) {
-				float f = 0.0F;
+				float f = 0F;
 				int l1 = i;
 
 				while (true) {
 					if (l1 >= j) {
-						if (f < 1.0F) {
+						if (f < 1F) {
 							return (float) blockpos$pooledmutableblockpos.getY() + f;
 						}
 
@@ -429,7 +429,7 @@ public class EntityBoat extends Entity {
 							f = Math.max(f, BlockLiquid.getBlockLiquidHeight(iblockstate, world, blockpos$pooledmutableblockpos));
 						}
 
-						if (f >= 1.0F) {
+						if (f >= 1F) {
 							continue label108;
 						}
 					}
@@ -458,7 +458,7 @@ public class EntityBoat extends Entity {
 		int i1 = MathHelper.floor(axisalignedbb1.minZ) - 1;
 		int j1 = MathHelper.ceil(axisalignedbb1.maxZ) + 1;
 		List<AxisAlignedBB> list = Lists.newArrayList();
-		float f = 0.0F;
+		float f = 0F;
 		int k1 = 0;
 		BlockPos.PooledMutableBlockPos blockpos$pooledmutableblockpos = BlockPos.PooledMutableBlockPos.retain();
 
@@ -575,15 +575,15 @@ public class EntityBoat extends Entity {
 	private void updateMotion() {
 
 		double d0 = -0.03999999910593033D;
-		double d1 = hasNoGravity() ? 0.0D : -0.03999999910593033D;
-		double d2 = 0.0D;
+		double d1 = hasNoGravity() ? 0D : -0.03999999910593033D;
+		double d2 = 0D;
 		momentum = 0.05F;
 
 		if (previousStatus == EntityBoat.Status.IN_AIR && status != EntityBoat.Status.IN_AIR && status != EntityBoat.Status.ON_LAND) {
 			waterLevel = getEntityBoundingBox().minY + (double) height;
 			setPosition(posX, (double) (getWaterLevelAbove() - height) + 0.101D, posZ);
-			motionY = 0.0D;
-			lastYd = 0.0D;
+			motionY = 0D;
+			lastYd = 0D;
 			status = EntityBoat.Status.IN_WATER;
 		} else {
 			if (status == EntityBoat.Status.IN_WATER) {
@@ -601,7 +601,7 @@ public class EntityBoat extends Entity {
 				momentum = boatGlide;
 
 				if (getControllingPassenger() instanceof EntityPlayer) {
-					boatGlide /= 2.0F;
+					boatGlide /= 2F;
 				}
 			}
 
@@ -610,7 +610,7 @@ public class EntityBoat extends Entity {
 			deltaRotation *= momentum;
 			motionY += d1;
 
-			if (d2 > 0.0D) {
+			if (d2 > 0D) {
 				double d3 = 0.65D;
 				motionY += d2 * 0.06153846016296973D;
 				double d4 = 0.75D;
@@ -622,10 +622,10 @@ public class EntityBoat extends Entity {
 	private void controlBoat() {
 
 		if (isBeingRidden()) {
-			float f = 0.0F;
+			float f = 0F;
 
 			if (leftInputDown) {
-				deltaRotation -= 1.0F;
+				deltaRotation -= 1F;
 			}
 
 			if (rightInputDown) {
@@ -655,7 +655,7 @@ public class EntityBoat extends Entity {
 	public void updatePassenger(Entity passenger) {
 
 		if (isPassenger(passenger)) {
-			float f = 0.0F;
+			float f = 0F;
 			float f1 = (float) ((isDead ? 0.009999999776482582D : getMountedYOffset()) + passenger.getYOffset());
 
 			if (getPassengers().size() > 1) {
@@ -672,7 +672,7 @@ public class EntityBoat extends Entity {
 				}
 			}
 
-			Vec3d vec3d = (new Vec3d(f, 0.0D, 0.0D)).rotateYaw(-rotationYaw * 0.017453292F - ((float) Math.PI / 2F));
+			Vec3d vec3d = (new Vec3d(f, 0D, 0D)).rotateYaw(-rotationYaw * 0.017453292F - ((float) Math.PI / 2F));
 			passenger.setPosition(posX + vec3d.x(), posY + (double) f1, posZ + vec3d.z());
 			passenger.rotationYaw += deltaRotation;
 			passenger.setRotationYawHead(passenger.getRotationYawHead() + deltaRotation);
@@ -693,7 +693,7 @@ public class EntityBoat extends Entity {
 
 		entityToUpdate.setRenderYawOffset(rotationYaw);
 		float f = MathHelper.wrapDegrees(entityToUpdate.rotationYaw - rotationYaw);
-		float f1 = MathHelper.clamp(f, -105.0F, 105.0F);
+		float f1 = MathHelper.clamp(f, -105F, 105F);
 		entityToUpdate.prevRotationYaw += f1 - f;
 		entityToUpdate.rotationYaw += f1 - f;
 		entityToUpdate.setRotationYawHead(entityToUpdate.rotationYaw);
@@ -730,7 +730,7 @@ public class EntityBoat extends Entity {
 		if (player.isSneaking()) {
 			return false;
 		} else {
-			if (!world.isRemote && outOfControlTicks < 60.0F) {
+			if (!world.isRemote && outOfControlTicks < 60F) {
 				player.startRiding(this);
 			}
 
@@ -744,31 +744,31 @@ public class EntityBoat extends Entity {
 
 		if (!isRiding()) {
 			if (onGroundIn) {
-				if (fallDistance > 3.0F) {
+				if (fallDistance > 3F) {
 					if (status != EntityBoat.Status.ON_LAND) {
-						fallDistance = 0.0F;
+						fallDistance = 0F;
 						return;
 					}
 
-					fall(fallDistance, 1.0F);
+					fall(fallDistance, 1F);
 
 					if (!world.isRemote && !isDead) {
 						setDead();
 
 						if (world.getGameRules().getBoolean("doEntityDrops")) {
 							for (int i = 0; i < 3; ++i) {
-								entityDropItem(new ItemStack(Item.getItemFromBlock(Blocks.PLANKS), 1, getBoatType().getMetadata()), 0.0F);
+								entityDropItem(new ItemStack(Item.getItemFromBlock(Blocks.PLANKS), 1, getBoatType().getMetadata()), 0F);
 							}
 
 							for (int j = 0; j < 2; ++j) {
-								dropItemWithOffset(Items.STICK, 1, 0.0F);
+								dropItemWithOffset(Items.STICK, 1, 0F);
 							}
 						}
 					}
 				}
 
-				fallDistance = 0.0F;
-			} else if (world.getBlockState((new BlockPos(this)).down()).getMaterial() != Material.WATER && y < 0.0D) {
+				fallDistance = 0F;
+			} else if (world.getBlockState((new BlockPos(this)).down()).getMaterial() != Material.WATER && y < 0D) {
 				fallDistance = (float) ((double) fallDistance - y);
 			}
 		}

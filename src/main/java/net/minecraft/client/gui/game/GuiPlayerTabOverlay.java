@@ -152,7 +152,7 @@ public class GuiPlayerTabOverlay extends Gui {
 			int j2 = j1 + l4 * i1 + l4 * 5;
 			int k2 = k1 + i5 * 9;
 			drawRect(j2, k2, j2 + i1, k2 + 8, 553648127);
-			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+			GlStateManager.color(1F, 1F, 1F, 1F);
 			GlStateManager.enableAlpha();
 			GlStateManager.enableBlend();
 			GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
@@ -167,12 +167,12 @@ public class GuiPlayerTabOverlay extends Gui {
 					mc.getTextureManager().bindTexture(networkplayerinfo1.getLocationSkin());
 					int l2 = 8 + (flag1 ? 8 : 0);
 					int i3 = 8 * (flag1 ? -1 : 1);
-					Gui.drawScaledCustomSizeModalRect(j2, k2, 8.0F, (float) l2, 8, i3, 8, 8, 64.0F, 64.0F);
+					Gui.drawScaledCustomSizeModalRect(j2, k2, 8F, (float) l2, 8, i3, 8, 8, 64F, 64F);
 
 					if (entityplayer != null && entityplayer.isWearing(EnumPlayerModelParts.HAT)) {
 						int j3 = 8 + (flag1 ? 8 : 0);
 						int k3 = 8 * (flag1 ? -1 : 1);
-						Gui.drawScaledCustomSizeModalRect(j2, k2, 40.0F, (float) j3, 8, k3, 8, 8, 64.0F, 64.0F);
+						Gui.drawScaledCustomSizeModalRect(j2, k2, 40F, (float) j3, 8, k3, 8, 8, 64F, 64F);
 					}
 
 					j2 += 9;
@@ -213,7 +213,7 @@ public class GuiPlayerTabOverlay extends Gui {
 
 	protected void drawPing(int p_175245_1_, int p_175245_2_, int p_175245_3_, NetworkPlayerInfo networkPlayerInfoIn) {
 
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+		GlStateManager.color(1F, 1F, 1F, 1F);
 		mc.getTextureManager().bindTexture(ICONS);
 		int i = 0;
 		int j;
@@ -232,9 +232,9 @@ public class GuiPlayerTabOverlay extends Gui {
 			j = 4;
 		}
 
-		zLevel += 100.0F;
+		zLevel += 100F;
 		drawTexturedModalRect(p_175245_2_ + p_175245_1_ - 11, p_175245_3_, 0, 176 + j * 8, 10, 8);
-		zLevel -= 100.0F;
+		zLevel -= 100F;
 	}
 
 	private void drawScoreboardValues(ScoreObjective objective, int p_175247_2_, String name, int p_175247_4_, int p_175247_5_, NetworkPlayerInfo info) {
@@ -262,14 +262,14 @@ public class GuiPlayerTabOverlay extends Gui {
 
 			info.setRenderVisibilityId(lastTimeOpened);
 			info.setLastHealth(i);
-			int j = MathHelper.ceil((float) Math.max(i, info.getDisplayHealth()) / 2.0F);
+			int j = MathHelper.ceil((float) Math.max(i, info.getDisplayHealth()) / 2F);
 			int k = Math.max(MathHelper.ceil((float) (i / 2)), Math.max(MathHelper.ceil((float) (info.getDisplayHealth() / 2)), 10));
 			boolean flag = info.getHealthBlinkTime() > (long) guiIngame.getUpdateCounter() && (info.getHealthBlinkTime() - (long) guiIngame.getUpdateCounter()) / 3L % 2L == 1L;
 
 			if (j > 0) {
-				float f = Math.min((float) (p_175247_5_ - p_175247_4_ - 4) / (float) k, 9.0F);
+				float f = Math.min((float) (p_175247_5_ - p_175247_4_ - 4) / (float) k, 9F);
 
-				if (f > 3.0F) {
+				if (f > 3F) {
 					for (int l = j; l < k; ++l) {
 						drawTexturedModalRect((float) p_175247_4_ + (float) l * f, (float) p_175247_2_, flag ? 25 : 16, 0, 9, 9);
 					}
@@ -296,9 +296,9 @@ public class GuiPlayerTabOverlay extends Gui {
 						}
 					}
 				} else {
-					float f1 = MathHelper.clamp((float) i / 20.0F, 0.0F, 1.0F);
-					int i1 = (int) ((1.0F - f1) * 255.0F) << 16 | (int) (f1 * 255.0F) << 8;
-					String s = "" + (float) i / 2.0F;
+					float f1 = MathHelper.clamp((float) i / 20F, 0F, 1F);
+					int i1 = (int) ((1F - f1) * 255F) << 16 | (int) (f1 * 255F) << 8;
+					String s = "" + (float) i / 2F;
 
 					if (p_175247_5_ - mc.fontRenderer.getStringWidth(s + "hp") >= p_175247_4_) {
 						s = s + "hp";

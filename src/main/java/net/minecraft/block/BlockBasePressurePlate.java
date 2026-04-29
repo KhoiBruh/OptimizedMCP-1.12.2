@@ -19,13 +19,13 @@ public abstract class BlockBasePressurePlate extends Block {
 	/**
 	 * The bounding box for the pressure plate pressed state
 	 */
-	protected static final AxisAlignedBB PRESSED_AABB = new AxisAlignedBB(0.0625D, 0.0D, 0.0625D, 0.9375D, 0.03125D, 0.9375D);
-	protected static final AxisAlignedBB UNPRESSED_AABB = new AxisAlignedBB(0.0625D, 0.0D, 0.0625D, 0.9375D, 0.0625D, 0.9375D);
+	protected static final AxisAlignedBB PRESSED_AABB = new AxisAlignedBB(0.0625D, 0D, 0.0625D, 0.9375D, 0.03125D, 0.9375D);
+	protected static final AxisAlignedBB UNPRESSED_AABB = new AxisAlignedBB(0.0625D, 0D, 0.0625D, 0.9375D, 0.0625D, 0.9375D);
 
 	/**
 	 * This bounding box is used to check for entities in a certain area and then determine the pressed state.
 	 */
-	protected static final AxisAlignedBB PRESSURE_AABB = new AxisAlignedBB(0.125D, 0.0D, 0.125D, 0.875D, 0.25D, 0.875D);
+	protected static final AxisAlignedBB PRESSURE_AABB = new AxisAlignedBB(0.125D, 0D, 0.125D, 0.875D, 0.25D, 0.875D);
 
 	protected BlockBasePressurePlate(Material materialIn) {
 

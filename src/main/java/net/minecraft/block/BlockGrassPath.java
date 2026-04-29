@@ -16,7 +16,7 @@ import java.util.Random;
 
 public class BlockGrassPath extends Block {
 
-	protected static final AxisAlignedBB GRASS_PATH_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.9375D, 1.0D);
+	protected static final AxisAlignedBB GRASS_PATH_AABB = new AxisAlignedBB(0D, 0D, 0D, 1D, 0.9375D, 1D);
 
 	protected BlockGrassPath() {
 

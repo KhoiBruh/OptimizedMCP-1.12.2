@@ -21,12 +21,12 @@ public class BlockTrapDoor extends Block {
 	public static final PropertyDirection FACING = BlockHorizontal.FACING;
 	public static final PropertyBool OPEN = PropertyBool.create("open");
 	public static final PropertyEnum<BlockTrapDoor.DoorHalf> HALF = PropertyEnum.create("half", BlockTrapDoor.DoorHalf.class);
-	protected static final AxisAlignedBB EAST_OPEN_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 0.1875D, 1.0D, 1.0D);
-	protected static final AxisAlignedBB WEST_OPEN_AABB = new AxisAlignedBB(0.8125D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D);
-	protected static final AxisAlignedBB SOUTH_OPEN_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 0.1875D);
-	protected static final AxisAlignedBB NORTH_OPEN_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.8125D, 1.0D, 1.0D, 1.0D);
-	protected static final AxisAlignedBB BOTTOM_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.1875D, 1.0D);
-	protected static final AxisAlignedBB TOP_AABB = new AxisAlignedBB(0.0D, 0.8125D, 0.0D, 1.0D, 1.0D, 1.0D);
+	protected static final AxisAlignedBB EAST_OPEN_AABB = new AxisAlignedBB(0D, 0D, 0D, 0.1875D, 1D, 1D);
+	protected static final AxisAlignedBB WEST_OPEN_AABB = new AxisAlignedBB(0.8125D, 0D, 0D, 1D, 1D, 1D);
+	protected static final AxisAlignedBB SOUTH_OPEN_AABB = new AxisAlignedBB(0D, 0D, 0D, 1D, 1D, 0.1875D);
+	protected static final AxisAlignedBB NORTH_OPEN_AABB = new AxisAlignedBB(0D, 0D, 0.8125D, 1D, 1D, 1D);
+	protected static final AxisAlignedBB BOTTOM_AABB = new AxisAlignedBB(0D, 0D, 0D, 1D, 0.1875D, 1D);
+	protected static final AxisAlignedBB TOP_AABB = new AxisAlignedBB(0D, 0.8125D, 0D, 1D, 1D, 1D);
 
 	protected BlockTrapDoor(Material materialIn) {
 

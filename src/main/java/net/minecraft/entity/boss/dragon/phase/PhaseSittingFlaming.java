@@ -29,16 +29,16 @@ public class PhaseSittingFlaming extends PhaseSittingBase {
 		++flameTicks;
 
 		if (flameTicks % 2 == 0 && flameTicks < 10) {
-			Vec3d vec3d = dragon.getHeadLookVec(1.0F).normalize();
+			Vec3d vec3d = dragon.getHeadLookVec(1F).normalize();
 			vec3d.rotateYaw(-((float) Math.PI / 4F));
 			double d0 = dragon.dragonPartHead.posX;
-			double d1 = dragon.dragonPartHead.posY + (double) (dragon.dragonPartHead.height / 2.0F);
+			double d1 = dragon.dragonPartHead.posY + (double) (dragon.dragonPartHead.height / 2F);
 			double d2 = dragon.dragonPartHead.posZ;
 
 			for (int i = 0; i < 8; ++i) {
-				double d3 = d0 + dragon.getRNG().nextGaussian() / 2.0D;
-				double d4 = d1 + dragon.getRNG().nextGaussian() / 2.0D;
-				double d5 = d2 + dragon.getRNG().nextGaussian() / 2.0D;
+				double d3 = d0 + dragon.getRNG().nextGaussian() / 2D;
+				double d4 = d1 + dragon.getRNG().nextGaussian() / 2D;
+				double d5 = d2 + dragon.getRNG().nextGaussian() / 2D;
 
 				for (int j = 0; j < 6; ++j) {
 					dragon.world.spawnParticle(EnumParticleTypes.DRAGON_BREATH, d3, d4, d5, -vec3d.x() * 0.07999999821186066D * (double) j, -vec3d.y() * 0.6000000238418579D, -vec3d.z() * 0.07999999821186066D * (double) j);
@@ -64,11 +64,11 @@ public class PhaseSittingFlaming extends PhaseSittingBase {
 				dragon.getPhaseManager().setPhase(PhaseList.SITTING_SCANNING);
 			}
 		} else if (flameTicks == 10) {
-			Vec3d vec3d = (new Vec3d(dragon.dragonPartHead.posX - dragon.posX, 0.0D, dragon.dragonPartHead.posZ - dragon.posZ)).normalize();
-			float f = 5.0F;
-			double d0 = dragon.dragonPartHead.posX + vec3d.x() * 5.0D / 2.0D;
-			double d1 = dragon.dragonPartHead.posZ + vec3d.z() * 5.0D / 2.0D;
-			double d2 = dragon.dragonPartHead.posY + (double) (dragon.dragonPartHead.height / 2.0F);
+			Vec3d vec3d = (new Vec3d(dragon.dragonPartHead.posX - dragon.posX, 0D, dragon.dragonPartHead.posZ - dragon.posZ)).normalize();
+			float f = 5F;
+			double d0 = dragon.dragonPartHead.posX + vec3d.x() * 5D / 2D;
+			double d1 = dragon.dragonPartHead.posZ + vec3d.z() * 5D / 2D;
+			double d2 = dragon.dragonPartHead.posY + (double) (dragon.dragonPartHead.height / 2F);
 			BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos(MathHelper.floor(d0), MathHelper.floor(d2), MathHelper.floor(d1));
 
 			while (dragon.world.isAirBlock(blockpos$mutableblockpos)) {
@@ -79,7 +79,7 @@ public class PhaseSittingFlaming extends PhaseSittingBase {
 			d2 = MathHelper.floor(d2) + 1;
 			areaEffectCloud = new EntityAreaEffectCloud(dragon.world, d0, d2, d1);
 			areaEffectCloud.setOwner(dragon);
-			areaEffectCloud.setRadius(5.0F);
+			areaEffectCloud.setRadius(5F);
 			areaEffectCloud.setDuration(200);
 			areaEffectCloud.setParticle(EnumParticleTypes.DRAGON_BREATH);
 			areaEffectCloud.addEffect(new PotionEffect(MobEffects.INSTANT_DAMAGE));

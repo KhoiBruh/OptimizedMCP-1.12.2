@@ -119,7 +119,7 @@ public class PlayerControllerMP {
 	 */
 	public void flipPlayer(EntityPlayer playerIn) {
 
-		playerIn.rotationYaw = -180.0F;
+		playerIn.rotationYaw = -180F;
 	}
 
 	public boolean shouldDrawHUD() {
@@ -213,7 +213,7 @@ public class PlayerControllerMP {
 			return false;
 		} else {
 			if (currentGameType.isCreative()) {
-				mc.getTutorial().onHitBlock(mc.world, loc, mc.world.getBlockState(loc), 1.0F);
+				mc.getTutorial().onHitBlock(mc.world, loc, mc.world.getBlockState(loc), 1F);
 				connection.sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.START_DESTROY_BLOCK, loc, face));
 				clickBlockCreative(mc, this, loc, face);
 				blockHitDelay = 5;
@@ -223,23 +223,23 @@ public class PlayerControllerMP {
 				}
 
 				IBlockState iblockstate = mc.world.getBlockState(loc);
-				mc.getTutorial().onHitBlock(mc.world, loc, iblockstate, 0.0F);
+				mc.getTutorial().onHitBlock(mc.world, loc, iblockstate, 0F);
 				connection.sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.START_DESTROY_BLOCK, loc, face));
 				boolean flag = iblockstate.getMaterial() != Material.AIR;
 
-				if (flag && curBlockDamageMP == 0.0F) {
+				if (flag && curBlockDamageMP == 0F) {
 					iblockstate.getBlock().onBlockClicked(mc.world, loc, mc.player);
 				}
 
-				if (flag && iblockstate.getPlayerRelativeBlockHardness(mc.player, mc.player.world, loc) >= 1.0F) {
+				if (flag && iblockstate.getPlayerRelativeBlockHardness(mc.player, mc.player.world, loc) >= 1F) {
 					onPlayerDestroyBlock(loc);
 				} else {
 					isHittingBlock = true;
 					currentBlock = loc;
 					currentItemHittingBlock = mc.player.getHeldItemMainhand();
-					curBlockDamageMP = 0.0F;
-					stepSoundTickCounter = 0.0F;
-					mc.world.sendBlockBreakProgress(mc.player.getEntityId(), currentBlock, (int) (curBlockDamageMP * 10.0F) - 1);
+					curBlockDamageMP = 0F;
+					stepSoundTickCounter = 0F;
+					mc.world.sendBlockBreakProgress(mc.player.getEntityId(), currentBlock, (int) (curBlockDamageMP * 10F) - 1);
 				}
 			}
 
@@ -253,10 +253,10 @@ public class PlayerControllerMP {
 	public void resetBlockRemoving() {
 
 		if (isHittingBlock) {
-			mc.getTutorial().onHitBlock(mc.world, currentBlock, mc.world.getBlockState(currentBlock), -1.0F);
+			mc.getTutorial().onHitBlock(mc.world, currentBlock, mc.world.getBlockState(currentBlock), -1F);
 			connection.sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.ABORT_DESTROY_BLOCK, currentBlock, EnumFacing.DOWN));
 			isHittingBlock = false;
-			curBlockDamageMP = 0.0F;
+			curBlockDamageMP = 0F;
 			mc.world.sendBlockBreakProgress(mc.player.getEntityId(), currentBlock, -1);
 			mc.player.resetCooldown();
 		}
@@ -271,7 +271,7 @@ public class PlayerControllerMP {
 			return true;
 		} else if (currentGameType.isCreative() && mc.world.getWorldBorder().contains(posBlock)) {
 			blockHitDelay = 5;
-			mc.getTutorial().onHitBlock(mc.world, posBlock, mc.world.getBlockState(posBlock), 1.0F);
+			mc.getTutorial().onHitBlock(mc.world, posBlock, mc.world.getBlockState(posBlock), 1F);
 			connection.sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.START_DESTROY_BLOCK, posBlock, directionFacing));
 			clickBlockCreative(mc, this, posBlock, directionFacing);
 			return true;
@@ -285,24 +285,24 @@ public class PlayerControllerMP {
 			} else {
 				curBlockDamageMP += iblockstate.getPlayerRelativeBlockHardness(mc.player, mc.player.world, posBlock);
 
-				if (stepSoundTickCounter % 4.0F == 0.0F) {
+				if (stepSoundTickCounter % 4F == 0F) {
 					SoundType soundtype = block.getSoundType();
-					mc.getSoundHandler().playSound(new PositionedSoundRecord(soundtype.hitSound(), SoundCategory.NEUTRAL, (soundtype.volume() + 1.0F) / 8.0F, soundtype.pitch() * 0.5F, posBlock));
+					mc.getSoundHandler().playSound(new PositionedSoundRecord(soundtype.hitSound(), SoundCategory.NEUTRAL, (soundtype.volume() + 1F) / 8F, soundtype.pitch() * 0.5F, posBlock));
 				}
 
 				++stepSoundTickCounter;
-				mc.getTutorial().onHitBlock(mc.world, posBlock, iblockstate, MathHelper.clamp(curBlockDamageMP, 0.0F, 1.0F));
+				mc.getTutorial().onHitBlock(mc.world, posBlock, iblockstate, MathHelper.clamp(curBlockDamageMP, 0F, 1F));
 
-				if (curBlockDamageMP >= 1.0F) {
+				if (curBlockDamageMP >= 1F) {
 					isHittingBlock = false;
 					connection.sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.STOP_DESTROY_BLOCK, posBlock, directionFacing));
 					onPlayerDestroyBlock(posBlock);
-					curBlockDamageMP = 0.0F;
-					stepSoundTickCounter = 0.0F;
+					curBlockDamageMP = 0F;
+					stepSoundTickCounter = 0F;
 					blockHitDelay = 5;
 				}
 
-				mc.world.sendBlockBreakProgress(mc.player.getEntityId(), currentBlock, (int) (curBlockDamageMP * 10.0F) - 1);
+				mc.world.sendBlockBreakProgress(mc.player.getEntityId(), currentBlock, (int) (curBlockDamageMP * 10F) - 1);
 				return true;
 			}
 		} else {
@@ -315,7 +315,7 @@ public class PlayerControllerMP {
 	 */
 	public float getBlockReachDistance() {
 
-		return currentGameType.isCreative() ? 5.0F : 4.5F;
+		return currentGameType.isCreative() ? 5F : 4.5F;
 	}
 
 	public void updateController() {

@@ -18,9 +18,9 @@ import java.util.Random;
 
 public class BlockEndRod extends BlockDirectional {
 
-	protected static final AxisAlignedBB END_ROD_VERTICAL_AABB = new AxisAlignedBB(0.375D, 0.0D, 0.375D, 0.625D, 1.0D, 0.625D);
-	protected static final AxisAlignedBB END_ROD_NS_AABB = new AxisAlignedBB(0.375D, 0.375D, 0.0D, 0.625D, 0.625D, 1.0D);
-	protected static final AxisAlignedBB END_ROD_EW_AABB = new AxisAlignedBB(0.0D, 0.375D, 0.375D, 1.0D, 0.625D, 0.625D);
+	protected static final AxisAlignedBB END_ROD_VERTICAL_AABB = new AxisAlignedBB(0.375D, 0D, 0.375D, 0.625D, 1D, 0.625D);
+	protected static final AxisAlignedBB END_ROD_NS_AABB = new AxisAlignedBB(0.375D, 0.375D, 0D, 0.625D, 0.625D, 1D);
+	protected static final AxisAlignedBB END_ROD_EW_AABB = new AxisAlignedBB(0D, 0.375D, 0.375D, 1D, 0.625D, 0.625D);
 
 	protected BlockEndRod() {
 

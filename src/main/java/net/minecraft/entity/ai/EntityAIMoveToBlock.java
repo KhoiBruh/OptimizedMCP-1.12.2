@@ -66,7 +66,7 @@ public abstract class EntityAIMoveToBlock extends EntityAIBase {
 	 */
 	public void updateTask() {
 
-		if (creature.getDistanceSqToCenter(destinationBlock.up()) > 1.0D) {
+		if (creature.getDistanceSqToCenter(destinationBlock.up()) > 1D) {
 			isAboveDestination = false;
 			++timeoutCounter;
 

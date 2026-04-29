@@ -71,9 +71,9 @@ public class EntityPigZombie extends EntityZombie {
 	protected void applyEntityAttributes() {
 
 		super.applyEntityAttributes();
-		getEntityAttribute(SPAWN_REINFORCEMENTS_CHANCE).setBaseValue(0.0D);
+		getEntityAttribute(SPAWN_REINFORCEMENTS_CHANCE).setBaseValue(0D);
 		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.23000000417232513D);
-		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(5.0D);
+		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(5D);
 	}
 
 	protected void updateAITasks() {
@@ -91,7 +91,7 @@ public class EntityPigZombie extends EntityZombie {
 		}
 
 		if (randomSoundDelay > 0 && --randomSoundDelay == 0) {
-			playSound(SoundEvents.ENTITY_ZOMBIE_PIG_ANGRY, getSoundVolume() * 2.0F, ((rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F) * 1.8F);
+			playSound(SoundEvents.ENTITY_ZOMBIE_PIG_ANGRY, getSoundVolume() * 2F, ((rand.nextFloat() - rand.nextFloat()) * 0.2F + 1F) * 1.8F);
 		}
 
 		if (angerLevel > 0 && angerTargetUUID != null && getRevengeTarget() == null) {

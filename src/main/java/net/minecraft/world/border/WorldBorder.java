@@ -28,7 +28,7 @@ public class WorldBorder {
 		endDiameter = startDiameter;
 		worldSize = 29999984;
 		damageAmount = 0.2D;
-		damageBuffer = 5.0D;
+		damageBuffer = 5D;
 		warningTime = 15;
 		warningDistance = 5;
 	}
@@ -75,7 +75,7 @@ public class WorldBorder {
 
 	public double minX() {
 
-		double d0 = getCenterX() - getDiameter() / 2.0D;
+		double d0 = getCenterX() - getDiameter() / 2D;
 
 		if (d0 < (double) (-worldSize)) {
 			d0 = -worldSize;
@@ -86,7 +86,7 @@ public class WorldBorder {
 
 	public double minZ() {
 
-		double d0 = getCenterZ() - getDiameter() / 2.0D;
+		double d0 = getCenterZ() - getDiameter() / 2D;
 
 		if (d0 < (double) (-worldSize)) {
 			d0 = -worldSize;
@@ -97,7 +97,7 @@ public class WorldBorder {
 
 	public double maxX() {
 
-		double d0 = getCenterX() + getDiameter() / 2.0D;
+		double d0 = getCenterX() + getDiameter() / 2D;
 
 		if (d0 > (double) worldSize) {
 			d0 = worldSize;
@@ -108,7 +108,7 @@ public class WorldBorder {
 
 	public double maxZ() {
 
-		double d0 = getCenterZ() + getDiameter() / 2.0D;
+		double d0 = getCenterZ() + getDiameter() / 2D;
 
 		if (d0 > (double) worldSize) {
 			d0 = worldSize;
@@ -142,7 +142,7 @@ public class WorldBorder {
 		if (getStatus() != EnumBorderStatus.STATIONARY) {
 			double d0 = (float) (System.currentTimeMillis() - startTime) / (float) (endTime - startTime);
 
-			if (d0 < 1.0D) {
+			if (d0 < 1D) {
 				return startDiameter + (endDiameter - startDiameter) * d0;
 			}
 
@@ -236,7 +236,7 @@ public class WorldBorder {
 
 	public double getResizeSpeed() {
 
-		return endTime == startTime ? 0.0D : Math.abs(startDiameter - endDiameter) / (double) (endTime - startTime);
+		return endTime == startTime ? 0D : Math.abs(startDiameter - endDiameter) / (double) (endTime - startTime);
 	}
 
 	public int getWarningTime() {

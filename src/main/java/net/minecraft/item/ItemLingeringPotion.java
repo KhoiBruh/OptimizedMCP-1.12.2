@@ -37,7 +37,7 @@ public class ItemLingeringPotion extends ItemPotion {
 
 		if (!worldIn.isRemote) {
 			EntityPotion entitypotion = new EntityPotion(worldIn, playerIn, itemstack1);
-			entitypotion.shoot(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, -20.0F, 0.5F, 1.0F);
+			entitypotion.shoot(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, -20F, 0.5F, 1F);
 			worldIn.spawnEntity(entitypotion);
 		}
 

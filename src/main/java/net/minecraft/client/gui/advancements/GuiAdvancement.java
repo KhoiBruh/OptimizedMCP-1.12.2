@@ -39,8 +39,8 @@ public class GuiAdvancement extends Gui {
 		displayInfo = p_i47385_4_;
 		minecraft = p_i47385_2_;
 		title = p_i47385_2_.fontRenderer.trimStringToWidth(p_i47385_4_.getTitle().getFormattedText(), 163);
-		x = MathHelper.floor(p_i47385_4_.getX() * 28.0F);
-		y = MathHelper.floor(p_i47385_4_.getY() * 27.0F);
+		x = MathHelper.floor(p_i47385_4_.getX() * 28F);
+		y = MathHelper.floor(p_i47385_4_.getY() * 27F);
 		int i = p_i47385_3_.getRequirementCount();
 		int j = String.valueOf(i).length();
 		int k = i > 1 ? p_i47385_2_.fontRenderer.getStringWidth("  ") + p_i47385_2_.fontRenderer.getStringWidth("0") * j * 2 + p_i47385_2_.fontRenderer.getStringWidth("/") : 0;
@@ -140,17 +140,17 @@ public class GuiAdvancement extends Gui {
 	public void draw(int p_191817_1_, int p_191817_2_) {
 
 		if (!displayInfo.isHidden() || advancementProgress != null && advancementProgress.isDone()) {
-			float f = advancementProgress == null ? 0.0F : advancementProgress.getPercent();
+			float f = advancementProgress == null ? 0F : advancementProgress.getPercent();
 			AdvancementState advancementstate;
 
-			if (f >= 1.0F) {
+			if (f >= 1F) {
 				advancementstate = AdvancementState.OBTAINED;
 			} else {
 				advancementstate = AdvancementState.UNOBTAINED;
 			}
 
 			minecraft.getTextureManager().bindTexture(WIDGETS);
-			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+			GlStateManager.color(1F, 1F, 1F, 1F);
 			GlStateManager.enableBlend();
 			drawTexturedModalRect(p_191817_1_ + x + 3, p_191817_2_ + y, displayInfo.getFrame().getIcon(), 128 + advancementstate.getId() * 26, 26, 26);
 			RenderHelper.enableGUIStandardItemLighting();
@@ -178,13 +178,13 @@ public class GuiAdvancement extends Gui {
 		String s = advancementProgress == null ? null : advancementProgress.getProgressText();
 		int i = s == null ? 0 : minecraft.fontRenderer.getStringWidth(s);
 		boolean flag1 = 113 - p_191821_2_ - y - 26 <= 6 + description.size() * minecraft.fontRenderer.FONT_HEIGHT;
-		float f = advancementProgress == null ? 0.0F : advancementProgress.getPercent();
+		float f = advancementProgress == null ? 0F : advancementProgress.getPercent();
 		int j = MathHelper.floor(f * (float) width);
 		AdvancementState advancementstate;
 		AdvancementState advancementstate1;
 		AdvancementState advancementstate2;
 
-		if (f >= 1.0F) {
+		if (f >= 1F) {
 			j = width / 2;
 			advancementstate = AdvancementState.OBTAINED;
 			advancementstate1 = AdvancementState.OBTAINED;
@@ -207,7 +207,7 @@ public class GuiAdvancement extends Gui {
 
 		int k = width - j;
 		minecraft.getTextureManager().bindTexture(WIDGETS);
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+		GlStateManager.color(1F, 1F, 1F, 1F);
 		GlStateManager.enableBlend();
 		int l = p_191821_2_ + y;
 		int i1;

@@ -9,32 +9,32 @@ public record Vec2f(float x, float y) {
 	/**
 	 * An immutable vector with {@code 0.0F} as the x and y components.
 	 */
-	public static final Vec2f ZERO = new Vec2f(0.0F, 0.0F);
+	public static final Vec2f ZERO = new Vec2f(0F, 0F);
 
 	/**
 	 * An immutable vector with {@code 1.0F} as the x and y components.
 	 */
-	public static final Vec2f ONE = new Vec2f(1.0F, 1.0F);
+	public static final Vec2f ONE = new Vec2f(1F, 1F);
 
 	/**
 	 * An immutable vector with {@code 1.0F} as the x component.
 	 */
-	public static final Vec2f UNIT_X = new Vec2f(1.0F, 0.0F);
+	public static final Vec2f UNIT_X = new Vec2f(1F, 0F);
 
 	/**
 	 * An immutable vector with {@code -1.0F} as the x component.
 	 */
-	public static final Vec2f NEGATIVE_UNIT_X = new Vec2f(-1.0F, 0.0F);
+	public static final Vec2f NEGATIVE_UNIT_X = new Vec2f(-1F, 0F);
 
 	/**
 	 * An immutable vector with {@code 1.0F} as the y component.
 	 */
-	public static final Vec2f UNIT_Y = new Vec2f(0.0F, 1.0F);
+	public static final Vec2f UNIT_Y = new Vec2f(0F, 1F);
 
 	/**
 	 * An immutable vector with {@code -1.0F} as the y component.
 	 */
-	public static final Vec2f NEGATIVE_UNIT_Y = new Vec2f(0.0F, -1.0F);
+	public static final Vec2f NEGATIVE_UNIT_Y = new Vec2f(0F, -1F);
 
 	/**
 	 * An immutable vector with {@link Float#MAX_VALUE} as the x and y components.

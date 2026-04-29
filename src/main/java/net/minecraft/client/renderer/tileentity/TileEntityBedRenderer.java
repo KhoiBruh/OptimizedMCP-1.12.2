@@ -44,7 +44,7 @@ public class TileEntityBedRenderer extends TileEntitySpecialRenderer<TileEntityB
 			bindTexture(DESTROY_STAGES[destroyStage]);
 			GlStateManager.matrixMode(5890);
 			GlStateManager.pushMatrix();
-			GlStateManager.scale(4.0F, 4.0F, 1.0F);
+			GlStateManager.scale(4F, 4F, 1F);
 			GlStateManager.translate(0.0625F, 0.0625F, 0.0625F);
 			GlStateManager.matrixMode(5888);
 		} else {
@@ -60,7 +60,7 @@ public class TileEntityBedRenderer extends TileEntitySpecialRenderer<TileEntityB
 		} else {
 			GlStateManager.pushMatrix();
 			renderPiece(true, x, y, z, i, alpha);
-			renderPiece(false, x, y, z - 1.0D, i, alpha);
+			renderPiece(false, x, y, z - 1D, i, alpha);
 			GlStateManager.popMatrix();
 		}
 
@@ -75,32 +75,32 @@ public class TileEntityBedRenderer extends TileEntitySpecialRenderer<TileEntityB
 
 		model.preparePiece(p_193847_1_);
 		GlStateManager.pushMatrix();
-		float f = 0.0F;
-		float f1 = 0.0F;
-		float f2 = 0.0F;
+		float f = 0F;
+		float f1 = 0F;
+		float f2 = 0F;
 
 		if (p_193847_8_ == EnumFacing.NORTH.getHorizontalIndex()) {
-			f = 0.0F;
+			f = 0F;
 		} else if (p_193847_8_ == EnumFacing.SOUTH.getHorizontalIndex()) {
-			f = 180.0F;
-			f1 = 1.0F;
-			f2 = 1.0F;
+			f = 180F;
+			f1 = 1F;
+			f2 = 1F;
 		} else if (p_193847_8_ == EnumFacing.WEST.getHorizontalIndex()) {
-			f = -90.0F;
-			f2 = 1.0F;
+			f = -90F;
+			f2 = 1F;
 		} else if (p_193847_8_ == EnumFacing.EAST.getHorizontalIndex()) {
-			f = 90.0F;
-			f1 = 1.0F;
+			f = 90F;
+			f1 = 1F;
 		}
 
 		GlStateManager.translate((float) x + f1, (float) y + 0.5625F, (float) z + f2);
-		GlStateManager.rotate(90.0F, 1.0F, 0.0F, 0.0F);
-		GlStateManager.rotate(f, 0.0F, 0.0F, 1.0F);
+		GlStateManager.rotate(90F, 1F, 0F, 0F);
+		GlStateManager.rotate(f, 0F, 0F, 1F);
 		GlStateManager.enableRescaleNormal();
 		GlStateManager.pushMatrix();
 		model.render();
 		GlStateManager.popMatrix();
-		GlStateManager.color(1.0F, 1.0F, 1.0F, alpha);
+		GlStateManager.color(1F, 1F, 1F, alpha);
 		GlStateManager.popMatrix();
 	}
 }

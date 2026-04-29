@@ -102,7 +102,7 @@ public class GuiGameOver extends GuiScreen {
 		boolean flag = mc.world.getWorldInfo().isHardcoreModeEnabled();
 		drawGradientRect(0, 0, width, height, 1615855616, -1602211792);
 		GlStateManager.pushMatrix();
-		GlStateManager.scale(2.0F, 2.0F, 2.0F);
+		GlStateManager.scale(2F, 2F, 2F);
 		drawCenteredString(fontRenderer, I18n.format(flag ? "deathScreen.title.hardcore" : "deathScreen.title"), width / 2 / 2, 30, 16777215);
 		GlStateManager.popMatrix();
 

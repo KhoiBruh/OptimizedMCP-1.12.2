@@ -37,7 +37,7 @@ public class GuiButtonRecipe extends GuiButton {
 		for (IRecipe irecipe : list) {
 			if (p_193928_3_.isNew(irecipe)) {
 				p_193928_2_.recipesShown(list);
-				animationTime = 15.0F;
+				animationTime = 15F;
 				break;
 			}
 		}
@@ -80,20 +80,20 @@ public class GuiButtonRecipe extends GuiButton {
 				j += 25;
 			}
 
-			boolean flag = animationTime > 0.0F;
+			boolean flag = animationTime > 0F;
 
 			if (flag) {
-				float f = 1.0F + 0.1F * (float) Math.sin(animationTime / 15.0F * (float) Math.PI);
+				float f = 1F + 0.1F * (float) Math.sin(animationTime / 15F * (float) Math.PI);
 				GlStateManager.pushMatrix();
-				GlStateManager.translate((float) (x + 8), (float) (y + 12), 0.0F);
-				GlStateManager.scale(f, f, 1.0F);
-				GlStateManager.translate((float) (-(x + 8)), (float) (-(y + 12)), 0.0F);
+				GlStateManager.translate((float) (x + 8), (float) (y + 12), 0F);
+				GlStateManager.scale(f, f, 1F);
+				GlStateManager.translate((float) (-(x + 8)), (float) (-(y + 12)), 0F);
 				animationTime -= partialTicks;
 			}
 
 			drawTexturedModalRect(x, y, i, j, width, height);
 			List<IRecipe> list = getOrderedRecipes();
-			currentIndex = MathHelper.floor(time / 30.0F) % list.size();
+			currentIndex = MathHelper.floor(time / 30F) % list.size();
 			ItemStack itemstack = list.get(currentIndex).getRecipeOutput();
 			int k = 4;
 

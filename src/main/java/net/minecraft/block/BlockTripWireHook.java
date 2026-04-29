@@ -24,10 +24,10 @@ public class BlockTripWireHook extends Block {
 	public static final PropertyDirection FACING = BlockHorizontal.FACING;
 	public static final PropertyBool POWERED = PropertyBool.create("powered");
 	public static final PropertyBool ATTACHED = PropertyBool.create("attached");
-	protected static final AxisAlignedBB HOOK_NORTH_AABB = new AxisAlignedBB(0.3125D, 0.0D, 0.625D, 0.6875D, 0.625D, 1.0D);
-	protected static final AxisAlignedBB HOOK_SOUTH_AABB = new AxisAlignedBB(0.3125D, 0.0D, 0.0D, 0.6875D, 0.625D, 0.375D);
-	protected static final AxisAlignedBB HOOK_WEST_AABB = new AxisAlignedBB(0.625D, 0.0D, 0.3125D, 1.0D, 0.625D, 0.6875D);
-	protected static final AxisAlignedBB HOOK_EAST_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.3125D, 0.375D, 0.625D, 0.6875D);
+	protected static final AxisAlignedBB HOOK_NORTH_AABB = new AxisAlignedBB(0.3125D, 0D, 0.625D, 0.6875D, 0.625D, 1D);
+	protected static final AxisAlignedBB HOOK_SOUTH_AABB = new AxisAlignedBB(0.3125D, 0D, 0D, 0.6875D, 0.625D, 0.375D);
+	protected static final AxisAlignedBB HOOK_WEST_AABB = new AxisAlignedBB(0.625D, 0D, 0.3125D, 1D, 0.625D, 0.6875D);
+	protected static final AxisAlignedBB HOOK_EAST_AABB = new AxisAlignedBB(0D, 0D, 0.3125D, 0.375D, 0.625D, 0.6875D);
 
 	public BlockTripWireHook() {
 

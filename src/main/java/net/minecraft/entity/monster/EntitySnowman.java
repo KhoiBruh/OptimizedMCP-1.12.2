@@ -43,9 +43,9 @@ public class EntitySnowman extends EntityGolem implements IRangedAttackMob {
 
 	protected void initEntityAI() {
 
-		tasks.addTask(1, new EntityAIAttackRanged(this, 1.25D, 20, 10.0F));
-		tasks.addTask(2, new EntityAIWanderAvoidWater(this, 1.0D, 1.0000001E-5F));
-		tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
+		tasks.addTask(1, new EntityAIAttackRanged(this, 1.25D, 20, 10F));
+		tasks.addTask(2, new EntityAIWanderAvoidWater(this, 1D, 1.0000001E-5F));
+		tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 6F));
 		tasks.addTask(4, new EntityAILookIdle(this));
 		targetTasks.addTask(1, new EntityAINearestAttackableTarget<>(this, EntityLiving.class, 10, true, false, IMob.MOB_SELECTOR));
 	}
@@ -53,7 +53,7 @@ public class EntitySnowman extends EntityGolem implements IRangedAttackMob {
 	protected void applyEntityAttributes() {
 
 		super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(4.0D);
+		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(4D);
 		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.20000000298023224D);
 	}
 
@@ -98,11 +98,11 @@ public class EntitySnowman extends EntityGolem implements IRangedAttackMob {
 			int k = MathHelper.floor(posZ);
 
 			if (isWet()) {
-				attackEntityFrom(DamageSource.DROWN, 1.0F);
+				attackEntityFrom(DamageSource.DROWN, 1F);
 			}
 
-			if (world.getBiome(new BlockPos(i, 0, k)).getTemperature(new BlockPos(i, j, k)) > 1.0F) {
-				attackEntityFrom(DamageSource.ON_FIRE, 1.0F);
+			if (world.getBiome(new BlockPos(i, 0, k)).getTemperature(new BlockPos(i, j, k)) > 1F) {
+				attackEntityFrom(DamageSource.ON_FIRE, 1F);
 			}
 
 			if (!world.getGameRules().getBoolean("mobGriefing")) {
@@ -139,8 +139,8 @@ public class EntitySnowman extends EntityGolem implements IRangedAttackMob {
 		double d2 = d0 - entitysnowball.posY;
 		double d3 = target.posZ - posZ;
 		float f = MathHelper.sqrt(d1 * d1 + d3 * d3) * 0.2F;
-		entitysnowball.shoot(d1, d2 + (double) f, d3, 1.6F, 12.0F);
-		playSound(SoundEvents.ENTITY_SNOWMAN_SHOOT, 1.0F, 1.0F / (getRNG().nextFloat() * 0.4F + 0.8F));
+		entitysnowball.shoot(d1, d2 + (double) f, d3, 1.6F, 12F);
+		playSound(SoundEvents.ENTITY_SNOWMAN_SHOOT, 1F, 1F / (getRNG().nextFloat() * 0.4F + 0.8F));
 		world.spawnEntity(entitysnowball);
 	}
 

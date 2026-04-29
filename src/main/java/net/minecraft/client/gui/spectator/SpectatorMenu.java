@@ -139,7 +139,7 @@ public class SpectatorMenu {
 		public void renderIcon(float brightness, int alpha) {
 
 			Minecraft.getMinecraft().getTextureManager().bindTexture(GuiSpectator.SPECTATOR_WIDGETS);
-			Gui.drawModalRectWithCustomSizedTexture(0, 0, 128.0F, 0.0F, 16, 16, 256.0F, 256.0F);
+			Gui.drawModalRectWithCustomSizedTexture(0, 0, 128F, 0F, 16, 16, 256F, 256F);
 		}
 
 		public boolean isEnabled() {
@@ -175,9 +175,9 @@ public class SpectatorMenu {
 			Minecraft.getMinecraft().getTextureManager().bindTexture(GuiSpectator.SPECTATOR_WIDGETS);
 
 			if (direction < 0) {
-				Gui.drawModalRectWithCustomSizedTexture(0, 0, 144.0F, 0.0F, 16, 16, 256.0F, 256.0F);
+				Gui.drawModalRectWithCustomSizedTexture(0, 0, 144F, 0F, 16, 16, 256F, 256F);
 			} else {
-				Gui.drawModalRectWithCustomSizedTexture(0, 0, 160.0F, 0.0F, 16, 16, 256.0F, 256.0F);
+				Gui.drawModalRectWithCustomSizedTexture(0, 0, 160F, 0F, 16, 16, 256F, 256F);
 			}
 		}
 

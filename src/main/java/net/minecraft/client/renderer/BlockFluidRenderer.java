@@ -43,9 +43,9 @@ public class BlockFluidRenderer {
 		boolean flag = blockStateIn.getMaterial() == Material.LAVA;
 		TextureAtlasSprite[] atextureatlassprite = flag ? atlasSpritesLava : atlasSpritesWater;
 		int i = blockColors.colorMultiplier(blockStateIn, blockAccess, blockPosIn, 0);
-		float f = (float) (i >> 16 & 255) / 255.0F;
-		float f1 = (float) (i >> 8 & 255) / 255.0F;
-		float f2 = (float) (i & 255) / 255.0F;
+		float f = (float) (i >> 16 & 255) / 255F;
+		float f1 = (float) (i >> 8 & 255) / 255F;
+		float f2 = (float) (i & 255) / 255F;
 		boolean flag1 = blockStateIn.shouldSideBeRendered(blockAccess, blockPosIn, EnumFacing.UP);
 		boolean flag2 = blockStateIn.shouldSideBeRendered(blockAccess, blockPosIn, EnumFacing.DOWN);
 		boolean[] aboolean = new boolean[]{blockStateIn.shouldSideBeRendered(blockAccess, blockPosIn, EnumFacing.NORTH), blockStateIn.shouldSideBeRendered(blockAccess, blockPosIn, EnumFacing.SOUTH), blockStateIn.shouldSideBeRendered(blockAccess, blockPosIn, EnumFacing.WEST), blockStateIn.shouldSideBeRendered(blockAccess, blockPosIn, EnumFacing.EAST)};
@@ -55,7 +55,7 @@ public class BlockFluidRenderer {
 		} else {
 			boolean flag3 = false;
 			float f3 = 0.5F;
-			float f4 = 1.0F;
+			float f4 = 1F;
 			float f5 = 0.8F;
 			float f6 = 0.6F;
 			Material material = blockStateIn.getMaterial();
@@ -71,7 +71,7 @@ public class BlockFluidRenderer {
 			if (flag1) {
 				flag3 = true;
 				float f12 = BlockLiquid.getSlopeAngle(blockAccess, blockPosIn, material, blockStateIn);
-				TextureAtlasSprite textureatlassprite = f12 > -999.0F ? atextureatlassprite[1] : atextureatlassprite[0];
+				TextureAtlasSprite textureatlassprite = f12 > -999F ? atextureatlassprite[1] : atextureatlassprite[0];
 				f7 -= 0.001F;
 				f8 -= 0.001F;
 				f9 -= 0.001F;
@@ -85,42 +85,42 @@ public class BlockFluidRenderer {
 				float f19;
 				float f20;
 
-				if (f12 < -999.0F) {
-					f13 = textureatlassprite.getInterpolatedU(0.0D);
-					f17 = textureatlassprite.getInterpolatedV(0.0D);
+				if (f12 < -999F) {
+					f13 = textureatlassprite.getInterpolatedU(0D);
+					f17 = textureatlassprite.getInterpolatedV(0D);
 					f14 = f13;
-					f18 = textureatlassprite.getInterpolatedV(16.0D);
-					f15 = textureatlassprite.getInterpolatedU(16.0D);
+					f18 = textureatlassprite.getInterpolatedV(16D);
+					f15 = textureatlassprite.getInterpolatedU(16D);
 					f19 = f18;
 					f16 = f15;
 					f20 = f17;
 				} else {
 					float f21 = MathHelper.sin(f12) * 0.25F;
 					float f22 = MathHelper.cos(f12) * 0.25F;
-					float f23 = 8.0F;
-					f13 = textureatlassprite.getInterpolatedU(8.0F + (-f22 - f21) * 16.0F);
-					f17 = textureatlassprite.getInterpolatedV(8.0F + (-f22 + f21) * 16.0F);
-					f14 = textureatlassprite.getInterpolatedU(8.0F + (-f22 + f21) * 16.0F);
-					f18 = textureatlassprite.getInterpolatedV(8.0F + (f22 + f21) * 16.0F);
-					f15 = textureatlassprite.getInterpolatedU(8.0F + (f22 + f21) * 16.0F);
-					f19 = textureatlassprite.getInterpolatedV(8.0F + (f22 - f21) * 16.0F);
-					f16 = textureatlassprite.getInterpolatedU(8.0F + (f22 - f21) * 16.0F);
-					f20 = textureatlassprite.getInterpolatedV(8.0F + (-f22 - f21) * 16.0F);
+					float f23 = 8F;
+					f13 = textureatlassprite.getInterpolatedU(8F + (-f22 - f21) * 16F);
+					f17 = textureatlassprite.getInterpolatedV(8F + (-f22 + f21) * 16F);
+					f14 = textureatlassprite.getInterpolatedU(8F + (-f22 + f21) * 16F);
+					f18 = textureatlassprite.getInterpolatedV(8F + (f22 + f21) * 16F);
+					f15 = textureatlassprite.getInterpolatedU(8F + (f22 + f21) * 16F);
+					f19 = textureatlassprite.getInterpolatedV(8F + (f22 - f21) * 16F);
+					f16 = textureatlassprite.getInterpolatedU(8F + (f22 - f21) * 16F);
+					f20 = textureatlassprite.getInterpolatedV(8F + (-f22 - f21) * 16F);
 				}
 
 				int k2 = blockStateIn.getPackedLightmapCoords(blockAccess, blockPosIn);
 				int l2 = k2 >> 16 & 65535;
 				int i3 = k2 & 65535;
-				bufferBuilderIn.pos(d0 + 0.0D, d1 + (double) f7, d2 + 0.0D).color(f, f1, f2, 1.0F).tex(f13, f17).lightmap(l2, i3).endVertex();
-				bufferBuilderIn.pos(d0 + 0.0D, d1 + (double) f8, d2 + 1.0D).color(f, f1, f2, 1.0F).tex(f14, f18).lightmap(l2, i3).endVertex();
-				bufferBuilderIn.pos(d0 + 1.0D, d1 + (double) f9, d2 + 1.0D).color(f, f1, f2, 1.0F).tex(f15, f19).lightmap(l2, i3).endVertex();
-				bufferBuilderIn.pos(d0 + 1.0D, d1 + (double) f10, d2 + 0.0D).color(f, f1, f2, 1.0F).tex(f16, f20).lightmap(l2, i3).endVertex();
+				bufferBuilderIn.pos(d0 + 0D, d1 + (double) f7, d2 + 0D).color(f, f1, f2, 1F).tex(f13, f17).lightmap(l2, i3).endVertex();
+				bufferBuilderIn.pos(d0 + 0D, d1 + (double) f8, d2 + 1D).color(f, f1, f2, 1F).tex(f14, f18).lightmap(l2, i3).endVertex();
+				bufferBuilderIn.pos(d0 + 1D, d1 + (double) f9, d2 + 1D).color(f, f1, f2, 1F).tex(f15, f19).lightmap(l2, i3).endVertex();
+				bufferBuilderIn.pos(d0 + 1D, d1 + (double) f10, d2 + 0D).color(f, f1, f2, 1F).tex(f16, f20).lightmap(l2, i3).endVertex();
 
 				if (blockliquid.shouldRenderSides(blockAccess, blockPosIn.up())) {
-					bufferBuilderIn.pos(d0 + 0.0D, d1 + (double) f7, d2 + 0.0D).color(f, f1, f2, 1.0F).tex(f13, f17).lightmap(l2, i3).endVertex();
-					bufferBuilderIn.pos(d0 + 1.0D, d1 + (double) f10, d2 + 0.0D).color(f, f1, f2, 1.0F).tex(f16, f20).lightmap(l2, i3).endVertex();
-					bufferBuilderIn.pos(d0 + 1.0D, d1 + (double) f9, d2 + 1.0D).color(f, f1, f2, 1.0F).tex(f15, f19).lightmap(l2, i3).endVertex();
-					bufferBuilderIn.pos(d0 + 0.0D, d1 + (double) f8, d2 + 1.0D).color(f, f1, f2, 1.0F).tex(f14, f18).lightmap(l2, i3).endVertex();
+					bufferBuilderIn.pos(d0 + 0D, d1 + (double) f7, d2 + 0D).color(f, f1, f2, 1F).tex(f13, f17).lightmap(l2, i3).endVertex();
+					bufferBuilderIn.pos(d0 + 1D, d1 + (double) f10, d2 + 0D).color(f, f1, f2, 1F).tex(f16, f20).lightmap(l2, i3).endVertex();
+					bufferBuilderIn.pos(d0 + 1D, d1 + (double) f9, d2 + 1D).color(f, f1, f2, 1F).tex(f15, f19).lightmap(l2, i3).endVertex();
+					bufferBuilderIn.pos(d0 + 0D, d1 + (double) f8, d2 + 1D).color(f, f1, f2, 1F).tex(f14, f18).lightmap(l2, i3).endVertex();
 				}
 			}
 
@@ -132,10 +132,10 @@ public class BlockFluidRenderer {
 				int l1 = blockStateIn.getPackedLightmapCoords(blockAccess, blockPosIn.down());
 				int i2 = l1 >> 16 & 65535;
 				int j2 = l1 & 65535;
-				bufferBuilderIn.pos(d0, d1, d2 + 1.0D).color(0.5F, 0.5F, 0.5F, 1.0F).tex(f35, f38).lightmap(i2, j2).endVertex();
-				bufferBuilderIn.pos(d0, d1, d2).color(0.5F, 0.5F, 0.5F, 1.0F).tex(f35, f37).lightmap(i2, j2).endVertex();
-				bufferBuilderIn.pos(d0 + 1.0D, d1, d2).color(0.5F, 0.5F, 0.5F, 1.0F).tex(f36, f37).lightmap(i2, j2).endVertex();
-				bufferBuilderIn.pos(d0 + 1.0D, d1, d2 + 1.0D).color(0.5F, 0.5F, 0.5F, 1.0F).tex(f36, f38).lightmap(i2, j2).endVertex();
+				bufferBuilderIn.pos(d0, d1, d2 + 1D).color(0.5F, 0.5F, 0.5F, 1F).tex(f35, f38).lightmap(i2, j2).endVertex();
+				bufferBuilderIn.pos(d0, d1, d2).color(0.5F, 0.5F, 0.5F, 1F).tex(f35, f37).lightmap(i2, j2).endVertex();
+				bufferBuilderIn.pos(d0 + 1D, d1, d2).color(0.5F, 0.5F, 0.5F, 1F).tex(f36, f37).lightmap(i2, j2).endVertex();
+				bufferBuilderIn.pos(d0 + 1D, d1, d2 + 1D).color(0.5F, 0.5F, 0.5F, 1F).tex(f36, f38).lightmap(i2, j2).endVertex();
 				flag3 = true;
 			}
 
@@ -182,55 +182,55 @@ public class BlockFluidRenderer {
 						f39 = f7;
 						f40 = f10;
 						d3 = d0;
-						d5 = d0 + 1.0D;
+						d5 = d0 + 1D;
 						d4 = d2 + 0.0010000000474974513D;
 						d6 = d2 + 0.0010000000474974513D;
 					} else if (i1 == 1) {
 						f39 = f9;
 						f40 = f8;
-						d3 = d0 + 1.0D;
+						d3 = d0 + 1D;
 						d5 = d0;
-						d4 = d2 + 1.0D - 0.0010000000474974513D;
-						d6 = d2 + 1.0D - 0.0010000000474974513D;
+						d4 = d2 + 1D - 0.0010000000474974513D;
+						d6 = d2 + 1D - 0.0010000000474974513D;
 					} else if (i1 == 2) {
 						f39 = f8;
 						f40 = f7;
 						d3 = d0 + 0.0010000000474974513D;
 						d5 = d0 + 0.0010000000474974513D;
-						d4 = d2 + 1.0D;
+						d4 = d2 + 1D;
 						d6 = d2;
 					} else {
 						f39 = f10;
 						f40 = f9;
-						d3 = d0 + 1.0D - 0.0010000000474974513D;
-						d5 = d0 + 1.0D - 0.0010000000474974513D;
+						d3 = d0 + 1D - 0.0010000000474974513D;
+						d5 = d0 + 1D - 0.0010000000474974513D;
 						d4 = d2;
-						d6 = d2 + 1.0D;
+						d6 = d2 + 1D;
 					}
 
 					flag3 = true;
-					float f41 = textureatlassprite1.getInterpolatedU(0.0D);
-					float f27 = textureatlassprite1.getInterpolatedU(8.0D);
-					float f28 = textureatlassprite1.getInterpolatedV((1.0F - f39) * 16.0F * 0.5F);
-					float f29 = textureatlassprite1.getInterpolatedV((1.0F - f40) * 16.0F * 0.5F);
-					float f30 = textureatlassprite1.getInterpolatedV(8.0D);
+					float f41 = textureatlassprite1.getInterpolatedU(0D);
+					float f27 = textureatlassprite1.getInterpolatedU(8D);
+					float f28 = textureatlassprite1.getInterpolatedV((1F - f39) * 16F * 0.5F);
+					float f29 = textureatlassprite1.getInterpolatedV((1F - f40) * 16F * 0.5F);
+					float f30 = textureatlassprite1.getInterpolatedV(8D);
 					int j = blockStateIn.getPackedLightmapCoords(blockAccess, blockpos);
 					int k = j >> 16 & 65535;
 					int l = j & 65535;
 					float f31 = i1 < 2 ? 0.8F : 0.6F;
-					float f32 = 1.0F * f31 * f;
-					float f33 = 1.0F * f31 * f1;
-					float f34 = 1.0F * f31 * f2;
-					bufferBuilderIn.pos(d3, d1 + (double) f39, d4).color(f32, f33, f34, 1.0F).tex(f41, f28).lightmap(k, l).endVertex();
-					bufferBuilderIn.pos(d5, d1 + (double) f40, d6).color(f32, f33, f34, 1.0F).tex(f27, f29).lightmap(k, l).endVertex();
-					bufferBuilderIn.pos(d5, d1 + 0.0D, d6).color(f32, f33, f34, 1.0F).tex(f27, f30).lightmap(k, l).endVertex();
-					bufferBuilderIn.pos(d3, d1 + 0.0D, d4).color(f32, f33, f34, 1.0F).tex(f41, f30).lightmap(k, l).endVertex();
+					float f32 = 1F * f31 * f;
+					float f33 = 1F * f31 * f1;
+					float f34 = 1F * f31 * f2;
+					bufferBuilderIn.pos(d3, d1 + (double) f39, d4).color(f32, f33, f34, 1F).tex(f41, f28).lightmap(k, l).endVertex();
+					bufferBuilderIn.pos(d5, d1 + (double) f40, d6).color(f32, f33, f34, 1F).tex(f27, f29).lightmap(k, l).endVertex();
+					bufferBuilderIn.pos(d5, d1 + 0D, d6).color(f32, f33, f34, 1F).tex(f27, f30).lightmap(k, l).endVertex();
+					bufferBuilderIn.pos(d3, d1 + 0D, d4).color(f32, f33, f34, 1F).tex(f41, f30).lightmap(k, l).endVertex();
 
 					if (textureatlassprite1 != atlasSpriteWaterOverlay) {
-						bufferBuilderIn.pos(d3, d1 + 0.0D, d4).color(f32, f33, f34, 1.0F).tex(f41, f30).lightmap(k, l).endVertex();
-						bufferBuilderIn.pos(d5, d1 + 0.0D, d6).color(f32, f33, f34, 1.0F).tex(f27, f30).lightmap(k, l).endVertex();
-						bufferBuilderIn.pos(d5, d1 + (double) f40, d6).color(f32, f33, f34, 1.0F).tex(f27, f29).lightmap(k, l).endVertex();
-						bufferBuilderIn.pos(d3, d1 + (double) f39, d4).color(f32, f33, f34, 1.0F).tex(f41, f28).lightmap(k, l).endVertex();
+						bufferBuilderIn.pos(d3, d1 + 0D, d4).color(f32, f33, f34, 1F).tex(f41, f30).lightmap(k, l).endVertex();
+						bufferBuilderIn.pos(d5, d1 + 0D, d6).color(f32, f33, f34, 1F).tex(f27, f30).lightmap(k, l).endVertex();
+						bufferBuilderIn.pos(d5, d1 + (double) f40, d6).color(f32, f33, f34, 1F).tex(f27, f29).lightmap(k, l).endVertex();
+						bufferBuilderIn.pos(d3, d1 + (double) f39, d4).color(f32, f33, f34, 1F).tex(f41, f28).lightmap(k, l).endVertex();
 					}
 				}
 			}
@@ -242,13 +242,13 @@ public class BlockFluidRenderer {
 	private float getFluidHeight(IBlockAccess blockAccess, BlockPos blockPosIn, Material blockMaterial) {
 
 		int i = 0;
-		float f = 0.0F;
+		float f = 0F;
 
 		for (int j = 0; j < 4; ++j) {
 			BlockPos blockpos = blockPosIn.add(-(j & 1), 0, -(j >> 1 & 1));
 
 			if (blockAccess.getBlockState(blockpos.up()).getMaterial() == blockMaterial) {
-				return 1.0F;
+				return 1F;
 			}
 
 			IBlockState iblockstate = blockAccess.getBlockState(blockpos);
@@ -263,7 +263,7 @@ public class BlockFluidRenderer {
 				int k = iblockstate.getValue(BlockLiquid.LEVEL);
 
 				if (k >= 8 || k == 0) {
-					f += BlockLiquid.getLiquidHeightPercent(k) * 10.0F;
+					f += BlockLiquid.getLiquidHeightPercent(k) * 10F;
 					i += 10;
 				}
 
@@ -272,7 +272,7 @@ public class BlockFluidRenderer {
 			}
 		}
 
-		return 1.0F - f / (float) i;
+		return 1F - f / (float) i;
 	}
 
 }

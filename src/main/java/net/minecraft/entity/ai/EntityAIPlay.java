@@ -30,7 +30,7 @@ public class EntityAIPlay extends EntityAIBase {
 		} else if (villager.getRNG().nextInt(400) != 0) {
 			return false;
 		} else {
-			List<EntityVillager> list = villager.world.getEntitiesWithinAABB(EntityVillager.class, villager.getEntityBoundingBox().grow(6.0D, 3.0D, 6.0D));
+			List<EntityVillager> list = villager.world.getEntitiesWithinAABB(EntityVillager.class, villager.getEntityBoundingBox().grow(6D, 3D, 6D));
 			double d0 = Double.MAX_VALUE;
 
 			for (EntityVillager entityvillager : list) {
@@ -91,7 +91,7 @@ public class EntityAIPlay extends EntityAIBase {
 		--playTime;
 
 		if (targetVillager != null) {
-			if (villager.getDistanceSq(targetVillager) > 4.0D) {
+			if (villager.getDistanceSq(targetVillager) > 4D) {
 				villager.getNavigator().tryMoveToEntityLiving(targetVillager, speed);
 			}
 		} else if (villager.getNavigator().noPath()) {

@@ -50,7 +50,7 @@ public class ItemSnow extends ItemBlock {
 
 					if (axisalignedbb != Block.NULL_AABB && worldIn.checkNoEntityCollision(axisalignedbb.offset(blockpos)) && worldIn.setBlockState(blockpos, iblockstate1, 10)) {
 						SoundType soundtype = this.block.getSoundType();
-						worldIn.playSound(player, blockpos, soundtype.placeSound(), SoundCategory.BLOCKS, (soundtype.volume() + 1.0F) / 2.0F, soundtype.pitch() * 0.8F);
+						worldIn.playSound(player, blockpos, soundtype.placeSound(), SoundCategory.BLOCKS, (soundtype.volume() + 1F) / 2F, soundtype.pitch() * 0.8F);
 
 						if (player instanceof EntityPlayerMP) {
 							CriteriaTriggers.PLACED_BLOCK.trigger((EntityPlayerMP) player, pos, itemstack);

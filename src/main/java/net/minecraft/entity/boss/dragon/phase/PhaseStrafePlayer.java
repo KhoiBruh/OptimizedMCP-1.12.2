@@ -41,39 +41,39 @@ public class PhaseStrafePlayer extends PhaseBase {
 				double d2 = d0 - dragon.posX;
 				double d3 = d1 - dragon.posZ;
 				double d4 = MathHelper.sqrt(d2 * d2 + d3 * d3);
-				double d5 = Math.min(0.4000000059604645D + d4 / 80.0D - 1.0D, 10.0D);
+				double d5 = Math.min(0.4000000059604645D + d4 / 80D - 1D, 10D);
 				targetLocation = new Vec3d(d0, attackTarget.posY + d5, d1);
 			}
 
-			double d12 = targetLocation == null ? 0.0D : targetLocation.squareDistanceTo(dragon.posX, dragon.posY, dragon.posZ);
+			double d12 = targetLocation == null ? 0D : targetLocation.squareDistanceTo(dragon.posX, dragon.posY, dragon.posZ);
 
-			if (d12 < 100.0D || d12 > 22500.0D) {
+			if (d12 < 100D || d12 > 22500D) {
 				findNewTarget();
 			}
 
-			double d13 = 64.0D;
+			double d13 = 64D;
 
-			if (attackTarget.getDistanceSq(dragon) < 4096.0D) {
+			if (attackTarget.getDistanceSq(dragon) < 4096D) {
 				if (dragon.canEntityBeSeen(attackTarget)) {
 					++fireballCharge;
-					Vec3d vec3d1 = (new Vec3d(attackTarget.posX - dragon.posX, 0.0D, attackTarget.posZ - dragon.posZ)).normalize();
-					Vec3d vec3d = (new Vec3d(MathHelper.sin(dragon.rotationYaw * 0.017453292F), 0.0D, -MathHelper.cos(dragon.rotationYaw * 0.017453292F))).normalize();
+					Vec3d vec3d1 = (new Vec3d(attackTarget.posX - dragon.posX, 0D, attackTarget.posZ - dragon.posZ)).normalize();
+					Vec3d vec3d = (new Vec3d(MathHelper.sin(dragon.rotationYaw * 0.017453292F), 0D, -MathHelper.cos(dragon.rotationYaw * 0.017453292F))).normalize();
 					float f1 = (float) vec3d.dotProduct(vec3d1);
 					float f = (float) (Math.acos(f1) * (180D / Math.PI));
 					f = f + 0.5F;
 
-					if (fireballCharge >= 5 && f >= 0.0F && f < 10.0F) {
-						double d14 = 1.0D;
-						Vec3d vec3d2 = dragon.getLook(1.0F);
+					if (fireballCharge >= 5 && f >= 0F && f < 10F) {
+						double d14 = 1D;
+						Vec3d vec3d2 = dragon.getLook(1F);
 						double d6 = dragon.dragonPartHead.posX - vec3d2.x();
-						double d7 = dragon.dragonPartHead.posY + (double) (dragon.dragonPartHead.height / 2.0F) + 0.5D;
+						double d7 = dragon.dragonPartHead.posY + (double) (dragon.dragonPartHead.height / 2F) + 0.5D;
 						double d8 = dragon.dragonPartHead.posZ - vec3d2.z();
 						double d9 = attackTarget.posX - d6;
-						double d10 = attackTarget.posY + (double) (attackTarget.height / 2.0F) - (d7 + (double) (dragon.dragonPartHead.height / 2.0F));
+						double d10 = attackTarget.posY + (double) (attackTarget.height / 2F) - (d7 + (double) (dragon.dragonPartHead.height / 2F));
 						double d11 = attackTarget.posZ - d8;
 						dragon.world.playEvent(null, 1017, new BlockPos(dragon), 0);
 						EntityDragonFireball entitydragonfireball = new EntityDragonFireball(dragon.world, dragon, d9, d10, d11);
-						entitydragonfireball.setLocationAndAngles(d6, d7, d8, 0.0F, 0.0F);
+						entitydragonfireball.setLocationAndAngles(d6, d7, d8, 0F, 0F);
 						dragon.world.spawnEntity(entitydragonfireball);
 						fireballCharge = 0;
 
@@ -143,7 +143,7 @@ public class PhaseStrafePlayer extends PhaseBase {
 			double d1;
 
 			while (true) {
-				d1 = vec3d.y() + (double) (dragon.getRNG().nextFloat() * 20.0F);
+				d1 = vec3d.y() + (double) (dragon.getRNG().nextFloat() * 20F);
 
 				if (d1 >= vec3d.y()) {
 					break;
@@ -175,7 +175,7 @@ public class PhaseStrafePlayer extends PhaseBase {
 		double d0 = (double) k - dragon.posX;
 		double d1 = (double) l - dragon.posZ;
 		double d2 = MathHelper.sqrt(d0 * d0 + d1 * d1);
-		double d3 = Math.min(0.4000000059604645D + d2 / 80.0D - 1.0D, 10.0D);
+		double d3 = Math.min(0.4000000059604645D + d2 / 80D - 1D, 10D);
 		int i1 = MathHelper.floor(attackTarget.posY + d3);
 		PathPoint pathpoint = new PathPoint(k, i1, l);
 		currentPath = dragon.findPath(i, j, pathpoint);

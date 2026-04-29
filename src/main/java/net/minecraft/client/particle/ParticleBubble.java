@@ -9,16 +9,16 @@ public class ParticleBubble extends Particle {
 	protected ParticleBubble(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn) {
 
 		super(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
-		particleRed = 1.0F;
-		particleGreen = 1.0F;
-		particleBlue = 1.0F;
+		particleRed = 1F;
+		particleGreen = 1F;
+		particleBlue = 1F;
 		setParticleTextureIndex(32);
 		setSize(0.02F, 0.02F);
 		particleScale *= rand.nextFloat() * 0.6F + 0.2F;
-		motionX = xSpeedIn * 0.20000000298023224D + (Math.random() * 2.0D - 1.0D) * 0.019999999552965164D;
-		motionY = ySpeedIn * 0.20000000298023224D + (Math.random() * 2.0D - 1.0D) * 0.019999999552965164D;
-		motionZ = zSpeedIn * 0.20000000298023224D + (Math.random() * 2.0D - 1.0D) * 0.019999999552965164D;
-		particleMaxAge = (int) (8.0D / (Math.random() * 0.8D + 0.2D));
+		motionX = xSpeedIn * 0.20000000298023224D + (Math.random() * 2D - 1D) * 0.019999999552965164D;
+		motionY = ySpeedIn * 0.20000000298023224D + (Math.random() * 2D - 1D) * 0.019999999552965164D;
+		motionZ = zSpeedIn * 0.20000000298023224D + (Math.random() * 2D - 1D) * 0.019999999552965164D;
+		particleMaxAge = (int) (8D / (Math.random() * 0.8D + 0.2D));
 	}
 
 	public void onUpdate() {

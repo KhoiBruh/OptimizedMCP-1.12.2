@@ -45,7 +45,7 @@ public class EntityLeashKnot extends EntityHanging {
 		int j = pos.getY();
 		int k = pos.getZ();
 
-		for (EntityLeashKnot entityleashknot : worldIn.getEntitiesWithinAABB(EntityLeashKnot.class, new AxisAlignedBB((double) i - 1.0D, (double) j - 1.0D, (double) k - 1.0D, (double) i + 1.0D, (double) j + 1.0D, (double) k + 1.0D))) {
+		for (EntityLeashKnot entityleashknot : worldIn.getEntitiesWithinAABB(EntityLeashKnot.class, new AxisAlignedBB((double) i - 1D, (double) j - 1D, (double) k - 1D, (double) i + 1D, (double) j + 1D, (double) k + 1D))) {
 			if (entityleashknot.getHangingPosition().equals(pos)) {
 				return entityleashknot;
 			}
@@ -99,7 +99,7 @@ public class EntityLeashKnot extends EntityHanging {
 	 */
 	public boolean isInRangeToRenderDist(double distance) {
 
-		return distance < 1024.0D;
+		return distance < 1024D;
 	}
 
 	/**
@@ -107,7 +107,7 @@ public class EntityLeashKnot extends EntityHanging {
 	 */
 	public void onBroken(Entity brokenEntity) {
 
-		playSound(SoundEvents.ENTITY_LEASHKNOT_BREAK, 1.0F, 1.0F);
+		playSound(SoundEvents.ENTITY_LEASHKNOT_BREAK, 1F, 1F);
 	}
 
 	/**
@@ -140,8 +140,8 @@ public class EntityLeashKnot extends EntityHanging {
 			return true;
 		} else {
 			boolean flag = false;
-			double d0 = 7.0D;
-			List<EntityLiving> list = world.getEntitiesWithinAABB(EntityLiving.class, new AxisAlignedBB(posX - 7.0D, posY - 7.0D, posZ - 7.0D, posX + 7.0D, posY + 7.0D, posZ + 7.0D));
+			double d0 = 7D;
+			List<EntityLiving> list = world.getEntitiesWithinAABB(EntityLiving.class, new AxisAlignedBB(posX - 7D, posY - 7D, posZ - 7D, posX + 7D, posY + 7D, posZ + 7D));
 
 			for (EntityLiving entityliving : list) {
 				if (entityliving.getLeashed() && entityliving.getLeashHolder() == player) {
@@ -176,7 +176,7 @@ public class EntityLeashKnot extends EntityHanging {
 
 	public void playPlaceSound() {
 
-		playSound(SoundEvents.ENTITY_LEASHKNOT_PLACE, 1.0F, 1.0F);
+		playSound(SoundEvents.ENTITY_LEASHKNOT_PLACE, 1F, 1F);
 	}
 
 }

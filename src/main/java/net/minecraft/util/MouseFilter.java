@@ -15,7 +15,7 @@ public class MouseFilter {
 		p_76333_1_ = (targetValue - remainingValue) * p_76333_2_;
 		lastAmount += (p_76333_1_ - lastAmount) * 0.5F;
 
-		if (p_76333_1_ > 0.0F && p_76333_1_ > lastAmount || p_76333_1_ < 0.0F && p_76333_1_ < lastAmount) {
+		if (p_76333_1_ > 0F && p_76333_1_ > lastAmount || p_76333_1_ < 0F && p_76333_1_ < lastAmount) {
 			p_76333_1_ = lastAmount;
 		}
 
@@ -25,9 +25,9 @@ public class MouseFilter {
 
 	public void reset() {
 
-		targetValue = 0.0F;
-		remainingValue = 0.0F;
-		lastAmount = 0.0F;
+		targetValue = 0F;
+		remainingValue = 0F;
+		lastAmount = 0F;
 	}
 
 }

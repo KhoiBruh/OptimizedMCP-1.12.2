@@ -30,7 +30,7 @@ public class BlockRedstoneWire extends Block {
 	public static final PropertyEnum<BlockRedstoneWire.EnumAttachPosition> SOUTH = PropertyEnum.create("south", BlockRedstoneWire.EnumAttachPosition.class);
 	public static final PropertyEnum<BlockRedstoneWire.EnumAttachPosition> WEST = PropertyEnum.create("west", BlockRedstoneWire.EnumAttachPosition.class);
 	public static final PropertyInteger POWER = PropertyInteger.create("power", 0, 15);
-	protected static final AxisAlignedBB[] REDSTONE_WIRE_AABB = new AxisAlignedBB[]{new AxisAlignedBB(0.1875D, 0.0D, 0.1875D, 0.8125D, 0.0625D, 0.8125D), new AxisAlignedBB(0.1875D, 0.0D, 0.1875D, 0.8125D, 0.0625D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.1875D, 0.8125D, 0.0625D, 0.8125D), new AxisAlignedBB(0.0D, 0.0D, 0.1875D, 0.8125D, 0.0625D, 1.0D), new AxisAlignedBB(0.1875D, 0.0D, 0.0D, 0.8125D, 0.0625D, 0.8125D), new AxisAlignedBB(0.1875D, 0.0D, 0.0D, 0.8125D, 0.0625D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 0.8125D, 0.0625D, 0.8125D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 0.8125D, 0.0625D, 1.0D), new AxisAlignedBB(0.1875D, 0.0D, 0.1875D, 1.0D, 0.0625D, 0.8125D), new AxisAlignedBB(0.1875D, 0.0D, 0.1875D, 1.0D, 0.0625D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.1875D, 1.0D, 0.0625D, 0.8125D), new AxisAlignedBB(0.0D, 0.0D, 0.1875D, 1.0D, 0.0625D, 1.0D), new AxisAlignedBB(0.1875D, 0.0D, 0.0D, 1.0D, 0.0625D, 0.8125D), new AxisAlignedBB(0.1875D, 0.0D, 0.0D, 1.0D, 0.0625D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.0625D, 0.8125D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.0625D, 1.0D)};
+	protected static final AxisAlignedBB[] REDSTONE_WIRE_AABB = new AxisAlignedBB[]{new AxisAlignedBB(0.1875D, 0D, 0.1875D, 0.8125D, 0.0625D, 0.8125D), new AxisAlignedBB(0.1875D, 0D, 0.1875D, 0.8125D, 0.0625D, 1D), new AxisAlignedBB(0D, 0D, 0.1875D, 0.8125D, 0.0625D, 0.8125D), new AxisAlignedBB(0D, 0D, 0.1875D, 0.8125D, 0.0625D, 1D), new AxisAlignedBB(0.1875D, 0D, 0D, 0.8125D, 0.0625D, 0.8125D), new AxisAlignedBB(0.1875D, 0D, 0D, 0.8125D, 0.0625D, 1D), new AxisAlignedBB(0D, 0D, 0D, 0.8125D, 0.0625D, 0.8125D), new AxisAlignedBB(0D, 0D, 0D, 0.8125D, 0.0625D, 1D), new AxisAlignedBB(0.1875D, 0D, 0.1875D, 1D, 0.0625D, 0.8125D), new AxisAlignedBB(0.1875D, 0D, 0.1875D, 1D, 0.0625D, 1D), new AxisAlignedBB(0D, 0D, 0.1875D, 1D, 0.0625D, 0.8125D), new AxisAlignedBB(0D, 0D, 0.1875D, 1D, 0.0625D, 1D), new AxisAlignedBB(0.1875D, 0D, 0D, 1D, 0.0625D, 0.8125D), new AxisAlignedBB(0.1875D, 0D, 0D, 1D, 0.0625D, 1D), new AxisAlignedBB(0D, 0D, 0D, 1D, 0.0625D, 0.8125D), new AxisAlignedBB(0D, 0D, 0D, 1D, 0.0625D, 1D)};
 	private final Set<BlockPos> blocksNeedingUpdate = Sets.newHashSet();
 	private boolean canProvidePower = true;
 
@@ -95,7 +95,7 @@ public class BlockRedstoneWire extends Block {
 
 	public static int colorMultiplier(int p_176337_0_) {
 
-		float f = (float) p_176337_0_ / 15.0F;
+		float f = (float) p_176337_0_ / 15F;
 		float f1 = f * 0.6F + 0.4F;
 
 		if (p_176337_0_ == 0) {
@@ -105,17 +105,17 @@ public class BlockRedstoneWire extends Block {
 		float f2 = f * f * 0.7F - 0.5F;
 		float f3 = f * f * 0.6F - 0.7F;
 
-		if (f2 < 0.0F) {
-			f2 = 0.0F;
+		if (f2 < 0F) {
+			f2 = 0F;
 		}
 
-		if (f3 < 0.0F) {
-			f3 = 0.0F;
+		if (f3 < 0F) {
+			f3 = 0F;
 		}
 
-		int i = MathHelper.clamp((int) (f1 * 255.0F), 0, 255);
-		int j = MathHelper.clamp((int) (f2 * 255.0F), 0, 255);
-		int k = MathHelper.clamp((int) (f3 * 255.0F), 0, 255);
+		int i = MathHelper.clamp((int) (f1 * 255F), 0, 255);
+		int j = MathHelper.clamp((int) (f2 * 255F), 0, 255);
+		int k = MathHelper.clamp((int) (f3 * 255F), 0, 255);
 		return -16777216 | i << 16 | j << 8 | k;
 	}
 
@@ -443,10 +443,10 @@ public class BlockRedstoneWire extends Block {
 			double d0 = (double) pos.getX() + 0.5D + ((double) rand.nextFloat() - 0.5D) * 0.2D;
 			double d1 = (float) pos.getY() + 0.0625F;
 			double d2 = (double) pos.getZ() + 0.5D + ((double) rand.nextFloat() - 0.5D) * 0.2D;
-			float f = (float) i / 15.0F;
+			float f = (float) i / 15F;
 			float f1 = f * 0.6F + 0.4F;
-			float f2 = Math.max(0.0F, f * f * 0.7F - 0.5F);
-			float f3 = Math.max(0.0F, f * f * 0.6F - 0.7F);
+			float f2 = Math.max(0F, f * f * 0.7F - 0.5F);
+			float f3 = Math.max(0F, f * f * 0.6F - 0.7F);
 			worldIn.spawnParticle(EnumParticleTypes.REDSTONE, d0, d1, d2, f1, f2, f3);
 		}
 	}

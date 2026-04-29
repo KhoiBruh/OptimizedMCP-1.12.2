@@ -104,7 +104,7 @@ public class CommandDebug extends CommandBase {
 				int l = j - profileStartTick;
 				saveProfilerResults(k, l, server);
 				server.profiler.profilingEnabled = false;
-				notifyCommandListener(sender, this, "commands.debug.stop", String.format("%.2f", (float) k / 1000.0F), l);
+				notifyCommandListener(sender, this, "commands.debug.stop", String.format("%.2f", (float) k / 1000F), l);
 			}
 		}
 	}
@@ -134,7 +134,7 @@ public class CommandDebug extends CommandBase {
 		stringbuilder.append("\n\n");
 		stringbuilder.append("Time span: ").append(timeSpan).append(" ms\n");
 		stringbuilder.append("Tick span: ").append(tickSpan).append(" ticks\n");
-		stringbuilder.append("// This is approximately ").append(String.format("%.2f", (float) tickSpan / ((float) timeSpan / 1000.0F))).append(" ticks per second. It should be ").append(20).append(" ticks per second\n\n");
+		stringbuilder.append("// This is approximately ").append(String.format("%.2f", (float) tickSpan / ((float) timeSpan / 1000F))).append(" ticks per second. It should be ").append(20).append(" ticks per second\n\n");
 		stringbuilder.append("--- BEGIN PROFILE DUMP ---\n\n");
 		appendProfilerResults(0, "root", stringbuilder, server);
 		stringbuilder.append("--- END PROFILE DUMP ---\n\n");

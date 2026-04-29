@@ -178,11 +178,11 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 		mcServer = server;
 		statsFile = server.getPlayerList().getPlayerStatsFile(this);
 		advancements = server.getPlayerList().getPlayerAdvancements(this);
-		stepHeight = 1.0F;
-		moveToBlockPosAndAngles(blockpos, 0.0F, 0.0F);
+		stepHeight = 1F;
+		moveToBlockPosAndAngles(blockpos, 0F, 0F);
 
-		while (!worldIn.getCollisionBoxes(this, getEntityBoundingBox()).isEmpty() && posY < 255.0D) {
-			setPosition(posX, posY + 1.0D, posZ);
+		while (!worldIn.getCollisionBoxes(this, getEntityBoundingBox()).isEmpty() && posY < 255D) {
+			setPosition(posX, posY + 1D, posZ);
 		}
 	}
 
@@ -383,11 +383,11 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 				}
 			}
 
-			if (getHealth() != lastHealth || lastFoodLevel != foodStats.getFoodLevel() || foodStats.getSaturationLevel() == 0.0F != wasHungry) {
+			if (getHealth() != lastHealth || lastFoodLevel != foodStats.getFoodLevel() || foodStats.getSaturationLevel() == 0F != wasHungry) {
 				connection.sendPacket(new SPacketUpdateHealth(getHealth(), foodStats.getFoodLevel(), foodStats.getSaturationLevel()));
 				lastHealth = getHealth();
 				lastFoodLevel = foodStats.getFoodLevel();
-				wasHungry = foodStats.getSaturationLevel() == 0.0F;
+				wasHungry = foodStats.getSaturationLevel() == 0F;
 			}
 
 			if (getHealth() + getAbsorptionAmount() != lastHealthScore) {
@@ -612,7 +612,7 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 
 			if (!queuedEndExit) {
 				queuedEndExit = true;
-				connection.sendPacket(new SPacketChangeGameState(4, seenCredits ? 0.0F : 1.0F));
+				connection.sendPacket(new SPacketChangeGameState(4, seenCredits ? 0F : 1F));
 				seenCredits = true;
 			}
 
@@ -625,7 +625,7 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 			mcServer.getPlayerList().changePlayerDimension(this, dimensionIn);
 			connection.sendPacket(new SPacketEffect(1032, BlockPos.ORIGIN, 0, false));
 			lastExperience = -1;
-			lastHealth = -1.0F;
+			lastHealth = -1F;
 			lastFoodLevel = -1;
 			return this;
 		}
@@ -810,7 +810,7 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 
 				if (ilockablecontainer.isLocked() && !canOpen(ilockablecontainer.getLockCode()) && !isSpectator()) {
 					connection.sendPacket(new SPacketChat(new TextComponentTranslation("container.isLocked", chestInventory.displayName()), ChatType.GAME_INFO));
-					connection.sendPacket(new SPacketSoundEffect(SoundEvents.BLOCK_CHEST_LOCKED, SoundCategory.BLOCKS, posX, posY, posZ, 1.0F, 1.0F));
+					connection.sendPacket(new SPacketSoundEffect(SoundEvents.BLOCK_CHEST_LOCKED, SoundCategory.BLOCKS, posX, posY, posZ, 1F, 1F));
 					return;
 				}
 			}
@@ -958,11 +958,11 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	public void setEntityActionState(float strafe, float forward, boolean jumping, boolean sneaking) {
 
 		if (isRiding()) {
-			if (strafe >= -1.0F && strafe <= 1.0F) {
+			if (strafe >= -1F && strafe <= 1F) {
 				moveStrafing = strafe;
 			}
 
-			if (forward >= -1.0F && forward <= 1.0F) {
+			if (forward >= -1F && forward <= 1F) {
 				moveForward = forward;
 			}
 
@@ -1082,7 +1082,7 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 		enderChest = that.enderChest;
 		getDataManager().set(PLAYER_MODEL_FLAG, that.getDataManager().get(PLAYER_MODEL_FLAG));
 		lastExperience = -1;
-		lastHealth = -1.0F;
+		lastHealth = -1F;
 		lastFoodLevel = -1;
 		recipeBook.copyFrom(that.recipeBook);
 		entityRemoveQueue.addAll(that.entityRemoveQueue);

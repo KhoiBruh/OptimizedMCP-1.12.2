@@ -12,13 +12,13 @@ import java.util.UUID;
 public abstract class EntityCreature extends EntityLiving {
 
 	public static final UUID FLEEING_SPEED_MODIFIER_UUID = UUID.fromString("E199AD21-BA8A-4C53-8D13-6182D5C69D3A");
-	public static final AttributeModifier FLEEING_SPEED_MODIFIER = (new AttributeModifier(FLEEING_SPEED_MODIFIER_UUID, "Fleeing speed bonus", 2.0D, 2)).setSaved(false);
+	public static final AttributeModifier FLEEING_SPEED_MODIFIER = (new AttributeModifier(FLEEING_SPEED_MODIFIER_UUID, "Fleeing speed bonus", 2D, 2)).setSaved(false);
 	private final float restoreWaterCost = PathNodeType.WATER.getPriority();
 	private BlockPos homePosition = BlockPos.ORIGIN;
 	/**
 	 * If -1 there is no maximum distance
 	 */
-	private float maximumHomeDistance = -1.0F;
+	private float maximumHomeDistance = -1F;
 
 	public EntityCreature(World worldIn) {
 
@@ -27,7 +27,7 @@ public abstract class EntityCreature extends EntityLiving {
 
 	public float getBlockPathWeight(BlockPos pos) {
 
-		return 0.0F;
+		return 0F;
 	}
 
 	/**
@@ -35,7 +35,7 @@ public abstract class EntityCreature extends EntityLiving {
 	 */
 	public boolean getCanSpawnHere() {
 
-		return super.getCanSpawnHere() && getBlockPathWeight(new BlockPos(posX, getEntityBoundingBox().minY, posZ)) >= 0.0F;
+		return super.getCanSpawnHere() && getBlockPathWeight(new BlockPos(posX, getEntityBoundingBox().minY, posZ)) >= 0F;
 	}
 
 	/**
@@ -53,7 +53,7 @@ public abstract class EntityCreature extends EntityLiving {
 
 	public boolean isWithinHomeDistanceFromPosition(BlockPos pos) {
 
-		if (maximumHomeDistance == -1.0F) {
+		if (maximumHomeDistance == -1F) {
 			return true;
 		} else {
 			return homePosition.distanceSq(pos) < (double) (maximumHomeDistance * maximumHomeDistance);
@@ -81,7 +81,7 @@ public abstract class EntityCreature extends EntityLiving {
 
 	public void detachHome() {
 
-		maximumHomeDistance = -1.0F;
+		maximumHomeDistance = -1F;
 	}
 
 	/**
@@ -89,7 +89,7 @@ public abstract class EntityCreature extends EntityLiving {
 	 */
 	public boolean hasHome() {
 
-		return maximumHomeDistance != -1.0F;
+		return maximumHomeDistance != -1F;
 	}
 
 	/**
@@ -105,7 +105,7 @@ public abstract class EntityCreature extends EntityLiving {
 			float f = getDistance(entity);
 
 			if (this instanceof EntityTameable && ((EntityTameable) this).isSitting()) {
-				if (f > 10.0F) {
+				if (f > 10F) {
 					clearLeashed(true, true);
 				}
 
@@ -114,10 +114,10 @@ public abstract class EntityCreature extends EntityLiving {
 
 			onLeashDistance(f);
 
-			if (f > 10.0F) {
+			if (f > 10F) {
 				clearLeashed(true, true);
 				tasks.disableControlFlag(1);
-			} else if (f > 6.0F) {
+			} else if (f > 6F) {
 				double d0 = (entity.posX - posX) / (double) f;
 				double d1 = (entity.posY - posY) / (double) f;
 				double d2 = (entity.posZ - posZ) / (double) f;
@@ -126,8 +126,8 @@ public abstract class EntityCreature extends EntityLiving {
 				motionZ += d2 * Math.abs(d2) * 0.4D;
 			} else {
 				tasks.enableControlFlag(1);
-				float f1 = 2.0F;
-				Vec3d vec3d = (new Vec3d(entity.posX - posX, entity.posY - posY, entity.posZ - posZ)).normalize().scale(Math.max(f - 2.0F, 0.0F));
+				float f1 = 2F;
+				Vec3d vec3d = (new Vec3d(entity.posX - posX, entity.posY - posY, entity.posZ - posZ)).normalize().scale(Math.max(f - 2F, 0F));
 				getNavigator().tryMoveToXYZ(posX + vec3d.x(), posY + vec3d.y(), posZ + vec3d.z(), followLeashSpeed());
 			}
 		}
@@ -135,7 +135,7 @@ public abstract class EntityCreature extends EntityLiving {
 
 	protected double followLeashSpeed() {
 
-		return 1.0D;
+		return 1D;
 	}
 
 	protected void onLeashDistance(float p_142017_1_) {

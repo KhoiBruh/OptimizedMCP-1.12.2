@@ -14,7 +14,7 @@ public class LayerBipedArmor extends LayerArmorBase<ModelBiped> {
 	protected void initArmor() {
 
 		modelLeggings = new ModelBiped(0.5F);
-		modelArmor = new ModelBiped(1.0F);
+		modelArmor = new ModelBiped(1F);
 	}
 
 	@SuppressWarnings("incomplete-switch")

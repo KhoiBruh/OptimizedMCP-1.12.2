@@ -126,7 +126,7 @@ public abstract class PathNavigate {
 			float f = getPathSearchRange();
 			world.profiler.startSection("pathfind");
 			BlockPos blockpos = new BlockPos(entity);
-			int i = (int) (f + 8.0F);
+			int i = (int) (f + 8F);
 			ChunkCache chunkcache = new ChunkCache(world, blockpos.add(-i, -i, -i), blockpos.add(i, i, i), 0);
 			Path path = pathFinder.findPath(chunkcache, entity, targetPos, f);
 			world.profiler.endSection();
@@ -153,7 +153,7 @@ public abstract class PathNavigate {
 				float f = getPathSearchRange();
 				world.profiler.startSection("pathfind");
 				BlockPos blockpos1 = (new BlockPos(entity)).up();
-				int i = (int) (f + 16.0F);
+				int i = (int) (f + 16F);
 				ChunkCache chunkcache = new ChunkCache(world, blockpos1.add(-i, -i, -i), blockpos1.add(i, i, i), 0);
 				Path path = pathFinder.findPath(chunkcache, entity, entityIn, f);
 				world.profiler.endSection();
@@ -243,7 +243,7 @@ public abstract class PathNavigate {
 				Vec3d vec3d2 = currentPath.getPosition(entity);
 				BlockPos blockpos = (new BlockPos(vec3d2)).down();
 				AxisAlignedBB axisalignedbb = world.getBlockState(blockpos).getBoundingBox(world, blockpos);
-				vec3d2 = vec3d2.subtract(0.0D, 1.0D - axisalignedbb.maxY, 0.0D);
+				vec3d2 = vec3d2.subtract(0D, 1D - axisalignedbb.maxY, 0D);
 				entity.getMoveHelper().setMoveTo(vec3d2.x(), vec3d2.y(), vec3d2.z(), speed);
 			}
 		}
@@ -265,10 +265,10 @@ public abstract class PathNavigate {
 			}
 		}
 
-		maxDistanceToWaypoint = entity.width > 0.75F ? entity.width / 2.0F : 0.75F - entity.width / 2.0F;
+		maxDistanceToWaypoint = entity.width > 0.75F ? entity.width / 2F : 0.75F - entity.width / 2F;
 		Vec3d vec3d1 = currentPath.getCurrentPos();
 
-		if (MathHelper.abs((float) (entity.posX - (vec3d1.x() + 0.5D))) < maxDistanceToWaypoint && MathHelper.abs((float) (entity.posZ - (vec3d1.z() + 0.5D))) < maxDistanceToWaypoint && Math.abs(entity.posY - vec3d1.y()) < 1.0D) {
+		if (MathHelper.abs((float) (entity.posX - (vec3d1.x() + 0.5D))) < maxDistanceToWaypoint && MathHelper.abs((float) (entity.posZ - (vec3d1.z() + 0.5D))) < maxDistanceToWaypoint && Math.abs(entity.posY - vec3d1.y()) < 1D) {
 			currentPath.setCurrentPathIndex(currentPath.getCurrentPathIndex() + 1);
 		}
 
@@ -308,13 +308,13 @@ public abstract class PathNavigate {
 			} else {
 				timeoutCachedNode = vec3d;
 				double d0 = positionVec3.distanceTo(timeoutCachedNode);
-				timeoutLimit = entity.getAIMoveSpeed() > 0.0F ? d0 / (double) entity.getAIMoveSpeed() * 1000.0D : 0.0D;
+				timeoutLimit = entity.getAIMoveSpeed() > 0F ? d0 / (double) entity.getAIMoveSpeed() * 1000D : 0D;
 			}
 
-			if (timeoutLimit > 0.0D && (double) timeoutTimer > timeoutLimit * 3.0D) {
+			if (timeoutLimit > 0D && (double) timeoutTimer > timeoutLimit * 3D) {
 				timeoutCachedNode = Vec3d.ZERO;
 				timeoutTimer = 0L;
-				timeoutLimit = 0.0D;
+				timeoutLimit = 0D;
 				clearPath();
 			}
 

@@ -54,19 +54,19 @@ public class EntityPig extends EntityAnimal {
 
 		tasks.addTask(0, new EntityAISwimming(this));
 		tasks.addTask(1, new EntityAIPanic(this, 1.25D));
-		tasks.addTask(3, new EntityAIMate(this, 1.0D));
+		tasks.addTask(3, new EntityAIMate(this, 1D));
 		tasks.addTask(4, new EntityAITempt(this, 1.2D, Items.CARROT_ON_A_STICK, false));
 		tasks.addTask(4, new EntityAITempt(this, 1.2D, false, TEMPTATION_ITEMS));
 		tasks.addTask(5, new EntityAIFollowParent(this, 1.1D));
-		tasks.addTask(6, new EntityAIWanderAvoidWater(this, 1.0D));
-		tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
+		tasks.addTask(6, new EntityAIWanderAvoidWater(this, 1D));
+		tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 6F));
 		tasks.addTask(8, new EntityAILookIdle(this));
 	}
 
 	protected void applyEntityAttributes() {
 
 		super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(10.0D);
+		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(10D);
 		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25D);
 	}
 
@@ -149,7 +149,7 @@ public class EntityPig extends EntityAnimal {
 
 	protected void playStepSound(BlockPos pos, Block blockIn) {
 
-		playSound(SoundEvents.ENTITY_PIG_STEP, 0.15F, 1.0F);
+		playSound(SoundEvents.ENTITY_PIG_STEP, 0.15F, 1F);
 	}
 
 	public boolean processInteract(EntityPlayer player, EnumHand hand) {
@@ -249,7 +249,7 @@ public class EntityPig extends EntityAnimal {
 			setRotation(rotationYaw, rotationPitch);
 			renderYawOffset = rotationYaw;
 			rotationYawHead = rotationYaw;
-			stepHeight = 1.0F;
+			stepHeight = 1F;
 			jumpMovementFactor = getAIMoveSpeed() * 0.1F;
 
 			if (boosting && boostTime++ > totalBoostTime) {
@@ -264,20 +264,20 @@ public class EntityPig extends EntityAnimal {
 				}
 
 				setAIMoveSpeed(f);
-				super.travel(0.0F, 0.0F, 1.0F);
+				super.travel(0F, 0F, 1F);
 			} else {
-				motionX = 0.0D;
-				motionY = 0.0D;
-				motionZ = 0.0D;
+				motionX = 0D;
+				motionY = 0D;
+				motionZ = 0D;
 			}
 
 			prevLimbSwingAmount = limbSwingAmount;
 			double d1 = posX - prevPosX;
 			double d0 = posZ - prevPosZ;
-			float f1 = MathHelper.sqrt(d1 * d1 + d0 * d0) * 4.0F;
+			float f1 = MathHelper.sqrt(d1 * d1 + d0 * d0) * 4F;
 
-			if (f1 > 1.0F) {
-				f1 = 1.0F;
+			if (f1 > 1F) {
+				f1 = 1F;
 			}
 
 			limbSwingAmount += (f1 - limbSwingAmount) * 0.4F;

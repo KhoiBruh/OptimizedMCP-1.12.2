@@ -32,7 +32,7 @@ public class GuiBossOverlay extends Gui {
 
 			for (BossInfoClient bossinfoclient : mapBossInfos.values()) {
 				int k = i / 2 - 91;
-				GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+				GlStateManager.color(1F, 1F, 1F, 1F);
 				client.getTextureManager().bindTexture(GUI_BARS_TEXTURES);
 				render(k, j, bossinfoclient);
 				String s = bossinfoclient.getName().getFormattedText();
@@ -54,7 +54,7 @@ public class GuiBossOverlay extends Gui {
 			drawTexturedModalRect(x, y, 0, 80 + (info.getOverlay().ordinal() - 1) * 5 * 2, 182, 5);
 		}
 
-		int i = (int) (info.getPercent() * 183.0F);
+		int i = (int) (info.getPercent() * 183F);
 
 		if (i > 0) {
 			drawTexturedModalRect(x, y, 0, info.getColor().ordinal() * 5 * 2 + 5, i, 5);

@@ -26,9 +26,9 @@ public class SPacketSoundEffect implements Packet<INetHandlerPlayClient> {
 		Validate.notNull(soundIn, "sound");
 		sound = soundIn;
 		category = categoryIn;
-		posX = (int) (xIn * 8.0D);
-		posY = (int) (yIn * 8.0D);
-		posZ = (int) (zIn * 8.0D);
+		posX = (int) (xIn * 8D);
+		posY = (int) (yIn * 8D);
+		posZ = (int) (zIn * 8D);
 		soundVolume = volumeIn;
 		soundPitch = pitchIn;
 	}
@@ -73,17 +73,17 @@ public class SPacketSoundEffect implements Packet<INetHandlerPlayClient> {
 
 	public double getX() {
 
-		return (float) posX / 8.0F;
+		return (float) posX / 8F;
 	}
 
 	public double getY() {
 
-		return (float) posY / 8.0F;
+		return (float) posY / 8F;
 	}
 
 	public double getZ() {
 
-		return (float) posZ / 8.0F;
+		return (float) posZ / 8F;
 	}
 
 	public float getVolume() {

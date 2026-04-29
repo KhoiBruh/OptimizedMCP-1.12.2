@@ -72,7 +72,7 @@ public class ItemMonsterPlacer extends Item {
 				entity = EntityList.createEntityByIDFromName(entityID, worldIn);
 
 				if (entity instanceof EntityLiving entityliving) {
-					entity.setLocationAndAngles(x, y, z, MathHelper.wrapDegrees(worldIn.rand.nextFloat() * 360.0F), 0.0F);
+					entity.setLocationAndAngles(x, y, z, MathHelper.wrapDegrees(worldIn.rand.nextFloat() * 360F), 0F);
 					entityliving.rotationYawHead = entityliving.rotationYaw;
 					entityliving.renderYawOffset = entityliving.rotationYaw;
 					entityliving.onInitialSpawn(worldIn.getDifficultyForLocation(new BlockPos(entityliving)), null);
@@ -198,11 +198,11 @@ public class ItemMonsterPlacer extends Item {
 
 	protected double getYOffset(World p_190909_1_, BlockPos p_190909_2_) {
 
-		AxisAlignedBB axisalignedbb = (new AxisAlignedBB(p_190909_2_)).expand(0.0D, -1.0D, 0.0D);
+		AxisAlignedBB axisalignedbb = (new AxisAlignedBB(p_190909_2_)).expand(0D, -1D, 0D);
 		List<AxisAlignedBB> list = p_190909_1_.getCollisionBoxes(null, axisalignedbb);
 
 		if (list.isEmpty()) {
-			return 0.0D;
+			return 0D;
 		} else {
 			double d0 = axisalignedbb.minY;
 

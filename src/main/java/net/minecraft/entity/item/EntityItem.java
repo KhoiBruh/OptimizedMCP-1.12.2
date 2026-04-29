@@ -48,10 +48,10 @@ public class EntityItem extends Entity {
 
 		super(worldIn);
 		health = 5;
-		hoverStart = (float) (Math.random() * Math.PI * 2.0D);
+		hoverStart = (float) (Math.random() * Math.PI * 2D);
 		setSize(0.25F, 0.25F);
 		setPosition(x, y, z);
-		rotationYaw = (float) (Math.random() * 360.0D);
+		rotationYaw = (float) (Math.random() * 360D);
 		motionX = (float) (Math.random() * 0.20000000298023224D - 0.10000000149011612D);
 		motionY = 0.20000000298023224D;
 		motionZ = (float) (Math.random() * 0.20000000298023224D - 0.10000000149011612D);
@@ -67,7 +67,7 @@ public class EntityItem extends Entity {
 
 		super(worldIn);
 		health = 5;
-		hoverStart = (float) (Math.random() * Math.PI * 2.0D);
+		hoverStart = (float) (Math.random() * Math.PI * 2D);
 		setSize(0.25F, 0.25F);
 		setItem(ItemStack.EMPTY);
 	}
@@ -119,7 +119,7 @@ public class EntityItem extends Entity {
 			if (world.isRemote) {
 				noClip = false;
 			} else {
-				noClip = pushOutOfBlocks(posX, (getEntityBoundingBox().minY + getEntityBoundingBox().maxY) / 2.0D, posZ);
+				noClip = pushOutOfBlocks(posX, (getEntityBoundingBox().minY + getEntityBoundingBox().maxY) / 2D, posZ);
 			}
 
 			move(MoverType.SELF, motionX, motionY, motionZ);
@@ -130,7 +130,7 @@ public class EntityItem extends Entity {
 					motionY = 0.20000000298023224D;
 					motionX = (rand.nextFloat() - rand.nextFloat()) * 0.2F;
 					motionZ = (rand.nextFloat() - rand.nextFloat()) * 0.2F;
-					playSound(SoundEvents.ENTITY_GENERIC_BURN, 0.4F, 2.0F + rand.nextFloat() * 0.4F);
+					playSound(SoundEvents.ENTITY_GENERIC_BURN, 0.4F, 2F + rand.nextFloat() * 0.4F);
 				}
 
 				if (!world.isRemote) {
@@ -180,7 +180,7 @@ public class EntityItem extends Entity {
 	 */
 	private void searchForOtherItemsNearby() {
 
-		for (EntityItem entityitem : world.getEntitiesWithinAABB(EntityItem.class, getEntityBoundingBox().grow(0.5D, 0.0D, 0.5D))) {
+		for (EntityItem entityitem : world.getEntitiesWithinAABB(EntityItem.class, getEntityBoundingBox().grow(0.5D, 0D, 0.5D))) {
 			combineItems(entityitem);
 		}
 	}

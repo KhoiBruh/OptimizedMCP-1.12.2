@@ -29,7 +29,7 @@ public class AdvancementTreeNode {
 			index = indexIn;
 			ancestor = this;
 			x = xIn;
-			y = -1.0F;
+			y = -1F;
 			AdvancementTreeNode advancementtreenode = null;
 
 			for (Advancement advancement : advancementIn.getChildren()) {
@@ -45,9 +45,9 @@ public class AdvancementTreeNode {
 		} else {
 			AdvancementTreeNode advancementtreenode = new AdvancementTreeNode(root, null, null, 1, 0);
 			advancementtreenode.firstWalk();
-			float f = advancementtreenode.secondWalk(0.0F, 0, advancementtreenode.y);
+			float f = advancementtreenode.secondWalk(0F, 0, advancementtreenode.y);
 
-			if (f < 0.0F) {
+			if (f < 0F) {
 				advancementtreenode.thirdWalk(-f);
 			}
 
@@ -74,9 +74,9 @@ public class AdvancementTreeNode {
 
 		if (children.isEmpty()) {
 			if (sibling != null) {
-				y = sibling.y + 1.0F;
+				y = sibling.y + 1F;
 			} else {
-				y = 0.0F;
+				y = 0F;
 			}
 		} else {
 			AdvancementTreeNode advancementtreenode = null;
@@ -87,10 +87,10 @@ public class AdvancementTreeNode {
 			}
 
 			executeShifts();
-			float f = ((children.getFirst()).y + (children.getLast()).y) / 2.0F;
+			float f = ((children.getFirst()).y + (children.getLast()).y) / 2F;
 
 			if (sibling != null) {
-				y = sibling.y + 1.0F;
+				y = sibling.y + 1F;
 				mod = y - f;
 			} else {
 				y = f;
@@ -125,8 +125,8 @@ public class AdvancementTreeNode {
 
 	private void executeShifts() {
 
-		float f = 0.0F;
-		float f1 = 0.0F;
+		float f = 0F;
+		float f1 = 0F;
 
 		for (int i = children.size() - 1; i >= 0; --i) {
 			AdvancementTreeNode advancementtreenode = children.get(i);
@@ -177,9 +177,9 @@ public class AdvancementTreeNode {
 				advancementtreenode3 = advancementtreenode3.getFirstChild();
 				advancementtreenode1 = advancementtreenode1.getLastChild();
 				advancementtreenode1.ancestor = this;
-				float f4 = advancementtreenode2.y + f2 - (advancementtreenode.y + f) + 1.0F;
+				float f4 = advancementtreenode2.y + f2 - (advancementtreenode.y + f) + 1F;
 
-				if (f4 > 0.0F) {
+				if (f4 > 0F) {
 					advancementtreenode2.getAncestor(this, nodeIn).moveSubtree(this, f4);
 					f += f4;
 					f1 += f4;
@@ -210,7 +210,7 @@ public class AdvancementTreeNode {
 
 		float f = (float) (nodeIn.index - index);
 
-		if (f != 0.0F) {
+		if (f != 0F) {
 			nodeIn.change -= p_192316_2_ / f;
 			change += p_192316_2_ / f;
 		}

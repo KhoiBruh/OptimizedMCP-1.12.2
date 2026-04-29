@@ -11,15 +11,15 @@ public class Barrier extends Particle {
 
 	protected Barrier(World worldIn, double p_i46286_2_, double p_i46286_4_, double p_i46286_6_, Item p_i46286_8_) {
 
-		super(worldIn, p_i46286_2_, p_i46286_4_, p_i46286_6_, 0.0D, 0.0D, 0.0D);
+		super(worldIn, p_i46286_2_, p_i46286_4_, p_i46286_6_, 0D, 0D, 0D);
 		setParticleTexture(Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getParticleIcon(p_i46286_8_));
-		particleRed = 1.0F;
-		particleGreen = 1.0F;
-		particleBlue = 1.0F;
-		motionX = 0.0D;
-		motionY = 0.0D;
-		motionZ = 0.0D;
-		particleGravity = 0.0F;
+		particleRed = 1F;
+		particleGreen = 1F;
+		particleBlue = 1F;
+		motionX = 0D;
+		motionY = 0D;
+		motionZ = 0D;
+		particleGravity = 0F;
 		particleMaxAge = 80;
 	}
 
@@ -48,10 +48,10 @@ public class Barrier extends Particle {
 		int i = getBrightnessForRender(partialTicks);
 		int j = i >> 16 & 65535;
 		int k = i & 65535;
-		buffer.pos(f5 - rotationX * 0.5F - rotationXY * 0.5F, f6 - rotationZ * 0.5F, f7 - rotationYZ * 0.5F - rotationXZ * 0.5F).tex(f1, f3).color(particleRed, particleGreen, particleBlue, 1.0F).lightmap(j, k).endVertex();
-		buffer.pos(f5 - rotationX * 0.5F + rotationXY * 0.5F, f6 + rotationZ * 0.5F, f7 - rotationYZ * 0.5F + rotationXZ * 0.5F).tex(f1, f2).color(particleRed, particleGreen, particleBlue, 1.0F).lightmap(j, k).endVertex();
-		buffer.pos(f5 + rotationX * 0.5F + rotationXY * 0.5F, f6 + rotationZ * 0.5F, f7 + rotationYZ * 0.5F + rotationXZ * 0.5F).tex(f, f2).color(particleRed, particleGreen, particleBlue, 1.0F).lightmap(j, k).endVertex();
-		buffer.pos(f5 + rotationX * 0.5F - rotationXY * 0.5F, f6 - rotationZ * 0.5F, f7 + rotationYZ * 0.5F - rotationXZ * 0.5F).tex(f, f3).color(particleRed, particleGreen, particleBlue, 1.0F).lightmap(j, k).endVertex();
+		buffer.pos(f5 - rotationX * 0.5F - rotationXY * 0.5F, f6 - rotationZ * 0.5F, f7 - rotationYZ * 0.5F - rotationXZ * 0.5F).tex(f1, f3).color(particleRed, particleGreen, particleBlue, 1F).lightmap(j, k).endVertex();
+		buffer.pos(f5 - rotationX * 0.5F + rotationXY * 0.5F, f6 + rotationZ * 0.5F, f7 - rotationYZ * 0.5F + rotationXZ * 0.5F).tex(f1, f2).color(particleRed, particleGreen, particleBlue, 1F).lightmap(j, k).endVertex();
+		buffer.pos(f5 + rotationX * 0.5F + rotationXY * 0.5F, f6 + rotationZ * 0.5F, f7 + rotationYZ * 0.5F + rotationXZ * 0.5F).tex(f, f2).color(particleRed, particleGreen, particleBlue, 1F).lightmap(j, k).endVertex();
+		buffer.pos(f5 + rotationX * 0.5F - rotationXY * 0.5F, f6 - rotationZ * 0.5F, f7 + rotationYZ * 0.5F - rotationXZ * 0.5F).tex(f, f3).color(particleRed, particleGreen, particleBlue, 1F).lightmap(j, k).endVertex();
 	}
 
 	public static class Factory implements IParticleFactory {

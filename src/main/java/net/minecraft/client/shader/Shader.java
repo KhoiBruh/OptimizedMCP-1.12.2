@@ -45,7 +45,7 @@ public class Shader {
 
 	private void preRender() {
 
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+		GlStateManager.color(1F, 1F, 1F, 1F);
 		GlStateManager.disableBlend();
 		GlStateManager.disableDepth();
 		GlStateManager.disableAlpha();
@@ -89,10 +89,10 @@ public class Shader {
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder bufferbuilder = tessellator.getBuffer();
 		bufferbuilder.begin(7, DefaultVertexFormats.POSITION_COLOR);
-		bufferbuilder.pos(0.0D, f1, 500.0D).color(255, 255, 255, 255).endVertex();
-		bufferbuilder.pos(f, f1, 500.0D).color(255, 255, 255, 255).endVertex();
-		bufferbuilder.pos(f, 0.0D, 500.0D).color(255, 255, 255, 255).endVertex();
-		bufferbuilder.pos(0.0D, 0.0D, 500.0D).color(255, 255, 255, 255).endVertex();
+		bufferbuilder.pos(0D, f1, 500D).color(255, 255, 255, 255).endVertex();
+		bufferbuilder.pos(f, f1, 500D).color(255, 255, 255, 255).endVertex();
+		bufferbuilder.pos(f, 0D, 500D).color(255, 255, 255, 255).endVertex();
+		bufferbuilder.pos(0D, 0D, 500D).color(255, 255, 255, 255).endVertex();
 		tessellator.draw();
 		GlStateManager.depthMask(true);
 		GlStateManager.colorMask(true, true, true, true);

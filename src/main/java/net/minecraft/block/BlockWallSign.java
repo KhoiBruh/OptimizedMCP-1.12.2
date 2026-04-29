@@ -14,10 +14,10 @@ import net.minecraft.world.World;
 public class BlockWallSign extends BlockSign {
 
 	public static final PropertyDirection FACING = BlockHorizontal.FACING;
-	protected static final AxisAlignedBB SIGN_EAST_AABB = new AxisAlignedBB(0.0D, 0.28125D, 0.0D, 0.125D, 0.78125D, 1.0D);
-	protected static final AxisAlignedBB SIGN_WEST_AABB = new AxisAlignedBB(0.875D, 0.28125D, 0.0D, 1.0D, 0.78125D, 1.0D);
-	protected static final AxisAlignedBB SIGN_SOUTH_AABB = new AxisAlignedBB(0.0D, 0.28125D, 0.0D, 1.0D, 0.78125D, 0.125D);
-	protected static final AxisAlignedBB SIGN_NORTH_AABB = new AxisAlignedBB(0.0D, 0.28125D, 0.875D, 1.0D, 0.78125D, 1.0D);
+	protected static final AxisAlignedBB SIGN_EAST_AABB = new AxisAlignedBB(0D, 0.28125D, 0D, 0.125D, 0.78125D, 1D);
+	protected static final AxisAlignedBB SIGN_WEST_AABB = new AxisAlignedBB(0.875D, 0.28125D, 0D, 1D, 0.78125D, 1D);
+	protected static final AxisAlignedBB SIGN_SOUTH_AABB = new AxisAlignedBB(0D, 0.28125D, 0D, 1D, 0.78125D, 0.125D);
+	protected static final AxisAlignedBB SIGN_NORTH_AABB = new AxisAlignedBB(0D, 0.28125D, 0.875D, 1D, 0.78125D, 1D);
 
 	public BlockWallSign() {
 

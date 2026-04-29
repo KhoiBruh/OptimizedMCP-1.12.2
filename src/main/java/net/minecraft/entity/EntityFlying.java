@@ -58,10 +58,10 @@ public abstract class EntityFlying extends EntityLiving {
 		prevLimbSwingAmount = limbSwingAmount;
 		double d1 = posX - prevPosX;
 		double d0 = posZ - prevPosZ;
-		float f2 = MathHelper.sqrt(d1 * d1 + d0 * d0) * 4.0F;
+		float f2 = MathHelper.sqrt(d1 * d1 + d0 * d0) * 4F;
 
-		if (f2 > 1.0F) {
-			f2 = 1.0F;
+		if (f2 > 1F) {
+			f2 = 1F;
 		}
 
 		limbSwingAmount += (f2 - limbSwingAmount) * 0.4F;

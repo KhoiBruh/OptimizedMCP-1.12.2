@@ -24,11 +24,11 @@ public class RenderWitherSkull extends Render<EntityWitherSkull> {
 
 		float f;
 
-		for (f = p_82400_2_ - p_82400_1_; f < -180.0F; f += 360.0F) {
+		for (f = p_82400_2_ - p_82400_1_; f < -180F; f += 360F) {
 		}
 
-		while (f >= 180.0F) {
-			f -= 360.0F;
+		while (f >= 180F) {
+			f -= 360F;
 		}
 
 		return p_82400_1_ + p_82400_3_ * f;
@@ -46,7 +46,7 @@ public class RenderWitherSkull extends Render<EntityWitherSkull> {
 		GlStateManager.translate((float) x, (float) y, (float) z);
 		float f2 = 0.0625F;
 		GlStateManager.enableRescaleNormal();
-		GlStateManager.scale(-1.0F, -1.0F, 1.0F);
+		GlStateManager.scale(-1F, -1F, 1F);
 		GlStateManager.enableAlpha();
 		bindEntityTexture(entity);
 
@@ -55,7 +55,7 @@ public class RenderWitherSkull extends Render<EntityWitherSkull> {
 			GlStateManager.enableOutlineMode(getTeamColor(entity));
 		}
 
-		skeletonHeadModel.render(entity, 0.0F, 0.0F, 0.0F, f, f1, 0.0625F);
+		skeletonHeadModel.render(entity, 0F, 0F, 0F, f, f1, 0.0625F);
 
 		if (renderOutlines) {
 			GlStateManager.disableOutlineMode();

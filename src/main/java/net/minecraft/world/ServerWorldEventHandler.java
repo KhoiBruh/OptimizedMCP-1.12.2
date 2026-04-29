@@ -67,7 +67,7 @@ public class ServerWorldEventHandler implements IWorldEventListener {
 
 	public void playSoundToAllNearExcept(EntityPlayer player, SoundEvent soundIn, SoundCategory category, double x, double y, double z, float volume, float pitch) {
 
-		mcServer.getPlayerList().sendToAllNearExcept(player, x, y, z, volume > 1.0F ? (double) (16.0F * volume) : 16.0D, world.provider.getDimensionType().getId(), new SPacketSoundEffect(soundIn, category, x, y, z, volume, pitch));
+		mcServer.getPlayerList().sendToAllNearExcept(player, x, y, z, volume > 1F ? (double) (16F * volume) : 16D, world.provider.getDimensionType().getId(), new SPacketSoundEffect(soundIn, category, x, y, z, volume, pitch));
 	}
 
 	/**
@@ -92,7 +92,7 @@ public class ServerWorldEventHandler implements IWorldEventListener {
 
 	public void playEvent(EntityPlayer player, int type, BlockPos blockPosIn, int data) {
 
-		mcServer.getPlayerList().sendToAllNearExcept(player, blockPosIn.getX(), blockPosIn.getY(), blockPosIn.getZ(), 64.0D, world.provider.getDimensionType().getId(), new SPacketEffect(type, blockPosIn, data, false));
+		mcServer.getPlayerList().sendToAllNearExcept(player, blockPosIn.getX(), blockPosIn.getY(), blockPosIn.getZ(), 64D, world.provider.getDimensionType().getId(), new SPacketEffect(type, blockPosIn, data, false));
 	}
 
 	public void broadcastSound(int soundID, BlockPos pos, int data) {
@@ -108,7 +108,7 @@ public class ServerWorldEventHandler implements IWorldEventListener {
 				double d1 = (double) pos.getY() - entityplayermp.posY;
 				double d2 = (double) pos.getZ() - entityplayermp.posZ;
 
-				if (d0 * d0 + d1 * d1 + d2 * d2 < 1024.0D) {
+				if (d0 * d0 + d1 * d1 + d2 * d2 < 1024D) {
 					entityplayermp.connection.sendPacket(new SPacketBlockBreakAnim(breakerId, pos, progress));
 				}
 			}

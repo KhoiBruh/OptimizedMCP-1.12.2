@@ -65,7 +65,7 @@ public class EntityMoveHelper {
 		posX = that.posX;
 		posY = that.posY;
 		posZ = that.posZ;
-		speed = Math.max(that.speed, 1.0D);
+		speed = Math.max(that.speed, 1D);
 		moveForward = that.moveForward;
 		moveStrafe = that.moveStrafe;
 	}
@@ -79,8 +79,8 @@ public class EntityMoveHelper {
 			float f3 = moveStrafe;
 			float f4 = MathHelper.sqrt(f2 * f2 + f3 * f3);
 
-			if (f4 < 1.0F) {
-				f4 = 1.0F;
+			if (f4 < 1F) {
+				f4 = 1F;
 			}
 
 			f4 = f1 / f4;
@@ -96,8 +96,8 @@ public class EntityMoveHelper {
 				NodeProcessor nodeprocessor = pathnavigate.getNodeProcessor();
 
 				if (nodeprocessor != null && nodeprocessor.getPathNodeType(entity.world, MathHelper.floor(entity.posX + (double) f7), MathHelper.floor(entity.posY), MathHelper.floor(entity.posZ + (double) f8)) != PathNodeType.WALKABLE) {
-					moveForward = 1.0F;
-					moveStrafe = 0.0F;
+					moveForward = 1F;
+					moveStrafe = 0F;
 					f1 = f;
 				}
 			}
@@ -114,15 +114,15 @@ public class EntityMoveHelper {
 			double d3 = d0 * d0 + d2 * d2 + d1 * d1;
 
 			if (d3 < 2.500000277905201E-7D) {
-				entity.setMoveForward(0.0F);
+				entity.setMoveForward(0F);
 				return;
 			}
 
-			float f9 = (float) (MathHelper.atan2(d1, d0) * (180D / Math.PI)) - 90.0F;
-			entity.rotationYaw = limitAngle(entity.rotationYaw, f9, 90.0F);
+			float f9 = (float) (MathHelper.atan2(d1, d0) * (180D / Math.PI)) - 90F;
+			entity.rotationYaw = limitAngle(entity.rotationYaw, f9, 90F);
 			entity.setAIMoveSpeed((float) (speed * entity.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue()));
 
-			if (d2 > (double) entity.stepHeight && d0 * d0 + d1 * d1 < (double) Math.max(1.0F, entity.width)) {
+			if (d2 > (double) entity.stepHeight && d0 * d0 + d1 * d1 < (double) Math.max(1F, entity.width)) {
 				entity.getJumpHelper().setJumping();
 				action = EntityMoveHelper.Action.JUMPING;
 			}
@@ -133,7 +133,7 @@ public class EntityMoveHelper {
 				action = EntityMoveHelper.Action.WAIT;
 			}
 		} else {
-			entity.setMoveForward(0.0F);
+			entity.setMoveForward(0F);
 		}
 	}
 
@@ -155,10 +155,10 @@ public class EntityMoveHelper {
 
 		float f1 = sourceAngle + f;
 
-		if (f1 < 0.0F) {
-			f1 += 360.0F;
-		} else if (f1 > 360.0F) {
-			f1 -= 360.0F;
+		if (f1 < 0F) {
+			f1 += 360F;
+		} else if (f1 > 360F) {
+			f1 -= 360F;
 		}
 
 		return f1;

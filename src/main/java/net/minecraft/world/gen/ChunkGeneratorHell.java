@@ -122,7 +122,7 @@ public class ChunkGeneratorHell implements IChunkGenerator {
 									iblockstate = LAVA;
 								}
 
-								if (d15 > 0.0D) {
+								if (d15 > 0D) {
 									iblockstate = NETHERRACK;
 								}
 
@@ -151,15 +151,15 @@ public class ChunkGeneratorHell implements IChunkGenerator {
 
 		int i = world.getSeaLevel() + 1;
 		double d0 = 0.03125D;
-		slowsandNoise = slowsandGravelNoiseGen.generateNoiseOctaves(slowsandNoise, p_185937_1_ * 16, p_185937_2_ * 16, 0, 16, 16, 1, 0.03125D, 0.03125D, 1.0D);
-		gravelNoise = slowsandGravelNoiseGen.generateNoiseOctaves(gravelNoise, p_185937_1_ * 16, 109, p_185937_2_ * 16, 16, 1, 16, 0.03125D, 1.0D, 0.03125D);
+		slowsandNoise = slowsandGravelNoiseGen.generateNoiseOctaves(slowsandNoise, p_185937_1_ * 16, p_185937_2_ * 16, 0, 16, 16, 1, 0.03125D, 0.03125D, 1D);
+		gravelNoise = slowsandGravelNoiseGen.generateNoiseOctaves(gravelNoise, p_185937_1_ * 16, 109, p_185937_2_ * 16, 16, 1, 16, 0.03125D, 1D, 0.03125D);
 		depthBuffer = netherrackExculsivityNoiseGen.generateNoiseOctaves(depthBuffer, p_185937_1_ * 16, p_185937_2_ * 16, 0, 16, 16, 1, 0.0625D, 0.0625D, 0.0625D);
 
 		for (int j = 0; j < 16; ++j) {
 			for (int k = 0; k < 16; ++k) {
-				boolean flag = slowsandNoise[j + k * 16] + rand.nextDouble() * 0.2D > 0.0D;
-				boolean flag1 = gravelNoise[j + k * 16] + rand.nextDouble() * 0.2D > 0.0D;
-				int l = (int) (depthBuffer[j + k * 16] / 3.0D + 3.0D + rand.nextDouble() * 0.25D);
+				boolean flag = slowsandNoise[j + k * 16] + rand.nextDouble() * 0.2D > 0D;
+				boolean flag1 = gravelNoise[j + k * 16] + rand.nextDouble() * 0.2D > 0D;
+				int l = (int) (depthBuffer[j + k * 16] / 3D + 3D + rand.nextDouble() * 0.25D);
 				int i1 = -1;
 				IBlockState iblockstate = NETHERRACK;
 				IBlockState iblockstate1 = NETHERRACK;
@@ -251,8 +251,8 @@ public class ChunkGeneratorHell implements IChunkGenerator {
 
 		double d0 = 684.412D;
 		double d1 = 2053.236D;
-		noiseData4 = scaleNoise.generateNoiseOctaves(noiseData4, p_185938_2_, p_185938_3_, p_185938_4_, p_185938_5_, 1, p_185938_7_, 1.0D, 0.0D, 1.0D);
-		dr = depthNoise.generateNoiseOctaves(dr, p_185938_2_, p_185938_3_, p_185938_4_, p_185938_5_, 1, p_185938_7_, 100.0D, 0.0D, 100.0D);
+		noiseData4 = scaleNoise.generateNoiseOctaves(noiseData4, p_185938_2_, p_185938_3_, p_185938_4_, p_185938_5_, 1, p_185938_7_, 1D, 0D, 1D);
+		dr = depthNoise.generateNoiseOctaves(dr, p_185938_2_, p_185938_3_, p_185938_4_, p_185938_5_, 1, p_185938_7_, 100D, 0D, 100D);
 		pnr = perlinNoise1.generateNoiseOctaves(pnr, p_185938_2_, p_185938_3_, p_185938_4_, p_185938_5_, p_185938_6_, p_185938_7_, 8.555150000000001D, 34.2206D, 8.555150000000001D);
 		ar = lperlinNoise1.generateNoiseOctaves(ar, p_185938_2_, p_185938_3_, p_185938_4_, p_185938_5_, p_185938_6_, p_185938_7_, 684.412D, 2053.236D, 684.412D);
 		br = lperlinNoise2.generateNoiseOctaves(br, p_185938_2_, p_185938_3_, p_185938_4_, p_185938_5_, p_185938_6_, p_185938_7_, 684.412D, 2053.236D, 684.412D);
@@ -260,33 +260,33 @@ public class ChunkGeneratorHell implements IChunkGenerator {
 		double[] adouble = new double[p_185938_6_];
 
 		for (int j = 0; j < p_185938_6_; ++j) {
-			adouble[j] = Math.cos((double) j * Math.PI * 6.0D / (double) p_185938_6_) * 2.0D;
+			adouble[j] = Math.cos((double) j * Math.PI * 6D / (double) p_185938_6_) * 2D;
 			double d2 = j;
 
 			if (j > p_185938_6_ / 2) {
 				d2 = p_185938_6_ - 1 - j;
 			}
 
-			if (d2 < 4.0D) {
-				d2 = 4.0D - d2;
-				adouble[j] -= d2 * d2 * d2 * 10.0D;
+			if (d2 < 4D) {
+				d2 = 4D - d2;
+				adouble[j] -= d2 * d2 * d2 * 10D;
 			}
 		}
 
 		for (int l = 0; l < p_185938_5_; ++l) {
 			for (int i1 = 0; i1 < p_185938_7_; ++i1) {
-				double d3 = 0.0D;
+				double d3 = 0D;
 
 				for (int k = 0; k < p_185938_6_; ++k) {
 					double d4 = adouble[k];
-					double d5 = ar[i] / 512.0D;
-					double d6 = br[i] / 512.0D;
-					double d7 = (pnr[i] / 10.0D + 1.0D) / 2.0D;
+					double d5 = ar[i] / 512D;
+					double d6 = br[i] / 512D;
+					double d7 = (pnr[i] / 10D + 1D) / 2D;
 					double d8;
 
-					if (d7 < 0.0D) {
+					if (d7 < 0D) {
 						d8 = d5;
-					} else if (d7 > 1.0D) {
+					} else if (d7 > 1D) {
 						d8 = d6;
 					} else {
 						d8 = d5 + (d6 - d5) * d7;
@@ -295,14 +295,14 @@ public class ChunkGeneratorHell implements IChunkGenerator {
 					d8 = d8 - d4;
 
 					if (k > p_185938_6_ - 4) {
-						double d9 = (float) (k - (p_185938_6_ - 4)) / 3.0F;
-						d8 = d8 * (1.0D - d9) + -10.0D * d9;
+						double d9 = (float) (k - (p_185938_6_ - 4)) / 3F;
+						d8 = d8 * (1D - d9) + -10D * d9;
 					}
 
-					if ((double) k < 0.0D) {
-						double d10 = (0.0D - (double) k) / 4.0D;
-						d10 = MathHelper.clamp(d10, 0.0D, 1.0D);
-						d8 = d8 * (1.0D - d10) + -10.0D * d10;
+					if ((double) k < 0D) {
+						double d10 = (0D - (double) k) / 4D;
+						d10 = MathHelper.clamp(d10, 0D, 1D);
+						d8 = d8 * (1D - d10) + -10D * d10;
 					}
 
 					p_185938_1_[i] = d8;

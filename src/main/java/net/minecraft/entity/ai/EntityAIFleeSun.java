@@ -76,7 +76,7 @@ public class EntityAIFleeSun extends EntityAIBase {
 		for (int i = 0; i < 10; ++i) {
 			BlockPos blockpos1 = blockpos.add(random.nextInt(20) - 10, random.nextInt(6) - 3, random.nextInt(20) - 10);
 
-			if (!world.canSeeSky(blockpos1) && creature.getBlockPathWeight(blockpos1) < 0.0F) {
+			if (!world.canSeeSky(blockpos1) && creature.getBlockPathWeight(blockpos1) < 0F) {
 				return new Vec3d(blockpos1.getX(), blockpos1.getY(), blockpos1.getZ());
 			}
 		}

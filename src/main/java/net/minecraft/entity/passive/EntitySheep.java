@@ -115,12 +115,12 @@ public class EntitySheep extends EntityAnimal {
 		entityAIEatGrass = new EntityAIEatGrass(this);
 		tasks.addTask(0, new EntityAISwimming(this));
 		tasks.addTask(1, new EntityAIPanic(this, 1.25D));
-		tasks.addTask(2, new EntityAIMate(this, 1.0D));
+		tasks.addTask(2, new EntityAIMate(this, 1D));
 		tasks.addTask(3, new EntityAITempt(this, 1.1D, Items.WHEAT, false));
 		tasks.addTask(4, new EntityAIFollowParent(this, 1.1D));
 		tasks.addTask(5, entityAIEatGrass);
-		tasks.addTask(6, new EntityAIWanderAvoidWater(this, 1.0D));
-		tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
+		tasks.addTask(6, new EntityAIWanderAvoidWater(this, 1D));
+		tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 6F));
 		tasks.addTask(8, new EntityAILookIdle(this));
 	}
 
@@ -146,7 +146,7 @@ public class EntitySheep extends EntityAnimal {
 	protected void applyEntityAttributes() {
 
 		super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(8.0D);
+		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(8D);
 		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.23000000417232513D);
 	}
 
@@ -198,18 +198,18 @@ public class EntitySheep extends EntityAnimal {
 	public float getHeadRotationPointY(float p_70894_1_) {
 
 		if (sheepTimer <= 0) {
-			return 0.0F;
+			return 0F;
 		} else if (sheepTimer >= 4 && sheepTimer <= 36) {
-			return 1.0F;
+			return 1F;
 		} else {
-			return sheepTimer < 4 ? ((float) sheepTimer - p_70894_1_) / 4.0F : -((float) (sheepTimer - 40) - p_70894_1_) / 4.0F;
+			return sheepTimer < 4 ? ((float) sheepTimer - p_70894_1_) / 4F : -((float) (sheepTimer - 40) - p_70894_1_) / 4F;
 		}
 	}
 
 	public float getHeadRotationAngleX(float p_70890_1_) {
 
 		if (sheepTimer > 4 && sheepTimer <= 36) {
-			float f = ((float) (sheepTimer - 4) - p_70890_1_) / 32.0F;
+			float f = ((float) (sheepTimer - 4) - p_70890_1_) / 32F;
 			return ((float) Math.PI / 5F) + ((float) Math.PI * 7F / 100F) * MathHelper.sin(f * 28.7F);
 		} else {
 			return sheepTimer > 0 ? ((float) Math.PI / 5F) : rotationPitch * 0.017453292F;
@@ -226,7 +226,7 @@ public class EntitySheep extends EntityAnimal {
 				int i = 1 + rand.nextInt(3);
 
 				for (int j = 0; j < i; ++j) {
-					EntityItem entityitem = entityDropItem(new ItemStack(Item.getItemFromBlock(Blocks.WOOL), 1, getFleeceColor().getMetadata()), 1.0F);
+					EntityItem entityitem = entityDropItem(new ItemStack(Item.getItemFromBlock(Blocks.WOOL), 1, getFleeceColor().getMetadata()), 1F);
 					entityitem.motionY += rand.nextFloat() * 0.05F;
 					entityitem.motionX += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
 					entityitem.motionZ += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
@@ -234,7 +234,7 @@ public class EntitySheep extends EntityAnimal {
 			}
 
 			itemstack.damageItem(1, player);
-			playSound(SoundEvents.ENTITY_SHEEP_SHEAR, 1.0F, 1.0F);
+			playSound(SoundEvents.ENTITY_SHEEP_SHEAR, 1F, 1F);
 		}
 
 		return super.processInteract(player, hand);
@@ -277,7 +277,7 @@ public class EntitySheep extends EntityAnimal {
 
 	protected void playStepSound(BlockPos pos, Block blockIn) {
 
-		playSound(SoundEvents.ENTITY_SHEEP_STEP, 0.15F, 1.0F);
+		playSound(SoundEvents.ENTITY_SHEEP_STEP, 0.15F, 1F);
 	}
 
 	/**

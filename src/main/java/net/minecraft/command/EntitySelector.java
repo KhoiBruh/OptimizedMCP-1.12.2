@@ -570,7 +570,7 @@ public class EntitySelector {
 
 	private static double getCoordinate(Map<String, String> params, String key, double defaultD, boolean offset) {
 
-		return params.containsKey(key) ? (double) MathHelper.getInt(params.get(key), MathHelper.floor(defaultD)) + (offset ? 0.5D : 0.0D) : defaultD;
+		return params.containsKey(key) ? (double) MathHelper.getInt(params.get(key), MathHelper.floor(defaultD)) + (offset ? 0.5D : 0D) : defaultD;
 	}
 
 	private static boolean hasArgument(Map<String, String> params) {

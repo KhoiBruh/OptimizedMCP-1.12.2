@@ -119,7 +119,7 @@ public class EntityPainting extends EntityHanging {
 	public void onBroken(Entity brokenEntity) {
 
 		if (world.getGameRules().getBoolean("doEntityDrops")) {
-			playSound(SoundEvents.ENTITY_PAINTING_BREAK, 1.0F, 1.0F);
+			playSound(SoundEvents.ENTITY_PAINTING_BREAK, 1F, 1F);
 
 			if (brokenEntity instanceof EntityPlayer entityplayer) {
 
@@ -128,13 +128,13 @@ public class EntityPainting extends EntityHanging {
 				}
 			}
 
-			entityDropItem(new ItemStack(Items.PAINTING), 0.0F);
+			entityDropItem(new ItemStack(Items.PAINTING), 0F);
 		}
 	}
 
 	public void playPlaceSound() {
 
-		playSound(SoundEvents.ENTITY_PAINTING_PLACE, 1.0F, 1.0F);
+		playSound(SoundEvents.ENTITY_PAINTING_PLACE, 1F, 1F);
 	}
 
 	/**

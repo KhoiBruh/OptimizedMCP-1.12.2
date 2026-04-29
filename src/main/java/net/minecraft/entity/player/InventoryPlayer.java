@@ -519,7 +519,7 @@ public class InventoryPlayer implements IInventory {
 
 	public float getDestroySpeed(IBlockState state) {
 
-		float f = 1.0F;
+		float f = 1F;
 
 		if (!mainInventory.get(currentItem).isEmpty()) {
 			f *= mainInventory.get(currentItem).getDestroySpeed(state);
@@ -695,10 +695,10 @@ public class InventoryPlayer implements IInventory {
 	 */
 	public void damageArmor(float damage) {
 
-		damage = damage / 4.0F;
+		damage = damage / 4F;
 
-		if (damage < 1.0F) {
-			damage = 1.0F;
+		if (damage < 1F) {
+			damage = 1F;
 		}
 
 		for (ItemStack itemstack : armorInventory) {
@@ -763,7 +763,7 @@ public class InventoryPlayer implements IInventory {
 		if (this.player.isDead) {
 			return false;
 		} else {
-			return player.getDistanceSq(this.player) <= 64.0D;
+			return player.getDistanceSq(this.player) <= 64D;
 		}
 	}
 

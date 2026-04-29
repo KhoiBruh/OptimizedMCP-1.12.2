@@ -85,7 +85,7 @@ public class GuiPageButtonList extends GuiListExtended {
 			page = p_181156_1_;
 			populateEntries();
 			markVisibility(i, p_181156_1_);
-			amountScrolled = 0.0F;
+			amountScrolled = 0F;
 		}
 	}
 

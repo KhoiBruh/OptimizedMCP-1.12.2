@@ -19,17 +19,17 @@ public class TileEntityMobSpawnerRenderer extends TileEntitySpecialRenderer<Tile
 			float f = 0.53125F;
 			float f1 = Math.max(entity.width, entity.height);
 
-			if ((double) f1 > 1.0D) {
+			if ((double) f1 > 1D) {
 				f /= f1;
 			}
 
-			GlStateManager.translate(0.0F, 0.4F, 0.0F);
-			GlStateManager.rotate((float) (mobSpawnerLogic.getPrevMobRotation() + (mobSpawnerLogic.getMobRotation() - mobSpawnerLogic.getPrevMobRotation()) * (double) partialTicks) * 10.0F, 0.0F, 1.0F, 0.0F);
-			GlStateManager.translate(0.0F, -0.2F, 0.0F);
-			GlStateManager.rotate(-30.0F, 1.0F, 0.0F, 0.0F);
+			GlStateManager.translate(0F, 0.4F, 0F);
+			GlStateManager.rotate((float) (mobSpawnerLogic.getPrevMobRotation() + (mobSpawnerLogic.getMobRotation() - mobSpawnerLogic.getPrevMobRotation()) * (double) partialTicks) * 10F, 0F, 1F, 0F);
+			GlStateManager.translate(0F, -0.2F, 0F);
+			GlStateManager.rotate(-30F, 1F, 0F, 0F);
 			GlStateManager.scale(f, f, f);
-			entity.setLocationAndAngles(posX, posY, posZ, 0.0F, 0.0F);
-			Minecraft.getMinecraft().getRenderManager().renderEntity(entity, 0.0D, 0.0D, 0.0D, 0.0F, partialTicks, false);
+			entity.setLocationAndAngles(posX, posY, posZ, 0F, 0F);
+			Minecraft.getMinecraft().getRenderManager().renderEntity(entity, 0D, 0D, 0D, 0F, partialTicks, false);
 		}
 	}
 

@@ -31,7 +31,7 @@ public interface IToast {
 
 		public void playSound(SoundHandler handler) {
 
-			handler.playSound(PositionedSoundRecord.getRecord(sound, 1.0F, 1.0F));
+			handler.playSound(PositionedSoundRecord.getRecord(sound, 1F, 1F));
 		}
 	}
 

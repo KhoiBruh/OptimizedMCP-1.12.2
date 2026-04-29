@@ -144,7 +144,7 @@ public class PathNavigateGround extends PathNavigate {
 		if (d2 < 1.0E-8D) {
 			return false;
 		} else {
-			double d3 = 1.0D / Math.sqrt(d2);
+			double d3 = 1D / Math.sqrt(d2);
 			d0 = d0 * d3;
 			d1 = d1 * d3;
 			sizeX = sizeX + 2;
@@ -155,23 +155,23 @@ public class PathNavigateGround extends PathNavigate {
 			} else {
 				sizeX = sizeX - 2;
 				sizeZ = sizeZ - 2;
-				double d4 = 1.0D / Math.abs(d0);
-				double d5 = 1.0D / Math.abs(d1);
+				double d4 = 1D / Math.abs(d0);
+				double d5 = 1D / Math.abs(d1);
 				double d6 = (double) i - posVec31.x();
 				double d7 = (double) j - posVec31.z();
 
-				if (d0 >= 0.0D) {
+				if (d0 >= 0D) {
 					++d6;
 				}
 
-				if (d1 >= 0.0D) {
+				if (d1 >= 0D) {
 					++d7;
 				}
 
 				d6 = d6 / d0;
 				d7 = d7 / d1;
-				int k = d0 < 0.0D ? -1 : 1;
-				int l = d1 < 0.0D ? -1 : 1;
+				int k = d0 < 0D ? -1 : 1;
+				int l = d1 < 0D ? -1 : 1;
 				int i1 = MathHelper.floor(posVec32.x());
 				int j1 = MathHelper.floor(posVec32.z());
 				int k1 = i1 - i;
@@ -214,7 +214,7 @@ public class PathNavigateGround extends PathNavigate {
 					double d0 = (double) k + 0.5D - vec31.x();
 					double d1 = (double) l + 0.5D - vec31.z();
 
-					if (d0 * p_179683_8_ + d1 * p_179683_10_ >= 0.0D) {
+					if (d0 * p_179683_8_ + d1 * p_179683_10_ >= 0D) {
 						PathNodeType pathnodetype = nodeProcessor.getPathNodeType(world, k, y - 1, l, entity, sizeX, sizeY, sizeZ, true, true);
 
 						if (pathnodetype == PathNodeType.WATER) {
@@ -232,7 +232,7 @@ public class PathNavigateGround extends PathNavigate {
 						pathnodetype = nodeProcessor.getPathNodeType(world, k, y, l, entity, sizeX, sizeY, sizeZ, true, true);
 						float f = entity.getPathPriority(pathnodetype);
 
-						if (f < 0.0F || f >= 8.0F) {
+						if (f < 0F || f >= 8F) {
 							return false;
 						}
 
@@ -256,7 +256,7 @@ public class PathNavigateGround extends PathNavigate {
 			double d0 = (double) blockpos.getX() + 0.5D - p_179692_7_.x();
 			double d1 = (double) blockpos.getZ() + 0.5D - p_179692_7_.z();
 
-			if (d0 * p_179692_8_ + d1 * p_179692_10_ >= 0.0D) {
+			if (d0 * p_179692_8_ + d1 * p_179692_10_ >= 0D) {
 				Block block = world.getBlockState(blockpos).getBlock();
 
 				if (!block.isPassable(world, blockpos)) {

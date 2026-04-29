@@ -136,7 +136,7 @@ public class GuiMerchant extends GuiContainer {
 	 */
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
 
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+		GlStateManager.color(1F, 1F, 1F, 1F);
 		mc.getTextureManager().bindTexture(MERCHANT_GUI_TEXTURE);
 		int i = (width - xSize) / 2;
 		int j = (height - ySize) / 2;
@@ -154,7 +154,7 @@ public class GuiMerchant extends GuiContainer {
 
 			if (merchantrecipe.isRecipeDisabled()) {
 				mc.getTextureManager().bindTexture(MERCHANT_GUI_TEXTURE);
-				GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+				GlStateManager.color(1F, 1F, 1F, 1F);
 				GlStateManager.disableLighting();
 				drawTexturedModalRect(guiLeft + 83, guiTop + 21, 212, 0, 28, 21);
 				drawTexturedModalRect(guiLeft + 83, guiTop + 51, 212, 0, 28, 21);
@@ -185,7 +185,7 @@ public class GuiMerchant extends GuiContainer {
 			GlStateManager.enableRescaleNormal();
 			GlStateManager.enableColorMaterial();
 			GlStateManager.enableLighting();
-			itemRender.zLevel = 100.0F;
+			itemRender.zLevel = 100F;
 			itemRender.renderItemAndEffectIntoGUI(itemstack, i + 36, j + 24);
 			itemRender.renderItemOverlays(fontRenderer, itemstack, i + 36, j + 24);
 
@@ -196,7 +196,7 @@ public class GuiMerchant extends GuiContainer {
 
 			itemRender.renderItemAndEffectIntoGUI(itemstack2, i + 120, j + 24);
 			itemRender.renderItemOverlays(fontRenderer, itemstack2, i + 120, j + 24);
-			itemRender.zLevel = 0.0F;
+			itemRender.zLevel = 0F;
 			GlStateManager.disableLighting();
 
 			if (isPointInRegion(36, 24, 16, 16, mouseX, mouseY) && !itemstack.isEmpty()) {
@@ -237,7 +237,7 @@ public class GuiMerchant extends GuiContainer {
 
 			if (visible) {
 				mc.getTextureManager().bindTexture(GuiMerchant.MERCHANT_GUI_TEXTURE);
-				GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+				GlStateManager.color(1F, 1F, 1F, 1F);
 				boolean flag = mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
 				int i = 0;
 				int j = 176;

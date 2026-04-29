@@ -17,7 +17,7 @@ public class RenderShulker extends RenderLiving<EntityShulker> {
 
 	public RenderShulker(RenderManager p_i47194_1_) {
 
-		super(p_i47194_1_, new ModelShulker(), 0.0F);
+		super(p_i47194_1_, new ModelShulker(), 0F);
 		addLayer(new RenderShulker.HeadLayer());
 	}
 
@@ -36,7 +36,7 @@ public class RenderShulker extends RenderLiving<EntityShulker> {
 		if (i > 0 && entity.isAttachedToBlock()) {
 			BlockPos blockpos = entity.getAttachmentPos();
 			BlockPos blockpos1 = entity.getOldAttachPos();
-			double d0 = (double) ((float) i - partialTicks) / 6.0D;
+			double d0 = (double) ((float) i - partialTicks) / 6D;
 			d0 = d0 * d0;
 			double d1 = (double) (blockpos.getX() - blockpos1.getX()) * d0;
 			double d2 = (double) (blockpos.getY() - blockpos1.getY()) * d0;
@@ -83,31 +83,31 @@ public class RenderShulker extends RenderLiving<EntityShulker> {
 				break;
 
 			case EAST:
-				GlStateManager.translate(0.5F, 0.5F, 0.0F);
-				GlStateManager.rotate(90.0F, 1.0F, 0.0F, 0.0F);
-				GlStateManager.rotate(90.0F, 0.0F, 0.0F, 1.0F);
+				GlStateManager.translate(0.5F, 0.5F, 0F);
+				GlStateManager.rotate(90F, 1F, 0F, 0F);
+				GlStateManager.rotate(90F, 0F, 0F, 1F);
 				break;
 
 			case WEST:
-				GlStateManager.translate(-0.5F, 0.5F, 0.0F);
-				GlStateManager.rotate(90.0F, 1.0F, 0.0F, 0.0F);
-				GlStateManager.rotate(-90.0F, 0.0F, 0.0F, 1.0F);
+				GlStateManager.translate(-0.5F, 0.5F, 0F);
+				GlStateManager.rotate(90F, 1F, 0F, 0F);
+				GlStateManager.rotate(-90F, 0F, 0F, 1F);
 				break;
 
 			case NORTH:
-				GlStateManager.translate(0.0F, 0.5F, -0.5F);
-				GlStateManager.rotate(90.0F, 1.0F, 0.0F, 0.0F);
+				GlStateManager.translate(0F, 0.5F, -0.5F);
+				GlStateManager.rotate(90F, 1F, 0F, 0F);
 				break;
 
 			case SOUTH:
-				GlStateManager.translate(0.0F, 0.5F, 0.5F);
-				GlStateManager.rotate(90.0F, 1.0F, 0.0F, 0.0F);
-				GlStateManager.rotate(180.0F, 0.0F, 0.0F, 1.0F);
+				GlStateManager.translate(0F, 0.5F, 0.5F);
+				GlStateManager.rotate(90F, 1F, 0F, 0F);
+				GlStateManager.rotate(180F, 0F, 0F, 1F);
 				break;
 
 			case UP:
-				GlStateManager.translate(0.0F, 1.0F, 0.0F);
-				GlStateManager.rotate(180.0F, 1.0F, 0.0F, 0.0F);
+				GlStateManager.translate(0F, 1F, 0F);
+				GlStateManager.rotate(180F, 1F, 0F, 0F);
 		}
 	}
 
@@ -136,33 +136,33 @@ public class RenderShulker extends RenderLiving<EntityShulker> {
 					break;
 
 				case EAST:
-					GlStateManager.rotate(90.0F, 0.0F, 0.0F, 1.0F);
-					GlStateManager.rotate(90.0F, 1.0F, 0.0F, 0.0F);
-					GlStateManager.translate(1.0F, -1.0F, 0.0F);
-					GlStateManager.rotate(180.0F, 0.0F, 1.0F, 0.0F);
+					GlStateManager.rotate(90F, 0F, 0F, 1F);
+					GlStateManager.rotate(90F, 1F, 0F, 0F);
+					GlStateManager.translate(1F, -1F, 0F);
+					GlStateManager.rotate(180F, 0F, 1F, 0F);
 					break;
 
 				case WEST:
-					GlStateManager.rotate(-90.0F, 0.0F, 0.0F, 1.0F);
-					GlStateManager.rotate(90.0F, 1.0F, 0.0F, 0.0F);
-					GlStateManager.translate(-1.0F, -1.0F, 0.0F);
-					GlStateManager.rotate(180.0F, 0.0F, 1.0F, 0.0F);
+					GlStateManager.rotate(-90F, 0F, 0F, 1F);
+					GlStateManager.rotate(90F, 1F, 0F, 0F);
+					GlStateManager.translate(-1F, -1F, 0F);
+					GlStateManager.rotate(180F, 0F, 1F, 0F);
 					break;
 
 				case NORTH:
-					GlStateManager.rotate(90.0F, 1.0F, 0.0F, 0.0F);
-					GlStateManager.translate(0.0F, -1.0F, -1.0F);
+					GlStateManager.rotate(90F, 1F, 0F, 0F);
+					GlStateManager.translate(0F, -1F, -1F);
 					break;
 
 				case SOUTH:
-					GlStateManager.rotate(180.0F, 0.0F, 0.0F, 1.0F);
-					GlStateManager.rotate(90.0F, 1.0F, 0.0F, 0.0F);
-					GlStateManager.translate(0.0F, -1.0F, 1.0F);
+					GlStateManager.rotate(180F, 0F, 0F, 1F);
+					GlStateManager.rotate(90F, 1F, 0F, 0F);
+					GlStateManager.translate(0F, -1F, 1F);
 					break;
 
 				case UP:
-					GlStateManager.rotate(180.0F, 1.0F, 0.0F, 0.0F);
-					GlStateManager.translate(0.0F, -2.0F, 0.0F);
+					GlStateManager.rotate(180F, 1F, 0F, 0F);
+					GlStateManager.translate(0F, -2F, 0F);
 			}
 
 			ModelRenderer modelrenderer = getMainModel().head;

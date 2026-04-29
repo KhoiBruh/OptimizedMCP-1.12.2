@@ -31,7 +31,7 @@ public class ItemTool extends Item {
 
 	protected ItemTool(float attackDamageIn, float attackSpeedIn, Item.ToolMaterial materialIn, Set<Block> effectiveBlocksIn) {
 
-		efficiency = 4.0F;
+		efficiency = 4F;
 		toolMaterial = materialIn;
 		effectiveBlocks = effectiveBlocksIn;
 		maxStackSize = 1;
@@ -44,12 +44,12 @@ public class ItemTool extends Item {
 
 	protected ItemTool(Item.ToolMaterial materialIn, Set<Block> effectiveBlocksIn) {
 
-		this(0.0F, 0.0F, materialIn, effectiveBlocksIn);
+		this(0F, 0F, materialIn, effectiveBlocksIn);
 	}
 
 	public float getDestroySpeed(ItemStack stack, IBlockState state) {
 
-		return effectiveBlocks.contains(state.getBlock()) ? efficiency : 1.0F;
+		return effectiveBlocks.contains(state.getBlock()) ? efficiency : 1F;
 	}
 
 	/**
@@ -67,7 +67,7 @@ public class ItemTool extends Item {
 	 */
 	public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving) {
 
-		if (!worldIn.isRemote && (double) state.getBlockHardness(worldIn, pos) != 0.0D) {
+		if (!worldIn.isRemote && (double) state.getBlockHardness(worldIn, pos) != 0D) {
 			stack.damageItem(1, entityLiving);
 		}
 

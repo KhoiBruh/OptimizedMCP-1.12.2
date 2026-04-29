@@ -18,38 +18,38 @@ import java.util.Random;
 public class BlockCrops extends BlockBush implements IGrowable {
 
 	public static final PropertyInteger AGE = PropertyInteger.create("age", 0, 7);
-	private static final AxisAlignedBB[] CROPS_AABB = new AxisAlignedBB[]{new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.125D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.25D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.375D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.5D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.625D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.75D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.875D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D)};
+	private static final AxisAlignedBB[] CROPS_AABB = new AxisAlignedBB[]{new AxisAlignedBB(0D, 0D, 0D, 1D, 0.125D, 1D), new AxisAlignedBB(0D, 0D, 0D, 1D, 0.25D, 1D), new AxisAlignedBB(0D, 0D, 0D, 1D, 0.375D, 1D), new AxisAlignedBB(0D, 0D, 0D, 1D, 0.5D, 1D), new AxisAlignedBB(0D, 0D, 0D, 1D, 0.625D, 1D), new AxisAlignedBB(0D, 0D, 0D, 1D, 0.75D, 1D), new AxisAlignedBB(0D, 0D, 0D, 1D, 0.875D, 1D), new AxisAlignedBB(0D, 0D, 0D, 1D, 1D, 1D)};
 
 	protected BlockCrops() {
 
 		setDefaultState(blockState.getBaseState().withProperty(getAgeProperty(), 0));
 		setTickRandomly(true);
 		setCreativeTab(null);
-		setHardness(0.0F);
+		setHardness(0F);
 		setSoundType(SoundType.PLANT);
 		disableStats();
 	}
 
 	protected static float getGrowthChance(Block blockIn, World worldIn, BlockPos pos) {
 
-		float f = 1.0F;
+		float f = 1F;
 		BlockPos blockpos = pos.down();
 
 		for (int i = -1; i <= 1; ++i) {
 			for (int j = -1; j <= 1; ++j) {
-				float f1 = 0.0F;
+				float f1 = 0F;
 				IBlockState iblockstate = worldIn.getBlockState(blockpos.add(i, 0, j));
 
 				if (iblockstate.getBlock() == Blocks.FARMLAND) {
-					f1 = 1.0F;
+					f1 = 1F;
 
 					if (iblockstate.getValue(BlockFarmland.MOISTURE) > 0) {
-						f1 = 3.0F;
+						f1 = 3F;
 					}
 				}
 
 				if (i != 0 || j != 0) {
-					f1 /= 4.0F;
+					f1 /= 4F;
 				}
 
 				f += f1;
@@ -64,12 +64,12 @@ public class BlockCrops extends BlockBush implements IGrowable {
 		boolean flag1 = blockIn == worldIn.getBlockState(blockpos1).getBlock() || blockIn == worldIn.getBlockState(blockpos2).getBlock();
 
 		if (flag && flag1) {
-			f /= 2.0F;
+			f /= 2F;
 		} else {
 			boolean flag2 = blockIn == worldIn.getBlockState(blockpos3.north()).getBlock() || blockIn == worldIn.getBlockState(blockpos4.north()).getBlock() || blockIn == worldIn.getBlockState(blockpos4.south()).getBlock() || blockIn == worldIn.getBlockState(blockpos3.south()).getBlock();
 
 			if (flag2) {
-				f /= 2.0F;
+				f /= 2F;
 			}
 		}
 
@@ -124,7 +124,7 @@ public class BlockCrops extends BlockBush implements IGrowable {
 			if (i < getMaxAge()) {
 				float f = getGrowthChance(this, worldIn, pos);
 
-				if (rand.nextInt((int) (25.0F / f) + 1) == 0) {
+				if (rand.nextInt((int) (25F / f) + 1) == 0) {
 					worldIn.setBlockState(pos, withAge(i + 1), 2);
 				}
 			}

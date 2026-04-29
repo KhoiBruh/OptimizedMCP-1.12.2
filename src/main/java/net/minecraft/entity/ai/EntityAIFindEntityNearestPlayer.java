@@ -74,7 +74,7 @@ public class EntityAIFindEntityNearestPlayer extends EntityAIBase {
 	public boolean shouldExecute() {
 
 		double d0 = maxTargetRange();
-		List<EntityPlayer> list = entityLiving.world.getEntitiesWithinAABB(EntityPlayer.class, entityLiving.getEntityBoundingBox().grow(d0, 4.0D, d0), predicate);
+		List<EntityPlayer> list = entityLiving.world.getEntitiesWithinAABB(EntityPlayer.class, entityLiving.getEntityBoundingBox().grow(d0, 4D, d0), predicate);
 		list.sort(sorter);
 
 		if (list.isEmpty()) {
@@ -140,7 +140,7 @@ public class EntityAIFindEntityNearestPlayer extends EntityAIBase {
 	protected double maxTargetRange() {
 
 		IAttributeInstance iattributeinstance = entityLiving.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE);
-		return iattributeinstance == null ? 16.0D : iattributeinstance.getAttributeValue();
+		return iattributeinstance == null ? 16D : iattributeinstance.getAttributeValue();
 	}
 
 }

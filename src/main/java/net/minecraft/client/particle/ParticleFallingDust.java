@@ -19,10 +19,10 @@ public class ParticleFallingDust extends Particle {
 
 	protected ParticleFallingDust(World p_i47135_1_, double p_i47135_2_, double p_i47135_4_, double p_i47135_6_, float p_i47135_8_, float p_i47135_9_, float p_i47135_10_) {
 
-		super(p_i47135_1_, p_i47135_2_, p_i47135_4_, p_i47135_6_, 0.0D, 0.0D, 0.0D);
-		motionX = 0.0D;
-		motionY = 0.0D;
-		motionZ = 0.0D;
+		super(p_i47135_1_, p_i47135_2_, p_i47135_4_, p_i47135_6_, 0D, 0D, 0D);
+		motionX = 0D;
+		motionY = 0D;
+		motionZ = 0D;
 		particleRed = p_i47135_8_;
 		particleGreen = p_i47135_9_;
 		particleBlue = p_i47135_10_;
@@ -30,7 +30,7 @@ public class ParticleFallingDust extends Particle {
 		particleScale *= 0.75F;
 		particleScale *= 0.9F;
 		oSize = particleScale;
-		particleMaxAge = (int) (32.0D / (Math.random() * 0.8D + 0.2D));
+		particleMaxAge = (int) (32D / (Math.random() * 0.8D + 0.2D));
 		particleMaxAge = (int) ((float) particleMaxAge * 0.9F);
 		rotSpeed = ((float) Math.random() - 0.5F) * 0.1F;
 		particleAngle = (float) Math.random() * ((float) Math.PI * 2F);
@@ -41,8 +41,8 @@ public class ParticleFallingDust extends Particle {
 	 */
 	public void renderParticle(BufferBuilder buffer, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
 
-		float f = ((float) particleAge + partialTicks) / (float) particleMaxAge * 32.0F;
-		f = MathHelper.clamp(f, 0.0F, 1.0F);
+		float f = ((float) particleAge + partialTicks) / (float) particleMaxAge * 32F;
+		f = MathHelper.clamp(f, 0F, 1F);
 		particleScale = oSize * f;
 		super.renderParticle(buffer, entityIn, partialTicks, rotationX, rotationZ, rotationYZ, rotationXY, rotationXZ);
 	}
@@ -58,10 +58,10 @@ public class ParticleFallingDust extends Particle {
 		}
 
 		prevParticleAngle = particleAngle;
-		particleAngle += (float) Math.PI * rotSpeed * 2.0F;
+		particleAngle += (float) Math.PI * rotSpeed * 2F;
 
 		if (onGround) {
-			prevParticleAngle = particleAngle = 0.0F;
+			prevParticleAngle = particleAngle = 0F;
 		}
 
 		setParticleTextureIndex(7 - particleAge * 8 / particleMaxAge);
@@ -86,9 +86,9 @@ public class ParticleFallingDust extends Particle {
 					i = ((BlockFalling) iblockstate.getBlock()).getDustColor(iblockstate);
 				}
 
-				float f = (float) (i >> 16 & 255) / 255.0F;
-				float f1 = (float) (i >> 8 & 255) / 255.0F;
-				float f2 = (float) (i & 255) / 255.0F;
+				float f = (float) (i >> 16 & 255) / 255F;
+				float f1 = (float) (i >> 8 & 255) / 255F;
+				float f2 = (float) (i & 255) / 255F;
 				return new ParticleFallingDust(worldIn, xCoordIn, yCoordIn, zCoordIn, f, f1, f2);
 			}
 		}

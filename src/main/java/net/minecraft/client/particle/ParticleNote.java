@@ -11,17 +11,17 @@ public class ParticleNote extends Particle {
 
 	protected ParticleNote(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double p_i46353_8_, double p_i46353_10_, double p_i46353_12_) {
 
-		this(worldIn, xCoordIn, yCoordIn, zCoordIn, p_i46353_8_, p_i46353_10_, p_i46353_12_, 2.0F);
+		this(worldIn, xCoordIn, yCoordIn, zCoordIn, p_i46353_8_, p_i46353_10_, p_i46353_12_, 2F);
 	}
 
 	protected ParticleNote(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double p_i1217_8_, double p_i1217_10_, double p_i1217_12_, float p_i1217_14_) {
 
-		super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0.0D, 0.0D, 0.0D);
+		super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0D, 0D, 0D);
 		motionX *= 0.009999999776482582D;
 		motionY *= 0.009999999776482582D;
 		motionZ *= 0.009999999776482582D;
 		motionY += 0.2D;
-		particleRed = MathHelper.sin(((float) p_i1217_8_ + 0.0F) * ((float) Math.PI * 2F)) * 0.65F + 0.35F;
+		particleRed = MathHelper.sin(((float) p_i1217_8_ + 0F) * ((float) Math.PI * 2F)) * 0.65F + 0.35F;
 		particleGreen = MathHelper.sin(((float) p_i1217_8_ + 0.33333334F) * ((float) Math.PI * 2F)) * 0.65F + 0.35F;
 		particleBlue = MathHelper.sin(((float) p_i1217_8_ + 0.6666667F) * ((float) Math.PI * 2F)) * 0.65F + 0.35F;
 		particleScale *= 0.75F;
@@ -36,8 +36,8 @@ public class ParticleNote extends Particle {
 	 */
 	public void renderParticle(BufferBuilder buffer, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
 
-		float f = ((float) particleAge + partialTicks) / (float) particleMaxAge * 32.0F;
-		f = MathHelper.clamp(f, 0.0F, 1.0F);
+		float f = ((float) particleAge + partialTicks) / (float) particleMaxAge * 32F;
+		f = MathHelper.clamp(f, 0F, 1F);
 		particleScale = noteParticleScale * f;
 		super.renderParticle(buffer, entityIn, partialTicks, rotationX, rotationZ, rotationYZ, rotationXY, rotationXZ);
 	}

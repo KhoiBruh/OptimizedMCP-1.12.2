@@ -353,7 +353,7 @@ public class GuiScreenBook extends GuiScreen {
 	 */
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+		GlStateManager.color(1F, 1F, 1F, 1F);
 		mc.getTextureManager().bindTexture(BOOK_GUI_TEXTURES);
 		int i = (width - 192) / 2;
 		int j = 2;
@@ -541,7 +541,7 @@ public class GuiScreenBook extends GuiScreen {
 
 			if (visible) {
 				boolean flag = mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
-				GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+				GlStateManager.color(1F, 1F, 1F, 1F);
 				mc.getTextureManager().bindTexture(GuiScreenBook.BOOK_GUI_TEXTURES);
 				int i = 0;
 				int j = 192;

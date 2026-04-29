@@ -71,14 +71,14 @@ public class EntityWolf extends EntityTameable {
 		aiSit = new EntityAISit(this);
 		tasks.addTask(1, new EntityAISwimming(this));
 		tasks.addTask(2, aiSit);
-		tasks.addTask(3, new EntityWolf.AIAvoidEntity<>(this, EntityLlama.class, 24.0F, 1.5D, 1.5D));
+		tasks.addTask(3, new EntityWolf.AIAvoidEntity<>(this, EntityLlama.class, 24F, 1.5D, 1.5D));
 		tasks.addTask(4, new EntityAILeapAtTarget(this, 0.4F));
-		tasks.addTask(5, new EntityAIAttackMelee(this, 1.0D, true));
-		tasks.addTask(6, new EntityAIFollowOwner(this, 1.0D, 10.0F, 2.0F));
-		tasks.addTask(7, new EntityAIMate(this, 1.0D));
-		tasks.addTask(8, new EntityAIWanderAvoidWater(this, 1.0D));
-		tasks.addTask(9, new EntityAIBeg(this, 8.0F));
-		tasks.addTask(10, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
+		tasks.addTask(5, new EntityAIAttackMelee(this, 1D, true));
+		tasks.addTask(6, new EntityAIFollowOwner(this, 1D, 10F, 2F));
+		tasks.addTask(7, new EntityAIMate(this, 1D));
+		tasks.addTask(8, new EntityAIWanderAvoidWater(this, 1D));
+		tasks.addTask(9, new EntityAIBeg(this, 8F));
+		tasks.addTask(10, new EntityAIWatchClosest(this, EntityPlayer.class, 8F));
 		tasks.addTask(10, new EntityAILookIdle(this));
 		targetTasks.addTask(1, new EntityAIOwnerHurtByTarget(this));
 		targetTasks.addTask(2, new EntityAIOwnerHurtTarget(this));
@@ -93,12 +93,12 @@ public class EntityWolf extends EntityTameable {
 		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.30000001192092896D);
 
 		if (isTamed()) {
-			getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D);
+			getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20D);
 		} else {
-			getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(8.0D);
+			getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(8D);
 		}
 
-		getAttributeMap().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(2.0D);
+		getAttributeMap().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(2D);
 	}
 
 	/**
@@ -130,7 +130,7 @@ public class EntityWolf extends EntityTameable {
 
 	protected void playStepSound(BlockPos pos, Block blockIn) {
 
-		playSound(SoundEvents.ENTITY_WOLF_STEP, 0.15F, 1.0F);
+		playSound(SoundEvents.ENTITY_WOLF_STEP, 0.15F, 1F);
 	}
 
 	/**
@@ -161,7 +161,7 @@ public class EntityWolf extends EntityTameable {
 		if (isAngry()) {
 			return SoundEvents.ENTITY_WOLF_GROWL;
 		} else if (rand.nextInt(3) == 0) {
-			return isTamed() && dataManager.get(DATA_HEALTH_ID) < 10.0F ? SoundEvents.ENTITY_WOLF_WHINE : SoundEvents.ENTITY_WOLF_PANT;
+			return isTamed() && dataManager.get(DATA_HEALTH_ID) < 10F ? SoundEvents.ENTITY_WOLF_WHINE : SoundEvents.ENTITY_WOLF_PANT;
 		} else {
 			return SoundEvents.ENTITY_WOLF_AMBIENT;
 		}
@@ -201,8 +201,8 @@ public class EntityWolf extends EntityTameable {
 
 		if (!world.isRemote && isWet && !isShaking && !hasPath() && onGround) {
 			isShaking = true;
-			timeWolfIsShaking = 0.0F;
-			prevTimeWolfIsShaking = 0.0F;
+			timeWolfIsShaking = 0F;
+			prevTimeWolfIsShaking = 0F;
 			world.setEntityState(this, (byte) 8);
 		}
 
@@ -220,38 +220,38 @@ public class EntityWolf extends EntityTameable {
 		headRotationCourseOld = headRotationCourse;
 
 		if (isBegging()) {
-			headRotationCourse += (1.0F - headRotationCourse) * 0.4F;
+			headRotationCourse += (1F - headRotationCourse) * 0.4F;
 		} else {
-			headRotationCourse += (0.0F - headRotationCourse) * 0.4F;
+			headRotationCourse += (0F - headRotationCourse) * 0.4F;
 		}
 
 		if (isWet()) {
 			isWet = true;
 			isShaking = false;
-			timeWolfIsShaking = 0.0F;
-			prevTimeWolfIsShaking = 0.0F;
+			timeWolfIsShaking = 0F;
+			prevTimeWolfIsShaking = 0F;
 		} else if ((isWet || isShaking) && isShaking) {
-			if (timeWolfIsShaking == 0.0F) {
-				playSound(SoundEvents.ENTITY_WOLF_SHAKE, getSoundVolume(), (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F);
+			if (timeWolfIsShaking == 0F) {
+				playSound(SoundEvents.ENTITY_WOLF_SHAKE, getSoundVolume(), (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1F);
 			}
 
 			prevTimeWolfIsShaking = timeWolfIsShaking;
 			timeWolfIsShaking += 0.05F;
 
-			if (prevTimeWolfIsShaking >= 2.0F) {
+			if (prevTimeWolfIsShaking >= 2F) {
 				isWet = false;
 				isShaking = false;
-				prevTimeWolfIsShaking = 0.0F;
-				timeWolfIsShaking = 0.0F;
+				prevTimeWolfIsShaking = 0F;
+				timeWolfIsShaking = 0F;
 			}
 
 			if (timeWolfIsShaking > 0.4F) {
 				float f = (float) getEntityBoundingBox().minY;
-				int i = (int) (MathHelper.sin((timeWolfIsShaking - 0.4F) * (float) Math.PI) * 7.0F);
+				int i = (int) (MathHelper.sin((timeWolfIsShaking - 0.4F) * (float) Math.PI) * 7F);
 
 				for (int j = 0; j < i; ++j) {
-					float f1 = (rand.nextFloat() * 2.0F - 1.0F) * width * 0.5F;
-					float f2 = (rand.nextFloat() * 2.0F - 1.0F) * width * 0.5F;
+					float f1 = (rand.nextFloat() * 2F - 1F) * width * 0.5F;
+					float f2 = (rand.nextFloat() * 2F - 1F) * width * 0.5F;
 					world.spawnParticle(EnumParticleTypes.WATER_SPLASH, posX + (double) f1, f + 0.8F, posZ + (double) f2, motionX, motionY, motionZ);
 				}
 			}
@@ -271,20 +271,20 @@ public class EntityWolf extends EntityTameable {
 	 */
 	public float getShadingWhileWet(float p_70915_1_) {
 
-		return 0.75F + (prevTimeWolfIsShaking + (timeWolfIsShaking - prevTimeWolfIsShaking) * p_70915_1_) / 2.0F * 0.25F;
+		return 0.75F + (prevTimeWolfIsShaking + (timeWolfIsShaking - prevTimeWolfIsShaking) * p_70915_1_) / 2F * 0.25F;
 	}
 
 	public float getShakeAngle(float p_70923_1_, float p_70923_2_) {
 
 		float f = (prevTimeWolfIsShaking + (timeWolfIsShaking - prevTimeWolfIsShaking) * p_70923_1_ + p_70923_2_) / 1.8F;
 
-		if (f < 0.0F) {
-			f = 0.0F;
-		} else if (f > 1.0F) {
-			f = 1.0F;
+		if (f < 0F) {
+			f = 0F;
+		} else if (f > 1F) {
+			f = 1F;
 		}
 
-		return MathHelper.sin(f * (float) Math.PI) * MathHelper.sin(f * (float) Math.PI * 11.0F) * 0.15F * (float) Math.PI;
+		return MathHelper.sin(f * (float) Math.PI) * MathHelper.sin(f * (float) Math.PI * 11F) * 0.15F * (float) Math.PI;
 	}
 
 	public float getInterestedAngle(float p_70917_1_) {
@@ -321,7 +321,7 @@ public class EntityWolf extends EntityTameable {
 			}
 
 			if (entity != null && !(entity instanceof EntityPlayer) && !(entity instanceof EntityArrow)) {
-				amount = (amount + 1.0F) / 2.0F;
+				amount = (amount + 1F) / 2F;
 			}
 
 			return super.attackEntityFrom(source, amount);
@@ -344,12 +344,12 @@ public class EntityWolf extends EntityTameable {
 		super.setTamed(tamed);
 
 		if (tamed) {
-			getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D);
+			getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20D);
 		} else {
-			getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(8.0D);
+			getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(8D);
 		}
 
-		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4.0D);
+		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4D);
 	}
 
 	public boolean processInteract(EntityPlayer player, EnumHand hand) {
@@ -360,7 +360,7 @@ public class EntityWolf extends EntityTameable {
 			if (!itemstack.isEmpty()) {
 				if (itemstack.getItem() instanceof ItemFood itemfood) {
 
-					if (itemfood.isWolfsFavoriteMeat() && dataManager.get(DATA_HEALTH_ID) < 20.0F) {
+					if (itemfood.isWolfsFavoriteMeat() && dataManager.get(DATA_HEALTH_ID) < 20F) {
 						if (!player.capabilities.isCreativeMode) {
 							itemstack.shrink(1);
 						}
@@ -400,7 +400,7 @@ public class EntityWolf extends EntityTameable {
 					navigator.clearPath();
 					setAttackTarget(null);
 					aiSit.setSitting(true);
-					setHealth(20.0F);
+					setHealth(20F);
 					playTameEffect(true);
 					world.setEntityState(this, (byte) 7);
 				} else {
@@ -422,8 +422,8 @@ public class EntityWolf extends EntityTameable {
 
 		if (id == 8) {
 			isShaking = true;
-			timeWolfIsShaking = 0.0F;
-			prevTimeWolfIsShaking = 0.0F;
+			timeWolfIsShaking = 0F;
+			prevTimeWolfIsShaking = 0F;
 		} else {
 			super.handleStatusUpdate(id);
 		}

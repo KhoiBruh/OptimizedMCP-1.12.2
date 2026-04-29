@@ -18,13 +18,13 @@ public class ParticleSpell extends Particle {
 		super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0.5D - RANDOM.nextDouble(), ySpeed, 0.5D - RANDOM.nextDouble());
 		motionY *= 0.20000000298023224D;
 
-		if (p_i1229_8_ == 0.0D && p_i1229_12_ == 0.0D) {
+		if (p_i1229_8_ == 0D && p_i1229_12_ == 0D) {
 			motionX *= 0.10000000149011612D;
 			motionZ *= 0.10000000149011612D;
 		}
 
 		particleScale *= 0.75F;
-		particleMaxAge = (int) (8.0D / (Math.random() * 0.8D + 0.2D));
+		particleMaxAge = (int) (8D / (Math.random() * 0.8D + 0.2D));
 	}
 
 	public boolean shouldDisableDepth() {
@@ -119,7 +119,7 @@ public class ParticleSpell extends Particle {
 			ParticleSpell particle = new ParticleSpell(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
 			particle.setBaseSpellTextureIndex(144);
 			float f = worldIn.rand.nextFloat() * 0.5F + 0.35F;
-			particle.setRBGColorF(f, 0.0F * f, f);
+			particle.setRBGColorF(f, 0F * f, f);
 			return particle;
 		}
 

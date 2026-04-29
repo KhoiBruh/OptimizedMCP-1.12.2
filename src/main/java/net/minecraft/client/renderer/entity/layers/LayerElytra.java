@@ -34,7 +34,7 @@ public class LayerElytra implements LayerRenderer<EntityLivingBase> {
 		ItemStack itemstack = entitylivingbaseIn.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
 
 		if (itemstack.getItem() == Items.ELYTRA) {
-			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+			GlStateManager.color(1F, 1F, 1F, 1F);
 			GlStateManager.enableBlend();
 			GlStateManager.blendFunc(GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 
@@ -52,7 +52,7 @@ public class LayerElytra implements LayerRenderer<EntityLivingBase> {
 			}
 
 			GlStateManager.pushMatrix();
-			GlStateManager.translate(0.0F, 0.0F, 0.125F);
+			GlStateManager.translate(0F, 0F, 0.125F);
 			modelElytra.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entitylivingbaseIn);
 			modelElytra.render(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
 

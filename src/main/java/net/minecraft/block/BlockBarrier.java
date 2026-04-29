@@ -12,7 +12,7 @@ public class BlockBarrier extends Block {
 
 		super(Material.BARRIER);
 		setBlockUnbreakable();
-		setResistance(6000001.0F);
+		setResistance(6000001F);
 		disableStats();
 		translucent = true;
 	}
@@ -36,7 +36,7 @@ public class BlockBarrier extends Block {
 
 	public float getAmbientOcclusionLightValue(IBlockState state) {
 
-		return 1.0F;
+		return 1F;
 	}
 
 	/**

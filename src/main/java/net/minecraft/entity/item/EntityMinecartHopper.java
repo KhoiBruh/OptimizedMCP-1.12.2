@@ -157,7 +157,7 @@ public class EntityMinecartHopper extends EntityMinecartContainer implements IHo
 		if (TileEntityHopper.pullItems(this)) {
 			return true;
 		} else {
-			List<EntityItem> list = world.getEntitiesWithinAABB(EntityItem.class, getEntityBoundingBox().grow(0.25D, 0.0D, 0.25D), EntitySelectors.IS_ALIVE);
+			List<EntityItem> list = world.getEntitiesWithinAABB(EntityItem.class, getEntityBoundingBox().grow(0.25D, 0D, 0.25D), EntitySelectors.IS_ALIVE);
 
 			if (!list.isEmpty()) {
 				TileEntityHopper.putDropInInventoryAllSlots(null, this, list.getFirst());
@@ -172,7 +172,7 @@ public class EntityMinecartHopper extends EntityMinecartContainer implements IHo
 		super.killMinecart(source);
 
 		if (world.getGameRules().getBoolean("doEntityDrops")) {
-			dropItemWithOffset(Item.getItemFromBlock(Blocks.HOPPER), 1, 0.0F);
+			dropItemWithOffset(Item.getItemFromBlock(Blocks.HOPPER), 1, 0F);
 		}
 	}
 

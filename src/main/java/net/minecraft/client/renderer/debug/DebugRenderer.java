@@ -51,19 +51,19 @@ public class DebugRenderer {
 			double d2 = entityplayer.lastTickPosZ + (entityplayer.posZ - entityplayer.lastTickPosZ) * (double) partialTicks;
 			GlStateManager.pushMatrix();
 			GlStateManager.translate((float) (x - d0), (float) (y - d1) + 0.07F, (float) (z - d2));
-			GlStateManager.glNormal3f(0.0F, 1.0F, 0.0F);
+			GlStateManager.glNormal3f(0F, 1F, 0F);
 			GlStateManager.scale(0.02F, -0.02F, 0.02F);
 			RenderManager rendermanager = minecraft.getRenderManager();
-			GlStateManager.rotate(-rendermanager.playerViewY, 0.0F, 1.0F, 0.0F);
-			GlStateManager.rotate((float) (rendermanager.options.thirdPersonView == 2 ? 1 : -1) * rendermanager.playerViewX, 1.0F, 0.0F, 0.0F);
+			GlStateManager.rotate(-rendermanager.playerViewY, 0F, 1F, 0F);
+			GlStateManager.rotate((float) (rendermanager.options.thirdPersonView == 2 ? 1 : -1) * rendermanager.playerViewX, 1F, 0F, 0F);
 			GlStateManager.disableLighting();
 			GlStateManager.enableTexture2D();
 			GlStateManager.enableDepth();
 			GlStateManager.depthMask(true);
-			GlStateManager.scale(-1.0F, 1.0F, 1.0F);
+			GlStateManager.scale(-1F, 1F, 1F);
 			fontrenderer.drawString(str, -fontrenderer.getStringWidth(str) / 2, 0, color);
 			GlStateManager.enableLighting();
-			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+			GlStateManager.color(1F, 1F, 1F, 1F);
 			GlStateManager.popMatrix();
 		}
 	}

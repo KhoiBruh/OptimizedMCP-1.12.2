@@ -25,7 +25,7 @@ public class AdvancementToast implements IToast {
 	public IToast.Visibility draw(GuiToast toastGui, long delta) {
 
 		toastGui.getMinecraft().getTextureManager().bindTexture(TEXTURE_TOASTS);
-		GlStateManager.color(1.0F, 1.0F, 1.0F);
+		GlStateManager.color(1F, 1F, 1F);
 		DisplayInfo displayinfo = advancement.getDisplay();
 		toastGui.drawTexturedModalRect(0, 0, 0, 0, 160, 32);
 
@@ -38,13 +38,13 @@ public class AdvancementToast implements IToast {
 				toastGui.getMinecraft().fontRenderer.drawString(displayinfo.getTitle().getFormattedText(), 30, 18, -1);
 			} else {
 				int j = 1500;
-				float f = 300.0F;
+				float f = 300F;
 
 				if (delta < 1500L) {
-					int k = MathHelper.floor(MathHelper.clamp((float) (1500L - delta) / 300.0F, 0.0F, 1.0F) * 255.0F) << 24 | 67108864;
+					int k = MathHelper.floor(MathHelper.clamp((float) (1500L - delta) / 300F, 0F, 1F) * 255F) << 24 | 67108864;
 					toastGui.getMinecraft().fontRenderer.drawString(I18n.format("advancements.toast." + displayinfo.getFrame().getName()), 30, 11, i | k);
 				} else {
-					int i1 = MathHelper.floor(MathHelper.clamp((float) (delta - 1500L) / 300.0F, 0.0F, 1.0F) * 252.0F) << 24 | 67108864;
+					int i1 = MathHelper.floor(MathHelper.clamp((float) (delta - 1500L) / 300F, 0F, 1F) * 252F) << 24 | 67108864;
 					int l = 16 - list.size() * toastGui.getMinecraft().fontRenderer.FONT_HEIGHT / 2;
 
 					for (String s : list) {
@@ -58,7 +58,7 @@ public class AdvancementToast implements IToast {
 				hasPlayedSound = true;
 
 				if (displayinfo.getFrame() == FrameType.CHALLENGE) {
-					toastGui.getMinecraft().getSoundHandler().playSound(PositionedSoundRecord.getRecord(SoundEvents.UI_TOAST_CHALLENGE_COMPLETE, 1.0F, 1.0F));
+					toastGui.getMinecraft().getSoundHandler().playSound(PositionedSoundRecord.getRecord(SoundEvents.UI_TOAST_CHALLENGE_COMPLETE, 1F, 1F));
 				}
 			}
 

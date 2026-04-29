@@ -56,10 +56,10 @@ public class ItemBucket extends Item {
 					if (material == Material.WATER && iblockstate.getValue(BlockLiquid.LEVEL) == 0) {
 						worldIn.setBlockState(blockpos, Blocks.AIR.getDefaultState(), 11);
 						playerIn.addStat(StatList.getObjectUseStats(this));
-						playerIn.playSound(SoundEvents.ITEM_BUCKET_FILL, 1.0F, 1.0F);
+						playerIn.playSound(SoundEvents.ITEM_BUCKET_FILL, 1F, 1F);
 						return new ActionResult<>(EnumActionResult.SUCCESS, fillBucket(itemstack, playerIn, Items.WATER_BUCKET));
 					} else if (material == Material.LAVA && iblockstate.getValue(BlockLiquid.LEVEL) == 0) {
-						playerIn.playSound(SoundEvents.ITEM_BUCKET_FILL_LAVA, 1.0F, 1.0F);
+						playerIn.playSound(SoundEvents.ITEM_BUCKET_FILL_LAVA, 1F, 1F);
 						worldIn.setBlockState(blockpos, Blocks.AIR.getDefaultState(), 11);
 						playerIn.addStat(StatList.getObjectUseStats(this));
 						return new ActionResult<>(EnumActionResult.SUCCESS, fillBucket(itemstack, playerIn, Items.LAVA_BUCKET));
@@ -126,7 +126,7 @@ public class ItemBucket extends Item {
 					worldIn.playSound(player, posIn, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 0.5F, 2.6F + (worldIn.rand.nextFloat() - worldIn.rand.nextFloat()) * 0.8F);
 
 					for (int k = 0; k < 8; ++k) {
-						worldIn.spawnParticle(EnumParticleTypes.SMOKE_LARGE, (double) l + Math.random(), (double) i + Math.random(), (double) j + Math.random(), 0.0D, 0.0D, 0.0D);
+						worldIn.spawnParticle(EnumParticleTypes.SMOKE_LARGE, (double) l + Math.random(), (double) i + Math.random(), (double) j + Math.random(), 0D, 0D, 0D);
 					}
 				} else {
 					if (!worldIn.isRemote && (flag || flag1) && !material.isLiquid()) {
@@ -134,7 +134,7 @@ public class ItemBucket extends Item {
 					}
 
 					SoundEvent soundevent = containedBlock == Blocks.FLOWING_LAVA ? SoundEvents.ITEM_BUCKET_EMPTY_LAVA : SoundEvents.ITEM_BUCKET_EMPTY;
-					worldIn.playSound(player, posIn, soundevent, SoundCategory.BLOCKS, 1.0F, 1.0F);
+					worldIn.playSound(player, posIn, soundevent, SoundCategory.BLOCKS, 1F, 1F);
 					worldIn.setBlockState(posIn, containedBlock.getDefaultState(), 11);
 				}
 

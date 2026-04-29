@@ -29,15 +29,15 @@ public class DebugRendererCollisionBox implements DebugRenderer.IDebugRenderer {
 		renderPosY = player.lastTickPosY + (player.posY - player.lastTickPosY) * (double) partialTicks;
 		renderPosZ = player.lastTickPosZ + (player.posZ - player.lastTickPosZ) * (double) partialTicks;
 		World world = minecraft.player.world;
-		List<AxisAlignedBB> list = world.getCollisionBoxes(player, player.getEntityBoundingBox().grow(6.0D));
+		List<AxisAlignedBB> list = world.getCollisionBoxes(player, player.getEntityBoundingBox().grow(6D));
 		GlStateManager.enableBlend();
 		GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-		GlStateManager.glLineWidth(2.0F);
+		GlStateManager.glLineWidth(2F);
 		GlStateManager.disableTexture2D();
 		GlStateManager.depthMask(false);
 
 		for (AxisAlignedBB axisalignedbb : list) {
-			RenderGlobal.drawSelectionBoundingBox(axisalignedbb.grow(0.002D).offset(-renderPosX, -renderPosY, -renderPosZ), 1.0F, 1.0F, 1.0F, 1.0F);
+			RenderGlobal.drawSelectionBoundingBox(axisalignedbb.grow(0.002D).offset(-renderPosX, -renderPosY, -renderPosZ), 1F, 1F, 1F, 1F);
 		}
 
 		GlStateManager.depthMask(true);

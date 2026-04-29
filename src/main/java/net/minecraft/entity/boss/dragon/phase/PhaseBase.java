@@ -83,8 +83,8 @@ public abstract class PhaseBase implements IPhase {
 
 	public float getYawFactor() {
 
-		float f = MathHelper.sqrt(dragon.motionX * dragon.motionX + dragon.motionZ * dragon.motionZ) + 1.0F;
-		float f1 = Math.min(f, 40.0F);
+		float f = MathHelper.sqrt(dragon.motionX * dragon.motionX + dragon.motionZ * dragon.motionZ) + 1F;
+		float f1 = Math.min(f, 40F);
 		return 0.7F / f1 / f;
 	}
 

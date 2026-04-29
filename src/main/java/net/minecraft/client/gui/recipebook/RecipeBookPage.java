@@ -55,7 +55,7 @@ public class RecipeBookPage {
 	public void updateLists(List<RecipeList> p_194192_1_, boolean p_194192_2_) {
 
 		recipeLists = p_194192_1_;
-		totalPages = (int) Math.ceil((double) p_194192_1_.size() / 20.0D);
+		totalPages = (int) Math.ceil((double) p_194192_1_.size() / 20D);
 
 		if (totalPages <= currentPage || p_194192_2_) {
 			currentPage = 0;

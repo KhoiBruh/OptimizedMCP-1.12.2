@@ -37,10 +37,10 @@ public class EntityBlaze extends EntityMob {
 	public EntityBlaze(World worldIn) {
 
 		super(worldIn);
-		setPathPriority(PathNodeType.WATER, -1.0F);
-		setPathPriority(PathNodeType.LAVA, 8.0F);
-		setPathPriority(PathNodeType.DANGER_FIRE, 0.0F);
-		setPathPriority(PathNodeType.DAMAGE_FIRE, 0.0F);
+		setPathPriority(PathNodeType.WATER, -1F);
+		setPathPriority(PathNodeType.LAVA, 8F);
+		setPathPriority(PathNodeType.DANGER_FIRE, 0F);
+		setPathPriority(PathNodeType.DAMAGE_FIRE, 0F);
 		isImmuneToFire = true;
 		experienceValue = 10;
 	}
@@ -53,9 +53,9 @@ public class EntityBlaze extends EntityMob {
 	protected void initEntityAI() {
 
 		tasks.addTask(4, new EntityBlaze.AIFireballAttack(this));
-		tasks.addTask(5, new EntityAIMoveTowardsRestriction(this, 1.0D));
-		tasks.addTask(7, new EntityAIWanderAvoidWater(this, 1.0D, 0.0F));
-		tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
+		tasks.addTask(5, new EntityAIMoveTowardsRestriction(this, 1D));
+		tasks.addTask(7, new EntityAIWanderAvoidWater(this, 1D, 0F));
+		tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 8F));
 		tasks.addTask(8, new EntityAILookIdle(this));
 		targetTasks.addTask(1, new EntityAIHurtByTarget(this, true));
 		targetTasks.addTask(2, new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, true));
@@ -64,9 +64,9 @@ public class EntityBlaze extends EntityMob {
 	protected void applyEntityAttributes() {
 
 		super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(6.0D);
+		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(6D);
 		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.23000000417232513D);
-		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(48.0D);
+		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(48D);
 	}
 
 	protected void entityInit() {
@@ -100,7 +100,7 @@ public class EntityBlaze extends EntityMob {
 	 */
 	public float getBrightness() {
 
-		return 1.0F;
+		return 1F;
 	}
 
 	/**
@@ -109,17 +109,17 @@ public class EntityBlaze extends EntityMob {
 	 */
 	public void onLivingUpdate() {
 
-		if (!onGround && motionY < 0.0D) {
+		if (!onGround && motionY < 0D) {
 			motionY *= 0.6D;
 		}
 
 		if (world.isRemote) {
 			if (rand.nextInt(24) == 0 && !isSilent()) {
-				world.playSound(posX + 0.5D, posY + 0.5D, posZ + 0.5D, SoundEvents.ENTITY_BLAZE_BURN, getSoundCategory(), 1.0F + rand.nextFloat(), rand.nextFloat() * 0.7F + 0.3F, false);
+				world.playSound(posX + 0.5D, posY + 0.5D, posZ + 0.5D, SoundEvents.ENTITY_BLAZE_BURN, getSoundCategory(), 1F + rand.nextFloat(), rand.nextFloat() * 0.7F + 0.3F, false);
 			}
 
 			for (int i = 0; i < 2; ++i) {
-				world.spawnParticle(EnumParticleTypes.SMOKE_LARGE, posX + (rand.nextDouble() - 0.5D) * (double) width, posY + rand.nextDouble() * (double) height, posZ + (rand.nextDouble() - 0.5D) * (double) width, 0.0D, 0.0D, 0.0D);
+				world.spawnParticle(EnumParticleTypes.SMOKE_LARGE, posX + (rand.nextDouble() - 0.5D) * (double) width, posY + rand.nextDouble() * (double) height, posZ + (rand.nextDouble() - 0.5D) * (double) width, 0D, 0D, 0D);
 			}
 		}
 
@@ -129,14 +129,14 @@ public class EntityBlaze extends EntityMob {
 	protected void updateAITasks() {
 
 		if (isWet()) {
-			attackEntityFrom(DamageSource.DROWN, 1.0F);
+			attackEntityFrom(DamageSource.DROWN, 1F);
 		}
 
 		--heightOffsetUpdateTime;
 
 		if (heightOffsetUpdateTime <= 0) {
 			heightOffsetUpdateTime = 100;
-			heightOffset = 0.5F + (float) rand.nextGaussian() * 3.0F;
+			heightOffset = 0.5F + (float) rand.nextGaussian() * 3F;
 		}
 
 		EntityLivingBase entitylivingbase = getAttackTarget();
@@ -227,16 +227,16 @@ public class EntityBlaze extends EntityMob {
 			EntityLivingBase entitylivingbase = blaze.getAttackTarget();
 			double d0 = blaze.getDistanceSq(entitylivingbase);
 
-			if (d0 < 4.0D) {
+			if (d0 < 4D) {
 				if (attackTime <= 0) {
 					attackTime = 20;
 					blaze.attackEntityAsMob(entitylivingbase);
 				}
 
-				blaze.getMoveHelper().setMoveTo(entitylivingbase.posX, entitylivingbase.posY, entitylivingbase.posZ, 1.0D);
+				blaze.getMoveHelper().setMoveTo(entitylivingbase.posX, entitylivingbase.posY, entitylivingbase.posZ, 1D);
 			} else if (d0 < getFollowDistance() * getFollowDistance()) {
 				double d1 = entitylivingbase.posX - blaze.posX;
-				double d2 = entitylivingbase.getEntityBoundingBox().minY + (double) (entitylivingbase.height / 2.0F) - (blaze.posY + (double) (blaze.height / 2.0F));
+				double d2 = entitylivingbase.getEntityBoundingBox().minY + (double) (entitylivingbase.height / 2F) - (blaze.posY + (double) (blaze.height / 2F));
 				double d3 = entitylivingbase.posZ - blaze.posZ;
 
 				if (attackTime <= 0) {
@@ -259,16 +259,16 @@ public class EntityBlaze extends EntityMob {
 
 						for (int i = 0; i < 1; ++i) {
 							EntitySmallFireball entitysmallfireball = new EntitySmallFireball(blaze.world, blaze, d1 + blaze.getRNG().nextGaussian() * (double) f, d2, d3 + blaze.getRNG().nextGaussian() * (double) f);
-							entitysmallfireball.posY = blaze.posY + (double) (blaze.height / 2.0F) + 0.5D;
+							entitysmallfireball.posY = blaze.posY + (double) (blaze.height / 2F) + 0.5D;
 							blaze.world.spawnEntity(entitysmallfireball);
 						}
 					}
 				}
 
-				blaze.getLookHelper().setLookPositionWithEntity(entitylivingbase, 10.0F, 10.0F);
+				blaze.getLookHelper().setLookPositionWithEntity(entitylivingbase, 10F, 10F);
 			} else {
 				blaze.getNavigator().clearPath();
-				blaze.getMoveHelper().setMoveTo(entitylivingbase.posX, entitylivingbase.posY, entitylivingbase.posZ, 1.0D);
+				blaze.getMoveHelper().setMoveTo(entitylivingbase.posX, entitylivingbase.posY, entitylivingbase.posZ, 1D);
 			}
 
 			super.updateTask();
@@ -277,7 +277,7 @@ public class EntityBlaze extends EntityMob {
 		private double getFollowDistance() {
 
 			IAttributeInstance iattributeinstance = blaze.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE);
-			return iattributeinstance == null ? 16.0D : iattributeinstance.getAttributeValue();
+			return iattributeinstance == null ? 16D : iattributeinstance.getAttributeValue();
 		}
 
 	}

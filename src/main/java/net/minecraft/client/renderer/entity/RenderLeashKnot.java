@@ -25,7 +25,7 @@ public class RenderLeashKnot extends Render<EntityLeashKnot> {
 		GlStateManager.translate((float) x, (float) y, (float) z);
 		float f = 0.0625F;
 		GlStateManager.enableRescaleNormal();
-		GlStateManager.scale(-1.0F, -1.0F, 1.0F);
+		GlStateManager.scale(-1F, -1F, 1F);
 		GlStateManager.enableAlpha();
 		bindEntityTexture(entity);
 
@@ -34,7 +34,7 @@ public class RenderLeashKnot extends Render<EntityLeashKnot> {
 			GlStateManager.enableOutlineMode(getTeamColor(entity));
 		}
 
-		leashKnotModel.render(entity, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0625F);
+		leashKnotModel.render(entity, 0F, 0F, 0F, 0F, 0F, 0.0625F);
 
 		if (renderOutlines) {
 			GlStateManager.disableOutlineMode();

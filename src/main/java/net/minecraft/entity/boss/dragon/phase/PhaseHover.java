@@ -41,7 +41,7 @@ public class PhaseHover extends PhaseBase {
 	 */
 	public float getMaxRiseOrFall() {
 
-		return 1.0F;
+		return 1F;
 	}
 
 	

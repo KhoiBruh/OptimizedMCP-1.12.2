@@ -93,19 +93,19 @@ public class EntityEvokerFangs extends Entity {
 
 				if (lifeTicks == 14) {
 					for (int i = 0; i < 12; ++i) {
-						double d0 = posX + (rand.nextDouble() * 2.0D - 1.0D) * (double) width * 0.5D;
+						double d0 = posX + (rand.nextDouble() * 2D - 1D) * (double) width * 0.5D;
 						double d1 = posY + 0.05D + rand.nextDouble();
-						double d2 = posZ + (rand.nextDouble() * 2.0D - 1.0D) * (double) width * 0.5D;
-						double d3 = (rand.nextDouble() * 2.0D - 1.0D) * 0.3D;
+						double d2 = posZ + (rand.nextDouble() * 2D - 1D) * (double) width * 0.5D;
+						double d3 = (rand.nextDouble() * 2D - 1D) * 0.3D;
 						double d4 = 0.3D + rand.nextDouble() * 0.3D;
-						double d5 = (rand.nextDouble() * 2.0D - 1.0D) * 0.3D;
-						world.spawnParticle(EnumParticleTypes.CRIT, d0, d1 + 1.0D, d2, d3, d4, d5);
+						double d5 = (rand.nextDouble() * 2D - 1D) * 0.3D;
+						world.spawnParticle(EnumParticleTypes.CRIT, d0, d1 + 1D, d2, d3, d4, d5);
 					}
 				}
 			}
 		} else if (--warmupDelayTicks < 0) {
 			if (warmupDelayTicks == -8) {
-				for (EntityLivingBase entitylivingbase : world.getEntitiesWithinAABB(EntityLivingBase.class, getEntityBoundingBox().grow(0.2D, 0.0D, 0.2D))) {
+				for (EntityLivingBase entitylivingbase : world.getEntitiesWithinAABB(EntityLivingBase.class, getEntityBoundingBox().grow(0.2D, 0D, 0.2D))) {
 					damage(entitylivingbase);
 				}
 			}
@@ -127,13 +127,13 @@ public class EntityEvokerFangs extends Entity {
 
 		if (p_190551_1_.isEntityAlive() && !p_190551_1_.getIsInvulnerable() && p_190551_1_ != entitylivingbase) {
 			if (entitylivingbase == null) {
-				p_190551_1_.attackEntityFrom(DamageSource.MAGIC, 6.0F);
+				p_190551_1_.attackEntityFrom(DamageSource.MAGIC, 6F);
 			} else {
 				if (entitylivingbase.isOnSameTeam(p_190551_1_)) {
 					return;
 				}
 
-				p_190551_1_.attackEntityFrom(DamageSource.causeIndirectMagicDamage(this, entitylivingbase), 6.0F);
+				p_190551_1_.attackEntityFrom(DamageSource.causeIndirectMagicDamage(this, entitylivingbase), 6F);
 			}
 		}
 	}
@@ -149,7 +149,7 @@ public class EntityEvokerFangs extends Entity {
 			clientSideAttackStarted = true;
 
 			if (!isSilent()) {
-				world.playSound(posX, posY, posZ, SoundEvents.EVOCATION_FANGS_ATTACK, getSoundCategory(), 1.0F, rand.nextFloat() * 0.2F + 0.85F, false);
+				world.playSound(posX, posY, posZ, SoundEvents.EVOCATION_FANGS_ATTACK, getSoundCategory(), 1F, rand.nextFloat() * 0.2F + 0.85F, false);
 			}
 		}
 	}
@@ -157,10 +157,10 @@ public class EntityEvokerFangs extends Entity {
 	public float getAnimationProgress(float partialTicks) {
 
 		if (!clientSideAttackStarted) {
-			return 0.0F;
+			return 0F;
 		} else {
 			int i = lifeTicks - 2;
-			return i <= 0 ? 1.0F : 1.0F - ((float) i - partialTicks) / 20.0F;
+			return i <= 0 ? 1F : 1F - ((float) i - partialTicks) / 20F;
 		}
 	}
 

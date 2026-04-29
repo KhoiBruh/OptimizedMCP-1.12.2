@@ -195,7 +195,7 @@ public class EntityZombieVillager extends EntityZombie {
 
 		if (id == 16) {
 			if (!isSilent()) {
-				world.playSound(posX + 0.5D, posY + 0.5D, posZ + 0.5D, SoundEvents.ENTITY_ZOMBIE_VILLAGER_CURE, getSoundCategory(), 1.0F + rand.nextFloat(), rand.nextFloat() * 0.7F + 0.3F, false);
+				world.playSound(posX + 0.5D, posY + 0.5D, posZ + 0.5D, SoundEvents.ENTITY_ZOMBIE_VILLAGER_CURE, getSoundCategory(), 1F + rand.nextFloat(), rand.nextFloat() * 0.7F + 0.3F, false);
 			}
 		} else {
 			super.handleStatusUpdate(id);
@@ -269,7 +269,7 @@ public class EntityZombieVillager extends EntityZombie {
 	 */
 	protected float getSoundPitch() {
 
-		return isChild() ? (rand.nextFloat() - rand.nextFloat()) * 0.2F + 2.0F : (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F;
+		return isChild() ? (rand.nextFloat() - rand.nextFloat()) * 0.2F + 2F : (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1F;
 	}
 
 	public SoundEvent getAmbientSound() {

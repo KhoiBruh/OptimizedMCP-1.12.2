@@ -19,7 +19,7 @@ public class ItemFishFood extends ItemFood {
 
 	public ItemFishFood(boolean cooked) {
 
-		super(0, 0.0F, false);
+		super(0, 0F, false);
 		this.cooked = cooked;
 	}
 
@@ -112,7 +112,7 @@ public class ItemFishFood extends ItemFood {
 			uncookedHealAmount = uncookedHeal;
 			uncookedSaturationModifier = uncookedSaturation;
 			cookedHealAmount = 0;
-			cookedSaturationModifier = 0.0F;
+			cookedSaturationModifier = 0F;
 			cookable = false;
 		}
 

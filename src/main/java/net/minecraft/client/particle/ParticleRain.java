@@ -11,17 +11,17 @@ public class ParticleRain extends Particle {
 
 	protected ParticleRain(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn) {
 
-		super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0.0D, 0.0D, 0.0D);
+		super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0D, 0D, 0D);
 		motionX *= 0.30000001192092896D;
 		motionY = Math.random() * 0.20000000298023224D + 0.10000000149011612D;
 		motionZ *= 0.30000001192092896D;
-		particleRed = 1.0F;
-		particleGreen = 1.0F;
-		particleBlue = 1.0F;
+		particleRed = 1F;
+		particleGreen = 1F;
+		particleBlue = 1F;
 		setParticleTextureIndex(19 + rand.nextInt(4));
 		setSize(0.01F, 0.01F);
 		particleGravity = 0.06F;
-		particleMaxAge = (int) (8.0D / (Math.random() * 0.8D + 0.2D));
+		particleMaxAge = (int) (8D / (Math.random() * 0.8D + 0.2D));
 	}
 
 	public void onUpdate() {
@@ -56,7 +56,7 @@ public class ParticleRain extends Particle {
 			double d0;
 
 			if (iblockstate.getBlock() instanceof BlockLiquid) {
-				d0 = 1.0F - BlockLiquid.getLiquidHeightPercent(iblockstate.getValue(BlockLiquid.LEVEL));
+				d0 = 1F - BlockLiquid.getLiquidHeightPercent(iblockstate.getValue(BlockLiquid.LEVEL));
 			} else {
 				d0 = iblockstate.getBoundingBox(world, blockpos).maxY;
 			}

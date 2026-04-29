@@ -112,7 +112,7 @@ public class RenderItem implements IResourceManagerReloadListener {
 			GlStateManager.translate(-0.5F, -0.5F, -0.5F);
 
 			if (model.isBuiltInRenderer()) {
-				GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+				GlStateManager.color(1F, 1F, 1F, 1F);
 				GlStateManager.enableRescaleNormal();
 				TileEntityItemStackRenderer.instance.renderByItem(stack);
 			} else {
@@ -136,17 +136,17 @@ public class RenderItem implements IResourceManagerReloadListener {
 		textureManager.bindTexture(RES_ITEM_GLINT);
 		GlStateManager.matrixMode(5890);
 		GlStateManager.pushMatrix();
-		GlStateManager.scale(8.0F, 8.0F, 8.0F);
-		float f = (float) (Minecraft.getSystemTime() % 3000L) / 3000.0F / 8.0F;
-		GlStateManager.translate(f, 0.0F, 0.0F);
-		GlStateManager.rotate(-50.0F, 0.0F, 0.0F, 1.0F);
+		GlStateManager.scale(8F, 8F, 8F);
+		float f = (float) (Minecraft.getSystemTime() % 3000L) / 3000F / 8F;
+		GlStateManager.translate(f, 0F, 0F);
+		GlStateManager.rotate(-50F, 0F, 0F, 1F);
 		renderModel(model, -8372020);
 		GlStateManager.popMatrix();
 		GlStateManager.pushMatrix();
-		GlStateManager.scale(8.0F, 8.0F, 8.0F);
-		float f1 = (float) (Minecraft.getSystemTime() % 4873L) / 4873.0F / 8.0F;
-		GlStateManager.translate(-f1, 0.0F, 0.0F);
-		GlStateManager.rotate(10.0F, 0.0F, 0.0F, 1.0F);
+		GlStateManager.scale(8F, 8F, 8F);
+		float f1 = (float) (Minecraft.getSystemTime() % 4873L) / 4873F / 8F;
+		GlStateManager.translate(-f1, 0F, 0F);
+		GlStateManager.rotate(10F, 0F, 0F, 1F);
 		renderModel(model, -8372020);
 		GlStateManager.popMatrix();
 		GlStateManager.matrixMode(5888);
@@ -233,7 +233,7 @@ public class RenderItem implements IResourceManagerReloadListener {
 		if (!stack.isEmpty()) {
 			textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 			textureManager.getTexture(TextureMap.LOCATION_BLOCKS_TEXTURE).setBlurMipmap(false, false);
-			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+			GlStateManager.color(1F, 1F, 1F, 1F);
 			GlStateManager.enableRescaleNormal();
 			GlStateManager.alphaFunc(516, 0.1F);
 			GlStateManager.enableBlend();
@@ -261,7 +261,7 @@ public class RenderItem implements IResourceManagerReloadListener {
 	 */
 	private boolean isThereOneNegativeScale(ItemTransformVec3f itemTranformVec) {
 
-		return itemTranformVec.scale().x < 0.0F ^ itemTranformVec.scale().y < 0.0F ^ itemTranformVec.scale().z < 0.0F;
+		return itemTranformVec.scale().x < 0F ^ itemTranformVec.scale().y < 0F ^ itemTranformVec.scale().z < 0F;
 	}
 
 	public void renderItemIntoGUI(ItemStack stack, int x, int y) {
@@ -279,7 +279,7 @@ public class RenderItem implements IResourceManagerReloadListener {
 		GlStateManager.alphaFunc(516, 0.1F);
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+		GlStateManager.color(1F, 1F, 1F, 1F);
 		setupGuiTransform(x, y, bakedmodel.isGui3d());
 		bakedmodel.getItemCameraTransforms().applyTransform(ItemCameraTransforms.TransformType.GUI);
 		renderItem(stack, bakedmodel);
@@ -293,10 +293,10 @@ public class RenderItem implements IResourceManagerReloadListener {
 
 	private void setupGuiTransform(int xPosition, int yPosition, boolean isGui3d) {
 
-		GlStateManager.translate((float) xPosition, (float) yPosition, 100.0F + zLevel);
-		GlStateManager.translate(8.0F, 8.0F, 0.0F);
-		GlStateManager.scale(1.0F, -1.0F, 1.0F);
-		GlStateManager.scale(16.0F, 16.0F, 16.0F);
+		GlStateManager.translate((float) xPosition, (float) yPosition, 100F + zLevel);
+		GlStateManager.translate(8F, 8F, 0F);
+		GlStateManager.scale(1F, -1F, 1F);
+		GlStateManager.scale(16F, 16F, 16F);
 
 		if (isGui3d) {
 			GlStateManager.enableLighting();
@@ -313,7 +313,7 @@ public class RenderItem implements IResourceManagerReloadListener {
 	public void renderItemAndEffectIntoGUI(EntityLivingBase p_184391_1_, final ItemStack p_184391_2_, int p_184391_3_, int p_184391_4_) {
 
 		if (!p_184391_2_.isEmpty()) {
-			zLevel += 50.0F;
+			zLevel += 50F;
 
 			try {
 				renderItemModelIntoGUI(p_184391_2_, p_184391_3_, p_184391_4_, getItemModelWithOverrides(p_184391_2_, null, p_184391_1_));
@@ -327,7 +327,7 @@ public class RenderItem implements IResourceManagerReloadListener {
 				throw new ReportedException(crashreport);
 			}
 
-			zLevel -= 50.0F;
+			zLevel -= 50F;
 		}
 	}
 
@@ -362,9 +362,9 @@ public class RenderItem implements IResourceManagerReloadListener {
 				BufferBuilder bufferbuilder = tessellator.getBuffer();
 				float f = (float) stack.getItemDamage();
 				float f1 = (float) stack.getMaxDamage();
-				float f2 = Math.max(0.0F, (f1 - f) / f1);
-				int i = Math.round(13.0F - f * 13.0F / f1);
-				int j = MathHelper.hsvToRGB(f2 / 3.0F, 1.0F, 1.0F);
+				float f2 = Math.max(0F, (f1 - f) / f1);
+				int i = Math.round(13F - f * 13F / f1);
+				int j = MathHelper.hsvToRGB(f2 / 3F, 1F, 1F);
 				draw(bufferbuilder, xPosition + 2, yPosition + 13, 13, 2, 0, 0, 0, 255);
 				draw(bufferbuilder, xPosition + 2, yPosition + 13, i, 1, j >> 16 & 255, j >> 8 & 255, j & 255, 255);
 				GlStateManager.enableBlend();
@@ -375,15 +375,15 @@ public class RenderItem implements IResourceManagerReloadListener {
 			}
 
 			EntityPlayerSP entityplayersp = Minecraft.getMinecraft().player;
-			float f3 = entityplayersp == null ? 0.0F : entityplayersp.getCooldownTracker().getCooldown(stack.getItem(), Minecraft.getMinecraft().getRenderPartialTicks());
+			float f3 = entityplayersp == null ? 0F : entityplayersp.getCooldownTracker().getCooldown(stack.getItem(), Minecraft.getMinecraft().getRenderPartialTicks());
 
-			if (f3 > 0.0F) {
+			if (f3 > 0F) {
 				GlStateManager.disableLighting();
 				GlStateManager.disableDepth();
 				GlStateManager.disableTexture2D();
 				Tessellator tessellator1 = Tessellator.getInstance();
 				BufferBuilder bufferbuilder1 = tessellator1.getBuffer();
-				draw(bufferbuilder1, xPosition, yPosition + MathHelper.floor(16.0F * (1.0F - f3)), 16, MathHelper.ceil(16.0F * f3), 255, 255, 255, 127);
+				draw(bufferbuilder1, xPosition, yPosition + MathHelper.floor(16F * (1F - f3)), 16, MathHelper.ceil(16F * f3), 255, 255, 255, 127);
 				GlStateManager.enableTexture2D();
 				GlStateManager.enableLighting();
 				GlStateManager.enableDepth();
@@ -397,10 +397,10 @@ public class RenderItem implements IResourceManagerReloadListener {
 	private void draw(BufferBuilder renderer, int x, int y, int width, int height, int red, int green, int blue, int alpha) {
 
 		renderer.begin(7, DefaultVertexFormats.POSITION_COLOR);
-		renderer.pos(x, y, 0.0D).color(red, green, blue, alpha).endVertex();
-		renderer.pos(x, y + height, 0.0D).color(red, green, blue, alpha).endVertex();
-		renderer.pos(x + width, y + height, 0.0D).color(red, green, blue, alpha).endVertex();
-		renderer.pos(x + width, y, 0.0D).color(red, green, blue, alpha).endVertex();
+		renderer.pos(x, y, 0D).color(red, green, blue, alpha).endVertex();
+		renderer.pos(x, y + height, 0D).color(red, green, blue, alpha).endVertex();
+		renderer.pos(x + width, y + height, 0D).color(red, green, blue, alpha).endVertex();
+		renderer.pos(x + width, y, 0D).color(red, green, blue, alpha).endVertex();
 		Tessellator.getInstance().draw();
 	}
 

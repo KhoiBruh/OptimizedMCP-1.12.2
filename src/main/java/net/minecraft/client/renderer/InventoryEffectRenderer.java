@@ -65,7 +65,7 @@ public abstract class InventoryEffectRenderer extends GuiContainer {
 		Collection<PotionEffect> collection = mc.player.getActivePotionEffects();
 
 		if (!collection.isEmpty()) {
-			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+			GlStateManager.color(1F, 1F, 1F, 1F);
 			GlStateManager.disableLighting();
 			int l = 33;
 
@@ -75,7 +75,7 @@ public abstract class InventoryEffectRenderer extends GuiContainer {
 
 			for (PotionEffect potioneffect : Ordering.natural().sortedCopy(collection)) {
 				Potion potion = potioneffect.getPotion();
-				GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+				GlStateManager.color(1F, 1F, 1F, 1F);
 				mc.getTextureManager().bindTexture(INVENTORY_BACKGROUND);
 				drawTexturedModalRect(i, j, 0, 166, 140, 32);
 
@@ -95,7 +95,7 @@ public abstract class InventoryEffectRenderer extends GuiContainer {
 				}
 
 				fontRenderer.drawStringWithShadow(s1, (float) (i + 10 + 18), (float) (j + 6), 16777215);
-				String s = Potion.getPotionDurationString(potioneffect, 1.0F);
+				String s = Potion.getPotionDurationString(potioneffect, 1F);
 				fontRenderer.drawStringWithShadow(s, (float) (i + 10 + 18), (float) (j + 6 + 10), 8355711);
 				j += l;
 			}

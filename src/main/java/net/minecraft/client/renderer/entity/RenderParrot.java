@@ -34,7 +34,7 @@ public class RenderParrot extends RenderLiving<EntityParrot> {
 
 		float f = parrot.oFlap + (parrot.flap - parrot.oFlap) * p_192861_2_;
 		float f1 = parrot.oFlapSpeed + (parrot.flapSpeed - parrot.oFlapSpeed) * p_192861_2_;
-		return (MathHelper.sin(f) + 1.0F) * f1;
+		return (MathHelper.sin(f) + 1F) * f1;
 	}
 
 }

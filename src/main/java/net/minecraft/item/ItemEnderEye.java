@@ -41,16 +41,16 @@ public class ItemEnderEye extends Item {
 				itemstack.shrink(1);
 
 				for (int i = 0; i < 16; ++i) {
-					double d0 = (float) pos.getX() + (5.0F + itemRand.nextFloat() * 6.0F) / 16.0F;
+					double d0 = (float) pos.getX() + (5F + itemRand.nextFloat() * 6F) / 16F;
 					double d1 = (float) pos.getY() + 0.8125F;
-					double d2 = (float) pos.getZ() + (5.0F + itemRand.nextFloat() * 6.0F) / 16.0F;
-					double d3 = 0.0D;
-					double d4 = 0.0D;
-					double d5 = 0.0D;
-					worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0, d1, d2, 0.0D, 0.0D, 0.0D);
+					double d2 = (float) pos.getZ() + (5F + itemRand.nextFloat() * 6F) / 16F;
+					double d3 = 0D;
+					double d4 = 0D;
+					double d5 = 0D;
+					worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0, d1, d2, 0D, 0D, 0D);
 				}
 
-				worldIn.playSound(null, pos, SoundEvents.BLOCK_END_PORTAL_FRAME_FILL, SoundCategory.BLOCKS, 1.0F, 1.0F);
+				worldIn.playSound(null, pos, SoundEvents.BLOCK_END_PORTAL_FRAME_FILL, SoundCategory.BLOCKS, 1F, 1F);
 				BlockPattern.PatternHelper blockpattern$patternhelper = BlockEndPortalFrame.getOrCreatePortalShape().match(worldIn, pos);
 
 				if (blockpattern$patternhelper != null) {
@@ -86,7 +86,7 @@ public class ItemEnderEye extends Item {
 				BlockPos blockpos = ((WorldServer) worldIn).getChunkProvider().getNearestStructurePos(worldIn, "Stronghold", new BlockPos(playerIn), false);
 
 				if (blockpos != null) {
-					EntityEnderEye entityendereye = new EntityEnderEye(worldIn, playerIn.posX, playerIn.posY + (double) (playerIn.height / 2.0F), playerIn.posZ);
+					EntityEnderEye entityendereye = new EntityEnderEye(worldIn, playerIn.posX, playerIn.posY + (double) (playerIn.height / 2F), playerIn.posZ);
 					entityendereye.moveTowards(blockpos);
 					worldIn.spawnEntity(entityendereye);
 

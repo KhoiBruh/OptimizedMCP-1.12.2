@@ -62,7 +62,7 @@ public class TileEntityChestRenderer extends TileEntitySpecialRenderer<TileEntit
 					bindTexture(DESTROY_STAGES[destroyStage]);
 					GlStateManager.matrixMode(5890);
 					GlStateManager.pushMatrix();
-					GlStateManager.scale(4.0F, 4.0F, 1.0F);
+					GlStateManager.scale(4F, 4F, 1F);
 					GlStateManager.translate(0.0625F, 0.0625F, 0.0625F);
 					GlStateManager.matrixMode(5888);
 				} else if (isChristmas) {
@@ -79,7 +79,7 @@ public class TileEntityChestRenderer extends TileEntitySpecialRenderer<TileEntit
 					bindTexture(DESTROY_STAGES[destroyStage]);
 					GlStateManager.matrixMode(5890);
 					GlStateManager.pushMatrix();
-					GlStateManager.scale(8.0F, 4.0F, 1.0F);
+					GlStateManager.scale(8F, 4F, 1F);
 					GlStateManager.translate(0.0625F, 0.0625F, 0.0625F);
 					GlStateManager.matrixMode(5888);
 				} else if (isChristmas) {
@@ -95,11 +95,11 @@ public class TileEntityChestRenderer extends TileEntitySpecialRenderer<TileEntit
 			GlStateManager.enableRescaleNormal();
 
 			if (destroyStage < 0) {
-				GlStateManager.color(1.0F, 1.0F, 1.0F, alpha);
+				GlStateManager.color(1F, 1F, 1F, alpha);
 			}
 
-			GlStateManager.translate((float) x, (float) y + 1.0F, (float) z + 1.0F);
-			GlStateManager.scale(1.0F, -1.0F, -1.0F);
+			GlStateManager.translate((float) x, (float) y + 1F, (float) z + 1F);
+			GlStateManager.scale(1F, -1F, -1F);
 			GlStateManager.translate(0.5F, 0.5F, 0.5F);
 			int j = 0;
 
@@ -120,14 +120,14 @@ public class TileEntityChestRenderer extends TileEntitySpecialRenderer<TileEntit
 			}
 
 			if (i == 2 && te.adjacentChestXPos != null) {
-				GlStateManager.translate(1.0F, 0.0F, 0.0F);
+				GlStateManager.translate(1F, 0F, 0F);
 			}
 
 			if (i == 5 && te.adjacentChestZPos != null) {
-				GlStateManager.translate(0.0F, 0.0F, -1.0F);
+				GlStateManager.translate(0F, 0F, -1F);
 			}
 
-			GlStateManager.rotate((float) j, 0.0F, 1.0F, 0.0F);
+			GlStateManager.rotate((float) j, 0F, 1F, 0F);
 			GlStateManager.translate(-0.5F, -0.5F, -0.5F);
 			float f = te.prevLidAngle + (te.lidAngle - te.prevLidAngle) * partialTicks;
 
@@ -147,13 +147,13 @@ public class TileEntityChestRenderer extends TileEntitySpecialRenderer<TileEntit
 				}
 			}
 
-			f = 1.0F - f;
-			f = 1.0F - f * f * f;
+			f = 1F - f;
+			f = 1F - f * f * f;
 			modelchest.chestLid.rotateAngleX = -(f * ((float) Math.PI / 2F));
 			modelchest.renderAll();
 			GlStateManager.disableRescaleNormal();
 			GlStateManager.popMatrix();
-			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+			GlStateManager.color(1F, 1F, 1F, 1F);
 
 			if (destroyStage >= 0) {
 				GlStateManager.matrixMode(5890);

@@ -15,7 +15,7 @@ import java.util.Random;
 public class BlockBeetroot extends BlockCrops {
 
 	public static final PropertyInteger BEETROOT_AGE = PropertyInteger.create("age", 0, 3);
-	private static final AxisAlignedBB[] BEETROOT_AABB = new AxisAlignedBB[]{new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.125D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.25D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.375D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.5D, 1.0D)};
+	private static final AxisAlignedBB[] BEETROOT_AABB = new AxisAlignedBB[]{new AxisAlignedBB(0D, 0D, 0D, 1D, 0.125D, 1D), new AxisAlignedBB(0D, 0D, 0D, 1D, 0.25D, 1D), new AxisAlignedBB(0D, 0D, 0D, 1D, 0.375D, 1D), new AxisAlignedBB(0D, 0D, 0D, 1D, 0.5D, 1D)};
 
 	protected PropertyInteger getAgeProperty() {
 

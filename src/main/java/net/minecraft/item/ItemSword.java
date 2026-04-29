@@ -24,7 +24,7 @@ public class ItemSword extends Item {
 		maxStackSize = 1;
 		setMaxDamage(material.getMaxUses());
 		setCreativeTab(CreativeTabs.COMBAT);
-		attackDamage = 3.0F + material.getAttackDamage();
+		attackDamage = 3F + material.getAttackDamage();
 	}
 
 	/**
@@ -40,10 +40,10 @@ public class ItemSword extends Item {
 		Block block = state.getBlock();
 
 		if (block == Blocks.WEB) {
-			return 15.0F;
+			return 15F;
 		} else {
 			Material material = state.getMaterial();
-			return material != Material.PLANTS && material != Material.VINE && material != Material.CORAL && material != Material.LEAVES && material != Material.GOURD ? 1.0F : 1.5F;
+			return material != Material.PLANTS && material != Material.VINE && material != Material.CORAL && material != Material.LEAVES && material != Material.GOURD ? 1F : 1.5F;
 		}
 	}
 
@@ -62,7 +62,7 @@ public class ItemSword extends Item {
 	 */
 	public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving) {
 
-		if ((double) state.getBlockHardness(worldIn, pos) != 0.0D) {
+		if ((double) state.getBlockHardness(worldIn, pos) != 0D) {
 			stack.damageItem(2, entityLiving);
 		}
 

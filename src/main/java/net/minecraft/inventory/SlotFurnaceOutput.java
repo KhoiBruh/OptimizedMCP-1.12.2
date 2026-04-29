@@ -69,9 +69,9 @@ public class SlotFurnaceOutput extends Slot {
 			int i = removeCount;
 			float f = FurnaceRecipes.instance().getSmeltingExperience(stack);
 
-			if (f == 0.0F) {
+			if (f == 0F) {
 				i = 0;
-			} else if (f < 1.0F) {
+			} else if (f < 1F) {
 				int j = MathHelper.floor((float) i * f);
 
 				if (j < MathHelper.ceil((float) i * f) && Math.random() < (double) ((float) i * f - (float) j)) {

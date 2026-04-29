@@ -70,7 +70,7 @@ public class EntityAIFollow extends EntityAIBase {
 
 		timeToRecalcPath = 0;
 		oldWaterCost = entity.getPathPriority(PathNodeType.WATER);
-		entity.setPathPriority(PathNodeType.WATER, 0.0F);
+		entity.setPathPriority(PathNodeType.WATER, 0F);
 	}
 
 	/**
@@ -89,7 +89,7 @@ public class EntityAIFollow extends EntityAIBase {
 	public void updateTask() {
 
 		if (followingEntity != null && !entity.getLeashed()) {
-			entity.getLookHelper().setLookPositionWithEntity(followingEntity, 10.0F, (float) entity.getVerticalFaceSpeed());
+			entity.getLookHelper().setLookPositionWithEntity(followingEntity, 10F, (float) entity.getVerticalFaceSpeed());
 
 			if (--timeToRecalcPath <= 0) {
 				timeToRecalcPath = 10;

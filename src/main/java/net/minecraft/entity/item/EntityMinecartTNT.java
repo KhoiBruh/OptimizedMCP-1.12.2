@@ -54,7 +54,7 @@ public class EntityMinecartTNT extends EntityMinecart {
 
 		if (minecartTNTFuse > 0) {
 			--minecartTNTFuse;
-			world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, posX, posY + 0.5D, posZ, 0.0D, 0.0D, 0.0D);
+			world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, posX, posY + 0.5D, posZ, 0D, 0D, 0D);
 		} else if (minecartTNTFuse == 0) {
 			explodeCart(motionX * motionX + motionZ * motionZ);
 		}
@@ -93,7 +93,7 @@ public class EntityMinecartTNT extends EntityMinecart {
 			super.killMinecart(source);
 
 			if (!source.isExplosion() && world.getGameRules().getBoolean("doEntityDrops")) {
-				entityDropItem(new ItemStack(Blocks.TNT, 1), 0.0F);
+				entityDropItem(new ItemStack(Blocks.TNT, 1), 0F);
 			}
 		} else {
 			if (minecartTNTFuse < 0) {
@@ -111,19 +111,19 @@ public class EntityMinecartTNT extends EntityMinecart {
 		if (!world.isRemote) {
 			double d0 = Math.sqrt(p_94103_1_);
 
-			if (d0 > 5.0D) {
-				d0 = 5.0D;
+			if (d0 > 5D) {
+				d0 = 5D;
 			}
 
-			world.createExplosion(this, posX, posY, posZ, (float) (4.0D + rand.nextDouble() * 1.5D * d0), true);
+			world.createExplosion(this, posX, posY, posZ, (float) (4D + rand.nextDouble() * 1.5D * d0), true);
 			setDead();
 		}
 	}
 
 	public void fall(float distance, float damageMultiplier) {
 
-		if (distance >= 3.0F) {
-			float f = distance / 10.0F;
+		if (distance >= 3F) {
+			float f = distance / 10F;
 			explodeCart(f * f);
 		}
 
@@ -163,7 +163,7 @@ public class EntityMinecartTNT extends EntityMinecart {
 			world.setEntityState(this, (byte) 10);
 
 			if (!isSilent()) {
-				world.playSound(null, posX, posY, posZ, SoundEvents.ENTITY_TNT_PRIMED, SoundCategory.BLOCKS, 1.0F, 1.0F);
+				world.playSound(null, posX, posY, posZ, SoundEvents.ENTITY_TNT_PRIMED, SoundCategory.BLOCKS, 1F, 1F);
 			}
 		}
 	}
@@ -189,7 +189,7 @@ public class EntityMinecartTNT extends EntityMinecart {
 	 */
 	public float getExplosionResistance(Explosion explosionIn, World worldIn, BlockPos pos, IBlockState blockStateIn) {
 
-		return !isIgnited() || !BlockRailBase.isRailBlock(blockStateIn) && !BlockRailBase.isRailBlock(worldIn, pos.up()) ? super.getExplosionResistance(explosionIn, worldIn, pos, blockStateIn) : 0.0F;
+		return !isIgnited() || !BlockRailBase.isRailBlock(blockStateIn) && !BlockRailBase.isRailBlock(worldIn, pos.up()) ? super.getExplosionResistance(explosionIn, worldIn, pos, blockStateIn) : 0F;
 	}
 
 	public boolean canExplosionDestroyBlock(Explosion explosionIn, World worldIn, BlockPos pos, IBlockState blockStateIn, float p_174816_5_) {

@@ -25,13 +25,13 @@ public abstract class EntityFireball extends Entity {
 	public EntityFireball(World worldIn) {
 
 		super(worldIn);
-		setSize(1.0F, 1.0F);
+		setSize(1F, 1F);
 	}
 
 	public EntityFireball(World worldIn, double x, double y, double z, double accelX, double accelY, double accelZ) {
 
 		super(worldIn);
-		setSize(1.0F, 1.0F);
+		setSize(1F, 1F);
 		setLocationAndAngles(x, y, z, rotationYaw, rotationPitch);
 		setPosition(x, y, z);
 		double d0 = MathHelper.sqrt(accelX * accelX + accelY * accelY + accelZ * accelZ);
@@ -44,12 +44,12 @@ public abstract class EntityFireball extends Entity {
 
 		super(worldIn);
 		shootingEntity = shooter;
-		setSize(1.0F, 1.0F);
+		setSize(1F, 1F);
 		setLocationAndAngles(shooter.posX, shooter.posY, shooter.posZ, shooter.rotationYaw, shooter.rotationPitch);
 		setPosition(posX, posY, posZ);
-		motionX = 0.0D;
-		motionY = 0.0D;
-		motionZ = 0.0D;
+		motionX = 0D;
+		motionY = 0D;
+		motionZ = 0D;
 		accelX = accelX + rand.nextGaussian() * 0.4D;
 		accelY = accelY + rand.nextGaussian() * 0.4D;
 		accelZ = accelZ + rand.nextGaussian() * 0.4D;
@@ -72,13 +72,13 @@ public abstract class EntityFireball extends Entity {
 	 */
 	public boolean isInRangeToRenderDist(double distance) {
 
-		double d0 = getEntityBoundingBox().getAverageEdgeLength() * 4.0D;
+		double d0 = getEntityBoundingBox().getAverageEdgeLength() * 4D;
 
 		if (Double.isNaN(d0)) {
-			d0 = 4.0D;
+			d0 = 4D;
 		}
 
-		d0 = d0 * 64.0D;
+		d0 = d0 * 64D;
 		return distance < d0 * d0;
 	}
 
@@ -122,7 +122,7 @@ public abstract class EntityFireball extends Entity {
 			motionX *= f;
 			motionY *= f;
 			motionZ *= f;
-			world.spawnParticle(getParticleType(), posX, posY + 0.5D, posZ, 0.0D, 0.0D, 0.0D);
+			world.spawnParticle(getParticleType(), posX, posY + 0.5D, posZ, 0D, 0D, 0D);
 			setPosition(posX, posY, posZ);
 		} else {
 			setDead();
@@ -199,7 +199,7 @@ public abstract class EntityFireball extends Entity {
 
 	public float getCollisionBorderSize() {
 
-		return 1.0F;
+		return 1F;
 	}
 
 	/**
@@ -240,7 +240,7 @@ public abstract class EntityFireball extends Entity {
 	 */
 	public float getBrightness() {
 
-		return 1.0F;
+		return 1F;
 	}
 
 	public int getBrightnessForRender() {

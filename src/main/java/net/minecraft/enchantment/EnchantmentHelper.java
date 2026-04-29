@@ -150,7 +150,7 @@ public class EnchantmentHelper {
 
 	public static float getModifierForCreature(ItemStack stack, EnumCreatureAttribute creatureAttribute) {
 
-		ENCHANTMENT_MODIFIER_LIVING.livingModifier = 0.0F;
+		ENCHANTMENT_MODIFIER_LIVING.livingModifier = 0F;
 		ENCHANTMENT_MODIFIER_LIVING.entityLiving = creatureAttribute;
 		applyEnchantmentModifier(ENCHANTMENT_MODIFIER_LIVING, stack);
 		return ENCHANTMENT_MODIFIER_LIVING.livingModifier;
@@ -159,7 +159,7 @@ public class EnchantmentHelper {
 	public static float getSweepingDamageRatio(EntityLivingBase p_191527_0_) {
 
 		int i = getMaxEnchantmentLevel(Enchantments.SWEEPING, p_191527_0_);
-		return i > 0 ? EnchantmentSweepingEdge.getSweepingDamageRatio(i) : 0.0F;
+		return i > 0 ? EnchantmentSweepingEdge.getSweepingDamageRatio(i) : 0F;
 	}
 
 	public static void applyThornEnchantments(EntityLivingBase p_151384_0_, Entity p_151384_1_) {
@@ -360,7 +360,7 @@ public class EnchantmentHelper {
 			return list;
 		} else {
 			level = level + 1 + randomIn.nextInt(i / 4 + 1) + randomIn.nextInt(i / 4 + 1);
-			float f = (randomIn.nextFloat() + randomIn.nextFloat() - 1.0F) * 0.15F;
+			float f = (randomIn.nextFloat() + randomIn.nextFloat() - 1F) * 0.15F;
 			level = MathHelper.clamp(Math.round((float) level + (float) level * f), 1, Integer.MAX_VALUE);
 			List<EnchantmentData> list1 = getEnchantmentDatas(level, itemStackIn, allowTreasure);
 

@@ -20,12 +20,12 @@ public class RenderArmorStand extends RenderLivingBase<EntityArmorStand> {
 
 	public RenderArmorStand(RenderManager manager) {
 
-		super(manager, new ModelArmorStand(), 0.0F);
+		super(manager, new ModelArmorStand(), 0F);
 		LayerBipedArmor layerbipedarmor = new LayerBipedArmor(this) {
 			protected void initArmor() {
 
 				modelLeggings = new ModelArmorStandArmor(0.5F);
-				modelArmor = new ModelArmorStandArmor(1.0F);
+				modelArmor = new ModelArmorStandArmor(1F);
 			}
 		};
 		addLayer(layerbipedarmor);
@@ -49,11 +49,11 @@ public class RenderArmorStand extends RenderLivingBase<EntityArmorStand> {
 
 	protected void applyRotations(EntityArmorStand entityLiving, float p_77043_2_, float rotationYaw, float partialTicks) {
 
-		GlStateManager.rotate(180.0F - rotationYaw, 0.0F, 1.0F, 0.0F);
+		GlStateManager.rotate(180F - rotationYaw, 0F, 1F, 0F);
 		float f = (float) (entityLiving.world.getTotalWorldTime() - entityLiving.punchCooldown) + partialTicks;
 
-		if (f < 5.0F) {
-			GlStateManager.rotate(MathHelper.sin(f / 1.5F * (float) Math.PI) * 3.0F, 0.0F, 1.0F, 0.0F);
+		if (f < 5F) {
+			GlStateManager.rotate(MathHelper.sin(f / 1.5F * (float) Math.PI) * 3F, 0F, 1F, 0F);
 		}
 	}
 

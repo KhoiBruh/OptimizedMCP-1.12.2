@@ -32,13 +32,13 @@ public class TileEntityEnderChest extends TileEntity implements ITickable {
 		int k = pos.getZ();
 		float f = 0.1F;
 
-		if (numPlayersUsing > 0 && lidAngle == 0.0F) {
+		if (numPlayersUsing > 0 && lidAngle == 0F) {
 			double d0 = (double) i + 0.5D;
 			double d1 = (double) k + 0.5D;
 			world.playSound(null, d0, (double) j + 0.5D, d1, SoundEvents.BLOCK_ENDERCHEST_OPEN, SoundCategory.BLOCKS, 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
 		}
 
-		if (numPlayersUsing == 0 && lidAngle > 0.0F || numPlayersUsing > 0 && lidAngle < 1.0F) {
+		if (numPlayersUsing == 0 && lidAngle > 0F || numPlayersUsing > 0 && lidAngle < 1F) {
 			float f2 = lidAngle;
 
 			if (numPlayersUsing > 0) {
@@ -47,8 +47,8 @@ public class TileEntityEnderChest extends TileEntity implements ITickable {
 				lidAngle -= 0.1F;
 			}
 
-			if (lidAngle > 1.0F) {
-				lidAngle = 1.0F;
+			if (lidAngle > 1F) {
+				lidAngle = 1F;
 			}
 
 			float f1 = 0.5F;
@@ -59,8 +59,8 @@ public class TileEntityEnderChest extends TileEntity implements ITickable {
 				world.playSound(null, d3, (double) j + 0.5D, d2, SoundEvents.BLOCK_ENDERCHEST_CLOSE, SoundCategory.BLOCKS, 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
 			}
 
-			if (lidAngle < 0.0F) {
-				lidAngle = 0.0F;
+			if (lidAngle < 0F) {
+				lidAngle = 0F;
 			}
 		}
 	}
@@ -101,7 +101,7 @@ public class TileEntityEnderChest extends TileEntity implements ITickable {
 		if (world.getTileEntity(pos) != this) {
 			return false;
 		} else {
-			return player.getDistanceSq((double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D) <= 64.0D;
+			return player.getDistanceSq((double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D) <= 64D;
 		}
 	}
 

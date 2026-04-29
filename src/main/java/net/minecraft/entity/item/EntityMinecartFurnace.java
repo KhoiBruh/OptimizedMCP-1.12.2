@@ -64,14 +64,14 @@ public class EntityMinecartFurnace extends EntityMinecart {
 		}
 
 		if (fuel <= 0) {
-			pushX = 0.0D;
-			pushZ = 0.0D;
+			pushX = 0D;
+			pushZ = 0D;
 		}
 
 		setMinecartPowered(fuel > 0);
 
 		if (isMinecartPowered() && rand.nextInt(4) == 0) {
-			world.spawnParticle(EnumParticleTypes.SMOKE_LARGE, posX, posY + 0.8D, posZ, 0.0D, 0.0D, 0.0D);
+			world.spawnParticle(EnumParticleTypes.SMOKE_LARGE, posX, posY + 0.8D, posZ, 0D, 0D, 0D);
 		}
 	}
 
@@ -88,7 +88,7 @@ public class EntityMinecartFurnace extends EntityMinecart {
 		super.killMinecart(source);
 
 		if (!source.isExplosion() && world.getGameRules().getBoolean("doEntityDrops")) {
-			entityDropItem(new ItemStack(Blocks.FURNACE, 1), 0.0F);
+			entityDropItem(new ItemStack(Blocks.FURNACE, 1), 0F);
 		}
 	}
 
@@ -102,9 +102,9 @@ public class EntityMinecartFurnace extends EntityMinecart {
 			pushX /= d0;
 			pushZ /= d0;
 
-			if (pushX * motionX + pushZ * motionZ < 0.0D) {
-				pushX = 0.0D;
-				pushZ = 0.0D;
+			if (pushX * motionX + pushZ * motionZ < 0D) {
+				pushX = 0D;
+				pushZ = 0D;
 			} else {
 				double d1 = d0 / getMaximumSpeed();
 				pushX *= d1;
@@ -121,15 +121,15 @@ public class EntityMinecartFurnace extends EntityMinecart {
 			d0 = MathHelper.sqrt(d0);
 			pushX /= d0;
 			pushZ /= d0;
-			double d1 = 1.0D;
+			double d1 = 1D;
 			motionX *= 0.800000011920929D;
-			motionY *= 0.0D;
+			motionY *= 0D;
 			motionZ *= 0.800000011920929D;
 			motionX += pushX;
 			motionZ += pushZ;
 		} else {
 			motionX *= 0.9800000190734863D;
-			motionY *= 0.0D;
+			motionY *= 0D;
 			motionZ *= 0.9800000190734863D;
 		}
 

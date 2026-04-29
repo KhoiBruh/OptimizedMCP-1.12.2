@@ -11,7 +11,7 @@ public class EnchantmentSweepingEdge extends Enchantment {
 
 	public static float getSweepingDamageRatio(int p_191526_0_) {
 
-		return 1.0F - 1.0F / (float) (p_191526_0_ + 1);
+		return 1F - 1F / (float) (p_191526_0_ + 1);
 	}
 
 	/**

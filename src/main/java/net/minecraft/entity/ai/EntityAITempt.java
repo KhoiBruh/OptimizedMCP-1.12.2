@@ -82,7 +82,7 @@ public class EntityAITempt extends EntityAIBase {
 			--delayTemptCounter;
 			return false;
 		} else {
-			temptingPlayer = temptedEntity.world.getClosestPlayerToEntity(temptedEntity, 10.0D);
+			temptingPlayer = temptedEntity.world.getClosestPlayerToEntity(temptedEntity, 10D);
 
 			if (temptingPlayer == null) {
 				return false;
@@ -103,12 +103,12 @@ public class EntityAITempt extends EntityAIBase {
 	public boolean shouldContinueExecuting() {
 
 		if (scaredByPlayerMovement) {
-			if (temptedEntity.getDistanceSq(temptingPlayer) < 36.0D) {
+			if (temptedEntity.getDistanceSq(temptingPlayer) < 36D) {
 				if (temptingPlayer.getDistanceSq(targetX, targetY, targetZ) > 0.010000000000000002D) {
 					return false;
 				}
 
-				if (Math.abs((double) temptingPlayer.rotationPitch - pitch) > 5.0D || Math.abs((double) temptingPlayer.rotationYaw - yaw) > 5.0D) {
+				if (Math.abs((double) temptingPlayer.rotationPitch - pitch) > 5D || Math.abs((double) temptingPlayer.rotationYaw - yaw) > 5D) {
 					return false;
 				}
 			} else {

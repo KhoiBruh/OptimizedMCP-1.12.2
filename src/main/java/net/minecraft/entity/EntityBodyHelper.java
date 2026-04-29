@@ -30,14 +30,14 @@ public class EntityBodyHelper {
 
 		if (d0 * d0 + d1 * d1 > 2.500000277905201E-7D) {
 			living.renderYawOffset = living.rotationYaw;
-			living.rotationYawHead = computeAngleWithBound(living.renderYawOffset, living.rotationYawHead, 75.0F);
+			living.rotationYawHead = computeAngleWithBound(living.renderYawOffset, living.rotationYawHead, 75F);
 			prevRenderYawHead = living.rotationYawHead;
 			rotationTickCounter = 0;
 		} else {
 			if (living.getPassengers().isEmpty() || !(living.getPassengers().getFirst() instanceof EntityLiving)) {
-				float f = 75.0F;
+				float f = 75F;
 
-				if (Math.abs(living.rotationYawHead - prevRenderYawHead) > 15.0F) {
+				if (Math.abs(living.rotationYawHead - prevRenderYawHead) > 15F) {
 					rotationTickCounter = 0;
 					prevRenderYawHead = living.rotationYawHead;
 				} else {
@@ -45,7 +45,7 @@ public class EntityBodyHelper {
 					int i = 10;
 
 					if (rotationTickCounter > 10) {
-						f = Math.max(1.0F - (float) (rotationTickCounter - 10) / 10.0F, 0.0F) * 75.0F;
+						f = Math.max(1F - (float) (rotationTickCounter - 10) / 10F, 0F) * 75F;
 					}
 				}
 

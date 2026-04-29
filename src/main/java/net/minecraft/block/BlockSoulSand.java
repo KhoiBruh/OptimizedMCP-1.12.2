@@ -12,7 +12,7 @@ import net.minecraft.world.World;
 
 public class BlockSoulSand extends Block {
 
-	protected static final AxisAlignedBB SOUL_SAND_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.875D, 1.0D);
+	protected static final AxisAlignedBB SOUL_SAND_AABB = new AxisAlignedBB(0D, 0D, 0D, 1D, 0.875D, 1D);
 
 	public BlockSoulSand() {
 

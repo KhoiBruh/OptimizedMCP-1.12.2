@@ -58,7 +58,7 @@ public class BiomeForest extends Biome {
 	public BlockFlower.EnumFlowerType pickRandomFlower(Random rand, BlockPos pos) {
 
 		if (type == BiomeForest.Type.FLOWER) {
-			double d0 = MathHelper.clamp((1.0D + GRASS_COLOR_NOISE.getValue((double) pos.getX() / 48.0D, (double) pos.getZ() / 48.0D)) / 2.0D, 0.0D, 0.9999D);
+			double d0 = MathHelper.clamp((1D + GRASS_COLOR_NOISE.getValue((double) pos.getX() / 48D, (double) pos.getZ() / 48D)) / 2D, 0D, 0.9999D);
 			BlockFlower.EnumFlowerType blockflower$enumflowertype = BlockFlower.EnumFlowerType.values()[(int) (d0 * (double) BlockFlower.EnumFlowerType.values().length)];
 			return blockflower$enumflowertype == BlockFlower.EnumFlowerType.BLUE_ORCHID ? BlockFlower.EnumFlowerType.POPPY : blockflower$enumflowertype;
 		} else {

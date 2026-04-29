@@ -91,18 +91,18 @@ public class PotionUtils {
 		if (effects.isEmpty()) {
 			return 3694022;
 		} else {
-			float f = 0.0F;
-			float f1 = 0.0F;
-			float f2 = 0.0F;
+			float f = 0F;
+			float f1 = 0F;
+			float f2 = 0F;
 			int j = 0;
 
 			for (PotionEffect potioneffect : effects) {
 				if (potioneffect.doesShowParticles()) {
 					int k = potioneffect.getPotion().getLiquidColor();
 					int l = potioneffect.getAmplifier() + 1;
-					f += (float) (l * (k >> 16 & 255)) / 255.0F;
-					f1 += (float) (l * (k >> 8 & 255)) / 255.0F;
-					f2 += (float) (l * (k & 255)) / 255.0F;
+					f += (float) (l * (k >> 16 & 255)) / 255F;
+					f1 += (float) (l * (k >> 8 & 255)) / 255F;
+					f2 += (float) (l * (k & 255)) / 255F;
 					j += l;
 				}
 			}
@@ -110,9 +110,9 @@ public class PotionUtils {
 			if (j == 0) {
 				return 0;
 			} else {
-				f = f / (float) j * 255.0F;
-				f1 = f1 / (float) j * 255.0F;
-				f2 = f2 / (float) j * 255.0F;
+				f = f / (float) j * 255F;
+				f1 = f1 / (float) j * 255F;
+				f2 = f2 / (float) j * 255F;
 				return (int) f << 16 | (int) f1 << 8 | (int) f2;
 			}
 		}
@@ -221,13 +221,13 @@ public class PotionUtils {
 				if (attributemodifier2.getOperation() != 1 && attributemodifier2.getOperation() != 2) {
 					d1 = attributemodifier2.getAmount();
 				} else {
-					d1 = attributemodifier2.getAmount() * 100.0D;
+					d1 = attributemodifier2.getAmount() * 100D;
 				}
 
-				if (d0 > 0.0D) {
+				if (d0 > 0D) {
 					lores.add(TextFormatting.BLUE + I18n.translateToLocalFormatted("attribute.modifier.plus." + attributemodifier2.getOperation(), ItemStack.DECIMALFORMAT.format(d1), I18n.translateToLocal("attribute.name." + tuple.getFirst())));
-				} else if (d0 < 0.0D) {
-					d1 = d1 * -1.0D;
+				} else if (d0 < 0D) {
+					d1 = d1 * -1D;
 					lores.add(TextFormatting.RED + I18n.translateToLocalFormatted("attribute.modifier.take." + attributemodifier2.getOperation(), ItemStack.DECIMALFORMAT.format(d1), I18n.translateToLocal("attribute.name." + tuple.getFirst())));
 				}
 			}

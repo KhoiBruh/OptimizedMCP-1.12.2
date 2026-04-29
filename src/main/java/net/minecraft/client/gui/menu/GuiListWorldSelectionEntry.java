@@ -97,37 +97,37 @@ public class GuiListWorldSelectionEntry implements GuiListExtended.IGuiListEntry
 		client.fontRenderer.drawString(s, x + 32 + 3, y + 1, 16777215);
 		client.fontRenderer.drawString(s1, x + 32 + 3, y + client.fontRenderer.FONT_HEIGHT + 3, 8421504);
 		client.fontRenderer.drawString(s2, x + 32 + 3, y + client.fontRenderer.FONT_HEIGHT + client.fontRenderer.FONT_HEIGHT + 3, 8421504);
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+		GlStateManager.color(1F, 1F, 1F, 1F);
 		client.getTextureManager().bindTexture(icon != null ? iconLocation : ICON_MISSING);
 		GlStateManager.enableBlend();
-		Gui.drawModalRectWithCustomSizedTexture(x, y, 0.0F, 0.0F, 32, 32, 32.0F, 32.0F);
+		Gui.drawModalRectWithCustomSizedTexture(x, y, 0F, 0F, 32, 32, 32F, 32F);
 		GlStateManager.disableBlend();
 
 		if (client.gameSettings.touchscreen || isSelected) {
 			client.getTextureManager().bindTexture(ICON_OVERLAY_LOCATION);
 			Gui.drawRect(x, y, x + 32, y + 32, -1601138544);
-			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+			GlStateManager.color(1F, 1F, 1F, 1F);
 			int j = mouseX - x;
 			int i = j < 32 ? 32 : 0;
 
 			if (worldSummary.markVersionInList()) {
-				Gui.drawModalRectWithCustomSizedTexture(x, y, 32.0F, (float) i, 32, 32, 256.0F, 256.0F);
+				Gui.drawModalRectWithCustomSizedTexture(x, y, 32F, (float) i, 32, 32, 256F, 256F);
 
 				if (worldSummary.askToOpenWorld()) {
-					Gui.drawModalRectWithCustomSizedTexture(x, y, 96.0F, (float) i, 32, 32, 256.0F, 256.0F);
+					Gui.drawModalRectWithCustomSizedTexture(x, y, 96F, (float) i, 32, 32, 256F, 256F);
 
 					if (j < 32) {
 						worldSelScreen.setVersionTooltip(TextFormatting.RED + I18n.format("selectWorld.tooltip.fromNewerVersion1") + "\n" + TextFormatting.RED + I18n.format("selectWorld.tooltip.fromNewerVersion2"));
 					}
 				} else {
-					Gui.drawModalRectWithCustomSizedTexture(x, y, 64.0F, (float) i, 32, 32, 256.0F, 256.0F);
+					Gui.drawModalRectWithCustomSizedTexture(x, y, 64F, (float) i, 32, 32, 256F, 256F);
 
 					if (j < 32) {
 						worldSelScreen.setVersionTooltip(TextFormatting.GOLD + I18n.format("selectWorld.tooltip.snapshot1") + "\n" + TextFormatting.GOLD + I18n.format("selectWorld.tooltip.snapshot2"));
 					}
 				}
 			} else {
-				Gui.drawModalRectWithCustomSizedTexture(x, y, 0.0F, (float) i, 32, 32, 256.0F, 256.0F);
+				Gui.drawModalRectWithCustomSizedTexture(x, y, 0F, (float) i, 32, 32, 256F, 256F);
 			}
 		}
 	}
@@ -205,7 +205,7 @@ public class GuiListWorldSelectionEntry implements GuiListExtended.IGuiListEntry
 
 	private void loadWorld() {
 
-		client.getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(SoundEvents.UI_BUTTON_CLICK, 1.0F));
+		client.getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(SoundEvents.UI_BUTTON_CLICK, 1F));
 
 		if (client.getSaveLoader().canLoadWorld(worldSummary.getFileName())) {
 			client.launchIntegratedServer(worldSummary.getFileName(), worldSummary.getDisplayName(), null);

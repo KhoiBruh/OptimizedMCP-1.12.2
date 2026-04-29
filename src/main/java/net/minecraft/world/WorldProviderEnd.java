@@ -37,7 +37,7 @@ public class WorldProviderEnd extends WorldProvider {
 	 */
 	public float calculateCelestialAngle(long worldTime, float partialTicks) {
 
-		return 0.0F;
+		return 0F;
 	}
 
 	
@@ -56,14 +56,14 @@ public class WorldProviderEnd extends WorldProvider {
 	public Vec3d getFogColor(float p_76562_1_, float p_76562_2_) {
 
 		int i = 10518688;
-		float f = MathHelper.cos(p_76562_1_ * ((float) Math.PI * 2F)) * 2.0F + 0.5F;
-		f = MathHelper.clamp(f, 0.0F, 1.0F);
+		float f = MathHelper.cos(p_76562_1_ * ((float) Math.PI * 2F)) * 2F + 0.5F;
+		f = MathHelper.clamp(f, 0F, 1F);
 		float f1 = 0.627451F;
 		float f2 = 0.5019608F;
 		float f3 = 0.627451F;
-		f1 = f1 * (f * 0.0F + 0.15F);
-		f2 = f2 * (f * 0.0F + 0.15F);
-		f3 = f3 * (f * 0.0F + 0.15F);
+		f1 = f1 * (f * 0F + 0.15F);
+		f2 = f2 * (f * 0F + 0.15F);
+		f3 = f3 * (f * 0F + 0.15F);
 		return new Vec3d(f1, f2, f3);
 	}
 
@@ -93,7 +93,7 @@ public class WorldProviderEnd extends WorldProvider {
 	 */
 	public float getCloudHeight() {
 
-		return 8.0F;
+		return 8F;
 	}
 
 	/**

@@ -55,13 +55,13 @@ public class EntityGuardian extends EntityMob {
 
 	protected void initEntityAI() {
 
-		EntityAIMoveTowardsRestriction entityaimovetowardsrestriction = new EntityAIMoveTowardsRestriction(this, 1.0D);
-		wander = new EntityAIWander(this, 1.0D, 80);
+		EntityAIMoveTowardsRestriction entityaimovetowardsrestriction = new EntityAIMoveTowardsRestriction(this, 1D);
+		wander = new EntityAIWander(this, 1D, 80);
 		tasks.addTask(4, new EntityGuardian.AIGuardianAttack(this));
 		tasks.addTask(5, entityaimovetowardsrestriction);
 		tasks.addTask(7, wander);
-		tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
-		tasks.addTask(8, new EntityAIWatchClosest(this, EntityGuardian.class, 12.0F, 0.01F));
+		tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 8F));
+		tasks.addTask(8, new EntityAIWatchClosest(this, EntityGuardian.class, 12F, 0.01F));
 		tasks.addTask(9, new EntityAILookIdle(this));
 		wander.setMutexBits(3);
 		entityaimovetowardsrestriction.setMutexBits(3);
@@ -71,10 +71,10 @@ public class EntityGuardian extends EntityMob {
 	protected void applyEntityAttributes() {
 
 		super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(6.0D);
+		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(6D);
 		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.5D);
-		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(16.0D);
-		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(30.0D);
+		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(16D);
+		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(30D);
 	}
 
 	/**
@@ -189,7 +189,7 @@ public class EntityGuardian extends EntityMob {
 
 	public float getBlockPathWeight(BlockPos pos) {
 
-		return world.getBlockState(pos).getMaterial() == Material.WATER ? 10.0F + world.getLightBrightness(pos) - 0.5F : super.getBlockPathWeight(pos);
+		return world.getBlockState(pos).getMaterial() == Material.WATER ? 10F + world.getLightBrightness(pos) - 0.5F : super.getBlockPathWeight(pos);
 	}
 
 	/**
@@ -202,16 +202,16 @@ public class EntityGuardian extends EntityMob {
 			clientSideTailAnimationO = clientSideTailAnimation;
 
 			if (!isInWater()) {
-				clientSideTailAnimationSpeed = 2.0F;
+				clientSideTailAnimationSpeed = 2F;
 
-				if (motionY > 0.0D && clientSideTouchedGround && !isSilent()) {
-					world.playSound(posX, posY, posZ, getFlopSound(), getSoundCategory(), 1.0F, 1.0F, false);
+				if (motionY > 0D && clientSideTouchedGround && !isSilent()) {
+					world.playSound(posX, posY, posZ, getFlopSound(), getSoundCategory(), 1F, 1F, false);
 				}
 
-				clientSideTouchedGround = motionY < 0.0D && world.isBlockNormalCube((new BlockPos(this)).down(), false);
+				clientSideTouchedGround = motionY < 0D && world.isBlockNormalCube((new BlockPos(this)).down(), false);
 			} else if (isMoving()) {
 				if (clientSideTailAnimationSpeed < 0.5F) {
-					clientSideTailAnimationSpeed = 4.0F;
+					clientSideTailAnimationSpeed = 4F;
 				} else {
 					clientSideTailAnimationSpeed += (0.5F - clientSideTailAnimationSpeed) * 0.1F;
 				}
@@ -225,16 +225,16 @@ public class EntityGuardian extends EntityMob {
 			if (!isInWater()) {
 				clientSideSpikesAnimation = rand.nextFloat();
 			} else if (isMoving()) {
-				clientSideSpikesAnimation += (0.0F - clientSideSpikesAnimation) * 0.25F;
+				clientSideSpikesAnimation += (0F - clientSideSpikesAnimation) * 0.25F;
 			} else {
-				clientSideSpikesAnimation += (1.0F - clientSideSpikesAnimation) * 0.06F;
+				clientSideSpikesAnimation += (1F - clientSideSpikesAnimation) * 0.06F;
 			}
 
 			if (isMoving() && isInWater()) {
-				Vec3d vec3d = getLook(0.0F);
+				Vec3d vec3d = getLook(0F);
 
 				for (int i = 0; i < 2; ++i) {
-					world.spawnParticle(EnumParticleTypes.WATER_BUBBLE, posX + (rand.nextDouble() - 0.5D) * (double) width - vec3d.x() * 1.5D, posY + rand.nextDouble() * (double) height - vec3d.y() * 1.5D, posZ + (rand.nextDouble() - 0.5D) * (double) width - vec3d.z() * 1.5D, 0.0D, 0.0D, 0.0D);
+					world.spawnParticle(EnumParticleTypes.WATER_BUBBLE, posX + (rand.nextDouble() - 0.5D) * (double) width - vec3d.x() * 1.5D, posY + rand.nextDouble() * (double) height - vec3d.y() * 1.5D, posZ + (rand.nextDouble() - 0.5D) * (double) width - vec3d.z() * 1.5D, 0D, 0D, 0D);
 				}
 			}
 
@@ -246,9 +246,9 @@ public class EntityGuardian extends EntityMob {
 				EntityLivingBase entitylivingbase = getTargetedEntity();
 
 				if (entitylivingbase != null) {
-					getLookHelper().setLookPositionWithEntity(entitylivingbase, 90.0F, 90.0F);
+					getLookHelper().setLookPositionWithEntity(entitylivingbase, 90F, 90F);
 					getLookHelper().onUpdateLook();
-					double d5 = getAttackAnimationScale(0.0F);
+					double d5 = getAttackAnimationScale(0F);
 					double d0 = entitylivingbase.posX - posX;
 					double d1 = entitylivingbase.posY + (double) (entitylivingbase.height * 0.5F) - (posY + (double) getEyeHeight());
 					double d2 = entitylivingbase.posZ - posZ;
@@ -260,7 +260,7 @@ public class EntityGuardian extends EntityMob {
 
 					while (d4 < d3) {
 						d4 += 1.8D - d5 + rand.nextDouble() * (1.7D - d5);
-						world.spawnParticle(EnumParticleTypes.WATER_BUBBLE, posX + d0 * d4, posY + d1 * d4 + (double) getEyeHeight(), posZ + d2 * d4, 0.0D, 0.0D, 0.0D);
+						world.spawnParticle(EnumParticleTypes.WATER_BUBBLE, posX + d0 * d4, posY + d1 * d4 + (double) getEyeHeight(), posZ + d2 * d4, 0D, 0D, 0D);
 					}
 				}
 			}
@@ -270,9 +270,9 @@ public class EntityGuardian extends EntityMob {
 			setAir(300);
 		} else if (onGround) {
 			motionY += 0.5D;
-			motionX += (rand.nextFloat() * 2.0F - 1.0F) * 0.4F;
-			motionZ += (rand.nextFloat() * 2.0F - 1.0F) * 0.4F;
-			rotationYaw = rand.nextFloat() * 360.0F;
+			motionX += (rand.nextFloat() * 2F - 1F) * 0.4F;
+			motionZ += (rand.nextFloat() * 2F - 1F) * 0.4F;
+			rotationYaw = rand.nextFloat() * 360F;
 			onGround = false;
 			isAirBorne = true;
 		}
@@ -342,7 +342,7 @@ public class EntityGuardian extends EntityMob {
 		if (!isMoving() && !source.isMagicDamage() && source.getImmediateSource() instanceof EntityLivingBase entitylivingbase) {
 
 			if (!source.isExplosion()) {
-				entitylivingbase.attackEntityFrom(DamageSource.causeThornsDamage(this), 2.0F);
+				entitylivingbase.attackEntityFrom(DamageSource.causeThornsDamage(this), 2F);
 			}
 		}
 
@@ -400,14 +400,14 @@ public class EntityGuardian extends EntityMob {
 
 		public boolean shouldContinueExecuting() {
 
-			return super.shouldContinueExecuting() && (isElder || guardian.getDistanceSq(guardian.getAttackTarget()) > 9.0D);
+			return super.shouldContinueExecuting() && (isElder || guardian.getDistanceSq(guardian.getAttackTarget()) > 9D);
 		}
 
 		public void startExecuting() {
 
 			tickCounter = -10;
 			guardian.getNavigator().clearPath();
-			guardian.getLookHelper().setLookPositionWithEntity(guardian.getAttackTarget(), 90.0F, 90.0F);
+			guardian.getLookHelper().setLookPositionWithEntity(guardian.getAttackTarget(), 90F, 90F);
 			guardian.isAirBorne = true;
 		}
 
@@ -422,7 +422,7 @@ public class EntityGuardian extends EntityMob {
 
 			EntityLivingBase entitylivingbase = guardian.getAttackTarget();
 			guardian.getNavigator().clearPath();
-			guardian.getLookHelper().setLookPositionWithEntity(entitylivingbase, 90.0F, 90.0F);
+			guardian.getLookHelper().setLookPositionWithEntity(entitylivingbase, 90F, 90F);
 
 			if (!guardian.canEntityBeSeen(entitylivingbase)) {
 				guardian.setAttackTarget(null);
@@ -433,14 +433,14 @@ public class EntityGuardian extends EntityMob {
 					guardian.setTargetedEntity(guardian.getAttackTarget().getEntityId());
 					guardian.world.setEntityState(guardian, (byte) 21);
 				} else if (tickCounter >= guardian.getAttackDuration()) {
-					float f = 1.0F;
+					float f = 1F;
 
 					if (guardian.world.getDifficulty() == EnumDifficulty.HARD) {
-						f += 2.0F;
+						f += 2F;
 					}
 
 					if (isElder) {
-						f += 2.0F;
+						f += 2F;
 					}
 
 					entitylivingbase.attackEntityFrom(DamageSource.causeIndirectMagicDamage(guardian, guardian), f);
@@ -472,8 +472,8 @@ public class EntityGuardian extends EntityMob {
 				double d2 = posZ - entityGuardian.posZ;
 				double d3 = MathHelper.sqrt(d0 * d0 + d1 * d1 + d2 * d2);
 				d1 = d1 / d3;
-				float f = (float) (MathHelper.atan2(d2, d0) * (180D / Math.PI)) - 90.0F;
-				entityGuardian.rotationYaw = limitAngle(entityGuardian.rotationYaw, f, 90.0F);
+				float f = (float) (MathHelper.atan2(d2, d0) * (180D / Math.PI)) - 90F;
+				entityGuardian.rotationYaw = limitAngle(entityGuardian.rotationYaw, f, 90F);
 				entityGuardian.renderYawOffset = entityGuardian.rotationYaw;
 				float f1 = (float) (speed * entityGuardian.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue());
 				entityGuardian.setAIMoveSpeed(entityGuardian.getAIMoveSpeed() + (f1 - entityGuardian.getAIMoveSpeed()) * 0.125F);
@@ -486,9 +486,9 @@ public class EntityGuardian extends EntityMob {
 				entityGuardian.motionY += d4 * (d6 + d5) * 0.25D;
 				entityGuardian.motionY += (double) entityGuardian.getAIMoveSpeed() * d1 * 0.1D;
 				EntityLookHelper entitylookhelper = entityGuardian.getLookHelper();
-				double d7 = entityGuardian.posX + d0 / d3 * 2.0D;
+				double d7 = entityGuardian.posX + d0 / d3 * 2D;
 				double d8 = (double) entityGuardian.getEyeHeight() + entityGuardian.posY + d1 / d3;
-				double d9 = entityGuardian.posZ + d2 / d3 * 2.0D;
+				double d9 = entityGuardian.posZ + d2 / d3 * 2D;
 				double d10 = entitylookhelper.getLookPosX();
 				double d11 = entitylookhelper.getLookPosY();
 				double d12 = entitylookhelper.getLookPosZ();
@@ -499,10 +499,10 @@ public class EntityGuardian extends EntityMob {
 					d12 = d9;
 				}
 
-				entityGuardian.getLookHelper().setLookPosition(d10 + (d7 - d10) * 0.125D, d11 + (d8 - d11) * 0.125D, d12 + (d9 - d12) * 0.125D, 10.0F, 40.0F);
+				entityGuardian.getLookHelper().setLookPosition(d10 + (d7 - d10) * 0.125D, d11 + (d8 - d11) * 0.125D, d12 + (d9 - d12) * 0.125D, 10F, 40F);
 				entityGuardian.setMoving(true);
 			} else {
-				entityGuardian.setAIMoveSpeed(0.0F);
+				entityGuardian.setAIMoveSpeed(0F);
 				entityGuardian.setMoving(false);
 			}
 		}
@@ -520,7 +520,7 @@ public class EntityGuardian extends EntityMob {
 
 		public boolean apply(EntityLivingBase p_apply_1_) {
 
-			return (p_apply_1_ instanceof EntityPlayer || p_apply_1_ instanceof EntitySquid) && p_apply_1_.getDistanceSq(parentEntity) > 9.0D;
+			return (p_apply_1_ instanceof EntityPlayer || p_apply_1_ instanceof EntitySquid) && p_apply_1_.getDistanceSq(parentEntity) > 9D;
 		}
 
 	}

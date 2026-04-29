@@ -175,7 +175,7 @@ public class ModifiableAttributeInstance implements IAttributeInstance {
 		}
 
 		for (AttributeModifier attributemodifier2 : getAppliedModifiers(2)) {
-			d1 *= 1.0D + attributemodifier2.getAmount();
+			d1 *= 1D + attributemodifier2.getAmount();
 		}
 
 		return genericAttribute.clampValue(d1);

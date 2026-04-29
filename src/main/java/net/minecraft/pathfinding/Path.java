@@ -124,9 +124,9 @@ public class Path {
 	 */
 	public Vec3d getVectorFromIndex(Entity entityIn, int index) {
 
-		double d0 = (double) points[index].x + (double) ((int) (entityIn.width + 1.0F)) * 0.5D;
+		double d0 = (double) points[index].x + (double) ((int) (entityIn.width + 1F)) * 0.5D;
 		double d1 = points[index].y;
-		double d2 = (double) points[index].z + (double) ((int) (entityIn.width + 1.0F)) * 0.5D;
+		double d2 = (double) points[index].z + (double) ((int) (entityIn.width + 1F)) * 0.5D;
 		return new Vec3d(d0, d1, d2);
 	}
 

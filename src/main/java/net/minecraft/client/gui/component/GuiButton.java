@@ -87,7 +87,7 @@ public class GuiButton extends Gui {
 		if (visible) {
 			FontRenderer fontrenderer = mc.fontRenderer;
 			mc.getTextureManager().bindTexture(BUTTON_TEXTURES);
-			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+			GlStateManager.color(1F, 1F, 1F, 1F);
 			hovered = mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
 			int i = getHoverState(hovered);
 			GlStateManager.enableBlend();
@@ -145,7 +145,7 @@ public class GuiButton extends Gui {
 
 	public void playPressSound(SoundHandler soundHandlerIn) {
 
-		soundHandlerIn.playSound(PositionedSoundRecord.getMasterRecord(SoundEvents.UI_BUTTON_CLICK, 1.0F));
+		soundHandlerIn.playSound(PositionedSoundRecord.getMasterRecord(SoundEvents.UI_BUTTON_CLICK, 1F));
 	}
 
 	public int getButtonWidth() {

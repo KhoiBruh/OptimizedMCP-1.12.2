@@ -712,7 +712,7 @@ public class ComponentScatteredFeaturePieces {
 						hasWitch = true;
 						EntityWitch entitywitch = new EntityWitch(worldIn);
 						entitywitch.enablePersistence();
-						entitywitch.setLocationAndAngles((double) l + 0.5D, i1, (double) k + 0.5D, 0.0F, 0.0F);
+						entitywitch.setLocationAndAngles((double) l + 0.5D, i1, (double) k + 0.5D, 0F, 0F);
 						entitywitch.onInitialSpawn(worldIn.getDifficultyForLocation(new BlockPos(l, i1, k)), null);
 						worldIn.spawnEntity(entitywitch);
 					}

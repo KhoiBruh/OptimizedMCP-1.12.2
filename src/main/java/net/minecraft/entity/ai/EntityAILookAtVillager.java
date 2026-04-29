@@ -25,7 +25,7 @@ public class EntityAILookAtVillager extends EntityAIBase {
 		} else if (ironGolem.getRNG().nextInt(8000) != 0) {
 			return false;
 		} else {
-			villager = (EntityVillager) ironGolem.world.findNearestEntityWithinAABB(EntityVillager.class, ironGolem.getEntityBoundingBox().grow(6.0D, 2.0D, 6.0D), ironGolem);
+			villager = (EntityVillager) ironGolem.world.findNearestEntityWithinAABB(EntityVillager.class, ironGolem.getEntityBoundingBox().grow(6D, 2D, 6D), ironGolem);
 			return villager != null;
 		}
 	}
@@ -61,7 +61,7 @@ public class EntityAILookAtVillager extends EntityAIBase {
 	 */
 	public void updateTask() {
 
-		ironGolem.getLookHelper().setLookPositionWithEntity(villager, 30.0F, 30.0F);
+		ironGolem.getLookHelper().setLookPositionWithEntity(villager, 30F, 30F);
 		--lookTime;
 	}
 

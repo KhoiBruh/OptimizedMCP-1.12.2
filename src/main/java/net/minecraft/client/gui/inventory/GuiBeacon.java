@@ -183,17 +183,17 @@ public class GuiBeacon extends GuiContainer {
 	 */
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
 
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+		GlStateManager.color(1F, 1F, 1F, 1F);
 		mc.getTextureManager().bindTexture(BEACON_GUI_TEXTURES);
 		int i = (width - xSize) / 2;
 		int j = (height - ySize) / 2;
 		drawTexturedModalRect(i, j, 0, 0, xSize, ySize);
-		itemRender.zLevel = 100.0F;
+		itemRender.zLevel = 100F;
 		itemRender.renderItemAndEffectIntoGUI(new ItemStack(Items.EMERALD), i + 42, j + 109);
 		itemRender.renderItemAndEffectIntoGUI(new ItemStack(Items.DIAMOND), i + 42 + 22, j + 109);
 		itemRender.renderItemAndEffectIntoGUI(new ItemStack(Items.GOLD_INGOT), i + 42 + 44, j + 109);
 		itemRender.renderItemAndEffectIntoGUI(new ItemStack(Items.IRON_INGOT), i + 42 + 66, j + 109);
-		itemRender.zLevel = 0.0F;
+		itemRender.zLevel = 0F;
 	}
 
 	static class Button extends GuiButton {
@@ -215,7 +215,7 @@ public class GuiBeacon extends GuiContainer {
 
 			if (visible) {
 				mc.getTextureManager().bindTexture(GuiBeacon.BEACON_GUI_TEXTURES);
-				GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+				GlStateManager.color(1F, 1F, 1F, 1F);
 				hovered = mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
 				int i = 219;
 				int j = 0;

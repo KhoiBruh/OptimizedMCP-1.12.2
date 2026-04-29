@@ -20,7 +20,7 @@ public class SwimNodeProcessor extends NodeProcessor {
 	 */
 	public PathPoint getPathPointToCoords(double x, double y, double z) {
 
-		return openPoint(MathHelper.floor(x - (double) (entity.width / 2.0F)), MathHelper.floor(y + 0.5D), MathHelper.floor(z - (double) (entity.width / 2.0F)));
+		return openPoint(MathHelper.floor(x - (double) (entity.width / 2F)), MathHelper.floor(y + 0.5D), MathHelper.floor(z - (double) (entity.width / 2F)));
 	}
 
 	public int findPathOptions(PathPoint[] pathOptions, PathPoint currentPoint, PathPoint targetPoint, float maxDistance) {

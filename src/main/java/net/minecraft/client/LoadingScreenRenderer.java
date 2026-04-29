@@ -74,14 +74,14 @@ public class LoadingScreenRenderer implements IProgressUpdate {
 
 			if (OpenGlHelper.isFramebufferEnabled()) {
 				int factor = scaledResolution.getScaleFactor();
-				GlStateManager.ortho(0.0D, scaledResolution.getScaledWidth() * factor, scaledResolution.getScaledHeight() * factor, 0.0D, 100.0D, 300.0D);
+				GlStateManager.ortho(0D, scaledResolution.getScaledWidth() * factor, scaledResolution.getScaledHeight() * factor, 0D, 100D, 300D);
 			} else {
-				GlStateManager.ortho(0.0D, scaledResolution.getScaledWidth_double(), scaledResolution.getScaledHeight_double(), 0.0D, 100.0D, 300.0D);
+				GlStateManager.ortho(0D, scaledResolution.getScaledWidth_double(), scaledResolution.getScaledHeight_double(), 0D, 100D, 300D);
 			}
 
 			GlStateManager.matrixMode(5888);
 			GlStateManager.loadIdentity();
-			GlStateManager.translate(0.0F, 0.0F, -200.0F);
+			GlStateManager.translate(0F, 0F, -200F);
 		}
 	}
 
@@ -130,10 +130,10 @@ public class LoadingScreenRenderer implements IProgressUpdate {
 				framebuffer.bindFramebuffer(false);
 				GlStateManager.matrixMode(5889);
 				GlStateManager.loadIdentity();
-				GlStateManager.ortho(0.0D, scaledResolution.getScaledWidth_double(), scaledResolution.getScaledHeight_double(), 0.0D, 100.0D, 300.0D);
+				GlStateManager.ortho(0D, scaledResolution.getScaledWidth_double(), scaledResolution.getScaledHeight_double(), 0D, 100D, 300D);
 				GlStateManager.matrixMode(5888);
 				GlStateManager.loadIdentity();
-				GlStateManager.translate(0.0F, 0.0F, -200.0F);
+				GlStateManager.translate(0F, 0F, -200F);
 
 				if (!OpenGlHelper.isFramebufferEnabled()) {
 					GlStateManager.clear(16640);
@@ -142,12 +142,12 @@ public class LoadingScreenRenderer implements IProgressUpdate {
 				Tessellator tessellator = Tessellator.getInstance();
 				BufferBuilder bufferbuilder = tessellator.getBuffer();
 				mc.getTextureManager().bindTexture(Gui.OPTIONS_BACKGROUND);
-				float f = 32.0F;
+				float f = 32F;
 				bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-				bufferbuilder.pos(0.0D, l, 0.0D).tex(0.0D, (float) l / 32.0F).color(64, 64, 64, 255).endVertex();
-				bufferbuilder.pos(k, l, 0.0D).tex((float) k / 32.0F, (float) l / 32.0F).color(64, 64, 64, 255).endVertex();
-				bufferbuilder.pos(k, 0.0D, 0.0D).tex((float) k / 32.0F, 0.0D).color(64, 64, 64, 255).endVertex();
-				bufferbuilder.pos(0.0D, 0.0D, 0.0D).tex(0.0D, 0.0D).color(64, 64, 64, 255).endVertex();
+				bufferbuilder.pos(0D, l, 0D).tex(0D, (float) l / 32F).color(64, 64, 64, 255).endVertex();
+				bufferbuilder.pos(k, l, 0D).tex((float) k / 32F, (float) l / 32F).color(64, 64, 64, 255).endVertex();
+				bufferbuilder.pos(k, 0D, 0D).tex((float) k / 32F, 0D).color(64, 64, 64, 255).endVertex();
+				bufferbuilder.pos(0D, 0D, 0D).tex(0D, 0D).color(64, 64, 64, 255).endVertex();
 				tessellator.draw();
 
 				if (progress >= 0) {
@@ -157,14 +157,14 @@ public class LoadingScreenRenderer implements IProgressUpdate {
 					int l1 = l / 2 + 16;
 					GlStateManager.disableTexture2D();
 					bufferbuilder.begin(7, DefaultVertexFormats.POSITION_COLOR);
-					bufferbuilder.pos(k1, l1, 0.0D).color(128, 128, 128, 255).endVertex();
-					bufferbuilder.pos(k1, l1 + 2, 0.0D).color(128, 128, 128, 255).endVertex();
-					bufferbuilder.pos(k1 + 100, l1 + 2, 0.0D).color(128, 128, 128, 255).endVertex();
-					bufferbuilder.pos(k1 + 100, l1, 0.0D).color(128, 128, 128, 255).endVertex();
-					bufferbuilder.pos(k1, l1, 0.0D).color(128, 255, 128, 255).endVertex();
-					bufferbuilder.pos(k1, l1 + 2, 0.0D).color(128, 255, 128, 255).endVertex();
-					bufferbuilder.pos(k1 + progress, l1 + 2, 0.0D).color(128, 255, 128, 255).endVertex();
-					bufferbuilder.pos(k1 + progress, l1, 0.0D).color(128, 255, 128, 255).endVertex();
+					bufferbuilder.pos(k1, l1, 0D).color(128, 128, 128, 255).endVertex();
+					bufferbuilder.pos(k1, l1 + 2, 0D).color(128, 128, 128, 255).endVertex();
+					bufferbuilder.pos(k1 + 100, l1 + 2, 0D).color(128, 128, 128, 255).endVertex();
+					bufferbuilder.pos(k1 + 100, l1, 0D).color(128, 128, 128, 255).endVertex();
+					bufferbuilder.pos(k1, l1, 0D).color(128, 255, 128, 255).endVertex();
+					bufferbuilder.pos(k1, l1 + 2, 0D).color(128, 255, 128, 255).endVertex();
+					bufferbuilder.pos(k1 + progress, l1 + 2, 0D).color(128, 255, 128, 255).endVertex();
+					bufferbuilder.pos(k1 + progress, l1, 0D).color(128, 255, 128, 255).endVertex();
 					tessellator.draw();
 					GlStateManager.enableTexture2D();
 				}

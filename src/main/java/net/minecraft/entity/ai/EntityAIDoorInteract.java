@@ -97,7 +97,7 @@ public abstract class EntityAIDoorInteract extends EntityAIBase {
 		float f1 = (float) ((double) ((float) doorPosition.getZ() + 0.5F) - entity.posZ);
 		float f2 = entityPositionX * f + entityPositionZ * f1;
 
-		if (f2 < 0.0F) {
+		if (f2 < 0F) {
 			hasStoppedDoorInteraction = true;
 		}
 	}

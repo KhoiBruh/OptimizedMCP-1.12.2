@@ -73,7 +73,7 @@ public class ContainerWorkbench extends Container {
 		if (world.getBlockState(pos).getBlock() != Blocks.CRAFTING_TABLE) {
 			return false;
 		} else {
-			return playerIn.getDistanceSq((double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D) <= 64.0D;
+			return playerIn.getDistanceSq((double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D) <= 64D;
 		}
 	}
 

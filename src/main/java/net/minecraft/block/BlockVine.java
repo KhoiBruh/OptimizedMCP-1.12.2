@@ -32,11 +32,11 @@ public class BlockVine extends Block {
 	public static final PropertyBool SOUTH = PropertyBool.create("south");
 	public static final PropertyBool WEST = PropertyBool.create("west");
 	public static final PropertyBool[] ALL_FACES = new PropertyBool[]{UP, NORTH, SOUTH, WEST, EAST};
-	protected static final AxisAlignedBB UP_AABB = new AxisAlignedBB(0.0D, 0.9375D, 0.0D, 1.0D, 1.0D, 1.0D);
-	protected static final AxisAlignedBB WEST_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 0.0625D, 1.0D, 1.0D);
-	protected static final AxisAlignedBB EAST_AABB = new AxisAlignedBB(0.9375D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D);
-	protected static final AxisAlignedBB NORTH_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 0.0625D);
-	protected static final AxisAlignedBB SOUTH_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.9375D, 1.0D, 1.0D, 1.0D);
+	protected static final AxisAlignedBB UP_AABB = new AxisAlignedBB(0D, 0.9375D, 0D, 1D, 1D, 1D);
+	protected static final AxisAlignedBB WEST_AABB = new AxisAlignedBB(0D, 0D, 0D, 0.0625D, 1D, 1D);
+	protected static final AxisAlignedBB EAST_AABB = new AxisAlignedBB(0.9375D, 0D, 0D, 1D, 1D, 1D);
+	protected static final AxisAlignedBB NORTH_AABB = new AxisAlignedBB(0D, 0D, 0D, 1D, 1D, 0.0625D);
+	protected static final AxisAlignedBB SOUTH_AABB = new AxisAlignedBB(0D, 0D, 0.9375D, 1D, 1D, 1D);
 
 	public BlockVine() {
 

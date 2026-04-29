@@ -25,14 +25,14 @@ public class RenderGiantZombie extends RenderLiving<EntityGiantZombie> {
 			protected void initArmor() {
 
 				modelLeggings = new ModelZombie(0.5F, true);
-				modelArmor = new ModelZombie(1.0F, true);
+				modelArmor = new ModelZombie(1F, true);
 			}
 		});
 	}
 
 	public void transformHeldFull3DItemLayer() {
 
-		GlStateManager.translate(0.0F, 0.1875F, 0.0F);
+		GlStateManager.translate(0F, 0.1875F, 0F);
 	}
 
 	/**

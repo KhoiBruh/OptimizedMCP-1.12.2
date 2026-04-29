@@ -58,7 +58,7 @@ public class TeleportToTeam implements ISpectatorMenuView, ISpectatorMenuObject 
 	public void renderIcon(float brightness, int alpha) {
 
 		Minecraft.getMinecraft().getTextureManager().bindTexture(GuiSpectator.SPECTATOR_WIDGETS);
-		Gui.drawModalRectWithCustomSizedTexture(0, 0, 16.0F, 0.0F, 16, 16, 256.0F, 256.0F);
+		Gui.drawModalRectWithCustomSizedTexture(0, 0, 16F, 0F, 16, 16, 256F, 256F);
 	}
 
 	public boolean isEnabled() {
@@ -120,16 +120,16 @@ public class TeleportToTeam implements ISpectatorMenuView, ISpectatorMenuObject 
 			}
 
 			if (i >= 0) {
-				float f = (float) (i >> 16 & 255) / 255.0F;
-				float f1 = (float) (i >> 8 & 255) / 255.0F;
-				float f2 = (float) (i & 255) / 255.0F;
+				float f = (float) (i >> 16 & 255) / 255F;
+				float f1 = (float) (i >> 8 & 255) / 255F;
+				float f2 = (float) (i & 255) / 255F;
 				Gui.drawRect(1, 1, 15, 15, MathHelper.rgb(f * brightness, f1 * brightness, f2 * brightness) | alpha << 24);
 			}
 
 			Minecraft.getMinecraft().getTextureManager().bindTexture(location);
-			GlStateManager.color(brightness, brightness, brightness, (float) alpha / 255.0F);
-			Gui.drawScaledCustomSizeModalRect(2, 2, 8.0F, 8.0F, 8, 8, 12, 12, 64.0F, 64.0F);
-			Gui.drawScaledCustomSizeModalRect(2, 2, 40.0F, 8.0F, 8, 8, 12, 12, 64.0F, 64.0F);
+			GlStateManager.color(brightness, brightness, brightness, (float) alpha / 255F);
+			Gui.drawScaledCustomSizeModalRect(2, 2, 8F, 8F, 8, 8, 12, 12, 64F, 64F);
+			Gui.drawScaledCustomSizeModalRect(2, 2, 40F, 8F, 8, 8, 12, 12, 64F, 64F);
 		}
 
 		public boolean isEnabled() {

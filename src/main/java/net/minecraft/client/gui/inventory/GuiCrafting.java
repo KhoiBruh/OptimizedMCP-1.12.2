@@ -91,7 +91,7 @@ public class GuiCrafting extends GuiContainer implements IRecipeShownListener {
 	 */
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
 
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+		GlStateManager.color(1F, 1F, 1F, 1F);
 		mc.getTextureManager().bindTexture(CRAFTING_TABLE_GUI_TEXTURES);
 		int i = guiLeft;
 		int j = (height - ySize) / 2;

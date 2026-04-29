@@ -112,14 +112,14 @@ public class PlayerInteractionManager {
 				receivedFinishDiggingPacket = false;
 			} else {
 				float f = iblockstate.getPlayerRelativeBlockHardness(player, player.world, delayedDestroyPos) * (float) (i + 1);
-				int j = (int) (f * 10.0F);
+				int j = (int) (f * 10F);
 
 				if (j != durabilityRemainingOnBlock) {
 					world.sendBlockBreakProgress(player.getEntityId(), delayedDestroyPos, j);
 					durabilityRemainingOnBlock = j;
 				}
 
-				if (f >= 1.0F) {
+				if (f >= 1F) {
 					receivedFinishDiggingPacket = false;
 					tryHarvestBlock(delayedDestroyPos);
 				}
@@ -134,7 +134,7 @@ public class PlayerInteractionManager {
 			} else {
 				int k = curblockDamage - initialDamage;
 				float f1 = iblockstate1.getPlayerRelativeBlockHardness(player, player.world, delayedDestroyPos) * (float) (k + 1);
-				int l = (int) (f1 * 10.0F);
+				int l = (int) (f1 * 10F);
 
 				if (l != durabilityRemainingOnBlock) {
 					world.sendBlockBreakProgress(player.getEntityId(), destroyPos, l);
@@ -178,19 +178,19 @@ public class PlayerInteractionManager {
 
 			world.extinguishFire(null, pos, side);
 			initialDamage = curblockDamage;
-			float f = 1.0F;
+			float f = 1F;
 
 			if (iblockstate.getMaterial() != Material.AIR) {
 				block.onBlockClicked(world, pos, player);
 				f = iblockstate.getPlayerRelativeBlockHardness(player, player.world, pos);
 			}
 
-			if (iblockstate.getMaterial() != Material.AIR && f >= 1.0F) {
+			if (iblockstate.getMaterial() != Material.AIR && f >= 1F) {
 				tryHarvestBlock(pos);
 			} else {
 				isDestroyingBlock = true;
 				destroyPos = pos;
-				int i = (int) (f * 10.0F);
+				int i = (int) (f * 10F);
 				world.sendBlockBreakProgress(player.getEntityId(), pos, i);
 				durabilityRemainingOnBlock = i;
 			}

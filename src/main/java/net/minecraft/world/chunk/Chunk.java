@@ -673,15 +673,15 @@ public class Chunk {
 	public void addEntity(Entity entityIn) {
 
 		hasEntities = true;
-		int i = MathHelper.floor(entityIn.posX / 16.0D);
-		int j = MathHelper.floor(entityIn.posZ / 16.0D);
+		int i = MathHelper.floor(entityIn.posX / 16D);
+		int j = MathHelper.floor(entityIn.posZ / 16D);
 
 		if (i != x || j != z) {
 			LOGGER.warn("Wrong location! ({}, {}) should be ({}, {}), {}", i, j, x, z, entityIn);
 			entityIn.setDead();
 		}
 
-		int k = MathHelper.floor(entityIn.posY / 16.0D);
+		int k = MathHelper.floor(entityIn.posY / 16D);
 
 		if (k < 0) {
 			k = 0;
@@ -835,8 +835,8 @@ public class Chunk {
 	 */
 	public void getEntitiesWithinAABBForEntity(Entity entityIn, AxisAlignedBB aabb, List<Entity> listToFill, Predicate<? super Entity> filter) {
 
-		int i = MathHelper.floor((aabb.minY - 2.0D) / 16.0D);
-		int j = MathHelper.floor((aabb.maxY + 2.0D) / 16.0D);
+		int i = MathHelper.floor((aabb.minY - 2D) / 16D);
+		int j = MathHelper.floor((aabb.maxY + 2D) / 16D);
 		i = MathHelper.clamp(i, 0, entityLists.length - 1);
 		j = MathHelper.clamp(j, 0, entityLists.length - 1);
 
@@ -865,8 +865,8 @@ public class Chunk {
 
 	public <T extends Entity> void getEntitiesOfTypeWithinAABB(Class<? extends T> entityClass, AxisAlignedBB aabb, List<T> listToFill, Predicate<? super T> filter) {
 
-		int i = MathHelper.floor((aabb.minY - 2.0D) / 16.0D);
-		int j = MathHelper.floor((aabb.maxY + 2.0D) / 16.0D);
+		int i = MathHelper.floor((aabb.minY - 2D) / 16D);
+		int j = MathHelper.floor((aabb.maxY + 2D) / 16D);
 		i = MathHelper.clamp(i, 0, entityLists.length - 1);
 		j = MathHelper.clamp(j, 0, entityLists.length - 1);
 

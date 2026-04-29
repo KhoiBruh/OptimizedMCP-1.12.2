@@ -29,7 +29,7 @@ public class EntityAIMoveIndoors extends EntityAIBase {
 		if ((!entity.world.isDaytime() || entity.world.isRaining() && !entity.world.getBiome(blockpos).canRain()) && entity.world.provider.hasSkyLight()) {
 			if (entity.getRNG().nextInt(50) != 0) {
 				return false;
-			} else if (insidePosX != -1 && entity.getDistanceSq(insidePosX, entity.posY, insidePosZ) < 4.0D) {
+			} else if (insidePosX != -1 && entity.getDistanceSq(insidePosX, entity.posY, insidePosZ) < 4D) {
 				return false;
 			} else {
 				Village village = entity.world.getVillageCollection().getNearestVillage(blockpos, 14);
@@ -65,14 +65,14 @@ public class EntityAIMoveIndoors extends EntityAIBase {
 		int j = blockpos.getY();
 		int k = blockpos.getZ();
 
-		if (entity.getDistanceSq(blockpos) > 256.0D) {
+		if (entity.getDistanceSq(blockpos) > 256D) {
 			Vec3d vec3d = RandomPositionGenerator.findRandomTargetBlockTowards(entity, 14, 3, new Vec3d((double) i + 0.5D, j, (double) k + 0.5D));
 
 			if (vec3d != null) {
-				entity.getNavigator().tryMoveToXYZ(vec3d.x(), vec3d.y(), vec3d.z(), 1.0D);
+				entity.getNavigator().tryMoveToXYZ(vec3d.x(), vec3d.y(), vec3d.z(), 1D);
 			}
 		} else {
-			entity.getNavigator().tryMoveToXYZ((double) i + 0.5D, j, (double) k + 0.5D, 1.0D);
+			entity.getNavigator().tryMoveToXYZ((double) i + 0.5D, j, (double) k + 0.5D, 1D);
 		}
 	}
 

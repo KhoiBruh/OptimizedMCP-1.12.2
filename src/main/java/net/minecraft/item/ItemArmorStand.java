@@ -50,7 +50,7 @@ public class ItemArmorStand extends Item {
 					double d0 = blockpos.getX();
 					double d1 = blockpos.getY();
 					double d2 = blockpos.getZ();
-					List<Entity> list = worldIn.getEntitiesWithinAABBExcludingEntity(null, new AxisAlignedBB(d0, d1, d2, d0 + 1.0D, d1 + 2.0D, d2 + 1.0D));
+					List<Entity> list = worldIn.getEntitiesWithinAABBExcludingEntity(null, new AxisAlignedBB(d0, d1, d2, d0 + 1D, d1 + 2D, d2 + 1D));
 
 					if (!list.isEmpty()) {
 						return EnumActionResult.FAIL;
@@ -59,8 +59,8 @@ public class ItemArmorStand extends Item {
 							worldIn.setBlockToAir(blockpos);
 							worldIn.setBlockToAir(blockpos1);
 							EntityArmorStand entityarmorstand = new EntityArmorStand(worldIn, d0 + 0.5D, d1, d2 + 0.5D);
-							float f = (float) MathHelper.floor((MathHelper.wrapDegrees(player.rotationYaw - 180.0F) + 22.5F) / 45.0F) * 45.0F;
-							entityarmorstand.setLocationAndAngles(d0 + 0.5D, d1, d2 + 0.5D, f, 0.0F);
+							float f = (float) MathHelper.floor((MathHelper.wrapDegrees(player.rotationYaw - 180F) + 22.5F) / 45F) * 45F;
+							entityarmorstand.setLocationAndAngles(d0 + 0.5D, d1, d2 + 0.5D, f, 0F);
 							applyRandomRotations(entityarmorstand, worldIn.rand);
 							ItemMonsterPlacer.applyItemEntityDataToEntity(worldIn, player, itemstack, entityarmorstand);
 							worldIn.spawnEntity(entityarmorstand);
@@ -78,12 +78,12 @@ public class ItemArmorStand extends Item {
 	private void applyRandomRotations(EntityArmorStand armorStand, Random rand) {
 
 		Rotations rotations = armorStand.getHeadRotation();
-		float f = rand.nextFloat() * 5.0F;
-		float f1 = rand.nextFloat() * 20.0F - 10.0F;
+		float f = rand.nextFloat() * 5F;
+		float f1 = rand.nextFloat() * 20F - 10F;
 		Rotations rotations1 = new Rotations(rotations.x() + f, rotations.y() + f1, rotations.z());
 		armorStand.setHeadRotation(rotations1);
 		rotations = armorStand.getBodyRotation();
-		f = rand.nextFloat() * 10.0F - 5.0F;
+		f = rand.nextFloat() * 10F - 5F;
 		rotations1 = new Rotations(rotations.x(), rotations.y() + f, rotations.z());
 		armorStand.setBodyRotation(rotations1);
 	}

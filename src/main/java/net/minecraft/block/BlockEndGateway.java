@@ -21,7 +21,7 @@ public class BlockEndGateway extends BlockContainer {
 	protected BlockEndGateway(Material p_i46687_1_) {
 
 		super(p_i46687_1_);
-		setLightLevel(1.0F);
+		setLightLevel(1F);
 	}
 
 	/**
@@ -84,10 +84,10 @@ public class BlockEndGateway extends BlockContainer {
 
 				if (rand.nextBoolean()) {
 					d2 = (double) pos.getZ() + 0.5D + 0.25D * (double) k;
-					d5 = rand.nextFloat() * 2.0F * (float) k;
+					d5 = rand.nextFloat() * 2F * (float) k;
 				} else {
 					d0 = (double) pos.getX() + 0.5D + 0.25D * (double) k;
-					d3 = rand.nextFloat() * 2.0F * (float) k;
+					d3 = rand.nextFloat() * 2F * (float) k;
 				}
 
 				worldIn.spawnParticle(EnumParticleTypes.PORTAL, d0, d1, d2, d3, d4, d5);

@@ -21,7 +21,7 @@ public class BlockStem extends BlockBush implements IGrowable {
 
 	public static final PropertyInteger AGE = PropertyInteger.create("age", 0, 7);
 	public static final PropertyDirection FACING = BlockTorch.FACING;
-	protected static final AxisAlignedBB[] STEM_AABB = new AxisAlignedBB[]{new AxisAlignedBB(0.375D, 0.0D, 0.375D, 0.625D, 0.125D, 0.625D), new AxisAlignedBB(0.375D, 0.0D, 0.375D, 0.625D, 0.25D, 0.625D), new AxisAlignedBB(0.375D, 0.0D, 0.375D, 0.625D, 0.375D, 0.625D), new AxisAlignedBB(0.375D, 0.0D, 0.375D, 0.625D, 0.5D, 0.625D), new AxisAlignedBB(0.375D, 0.0D, 0.375D, 0.625D, 0.625D, 0.625D), new AxisAlignedBB(0.375D, 0.0D, 0.375D, 0.625D, 0.75D, 0.625D), new AxisAlignedBB(0.375D, 0.0D, 0.375D, 0.625D, 0.875D, 0.625D), new AxisAlignedBB(0.375D, 0.0D, 0.375D, 0.625D, 1.0D, 0.625D)};
+	protected static final AxisAlignedBB[] STEM_AABB = new AxisAlignedBB[]{new AxisAlignedBB(0.375D, 0D, 0.375D, 0.625D, 0.125D, 0.625D), new AxisAlignedBB(0.375D, 0D, 0.375D, 0.625D, 0.25D, 0.625D), new AxisAlignedBB(0.375D, 0D, 0.375D, 0.625D, 0.375D, 0.625D), new AxisAlignedBB(0.375D, 0D, 0.375D, 0.625D, 0.5D, 0.625D), new AxisAlignedBB(0.375D, 0D, 0.375D, 0.625D, 0.625D, 0.625D), new AxisAlignedBB(0.375D, 0D, 0.375D, 0.625D, 0.75D, 0.625D), new AxisAlignedBB(0.375D, 0D, 0.375D, 0.625D, 0.875D, 0.625D), new AxisAlignedBB(0.375D, 0D, 0.375D, 0.625D, 1D, 0.625D)};
 	private final Block crop;
 
 	protected BlockStem(Block crop) {
@@ -71,7 +71,7 @@ public class BlockStem extends BlockBush implements IGrowable {
 		if (worldIn.getLightFromNeighbors(pos.up()) >= 9) {
 			float f = BlockCrops.getGrowthChance(this, worldIn, pos);
 
-			if (rand.nextInt((int) (25.0F / f) + 1) == 0) {
+			if (rand.nextInt((int) (25F / f) + 1) == 0) {
 				int i = state.getValue(AGE);
 
 				if (i < 7) {

@@ -224,9 +224,9 @@ public abstract class EntityLivingBase extends Entity {
 		applyEntityAttributes();
 		setHealth(getMaxHealth());
 		preventEntitySpawning = true;
-		randomUnused1 = (float) ((Math.random() + 1.0D) * 0.009999999776482582D);
+		randomUnused1 = (float) ((Math.random() + 1D) * 0.009999999776482582D);
 		setPosition(posX, posY, posZ);
-		randomUnused2 = (float) Math.random() * 12398.0F;
+		randomUnused2 = (float) Math.random() * 12398F;
 		rotationYaw = (float) (Math.random() * (Math.PI * 2D));
 		rotationYawHead = rotationYaw;
 		stepHeight = 0.6F;
@@ -260,7 +260,7 @@ public abstract class EntityLivingBase extends Entity {
 		dataManager.register(POTION_EFFECTS, 0);
 		dataManager.register(HIDE_PARTICLES, false);
 		dataManager.register(ARROW_COUNT_IN_ENTITY, 0);
-		dataManager.register(HEALTH, 1.0F);
+		dataManager.register(HEALTH, 1F);
 	}
 
 	protected void applyEntityAttributes() {
@@ -278,13 +278,13 @@ public abstract class EntityLivingBase extends Entity {
 			handleWaterMovement();
 		}
 
-		if (!world.isRemote && fallDistance > 3.0F && onGroundIn) {
-			float f = (float) MathHelper.ceil(fallDistance - 3.0F);
+		if (!world.isRemote && fallDistance > 3F && onGroundIn) {
+			float f = (float) MathHelper.ceil(fallDistance - 3F);
 
 			if (state.getMaterial() != Material.AIR) {
-				double d0 = Math.min(0.2F + f / 15.0F, 2.5D);
-				int i = (int) (150.0D * d0);
-				((WorldServer) world).spawnParticle(EnumParticleTypes.BLOCK_DUST, posX, posY, posZ, i, 0.0D, 0.0D, 0.0D, 0.15000000596046448D, Block.getStateId(state));
+				double d0 = Math.min(0.2F + f / 15F, 2.5D);
+				int i = (int) (150D * d0);
+				((WorldServer) world).spawnParticle(EnumParticleTypes.BLOCK_DUST, posX, posY, posZ, i, 0D, 0D, 0D, 0.15000000596046448D, Block.getStateId(state));
 			}
 		}
 
@@ -308,14 +308,14 @@ public abstract class EntityLivingBase extends Entity {
 
 		if (isEntityAlive()) {
 			if (isEntityInsideOpaqueBlock()) {
-				attackEntityFrom(DamageSource.IN_WALL, 1.0F);
+				attackEntityFrom(DamageSource.IN_WALL, 1F);
 			} else if (flag && !world.getWorldBorder().contains(getEntityBoundingBox())) {
 				double d0 = world.getWorldBorder().getClosestDistance(this) + world.getWorldBorder().getDamageBuffer();
 
-				if (d0 < 0.0D) {
+				if (d0 < 0D) {
 					double d1 = world.getWorldBorder().getDamageAmount();
 
-					if (d1 > 0.0D) {
+					if (d1 > 0D) {
 						attackEntityFrom(DamageSource.IN_WALL, (float) Math.max(1, MathHelper.floor(-d0 * d1)));
 					}
 				}
@@ -345,7 +345,7 @@ public abstract class EntityLivingBase extends Entity {
 							world.spawnParticle(EnumParticleTypes.WATER_BUBBLE, posX + (double) f2, posY + (double) f, posZ + (double) f1, motionX, motionY, motionZ);
 						}
 
-						attackEntityFrom(DamageSource.DROWN, 2.0F);
+						attackEntityFrom(DamageSource.DROWN, 2F);
 					}
 				}
 
@@ -378,7 +378,7 @@ public abstract class EntityLivingBase extends Entity {
 			--hurtResistantTime;
 		}
 
-		if (getHealth() <= 0.0F) {
+		if (getHealth() <= 0F) {
 			onDeathUpdate();
 		}
 
@@ -450,7 +450,7 @@ public abstract class EntityLivingBase extends Entity {
 				double d2 = rand.nextGaussian() * 0.02D;
 				double d0 = rand.nextGaussian() * 0.02D;
 				double d1 = rand.nextGaussian() * 0.02D;
-				world.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, posX + (double) (rand.nextFloat() * width * 2.0F) - (double) width, posY + (double) (rand.nextFloat() * height), posZ + (double) (rand.nextFloat() * width * 2.0F) - (double) width, d2, d0, d1);
+				world.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, posX + (double) (rand.nextFloat() * width * 2F) - (double) width, posY + (double) (rand.nextFloat() * height), posZ + (double) (rand.nextFloat() * width * 2F) - (double) width, d2, d0, d1);
 			}
 		}
 	}
@@ -552,7 +552,7 @@ public abstract class EntityLivingBase extends Entity {
 				soundevent = SoundEvents.ITEM_ARMOR_EQIIP_ELYTRA;
 			}
 
-			playSound(soundevent, 1.0F, 1.0F);
+			playSound(soundevent, 1F, 1F);
 		}
 	}
 
@@ -690,9 +690,9 @@ public abstract class EntityLivingBase extends Entity {
 			}
 
 			if (flag && i > 0) {
-				double d0 = (double) (i >> 16 & 255) / 255.0D;
-				double d1 = (double) (i >> 8 & 255) / 255.0D;
-				double d2 = (double) (i & 255) / 255.0D;
+				double d0 = (double) (i >> 16 & 255) / 255D;
+				double d1 = (double) (i >> 8 & 255) / 255D;
+				double d2 = (double) (i & 255) / 255D;
 				world.spawnParticle(flag1 ? EnumParticleTypes.SPELL_MOB_AMBIENT : EnumParticleTypes.SPELL_MOB, posX + (rand.nextDouble() - 0.5D) * (double) width, posY + rand.nextDouble() * (double) height, posZ + (rand.nextDouble() - 0.5D) * (double) width, d0, d1, d2);
 			}
 		}
@@ -857,7 +857,7 @@ public abstract class EntityLivingBase extends Entity {
 
 		float f = getHealth();
 
-		if (f > 0.0F) {
+		if (f > 0F) {
 			setHealth(f + healAmount);
 		}
 	}
@@ -869,7 +869,7 @@ public abstract class EntityLivingBase extends Entity {
 
 	public void setHealth(float health) {
 
-		dataManager.set(HEALTH, MathHelper.clamp(health, 0.0F, getMaxHealth()));
+		dataManager.set(HEALTH, MathHelper.clamp(health, 0F, getMaxHealth()));
 	}
 
 	/**
@@ -884,7 +884,7 @@ public abstract class EntityLivingBase extends Entity {
 		} else {
 			idleTime = 0;
 
-			if (getHealth() <= 0.0F) {
+			if (getHealth() <= 0F) {
 				return false;
 			} else if (source.isFireDamage() && isPotionActive(MobEffects.FIRE_RESISTANCE)) {
 				return false;
@@ -892,15 +892,15 @@ public abstract class EntityLivingBase extends Entity {
 				float f = amount;
 
 				if ((source == DamageSource.ANVIL || source == DamageSource.FALLING_BLOCK) && !getItemStackFromSlot(EntityEquipmentSlot.HEAD).isEmpty()) {
-					getItemStackFromSlot(EntityEquipmentSlot.HEAD).damageItem((int) (amount * 4.0F + rand.nextFloat() * amount * 2.0F), this);
+					getItemStackFromSlot(EntityEquipmentSlot.HEAD).damageItem((int) (amount * 4F + rand.nextFloat() * amount * 2F), this);
 					amount *= 0.75F;
 				}
 
 				boolean flag = false;
 
-				if (amount > 0.0F && canBlockDamageSource(source)) {
+				if (amount > 0F && canBlockDamageSource(source)) {
 					damageShield(amount);
-					amount = 0.0F;
+					amount = 0F;
 
 					if (!source.isProjectile()) {
 						Entity entity = source.getImmediateSource();
@@ -916,7 +916,7 @@ public abstract class EntityLivingBase extends Entity {
 				limbSwingAmount = 1.5F;
 				boolean flag1 = true;
 
-				if ((float) hurtResistantTime > (float) maxHurtResistantTime / 2.0F) {
+				if ((float) hurtResistantTime > (float) maxHurtResistantTime / 2F) {
 					if (amount <= lastDamage) {
 						return false;
 					}
@@ -932,7 +932,7 @@ public abstract class EntityLivingBase extends Entity {
 					hurtTime = maxHurtTime;
 				}
 
-				attackedAtYaw = 0.0F;
+				attackedAtYaw = 0F;
 				Entity entity1 = source.getTrueSource();
 
 				if (entity1 != null) {
@@ -971,7 +971,7 @@ public abstract class EntityLivingBase extends Entity {
 						world.setEntityState(this, b0);
 					}
 
-					if (source != DamageSource.DROWN && (!flag || amount > 0.0F)) {
+					if (source != DamageSource.DROWN && (!flag || amount > 0F)) {
 						markVelocityChanged();
 					}
 
@@ -986,11 +986,11 @@ public abstract class EntityLivingBase extends Entity {
 						attackedAtYaw = (float) (MathHelper.atan2(d0, d1) * (180D / Math.PI) - (double) rotationYaw);
 						knockBack(entity1, 0.4F, d1, d0);
 					} else {
-						attackedAtYaw = (float) ((int) (Math.random() * 2.0D) * 180);
+						attackedAtYaw = (float) ((int) (Math.random() * 2D) * 180);
 					}
 				}
 
-				if (getHealth() <= 0.0F) {
+				if (getHealth() <= 0F) {
 					if (!checkTotemDeathProtection(source)) {
 						SoundEvent soundevent = getDeathSound();
 
@@ -1004,7 +1004,7 @@ public abstract class EntityLivingBase extends Entity {
 					playHurtSound(source);
 				}
 
-				boolean flag2 = !flag || amount > 0.0F;
+				boolean flag2 = !flag || amount > 0F;
 
 				if (flag2) {
 					lastDamageSource = source;
@@ -1052,7 +1052,7 @@ public abstract class EntityLivingBase extends Entity {
 					CriteriaTriggers.USED_TOTEM.trigger(entityplayermp, itemstack);
 				}
 
-				setHealth(1.0F);
+				setHealth(1F);
 				clearActivePotions();
 				addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 900, 1));
 				addPotionEffect(new PotionEffect(MobEffects.ABSORPTION, 100, 1));
@@ -1092,11 +1092,11 @@ public abstract class EntityLivingBase extends Entity {
 			Vec3d vec3d = damageSourceIn.getDamageLocation();
 
 			if (vec3d != null) {
-				Vec3d vec3d1 = getLook(1.0F);
+				Vec3d vec3d1 = getLook(1F);
 				Vec3d vec3d2 = vec3d.subtractReverse(new Vec3d(posX, posY, posZ)).normalize();
-				vec3d2 = new Vec3d(vec3d2.x(), 0.0D, vec3d2.z());
+				vec3d2 = new Vec3d(vec3d2.x(), 0D, vec3d2.z());
 
-				return vec3d2.dotProduct(vec3d1) < 0.0D;
+				return vec3d2.dotProduct(vec3d1) < 0D;
 			}
 		}
 
@@ -1111,7 +1111,7 @@ public abstract class EntityLivingBase extends Entity {
 		playSound(SoundEvents.ENTITY_ITEM_BREAK, 0.8F, 0.8F + world.rand.nextFloat() * 0.4F);
 
 		for (int i = 0; i < 5; ++i) {
-			Vec3d vec3d = new Vec3d(((double) rand.nextFloat() - 0.5D) * 0.1D, Math.random() * 0.1D + 0.1D, 0.0D);
+			Vec3d vec3d = new Vec3d(((double) rand.nextFloat() - 0.5D) * 0.1D, Math.random() * 0.1D + 0.1D, 0D);
 			vec3d = vec3d.rotatePitch(-rotationPitch * 0.017453292F);
 			vec3d = vec3d.rotateYaw(-rotationYaw * 0.017453292F);
 			double d0 = (double) (-rand.nextFloat()) * 0.6D - 0.3D;
@@ -1188,13 +1188,13 @@ public abstract class EntityLivingBase extends Entity {
 		if (rand.nextDouble() >= getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).getAttributeValue()) {
 			isAirBorne = true;
 			float f = MathHelper.sqrt(xRatio * xRatio + zRatio * zRatio);
-			motionX /= 2.0D;
-			motionZ /= 2.0D;
+			motionX /= 2D;
+			motionZ /= 2D;
 			motionX -= xRatio / (double) f * (double) strength;
 			motionZ -= zRatio / (double) f * (double) strength;
 
 			if (onGround) {
-				motionY /= 2.0D;
+				motionY /= 2D;
 				motionY += strength;
 
 				if (motionY > 0.4000000059604645D) {
@@ -1269,18 +1269,18 @@ public abstract class EntityLivingBase extends Entity {
 	 */
 	public boolean isEntityAlive() {
 
-		return !isDead && getHealth() > 0.0F;
+		return !isDead && getHealth() > 0F;
 	}
 
 	public void fall(float distance, float damageMultiplier) {
 
 		super.fall(distance, damageMultiplier);
 		PotionEffect potioneffect = getActivePotionEffect(MobEffects.JUMP_BOOST);
-		float f = potioneffect == null ? 0.0F : (float) (potioneffect.getAmplifier() + 1);
-		int i = MathHelper.ceil((distance - 3.0F - f) * damageMultiplier);
+		float f = potioneffect == null ? 0F : (float) (potioneffect.getAmplifier() + 1);
+		int i = MathHelper.ceil((distance - 3F - f) * damageMultiplier);
 
 		if (i > 0) {
-			playSound(getFallSound(i), 1.0F, 1.0F);
+			playSound(getFallSound(i), 1F, 1F);
 			attackEntityFrom(DamageSource.FALL, (float) i);
 			int j = MathHelper.floor(posX);
 			int k = MathHelper.floor(posY - 0.20000000298023224D);
@@ -1301,7 +1301,7 @@ public abstract class EntityLivingBase extends Entity {
 
 		maxHurtTime = 10;
 		hurtTime = maxHurtTime;
-		attackedAtYaw = 0.0F;
+		attackedAtYaw = 0F;
 	}
 
 	/**
@@ -1346,11 +1346,11 @@ public abstract class EntityLivingBase extends Entity {
 				int i = (getActivePotionEffect(MobEffects.RESISTANCE).getAmplifier() + 1) * 5;
 				int j = 25 - i;
 				float f = damage * (float) j;
-				damage = f / 25.0F;
+				damage = f / 25F;
 			}
 
-			if (damage <= 0.0F) {
-				return 0.0F;
+			if (damage <= 0F) {
+				return 0F;
 			} else {
 				int k = EnchantmentHelper.getEnchantmentModifierDamage(getArmorInventoryList(), source);
 
@@ -1373,10 +1373,10 @@ public abstract class EntityLivingBase extends Entity {
 			damageAmount = applyArmorCalculations(damageSrc, damageAmount);
 			damageAmount = applyPotionDamageCalculations(damageSrc, damageAmount);
 			float f = damageAmount;
-			damageAmount = Math.max(damageAmount - getAbsorptionAmount(), 0.0F);
+			damageAmount = Math.max(damageAmount - getAbsorptionAmount(), 0F);
 			setAbsorptionAmount(getAbsorptionAmount() - (f - damageAmount));
 
-			if (damageAmount != 0.0F) {
+			if (damageAmount != 0F) {
 				float f1 = getHealth();
 				setHealth(f1 - damageAmount);
 				getCombatTracker().trackDamage(damageSrc, f1, damageAmount);
@@ -1469,15 +1469,15 @@ public abstract class EntityLivingBase extends Entity {
 				SoundEvent soundevent1 = getDeathSound();
 
 				if (soundevent1 != null) {
-					playSound(soundevent1, getSoundVolume(), (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F);
+					playSound(soundevent1, getSoundVolume(), (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1F);
 				}
 
-				setHealth(0.0F);
+				setHealth(0F);
 				onDeath(DamageSource.GENERIC);
 			} else if (id == 30) {
 				playSound(SoundEvents.ITEM_SHIELD_BREAK, 0.8F, 0.8F + world.rand.nextFloat() * 0.4F);
 			} else if (id == 29) {
-				playSound(SoundEvents.ITEM_SHIELD_BLOCK, 1.0F, 0.8F + world.rand.nextFloat() * 0.4F);
+				playSound(SoundEvents.ITEM_SHIELD_BLOCK, 1F, 0.8F + world.rand.nextFloat() * 0.4F);
 			} else {
 				super.handleStatusUpdate(id);
 			}
@@ -1486,10 +1486,10 @@ public abstract class EntityLivingBase extends Entity {
 			hurtResistantTime = maxHurtResistantTime;
 			maxHurtTime = 10;
 			hurtTime = maxHurtTime;
-			attackedAtYaw = 0.0F;
+			attackedAtYaw = 0F;
 
 			if (flag) {
-				playSound(SoundEvents.ENCHANT_THORNS_HIT, getSoundVolume(), (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F);
+				playSound(SoundEvents.ENCHANT_THORNS_HIT, getSoundVolume(), (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1F);
 			}
 
 			DamageSource damagesource;
@@ -1505,10 +1505,10 @@ public abstract class EntityLivingBase extends Entity {
 			SoundEvent soundevent = getHurtSound(damagesource);
 
 			if (soundevent != null) {
-				playSound(soundevent, getSoundVolume(), (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F);
+				playSound(soundevent, getSoundVolume(), (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1F);
 			}
 
-			attackEntityFrom(DamageSource.GENERIC, 0.0F);
+			attackEntityFrom(DamageSource.GENERIC, 0F);
 		}
 	}
 
@@ -1517,7 +1517,7 @@ public abstract class EntityLivingBase extends Entity {
 	 */
 	protected void outOfWorld() {
 
-		attackEntityFrom(DamageSource.OUT_OF_WORLD, 4.0F);
+		attackEntityFrom(DamageSource.OUT_OF_WORLD, 4F);
 	}
 
 	/**
@@ -1633,7 +1633,7 @@ public abstract class EntityLivingBase extends Entity {
 	 */
 	protected float getSoundVolume() {
 
-		return 1.0F;
+		return 1F;
 	}
 
 	/**
@@ -1641,7 +1641,7 @@ public abstract class EntityLivingBase extends Entity {
 	 */
 	protected float getSoundPitch() {
 
-		return isChild() ? (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.5F : (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F;
+		return isChild() ? (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.5F : (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1F;
 	}
 
 	/**
@@ -1649,7 +1649,7 @@ public abstract class EntityLivingBase extends Entity {
 	 */
 	protected boolean isMovementBlocked() {
 
-		return getHealth() <= 0.0F;
+		return getHealth() <= 0F;
 	}
 
 	/**
@@ -1670,31 +1670,31 @@ public abstract class EntityLivingBase extends Entity {
 				double d6 = Math.floor(posZ) + 0.5D;
 				double d7 = getEntityBoundingBox().maxX - getEntityBoundingBox().minX;
 				double d8 = getEntityBoundingBox().maxZ - getEntityBoundingBox().minZ;
-				AxisAlignedBB axisalignedbb = new AxisAlignedBB(d5 - d7 / 2.0D, entityIn.getEntityBoundingBox().minY, d6 - d8 / 2.0D, d5 + d7 / 2.0D, Math.floor(entityIn.getEntityBoundingBox().minY) + (double) height, d6 + d8 / 2.0D);
+				AxisAlignedBB axisalignedbb = new AxisAlignedBB(d5 - d7 / 2D, entityIn.getEntityBoundingBox().minY, d6 - d8 / 2D, d5 + d7 / 2D, Math.floor(entityIn.getEntityBoundingBox().minY) + (double) height, d6 + d8 / 2D);
 
 				for (int[] aint : aint1) {
 					double d9 = enumfacing1.getFrontOffsetX() * aint[0] + enumfacing.getFrontOffsetX() * aint[1];
 					double d10 = enumfacing1.getFrontOffsetZ() * aint[0] + enumfacing.getFrontOffsetZ() * aint[1];
 					double d11 = d5 + d9;
 					double d12 = d6 + d10;
-					AxisAlignedBB axisalignedbb1 = axisalignedbb.offset(d9, 0.0D, d10);
+					AxisAlignedBB axisalignedbb1 = axisalignedbb.offset(d9, 0D, d10);
 
 					if (!world.collidesWithAnyBlock(axisalignedbb1)) {
 						if (world.getBlockState(new BlockPos(d11, posY, d12)).isTopSolid()) {
-							setPositionAndUpdate(d11, posY + 1.0D, d12);
+							setPositionAndUpdate(d11, posY + 1D, d12);
 							return;
 						}
 
-						BlockPos blockpos = new BlockPos(d11, posY - 1.0D, d12);
+						BlockPos blockpos = new BlockPos(d11, posY - 1D, d12);
 
 						if (world.getBlockState(blockpos).isTopSolid() || world.getBlockState(blockpos).getMaterial() == Material.WATER) {
 							d1 = d11;
-							d13 = posY + 1.0D;
+							d13 = posY + 1D;
 							d14 = d12;
 						}
-					} else if (!world.collidesWithAnyBlock(axisalignedbb1.offset(0.0D, 1.0D, 0.0D)) && world.getBlockState(new BlockPos(d11, posY + 1.0D, d12)).isTopSolid()) {
+					} else if (!world.collidesWithAnyBlock(axisalignedbb1.offset(0D, 1D, 0D)) && world.getBlockState(new BlockPos(d11, posY + 1D, d12)).isTopSolid()) {
 						d1 = d11;
-						d13 = posY + 2.0D;
+						d13 = posY + 2D;
 						d14 = d12;
 					}
 				}
@@ -1702,11 +1702,11 @@ public abstract class EntityLivingBase extends Entity {
 
 			setPositionAndUpdate(d1, d13, d14);
 		} else {
-			double d0 = (double) (width / 2.0F + entityIn.width / 2.0F) + 0.4D;
+			double d0 = (double) (width / 2F + entityIn.width / 2F) + 0.4D;
 			float f;
 
 			if (entityIn instanceof EntityBoat) {
-				f = 0.0F;
+				f = 0F;
 			} else {
 				f = ((float) Math.PI / 2F) * (float) (getPrimaryHand() == EnumHandSide.RIGHT ? -1 : 1);
 			}
@@ -1778,7 +1778,7 @@ public abstract class EntityLivingBase extends Entity {
 				if (!isInLava() || this instanceof EntityPlayer && ((EntityPlayer) this).capabilities.isFlying) {
 					if (isElytraFlying()) {
 						if (motionY > -0.5D) {
-							fallDistance = 1.0F;
+							fallDistance = 1F;
 						}
 
 						Vec3d vec3d = getLookVec();
@@ -1787,24 +1787,24 @@ public abstract class EntityLivingBase extends Entity {
 						double d8 = Math.sqrt(motionX * motionX + motionZ * motionZ);
 						double d1 = vec3d.lengthVector();
 						float f4 = MathHelper.cos(f);
-						f4 = (float) ((double) f4 * (double) f4 * Math.min(1.0D, d1 / 0.4D));
+						f4 = (float) ((double) f4 * (double) f4 * Math.min(1D, d1 / 0.4D));
 						motionY += -0.08D + (double) f4 * 0.06D;
 
-						if (motionY < 0.0D && d6 > 0.0D) {
+						if (motionY < 0D && d6 > 0D) {
 							double d2 = motionY * -0.1D * (double) f4;
 							motionY += d2;
 							motionX += vec3d.x() * d2 / d6;
 							motionZ += vec3d.z() * d2 / d6;
 						}
 
-						if (f < 0.0F) {
+						if (f < 0F) {
 							double d10 = d8 * (double) (-MathHelper.sin(f)) * 0.04D;
 							motionY += d10 * 3.2D;
 							motionX -= vec3d.x() * d10 / d6;
 							motionZ -= vec3d.z() * d10 / d6;
 						}
 
-						if (d6 > 0.0D) {
+						if (d6 > 0D) {
 							motionX += (vec3d.x() / d6 * d8 - motionX) * 0.1D;
 							motionZ += (vec3d.z() / d6 * d8 - motionZ) * 0.1D;
 						}
@@ -1817,10 +1817,10 @@ public abstract class EntityLivingBase extends Entity {
 						if (collidedHorizontally && !world.isRemote) {
 							double d11 = Math.sqrt(motionX * motionX + motionZ * motionZ);
 							double d3 = d8 - d11;
-							float f5 = (float) (d3 * 10.0D - 3.0D);
+							float f5 = (float) (d3 * 10D - 3D);
 
-							if (f5 > 0.0F) {
-								playSound(getFallSound((int) f5), 1.0F, 1.0F);
+							if (f5 > 0F) {
+								playSound(getFallSound((int) f5), 1F, 1F);
 								attackEntityFrom(DamageSource.FLY_INTO_WALL, f5);
 							}
 						}
@@ -1830,7 +1830,7 @@ public abstract class EntityLivingBase extends Entity {
 						}
 					} else {
 						float f6 = 0.91F;
-						BlockPos.PooledMutableBlockPos blockpos$pooledmutableblockpos = BlockPos.PooledMutableBlockPos.retain(posX, getEntityBoundingBox().minY - 1.0D, posZ);
+						BlockPos.PooledMutableBlockPos blockpos$pooledmutableblockpos = BlockPos.PooledMutableBlockPos.retain(posX, getEntityBoundingBox().minY - 1D, posZ);
 
 						if (onGround) {
 							f6 = world.getBlockState(blockpos$pooledmutableblockpos).getBlock().slipperiness * 0.91F;
@@ -1849,14 +1849,14 @@ public abstract class EntityLivingBase extends Entity {
 						f6 = 0.91F;
 
 						if (onGround) {
-							f6 = world.getBlockState(blockpos$pooledmutableblockpos.setPos(posX, getEntityBoundingBox().minY - 1.0D, posZ)).getBlock().slipperiness * 0.91F;
+							f6 = world.getBlockState(blockpos$pooledmutableblockpos.setPos(posX, getEntityBoundingBox().minY - 1D, posZ)).getBlock().slipperiness * 0.91F;
 						}
 
 						if (isOnLadder()) {
 							float f9 = 0.15F;
 							motionX = MathHelper.clamp(motionX, -0.15000000596046448D, 0.15000000596046448D);
 							motionZ = MathHelper.clamp(motionZ, -0.15000000596046448D, 0.15000000596046448D);
-							fallDistance = 0.0F;
+							fallDistance = 0F;
 
 							if (motionY < -0.15D) {
 								motionY = -0.15D;
@@ -1864,8 +1864,8 @@ public abstract class EntityLivingBase extends Entity {
 
 							boolean flag = isSneaking() && this instanceof EntityPlayer;
 
-							if (flag && motionY < 0.0D) {
-								motionY = 0.0D;
+							if (flag && motionY < 0D) {
+								motionY = 0D;
 							}
 						}
 
@@ -1878,16 +1878,16 @@ public abstract class EntityLivingBase extends Entity {
 						if (isPotionActive(MobEffects.LEVITATION)) {
 							motionY += (0.05D * (double) (getActivePotionEffect(MobEffects.LEVITATION).getAmplifier() + 1) - motionY) * 0.2D;
 						} else {
-							blockpos$pooledmutableblockpos.setPos(posX, 0.0D, posZ);
+							blockpos$pooledmutableblockpos.setPos(posX, 0D, posZ);
 
 							if (!world.isRemote || world.isBlockLoaded(blockpos$pooledmutableblockpos) && world.getChunkFromBlockCoords(blockpos$pooledmutableblockpos).isLoaded()) {
 								if (!hasNoGravity()) {
 									motionY -= 0.08D;
 								}
-							} else if (posY > 0.0D) {
+							} else if (posY > 0D) {
 								motionY = -0.1D;
 							} else {
-								motionY = 0.0D;
+								motionY = 0D;
 							}
 						}
 
@@ -1918,17 +1918,17 @@ public abstract class EntityLivingBase extends Entity {
 				float f2 = 0.02F;
 				float f3 = (float) EnchantmentHelper.getDepthStriderModifier(this);
 
-				if (f3 > 3.0F) {
-					f3 = 3.0F;
+				if (f3 > 3F) {
+					f3 = 3F;
 				}
 
 				if (!onGround) {
 					f3 *= 0.5F;
 				}
 
-				if (f3 > 0.0F) {
-					f1 += (0.54600006F - f1) * f3 / 3.0F;
-					f2 += (getAIMoveSpeed() - f2) * f3 / 3.0F;
+				if (f3 > 0F) {
+					f1 += (0.54600006F - f1) * f3 / 3F;
+					f2 += (getAIMoveSpeed() - f2) * f3 / 3F;
 				}
 
 				moveRelative(strafe, vertical, forward, f2);
@@ -1950,11 +1950,11 @@ public abstract class EntityLivingBase extends Entity {
 		prevLimbSwingAmount = limbSwingAmount;
 		double d5 = posX - prevPosX;
 		double d7 = posZ - prevPosZ;
-		double d9 = this instanceof net.minecraft.entity.passive.EntityFlying ? posY - prevPosY : 0.0D;
-		float f10 = MathHelper.sqrt(d5 * d5 + d9 * d9 + d7 * d7) * 4.0F;
+		double d9 = this instanceof net.minecraft.entity.passive.EntityFlying ? posY - prevPosY : 0D;
+		float f10 = MathHelper.sqrt(d5 * d5 + d9 * d9 + d7 * d7) * 4F;
 
-		if (f10 > 1.0F) {
-			f10 = 1.0F;
+		if (f10 > 1F) {
+			f10 = 1F;
 		}
 
 		limbSwingAmount += (f10 - limbSwingAmount) * 0.4F;
@@ -2072,29 +2072,29 @@ public abstract class EntityLivingBase extends Entity {
 		double d1 = posZ - prevPosZ;
 		float f3 = (float) (d0 * d0 + d1 * d1);
 		float f4 = renderYawOffset;
-		float f5 = 0.0F;
+		float f5 = 0F;
 		prevOnGroundSpeedFactor = onGroundSpeedFactor;
-		float f = 0.0F;
+		float f = 0F;
 
 		if (f3 > 0.0025000002F) {
-			f = 1.0F;
-			f5 = (float) Math.sqrt(f3) * 3.0F;
-			float f1 = (float) MathHelper.atan2(d1, d0) * (180F / (float) Math.PI) - 90.0F;
+			f = 1F;
+			f5 = (float) Math.sqrt(f3) * 3F;
+			float f1 = (float) MathHelper.atan2(d1, d0) * (180F / (float) Math.PI) - 90F;
 			float f2 = MathHelper.abs(MathHelper.wrapDegrees(rotationYaw) - f1);
 
-			if (95.0F < f2 && f2 < 265.0F) {
-				f4 = f1 - 180.0F;
+			if (95F < f2 && f2 < 265F) {
+				f4 = f1 - 180F;
 			} else {
 				f4 = f1;
 			}
 		}
 
-		if (swingProgress > 0.0F) {
+		if (swingProgress > 0F) {
 			f4 = rotationYaw;
 		}
 
 		if (!onGround) {
-			f = 0.0F;
+			f = 0F;
 		}
 
 		onGroundSpeedFactor += (f - onGroundSpeedFactor) * 0.3F;
@@ -2103,36 +2103,36 @@ public abstract class EntityLivingBase extends Entity {
 		world.profiler.endSection();
 		world.profiler.startSection("rangeChecks");
 
-		while (rotationYaw - prevRotationYaw < -180.0F) {
-			prevRotationYaw -= 360.0F;
+		while (rotationYaw - prevRotationYaw < -180F) {
+			prevRotationYaw -= 360F;
 		}
 
-		while (rotationYaw - prevRotationYaw >= 180.0F) {
-			prevRotationYaw += 360.0F;
+		while (rotationYaw - prevRotationYaw >= 180F) {
+			prevRotationYaw += 360F;
 		}
 
-		while (renderYawOffset - prevRenderYawOffset < -180.0F) {
-			prevRenderYawOffset -= 360.0F;
+		while (renderYawOffset - prevRenderYawOffset < -180F) {
+			prevRenderYawOffset -= 360F;
 		}
 
-		while (renderYawOffset - prevRenderYawOffset >= 180.0F) {
-			prevRenderYawOffset += 360.0F;
+		while (renderYawOffset - prevRenderYawOffset >= 180F) {
+			prevRenderYawOffset += 360F;
 		}
 
-		while (rotationPitch - prevRotationPitch < -180.0F) {
-			prevRotationPitch -= 360.0F;
+		while (rotationPitch - prevRotationPitch < -180F) {
+			prevRotationPitch -= 360F;
 		}
 
-		while (rotationPitch - prevRotationPitch >= 180.0F) {
-			prevRotationPitch += 360.0F;
+		while (rotationPitch - prevRotationPitch >= 180F) {
+			prevRotationPitch += 360F;
 		}
 
-		while (rotationYawHead - prevRotationYawHead < -180.0F) {
-			prevRotationYawHead -= 360.0F;
+		while (rotationYawHead - prevRotationYawHead < -180F) {
+			prevRotationYawHead -= 360F;
 		}
 
-		while (rotationYawHead - prevRotationYawHead >= 180.0F) {
-			prevRotationYawHead += 360.0F;
+		while (rotationYawHead - prevRotationYawHead >= 180F) {
+			prevRotationYawHead += 360F;
 		}
 
 		world.profiler.endSection();
@@ -2150,24 +2150,24 @@ public abstract class EntityLivingBase extends Entity {
 		float f = MathHelper.wrapDegrees(p_110146_1_ - renderYawOffset);
 		renderYawOffset += f * 0.3F;
 		float f1 = MathHelper.wrapDegrees(rotationYaw - renderYawOffset);
-		boolean flag = f1 < -90.0F || f1 >= 90.0F;
+		boolean flag = f1 < -90F || f1 >= 90F;
 
-		if (f1 < -75.0F) {
-			f1 = -75.0F;
+		if (f1 < -75F) {
+			f1 = -75F;
 		}
 
-		if (f1 >= 75.0F) {
-			f1 = 75.0F;
+		if (f1 >= 75F) {
+			f1 = 75F;
 		}
 
 		renderYawOffset = rotationYaw - f1;
 
-		if (f1 * f1 > 2500.0F) {
+		if (f1 * f1 > 2500F) {
 			renderYawOffset += f1 * 0.2F;
 		}
 
 		if (flag) {
-			p_110146_2_ *= -1.0F;
+			p_110146_2_ *= -1F;
 		}
 
 		return p_110146_2_;
@@ -2200,24 +2200,24 @@ public abstract class EntityLivingBase extends Entity {
 		}
 
 		if (Math.abs(motionX) < 0.003D) {
-			motionX = 0.0D;
+			motionX = 0D;
 		}
 
 		if (Math.abs(motionY) < 0.003D) {
-			motionY = 0.0D;
+			motionY = 0D;
 		}
 
 		if (Math.abs(motionZ) < 0.003D) {
-			motionZ = 0.0D;
+			motionZ = 0D;
 		}
 
 		world.profiler.startSection("ai");
 
 		if (isMovementBlocked()) {
 			isJumping = false;
-			moveStrafing = 0.0F;
-			moveForward = 0.0F;
-			randomYawVelocity = 0.0F;
+			moveStrafing = 0F;
+			moveForward = 0F;
+			randomYawVelocity = 0F;
 		} else if (isServerWorld()) {
 			world.profiler.startSection("newAi");
 			updateEntityActionState();
@@ -2302,7 +2302,7 @@ public abstract class EntityLivingBase extends Entity {
 				}
 
 				if (j > i - 1) {
-					attackEntityFrom(DamageSource.CRAMMING, 6.0F);
+					attackEntityFrom(DamageSource.CRAMMING, 6F);
 				}
 			}
 
@@ -2337,8 +2337,8 @@ public abstract class EntityLivingBase extends Entity {
 
 		super.updateRidden();
 		prevOnGroundSpeedFactor = onGroundSpeedFactor;
-		onGroundSpeedFactor = 0.0F;
-		fallDistance = 0.0F;
+		onGroundSpeedFactor = 0F;
+		fallDistance = 0F;
 	}
 
 	/**
@@ -2386,7 +2386,7 @@ public abstract class EntityLivingBase extends Entity {
 	 */
 	public Vec3d getLook(float partialTicks) {
 
-		if (partialTicks == 1.0F) {
+		if (partialTicks == 1F) {
 			return getVectorForRotation(rotationPitch, rotationYawHead);
 		} else {
 			float f = prevRotationPitch + (rotationPitch - prevRotationPitch) * partialTicks;
@@ -2402,7 +2402,7 @@ public abstract class EntityLivingBase extends Entity {
 
 		float f = swingProgress - prevSwingProgress;
 
-		if (f < 0.0F) {
+		if (f < 0F) {
 			++f;
 		}
 
@@ -2472,8 +2472,8 @@ public abstract class EntityLivingBase extends Entity {
 
 	public void setAbsorptionAmount(float amount) {
 
-		if (amount < 0.0F) {
-			amount = 0.0F;
+		if (amount < 0F) {
+			amount = 0F;
 		}
 
 		absorptionAmount = amount;
@@ -2579,7 +2579,7 @@ public abstract class EntityLivingBase extends Entity {
 
 			if (stack.getItemUseAction() == EnumAction.EAT) {
 				for (int i = 0; i < eatingParticleCount; ++i) {
-					Vec3d vec3d = new Vec3d(((double) rand.nextFloat() - 0.5D) * 0.1D, Math.random() * 0.1D + 0.1D, 0.0D);
+					Vec3d vec3d = new Vec3d(((double) rand.nextFloat() - 0.5D) * 0.1D, Math.random() * 0.1D + 0.1D, 0D);
 					vec3d = vec3d.rotatePitch(-rotationPitch * 0.017453292F);
 					vec3d = vec3d.rotateYaw(-rotationYaw * 0.017453292F);
 					double d0 = (double) (-rand.nextFloat()) * 0.6D - 0.3D;
@@ -2595,7 +2595,7 @@ public abstract class EntityLivingBase extends Entity {
 					}
 				}
 
-				playSound(SoundEvents.ENTITY_GENERIC_EAT, 0.5F + 0.5F * (float) rand.nextInt(2), (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F);
+				playSound(SoundEvents.ENTITY_GENERIC_EAT, 0.5F + 0.5F * (float) rand.nextInt(2), (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1F);
 			}
 		}
 	}
@@ -2718,13 +2718,13 @@ public abstract class EntityLivingBase extends Entity {
 			int i = 128;
 
 			for (int j = 0; j < 128; ++j) {
-				double d6 = (double) j / 127.0D;
+				double d6 = (double) j / 127D;
 				float f = (random.nextFloat() - 0.5F) * 0.2F;
 				float f1 = (random.nextFloat() - 0.5F) * 0.2F;
 				float f2 = (random.nextFloat() - 0.5F) * 0.2F;
-				double d3 = d0 + (posX - d0) * d6 + (random.nextDouble() - 0.5D) * (double) width * 2.0D;
+				double d3 = d0 + (posX - d0) * d6 + (random.nextDouble() - 0.5D) * (double) width * 2D;
 				double d4 = d1 + (posY - d1) * d6 + random.nextDouble() * (double) height;
-				double d5 = d2 + (posZ - d2) * d6 + (random.nextDouble() - 0.5D) * (double) width * 2.0D;
+				double d5 = d2 + (posZ - d2) * d6 + (random.nextDouble() - 0.5D) * (double) width * 2D;
 				world.spawnParticle(EnumParticleTypes.PORTAL, d3, d4, d5, f, f1, f2);
 			}
 

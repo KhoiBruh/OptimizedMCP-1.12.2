@@ -350,7 +350,7 @@ public class ContainerRepair extends Container {
 		if (world.getBlockState(selfPosition).getBlock() != Blocks.ANVIL) {
 			return false;
 		} else {
-			return playerIn.getDistanceSq((double) selfPosition.getX() + 0.5D, (double) selfPosition.getY() + 0.5D, (double) selfPosition.getZ() + 0.5D) <= 64.0D;
+			return playerIn.getDistanceSq((double) selfPosition.getX() + 0.5D, (double) selfPosition.getY() + 0.5D, (double) selfPosition.getZ() + 0.5D) <= 64D;
 		}
 	}
 

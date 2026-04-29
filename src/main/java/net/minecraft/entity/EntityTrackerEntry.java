@@ -93,9 +93,9 @@ public class EntityTrackerEntry {
 		encodedPosX = EntityTracker.getPositionLong(entityIn.posX);
 		encodedPosY = EntityTracker.getPositionLong(entityIn.posY);
 		encodedPosZ = EntityTracker.getPositionLong(entityIn.posZ);
-		encodedRotationYaw = MathHelper.floor(entityIn.rotationYaw * 256.0F / 360.0F);
-		encodedRotationPitch = MathHelper.floor(entityIn.rotationPitch * 256.0F / 360.0F);
-		lastHeadMotion = MathHelper.floor(entityIn.getRotationYawHead() * 256.0F / 360.0F);
+		encodedRotationYaw = MathHelper.floor(entityIn.rotationYaw * 256F / 360F);
+		encodedRotationPitch = MathHelper.floor(entityIn.rotationPitch * 256F / 360F);
+		lastHeadMotion = MathHelper.floor(entityIn.getRotationYawHead() * 256F / 360F);
 		onGround = entityIn.onGround;
 	}
 
@@ -117,7 +117,7 @@ public class EntityTrackerEntry {
 
 		playerEntitiesUpdated = false;
 
-		if (!updatedPlayerVisibility || trackedEntity.getDistanceSq(lastTrackedEntityPosX, lastTrackedEntityPosY, lastTrackedEntityPosZ) > 16.0D) {
+		if (!updatedPlayerVisibility || trackedEntity.getDistanceSq(lastTrackedEntityPosX, lastTrackedEntityPosY, lastTrackedEntityPosZ) > 16D) {
 			lastTrackedEntityPosX = trackedEntity.posX;
 			lastTrackedEntityPosY = trackedEntity.posY;
 			lastTrackedEntityPosZ = trackedEntity.posZ;
@@ -155,8 +155,8 @@ public class EntityTrackerEntry {
 
 		if (updateCounter % updateFrequency == 0 || trackedEntity.isAirBorne || trackedEntity.getDataManager().isDirty()) {
 			if (trackedEntity.isRiding()) {
-				int j1 = MathHelper.floor(trackedEntity.rotationYaw * 256.0F / 360.0F);
-				int l1 = MathHelper.floor(trackedEntity.rotationPitch * 256.0F / 360.0F);
+				int j1 = MathHelper.floor(trackedEntity.rotationYaw * 256F / 360F);
+				int l1 = MathHelper.floor(trackedEntity.rotationPitch * 256F / 360F);
 				boolean flag3 = Math.abs(j1 - encodedRotationYaw) >= 1 || Math.abs(l1 - encodedRotationPitch) >= 1;
 
 				if (flag3) {
@@ -175,8 +175,8 @@ public class EntityTrackerEntry {
 				long i1 = EntityTracker.getPositionLong(trackedEntity.posX);
 				long i2 = EntityTracker.getPositionLong(trackedEntity.posY);
 				long j2 = EntityTracker.getPositionLong(trackedEntity.posZ);
-				int k2 = MathHelper.floor(trackedEntity.rotationYaw * 256.0F / 360.0F);
-				int i = MathHelper.floor(trackedEntity.rotationPitch * 256.0F / 360.0F);
+				int k2 = MathHelper.floor(trackedEntity.rotationYaw * 256F / 360F);
+				int i = MathHelper.floor(trackedEntity.rotationPitch * 256F / 360F);
 				long j = i1 - encodedPosX;
 				long k = i2 - encodedPosY;
 				long l = j2 - encodedPosZ;
@@ -216,7 +216,7 @@ public class EntityTrackerEntry {
 					double d3 = 0.02D;
 					double d4 = d0 * d0 + d1 * d1 + d2 * d2;
 
-					if (d4 > 4.0E-4D || d4 > 0.0D && trackedEntity.motionX == 0.0D && trackedEntity.motionY == 0.0D && trackedEntity.motionZ == 0.0D) {
+					if (d4 > 4.0E-4D || d4 > 0D && trackedEntity.motionX == 0D && trackedEntity.motionY == 0D && trackedEntity.motionZ == 0D) {
 						lastTrackedEntityMotionX = trackedEntity.motionX;
 						lastTrackedEntityMotionY = trackedEntity.motionY;
 						motionZ = trackedEntity.motionZ;
@@ -244,7 +244,7 @@ public class EntityTrackerEntry {
 				ridingEntity = false;
 			}
 
-			int k1 = MathHelper.floor(trackedEntity.getRotationYawHead() * 256.0F / 360.0F);
+			int k1 = MathHelper.floor(trackedEntity.getRotationYawHead() * 256F / 360F);
 
 			if (Math.abs(k1 - lastHeadMotion) >= 1) {
 				sendPacketToTrackedPlayers(new SPacketEntityHeadLook(trackedEntity, (byte) k1));
@@ -403,8 +403,8 @@ public class EntityTrackerEntry {
 
 	public boolean isVisibleTo(EntityPlayerMP playerMP) {
 
-		double d0 = playerMP.posX - (double) encodedPosX / 4096.0D;
-		double d1 = playerMP.posZ - (double) encodedPosZ / 4096.0D;
+		double d0 = playerMP.posX - (double) encodedPosX / 4096D;
+		double d1 = playerMP.posZ - (double) encodedPosZ / 4096D;
 		int i = Math.min(range, maxRange);
 		return d0 >= (double) (-i) && d0 <= (double) i && d1 >= (double) (-i) && d1 <= (double) i && trackedEntity.isSpectatedByPlayer(playerMP);
 	}
@@ -432,7 +432,7 @@ public class EntityTrackerEntry {
 				return new SPacketSpawnPlayer((EntityPlayer) trackedEntity);
 			}
 			case IAnimals iAnimals -> {
-				lastHeadMotion = MathHelper.floor(trackedEntity.getRotationYawHead() * 256.0F / 360.0F);
+				lastHeadMotion = MathHelper.floor(trackedEntity.getRotationYawHead() * 256F / 360F);
 				return new SPacketSpawnMob((EntityLivingBase) trackedEntity);
 			}
 			case EntityPainting entityPainting -> {
@@ -501,16 +501,16 @@ public class EntityTrackerEntry {
 					spacketspawnobject = new SPacketSpawnObject(trackedEntity, i, 0);
 				}
 
-				spacketspawnobject.setSpeedX((int) (entityfireball.accelerationX * 8000.0D));
-				spacketspawnobject.setSpeedY((int) (entityfireball.accelerationY * 8000.0D));
-				spacketspawnobject.setSpeedZ((int) (entityfireball.accelerationZ * 8000.0D));
+				spacketspawnobject.setSpeedX((int) (entityfireball.accelerationX * 8000D));
+				spacketspawnobject.setSpeedY((int) (entityfireball.accelerationY * 8000D));
+				spacketspawnobject.setSpeedZ((int) (entityfireball.accelerationZ * 8000D));
 				return spacketspawnobject;
 			}
 			case EntityShulkerBullet entityShulkerBullet -> {
 				SPacketSpawnObject spacketspawnobject1 = new SPacketSpawnObject(trackedEntity, 67, 0);
-				spacketspawnobject1.setSpeedX((int) (trackedEntity.motionX * 8000.0D));
-				spacketspawnobject1.setSpeedY((int) (trackedEntity.motionY * 8000.0D));
-				spacketspawnobject1.setSpeedZ((int) (trackedEntity.motionZ * 8000.0D));
+				spacketspawnobject1.setSpeedX((int) (trackedEntity.motionX * 8000D));
+				spacketspawnobject1.setSpeedY((int) (trackedEntity.motionY * 8000D));
+				spacketspawnobject1.setSpeedZ((int) (trackedEntity.motionZ * 8000D));
 				return spacketspawnobject1;
 			}
 			case EntityEgg entityEgg -> {

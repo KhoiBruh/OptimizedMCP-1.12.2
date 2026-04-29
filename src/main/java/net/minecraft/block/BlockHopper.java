@@ -28,11 +28,11 @@ public class BlockHopper extends BlockContainer {
 
 	public static final PropertyDirection FACING = PropertyDirection.create("facing", p_apply_1_ -> p_apply_1_ != EnumFacing.UP);
 	public static final PropertyBool ENABLED = PropertyBool.create("enabled");
-	protected static final AxisAlignedBB BASE_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.625D, 1.0D);
-	protected static final AxisAlignedBB SOUTH_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 0.125D);
-	protected static final AxisAlignedBB NORTH_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.875D, 1.0D, 1.0D, 1.0D);
-	protected static final AxisAlignedBB WEST_AABB = new AxisAlignedBB(0.875D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D);
-	protected static final AxisAlignedBB EAST_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 0.125D, 1.0D, 1.0D);
+	protected static final AxisAlignedBB BASE_AABB = new AxisAlignedBB(0D, 0D, 0D, 1D, 0.625D, 1D);
+	protected static final AxisAlignedBB SOUTH_AABB = new AxisAlignedBB(0D, 0D, 0D, 1D, 1D, 0.125D);
+	protected static final AxisAlignedBB NORTH_AABB = new AxisAlignedBB(0D, 0D, 0.875D, 1D, 1D, 1D);
+	protected static final AxisAlignedBB WEST_AABB = new AxisAlignedBB(0.875D, 0D, 0D, 1D, 1D, 1D);
+	protected static final AxisAlignedBB EAST_AABB = new AxisAlignedBB(0D, 0D, 0D, 0.125D, 1D, 1D);
 
 	public BlockHopper() {
 

@@ -17,11 +17,11 @@ public class ParticleDragonBreath extends Particle {
 		motionY = ySpeed;
 		motionZ = zSpeed;
 		particleRed = MathHelper.nextFloat(rand, 0.7176471F, 0.8745098F);
-		particleGreen = MathHelper.nextFloat(rand, 0.0F, 0.0F);
+		particleGreen = MathHelper.nextFloat(rand, 0F, 0F);
 		particleBlue = MathHelper.nextFloat(rand, 0.8235294F, 0.9764706F);
 		particleScale *= 0.75F;
 		oSize = particleScale;
-		particleMaxAge = (int) (20.0D / ((double) rand.nextFloat() * 0.8D + 0.2D));
+		particleMaxAge = (int) (20D / ((double) rand.nextFloat() * 0.8D + 0.2D));
 		hasHitGround = false;
 	}
 
@@ -37,7 +37,7 @@ public class ParticleDragonBreath extends Particle {
 			setParticleTextureIndex(3 * particleAge / particleMaxAge + 5);
 
 			if (onGround) {
-				motionY = 0.0D;
+				motionY = 0D;
 				hasHitGround = true;
 			}
 
@@ -66,7 +66,7 @@ public class ParticleDragonBreath extends Particle {
 	 */
 	public void renderParticle(BufferBuilder buffer, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
 
-		particleScale = oSize * MathHelper.clamp(((float) particleAge + partialTicks) / (float) particleMaxAge * 32.0F, 0.0F, 1.0F);
+		particleScale = oSize * MathHelper.clamp(((float) particleAge + partialTicks) / (float) particleMaxAge * 32F, 0F, 1F);
 		super.renderParticle(buffer, entityIn, partialTicks, rotationX, rotationZ, rotationYZ, rotationXY, rotationXZ);
 	}
 

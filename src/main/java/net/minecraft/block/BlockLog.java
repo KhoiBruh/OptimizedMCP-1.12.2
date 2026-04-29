@@ -19,7 +19,7 @@ public abstract class BlockLog extends BlockRotatedPillar {
 
 		super(Material.WOOD);
 		setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
-		setHardness(2.0F);
+		setHardness(2F);
 		setSoundType(SoundType.WOOD);
 	}
 

@@ -60,17 +60,17 @@ public class Teleporter {
 				}
 			}
 
-			entityIn.setLocationAndAngles(i, j, k, entityIn.rotationYaw, 0.0F);
-			entityIn.motionX = 0.0D;
-			entityIn.motionY = 0.0D;
-			entityIn.motionZ = 0.0D;
+			entityIn.setLocationAndAngles(i, j, k, entityIn.rotationYaw, 0F);
+			entityIn.motionX = 0D;
+			entityIn.motionY = 0D;
+			entityIn.motionZ = 0D;
 		}
 	}
 
 	public boolean placeInExistingPortal(Entity entityIn, float rotationYaw) {
 
 		int i = 128;
-		double d0 = -1.0D;
+		double d0 = -1D;
 		int j = MathHelper.floor(entityIn.posX);
 		int k = MathHelper.floor(entityIn.posZ);
 		boolean flag = true;
@@ -79,7 +79,7 @@ public class Teleporter {
 
 		if (destinationCoordinateCache.containsKey(l)) {
 			Teleporter.PortalPosition teleporter$portalposition = destinationCoordinateCache.get(l);
-			d0 = 0.0D;
+			d0 = 0D;
 			blockpos = teleporter$portalposition;
 			teleporter$portalposition.lastUpdateTime = world.getTotalWorldTime();
 			flag = false;
@@ -100,7 +100,7 @@ public class Teleporter {
 
 							double d1 = blockpos1.distanceSq(blockpos3);
 
-							if (d0 < 0.0D || d1 < d0) {
+							if (d0 < 0D || d1 < d0) {
 								d0 = d1;
 								blockpos = blockpos1;
 							}
@@ -110,7 +110,7 @@ public class Teleporter {
 			}
 		}
 
-		if (d0 >= 0.0D) {
+		if (d0 >= 0D) {
 			if (flag) {
 				destinationCoordinateCache.put(l, new Teleporter.PortalPosition(blockpos, world.getTotalWorldTime()));
 			}
@@ -127,28 +127,28 @@ public class Teleporter {
 			}
 
 			if (blockpattern$patternhelper.getForwards().getAxis() == EnumFacing.Axis.X) {
-				d7 = d2 + (1.0D - entityIn.getLastPortalVec().x()) * (double) blockpattern$patternhelper.getWidth() * (double) blockpattern$patternhelper.getForwards().rotateY().getAxisDirection().getOffset();
+				d7 = d2 + (1D - entityIn.getLastPortalVec().x()) * (double) blockpattern$patternhelper.getWidth() * (double) blockpattern$patternhelper.getForwards().rotateY().getAxisDirection().getOffset();
 			} else {
-				d5 = d2 + (1.0D - entityIn.getLastPortalVec().x()) * (double) blockpattern$patternhelper.getWidth() * (double) blockpattern$patternhelper.getForwards().rotateY().getAxisDirection().getOffset();
+				d5 = d2 + (1D - entityIn.getLastPortalVec().x()) * (double) blockpattern$patternhelper.getWidth() * (double) blockpattern$patternhelper.getForwards().rotateY().getAxisDirection().getOffset();
 			}
 
-			float f = 0.0F;
-			float f1 = 0.0F;
-			float f2 = 0.0F;
-			float f3 = 0.0F;
+			float f = 0F;
+			float f1 = 0F;
+			float f2 = 0F;
+			float f3 = 0F;
 
 			if (blockpattern$patternhelper.getForwards().getOpposite() == entityIn.getTeleportDirection()) {
-				f = 1.0F;
-				f1 = 1.0F;
+				f = 1F;
+				f1 = 1F;
 			} else if (blockpattern$patternhelper.getForwards().getOpposite() == entityIn.getTeleportDirection().getOpposite()) {
-				f = -1.0F;
-				f1 = -1.0F;
+				f = -1F;
+				f1 = -1F;
 			} else if (blockpattern$patternhelper.getForwards().getOpposite() == entityIn.getTeleportDirection().rotateY()) {
-				f2 = 1.0F;
-				f3 = -1.0F;
+				f2 = 1F;
+				f3 = -1F;
 			} else {
-				f2 = -1.0F;
-				f3 = 1.0F;
+				f2 = -1F;
+				f3 = 1F;
 			}
 
 			double d3 = entityIn.motionX;
@@ -172,7 +172,7 @@ public class Teleporter {
 	public boolean makePortal(Entity entityIn) {
 
 		int i = 16;
-		double d0 = -1.0D;
+		double d0 = -1D;
 		int j = MathHelper.floor(entityIn.posX);
 		int k = MathHelper.floor(entityIn.posY);
 		int l = MathHelper.floor(entityIn.posZ);
@@ -223,7 +223,7 @@ public class Teleporter {
 							double d5 = (double) j3 + 0.5D - entityIn.posY;
 							double d7 = d1 * d1 + d5 * d5 + d2 * d2;
 
-							if (d0 < 0.0D || d7 < d0) {
+							if (d0 < 0D || d7 < d0) {
 								d0 = d7;
 								i1 = j2;
 								j1 = j3;
@@ -236,7 +236,7 @@ public class Teleporter {
 			}
 		}
 
-		if (d0 < 0.0D) {
+		if (d0 < 0D) {
 			for (int l5 = j - 16; l5 <= j + 16; ++l5) {
 				double d3 = (double) l5 + 0.5D - entityIn.posX;
 
@@ -270,7 +270,7 @@ public class Teleporter {
 								double d6 = (double) i7 + 0.5D - entityIn.posY;
 								double d8 = d3 * d3 + d6 * d6 + d4 * d4;
 
-								if (d0 < 0.0D || d8 < d0) {
+								if (d0 < 0D || d8 < d0) {
 									d0 = d8;
 									i1 = l5;
 									j1 = i7;
@@ -295,7 +295,7 @@ public class Teleporter {
 			i3 = -i3;
 		}
 
-		if (d0 < 0.0D) {
+		if (d0 < 0D) {
 			j1 = MathHelper.clamp(j1, 70, world.getActualHeight() - 10);
 			k2 = j1;
 

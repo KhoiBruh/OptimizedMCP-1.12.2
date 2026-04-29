@@ -48,7 +48,7 @@ public class FlyingNodeProcessor extends WalkNodeProcessor {
 		BlockPos blockpos1 = new BlockPos(entity);
 		PathNodeType pathnodetype1 = getPathNodeType(entity, blockpos1.getX(), i, blockpos1.getZ());
 
-		if (entity.getPathPriority(pathnodetype1) < 0.0F) {
+		if (entity.getPathPriority(pathnodetype1) < 0F) {
 			Set<BlockPos> set = Sets.newHashSet();
 			set.add(new BlockPos(entity.getEntityBoundingBox().minX, i, entity.getEntityBoundingBox().minZ));
 			set.add(new BlockPos(entity.getEntityBoundingBox().minX, i, entity.getEntityBoundingBox().maxZ));
@@ -58,7 +58,7 @@ public class FlyingNodeProcessor extends WalkNodeProcessor {
 			for (BlockPos blockpos : set) {
 				PathNodeType pathnodetype = getPathNodeType(entity, blockpos);
 
-				if (entity.getPathPriority(pathnodetype) >= 0.0F) {
+				if (entity.getPathPriority(pathnodetype) >= 0F) {
 					return super.openPoint(blockpos.getX(), blockpos.getY(), blockpos.getZ());
 				}
 			}
@@ -101,12 +101,12 @@ public class FlyingNodeProcessor extends WalkNodeProcessor {
 			pathOptions[i++] = pathpoint5;
 		}
 
-		boolean flag = pathpoint3 == null || pathpoint3.costMalus != 0.0F;
-		boolean flag1 = pathpoint == null || pathpoint.costMalus != 0.0F;
-		boolean flag2 = pathpoint2 == null || pathpoint2.costMalus != 0.0F;
-		boolean flag3 = pathpoint1 == null || pathpoint1.costMalus != 0.0F;
-		boolean flag4 = pathpoint4 == null || pathpoint4.costMalus != 0.0F;
-		boolean flag5 = pathpoint5 == null || pathpoint5.costMalus != 0.0F;
+		boolean flag = pathpoint3 == null || pathpoint3.costMalus != 0F;
+		boolean flag1 = pathpoint == null || pathpoint.costMalus != 0F;
+		boolean flag2 = pathpoint2 == null || pathpoint2.costMalus != 0F;
+		boolean flag3 = pathpoint1 == null || pathpoint1.costMalus != 0F;
+		boolean flag4 = pathpoint4 == null || pathpoint4.costMalus != 0F;
+		boolean flag5 = pathpoint5 == null || pathpoint5.costMalus != 0F;
 
 		if (flag && flag3) {
 			PathPoint pathpoint6 = openPoint(currentPoint.x - 1, currentPoint.y, currentPoint.z - 1);
@@ -218,7 +218,7 @@ public class FlyingNodeProcessor extends WalkNodeProcessor {
 		PathNodeType pathnodetype = getPathNodeType(entity, x, y, z);
 		float f = entity.getPathPriority(pathnodetype);
 
-		if (f >= 0.0F) {
+		if (f >= 0F) {
 			pathpoint = super.openPoint(x, y, z);
 			pathpoint.nodeType = pathnodetype;
 			pathpoint.costMalus = Math.max(pathpoint.costMalus, f);
@@ -244,7 +244,7 @@ public class FlyingNodeProcessor extends WalkNodeProcessor {
 			PathNodeType pathnodetype1 = PathNodeType.BLOCKED;
 
 			for (PathNodeType pathnodetype2 : enumset) {
-				if (entitylivingIn.getPathPriority(pathnodetype2) < 0.0F) {
+				if (entitylivingIn.getPathPriority(pathnodetype2) < 0F) {
 					return pathnodetype2;
 				}
 
@@ -253,7 +253,7 @@ public class FlyingNodeProcessor extends WalkNodeProcessor {
 				}
 			}
 
-			if (pathnodetype == PathNodeType.OPEN && entitylivingIn.getPathPriority(pathnodetype1) == 0.0F) {
+			if (pathnodetype == PathNodeType.OPEN && entitylivingIn.getPathPriority(pathnodetype1) == 0F) {
 				return PathNodeType.OPEN;
 			} else {
 				return pathnodetype1;

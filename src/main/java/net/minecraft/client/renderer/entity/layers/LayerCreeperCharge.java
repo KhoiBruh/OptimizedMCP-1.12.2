@@ -11,7 +11,7 @@ public class LayerCreeperCharge implements LayerRenderer<EntityCreeper> {
 
 	private static final ResourceLocation LIGHTNING_TEXTURE = new ResourceLocation("textures/entity/creeper/creeper_armor.png");
 	private final RenderCreeper creeperRenderer;
-	private final ModelCreeper creeperModel = new ModelCreeper(2.0F);
+	private final ModelCreeper creeperModel = new ModelCreeper(2F);
 
 	public LayerCreeperCharge(RenderCreeper creeperRendererIn) {
 
@@ -27,11 +27,11 @@ public class LayerCreeperCharge implements LayerRenderer<EntityCreeper> {
 			GlStateManager.matrixMode(5890);
 			GlStateManager.loadIdentity();
 			float f = (float) entitylivingbaseIn.ticksExisted + partialTicks;
-			GlStateManager.translate(f * 0.01F, f * 0.01F, 0.0F);
+			GlStateManager.translate(f * 0.01F, f * 0.01F, 0F);
 			GlStateManager.matrixMode(5888);
 			GlStateManager.enableBlend();
 			float f1 = 0.5F;
-			GlStateManager.color(0.5F, 0.5F, 0.5F, 1.0F);
+			GlStateManager.color(0.5F, 0.5F, 0.5F, 1F);
 			GlStateManager.disableLighting();
 			GlStateManager.blendFunc(GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ONE);
 			creeperModel.setModelAttributes(creeperRenderer.getMainModel());

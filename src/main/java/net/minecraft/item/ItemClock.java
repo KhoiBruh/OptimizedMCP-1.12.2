@@ -25,12 +25,12 @@ public class ItemClock extends Item {
 				}
 
 				if (worldIn == null) {
-					return 0.0F;
+					return 0F;
 				} else {
 					double d0;
 
 					if (worldIn.provider.isSurfaceWorld()) {
-						d0 = worldIn.getCelestialAngle(1.0F);
+						d0 = worldIn.getCelestialAngle(1F);
 					} else {
 						d0 = Math.random();
 					}
@@ -45,10 +45,10 @@ public class ItemClock extends Item {
 				if (p_185087_1_.getTotalWorldTime() != lastUpdateTick) {
 					lastUpdateTick = p_185087_1_.getTotalWorldTime();
 					double d0 = p_185087_2_ - rotation;
-					d0 = MathHelper.positiveModulo(d0 + 0.5D, 1.0D) - 0.5D;
+					d0 = MathHelper.positiveModulo(d0 + 0.5D, 1D) - 0.5D;
 					rota += d0 * 0.1D;
 					rota *= 0.9D;
-					rotation = MathHelper.positiveModulo(rotation + rota, 1.0D);
+					rotation = MathHelper.positiveModulo(rotation + rota, 1D);
 				}
 
 				return rotation;

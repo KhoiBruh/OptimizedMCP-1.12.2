@@ -29,7 +29,7 @@ public class RenderChicken extends RenderLiving<EntityChicken> {
 
 		float f = livingBase.oFlap + (livingBase.wingRotation - livingBase.oFlap) * partialTicks;
 		float f1 = livingBase.oFlapSpeed + (livingBase.destPos - livingBase.oFlapSpeed) * partialTicks;
-		return (MathHelper.sin(f) + 1.0F) * f1;
+		return (MathHelper.sin(f) + 1F) * f1;
 	}
 
 }

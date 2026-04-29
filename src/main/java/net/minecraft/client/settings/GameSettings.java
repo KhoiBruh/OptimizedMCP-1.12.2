@@ -93,7 +93,7 @@ public class GameSettings {
 	public boolean chatColours = true;
 	public boolean chatLinks = true;
 	public boolean chatLinksPrompt = true;
-	public float chatOpacity = 1.0F;
+	public float chatOpacity = 1F;
 	public boolean snooperEnabled = true;
 	public boolean fullScreen;
 	public boolean enableVsync = true;
@@ -113,10 +113,10 @@ public class GameSettings {
 	public int overrideWidth;
 	public int overrideHeight;
 	public boolean heldItemTooltips = true;
-	public float chatScale = 1.0F;
-	public float chatWidth = 1.0F;
+	public float chatScale = 1F;
+	public float chatWidth = 1F;
 	public float chatHeightUnfocused = 0.44366196F;
-	public float chatHeightFocused = 1.0F;
+	public float chatHeightFocused = 1F;
 	public int mipmapLevels = 4;
 	public boolean useNativeTransport = true;
 	public boolean entityShadows = true;
@@ -194,7 +194,7 @@ public class GameSettings {
 		keyBindings = ArrayUtils.addAll(new KeyBinding[]{keyBindAttack, keyBindUseItem, keyBindForward, keyBindLeft, keyBindBack, keyBindRight, keyBindJump, keyBindSneak, keyBindSprint, keyBindDrop, keyBindInventory, keyBindChat, keyBindPlayerList, keyBindPickBlock, keyBindCommand, keyBindScreenshot, keyBindTogglePerspective, keyBindSmoothCamera, keyBindFullscreen, keyBindSpectatorOutlines, keyBindSwapHands, keyBindSaveToolbar, keyBindLoadToolbar, keyBindAdvancements}, keyBindsHotbar);
 		difficulty = EnumDifficulty.NORMAL;
 		lastServer = "";
-		fovSetting = 70.0F;
+		fovSetting = 70F;
 		language = "en_us";
 		mc = mcIn;
 		optionsFile = new File(mcDataDir, "options.txt");
@@ -207,7 +207,7 @@ public class GameSettings {
 		keyBindings = ArrayUtils.addAll(new KeyBinding[]{keyBindAttack, keyBindUseItem, keyBindForward, keyBindLeft, keyBindBack, keyBindRight, keyBindJump, keyBindSneak, keyBindSprint, keyBindDrop, keyBindInventory, keyBindChat, keyBindPlayerList, keyBindPickBlock, keyBindCommand, keyBindScreenshot, keyBindTogglePerspective, keyBindSmoothCamera, keyBindFullscreen, keyBindSpectatorOutlines, keyBindSwapHands, keyBindSaveToolbar, keyBindLoadToolbar, keyBindAdvancements}, keyBindsHotbar);
 		difficulty = EnumDifficulty.NORMAL;
 		lastServer = "";
-		fovSetting = 70.0F;
+		fovSetting = 70F;
 		language = "en_us";
 	}
 
@@ -485,7 +485,7 @@ public class GameSettings {
 		} else if (settingOption == GameSettings.Options.MIPMAP_LEVELS) {
 			return (float) mipmapLevels;
 		} else {
-			return settingOption == GameSettings.Options.RENDER_DISTANCE ? (float) renderDistanceChunks : 0.0F;
+			return settingOption == GameSettings.Options.RENDER_DISTANCE ? (float) renderDistanceChunks : 0F;
 		}
 	}
 
@@ -526,31 +526,31 @@ public class GameSettings {
 			float f = settingOption.normalizeValue(f1);
 
 			if (settingOption == GameSettings.Options.SENSITIVITY) {
-				if (f == 0.0F) {
+				if (f == 0F) {
 					return s + I18n.format("options.sensitivity.min");
 				} else {
-					return f == 1.0F ? s + I18n.format("options.sensitivity.max") : s + (int) (f * 200.0F) + "%";
+					return f == 1F ? s + I18n.format("options.sensitivity.max") : s + (int) (f * 200F) + "%";
 				}
 			} else if (settingOption == GameSettings.Options.FOV) {
-				if (f1 == 70.0F) {
+				if (f1 == 70F) {
 					return s + I18n.format("options.fov.min");
 				} else {
-					return f1 == 110.0F ? s + I18n.format("options.fov.max") : s + (int) f1;
+					return f1 == 110F ? s + I18n.format("options.fov.max") : s + (int) f1;
 				}
 			} else if (settingOption == GameSettings.Options.FRAMERATE_LIMIT) {
 				return f1 == settingOption.valueMax ? s + I18n.format("options.framerateLimit.max") : s + I18n.format("options.framerate", (int) f1);
 			} else if (settingOption == GameSettings.Options.RENDER_CLOUDS) {
 				return f1 == settingOption.valueMin ? s + I18n.format("options.cloudHeight.min") : s + ((int) f1 + 128);
 			} else if (settingOption == GameSettings.Options.GAMMA) {
-				if (f == 0.0F) {
+				if (f == 0F) {
 					return s + I18n.format("options.gamma.min");
 				} else {
-					return f == 1.0F ? s + I18n.format("options.gamma.max") : s + "+" + (int) (f * 100.0F) + "%";
+					return f == 1F ? s + I18n.format("options.gamma.max") : s + "+" + (int) (f * 100F) + "%";
 				}
 			} else if (settingOption == GameSettings.Options.SATURATION) {
-				return s + (int) (f * 400.0F) + "%";
+				return s + (int) (f * 400F) + "%";
 			} else if (settingOption == GameSettings.Options.CHAT_OPACITY) {
-				return s + (int) (f * 90.0F + 10.0F) + "%";
+				return s + (int) (f * 90F + 10F) + "%";
 			} else if (settingOption == GameSettings.Options.CHAT_HEIGHT_UNFOCUSED) {
 				return s + GuiNewChat.calculateChatboxHeight(f) + "px";
 			} else if (settingOption == GameSettings.Options.CHAT_HEIGHT_FOCUSED) {
@@ -560,9 +560,9 @@ public class GameSettings {
 			} else if (settingOption == GameSettings.Options.RENDER_DISTANCE) {
 				return s + I18n.format("options.chunks", (int) f1);
 			} else if (settingOption == GameSettings.Options.MIPMAP_LEVELS) {
-				return f1 == 0.0F ? s + I18n.format("options.off") : s + (int) f1;
+				return f1 == 0F ? s + I18n.format("options.off") : s + (int) f1;
 			} else {
-				return f == 0.0F ? s + I18n.format("options.off") : s + (int) (f * 100.0F) + "%";
+				return f == 0F ? s + I18n.format("options.off") : s + (int) (f * 100F) + "%";
 			}
 		} else if (settingOption.isBoolean()) {
 			boolean flag = getOptionOrdinalValue(settingOption);
@@ -629,7 +629,7 @@ public class GameSettings {
 					}
 
 					if ("fov".equals(s1)) {
-						fovSetting = parseFloat(s2) * 40.0F + 70.0F;
+						fovSetting = parseFloat(s2) * 40F + 70F;
 					}
 
 					if ("gamma".equals(s1)) {
@@ -904,9 +904,9 @@ public class GameSettings {
 	private float parseFloat(String str) {
 
 		if ("true".equals(str)) {
-			return 1.0F;
+			return 1F;
 		} else {
-			return "false".equals(str) ? 0.0F : Float.parseFloat(str);
+			return "false".equals(str) ? 0F : Float.parseFloat(str);
 		}
 	}
 
@@ -922,7 +922,7 @@ public class GameSettings {
 			printwriter.println("version:1343");
 			printwriter.println("invertYMouse:" + invertMouse);
 			printwriter.println("mouseSensitivity:" + mouseSensitivity);
-			printwriter.println("fov:" + (fovSetting - 70.0F) / 40.0F);
+			printwriter.println("fov:" + (fovSetting - 70F) / 40F);
 			printwriter.println("gamma:" + gammaSetting);
 			printwriter.println("saturation:" + saturation);
 			printwriter.println("renderDistance:" + renderDistanceChunks);
@@ -1008,7 +1008,7 @@ public class GameSettings {
 
 	public float getSoundLevel(SoundCategory category) {
 
-		return soundLevels.getOrDefault(category, 1.0F);
+		return soundLevels.getOrDefault(category, 1F);
 	}
 
 	public void setSoundLevel(SoundCategory category, float volume) {
@@ -1079,13 +1079,13 @@ public class GameSettings {
 	public enum Options {
 		INVERT_MOUSE("options.invertMouse", false, true),
 		SENSITIVITY("options.sensitivity", true, false),
-		FOV("options.fov", true, false, 30.0F, 110.0F, 1.0F),
+		FOV("options.fov", true, false, 30F, 110F, 1F),
 		GAMMA("options.gamma", true, false),
 		SATURATION("options.saturation", true, false),
-		RENDER_DISTANCE("options.renderDistance", true, false, 2.0F, 32.0F, 1.0F),
+		RENDER_DISTANCE("options.renderDistance", true, false, 2F, 32F, 1F),
 		VIEW_BOBBING("options.viewBobbing", false, true),
 		ANAGLYPH("options.anaglyph", false, true),
-		FRAMERATE_LIMIT("options.framerateLimit", true, false, 10.0F, 260.0F, 10.0F),
+		FRAMERATE_LIMIT("options.framerateLimit", true, false, 10F, 260F, 10F),
 		FBO_ENABLE("options.fboEnable", false, true),
 		RENDER_CLOUDS("options.renderClouds", false, false),
 		GRAPHICS("options.graphics", false, false),
@@ -1106,7 +1106,7 @@ public class GameSettings {
 		CHAT_WIDTH("options.chat.width", true, false),
 		CHAT_HEIGHT_FOCUSED("options.chat.height.focused", true, false),
 		CHAT_HEIGHT_UNFOCUSED("options.chat.height.unfocused", true, false),
-		MIPMAP_LEVELS("options.mipmapLevels", true, false, 0.0F, 4.0F, 1.0F),
+		MIPMAP_LEVELS("options.mipmapLevels", true, false, 0F, 4F, 1F),
 		FORCE_UNICODE_FONT("options.forceUnicodeFont", false, true),
 		REDUCED_DEBUG_INFO("options.reducedDebugInfo", false, true),
 		ENTITY_SHADOWS("options.entityShadows", false, true),
@@ -1126,7 +1126,7 @@ public class GameSettings {
 
 		Options(String translation, boolean isFloat, boolean isBoolean) {
 
-			this(translation, isFloat, isBoolean, 0.0F, 1.0F, 0.0F);
+			this(translation, isFloat, isBoolean, 0F, 1F, 0F);
 		}
 
 		Options(String translation, boolean isFloat, boolean isBoolean, float valMin, float valMax, float valStep) {
@@ -1187,12 +1187,12 @@ public class GameSettings {
 
 		public float normalizeValue(float value) {
 
-			return MathHelper.clamp((snapToStepClamp(value) - valueMin) / (valueMax - valueMin), 0.0F, 1.0F);
+			return MathHelper.clamp((snapToStepClamp(value) - valueMin) / (valueMax - valueMin), 0F, 1F);
 		}
 
 		public float denormalizeValue(float value) {
 
-			return snapToStepClamp(valueMin + (valueMax - valueMin) * MathHelper.clamp(value, 0.0F, 1.0F));
+			return snapToStepClamp(valueMin + (valueMax - valueMin) * MathHelper.clamp(value, 0F, 1F));
 		}
 
 		public float snapToStepClamp(float value) {
@@ -1203,7 +1203,7 @@ public class GameSettings {
 
 		private float snapToStep(float value) {
 
-			if (valueStep > 0.0F) {
+			if (valueStep > 0F) {
 				value = valueStep * (float) Math.round(value / valueStep);
 			}
 

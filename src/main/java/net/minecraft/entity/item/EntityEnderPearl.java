@@ -53,7 +53,7 @@ public class EntityEnderPearl extends EntityThrowable {
 				return;
 			}
 
-			result.entityHit.attackEntityFrom(DamageSource.causeThrownDamage(this, entitylivingbase), 0.0F);
+			result.entityHit.attackEntityFrom(DamageSource.causeThrownDamage(this, entitylivingbase), 0F);
 		}
 
 		if (result.typeOfHit == RayTraceResult.Type.BLOCK) {
@@ -78,7 +78,7 @@ public class EntityEnderPearl extends EntityThrowable {
 		}
 
 		for (int i = 0; i < 32; ++i) {
-			world.spawnParticle(EnumParticleTypes.PORTAL, posX, posY + rand.nextDouble() * 2.0D, posZ, rand.nextGaussian(), 0.0D, rand.nextGaussian());
+			world.spawnParticle(EnumParticleTypes.PORTAL, posX, posY + rand.nextDouble() * 2D, posZ, rand.nextGaussian(), 0D, rand.nextGaussian());
 		}
 
 		if (!world.isRemote) {
@@ -97,12 +97,12 @@ public class EntityEnderPearl extends EntityThrowable {
 					}
 
 					entitylivingbase.setPositionAndUpdate(posX, posY, posZ);
-					entitylivingbase.fallDistance = 0.0F;
-					entitylivingbase.attackEntityFrom(DamageSource.FALL, 5.0F);
+					entitylivingbase.fallDistance = 0F;
+					entitylivingbase.attackEntityFrom(DamageSource.FALL, 5F);
 				}
 			} else if (entitylivingbase != null) {
 				entitylivingbase.setPositionAndUpdate(posX, posY, posZ);
-				entitylivingbase.fallDistance = 0.0F;
+				entitylivingbase.fallDistance = 0F;
 			}
 
 			setDead();

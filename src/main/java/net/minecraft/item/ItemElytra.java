@@ -19,7 +19,7 @@ public class ItemElytra extends Item {
 		maxStackSize = 1;
 		setMaxDamage(432);
 		setCreativeTab(CreativeTabs.TRANSPORTATION);
-		addPropertyOverride(new ResourceLocation("broken"), (stack, worldIn, entityIn) -> ItemElytra.isUsable(stack) ? 0.0F : 1.0F);
+		addPropertyOverride(new ResourceLocation("broken"), (stack, worldIn, entityIn) -> ItemElytra.isUsable(stack) ? 0F : 1F);
 		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(this, ItemArmor.DISPENSER_BEHAVIOR);
 	}
 

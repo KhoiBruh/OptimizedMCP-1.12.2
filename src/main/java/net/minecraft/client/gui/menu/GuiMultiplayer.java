@@ -261,13 +261,13 @@ public class GuiMultiplayer extends GuiScreen {
 		GlStateManager.matrixMode(5889);
 		GlStateManager.pushMatrix();
 		GlStateManager.loadIdentity();
-		Project.gluPerspective(120.0F, 1.0F, 0.05F, 10.0F);
+		Project.gluPerspective(120F, 1F, 0.05F, 10F);
 		GlStateManager.matrixMode(5888);
 		GlStateManager.pushMatrix();
 		GlStateManager.loadIdentity();
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-		GlStateManager.rotate(180.0F, 1.0F, 0.0F, 0.0F);
-		GlStateManager.rotate(90.0F, 0.0F, 0.0F, 1.0F);
+		GlStateManager.color(1F, 1F, 1F, 1F);
+		GlStateManager.rotate(180F, 1F, 0F, 0F);
+		GlStateManager.rotate(90F, 0F, 0F, 1F);
 		GlStateManager.enableBlend();
 		GlStateManager.disableAlpha();
 		GlStateManager.disableCull();
@@ -276,42 +276,42 @@ public class GuiMultiplayer extends GuiScreen {
 
 		for (int j = 0; j < 64; ++j) {
 			GlStateManager.pushMatrix();
-			float f = ((float) (j % 8) / 8.0F - 0.5F) / 64.0F;
-			float f1 = ((float) (j / 8) / 8.0F - 0.5F) / 64.0F;
-			GlStateManager.translate(f, f1, 0.0F);
-			GlStateManager.rotate(MathHelper.sin(panoramaTimer / 400.0F) * 25.0F + 20.0F, 1.0F, 0.0F, 0.0F);
-			GlStateManager.rotate(-panoramaTimer * 0.1F, 0.0F, 1.0F, 0.0F);
+			float f = ((float) (j % 8) / 8F - 0.5F) / 64F;
+			float f1 = ((float) (j / 8) / 8F - 0.5F) / 64F;
+			GlStateManager.translate(f, f1, 0F);
+			GlStateManager.rotate(MathHelper.sin(panoramaTimer / 400F) * 25F + 20F, 1F, 0F, 0F);
+			GlStateManager.rotate(-panoramaTimer * 0.1F, 0F, 1F, 0F);
 
 			for (int k = 0; k < 6; ++k) {
 				GlStateManager.pushMatrix();
 
 				if (k == 1) {
-					GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
+					GlStateManager.rotate(90F, 0F, 1F, 0F);
 				}
 
 				if (k == 2) {
-					GlStateManager.rotate(180.0F, 0.0F, 1.0F, 0.0F);
+					GlStateManager.rotate(180F, 0F, 1F, 0F);
 				}
 
 				if (k == 3) {
-					GlStateManager.rotate(-90.0F, 0.0F, 1.0F, 0.0F);
+					GlStateManager.rotate(-90F, 0F, 1F, 0F);
 				}
 
 				if (k == 4) {
-					GlStateManager.rotate(90.0F, 1.0F, 0.0F, 0.0F);
+					GlStateManager.rotate(90F, 1F, 0F, 0F);
 				}
 
 				if (k == 5) {
-					GlStateManager.rotate(-90.0F, 1.0F, 0.0F, 0.0F);
+					GlStateManager.rotate(-90F, 1F, 0F, 0F);
 				}
 
 				mc.getTextureManager().bindTexture(TITLE_PANORAMA_PATHS[k]);
 				bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
 				int l = 255 / (j + 1);
-				bufferbuilder.pos(-1.0D, -1.0D, 1.0D).tex(0.0D, 0.0D).color(255, 255, 255, l).endVertex();
-				bufferbuilder.pos(1.0D, -1.0D, 1.0D).tex(1.0D, 0.0D).color(255, 255, 255, l).endVertex();
-				bufferbuilder.pos(1.0D, 1.0D, 1.0D).tex(1.0D, 1.0D).color(255, 255, 255, l).endVertex();
-				bufferbuilder.pos(-1.0D, 1.0D, 1.0D).tex(0.0D, 1.0D).color(255, 255, 255, l).endVertex();
+				bufferbuilder.pos(-1D, -1D, 1D).tex(0D, 0D).color(255, 255, 255, l).endVertex();
+				bufferbuilder.pos(1D, -1D, 1D).tex(1D, 0D).color(255, 255, 255, l).endVertex();
+				bufferbuilder.pos(1D, 1D, 1D).tex(1D, 1D).color(255, 255, 255, l).endVertex();
+				bufferbuilder.pos(-1D, 1D, 1D).tex(0D, 1D).color(255, 255, 255, l).endVertex();
 				tessellator.draw();
 				GlStateManager.popMatrix();
 			}
@@ -320,7 +320,7 @@ public class GuiMultiplayer extends GuiScreen {
 			GlStateManager.colorMask(true, true, true, false);
 		}
 
-		bufferbuilder.setTranslation(0.0D, 0.0D, 0.0D);
+		bufferbuilder.setTranslation(0D, 0D, 0D);
 		GlStateManager.colorMask(true, true, true, true);
 		GlStateManager.matrixMode(5889);
 		GlStateManager.popMatrix();
@@ -349,14 +349,14 @@ public class GuiMultiplayer extends GuiScreen {
 		GlStateManager.disableAlpha();
 
 		for (int j = 0; j < 3; ++j) {
-			float f = 1.0F / (float) (j + 1);
+			float f = 1F / (float) (j + 1);
 			int k = width;
 			int l = height;
-			float f1 = (float) (j - 1) / 256.0F;
-			bufferbuilder.pos(k, l, zLevel).tex(0.0F + f1, 1.0D).color(1.0F, 1.0F, 1.0F, f).endVertex();
-			bufferbuilder.pos(k, 0.0D, zLevel).tex(1.0F + f1, 1.0D).color(1.0F, 1.0F, 1.0F, f).endVertex();
-			bufferbuilder.pos(0.0D, 0.0D, zLevel).tex(1.0F + f1, 0.0D).color(1.0F, 1.0F, 1.0F, f).endVertex();
-			bufferbuilder.pos(0.0D, l, zLevel).tex(0.0F + f1, 0.0D).color(1.0F, 1.0F, 1.0F, f).endVertex();
+			float f1 = (float) (j - 1) / 256F;
+			bufferbuilder.pos(k, l, zLevel).tex(0F + f1, 1D).color(1F, 1F, 1F, f).endVertex();
+			bufferbuilder.pos(k, 0D, zLevel).tex(1F + f1, 1D).color(1F, 1F, 1F, f).endVertex();
+			bufferbuilder.pos(0D, 0D, zLevel).tex(1F + f1, 0D).color(1F, 1F, 1F, f).endVertex();
+			bufferbuilder.pos(0D, l, zLevel).tex(0F + f1, 0D).color(1F, 1F, 1F, f).endVertex();
 		}
 
 		tessellator.draw();
@@ -381,18 +381,18 @@ public class GuiMultiplayer extends GuiScreen {
 		rotateAndBlurSkybox();
 		mc.getFramebuffer().bindFramebuffer(true);
 		GlStateManager.viewport(0, 0, mc.displayWidth, mc.displayHeight);
-		float f = 120.0F / (float) (Math.max(width, height));
-		float f1 = (float) height * f / 256.0F;
-		float f2 = (float) width * f / 256.0F;
+		float f = 120F / (float) (Math.max(width, height));
+		float f1 = (float) height * f / 256F;
+		float f2 = (float) width * f / 256F;
 		int i = width;
 		int j = height;
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder bufferbuilder = tessellator.getBuffer();
 		bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-		bufferbuilder.pos(0.0D, j, zLevel).tex(0.5F - f1, 0.5F + f2).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
-		bufferbuilder.pos(i, j, zLevel).tex(0.5F - f1, 0.5F - f2).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
-		bufferbuilder.pos(i, 0.0D, zLevel).tex(0.5F + f1, 0.5F - f2).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
-		bufferbuilder.pos(0.0D, 0.0D, zLevel).tex(0.5F + f1, 0.5F + f2).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
+		bufferbuilder.pos(0D, j, zLevel).tex(0.5F - f1, 0.5F + f2).color(1F, 1F, 1F, 1F).endVertex();
+		bufferbuilder.pos(i, j, zLevel).tex(0.5F - f1, 0.5F - f2).color(1F, 1F, 1F, 1F).endVertex();
+		bufferbuilder.pos(i, 0D, zLevel).tex(0.5F + f1, 0.5F - f2).color(1F, 1F, 1F, 1F).endVertex();
+		bufferbuilder.pos(0D, 0D, zLevel).tex(0.5F + f1, 0.5F + f2).color(1F, 1F, 1F, 1F).endVertex();
 		tessellator.draw();
 	}
 

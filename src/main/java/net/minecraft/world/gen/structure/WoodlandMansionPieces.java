@@ -431,13 +431,13 @@ public class WoodlandMansionPieces {
 			} else if ("Mage".equals(function)) {
 				EntityEvoker entityevoker = new EntityEvoker(worldIn);
 				entityevoker.enablePersistence();
-				entityevoker.moveToBlockPosAndAngles(pos, 0.0F, 0.0F);
+				entityevoker.moveToBlockPosAndAngles(pos, 0F, 0F);
 				worldIn.spawnEntity(entityevoker);
 				worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
 			} else if ("Warrior".equals(function)) {
 				EntityVindicator entityvindicator = new EntityVindicator(worldIn);
 				entityvindicator.enablePersistence();
-				entityvindicator.moveToBlockPosAndAngles(pos, 0.0F, 0.0F);
+				entityvindicator.moveToBlockPosAndAngles(pos, 0F, 0F);
 				entityvindicator.onInitialSpawn(worldIn.getDifficultyForLocation(new BlockPos(entityvindicator)), null);
 				worldIn.spawnEntity(entityvindicator);
 				worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);

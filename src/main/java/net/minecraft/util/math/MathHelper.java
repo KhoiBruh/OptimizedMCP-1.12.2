@@ -5,7 +5,7 @@ import java.util.UUID;
 
 public class MathHelper {
 
-	public static final float SQRT_2 = sqrt(2.0F);
+	public static final float SQRT_2 = sqrt(2F);
 
 	/**
 	 * A table of sin values computed from 0 (inclusive) to 2*pi (exclusive), with steps of 2*PI / 65536.
@@ -27,7 +27,7 @@ public class MathHelper {
 
 	static {
 		for (int i = 0; i < 65536; ++i) {
-			SIN_TABLE[i] = (float) Math.sin((double) i * Math.PI * 2.0D / 65536.0D);
+			SIN_TABLE[i] = (float) Math.sin((double) i * Math.PI * 2D / 65536D);
 		}
 
 		MULTIPLY_DE_BRUIJN_BIT_POSITION = new int[]{0, 1, 28, 2, 29, 14, 24, 3, 30, 22, 20, 15, 25, 17, 4, 8, 31, 27, 13, 23, 21, 19, 16, 7, 26, 12, 18, 6, 11, 5, 10, 9};
@@ -36,7 +36,7 @@ public class MathHelper {
 		COS_TAB = new double[257];
 
 		for (int j = 0; j < 257; ++j) {
-			double d0 = (double) j / 256.0D;
+			double d0 = (double) j / 256D;
 			double d1 = Math.asin(d0);
 			COS_TAB[j] = Math.cos(d1);
 			ASINE_TAB[j] = d1;
@@ -56,7 +56,7 @@ public class MathHelper {
 	 */
 	public static float cos(float value) {
 
-		return SIN_TABLE[(int) (value * 10430.378F + 16384.0F) & 65535];
+		return SIN_TABLE[(int) (value * 10430.378F + 16384F) & 65535];
 	}
 
 	public static float sqrt(float value) {
@@ -83,7 +83,7 @@ public class MathHelper {
 	 */
 	public static int fastFloor(double value) {
 
-		return (int) (value + 1024.0D) - 1024;
+		return (int) (value + 1024D) - 1024;
 	}
 
 	/**
@@ -106,12 +106,12 @@ public class MathHelper {
 
 	public static int absFloor(double value) {
 
-		return (int) (value >= 0.0D ? value : -value + 1.0D);
+		return (int) (value >= 0D ? value : -value + 1D);
 	}
 
 	public static float abs(float value) {
 
-		return value >= 0.0F ? value : -value;
+		return value >= 0F ? value : -value;
 	}
 
 	/**
@@ -171,10 +171,10 @@ public class MathHelper {
 
 	public static double clampedLerp(double lowerBnd, double upperBnd, double slide) {
 
-		if (slide < 0.0D) {
+		if (slide < 0D) {
 			return lowerBnd;
 		} else {
-			return slide > 1.0D ? upperBnd : lowerBnd + (upperBnd - lowerBnd) * slide;
+			return slide > 1D ? upperBnd : lowerBnd + (upperBnd - lowerBnd) * slide;
 		}
 	}
 
@@ -183,11 +183,11 @@ public class MathHelper {
 	 */
 	public static double absMax(double p_76132_0_, double p_76132_2_) {
 
-		if (p_76132_0_ < 0.0D) {
+		if (p_76132_0_ < 0D) {
 			p_76132_0_ = -p_76132_0_;
 		}
 
-		if (p_76132_2_ < 0.0D) {
+		if (p_76132_2_ < 0D) {
 			p_76132_2_ = -p_76132_2_;
 		}
 
@@ -253,14 +253,14 @@ public class MathHelper {
 	 */
 	public static float wrapDegrees(float value) {
 
-		value = value % 360.0F;
+		value = value % 360F;
 
-		if (value >= 180.0F) {
-			value -= 360.0F;
+		if (value >= 180F) {
+			value -= 360F;
 		}
 
-		if (value < -180.0F) {
-			value += 360.0F;
+		if (value < -180F) {
+			value += 360F;
 		}
 
 		return value;
@@ -271,14 +271,14 @@ public class MathHelper {
 	 */
 	public static double wrapDegrees(double value) {
 
-		value = value % 360.0D;
+		value = value % 360D;
 
-		if (value >= 180.0D) {
-			value -= 360.0D;
+		if (value >= 180D) {
+			value -= 360D;
 		}
 
-		if (value < -180.0D) {
-			value += 360.0D;
+		if (value < -180D) {
+			value += 360D;
 		}
 
 		return value;
@@ -408,7 +408,7 @@ public class MathHelper {
 	 */
 	public static int rgb(float rIn, float gIn, float bIn) {
 
-		return rgb(floor(rIn * 255.0F), floor(gIn * 255.0F), floor(bIn * 255.0F));
+		return rgb(floor(rIn * 255F), floor(gIn * 255F), floor(bIn * 255F));
 	}
 
 	/**
@@ -429,9 +429,9 @@ public class MathHelper {
 		int l = (p_180188_1_ & 65280) >> 8;
 		int i1 = (p_180188_0_ & 255);
 		int j1 = (p_180188_1_ & 255);
-		int k1 = (int) ((float) i * (float) j / 255.0F);
-		int l1 = (int) ((float) k * (float) l / 255.0F);
-		int i2 = (int) ((float) i1 * (float) j1 / 255.0F);
+		int k1 = (int) ((float) i * (float) j / 255F);
+		int l1 = (int) ((float) k * (float) l / 255F);
+		int i2 = (int) ((float) i1 * (float) j1 / 255F);
 		return p_180188_0_ & -16777216 | k1 << 16 | l1 << 8 | i2;
 	}
 
@@ -482,13 +482,13 @@ public class MathHelper {
 		if (Double.isNaN(d0)) {
 			return Double.NaN;
 		} else {
-			boolean flag = p_181159_0_ < 0.0D;
+			boolean flag = p_181159_0_ < 0D;
 
 			if (flag) {
 				p_181159_0_ = -p_181159_0_;
 			}
 
-			boolean flag1 = p_181159_2_ < 0.0D;
+			boolean flag1 = p_181159_2_ < 0D;
 
 			if (flag1) {
 				p_181159_2_ = -p_181159_2_;
@@ -511,7 +511,7 @@ public class MathHelper {
 			double d4 = COS_TAB[i];
 			double d5 = d2 - FRAC_BIAS;
 			double d6 = p_181159_0_ * d4 - p_181159_2_ * d5;
-			double d7 = (6.0D + d6 * d6) * d6 * 0.16666666666666666D;
+			double d7 = (6D + d6 * d6) * d6 * 0.16666666666666666D;
 			double d8 = d3 + d7;
 
 			if (flag2) {
@@ -546,11 +546,11 @@ public class MathHelper {
 
 	public static int hsvToRGB(float hue, float saturation, float value) {
 
-		int i = (int) (hue * 6.0F) % 6;
-		float f = hue * 6.0F - (float) i;
-		float f1 = value * (1.0F - saturation);
-		float f2 = value * (1.0F - f * saturation);
-		float f3 = value * (1.0F - (1.0F - f) * saturation);
+		int i = (int) (hue * 6F) % 6;
+		float f = hue * 6F - (float) i;
+		float f1 = value * (1F - saturation);
+		float f2 = value * (1F - f * saturation);
+		float f3 = value * (1F - (1F - f) * saturation);
 		float f4;
 		float f5;
 		float f6;
@@ -596,9 +596,9 @@ public class MathHelper {
 				throw new RuntimeException("Something went wrong when converting from HSV to RGB. Input was " + hue + ", " + saturation + ", " + value);
 		}
 
-		int j = clamp((int) (f4 * 255.0F), 0, 255);
-		int k = clamp((int) (f5 * 255.0F), 0, 255);
-		int l = clamp((int) (f6 * 255.0F), 0, 255);
+		int j = clamp((int) (f4 * 255F), 0, 255);
+		int k = clamp((int) (f5 * 255F), 0, 255);
+		int l = clamp((int) (f6 * 255F), 0, 255);
 		return j << 16 | k << 8 | l;
 	}
 

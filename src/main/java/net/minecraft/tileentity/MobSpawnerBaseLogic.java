@@ -84,15 +84,15 @@ public abstract class MobSpawnerBaseLogic {
 				double d3 = (float) blockpos.getX() + getSpawnerWorld().rand.nextFloat();
 				double d4 = (float) blockpos.getY() + getSpawnerWorld().rand.nextFloat();
 				double d5 = (float) blockpos.getZ() + getSpawnerWorld().rand.nextFloat();
-				getSpawnerWorld().spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d3, d4, d5, 0.0D, 0.0D, 0.0D);
-				getSpawnerWorld().spawnParticle(EnumParticleTypes.FLAME, d3, d4, d5, 0.0D, 0.0D, 0.0D);
+				getSpawnerWorld().spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d3, d4, d5, 0D, 0D, 0D);
+				getSpawnerWorld().spawnParticle(EnumParticleTypes.FLAME, d3, d4, d5, 0D, 0D, 0D);
 
 				if (spawnDelay > 0) {
 					--spawnDelay;
 				}
 
 				prevMobRotation = mobRotation;
-				mobRotation = (mobRotation + (double) (1000.0F / ((float) spawnDelay + 200.0F))) % 360.0D;
+				mobRotation = (mobRotation + (double) (1000F / ((float) spawnDelay + 200F))) % 360D;
 			} else {
 				if (spawnDelay == -1) {
 					resetTimer();
@@ -127,7 +127,7 @@ public abstract class MobSpawnerBaseLogic {
 					}
 
 					EntityLiving entityliving = entity instanceof EntityLiving ? (EntityLiving) entity : null;
-					entity.setLocationAndAngles(entity.posX, entity.posY, entity.posZ, world.rand.nextFloat() * 360.0F, 0.0F);
+					entity.setLocationAndAngles(entity.posX, entity.posY, entity.posZ, world.rand.nextFloat() * 360F, 0F);
 
 					if (entityliving == null || entityliving.getCanSpawnHere() && entityliving.isNotColliding()) {
 						if (spawnData.getNbt().getSize() == 1 && spawnData.getNbt().hasKey("id", 8) && entity instanceof EntityLiving) {

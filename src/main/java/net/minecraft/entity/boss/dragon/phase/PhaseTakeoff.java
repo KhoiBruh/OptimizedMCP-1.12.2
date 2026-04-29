@@ -27,7 +27,7 @@ public class PhaseTakeoff extends PhaseBase {
 			BlockPos blockpos = dragon.world.getTopSolidOrLiquidBlock(WorldGenEndPodium.END_PODIUM_LOCATION);
 			double d0 = dragon.getDistanceSqToCenter(blockpos);
 
-			if (d0 > 100.0D) {
+			if (d0 > 100D) {
 				dragon.getPhaseManager().setPhase(PhaseList.HOLDING_PATTERN);
 			}
 		} else {
@@ -49,8 +49,8 @@ public class PhaseTakeoff extends PhaseBase {
 	private void findNewTarget() {
 
 		int i = dragon.initPathPoints();
-		Vec3d vec3d = dragon.getHeadLookVec(1.0F);
-		int j = dragon.getNearestPpIdx(-vec3d.x() * 40.0D, 105.0D, -vec3d.z() * 40.0D);
+		Vec3d vec3d = dragon.getHeadLookVec(1F);
+		int j = dragon.getNearestPpIdx(-vec3d.x() * 40D, 105D, -vec3d.z() * 40D);
 
 		if (dragon.getFightManager() != null && dragon.getFightManager().getNumAliveCrystals() > 0) {
 			j = j % 12;
@@ -79,7 +79,7 @@ public class PhaseTakeoff extends PhaseBase {
 		double d0;
 
 		while (true) {
-			d0 = vec3d.y() + (double) (dragon.getRNG().nextFloat() * 20.0F);
+			d0 = vec3d.y() + (double) (dragon.getRNG().nextFloat() * 20F);
 
 			if (d0 >= vec3d.y()) {
 				break;

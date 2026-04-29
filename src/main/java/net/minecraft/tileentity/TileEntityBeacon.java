@@ -108,7 +108,7 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
 			int k = pos.getX();
 			int l = pos.getY();
 			int i1 = pos.getZ();
-			AxisAlignedBB axisalignedbb = (new AxisAlignedBB(k, l, i1, k + 1, l + 1, i1 + 1)).grow(d0).expand(0.0D, world.getHeight(), 0.0D);
+			AxisAlignedBB axisalignedbb = (new AxisAlignedBB(k, l, i1, k + 1, l + 1, i1 + 1)).grow(d0).expand(0D, world.getHeight(), 0D);
 			List<EntityPlayer> list = world.getEntitiesWithinAABB(EntityPlayer.class, axisalignedbb);
 
 			for (EntityPlayer entityplayer : list) {
@@ -159,7 +159,7 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
 			}
 
 			if (!flag) {
-				afloat = new float[]{(tileentitybeacon$beamsegment.getColors()[0] + afloat[0]) / 2.0F, (tileentitybeacon$beamsegment.getColors()[1] + afloat[1]) / 2.0F, (tileentitybeacon$beamsegment.getColors()[2] + afloat[2]) / 2.0F};
+				afloat = new float[]{(tileentitybeacon$beamsegment.getColors()[0] + afloat[0]) / 2F, (tileentitybeacon$beamsegment.getColors()[1] + afloat[1]) / 2F, (tileentitybeacon$beamsegment.getColors()[2] + afloat[2]) / 2F};
 			}
 
 			if (Arrays.equals(afloat, tileentitybeacon$beamsegment.getColors())) {
@@ -204,7 +204,7 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
 		}
 
 		if (!world.isRemote && l < levels) {
-			for (EntityPlayerMP entityplayermp : world.getEntitiesWithinAABB(EntityPlayerMP.class, (new AxisAlignedBB(i, j, k, i, j - 4, k)).grow(10.0D, 5.0D, 10.0D))) {
+			for (EntityPlayerMP entityplayermp : world.getEntitiesWithinAABB(EntityPlayerMP.class, (new AxisAlignedBB(i, j, k, i, j - 4, k)).grow(10D, 5D, 10D))) {
 				CriteriaTriggers.CONSTRUCT_BEACON.trigger(entityplayermp, this);
 			}
 		}
@@ -218,23 +218,23 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
 	public float shouldBeamRender() {
 
 		if (!isComplete) {
-			return 0.0F;
+			return 0F;
 		} else {
 			int i = (int) (world.getTotalWorldTime() - beamRenderCounter);
 			beamRenderCounter = world.getTotalWorldTime();
 
 			if (i > 1) {
-				beamRenderScale -= (float) i / 40.0F;
+				beamRenderScale -= (float) i / 40F;
 
-				if (beamRenderScale < 0.0F) {
-					beamRenderScale = 0.0F;
+				if (beamRenderScale < 0F) {
+					beamRenderScale = 0F;
 				}
 			}
 
 			beamRenderScale += 0.025F;
 
-			if (beamRenderScale > 1.0F) {
-				beamRenderScale = 1.0F;
+			if (beamRenderScale > 1F) {
+				beamRenderScale = 1F;
 			}
 
 			return beamRenderScale;
@@ -259,7 +259,7 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
 
 	public double getMaxRenderDistanceSquared() {
 
-		return 65536.0D;
+		return 65536D;
 	}
 
 	public void readFromNBT(NBTTagCompound compound) {
@@ -379,7 +379,7 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
 		if (world.getTileEntity(pos) != this) {
 			return false;
 		} else {
-			return player.getDistanceSq((double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D) <= 64.0D;
+			return player.getDistanceSq((double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D) <= 64D;
 		}
 	}
 

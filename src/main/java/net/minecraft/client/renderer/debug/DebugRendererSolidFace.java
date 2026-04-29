@@ -31,10 +31,10 @@ public class DebugRendererSolidFace implements DebugRenderer.IDebugRenderer {
 		double d1 = entityplayer.lastTickPosY + (entityplayer.posY - entityplayer.lastTickPosY) * (double) partialTicks;
 		double d2 = entityplayer.lastTickPosZ + (entityplayer.posZ - entityplayer.lastTickPosZ) * (double) partialTicks;
 		World world = minecraft.player.world;
-		Iterable<BlockPos> iterable = BlockPos.getAllInBox(MathHelper.floor(entityplayer.posX - 6.0D), MathHelper.floor(entityplayer.posY - 6.0D), MathHelper.floor(entityplayer.posZ - 6.0D), MathHelper.floor(entityplayer.posX + 6.0D), MathHelper.floor(entityplayer.posY + 6.0D), MathHelper.floor(entityplayer.posZ + 6.0D));
+		Iterable<BlockPos> iterable = BlockPos.getAllInBox(MathHelper.floor(entityplayer.posX - 6D), MathHelper.floor(entityplayer.posY - 6D), MathHelper.floor(entityplayer.posZ - 6D), MathHelper.floor(entityplayer.posX + 6D), MathHelper.floor(entityplayer.posY + 6D), MathHelper.floor(entityplayer.posZ + 6D));
 		GlStateManager.enableBlend();
 		GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-		GlStateManager.glLineWidth(2.0F);
+		GlStateManager.glLineWidth(2F);
 		GlStateManager.disableTexture2D();
 		GlStateManager.depthMask(false);
 
@@ -49,19 +49,19 @@ public class DebugRendererSolidFace implements DebugRenderer.IDebugRenderer {
 				double d6 = axisalignedbb.maxX;
 				double d7 = axisalignedbb.maxY;
 				double d8 = axisalignedbb.maxZ;
-				float f = 1.0F;
-				float f1 = 0.0F;
-				float f2 = 0.0F;
+				float f = 1F;
+				float f1 = 0F;
+				float f2 = 0F;
 				float f3 = 0.5F;
 
 				if (iblockstate.getBlockFaceShape(world, blockpos, EnumFacing.WEST) == BlockFaceShape.SOLID) {
 					Tessellator tessellator = Tessellator.getInstance();
 					BufferBuilder bufferbuilder = tessellator.getBuffer();
 					bufferbuilder.begin(5, DefaultVertexFormats.POSITION_COLOR);
-					bufferbuilder.pos(d3, d4, d5).color(1.0F, 0.0F, 0.0F, 0.5F).endVertex();
-					bufferbuilder.pos(d3, d4, d8).color(1.0F, 0.0F, 0.0F, 0.5F).endVertex();
-					bufferbuilder.pos(d3, d7, d5).color(1.0F, 0.0F, 0.0F, 0.5F).endVertex();
-					bufferbuilder.pos(d3, d7, d8).color(1.0F, 0.0F, 0.0F, 0.5F).endVertex();
+					bufferbuilder.pos(d3, d4, d5).color(1F, 0F, 0F, 0.5F).endVertex();
+					bufferbuilder.pos(d3, d4, d8).color(1F, 0F, 0F, 0.5F).endVertex();
+					bufferbuilder.pos(d3, d7, d5).color(1F, 0F, 0F, 0.5F).endVertex();
+					bufferbuilder.pos(d3, d7, d8).color(1F, 0F, 0F, 0.5F).endVertex();
 					tessellator.draw();
 				}
 
@@ -69,10 +69,10 @@ public class DebugRendererSolidFace implements DebugRenderer.IDebugRenderer {
 					Tessellator tessellator1 = Tessellator.getInstance();
 					BufferBuilder bufferbuilder1 = tessellator1.getBuffer();
 					bufferbuilder1.begin(5, DefaultVertexFormats.POSITION_COLOR);
-					bufferbuilder1.pos(d3, d7, d8).color(1.0F, 0.0F, 0.0F, 0.5F).endVertex();
-					bufferbuilder1.pos(d3, d4, d8).color(1.0F, 0.0F, 0.0F, 0.5F).endVertex();
-					bufferbuilder1.pos(d6, d7, d8).color(1.0F, 0.0F, 0.0F, 0.5F).endVertex();
-					bufferbuilder1.pos(d6, d4, d8).color(1.0F, 0.0F, 0.0F, 0.5F).endVertex();
+					bufferbuilder1.pos(d3, d7, d8).color(1F, 0F, 0F, 0.5F).endVertex();
+					bufferbuilder1.pos(d3, d4, d8).color(1F, 0F, 0F, 0.5F).endVertex();
+					bufferbuilder1.pos(d6, d7, d8).color(1F, 0F, 0F, 0.5F).endVertex();
+					bufferbuilder1.pos(d6, d4, d8).color(1F, 0F, 0F, 0.5F).endVertex();
 					tessellator1.draw();
 				}
 
@@ -80,10 +80,10 @@ public class DebugRendererSolidFace implements DebugRenderer.IDebugRenderer {
 					Tessellator tessellator2 = Tessellator.getInstance();
 					BufferBuilder bufferbuilder2 = tessellator2.getBuffer();
 					bufferbuilder2.begin(5, DefaultVertexFormats.POSITION_COLOR);
-					bufferbuilder2.pos(d6, d4, d8).color(1.0F, 0.0F, 0.0F, 0.5F).endVertex();
-					bufferbuilder2.pos(d6, d4, d5).color(1.0F, 0.0F, 0.0F, 0.5F).endVertex();
-					bufferbuilder2.pos(d6, d7, d8).color(1.0F, 0.0F, 0.0F, 0.5F).endVertex();
-					bufferbuilder2.pos(d6, d7, d5).color(1.0F, 0.0F, 0.0F, 0.5F).endVertex();
+					bufferbuilder2.pos(d6, d4, d8).color(1F, 0F, 0F, 0.5F).endVertex();
+					bufferbuilder2.pos(d6, d4, d5).color(1F, 0F, 0F, 0.5F).endVertex();
+					bufferbuilder2.pos(d6, d7, d8).color(1F, 0F, 0F, 0.5F).endVertex();
+					bufferbuilder2.pos(d6, d7, d5).color(1F, 0F, 0F, 0.5F).endVertex();
 					tessellator2.draw();
 				}
 
@@ -91,10 +91,10 @@ public class DebugRendererSolidFace implements DebugRenderer.IDebugRenderer {
 					Tessellator tessellator3 = Tessellator.getInstance();
 					BufferBuilder bufferbuilder3 = tessellator3.getBuffer();
 					bufferbuilder3.begin(5, DefaultVertexFormats.POSITION_COLOR);
-					bufferbuilder3.pos(d6, d7, d5).color(1.0F, 0.0F, 0.0F, 0.5F).endVertex();
-					bufferbuilder3.pos(d6, d4, d5).color(1.0F, 0.0F, 0.0F, 0.5F).endVertex();
-					bufferbuilder3.pos(d3, d7, d5).color(1.0F, 0.0F, 0.0F, 0.5F).endVertex();
-					bufferbuilder3.pos(d3, d4, d5).color(1.0F, 0.0F, 0.0F, 0.5F).endVertex();
+					bufferbuilder3.pos(d6, d7, d5).color(1F, 0F, 0F, 0.5F).endVertex();
+					bufferbuilder3.pos(d6, d4, d5).color(1F, 0F, 0F, 0.5F).endVertex();
+					bufferbuilder3.pos(d3, d7, d5).color(1F, 0F, 0F, 0.5F).endVertex();
+					bufferbuilder3.pos(d3, d4, d5).color(1F, 0F, 0F, 0.5F).endVertex();
 					tessellator3.draw();
 				}
 
@@ -102,10 +102,10 @@ public class DebugRendererSolidFace implements DebugRenderer.IDebugRenderer {
 					Tessellator tessellator4 = Tessellator.getInstance();
 					BufferBuilder bufferbuilder4 = tessellator4.getBuffer();
 					bufferbuilder4.begin(5, DefaultVertexFormats.POSITION_COLOR);
-					bufferbuilder4.pos(d3, d4, d5).color(1.0F, 0.0F, 0.0F, 0.5F).endVertex();
-					bufferbuilder4.pos(d6, d4, d5).color(1.0F, 0.0F, 0.0F, 0.5F).endVertex();
-					bufferbuilder4.pos(d3, d4, d8).color(1.0F, 0.0F, 0.0F, 0.5F).endVertex();
-					bufferbuilder4.pos(d6, d4, d8).color(1.0F, 0.0F, 0.0F, 0.5F).endVertex();
+					bufferbuilder4.pos(d3, d4, d5).color(1F, 0F, 0F, 0.5F).endVertex();
+					bufferbuilder4.pos(d6, d4, d5).color(1F, 0F, 0F, 0.5F).endVertex();
+					bufferbuilder4.pos(d3, d4, d8).color(1F, 0F, 0F, 0.5F).endVertex();
+					bufferbuilder4.pos(d6, d4, d8).color(1F, 0F, 0F, 0.5F).endVertex();
 					tessellator4.draw();
 				}
 
@@ -113,10 +113,10 @@ public class DebugRendererSolidFace implements DebugRenderer.IDebugRenderer {
 					Tessellator tessellator5 = Tessellator.getInstance();
 					BufferBuilder bufferbuilder5 = tessellator5.getBuffer();
 					bufferbuilder5.begin(5, DefaultVertexFormats.POSITION_COLOR);
-					bufferbuilder5.pos(d3, d7, d5).color(1.0F, 0.0F, 0.0F, 0.5F).endVertex();
-					bufferbuilder5.pos(d3, d7, d8).color(1.0F, 0.0F, 0.0F, 0.5F).endVertex();
-					bufferbuilder5.pos(d6, d7, d5).color(1.0F, 0.0F, 0.0F, 0.5F).endVertex();
-					bufferbuilder5.pos(d6, d7, d8).color(1.0F, 0.0F, 0.0F, 0.5F).endVertex();
+					bufferbuilder5.pos(d3, d7, d5).color(1F, 0F, 0F, 0.5F).endVertex();
+					bufferbuilder5.pos(d3, d7, d8).color(1F, 0F, 0F, 0.5F).endVertex();
+					bufferbuilder5.pos(d6, d7, d5).color(1F, 0F, 0F, 0.5F).endVertex();
+					bufferbuilder5.pos(d6, d7, d8).color(1F, 0F, 0F, 0.5F).endVertex();
 					tessellator5.draw();
 				}
 			}

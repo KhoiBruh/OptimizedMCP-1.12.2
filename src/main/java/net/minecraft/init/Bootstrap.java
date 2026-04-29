@@ -323,7 +323,7 @@ public class Bootstrap {
 				BlockPos blockpos = source.getBlockPos().offset(source.getBlockState().getValue(BlockDispenser.FACING));
 				EntityTNTPrimed entitytntprimed = new EntityTNTPrimed(world, (double) blockpos.getX() + 0.5D, blockpos.getY(), (double) blockpos.getZ() + 0.5D, null);
 				world.spawnEntity(entitytntprimed);
-				world.playSound(null, entitytntprimed.posX, entitytntprimed.posY, entitytntprimed.posZ, SoundEvents.ENTITY_TNT_PRIMED, SoundCategory.BLOCKS, 1.0F, 1.0F);
+				world.playSound(null, entitytntprimed.posX, entitytntprimed.posY, entitytntprimed.posZ, SoundEvents.ENTITY_TNT_PRIMED, SoundCategory.BLOCKS, 1F, 1F);
 				stack.shrink(1);
 				return stack;
 			}
@@ -493,14 +493,14 @@ public class Bootstrap {
 			double d3;
 			
 			if (Material.WATER.equals(material)) {
-				d3 = 1.0D;
+				d3 = 1D;
 			} else {
 				if (!Material.AIR.equals(material) || !Material.WATER.equals(world.getBlockState(blockpos.down())
 				                                                                  .getMaterial())) {
 					return dispenseBehavior.dispense(source, stack);
 				}
 				
-				d3 = 0.0D;
+				d3 = 0D;
 			}
 			
 			EntityBoat entityboat = new EntityBoat(world, d0, d1 + d3, d2);

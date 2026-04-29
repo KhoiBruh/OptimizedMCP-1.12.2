@@ -16,7 +16,7 @@ public class RenderZombie extends RenderBiped<EntityZombie> {
 			protected void initArmor() {
 
 				modelLeggings = new ModelZombie(0.5F, true);
-				modelArmor = new ModelZombie(1.0F, true);
+				modelArmor = new ModelZombie(1F, true);
 			}
 		};
 		addLayer(layerbipedarmor);

@@ -53,7 +53,7 @@ public class MapData extends WorldSavedData {
 		nbttagcompound.setString("id", decorationName);
 		nbttagcompound.setDouble("x", target.getX());
 		nbttagcompound.setDouble("z", target.getZ());
-		nbttagcompound.setDouble("rot", 180.0D);
+		nbttagcompound.setDouble("rot", 180D);
 		nbttaglist.appendTag(nbttagcompound);
 
 		if (type.hasMapColor()) {
@@ -65,8 +65,8 @@ public class MapData extends WorldSavedData {
 	public void calculateMapCenter(double x, double z, int mapScale) {
 
 		int i = 128 * (1 << mapScale);
-		int j = MathHelper.floor((x + 64.0D) / (double) i);
-		int k = MathHelper.floor((z + 64.0D) / (double) i);
+		int j = MathHelper.floor((x + 64D) / (double) i);
+		int k = MathHelper.floor((z + 64D) / (double) i);
 		xCenter = j * i + i / 2 - 64;
 		zCenter = k * i + i / 2 - 64;
 	}
@@ -182,14 +182,14 @@ public class MapData extends WorldSavedData {
 		int i = 1 << scale;
 		float f = (float) (worldX - (double) xCenter) / (float) i;
 		float f1 = (float) (worldZ - (double) zCenter) / (float) i;
-		byte b0 = (byte) ((int) ((double) (f * 2.0F) + 0.5D));
-		byte b1 = (byte) ((int) ((double) (f1 * 2.0F) + 0.5D));
+		byte b0 = (byte) ((int) ((double) (f * 2F) + 0.5D));
+		byte b1 = (byte) ((int) ((double) (f1 * 2F) + 0.5D));
 		int j = 63;
 		byte b2;
 
-		if (f >= -63.0F && f1 >= -63.0F && f <= 63.0F && f1 <= 63.0F) {
-			rotationIn = rotationIn + (rotationIn < 0.0D ? -8.0D : 8.0D);
-			b2 = (byte) ((int) (rotationIn * 16.0D / 360.0D));
+		if (f >= -63F && f1 >= -63F && f <= 63F && f1 <= 63F) {
+			rotationIn = rotationIn + (rotationIn < 0D ? -8D : 8D);
+			b2 = (byte) ((int) (rotationIn * 16D / 360D));
 
 			if (dimension < 0) {
 				int l = (int) (worldIn.getWorldInfo().getWorldTime() / 10L);
@@ -203,7 +203,7 @@ public class MapData extends WorldSavedData {
 
 			int k = 320;
 
-			if (Math.abs(f) < 320.0F && Math.abs(f1) < 320.0F) {
+			if (Math.abs(f) < 320F && Math.abs(f1) < 320F) {
 				type = MapDecoration.Type.PLAYER_OFF_MAP;
 			} else {
 				if (!unlimitedTracking) {
@@ -216,19 +216,19 @@ public class MapData extends WorldSavedData {
 
 			b2 = 0;
 
-			if (f <= -63.0F) {
+			if (f <= -63F) {
 				b0 = -128;
 			}
 
-			if (f1 <= -63.0F) {
+			if (f1 <= -63F) {
 				b1 = -128;
 			}
 
-			if (f >= 63.0F) {
+			if (f >= 63F) {
 				b0 = 127;
 			}
 
-			if (f1 >= 63.0F) {
+			if (f1 >= 63F) {
 				b1 = 127;
 			}
 		}

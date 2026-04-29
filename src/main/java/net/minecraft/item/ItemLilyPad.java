@@ -55,7 +55,7 @@ public class ItemLilyPad extends ItemColored {
 					}
 
 					playerIn.addStat(StatList.getObjectUseStats(this));
-					worldIn.playSound(playerIn, blockpos, SoundEvents.BLOCK_WATERLILY_PLACE, SoundCategory.BLOCKS, 1.0F, 1.0F);
+					worldIn.playSound(playerIn, blockpos, SoundEvents.BLOCK_WATERLILY_PLACE, SoundCategory.BLOCKS, 1F, 1F);
 					return new ActionResult<>(EnumActionResult.SUCCESS, itemstack);
 				}
 			}

@@ -28,8 +28,8 @@ import java.util.Random;
 public class BlockBrewingStand extends BlockContainer {
 
 	public static final PropertyBool[] HAS_BOTTLE = new PropertyBool[]{PropertyBool.create("has_bottle_0"), PropertyBool.create("has_bottle_1"), PropertyBool.create("has_bottle_2")};
-	protected static final AxisAlignedBB BASE_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.125D, 1.0D);
-	protected static final AxisAlignedBB STICK_AABB = new AxisAlignedBB(0.4375D, 0.0D, 0.4375D, 0.5625D, 0.875D, 0.5625D);
+	protected static final AxisAlignedBB BASE_AABB = new AxisAlignedBB(0D, 0D, 0D, 1D, 0.125D, 1D);
+	protected static final AxisAlignedBB STICK_AABB = new AxisAlignedBB(0.4375D, 0D, 0.4375D, 0.5625D, 0.875D, 0.5625D);
 
 	public BlockBrewingStand() {
 
@@ -124,7 +124,7 @@ public class BlockBrewingStand extends BlockContainer {
 		double d0 = (float) pos.getX() + 0.4F + rand.nextFloat() * 0.2F;
 		double d1 = (float) pos.getY() + 0.7F + rand.nextFloat() * 0.3F;
 		double d2 = (float) pos.getZ() + 0.4F + rand.nextFloat() * 0.2F;
-		worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0, d1, d2, 0.0D, 0.0D, 0.0D);
+		worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0, d1, d2, 0D, 0D, 0D);
 	}
 
 	/**

@@ -10,7 +10,7 @@ public class BlockBone extends BlockRotatedPillar {
 
 		super(Material.ROCK, MapColor.SAND);
 		setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
-		setHardness(2.0F);
+		setHardness(2F);
 		setSoundType(SoundType.STONE);
 	}
 

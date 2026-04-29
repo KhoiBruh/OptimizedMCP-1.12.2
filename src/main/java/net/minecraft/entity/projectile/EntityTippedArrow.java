@@ -125,9 +125,9 @@ public class EntityTippedArrow extends EntityArrow {
 		int i = getColor();
 
 		if (i != -1 && particleCount > 0) {
-			double d0 = (double) (i >> 16 & 255) / 255.0D;
-			double d1 = (double) (i >> 8 & 255) / 255.0D;
-			double d2 = (double) (i & 255) / 255.0D;
+			double d0 = (double) (i >> 16 & 255) / 255D;
+			double d1 = (double) (i >> 8 & 255) / 255D;
+			double d2 = (double) (i & 255) / 255D;
 
 			for (int j = 0; j < particleCount; ++j) {
 				world.spawnParticle(EnumParticleTypes.SPELL_MOB, posX + (rand.nextDouble() - 0.5D) * (double) width, posY + rand.nextDouble() * (double) height, posZ + (rand.nextDouble() - 0.5D) * (double) width, d0, d1, d2);
@@ -242,9 +242,9 @@ public class EntityTippedArrow extends EntityArrow {
 			int i = getColor();
 
 			if (i != -1) {
-				double d0 = (double) (i >> 16 & 255) / 255.0D;
-				double d1 = (double) (i >> 8 & 255) / 255.0D;
-				double d2 = (double) (i & 255) / 255.0D;
+				double d0 = (double) (i >> 16 & 255) / 255D;
+				double d1 = (double) (i >> 8 & 255) / 255D;
+				double d2 = (double) (i & 255) / 255D;
 
 				for (int j = 0; j < 20; ++j) {
 					world.spawnParticle(EnumParticleTypes.SPELL_MOB, posX + (rand.nextDouble() - 0.5D) * (double) width, posY + rand.nextDouble() * (double) height, posZ + (rand.nextDouble() - 0.5D) * (double) width, d0, d1, d2);

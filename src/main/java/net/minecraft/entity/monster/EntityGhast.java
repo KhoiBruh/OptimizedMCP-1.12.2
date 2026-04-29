@@ -40,7 +40,7 @@ public class EntityGhast extends EntityFlying implements IMob {
 	public EntityGhast(World worldIn) {
 
 		super(worldIn);
-		setSize(4.0F, 4.0F);
+		setSize(4F, 4F);
 		isImmuneToFire = true;
 		experienceValue = 5;
 		moveHelper = new EntityGhast.GhastMoveHelper(this);
@@ -94,7 +94,7 @@ public class EntityGhast extends EntityFlying implements IMob {
 		if (isEntityInvulnerable(source)) {
 			return false;
 		} else if (source.getImmediateSource() instanceof EntityLargeFireball && source.getTrueSource() instanceof EntityPlayer) {
-			super.attackEntityFrom(source, 1000.0F);
+			super.attackEntityFrom(source, 1000F);
 			return true;
 		} else {
 			return super.attackEntityFrom(source, amount);
@@ -110,8 +110,8 @@ public class EntityGhast extends EntityFlying implements IMob {
 	protected void applyEntityAttributes() {
 
 		super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(10.0D);
-		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(100.0D);
+		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(10D);
+		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(100D);
 	}
 
 	public SoundCategory getSoundCategory() {
@@ -145,7 +145,7 @@ public class EntityGhast extends EntityFlying implements IMob {
 	 */
 	protected float getSoundVolume() {
 
-		return 10.0F;
+		return 10F;
 	}
 
 	/**
@@ -218,9 +218,9 @@ public class EntityGhast extends EntityFlying implements IMob {
 		public void updateTask() {
 
 			EntityLivingBase entitylivingbase = parentEntity.getAttackTarget();
-			double d0 = 64.0D;
+			double d0 = 64D;
 
-			if (entitylivingbase.getDistanceSq(parentEntity) < 4096.0D && parentEntity.canEntityBeSeen(entitylivingbase)) {
+			if (entitylivingbase.getDistanceSq(parentEntity) < 4096D && parentEntity.canEntityBeSeen(entitylivingbase)) {
 				World world = parentEntity.world;
 				++attackTimer;
 
@@ -229,17 +229,17 @@ public class EntityGhast extends EntityFlying implements IMob {
 				}
 
 				if (attackTimer == 20) {
-					double d1 = 4.0D;
-					Vec3d vec3d = parentEntity.getLook(1.0F);
-					double d2 = entitylivingbase.posX - (parentEntity.posX + vec3d.x() * 4.0D);
-					double d3 = entitylivingbase.getEntityBoundingBox().minY + (double) (entitylivingbase.height / 2.0F) - (0.5D + parentEntity.posY + (double) (parentEntity.height / 2.0F));
-					double d4 = entitylivingbase.posZ - (parentEntity.posZ + vec3d.z() * 4.0D);
+					double d1 = 4D;
+					Vec3d vec3d = parentEntity.getLook(1F);
+					double d2 = entitylivingbase.posX - (parentEntity.posX + vec3d.x() * 4D);
+					double d3 = entitylivingbase.getEntityBoundingBox().minY + (double) (entitylivingbase.height / 2F) - (0.5D + parentEntity.posY + (double) (parentEntity.height / 2F));
+					double d4 = entitylivingbase.posZ - (parentEntity.posZ + vec3d.z() * 4D);
 					world.playEvent(null, 1016, new BlockPos(parentEntity), 0);
 					EntityLargeFireball entitylargefireball = new EntityLargeFireball(world, parentEntity, d2, d3, d4);
 					entitylargefireball.explosionPower = parentEntity.getFireballStrength();
-					entitylargefireball.posX = parentEntity.posX + vec3d.x() * 4.0D;
-					entitylargefireball.posY = parentEntity.posY + (double) (parentEntity.height / 2.0F) + 0.5D;
-					entitylargefireball.posZ = parentEntity.posZ + vec3d.z() * 4.0D;
+					entitylargefireball.posX = parentEntity.posX + vec3d.x() * 4D;
+					entitylargefireball.posY = parentEntity.posY + (double) (parentEntity.height / 2F) + 0.5D;
+					entitylargefireball.posZ = parentEntity.posZ + vec3d.z() * 4D;
 					world.spawnEntity(entitylargefireball);
 					attackTimer = -40;
 				}
@@ -274,9 +274,9 @@ public class EntityGhast extends EntityFlying implements IMob {
 				parentEntity.renderYawOffset = parentEntity.rotationYaw;
 			} else {
 				EntityLivingBase entitylivingbase = parentEntity.getAttackTarget();
-				double d0 = 64.0D;
+				double d0 = 64D;
 
-				if (entitylivingbase.getDistanceSq(parentEntity) < 4096.0D) {
+				if (entitylivingbase.getDistanceSq(parentEntity) < 4096D) {
 					double d1 = entitylivingbase.posX - parentEntity.posX;
 					double d2 = entitylivingbase.posZ - parentEntity.posZ;
 					parentEntity.rotationYaw = -((float) MathHelper.atan2(d1, d2)) * (180F / (float) Math.PI);
@@ -308,7 +308,7 @@ public class EntityGhast extends EntityFlying implements IMob {
 				double d1 = entitymovehelper.getY() - parentEntity.posY;
 				double d2 = entitymovehelper.getZ() - parentEntity.posZ;
 				double d3 = d0 * d0 + d1 * d1 + d2 * d2;
-				return d3 < 1.0D || d3 > 3600.0D;
+				return d3 < 1D || d3 > 3600D;
 			}
 		}
 
@@ -320,10 +320,10 @@ public class EntityGhast extends EntityFlying implements IMob {
 		public void startExecuting() {
 
 			Random random = parentEntity.getRNG();
-			double d0 = parentEntity.posX + (double) ((random.nextFloat() * 2.0F - 1.0F) * 16.0F);
-			double d1 = parentEntity.posY + (double) ((random.nextFloat() * 2.0F - 1.0F) * 16.0F);
-			double d2 = parentEntity.posZ + (double) ((random.nextFloat() * 2.0F - 1.0F) * 16.0F);
-			parentEntity.getMoveHelper().setMoveTo(d0, d1, d2, 1.0D);
+			double d0 = parentEntity.posX + (double) ((random.nextFloat() * 2F - 1F) * 16F);
+			double d1 = parentEntity.posY + (double) ((random.nextFloat() * 2F - 1F) * 16F);
+			double d2 = parentEntity.posZ + (double) ((random.nextFloat() * 2F - 1F) * 16F);
+			parentEntity.getMoveHelper().setMoveTo(d0, d1, d2, 1D);
 		}
 
 	}

@@ -19,7 +19,7 @@ import net.minecraft.world.World;
 public class BlockCarpet extends Block {
 
 	public static final PropertyEnum<EnumDyeColor> COLOR = PropertyEnum.create("color", EnumDyeColor.class);
-	protected static final AxisAlignedBB CARPET_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.0625D, 1.0D);
+	protected static final AxisAlignedBB CARPET_AABB = new AxisAlignedBB(0D, 0D, 0D, 1D, 0.0625D, 1D);
 
 	protected BlockCarpet() {
 

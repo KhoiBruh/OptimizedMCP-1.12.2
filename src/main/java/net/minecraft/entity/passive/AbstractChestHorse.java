@@ -229,7 +229,7 @@ public abstract class AbstractChestHorse extends AbstractHorse {
 
 	protected void playChestEquipSound() {
 
-		playSound(SoundEvents.ENTITY_DONKEY_CHEST, 1.0F, (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F);
+		playSound(SoundEvents.ENTITY_DONKEY_CHEST, 1F, (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1F);
 	}
 
 	public int getInventoryColumns() {

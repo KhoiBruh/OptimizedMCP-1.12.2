@@ -53,7 +53,7 @@ public class EntityAIFindEntityNearest extends EntityAIBase {
 	public boolean shouldExecute() {
 
 		double d0 = getFollowRange();
-		List<EntityLivingBase> list = mob.world.getEntitiesWithinAABB(classToCheck, mob.getEntityBoundingBox().grow(d0, 4.0D, d0), predicate);
+		List<EntityLivingBase> list = mob.world.getEntitiesWithinAABB(classToCheck, mob.getEntityBoundingBox().grow(d0, 4D, d0), predicate);
 		list.sort(sorter);
 
 		if (list.isEmpty()) {
@@ -107,7 +107,7 @@ public class EntityAIFindEntityNearest extends EntityAIBase {
 	protected double getFollowRange() {
 
 		IAttributeInstance iattributeinstance = mob.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE);
-		return iattributeinstance == null ? 16.0D : iattributeinstance.getAttributeValue();
+		return iattributeinstance == null ? 16D : iattributeinstance.getAttributeValue();
 	}
 
 }

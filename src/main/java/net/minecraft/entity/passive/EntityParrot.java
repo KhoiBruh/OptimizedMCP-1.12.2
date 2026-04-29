@@ -81,7 +81,7 @@ public class EntityParrot extends EntityShoulderRiding implements EntityFlying {
 	public float flapSpeed;
 	public float oFlapSpeed;
 	public float oFlap;
-	public float flapping = 1.0F;
+	public float flapping = 1F;
 	private boolean partyParrot;
 	private BlockPos jukeboxPosition;
 
@@ -95,7 +95,7 @@ public class EntityParrot extends EntityShoulderRiding implements EntityFlying {
 	private static boolean playMimicSound(World worldIn, Entity p_192006_1_) {
 
 		if (!p_192006_1_.isSilent() && worldIn.rand.nextInt(50) == 0) {
-			List<EntityLiving> list = worldIn.getEntitiesWithinAABB(EntityLiving.class, p_192006_1_.getEntityBoundingBox().grow(20.0D), CAN_MIMIC);
+			List<EntityLiving> list = worldIn.getEntitiesWithinAABB(EntityLiving.class, p_192006_1_.getEntityBoundingBox().grow(20D), CAN_MIMIC);
 
 			if (!list.isEmpty()) {
 				EntityLiving entityliving = list.get(worldIn.rand.nextInt(list.size()));
@@ -116,7 +116,7 @@ public class EntityParrot extends EntityShoulderRiding implements EntityFlying {
 	public static void playAmbientSound(World worldIn, Entity p_192005_1_) {
 
 		if (!p_192005_1_.isSilent() && !playMimicSound(worldIn, p_192005_1_) && worldIn.rand.nextInt(200) == 0) {
-			worldIn.playSound(null, p_192005_1_.posX, p_192005_1_.posY, p_192005_1_.posZ, getAmbientSound(worldIn.rand), p_192005_1_.getSoundCategory(), 1.0F, getPitch(worldIn.rand));
+			worldIn.playSound(null, p_192005_1_.posX, p_192005_1_.posY, p_192005_1_.posZ, getAmbientSound(worldIn.rand), p_192005_1_.getSoundCategory(), 1F, getPitch(worldIn.rand));
 		}
 	}
 
@@ -137,7 +137,7 @@ public class EntityParrot extends EntityShoulderRiding implements EntityFlying {
 
 	private static float getPitch(Random random) {
 
-		return (random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F;
+		return (random.nextFloat() - random.nextFloat()) * 0.2F + 1F;
 	}
 
 	
@@ -167,19 +167,19 @@ public class EntityParrot extends EntityShoulderRiding implements EntityFlying {
 		aiSit = new EntityAISit(this);
 		tasks.addTask(0, new EntityAIPanic(this, 1.25D));
 		tasks.addTask(0, new EntityAISwimming(this));
-		tasks.addTask(1, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
+		tasks.addTask(1, new EntityAIWatchClosest(this, EntityPlayer.class, 8F));
 		tasks.addTask(2, aiSit);
-		tasks.addTask(2, new EntityAIFollowOwnerFlying(this, 1.0D, 5.0F, 1.0F));
-		tasks.addTask(2, new EntityAIWanderAvoidWaterFlying(this, 1.0D));
+		tasks.addTask(2, new EntityAIFollowOwnerFlying(this, 1D, 5F, 1F));
+		tasks.addTask(2, new EntityAIWanderAvoidWaterFlying(this, 1D));
 		tasks.addTask(3, new EntityAILandOnOwnersShoulder(this));
-		tasks.addTask(3, new EntityAIFollow(this, 1.0D, 3.0F, 7.0F));
+		tasks.addTask(3, new EntityAIFollow(this, 1D, 3F, 7F));
 	}
 
 	protected void applyEntityAttributes() {
 
 		super.applyEntityAttributes();
 		getAttributeMap().registerAttribute(SharedMonsterAttributes.FLYING_SPEED);
-		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(6.0D);
+		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(6D);
 		getEntityAttribute(SharedMonsterAttributes.FLYING_SPEED).setBaseValue(0.4000000059604645D);
 		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.20000000298023224D);
 	}
@@ -209,7 +209,7 @@ public class EntityParrot extends EntityShoulderRiding implements EntityFlying {
 
 		playMimicSound(world, this);
 
-		if (jukeboxPosition == null || jukeboxPosition.distanceSq(posX, posY, posZ) > 12.0D || world.getBlockState(jukeboxPosition).getBlock() != Blocks.JUKEBOX) {
+		if (jukeboxPosition == null || jukeboxPosition.distanceSq(posX, posY, posZ) > 12D || world.getBlockState(jukeboxPosition).getBlock() != Blocks.JUKEBOX) {
 			partyParrot = false;
 			jukeboxPosition = null;
 		}
@@ -234,19 +234,19 @@ public class EntityParrot extends EntityShoulderRiding implements EntityFlying {
 		oFlap = flap;
 		oFlapSpeed = flapSpeed;
 		flapSpeed = (float) ((double) flapSpeed + (double) (onGround ? -1 : 4) * 0.3D);
-		flapSpeed = MathHelper.clamp(flapSpeed, 0.0F, 1.0F);
+		flapSpeed = MathHelper.clamp(flapSpeed, 0F, 1F);
 
-		if (!onGround && flapping < 1.0F) {
-			flapping = 1.0F;
+		if (!onGround && flapping < 1F) {
+			flapping = 1F;
 		}
 
 		flapping = (float) ((double) flapping * 0.9D);
 
-		if (!onGround && motionY < 0.0D) {
+		if (!onGround && motionY < 0D) {
 			motionY *= 0.6D;
 		}
 
-		flap += flapping * 2.0F;
+		flap += flapping * 2F;
 	}
 
 	public boolean processInteract(EntityPlayer player, EnumHand hand) {
@@ -259,7 +259,7 @@ public class EntityParrot extends EntityShoulderRiding implements EntityFlying {
 			}
 
 			if (!isSilent()) {
-				world.playSound(null, posX, posY, posZ, SoundEvents.ENTITY_PARROT_EAT, getSoundCategory(), 1.0F, 1.0F + (rand.nextFloat() - rand.nextFloat()) * 0.2F);
+				world.playSound(null, posX, posY, posZ, SoundEvents.ENTITY_PARROT_EAT, getSoundCategory(), 1F, 1F + (rand.nextFloat() - rand.nextFloat()) * 0.2F);
 			}
 
 			if (!world.isRemote) {
@@ -341,7 +341,7 @@ public class EntityParrot extends EntityShoulderRiding implements EntityFlying {
 
 	public boolean attackEntityAsMob(Entity entityIn) {
 
-		return entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), 3.0F);
+		return entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), 3F);
 	}
 
 	
@@ -362,13 +362,13 @@ public class EntityParrot extends EntityShoulderRiding implements EntityFlying {
 
 	protected void playStepSound(BlockPos pos, Block blockIn) {
 
-		playSound(SoundEvents.ENTITY_PARROT_STEP, 0.15F, 1.0F);
+		playSound(SoundEvents.ENTITY_PARROT_STEP, 0.15F, 1F);
 	}
 
 	protected float playFlySound(float p_191954_1_) {
 
-		playSound(SoundEvents.ENTITY_PARROT_FLY, 0.15F, 1.0F);
-		return p_191954_1_ + flapSpeed / 2.0F;
+		playSound(SoundEvents.ENTITY_PARROT_FLY, 0.15F, 1F);
+		return p_191954_1_ + flapSpeed / 2F;
 	}
 
 	protected boolean makeFlySound() {

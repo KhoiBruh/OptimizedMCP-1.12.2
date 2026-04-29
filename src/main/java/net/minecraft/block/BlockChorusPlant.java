@@ -55,12 +55,12 @@ public class BlockChorusPlant extends Block {
 
 		state = state.getActualState(source, pos);
 		float f = 0.1875F;
-		float f1 = state.getValue(WEST) ? 0.0F : 0.1875F;
-		float f2 = state.getValue(DOWN) ? 0.0F : 0.1875F;
-		float f3 = state.getValue(NORTH) ? 0.0F : 0.1875F;
-		float f4 = state.getValue(EAST) ? 1.0F : 0.8125F;
-		float f5 = state.getValue(UP) ? 1.0F : 0.8125F;
-		float f6 = state.getValue(SOUTH) ? 1.0F : 0.8125F;
+		float f1 = state.getValue(WEST) ? 0F : 0.1875F;
+		float f2 = state.getValue(DOWN) ? 0F : 0.1875F;
+		float f3 = state.getValue(NORTH) ? 0F : 0.1875F;
+		float f4 = state.getValue(EAST) ? 1F : 0.8125F;
+		float f5 = state.getValue(UP) ? 1F : 0.8125F;
+		float f6 = state.getValue(SOUTH) ? 1F : 0.8125F;
 		return new AxisAlignedBB(f1, f2, f3, f4, f5, f6);
 	}
 
@@ -75,27 +75,27 @@ public class BlockChorusPlant extends Block {
 		addCollisionBoxToList(pos, entityBox, collidingBoxes, new AxisAlignedBB(0.1875D, 0.1875D, 0.1875D, 0.8125D, 0.8125D, 0.8125D));
 
 		if (state.getValue(WEST)) {
-			addCollisionBoxToList(pos, entityBox, collidingBoxes, new AxisAlignedBB(0.0D, 0.1875D, 0.1875D, 0.1875D, 0.8125D, 0.8125D));
+			addCollisionBoxToList(pos, entityBox, collidingBoxes, new AxisAlignedBB(0D, 0.1875D, 0.1875D, 0.1875D, 0.8125D, 0.8125D));
 		}
 
 		if (state.getValue(EAST)) {
-			addCollisionBoxToList(pos, entityBox, collidingBoxes, new AxisAlignedBB(0.8125D, 0.1875D, 0.1875D, 1.0D, 0.8125D, 0.8125D));
+			addCollisionBoxToList(pos, entityBox, collidingBoxes, new AxisAlignedBB(0.8125D, 0.1875D, 0.1875D, 1D, 0.8125D, 0.8125D));
 		}
 
 		if (state.getValue(UP)) {
-			addCollisionBoxToList(pos, entityBox, collidingBoxes, new AxisAlignedBB(0.1875D, 0.8125D, 0.1875D, 0.8125D, 1.0D, 0.8125D));
+			addCollisionBoxToList(pos, entityBox, collidingBoxes, new AxisAlignedBB(0.1875D, 0.8125D, 0.1875D, 0.8125D, 1D, 0.8125D));
 		}
 
 		if (state.getValue(DOWN)) {
-			addCollisionBoxToList(pos, entityBox, collidingBoxes, new AxisAlignedBB(0.1875D, 0.0D, 0.1875D, 0.8125D, 0.1875D, 0.8125D));
+			addCollisionBoxToList(pos, entityBox, collidingBoxes, new AxisAlignedBB(0.1875D, 0D, 0.1875D, 0.8125D, 0.1875D, 0.8125D));
 		}
 
 		if (state.getValue(NORTH)) {
-			addCollisionBoxToList(pos, entityBox, collidingBoxes, new AxisAlignedBB(0.1875D, 0.1875D, 0.0D, 0.8125D, 0.8125D, 0.1875D));
+			addCollisionBoxToList(pos, entityBox, collidingBoxes, new AxisAlignedBB(0.1875D, 0.1875D, 0D, 0.8125D, 0.8125D, 0.1875D));
 		}
 
 		if (state.getValue(SOUTH)) {
-			addCollisionBoxToList(pos, entityBox, collidingBoxes, new AxisAlignedBB(0.1875D, 0.1875D, 0.8125D, 0.8125D, 0.8125D, 1.0D));
+			addCollisionBoxToList(pos, entityBox, collidingBoxes, new AxisAlignedBB(0.1875D, 0.1875D, 0.8125D, 0.8125D, 0.8125D, 1D));
 		}
 	}
 

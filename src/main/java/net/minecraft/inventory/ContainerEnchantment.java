@@ -265,7 +265,7 @@ public class ContainerEnchantment extends Container {
 					tableInventory.markDirty();
 					xpSeed = playerIn.getXPSeed();
 					onCraftMatrixChanged(tableInventory);
-					worldPointer.playSound(null, position, SoundEvents.BLOCK_ENCHANTMENT_TABLE_USE, SoundCategory.BLOCKS, 1.0F, worldPointer.rand.nextFloat() * 0.1F + 0.9F);
+					worldPointer.playSound(null, position, SoundEvents.BLOCK_ENCHANTMENT_TABLE_USE, SoundCategory.BLOCKS, 1F, worldPointer.rand.nextFloat() * 0.1F + 0.9F);
 				}
 			}
 
@@ -313,7 +313,7 @@ public class ContainerEnchantment extends Container {
 		if (worldPointer.getBlockState(position).getBlock() != Blocks.ENCHANTING_TABLE) {
 			return false;
 		} else {
-			return playerIn.getDistanceSq((double) position.getX() + 0.5D, (double) position.getY() + 0.5D, (double) position.getZ() + 0.5D) <= 64.0D;
+			return playerIn.getDistanceSq((double) position.getX() + 0.5D, (double) position.getY() + 0.5D, (double) position.getZ() + 0.5D) <= 64D;
 		}
 	}
 

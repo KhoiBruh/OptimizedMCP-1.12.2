@@ -56,7 +56,7 @@ public class TileEntityEnchantmentTable extends TileEntity implements ITickable,
 
 		bookSpreadPrev = bookSpread;
 		bookRotationPrev = bookRotation;
-		EntityPlayer entityplayer = world.getClosestPlayer((float) pos.getX() + 0.5F, (float) pos.getY() + 0.5F, (float) pos.getZ() + 0.5F, 3.0D, false);
+		EntityPlayer entityplayer = world.getClosestPlayer((float) pos.getX() + 0.5F, (float) pos.getY() + 0.5F, (float) pos.getZ() + 0.5F, 3D, false);
 
 		if (entityplayer != null) {
 			double d0 = entityplayer.posX - (double) ((float) pos.getX() + 0.5F);
@@ -106,7 +106,7 @@ public class TileEntityEnchantmentTable extends TileEntity implements ITickable,
 		}
 
 		bookRotation += f2 * 0.4F;
-		bookSpread = MathHelper.clamp(bookSpread, 0.0F, 1.0F);
+		bookSpread = MathHelper.clamp(bookSpread, 0F, 1F);
 		++tickCount;
 		pageFlipPrev = pageFlip;
 		float f = (flipT - pageFlip) * 0.4F;

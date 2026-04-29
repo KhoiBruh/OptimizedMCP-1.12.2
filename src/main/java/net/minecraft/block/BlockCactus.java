@@ -21,8 +21,8 @@ import java.util.Random;
 public class BlockCactus extends Block {
 
 	public static final PropertyInteger AGE = PropertyInteger.create("age", 0, 15);
-	protected static final AxisAlignedBB CACTUS_COLLISION_AABB = new AxisAlignedBB(0.0625D, 0.0D, 0.0625D, 0.9375D, 0.9375D, 0.9375D);
-	protected static final AxisAlignedBB CACTUS_AABB = new AxisAlignedBB(0.0625D, 0.0D, 0.0625D, 0.9375D, 1.0D, 0.9375D);
+	protected static final AxisAlignedBB CACTUS_COLLISION_AABB = new AxisAlignedBB(0.0625D, 0D, 0.0625D, 0.9375D, 0.9375D, 0.9375D);
+	protected static final AxisAlignedBB CACTUS_AABB = new AxisAlignedBB(0.0625D, 0D, 0.0625D, 0.9375D, 1D, 0.9375D);
 
 	protected BlockCactus() {
 
@@ -122,7 +122,7 @@ public class BlockCactus extends Block {
 	 */
 	public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
 
-		entityIn.attackEntityFrom(DamageSource.CACTUS, 1.0F);
+		entityIn.attackEntityFrom(DamageSource.CACTUS, 1F);
 	}
 
 	/**

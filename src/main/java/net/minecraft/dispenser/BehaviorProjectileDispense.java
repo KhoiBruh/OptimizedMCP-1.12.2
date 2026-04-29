@@ -39,7 +39,7 @@ public abstract class BehaviorProjectileDispense extends BehaviorDefaultDispense
 
 	protected float getProjectileInaccuracy() {
 
-		return 6.0F;
+		return 6F;
 	}
 
 	protected float getProjectileVelocity() {

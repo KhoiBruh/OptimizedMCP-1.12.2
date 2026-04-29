@@ -51,10 +51,10 @@ public class ParticleSimpleAnimated extends Particle {
 
 	public void setColor(int p_187146_1_) {
 
-		float f = (float) ((p_187146_1_ & 16711680) >> 16) / 255.0F;
-		float f1 = (float) ((p_187146_1_ & 65280) >> 8) / 255.0F;
-		float f2 = (float) ((p_187146_1_ & 255)) / 255.0F;
-		float f3 = 1.0F;
+		float f = (float) ((p_187146_1_ & 16711680) >> 16) / 255F;
+		float f1 = (float) ((p_187146_1_ & 65280) >> 8) / 255F;
+		float f2 = (float) ((p_187146_1_ & 255)) / 255F;
+		float f3 = 1F;
 		setRBGColorF(f, f1, f2);
 	}
 
@@ -63,9 +63,9 @@ public class ParticleSimpleAnimated extends Particle {
 	 */
 	public void setColorFade(int rgb) {
 
-		fadeTargetRed = (float) ((rgb & 16711680) >> 16) / 255.0F;
-		fadeTargetGreen = (float) ((rgb & 65280) >> 8) / 255.0F;
-		fadeTargetBlue = (float) ((rgb & 255)) / 255.0F;
+		fadeTargetRed = (float) ((rgb & 16711680) >> 16) / 255F;
+		fadeTargetGreen = (float) ((rgb & 65280) >> 8) / 255F;
+		fadeTargetBlue = (float) ((rgb & 255)) / 255F;
 		fadingColor = true;
 	}
 
@@ -85,7 +85,7 @@ public class ParticleSimpleAnimated extends Particle {
 		}
 
 		if (particleAge > particleMaxAge / 2) {
-			setAlphaF(1.0F - ((float) particleAge - (float) (particleMaxAge / 2)) / (float) particleMaxAge);
+			setAlphaF(1F - ((float) particleAge - (float) (particleMaxAge / 2)) / (float) particleMaxAge);
 
 			if (fadingColor) {
 				particleRed += (fadeTargetRed - particleRed) * 0.2F;

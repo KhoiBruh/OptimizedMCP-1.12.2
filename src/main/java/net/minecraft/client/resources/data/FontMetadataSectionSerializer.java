@@ -17,9 +17,9 @@ public class FontMetadataSectionSerializer extends BaseMetadataSectionSerializer
 		float[] afloat = new float[256];
 		float[] afloat1 = new float[256];
 		float[] afloat2 = new float[256];
-		float f = 1.0F;
-		float f1 = 0.0F;
-		float f2 = 0.0F;
+		float f = 1F;
+		float f1 = 0F;
+		float f2 = 0F;
 
 		if (jsonobject.has("characters")) {
 			if (!jsonobject.get("characters").isJsonObject()) {
@@ -35,11 +35,11 @@ public class FontMetadataSectionSerializer extends BaseMetadataSectionSerializer
 
 				JsonObject jsonobject2 = jsonobject1.getAsJsonObject("default");
 				f = JsonUtils.getFloat(jsonobject2, "width", f);
-				Validate.inclusiveBetween(0.0D, 3.4028234663852886E38D, f, "Invalid default width");
+				Validate.inclusiveBetween(0D, 3.4028234663852886E38D, f, "Invalid default width");
 				f1 = JsonUtils.getFloat(jsonobject2, "spacing", f1);
-				Validate.inclusiveBetween(0.0D, 3.4028234663852886E38D, f1, "Invalid default spacing");
+				Validate.inclusiveBetween(0D, 3.4028234663852886E38D, f1, "Invalid default spacing");
 				f2 = JsonUtils.getFloat(jsonobject2, "left", f1);
-				Validate.inclusiveBetween(0.0D, 3.4028234663852886E38D, f2, "Invalid default left");
+				Validate.inclusiveBetween(0D, 3.4028234663852886E38D, f2, "Invalid default left");
 			}
 
 			for (int i = 0; i < 256; ++i) {
@@ -51,11 +51,11 @@ public class FontMetadataSectionSerializer extends BaseMetadataSectionSerializer
 				if (jsonelement != null) {
 					JsonObject jsonobject3 = JsonUtils.getJsonObject(jsonelement, "characters[" + i + "]");
 					f3 = JsonUtils.getFloat(jsonobject3, "width", f);
-					Validate.inclusiveBetween(0.0D, 3.4028234663852886E38D, f3, "Invalid width");
+					Validate.inclusiveBetween(0D, 3.4028234663852886E38D, f3, "Invalid width");
 					f4 = JsonUtils.getFloat(jsonobject3, "spacing", f1);
-					Validate.inclusiveBetween(0.0D, 3.4028234663852886E38D, f4, "Invalid spacing");
+					Validate.inclusiveBetween(0D, 3.4028234663852886E38D, f4, "Invalid spacing");
 					f5 = JsonUtils.getFloat(jsonobject3, "left", f2);
-					Validate.inclusiveBetween(0.0D, 3.4028234663852886E38D, f5, "Invalid left");
+					Validate.inclusiveBetween(0D, 3.4028234663852886E38D, f5, "Invalid left");
 				}
 
 				afloat[i] = f3;

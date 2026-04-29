@@ -335,8 +335,8 @@ public abstract class StructureComponent {
 		float f = (float) (maxX - minX + 1);
 		float f1 = (float) (maxY - minY + 1);
 		float f2 = (float) (maxZ - minZ + 1);
-		float f3 = (float) minX + f / 2.0F;
-		float f4 = (float) minZ + f2 / 2.0F;
+		float f3 = (float) minX + f / 2F;
+		float f4 = (float) minZ + f2 / 2F;
 
 		for (int i = minY; i <= maxY; ++i) {
 			float f5 = (float) (i - minY) / f1;

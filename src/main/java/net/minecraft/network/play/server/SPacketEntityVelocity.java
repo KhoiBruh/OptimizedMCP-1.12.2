@@ -50,9 +50,9 @@ public class SPacketEntityVelocity implements Packet<INetHandlerPlayClient> {
 			motionZIn = 3.9D;
 		}
 
-		motionX = (int) (motionXIn * 8000.0D);
-		motionY = (int) (motionYIn * 8000.0D);
-		motionZ = (int) (motionZIn * 8000.0D);
+		motionX = (int) (motionXIn * 8000D);
+		motionY = (int) (motionYIn * 8000D);
+		motionZ = (int) (motionZIn * 8000D);
 	}
 
 	/**

@@ -53,7 +53,7 @@ public class PathFinder {
 	
 	private Path findPath(PathPoint pathFrom, PathPoint pathTo, float maxDistance) {
 
-		pathFrom.totalPathDistance = 0.0F;
+		pathFrom.totalPathDistance = 0F;
 		pathFrom.distanceToNext = pathFrom.distanceManhattan(pathTo);
 		pathFrom.distanceToTarget = pathFrom.distanceToNext;
 		path.clearPath();

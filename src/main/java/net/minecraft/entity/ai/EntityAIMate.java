@@ -76,11 +76,11 @@ public class EntityAIMate extends EntityAIBase {
 	 */
 	public void updateTask() {
 
-		animal.getLookHelper().setLookPositionWithEntity(targetMate, 10.0F, (float) animal.getVerticalFaceSpeed());
+		animal.getLookHelper().setLookPositionWithEntity(targetMate, 10F, (float) animal.getVerticalFaceSpeed());
 		animal.getNavigator().tryMoveToEntityLiving(targetMate, moveSpeed);
 		++spawnBabyDelay;
 
-		if (spawnBabyDelay >= 60 && animal.getDistanceSq(targetMate) < 9.0D) {
+		if (spawnBabyDelay >= 60 && animal.getDistanceSq(targetMate) < 9D) {
 			spawnBaby();
 		}
 	}
@@ -91,7 +91,7 @@ public class EntityAIMate extends EntityAIBase {
 	 */
 	private EntityAnimal getNearbyMate() {
 
-		List<EntityAnimal> list = world.getEntitiesWithinAABB(mateClass, animal.getEntityBoundingBox().grow(8.0D));
+		List<EntityAnimal> list = world.getEntitiesWithinAABB(mateClass, animal.getEntityBoundingBox().grow(8D));
 		double d0 = Double.MAX_VALUE;
 		EntityAnimal entityanimal = null;
 
@@ -129,7 +129,7 @@ public class EntityAIMate extends EntityAIBase {
 			animal.resetInLove();
 			targetMate.resetInLove();
 			entityageable.setGrowingAge(-24000);
-			entityageable.setLocationAndAngles(animal.posX, animal.posY, animal.posZ, 0.0F, 0.0F);
+			entityageable.setLocationAndAngles(animal.posX, animal.posY, animal.posZ, 0F, 0F);
 			world.spawnEntity(entityageable);
 			Random random = animal.getRNG();
 
@@ -137,9 +137,9 @@ public class EntityAIMate extends EntityAIBase {
 				double d0 = random.nextGaussian() * 0.02D;
 				double d1 = random.nextGaussian() * 0.02D;
 				double d2 = random.nextGaussian() * 0.02D;
-				double d3 = random.nextDouble() * (double) animal.width * 2.0D - (double) animal.width;
+				double d3 = random.nextDouble() * (double) animal.width * 2D - (double) animal.width;
 				double d4 = 0.5D + random.nextDouble() * (double) animal.height;
-				double d5 = random.nextDouble() * (double) animal.width * 2.0D - (double) animal.width;
+				double d5 = random.nextDouble() * (double) animal.width * 2D - (double) animal.width;
 				world.spawnParticle(EnumParticleTypes.HEART, animal.posX + d3, animal.posY + d4, animal.posZ + d5, d0, d1, d2);
 			}
 

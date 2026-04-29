@@ -11,17 +11,17 @@ public class ParticleLava extends Particle {
 
 	protected ParticleLava(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn) {
 
-		super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0.0D, 0.0D, 0.0D);
+		super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0D, 0D, 0D);
 		motionX *= 0.800000011920929D;
 		motionY *= 0.800000011920929D;
 		motionZ *= 0.800000011920929D;
 		motionY = rand.nextFloat() * 0.4F + 0.05F;
-		particleRed = 1.0F;
-		particleGreen = 1.0F;
-		particleBlue = 1.0F;
-		particleScale *= rand.nextFloat() * 2.0F + 0.2F;
+		particleRed = 1F;
+		particleGreen = 1F;
+		particleBlue = 1F;
+		particleScale *= rand.nextFloat() * 2F + 0.2F;
 		lavaParticleScale = particleScale;
-		particleMaxAge = (int) (16.0D / (Math.random() * 0.8D + 0.2D));
+		particleMaxAge = (int) (16D / (Math.random() * 0.8D + 0.2D));
 		setParticleTextureIndex(49);
 	}
 
@@ -39,7 +39,7 @@ public class ParticleLava extends Particle {
 	public void renderParticle(BufferBuilder buffer, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
 
 		float f = ((float) particleAge + partialTicks) / (float) particleMaxAge;
-		particleScale = lavaParticleScale * (1.0F - f * f);
+		particleScale = lavaParticleScale * (1F - f * f);
 		super.renderParticle(buffer, entityIn, partialTicks, rotationX, rotationZ, rotationYZ, rotationXY, rotationXZ);
 	}
 

@@ -61,7 +61,7 @@ public class WalkNodeProcessor extends NodeProcessor {
 		BlockPos blockpos2 = new BlockPos(entity);
 		PathNodeType pathnodetype1 = getPathNodeType(entity, blockpos2.getX(), i, blockpos2.getZ());
 
-		if (entity.getPathPriority(pathnodetype1) < 0.0F) {
+		if (entity.getPathPriority(pathnodetype1) < 0F) {
 			Set<BlockPos> set = Sets.newHashSet();
 			set.add(new BlockPos(entity.getEntityBoundingBox().minX, i, entity.getEntityBoundingBox().minZ));
 			set.add(new BlockPos(entity.getEntityBoundingBox().minX, i, entity.getEntityBoundingBox().maxZ));
@@ -71,7 +71,7 @@ public class WalkNodeProcessor extends NodeProcessor {
 			for (BlockPos blockpos1 : set) {
 				PathNodeType pathnodetype = getPathNodeType(entity, blockpos1);
 
-				if (entity.getPathPriority(pathnodetype) >= 0.0F) {
+				if (entity.getPathPriority(pathnodetype) >= 0F) {
 					return openPoint(blockpos1.getX(), blockpos1.getY(), blockpos1.getZ());
 				}
 			}
@@ -94,12 +94,12 @@ public class WalkNodeProcessor extends NodeProcessor {
 		int j = 0;
 		PathNodeType pathnodetype = getPathNodeType(entity, currentPoint.x, currentPoint.y + 1, currentPoint.z);
 
-		if (entity.getPathPriority(pathnodetype) >= 0.0F) {
-			j = MathHelper.floor(Math.max(1.0F, entity.stepHeight));
+		if (entity.getPathPriority(pathnodetype) >= 0F) {
+			j = MathHelper.floor(Math.max(1F, entity.stepHeight));
 		}
 
 		BlockPos blockpos = (new BlockPos(currentPoint.x, currentPoint.y, currentPoint.z)).down();
-		double d0 = (double) currentPoint.y - (1.0D - blockaccess.getBlockState(blockpos).getBoundingBox(blockaccess, blockpos).maxY);
+		double d0 = (double) currentPoint.y - (1D - blockaccess.getBlockState(blockpos).getBoundingBox(blockaccess, blockpos).maxY);
 		PathPoint pathpoint = getSafePoint(currentPoint.x, currentPoint.y, currentPoint.z + 1, j, d0, EnumFacing.SOUTH);
 		PathPoint pathpoint1 = getSafePoint(currentPoint.x - 1, currentPoint.y, currentPoint.z, j, d0, EnumFacing.WEST);
 		PathPoint pathpoint2 = getSafePoint(currentPoint.x + 1, currentPoint.y, currentPoint.z, j, d0, EnumFacing.EAST);
@@ -121,10 +121,10 @@ public class WalkNodeProcessor extends NodeProcessor {
 			pathOptions[i++] = pathpoint3;
 		}
 
-		boolean flag = pathpoint3 == null || pathpoint3.nodeType == PathNodeType.OPEN || pathpoint3.costMalus != 0.0F;
-		boolean flag1 = pathpoint == null || pathpoint.nodeType == PathNodeType.OPEN || pathpoint.costMalus != 0.0F;
-		boolean flag2 = pathpoint2 == null || pathpoint2.nodeType == PathNodeType.OPEN || pathpoint2.costMalus != 0.0F;
-		boolean flag3 = pathpoint1 == null || pathpoint1.nodeType == PathNodeType.OPEN || pathpoint1.costMalus != 0.0F;
+		boolean flag = pathpoint3 == null || pathpoint3.nodeType == PathNodeType.OPEN || pathpoint3.costMalus != 0F;
+		boolean flag1 = pathpoint == null || pathpoint.nodeType == PathNodeType.OPEN || pathpoint.costMalus != 0F;
+		boolean flag2 = pathpoint2 == null || pathpoint2.nodeType == PathNodeType.OPEN || pathpoint2.costMalus != 0F;
+		boolean flag3 = pathpoint1 == null || pathpoint1.nodeType == PathNodeType.OPEN || pathpoint1.costMalus != 0F;
 
 		if (flag && flag3) {
 			PathPoint pathpoint4 = getSafePoint(currentPoint.x - 1, currentPoint.y, currentPoint.z - 1, j, d0, EnumFacing.NORTH);
@@ -171,16 +171,16 @@ public class WalkNodeProcessor extends NodeProcessor {
 		PathPoint pathpoint = null;
 		BlockPos blockpos = new BlockPos(x, y, z);
 		BlockPos blockpos1 = blockpos.down();
-		double d0 = (double) y - (1.0D - blockaccess.getBlockState(blockpos1).getBoundingBox(blockaccess, blockpos1).maxY);
+		double d0 = (double) y - (1D - blockaccess.getBlockState(blockpos1).getBoundingBox(blockaccess, blockpos1).maxY);
 
 		if (d0 - p_186332_5_ > 1.125D) {
 			return null;
 		} else {
 			PathNodeType pathnodetype = getPathNodeType(entity, x, y, z);
 			float f = entity.getPathPriority(pathnodetype);
-			double d1 = (double) entity.width / 2.0D;
+			double d1 = (double) entity.width / 2D;
 
-			if (f >= 0.0F) {
+			if (f >= 0F) {
 				pathpoint = openPoint(x, y, z);
 				pathpoint.nodeType = pathnodetype;
 				pathpoint.costMalus = Math.max(pathpoint.costMalus, f);
@@ -192,12 +192,12 @@ public class WalkNodeProcessor extends NodeProcessor {
 				if (pathpoint == null && p_186332_4_ > 0 && pathnodetype != PathNodeType.FENCE && pathnodetype != PathNodeType.TRAPDOOR) {
 					pathpoint = getSafePoint(x, y + 1, z, p_186332_4_ - 1, p_186332_5_, facing);
 
-					if (pathpoint != null && (pathpoint.nodeType == PathNodeType.OPEN || pathpoint.nodeType == PathNodeType.WALKABLE) && entity.width < 1.0F) {
+					if (pathpoint != null && (pathpoint.nodeType == PathNodeType.OPEN || pathpoint.nodeType == PathNodeType.WALKABLE) && entity.width < 1F) {
 						double d2 = (double) (x - facing.getFrontOffsetX()) + 0.5D;
 						double d3 = (double) (z - facing.getFrontOffsetZ()) + 0.5D;
 						AxisAlignedBB axisalignedbb = new AxisAlignedBB(d2 - d1, (double) y + 0.001D, d3 - d1, d2 + d1, (float) y + entity.height, d3 + d1);
 						AxisAlignedBB axisalignedbb1 = blockaccess.getBlockState(blockpos).getBoundingBox(blockaccess, blockpos);
-						AxisAlignedBB axisalignedbb2 = axisalignedbb.expand(0.0D, axisalignedbb1.maxY - 0.002D, 0.0D);
+						AxisAlignedBB axisalignedbb2 = axisalignedbb.expand(0D, axisalignedbb1.maxY - 0.002D, 0D);
 
 						if (entity.world.collidesWithAnyBlock(axisalignedbb2)) {
 							pathpoint = null;
@@ -212,7 +212,7 @@ public class WalkNodeProcessor extends NodeProcessor {
 						return null;
 					}
 
-					if (entity.width >= 1.0F) {
+					if (entity.width >= 1F) {
 						PathNodeType pathnodetype1 = getPathNodeType(entity, x, y - 1, z);
 
 						if (pathnodetype1 == PathNodeType.BLOCKED) {
@@ -235,14 +235,14 @@ public class WalkNodeProcessor extends NodeProcessor {
 						pathnodetype = getPathNodeType(entity, x, y, z);
 						f = entity.getPathPriority(pathnodetype);
 
-						if (pathnodetype != PathNodeType.OPEN && f >= 0.0F) {
+						if (pathnodetype != PathNodeType.OPEN && f >= 0F) {
 							pathpoint = openPoint(x, y, z);
 							pathpoint.nodeType = pathnodetype;
 							pathpoint.costMalus = Math.max(pathpoint.costMalus, f);
 							break;
 						}
 
-						if (f < 0.0F) {
+						if (f < 0F) {
 							return null;
 						}
 					}
@@ -257,7 +257,7 @@ public class WalkNodeProcessor extends NodeProcessor {
 
 		EnumSet<PathNodeType> enumset = EnumSet.noneOf(PathNodeType.class);
 		PathNodeType pathnodetype = PathNodeType.BLOCKED;
-		double d0 = (double) entitylivingIn.width / 2.0D;
+		double d0 = (double) entitylivingIn.width / 2D;
 		BlockPos blockpos = new BlockPos(entitylivingIn);
 		pathnodetype = getPathNodeType(blockaccessIn, x, y, z, xSize, ySize, zSize, canBreakDoorsIn, canEnterDoorsIn, enumset, pathnodetype, blockpos);
 
@@ -267,7 +267,7 @@ public class WalkNodeProcessor extends NodeProcessor {
 			PathNodeType pathnodetype1 = PathNodeType.BLOCKED;
 
 			for (PathNodeType pathnodetype2 : enumset) {
-				if (entitylivingIn.getPathPriority(pathnodetype2) < 0.0F) {
+				if (entitylivingIn.getPathPriority(pathnodetype2) < 0F) {
 					return pathnodetype2;
 				}
 
@@ -276,7 +276,7 @@ public class WalkNodeProcessor extends NodeProcessor {
 				}
 			}
 
-			if (pathnodetype == PathNodeType.OPEN && entitylivingIn.getPathPriority(pathnodetype1) == 0.0F) {
+			if (pathnodetype == PathNodeType.OPEN && entitylivingIn.getPathPriority(pathnodetype1) == 0F) {
 				return PathNodeType.OPEN;
 			} else {
 				return pathnodetype1;

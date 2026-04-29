@@ -30,7 +30,7 @@ public class PhaseChargingPlayer extends PhaseBase {
 		} else {
 			double d0 = targetLocation.squareDistanceTo(dragon.posX, dragon.posY, dragon.posZ);
 
-			if (d0 < 100.0D || d0 > 22500.0D || dragon.collidedHorizontally || dragon.collidedVertically) {
+			if (d0 < 100D || d0 > 22500D || dragon.collidedHorizontally || dragon.collidedVertically) {
 				++timeSinceCharge;
 			}
 		}
@@ -55,7 +55,7 @@ public class PhaseChargingPlayer extends PhaseBase {
 	 */
 	public float getMaxRiseOrFall() {
 
-		return 3.0F;
+		return 3F;
 	}
 
 	

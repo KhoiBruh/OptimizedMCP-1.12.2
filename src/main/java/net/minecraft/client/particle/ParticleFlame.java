@@ -22,10 +22,10 @@ public class ParticleFlame extends Particle {
 		posY += (rand.nextFloat() - rand.nextFloat()) * 0.05F;
 		posZ += (rand.nextFloat() - rand.nextFloat()) * 0.05F;
 		flameScale = particleScale;
-		particleRed = 1.0F;
-		particleGreen = 1.0F;
-		particleBlue = 1.0F;
-		particleMaxAge = (int) (8.0D / (Math.random() * 0.8D + 0.2D)) + 4;
+		particleRed = 1F;
+		particleGreen = 1F;
+		particleBlue = 1F;
+		particleMaxAge = (int) (8D / (Math.random() * 0.8D + 0.2D)) + 4;
 		setParticleTextureIndex(48);
 	}
 
@@ -41,18 +41,18 @@ public class ParticleFlame extends Particle {
 	public void renderParticle(BufferBuilder buffer, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
 
 		float f = ((float) particleAge + partialTicks) / (float) particleMaxAge;
-		particleScale = flameScale * (1.0F - f * f * 0.5F);
+		particleScale = flameScale * (1F - f * f * 0.5F);
 		super.renderParticle(buffer, entityIn, partialTicks, rotationX, rotationZ, rotationYZ, rotationXY, rotationXZ);
 	}
 
 	public int getBrightnessForRender(float p_189214_1_) {
 
 		float f = ((float) particleAge + p_189214_1_) / (float) particleMaxAge;
-		f = MathHelper.clamp(f, 0.0F, 1.0F);
+		f = MathHelper.clamp(f, 0F, 1F);
 		int i = super.getBrightnessForRender(p_189214_1_);
 		int j = i & 255;
 		int k = i >> 16 & 255;
-		j = j + (int) (f * 15.0F * 16.0F);
+		j = j + (int) (f * 15F * 16F);
 
 		if (j > 240) {
 			j = 240;

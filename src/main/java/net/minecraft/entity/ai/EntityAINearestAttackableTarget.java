@@ -93,7 +93,7 @@ public class EntityAINearestAttackableTarget<T extends EntityLivingBase> extends
 						}
 					}
 
-					return 1.0D;
+					return 1D;
 				}
 			}, (Predicate<EntityPlayer>) targetEntitySelector);
 			return targetEntity != null;
@@ -102,7 +102,7 @@ public class EntityAINearestAttackableTarget<T extends EntityLivingBase> extends
 
 	protected AxisAlignedBB getTargetableArea(double targetDistance) {
 
-		return taskOwner.getEntityBoundingBox().grow(targetDistance, 4.0D, targetDistance);
+		return taskOwner.getEntityBoundingBox().grow(targetDistance, 4D, targetDistance);
 	}
 
 	/**

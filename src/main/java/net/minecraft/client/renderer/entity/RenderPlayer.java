@@ -30,7 +30,7 @@ public class RenderPlayer extends RenderLivingBase<AbstractClientPlayer> {
 
 	public RenderPlayer(RenderManager renderManager, boolean useSmallArms) {
 
-		super(renderManager, new ModelPlayer(0.0F, useSmallArms), 0.5F);
+		super(renderManager, new ModelPlayer(0F, useSmallArms), 0.5F);
 		smallArms = useSmallArms;
 		addLayer(new LayerBipedArmor(this));
 		addLayer(new LayerHeldItem(this));
@@ -134,7 +134,7 @@ public class RenderPlayer extends RenderLivingBase<AbstractClientPlayer> {
 
 	public void transformHeldFull3DItemLayer() {
 
-		GlStateManager.translate(0.0F, 0.1875F, 0.0F);
+		GlStateManager.translate(0F, 0.1875F, 0F);
 	}
 
 	/**
@@ -148,7 +148,7 @@ public class RenderPlayer extends RenderLivingBase<AbstractClientPlayer> {
 
 	protected void renderEntityName(AbstractClientPlayer entityIn, double x, double y, double z, String name, double distanceSq) {
 
-		if (distanceSq < 100.0D) {
+		if (distanceSq < 100D) {
 			Scoreboard scoreboard = entityIn.getWorldScoreboard();
 			ScoreObjective scoreobjective = scoreboard.getObjectiveInDisplaySlot(2);
 
@@ -164,36 +164,36 @@ public class RenderPlayer extends RenderLivingBase<AbstractClientPlayer> {
 
 	public void renderRightArm(AbstractClientPlayer clientPlayer) {
 
-		float f = 1.0F;
-		GlStateManager.color(1.0F, 1.0F, 1.0F);
+		float f = 1F;
+		GlStateManager.color(1F, 1F, 1F);
 		float f1 = 0.0625F;
 		ModelPlayer modelplayer = getMainModel();
 		setModelVisibilities(clientPlayer);
 		GlStateManager.enableBlend();
-		modelplayer.swingProgress = 0.0F;
+		modelplayer.swingProgress = 0F;
 		modelplayer.isSneak = false;
-		modelplayer.setRotationAngles(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0625F, clientPlayer);
-		modelplayer.bipedRightArm.rotateAngleX = 0.0F;
+		modelplayer.setRotationAngles(0F, 0F, 0F, 0F, 0F, 0.0625F, clientPlayer);
+		modelplayer.bipedRightArm.rotateAngleX = 0F;
 		modelplayer.bipedRightArm.render(0.0625F);
-		modelplayer.bipedRightArmwear.rotateAngleX = 0.0F;
+		modelplayer.bipedRightArmwear.rotateAngleX = 0F;
 		modelplayer.bipedRightArmwear.render(0.0625F);
 		GlStateManager.disableBlend();
 	}
 
 	public void renderLeftArm(AbstractClientPlayer clientPlayer) {
 
-		float f = 1.0F;
-		GlStateManager.color(1.0F, 1.0F, 1.0F);
+		float f = 1F;
+		GlStateManager.color(1F, 1F, 1F);
 		float f1 = 0.0625F;
 		ModelPlayer modelplayer = getMainModel();
 		setModelVisibilities(clientPlayer);
 		GlStateManager.enableBlend();
 		modelplayer.isSneak = false;
-		modelplayer.swingProgress = 0.0F;
-		modelplayer.setRotationAngles(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0625F, clientPlayer);
-		modelplayer.bipedLeftArm.rotateAngleX = 0.0F;
+		modelplayer.swingProgress = 0F;
+		modelplayer.setRotationAngles(0F, 0F, 0F, 0F, 0F, 0.0625F, clientPlayer);
+		modelplayer.bipedLeftArm.rotateAngleX = 0F;
 		modelplayer.bipedLeftArm.render(0.0625F);
-		modelplayer.bipedLeftArmwear.rotateAngleX = 0.0F;
+		modelplayer.bipedLeftArmwear.rotateAngleX = 0F;
 		modelplayer.bipedLeftArmwear.render(0.0625F);
 		GlStateManager.disableBlend();
 	}
@@ -213,22 +213,22 @@ public class RenderPlayer extends RenderLivingBase<AbstractClientPlayer> {
 	protected void applyRotations(AbstractClientPlayer entityLiving, float p_77043_2_, float rotationYaw, float partialTicks) {
 
 		if (entityLiving.isEntityAlive() && entityLiving.isPlayerSleeping()) {
-			GlStateManager.rotate(entityLiving.getBedOrientationInDegrees(), 0.0F, 1.0F, 0.0F);
-			GlStateManager.rotate(getDeathMaxRotation(entityLiving), 0.0F, 0.0F, 1.0F);
-			GlStateManager.rotate(270.0F, 0.0F, 1.0F, 0.0F);
+			GlStateManager.rotate(entityLiving.getBedOrientationInDegrees(), 0F, 1F, 0F);
+			GlStateManager.rotate(getDeathMaxRotation(entityLiving), 0F, 0F, 1F);
+			GlStateManager.rotate(270F, 0F, 1F, 0F);
 		} else if (entityLiving.isElytraFlying()) {
 			super.applyRotations(entityLiving, p_77043_2_, rotationYaw, partialTicks);
 			float f = (float) entityLiving.getTicksElytraFlying() + partialTicks;
-			float f1 = MathHelper.clamp(f * f / 100.0F, 0.0F, 1.0F);
-			GlStateManager.rotate(f1 * (-90.0F - entityLiving.rotationPitch), 1.0F, 0.0F, 0.0F);
+			float f1 = MathHelper.clamp(f * f / 100F, 0F, 1F);
+			GlStateManager.rotate(f1 * (-90F - entityLiving.rotationPitch), 1F, 0F, 0F);
 			Vec3d vec3d = entityLiving.getLook(partialTicks);
 			double d0 = entityLiving.motionX * entityLiving.motionX + entityLiving.motionZ * entityLiving.motionZ;
 			double d1 = vec3d.x() * vec3d.x() + vec3d.z() * vec3d.z();
 
-			if (d0 > 0.0D && d1 > 0.0D) {
+			if (d0 > 0D && d1 > 0D) {
 				double d2 = (entityLiving.motionX * vec3d.x() + entityLiving.motionZ * vec3d.z()) / (Math.sqrt(d0) * Math.sqrt(d1));
 				double d3 = entityLiving.motionX * vec3d.z() - entityLiving.motionZ * vec3d.x();
-				GlStateManager.rotate((float) (Math.signum(d3) * Math.acos(d2)) * 180.0F / (float) Math.PI, 0.0F, 1.0F, 0.0F);
+				GlStateManager.rotate((float) (Math.signum(d3) * Math.acos(d2)) * 180F / (float) Math.PI, 0F, 1F, 0F);
 			}
 		} else {
 			super.applyRotations(entityLiving, p_77043_2_, rotationYaw, partialTicks);

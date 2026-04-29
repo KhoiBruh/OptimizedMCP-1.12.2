@@ -19,7 +19,7 @@ import java.util.Random;
 
 public class BlockSign extends BlockContainer {
 
-	protected static final AxisAlignedBB SIGN_AABB = new AxisAlignedBB(0.25D, 0.0D, 0.25D, 0.75D, 1.0D, 0.75D);
+	protected static final AxisAlignedBB SIGN_AABB = new AxisAlignedBB(0.25D, 0D, 0.25D, 0.75D, 1D, 0.75D);
 
 	protected BlockSign() {
 

@@ -31,7 +31,7 @@ public class PlacementSettings {
 	/** the bounds the structure is contained within */
 	private StructureBoundingBox boundingBox;
 	private boolean ignoreStructureBlock = true;
-	private float integrity = 1.0F;
+	private float integrity = 1F;
 
 	
 	private Random random;

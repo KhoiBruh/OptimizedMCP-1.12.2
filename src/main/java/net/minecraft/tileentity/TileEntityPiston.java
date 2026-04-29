@@ -106,8 +106,8 @@ public class TileEntityPiston extends TileEntity implements ITickable {
 	 */
 	public float getProgress(float ticks) {
 
-		if (ticks > 1.0F) {
-			ticks = 1.0F;
+		if (ticks > 1F) {
+			ticks = 1F;
 		}
 
 		return lastProgress + (progress - lastProgress) * ticks;
@@ -130,7 +130,7 @@ public class TileEntityPiston extends TileEntity implements ITickable {
 
 	private float getExtendedProgress(float p_184320_1_) {
 
-		return extending ? p_184320_1_ - 1.0F : 1.0F - p_184320_1_;
+		return extending ? p_184320_1_ - 1F : 1F - p_184320_1_;
 	}
 
 	public AxisAlignedBB getAABB(IBlockAccess p_184321_1_, BlockPos p_184321_2_) {
@@ -181,7 +181,7 @@ public class TileEntityPiston extends TileEntity implements ITickable {
 							}
 						}
 
-						double d1 = 0.0D;
+						double d1 = 0D;
 
 						for (AxisAlignedBB axisAlignedBB : list) {
 							AxisAlignedBB axisalignedbb1 = getMovementArea(moveByPositionAndProgress(axisAlignedBB), enumfacing, d0);
@@ -196,7 +196,7 @@ public class TileEntityPiston extends TileEntity implements ITickable {
 							}
 						}
 
-						if (d1 > 0.0D) {
+						if (d1 > 0D) {
 							d1 = Math.min(d1, d0) + 0.01D;
 							MOVING_ENTITY.set(enumfacing);
 							entity.move(MoverType.PISTON, d1 * (double) enumfacing.getFrontOffsetX(), d1 * (double) enumfacing.getFrontOffsetY(), d1 * (double) enumfacing.getFrontOffsetZ());
@@ -214,12 +214,12 @@ public class TileEntityPiston extends TileEntity implements ITickable {
 
 	private AxisAlignedBB getMinMaxPiecesAABB(List<AxisAlignedBB> p_191515_1_) {
 
-		double d0 = 0.0D;
-		double d1 = 0.0D;
-		double d2 = 0.0D;
-		double d3 = 1.0D;
-		double d4 = 1.0D;
-		double d5 = 1.0D;
+		double d0 = 0D;
+		double d1 = 0D;
+		double d2 = 0D;
+		double d3 = 1D;
+		double d4 = 1D;
+		double d5 = 1D;
 
 		for (AxisAlignedBB axisalignedbb : p_191515_1_) {
 			d0 = Math.min(axisalignedbb.minX, d0);
@@ -251,8 +251,8 @@ public class TileEntityPiston extends TileEntity implements ITickable {
 	private AxisAlignedBB getMovementArea(AxisAlignedBB p_190610_1_, EnumFacing p_190610_2_, double p_190610_3_) {
 
 		double d0 = p_190610_3_ * (double) p_190610_2_.getAxisDirection().getOffset();
-		double d1 = Math.min(d0, 0.0D);
-		double d2 = Math.max(d0, 0.0D);
+		double d1 = Math.min(d0, 0D);
+		double d2 = Math.max(d0, 0D);
 
 		return switch (p_190610_2_) {
 			case WEST ->
@@ -294,8 +294,8 @@ public class TileEntityPiston extends TileEntity implements ITickable {
 	 */
 	public void clearPistonTileEntity() {
 
-		if (lastProgress < 1.0F && world != null) {
-			progress = 1.0F;
+		if (lastProgress < 1F && world != null) {
+			progress = 1F;
 			lastProgress = progress;
 			world.removeTileEntity(pos);
 			invalidate();
@@ -314,7 +314,7 @@ public class TileEntityPiston extends TileEntity implements ITickable {
 
 		lastProgress = progress;
 
-		if (lastProgress >= 1.0F) {
+		if (lastProgress >= 1F) {
 			world.removeTileEntity(pos);
 			invalidate();
 
@@ -327,8 +327,8 @@ public class TileEntityPiston extends TileEntity implements ITickable {
 			moveCollidedEntities(f);
 			progress = f;
 
-			if (progress >= 1.0F) {
-				progress = 1.0F;
+			if (progress >= 1F) {
+				progress = 1F;
 			}
 		}
 	}
@@ -364,12 +364,12 @@ public class TileEntityPiston extends TileEntity implements ITickable {
 
 		EnumFacing enumfacing = MOVING_ENTITY.get();
 
-		if ((double) progress >= 1.0D || enumfacing != (extending ? pistonFacing : pistonFacing.getOpposite())) {
+		if ((double) progress >= 1D || enumfacing != (extending ? pistonFacing : pistonFacing.getOpposite())) {
 			int i = p_190609_4_.size();
 			IBlockState iblockstate;
 
 			if (shouldPistonHeadBeRendered()) {
-				iblockstate = Blocks.PISTON_HEAD.getDefaultState().withProperty(BlockPistonExtension.FACING, pistonFacing).withProperty(BlockPistonExtension.SHORT, extending != 1.0F - progress < 0.25F);
+				iblockstate = Blocks.PISTON_HEAD.getDefaultState().withProperty(BlockPistonExtension.FACING, pistonFacing).withProperty(BlockPistonExtension.SHORT, extending != 1F - progress < 0.25F);
 			} else {
 				iblockstate = pistonState;
 			}

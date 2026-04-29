@@ -14,7 +14,7 @@ import java.util.List;
 
 public class BlockLilyPad extends BlockBush {
 
-	protected static final AxisAlignedBB LILY_PAD_AABB = new AxisAlignedBB(0.0625D, 0.0D, 0.0625D, 0.9375D, 0.09375D, 0.9375D);
+	protected static final AxisAlignedBB LILY_PAD_AABB = new AxisAlignedBB(0.0625D, 0D, 0.0625D, 0.9375D, 0.09375D, 0.9375D);
 
 	protected BlockLilyPad() {
 

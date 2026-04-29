@@ -35,7 +35,7 @@ public class ItemFlintAndSteel extends Item {
 			return EnumActionResult.FAIL;
 		} else {
 			if (worldIn.getBlockState(pos).getMaterial() == Material.AIR) {
-				worldIn.playSound(player, pos, SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.BLOCKS, 1.0F, itemRand.nextFloat() * 0.4F + 0.8F);
+				worldIn.playSound(player, pos, SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.BLOCKS, 1F, itemRand.nextFloat() * 0.4F + 0.8F);
 				worldIn.setBlockState(pos, Blocks.FIRE.getDefaultState(), 11);
 			}
 

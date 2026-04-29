@@ -11,12 +11,12 @@ public class ParticleCrit extends Particle {
 
 	protected ParticleCrit(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double p_i46284_8_, double p_i46284_10_, double p_i46284_12_) {
 
-		this(worldIn, xCoordIn, yCoordIn, zCoordIn, p_i46284_8_, p_i46284_10_, p_i46284_12_, 1.0F);
+		this(worldIn, xCoordIn, yCoordIn, zCoordIn, p_i46284_8_, p_i46284_10_, p_i46284_12_, 1F);
 	}
 
 	protected ParticleCrit(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double p_i46285_8_, double p_i46285_10_, double p_i46285_12_, float p_i46285_14_) {
 
-		super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0.0D, 0.0D, 0.0D);
+		super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0D, 0D, 0D);
 		motionX *= 0.10000000149011612D;
 		motionY *= 0.10000000149011612D;
 		motionZ *= 0.10000000149011612D;
@@ -30,7 +30,7 @@ public class ParticleCrit extends Particle {
 		particleScale *= 0.75F;
 		particleScale *= p_i46285_14_;
 		oSize = particleScale;
-		particleMaxAge = (int) (6.0D / (Math.random() * 0.8D + 0.6D));
+		particleMaxAge = (int) (6D / (Math.random() * 0.8D + 0.6D));
 		particleMaxAge = (int) ((float) particleMaxAge * p_i46285_14_);
 		setParticleTextureIndex(65);
 		onUpdate();
@@ -41,8 +41,8 @@ public class ParticleCrit extends Particle {
 	 */
 	public void renderParticle(BufferBuilder buffer, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
 
-		float f = ((float) particleAge + partialTicks) / (float) particleMaxAge * 32.0F;
-		f = MathHelper.clamp(f, 0.0F, 1.0F);
+		float f = ((float) particleAge + partialTicks) / (float) particleMaxAge * 32F;
+		f = MathHelper.clamp(f, 0F, 1F);
 		particleScale = oSize * f;
 		super.renderParticle(buffer, entityIn, partialTicks, rotationX, rotationZ, rotationYZ, rotationXY, rotationXZ);
 	}
@@ -75,7 +75,7 @@ public class ParticleCrit extends Particle {
 
 		public Particle createParticle(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_) {
 
-			Particle particle = new ParticleCrit(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn + 1.0D, zSpeedIn, 1.0F);
+			Particle particle = new ParticleCrit(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn + 1D, zSpeedIn, 1F);
 			particle.setMaxAge(20);
 			particle.setParticleTextureIndex(67);
 			return particle;

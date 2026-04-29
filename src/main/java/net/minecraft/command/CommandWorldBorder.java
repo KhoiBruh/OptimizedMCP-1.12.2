@@ -51,7 +51,7 @@ public class CommandWorldBorder extends CommandBase {
 					}
 
 					double d0 = worldborder.getTargetSize();
-					double d2 = parseDouble(args[1], 1.0D, 6.0E7D);
+					double d2 = parseDouble(args[1], 1D, 6.0E7D);
 					long i = args.length > 2 ? parseLong(args[2], 0L, 9223372036854775L) * 1000L : 0L;
 
 					if (i > 0L) {
@@ -110,7 +110,7 @@ public class CommandWorldBorder extends CommandBase {
 							throw new WrongUsageException("commands.worldborder.damage.buffer.usage");
 						}
 
-						double d5 = parseDouble(args[2], 0.0D);
+						double d5 = parseDouble(args[2], 0D);
 						double d9 = worldborder.getDamageBuffer();
 						worldborder.setDamageBuffer(d5);
 						notifyCommandListener(sender, this, "commands.worldborder.damage.buffer.success", String.format("%.1f", d5), String.format("%.1f", d9));
@@ -119,7 +119,7 @@ public class CommandWorldBorder extends CommandBase {
 							throw new WrongUsageException("commands.worldborder.damage.amount.usage");
 						}
 
-						double d6 = parseDouble(args[2], 0.0D);
+						double d6 = parseDouble(args[2], 0D);
 						double d10 = worldborder.getDamageAmount();
 						worldborder.setDamageAmount(d6);
 						notifyCommandListener(sender, this, "commands.worldborder.damage.amount.success", String.format("%.2f", d6), String.format("%.2f", d10));

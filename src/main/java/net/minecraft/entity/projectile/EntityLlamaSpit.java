@@ -29,7 +29,7 @@ public class EntityLlamaSpit extends Entity implements IProjectile {
 
 		super(worldIn);
 		owner = p_i47273_2_;
-		setPosition(p_i47273_2_.posX - (double) (p_i47273_2_.width + 1.0F) * 0.5D * (double) MathHelper.sin(p_i47273_2_.renderYawOffset * 0.017453292F), p_i47273_2_.posY + (double) p_i47273_2_.getEyeHeight() - 0.10000000149011612D, p_i47273_2_.posZ + (double) (p_i47273_2_.width + 1.0F) * 0.5D * (double) MathHelper.cos(p_i47273_2_.renderYawOffset * 0.017453292F));
+		setPosition(p_i47273_2_.posX - (double) (p_i47273_2_.width + 1F) * 0.5D * (double) MathHelper.sin(p_i47273_2_.renderYawOffset * 0.017453292F), p_i47273_2_.posY + (double) p_i47273_2_.getEyeHeight() - 0.10000000149011612D, p_i47273_2_.posZ + (double) (p_i47273_2_.width + 1F) * 0.5D * (double) MathHelper.cos(p_i47273_2_.renderYawOffset * 0.017453292F));
 		setSize(0.25F, 0.25F);
 	}
 
@@ -85,19 +85,19 @@ public class EntityLlamaSpit extends Entity implements IProjectile {
 		float f = MathHelper.sqrt(motionX * motionX + motionZ * motionZ);
 		rotationYaw = (float) (MathHelper.atan2(motionX, motionZ) * (180D / Math.PI));
 
-		for (rotationPitch = (float) (MathHelper.atan2(motionY, f) * (180D / Math.PI)); rotationPitch - prevRotationPitch < -180.0F; prevRotationPitch -= 360.0F) {
+		for (rotationPitch = (float) (MathHelper.atan2(motionY, f) * (180D / Math.PI)); rotationPitch - prevRotationPitch < -180F; prevRotationPitch -= 360F) {
 		}
 
-		while (rotationPitch - prevRotationPitch >= 180.0F) {
-			prevRotationPitch += 360.0F;
+		while (rotationPitch - prevRotationPitch >= 180F) {
+			prevRotationPitch += 360F;
 		}
 
-		while (rotationYaw - prevRotationYaw < -180.0F) {
-			prevRotationYaw -= 360.0F;
+		while (rotationYaw - prevRotationYaw < -180F) {
+			prevRotationYaw -= 360F;
 		}
 
-		while (rotationYaw - prevRotationYaw >= 180.0F) {
-			prevRotationYaw += 360.0F;
+		while (rotationYaw - prevRotationYaw >= 180F) {
+			prevRotationYaw += 360F;
 		}
 
 		rotationPitch = prevRotationPitch + (rotationPitch - prevRotationPitch) * 0.2F;
@@ -131,7 +131,7 @@ public class EntityLlamaSpit extends Entity implements IProjectile {
 		motionY = y;
 		motionZ = z;
 
-		if (prevRotationPitch == 0.0F && prevRotationYaw == 0.0F) {
+		if (prevRotationPitch == 0F && prevRotationYaw == 0F) {
 			float f = MathHelper.sqrt(x * x + z * z);
 			rotationPitch = (float) (MathHelper.atan2(y, f) * (180D / Math.PI));
 			rotationYaw = (float) (MathHelper.atan2(x, z) * (180D / Math.PI));
@@ -145,8 +145,8 @@ public class EntityLlamaSpit extends Entity implements IProjectile {
 	private Entity getHitEntity(Vec3d p_190538_1_, Vec3d p_190538_2_) {
 
 		Entity entity = null;
-		List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().expand(motionX, motionY, motionZ).grow(1.0D));
-		double d0 = 0.0D;
+		List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().expand(motionX, motionY, motionZ).grow(1D));
+		double d0 = 0D;
 
 		for (Entity entity1 : list) {
 			if (entity1 != owner) {
@@ -156,7 +156,7 @@ public class EntityLlamaSpit extends Entity implements IProjectile {
 				if (raytraceresult != null) {
 					double d1 = p_190538_1_.squareDistanceTo(raytraceresult.hitVec);
 
-					if (d1 < d0 || d0 == 0.0D) {
+					if (d1 < d0 || d0 == 0D) {
 						entity = entity1;
 						d0 = d1;
 					}
@@ -195,7 +195,7 @@ public class EntityLlamaSpit extends Entity implements IProjectile {
 	public void onHit(RayTraceResult p_190536_1_) {
 
 		if (p_190536_1_.entityHit != null && owner != null) {
-			p_190536_1_.entityHit.attackEntityFrom(DamageSource.causeIndirectDamage(this, owner).setProjectile(), 1.0F);
+			p_190536_1_.entityHit.attackEntityFrom(DamageSource.causeIndirectDamage(this, owner).setProjectile(), 1F);
 		}
 
 		if (!world.isRemote) {
@@ -235,7 +235,7 @@ public class EntityLlamaSpit extends Entity implements IProjectile {
 		if (ownerNbt != null && ownerNbt.hasUniqueId("OwnerUUID")) {
 			UUID uuid = ownerNbt.getUniqueId("OwnerUUID");
 
-			for (EntityLlama entityllama : world.getEntitiesWithinAABB(EntityLlama.class, getEntityBoundingBox().grow(15.0D))) {
+			for (EntityLlama entityllama : world.getEntitiesWithinAABB(EntityLlama.class, getEntityBoundingBox().grow(15D))) {
 				if (entityllama.getUniqueID().equals(uuid)) {
 					owner = entityllama;
 					break;

@@ -22,19 +22,19 @@ public class ParticleDrip extends Particle {
 
 	protected ParticleDrip(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, Material p_i1203_8_) {
 
-		super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0.0D, 0.0D, 0.0D);
-		motionX = 0.0D;
-		motionY = 0.0D;
-		motionZ = 0.0D;
+		super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0D, 0D, 0D);
+		motionX = 0D;
+		motionY = 0D;
+		motionZ = 0D;
 
 		if (p_i1203_8_ == Material.WATER) {
-			particleRed = 0.0F;
-			particleGreen = 0.0F;
-			particleBlue = 1.0F;
+			particleRed = 0F;
+			particleGreen = 0F;
+			particleBlue = 1F;
 		} else {
-			particleRed = 1.0F;
-			particleGreen = 0.0F;
-			particleBlue = 0.0F;
+			particleRed = 1F;
+			particleGreen = 0F;
+			particleBlue = 0F;
 		}
 
 		setParticleTextureIndex(113);
@@ -42,10 +42,10 @@ public class ParticleDrip extends Particle {
 		particleGravity = 0.06F;
 		materialType = p_i1203_8_;
 		bobTimer = 40;
-		particleMaxAge = (int) (64.0D / (Math.random() * 0.8D + 0.2D));
-		motionX = 0.0D;
-		motionY = 0.0D;
-		motionZ = 0.0D;
+		particleMaxAge = (int) (64D / (Math.random() * 0.8D + 0.2D));
+		motionX = 0D;
+		motionY = 0D;
+		motionZ = 0D;
 	}
 
 	public int getBrightnessForRender(float p_189214_1_) {
@@ -62,11 +62,11 @@ public class ParticleDrip extends Particle {
 		if (materialType == Material.WATER) {
 			particleRed = 0.2F;
 			particleGreen = 0.3F;
-			particleBlue = 1.0F;
+			particleBlue = 1F;
 		} else {
-			particleRed = 1.0F;
-			particleGreen = 16.0F / (float) (40 - bobTimer + 16);
-			particleBlue = 4.0F / (float) (40 - bobTimer + 8);
+			particleRed = 1F;
+			particleGreen = 16F / (float) (40 - bobTimer + 16);
+			particleBlue = 4F / (float) (40 - bobTimer + 8);
 		}
 
 		motionY -= particleGravity;
@@ -92,7 +92,7 @@ public class ParticleDrip extends Particle {
 		if (onGround) {
 			if (materialType == Material.WATER) {
 				setExpired();
-				world.spawnParticle(EnumParticleTypes.WATER_SPLASH, posX, posY, posZ, 0.0D, 0.0D, 0.0D);
+				world.spawnParticle(EnumParticleTypes.WATER_SPLASH, posX, posY, posZ, 0D, 0D, 0D);
 			} else {
 				setParticleTextureIndex(114);
 			}
@@ -106,7 +106,7 @@ public class ParticleDrip extends Particle {
 		Material material = iblockstate.getMaterial();
 
 		if (material.isLiquid() || material.isSolid()) {
-			double d0 = 0.0D;
+			double d0 = 0D;
 
 			if (iblockstate.getBlock() instanceof BlockLiquid) {
 				d0 = BlockLiquid.getLiquidHeightPercent(iblockstate.getValue(BlockLiquid.LEVEL));

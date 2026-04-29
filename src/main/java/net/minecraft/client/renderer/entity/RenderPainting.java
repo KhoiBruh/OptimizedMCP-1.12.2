@@ -27,7 +27,7 @@ public class RenderPainting extends Render<EntityPainting> {
 
 		GlStateManager.pushMatrix();
 		GlStateManager.translate(x, y, z);
-		GlStateManager.rotate(180.0F - entityYaw, 0.0F, 1.0F, 0.0F);
+		GlStateManager.rotate(180F - entityYaw, 0F, 1F, 0F);
 		GlStateManager.enableRescaleNormal();
 		bindEntityTexture(entity);
 		EntityPainting.EnumArt entitypainting$enumart = entity.art;
@@ -61,12 +61,12 @@ public class RenderPainting extends Render<EntityPainting> {
 
 	private void renderPainting(EntityPainting painting, int width, int height, int textureU, int textureV) {
 
-		float f = (float) (-width) / 2.0F;
-		float f1 = (float) (-height) / 2.0F;
+		float f = (float) (-width) / 2F;
+		float f1 = (float) (-height) / 2F;
 		float f2 = 0.5F;
 		float f3 = 0.75F;
 		float f4 = 0.8125F;
-		float f5 = 0.0F;
+		float f5 = 0F;
 		float f6 = 0.0625F;
 		float f7 = 0.75F;
 		float f8 = 0.8125F;
@@ -74,7 +74,7 @@ public class RenderPainting extends Render<EntityPainting> {
 		float f10 = 0.001953125F;
 		float f11 = 0.7519531F;
 		float f12 = 0.7519531F;
-		float f13 = 0.0F;
+		float f13 = 0F;
 		float f14 = 0.0625F;
 
 		for (int i = 0; i < width / 16; ++i) {
@@ -83,38 +83,38 @@ public class RenderPainting extends Render<EntityPainting> {
 				float f16 = f + (float) (i * 16);
 				float f17 = f1 + (float) ((j + 1) * 16);
 				float f18 = f1 + (float) (j * 16);
-				setLightmap(painting, (f15 + f16) / 2.0F, (f17 + f18) / 2.0F);
-				float f19 = (float) (textureU + width - i * 16) / 256.0F;
-				float f20 = (float) (textureU + width - (i + 1) * 16) / 256.0F;
-				float f21 = (float) (textureV + height - j * 16) / 256.0F;
-				float f22 = (float) (textureV + height - (j + 1) * 16) / 256.0F;
+				setLightmap(painting, (f15 + f16) / 2F, (f17 + f18) / 2F);
+				float f19 = (float) (textureU + width - i * 16) / 256F;
+				float f20 = (float) (textureU + width - (i + 1) * 16) / 256F;
+				float f21 = (float) (textureV + height - j * 16) / 256F;
+				float f22 = (float) (textureV + height - (j + 1) * 16) / 256F;
 				Tessellator tessellator = Tessellator.getInstance();
 				BufferBuilder bufferbuilder = tessellator.getBuffer();
 				bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_NORMAL);
-				bufferbuilder.pos(f15, f18, -0.5D).tex(f20, f21).normal(0.0F, 0.0F, -1.0F).endVertex();
-				bufferbuilder.pos(f16, f18, -0.5D).tex(f19, f21).normal(0.0F, 0.0F, -1.0F).endVertex();
-				bufferbuilder.pos(f16, f17, -0.5D).tex(f19, f22).normal(0.0F, 0.0F, -1.0F).endVertex();
-				bufferbuilder.pos(f15, f17, -0.5D).tex(f20, f22).normal(0.0F, 0.0F, -1.0F).endVertex();
-				bufferbuilder.pos(f15, f17, 0.5D).tex(0.75D, 0.0D).normal(0.0F, 0.0F, 1.0F).endVertex();
-				bufferbuilder.pos(f16, f17, 0.5D).tex(0.8125D, 0.0D).normal(0.0F, 0.0F, 1.0F).endVertex();
-				bufferbuilder.pos(f16, f18, 0.5D).tex(0.8125D, 0.0625D).normal(0.0F, 0.0F, 1.0F).endVertex();
-				bufferbuilder.pos(f15, f18, 0.5D).tex(0.75D, 0.0625D).normal(0.0F, 0.0F, 1.0F).endVertex();
-				bufferbuilder.pos(f15, f17, -0.5D).tex(0.75D, 0.001953125D).normal(0.0F, 1.0F, 0.0F).endVertex();
-				bufferbuilder.pos(f16, f17, -0.5D).tex(0.8125D, 0.001953125D).normal(0.0F, 1.0F, 0.0F).endVertex();
-				bufferbuilder.pos(f16, f17, 0.5D).tex(0.8125D, 0.001953125D).normal(0.0F, 1.0F, 0.0F).endVertex();
-				bufferbuilder.pos(f15, f17, 0.5D).tex(0.75D, 0.001953125D).normal(0.0F, 1.0F, 0.0F).endVertex();
-				bufferbuilder.pos(f15, f18, 0.5D).tex(0.75D, 0.001953125D).normal(0.0F, -1.0F, 0.0F).endVertex();
-				bufferbuilder.pos(f16, f18, 0.5D).tex(0.8125D, 0.001953125D).normal(0.0F, -1.0F, 0.0F).endVertex();
-				bufferbuilder.pos(f16, f18, -0.5D).tex(0.8125D, 0.001953125D).normal(0.0F, -1.0F, 0.0F).endVertex();
-				bufferbuilder.pos(f15, f18, -0.5D).tex(0.75D, 0.001953125D).normal(0.0F, -1.0F, 0.0F).endVertex();
-				bufferbuilder.pos(f15, f17, 0.5D).tex(0.751953125D, 0.0D).normal(-1.0F, 0.0F, 0.0F).endVertex();
-				bufferbuilder.pos(f15, f18, 0.5D).tex(0.751953125D, 0.0625D).normal(-1.0F, 0.0F, 0.0F).endVertex();
-				bufferbuilder.pos(f15, f18, -0.5D).tex(0.751953125D, 0.0625D).normal(-1.0F, 0.0F, 0.0F).endVertex();
-				bufferbuilder.pos(f15, f17, -0.5D).tex(0.751953125D, 0.0D).normal(-1.0F, 0.0F, 0.0F).endVertex();
-				bufferbuilder.pos(f16, f17, -0.5D).tex(0.751953125D, 0.0D).normal(1.0F, 0.0F, 0.0F).endVertex();
-				bufferbuilder.pos(f16, f18, -0.5D).tex(0.751953125D, 0.0625D).normal(1.0F, 0.0F, 0.0F).endVertex();
-				bufferbuilder.pos(f16, f18, 0.5D).tex(0.751953125D, 0.0625D).normal(1.0F, 0.0F, 0.0F).endVertex();
-				bufferbuilder.pos(f16, f17, 0.5D).tex(0.751953125D, 0.0D).normal(1.0F, 0.0F, 0.0F).endVertex();
+				bufferbuilder.pos(f15, f18, -0.5D).tex(f20, f21).normal(0F, 0F, -1F).endVertex();
+				bufferbuilder.pos(f16, f18, -0.5D).tex(f19, f21).normal(0F, 0F, -1F).endVertex();
+				bufferbuilder.pos(f16, f17, -0.5D).tex(f19, f22).normal(0F, 0F, -1F).endVertex();
+				bufferbuilder.pos(f15, f17, -0.5D).tex(f20, f22).normal(0F, 0F, -1F).endVertex();
+				bufferbuilder.pos(f15, f17, 0.5D).tex(0.75D, 0D).normal(0F, 0F, 1F).endVertex();
+				bufferbuilder.pos(f16, f17, 0.5D).tex(0.8125D, 0D).normal(0F, 0F, 1F).endVertex();
+				bufferbuilder.pos(f16, f18, 0.5D).tex(0.8125D, 0.0625D).normal(0F, 0F, 1F).endVertex();
+				bufferbuilder.pos(f15, f18, 0.5D).tex(0.75D, 0.0625D).normal(0F, 0F, 1F).endVertex();
+				bufferbuilder.pos(f15, f17, -0.5D).tex(0.75D, 0.001953125D).normal(0F, 1F, 0F).endVertex();
+				bufferbuilder.pos(f16, f17, -0.5D).tex(0.8125D, 0.001953125D).normal(0F, 1F, 0F).endVertex();
+				bufferbuilder.pos(f16, f17, 0.5D).tex(0.8125D, 0.001953125D).normal(0F, 1F, 0F).endVertex();
+				bufferbuilder.pos(f15, f17, 0.5D).tex(0.75D, 0.001953125D).normal(0F, 1F, 0F).endVertex();
+				bufferbuilder.pos(f15, f18, 0.5D).tex(0.75D, 0.001953125D).normal(0F, -1F, 0F).endVertex();
+				bufferbuilder.pos(f16, f18, 0.5D).tex(0.8125D, 0.001953125D).normal(0F, -1F, 0F).endVertex();
+				bufferbuilder.pos(f16, f18, -0.5D).tex(0.8125D, 0.001953125D).normal(0F, -1F, 0F).endVertex();
+				bufferbuilder.pos(f15, f18, -0.5D).tex(0.75D, 0.001953125D).normal(0F, -1F, 0F).endVertex();
+				bufferbuilder.pos(f15, f17, 0.5D).tex(0.751953125D, 0D).normal(-1F, 0F, 0F).endVertex();
+				bufferbuilder.pos(f15, f18, 0.5D).tex(0.751953125D, 0.0625D).normal(-1F, 0F, 0F).endVertex();
+				bufferbuilder.pos(f15, f18, -0.5D).tex(0.751953125D, 0.0625D).normal(-1F, 0F, 0F).endVertex();
+				bufferbuilder.pos(f15, f17, -0.5D).tex(0.751953125D, 0D).normal(-1F, 0F, 0F).endVertex();
+				bufferbuilder.pos(f16, f17, -0.5D).tex(0.751953125D, 0D).normal(1F, 0F, 0F).endVertex();
+				bufferbuilder.pos(f16, f18, -0.5D).tex(0.751953125D, 0.0625D).normal(1F, 0F, 0F).endVertex();
+				bufferbuilder.pos(f16, f18, 0.5D).tex(0.751953125D, 0.0625D).normal(1F, 0F, 0F).endVertex();
+				bufferbuilder.pos(f16, f17, 0.5D).tex(0.751953125D, 0D).normal(1F, 0F, 0F).endVertex();
 				tessellator.draw();
 			}
 		}
@@ -123,31 +123,31 @@ public class RenderPainting extends Render<EntityPainting> {
 	private void setLightmap(EntityPainting painting, float p_77008_2_, float p_77008_3_) {
 
 		int i = MathHelper.floor(painting.posX);
-		int j = MathHelper.floor(painting.posY + (double) (p_77008_3_ / 16.0F));
+		int j = MathHelper.floor(painting.posY + (double) (p_77008_3_ / 16F));
 		int k = MathHelper.floor(painting.posZ);
 		EnumFacing enumfacing = painting.facingDirection;
 
 		if (enumfacing == EnumFacing.NORTH) {
-			i = MathHelper.floor(painting.posX + (double) (p_77008_2_ / 16.0F));
+			i = MathHelper.floor(painting.posX + (double) (p_77008_2_ / 16F));
 		}
 
 		if (enumfacing == EnumFacing.WEST) {
-			k = MathHelper.floor(painting.posZ - (double) (p_77008_2_ / 16.0F));
+			k = MathHelper.floor(painting.posZ - (double) (p_77008_2_ / 16F));
 		}
 
 		if (enumfacing == EnumFacing.SOUTH) {
-			i = MathHelper.floor(painting.posX - (double) (p_77008_2_ / 16.0F));
+			i = MathHelper.floor(painting.posX - (double) (p_77008_2_ / 16F));
 		}
 
 		if (enumfacing == EnumFacing.EAST) {
-			k = MathHelper.floor(painting.posZ + (double) (p_77008_2_ / 16.0F));
+			k = MathHelper.floor(painting.posZ + (double) (p_77008_2_ / 16F));
 		}
 
 		int l = renderManager.world.getCombinedLight(new BlockPos(i, j, k), 0);
 		int i1 = l % 65536;
 		int j1 = l / 65536;
 		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) i1, (float) j1);
-		GlStateManager.color(1.0F, 1.0F, 1.0F);
+		GlStateManager.color(1F, 1F, 1F);
 	}
 
 }

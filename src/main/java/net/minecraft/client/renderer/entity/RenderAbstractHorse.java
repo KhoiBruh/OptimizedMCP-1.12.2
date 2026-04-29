@@ -23,7 +23,7 @@ public class RenderAbstractHorse extends RenderLiving<AbstractHorse> {
 
 	public RenderAbstractHorse(RenderManager p_i47212_1_) {
 
-		this(p_i47212_1_, 1.0F);
+		this(p_i47212_1_, 1F);
 	}
 
 	public RenderAbstractHorse(RenderManager p_i47213_1_, float p_i47213_2_) {

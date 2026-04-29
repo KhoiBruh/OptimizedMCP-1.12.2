@@ -32,10 +32,10 @@ public class NoiseGeneratorOctaves extends NoiseGenerator {
 		if (noiseArray == null) {
 			noiseArray = new double[xSize * ySize * zSize];
 		} else {
-			Arrays.fill(noiseArray, 0.0D);
+			Arrays.fill(noiseArray, 0D);
 		}
 
-		double d3 = 1.0D;
+		double d3 = 1D;
 
 		for (int j = 0; j < octaves; ++j) {
 			double d0 = (double) xOffset * d3 * xScale;
@@ -50,7 +50,7 @@ public class NoiseGeneratorOctaves extends NoiseGenerator {
 			d0 = d0 + (double) k;
 			d2 = d2 + (double) l;
 			generatorCollection[j].populateNoiseArray(noiseArray, d0, d1, d2, xSize, ySize, zSize, xScale * d3, yScale * d3, zScale * d3, d3);
-			d3 /= 2.0D;
+			d3 /= 2D;
 		}
 
 		return noiseArray;
@@ -61,7 +61,7 @@ public class NoiseGeneratorOctaves extends NoiseGenerator {
 	 */
 	public double[] generateNoiseOctaves(double[] noiseArray, int xOffset, int zOffset, int xSize, int zSize, double xScale, double zScale, double p_76305_10_) {
 
-		return generateNoiseOctaves(noiseArray, xOffset, 10, zOffset, xSize, 1, zSize, xScale, 1.0D, zScale);
+		return generateNoiseOctaves(noiseArray, xOffset, 10, zOffset, xSize, 1, zSize, xScale, 1D, zScale);
 	}
 
 }

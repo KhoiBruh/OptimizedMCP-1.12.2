@@ -102,14 +102,14 @@ public class EntityTNTPrimed extends Entity {
 			}
 		} else {
 			handleWaterMovement();
-			world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, posX, posY + 0.5D, posZ, 0.0D, 0.0D, 0.0D);
+			world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, posX, posY + 0.5D, posZ, 0D, 0D, 0D);
 		}
 	}
 
 	private void explode() {
 
-		float f = 4.0F;
-		world.createExplosion(this, posX, posY + (double) (height / 16.0F), posZ, 4.0F, true);
+		float f = 4F;
+		world.createExplosion(this, posX, posY + (double) (height / 16F), posZ, 4F, true);
 	}
 
 	/**
@@ -140,7 +140,7 @@ public class EntityTNTPrimed extends Entity {
 
 	public float getEyeHeight() {
 
-		return 0.0F;
+		return 0F;
 	}
 
 	public void notifyDataManagerChange(DataParameter<?> key) {

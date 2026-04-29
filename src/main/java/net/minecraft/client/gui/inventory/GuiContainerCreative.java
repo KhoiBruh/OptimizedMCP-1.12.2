@@ -342,8 +342,8 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
 			guicontainercreative$containercreative.itemList.addAll(mc.getSearchTree(SearchTreeManager.ITEMS).search(searchField.getText().toLowerCase(Locale.ROOT)));
 		}
 
-		currentScroll = 0.0F;
-		guicontainercreative$containercreative.scrollTo(0.0F);
+		currentScroll = 0F;
+		guicontainercreative$containercreative.scrollTo(0F);
 	}
 
 	/**
@@ -502,8 +502,8 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
 			}
 		}
 
-		currentScroll = 0.0F;
-		guicontainercreative$containercreative.scrollTo(0.0F);
+		currentScroll = 0F;
+		guicontainercreative$containercreative.scrollTo(0F);
 	}
 
 	/**
@@ -526,7 +526,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
 			}
 
 			currentScroll = (float) ((double) currentScroll - (double) i / (double) j);
-			currentScroll = MathHelper.clamp(currentScroll, 0.0F, 1.0F);
+			currentScroll = MathHelper.clamp(currentScroll, 0F, 1F);
 			((GuiContainerCreative.ContainerCreative) inventorySlots).scrollTo(currentScroll);
 		}
 	}
@@ -556,8 +556,8 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
 		wasClicking = flag;
 
 		if (isScrolling) {
-			currentScroll = ((float) (mouseY - l) - 7.5F) / ((float) (j1 - l) - 15.0F);
-			currentScroll = MathHelper.clamp(currentScroll, 0.0F, 1.0F);
+			currentScroll = ((float) (mouseY - l) - 7.5F) / ((float) (j1 - l) - 15F);
+			currentScroll = MathHelper.clamp(currentScroll, 0F, 1F);
 			((GuiContainerCreative.ContainerCreative) inventorySlots).scrollTo(currentScroll);
 		}
 
@@ -573,7 +573,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
 			drawHoveringText(I18n.format("inventory.binSlot"), mouseX, mouseY);
 		}
 
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+		GlStateManager.color(1F, 1F, 1F, 1F);
 		GlStateManager.disableLighting();
 		renderHoveredToolTip(mouseX, mouseY);
 	}
@@ -622,7 +622,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
 	 */
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
 
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+		GlStateManager.color(1F, 1F, 1F, 1F);
 		RenderHelper.enableGUIStandardItemLighting();
 		CreativeTabs creativetabs = CreativeTabs.CREATIVE_TAB_ARRAY[selectedTabIndex];
 
@@ -637,7 +637,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
 		mc.getTextureManager().bindTexture(new ResourceLocation("textures/gui/container/creative_inventory/tab_" + creativetabs.getBackgroundImageName()));
 		drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
 		searchField.drawTextBox();
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+		GlStateManager.color(1F, 1F, 1F, 1F);
 		int i = guiLeft + 175;
 		int j = guiTop + 18;
 		int k = j + 112;
@@ -742,8 +742,8 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
 
 		GlStateManager.disableLighting();
 		drawTexturedModalRect(l, i1, j, k, 28, 32);
-		zLevel = 100.0F;
-		itemRender.zLevel = 100.0F;
+		zLevel = 100F;
+		itemRender.zLevel = 100F;
 		l = l + 6;
 		i1 = i1 + 8 + (flag1 ? 1 : -1);
 		GlStateManager.enableLighting();
@@ -752,8 +752,8 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
 		itemRender.renderItemAndEffectIntoGUI(itemstack, l, i1);
 		itemRender.renderItemOverlays(fontRenderer, itemstack, l, i1);
 		GlStateManager.disableLighting();
-		itemRender.zLevel = 0.0F;
-		zLevel = 0.0F;
+		itemRender.zLevel = 0F;
+		zLevel = 0F;
 	}
 
 	/**
@@ -792,7 +792,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
 				addSlotToContainer(new Slot(inventoryplayer, k, 9 + k * 18, 112));
 			}
 
-			scrollTo(0.0F);
+			scrollTo(0F);
 		}
 
 		public boolean canInteractWith(EntityPlayer playerIn) {

@@ -43,10 +43,10 @@ public class Item {
 	protected static final UUID ATTACK_DAMAGE_MODIFIER = UUID.fromString("CB3F55D3-645C-4F38-A497-9C13A33DB5CF");
 	protected static final UUID ATTACK_SPEED_MODIFIER = UUID.fromString("FA233E1C-4180-4865-B01B-BCCE9785ACA3");
 	private static final Map<Block, Item> BLOCK_TO_ITEM = Maps.newHashMap();
-	private static final IItemPropertyGetter DAMAGED_GETTER = (stack, worldIn, entityIn) -> stack.isItemDamaged() ? 1.0F : 0.0F;
-	private static final IItemPropertyGetter DAMAGE_GETTER = (stack, worldIn, entityIn) -> MathHelper.clamp((float) stack.getItemDamage() / (float) stack.getMaxDamage(), 0.0F, 1.0F);
-	private static final IItemPropertyGetter LEFTHANDED_GETTER = (stack, worldIn, entityIn) -> entityIn != null && entityIn.getPrimaryHand() != EnumHandSide.RIGHT ? 1.0F : 0.0F;
-	private static final IItemPropertyGetter COOLDOWN_GETTER = (stack, worldIn, entityIn) -> entityIn instanceof EntityPlayer ? ((EntityPlayer) entityIn).getCooldownTracker().getCooldown(stack.getItem(), 0.0F) : 0.0F;
+	private static final IItemPropertyGetter DAMAGED_GETTER = (stack, worldIn, entityIn) -> stack.isItemDamaged() ? 1F : 0F;
+	private static final IItemPropertyGetter DAMAGE_GETTER = (stack, worldIn, entityIn) -> MathHelper.clamp((float) stack.getItemDamage() / (float) stack.getMaxDamage(), 0F, 1F);
+	private static final IItemPropertyGetter LEFTHANDED_GETTER = (stack, worldIn, entityIn) -> entityIn != null && entityIn.getPrimaryHand() != EnumHandSide.RIGHT ? 1F : 0F;
+	private static final IItemPropertyGetter COOLDOWN_GETTER = (stack, worldIn, entityIn) -> entityIn instanceof EntityPlayer ? ((EntityPlayer) entityIn).getCooldownTracker().getCooldown(stack.getItem(), 0F) : 0F;
 	/**
 	 * The RNG used by the Item subclasses.
 	 */
@@ -443,7 +443,7 @@ public class Item {
 		registerItem(373, "potion", (new ItemPotion()).setUnlocalizedName("potion"));
 		Item item1 = (new ItemGlassBottle()).setUnlocalizedName("glassBottle");
 		registerItem(374, "glass_bottle", item1);
-		registerItem(375, "spider_eye", (new ItemFood(2, 0.8F, false)).setPotionEffect(new PotionEffect(MobEffects.POISON, 100, 0), 1.0F).setUnlocalizedName("spiderEye"));
+		registerItem(375, "spider_eye", (new ItemFood(2, 0.8F, false)).setPotionEffect(new PotionEffect(MobEffects.POISON, 100, 0), 1F).setUnlocalizedName("spiderEye"));
 		registerItem(376, "fermented_spider_eye", (new Item()).setUnlocalizedName("fermentedSpiderEye").setCreativeTab(CreativeTabs.BREWING));
 		registerItem(377, "blaze_powder", (new Item()).setUnlocalizedName("blazePowder").setCreativeTab(CreativeTabs.BREWING));
 		registerItem(378, "magma_cream", (new Item()).setUnlocalizedName("magmaCream").setCreativeTab(CreativeTabs.BREWING));
@@ -605,7 +605,7 @@ public class Item {
 
 	public float getDestroySpeed(ItemStack stack, IBlockState state) {
 
-		return 1.0F;
+		return 1F;
 	}
 
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
@@ -901,8 +901,8 @@ public class Item {
 		float f5 = MathHelper.sin(-f * 0.017453292F);
 		float f6 = f3 * f4;
 		float f7 = f2 * f4;
-		double d3 = 5.0D;
-		Vec3d vec3d1 = vec3d.addVector((double) f6 * 5.0D, (double) f5 * 5.0D, (double) f7 * 5.0D);
+		double d3 = 5D;
+		Vec3d vec3d1 = vec3d.addVector((double) f6 * 5D, (double) f5 * 5D, (double) f7 * 5D);
 		return worldIn.rayTraceBlocks(vec3d, vec3d1, useLiquids, !useLiquids, false);
 	}
 
@@ -983,11 +983,11 @@ public class Item {
 	}
 
 	public enum ToolMaterial {
-		WOOD(0, 59, 2.0F, 0.0F, 15),
-		STONE(1, 131, 4.0F, 1.0F, 5),
-		IRON(2, 250, 6.0F, 2.0F, 14),
-		DIAMOND(3, 1561, 8.0F, 3.0F, 10),
-		GOLD(0, 32, 12.0F, 0.0F, 22);
+		WOOD(0, 59, 2F, 0F, 15),
+		STONE(1, 131, 4F, 1F, 5),
+		IRON(2, 250, 6F, 2F, 14),
+		DIAMOND(3, 1561, 8F, 3F, 10),
+		GOLD(0, 32, 12F, 0F, 22);
 
 		private final int harvestLevel;
 		private final int maxUses;

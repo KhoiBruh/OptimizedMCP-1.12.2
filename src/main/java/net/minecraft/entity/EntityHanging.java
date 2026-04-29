@@ -84,21 +84,21 @@ public abstract class EntityHanging extends Entity {
 			double d8 = getWidthPixels();
 
 			if (facingDirection.getAxis() == EnumFacing.Axis.Z) {
-				d8 = 1.0D;
+				d8 = 1D;
 			} else {
-				d6 = 1.0D;
+				d6 = 1D;
 			}
 
-			d6 = d6 / 32.0D;
-			d7 = d7 / 32.0D;
-			d8 = d8 / 32.0D;
+			d6 = d6 / 32D;
+			d7 = d7 / 32D;
+			d8 = d8 / 32D;
 			setEntityBoundingBox(new AxisAlignedBB(d0 - d6, d1 - d7, d2 - d8, d0 + d6, d1 + d7, d2 + d8));
 		}
 	}
 
 	private double offs(int p_190202_1_) {
 
-		return p_190202_1_ % 32 == 0 ? 0.5D : 0.0D;
+		return p_190202_1_ % 32 == 0 ? 0.5D : 0D;
 	}
 
 	/**
@@ -164,7 +164,7 @@ public abstract class EntityHanging extends Entity {
 	 */
 	public boolean hitByEntity(Entity entityIn) {
 
-		return entityIn instanceof EntityPlayer && attackEntityFrom(DamageSource.causePlayerDamage((EntityPlayer) entityIn), 0.0F);
+		return entityIn instanceof EntityPlayer && attackEntityFrom(DamageSource.causePlayerDamage((EntityPlayer) entityIn), 0F);
 	}
 
 	/**
@@ -198,7 +198,7 @@ public abstract class EntityHanging extends Entity {
 	 */
 	public void move(MoverType type, double x, double y, double z) {
 
-		if (!world.isRemote && !isDead && x * x + y * y + z * z > 0.0D) {
+		if (!world.isRemote && !isDead && x * x + y * y + z * z > 0D) {
 			setDead();
 			onBroken(null);
 		}
@@ -209,7 +209,7 @@ public abstract class EntityHanging extends Entity {
 	 */
 	public void addVelocity(double x, double y, double z) {
 
-		if (!world.isRemote && !isDead && x * x + y * y + z * z > 0.0D) {
+		if (!world.isRemote && !isDead && x * x + y * y + z * z > 0D) {
 			setDead();
 			onBroken(null);
 		}
@@ -303,9 +303,9 @@ public abstract class EntityHanging extends Entity {
 		float f = MathHelper.wrapDegrees(rotationYaw);
 
 		return switch (transformRotation) {
-			case CLOCKWISE_180 -> f + 180.0F;
-			case COUNTERCLOCKWISE_90 -> f + 90.0F;
-			case CLOCKWISE_90 -> f + 270.0F;
+			case CLOCKWISE_180 -> f + 180F;
+			case COUNTERCLOCKWISE_90 -> f + 90F;
+			case CLOCKWISE_90 -> f + 270F;
 			default -> f;
 		};
 	}

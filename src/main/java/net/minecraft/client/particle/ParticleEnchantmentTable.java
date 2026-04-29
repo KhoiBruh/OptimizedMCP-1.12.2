@@ -30,8 +30,8 @@ public class ParticleEnchantmentTable extends Particle {
 		particleRed = 0.9F * f;
 		particleGreen = 0.9F * f;
 		particleBlue = f;
-		particleMaxAge = (int) (Math.random() * 10.0D) + 30;
-		setParticleTextureIndex((int) (Math.random() * 26.0D + 1.0D + 224.0D));
+		particleMaxAge = (int) (Math.random() * 10D) + 30;
+		setParticleTextureIndex((int) (Math.random() * 26D + 1D + 224D));
 	}
 
 	public void move(double x, double y, double z) {
@@ -48,7 +48,7 @@ public class ParticleEnchantmentTable extends Particle {
 		f = f * f;
 		int j = i & 255;
 		int k = i >> 16 & 255;
-		k = k + (int) (f * 15.0F * 16.0F);
+		k = k + (int) (f * 15F * 16F);
 
 		if (k > 240) {
 			k = 240;
@@ -63,8 +63,8 @@ public class ParticleEnchantmentTable extends Particle {
 		prevPosY = posY;
 		prevPosZ = posZ;
 		float f = (float) particleAge / (float) particleMaxAge;
-		f = 1.0F - f;
-		float f1 = 1.0F - f;
+		f = 1F - f;
+		float f1 = 1F - f;
 		f1 = f1 * f1;
 		f1 = f1 * f1;
 		posX = coordX + motionX * (double) f;

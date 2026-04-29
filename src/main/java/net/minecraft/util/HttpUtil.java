@@ -120,14 +120,14 @@ public class HttpUtil {
 					URL url = new URL(packUrl);
 					httpurlconnection = (HttpURLConnection) url.openConnection(p_180192_5_);
 					httpurlconnection.setInstanceFollowRedirects(true);
-					float f = 0.0F;
+					float f = 0F;
 					float f1 = (float) p_180192_2_.size();
 
 					for (Entry<String, String> entry : p_180192_2_.entrySet()) {
 						httpurlconnection.setRequestProperty(entry.getKey(), entry.getValue());
 
 						if (p_180192_4_ != null) {
-							p_180192_4_.setLoadingProgress((int) (++f / f1 * 100.0F));
+							p_180192_4_.setLoadingProgress((int) (++f / f1 * 100F));
 						}
 					}
 
@@ -136,7 +136,7 @@ public class HttpUtil {
 					int i = httpurlconnection.getContentLength();
 
 					if (p_180192_4_ != null) {
-						p_180192_4_.displayLoadingString(I18n.translateToLocalFormatted("resourcepack.progress", String.format("%.2f", f1 / 1000.0F / 1000.0F)));
+						p_180192_4_.displayLoadingString(I18n.translateToLocalFormatted("resourcepack.progress", String.format("%.2f", f1 / 1000F / 1000F)));
 					}
 
 					if (saveFile.exists()) {
@@ -172,7 +172,7 @@ public class HttpUtil {
 						f += (float) k;
 
 						if (p_180192_4_ != null) {
-							p_180192_4_.setLoadingProgress((int) (f / f1 * 100.0F));
+							p_180192_4_.setLoadingProgress((int) (f / f1 * 100F));
 						}
 
 						if (maxSize > 0 && f > (float) maxSize) {

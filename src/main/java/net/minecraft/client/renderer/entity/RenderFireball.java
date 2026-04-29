@@ -38,11 +38,11 @@ public class RenderFireball extends Render<EntityFireball> {
 		float f1 = textureatlassprite.getMaxU();
 		float f2 = textureatlassprite.getMinV();
 		float f3 = textureatlassprite.getMaxV();
-		float f4 = 1.0F;
+		float f4 = 1F;
 		float f5 = 0.5F;
 		float f6 = 0.25F;
-		GlStateManager.rotate(180.0F - renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
-		GlStateManager.rotate((float) (renderManager.options.thirdPersonView == 2 ? -1 : 1) * -renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
+		GlStateManager.rotate(180F - renderManager.playerViewY, 0F, 1F, 0F);
+		GlStateManager.rotate((float) (renderManager.options.thirdPersonView == 2 ? -1 : 1) * -renderManager.playerViewX, 1F, 0F, 0F);
 
 		if (renderOutlines) {
 			GlStateManager.enableColorMaterial();
@@ -50,10 +50,10 @@ public class RenderFireball extends Render<EntityFireball> {
 		}
 
 		bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_NORMAL);
-		bufferbuilder.pos(-0.5D, -0.25D, 0.0D).tex(f, f3).normal(0.0F, 1.0F, 0.0F).endVertex();
-		bufferbuilder.pos(0.5D, -0.25D, 0.0D).tex(f1, f3).normal(0.0F, 1.0F, 0.0F).endVertex();
-		bufferbuilder.pos(0.5D, 0.75D, 0.0D).tex(f1, f2).normal(0.0F, 1.0F, 0.0F).endVertex();
-		bufferbuilder.pos(-0.5D, 0.75D, 0.0D).tex(f, f2).normal(0.0F, 1.0F, 0.0F).endVertex();
+		bufferbuilder.pos(-0.5D, -0.25D, 0D).tex(f, f3).normal(0F, 1F, 0F).endVertex();
+		bufferbuilder.pos(0.5D, -0.25D, 0D).tex(f1, f3).normal(0F, 1F, 0F).endVertex();
+		bufferbuilder.pos(0.5D, 0.75D, 0D).tex(f1, f2).normal(0F, 1F, 0F).endVertex();
+		bufferbuilder.pos(-0.5D, 0.75D, 0D).tex(f, f2).normal(0F, 1F, 0F).endVertex();
 		tessellator.draw();
 
 		if (renderOutlines) {

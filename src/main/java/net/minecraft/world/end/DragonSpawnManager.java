@@ -59,7 +59,7 @@ public enum DragonSpawnManager {
 							worldIn.setBlockToAir(blockpos$mutableblockpos);
 						}
 
-						worldIn.createExplosion(null, (float) worldgenspikes$endspike.getCenterX() + 0.5F, worldgenspikes$endspike.getHeight(), (float) worldgenspikes$endspike.getCenterZ() + 0.5F, 5.0F, true);
+						worldIn.createExplosion(null, (float) worldgenspikes$endspike.getCenterX() + 0.5F, worldgenspikes$endspike.getHeight(), (float) worldgenspikes$endspike.getCenterZ() + 0.5F, 5F, true);
 						WorldGenSpikes worldgenspikes = new WorldGenSpikes();
 						worldgenspikes.setSpike(worldgenspikes$endspike);
 						worldgenspikes.setCrystalInvulnerable(true);
@@ -81,7 +81,7 @@ public enum DragonSpawnManager {
 
 				for (EntityEnderCrystal entityendercrystal : crystals) {
 					entityendercrystal.setBeamTarget(null);
-					worldIn.createExplosion(entityendercrystal, entityendercrystal.posX, entityendercrystal.posY, entityendercrystal.posZ, 6.0F, false);
+					worldIn.createExplosion(entityendercrystal, entityendercrystal.posX, entityendercrystal.posY, entityendercrystal.posZ, 6F, false);
 					entityendercrystal.setDead();
 				}
 			} else if (ticks >= 80) {

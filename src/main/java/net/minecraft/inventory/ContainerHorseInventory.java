@@ -70,7 +70,7 @@ public class ContainerHorseInventory extends Container {
 	 */
 	public boolean canInteractWith(EntityPlayer playerIn) {
 
-		return horseInventory.isUsableByPlayer(playerIn) && horse.isEntityAlive() && horse.getDistance(playerIn) < 8.0F;
+		return horseInventory.isUsableByPlayer(playerIn) && horse.isEntityAlive() && horse.getDistance(playerIn) < 8F;
 	}
 
 	/**

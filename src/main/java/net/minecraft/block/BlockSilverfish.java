@@ -23,7 +23,7 @@ public class BlockSilverfish extends Block {
 
 		super(Material.CLAY);
 		setDefaultState(blockState.getBaseState().withProperty(VARIANT, BlockSilverfish.EnumType.STONE));
-		setHardness(0.0F);
+		setHardness(0F);
 		setCreativeTab(CreativeTabs.DECORATIONS);
 	}
 
@@ -62,7 +62,7 @@ public class BlockSilverfish extends Block {
 
 		if (!worldIn.isRemote && worldIn.getGameRules().getBoolean("doTileDrops")) {
 			EntitySilverfish entitysilverfish = new EntitySilverfish(worldIn);
-			entitysilverfish.setLocationAndAngles((double) pos.getX() + 0.5D, pos.getY(), (double) pos.getZ() + 0.5D, 0.0F, 0.0F);
+			entitysilverfish.setLocationAndAngles((double) pos.getX() + 0.5D, pos.getY(), (double) pos.getZ() + 0.5D, 0F, 0F);
 			worldIn.spawnEntity(entitysilverfish);
 			entitysilverfish.spawnExplosionParticle();
 		}

@@ -34,9 +34,9 @@ public class RenderBat extends RenderLiving<EntityBat> {
 	protected void applyRotations(EntityBat entityLiving, float p_77043_2_, float rotationYaw, float partialTicks) {
 
 		if (entityLiving.getIsBatHanging()) {
-			GlStateManager.translate(0.0F, -0.1F, 0.0F);
+			GlStateManager.translate(0F, -0.1F, 0F);
 		} else {
-			GlStateManager.translate(0.0F, MathHelper.cos(p_77043_2_ * 0.3F) * 0.1F, 0.0F);
+			GlStateManager.translate(0F, MathHelper.cos(p_77043_2_ * 0.3F) * 0.1F, 0F);
 		}
 
 		super.applyRotations(entityLiving, p_77043_2_, rotationYaw, partialTicks);

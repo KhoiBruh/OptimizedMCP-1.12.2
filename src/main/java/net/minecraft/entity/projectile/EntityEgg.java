@@ -52,7 +52,7 @@ public class EntityEgg extends EntityThrowable {
 	protected void onImpact(RayTraceResult result) {
 
 		if (result.entityHit != null) {
-			result.entityHit.attackEntityFrom(DamageSource.causeThrownDamage(this, getThrower()), 0.0F);
+			result.entityHit.attackEntityFrom(DamageSource.causeThrownDamage(this, getThrower()), 0F);
 		}
 
 		if (!world.isRemote) {
@@ -66,7 +66,7 @@ public class EntityEgg extends EntityThrowable {
 				for (int j = 0; j < i; ++j) {
 					EntityChicken entitychicken = new EntityChicken(world);
 					entitychicken.setGrowingAge(-24000);
-					entitychicken.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
+					entitychicken.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0F);
 					world.spawnEntity(entitychicken);
 				}
 			}

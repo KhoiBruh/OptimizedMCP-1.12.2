@@ -134,7 +134,7 @@ public abstract class EntityMinecartContainer extends EntityMinecart implements 
 		if (isDead) {
 			return false;
 		} else {
-			return player.getDistanceSq(this) <= 64.0D;
+			return player.getDistanceSq(this) <= 64D;
 		}
 	}
 
@@ -243,7 +243,7 @@ public abstract class EntityMinecartContainer extends EntityMinecart implements 
 		}
 
 		motionX *= f;
-		motionY *= 0.0D;
+		motionY *= 0D;
 		motionZ *= f;
 	}
 

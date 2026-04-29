@@ -20,7 +20,7 @@ public class TileEntityEndGatewayRenderer extends TileEntityEndPortalRenderer {
 			GlStateManager.alphaFunc(516, 0.1F);
 			bindTexture(END_GATEWAY_BEAM_TEXTURE);
 			float f = tileentityendgateway.isSpawning() ? tileentityendgateway.getSpawnPercent(partialTicks) : tileentityendgateway.getCooldownPercent(partialTicks);
-			double d0 = tileentityendgateway.isSpawning() ? 256.0D - y : 50.0D;
+			double d0 = tileentityendgateway.isSpawning() ? 256D - y : 50D;
 			f = MathHelper.sin(f * (float) Math.PI);
 			int i = MathHelper.floor((double) f * d0);
 			float[] afloat = tileentityendgateway.isSpawning() ? EnumDyeColor.MAGENTA.getColorComponentValues() : EnumDyeColor.PURPLE.getColorComponentValues();
@@ -39,7 +39,7 @@ public class TileEntityEndGatewayRenderer extends TileEntityEndPortalRenderer {
 
 	protected float getOffset() {
 
-		return 1.0F;
+		return 1F;
 	}
 
 }

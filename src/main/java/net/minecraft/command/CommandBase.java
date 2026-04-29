@@ -347,7 +347,7 @@ public abstract class CommandBase implements ICommand {
 		if (flag && Double.isNaN(base)) {
 			throw new NumberInvalidException("commands.generic.num.invalid", base);
 		} else {
-			double d0 = 0.0D;
+			double d0 = 0D;
 
 			if (!flag || selectorArg.length() > 1) {
 				boolean flag1 = selectorArg.contains(".");
@@ -363,7 +363,7 @@ public abstract class CommandBase implements ICommand {
 				}
 			}
 
-			double d1 = d0 + (flag ? base : 0.0D);
+			double d1 = d0 + (flag ? base : 0D);
 
 			if (min != 0 || max != 0) {
 				if (d1 < (double) min) {
@@ -391,7 +391,7 @@ public abstract class CommandBase implements ICommand {
 		if (flag && Double.isNaN(base)) {
 			throw new NumberInvalidException("commands.generic.num.invalid", base);
 		} else {
-			double d0 = flag ? base : 0.0D;
+			double d0 = flag ? base : 0D;
 
 			if (!flag || input.length() > 1) {
 				boolean flag1 = input.contains(".");

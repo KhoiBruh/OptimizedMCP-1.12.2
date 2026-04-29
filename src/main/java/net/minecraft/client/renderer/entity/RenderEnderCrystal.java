@@ -12,8 +12,8 @@ import net.minecraft.util.math.MathHelper;
 public class RenderEnderCrystal extends Render<EntityEnderCrystal> {
 
 	private static final ResourceLocation ENDER_CRYSTAL_TEXTURES = new ResourceLocation("textures/entity/endercrystal/endercrystal.png");
-	private final ModelBase modelEnderCrystal = new ModelEnderCrystal(0.0F, true);
-	private final ModelBase modelEnderCrystalNoBase = new ModelEnderCrystal(0.0F, false);
+	private final ModelBase modelEnderCrystal = new ModelEnderCrystal(0F, true);
+	private final ModelBase modelEnderCrystalNoBase = new ModelEnderCrystal(0F, false);
 
 	public RenderEnderCrystal(RenderManager renderManagerIn) {
 
@@ -30,7 +30,7 @@ public class RenderEnderCrystal extends Render<EntityEnderCrystal> {
 		GlStateManager.pushMatrix();
 		GlStateManager.translate((float) x, (float) y, (float) z);
 		bindTexture(ENDER_CRYSTAL_TEXTURES);
-		float f1 = MathHelper.sin(f * 0.2F) / 2.0F + 0.5F;
+		float f1 = MathHelper.sin(f * 0.2F) / 2F + 0.5F;
 		f1 = f1 * f1 + f1;
 
 		if (renderOutlines) {
@@ -39,9 +39,9 @@ public class RenderEnderCrystal extends Render<EntityEnderCrystal> {
 		}
 
 		if (entity.shouldShowBottom()) {
-			modelEnderCrystal.render(entity, 0.0F, f * 3.0F, f1 * 0.2F, 0.0F, 0.0F, 0.0625F);
+			modelEnderCrystal.render(entity, 0F, f * 3F, f1 * 0.2F, 0F, 0F, 0.0625F);
 		} else {
-			modelEnderCrystalNoBase.render(entity, 0.0F, f * 3.0F, f1 * 0.2F, 0.0F, 0.0F, 0.0625F);
+			modelEnderCrystalNoBase.render(entity, 0F, f * 3F, f1 * 0.2F, 0F, 0F, 0.0625F);
 		}
 
 		if (renderOutlines) {

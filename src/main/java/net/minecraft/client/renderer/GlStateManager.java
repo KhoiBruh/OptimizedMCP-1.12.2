@@ -222,10 +222,10 @@ public class GlStateManager {
 
 	public static void enableOutlineMode(int color) {
 
-		BUF_FLOAT_4.put(0, (float) (color >> 16 & 255) / 255.0F);
-		BUF_FLOAT_4.put(1, (float) (color >> 8 & 255) / 255.0F);
-		BUF_FLOAT_4.put(2, (float) (color & 255) / 255.0F);
-		BUF_FLOAT_4.put(3, (float) (color >> 24 & 255) / 255.0F);
+		BUF_FLOAT_4.put(0, (float) (color >> 16 & 255) / 255F);
+		BUF_FLOAT_4.put(1, (float) (color >> 8 & 255) / 255F);
+		BUF_FLOAT_4.put(2, (float) (color & 255) / 255F);
+		BUF_FLOAT_4.put(3, (float) (color >> 24 & 255) / 255F);
 		glTexEnv(8960, 8705, BUF_FLOAT_4);
 		glTexEnvi(8960, 8704, 34160);
 		glTexEnvi(8960, 34161, 7681);
@@ -646,22 +646,22 @@ public class GlStateManager {
 		float f6 = quaternionIn.y * quaternionIn.w;
 		float f7 = quaternionIn.z * quaternionIn.z;
 		float f8 = quaternionIn.z * quaternionIn.w;
-		buffer.put(1.0F - 2.0F * (f4 + f7));
-		buffer.put(2.0F * (f1 + f8));
-		buffer.put(2.0F * (f2 - f6));
-		buffer.put(0.0F);
-		buffer.put(2.0F * (f1 - f8));
-		buffer.put(1.0F - 2.0F * (f + f7));
-		buffer.put(2.0F * (f5 + f3));
-		buffer.put(0.0F);
-		buffer.put(2.0F * (f2 + f6));
-		buffer.put(2.0F * (f5 - f3));
-		buffer.put(1.0F - 2.0F * (f + f4));
-		buffer.put(0.0F);
-		buffer.put(0.0F);
-		buffer.put(0.0F);
-		buffer.put(0.0F);
-		buffer.put(1.0F);
+		buffer.put(1F - 2F * (f4 + f7));
+		buffer.put(2F * (f1 + f8));
+		buffer.put(2F * (f2 - f6));
+		buffer.put(0F);
+		buffer.put(2F * (f1 - f8));
+		buffer.put(1F - 2F * (f + f7));
+		buffer.put(2F * (f5 + f3));
+		buffer.put(0F);
+		buffer.put(2F * (f2 + f6));
+		buffer.put(2F * (f5 - f3));
+		buffer.put(1F - 2F * (f + f4));
+		buffer.put(0F);
+		buffer.put(0F);
+		buffer.put(0F);
+		buffer.put(0F);
+		buffer.put(1F);
 		buffer.rewind();
 		return buffer;
 	}
@@ -679,7 +679,7 @@ public class GlStateManager {
 
 	public static void color(float colorRed, float colorGreen, float colorBlue) {
 
-		color(colorRed, colorGreen, colorBlue, 1.0F);
+		color(colorRed, colorGreen, colorBlue, 1F);
 	}
 
 	public static void glTexCoord2f(float sCoord, float tCoord) {
@@ -694,10 +694,10 @@ public class GlStateManager {
 
 	public static void resetColor() {
 
-		colorState.red = -1.0F;
-		colorState.green = -1.0F;
-		colorState.blue = -1.0F;
-		colorState.alpha = -1.0F;
+		colorState.red = -1F;
+		colorState.green = -1F;
+		colorState.blue = -1F;
+		colorState.alpha = -1F;
 	}
 
 	public static void glNormalPointer(int type, int stride, ByteBuffer buffer) {
@@ -911,21 +911,21 @@ public class GlStateManager {
 			public void apply() {
 
 				GlStateManager.disableAlpha();
-				GlStateManager.alphaFunc(519, 0.0F);
+				GlStateManager.alphaFunc(519, 0F);
 				GlStateManager.disableLighting();
-				GL11.glLightModel(GL11.GL_LIGHT_MODEL_AMBIENT, RenderHelper.setColorBuffer(0.2F, 0.2F, 0.2F, 1.0F));
+				GL11.glLightModel(GL11.GL_LIGHT_MODEL_AMBIENT, RenderHelper.setColorBuffer(0.2F, 0.2F, 0.2F, 1F));
 
 				for (int i = 0; i < 8; ++i) {
 					GlStateManager.disableLight(i);
-					GL11.glLight(GL11.GL_LIGHT0 + i, GL11.GL_AMBIENT, RenderHelper.setColorBuffer(0.0F, 0.0F, 0.0F, 1.0F));
-					GL11.glLight(GL11.GL_LIGHT0 + i, GL11.GL_POSITION, RenderHelper.setColorBuffer(0.0F, 0.0F, 1.0F, 0.0F));
+					GL11.glLight(GL11.GL_LIGHT0 + i, GL11.GL_AMBIENT, RenderHelper.setColorBuffer(0F, 0F, 0F, 1F));
+					GL11.glLight(GL11.GL_LIGHT0 + i, GL11.GL_POSITION, RenderHelper.setColorBuffer(0F, 0F, 1F, 0F));
 
 					if (i == 0) {
-						GL11.glLight(GL11.GL_LIGHT0 + i, GL11.GL_DIFFUSE, RenderHelper.setColorBuffer(1.0F, 1.0F, 1.0F, 1.0F));
-						GL11.glLight(GL11.GL_LIGHT0 + i, GL11.GL_SPECULAR, RenderHelper.setColorBuffer(1.0F, 1.0F, 1.0F, 1.0F));
+						GL11.glLight(GL11.GL_LIGHT0 + i, GL11.GL_DIFFUSE, RenderHelper.setColorBuffer(1F, 1F, 1F, 1F));
+						GL11.glLight(GL11.GL_LIGHT0 + i, GL11.GL_SPECULAR, RenderHelper.setColorBuffer(1F, 1F, 1F, 1F));
 					} else {
-						GL11.glLight(GL11.GL_LIGHT0 + i, GL11.GL_DIFFUSE, RenderHelper.setColorBuffer(0.0F, 0.0F, 0.0F, 1.0F));
-						GL11.glLight(GL11.GL_LIGHT0 + i, GL11.GL_SPECULAR, RenderHelper.setColorBuffer(0.0F, 0.0F, 0.0F, 1.0F));
+						GL11.glLight(GL11.GL_LIGHT0 + i, GL11.GL_DIFFUSE, RenderHelper.setColorBuffer(0F, 0F, 0F, 1F));
+						GL11.glLight(GL11.GL_LIGHT0 + i, GL11.GL_SPECULAR, RenderHelper.setColorBuffer(0F, 0F, 0F, 1F));
 					}
 				}
 
@@ -940,34 +940,34 @@ public class GlStateManager {
 				GL14.glBlendEquation(GL14.GL_FUNC_ADD);
 				GlStateManager.disableFog();
 				GL11.glFogi(GL11.GL_FOG_MODE, GL11.GL_EXP);
-				GlStateManager.setFogDensity(1.0F);
-				GlStateManager.setFogStart(0.0F);
-				GlStateManager.setFogEnd(1.0F);
-				GL11.glFog(GL11.GL_FOG_COLOR, RenderHelper.setColorBuffer(0.0F, 0.0F, 0.0F, 0.0F));
+				GlStateManager.setFogDensity(1F);
+				GlStateManager.setFogStart(0F);
+				GlStateManager.setFogEnd(1F);
+				GL11.glFog(GL11.GL_FOG_COLOR, RenderHelper.setColorBuffer(0F, 0F, 0F, 0F));
 
 				if (GLContext.getCapabilities().GL_NV_fog_distance) {
 					GL11.glFogi(GL11.GL_FOG_MODE, 34140);
 				}
 
-				GlStateManager.doPolygonOffset(0.0F, 0.0F);
+				GlStateManager.doPolygonOffset(0F, 0F);
 				GlStateManager.disableColorLogic();
 				GlStateManager.colorLogicOp(5379);
 				GlStateManager.disableTexGenCoord(GlStateManager.TexGen.S);
 				GlStateManager.texGen(GlStateManager.TexGen.S, 9216);
-				GlStateManager.texGen(GlStateManager.TexGen.S, 9474, RenderHelper.setColorBuffer(1.0F, 0.0F, 0.0F, 0.0F));
-				GlStateManager.texGen(GlStateManager.TexGen.S, 9217, RenderHelper.setColorBuffer(1.0F, 0.0F, 0.0F, 0.0F));
+				GlStateManager.texGen(GlStateManager.TexGen.S, 9474, RenderHelper.setColorBuffer(1F, 0F, 0F, 0F));
+				GlStateManager.texGen(GlStateManager.TexGen.S, 9217, RenderHelper.setColorBuffer(1F, 0F, 0F, 0F));
 				GlStateManager.disableTexGenCoord(GlStateManager.TexGen.T);
 				GlStateManager.texGen(GlStateManager.TexGen.T, 9216);
-				GlStateManager.texGen(GlStateManager.TexGen.T, 9474, RenderHelper.setColorBuffer(0.0F, 1.0F, 0.0F, 0.0F));
-				GlStateManager.texGen(GlStateManager.TexGen.T, 9217, RenderHelper.setColorBuffer(0.0F, 1.0F, 0.0F, 0.0F));
+				GlStateManager.texGen(GlStateManager.TexGen.T, 9474, RenderHelper.setColorBuffer(0F, 1F, 0F, 0F));
+				GlStateManager.texGen(GlStateManager.TexGen.T, 9217, RenderHelper.setColorBuffer(0F, 1F, 0F, 0F));
 				GlStateManager.disableTexGenCoord(GlStateManager.TexGen.R);
 				GlStateManager.texGen(GlStateManager.TexGen.R, 9216);
-				GlStateManager.texGen(GlStateManager.TexGen.R, 9474, RenderHelper.setColorBuffer(0.0F, 0.0F, 0.0F, 0.0F));
-				GlStateManager.texGen(GlStateManager.TexGen.R, 9217, RenderHelper.setColorBuffer(0.0F, 0.0F, 0.0F, 0.0F));
+				GlStateManager.texGen(GlStateManager.TexGen.R, 9474, RenderHelper.setColorBuffer(0F, 0F, 0F, 0F));
+				GlStateManager.texGen(GlStateManager.TexGen.R, 9217, RenderHelper.setColorBuffer(0F, 0F, 0F, 0F));
 				GlStateManager.disableTexGenCoord(GlStateManager.TexGen.Q);
 				GlStateManager.texGen(GlStateManager.TexGen.Q, 9216);
-				GlStateManager.texGen(GlStateManager.TexGen.Q, 9474, RenderHelper.setColorBuffer(0.0F, 0.0F, 0.0F, 0.0F));
-				GlStateManager.texGen(GlStateManager.TexGen.Q, 9217, RenderHelper.setColorBuffer(0.0F, 0.0F, 0.0F, 0.0F));
+				GlStateManager.texGen(GlStateManager.TexGen.Q, 9474, RenderHelper.setColorBuffer(0F, 0F, 0F, 0F));
+				GlStateManager.texGen(GlStateManager.TexGen.Q, 9217, RenderHelper.setColorBuffer(0F, 0F, 0F, 0F));
 				GlStateManager.setActiveTexture(0);
 				GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_LINEAR);
 				GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_NEAREST_MIPMAP_LINEAR);
@@ -976,9 +976,9 @@ public class GlStateManager {
 				GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL12.GL_TEXTURE_MAX_LEVEL, 1000);
 				GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL12.GL_TEXTURE_MAX_LOD, 1000);
 				GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL12.GL_TEXTURE_MIN_LOD, -1000);
-				GL11.glTexParameterf(GL11.GL_TEXTURE_2D, GL14.GL_TEXTURE_LOD_BIAS, 0.0F);
+				GL11.glTexParameterf(GL11.GL_TEXTURE_2D, GL14.GL_TEXTURE_LOD_BIAS, 0F);
 				GL11.glTexEnvi(GL11.GL_TEXTURE_ENV, GL11.GL_TEXTURE_ENV_MODE, GL11.GL_MODULATE);
-				GL11.glTexEnv(GL11.GL_TEXTURE_ENV, GL11.GL_TEXTURE_ENV_COLOR, RenderHelper.setColorBuffer(0.0F, 0.0F, 0.0F, 0.0F));
+				GL11.glTexEnv(GL11.GL_TEXTURE_ENV, GL11.GL_TEXTURE_ENV_COLOR, RenderHelper.setColorBuffer(0F, 0F, 0F, 0F));
 				GL11.glTexEnvi(GL11.GL_TEXTURE_ENV, GL13.GL_COMBINE_RGB, GL11.GL_MODULATE);
 				GL11.glTexEnvi(GL11.GL_TEXTURE_ENV, GL13.GL_COMBINE_ALPHA, GL11.GL_MODULATE);
 				GL11.glTexEnvi(GL11.GL_TEXTURE_ENV, GL13.GL_SOURCE0_RGB, GL11.GL_TEXTURE);
@@ -993,15 +993,15 @@ public class GlStateManager {
 				GL11.glTexEnvi(GL11.GL_TEXTURE_ENV, GL13.GL_OPERAND0_ALPHA, GL11.GL_SRC_ALPHA);
 				GL11.glTexEnvi(GL11.GL_TEXTURE_ENV, GL13.GL_OPERAND1_ALPHA, GL11.GL_SRC_ALPHA);
 				GL11.glTexEnvi(GL11.GL_TEXTURE_ENV, GL13.GL_OPERAND2_ALPHA, GL11.GL_SRC_ALPHA);
-				GL11.glTexEnvf(GL11.GL_TEXTURE_ENV, GL13.GL_RGB_SCALE, 1.0F);
-				GL11.glTexEnvf(GL11.GL_TEXTURE_ENV, GL11.GL_ALPHA_SCALE, 1.0F);
+				GL11.glTexEnvf(GL11.GL_TEXTURE_ENV, GL13.GL_RGB_SCALE, 1F);
+				GL11.glTexEnvf(GL11.GL_TEXTURE_ENV, GL11.GL_ALPHA_SCALE, 1F);
 				GlStateManager.disableNormalize();
 				GlStateManager.shadeModel(7425);
 				GlStateManager.disableRescaleNormal();
 				GlStateManager.colorMask(true, true, true, true);
-				GlStateManager.clearDepth(1.0D);
-				GL11.glLineWidth(1.0F);
-				GL11.glNormal3f(0.0F, 0.0F, 1.0F);
+				GlStateManager.clearDepth(1D);
+				GL11.glLineWidth(1F);
+				GL11.glNormal3f(0F, 0F, 1F);
 				GL11.glPolygonMode(GL11.GL_FRONT, GL11.GL_FILL);
 				GL11.glPolygonMode(GL11.GL_BACK, GL11.GL_FILL);
 			}
@@ -1025,7 +1025,7 @@ public class GlStateManager {
 		TRANSPARENT_MODEL {
 			public void apply() {
 
-				GlStateManager.color(1.0F, 1.0F, 1.0F, 0.15F);
+				GlStateManager.color(1F, 1F, 1F, 0.15F);
 				GlStateManager.depthMask(false);
 				GlStateManager.enableBlend();
 				GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
@@ -1091,7 +1091,7 @@ public class GlStateManager {
 
 			alphaTest = new GlStateManager.BooleanState(3008);
 			func = 519;
-			ref = -1.0F;
+			ref = -1F;
 		}
 
 	}
@@ -1157,8 +1157,8 @@ public class GlStateManager {
 
 		private ClearState() {
 
-			depth = 1.0D;
-			color = new GlStateManager.Color(0.0F, 0.0F, 0.0F, 0.0F);
+			depth = 1D;
+			color = new GlStateManager.Color(0F, 0F, 0F, 0F);
 		}
 
 	}
@@ -1172,15 +1172,15 @@ public class GlStateManager {
 
 		public Color() {
 
-			this(1.0F, 1.0F, 1.0F, 1.0F);
+			this(1F, 1F, 1F, 1F);
 		}
 
 		public Color(float redIn, float greenIn, float blueIn, float alphaIn) {
 
-			red = 1.0F;
-			green = 1.0F;
-			blue = 1.0F;
-			alpha = 1.0F;
+			red = 1F;
+			green = 1F;
+			blue = 1F;
+			alpha = 1F;
 			red = redIn;
 			green = greenIn;
 			blue = blueIn;
@@ -1274,8 +1274,8 @@ public class GlStateManager {
 
 			fog = new GlStateManager.BooleanState(2912);
 			mode = 2048;
-			density = 1.0F;
-			end = 1.0F;
+			density = 1F;
+			end = 1F;
 		}
 
 	}

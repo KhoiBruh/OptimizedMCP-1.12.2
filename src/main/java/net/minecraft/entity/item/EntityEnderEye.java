@@ -52,13 +52,13 @@ public class EntityEnderEye extends Entity {
 	 */
 	public boolean isInRangeToRenderDist(double distance) {
 
-		double d0 = getEntityBoundingBox().getAverageEdgeLength() * 4.0D;
+		double d0 = getEntityBoundingBox().getAverageEdgeLength() * 4D;
 
 		if (Double.isNaN(d0)) {
-			d0 = 4.0D;
+			d0 = 4D;
 		}
 
-		d0 = d0 * 64.0D;
+		d0 = d0 * 64D;
 		return distance < d0 * d0;
 	}
 
@@ -71,10 +71,10 @@ public class EntityEnderEye extends Entity {
 		double d3 = d1 - posZ;
 		float f = MathHelper.sqrt(d2 * d2 + d3 * d3);
 
-		if (f > 12.0F) {
-			targetX = posX + d2 / (double) f * 12.0D;
-			targetZ = posZ + d3 / (double) f * 12.0D;
-			targetY = posY + 8.0D;
+		if (f > 12F) {
+			targetX = posX + d2 / (double) f * 12D;
+			targetZ = posZ + d3 / (double) f * 12D;
+			targetY = posY + 8D;
 		} else {
 			targetX = d0;
 			targetY = i;
@@ -94,7 +94,7 @@ public class EntityEnderEye extends Entity {
 		motionY = y;
 		motionZ = z;
 
-		if (prevRotationPitch == 0.0F && prevRotationYaw == 0.0F) {
+		if (prevRotationPitch == 0F && prevRotationYaw == 0F) {
 			float f = MathHelper.sqrt(x * x + z * z);
 			rotationYaw = (float) (MathHelper.atan2(x, z) * (180D / Math.PI));
 			rotationPitch = (float) (MathHelper.atan2(y, f) * (180D / Math.PI));
@@ -118,19 +118,19 @@ public class EntityEnderEye extends Entity {
 		float f = MathHelper.sqrt(motionX * motionX + motionZ * motionZ);
 		rotationYaw = (float) (MathHelper.atan2(motionX, motionZ) * (180D / Math.PI));
 
-		for (rotationPitch = (float) (MathHelper.atan2(motionY, f) * (180D / Math.PI)); rotationPitch - prevRotationPitch < -180.0F; prevRotationPitch -= 360.0F) {
+		for (rotationPitch = (float) (MathHelper.atan2(motionY, f) * (180D / Math.PI)); rotationPitch - prevRotationPitch < -180F; prevRotationPitch -= 360F) {
 		}
 
-		while (rotationPitch - prevRotationPitch >= 180.0F) {
-			prevRotationPitch += 360.0F;
+		while (rotationPitch - prevRotationPitch >= 180F) {
+			prevRotationPitch += 360F;
 		}
 
-		while (rotationYaw - prevRotationYaw < -180.0F) {
-			prevRotationYaw -= 360.0F;
+		while (rotationYaw - prevRotationYaw < -180F) {
+			prevRotationYaw -= 360F;
 		}
 
-		while (rotationYaw - prevRotationYaw >= 180.0F) {
-			prevRotationYaw += 360.0F;
+		while (rotationYaw - prevRotationYaw >= 180F) {
+			prevRotationYaw += 360F;
 		}
 
 		rotationPitch = prevRotationPitch + (rotationPitch - prevRotationPitch) * 0.2F;
@@ -143,7 +143,7 @@ public class EntityEnderEye extends Entity {
 			float f2 = (float) MathHelper.atan2(d1, d0);
 			double d2 = (double) f + (double) (f1 - f) * 0.0025D;
 
-			if (f1 < 1.0F) {
+			if (f1 < 1F) {
 				d2 *= 0.8D;
 				motionY *= 0.8D;
 			}
@@ -152,9 +152,9 @@ public class EntityEnderEye extends Entity {
 			motionZ = Math.sin(f2) * d2;
 
 			if (posY < targetY) {
-				motionY += (1.0D - motionY) * 0.014999999664723873D;
+				motionY += (1D - motionY) * 0.014999999664723873D;
 			} else {
-				motionY += (-1.0D - motionY) * 0.014999999664723873D;
+				motionY += (-1D - motionY) * 0.014999999664723873D;
 			}
 		}
 
@@ -173,7 +173,7 @@ public class EntityEnderEye extends Entity {
 			++despawnTimer;
 
 			if (despawnTimer > 80 && !world.isRemote) {
-				playSound(SoundEvents.ENTITY_ENDEREYE_DEATH, 1.0F, 1.0F);
+				playSound(SoundEvents.ENTITY_ENDEREYE_DEATH, 1F, 1F);
 				setDead();
 
 				if (shatterOrDrop) {
@@ -204,7 +204,7 @@ public class EntityEnderEye extends Entity {
 	 */
 	public float getBrightness() {
 
-		return 1.0F;
+		return 1F;
 	}
 
 	public int getBrightnessForRender() {

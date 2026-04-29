@@ -38,8 +38,8 @@ public class WorldProviderHell extends WorldProvider {
 		float f = 0.1F;
 
 		for (int i = 0; i <= 15; ++i) {
-			float f1 = 1.0F - (float) i / 15.0F;
-			lightBrightnessTable[i] = (1.0F - f1) / (f1 * 3.0F + 1.0F) * 0.9F + 0.1F;
+			float f1 = 1F - (float) i / 15F;
+			lightBrightnessTable[i] = (1F - f1) / (f1 * 3F + 1F) * 0.9F + 0.1F;
 		}
 	}
 
@@ -93,12 +93,12 @@ public class WorldProviderHell extends WorldProvider {
 		return new WorldBorder() {
 			public double getCenterX() {
 
-				return super.getCenterX() / 8.0D;
+				return super.getCenterX() / 8D;
 			}
 
 			public double getCenterZ() {
 
-				return super.getCenterZ() / 8.0D;
+				return super.getCenterZ() / 8D;
 			}
 		};
 	}

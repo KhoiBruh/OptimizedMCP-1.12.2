@@ -20,7 +20,7 @@ public class EntityOtherPlayerMP extends AbstractClientPlayer {
 	public EntityOtherPlayerMP(World worldIn, GameProfile gameProfileIn) {
 
 		super(worldIn, gameProfileIn);
-		stepHeight = 1.0F;
+		stepHeight = 1F;
 		noClip = true;
 		renderOffsetY = 0.25F;
 	}
@@ -30,13 +30,13 @@ public class EntityOtherPlayerMP extends AbstractClientPlayer {
 	 */
 	public boolean isInRangeToRenderDist(double distance) {
 
-		double d0 = getEntityBoundingBox().getAverageEdgeLength() * 10.0D;
+		double d0 = getEntityBoundingBox().getAverageEdgeLength() * 10D;
 
 		if (Double.isNaN(d0)) {
-			d0 = 1.0D;
+			d0 = 1D;
 		}
 
-		d0 = d0 * 64.0D * getRenderDistanceWeight();
+		d0 = d0 * 64D * getRenderDistanceWeight();
 		return distance < d0 * d0;
 	}
 
@@ -66,15 +66,15 @@ public class EntityOtherPlayerMP extends AbstractClientPlayer {
 	 */
 	public void onUpdate() {
 
-		renderOffsetY = 0.0F;
+		renderOffsetY = 0F;
 		super.onUpdate();
 		prevLimbSwingAmount = limbSwingAmount;
 		double d0 = posX - prevPosX;
 		double d1 = posZ - prevPosZ;
-		float f = MathHelper.sqrt(d0 * d0 + d1 * d1) * 4.0F;
+		float f = MathHelper.sqrt(d0 * d0 + d1 * d1) * 4F;
 
-		if (f > 1.0F) {
-			f = 1.0F;
+		if (f > 1F) {
+			f = 1F;
 		}
 
 		limbSwingAmount += (f - limbSwingAmount) * 0.4F;
@@ -93,11 +93,11 @@ public class EntityOtherPlayerMP extends AbstractClientPlayer {
 			double d2 = posZ + (otherPlayerMPZ - posZ) / (double) otherPlayerMPPosRotationIncrements;
 			double d3;
 
-			for (d3 = otherPlayerMPYaw - (double) rotationYaw; d3 < -180.0D; d3 += 360.0D) {
+			for (d3 = otherPlayerMPYaw - (double) rotationYaw; d3 < -180D; d3 += 360D) {
 			}
 
-			while (d3 >= 180.0D) {
-				d3 -= 360.0D;
+			while (d3 >= 180D) {
+				d3 -= 360D;
 			}
 
 			rotationYaw = (float) ((double) rotationYaw + d3 / (double) otherPlayerMPPosRotationIncrements);
@@ -110,18 +110,18 @@ public class EntityOtherPlayerMP extends AbstractClientPlayer {
 		prevCameraYaw = cameraYaw;
 		updateArmSwingProgress();
 		float f1 = MathHelper.sqrt(motionX * motionX + motionZ * motionZ);
-		float f = (float) Math.atan(-motionY * 0.20000000298023224D) * 15.0F;
+		float f = (float) Math.atan(-motionY * 0.20000000298023224D) * 15F;
 
 		if (f1 > 0.1F) {
 			f1 = 0.1F;
 		}
 
-		if (!onGround || getHealth() <= 0.0F) {
-			f1 = 0.0F;
+		if (!onGround || getHealth() <= 0F) {
+			f1 = 0F;
 		}
 
-		if (onGround || getHealth() <= 0.0F) {
-			f = 0.0F;
+		if (onGround || getHealth() <= 0F) {
+			f = 0F;
 		}
 
 		cameraYaw += (f1 - cameraYaw) * 0.4F;

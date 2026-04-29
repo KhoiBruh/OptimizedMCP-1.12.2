@@ -177,7 +177,7 @@ public class EntityHorse extends AbstractHorse {
 		HorseArmorType horsearmortype1 = getHorseArmorType();
 
 		if (ticksExisted > 20 && horsearmortype != horsearmortype1 && horsearmortype1 != HorseArmorType.NONE) {
-			playSound(SoundEvents.ENTITY_HORSE_ARMOR, 0.5F, 1.0F);
+			playSound(SoundEvents.ENTITY_HORSE_ARMOR, 0.5F, 1F);
 		}
 	}
 

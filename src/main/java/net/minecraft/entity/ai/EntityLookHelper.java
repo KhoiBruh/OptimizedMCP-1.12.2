@@ -42,7 +42,7 @@ public class EntityLookHelper {
 		if (entityIn instanceof EntityLivingBase) {
 			posY = entityIn.posY + (double) entityIn.getEyeHeight();
 		} else {
-			posY = (entityIn.getEntityBoundingBox().minY + entityIn.getEntityBoundingBox().maxY) / 2.0D;
+			posY = (entityIn.getEntityBoundingBox().minY + entityIn.getEntityBoundingBox().maxY) / 2D;
 		}
 
 		posZ = entityIn.posZ;
@@ -69,7 +69,7 @@ public class EntityLookHelper {
 	 */
 	public void onUpdateLook() {
 
-		entity.rotationPitch = 0.0F;
+		entity.rotationPitch = 0F;
 
 		if (isLooking) {
 			isLooking = false;
@@ -77,23 +77,23 @@ public class EntityLookHelper {
 			double d1 = posY - (entity.posY + (double) entity.getEyeHeight());
 			double d2 = posZ - entity.posZ;
 			double d3 = MathHelper.sqrt(d0 * d0 + d2 * d2);
-			float f = (float) (MathHelper.atan2(d2, d0) * (180D / Math.PI)) - 90.0F;
+			float f = (float) (MathHelper.atan2(d2, d0) * (180D / Math.PI)) - 90F;
 			float f1 = (float) (-(MathHelper.atan2(d1, d3) * (180D / Math.PI)));
 			entity.rotationPitch = updateRotation(entity.rotationPitch, f1, deltaLookPitch);
 			entity.rotationYawHead = updateRotation(entity.rotationYawHead, f, deltaLookYaw);
 		} else {
-			entity.rotationYawHead = updateRotation(entity.rotationYawHead, entity.renderYawOffset, 10.0F);
+			entity.rotationYawHead = updateRotation(entity.rotationYawHead, entity.renderYawOffset, 10F);
 		}
 
 		float f2 = MathHelper.wrapDegrees(entity.rotationYawHead - entity.renderYawOffset);
 
 		if (!entity.getNavigator().noPath()) {
-			if (f2 < -75.0F) {
-				entity.rotationYawHead = entity.renderYawOffset - 75.0F;
+			if (f2 < -75F) {
+				entity.rotationYawHead = entity.renderYawOffset - 75F;
 			}
 
-			if (f2 > 75.0F) {
-				entity.rotationYawHead = entity.renderYawOffset + 75.0F;
+			if (f2 > 75F) {
+				entity.rotationYawHead = entity.renderYawOffset + 75F;
 			}
 		}
 	}

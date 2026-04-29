@@ -42,7 +42,7 @@ public class TileEntityItemStackRenderer {
 
 	public void renderByItem(ItemStack itemStackIn) {
 
-		renderByItem(itemStackIn, 1.0F);
+		renderByItem(itemStackIn, 1F);
 	}
 
 	public void renderByItem(ItemStack p_192838_1_, float partialTicks) {
@@ -51,10 +51,10 @@ public class TileEntityItemStackRenderer {
 
 		if (item == Items.BANNER) {
 			banner.setItemValues(p_192838_1_, false);
-			TileEntityRendererDispatcher.instance.render(banner, 0.0D, 0.0D, 0.0D, 0.0F, partialTicks);
+			TileEntityRendererDispatcher.instance.render(banner, 0D, 0D, 0D, 0F, partialTicks);
 		} else if (item == Items.BED) {
 			bed.setItemValues(p_192838_1_);
-			TileEntityRendererDispatcher.instance.render(bed, 0.0D, 0.0D, 0.0D, 0.0F);
+			TileEntityRendererDispatcher.instance.render(bed, 0D, 0D, 0D, 0F);
 		} else if (item == Items.SHIELD) {
 			if (p_192838_1_.getSubCompound("BlockEntityTag") != null) {
 				banner.setItemValues(p_192838_1_, true);
@@ -64,7 +64,7 @@ public class TileEntityItemStackRenderer {
 			}
 
 			GlStateManager.pushMatrix();
-			GlStateManager.scale(1.0F, -1.0F, -1.0F);
+			GlStateManager.scale(1F, -1F, -1F);
 			modelShield.render();
 			GlStateManager.popMatrix();
 		} else if (item == Items.SKULL) {
@@ -86,18 +86,18 @@ public class TileEntityItemStackRenderer {
 			if (TileEntitySkullRenderer.instance != null) {
 				GlStateManager.pushMatrix();
 				GlStateManager.disableCull();
-				TileEntitySkullRenderer.instance.renderSkull(0.0F, 0.0F, 0.0F, EnumFacing.UP, 180.0F, p_192838_1_.getMetadata(), gameprofile, -1, 0.0F);
+				TileEntitySkullRenderer.instance.renderSkull(0F, 0F, 0F, EnumFacing.UP, 180F, p_192838_1_.getMetadata(), gameprofile, -1, 0F);
 				GlStateManager.enableCull();
 				GlStateManager.popMatrix();
 			}
 		} else if (item == Item.getItemFromBlock(Blocks.ENDER_CHEST)) {
-			TileEntityRendererDispatcher.instance.render(enderChest, 0.0D, 0.0D, 0.0D, 0.0F, partialTicks);
+			TileEntityRendererDispatcher.instance.render(enderChest, 0D, 0D, 0D, 0F, partialTicks);
 		} else if (item == Item.getItemFromBlock(Blocks.TRAPPED_CHEST)) {
-			TileEntityRendererDispatcher.instance.render(chestTrap, 0.0D, 0.0D, 0.0D, 0.0F, partialTicks);
+			TileEntityRendererDispatcher.instance.render(chestTrap, 0D, 0D, 0D, 0F, partialTicks);
 		} else if (Block.getBlockFromItem(item) instanceof BlockShulkerBox) {
-			TileEntityRendererDispatcher.instance.render(SHULKER_BOXES[BlockShulkerBox.getColorFromItem(item).getMetadata()], 0.0D, 0.0D, 0.0D, 0.0F, partialTicks);
+			TileEntityRendererDispatcher.instance.render(SHULKER_BOXES[BlockShulkerBox.getColorFromItem(item).getMetadata()], 0D, 0D, 0D, 0F, partialTicks);
 		} else {
-			TileEntityRendererDispatcher.instance.render(chestBasic, 0.0D, 0.0D, 0.0D, 0.0F, partialTicks);
+			TileEntityRendererDispatcher.instance.render(chestBasic, 0D, 0D, 0D, 0F, partialTicks);
 		}
 	}
 }

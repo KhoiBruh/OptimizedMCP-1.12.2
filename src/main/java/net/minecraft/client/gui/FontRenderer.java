@@ -226,7 +226,7 @@ public class FontRenderer implements IResourceManagerReloadListener {
 		int lvt_6_1_ = lvt_4_1_ / 16;
 		int lvt_7_1_ = lvt_3_2_ / 16;
 		boolean lvt_8_1_ = true;
-		float lvt_9_1_ = 8.0F / (float) lvt_7_1_;
+		float lvt_9_1_ = 8F / (float) lvt_7_1_;
 
 		for (int lvt_10_1_ = 0; lvt_10_1_ < 256; ++lvt_10_1_) {
 			int j1 = lvt_10_1_ % 16;
@@ -281,7 +281,7 @@ public class FontRenderer implements IResourceManagerReloadListener {
 	private float renderChar(char ch, boolean italic) {
 
 		if (ch == ' ') {
-			return 4.0F;
+			return 4F;
 		} else {
 			int i = "ÀÁÂÈÊËÍÓÔÕÚßãõğİıŒœŞşŴŵžȇ\u0000\u0000\u0000\u0000\u0000\u0000\u0000 !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u0000ÇüéâäàåçêëèïîìÄÅÉæÆôöòûùÿÖÜø£Ø×ƒáíóúñÑªº¿®¬½¼¡«»░▒▓│┤╡╢╖╕╣║╗╝╜╛┐└┴┬├─┼╞╟╚╔╩╦╠═╬╧╨╤╥╙╘╒╓╫╪┘┌█▄▌▐▀αβΓπΣσμτΦΘΩδ∞∅∈∩≡±≥≤⌠⌡÷≈°∙·√ⁿ²■\u0000".indexOf(ch);
 			return i != -1 && !unicodeFlag ? renderDefaultChar(i, italic) : renderUnicodeChar(ch, italic);
@@ -300,14 +300,14 @@ public class FontRenderer implements IResourceManagerReloadListener {
 		int l = charWidth[ch];
 		float f = (float) l - 0.01F;
 		GlStateManager.glBegin(5);
-		GlStateManager.glTexCoord2f((float) i / 128.0F, (float) j / 128.0F);
-		GlStateManager.glVertex3f(posX + (float) k, posY, 0.0F);
-		GlStateManager.glTexCoord2f((float) i / 128.0F, ((float) j + 7.99F) / 128.0F);
-		GlStateManager.glVertex3f(posX - (float) k, posY + 7.99F, 0.0F);
-		GlStateManager.glTexCoord2f(((float) i + f - 1.0F) / 128.0F, (float) j / 128.0F);
-		GlStateManager.glVertex3f(posX + f - 1.0F + (float) k, posY, 0.0F);
-		GlStateManager.glTexCoord2f(((float) i + f - 1.0F) / 128.0F, ((float) j + 7.99F) / 128.0F);
-		GlStateManager.glVertex3f(posX + f - 1.0F - (float) k, posY + 7.99F, 0.0F);
+		GlStateManager.glTexCoord2f((float) i / 128F, (float) j / 128F);
+		GlStateManager.glVertex3f(posX + (float) k, posY, 0F);
+		GlStateManager.glTexCoord2f((float) i / 128F, ((float) j + 7.99F) / 128F);
+		GlStateManager.glVertex3f(posX - (float) k, posY + 7.99F, 0F);
+		GlStateManager.glTexCoord2f(((float) i + f - 1F) / 128F, (float) j / 128F);
+		GlStateManager.glVertex3f(posX + f - 1F + (float) k, posY, 0F);
+		GlStateManager.glTexCoord2f(((float) i + f - 1F) / 128F, ((float) j + 7.99F) / 128F);
+		GlStateManager.glVertex3f(posX + f - 1F - (float) k, posY + 7.99F, 0F);
 		GlStateManager.glEnd();
 		return (float) l;
 	}
@@ -337,7 +337,7 @@ public class FontRenderer implements IResourceManagerReloadListener {
 		int i = glyphWidth[ch] & 255;
 
 		if (i == 0) {
-			return 0.0F;
+			return 0F;
 		} else {
 			int j = ch / 256;
 			loadGlyphTexture(j);
@@ -348,18 +348,18 @@ public class FontRenderer implements IResourceManagerReloadListener {
 			float f2 = (float) (ch % 16 * 16) + f;
 			float f3 = (float) ((ch & 255) / 16 * 16);
 			float f4 = f1 - f - 0.02F;
-			float f5 = italic ? 1.0F : 0.0F;
+			float f5 = italic ? 1F : 0F;
 			GlStateManager.glBegin(5);
-			GlStateManager.glTexCoord2f(f2 / 256.0F, f3 / 256.0F);
-			GlStateManager.glVertex3f(posX + f5, posY, 0.0F);
-			GlStateManager.glTexCoord2f(f2 / 256.0F, (f3 + 15.98F) / 256.0F);
-			GlStateManager.glVertex3f(posX - f5, posY + 7.99F, 0.0F);
-			GlStateManager.glTexCoord2f((f2 + f4) / 256.0F, f3 / 256.0F);
-			GlStateManager.glVertex3f(posX + f4 / 2.0F + f5, posY, 0.0F);
-			GlStateManager.glTexCoord2f((f2 + f4) / 256.0F, (f3 + 15.98F) / 256.0F);
-			GlStateManager.glVertex3f(posX + f4 / 2.0F - f5, posY + 7.99F, 0.0F);
+			GlStateManager.glTexCoord2f(f2 / 256F, f3 / 256F);
+			GlStateManager.glVertex3f(posX + f5, posY, 0F);
+			GlStateManager.glTexCoord2f(f2 / 256F, (f3 + 15.98F) / 256F);
+			GlStateManager.glVertex3f(posX - f5, posY + 7.99F, 0F);
+			GlStateManager.glTexCoord2f((f2 + f4) / 256F, f3 / 256F);
+			GlStateManager.glVertex3f(posX + f4 / 2F + f5, posY, 0F);
+			GlStateManager.glTexCoord2f((f2 + f4) / 256F, (f3 + 15.98F) / 256F);
+			GlStateManager.glVertex3f(posX + f4 / 2F - f5, posY + 7.99F, 0F);
 			GlStateManager.glEnd();
-			return (f1 - f) / 2.0F + 1.0F;
+			return (f1 - f) / 2F + 1F;
 		}
 	}
 
@@ -389,7 +389,7 @@ public class FontRenderer implements IResourceManagerReloadListener {
 		int i;
 
 		if (dropShadow) {
-			i = renderString(text, x + 1.0F, y + 1.0F, color, true);
+			i = renderString(text, x + 1F, y + 1F, color, true);
 			i = Math.max(i, renderString(text, x, y, color, false));
 		} else {
 			i = renderString(text, x, y, color, false);
@@ -452,7 +452,7 @@ public class FontRenderer implements IResourceManagerReloadListener {
 
 					int j1 = colorCode[i1];
 					textColor = j1;
-					GlStateManager.color((float) (j1 >> 16) / 255.0F, (float) (j1 >> 8 & 255) / 255.0F, (float) (j1 & 255) / 255.0F, alpha);
+					GlStateManager.color((float) (j1 >> 16) / 255F, (float) (j1 >> 8 & 255) / 255F, (float) (j1 & 255) / 255F, alpha);
 				} else if (i1 == 16) {
 					randomStyle = true;
 				} else if (i1 == 17) {
@@ -492,7 +492,7 @@ public class FontRenderer implements IResourceManagerReloadListener {
 					c0 = c1;
 				}
 
-				float f1 = unicodeFlag ? 0.5F : 1.0F;
+				float f1 = unicodeFlag ? 0.5F : 1F;
 				boolean flag = (c0 == 0 || j == -1 || unicodeFlag) && shadow;
 
 				if (flag) {
@@ -531,10 +531,10 @@ public class FontRenderer implements IResourceManagerReloadListener {
 					BufferBuilder bufferbuilder = tessellator.getBuffer();
 					GlStateManager.disableTexture2D();
 					bufferbuilder.begin(7, DefaultVertexFormats.POSITION);
-					bufferbuilder.pos(posX, posY + (float) (FONT_HEIGHT / 2), 0.0D).endVertex();
-					bufferbuilder.pos(posX + f, posY + (float) (FONT_HEIGHT / 2), 0.0D).endVertex();
-					bufferbuilder.pos(posX + f, posY + (float) (FONT_HEIGHT / 2) - 1.0F, 0.0D).endVertex();
-					bufferbuilder.pos(posX, posY + (float) (FONT_HEIGHT / 2) - 1.0F, 0.0D).endVertex();
+					bufferbuilder.pos(posX, posY + (float) (FONT_HEIGHT / 2), 0D).endVertex();
+					bufferbuilder.pos(posX + f, posY + (float) (FONT_HEIGHT / 2), 0D).endVertex();
+					bufferbuilder.pos(posX + f, posY + (float) (FONT_HEIGHT / 2) - 1F, 0D).endVertex();
+					bufferbuilder.pos(posX, posY + (float) (FONT_HEIGHT / 2) - 1F, 0D).endVertex();
 					tessellator.draw();
 					GlStateManager.enableTexture2D();
 				}
@@ -545,10 +545,10 @@ public class FontRenderer implements IResourceManagerReloadListener {
 					GlStateManager.disableTexture2D();
 					bufferbuilder1.begin(7, DefaultVertexFormats.POSITION);
 					int l = underlineStyle ? -1 : 0;
-					bufferbuilder1.pos(posX + (float) l, posY + (float) FONT_HEIGHT, 0.0D).endVertex();
-					bufferbuilder1.pos(posX + f, posY + (float) FONT_HEIGHT, 0.0D).endVertex();
-					bufferbuilder1.pos(posX + f, posY + (float) FONT_HEIGHT - 1.0F, 0.0D).endVertex();
-					bufferbuilder1.pos(posX + (float) l, posY + (float) FONT_HEIGHT - 1.0F, 0.0D).endVertex();
+					bufferbuilder1.pos(posX + (float) l, posY + (float) FONT_HEIGHT, 0D).endVertex();
+					bufferbuilder1.pos(posX + f, posY + (float) FONT_HEIGHT, 0D).endVertex();
+					bufferbuilder1.pos(posX + f, posY + (float) FONT_HEIGHT - 1F, 0D).endVertex();
+					bufferbuilder1.pos(posX + (float) l, posY + (float) FONT_HEIGHT - 1F, 0D).endVertex();
 					tessellator1.draw();
 					GlStateManager.enableTexture2D();
 				}
@@ -591,10 +591,10 @@ public class FontRenderer implements IResourceManagerReloadListener {
 				color = (color & 16579836) >> 2 | color & -16777216;
 			}
 
-			red = (float) (color >> 16 & 255) / 255.0F;
-			blue = (float) (color >> 8 & 255) / 255.0F;
-			green = (float) (color & 255) / 255.0F;
-			alpha = (float) (color >> 24 & 255) / 255.0F;
+			red = (float) (color >> 16 & 255) / 255F;
+			blue = (float) (color >> 8 & 255) / 255F;
+			green = (float) (color & 255) / 255F;
+			alpha = (float) (color >> 24 & 255) / 255F;
 			GlStateManager.color(red, blue, green, alpha);
 			posX = x;
 			posY = y;

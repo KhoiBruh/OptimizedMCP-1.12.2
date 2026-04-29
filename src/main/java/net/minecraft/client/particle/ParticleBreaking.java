@@ -28,13 +28,13 @@ public class ParticleBreaking extends Particle {
 
 	protected ParticleBreaking(World worldIn, double posXIn, double posYIn, double posZIn, Item itemIn, int meta) {
 
-		super(worldIn, posXIn, posYIn, posZIn, 0.0D, 0.0D, 0.0D);
+		super(worldIn, posXIn, posYIn, posZIn, 0D, 0D, 0D);
 		setParticleTexture(Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getParticleIcon(itemIn, meta));
-		particleRed = 1.0F;
-		particleGreen = 1.0F;
-		particleBlue = 1.0F;
+		particleRed = 1F;
+		particleGreen = 1F;
+		particleBlue = 1F;
 		particleGravity = Blocks.SNOW.blockParticleGravity;
-		particleScale /= 2.0F;
+		particleScale /= 2F;
 	}
 
 	/**
@@ -51,17 +51,17 @@ public class ParticleBreaking extends Particle {
 	 */
 	public void renderParticle(BufferBuilder buffer, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
 
-		float f = ((float) particleTextureIndexX + particleTextureJitterX / 4.0F) / 16.0F;
+		float f = ((float) particleTextureIndexX + particleTextureJitterX / 4F) / 16F;
 		float f1 = f + 0.015609375F;
-		float f2 = ((float) particleTextureIndexY + particleTextureJitterY / 4.0F) / 16.0F;
+		float f2 = ((float) particleTextureIndexY + particleTextureJitterY / 4F) / 16F;
 		float f3 = f2 + 0.015609375F;
 		float f4 = 0.1F * particleScale;
 
 		if (particleTexture != null) {
-			f = particleTexture.getInterpolatedU(particleTextureJitterX / 4.0F * 16.0F);
-			f1 = particleTexture.getInterpolatedU((particleTextureJitterX + 1.0F) / 4.0F * 16.0F);
-			f2 = particleTexture.getInterpolatedV(particleTextureJitterY / 4.0F * 16.0F);
-			f3 = particleTexture.getInterpolatedV((particleTextureJitterY + 1.0F) / 4.0F * 16.0F);
+			f = particleTexture.getInterpolatedU(particleTextureJitterX / 4F * 16F);
+			f1 = particleTexture.getInterpolatedU((particleTextureJitterX + 1F) / 4F * 16F);
+			f2 = particleTexture.getInterpolatedV(particleTextureJitterY / 4F * 16F);
+			f3 = particleTexture.getInterpolatedV((particleTextureJitterY + 1F) / 4F * 16F);
 		}
 
 		float f5 = (float) (prevPosX + (posX - prevPosX) * (double) partialTicks - interpPosX);
@@ -70,10 +70,10 @@ public class ParticleBreaking extends Particle {
 		int i = getBrightnessForRender(partialTicks);
 		int j = i >> 16 & 65535;
 		int k = i & 65535;
-		buffer.pos(f5 - rotationX * f4 - rotationXY * f4, f6 - rotationZ * f4, f7 - rotationYZ * f4 - rotationXZ * f4).tex(f, f3).color(particleRed, particleGreen, particleBlue, 1.0F).lightmap(j, k).endVertex();
-		buffer.pos(f5 - rotationX * f4 + rotationXY * f4, f6 + rotationZ * f4, f7 - rotationYZ * f4 + rotationXZ * f4).tex(f, f2).color(particleRed, particleGreen, particleBlue, 1.0F).lightmap(j, k).endVertex();
-		buffer.pos(f5 + rotationX * f4 + rotationXY * f4, f6 + rotationZ * f4, f7 + rotationYZ * f4 + rotationXZ * f4).tex(f1, f2).color(particleRed, particleGreen, particleBlue, 1.0F).lightmap(j, k).endVertex();
-		buffer.pos(f5 + rotationX * f4 - rotationXY * f4, f6 - rotationZ * f4, f7 + rotationYZ * f4 - rotationXZ * f4).tex(f1, f3).color(particleRed, particleGreen, particleBlue, 1.0F).lightmap(j, k).endVertex();
+		buffer.pos(f5 - rotationX * f4 - rotationXY * f4, f6 - rotationZ * f4, f7 - rotationYZ * f4 - rotationXZ * f4).tex(f, f3).color(particleRed, particleGreen, particleBlue, 1F).lightmap(j, k).endVertex();
+		buffer.pos(f5 - rotationX * f4 + rotationXY * f4, f6 + rotationZ * f4, f7 - rotationYZ * f4 + rotationXZ * f4).tex(f, f2).color(particleRed, particleGreen, particleBlue, 1F).lightmap(j, k).endVertex();
+		buffer.pos(f5 + rotationX * f4 + rotationXY * f4, f6 + rotationZ * f4, f7 + rotationYZ * f4 + rotationXZ * f4).tex(f1, f2).color(particleRed, particleGreen, particleBlue, 1F).lightmap(j, k).endVertex();
+		buffer.pos(f5 + rotationX * f4 - rotationXY * f4, f6 - rotationZ * f4, f7 + rotationYZ * f4 - rotationXZ * f4).tex(f1, f3).color(particleRed, particleGreen, particleBlue, 1F).lightmap(j, k).endVertex();
 	}
 
 	public static class Factory implements IParticleFactory {

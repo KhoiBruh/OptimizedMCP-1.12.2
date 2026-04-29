@@ -15,7 +15,7 @@ public class RenderEndermite extends RenderLiving<EntityEndermite> {
 
 	protected float getDeathMaxRotation(EntityEndermite entityLivingBaseIn) {
 
-		return 180.0F;
+		return 180F;
 	}
 
 	/**

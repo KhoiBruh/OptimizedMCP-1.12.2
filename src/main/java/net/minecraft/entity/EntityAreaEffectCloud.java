@@ -52,7 +52,7 @@ public class EntityAreaEffectCloud extends Entity {
 		reapplicationDelay = 20;
 		noClip = true;
 		isImmuneToFire = true;
-		setRadius(3.0F);
+		setRadius(3F);
 	}
 
 	public EntityAreaEffectCloud(World worldIn, double x, double y, double z) {
@@ -81,7 +81,7 @@ public class EntityAreaEffectCloud extends Entity {
 		double d0 = posX;
 		double d1 = posY;
 		double d2 = posZ;
-		setSize(radiusIn * 2.0F, 0.5F);
+		setSize(radiusIn * 2F, 0.5F);
 		setPosition(d0, d1, d2);
 
 		if (!world.isRemote) {
@@ -217,9 +217,9 @@ public class EntityAreaEffectCloud extends Entity {
 							int k = j >> 16 & 255;
 							int l = j >> 8 & 255;
 							int i1 = j & 255;
-							world.spawnAlwaysVisibleParticle(EnumParticleTypes.SPELL_MOB.getParticleID(), posX + (double) f3, posY, posZ + (double) f4, (float) k / 255.0F, (float) l / 255.0F, (float) i1 / 255.0F);
+							world.spawnAlwaysVisibleParticle(EnumParticleTypes.SPELL_MOB.getParticleID(), posX + (double) f3, posY, posZ + (double) f4, (float) k / 255F, (float) l / 255F, (float) i1 / 255F);
 						} else {
-							world.spawnAlwaysVisibleParticle(enumparticletypes.getParticleID(), posX + (double) f3, posY, posZ + (double) f4, 0.0D, 0.0D, 0.0D, aint);
+							world.spawnAlwaysVisibleParticle(enumparticletypes.getParticleID(), posX + (double) f3, posY, posZ + (double) f4, 0D, 0D, 0D, aint);
 						}
 					}
 				}
@@ -237,7 +237,7 @@ public class EntityAreaEffectCloud extends Entity {
 						int i2 = l1 >> 16 & 255;
 						int j2 = l1 >> 8 & 255;
 						int j1 = l1 & 255;
-						world.spawnAlwaysVisibleParticle(EnumParticleTypes.SPELL_MOB.getParticleID(), posX + (double) f8, posY, posZ + (double) f9, (float) i2 / 255.0F, (float) j2 / 255.0F, (float) j1 / 255.0F);
+						world.spawnAlwaysVisibleParticle(EnumParticleTypes.SPELL_MOB.getParticleID(), posX + (double) f8, posY, posZ + (double) f9, (float) i2 / 255F, (float) j2 / 255F, (float) j1 / 255F);
 					} else {
 						world.spawnAlwaysVisibleParticle(enumparticletypes.getParticleID(), posX + (double) f8, posY, posZ + (double) f9, (0.5D - rand.nextDouble()) * 0.15D, 0.009999999776482582D, (0.5D - rand.nextDouble()) * 0.15D, aint);
 					}
@@ -259,7 +259,7 @@ public class EntityAreaEffectCloud extends Entity {
 				return;
 			}
 
-			if (radiusPerTick != 0.0F) {
+			if (radiusPerTick != 0F) {
 				f += radiusPerTick;
 
 				if (f < 0.5F) {
@@ -305,7 +305,7 @@ public class EntityAreaEffectCloud extends Entity {
 										}
 									}
 
-									if (radiusOnUse != 0.0F) {
+									if (radiusOnUse != 0F) {
 										f += radiusOnUse;
 
 										if (f < 0.5F) {

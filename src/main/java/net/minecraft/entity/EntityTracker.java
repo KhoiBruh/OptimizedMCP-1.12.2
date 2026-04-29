@@ -42,7 +42,7 @@ public class EntityTracker {
 
 	public static long getPositionLong(double value) {
 
-		return MathHelper.lfloor(value * 4096.0D);
+		return MathHelper.lfloor(value * 4096D);
 	}
 
 	public static void updateServerPosition(Entity entityIn, double x, double y, double z) {

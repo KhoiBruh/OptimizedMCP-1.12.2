@@ -1480,7 +1480,7 @@ public class StructureOceanMonumentPieces {
 			if (p_175817_2_.isVecInside(new BlockPos(i, j, k))) {
 				EntityElderGuardian entityelderguardian = new EntityElderGuardian(worldIn);
 				entityelderguardian.heal(entityelderguardian.getMaxHealth());
-				entityelderguardian.setLocationAndAngles((double) i + 0.5D, j, (double) k + 0.5D, 0.0F, 0.0F);
+				entityelderguardian.setLocationAndAngles((double) i + 0.5D, j, (double) k + 0.5D, 0F, 0F);
 				entityelderguardian.onInitialSpawn(worldIn.getDifficultyForLocation(new BlockPos(entityelderguardian)), null);
 				worldIn.spawnEntity(entityelderguardian);
 				return true;

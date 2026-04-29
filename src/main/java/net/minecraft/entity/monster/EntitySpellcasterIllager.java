@@ -107,7 +107,7 @@ public abstract class EntitySpellcasterIllager extends AbstractIllager {
 	protected abstract SoundEvent getSpellSound();
 
 	public enum SpellType {
-		NONE(0, 0.0D, 0.0D, 0.0D),
+		NONE(0, 0D, 0D, 0D),
 		SUMMON_VEX(1, 0.7D, 0.7D, 0.8D),
 		FANGS(2, 0.4D, 0.3D, 0.35D),
 		WOLOLO(3, 0.7D, 0.5D, 0.2D),
@@ -197,7 +197,7 @@ public abstract class EntitySpellcasterIllager extends AbstractIllager {
 			SoundEvent soundevent = getSpellPrepareSound();
 
 			if (soundevent != null) {
-				playSound(soundevent, 1.0F, 1.0F);
+				playSound(soundevent, 1F, 1F);
 			}
 
 			setSpellType(getSpellType());
@@ -209,7 +209,7 @@ public abstract class EntitySpellcasterIllager extends AbstractIllager {
 
 			if (spellWarmup == 0) {
 				castSpell();
-				playSound(getSpellSound(), 1.0F, 1.0F);
+				playSound(getSpellSound(), 1F, 1F);
 			}
 		}
 

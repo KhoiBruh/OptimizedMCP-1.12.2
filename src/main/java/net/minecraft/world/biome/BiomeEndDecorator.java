@@ -54,8 +54,8 @@ public class BiomeEndDecorator extends BiomeDecorator {
 			WorldGenSpikes.EndSpike[] aworldgenspikes$endspike = new WorldGenSpikes.EndSpike[10];
 
 			for (int i = 0; i < 10; ++i) {
-				int j = (int) (42.0D * Math.cos(2.0D * (-Math.PI + (Math.PI / 10D) * (double) i)));
-				int k = (int) (42.0D * Math.sin(2.0D * (-Math.PI + (Math.PI / 10D) * (double) i)));
+				int j = (int) (42D * Math.cos(2D * (-Math.PI + (Math.PI / 10D) * (double) i)));
+				int k = (int) (42D * Math.sin(2D * (-Math.PI + (Math.PI / 10D) * (double) i)));
 				int l = list.get(i);
 				int i1 = 2 + l / 3;
 				int j1 = 76 + l * 3;

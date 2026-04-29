@@ -67,7 +67,7 @@ public class EntityVex extends EntityMob {
 
 		if (limitedLifespan && --limitedLifeTicks <= 0) {
 			limitedLifeTicks = 20;
-			attackEntityFrom(DamageSource.STARVE, 1.0F);
+			attackEntityFrom(DamageSource.STARVE, 1F);
 		}
 	}
 
@@ -77,8 +77,8 @@ public class EntityVex extends EntityMob {
 		tasks.addTask(0, new EntityAISwimming(this));
 		tasks.addTask(4, new EntityVex.AIChargeAttack());
 		tasks.addTask(8, new EntityVex.AIMoveRandom());
-		tasks.addTask(9, new EntityAIWatchClosest(this, EntityPlayer.class, 3.0F, 1.0F));
-		tasks.addTask(10, new EntityAIWatchClosest(this, EntityLiving.class, 8.0F));
+		tasks.addTask(9, new EntityAIWatchClosest(this, EntityPlayer.class, 3F, 1F));
+		tasks.addTask(10, new EntityAIWatchClosest(this, EntityLiving.class, 8F));
 		targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, EntityVex.class));
 		targetTasks.addTask(2, new EntityVex.AICopyOwnerTarget(this));
 		targetTasks.addTask(3, new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, true));
@@ -87,8 +87,8 @@ public class EntityVex extends EntityMob {
 	protected void applyEntityAttributes() {
 
 		super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(14.0D);
-		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4.0D);
+		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(14D);
+		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4D);
 	}
 
 	protected void entityInit() {
@@ -218,7 +218,7 @@ public class EntityVex extends EntityMob {
 	 */
 	public float getBrightness() {
 
-		return 1.0F;
+		return 1F;
 	}
 
 	
@@ -250,7 +250,7 @@ public class EntityVex extends EntityMob {
 	protected void setEquipmentBasedOnDifficulty(DifficultyInstance difficulty) {
 
 		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SWORD));
-		setDropChance(EntityEquipmentSlot.MAINHAND, 0.0F);
+		setDropChance(EntityEquipmentSlot.MAINHAND, 0F);
 	}
 
 	class AIChargeAttack extends EntityAIBase {
@@ -263,7 +263,7 @@ public class EntityVex extends EntityMob {
 		public boolean shouldExecute() {
 
 			if (getAttackTarget() != null && !getMoveHelper().isUpdating() && rand.nextInt(7) == 0) {
-				return getDistanceSq(getAttackTarget()) > 4.0D;
+				return getDistanceSq(getAttackTarget()) > 4D;
 			} else {
 				return false;
 			}
@@ -277,10 +277,10 @@ public class EntityVex extends EntityMob {
 		public void startExecuting() {
 
 			EntityLivingBase entitylivingbase = getAttackTarget();
-			Vec3d vec3d = entitylivingbase.getPositionEyes(1.0F);
-			moveHelper.setMoveTo(vec3d.x(), vec3d.y(), vec3d.z(), 1.0D);
+			Vec3d vec3d = entitylivingbase.getPositionEyes(1F);
+			moveHelper.setMoveTo(vec3d.x(), vec3d.y(), vec3d.z(), 1D);
 			setCharging(true);
-			playSound(SoundEvents.ENTITY_VEX_CHARGE, 1.0F, 1.0F);
+			playSound(SoundEvents.ENTITY_VEX_CHARGE, 1F, 1F);
 		}
 
 		public void resetTask() {
@@ -298,9 +298,9 @@ public class EntityVex extends EntityMob {
 			} else {
 				double d0 = getDistanceSq(entitylivingbase);
 
-				if (d0 < 9.0D) {
-					Vec3d vec3d = entitylivingbase.getPositionEyes(1.0F);
-					moveHelper.setMoveTo(vec3d.x(), vec3d.y(), vec3d.z(), 1.0D);
+				if (d0 < 9D) {
+					Vec3d vec3d = entitylivingbase.getPositionEyes(1F);
+					moveHelper.setMoveTo(vec3d.x(), vec3d.y(), vec3d.z(), 1D);
 				}
 			}
 		}
@@ -400,7 +400,7 @@ public class EntityVex extends EntityMob {
 					moveHelper.setMoveTo((double) blockpos1.getX() + 0.5D, (double) blockpos1.getY() + 0.5D, (double) blockpos1.getZ() + 0.5D, 0.25D);
 
 					if (getAttackTarget() == null) {
-						getLookHelper().setLookPosition((double) blockpos1.getX() + 0.5D, (double) blockpos1.getY() + 0.5D, (double) blockpos1.getZ() + 0.5D, 180.0F, 20.0F);
+						getLookHelper().setLookPosition((double) blockpos1.getX() + 0.5D, (double) blockpos1.getY() + 0.5D, (double) blockpos1.getZ() + 0.5D, 180F, 20F);
 					}
 
 					break;

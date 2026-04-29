@@ -21,7 +21,7 @@ public abstract class BossInfo {
 		name = nameIn;
 		color = colorIn;
 		overlay = overlayIn;
-		percent = 1.0F;
+		percent = 1F;
 	}
 
 	public UUID getUniqueId() {

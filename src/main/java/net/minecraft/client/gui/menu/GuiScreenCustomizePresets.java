@@ -216,17 +216,17 @@ public class GuiScreenCustomizePresets extends GuiScreen {
 			drawHorizontalLine(i - 1, i + 32, p_178051_2_ + 32, -6250336);
 			drawVerticalLine(i - 1, p_178051_2_ - 1, p_178051_2_ + 32, -2039584);
 			drawVerticalLine(i + 32, p_178051_2_ - 1, p_178051_2_ + 32, -6250336);
-			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+			GlStateManager.color(1F, 1F, 1F, 1F);
 			mc.getTextureManager().bindTexture(texture);
 			int j = 32;
 			int k = 32;
 			Tessellator tessellator = Tessellator.getInstance();
 			BufferBuilder bufferbuilder = tessellator.getBuffer();
 			bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
-			bufferbuilder.pos(i, p_178051_2_ + 32, 0.0D).tex(0.0D, 1.0D).endVertex();
-			bufferbuilder.pos(i + 32, p_178051_2_ + 32, 0.0D).tex(1.0D, 1.0D).endVertex();
-			bufferbuilder.pos(i + 32, p_178051_2_, 0.0D).tex(1.0D, 0.0D).endVertex();
-			bufferbuilder.pos(i, p_178051_2_, 0.0D).tex(0.0D, 0.0D).endVertex();
+			bufferbuilder.pos(i, p_178051_2_ + 32, 0D).tex(0D, 1D).endVertex();
+			bufferbuilder.pos(i + 32, p_178051_2_ + 32, 0D).tex(1D, 1D).endVertex();
+			bufferbuilder.pos(i + 32, p_178051_2_, 0D).tex(1D, 0D).endVertex();
+			bufferbuilder.pos(i, p_178051_2_, 0D).tex(0D, 0D).endVertex();
 			tessellator.draw();
 		}
 

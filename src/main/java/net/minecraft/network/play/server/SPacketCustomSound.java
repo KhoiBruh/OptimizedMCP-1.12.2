@@ -25,9 +25,9 @@ public class SPacketCustomSound implements Packet<INetHandlerPlayClient> {
 		Validate.notNull(soundNameIn, "name");
 		soundName = soundNameIn;
 		category = categoryIn;
-		x = (int) (xIn * 8.0D);
-		y = (int) (yIn * 8.0D);
-		z = (int) (zIn * 8.0D);
+		x = (int) (xIn * 8D);
+		y = (int) (yIn * 8D);
+		z = (int) (zIn * 8D);
 		volume = volumeIn;
 		pitch = pitchIn;
 	}
@@ -72,17 +72,17 @@ public class SPacketCustomSound implements Packet<INetHandlerPlayClient> {
 
 	public double getX() {
 
-		return (float) x / 8.0F;
+		return (float) x / 8F;
 	}
 
 	public double getY() {
 
-		return (float) y / 8.0F;
+		return (float) y / 8F;
 	}
 
 	public double getZ() {
 
-		return (float) z / 8.0F;
+		return (float) z / 8F;
 	}
 
 	public float getVolume() {

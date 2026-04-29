@@ -31,7 +31,7 @@ public abstract class Render<T extends Entity> {
 	/**
 	 * Determines the darkness of the object's shadow. Higher value makes a darker shadow.
 	 */
-	protected float shadowOpaque = 1.0F;
+	protected float shadowOpaque = 1F;
 	protected boolean renderOutlines;
 
 	protected Render(RenderManager renderManager) {
@@ -47,35 +47,35 @@ public abstract class Render<T extends Entity> {
 		GlStateManager.disableTexture2D();
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder bufferbuilder = tessellator.getBuffer();
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+		GlStateManager.color(1F, 1F, 1F, 1F);
 		bufferbuilder.setTranslation(x, y, z);
 		bufferbuilder.begin(7, DefaultVertexFormats.POSITION_NORMAL);
-		bufferbuilder.pos(boundingBox.minX, boundingBox.maxY, boundingBox.minZ).normal(0.0F, 0.0F, -1.0F).endVertex();
-		bufferbuilder.pos(boundingBox.maxX, boundingBox.maxY, boundingBox.minZ).normal(0.0F, 0.0F, -1.0F).endVertex();
-		bufferbuilder.pos(boundingBox.maxX, boundingBox.minY, boundingBox.minZ).normal(0.0F, 0.0F, -1.0F).endVertex();
-		bufferbuilder.pos(boundingBox.minX, boundingBox.minY, boundingBox.minZ).normal(0.0F, 0.0F, -1.0F).endVertex();
-		bufferbuilder.pos(boundingBox.minX, boundingBox.minY, boundingBox.maxZ).normal(0.0F, 0.0F, 1.0F).endVertex();
-		bufferbuilder.pos(boundingBox.maxX, boundingBox.minY, boundingBox.maxZ).normal(0.0F, 0.0F, 1.0F).endVertex();
-		bufferbuilder.pos(boundingBox.maxX, boundingBox.maxY, boundingBox.maxZ).normal(0.0F, 0.0F, 1.0F).endVertex();
-		bufferbuilder.pos(boundingBox.minX, boundingBox.maxY, boundingBox.maxZ).normal(0.0F, 0.0F, 1.0F).endVertex();
-		bufferbuilder.pos(boundingBox.minX, boundingBox.minY, boundingBox.minZ).normal(0.0F, -1.0F, 0.0F).endVertex();
-		bufferbuilder.pos(boundingBox.maxX, boundingBox.minY, boundingBox.minZ).normal(0.0F, -1.0F, 0.0F).endVertex();
-		bufferbuilder.pos(boundingBox.maxX, boundingBox.minY, boundingBox.maxZ).normal(0.0F, -1.0F, 0.0F).endVertex();
-		bufferbuilder.pos(boundingBox.minX, boundingBox.minY, boundingBox.maxZ).normal(0.0F, -1.0F, 0.0F).endVertex();
-		bufferbuilder.pos(boundingBox.minX, boundingBox.maxY, boundingBox.maxZ).normal(0.0F, 1.0F, 0.0F).endVertex();
-		bufferbuilder.pos(boundingBox.maxX, boundingBox.maxY, boundingBox.maxZ).normal(0.0F, 1.0F, 0.0F).endVertex();
-		bufferbuilder.pos(boundingBox.maxX, boundingBox.maxY, boundingBox.minZ).normal(0.0F, 1.0F, 0.0F).endVertex();
-		bufferbuilder.pos(boundingBox.minX, boundingBox.maxY, boundingBox.minZ).normal(0.0F, 1.0F, 0.0F).endVertex();
-		bufferbuilder.pos(boundingBox.minX, boundingBox.minY, boundingBox.maxZ).normal(-1.0F, 0.0F, 0.0F).endVertex();
-		bufferbuilder.pos(boundingBox.minX, boundingBox.maxY, boundingBox.maxZ).normal(-1.0F, 0.0F, 0.0F).endVertex();
-		bufferbuilder.pos(boundingBox.minX, boundingBox.maxY, boundingBox.minZ).normal(-1.0F, 0.0F, 0.0F).endVertex();
-		bufferbuilder.pos(boundingBox.minX, boundingBox.minY, boundingBox.minZ).normal(-1.0F, 0.0F, 0.0F).endVertex();
-		bufferbuilder.pos(boundingBox.maxX, boundingBox.minY, boundingBox.minZ).normal(1.0F, 0.0F, 0.0F).endVertex();
-		bufferbuilder.pos(boundingBox.maxX, boundingBox.maxY, boundingBox.minZ).normal(1.0F, 0.0F, 0.0F).endVertex();
-		bufferbuilder.pos(boundingBox.maxX, boundingBox.maxY, boundingBox.maxZ).normal(1.0F, 0.0F, 0.0F).endVertex();
-		bufferbuilder.pos(boundingBox.maxX, boundingBox.minY, boundingBox.maxZ).normal(1.0F, 0.0F, 0.0F).endVertex();
+		bufferbuilder.pos(boundingBox.minX, boundingBox.maxY, boundingBox.minZ).normal(0F, 0F, -1F).endVertex();
+		bufferbuilder.pos(boundingBox.maxX, boundingBox.maxY, boundingBox.minZ).normal(0F, 0F, -1F).endVertex();
+		bufferbuilder.pos(boundingBox.maxX, boundingBox.minY, boundingBox.minZ).normal(0F, 0F, -1F).endVertex();
+		bufferbuilder.pos(boundingBox.minX, boundingBox.minY, boundingBox.minZ).normal(0F, 0F, -1F).endVertex();
+		bufferbuilder.pos(boundingBox.minX, boundingBox.minY, boundingBox.maxZ).normal(0F, 0F, 1F).endVertex();
+		bufferbuilder.pos(boundingBox.maxX, boundingBox.minY, boundingBox.maxZ).normal(0F, 0F, 1F).endVertex();
+		bufferbuilder.pos(boundingBox.maxX, boundingBox.maxY, boundingBox.maxZ).normal(0F, 0F, 1F).endVertex();
+		bufferbuilder.pos(boundingBox.minX, boundingBox.maxY, boundingBox.maxZ).normal(0F, 0F, 1F).endVertex();
+		bufferbuilder.pos(boundingBox.minX, boundingBox.minY, boundingBox.minZ).normal(0F, -1F, 0F).endVertex();
+		bufferbuilder.pos(boundingBox.maxX, boundingBox.minY, boundingBox.minZ).normal(0F, -1F, 0F).endVertex();
+		bufferbuilder.pos(boundingBox.maxX, boundingBox.minY, boundingBox.maxZ).normal(0F, -1F, 0F).endVertex();
+		bufferbuilder.pos(boundingBox.minX, boundingBox.minY, boundingBox.maxZ).normal(0F, -1F, 0F).endVertex();
+		bufferbuilder.pos(boundingBox.minX, boundingBox.maxY, boundingBox.maxZ).normal(0F, 1F, 0F).endVertex();
+		bufferbuilder.pos(boundingBox.maxX, boundingBox.maxY, boundingBox.maxZ).normal(0F, 1F, 0F).endVertex();
+		bufferbuilder.pos(boundingBox.maxX, boundingBox.maxY, boundingBox.minZ).normal(0F, 1F, 0F).endVertex();
+		bufferbuilder.pos(boundingBox.minX, boundingBox.maxY, boundingBox.minZ).normal(0F, 1F, 0F).endVertex();
+		bufferbuilder.pos(boundingBox.minX, boundingBox.minY, boundingBox.maxZ).normal(-1F, 0F, 0F).endVertex();
+		bufferbuilder.pos(boundingBox.minX, boundingBox.maxY, boundingBox.maxZ).normal(-1F, 0F, 0F).endVertex();
+		bufferbuilder.pos(boundingBox.minX, boundingBox.maxY, boundingBox.minZ).normal(-1F, 0F, 0F).endVertex();
+		bufferbuilder.pos(boundingBox.minX, boundingBox.minY, boundingBox.minZ).normal(-1F, 0F, 0F).endVertex();
+		bufferbuilder.pos(boundingBox.maxX, boundingBox.minY, boundingBox.minZ).normal(1F, 0F, 0F).endVertex();
+		bufferbuilder.pos(boundingBox.maxX, boundingBox.maxY, boundingBox.minZ).normal(1F, 0F, 0F).endVertex();
+		bufferbuilder.pos(boundingBox.maxX, boundingBox.maxY, boundingBox.maxZ).normal(1F, 0F, 0F).endVertex();
+		bufferbuilder.pos(boundingBox.maxX, boundingBox.minY, boundingBox.maxZ).normal(1F, 0F, 0F).endVertex();
 		tessellator.draw();
-		bufferbuilder.setTranslation(0.0D, 0.0D, 0.0D);
+		bufferbuilder.setTranslation(0D, 0D, 0D);
 		GlStateManager.enableTexture2D();
 	}
 
@@ -88,8 +88,8 @@ public abstract class Render<T extends Entity> {
 
 		AxisAlignedBB axisalignedbb = livingEntity.getRenderBoundingBox().grow(0.5D);
 
-		if (axisalignedbb.hasNaN() || axisalignedbb.getAverageEdgeLength() == 0.0D) {
-			axisalignedbb = new AxisAlignedBB(livingEntity.posX - 2.0D, livingEntity.posY - 2.0D, livingEntity.posZ - 2.0D, livingEntity.posX + 2.0D, livingEntity.posY + 2.0D, livingEntity.posZ + 2.0D);
+		if (axisalignedbb.hasNaN() || axisalignedbb.getAverageEdgeLength() == 0D) {
+			axisalignedbb = new AxisAlignedBB(livingEntity.posX - 2D, livingEntity.posY - 2D, livingEntity.posZ - 2D, livingEntity.posX + 2D, livingEntity.posY + 2D, livingEntity.posZ + 2D);
 		}
 
 		return livingEntity.isInRangeToRender3d(camX, camY, camZ) && (livingEntity.ignoreFrustumCheck || camera.isBoundingBoxInFrustum(axisalignedbb));
@@ -178,17 +178,17 @@ public abstract class Render<T extends Entity> {
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder bufferbuilder = tessellator.getBuffer();
 		float f1 = 0.5F;
-		float f2 = 0.0F;
+		float f2 = 0F;
 		float f3 = entity.height / f;
 		float f4 = (float) (entity.posY - entity.getEntityBoundingBox().minY);
-		GlStateManager.rotate(-renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
-		GlStateManager.translate(0.0F, 0.0F, -0.3F + (float) ((int) f3) * 0.02F);
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-		float f5 = 0.0F;
+		GlStateManager.rotate(-renderManager.playerViewY, 0F, 1F, 0F);
+		GlStateManager.translate(0F, 0F, -0.3F + (float) ((int) f3) * 0.02F);
+		GlStateManager.color(1F, 1F, 1F, 1F);
+		float f5 = 0F;
 		int i = 0;
 		bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
 
-		while (f3 > 0.0F) {
+		while (f3 > 0F) {
 			TextureAtlasSprite textureatlassprite2 = i % 2 == 0 ? textureatlassprite : textureatlassprite1;
 			bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 			float f6 = textureatlassprite2.getMinU();
@@ -202,10 +202,10 @@ public abstract class Render<T extends Entity> {
 				f6 = f10;
 			}
 
-			bufferbuilder.pos(f1 - 0.0F, 0.0F - f4, f5).tex(f8, f9).endVertex();
-			bufferbuilder.pos(-f1 - 0.0F, 0.0F - f4, f5).tex(f6, f9).endVertex();
-			bufferbuilder.pos(-f1 - 0.0F, 1.4F - f4, f5).tex(f6, f7).endVertex();
-			bufferbuilder.pos(f1 - 0.0F, 1.4F - f4, f5).tex(f8, f7).endVertex();
+			bufferbuilder.pos(f1 - 0F, 0F - f4, f5).tex(f8, f9).endVertex();
+			bufferbuilder.pos(-f1 - 0F, 0F - f4, f5).tex(f6, f9).endVertex();
+			bufferbuilder.pos(-f1 - 0F, 1.4F - f4, f5).tex(f6, f7).endVertex();
+			bufferbuilder.pos(f1 - 0F, 1.4F - f4, f5).tex(f8, f7).endVertex();
 			f3 -= 0.45F;
 			f4 -= 0.45F;
 			f1 *= 0.9F;
@@ -263,7 +263,7 @@ public abstract class Render<T extends Entity> {
 		}
 
 		tessellator.draw();
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+		GlStateManager.color(1F, 1F, 1F, 1F);
 		GlStateManager.disableBlend();
 		GlStateManager.depthMask(true);
 	}
@@ -281,11 +281,11 @@ public abstract class Render<T extends Entity> {
 		if (state.isFullCube()) {
 			Tessellator tessellator = Tessellator.getInstance();
 			BufferBuilder bufferbuilder = tessellator.getBuffer();
-			double d0 = ((double) p_188299_9_ - (p_188299_4_ - ((double) p_188299_8_.getY() + p_188299_13_)) / 2.0D) * 0.5D * (double) getWorldFromRenderManager().getLightBrightness(p_188299_8_);
+			double d0 = ((double) p_188299_9_ - (p_188299_4_ - ((double) p_188299_8_.getY() + p_188299_13_)) / 2D) * 0.5D * (double) getWorldFromRenderManager().getLightBrightness(p_188299_8_);
 
-			if (d0 >= 0.0D) {
-				if (d0 > 1.0D) {
-					d0 = 1.0D;
+			if (d0 >= 0D) {
+				if (d0 > 1D) {
+					d0 = 1D;
 				}
 
 				AxisAlignedBB axisalignedbb = state.getBoundingBox(getWorldFromRenderManager(), p_188299_8_);
@@ -294,14 +294,14 @@ public abstract class Render<T extends Entity> {
 				double d3 = (double) p_188299_8_.getY() + axisalignedbb.minY + p_188299_13_ + 0.015625D;
 				double d4 = (double) p_188299_8_.getZ() + axisalignedbb.minZ + p_188299_15_;
 				double d5 = (double) p_188299_8_.getZ() + axisalignedbb.maxZ + p_188299_15_;
-				float f = (float) ((p_188299_2_ - d1) / 2.0D / (double) p_188299_10_ + 0.5D);
-				float f1 = (float) ((p_188299_2_ - d2) / 2.0D / (double) p_188299_10_ + 0.5D);
-				float f2 = (float) ((p_188299_6_ - d4) / 2.0D / (double) p_188299_10_ + 0.5D);
-				float f3 = (float) ((p_188299_6_ - d5) / 2.0D / (double) p_188299_10_ + 0.5D);
-				bufferbuilder.pos(d1, d3, d4).tex(f, f2).color(1.0F, 1.0F, 1.0F, (float) d0).endVertex();
-				bufferbuilder.pos(d1, d3, d5).tex(f, f3).color(1.0F, 1.0F, 1.0F, (float) d0).endVertex();
-				bufferbuilder.pos(d2, d3, d5).tex(f1, f3).color(1.0F, 1.0F, 1.0F, (float) d0).endVertex();
-				bufferbuilder.pos(d2, d3, d4).tex(f1, f2).color(1.0F, 1.0F, 1.0F, (float) d0).endVertex();
+				float f = (float) ((p_188299_2_ - d1) / 2D / (double) p_188299_10_ + 0.5D);
+				float f1 = (float) ((p_188299_2_ - d2) / 2D / (double) p_188299_10_ + 0.5D);
+				float f2 = (float) ((p_188299_6_ - d4) / 2D / (double) p_188299_10_ + 0.5D);
+				float f3 = (float) ((p_188299_6_ - d5) / 2D / (double) p_188299_10_ + 0.5D);
+				bufferbuilder.pos(d1, d3, d4).tex(f, f2).color(1F, 1F, 1F, (float) d0).endVertex();
+				bufferbuilder.pos(d1, d3, d5).tex(f, f3).color(1F, 1F, 1F, (float) d0).endVertex();
+				bufferbuilder.pos(d2, d3, d5).tex(f1, f3).color(1F, 1F, 1F, (float) d0).endVertex();
+				bufferbuilder.pos(d2, d3, d4).tex(f1, f2).color(1F, 1F, 1F, (float) d0).endVertex();
 			}
 		}
 	}
@@ -312,11 +312,11 @@ public abstract class Render<T extends Entity> {
 	public void doRenderShadowAndFire(Entity entityIn, double x, double y, double z, float yaw, float partialTicks) {
 
 		if (renderManager.options != null) {
-			if (renderManager.options.entityShadows && shadowSize > 0.0F && !entityIn.isInvisible() && renderManager.isRenderShadow()) {
+			if (renderManager.options.entityShadows && shadowSize > 0F && !entityIn.isInvisible() && renderManager.isRenderShadow()) {
 				double d0 = renderManager.getDistanceToCamera(entityIn.posX, entityIn.posY, entityIn.posZ);
-				float f = (float) ((1.0D - d0 / 256.0D) * (double) shadowOpaque);
+				float f = (float) ((1D - d0 / 256D) * (double) shadowOpaque);
 
-				if (f > 0.0F) {
+				if (f > 0F) {
 					renderShadow(entityIn, x, y, z, f, partialTicks);
 				}
 			}
@@ -347,7 +347,7 @@ public abstract class Render<T extends Entity> {
 			float f = renderManager.playerViewY;
 			float f1 = renderManager.playerViewX;
 			boolean flag1 = renderManager.options.thirdPersonView == 2;
-			float f2 = entityIn.height + 0.5F - (flag ? 0.25F : 0.0F);
+			float f2 = entityIn.height + 0.5F - (flag ? 0.25F : 0F);
 			int i = "deadmau5".equals(str) ? -10 : 0;
 			EntityRenderer.drawNameplate(getFontRendererFromRenderManager(), str, (float) x, (float) y + f2, (float) z, i, f, f1, flag1, flag);
 		}

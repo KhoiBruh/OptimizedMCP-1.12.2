@@ -65,10 +65,10 @@ public class EntityCreeper extends EntityMob {
 
 		tasks.addTask(1, new EntityAISwimming(this));
 		tasks.addTask(2, new EntityAICreeperSwell(this));
-		tasks.addTask(3, new EntityAIAvoidEntity<>(this, EntityOcelot.class, 6.0F, 1.0D, 1.2D));
-		tasks.addTask(4, new EntityAIAttackMelee(this, 1.0D, false));
+		tasks.addTask(3, new EntityAIAvoidEntity<>(this, EntityOcelot.class, 6F, 1D, 1.2D));
+		tasks.addTask(4, new EntityAIAttackMelee(this, 1D, false));
 		tasks.addTask(5, new EntityAIWanderAvoidWater(this, 0.8D));
-		tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
+		tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 8F));
 		tasks.addTask(6, new EntityAILookIdle(this));
 		targetTasks.addTask(1, new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, true));
 		targetTasks.addTask(2, new EntityAIHurtByTarget(this, false));
@@ -85,7 +85,7 @@ public class EntityCreeper extends EntityMob {
 	 */
 	public int getMaxFallHeight() {
 
-		return getAttackTarget() == null ? 3 : 3 + (int) (getHealth() - 1.0F);
+		return getAttackTarget() == null ? 3 : 3 + (int) (getHealth() - 1F);
 	}
 
 	public void fall(float distance, float damageMultiplier) {
@@ -158,7 +158,7 @@ public class EntityCreeper extends EntityMob {
 			int i = getCreeperState();
 
 			if (i > 0 && timeSinceIgnited == 0) {
-				playSound(SoundEvents.ENTITY_CREEPER_PRIMED, 1.0F, 0.5F);
+				playSound(SoundEvents.ENTITY_CREEPER_PRIMED, 1F, 0.5F);
 			}
 
 			timeSinceIgnited += i;
@@ -201,7 +201,7 @@ public class EntityCreeper extends EntityMob {
 				dropItem(Item.getItemById(k), 1);
 			} else if (cause.getTrueSource() instanceof EntityCreeper && cause.getTrueSource() != this && ((EntityCreeper) cause.getTrueSource()).getPowered() && ((EntityCreeper) cause.getTrueSource()).ableToCauseSkullDrop()) {
 				((EntityCreeper) cause.getTrueSource()).incrementDroppedSkulls();
-				entityDropItem(new ItemStack(Items.SKULL, 1, 4), 0.0F);
+				entityDropItem(new ItemStack(Items.SKULL, 1, 4), 0F);
 			}
 		}
 	}
@@ -263,7 +263,7 @@ public class EntityCreeper extends EntityMob {
 		ItemStack itemstack = player.getHeldItem(hand);
 
 		if (itemstack.getItem() == Items.FLINT_AND_STEEL) {
-			world.playSound(player, posX, posY, posZ, SoundEvents.ITEM_FLINTANDSTEEL_USE, getSoundCategory(), 1.0F, rand.nextFloat() * 0.4F + 0.8F);
+			world.playSound(player, posX, posY, posZ, SoundEvents.ITEM_FLINTANDSTEEL_USE, getSoundCategory(), 1F, rand.nextFloat() * 0.4F + 0.8F);
 			player.swingArm(hand);
 
 			if (!world.isRemote) {
@@ -283,7 +283,7 @@ public class EntityCreeper extends EntityMob {
 
 		if (!world.isRemote) {
 			boolean flag = world.getGameRules().getBoolean("mobGriefing");
-			float f = getPowered() ? 2.0F : 1.0F;
+			float f = getPowered() ? 2F : 1F;
 			dead = true;
 			world.createExplosion(this, posX, posY, posZ, (float) explosionRadius * f, flag);
 			setDead();

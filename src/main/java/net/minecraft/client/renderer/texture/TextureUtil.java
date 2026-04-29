@@ -41,7 +41,7 @@ public class TextureUtil {
 		COLOR_GAMMAS = new float[256];
 
 		for (int i1 = 0; i1 < COLOR_GAMMAS.length; ++i1) {
-			COLOR_GAMMAS[i1] = (float) Math.pow((float) i1 / 255.0F, 2.2D);
+			COLOR_GAMMAS[i1] = (float) Math.pow((float) i1 / 255F, 2.2D);
 		}
 
 		MIPMAP_BUFFER = new int[4];
@@ -120,10 +120,10 @@ public class TextureUtil {
 			MIPMAP_BUFFER[1] = p_147943_1_;
 			MIPMAP_BUFFER[2] = p_147943_2_;
 			MIPMAP_BUFFER[3] = p_147943_3_;
-			float f = 0.0F;
-			float f1 = 0.0F;
-			float f2 = 0.0F;
-			float f3 = 0.0F;
+			float f = 0F;
+			float f1 = 0F;
+			float f2 = 0F;
+			float f3 = 0F;
 
 			for (int i1 = 0; i1 < 4; ++i1) {
 				if (MIPMAP_BUFFER[i1] >> 24 != 0) {
@@ -134,14 +134,14 @@ public class TextureUtil {
 				}
 			}
 
-			f = f / 4.0F;
-			f1 = f1 / 4.0F;
-			f2 = f2 / 4.0F;
-			f3 = f3 / 4.0F;
-			int i2 = (int) (Math.pow(f, 0.45454545454545453D) * 255.0D);
-			int j1 = (int) (Math.pow(f1, 0.45454545454545453D) * 255.0D);
-			int k1 = (int) (Math.pow(f2, 0.45454545454545453D) * 255.0D);
-			int l1 = (int) (Math.pow(f3, 0.45454545454545453D) * 255.0D);
+			f = f / 4F;
+			f1 = f1 / 4F;
+			f2 = f2 / 4F;
+			f3 = f3 / 4F;
+			int i2 = (int) (Math.pow(f, 0.45454545454545453D) * 255D);
+			int j1 = (int) (Math.pow(f1, 0.45454545454545453D) * 255D);
+			int k1 = (int) (Math.pow(f2, 0.45454545454545453D) * 255D);
+			int l1 = (int) (Math.pow(f3, 0.45454545454545453D) * 255D);
 
 			if (i2 < 96) {
 				i2 = 0;
@@ -164,7 +164,7 @@ public class TextureUtil {
 		float f2 = getColorGamma(p_147944_2_ >> p_147944_4_);
 		float f3 = getColorGamma(p_147944_3_ >> p_147944_4_);
 		float f4 = (float) ((double) ((float) Math.pow((double) (f + f1 + f2 + f3) * 0.25D, 0.45454545454545453D)));
-		return (int) ((double) f4 * 255.0D);
+		return (int) ((double) f4 * 255D);
 	}
 
 	public static void uploadTextureMipmap(int[][] p_147955_0_, int p_147955_1_, int p_147955_2_, int p_147955_3_, int p_147955_4_, boolean p_147955_5_, boolean p_147955_6_) {
@@ -211,7 +211,7 @@ public class TextureUtil {
 			GlStateManager.glTexParameteri(3553, 33085, mipmapLevels);
 			GlStateManager.glTexParameteri(3553, 33082, 0);
 			GlStateManager.glTexParameteri(3553, 33083, mipmapLevels);
-			GlStateManager.glTexParameterf(3553, 34049, 0.0F);
+			GlStateManager.glTexParameterf(3553, 34049, 0F);
 		}
 
 		for (int i = 0; i <= mipmapLevels; ++i) {

@@ -35,14 +35,14 @@ public record BlockPart(Vector3f positionFrom, Vector3f positionTo, Map<EnumFaci
 	private float[] getFaceUvs(EnumFacing facing) {
 
 		return switch (facing) {
-			case DOWN -> new float[]{positionFrom.x, 16.0F - positionTo.z, positionTo.x, 16.0F - positionFrom.z};
+			case DOWN -> new float[]{positionFrom.x, 16F - positionTo.z, positionTo.x, 16F - positionFrom.z};
 			case UP -> new float[]{positionFrom.x, positionFrom.z, positionTo.x, positionTo.z};
-			case SOUTH -> new float[]{positionFrom.x, 16.0F - positionTo.y, positionTo.x, 16.0F - positionFrom.y};
-			case WEST -> new float[]{positionFrom.z, 16.0F - positionTo.y, positionTo.z, 16.0F - positionFrom.y};
+			case SOUTH -> new float[]{positionFrom.x, 16F - positionTo.y, positionTo.x, 16F - positionFrom.y};
+			case WEST -> new float[]{positionFrom.z, 16F - positionTo.y, positionTo.z, 16F - positionFrom.y};
 			case EAST ->
-					new float[]{16.0F - positionTo.z, 16.0F - positionTo.y, 16.0F - positionFrom.z, 16.0F - positionFrom.y};
+					new float[]{16F - positionTo.z, 16F - positionTo.y, 16F - positionFrom.z, 16F - positionFrom.y};
 			default ->
-					new float[]{16.0F - positionTo.x, 16.0F - positionTo.y, 16.0F - positionFrom.x, 16.0F - positionFrom.y};
+					new float[]{16F - positionTo.x, 16F - positionTo.y, 16F - positionFrom.x, 16F - positionFrom.y};
 		};
 	}
 
@@ -86,7 +86,7 @@ public record BlockPart(Vector3f positionFrom, Vector3f positionTo, Map<EnumFaci
 
 			float f = JsonUtils.getFloat(object, "angle");
 
-			if (f != 0.0F && MathHelper.abs(f) != 22.5F && MathHelper.abs(f) != 45.0F) {
+			if (f != 0F && MathHelper.abs(f) != 22.5F && MathHelper.abs(f) != 45F) {
 				throw new JsonParseException("Invalid rotation " + f + " found, only -45/-22.5/0/22.5/45 allowed");
 			} else {
 				return f;
@@ -144,7 +144,7 @@ public record BlockPart(Vector3f positionFrom, Vector3f positionTo, Map<EnumFaci
 
 			Vector3f vector3f = parsePosition(object, "to");
 
-			if (vector3f.x >= -16.0F && vector3f.y >= -16.0F && vector3f.z >= -16.0F && vector3f.x <= 32.0F && vector3f.y <= 32.0F && vector3f.z <= 32.0F) {
+			if (vector3f.x >= -16F && vector3f.y >= -16F && vector3f.z >= -16F && vector3f.x <= 32F && vector3f.y <= 32F && vector3f.z <= 32F) {
 				return vector3f;
 			} else {
 				throw new JsonParseException("'to' specifier exceeds the allowed boundaries: " + vector3f);
@@ -155,7 +155,7 @@ public record BlockPart(Vector3f positionFrom, Vector3f positionTo, Map<EnumFaci
 
 			Vector3f vector3f = parsePosition(object, "from");
 
-			if (vector3f.x >= -16.0F && vector3f.y >= -16.0F && vector3f.z >= -16.0F && vector3f.x <= 32.0F && vector3f.y <= 32.0F && vector3f.z <= 32.0F) {
+			if (vector3f.x >= -16F && vector3f.y >= -16F && vector3f.z >= -16F && vector3f.x <= 32F && vector3f.y <= 32F && vector3f.z <= 32F) {
 				return vector3f;
 			} else {
 				throw new JsonParseException("'from' specifier exceeds the allowed boundaries: " + vector3f);

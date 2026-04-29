@@ -25,14 +25,14 @@ public class RenderDragonFireball extends Render<EntityDragonFireball> {
 		bindEntityTexture(entity);
 		GlStateManager.translate((float) x, (float) y, (float) z);
 		GlStateManager.enableRescaleNormal();
-		GlStateManager.scale(2.0F, 2.0F, 2.0F);
+		GlStateManager.scale(2F, 2F, 2F);
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder bufferbuilder = tessellator.getBuffer();
-		float f = 1.0F;
+		float f = 1F;
 		float f1 = 0.5F;
 		float f2 = 0.25F;
-		GlStateManager.rotate(180.0F - renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
-		GlStateManager.rotate((float) (renderManager.options.thirdPersonView == 2 ? -1 : 1) * -renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
+		GlStateManager.rotate(180F - renderManager.playerViewY, 0F, 1F, 0F);
+		GlStateManager.rotate((float) (renderManager.options.thirdPersonView == 2 ? -1 : 1) * -renderManager.playerViewX, 1F, 0F, 0F);
 
 		if (renderOutlines) {
 			GlStateManager.enableColorMaterial();
@@ -40,10 +40,10 @@ public class RenderDragonFireball extends Render<EntityDragonFireball> {
 		}
 
 		bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_NORMAL);
-		bufferbuilder.pos(-0.5D, -0.25D, 0.0D).tex(0.0D, 1.0D).normal(0.0F, 1.0F, 0.0F).endVertex();
-		bufferbuilder.pos(0.5D, -0.25D, 0.0D).tex(1.0D, 1.0D).normal(0.0F, 1.0F, 0.0F).endVertex();
-		bufferbuilder.pos(0.5D, 0.75D, 0.0D).tex(1.0D, 0.0D).normal(0.0F, 1.0F, 0.0F).endVertex();
-		bufferbuilder.pos(-0.5D, 0.75D, 0.0D).tex(0.0D, 0.0D).normal(0.0F, 1.0F, 0.0F).endVertex();
+		bufferbuilder.pos(-0.5D, -0.25D, 0D).tex(0D, 1D).normal(0F, 1F, 0F).endVertex();
+		bufferbuilder.pos(0.5D, -0.25D, 0D).tex(1D, 1D).normal(0F, 1F, 0F).endVertex();
+		bufferbuilder.pos(0.5D, 0.75D, 0D).tex(1D, 0D).normal(0F, 1F, 0F).endVertex();
+		bufferbuilder.pos(-0.5D, 0.75D, 0D).tex(0D, 0D).normal(0F, 1F, 0F).endVertex();
 		tessellator.draw();
 
 		if (renderOutlines) {

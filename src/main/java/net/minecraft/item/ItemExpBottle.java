@@ -43,7 +43,7 @@ public class ItemExpBottle extends Item {
 
 		if (!worldIn.isRemote) {
 			EntityExpBottle entityexpbottle = new EntityExpBottle(worldIn, playerIn);
-			entityexpbottle.shoot(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, -20.0F, 0.7F, 1.0F);
+			entityexpbottle.shoot(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, -20F, 0.7F, 1F);
 			worldIn.spawnEntity(entityexpbottle);
 		}
 

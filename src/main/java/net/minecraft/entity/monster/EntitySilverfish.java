@@ -37,7 +37,7 @@ public class EntitySilverfish extends EntityMob {
 		summonSilverfish = new EntitySilverfish.AISummonSilverfish(this);
 		tasks.addTask(1, new EntityAISwimming(this));
 		tasks.addTask(3, summonSilverfish);
-		tasks.addTask(4, new EntityAIAttackMelee(this, 1.0D, false));
+		tasks.addTask(4, new EntityAIAttackMelee(this, 1D, false));
 		tasks.addTask(5, new EntitySilverfish.AIHideInStone(this));
 		targetTasks.addTask(1, new EntityAIHurtByTarget(this, true));
 		targetTasks.addTask(2, new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, true));
@@ -59,9 +59,9 @@ public class EntitySilverfish extends EntityMob {
 	protected void applyEntityAttributes() {
 
 		super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(8.0D);
+		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(8D);
 		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25D);
-		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(1.0D);
+		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(1D);
 	}
 
 	/**
@@ -90,7 +90,7 @@ public class EntitySilverfish extends EntityMob {
 
 	protected void playStepSound(BlockPos pos, Block blockIn) {
 
-		playSound(SoundEvents.ENTITY_SILVERFISH_STEP, 0.15F, 1.0F);
+		playSound(SoundEvents.ENTITY_SILVERFISH_STEP, 0.15F, 1F);
 	}
 
 	/**
@@ -135,7 +135,7 @@ public class EntitySilverfish extends EntityMob {
 
 	public float getBlockPathWeight(BlockPos pos) {
 
-		return world.getBlockState(pos.down()).getBlock() == Blocks.STONE ? 10.0F : super.getBlockPathWeight(pos);
+		return world.getBlockState(pos.down()).getBlock() == Blocks.STONE ? 10F : super.getBlockPathWeight(pos);
 	}
 
 	/**
@@ -152,7 +152,7 @@ public class EntitySilverfish extends EntityMob {
 	public boolean getCanSpawnHere() {
 
 		if (super.getCanSpawnHere()) {
-			EntityPlayer entityplayer = world.getNearestPlayerNotCreative(this, 5.0D);
+			EntityPlayer entityplayer = world.getNearestPlayerNotCreative(this, 5D);
 			return entityplayer == null;
 		} else {
 			return false;
@@ -174,7 +174,7 @@ public class EntitySilverfish extends EntityMob {
 
 		public AIHideInStone(EntitySilverfish silverfishIn) {
 
-			super(silverfishIn, 1.0D, 10);
+			super(silverfishIn, 1D, 10);
 			setMutexBits(1);
 		}
 

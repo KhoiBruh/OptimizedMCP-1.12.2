@@ -20,7 +20,7 @@ import java.util.Random;
 public class BlockReed extends Block {
 
 	public static final PropertyInteger AGE = PropertyInteger.create("age", 0, 15);
-	protected static final AxisAlignedBB REED_AABB = new AxisAlignedBB(0.125D, 0.0D, 0.125D, 0.875D, 1.0D, 0.875D);
+	protected static final AxisAlignedBB REED_AABB = new AxisAlignedBB(0.125D, 0D, 0.125D, 0.875D, 1D, 0.875D);
 
 	protected BlockReed() {
 

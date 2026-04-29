@@ -103,7 +103,7 @@ public class RenderManager {
 		entityRenderMap.put(EntityHusk.class, new RenderHusk(this));
 		entityRenderMap.put(EntitySlime.class, new RenderSlime(this));
 		entityRenderMap.put(EntityMagmaCube.class, new RenderMagmaCube(this));
-		entityRenderMap.put(EntityGiantZombie.class, new RenderGiantZombie(this, 6.0F));
+		entityRenderMap.put(EntityGiantZombie.class, new RenderGiantZombie(this, 6F));
 		entityRenderMap.put(EntityGhast.class, new RenderGhast(this));
 		entityRenderMap.put(EntitySquid.class, new RenderSquid(this));
 		entityRenderMap.put(EntityVillager.class, new RenderVillager(this));
@@ -133,7 +133,7 @@ public class RenderManager {
 		entityRenderMap.put(EntityPotion.class, new RenderPotion(this, itemRendererIn));
 		entityRenderMap.put(EntityExpBottle.class, new RenderSnowball<>(this, Items.EXPERIENCE_BOTTLE, itemRendererIn));
 		entityRenderMap.put(EntityFireworkRocket.class, new RenderSnowball<>(this, Items.FIREWORKS, itemRendererIn));
-		entityRenderMap.put(EntityLargeFireball.class, new RenderFireball(this, 2.0F));
+		entityRenderMap.put(EntityLargeFireball.class, new RenderFireball(this, 2F));
 		entityRenderMap.put(EntitySmallFireball.class, new RenderFireball(this, 0.5F));
 		entityRenderMap.put(EntityDragonFireball.class, new RenderDragonFireball(this));
 		entityRenderMap.put(EntityWitherSkull.class, new RenderWitherSkull(this));
@@ -209,7 +209,7 @@ public class RenderManager {
 			if (block == Blocks.BED) {
 				int i = iblockstate.getValue(BlockBed.FACING).getHorizontalIndex();
 				playerViewY = (float) (i * 90 + 180);
-				playerViewX = 0.0F;
+				playerViewX = 0F;
 			}
 		} else {
 			playerViewY = livingPlayerIn.prevRotationYaw + (livingPlayerIn.rotationYaw - livingPlayerIn.prevRotationYaw) * partialTicks;
@@ -217,7 +217,7 @@ public class RenderManager {
 		}
 
 		if (optionsIn.thirdPersonView == 2) {
-			playerViewY += 180.0F;
+			playerViewY += 180F;
 		}
 
 		viewerPosX = livingPlayerIn.lastTickPosX + (livingPlayerIn.posX - livingPlayerIn.lastTickPosX) * (double) partialTicks;
@@ -282,7 +282,7 @@ public class RenderManager {
 		int j = i % 65536;
 		int k = i / 65536;
 		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) j, (float) k);
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+		GlStateManager.color(1F, 1F, 1F, 1F);
 		renderEntity(entityIn, d0 - renderPosX, d1 - renderPosY, d2 - renderPosZ, f, partialTicks, p_188388_3_);
 	}
 
@@ -351,7 +351,7 @@ public class RenderManager {
 		int j = i % 65536;
 		int k = i / 65536;
 		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) j, (float) k);
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+		GlStateManager.color(1F, 1F, 1F, 1F);
 		Render<Entity> render = getEntityRenderObject(p_188389_1_);
 
 		if (render != null && renderEngine != null) {
@@ -369,9 +369,9 @@ public class RenderManager {
 		GlStateManager.disableLighting();
 		GlStateManager.disableCull();
 		GlStateManager.disableBlend();
-		float f = entityIn.width / 2.0F;
+		float f = entityIn.width / 2F;
 		AxisAlignedBB axisalignedbb = entityIn.getEntityBoundingBox();
-		RenderGlobal.drawBoundingBox(axisalignedbb.minX - entityIn.posX + x, axisalignedbb.minY - entityIn.posY + y, axisalignedbb.minZ - entityIn.posZ + z, axisalignedbb.maxX - entityIn.posX + x, axisalignedbb.maxY - entityIn.posY + y, axisalignedbb.maxZ - entityIn.posZ + z, 1.0F, 1.0F, 1.0F, 1.0F);
+		RenderGlobal.drawBoundingBox(axisalignedbb.minX - entityIn.posX + x, axisalignedbb.minY - entityIn.posY + y, axisalignedbb.minZ - entityIn.posZ + z, axisalignedbb.maxX - entityIn.posX + x, axisalignedbb.maxY - entityIn.posY + y, axisalignedbb.maxZ - entityIn.posZ + z, 1F, 1F, 1F, 1F);
 		Entity[] aentity = entityIn.getParts();
 
 		if (aentity != null) {
@@ -380,13 +380,13 @@ public class RenderManager {
 				double d1 = (entity.posY - entity.prevPosY) * (double) partialTicks;
 				double d2 = (entity.posZ - entity.prevPosZ) * (double) partialTicks;
 				AxisAlignedBB axisalignedbb1 = entity.getEntityBoundingBox();
-				RenderGlobal.drawBoundingBox(axisalignedbb1.minX - renderPosX + d0, axisalignedbb1.minY - renderPosY + d1, axisalignedbb1.minZ - renderPosZ + d2, axisalignedbb1.maxX - renderPosX + d0, axisalignedbb1.maxY - renderPosY + d1, axisalignedbb1.maxZ - renderPosZ + d2, 0.25F, 1.0F, 0.0F, 1.0F);
+				RenderGlobal.drawBoundingBox(axisalignedbb1.minX - renderPosX + d0, axisalignedbb1.minY - renderPosY + d1, axisalignedbb1.minZ - renderPosZ + d2, axisalignedbb1.maxX - renderPosX + d0, axisalignedbb1.maxY - renderPosY + d1, axisalignedbb1.maxZ - renderPosZ + d2, 0.25F, 1F, 0F, 1F);
 			}
 		}
 
 		if (entityIn instanceof EntityLivingBase) {
 			float f1 = 0.01F;
-			RenderGlobal.drawBoundingBox(x - (double) f, y + (double) entityIn.getEyeHeight() - 0.009999999776482582D, z - (double) f, x + (double) f, y + (double) entityIn.getEyeHeight() + 0.009999999776482582D, z + (double) f, 1.0F, 0.0F, 0.0F, 1.0F);
+			RenderGlobal.drawBoundingBox(x - (double) f, y + (double) entityIn.getEyeHeight() - 0.009999999776482582D, z - (double) f, x + (double) f, y + (double) entityIn.getEyeHeight() + 0.009999999776482582D, z + (double) f, 1F, 0F, 0F, 1F);
 		}
 
 		Tessellator tessellator = Tessellator.getInstance();
@@ -394,7 +394,7 @@ public class RenderManager {
 		Vec3d vec3d = entityIn.getLook(partialTicks);
 		bufferbuilder.begin(3, DefaultVertexFormats.POSITION_COLOR);
 		bufferbuilder.pos(x, y + (double) entityIn.getEyeHeight(), z).color(0, 0, 255, 255).endVertex();
-		bufferbuilder.pos(x + vec3d.x() * 2.0D, y + (double) entityIn.getEyeHeight() + vec3d.y() * 2.0D, z + vec3d.z() * 2.0D).color(0, 0, 255, 255).endVertex();
+		bufferbuilder.pos(x + vec3d.x() * 2D, y + (double) entityIn.getEyeHeight() + vec3d.y() * 2D, z + vec3d.z() * 2D).color(0, 0, 255, 255).endVertex();
 		tessellator.draw();
 		GlStateManager.enableTexture2D();
 		GlStateManager.enableLighting();

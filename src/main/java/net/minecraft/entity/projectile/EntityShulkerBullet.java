@@ -164,7 +164,7 @@ public class EntityShulkerBullet extends Entity {
 		double d3 = (double) blockpos.getZ() + 0.5D;
 		EnumFacing enumfacing = null;
 
-		if (blockpos.distanceSqToCenter(posX, posY, posZ) >= 4.0D) {
+		if (blockpos.distanceSqToCenter(posX, posY, posZ) >= 4D) {
 			BlockPos blockpos1 = new BlockPos(this);
 			List<EnumFacing> list = Lists.newArrayList();
 
@@ -213,10 +213,10 @@ public class EntityShulkerBullet extends Entity {
 		double d4 = d3 - posZ;
 		double d5 = MathHelper.sqrt(d6 * d6 + d7 * d7 + d4 * d4);
 
-		if (d5 == 0.0D) {
-			targetDeltaX = 0.0D;
-			targetDeltaY = 0.0D;
-			targetDeltaZ = 0.0D;
+		if (d5 == 0D) {
+			targetDeltaX = 0D;
+			targetDeltaY = 0D;
+			targetDeltaZ = 0D;
 		} else {
 			targetDeltaX = d6 / d5 * 0.15D;
 			targetDeltaY = d7 / d5 * 0.15D;
@@ -265,9 +265,9 @@ public class EntityShulkerBullet extends Entity {
 						motionY -= 0.04D;
 					}
 				} else {
-					targetDeltaX = MathHelper.clamp(targetDeltaX * 1.025D, -1.0D, 1.0D);
-					targetDeltaY = MathHelper.clamp(targetDeltaY * 1.025D, -1.0D, 1.0D);
-					targetDeltaZ = MathHelper.clamp(targetDeltaZ * 1.025D, -1.0D, 1.0D);
+					targetDeltaX = MathHelper.clamp(targetDeltaX * 1.025D, -1D, 1D);
+					targetDeltaY = MathHelper.clamp(targetDeltaY * 1.025D, -1D, 1D);
+					targetDeltaZ = MathHelper.clamp(targetDeltaZ * 1.025D, -1D, 1D);
 					motionX += (targetDeltaX - motionX) * 0.2D;
 					motionY += (targetDeltaY - motionY) * 0.2D;
 					motionZ += (targetDeltaZ - motionZ) * 0.2D;
@@ -284,7 +284,7 @@ public class EntityShulkerBullet extends Entity {
 			ProjectileHelper.rotateTowardsMovement(this, 0.5F);
 
 			if (world.isRemote) {
-				world.spawnParticle(EnumParticleTypes.END_ROD, posX - motionX, posY - motionY + 0.15D, posZ - motionZ, 0.0D, 0.0D, 0.0D);
+				world.spawnParticle(EnumParticleTypes.END_ROD, posX - motionX, posY - motionY + 0.15D, posZ - motionZ, 0D, 0D, 0D);
 			} else if (target != null && !target.isDead) {
 				if (steps > 0) {
 					--steps;
@@ -325,7 +325,7 @@ public class EntityShulkerBullet extends Entity {
 	 */
 	public boolean isInRangeToRenderDist(double distance) {
 
-		return distance < 16384.0D;
+		return distance < 16384D;
 	}
 
 	/**
@@ -333,7 +333,7 @@ public class EntityShulkerBullet extends Entity {
 	 */
 	public float getBrightness() {
 
-		return 1.0F;
+		return 1F;
 	}
 
 	public int getBrightnessForRender() {
@@ -344,10 +344,10 @@ public class EntityShulkerBullet extends Entity {
 	protected void bulletHit(RayTraceResult result) {
 
 		if (result.entityHit == null) {
-			((WorldServer) world).spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, posX, posY, posZ, 2, 0.2D, 0.2D, 0.2D, 0.0D);
-			playSound(SoundEvents.ENTITY_SHULKER_BULLET_HIT, 1.0F, 1.0F);
+			((WorldServer) world).spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, posX, posY, posZ, 2, 0.2D, 0.2D, 0.2D, 0D);
+			playSound(SoundEvents.ENTITY_SHULKER_BULLET_HIT, 1F, 1F);
 		} else {
-			boolean flag = result.entityHit.attackEntityFrom(DamageSource.causeIndirectDamage(this, owner).setProjectile(), 4.0F);
+			boolean flag = result.entityHit.attackEntityFrom(DamageSource.causeIndirectDamage(this, owner).setProjectile(), 4F);
 
 			if (flag) {
 				applyEnchantments(owner, result.entityHit);
@@ -375,8 +375,8 @@ public class EntityShulkerBullet extends Entity {
 	public boolean attackEntityFrom(DamageSource source, float amount) {
 
 		if (!world.isRemote) {
-			playSound(SoundEvents.ENTITY_SHULKER_BULLET_HURT, 1.0F, 1.0F);
-			((WorldServer) world).spawnParticle(EnumParticleTypes.CRIT, posX, posY, posZ, 15, 0.2D, 0.2D, 0.2D, 0.0D);
+			playSound(SoundEvents.ENTITY_SHULKER_BULLET_HURT, 1F, 1F);
+			((WorldServer) world).spawnParticle(EnumParticleTypes.CRIT, posX, posY, posZ, 15, 0.2D, 0.2D, 0.2D, 0D);
 			setDead();
 		}
 

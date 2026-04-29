@@ -25,12 +25,12 @@ public class LayerHeldItemWitch implements LayerRenderer<EntityWitch> {
 		ItemStack itemstack = entitylivingbaseIn.getHeldItemMainhand();
 
 		if (!itemstack.isEmpty()) {
-			GlStateManager.color(1.0F, 1.0F, 1.0F);
+			GlStateManager.color(1F, 1F, 1F);
 			GlStateManager.pushMatrix();
 
 			if (witchRenderer.getMainModel().isChild) {
-				GlStateManager.translate(0.0F, 0.625F, 0.0F);
-				GlStateManager.rotate(-20.0F, -1.0F, 0.0F, 0.0F);
+				GlStateManager.translate(0F, 0.625F, 0F);
+				GlStateManager.rotate(-20F, -1F, 0F, 0F);
 				float f = 0.5F;
 				GlStateManager.scale(0.5F, 0.5F, 0.5F);
 			}
@@ -41,41 +41,41 @@ public class LayerHeldItemWitch implements LayerRenderer<EntityWitch> {
 			Minecraft minecraft = Minecraft.getMinecraft();
 
 			if (Block.getBlockFromItem(item).getDefaultState().getRenderType() == EnumBlockRenderType.ENTITYBLOCK_ANIMATED) {
-				GlStateManager.translate(0.0F, 0.0625F, -0.25F);
-				GlStateManager.rotate(30.0F, 1.0F, 0.0F, 0.0F);
-				GlStateManager.rotate(-5.0F, 0.0F, 1.0F, 0.0F);
+				GlStateManager.translate(0F, 0.0625F, -0.25F);
+				GlStateManager.rotate(30F, 1F, 0F, 0F);
+				GlStateManager.rotate(-5F, 0F, 1F, 0F);
 				float f1 = 0.375F;
 				GlStateManager.scale(0.375F, -0.375F, 0.375F);
 			} else if (item == Items.BOW) {
-				GlStateManager.translate(0.0F, 0.125F, -0.125F);
-				GlStateManager.rotate(-45.0F, 0.0F, 1.0F, 0.0F);
+				GlStateManager.translate(0F, 0.125F, -0.125F);
+				GlStateManager.rotate(-45F, 0F, 1F, 0F);
 				float f2 = 0.625F;
 				GlStateManager.scale(0.625F, -0.625F, 0.625F);
-				GlStateManager.rotate(-100.0F, 1.0F, 0.0F, 0.0F);
-				GlStateManager.rotate(-20.0F, 0.0F, 1.0F, 0.0F);
+				GlStateManager.rotate(-100F, 1F, 0F, 0F);
+				GlStateManager.rotate(-20F, 0F, 1F, 0F);
 			} else if (item.isFull3D()) {
 				if (item.shouldRotateAroundWhenRendering()) {
-					GlStateManager.rotate(180.0F, 0.0F, 0.0F, 1.0F);
-					GlStateManager.translate(0.0F, -0.0625F, 0.0F);
+					GlStateManager.rotate(180F, 0F, 0F, 1F);
+					GlStateManager.translate(0F, -0.0625F, 0F);
 				}
 
 				witchRenderer.transformHeldFull3DItemLayer();
-				GlStateManager.translate(0.0625F, -0.125F, 0.0F);
+				GlStateManager.translate(0.0625F, -0.125F, 0F);
 				float f3 = 0.625F;
 				GlStateManager.scale(0.625F, -0.625F, 0.625F);
-				GlStateManager.rotate(0.0F, 1.0F, 0.0F, 0.0F);
-				GlStateManager.rotate(0.0F, 0.0F, 1.0F, 0.0F);
+				GlStateManager.rotate(0F, 1F, 0F, 0F);
+				GlStateManager.rotate(0F, 0F, 1F, 0F);
 			} else {
-				GlStateManager.translate(0.1875F, 0.1875F, 0.0F);
+				GlStateManager.translate(0.1875F, 0.1875F, 0F);
 				float f4 = 0.875F;
 				GlStateManager.scale(0.875F, 0.875F, 0.875F);
-				GlStateManager.rotate(-20.0F, 0.0F, 0.0F, 1.0F);
-				GlStateManager.rotate(-60.0F, 1.0F, 0.0F, 0.0F);
-				GlStateManager.rotate(-30.0F, 0.0F, 0.0F, 1.0F);
+				GlStateManager.rotate(-20F, 0F, 0F, 1F);
+				GlStateManager.rotate(-60F, 1F, 0F, 0F);
+				GlStateManager.rotate(-30F, 0F, 0F, 1F);
 			}
 
-			GlStateManager.rotate(-15.0F, 1.0F, 0.0F, 0.0F);
-			GlStateManager.rotate(40.0F, 0.0F, 0.0F, 1.0F);
+			GlStateManager.rotate(-15F, 1F, 0F, 0F);
+			GlStateManager.rotate(40F, 0F, 0F, 1F);
 			minecraft.getItemRenderer().renderItem(entitylivingbaseIn, itemstack, ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND);
 			GlStateManager.popMatrix();
 		}
